@@ -216,6 +216,7 @@ void anjuta_status (gchar * mesg, ...);
 void anjuta_warning (gchar * mesg, ...);
 void anjuta_error (gchar * mesg, ...);
 void anjuta_system_error (gint errornum, gchar * mesg, ...);
+gboolean anjuta_boolean_question (gchar * mesg, ...);
 
 void anjuta_information_parented (GtkWidget *parent, gchar * mesg, ...);
 void anjuta_warning_parented (GtkWidget* parent, gchar * mesg, ...);

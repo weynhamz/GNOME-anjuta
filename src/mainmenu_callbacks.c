@@ -56,7 +56,6 @@
 #include "ScintillaWidget.h"
 #include "about.h"
 #include "an_file_view.h"
-
 #include "tm_tagmanager.h"
 #include "file_history.h"
 #include "memory.h"
@@ -64,6 +63,7 @@
 #include "anjuta-tools.h"
 #include "search-replace.h"
 #include "anjuta_info.h"
+#include "watch_gui.h"
 
 void on_toolbar_find_clicked (GtkButton * button, gpointer user_data);
 
@@ -1453,7 +1453,7 @@ on_configure_project1_activate (GtkMenuItem * menuitem, gpointer user_data)
 void
 on_clean_project1_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
-	clean_project ();
+	clean_project (NULL);
 }
 
 void

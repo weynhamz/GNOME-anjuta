@@ -15864,7 +15864,7 @@
 	<widget class="GnomeDruidPageStandard" id="druidpagestandard1">
 	  <property name="visible">True</property>
 	  <property name="title" translatable="yes">Windows style</property>
-	  <property name="logo_background">#05880817388c</property>
+	  <property name="logo_background">#e160081c488c</property>
 	  <property name="logo">applogo.png</property>
 
 	  <child internal-child="vbox">
@@ -16341,7 +16341,6 @@ You should have received a copy of the GNU General Public License along with thi
 </widget>
 
 <widget class="GtkWindow" id="preferences_dialog_encodings">
-  <property name="visible">True</property>
   <property name="title" translatable="yes">window1</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
   <property name="window_position">GTK_WIN_POS_NONE</property>
@@ -16350,7 +16349,7 @@ You should have received a copy of the GNU General Public License along with thi
   <property name="destroy_with_parent">False</property>
 
   <child>
-    <widget class="GtkVBox" id="vbox1121">
+    <widget class="GtkVBox" id="Encodings">
       <property name="visible">True</property>
       <property name="homogeneous">False</property>
       <property name="spacing">0</property>
@@ -16487,7 +16486,7 @@ You should have received a copy of the GNU General Public License along with thi
 		  <property name="can_focus">True</property>
 		  <property name="hscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
 		  <property name="vscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
-		  <property name="shadow_type">GTK_SHADOW_NONE</property>
+		  <property name="shadow_type">GTK_SHADOW_IN</property>
 		  <property name="window_placement">GTK_CORNER_TOP_LEFT</property>
 
 		  <child>
@@ -16495,9 +16494,9 @@ You should have received a copy of the GNU General Public License along with thi
 		      <property name="visible">True</property>
 		      <property name="can_focus">True</property>
 		      <property name="headers_visible">True</property>
-		      <property name="rules_hint">False</property>
+		      <property name="rules_hint">True</property>
 		      <property name="reorderable">False</property>
-		      <property name="enable_search">True</property>
+		      <property name="enable_search">False</property>
 		    </widget>
 		  </child>
 		</widget>
@@ -16587,7 +16586,7 @@ You should have received a copy of the GNU General Public License along with thi
 		  <property name="can_focus">True</property>
 		  <property name="hscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
 		  <property name="vscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
-		  <property name="shadow_type">GTK_SHADOW_NONE</property>
+		  <property name="shadow_type">GTK_SHADOW_IN</property>
 		  <property name="window_placement">GTK_CORNER_TOP_LEFT</property>
 
 		  <child>
@@ -16595,9 +16594,9 @@ You should have received a copy of the GNU General Public License along with thi
 		      <property name="visible">True</property>
 		      <property name="can_focus">True</property>
 		      <property name="headers_visible">True</property>
-		      <property name="rules_hint">False</property>
+		      <property name="rules_hint">True</property>
 		      <property name="reorderable">False</property>
-		      <property name="enable_search">True</property>
+		      <property name="enable_search">False</property>
 		    </widget>
 		  </child>
 		</widget>

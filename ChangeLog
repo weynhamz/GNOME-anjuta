@@ -1,3 +1,17 @@
+2003-05-30  Naba Kumar  <naba@gnome.org>
+
+	* anjuta.glade: Fixed encodings preferences dialog
+	
+2003-05-23  Etay Meiri  <etay-m@bezeqint.net>
+	
+	Reviewed by Naba Kumar  <naba@gnome.org>
+	
+	* src/build_project.c src/clean_project/c: perform a clean before
+	build, if required. Show the message manager on clean.
+	* src/compiler_options.c: save the new options when window is closed
+	and flag project to be cleaned before the next build.
+	* src/project_dbase.c: added a 'clean before build' flag to project
+
 2003-05-29  Naba Kumar  <naba@gnome.org>
 
 	* anjuta.glade, anjuta_dialogs_strings.c: Added encoding prefs

@@ -36,8 +36,15 @@
 #include "build_project.h"
 
 
+static void clean_mesg_arrived(gchar* mesg);
+static void clean_all_terminated (int status, time_t time);
+static void clean_terminated (int status, time_t time);
+
+
+static void (*on_clean_finished_cb) (void);
+
 void
-clean_project ()
+clean_project (void (*on_clean_cb) (void))
 {
 	gchar *cmd, *prj_name;
 
@@ -52,23 +59,26 @@ clean_project ()
 
 	if (app->project_dbase->project_is_open)
 	{
-		cmd =
-			command_editor_get_command (app->command_editor,
+		cmd = command_editor_get_command (app->command_editor,
 						    COMMAND_BUILD_CLEAN);
 		if (cmd == NULL)
 		{
-			anjuta_warning (_
-					("Unable to clean Project. Check Settings->Commands."));
+			anjuta_warning (_("Unable to clean Project. Check Settings->Commands."));
 			return;
 		}
 		chdir (app->project_dbase->top_proj_dir);
-		if (launcher_execute (cmd, clean_mesg_arrived,
-				      clean_mesg_arrived,
+		
+		/* set up the callback for a successful finish */
+		on_clean_finished_cb = on_clean_cb;
+		
+		/* launche 'make clean' */
+		if (launcher_execute (cmd, clean_mesg_arrived, clean_mesg_arrived,
 				      clean_terminated) == FALSE)
 		{
 			g_free (cmd);
 			return;
 		}
+		
 		anjuta_update_app_status (TRUE, _("Clean"));
 		an_message_manager_clear (app->messages, MESSAGE_BUILD);
 		an_message_manager_append (app->messages,
@@ -80,49 +90,10 @@ clean_project ()
 		an_message_manager_append (app->messages, cmd, MESSAGE_BUILD);
 		an_message_manager_append (app->messages, "\n", MESSAGE_BUILD);
 		an_message_manager_append (app->messages, "", MESSAGE_BUILD); // Maybe something is missing here
+		an_message_manager_show (app->messages, MESSAGE_BUILD);
 		g_free (cmd);
 		g_free (prj_name);
 	}
-}
-
-void
-clean_mesg_arrived (gchar * mesg)
-{
-	an_message_manager_append (app->messages, mesg, MESSAGE_BUILD);
-}
-
-void
-clean_terminated (int status, time_t time)
-{
-	gchar *buff1;
-
-	if (status)
-	{
-		an_message_manager_append (app->messages,
-				 _("Cleaning completed...............Unsuccessful\n"),
-				 MESSAGE_BUILD);
-		if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
-										DIALOG_ON_BUILD_COMPLETE))
-			anjuta_warning (_("Cleaning completed ... unsuccessful"));
-	}
-	else
-	{
-		an_message_manager_append (app->messages,
-				 _("Cleaning completed...............Successful\n"),
-				 MESSAGE_BUILD);
-		if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
-										DIALOG_ON_BUILD_COMPLETE))
-			anjuta_status (_("Cleaning completed ... successful"));
-	}
-	buff1 =
-		g_strdup_printf (_("Total time taken: %d secs\n"),
-				 (gint) time);
-	an_message_manager_append (app->messages, buff1, MESSAGE_BUILD);
-	if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
-									BEEP_ON_BUILD_COMPLETE))
-		gdk_beep ();
-	g_free (buff1);
-	anjuta_update_app_status (TRUE, NULL);
 }
 
 void
@@ -174,7 +145,57 @@ clean_all_project ()
 	}
 }
 
-void
+
+static void
+clean_mesg_arrived (gchar * mesg)
+{
+	an_message_manager_append (app->messages, mesg, MESSAGE_BUILD);
+}
+
+static void
+clean_terminated (int status, time_t time)
+{
+	gchar *buff1;
+
+	if (status)    // if clean failed
+	{
+		an_message_manager_append (app->messages,
+				 _("Cleaning completed...............Unsuccessful\n"), MESSAGE_BUILD);
+		if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
+										DIALOG_ON_BUILD_COMPLETE))
+			anjuta_warning (_("Cleaning completed ... unsuccessful"));
+	}
+	else		 // if clean success
+	{
+		app->project_dbase->clean_before_build = FALSE;
+		compiler_options_set_dirty_flag (app->compiler_options, FALSE);
+		an_message_manager_append (app->messages,
+				 _("Cleaning completed...............Successful\n"), MESSAGE_BUILD);
+		if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
+										DIALOG_ON_BUILD_COMPLETE))
+			anjuta_status (_("Cleaning completed ... successful"));
+	}
+	
+	buff1 = g_strdup_printf (_("Total time taken: %d secs\n"), (gint) time);
+	an_message_manager_append (app->messages, buff1, MESSAGE_BUILD);
+	if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
+									BEEP_ON_BUILD_COMPLETE))
+		gdk_beep ();
+	g_free (buff1);
+	
+	/* if clean was successful and a callback is available - call it */
+	if (status == 0 && on_clean_finished_cb)
+	{
+		(*on_clean_finished_cb) ();
+		on_clean_finished_cb = NULL;
+	}
+	
+	anjuta_update_app_status (TRUE, NULL);
+		
+}
+
+
+static void
 clean_all_terminated (int status, time_t time)
 {
 	gchar *buff1;
@@ -191,15 +212,12 @@ clean_all_terminated (int status, time_t time)
 	else
 	{
 		an_message_manager_append (app->messages,
-				 _("Clean All completed...............Successful\n"),
-				 MESSAGE_BUILD);
+				 _("Clean All completed...............Successful\n"), MESSAGE_BUILD);
 		if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
 										DIALOG_ON_BUILD_COMPLETE))
 			anjuta_status (_("Clean All completed ... successful"));
 	}
-	buff1 =
-		g_strdup_printf (_("Total time taken: %d secs\n"),
-				 (gint) time);
+	buff1 = g_strdup_printf (_("Total time taken: %d secs\n"), (gint) time);
 	an_message_manager_append (app->messages, buff1, MESSAGE_BUILD);
 	if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
 									BEEP_ON_BUILD_COMPLETE))

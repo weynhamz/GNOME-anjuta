@@ -65,5 +65,6 @@ void compiler_options_set_prjcflags_in_file (CompilerOptions * co, FILE* fp);
 void compiler_options_set_prjlflags_in_file (CompilerOptions * co, FILE* fp);
 void compiler_options_set_prjlibs_in_file (CompilerOptions * co, FILE* fp);
 void compiler_options_set_prjmacros_in_file (CompilerOptions * co, FILE* fp);
+void compiler_options_set_dirty_flag (CompilerOptions *co, gboolean is_dirty);
 
 #endif

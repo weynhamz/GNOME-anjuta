@@ -145,6 +145,7 @@ struct _ProjectDBase
 	gboolean is_docked;
 	gboolean has_cvs;
 	gint win_pos_x, win_pos_y, win_width, win_height;
+	gboolean clean_before_build;
 
 	/* Current node info */
 	ProjectFileData* current_file_data;

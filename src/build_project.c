@@ -34,6 +34,7 @@
 #include "build_file.h"
 #include "launcher.h"
 #include "build_project.h"
+#include "clean_project.h"
 
 static void install_as_root (GtkWidget* button, gpointer data);
 static void install_as_user (GtkWidget* button, gpointer data);
@@ -50,6 +51,13 @@ build_project ()
 		ret = project_dbase_save_project(app->project_dbase);
 		if (ret == FALSE)
 			return;
+	}
+	
+	/* perform a clean, if required before the build */
+	if (app->project_dbase->clean_before_build == TRUE)
+	{
+		clean_project (build_project);
+		return;
 	}
 	
 	src_dir = project_dbase_get_module_dir (app->project_dbase, MODULE_SOURCE);
@@ -113,6 +121,13 @@ build_all_project ()
 		ret = project_dbase_save_project(app->project_dbase);
 		if (ret == FALSE)
 			return;
+	}
+
+	/* perform a clean, if required before the build */
+	if (app->project_dbase->clean_before_build == TRUE)
+	{
+		clean_project (build_all_project);
+		return;
 	}
 	
 	if (app->project_dbase->project_is_open)

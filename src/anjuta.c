@@ -1535,6 +1535,31 @@ anjuta_information (gchar * mesg, ...)
 	g_free (message);
 }
 
+
+gboolean
+anjuta_boolean_question (gchar * mesg, ...)
+{
+	gchar* message;
+	va_list args;
+	GtkWidget *dialog;
+	gint ret;
+
+	va_start (args, mesg);
+	message = g_strdup_vprintf (mesg, args);
+	va_end (args);
+	dialog = gtk_message_dialog_new (GTK_WINDOW (app->widgets.window), 
+									 GTK_DIALOG_DESTROY_WITH_PARENT,
+									 GTK_MESSAGE_QUESTION,
+									 GTK_BUTTONS_YES_NO, message);
+
+	ret = gtk_dialog_run (GTK_DIALOG (dialog));
+	gtk_widget_destroy (dialog);
+	g_free (message);
+	
+	return (ret == GTK_RESPONSE_YES);
+}
+
+
 void
 anjuta_warning (gchar * mesg, ...)
 {
@@ -1563,6 +1588,7 @@ anjuta_error (gchar * mesg, ... )
 	g_free (message);
 	g_free (str);
 }
+
 
 void
 anjuta_system_error (gint errnum, gchar * mesg, ... )

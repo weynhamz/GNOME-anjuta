@@ -253,6 +253,7 @@ project_dbase_new (PropsID pr_props)
 	p->win_height = 400;
 	p->top_proj_dir = NULL;
 	p->current_file_data = NULL;
+	p->clean_before_build = FALSE;
 
 	create_project_dbase_gui (p);
 	gtk_window_set_title (GTK_WINDOW (p->widgets.window),
@@ -899,6 +900,7 @@ error_show:
 gboolean
 project_dbase_save_yourself (ProjectDBase * p, FILE * stream)
 {
+	int clean_before_build;
 	g_return_val_if_fail (p != NULL, FALSE);
 	g_return_val_if_fail (stream != NULL, FALSE);
 
@@ -917,6 +919,8 @@ project_dbase_save_yourself (ProjectDBase * p, FILE * stream)
 	fprintf (stream, "project.win.pos.y=%d\n", p->win_pos_y);
 	fprintf (stream, "project.win.width=%d\n", p->win_width);
 	fprintf (stream, "project.win.height=%d\n", p->win_height);
+	clean_before_build = p->clean_before_build ? 1 : 0;
+	fprintf (stream, "project.clean_before_build=%d\n", clean_before_build);
 	return TRUE;
 }
 
@@ -924,6 +928,7 @@ gboolean
 project_dbase_load_yourself (ProjectDBase * p, PropsID props)
 {
 	gboolean dock_flag;
+	int clean_before_build;
 
 	g_return_val_if_fail (p != NULL, FALSE);
 
@@ -935,6 +940,8 @@ project_dbase_load_yourself (ProjectDBase * p, PropsID props)
 	p->win_pos_y = prop_get_int (props, "project.win.pos.y", 80);
 	p->win_width = prop_get_int (props, "project.win.width", 200);
 	p->win_height = prop_get_int (props, "project.win.height", 400);
+	clean_before_build = prop_get_int (props, "project.clean_before_build", 0);
+	p->clean_before_build = clean_before_build == 1 ? TRUE : FALSE;
 	if (dock_flag)
 		project_dbase_dock (p);
 	else
