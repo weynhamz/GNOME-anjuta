@@ -6,6 +6,12 @@
 	* plugins/cvs-plugin/plugin.c: Aligned comments and added a shortcut
 	for Update menuitem.
 	
+	* scintilla/patches/set-cursor-warning-fix.diff: Removed because
+	already applied in scintilla main stream.
+	
+	* scintilla/patches/preedit-window-crash-fix.diff: Added new fix
+	and notified scintilla developer.
+	
 2005-03-10  Naba Kumar  <naba@gnome.org>
 
 	* src/action-callbacks.c: Removed reference to src/help.h (dead
