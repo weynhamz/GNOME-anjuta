@@ -1,3 +1,8 @@
+2004-11-09  Naba Kumar  <naba@gnome.org>
+
+	* plugins/gtodo/interface.c, plugins/gtodo/libgtodo.c:
+	Fixed to refresh categories list on file load.
+
 2004-11-08  Naba Kumar  <naba@gnome.org>
 	
 	* configure.in, plugins/Makefile.am,

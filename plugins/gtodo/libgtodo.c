@@ -796,6 +796,8 @@ int gtodo_client_load(GTodoClient *cl, const gchar *xml_path)
 		return FALSE;
 	}
 	gtodo_client_set_changed_callback (cl, cl->function, cl->data);
+	if (cl->function)
+	    (void *)cl->function(cl, cl->data);
 	return TRUE;
 }
 
