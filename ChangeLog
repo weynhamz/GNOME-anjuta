@@ -1,5 +1,28 @@
 2005-02-16  Naba Kumar  <naba@gnome.org>
 
+	* Makefile.am, libanjuta/interfaces/libanjuta.idl,
+	plugins/debug-manager/anjuta-debug-manager.ui,
+	plugins/debug-manager/plugin.c,
+	plugins/gdb/Makefile.am, plugins/gdb/breakpoints.c,
+	plugins/gdb/debugger.c, plugins/gdb/plugin.c,
+	plugins/gdb/plugin.h, plugins/gdb/registers.c,
+	plugins/gdb/sharedlib.c, plugins/gdb/signals.c,
+	plugins/gdb/stack_trace.c, plugins/gdb/utilities.c,
+	plugins/gdb/utilities.h, plugins/gdb/watch_cbs.c,
+	(removed) src/anjuta_info.c,
+	(removed) src/anjuta_info.h,
+	(added) plugins/gdb/info.c (added) plugins/gdb/info.h,
+	(added) plugins/gdb/anjuta-gdb-plugin.ui,
+	(added) plugins/gdb/actions.c,
+	(added) plugins/gdb/actions.h: Completed initial
+	porting of debugger to new architecture. Fixed many of the debugger
+	functions.
+
+	* plugins/file-loader/plugin.c: Detect some important mime ourself
+	to avoid inconsistencies when mime system isn't working.
+	
+2005-02-16  Naba Kumar  <naba@gnome.org>
+
 	* plugins/editor/Makefile.am,
 	(added) plugins/editor/aneditor-autocomplete.cxx,
 	(added) plugins/editor/aneditor-calltip.cxx,

@@ -65,7 +65,7 @@ cpu_registers_update( GList *lines, gpointer data)
 
     ew = (CpuRegisters*)data;
 
-    list = remove_blank_lines(lines);
+    list = gdb_util_remove_blank_lines(lines);
     cpu_registers_clear(ew);
     if(g_list_length(list) < 2 ){ g_list_free(list); return;}
     node = list->next;

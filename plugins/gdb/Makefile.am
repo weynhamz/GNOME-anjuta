@@ -1,3 +1,7 @@
+# Plugin UI file
+gdb_uidir = $(anjuta_ui_dir)
+gdb_ui_DATA = anjuta-gdb-plugin.ui
+
 # Plugin glade file
 anjuta_gladedir = $(prefix)/@NO_PREFIX_PACKAGE_DATA_DIR@/glade
 anjuta_glade_DATA = anjuta-gdb.glade
@@ -52,17 +56,21 @@ libanjuta_gdb_la_SOURCES = \
 	signals.h \
 	stack_trace.c \
 	stack_trace.h \
-	utilities.c \
-	utilities.h \
 	watch.c \
 	watch_cbs.c \
 	watch_cbs.h \
 	watch_gui.c \
 	watch_gui.h \
-	watch.h
+	watch.h \
+	actions.c \
+	actions.h \
+	info.c \
+	info.h \
+	utilities.c \
+	utilities.h
 
 EXTRA_DIST = \
 	$(plugin_pixmaps_DATA) \
 	$(plugin_in_files) \
-	$(anjuta_plugin_DATA)
-
+	$(anjuta_plugin_DATA) \
+	$(gdb_ui_DATA)

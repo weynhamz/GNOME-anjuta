@@ -64,7 +64,7 @@ sharedlibs_update( GList *lines, gpointer data)
 
     sl = (Sharedlibs*)data;
 
-    list = remove_blank_lines(lines);
+    list = gdb_util_remove_blank_lines(lines);
     sharedlibs_clear(sl);
     if(g_list_length(list) < 2 ){g_list_free(list); return;}
     node = list->next;
@@ -73,7 +73,7 @@ sharedlibs_update( GList *lines, gpointer data)
         count = sscanf((char*)node->data, "%s %s %s %s", from,to,read,obj);
         node = g_list_next(node);
         if(count != 4) continue;
-        row[0]=(gchar*) extract_filename(obj);
+        row[0]=(gchar*) g_path_get_basename (obj);
         row[1]=from;
         row[2]=to;
         row[3]=read;

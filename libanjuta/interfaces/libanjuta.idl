@@ -555,6 +555,7 @@ interface IAnjutaDebugger
 	void step_in ();
 	void step_over ();
 	void step_out ();
+	void run_to_cursor ();
 
 	void toggle_breakpoint1 (gint line);
 

@@ -3,7 +3,6 @@
 	<menubar name="MenuMain">
 		<placeholder name="PlaceHolderDebugMenus">
 			<menu name="MenuDebug" action="ActionMenuDebug">
-				<placeholder name="PlaceHolderDebugStartMenus">
 					<menuitem name="StartDebugger" action="ActionStartDebugger" />
 					<separator name="separator1"/>
 					<menuitem name="LoadExecutable" action="ActionLoadExecutable" />
@@ -19,7 +18,6 @@
 					<menu name="Breakpoints" action="ActionMenuBreakpoints">
 						<menuitem name="ToggleBreakpoint" action="ActionToggleBreakpoint" />
 					</menu>
-				</placeholder>
 			</menu>
 		</placeholder>
 	</menubar>

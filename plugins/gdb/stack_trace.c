@@ -570,7 +570,7 @@ stack_trace_update (GList * outputs, gpointer data)
 	GList *list, *node;
 
 	st = (StackTrace *) data;
-	list = remove_blank_lines (outputs);
+	list = gdb_util_remove_blank_lines (outputs);
 	stack_trace_clear (st);
 
 	if (g_list_length (list) < 1)

@@ -183,6 +183,15 @@ on_step_out_action_activate (GtkAction* action, DebugManagerPlugin* plugin)
 	ianjuta_debugger_step_out (debugger, NULL /* TODO */);
 }
 
+static void
+on_run_to_cursor_action_activate (GtkAction* action, DebugManagerPlugin* plugin)
+{
+	IAnjutaDebugger *debugger = get_anjuta_debugger_iface (plugin);
+
+	g_return_if_fail (debugger != NULL);
+
+	ianjuta_debugger_run_to_cursor (debugger, NULL /* TODO */);
+}
 
 static void
 on_toggle_breakpoint_action_activate (GtkAction* action, DebugManagerPlugin* plugin)
@@ -193,7 +202,6 @@ on_toggle_breakpoint_action_activate (GtkAction* action, DebugManagerPlugin* plu
 
 	ianjuta_debugger_toggle_breakpoint (debugger, NULL /* TODO */);
 }
-
 
 static GtkActionEntry actions_debug[] =
 {
@@ -276,6 +284,14 @@ static GtkActionEntry actions_debug[] =
 		"F7",                                     /* short-cut */
 		N_("Single step out of the function"),    /* Tooltip */
 		G_CALLBACK (on_step_out_action_activate)  /* action callback */
+	},
+	{
+		"ActionDebuggerRunToCursor",              /* Action name */
+		NULL,                                     /* Stock icon, if any */
+		N_("_Run to cursor"),                     /* Display label */
+		"F8",                                     /* short-cut */
+		N_("Run to the cursor"),                  /* Tooltip */
+		G_CALLBACK (on_run_to_cursor_action_activate)  /* action callback */
 	},
 	{
 		"ActionMenuBreakpoints",                  /* Action name */
@@ -399,7 +415,6 @@ idebugger_manager_iface_init (IAnjutaDebuggerManagerIface *iface)
 	iface->toggle_breakpoint = idebugger_manager_toggle_breakpoint;
 }
 
-
 /* Implementation of IAnjutaFile interface */
 static void
 ifile_open (IAnjutaFile* plugin, const gchar* uri, GError** e)
@@ -430,7 +445,6 @@ ifile_iface_init (IAnjutaFileIface* iface)
 	iface->open = ifile_open;
 	iface->get_uri = ifile_get_uri;
 }
-
 
 ANJUTA_PLUGIN_BEGIN (DebugManagerPlugin, debug_manager_plugin);
 ANJUTA_PLUGIN_ADD_INTERFACE(idebugger_manager, IANJUTA_TYPE_DEBUGGER_MANAGER);

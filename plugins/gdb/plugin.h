@@ -15,6 +15,14 @@ struct _GdbPlugin
 	AnjutaPlugin parent;
 	gint uiid;
 	AnjutaLauncher *launcher;
+	
+	gint merge_id;
+	GtkActionGroup *action_group;
+	guint editor_watch_id;
+	guint project_watch_id;
+	
+	GObject *current_editor;
+	gchar *project_root_uri;
 };
 
 struct _GdbPluginClass

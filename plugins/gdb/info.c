@@ -26,17 +26,17 @@
 #include <errno.h>
 #include <string.h>
 
+#include <glib.h>
 #include <gtk/gtk.h>
 
 #include <libanjuta/resources.h>
+#include <libgnome/gnome-i18n.h>
 
-#include "anjuta.h"
 #include "utilities.h"
-#include "anjuta_info.h"
+#include "info.h"
 
 static GtkWidget *
-create_dialog_with_textview (GtkWindow *parent, gint width,
-					 gint height)
+create_dialog_with_textview (GtkWindow *parent, gint width, gint height)
 {
 	GtkWidget *dialog;
 	GtkWidget *textview;
@@ -82,8 +82,7 @@ create_dialog_with_textview (GtkWindow *parent, gint width,
 }
 
 static GtkWidget *
-create_dialog_with_treeview (GtkWindow *parent, gint width,
-							 gint height)
+create_dialog_with_treeview (GtkWindow *parent, gint width, gint height)
 {
 	GtkWidget *dialog;
 	GtkWidget *scrolledwindow;
@@ -136,9 +135,9 @@ create_dialog_with_treeview (GtkWindow *parent, gint width,
 }
 
 gboolean
-anjuta_info_show_file (const gchar *path,
-		       gint         width,
-		       gint         height)
+anjuta_info_show_file (GtkWindow *parent, const gchar *path,
+					   gint width,
+					   gint height)
 {
 	FILE *f;
 
@@ -150,7 +149,7 @@ anjuta_info_show_file (const gchar *path,
 	if ((f = fopen (path, "r")) == NULL)
 		return FALSE;
 
-	if (!anjuta_info_show_filestream (f, width, height)) {
+	if (!anjuta_info_show_filestream (parent, f, width, height)) {
 		int errno_bak = errno;
 
 		fclose (f);
@@ -164,9 +163,9 @@ anjuta_info_show_file (const gchar *path,
 }
 
 gboolean
-anjuta_info_show_command (const gchar *command_line,
-			  gint         width,
-			  gint         height)
+anjuta_info_show_command (GtkWindow *parent, const gchar *command_line,
+						  gint         width,
+						  gint         height)
 {
 	GError *err = NULL;
 	gchar *std_output = NULL;
@@ -187,7 +186,7 @@ anjuta_info_show_command (const gchar *command_line,
 		g_warning ("Invalid UTF-8 data encountered reading output of command '%s'",
 				   command_line);
 
-	ret = anjuta_info_show_string (std_output, width, height);
+	ret = anjuta_info_show_string (parent, std_output, width, height);
 
 	g_free (std_output);
 
@@ -195,14 +194,15 @@ anjuta_info_show_command (const gchar *command_line,
 }
 
 gboolean
-anjuta_info_show_string (const gchar *s, gint width, gint height)
+anjuta_info_show_string (GtkWindow *parent, const gchar *s,
+						 gint width, gint height)
 {
 	GtkWidget *textview;
 	GtkTextBuffer *buffer;
 
 	g_return_val_if_fail (s != NULL, FALSE);
 
-	textview = create_dialog_with_textview (GTK_WINDOW (app),
+	textview = create_dialog_with_textview (parent,
 											width, height);
 	buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (textview));
 	gtk_text_buffer_set_text (buffer, s, strlen (s));
@@ -213,9 +213,9 @@ anjuta_info_show_string (const gchar *s, gint width, gint height)
 #define ANJUTA_INFO_TEXTVIEW_BUFSIZE 1024
 
 gboolean
-anjuta_info_show_filestream (FILE *f,
-			     gint  width,
-			     gint  height)
+anjuta_info_show_filestream (GtkWindow *parent, FILE *f,
+							 gint  width,
+							 gint  height)
 {
 	GtkWidget *textview;
 	GtkTextBuffer *buffer;
@@ -223,8 +223,7 @@ anjuta_info_show_filestream (FILE *f,
 
 	g_return_val_if_fail (f != NULL, FALSE);
 
-	textview = create_dialog_with_textview (GTK_WINDOW (app),
-											width, height);
+	textview = create_dialog_with_textview (parent, width, height);
 	buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (textview));
 
         errno = 0; /* Reset it to detect errors */
@@ -243,16 +242,16 @@ anjuta_info_show_filestream (FILE *f,
 }
 
 gboolean
-anjuta_info_show_fd (int  file_descriptor,
-		     gint width,
-		     gint height)
+anjuta_info_show_fd (GtkWindow *parent, int file_descriptor,
+					 gint width,
+					 gint height)
 {
 	FILE *f;
 
 	if ((f = fdopen (file_descriptor, "r")) == NULL)
 		return FALSE;
 
-	if (!anjuta_info_show_filestream (f, width, height)) {
+	if (!anjuta_info_show_filestream (parent, f, width, height)) {
 		int errno_bak = errno;
 
 		fclose (f);
@@ -266,24 +265,23 @@ anjuta_info_show_fd (int  file_descriptor,
 }
 
 void
-anjuta_info_show_list (GList* list,
-		       gint   width,
-		       gint   height)
+anjuta_info_show_list (GtkWindow *parent, GList* list,
+					   gint   width,
+					   gint   height)
 {
 	GtkWidget *treeview;
 	GtkTreeModel *model;
 
 	g_return_if_fail (list != NULL);
 
-	treeview = create_dialog_with_treeview (GTK_WINDOW (app),
-											width, height);
+	treeview = create_dialog_with_treeview (parent, width, height);
 	model = gtk_tree_view_get_model (GTK_TREE_VIEW (treeview));
 
 	for (; list; list = g_list_next (list)) {
 		GtkTreeIter iter;
 		gchar *tmp;
 
-		tmp = remove_white_spaces (list->data);
+		tmp = gdb_util_remove_white_spaces (list->data);
 
 		gtk_list_store_append (GTK_LIST_STORE (model), &iter);
 		gtk_list_store_set (GTK_LIST_STORE (model), &iter, 0, tmp, -1);

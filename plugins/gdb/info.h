@@ -20,17 +20,25 @@
 #ifndef _ANJUTA_INFO_H_
 #define _ANJUTA_INFO_H_
 
-gboolean anjuta_info_show_file (const gchar * path,	gint height, gint width);
+#include <stdio.h>
 
-gboolean anjuta_info_show_command (const gchar * command_line,
+gboolean anjuta_info_show_file (GtkWindow *parent, const gchar * path,
+								gint height, gint width);
+
+gboolean anjuta_info_show_command (GtkWindow *parent,
+								   const gchar * command_line,
 								   gint height, gint width);
 
-gboolean anjuta_info_show_string (const gchar * s, gint height, gint width);
+gboolean anjuta_info_show_string (GtkWindow *parent, const gchar * s,
+								  gint height, gint width);
 
-gboolean anjuta_info_show_filestream (FILE * f, gint height, gint width);
+gboolean anjuta_info_show_filestream (GtkWindow *parent, FILE * f,
+									  gint height, gint width);
 
-gboolean anjuta_info_show_fd (int file_descriptor, gint height, gint width);
+gboolean anjuta_info_show_fd (GtkWindow *parent, int file_descriptor,
+							  gint height, gint width);
 
-void anjuta_info_show_list (GList* list, gint height, gint width);
+void anjuta_info_show_list (GtkWindow *parent, GList* list,
+							gint height, gint width);
 
 #endif

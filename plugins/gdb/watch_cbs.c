@@ -232,7 +232,7 @@ expr_watch_update (GList * lines, gpointer data)
 	GtkTreeModel* model;
 	struct watch_cb_data* cb_data = (struct watch_cb_data*)data;
 
-	list = remove_blank_lines (lines);
+	list = gdb_util_remove_blank_lines (lines);
 	if (g_list_length (list) < 1)
 	{
 		tmp = _(not_def);

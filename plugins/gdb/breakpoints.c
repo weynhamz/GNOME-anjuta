@@ -378,24 +378,24 @@ breakpoint_item_calc_size (BreakpointItem *bi)
 	
 	return 
 
-	+calc_gnum_len (/*bi->id*/)
-	+calc_string_len (bi->disp)
-	+calc_gnum_len (/*bi->enable*/)
-	+calc_gnum_len (/*bi->addr*/)
-	+calc_gnum_len (/*bi->pass*/)
-	+calc_string_len (bi->condition)
-	+calc_string_len (bi->file )
+	+gdb_util_calc_gnum_len (/*bi->id*/)
+	+gdb_util_calc_string_len (bi->disp)
+	+gdb_util_calc_gnum_len (/*bi->enable*/)
+	+gdb_util_calc_gnum_len (/*bi->addr*/)
+	+gdb_util_calc_gnum_len (/*bi->pass*/)
+	+gdb_util_calc_string_len (bi->condition)
+	+gdb_util_calc_string_len (bi->file )
 
-	+calc_gnum_len (/*bi->line*/)
-	+calc_gnum_len (/*bi->handle*/)	
-	+calc_gnum_len (/*bi->handle_invalid*/)	
-	+calc_string_len (bi->function)
-	+calc_string_len (bi->info)
-	+calc_gnum_len (/*bi->time*/);
+	+gdb_util_calc_gnum_len (/*bi->line*/)
+	+gdb_util_calc_gnum_len (/*bi->handle*/)	
+	+gdb_util_calc_gnum_len (/*bi->handle_invalid*/)	
+	+gdb_util_calc_string_len (bi->function)
+	+gdb_util_calc_string_len (bi->info)
+	+gdb_util_calc_gnum_len (/*bi->time*/);
 }
 
 /* The saving format is a single string comma separated */
-/* TODO
+#if 0
 static void
 breakpoint_item_save (BreakpointItem *bi, ProjectDBase *pdb, const gint nBreak)
 {
@@ -411,7 +411,7 @@ breakpoint_item_save (BreakpointItem *bi, ProjectDBase *pdb, const gint nBreak)
 		return ;
 	szDst = szStrSave ;
 	/* Writes the fields to the string */
-/*	szDst = WriteBufI (szDst, bi->id);
+	szDst = WriteBufI (szDst, bi->id);
 	szDst = WriteBufS (szDst, bi->disp);
 	szDst = WriteBufB (szDst, bi->enable);
 	szDst = WriteBufUL (szDst, bi->addr);
@@ -429,12 +429,12 @@ breakpoint_item_save (BreakpointItem *bi, ProjectDBase *pdb, const gint nBreak)
 
 	g_free (szStrSave);
 };
-*/
+#endif
 
 #define	ASS_STR(x,nItem) \
 	do \
 	{ \
-		if (NULL == ( bi->x = GetStrCod( p[nItem] ) ) ) \
+		if (NULL == ( bi->x = gdb_util_get_str_cod( p[nItem] ) ) ) \
 		{ \
 			goto fine; \
 		} \
@@ -529,7 +529,7 @@ pass_item_add_mesg_arrived (GList * lines, gpointer data)
 	debugger_put_cmd_in_queqe ("info breakpoints", DB_CMD_NONE,
 								breakpoints_dbase_update, bd);
 	debugger_execute_cmd_in_queqe ();
-	outputs = remove_blank_lines (lines);
+	outputs = gdb_util_remove_blank_lines (lines);
 
 	if (outputs == NULL)
 		return;
@@ -574,7 +574,7 @@ bk_item_add_mesg_arrived (GList * lines, gpointer data)
 	IAnjutaEditor *editor = NULL;
 
 	bid = (BreakpointItem*) data;
-	outputs = remove_blank_lines (lines);
+	outputs = gdb_util_remove_blank_lines (lines);
 	if (outputs == NULL)
 		goto down_label;
 	if (g_list_length (outputs) == 1)
@@ -1238,7 +1238,7 @@ breakpoints_dbase_update (GList * outputs, gpointer data)
 
 	bd = (BreakpointsDBase *) data;
 
-	list = remove_blank_lines (outputs);
+	list = gdb_util_remove_blank_lines (outputs);
 	breakpoints_dbase_clear (bd);
 	if (g_list_length (list) < 2)
 	{

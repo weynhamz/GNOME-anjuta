@@ -19,6 +19,9 @@
 #ifndef _UTILITIES_H_
 #define _UTILITIES_H_
 
+#include <libanjuta/anjuta-plugin.h>
+
+#if 0
 #define FILE_BUFFER_SIZE 1024
 
 #define FREE(x) if (x) g_free(x), x = NULL
@@ -82,13 +85,6 @@ enum _FileExtType
 
 typedef enum _FileExtType FileExtType;
 
-/****************************************************************************/
-/*  Functions that dynamic allocate memory. Return value(s) should be g_freed */
-/****************************************************************************/
-
-/* Removes while spaces in the text */
-gchar* remove_white_spaces(const gchar* text);
-
 /* Gets the swapped (c/h) file names */
 gchar* get_swapped_filename(const gchar* filename);
 
@@ -102,11 +98,6 @@ gchar* get_file_as_buffer (const gchar* filename);
 /* Creates a space separated string from the list of strings */
 gchar* string_from_glist (GList* list);
 
-/* Returns true if the given line is parsable for */
-/* file name and line number */
-/* filename is set at (*filename), line number in lineno*/
-/* Don't forget to g_free (*filename)*/
-gboolean parse_error_line(const gchar *line, gchar **filename, int *lineno);
 
 /***********************************************************************************/
 /*  Functions that do not dynamic allocate memory. Return value should not be g_freed */
@@ -223,26 +214,12 @@ GList* glist_strings_dup (GList * list);
 /* select is the func that approves (returning 1)each file */
 GList* scan_files_in_dir (const char *dir, int (*select)(const struct dirent *));
 
-/*******************************************************************/
-/* In this case only GList must be freed and not the data          */
-/* Because output data are the input data. Only GList is allocated */
-/*******************************************************************/
-GList* remove_blank_lines(GList* lines); 
-
 /* Create a new hbox with an image and a label packed into it
         * and return the box. */
 GtkWidget*
 create_xpm_label_box(GtkWidget *parent,
 					 const gchar     *xpm_filename, gboolean gnome_pixmap,
 					 const gchar     *label_text );
-/* Excluding the final 0 */
-gint calc_string_len( const gchar *szStr );
-gint calc_gnum_len( void /*const gint iVal*/ );
-
-/* Allocates a struct of pointers if sep = 0 use ',' */
-gchar **string_parse_separator( const gint nItems, gchar *szStrIn, const gchar chSep /*= ','*/ );
-#define	PARSE_STR(nItems,szStr)	string_parse_separator( nItems, szStr, ',' );
-gchar* GetStrCod( const gchar *szIn );
 
 /* Write in file....*/
 gchar *WriteBufUL( gchar* szDst, const gulong ulVal);
@@ -285,7 +262,7 @@ GList *glist_path_dedup(GList *list);
  Returns: 0 -- No gnome-terminal
  Returns: 1 -- Gnome1 gnome-terminal
  Returns: 2 -- Gnome2 gnome-terminal */
-gint anjuta_util_check_gnome_terminal (void);
+gint gdb_util_check_gnome_terminal (void);
 
 /* String integer mapping utility functions */
 typedef struct _StringMap
@@ -327,13 +304,64 @@ anjuta_button_new_with_stock_image (const gchar* text, const gchar* stock_id);
  * SIGCHLD handler */
 pid_t anjuta_execute_shell (const gchar *dir, const gchar *command);
 
-void
-gdb_util_append_message (AnjutaPlugin *plugin, const gchar* message);
+#endif
 
-void
-gdb_util_show_messages (AnjutaPlugin *plugin);
+/****************************************************************************
+ * Functions that dynamic allocate memory. Return value(s) should be g_freed
+ * Removes while spaces in the text
+ ****************************************************************************/
+gchar* gdb_util_remove_white_spaces(const gchar* text);
 
-void
-gdb_util_clear_messages (AnjutaPlugin *plugin);
+/********************************************************
+ * Use this function instead of kill() to send a signal
+ * to the process which runs in separate process group,
+ * because normally kill() wouldn't work
+ * Returns: status of the kill
+ ********************************************************/
+gint gdb_util_kill_process (pid_t process_id, const gchar* signal_name);
+
+
+/********************************************************
+ * Check which gnome-terminal is installed
+ * Returns: 0 -- No gnome-terminal
+ * Returns: 1 -- Gnome1 gnome-terminal
+ * Returns: 2 -- Gnome2 gnome-terminal
+ ********************************************************/
+gint gdb_util_check_gnome_terminal (void);
+
+/********************************************************
+ * Returns true if the given line is parsable for
+ * file name and line number
+ * filename is set at (*filename), line number in lineno
+ * Don't forget to g_free (*filename)
+ ********************************************************/
+gboolean gdb_util_parse_error_line(const gchar *line, gchar **filename,
+								   int *lineno);
+
+/*******************************************************************/
+/* In this case only GList must be freed and not the data          */
+/* Because output data are the input data. Only GList is allocated */
+/*******************************************************************/
+GList* gdb_util_remove_blank_lines(GList* lines); 
+
+/* Allocates a struct of pointers if sep = 0 use ',' */
+gchar **gdb_util_string_parse_separator (const gint nItems, gchar *szStrIn,
+										 const gchar chSep /*= ','*/ );
+
+#define	PARSE_STR(nItems, szStr)	gdb_util_string_parse_separator (nItems, \
+																	 szStr, \
+																	 ',' );
+gchar* gdb_util_get_str_cod (const gchar *szIn);
+
+/* Excluding the final 0 */
+gint gdb_util_calc_string_len( const gchar *szStr );
+gint gdb_util_calc_gnum_len( void /*const gint iVal*/ );
+
+void gdb_util_show_messages (AnjutaPlugin *plugin);
+void gdb_util_clear_messages (AnjutaPlugin *plugin);
+void gdb_util_append_message (AnjutaPlugin *plugin, const gchar* message);
+void gdb_util_append_message_info (AnjutaPlugin *plugin, const gchar* message);
+void gdb_util_append_message_error (AnjutaPlugin *plugin, const gchar* message);
+void gdb_util_append_message_warning (AnjutaPlugin *plugin, const gchar* message);
 
 #endif

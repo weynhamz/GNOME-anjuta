@@ -71,6 +71,14 @@ get_uri_mime_type (const gchar *uri)
 	{
 		mime_type = g_strdup ("application/x-anjuta");
 	}
+	else if (path_has_extension (path, "ui"))
+	{
+		mime_type = g_strdup ("text/xml");
+	}
+	else if (path_has_extension (path, "glade"))
+	{
+		mime_type = g_strdup ("application/x-glade");
+	}
 	else
 	{
 		mime_type = gnome_vfs_get_mime_type (uri);

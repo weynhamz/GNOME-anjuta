@@ -69,7 +69,7 @@ signals_update (GList * lines, gpointer data)
 
   sg = (Signals *) data;
   signals_clear (sg);
-  list = remove_blank_lines (lines);
+  list = gdb_util_remove_blank_lines (lines);
   if (g_list_length (list) < 2)
   {
     g_list_free (list);
