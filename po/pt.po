@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.4.1\n"
-"POT-Creation-Date: 2002-02-04 23:35+0000\n"
-"PO-Revision-Date: 2002-02-04 23:40+0000\n"
+"POT-Creation-Date: 2002-02-27 23:23+0000\n"
+"PO-Revision-Date: 2002-02-27 23:40+0000\n"
 "Last-Translator: Duarte Loreto <happyguy_pt@hotmail.com>\n"
 "Language-Team: Portuguese <none@none.org>\n"
 "MIME-Version: 1.0\n"
@@ -21,71 +21,76 @@ msgstr "IDE Anjuta"
 msgid "Integrated Development Environment"
 msgstr "Ambiente de Desenvolvimento Integrado (IDE)"
 
-#: plugins/class-gen/clsGen.c:197
-msgid "Class name not valid"
-msgstr "Nome de classe inválido"
-
-#: plugins/class-gen/clsGen.c:202
-msgid "Declaration filename not valid"
-msgstr "Nome de ficheiro de declarações inválido"
-
-#: plugins/class-gen/clsGen.c:207
-msgid "Implementation filename not valid"
-msgstr "Nome de ficheiro de implementação inválido"
-
-#: plugins/class-gen/clsGen.c:506
-msgid "Error in importing source file"
-msgstr "Erro ao importar ficheiro código"
-
-#: plugins/class-gen/clsGen.c:510
-msgid "Error in importing include file"
-msgstr "Erro ao importar ficheiro de include"
-
-#: plugins/class-gen/clsGen.c:513
-msgid "Error in importing files"
-msgstr "Erro ao importar ficheiros"
-
-#: plugins/class-gen/clsGen.c:542
+#: plugins/class-gen/clsGen.c:121 plugins/class-gen/clsGen.c:151
+#: plugins/class-gen/clsGen.c:585
 msgid "Class Creator"
 msgstr "Criador Classes"
 
-#: plugins/class-gen/clsGen.c:549
-msgid "New Class "
-msgstr "Nova Classe "
+#: plugins/class-gen/clsGen.c:146
+msgid "Class Creator C/C++ 1.0"
+msgstr "Criador Classes C/C++ 1.0"
 
-#: plugins/class-gen/clsGen.c:563 plugins/class-gen/clsGen.c:572
+#: plugins/class-gen/clsGen.c:222
+msgid "Class name not valid"
+msgstr "Nome de classe inválido"
+
+#: plugins/class-gen/clsGen.c:227
+msgid "Declaration filename not valid"
+msgstr "Nome de ficheiro de declarações inválido"
+
+#: plugins/class-gen/clsGen.c:232
+msgid "Implementation filename not valid"
+msgstr "Nome de ficheiro de implementação inválido"
+
+#: plugins/class-gen/clsGen.c:548
+msgid "Error importing source file"
+msgstr "Erro ao importar ficheiro código"
+
+#: plugins/class-gen/clsGen.c:552
+msgid "Error importing include file"
+msgstr "Erro ao importar ficheiro de include"
+
+#: plugins/class-gen/clsGen.c:555
+msgid "Error importing files"
+msgstr "Erro ao importar ficheiros"
+
+#: plugins/class-gen/clsGen.c:592
+msgid "New Class :"
+msgstr "Nova Classe :"
+
+#: plugins/class-gen/clsGen.c:606 plugins/class-gen/clsGen.c:615
 msgid "Browse..."
 msgstr "Navegar..."
 
-#: plugins/class-gen/clsGen.c:599
+#: plugins/class-gen/clsGen.c:642
 msgid "Class Name:"
 msgstr "Nome Classe:"
 
-#: plugins/class-gen/clsGen.c:608
+#: plugins/class-gen/clsGen.c:651
 msgid "Declaration File:"
 msgstr "Ficheiro Declarações:"
 
-#: plugins/class-gen/clsGen.c:617
+#: plugins/class-gen/clsGen.c:660
 msgid "Implementation File:"
 msgstr "Ficheiro Implementação:"
 
-#: plugins/sample1/plugin-sample1.c:8
+#: plugins/sample1/plugin-sample1.c:16
 msgid "Sample Plugin Description. Holla!"
 msgstr "Descrição de Plugin de Exemplo. Olá!"
 
-#: plugins/sample1/plugin-sample1.c:32
+#: plugins/sample1/plugin-sample1.c:40
 msgid "Hello world!"
 msgstr "Olá mundo!"
 
-#: plugins/sample1/plugin-sample1.c:33
+#: plugins/sample1/plugin-sample1.c:41
 msgid "Sample plugin!"
 msgstr "Plugin de exemplo!"
 
-#: plugins/sample1/plugin-sample1.c:41
+#: plugins/sample1/plugin-sample1.c:49
 msgid "Sample plugin"
 msgstr "Plugin de exemplo"
 
-#: plugins/sample1/plugin-sample1.c:47
+#: plugins/sample1/plugin-sample1.c:55
 msgid "This is a sample plugin"
 msgstr "Este é um plugin de exemplo"
 
@@ -97,11 +102,11 @@ msgstr "Módulo CORBA não inicializado"
 msgid "Error while copying the file inside the module."
 msgstr "Erro ao compilar os ficheiros dentro do módulo."
 
-#: src/about.c:68
+#: src/about.c:71
 msgid "Copyright (c) 1999-2002 Naba Kumar"
 msgstr "Copyright (c) 1999-2002 Naba Kumar"
 
-#: src/about.c:79 src/main_menubar_def.h:1529
+#: src/about.c:82 src/main_menubar_def.h:1529
 msgid "Anjuta Home Page"
 msgstr "Página do Anjuta"
 
@@ -110,15 +115,24 @@ msgstr "Página do Anjuta"
 msgid "Unable to open %s in %s"
 msgstr "Incapaz de abrir %s em %s"
 
-#: src/an_file_view.c:131 src/text_editor_gui.c:122 src/toolbar.c:120
+#: src/an_file_view.c:94
+#, c-format
+msgid ""
+"No default viewer specified for the mime type %s.\n"
+"Please set it in GNOME control center"
+msgstr ""
+"Nenhum visualizador de defeito definido para o tipo mime %s.\n"
+"Defina-o no centro de controlo GNOME"
+
+#: src/an_file_view.c:136 src/text_editor_gui.c:122 src/toolbar.c:120
 msgid "Open"
 msgstr "Abrir"
 
-#: src/an_file_view.c:137
+#: src/an_file_view.c:142
 msgid "View in Default Viewer"
 msgstr "Ver no Visualizador de Defeito"
 
-#: src/an_file_view.c:143 src/an_symbol_view.c:249
+#: src/an_file_view.c:148 src/an_symbol_view.c:249
 msgid "Refresh Tree"
 msgstr "Actualizar Árvore"
 
@@ -216,7 +230,7 @@ msgstr ""
 "\n"
 "Sistema: "
 
-#: src/anjuta.c:1650
+#: src/anjuta.c:1667
 #, c-format
 msgid ""
 "Not yet implemented.\n"
@@ -225,11 +239,11 @@ msgstr ""
 "Ainda não implementado.\n"
 "Inserir código em \"%s:%u\""
 
-#: src/anjuta.c:1866
+#: src/anjuta.c:1883
 msgid "Activate this to select this window"
 msgstr "Active isto para seleccionar esta janela"
 
-#: src/anjuta.c:1913
+#: src/anjuta.c:1930
 #, c-format
 msgid ""
 "The \"%s\" utility is not installed.\n"
@@ -238,35 +252,35 @@ msgstr ""
 "O utilitário \"%s\" não está instalado.\n"
 "Instale-o e depois reinicie o Anjuta."
 
-#: src/anjuta.c:1939 src/anjuta.c:1994
+#: src/anjuta.c:1956 src/anjuta.c:2011
 msgid "None"
 msgstr "Nenhum"
 
-#: src/anjuta.c:1949
+#: src/anjuta.c:1966
 msgid "DOS (CRLF)"
 msgstr "DOS (CRLF)"
 
-#: src/anjuta.c:1952 src/anjuta.c:1986
+#: src/anjuta.c:1969 src/anjuta.c:2003
 msgid "Unix (LF)"
 msgstr "Unix (LF)"
 
-#: src/anjuta.c:1955
+#: src/anjuta.c:1972
 msgid "Mac (CR)"
 msgstr "Mac (CR)"
 
-#: src/anjuta.c:1958
+#: src/anjuta.c:1975
 msgid "Unknown"
 msgstr "Desconhecido"
 
-#: src/anjuta.c:1975
+#: src/anjuta.c:1992
 msgid "OVR"
 msgstr "OVR"
 
-#: src/anjuta.c:1979 src/anjuta.c:1985
+#: src/anjuta.c:1996 src/anjuta.c:2002
 msgid "INS"
 msgstr "INS"
 
-#: src/anjuta.c:1997
+#: src/anjuta.c:2014
 #, c-format
 msgid ""
 "  Project: %s       Zoom: %d       Line: %04d       Col: %03d       %s       "
@@ -275,27 +289,27 @@ msgstr ""
 "  Projecto: %s      Zoom: %d       Linha: %04d      Col: %03d       %s       "
 "Proc: %s      Modo: %s"
 
-#: src/anjuta.c:2210 src/anjuta.c:2213
+#: src/anjuta.c:2227 src/anjuta.c:2230
 #, c-format
 msgid "Unable to load plugin %s. Error: %s"
 msgstr "Incapaz de ler plugin %s. Erro: %s"
 
-#: src/anjuta.c:2216
+#: src/anjuta.c:2233
 #, c-format
 msgid "Plugin protocol %s unknown Error:%s"
 msgstr "Protocolo plugin %s Erro desconhecido:%s"
 
-#: src/anjuta.c:2219
+#: src/anjuta.c:2236
 #, c-format
 msgid "Unable to start plugin %s"
 msgstr "Incapaz de iniciar plugin %s"
 
-#: src/anjuta.c:2222
+#: src/anjuta.c:2239
 #, c-format
 msgid "Bad parameters to plugin %s. Error: %s"
 msgstr "Parâmetros incorrectos para plugin %s. Erro: %s"
 
-#: src/anjuta.c:2230
+#: src/anjuta.c:2247
 #, c-format
 msgid ""
 "Unable to load plugin %s.\n"
@@ -304,7 +318,7 @@ msgstr ""
 "Incapaz de ler plugin %s.\n"
 "Erro: %s"
 
-#: src/anjuta.c:2301
+#: src/anjuta.c:2318
 msgid "Out of memory scanning for plugins."
 msgstr "Falta de memória ao procurar plugins."
 
@@ -316,7 +330,7 @@ msgstr ""
 "Alguns ficheiros (ou o projecto) não estão gravados.\n"
 "Ainda assim deseja sair?"
 
-#: src/anjuta_cbs.c:208 src/project_dbase_gui.c:1273
+#: src/anjuta_cbs.c:208 src/project_dbase_gui.c:1274
 #, c-format
 msgid "Not a regular file: %s."
 msgstr "Não é um ficheiro normal: %s."
@@ -326,7 +340,7 @@ msgstr "Não é um ficheiro normal: %s."
 msgid "No read permission for: %s."
 msgstr "Sem permissões de leitura para: %s."
 
-#: src/anjuta_cbs.c:251 src/anjuta_cbs.c:479
+#: src/anjuta_cbs.c:251 src/anjuta_cbs.c:516
 #, c-format
 msgid ""
 "The file \"%s\" already exists.\n"
@@ -351,19 +365,19 @@ msgstr "Clique aqui para esconder esta janela"
 msgid "Information"
 msgstr "Informação"
 
-#: src/appwizard_cbs.c:106
+#: src/appwizard_cbs.c:118
 msgid "Project name"
 msgstr "Nome projecto"
 
-#: src/appwizard_cbs.c:107
+#: src/appwizard_cbs.c:119
 msgid "Source target name"
 msgstr "Nome alvo código fonte"
 
-#: src/appwizard_cbs.c:108
+#: src/appwizard_cbs.c:120
 msgid "Project version"
 msgstr "Versão projecto"
 
-#: src/appwizard_cbs.c:203
+#: src/appwizard_cbs.c:214
 #, c-format
 msgid ""
 "Invalid %s field:\n"
@@ -373,19 +387,19 @@ msgstr ""
 "Tem de indicar um campo %s valido para prosseguir."
 
 #. For the time being
-#: src/appwizard_cbs.c:251 src/project_dbase.c:1326 src/project_dbase.c:1331
-#: src/project_dbase.c:1334 src/project_import_cbs.c:218 src/signals_cbs.c:128
+#: src/appwizard_cbs.c:267 src/project_dbase.c:1339 src/project_dbase.c:1344
+#: src/project_dbase.c:1347 src/project_import_cbs.c:218 src/signals_cbs.c:128
 #: src/signals_cbs.c:141 src/signals_cbs.c:154
 msgid "Yes"
 msgstr "Sim"
 
-#: src/appwizard_cbs.c:253 src/project_dbase.c:1328 src/project_dbase.c:1336
+#: src/appwizard_cbs.c:269 src/project_dbase.c:1341 src/project_dbase.c:1349
 #: src/project_import_cbs.c:220 src/signals_cbs.c:130 src/signals_cbs.c:143
 #: src/signals_cbs.c:156
 msgid "No"
 msgstr "Não"
 
-#: src/appwizard_cbs.c:255 src/project_import_cbs.c:221
+#: src/appwizard_cbs.c:271 src/project_import_cbs.c:221
 msgid ""
 "Confirm the following information:\n"
 "\n"
@@ -393,35 +407,35 @@ msgstr ""
 "Confirmar a seguinte informação:\n"
 "\n"
 
-#: src/appwizard_cbs.c:256 src/project_import_cbs.c:222
+#: src/appwizard_cbs.c:272 src/project_import_cbs.c:222
 msgid "Project Name:    "
 msgstr "Nome Projecto:   "
 
-#: src/appwizard_cbs.c:257 src/project_import_cbs.c:223
+#: src/appwizard_cbs.c:273 src/project_import_cbs.c:223
 msgid "Project Type:    "
 msgstr "Tipo Projecto:   "
 
-#: src/appwizard_cbs.c:258 src/project_import_cbs.c:225
+#: src/appwizard_cbs.c:274 src/project_import_cbs.c:225
 msgid "Target Type:     "
 msgstr "Tipo Alvo:       "
 
-#: src/appwizard_cbs.c:259 src/project_import_cbs.c:228
+#: src/appwizard_cbs.c:275 src/project_import_cbs.c:228
 msgid "Source Target:   "
 msgstr "Alvo Código:     "
 
-#: src/appwizard_cbs.c:260 src/project_import_cbs.c:229
+#: src/appwizard_cbs.c:276 src/project_import_cbs.c:229
 msgid "Version:         "
 msgstr "Versão:          "
 
-#: src/appwizard_cbs.c:261 src/project_import_cbs.c:230
+#: src/appwizard_cbs.c:277 src/project_import_cbs.c:230
 msgid "Author:          "
 msgstr "Autor:           "
 
-#: src/appwizard_cbs.c:262 src/project_import_cbs.c:231
+#: src/appwizard_cbs.c:278 src/project_import_cbs.c:231
 msgid "Language:        "
 msgstr "Linguagem:       "
 
-#: src/appwizard_cbs.c:263 src/project_import_cbs.c:233
+#: src/appwizard_cbs.c:279 src/project_import_cbs.c:233
 msgid "Gettext Support: "
 msgstr "Suporte Gettext: "
 
@@ -1199,7 +1213,7 @@ msgstr "Activar Depuração"
 msgid "Enable Profiling"
 msgstr "Activar Profiling"
 
-#: src/compiler_options_gui.c:1093 src/wizard_gui.c:535
+#: src/compiler_options_gui.c:1093 src/wizard_gui.c:566
 msgid "Additional Options"
 msgstr "Opções Adicionais"
 
@@ -1633,12 +1647,13 @@ msgid "Cannot fork glade--."
 msgstr "Incapaz de fazer fork do glade--."
 
 #: src/glades.c:210 src/source.c:121 src/source.c:168 src/source.c:206
-#: src/source.c:442 src/source.c:466 src/source.c:551 src/source.c:617
-#: src/source.c:657 src/source.c:672 src/source.c:706 src/source.c:761
-#: src/source.c:833 src/source.c:852 src/source.c:885 src/source.c:905
-#: src/source.c:938 src/source.c:958 src/source.c:989 src/source.c:1007
-#: src/source.c:1037 src/source.c:1055 src/source.c:1082 src/source.c:1135
-#: src/source.c:1211 src/source.c:1343 src/source.c:1416 src/utilities.c:723
+#: src/source.c:447 src/source.c:471 src/source.c:556 src/source.c:622
+#: src/source.c:662 src/source.c:677 src/source.c:711 src/source.c:766
+#: src/source.c:802 src/source.c:856 src/source.c:892 src/source.c:947
+#: src/source.c:1003 src/source.c:1022 src/source.c:1055 src/source.c:1075
+#: src/source.c:1108 src/source.c:1128 src/source.c:1159 src/source.c:1177
+#: src/source.c:1207 src/source.c:1225 src/source.c:1252 src/source.c:1305
+#: src/source.c:1381 src/source.c:1513 src/source.c:1586 src/utilities.c:723
 #, c-format
 msgid "Unable to create file: %s."
 msgstr "Incapaz de criar ficheiro: %s."
@@ -1778,7 +1793,7 @@ msgstr "Não mostrar o ecrã de logotipo"
 msgid "Recent Files    "
 msgstr "Ficheiros Recentes "
 
-#: src/main_menubar.c:560 src/project_dbase.c:1791
+#: src/main_menubar.c:560 src/project_dbase.c:1806
 msgid "Recent Projects "
 msgstr "Projectos Recentes "
 
@@ -1868,7 +1883,9 @@ msgstr "_Importar Projecto ..."
 
 #: src/main_menubar_def.h:93
 msgid "Import an existing code project using the Project Import Wizard"
-msgstr "Importar um projecto de código existente utilizando o Ajudante de Importação de Projectos"
+msgstr ""
+"Importar um projecto de código existente utilizando o Ajudante de Importação "
+"de Projectos"
 
 #: src/main_menubar_def.h:98
 msgid "Open P_roject ..."
@@ -3539,11 +3556,6 @@ msgstr ""
 "Aplicação está em EXECUÇÃO.\n"
 "Ainda assim deseja parar o Depurador?"
 
-#: src/mainmenu_callbacks.c:1894 src/mainmenu_callbacks.c:1912
-#: src/mainmenu_callbacks.c:1940 src/mainmenu_callbacks.c:1958
-msgid "Cannot launch gnome-help-browser"
-msgstr "Incapaz de lançar o gnome-help-browser"
-
 #. 13
 #: src/message-manager.cc:43 src/text_editor_menu.c:321 src/toolbar.c:511
 msgid "Debug"
@@ -3916,7 +3928,7 @@ msgstr "Utilizar Componentes Glade (experimental)"
 msgid "Project configuration"
 msgstr "Configuração de projecto"
 
-#: src/project_config.c:772 src/wizard_gui.c:412
+#: src/project_config.c:772 src/wizard_gui.c:462
 msgid "Project Description"
 msgstr "Descrição Projecto"
 
@@ -4045,25 +4057,33 @@ msgid "Makefile.am"
 msgstr "Makefile.am"
 
 #. Must declare static, because it will be used forever
-#: src/project_dbase.c:319 src/toolbar.c:413
+#: src/project_dbase.c:315 src/toolbar.c:413
 msgid "Open Project"
 msgstr "Abrir Projecto"
 
 #. Must declare static, because it will be used forever
-#: src/project_dbase.c:326
+#: src/project_dbase.c:322
 msgid "Add to Project"
 msgstr "Adicionar ao Projecto"
 
-#: src/project_dbase.c:362 src/project_dbase.c:494 src/project_dbase_gui.c:475
+#: src/project_dbase.c:358 src/project_dbase.c:490 src/project_dbase_gui.c:475
 msgid "Project: None"
 msgstr "Projecto: Nenhum"
 
-#: src/project_dbase.c:630 src/project_dbase.c:648
+#: src/project_dbase.c:559
+msgid "Anjuta project files"
+msgstr "Ficheiros de projecto Anjuta"
+
+#: src/project_dbase.c:560 widgets/gnomefilelist.c:515
+msgid "All files"
+msgstr "Todos os ficheiros"
+
+#: src/project_dbase.c:643 src/project_dbase.c:661
 #, c-format
 msgid "Unable to load Project: %s"
 msgstr "Incapaz de ler Projecto: %s"
 
-#: src/project_dbase.c:641
+#: src/project_dbase.c:654
 #, c-format
 msgid ""
 "Anjuta version %s or later is required to open this Project.\n"
@@ -4072,15 +4092,15 @@ msgstr ""
 "Necessita do Anjuta versão %s ou posterior para abrir este Projecto.\n"
 "Actualize o Anjuta para a versão mais recente (Ajuda para mais informações)."
 
-#: src/project_dbase.c:984
+#: src/project_dbase.c:997
 msgid "Project saved successfully"
 msgstr "Projecto gravado com sucesso"
 
-#: src/project_dbase.c:990 src/project_dbase.c:992
+#: src/project_dbase.c:1003 src/project_dbase.c:1005
 msgid "Unable to save the Project."
 msgstr "Incapaz de gravar Projecto."
 
-#: src/project_dbase.c:1390 src/project_dbase.c:1423
+#: src/project_dbase.c:1403 src/project_dbase.c:1438
 msgid ""
 "A .glade file does not\n"
 "exist in the top level Project directory."
@@ -4089,11 +4109,11 @@ msgstr ""
 "no directório de topo do Projecto."
 
 #. Set project title
-#: src/project_dbase.c:1830
+#: src/project_dbase.c:1845
 msgid "Project: "
 msgstr "Projecto: "
 
-#: src/project_dbase.c:2082
+#: src/project_dbase.c:2097
 #, c-format
 msgid ""
 "You need Anjuta version %s or later to open this project.\n"
@@ -4105,12 +4125,12 @@ msgstr ""
 "informações).\n"
 "Por agora, este Anjuta é demasiado antigo para o abrir."
 
-#: src/project_dbase.c:2151 src/project_dbase.c:2155
+#: src/project_dbase.c:2166 src/project_dbase.c:2170
 #, c-format
 msgid "Error in loading Project: %s"
 msgstr "Erro na leitura do Projecto: %s"
 
-#: src/project_dbase.c:2174
+#: src/project_dbase.c:2189
 msgid "Project loaded successfully."
 msgstr "Projecto aberto com sucesso."
 
@@ -4149,7 +4169,7 @@ msgstr "Info Projecto"
 msgid "Help"
 msgstr "Ajuda"
 
-#: src/project_dbase_gui.c:487 widgets/gnomefilelist.c:222
+#: src/project_dbase_gui.c:487 widgets/gnomefilelist.c:251
 msgid "Files"
 msgstr "Ficheiros"
 
@@ -4173,7 +4193,7 @@ msgstr " Informação Projecto "
 msgid "Author:"
 msgstr "Autor:"
 
-#: src/project_dbase_gui.c:648 src/wizard_gui.c:280
+#: src/project_dbase_gui.c:648 src/wizard_gui.c:291
 msgid "Project Name:"
 msgstr "Nome Projecto:"
 
@@ -4362,7 +4382,7 @@ msgstr "Incapaz de encontrar ficheiro imagem: %s"
 msgid "This file has already been added to the Project"
 msgstr "Este ficheiro já foi adicionado ao Projecto"
 
-#: src/project_dbase_gui.c:1281
+#: src/project_dbase_gui.c:1282
 #, c-format
 msgid ""
 "\"%s\"\n"
@@ -4425,7 +4445,8 @@ msgid ""
 "Click Cancel to skip the customisation stage, or Next to continue."
 msgstr ""
 "A operação de importação já foi iniciada.\n"
-"Prima Cancelar para passar a fase de customização, ou Seguinte para continuar."
+"Prima Cancelar para passar a fase de customização, ou Seguinte para "
+"continuar."
 
 #: src/project_import_gui.c:37
 msgid ""
@@ -4577,12 +4598,12 @@ msgstr " Imprimir: "
 msgid "Error writing to file: %s."
 msgstr "Erro ao escrever para ficheiro: %s."
 
-#: src/source.c:1294
+#: src/source.c:1464
 #, c-format
 msgid "Error writing to: %s."
 msgstr "Erro ao escrever para : %s."
 
-#: src/source.c:1510
+#: src/source.c:1680
 msgid "Project type does not support Glade."
 msgstr "Tipo de projecto não suporta o Glade."
 
@@ -4677,12 +4698,12 @@ msgstr "Erro na auto formatação ..."
 msgid "Auto formatting completed"
 msgstr "Auto formatação completa"
 
-#: src/text_editor_cbs.c:190
+#: src/text_editor_cbs.c:191
 #, c-format
 msgid "Autosaved \"%s\""
 msgstr "Autogravação \"%s\""
 
-#: src/text_editor_cbs.c:194
+#: src/text_editor_cbs.c:195
 #, c-format
 msgid "Autosave \"%s\" -- Failed"
 msgstr "Autogravação \"%s\" -- Falhou"
@@ -5307,133 +5328,228 @@ msgstr "Componente Bonobo"
 msgid "LibGlade project"
 msgstr "Projecto LibGlade"
 
-#: src/wizard_gui.c:243
+#: src/wizard_gui.c:254
 msgid "Basic Information"
 msgstr "Informação Básica"
 
-#: src/wizard_gui.c:264
+#: src/wizard_gui.c:275
 msgid "Enter the basic Project information"
 msgstr "Introduza a informação básica de projecto"
 
-#: src/wizard_gui.c:287
+#: src/wizard_gui.c:298
 msgid "Project Version:"
 msgstr "Versão Projecto:"
 
-#: src/wizard_gui.c:294
+#: src/wizard_gui.c:305
 msgid "Project Author:"
 msgstr "Autor Projecto:"
 
-#: src/wizard_gui.c:301
+#: src/wizard_gui.c:312
 msgid "Project Target:"
 msgstr "Alvo Projecto:"
 
-#: src/wizard_gui.c:332
+#: src/wizard_gui.c:343
 msgid "Programming language"
 msgstr "Linguagem programação"
 
-#: src/wizard_gui.c:343
+#: src/wizard_gui.c:354
 msgid "C"
 msgstr "C"
 
-#: src/wizard_gui.c:351
+#: src/wizard_gui.c:362
 msgid "C++"
 msgstr "C++"
 
-#: src/wizard_gui.c:360
+#: src/wizard_gui.c:371
 msgid "Both C and C++"
 msgstr "C e C++"
 
-#: src/wizard_gui.c:433
+#: src/wizard_gui.c:378
+msgid "Target type"
+msgstr "Tipo alvo"
+
+#: src/wizard_gui.c:394
+msgid "Executable target"
+msgstr "Alvo executável"
+
+#: src/wizard_gui.c:401
+msgid "Static library target"
+msgstr "Alvo biblioteca estática"
+
+#: src/wizard_gui.c:407
+msgid "Dynamic library target"
+msgstr "Alvo biblioteca dinâmica"
+
+#: src/wizard_gui.c:483
 msgid "Enter a short description of the Project"
 msgstr "Introduza uma pequena descrição do Projecto"
 
-#: src/wizard_gui.c:556
+#: src/wizard_gui.c:587
 msgid "Enter any additional Project options"
 msgstr "Adicione quaisquer opções adicionais do Projecto"
 
-#: src/wizard_gui.c:573
+#: src/wizard_gui.c:604
 msgid " Project Options "
 msgstr " Opções Projecto "
 
-#: src/wizard_gui.c:584
+#: src/wizard_gui.c:615
 msgid "Include GNU Copyright statement in file headings"
 msgstr "Incluir comentário de Copyright GNU no cabeçalho de ficheiros"
 
-#: src/wizard_gui.c:591
+#: src/wizard_gui.c:622
 msgid "Enable Gettext Support"
 msgstr "Activar Suporte Gettext"
 
-#: src/wizard_gui.c:598
+#: src/wizard_gui.c:629
 msgid "GNOME Menu Entry"
 msgstr "Entrada de Menu GNOME"
 
-#: src/wizard_gui.c:608
+#: src/wizard_gui.c:639
 msgid "Entry name:"
 msgstr "Nome entrada:"
 
-#: src/wizard_gui.c:615
+#: src/wizard_gui.c:646
 msgid "Comment:"
 msgstr "Comentário:"
 
-#: src/wizard_gui.c:622
+#: src/wizard_gui.c:653
 msgid "Group:"
 msgstr "Grupo:"
 
-#: src/wizard_gui.c:664
+#: src/wizard_gui.c:695
 msgid "Needs terminal"
 msgstr "Necessita consola"
 
-#: src/wizard_gui.c:708
+#: src/wizard_gui.c:739
 msgid "Summary"
 msgstr "Resumo"
 
-#: widgets/gnomefilelist.c:117
+#: widgets/gnomefilelist.c:133
 msgid "Go to the previous directory"
 msgstr "Ir para o directório anterior"
 
-#: widgets/gnomefilelist.c:122
+#: widgets/gnomefilelist.c:138
 msgid "Go to home directory"
 msgstr "Ir para directório home"
 
-#: widgets/gnomefilelist.c:125
+#: widgets/gnomefilelist.c:141
 msgid "Go to parent directory"
 msgstr "Ir para directório pai"
 
-#: widgets/gnomefilelist.c:127
+#: widgets/gnomefilelist.c:143
 msgid "Refresh listing"
 msgstr "Actualizar listagem"
 
-#: widgets/gnomefilelist.c:130
+#: widgets/gnomefilelist.c:146
 msgid "Delete file"
 msgstr "Apagar ficheiro"
 
-#: widgets/gnomefilelist.c:132
+#: widgets/gnomefilelist.c:148
 msgid "Rename file"
 msgstr "Renomear ficheiro"
 
-#: widgets/gnomefilelist.c:138
+#: widgets/gnomefilelist.c:150
+msgid "Create new folder"
+msgstr "Criar nova pasta"
+
+#: widgets/gnomefilelist.c:156
 msgid "Show hidden files and directories"
 msgstr "Mostrar ficheiros e directórios escondidos"
 
-#: widgets/gnomefilelist.c:149
+#: widgets/gnomefilelist.c:167
 msgid "Show Hidden"
 msgstr "Mostrar Escondidos"
 
-#: widgets/gnomefilelist.c:157
+#: widgets/gnomefilelist.c:175
 msgid "Directory: "
 msgstr "Directório: "
 
-#: widgets/gnomefilelist.c:192
+#: widgets/gnomefilelist.c:217
 msgid "Directories"
 msgstr "Directórios"
 
-#: widgets/gnomefilelist.c:229 widgets/gnomefilelist.c:817
+#: widgets/gnomefilelist.c:264 widgets/gnomefilelist.c:1243
 msgid "Selection: "
 msgstr "Selecção: "
 
-#: widgets/gnomefilelist.c:812
+#: widgets/gnomefilelist.c:288
+msgid "File type: "
+msgstr "Tipo ficheiro: "
+
+#: widgets/gnomefilelist.c:517
+msgid "C/C++ source files"
+msgstr "Ficheiros código C/C++"
+
+#: widgets/gnomefilelist.c:518
+msgid "Java files"
+msgstr "Ficheiros java"
+
+#: widgets/gnomefilelist.c:519
+msgid "Pascal files"
+msgstr "Ficheiros pascal"
+
+#: widgets/gnomefilelist.c:520
+msgid "PHP files"
+msgstr "Ficheiros PHP"
+
+#: widgets/gnomefilelist.c:521
+msgid "Perl files"
+msgstr "Ficheiros perl"
+
+#: widgets/gnomefilelist.c:522
+msgid "Python files"
+msgstr "Ficheiros python"
+
+#: widgets/gnomefilelist.c:523
+msgid "Hyper Text Markup files"
+msgstr "Ficheiros html"
+
+#: widgets/gnomefilelist.c:524
+msgid "Shell Script files"
+msgstr "Ficheiros script consola"
+
+#: widgets/gnomefilelist.c:525
+msgid "Config files"
+msgstr "Ficheiros config"
+
+#: widgets/gnomefilelist.c:526
+msgid "Visual Basic files"
+msgstr "Ficheiros visual basic"
+
+#: widgets/gnomefilelist.c:527
+msgid "Properties files"
+msgstr "Ficheiros propriedades"
+
+#: widgets/gnomefilelist.c:528
+msgid ".mak files"
+msgstr "Ficheiros .mak"
+
+#: widgets/gnomefilelist.c:529
+msgid ".lua files"
+msgstr "Ficheiros .lua"
+
+#: widgets/gnomefilelist.c:530
+msgid "Diff files"
+msgstr "Ficheiros diff"
+
+#: widgets/gnomefilelist.c:1238
 msgid "Multiple selection mode"
 msgstr "Modo de selecção múltipla"
+
+#: widgets/gnomefilelist.c:1571
+msgid "New folder"
+msgstr "Nova pasta"
+
+#: widgets/gnomefilelist.c:1579
+msgid "Folder name:"
+msgstr "Nome pasta:"
+
+#: widgets/gnomefilelist.c:1639
+msgid "Creating folder failed."
+msgstr "Falha na criação de pasta."
+
+#~ msgid "Cannot launch gnome-help-browser"
+#~ msgstr "Incapaz de lançar o gnome-help-browser"
 
 #~ msgid "_Tags Toolbar"
 #~ msgstr "Barra Ferramentas E_tiquetas"
@@ -5456,9 +5572,6 @@ msgstr "Modo de selecção múltipla"
 
 #~ msgid "# ***************** Anjuta Tags cache file ********************\n"
 #~ msgstr "# ********** Ficheiro de cache de etiquetas Anjuta ************\n"
-
-#~ msgid "File:"
-#~ msgstr "Ficheiro:"
 
 #~ msgid "Function:"
 #~ msgstr "Função:"
@@ -5514,15 +5627,6 @@ msgstr "Modo de selecção múltipla"
 
 #~ msgid "Unable to Load Plug in Module %s. Err: %s"
 #~ msgstr "Incapaz de Ler Módulo Plug in %s. Erro: %s"
-
-#~ msgid "Executable target"
-#~ msgstr "Alvo executável"
-
-#~ msgid "Static library target"
-#~ msgstr "Alvo biblioteca estática"
-
-#~ msgid "Dynamic library target"
-#~ msgstr "Alvo biblioteca dinâmica"
 
 #~ msgid "File is not saved. Save it and build."
 #~ msgstr "Ficheiro não está gravado. Grave-o e compile-o."
