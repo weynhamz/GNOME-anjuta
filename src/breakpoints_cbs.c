@@ -71,7 +71,7 @@ on_bk_jumpto_clicked (GtkWidget *button,
 	bi = g_list_nth_data (bd->breakpoints, bd->current_index);
 
 	if (!bd->is_docked)
-#warning "VERIFY ME: G2 port"
+#warning "G2 port: THOUROUGLY VERIFY ME"
 		gtk_widget_hide (bd->widgets.window);
 	else
 		breakpoints_dbase_hide (bd);
@@ -147,7 +147,7 @@ void
 on_bk_enableall_clicked (GtkWidget *button,
 			 gpointer   data)
 {
-#warning "FIXME: change the active state of the enabled column"
+#warning "G2 port: change the active state of the enabled column"
 	debugger_enable_all_breakpoints ();
 }
 
@@ -155,7 +155,7 @@ void
 on_bk_disableall_clicked (GtkWidget *button,
 			  gpointer   data)
 {
-#warning "FIXME: change the active state of the enabled column"
+#warning "G2 port: change the active state of the enabled column"
 	debugger_disable_all_breakpoints ();
 }
 
@@ -188,7 +188,7 @@ on_bk_treeview_event (GtkWidget *widget,
 	breakpoints_dbase_update_controls (bd);
 }
 
-#warning "FIXME: verify the behaviour w/ ANJUTA_1_0_0"
+#warning "G2 port: verify the behaviour w/ ANJUTA_1_0_0"
 static void
 bk_close (gpointer data)
 {

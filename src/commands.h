@@ -40,15 +40,15 @@ struct _CommandEditorWidgets
 {
 	GtkWidget *window;
 
-	GtkWidget *language_combo;
 	GtkWidget *pix_editor_entry;
 	GtkWidget *image_editor_entry;
 	GtkWidget *html_editor_entry;
+	GtkWidget *terminal_entry;
+	GtkWidget *language_om;
 	GtkWidget *compile_entry;
-	GtkWidget *make_entry;
 	GtkWidget *build_entry;
 	GtkWidget *execute_entry;
-	GtkWidget *terminal_entry;
+	GtkWidget *make_entry;
 };
 
 struct _CommandEditor

@@ -65,6 +65,11 @@ term_commands[] = {
 	NULL
 };
 
+static gboolean on_close (GtkWidget *w, gpointer user_data);
+static void on_language_menu_changed (GtkOptionMenu *optionmenu, gpointer user_data);
+static void on_load_global_clicked (GtkButton *button, gpointer user_data);
+static void on_load_user_clicked (GtkButton *button, gpointer user_data);
+
 /* Command data to be used in command editor */
 CommandData*
 command_data_new(void)
@@ -99,8 +104,15 @@ CommandEditor*
 command_editor_new (PropsID p_global, PropsID p_user, PropsID p)
 {
 	CommandEditor* ce;
-	ce = g_malloc (sizeof (CommandEditor));
-	if (!ce) return NULL;
+	GtkWidget *menu;
+	GList *list;
+	int i;
+
+	ce = g_new0 (CommandEditor, 1);
+
+	if (!ce)
+		return NULL;
+
 	ce->props = p;
 	ce->props_user = p_user;
 	ce->props_global = p_global;
@@ -113,10 +125,62 @@ command_editor_new (PropsID p_global, PropsID p_user, PropsID p)
 	ce->win_width = 0;
 	ce->win_height = 0;
 
+	ce->widgets.window = glade_xml_get_widget (app->gxml, "commands_dialog");
+	ce->widgets.pix_editor_entry = glade_xml_get_widget (app->gxml, "commands_pixmap_editor_entry");
+	ce->widgets.image_editor_entry = glade_xml_get_widget (app->gxml, "commands_image_editor_entry");
+	ce->widgets.html_editor_entry = glade_xml_get_widget (app->gxml, "commands_html_editor_entry");
+	ce->widgets.terminal_entry = glade_xml_get_widget (app->gxml, "commands_terminal_entry");
+	ce->widgets.language_om = glade_xml_get_widget (app->gxml, "commands_language_om");
+	ce->widgets.compile_entry = glade_xml_get_widget (app->gxml, "commands_compile_entry");
+	ce->widgets.build_entry = glade_xml_get_widget (app->gxml, "commands_build_entry");
+	ce->widgets.execute_entry = glade_xml_get_widget (app->gxml, "commands_execute_entry");
+	ce->widgets.make_entry = glade_xml_get_widget (app->gxml, "commands_make_entry");
+
+	gtk_widget_ref (ce->widgets.window);
+	gtk_widget_ref (ce->widgets.pix_editor_entry);
+	gtk_widget_ref (ce->widgets.image_editor_entry);
+	gtk_widget_ref (ce->widgets.html_editor_entry);
+	gtk_widget_ref (ce->widgets.terminal_entry);
+	gtk_widget_ref (ce->widgets.language_om);
+	gtk_widget_ref (ce->widgets.compile_entry);
+	gtk_widget_ref (ce->widgets.build_entry);
+	gtk_widget_ref (ce->widgets.execute_entry);
+	gtk_widget_ref (ce->widgets.make_entry);
+
+	/* Filling some terminal commands */
+	list = NULL;
+
+	for (i = 0; term_commands[i] != NULL; i++)
+		list = g_list_append (list, term_commands[i]);
+
+	gtk_combo_set_popdown_strings (GTK_COMBO (glade_xml_get_widget (app->gxml, "commands_terminal_combo")), list);
+
+	g_list_free (list);
+
+	/* Filling the different languages available */
+	menu = gtk_menu_new ();
+
+	for (i = 0; prog_language_map[i] != NULL; i += 2) {
+		GtkWidget *item;
+
+		item = gtk_menu_item_new_with_label (prog_language_map[i]);
+		gtk_menu_shell_append (GTK_MENU_SHELL (menu), item);
+	}
+
+	gtk_option_menu_set_menu (GTK_OPTION_MENU (ce->widgets.language_om),
+				  menu);
+
+	g_signal_connect (ce->widgets.window, "close",
+			  G_CALLBACK (on_close), ce);
+	g_signal_connect (ce->widgets.language_om, "changed",
+			  G_CALLBACK (on_language_menu_changed), ce);
 	
-	
-	
-	create_command_editor_gui (ce);
+	g_signal_connect (glade_xml_get_widget (app->gxml, "commands_global_defaults_button"), "clicked",
+			  G_CALLBACK (on_load_global_clicked), ce);
+	g_signal_connect (glade_xml_get_widget (app->gxml, "commands_user_defaults_button"), "clicked",
+			  G_CALLBACK (on_load_user_clicked), ce);
+
+#warning "G2 port: instant apply settings support"
 
 	return ce;
 }
@@ -128,16 +192,18 @@ command_editor_destroy (CommandEditor* ce)
 	g_return_if_fail (GTK_IS_WIDGET(ce->widgets.window));
 
 	gtk_widget_unref (ce->widgets.window);
-	gtk_widget_unref (ce->widgets.language_combo);
-	gtk_widget_unref (ce->widgets.compile_entry);
-	gtk_widget_unref (ce->widgets.make_entry);
-	gtk_widget_unref (ce->widgets.build_entry);
-	gtk_widget_unref (ce->widgets.execute_entry);
 	gtk_widget_unref (ce->widgets.pix_editor_entry);
 	gtk_widget_unref (ce->widgets.image_editor_entry);
 	gtk_widget_unref (ce->widgets.html_editor_entry);
-	gtk_widget_unref(ce->widgets.terminal_entry);
+	gtk_widget_unref (ce->widgets.terminal_entry);
+	gtk_widget_unref (ce->widgets.language_om);
+	gtk_widget_unref (ce->widgets.compile_entry);
+	gtk_widget_unref (ce->widgets.build_entry);
+	gtk_widget_unref (ce->widgets.execute_entry);
+	gtk_widget_unref (ce->widgets.make_entry);
+
 	gtk_widget_destroy (ce->widgets.window);
+
 	g_free (ce);
 }
 
@@ -181,11 +247,9 @@ sync_from_props (CommandEditor *ce, PropsID pr)
 	gint i;
 	gchar *str, *key;
 
-	for (i = 0;; i+=2)
-	{
+	for (i = 0; prog_language_map[i] != NULL; i += 2) {
 		CommandData* cdata;
 		
-		if (prog_language_map[i] == NULL) break;
 		cdata = command_data_new();
 
 		key = get_key_for_file_command (COMPILE_INDEX, prog_language_map[i+1]);
@@ -218,7 +282,7 @@ sync_from_props (CommandEditor *ce, PropsID pr)
 			cdata->key, cdata, (GtkDestroyNotify) command_data_destroy);
 	}
 	ce->current_command_data = NULL;
-	gtk_signal_emit_by_name (GTK_OBJECT (GTK_COMBO(ce->widgets.language_combo)->entry), "changed");
+	g_signal_emit_by_name (ce->widgets.language_om, "changed");
 
 	key = get_key_for_file_command (OPEN_INDEX, "icon");
 	str = prop_get (pr, key);
@@ -407,16 +471,18 @@ command_editor_get_command (CommandEditor* ce, gchar* cmd_key)
 }
 
 static void
-on_language_entry_changed (GtkEditable     *editable, gpointer         user_data)
+on_language_menu_changed (GtkOptionMenu *optionmenu,
+			  gpointer       user_data)
 {
 	CommandData *cdata;
 	CommandEditor *ce;
 	const gchar *str;
-	
+	gint index;
+
 	ce = user_data;
 	g_return_if_fail (ce != NULL);
-	if (ce->current_command_data)
-	{
+
+	if (ce->current_command_data) {
 		str = gtk_entry_get_text (GTK_ENTRY (ce->widgets.compile_entry));
 		string_assign (&ce->current_command_data->compile, str);
 
@@ -429,9 +495,12 @@ on_language_entry_changed (GtkEditable     *editable, gpointer         user_data
 		str = gtk_entry_get_text (GTK_ENTRY (ce->widgets.execute_entry));
 		string_assign (&ce->current_command_data->execute, str);
 	}
-	str = gtk_entry_get_text (GTK_ENTRY (editable));
+
+	index= gtk_option_menu_get_history (GTK_OPTION_MENU (optionmenu));
+	str = prog_language_map[index * 2];
 	cdata = (CommandData *) gtk_object_get_data (GTK_OBJECT (ce->widgets.window), str);
 	g_return_if_fail (cdata != NULL);
+
 	if (cdata->compile)
 		gtk_entry_set_text (GTK_ENTRY (ce->widgets.compile_entry), cdata->compile);
 	else
@@ -456,8 +525,8 @@ on_language_entry_changed (GtkEditable     *editable, gpointer         user_data
 }
 
 static void
-on_load_global_clicked  (GtkButton       *button,
-                                        gpointer         user_data)
+on_load_global_clicked (GtkButton *button,
+			gpointer   user_data)
 {
 	CommandEditor *ce;
 	
@@ -466,10 +535,9 @@ on_load_global_clicked  (GtkButton       *button,
 	sync_from_props (ce, ce->props_global);
 }
 
-
 static void
-on_load_user_clicked    (GtkButton       *button,
-                                        gpointer         user_data)
+on_load_user_clicked (GtkButton *button,
+		      gpointer   user_data)
 {
 	CommandEditor *ce;
 	
@@ -478,12 +546,8 @@ on_load_user_clicked    (GtkButton       *button,
 	sync_from_props (ce, ce->props_user);
 }
 
-static void
-on_help_clicked           (GtkButton       *button,
-                                        gpointer         user_data)
-{
-}
-
+#warning "G2 port: ditto"
+#if 0
 static void
 on_apply_clicked        (GtkButton       *button,
                                         gpointer         user_data)
@@ -552,17 +616,12 @@ on_cancel_clicked       (GtkButton       *button,
 	if (NULL != ce)
 		gnome_dialog_close(GNOME_DIALOG(ce->widgets.window));
 }
-
-static void
-on_ok_clicked           (GtkButton       *button,
-                                        gpointer         user_data)
-{
-	on_apply_clicked (NULL, user_data);
-	on_cancel_clicked(NULL, user_data);
-}
+#endif
 
 static gboolean
-on_close (GtkWidget *w, gpointer *user_data) {
+on_close (GtkWidget *w,
+	  gpointer   user_data)
+{
 	CommandEditor *ce = (CommandEditor *)user_data;
 	g_return_val_if_fail ((ce != NULL), FALSE);
 	command_editor_hide(ce);
@@ -577,343 +636,6 @@ get_label_max_width(GtkWidget *widget, gint size)
 
 	gtk_widget_size_request(widget, &requisition);
 	return MAX(size, requisition.width);
-}
-
-static void
-create_command_editor_gui (CommandEditor *ce)
-{
-#if 0
-	GtkWidget *dialog1;
-	GtkWidget *dialog_vbox1;
-	GtkWidget *frame1;
-	GtkWidget *table1;
-	GtkWidget *label1;
-	GtkWidget *combo1;
-	GtkWidget *combo_entry1;
-	GtkWidget *frame2;
-	GtkWidget *table3;
-	GtkWidget *label2;
-	GtkWidget *label2a;
-	GtkWidget *label3;
-	GtkWidget *label4;
-	GtkWidget *entry1;
-	GtkWidget *entry1a;
-	GtkWidget *entry2;
-	GtkWidget *entry3;
-	GtkWidget *frame3;
-	GtkWidget *table4;
-	GtkWidget *label5;
-	GtkWidget *label6;
-	GtkWidget *label7;
-	GtkWidget *label8;
-	GtkWidget *terminal_combo;
-	GtkWidget *entry4;
-	GtkWidget *entry5;
-	GtkWidget *entry6;
-	GtkWidget *entry7;
-	GtkWidget *button4;
-	GtkWidget *button5;
-	GtkWidget *dialog_action_area1;
-	GtkWidget *button1;
-	GtkWidget *button2;
-	GtkWidget *button3;
-	GtkWidget *button6;
-	GList* list = NULL;
-	gint i;
-	gint label_max_width;
-
-	dialog1 = gnome_dialog_new (_("Commands"), NULL);
-	gtk_window_set_policy (GTK_WINDOW (dialog1), FALSE, FALSE, FALSE);
-	gtk_window_set_wmclass (GTK_WINDOW (dialog1), "commands", "Anjuta");
-	gnome_dialog_close_hides (GNOME_DIALOG (dialog1), TRUE);
-	
-	dialog_vbox1 = GNOME_DIALOG (dialog1)->vbox;
-	gtk_widget_show (dialog_vbox1);
-	gtk_widget_set_usize (dialog_vbox1, 681, -2);
-	
-	frame1 = gtk_frame_new (NULL);
-	gtk_widget_show (frame1);
-	gtk_box_pack_start (GTK_BOX (dialog_vbox1), frame1, TRUE, TRUE, 0);
-	
-	table1 = gtk_table_new (4, 2, FALSE);
-	gtk_widget_show (table1);
-	gtk_container_add (GTK_CONTAINER (frame1), table1);
-	gtk_container_set_border_width (GTK_CONTAINER (table1), 5);
-	
-	label1 = gtk_label_new (_("Select programming language:"));
-	gtk_widget_show (label1);
-	gtk_table_attach (GTK_TABLE (table1), label1, 0, 1, 0, 1,
-		    (GtkAttachOptions) (0),
-		    (GtkAttachOptions) (0), 0, 0);
-	gtk_misc_set_padding (GTK_MISC (label1), 5, 0);
-	gtk_misc_set_alignment (GTK_MISC (label1), 0, -1);
-	
-	combo1 = gtk_combo_new ();
-	gtk_widget_show (combo1);
-	gtk_table_attach (GTK_TABLE (table1), combo1, 1, 2, 0, 1,
-		    (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
-		    (GtkAttachOptions) (0), 0, 0);
-	gtk_container_set_border_width (GTK_CONTAINER (combo1), 5);
-	gtk_entry_set_editable (GTK_ENTRY(GTK_COMBO(combo1)->entry), FALSE);
-
-	for (i = 0;; i+=2)
-	{
-		if (prog_language_map[i] == NULL) break;
-			list = g_list_append (list, prog_language_map[i]);
-	}
-	gtk_combo_set_popdown_strings (GTK_COMBO (combo1), list);
-	g_list_free (list);
-	combo_entry1 = GTK_COMBO (combo1)->entry;
-	gtk_widget_show (combo_entry1);
-	
-	frame2 = gtk_frame_new (_(" Language specific commands "));
-	gtk_widget_show (frame2);
-	gtk_table_attach (GTK_TABLE (table1), frame2, 0, 2, 1, 2,
-		    (GtkAttachOptions) (GTK_FILL),
-		    (GtkAttachOptions) (GTK_FILL), 0, 0);
-	gtk_container_set_border_width (GTK_CONTAINER (frame2), 5);
-	
-	table3 = gtk_table_new (4, 2, FALSE);
-	gtk_widget_show (table3);
-	gtk_container_add (GTK_CONTAINER (frame2), table3);
-	gtk_container_set_border_width (GTK_CONTAINER (table3), 5);
-	gtk_table_set_row_spacings (GTK_TABLE (table3), 5);
-	gtk_table_set_col_spacings (GTK_TABLE (table3), 5);
-	
-	label2 = gtk_label_new (_("Compile File:"));
-	gtk_widget_show (label2);
-	gtk_table_attach (GTK_TABLE (table3), label2, 0, 1, 0, 1,
-		    (GtkAttachOptions) (0),
-		    (GtkAttachOptions) (0), 0, 0);
-	label_max_width = get_label_max_width(label2, 0);
-	gtk_misc_set_alignment (GTK_MISC (label2), 0, -1);
-
-	label2a = gtk_label_new (_("Make File:"));
-	gtk_widget_show (label2a);
-	gtk_table_attach (GTK_TABLE (table3), label2a, 0, 1, 3, 4,
-		    (GtkAttachOptions) (0),
-		    (GtkAttachOptions) (0), 0, 0);
-	label_max_width = get_label_max_width(label2a, label_max_width);
-	gtk_misc_set_alignment (GTK_MISC (label2a), 0, -1);
-
-	label3 = gtk_label_new (_("Build File:"));
-	gtk_widget_show (label3);
-	gtk_table_attach (GTK_TABLE (table3), label3, 0, 1, 1, 2,
-		    (GtkAttachOptions) (0),
-		    (GtkAttachOptions) (0), 0, 0);
-	label_max_width = get_label_max_width(label3, label_max_width);
-	gtk_misc_set_alignment (GTK_MISC (label3), 0, -1);
-	
-	label4 = gtk_label_new (_("Execute File:"));
-	gtk_widget_show (label4);
-	gtk_table_attach (GTK_TABLE (table3), label4, 0, 1, 2, 3,
-		    (GtkAttachOptions) (0),
-		    (GtkAttachOptions) (0), 0, 0);
-	label_max_width = get_label_max_width(label4, label_max_width);
-	gtk_misc_set_alignment (GTK_MISC (label4), 0, -1);
-
-	entry1 = gtk_entry_new ();
-	gtk_widget_show (entry1);
-	gtk_table_attach (GTK_TABLE (table3), entry1, 1, 2, 0, 1,
-		    (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
-		    (GtkAttachOptions) (0), 0, 0);
-	
-	entry1a = gtk_entry_new ();
-	gtk_widget_show (entry1a);
-	gtk_table_attach (GTK_TABLE (table3), entry1a, 1, 2, 3, 4,
-		    (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
-		    (GtkAttachOptions) (0), 0, 0);
-	
-	entry2 = gtk_entry_new ();
-	gtk_widget_show (entry2);
-	gtk_table_attach (GTK_TABLE (table3), entry2, 1, 2, 1, 2,
-		    (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
-		    (GtkAttachOptions) (0), 0, 0);
-	
-	entry3 = gtk_entry_new ();
-	gtk_widget_show (entry3);
-	gtk_table_attach (GTK_TABLE (table3), entry3, 1, 2, 2, 3,
-		    (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
-		    (GtkAttachOptions) (0), 0, 0);
-	
-	frame3 = gtk_frame_new (_(" General commands "));
-	gtk_widget_show (frame3);
-	gtk_table_attach (GTK_TABLE (table1), frame3, 0, 2, 2, 3,
-		    (GtkAttachOptions) (GTK_FILL),
-		    (GtkAttachOptions) (GTK_FILL), 0, 0);
-	gtk_container_set_border_width (GTK_CONTAINER (frame3), 5);
-	
-	table4 = gtk_table_new (4, 2, FALSE);
-	gtk_widget_show (table4);
-	gtk_container_add (GTK_CONTAINER (frame3), table4);
-	gtk_container_set_border_width (GTK_CONTAINER (table4), 5);
-	gtk_table_set_row_spacings (GTK_TABLE (table4), 5);
-	gtk_table_set_col_spacings (GTK_TABLE (table4), 5);
-	
-	label5 = gtk_label_new (_("Pixmap editor:"));
-	gtk_widget_show (label5);
-	gtk_table_attach (GTK_TABLE (table4), label5, 0, 1, 0, 1,
-		    (GtkAttachOptions) (0),
-		    (GtkAttachOptions) (0), 0, 0);
-	label_max_width = get_label_max_width(label5, label_max_width);
-	gtk_misc_set_alignment (GTK_MISC (label5), 0, -1);
-	
-	label6 = gtk_label_new (_("Image editor:"));
-	gtk_widget_show (label6);
-	gtk_table_attach (GTK_TABLE (table4), label6, 0, 1, 1, 2,
-		    (GtkAttachOptions) (0),
-		    (GtkAttachOptions) (0), 0, 0);
-	label_max_width = get_label_max_width(label6, label_max_width);
-	gtk_misc_set_alignment (GTK_MISC (label6), 0, -1);
-
-	label7 = gtk_label_new (_("HTML viewer:"));
-	gtk_widget_show (label7);
-	gtk_table_attach (GTK_TABLE (table4), label7, 0, 1, 2, 3,
-		    (GtkAttachOptions) (0),
-		    (GtkAttachOptions) (0), 0, 0);
-	label_max_width = get_label_max_width(label7, label_max_width);
-	gtk_misc_set_alignment (GTK_MISC (label7), 0, -1);
-
-	label8 = gtk_label_new (_("Terminal Launcher:"));
-	gtk_widget_show (label8);
-	gtk_table_attach (GTK_TABLE (table4), label8, 0, 1, 3, 4,
-		    (GtkAttachOptions) (0),
-		    (GtkAttachOptions) (0), 0, 0);
-	label_max_width = get_label_max_width(label8, label_max_width);
-	gtk_misc_set_alignment (GTK_MISC (label8), 0, -1);
-
-	label_max_width = (label_max_width > LABEL_MAX_WIDTH) ? LABEL_MAX_WIDTH : label_max_width;
-	gtk_widget_set_usize (label2, label_max_width, -2);
-	gtk_widget_set_usize (label2a, label_max_width, -2);
-	gtk_widget_set_usize (label3, label_max_width, -2);
-	gtk_widget_set_usize (label4, label_max_width, -2);
-	gtk_widget_set_usize (label5, label_max_width, -2);
-	gtk_widget_set_usize (label6, label_max_width, -2);
-	gtk_widget_set_usize (label7, label_max_width, -2);
-	gtk_widget_set_usize (label8, label_max_width, -2);
-
-	entry4 = gtk_entry_new ();
-	gtk_widget_show (entry4);
-	gtk_table_attach (GTK_TABLE (table4), entry4, 1, 2, 0, 1,
-		    (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
-		    (GtkAttachOptions) (0), 0, 0);
-
-	entry5 = gtk_entry_new ();
-	gtk_widget_show (entry5);
-	gtk_table_attach (GTK_TABLE (table4), entry5, 1, 2, 1, 2,
-		    (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
-		    (GtkAttachOptions) (0), 0, 0);
-	
-	entry6 = gtk_entry_new ();
-	gtk_widget_show (entry6);
-	gtk_table_attach (GTK_TABLE (table4), entry6, 1, 2, 2, 3,
-		    (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
-		    (GtkAttachOptions) (0), 0, 0);
-
-	/* Terminal combo */
-	terminal_combo = gtk_combo_new ();
-
-	list = NULL;
-
-	for (i = 0; term_commands[i] != NULL ; i++)
-		list = g_list_append (list, term_commands[i]);
-
-	gtk_combo_set_popdown_strings (GTK_COMBO (terminal_combo), list);
-	g_list_free (list);
-
-	gtk_widget_show (terminal_combo);
-	gtk_table_attach (GTK_TABLE (table4), terminal_combo, 1, 2, 3, 4,
-		    (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
-		    (GtkAttachOptions) (0), 0, 0);
-
-	entry7 = GTK_COMBO (terminal_combo)->entry;
-	
-	button4 = gtk_button_new_with_label (_("Load global defaults"));
-	gtk_widget_show (button4);
-	gtk_table_attach (GTK_TABLE (table1), button4, 0, 1, 3, 4,
-		    (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
-		    (GtkAttachOptions) (0), 0, 0);
-	gtk_container_set_border_width (GTK_CONTAINER (button4), 5);
-
-	button5 = gtk_button_new_with_label (_("Load user defaults"));
-	gtk_widget_show (button5);
-	gtk_table_attach (GTK_TABLE (table1), button5, 1, 2, 3, 4,
-		    (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
-		    (GtkAttachOptions) (0), 0, 0);
-	gtk_container_set_border_width (GTK_CONTAINER (button5), 5);
-
-	dialog_action_area1 = GNOME_DIALOG (dialog1)->action_area;
-	gtk_widget_show (dialog_action_area1);
-	gtk_button_box_set_layout (GTK_BUTTON_BOX (dialog_action_area1), GTK_BUTTONBOX_END);
-	gtk_button_box_set_spacing (GTK_BUTTON_BOX (dialog_action_area1), 8);
-
-	gnome_dialog_append_button (GNOME_DIALOG (dialog1), GNOME_STOCK_BUTTON_HELP);
-	button6 = g_list_last (GNOME_DIALOG (dialog1)->buttons)->data;
-	gtk_widget_show (button6);
-	GTK_WIDGET_SET_FLAGS (button6, GTK_CAN_DEFAULT);
-
-	gnome_dialog_append_button (GNOME_DIALOG (dialog1), GNOME_STOCK_BUTTON_OK);
-	button1 = g_list_last (GNOME_DIALOG (dialog1)->buttons)->data;
-	gtk_widget_show (button1);
-	GTK_WIDGET_SET_FLAGS (button1, GTK_CAN_DEFAULT);
-
-	gnome_dialog_append_button (GNOME_DIALOG (dialog1), GNOME_STOCK_BUTTON_APPLY);
-	button2 = g_list_last (GNOME_DIALOG (dialog1)->buttons)->data;
-	gtk_widget_show (button2);
-	GTK_WIDGET_SET_FLAGS (button2, GTK_CAN_DEFAULT);
-
-	gnome_dialog_append_button (GNOME_DIALOG (dialog1), GNOME_STOCK_BUTTON_CANCEL);
-	button3 = g_list_last (GNOME_DIALOG (dialog1)->buttons)->data;
-	gtk_widget_show (button3);
-	GTK_WIDGET_SET_FLAGS (button3, GTK_CAN_DEFAULT);
-
-	gtk_signal_connect (GTK_OBJECT (dialog1), "close",
-		      GTK_SIGNAL_FUNC (on_close),
-		      ce);
-	gtk_signal_connect (GTK_OBJECT (combo_entry1), "changed",
-		      GTK_SIGNAL_FUNC (on_language_entry_changed),
-		      ce);
-	gtk_signal_connect (GTK_OBJECT (button4), "clicked",
-		      GTK_SIGNAL_FUNC (on_load_global_clicked),
-		      ce);
-	gtk_signal_connect (GTK_OBJECT (button5), "clicked",
-		      GTK_SIGNAL_FUNC (on_load_user_clicked),
-		      ce);
-	gtk_signal_connect (GTK_OBJECT (button1), "clicked",
-		      GTK_SIGNAL_FUNC (on_ok_clicked),
-		      ce);
-	gtk_signal_connect (GTK_OBJECT (button2), "clicked",
-		      GTK_SIGNAL_FUNC (on_apply_clicked),
-		      ce);
-	gtk_signal_connect (GTK_OBJECT (button3), "clicked",
-		      GTK_SIGNAL_FUNC (on_cancel_clicked),
-		      ce);
-	gtk_signal_connect (GTK_OBJECT (button6), "clicked",
-		      GTK_SIGNAL_FUNC (on_help_clicked),
-		      ce);
-
-	ce->widgets.window = dialog1;
-	ce->widgets.language_combo = combo1;
-	ce->widgets.compile_entry = entry1;
-	ce->widgets.make_entry = entry1a;
-	ce->widgets.build_entry = entry2;
-	ce->widgets.execute_entry = entry3;
-	ce->widgets.pix_editor_entry = entry4;
-	ce->widgets.image_editor_entry = entry5;
-	ce->widgets.html_editor_entry = entry6;
-	ce->widgets.terminal_entry = entry7;
-
-	gtk_widget_ref (dialog1);
-	gtk_widget_ref (combo1);
-	gtk_widget_ref (entry1);
-	gtk_widget_ref (entry1a);
-	gtk_widget_ref (entry2);
-	gtk_widget_ref (entry3);
-	gtk_widget_ref (entry4);
-	gtk_widget_ref (entry5);
-	gtk_widget_ref (entry6);
-	gtk_widget_ref (entry7);
-#endif
 }
 
 /* Save and Load */
