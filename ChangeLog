@@ -1,3 +1,7 @@
+2002-02-21  Stanislav Visnovsky  <visnovsky@nenya.ms.mff.cuni.cz>
+
+	* configure.in: Added "sk" to ALL_LINGUAS.
+
 2002-02-20  Johannes Schmid <clubfan@users.sourceforge.net>
   
 	* src/appwiz_page3.c, src/appwizard.c, src/appwizard_cbs.c, 
