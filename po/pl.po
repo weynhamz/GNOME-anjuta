@@ -9,8 +9,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
-"POT-Creation-Date: 2001-10-30 23:50+0100\n"
-"PO-Revision-Date: 2001-10-30 23:51+0200\n"
+"POT-Creation-Date: 2001-11-05 14:02+0100\n"
+"PO-Revision-Date: 2001-11-05 21:47+0100\n"
 "Last-Translator: GNOME PL Team <translators@gnome.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -437,7 +437,7 @@ msgstr "Funkcja"
 
 #: src/breakpoints_gui.c:1 src/signals_gui.c:1
 msgid "Pass"
-msgstr ""
+msgstr "Przebieg"
 
 #: src/breakpoints_gui.c:1
 msgid "Condition"
@@ -631,15 +631,15 @@ msgstr "Budowanie wszystkich plików zakoñczone ... powodzeniem"
 
 #: src/build_project.c:1
 msgid "Build-Distribution completed...............Unsuccessful\n"
-msgstr ""
+msgstr "Budowanie dystrybucji zakoñczone...............niepowodzeniem\n"
 
 #: src/build_project.c:1
 msgid "Build-Distribution completed ... unsuccessful"
-msgstr ""
+msgstr "Budowanie dystrybucji zakoñczone ... niepowodzeniem"
 
 #: src/build_project.c:1
 msgid "Build-Distribution completed...............Successful\n"
-msgstr ""
+msgstr "Budowanie dystrybucji zakoñczone...............powodzeniem\n"
 
 #: src/build_project.c:1
 msgid ""
@@ -648,7 +648,7 @@ msgstr "Archiwum tar odnajdziesz w g³ównym katalogu projektu\n"
 
 #: src/build_project.c:1
 msgid "Build-Distribution completed ... successful"
-msgstr ""
+msgstr "Budowanie dystrybucji zakoñczone ... powodzeniem"
 
 #: src/build_project.c:1
 msgid "Install completed...............Unsuccessful\n"
@@ -999,73 +999,75 @@ msgid "All Warnings"
 msgstr "Wszystkie ostrze¿enia"
 
 #: src/compiler_options_gui.c:1
-msgid "Warning for Implicit declarations"
+msgid "Warning for implicit declarations"
 msgstr "Ostrze¿enia o domniemanych deklaracjach"
 
 #: src/compiler_options_gui.c:1
-msgid "Warning for mismached Return types"
+msgid "Warning for mismatched return types"
 msgstr "Ostrze¿enia o niepasuj±cych zwracanych typach zmiennych"
 
 #: src/compiler_options_gui.c:1
-msgid "Warning for Unused Variables"
+msgid "Warning for unused variables"
 msgstr "Ostrze¿enia o nieu¿ywanych zmiennych"
 
 #: src/compiler_options_gui.c:1
-msgid "Warning for unhandled Switch case with enums"
+msgid "Warning for unhandled switch case with enums"
 msgstr ""
+"Ostrze¿enia o nieobs³u¿onych przypadkach w instrukcjach switch z wyliczeniami"
 
 #: src/compiler_options_gui.c:1
-msgid "Warning for nested Comment"
+msgid "Warning for nested comment"
 msgstr "Ostrze¿enia o zagnie¿d¿onych komentarzach"
 
 #: src/compiler_options_gui.c:1
-msgid "Warning for Uninitialized variable use"
+msgid "Warning for uninitialized variable use"
 msgstr "Ostrze¿enia o u¿yciu niezainicjowanych zmiennych"
 
 #: src/compiler_options_gui.c:1
-msgid "Warning for missing Parentheses"
+msgid "Warning for missing parentheses"
 msgstr "Ostrze¿enia o brakuj±cych nawiasach"
 
 #: src/compiler_options_gui.c:1
-msgid "Warning for Un-Traditional syntax"
+msgid "Warning on differences to traditional syntax"
 msgstr "Ostrze¿enia przy napotkaniu sk³adni innej od tradycyjnej"
 
 #: src/compiler_options_gui.c:1
-msgid "Warning for Variable Shadowing"
+msgid "Warning for variable shadowing"
 msgstr "Ostrze¿enia o przykrywaniu zmiennych"
 
 #: src/compiler_options_gui.c:1
-msgid "Warning for suspected Pointer-arith"
-msgstr ""
+msgid "Warning for suspected pointer arithmetic"
+msgstr "Ostrze¿enia o podejrzanej arytmetyce na wska¼nikach"
 
 #: src/compiler_options_gui.c:1
-msgid "Warning for Missing-prototypes"
+msgid "Warning for missing prototypes"
 msgstr "Ostrze¿enia o brakuj±cych prototypach"
 
 #: src/compiler_options_gui.c:1
-msgid "Warning for Un-Inline-able declarations"
-msgstr ""
+msgid "Warning if declarations cannot be inlined"
+msgstr "Ostrze¿enia o niemo¿no¶ci rozwiniêcia deklaracji"
 
 #: src/compiler_options_gui.c:1
-msgid "Warning for Overloaded-virtuals"
-msgstr "Ostrze¿enia o przeci±¿onych funkcjach wirtualnych"
+msgid "Warning for overloaded virtuals"
+msgstr "Ostrze¿enia o przeci±¿onych metodach wirtualnych"
 
 #: src/compiler_options_gui.c:1
 msgid "No optimization"
 msgstr "Bez optymalizacji"
 
 #: src/compiler_options_gui.c:1
-msgid "Low level optimization (Machine dependent)"
+msgid "Low-level optimization (machine-dependent)"
 msgstr "Optymalizacja niskopoziomowa (zale¿na od maszyny)"
 
 #: src/compiler_options_gui.c:1
-msgid "Higher level optimization (without space-speed tradeoff)"
-msgstr "Wy¿szy poziom optymalizacji (bez zamiany zajêto¶ci pamiêci na czas)"
+msgid "Higher-level optimization (without space-speed tradeoff)"
+msgstr "Optymalizacja wysokopoziomowa (bez zamiany zajêto¶ci pamiêci na czas)"
 
 #: src/compiler_options_gui.c:1
-msgid "Fastest code optimization (Function inlined where ever possible"
+msgid "Fastest-code optimization (functions inlined whereever possible"
 msgstr ""
-"Najszybsza optymalizacja kodu (funkcje rozwijane gdzie to tylko mo¿liwe)"
+"Optymalizacja pod k±tem najszybszego kodu (rozwijanie funkcji gdzie to tylko "
+"mo¿liwe)"
 
 #: src/compiler_options_gui.c:1
 msgid "Note"
@@ -1304,7 +1306,7 @@ msgstr "Podczas wysy³ania sygna³u do procesu wyst±pi³ b³±d."
 
 #: src/executer.c:1
 msgid "Execute with arguments"
-msgstr ""
+msgstr "Uruchomienie z argumentami"
 
 #: src/executer.c:1
 msgid "Command arguments"
@@ -1327,9 +1329,9 @@ msgstr "Plik docelowy dla tego projektu jest nieznany"
 msgid "Target of this project is not executable"
 msgstr "Plik docelowy dla tego projektu nie jest plikiem wykonywalnym"
 
-#: src/executer.c:1
-msgid "Executable does not exsits for this project."
-msgstr "Plik wykonywalny nie istenieje w tym projekcie."
+#: src/executer.c:1 src/mainmenu_callbacks.c:1
+msgid "Executable does not exist for this project."
+msgstr "Nie istnieje powi±zany z tym projektem plik wykonywalny."
 
 #: src/executer.c:1
 msgid "No file or project opened."
@@ -3134,8 +3136,8 @@ msgid "_Preferences ..."
 msgstr "_Ustawienia"
 
 #: src/main_menubar_def.h:1
-msgid "Do your prefer coffee to tea? Check it out."
-msgstr "Czy chcesz kawê do herbaty? Sprawd¼ to."
+msgid "Do you prefer coffee to tea? Check it out."
+msgstr "Wolisz kawê, czy herbatê? Sprawd¼ to."
 
 #: src/main_menubar_def.h:1
 msgid "Set _Default Preferences"
@@ -3308,10 +3310,6 @@ msgstr "Czy na pewno chcesz wydrukowaæ bie¿±cy plik?"
 #: src/mainmenu_callbacks.c:1
 msgid "Tags image update successfully."
 msgstr "Obraz znaczników uaktualniony z powodzeniem."
-
-#: src/mainmenu_callbacks.c:1
-msgid "Executable does not exsits this project."
-msgstr "Plik wykonywalny nie istnieje w tym projekcie."
 
 #: src/mainmenu_callbacks.c:1
 msgid "Debugger is not running. Start it first."
