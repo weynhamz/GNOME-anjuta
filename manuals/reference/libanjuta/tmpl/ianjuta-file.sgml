@@ -33,7 +33,7 @@ ianjuta-file
 </para>
 
 @g_iface: 
-@get_filename: 
+@get_uri: 
 @open: 
 
 <!-- ##### FUNCTION ianjuta_file_error_quark ##### -->
@@ -44,23 +44,15 @@ ianjuta-file
 @Returns: 
 
 
-<!-- ##### FUNCTION ianjuta_file_get_filename ##### -->
-<para>
-
-</para>
-
-@obj: 
-@err: 
-@Returns: 
-
-
 <!-- ##### FUNCTION ianjuta_file_open ##### -->
 <para>
 
 </para>
 
 @obj: 
-@filename: 
+@uri: 
 @err: 
+<!-- # Unused Parameters # -->
+@filename: 
 
 

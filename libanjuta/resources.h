@@ -30,6 +30,8 @@ extern "C"
 GtkWidget* anjuta_res_lookup_widget (GtkWidget *widget,
 									 const gchar *widget_name);
 GtkWidget* anjuta_res_get_image (const gchar* filename);
+GtkWidget* anjuta_res_get_image_sized (const gchar* filename,
+									   gint width, gint height);
 	
 /* Do not unref the returned value  */
 GdkPixbuf* anjuta_res_get_pixbuf  (const gchar *filename);

@@ -106,6 +106,29 @@ anjuta_res_get_image (const gchar * pixfile)
 	return pixmap;
 }
 
+GtkWidget *
+anjuta_res_get_image_sized (const gchar * pixfile, gint width, gint height)
+{
+	GtkWidget *pixmap;
+	GdkPixbuf *pixbuf;
+	gchar *pathname;
+	
+	if (!pixfile || !pixfile[0])
+		return gtk_image_new ();
+
+	pathname = anjuta_res_get_pixmap_file (pixfile);
+	if (!pathname)
+	{
+		g_warning (_("Could not find application pixmap file: %s"),
+			   pixfile);
+		return gtk_image_new ();
+	}
+	pixbuf = gdk_pixbuf_new_from_file_at_size (pathname, width, height, NULL);
+	pixmap = gtk_image_new_from_pixbuf (pixbuf);
+	gdk_pixbuf_unref (pixbuf);
+	g_free (pathname);
+	return pixmap;
+}
 
 /* All the return strings MUST be freed */
 gchar *

@@ -209,7 +209,7 @@ anjuta_util_dialog_add_button (GtkDialog *dialog, const gchar* text,
 }
 
 void
-anjuta_util_dialog_error (GtkWindow *parent, gchar * mesg, ...)
+anjuta_util_dialog_error (GtkWindow *parent, const gchar *mesg, ...)
 {
 	gchar* message;
 	va_list args;
@@ -231,7 +231,7 @@ anjuta_util_dialog_error (GtkWindow *parent, gchar * mesg, ...)
 }
 
 void
-anjuta_util_dialog_warning (GtkWindow *parent, gchar * mesg, ...)
+anjuta_util_dialog_warning (GtkWindow *parent, const gchar * mesg, ...)
 {
 	gchar* message;
 	va_list args;
@@ -253,7 +253,7 @@ anjuta_util_dialog_warning (GtkWindow *parent, gchar * mesg, ...)
 }
 
 void
-anjuta_util_dialog_info (GtkWindow *parent, gchar * mesg, ...)
+anjuta_util_dialog_info (GtkWindow *parent, const gchar * mesg, ...)
 {
 	gchar* message;
 	va_list args;
@@ -275,7 +275,8 @@ anjuta_util_dialog_info (GtkWindow *parent, gchar * mesg, ...)
 }
 
 void
-anjuta_util_dialog_error_system (GtkWindow* parent, gint errnum, gchar * mesg, ... )
+anjuta_util_dialog_error_system (GtkWindow* parent, gint errnum,
+								 const gchar * mesg, ... )
 {
 	gchar* message;
 	gchar* tot_mesg;
@@ -287,7 +288,8 @@ anjuta_util_dialog_error_system (GtkWindow* parent, gint errnum, gchar * mesg, .
 	va_end (args);
 
 	if (0 != errnum) {
-		tot_mesg = g_strconcat (message, _("\nSystem: "), g_strerror(errnum), NULL);
+		tot_mesg = g_strconcat (message, _("\nSystem: "),
+								g_strerror(errnum), NULL);
 		g_free (message);
 	} else
 		tot_mesg = message;
@@ -304,7 +306,7 @@ anjuta_util_dialog_error_system (GtkWindow* parent, gint errnum, gchar * mesg, .
 }
 
 gboolean
-anjuta_util_dialog_boolean_question (GtkWindow *parent, gchar * mesg, ...)
+anjuta_util_dialog_boolean_question (GtkWindow *parent, const gchar *mesg, ...)
 {
 	gchar* message;
 	va_list args;
@@ -324,6 +326,55 @@ anjuta_util_dialog_boolean_question (GtkWindow *parent, gchar * mesg, ...)
 	g_free (message);
 	
 	return (ret == GTK_RESPONSE_YES);
+}
+
+gboolean
+anjuta_util_dialog_input (GtkWindow *parent, const gchar *prompt,
+						  gchar **return_value)
+{
+	GtkWidget *dialog, *label, *frame, *entry, *dialog_vbox;
+	gint res;
+	gchar *markup;
+
+	dialog = gtk_dialog_new_with_buttons (prompt, parent,
+										  GTK_DIALOG_DESTROY_WITH_PARENT,
+										  GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+										  GTK_STOCK_OK, GTK_RESPONSE_OK,
+										  NULL);
+	dialog_vbox = GTK_DIALOG (dialog)->vbox;
+	gtk_window_set_default_size (GTK_WINDOW (dialog), 400, -1);
+	gtk_widget_show (dialog_vbox);
+	
+	markup = g_strconcat ("<b>", prompt, "</b>", NULL);
+	label = gtk_label_new (NULL);
+	gtk_label_set_markup (GTK_LABEL (label), markup);
+	gtk_widget_show (label);
+	g_free (markup);
+	
+	frame = gtk_frame_new (NULL);
+	gtk_frame_set_label_widget (GTK_FRAME (frame), label);
+	gtk_frame_set_shadow_type (GTK_FRAME (frame), GTK_SHADOW_NONE);
+	gtk_container_set_border_width (GTK_CONTAINER (frame), 10);
+	gtk_widget_show (frame);
+	gtk_box_pack_start (GTK_BOX (dialog_vbox), frame, FALSE, FALSE, 0);
+
+	entry = gtk_entry_new ();
+	gtk_widget_show (entry);
+	gtk_container_add (GTK_CONTAINER (frame), entry);
+
+	res = gtk_dialog_run (GTK_DIALOG (dialog));
+	
+	if (gtk_entry_get_text (GTK_ENTRY (entry)) &&
+		strlen (gtk_entry_get_text (GTK_ENTRY (entry))) > 0)
+	{
+		*return_value = g_strdup (gtk_entry_get_text (GTK_ENTRY (entry)));
+	}
+	else
+	{
+		*return_value = NULL;
+	}
+	gtk_widget_destroy (dialog);	
+	return (res == GTK_RESPONSE_OK);
 }
 
 gboolean

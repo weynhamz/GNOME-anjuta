@@ -388,7 +388,23 @@ anjuta_docman_instance_init (AnjutaDocman *docman)
 static void
 anjuta_docman_class_init (AnjutaDocmanClass *klass)
 {
-
+	static gboolean initialized;
+	
+	if (!initialized)
+	{
+		initialized = TRUE;
+		
+		/* Signal */
+		g_signal_new ("editor_changed",
+			ANJUTA_TYPE_DOCMAN,
+			G_SIGNAL_RUN_LAST,
+			G_STRUCT_OFFSET (AnjutaDocmanClass, editor_changed),
+			NULL, NULL,
+			g_cclosure_marshal_VOID__OBJECT,
+			G_TYPE_NONE,
+			1,
+			G_TYPE_OBJECT);
+	}
 }
 
 GtkWidget*
@@ -541,7 +557,7 @@ anjuta_docman_remove_editor (AnjutaDocman *docman, TextEditor* te)
 	anjuta_docman_page_destroy (page);
 	
 	if (docman->priv->current_editor == te)
-		docman->priv->current_editor = NULL;
+		anjuta_docman_set_current_editor (docman, NULL);
 	
 	/* This is called to set the next active document */
 	if (GTK_NOTEBOOK (docman)->children == NULL)
@@ -576,6 +592,9 @@ void
 anjuta_docman_set_current_editor (AnjutaDocman *docman, TextEditor * te)
 {
 	TextEditor *ote = docman->priv->current_editor;
+	
+	if (ote == te)
+		return;
 	
 	if (ote != NULL)
 	{
@@ -614,16 +633,15 @@ anjuta_docman_set_current_editor (AnjutaDocman *docman, TextEditor * te)
 	{
 		const gchar *dir = g_get_home_dir();
 		chdir (dir);
-		return;
 	}
-	if (te->uri)
+	else if (te->uri)
 	{
 		gchar* dir;
 		dir = g_dirname (te->uri);
 		chdir (dir);
 		g_free (dir);
-		return;
 	}
+	g_signal_emit_by_name (G_OBJECT (docman), "editor_changed", te);
 	return;
 }
 
@@ -632,7 +650,6 @@ anjuta_docman_goto_file_line (AnjutaDocman *docman, const gchar *fname, glong li
 {
 	return anjuta_docman_goto_file_line_mark (docman, fname, lineno, TRUE);
 }
-
 
 TextEditor *
 anjuta_docman_goto_file_line_mark (AnjutaDocman *docman, const gchar *fname,

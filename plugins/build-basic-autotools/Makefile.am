@@ -13,6 +13,10 @@ plugin_in_files = anjuta-build-basic-autotools.plugin.in
 anjuta_plugindir = $(prefix)/@NO_PREFIX_PACKAGE_PLUGIN_DIR@
 anjuta_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
 
+# Plugin data files
+plugin_datadir = $(prefix)/@NO_PREFIX_PACKAGE_DATA_DIR@/build
+plugin_data_DATA = automake-c.filters
+
 # NOTE :
 # The naming convention is very intentional
 # We are forced to use the prefix 'lib' by automake and libtool

@@ -19,6 +19,7 @@
 */
 
 #include <config.h>
+#include <libgnomevfs/gnome-vfs-utils.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
 #include <libanjuta/interfaces/ianjuta-file-loader.h>
 #include <libanjuta/interfaces/ianjuta-project-manager.h>
@@ -307,7 +308,7 @@ ifile_open (IAnjutaFile *project_manager,
 			const gchar *filename, GError **err)
 {
 	GnomeVFSURI *vfs_uri;
-	gchar *dirname;
+	gchar *dirname, *vfs_dir;
 	GSList *l;
 	GValue *value;
 	
@@ -356,13 +357,16 @@ ifile_open (IAnjutaFile *project_manager,
 				  pm_plugin->project, NULL);
 	
 	/* Set project root directory */
+	vfs_dir = gnome_vfs_get_uri_from_local_path (dirname);
+	g_free (dirname);
+
 	value = g_new0 (GValue, 1);
 	g_value_init (value, G_TYPE_STRING);
-	g_value_take_string (value, dirname);
+	g_value_take_string (value, vfs_dir);
+	
 	anjuta_shell_add_value (ANJUTA_PLUGIN(pm_plugin)->shell,
-							"project_root_directory",
+							"project_root_uri",
 							value, NULL);
-	g_free (dirname);
 }
 
 static void

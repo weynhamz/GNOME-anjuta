@@ -520,6 +520,7 @@ message_view_instance_init (MessageView * self)
 	GtkCellRenderer *renderer;
 	GtkTreeViewColumn *column;
 	GtkTreeSelection *select;
+	GtkListStore *model;
 	GtkAdjustment* adj;
 
 	g_return_if_fail(self != NULL);
@@ -529,11 +530,11 @@ message_view_instance_init (MessageView * self)
 	self->privat->line_buffer = g_strdup("");
 
 	/* Create the tree widget */
+	model = gtk_list_store_new (N_COLUMNS, GDK_TYPE_COLOR,
+								G_TYPE_STRING,
+								G_TYPE_POINTER);
 	self->privat->tree_view =
-		gtk_tree_view_new_with_model (GTK_TREE_MODEL
-					      (gtk_list_store_new
-					       (N_COLUMNS, GDK_TYPE_COLOR,
-							G_TYPE_STRING, G_TYPE_POINTER)));
+		gtk_tree_view_new_with_model (GTK_TREE_MODEL (model));
 	gtk_widget_show (self->privat->tree_view);
 	gtk_tree_view_set_headers_visible (GTK_TREE_VIEW
 									   (self->privat->tree_view), FALSE);
@@ -577,12 +578,14 @@ message_view_instance_init (MessageView * self)
 	/* Connect signals */
 	g_signal_connect (G_OBJECT(self->privat->tree_view), "event", 
 					  G_CALLBACK (on_message_event), self);
-	g_signal_connect (G_OBJECT(self->privat->tree_view), "row_deleted",
+	g_signal_connect (G_OBJECT(model), "row_deleted",
 					  G_CALLBACK (on_message_row_deleted), self);
 	g_signal_connect (G_OBJECT (self->privat->tree_view), "motion-notify-event",
 					  G_CALLBACK (tooltip_motion_cb), self);
 	g_signal_connect (G_OBJECT (self->privat->tree_view), "leave-notify-event",
 					  G_CALLBACK (tooltip_leave_cb), self);
+					  
+	g_object_unref (model);
 }
 
 static void

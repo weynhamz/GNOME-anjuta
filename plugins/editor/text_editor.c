@@ -1878,32 +1878,37 @@ itext_editor_iface_init (IAnjutaEditorIface *iface)
 }
 
 static gchar*
-ifile_get_filename (IAnjutaFile *editor, GError **error)
+ifile_get_uri (IAnjutaFile *editor, GError **error)
 {
 	TextEditor *text_editor;
 	text_editor = TEXT_EDITOR(editor);
-	if (text_editor->filename)
-		return g_strdup (text_editor->filename);
-	return NULL;
+	if (text_editor->uri)
+		return g_strdup (text_editor->uri);
+	else if (text_editor->filename)
+		return gnome_vfs_get_uri_from_local_path (text_editor->filename);
+	else
+		return NULL;
 }
 
 static void
-ifile_open(IAnjutaFile *editor, const gchar* filename, GError **error)
+ifile_open (IAnjutaFile *editor, const gchar* uri, GError **error)
 {
 	/* Close current file and open new file in this editor */
 	TextEditor* text_editor;
 	text_editor = TEXT_EDITOR(editor);
+	
 	/* Do nothing if current file is not saved */
-	if (!text_editor_is_saved(text_editor))
+	if (!text_editor_is_saved (text_editor))
 		return;
-	text_editor->uri = g_strdup(filename);
+	text_editor->uri = g_strdup (uri);
+	
 	/* Remove path */
-	text_editor->filename = g_strdup(strrchr(filename, '/') + 1);
-	text_editor_load_file(text_editor);
+	text_editor->filename = g_strdup (g_basename (uri));
+	text_editor_load_file (text_editor);
 }
 
 static void
-isaveable_save(IAnjutaFileSavable* editor, GError** e)
+isaveable_save (IAnjutaFileSavable* editor, GError** e)
 {
 	TextEditor *text_editor = TEXT_EDITOR(editor);
 	if (text_editor->uri != NULL)
@@ -1911,7 +1916,7 @@ isaveable_save(IAnjutaFileSavable* editor, GError** e)
 }
 
 static void
-isavable_save_as(IAnjutaFileSavable* editor, const gchar* filename, GError** e)
+isavable_save_as (IAnjutaFileSavable* editor, const gchar* filename, GError** e)
 {
 	TextEditor *text_editor = TEXT_EDITOR(editor);
 	text_editor->uri = g_strdup(filename);
@@ -1921,14 +1926,14 @@ isavable_save_as(IAnjutaFileSavable* editor, const gchar* filename, GError** e)
 }
 
 static gboolean
-isavable_is_dirty(IAnjutaFileSavable* editor, GError** e)
+isavable_is_dirty (IAnjutaFileSavable* editor, GError** e)
 {
 	TextEditor *text_editor = TEXT_EDITOR(editor);
 	return !text_editor_is_saved(text_editor);
 }
 
 static void
-isavable_set_dirty(IAnjutaFileSavable* editor, gboolean dirty, GError** e)
+isavable_set_dirty (IAnjutaFileSavable* editor, gboolean dirty, GError** e)
 {
 	#ifdef DEBUG
 	g_warning("set_dirty: Not implemented in EditorPlugin");
@@ -1949,7 +1954,7 @@ static void
 ifile_iface_init (IAnjutaFileIface *iface)
 {
 	iface->open = ifile_open;
-	iface->get_filename = ifile_get_filename;
+	iface->get_uri = ifile_get_uri;
 }
 
 ANJUTA_TYPE_BEGIN(TextEditor, text_editor, GTK_TYPE_VBOX);

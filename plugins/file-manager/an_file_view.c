@@ -748,14 +748,20 @@ on_tree_view_selection_changed (GtkTreeSelection *sel, FileManagerPlugin *fv)
 	GValue *value;
 	
 	filename = fv_get_selected_file_path (fv);
-	uri = gnome_vfs_get_uri_from_local_path (filename);
-	g_free (filename);
-	value = g_new0 (GValue, 1);
-	g_value_init (value, G_TYPE_STRING);
-	g_value_take_string (value, uri);
-	anjuta_shell_add_value (ANJUTA_PLUGIN(fv)->shell,
-							"file_manager_current_uri",
-							value, NULL);
+	if (filename)
+	{
+		uri = gnome_vfs_get_uri_from_local_path (filename);
+		g_free (filename);
+		value = g_new0 (GValue, 1);
+		g_value_init (value, G_TYPE_STRING);
+		g_value_take_string (value, uri);
+		anjuta_shell_add_value (ANJUTA_PLUGIN(fv)->shell,
+								"file_manager_current_uri",
+								value, NULL);
+	} else {
+		anjuta_shell_remove_value (ANJUTA_PLUGIN(fv)->shell,
+								   "file_manager_current_uri", NULL);
+	}
 }
 
 void

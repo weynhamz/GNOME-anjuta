@@ -50,10 +50,12 @@ ianjuta-file-loader
 </para>
 
 @obj: 
-@filename: 
+@uri: 
 @readonly: 
 @err: 
 @Returns: 
+<!-- # Unused Parameters # -->
+@filename: 
 
 
 <!-- ##### FUNCTION ianjuta_file_loader_peek_interface ##### -->
@@ -62,8 +64,10 @@ ianjuta-file-loader
 </para>
 
 @obj: 
-@filename: 
+@uri: 
 @err: 
 @Returns: 
+<!-- # Unused Parameters # -->
+@filename: 
 
 

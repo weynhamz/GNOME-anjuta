@@ -62,8 +62,10 @@ ianjuta-file-manager
 </para>
 
 @obj: 
-@root_directory: 
+@root_uri: 
 @err: 
+<!-- # Unused Parameters # -->
+@root_directory: 
 
 
 <!-- ##### FUNCTION ianjuta_file_manager_set_selected ##### -->
@@ -72,7 +74,9 @@ ianjuta-file-manager
 </para>
 
 @obj: 
-@filename: 
+@uri: 
 @err: 
+<!-- # Unused Parameters # -->
+@filename: 
 
 

@@ -415,7 +415,13 @@ insert_header_templ(IAnjutaEditor *te)
 	gchar *name = NULL;
 	gchar mesg[256];
 	gint i;
-	gchar *filename = ianjuta_file_get_filename (IANJUTA_FILE (te), NULL);
+	const gchar *filename;
+	gchar *uri;
+	
+	uri = ianjuta_file_get_uri (IANJUTA_FILE (te), NULL);
+	filename = g_basename (uri);
+	g_free (uri);
+
 	i = strlen(filename);
 	if ( g_strcasecmp((filename) + i - 2, ".h") == 0)
 		name = g_strndup(filename, i - 2);
@@ -432,7 +438,6 @@ insert_header_templ(IAnjutaEditor *te)
 						header_template, name, "_H */\n", NULL);
 
 	g_free (name);
-	g_free (filename);
 	return buffer;
 }
 
@@ -564,9 +569,11 @@ insert_header_c (IAnjutaEditor *te, AnjutaPreferences *prefs)
 	gchar *star;
 	gchar *copyright;
 	gchar *email;
-
+	gchar *uri;
+	
 	star =  g_strnfill(75, '*');
-	tmp = ianjuta_file_get_filename (IANJUTA_FILE (te), NULL);
+	uri = ianjuta_file_get_uri (IANJUTA_FILE (te), NULL);
+	tmp = g_strdup (g_basename(uri));
 	buffer = g_strconcat("/", star, "\n *            ", tmp, "\n *\n", NULL);
 	g_free(tmp);
 	tmp = insert_d_t();

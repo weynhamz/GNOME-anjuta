@@ -77,7 +77,6 @@
 			</menu>
 			<separator name="separator3"/>
 			<menuitem name="Autocomplete" action="ActionEditAutocomplete" />
-			<menuitem name="AdvancedSearchReplace" action="ActionEditAdvancedSearch" />
 		</menu>
 		<menu name="MenuView" action="ActionMenuView">
 			<placeholder name="PlaceholderViewMenus">
@@ -154,10 +153,8 @@
 	</menubar>
 	<toolbar name="ToolbarMain">
 		<placeholder name="PlaceholderFileToolbar">
-			<toolitem name="New" action="ActionFileNew" />
 			<toolitem name="Save" action="ActionFileSave" />
 			<toolitem name="Reload" action="ActionFileReload" />
-			<toolitem name="Close" action="ActionFileClose" />
 			<separator name="separator1"/>
 			<toolitem name="Undo" action="ActionEditUndo" />
 			<toolitem name="Redo" action="ActionEditRedo" />

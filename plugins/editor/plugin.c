@@ -19,9 +19,9 @@
 */
 
 #include <config.h>
+#include <libgnomevfs/gnome-vfs-utils.h>
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-stock.h>
-
 #include <libegg/menu/egg-entry-action.h>
 // #include <libegg/toolbar/eggtoolbar.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
@@ -565,6 +565,28 @@ register_stock_icons (AnjutaPlugin *plugin)
 	REGISTER_ICON (ANJUTA_PIXMAP_BLOCK_END, ANJUTA_STOCK_BLOCK_END);
 }
 
+static void
+on_editor_changed (AnjutaDocman *docman, TextEditor *te,
+				   AnjutaPlugin *plugin)
+{
+	if (te)
+	{
+		GValue *value = g_new0 (GValue, 1);
+		g_value_init (value, G_TYPE_OBJECT);
+		g_value_set_object (value, te);
+		anjuta_shell_add_value (plugin->shell,
+								"document_manager_current_editor",
+								value, NULL);
+		g_message ("Editor Added");
+	}
+	else
+	{
+		anjuta_shell_remove_value (plugin->shell,
+								   "document_manager_current_editor", NULL);
+		g_message ("Editor Removed");
+	}
+}
+
 static gboolean
 activate_plugin (AnjutaPlugin *plugin)
 {
@@ -583,6 +605,8 @@ activate_plugin (AnjutaPlugin *plugin)
 	
 	ui = editor_plugin->ui;
 	docman = anjuta_docman_new (editor_plugin->prefs);
+	g_signal_connect (G_OBJECT (docman), "editor_changed",
+					  G_CALLBACK (on_editor_changed), plugin);
 	editor_plugin->docman = docman;
 	
 	register_stock_icons (plugin);
@@ -760,11 +784,11 @@ ianjuta_docman_get_editors (IAnjutaDocumentManager *plugin, GError **e)
 
 static void
 ianjuta_docman_goto_file_line (IAnjutaDocumentManager *plugin,
-							   const gchar *filename, gint linenum, GError **e)
+							   const gchar *uri, gint linenum, GError **e)
 {
 	AnjutaDocman *docman;
 	docman = ANJUTA_DOCMAN ((((EditorPlugin*)plugin)->docman));
-	anjuta_docman_goto_file_line (docman, filename, linenum);
+	anjuta_docman_goto_file_line (docman, uri, linenum);
 }
 
 static IAnjutaEditor*
@@ -793,22 +817,24 @@ ianjuta_document_manager_iface_init (IAnjutaDocumentManagerIface *iface)
 
 /* Implement IAnjutaFile interface */
 static void
-ifile_open(IAnjutaFile* plugin, const gchar* filename, GError** e)
+ifile_open (IAnjutaFile* plugin, const gchar* uri, GError** e)
 {
 	AnjutaDocman *docman;
 	docman = ANJUTA_DOCMAN ((((EditorPlugin*)plugin)->docman));
-	anjuta_docman_goto_file_line(docman, filename, -1);
+	anjuta_docman_goto_file_line(docman, uri, -1);
 }
 
 static gchar*
-ifile_get_filename(IAnjutaFile* plugin, GError** e)
+ifile_get_uri (IAnjutaFile* plugin, GError** e)
 {
 	AnjutaDocman *docman;
 	TextEditor* editor;
 	docman = ANJUTA_DOCMAN ((((EditorPlugin*)plugin)->docman));
-	editor = anjuta_docman_get_current_editor(docman);
+	editor = anjuta_docman_get_current_editor (docman);
 	if (editor != NULL)
-		return editor->filename;
+		return g_strdup (editor->uri);
+	else if (editor->filename)
+		return gnome_vfs_get_uri_from_local_path (editor->filename);
 	else
 		return NULL;
 }
@@ -817,7 +843,7 @@ static void
 ifile_iface_init (IAnjutaFileIface *iface)
 {
 	iface->open = ifile_open;
-	iface->get_filename = ifile_get_filename;
+	iface->get_uri = ifile_get_uri;
 }
 
 /* Implement IAnjutaFileSavable interface */	
@@ -841,7 +867,7 @@ isaveable_save(IAnjutaFileSavable* plugin, GError** e)
 }
 
 static void
-isavable_save_as(IAnjutaFileSavable* plugin, const gchar* filename, GError** e)
+isavable_save_as(IAnjutaFileSavable* plugin, const gchar* uri, GError** e)
 {
 #ifdef DEBUG
 	g_warning("save_as: Not implemented	in EditorPlugin");

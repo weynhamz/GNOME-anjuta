@@ -33,12 +33,13 @@
 </para>
 
 @g_iface: 
+@buffer_flushed: 
 @message_clicked: 
 @append: 
+@buffer_append: 
 @clear: 
 @get_all_messages: 
-@get_line: 
-@get_message: 
+@get_current_message: 
 @select_next: 
 @select_previous: 
 
@@ -56,9 +57,12 @@
 </para>
 
 @obj: 
-@message: 
+@type: 
+@summary: 
+@details: 
 @err: 
 <!-- # Unused Parameters # -->
+@message: 
 @message_view: 
 @e: 
 
@@ -76,32 +80,6 @@
 
 
 <!-- ##### FUNCTION ianjuta_message_view_get_all_messages ##### -->
-<para>
-
-</para>
-
-@obj: 
-@err: 
-@Returns: 
-<!-- # Unused Parameters # -->
-@message_view: 
-@e: 
-
-
-<!-- ##### FUNCTION ianjuta_message_view_get_line ##### -->
-<para>
-
-</para>
-
-@obj: 
-@err: 
-@Returns: 
-<!-- # Unused Parameters # -->
-@message_view: 
-@e: 
-
-
-<!-- ##### FUNCTION ianjuta_message_view_get_message ##### -->
 <para>
 
 </para>

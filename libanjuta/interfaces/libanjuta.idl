@@ -23,8 +23,8 @@
 // Implemented by all plugins that can open files
 interface IAnjutaFile
 {
-	void open (const gchar *filename);
-	gchar* get_filename ();
+	void open (const gchar *uri);
+	gchar* get_uri ();
 	
 	// Implemented by plugins which can also edit the files
 	interface IAnjutaFileSavable
@@ -33,7 +33,7 @@ interface IAnjutaFile
 		void ::save_point (gboolean entered);
 		
 		void save ();
-		void save_as (const gchar *filename);
+		void save_as (const gchar *uri);
 		
 		void set_dirty (gboolean dirty);
 		gboolean is_dirty ();
@@ -287,7 +287,7 @@ interface IAnjutaLoader
 		/**
 		 * ianjuta_file_loader_load:
 		 * @obj: Self
-		 * @filename: File to load
+		 * @uri: URI to load
 		 * @readonly: Open in readonly mode.
 		 * @err: Error propagation and reporting
 		 *
@@ -296,12 +296,12 @@ interface IAnjutaLoader
 		 * 
 		 * Return value: Plugin interface used to load the file.
 		 */
-		GObject* load (const gchar *filename, gboolean readonly);
+		GObject* load (const gchar *uri, gboolean readonly);
 		
 		/**
 		 * ianjuta_loader_peek_interface:
 		 * @obj: Self
-		 * @filename: Meta file to peek
+		 * @uri: Meta file to peek
 		 * @err: Error propagation and reporting
 		 *
 		 * Peeks the file and determines the interface which can load
@@ -309,7 +309,7 @@ interface IAnjutaLoader
 		 *
 		 * Return value: Plugin interface name that can load the file.
 		 */
-		gchar* peek_interface (const gchar *filename);
+		gchar* peek_interface (const gchar *uri);
 	}
 	
 	// StreamLoaders can deterime correct plugin to open a stream.
@@ -423,11 +423,11 @@ interface IAnjutaMessageManager
 
 interface IAnjutaFileManager
 {
-	void ::section_changed (const gchar *filename);
+	void ::section_changed (const gchar *uri);
 	
-	void set_root (const gchar *root_directory);
+	void set_root (const gchar *root_uri);
 	gchar* get_selected ();
-	void set_selected (const gchar *filename);
+	void set_selected (const gchar *uri);
 }
 
 /* interface IAnjutaLauncher
@@ -465,7 +465,7 @@ interface IAnjutaProjectManager
 
 interface IAnjutaTodo
 {
-	void load(gchar *filename);
+	void load(gchar *uri);
 }
 
 interface IAnjutaWizard

@@ -38,13 +38,15 @@ GtkWidget* anjuta_util_dialog_add_button (GtkDialog *dialog, const gchar* text,
 										  const gchar* stock_id,
 										  gint response_id);
 
-void anjuta_util_dialog_error (GtkWindow *parent, gchar * mesg, ...);
-void anjuta_util_dialog_warning (GtkWindow *parent, gchar * mesg, ...);
-void anjuta_util_dialog_info (GtkWindow *parent, gchar * mesg, ...);
+void anjuta_util_dialog_error (GtkWindow *parent, const gchar * mesg, ...);
+void anjuta_util_dialog_warning (GtkWindow *parent, const gchar * mesg, ...);
+void anjuta_util_dialog_info (GtkWindow *parent, const gchar * mesg, ...);
 void anjuta_util_dialog_error_system (GtkWindow* parent, gint errnum,
-									  gchar * mesg, ... );
+									  const gchar * mesg, ... );
 gboolean anjuta_util_dialog_boolean_question (GtkWindow *parent,
-											  gchar * mesg, ...);
+											  const gchar * mesg, ...);
+gboolean anjuta_util_dialog_input (GtkWindow *parent,
+								   const gchar *label, gchar **value);
 
 gboolean anjuta_util_prog_is_installed (gchar * prog, gboolean show);
 

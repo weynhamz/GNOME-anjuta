@@ -43,6 +43,9 @@ struct _AnjutaDocman {
 
 struct _AnjutaDocmanClass {
 	GtkNotebookClass parent_class;
+	
+	/* Signals */
+	void (*editor_changed) (TextEditor *current_editor);
 };
 
 GType anjuta_docman_get_type (void);
@@ -60,10 +63,12 @@ TextEditor* anjuta_docman_get_editor_from_path (AnjutaDocman *docman,
 
 void anjuta_docman_set_current_editor (AnjutaDocman *docman, TextEditor *te);
 
-TextEditor* anjuta_docman_goto_file_line (AnjutaDocman *docman, const gchar * fname,
+TextEditor* anjuta_docman_goto_file_line (AnjutaDocman *docman,
+										  const gchar * fname,
 										  glong lineno);
 TextEditor* anjuta_docman_goto_file_line_mark (AnjutaDocman *docman,
-											   const gchar *fname, glong lineno,
+											   const gchar *fname,
+											   glong lineno,
 											   gboolean mark);
 void anjuta_docman_show_editor (AnjutaDocman *docman, GtkWidget* te);
 

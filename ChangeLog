@@ -1,3 +1,49 @@
+2004-09-26  Naba Kumar  <naba@gnome.org>
+
+	* po/POTFILES.in: Updated, added missing files.
+
+	* .cvsignore: Updated.
+	
+	* libanjuta/anjuta-utils.[h,c]: Functions take constant parameters. Added
+	a new function to get User input text.
+	
+	* libanjuta/resources.[c,h]: Added a function to created sized image.
+	
+	* libanjuta/interfaces/libanjuta.idl: Changed parameter name to uri
+	from filename, as thats the correct representation.
+	
+	* plugins/build-basic-autotools/Makefile.am,
+	(added) plugins/build-basic-autotools/automake-c.filters,
+	plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui,
+	plugins/build-basic-autotools/build-basic-autotools.[c,h]:
+	Rearragned UI elements in the build menu. Added codes to read build
+	filter rules from external file. Implemented all build, configure,
+	autogen commands. Watches current editor and project.
+	
+	* plugins/editor/anjuta-docman.[c,h], plugins/editor/plugin.c:
+	Added editor changed signal and exports current editor value.
+	Fixed parameter names. Fixed get_uri() interface implementation to
+	return correct uri.
+	
+	* plugins/editor/anjuta-document-manager.ui: Removed unnecessary UI
+	elements.
+	
+	* plugins/file-loader/anjuta-loader-plugin.ui: Added New UI element.
+	
+	* plugins/file-manager/an_file_view.c,
+	plugins/file-manager/an_file_view.c: Exports file uri correctly.
+	
+	* plugins/file-wizard/file.c: Reads uri correctly.
+	
+	* plugins/message-view/anjuta-msgman.c: Sizes tab images properly and
+	sets the page to the new view.
+	
+	* plugins/message-view/message-view.c: Unrefs the tree model when done.
+	Fixed signal connecting.
+	
+	* plugins/project-manager/plugin.c: Changed "project_root_directory"
+	to "project_root_uri" and exports as uri.
+	
 2004-09-24  Naba Kumar  <naba@gnome.org>
 
 	* libanjuta/anjuta-ui.c: Fixed a crash bug.

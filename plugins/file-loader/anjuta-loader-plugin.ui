@@ -19,6 +19,7 @@
 	</popup>
 	<toolbar name="ToolbarMain">
 		<placeholder name="PlaceholderFileToolbar">
+			<toolitem name="New" action="ActionFileNew" />
 			<toolitem name="Open" action="ActionFileOpen" />
 		</placeholder>
 	</toolbar>

@@ -19,6 +19,7 @@
 */
 
 #include <config.h>
+#include <libgnomevfs/gnome-vfs-utils.h>
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/interfaces/ianjuta-help.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
@@ -70,14 +71,25 @@ static void
 project_root_added (AnjutaPlugin *plugin, const gchar *name,
 					const GValue *value, gpointer user_data)
 {
-	const gchar *root = g_value_get_string (value);
-	if (root)
+	FileManagerPlugin *fm_plugin;
+	const gchar *root_uri;
+
+	fm_plugin = (FileManagerPlugin *)plugin;
+	root_uri = g_value_get_string (value);
+	if (root_uri)
 	{
-		fv_set_root ((FileManagerPlugin *)plugin, root);
-		fv_refresh ((FileManagerPlugin *)plugin);
+		gchar *root_dir = gnome_vfs_get_local_path_from_uri (root_uri);
+		if (root_dir)
+		{
+			fv_set_root (fm_plugin, root_dir);
+			fv_refresh (fm_plugin);
+		}
+		else
+			set_default_root_directory (fm_plugin);
+		g_free (root_dir);
 	}
 	else
-		set_default_root_directory ((FileManagerPlugin *)plugin);
+		set_default_root_directory (fm_plugin);
 }
 
 static void
@@ -126,7 +138,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	
 	/* set up project directory watch */
 	fm_plugin->root_watch_id = anjuta_plugin_add_watch (plugin,
-									"project_root_directory",
+									"project_root_uri",
 									project_root_added,
 									project_root_removed, NULL);
 	return TRUE;

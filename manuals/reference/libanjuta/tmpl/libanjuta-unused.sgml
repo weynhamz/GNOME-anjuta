@@ -914,6 +914,37 @@ GnomeFileList
 @e: 
 @Returns: 
 
+<!-- ##### FUNCTION ianjuta_file_get_filename ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+@Returns: 
+
+<!-- ##### FUNCTION ianjuta_message_view_get_line ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+@Returns: 
+@message_view: 
+@e: 
+
+<!-- ##### FUNCTION ianjuta_message_view_get_message ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+@Returns: 
+@message_view: 
+@e: 
+
 <!-- ##### FUNCTION prop_clear ##### -->
 <para>
 

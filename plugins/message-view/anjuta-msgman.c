@@ -54,7 +54,7 @@ anjuta_msgman_page_new (GtkWidget * view, const gchar * name,
 	gtk_box_set_spacing (GTK_BOX (page->box), 5);
 	if (pixmap)
 	{
-		page->pixmap = anjuta_res_get_image (pixmap);
+		page->pixmap = anjuta_res_get_image_sized (pixmap, 16, 16);
 		g_object_ref (page->pixmap);
 		gtk_box_pack_start_defaults (GTK_BOX (page->box), page->pixmap);
 	}
@@ -168,7 +168,7 @@ anjuta_msgman_add_view (AnjutaMsgman * msgman,
 		g_list_append (msgman->priv->views, (gpointer) page);
 
 	gtk_notebook_prepend_page (GTK_NOTEBOOK (msgman), mv, page->box);
-
+	gtk_notebook_set_current_page (GTK_NOTEBOOK (msgman), 0);
 	gtk_signal_handler_unblock_by_func (GTK_OBJECT (msgman),
 					    GTK_SIGNAL_FUNC
 					    (on_notebook_switch_page), NULL);
