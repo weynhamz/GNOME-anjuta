@@ -1,5 +1,6 @@
 2003-04-01  Biswapesh Chattopadhyay  <biswapesh_chatterjee@tcscal.co.in>
-	* src/fileselection.c: Fixed bug #713749
+	* src/fileselection.c, src/goto_line.c: Fixed warnings. Patch by
+	Henry Jia
 	* ROADMAP: Added roadmap for HEAD.
 
 2003-03-29  Naba Kumar  <naba@gnome.org>
