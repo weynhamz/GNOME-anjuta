@@ -1,5 +1,7 @@
 2003-05-05  Naba Kumar  <naba@gnome.org>
 
+	* scintilla/ExterLexer.[cxx,h]: CVS added new files.
+
 	Patch from Etay Meiri <etay-m@bezeqint.net>
 	* src/debugger.c, src/debugger.h, src/main_menubar_def.h,
 	src/mainmenu_callbacks.c, src/message-manager.cc,
