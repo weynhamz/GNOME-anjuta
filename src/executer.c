@@ -241,7 +241,7 @@ executer_execute (Executer * e)
 		prog = project_dbase_get_source_target (app->project_dbase);
 		if (file_is_executable (prog) == FALSE)
 		{
-			anjuta_warning(_("Executable does not exsits for this project."));
+			anjuta_warning(_("Executable does not exist for this project."));
 			string_free (prog);
 			return;
 		}

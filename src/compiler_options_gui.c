@@ -867,7 +867,7 @@ create_compiler_options_page5 (CompilerOptions * co)
 
 	checkbutton[3] =
 		gtk_check_button_new_with_label (_
-						 ("Warning for Implicit declarations"));
+						 ("Warning for implicit declarations"));
 	gtk_widget_show (checkbutton[3]);
 	gtk_table_attach (GTK_TABLE (table2), checkbutton[3], 0, 1, 2, 3,
 			  (GtkAttachOptions) (GTK_FILL),
@@ -875,7 +875,7 @@ create_compiler_options_page5 (CompilerOptions * co)
 
 	checkbutton[4] =
 		gtk_check_button_new_with_label (_
-						 ("Warning for mismached Return types"));
+						 ("Warning for mismatched return types"));
 	gtk_widget_show (checkbutton[4]);
 	gtk_table_attach (GTK_TABLE (table2), checkbutton[4], 0, 1, 3, 4,
 			  (GtkAttachOptions) (GTK_FILL),
@@ -883,7 +883,7 @@ create_compiler_options_page5 (CompilerOptions * co)
 
 	checkbutton[5] =
 		gtk_check_button_new_with_label (_
-						 ("Warning for Unused Variables"));
+						 ("Warning for unused variables"));
 	gtk_widget_show (checkbutton[5]);
 	gtk_table_attach (GTK_TABLE (table2), checkbutton[5], 0, 1, 4, 5,
 			  (GtkAttachOptions) (GTK_FILL),
@@ -891,7 +891,7 @@ create_compiler_options_page5 (CompilerOptions * co)
 
 	checkbutton[6] =
 		gtk_check_button_new_with_label (_
-						 ("Warning for unhandled Switch case with enums"));
+						 ("Warning for unhandled switch case with enums"));
 	gtk_widget_show (checkbutton[6]);
 	gtk_table_attach (GTK_TABLE (table2), checkbutton[6], 0, 1, 5, 6,
 			  (GtkAttachOptions) (GTK_FILL),
@@ -899,7 +899,7 @@ create_compiler_options_page5 (CompilerOptions * co)
 
 	checkbutton[7] =
 		gtk_check_button_new_with_label (_
-						 ("Warning for nested Comment"));
+						 ("Warning for nested comment"));
 	gtk_widget_show (checkbutton[7]);
 	gtk_table_attach (GTK_TABLE (table2), checkbutton[7], 0, 1, 6, 7,
 			  (GtkAttachOptions) (GTK_FILL),
@@ -907,7 +907,7 @@ create_compiler_options_page5 (CompilerOptions * co)
 
 	checkbutton[8] =
 		gtk_check_button_new_with_label (_
-						 ("Warning for Uninitialized variable use"));
+						 ("Warning for uninitialized variable use"));
 	gtk_widget_show (checkbutton[8]);
 	gtk_table_attach (GTK_TABLE (table2), checkbutton[8], 0, 1, 7, 8,
 			  (GtkAttachOptions) (GTK_FILL),
@@ -915,7 +915,7 @@ create_compiler_options_page5 (CompilerOptions * co)
 
 	checkbutton[9] =
 		gtk_check_button_new_with_label (_
-						 ("Warning for missing Parentheses"));
+						 ("Warning for missing parentheses"));
 	gtk_widget_show (checkbutton[9]);
 	gtk_table_attach (GTK_TABLE (table2), checkbutton[9], 0, 1, 8, 9,
 			  (GtkAttachOptions) (GTK_FILL),
@@ -923,7 +923,7 @@ create_compiler_options_page5 (CompilerOptions * co)
 
 	checkbutton[10] =
 		gtk_check_button_new_with_label (_
-						 ("Warning for Un-Traditional syntax"));
+						 ("Warning on differences to traditional syntax"));
 	gtk_widget_show (checkbutton[10]);
 	gtk_table_attach (GTK_TABLE (table2), checkbutton[10], 0, 1, 9, 10,
 			  (GtkAttachOptions) (GTK_FILL),
@@ -931,7 +931,7 @@ create_compiler_options_page5 (CompilerOptions * co)
 
 	checkbutton[11] =
 		gtk_check_button_new_with_label (_
-						 ("Warning for Variable Shadowing"));
+						 ("Warning for variable shadowing"));
 	gtk_widget_show (checkbutton[11]);
 	gtk_table_attach (GTK_TABLE (table2), checkbutton[11], 0, 1, 10, 11,
 			  (GtkAttachOptions) (GTK_FILL),
@@ -939,7 +939,7 @@ create_compiler_options_page5 (CompilerOptions * co)
 
 	checkbutton[12] =
 		gtk_check_button_new_with_label (_
-						 ("Warning for suspected Pointer-arith"));
+						 ("Warning for suspected pointer arithmetic"));
 	gtk_widget_show (checkbutton[12]);
 	gtk_table_attach (GTK_TABLE (table2), checkbutton[12], 0, 1, 11, 12,
 			  (GtkAttachOptions) (GTK_FILL),
@@ -947,7 +947,7 @@ create_compiler_options_page5 (CompilerOptions * co)
 
 	checkbutton[13] =
 		gtk_check_button_new_with_label (_
-						 ("Warning for Missing-prototypes"));
+						 ("Warning for missing prototypes"));
 	gtk_widget_show (checkbutton[13]);
 	gtk_table_attach (GTK_TABLE (table2), checkbutton[13], 0, 1, 12, 13,
 			  (GtkAttachOptions) (GTK_FILL),
@@ -955,7 +955,7 @@ create_compiler_options_page5 (CompilerOptions * co)
 
 	checkbutton[14] =
 		gtk_check_button_new_with_label (_
-						 ("Warning for Un-Inline-able declarations"));
+						 ("Warning if declarations cannot be inlined"));
 	gtk_widget_show (checkbutton[14]);
 	gtk_table_attach (GTK_TABLE (table2), checkbutton[14], 0, 1, 13, 14,
 			  (GtkAttachOptions) (GTK_FILL),
@@ -963,7 +963,7 @@ create_compiler_options_page5 (CompilerOptions * co)
 
 	checkbutton[15] =
 		gtk_check_button_new_with_label (_
-						 ("Warning for Overloaded-virtuals"));
+						 ("Warning for overloaded virtuals"));
 	gtk_widget_show (checkbutton[15]);
 	gtk_table_attach (GTK_TABLE (table2), checkbutton[15], 0, 1, 14, 15,
 			  (GtkAttachOptions) (GTK_FILL),
@@ -1009,7 +1009,7 @@ create_compiler_options_page6 (CompilerOptions * co)
 	radiobutton[1] =
 		gtk_radio_button_new_with_label (vbox2_group,
 						 _
-						 ("Low level optimization (Machine dependent)"));
+						 ("Low-level optimization (machine-dependent)"));
 	vbox2_group =
 		gtk_radio_button_group (GTK_RADIO_BUTTON (radiobutton[1]));
 	gtk_widget_show (radiobutton[1]);
@@ -1019,7 +1019,7 @@ create_compiler_options_page6 (CompilerOptions * co)
 	radiobutton[2] =
 		gtk_radio_button_new_with_label (vbox2_group,
 						 _
-						 ("Higher level optimization (without space-speed tradeoff)"));
+						 ("Higher-level optimization (without space-speed tradeoff)"));
 	vbox2_group =
 		gtk_radio_button_group (GTK_RADIO_BUTTON (radiobutton[2]));
 	gtk_widget_show (radiobutton[2]);
@@ -1029,7 +1029,7 @@ create_compiler_options_page6 (CompilerOptions * co)
 	radiobutton[3] =
 		gtk_radio_button_new_with_label (vbox2_group,
 						 _
-						 ("Fastest code optimization (Function inlined where ever possible"));
+						 ("Fastest-code optimization (functions inlined whereever possible"));
 	vbox2_group =
 		gtk_radio_button_group (GTK_RADIO_BUTTON (radiobutton[3]));
 	gtk_widget_show (radiobutton[3]);

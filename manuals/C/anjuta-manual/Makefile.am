@@ -60,7 +60,9 @@ sgml_ents =\
 	chapter12.sgml\
     chapter13.sgml\
     chapter14.sgml\
-    chapter15.sgml
+    chapter15.sgml\
+	authors.sgml\
+	license.sgml
 
 docname = anjuta-manual
 lang = C

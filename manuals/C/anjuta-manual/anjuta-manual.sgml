@@ -14,14 +14,18 @@
 <!ENTITY chapter13 SYSTEM "chapter13.sgml">
 <!ENTITY chapter14 SYSTEM "chapter14.sgml">
 <!ENTITY chapter15 SYSTEM "chapter15.sgml">
+<!ENTITY authors SYSTEM "authors.sgml">
+<!ENTITY license SYSTEM "license.sgml">
 ]>
 
 <!-- =============Document Header ============================= -->
 <book id="index">
  <bookinfo>
-  <title>Anjuta C/C++ IDE Manual</title>
-  <edition>v0.0.2</edition>
-  <authorgroup>
+  <title>Anjuta IDE Manual</title>
+  <edition>v0.0.3</edition>
+
+<!--  other GNOME docs do not have this
+<authorgroup>
    <author>
     <firstname>Naba</firstname>
     <surname>Kumar</surname>
@@ -34,20 +38,19 @@
     </authorblurb>
    </author>
   </authorgroup>
-  
+-->  
+
   <copyright>
    <year>2001</year>
    <holder>Naba Kumar</holder>
   </copyright>
 
-  <!-- translators: uncomment this:
-
+<!-- translators: uncomment this:
   <copyright>
    <year>2001</year>
    <holder>ME-THE-TRANSLATOR </holder>
   </copyright>
-
-  -->
+-->
   
   <legalnotice>
    <para>
@@ -73,7 +76,7 @@
 
   <!-- this is the version of manual, not application --> 
   <releaseinfo>
-   This is version 0.0.2 of the Anjuta C/C++ IDE Manual.
+   This is version 0.0.3 of the Anjuta IDE Manual
   </releaseinfo>
  </bookinfo>
  <!-- Document Body -->
@@ -105,6 +108,10 @@
  &chapter13;
  <!-- Preferences -->
  &chapter14;
- <!-- Information -->
+ <!-- empty -->
  &chapter15;
+ <!-- Authors -->
+ &authors;
+ <!-- License -->
+ &license;
 </book>

@@ -1424,7 +1424,7 @@ static GnomeUIInfo settings1_menu_uiinfo[] = {
 	GNOMEUIINFO_SEPARATOR,
 	{
 	 GNOME_APP_UI_ITEM, N_("_Preferences ..."),
-	 N_("Do your prefer coffee to tea? Check it out."),
+	 N_("Do you prefer coffee to tea? Check it out."),
 	 on_set_preferences1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_PROP,
 	 0, 0, NULL},

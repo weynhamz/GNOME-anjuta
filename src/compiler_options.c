@@ -142,7 +142,7 @@ static char *optimize_button_option[] = {
 
 static char *other_button_option[] = {
 	" -g",
-	" -p",
+	" -pg",
 };
 
 GdkPixmap *list_unselect_pixmap, *list_select_pixmap;

@@ -1550,7 +1550,7 @@ on_debugger_start_activate (GtkMenuItem * menuitem, gpointer user_data)
 		prog = project_dbase_get_source_target (app->project_dbase);
 		if (file_is_executable (prog) == FALSE)
 		{
-			anjuta_warning(_("Executable does not exsits this project."));
+			anjuta_warning(_("Executable does not exist for this project."));
 			g_free (prog);
 			prog = NULL;
 		}

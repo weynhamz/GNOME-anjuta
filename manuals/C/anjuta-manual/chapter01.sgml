@@ -1,6 +1,6 @@
  <!-- ============= Introduction ============================== -->
  <chapter id="introduction">
-  <title>Introduction to Anjuta</title>
+  <title>Introduction</title>
   <para>
   <application>Anjuta</application> is a versatile Integrated Development Environment 
   (IDE) for C and C++ on GNU/Linux. It has been written for GTK/GNOME, and features 
@@ -8,14 +8,13 @@
   collection of command line programming utilities and tools available for Linux. 
   These are usually run via a text console, and can be unfriendly to use.
   </para>
+
   <para>
   <application>Anjuta</application> is an effort to marry the flexibility and power 
-  of text-based command line tools with the ease-of-use of GNOME's graphical user 
-  interface. That's why it has been made as user-friendly as possible.
+  of text-based command line tools with the ease-of-use of the GNOME graphical user 
+  interface. That is why it has been made as user-friendly as possible.
   </para>
-  <para>
-   Please have a look at the screenshot.
-  </para>
+
   <para>
   <figure id="anjuta-scrshot">
    <title>Anjuta in action</title>
@@ -27,15 +26,8 @@
   </para>
 
   <para>
-  At present, <application>Anjuta</application> is only a beta release and lots of 
-  work needs to be done to improve it. In the future, <application>Anjuta</application> 
-  is going to be much more capable and stable! Extensive debugging has not 
-  yet been performed, so at the moment it will undoubtedly have lots of bugs. 
-  It would be great if you use it and report any problems to us. 
-  That way, you will be helping to improve the software as well as helping the Open 
-  Source community.
-  </para>
-  <para>
-   Any suggestions or patches for <application>Anjuta</application> are also most welcome.
+  At present, <application>Anjuta</application> is only a beta release, and a lot of 
+  work needs to be done to improve it. Please report any problems - this will help to 
+  improve the software, as well as helping the Open Source community.
   </para>
  </chapter>

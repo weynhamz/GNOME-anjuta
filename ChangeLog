@@ -1,3 +1,17 @@
+2001-11-01	Andy Piper	<andy.piper@freeuk.com>
+
+	* src/executer.c, mainmenu_callbacks.c: patch from Dan Elphick
+	  (<dre00r@ecs.soton.ac.uk>) to correct a spelling mistake
+	* THANKS: updated
+	* manuals/C/anjuta-manual/*: new format to match
+	  the rest of the GNOME docs chapter layout. Added the many
+	  new contributors. Moved Authors and License information into new
+	  chapters of their own - should make expansion easier too
+	* src/compiler_options.c: changed the profiler option to -pg to 
+	  work with GNU tools (gprof)
+	* src/compiler_options_gui.c, main_menubar_def.h: tidied some messages 
+	  and text labels
+	
 2001-10-29  Naba Kumar <kh_naba@users.sourceforge.net>
 
 	* src/compiler_options.h, compiler_options.c, compiler_options_cbs.c
