@@ -265,10 +265,10 @@ executer_execute (Executer * e)
 		if (file_is_executable (prog) == FALSE)
 		{
 			anjuta_warning(_("The target executable does not exist for this Project"));
-			string_free (prog);
+			g_free (prog);
 			return;
 		}
-		string_free (prog);
+		g_free (prog);
 	}
 	else  /* File mode checks */
 	{
@@ -298,7 +298,7 @@ executer_execute (Executer * e)
 				*(--temp) = '\0';
 			s_re = stat (te->full_filename, &s_stat);
 			e_re = stat (prog, &e_stat);
-			string_free (prog);
+			g_free (prog);
 			if ((e_re != 0) || (s_re != 0))
 			{
 				anjuta_warning(_("No executable for this file."));
@@ -346,7 +346,7 @@ executer_execute (Executer * e)
 		dir = g_dirname (te->full_filename);
 	}
 	command = g_strconcat ("anjuta_launcher ", cmd, NULL);
-	string_free (cmd);
+	g_free (cmd);
 
 #ifdef DEBUG
 	g_message("Raw Command is: %s", command);
@@ -379,9 +379,9 @@ executer_execute (Executer * e)
 	anjuta_set_execution_dir (dir);
 	if (dir) chdir (dir);
 	gnome_execute_shell (dir, cmd);
-	string_free (dir);
-	string_free (command);
-	string_free (cmd);
+	g_free (dir);
+	g_free (command);
+	g_free (cmd);
 }
 
 

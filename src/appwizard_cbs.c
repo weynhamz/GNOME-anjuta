@@ -45,7 +45,7 @@ on_aw_text_entry_changed (GtkEditable * editable, gpointer user_data)
 		return;
 	if (strlen (text) == 0)
 		string_assign (strp, NULL);
-	string_free (text);
+	g_free (text);
 }
 
 void
@@ -228,7 +228,7 @@ on_druidpagestandard3_next (GnomeDruidPage *
 	aw = user_data;
 
 
-	string_free (aw->description);
+	g_free (aw->description);
 	aw->description = gtk_editable_get_chars (GTK_EDITABLE (aw->widgets.description_text), 0, -1);
 	return FALSE;
 }

@@ -105,8 +105,6 @@ gboolean parse_error_line(const gchar *line, gchar **filename, int *lineno);
 /*  Functions that do not dynamic allocate memory. Return value should not be g_freed */
 /***********************************************************************************/
 
-void string_free(gchar* str);
-
 /* Get a fixed font */
 GdkFont* get_fixed_font (void);
 

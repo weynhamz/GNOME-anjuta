@@ -2170,7 +2170,7 @@ on_hilite_style_entry_changed (GtkEditable * editable, gpointer user_data)
 		if (fontpicker_get_font_name (p->widgets.font_picker, &str))
 		{
 			style_data_set_font (p->current_style, str);
-			string_free (str);
+			g_free (str);
 		}
 		else
 		{

@@ -47,7 +47,7 @@ on_prj_name_entry_changed (GtkEditable * editable, gpointer user_data)
 	else
 		gtk_entry_set_text (GTK_ENTRY (aw->widgets.target_entry), "");
 	string_assign (&aw->target, text);
-	string_free (text);
+	g_free (text);
 }
 
 static gboolean

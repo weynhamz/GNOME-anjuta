@@ -182,13 +182,13 @@ create_project_type_selection_page (GnomeDruid * druid, GtkWidget ** iconlist)
 		gnome_icon_list_append (GNOME_ICON_LIST (iconlist1),
 					icon7_file, _("LibGlade project"));
 
-	string_free (icon1_file);
-	string_free (icon2_file);
-	string_free (icon3_file);
-	string_free (icon4_file);
-	string_free (icon5_file);
-	string_free (icon6_file);
-	string_free (icon7_file);
+	g_free (icon1_file);
+	g_free (icon2_file);
+	g_free (icon3_file);
+	g_free (icon4_file);
+	g_free (icon5_file);
+	g_free (icon6_file);
+	g_free (icon7_file);
 
 	*iconlist = iconlist1;
 	return page;

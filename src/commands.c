@@ -178,25 +178,25 @@ sync_from_props (CommandEditor *ce, PropsID pr)
 		str = prop_get (pr, key);
 		g_free (key);
 		string_assign (&cdata->compile, str);
-		string_free (str);
+		g_free (str);
 		
 		key = get_key_for_file_command (MAKE_INDEX, prog_language_map[i+1]);
 		str = prop_get (pr, key);
 		g_free (key);
 		string_assign (&cdata->make, str);
-		string_free (str);
+		g_free (str);
 
 		key = get_key_for_file_command (BUILD_INDEX, prog_language_map[i+1]);
 		str = prop_get (pr, key);
 		g_free (key);
 		string_assign (&cdata->build, str);
-		string_free (str);
+		g_free (str);
 		
 		key = get_key_for_file_command (EXECUTE_INDEX, prog_language_map[i+1]);
 		str = prop_get (pr, key);
 		g_free (key);
 		string_assign (&cdata->execute, str);
-		string_free (str);
+		g_free (str);
 		
 		/* Yes, prog_language_map[i] and not [i+1] */
 		string_assign (&cdata->key, prog_language_map[i]);
@@ -210,19 +210,19 @@ sync_from_props (CommandEditor *ce, PropsID pr)
 	str = prop_get (pr, key);
 	g_free (key);
 	gtk_entry_set_text (GTK_ENTRY(ce->widgets.pix_editor_entry), str);
-	string_free (str);
+	g_free (str);
 
 	key = get_key_for_file_command (OPEN_INDEX, "image");
 	str = prop_get (pr, key);
 	g_free (key);
 	gtk_entry_set_text (GTK_ENTRY(ce->widgets.image_editor_entry), str);
-	string_free (str);
+	g_free (str);
 
 	key = get_key_for_file_command (VIEW_INDEX, "html");
 	str = prop_get (pr, key);
 	g_free (key);
 	gtk_entry_set_text (GTK_ENTRY(ce->widgets.html_editor_entry), str);
-	string_free (str);
+	g_free (str);
 }
 
 /* ----- */
@@ -274,7 +274,7 @@ command_editor_save (CommandEditor *ce, FILE* s)
 		if (str)
 		{
 			if (fprintf (s, "%s=%s\n", key, str) < 2) return FALSE;
-			string_free (str);
+			g_free (str);
 		}
 		else
 		{
@@ -287,7 +287,7 @@ command_editor_save (CommandEditor *ce, FILE* s)
 		if (str)
 		{
 			if (fprintf (s, "%s=%s\n", key, str) < 2) return FALSE;
-			string_free (str);
+			g_free (str);
 		}
 		else
 		{
@@ -300,7 +300,7 @@ command_editor_save (CommandEditor *ce, FILE* s)
 		if (str)
 		{
 			if (fprintf (s, "%s=%s\n", key, str) < 2) return FALSE;
-			string_free (str);
+			g_free (str);
 		}
 		else
 		{
@@ -313,7 +313,7 @@ command_editor_save (CommandEditor *ce, FILE* s)
 		if (str)
 		{
 			if (fprintf (s, "%s=%s\n", key, str) < 2) return FALSE;
-			string_free (str);
+			g_free (str);
 		}
 		else
 		{
@@ -327,7 +327,7 @@ command_editor_save (CommandEditor *ce, FILE* s)
 	if (str)
 	{
 		if (fprintf (s, "%s=%s\n", key, str) < 2) return FALSE;
-		string_free (str);
+		g_free (str);
 	}
 	else
 	{
@@ -340,7 +340,7 @@ command_editor_save (CommandEditor *ce, FILE* s)
 	if (str)
 	{
 		if (fprintf (s, "%s=%s\n", key, str) < 2) return FALSE;
-		string_free (str);
+		g_free (str);
 	}
 	else
 	{
@@ -353,7 +353,7 @@ command_editor_save (CommandEditor *ce, FILE* s)
 	if (str)
 	{
 		if (fprintf (s, "%s=%s\n", key, str) < 2) return FALSE;
-		string_free (str);
+		g_free (str);
 	}
 	else
 	{

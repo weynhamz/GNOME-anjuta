@@ -2142,7 +2142,7 @@ done:
 	else
 		prop_set_with_key (app->preferences->props,
 			"anjuta.program.parameters", "");
-	string_free (str);		
+	g_free (str);		
 	p->is_saved = TRUE;
 	p->top_proj_dir = g_dirname (p->proj_filename);
 	

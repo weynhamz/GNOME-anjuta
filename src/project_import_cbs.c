@@ -129,10 +129,10 @@ on_page4_next (GnomeDruidPage * page4, gpointer arg1, gpointer data)
 	
 	/* It is necessary to free the link, because they are all allocated
 	string */
-	string_free(piw->prj_name);
-	string_free(piw->prj_author);
-	string_free(piw->prj_version);
-	string_free(piw->prj_source_target);
+	g_free(piw->prj_name);
+	g_free(piw->prj_author);
+	g_free(piw->prj_version);
+	g_free(piw->prj_source_target);
 	
 	/* And re-alloc them, to stay on the track */
 	piw->prj_name =	g_strdup(name);
@@ -149,7 +149,7 @@ on_page5_next (GnomeDruidPage * page, gpointer arg1, gpointer data)
 	ProjectImportWizard *piw = (ProjectImportWizard *) data;
 	g_assert (data != NULL);
 
-	string_free (piw->prj_description);
+	g_free (piw->prj_description);
 	piw->prj_description =
 		gtk_editable_get_chars (GTK_EDITABLE
 					(piw->widgets.description_text), 0,
@@ -207,7 +207,7 @@ on_page6_next (GnomeDruidPage * page, gpointer arg1, gpointer data)
 					      (piw->widgets.
 					       gettext_support_check));
 	
-	string_free (piw->prj_menu_icon);
+	g_free (piw->prj_menu_icon);
 	piw->prj_menu_icon = NULL;
 	icon = gnome_icon_entry_get_filename (GNOME_ICON_ENTRY
 					      (piw->widgets.icon_entry));
@@ -376,7 +376,7 @@ on_prj_name_entry_changed (GtkEditable * editable, gpointer user_data)
 	else
 		gtk_entry_set_text (GTK_ENTRY (piw->widgets.target_entry),
 				    "");
-	string_free (text);
+	g_free (text);
 }
 
 gboolean
@@ -467,5 +467,5 @@ on_piw_text_entry_changed (GtkEditable * editable, gpointer user_data)
 		return;
 	if (strlen (text) == 0)
 		string_assign (strp, NULL);
-	string_free (text);
+	g_free (text);
 }

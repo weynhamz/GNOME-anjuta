@@ -1017,12 +1017,6 @@ glist_strings_dup (GList * list)
 }
 
 void
-string_free(gchar* str)
-{
-	if (str) g_free(str);
-}
-
-void
 string_assign (gchar ** string, gchar * value)
 {
 	if (*string)
