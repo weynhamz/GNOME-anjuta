@@ -167,7 +167,7 @@ launcher_scan_error ()
   else if (n == 0)			/* The pipe is closed on the other side */
   {
     #ifdef DEBUG
-      printf("launcher_scan_error - EOF\n");
+      g_warning("launcher_scan_error - EOF");
     #endif
     launcher.stderr_is_done = TRUE;
   }
@@ -227,8 +227,6 @@ launcher_scan_pty()
 /* call regularly scheduled by a gtk_timeout_add - stops upon first FALSE return value */
 static gint launcher_poll_inputs_on_idle (gpointer data)
 {
-  gboolean ret;
-	
   if (launcher.stderr_is_done == FALSE) {
     launcher_scan_error ();
   }
@@ -241,7 +239,6 @@ static gint launcher_poll_inputs_on_idle (gpointer data)
 		launcher.pty_is_done = TRUE;
 	}
   }
-
   /* keep running me as long as there is at least one not done yet */
   return (!launcher.stderr_is_done || !launcher.stdout_is_done || !launcher.pty_is_done);
 }
