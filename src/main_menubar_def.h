@@ -919,7 +919,19 @@ static GnomeUIInfo hilitetype1_submenu_uiinfo[NUM_HILITE_SUBMENUS+1] = {
 	 on_force_hilite1_activate, GUINT_TO_POINTER (TE_LEXER_BAAN), NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
-	GNOMEUIINFO_END/*25*/
+	{/*25*/
+	 GNOME_APP_UI_ITEM, N_("Ruby"),
+	 N_("Force the highlight style to Ruby"),
+	 on_force_hilite1_activate, GUINT_TO_POINTER (TE_LEXER_BAAN), NULL,
+	 GNOME_APP_PIXMAP_NONE, NULL,
+	 0, 0, NULL},
+	{/*26*/
+	 GNOME_APP_UI_ITEM, N_("Matlab"),
+	 N_("Force the highlight style to Matlab"),
+	 on_force_hilite1_activate, GUINT_TO_POINTER (TE_LEXER_BAAN), NULL,
+	 GNOME_APP_PIXMAP_NONE, NULL,
+	 0, 0, NULL},
+	GNOMEUIINFO_END/*27*/
 };
 
 #define NUM_FORMAT_SUBMENUS 13

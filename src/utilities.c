@@ -400,6 +400,10 @@ FileExtType get_file_ext_type (gchar * file)
 	{
 		filetype = FILE_TYPE_LISP;
 	}
+	else if (strcmp (filetype_str, "matlab") == 0)
+	{
+		filetype = FILE_TYPE_MATLAB;
+	}
 	else
 	{
 		filetype = FILE_TYPE_UNKNOWN;

@@ -1846,6 +1846,10 @@ void AnEditor::ReadProperties(const char *fileForExt) {
 		lexLanguage = SCLEX_ADA;
 	} else if (language == "lisp") {
 		lexLanguage = SCLEX_LISP;
+	} else if (language == "ruby") {
+		lexLanguage = SCLEX_RUBY;
+	} else if (language == "matlab") {
+		lexLanguage = SCLEX_MATLAB;
 	} else {
 		lexLanguage = SCLEX_NULL;
 	}
