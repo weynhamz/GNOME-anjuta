@@ -244,7 +244,7 @@ gboolean preferences_save_yourself (Preferences * p, FILE * stream);
 gboolean preferences_load_yourself (Preferences * p, PropsID pr);
 
 /* Sets the value (string) of a key */
-void preferences_set (Preferences *, gchar * key, gchar * value);
+void preferences_set (Preferences *, const gchar * key, const gchar * value);
 
 /* Sets the value (int) of a key */
 void preferences_set_int (Preferences *, gchar * key, gint value);

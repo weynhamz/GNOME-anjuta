@@ -770,6 +770,7 @@ project_dbase_reload_session (ProjectDBase * p)
 	find_replace_load_session( app->find_replace, p );
 	executer_load_session( app->executer, p );
 	find_in_files_load_session( app->find_in_files, p );
+	fv_session_load(p);
 	p->m_prj_ShowLocal = session_get_bool( p, SECSTR(SECTION_PROJECTDBASE), szShowLocalsItem, SHOW_LOCALS_DEFAULT );
 	
 	/* Updates the menu */
@@ -949,8 +950,6 @@ project_dbase_save_project (ProjectDBase * p)
 		goto error_show;
 	g_free (str); str = NULL;
 
-	/* Save file browser preferences */
-	fv_prefs_serialize(fp);
 	/* Save the editor preferences if present */
 #ifdef DEBUG
 	printf("Saving editor preferences in the project file\n");
@@ -1333,6 +1332,7 @@ project_dbase_save_session (ProjectDBase * p)
 	find_replace_save_session( app->find_replace, p );
 	executer_save_session( app->executer, p );
 	find_in_files_save_session( app->find_in_files, p );
+	fv_session_save(p);
 	session_save_bool( p, SECSTR(SECTION_PROJECTDBASE), szShowLocalsItem, p->m_prj_ShowLocal );
 	session_sync();
 }
@@ -2004,7 +2004,6 @@ project_dbase_sync_preferences (ProjectDBase *p)
 void
 project_dbase_clean_left (ProjectDBase * p)
 {
-	gint i;
 	gboolean pref_changed = project_dbase_clear_preferences (p);
 	project_dbase_clear (p);
 	project_config_clear (p->project_config);
@@ -2561,8 +2560,8 @@ gboolean
 project_dbase_load_project_file (ProjectDBase * p, gchar * filename)
 {
 	gchar *prj_buff, buff[512], *str;
-	gint level, read_size, pos, i;
-	gboolean error_shown, syserr, prefs_changed;
+	gint level, read_size, pos;
+	gboolean error_shown, syserr;
 	FILE* fp;
 	
 	prj_buff = NULL;

@@ -66,6 +66,19 @@ const gchar	*SessionSectionString( const SessionSectionTypes p_Session )
 		return "FindInFilesSettings"; break;
 	case SECTION_FIND_IN_FILES_PROFILES:		
 		return "FindInFilesProfiles"; break;
+	case SECTION_PROJECT_TREE:
+		return "Project Tree";
+		break;
+	case SECTION_SYMBOL_TREE:
+		return "Symbol Tree";
+		break;
+	case SECTION_FILE_TREE:
+		return "File Tree";
+		break;
+	case SECTION_FILE_VIEW:
+		return "File View";
+		break;
+
 	case SECTION_GENERAL:
 		return "General"; break;
 	}

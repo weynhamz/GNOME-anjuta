@@ -283,7 +283,7 @@ preferences_default_get_int (Preferences * p, gchar * key)
 }
 
 void
-preferences_set (Preferences * pr, gchar * key, gchar * value)
+preferences_set (Preferences * pr, const gchar * key, const gchar * value)
 {
 	prop_set_with_key (pr->props, key, value);
 }

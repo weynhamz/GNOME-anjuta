@@ -17,6 +17,10 @@
 
 #include "an_file_view.h"
 
+gboolean on_file_filter_delete_event (GtkWidget *widget, GdkEventCrossing *event
+  , gpointer user_data);
+void on_file_filter_ok_button_clicked (GtkButton *button, gpointer user_data);
+
 typedef enum
 {
 	fv_unknown_t,
@@ -193,17 +197,49 @@ static void fv_prefs_apply(void)
 	}
 }
 
-#define PREF_SAVE(P) if (NULL != (s = prop_get(p, P))) \
+#define PREF_LOAD(var, P) \
+	if (NULL != (value = prop_get(p->props, P))) \
 	{ \
-		fprintf(fp, "%s=%s\n", P, s); \
+		pos = 0; \
+		gtk_editable_delete_text(ff->var ## _en, 0, -1); \
+		gtk_editable_insert_text(ff->var ## _en, value, strlen(value), &pos); \
+		g_free(value); \
+	} \
+
+#define PREF_LOAD_BOOL(var, P) \
+	gtk_toggle_button_set_active(ff->var ## _tb, \
+								 prop_get_int (p->props, P, 0)); \
+
+static void fv_prefs_load (void)
+{
+	gchar *value;
+	gint pos;
+	ProjectDBase *p = app->project_dbase;
+	
+	PREF_LOAD(file_match, FILE_FILTER_MATCH)
+	PREF_LOAD(file_unmatch, FILE_FILTER_UNMATCH)
+	PREF_LOAD_BOOL(ignore_hidden_files, FILE_FILTER_IGNORE_HIDDEN);
+	PREF_LOAD(dir_match, DIR_FILTER_MATCH)
+	PREF_LOAD(dir_unmatch, DIR_FILTER_UNMATCH)
+	PREF_LOAD_BOOL(ignore_hidden_dirs, DIR_FILTER_IGNORE_HIDDEN);
+	
+	fv_prefs_apply();
+}
+
+#define PREF_SAVE(P) \
+	if (NULL != (s = prop_get(p->props, P))) \
+	{ \
+		session_save_string (p, SECSTR (SECTION_FILE_VIEW), \
+							 P, s); \
 		g_free(s); \
 	}
 
-void fv_prefs_serialize(FILE *fp)
+void fv_session_save (ProjectDBase *p)
 {
-	char *s;
-	PropsID p = app->project_dbase->props;
-	g_return_if_fail(fp && p);
+	gchar *s;
+
+	g_return_if_fail(p);
+	
 	PREF_SAVE(FILE_FILTER_MATCH)
 	PREF_SAVE(FILE_FILTER_UNMATCH)
 	PREF_SAVE(FILE_FILTER_IGNORE_HIDDEN)
@@ -212,36 +248,30 @@ void fv_prefs_serialize(FILE *fp)
 	PREF_SAVE(DIR_FILTER_IGNORE_HIDDEN)
 }
 
-#define PREF_LOAD(var, P) \
-	if (NULL != (s = prop_get(p, P))) \
-	{ \
-		pos = 0; \
-		gtk_editable_delete_text(ff->var ## _en, 0, -1); \
-		gtk_editable_insert_text(ff->var ## _en, s, strlen(s), &pos); \
-		g_free(s); \
-	} \
-
-#define PREF_LOAD_BOOL(var, P) \
-	if (NULL != (s = prop_get(p, P))) \
-	{ \
-		gtk_toggle_button_set_active(ff->var ## _tb, (gboolean) (0 < atoi(s))); \
-	}
-
-static void fv_prefs_load(void)
+void fv_session_load (ProjectDBase *p)
 {
-	if (ff)
+	gpointer config_iterator;
+	
+	if (!ff)
+		return;
+	
+	config_iterator = session_get_iterator (p, SECSTR (SECTION_FILE_VIEW));
+	if (config_iterator !=  NULL)
 	{
-		PropsID p = app->project_dbase->props;
-		char *s;
-		int pos;
-		PREF_LOAD(file_match, FILE_FILTER_MATCH)
-		PREF_LOAD(file_unmatch, FILE_FILTER_UNMATCH)
-		PREF_LOAD_BOOL(ignore_hidden_files, FILE_FILTER_IGNORE_HIDDEN);
-		PREF_LOAD(dir_match, DIR_FILTER_MATCH)
-		PREF_LOAD(dir_unmatch, DIR_FILTER_UNMATCH)
-		PREF_LOAD_BOOL(ignore_hidden_dirs, DIR_FILTER_IGNORE_HIDDEN);
-		fv_prefs_apply();
+		gchar *szKey, *szValue;
+		while ((config_iterator = gnome_config_iterator_next (config_iterator,
+															  &szKey,
+															  &szValue)))
+		{
+			if (szKey && szValue)
+				prop_set_with_key (p->props, szKey, szValue);
+			g_free (szKey);
+			g_free (szValue);
+			szKey = NULL;
+			szValue = NULL;
+		}
 	}
+	fv_prefs_load();
 }
 
 gboolean on_file_filter_delete_event (GtkWidget *widget, GdkEventCrossing *event

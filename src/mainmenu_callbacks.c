@@ -65,6 +65,7 @@
 #include "fileselection.h"
 #include "anjuta-tools.h"
 #include "search-replace.h"
+#include "anjuta_info.h"
 
 void on_toolbar_find_clicked (GtkButton * button, gpointer user_data);
 

@@ -50,9 +50,6 @@ project.menu.need.terminal=0
 
 project.configure.options=
 anjuta.program.arguments=
-filter.file.unmatch=*.so *.o *.a *.la
-filter.file.ignore.hidden=0
-filter.dir.ignore.hidden=0
 preferences.indent.automatic=1
 preferences.use.tabs=1
 preferences.indent.opening=0

@@ -1,7 +1,8 @@
 2003-03-03  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
 	* scripts/anjuta_import.sh.in: Improve project import
 	* src/search-replace.c: Bugfixes.
-	* scripts/anjuta_first_run.sh.in: Check for GNU m4
+	* scripts/anjuta_first_run.sh.in: Check for GNU m4. Read in
+	user and project level configuration is present.
 	* Save file browser preferences in session, not project
 	* NEWS: Started release notes for 1.0.2
 	* anjuta.prj, an_file_view.[ch], project_dbase.c, session.[ch]:
