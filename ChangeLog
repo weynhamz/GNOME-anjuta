@@ -1,5 +1,7 @@
 2004-04-11  Naba Kumar  <naba@gnome.org>
 
+	* NEWS: Updated.
+	* AUTHORS: Updated.
 	* configure.in: Added ga in ALL_LINGUAS.
 	* ChangeLog: Fixed dates.
 	

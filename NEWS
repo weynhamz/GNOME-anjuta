@@ -1,6 +1,7 @@
 Anjuta 1.2.2 (? Apr 2004) -- Naba Kumar
 
 New: Anjuta advanced tutorial
+New: Goes to first error automatically (Default is off. need to enable in anjuta.properties).
 Bug fix: Use build.silent option from preferences (bug #895726)
 Bug fix: Use font style defined for message indicators (bug #885032)
 Bug fix: Set bold color as foreground color in terminal (bug #864924)
@@ -50,6 +51,14 @@ Bug fix: Fixed 'remove' and 'clear' of Defines list in compiler options (bug #88
 Bug fix: Installs .glade file of libgllade projects (bug #861038).
 Bug fix: Glade based projects can now find installed pixmaps (bug #919903).
 Bug fix: Fixed ADA syntax highlighting (bug #923474).
+Bug fix: Fixed HANGUP bug for long lines (bugs #700968 and #911376)
+Bug fix: Fixed core file loading in debugger.
+Bug fix: Partially fixed to show long calltips properly (bug #917982).
+Bug fix: Fixed a crash bug in search replace. (bug #921893).
+Bug fix: Fixed a crash when launcher child could not be executed (bug #926606).
+Bug fix: Fixed a crash bug when opening and closing a large project repeatedly.
+Bug fix: Sets filename when saving new files.
+Bug fix: Most font and print related bugs fixed (bug #885023, #925956, #890473).
 
 Anjuta 1.2.1 (29 Jan 2004) -- Naba Kumar, Johannes Schmid
 
