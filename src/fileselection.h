@@ -66,7 +66,7 @@ GtkWidget *
 fileselection_storetypes(GtkWidget *filesel, GList *filetypes);
 
 GList * 
-fileselection_addtype_f(GList *filetypes, gchar *description, gint amount, ...);
+fileselection_addtype_f(GList *filetypes, gchar *description, ...);
 
 GList * 
 fileselection_addtype(GList *filetypes, gchar *description, GList *extentions);

@@ -252,26 +252,25 @@ fileselection_addtype(GList *filetypes, gchar *description, GList *extentions)
 }
 
 GList * 
-fileselection_addtype_f(GList *filetypes, gchar *description, gint amount, ...)
-{	
-   GList *exts=NULL;
-   gchar *ext;
-   gint i=0;
-   GList *ftypes = filetypes;
-   va_list ap;
-	  
-   va_start (ap, amount);
-   while ((ext = g_strdup(va_arg(ap, gchar *)))&&(i<amount)) {
-	    i++;
-	    exts = g_list_append(exts, ext);
-   }
+fileselection_addtype_f(GList *filetypes, gchar *description, ...)
+{
+	GList *exts = NULL;
+	va_list ap;
 
-   va_end(ap);
-	
-   ftypes = fileselection_addtype(ftypes, description, exts);
-   
-   return ftypes;
+	va_start (ap, description);
 
+	while (1) {
+		gchar *ext = va_arg (ap, gchar *);
+
+		if (!ext)
+			break;
+
+		exts = g_list_append (exts, g_strdup (ext));
+	}
+
+	va_end (ap);
+
+	return fileselection_addtype (filetypes, description, exts);
 }
 
 GList * 

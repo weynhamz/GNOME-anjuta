@@ -561,7 +561,7 @@ project_dbase_make_default_filetype_list(ProjectDBase * p)
 	GList *combolist=NULL;
 
 	p->fileselection_open = fileselection_clearfiletypes(p->fileselection_open);  
-	ftypes = fileselection_addtype_f(ftypes, _("Anjuta project files"), 1, "prj");
+	ftypes = fileselection_addtype_f(ftypes, _("Anjuta project files"), "prj", NULL);
 	ftypes = fileselection_addtype(ftypes, _("All files"), NULL);
 	p->fileselection_open = fileselection_storetypes(p->fileselection_open, ftypes);
 	combolist = fileselection_getcombolist(p->fileselection_open, ftypes);	

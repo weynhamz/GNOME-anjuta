@@ -905,17 +905,36 @@ bool AnEditor::StartAutoCompleteWord() {
 		}
 		ft.chrg.cpMin = posFind + wordlen;
 	}
-	/* Now for the TM based autocompletion */
-	const GPtrArray *tags = tm_workspace_find(root, tm_tag_max_t, NULL, TRUE);
-	if ((tags) && (tags->len > 0))
+	/* Now for the TM based autocompletion - only for C/C++/Java */
+	if (SCLEX_CPP == lexLanguage)
 	{
-		TMTag *tag;
-		for (guint i=0; ((i < tags->len) && (i < MAX_AUTOCOMPLETE_WORDS)); ++i)
+		const GPtrArray *tags = tm_workspace_find(root, tm_tag_max_t, NULL, TRUE);
+		if ((tags) && (tags->len > 0))
 		{
-			tag = (TMTag *) tags->pdata[i];
-			if (words->len > 0)
-				g_string_append_c(words, ' ');
-			g_string_append(words, tag->name);
+			TMTag *tag;
+			for (guint i=0; ((i < tags->len) && (i < MAX_AUTOCOMPLETE_WORDS)); ++i)
+			{
+				tag = (TMTag *) tags->pdata[i];
+				wordlen = strlen(tag->name);
+				wordbreak = words->str;
+				for (;;)
+				{
+					wordpos = strstr(wordbreak, tag->name);
+					if (NULL == wordpos)
+						break;
+					if (wordpos > words->str && wordpos[-1] != ' ' ||
+					  wordpos[wordlen] && wordpos[wordlen] != ' ')
+						wordbreak = wordpos + wordlen;
+					else
+						break;
+				}
+				if (NULL == wordpos)
+				{
+					if (words->len > 0)
+						g_string_append_c(words, ' ');
+					g_string_append(words, tag->name);
+				}
+			}
 		}
 	}
 	if (words->len > 0)

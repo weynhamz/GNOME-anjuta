@@ -312,9 +312,86 @@ static void
 add_file (ProjectDBase * p)
 {
 	gchar *title;
+	GList *ftypes=NULL;
+	GList *combolist=NULL;
 
 	g_return_if_fail (p != NULL);
 
+	switch (p->sel_module) {
+		case MODULE_HELP:
+			p->fileselection_add_file = fileselection_clearfiletypes (p->fileselection_add_file);  
+			ftypes = fileselection_addtype_f (ftypes, _("Help files"), ".hlp", ".doc", ".txt", NULL);
+			ftypes = fileselection_addtype (ftypes, _("All files"), NULL);
+			p->fileselection_add_file = fileselection_storetypes (p->fileselection_add_file, ftypes);
+			combolist = fileselection_getcombolist (p->fileselection_add_file, ftypes);	
+			fileselection_set_combolist (p->fileselection_add_file, combolist);
+			break;
+
+		case MODULE_SOURCE:
+			p->fileselection_add_file = fileselection_clearfiletypes (p->fileselection_add_file);  
+			ftypes = fileselection_addtype_f (ftypes, _("C/C++ source files"), ".c", ".cc", ".cxx", ".cpp", ".c++", ".cs", ".hpp", ".h", ".hh", NULL);
+			ftypes = fileselection_addtype_f (ftypes, _("Java source files"), ".java", ".js", NULL);
+			ftypes = fileselection_addtype_f (ftypes, _("Pascal files"), ".pas", NULL);
+			ftypes = fileselection_addtype_f (ftypes, _("PHP files"), ".php", ".php?", ".phtml", NULL);
+			ftypes = fileselection_addtype_f (ftypes, _("Perl files"), ".pl", NULL);
+			ftypes = fileselection_addtype_f (ftypes, _("Python files"), ".py", NULL);
+			ftypes = fileselection_addtype_f (ftypes, _("Shell Script files"), ".sh", NULL);
+			ftypes = fileselection_addtype_f (ftypes, _("Visual Basic files"), ".vb", ".vbs", NULL);
+			ftypes = fileselection_addtype_f (ftypes, _(".lua files"), ".lua", NULL);
+			ftypes = fileselection_addtype (ftypes, _("All files"), NULL);
+			p->fileselection_add_file = fileselection_storetypes (p->fileselection_add_file, ftypes);
+			combolist = fileselection_getcombolist (p->fileselection_add_file, ftypes);	
+			fileselection_set_combolist (p->fileselection_add_file, combolist);			
+			break;
+
+		case MODULE_PIXMAP:
+			p->fileselection_add_file = fileselection_clearfiletypes (p->fileselection_add_file);  
+			ftypes = fileselection_addtype_f (ftypes, _("PNG files"), ".png", NULL);
+			ftypes = fileselection_addtype_f (ftypes, _("JPG files"), ".jpg", ".jpeg", NULL);
+			ftypes = fileselection_addtype_f (ftypes, _("BMP files"), ".bmp", NULL);
+			ftypes = fileselection_addtype_f (ftypes, _("GIF files"), ".gif", NULL);
+			ftypes = fileselection_addtype (ftypes, _("All files"), NULL);
+			p->fileselection_add_file = fileselection_storetypes (p->fileselection_add_file, ftypes);
+			combolist = fileselection_getcombolist (p->fileselection_add_file, ftypes);	
+			fileselection_set_combolist (p->fileselection_add_file, combolist);						
+			break;
+
+		case MODULE_DATA:
+			p->fileselection_add_file = fileselection_clearfiletypes (p->fileselection_add_file);  
+			ftypes = fileselection_addtype (ftypes, _("All files"), NULL);
+			p->fileselection_add_file = fileselection_storetypes (p->fileselection_add_file, ftypes);
+			combolist = fileselection_getcombolist (p->fileselection_add_file, ftypes);	
+			fileselection_set_combolist (p->fileselection_add_file, combolist);									
+			break;
+
+		case MODULE_DOC:
+			p->fileselection_add_file = fileselection_clearfiletypes (p->fileselection_add_file);  
+			ftypes = fileselection_addtype_f (ftypes, _("Text files"), ".txt", NULL);
+			ftypes = fileselection_addtype_f (ftypes, _("XML files"), ".xml", NULL);
+			ftypes = fileselection_addtype_f (ftypes, _("HTML files"), ".xhtml", ".html", ".htm", NULL);
+			ftypes = fileselection_addtype_f (ftypes, _("DOC files"), ".doc", NULL);
+			ftypes = fileselection_addtype (ftypes, _("All files"), NULL);
+			p->fileselection_add_file = fileselection_storetypes (p->fileselection_add_file, ftypes);
+			combolist = fileselection_getcombolist (p->fileselection_add_file, ftypes);	
+			fileselection_set_combolist (p->fileselection_add_file, combolist);									
+			break;
+
+		case MODULE_PO:
+			p->fileselection_add_file = fileselection_clearfiletypes (p->fileselection_add_file);  
+			ftypes = fileselection_addtype_f (ftypes, _("PO files"), ".po", NULL);
+			ftypes = fileselection_addtype (ftypes, _("All files"), NULL);
+			p->fileselection_add_file = fileselection_storetypes (p->fileselection_add_file, ftypes);
+			combolist = fileselection_getcombolist (p->fileselection_add_file, ftypes);	
+			fileselection_set_combolist (p->fileselection_add_file, combolist);									
+			break;
+
+		case MODULE_INCLUDE:
+			break;
+
+		default: /* Note: MODULE_END_MARK mustn't be handled */
+			break;
+	}
+		
 	title =
 		g_strconcat ("Add file to module: ",
 			     module_map[p->sel_module], NULL);
