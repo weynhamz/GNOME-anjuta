@@ -30,12 +30,11 @@ void on_combo_server_type_changed (GtkWidget * entry, CVSSettingsGUI * gui);
 void on_entry_changed (GtkWidget * entry, CVSSettingsGUI * gui);
 
 /* CVS File Dialog */
-void on_cvs_file_ok (GtkWidget * button, CVSFileGUI * gui);
-void on_cvs_file_cancel (GtkWidget * button, CVSFileGUI* gui);
+void on_cvs_ok (GtkWidget * button, CVSFileGUI * gui);
+void on_cvs_cancel (GtkWidget * button, CVSFileGUI* gui);
 
 /* CVS File Diff Dialog */
-void on_cvs_diff_file_ok (GtkWidget* button, CVSFileDiffGUI * gui);
-void on_cvs_diff_file_cancel (GtkWidget* button, CVSFileDiffGUI * gui);
-
+void on_cvs_diff_ok (GtkWidget* button, CVSFileDiffGUI * gui);
+void on_cvs_diff_cancel (GtkWidget* button, CVSFileDiffGUI * gui);
 
 #endif

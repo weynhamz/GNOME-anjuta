@@ -28,7 +28,6 @@
 	A warning dialog is printed if no type was selected.
 */
 
-
 gboolean
 on_cvs_settings_apply (GtkWidget * button, CVSSettingsGUI * gui)
 {
@@ -148,11 +147,12 @@ on_entry_changed (GtkWidget * entry, CVSSettingsGUI * gui)
 */
 
 void
-on_cvs_file_ok (GtkWidget * button, CVSFileGUI * gui)
+on_cvs_ok (GtkWidget * button, CVSFileGUI * gui)
 {
 	gchar *filename;
 	gchar *branch;
 	gchar *message = NULL;
+	gboolean is_dir = FALSE;
 
 	GtkWidget *gtk_entry_file;
 	GtkWidget *gtk_entry_branch;
@@ -176,16 +176,21 @@ on_cvs_file_ok (GtkWidget * button, CVSFileGUI * gui)
 	if (strlen (filename) == 0)
 		return;
 
+	is_dir = file_is_directory(filename);
+	
 	switch (gui->type)
 	{
 	case CVS_ACTION_UPDATE:
-		cvs_update_file (app->cvs, filename, branch);
+		cvs_update (app->cvs, filename, branch, is_dir);
 		break;
 	case CVS_ACTION_COMMIT:
-		cvs_commit_file (app->cvs, filename, branch, message);
+		cvs_commit (app->cvs, filename, branch, message, is_dir);
 		break;
 	case CVS_ACTION_STATUS:
-		cvs_status_file (app->cvs, filename);
+		cvs_status (app->cvs, filename, is_dir);
+		break;
+	case CVS_ACTION_LOG:
+		cvs_log (app->cvs, filename, is_dir);
 		break;
 	case CVS_ACTION_ADD:
 		cvs_add_file (app->cvs, filename, message);
@@ -203,7 +208,7 @@ on_cvs_file_ok (GtkWidget * button, CVSFileGUI * gui)
 	g_free (message);
 	
 	/* Destroy dialog */
-	on_cvs_file_cancel (button, gui);
+	on_cvs_cancel (button, gui);
 }
 
 /*
@@ -212,7 +217,7 @@ on_cvs_file_ok (GtkWidget * button, CVSFileGUI * gui)
 */
 
 void
-on_cvs_file_cancel (GtkWidget * button, CVSFileGUI * gui)
+on_cvs_cancel (GtkWidget * button, CVSFileGUI * gui)
 {
 	g_return_if_fail (gui != NULL);
 
@@ -227,7 +232,7 @@ on_cvs_file_cancel (GtkWidget * button, CVSFileGUI * gui)
 	the dialog.
 */
 
-void on_cvs_diff_file_ok (GtkWidget* button, CVSFileDiffGUI * gui)
+void on_cvs_diff_ok (GtkWidget* button, CVSFileDiffGUI * gui)
 {
 	gchar* filename;
 	gchar* revision;
@@ -249,17 +254,18 @@ void on_cvs_diff_file_ok (GtkWidget* button, CVSFileDiffGUI * gui)
 	
 	if (strlen(filename) > 0)
 	{
-		cvs_diff_file(app->cvs, filename, revision, time, unified);
+		gboolean is_dir;
+		is_dir = file_is_directory(filename);
+		cvs_diff(app->cvs, filename, revision, time, unified, is_dir);
 	}
-	on_cvs_diff_file_cancel(button, gui);
+	on_cvs_diff_cancel(button, gui);
 }
-
 
 /*
 	Closes the dialog and destroys it.
 */
 
-void on_cvs_diff_file_cancel (GtkWidget* button, CVSFileDiffGUI * gui)
+void on_cvs_diff_cancel (GtkWidget* button, CVSFileDiffGUI * gui)
 {
 	g_return_if_fail (gui != NULL);
 	

@@ -1,3 +1,19 @@
+2002-03-27 Naba Kumar <kh_naba@users.sourceforge.net>
+
+	* src/cvs.c, src/cvs.h, src/cvs_cbs.c, src/cvs_cbs.h
+	  src/cvs_gui.c, src/cvs_gui.h, src/main_menubar.c,
+	  src/main_menubar.h, src/main_menubar_def.h,
+	  src/mainmenu_callbacks.c, src/mainmenu_callbacks.h:
+
+	  Added cvs project support. Featured bypass cvs dialog for
+	  cases where we don't need dialog (such as project and right
+	  click selection from file browser). Cleaned up cvs code to
+	  make them generic cvs operations instead of separate file
+	  and project operations. Added cvs log action. Increased
+	  file entry box width and enabled "unified diff" by default.
+	  Used Editor buffer for status and log and set hilite for
+	  these buffers including diff buffer (DIFF hilite).
+	  
 2002-03-23 Tina Hirsch <cevina@users.sourceforge.net>
 
 	Reviewed by Naba Kumar <kh_naba@users.sourceforge.net>

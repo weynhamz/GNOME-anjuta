@@ -33,6 +33,7 @@ enum
 	CVS_ACTION_UPDATE,
 	CVS_ACTION_COMMIT,
 	CVS_ACTION_STATUS,
+	CVS_ACTION_LOG,
 	CVS_ACTION_ADD,
 	CVS_ACTION_REMOVE
 };
@@ -81,8 +82,8 @@ extern gchar *server_types[4];
 
 void create_cvs_settings_dialog (CVS * cvs);
 
-void create_cvs_file_gui (CVS * cvs, int dialog_type);
+void create_cvs_gui (CVS * cvs, int dialog_type, gchar* filename, gboolean bypass_dialog);
 
-void create_cvs_file_diff_gui (CVS * cvs);
+void create_cvs_diff_gui (CVS * cvs, gchar*filename, gboolean bypass_dialog);
 
 #endif

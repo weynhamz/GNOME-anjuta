@@ -33,6 +33,7 @@
 #include "cvs.h"
 #include "launcher.h"
 #include "anjuta.h"
+#include "lexer.h"
 
 /* struct is private, use functions to access members */
 struct _CVS
@@ -49,7 +50,7 @@ struct _CVS
 /* Callbacks for launcher */
 static void on_cvs_stdout (gchar * line);
 static void on_cvs_stderr (gchar * line);
-static void on_cvs_diff_in (gchar * line);
+static void on_cvs_buffer_in (gchar * line);
 static void on_cvs_terminate (int status, time_t time);
 
 /* Utility functions */
@@ -223,7 +224,7 @@ cvs_destroy (CVS * cvs)
 */
 
 void
-cvs_update_file (CVS * cvs, gchar * filename, gchar * branch)
+cvs_update (CVS * cvs, gchar * filename, gchar * branch, gboolean is_dir)
 {
 	gchar *command = NULL;
 	gchar *compression;
@@ -232,18 +233,26 @@ cvs_update_file (CVS * cvs, gchar * filename, gchar * branch)
 
 	g_return_if_fail (cvs != NULL);
 
-	file = extract_filename (filename);
-	dir = extract_directory (filename);
+	if (is_dir) {
+		file = NULL;
+		dir = g_strdup (filename);
+	} else {
+		file = extract_filename (filename);
+		dir = extract_directory (filename);
+	}
 
 	compression = add_compression (cvs);
 	command = g_strconcat ("cvs ", compression, " update ", NULL);
 	if (branch != NULL && strlen (branch) > 0)
 		command = g_strconcat (command, "-j ", branch, " ", NULL);
-	command = g_strconcat (command, file, NULL);
+	if (file) 
+		command = g_strconcat (command, file, NULL);
 
 	anjuta_message_manager_clear (app->messages, MESSAGE_CVS);
-	anjuta_message_manager_append (app->messages, _("Updating file...\n"),
-				       MESSAGE_CVS);
+	anjuta_message_manager_append (app->messages, _("CVS Updating "), MESSAGE_CVS);
+	anjuta_message_manager_append (app->messages, filename, MESSAGE_CVS);
+	anjuta_message_manager_append (app->messages, " ...\n", MESSAGE_CVS);
+	
 	launch_cvs_command (command, dir);
 
 	g_free (command);
@@ -257,8 +266,8 @@ cvs_update_file (CVS * cvs, gchar * filename, gchar * branch)
 */
 
 void
-cvs_commit_file (CVS * cvs, gchar * filename, gchar * revision,
-		 gchar * message)
+cvs_commit (CVS * cvs, gchar * filename, gchar * revision,
+		 gchar * message, gboolean is_dir)
 {
 	gchar *command;
 	gchar *compression;
@@ -267,19 +276,27 @@ cvs_commit_file (CVS * cvs, gchar * filename, gchar * revision,
 
 	g_return_if_fail (cvs != NULL);
 
-	file = extract_filename (filename);
-	dir = extract_directory (filename);
+	if (is_dir) {
+		file = NULL;
+		dir = g_strdup (filename);
+	} else {
+		file = extract_filename (filename);
+		dir = extract_directory (filename);
+	}
 
 	compression = add_compression (cvs);
 	command = g_strconcat ("cvs ", compression, " commit ", NULL);
 	if (revision != NULL && strlen (revision) > 0)
 		command = g_strconcat (command, "-r ", revision, " ", NULL);
 
-	command = g_strconcat (command, "-m \"", message, "\" ", file, NULL);
+	command = g_strconcat (command, "-m \"", message, "\" ",NULL);
+	if (file) 
+		command = g_strconcat (command, file, NULL);
 
 	anjuta_message_manager_clear (app->messages, MESSAGE_CVS);
-	anjuta_message_manager_append (app->messages, _("Commiting file..\n"),
-				       MESSAGE_CVS);
+	anjuta_message_manager_append (app->messages, _("CVS Committing "), MESSAGE_CVS);
+	anjuta_message_manager_append (app->messages, filename, MESSAGE_CVS);
+	anjuta_message_manager_append (app->messages, " ...\n", MESSAGE_CVS);
 
 	launch_cvs_command (command, dir);
 
@@ -313,8 +330,9 @@ cvs_add_file (CVS * cvs, gchar * filename, gchar * message)
 	command = g_strconcat (command, file, NULL);
 
 	anjuta_message_manager_clear (app->messages, MESSAGE_CVS);
-	anjuta_message_manager_append (app->messages, _("Adding file..."),
-				       MESSAGE_CVS);
+	anjuta_message_manager_append (app->messages, _("CVS Adding "), MESSAGE_CVS);
+	anjuta_message_manager_append (app->messages, filename, MESSAGE_CVS);
+	anjuta_message_manager_append (app->messages, " ...\n", MESSAGE_CVS);
 
 	launch_cvs_command (command, dir);
 
@@ -344,8 +362,9 @@ cvs_remove_file (CVS * cvs, gchar * filename)
 	command = g_strconcat ("cvs ", compression, " remove ", file, NULL);
 
 	anjuta_message_manager_clear (app->messages, MESSAGE_CVS);
-	anjuta_message_manager_append (app->messages, _("Adding file..."),
-				       MESSAGE_CVS);
+	anjuta_message_manager_append (app->messages, _("CVS Removing "), MESSAGE_CVS);
+	anjuta_message_manager_append (app->messages, filename, MESSAGE_CVS);
+	anjuta_message_manager_append (app->messages, " ...\n", MESSAGE_CVS);
 
 	launch_cvs_command (command, dir);
 
@@ -360,7 +379,7 @@ cvs_remove_file (CVS * cvs, gchar * filename)
 */
 
 void
-cvs_status_file (CVS * cvs, gchar * filename)
+cvs_status (CVS * cvs, gchar * filename, gboolean is_dir)
 {
 	gchar *command;
 	gchar *compression;
@@ -369,17 +388,76 @@ cvs_status_file (CVS * cvs, gchar * filename)
 
 	g_return_if_fail (cvs != NULL);
 
-	file = extract_filename (filename);
-	dir = extract_directory (filename);
+	if (is_dir) {
+		file = NULL;
+		dir = g_strdup (filename);
+	} else {
+		file = extract_filename (filename);
+		dir = extract_directory (filename);
+	}
 
 	compression = add_compression (cvs);
 	command =
-		g_strconcat ("cvs ", compression, " status -v ", file, NULL);
+		g_strconcat ("cvs ", compression, " status -v ", NULL);
+	if (file) 
+		command = g_strconcat (command, file, NULL);
 
 	anjuta_message_manager_clear (app->messages, MESSAGE_CVS);
-	anjuta_message_manager_append (app->messages,
-				       _("Getting status...\n"), MESSAGE_CVS);
-	launch_cvs_command (command, dir);
+	anjuta_message_manager_append (app->messages, _("Getting CVS status "), MESSAGE_CVS);
+	anjuta_message_manager_append (app->messages, filename, MESSAGE_CVS);
+	anjuta_message_manager_append (app->messages, " ...\n", MESSAGE_CVS);
+	
+	// Create Text Editor for diff
+	diff_editor = anjuta_append_text_editor(NULL);
+	diff_editor->force_hilite = TE_LEXER_NONE;
+	text_editor_set_hilite_type (diff_editor);
+
+	chdir (dir);
+	launcher_execute (command, on_cvs_buffer_in, on_cvs_stderr,
+			  on_cvs_terminate);
+
+	g_free (compression);
+	g_free (command);
+	g_free (dir);
+}
+
+void
+cvs_log (CVS * cvs, gchar * filename, gboolean is_dir)
+{
+	gchar *command;
+	gchar *compression;
+	gchar *dir;
+	gchar *file;
+
+	g_return_if_fail (cvs != NULL);
+
+	if (is_dir) {
+		file = NULL;
+		dir = g_strdup (filename);
+	} else {
+		file = extract_filename (filename);
+		dir = extract_directory (filename);
+	}
+
+	compression = add_compression (cvs);
+	command =
+		g_strconcat ("cvs ", compression, " log ", NULL);
+	if (file) 
+		command = g_strconcat (command, file, NULL);
+
+	anjuta_message_manager_clear (app->messages, MESSAGE_CVS);
+	anjuta_message_manager_append (app->messages, _("Getting CVS log "), MESSAGE_CVS);
+	anjuta_message_manager_append (app->messages, filename, MESSAGE_CVS);
+	anjuta_message_manager_append (app->messages, " ...\n", MESSAGE_CVS);
+	
+	// Create Text Editor for diff
+	diff_editor = anjuta_append_text_editor(NULL);
+	diff_editor->force_hilite = TE_LEXER_NONE;
+	text_editor_set_hilite_type (diff_editor);
+
+	chdir (dir);
+	launcher_execute (command, on_cvs_buffer_in, on_cvs_stderr,
+			  on_cvs_terminate);
 
 	g_free (compression);
 	g_free (command);
@@ -396,8 +474,8 @@ cvs_status_file (CVS * cvs, gchar * filename)
 #define DATE_LENGTH 17
 
 void
-cvs_diff_file (CVS * cvs, gchar * filename, gchar * revision,
-	       time_t date, gboolean unified)
+cvs_diff (CVS * cvs, gchar * filename, gchar * revision,
+	       time_t date, gboolean unified, gboolean is_dir)
 {
 	gchar *file;
 	gchar *dir;
@@ -406,8 +484,13 @@ cvs_diff_file (CVS * cvs, gchar * filename, gchar * revision,
 
 	g_return_if_fail (cvs != NULL);
 
-	file = extract_filename (filename);
-	dir = extract_directory (filename);
+	if (is_dir) {
+		file = NULL;
+		dir = g_strdup (filename);
+	} else {
+		file = extract_filename (filename);
+		dir = extract_directory (filename);
+	}
 
 	compression = add_compression (cvs);
 	command = g_strconcat ("cvs ", compression, "diff", NULL);
@@ -425,26 +508,28 @@ cvs_diff_file (CVS * cvs, gchar * filename, gchar * revision,
 				     NULL);
 		g_free (time_str);
 	}
-
-	command = g_strconcat (command, file, NULL);
+	if (file)
+		command = g_strconcat (command, file, NULL);
 
 	anjuta_message_manager_clear (app->messages, MESSAGE_CVS);
-	anjuta_message_manager_append (app->messages, _("Diffing...\n"),
-				       MESSAGE_CVS);
+	anjuta_message_manager_append (app->messages, _("CVS diffing "), MESSAGE_CVS);
+	anjuta_message_manager_append (app->messages, filename, MESSAGE_CVS);
+	anjuta_message_manager_append (app->messages, " ...\n", MESSAGE_CVS);
 	anjuta_message_manager_show (app->messages, MESSAGE_CVS);
 
 	// Create Text Editor for diff
 	diff_editor = anjuta_append_text_editor(NULL);
+	diff_editor->force_hilite = TE_LEXER_DIFF;
+	text_editor_set_hilite_type (diff_editor);
 
 	chdir (dir);
-	launcher_execute (command, on_cvs_diff_in, on_cvs_stderr,
+	launcher_execute (command, on_cvs_buffer_in, on_cvs_stderr,
 			  on_cvs_terminate);
 
 	g_free (command);
 	g_free (dir);
 	g_free (compression);
 }
-
 
 /* 
 	Log in on Password servers and other non-local servers 
@@ -470,8 +555,6 @@ cvs_login (CVS * cvs)
 	g_free (cvsroot);
 }
 
-
-
 /*
 	Saves the cvs settings to properties
 */
@@ -493,9 +576,6 @@ cvs_save_yourself (CVS * cvs, FILE * stream)
 	return TRUE;
 }
 
-
-
-
 /* PRIVATE: */
 
 /*
@@ -512,7 +592,6 @@ on_cvs_stdout (gchar * line)
 	Puts error messages that arrive from cvs to the message window.
 */
 
-
 static void
 on_cvs_stderr (gchar * line)
 {
@@ -524,7 +603,7 @@ on_cvs_stderr (gchar * line)
 */
 
 static void
-on_cvs_diff_in (gchar * line)
+on_cvs_buffer_in (gchar * line)
 {
 	guint length;
 	g_return_if_fail (line != NULL);
@@ -567,7 +646,6 @@ on_cvs_terminate (int status, time_t time)
 				(gint) time);
 	anjuta_message_manager_append (app->messages, buff, MESSAGE_CVS);
 }
-
 
 /* 
 	Create the full CVSROOT string with servertype, username and dir.
@@ -648,7 +726,5 @@ launch_cvs_command (gchar * command, gchar * dir)
 
 	launcher_execute (command, on_cvs_stdout, on_cvs_stderr,
 			  on_cvs_terminate);
-
-
 	return;
 }

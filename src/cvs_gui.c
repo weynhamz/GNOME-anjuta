@@ -195,7 +195,7 @@ create_cvs_settings_dialog (CVS * cvs)
 */
 
 void
-create_cvs_file_gui (CVS * cvs, int dialog_type)
+create_cvs_gui (CVS * cvs, int dialog_type, gchar* filename, gboolean bypass_dialog)
 {
 	gchar *title;
 	gchar *button_label;
@@ -213,16 +213,20 @@ create_cvs_file_gui (CVS * cvs, int dialog_type)
 	switch (dialog_type)
 	{
 	case CVS_ACTION_UPDATE:
-		title = _("CVS: Update file");
+		title = _("CVS: Update");
 		button_label = _("Update");
 		break;
 	case CVS_ACTION_COMMIT:
-		title = _("CVS: Commit file");
+		title = _("CVS: Commit");
 		button_label = _("Commit");
 		break;
 	case CVS_ACTION_STATUS:
-		title = _("CVS: Status file");
+		title = _("CVS: Status");
 		button_label = _("Show status");
+		break;
+	case CVS_ACTION_LOG:
+		title = _("CVS: Get Log");
+		button_label = _("Show log");
 		break;
 	case CVS_ACTION_ADD:
 		title = _("CVS: Add file");
@@ -247,7 +251,7 @@ create_cvs_file_gui (CVS * cvs, int dialog_type)
 	table = gtk_table_new (4, 2, FALSE);
 	gtk_widget_show (table);
 
-	label_file = gtk_label_new (_("Filename: "));
+	label_file = gtk_label_new (_("File: "));
 	if (gui->type != CVS_ACTION_COMMIT)
 		label_branch = gtk_label_new (_("Branch: "));
 	else
@@ -259,6 +263,7 @@ create_cvs_file_gui (CVS * cvs, int dialog_type)
 	gui->entry_branch = gnome_entry_new ("cvs-branch");
 	gui->text_message = gtk_text_new (NULL, NULL);
 	gtk_widget_show (gui->entry_file);
+	gtk_widget_set_usize(gui->entry_file, 300, -1);
 
 	if (gui->type == CVS_ACTION_UPDATE || gui->type == CVS_ACTION_COMMIT)
 	{
@@ -287,7 +292,12 @@ create_cvs_file_gui (CVS * cvs, int dialog_type)
 	gtkentry =
 		gnome_file_entry_gtk_entry (GNOME_FILE_ENTRY
 					    (gui->entry_file));
-	gtk_entry_set_text (GTK_ENTRY (gtkentry), get_cur_filename());
+	
+	if(filename == NULL) {
+		gtk_entry_set_text (GTK_ENTRY (gtkentry), get_cur_filename());
+	} else {
+		gtk_entry_set_text (GTK_ENTRY (gtkentry), filename);
+	}
 
 	gui->action_button =
 		g_list_first (GNOME_DIALOG (gui->dialog)->buttons)->data;
@@ -295,14 +305,19 @@ create_cvs_file_gui (CVS * cvs, int dialog_type)
 		g_list_last (GNOME_DIALOG (gui->dialog)->buttons)->data;
 
 	gtk_signal_connect (GTK_OBJECT (gui->action_button), "clicked",
-			    GTK_SIGNAL_FUNC (on_cvs_file_ok), gui);
+			    GTK_SIGNAL_FUNC (on_cvs_ok), gui);
 	gtk_signal_connect (GTK_OBJECT (gui->cancel_button), "clicked",
-			    GTK_SIGNAL_FUNC (on_cvs_file_cancel), gui);
+			    GTK_SIGNAL_FUNC (on_cvs_cancel), gui);
 
 	gtk_box_pack_start_defaults (GTK_BOX
 				     (GNOME_DIALOG (gui->dialog)->vbox),
 				     table);
-	gtk_widget_show (gui->dialog);
+	
+	if (bypass_dialog) {
+		on_cvs_ok(gui->action_button, gui);
+	} else {
+		gtk_widget_show (gui->dialog);
+	}
 }
 
 /*
@@ -311,7 +326,7 @@ create_cvs_file_gui (CVS * cvs, int dialog_type)
 */
 
 void
-create_cvs_file_diff_gui (CVS * cvs)
+create_cvs_diff_gui (CVS * cvs, gchar* filename, gboolean bypass_dialog)
 {
 	CVSFileDiffGUI *gui;
 
@@ -333,20 +348,26 @@ create_cvs_file_diff_gui (CVS * cvs)
 		g_list_last (GNOME_DIALOG (gui->dialog)->buttons)->data;
 
 	gtk_signal_connect (GTK_OBJECT (gui->diff_button), "clicked",
-			    GTK_SIGNAL_FUNC (on_cvs_diff_file_ok), gui);
+			    GTK_SIGNAL_FUNC (on_cvs_diff_ok), gui);
 	gtk_signal_connect (GTK_OBJECT (gui->cancel_button), "clicked",
-			    GTK_SIGNAL_FUNC (on_cvs_diff_file_cancel), gui);
-
+			    GTK_SIGNAL_FUNC (on_cvs_diff_cancel), gui);
 
 	table = gtk_table_new (4, 2, FALSE);
 	gtk_widget_show (table);
 
-	label_file = gtk_label_new (_("Filename: "));
+	label_file = gtk_label_new (_("File: "));
 	gui->entry_file = gnome_file_entry_new ("cvs-file", _("Select file"));
 	gtkentry =
 		gnome_file_entry_gtk_entry (GNOME_FILE_ENTRY
 					    (gui->entry_file));
-	gtk_entry_set_text (GTK_ENTRY (gtkentry), get_cur_filename());
+	gtk_widget_set_usize(gtkentry, 300, -1);
+	
+	if(filename == NULL) {
+		gtk_entry_set_text (GTK_ENTRY (gtkentry), get_cur_filename());
+	} else {
+		gtk_entry_set_text (GTK_ENTRY (gtkentry), filename);
+	}
+
 	gtk_widget_show (label_file);
 	gtk_widget_show (gui->entry_file);
 	gtk_table_attach_defaults (GTK_TABLE (table), label_file, 0, 1, 0, 1);
@@ -372,12 +393,16 @@ create_cvs_file_diff_gui (CVS * cvs)
 	gui->check_unified =
 		gtk_check_button_new_with_label (_("Create unified diff"));
 	gtk_widget_show (gui->check_unified);
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(gui->check_unified), TRUE);
 	gtk_table_attach_defaults (GTK_TABLE (table), gui->check_unified, 0,
 				   1, 3, 4);
 
 	gtk_box_pack_start_defaults (GTK_BOX(GNOME_DIALOG (gui->dialog)->vbox),
 			table);
 
-	gtk_widget_show (gui->dialog);
+	if (bypass_dialog) {
+		on_cvs_diff_ok(gui->diff_button, gui);
+	} else {
+		gtk_widget_show (gui->dialog);
+	}
 }
-

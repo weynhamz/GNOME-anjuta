@@ -594,6 +594,10 @@ on_cvs_status_file_activate                  (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
 
 void
+on_cvs_log_file_activate                  (GtkMenuItem     *menuitem,
+                                        gpointer         user_data);
+
+void
 on_cvs_add_file_activate                  (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
 
@@ -619,6 +623,10 @@ on_cvs_import_project_activate                  (GtkMenuItem     *menuitem,
 
 void
 on_cvs_project_status_activate                  (GtkMenuItem     *menuitem,
+                                        gpointer         user_data);
+
+void
+on_cvs_project_log_activate                  (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
 
 void

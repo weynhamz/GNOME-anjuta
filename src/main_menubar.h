@@ -229,11 +229,13 @@ struct _CVSSubMenu
 	GtkWidget* add_file;
 	GtkWidget* remove_file;
 	GtkWidget* status_file;
+	GtkWidget* log_file;
 	GtkWidget* diff_file;
 	GtkWidget* update_project;
 	GtkWidget* commit_project;
 	GtkWidget* import_project;
 	GtkWidget* status_project;
+	GtkWidget* log_project;
 	GtkWidget* diff_project;
 	GtkWidget* login;
 	GtkWidget* settings;

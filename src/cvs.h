@@ -54,15 +54,16 @@ gchar *cvs_get_username (CVS * cvs);
 gchar *cvs_get_passwd (CVS * cvs);
 guint cvs_get_compression (CVS * cvs);
 
-/* File functions */
-void cvs_update_file (CVS * cvs, gchar * filename, gchar * branch);
-void cvs_commit_file (CVS * cvs, gchar * filename, gchar * revision,
-		      gchar * message);
+/* Command functions */
+void cvs_update (CVS * cvs, gchar * filename, gchar * branch, gboolean is_dir);
+void cvs_commit (CVS * cvs, gchar * filename, gchar * revision,
+		      gchar * message, gboolean is_dir);
+void cvs_status (CVS * cvs, gchar * filename, gboolean is_dir);
+void cvs_log (CVS * cvs, gchar * filename, gboolean is_dir);
+void cvs_diff (CVS * cvs, gchar * filename, gchar * rev,
+			time_t date, gboolean unified, gboolean is_dir);
 void cvs_add_file (CVS * cvs, gchar * filename, gchar * message);
 void cvs_remove_file (CVS * cvs, gchar * filename);
-void cvs_status_file (CVS * cvs, gchar * filename);
-void cvs_diff_file (CVS * cvs, gchar * filename, gchar * rev,
-			time_t date, gboolean unified);
 
 void cvs_login (CVS * cvs);
 

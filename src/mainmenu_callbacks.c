@@ -1738,77 +1738,102 @@ void
 on_cvs_update_file_activate                  (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-	create_cvs_file_gui(app->cvs, CVS_ACTION_UPDATE);
+	create_cvs_gui(app->cvs, CVS_ACTION_UPDATE, NULL, FALSE);
 }
 
 void
 on_cvs_commit_file_activate                  (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-	create_cvs_file_gui(app->cvs, CVS_ACTION_COMMIT);
+	create_cvs_gui(app->cvs, CVS_ACTION_COMMIT, NULL, FALSE);
 }
 
 void
 on_cvs_status_file_activate                  (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-		create_cvs_file_gui(app->cvs, CVS_ACTION_STATUS);
+	create_cvs_gui(app->cvs, CVS_ACTION_STATUS, NULL, FALSE);
+}
+
+void
+on_cvs_log_file_activate                  (GtkMenuItem     *menuitem,
+                                        gpointer         user_data)
+{
+	create_cvs_gui(app->cvs, CVS_ACTION_LOG, NULL, FALSE);
 }
 
 void
 on_cvs_add_file_activate                  (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-	create_cvs_file_gui(app->cvs, CVS_ACTION_ADD);	
+	create_cvs_gui(app->cvs, CVS_ACTION_ADD, NULL, FALSE);
 }
 
 void
 on_cvs_remove_file_activate                  (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-	create_cvs_file_gui(app->cvs, CVS_ACTION_REMOVE);
+	create_cvs_gui(app->cvs, CVS_ACTION_REMOVE, NULL, FALSE);
 }
 
 void
 on_cvs_diff_file_activate                  (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-	create_cvs_file_diff_gui (app->cvs);
+	create_cvs_diff_gui (app->cvs, NULL, FALSE);
 }
 
 void
 on_cvs_update_project_activate                  (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-	
+	gchar* prj;
+	prj = app->project_dbase->top_proj_dir;
+	create_cvs_gui(app->cvs, CVS_ACTION_UPDATE, prj, TRUE);
 }
 
 void
 on_cvs_commit_project_activate                  (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-	
+	gchar* prj;
+	prj = app->project_dbase->top_proj_dir;
+	create_cvs_gui(app->cvs, CVS_ACTION_COMMIT, prj, TRUE);
 }
 
 void
 on_cvs_import_project_activate                  (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-	
+	gchar* prj;
+	prj = app->project_dbase->top_proj_dir;
 }
 
 void
 on_cvs_project_status_activate                  (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-	
+	gchar* prj;
+	prj = app->project_dbase->top_proj_dir;
+	create_cvs_gui(app->cvs, CVS_ACTION_STATUS, prj, TRUE);
+}
+
+void
+on_cvs_project_log_activate                  (GtkMenuItem     *menuitem,
+                                        gpointer         user_data)
+{
+	gchar* prj;
+	prj = app->project_dbase->top_proj_dir;
+	create_cvs_gui(app->cvs, CVS_ACTION_LOG, prj, TRUE);
 }
 
 void
 on_cvs_project_diff_activate                  (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-	
+	gchar* prj;
+	prj = app->project_dbase->top_proj_dir;
+	create_cvs_diff_gui (app->cvs, prj, TRUE);
 }
 
 void
