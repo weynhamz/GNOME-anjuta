@@ -4,7 +4,6 @@
 		<menu name="MenuFile" action="ActionMenuFile">
 			<placeholder name="PlaceholderFileMenus">
 				<menuitem name="New" action="ActionFileNew" />
-				<menuitem name="Open" action="ActionFileOpen" />
 				<menuitem name="Save" action="ActionFileSave" />
 				<menuitem name="SaveAs" action="ActionFileSaveAs" />
 				<menuitem name="SaveAll" action="ActionFileSaveAll" />
@@ -186,7 +185,6 @@
 	<toolbar name="ToolbarMain">
 		<placeholder name="PlaceholderFileToolbar">
 			<toolitem name="New" action="ActionFileNew" />
-			<toolitem name="Open" action="ActionFileOpen" />
 			<toolitem name="Save" action="ActionFileSave" />
 			<toolitem name="Reload" action="ActionFileReload" />
 			<toolitem name="Close" action="ActionFileClose" />

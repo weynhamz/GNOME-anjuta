@@ -126,6 +126,7 @@ Application shell interface
 @widget: 
 @name: 
 @title: 
+@stock_id: 
 @placement: 
 @error: 
 

@@ -22,8 +22,7 @@
 #include <gmodule.h>
 
 #include <glade/glade.h>
-// #include <gdl/gdl-icons.h>
-#include <libegg/dock/egg-dock-layout.h>
+#include <gdl/gdl-dock-layout.h>
 #include <libanjuta/anjuta-ui.h>
 
 #include "toolbar.h"
@@ -58,7 +57,7 @@ struct _AnjutaApp
 	GtkWidget *toolbars_menu;
 	GtkWidget *view_menu;
 	GtkWidget *dock;
- 	EggDockLayout *layout_manager;
+ 	GdlDockLayout *layout_manager;
 
 	GHashTable *values;
 	GHashTable *widgets;
@@ -102,8 +101,8 @@ struct _FileLineInfo
 // extern AnjutaApp *app;
 void anjuta_app_session_restore (AnjutaApp *app, GnomeClient* client);
 void anjuta_app_save_settings (AnjutaApp *app);
-gboolean anjuta_app_save_yourself (AnjutaApp *app, FILE * stream);
-gboolean anjuta_app_load_yourself (AnjutaApp *app, PropsID pr);
+// gboolean anjuta_app_save_yourself (AnjutaApp *app, FILE * stream);
+// gboolean anjuta_app_load_yourself (AnjutaApp *app, PropsID pr);
 
 void anjuta_application_exit(void);
 

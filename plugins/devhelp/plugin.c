@@ -179,10 +179,11 @@ activate_plugin (AnjutaPlugin *plugin)
 	devhelp_plugin->uiid = anjuta_ui_merge (ui, UI_FILE);
 	
 	anjuta_shell_add_widget (plugin->shell, priv->notebook,
-							 "AnjutaDevhelpIndex", _("Help"),
+							 "AnjutaDevhelpIndex", _("Help"), GTK_STOCK_HELP,
 							 ANJUTA_SHELL_PLACEMENT_LEFT, NULL);
 	anjuta_shell_add_widget (plugin->shell, priv->browser_frame,
 							 "AnjutaDevhelpDisplay", _("Help display"),
+							 GTK_STOCK_HELP,
 							 ANJUTA_SHELL_PLACEMENT_CENTER, NULL);
 	return TRUE;
 }

@@ -14,12 +14,13 @@
 #include <glade/glade.h>
 #include <libgnomevfs/gnome-vfs.h>
 #include <libgnomevfs/gnome-vfs-mime-handlers.h>
+#include <gdl/gdl-icons.h>
+
 #include <libanjuta/resources.h>
 #include <libanjuta/pixmaps.h>
-#include <libegg/gdl-icons.h>
 #include <libanjuta/anjuta-utils.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
-#include <libanjuta/interfaces/ianjuta-file.h>
+#include <libanjuta/interfaces/ianjuta-file-loader.h>
 
 // #include "anjuta.h"
 // #include "resources.h"
@@ -64,6 +65,7 @@ void on_file_filter_response (GtkWidget *dlg, gint res, gpointer user_data);
 void on_file_filter_close (GtkWidget *dlg, gpointer user_data);
 #endif
 
+#if 0
 static gboolean anjuta_file_iface_open(FileManagerPlugin* fv, const char* path)
 {
 	AnjutaShell* shell = ANJUTA_PLUGIN(fv)->shell;		
@@ -121,8 +123,6 @@ anjuta_fv_open_file (FileManagerPlugin * fv, const char *path, gboolean use_anju
 	return status;
 }
 
-#if 0
-
 typedef enum {
 	OPEN,
 	VIEW,
@@ -132,6 +132,19 @@ typedef enum {
 } FVSignal;
 
 #endif
+
+
+static gboolean
+anjuta_fv_open_file (FileManagerPlugin * fv, const char *path, gboolean use_anjuta)
+{
+	GObject *obj;
+	IAnjutaFileLoader *loader;
+	g_return_val_if_fail (path != NULL, FALSE);
+	loader = anjuta_shell_get_interface (ANJUTA_PLUGIN (fv)->shell,
+										 IAnjutaFileLoader, NULL);
+	obj = ianjuta_file_loader_load (loader, path, FALSE, NULL);
+	return (obj == NULL)? FALSE:TRUE;
+}
 
 /* File filters prefs */
 #define FILE_FILTER_MATCH "filter.file.match"
@@ -979,7 +992,7 @@ fv_refresh (FileManagerPlugin *fv)
 	//	gtk_main_iteration();
 	
 	if (icon_set == NULL)
-		icon_set = gdl_icons_new (24, 16.0);
+		icon_set = gdl_icons_new (16);
 	if (ff != NULL)
 		fv_prefs_free (ff);
 	ff = fv_prefs_new (fv);

@@ -29,9 +29,10 @@ struct _MessageViewPrivate
 
 	AnjutaPreferences* prefs;
 	
+	gint adj_chgd_hdlr;
+	
 	/* Properties */
 	gchar *label;
-
 	gboolean highlite;
 };
 
@@ -90,6 +91,35 @@ GdkColor* convert_color(AnjutaPreferences* prefs, const gchar* pref_name);
 
 /* Init message-view */
 
+static void 
+on_adjustment_changed (GtkAdjustment* adj, gpointer data)
+{
+	gtk_adjustment_set_value (adj, adj->upper - adj->page_size);
+}
+
+static void
+on_adjustment_value_changed (GtkAdjustment* adj, gpointer data)
+{
+	MessageView *self = (MessageView *) data;
+	if (adj->value > (adj->upper - adj->page_size) - 0.1)
+	{
+		if (!self->privat->adj_chgd_hdlr)
+		{
+			self->privat->adj_chgd_hdlr =
+				g_signal_connect (G_OBJECT (adj), "changed",
+								  G_CALLBACK (on_adjustment_changed), NULL);
+		}
+	}
+	else
+	{
+		if (self->privat->adj_chgd_hdlr)
+		{
+			g_signal_handler_disconnect (G_OBJECT (adj), self->privat->adj_chgd_hdlr);
+			self->privat->adj_chgd_hdlr = 0;
+		}
+	}
+}
+
 static void
 message_view_instance_init (MessageView * self)
 {
@@ -97,6 +127,7 @@ message_view_instance_init (MessageView * self)
 	GtkCellRenderer *renderer;
 	GtkTreeViewColumn *column;
 	GtkTreeSelection *select;
+	GtkAdjustment* adj;
 
 	g_return_if_fail(self != NULL);
 	self->privat = g_new0 (MessageViewPrivate, 1);
@@ -111,6 +142,7 @@ message_view_instance_init (MessageView * self)
 					      (gtk_list_store_new
 					       (N_COLUMNS, GDK_TYPE_COLOR,
 						G_TYPE_UINT, G_TYPE_STRING)));
+	gtk_widget_show (self->privat->tree_view);
 	gtk_tree_view_set_headers_visible (GTK_TREE_VIEW
 					   (self->privat->tree_view), FALSE);
 
@@ -136,6 +168,16 @@ message_view_instance_init (MessageView * self)
 	scrolled_win = gtk_scrolled_window_new (NULL, NULL);
 	gtk_container_add (GTK_CONTAINER (scrolled_win),
 			   self->privat->tree_view);
+	gtk_widget_show (scrolled_win);
+	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_win),
+									GTK_POLICY_AUTOMATIC,
+									GTK_POLICY_AUTOMATIC);
+	adj = gtk_scrolled_window_get_vadjustment (GTK_SCROLLED_WINDOW
+											   (scrolled_win));
+	self->privat->adj_chgd_hdlr = g_signal_connect(G_OBJECT(adj), "changed",
+									 G_CALLBACK (on_adjustment_changed), self);
+	g_signal_connect(G_OBJECT(adj), "value_changed",
+					 G_CALLBACK(on_adjustment_value_changed), self);
 
 	/* Add it to the dockitem */
 	gtk_container_add (GTK_CONTAINER (self), scrolled_win);
@@ -267,10 +309,10 @@ message_view_append (MessageView * view, const gchar * message)
 				line = g_strdup(view->privat->line_buffer);
 			}
 			
-			g_object_get (G_OBJECT (view), "highlite", &highlite);
+			g_object_get (G_OBJECT (view), "highlite", &highlite, NULL);
 			if (highlite)
 			{
-				if (strstr (line, _("error:")))				
+				if (strstr (line, _("error:")))
 					color = convert_color(view->privat->prefs, "messages.color.error");
 				else if (strstr (line, _("warning:")))
 				{
@@ -609,8 +651,8 @@ void add_char(gchar** str, gchar c)
 	g_return_if_fail(str != NULL);
 	
 	buffer = g_strdup_printf("%s%c", *str, c);
-	g_free(str);
-	str = &buffer;
+	g_free(*str);
+	*str = buffer;
 }
 
 /* Get a GdkColor from preferences. Free the color with gfree() */
@@ -631,6 +673,7 @@ GdkColor* convert_color(AnjutaPreferences* prefs, const gchar* pref_name)
 		gdkcolor->blue = b * factor;
 		g_free(color);
 	}
+	return gdkcolor;
 }
 
 /*

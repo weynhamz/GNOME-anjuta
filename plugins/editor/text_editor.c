@@ -32,7 +32,6 @@
 #include <libanjuta/pixmaps.h>
 #include <libanjuta/resources.h>
 #include <libanjuta/anjuta-utils.h>
-#include <libanjuta/properties.h>
 #include <libanjuta/anjuta-encodings.h>
 #include <libanjuta/interfaces/ianjuta-editor.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
@@ -41,6 +40,7 @@
 // #include "global.h"
 // #include "anjuta.h"
 
+#include "properties.h"
 #include "text_editor.h"
 // #include "text_editor_gui.h"
 #include "text_editor_cbs.h"
@@ -156,7 +156,7 @@ text_editor_new (AnjutaPreferences *eo, const gchar *uri, const gchar *name)
 	TextEditor *te = TEXT_EDITOR (gtk_widget_new (TYPE_TEXT_EDITOR, NULL));
 	
 	te->preferences = eo;
-	te->props_base = eo->props;
+	te->props_base = text_editor_get_props(te);
 	if (name)
 		te->filename = g_strdup(name); 
 	else 
@@ -805,7 +805,7 @@ convert_to_utf8_from_charset (const gchar *content,
 }
 
 static gchar *
-convert_to_utf8 (AnjutaPreferences *pr, const gchar *content, gsize len,
+convert_to_utf8 (PropsID props, const gchar *content, gsize len,
 			     gchar **encoding_used)
 {
 	GList *encodings = NULL;
@@ -816,8 +816,7 @@ convert_to_utf8 (AnjutaPreferences *pr, const gchar *content, gsize len,
 	g_return_val_if_fail (!g_utf8_validate (content, len, NULL), 
 			g_strndup (content, len < 0 ? strlen (content) : len));
 
-	encoding_strings = anjuta_util_glist_from_data (pr->props,
-													SUPPORTED_ENCODINGS);
+	encoding_strings = prop_glist_from_data (props, SUPPORTED_ENCODINGS);
 	encodings = anjuta_encoding_get_encodings (encoding_strings);
 	anjuta_util_glist_strings_free (encoding_strings);
 	
@@ -947,7 +946,7 @@ load_from_file (TextEditor *te, gchar *uri, gchar **err)
 		{
 			gchar *converted_text;
 	
-			converted_text = convert_to_utf8 (te->preferences,
+			converted_text = convert_to_utf8 (te->props_base,
 											  buffer, nchars, &te->encoding);
 
 			if (converted_text == NULL)
@@ -1718,6 +1717,85 @@ text_editor_grab_focus (TextEditor *te)
 {
 	g_return_if_fail (IS_TEXT_EDITOR (te));
 	scintilla_send_message (SCINTILLA (te->scintilla), SCI_GRABFOCUS, 0, 0);
+}
+
+gint
+text_editor_get_props (TextEditor *te)
+{
+	/* Built in values */
+	static PropsID props_built_in;
+	
+	/* System values */
+	static PropsID props_global;
+	
+	/* User values */ 
+	static PropsID props_local;
+	
+	/* Session values */
+	static PropsID props_session;
+	
+	/* Instance values */
+	static PropsID props;
+	
+	gchar *propdir, *propfile;
+
+	if (props)
+		return props;
+	
+	props_built_in = prop_set_new ();
+	props_global = prop_set_new ();
+	props_local = prop_set_new ();
+	props_session = prop_set_new ();
+	props = prop_set_new ();
+
+	prop_clear (props_built_in);
+	prop_clear (props_global);
+	prop_clear (props_local);
+	prop_clear (props_session);
+	prop_clear (props);
+
+	prop_set_parent (props_global, props_built_in);
+	prop_set_parent (props_local, props_global);
+	prop_set_parent (props_session, props_local);
+	prop_set_parent (props, props_session);
+	
+	propdir = g_strconcat (PACKAGE_DATA_DIR, "/properties/", NULL);
+	propfile = g_strconcat (propdir, "anjuta.properties", NULL);
+	
+	if (g_file_test (propfile, G_FILE_TEST_EXISTS) == FALSE)
+	{
+		anjuta_util_dialog_error (NULL,
+			_("Cannot load Global defaults and configuration files:\n"
+			 "%s.\n"
+			 "This may result in improper behaviour or instabilities.\n"
+			 "Anjuta will fall back to built in (limited) settings"),
+			 propfile);
+	}
+	prop_read (props_global, propfile, propdir);
+	g_free (propfile);
+	g_free (propdir);
+
+	propdir = g_strconcat (g_get_home_dir(), "/.anjuta" PREF_SUFFIX "/", NULL);
+	propfile = g_strconcat (propdir, "user.properties", NULL);
+	
+	/* Create user.properties file, if it doesn't exist */
+	if (g_file_test (propfile, G_FILE_TEST_EXISTS) == FALSE) {
+		gchar* user_propfile = g_strconcat (PACKAGE_DATA_DIR,
+					"/properties/user.properties", NULL);
+		anjuta_util_copy_file (user_propfile, propfile, FALSE);
+		g_free (user_propfile);
+	}
+	prop_read (props_local, propfile, propdir);
+	g_free (propdir);
+	g_free (propfile);
+
+	propdir = g_strconcat (g_get_home_dir(), "/.anjuta" PREF_SUFFIX "/", NULL);
+	propfile = g_strconcat (propdir, "session.properties", NULL);
+	prop_read (props_session, propfile, propdir);
+	g_free (propdir);
+	g_free (propfile);
+	
+	return props;
 }
 
 /* IAnjutaEditor interface implementation */

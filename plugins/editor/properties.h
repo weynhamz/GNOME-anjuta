@@ -46,6 +46,7 @@ void prop_read_from_memory (PropsID p, const gchar *data,
 							gint len, const gchar *directoryForImports);
 void prop_read (PropsID p, const gchar *filename, const gchar *directoryForImports);
 void prop_set_parent (PropsID p1, PropsID p2);
+GList* prop_glist_from_data (guint props, const gchar* id);
 
 #ifdef __cplusplus
 }

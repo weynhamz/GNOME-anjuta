@@ -9,6 +9,7 @@ struct _BasicAutotoolsPlugin{
 	
 	gint fm_merge_id;
 	gint fm_watch_id;
+	gchar *fm_current_filename;
 	GtkActionGroup *fm_popup_action_group;
 	
 	gint build_merge_id;

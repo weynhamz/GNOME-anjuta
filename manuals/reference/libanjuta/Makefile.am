@@ -51,6 +51,7 @@ GTKDOC_CFLAGS =						\
 	$(LIBANJUTA_CFLAGS)
 
 GTKDOC_LIBS =						\
+	-lutil \
 	$(top_builddir)/libanjuta/libanjuta.la \
 	$(top_builddir)/libanjuta/interfaces/libanjuta-interfaces.la \
 	$(top_builddir)/scintilla/libanjuta-scintilla.la \

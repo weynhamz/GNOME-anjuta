@@ -129,16 +129,6 @@ Application resource management
 @Returns: 
 
 
-<!-- ##### FUNCTION anjuta_res_get_icon_for_file ##### -->
-<para>
-
-</para>
-
-@props: 
-@filename: 
-@Returns: 
-
-
 <!-- ##### FUNCTION anjuta_res_help_search ##### -->
 <para>
 

@@ -39,6 +39,9 @@ libanjuta_editor_la_LIBADD = \
         $(top_builddir)/tagmanager/libanjuta-ctags.la
 
 libanjuta_editor_la_SOURCES= \
+	properties.cxx \
+	properties.h \
+	properties_cxx.h \
 	aneditor.cxx \
 	aneditor.h \
 	text_editor.c \

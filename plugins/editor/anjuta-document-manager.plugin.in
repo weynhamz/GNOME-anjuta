@@ -5,3 +5,6 @@ Location=anjuta-editor:EditorPlugin
 Version=0.1
 Icon=anjuta-document-manager.png
 Interfaces=IAnjutaDocumentManager,IAnjutaFile
+
+[File Loader]
+SupportedMimeTypes=text/*

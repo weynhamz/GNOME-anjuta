@@ -970,11 +970,11 @@ anjuta_docman_set_editor_properties (AnjutaDocman *docman)
 		gchar *word;
 		// FIXME: anjuta_set_file_properties (app->current_text_editor->uri);
 		word = text_editor_get_current_word (docman->priv->current_editor);
-		prop_set_with_key(docman->priv->preferences->props, "current.file.selection"
+		prop_set_with_key(te->props_base, "current.file.selection"
 		  , word?word:"");
 		if (word)
 			g_free(word);
-		prop_set_int_with_key(docman->priv->preferences->props, "current.file.lineno"
+		prop_set_int_with_key(te->props_base, "current.file.lineno"
 		  , text_editor_get_current_lineno(docman->priv->current_editor));
 		return TRUE;
 	}

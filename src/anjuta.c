@@ -142,7 +142,8 @@ on_anjuta_load_command_lines_on_idle(gpointer data)
 }
 
 /* Saves the current anjuta session */
-gint on_anjuta_session_save_yourself (GnomeClient * client, gint phase,
+static gint
+on_anjuta_session_save_yourself (GnomeClient * client, gint phase,
 									  GnomeSaveStyle s_style, gint shutdown,
 									  GnomeInteractStyle i_style, gint fast,
 									  gpointer data)
@@ -192,7 +193,7 @@ gint on_anjuta_session_save_yourself (GnomeClient * client, gint phase,
 	return TRUE;
 }
 
-gint
+static gint
 on_anjuta_session_die(GnomeClient * client, gpointer data)
 {
 	gtk_main_quit();

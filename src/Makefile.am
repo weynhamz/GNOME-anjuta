@@ -8,6 +8,7 @@ anjuta_layout_DATA = layout.xml
 
 INCLUDES = \
 	$(ANJUTA_CFLAGS)\
+	$(GDL_CFLAGS)\
 	$(PCRE_CFLAGS)\
 	$(FREEBSD_BUILD)\
 	-I$(top_srcdir)\
@@ -42,7 +43,7 @@ anjuta_SOURCES = \
 	main.cpp
 
 anjuta_LDADD =  \
-	$(ANJUTA_LIBS) -lutil\
+	$(ANJUTA_LIBS) $(GDL_LIBS) -lutil\
 	$(PCRE_LIBS)\
 	$(top_builddir)/libanjuta/libanjuta.la\
 	$(top_builddir)/libanjuta/anjuta-preferences.o

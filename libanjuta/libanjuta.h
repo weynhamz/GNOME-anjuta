@@ -11,7 +11,6 @@
 #include "anjuta-marshal.h"
 #include "anjuta-stock.h"
 #include "plugins.h"
-#include "properties.h"
 #include "resources.h"
 
 #endif

@@ -53,6 +53,31 @@ static GtkActionEntry actions_goto[] = {
 
 gpointer parent_class;
 
+#define REGISTER_ICON(icon, stock_id) \
+	pixbuf = gdk_pixbuf_new_from_file (icon, NULL); \
+	icon_set = gtk_icon_set_new_from_pixbuf (pixbuf); \
+	gtk_icon_factory_add (icon_factory, stock_id, icon_set); \
+	g_object_unref (pixbuf);
+
+static void
+register_stock_icons (AnjutaPlugin *plugin)
+{
+	AnjutaUI *ui;
+	GtkIconFactory *icon_factory;
+	GtkIconSet *icon_set;
+	GdkPixbuf *pixbuf;
+	static gboolean registered = FALSE;
+
+	if (registered)
+		return;
+	registered = TRUE;
+
+	/* Register stock icons */
+	ui = anjuta_shell_get_ui (plugin->shell, NULL);
+	icon_factory = anjuta_ui_get_icon_factory (ui);
+	REGISTER_ICON (PACKAGE_PIXMAPS_DIR"/"ICON_FILE, "message-manager-plugin-icon");
+}
+
 static gboolean
 activate_plugin (AnjutaPlugin *plugin)
 {
@@ -64,6 +89,8 @@ activate_plugin (AnjutaPlugin *plugin)
 	
 	g_message ("MessageViewPlugin: Activating MessageView plugin ...");
 	mv_plugin = (MessageViewPlugin*) plugin;
+	
+	register_stock_icons (plugin);
 	
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	prefs = anjuta_shell_get_preferences (plugin->shell, NULL);
@@ -84,6 +111,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	mv_plugin->uiid = anjuta_ui_merge (ui, UI_FILE);
 	anjuta_shell_add_widget (plugin->shell, msgman,
 							 "AnjutaMessageView", _("Messages"),
+							 "message-manager-plugin-icon",
 							 ANJUTA_SHELL_PLACEMENT_BOTTOM, NULL);
 	return TRUE;
 }

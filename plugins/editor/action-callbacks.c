@@ -1177,6 +1177,7 @@ static void
 on_zoom_text_activate (GtkAction * action, const gchar *zoom_text,
 					   EditorPlugin *plugin)
 {
+#if 0
 	gint zoom;
 	gchar buf[20];
 	
@@ -1195,6 +1196,7 @@ on_zoom_text_activate (GtkAction * action, const gchar *zoom_text,
 	g_snprintf(buf, 20, "%d", zoom);
 	prop_set_with_key (plugin->prefs->props, TEXT_ZOOM_FACTOR, buf);
 	// FIXME: anjuta_docman_set_zoom_factor(zoom);
+#endif
 }
 
 void

@@ -17,6 +17,7 @@
 
 #include <gtk/gtknotebook.h>
 #include <libanjuta/anjuta-utils.h>
+#include <libanjuta/resources.h>
 #include "anjuta-msgman.h"
 #include "message-view.h"
 
@@ -50,16 +51,18 @@ anjuta_msgman_page_new (GtkWidget * view, const gchar * name,
 	g_object_ref (G_OBJECT (page->widget));
 	page->label = gtk_label_new (name);
 	page->box = gtk_hbox_new (FALSE, 0);
-	gtk_box_pack_start_defaults (GTK_BOX (page->box), page->label);
+	gtk_box_set_spacing (GTK_BOX (page->box), 5);
 	if (pixmap)
 	{
-		page->pixmap = gtk_image_new_from_file (pixmap);
+		page->pixmap = anjuta_res_get_image (pixmap);
 		g_object_ref (page->pixmap);
-		gtk_box_pack_end_defaults (GTK_BOX (page->box), page->pixmap);
+		gtk_box_pack_start_defaults (GTK_BOX (page->box), page->pixmap);
 	}
+	gtk_box_pack_start_defaults (GTK_BOX (page->box), page->label);
 
 	g_object_ref (page->label);
 	g_object_ref (page->box);
+	gtk_widget_show_all (page->box);
 	return page;
 }
 
@@ -153,6 +156,7 @@ anjuta_msgman_add_view (AnjutaMsgman * msgman,
 
 	mv = message_view_new (msgman->priv->preferences);
 	g_return_val_if_fail (mv != NULL, NULL);
+	gtk_widget_show (mv);
 	page = anjuta_msgman_page_new (mv, name, pixmap);
 
 	g_signal_handlers_block_by_func (GTK_OBJECT (msgman),

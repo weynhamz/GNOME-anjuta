@@ -99,7 +99,6 @@ are mainly two ways a plugin could register its preferences in Anjuta.
 
 </para>
 
-@props_built_in: 
 @props_global: 
 @props_local: 
 @props_session: 

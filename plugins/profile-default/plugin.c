@@ -73,6 +73,7 @@ iprofile_load (IAnjutaProfile *profile, ESplash *splash, GError **err)
 	gint i, max_icons;
 	static const gchar * interfaces[] = 
 	{
+		"IAnjutaFileLoader",
 		"IAnjutaDocumentManager",
 		"IAnjutaHelp",
 		"IAnjutaMessageManager",
@@ -104,7 +105,7 @@ iprofile_load (IAnjutaProfile *profile, ESplash *splash, GError **err)
 														  &icon_filename)) {
 					icon_path = g_strconcat (PACKAGE_PIXMAPS_DIR"/",
 											 icon_filename, NULL);
-				    g_message ("Icon: %s", icon_path);
+				    // g_message ("Icon: %s", icon_path);
 					icon_pixbuf = 
 						gdk_pixbuf_new_from_file (icon_path, NULL);
 					g_free (icon_path);
@@ -116,7 +117,8 @@ iprofile_load (IAnjutaProfile *profile, ESplash *splash, GError **err)
 					// while (gtk_events_pending ())
 					//	gtk_main_iteration ();
 				} else {
-					g_warning ("Plugin does not define Icon");
+					g_warning ("Plugin does not define Icon: No such file %s",
+								icon_path);
 				}
 				g_slist_free (plugin_descs);
 			}

@@ -46,7 +46,7 @@ void
 on_exit1_activate (GtkAction * action, AnjutaApp *app)
 {
 	/* Save preferences before exiting */
-	anjuta_preferences_save_gconf(app->preferences, ANJUTA_PREFERENCES_FILTER_PROJECT);
+	// anjuta_preferences_save_gconf(app->preferences, ANJUTA_PREFERENCES_FILTER_PROJECT);
 	
 	if (on_anjuta_delete_event (GTK_WIDGET (app), NULL, app) == FALSE)
 		on_anjuta_destroy (GTK_WIDGET (app), app);
@@ -83,7 +83,7 @@ on_customize_shortcuts_activate(GtkAction *action, AnjutaApp *app)
 void
 on_layout_manager_activate(GtkAction *action, AnjutaApp *app)
 {
-	egg_dock_layout_run_manager (app->layout_manager);
+	gdl_dock_layout_run_manager (app->layout_manager);
 }
 
 void

@@ -31,7 +31,8 @@
 #include <gtk/gtkwidget.h>
 #include <glade/glade.h>
 
-#include <libegg/dock/egg-dock.h>
+#include <gdl/gdl-dock.h>
+#include <gdl/gdl-dock-bar.h>
 
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-utils.h>
@@ -295,7 +296,8 @@ anjuta_app_instance_init (AnjutaApp *app)
 {
 	gint merge_id;
 	GtkWidget *toolbar_menu;
-	GtkWidget *view_menu;
+	GtkWidget *view_menu, *hbox;
+	GtkWidget *dockbar;
 	
 	g_message ("Initializing Anjuta...");
 	gnome_app_enable_layout_config (GNOME_APP (app), FALSE);
@@ -305,20 +307,27 @@ anjuta_app_instance_init (AnjutaApp *app)
 	app->widgets = g_hash_table_new (g_str_hash, g_str_equal);
 
 	/* configure dock */
-	app->dock = egg_dock_new ();
-	gnome_app_set_contents (GNOME_APP (app), app->dock);
+	hbox = gtk_hbox_new (FALSE, 0);
+	gtk_widget_show (hbox);
+	gnome_app_set_contents (GNOME_APP (app), hbox);
+	app->dock = gdl_dock_new ();
 	gtk_widget_show (app->dock);
-
+	gtk_box_pack_end(GTK_BOX (hbox), app->dock, TRUE, TRUE, 0);
+	
+	dockbar = gdl_dock_bar_new (GDL_DOCK(app->dock));
+	gtk_widget_show (dockbar);
+	gtk_box_pack_start(GTK_BOX (hbox), dockbar, FALSE, FALSE, 0);
+	
 	/* create placeholders for default widget positions (since an
 	   initial host is provided they are automatically bound) */
-	egg_dock_placeholder_new ("ph_top", EGG_DOCK_OBJECT (app->dock),
-							  EGG_DOCK_TOP, FALSE);
-	egg_dock_placeholder_new ("ph_bottom", EGG_DOCK_OBJECT (app->dock),
-							  EGG_DOCK_BOTTOM, FALSE);
-	egg_dock_placeholder_new ("ph_left", EGG_DOCK_OBJECT (app->dock),
-							  EGG_DOCK_LEFT, FALSE);
-	egg_dock_placeholder_new ("ph_right", EGG_DOCK_OBJECT (app->dock),
-							  EGG_DOCK_RIGHT, FALSE);
+	gdl_dock_placeholder_new ("ph_top", GDL_DOCK_OBJECT (app->dock),
+							  GDL_DOCK_TOP, FALSE);
+	gdl_dock_placeholder_new ("ph_bottom", GDL_DOCK_OBJECT (app->dock),
+							  GDL_DOCK_BOTTOM, FALSE);
+	gdl_dock_placeholder_new ("ph_left", GDL_DOCK_OBJECT (app->dock),
+							  GDL_DOCK_LEFT, FALSE);
+	gdl_dock_placeholder_new ("ph_right", GDL_DOCK_OBJECT (app->dock),
+							  GDL_DOCK_RIGHT, FALSE);
 
 	//gtk_widget_realize (GTK_WIDGET(app));
 	
@@ -453,7 +462,8 @@ static void
 anjuta_app_add_widget (AnjutaShell *shell, 
 					   GtkWidget *w, 
 					   const char *name,
-					   const char *title, 
+					   const char *title,
+					   const char *stock_id,
 					   AnjutaShellPlacement placement,
 					   GError **error)
 {
@@ -466,11 +476,15 @@ anjuta_app_add_widget (AnjutaShell *shell,
 
 	g_hash_table_insert (window->widgets, g_strdup (name), w);
 
-	item = egg_dock_item_new (name, title, EGG_DOCK_ITEM_BEH_NORMAL);
+	if (stock_id == NULL)
+		item = gdl_dock_item_new (name, title, GDL_DOCK_ITEM_BEH_NORMAL);
+	else
+		item = gdl_dock_item_new_with_stock (name, title, stock_id,
+											 GDL_DOCK_ITEM_BEH_NORMAL);
 	gtk_container_add (GTK_CONTAINER (item), w);
 	g_object_set_data (G_OBJECT (w), "dockitem", item);
-	egg_dock_add_item (EGG_DOCK (window->dock), 
-					   EGG_DOCK_ITEM (item), (EggDockPlacement)placement);
+	gdl_dock_add_item (GDL_DOCK (window->dock), 
+					   GDL_DOCK_ITEM (item), (GdlDockPlacement)placement);
 	on_add_widget_to_menu ((gpointer)title, w, window);
 	gtk_widget_show_all (item);	
 }
@@ -499,7 +513,7 @@ anjuta_app_remove_widget (AnjutaShell *shell,
 
 	dock_item = g_object_get_data (G_OBJECT(w), "dockitem");
 	g_return_if_fail (dock_item != NULL);
-	egg_dock_item_unbind(EGG_DOCK_ITEM(dock_item));
+	gdl_dock_item_unbind(GDL_DOCK_ITEM(dock_item));
 }
 
 static void
@@ -516,8 +530,8 @@ anjuta_app_remove_value (AnjutaShell *shell,
 					  (gpointer*)&key, (gpointer*)&w)) {
 		GtkWidget *item;
 		item = g_object_get_data (G_OBJECT (w), "dockitem");
-		egg_dock_item_hide_item (EGG_DOCK_ITEM (item));
-		egg_dock_object_unbind (EGG_DOCK_OBJECT (item));
+		gdl_dock_item_hide_item (GDL_DOCK_ITEM (item));
+		gdl_dock_object_unbind (GDL_DOCK_OBJECT (item));
 		g_free (key);
 	}
 	
@@ -556,20 +570,20 @@ ensure_layout_manager (AnjutaApp *window)
 
 	if (!window->layout_manager) {
 		/* layout manager */
-		window->layout_manager = egg_dock_layout_new (EGG_DOCK (window->dock));
+		window->layout_manager = gdl_dock_layout_new (GDL_DOCK (window->dock));
 		
 		/* FIXME: Always load system layout for now */
 		/* load xml layout definitions */
 		/* filename = gnome_util_prepend_user_home (".anjuta/layout.xml");
 		g_message ("Layout = %s", filename);
-		if (!egg_dock_layout_load_from_file (window->layout_manager, filename)) */{
+		if (!gdl_dock_layout_load_from_file (window->layout_manager, filename)) */{
 			gchar *datadir;
 			datadir = anjuta_res_get_data_dir();
 			/* g_free (filename); */
 			filename = g_build_filename (datadir, "/layout.xml", NULL);
 			g_message ("Layout = %s", filename);
 			g_free (datadir);
-			if (!egg_dock_layout_load_from_file (window->layout_manager, filename))
+			if (!gdl_dock_layout_load_from_file (window->layout_manager, filename))
 				g_warning ("Loading layout from failed!!");
 		}
 		g_free (filename);
@@ -600,7 +614,7 @@ anjuta_app_save_layout_to_file (AnjutaApp *window)
 	ensure_layout_manager (window);
 	
 	filename = gnome_util_prepend_user_home (".anjuta/layout.xml");
-	if (!egg_dock_layout_save_to_file (window->layout_manager, filename))
+	if (!gdl_dock_layout_save_to_file (window->layout_manager, filename))
 		anjuta_util_dialog_error (GTK_WINDOW (window),
 								  "Could not save layout.");
 	g_free (filename);
@@ -614,7 +628,7 @@ anjuta_app_save_layout (AnjutaApp *window, const gchar *name)
 
 	ensure_layout_manager (window);
 	g_message ("Saving layout ... ");
-	egg_dock_layout_save_layout (window->layout_manager, name);
+	gdl_dock_layout_save_layout (window->layout_manager, name);
 	anjuta_app_save_layout_to_file (window);
 }
 
@@ -624,7 +638,7 @@ anjuta_app_load_layout (AnjutaApp *window, const gchar *name)
 	g_return_if_fail (window != NULL);
 
 	ensure_layout_manager (window);
-	if (!egg_dock_layout_load_layout (window->layout_manager, name))
+	if (!gdl_dock_layout_load_layout (window->layout_manager, name))
 		g_warning ("Loading layout failed!!");
 }
 
@@ -649,13 +663,13 @@ static void
 anjuta_app_show (GtkWidget *wid)
 {
 	AnjutaApp *app;
-	PropsID pr;
+	// PropsID pr;
 	GtkAction *action;
 
 	app = ANJUTA_APP (wid);
 	GNOME_CALL_PARENT(GTK_WIDGET_CLASS, show, (wid));
 	
-	pr = ANJUTA_PREFERENCES (app->preferences)->props;
+	// pr = ANJUTA_PREFERENCES (app->preferences)->props;
 
 	//start_with_dialog_show (GTK_WINDOW (app),
 	//						app->preferences, FALSE);

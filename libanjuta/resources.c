@@ -232,6 +232,7 @@ anjuta_res_get_doc_file (const gchar * docfile)
 	return NULL;
 }
 
+#if 0
 /* File type icons 16x16 */
 GdkPixbuf *
 anjuta_res_get_icon_for_file (PropsID props, const gchar *filename)
@@ -250,6 +251,7 @@ anjuta_res_get_icon_for_file (PropsID props, const gchar *filename)
 	g_free (file);
 	return pixbuf;
 }
+#endif
 
 void
 anjuta_res_help_search (const gchar * word)

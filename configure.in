@@ -22,7 +22,7 @@ VTE_NEW_REQUIRED=0.9.0
 LIBXML_REQUIRED=2.4.23
 PANGO_REQUIRED=1.1.1
 PCRE_REQUIRED=3.9
-LIBDEVHELP_REQUIRED=0.8.1
+LIBDEVHELP_REQUIRED=0.9.0
 
 AC_SUBST(GLIB_REQUIRED)
 AC_SUBST(GOBJECT_REQUIRED)
@@ -168,6 +168,10 @@ PKG_CHECK_MODULES(LIBANJUTA, \
 
 AC_SUBST(LIBANJUTA_CFLAGS)
 AC_SUBST(LIBANJUTA_LIBS)
+
+PKG_CHECK_MODULES(GDL, gdl-1.0 >= 0.4.0)
+AC_SUBST(GDL_CFLAGS)
+AC_SUBST(GDL_LIBS)
 
 dnl Check for Devhelp
 dnl -----------------
@@ -601,7 +605,6 @@ libegg/Makefile
 libegg/util/Makefile
 libegg/treeviewutils/Makefile
 libegg/menu/Makefile
-libegg/dock/Makefile
 scintilla/include/Makefile
 anjuta.spec
 libanjuta/Makefile

@@ -33,8 +33,6 @@
 #include <libgnomeprintui/gnome-print-dialog.h>
 #include <libgnomeprintui/gnome-print-job-preview.h>
 #include <libanjuta/anjuta-utils.h>
-
-// #include "anjuta.h"
 #include <libanjuta/anjuta-preferences.h>
 
 #define GTK
@@ -44,6 +42,7 @@
 #include "Scintilla.h"
 #include "ScintillaWidget.h"
 #include "print.h"
+#include "properties.h"
 
 #ifdef DEBUG
 #  define DEBUG_PRINT g_message

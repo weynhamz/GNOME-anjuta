@@ -161,6 +161,8 @@ void text_editor_grab_focus (TextEditor *te);
 
 void text_editor_function_select(TextEditor *te);
 
+gint text_editor_get_props (TextEditor *te);
+
 #define linenum_text_editor_to_scintilla(x) (x-1)
 #define linenum_scintilla_to_text_editor(x) (x+1)
 

@@ -203,16 +203,6 @@ Utility functions
 @Returns: 
 
 
-<!-- ##### FUNCTION anjuta_util_glist_from_data ##### -->
-<para>
-
-</para>
-
-@props: 
-@id: 
-@Returns: 
-
-
 <!-- ##### FUNCTION anjuta_util_glist_from_string ##### -->
 <para>
 

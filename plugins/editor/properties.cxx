@@ -4,6 +4,8 @@
 #include <stdlib.h>
 #include <ctype.h>
 
+#include <libanjuta/anjuta-utils.h>
+
 #define GTK
 #undef PLAT_GTK
 #define PLAT_GTK 1
@@ -252,6 +254,67 @@ prop_get_new_expand(PropsID handle, const gchar *keybase, const gchar *filename)
   s = p->GetNewExpand(keybase, filename);
   if (strlen(s.c_str()) == 0) return NULL;
   return g_strdup(s.c_str());
+}
+
+/* GList of strings operations */
+static GList *
+prop_glist_from_string (const gchar *string)
+{
+	gchar *str, *temp, buff[256];
+	GList *list;
+	gchar *word_start, *word_end;
+	gboolean the_end;
+
+	list = NULL;
+	the_end = FALSE;
+	temp = g_strdup (string);
+	str = temp;
+	if (!str)
+		return NULL;
+
+	while (1)
+	{
+		gint i;
+		gchar *ptr;
+
+		/* Remove leading spaces */
+		while (isspace (*str) && *str != '\0')
+			str++;
+		if (*str == '\0')
+			break;
+
+		/* Find start and end of word */
+		word_start = str;
+		while (!isspace (*str) && *str != '\0')
+			str++;
+		word_end = str;
+
+		/* Copy the word into the buffer */
+		for (ptr = word_start, i = 0; ptr < word_end; ptr++, i++)
+			buff[i] = *ptr;
+		buff[i] = '\0';
+		if (strlen (buff))
+			list = g_list_append (list, g_strdup (buff));
+		if (*str == '\0')
+			break;
+	}
+	if (temp)
+		g_free (temp);
+	return list;
+}
+
+/* Get the list of strings as GList from a property value.
+   Strings are splitted from white spaces */
+GList *
+prop_glist_from_data (guint props, const gchar *id)
+{
+	gchar *str;
+	GList *list;
+
+	str = prop_get (props, id);
+	list = prop_glist_from_string (str);
+	g_free(str);
+	return list;
 }
 
 void

@@ -1,5 +1,53 @@
 2004-07-28  Naba Kumar  <naba@gnome.org>
 
+	* libanjuta/properties* (removed), plugins/editor/properties* (added),
+	plugins/editor/Makefile.am, plugins/editor/action-callbacks.c,
+	plugins/editor/aneditor.cxx, plugins/editor/anjuta-docman.c,
+	plugins/editor/anjuta-document-manager.plugin.in,
+	plugins/editor/anjuta-document-manager.ui,
+	plugins/editor/plugin.c, plugins/editor/print.c,
+	plugins/editor/search-replace_backend.c,
+	plugins/editor/search_preferences.h,
+	plugins/editor/text_editor.c, plugins/editor/text_editor.h:
+	Moved properties souce files to editor plugin as it not required in
+	libanjuta. Other editor fixes.
+
+	* configure.in, libegg/Makefile.am, libegg/egg-dock* (removed),
+	libegg/dock/* (removed)
+	: Restored GDL external dependencies and removed libegg dock
+	sources, because gdl is being developed.
+	
+	* libanjuta/Makefile.am, libanjuta/anjuta-preferences.c,
+	libanjuta/anjuta-preferences.h, libanjuta/anjuta-shell.c,
+	libanjuta/anjuta-shell.h, libanjuta/anjuta-utils.c,
+	libanjuta/anjuta-utils.h, libanjuta/libanjuta.h,
+	libanjuta/plugins.c, libanjuta/plugins.h,
+	libanjuta/resources.c, libanjuta/resources.h: Preferences now use
+	gconf system. Shell now takes docking positions. Added more utility
+	functions. Added plugins query function. And other fixes.
+
+	* libanjuta/interfaces/libanjuta.idl: Added File loader interface.
+	
+	* plugins/Makefile.am, plugins/file-loader/*: Implemented file loader
+	plugin to load files based on mime type.
+	
+	* configure.in, plugins/devhelp/plugin.c: Fixed to use devhelp >= 0.9.
+	
+	* plugins/file-manager/Makefile.am, plugins/file-manager/an_file_view.c,
+	plugins/file-manager/plugin.c: File manager now uses file loader to
+	open files.
+
+	* plugins/message-view/anjuta-msgman.c,,
+	plugins/message-view/message-view.c,
+	plugins/message-view/plugin.c: Implemented launcher in libanjuta.
+
+	* plugins/profile-default/plugin.c, plugins/sample1/plugin.c,
+	plugins/terminal/terminal.c, src/Makefile.am,
+	src/action-callbacks.c, src/anjuta-app.c, src/anjuta-app.h,
+	src/anjuta.c, src/layout.xml, src/preferences.c: Bug fixes.
+	
+2004-07-28  Naba Kumar  <naba@gnome.org>
+
 	* configure.in: Reduced gnome-print version requirement.
 	* plugins/devhelp/plugin.c: Fixed changes wrt develop >= 0.9.0.
 

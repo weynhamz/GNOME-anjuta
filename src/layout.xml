@@ -6,17 +6,17 @@
 				<placeholder name="ph_right" next-placement="right"/>
 				<placeholder name="ph_left" next-placement="left"/>
 				<paned orientation="horizontal" locked="no" position="249">
-					<notebook orientation="horizontal" locked="no" page="0">
+					<notebook orientation="vertical" locked="no" page="0">
 						<item name="AnjutaFileManager" orientation="horizontal" locked="no"/>
 						<item name="AnjutaDevhelpIndex" orientation="horizontal" locked="no"/>
 					</notebook>
-					<notebook orientation="horizontal" locked="no" page="0">
+					<notebook orientation="vertical" locked="no" page="0">
 						<item name="AnjutaDevhelpDisplay" orientation="horizontal" locked="no"/>
 						<item name="AnjutaDocumentManager" orientation="horizontal" locked="no"/>
 						<item name="AnjutaSamplePlugin" orientation="horizontal" locked="no"/>
 					</notebook>
 				</paned>
-				<notebook orientation="horizontal" locked="no" page="0">
+				<notebook orientation="vertical" locked="no" page="0">
 					<item name="AnjutaTerminal" orientation="horizontal" locked="no"/>
 					<item name="AnjutaMessageView" orientation="horizontal" locked="no">
 						<placeholder name="ph_bottom" next-placement="bottom"/>

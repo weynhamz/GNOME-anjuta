@@ -32,7 +32,6 @@
 
 #include <libgnome/libgnome.h>
 #include <libanjuta/anjuta-utils.h>
-#include <libanjuta/properties.h>
 
 #define FILE_BUFFER_SIZE 1024
 
@@ -404,20 +403,6 @@ anjuta_util_glist_from_string (const gchar *string)
 	return list;
 }
 
-/* Get the list of strings as GList from a property value.
-   Strings are splitted from white spaces */
-GList *
-anjuta_util_glist_from_data (guint props, const gchar *id)
-{
-	gchar *str;
-	GList *list;
-
-	str = prop_get (props, id);
-	list = anjuta_util_glist_from_string (str);
-	g_free(str);
-	return list;
-}
-
 /* Prefix the strings */
 void
 anjuta_util_glist_strings_prefix (GList * list, const gchar *prefix)
@@ -660,4 +645,103 @@ anjuta_util_execute_shell (const gchar *dir, const gchar *command)
 	g_free (shell);
 	// Anjuta will take care of child exit automatically.
 	return pid;
+}
+
+gchar *
+anjuta_util_convert_to_utf8 (const gchar *str)
+{
+	GError *error = NULL;
+	gchar *utf8_msg_string = NULL;
+	
+	g_return_val_if_fail (str != NULL, NULL);
+	g_return_val_if_fail (strlen (str) > 0, NULL);
+	
+	if (g_utf8_validate(str, -1, NULL))
+	{
+		utf8_msg_string = g_strdup (str);
+	}
+	else
+	{
+		gsize rbytes, wbytes;
+		utf8_msg_string = g_locale_to_utf8 (str, -1, &rbytes, &wbytes, &error);
+		if (error != NULL) {
+			g_warning ("g_locale_to_utf8 failed: %s\n", error->message);
+			g_error_free (error);
+			g_free (utf8_msg_string);
+			return NULL;
+		}
+	}
+	return utf8_msg_string;
+}
+
+GList*
+anjuta_util_parse_args_from_string (const gchar* string)
+{
+	gboolean escaped;
+	gchar    quote;
+	gchar    buffer[2048];
+	const gchar *s;
+	gint     idx;
+	GList* args = NULL;
+	
+	idx = 0;
+	escaped = FALSE;
+	quote = (gchar)-1;
+	s = string;
+	
+	while (*s) {
+		if (!isspace(*s))
+			break;
+		s++;
+	}
+
+	while (*s) {
+		if (escaped) {
+			/* The current char was escaped */
+			buffer[idx++] = *s;
+			escaped = FALSE;
+		} else if (*s == '\\') {
+			/* Current char is an escape */
+			escaped = TRUE;
+		} else if (*s == quote) {
+			/* Current char ends a quotation */
+			quote = (gchar)-1;
+			if (!isspace(*(s+1)) && (*(s+1) != '\0')) {
+				/* If there is no space after the quotation or it is not
+				   the end of the string */
+				g_warning ("Parse error while parsing program arguments");
+			}
+		} else if ((*s == '\"' || *s == '\'')) {
+			if (quote == (gchar)-1) {
+				/* Current char starts a quotation */
+				quote = *s;
+			} else {
+				/* Just a quote char inside quote */
+				buffer[idx++] = *s;
+			}
+		} else if (quote > 0){
+			/* Any other char inside quote */
+			buffer[idx++] = *s;
+		} else if (isspace(*s)) {
+			/* Any white space outside quote */
+			if (idx > 0) {
+				buffer[idx++] = '\0';
+				args = g_list_append (args, g_strdup (buffer));
+				idx = 0;
+			}
+		} else {
+			buffer[idx++] = *s;
+		}
+		s++;
+	}
+	if (idx > 0) {
+		/* There are chars in the buffer. Flush as the last arg */
+		buffer[idx++] = '\0';
+		args = g_list_append (args, g_strdup (buffer));
+		idx = 0;
+	}
+	if (quote > 0) {
+		g_warning ("Unclosed quotation encountered at the end of parsing");
+	}
+	return args;
 }

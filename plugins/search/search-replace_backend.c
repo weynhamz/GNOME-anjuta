@@ -389,7 +389,7 @@ get_project_file_list(void)
 			snprintf(module_name_var, 128, "module.%s.name", module_map[i]);
 			module_name = prop_get (app->project_dbase->props, module_name_var);
 			
-			file_name = anjuta_util_glist_from_data(app->project_dbase->props, 
+			file_name = prop_glist_from_data(app->project_dbase->props, 
 			                            module_file_var);
 	
 			if (*module_name != '.')	/* New Projects */

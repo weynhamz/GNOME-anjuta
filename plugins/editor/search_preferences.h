@@ -6,6 +6,8 @@ extern "C"
 {
 #endif
 
+#include "properties.h"
+
 gboolean search_preferences_save_yourself (FILE *stream);
 gboolean search_preferences_load_yourself (PropsID props);
 

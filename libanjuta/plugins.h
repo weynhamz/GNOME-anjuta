@@ -35,8 +35,11 @@ GSList* anjuta_plugins_query (AnjutaShell *shell,
 /* Plugin activation and retrival */
 
 GObject *
-anjuta_plugins_get_plugin (AnjutaShell *shell,
-						   const gchar *iface_name);
+anjuta_plugins_get_plugin (AnjutaShell *shell, const gchar *iface_name);
+
+GObject *
+anjuta_plugins_get_plugin_by_location (AnjutaShell *shell,
+									   const gchar *plugin_location);
 
 /**
  * anjuta_plugins_get_interface:

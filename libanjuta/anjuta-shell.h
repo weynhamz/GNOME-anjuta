@@ -50,6 +50,7 @@ struct _AnjutaShellIface {
 							   GtkWidget    *widget,
 							   const char   *name,
 							   const char   *title,
+							   const char   *stock_id,
 							   AnjutaShellPlacement placement,
 							   GError      **error);
 	void (*remove_widget)     (AnjutaShell  *shell,
@@ -83,6 +84,7 @@ void   anjuta_shell_add_widget      (AnjutaShell     *shell,
 									 GtkWidget       *widget,
 									 const char      *name,
 									 const char      *title,
+									 const char      *stock_id,
 									 AnjutaShellPlacement placement,
 									 GError         **error);
 void   anjuta_shell_remove_widget   (AnjutaShell     *shell,

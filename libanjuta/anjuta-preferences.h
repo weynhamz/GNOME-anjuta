@@ -23,7 +23,7 @@
 #include <gnome.h>
 #include <glade/glade.h>
 
-#include <libanjuta/properties.h>
+// #include <libanjuta/properties.h>
 #include <libanjuta/anjuta-preferences-dialog.h>
 
 #ifdef __cplusplus
@@ -77,7 +77,8 @@ struct _AnjutaPreferences
 	AnjutaPreferencesDialog parent;
 	
 	/*< public >*/
-	
+
+#if 0	
 	/* Built in values */
 	PropsID props_built_in;
 	
@@ -92,7 +93,7 @@ struct _AnjutaPreferences
 	
 	/* Instance values */
 	PropsID props;
-	
+#endif	
 	/*< private >*/
 	AnjutaPreferencesPriv *priv;
 };

@@ -145,6 +145,6 @@ add_all_default_pages (AnjutaPreferences *pr)
 void
 anjuta_preferences_initialize (AnjutaPreferences *pr)
 {
-	add_all_default_pages (pr);
-	anjuta_preferences_load_gconf(pr);
+	// add_all_default_pages (pr);
+	// anjuta_preferences_load_gconf(pr);
 }

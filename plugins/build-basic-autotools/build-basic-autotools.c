@@ -21,7 +21,10 @@
 #include <config.h>
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-stock.h>
+#include <libanjuta/anjuta-launcher.h>
+#include <libanjuta/pixmaps.h>
 #include <libanjuta/interfaces/ianjuta-buildable.h>
+#include <libanjuta/interfaces/ianjuta-message-manager.h>
 
 #include "build-basic-autotools.h"
 
@@ -29,6 +32,103 @@
 
 gpointer parent_class;
 
+/* Command processing */
+typedef struct {
+	
+	gchar *command;
+	IAnjutaMessageView *message_view;
+	AnjutaLauncher *launcher;
+	
+} BuildContext;
+
+static void
+on_build_mesg_arrived (AnjutaLauncher *launcher,
+					   AnjutaLauncherOutputType output_type,
+					   const gchar * mesg, gpointer user_data)
+{
+	BuildContext *context = (BuildContext*)user_data;
+	ianjuta_message_view_append (context->message_view, mesg, NULL);
+}
+
+static void
+on_build_terminated (AnjutaLauncher *launcher,
+					 gint child_pid, gint status, gulong time_taken,
+					 BuildContext *context)
+{
+	gchar *buff1;
+
+	g_signal_handlers_disconnect_by_func (context->launcher,
+										  G_CALLBACK (on_build_terminated),
+										  context);
+	buff1 = g_strdup_printf (_("Total time taken: %lu secs\n"), time_taken);
+	if (status)
+	{
+		ianjuta_message_view_append (context->message_view,
+									 _("Completed ... unsuccessful\n"), NULL);
+		/*
+		if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
+										DIALOG_ON_BUILD_COMPLETE))
+			anjuta_util_dialog_warning (NULL, _("Completed ... unsuccessful"));
+		*/
+	}
+	else
+	{
+		ianjuta_message_view_append (context->message_view,
+								   _("Completed ... successful\n"), NULL);
+		/*
+		if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
+										DIALOG_ON_BUILD_COMPLETE))
+			anjuta_status (_("Completed ... successful"));
+		*/
+	}
+	ianjuta_message_view_append (context->message_view, buff1, NULL);
+	/*
+	if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
+									BEEP_ON_BUILD_COMPLETE))
+		gdk_beep ();
+	*/
+	g_free (buff1);
+	/* anjuta_update_app_status (TRUE, NULL); */
+	
+	/* Goto the first error if it exists */
+	/* if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
+									"build.option.gotofirst"))
+		an_message_manager_next(app->messages);
+	*/
+}
+
+static void
+build_execute_command (BasicAutotoolsPlugin* plugin, const gchar *dir,
+					   const gchar *command)
+{
+	IAnjutaMessageManager *mesg_manager;
+	BuildContext *context;
+	gchar mname[128];
+	static gint message_pane_count = 0;
+	
+	g_return_if_fail (command != NULL);
+	
+	context = g_new0 (BuildContext, 1);
+	
+	mesg_manager = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
+											   IAnjutaMessageManager, NULL);
+	snprintf (mname, 128, _("Build %d"), ++message_pane_count);
+	ianjuta_message_manager_add_view (mesg_manager, mname,
+									  ANJUTA_PIXMAP_MINI_BUILD, NULL);
+	context->message_view =
+		ianjuta_message_manager_get_view_by_name (mesg_manager, mname, NULL);
+	
+	context->launcher = anjuta_launcher_new ();
+	
+	g_signal_connect (G_OBJECT (context->launcher), "child-exited",
+					  G_CALLBACK (on_build_terminated), context);
+	ianjuta_message_view_append (context->message_view, command, NULL);
+	chdir (dir);
+	anjuta_launcher_execute (context->launcher, command,
+							 on_build_mesg_arrived, context);
+}
+
+/* UI actions */
 static void
 build_build_project (GtkAction *action, BasicAutotoolsPlugin *plugin)
 {
@@ -156,6 +256,15 @@ fm_compile (GtkAction *action, BasicAutotoolsPlugin *plugin)
 static void
 fm_build (GtkAction *action, BasicAutotoolsPlugin *plugin)
 {
+	gchar *dir;
+	
+	g_return_if_fail (plugin->fm_current_filename != NULL);
+	
+	if (g_file_test (plugin->fm_current_filename, G_FILE_TEST_IS_DIR))
+		dir = g_strdup (plugin->fm_current_filename);
+	else
+		dir = g_path_get_dirname (plugin->fm_current_filename);
+	build_execute_command (plugin, dir, "make");
 }
 
 static void
@@ -228,10 +337,14 @@ value_added_fm_current_filename (AnjutaPlugin *plugin, const char *name,
 	
 	filename = g_value_get_string (value);
 	g_return_if_fail (name != NULL);
-	
+
 	g_message ("Current file: %s", filename);
 	BasicAutotoolsPlugin *ba_plugin = (BasicAutotoolsPlugin*)plugin;
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
+	
+	if (ba_plugin->fm_current_filename)
+		g_free (ba_plugin->fm_current_filename);
+	ba_plugin->fm_current_filename = g_strdup (filename);
 	
 	is_dir = g_file_test (filename, G_FILE_TEST_IS_DIR);
 	if (is_dir)
@@ -281,6 +394,10 @@ value_removed_fm_current_filename (AnjutaPlugin *plugin,
 {
 	AnjutaUI *ui;
 	BasicAutotoolsPlugin *ba_plugin = (BasicAutotoolsPlugin*)plugin;
+	
+	if (ba_plugin->fm_current_filename)
+		g_free (ba_plugin->fm_current_filename);
+	ba_plugin->fm_current_filename = NULL;
 	
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	if (ba_plugin->fm_merge_id)
@@ -430,6 +547,7 @@ basic_autotools_plugin_instance_init (GObject *obj)
 {
 	BasicAutotoolsPlugin *ba_plugin = (BasicAutotoolsPlugin*) obj;
 	ba_plugin->fm_merge_id = 0;
+	ba_plugin->fm_current_filename = NULL;
 }
 
 static void

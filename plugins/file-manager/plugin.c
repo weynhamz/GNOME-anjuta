@@ -84,7 +84,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	
 	/* Added widget in shell */
 	anjuta_shell_add_widget (plugin->shell, fm_plugin->scrolledwindow,
-							 "AnjutaFileManager", _("File"),
+							 "AnjutaFileManager", _("Files"), GTK_STOCK_OPEN,
 							 ANJUTA_SHELL_PLACEMENT_LEFT, NULL);
 	
 	/* Add preferences page */

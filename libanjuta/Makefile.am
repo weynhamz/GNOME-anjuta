@@ -1,9 +1,10 @@
 
 SUBDIRS = interfaces
 
+##	-I$(top_builddir)/scintilla/include \
+
 INCLUDES = \
 	$(WARN_CFLAGS) \
-	-I$(top_builddir)/scintilla/include \
 	-I$(top_builddir)/widgets \
 	-I$(top_builddir) \
 	$(DEPRECATED_FLAGS) \
@@ -14,8 +15,8 @@ lib_LTLIBRARIES=libanjuta.la
 libanjuta_la_LIADD = $(LIBANJUTA_LIBS)
 libanjuta_la_LIBADD = \
 	$(top_builddir)/libegg/libanjuta-egg.la\
-	$(top_builddir)/libanjuta/interfaces/libanjuta-interfaces.la\
-	$(top_builddir)/scintilla/libanjuta-scintilla.la
+	$(top_builddir)/libanjuta/interfaces/libanjuta-interfaces.la
+##	$(top_builddir)/scintilla/libanjuta-scintilla.la
 
 libanjuta_la_SOURCES= \
 	cell-renderer-captioned-image.c	\
@@ -30,11 +31,9 @@ libanjuta_la_SOURCES= \
 	anjuta-plugin.c \
 	anjuta-plugin-description.c \
 	anjuta-ui.c \
+	anjuta-launcher.c \
 	anjuta-utils.c \
 	anjuta-children.c \
-	properties.cxx \
-	properties.h \
-	properties_cxx.h \
 	resources.c \
 	resources.h \
 	defaults.h \
@@ -43,6 +42,10 @@ libanjuta_la_SOURCES= \
 	glue-factory.c \
 	plugins.c \
 	plugins.h 
+
+##	properties.cxx \
+##	properties.h \
+##	properties_cxx.h \
 
 libanjutaincludedir=$(includedir)/libanjuta-1.0/libanjuta
 libanjutainclude_HEADERS = \
@@ -55,11 +58,12 @@ libanjutainclude_HEADERS = \
 	anjuta-preferences-dialog.h \
 	anjuta-preferences.h \
 	anjuta-ui.h \
+	anjuta-launcher.h \
 	anjuta-children.h \
-	properties.h \
 	glue-plugin.h \
 	resources.h
 	
+##	properties.h \
 
 BUILT_SOURCES=anjuta-marshal.c anjuta-marshal.h
 

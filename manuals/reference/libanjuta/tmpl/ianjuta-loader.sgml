@@ -33,6 +33,7 @@ ianjuta-loader
 </para>
 
 @g_iface: 
+@find_plugins: 
 
 <!-- ##### FUNCTION ianjuta_loader_error_quark ##### -->
 <para>

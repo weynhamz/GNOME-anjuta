@@ -278,6 +278,9 @@ interface IAnjutaHelp
 // requirements.
 interface IAnjutaLoader
 {
+	// Returns all plugins supporting loader interface.
+	GSList * find_plugins ();
+	
 	// Loaders can deterime correct plugin to open a file
 	interface IAnjutaFileLoader
 	{
@@ -293,7 +296,7 @@ interface IAnjutaLoader
 		 * 
 		 * Return value: Plugin interface used to load the file.
 		 */
-		GObject* load (gchar *filename, gboolean readonly);
+		GObject* load (const gchar *filename, gboolean readonly);
 		
 		/**
 		 * ianjuta_loader_peek_interface:
@@ -306,7 +309,7 @@ interface IAnjutaLoader
 		 *
 		 * Return value: Plugin interface name that can load the file.
 		 */
-		gchar* peek_interface (gchar *filename);
+		gchar* peek_interface (const gchar *filename);
 	}
 	
 	// StreamLoaders can deterime correct plugin to open a stream.
@@ -411,6 +414,28 @@ interface IAnjutaFileManager
 	void set_selected (const gchar *filename);
 }
 
+/* interface IAnjutaLauncher
+ * {
+ * 	#include <sys/types.h>
+ * 	
+ * 	void ::child_exited (pid_t child_pid, int exit_status, gulong time_taken_in_secs);
+ * 	void ::busy_signal (gboolean busy_flag);
+ * 
+ * 	gboolean is_busy ();
+ * 	gboolean execute (const gchar *command, GCallback callback_func, gpointer user_data);
+ * 	gboolean execute_v (gchar *const argv[], GCallback callback_func, gpointer user_data);
+ * 	void set_encoding (const gchar *charset);
+ * 	void send_stdin (const gchar *input_data);
+ * 	void send_ptyin (const gchar *input_data);
+ * 	pid_t get_child_pid ();
+ * 	void reset ();
+ * 	void signal (int sig);
+ * 	void set_buffered_output (gboolean buffered);
+ * 	void set_check_passwd_prompt (gboolean buffered);
+ * 	gboolean set_terminal_echo (gboolean echo_on);
+ * }
+ * 
+ */
 interface IAnjutaTerminal
 {
 	#include <sys/types.h>

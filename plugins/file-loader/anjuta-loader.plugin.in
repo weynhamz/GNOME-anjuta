@@ -1,0 +1,6 @@
+[Anjuta Plugin]
+_Name=Anjuta File Loader
+_Description=File loader to load different files
+Location=anjuta-loader:AnjutaFileLoaderPlugin
+Icon=anjuta-loader-plugin.png
+Interfaces=IAnjutaFileLoader

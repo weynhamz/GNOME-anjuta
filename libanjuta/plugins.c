@@ -1008,6 +1008,40 @@ anjuta_plugins_get_plugin (AnjutaShell *shell,
 	return NULL;
 }
 
+GObject *
+anjuta_plugins_get_plugin_by_location (AnjutaShell *shell,
+									   const gchar *plugin_location)
+{
+	AvailableTool *tool;
+	GHashTable *installed_tools;
+	
+	g_return_val_if_fail (ANJUTA_IS_SHELL (shell), NULL);
+	g_return_val_if_fail (plugin_location != NULL, NULL);
+	
+	tool = NULL;
+	installed_tools = g_object_get_data (G_OBJECT (shell), "InstalledTools");
+	if (installed_tools == NULL)
+	{
+		installed_tools = g_hash_table_new (g_str_hash, g_str_equal);
+		g_object_set_data (G_OBJECT (shell), "InstalledTools",
+						   installed_tools);
+	}
+	tool = g_hash_table_lookup (tools_by_name, plugin_location);
+	if (tool) {
+		GObject *obj;
+		obj = g_hash_table_lookup (installed_tools, tool);
+		if (obj) {
+			return obj;
+		} else {
+			tool_set_update (shell, tool, TRUE);
+			obj = g_hash_table_lookup (installed_tools, tool);
+			return obj;
+		}
+	}
+	g_warning ("No plugin found with location \"%s\".", plugin_location);
+	return NULL;
+}
+
 GtkWidget *
 anjuta_plugins_get_installed_dialog (AnjutaShell *shell)
 {
@@ -1072,6 +1106,7 @@ anjuta_plugins_query (AnjutaShell *shell,
 		AnjutaPluginDescription *desc = tool->description;
 		
 		while (s_node) {
+			
 			gchar *val;
 			GSList *vals;
 			GSList *node;
@@ -1095,11 +1130,37 @@ anjuta_plugins_query (AnjutaShell *shell,
 			node = vals;
 			while (node)
 			{
-				if (g_ascii_strcasecmp (node->data, avalue) == 0)
+				if (strchr(node->data, '*') != NULL)
 				{
-					found = TRUE;
-					g_free (node->data);
+					// Star match.
+					gchar **segments;
+					gchar **seg_ptr;
+					gchar *cursor;
+					
+					segments = g_strsplit (node->data, "*", -1);
+					
+					seg_ptr = segments;
+					cursor = avalue;
+					while (*seg_ptr != NULL)
+					{
+						if (strlen (*seg_ptr) > 0) {
+							cursor = strstr (cursor, *seg_ptr);
+							if (cursor == NULL)
+								break;
+						}
+						cursor += strlen (*seg_ptr);
+						seg_ptr++;
+					}
+					if (*seg_ptr == NULL)
+						found = TRUE;
+					g_strfreev (segments);
 				}
+				else if (g_ascii_strcasecmp (node->data, avalue) == 0)
+				{
+					// String match.
+					found = TRUE;
+				}
+				g_free (node->data);
 				node = g_slist_next (node);
 			}
 			g_slist_free (vals);

@@ -1,0 +1,15 @@
+<!--*- xml -*-->
+<ui>
+	<menubar name="MenuMain">
+		<menu name="MenuFile" action="ActionMenuFile">
+			<placeholder name="PlaceholderFileMenus">
+				<menuitem name="Open" action="ActionFileOpen" />
+			</placeholder>
+		</menu>
+	</menubar>
+	<toolbar name="ToolbarMain">
+		<placeholder name="PlaceholderFileToolbar">
+			<toolitem name="Open" action="ActionFileOpen" />
+		</placeholder>
+	</toolbar>
+</ui>

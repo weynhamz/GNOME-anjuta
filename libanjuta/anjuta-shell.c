@@ -37,6 +37,7 @@ anjuta_shell_add_widget (AnjutaShell *shell,
 			 GtkWidget *widget,
 			 const char *name,
 			 const char *title,
+			 const char *stock_id,
 			 AnjutaShellPlacement placement,
 			 GError **error)
 {
@@ -48,7 +49,8 @@ anjuta_shell_add_widget (AnjutaShell *shell,
 	g_return_if_fail (title != NULL);
 
 	ANJUTA_SHELL_GET_IFACE (shell)->add_widget (shell, widget, name,
-												title, placement, error);
+												title, stock_id,
+												placement, error);
 }
 
 /**

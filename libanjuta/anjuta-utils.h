@@ -50,6 +50,10 @@ gboolean anjuta_util_prog_is_installed (gchar * prog, gboolean show);
 
 gchar* anjuta_util_get_a_tmp_file (void);
 
+gchar* anjuta_util_convert_to_utf8 (const gchar *str);
+
+GList* anjuta_util_parse_args_from_string (const gchar* string);
+
 /***********************************************/
 /* String integer mapping utility functions    */
 /***********************************************/
@@ -75,7 +79,6 @@ GList* anjuta_util_glist_strings_sort (GList * list);
 /* Both the returned glist and the data should be g_freed */
 /* Call g_list_strings_free() to do that.                 */
 /**********************************************************/
-GList* anjuta_util_glist_from_data (guint props, const gchar* id);
 GList* anjuta_util_glist_from_string (const gchar* id);
 GList* anjuta_util_glist_strings_dup (GList * list);
 

@@ -341,12 +341,30 @@ GnomeFileList
 @interface_name: 
 @Returns: 
 
+<!-- ##### FUNCTION anjuta_res_get_icon_for_file ##### -->
+<para>
+
+</para>
+
+@props: 
+@filename: 
+@Returns: 
+
 <!-- ##### FUNCTION anjuta_ui_get_menu_merge ##### -->
 <para>
 
 </para>
 
 @ui: 
+@Returns: 
+
+<!-- ##### FUNCTION anjuta_util_glist_from_data ##### -->
+<para>
+
+</para>
+
+@props: 
+@id: 
 @Returns: 
 
 <!-- ##### FUNCTION create_fileselection_gui ##### -->
