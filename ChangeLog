@@ -1,7 +1,10 @@
 2002-01-15  Naba Kumar <naba@gnome.org>
 
-	* src/njuta-tools.c: Fixed translatable strings.
+	* src/text_editor_gui.c, src/test_editor.c: Added back widgets refs
+	and unrefs.
 
+	* src/anjuta-tools.c: Fixed translatable strings.
+	
 	* src/find_text.c: Fixed dialog creation from glade.
 	
 	* src/text_editor_gui.c, src/text_editor.c,

@@ -236,6 +236,26 @@ text_editor_destroy (TextEditor * te)
 		if (te->autosave_on)
 			gtk_timeout_remove (te->autosave_id);
 
+		gtk_widget_unref (te->widgets.window);
+		gtk_widget_unref (te->widgets.client_area);
+		gtk_widget_unref (te->widgets.client);
+		gtk_widget_unref (te->widgets.line_label);
+		gtk_widget_unref (te->widgets.editor);
+		gtk_widget_unref (te->buttons.novus);
+		gtk_widget_unref (te->buttons.novus);
+		gtk_widget_unref (te->buttons.open);
+		gtk_widget_unref (te->buttons.save);
+		gtk_widget_unref (te->buttons.reload);
+		gtk_widget_unref (te->buttons.cut);
+		gtk_widget_unref (te->buttons.copy);
+		gtk_widget_unref (te->buttons.paste);
+		gtk_widget_unref (te->buttons.find);
+		gtk_widget_unref (te->buttons.replace);
+		gtk_widget_unref (te->buttons.compile);
+		gtk_widget_unref (te->buttons.build);
+		gtk_widget_unref (te->buttons.print);
+		gtk_widget_unref (te->buttons.attach);
+		
 		if (te->widgets.window)
 			gtk_widget_destroy (te->widgets.window);
 		

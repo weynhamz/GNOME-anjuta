@@ -241,4 +241,25 @@ create_text_editor_gui (TextEditor * te)
 	te->buttons.close = NULL;	/* Created later */
 	te->widgets.tab_label = NULL;	/* Created later */
 	te->widgets.close_pixmap = NULL;	/* Created later */
+
+	gtk_widget_ref (te->buttons.novus);
+	gtk_widget_ref (te->buttons.novus);
+	gtk_widget_ref (te->buttons.open);
+	gtk_widget_ref (te->buttons.save);
+	gtk_widget_ref (te->buttons.reload);
+	gtk_widget_ref (te->buttons.cut);
+	gtk_widget_ref (te->buttons.copy);
+	gtk_widget_ref (te->buttons.paste);
+	gtk_widget_ref (te->buttons.find);
+	gtk_widget_ref (te->buttons.replace);
+	gtk_widget_ref (te->buttons.compile);
+	gtk_widget_ref (te->buttons.build);
+	gtk_widget_ref (te->buttons.print);
+	gtk_widget_ref (te->buttons.attach);
+
+	gtk_widget_ref (te->widgets.window);
+	gtk_widget_ref (te->widgets.client_area);
+	gtk_widget_ref (te->widgets.client);
+	gtk_widget_ref (te->widgets.editor);
+	gtk_widget_ref (te->widgets.line_label);
 }
