@@ -56,7 +56,7 @@ libscintilla_a_SOURCES =\
 	$(LEXER_SRCS)
 
 noinst_PROGRAMS = test-scintilla
-test_scintilla_CXXFLAGS = 
+test_scintilla_CXXFLAGS = -DGTK
 test_scintilla_SOURCES = test-scintilla.cxx
 test_scintilla_LDADD = \
 	$(ANJUTA_LIBS) \

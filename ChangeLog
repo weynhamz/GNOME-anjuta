@@ -11,6 +11,9 @@
 	
 	* src/search-replace.c: Fixed infinite loop bug.
 	* start-with.c: Fixed a crash bug with "Open last project".
+	
+	Patch from: Karl-Heinz Brünen  <k.bruenen@eprosoft.de
+	* scintilla/Makefile.am: Fixed compiler option.
 
 2003-10-16  Naba Kumar  <naba@gnome.org>
 
