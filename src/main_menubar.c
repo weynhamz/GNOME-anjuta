@@ -84,9 +84,9 @@ create_main_menubar (GtkWidget * ap, MainMenuBar * mb)
 	mb->edit.autocomplete = edit1_menu_uiinfo[12].widget;
 	mb->edit.calltip = edit1_menu_uiinfo[13].widget;
 	mb->edit.find = edit1_menu_uiinfo[15].widget;
-	mb->edit.find_in_files = edit1_menu_uiinfo[16].widget;
+	mb->edit.find_next = edit1_menu_uiinfo[16].widget;
 	mb->edit.find_replace = edit1_menu_uiinfo[17].widget;
-	mb->edit.repeat_find = edit1_menu_uiinfo[18].widget;
+	mb->edit.find_in_files = edit1_menu_uiinfo[18].widget;
 	mb->edit.enter_selection = edit1_menu_uiinfo[19].widget;
 	mb->edit.goto_line = goto1_submenu_uiinfo[0].widget;
 	mb->edit.goto_brace = goto1_submenu_uiinfo[1].widget;

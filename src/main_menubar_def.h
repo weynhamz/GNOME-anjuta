@@ -392,26 +392,26 @@ static GnomeUIInfo edit1_menu_uiinfo[NUM_EDIT_SUBMENUS+1] = {
 	 GDK_F, GDK_CONTROL_MASK, NULL},
 	
 	{/*16*/
-	 GNOME_APP_UI_ITEM, N_("Fin_d in Files ..."),
-	 N_("Search for a string in multiple files or directories"),
-	 on_find_in_files1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
-	 0, 0, NULL},
-	
+	 GNOME_APP_UI_ITEM, N_("Find _Next"),
+	 N_("Repeat the last Find command"),
+	 on_findnext1_activate, NULL, NULL,
+	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_SEARCH,
+	 GDK_F6, GDK_SHIFT_MASK, NULL},
+	 
 	{/*17*/
 	GNOME_APP_UI_ITEM, N_("Find and R_eplace ..."),
 	N_("Search for and replace a string or regular expression with another string"),
 	on_find_and_replace1_activate, NULL, NULL,
 	GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_SRCHRPL,
 	GDK_F, GDK_CONTROL_MASK | GDK_SHIFT_MASK, NULL},
-	
+ 
 	{/*18*/
-	 GNOME_APP_UI_ITEM, N_("Find _Next"),
-	 N_("Repeat the last Find command"),
-	 on_findnext1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_SEARCH,
-	 GDK_G, GDK_CONTROL_MASK, NULL},
-	 
+	 GNOME_APP_UI_ITEM, N_("Fin_d in Files ..."),
+	 N_("Search for a string in multiple files or directories"),
+	 on_find_in_files1_activate, NULL, NULL,
+	 GNOME_APP_PIXMAP_NONE, NULL,
+	 0, 0, NULL},
+	
 	{/*19*/
 	 GNOME_APP_UI_ITEM, N_("_Enter Selection"),
 	 N_("Enter the selected text as the search target"),
