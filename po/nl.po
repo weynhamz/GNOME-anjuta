@@ -1,14 +1,16 @@
-# anjuta nl.po
+# Dutch translation of anjuta nl.po
 # Copyright (C) 2001 Free Software Foundation, Inc.
-# 
+# Vincent van Adrighem <V.vanAdrighem@dirck.mine.nu>, 2003.
+# Tino Meinen <a.t.meinen@chello.nl>, 2003.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-08-26 11:17+0200\n"
-"PO-Revision-Date: 2003-07-29 18:35+0100\n"
-"Last-Translator: Vincent van Adrighem <V.vanAdrighem@dirck.mine.nu>\n"
-"Language-Team: Dutch <nl@li.org>\n"
+"POT-Creation-Date: 2003-10-07 03:04+0200\n"
+"PO-Revision-Date: 2003-10-13 12:01+0200\n"
+"Last-Translator: Tino Meinen <a.t.meinen@chello.nl>\n"
+"Language-Team: Dutch <vertaling@nl.linux.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -17,7 +19,7 @@ msgstr ""
 msgid "Anjuta IDE"
 msgstr "Anjuta IDE"
 
-#: anjuta.desktop.in.in.h:2 src/about.c:96 src/main.c:173
+#: anjuta.desktop.in.in.h:2 src/about.c:96 src/main.c:171
 msgid "Integrated Development Environment"
 msgstr "Integrated Development Environment"
 
@@ -118,23 +120,20 @@ msgid "Autocomplete XML/HTML closing tags"
 msgstr "XML/HTML sluit-tags AutoAfmaken"
 
 #: anjuta.glade.h:24
-#, fuzzy
 msgid "Autocompletion"
-msgstr "Auto afmaken"
+msgstr "Auto-aanvullen"
 
 #: anjuta.glade.h:25
-#, fuzzy
 msgid "Autocompletion pop up choices"
-msgstr "Automatische grootte voor autoafmaken"
+msgstr "Auto-aanvullen pup-up keuzes"
 
 #: anjuta.glade.h:26
 msgid "Automatically load last Project"
 msgstr "Het laatste project automatisch laden"
 
 #: anjuta.glade.h:27
-#, fuzzy
 msgid "Autosave"
-msgstr "Automatisch bewaard \"%s\""
+msgstr "Automatisch opslaan"
 
 #: anjuta.glade.h:28
 msgid "Autosave editor files before build starts"
@@ -168,8 +167,8 @@ msgstr "Breekpunt eigenschappen"
 msgid "Breakpoints"
 msgstr "Breekpunten"
 
-#: anjuta.glade.h:36 src/build_file.c:107 src/message-manager.cc:43
-#: src/text_editor_gui.c:172 src/toolbar.c:271
+#: anjuta.glade.h:36 src/build_file.c:102 src/message-manager.cc:43
+#: src/toolbar.c:273
 msgid "Build"
 msgstr "Bouwen"
 
@@ -194,7 +193,7 @@ msgid "Build symbol browser automatically"
 msgstr "Symboolbladermogelijkheid automatisch bouwen"
 
 #. 2
-#: anjuta.glade.h:42 src/an_file_view.c:414 src/message-manager.cc:45
+#: anjuta.glade.h:42 src/an_file_view.c:420 src/message-manager.cc:45
 msgid "CVS"
 msgstr "CVS"
 
@@ -239,42 +238,37 @@ msgid "Caret blink period in milli-seconds"
 msgstr "Knippersnelheid·van·cursor·in·miiliseconden"
 
 #: anjuta.glade.h:53
-#, fuzzy
 msgid "Case insensitive"
-msgstr "Hoofdlettergevoelig"
+msgstr "Hoofdletterongevoelig"
 
 #: anjuta.glade.h:54
 msgid "Case sensitive"
 msgstr "Hoofdlettergevoelig"
 
 #: anjuta.glade.h:55
-#, fuzzy
 msgid "Choose Directories:"
-msgstr "Bron mappen"
+msgstr "Mappen kiezen:"
 
 #: anjuta.glade.h:56
-#, fuzzy
 msgid "Choose Files:"
-msgstr "_Sluit bestand"
+msgstr "Bestanden kiezen:"
 
 #: anjuta.glade.h:57
 msgid "Choose autocomplete for single match"
 msgstr "AutoAfmaken voor enkele overeenkomst kiezen"
 
 #: anjuta.glade.h:58
-#, fuzzy
 msgid "Choose directories"
-msgstr "Bron mappen"
+msgstr "Mappen kiezen"
 
 #: anjuta.glade.h:59
-#, fuzzy
 msgid "Choose files"
-msgstr "Sluit alles"
+msgstr "Bestanden kiezen"
 
 #: anjuta.glade.h:60
 #, fuzzy
 msgid "Code folding"
-msgstr "_Code omloop marge"
+msgstr "Code omloop"
 
 #: anjuta.glade.h:61
 #, fuzzy
@@ -282,9 +276,8 @@ msgid "Collapse all code folds on file open"
 msgstr "Inklappen alle omlopers bij bestand openen"
 
 #: anjuta.glade.h:62
-#, fuzzy
 msgid "Colour"
-msgstr "Sluit"
+msgstr "Kleur"
 
 #: anjuta.glade.h:63
 msgid "Column at edge indicator"
@@ -343,17 +336,16 @@ msgid "Configure Parameters"
 msgstr "Configureer parameters"
 
 #: anjuta.glade.h:77
-#, fuzzy
 msgid "Custom style"
-msgstr "Zelfgedefinieerde stijl "
+msgstr "Aangepaste stijl "
 
 #: anjuta.glade.h:78
 msgid ""
 "Custom style,GNU coding style,Kernighan & Ritchie style,Original Berkeley "
 "style,Style of Kangleipak,Hello World style,Crazy boy style"
 msgstr ""
-"Custom style,GNU coding style,Kernighan & Ritchie style,Original Berkeley "
-"style,Style of Kangleipak,Hello World style,Crazy boy style"
+"Aangepaste stijl,GNU coding stijl,Kernighan & Ritchie stijl,Original "
+"Berkeley stijl,Stijl van Kangleipak,Hello World stijl,Crazy boy stijl"
 
 #: anjuta.glade.h:79
 msgid "Customize File Browser"
@@ -369,9 +361,9 @@ msgstr "Data module Makefile.am"
 
 #. 13
 #: anjuta.glade.h:82 src/message-manager.cc:49 src/text_editor_menu.c:319
-#: src/toolbar.c:305
+#: src/toolbar.c:306
 msgid "Debug"
-msgstr "Debug"
+msgstr "Debuggen"
 
 #: anjuta.glade.h:83
 msgid "Debugging and Profiling"
@@ -387,7 +379,7 @@ msgstr "Definities"
 
 #: anjuta.glade.h:86
 msgid "Delete Theme"
-msgstr "_Verwijder thema"
+msgstr "Thema verwijderen"
 
 #: anjuta.glade.h:87
 msgid "Dialog on job complete"
@@ -402,14 +394,12 @@ msgid "Directories"
 msgstr "Mappen"
 
 #: anjuta.glade.h:90
-#, fuzzy
 msgid "Directory filter"
-msgstr "Mappen"
+msgstr "Mappenfilter"
 
 #: anjuta.glade.h:91
-#, fuzzy
 msgid "Disable auto-format"
-msgstr "Uitschakelen auto formaat"
+msgstr "Automatisch formaat uitschakelen"
 
 #: anjuta.glade.h:92
 msgid "Disable overwriting files"
@@ -424,18 +414,16 @@ msgid "Do not show hidden directories"
 msgstr "Verborgen mappen niet weergeven"
 
 #: anjuta.glade.h:95
-#, fuzzy
 msgid "Do not show hidden files"
-msgstr "Zoek in bestanden"
+msgstr "Verborgen bestanden niet tonen"
 
 #: anjuta.glade.h:96
 msgid "Do not show start with dialog again."
 msgstr "Niet meer starten met dialoogvenster."
 
 #: anjuta.glade.h:97
-#, fuzzy
 msgid "Do not show tabs"
-msgstr "Laat het opstartscherm niet zien"
+msgstr "Geen tabs tonen"
 
 #: anjuta.glade.h:98
 msgid "Document module Makefile.am"
@@ -450,14 +438,12 @@ msgid "Edit"
 msgstr "Bewerken"
 
 #: anjuta.glade.h:101
-#, fuzzy
 msgid "Editor caret (cursor) width in pixels"
-msgstr "Cursorbreedte in pixels"
+msgstr "Editor-dakje (cursor) breedte in pixels"
 
 #: anjuta.glade.h:102
-#, fuzzy
 msgid "Editor tabs"
-msgstr "Teksteditor opties"
+msgstr "Editor tabs"
 
 #: anjuta.glade.h:103
 msgid "Enable Debugging"
@@ -476,30 +462,28 @@ msgid "Enable _all"
 msgstr "Alles _inschakelen"
 
 #: anjuta.glade.h:107
-#, fuzzy
 msgid "Enable automatic indentation"
-msgstr "Inschakelen automatisch inspringen"
+msgstr "Automatisch inspringen inschakelen"
 
 #: anjuta.glade.h:108
 msgid "Enable automatic messages indicators"
-msgstr "Automatische·berichtindicatoren·inschakelen"
+msgstr "Automatische berichtindicatoren inschakelen"
 
 #: anjuta.glade.h:109
 msgid "Enable braces check"
-msgstr "Inschakelen haakjescontrole"
+msgstr "Haakjescontrole inschakelen"
 
 #: anjuta.glade.h:110
-#, fuzzy
 msgid "Enable code folding"
-msgstr "Aanzetten commentaar omloop"
+msgstr "codetekst omloop aanzetten"
 
 #: anjuta.glade.h:111
 msgid "Enable comments folding"
-msgstr "Aanzetten commentaar omloop"
+msgstr "Commentaar-omloop aanzetten"
 
 #: anjuta.glade.h:112
 msgid "Enable files autosave"
-msgstr "Inschakelen automatisch bewaren"
+msgstr "Automatisch bewaren inschakelen"
 
 #: anjuta.glade.h:113
 #, fuzzy
@@ -544,15 +528,14 @@ msgid "Errors messages:"
 msgstr "Foutmeldingen:"
 
 #: anjuta.glade.h:122
-#, fuzzy
 msgid "Execute Program"
-msgstr "Voer het programma uit"
+msgstr "Programma uitvoeren"
 
 #: anjuta.glade.h:123
 msgid "Expand regex back references"
-msgstr "'Regexp·back·references'·uitklappen"
+msgstr "'Regexp back references' uitklappen"
 
-#: anjuta.glade.h:124 src/an_file_view.c:665 src/breakpoints.c:111
+#: anjuta.glade.h:124 src/an_file_view.c:671 src/breakpoints.c:111
 msgid "File"
 msgstr "Bestand"
 
@@ -561,9 +544,8 @@ msgid "File Filter"
 msgstr "Bestandsfilter"
 
 #: anjuta.glade.h:126
-#, fuzzy
 msgid "File filter"
-msgstr "Bouw bestanden"
+msgstr "Bestandsfilter"
 
 #: anjuta.glade.h:127
 msgid "File level"
@@ -578,22 +560,20 @@ msgid "Filter extraneous characters in DOS mode"
 msgstr "Extra·tekens·filteren·in·DOS-stand"
 
 #: anjuta.glade.h:130
-#, fuzzy
 msgid "Find & Replace"
-msgstr "Zoek en vervang"
+msgstr "Zoeken & vervangen"
 
 #: anjuta.glade.h:131
 msgid "Find and replace"
-msgstr "Zoek en vervang"
+msgstr "Zoeken en vervangen"
 
-#: anjuta.glade.h:132 src/find_in_files.c:301
+#: anjuta.glade.h:132 src/find_in_files.c:316
 msgid "Find in Files"
 msgstr "Zoeken in bestanden"
 
 #: anjuta.glade.h:133
-#, fuzzy
 msgid "Fold style:"
-msgstr "Opmaakstijl"
+msgstr "Opvouwen-stijl"
 
 #: anjuta.glade.h:134
 msgid "Font:"
@@ -607,7 +587,7 @@ msgstr "Voorgrondkleur:"
 msgid "Format"
 msgstr "Opmaak"
 
-#: anjuta.glade.h:137 src/toolbar.c:861
+#: anjuta.glade.h:137 src/toolbar.c:856
 msgid "Format style"
 msgstr "Opmaakstijl"
 
@@ -628,7 +608,7 @@ msgid "GUI editor command:"
 msgstr "GUI-editor·opdracht:"
 
 #. 3
-#: anjuta.glade.h:142 src/main_menubar_def.h:392
+#: anjuta.glade.h:142 src/main_menubar_def.h:386
 msgid "General"
 msgstr "Algemeen"
 
@@ -687,7 +667,6 @@ msgid "History sizes"
 msgstr "Geschiedenisgrootte"
 
 #: anjuta.glade.h:153
-#, fuzzy
 msgid "Ignore Binary Files"
 msgstr "Binaire bestanden negeren"
 
@@ -696,24 +675,20 @@ msgid "Ignore CVS directory"
 msgstr "CVS-map negeren"
 
 #: anjuta.glade.h:155
-#, fuzzy
 msgid "Ignore Directories:"
-msgstr "Bron mappen"
+msgstr "Mappen negeren:"
 
 #: anjuta.glade.h:156
-#, fuzzy
 msgid "Ignore Files:"
-msgstr "Info doelbestanden"
+msgstr "Bestanden negeren:"
 
 #: anjuta.glade.h:157
-#, fuzzy
 msgid "Ignore Hidden Directories"
-msgstr "Bron mappen"
+msgstr "Verborgen mappen negeren"
 
 #: anjuta.glade.h:158
-#, fuzzy
 msgid "Ignore Hidden Files"
-msgstr "Binaire bestanden negeren"
+msgstr "Verborgen bestanden negeren"
 
 #: anjuta.glade.h:159
 msgid "Ignore binary files"
@@ -724,24 +699,20 @@ msgid "Ignore case"
 msgstr "Hoofdletterongevoelig"
 
 #: anjuta.glade.h:161
-#, fuzzy
 msgid "Ignore directories"
-msgstr "CVS-map negeren"
+msgstr "Mappen negeren"
 
 #: anjuta.glade.h:162
-#, fuzzy
 msgid "Ignore files"
-msgstr "Binaire bestanden negeren"
+msgstr "Bestanden negeren"
 
 #: anjuta.glade.h:163
-#, fuzzy
 msgid "Ignore files and directories"
 msgstr "Bestanden en mappen negeren"
 
 #: anjuta.glade.h:164
-#, fuzzy
 msgid "Import Wizard"
-msgstr "Project Informatie"
+msgstr "Import-assistent"
 
 #: anjuta.glade.h:165
 msgid ""
@@ -749,9 +720,9 @@ msgid ""
 "existing Project into Anjuta and convert it into Anjuta Project. There will "
 "be no data lose or modification done to the project."
 msgstr ""
-"·Bestaand·project·importeren.·De·import-"
-"assistent·zal·u·helpen·bij·het·importeren·van·een·bestaand·project·naar·een·Anjuta-"
-"project.·Er·zal·niets·aan·uw·project·worden·gewijzigd."
+"Bestaand project importeren. De import-assistent zal u helpen bij het "
+"importeren van een bestaand project naar een Anjuta-project. Er zal niets "
+"aan uw project worden gewijzigd."
 
 #: anjuta.glade.h:166
 msgid "Include Paths"
@@ -762,28 +733,26 @@ msgid "Include module Makefile.am"
 msgstr "Include module Makefile.am"
 
 #: anjuta.glade.h:168
-#, fuzzy
 msgid "Indent closing braces"
-msgstr "Indent ophogen"
+msgstr "Afluitende haakjes inspringen"
 
 #: anjuta.glade.h:169
-#, fuzzy
 msgid "Indent opening braces"
-msgstr "Indent ophogen"
+msgstr "Openingshaakjes inspringen"
 
 #: anjuta.glade.h:170
 msgid "Indentation and auto-format options"
-msgstr "Insping-·en·Auto-Opmaakopties"
+msgstr "Insping- en Automatische-opmaak opties"
 
 #: anjuta.glade.h:171
 #, fuzzy
 msgid "Indentation size in spaces:"
 msgstr "Auto inspringen grootte in spaties"
 
+# aanwijzers
 #: anjuta.glade.h:172
-#, fuzzy
 msgid "Indicators"
-msgstr "Tekstverwerker"
+msgstr "Indicators"
 
 #: anjuta.glade.h:173
 msgid "Info Pages"
@@ -791,11 +760,11 @@ msgstr "Info pagina's"
 
 #: anjuta.glade.h:174
 msgid "Input string:"
-msgstr "Tekenreeks:"
+msgstr "Invoer tekenreeks:"
 
-#: anjuta.glade.h:175 src/text_editor_menu.c:174 src/toolbar.c:604
+#: anjuta.glade.h:175 src/text_editor_menu.c:174 src/toolbar.c:599
 msgid "Inspect"
-msgstr "Inspecteer"
+msgstr "Inspecteren"
 
 #: anjuta.glade.h:176
 msgid "Italic"
@@ -818,26 +787,24 @@ msgid "Library Paths"
 msgstr "Bibliotheekpaden"
 
 #: anjuta.glade.h:181
-#, fuzzy
 msgid "Line numbers margin width in pixels"
-msgstr "Regelnummer margebreedte (pixels)"
+msgstr "Marge voor regelnummers in pixels"
 
-#: anjuta.glade.h:182 printing/print.c:1055 src/anjuta_info.c:126
-#, fuzzy
+#: anjuta.glade.h:182 printing/print.c:1011 src/anjuta_info.c:126
 msgid "Lines"
-msgstr "Regel"
+msgstr "Regels"
 
 #: anjuta.glade.h:183
 msgid "Linker Flags (LDFLAGS):"
-msgstr "Linkvlaggen·(LDFLAGS):"
+msgstr "Linkvlaggen (LDFLAGS):"
 
 #: anjuta.glade.h:184
 msgid "Load _global defaults"
-msgstr "Laad _fabrieksinstellingen"
+msgstr "_Algemene standaarden laden"
 
 #: anjuta.glade.h:185
 msgid "Load _user defaults"
-msgstr "Standaard·_gebruikersinstellingen·laden"
+msgstr "_Gebruikersinstellingen laden"
 
 #: anjuta.glade.h:186
 msgid "Low-Level Optimization (Machine dependent optimization)"
@@ -853,23 +820,23 @@ msgstr "Man pagina's"
 
 #: anjuta.glade.h:189
 msgid "Match at start of word"
-msgstr "Matchen·op·begin·van·woord"
+msgstr "Matchen op begin van woord"
 
 #: anjuta.glade.h:190
 msgid "Match complete lines"
-msgstr "Hele·regels·matchen"
+msgstr "Hele regels matchen"
 
 #: anjuta.glade.h:191
 msgid "Match complete words"
-msgstr "Complete·woorden·matchen"
+msgstr "Complete woorden matchen"
 
 #: anjuta.glade.h:192
 msgid "Max. Actions"
-msgstr "Max·acties"
+msgstr "Max acties"
 
 #: anjuta.glade.h:193
 msgid "Maximum number of independent jobs (0 == no limit)"
-msgstr "Aantal·onafhankelijke·taken·(·0·=·ongelimiteerd)"
+msgstr "Maximum aantal onafhankelijke taken ( 0 = ongelimiteerd)"
 
 #: anjuta.glade.h:194
 msgid "Medium-Level Optimization (Without space-speed trade-off)"
@@ -889,18 +856,16 @@ msgid "Menu location:"
 msgstr "Menulocatie:"
 
 #: anjuta.glade.h:198
-#, fuzzy
 msgid "Message colors"
-msgstr "Boodschappen"
+msgstr "Berichtkleuren"
 
 #: anjuta.glade.h:199
 msgid "Messages options"
 msgstr "Berichtopties"
 
 #: anjuta.glade.h:200
-#, fuzzy
 msgid "Misc options"
-msgstr "Projectopties"
+msgstr "Overige opties"
 
 #: anjuta.glade.h:201
 msgid "Mode:"
@@ -921,12 +886,11 @@ msgstr "Naam:"
 #: anjuta.glade.h:205 src/main_menubar_def.h:30 src/text_editor_gui.c:97
 #: src/toolbar.c:76
 msgid "New file"
-msgstr "Nieuw·bestand"
+msgstr "Nieuw bestand"
 
 #: anjuta.glade.h:206
-#, fuzzy
 msgid "No Limit"
-msgstr "Geen optimalisatie"
+msgstr "Geen limiet"
 
 #: anjuta.glade.h:207
 msgid "No Optimization"
@@ -934,11 +898,11 @@ msgstr "Geen optimalisatie"
 
 #: anjuta.glade.h:208
 msgid "Normal message indicator style:"
-msgstr "Normaal·bericht·indicatorstijl:"
+msgstr "Normaal bericht indicatorstijl:"
 
 #: anjuta.glade.h:209
 msgid "Normal messages:"
-msgstr "Normale·berichten:"
+msgstr "Normale berichten:"
 
 #: anjuta.glade.h:210
 msgid ""
@@ -960,27 +924,26 @@ msgid "Number of last characters to show:"
 msgstr "Aantal laatste karakters dat getoond wordt"
 
 #. Must declare static, because it will be used forever
-#: anjuta.glade.h:213 src/project_dbase.c:220 src/toolbar.c:211
+#: anjuta.glade.h:213 src/project_dbase.c:197 src/toolbar.c:213
 msgid "Open Project"
 msgstr "Project·openen"
 
 #: anjuta.glade.h:214
-#, fuzzy
 msgid "Open existing Project."
-msgstr "Open een project"
+msgstr "Eeb bestaand project openen."
 
 #: anjuta.glade.h:215
 msgid "Open existing file or create a new file."
-msgstr "Bestaand·bestand·openen·of·nieuw·bestand·aanmaken."
+msgstr "Bestaand bestand openen of nieuw bestand aanmaken."
 
 #: anjuta.glade.h:216 src/main_menubar_def.h:36 src/text_editor_gui.c:101
 #: src/toolbar.c:80
 msgid "Open file"
-msgstr "Open bestand"
+msgstr "Bestand openen"
 
 #: anjuta.glade.h:217
 msgid "Open last working Project"
-msgstr "Laatste·werkproject·openen"
+msgstr "Laatste werkproject openen"
 
 #: anjuta.glade.h:218
 msgid "Optimization"
@@ -997,7 +960,7 @@ msgstr "Overige kleuren"
 
 #: anjuta.glade.h:221
 msgid "Other messages:"
-msgstr "Overige·berichten:"
+msgstr "Overige berichten:"
 
 #: anjuta.glade.h:222 src/an_symbol_view.c:54
 msgid "Others"
@@ -1033,7 +996,7 @@ msgstr "Backspace·verwijdert·inspinging"
 
 #: anjuta.glade.h:230
 msgid "Pressing tab indents"
-msgstr "Tab·springt·in"
+msgstr "Tab springt in"
 
 #: anjuta.glade.h:231
 msgid "Print options"
@@ -1044,7 +1007,7 @@ msgid "Programs"
 msgstr "Programma's"
 
 #: anjuta.glade.h:233 src/project_dbase_gui.c:610 src/project_dbase_gui.c:627
-#: src/toolbar.c:149
+#: src/toolbar.c:150
 msgid "Project"
 msgstr "Project"
 
@@ -1094,24 +1057,23 @@ msgstr "Reguliere expressie/tekst om te zoeken"
 
 #: anjuta.glade.h:245
 msgid "Regular Expression"
-msgstr "Reguliere·expressie"
+msgstr "Reguliere expressie"
 
 #: anjuta.glade.h:246
 msgid "Reload Session Defaults"
-msgstr "Herlaad sessie instellingen"
+msgstr "Sessie-instellingen herladen"
 
 #: anjuta.glade.h:247
 msgid "Reload System Defaults"
-msgstr "Fabrieksinstellingen·herladen"
+msgstr "Systeem-standaarden herladen"
 
 #: anjuta.glade.h:248
-#, fuzzy
 msgid "Replace Expression"
-msgstr "Expressie"
+msgstr "Expressie vervangen"
 
 #: anjuta.glade.h:249
 msgid "Replace With:"
-msgstr "Vervangen·door:"
+msgstr "Vervangen door:"
 
 #: anjuta.glade.h:250
 msgid "Reset all sticky tags during update (looses branch) [-A]"
@@ -1137,7 +1099,7 @@ msgstr "Uitvoeren in console"
 
 #: anjuta.glade.h:255
 msgid "Save all files"
-msgstr "Alle·bestanden·opslaan"
+msgstr "Alle bestanden opslaan"
 
 #: anjuta.glade.h:256
 #, fuzzy
@@ -1156,8 +1118,8 @@ msgstr "Reikwijdte"
 msgid "Scripts at the end of top level Makefile.am"
 msgstr "Scripts aan het eind van bovenste Makefile.am"
 
-#: anjuta.glade.h:260 src/search-replace.c:1332 src/search-replace.c:1495
-#: src/search-replace.c:1501
+#: anjuta.glade.h:260 src/search-replace.c:1361 src/search-replace.c:1527
+#: src/search-replace.c:1533
 msgid "Search"
 msgstr "Zoeken"
 
@@ -1166,35 +1128,32 @@ msgid "Search Action:"
 msgstr "Zoekactie:"
 
 #: anjuta.glade.h:262
-#, fuzzy
 msgid "Search Direction:"
-msgstr "Richting"
+msgstr "Zoekrichting:"
 
 #: anjuta.glade.h:263
 msgid "Search Expression"
 msgstr "Zoekexpressie"
 
 #: anjuta.glade.h:264
-#, fuzzy
 msgid "Search Expression:"
-msgstr "Toevoegen Watch expressie"
+msgstr "Zoekexpressie:"
 
 #: anjuta.glade.h:265
 msgid "Search In:"
-msgstr "Zoeken·in:"
+msgstr "Zoeken in:"
 
 #: anjuta.glade.h:266
 msgid "Search Recursively"
-msgstr "Recursief·zoeken"
+msgstr "Recursief zoeken"
 
 #: anjuta.glade.h:267
 msgid "Search String"
 msgstr "Zoektekst"
 
 #: anjuta.glade.h:268
-#, fuzzy
 msgid "Search Target"
-msgstr "Zoekpaden"
+msgstr "Zoekdoel"
 
 #: anjuta.glade.h:269
 msgid "Search Variable"
@@ -1306,7 +1265,7 @@ msgstr "Te·vervangen·tekst"
 msgid "Strip trailling spaces on file save"
 msgstr "Verwijder beginspaties bij opslaan bestand"
 
-#: anjuta.glade.h:295 src/anjuta-encodings.c:723
+#: anjuta.glade.h:295 src/anjuta-encodings.c:721
 msgid "Supported Encodings"
 msgstr "Ondersteunde·coderingen"
 
@@ -1319,18 +1278,16 @@ msgid "Syntax highlight editor"
 msgstr "Belichtingsstijl bewerken"
 
 #: anjuta.glade.h:298
-#, fuzzy
 msgid "Tab size in spaces:"
-msgstr "Tabgrootte in spaties"
+msgstr "Tabgrootte in spaties:"
 
 #: anjuta.glade.h:299
 msgid "Tabs position:"
 msgstr "Tabpositie:"
 
 #: anjuta.glade.h:300
-#, fuzzy
 msgid "Target:"
-msgstr "Tag:"
+msgstr "Doel:"
 
 #: anjuta.glade.h:301
 msgid "Terminal options"
@@ -1365,7 +1322,7 @@ msgid "Underlined"
 msgstr "Onderstreept"
 
 #: anjuta.glade.h:309 src/cvs_gui.c:73 src/registers_gui.c:47
-#: src/sharedlib_gui.c:40 src/signals_gui.c:54 src/stack_trace.c:370
+#: src/sharedlib_gui.c:40 src/signals_gui.c:54 src/stack_trace.c:364
 msgid "Update"
 msgstr "Verversen"
 
@@ -1618,7 +1575,6 @@ msgstr ""
 
 #. Hide menuitem.
 #: gdl/gdl-dock-item.c:1231
-#, fuzzy
 msgid "Hide"
 msgstr "Verbergen"
 
@@ -1656,9 +1612,10 @@ msgstr "U moet een naam geven aan de opmaak"
 
 #. FIXME: pop up an error dialog
 #: gdl/gdl-dock-layout.c:625
-#, fuzzy, c-format
+#, c-format
 msgid "Could not load layout user interface file '%s'"
-msgstr "Kan niet laden bestand: %s"
+msgstr ""
+"Kon het bestand '%s' voor de indeling van de gebruikersinterface niet laden"
 
 #: gdl/gdl-dock-layout.c:680
 msgid "Visible"
@@ -1669,14 +1626,13 @@ msgid "Item"
 msgstr "Item"
 
 #: gdl/gdl-dock-layout.c:737 gdl/gdl-dock-object.c:120
-#: src/compiler_options.c:816
+#: src/compiler_options.c:796
 msgid "Name"
 msgstr "Naam"
 
 #: gdl/gdl-dock-layout.c:776 gdl/layout.glade.h:2
-#, fuzzy
 msgid "Dock items"
-msgstr "Doc bestand"
+msgstr "Dok-items"
 
 #: gdl/gdl-dock-layout.c:782 gdl/layout.glade.h:4
 msgid "Saved layouts"
@@ -1696,9 +1652,8 @@ msgid "Layout managment"
 msgstr "Opmaakbeheer"
 
 #: gdl/gdl-dock-master.c:136 gdl/gdl-dock.c:185
-#, fuzzy
 msgid "Default title"
-msgstr "Gebruik fabrieksinstellingen"
+msgstr "Standaard titel"
 
 #: gdl/gdl-dock-master.c:137
 msgid "Default title for newly created floating docks"
@@ -1737,18 +1692,16 @@ msgid "Page"
 msgstr "Pagina"
 
 #: gdl/gdl-dock-notebook.c:135
-#, fuzzy
 msgid "The index of the current page"
-msgstr "Ontbind de huidige pagina"
+msgstr "De index van de huidige pagina"
 
 #: gdl/gdl-dock-object.c:121
 msgid "Unique name for identifying the dock object"
 msgstr "Unieke naam voor identificatie van het aangekoppelde·object"
 
 #: gdl/gdl-dock-object.c:128
-#, fuzzy
 msgid "Long name"
-msgstr "Item naam:"
+msgstr "Lange naam"
 
 #: gdl/gdl-dock-object.c:129
 msgid "Human readable name for the dock object"
@@ -1803,9 +1756,8 @@ msgid "Position of the divider in pixels"
 msgstr "Positie van de verdeler in pixels"
 
 #: gdl/gdl-dock-placeholder.c:127
-#, fuzzy
 msgid "Sticky"
-msgstr "Voorraad"
+msgstr "Plakkerig"
 
 #: gdl/gdl-dock-placeholder.c:128
 msgid ""
@@ -1865,9 +1817,8 @@ msgid "Dockitem which 'owns' this tablabel"
 msgstr "Dok-item welke dit tab-label 'bezit'"
 
 #: gdl/gdl-dock.c:177
-#, fuzzy
 msgid "Floating"
-msgstr "Kroatisch"
+msgstr "Zwevend"
 
 #: gdl/gdl-dock.c:178
 msgid "Whether the dock is floating in its own window"
@@ -1886,7 +1837,6 @@ msgid "Width for the dock when it's of floating type"
 msgstr "Breedte van het dok als het zweeft"
 
 #: gdl/gdl-dock.c:200
-#, fuzzy
 msgid "Height"
 msgstr "Hoogte"
 
@@ -1895,40 +1845,37 @@ msgid "Height for the dock when it's of floating type"
 msgstr "Hoogte van het dok als het zweeft"
 
 #: gdl/gdl-dock.c:208
-#, fuzzy
 msgid "Float X"
-msgstr "Formaat"
+msgstr "X zwevend"
 
 #: gdl/gdl-dock.c:209
 msgid "X coordinate for a floating dock"
 msgstr "X-coördinaat van een zwevend dok"
 
 #: gdl/gdl-dock.c:216
-#, fuzzy
 msgid "Float Y"
-msgstr "Formaat"
+msgstr "Y zwevend"
 
 #: gdl/gdl-dock.c:217
 msgid "Y coordinate for a floating dock"
 msgstr "Y-coördinaat van een zwevend dok"
 
 #: gdl/gdl-dock.c:494
-#, fuzzy, c-format
+#, c-format
 msgid "Dock #%d"
-msgstr "Dock"
+msgstr "Dok #%d"
 
 #: gdl/gdl-icons.c:141 gdl/gdl-icons.c:142
 msgid "Icon size"
-msgstr "Pictogramafmetingen"
+msgstr "Pictogramafmeting"
 
 #: gdl/gdl-icons.c:147 gdl/gdl-icons.c:148
 msgid "Icon zoom"
 msgstr "Pictogram-zoom"
 
 #: gdl/layout.glade.h:3
-#, fuzzy
 msgid "Layout Managment"
-msgstr "Backup Manager"
+msgstr "Indelingsbeheer"
 
 #: gdl/layout.glade.h:5
 msgid "_Load"
@@ -1947,36 +1894,30 @@ msgid "Base class name not valid"
 msgstr "Basis·klassenaam·ongeldig"
 
 #: plugins/class-gen/clsGen.c:462
-#, fuzzy
 msgid "Declaration file name not valid"
-msgstr "Declaraties"
+msgstr "Naam van declaratiebestand niet geldig"
 
 #: plugins/class-gen/clsGen.c:467
-#, fuzzy
 msgid "Implementation file name not valid"
-msgstr "Documentatiebestand"
+msgstr "Naam van implementatiebestand niet geldig"
 
 #: plugins/class-gen/clsGen.c:726
-#, fuzzy
 msgid "Error in importing files"
-msgstr "Fout schrijven naar bestand: %s."
+msgstr "Fout bij importeren bestanden"
 
 #: plugins/class-gen/clsGen.c:1332
-#, fuzzy
 msgid "Class Builder"
-msgstr "Klassen"
+msgstr "Klasse-bouwer"
 
 #. 13
 #. 14
-#: plugins/class-gen/clsGen.c:1343 src/main_menubar_def.h:998
+#: plugins/class-gen/clsGen.c:1343 src/main_menubar_def.h:999
 #: src/project_dbase_gui.c:367 src/registers_gui.c:55 src/sharedlib_gui.c:48
-#: src/signals_gui.c:62 src/stack_trace.c:385 src/toolbar.c:159
-#: src/watch_gui.c:74
+#: src/signals_gui.c:62 src/stack_trace.c:379 src/watch_gui.c:74
 msgid "Help"
 msgstr "Hulp"
 
-#: plugins/class-gen/clsGen.c:1352 plugins/patch/patch-plugin.c:103
-#, fuzzy
+#: plugins/class-gen/clsGen.c:1352 plugins/patch/patch-plugin.c:107
 msgid "Cancel"
 msgstr "Annuleren"
 
@@ -1986,16 +1927,15 @@ msgstr "Klaar"
 
 #: plugins/class-gen/clsGen.c:1378
 msgid "Enter the name for the class you want to add."
-msgstr "Geef·de·naam·van·de·klasse·die·u·wilt·toevoegen."
+msgstr "Geef de naam van de klasse die u wilt toevoegen."
 
 #: plugins/class-gen/clsGen.c:1388
 msgid "Enter the declaration file name."
-msgstr "Geef·de·declaratiebestandsnaam."
+msgstr "Geef de naam van het declaratiebestand."
 
 #: plugins/class-gen/clsGen.c:1398
-#, fuzzy
 msgid "Enter the implementation file name."
-msgstr "Documentatiebestand"
+msgstr "Geef de naam van het implementatiebestand."
 
 #: plugins/class-gen/clsGen.c:1400 plugins/class-gen/clsGen.c:1410
 msgid "..."
@@ -2003,11 +1943,11 @@ msgstr "..."
 
 #: plugins/class-gen/clsGen.c:1408
 msgid "Browse for the declaration file name."
-msgstr "Bladeren·naar·de·declaratiebestandsnaam."
+msgstr "Bladeren naar de declaratiebestandsnaam."
 
 #: plugins/class-gen/clsGen.c:1418
 msgid "Browse for the implementation file name."
-msgstr "Bladeren"
+msgstr "Bladeren voor het implementatiebestand."
 
 #: plugins/class-gen/clsGen.c:1428
 msgid "Enter the name of the class your new class will inherit from."
@@ -2023,19 +1963,16 @@ msgstr ""
 
 #. gtk_widget_set_usize (self->label_description, 400, 16);
 #: plugins/class-gen/clsGen.c:1462
-#, fuzzy
 msgid "Class name: "
-msgstr "Klasse:"
+msgstr "Klasse-naam: "
 
 #: plugins/class-gen/clsGen.c:1472
-#, fuzzy
 msgid "Header file:  "
-msgstr "Helpbestand"
+msgstr "Header-bestand:  "
 
 #: plugins/class-gen/clsGen.c:1482
-#, fuzzy
 msgid "Source file:  "
-msgstr "Bronbestand"
+msgstr "Bronbestand:  "
 
 #: plugins/class-gen/clsGen.c:1492
 msgid "Base class:   "
@@ -2077,23 +2014,20 @@ msgstr "Welkom bij de Anjuta klassebouwer."
 
 #. gtk_widget_set_usize (self->label_welcome, 184, 16);
 #: plugins/class-gen/clsGen.c:1589
-#, fuzzy
 msgid "Class type:   "
-msgstr "Klasse:"
+msgstr "Klasse-type:   "
 
 #: plugins/class-gen/clsGen.c:1607 plugins/class-gen/clsGen.c:1620
 msgid "public"
 msgstr "public"
 
 #: plugins/class-gen/clsGen.c:1608
-#, fuzzy
 msgid "protected"
-msgstr "project1"
+msgstr "protected"
 
 #: plugins/class-gen/clsGen.c:1609
-#, fuzzy
 msgid "private"
-msgstr "Update"
+msgstr "private"
 
 #: plugins/class-gen/clsGen.c:1618
 msgid "Choose the type of inheritence from the base class."
@@ -2115,77 +2049,72 @@ msgid "Generic C++ Class"
 msgstr "Algemene C++ klasse"
 
 #: plugins/class-gen/clsGen.c:1641
-#, fuzzy
 msgid "GTK+ Class"
-msgstr "Klasse:"
+msgstr "GTK+ klasse"
 
 #: plugins/class-gen/clsGen.c:1650
-#, fuzzy
 msgid "Select the type of class you would like to create."
-msgstr "Selecteer het type applicatie dat u wilt ontwikkelen"
+msgstr "Selecteer het type klasse dat u wilt ontwikkelen."
 
-#: plugins/patch/patch-plugin.c:60
+#: plugins/patch/patch-plugin.c:64
 msgid "Interface to patch Projects or individual files"
 msgstr "Interface om projecten of bestanden te patchen"
 
-#: plugins/patch/patch-plugin.c:96
+#: plugins/patch/patch-plugin.c:100
 msgid "File/Dir to patch"
 msgstr "Bestand/map om te patchen"
 
-#: plugins/patch/patch-plugin.c:97
+#: plugins/patch/patch-plugin.c:101
 msgid "Patch file"
 msgstr "Patchbestand"
 
-#: plugins/patch/patch-plugin.c:98
+#: plugins/patch/patch-plugin.c:102
 msgid "Patch level (-p)"
 msgstr "Patch-niveau (-p)"
 
-#: plugins/patch/patch-plugin.c:103
-#, fuzzy
+#: plugins/patch/patch-plugin.c:107
 msgid "Patch Plugin"
-msgstr "plugins"
+msgstr "Plugins patchen"
 
-#: plugins/patch/patch-plugin.c:103
-#, fuzzy
+#: plugins/patch/patch-plugin.c:107
 msgid "Patch"
-msgstr "Watch"
+msgstr "Patchen"
 
-#: plugins/patch/patch-plugin.c:106
+#: plugins/patch/patch-plugin.c:110
 #, fuzzy
 msgid "Selected directory to patch"
-msgstr "Selekteer het te verbinden proces:  "
+msgstr "Selecteer het te verbinden proces:  "
 
-#: plugins/patch/patch-plugin.c:108
+#: plugins/patch/patch-plugin.c:112
 msgid "Selected patch file"
 msgstr "Kies patchbestand"
 
-#: plugins/patch/patch-plugin.c:144
-#, fuzzy
+#: plugins/patch/patch-plugin.c:148
 msgid "Patch plugin"
-msgstr "plugins"
+msgstr "Plugin patchen"
 
-#: plugins/patch/patch-plugin.c:150
+#: plugins/patch/patch-plugin.c:154
 msgid "The patch plugin"
 msgstr "De patchplugin"
 
-#: plugins/patch/patch-plugin.c:168
+#: plugins/patch/patch-plugin.c:172
 msgid "Please select the directory where the patch should be applied"
 msgstr "Kies de map waar de patch op toegepast zou moeten worden"
 
-#: plugins/patch/patch-plugin.c:175
+#: plugins/patch/patch-plugin.c:179
 #, c-format
 msgid "Patching %s using %s\n"
 msgstr "Patchen van %s met %s\n"
 
-#: plugins/patch/patch-plugin.c:181
+#: plugins/patch/patch-plugin.c:185
 msgid "Patching...\n"
 msgstr "Patchen...\n"
 
-#: plugins/patch/patch-plugin.c:188
+#: plugins/patch/patch-plugin.c:195
 msgid "There are unfinished jobs, please wait until they are finished"
 msgstr "Er zijn nog actieve taken, wacht a.u.b. tot deze zijn afgelopen"
 
-#: plugins/patch/patch-plugin.c:212
+#: plugins/patch/patch-plugin.c:226
 msgid ""
 "Patch failed.\n"
 "Please review the failure messages.\n"
@@ -2195,82 +2124,75 @@ msgstr ""
 "Bekijk de foutmeldingen.\n"
 "Analyseer en verwijder geweigerde bestanden.\n"
 
-#: plugins/patch/patch-plugin.c:219
-#, fuzzy
+#: plugins/patch/patch-plugin.c:233
 msgid "Patch successful.\n"
-msgstr "Project geladen succesvol"
+msgstr "Patch is gelukt.\n"
 
-#: plugins/sample1/plugin-sample1.c:17
+#: plugins/sample1/plugin-sample1.c:18
 msgid "Sample Plugin Description. Holla!"
 msgstr "Voorbeeldplugin beschrijving. HEUJ!"
 
-#: plugins/sample1/plugin-sample1.c:47
+#: plugins/sample1/plugin-sample1.c:49
 msgid "Hello world!"
 msgstr "Hallo wereld!"
 
-#: plugins/sample1/plugin-sample1.c:48
+#: plugins/sample1/plugin-sample1.c:50
 msgid "Sample plugin!"
 msgstr "Voorbeeldplugin!"
 
-#: plugins/sample1/plugin-sample1.c:56
-#, fuzzy
+#: plugins/sample1/plugin-sample1.c:58
 msgid "Sample plugin"
-msgstr "plugins"
+msgstr "Voorbeeld-plugin"
 
-#: plugins/sample1/plugin-sample1.c:62
+#: plugins/sample1/plugin-sample1.c:64
 msgid "This is a sample plugin"
 msgstr "Dit is een voorbeeldplugin"
 
-#: printing/print.c:535
-#, fuzzy
+#: printing/print.c:484
 msgid "No file to print!"
-msgstr "Geen bestand of project geopend. "
+msgstr "Geen bestand om af te drukken!"
 
-#: printing/print.c:558
+#: printing/print.c:517
 #, fuzzy
 msgid "Unable to get text buffer for printing"
 msgstr "Pagina instellingen voor afdrukken"
 
-#: printing/print.c:789
-#, fuzzy, c-format
+#: printing/print.c:731
+#, c-format
 msgid "File: %s"
 msgstr "Bestand: %s"
 
-#: printing/print.c:790
+#: printing/print.c:732
 #, c-format
 msgid "%d"
 msgstr "%d"
 
-#: printing/print.c:910
-#, fuzzy
+#: printing/print.c:844
 msgid "Printing .."
-msgstr "Af_drukken ..."
+msgstr "Afdrukken ..."
 
-#: printing/print.c:922
-#, fuzzy
+#: printing/print.c:856
 msgid "Printing ..."
-msgstr "Af_drukken ..."
+msgstr "Afdrukken ..."
 
-#: printing/print.c:1046 src/signals_gui.c:123 src/text_editor_gui.c:178
-#: src/toolbar.c:109
+#: printing/print.c:1002 src/signals_gui.c:123
 msgid "Print"
 msgstr "Afdrukken"
 
-#: printing/print.c:1082
+#: printing/print.c:1038
 msgid "Print Preview"
 msgstr "Afdrukvoorbeeld"
 
 #: src/about.c:95
-#, fuzzy
 msgid "Copyright (c) Naba Kumar"
-msgstr "Copyright (c) 1999-2001 Naba Kumar"
+msgstr "Copyright © Naba Kumar"
 
-#: src/an_file_view.c:57
+#: src/an_file_view.c:63
 #, fuzzy, c-format
 msgid "Unable to open %s in %s"
 msgstr "Kan het bestand %s niet openen\n"
 
-#: src/an_file_view.c:67
+#: src/an_file_view.c:73
 #, c-format
 msgid ""
 "No default viewer specified for the mime type %s.\n"
@@ -2279,130 +2201,120 @@ msgstr ""
 "Geen standaardweergave gegeven voor mimetype %s.\n"
 "U moet dit instellen in het GNOME Configuratiecentrum"
 
-#: src/an_file_view.c:267
+#: src/an_file_view.c:273
 msgid "Unable to build user interface for file filter"
 msgstr "Kan gebruikersinterface voor bestandsfilter niet opbouwen"
 
 #. 0
-#: src/an_file_view.c:348
+#: src/an_file_view.c:354
 #, fuzzy
 msgid "Update file"
 msgstr "Bijwerken bestand:"
 
-#: src/an_file_view.c:349 src/main_menubar_def.h:1604
+#: src/an_file_view.c:355 src/main_menubar_def.h:1605
 msgid "Update current working copy"
 msgstr "Huidige werkversie bijwerken"
 
 #. 1
-#: src/an_file_view.c:355
-#, fuzzy
+#: src/an_file_view.c:361
 msgid "Commit file"
-msgstr "Compileer"
+msgstr "Bestand 'committen'"
 
-#: src/an_file_view.c:356 src/main_menubar_def.h:1611
+#: src/an_file_view.c:362 src/main_menubar_def.h:1612
 msgid "Commit changes to the repository"
-msgstr "Veranderingen opsturen naar de repos"
+msgstr "Veranderingen opsturen naar de repository"
 
 #. 2
-#: src/an_file_view.c:362
-#, fuzzy
+#: src/an_file_view.c:368
 msgid "Status of file"
-msgstr "Anjuta: Geen bestand"
+msgstr "Status van bestand"
 
-#: src/an_file_view.c:363 src/main_menubar_def.h:1618
+#: src/an_file_view.c:369 src/main_menubar_def.h:1619
 #, fuzzy
 msgid "Print the status of the current file"
 msgstr "Druk het huidige bestand af"
 
 #. 3
-#: src/an_file_view.c:369
+#: src/an_file_view.c:375
 #, fuzzy
 msgid "Get file log"
 msgstr "Open bestand"
 
-#: src/an_file_view.c:370 src/main_menubar_def.h:1625
+#: src/an_file_view.c:376 src/main_menubar_def.h:1626
 #, fuzzy
 msgid "Print the CVS log for the current file"
 msgstr "Druk het huidige bestand af"
 
 #. 4
-#: src/an_file_view.c:376
-#, fuzzy
+#: src/an_file_view.c:382
 msgid "Add file"
-msgstr "Nieuw toevoegen"
+msgstr "Bestand toevoegen"
 
-#: src/an_file_view.c:377 src/main_menubar_def.h:1632
-#, fuzzy
+#: src/an_file_view.c:383 src/main_menubar_def.h:1633
 msgid "Add the current file to the repository"
-msgstr "Verwijder huidig bestand van het project"
+msgstr "Het huidige bestand aan de repository toevoegen"
 
 #. 5
-#: src/an_file_view.c:383
-#, fuzzy
+#: src/an_file_view.c:389
 msgid "Remove file"
-msgstr "Verwijder"
+msgstr "Bestand verwijderen"
 
-#: src/an_file_view.c:384 src/main_menubar_def.h:1639
-#, fuzzy
+#: src/an_file_view.c:390 src/main_menubar_def.h:1640
 msgid "Remove the current file from the repository"
-msgstr "Verwijder huidig bestand van het project"
+msgstr "Het huidige bestand uit het repository verwijderen"
 
 #. 6
-#: src/an_file_view.c:390
-#, fuzzy
+#: src/an_file_view.c:396
 msgid "Diff file"
-msgstr "Doc bestand"
+msgstr "Diff-bestand"
 
-#: src/an_file_view.c:391 src/main_menubar_def.h:1646
+#: src/an_file_view.c:397 src/main_menubar_def.h:1647
 msgid "Create a diff between the working copy and the repository"
-msgstr "Een diff maken van de verschillen tussen de werkversie en de repos"
+msgstr ""
+"Een diff maken van de verschillen tussen de werkversie en de repository"
 
 #. 0
-#: src/an_file_view.c:400 src/main_menubar_def.h:946
+#: src/an_file_view.c:406 src/main_menubar_def.h:947
 #: src/project_dbase_gui.c:335
-#, fuzzy
 msgid "Open in Anjuta"
-msgstr "Anjuta"
+msgstr "Openen in Anjuta"
 
 #. 1
-#: src/an_file_view.c:407 src/main_menubar_def.h:940
+#: src/an_file_view.c:413 src/main_menubar_def.h:941
 #: src/project_dbase_gui.c:329
 msgid "Open in default viewer"
-msgstr "Openen met standaardweergave"
+msgstr "Openen met de standaard viewer"
 
 #. 3
-#: src/an_file_view.c:421 src/an_symbol_view.c:302
+#: src/an_file_view.c:427 src/an_symbol_view.c:302
 msgid "Refresh"
 msgstr "Verversen"
 
 #. 4
 #. 5
-#: src/an_file_view.c:429 src/an_symbol_view.c:309 src/main_menubar_def.h:972
-#: src/message-manager.cc:144 src/project_dbase_gui.c:361
+#: src/an_file_view.c:435 src/an_symbol_view.c:309 src/main_menubar_def.h:973
+#: src/message-manager.cc:143 src/project_dbase_gui.c:361
 #: src/text_editor_menu.c:355
-#, fuzzy
 msgid "Docked"
-msgstr "Dock"
+msgstr "Aangemeerd"
 
-#: src/an_file_view.c:430 src/an_symbol_view.c:310 src/main_menubar_def.h:973
+#: src/an_file_view.c:436 src/an_symbol_view.c:310 src/main_menubar_def.h:974
 #, fuzzy
 msgid "Dock/Undock the Project Window"
 msgstr "Toon/Verberg het project venster"
 
 #. 6
-#: src/an_file_view.c:436
-#, fuzzy
+#: src/an_file_view.c:442
 msgid "Customize"
 msgstr "Aanpassen"
 
-#: src/an_file_view.c:437
+#: src/an_file_view.c:443
 msgid "Customize the file browser"
 msgstr "Bestandsbeheer aanpassen"
 
-#: src/an_file_view.c:678
-#, fuzzy
+#: src/an_file_view.c:684
 msgid "Rev"
-msgstr "Verwijder"
+msgstr ""
 
 #: src/an_symbol_view.c:54
 msgid "Classes"
@@ -2422,15 +2334,13 @@ msgstr "Macro's"
 
 #. 0
 #: src/an_symbol_view.c:281
-#, fuzzy
 msgid "Goto Definition"
-msgstr "/_Class Definition"
+msgstr "Ga naar definitie"
 
 #. 1
 #: src/an_symbol_view.c:288
-#, fuzzy
 msgid "Goto Declaration"
-msgstr "Declaraties"
+msgstr "Ga naar declaratie"
 
 #. 2
 #: src/an_symbol_view.c:295 src/text_editor_menu.c:339
@@ -2439,9 +2349,8 @@ msgid "Find Usage"
 msgstr "Zoek boodschappen"
 
 #: src/an_symbol_view.c:569
-#, fuzzy
 msgid "Symbol"
-msgstr "Stijlen"
+msgstr "Symbolen"
 
 #: src/anjuta-encodings.c:131 src/anjuta-encodings.c:157
 #: src/anjuta-encodings.c:198 src/anjuta-encodings.c:239
@@ -2459,7 +2368,6 @@ msgstr "Zuid-europees"
 
 #: src/anjuta-encodings.c:137 src/anjuta-encodings.c:153
 #: src/anjuta-encodings.c:249
-#, fuzzy
 msgid "Baltic"
 msgstr "Baltisch"
 
@@ -2480,13 +2388,11 @@ msgid "Greek"
 msgstr "Grieks"
 
 #: src/anjuta-encodings.c:145
-#, fuzzy
 msgid "Hebrew Visual"
-msgstr "Hebreeuws"
+msgstr "Hebreeuws visueel"
 
 #: src/anjuta-encodings.c:147 src/anjuta-encodings.c:206
 #: src/anjuta-encodings.c:245
-#, fuzzy
 msgid "Hebrew"
 msgstr "Hebreeuws"
 
@@ -2500,9 +2406,8 @@ msgid "Nordic"
 msgstr "Noors"
 
 #: src/anjuta-encodings.c:155
-#, fuzzy
 msgid "Celtic"
-msgstr "Aanroeptip"
+msgstr "Keltisch"
 
 #: src/anjuta-encodings.c:159 src/project_dbase_gui.c:1159
 msgid "Romanian"
@@ -2523,9 +2428,8 @@ msgid "Chinese Traditional"
 msgstr "Traditioneel Chinees"
 
 #: src/anjuta-encodings.c:177
-#, fuzzy
 msgid "Cyrillic/Russian"
-msgstr "Russisch"
+msgstr "Cyrillisch/Russisch"
 
 #: src/anjuta-encodings.c:180 src/anjuta-encodings.c:211
 #: src/anjuta-encodings.c:224
@@ -2560,7 +2464,7 @@ msgstr "Vietnamees"
 msgid "Thai"
 msgstr "Thai"
 
-#: src/anjuta-encodings.c:704
+#: src/anjuta-encodings.c:702
 #, fuzzy
 msgid "Stock Encodings"
 msgstr "Definities"
@@ -2601,58 +2505,56 @@ msgstr ""
 msgid "Out of memory scanning for plugins."
 msgstr "Onvoldoende geheugen bij zoeken naar plugins"
 
-#: src/anjuta-tools.c:979
+#: src/anjuta-tools.c:1005
 #, fuzzy
 msgid "Tool"
 msgstr "Aan"
 
-#: src/anjuta-tools.c:1163
+#: src/anjuta-tools.c:1189
 msgid "Unable to build user interface for tool editor"
 msgstr "Kan de gebruikersinterface voor de gereedschaps-editor niet opbouwen"
 
-#: src/anjuta-tools.c:1359
+#: src/anjuta-tools.c:1385
 #, fuzzy, c-format
 msgid "Are you sure you want to delete the '%s' tool?"
 msgstr "Weet u zeker dat u de lijst leeg wilt maken?"
 
-#: src/anjuta-tools.c:1461
+#: src/anjuta-tools.c:1487
 msgid "You must provide a tool name!"
 msgstr "U moet een gereedschapsnaam geven!"
 
-#: src/anjuta-tools.c:1467
+#: src/anjuta-tools.c:1493
 msgid "You must provide a tool command!"
 msgstr "U moet een gereedschapsopdracht geven!"
 
-#: src/anjuta-tools.c:1482
+#: src/anjuta-tools.c:1508
 #, c-format
 msgid "A tool with the name '%s' already exists!"
 msgstr "Een stuk gereedschap met de naam '%s' bestaat al!"
 
-#: src/anjuta-tools.c:1766
+#: src/anjuta-tools.c:1792
 msgid "Unable to build user interface for tool help"
 msgstr "Kan de gebruikersinterface voor gereedschapshulp niet opbouwen"
 
-#: src/anjuta-tools.c:1781 src/debug_tree.c:1454 src/debug_tree.c:1474
-#: src/watch_gui.c:127
+#: src/anjuta-tools.c:1807 src/debug_tree.c:106 src/watch_gui.c:125
 #, fuzzy
 msgid "Variable"
 msgstr "Variablen"
 
-#: src/anjuta-tools.c:1787
+#: src/anjuta-tools.c:1813
 #, fuzzy
 msgid "Meaning"
 msgstr "Waarschuwingen"
 
-#: src/anjuta-tools.c:1793 src/debug_tree.c:1454 src/debug_tree.c:1483
-#: src/watch_gui.c:136
+#: src/anjuta-tools.c:1819 src/debug_tree.c:106 src/watch_gui.c:134
 msgid "Value"
 msgstr "Waarde"
 
-#: src/anjuta-tools.c:1856
+#: src/anjuta-tools.c:1882
 msgid "Unable to build user interface for tool parameters"
 msgstr "Kan de gebruikersinterface voor gereedschapsparameters niet opbouwen"
 
-#: src/anjuta-tools.c:1860
+#: src/anjuta-tools.c:1886
 #, fuzzy, c-format
 msgid "%s: Command line parameters"
 msgstr "Commando argumenten"
@@ -2663,57 +2565,57 @@ msgid "Anjuta: Caught signal %d (%s) !"
 msgstr "Anjuta: Opgevangen signaal %d (%s) !"
 
 #. Must declare static, because it will be used forever
-#: src/anjuta.c:106
+#: src/anjuta.c:130
 msgid "Open File"
 msgstr "Bestand openen"
 
 #. Must declare static, because it will be used forever
-#: src/anjuta.c:112 src/anjuta.c:117
+#: src/anjuta.c:136 src/anjuta.c:141
 msgid "Save File As"
 msgstr "Bewaar bestand als"
 
-#: src/anjuta.c:244
+#: src/anjuta.c:270
 #, fuzzy
 msgid "Cannot create application... exiting\n"
 msgstr "Kan applicatie niet maken...afsluiten\n"
 
-#: src/anjuta.c:294 src/anjuta.c:298 src/anjuta.c:1119 src/anjuta.c:1135
+#: src/anjuta.c:320 src/anjuta.c:324 src/anjuta.c:1145 src/anjuta.c:1161
 #, c-format
 msgid "Anjuta: %s"
 msgstr "Anjuta: %s"
 
-#: src/anjuta.c:355
+#: src/anjuta.c:381
 msgid "Recent Files "
 msgstr "Recente bestanden "
 
-#: src/anjuta.c:908
+#: src/anjuta.c:934
 msgid "# * DO NOT EDIT OR RENAME THIS FILE ** Generated by Anjuta **\n"
 msgstr ""
 "# * DIT BESTAND NIET AANPASSEN OF HERNOEMEN ** Gegenereerd door Anjuta **\n"
 
-#: src/anjuta.c:1084
+#: src/anjuta.c:1110
 msgid "All files saved ..."
 msgstr "Alle bestanden bewaard ..."
 
-#: src/anjuta.c:1112
+#: src/anjuta.c:1138
 #, fuzzy, c-format
 msgid "Anjuta: %s (Saved)"
 msgstr "Anjuta: %s(Bewaard)"
 
-#: src/anjuta.c:1127
+#: src/anjuta.c:1153
 #, fuzzy, c-format
 msgid "Anjuta: %s (Unsaved)"
 msgstr "Anjuta: %s(Niet bewaard)"
 
-#: src/anjuta.c:1152
+#: src/anjuta.c:1178
 msgid "Anjuta: No file"
 msgstr "Anjuta: Geen bestand"
 
-#: src/anjuta.c:1465 src/anjuta.c:1567
+#: src/anjuta.c:1483 src/anjuta.c:1585
 msgid "ERROR: "
 msgstr "FOUT: "
 
-#: src/anjuta.c:1486 src/anjuta.c:1586
+#: src/anjuta.c:1504 src/anjuta.c:1604
 msgid ""
 "\n"
 "System: "
@@ -2721,7 +2623,7 @@ msgstr ""
 "\n"
 "Systeem: "
 
-#: src/anjuta.c:2059
+#: src/anjuta.c:2084
 #, fuzzy, c-format
 msgid ""
 "The \"%s\" utility is not installed.\n"
@@ -2730,35 +2632,35 @@ msgstr ""
 "U heeft \"%s\" niet geinstalleerd op uw computer.\n"
 "Installeer het en herstart Anjuta."
 
-#: src/anjuta.c:2085 src/anjuta.c:2141
+#: src/anjuta.c:2110 src/anjuta.c:2166
 msgid "None"
 msgstr "Geen"
 
-#: src/anjuta.c:2096
+#: src/anjuta.c:2121
 msgid "DOS (CRLF)"
 msgstr "DOS (CRLF)"
 
-#: src/anjuta.c:2099 src/anjuta.c:2133
+#: src/anjuta.c:2124 src/anjuta.c:2158
 msgid "Unix (LF)"
 msgstr "Unix (LF)"
 
-#: src/anjuta.c:2102
+#: src/anjuta.c:2127
 msgid "Mac (CR)"
 msgstr "Mac (CR)"
 
-#: src/anjuta.c:2105
+#: src/anjuta.c:2130
 msgid "Unknown"
 msgstr "Onbekend"
 
-#: src/anjuta.c:2122
+#: src/anjuta.c:2147
 msgid "OVR"
 msgstr "OVR"
 
-#: src/anjuta.c:2126 src/anjuta.c:2132
+#: src/anjuta.c:2151 src/anjuta.c:2157
 msgid "INS"
 msgstr "INS"
 
-#: src/anjuta.c:2144
+#: src/anjuta.c:2169
 #, fuzzy, c-format
 msgid ""
 "  Project: %s       Zoom: %d       Line: %04d       Col: %03d       %s       "
@@ -2767,11 +2669,11 @@ msgstr ""
 "  Project: %s       Zoom: %d       Regel: %04d       Col: %03d       %"
 "s       Job: %s"
 
-#: src/anjuta.c:2381
+#: src/anjuta.c:2411
 msgid "Looking up symbol"
 msgstr "Opzoeken van symbool"
 
-#: src/anjuta.c:2383 src/find_in_files.c:306
+#: src/anjuta.c:2413 src/find_in_files.c:322
 msgid "Finding in Files ....\n"
 msgstr "Zoeken in bestanden ....\n"
 
@@ -2793,7 +2695,7 @@ msgstr ""
 "Het bestand \"%s\" bestaat al.\n"
 "Wilt u het overschrijven?."
 
-#: src/anjuta_cbs.c:511 src/anjuta_cbs.c:575 src/find_replace.c:343
+#: src/anjuta_cbs.c:511 src/anjuta_cbs.c:575 src/find_replace.c:344
 msgid "_Replace"
 msgstr "_Vervangen"
 
@@ -2849,19 +2751,19 @@ msgstr ""
 "U moet een geldig %s veld invoeren om verder te kunnen gaan."
 
 #. For the time being
-#: src/appwizard_cbs.c:277 src/project_dbase.c:1510 src/project_dbase.c:1516
-#: src/project_dbase.c:1519 src/project_import_cbs.c:221 src/signals_cbs.c:115
+#: src/appwizard_cbs.c:282 src/project_dbase.c:1492 src/project_dbase.c:1498
+#: src/project_dbase.c:1501 src/project_import_cbs.c:227 src/signals_cbs.c:115
 #: src/signals_cbs.c:128 src/signals_cbs.c:141
 msgid "Yes"
 msgstr "Ja"
 
-#: src/appwizard_cbs.c:279 src/project_dbase.c:1512 src/project_dbase.c:1521
-#: src/project_import_cbs.c:223 src/signals_cbs.c:117 src/signals_cbs.c:130
+#: src/appwizard_cbs.c:284 src/project_dbase.c:1494 src/project_dbase.c:1503
+#: src/project_import_cbs.c:229 src/signals_cbs.c:117 src/signals_cbs.c:130
 #: src/signals_cbs.c:143
 msgid "No"
 msgstr "Nee"
 
-#: src/appwizard_cbs.c:281 src/project_import_cbs.c:224
+#: src/appwizard_cbs.c:286 src/project_import_cbs.c:230
 msgid ""
 "Confirm the following information:\n"
 "\n"
@@ -2869,35 +2771,35 @@ msgstr ""
 "Bevesting de volgende informatie:\n"
 "\n"
 
-#: src/appwizard_cbs.c:282 src/project_import_cbs.c:225
+#: src/appwizard_cbs.c:287 src/project_import_cbs.c:231
 msgid "Project Name:    "
 msgstr "Projectnaam:     "
 
-#: src/appwizard_cbs.c:283 src/project_import_cbs.c:226
+#: src/appwizard_cbs.c:288 src/project_import_cbs.c:232
 msgid "Project Type:    "
 msgstr "Project type:    "
 
-#: src/appwizard_cbs.c:284 src/project_import_cbs.c:228
+#: src/appwizard_cbs.c:289 src/project_import_cbs.c:234
 msgid "Target Type:     "
 msgstr "Doel type:       "
 
-#: src/appwizard_cbs.c:285 src/project_import_cbs.c:231
+#: src/appwizard_cbs.c:290 src/project_import_cbs.c:237
 msgid "Source Target:   "
 msgstr "Bron doel:       "
 
-#: src/appwizard_cbs.c:286 src/project_import_cbs.c:232
+#: src/appwizard_cbs.c:291 src/project_import_cbs.c:238
 msgid "Version:         "
 msgstr "Versie:          "
 
-#: src/appwizard_cbs.c:287 src/project_import_cbs.c:233
+#: src/appwizard_cbs.c:292 src/project_import_cbs.c:239
 msgid "Author:          "
 msgstr "Auteur:          "
 
-#: src/appwizard_cbs.c:288 src/project_import_cbs.c:234
+#: src/appwizard_cbs.c:293 src/project_import_cbs.c:240
 msgid "Language:        "
 msgstr "Taal:            "
 
-#: src/appwizard_cbs.c:289 src/project_import_cbs.c:236
+#: src/appwizard_cbs.c:294 src/project_import_cbs.c:242
 #, fuzzy
 msgid "Gettext Support: "
 msgstr "Gettext ondersteuning: "
@@ -2926,28 +2828,28 @@ msgstr ""
 "\n"
 "Druk op Volgende om verder te gaan ..."
 
-#: src/attach_process.c:46
+#: src/attach_process.c:47
 msgid "Pid"
 msgstr "Pid"
 
-#: src/attach_process.c:46
+#: src/attach_process.c:47
 msgid "User"
 msgstr "Gebruiker"
 
-#: src/attach_process.c:46
+#: src/attach_process.c:47
 msgid "Time"
 msgstr "Tijd"
 
-#: src/attach_process.c:46
+#: src/attach_process.c:47
 msgid "Command"
 msgstr "Opdracht"
 
-#: src/attach_process.c:130
+#: src/attach_process.c:131
 #, c-format
 msgid "Unable to execute: %s."
 msgstr "Kan niet uitvoeren: %s."
 
-#: src/attach_process.c:140
+#: src/attach_process.c:141
 #, c-format
 msgid "Unable to open the file: %s\n"
 msgstr "Kan het bestand %s niet openen\n"
@@ -2973,7 +2875,7 @@ msgstr "Voorwaarde"
 #. breakpoints_dbase_update,
 #. debugger.breakpoints_dbase);
 #.
-#: src/breakpoints.c:166 src/debugger.c:1814
+#: src/breakpoints.c:169 src/debugger.c:1849
 msgid "All breakpoints enabled:\n"
 msgstr "Alle breekpunten aangeschakeld: \n"
 
@@ -2982,11 +2884,11 @@ msgstr "Alle breekpunten aangeschakeld: \n"
 #. breakpoints_dbase_update,
 #. debugger.breakpoints_dbase);
 #.
-#: src/breakpoints.c:184 src/debugger.c:1860
+#: src/breakpoints.c:187 src/debugger.c:1895
 msgid "All breakpoints disabled:\n"
 msgstr "Alle breekpunten uitgeschakeld: \n"
 
-#: src/breakpoints.c:649
+#: src/breakpoints.c:651
 msgid "You must give a valid location to set the breakpoint."
 msgstr "U moet een geldige lokatie opgeven om het breekpunt te zetten"
 
@@ -2995,317 +2897,180 @@ msgstr "U moet een geldige lokatie opgeven om het breekpunt te zetten"
 msgid "Are you sure you want to delete all the breakpoints?"
 msgstr "Weet u zeker dat u alle breekpunten wilt verwijderen?"
 
-#: src/breakpoints.c:1304
+#: src/breakpoints.c:1296
 msgid "Old breakpoints disabled."
 msgstr "Oude breekpunten uitgeschakeld"
 
 #. 5
-#: src/breakpoints.c:1446 src/main_menubar_def.h:773 src/text_editor_gui.c:161
+#: src/breakpoints.c:1438 src/main_menubar_def.h:774 src/text_editor_gui.c:159
 msgid "0"
 msgstr "0"
 
-#: src/build_file.c:51
+#: src/build_file.c:48
 #, fuzzy
 msgid "This file has not been saved. Save it first and then build."
 msgstr "Dit bestand is niet bewaard. Bewaar het eerst en compileer dan."
 
-#: src/build_file.c:76
+#: src/build_file.c:73
 #, fuzzy
 msgid "The executable is up-to-date, there is no need to build it again."
 msgstr "Het doelbestand is al bijgewerkt. Geen reden om opnieuw te bouwen."
 
-#: src/build_file.c:91
+#: src/build_file.c:88
 msgid "No build command has been specified for this type of file."
 msgstr "Geen bouwopdracht voor dit type bestand gegeven."
 
-#: src/build_file.c:109
+#: src/build_file.c:104
 #, c-format
 msgid "Building file: %s ...\n"
 msgstr "Bouwen van bestand: %s ...\n"
 
-#: src/build_file.c:130 src/build_project.c:355 src/build_project.c:392
-#: src/build_project.c:430 src/build_project.c:464 src/build_project.c:498
-#: src/clean_project.c:178 src/clean_project.c:219 src/compile.c:201
-#: src/configurer.c:223 src/cvs.c:765 src/find_in_files.c:341
-#: src/project_import.c:179
-#, c-format
-msgid "Total time taken: %d secs\n"
+#: src/build_file.c:132 src/cvs.c:776 src/find_in_files.c:360
+#: src/project_import.c:192
+#, fuzzy, c-format
+msgid "Total time taken: %lu secs\n"
 msgstr "Totale bouwtijd: %d seconden\n"
 
-#: src/build_file.c:135
-msgid "Build completed ... unsuccessful\n"
+#: src/build_file.c:136
+#, fuzzy
+msgid "Completed ... unsuccessful\n"
 msgstr "Bouwen compleet ...niet succesvol\n"
 
-#: src/build_file.c:139
-msgid "Build completed ... unsuccessful"
-msgstr "Bouwen compleet ...niet succesvol"
+#: src/build_file.c:140
+#, fuzzy
+msgid "Completed ... unsuccessful"
+msgstr "Compileer compleet ... niet succesvol"
 
-#: src/build_file.c:144
-msgid "Build completed ... successful\n"
+#: src/build_file.c:145
+#, fuzzy
+msgid "Completed ... successful\n"
 msgstr "Bouwen compleet ... succesvol\n"
 
-#: src/build_file.c:148
-msgid "Build completed ... successful"
-msgstr "Bouwen compleet ... succesvol"
+#: src/build_file.c:149
+#, fuzzy
+msgid "Completed ... successful"
+msgstr "Compileer compleet ... succesvol"
 
-#: src/build_project.c:79 src/compile.c:63
+#: src/build_project.c:76 src/compile.c:61
 #, fuzzy
 msgid "Unable to build module. Check Settings->Commands."
 msgstr "Kan module niet bouwen. Controleer Instellingen->Commando."
 
-#: src/build_project.c:100 src/build_project.c:163 src/compile.c:78
+#: src/build_project.c:95 src/build_project.c:160 src/compile.c:74
 msgid "Build Project"
 msgstr "Bouw project"
 
-#: src/build_project.c:102 src/compile.c:80
+#: src/build_project.c:97 src/compile.c:76
 msgid "Building source directory of the Project: "
 msgstr "Bouwen bronmap van het project:"
 
-#: src/build_project.c:146
+#: src/build_project.c:145
 #, fuzzy
 msgid "Unable to build Project. Check Settings->Commands."
 msgstr "Kan het project niet uitvoeren. Controleer Instellingen->Commando. "
 
-#: src/build_project.c:166
+#: src/build_project.c:163
 msgid "Building the whole Project: "
 msgstr "Bouw het hele project: "
 
-#: src/build_project.c:199
+#: src/build_project.c:196
 #, fuzzy
 msgid "Unable to build tarball. Check Settings->Commands."
 msgstr ""
 "Niet in staat om een tarball te bouwen. Controleer Instellingen->Commando."
 
-#: src/build_project.c:216
+#: src/build_project.c:211
 msgid "Build Distribution"
 msgstr "Bouw distributie"
 
-#: src/build_project.c:220
+#: src/build_project.c:215
 msgid "Building the distribution package of the Project: "
 msgstr "Bouw het distributiepakket van het project: "
 
-#: src/build_project.c:252
+#: src/build_project.c:247
 msgid "Do you prefer installing as root ?"
 msgstr "Wilt u liever als supergebruiker (root) installeren?"
 
-#: src/build_project.c:291
+#: src/build_project.c:285
 #, fuzzy
 msgid "Unable to auto generate. Check Settings->Commands."
 msgstr "Kan niet automatisch genereren. Controleer Instellingen->Commando."
 
-#: src/build_project.c:307
+#: src/build_project.c:299
 #, fuzzy
 msgid "Auto generate Project"
 msgstr "Automatische generatie van project: "
 
-#: src/build_project.c:310
+#: src/build_project.c:302
 msgid "Auto generating the Project: "
 msgstr "Automatische generatie van project: "
 
-#: src/build_project.c:338
-msgid "Build completed...............Unsuccessful\n"
-msgstr "Bouwen compleet...............Niet succesvol\n"
-
-#: src/build_project.c:342
-msgid "Build terminated with error(s)."
-msgstr "Bouwen afgebroken met fout(en)."
-
-#: src/build_project.c:348
-msgid "Build completed...............Successful\n"
-msgstr "Bouw compleet.................succesvol\n"
-
-#: src/build_project.c:352
-msgid "Build completed ... successful."
-msgstr "Bouw compleet....... succesvol."
-
-#: src/build_project.c:376
-msgid "Build All completed...............Unsuccessful\n"
-msgstr "Bouwen alles compleet.............Niet succesvol\n"
-
-#: src/build_project.c:380
-msgid "Build All completed...............Unsuccessful"
-msgstr "Bouwen alles compleet............Niet succesvol"
-
-#: src/build_project.c:385
-msgid "Build All completed...............Successful\n"
-msgstr "Bouwen alles compleet.............succesvol\n"
-
-#: src/build_project.c:389
-msgid "Build All completed ... successful"
-msgstr "Bouwen alles compleet ... succesvol"
-
-#: src/build_project.c:411
-#, fuzzy
-msgid "Build Distribution completed...............Unsuccessful\n"
-msgstr "Bouw distributie compleet...............Niet succesvol\n"
-
-#: src/build_project.c:415
-#, fuzzy
-msgid "Build Distribution completed ... unsuccessful"
-msgstr "Bouw distributie compleet...............Niet succesvol"
-
-#: src/build_project.c:420
-#, fuzzy
-msgid "Build Distribution completed...............Successful\n"
-msgstr "Bouw distributie compleet...............Succesvol\n"
-
-#: src/build_project.c:423
-#, fuzzy
-msgid ""
-"The source tarball can be found in the top level directory of the Project.\n"
-msgstr "U vindt de bron tarball in de hoogste directory van het project\n"
-
-#: src/build_project.c:427
-#, fuzzy
-msgid "Build Distribution completed ... successful"
-msgstr "Bouw-Distributie compleet ... succesvol"
-
-#: src/build_project.c:448
-msgid "Install completed...............Unsuccessful\n"
-msgstr "Installatie compleet............Niet succesvol\n"
-
-#: src/build_project.c:452
-msgid "Install completed...............Unsuccessful"
-msgstr "Installatie compleet............Niet succesvol"
-
-#: src/build_project.c:457
-msgid "Install completed...............Successful\n"
-msgstr "Installatie compleet ............ succesvol\n"
-
-#: src/build_project.c:461
-msgid "Install completed ... successful"
-msgstr "Installatie compleet ... succesvol"
-
-#: src/build_project.c:482 src/gnome_project.c:259
-msgid "Auto generation completed...............Unsuccessful\n"
-msgstr "Automatische generatie compleet ........ Niet succesvol\n"
-
-#: src/build_project.c:486
-msgid "Auto generation completed ... unsuccessful"
-msgstr "Automatische generatie compleet ........ Niet succesvol"
-
-#: src/build_project.c:491
-msgid ""
-"Auto generation completed...............Successful\n"
-"Now Configure the Project.\n"
-msgstr ""
-"Automatische generatie compleet....Succesvol\n"
-"Nu wordt het project geconfigureerd.\n"
-
-#: src/build_project.c:495
-msgid "Auto generation completed ... successful"
-msgstr "Automatische generatie compleet ... succesvol"
-
-#: src/build_project.c:516 src/build_project.c:561
+#: src/build_project.c:324 src/build_project.c:362
 #, fuzzy
 msgid "Unable to install Project. Check Settings->Commands."
 msgstr "Kan het project niet uitvoeren. Controleer Instellingen->Commando. "
 
-#: src/build_project.c:538 src/build_project.c:580
+#: src/build_project.c:339 src/build_project.c:374
 msgid "Install Project"
 msgstr "Installeer project"
 
-#: src/build_project.c:540 src/build_project.c:582
+#: src/build_project.c:341 src/build_project.c:376
 msgid "Installing the Project: "
 msgstr "Bezig met installeren van project: "
 
-#: src/clean_project.c:65
+#: src/clean_project.c:61
 #, fuzzy
 msgid "Unable to clean Project. Check Settings->Commands."
 msgstr "Kan het project niet uitvoeren. Controleer Instellingen->Commando. "
 
-#: src/clean_project.c:81
+#: src/clean_project.c:76
 msgid "Clean"
 msgstr "Opruimen"
 
-#: src/clean_project.c:84
+#: src/clean_project.c:79
 #, fuzzy
 msgid "Cleaning the source directory of the Project: "
 msgstr "Opruimen van de brondirectory van het project: "
 
-#: src/clean_project.c:120
+#: src/clean_project.c:115
 #, fuzzy
 msgid "Unable to Clean All for the Project. Check Settings->Commands."
 msgstr "Kan het project niet uitvoeren. Controleer Instellingen->Commando. "
 
-#: src/clean_project.c:131
+#: src/clean_project.c:124
 msgid "Clean All"
 msgstr "Alles opruimen"
 
-#: src/clean_project.c:134
+#: src/clean_project.c:127
 #, fuzzy
 msgid "Cleaning whole of the Project: "
 msgstr "Alles uit het project opruimen: "
 
-#: src/clean_project.c:162
-msgid "Cleaning completed...............Unsuccessful\n"
-msgstr "Opruimen compleet............... Niet succesvol\n"
-
-#: src/clean_project.c:165
-msgid "Cleaning completed ... unsuccessful"
-msgstr "Opruimen compleet ... niet succesvol"
-
-#: src/clean_project.c:172
-msgid "Cleaning completed...............Successful\n"
-msgstr "Opruimen compleet................Succesvol\n"
-
-#: src/clean_project.c:175
-msgid "Cleaning completed ... successful"
-msgstr "Opruimen compleet ... succesvol"
-
-#: src/clean_project.c:205
-#, fuzzy
-msgid "Clean All completed...............Unsuccessful\n"
-msgstr "Alles opruimen compleet...........Niet succesvol\n"
-
-#: src/clean_project.c:209
-#, fuzzy
-msgid "Clean All completed ... unsuccessful"
-msgstr "Alles opruimen compleet...........Niet succesvol"
-
-#: src/clean_project.c:214
-#, fuzzy
-msgid "Clean All completed...............Successful\n"
-msgstr "Alles opruimen compleet...........Succesvol\n"
-
-#: src/clean_project.c:217
-#, fuzzy
-msgid "Clean All completed ... successful"
-msgstr "Alles opruimen compleet...........Succesvol"
-
-#: src/compile.c:111
+#: src/compile.c:107
 #, fuzzy
 msgid "This file has not been saved. Save it first and then compile."
 msgstr "Dit bestand is niet bewaard. Bewaar het eerst en compileer dan."
 
-#: src/compile.c:132
+#: src/compile.c:128
 #, fuzzy
 msgid "The object file is up-to-date, there is no need to compile it again."
 msgstr ""
 "Het objectbestand is al bijgewerkt. Geen reden om opnieuw te compileren."
 
-#: src/compile.c:144
+#: src/compile.c:140
 msgid "No compile command has been specified for this type of file."
 msgstr "Geen compileeropdracht gespecificeerd voor dit type bestand."
 
-#: src/compile.c:158 src/text_editor_gui.c:168 src/toolbar.c:248
+#: src/compile.c:153 src/toolbar.c:250
 msgid "Compile"
 msgstr "Compileer"
 
-#: src/compile.c:160
+#: src/compile.c:155
 #, c-format
 msgid "Compiling file: %s ...\n"
 msgstr "Compileer bestand: %s ...\n"
 
-#: src/compile.c:183 src/compile.c:188
-msgid "Compile completed ... unsuccessful"
-msgstr "Compileer compleet ... niet succesvol"
-
-#: src/compile.c:193 src/compile.c:198
-msgid "Compile completed ... successful"
-msgstr "Compileer compleet ... succesvol"
-
-#: src/compiler_options.c:521
+#: src/compiler_options.c:501
 msgid ""
 "You have changed some of the compiler options of the project,\n"
 "would you like the next build action to perform a complete\n"
@@ -3315,45 +3080,45 @@ msgstr ""
 "Wilt u de eerstvolgende keer het project compleet opnieuw\n"
 "bouwen?"
 
-#: src/compiler_options.c:743 src/src_paths.c:218
+#: src/compiler_options.c:724 src/src_paths.c:217
 #, fuzzy
 msgid "Do you want to clear the list?"
 msgstr "Weet u zeker dat u de lijst leeg wilt maken?"
 
-#: src/compiler_options.c:823 src/compiler_options.c:899
-#: src/compiler_options.c:922 src/compiler_options.c:967 src/signals_gui.c:131
+#: src/compiler_options.c:803 src/compiler_options.c:879
+#: src/compiler_options.c:902 src/compiler_options.c:947 src/signals_gui.c:131
 msgid "Description"
 msgstr "Beschrijving"
 
-#: src/compiler_options.c:838
+#: src/compiler_options.c:818
 #, fuzzy
 msgid "Include paths"
 msgstr "Include paden"
 
-#: src/compiler_options.c:853
+#: src/compiler_options.c:833
 #, fuzzy
 msgid "Libraries paths"
 msgstr "Bibliotheekpaden"
 
-#: src/compiler_options.c:876
+#: src/compiler_options.c:856
 #, fuzzy
 msgid "Libraries and modules"
 msgstr "Bibliotheken"
 
-#: src/compiler_options.c:892
+#: src/compiler_options.c:872
 msgid "Stock"
 msgstr "Voorraad"
 
-#: src/compiler_options.c:937
+#: src/compiler_options.c:917
 #, fuzzy
 msgid "Stock Defines"
 msgstr "Definities"
 
-#: src/compiler_options.c:960
+#: src/compiler_options.c:940
 msgid "Warning"
 msgstr "Waarschuwing"
 
-#: src/configurer.c:155
+#: src/configurer.c:157
 #, fuzzy
 msgid ""
 "Project does not have an executable configure script.\n"
@@ -3362,108 +3127,92 @@ msgstr ""
 "Project heeft geen uitvoerbaar configuratie script.\n"
 "U moet het project eerst automatisch genereren. "
 
-#: src/configurer.c:187 src/toolbar.c:260
+#: src/configurer.c:188 src/toolbar.c:262
 msgid "Configure"
 msgstr "Configureren"
 
-#: src/configurer.c:189
+#: src/configurer.c:190
 #, fuzzy
 msgid "Configuring the Project ....\n"
 msgstr "Configureren van het project ....\n"
-
-#: src/configurer.c:210
-msgid "Configure completed...............Unsuccessful\n"
-msgstr "Configuratie compleet.............Niet succesvol\n"
-
-#: src/configurer.c:212
-msgid "Configure completed ... unsuccessful"
-msgstr "Configuratie compleet ... niet succesvol"
-
-#: src/configurer.c:218
-msgid "Configure completed...............Successful\n"
-msgstr "Configuratie compleet.............succesvol\n"
-
-#: src/configurer.c:220
-msgid "Configure completed ... successful"
-msgstr "Configuratie compleet ... succesvol"
 
 #: src/controls.c:208
 #, fuzzy
 msgid "No tags"
 msgstr "Geen waarschuwingen"
 
-#: src/cvs.c:254
+#: src/cvs.c:262
 #, fuzzy
 msgid "CVS Updating "
 msgstr "Bijwerken bestand:"
 
-#: src/cvs.c:304
+#: src/cvs.c:312
 msgid "CVS Committing "
 msgstr "CVS Committen"
 
-#: src/cvs.c:365
+#: src/cvs.c:373
 msgid "CVS Importing...\n"
 msgstr "CVS Importeren...\n"
 
-#: src/cvs.c:405
+#: src/cvs.c:413
 msgid "CVS Adding "
 msgstr "CVS Toevoegen "
 
-#: src/cvs.c:437
+#: src/cvs.c:445
 msgid "CVS Removing "
 msgstr "CVS Verwijderen "
 
-#: src/cvs.c:478
+#: src/cvs.c:486
 msgid "Getting CVS status "
 msgstr "Ophalen van CVS-status"
 
-#: src/cvs.c:493 src/cvs.c:544 src/cvs.c:620 src/cvs.c:860
+#: src/cvs.c:501 src/cvs.c:556 src/cvs.c:635 src/cvs.c:891
 msgid "There are jobs running, please wait until they are finished"
 msgstr "Er zijn onafgeronde taken, wacht tot deze afgelopen zijn"
 
-#: src/cvs.c:529
+#: src/cvs.c:541
 msgid "Getting CVS log "
 msgstr "Ophalen van CVS-logboek"
 
-#: src/cvs.c:605
+#: src/cvs.c:620
 msgid "CVS diffing "
 msgstr "CVS Verschillen opzoeken"
 
-#: src/cvs.c:649
+#: src/cvs.c:667
 msgid "CVS login "
 msgstr "CVS Aanmelden"
 
-#: src/cvs.c:753 src/project_import.c:167
+#: src/cvs.c:765 src/project_import.c:181
 #, fuzzy
 msgid "Project import completed...unsuccessful\n"
 msgstr "Compileer compleet ... niet succesvol"
 
-#: src/cvs.c:755 src/project_import.c:169
+#: src/cvs.c:767 src/project_import.c:183
 #, fuzzy
 msgid "Project import completed...unsuccessful"
 msgstr "Compileer compleet ... niet succesvol"
 
-#: src/cvs.c:761
+#: src/cvs.c:772
 #, fuzzy
 msgid "CVS completed...successful\n"
 msgstr "Bouwen compleet ... succesvol\n"
 
-#: src/cvs.c:763
+#: src/cvs.c:774
 #, fuzzy
 msgid "CVS completed...successful"
 msgstr "Compileer compleet ... succesvol"
 
-#: src/cvs.c:771
+#: src/cvs.c:782
 #, fuzzy
 msgid "Updating versions in file tree..."
 msgstr "Kopieren icoonbestand ...\n"
 
-#: src/cvs.c:773
+#: src/cvs.c:784
 #, fuzzy
 msgid "done\n"
 msgstr "Geen"
 
-#: src/cvs_cbs.c:40
+#: src/cvs_cbs.c:41
 msgid "You do not need to login to a local server"
 msgstr "U hoeft zich niet aan te melden bij een lokale server"
 
@@ -3545,7 +3294,7 @@ msgstr ""
 "oudere\n"
 "revisies van het bestand op te halen."
 
-#: src/cvs_gui.c:120 src/cvs_gui.c:239
+#: src/cvs_gui.c:120 src/cvs_gui.c:238
 #, fuzzy
 msgid "File: "
 msgstr "Bestand: "
@@ -3554,152 +3303,155 @@ msgstr "Bestand: "
 msgid "Branch: "
 msgstr "Branch: "
 
-#: src/cvs_gui.c:124 src/cvs_gui.c:292
+#: src/cvs_gui.c:124 src/cvs_gui.c:291
 #, fuzzy
 msgid "Revision: "
 msgstr "Versie:"
 
-#: src/cvs_gui.c:125 src/cvs_gui.c:475
+#: src/cvs_gui.c:125 src/cvs_gui.c:470
 #, fuzzy
 msgid "Log message: "
 msgstr "Programmanaam:"
 
-#: src/cvs_gui.c:128 src/cvs_gui.c:242
+#: src/cvs_gui.c:128 src/cvs_gui.c:241
 #, fuzzy
 msgid "Select file"
 msgstr "_Selecteer Alles"
 
-#: src/cvs_gui.c:226
+#: src/cvs_gui.c:225
 msgid "CVS: Diff file"
 msgstr "CVS: Verschillen van bestand opzoeken"
 
 #. 17
-#: src/cvs_gui.c:230 src/main_menubar_def.h:1111
+#: src/cvs_gui.c:229 src/main_menubar_def.h:1112
 msgid "Diff"
 msgstr "Diff"
 
-#: src/cvs_gui.c:266
+#: src/cvs_gui.c:265
 msgid "Date: "
 msgstr "Datum: "
 
-#: src/cvs_gui.c:336
+#: src/cvs_gui.c:333
 msgid "CVS Login"
 msgstr "CVS Aanmelden"
 
-#: src/cvs_gui.c:340
+#: src/cvs_gui.c:337
 #, fuzzy
 msgid "Login"
 msgstr "Aanmelden"
 
-#: src/cvs_gui.c:350 src/cvs_gui.c:445
+#: src/cvs_gui.c:347 src/cvs_gui.c:440
 msgid "Server type: "
 msgstr "Servertype: "
 
-#: src/cvs_gui.c:351 src/cvs_gui.c:448
+#: src/cvs_gui.c:348 src/cvs_gui.c:443
 #, fuzzy
 msgid "Username: "
 msgstr "Info _Huidig Frame"
 
-#: src/cvs_gui.c:352 src/cvs_gui.c:446
+#: src/cvs_gui.c:349 src/cvs_gui.c:441
 msgid "Server: "
 msgstr "Server: "
 
-#: src/cvs_gui.c:353
+#: src/cvs_gui.c:350
 msgid "Directory on the server: "
 msgstr "Map op de server: "
 
-#: src/cvs_gui.c:432
+#: src/cvs_gui.c:427
 #, fuzzy
 msgid "CVS: Import Project"
 msgstr "Sluit project"
 
-#: src/cvs_gui.c:436
+#: src/cvs_gui.c:431
 #, fuzzy
 msgid "Import"
 msgstr "Importeren"
 
-#: src/cvs_gui.c:447
+#: src/cvs_gui.c:442
 msgid "Dir on the server: "
 msgstr "Map op de server: "
 
-#: src/cvs_gui.c:472
+#: src/cvs_gui.c:467
 #, fuzzy
 msgid "Module name: "
 msgstr "Modules"
 
-#: src/cvs_gui.c:473
+#: src/cvs_gui.c:468
 #, fuzzy
 msgid "Release name: "
 msgstr "Klasse:"
 
-#: src/cvs_gui.c:474
+#: src/cvs_gui.c:469
 msgid "Vendor tag: "
 msgstr "Verkoperslabel:"
 
-#: src/cvs_gui.c:530
+#: src/cvs_gui.c:525
 #, fuzzy
 msgid "Server settings"
 msgstr "_Instellingen"
 
-#: src/cvs_gui.c:534
+#: src/cvs_gui.c:529
 #, fuzzy
 msgid "Import settings"
 msgstr "Importeer bestand"
 
-#: src/debug_tree.c:1494
+#: src/debug_tree.c:1190
+#, fuzzy
+msgid "Local Variables"
+msgstr "Info _Locale variabelen"
+
+#: src/debug_tree.c:1504
 #, fuzzy
 msgid "Default format"
 msgstr "Auto opmaak"
 
-#: src/debug_tree.c:1498
+#: src/debug_tree.c:1508
 msgid "Binary"
 msgstr "Binair"
 
-#: src/debug_tree.c:1501
+#: src/debug_tree.c:1511
 msgid "Octal"
 msgstr "Octaal"
 
-#: src/debug_tree.c:1504
+#: src/debug_tree.c:1514
 msgid "Signed decimal"
 msgstr ""
 
-#: src/debug_tree.c:1507
+#: src/debug_tree.c:1517
 msgid "Unsigned decimal"
 msgstr ""
 
-#: src/debug_tree.c:1510 src/registers_gui.c:111
+#: src/debug_tree.c:1520 src/registers_gui.c:111
 msgid "Hex"
 msgstr "Hex"
 
-#: src/debug_tree.c:1513
-#, fuzzy
+#: src/debug_tree.c:1523
 msgid "Char"
-msgstr "Opruimen"
+msgstr "Char"
 
-#: src/debug_tree.c:1518
-#, fuzzy
+#: src/debug_tree.c:1528
 msgid "Inspect memory"
-msgstr "Inspecteer"
-
-#. Must declare static, because it will be used forever
-#: src/debugger.c:85
-msgid "Load Executable File"
-msgstr "Laad uitvoerbaar bestand"
+msgstr "Geheugen inspecteren"
 
 #. Must declare static, because it will be used forever
 #: src/debugger.c:91
+msgid "Load Executable File"
+msgstr "Uitvoerbaar bestand laden"
+
+#. Must declare static, because it will be used forever
+#: src/debugger.c:97
 msgid "Load Core File"
 msgstr "Laad core bestand"
 
-#: src/debugger.c:197 src/debugger.c:646
+#: src/debugger.c:203 src/debugger.c:655
 msgid "Loading Executable: "
 msgstr "Laden van uitvoerbaar bestand: "
 
-#: src/debugger.c:248
+#: src/debugger.c:254
 msgid "Loading Core: "
 msgstr "Laden van core bestand: "
 
-#: src/debugger.c:293 src/debugger.c:321
+#: src/debugger.c:299 src/debugger.c:327
 msgid ""
 "You have a process ATTACHED under the debugger.\n"
 "Please detach it first and then load the executable file."
@@ -3707,7 +3459,7 @@ msgstr ""
 "U heeft een proces TOEGEVOEGD aan de debugger.\n"
 "Verwijder het eerst en laad dan de executable."
 
-#: src/debugger.c:296 src/debugger.c:324
+#: src/debugger.c:302 src/debugger.c:330
 msgid ""
 "You have a process RUNNING under the debugger.\n"
 "Please stop it first and then load the executable file."
@@ -3715,7 +3467,7 @@ msgstr ""
 "U heeft een proces LOPEN onder de debugger.\n"
 "Stop het eerst en laad dan de executable."
 
-#: src/debugger.c:573
+#: src/debugger.c:577
 #, fuzzy, c-format
 msgid ""
 "Unable to find: %s.\n"
@@ -3726,42 +3478,42 @@ msgstr ""
 "Initialisatie debugger mislukt. :-(\n"
 "Zorg ervoor dat Anjuta juist is geinstalleerd. "
 
-#: src/debugger.c:642
+#: src/debugger.c:651
 msgid "Debugger"
 msgstr "Debugger"
 
-#: src/debugger.c:644
+#: src/debugger.c:653
 msgid "Getting ready to start debugging session ...\n"
 msgstr "Klaarmaken om de debugsessie te starten ...\n"
 
-#: src/debugger.c:657
+#: src/debugger.c:666
 msgid "No executable specified\n"
 msgstr "Geen uitvoerbaar bestand gespecificeerd\n"
 
-#: src/debugger.c:660
+#: src/debugger.c:669
 msgid "Open an executable or attach to a process to start debugging.\n"
 msgstr ""
 "Open een uitvoerbaar bestand of verbind het aan een proces om debuggen te "
 "starten\n"
 
-#: src/debugger.c:667
+#: src/debugger.c:676
 #, fuzzy
 msgid "There was an error whilst launching the debugger.\n"
 msgstr "Tijdens het opstarten van de debugger is een fout opgetreden!!\n"
 
-#: src/debugger.c:670
+#: src/debugger.c:679
 msgid "Make sure 'gdb' is installed on the system.\n"
 msgstr "Zorg ervoor dat 'gdb' is geinstalleerd op het systeem. \n"
 
-#: src/debugger.c:832
+#: src/debugger.c:859
 msgid "Error: "
 msgstr "Fout:  "
 
-#: src/debugger.c:853
+#: src/debugger.c:880
 msgid "Debugger is ready.\n"
 msgstr "Debugger is klaar. \n"
 
-#: src/debugger.c:957
+#: src/debugger.c:988
 #, fuzzy
 msgid ""
 "\n"
@@ -3772,30 +3524,30 @@ msgstr ""
 "En, heb je de BUG gevonden? :: Debugsessie compleet. \n"
 "\n"
 
-#: src/debugger.c:1192
+#: src/debugger.c:1226
 msgid "Cannot execute gnome-terminal"
 msgstr "Kan gnome-terminal niet opstarten"
 
-#: src/debugger.c:1227
+#: src/debugger.c:1261
 #, fuzzy
 msgid "Cannot start terminal for debugging."
 msgstr "Fout: Kan terminal niet starten voor debuggen."
 
-#: src/debugger.c:1291
+#: src/debugger.c:1325
 msgid "Warning: No debug terminal. Redirecting stdio to /dev/null.\n"
 msgstr ""
 "Waarschuwing: Geen debug terminal. Omleiden van stdio naar /dev/null. \n"
 
-#: src/debugger.c:1310
+#: src/debugger.c:1344
 msgid "Running program ... \n"
 msgstr "Uitvoeren programma ...\n"
 
-#: src/debugger.c:1440
+#: src/debugger.c:1474
 #, c-format
 msgid "Attaching to process: %d\n"
 msgstr "Verbinden aan proces: %d\n"
 
-#: src/debugger.c:1470
+#: src/debugger.c:1504
 msgid ""
 "A process is already running.\n"
 "Would you like to terminate it and attach the new process?"
@@ -3803,16 +3555,16 @@ msgstr ""
 "Een proces loopt al. \n"
 "Wilt u het stoppen en het nieuwe proces verbinden?"
 
-#: src/debugger.c:1482
+#: src/debugger.c:1517
 msgid "Anjuta is unable to attach to itself."
 msgstr "Anjuta kan zich niet aan zichzelf aankoppelen."
 
-#: src/debugger.c:1568
+#: src/debugger.c:1603
 #, c-format
 msgid "Detaching the process: %d\n"
 msgstr "Verwijder het proces: %d\n"
 
-#: src/debugger.c:1624
+#: src/debugger.c:1659
 msgid ""
 "Program is ATTACHED.\n"
 "Do you still want to stop Debugger?"
@@ -3820,7 +3572,7 @@ msgstr ""
 "Programma is VERBONDEN. \n"
 "Wilt u nog steeds de debugger stoppen?"
 
-#: src/debugger.c:1627
+#: src/debugger.c:1662
 #, fuzzy
 msgid ""
 "Program is RUNNING.\n"
@@ -3834,36 +3586,36 @@ msgstr ""
 #. breakpoints_dbase_update,
 #. debugger.breakpoints_dbase);
 #.
-#: src/debugger.c:1906
+#: src/debugger.c:1941
 msgid "All breakpoints deleted:\n"
 msgstr "Alle breekpunten verwijderd: \n"
 
-#: src/debugger.c:1939
+#: src/debugger.c:1974
 #, c-format
 msgid "Interrupting the process: %d\n"
 msgstr "Onderbreken van proces: %d\n"
 
-#: src/debugger.c:1971
+#: src/debugger.c:2006
 #, c-format
 msgid "Sending signal %s to the process: %d\n"
 msgstr "Sturen van signaal %s naar het proces: %d\n"
 
-#: src/debugger.c:1992
+#: src/debugger.c:2027
 #, fuzzy
 msgid "Error whilst signalling the process."
 msgstr "Er is een fout opgetreden tijdens het signaleren van het proces. "
 
-#: src/executer.c:53 src/mainmenu_callbacks.c:1706
+#: src/executer.c:53 src/mainmenu_callbacks.c:1701
 #, fuzzy
 msgid "The target executable of this Project is unknown"
 msgstr "Doelbestand van dit project is onbekend"
 
-#: src/executer.c:58 src/mainmenu_callbacks.c:1708
+#: src/executer.c:58 src/mainmenu_callbacks.c:1703
 #, fuzzy
 msgid "The target executable of this Project is not executable"
 msgstr "Doelbestand van dit project is niet uitvoerbaar"
 
-#: src/executer.c:63 src/mainmenu_callbacks.c:1712
+#: src/executer.c:63 src/mainmenu_callbacks.c:1707
 #, fuzzy
 msgid "The target executable does not exist for this Project"
 msgstr "Uitvoerbaar bestand bestaat niet voor dit project. "
@@ -3873,8 +3625,8 @@ msgstr "Uitvoerbaar bestand bestaat niet voor dit project. "
 msgid "No file or Project opened."
 msgstr "Geen bestand of project geopend. "
 
-#: src/executer.c:81 src/executer.c:100 src/mainmenu_callbacks.c:1732
-#: src/mainmenu_callbacks.c:1743
+#: src/executer.c:81 src/executer.c:100 src/mainmenu_callbacks.c:1727
+#: src/mainmenu_callbacks.c:1738
 msgid "No executable for this file."
 msgstr "Geen uitvoerbaar bestand voor dit bronbestand. "
 
@@ -3896,19 +3648,19 @@ msgstr "Dit bestand is niet bewaard. Bewaar het eerst. "
 msgid "Unable to execute file. Check Settings->Commands."
 msgstr "Kan bestand niet uitvoeren. Controleer Instellingen->Commando. "
 
-#: src/find_in_files.c:327
+#: src/find_in_files.c:349
 msgid "Find in Files completed...............Unsuccessful\n"
 msgstr "Zoeken in bestanden compleet...........Niet succesvol\n"
 
-#: src/find_in_files.c:330
+#: src/find_in_files.c:351
 msgid "Find in Files completed ... unsuccessful"
 msgstr "Zoeken in bestanden compleet ... niet succesvol"
 
-#: src/find_in_files.c:336
+#: src/find_in_files.c:356
 msgid "Find in Files completed...............Successful\n"
 msgstr "Zoeken in bestanden compleet...........succesvol\n"
 
-#: src/find_in_files.c:338
+#: src/find_in_files.c:358
 msgid "Find in Files completed ... successful"
 msgstr "Zoeken in bestand compleet ... succesvol"
 
@@ -3921,17 +3673,17 @@ msgstr "Geen invoerbestanden gegeven."
 msgid "No search string supplied."
 msgstr "Zoektekst"
 
-#: src/find_replace.c:337
+#: src/find_replace.c:338
 #, fuzzy
 msgid "Do you want to replace this occurence?"
 msgstr "Wilt u dit vervangen?"
 
-#: src/find_replace.c:399
+#: src/find_replace.c:400
 #, c-format
 msgid "The string \"%s\" was not found in the selected text"
 msgstr "De tekst \"%s\" was niet gevonden in de selectie"
 
-#: src/find_replace.c:404
+#: src/find_replace.c:405
 #, c-format
 msgid "The string \"%s\" was not found from the current location"
 msgstr "De tekst \"%s\" was niet gevonden vanaf de huidige locatie"
@@ -3956,20 +3708,20 @@ msgstr "De tekst \"%s\" was niet gevonden vanaf de huidige locatie"
 msgid "No matches found. Wrap search around the document?"
 msgstr "Geen overeenkomsten. Zoeken van het het begin van het document?"
 
-#: src/glade_iface.c:96
+#: src/glade_iface.c:99
 msgid "Cannot fork glade."
 msgstr "Kan glade niet forken"
 
-#: src/glade_iface.c:133 src/glade_iface.c:208
+#: src/glade_iface.c:136 src/glade_iface.c:211
 msgid "Cannot fork glade--."
 msgstr "Kan glade-- niet forken"
 
-#: src/glade_iface.c:171
+#: src/glade_iface.c:174
 #, fuzzy
 msgid "Cannot fork glade-2."
 msgstr "Kan glade-- niet forken"
 
-#: src/gnome_project.c:62
+#: src/gnome_project.c:65
 #, fuzzy
 msgid ""
 "A project or file with the same name.already exists.\n"
@@ -3978,59 +3730,63 @@ msgstr ""
 "Het project bestaat al. \n"
 "Aanmaken project afgebroken."
 
-#: src/gnome_project.c:78
+#: src/gnome_project.c:81
 #, fuzzy
 msgid "Generating Project ...\n"
 msgstr "Genereren project ... \n"
 
-#: src/gnome_project.c:85
+#: src/gnome_project.c:88
 #, c-format
 msgid "Cannot create file: %s"
 msgstr "Kan bestand: %s niet maken"
 
-#: src/gnome_project.c:154
+#: src/gnome_project.c:157
 #, fuzzy
 msgid "Loading Project ...\n"
 msgstr "Laden project ...\n"
 
-#: src/gnome_project.c:165 src/gnome_project.c:225
+#: src/gnome_project.c:168 src/gnome_project.c:228
 #, fuzzy
 msgid "Saving Project ...\n"
 msgstr "Bewaar project ...\n"
 
-#: src/gnome_project.c:173
+#: src/gnome_project.c:176
 #, fuzzy
 msgid "Generating source codes ...\n"
 msgstr "Genereren broncodes ... \n"
 
 #. Creating icon pixmap file for gnome projects
-#: src/gnome_project.c:179
+#: src/gnome_project.c:182
 msgid "Copying icon file ...\n"
 msgstr "Kopieren icoonbestand ...\n"
 
-#: src/gnome_project.c:193
+#: src/gnome_project.c:196
 msgid "Could not create icon file ...\n"
 msgstr "Kon icoonbestand niet maken ...\n"
 
-#: src/gnome_project.c:207
+#: src/gnome_project.c:210
 msgid "Locating files ...\n"
 msgstr "Zoeken bestanden ...\n"
 
-#: src/gnome_project.c:229
+#: src/gnome_project.c:232
 #, fuzzy
 msgid "Updating Project ...\n"
 msgstr "Bijwerken project ...\n"
 
-#: src/gnome_project.c:232
+#: src/gnome_project.c:235
 #, fuzzy
 msgid "Running autogen.sh ...\n"
 msgstr "Uitvoeren autogen.sh ...\n"
 
-#: src/gnome_project.c:243
+#: src/gnome_project.c:247
 msgid "App Wizard"
 msgstr "App Wizard"
 
-#: src/gnome_project.c:262
+#: src/gnome_project.c:272
+msgid "Auto generation completed...............Unsuccessful\n"
+msgstr "Automatische generatie compleet ........ Niet succesvol\n"
+
+#: src/gnome_project.c:275
 #, fuzzy
 msgid ""
 "The Project was not successfully auto generated.\n"
@@ -4039,7 +3795,7 @@ msgstr ""
 "Het project is niet succesvol gegenereerd. \n"
 "Ik denk dat u het handmatig moet doen."
 
-#: src/gnome_project.c:268
+#: src/gnome_project.c:281
 #, fuzzy
 msgid ""
 "Auto generation completed...............Successful\n"
@@ -4048,27 +3804,44 @@ msgstr ""
 "Automatische generatie compleet........succesvol\n"
 "Bouw het project nu om er eens naar te kijken\n"
 
-#: src/gnome_project.c:271
+#: src/gnome_project.c:284
 #, fuzzy
 msgid "Project was successfully auto generated."
 msgstr "Project is succesvol automatisch gegenereerd."
 
-#: src/goto_line.c:106
+#: src/goto_line.c:105
 #, fuzzy
 msgid " Goto Line number "
 msgstr "Ga naar regel nr. "
 
-#: src/launcher.c:173
-#, c-format
-msgid "launcher.c: error while reading child stdout - %s\n"
+#: src/launcher.c:596
+#, fuzzy
+msgid "launcher.c: Error while reading child stdout\n"
 msgstr "launcher.c: fout bij lezen van standaarduitvoer - %s\n"
 
-#: src/launcher.c:200
-#, c-format
-msgid "launcher.c: error while reading child stderr - %s\n"
+#: src/launcher.c:608
+msgid "launcher.c: STDOUT pipe closed"
+msgstr ""
+
+#: src/launcher.c:644
+#, fuzzy
+msgid "launcher.c: Error while reading child stderr"
 msgstr "launcher.c: fout bij lezen van standaard foutmeldingsuitvoer - %s\n"
 
-#: src/launcher.c:377 src/text_editor.c:1468
+#: src/launcher.c:656
+msgid "launcher.c: STDERR pipe closed"
+msgstr ""
+
+#: src/launcher.c:697
+#, fuzzy
+msgid "launcher.c: Error while reading child pty\n"
+msgstr "launcher.c: fout bij lezen van standaard foutmeldingsuitvoer - %s\n"
+
+#: src/launcher.c:715
+msgid "launcher.c: PTY pipe error!"
+msgstr ""
+
+#: src/launcher.c:842 src/text_editor.c:1510
 msgid "Cannot execute command shell"
 msgstr "Kan commando schil niet uitvoeren"
 
@@ -4081,7 +3854,7 @@ msgstr "Laat het opstartscherm niet zien"
 msgid "Recent Files    "
 msgstr "Recente bestanden   "
 
-#: src/main_menubar.c:392 src/project_dbase.c:2060
+#: src/main_menubar.c:392 src/project_dbase.c:2041
 msgid "Recent Projects "
 msgstr "Recente Projecten "
 
@@ -4145,7 +3918,7 @@ msgstr "Sluit alles"
 msgid "Reload F_ile"
 msgstr "_Herlaad bestand"
 
-#: src/main_menubar_def.h:72 src/text_editor_gui.c:112 src/toolbar.c:88
+#: src/main_menubar_def.h:72 src/text_editor_gui.c:111 src/toolbar.c:88
 msgid "Reload current file"
 msgstr "Herlaad huidig bestand"
 
@@ -4177,7 +3950,7 @@ msgstr ""
 msgid "Open P_roject ..."
 msgstr "Open P_roject ..."
 
-#: src/main_menubar_def.h:91 src/toolbar.c:212
+#: src/main_menubar_def.h:91 src/toolbar.c:214
 msgid "Open a Project"
 msgstr "Open een project"
 
@@ -4186,7 +3959,7 @@ msgstr "Open een project"
 msgid "Sa_ve Project"
 msgstr "Be_waar project"
 
-#: src/main_menubar_def.h:97 src/toolbar.c:223
+#: src/main_menubar_def.h:97 src/toolbar.c:225
 msgid "Save the current Project"
 msgstr "Bewaar het huidige project"
 
@@ -4195,7 +3968,7 @@ msgstr "Bewaar het huidige project"
 msgid "Close Pro_ject"
 msgstr "Sluit Pro_ject"
 
-#: src/main_menubar_def.h:103 src/toolbar.c:235
+#: src/main_menubar_def.h:103 src/toolbar.c:237
 msgid "Close the current Project"
 msgstr "Sluit het huidige project"
 
@@ -4212,2160 +3985,2162 @@ msgstr "Hernoem het huidige bestand"
 #. 16
 #. 17
 #: src/main_menubar_def.h:116
-msgid "Page Set_up ..."
-msgstr "Pagina _Instellingen ..."
-
-#: src/main_menubar_def.h:117
-msgid "Page setup for printing"
-msgstr "Pagina instellingen voor afdrukken"
-
-#. 18
-#: src/main_menubar_def.h:122
 msgid "_Print"
 msgstr "Af_drukken"
 
-#: src/main_menubar_def.h:123 src/text_editor_gui.c:179 src/toolbar.c:110
+#: src/main_menubar_def.h:117 src/text_editor_gui.c:177 src/toolbar.c:110
 msgid "Print the current file"
 msgstr "Het huidige bestand afdrukken"
 
-#. 19
-#: src/main_menubar_def.h:128
+#. 18
+#: src/main_menubar_def.h:122
 msgid "_Print Preview"
 msgstr "Afdruk_voorbeeld"
 
-#: src/main_menubar_def.h:129
+#: src/main_menubar_def.h:123
 #, fuzzy
 msgid "Print preview of the current file"
 msgstr "Druk het huidige bestand af"
 
+#. 19
 #. 20
-#. 21
-#: src/main_menubar_def.h:135
+#: src/main_menubar_def.h:129
 msgid "Recent _Files"
 msgstr "_Recente Bestanden"
 
-#. 22
-#: src/main_menubar_def.h:141
+#. 21
+#: src/main_menubar_def.h:135
 msgid "Recent Projec_ts"
 msgstr "Recente _Projecten"
 
 #. 0
-#: src/main_menubar_def.h:155
+#: src/main_menubar_def.h:149
 msgid "_Make Selection Uppercase"
 msgstr "_Maak selectie Hoofdletters"
 
-#: src/main_menubar_def.h:156
+#: src/main_menubar_def.h:150
 msgid "Make the selected text uppercase"
 msgstr "Maak de geselecteerde tekst hoofdletters"
 
 #. 1
-#: src/main_menubar_def.h:162
+#: src/main_menubar_def.h:156
 msgid "Make Selection Lowercase"
 msgstr "Maak selectie kleine letters"
 
-#: src/main_menubar_def.h:163
+#: src/main_menubar_def.h:157
 msgid "Make the selected text lowercase"
 msgstr "Maak de gesecteerde tekst kleine letters"
 
 #. 3
-#: src/main_menubar_def.h:171
+#: src/main_menubar_def.h:165
 #, fuzzy
 msgid "Convert EOL chars to CRLF"
 msgstr "Converteer EOL karakters naar LF"
 
-#: src/main_menubar_def.h:172
+#: src/main_menubar_def.h:166
 #, fuzzy
 msgid "Convert End Of Line characters to DOS EOL (CRLF)"
 msgstr "Converteer End of Line karakters naar UNIX EOL (line feed: LF)"
 
 #. 4
-#: src/main_menubar_def.h:178
+#: src/main_menubar_def.h:172
 msgid "Convert EOL chars to LF"
 msgstr "Converteer EOL karakters naar LF"
 
-#: src/main_menubar_def.h:179
+#: src/main_menubar_def.h:173
 #, fuzzy
 msgid "Convert End Of Line characters to Unix EOL (LF)"
 msgstr "Converteer End of Line karakters naar UNIX EOL (line feed: LF)"
 
 #. 5
-#: src/main_menubar_def.h:185
+#: src/main_menubar_def.h:179
 #, fuzzy
 msgid "Convert EOL chars to CR"
 msgstr "Converteer EOL karakters naar LF"
 
-#: src/main_menubar_def.h:186
+#: src/main_menubar_def.h:180
 #, fuzzy
 msgid "Convert End Of Line characters to Mac OS EOL (CR)"
 msgstr "Converteer End of Line karakters naar UNIX EOL (line feed: LF)"
 
 #. 6
-#: src/main_menubar_def.h:192
+#: src/main_menubar_def.h:186
 #, fuzzy
 msgid "Convert EOL chars to majority EOL"
 msgstr "Converteer EOL karakters naar LF"
 
-#: src/main_menubar_def.h:193
+#: src/main_menubar_def.h:187
 #, fuzzy
 msgid "Convert End Of Line characters to majority of the EOL found in the file"
 msgstr "Converteer End of Line karakters naar UNIX EOL (line feed: LF)"
 
 #. 0
-#: src/main_menubar_def.h:204
+#: src/main_menubar_def.h:198
 msgid "_Select All"
 msgstr "_Selecteer Alles"
 
-#: src/main_menubar_def.h:205
+#: src/main_menubar_def.h:199
 msgid "Select all text in the editor"
 msgstr "Selecteer alle teksten in de tekstverwerker"
 
 #. 1
-#: src/main_menubar_def.h:210
+#: src/main_menubar_def.h:204
 msgid "Select to _Brace"
 msgstr "Selecteer tot aan _Haakje"
 
-#: src/main_menubar_def.h:211
+#: src/main_menubar_def.h:205
 msgid "Select the text in the matching braces"
 msgstr "Selekteer de tekst in de overeenkomstige haakjes"
 
 #. 2
-#: src/main_menubar_def.h:216
+#: src/main_menubar_def.h:210
 msgid "Select Code Block"
 msgstr "Selekteer Codeblok"
 
-#: src/main_menubar_def.h:217
+#: src/main_menubar_def.h:211
 msgid "Select the current code block"
 msgstr "Selekteer het huidige codeblok"
 
 #. 3
-#: src/main_menubar_def.h:222
+#: src/main_menubar_def.h:216
 #, fuzzy
 msgid "Current Function"
 msgstr "Functie"
 
-#: src/main_menubar_def.h:223
+#: src/main_menubar_def.h:217
 #, fuzzy
 msgid "Select the current function"
 msgstr "Selekteer het huidige codeblok"
 
 #. 4
-#: src/main_menubar_def.h:228
+#: src/main_menubar_def.h:222
 #, fuzzy
 msgid "Current Line"
 msgstr "Functie"
 
-#: src/main_menubar_def.h:229
+#: src/main_menubar_def.h:223
 #, fuzzy
 msgid "Select the current line"
 msgstr "Selekteer het huidige codeblok"
 
 #. 5
-#: src/main_menubar_def.h:234
+#: src/main_menubar_def.h:228
 #, fuzzy
 msgid "Current Word"
 msgstr "Functie"
 
-#: src/main_menubar_def.h:235
+#: src/main_menubar_def.h:229
 #, fuzzy
 msgid "Select the current word"
 msgstr "Selekteer het huidige codeblok"
 
 #. 0
-#: src/main_menubar_def.h:245
+#: src/main_menubar_def.h:239
 msgid "/* GPL Notice */"
 msgstr "/*GPL Notice */"
 
-#: src/main_menubar_def.h:246
+#: src/main_menubar_def.h:240
 msgid "Insert GPL notice with C style comments"
 msgstr "Invoegen GPL notice met C stijl commentaar"
 
 #. 1
-#: src/main_menubar_def.h:251
+#: src/main_menubar_def.h:245
 msgid "// GPL Notice"
 msgstr "// GPL Notice"
 
-#: src/main_menubar_def.h:252
+#: src/main_menubar_def.h:246
 msgid "Insert GPL notice with C++ style comments"
 msgstr "Invoegen GPL notice met C++ stijl commentaar"
 
 #. 2
-#: src/main_menubar_def.h:257
+#: src/main_menubar_def.h:251
 #, fuzzy
 msgid "# GPL Notice"
 msgstr "// GPL Notice"
 
-#: src/main_menubar_def.h:258
+#: src/main_menubar_def.h:252
 #, fuzzy
 msgid "Insert GPL notice with Python style comments"
 msgstr "Invoegen GPL notice met C stijl commentaar"
 
 #. 3
-#: src/main_menubar_def.h:263
+#: src/main_menubar_def.h:257
 #, fuzzy
 msgid "Current Username"
 msgstr "Info _Huidig Frame"
 
-#: src/main_menubar_def.h:264
+#: src/main_menubar_def.h:258
 #, fuzzy
 msgid "Insert name of current user"
 msgstr "Hernoem het huidige bestand"
 
 #. 4
-#: src/main_menubar_def.h:269
+#: src/main_menubar_def.h:263
 msgid "Current Date & Time"
 msgstr "Huidige Datum & Tijd"
 
-#: src/main_menubar_def.h:270
+#: src/main_menubar_def.h:264
 msgid "Insert current date & time"
 msgstr "Invoeren huidige datum & tijd"
 
 #. 5
-#: src/main_menubar_def.h:275
+#: src/main_menubar_def.h:269
 msgid "Header File Template"
 msgstr "Sjabloon headerbestand"
 
-#: src/main_menubar_def.h:276
+#: src/main_menubar_def.h:270
 msgid "Insert a standard header file template"
 msgstr "Een standaardsjabloon voor een headerbestand invoegen"
 
 #. 6
-#: src/main_menubar_def.h:281
+#: src/main_menubar_def.h:275
 msgid "ChangeLog entry"
 msgstr "ChangeLog ingang"
 
-#: src/main_menubar_def.h:282
+#: src/main_menubar_def.h:276
 msgid "Insert a ChangeLog entry"
 msgstr "Een ChangeLog ingang invoeren"
 
-#: src/main_menubar_def.h:293
+#: src/main_menubar_def.h:287
 msgid "Insert a switch template"
 msgstr "Een switch-sjabloon invoegen"
 
-#: src/main_menubar_def.h:299
+#: src/main_menubar_def.h:293
 #, fuzzy
 msgid "Insert a for template"
 msgstr "_Invoer tekst"
 
-#: src/main_menubar_def.h:305
+#: src/main_menubar_def.h:299
 msgid "Insert a while template"
 msgstr "Een while-sjabloon invoegen"
 
-#: src/main_menubar_def.h:311
+#: src/main_menubar_def.h:305
 msgid "Insert an if...else template"
 msgstr "Een if...else-sjabloon invoegen"
 
-#: src/main_menubar_def.h:322
+#: src/main_menubar_def.h:316
 msgid "Insert the CVS Author keyword (author of the change)"
 msgstr "CVS-auteur invoegen (auteur van de verandering)"
 
-#: src/main_menubar_def.h:328
+#: src/main_menubar_def.h:322
 msgid "Insert the CVS Date keyword (date and time of the change)"
 msgstr "CVS-datum invoegen (datum en tijd van de verandering)"
 
-#: src/main_menubar_def.h:334
+#: src/main_menubar_def.h:328
 msgid ""
 "Insert the CVS Header keyword (full path, revision, date, author, state)"
 msgstr "CVS-header invoegen (volledig pad, revisie, datum, auteur, staat)"
 
-#: src/main_menubar_def.h:340
+#: src/main_menubar_def.h:334
 msgid "Insert the CVS Id keyword (file, revision, date, author)"
 msgstr "CVS-ID invoegen (bestand, revisie, datum, auteur)"
 
-#: src/main_menubar_def.h:346
+#: src/main_menubar_def.h:340
 msgid "Insert the CVS Log keyword (log message)"
 msgstr "CVS-log invoegen (logboekbericht)"
 
-#: src/main_menubar_def.h:352
+#: src/main_menubar_def.h:346
 msgid "Insert the CVS Name keyword (name of the sticky tag)"
 msgstr "CVS-naam invoegen (naam van de sticky-tag)"
 
-#: src/main_menubar_def.h:358
+#: src/main_menubar_def.h:352
 msgid "Insert the CVS Revision keyword (revision number)"
 msgstr "CVS-revisie invoegen (revisienummer)"
 
-#: src/main_menubar_def.h:364
+#: src/main_menubar_def.h:358
 msgid "Insert the CVS Source keyword (full path)"
 msgstr "CVS-broncode invoegen (volledig pad)"
 
 #. 0
-#: src/main_menubar_def.h:374
+#: src/main_menubar_def.h:368
 #, fuzzy
 msgid "Header"
 msgstr "Kop"
 
-#: src/main_menubar_def.h:375
+#: src/main_menubar_def.h:369
 msgid "Insert a file header"
 msgstr "Bestandsheader invoegen"
 
 #. 1
-#: src/main_menubar_def.h:380
+#: src/main_menubar_def.h:374
 msgid "C template"
 msgstr "C-sjabloon"
 
-#: src/main_menubar_def.h:381
+#: src/main_menubar_def.h:375
 #, fuzzy
 msgid "Insert a C template"
 msgstr "_Invoer tekst"
 
 #. 2
-#: src/main_menubar_def.h:386
+#: src/main_menubar_def.h:380
 msgid "CVS keyword"
 msgstr "CVS sleutelwoorden"
 
 #. 0
-#: src/main_menubar_def.h:403
+#: src/main_menubar_def.h:397
 msgid "Block Comment/Uncomment"
 msgstr ""
 
-#: src/main_menubar_def.h:404
+#: src/main_menubar_def.h:398
 #, fuzzy
 msgid "Block comment/uncomment the selected text"
 msgstr "Maak de geselecteerde tekst hoofdletters"
 
 #. 1
-#: src/main_menubar_def.h:409
+#: src/main_menubar_def.h:403
 #, fuzzy
 msgid "Box Comment/Uncomment"
 msgstr "Commentaar:"
 
-#: src/main_menubar_def.h:410
+#: src/main_menubar_def.h:404
 #, fuzzy
 msgid "Box comment/uncomment the selected text"
 msgstr "Maak de geselecteerde tekst hoofdletters"
 
 #. 2
-#: src/main_menubar_def.h:415
+#: src/main_menubar_def.h:409
 #, fuzzy
 msgid "Stream Comment/Uncomment"
 msgstr "Commentaar:"
 
-#: src/main_menubar_def.h:416
+#: src/main_menubar_def.h:410
 #, fuzzy
 msgid "Stream comment/uncomment the selected text"
 msgstr "Maak de geselecteerde tekst hoofdletters"
 
 #. 0
-#: src/main_menubar_def.h:426
+#: src/main_menubar_def.h:420
 msgid "_Find ..."
 msgstr "_Zoek ..."
 
-#: src/main_menubar_def.h:427
+#: src/main_menubar_def.h:421
 #, fuzzy
 msgid "Search for a string or regular expression in the editor"
 msgstr "Zoek naar een tekst of reguliere expressie in de tekstverwerker"
 
 #. 1
-#: src/main_menubar_def.h:433
+#: src/main_menubar_def.h:427
 msgid "Find _Next"
 msgstr "Vind Volge_nde"
 
-#: src/main_menubar_def.h:434
+#: src/main_menubar_def.h:428
 #, fuzzy
-msgid "Repeat the last Find command"
-msgstr "Herhaal de Laatste Vind opdracht"
+msgid "Search Forward"
+msgstr "Vooruit"
 
 #. 2
-#: src/main_menubar_def.h:440
+#: src/main_menubar_def.h:434
+#, fuzzy
+msgid "Find Previous"
+msgstr "Afdrukvoorbeeld"
+
+#: src/main_menubar_def.h:435
+#, fuzzy
+msgid "Search Backward"
+msgstr "Achteruit"
+
+#. 3
+#: src/main_menubar_def.h:441
 msgid "Find and R_eplace ..."
 msgstr "Zoek en V_ervang ..."
 
-#: src/main_menubar_def.h:441
+#: src/main_menubar_def.h:442
 #, fuzzy
 msgid ""
 "Search for and replace a string or regular expression with another string"
 msgstr ""
 "Zoek naar en vervang een tekst of reguliere expressie met een andere tekst"
 
-#. 3
-#: src/main_menubar_def.h:447
+#. 4
+#: src/main_menubar_def.h:448
 #, fuzzy
 msgid "Fin_d in Files ..."
 msgstr "Zoek in bestanden ..."
 
-#: src/main_menubar_def.h:448
+#: src/main_menubar_def.h:449
 msgid "Search for a string in multiple files or directories"
 msgstr "Zoek naar een tekst in meerdere bestanden of directories"
 
-#. 4
-#: src/main_menubar_def.h:454
+#. 5
+#: src/main_menubar_def.h:455
 #, fuzzy
 msgid "_Enter Selection/I-Search"
 msgstr "_Maak selectie Hoofdletters"
 
-#: src/main_menubar_def.h:455
+#: src/main_menubar_def.h:456
 #, fuzzy
 msgid "Enter the selected text as the search target"
 msgstr "Verwijder de geselecteerde tekst van de tekstverwerker"
 
-#. 5
 #. 6
-#: src/main_menubar_def.h:463
+#. 7
+#: src/main_menubar_def.h:464
 #, fuzzy
 msgid "Advanced search and re_place"
 msgstr "Zoek en vervang de opgegeven tekst"
 
-#: src/main_menubar_def.h:464
+#: src/main_menubar_def.h:465
 #, fuzzy
 msgid "Advanced Search And Replace"
 msgstr "Zoek en vervang de opgegeven tekst"
 
 #. 0
-#: src/main_menubar_def.h:475
+#: src/main_menubar_def.h:476
 #, fuzzy
 msgid "_Goto Line number ..."
 msgstr "_Ga naar regelnr ..."
 
-#: src/main_menubar_def.h:476
+#: src/main_menubar_def.h:477
 msgid "Go to a particular line in the editor"
 msgstr "Ga naar een specifieke regel in de tekstverwerker"
 
 #. 1
-#: src/main_menubar_def.h:481
+#: src/main_menubar_def.h:482
 msgid "Goto Matching _Brace"
 msgstr "Ga naar overeenkomstig _Haakje"
 
-#: src/main_menubar_def.h:482
+#: src/main_menubar_def.h:483
 msgid "Go to the matching brace in the editor"
 msgstr "Ga naar naar het bijpassende haakje in de tekstverwerker"
 
 #. 2
-#: src/main_menubar_def.h:487
+#: src/main_menubar_def.h:488
 msgid "_Goto start of block"
 msgstr "_Ga naar begin van blok"
 
-#: src/main_menubar_def.h:488
+#: src/main_menubar_def.h:489
 msgid "Go to the start of the current block"
 msgstr "Ga naar het begin van het huidige blok"
 
 #. 3
-#: src/main_menubar_def.h:493
+#: src/main_menubar_def.h:494
 msgid "_Goto end of block"
 msgstr "_Ga eind van blok"
 
-#: src/main_menubar_def.h:494
+#: src/main_menubar_def.h:495
 msgid "Go to the end of the current block"
 msgstr "Ga naar het eind van het huidig blok"
 
 #. 4
-#: src/main_menubar_def.h:499
+#: src/main_menubar_def.h:500
 msgid "_Goto previous mesg"
 msgstr "_Ga vorige boodschap"
 
-#: src/main_menubar_def.h:500
+#: src/main_menubar_def.h:501
 msgid "Go to previous message"
 msgstr "Ga naar de vorige boodschap"
 
 #. 5
-#: src/main_menubar_def.h:505
+#: src/main_menubar_def.h:506
 msgid "_Goto next mesg"
 msgstr "_Ga volgende boodschap"
 
-#: src/main_menubar_def.h:506
+#: src/main_menubar_def.h:507
 msgid "Go to next message"
 msgstr "Ga naar de volgende boodschap"
 
 #. 6
-#: src/main_menubar_def.h:511
+#: src/main_menubar_def.h:512
 #, fuzzy
 msgid "_Go Back"
 msgstr "Achteruit"
 
-#: src/main_menubar_def.h:512
+#: src/main_menubar_def.h:513
 msgid "Go back"
 msgstr "Vorige"
 
 #. 7
-#: src/main_menubar_def.h:517
+#: src/main_menubar_def.h:518
 #, fuzzy
 msgid "_Go Forward"
 msgstr "Vooruit"
 
-#: src/main_menubar_def.h:518
+#: src/main_menubar_def.h:519
 #, fuzzy
 msgid "Go forward"
 msgstr "Vooruit"
 
 #. 8
-#: src/main_menubar_def.h:523 src/text_editor_menu.c:93
+#: src/main_menubar_def.h:524 src/text_editor_menu.c:93
 #, fuzzy
 msgid "Tag Definition"
 msgstr "/_Class Definition"
 
-#: src/main_menubar_def.h:524
+#: src/main_menubar_def.h:525
 #, fuzzy
 msgid "Goto tag definition"
 msgstr "/_Class Definition"
 
 #. 9
-#: src/main_menubar_def.h:529 src/text_editor_menu.c:100
+#: src/main_menubar_def.h:530 src/text_editor_menu.c:100
 #, fuzzy
 msgid "Tag Declaration"
 msgstr "Declaraties"
 
-#: src/main_menubar_def.h:530
+#: src/main_menubar_def.h:531
 #, fuzzy
 msgid "Goto tag declaration"
 msgstr "Functie declaratie:"
 
 #. 10
-#: src/main_menubar_def.h:535
+#: src/main_menubar_def.h:536
 msgid "Next occurrence"
 msgstr "Volgende overeenkomende"
 
-#: src/main_menubar_def.h:536
+#: src/main_menubar_def.h:537
 msgid "Find the next occurrence of current word"
 msgstr "De volgende overeenkomende tekenreeks opzoeken"
 
 #. 11
-#: src/main_menubar_def.h:541
+#: src/main_menubar_def.h:542
 msgid "Previous occurrence"
 msgstr "Vorige overeenkomende"
 
-#: src/main_menubar_def.h:542
+#: src/main_menubar_def.h:543
 msgid "Find the previous occurrence of current word"
 msgstr "De vorige overeenkomende tekenreeks opzoeken"
 
 #. 0
-#: src/main_menubar_def.h:553
+#: src/main_menubar_def.h:554
 msgid "U_ndo"
 msgstr "_Ongedaan"
 
-#: src/main_menubar_def.h:554 src/toolbar.c:97
+#: src/main_menubar_def.h:555 src/toolbar.c:97
 msgid "Undo the last action"
 msgstr "Laatste bewerking ongedaan maken"
 
 #. 1
-#: src/main_menubar_def.h:560
+#: src/main_menubar_def.h:561
 msgid "_Redo"
 msgstr "O_pnieuw"
 
-#: src/main_menubar_def.h:561 src/toolbar.c:101
+#: src/main_menubar_def.h:562 src/toolbar.c:101
 msgid "Redo the last undone action"
 msgstr "Doe de laatste ongedane aktie opnieuw"
 
 # Marc says: I did not translate because it would change the wellthought hotkeys. The dutch word is Knip
 #. 2
 #. 3
-#: src/main_menubar_def.h:569
+#: src/main_menubar_def.h:570
 msgid "C_ut"
 msgstr "K_nippen"
 
-#: src/main_menubar_def.h:570
+#: src/main_menubar_def.h:571
 msgid "Cut the selected text from the editor to the clipboard"
 msgstr "Knipt de geselecteerde tekst van de tekstverwerker naar het klembord"
 
 # Marc says: I did not translate because it would change the wellthought hotkeys. The dutch word is Kopieer
 #. 4
-#: src/main_menubar_def.h:576
+#: src/main_menubar_def.h:577
 msgid "_Copy"
 msgstr "_Kopiëren"
 
-#: src/main_menubar_def.h:577
+#: src/main_menubar_def.h:578
 msgid "Copy the selected text to the clipboard"
 msgstr "De geselecteerde tekst naar het klembord kopiÃ«ren"
 
 # Marc says: I did not translate because it would change the wellthought hotkeys. The dutch word is Plakken
 #. 5
-#: src/main_menubar_def.h:583
+#: src/main_menubar_def.h:584
 msgid "_Paste"
 msgstr "_Plakken"
 
-#: src/main_menubar_def.h:584
+#: src/main_menubar_def.h:585
 msgid "Paste the content of clipboard at the current position"
 msgstr "Plakt de inhoud van het klembord op de huidige positie"
 
 #. 6
-#: src/main_menubar_def.h:590
+#: src/main_menubar_def.h:591
 msgid "C_lear"
 msgstr "_Wissen"
 
-#: src/main_menubar_def.h:591
+#: src/main_menubar_def.h:592
 msgid "Delete the selected text from the editor"
 msgstr "Verwijder de geselecteerde tekst van de tekstverwerker"
 
 #. 7
 #. 8
-#: src/main_menubar_def.h:599
+#: src/main_menubar_def.h:600
 msgid "_Transform"
 msgstr "_Transformeer"
 
 #. 9
-#: src/main_menubar_def.h:606
+#: src/main_menubar_def.h:607
 msgid "_Select"
 msgstr "_Selecteren"
 
 #. 10
-#: src/main_menubar_def.h:613
+#: src/main_menubar_def.h:614
 msgid "_Insert text"
 msgstr "_Invoer tekst"
 
 #. 11
-#: src/main_menubar_def.h:620
+#: src/main_menubar_def.h:621
 #, fuzzy
 msgid "Co_mment code"
 msgstr "Commentaar:"
 
 #. 12
-#: src/main_menubar_def.h:626
+#: src/main_menubar_def.h:627
 #, fuzzy
 msgid "S_earch"
 msgstr "Zoek Help"
 
 #. 13
-#: src/main_menubar_def.h:632
+#: src/main_menubar_def.h:633
 msgid "G_o to"
 msgstr "G_a naar"
 
 #. 14
 #. 15
-#: src/main_menubar_def.h:641
+#: src/main_menubar_def.h:642
 msgid "_AutoComplete"
 msgstr "_AutoCompleet"
 
-#: src/main_menubar_def.h:642
+#: src/main_menubar_def.h:643
 msgid "AutoComplete the current word"
 msgstr "Maakt het huidige woord automatisch af"
 
 #. 16
-#: src/main_menubar_def.h:648
+#: src/main_menubar_def.h:649
 msgid "S_how calltip"
 msgstr "T_oon aanroeptip"
 
-#: src/main_menubar_def.h:649
+#: src/main_menubar_def.h:650
 msgid "Show calltip for the function"
 msgstr "Toont de tip om de functie aan te roepen"
 
 #. 0
-#: src/main_menubar_def.h:661
+#: src/main_menubar_def.h:662
 msgid "_Main Toolbar"
 msgstr "_Hoofd werkbalk"
 
-#: src/main_menubar_def.h:662
+#: src/main_menubar_def.h:663
 msgid "Hide/Unhide Main toolbar"
 msgstr "Verberg/Toon Hoofd werkbalk"
 
 #. 1
-#: src/main_menubar_def.h:667
+#: src/main_menubar_def.h:668
 msgid "_Extended Toolbar"
 msgstr "_Uitgebreide werkbalk"
 
-#: src/main_menubar_def.h:668
+#: src/main_menubar_def.h:669
 msgid "Hide/Unhide Extended toolbar"
 msgstr "Verberg/Toon Uitgebreide werkbalk"
 
 #. 2
-#: src/main_menubar_def.h:673
+#: src/main_menubar_def.h:674
 msgid "_Debug Toolbar"
 msgstr "_Debug werkbalk"
 
-#: src/main_menubar_def.h:674
+#: src/main_menubar_def.h:675
 msgid "Hide/Unhide Debug toolbar"
 msgstr "Verberg/Toon debug werkbalk"
 
 #. 3
-#: src/main_menubar_def.h:679
+#: src/main_menubar_def.h:680
 msgid "_Browser Toolbar"
 msgstr "_Browser werkbalk"
 
-#: src/main_menubar_def.h:680
+#: src/main_menubar_def.h:681
 msgid "Hide/Unhide Browser toolbar"
 msgstr "Verberg/Toon Browser werkbalk"
 
 #. 4
-#: src/main_menubar_def.h:685
+#: src/main_menubar_def.h:686
 msgid "_Format Toolbar"
 msgstr "_Opmaak werkbalk"
 
-#: src/main_menubar_def.h:686
+#: src/main_menubar_def.h:687
 msgid "Hide/Unhide Format toolbar"
 msgstr "Verberg/Toon opmaak werkbalk"
 
 #. 0
-#: src/main_menubar_def.h:696
+#: src/main_menubar_def.h:697
 msgid "_Line numbers margin"
 msgstr "Marge Rege_lnummers"
 
-#: src/main_menubar_def.h:697
+#: src/main_menubar_def.h:698
 msgid "Show/Hide line numbers"
 msgstr "Verberg/Toon regelnummers"
 
 #. 1
-#: src/main_menubar_def.h:702
+#: src/main_menubar_def.h:703
 msgid "_Markers Margin"
 msgstr "Marges _Markeerders"
 
-#: src/main_menubar_def.h:703
+#: src/main_menubar_def.h:704
 msgid "Show/Hide markers margin"
 msgstr "Verberg/Toon markeerders marge"
 
 #. 2
-#: src/main_menubar_def.h:708
+#: src/main_menubar_def.h:709
 msgid "_Code fold margin"
 msgstr "_Code omloop marge"
 
-#: src/main_menubar_def.h:709
+#: src/main_menubar_def.h:710
 msgid "Show/Hide code fold margin"
 msgstr "Toon/Verberg code omloop marge"
 
 #. 3
-#: src/main_menubar_def.h:714
+#: src/main_menubar_def.h:715
 msgid "_Indentation guides"
 msgstr "_Inspring regels"
 
-#: src/main_menubar_def.h:715
+#: src/main_menubar_def.h:716
 #, fuzzy
 msgid "Show/Hide indentation guides"
 msgstr "Toon/Verberg uitspringregels"
 
 #. 4
-#: src/main_menubar_def.h:720
+#: src/main_menubar_def.h:721
 msgid "_White spaces"
 msgstr "_Witregels"
 
-#: src/main_menubar_def.h:721
+#: src/main_menubar_def.h:722
 msgid "Show/Hide white spaces"
 msgstr "Toon/Verberg witregels"
 
 #. 5
-#: src/main_menubar_def.h:726
+#: src/main_menubar_def.h:727
 msgid "_Line end characters"
 msgstr "_Regeleinde karakters"
 
-#: src/main_menubar_def.h:727
+#: src/main_menubar_def.h:728
 msgid "Show/Hide line end characters"
 msgstr "Toon/Verberg regeleinde karakters"
 
 #. 6
-#: src/main_menubar_def.h:732
+#: src/main_menubar_def.h:733
 msgid "Line _wrapping"
 msgstr "Regel_afbreking"
 
-#: src/main_menubar_def.h:733
+#: src/main_menubar_def.h:734
 msgid "Enable/disable line wrapping"
 msgstr "Regelafbreking in-/uitschakelen"
 
 #. 0
-#: src/main_menubar_def.h:743
+#: src/main_menubar_def.h:744
 msgid "++ Zoom"
 msgstr "++ Zoom"
 
-#: src/main_menubar_def.h:744
+#: src/main_menubar_def.h:745
 msgid "Increase text zoom by 1 unit"
 msgstr "Verhoog tekst inzoemen met 1 eenheid"
 
 #. 1
-#: src/main_menubar_def.h:749
+#: src/main_menubar_def.h:750
 msgid "+8"
 msgstr "+8"
 
-#: src/main_menubar_def.h:750
+#: src/main_menubar_def.h:751
 msgid "Zoom factor +8"
 msgstr "Zoomfactor +8"
 
 #. 2
-#: src/main_menubar_def.h:755
+#: src/main_menubar_def.h:756
 msgid "+6"
 msgstr "+6"
 
-#: src/main_menubar_def.h:756
+#: src/main_menubar_def.h:757
 msgid "Zoom factor +6"
 msgstr "Zoom factor +6"
 
 #. 3
-#: src/main_menubar_def.h:761
+#: src/main_menubar_def.h:762
 msgid "+4"
 msgstr "+4"
 
-#: src/main_menubar_def.h:762
+#: src/main_menubar_def.h:763
 msgid "Zoom factor +4"
 msgstr "Zoom factor +4"
 
 #. 4
-#: src/main_menubar_def.h:767
+#: src/main_menubar_def.h:768
 msgid "+2"
 msgstr "+2"
 
-#: src/main_menubar_def.h:768
+#: src/main_menubar_def.h:769
 msgid "Zoom factor +2"
 msgstr "Zoom factor +2"
 
-#: src/main_menubar_def.h:774
+#: src/main_menubar_def.h:775
 msgid "Zoom factor 0"
 msgstr "Zoom factor 0"
 
 #. 6
-#: src/main_menubar_def.h:779
+#: src/main_menubar_def.h:780
 msgid "-2"
 msgstr "-2"
 
-#: src/main_menubar_def.h:780
+#: src/main_menubar_def.h:781
 msgid "Zoom factor -2"
 msgstr "Zoom factor -2"
 
 #. 7
-#: src/main_menubar_def.h:785
+#: src/main_menubar_def.h:786
 msgid "-4"
 msgstr "-4"
 
-#: src/main_menubar_def.h:786
+#: src/main_menubar_def.h:787
 msgid "Zoom factor -4"
 msgstr "Zoom factor -4"
 
 #. 8
-#: src/main_menubar_def.h:791
+#: src/main_menubar_def.h:792
 msgid "-6"
 msgstr "-6"
 
-#: src/main_menubar_def.h:792
+#: src/main_menubar_def.h:793
 msgid "Zoom factor -6"
 msgstr "Zoom factor -6"
 
 #. 9
-#: src/main_menubar_def.h:797
+#: src/main_menubar_def.h:798
 msgid "-8"
 msgstr "-8"
 
-#: src/main_menubar_def.h:798
+#: src/main_menubar_def.h:799
 msgid "Zoom factor -8"
 msgstr "Zoom factor -8"
 
 #. 10
-#: src/main_menubar_def.h:803
+#: src/main_menubar_def.h:804
 msgid "-- Zoom"
 msgstr "-- Zoom"
 
-#: src/main_menubar_def.h:804
+#: src/main_menubar_def.h:805
 msgid "Reduce text zoom by 1 unit"
 msgstr "Vermindert de tekst zoem met 1 eenheid"
 
 #. 0
-#: src/main_menubar_def.h:814
+#: src/main_menubar_def.h:815
 #, fuzzy
 msgid "_Message window"
 msgstr "_Creeer nieuw venster"
 
-#: src/main_menubar_def.h:815 src/toolbar.c:154
+#: src/main_menubar_def.h:816 src/toolbar.c:155
 msgid "Show/Hide the Message window"
 msgstr "Toon/Verberg het Boodschappen venster"
 
 #. 1
-#: src/main_menubar_def.h:820
+#: src/main_menubar_def.h:821
 #, fuzzy
 msgid "_Project window"
 msgstr "Project Info"
 
-#: src/main_menubar_def.h:821 src/toolbar.c:150
+#: src/main_menubar_def.h:822 src/toolbar.c:151
 msgid "Show/Hide the Project window"
 msgstr "Toon/Verberg het project venster"
 
 #. 2
-#: src/main_menubar_def.h:826
+#: src/main_menubar_def.h:827
 msgid "B_ookmarks"
 msgstr "B_ookmarks"
 
-#: src/main_menubar_def.h:827
+#: src/main_menubar_def.h:828
 msgid "Show the Bookmark window"
 msgstr "Toon het venster bladwijzer"
 
 #. 3
 #. 4
-#: src/main_menubar_def.h:833
+#: src/main_menubar_def.h:834
 msgid "_Toolbars"
 msgstr "_Werkbalken"
 
 #. 5
-#: src/main_menubar_def.h:839
+#: src/main_menubar_def.h:840
 msgid "_Editor"
 msgstr "_Editor"
 
 #. 6
-#: src/main_menubar_def.h:845
+#: src/main_menubar_def.h:846
 msgid "_Zoom text"
 msgstr "_Zoom tekst"
 
 #. 7
 #. 8
-#: src/main_menubar_def.h:852 src/main_menubar_def.h:1564
+#: src/main_menubar_def.h:853 src/main_menubar_def.h:1565
 msgid "_Breakpoints"
 msgstr "_Breekpunten"
 
-#: src/main_menubar_def.h:853
+#: src/main_menubar_def.h:854
 msgid "Show breakpoints editor window"
 msgstr "Toon breekpunten editor venster"
 
 #. 9
-#: src/main_menubar_def.h:858
+#: src/main_menubar_def.h:859
 msgid "_Registers"
 msgstr "Registers"
 
-#: src/main_menubar_def.h:859
+#: src/main_menubar_def.h:860
 msgid "Show CPU registers and their contents"
 msgstr "Toont processor registers en hun inhoud"
 
 #. 10
-#: src/main_menubar_def.h:864
+#: src/main_menubar_def.h:865
 msgid "Shared _Libraries"
 msgstr "Gedeelde bib_liotheken"
 
-#: src/main_menubar_def.h:865
+#: src/main_menubar_def.h:866
 msgid "Show shared libraries loaded by the program"
 msgstr "Toon gedeelde bibliotheken door het programma geladen"
 
 #. 11
-#: src/main_menubar_def.h:870
+#: src/main_menubar_def.h:871
 msgid "_Kernel Signals"
 msgstr "_Kernel signalen"
 
-#: src/main_menubar_def.h:871
+#: src/main_menubar_def.h:872
 msgid "Show the kernel signals editor window"
 msgstr "Toont het kernel signalen editor venster"
 
 #. 12
-#: src/main_menubar_def.h:876
+#: src/main_menubar_def.h:877
 msgid "Memory _Dump"
 msgstr "Geheugen_dump"
 
-#: src/main_menubar_def.h:877
+#: src/main_menubar_def.h:878
 msgid "Show memory dump window"
 msgstr "Toont geheugen dump venster"
 
 #. 0
-#: src/main_menubar_def.h:887 src/project_dbase_gui.c:277
+#: src/main_menubar_def.h:888 src/project_dbase_gui.c:277
 msgid "Include file"
 msgstr "Includeer bestand"
 
 #. 1
-#: src/main_menubar_def.h:893 src/project_dbase_gui.c:283
+#: src/main_menubar_def.h:894 src/project_dbase_gui.c:283
 msgid "Source file"
 msgstr "Bronbestand"
 
 #. 2
-#: src/main_menubar_def.h:899 src/project_dbase_gui.c:289
+#: src/main_menubar_def.h:900 src/project_dbase_gui.c:289
 msgid "Help file"
 msgstr "Helpbestand"
 
 #. 3
-#: src/main_menubar_def.h:905 src/project_dbase_gui.c:295
+#: src/main_menubar_def.h:906 src/project_dbase_gui.c:295
 msgid "Data file"
 msgstr "Databestand"
 
 #. 4
-#: src/main_menubar_def.h:911 src/project_dbase_gui.c:301
+#: src/main_menubar_def.h:912 src/project_dbase_gui.c:301
 msgid "Pixmap file"
 msgstr "Pixmapbestand"
 
 #. 5
-#: src/main_menubar_def.h:917 src/project_dbase_gui.c:307
+#: src/main_menubar_def.h:918 src/project_dbase_gui.c:307
 msgid "Translation file"
 msgstr "Vertaalbestand"
 
 #. 6
-#: src/main_menubar_def.h:923 src/project_dbase_gui.c:313
+#: src/main_menubar_def.h:924 src/project_dbase_gui.c:313
 msgid "Doc file"
 msgstr "Doc bestand"
 
 #. 0
-#: src/main_menubar_def.h:934 src/project_dbase_gui.c:323
+#: src/main_menubar_def.h:935 src/project_dbase_gui.c:323
 #, fuzzy
 msgid "Add File"
 msgstr "Nieuw toevoegen"
 
 #. 3
-#: src/main_menubar_def.h:952
+#: src/main_menubar_def.h:953
 #, fuzzy
 msgid "Remove File"
 msgstr "Verwijder"
 
 #. 4
 #. 5
-#: src/main_menubar_def.h:959 src/project_dbase_gui.c:348
+#: src/main_menubar_def.h:960 src/project_dbase_gui.c:348
 msgid "Configure Project"
 msgstr "Configureer project"
 
-#: src/main_menubar_def.h:960
+#: src/main_menubar_def.h:961
 #, fuzzy
 msgid "Configure options for the current Project"
 msgstr "Sluit het huidige project"
 
 #. 6
-#: src/main_menubar_def.h:965 src/project_dbase_gui.c:354
+#: src/main_menubar_def.h:966 src/project_dbase_gui.c:354
 msgid "Project Info"
 msgstr "Project Info"
 
-#: src/main_menubar_def.h:966
+#: src/main_menubar_def.h:967
 #, fuzzy
 msgid "Display the Project information"
 msgstr "Toon huidige frame informatie"
 
 #. 9
 #. 10
-#: src/main_menubar_def.h:979
+#: src/main_menubar_def.h:980
 msgid "_Update tags image"
 msgstr "_Update tags image"
 
-#: src/main_menubar_def.h:980
+#: src/main_menubar_def.h:981
 #, fuzzy
 msgid "Update the tags image of the Project/opened files"
 msgstr "Bijwerken van de tags image van het project/geopende bestanden"
 
 #. 11
-#: src/main_menubar_def.h:985
+#: src/main_menubar_def.h:986
 #, fuzzy
 msgid "Rebuild tags image"
 msgstr "_Update tags image"
 
-#: src/main_menubar_def.h:986
+#: src/main_menubar_def.h:987
 #, fuzzy
 msgid "Rebuild the tags image of the Project"
 msgstr "Bouw van de bovenste directory van het project"
 
 #. 12
-#: src/main_menubar_def.h:991
+#: src/main_menubar_def.h:992
 msgid "Ed_it Application GUI ..."
 msgstr "W_ijzig Applicatie GUI ..."
 
-#: src/main_menubar_def.h:992
+#: src/main_menubar_def.h:993
 msgid "Edit application GUI with the Glade GUI editor"
 msgstr "Wijzig de applicatie GUI met de Glade GUI tekstverwerker"
 
 #. 0
-#: src/main_menubar_def.h:1009
+#: src/main_menubar_def.h:1010
 msgid "Automatic"
 msgstr "Automatisch"
 
-#: src/main_menubar_def.h:1010
+#: src/main_menubar_def.h:1011
 msgid "Automatically determine the highlight style"
 msgstr "Bepaal de belichtingsstijl automatisch"
 
 #. 1
-#: src/main_menubar_def.h:1015
+#: src/main_menubar_def.h:1016
 msgid "No Highlight style"
 msgstr "Geen belichtingsstijl"
 
-#: src/main_menubar_def.h:1016
+#: src/main_menubar_def.h:1017
 msgid "Remove the current highlight style"
 msgstr "De huidige belichtingsstijl verwijderen"
 
 #. 2
-#: src/main_menubar_def.h:1021
+#: src/main_menubar_def.h:1022
 msgid "C and C++"
 msgstr "C en C++"
 
-#: src/main_menubar_def.h:1022
+#: src/main_menubar_def.h:1023
 msgid "Force the highlight style to C and C++"
 msgstr "Forceer de belichtingsstijl naar C en C++"
 
 #. 3
-#: src/main_menubar_def.h:1027
+#: src/main_menubar_def.h:1028
 msgid "C and C++ with GNOME"
 msgstr "C en C++ met GNOME"
 
-#: src/main_menubar_def.h:1028
+#: src/main_menubar_def.h:1029
 msgid "Force the highlight style to C and C++ with GNOME"
 msgstr "Forceer de belichtingsstijl naar C en C++ met GNOME"
 
 #. 4
-#: src/main_menubar_def.h:1033
+#: src/main_menubar_def.h:1034
 msgid "HTML"
 msgstr "HTML"
 
-#: src/main_menubar_def.h:1034
+#: src/main_menubar_def.h:1035
 msgid "Force the highlight style to HTML"
 msgstr "Forceer de belichtingsstijl naar HTML"
 
 #. 5
-#: src/main_menubar_def.h:1039
+#: src/main_menubar_def.h:1040
 msgid "XML"
 msgstr "XML"
 
-#: src/main_menubar_def.h:1040
+#: src/main_menubar_def.h:1041
 msgid "Force the highlight style to XML"
 msgstr "Forceer de belichtingsstijl naar XML"
 
 #. 6
-#: src/main_menubar_def.h:1045
+#: src/main_menubar_def.h:1046
 msgid "Javascript"
 msgstr "Javascript"
 
-#: src/main_menubar_def.h:1046
+#: src/main_menubar_def.h:1047
 msgid "Force the highlight style to Javascript"
 msgstr "Forceer de belichtingsstijl naar Javascript"
 
 #. 7
-#: src/main_menubar_def.h:1051
+#: src/main_menubar_def.h:1052
 msgid "WScript"
 msgstr "WScript"
 
-#: src/main_menubar_def.h:1052
+#: src/main_menubar_def.h:1053
 msgid "Force the highlight style to WScript"
 msgstr "Forceer de belichtingsstijl naar WScript"
 
 #. 8
-#: src/main_menubar_def.h:1057
+#: src/main_menubar_def.h:1058
 msgid "Makefile"
 msgstr "Makefile"
 
-#: src/main_menubar_def.h:1058
+#: src/main_menubar_def.h:1059
 msgid "Force the highlight style to Makefile"
 msgstr "Forceer de belichtingsstijl naar Makefile"
 
 #. 9
-#: src/main_menubar_def.h:1063
+#: src/main_menubar_def.h:1064
 msgid "Java"
 msgstr "Java"
 
-#: src/main_menubar_def.h:1064
+#: src/main_menubar_def.h:1065
 msgid "Force the highlight type to Java"
 msgstr "Forceer de belichtingsstijl naar Java"
 
 #. 10
-#: src/main_menubar_def.h:1069
+#: src/main_menubar_def.h:1070
 msgid "LUA"
 msgstr "LUA"
 
-#: src/main_menubar_def.h:1070
+#: src/main_menubar_def.h:1071
 msgid "Force the highlight style to LUA"
 msgstr "Forceer de belichtingsstijl naar LUA"
 
 #. 11
-#: src/main_menubar_def.h:1075
+#: src/main_menubar_def.h:1076
 msgid "Python"
 msgstr "Python"
 
-#: src/main_menubar_def.h:1076
+#: src/main_menubar_def.h:1077
 msgid "Force the highlight style to Python"
 msgstr "Forceer de belichtingsstijl naar Python"
 
 #. 12
-#: src/main_menubar_def.h:1081
+#: src/main_menubar_def.h:1082
 msgid "Perl"
 msgstr "Perl"
 
-#: src/main_menubar_def.h:1082
+#: src/main_menubar_def.h:1083
 msgid "Force the highlight style to Perl"
 msgstr "Forceer de belichtingsstijl naar Perl"
 
 #. 13
-#: src/main_menubar_def.h:1087
+#: src/main_menubar_def.h:1088
 msgid "SQL"
 msgstr "SQL"
 
-#: src/main_menubar_def.h:1088
+#: src/main_menubar_def.h:1089
 msgid "Force the highlight style to SQL"
 msgstr "Forceer de belichtingsstijl naar SQL"
 
 #. 14
-#: src/main_menubar_def.h:1093
+#: src/main_menubar_def.h:1094
 msgid "PL/SQL"
 msgstr "PL/SQL"
 
-#: src/main_menubar_def.h:1094
+#: src/main_menubar_def.h:1095
 msgid "Force the highlight style to PL/SQL"
 msgstr "Forceer de belichtingsstijl naar PL/SQL"
 
 #. 15
-#: src/main_menubar_def.h:1099
+#: src/main_menubar_def.h:1100
 msgid "PHP"
 msgstr "PHP"
 
-#: src/main_menubar_def.h:1100
+#: src/main_menubar_def.h:1101
 msgid "Force the highlight style to PHP"
 msgstr "Forceer de belichtingsstijl naar PHP"
 
 #. 16
-#: src/main_menubar_def.h:1105
+#: src/main_menubar_def.h:1106
 msgid "LaTex"
 msgstr "LaTex"
 
-#: src/main_menubar_def.h:1106
+#: src/main_menubar_def.h:1107
 msgid "Force the highlight style to LaTex"
 msgstr "Forceer de belichtingsstijl naar LaTex"
 
-#: src/main_menubar_def.h:1112
+#: src/main_menubar_def.h:1113
 msgid "Force the highlight style to Diff"
 msgstr "Forceer de belichtingsstijl naar Diff"
 
 #. 18
-#: src/main_menubar_def.h:1117
+#: src/main_menubar_def.h:1118
 msgid "Pascal"
 msgstr "Pascal"
 
-#: src/main_menubar_def.h:1118
+#: src/main_menubar_def.h:1119
 msgid "Force the highlight style to Pascal"
 msgstr "Forceer de belichtingsstijl naar Pascal"
 
 #. 19
-#: src/main_menubar_def.h:1123
+#: src/main_menubar_def.h:1124
 msgid "Xcode"
 msgstr "Xcode"
 
-#: src/main_menubar_def.h:1124
+#: src/main_menubar_def.h:1125
 msgid "Force the highlight style to Xcode"
 msgstr "Forceer de belichtingsstijl naar Xcode"
 
 #. 20
-#: src/main_menubar_def.h:1129
+#: src/main_menubar_def.h:1130
 msgid "Prj/Properties"
 msgstr "Prj/Eigenschappen"
 
-#: src/main_menubar_def.h:1130
+#: src/main_menubar_def.h:1131
 msgid "Force the highlight style to project/properties files"
 msgstr "Forceer de belichtingsstijl naar Project/Eigenschappen bestanden"
 
 #. 21
-#: src/main_menubar_def.h:1135
+#: src/main_menubar_def.h:1136
 msgid "Conf"
 msgstr "Conf"
 
-#: src/main_menubar_def.h:1136
+#: src/main_menubar_def.h:1137
 msgid "Force the highlight style to UNIX conf files"
 msgstr "Forceer de belichtingsstijl naar UNIX conf bestanden"
 
 #. 22
-#: src/main_menubar_def.h:1141
+#: src/main_menubar_def.h:1142
 msgid "Ada"
 msgstr "Ada"
 
-#: src/main_menubar_def.h:1142
+#: src/main_menubar_def.h:1143
 msgid "Force the highlight style to Ada"
 msgstr "Forceer de belichtingsstijl naar Ada"
 
 #. 23
-#: src/main_menubar_def.h:1147
+#: src/main_menubar_def.h:1148
 msgid "Baan"
 msgstr "Baan"
 
-#: src/main_menubar_def.h:1148
+#: src/main_menubar_def.h:1149
 msgid "Force the highlight style to Baan"
 msgstr "Forceer de belichtingsstijl naar Baan"
 
 #. 24
-#: src/main_menubar_def.h:1153
+#: src/main_menubar_def.h:1154
 msgid "Lisp"
 msgstr "Lisp"
 
-#: src/main_menubar_def.h:1154
+#: src/main_menubar_def.h:1155
 msgid "Force the highlight style to Lisp"
 msgstr "Forceer de belichtingsstijl naar Lisp"
 
 #. 25
-#: src/main_menubar_def.h:1159
+#: src/main_menubar_def.h:1160
 msgid "Ruby"
 msgstr "Robijn"
 
-#: src/main_menubar_def.h:1160
+#: src/main_menubar_def.h:1161
 msgid "Force the highlight style to Ruby"
 msgstr "Forceer de belichtingsstijl naar Ruby"
 
 #. 26
-#: src/main_menubar_def.h:1165
+#: src/main_menubar_def.h:1166
 msgid "Matlab"
 msgstr "Matlab"
 
-#: src/main_menubar_def.h:1166
+#: src/main_menubar_def.h:1167
 msgid "Force the highlight style to Matlab"
 msgstr "Forceer de belichtingsstijl naar Matlab"
 
 #. 0
-#: src/main_menubar_def.h:1176
+#: src/main_menubar_def.h:1177
 msgid "Auto _Format"
 msgstr "Auto _Formaat"
 
-#: src/main_menubar_def.h:1177
+#: src/main_menubar_def.h:1178
 msgid "Autoformat the current source file"
 msgstr "Het huidige broncodebestand autmatisch opmaken"
 
 #. 1
-#: src/main_menubar_def.h:1182
+#: src/main_menubar_def.h:1183
 msgid "_Increase Indent"
 msgstr "Verh_oog Inspringen"
 
-#: src/main_menubar_def.h:1183
+#: src/main_menubar_def.h:1184
 msgid "Increase indentation of line/selection"
 msgstr "Verhoog inspringen van regel/selectie"
 
 #. 2
-#: src/main_menubar_def.h:1188
+#: src/main_menubar_def.h:1189
 msgid "_Decrease Indent"
 msgstr "Verl_aag Inspringen"
 
-#: src/main_menubar_def.h:1189
+#: src/main_menubar_def.h:1190
 msgid "Decrease indentation of line/selection"
 msgstr "Verlaag inspringen van regel/selectie"
 
 #. 3
 #. 4
-#: src/main_menubar_def.h:1195
+#: src/main_menubar_def.h:1196
 msgid "Force _Highlight Style"
 msgstr "Forceer _Belichtingsstijl"
 
 #. 5
 #. 6
-#: src/main_menubar_def.h:1202
+#: src/main_menubar_def.h:1203
 msgid "_Close All Folds"
 msgstr "_Sluit alle omlopers"
 
-#: src/main_menubar_def.h:1203
+#: src/main_menubar_def.h:1204
 msgid "Close all code folds in the editor"
 msgstr "Sluit alle code omlopers in de tekstverwerker"
 
 #. 7
-#: src/main_menubar_def.h:1208
+#: src/main_menubar_def.h:1209
 msgid "_Open All Folds"
 msgstr "_Open alle omlopers"
 
-#: src/main_menubar_def.h:1209
+#: src/main_menubar_def.h:1210
 msgid "Open all code folds in the editor"
 msgstr "Open alle code omloop in de tekstverwerker"
 
 #. 8
-#: src/main_menubar_def.h:1214
+#: src/main_menubar_def.h:1215
 msgid "_Toggle Current Fold"
 msgstr "_Toggle huidige omloop"
 
-#: src/main_menubar_def.h:1215
+#: src/main_menubar_def.h:1216
 msgid "Toggle current code fold in the editor"
 msgstr "Toggle huidig code omloop in de tekstverwerker"
 
 #. 9
 #. 10
-#: src/main_menubar_def.h:1221
+#: src/main_menubar_def.h:1222
 msgid "D_etach Current Document"
 msgstr "V_erwijder huidig document"
 
-#: src/main_menubar_def.h:1222
+#: src/main_menubar_def.h:1223
 msgid "Detach the current document into a separate editor window"
 msgstr "Splits het huidige bestand af in een apart venster"
 
 #. 0
-#: src/main_menubar_def.h:1232
+#: src/main_menubar_def.h:1233
 msgid "_Compile"
 msgstr "_Compileer"
 
-#: src/main_menubar_def.h:1233
+#: src/main_menubar_def.h:1234
 msgid "Compile the current source file"
 msgstr "Compileer het huidige broncodebestand"
 
 #. 1
-#: src/main_menubar_def.h:1238
+#: src/main_menubar_def.h:1239
 msgid "Compile With _Make"
 msgstr "Compileer met _Make"
 
-#: src/main_menubar_def.h:1239
+#: src/main_menubar_def.h:1240
 msgid "Compile the current source file using Make"
 msgstr "Compileer het huidige broncodebestand met behulp van Make"
 
 #. 2
-#: src/main_menubar_def.h:1244 src/main_menubar_def.h:1880
+#: src/main_menubar_def.h:1245 src/main_menubar_def.h:1881
 msgid "_Build"
 msgstr "B_ouw"
 
-#: src/main_menubar_def.h:1245
+#: src/main_menubar_def.h:1246
 msgid "Build the source directory of the Project or the current source file"
 msgstr "De bronmap van het project of het huidige bronbestand bouwen"
 
 #. 3
-#: src/main_menubar_def.h:1250
+#: src/main_menubar_def.h:1251
 msgid "Build _All"
 msgstr "Bouw _Alles"
 
-#: src/main_menubar_def.h:1251
+#: src/main_menubar_def.h:1252
 msgid "Build the whole Project"
 msgstr "Bouw het gehele project"
 
 #. 4
 #. 5
-#: src/main_menubar_def.h:1257
+#: src/main_menubar_def.h:1258
 msgid "Save Build Messages"
 msgstr "Bewaar bouwmeldingen"
 
-#: src/main_menubar_def.h:1258
+#: src/main_menubar_def.h:1259
 msgid "Save build messages to a file"
 msgstr "Sla Bouwmeldingen op in een bestand"
 
 #. 6
 #. 7
-#: src/main_menubar_def.h:1264
+#: src/main_menubar_def.h:1265
 msgid "_Install"
 msgstr "_Installeer"
 
-#: src/main_menubar_def.h:1265
+#: src/main_menubar_def.h:1266
 msgid "Install the Project on your system"
 msgstr "Installeer het project op uw systeem"
 
 #. 8
-#: src/main_menubar_def.h:1270
+#: src/main_menubar_def.h:1271
 msgid "Build _Distribution"
 msgstr "Bouw _Distributie"
 
-#: src/main_menubar_def.h:1271
+#: src/main_menubar_def.h:1272
 msgid "Build the distribution tarball of the Project"
 msgstr "Bouw de distributie-tarball van het project"
 
 #. 9
 #. 10
-#: src/main_menubar_def.h:1277
+#: src/main_menubar_def.h:1278
 msgid "Con_figure ..."
 msgstr "Con_figureer ..."
 
-#: src/main_menubar_def.h:1278
+#: src/main_menubar_def.h:1279
 msgid "Configure the Project"
 msgstr "Configureer het project"
 
 #. 11
-#: src/main_menubar_def.h:1283
+#: src/main_menubar_def.h:1284
 msgid "Auto _generate ..."
 msgstr "Auto _genereer ..."
 
-#: src/main_menubar_def.h:1284
+#: src/main_menubar_def.h:1285
 msgid "Auto generate all the build files for the Project"
 msgstr "Automatisch generatie van de bouwbestanden voor het project"
 
 #. 12
 #. 13
-#: src/main_menubar_def.h:1290
+#: src/main_menubar_def.h:1291
 msgid "Clea_n"
 msgstr "Opscho_nen"
 
-#: src/main_menubar_def.h:1291
+#: src/main_menubar_def.h:1292
 msgid "Clean the source directory"
 msgstr "Broncode-map opschonen"
 
 #. 14
-#: src/main_menubar_def.h:1296
+#: src/main_menubar_def.h:1297
 msgid "Clean A_ll"
 msgstr "Opschonen A_lles"
 
-#: src/main_menubar_def.h:1297
+#: src/main_menubar_def.h:1298
 msgid "Clean the whole Project directory"
 msgstr "Schoon de hele projectmap op"
 
 #. 15
 #. 16
-#: src/main_menubar_def.h:1303
+#: src/main_menubar_def.h:1304
 msgid "_Stop Build"
 msgstr "_Stop Bouwen"
 
-#: src/main_menubar_def.h:1304
+#: src/main_menubar_def.h:1305
 msgid "Stop the current compile or build process"
 msgstr "Stop de huidige compilatie of het huidige bouwproces"
 
 #. 17
 #. 18
-#: src/main_menubar_def.h:1310
+#: src/main_menubar_def.h:1311
 msgid "_Execute"
 msgstr "_Uitvoeren"
 
-#: src/main_menubar_def.h:1311 src/toolbar.c:295
+#: src/main_menubar_def.h:1312 src/toolbar.c:296
 msgid "Execute the program"
 msgstr "Voer het programma uit"
 
 #. 19
-#: src/main_menubar_def.h:1316
+#: src/main_menubar_def.h:1317
 msgid "Set _Program params ..."
 msgstr "Zet _Programma parameters ..."
 
-#: src/main_menubar_def.h:1317
+#: src/main_menubar_def.h:1318
 msgid "Set the execution parameters of the program"
 msgstr "Zet de uitvoerparameters van het programma"
 
 #. 0
-#: src/main_menubar_def.h:1327
+#: src/main_menubar_def.h:1328
 msgid "_Toggle bookmark"
 msgstr "_Toggle bladwijzer"
 
-#: src/main_menubar_def.h:1328
+#: src/main_menubar_def.h:1329
 msgid "Toggle a bookmark at the current line position"
 msgstr "Toggle bladwijzer op huidige regel"
 
 #. 1
 #. 2
-#: src/main_menubar_def.h:1334
+#: src/main_menubar_def.h:1335
 msgid "_First bookmark"
 msgstr "_Eerst bladwijzer"
 
-#: src/main_menubar_def.h:1335
+#: src/main_menubar_def.h:1336
 msgid "Jump to the first bookmark in the file"
 msgstr "Ga naar eerste bladwijzer in het bestand"
 
 #. 3
-#: src/main_menubar_def.h:1340
+#: src/main_menubar_def.h:1341
 msgid "_Previous bookmark"
 msgstr "_Vorige bladwijzer"
 
-#: src/main_menubar_def.h:1341
+#: src/main_menubar_def.h:1342
 msgid "Jump to the previous bookmark in the file"
 msgstr "Ga naar vorige bladwijzer in het bestand"
 
 #. 4
-#: src/main_menubar_def.h:1346
+#: src/main_menubar_def.h:1347
 msgid "_Next bookmark"
 msgstr "_Volgende bladwijzer"
 
-#: src/main_menubar_def.h:1347
+#: src/main_menubar_def.h:1348
 msgid "Jump to the next bookmark in the file"
 msgstr "Ga naar volgende bladwijzer in het bestand"
 
 #. 5
-#: src/main_menubar_def.h:1352
+#: src/main_menubar_def.h:1353
 msgid "_Last bookmark"
 msgstr "_Laatste bladwijzer"
 
-#: src/main_menubar_def.h:1353
+#: src/main_menubar_def.h:1354
 msgid "Jump to the last bookmark in the file"
 msgstr "Ga naar laatste bladwijzer in het bestand"
 
 #. 6
 #. 7
-#: src/main_menubar_def.h:1359
+#: src/main_menubar_def.h:1360
 msgid "_Clear all bookmarks"
 msgstr "_Opruimen alle bladwijzers"
 
-#: src/main_menubar_def.h:1360
+#: src/main_menubar_def.h:1361
 msgid "Clear bookmarks"
 msgstr "_Opruimen bladwijzers"
 
 #. 0
-#: src/main_menubar_def.h:1370
+#: src/main_menubar_def.h:1371
 msgid "Run/_Continue"
 msgstr "Uitvoeren/_Continueren"
 
-#: src/main_menubar_def.h:1371
+#: src/main_menubar_def.h:1372
 msgid "Continue the execution of the program"
 msgstr "Verdergaan met de uitvoering van het programma"
 
 #. 1
-#: src/main_menubar_def.h:1376
+#: src/main_menubar_def.h:1377
 msgid "Step _In"
 msgstr "_Instappen"
 
-#: src/main_menubar_def.h:1377
+#: src/main_menubar_def.h:1378
 msgid "Single step into function"
 msgstr "Zet 1 stap in de functie"
 
 #. 2
-#: src/main_menubar_def.h:1382
+#: src/main_menubar_def.h:1383
 msgid "Step O_ver"
 msgstr "Stap _Over"
 
-#: src/main_menubar_def.h:1383
+#: src/main_menubar_def.h:1384
 msgid "Single step over function"
 msgstr "Zet 1 stap over de functie"
 
 #. 3
-#: src/main_menubar_def.h:1388
+#: src/main_menubar_def.h:1389
 msgid "Step _Out"
 msgstr "Stap _Uit"
 
-#: src/main_menubar_def.h:1389
+#: src/main_menubar_def.h:1390
 msgid "Single step out of the function"
 msgstr "Zet 1 stap uit de functie"
 
 #. 4
-#: src/main_menubar_def.h:1394
+#: src/main_menubar_def.h:1395
 msgid "_Run to cursor"
 msgstr "_Run tot cursor"
 
-#: src/main_menubar_def.h:1395
+#: src/main_menubar_def.h:1396
 msgid "Run to the cursor"
 msgstr "Uitvoeren tot de cursor"
 
 #. 0
-#: src/main_menubar_def.h:1405 src/text_editor_menu.c:136
+#: src/main_menubar_def.h:1406 src/text_editor_menu.c:136
 msgid "Toggle breakpoint"
 msgstr "Toggle breekpunt"
 
-#: src/main_menubar_def.h:1406
+#: src/main_menubar_def.h:1407
 msgid "Toggle breakpoint at the current location"
 msgstr "Toggle breekpunt op de huidige locatie"
 
 #. 1
-#: src/main_menubar_def.h:1411
+#: src/main_menubar_def.h:1412
 msgid "Set Breakpoint ..."
 msgstr "Zet breekpunt ..."
 
-#: src/main_menubar_def.h:1412
+#: src/main_menubar_def.h:1413
 msgid "Set a breakpoint"
 msgstr "Zet een breekpunt"
 
 #. 2
 #. 3
-#: src/main_menubar_def.h:1418
+#: src/main_menubar_def.h:1419
 msgid "_Breakpoints ..."
 msgstr "_Breekpunten ..."
 
-#: src/main_menubar_def.h:1419
+#: src/main_menubar_def.h:1420
 msgid "Edit breakpoints"
 msgstr "Wijzig breekpunten"
 
 #. 4
-#: src/main_menubar_def.h:1424
+#: src/main_menubar_def.h:1425
 msgid "Disable all Breakpoints"
 msgstr "Uitschakelen alle breekpunten"
 
-#: src/main_menubar_def.h:1425
+#: src/main_menubar_def.h:1426
 msgid "Deactivate all breakpoints"
 msgstr "Deactiveren alle breekpunten"
 
 #. 5
-#: src/main_menubar_def.h:1430
+#: src/main_menubar_def.h:1431
 msgid "C_lear all Breakpoints"
 msgstr "_Opschonen alle breekpunten"
 
-#: src/main_menubar_def.h:1431
+#: src/main_menubar_def.h:1432
 msgid "Delete all breakpoints"
 msgstr "Verwijderen alle breekpunten"
 
 #. 0
-#: src/main_menubar_def.h:1441
+#: src/main_menubar_def.h:1442
 msgid "Info _Target Files"
 msgstr "Info doelbestanden"
 
-#: src/main_menubar_def.h:1442
+#: src/main_menubar_def.h:1443
 msgid "Display information on the files the debugger is active with"
 msgstr "Toon informatie over de bestanden waarin de debugger actief is"
 
 #. 1
-#: src/main_menubar_def.h:1447
+#: src/main_menubar_def.h:1448
 msgid "Info _Program"
 msgstr "Info _Programma"
 
-#: src/main_menubar_def.h:1448
+#: src/main_menubar_def.h:1449
 msgid "Display information on the execution status of the program"
 msgstr "Toon informatie over de uitvoeringsstatus van het programma"
 
 #. 2
-#: src/main_menubar_def.h:1453
+#: src/main_menubar_def.h:1454
 msgid "Info _Kernel User Struct"
 msgstr "Info _Kernel User Struct"
 
-#: src/main_menubar_def.h:1454
+#: src/main_menubar_def.h:1455
 msgid "Display the contents of kernel 'struct user' for current child"
 msgstr "Toont de inhoud van kernel 'struct user' voor huidig kind"
 
 #. 3
-#: src/main_menubar_def.h:1459
+#: src/main_menubar_def.h:1460
 msgid "Info _Threads"
 msgstr "Info _Threads"
 
-#: src/main_menubar_def.h:1460
+#: src/main_menubar_def.h:1461
 msgid "Display the IDs of currently known threads"
 msgstr "Toont de IDs van huidige bekende threads"
 
 #. 4
-#: src/main_menubar_def.h:1465
+#: src/main_menubar_def.h:1466
 msgid "Info _Global variables"
 msgstr "Info _Globale varabelen"
 
-#: src/main_menubar_def.h:1466
+#: src/main_menubar_def.h:1467
 msgid "Display all global and static variables of the program"
 msgstr "Toon alle globale en statische variablen van het programma"
 
 #. 5
-#: src/main_menubar_def.h:1471
+#: src/main_menubar_def.h:1472
 msgid "Info _Local variables"
 msgstr "Info _Locale variabelen"
 
-#: src/main_menubar_def.h:1472
+#: src/main_menubar_def.h:1473
 msgid "Display local variables of the current frame"
 msgstr "Toon locale variabelen van het huidige frame"
 
 #. 6
-#: src/main_menubar_def.h:1477
+#: src/main_menubar_def.h:1478
 msgid "Info _Current Frame"
 msgstr "Info _Huidig Frame"
 
-#: src/main_menubar_def.h:1478
+#: src/main_menubar_def.h:1479
 msgid "Display information about the current frame of execution"
 msgstr "Toon informatie over het huidige frame van executie"
 
 #. 7
-#: src/main_menubar_def.h:1483
+#: src/main_menubar_def.h:1484
 msgid "Info Function _Arguments"
 msgstr "Info Functie _Argumenten"
 
-#: src/main_menubar_def.h:1484
+#: src/main_menubar_def.h:1485
 msgid "Display function arguments of the current frame"
 msgstr "Toon functieargumenten van het huidige frame"
 
 #. 8
-#: src/main_menubar_def.h:1489
+#: src/main_menubar_def.h:1490
 msgid "Info _Memory"
 msgstr "_Geheugen informatie"
 
-#: src/main_menubar_def.h:1490
+#: src/main_menubar_def.h:1491
 msgid "Display accessible memory"
 msgstr "Bereikbaar geheugen weergeven"
 
 #. 0
-#: src/main_menubar_def.h:1500
+#: src/main_menubar_def.h:1501
 msgid "_Start Debugger"
 msgstr "_Start Debugger"
 
-#: src/main_menubar_def.h:1501
+#: src/main_menubar_def.h:1502
 msgid "Start the debugging session"
 msgstr "Start de debug sessie"
 
 #. 1
 #. 2
-#: src/main_menubar_def.h:1507
+#: src/main_menubar_def.h:1508
 msgid "Load E_xecutable ..."
 msgstr "Laad E_xecutable ..."
 
-#: src/main_menubar_def.h:1508
+#: src/main_menubar_def.h:1509
 msgid "Open the executable for debugging"
 msgstr "Open executable voor debuggen"
 
 #. 3
-#: src/main_menubar_def.h:1513
+#: src/main_menubar_def.h:1514
 msgid "Load _Core file ..."
 msgstr "Laad _Core bestand ..."
 
-#: src/main_menubar_def.h:1514
+#: src/main_menubar_def.h:1515
 msgid "Load a core file to dissect"
 msgstr "Laad een core bestand naar dissect"
 
 #. 4
-#: src/main_menubar_def.h:1519
+#: src/main_menubar_def.h:1520
 msgid "_Attach to Process ..."
 msgstr "_Verbind aan proces ..."
 
-#: src/main_menubar_def.h:1520
+#: src/main_menubar_def.h:1521
 msgid "Attach to a running program"
 msgstr "Verbind aan een lopend programma"
 
 #. 5
 #. 6
-#: src/main_menubar_def.h:1526
+#: src/main_menubar_def.h:1527
 msgid "_Restart Program"
 msgstr "_Herstart programma"
 
-#: src/main_menubar_def.h:1527
+#: src/main_menubar_def.h:1528
 msgid "Stop and restart the program"
 msgstr "Stop en herstart het programma"
 
 #. 7
-#: src/main_menubar_def.h:1532
+#: src/main_menubar_def.h:1533
 msgid "S_top Program"
 msgstr "S_top programma"
 
-#: src/main_menubar_def.h:1533
+#: src/main_menubar_def.h:1534
 msgid "Stop the program being debugged"
 msgstr "Stop het programma dat gedebugd wordt"
 
 #. 8
-#: src/main_menubar_def.h:1538
+#: src/main_menubar_def.h:1539
 msgid "_Detach Debugger"
 msgstr "Verwijderen van debugger"
 
-#: src/main_menubar_def.h:1539
+#: src/main_menubar_def.h:1540
 msgid "Detach from an attached program"
 msgstr "Verwijderen van een verbonden programma"
 
 #. 9
 #. 10
-#: src/main_menubar_def.h:1545
+#: src/main_menubar_def.h:1546
 #, fuzzy
 msgid "Pa_use Program"
 msgstr "Voer het programma uit"
 
-#: src/main_menubar_def.h:1546
+#: src/main_menubar_def.h:1547
 #, fuzzy
 msgid "Pauses the execution of the program"
 msgstr "Verdergaan met de uitvoering van het programma"
 
 #. 11
-#: src/main_menubar_def.h:1551
+#: src/main_menubar_def.h:1552
 msgid "Si_gnal to Process"
 msgstr "Si_gnaal naar proces"
 
-#: src/main_menubar_def.h:1552
+#: src/main_menubar_def.h:1553
 msgid "Send a kernel signal to the process being debugged"
 msgstr "Stuur een kernel signaal naar het proces dat gedebugd wordt"
 
 #. 12
 #. 13
-#: src/main_menubar_def.h:1558
+#: src/main_menubar_def.h:1559
 msgid "_Execution"
 msgstr "_Executie"
 
 #. 15
 #. 16
-#: src/main_menubar_def.h:1571
+#: src/main_menubar_def.h:1572
 msgid "_Information"
 msgstr "_Informatie"
 
 #. 17
 #. 18
-#: src/main_menubar_def.h:1578
+#: src/main_menubar_def.h:1579
 msgid "Ins_pect/Evaluate ..."
 msgstr "Ins_pectie/Evaluatie ..."
 
-#: src/main_menubar_def.h:1579
+#: src/main_menubar_def.h:1580
 msgid "Inspect or evaluate an expression or variable"
 msgstr "Inspectie of evaluatie van een expressie of variabele"
 
 #. 19
-#: src/main_menubar_def.h:1584
+#: src/main_menubar_def.h:1585
 msgid "Add Expression in _Watch ..."
 msgstr "Toevoegen expressie en _Watch ..."
 
-#: src/main_menubar_def.h:1585
+#: src/main_menubar_def.h:1586
 msgid "Add expression or variable to the watch"
 msgstr "Toevoegen van expressie of variable aan de watch"
 
 #. 20
 #. 21
-#: src/main_menubar_def.h:1591
+#: src/main_menubar_def.h:1592
 msgid "St_op Debugger"
 msgstr "St_op Debugger"
 
-#: src/main_menubar_def.h:1592
+#: src/main_menubar_def.h:1593
 msgid "Say goodbye to the debugger"
 msgstr "Zeg tot ziens tegen de debugger"
 
 #. 0
-#: src/main_menubar_def.h:1603
+#: src/main_menubar_def.h:1604
 msgid "U_pdate file"
 msgstr "_Bijwerken bestand"
 
 #. 1
-#: src/main_menubar_def.h:1610
+#: src/main_menubar_def.h:1611
 msgid "C_ommit file"
 msgstr "Bestand opsturen"
 
 #. 2
-#: src/main_menubar_def.h:1617
+#: src/main_menubar_def.h:1618
 msgid "S_tatus of file"
 msgstr "Toestand van het bestand"
 
 #. 3
-#: src/main_menubar_def.h:1624
+#: src/main_menubar_def.h:1625
 msgid "G_et file log"
 msgstr "Logbestand _ophalen"
 
 #. 4
-#: src/main_menubar_def.h:1631
+#: src/main_menubar_def.h:1632
 msgid "_Add file"
 msgstr "Bestand _toevoegen"
 
 #. 5
-#: src/main_menubar_def.h:1638
+#: src/main_menubar_def.h:1639
 msgid "_Remove file"
 msgstr "Bestand _verwijderen"
 
 #. 6
-#: src/main_menubar_def.h:1645
+#: src/main_menubar_def.h:1646
 msgid "D_iff file"
 msgstr "D_iff bestand"
 
 #. 8
-#: src/main_menubar_def.h:1653
+#: src/main_menubar_def.h:1654
 msgid "_Update Project"
 msgstr "_Ververs het project"
 
-#: src/main_menubar_def.h:1654
+#: src/main_menubar_def.h:1655
 msgid "Update the working copy of a Project"
 msgstr "Ververs de werkkopie van een project"
 
 #. 9
-#: src/main_menubar_def.h:1660
+#: src/main_menubar_def.h:1661
 msgid "_Commit Project"
 msgstr "Project _opsturen"
 
-#: src/main_menubar_def.h:1661
+#: src/main_menubar_def.h:1662
 msgid "Commit local changes to the repository"
 msgstr "Stuur lokale veranderingen op naar het repository"
 
 #. 10
-#: src/main_menubar_def.h:1667
+#: src/main_menubar_def.h:1668
 msgid "_Import Project"
 msgstr "_Project importeren"
 
-#: src/main_menubar_def.h:1668
+#: src/main_menubar_def.h:1669
 msgid "Import Project as a new module in the repository"
 msgstr "Project als nieuwe module importeren in de repos"
 
 #. 11
-#: src/main_menubar_def.h:1674
+#: src/main_menubar_def.h:1675
 msgid "_Status of Project"
 msgstr "Status van het project"
 
-#: src/main_menubar_def.h:1675
+#: src/main_menubar_def.h:1676
 msgid "Print the status of the Project"
 msgstr "De configuratie van het project weergeven"
 
 #. 12
-#: src/main_menubar_def.h:1681
+#: src/main_menubar_def.h:1682
 msgid "Get Project _log"
 msgstr "Haal project-_log op"
 
-#: src/main_menubar_def.h:1682
+#: src/main_menubar_def.h:1683
 msgid "Print the CVS log of the Project"
 msgstr "Het CVS-log van het project weergeven"
 
 #. 13
-#: src/main_menubar_def.h:1688
+#: src/main_menubar_def.h:1689
 msgid "_Diff Project"
 msgstr "_Diff project"
 
-#: src/main_menubar_def.h:1689
+#: src/main_menubar_def.h:1690
 msgid ""
 "Create a diff between the working copy of the Project and the repository"
 msgstr "Een diff maken van de verschillen tussen het project en de repos"
 
 #. 15
-#: src/main_menubar_def.h:1696
+#: src/main_menubar_def.h:1697
 msgid "_Login"
 msgstr "_Aanmelden"
 
-#: src/main_menubar_def.h:1697
+#: src/main_menubar_def.h:1698
 msgid "Login to a CVS server"
 msgstr "Melden bij een CVS server"
 
 #. 0
-#: src/main_menubar_def.h:1708
+#: src/main_menubar_def.h:1709
 msgid "_Compiler and Linker Settings ..."
 msgstr "Compiler en Linker instellingen ..."
 
-#: src/main_menubar_def.h:1709
+#: src/main_menubar_def.h:1710
 msgid "Settings for the compiler and linker"
 msgstr "Instellingen voor de compiler en linker"
 
 #. 1
-#: src/main_menubar_def.h:1714
+#: src/main_menubar_def.h:1715
 msgid "_Source Paths ..."
 msgstr "_Bron paden ..."
 
-#: src/main_menubar_def.h:1715
+#: src/main_menubar_def.h:1716
 msgid "Specify the source paths for Anjuta to search"
 msgstr "Specificeer de bronpaden die Anjuta moet doorzoeken"
 
 #. 2
-#: src/main_menubar_def.h:1720
+#: src/main_menubar_def.h:1721
 msgid "Co_mmands ..."
 msgstr "_Opdrachten ..."
 
-#: src/main_menubar_def.h:1721
+#: src/main_menubar_def.h:1722
 msgid "Specify the various commands for use"
 msgstr "Specificeer de verschillende te gebruiken commando's"
 
 #. 3
 #. 4
-#: src/main_menubar_def.h:1727
+#: src/main_menubar_def.h:1728
 msgid "_Preferences ..."
 msgstr "_Instellingen ..."
 
-#: src/main_menubar_def.h:1728
+#: src/main_menubar_def.h:1729
 msgid "Do you prefer coffee to tea? Check it out."
 msgstr "Geeft u de voorkeur voor koffie boven thee? Kijk er even naar."
 
 #. 5
-#: src/main_menubar_def.h:1733
+#: src/main_menubar_def.h:1734
 msgid "_Editor colors and fonts ..."
 msgstr "_Kleuren en lettertypen ..."
 
-#: src/main_menubar_def.h:1734
+#: src/main_menubar_def.h:1735
 msgid "Syntax highlighting settings"
 msgstr "Belichtingsstijl instellingen"
 
 #. 6
-#: src/main_menubar_def.h:1739
+#: src/main_menubar_def.h:1740
 #, fuzzy
 msgid "File view filters ..."
 msgstr "Bouw bestanden"
 
-#: src/main_menubar_def.h:1740
+#: src/main_menubar_def.h:1741
 #, fuzzy
 msgid "Edit file view filters"
 msgstr "Bouw bestanden"
 
 #. 7
-#: src/main_menubar_def.h:1745
+#: src/main_menubar_def.h:1746
 msgid "_Edit user.properties file ..."
 msgstr "Bestand user.properties be_werken ..."
 
-#: src/main_menubar_def.h:1746
+#: src/main_menubar_def.h:1747
 msgid "Edit user properties file"
 msgstr "Bestand user.properties bewerken"
 
 #. 8
-#: src/main_menubar_def.h:1751
+#: src/main_menubar_def.h:1752
 msgid "Set _Default Preferences"
 msgstr "Zet _Default Instellingen"
 
 # Marc says: How did you guys know I don't drink coffee ???
-#: src/main_menubar_def.h:1752
+#: src/main_menubar_def.h:1753
 msgid "But I prefer tea."
 msgstr "Maar ik geef de voorkeur aan thee"
 
 #. 9
-#: src/main_menubar_def.h:1757
+#: src/main_menubar_def.h:1758
 msgid "C_ustomize shortcuts"
 msgstr "Snelkoppelingen _aanpassen"
 
-#: src/main_menubar_def.h:1758
+#: src/main_menubar_def.h:1759
 msgid "Customize shortcuts associated with menu items"
 msgstr "Aan menu-opties gekoppelde sneltoetsen bewerken"
 
 #. 10
-#: src/main_menubar_def.h:1763
+#: src/main_menubar_def.h:1764
 msgid "_Tools Editor"
 msgstr "Hulpmiddelen aanpassen"
 
-#: src/main_menubar_def.h:1764
+#: src/main_menubar_def.h:1765
 msgid "Customize user-defined tools"
 msgstr "Eigen gereedschappen aanpassen"
 
 #. 11
 #. 12
-#: src/main_menubar_def.h:1770
+#: src/main_menubar_def.h:1771
 msgid "St_art-with dialog"
 msgstr "'St_arten met' dialoogvenster"
 
-#: src/main_menubar_def.h:1771
+#: src/main_menubar_def.h:1772
 msgid "Show start-with dialog"
 msgstr "Het 'Starten met' dialoogvenster tonen"
 
 #. 13
-#: src/main_menubar_def.h:1776
+#: src/main_menubar_def.h:1777
 #, fuzzy
 msgid "An_juta setup wizard"
 msgstr "Doorzoek de hulp bij Anjuta"
 
-#: src/main_menubar_def.h:1777
+#: src/main_menubar_def.h:1778
 msgid "Setup wizard for first time run"
 msgstr "Instelassistent voor de eerste keer"
 
 #. 0
 #. 1
 #. 2
-#: src/main_menubar_def.h:1789
+#: src/main_menubar_def.h:1790
 msgid "Browse GNOME _API Pages"
 msgstr "Blader door de Gnome _API pagina's"
 
-#: src/main_menubar_def.h:1790
+#: src/main_menubar_def.h:1791
 msgid "The GNOME API pages"
 msgstr "De GNOME API pagina's"
 
 #. 3
-#: src/main_menubar_def.h:1795
+#: src/main_menubar_def.h:1796
 msgid "Browse _Man Pages"
 msgstr "Blader door de _Man pagina's"
 
-#: src/main_menubar_def.h:1796
+#: src/main_menubar_def.h:1797
 msgid "The good old manual pages"
 msgstr "De Gouwe Ouwe manual Pagina's"
 
 #. 4
-#: src/main_menubar_def.h:1801
+#: src/main_menubar_def.h:1802
 msgid "Browse _Info Pages"
 msgstr "Blader door de _Info pagina's"
 
-#: src/main_menubar_def.h:1802
+#: src/main_menubar_def.h:1803
 msgid "Browse Info pages"
 msgstr "Blader door de Info pagina's"
 
 #. 5
 #. 6
-#: src/main_menubar_def.h:1808
+#: src/main_menubar_def.h:1809
 msgid "_Context Help"
 msgstr "_Context Hulp"
 
-#: src/main_menubar_def.h:1809
+#: src/main_menubar_def.h:1810
 msgid "Search help for the current word in the editor"
 msgstr "Zoek help voor het huidige woord in de tekstverwerker"
 
 #. 7
-#: src/main_menubar_def.h:1814
+#: src/main_menubar_def.h:1815
 msgid "_Search a topic"
 msgstr "_Zoek een onderwerp"
 
-#: src/main_menubar_def.h:1815
+#: src/main_menubar_def.h:1816
 msgid "May I help you?"
 msgstr "Hoe kan ik u  helpen?"
 
 #. 8
 #. 9
-#: src/main_menubar_def.h:1821
+#: src/main_menubar_def.h:1822
 msgid "Anjuta _Home Page"
 msgstr "Anjuta _startpagina"
 
-#: src/main_menubar_def.h:1822
+#: src/main_menubar_def.h:1823
 msgid "Online documentation and resources"
 msgstr "Online documentatie en hulpbronnen"
 
 #. 10
 #. 11
-#: src/main_menubar_def.h:1828
+#: src/main_menubar_def.h:1829
 msgid "_Libraries API references"
 msgstr "_Biobliotheek API referenties"
 
-#: src/main_menubar_def.h:1829
+#: src/main_menubar_def.h:1830
 msgid "Online reference library for GDK, GLib, GNOME etc.."
 msgstr "Online referenctiebibliotheek voor GDK, GLib, GNOME etc"
 
 #. 12
-#: src/main_menubar_def.h:1834
+#: src/main_menubar_def.h:1835
 msgid "Report _Bugs"
 msgstr "Rapporteer _bugs"
 
-#: src/main_menubar_def.h:1835
+#: src/main_menubar_def.h:1836
 msgid "Submit a bug report for Anjuta"
 msgstr "Stuur een Anjuta bugrapport"
 
 #. 13
-#: src/main_menubar_def.h:1840
+#: src/main_menubar_def.h:1841
 msgid "Request _Features"
 msgstr "Verzoek _feature"
 
-#: src/main_menubar_def.h:1841
+#: src/main_menubar_def.h:1842
 msgid "Submit a feature request for Anjuta"
 msgstr "Verstuur een feature verzoek voor Anjuta"
 
 #. 14
-#: src/main_menubar_def.h:1846
+#: src/main_menubar_def.h:1847
 msgid "Submit _patches"
 msgstr "Verstuur _patches"
 
-#: src/main_menubar_def.h:1847
+#: src/main_menubar_def.h:1848
 msgid "Submit patches for Anjuta"
 msgstr "Verstuur patches voor Anjuta"
 
 #. 15
-#: src/main_menubar_def.h:1852
+#: src/main_menubar_def.h:1853
 msgid "Ask a _question"
 msgstr "Stel een _vraag"
 
-#: src/main_menubar_def.h:1853
+#: src/main_menubar_def.h:1854
 msgid "Submit a question for FAQs"
 msgstr "Stuur een vraag voor FAQs"
 
-#: src/main_menubar_def.h:1868
+#: src/main_menubar_def.h:1869
 msgid "_Project"
 msgstr "_Project"
 
-#: src/main_menubar_def.h:1874
+#: src/main_menubar_def.h:1875
 msgid "For_mat"
 msgstr "For_maat"
 
-#: src/main_menubar_def.h:1886
+#: src/main_menubar_def.h:1887
 msgid "Bookmar_k"
 msgstr "BookMar_k"
 
-#: src/main_menubar_def.h:1892
+#: src/main_menubar_def.h:1893
 msgid "_Debug"
 msgstr "_Debug"
 
-#: src/main_menubar_def.h:1898
+#: src/main_menubar_def.h:1899
 msgid "_CVS"
 msgstr "_CVS"
 
-#: src/main_menubar_def.h:1904
+#: src/main_menubar_def.h:1905
 msgid "_Settings"
 msgstr "_Instellingen"
 
-#: src/mainmenu_callbacks.c:156
+#: src/mainmenu_callbacks.c:159
 msgid ""
 "The editor is being used as output buffer for an operation.\n"
 "Closing it will result in stopping the process.\n"
@@ -6375,7 +6150,7 @@ msgstr ""
 "Als u deze sluit, zal het proces ook stoppen.\n"
 "Weet u zeker dat u de editor wilt sluiten?"
 
-#: src/mainmenu_callbacks.c:170
+#: src/mainmenu_callbacks.c:173
 #, c-format
 msgid ""
 "The file '%s' is not saved.\n"
@@ -6384,11 +6159,11 @@ msgstr ""
 "Het bestand \"%s\" is niet bewaard.\n"
 "Wilt u het bewaren voordat gesloten wordt?"
 
-#: src/mainmenu_callbacks.c:180 src/project_dbase_gui.c:1127
+#: src/mainmenu_callbacks.c:183 src/project_dbase_gui.c:1127
 msgid "Do_n't save"
 msgstr "_Niet opslaan"
 
-#: src/mainmenu_callbacks.c:237
+#: src/mainmenu_callbacks.c:240
 #, fuzzy, c-format
 msgid ""
 "Are you sure you want to reload '%s'?\n"
@@ -6397,33 +6172,33 @@ msgstr ""
 "Weet u zeker dat u %s wilt herladen? \n"
 "Aanpassingen die niet bewaard zijn, zullen verloren gaan. "
 
-#: src/mainmenu_callbacks.c:248 src/text_editor.c:1308
+#: src/mainmenu_callbacks.c:250 src/text_editor.c:1350
 msgid "_Reload"
 msgstr "He_rladen"
 
-#: src/mainmenu_callbacks.c:556
+#: src/mainmenu_callbacks.c:551
 msgid "%Y"
 msgstr "%Y"
 
-#: src/mainmenu_callbacks.c:575
+#: src/mainmenu_callbacks.c:570
 msgid "%Y-%m-%d"
 msgstr "%Y-%m-%d"
 
-#: src/mainmenu_callbacks.c:650
+#: src/mainmenu_callbacks.c:645
 #, fuzzy, c-format
 msgid "The file \"%s\" is not a header file."
 msgstr "Dit bestand is niet bewaard. Bewaar het eerst. "
 
-#: src/mainmenu_callbacks.c:1738
+#: src/mainmenu_callbacks.c:1733
 #, fuzzy
 msgid "The executable is not up-to-date."
 msgstr "Uitvoerbaar bestand is niet up-to-date."
 
-#: src/mainmenu_callbacks.c:1763
+#: src/mainmenu_callbacks.c:1758
 msgid "Debugger is not running. Start it first."
 msgstr "Debugger is niet gestart. Start het eerst."
 
-#: src/mainmenu_callbacks.c:2152
+#: src/mainmenu_callbacks.c:2148
 msgid ""
 "You need to run gconf-editor, look for the key 'desktop/gnome/interface/"
 "can_change_accels' and set this toggle button ON. Then you can hover the "
@@ -6435,15 +6210,20 @@ msgstr ""
 msgid "Unable to build user interface for Memory\n"
 msgstr ""
 
-#: src/memory.c:414
+#: src/memory.c:413
 msgid "Enter a Hexa address or Select one in the data"
 msgstr ""
 
-#: src/memory.c:421
+#: src/memory.c:420
 msgid "Non accessible address !"
 msgstr "Adres niet bereikbaar!"
 
-#: src/message-manager.cc:44 src/text_editor_gui.c:135 src/toolbar.c:114
+#: src/message-manager-private.cc:322
+#, fuzzy
+msgid " warning: "
+msgstr "Waarschuwing"
+
+#: src/message-manager.cc:44
 msgid "Find"
 msgstr "Zoeken"
 
@@ -6475,12 +6255,12 @@ msgstr "Watch"
 msgid "Stack"
 msgstr "Stack"
 
-#: src/message-manager.cc:268 src/message-manager.cc:323
+#: src/message-manager.cc:271 src/message-manager.cc:326
 #, fuzzy, c-format
 msgid "Could not find message type %s!\n"
 msgstr "Kon niet vinden gnome pixmap bestand: %s"
 
-#: src/message-manager.cc:552 src/toolbar.c:153
+#: src/message-manager.cc:555 src/toolbar.c:154
 msgid "Messages"
 msgstr "Berichten"
 
@@ -6493,7 +6273,7 @@ msgstr "Categorie"
 msgid "Anjuta Preferences Dialog"
 msgstr "Instellingen"
 
-#: src/preferences.c:689
+#: src/preferences.c:692
 msgid ""
 "Are you sure you want to reset the preferences to\n"
 "their default settings?"
@@ -6501,12 +6281,12 @@ msgstr ""
 "Weet u zeker dat de instellingen wilt resetten naar\n"
 "hun fabrieksinstellingen?"
 
-#: src/preferences.c:692
+#: src/preferences.c:695
 #, fuzzy
 msgid "_Reset"
 msgstr "Registers"
 
-#: src/preferences.c:1084
+#: src/preferences.c:1079
 #, c-format
 msgid ""
 "Cannot load Global defaults and configuration files:\n"
@@ -6515,27 +6295,27 @@ msgid ""
 "Anjuta will fall back to built in (limited) settings"
 msgstr ""
 
-#: src/preferences.c:1216
+#: src/preferences.c:1211
 #, fuzzy
 msgid "Anjuta Preferences"
 msgstr "Instellingen"
 
 #. Must declare static, because it will be used forever
-#: src/project_dbase.c:227
+#: src/project_dbase.c:204
 #, fuzzy
 msgid "Add to Project"
 msgstr "Toevoegen aan project"
 
-#: src/project_dbase.c:256 src/project_dbase.c:327 src/project_dbase_gui.c:586
+#: src/project_dbase.c:233 src/project_dbase.c:303 src/project_dbase_gui.c:586
 msgid "Project: None"
 msgstr "Project: Geen"
 
-#: src/project_dbase.c:396
+#: src/project_dbase.c:373
 #, fuzzy
 msgid "Anjuta project files"
 msgstr "Anjuta: Geen bestand"
 
-#: src/project_dbase.c:397 src/project_dbase_gui.c:170
+#: src/project_dbase.c:374 src/project_dbase_gui.c:170
 #: src/project_dbase_gui.c:188 src/project_dbase_gui.c:200
 #: src/project_dbase_gui.c:208 src/project_dbase_gui.c:220
 #: src/project_dbase_gui.c:229 src/project_dbase_gui.c:238
@@ -6544,12 +6324,12 @@ msgstr "Anjuta: Geen bestand"
 msgid "All files"
 msgstr "Bouw bestanden"
 
-#: src/project_dbase.c:478 src/project_dbase.c:496
+#: src/project_dbase.c:455 src/project_dbase.c:473
 #, fuzzy, c-format
 msgid "Unable to load Project: %s"
 msgstr "Kon project %s niet laden"
 
-#: src/project_dbase.c:489 src/project_dbase.c:2499
+#: src/project_dbase.c:466 src/project_dbase.c:2480
 #, fuzzy, c-format
 msgid ""
 "Anjuta version %s or later is required to open this Project.\n"
@@ -6559,24 +6339,24 @@ msgstr ""
 "Upgrade Anjuta naar de laatste versie (Help voor meer informatie). \n"
 "Op dit moment ben ik te oud om het project te laden :-("
 
-#: src/project_dbase.c:874
+#: src/project_dbase.c:849
 #, fuzzy
 msgid "Project saved successfully"
 msgstr "Project bewaard succesvol"
 
-#: src/project_dbase.c:880 src/project_dbase.c:882
+#: src/project_dbase.c:855 src/project_dbase.c:857
 #, fuzzy
 msgid "Unable to save the Project."
 msgstr "Niet in staat het project te bewaren."
 
-#: src/project_dbase.c:1587
+#: src/project_dbase.c:1569
 msgid ""
 "A .glade file does not exist in the top level Project directory. If you do "
 "not use glade for GUI editing,  please specify a custom command for it in "
 "[Project]->[Project Configuration]->[GUI editor command]"
 msgstr ""
 
-#: src/project_dbase.c:1649
+#: src/project_dbase.c:1631
 #, fuzzy
 msgid ""
 "A .glade file does not\n"
@@ -6586,32 +6366,32 @@ msgstr ""
 "in het begin van de projectdirectory."
 
 #. Set project title
-#: src/project_dbase.c:2097
+#: src/project_dbase.c:2078
 msgid "Project: "
 msgstr "Project: "
 
-#: src/project_dbase.c:2214
+#: src/project_dbase.c:2195
 #, fuzzy, c-format
 msgid ""
 "Unable to get relative file name for %s\n"
 " in %s"
 msgstr "Kan het bestand %s niet openen\n"
 
-#: src/project_dbase.c:2279
+#: src/project_dbase.c:2260
 #, fuzzy
 msgid " already exists in the project"
 msgstr "Niet in staat het project te bewaren."
 
-#: src/project_dbase.c:2312
+#: src/project_dbase.c:2293
 msgid "Error while copying the file inside the module."
 msgstr "Fout tijdens het copieeren van het bestand in de module."
 
-#: src/project_dbase.c:2575 src/project_dbase.c:2578
+#: src/project_dbase.c:2556 src/project_dbase.c:2559
 #, c-format
 msgid "Error in loading Project: %s"
 msgstr "Fouten tijdens laden project %s"
 
-#: src/project_dbase.c:2599
+#: src/project_dbase.c:2580
 msgid "Project loaded successfully."
 msgstr "Project geladen succesvol"
 
@@ -6961,39 +6741,39 @@ msgstr "Kon project %s niet laden"
 msgid "%s: Not a regular file"
 msgstr "%s is geen gewoon bestand"
 
-#: src/project_import.c:106
+#: src/project_import.c:109
 #, fuzzy, c-format
 msgid "Importing Project from %s ...\n"
 msgstr "Bijwerken project ...\n"
 
-#: src/project_import.c:116
+#: src/project_import.c:119
 msgid "Could not launch script!\n"
 msgstr "Kan script niet starten!\n"
 
-#: src/project_import.c:127
+#: src/project_import.c:130
 msgid "Importing Project...please wait"
 msgstr "Importeren van project...een ogenblik geduld alstublieft"
 
-#: src/project_import.c:175
+#: src/project_import.c:188
 #, fuzzy
 msgid "Project import completed...successful\n"
 msgstr "Compileer compleet ... succesvol"
 
-#: src/project_import.c:177
+#: src/project_import.c:190
 #, fuzzy
 msgid "Project import completed...successful"
 msgstr "Compileer compleet ... succesvol"
 
-#: src/project_import.c:189
+#: src/project_import.c:206
 msgid "Could not import Project: no project file found!"
 msgstr "Kan project niet importeren: geen projectbestand gevonden!"
 
-#: src/project_import.c:196
+#: src/project_import.c:213
 #, fuzzy
 msgid "Opening Project...please wait"
 msgstr "Open P_roject ..."
 
-#: src/project_import.c:199
+#: src/project_import.c:216
 #, fuzzy
 msgid "Could not open generated Project file"
 msgstr "Automatische generatie van project: "
@@ -7003,7 +6783,7 @@ msgid "Please complete all of the required fields"
 msgstr ""
 
 #. We should never come here because this button is disabled
-#: src/project_import_cbs.c:278
+#: src/project_import_cbs.c:285
 msgid ""
 "The import operation has already begun.\n"
 "Click Cancel to skip the customisation stage, or Next to continue."
@@ -7019,29 +6799,29 @@ msgid ""
 "THIS IS AN EXPERIMENTAL FEATURE\n"
 msgstr ""
 
-#: src/project_import_gui.c:70 src/project_import_gui.c:151
+#: src/project_import_gui.c:73 src/project_import_gui.c:158
 #, fuzzy
 msgid "Project Import Wizard"
 msgstr "Project Informatie"
 
-#: src/project_import_gui.c:182
+#: src/project_import_gui.c:189
 #, fuzzy
 msgid "Select directory"
 msgstr "Selecteer tot aan _Haakje"
 
-#: src/project_import_gui.c:199
+#: src/project_import_gui.c:206
 #, fuzzy
 msgid "Select top level directory of an existing project"
 msgstr "Opruimen van de brondirectory van het project: "
 
-#: src/project_import_gui.c:203
+#: src/project_import_gui.c:210
 #, fuzzy
 msgid "Select existing project directory"
 msgstr "Schoon de hele projectdirectory op"
 
-#: src/project_import_gui.c:217
+#: src/project_import_gui.c:224
 #, fuzzy
-msgid "Click Next to begin the import"
+msgid "Click Forward to begin the import"
 msgstr "Klik hier om dit venster te verbergen"
 
 #: src/registers_gui.c:40
@@ -7079,29 +6859,28 @@ msgstr "Kon niet vinden applicatie pixmap bestand: %s"
 msgid "Cannot execute Devhelp. Make sure it is installed"
 msgstr "Kan Devhelp niet uitvoeren. Zorg ervoor dat het geinstalleerd is"
 
-#: src/search-replace.c:1058 src/text_editor_gui.c:140
+#: src/search-replace.c:1087
 msgid "Replace"
 msgstr "Vervangen"
 
-#: src/search-replace.c:1334 src/search-replace.c:1497
-#, fuzzy
+#: src/search-replace.c:1363 src/search-replace.c:1529
 msgid "Replace All"
-msgstr "Vervang"
+msgstr "Alles vervangen"
 
-#: src/search-replace.c:1342
+#: src/search-replace.c:1371
 msgid "No matches."
-msgstr ""
+msgstr "Geen overeenkomsten."
 
-#: src/search-replace.c:1352
+#: src/search-replace.c:1381
 msgid "The maximum number of results has been reached."
 msgstr ""
 
-#: src/search-replace.c:1362
+#: src/search-replace.c:1391
 #, c-format
 msgid "%d matches have been replaced."
-msgstr ""
+msgstr "%d overeenkomsten vervangen."
 
-#: src/search-replace.c:1704
+#: src/search-replace.c:1748
 msgid "Unable to build user interface for Search And Replace"
 msgstr ""
 
@@ -7141,7 +6920,7 @@ msgstr "Kernel signalen"
 msgid "Signal"
 msgstr "Signaal"
 
-#: src/signals_gui.c:119 src/toolbar.c:313 src/toolbar.c:671
+#: src/signals_gui.c:119 src/toolbar.c:666
 msgid "Stop"
 msgstr "Stoppen"
 
@@ -7166,66 +6945,66 @@ msgstr "Passeer:"
 msgid "Error writing to file: %s."
 msgstr "Fout schrijven naar bestand: %s."
 
-#: src/source.c:120 src/source.c:167 src/source.c:205 src/source.c:453
-#: src/source.c:478 src/source.c:573 src/source.c:671 src/source.c:711
-#: src/source.c:726 src/source.c:760 src/source.c:816 src/source.c:852
-#: src/source.c:907 src/source.c:943 src/source.c:999 src/source.c:1055
-#: src/source.c:1074 src/source.c:1107 src/source.c:1126 src/source.c:1159
-#: src/source.c:1178 src/source.c:1209 src/source.c:1227 src/source.c:1257
-#: src/source.c:1275 src/source.c:1304 src/source.c:1353 src/source.c:1390
-#: src/source.c:1434 src/source.c:1515 src/source.c:1647 src/source.c:1687
-#: src/source.c:1777 src/source.c:1850 src/source.c:1944 src/source.c:2025
-#: src/source.c:2083 src/source.c:2197 src/source.c:2260 src/source.c:2566
-#: src/source.c:2701 src/utilities.c:744
+#: src/source.c:120 src/source.c:167 src/source.c:205 src/source.c:455
+#: src/source.c:480 src/source.c:575 src/source.c:673 src/source.c:713
+#: src/source.c:728 src/source.c:762 src/source.c:818 src/source.c:854
+#: src/source.c:909 src/source.c:945 src/source.c:1001 src/source.c:1057
+#: src/source.c:1076 src/source.c:1109 src/source.c:1128 src/source.c:1161
+#: src/source.c:1180 src/source.c:1211 src/source.c:1229 src/source.c:1259
+#: src/source.c:1277 src/source.c:1306 src/source.c:1355 src/source.c:1392
+#: src/source.c:1436 src/source.c:1517 src/source.c:1649 src/source.c:1689
+#: src/source.c:1779 src/source.c:1852 src/source.c:1946 src/source.c:2027
+#: src/source.c:2085 src/source.c:2199 src/source.c:2262 src/source.c:2568
+#: src/source.c:2703 src/utilities.c:744
 #, fuzzy, c-format
 msgid "Unable to create file: %s."
 msgstr "Kan het bestand %s niet openen\n"
 
-#: src/source.c:1612 src/source.c:1732
+#: src/source.c:1614 src/source.c:1734
 #, fuzzy, c-format
 msgid "Error writing to: %s."
 msgstr "Fout schrijven naar : %s."
 
-#: src/src_paths.c:264
+#: src/src_paths.c:262
 #, fuzzy
 msgid "Source Paths"
 msgstr "_Bron paden ..."
 
-#: src/stack_trace.c:321
+#: src/stack_trace.c:315
 msgid "Error getting selection\n"
 msgstr ""
 
-#: src/stack_trace.c:332
+#: src/stack_trace.c:326
 msgid "Error getting source location from stack frame"
 msgstr ""
 
-#: src/stack_trace.c:349
+#: src/stack_trace.c:343
 msgid "Frame set"
 msgstr "Frame set"
 
-#: src/stack_trace.c:356
+#: src/stack_trace.c:350
 msgid "Frame info"
 msgstr "Frame info"
 
-#: src/stack_trace.c:363
+#: src/stack_trace.c:357
 #, fuzzy
 msgid "Frame args"
 msgstr "Frame set"
 
-#: src/stack_trace.c:377
+#: src/stack_trace.c:371
 msgid "View Source"
 msgstr "Bekijk Bron"
 
-#: src/stack_trace.c:444
+#: src/stack_trace.c:438
 msgid "Active"
 msgstr "Actief"
 
-#: src/stack_trace.c:455
+#: src/stack_trace.c:449
 #, fuzzy
 msgid "Count"
 msgstr "Tellen"
 
-#: src/stack_trace.c:470 src/toolbar.c:617
+#: src/stack_trace.c:464 src/toolbar.c:612
 msgid "Frame"
 msgstr "Frame"
 
@@ -7234,23 +7013,22 @@ msgstr "Frame"
 msgid "Couldn't find pixmap file: %s"
 msgstr "Kon het pixmap bestand %s niet vinden"
 
-#: src/text_editor.c:887
+#: src/text_editor.c:930
 msgid "This file is too big. Unable to allocate memory."
-msgstr ""
+msgstr "Dit bestand is te groot. Kon niet voldoende geheugenruimte alloceren."
 
-#: src/text_editor.c:933
+#: src/text_editor.c:975
 msgid ""
 "The file does not look like a text file or the file encoding is not "
 "supported. Please check if the encoding of file is in the supported "
 "encodings list. If not, add it from the preferences."
 msgstr ""
 
-#: src/text_editor.c:1106
-#, fuzzy
+#: src/text_editor.c:1148
 msgid "Loading file ..."
-msgstr "Laad bestand ..."
+msgstr "Bestand laden..."
 
-#: src/text_editor.c:1112
+#: src/text_editor.c:1154
 #, fuzzy, c-format
 msgid ""
 "Could not load file: %s\n"
@@ -7258,27 +7036,26 @@ msgid ""
 "Details: %s"
 msgstr "Kan niet laden bestand: %s"
 
-#: src/text_editor.c:1133
+#: src/text_editor.c:1175
 #, fuzzy
 msgid "File loaded successfully"
 msgstr "Bestand laden succesvol"
 
-#: src/text_editor.c:1148
-#, fuzzy
+#: src/text_editor.c:1190
 msgid "Saving file ..."
-msgstr "Bewaren bestand ..."
+msgstr "Bestand opslaan..."
 
-#: src/text_editor.c:1153
+#: src/text_editor.c:1195
 #, fuzzy, c-format
 msgid "Could not save file: %s."
 msgstr "Kon niet bewaren bestand: %s."
 
-#: src/text_editor.c:1193
+#: src/text_editor.c:1235
 #, fuzzy
 msgid "File saved successfully"
 msgstr "Bestand bewaren succesvol"
 
-#: src/text_editor.c:1291
+#: src/text_editor.c:1333
 #, fuzzy, c-format
 msgid ""
 "The file '%s' on the disk is more recent than\n"
@@ -7289,115 +7066,84 @@ msgstr ""
 "de huidige buffer.\n"
 "Wilt u het opnieuw laden?"
 
-#: src/text_editor.c:1436
+#: src/text_editor.c:1478
 #, fuzzy
 msgid "Auto format is currently disabled. Change the setting in Preferences."
 msgstr ""
 "Autoformaat is uitgeschakeld. Indien gewenst, aanzetten in Instellingen."
 
-#: src/text_editor.c:1442
+#: src/text_editor.c:1484
 #, fuzzy
 msgid "Auto formatting ..."
 msgstr "Automatisch opmaken  ..."
 
-#: src/text_editor.c:1452
+#: src/text_editor.c:1494
 #, fuzzy
 msgid "Error in auto formatting ..."
 msgstr "Fout bij automatisch opmaken ..."
 
-#: src/text_editor.c:1479
+#: src/text_editor.c:1521
 #, fuzzy, c-format
 msgid ""
 "Error in auto formatting ...\n"
 "Details: %s"
 msgstr "Fout bij automatisch opmaken ..."
 
-#: src/text_editor.c:1486
+#: src/text_editor.c:1528
 #, fuzzy
 msgid "Auto formatting completed"
 msgstr "Automatisch opmaken compleet"
 
-#: src/text_editor_cbs.c:186
+#: src/text_editor_cbs.c:183
 #, c-format
 msgid "Autosaved \"%s\""
 msgstr "Automatisch bewaard \"%s\""
 
-#: src/text_editor_cbs.c:190
+#: src/text_editor_cbs.c:187
 #, c-format
 msgid "Autosave \"%s\" -- Failed"
 msgstr "Automatisch bewaren \"%s\" -- Mislukt"
 
-#: src/text_editor_gui.c:96 src/toolbar.c:75
-msgid "New"
-msgstr "Nieuw"
-
-#: src/text_editor_gui.c:100 src/toolbar.c:79
-msgid "Open"
-msgstr "Openen"
-
-#: src/text_editor_gui.c:106 src/toolbar.c:83
-msgid "Save"
-msgstr "Opslaan"
-
-#: src/text_editor_gui.c:111 src/toolbar.c:87
-msgid "Reload"
-msgstr "Verversen"
-
-#. 0
-#: src/text_editor_gui.c:118 src/text_editor_menu.c:239
-msgid "Cut"
-msgstr "Knippen"
-
-#: src/text_editor_gui.c:119
+#: src/text_editor_gui.c:118
 msgid "Cut to clipboard"
 msgstr "Knip naar klembord"
 
-#. 1
-#: src/text_editor_gui.c:123 src/text_editor_menu.c:247
-msgid "Copy"
-msgstr "Kopiëren"
-
-#: src/text_editor_gui.c:124
+#: src/text_editor_gui.c:123
 msgid "Copy to clipboard"
 msgstr "Copy naar klembord"
 
-#. 2
-#: src/text_editor_gui.c:128 src/text_editor_menu.c:255
-msgid "Paste"
-msgstr "Plakken"
-
-#: src/text_editor_gui.c:129
+#: src/text_editor_gui.c:128
 msgid "Paste from clipboard"
 msgstr "Plakken vanuit klembord"
 
-#: src/text_editor_gui.c:136
+#: src/text_editor_gui.c:135
 #, fuzzy
 msgid "Search string"
 msgstr "Zoektekst"
 
-#: src/text_editor_gui.c:141
+#: src/text_editor_gui.c:139
 #, fuzzy
 msgid "Search and replace string"
 msgstr "Zoek en vervang de opgegeven tekst"
 
-#: src/text_editor_gui.c:157
+#: src/text_editor_gui.c:155
 msgid "line: "
 msgstr "regel:"
 
-#: src/text_editor_gui.c:169 src/toolbar.c:249
+#: src/text_editor_gui.c:167 src/toolbar.c:251
 msgid "Compile the current file"
 msgstr "Compileer het huidige bestand"
 
-#: src/text_editor_gui.c:173
+#: src/text_editor_gui.c:171
 #, fuzzy
 msgid "Build current file or the source directory of the Project"
 msgstr "Bouw huidig bestand, of bouw de brondirectory van het project"
 
-#: src/text_editor_gui.c:182
+#: src/text_editor_gui.c:180
 msgid "Attach"
 msgstr "Verbinden"
 
-#: src/text_editor_gui.c:183
+#: src/text_editor_gui.c:181
 #, fuzzy
 msgid "Attach the current page"
 msgstr "Ontbind de huidige pagina"
@@ -7427,7 +7173,7 @@ msgstr "Vorige bladwijzer"
 msgid "Next bookmark"
 msgstr "Volgende bladwijzer"
 
-#: src/text_editor_menu.c:143 src/toolbar.c:541
+#: src/text_editor_menu.c:143 src/toolbar.c:536
 msgid "Step in"
 msgstr "Stap in"
 
@@ -7439,7 +7185,7 @@ msgstr "Stap over"
 msgid "Step out"
 msgstr "Stap uit"
 
-#: src/text_editor_menu.c:161 src/toolbar.c:530
+#: src/text_editor_menu.c:161 src/toolbar.c:525
 msgid "Run to cursor"
 msgstr "Loop tot cursor"
 
@@ -7447,7 +7193,7 @@ msgstr "Loop tot cursor"
 msgid "Run/Continue"
 msgstr "Loop/Ga verder"
 
-#: src/text_editor_menu.c:181 src/toolbar.c:578
+#: src/text_editor_menu.c:181 src/toolbar.c:573
 msgid "Interrupt"
 msgstr "Onderbreek"
 
@@ -7476,6 +7222,21 @@ msgstr "++Zoom"
 msgid "--Zoom"
 msgstr "--Zoom"
 
+#. 0
+#: src/text_editor_menu.c:239
+msgid "Cut"
+msgstr "Knippen"
+
+#. 1
+#: src/text_editor_menu.c:247
+msgid "Copy"
+msgstr "Kopiëren"
+
+#. 2
+#: src/text_editor_menu.c:255
+msgid "Paste"
+msgstr "Plakken"
+
 #. 4
 #: src/text_editor_menu.c:265
 msgid "Context Help"
@@ -7497,7 +7258,7 @@ msgid "Swap .h/.c"
 msgstr "Wissel .h/.c"
 
 #. 10
-#: src/text_editor_menu.c:301 src/toolbar.c:517
+#: src/text_editor_menu.c:301 src/toolbar.c:512
 msgid "Go"
 msgstr "Ga"
 
@@ -7507,17 +7268,9 @@ msgid "Tags"
 msgstr "Tags"
 
 #. 18
-#: src/text_editor_menu.c:347 src/toolbar.c:91
+#: src/text_editor_menu.c:347
 msgid "Close"
 msgstr "Sluiten"
-
-#: src/toolbar.c:96
-msgid "Undo"
-msgstr "Ongedaan maken"
-
-#: src/toolbar.c:100
-msgid "Redo"
-msgstr "Opnieuw"
 
 #: src/toolbar.c:105
 msgid "Detach"
@@ -7531,19 +7284,15 @@ msgstr "Ontbind de huidige pagina"
 msgid "Search for the given string in the current file"
 msgstr "zoek naar de opgegeven tekst in het huidige bestand"
 
-#: src/toolbar.c:130
+#: src/toolbar.c:131
 msgid "Enter the string to search for"
 msgstr "Voer de tekst in waarnaar gezocht moet worden"
 
-#: src/toolbar.c:135
-msgid "Go To"
-msgstr "Ga naar"
-
-#: src/toolbar.c:136
+#: src/toolbar.c:137
 msgid "Go to the given line number in the current file"
 msgstr "Ga naar de opgegeven regelnummer in het huidige bestand"
 
-#: src/toolbar.c:143
+#: src/toolbar.c:144
 msgid "Enter the line number to go to"
 msgstr "Voer het regelnummer in waar naar toegegaan moet worden"
 
@@ -7551,35 +7300,31 @@ msgstr "Voer het regelnummer in waar naar toegegaan moet worden"
 msgid "Context sensitive help"
 msgstr "Contextgevoelige help"
 
-#: src/toolbar.c:222
+#: src/toolbar.c:224
 msgid "Save Project"
 msgstr "Bewaar project"
 
-#: src/toolbar.c:234
+#: src/toolbar.c:236
 msgid "Close Project"
 msgstr "Sluit project"
 
-#: src/toolbar.c:261
+#: src/toolbar.c:263
 msgid "Run configure"
 msgstr "Uitvoeren configure"
 
-#: src/toolbar.c:273
+#: src/toolbar.c:275
 msgid "Build current file, or build the source directory of the Project"
 msgstr "Huidige bestand bouwen, of de bronmap van het project bouwen"
 
-#: src/toolbar.c:284
+#: src/toolbar.c:286
 msgid "Build_all"
 msgstr "Bouw alles"
 
-#: src/toolbar.c:286
+#: src/toolbar.c:288
 msgid "Build from the top directory of the Project"
 msgstr "Bouw vanaf de bovenste map van het project"
 
-#: src/toolbar.c:294
-msgid "Execute"
-msgstr "Uitvoeren"
-
-#: src/toolbar.c:306
+#: src/toolbar.c:307
 msgid "Start the Debugger"
 msgstr "Start de debugger"
 
@@ -7587,7 +7332,7 @@ msgstr "Start de debugger"
 msgid "Stop/interrupt compile or build"
 msgstr "Stop/onderbreek compileren of bouwen"
 
-#: src/toolbar.c:383 src/toolbar.c:767
+#: src/toolbar.c:383 src/toolbar.c:762
 msgid "Toggle"
 msgstr "Toggle"
 
@@ -7596,228 +7341,215 @@ msgid "Toggle bookmark at current location"
 msgstr "Toggle bladwijzer op huidige locatie"
 
 #: src/toolbar.c:390
-msgid "First"
-msgstr "Eerste"
-
-#: src/toolbar.c:391
 msgid "Goto first bookmark in this document"
 msgstr "Ga naar eerste bladwijzer in dit document"
 
-#: src/toolbar.c:397 src/toolbar.c:419
-msgid "Prev"
-msgstr "Vorige"
-
-#: src/toolbar.c:398
+#: src/toolbar.c:396
 msgid "Goto previous bookmark in this document"
 msgstr "Ga naar vorige bookmark in dit document"
 
-#: src/toolbar.c:403 src/toolbar.c:426
-msgid "Next"
-msgstr "Volgende"
-
-#: src/toolbar.c:404
+#: src/toolbar.c:401
 msgid "Goto next bookmark in this document"
 msgstr "Ga naar volgend bookmark in dit document"
 
-#: src/toolbar.c:409
-msgid "Last"
-msgstr "Laatste"
-
-#: src/toolbar.c:410
+#: src/toolbar.c:406
 msgid "Goto last bookmark in this document"
 msgstr "Ga naar laatste bladwijzerr in dit document"
 
-#: src/toolbar.c:420
+#: src/toolbar.c:415
+msgid "Prev"
+msgstr "Vorige"
+
+#: src/toolbar.c:416
 msgid "Goto previous message in this document"
 msgstr "Ga naar vorige boodschap in dit document"
 
-#: src/toolbar.c:427
+#: src/toolbar.c:422
+msgid "Next"
+msgstr "Volgende"
+
+#: src/toolbar.c:423
 msgid "Goto next message in this document"
 msgstr "Ga naar volgende boodschap in dit document"
 
-#: src/toolbar.c:435
+#: src/toolbar.c:431
 msgid "Start"
 msgstr "Start"
 
-#: src/toolbar.c:436
+#: src/toolbar.c:432
 msgid "Goto start of current code block"
 msgstr "Ga naar start van huidig code blok"
 
-#: src/toolbar.c:442
+#: src/toolbar.c:438
 msgid "End"
 msgstr "Eind"
 
-#: src/toolbar.c:443
+#: src/toolbar.c:439
 msgid "Goto end of current code block"
 msgstr "Ga naar eind van huidig code blok"
 
-#: src/toolbar.c:450
+#: src/toolbar.c:446
 #, fuzzy
 msgid "Tags:"
 msgstr "Tag:"
 
-#: src/toolbar.c:459
-#, fuzzy
-msgid "Goto Tag"
-msgstr "Ga naar"
-
-#: src/toolbar.c:460
+#: src/toolbar.c:455
 #, fuzzy
 msgid "Search for the given tag in the current file"
 msgstr "zoek naar de opgegeven tekst in het huidige bestand"
 
-#: src/toolbar.c:475
+#: src/toolbar.c:470
 #, fuzzy
 msgid "Enter the tag to jump to"
 msgstr "Voer de tekst in waarnaar gezocht moet worden"
 
-#: src/toolbar.c:518
+#: src/toolbar.c:513
 msgid "Go or continue execution"
 msgstr "Ga of ga verder met uitvoeren"
 
-#: src/toolbar.c:529
+#: src/toolbar.c:524
 msgid "Run"
 msgstr "Uitvoeren"
 
-#: src/toolbar.c:542
+#: src/toolbar.c:537
 msgid "Single step in execution"
 msgstr "1 stap in uitvoering"
 
-#: src/toolbar.c:553
+#: src/toolbar.c:548
 msgid "Step Over"
 msgstr "Stap over"
 
-#: src/toolbar.c:554
+#: src/toolbar.c:549
 msgid "Step over the function"
 msgstr "Stap over de functie"
 
-#: src/toolbar.c:564
+#: src/toolbar.c:559
 msgid "Step Out"
 msgstr "Stap uit"
 
-#: src/toolbar.c:565
+#: src/toolbar.c:560
 msgid "Step out of the function"
 msgstr "Stap uit de functie"
 
-#: src/toolbar.c:580
+#: src/toolbar.c:575
 msgid "Interrupt execution of the program"
 msgstr "Onderbreek uitvoering van het programma"
 
-#: src/toolbar.c:593
+#: src/toolbar.c:588
 msgid "Breakpoint"
 msgstr "Breekpunt"
 
-#: src/toolbar.c:594
+#: src/toolbar.c:589
 msgid "Toggle breakpoint at cursor"
 msgstr "Toggle breekpunt bij cursor"
 
-#: src/toolbar.c:606
+#: src/toolbar.c:601
 msgid "Inspect or evaluate an expression"
 msgstr "Inspecteer of evalueer een expressie"
 
-#: src/toolbar.c:619
+#: src/toolbar.c:614
 msgid "Display the current frame information"
 msgstr "Toon huidige frame informatie"
 
-#: src/toolbar.c:645
+#: src/toolbar.c:640
 #, fuzzy
 msgid "Signals"
 msgstr "Signaal"
 
-#: src/toolbar.c:646
+#: src/toolbar.c:641
 #, fuzzy
 msgid "kernel signals of the program"
 msgstr "Stack trace van het programma"
 
-#: src/toolbar.c:657
+#: src/toolbar.c:652
 msgid "Registers"
 msgstr "Registers"
 
-#: src/toolbar.c:658
+#: src/toolbar.c:653
 msgid "CPU registers and their contents"
 msgstr "CPU registers en hun inhoud"
 
-#: src/toolbar.c:672
+#: src/toolbar.c:667
 msgid "End the debugging session"
 msgstr "Beeindig debugsessie"
 
-#: src/toolbar.c:769
+#: src/toolbar.c:764
 msgid "Toggle current code fold hide/show"
 msgstr "Toggle huidige code omloop verberg/toon"
 
-#: src/toolbar.c:780
+#: src/toolbar.c:775
 msgid "Close all"
 msgstr "Sluit alles"
 
-#: src/toolbar.c:782
+#: src/toolbar.c:777
 msgid "Close all code folds in this document"
 msgstr "Sluit alle code omlopen in dit document"
 
-#: src/toolbar.c:793
+#: src/toolbar.c:788
 msgid "Open all"
 msgstr "Open alles"
 
-#: src/toolbar.c:795
+#: src/toolbar.c:790
 msgid "Open all code folds in this document"
 msgstr "Open all code omlopen in dit document"
 
-#: src/toolbar.c:808
+#: src/toolbar.c:803
 msgid "Select"
 msgstr "Selecteren"
 
-#: src/toolbar.c:809
+#: src/toolbar.c:804
 msgid "Select current code block"
 msgstr "Selecteer huidig codeblok"
 
-#: src/toolbar.c:820
+#: src/toolbar.c:815
 msgid "Indent inc"
 msgstr "Indent ophogen"
 
-#: src/toolbar.c:822
+#: src/toolbar.c:817
 msgid "Increase indentation of block/line"
 msgstr "Verhoog indentatie van blok/regel"
 
-#: src/toolbar.c:833
+#: src/toolbar.c:828
 msgid "Indent dcr"
 msgstr "Indentatie verlagen"
 
-#: src/toolbar.c:835
+#: src/toolbar.c:830
 msgid "Decrease indentation of block/line"
 msgstr "Verlaag indentatie van blok/regel"
 
-#: src/toolbar.c:848
+#: src/toolbar.c:843
 msgid "Autoformat"
 msgstr "Auto opmaak"
 
-#: src/toolbar.c:850
+#: src/toolbar.c:845
 msgid "Automatically format the code"
 msgstr "Maak de code automatisch op"
 
-#: src/toolbar.c:862
+#: src/toolbar.c:857
 msgid "Configure style to use for auto format"
 msgstr "Configureer de te gebruiken stijl voor auto opmaak"
 
-#: src/toolbar.c:875
+#: src/toolbar.c:870
 msgid "Calltip"
 msgstr "Aanroeptip"
 
-#: src/toolbar.c:875
+#: src/toolbar.c:870
 msgid "Show Calltip"
 msgstr "Toon aanroeptip"
 
-#: src/toolbar.c:888
+#: src/toolbar.c:883
 msgid "Autocomplete"
 msgstr "Automatisch aanvullen"
 
-#: src/toolbar.c:889
+#: src/toolbar.c:884
 msgid "Autocomplete word"
 msgstr "Autoafmaken woord"
 
-#: src/toolbar_callbacks.c:240
+#: src/toolbar_callbacks.c:261
 msgid "No matches. Wrap search around the document?"
 msgstr "Geen overeenkomsten. Zoeken van het het begin van het document?"
 
-#: src/toolbar_callbacks.c:284
+#: src/toolbar_callbacks.c:305
 #, fuzzy, c-format
 msgid "There is line number %d in \"%s\"."
 msgstr "Er is regelnr %d in \"%s\"."
@@ -7832,7 +7564,7 @@ msgstr "Kan het bestand %s niet openen\n"
 msgid "Unable to complete file copy"
 msgstr "Kon kopieeren bestand niet afronden"
 
-#: src/watch_cbs.c:236
+#: src/watch_cbs.c:235
 msgid "< Not defined in current context >"
 msgstr "<Niet gedefinieerd in huidige context >"
 
@@ -7854,42 +7586,41 @@ msgstr "Toggle aanzetten"
 
 #: src/watch_gui.c:67
 msgid "Change item"
-msgstr ""
+msgstr "Item aanpassen"
 
-#: src/watch_gui.c:174
+#: src/watch_gui.c:172
 msgid "Add Watch Expression"
 msgstr "Toevoegen Watch expressie"
 
-#: src/watch_gui.c:184
+#: src/watch_gui.c:182
 msgid "Add expression to watch"
 msgstr "Toevoegen van expressie aan watch"
 
-#: src/watch_gui.c:240
+#: src/watch_gui.c:238
 #, fuzzy
 msgid "Modify Watch Expression"
 msgstr "Toevoegen Watch expressie"
 
-#: src/watch_gui.c:250
+#: src/watch_gui.c:248
 #, fuzzy
 msgid "Modify watched expression"
 msgstr "Toevoegen Watch expressie"
 
-#: src/watch_gui.c:307
+#: src/watch_gui.c:305
 msgid "Inspect/Evaluate"
 msgstr "Inspecteer/Evalueer"
 
-#: src/watch_gui.c:317
+#: src/watch_gui.c:315
 msgid "Inspect/Evaluate Expression"
 msgstr "Inspecteer/Evalueer expressie"
 
-#: src/watch_gui.c:327
+#: src/watch_gui.c:325
 msgid "Add To Watch"
 msgstr "Toevoegen aan Watch"
 
 #: src/wizard_gui.c:97
-#, fuzzy
 msgid "Project Type"
-msgstr "Project type:"
+msgstr "Project-type"
 
 #: src/wizard_gui.c:119
 #, fuzzy
@@ -7901,14 +7632,12 @@ msgid "Generic/Terminal project"
 msgstr "Generiek/Console project"
 
 #: src/wizard_gui.c:163
-#, fuzzy
 msgid "GTK 2.0 project"
-msgstr "GTK project"
+msgstr "GTK 2.0 project"
 
 #: src/wizard_gui.c:166
-#, fuzzy
 msgid "GNOME 2.0 project"
-msgstr "GNOME project"
+msgstr "GNOME 2.0 project"
 
 #: src/wizard_gui.c:169
 #, fuzzy
@@ -7931,9 +7660,8 @@ msgid "GNOME 2.0 Bonobo component"
 msgstr "Bonobo component"
 
 #: src/wizard_gui.c:181
-#, fuzzy
 msgid "wxWindows project"
-msgstr "Bouw project"
+msgstr "wxWindows project"
 
 #: src/wizard_gui.c:184
 #, fuzzy
@@ -7982,9 +7710,8 @@ msgid "Both C and C++"
 msgstr "Zowel C als C++"
 
 #: src/wizard_gui.c:385
-#, fuzzy
 msgid "Target type"
-msgstr "Doel type:       "
+msgstr "Doeltype"
 
 #: src/wizard_gui.c:401
 msgid "Executable target"
@@ -8010,7 +7737,7 @@ msgstr "Voer de basisprojectinformmatie in"
 
 #: src/wizard_gui.c:611
 msgid " Project Options "
-msgstr "Projectopties"
+msgstr " Projectopties "
 
 #: src/wizard_gui.c:622
 msgid "Include GNU Copyright statement in file headings"
@@ -8061,9 +7788,8 @@ msgid "The pixbuf to render."
 msgstr "De te renderen pixbuf"
 
 #: widgets/gnomefilelist.c:224
-#, fuzzy
 msgid "Go to the previous directory"
-msgstr "Ga naar de vorige boodschap"
+msgstr "Ga naar de vorige map"
 
 #: widgets/gnomefilelist.c:228
 msgid "Go to the next directory"
@@ -8082,57 +7808,48 @@ msgid "Refresh listing"
 msgstr ""
 
 #: widgets/gnomefilelist.c:249
-#, fuzzy
 msgid "Delete file"
-msgstr "Alles verwijderen"
+msgstr "Bestan verwijderen"
 
-#: widgets/gnomefilelist.c:253 widgets/gnomefilelist.c:1891
-#, fuzzy
+#: widgets/gnomefilelist.c:253 widgets/gnomefilelist.c:1889
 msgid "Rename file"
-msgstr "Open bestand"
+msgstr "Bestand hernoemen"
 
-#: widgets/gnomefilelist.c:257 widgets/gnomefilelist.c:1990
-#, fuzzy
+#: widgets/gnomefilelist.c:257 widgets/gnomefilelist.c:1988
 msgid "Create new folder"
-msgstr "_Creeer nieuw venster"
+msgstr "Nieuwe map aanmaken"
 
 #: widgets/gnomefilelist.c:262
 msgid "Show Hidden"
-msgstr ""
+msgstr "Verborgen tonen"
 
 #: widgets/gnomefilelist.c:266
-#, fuzzy
 msgid "Show hidden files"
-msgstr "Zoek in bestanden"
+msgstr "Verborgen bestanden tonen"
 
 #: widgets/gnomefilelist.c:274
-#, fuzzy
 msgid "Directory: "
-msgstr "Directories"
+msgstr "Map: "
 
 #: widgets/gnomefilelist.c:430
-#, fuzzy
 msgid "Selection: "
-msgstr "Selecteer"
+msgstr "Selectie: "
 
 #: widgets/gnomefilelist.c:458
-#, fuzzy
 msgid "File type: "
-msgstr "Bestand:"
+msgstr "Bestandstype: "
 
 #: widgets/gnomefilelist.c:721
-#, fuzzy
 msgid "Java files"
-msgstr "Databestand"
+msgstr "Java bestanen"
 
 #: widgets/gnomefilelist.c:733
 msgid "Hyper Text Markup files"
 msgstr ""
 
 #: widgets/gnomefilelist.c:739
-#, fuzzy
 msgid "Config files"
-msgstr "Configureer"
+msgstr "Configuratiebestanden"
 
 #: widgets/gnomefilelist.c:744
 #, fuzzy
@@ -8149,57 +7866,25 @@ msgstr "Makefile"
 msgid "Diff files"
 msgstr "Doc bestand"
 
-#: widgets/gnomefilelist.c:1856
+#: widgets/gnomefilelist.c:1854
 #, c-format
 msgid "Really delete %s?"
 msgstr ""
 
-#: widgets/gnomefilelist.c:1903
+#: widgets/gnomefilelist.c:1901
 msgid "Rename file to:"
 msgstr ""
 
-#: widgets/gnomefilelist.c:1929
+#: widgets/gnomefilelist.c:1927
 #, c-format
 msgid "Renaming file failed '%s': %s"
 msgstr ""
 
-#: widgets/gnomefilelist.c:1962
+#: widgets/gnomefilelist.c:1960
 #, c-format
 msgid "Creating folder failed '%s': %s"
 msgstr ""
 
-#: widgets/gnomefilelist.c:2002
+#: widgets/gnomefilelist.c:2000
 msgid "Folder name:"
 msgstr "Mapnaam:"
-
-#~ msgid "window1"
-#~ msgstr "venster1"
-
-#~ msgid "window2"
-#~ msgstr "venster2"
-
-#~ msgid "window3"
-#~ msgstr "venster3"
-
-#~ msgid "window4"
-#~ msgstr "venster4"
-
-#~ msgid "window5"
-#~ msgstr "venster5"
-
-#~ msgid "window6"
-#~ msgstr "venster6"
-
-#~ msgid "window7"
-#~ msgstr "venster7"
-
-#~ msgid "window8"
-#~ msgstr "venster8"
-
-#, fuzzy
-#~ msgid ""
-#~ "The file '%s' already exists.\n"
-#~ "Do you want to overwrite it?."
-#~ msgstr ""
-#~ "Het bestand \"%s\" bestaat al.\n"
-#~ "Wilt u het overschrijven?."
