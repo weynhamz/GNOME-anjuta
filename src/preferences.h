@@ -63,7 +63,7 @@ struct _PreferencesWidgets
 	GtkWidget *combo_history_spin;
 	GtkWidget *beep_check;
 	GtkWidget *dialog_check;
-
+	GtkWidget *lastprj_check;
 	/*
 	 * * Page 1 
 	 */
@@ -253,6 +253,7 @@ void preferences_set_build_options(Preferences* p);
 #define MAXIMUM_COMBO_HISTORY "maximum.combo.history"
 #define DIALOG_ON_BUILD_COMPLETE "dialog.on.build.complete"
 #define BEEP_ON_BUILD_COMPLETE "beep.on.build.complete"
+#define RELOAD_LAST_PROJECT "reload.last.project"
 
 #define BUILD_OPTION_KEEP_GOING "build.option.keep.going"
 #define BUILD_OPTION_DEBUG "build.option.debug"

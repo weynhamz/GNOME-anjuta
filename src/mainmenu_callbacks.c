@@ -190,6 +190,12 @@ on_reload_file1_activate (GtkMenuItem * menuitem, gpointer user_data)
 void
 on_new_project1_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
+	if (app->project_dbase->project_is_open)
+	{
+		project_dbase_close_project (app->project_dbase);
+	}
+	if( app->project_dbase->project_is_open )
+		return ;
 	app_wizard_proceed ();
 }
 
@@ -202,7 +208,7 @@ on_import_project_activate (GtkMenuItem * menuitem, gpointer user_data)
 void
 on_open_project1_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
-	project_dbase_open_project (app->project_dbase);
+	anjuta_open_project();
 }
 
 void

@@ -321,6 +321,95 @@ session_load_strings(ProjectDBase * p, const gchar *szSection, GList *pList )
 	return pList ;
 }
 
+// The session strings iterated are in this format: 0,1,..n="string"
+// they must be loaded in the correct order
+//that is we must build a sort routine with a structure......
+// this is dependent on how gnome config is implemented....
+
+typedef struct {
+	long			m_Key ;
+	const gchar	*m_szStr ;
+} sortKey ;
+
+
+static gint cmp_sort_k( gconstpointer p1, gconstpointer p2 )
+{
+	sortKey	*s1 = (sortKey*)p1;
+	sortKey	*s2 = (sortKey*)p2;
+	g_assert(NULL!=s1);
+	g_assert(NULL!=s2);
+	return s1->m_Key - s2->m_Key ;
+}
+
+
+GList*
+anjuta_session_load_strings( const gchar *szSection, GList *pList )
+{
+	gboolean	bOK = TRUE ;
+	gpointer	config_iterator;
+	GList		*pListSorted = NULL ;
+	g_return_val_if_fail( szSection != NULL, NULL );
+
+	free_string_list ( pList );
+	pList = NULL ;
+
+	config_iterator = anjuta_session_get_iterator( szSection );
+	if ( config_iterator !=  NULL )
+	{
+		gchar * szItem, *szData;
+		while ((config_iterator = gnome_config_iterator_next( config_iterator,
+									&szItem, &szData )))
+		{
+			if( ( NULL != szData ) )
+			{
+				sortKey	*self = (sortKey*)g_new( sortKey, 1 );
+				if( NULL != self )
+				{
+					self->m_Key		= atol(szItem) ;
+					self->m_szStr	= g_strdup (szData) ;
+				} else
+				{
+					bOK = FALSE ;
+					break;
+				}
+				pListSorted = g_list_prepend( pListSorted, self );
+			}
+			g_free( szItem );
+			g_free( szData );
+		}
+		// if all ok, sort the list....
+		if( bOK )
+		{
+			if( pListSorted )
+			{
+				int	nMax, i ;
+				pListSorted = g_list_sort( pListSorted, cmp_sort_k );
+				nMax = g_list_length (pListSorted) ; 
+				for (i = 0; i < nMax ; i++)
+				{
+					sortKey	*pSort = (sortKey*) g_list_nth ( pListSorted, i ) -> data ;
+					pList = g_list_append( pList, (gpointer)pSort->m_szStr );
+					g_free( pSort );
+				}
+			}
+		} else
+		{
+			// delete all the data copied
+			int	nMax, i ;
+			nMax = g_list_length (pListSorted) ; 
+			for (i = 0; i < nMax ; i++)
+			{
+				sortKey	*pSort = (sortKey*) g_list_nth ( pList, i ) -> data ;
+				g_free( (gpointer)pSort->m_szStr );
+				g_free( pSort );
+			}
+		}
+		g_list_free ( pListSorted );
+	}
+	return pList ;
+}
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 void
 session_save_bool( ProjectDBase * p, const gchar *szSection, const gchar *szItem, const gboolean bVal )
@@ -416,32 +505,5 @@ anjuta_session_get_iterator( const gchar *szSection )
 	}
 	g_free( szSect );
 	return gIterator ;
-}
-
-GList*
-anjuta_session_load_strings( const gchar *szSection, GList *pList )
-{
-	gpointer	config_iterator;
-	g_return_val_if_fail( szSection != NULL, NULL );
-
-	free_string_list ( pList );
-	pList = NULL ;
-
-	config_iterator = anjuta_session_get_iterator( szSection );
-	if ( config_iterator !=  NULL )
-	{
-		gchar * szItem, *szData;
-		while ((config_iterator = gnome_config_iterator_next( config_iterator,
-									&szItem, &szData )))
-		{
-			if( ( NULL != szData ) )
-			{
-				pList = g_list_append(pList, g_strdup (szData) );
-			}
-			g_free( szItem );
-			g_free( szData );
-		}
-	}
-	return pList ;
 }
 

@@ -171,8 +171,13 @@ main (int argc, char *argv[])
 	if (flags & GNOME_CLIENT_RESTORED)
 		anjuta_session_restore(client);
 	else
+	{
 		anjuta_load_cmdline_files();
-	//gtk_main ();
+		if( ( 1 == argc ) &&	app->b_reload_last_project )
+		{
+			anjuta_load_last_project();
+		}
+	}
 	retCode = MainLoop( &argc, argv, corb );
 	anjuta_application_exit();
 	write_config();

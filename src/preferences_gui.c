@@ -323,6 +323,8 @@ create_preferences_page0 (Preferences * pr)
 	GtkWidget *vseparator1;
 	GtkWidget *label5;
 	GtkWidget *label6;
+	GtkWidget *vseparator3;
+	GtkWidget *boxLastPrj;
 	GtkWidget *checkbutton1;
 	GtkWidget *checkbutton2;
 
@@ -400,7 +402,7 @@ create_preferences_page0 (Preferences * pr)
 	gtk_box_pack_start (GTK_BOX (vbox1), frame1, FALSE, FALSE, 0);
 	gtk_container_set_border_width (GTK_CONTAINER (frame1), 5);
 
-	table1 = gtk_table_new (2, 5, FALSE);
+	table1 = gtk_table_new (2, 7, FALSE);
 	gtk_widget_show (table1);
 	gtk_container_add (GTK_CONTAINER (frame1), table1);
 
@@ -424,6 +426,12 @@ create_preferences_page0 (Preferences * pr)
 			  (GtkAttachOptions) (0),
 			  (GtkAttachOptions) (0), 5, 0);
 	gtk_misc_set_padding (GTK_MISC (label6), 0, 5);
+
+	boxLastPrj = gtk_check_button_new_with_label (_("Load automatically last project"));
+	gtk_widget_show (boxLastPrj);
+	gtk_table_attach (GTK_TABLE (table1), boxLastPrj, 6, 7, 1, 2,
+			  (GtkAttachOptions) (0),
+			  (GtkAttachOptions) (0), 5, 0);
 
 	eventbox3 = gtk_event_box_new ();
 	gtk_widget_show (eventbox3);
@@ -463,6 +471,12 @@ create_preferences_page0 (Preferences * pr)
 		gtk_spin_button_new (GTK_ADJUSTMENT (spinbutton4_adj), 1, 0);
 	gtk_widget_show (spinbutton4);
 	gtk_container_add (GTK_CONTAINER (eventbox5), spinbutton4);
+
+	vseparator3 = gtk_vseparator_new ();
+	gtk_widget_show (vseparator3);
+	gtk_table_attach (GTK_TABLE (table1), vseparator3, 5, 6, 0, 2,
+			  (GtkAttachOptions) (GTK_FILL),
+			  (GtkAttachOptions) (GTK_FILL), 0, 0);
 
 	vseparator2 = gtk_vseparator_new ();
 	gtk_widget_show (vseparator2);
@@ -511,6 +525,7 @@ create_preferences_page0 (Preferences * pr)
 	pr->widgets.combo_history_spin = spinbutton4;
 	pr->widgets.beep_check = checkbutton1;
 	pr->widgets.dialog_check = checkbutton2;
+	pr->widgets.lastprj_check = boxLastPrj;
 
 	gtk_widget_ref (entry1);
 	gtk_widget_ref (entry2);
@@ -521,6 +536,8 @@ create_preferences_page0 (Preferences * pr)
 	gtk_widget_ref (spinbutton4);
 	gtk_widget_ref (checkbutton1);
 	gtk_widget_ref (checkbutton2);
+	gtk_widget_ref (boxLastPrj);
+	
 
 	return vbox1;
 }
@@ -1803,6 +1820,10 @@ on_preferences_apply_clicked (GtkButton * button, gpointer user_data)
 			     gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON
 							       (pr->widgets.
 								combo_history_spin)));
+	preferences_set_int (pr, RELOAD_LAST_PROJECT,
+			     gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
+							   (pr->widgets.
+							    lastprj_check)));
 
 /* page 1 */
 	preferences_set_int (pr, BUILD_OPTION_KEEP_GOING,

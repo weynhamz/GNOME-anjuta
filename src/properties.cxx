@@ -96,7 +96,7 @@ get_propset(PropsID pi)
   PropSetFile* p;
   if(pi < 0 || (guint)pi >= g_list_length(anjuta_propset))
   {
-  	g_warning("Invalind PropSetFile handle");
+  	g_warning("Invalid PropSetFile handle");
   	return NULL;
   }
   p = (PropSetFile*)g_list_nth_data(anjuta_propset, pi);

@@ -165,6 +165,8 @@ struct _AnjutaApp
 	gboolean shutdown_in_progress;
 	gboolean	bUseComponentUI;	/* use glade or the CORBA objects ? */
 	GList	*addIns_list;
+	gboolean	b_reload_last_project;	/* To be set in preferences */
+	gchar	*last_open_project;	/* Last session open project file name if any */
 };
 
 struct _FileLineInfo
@@ -366,6 +368,13 @@ anjuta_reload_file( const gchar *szFullPath );
 void 
 anjuta_save_file_if_modified( const gchar *szFullPath );
 
+void
+anjuta_load_this_project( const gchar * szProjectPath );
+void 
+anjuta_load_last_project(void);
+void
+anjuta_open_project(void);
+
 
 #define anjuta_set_execution_dir(d)     string_assign(&app->execution_dir, (d))
 #define anjuta_clear_execution_dir()     string_assign(&app->execution_dir, NULL)
@@ -389,6 +398,8 @@ anjuta_save_file_if_modified( const gchar *szFullPath );
 #define ANJUTA_FORMAT_TOOLBAR "format.toolbar"
 #define ANJUTA_DEBUG_TOOLBAR "debug.toolbar"
 #define ANJUTA_BROWSER_TOOLBAR "browser.toolbar"
+
+#define ANJUTA_LAST_OPEN_PROJECT "anjuta.last.open.project"
 
 
 #include "session.h"

@@ -1,3 +1,23 @@
+2002-02-26 lbell <lbell@tsc4.com>
+
+	Reviewed by Naba Kumar <kh_naba@users.sourceforge.net>
+	* src/preferences_gui.c:
+	Removed an incorrect use of gtk_misc_set_alignment().
+	
+	* src/anjuta.c, src/anjuta.h, src/controls.c, src/main.c,
+	src/main_menubar.c, src/mainmenu_callbacks.c, src/preferences.c,
+	src/preferences.h, src/preferences_gui.c:
+	
+	Added the option to reload last open project at the startup.
+	Added the possibility to open a new project without close
+	an existing one
+	
+	* src/properties.cxx:
+	Corrected a spelling mistake in message string.
+	
+	* src/session.c:
+	Updated session functions.
+	   
 2002-02-26  Naba Kumar <kh_naba@users.sourceforge.net>
 
 	* widgets/gnomefilelist.c: Bug fixes.

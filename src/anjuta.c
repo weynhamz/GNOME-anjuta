@@ -144,6 +144,7 @@ anjuta_new ()
 		app->busy_count = 0;
 		app->execution_dir = NULL;
 		app->first_time_expose = TRUE;
+		app->last_open_project	= NULL ;
 
 		create_anjuta_gui (app);
 		
@@ -154,6 +155,7 @@ anjuta_new ()
 		getcwd(wd, PATH_MAX);
 		fileselection_set_dir (app->fileselection, wd);
 		
+		app->b_reload_last_project	= TRUE ;
 		app->preferences = preferences_new ();
 		app->save_as_fileselection = create_fileselection_gui (&fsd2);
 		app->save_as_build_msg_sel = create_fileselection_gui (&fsd3);
@@ -986,6 +988,16 @@ gboolean anjuta_save_yourself (FILE * stream)
 #endif
 
 	fprintf (stream, "\n\n");
+	fprintf (stream, "%s=", ANJUTA_LAST_OPEN_PROJECT );
+	{
+		gchar *last_open_project_path = "" ;
+		if( 		app->project_dbase->project_is_open 
+			&&	( NULL != app->project_dbase->proj_filename ) )
+			last_open_project_path = app->project_dbase->proj_filename ;
+			
+		fprintf (stream, "%s\n\n", last_open_project_path );
+	}
+	
 	anjuta_message_manager_save_yourself (app->messages, stream);
 	project_dbase_save_yourself (app->project_dbase, stream);
 
@@ -1039,6 +1051,8 @@ gboolean anjuta_load_yourself (PropsID pr)
 #else
 	app->recent_projects = anjuta_session_load_strings( SECSTR(SECTION_RECENTPROJECTS), NULL );
 #endif
+	app->last_open_project = prop_get( pr, ANJUTA_LAST_OPEN_PROJECT );
+
 	anjuta_message_manager_load_yourself (app->messages, pr);
 	project_dbase_load_yourself (app->project_dbase, pr);
 	compiler_options_load_yourself (app->compiler_options, pr);
@@ -1177,6 +1191,7 @@ anjuta_apply_preferences (void)
 	Preferences *pr = app->preferences;
 	
 	app->bUseComponentUI = preferences_get_int (pr, USE_COMPONENTS);
+	app->b_reload_last_project	= preferences_get_int (pr , RELOAD_LAST_PROJECT);
 	
 	no_tag = preferences_get_int (pr, EDITOR_TAG_HIDE);
 	if (no_tag == TRUE)
@@ -2337,5 +2352,49 @@ static void on_message_clicked(GtkObject* obj, char* message)
 	{
 		anjuta_goto_file_line (fn, ln);
 		g_free (fn);
+	}
+}
+
+void
+anjuta_load_this_project( const gchar * szProjectPath )
+{
+	/* Give the use a chance to save an existing project */
+	if (app->project_dbase->project_is_open)
+	{
+		project_dbase_close_project (app->project_dbase);
+	}
+	if( app->project_dbase->project_is_open )
+		return ;
+	fileselection_set_filename (app->project_dbase->fileselection_open, (gchar*)szProjectPath);
+	project_dbase_load_project (app->project_dbase, TRUE);
+}
+
+void
+anjuta_open_project( )
+{
+	/* Give the use a chance to save an existing project */
+	if (app->project_dbase->project_is_open)
+	{
+		project_dbase_close_project (app->project_dbase);
+	}
+	if( app->project_dbase->project_is_open )
+		return ;
+	project_dbase_open_project (app->project_dbase);
+}
+
+void 
+anjuta_load_last_project()
+{
+	//printf ("anjuta_load_last_project");
+	
+	if(		(NULL!=app->last_open_project ) 
+		&&	strlen(app->last_open_project ) )
+	{
+#ifdef	DEBUG_LOAD_PROJECTS	/* debug code, may return useful */
+		char	szppp[1024];
+		sprintf( szppp, "%d, >>%s<<", strlen(app->last_open_project) , app->last_open_project );
+		MessageBox( szppp );
+#endif
+		anjuta_load_this_project( app->last_open_project );
 	}
 }

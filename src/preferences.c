@@ -162,6 +162,7 @@ preferences_destroy (Preferences * pr)
 
 		gtk_widget_unref (pr->widgets.beep_check);
 		gtk_widget_unref (pr->widgets.dialog_check);
+		gtk_widget_unref (pr->widgets.lastprj_check);
 
 		gtk_widget_unref (pr->widgets.build_keep_going_check);
 		gtk_widget_unref (pr->widgets.build_silent_check);
@@ -308,6 +309,10 @@ preferences_sync (Preferences * pr)
 				      (pr->widgets.beep_check),
 				      preferences_get_int (pr,
 							   BEEP_ON_BUILD_COMPLETE));
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON
+				      (pr->widgets.lastprj_check),
+				      preferences_get_int (pr,
+							   RELOAD_LAST_PROJECT));
 /* Page 1 */
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON
 				      (pr->widgets.build_keep_going_check),
@@ -687,6 +692,8 @@ gboolean preferences_save_yourself (Preferences * pr, FILE * fp)
 		 preferences_get_int (pr, DIALOG_ON_BUILD_COMPLETE));
 	fprintf (fp, "%s=%d\n", BEEP_ON_BUILD_COMPLETE,
 		 preferences_get_int (pr, BEEP_ON_BUILD_COMPLETE));
+	fprintf (fp, "%s=%d\n", RELOAD_LAST_PROJECT,
+		 preferences_get_int (pr, RELOAD_LAST_PROJECT));
 
 	/* Page 1 */
 	fprintf (fp, "%s=%d\n", BUILD_OPTION_KEEP_GOING,

@@ -131,7 +131,7 @@ extended_toolbar_update ()
 		F = TRUE;
 		C = anjuta_get_file_property(FILE_PROP_IS_SOURCE, te->filename, FALSE);
 	}
-	gtk_widget_set_sensitive (et->open_project, !P);
+	/*gtk_widget_set_sensitive (et->open_project, !P);*/
 	gtk_widget_set_sensitive (et->save_project, P);
 	gtk_widget_set_sensitive (et->close_project, P);
 	gtk_widget_set_sensitive (et->compile, !L && C);
@@ -299,9 +299,9 @@ update_main_menubar ()
 	gtk_widget_set_sensitive (fm->close_file, F);
 	gtk_widget_set_sensitive (fm->close_all_file, F);
 	gtk_widget_set_sensitive (fm->reload_file, F);
-	gtk_widget_set_sensitive (fm->new_project, !P);
+	/*gtk_widget_set_sensitive (fm->new_project, !P);*/
 	gtk_widget_set_sensitive (fm->import_project, !P);
-	gtk_widget_set_sensitive (fm->open_project, !P);
+	/*gtk_widget_set_sensitive (fm->open_project, !P);*/
 	gtk_widget_set_sensitive (fm->save_project, P);
 	gtk_widget_set_sensitive (fm->close_project, P);
 
