@@ -1,3 +1,24 @@
+2001-04-25  Stéphane Démurget <demurgets@free.fr>
+
+	* src/registers.c,
+	  src/sharedlib.c,
+	  src/signals.c: Removed duplicated includes.
+
+	* po/fr.po: minor fixes.
+
+	* src/compiler_options_gui.c: Cleaned up a part of the GUI,
+	  create_compiler_options_page? () declared static.
+
+	* src/main.c,
+	  src/anjuta.c: Put a command line option for disabling
+	  the splashscreen.
+
+	* src/preferences_gui.c: Fixed an internationalization issue,
+	  other functions declared static.
+
+	* src/gnome_project.c: Fixed some memory leaks,
+	  new_prj_terminated () declared static. 
+
 2001-04-24  Fatih Demir <kabalak@gtranslator.org>
 
 	* configure.in: Sort ALL_LINGUAS alphabetically.
