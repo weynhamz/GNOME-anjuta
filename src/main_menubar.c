@@ -122,19 +122,18 @@ create_main_menubar (GtkWidget * ap, MainMenuBar * mb)
 		gtk_widget_ref (edit1_menu_uiinfo[i].widget);
 		gtk_accel_group_attach(GNOME_APP(ap)->accel_group, GTK_OBJECT(edit1_menu_uiinfo[i].widget));
 	}
-	
+
 	mb->view.main_toolbar = toolbar1_submenu_uiinfo[0].widget;
 	mb->view.extended_toolbar = toolbar1_submenu_uiinfo[2].widget;
-	mb->view.tags_toolbar = toolbar1_submenu_uiinfo[4].widget;
-	mb->view.debug_toolbar = toolbar1_submenu_uiinfo[6].widget;
-	mb->view.browser_toolbar = toolbar1_submenu_uiinfo[8].widget;
-	mb->view.format_toolbar = toolbar1_submenu_uiinfo[10].widget;
-	for (i = 0; i < 11; i++)
+	mb->view.debug_toolbar = toolbar1_submenu_uiinfo[4].widget;
+	mb->view.browser_toolbar = toolbar1_submenu_uiinfo[6].widget;
+	mb->view.format_toolbar = toolbar1_submenu_uiinfo[8].widget;
+	for (i = 0; i < 9; i++)
 	{
 		gtk_widget_ref (toolbar1_submenu_uiinfo[i].widget);
 		gtk_accel_group_attach(GNOME_APP(ap)->accel_group, GTK_OBJECT(toolbar1_submenu_uiinfo[i].widget));
 	}
-	
+
 	mb->view.editor_linenos = editor1_submenu_uiinfo[0].widget;
 	mb->view.editor_markers = editor1_submenu_uiinfo[1].widget;
 	mb->view.editor_folds = editor1_submenu_uiinfo[2].widget;

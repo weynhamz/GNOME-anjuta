@@ -24,6 +24,7 @@
 #include "text_editor.h"
 #include "debugger.h"
 #include "toolbar.h"
+#include "toolbar_callbacks.h"
 #include "anjuta.h"
 #include "utilities.h"
 #include "controls.h"
@@ -102,6 +103,7 @@ main_toolbar_update ()
 	gtk_widget_set_sensitive (mt->find_combo, F);
 	gtk_widget_set_sensitive (mt->go_to, F);
 	gtk_widget_set_sensitive (mt->line_entry, F);
+
 	update_main_menubar ();
 }
 
@@ -197,6 +199,28 @@ browser_toolbar_update()
 	gtk_widget_set_sensitive (bt->last_bookmark, F);
 	gtk_widget_set_sensitive (bt->block_start, FLD);
 	gtk_widget_set_sensitive (bt->block_end, FLD);
+	/* Goto Tag Stuff */
+	gtk_widget_set_sensitive (bt->tag, F);
+	gtk_widget_set_sensitive (bt->tag_combo, F);
+	if (F)
+	{
+		const GList *tags = anjuta_get_tag_list(te, tm_tag_max_t);
+		if (tags)
+		{
+			gtk_signal_disconnect_by_func(GTK_OBJECT(GTK_COMBO(bt->tag_combo)->list)
+			  , GTK_SIGNAL_FUNC(on_toolbar_tag_clicked), NULL);
+			gtk_combo_set_popdown_strings(GTK_COMBO(bt->tag_combo), (GList *) tags);
+			gtk_signal_connect (GTK_OBJECT(GTK_COMBO(bt->tag_combo)->list),
+			    "selection-changed", GTK_SIGNAL_FUNC (on_toolbar_tag_clicked), NULL);
+			gtk_widget_show(bt->tag_combo);
+			gtk_widget_show(bt->tag);
+		}
+		else
+		{
+			gtk_widget_hide(bt->tag_combo);
+			gtk_widget_hide(bt->tag);
+		}
+	}
 }
 
 void

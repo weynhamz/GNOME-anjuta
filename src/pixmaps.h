@@ -184,4 +184,7 @@
 #define ANJUTA_PIXMAP_FV_EXECUTABLE "fv_exec.xpm"
 #define ANJUTA_PIXMAP_FV_CORE "fv_core.xpm"
 
+/* Tag Combo */
+#define ANJUTA_PIXMAP_TAG "an_tag.xpm"
+
 #endif

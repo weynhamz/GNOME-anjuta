@@ -235,9 +235,6 @@ void
 on_extended_toolbar1_activate           (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
 void
-on_tags_toolbar1_activate           (GtkMenuItem     *menuitem,
-                                        gpointer         user_data);
-void
 on_debug_toolbar1_activate           (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
 void
@@ -639,7 +636,10 @@ void
 on_context_help_activate (GtkMenuItem * menuitem, gpointer user_data);
 
 void
-on_goto_tag_activate (GtkMenuItem * menuitem, gpointer user_data);
+on_goto_tag_definition_activate (GtkMenuItem * menuitem, gpointer user_data);
+
+void
+on_goto_tag_declaration_activate (GtkMenuItem * menuitem, gpointer user_data);
 
 void
 on_go_back_activate (GtkMenuItem * menuitem, gpointer user_data);

@@ -749,7 +749,6 @@ project_dbase_save_project (ProjectDBase * p)
 	gint i;
 
 	str = NULL;
-	tags_manager_save(app->tags_manager);
 /*	if (p->is_saved) return TRUE;*/
 	anjuta_set_busy ();
 	if (p->project_is_open == FALSE)
@@ -968,7 +967,6 @@ project_dbase_save_project (ProjectDBase * p)
 		goto error_show;
 	if (src_paths_save (app->src_paths, fp) == FALSE)
 		goto error_show;
-	tags_manager_save (app->tags_manager);
 	if (p->tm_project)
 		tm_project_save(TM_PROJECT(p->tm_project));
 	p->is_saved = TRUE;
@@ -1069,7 +1067,6 @@ project_dbase_update_tags_image(ProjectDBase* p)
 		src_path = g_strconcat (src_dir, "/", NULL);
 		src_files = glist_from_data (p->props, "module.source.files");
 		glist_strings_prefix (src_files, src_path);
-		tags_manager_update_image (app->tags_manager, src_files);
 		glist_strings_free (src_files);
 		g_free (src_path);
 		g_free (src_dir);
@@ -1158,7 +1155,6 @@ project_dbase_close_project (ProjectDBase * p)
 	g_return_if_fail (p != NULL);
 	g_return_if_fail (p->project_is_open == TRUE);
 	
-	tags_manager_save (app->tags_manager);
 	if (p->is_saved == FALSE)
 	{
 		gint but;
@@ -1685,21 +1681,9 @@ project_dbase_scan_files_in_module(ProjectDBase* p, PrjModule module, gboolean w
 void
 project_dbase_clean_left (ProjectDBase * p)
 {
-	TextEditor *te;
-	gint i;
 	project_dbase_clear (p);
 	project_config_clear (p->project_config);
 
-	tags_manager_freeze (app->tags_manager);
-	tags_manager_clear (app->tags_manager);
-	for (i = 0; i < g_list_length (app->text_editor_list); i++)
-	{
-		te = g_list_nth_data (app->text_editor_list, i);
-		if (te->full_filename)
-			tags_manager_update (app->tags_manager,
-					     te->full_filename);
-	}
-	tags_manager_thaw (app->tags_manager);
 	compiler_options_load (app->compiler_options, app->preferences->props);
 	src_paths_load (app->src_paths, app->preferences->props);
 }
@@ -1965,11 +1949,13 @@ project_dbase_remove_file (ProjectDBase * p)
 		g_free (key);
 		return;
 	}
-	source_file = tm_project_find_file(p->tm_project, p->current_file_data->filename);
+	source_file = tm_project_find_file(p->tm_project, p->current_file_data->filename, FALSE);
 	if (source_file)
 		tm_project_remove_object(TM_PROJECT(p->tm_project), source_file);
+ 	else
+ 		g_warning("Unable to find %s in project", p->current_file_data->filename);
 	fn = extract_filename (p->current_file_data->filename);
-	
+
 	pos = strstr (files, fn);
 	if (pos == NULL)
 	{
@@ -2162,7 +2148,6 @@ project_dbase_load_project_finish (ProjectDBase * p, gboolean show_project)
 	/* Now Project setup */
 	project_dbase_update_tree (p);
 	extended_toolbar_update ();
-	tags_manager_load (app->tags_manager);
 	project_dbase_update_tags_image(p);
 	anjuta_update_app_status(FALSE, NULL);
 	anjuta_status (_("Project loaded successfully."));

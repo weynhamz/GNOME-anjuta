@@ -74,7 +74,7 @@ static void check_tm_file(TextEditor *te)
 	if (NULL == te->tm_file)
 	{
 		te->tm_file = tm_workspace_find_object(
-		  TM_WORK_OBJECT(app->tm_workspace), te->full_filename);
+		  TM_WORK_OBJECT(app->tm_workspace), te->full_filename, FALSE);
 		if (NULL == te->tm_file)
 		{
 			te->tm_file = tm_source_file_new(te->full_filename, TRUE);
@@ -753,8 +753,6 @@ save_to_file (TextEditor * te, gchar * fn)
 gboolean
 text_editor_load_file (TextEditor * te)
 {
-	gint tags_update;
-
 	if (te == NULL || te->filename == NULL)
 		return FALSE;
 	if (IS_SCINTILLA (te->widgets.editor) == FALSE)
@@ -772,16 +770,6 @@ text_editor_load_file (TextEditor * te)
 	}
 	scintilla_send_message (SCINTILLA (te->widgets.editor), SCI_GOTOPOS,
 				0, 0);
-	tags_update = preferences_get_int (te->preferences, AUTOMATIC_TAGS_UPDATE);
-	if (tags_update)
-	{
-		if ((app->project_dbase->project_is_open == FALSE)
-		  || (project_dbase_is_file_in_module(app->project_dbase
-		  , MODULE_SOURCE, te->full_filename)))
-		{
-			tags_manager_update (app->tags_manager, te->full_filename);
-		}
-	}
 	check_tm_file(te);
 	anjuta_set_active ();
 	text_editor_thaw (te);
@@ -829,7 +817,6 @@ text_editor_save_file (TextEditor * te)
 			  || (project_dbase_is_file_in_module
 			    (app->project_dbase, MODULE_SOURCE, te->full_filename)))
 			{
-				tags_manager_update (app->tags_manager, te->full_filename);
 				check_tm_file(te);
 				if (te->tm_file)
 					tm_source_file_update(TM_WORK_OBJECT(te->tm_file)

@@ -627,26 +627,22 @@ extern boolean parseFile (const char *const fileName)
     if (Option.language == LANG_AUTO)
 	language = getFileLanguage (fileName);
     Assert (language != LANG_AUTO);
-    if (language == LANG_IGNORE) {
-#ifdef DEBUG
-		verbose ("ignoring %s (unknown language)\n", fileName);
-#endif
-	}
-    else if (! LanguageTable [language]->enabled) {
-#ifdef DEBUG
-		verbose ("ignoring %s (language disabled)\n", fileName);
-#endif
-	} else {
-		if (Option.filter)
-			openTagFile ();
-	
-		tagFileResized = createTagsWithFallback (fileName, language);
-	
-		if (Option.filter)
-			closeTagFile (tagFileResized);
-		addTotals (1, 0L, 0L);
-	
-		return tagFileResized;
+    if (language == LANG_IGNORE)
+	verbose ("ignoring %s (unknown language)\n", fileName);
+    else if (! LanguageTable [language]->enabled)
+	verbose ("ignoring %s (language disabled)\n", fileName);
+    else
+    {
+	if (Option.filter)
+	    openTagFile ();
+
+	tagFileResized = createTagsWithFallback (fileName, language);
+
+	if (Option.filter)
+	    closeTagFile (tagFileResized);
+	addTotals (1, 0L, 0L);
+
+	return tagFileResized;
     }
     return tagFileResized;
 }

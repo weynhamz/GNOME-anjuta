@@ -1,5 +1,44 @@
 2002-01-30  Naba Kumar <kh_naba@users.sourceforge.net>
 
+	* tagmanager/*/*: Upgraded to 0.7.1 version from Biswa.
+	
+	* data/Makefile.am
+	  pixmaps/Makefile.am
+	  src/Makefile.am
+	  src/an_file_view.c
+	  src/an_symbol_view.c
+	  src/anjuta.c
+	  src/anjuta.h
+	  src/anjuta_cbs.c
+	  src/anjuta_gui.c
+	  src/controls.c
+	  src/main_menubar.c
+	  src/main_menubar.h
+	  src/main_menubar_def.h
+	  src/mainmenu_callbacks.c
+	  src/mainmenu_callbacks.h
+	  src/pixmaps.h
+	  src/project_dbase.c
+	  src/project_dbase.h
+	  src/text_editor.c
+	  src/text_editor_menu.c
+	  src/text_editor_menu.h
+	  src/toolbar.c
+	  src/toolbar.h
+	  src/toolbar_callbacks.c
+	  src/toolbar_callbacks.h :
+	  
+	  Biswa's patch.
+	  Moved the tag combo to browser toolbar because
+	  main toolbar was becoming too long.
+	  Made a new icon of tag toolbar.
+	  
+	* po/zh_TW.po: Fixed bug.
+	  
+	* pixmaps/an_tag.xpm: Added new file.
+
+2002-01-30  Naba Kumar <kh_naba@users.sourceforge.net>
+
 	* src/project_import_gui.c: Reorganized project
 	import gui page 2.
 	

@@ -127,7 +127,6 @@ struct _AnjutaApp
 	Executer *executer;
 	Configurer *configurer;
 	FindInFiles *find_in_files;
-	TagsManager *tags_manager;
 	const TMWorkspace *tm_workspace;
 	AnjutaHelp* help_system;
 
@@ -187,7 +186,7 @@ void anjuta_show (void);
 void anjuta_session_restore (GnomeClient* client);
 
 GList *anjuta_get_file_list(void);
-GList *anjuta_get_function_list(TextEditor *te);
+const GList *anjuta_get_tag_list(TextEditor *te, guint tag_types);
 
 TextEditor *anjuta_append_text_editor (gchar * filename);
 
@@ -204,7 +203,8 @@ gchar *anjuta_get_current_selection (void);
 
 TextEditor*  anjuta_goto_file_line (gchar * fname, glong lineno);
 TextEditor*  anjuta_goto_file_line_mark (gchar * fname, glong lineno, gboolean mark);
-void anjuta_goto_symbol_definition(const char *symbol, TextEditor *te);
+gboolean anjuta_goto_local_tag(TextEditor *te, const char *qual_name);
+void anjuta_goto_tag(const char *symbol, TextEditor *te, gboolean prefer_definition);
 
 void anjuta_apply_preferences (void);
 void anjuta_load_cmdline_files (void);
@@ -382,7 +382,6 @@ anjuta_save_file_if_modified( const gchar *szFullPath );
 
 #define ANJUTA_MAIN_TOOLBAR "main.toolbar"
 #define ANJUTA_EXTENDED_TOOLBAR "extended.toolbar"
-#define ANJUTA_TAGS_TOOLBAR "tags.toolbar"
 #define ANJUTA_FORMAT_TOOLBAR "format.toolbar"
 #define ANJUTA_DEBUG_TOOLBAR "debug.toolbar"
 #define ANJUTA_BROWSER_TOOLBAR "browser.toolbar"

@@ -107,7 +107,6 @@ struct _ViewSubMenu
 	GtkWidget *extended_toolbar;
 	GtkWidget *browser_toolbar;
 	GtkWidget *debug_toolbar;
-	GtkWidget *tags_toolbar;
 	GtkWidget *format_toolbar;
 
 	GtkWidget *editor_linenos;

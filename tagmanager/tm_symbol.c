@@ -24,7 +24,7 @@ static GMemChunk *sym_mem_chunk = NULL;
 
 void tm_symbol_print(TMSymbol *sym, guint level)
 {
-	int i;
+	guint i;
 
 	g_assert(sym);
 	for (i=0; i < level; ++i)
@@ -155,25 +155,26 @@ TMSymbol *tm_symbol_tree_new(GPtrArray *tags_array)
 	TMSymbol *root = NULL;
 	GPtrArray *tags;
 
-#ifdef TM_DEBUG
+#ifdef DEBUG
 	g_message("Building symbol tree..");
 #endif
 
 	if ((!tags_array) || (tags_array->len <= 0))
 		return NULL;
 
-#ifdef TM_DEBUG
+#ifdef DEBUG
 	fprintf(stderr, "Dumping all tags..\n");
 	tm_tags_array_print(tags_array, stderr);
 #endif	
 	tags = tm_tags_extract(tags_array, tm_tag_max_t);
-#ifdef TM_DEBUG
+#ifdef DEBUG
 	fprintf(stderr, "Dumping unordered tags..\n");
 	tm_tags_array_print(tags, stderr);
 #endif
 	if (tags && (tags->len > 0))
 	{
-		int i, j;
+		guint i;
+		int j;
 		int max_parents = -1;
 		TMTag *tag;
 		TMSymbol *sym = NULL, *sym1;
@@ -185,7 +186,7 @@ TMSymbol *tm_symbol_tree_new(GPtrArray *tags_array)
 		SYM_NEW(root);
 		tm_tags_custom_sort(tags, (TMTagCompareFunc) tm_symbol_tag_compare
 		  , FALSE);
-#ifdef TM_DEBUG
+#ifdef DEBUG
 		fprintf(stderr, "Dumping ordered tags..");
 		tm_tags_array_print(tags, stderr);
 		fprintf(stderr, "Rebuilding symbol table..\n");
@@ -261,7 +262,7 @@ TMSymbol *tm_symbol_tree_new(GPtrArray *tags_array)
 					*scope_end = ':';
 			}
 		}
-#ifdef TM_DEBUG
+#ifdef DEBUG
 		fprintf(stderr, "Done.Dumping symbol tree..");
 		tm_symbol_print(root, 0);
 #endif
@@ -280,7 +281,7 @@ static void tm_symbol_free(TMSymbol *sym)
 	{
 		if (sym->info.children)
 		{
-			int i;
+			guint i;
 			for (i=0; i < sym->info.children->len; ++i)
 				tm_symbol_free(TM_SYMBOL(sym->info.children->pdata[i]));
 			g_ptr_array_free(sym->info.children, TRUE);

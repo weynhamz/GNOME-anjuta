@@ -34,8 +34,6 @@
 #include "debugger.h"
 
 
-static gint on_member_combo_entry_sel_idle (gpointer data);
-
 void
 on_toolbar_new_clicked (GtkButton * button, gpointer user_data)
 {
@@ -184,6 +182,23 @@ on_toolbar_goto_clicked (GtkButton * button, gpointer user_data)
 				 line, te->filename);
 		}
 	}
+}
+
+void
+on_toolbar_tag_clicked (GtkButton * button, gpointer user_data)
+{
+	TextEditor *te;
+	gchar *string;
+
+	te = anjuta_get_current_text_editor ();
+	if (!te)
+		return;
+	string =
+		gtk_entry_get_text (GTK_ENTRY
+		  (app->widgets.toolbar.browser_toolbar.tag_entry));
+	if (!string || strlen (string) == 0)
+		return;
+	anjuta_goto_local_tag(te, string);
 }
 
 void
@@ -399,120 +414,6 @@ on_toolbar_debug_stop_clicked (GtkButton * button, gpointer user_data)
 /*******************************************************************************/
 
 void
-on_tag_combo_entry_changed (GtkEditable * editable, gpointer user_data)
-{
-	gchar *label;
-
-	/* Dynamic allocation is necessary, because text in the editable is going to
-	 * change very soon
-	 */
-	label = g_strdup (gtk_entry_get_text (GTK_ENTRY (editable)));
-	if (label == NULL)
-		return;
-	switch (app->tags_manager->menu_type)
-	{
-	case function_t:
-		if (app->tags_manager->cur_file)
-			if (strcmp (app->tags_manager->cur_file, label) == 0)
-				break;
-		gtk_signal_disconnect_by_func (GTK_OBJECT
-					       (app->widgets.toolbar.
-						tags_toolbar.member_entry),
-					       GTK_SIGNAL_FUNC
-					       (on_member_combo_entry_changed),
-					       NULL);
-		gtk_combo_set_popdown_strings (GTK_COMBO
-					       (app->widgets.toolbar.
-						tags_toolbar.member_combo),
-					       tags_manager_get_function_list
-					       (app->tags_manager, label));
-		if (app->tags_manager->cur_file)
-			g_free (app->tags_manager->cur_file);
-		app->tags_manager->cur_file = g_strdup (label);
-		gtk_signal_connect (GTK_OBJECT
-				    (app->widgets.toolbar.tags_toolbar.
-				     member_entry), "changed",
-				    GTK_SIGNAL_FUNC
-				    (on_member_combo_entry_changed), NULL);
-		g_free (label);
-		break;
-	case class_t:
-		gtk_signal_disconnect_by_func (GTK_OBJECT
-					       (app->widgets.toolbar.
-						tags_toolbar.member_entry),
-					       GTK_SIGNAL_FUNC
-					       (on_member_combo_entry_changed),
-					       NULL);
-		gtk_combo_set_popdown_strings (GTK_COMBO
-					       (app->widgets.toolbar.
-						tags_toolbar.member_combo),
-					       tags_manager_get_mem_func_list
-					       (app->tags_manager, label));
-		g_free (label);
-		gtk_signal_connect (GTK_OBJECT
-				    (app->widgets.toolbar.tags_toolbar.
-				     member_entry), "changed",
-				    GTK_SIGNAL_FUNC
-				    (on_member_combo_entry_changed), NULL);
-		break;
-	default:
-		gtk_timeout_add (10, on_member_combo_entry_sel_idle, label);
-/*             on_member_combo_entry_sel_idle(label); */
-	}
-}
-
-void
-on_tag_combo_list_select_child (GtkList * list,
-				GtkWidget * widget, gpointer user_data)
-{
-}
-
-void
-on_member_combo_entry_changed (GtkEditable * editable, gpointer user_data)
-{
-	gchar *label;
-
-	switch (app->tags_manager->menu_type)
-	{
-	case function_t:
-		label = g_strdup (gtk_entry_get_text (GTK_ENTRY (editable)));
-		break;
-	case class_t:
-		label =
-			g_strconcat (gtk_entry_get_text
-				     (GTK_ENTRY
-				      (app->widgets.toolbar.tags_toolbar.
-				       tag_entry)), "::",
-				     gtk_entry_get_text (GTK_ENTRY
-							 (editable)), NULL);
-		break;
-	default:
-		label = NULL;
-		break;
-	}
-	if (label)
-	{
-		gtk_timeout_add (10, on_member_combo_entry_sel_idle, label);
-/*        on_member_combo_entry_sel_idle(label); */
-	}
-}
-
-static gint
-on_member_combo_entry_sel_idle (gpointer data)
-{
-	anjuta_set_busy ();
-	anjuta_goto_symbol_definition((const char *) data, NULL);
-	anjuta_set_active ();
-	return FALSE;
-}
-
-void
-on_member_combo_list_select_child (GtkList * list,
-				   GtkWidget * widget, gpointer user_data)
-{
-}
-
-void
 on_browser_wizard_clicked (GtkButton * button, gpointer user_data)
 {
 
@@ -667,82 +568,4 @@ on_format_autocomplete_clicked (GtkButton * button, gpointer user_data)
 	gtk_signal_emit_by_name (GTK_OBJECT
 				 (app->widgets.menubar.edit.autocomplete),
 				 "activate");
-}
-
-void
-on_tag_functions_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-	if (app->tags_manager->menu_type == function_t)
-		return;
-	app->tags_manager->menu_type = function_t;
-	app->tags_manager->update_required_tags = TRUE;
-	app->tags_manager->update_required_mems = TRUE;
-	tags_manager_update_menu (app->tags_manager);
-}
-
-
-void
-on_tag_classes_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-	if (app->tags_manager->menu_type == class_t)
-		return;
-	app->tags_manager->menu_type = class_t;
-	app->tags_manager->update_required_tags = TRUE;
-	app->tags_manager->update_required_mems = TRUE;
-	tags_manager_update_menu (app->tags_manager);
-}
-
-
-void
-on_tag_structs_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-	if (app->tags_manager->menu_type == struct_t)
-		return;
-	app->tags_manager->menu_type = struct_t;
-	app->tags_manager->update_required_tags = TRUE;
-	tags_manager_update_menu (app->tags_manager);
-}
-
-
-void
-on_tag_unions_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-	if (app->tags_manager->menu_type == union_t)
-		return;
-	app->tags_manager->menu_type = union_t;
-	app->tags_manager->update_required_tags = TRUE;
-	tags_manager_update_menu (app->tags_manager);
-}
-
-
-void
-on_tag_enums_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-	if (app->tags_manager->menu_type == enum_t)
-		return;
-	app->tags_manager->menu_type = enum_t;
-	app->tags_manager->update_required_tags = TRUE;
-	tags_manager_update_menu (app->tags_manager);
-}
-
-
-void
-on_tag_variables_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-	if (app->tags_manager->menu_type == variable_t)
-		return;
-	app->tags_manager->menu_type = variable_t;
-	app->tags_manager->update_required_tags = TRUE;
-	tags_manager_update_menu (app->tags_manager);
-}
-
-
-void
-on_tag_macros_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-	if (app->tags_manager->menu_type == macro_t)
-		return;
-	app->tags_manager->menu_type = macro_t;
-	app->tags_manager->update_required_tags = TRUE;
-	tags_manager_update_menu (app->tags_manager);
 }

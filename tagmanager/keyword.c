@@ -125,6 +125,9 @@ extern void addKeyword (const char *const string, langType language, int value)
     hashEntry *tableEntry = getHashTableEntry (hashedValue);
     hashEntry *entry = tableEntry;
 
+#ifdef DEBUG
+    fprintf(stderr, "Adding keyword %s to language %d\n", string, language);
+#endif
     if (entry == NULL)
     {
 	hashEntry **const table = getHashTable ();

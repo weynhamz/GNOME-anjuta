@@ -92,9 +92,16 @@ GnomeUIInfo text_editor_menu_goto_submenu_uiinfo[] = {
 	 GNOMEUIINFO_SEPARATOR
 	 ,
 	{
-	 GNOME_APP_UI_ITEM, N_("Symbol Definition"),
+	 GNOME_APP_UI_ITEM, N_("Tag Definition"),
 	 NULL,
-	 on_goto_tag_activate, NULL, NULL,
+	 on_goto_tag_definition_activate, NULL, NULL,
+	 GNOME_APP_PIXMAP_NONE, NULL,
+ 	 0, 0, NULL}
+	 ,
+	{
+	 GNOME_APP_UI_ITEM, N_("Tag Declaration"),
+	 NULL,
+	 on_goto_tag_declaration_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
  	 0, 0, NULL}
 	 ,
@@ -301,7 +308,7 @@ GnomeUIInfo text_editor_menu_uiinfo[] = {
 	,
 	{
 	 /* 11 */
-	 GNOME_APP_UI_ITEM, N_("Function"),
+	 GNOME_APP_UI_ITEM, N_("Tags"),
 	 NULL,
 	 NULL, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
@@ -374,7 +381,7 @@ text_editor_menu_destroy (TextEditorMenu * tm)
 void
 text_editor_menu_popup (TextEditorMenu * menu, GdkEventButton * bevent)
 {
-	GList *funcs;
+	const GList *local_tags;
 	GtkWidget *submenu;
 	TextEditor *te;
 	gboolean A;
@@ -387,13 +394,13 @@ text_editor_menu_popup (TextEditorMenu * menu, GdkEventButton * bevent)
 
 	A = debugger_is_active ();
 
-	funcs = anjuta_get_function_list(te);
-	if (funcs)
+	local_tags = anjuta_get_tag_list(te, tm_tag_max_t);
+	if (local_tags)
 	{
 		submenu =
-			create_submenu (_("Functions "), funcs,
+			create_submenu (_("Tags"), (GList *) local_tags,
 					GTK_SIGNAL_FUNC
-					(on_text_editor_menu_function_activate));
+					(on_text_editor_menu_tags_activate));
 		gtk_menu_item_set_submenu (GTK_MENU_ITEM
 					   (menu->functions), submenu);
 	}
@@ -466,9 +473,11 @@ on_text_editor_menu_swap_activate (GtkMenuItem * menuitem, gpointer user_data)
 }
 
 void
-on_text_editor_menu_function_activate (GtkMenuItem * menuitem,
+on_text_editor_menu_tags_activate (GtkMenuItem * menuitem,
 				       gpointer user_data)
 {
-	anjuta_goto_symbol_definition((const char *) user_data, NULL);
+	TextEditor *te = anjuta_get_current_text_editor();
+	if (!te)
+		return;
+	anjuta_goto_local_tag(te, (const char *) user_data);
 }
-

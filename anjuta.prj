@@ -677,5 +677,8 @@ compiler.options.other.l.libs=
 
 project.source.paths=\
 	src\
-	widgets
+	widgets\
+	tagmanager\
+	launcher\
+	scintilla
 

@@ -40,7 +40,7 @@ void text_editor_menu_destroy (TextEditorMenu *);
 void text_editor_menu_popup (TextEditorMenu * menu, GdkEventButton * bevent);
 
 void
-on_text_editor_menu_function_activate (GtkMenuItem * menuitem,
+on_text_editor_menu_tags_activate (GtkMenuItem * menuitem,
 				       gpointer user_data);
 
 void

@@ -169,7 +169,6 @@ anjuta_new ()
 		app->executer = executer_new (app->project_dbase->props);
 		app->command_editor = command_editor_new (app->preferences->props_global,
 					app->preferences->props_local, app->project_dbase->props);
-		app->tags_manager = tags_manager_new ();
 		app->tm_workspace = tm_get_workspace();
 		if (TRUE != tm_workspace_load_global_tags(PACKAGE_DATA_DIR "/system.tags"))
 			g_warning("Unable to load global tag file");
@@ -381,12 +380,6 @@ anjuta_remove_text_editor (TextEditor* te)
 			g_list_remove (app->text_editor_list, te);
 		break;
 	}
-	if (te->full_filename)
-	{
-		if (app->project_dbase->project_is_open == FALSE)
-			tags_manager_remove (app->tags_manager,
-					     te->full_filename);
-	}
 	anjuta_fill_windows_menu ();
 	text_editor_destroy (te);
 	gtk_signal_connect (GTK_OBJECT (app->widgets.notebook), "switch_page",
@@ -523,9 +516,23 @@ anjuta_goto_file_line_mark (gchar * fname, glong lineno, gboolean mark)
 	return te ;
 }
 
-GList *anjuta_get_function_list(TextEditor *te)
+static const GString *get_qualified_tag_name(const TMTag *tag)
 {
-	static GList *funcs = NULL;
+	static GString *s = NULL;
+
+	g_return_val_if_fail((tag && tag->name), NULL);
+	if (!s)
+		s = g_string_sized_new(255);
+	g_string_assign(s, "");
+	if (tag->atts.entry.scope)
+		g_string_sprintfa(s, "%s.", tag->atts.entry.scope);
+	g_string_sprintfa(s, "%s", tag->name);
+	return s;
+}
+
+const GList *anjuta_get_tag_list(TextEditor *te, guint tag_types)
+{
+	static GList *tag_names = NULL;
 
 	if (!te)
 		te = anjuta_get_current_text_editor();
@@ -533,21 +540,25 @@ GList *anjuta_get_function_list(TextEditor *te)
 		(te->tm_file->tags_array->len > 0))
 	{
 		TMTag *tag;
-		int i;
+		guint i;
 
-		if (funcs)
+		if (tag_names)
 		{
-			g_list_free(funcs);
-			funcs = NULL;
+			GList *tmp;
+			for (tmp = tag_names; tmp; tmp = g_list_next(tmp))
+				g_free(tmp->data);
+			g_list_free(tag_names);
+			tag_names = NULL;
 		}
 
 		for (i=0; i < te->tm_file->tags_array->len; ++i)
 		{
 			tag = TM_TAG(te->tm_file->tags_array->pdata[i]);
-			if (tm_tag_function_t == tag->type)
-				funcs = g_list_append(funcs, tag->name);
+			if (tag->type & tag_types)
+				tag_names = g_list_prepend(tag_names, g_strdup(get_qualified_tag_name(tag)->str));
 		}
-		return funcs;
+		tag_names = g_list_sort(tag_names, (GCompareFunc) strcmp);
+		return tag_names;
 	}
 	else
 		return NULL;
@@ -583,75 +594,146 @@ GList *anjuta_get_file_list(void)
 	return files;
 }
 
-void anjuta_goto_symbol_definition(const char *symbol, TextEditor *te)
+gboolean anjuta_goto_local_tag(TextEditor *te, const char *qual_name)
+{
+	char *name;
+	char *scope;
+	guint i;
+	int cmp;
+	TMTag *tag;
+
+	if (!qual_name || !te || !te->tm_file || !te->tm_file->tags_array
+	  || (0 == te->tm_file->tags_array->len))
+		return FALSE;
+	scope = g_strdup(qual_name);
+	name = strrchr(scope, '.');
+	if (name)
+	{
+		*name = '\0';
+		++ name;
+		
+	}
+	else
+	{
+		name = scope;
+		scope = NULL;
+	}
+
+	for (i = 0; i < te->tm_file->tags_array->len; ++i)
+	{
+		tag = TM_TAG(te->tm_file->tags_array->pdata[i]);
+		cmp = strcmp(name, tag->name);
+		if (0 == cmp)
+		{
+			if ((!scope && !tag->atts.entry.scope) || (0 == strcmp(scope, tag->atts.entry.scope)))
+			{
+				text_editor_goto_line(te, tag->atts.entry.line, TRUE);
+				g_free(scope?scope:name);
+				return TRUE;
+			}
+		}
+		else if (cmp < 0)
+		{
+			g_free(scope?scope:name);
+			return FALSE;
+		}
+	}
+	g_free(scope?scope:name);
+	return FALSE;
+}
+
+#define IS_DECLARATION(T) ((tm_tag_prototype_t == (T)) || (tm_tag_externvar_t == (T)) \
+  || (tm_tag_typedef_t == (T)))
+
+void anjuta_goto_tag(const char *symbol, TextEditor *te, gboolean prefer_definition)
 {
 	GPtrArray *tags;
 	TMTag *tag = NULL, *local_tag = NULL, *global_tag = NULL;
 	TMTag *local_proto = NULL, *global_proto = NULL;
-	int i;
+	guint i;
+	int cmp;
 
 	g_return_if_fail(symbol);
 
 	if (!te)
 		te = anjuta_get_current_text_editor();
 
+	/* Get the matching definition and declaration in the local file */
 	if (te && (te->tm_file) && (te->tm_file->tags_array) &&
 		(te->tm_file->tags_array->len > 0))
 	{
 		for (i=0; i < te->tm_file->tags_array->len; ++i)
 		{
 			tag = TM_TAG(te->tm_file->tags_array->pdata[i]);
-			if (0 == strcmp(symbol, tag->name))
+			cmp =  strcmp(symbol, tag->name);
+			if (0 == cmp)
 			{
-				if ((tm_tag_prototype_t == tag->type) || (tm_tag_externvar_t == tag->type))
+				if (IS_DECLARATION(tag->type))
 					local_proto = tag;
 				else
-				{
 					local_tag = tag;
-					break;
-				}
 			}
+			else if (cmp < 0)
+				break;
 		}
 	}
-
-	if (!local_tag)
+	if (!(((prefer_definition) && (local_tag)) || ((!prefer_definition) && (local_proto))))
 	{
+		/* Get the matching definition and declaration in the workspace */
 		tags =  TM_WORK_OBJECT(tm_get_workspace())->tags_array;
 		if (tags && (tags->len > 0))
 		{
 			for (i=0; i < tags->len; ++i)
 			{
 				tag = TM_TAG(tags->pdata[i]);
-				if ((tag->atts.entry.file) && (0 == strcmp(symbol, tag->name)))
+				if (tag->atts.entry.file)
 				{
-					if ((tm_tag_prototype_t == tag->type) || (tm_tag_externvar_t == tag->type))
-						global_proto = tag;
-					else
+					cmp = strcmp(symbol, tag->name);
+					if (cmp == 0)
 					{
-						global_tag = tag;
-						break;
+						if (IS_DECLARATION(tag->type))
+							global_proto = tag;
+						else
+							global_tag = tag;
 					}
+					else if (cmp < 0)
+						break;
 				}
 			}
 		}
 	}
-	if (local_tag)
-		tag = local_tag;
-	else if (global_tag)
-		tag = global_tag;
-	else if (local_proto)
-		tag = local_proto;
-	else if (global_proto)
-		tag = global_proto;
+	if (prefer_definition)
+	{
+		if (local_tag)
+			tag = local_tag;
+		else if (global_tag)
+			tag = global_tag;
+		else if (local_proto)
+			tag = local_proto;
+		else
+			tag = global_proto;
+	}
 	else
-		return;
-	
-	/* Make sure te is not NULL */
-	if (te) {
+	{
+		if (local_proto)
+			tag = local_proto;
+		else if (global_proto)
+			tag = global_proto;
+		else if (local_tag)
+			tag = local_tag;
+		else
+			tag = global_tag;
+	}
+
+	if (te)
+	{
 		an_file_history_push(te->full_filename
 		  , aneditor_command(te->editor_id, ANE_GET_LINENO, (long) NULL, (long) NULL));
+	}
+	if (tag)
+	{
 		anjuta_goto_file_line_mark(tag->atts.entry.file->work_object.file_name
-			, tag->atts.entry.line, TRUE);
+		  , tag->atts.entry.line, TRUE);
 	}
 }
 
@@ -748,7 +830,6 @@ anjuta_show ()
 	/* We do not resize or set the change in props */
 	anjuta_toolbar_set_view (ANJUTA_MAIN_TOOLBAR, FALSE, FALSE, FALSE);
 	anjuta_toolbar_set_view (ANJUTA_EXTENDED_TOOLBAR, FALSE, FALSE, FALSE);
-	anjuta_toolbar_set_view (ANJUTA_TAGS_TOOLBAR, FALSE, FALSE, FALSE);
 	anjuta_toolbar_set_view (ANJUTA_DEBUG_TOOLBAR, FALSE, FALSE, FALSE);
 	anjuta_toolbar_set_view (ANJUTA_BROWSER_TOOLBAR, FALSE, FALSE, FALSE);
 	anjuta_toolbar_set_view (ANJUTA_FORMAT_TOOLBAR, FALSE, FALSE, FALSE);
@@ -764,12 +845,6 @@ anjuta_show ()
 	key = g_strconcat (ANJUTA_EXTENDED_TOOLBAR, ".visible", NULL);
 	gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM
 			(app->widgets.menubar. view.extended_toolbar),
-			prop_get_int (pr, key, 1));
-	g_free (key);
-
-	key = g_strconcat (ANJUTA_TAGS_TOOLBAR, ".visible", NULL);
-	gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM
-			(app->widgets.menubar. view.tags_toolbar),
 			prop_get_int (pr, key, 1));
 	g_free (key);
 
@@ -867,10 +942,6 @@ gboolean anjuta_save_yourself (FILE * stream)
 	g_free (key);
 
 	key = g_strconcat (ANJUTA_DEBUG_TOOLBAR, ".visible", NULL);
-	fprintf (stream, "%s=%d\n", key, prop_get_int (app->preferences->props, key, 1));
-	g_free (key);
-
-	key = g_strconcat (ANJUTA_TAGS_TOOLBAR, ".visible", NULL);
 	fprintf (stream, "%s=%d\n", key, prop_get_int (app->preferences->props, key, 1));
 	g_free (key);
 
@@ -984,14 +1055,12 @@ anjuta_save_all_files()
 {
 	TextEditor *te;
 	int i;
-	tags_manager_freeze (app->tags_manager);
 	for (i = 0; i < g_list_length (app->text_editor_list); i++)
 	{
 		te = g_list_nth_data (app->text_editor_list, i);
 		if (te->full_filename && !text_editor_is_saved (te))
 			text_editor_save_file (te);
 	}
-	tags_manager_thaw (app->tags_manager);
 	anjuta_status (_("All files saved ..."));
 }
 
@@ -1049,8 +1118,6 @@ anjuta_update_title ()
 		if (te->full_filename)
 		{
 			gtk_window_set_title (GTK_WINDOW (window), buff1);
-			tags_manager_set_filename (app->tags_manager,
-						   te->full_filename);
 		}
 		else
 		{
@@ -1264,8 +1331,6 @@ anjuta_clean_exit ()
 		executer_destroy (app->executer);
 	if (app->configurer)
 		configurer_destroy (app->configurer);
-	if (app->tags_manager)
-		tags_manager_destroy (app->tags_manager);
 	if (app->execution_dir)
 		g_free (app->execution_dir);
 	debugger_shutdown ();
@@ -1282,8 +1347,6 @@ anjuta_clean_exit ()
 	
 	gtk_main_quit ();
 }
-
-
 
 void
 anjuta_status (gchar * mesg, ...)

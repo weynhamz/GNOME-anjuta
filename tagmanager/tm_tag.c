@@ -43,7 +43,8 @@ enum
 	TA_TIME,
 	TA_ACCESS,
 	TA_IMPL,
-	TA_LANG
+	TA_LANG,
+	TA_INACTIVE
 };
 
 static guint *s_sort_attrs = NULL;
@@ -67,6 +68,7 @@ static const char *s_tag_type_names[] = {
 	"typedef", /* typedefs */
 	"union", /* union names */
 	"variable", /* variable definitions */
+	"other" /* Other tag type (non C/C++/Java) */
 };
 
 static int s_tag_types[] = {
@@ -86,12 +88,14 @@ static int s_tag_types[] = {
 	tm_tag_struct_t,
 	tm_tag_typedef_t,
 	tm_tag_union_t,
-	tm_tag_variable_t
+	tm_tag_variable_t,
+	tm_tag_other_t
 };
 
 static int get_tag_type(const char *tag_name)
 {
-	int i, cmp;
+	unsigned int i;
+	int cmp;
 	g_return_val_if_fail(tag_name, 0);
 	for (i=0; i < sizeof(s_tag_type_names)/sizeof(char *); ++i)
 	{
@@ -101,7 +105,7 @@ static int get_tag_type(const char *tag_name)
 		else if (cmp < 0)
 			break;
 	}
-#ifdef TM_DEBUG
+#ifdef DEBUG
 	fprintf(stderr, "Unknown tag type %s\n", tag_name);
 #endif
 	return tm_tag_undef_t;
@@ -120,6 +124,7 @@ gboolean tm_tag_init(TMTag *tag, TMSourceFile *file, const tagEntryInfo *tag_ent
 			tag->type = tm_tag_file_t;
 			tag->atts.file.timestamp = file->work_object.analyze_time;
 			tag->atts.file.lang = file->lang;
+			tag->atts.file.inactive = FALSE;
 			return TRUE;
 		}
 	}
@@ -150,9 +155,15 @@ gboolean tm_tag_init(TMTag *tag, TMSourceFile *file, const tagEntryInfo *tag_ent
 				tag->atts.entry.access = TAG_ACCESS_PROTECTED;
 			else if (0 == strcmp("private", tag_entry->extensionFields.access))
 				tag->atts.entry.access = TAG_ACCESS_PRIVATE;
+			else if (0 == strcmp("friend", tag_entry->extensionFields.access))
+				tag->atts.entry.access = TAG_ACCESS_FRIEND;
+			else if (0 == strcmp("default", tag_entry->extensionFields.access))
+				tag->atts.entry.access = TAG_ACCESS_DEFAULT;
 			else
 			{
+#ifdef DEBUG
 				g_warning("Unknown access type %s", tag_entry->extensionFields.access);
+#endif
 				tag->atts.entry.access = TAG_ACCESS_UNKNOWN;
 			}
 		}
@@ -163,7 +174,9 @@ gboolean tm_tag_init(TMTag *tag, TMSourceFile *file, const tagEntryInfo *tag_ent
 				tag->atts.entry.impl = TAG_IMPL_VIRTUAL;
 			else
 			{
+#ifdef DEBUG
 				g_warning("Unknown implementation %s", tag_entry->extensionFields.implementation);
+#endif
 				tag->atts.entry.impl = TAG_IMPL_UNKNOWN;
 			}
 		}
@@ -254,14 +267,25 @@ gboolean tm_tag_init_from_file(TMTag *tag, TMSourceFile *file, FILE *fp)
 					else
 						tag->atts.file.lang = atoi(start + 1);
 					break;
+				case TA_INACTIVE:
+					if (tm_tag_file_t != tag->type)
+					{
+						g_warning("Got inactive attribute for non-file tag %s", tag->name);
+						return FALSE;
+					}
+					else
+						tag->atts.file.inactive = (gboolean) atoi(start + 1);
+					break;
 				case TA_ACCESS:
 					tag->atts.entry.access = *(start + 1);
 					break;
 				case TA_IMPL:
-					tag->atts.entry.access = *(start + 1);
+					tag->atts.entry.impl = *(start + 1);
 					break;
 				default:
+#ifdef DEBUG
 					g_warning("Unknown attribute %s", start + 1);
+#endif
 					break;
 			}
 		}
@@ -298,6 +322,8 @@ gboolean tm_tag_write(TMTag *tag, FILE *fp, guint attrs)
 			fprintf(fp, "%c%ld", TA_TIME, tag->atts.file.timestamp);
 		if (attrs & tm_tag_attr_lang_t)
 			fprintf(fp, "%c%d", TA_LANG, tag->atts.file.lang);
+		if ((attrs & tm_tag_attr_inactive_t) && tag->atts.file.inactive)
+			fprintf(fp, "%c%d", TA_INACTIVE, tag->atts.file.inactive);
 	}
 	else
 	{
@@ -404,7 +430,7 @@ int tm_tag_compare(const void *ptr1, const void *ptr2)
 
 gboolean tm_tags_prune(GPtrArray *tags_array)
 {
-	int i, count;
+	guint i, count;
 	for (i=0, count = 0; i < tags_array->len; ++i)
 	{
 		if (NULL != tags_array->pdata[i])
@@ -416,7 +442,7 @@ gboolean tm_tags_prune(GPtrArray *tags_array)
 
 gboolean tm_tags_dedup(GPtrArray *tags_array, TMTagAttrType *sort_attributes)
 {
-	int i;
+	guint i;
 
 	if ((!tags_array) || (!tags_array->len))
 		return TRUE;
@@ -433,7 +459,7 @@ gboolean tm_tags_dedup(GPtrArray *tags_array, TMTagAttrType *sort_attributes)
 
 gboolean tm_tags_custom_dedup(GPtrArray *tags_array, TMTagCompareFunc compare_func)
 {
-	int i;
+	guint i;
 
 	if ((!tags_array) || (!tags_array->len))
 		return TRUE;
@@ -472,7 +498,7 @@ gboolean tm_tags_custom_sort(GPtrArray *tags_array, TMTagCompareFunc compare_fun
 GPtrArray *tm_tags_extract(GPtrArray *tags_array, guint tag_types)
 {
 	GPtrArray *new_tags;
-	int i;
+	guint i;
 	if (NULL == tags_array)
 		return NULL;
 	new_tags = g_ptr_array_new();
@@ -491,7 +517,7 @@ void tm_tags_array_free(GPtrArray *tags_array, gboolean free_all)
 {
 	if (NULL != tags_array)
 	{
-		int i;
+		guint i;
 		for (i = 0; i < tags_array->len; ++i)
 			tm_tag_free(tags_array->pdata[i]);
 		if (free_all)
@@ -614,7 +640,7 @@ void tm_tag_print(TMTag *tag, FILE *fp)
 
 void tm_tags_array_print(GPtrArray *tags, FILE *fp)
 {
-	int i;
+	guint i;
 	TMTag *tag;
 	if (!(tags && (tags->len > 0) && fp))
 		return;

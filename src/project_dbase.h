@@ -19,7 +19,6 @@
 #ifndef _PROJECT_DBASE_H_
 #define _PROJECT_DBASE_H_
 
-#include "tags_manager.h"
 #include "properties.h"
 #include "project_config.h"
 #include "project_type.h"

@@ -16,7 +16,15 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
+#ifndef AN_TOOLBAR_CALLBACKS_H
+#define AN_TOOLBAR_CALLBACKS_H
+
 #include <gnome.h>
+
+#ifdef __cplusplus
+extern "C"
+{
+#endif
 
 void
 on_toolbar_new_clicked                 (GtkButton       *button,
@@ -64,6 +72,11 @@ on_toolbar_find_clicked                (GtkButton       *button,
 void
 on_toolbar_goto_clicked                (GtkButton       *button,
                                         gpointer         user_data);
+
+void
+on_toolbar_tag_clicked                (GtkButton       *button,
+                                        gpointer         user_data);
+
 void
 on_toolbar_project_clicked                (GtkButton       *button,
                                         gpointer         user_data);
@@ -163,23 +176,6 @@ void
 on_toolbar_debug_stop_clicked           (GtkButton       *button,
                                         gpointer         user_data);
 void
-on_tag_combo_entry_changed             (GtkEditable     *editable,
-                                        gpointer         user_data);
-void
-on_member_combo_entry_changed             (GtkEditable     *editable,
-                                        gpointer         user_data);
-
-
-void
-on_tag_combo_list_select_child                  (GtkList         *list,
-                                        GtkWidget       *widget,
-                                        gpointer         user_data);
-
-void
-on_member_combo_list_select_child                  (GtkList         *list,
-                                        GtkWidget       *widget,
-                                        gpointer         user_data);
-void
 on_browser_wizard_clicked  (GtkButton       *button,
                                         gpointer         user_data);
 void
@@ -241,34 +237,8 @@ void
 on_format_autocomplete_clicked   (GtkButton       *button,
                   gpointer         user_data);
 
-void
-on_tag_functions_activate                (GtkMenuItem     *menuitem,
-                                        gpointer         user_data);
+#ifdef __cplusplus
+}
+#endif
 
-void
-on_tag_classes_activate                (GtkMenuItem     *menuitem,
-                                        gpointer         user_data);
-
-void
-on_tag_structs_activate                (GtkMenuItem     *menuitem,
-                                        gpointer         user_data);
-
-void
-on_tag_unions_activate                 (GtkMenuItem     *menuitem,
-                                        gpointer         user_data);
-
-void
-on_tag_enums_activate                  (GtkMenuItem     *menuitem,
-                                        gpointer         user_data);
-
-void
-on_tag_variables_activate              (GtkMenuItem     *menuitem,
-                                        gpointer         user_data);
-
-void
-on_tag_macros_activate                 (GtkMenuItem     *menuitem,
-                                        gpointer         user_data);
-
-void
-on_tag_browser_activate                 (GtkMenuItem     *menuitem,
-                                        gpointer         user_data);
+#endif /* AN_TOOLBAR_CALLBACKS_H */

@@ -22,7 +22,6 @@
 #include <gnome.h>
 
 typedef struct _MainToolbar MainToolbar;
-typedef struct _TagsToolbar TagsToolbar;
 typedef struct _ExtendedToolbar ExtendedToolbar;
 typedef struct _DebugToolbar DebugToolbar;
 typedef struct _BrowserToolbar BrowserToolbar;
@@ -121,6 +120,10 @@ struct _BrowserToolbar
 	GtkWidget *next_error;
 	GtkWidget *block_start;
 	GtkWidget *block_end;
+	
+	GtkWidget *tag;
+	GtkWidget *tag_combo;
+	GtkWidget *tag_entry;
 };
 
 struct _FormatToolbar
@@ -142,25 +145,9 @@ struct _FormatToolbar
 	GtkWidget *autocomplete;
 };
 
-struct _TagsToolbar
-{
-	GtkWidget *toolbar;
-
-	GtkWidget *tags_type;
-	GtkWidget *tags_menu;
-	GtkWidget *tag_label;
-	GtkWidget *tag_combo;
-	GtkWidget *tag_entry;
-	GtkWidget *member_label;
-	GtkWidget *member_combo;
-	GtkWidget *member_entry;
-	GtkWidget *wizard;
-};
-
 struct _Toolbar
 {
 	MainToolbar main_toolbar;
-	TagsToolbar tags_toolbar;
 	ExtendedToolbar extended_toolbar;
 	DebugToolbar debug_toolbar;
 	BrowserToolbar browser_toolbar;
@@ -169,9 +156,6 @@ struct _Toolbar
 
 GtkWidget *create_main_toolbar (GtkWidget * window,
 				MainToolbar * main_toolbar);
-
-GtkWidget *create_tags_toolbar (GtkWidget * anjuta_gui,
-				TagsToolbar * toolbar);
 
 GtkWidget *create_extended_toolbar (GtkWidget * window,
 				    ExtendedToolbar * extended_toolbar);
@@ -184,7 +168,5 @@ GtkWidget *create_debug_toolbar (GtkWidget * window,
 
 GtkWidget *create_format_toolbar (GtkWidget * window,
 				  FormatToolbar * format_toolbar);
-
-GtkWidget *create_tag_menu (void);
 
 #endif

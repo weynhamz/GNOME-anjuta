@@ -1035,14 +1035,6 @@ on_extended_toolbar1_activate (GtkMenuItem * menuitem, gpointer user_data)
 }
 
 void
-on_tags_toolbar1_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-	gboolean state;
-	state = GTK_CHECK_MENU_ITEM (menuitem)->active;
-	anjuta_toolbar_set_view (ANJUTA_TAGS_TOOLBAR, state, TRUE, TRUE);
-}
-
-void
 on_debug_toolbar1_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
 	gboolean state;
@@ -1203,29 +1195,8 @@ on_indent_dcr1_activate (GtkMenuItem * menuitem, gpointer user_data)
 void
 on_update_tags1_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
-	TextEditor *te;
-	gint i;
-
-	tags_manager_freeze (app->tags_manager);
-	/*tags_manager_clear (app->tags_manager);*/
-
 	if (app->project_dbase->project_is_open)
-	{
 		project_dbase_update_tags_image(app->project_dbase);
-	}
-	else
-	{
-		tags_manager_clear (app->tags_manager);
-		for (i = 0; i < g_list_length (app->text_editor_list); i++)
-		{
-			te = g_list_nth_data (app->text_editor_list, i);
-			if (te->full_filename)
-				tags_manager_update (app->tags_manager,
-						     te->full_filename);
-		}
-	}
-	tags_manager_thaw (app->tags_manager);
-	anjuta_status (_("Tags image update successfully."));
 }
 
 void
@@ -2005,7 +1976,7 @@ on_context_help_activate (GtkMenuItem * menuitem, gpointer user_data)
 }
 
 void
-on_goto_tag_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_goto_tag_definition_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
 	TextEditor* te;
 	gboolean ret;
@@ -2017,7 +1988,23 @@ on_goto_tag_activate (GtkMenuItem * menuitem, gpointer user_data)
 	if (!ret)
 		return;
 	else
-		anjuta_goto_symbol_definition(buffer, te);
+		anjuta_goto_tag(buffer, te, TRUE);
+}
+
+void
+on_goto_tag_declaration_activate (GtkMenuItem * menuitem, gpointer user_data)
+{
+	TextEditor* te;
+	gboolean ret;
+	gchar buffer[1000];
+
+	te = anjuta_get_current_text_editor();
+	if(!te) return;
+	ret = aneditor_command (te->editor_id, ANE_GETCURRENTWORD, (long)buffer, (long)sizeof(buffer));
+	if (!ret)
+		return;
+	else
+		anjuta_goto_tag(buffer, te, FALSE);
 }
 
 void

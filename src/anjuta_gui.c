@@ -39,7 +39,6 @@ create_anjuta_gui (AnjutaApp * appl)
 	GtkWidget *eventbox1;
 	GtkWidget *toolbar1;
 	GtkWidget *toolbar2;
-	GtkWidget *toolbar3;
 	GtkWidget *toolbar4;
 	GtkWidget *toolbar5;
 	GtkWidget *toolbar6;
@@ -114,20 +113,6 @@ create_anjuta_gui (AnjutaApp * appl)
 	gtk_toolbar_set_space_style (GTK_TOOLBAR (toolbar2),
 				     GTK_TOOLBAR_SPACE_LINE);
 	gtk_toolbar_set_button_relief (GTK_TOOLBAR (toolbar2),
-				       GTK_RELIEF_NONE);
-
-	toolbar3 =
-		create_tags_toolbar (anjuta_gui,
-				     &(appl->widgets.toolbar.tags_toolbar));
-	gnome_app_add_toolbar (GNOME_APP (anjuta_gui), GTK_TOOLBAR (toolbar3),
-			       ANJUTA_TAGS_TOOLBAR,
-			       GNOME_DOCK_ITEM_BEH_EXCLUSIVE |
-			       GNOME_DOCK_ITEM_BEH_NEVER_VERTICAL,
-			       GNOME_DOCK_TOP, 2, 0, 0);
-	gtk_toolbar_set_space_size (GTK_TOOLBAR (toolbar3), 5);
-	gtk_toolbar_set_space_style (GTK_TOOLBAR (toolbar3),
-				     GTK_TOOLBAR_SPACE_LINE);
-	gtk_toolbar_set_button_relief (GTK_TOOLBAR (toolbar3),
 				       GTK_RELIEF_NONE);
 
 	toolbar4 =

@@ -343,7 +343,7 @@ static void createTags (const unsigned int nestLevel, statementInfo *const paren
 */
 
 /* Debugging functions added by Biswa */
-#if DEBUG
+#if DEBUG_C
 static char *tokenTypeName[] = {
     "none", "args", "'}'", "'{'", "','", "'::'", "keyword", "name",
     "package", "paren-name", "';'",	"spec", "count"
@@ -878,7 +878,8 @@ static void addOtherFields (tagEntryInfo* const tag, const tagType type,
 	    }
 		if ((TRUE == st->gotArgs) && (TRUE == Option.extensionFields.argList) &&
 			((TAG_FUNCTION == type) || (TAG_METHOD == type) || (TAG_PROTOTYPE == type)))
-				tag->extensionFields.arglist = getArglistFromPos(tag->filePosition, tag->name, FALSE);
+				tag->extensionFields.arglist = getArglistFromPos(
+				  tag->filePosition, tag->name);
 	    break;
     }
 	
@@ -987,7 +988,7 @@ static void makeTag (const tokenInfo *const token,
 		     const statementInfo *const st,
 		     boolean isFileScope, const tagType type)
 {
-#ifdef DEBUG
+#ifdef DEBUG_C
 	printToken(token);
 	fprintf(stderr, "<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>\n");
 	printStatement(st);
@@ -1014,7 +1015,7 @@ static void makeTag (const tokenInfo *const token,
 	findScopeHierarchy (scope, st);
 	addOtherFields (&e, type, st, scope);
 
-#ifdef DEBUG
+#ifdef DEBUG_C
 	printTagEntry(&e);
 #endif
 	makeTagEntry (&e);

@@ -1925,7 +1925,7 @@ msgid ""
 "Autogeneration completed...............Successful\n"
 "Now Build the project to have a LOOK at it\n"
 msgstr ""
-"²£¥Í±M®×©Ò»Ýªº¥þ³¡¦³ÃöÀÉ®×ªº¤u§@¤w§¹¦¨..............¦¨¥\\n²{¦b¥i¥H°õ¦æ\"«Ø¥ß±"
+"²£¥Í±M®×©Ò»Ýªº¥þ³¡¦³ÃöÀÉ®×ªº¤u§@¤w§¹¦¨..............¦¨¥\\n²{¦b¥i¥H°õ¦æ\"«Ø¥ß±\n"
 "M®×\"¥h¬Ý¬Ýµ{¦¡ªº¼Ë¤l¤F\n"
 
 #: src/gnome_project.c:247

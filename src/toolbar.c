@@ -569,137 +569,6 @@ create_extended_toolbar (GtkWidget * anjuta_gui, ExtendedToolbar * toolbar)
 }
 
 GtkWidget *
-create_tags_toolbar (GtkWidget * anjuta_gui, TagsToolbar * toolbar)
-{
-	GtkWidget *window1;
-	GtkWidget *toolbar1;
-	GtkWidget *optionmenu1;
-	GtkWidget *optionmenu1_menu;
-	GtkWidget *combo1;
-	GtkWidget *combo_entry1;
-	GtkWidget *combo_list1;
-	GtkWidget *label1;
-	GtkWidget *label2;
-	GtkWidget *combo2;
-	GtkWidget *combo_entry2;
-	GtkWidget *combo_list2;
-	GtkWidget *tmp_toolbar_icon;
-	GtkWidget *button1;
-	GtkTooltips *tooltips;
-
-	tooltips = gtk_tooltips_new ();
-
-	window1 = anjuta_gui;
-
-	toolbar1 =
-		gtk_toolbar_new (GTK_ORIENTATION_HORIZONTAL,
-				 GTK_TOOLBAR_ICONS);
-	gtk_widget_ref (toolbar1);
-	gtk_widget_show (toolbar1);
-
-	optionmenu1 = gtk_option_menu_new ();
-	gtk_widget_ref (optionmenu1);
-	gtk_widget_show (optionmenu1);
-	gtk_toolbar_append_widget (GTK_TOOLBAR (toolbar1), optionmenu1,
-				   _("Select the type of tag"), NULL);
-	optionmenu1_menu = create_tag_menu ();
-
-	gtk_option_menu_set_menu (GTK_OPTION_MENU (optionmenu1),
-				  optionmenu1_menu);
-
-	label1 = gtk_label_new (_("File:"));
-	gtk_widget_ref (label1);
-	gtk_widget_show (label1);
-	gtk_toolbar_append_widget (GTK_TOOLBAR (toolbar1), label1, NULL,
-				   NULL);
-	/* gtk_widget_set_usize (label1, 50, -2); */
-	gtk_misc_set_padding (GTK_MISC (label1), 5, 0);
-
-	combo1 = gtk_combo_new ();
-	gtk_widget_ref (combo1);
-	gtk_widget_show (combo1);
-	gtk_toolbar_append_widget (GTK_TOOLBAR (toolbar1), combo1, NULL,
-				   NULL);
-	gtk_widget_set_usize (combo1, 200, -2);
-
-	combo_entry1 = GTK_COMBO (combo1)->entry;
-	gtk_widget_ref (combo_entry1);
-	gtk_widget_show (combo_entry1);
-	gtk_tooltips_set_tip (tooltips, combo_entry1, _("Source File"), NULL);
-	gtk_entry_set_editable (GTK_ENTRY (combo_entry1), FALSE);
-
-	combo_list1 = GTK_COMBO (combo1)->list;
-
-	label2 = gtk_label_new (_("Function:"));
-	gtk_widget_ref (label2);
-	gtk_widget_show (label2);
-	gtk_toolbar_append_widget (GTK_TOOLBAR (toolbar1), label2, NULL,
-				   NULL);
-	/* gtk_widget_set_usize (label2, 90, -2);*/
-	gtk_misc_set_padding (GTK_MISC (label2), 5, 0);
-
-	combo2 = gtk_combo_new ();
-	gtk_widget_ref (combo2);
-	gtk_widget_show (combo2);
-	gtk_toolbar_append_widget (GTK_TOOLBAR (toolbar1), combo2, NULL,
-				   NULL);
-	gtk_widget_set_usize (combo2, 245, -2);
-
-	combo_entry2 = GTK_COMBO (combo2)->entry;
-	gtk_widget_ref (combo_entry2);
-	gtk_widget_show (combo_entry2);
-	gtk_tooltips_set_tip (tooltips, combo_entry2, _("Tag in the file"),
-			      NULL);
-	gtk_entry_set_editable (GTK_ENTRY (combo_entry2), FALSE);
-
-	combo_list2 = GTK_COMBO (combo2)->list;
-
-	tmp_toolbar_icon =
-		anjuta_res_get_pixmap_widget (window1, ANJUTA_PIXMAP_WIZARD, FALSE);
-	button1 =
-		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar1),
-					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
-					    _("wizard"), _("The Wizard"),
-					    NULL, tmp_toolbar_icon, NULL,
-					    NULL);
-	gtk_widget_ref (button1);
-	
-	/* Unimplemented */
-	gtk_widget_hide (button1);
-
-
-	gtk_signal_connect (GTK_OBJECT (combo_entry1), "changed",
-			    GTK_SIGNAL_FUNC (on_tag_combo_entry_changed),
-			    NULL);
-	gtk_signal_connect (GTK_OBJECT (combo_entry2), "changed",
-			    GTK_SIGNAL_FUNC (on_member_combo_entry_changed),
-			    NULL);
-	gtk_signal_connect (GTK_OBJECT (combo_list1), "select_child",
-			    GTK_SIGNAL_FUNC (on_tag_combo_list_select_child),
-			    NULL);
-	gtk_signal_connect (GTK_OBJECT (combo_list2), "select_child",
-			    GTK_SIGNAL_FUNC
-			    (on_member_combo_list_select_child), NULL);
-	gtk_signal_connect (GTK_OBJECT (button1), "clicked",
-			    GTK_SIGNAL_FUNC (on_browser_wizard_clicked),
-			    NULL);
-
-
-	toolbar->toolbar = toolbar1;
-	toolbar->tags_type = optionmenu1;
-	toolbar->tags_menu = optionmenu1_menu;
-	toolbar->tag_label = label1;
-	toolbar->tag_combo = combo1;
-	toolbar->tag_entry = combo_entry1;
-	toolbar->member_label = label2;
-	toolbar->member_combo = combo2;
-	toolbar->member_entry = combo_entry2;
-	toolbar->wizard = button1;
-
-	return toolbar1;
-}
-
-GtkWidget *
 create_browser_toolbar (GtkWidget * anjuta_gui, BrowserToolbar * toolbar)
 {
 	GtkWidget *window1;
@@ -714,6 +583,11 @@ create_browser_toolbar (GtkWidget * anjuta_gui, BrowserToolbar * toolbar)
 	GtkWidget *button8;
 	GtkWidget *button9;
 	GtkWidget *button10;
+	/* Goto Tag functionality - Biswa */
+	GtkWidget *toolbar_tag;
+	GtkWidget *toolbar_tag_combo;
+	GtkWidget *toolbar_tag_entry;
+	/* End of Goto Tag widgets */
 	GtkTooltips *tooltips;
 	GtkWidget *tmp_toolbar_icon;
 
@@ -857,6 +731,39 @@ create_browser_toolbar (GtkWidget * anjuta_gui, BrowserToolbar * toolbar)
 					    NULL);
 	gtk_widget_ref (button10);
 	gtk_widget_show (button10);
+	
+	/* Tag combo entry - added by Biswa */
+	tmp_toolbar_icon =
+		anjuta_res_get_pixmap_widget (anjuta_gui, ANJUTA_PIXMAP_TAG, FALSE);
+	toolbar_tag =
+		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar2),
+					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
+					    _("Goto Tag"),
+					    _("Search for the given tag in the current file"),
+					    NULL, tmp_toolbar_icon, NULL,
+					    NULL);
+	gtk_widget_ref (toolbar_tag);
+	gtk_widget_show (toolbar_tag);
+
+	toolbar_tag_combo = gtk_combo_new ();
+	gtk_widget_ref (toolbar_tag_combo);
+	gtk_combo_set_case_sensitive (GTK_COMBO (toolbar_tag_combo), TRUE);
+	gtk_widget_show (toolbar_tag_combo);
+	gtk_toolbar_append_widget (GTK_TOOLBAR (toolbar2), toolbar_tag_combo,
+				   NULL, NULL);
+
+	toolbar_tag_entry = GTK_COMBO (toolbar_tag_combo)->entry;
+	gtk_editable_set_editable(GTK_EDITABLE(toolbar_tag_entry), FALSE);
+	gtk_widget_ref (toolbar_tag_entry);
+	gtk_widget_show (toolbar_tag_entry);
+	gtk_tooltips_set_tip (tooltips, toolbar_tag_entry,
+			      _
+			      ("Enter the tag to jump to"),
+			      NULL);
+
+	gtk_toolbar_append_space (GTK_TOOLBAR (toolbar2));
+	/* Tag combo entry ends here */
+
 
 	gtk_signal_connect (GTK_OBJECT (button2), "clicked",
 			    GTK_SIGNAL_FUNC
@@ -885,6 +792,13 @@ create_browser_toolbar (GtkWidget * anjuta_gui, BrowserToolbar * toolbar)
 	gtk_signal_connect (GTK_OBJECT (button10), "clicked",
 			    GTK_SIGNAL_FUNC (on_browser_block_end_clicked),
 			    NULL);
+	/* Goto Tag signal handlers */
+	gtk_signal_connect (GTK_OBJECT (toolbar_tag), "clicked",
+			    GTK_SIGNAL_FUNC (on_toolbar_tag_clicked), NULL);
+	gtk_signal_connect (GTK_OBJECT(GTK_COMBO(toolbar_tag_combo)->list),
+			    "selection-changed", GTK_SIGNAL_FUNC (on_toolbar_tag_clicked), NULL);
+	/* End of Goto Tag signal handlers */
+
 
 	toolbar->toolbar = toolbar2;
 	toolbar->toggle_bookmark = button2;
@@ -896,6 +810,11 @@ create_browser_toolbar (GtkWidget * anjuta_gui, BrowserToolbar * toolbar)
 	toolbar->next_error = button8;
 	toolbar->block_start = button9;
 	toolbar->block_end = button10;
+	/* Goto Tag stuff - added by Biswa */
+	toolbar->tag = toolbar_tag;
+	toolbar->tag_combo = toolbar_tag_combo;
+	toolbar->tag_entry = toolbar_tag_entry;
+	/* End of added code */
 
 	return toolbar2;
 }
@@ -1357,67 +1276,4 @@ create_format_toolbar (GtkWidget * anjuta_gui, FormatToolbar * toolbar)
 	toolbar->autocomplete = button11;
 
 	return toolbar2;
-}
-
-static GnomeUIInfo menu1_uiinfo[] = {
-	{
-	 GNOME_APP_UI_ITEM, N_("Functions"),
-	 NULL,
-	 on_tag_functions_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
-	 0, 0, NULL},
-	GNOMEUIINFO_SEPARATOR,
-	{
-	 GNOME_APP_UI_ITEM, N_("Classes"),
-	 NULL,
-	 on_tag_classes_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
-	 0, 0, NULL},
-	GNOMEUIINFO_SEPARATOR,
-	{
-	 GNOME_APP_UI_ITEM, N_("Structs"),
-	 NULL,
-	 on_tag_structs_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
-	 0, 0, NULL},
-	GNOMEUIINFO_SEPARATOR,
-	{
-	 GNOME_APP_UI_ITEM, N_("Unions"),
-	 NULL,
-	 on_tag_unions_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
-	 0, 0, NULL},
-	GNOMEUIINFO_SEPARATOR,
-	{
-	 GNOME_APP_UI_ITEM, N_("Enums"),
-	 NULL,
-	 on_tag_enums_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
-	 0, 0, NULL},
-	GNOMEUIINFO_SEPARATOR,
-	{
-	 GNOME_APP_UI_ITEM, N_("Variables"),
-	 NULL,
-	 on_tag_variables_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
-	 0, 0, NULL},
-	GNOMEUIINFO_SEPARATOR,
-	{
-	 GNOME_APP_UI_ITEM, N_("Macros"),
-	 NULL,
-	 on_tag_macros_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
-	 0, 0, NULL},
-	GNOMEUIINFO_END
-};
-
-GtkWidget *
-create_tag_menu ()
-{
-	GtkWidget *menu1;
-
-	menu1 = gtk_menu_new ();
-	gnome_app_fill_menu (GTK_MENU_SHELL (menu1), menu1_uiinfo,
-			     NULL, FALSE, 0);
-	return menu1;
 }

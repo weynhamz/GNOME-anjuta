@@ -463,13 +463,6 @@ static GnomeUIInfo toolbar1_submenu_uiinfo[] = {
 	 0, 0, NULL},
 	GNOMEUIINFO_SEPARATOR,
 	{
-	 GNOME_APP_UI_TOGGLEITEM, N_("_Tags Toolbar"),
-	 N_("Hide/Unhide Tags toolbar"),
-	 on_tags_toolbar1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
-	 0, 0, NULL},
-	GNOMEUIINFO_SEPARATOR,
-	{
 	 GNOME_APP_UI_TOGGLEITEM, N_("_Debug Toolbar"),
 	 N_("Hide/Unhide Debug toolbar"),
 	 on_debug_toolbar1_activate, NULL, NULL,

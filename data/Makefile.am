@@ -46,6 +46,9 @@ uninstall-local:
 	  fi; \
 	fi
 
+clean-local:
+	@rm -f system.tags
+
 system.tags:
 	cd $(top_srcdir)/tagmanager && make libctags.a
 	cd $(top_srcdir)/global-tags && make system.tags

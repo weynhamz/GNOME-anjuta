@@ -300,9 +300,6 @@ on_save_as_overwrite_yes_clicked (GtkButton * button, gpointer user_data)
 			g_free (saved_filename);
 		if (saved_full_filename)
 		{
-			if (app->project_dbase->project_is_open == FALSE)
-				tags_manager_remove (app->tags_manager,
-						     saved_full_filename);
 			g_free (saved_full_filename);
 		}
 		if (closing_state)

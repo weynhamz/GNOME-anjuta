@@ -344,13 +344,14 @@ static void sv_assign_node_name(TMSymbol *sym, GString *s)
 	switch(sym->tag->type)
 	{
 		case tm_tag_function_t:
+		case tm_tag_prototype_t:
 		case tm_tag_macro_with_arg_t:
 			if (sym->tag->atts.entry.arglist)
 				g_string_append(s, sym->tag->atts.entry.arglist);
 			break;
 		default:
 			if (sym->tag->atts.entry.var_type)
-				g_string_sprintfa(s, " <%s>"
+				g_string_sprintfa(s, " [%s]"
 				  , sym->tag->atts.entry.var_type);
 			break;
 	}
@@ -376,7 +377,7 @@ AnSymbolView *sv_populate(void)
 	gboolean has_children;
 	int i, j;
 
-#ifdef TM_DEBUG
+#ifdef DEBUG
 	g_message("Populating symbol view..");
 #endif
 
@@ -412,12 +413,16 @@ AnSymbolView *sv_populate(void)
 		if (!sym || ! sym->tag || !sym->tag->atts.entry.file)
 			continue;
 		type = sv_get_node_type(sym);
-		if (sv_none_t == type)
-			continue;
-		parent_item = root[sv_get_root_type(type)];
+		root_type = sv_get_root_type(type);
+		parent_item = root[root_type];
 		if (!parent_item)
 			continue;
 		sv_assign_node_name(sym, s);
+		if (sym->tag->atts.entry.scope)
+		{
+			g_string_insert(s, 0,"::");
+			g_string_insert(s, 0, sym->tag->atts.entry.scope);
+		}
 		arr[0] = s->str;
 		if ((tm_tag_function_t != sym->tag->type) &&
 			(sym->info.children) && (sym->info.children->len > 0))

@@ -306,7 +306,8 @@ static void makeDefineTag (const char *const name, boolean parameterized)
 	e.kindName	= "macro";
 	e.kind		= 'd';
 	if (parameterized)
-		e.extensionFields.arglist = getArglistFromPos(getInputFilePosition(), e.name, TRUE);
+		e.extensionFields.arglist = getArglistFromPos(getInputFilePosition()
+		  , e.name);
 	makeTagEntry (&e);
 	if (parameterized)
 		free((char *) e.extensionFields.arglist);
@@ -622,7 +623,7 @@ process:
 }
 
 
-extern char *getArglistFromPos(fpos_t startPosition, const char *tokenName, boolean isMacro)
+extern char *getArglistFromPos(fpos_t startPosition, const char *tokenName)
 {
 	fpos_t originalPosition;
 	char *result = NULL;
@@ -639,7 +640,7 @@ extern char *getArglistFromPos(fpos_t startPosition, const char *tokenName, bool
 		{
 			fread(result, sizeof(char), pos2 - pos1 + 1, File.fp);
 			result[pos2-pos1+1] = '\0';
-			arglist = getArglistFromStr(result, tokenName, isMacro);
+			arglist = getArglistFromStr(result, tokenName);
 			free(result);
 		}
 	}
@@ -734,7 +735,7 @@ static void stripCodeBuffer(char *buf)
 	return;
 }
 
-extern char *getArglistFromStr(char *buf, const char *name, boolean isMacro)
+extern char *getArglistFromStr(char *buf, const char *name)
 {
 	char *start, *end;
 	int level;
