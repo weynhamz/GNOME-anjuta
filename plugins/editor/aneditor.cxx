@@ -128,6 +128,18 @@ struct StyleAndWords {
 	bool IsSingleChar() { return words.length() == 1; }
 };
 
+
+// will contain the parameters for the recursive function completion
+typedef struct _CallTipNode {
+
+	int startCalltipWord; 
+	SString *functionDefinition;
+	int rootlen;
+	int pos;
+	int call_tip_start_pos;
+	
+} CallTipNode, *CallTipNode_ptr;
+
 // Related to Utf8_16::encodingType but with additional values at end
 enum UniMode {
 	uni8Bit=0, uni16BE=1, uni16LE=2, uniUTF8=3,
@@ -156,7 +168,6 @@ protected:
 	int lexLanguage;
 	SString overrideExtension;	// User has chosen to use a particular language
 	enum {numWordLists=5};
-	SString functionDefinition;
 	GtkAccelGroup* accelGroup;
 
 	int indentSize;
@@ -186,7 +197,8 @@ protected:
 	bool sbVisible;
 	int visHeightTools;
 	int visHeightTab;
-	int visHeightStatus;int visHeightEditor;
+	int visHeightStatus;
+	int visHeightEditor;
 	int heightBar;
 
 	int heightOutput;
@@ -215,6 +227,9 @@ protected:
 	SString autoCompleteFillUpCharacters;
 	SString wordCharacters;
 	int startCalltipWord;
+	
+	GQueue *call_tip_node_queue;
+	CallTipNode call_tip_node;
 	
 	bool margin;
 	int marginWidth;
@@ -270,8 +285,16 @@ protected:
 	SString FindOpenXmlTag(const char sel[], int nSize);
 	void GoMatchingBrace(bool select);
 	void GetRange(guint start, guint end, gchar *text, gboolean styled);
-	bool StartCallTip();
-	void ContinueCallTip();
+//	bool StartCallTip();
+//	void ContinueCallTip();
+	// added
+	bool StartCallTip_new();
+	void ContinueCallTip_new();
+	void SaveCallTip();
+	void ResumeCallTip();
+	void ShutDownCallTip();
+	void SetCallTipDefaults( );
+
 	bool StartAutoComplete();
 	bool StartAutoCompleteWord(int autoShowCount);
 	bool StartBlockComment();
@@ -391,7 +414,6 @@ AnEditor::AnEditor(PropSetFile* p) {
 	characterSet = 0;
 	language = "java";
 	lexLanguage = SCLEX_CPP;
-	functionDefinition = 0;
 	indentSize = 8;
 	indentOpening = true;
 	indentClosing = true;
@@ -434,7 +456,13 @@ AnEditor::AnEditor(PropSetFile* p) {
 	autoCompleteIgnoreCase = false;
 	callTipIgnoreCase = false;
 	autoCCausedByOnlyOne = false;
-	startCalltipWord = 0;
+//	startCalltipWord = 0;
+ 
+	// init calltips
+	call_tip_node.functionDefinition = new SString("");
+	SetCallTipDefaults( );
+	call_tip_node_queue = g_queue_new();
+		
 
 	margin = false;
 	marginWidth = marginWidthDefault;
@@ -1003,6 +1031,11 @@ void AnEditor::BookmarkClear() {
 	SendEditor(SCI_MARKERDELETEALL, ANE_MARKER_BOOKMARK);
 }
 
+/*/
+//------------------------------------------------------------------------------
+// will use call_tip_node to save preferences/changes on calltips.
+// call_tip_node will be swapped by SaveCallTip ResumeCallTip functions
+
 bool AnEditor::StartCallTip() {
 	TMTagAttrType attrs[] = { tm_tag_attr_name_t, tm_tag_attr_type_t, tm_tag_attr_none_t};
 	SString linebuf;
@@ -1030,12 +1063,12 @@ bool AnEditor::StartCallTip() {
 			pos--;
 		}
 	} while (current > 0 && !calltipWordCharacters.contains(linebuf[current - 1]));
+	
 	if (current <= 0)
 		return true;
 
 	startCalltipWord = current - 1;
-	while (startCalltipWord > 0 &&
-			calltipWordCharacters.contains(linebuf[startCalltipWord - 1]))
+	while (startCalltipWord > 0 && calltipWordCharacters.contains(linebuf[startCalltipWord - 1]))
 		startCalltipWord--;
 
 	linebuf.change(current, '\0');
@@ -1055,43 +1088,302 @@ bool AnEditor::StartCallTip() {
 	}
 	return true;
 }
+/*/
+
+//------------------------------------------------------------------------------
+// will use call_tip_node_queue_list to save changes on calltips' global struc
+// call_tip_node will be swapped by SaveCallTip ResumeCallTip functions
+
+bool AnEditor::StartCallTip_new() {
+	TMTagAttrType attrs[] = { tm_tag_attr_name_t, tm_tag_attr_type_t, tm_tag_attr_none_t};
+	SString linebuf;
+	GetLine(linebuf);
+	int current = GetCaretInLine();
+	call_tip_node.pos = SendEditor(SCI_GETCURRENTPOS);
+	call_tip_node.call_tip_start_pos = current;
+	
+	int braces;
+	do {
+		braces = 0;
+		while (current > 0 && (braces || linebuf[current - 1] != '(')) {
+			if (linebuf[current - 1] == '(')
+				braces--;
+			else if (linebuf[current - 1] == ')')
+				braces++;
+			current--;
+			call_tip_node.pos--;
+		}
+		if (current > 0) {
+			current--;
+			call_tip_node.pos--;
+		} else
+			break;
+		while (current > 0 && isspace(linebuf[current - 1])) {
+			current--;
+			call_tip_node.pos--;
+		}
+	} while (current > 0 && !calltipWordCharacters.contains(linebuf[current - 1]));
+	
+	if (current <= 0)
+		return true;
+
+	call_tip_node.startCalltipWord = current -1;
+	
+	while ( call_tip_node.startCalltipWord > 0 && calltipWordCharacters.contains(linebuf[call_tip_node.startCalltipWord - 1]))
+		call_tip_node.startCalltipWord--;
+
+	linebuf.change(current, '\0');
+	call_tip_node.rootlen = current - call_tip_node.startCalltipWord;
+	
+	*call_tip_node.functionDefinition = "";
+		
+	const GPtrArray *tags = tm_workspace_find(linebuf.c_str() + call_tip_node.startCalltipWord, tm_tag_prototype_t
+	  | tm_tag_function_t | tm_tag_macro_with_arg_t, attrs, FALSE);
+	if (tags && (tags->len > 0))
+	{
+		TMTag *tag = (TMTag *) tags->pdata[0];
+		char *tmp = g_strdup_printf("%s %s%s", NVL(tag->atts.entry.var_type, "")
+		  , tag->name, NVL(tag->atts.entry.arglist, ""));
+		
+		*call_tip_node.functionDefinition = tmp;
+		
+		g_message( "***start_call_tip_new: functionDefinition is %s", call_tip_node.functionDefinition->c_str());
+		
+		SendEditorString(SCI_CALLTIPSHOW, call_tip_node.pos - call_tip_node.rootlen + 1, tmp);
+		g_free(tmp);
+		ContinueCallTip_new();
+	}
+	return true;
+}
+
 
 static bool IsCallTipSeparator(char ch) {
 	return (ch == ',') || (ch == ';');
 }
 
+/*/
 void AnEditor::ContinueCallTip() {
 	SString linebuf;
 	GetLine(linebuf);
 	int current = GetCaretInLine();
-
+	
 	int commas = 0;
 	for (int i = 0; i < current; i++) {
 		if (IsCallTipSeparator(linebuf[i]))
 			commas++;
 	}
 
+	// lets start from 0
 	int startHighlight = 0;
+	
 	while (functionDefinition[startHighlight] && functionDefinition[startHighlight] != '(')
 		startHighlight++;
-	if (functionDefinition[startHighlight] == '(')
+	
+	if (functionDefinition[startHighlight] == '(') {
 		startHighlight++;
+	}
+	
+	// printf(const char*, ...
+	// -------^
+	
 	while (functionDefinition[startHighlight] && commas > 0) {
 		if (IsCallTipSeparator(functionDefinition[startHighlight]) || functionDefinition[startHighlight] == ')')
 			commas--;
 		startHighlight++;
 	}
+
+	// printf(const char*, ...
+	// -------^^^^^^^^^^^
+	
+	
+	// ?!
 	if (IsCallTipSeparator(functionDefinition[startHighlight]) || functionDefinition[startHighlight] == ')')
 		startHighlight++;
+	
 	int endHighlight = startHighlight;
+	
 	if (functionDefinition[endHighlight])
 		endHighlight++;
+	
 	while (functionDefinition[endHighlight] && !IsCallTipSeparator(functionDefinition[endHighlight])
 			&& functionDefinition[endHighlight] != ')')
 		endHighlight++;
 
 	SendEditor(SCI_CALLTIPSETHLT, startHighlight, endHighlight);
 }
+/*/
+
+//------------------------------------------------------------------------------
+// new
+
+void AnEditor::ContinueCallTip_new() {
+	SString linebuf;
+	GetLine(linebuf);
+	int current = GetCaretInLine();
+	int pos = SendEditor(SCI_GETCURRENTPOS);
+	
+	int commas = 0;
+	
+	for (int i = call_tip_node.call_tip_start_pos ; i < current; i++) {
+		
+		unsigned char ch = linebuf[i];
+
+		// check whether the are some other functions nested.
+		//	if found	we'll skip them to evitate commas problems
+		if ( ch == '(' ) {
+			int braces = 1;
+			g_message( "enter brace match!!" );
+			for ( int k = i+1; k < linebuf.length(); k++ ) {
+				if ( linebuf[k] == '(' ) {
+					braces++;
+				}
+				else
+					if ( linebuf[k] == ')' ) {
+						braces--;
+					}
+				if ( braces == 0 ) {
+					i = k;
+					break;
+				}
+			}			
+		}
+		
+		if (IsCallTipSeparator(ch))
+			commas++;		
+	}
+
+	// lets start from 0
+	int startHighlight = 0;
+	
+	while ( (*call_tip_node.functionDefinition)[startHighlight] &&
+			(*call_tip_node.functionDefinition)[startHighlight] != '(')
+		startHighlight++;
+	
+	if ( (*call_tip_node.functionDefinition)[startHighlight] == '(') {
+		startHighlight++;
+	}
+	
+	// printf(const char*, ...
+	// -------^
+	
+	while ( (*call_tip_node.functionDefinition)[startHighlight] && commas > 0) {
+		if (IsCallTipSeparator( (*call_tip_node.functionDefinition)[startHighlight] ) ||
+			(*call_tip_node.functionDefinition)[startHighlight] == ')')
+			commas--;
+		startHighlight++;
+	}
+	
+	if (IsCallTipSeparator( (*call_tip_node.functionDefinition)[startHighlight]) ||
+			(*call_tip_node.functionDefinition)[startHighlight] == ')')
+		startHighlight++;
+	
+	int endHighlight = startHighlight;
+	
+	if ( (*call_tip_node.functionDefinition)[endHighlight])
+		endHighlight++;
+	
+	while ( (*call_tip_node.functionDefinition)[endHighlight] &&
+			!IsCallTipSeparator( (*call_tip_node.functionDefinition)[endHighlight])
+			&& (*call_tip_node.functionDefinition)[endHighlight] != ')')
+		endHighlight++;
+
+	SendEditor(SCI_CALLTIPSETHLT, startHighlight, endHighlight);
+}
+
+
+//------------------------------------------------------------------------------
+//	we're going to save the current status of call_tip_node in call_tip_node_list
+// to let another *new* call_tip to show up
+//
+
+void AnEditor::SaveCallTip() {
+
+	CallTipNode *ctn=(CallTipNode_ptr)g_malloc( sizeof(_CallTipNode));
+//	g_message( "***saving calltip..." );
+	
+	ctn->startCalltipWord = call_tip_node.startCalltipWord;
+	ctn->functionDefinition = new SString(call_tip_node.functionDefinition->c_str());
+	ctn->pos = call_tip_node.pos;
+	ctn->rootlen = call_tip_node.rootlen;
+	ctn->call_tip_start_pos = call_tip_node.call_tip_start_pos;
+	
+	*call_tip_node.functionDefinition = "";
+	
+	// push it
+	g_queue_push_tail( call_tip_node_queue, ctn );
+
+	SetCallTipDefaults();
+}
+
+
+
+void AnEditor::ResumeCallTip() {
+
+//	g_message( "***resuming calltip:..." );
+	
+	if ( g_queue_is_empty( call_tip_node_queue ) ) {
+		ShutDownCallTip();
+		g_message( "returning from if and length..." );
+		return;
+	}
+	
+	CallTipNode_ptr tmp_node;
+	
+	// set up next CallTipNode parameters in AnEditor::call_tip_node 
+	tmp_node = (CallTipNode_ptr)g_queue_pop_tail( call_tip_node_queue );
+
+	g_return_if_fail( tmp_node != NULL );
+	
+	call_tip_node.startCalltipWord = tmp_node->startCalltipWord;
+	*call_tip_node.functionDefinition = tmp_node->functionDefinition->c_str();
+	call_tip_node.pos = tmp_node->pos;
+	call_tip_node.rootlen = tmp_node->rootlen;
+	call_tip_node.call_tip_start_pos = tmp_node->call_tip_start_pos;
+	
+	delete tmp_node->functionDefinition;
+	// in response to g_malloc on SaveCallTip
+	g_free( tmp_node );
+	
+	SendEditorString(SCI_CALLTIPSHOW, call_tip_node.pos - call_tip_node.rootlen + 1, call_tip_node.functionDefinition->c_str());
+	
+}
+
+//------------------------------------------------------------------------------
+//
+
+void AnEditor::ShutDownCallTip() {
+	
+//	g_message( "***shutdowncalltip: length %d", g_queue_get_length( call_tip_node_queue ));
+	
+	while ( g_queue_is_empty( call_tip_node_queue ) != TRUE ) {
+		CallTipNode_ptr tmp_node;
+		
+		tmp_node = (CallTipNode_ptr)g_queue_pop_tail( call_tip_node_queue );
+
+		delete tmp_node->functionDefinition;
+		// in response to g_malloc on SaveCallTip
+		g_free( tmp_node );
+		
+	}	
+	
+	// reset
+	*call_tip_node.functionDefinition = "";
+}
+
+//------------------------------------------------------------------------------
+//
+
+void AnEditor::SetCallTipDefaults( ) {
+
+	// we're going to set the default values to this.call_tip_node struct
+	*call_tip_node.functionDefinition = "";
+	call_tip_node.pos = 0;
+	call_tip_node.rootlen = 0;
+	call_tip_node.startCalltipWord = 0;	
+	call_tip_node.call_tip_start_pos = 0;
+	
+}
+
 
 bool AnEditor::StartAutoComplete() {
 	SString linebuf;
@@ -2123,20 +2415,32 @@ void AnEditor::CharAdded(char ch) {
 	if ((selEnd == selStart) && (selStart > 0)) {
 		int style = SendEditor(SCI_GETSTYLEAT, selStart - 1, 0);
 		if (style != 1) {
-			if (SendEditor(SCI_CALLTIPACTIVE)) {
-				if (ch == ')') {
+			if (SendEditor(SCI_CALLTIPACTIVE)) {		// calltip is active
+				if (ch == ')') {								// close our calltip
+					
 					braceCount--;
-					if (braceCount < 1)
+										
+					if (braceCount < 1) {					// shutdown at all
+						ShutDownCallTip();
 						SendEditor(SCI_CALLTIPCANCEL);
-				} else if (ch == '(') {
+						return;
+					}
+					
+					ResumeCallTip();
+				} else if (ch == '(') {						// a new calltip is encountered?...
+					SaveCallTip();
 					braceCount++;
+					StartCallTip_new();					
 				} else {
-					ContinueCallTip();
+					// here it is, we continue the calltip
+					//ContinueCallTip();
+					ContinueCallTip_new();
 				}
-			} else if (SendEditor(SCI_AUTOCACTIVE)) {
+			} else if (SendEditor(SCI_AUTOCACTIVE)) {	// word autocompletion
 				if (ch == '(') {
 					braceCount++;
-					StartCallTip();
+					//StartCallTip();
+					StartCallTip_new();
 				} else if (ch == ')') {
 					braceCount--;
 				} else if (!wordCharacters.contains(ch)) {
@@ -2145,14 +2449,25 @@ void AnEditor::CharAdded(char ch) {
 					StartAutoCompleteWord(props->GetInt("autocompleteword.automatic"));
 				} else {
 					StartAutoCompleteWord(0);
-				}					
+				}									
 			} else if (HandleXml(ch)) {
 				// Handled in the routine
 			}
-			else {
+			else {												// we don't have nor autocompetion nor calltip active
 				if (ch == '(') {
 					braceCount = 1;
-					StartCallTip();
+					//StartCallTip();
+					
+					//
+					// check whether we have some left nodes in call_tip_node_queue: this
+					// can happen if we hit the "down key" when calltip is active
+					//
+					
+					if ( g_queue_is_empty( call_tip_node_queue ) != TRUE )
+						ShutDownCallTip();
+					
+					// ok, let's start a new calltip					
+					StartCallTip_new();
 				} else {
 					autoCCausedByOnlyOne = false;
 					if (indentMaintain)
@@ -2375,7 +2690,7 @@ long AnEditor::Command(int cmdID, long wParam, long lParam) {
 		return GetCurrentWord((char*)wParam, (int)lParam);
 
 	case ANE_SHOWCALLTIP:
-		StartCallTip();
+		StartCallTip_new();
 		break;
 
 	case ANE_COMPLETE:
@@ -2938,7 +3253,7 @@ void AnEditor::Notify(SCNotification *notification) {
 	case SCN_CHARADDED:
 		CharAdded(static_cast<char>(notification->ch));
 		break;
-
+	
 	case SCN_SAVEPOINTREACHED:
 		isDirty = false;
 		break;
@@ -3635,7 +3950,7 @@ void AnEditor::FocusInEvent(GtkWidget* widget)
 {
 	if (calltipShown)
 	{
-		StartCallTip();
+		StartCallTip_new();
 	}
 }
 

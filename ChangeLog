@@ -4,8 +4,13 @@
 	default
 
 2004-12-20  Naba Kumar  <naba@gnome.org>
+
+	patch from: Massimo Corà  <maxcvs@email.it>
+	* plugins/editor/aneditor.cxx: Added recursive calltips.
+
+2004-12-20  Naba Kumar  <naba@gnome.org>
 	
-	*libanjuta/plugins.c, plugins/file-loader/plugin.c:
+	* libanjuta/plugins.c, plugins/file-loader/plugin.c:
 	Show busy cursor during loading and unloading.
 	
 2004-12-19  Naba Kumar  <naba@gnome.org>
