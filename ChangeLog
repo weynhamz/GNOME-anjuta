@@ -1,3 +1,8 @@
+2002-08-08  Stephane Demurget  <demurgets@free.fr>
+
+	* AUTHORS: added Biswa, because I wonder why noone already have
+	written his name in the Anjuta's hall of fame :)
+
 2002-08-07	Naba Kumar	<kh_naba@users.sourceforge.net>
 
 	* src/appwizard_gui.c: Removed an ambiguous prototype.
