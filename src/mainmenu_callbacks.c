@@ -120,11 +120,14 @@ void
 on_save_as1_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
 	TextEditor *te;
-
+	gchar *filename;
 	te = anjuta_get_current_text_editor ();
 	if (te == NULL)
 		return;
-	fileselection_set_filename (app->save_as_fileselection, te->full_filename);
+	
+	filename = te->full_filename != NULL ? te->full_filename : te->filename;
+	fileselection_set_filename (app->save_as_fileselection, filename);
+	
 	gtk_widget_show (app->save_as_fileselection);
 }
 

@@ -64,6 +64,7 @@ static gboolean gnome_filelist_check_dir_exists (const gchar * path);
 
 static gint dir_compare_func (gchar * txt1, gchar * txt2);
 static void set_file_selection (GnomeFileList * file_list);
+static void set_dir_selection (GnomeFileList * file_list);
 static gboolean set_dir_internal (GnomeFileList * file_list,
 								  const gchar * path);
 
@@ -1251,7 +1252,7 @@ dir_compare_func (gchar * txt1, gchar * txt2)
 }
 
 static void
-set_file_selection (GnomeFileList * file_list)
+set_dir_selection (GnomeFileList * file_list)
 {
 	gchar *temp;
 
@@ -1273,11 +1274,17 @@ set_file_selection (GnomeFileList * file_list)
 								   (GTK_COMBO (file_list->history_combo)->
 									entry), "/");
 	}
+}
+
+static void
+set_file_selection (GnomeFileList * file_list)
+{
+
+	set_dir_selection(file_list);
+	
 	if (file_list->selected)
 		gtk_entry_set_text (GTK_ENTRY (file_list->selection_entry),
 							file_list->selected);
-	else
-		gtk_entry_set_text (GTK_ENTRY (file_list->selection_entry), "");
 }
 
 static gboolean
@@ -1312,7 +1319,6 @@ set_dir_internal (GnomeFileList * file_list, const gchar * path)
 	file_list->selected = NULL;
 
 	set_file_selection (file_list);
-	gtk_widget_grab_focus (file_list->directory_list);
 	return TRUE;
 }
 
@@ -1810,6 +1816,13 @@ build_full_path (const gchar * path, const gchar * selection)
 		return g_strdup (selection);
 	}
 
+	if (path[0] == '.')
+	{
+		ptr = g_new(char, PATH_MAX + strlen(selection) + 1);
+		getcwd(ptr, PATH_MAX);
+		strcat(ptr, selection);
+		return ptr;
+	}
 	offset = strlen (path) - 1;
 	if (offset < 0)
 		chr = '\0';
