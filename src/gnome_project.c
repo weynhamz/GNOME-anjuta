@@ -46,6 +46,7 @@ create_new_project (AppWizard * aw)
 	gchar* files;
 	FILE* fp;
 	gint i;
+	Project_Type* type;
 
 	all_prj_dir  = preferences_get (app->preferences, PROJECTS_DIRECTORY);
 	top_dir = g_strdup_printf ("%s/%s-%s", all_prj_dir, aw->prj_name, aw->version);
@@ -126,25 +127,12 @@ create_new_project (AppWizard * aw)
 	fprintf(fp, "project.menu.comment=%s\n", aw->menu_comment);
 	fprintf(fp, "project.menu.icon=%s_icon.%s\n", aw->target, get_file_extension(aw->icon_file));
 	fprintf(fp, "project.menu.need.terminal=%d\n\n", aw->need_terminal);
-	if (aw->prj_type == PROJECT_TYPE_GTK)
+	
+	type = load_project_type(aw->prj_type);
+	if (type->id != PROJECT_TYPE_GENERIC)
 	{
-		fprintf(fp, "compiler.options.supports=GTK\n\n");
-	}
-	else if (aw->prj_type == PROJECT_TYPE_GNOME)
-	{
-		fprintf(fp, "compiler.options.supports=GNOME\n\n");
-	}
-	else if (aw->prj_type == PROJECT_TYPE_BONOBO)
-	{
-		fprintf(fp, "compiler.options.supports=BONOBO\n\n");
-	}
-	else if (aw->prj_type == PROJECT_TYPE_GTKMM)
-	{
-		fprintf(fp, "compiler.options.supports=GTKMM\n\n");
-	}
-	else if (aw->prj_type == PROJECT_TYPE_GNOMEMM)
-	{
-		fprintf(fp, "compiler.options.supports=GNOMEMM\n\n");
+		fprintf(fp, "compiler.options.supports=%s\n\n", type->save_string);
+		free_project_type(type);
 	}
 	fclose(fp);
 	messages_append (app->messages, _("Loading  project ...\n"), MESSAGE_BUILD);
@@ -163,8 +151,9 @@ create_new_project (AppWizard * aw)
 	
 	/* Creating icon pixmap file for gnome projects */
 	messages_append (app->messages, _("Copying icon file ...\n"), MESSAGE_BUILD);
-	if ( !(aw->prj_type == PROJECT_TYPE_GENERIC
-		||aw->prj_type == PROJECT_TYPE_GTK) && aw->icon_file)
+	if ( (aw->prj_type == PROJECT_TYPE_GNOME
+		||aw->prj_type == PROJECT_TYPE_GNOMEMM
+		||aw->prj_type == PROJECT_TYPE_BONOBO) && aw->icon_file)
 	{
 		gchar* dir;
 		gchar* dest;

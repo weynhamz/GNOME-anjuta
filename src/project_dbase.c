@@ -1549,16 +1549,18 @@ project_dbase_get_version (ProjectDBase * p)
 }
 
 /* project type. */
-gint
+Project_Type*
 project_dbase_get_project_type (ProjectDBase* p)
 {
 	gchar *str;
 	gint i;
 	
-	g_return_val_if_fail (p != NULL, PROJECT_TYPE_END_MARK;);
+	if (p == NULL)
+		return NULL;
+	
 	str = prop_get (p->props, "project.type");
 	if (!str)
-		return PROJECT_TYPE_END_MARK;
+		return NULL;
 
 	for (i=0; i<PROJECT_TYPE_END_MARK; i++)
 	{
@@ -1567,10 +1569,10 @@ project_dbase_get_project_type (ProjectDBase* p)
 		if (ret == 0)
 		{
 			g_free (str);
-			return i;
+			return load_project_type(i);
 		}
 	}
-	return PROJECT_TYPE_END_MARK;
+	return NULL;
 }
 
 /* project language. */

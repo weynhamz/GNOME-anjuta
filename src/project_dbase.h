@@ -22,6 +22,7 @@
 #include "tags_manager.h"
 #include "properties.h"
 #include "project_config.h"
+#include "project_type.h"
 
 #define COMPATIBILITY_LEVEL    1
 
@@ -209,7 +210,7 @@ gchar *
 project_dbase_get_proj_name (ProjectDBase * p);
 
 /* project type. */
-gint
+Project_Type*
 project_dbase_get_project_type (ProjectDBase* p);
 
 /* Target type*/

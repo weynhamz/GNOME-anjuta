@@ -146,34 +146,13 @@ source_write_autogen_sh (ProjectDBase * data)
 {
 	gchar *srcbuffer, *destbuffer;
 	gint old_umask;
-	gint type;
+	Project_Type* type;
 
 	g_return_val_if_fail (data != NULL, FALSE);
 
 	type = project_dbase_get_project_type(data);
 
-	switch (type)
-	{
-	case PROJECT_TYPE_GENERIC:
-		srcbuffer = g_strconcat (app->dirs->data, "/autogen.sh.generic", NULL);
-		break;
-	case PROJECT_TYPE_GTK:
-		srcbuffer = g_strconcat (app->dirs->data, "/autogen.sh.gtk", NULL);
-		break;
-	case PROJECT_TYPE_GTKMM:
-		srcbuffer = g_strconcat (app->dirs->data, "/autogen.sh.gtkmm", NULL);
-		break;
-	case PROJECT_TYPE_GNOMEMM:
-		srcbuffer = g_strconcat (app->dirs->data, "/autogen.sh.gnomemm", NULL);
-		break;
-	case PROJECT_TYPE_GNOME:
-	case PROJECT_TYPE_BONOBO:
-		srcbuffer = g_strconcat (app->dirs->data, "/autogen.sh.gnome", NULL);
-		break;
-	default:
-		anjuta_error ("Unknown project type");
-		return FALSE;
-	}
+	srcbuffer = g_strconcat (app->dirs->data, type->autogen_file, NULL);
 	destbuffer = g_strconcat (data->top_proj_dir, "/autogen.sh", NULL);
 
 	/* FIXME: If *.desktop.in exists, just leave it, for now. */
@@ -207,13 +186,13 @@ source_write_configure_in (ProjectDBase * data)
 {
 	FILE *fp;
 	gchar *filename, *actual_file, *target, *version;
-	gint type, lang_type, i;
+	Project_Type* type;
+	gint lang_type, i;
 	GList *list, *node;
 
 	g_return_val_if_fail (data != NULL, FALSE);
 
 	type = project_dbase_get_project_type(data);
-	g_return_val_if_fail (type < PROJECT_TYPE_END_MARK, FALSE);
 	
 	lang_type = project_dbase_get_language (data);
 	g_return_val_if_fail (lang_type < 	PROJECT_PROGRAMMING_LANGUAGE_END_MARK, FALSE);
@@ -265,47 +244,7 @@ source_write_configure_in (ProjectDBase * data)
 	}
 	fprintf(fp, "AM_PROG_CC_STDC\n"
 		 "AC_HEADER_STDC\n");
-	switch (type)
-	{
-	case PROJECT_TYPE_BONOBO:
-	case PROJECT_TYPE_GNOME:
-	case PROJECT_TYPE_GNOMEMM:
-		fprintf (fp,
-			 "\n"
-			 "dnl Pick up the GNOME macros.\n"
-			 "AM_ACLOCAL_INCLUDE(macros)\n"
-			 "\n"
-			 "dnl GNOME macros.\n"
-			 "GNOME_INIT\n"
-			 "GNOME_COMPILE_WARNINGS\nGNOME_X_CHECKS\n");
-		if (type == PROJECT_TYPE_GNOMEMM)
-		{
-				fprintf (fp,
-					"\n"
-					"dnl GNOME-- macros. \n"
-					"AM_PATH_GTKMM(1.2.5, , AC_MSG_ERROR(\"Gtk-- not found\"))\n"
-					"AM_PATH_GNOMEMM(1.2.0, , AC_MSG_ERROR(\"Gnome-- not found\"))\n");
-		}
-		break;
-	case PROJECT_TYPE_GTK:
-		fprintf (fp,
-			 "\n"
-			 "AM_PATH_GTK(1.2.0, ,\n"
-			 "            AC_MSG_ERROR(Cannot find GTK: Is gtk-config in path?))\n");
-		break;
-	case PROJECT_TYPE_GTKMM:
-		fprintf(fp, 
-			"\n"
-			"AM_PATH_GTKMM(1.2.0, ,\n"
-			"			  AC_MSG_ERROR(Cannot find GTK--: Is gtkmm-config in path?))\n");
-		break;
-	case PROJECT_TYPE_GENERIC:
-		break;
-	}
-	if (type == PROJECT_TYPE_BONOBO)
-	{
-		fprintf(fp, "AM_PATH_BONOBO\n");
-	}
+ 	fprintf(fp, type->configure_macros);
 	fprintf (fp, "\n");
 	project_config_write_scripts (data->project_config, fp);
 
@@ -370,7 +309,7 @@ source_write_configure_in (ProjectDBase * data)
 	
 	/* Define PIXMAPS, HELP, MENU DIR so that the app can find installed pixmaps.
 	 */
-	if (type == PROJECT_TYPE_GENERIC || type == PROJECT_TYPE_GTK)
+	if (type->id == PROJECT_TYPE_GENERIC || type->id == PROJECT_TYPE_GTK || type->id == PROJECT_TYPE_GTKMM)
 	{
 		fprintf (fp,
 			 "dnl Set PACKAGE DIRS in config.h.\n"
@@ -378,7 +317,7 @@ source_write_configure_in (ProjectDBase * data)
 			 "packagehelpdir=${packagedatadir}/help\n"
 			 "packagemenudir=${packagedatadir}\n");
 	}
-	else
+	if (type->id == PROJECT_TYPE_GNOME || type->id == PROJECT_TYPE_GNOMEMM || type->id == PROJECT_TYPE_BONOBO)
 	{
 		fprintf (fp,
 			 "dnl Set PACKAGE DIRs in config.h.\n"
@@ -436,8 +375,8 @@ source_write_configure_in (ProjectDBase * data)
 			 "intl/Makefile\n"
 			 "po/Makefile.in\n");
 	}
-	if (type == PROJECT_TYPE_GNOME || type == PROJECT_TYPE_BONOBO
-			|| type == PROJECT_TYPE_GNOMEMM)
+	if (type->id == PROJECT_TYPE_GNOME || type->id == PROJECT_TYPE_BONOBO
+			|| type->id == PROJECT_TYPE_GNOMEMM)
 	{
 		fprintf (fp, "macros/Makefile\n");
 	}
@@ -493,8 +432,8 @@ source_write_configure_in (ProjectDBase * data)
 	}
 	glist_strings_free (list);
 
-	if (type == PROJECT_TYPE_GNOME || type == PROJECT_TYPE_BONOBO
-			|| type == PROJECT_TYPE_GNOMEMM)
+	if (type->id == PROJECT_TYPE_GNOME || type ->id == PROJECT_TYPE_BONOBO
+			|| type->id  == PROJECT_TYPE_GNOMEMM)
 	{
 		fprintf (fp, "%s.desktop\n", target);
 	}
@@ -515,7 +454,8 @@ source_write_toplevel_makefile_am (ProjectDBase * data)
 {
 	FILE *fp;
 	gchar *filename, *actual_file, *target;
-	gint i, type;
+	gint i;
+	Project_Type* type;
 
 	g_return_val_if_fail (data != NULL, FALSE);
 
@@ -538,9 +478,9 @@ source_write_toplevel_makefile_am (ProjectDBase * data)
 
 	if (prop_get_int (data->props, "project.has.gettext", 1))
 		fprintf (fp, " intl po");
-	if (type == PROJECT_TYPE_GNOME
-		|| type == PROJECT_TYPE_GNOMEMM
-		|| type == PROJECT_TYPE_BONOBO)
+	if (type->id == PROJECT_TYPE_GNOME
+		|| type->id == PROJECT_TYPE_GNOMEMM
+		|| type->id == PROJECT_TYPE_BONOBO)
 		fprintf (fp, " macros");
 
 	if (data->project_config->extra_modules_before)
@@ -586,7 +526,7 @@ source_write_toplevel_makefile_am (ProjectDBase * data)
 	fprintf (fp,
 		"\n\nEXTRA_DIST = %s $(%sdoc_DATA)\n\n",
 		extract_filename (data->proj_filename), target);
-	if(type != PROJECT_TYPE_GENERIC  && type != PROJECT_TYPE_GTK)
+	if(type->id == PROJECT_TYPE_GNOME && type->id == PROJECT_TYPE_GNOMEMM || type->id == PROJECT_TYPE_BONOBO)
 	{
 		gchar *group;
 		
@@ -616,6 +556,7 @@ source_write_toplevel_makefile_am (ProjectDBase * data)
 	g_free (actual_file);
 	g_free (target);
 	g_free (filename);
+	free_project_type(type);
 	return TRUE;
 }
 
@@ -744,7 +685,7 @@ source_write_executable_source_files (ProjectDBase * data)
 {
 	FILE *fp;
 	gchar *src_dir, *filename, *actual_file, *target;
-	gint type;
+	Project_Type* type;
 
 	g_return_val_if_fail (data != NULL, FALSE);
 
@@ -767,6 +708,7 @@ source_write_executable_source_files (ProjectDBase * data)
 	{
 		anjuta_system_error (errno, _("Couldn't create file: %s."), filename);
 		g_free (filename);
+		free_project_type(type);
 		g_free (actual_file);
 		return FALSE;
 	}
@@ -776,31 +718,7 @@ source_write_executable_source_files (ProjectDBase * data)
 	/* If the project directory is the source directory, we need to output
 	 * SUBDIRS here. */
 	fprintf (fp, "INCLUDES =");
-	if (prop_get_int (data->props, "project.has.gettext", 1))
-	{
-		fprintf (fp, " \\\n\t-I$(top_srcdir)/intl");
-	}
-	if (type == PROJECT_TYPE_GNOME || type == PROJECT_TYPE_BONOBO)
-	{
-		fprintf (fp, " \\\n\t$(GNOME_INCLUDEDIR)");
-	}
-	if (type == PROJECT_TYPE_BONOBO)
-	{
-		fprintf (fp, " \\\n\t$(BONOBO_CFLAGS)");
-	}
-	if (type == PROJECT_TYPE_GTK)
-	{
-		fprintf (fp, " \\\n\t`gtk-config --cflags`");
-	}
-	if (type == PROJECT_TYPE_GTKMM)
-	{
-		fprintf(fp, "\\\n\t$(GTKMM_CFLAGS)");
-	}
-	if (type == PROJECT_TYPE_GNOMEMM)
-	{
-		fprintf(fp, "\\\n\t$(GNOMEMM_CFLAGS)");
-		/* fprintf(fp, "\\\n\t`gnome-config --cflags gnomemm`"); */
-	}
+	fprintf (fp, type->cflags);
 	compiler_options_set_prjcflags_in_file (app->compiler_options, fp);
 	fprintf (fp, "\n\n");
 
@@ -812,30 +730,7 @@ source_write_executable_source_files (ProjectDBase * data)
 	source_write_module_file_list (data, fp, TRUE, NULL, MODULE_SOURCE);
 
 	fprintf (fp, "%s_LDADD = ", target);
-	if (prop_get_int (data->props, "project.has.gettext", 1))
-	{
-		fprintf (fp, " \\\n\t$(INTLLIBS)");
-	}
-	if (type == PROJECT_TYPE_GNOME || type == PROJECT_TYPE_BONOBO)
-	{
-		fprintf (fp, " \\\n\t$(GNOME_LIBDIR) $(GNOMEUI_LIBS)");
-	}
-	if (type == PROJECT_TYPE_BONOBO)
-	{
-		fprintf (fp, " \\\n\t$(BONOBO_LIBS)");
-	}
-	if (type == PROJECT_TYPE_GTK)
-	{
-		fprintf (fp, " \\\n\t$(GTK_LIBS)");
-	}
-	if (type == PROJECT_TYPE_GTKMM)
-	{
-		fprintf (fp, "\\\n\t$(GTKMM_LIBS)");
-	}
-	if (type == PROJECT_TYPE_GNOMEMM)
-	{
-		fprintf (fp, "\\\n\t$(GNOMEMM_LIBS)");
-	}
+	fprintf (fp, type->ldadd);
 	compiler_options_set_prjlibs_in_file (app->compiler_options, fp);
 	fprintf (fp, "\n\n");
 	fclose (fp);
@@ -843,6 +738,7 @@ source_write_executable_source_files (ProjectDBase * data)
 		anjuta_system_error (errno, _("Couldn't create file: %s."), actual_file);
 	g_free (actual_file);
 	g_free (target);
+	free_project_type(type);
 	g_free (filename);
 	return TRUE;
 }
@@ -941,7 +837,7 @@ source_write_pixmap_files (ProjectDBase * data)
 {
 	FILE *fp;
 	gchar *src_dir, *filename, *actual_file, *target;
-	gint type;
+	Project_Type* type;
 
 	g_return_val_if_fail (data != NULL, FALSE);
 
@@ -965,6 +861,7 @@ source_write_pixmap_files (ProjectDBase * data)
 		anjuta_system_error (errno, _("Couldn't create file: %s."), filename);
 		g_free (filename);
 		g_free (actual_file);
+		free_project_type(type);
 		return FALSE;
 	}
 	fprintf (fp,"## Process this file with automake to produce Makefile.in\n\n");
@@ -985,6 +882,7 @@ source_write_pixmap_files (ProjectDBase * data)
 	g_free (actual_file);
 	g_free (target);
 	g_free (filename);
+	free_project_type(type);
 	return TRUE;
 }
 
@@ -993,7 +891,7 @@ source_write_help_files (ProjectDBase * data)
 {
 	FILE *fp;
 	gchar *src_dir, *filename, *actual_file, *target;
-	gint type;
+	Project_Type* type;
 
 	g_return_val_if_fail (data != NULL, FALSE);
 
@@ -1015,6 +913,7 @@ source_write_help_files (ProjectDBase * data)
 	{
 		anjuta_system_error (errno, _("Couldn't create file: %s."), filename);
 		g_free (filename);
+		free_project_type(type);
 		g_free (actual_file);
 		return FALSE;
 	}
@@ -1035,6 +934,7 @@ source_write_help_files (ProjectDBase * data)
 		anjuta_system_error (errno, _("Couldn't create file: %s."), actual_file);
 	g_free (actual_file);
 	g_free (target);
+	free_project_type(type);
 	g_free (filename);
 	return TRUE;
 }
@@ -1254,7 +1154,8 @@ source_write_glade_file (ProjectDBase * data)
 	FILE *fp;
 	gchar *filename, *target;
 	gchar *prj, *src, *pix;
-	gint type, lang;
+	Project_Type* type;
+	gint lang;
 	gboolean bOK = TRUE ;
 
 	g_return_val_if_fail (data != NULL, FALSE);
@@ -1269,6 +1170,7 @@ source_write_glade_file (ProjectDBase * data)
 	if (file_is_regular (filename))
 	{
 		g_free (filename);
+		free_project_type(type);
 		g_free (target);
 		return TRUE;
 	}
@@ -1277,6 +1179,7 @@ source_write_glade_file (ProjectDBase * data)
 	if (fp == NULL)
 	{
 		anjuta_system_error (errno, _("Couldn't create file: %s."), filename);
+		free_project_type(type);
 		g_free (filename);
 		return FALSE;
 	}
@@ -1310,7 +1213,7 @@ source_write_glade_file (ProjectDBase * data)
 	else 
 		fprintf(fp, "  <language>CPP</language>\n");
 	
-	if (type == PROJECT_TYPE_GTK || type == PROJECT_TYPE_GTKMM)
+	if (!type->gnome_support)
 		fprintf(fp, "  <gnome_support>False</gnome_support>\n");
 	else
 		fprintf(fp, "  <gnome_support>True</gnome_support>\n");
@@ -1355,6 +1258,7 @@ source_write_glade_file (ProjectDBase * data)
 		"</widget>\n\n"
 		"</GTK-Interface>\n"
 		);
+	free_project_type(type);
 	fflush( fp );
 	if( ferror( fp ) )
 	{		anjuta_system_error (errno, _("Error writing to : %s."), filename);
@@ -1441,7 +1345,7 @@ source_write_generic_main_c (ProjectDBase *data)
 gboolean
 source_write_build_files (ProjectDBase * data)
 {
-	gint type;
+	Project_Type* type;
 	gint ret;
 
 	g_return_val_if_fail (data != NULL, FALSE);
@@ -1453,28 +1357,30 @@ source_write_build_files (ProjectDBase * data)
 	if (!ret) return FALSE;
 
 	type = project_dbase_get_project_type (data);
-	switch (type)
+	if (type->glade_support)
 	{
-		case PROJECT_TYPE_GENERIC:
-			break;
-		case PROJECT_TYPE_GTK:
-		case PROJECT_TYPE_GTKMM:
-		ret = source_write_glade_file (data);
-			if (!ret) return FALSE;
-			break;
-		case PROJECT_TYPE_GNOME:
-		case PROJECT_TYPE_BONOBO:
-		case PROJECT_TYPE_GNOMEMM:
-			ret = source_write_desktop_entry (data);
-			if (!ret) return FALSE;
-			ret = source_write_glade_file (data);
-			if (!ret) return FALSE;
-			ret = source_write_macros_files (data);
-			if (!ret) return FALSE;
-			break;
-		default:
-			anjuta_error (_("Unkown project type."));
+		switch (type->id)
+		{
+			case PROJECT_TYPE_GTK:
+			case PROJECT_TYPE_GTKMM:
+				ret = source_write_glade_file (data);
+				if (!ret) return FALSE;
+				break;
+			case PROJECT_TYPE_GNOME:
+			case PROJECT_TYPE_BONOBO:
+			case PROJECT_TYPE_GNOMEMM:
+				ret = source_write_desktop_entry (data);
+				if (!ret) return FALSE;
+				ret = source_write_glade_file (data);
+				if (!ret) return FALSE;
+				ret = source_write_macros_files (data);
+				if (!ret) return FALSE;
+				break;
+			default:
+				anjuta_error (_("Project type does not support glade."));
+		}
 			return FALSE;
+	free_project_type(type);
 	}
 
 	if (data->project_config->disable_overwrite[BUILD_FILE_CONFIGURE_IN] == FALSE)

@@ -111,6 +111,8 @@ anjuta_SOURCES = \
 	project_dbase.h\
 	project_config.c\
 	project_config.h\
+	project_type.c\
+	project_type.h\
 	project_dbase_gui.c\
 	properties.cxx\
 	properties.h\

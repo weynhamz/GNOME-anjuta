@@ -549,7 +549,7 @@ void
 on_goto_line_no1_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
 	GtkWidget *gt;
-	gt = create_goto_line_dialog ();
+	gt = gotoline_new ();
 	gtk_widget_show (gt);
 }
 

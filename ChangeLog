@@ -5,11 +5,17 @@
 	  Patch from: rikul <null@acm.org>
 	
 	* anjuta.c, anjuta.h, anjuta_cbs.c, main_menubar_def.h,
-	mainmenu_callbacks.c, mainmenu_callbacks.h: Added message text
-	saving from menu.
+	  mainmenu_callbacks.c, mainmenu_callbacks.h: Added message text
+	  saving from menu.
 	
 	  Patch from: rikul <null@acm.org>
 
+	* Applied patch for widgetizing goto dialog box.
+	  Patch from: ???
+	
+	* Applied patch for having new project type handling.
+	  Patch from: Johannes Schmid <clubfan@users.sourceforge.net>
+	  
 2001-09-12  Naba Kumar <kh_naba@users.sourceforge.net>
 
 	* Makefile.am, aneditor.cxx, aneditor.h, anjuta.c, anjuta.h,
