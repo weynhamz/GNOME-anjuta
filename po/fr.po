@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta 0.1.6\n"
-"POT-Creation-Date: 2001-08-01 15:08+0200\n"
+"POT-Creation-Date: 2001-08-03 01:03+0200\n"
 "PO-Revision-Date: 2001-07-30 23:40+0200\n"
 "Last-Translator: Stéphane Démurget <demurgets@free.fr>\n"
 "Language-Team: French\n"
@@ -122,7 +122,8 @@ msgstr "Mixte C/C++"
 msgid "Enter a short project description"
 msgstr "Entrez une courte description du projet"
 
-#: src/appwiz_page3.c:147 src/project_dbase_gui.c:1123
+#: ccview/support.c:100 ccview/support.c:138 src/appwiz_page3.c:147
+#: src/project_dbase_gui.c:1123
 #, c-format
 msgid "Couldn't find pixmap file: %s"
 msgstr "Impossible de trouver l'image %s"
@@ -555,7 +556,8 @@ msgstr "La construction de la distribution a échouée\n"
 
 #: src/build_project.c:373
 msgid "Build-Distribution completed ... unsuccessful"
-msgstr "La construction de la distribution s'est interrompue à la suite d'une erreur"
+msgstr ""
+"La construction de la distribution s'est interrompue à la suite d'une erreur"
 
 #: src/build_project.c:379
 msgid "Build-Distribution completed...............Successful\n"
@@ -734,7 +736,8 @@ msgstr ""
 
 #: src/compile.c:129
 msgid "The object file is up to date. No need to compile again."
-msgstr "Le fichier objet est déjà à jour, il n'est donc pas utile de le regénérer."
+msgstr ""
+"Le fichier objet est déjà à jour, il n'est donc pas utile de le regénérer."
 
 #: src/compile.c:143
 msgid "I do not really know how to compile this file."
@@ -978,7 +981,9 @@ msgstr "Avertissements pour les prototypes de fonctions manquants"
 
 #: src/compiler_options_gui.c:958
 msgid "Warning for Un-Inline-able declarations"
-msgstr "Avertissements pour les déclarations de fonctions 'inline' qui ne peuvent l'être"
+msgstr ""
+"Avertissements pour les déclarations de fonctions 'inline' qui ne peuvent "
+"l'être"
 
 #: src/compiler_options_gui.c:966
 msgid "Warning for Overloaded-virtuals"
@@ -1172,7 +1177,8 @@ msgid ""
 "\n"
 msgstr ""
 "\n"
-"Mhhh, j'espère que vous avez trouvé le bogue ;) :: Session de débogage terminée.\n"
+"Mhhh, j'espère que vous avez trouvé le bogue ;) :: Session de débogage "
+"terminée.\n"
 "\n"
 
 #: src/debugger.c:1100
@@ -1185,7 +1191,9 @@ msgstr "Erreur : impossible d'ouvrir un terminal pour le débogage."
 
 #: src/debugger.c:1182
 msgid "Warning: No debug terminal. Redirecting stdio to /dev/null.\n"
-msgstr "Avertissement : Aucun terminal de débogage. Redirection de la sortie vers /dev/null.\n"
+msgstr ""
+"Avertissement : Aucun terminal de débogage. Redirection de la sortie vers /"
+"dev/null.\n"
 
 #: src/debugger.c:1200
 msgid "Running program ... \n"
@@ -1207,7 +1215,8 @@ msgstr ""
 #: src/debugger.c:1344
 msgid "You FOOL! I can not attach to myself."
 msgstr ""
-"A mon avis, vous devez être plus que largement positif au moindre alcootest !\n"
+"A mon avis, vous devez être plus que largement positif au moindre "
+"alcootest !\n"
 "Comment voulez-vous que je m'attache en plein exécution ?"
 
 #: src/debugger.c:1427
@@ -1443,7 +1452,8 @@ msgstr "Aucune occurence de \"%s\" n'a été trouvé dans le texte sélectionné"
 #: src/find_text.c:451 src/toolbar_callbacks.c:158
 #, c-format
 msgid "The match \"%s\" was not found from the current location"
-msgstr "Aucune occurence de \"%s\" n'a été trouvé à partir de la position courante"
+msgstr ""
+"Aucune occurence de \"%s\" n'a été trouvé à partir de la position courante"
 
 #: src/gnome_project.c:59
 msgid ""
@@ -1883,7 +1893,9 @@ msgstr "Chercher et _remplacer ..."
 #: src/main_menubar_def.h:320
 #, fuzzy
 msgid "Search for and replace a string or regexp with another string"
-msgstr "Recherche et remplace une chaîne ou une expression regulière par une autre chaîne"
+msgstr ""
+"Recherche et remplace une chaîne ou une expression regulière par une autre "
+"chaîne"
 
 #: src/main_menubar_def.h:328
 msgid "G_o to"
@@ -2609,7 +2621,8 @@ msgstr "_Autogénération"
 
 #: src/main_menubar_def.h:943
 msgid "Auto generate all the build files"
-msgstr "Génère automatiquement tous les fichiers servant à la construction du projet"
+msgstr ""
+"Génère automatiquement tous les fichiers servant à la construction du projet"
 
 #: src/main_menubar_def.h:949
 msgid "Clea_n"
@@ -2858,7 +2871,9 @@ msgstr "Charger image _mémoire"
 #: src/main_menubar_def.h:1162
 #, fuzzy
 msgid "Load a core file to dissect"
-msgstr "Charge une image mémoire afin de trouver plus facilement l'origine d'un problème"
+msgstr ""
+"Charge une image mémoire afin de trouver plus facilement l'origine d'un "
+"problème"
 
 #: src/main_menubar_def.h:1167
 msgid "_Attach to Process ..."
@@ -3010,7 +3025,8 @@ msgstr "Chemins des _sources"
 
 #: src/main_menubar_def.h:1336
 msgid "Specify the source paths for the Anjuta to search"
-msgstr "Permet de spécifier les chemins des fichiers sources qu'Anjuta doit chercher"
+msgstr ""
+"Permet de spécifier les chemins des fichiers sources qu'Anjuta doit chercher"
 
 #: src/main_menubar_def.h:1341
 msgid "_Commands ..."
@@ -3347,7 +3363,8 @@ msgstr "Boîte de dialogue à la fin des tâches"
 #: src/preferences_gui.c:524
 #, fuzzy
 msgid "Keep going when some targets cannot be made"
-msgstr "Continuer la construction quand certaines cibles ne peuvent être fabriquées"
+msgstr ""
+"Continuer la construction quand certaines cibles ne peuvent être fabriquées"
 
 #: src/preferences_gui.c:531
 msgid "Silent: Don't echo commands"
@@ -3583,8 +3600,10 @@ msgid ""
 "Please upgrade Anjuta to the latest version (Help for more information).\n"
 "For the time being, I am too old to load it.:-("
 msgstr ""
-"Erreur : Ce projet ne peut être ouvert que par la version %s ou supérieure d'Anjuta.\n"
-"Veuillez mettre à jour Anjuta à la dernière version (Aide pour plus d'infos).\n"
+"Erreur : Ce projet ne peut être ouvert que par la version %s ou supérieure "
+"d'Anjuta.\n"
+"Veuillez mettre à jour Anjuta à la dernière version (Aide pour plus "
+"d'infos).\n"
 "En attendant, je suis trop vieux pour le charger. =("
 
 #: src/project_dbase.c:665
@@ -3595,7 +3614,8 @@ msgid ""
 "For the time being, I am too old to load it. :-("
 msgstr ""
 "Ce projet ne peut être ouvert que par la version %s ou supérieure d'Anjuta.\n"
-"Veuillez mettre à jour Anjuta à la dernière version (Aide pour plus d'infos).\n"
+"Veuillez mettre à jour Anjuta à la dernière version (Aide pour plus "
+"d'infos).\n"
 "En attendant, je suis trop vieux pour le charger. =("
 
 #: src/project_dbase.c:725
@@ -3706,7 +3726,8 @@ msgstr "En-têtes"
 
 #: src/project_config.c:930
 msgid "Checks for typedefs, structures, and compiler characteristics."
-msgstr "Vérification des caractéristiques des typedefs, structures et compilateurs"
+msgstr ""
+"Vérification des caractéristiques des typedefs, structures et compilateurs"
 
 #: src/project_config.c:947
 msgid "characteristics check"
@@ -4128,7 +4149,8 @@ msgstr "# *********** NE PAS EDITER OU RENOMMER CE FICHIER ************\n"
 #: src/tags_manager.c:188
 msgid ""
 "# ******************* Created by  Anjuta ********************************\n"
-msgstr "# ******************* Créé par Anjuta ***********************************\n"
+msgstr ""
+"# ******************* Créé par Anjuta ***********************************\n"
 
 #: src/tags_manager.c:191
 msgid "# ***************** Anjuta Tags cache file ********************\n"
@@ -4154,11 +4176,11 @@ msgstr "Fonction mémoire :"
 msgid "Tag:"
 msgstr "Balise :"
 
-#: src/tags_manager.c:638
+#: ccview/cccproj.cc:1187 src/tags_manager.c:638
 msgid "Cannot execute ctags"
 msgstr "Impossible d'exécuter 'ctags'"
 
-#: src/tags_manager.c:643
+#: ccview/cccproj.cc:1193 src/tags_manager.c:643
 #, c-format
 msgid ""
 "Cannot fork to execute ctags. I donno why!!\n"
@@ -4761,7 +4783,7 @@ msgstr "Autocomplèté le mot"
 msgid "Functions"
 msgstr "Fonctions"
 
-#: src/toolbar.c:1374
+#: ccview/ccview_main.cc:49 src/toolbar.c:1374
 msgid "Classes"
 msgstr "Classes"
 
@@ -4995,7 +5017,9 @@ msgstr "INS"
 msgid ""
 "  Project: %s       Zoom: %d       Line: %04d       Col: %03d       %s       "
 "Job: %s"
-msgstr "  Projet: %s       Zoom: %d       Ligne: %04d       Col: %03d       %s       Tâche: %s"
+msgstr ""
+"  Projet: %s       Zoom: %d       Ligne: %04d       Col: %03d       %s       "
+"Tâche: %s"
 
 #: src/anjuta_gui.c:202 src/anjuta_gui.c:291
 msgid "Click here to undock this window"
@@ -5040,6 +5064,62 @@ msgstr "Impossible de trouver l'image : %s"
 #: src/resources.c:149
 #, c-format
 msgid "Could not create pixmap from file: %s"
+msgstr "Impossible de créer l'image à partir du fichier : %s"
+
+#: anjuta.desktop.in.h:1
+msgid "Anjuta C/C++ IDE"
+msgstr ""
+
+#: anjuta.desktop.in.h:2
+msgid "Integrated Development Environment"
+msgstr ""
+
+#: ccview/cccmd.cc:27
+msgid "/_Class Definition"
+msgstr ""
+
+#: ccview/cccmd.cc:28
+#, fuzzy
+msgid "/_Func Definition"
+msgstr "Fonction"
+
+#: ccview/cccmd.cc:29
+#, fuzzy
+msgid "/Func _Declaration"
+msgstr "Déclarations"
+
+#: ccview/cccmd.cc:36
+msgid "/_Shell here"
+msgstr ""
+
+#: ccview/cccmd.cc:37
+#, fuzzy
+msgid "/_Open"
+msgstr "Ouvrir"
+
+#: ccview/cccproj.cc:1471
+#, fuzzy
+msgid "Updating file:"
+msgstr "Ouvrir fichier"
+
+#: ccview/ccview_main.cc:51
+#, fuzzy
+msgid "Files"
+msgstr "Fichier"
+
+#: ccview/func_dialog.cc:28
+#, fuzzy
+msgid "Add Function"
+msgstr "Fonction"
+
+#: ccview/func_dialog.cc:31
+#, fuzzy
+msgid "Function declaration:"
+msgstr "Déclarations"
+
+#: ccview/support.c:116
+#, fuzzy, c-format
+msgid "Couldn't create pixmap from file: %s"
 msgstr "Impossible de créer l'image à partir du fichier : %s"
 
 #~ msgid "Gtk based Project"
