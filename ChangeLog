@@ -1,6 +1,8 @@
 2004-04-23  Naba Kumar  <naba@gnome.org>
 	
-	libanjuta/anjuta-children.c,
+	* configure.in: Fixed compile error.
+	
+	* libanjuta/anjuta-children.c,
 	libanjuta/anjuta-children.h,
 	libanjuta/anjuta-preferences.c,
 	libanjuta/anjuta-preferences.h,
