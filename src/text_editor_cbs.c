@@ -91,6 +91,16 @@ on_text_editor_window_delete (GtkWidget * widget,
 	return TRUE;
 }
 
+void
+on_text_editor_notebook_close_page (GtkNotebook * notebook,
+				GtkNotebookPage * page,
+				gint page_num, gpointer user_data)
+{
+	 gtk_signal_emit_by_name (GTK_OBJECT
+                             (app->widgets.menubar.file.close_file),
+                             "activate");
+}
+
 gboolean
 on_text_editor_window_focus_in_event (GtkWidget * widget,
 				      GdkEventFocus * event,

@@ -60,7 +60,10 @@ on_text_editor_text_paste_clipboard    (GtkEditable     *editable,
 void
 on_text_editor_text_changed            (GtkEditable     *editable,
                                         gpointer         user_data);
-
+void
+on_text_editor_notebook_close_page		(GtkNotebook * notebook,
+										 GtkNotebookPage * page,
+										 gint page_num, gpointer user_data);
 gboolean
 on_text_editor_auto_save    (gpointer         user_data);
 

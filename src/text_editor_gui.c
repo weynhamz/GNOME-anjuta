@@ -69,6 +69,9 @@ create_text_editor_gui (TextEditor * te)
 	GtkWidget *button12;
 	GtkWidget *button14;
 	GtkWidget *button13;
+	GtkWidget *button15;
+	GtkWidget *close_pixmap;
+	GtkRequisition r;
 	GtkWidget *event_box1;
 	GtkWidget *client_frame;
 	GtkWidget *editor1;
@@ -275,6 +278,17 @@ create_text_editor_gui (TextEditor * te)
 					       NULL);
 	gtk_widget_show (button13);
 
+	tmp_toolbar_icon = anjuta_res_get_pixmap_widget (window1, ANJUTA_PIXMAP_CLOSE_FILE_SMALL, FALSE);
+	gtk_widget_show(tmp_toolbar_icon);
+	button15 = gtk_button_new();
+	gtk_container_add(GTK_CONTAINER(button15), tmp_toolbar_icon);
+	gtk_button_set_relief(GTK_BUTTON(button15), GTK_RELIEF_NONE);
+	gtk_widget_show (button15);
+	close_pixmap = anjuta_res_get_pixmap_widget (window1, ANJUTA_PIXMAP_CLOSE_FILE_SMALL, FALSE);
+	gtk_widget_size_request (button15, &r);
+	gtk_widget_set_usize (close_pixmap, r.width, r.height);
+	gtk_widget_set_sensitive(close_pixmap, FALSE);
+	
 	frame1 = gtk_frame_new (NULL);
 	gtk_widget_show (frame1);
 	gnome_dock_set_client_area (GNOME_DOCK (dock1), frame1);
@@ -330,7 +344,9 @@ create_text_editor_gui (TextEditor * te)
 	gtk_signal_connect (GTK_OBJECT (button13), "clicked",
 			    GTK_SIGNAL_FUNC (on_text_editor_dock_activate),
 			    te);
-
+	gtk_signal_connect (GTK_OBJECT (button15), "clicked",
+				GTK_SIGNAL_FUNC(on_text_editor_notebook_close_page),
+				te);
 /***************************************************************************/
 
 	gtk_signal_connect (GTK_OBJECT (window1), "focus_in_event",
@@ -361,6 +377,7 @@ create_text_editor_gui (TextEditor * te)
 	te->widgets.editor = editor1;
 	te->widgets.line_label = label2;
 	te->widgets.tab_label = NULL;	/* Created later */
+	te->widgets.close_pixmap = close_pixmap;
 	
 	te->buttons.new = button1;
 	te->buttons.open = button2;
@@ -375,6 +392,7 @@ create_text_editor_gui (TextEditor * te)
 	te->buttons.build = button12;
 	te->buttons.print = button14;
 	te->buttons.attach = button13;
+	te->buttons.close = button15;
 
 	gtk_widget_ref (te->buttons.new);
 	gtk_widget_ref (te->buttons.new);
@@ -390,6 +408,7 @@ create_text_editor_gui (TextEditor * te)
 	gtk_widget_ref (te->buttons.build);
 	gtk_widget_ref (te->buttons.print);
 	gtk_widget_ref (te->buttons.attach);
+	gtk_widget_ref (te->buttons.close);
 
 	gtk_widget_ref (te->widgets.window);
 	gtk_widget_ref (te->widgets.client_area);

@@ -234,7 +234,7 @@ anjuta_session_restore (GnomeClient* client)
 TextEditor *
 anjuta_append_text_editor (gchar * filename)
 {
-	GtkWidget *label, *eventbox;
+	GtkWidget *label, *eventbox, *box;
 	TextEditor *te, *cur_page;
 	gchar *buff;
 
@@ -255,11 +255,19 @@ anjuta_append_text_editor (gchar * filename)
 		label = gtk_label_new (te->filename);
 		te->widgets.tab_label = label;
 		gtk_widget_show (label);
+		
+		box = gtk_hbox_new(FALSE, 0);
+		gtk_box_pack_start(GTK_BOX(box), label, TRUE, TRUE, 0);
+        gtk_box_pack_start(GTK_BOX(box), te->buttons.close, FALSE, FALSE, 0);
+        gtk_box_pack_start(GTK_BOX(box), te->widgets.close_pixmap, FALSE, FALSE, 0);
+		gtk_widget_show(box);
+						
 		eventbox = gtk_event_box_new ();
 		gtk_widget_show (eventbox);
 		gtk_notebook_prepend_page (GTK_NOTEBOOK
 					   (app->widgets.notebook), eventbox,
-					   label);
+					   box);
+
 		gtk_container_add (GTK_CONTAINER (eventbox),
 				   te->widgets.client);
 	
@@ -396,8 +404,18 @@ anjuta_get_current_text_editor ()
 
 void
 anjuta_set_current_text_editor (TextEditor * te)
-{
+{	
+	TextEditor *ote = app->current_text_editor;
+	
+	if (ote != NULL && ote->buttons.close != NULL) {
+		gtk_widget_hide(ote->buttons.close);
+		gtk_widget_show(ote->widgets.close_pixmap);
+	}
 	app->current_text_editor = te;
+	if (te != NULL && te->buttons.close != NULL) {
+		gtk_widget_show(te->buttons.close);
+		gtk_widget_hide(te->widgets.close_pixmap);
+	}
 	main_toolbar_update ();
 	extended_toolbar_update ();
 	format_toolbar_update ();

@@ -38,6 +38,7 @@
 #define ANJUTA_PIXMAP_SAVE_AS_FILE "save_as_file.xpm"
 #define ANJUTA_PIXMAP_SAVE_ALL "save_all.xpm"
 #define ANJUTA_PIXMAP_CLOSE_FILE   "close_file.xpm"
+#define ANJUTA_PIXMAP_CLOSE_FILE_SMALL   "close_file_small.xpm"
 #define ANJUTA_PIXMAP_RELOAD_FILE  "reload_file.xpm"
 #define ANJUTA_PIXMAP_PROJECT  "project.xpm"
 #define ANJUTA_PIXMAP_NEW_PROJECT  "new_project.xpm"

@@ -62,6 +62,7 @@ struct _TextEditorButtons
 	GtkWidget *build;
 	GtkWidget *print;
 	GtkWidget *attach;
+	GtkWidget *close;
 };
 
 struct _TextEditorGui
@@ -72,6 +73,7 @@ struct _TextEditorGui
 	GtkWidget *line_label;
 	GtkWidget *editor;
 	GtkWidget *tab_label;
+	GtkWidget *close_pixmap;
 };
 
 struct _TextEditor

@@ -37,6 +37,7 @@ anjuta_pixmaps_DATA = \
 	build_stop.xpm\
 	calltip.xpm\
 	close_file.xpm\
+	close_file_small.xpm\
 	close_project.xpm\
 	compile.xpm\
 	configure.xpm\

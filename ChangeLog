@@ -1,3 +1,10 @@
+2001-12-23	Andy Piper	<andy.piper@freeuk.com>
+
+	* pixmaps/close_file_small.xpm, pixmaps/Makefile.am, src/anjuta.c,
+	  src/text_editor.h, src/pixmaps.h, src/text_editor_cbs.c,
+	  src/text_editor_cbs.h, src/text_editor_gui.c: patch from Jens
+	  Georg <mail@jensgeorg.de> to add close button to file tabs.
+
 2001-12-20	Andy Piper	<andy.piper@freeuk.com>
 
 	* launcher/anjuta_launcher.c: patch from Stef to fix #490816
