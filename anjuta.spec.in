@@ -1,6 +1,6 @@
 %define	name		anjuta
 %define	version		@VERSION@
-%define	release		2
+%define	release		1
 %define	serial		1
 %define	prefix		/usr
 

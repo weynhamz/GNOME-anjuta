@@ -73,9 +73,10 @@ static gboolean anjuta_print_run_dialog(PrintJobInfo *pji)
 
 static void anjuta_print_preview_real(PrintJobInfo *pji)
 {
-	gchar *title = g_strdup_printf (_("Print Preview"));
-	GnomePrintMasterPreview *gpmp = gnome_print_master_preview_new (pji->master, title);
-	g_free (title);
+	/* gchar *title = g_strdup_printf (); */
+	GnomePrintMasterPreview *gpmp =
+		gnome_print_master_preview_new (pji->master, _("Print Preview"));
+	/* g_free (title); */
 	gtk_widget_show (GTK_WIDGET (gpmp));
 }
 

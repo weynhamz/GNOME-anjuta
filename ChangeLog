@@ -1,3 +1,26 @@
+2002-12-16  Naba Kumar <naba@gnome.org>
+
+	* src/goto_line.c: Ordered 'Ok' and 'Cancel' button in the right order.
+	* src/configurer.c, src/anjuta_info.c, src/attac_process_gui.c,
+	src/executer.c, src/launcherc, src/breakpoints_gui.c, src/help.c: Activates
+	on 'Enter' and adds proper focus mechanism.
+	* src/anjuta.c: Fixed a memory corruption bug.
+	* src/anjuta-tools.c, anjuta.glade: Tools parameter dialog activates on
+	'Enter' and can also be	Canceled. Sets proper default and focus policies
+	for tools dialogs.
+	* src/main_menubar_def.h: Fixed typos, added icons and added hot keys.
+	* anjuta.glade, src/Makefile.am, src/anjuta_dialog_strings.c: Enabled
+	translatable strings in dialogs and fixed some dialog properties.
+	* src/anjuta-tools.c: Now uses xml format for loading and saving.
+	* configure.in, anjuta.spec.in, anjuta.prj: Bumped version to 1.0.1
+	* src/message_manager_private.cc: Fixed some debug messages.
+	* src/print.c, src/print-doc.c, src/anjuta-tools.c, src/anjuta.c,
+	widgets/gnomefilelist.c: Fixed a memory leaks.
+	* src/toolbar.[ch], src/text_editor.[ch], src/find_text.[ch],
+	src/toolbar_callbacks.[ch], src/mainmenu_callbacks.c,
+	src/main_menubar_def.h: Implemented incremental search.
+	* TODO: Updated.
+
 2002-12-14  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
 	* tagmanager/*: Minor cleanups and warning fixes.
 	* src/an_symbol_view.c, src/an_file_view.c: Do not freeze the

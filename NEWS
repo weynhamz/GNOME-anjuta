@@ -6,6 +6,8 @@ New: Per project editor properties
 New: Sub windows now float above main window.
 New: Project version and excluded modules configuration.
 NEW: Errors and warnings indications in editor.
+New: Tools support and tools editor.
+New: Incremental search (like emacs I-Search)
 Bug fix: Printing now takes editor default fonts
 Bug fix: Rpm package fix
 Bug fix: ChangeLog insert uses spaces (instead of tabs)

@@ -119,8 +119,8 @@ anjuta_print_job_info_style_init (PrintJobInfoStyle *pis, PropsID prop,
 		else
 			opt = 0;
 	}
-	if (val)
-		g_free(val);
+	g_free(val);
+	g_free(style_string);
 }
 
 static PrintJobInfoStyle*

@@ -64,6 +64,7 @@ static void check_goto(GtkWidget *widget, GnomeFileList *file_list);
 static void delete_file(GtkWidget *widget, GnomeFileList *file_list);
 static void rename_file(GtkWidget *widget, GnomeFileList *file_list);
 static void create_dir(GtkWidget *widget, GnomeFileList *file_list);
+static gint create_dir_delete_cb(GtkWidget *widget, GdkEvent *e, GnomeFileList *file_list);
 static void create_dir_okbutton_cb(GtkWidget *button, GnomeFileList *file_list);
 static void create_dir_cancelbutton_cb(GtkWidget *button, GnomeFileList *file_list);
 static void home_directory_cb (GtkButton * button, GnomeFileList *file_list);
@@ -147,6 +148,7 @@ GtkWidget *gnome_filelist_new_with_path(gchar *path)
    GList *combolist=NULL;
    GtkAdjustment *file_adjustment;
    GtkAdjustment *dir_adjustment;
+   gchar *pix_filename;
 	
    file_list = gtk_type_new(GNOME_TYPE_FILELIST);
    gnome_window_icon_set_from_default(GTK_WINDOW(file_list));
@@ -179,7 +181,9 @@ GtkWidget *gnome_filelist_new_with_path(gchar *path)
    file_list->delete_button = gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), 0, _("Delete file"), 0, pixmapwid, GTK_SIGNAL_FUNC(delete_file), file_list); 
    pixmapwid = gnome_stock_pixmap_widget_at_size(GTK_WIDGET(file_list), GNOME_STOCK_PIXMAP_CONVERT, 21, 21);
    file_list->rename_button = gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), 0, _("Rename file"), 0, pixmapwid, GTK_SIGNAL_FUNC(rename_file), file_list);
-   pixmapwid = gnome_pixmap_new_from_file_at_size ((const char *) anjuta_res_get_pixmap_file(ANJUTA_PIXMAP_NEW_FOLDER), 21, 21);      
+   pix_filename = anjuta_res_get_pixmap_file(ANJUTA_PIXMAP_NEW_FOLDER);
+   pixmapwid = gnome_pixmap_new_from_file_at_size (pix_filename, 21, 21);
+   g_free (pix_filename);
    file_list->createdir_button = gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), 0, _("Create new folder"), 0, pixmapwid, GTK_SIGNAL_FUNC(create_dir), file_list);   
    gtk_toolbar_append_space(GTK_TOOLBAR(toolbar));
 
@@ -1688,7 +1692,7 @@ static void rename_file(GtkWidget *widget, GnomeFileList *file_list)
    selected = gtk_entry_get_text(GTK_ENTRY(file_list->selection_entry));
    full = build_full_path(path, selected);
 
-   dialog = (GnomeDialog *)gnome_dialog_new("Delete File...", GNOME_STOCK_BUTTON_OK, GNOME_STOCK_BUTTON_CANCEL, NULL);
+   dialog = (GnomeDialog *)gnome_dialog_new("Rename File...", GNOME_STOCK_BUTTON_OK, GNOME_STOCK_BUTTON_CANCEL, NULL);
    hbox = gtk_hbox_new(FALSE, 0);
    gtk_box_pack_start(GTK_BOX(dialog->vbox), hbox, FALSE, FALSE, 0);
    gtk_widget_show(hbox);
@@ -1738,10 +1742,20 @@ static void create_dir(GtkWidget *widget, GnomeFileList *file_list)
   GtkWidget *okbutton;
   GtkWidget *cancelbutton;
   /* The window and the entry are in the _GnomeFileList struct */  
-	
+
+  if (file_list->createdir_window)
+  {
+     gdk_window_raise (GTK_WIDGET(file_list->createdir_window)->window);
+     gtk_widget_grab_focus (file_list->createdir_entry);
+	 return;
+  }
   file_list->createdir_window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
   gnome_window_icon_set_from_default(GTK_WINDOW(file_list->createdir_window));
   gtk_window_set_title (GTK_WINDOW (file_list->createdir_window), _("New folder"));
+  gtk_window_set_wmclass (GTK_WINDOW (file_list->createdir_window), "createdir", "Anjuta");
+  gtk_window_set_transient_for (GTK_WINDOW(file_list->createdir_window), 
+  		GTK_WINDOW (file_list));
+  gtk_widget_show(GTK_WIDGET(file_list->createdir_window));
 
   vbox1 = gtk_vbox_new (FALSE, 6);  
 	
@@ -1786,8 +1800,6 @@ static void create_dir(GtkWidget *widget, GnomeFileList *file_list)
   gtk_box_pack_start(GTK_BOX(util_box), cancelbutton, FALSE, FALSE, 5);
   GTK_WIDGET_SET_FLAGS(cancelbutton, GTK_CAN_DEFAULT);
   gtk_widget_show(cancelbutton);   
-   
-  
 
   gtk_signal_connect (GTK_OBJECT (okbutton), "clicked",
                       GTK_SIGNAL_FUNC (create_dir_okbutton_cb),
@@ -1795,11 +1807,19 @@ static void create_dir(GtkWidget *widget, GnomeFileList *file_list)
   gtk_signal_connect (GTK_OBJECT (cancelbutton), "clicked",
                       GTK_SIGNAL_FUNC (create_dir_cancelbutton_cb),
                       file_list);
+  gtk_signal_connect (GTK_OBJECT (file_list->createdir_window), "delete_event",
+                      GTK_SIGNAL_FUNC (create_dir_delete_cb),
+                      file_list);
 					  
-  gtk_window_set_wmclass (GTK_WINDOW (file_list->createdir_window), "createdir", "Anjuta");
-  gtk_widget_show(GTK_WIDGET(file_list->createdir_window));
   gtk_widget_grab_focus (file_list->createdir_entry);
 	
+}
+
+static gint create_dir_delete_cb(GtkWidget *w, GdkEvent* e,
+	GnomeFileList *file_list)
+{
+	file_list->createdir_window = NULL;
+	return FALSE;
 }
 
 static void create_dir_okbutton_cb(GtkWidget *button, GnomeFileList *file_list)
@@ -1815,13 +1835,14 @@ static void create_dir_okbutton_cb(GtkWidget *button, GnomeFileList *file_list)
 	   gnome_filelist_set_dir(file_list, string);
 	   g_free(string);
 	   gtk_widget_destroy(file_list->createdir_window);
+	   file_list->createdir_window = NULL;
    }
 }
 
 static void create_dir_cancelbutton_cb(GtkWidget *button, GnomeFileList *file_list)
 {
 	gtk_widget_destroy(file_list->createdir_window);
-	
+	file_list->createdir_window = NULL;
 }
 
 static void home_directory_cb (GtkButton * button, GnomeFileList *file_list)

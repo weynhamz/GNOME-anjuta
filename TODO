@@ -10,8 +10,9 @@ TODO List:
 	o Compiler options: supports
 	o add credits for ALL new contributors
 	o update manual
-	o improve find in files usability/incremental searching
 	o project manager changes
+	o Add minibuffer-support (for vi and emacs key bindings)
+	o Add Corba client for external access.
 	
 ** General:
 
