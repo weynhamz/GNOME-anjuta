@@ -1,3 +1,21 @@
+2003-04-17  Naba Kumar  <naba@gnome.org>
+
+	* src/launcher.c: Removed commnets.
+	
+	* anjuta.glade, anjuta_dialogs_strings.c: Moved indentation
+	properties from editor tab to indentation tab and fixed a property
+	label for proper i18n translation. Fixed typos in project config
+	dialog (reported by Gaëtan de Menten  <ged@bugfactory.org>). Disabled
+	sorting and reordering in compiler options dialog.
+	
+	* src/compiler_options.c: Implemented _save() function to save the
+	options (which was pending).
+	
+	* src/build_project.c: Destroys install-as-root dialog when it is done.
+	
+	* src/an_symbol_view.c: Change "event" event to "event-after" so
+	that symbol row is selected first before the popup is shown.
+	
 2003-04-14  Dan Elphick <dre00r@ecs.soton.ac.uk>
 
 	* tagmanager/tm_file_entry.c: Fix to make CVS info appear for first 

@@ -555,7 +555,7 @@ sv_create ()
 					  G_CALLBACK (on_symbol_view_row_expanded), NULL);
 	g_signal_connect (sv->tree, "row_collapsed",
 					  G_CALLBACK (on_symbol_view_row_collapsed), NULL);
-	g_signal_connect (sv->tree, "event",
+	g_signal_connect (sv->tree, "event-after",
 					  G_CALLBACK (on_treeview_event), NULL);
 	g_signal_connect (sv->tree, "row_activated",
 					  G_CALLBACK (on_treeview_row_activated), NULL);

@@ -2457,8 +2457,8 @@
 		  <property name="can_focus">True</property>
 		  <property name="headers_visible">True</property>
 		  <property name="rules_hint">True</property>
-		  <property name="reorderable">True</property>
-		  <property name="enable_search">True</property>
+		  <property name="reorderable">False</property>
+		  <property name="enable_search">False</property>
 		</widget>
 	      </child>
 	    </widget>
@@ -7059,7 +7059,7 @@
 		<widget class="GtkLabel" id="label72">
 		  <property name="width_request">445</property>
 		  <property name="visible">True</property>
-		  <property name="label" translatable="yes">Give a space separated list of directories to be bult before source module. This will be set in configure.in and Makefiles will be generated for them. They will be build before the source (src/) directory during &quot;make&quot;.</property>
+		  <property name="label" translatable="yes">Give a space separated list of directories to be built before source module. This will be set in configure.in and Makefiles will be generated for them. They will be built before the source (src/) directory during &quot;make&quot;.</property>
 		  <property name="use_underline">False</property>
 		  <property name="use_markup">False</property>
 		  <property name="justify">GTK_JUSTIFY_FILL</property>
@@ -7111,7 +7111,7 @@
 		<widget class="GtkLabel" id="label73">
 		  <property name="width_request">445</property>
 		  <property name="visible">True</property>
-		  <property name="label" translatable="yes">Give a space separated list of directories to be built after source module. This will be set in configure and Makefiles will be generated for them. They will be build after the source (src/) directory during &quot;make&quot;.</property>
+		  <property name="label" translatable="yes">Give a space separated list of directories to be built after source module. This will be set in configure and Makefiles will be generated for them. They will be built after the source (src/) directory during &quot;make&quot;.</property>
 		  <property name="use_underline">False</property>
 		  <property name="use_markup">False</property>
 		  <property name="justify">GTK_JUSTIFY_FILL</property>
@@ -12189,27 +12189,6 @@
 		      <property name="spacing">5</property>
 
 		      <child>
-			<widget class="GtkLabel" id="label1295">
-			  <property name="visible">True</property>
-			  <property name="label" translatable="yes">Show autocompletion box if</property>
-			  <property name="use_underline">False</property>
-			  <property name="use_markup">False</property>
-			  <property name="justify">GTK_JUSTIFY_LEFT</property>
-			  <property name="wrap">False</property>
-			  <property name="selectable">False</property>
-			  <property name="xalign">0</property>
-			  <property name="yalign">0.5</property>
-			  <property name="xpad">0</property>
-			  <property name="ypad">0</property>
-			</widget>
-			<packing>
-			  <property name="padding">0</property>
-			  <property name="expand">False</property>
-			  <property name="fill">False</property>
-			</packing>
-		      </child>
-
-		      <child>
 			<widget class="GtkSpinButton" id="preferences_spin:int:3:0:autocompleteword.automatic">
 			  <property name="visible">True</property>
 			  <property name="can_focus">True</property>
@@ -12229,15 +12208,15 @@
 		      </child>
 
 		      <child>
-			<widget class="GtkLabel" id="label12336">
+			<widget class="GtkLabel" id="label1295">
 			  <property name="visible">True</property>
-			  <property name="label" translatable="yes">choices or less</property>
+			  <property name="label" translatable="yes">Autocompletion pop up choices</property>
 			  <property name="use_underline">False</property>
 			  <property name="use_markup">False</property>
 			  <property name="justify">GTK_JUSTIFY_LEFT</property>
 			  <property name="wrap">False</property>
 			  <property name="selectable">False</property>
-			  <property name="xalign">0.5</property>
+			  <property name="xalign">0</property>
 			  <property name="yalign">0.5</property>
 			  <property name="xpad">0</property>
 			  <property name="ypad">0</property>
@@ -12677,42 +12656,6 @@
 		      <property name="visible">True</property>
 		      <property name="can_focus">True</property>
 		      <property name="label" translatable="yes">Wrap bookmarks search around</property>
-		      <property name="use_underline">True</property>
-		      <property name="relief">GTK_RELIEF_NORMAL</property>
-		      <property name="active">False</property>
-		      <property name="inconsistent">False</property>
-		      <property name="draw_indicator">True</property>
-		    </widget>
-		    <packing>
-		      <property name="padding">0</property>
-		      <property name="expand">False</property>
-		      <property name="fill">False</property>
-		    </packing>
-		  </child>
-
-		  <child>
-		    <widget class="GtkCheckButton" id="preferences_toggle:bool:0:0:tab.indents">
-		      <property name="visible">True</property>
-		      <property name="can_focus">True</property>
-		      <property name="label" translatable="yes">Pressing tab indents</property>
-		      <property name="use_underline">True</property>
-		      <property name="relief">GTK_RELIEF_NORMAL</property>
-		      <property name="active">False</property>
-		      <property name="inconsistent">False</property>
-		      <property name="draw_indicator">True</property>
-		    </widget>
-		    <packing>
-		      <property name="padding">0</property>
-		      <property name="expand">False</property>
-		      <property name="fill">False</property>
-		    </packing>
-		  </child>
-
-		  <child>
-		    <widget class="GtkCheckButton" id="preferences_toggle:bool:0:0:backspace.unindents">
-		      <property name="visible">True</property>
-		      <property name="can_focus">True</property>
-		      <property name="label" translatable="yes">Pressing backspace un-indents</property>
 		      <property name="use_underline">True</property>
 		      <property name="relief">GTK_RELIEF_NORMAL</property>
 		      <property name="active">False</property>
@@ -13211,7 +13154,7 @@
 	    <widget class="GtkTable" id="table15">
 	      <property name="border_width">5</property>
 	      <property name="visible">True</property>
-	      <property name="n_rows">4</property>
+	      <property name="n_rows">6</property>
 	      <property name="n_columns">4</property>
 	      <property name="homogeneous">False</property>
 	      <property name="row_spacing">5</property>
@@ -13266,20 +13209,6 @@
 	      </child>
 
 	      <child>
-		<widget class="GtkVSeparator" id="vseparator1">
-		  <property name="visible">True</property>
-		</widget>
-		<packing>
-		  <property name="left_attach">1</property>
-		  <property name="right_attach">2</property>
-		  <property name="top_attach">0</property>
-		  <property name="bottom_attach">4</property>
-		  <property name="x_options">fill</property>
-		  <property name="y_options">fill</property>
-		</packing>
-	      </child>
-
-	      <child>
 		<widget class="GtkSpinButton" id="preferences_spin:int:4:1:tabsize">
 		  <property name="visible">True</property>
 		  <property name="can_focus">True</property>
@@ -13318,27 +13247,6 @@
 		  <property name="right_attach">4</property>
 		  <property name="top_attach">1</property>
 		  <property name="bottom_attach">2</property>
-		  <property name="x_options">fill</property>
-		  <property name="y_options"></property>
-		</packing>
-	      </child>
-
-	      <child>
-		<widget class="GtkCheckButton" id="preferences_toggle:bool:1:1:autoformat.disable">
-		  <property name="visible">True</property>
-		  <property name="can_focus">True</property>
-		  <property name="label" translatable="yes">Disable auto-format</property>
-		  <property name="use_underline">True</property>
-		  <property name="relief">GTK_RELIEF_NORMAL</property>
-		  <property name="active">False</property>
-		  <property name="inconsistent">False</property>
-		  <property name="draw_indicator">True</property>
-		</widget>
-		<packing>
-		  <property name="left_attach">2</property>
-		  <property name="right_attach">3</property>
-		  <property name="top_attach">3</property>
-		  <property name="bottom_attach">4</property>
 		  <property name="x_options">fill</property>
 		  <property name="y_options"></property>
 		</packing>
@@ -13423,6 +13331,83 @@
 		  <property name="right_attach">1</property>
 		  <property name="top_attach">3</property>
 		  <property name="bottom_attach">4</property>
+		  <property name="x_options">fill</property>
+		  <property name="y_options"></property>
+		</packing>
+	      </child>
+
+	      <child>
+		<widget class="GtkCheckButton" id="preferences_toggle:bool:0:0:tab.indents">
+		  <property name="visible">True</property>
+		  <property name="can_focus">True</property>
+		  <property name="label" translatable="yes">Pressing tab indents</property>
+		  <property name="use_underline">True</property>
+		  <property name="relief">GTK_RELIEF_NORMAL</property>
+		  <property name="active">False</property>
+		  <property name="inconsistent">False</property>
+		  <property name="draw_indicator">True</property>
+		</widget>
+		<packing>
+		  <property name="left_attach">0</property>
+		  <property name="right_attach">1</property>
+		  <property name="top_attach">4</property>
+		  <property name="bottom_attach">5</property>
+		  <property name="x_options">fill</property>
+		  <property name="y_options"></property>
+		</packing>
+	      </child>
+
+	      <child>
+		<widget class="GtkCheckButton" id="preferences_toggle:bool:0:0:backspace.unindents">
+		  <property name="visible">True</property>
+		  <property name="can_focus">True</property>
+		  <property name="label" translatable="yes">Pressing backspace un-indents</property>
+		  <property name="use_underline">True</property>
+		  <property name="relief">GTK_RELIEF_NORMAL</property>
+		  <property name="active">False</property>
+		  <property name="inconsistent">False</property>
+		  <property name="draw_indicator">True</property>
+		</widget>
+		<packing>
+		  <property name="left_attach">0</property>
+		  <property name="right_attach">1</property>
+		  <property name="top_attach">5</property>
+		  <property name="bottom_attach">6</property>
+		  <property name="x_options">fill</property>
+		  <property name="y_options"></property>
+		</packing>
+	      </child>
+
+	      <child>
+		<widget class="GtkVSeparator" id="vseparator1">
+		  <property name="visible">True</property>
+		</widget>
+		<packing>
+		  <property name="left_attach">1</property>
+		  <property name="right_attach">2</property>
+		  <property name="top_attach">0</property>
+		  <property name="bottom_attach">6</property>
+		  <property name="x_options">fill</property>
+		  <property name="y_options">fill</property>
+		</packing>
+	      </child>
+
+	      <child>
+		<widget class="GtkCheckButton" id="preferences_toggle:bool:1:1:autoformat.disable">
+		  <property name="visible">True</property>
+		  <property name="can_focus">True</property>
+		  <property name="label" translatable="yes">Disable auto-format</property>
+		  <property name="use_underline">True</property>
+		  <property name="relief">GTK_RELIEF_NORMAL</property>
+		  <property name="active">False</property>
+		  <property name="inconsistent">False</property>
+		  <property name="draw_indicator">True</property>
+		</widget>
+		<packing>
+		  <property name="left_attach">2</property>
+		  <property name="right_attach">3</property>
+		  <property name="top_attach">5</property>
+		  <property name="bottom_attach">6</property>
 		  <property name="x_options">fill</property>
 		  <property name="y_options"></property>
 		</packing>
@@ -15889,7 +15874,7 @@
 	<widget class="GnomeDruidPageStandard" id="druidpagestandard1">
 	  <property name="visible">True</property>
 	  <property name="title" translatable="yes">Windows style</property>
-	  <property name="logo_background">#9c40084ceadc</property>
+	  <property name="logo_background">#c568084ce8fc</property>
 	  <property name="logo">applogo.png</property>
 
 	  <child internal-child="vbox">
