@@ -1237,29 +1237,62 @@ project_dbase_save_session_files (ProjectDBase * p)
 {
 	GList	*node;
 	gint	nIndex = 0;
+	GList	*editors = NULL;
+	GList	*match;
+	gint	i;
+	TextEditor* te;
 
 	g_return_if_fail (p != NULL);
 	g_return_if_fail (p->project_is_open == TRUE);
 	
 	/* Save session.... */
 	session_clear_section( p, SECSTR(SECTION_FILELIST) );
+	/* 
+	TTimo - save using the tabs order, and push the docked files afterwards
+	(the docked files are not remembered as docked status anyway)
+	*/
 	node = app->text_editor_list;
 	while (node)
 	{
-		TextEditor* te;
 		te = node->data;
 		if(te)
 		{
 			if ( te->full_filename )
 			{
-				session_save_string_n( p, SECSTR(SECTION_FILELIST), nIndex, te->full_filename );
-				session_save_long_n( p, SECSTR(SECTION_FILENUMBER), nIndex, te->current_line );
-				project_dbase_save_markers( p, te, nIndex );
-				nIndex++;
+				editors = g_list_append(editors, te);
 			}
 		}
 		node = node->next;
 	}
+	i = 0;
+	while(( te = anjuta_get_notebook_text_editor(i)))
+	{
+		GList *match = g_list_find(editors, te);
+		if (match)
+		{
+			te = (TextEditor *)match->data;
+			session_save_string_n( p, SECSTR(SECTION_FILELIST), nIndex, te->full_filename );
+			session_save_long_n( p, SECSTR(SECTION_FILENUMBER), nIndex, te->current_line );
+			project_dbase_save_markers( p, te, nIndex );
+			editors = g_list_remove_link(editors, match);
+			g_list_free(match);
+			nIndex++;			
+		} else
+			g_warning("Did not find notebook tab %d in text_editor_list\n", i);
+		i++;
+	}
+	/* remaining items (if any) where docked */
+	match = editors;
+	while(match)
+	{
+		te = (TextEditor *)match->data;
+		session_save_string_n( p, SECSTR(SECTION_FILELIST), nIndex, te->full_filename );
+		session_save_long_n( p, SECSTR(SECTION_FILENUMBER), nIndex, te->current_line );
+		project_dbase_save_markers( p, te, nIndex );
+		nIndex++;
+		match = g_list_next(match);
+	}
+	g_list_free(editors);
 }
 
 

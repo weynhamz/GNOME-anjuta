@@ -1,8 +1,23 @@
+2003-01-31 Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
+	* tagmanager/tm_file_entry.c, tagmanager/include/tm_file_entry.h:
+	Ignore symlinks and .svn directories.
+	* anjuta.glade, src/anjuta-tools.c: Save all files before
+	running tool. Patches from TTimo.
+	* data/properties/anjuta.properties, scintilla/PLatGTK.cxx,
+	scintilla/Document.cxx, scintilla/ScintillaGTK.cxx: i18n patch from
+	Yukihiro Nakai.
+
+2003-01-30  TTimo <ttimo@ttimo.net>
+	* src/anjuta.c, src/anjuta_cbs.c, src/project_dbase.c: Making the
+	notebook always keep the most recently used files first
+	in the tab list (a-la-MSVC) modified session save and restore to keep
+	the file order correct also
+
 2003-01-30  Naba Kumar <naba@gnome.org>
 
 	* data/properties/anjuta.properties: Disabled automatic word
 	autocomplete, because many complaints have about it's annoyance.
-	
+
 2003-01-16  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
 	* src/search-replace.c: More patches from Jean-Noel.
 
@@ -4983,5 +4998,3 @@ attached the fix for the menu
 2001-04-22  Stéphane Démurget <demurgets@free.fr>
 
 	* Emptied that ugly old Changelog.
-
-

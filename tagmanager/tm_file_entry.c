@@ -52,13 +52,16 @@ gint tm_file_entry_compare(TMFileEntry *e1, TMFileEntry *e2)
 	return strcmp(e1->name, e2->name);
 }
 
+/* TTimo - modified to handle symlinks */
 static TMFileType tm_file_entry_type(const char *path)
 {
 	struct stat s;
 
-	if (0 != stat(path, &s))
+	if (0 != lstat(path, &s))
 		return tm_file_unknown_t;
-	if S_ISDIR(s.st_mode)
+	if S_ISLNK(s.st_mode)
+		return tm_file_link_t;
+	else if S_ISDIR(s.st_mode)
 		return tm_file_dir_t;
 	else if S_ISREG(s.st_mode)
 		return tm_file_regular_t;
@@ -73,6 +76,9 @@ static gboolean apply_filter(const char *name, GList *match, GList *unmatch
 	gboolean matched = (match == NULL);
 	g_return_val_if_fail(name, FALSE);
 	if (ignore_hidden && ('.' == name[0]))
+		return FALSE;
+	/* TTimo - ignore .svn directories */
+	if (!strcmp(name, ".svn"))
 		return FALSE;
 	for (tmp = match; tmp; tmp = g_list_next(tmp))
 	{
@@ -110,6 +116,9 @@ TMFileEntry *tm_file_entry_new(const char *path, TMFileEntry *parent
 	char *entries = NULL;
 
 	g_assert(path);
+	/* TTimo - don't follow symlinks */
+	if (tm_file_entry_type(path) == tm_file_link_t)
+		return NULL;
 	real_path = tm_get_real_path(path);
 	FILE_NEW(entry);
 	entry->type = tm_file_entry_type(real_path);

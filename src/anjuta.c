@@ -428,6 +428,9 @@ anjuta_get_notebook_text_editor (gint page_num)
 	page =
 		gtk_notebook_get_nth_page (GTK_NOTEBOOK
 					   (app->widgets.notebook), page_num);
+	/* TTimo - walk through the tabs easily */
+	if (!page)
+		return NULL;
 	te = gtk_object_get_data (GTK_OBJECT (page), "TextEditor");
 	return te;
 }

@@ -131,6 +131,7 @@ typedef struct _AnUserTool
 	gboolean detached;
 	gboolean run_in_terminal;
 	gboolean user_params;
+	gboolean autosave;
 	gchar *location;
 	gchar *icon;
 	gchar *shortcut;
@@ -268,6 +269,7 @@ static AnUserTool *an_user_tool_new(xmlNodePtr tool_node)
 		else NUMMATCH(node, detached)
 		else NUMMATCH(node, run_in_terminal)
 		else NUMMATCH(node, user_params)
+		else NUMMATCH(node, autosave)
 		else STRMATCH(node, location)
 		else STRMATCH(node, icon)
 		else STRMATCH(node, shortcut)
@@ -327,6 +329,7 @@ static gboolean an_user_tool_save(AnUserTool *tool, FILE *f)
 	NUMWRITE(detached)
 	NUMWRITE(run_in_terminal)
 	NUMWRITE(user_params)
+	NUMWRITE(autosave)
 	STRWRITE(location)
 	STRWRITE(icon)
 	STRWRITE(shortcut)
@@ -479,7 +482,7 @@ static void execute_tool(GtkMenuItem *item, gpointer data)
 
 #ifdef TOOL_DEBUG
 	g_message("Tool: %s (%s)\n", tool->name, tool->command);
-#endif
+#endif	
 	/* Ask for user parameters if required */
 	if (tool->user_params)
 	{
@@ -487,6 +490,10 @@ static void execute_tool(GtkMenuItem *item, gpointer data)
 		params = get_user_params(tool, &button);
 		if (button != 0) /* No OK button clicked */
 			return;
+	}
+	if (tool->autosave)
+	{
+		anjuta_save_all_files();
 	}
 	/* Expand variables to get the full command */
 	if (app->current_text_editor)
@@ -771,6 +778,7 @@ typedef struct _AnToolEditor
 	GtkToggleButton *enabled_tb;
 	GtkToggleButton *detached_tb;
 	GtkToggleButton *terminal_tb;
+	GtkToggleButton *autosave_tb;
 	GtkToggleButton *file_tb;
 	GtkToggleButton *project_tb;
 	GtkToggleButton *params_tb;
@@ -831,6 +839,7 @@ static AnToolParams *tp = NULL;
 #define TOOL_DETACHED "tool.detached"
 #define TOOL_TERMINAL "tool.run_in_terminal"
 #define TOOL_USER_PARAMS "tool.user_params"
+#define TOOL_AUTOSAVE "tool.autosave"
 #define TOOL_FILE_LEVEL "tool.file_level"
 #define TOOL_PROJECT_LEVEL "tool.project_level"
 #define TOOL_INPUT_TYPE "tool.input.type"
@@ -977,6 +986,7 @@ static void populate_tool_editor(void)
 		gtk_toggle_button_set_active(ted->detached_tb, ted->tool->detached);
 		gtk_toggle_button_set_active(ted->terminal_tb, ted->tool->run_in_terminal);
 		gtk_toggle_button_set_active(ted->params_tb, ted->tool->user_params);
+		gtk_toggle_button_set_active(ted->autosave_tb, ted->tool->autosave);
 		gtk_toggle_button_set_active(ted->file_tb, ted->tool->file_level);
 		gtk_toggle_button_set_active(ted->project_tb, ted->tool->project_level);
 		if (ted->tool->input_type)
@@ -1066,6 +1076,8 @@ static gboolean show_tool_editor(AnUserTool *tool, gboolean editing)
 		gtk_widget_ref((GtkWidget *) ted->terminal_tb);
 		ted->params_tb = (GtkToggleButton *) glade_xml_get_widget(ted->xml, TOOL_USER_PARAMS);
 		gtk_widget_ref((GtkWidget *) ted->params_tb);
+		ted->autosave_tb = (GtkToggleButton *) glade_xml_get_widget(ted->xml, TOOL_AUTOSAVE);
+		gtk_widget_ref((GtkWidget *) ted->autosave_tb);
 		ted->file_tb = (GtkToggleButton *) glade_xml_get_widget(ted->xml, TOOL_FILE_LEVEL);
 		gtk_widget_ref((GtkWidget *) ted->file_tb);
 		ted->project_tb = (GtkToggleButton *) glade_xml_get_widget(ted->xml, TOOL_PROJECT_LEVEL);
@@ -1216,6 +1228,7 @@ static AnUserTool *an_user_tool_from_gui(void)
 	tool->detached = gtk_toggle_button_get_active(ted->detached_tb);
 	tool->run_in_terminal = gtk_toggle_button_get_active(ted->terminal_tb);
 	tool->user_params = gtk_toggle_button_get_active(ted->params_tb);
+	tool->autosave = gtk_toggle_button_get_active(ted->autosave_tb);
 	tool->file_level = gtk_toggle_button_get_active(ted->file_tb);
 	tool->project_level = gtk_toggle_button_get_active(ted->project_tb);
 	s = gtk_editable_get_chars(ted->input_type_en, 0, -1);
@@ -1592,7 +1605,6 @@ gboolean on_user_tool_edit_help_clicked(GtkButton *button, gpointer user_data)
 	{
 		/* Update file level properties */
 		gchar *word;
-		g_message("Setting editor properties..");
 		anjuta_set_file_properties(app->current_text_editor->full_filename);
 		word = text_editor_get_current_word(app->current_text_editor);
 		prop_set_with_key(app->preferences->props, "current.file.selection"

@@ -29,7 +29,8 @@ typedef enum
 {
 	tm_file_unknown_t, /*!< Unknown file type/file does not exist */
 	tm_file_regular_t, /*!< Is a regular file */
-	tm_file_dir_t /*!< Is a directory */
+	tm_file_dir_t, /*!< Is a directory */
+	tm_file_link_t /*!< Is a symbolic link */
 } TMFileType;
 
 /*!

@@ -562,6 +562,21 @@ $(top.proj.dir)
 	      <fill>False</fill>
 	    </child>
 	  </widget>
+
+	  <widget>
+	    <class>GtkCheckButton</class>
+	    <name>tool.autosave</name>
+	    <tooltip>Save all the files before executing</tooltip>
+	    <can_focus>True</can_focus>
+	    <label>Save all files</label>
+	    <active>False</active>
+	    <draw_indicator>True</draw_indicator>
+	    <child>
+	      <padding>0</padding>
+	      <expand>False</expand>
+	      <fill>False</fill>
+	    </child>
+	  </widget>
 	</widget>
 
 	<widget>

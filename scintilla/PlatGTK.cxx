@@ -401,15 +401,11 @@ FontID FontCached::CreateNewFont(const char *fontName, int characterSet,
 	// If name of the font begins with a '-', assume, that it is
 	// a full fontspec.
 	if (fontName[0] == '-') {
-		if (strchr(fontName, ',')) {
-			newid = gdk_fontset_load(fontName);
-		} else {
-			newid = gdk_font_load(fontName);
-		}
+		newid = gdk_fontset_load(fontName);
 		if (!newid) {
 			// Font not available so substitute a reasonable code font
 			// iso8859 appears to only allow western characters.
-			newid = gdk_font_load("-*-*-*-*-*-*-*-*-*-*-*-*-iso8859-*");
+			newid = gdk_fontset_load("-*-*-*-*-*-*-*-*-*-*-*-*-iso8859-*");
 		}
 		return newid;
 	}
@@ -502,7 +498,7 @@ FontID FontCached::CreateNewFont(const char *fontName, int characterSet,
 	         italic ? "-i" : "-r",
 	         size * 10,
 	         charset);
-	newid = gdk_font_load(fontspec);
+	newid = gdk_fontset_load(fontspec);
 	if (!newid) {
 		// some fonts have oblique, not italic
 		snprintf(fontspec,
@@ -513,7 +509,7 @@ FontID FontCached::CreateNewFont(const char *fontName, int characterSet,
 		         italic ? "-o" : "-r",
 		         size * 10,
 		         charset);
-		newid = gdk_font_load(fontspec);
+		newid = gdk_fontset_load(fontspec);
 	}
 	if (!newid) {
 		snprintf(fontspec,
@@ -521,12 +517,12 @@ FontID FontCached::CreateNewFont(const char *fontName, int characterSet,
 		         "-*-*-*-*-*-*-*-%0d-*-*-*-*-%s",
 		         size * 10,
 		         charset);
-		newid = gdk_font_load(fontspec);
+		newid = gdk_fontset_load(fontspec);
 	}
 	if (!newid) {
 		// Font not available so substitute a reasonable code font
 		// iso8859 appears to only allow western characters.
-		newid = gdk_font_load("-*-*-*-*-*-*-*-*-*-*-*-*-iso8859-*");
+		newid = gdk_fontset_load("-*-*-*-*-*-*-*-*-*-*-*-*-iso8859-*");
 	}
 	return newid;
 }
@@ -825,15 +821,38 @@ void SurfaceImpl::DrawTextNoClip(PRectangle rc, Font &font_, int ybase, const ch
 				wcp += lenDraw;
 			}
 		} else {
-			while ((len > 0) && (x < maxCoordinate)) {
-				int lenDraw = Platform::Minimum(len, segmentLength);
-				gdk_draw_text(drawable, PFont(font_), gc,
-				              x, ybase, s, lenDraw);
-				len -= lenDraw;
-				if (len > 0) {
-					x += gdk_text_width(PFont(font_), s, lenDraw);
+			GdkWChar wctext[MAX_US_LEN];
+			GdkWChar *wcp = (GdkWChar *) & wctext;
+			int wclen = gdk_mbstowcs(wcp, s, MAX_US_LEN);
+
+			/* In the annoying case when non-locale chars
+			 * in the line.
+			 * e.g. latin1 chars in Japanese locale */
+			if(wclen < 1) {
+				while ((len > 0) && (x < maxCoordinate)) {
+					int lenDraw = Platform::Minimum(len, segmentLength);
+					gdk_draw_text(drawable, PFont(font_), gc,
+					              x, ybase, s, lenDraw);
+					len -= lenDraw;
+					if (len > 0) {
+						x += gdk_text_width(PFont(font_), s, lenDraw);
+					}
+					s += lenDraw;
 				}
-				s += lenDraw;
+			} else {
+				wctext[wclen] = L'\0';
+				int lenDraw;
+				while ((wclen > 0) && (x < maxCoordinate)) {
+					lenDraw = Platform::Minimum(wclen, segmentLength);
+					gdk_draw_text_wc(drawable, PFont(font_), gc,
+					                 x, ybase, wcp, lenDraw);
+					wclen -= lenDraw;
+					if (wclen > 0) {
+						x += gdk_text_width_wc(PFont(font_),
+						                       wcp, lenDraw);
+					}
+					wcp += lenDraw;
+				}
 			}
 		}
 	}
@@ -885,10 +904,47 @@ void SurfaceImpl::MeasureWidths(Font &font_, const char *s, int len, int *positi
 				positions[i++] = lastPos;
 			}
 		} else {
-			for (int i = 0; i < len; i++) {
-				int width = gdk_char_width(gf, s[i]);
-				totalWidth += width;
-				positions[i] = totalWidth;
+			GdkWChar wctext[MAX_US_LEN];
+			size_t wclen = (size_t)gdk_mbstowcs(wctext, s, MAX_US_LEN);
+			/* In the annoying case when non-locale chars
+			 * in the line.
+			 * e.g. latin1 chars in Japanese locale */
+			if( (int)wclen < 1 ) {
+				for (int i = 0; i < len; i++) {
+					int width = gdk_char_width(gf, s[i]);
+					totalWidth += width;
+					positions[i] = totalWidth;
+				}
+			} else {
+				wctext[wclen] = L'\0';
+				int poses[MAX_US_LEN];
+				size_t i;
+				for (i = 0; i < wclen; i++) {
+					int width = gdk_char_width_wc(gf, wctext[i]);
+					totalWidth += width;
+					poses[i] = totalWidth;
+				}
+				size_t ui = 0;
+				i = 0;
+				for (ui = 0; ui< wclen; ui++) {
+					GdkWChar wch[2];
+					wch[0] = wctext[ui];
+					wch[1] = L'\0';
+					gchar* mbstr = gdk_wcstombs(wch);
+					if (mbstr == NULL || *mbstr == '\0')
+						g_error("mbs broken\n");
+					for(int j=0; j<(int)strlen(mbstr); j++) {
+						positions[i++] = poses[ui];
+					}
+					if( mbstr != NULL )
+						g_free(mbstr);
+				}
+				int lastPos = 0;
+				if (i > 0)
+					lastPos = positions[i - 1];
+				while (i < static_cast<size_t>(len)) {
+					positions[i++] = lastPos;
+				}
 			}
 		}
 	} else {
@@ -1454,7 +1510,7 @@ const char *Platform::DefaultFont() {
 #ifdef G_OS_WIN32
 	return "Lucida Console";
 #else
-	return "lucidatypewriter";
+	return "-misc-fixed-medium-r-normal--14-*-*-*-*-*-jisx0208.1983-0,-misc-fixed-medium-r-normal--14-*-*-*-*-*-jisx0201.1976-0";
 #endif
 }
 
@@ -1463,7 +1519,7 @@ int Platform::DefaultFontSize() {
 	return 10;
 #else
 
-	return 12;
+	return 14;
 #endif
 }
 

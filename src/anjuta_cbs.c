@@ -156,14 +156,30 @@ on_anjuta_destroy (GtkWidget * w, gpointer data)
 	/* Nothing to be done here */
 }
 
+/*!
+state flag for Ctrl-TAB
+*/
+static gboolean g_tabbing = FALSE;
+
 void
 on_anjuta_notebook_switch_page (GtkNotebook * notebook,
 				GtkNotebookPage * page,
 				gint page_num, gpointer user_data)
 {
+	GtkWidget *widget;
+	
 	anjuta_set_current_text_editor (anjuta_get_notebook_text_editor
 					(page_num));
 	anjuta_grab_text_focus ();
+	if (!g_tabbing)
+	{
+		/*
+		TTimo
+		reorder so that the most recently used files are always at the beginning of the tab list
+		*/
+		widget = gtk_notebook_get_nth_page (notebook, page_num);
+		gtk_notebook_reorder_child (notebook, widget, 0);
+	}
 }
 
 void
@@ -412,11 +428,6 @@ static ShortcutMapping global_keymap[] = {
 	{ 0,   0,		 0 }
 };
 
-/*!
-state flag for Ctrl-TAB
-*/
-static gboolean g_tabbing = FALSE;
-
 gint
 on_anjuta_window_key_press_event (GtkWidget   *widget,
 				  GdkEventKey *event,
@@ -498,11 +509,12 @@ on_anjuta_window_key_release_event (GtkWidget   *widget,
 
   if (g_tabbing && ((event->keyval == GDK_Control_L) || (event->keyval == GDK_Control_R)))
   {
-		GtkNotebook *notebook = GTK_NOTEBOOK (app->widgets.notebook);
+    GtkNotebook *notebook = GTK_NOTEBOOK (app->widgets.notebook);
     GtkWidget *widget;
     int cur_page;
     g_tabbing = FALSE;
     /*
+    TTimo
     move the current notebook page to first position
     that maintains Ctrl-TABing on a list of most recently edited files
     */
