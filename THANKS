@@ -4,7 +4,28 @@ I would like to give my heartiest thanks to the following for their
 invaluable supports and contributions in making the Anjuta project a
 grand success. Without them the project wouldn't have stood where it
 is now.
-
+	
+	- Giovanni Corriga <valkadesh@libero.it>, for his patch.
+	
+	- Yannick Koehler <yannick.koehler@colubris.com>, for his
+	  patch for disabling auto-upper-casting
+	
+	- Gregory Schmitt <gregory.schmitt@free.fr>, for his PHP hilite
+	  bug fix and other idea.
+	  
+	- venugopal gummuluru <vgummuluru@yahoo.com>, for his multiple
+	  file selection patch and many other feature addition patches.
+	  
+	- Martyn Bone <mbone@brightstar.u-net.com>, for his goto line
+	  activation bug fix.
+	
+	- Archit Baweja <bighead@crosswinds.net>, for his dnd idea.
+	
+	- Fatih Demir <kabalak@gtranslator.org>, for his fixes.
+	
+	- Rikul <rikul@shreve.net>/<rikul@bellsouth.net>, for his many many patches
+	  feature additions and bug fixes, ui fixes etc.
+	
 	- Max Blagai <maximblagai@yahoo.com>, for his project proper closing patch,
 	
 	- Andy Piper <andy.piper@freeuk.com>, for the whole sourceforge resources
