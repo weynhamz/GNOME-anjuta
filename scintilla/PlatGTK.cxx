@@ -1628,6 +1628,7 @@ void Window::SetPositionRelative(PRectangle rc, Window relativeTo) {
 
 	/* do some corrections to fit into screen */
 	int sizey = rc.bottom - rc.top;
+	int sizex = rc.right - rc.left;
 	int screenWidth = gdk_screen_width();
 	int screenHeight = gdk_screen_height();
 	if (sizex > screenWidth)
