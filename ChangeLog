@@ -1,3 +1,23 @@
+2003-03-24  Naba Kumar  <naba@gnome.org>
+
+	* README: Correct version.
+	
+2003-03-24  Michael Tindal <etherscape@paradoxpoint.com>
+
+	* configure.in: Added checks to see if were building on FreeBSD
+	systems.  Sets -DFREEBSD if we are, and also attempts to find
+	gmake if the host system is FreeBSD.
+
+	* src/getline.c: New file used to provide the getline function,
+	which isnt available on a FreeBSD system.  The function is only
+	defined	if FREEBSD is defined.
+
+	* src/Makefile.am: Added getline.c to anjuta_SOURCES
+
+	* tagmanager/Makefile.am:  Uses $(GMAKE) rather than make. 
+	configure.in sets this to gmake on FreeBSD systems, and make
+	on everything else.
+
 2003-03-23  Naba Kumar  <naba@gnome.org>
 
 	* Makefile.am, anjuta.spec.in: Fixed rpm build errors.

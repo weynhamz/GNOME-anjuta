@@ -3,6 +3,7 @@
 INCLUDES = \
 	$(ANJUTA_CFLAGS)\
 	$(PCRE_CFLAGS)\
+	$(FREEBSD_BUILD)\
 	-I$(srcdir)/../scintilla/include \
 	-I$(srcdir)/../tagmanager/include \
 	-I$(srcdir)/../widgets \
@@ -114,6 +115,7 @@ anjuta_SOURCES = \
 	find_replace.h\
 	find_text.c\
 	find_text.h\
+	getline.c\
 	global.h\
 	gnome_project.c\
 	gnome_project.h\
