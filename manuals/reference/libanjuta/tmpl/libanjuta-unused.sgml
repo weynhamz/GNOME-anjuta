@@ -677,6 +677,77 @@ GnomeFileList
 @interface_name: 
 @Returns: 
 
+<!-- ##### FUNCTION anjuta_preferences_default_get ##### -->
+<para>
+
+</para>
+
+@pr: 
+@key: 
+@Returns: 
+@p: 
+
+<!-- ##### FUNCTION anjuta_preferences_default_get_int ##### -->
+<para>
+
+</para>
+
+@pr: 
+@key: 
+@Returns: 
+@p: 
+
+<!-- ##### FUNCTION anjuta_preferences_get ##### -->
+<para>
+
+</para>
+
+@pr: 
+@key: 
+@Returns: 
+@p: 
+
+<!-- ##### FUNCTION anjuta_preferences_get_int ##### -->
+<para>
+
+</para>
+
+@pr: 
+@key: 
+@Returns: 
+@p: 
+
+<!-- ##### FUNCTION anjuta_preferences_get_int_with_default ##### -->
+<para>
+
+</para>
+
+@pr: 
+@key: 
+@default_value: 
+@Returns: 
+@p: 
+
+<!-- ##### FUNCTION anjuta_preferences_set ##### -->
+<para>
+
+</para>
+
+@pr: 
+@key: 
+@value: 
+@Param1: 
+
+<!-- ##### FUNCTION anjuta_preferences_set_int ##### -->
+<para>
+
+</para>
+
+@pr: 
+@key: 
+@value: 
+@Param1: 
+
 <!-- ##### FUNCTION anjuta_res_get_icon_for_file ##### -->
 <para>
 

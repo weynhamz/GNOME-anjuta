@@ -1,3 +1,18 @@
+2004-10-19  Naba Kumar  <naba@gnome.org>
+
+	* libanjuta/anjuta-encodings.c, libanjuta/anjuta-encodings.h,
+	libanjuta/anjuta-preferences.c, libanjuta/anjuta-preferences.h:
+	Initializes gconf database with default values when the
+	values are not defined. Use bool and int prefs separately.
+
+	* plugins/editor/plugin.c: Added encoding preferences.
+	* plugins/project-manager/plugin.c: Cleanup and debug messages.
+
+	* manuals/reference/libanjuta/tmpl/anjuta-encodings.sgml,
+	manuals/reference/libanjuta/tmpl/anjuta-preferences.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-editor.sgml,
+	manuals/reference/libanjuta/tmpl/libanjuta-unused.sgml: Updated.
+
 2004-10-18  Naba Kumar  <naba@gnome.org>
 
 	* po/POTFILES.in: Updated.

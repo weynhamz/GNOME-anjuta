@@ -32,6 +32,7 @@
 
 #include <glib.h>
 #include <libanjuta/anjuta-preferences.h>
+#include <glade/glade.h>
 
 typedef struct _AnjutaEncoding AnjutaEncoding;
 
@@ -43,7 +44,7 @@ const gchar* anjuta_encoding_get_charset (const AnjutaEncoding* enc);
 
 GList* anjuta_encoding_get_encodings (GList *encoding_strings);
 
-void anjuta_encodings_init (AnjutaPreferences *pref);
+void anjuta_encodings_init (AnjutaPreferences *pref, GladeXML *gxml);
 
 /* Character encodings; preferences keys */
 #define SAVE_ENCODING_ORIGINAL            "save.encoding.original"

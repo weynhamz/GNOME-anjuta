@@ -23,6 +23,8 @@
 #include <libanjuta/interfaces/ianjuta-file.h>
 #include <libanjuta/interfaces/ianjuta-file-loader.h>
 #include <libanjuta/interfaces/ianjuta-project-manager.h>
+#include <libanjuta/anjuta-debug.h>
+
 #include <gbf/gbf-project-util.h>
 #include <gbf/gbf-backend.h>
 
@@ -77,13 +79,12 @@ on_uri_activated (GtkWidget *widget, const gchar *uri,
 }
 
 static void
-on_target_selected (GtkWidget *widget, const gchar *target_id,
-					ProjectManagerPlugin *plugin)
+on_target_activated (GtkWidget *widget, const gchar *target_id,
+					 ProjectManagerPlugin *plugin)
 {
 #if 0
 	GList *list;
 	
-	g_message ("Target selected: %s", target_id);
 	gbf_project_configure_target (GBF_PROJECT (plugin->project), target_id, NULL);
 	list = gbf_project_get_build_targets (GBF_PROJECT (plugin->project), NULL);
 	while (list)
@@ -94,6 +95,7 @@ on_target_selected (GtkWidget *widget, const gchar *target_id,
 	}
 	g_list_free (list);
 #endif
+	DEBUG_PRINT ("Target activated: %s", target_id);
 }
 
 static void
@@ -244,7 +246,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	g_signal_connect (view, "uri-activated",
 					  G_CALLBACK (on_uri_activated), plugin);
 	g_signal_connect (view, "target-selected",
-					  G_CALLBACK (on_target_selected), plugin);
+					  G_CALLBACK (on_target_activated), plugin);
 	
 	scrolled_window = gtk_scrolled_window_new (NULL, NULL);
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),

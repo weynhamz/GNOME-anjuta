@@ -186,6 +186,7 @@ are mainly two ways a plugin could register its preferences in Anjuta.
 @object: 
 @key: 
 @default_value: 
+@data_type: 
 @flags: 
 @set_property: 
 @get_property: 
@@ -261,90 +262,5 @@ are mainly two ways a plugin could register its preferences in Anjuta.
 </para>
 
 @pr: 
-
-
-<!-- ##### FUNCTION anjuta_preferences_set ##### -->
-<para>
-
-</para>
-
-@pr: 
-@key: 
-@value: 
-<!-- # Unused Parameters # -->
-@Param1: 
-
-
-<!-- ##### FUNCTION anjuta_preferences_set_int ##### -->
-<para>
-
-</para>
-
-@pr: 
-@key: 
-@value: 
-<!-- # Unused Parameters # -->
-@Param1: 
-
-
-<!-- ##### FUNCTION anjuta_preferences_get ##### -->
-<para>
-
-</para>
-
-@pr: 
-@key: 
-@Returns: 
-<!-- # Unused Parameters # -->
-@p: 
-
-
-<!-- ##### FUNCTION anjuta_preferences_get_int ##### -->
-<para>
-
-</para>
-
-@pr: 
-@key: 
-@Returns: 
-<!-- # Unused Parameters # -->
-@p: 
-
-
-<!-- ##### FUNCTION anjuta_preferences_get_int_with_default ##### -->
-<para>
-
-</para>
-
-@pr: 
-@key: 
-@default_value: 
-@Returns: 
-<!-- # Unused Parameters # -->
-@p: 
-
-
-<!-- ##### FUNCTION anjuta_preferences_default_get ##### -->
-<para>
-
-</para>
-
-@pr: 
-@key: 
-@Returns: 
-<!-- # Unused Parameters # -->
-@p: 
-
-
-<!-- ##### FUNCTION anjuta_preferences_default_get_int ##### -->
-<para>
-
-</para>
-
-@pr: 
-@key: 
-@Returns: 
-<!-- # Unused Parameters # -->
-@p: 
 
 

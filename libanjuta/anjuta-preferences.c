@@ -36,6 +36,8 @@
 #include <libanjuta/resources.h>
 #include <libanjuta/defaults.h>
 #include <libanjuta/pixmaps.h>
+#include <libanjuta/anjuta-debug.h>
+
 // #include <libanjuta/properties.h>
 
 struct _AnjutaProperty
@@ -485,6 +487,7 @@ get_property (GConfClient *gclient, guint cnxt_id,
 	AnjutaProperty *p = (AnjutaProperty *) user_data;
 	key = gconf_entry_get_key (entry);
 	value = gconf_entry_get_value (entry);
+	DEBUG_PRINT ("Preference changed %s", key);
 	
 	switch (p->object_type) {
 		case ANJUTA_PROPERTY_OBJECT_TYPE_ENTRY:
@@ -515,7 +518,7 @@ register_callbacks (AnjutaPreferences *pr, AnjutaProperty *p)
 	GConfClient *gclient;
 	gchar *key_error_msg;
 	
-	gclient = gconf_client_get_default ();
+	gclient = pr->priv->gclient;
 	
 	switch (p->object_type) {
 		case ANJUTA_PROPERTY_OBJECT_TYPE_ENTRY:
@@ -542,7 +545,7 @@ register_callbacks (AnjutaPreferences *pr, AnjutaProperty *p)
 		g_free (key_error_msg);
 	}
 	p->notify_id = gconf_client_notify_add (gclient, build_key (p->key),
-											get_property, pr, NULL, NULL);
+											get_property, p, NULL, NULL);
 }
 
 /**
@@ -571,6 +574,7 @@ anjuta_preferences_register_property_raw (AnjutaPreferences *pr,
 										  AnjutaPropertyDataType  data_type)
 {
 	AnjutaProperty *p;
+	GConfValue *value;
 	
 	g_return_val_if_fail (ANJUTA_IS_PREFERENCES (pr), FALSE);
 	g_return_val_if_fail (GTK_IS_WIDGET (object), FALSE);
@@ -583,6 +587,24 @@ anjuta_preferences_register_property_raw (AnjutaPreferences *pr,
 	p->object_type = object_type;
 	p->data_type = data_type;
 	p->key = g_strdup (key);
+	
+	value = gconf_client_get (pr->priv->gclient,
+							  build_key (p->key), NULL);
+	if (value)
+	{
+		/* Verify key type. Unset key if type mismatch. */
+		if (!((value->type == GCONF_VALUE_BOOL &&
+			   data_type == ANJUTA_PROPERTY_DATA_TYPE_BOOL) ||
+			  (value->type == GCONF_VALUE_INT &&
+			   data_type == ANJUTA_PROPERTY_DATA_TYPE_INT) ||
+			  (value->type == GCONF_VALUE_STRING &&
+			   data_type != ANJUTA_PROPERTY_DATA_TYPE_BOOL &&
+			   data_type != ANJUTA_PROPERTY_DATA_TYPE_INT)))
+		{
+			gconf_client_unset (pr->priv->gclient, build_key (key), NULL);
+		}
+		gconf_value_free (value);
+	}
 	if (default_value)
 	{
 		p->default_value = g_strdup (default_value);
@@ -591,12 +613,57 @@ anjuta_preferences_register_property_raw (AnjutaPreferences *pr,
 			/* For menu, initialize the untranslated strings */
 			if (object_type == ANJUTA_PROPERTY_OBJECT_TYPE_MENU) 
 			{
+				gchar *old_value;
 				gchar **vstr;
+				
 				vstr = g_strsplit (default_value, ",", 100);
 				g_object_set_data(G_OBJECT(p->object), "untranslated",
 									vstr);
+				old_value = anjuta_preferences_get (pr, p->key);
+				if (old_value == NULL && vstr[0])
+				{
+					DEBUG_PRINT ("Setting default pref value: %s = %s",
+								 p->key, default_value);
+					anjuta_preferences_set (pr, p->key, vstr[0]);
+				}
+				if (old_value)
+					g_free (old_value);
 			}
-			// FIXME: Where to store the built-in values.
+			else if (p->data_type != ANJUTA_PROPERTY_DATA_TYPE_BOOL &&
+					 p->data_type != ANJUTA_PROPERTY_DATA_TYPE_INT)
+			{
+				gchar *old_value;
+				old_value = anjuta_preferences_get (pr, p->key);
+				if (old_value == NULL)
+				{
+					DEBUG_PRINT ("Setting default pref value: %s = %s",
+								 p->key, default_value);
+					anjuta_preferences_set (pr, p->key, default_value);
+				}
+				if (old_value)
+					g_free (old_value);
+			}
+			else
+			{
+				value = gconf_client_get (pr->priv->gclient,
+										  build_key (p->key), NULL);
+				if (value == NULL)
+				{
+					DEBUG_PRINT ("Setting default pref value: %s = %s",
+								 p->key, default_value);
+					if (p->data_type == ANJUTA_PROPERTY_DATA_TYPE_INT)
+						gconf_client_set_int (pr->priv->gclient,
+											  build_key (p->key),
+											  atoi (default_value), NULL);
+					else
+						gconf_client_set_bool (pr->priv->gclient,
+											   build_key (p->key),
+											   atoi (default_value), NULL);
+				}
+				if (value)
+					gconf_value_free (value);
+			}
+			// FIXME: How to store the built-in values for int.
 			// prop_set_with_key (pr->props_built_in, key, default_value);
 		}
 	}
@@ -630,11 +697,13 @@ anjuta_preferences_register_property_custom (AnjutaPreferences *pr,
 											 GtkWidget *object,
 										     const gchar *key,
 										     const gchar *default_value,
+											 AnjutaPropertyDataType data_type,
 										     guint flags,
 		void    (*set_property) (AnjutaProperty *prop, const gchar *value),
 		gchar * (*get_property) (AnjutaProperty *))
 {
 	AnjutaProperty *p;
+	GConfValue *value;
 	
 	g_return_val_if_fail (ANJUTA_IS_PREFERENCES (pr), FALSE);
 	g_return_val_if_fail (GTK_IS_WIDGET (object), FALSE);
@@ -645,13 +714,64 @@ anjuta_preferences_register_property_custom (AnjutaPreferences *pr,
 	g_object_ref (object);
 	p->object = object;
 	p->object_type = (AnjutaPropertyObjectType) 0;
-	p->data_type = (AnjutaPropertyDataType) 0;
+	p->data_type = data_type;
 	p->key = g_strdup (key);
+	
+	value = gconf_client_get (pr->priv->gclient,
+							  build_key (p->key), NULL);
+	if (value)
+	{
+		/* Verify key type. Unset key if type mismatch. */
+		if (!((value->type == GCONF_VALUE_BOOL &&
+			   data_type == ANJUTA_PROPERTY_DATA_TYPE_BOOL) ||
+			  (value->type == GCONF_VALUE_INT &&
+			   data_type == ANJUTA_PROPERTY_DATA_TYPE_INT) ||
+			  (value->type == GCONF_VALUE_STRING &&
+			   data_type != ANJUTA_PROPERTY_DATA_TYPE_BOOL &&
+			   data_type != ANJUTA_PROPERTY_DATA_TYPE_INT)))
+		{
+			gconf_client_unset (pr->priv->gclient, build_key (key), NULL);
+		}
+		gconf_value_free (value);
+	}
 	if (default_value)
 	{
 		p->default_value = g_strdup (default_value);
-		// if (strlen (default_value) > 0)
-			// prop_set_with_key (pr->props_built_in, key, default_value);
+		if (p->data_type != ANJUTA_PROPERTY_DATA_TYPE_BOOL &&
+			p->data_type != ANJUTA_PROPERTY_DATA_TYPE_INT)
+		{
+			gchar *old_value;
+			old_value = anjuta_preferences_get (pr, p->key);
+			if (old_value == NULL)
+			{
+				DEBUG_PRINT ("Setting default pref value: %s = %s",
+							 p->key, default_value);
+				anjuta_preferences_set (pr, p->key, default_value);
+			}
+			if (old_value)
+				g_free (old_value);
+		}
+		else
+		{
+			value = gconf_client_get (pr->priv->gclient,
+									  build_key (p->key), NULL);
+			if (value == NULL)
+			{
+				DEBUG_PRINT ("Setting default pref value: %s = %s",
+							 p->key, default_value);
+				if (p->data_type == ANJUTA_PROPERTY_DATA_TYPE_INT)
+					gconf_client_set_int (pr->priv->gclient,
+										  build_key (p->key),
+										  atoi (default_value), NULL);
+				else
+					gconf_client_set_bool (pr->priv->gclient,
+										   build_key (p->key),
+										   atoi (default_value), NULL);
+			}
+			if (value)
+				gconf_value_free (value);
+		}
+		// prop_set_with_key (pr->props_built_in, key, default_value);
 	}
 	p->custom = TRUE;
 	p->flags = flags;
@@ -800,7 +920,6 @@ anjuta_preferences_get (AnjutaPreferences *pr, const gchar *key)
 	g_return_val_if_fail (key != NULL, NULL);
 
 	return gconf_client_get_string (pr->priv->gclient, build_key (key), NULL);
-	// return prop_get (pr->props, key);
 }
 
 /**
@@ -815,10 +934,32 @@ anjuta_preferences_get (AnjutaPreferences *pr, const gchar *key)
 inline gint
 anjuta_preferences_get_int (AnjutaPreferences *pr, const gchar *key)
 {
+	gint ret_val;
+	GConfValue *value;
+	
 	g_return_val_if_fail (ANJUTA_IS_PREFERENCES (pr), 0);
 	g_return_val_if_fail (key != NULL, 0);
-	return gconf_client_get_int (pr->priv->gclient, build_key (key), NULL);
-	//return prop_get_int (pr->props, key, 0);
+	
+	ret_val = 0;
+	value = gconf_client_get (pr->priv->gclient, build_key (key), NULL);
+	if (value)
+	{
+		switch (value->type)
+		{
+			case GCONF_VALUE_INT:
+				ret_val = gconf_value_get_int (value);
+				break;
+			case GCONF_VALUE_BOOL:
+				ret_val = gconf_value_get_bool (value);
+				break;
+			default:
+				g_warning ("Invalid gconf type for key: %s", key);
+		}
+		gconf_value_free (value);
+	}
+	/* else
+		g_warning ("The preference key %s is not defined", key); */
+	return ret_val;
 }
 
 /**
@@ -836,17 +977,30 @@ inline gint
 anjuta_preferences_get_int_with_default (AnjutaPreferences *pr,
 										 const gchar *key, gint default_value)
 {
-	gint val;
-	GError *err = NULL;
+	gint ret_val;
+	GConfValue *value;
+	
 	g_return_val_if_fail (ANJUTA_IS_PREFERENCES (pr), 0);
 	g_return_val_if_fail (key != NULL, 0);
-	val = gconf_client_get_int (pr->priv->gclient, build_key (key), &err);
-	if (err) {
-		g_error_free (err);
-		return default_value;
+	
+	ret_val = default_value;
+	value = gconf_client_get (pr->priv->gclient, build_key (key), NULL);
+	if (value)
+	{
+		switch (value->type)
+		{
+			case GCONF_VALUE_INT:
+				ret_val = gconf_value_get_int (value);
+				break;
+			case GCONF_VALUE_BOOL:
+				ret_val = gconf_value_get_bool (value);
+				break;
+			default:
+				g_warning ("Invalid gconf type for key: %s", key);
+		}
+		gconf_value_free (value);
 	}
-	return val;
-	//return prop_get_int (pr->props, key, default_value);
+	return ret_val;
 }
 
 /**
@@ -878,7 +1032,6 @@ anjuta_preferences_default_get (AnjutaPreferences * pr, const gchar * key)
 	str = g_strdup (gconf_value_get_string (val));
 	gconf_value_free (val);
 	return str;
-	// return prop_get (pr->props_local, key);
 }
 
 /**
@@ -951,10 +1104,35 @@ inline void
 anjuta_preferences_set_int (AnjutaPreferences *pr, const gchar *key,
 							gint value)
 {
+	GConfValue *gvalue;
+	
 	g_return_if_fail (ANJUTA_IS_PREFERENCES (pr));
 	g_return_if_fail (key != NULL);
-	gconf_client_set_int (pr->priv->gclient, build_key (key), value, NULL);
-	//prop_set_int_with_key(pr->props, key, value);
+	
+	gvalue = gconf_client_get (pr->priv->gclient, build_key (key), NULL);
+	if (gvalue)
+	{
+		switch (gvalue->type)
+		{
+			case GCONF_VALUE_BOOL:
+				gconf_client_set_bool (pr->priv->gclient, build_key (key),
+									   value, NULL);
+				break;
+			case GCONF_VALUE_INT:
+				gconf_client_set_int (pr->priv->gclient, build_key (key),
+									  value, NULL);
+				break;
+			default:
+				g_warning ("Invalid gconf type for key: %s", key);
+		}
+		gconf_value_free (gvalue);
+	}
+	else
+	{
+		/* g_warning ("The preference key %s is not defined", key); */
+		gconf_client_set_int (pr->priv->gclient, build_key (key),
+							  value, NULL);
+	}
 }
 
 static gboolean
@@ -1510,7 +1688,8 @@ anjuta_preferences_instance_init (AnjutaPreferences *pr)
 #endif
 	pr->priv->is_showing = FALSE;
 	pr->priv->gclient = gconf_client_get_default();
-	
+	gconf_client_add_dir (pr->priv->gclient, GCONF_KEY_PREFIX,
+						  GCONF_CLIENT_PRELOAD_ONELEVEL, NULL);
 	/* Add buttons: Cancel/Apply/Ok */
 	gtk_dialog_add_button (GTK_DIALOG (pr),
 				       GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL);

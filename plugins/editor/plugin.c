@@ -23,6 +23,7 @@
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-stock.h>
 #include <libanjuta/anjuta-debug.h>
+#include <libanjuta/anjuta-encodings.h>
 #include <libegg/menu/egg-entry-action.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
@@ -709,6 +710,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	
 	anjuta_preferences_add_page (editor_plugin->prefs,
 								 gxml, "Editor", ICON_FILE);
+	anjuta_encodings_init (editor_plugin->prefs, gxml);
 	/*
 	g_signal_connect (G_OBJECT (editor_plugin->prefs), "changed",
 					  G_CALLBACK (preferences_changed), editor_plugin);

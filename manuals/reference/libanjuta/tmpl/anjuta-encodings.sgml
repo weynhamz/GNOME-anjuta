@@ -71,6 +71,7 @@ Text encoding and decoding
 </para>
 
 @pref: 
+@gxml: 
 
 
 <!-- ##### MACRO SAVE_ENCODING_ORIGINAL ##### -->

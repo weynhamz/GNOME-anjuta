@@ -141,6 +141,7 @@ anjuta_preferences_register_property_custom (AnjutaPreferences *pr,
 											 GtkWidget *object,
 										     const gchar *key,
 										     const gchar *default_value,
+											 AnjutaPropertyDataType data_type,
 										     guint flags,
 		void    (*set_property) (AnjutaProperty *prop, const gchar *value),
 		gchar * (*get_property) (AnjutaProperty *));
@@ -178,33 +179,35 @@ properties database to the parent session properties database */
 void anjuta_preferences_sync_to_session (AnjutaPreferences *pr);
 
 /* Sets the value (string) of a key */
-void anjuta_preferences_set (AnjutaPreferences *pr,
-							 const gchar *key,
-							 const gchar *value);
+inline void anjuta_preferences_set (AnjutaPreferences *pr,
+									const gchar *key,
+									const gchar *value);
 
 /* Sets the value (int) of a key */
-void anjuta_preferences_set_int (AnjutaPreferences *pr,
-								 const gchar *key,
-								 const gint value);
+inline void anjuta_preferences_set_int (AnjutaPreferences *pr,
+										const gchar *key,
+										const gint value);
 
 /* Gets the value (string) of a key */
 /* Must free the return string */
-gchar * anjuta_preferences_get (AnjutaPreferences *pr, const gchar *key);
+inline gchar * anjuta_preferences_get (AnjutaPreferences *pr,
+									   const gchar *key);
 
 /* Gets the value (int) of a key. If not found, 0 is returned */
-gint anjuta_preferences_get_int (AnjutaPreferences *pr, const gchar *key);
-
-/* Gets the value (int) of a key. If not found, the default_value is returned */
-gint anjuta_preferences_get_int_with_default (AnjutaPreferences* pr,
-											  const gchar *key,
-											  gint default_value);
-
-gchar * anjuta_preferences_default_get (AnjutaPreferences *pr,
+inline gint anjuta_preferences_get_int (AnjutaPreferences *pr,
 										const gchar *key);
 
+/* Gets the value (int) of a key. If not found, the default_value is returned */
+inline gint anjuta_preferences_get_int_with_default (AnjutaPreferences* pr,
+													 const gchar *key,
+													 gint default_value);
+
+inline gchar * anjuta_preferences_default_get (AnjutaPreferences *pr,
+											   const gchar *key);
+
 /* Gets the value (int) of a key */
-gint anjuta_preferences_default_get_int (AnjutaPreferences *pr,
-										 const gchar *key);
+inline gint anjuta_preferences_default_get_int (AnjutaPreferences *pr,
+												const gchar *key);
 
 #ifdef __cplusplus
 };

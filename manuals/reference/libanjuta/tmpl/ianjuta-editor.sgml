@@ -41,6 +41,8 @@
 
 @g_iface: 
 @get_attributes: 
+@get_current_word: 
+@get_length: 
 @get_position: 
 @get_selection: 
 @get_text: 

@@ -32,7 +32,6 @@
 
 #include <gtk/gtktreeview.h>
 #include <gtk/gtkliststore.h>
-#include <glade/glade.h>
 #include <bonobo/bonobo-i18n.h>
 #include <string.h>
 
@@ -667,7 +666,7 @@ set_property (AnjutaProperty *prop, const gchar *value)
 }
 
 void
-anjuta_encodings_init (AnjutaPreferences *pref)
+anjuta_encodings_init (AnjutaPreferences *pref, GladeXML *gxml)
 {
 	GtkWidget *add_button;
 	GtkWidget *remove_button;
@@ -676,7 +675,7 @@ anjuta_encodings_init (AnjutaPreferences *pref)
 	GtkWidget *supported_treeview;
 	GtkWidget *stock_treeview;
 	GtkTreeModel *model;
-	GladeXML *gxml;
+	/* GladeXML *gxml; */
 	GtkCellRenderer *cell;
 	GtkTreeViewColumn *column;
 	GtkTreeSelection *selection;
@@ -684,12 +683,14 @@ anjuta_encodings_init (AnjutaPreferences *pref)
 	g_return_if_fail (anjuta_encodings_dialog == NULL);
 	
 	/* Create the Encodings preferences page */
+	/*
 	gxml = glade_xml_new (PACKAGE_DATA_DIR"/glade/anjuta.glade",
 						  "preferences_dialog_encodings",
 						  NULL);
 	anjuta_preferences_add_page (pref, gxml,
 								"Encodings",
 								"preferences-encodings.png");
+	*/
 	supported_treeview = glade_xml_get_widget (gxml, "supported_treeview");
 	stock_treeview =  glade_xml_get_widget (gxml, "stock_treeview");
 	add_button = glade_xml_get_widget (gxml, "add_button");
@@ -740,6 +741,7 @@ anjuta_encodings_init (AnjutaPreferences *pref)
 	anjuta_preferences_register_property_custom (pref, supported_treeview,
 												SUPPORTED_ENCODINGS,
 												"ISO-8859-15",
+												ANJUTA_PROPERTY_DATA_TYPE_TEXT,
 												0,
 												set_property,
 												get_property);
