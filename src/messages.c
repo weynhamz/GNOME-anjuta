@@ -50,7 +50,7 @@ on_mesg_win_but_event (GtkWidget * widget,
 		       GdkEvent * event, gpointer user_data);
 
 static GdkColor *GetColorError(Messages * m)
-{  	return & m->color_red ;
+{	return & m->color_red ;
 }
 
 Messages *

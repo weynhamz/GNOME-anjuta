@@ -50,6 +50,10 @@ const gchar	*SessionSectionString( const SessionSectionTypes p_Session )
 		return "program_arguments"; break;
 	case SECTION_FIND_IN_FILES:
 		return "find_in_files"; break;
+	case SECTION_EXECUTERARGS:
+		return "executer args"; break;
+	case SECTION_EXECUTER:
+		return "executer"; break;
 	}
 }
 
@@ -262,7 +266,7 @@ session_get_iterator( ProjectDBase * p, const gchar *szSection )
 /*---------------------------------------------------------------*/
 
 void
-save_session_strings( ProjectDBase *p, const gchar *szSession, GList *pLStrings )
+session_save_strings( ProjectDBase *p, const gchar *szSession, GList *pLStrings )
 {
 	g_return_if_fail( NULL != p );
 	g_return_if_fail( NULL != szSession );
@@ -285,7 +289,7 @@ save_session_strings( ProjectDBase *p, const gchar *szSession, GList *pLStrings 
 
 
 GList*
-load_session_strings(ProjectDBase * p, const gchar *szSection, GList *pList )
+session_load_strings(ProjectDBase * p, const gchar *szSection, GList *pList )
 {
 	gpointer	config_iterator;
 	g_return_val_if_fail( p != NULL, NULL );
@@ -311,3 +315,39 @@ load_session_strings(ProjectDBase * p, const gchar *szSection, GList *pList )
 	return pList ;
 }
 
+
+void
+session_save_bool( ProjectDBase * p, const gchar *szSection, const gchar *szItem, const gboolean bVal )
+{
+	gchar *szFile = GetSessionFile( p );
+	gchar *szSect = NULL ;
+	g_return_if_fail( (NULL != szSection) );
+	/* Now appends the item and the specific data... */
+	szSect = g_strdup_printf( "%s/%s/%s", szFile, szSection, szItem );
+	if( NULL !=  szSect )
+	{
+		gnome_config_set_bool( szSect, bVal );
+	}
+	g_free( szFile );
+	g_free( szSect );
+
+}
+
+gboolean
+session_get_bool( ProjectDBase * p, const gchar *szSection, const gchar *szItem, const gboolean bValDefault )
+{
+	gchar		*szFile = GetSessionFile( p );
+	gchar		*szSect = NULL ;
+	gboolean	bRet = bValDefault ;
+		
+	g_return_val_if_fail( (NULL != szSection), bValDefault );
+	/* Now appends the item and the specific data... */
+	szSect = g_strdup_printf( "%s/%s/%s=%d", szFile, szSection, szItem, (int)bValDefault );
+	g_free( szFile );
+	if( NULL !=  szSect )
+	{
+		bRet = gnome_config_get_bool( szSect );
+	}
+	g_free( szSect );	
+	return bRet ;
+}

@@ -20,11 +20,22 @@
 #define _EXECUTE_H_
 
 typedef struct _Executer Executer;
+typedef struct _ExecuterGUI ExecuterGUI;
+		
+struct _ExecuterGUI {
+	GtkWidget *dialog;
+	GtkWidget *combo1;
+	GtkWidget *combo_entry1;
+	GtkWidget *check_terminal;
+} ;
 
 struct _Executer
 {
-	PropsID props;
+	PropsID		props;
 	gboolean    terminal;
+	GList		*m_PgmArgs;	/* The program arguments */
+	/* UI */
+	ExecuterGUI	m_gui;
 };
 
 #define EXECUTER_PROGRAM_ARGS_KEY "anjuta.program.arguments"
@@ -36,6 +47,13 @@ void executer_show(Executer*);
 
 void executer_destroy(Executer*);
 void executer_execute (Executer * e);
+
+void
+executer_save_session( Executer *e, ProjectDBase *p );
+void
+executer_load_session( Executer *e, ProjectDBase *p );
+
+
 
 #endif
 

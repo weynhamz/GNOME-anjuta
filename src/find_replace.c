@@ -113,7 +113,7 @@ find_replace_save_session ( FindAndReplace * fr, ProjectDBase *p )
 {
 	g_return_if_fail( NULL != p );
 	g_return_if_fail( NULL != fr );
-	save_session_strings( p, SECSTR(SECTION_REPLACETEXT), fr->replace_history );
+	session_save_strings( p, SECSTR(SECTION_REPLACETEXT), fr->replace_history );
 	if( fr->find_text )
 		find_text_save_session ( fr->find_text, p );
 }
@@ -123,7 +123,7 @@ find_replace_load_session ( FindAndReplace * fr, ProjectDBase *p )
 {
 	g_return_if_fail( NULL != p );
 	g_return_if_fail( NULL != fr );
-	fr->replace_history	= load_session_strings( p, SECSTR(SECTION_REPLACETEXT), fr->replace_history );
+	fr->replace_history	= session_load_strings( p, SECSTR(SECTION_REPLACETEXT), fr->replace_history );
 	if( fr->find_text )
 		find_text_load_session ( fr->find_text, p );
 }

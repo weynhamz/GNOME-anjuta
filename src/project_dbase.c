@@ -47,6 +47,7 @@
 #include "CORBA-Server.h"
 #include "debugger.h"
 #include "find_replace.h"
+#include "executer.h"
 
 /* Including small pixmaps at compile time */
 /* So that these at least work when gnome pixmaps are not found */
@@ -697,7 +698,7 @@ project_dbase_reload_session (ProjectDBase * p)
 	project_reload_session_files(p);
 
 	find_replace_load_session( app->find_replace, p );
-	/*run_program_load_session( p );*/
+	executer_load_session( app->executer, p );
 	find_in_files_load_session( app->find_in_files, p );
 }
 
@@ -1217,7 +1218,7 @@ project_dbase_save_session (ProjectDBase * p)
 	debugger_save_session_breakpoints( p );
 	project_dbase_save_session_files ( p );
 	find_replace_save_session( app->find_replace, p );
-	/*run_program_save_session( p );*/
+	executer_save_session( app->executer, p );
 	find_in_files_save_session( app->find_in_files, p );
 	session_sync();
 }

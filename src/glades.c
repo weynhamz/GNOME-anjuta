@@ -529,3 +529,36 @@ glade_project_options_ok (GtkWidget *widget,
 }
 
 #endif
+
+gboolean
+gladen_write_source( const gchar *szGladeFileName )
+{
+	gchar *dir;
+	pid_t pid;
+	int status;
+	gboolean bRetValue = TRUE ;
+	CORBA_Environment	ev;
+
+	g_return_val_if_fail ( szGladeFileName != NULL, FALSE);
+	g_return_val_if_fail ( IsGladen(), FALSE);
+			
+	dir = g_dirname ( szGladeFileName );
+	if(dir)
+	{
+		force_create_dir (dir);
+		if (chdir (dir) < 0)
+		{
+			bRetValue = FALSE;
+		}
+	}	
+	g_free (dir);
+	if( bRetValue )
+	{
+		CInitEx( &ev );
+		bRetValue = (Gladen_GladeRef_GenerateSourceFile(GetCorbaManager()->m_gladen,
+						    &ev) == CORBA_TRUE ) ? TRUE : FALSE ;
+		CHK_EV(ev);
+	}
+	return bRetValue ;
+}
+

@@ -120,7 +120,7 @@ find_in_files_save_session ( FindInFiles* ff, ProjectDBase *p )
 {
 	g_return_if_fail( NULL != p );
 	g_return_if_fail( NULL != ff );
-	save_session_strings( p, SECSTR(SECTION_FIND_IN_FILES), ff->regexp_history );
+	session_save_strings( p, SECSTR(SECTION_FIND_IN_FILES), ff->regexp_history );
 }
 
 void
@@ -128,7 +128,7 @@ find_in_files_load_session( FindInFiles * ff, ProjectDBase *p )
 {
 	g_return_if_fail( NULL != p );
 	g_return_if_fail( NULL != ff );
-	ff->regexp_history = load_session_strings( p, SECSTR(SECTION_FIND_IN_FILES), ff->regexp_history );
+	ff->regexp_history = session_load_strings( p, SECSTR(SECTION_FIND_IN_FILES), ff->regexp_history );
 }
 
 

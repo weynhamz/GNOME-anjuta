@@ -29,6 +29,8 @@ enum _SessionSectionTypes {
 	SECTION_FINDTEXT,
 	SECTION_PROGRAM_ARGUMENTS,
 	SECTION_FIND_IN_FILES,
+	SECTION_EXECUTERARGS,
+	SECTION_EXECUTER,
 };
 
 typedef enum _SessionSectionTypes SessionSectionTypes ;
@@ -67,10 +69,15 @@ session_get_strings( ProjectDBase * p, const gchar *szSection, gint *pnItems, gc
 gpointer
 session_get_iterator( ProjectDBase * p, const gchar *szSection );
 void
-save_session_strings( ProjectDBase *p, const gchar *szSession, GList *pLStrings );
+session_save_strings( ProjectDBase *p, const gchar *szSession, GList *pLStrings );
 
 GList*
-load_session_strings(ProjectDBase * p, const gchar *szSection, GList *pList );
+session_load_strings(ProjectDBase * p, const gchar *szSection, GList *pList );
 
+void
+session_save_bool( ProjectDBase * p, const gchar *szSection, const gchar *szItem, const gboolean bVal );
+
+gboolean
+session_get_bool( ProjectDBase * p, const gchar *szSection, const gchar *szItem, const gboolean bValDefault );
 
 #endif	/*_SESSION_H_*/

@@ -132,7 +132,8 @@ create_new_project (AppWizard * aw)
 	if (type->id != PROJECT_TYPE_GENERIC)
 	{
 		fprintf(fp, "compiler.options.supports=%s\n\n", type->save_string);
-		free_project_type(type);
+		//free_project_type(type);
+		//type = NULL ;
 	}
 	fclose(fp);
 	messages_append (app->messages, _("Loading  project ...\n"), MESSAGE_BUILD);
@@ -168,13 +169,17 @@ create_new_project (AppWizard * aw)
 	}
 
 	/* Scanning for created files in every module */
+	if( type )
+	{
+		free_project_type(type);
+		type = NULL;
+	}
+	
 	messages_append (app->messages, _("Locating files ...\n"), MESSAGE_BUILD);
 	for(i=0; i<MODULE_END_MARK; i++)
 	{
 		gchar *key;	
-	
-		free_project_type(type);
-	
+
 		if (i == MODULE_PO)
 			continue;
 		list = project_dbase_scan_files_in_module (app->project_dbase, i, FALSE);

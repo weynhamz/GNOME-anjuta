@@ -35,6 +35,12 @@
 
 static GtkWidget* create_executer_dialog(Executer*);
 
+static const gchar szRunInTerminalItem[] = {"RunInTerminal"};
+//static const gchar szPgmArgsSection[] = {"PgmArgs"};
+static
+void on_executer_run_button_clicked (GtkButton* button, gpointer user_data);
+
+
 static void
 on_executer_entry_changed              (GtkEditable     *editable,
                                         gpointer         user_data);
@@ -51,50 +57,73 @@ executer_new (PropsID props)
 	{
 		e->props = props;
 		e->terminal = TRUE;
+		e->m_PgmArgs	= NULL ;
 	}
 	return e;
 }
-
 void
 executer_destroy (Executer * e)
 {
-	if (e) g_free (e);
+	if (e)
+	{
+		int i ;
+		if( e->m_PgmArgs )
+		{
+			for (i = 0; i < g_list_length (e->m_PgmArgs); i++)
+				g_free (g_list_nth (e->m_PgmArgs, i)->data);
+
+			if (e->m_PgmArgs)
+				g_list_free (e->m_PgmArgs);
+		}
+		g_free (e);
+	}
 }
 
 void
 executer_show (Executer * e)
 {
-	gtk_widget_show (create_executer_dialog (e));
+	gtk_widget_show (create_executer_dialog (e));		
+	if (e->m_PgmArgs)
+		gtk_combo_set_popdown_strings (GTK_COMBO (e->m_gui.combo1),
+					       	e->m_PgmArgs );
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (e->m_gui.check_terminal), e->terminal);
 }
 
+static
 void on_executer_run_button_clicked (GtkButton* button, gpointer user_data)
 {
-  executer_execute((Executer*)user_data);
+	Executer	*e =(Executer*) user_data ;
+		
+	g_return_if_fail( NULL != user_data );
+	e->m_PgmArgs = update_string_list ( e->m_PgmArgs,
+						   gtk_entry_get_text (GTK_ENTRY (e->m_gui.combo_entry1)),
+						   	COMBO_LIST_LENGTH);
+	executer_execute( e );
 }
 
 static GtkWidget *
 create_executer_dialog (Executer * e)
 {
-	GtkWidget *dialog1;
+	//GtkWidget *dialog1;
 	GtkWidget *dialog_vbox1;
 	GtkWidget *vbox1;
 	GtkWidget *frame1;
-	GtkWidget *combo1;
-	GtkWidget *combo_entry1;
-	GtkWidget *checkbutton1;
+	//GtkWidget *combo1;
+	//GtkWidget *combo_entry1;
+	//GtkWidget *checkbutton1;
 	GtkWidget *dialog_action_area1;
 	GtkWidget *button1;
 	GtkWidget *button3;
 	gchar* options;
 
-	dialog1 = gnome_dialog_new (_("Execute with arguments"), NULL);
-	gtk_window_set_position (GTK_WINDOW (dialog1), GTK_WIN_POS_CENTER);
-	gtk_window_set_policy (GTK_WINDOW (dialog1), FALSE, FALSE, FALSE);
-	gtk_window_set_wmclass (GTK_WINDOW (dialog1), "exec", "Anjuta");
-	gtk_widget_set_usize (dialog1, 400, -2);
-	gnome_dialog_set_close (GNOME_DIALOG (dialog1), TRUE);
+	e->m_gui.dialog = gnome_dialog_new (_("Execute with arguments"), NULL);
+	gtk_window_set_position (GTK_WINDOW (e->m_gui.dialog), GTK_WIN_POS_CENTER);
+	gtk_window_set_policy (GTK_WINDOW (e->m_gui.dialog), FALSE, FALSE, FALSE);
+	gtk_window_set_wmclass (GTK_WINDOW (e->m_gui.dialog), "exec", "Anjuta");
+	gtk_widget_set_usize (e->m_gui.dialog, 400, -2);
+	gnome_dialog_set_close (GNOME_DIALOG (e->m_gui.dialog), TRUE);
 
-	dialog_vbox1 = GNOME_DIALOG (dialog1)->vbox;
+	dialog_vbox1 = GNOME_DIALOG (e->m_gui.dialog)->vbox;
 	gtk_widget_show (dialog_vbox1);
 
 	vbox1 = gtk_vbox_new (FALSE, 0);
@@ -106,51 +135,52 @@ create_executer_dialog (Executer * e)
 	gtk_box_pack_start (GTK_BOX (vbox1), frame1, TRUE, TRUE, 0);
 	gtk_container_set_border_width (GTK_CONTAINER (frame1), 5);
 
-	combo1 = gtk_combo_new ();
-	gtk_widget_show (combo1);
-	gtk_container_add (GTK_CONTAINER (frame1), combo1);
-	gtk_container_set_border_width (GTK_CONTAINER (combo1), 5);
+	e->m_gui.combo1 = gtk_combo_new ();
+	gtk_widget_show (e->m_gui.combo1);
+	gtk_container_add (GTK_CONTAINER (frame1), e->m_gui.combo1);
 
-	combo_entry1 = GTK_COMBO (combo1)->entry;
-	gtk_widget_show (combo_entry1);
+	gtk_container_set_border_width (GTK_CONTAINER (e->m_gui.combo1), 5);
 
-	checkbutton1 = gtk_check_button_new_with_label (_("Run in Terminal"));
-	gtk_widget_show (checkbutton1);
-	gtk_box_pack_start (GTK_BOX (vbox1), checkbutton1, FALSE, FALSE, 0);
-	gtk_container_set_border_width (GTK_CONTAINER (checkbutton1), 5);
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (checkbutton1), TRUE);
+	e->m_gui.combo_entry1 = GTK_COMBO (e->m_gui.combo1)->entry;
+	gtk_widget_show (e->m_gui.combo_entry1);
 
-	dialog_action_area1 = GNOME_DIALOG (dialog1)->action_area;
+	e->m_gui.check_terminal = gtk_check_button_new_with_label (_("Run in Terminal"));
+	gtk_widget_show (e->m_gui.check_terminal);
+	gtk_box_pack_start (GTK_BOX (vbox1), e->m_gui.check_terminal, FALSE, FALSE, 0);
+	gtk_container_set_border_width (GTK_CONTAINER (e->m_gui.check_terminal), 5);
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (e->m_gui.check_terminal), TRUE);
+
+	dialog_action_area1 = GNOME_DIALOG (e->m_gui.dialog)->action_area;
 	gtk_widget_show (dialog_action_area1);
 	gtk_button_box_set_layout (GTK_BUTTON_BOX (dialog_action_area1),
 				   GTK_BUTTONBOX_END);
 	gtk_button_box_set_spacing (GTK_BUTTON_BOX (dialog_action_area1), 8);
 
-	gnome_dialog_append_button (GNOME_DIALOG (dialog1),
+	gnome_dialog_append_button (GNOME_DIALOG (e->m_gui.dialog),
 				    GNOME_STOCK_BUTTON_OK);
-	button1 = g_list_last (GNOME_DIALOG (dialog1)->buttons)->data;
+	button1 = g_list_last (GNOME_DIALOG (e->m_gui.dialog)->buttons)->data;
 	gtk_widget_show (button1);
 	GTK_WIDGET_SET_FLAGS (button1, GTK_CAN_DEFAULT);
 
-	gnome_dialog_append_button (GNOME_DIALOG (dialog1),
+	gnome_dialog_append_button (GNOME_DIALOG (e->m_gui.dialog),
 				    GNOME_STOCK_BUTTON_CLOSE);
-	button3 = g_list_last (GNOME_DIALOG (dialog1)->buttons)->data;
+	button3 = g_list_last (GNOME_DIALOG (e->m_gui.dialog)->buttons)->data;
 	gtk_widget_show (button3);
 	GTK_WIDGET_SET_FLAGS (button3, GTK_CAN_DEFAULT);
 
 	options = prop_get (e->props, EXECUTER_PROGRAM_ARGS_KEY);
 	if (options)
 	{
-		gtk_entry_set_text (GTK_ENTRY (combo_entry1), options);
+		gtk_entry_set_text (GTK_ENTRY (e->m_gui.combo_entry1), options);
 		g_free (options);
 	}
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (checkbutton1), e->terminal);
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (e->m_gui.check_terminal), e->terminal);
 
-	gtk_accel_group_attach (app->accel_group, GTK_OBJECT (dialog1));
+	gtk_accel_group_attach (app->accel_group, GTK_OBJECT (e->m_gui.dialog));
 
-	gtk_signal_connect (GTK_OBJECT (combo_entry1), "changed",
+	gtk_signal_connect (GTK_OBJECT (e->m_gui.combo_entry1), "changed",
 			    GTK_SIGNAL_FUNC (on_executer_entry_changed), e);
-	gtk_signal_connect (GTK_OBJECT (checkbutton1), "toggled",
+	gtk_signal_connect (GTK_OBJECT (e->m_gui.check_terminal), "toggled",
 			    GTK_SIGNAL_FUNC (on_executer_checkbutton_toggled),
 			    e);
 	/* FIXME: fix this mess of braces, maybe overriding gnome_dialog_append_dialog */
@@ -163,9 +193,8 @@ create_executer_dialog (Executer * e)
 
 	gtk_widget_grab_focus (button1);
 	gtk_widget_grab_default (button1);
-	return dialog1;
+	return e->m_gui.dialog;
 }
-
 
 static void
 on_executer_entry_changed (GtkEditable * editable, gpointer user_data)
@@ -309,4 +338,28 @@ executer_execute (Executer * e)
 	string_free (command);
 	string_free (cmd);
 }
+
+
+void
+executer_save_session( Executer *e, ProjectDBase *p )
+{
+	g_return_if_fail( NULL != e );
+	g_return_if_fail( NULL != p );
+	g_return_if_fail( p->project_is_open );
+	/* Save 'run reminal option' */
+	session_save_bool( p, SECSTR(SECTION_EXECUTER), szRunInTerminalItem, e->terminal );
+	session_save_strings( p, SECSTR(SECTION_EXECUTERARGS), e->m_PgmArgs );
+}
+
+void
+executer_load_session( Executer *e, ProjectDBase *p )
+{
+	g_return_if_fail( NULL != e );
+	g_return_if_fail( NULL != p );
+	g_return_if_fail( p->project_is_open );
+
+	e->m_PgmArgs	= session_load_strings( p, SECSTR(SECTION_EXECUTERARGS), e->m_PgmArgs );
+	e->terminal		= session_get_bool( p, SECSTR(SECTION_EXECUTER), szRunInTerminalItem, FALSE );
+}
+
 

@@ -110,7 +110,7 @@ find_text_load_session( FindText * ft, ProjectDBase *p )
 	g_return_if_fail( NULL != p );
 	g_return_if_fail( NULL != ft );
 
-	ft->find_history = load_session_strings( p, SECSTR(SECTION_FINDTEXT), ft->find_history );
+	ft->find_history = session_load_strings( p, SECSTR(SECTION_FINDTEXT), ft->find_history );
 }
 
 void
@@ -245,7 +245,7 @@ gboolean
 find_text_save_session ( FindText * ft, ProjectDBase *p )
 {
 	g_return_val_if_fail( NULL != p, FALSE );
-	save_session_strings( p, SECSTR(SECTION_FINDTEXT), ft->find_history );
+	session_save_strings( p, SECSTR(SECTION_FINDTEXT), ft->find_history );
 	/*session_clear_section( p, SECTION_SEARCH );
 	if( ft->find_history )
 	{

@@ -252,9 +252,9 @@ static GnomeUIInfo goto1_submenu_uiinfo[] = {
 };
 
 
-#define	NUM_EDIT_MENUES	(25)
+#define	NUM_EDIT_MENUES	(24)
 
-static GnomeUIInfo edit1_menu_uiinfo[NUM_EDIT_MENUES] = {
+static GnomeUIInfo edit1_menu_uiinfo[NUM_EDIT_MENUES+1] = {
 	{/*0*/
 	 GNOME_APP_UI_ITEM, N_("U_ndo"),
 	 N_("Undo the last action"),
@@ -368,33 +368,32 @@ static GnomeUIInfo edit1_menu_uiinfo[NUM_EDIT_MENUES] = {
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_SEARCH,
 	 GDK_P, GDK_CONTROL_MASK, NULL},
 	 
-	GNOMEUIINFO_SEPARATOR,/*19*/
-	
-	{/*20*/
+	{/*19*/
 	 GNOME_APP_UI_SUBTREE, N_("G_o to"),
 	 NULL,
 	 goto1_submenu_uiinfo, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	
-	GNOMEUIINFO_SEPARATOR,/*21*/
-	
-	{/*22*/
+	GNOMEUIINFO_SEPARATOR,/*20*/
+
+	 {/*21*/
 	 GNOME_APP_UI_ITEM, N_("Ed_it Application GUI ..."),
 	 N_("Edit application GUI with the Glade GUI editor"),
 	 on_edit_app_gui1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 GDK_E, GDK_MOD1_MASK, NULL},
 	
-	GNOMEUIINFO_SEPARATOR,/*23*/
+	GNOMEUIINFO_SEPARATOR,/*22*/
 	
-	{/*24*/
+	{/*23*/
 	 GNOME_APP_UI_ITEM, N_("Save Build Messages"),
 	 N_("Save build messages to file"),
 	 on_save_build_messages_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 
+	 
 	GNOMEUIINFO_END
 };
 
