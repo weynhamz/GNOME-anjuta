@@ -2,6 +2,12 @@
 
 	* THANKS: Added all contributors and translators names and emails.
 	* AUTHORS: Updated
+	* pixmap/anjuta_logo.png: Reduced the size of the logo.
+	* pixmap/anjuta_splash.png, pixmaps/Makefile.am:
+	      Added new file (earlier logo with border).
+	* src/about.c: Added all contributors names and emails
+	      and used macro definition for logo pixmap file.
+	* src/pixmaps.h: Added entry for anjuta splash screen.
 
 2001-10-24	Andy Piper	<andy.piper@freeuk.com>
 

@@ -26,6 +26,7 @@
 #include <string.h>
 
 #include <gnome.h>
+#include "pixmaps.h"
 #include "utilities.h"
 #include "resources.h"
 #include "about.h"
@@ -35,6 +36,20 @@ create_about_gui ()
 {
 	const gchar *authors[] = {
 		"Naba Kumar <kh_naba@users.sourceforge.net>",
+		"Stéphane Démurget <demurgets@free.fr>",
+		"Andy Piper <andy.piper@freeuk.com>",
+		"Hector Rivera Falu <misha@phreaker.net>", 
+		"Luca Bellonda <lbell@tsc4.com>",
+		"Rikul <rikul@shreve.net>/<rikul@bellsouth.net>", 
+		"Johannes Schmid <johannes.schmid@gmx.de>",
+		"Max Blagai <maximblagai@yahoo.com>", 
+		"venugopal gummuluru <vgummuluru@yahoo.com>",
+		"Archit Baweja <bighead@crosswinds.net>", 
+		"Fatih Demir <kabalak@gtranslator.org>",
+		"Martyn Bone <mbone@brightstar.u-net.com>", 
+		"Gregory Schmitt <gregory.schmitt@free.fr>",
+		"Yannick Koehler <yannick.koehler@colubris.com>", 
+		"Giovanni Corriga <valkadesh@libero.it>", 
 		NULL
 	};
 	GtkWidget *about_gui;
@@ -42,7 +57,7 @@ create_about_gui ()
 	GtkWidget *href1;
 	gchar* about_imgfile;
 
-	about_imgfile = anjuta_res_get_pixmap_file ("anjuta_logo.png");
+	about_imgfile = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_LOGO);
 	about_gui = gnome_about_new ("Anjuta", VERSION,
 		_("Copyright (c) 1999-2001 Naba Kumar"),
 		authors,

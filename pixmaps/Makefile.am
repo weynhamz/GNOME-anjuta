@@ -10,6 +10,7 @@ anjuta_pixmaps_DATA = \
 	add.xpm\
 	anjuta_icon.png\
 	anjuta_logo.png\
+	anjuta_splash.png\
 	app_wizard.jpg\
 	appwid_blank.xpm\
 	appwid_book.xpm\

@@ -19,7 +19,8 @@
 #ifndef _PIXMAPS_H_
 #define _PIXMAPS_H_
 
-# define ANJUTA_PIXMAP_SPLASH_SCREEN "anjuta_logo.png"
+# define ANJUTA_PIXMAP_LOGO "anjuta_logo.png"
+# define ANJUTA_PIXMAP_SPLASH_SCREEN "anjuta_splash.png"
 # define ANJUTA_PIXMAP_NEW_FILE "new_file.xpm"
 # define ANJUTA_PIXMAP_OPEN_FILE	"open_file.xpm"
 # define ANJUTA_PIXMAP_SAVE_FILE	"save_file.xpm"
