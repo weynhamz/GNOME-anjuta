@@ -51,6 +51,6 @@ void style_editor_show (StyleEditor *se);
 
 void style_editor_hide (StyleEditor *se);
 
-void style_editor_save_yourself (StyleEditor *se, FILE *stream);
+void style_editor_save (StyleEditor *se, FILE *stream);
 
 #endif

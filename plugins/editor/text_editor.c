@@ -33,6 +33,7 @@
 #include <libanjuta/resources.h>
 #include <libanjuta/anjuta-utils.h>
 #include <libanjuta/anjuta-encodings.h>
+#include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-editor.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
 #include <libanjuta/interfaces/ianjuta-file-savable.h>
@@ -1693,19 +1694,19 @@ gint
 text_editor_get_props ()
 {
 	/* Built in values */
-	static PropsID props_built_in;
+	static PropsID props_built_in = 0;
 	
 	/* System values */
-	static PropsID props_global;
+	static PropsID props_global = 0;
 	
 	/* User values */ 
-	static PropsID props_local;
+	// static PropsID props_local = 0;
 	
 	/* Session values */
-	static PropsID props_session;
+	static PropsID props_session = 0;
 	
 	/* Instance values */
-	static PropsID props;
+	static PropsID props = 0;
 	
 	gchar *propdir, *propfile;
 
@@ -1714,23 +1715,26 @@ text_editor_get_props ()
 	
 	props_built_in = prop_set_new ();
 	props_global = prop_set_new ();
-	props_local = prop_set_new ();
+	// props_local = prop_set_new ();
 	props_session = prop_set_new ();
 	props = prop_set_new ();
 
 	prop_clear (props_built_in);
 	prop_clear (props_global);
-	prop_clear (props_local);
+	// prop_clear (props_local);
 	prop_clear (props_session);
 	prop_clear (props);
 
 	prop_set_parent (props_global, props_built_in);
-	prop_set_parent (props_local, props_global);
-	prop_set_parent (props_session, props_local);
+	// prop_set_parent (props_local, props_global);
+	// prop_set_parent (props_session, props_local);
+	prop_set_parent (props_session, props_global);
 	prop_set_parent (props, props_session);
 	
-	propdir = g_strconcat (PACKAGE_DATA_DIR, "/properties/", NULL);
-	propfile = g_strconcat (propdir, "anjuta.properties", NULL);
+	propdir = g_build_filename (PACKAGE_DATA_DIR, "properties/", NULL);
+	propfile = g_build_filename (PACKAGE_DATA_DIR, "properties",
+								 "anjuta.properties", NULL);
+	DEBUG_PRINT ("Reading file: %s", propfile);
 	
 	if (g_file_test (propfile, G_FILE_TEST_EXISTS) == FALSE)
 	{
@@ -1745,26 +1749,24 @@ text_editor_get_props ()
 	g_free (propfile);
 	g_free (propdir);
 
-	propdir = g_strconcat (g_get_home_dir(), "/.anjuta" PREF_SUFFIX "/", NULL);
-	propfile = g_strconcat (propdir, "user.properties", NULL);
+	propdir = g_build_filename (g_get_home_dir(), ".anjuta" PREF_SUFFIX "/", NULL);
+	propfile = g_build_filename (g_get_home_dir(), ".anjuta" PREF_SUFFIX,
+								 "editor-style.properties", NULL);
+	DEBUG_PRINT ("Reading file: %s", propfile);
 	
 	/* Create user.properties file, if it doesn't exist */
 	if (g_file_test (propfile, G_FILE_TEST_EXISTS) == FALSE) {
-		gchar* user_propfile = g_strconcat (PACKAGE_DATA_DIR,
-					"/properties/user.properties", NULL);
-		anjuta_util_copy_file (user_propfile, propfile, FALSE);
-		g_free (user_propfile);
+		gchar* old_propfile = g_build_filename (g_get_home_dir(),
+												".anjuta"PREF_SUFFIX,
+												"session.properties", NULL);
+		if (g_file_test (old_propfile, G_FILE_TEST_EXISTS) == TRUE)
+			anjuta_util_copy_file (old_propfile, propfile, FALSE);
+		g_free (old_propfile);
 	}
-	prop_read (props_local, propfile, propdir);
-	g_free (propdir);
-	g_free (propfile);
-
-	propdir = g_strconcat (g_get_home_dir(), "/.anjuta" PREF_SUFFIX "/", NULL);
-	propfile = g_strconcat (propdir, "session.properties", NULL);
 	prop_read (props_session, propfile, propdir);
 	g_free (propdir);
 	g_free (propfile);
-	
+
 	return props;
 }
 

@@ -1,4 +1,11 @@
-2004-13-02  Johannes Schmid <jhs@cvs.gnome.org>
+2004-12-03  Naba Kumar  <naba@gnome.org>
+
+	* plugins/editor/anjuta-docman.c, plugins/editor/style-editor.c,
+	plugins/editor/style-editor.h, plugins/editor/text_editor.c,
+	plugins/editor/text_editor_cbs.c: Save/load editor styles. Use old
+	session.properties file if it is for the first time.
+	
+2004-12-02  Johannes Schmid <jhs@cvs.gnome.org>
 	
 	* plugins/cvs-plugin/anjuta-cvs-plugin.glade: Added cvs update and commit
 	* plugins/cvs-plugin/plugin.c, plugins/cvs-plugin/cvs-action.[ch],

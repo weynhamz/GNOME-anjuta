@@ -118,13 +118,17 @@ gboolean timerclick = FALSE;
 static gboolean
 click_timeout (TextEditor *te)
 {
-	gint line = text_editor_get_current_lineno (te);
+	gint line = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (te),
+													"marker_line"));
 	
 	/*  If not second clic after timeout : Single Click  */
 	if (timerclick)
 	{
 		timerclick = FALSE;
-		/* Emit (double) clicked signal */
+		text_editor_goto_line (te, line, -1, TRUE);
+		aneditor_command (te->editor_id, ANE_BOOKMARK_TOGGLE, 0, 0);
+		
+		/* Emit (single) clicked signal */
 		g_signal_emit_by_name (G_OBJECT (te), "marker_clicked", FALSE, line);
 	}
 	return FALSE;
@@ -186,6 +190,8 @@ on_text_editor_scintilla_notify (GtkWidget * sci,
 			else
 			{
 				timerclick = TRUE;
+				g_object_set_data (G_OBJECT (te), "marker_line",
+								   GINT_TO_POINTER (line));
 				/* Timeout after 400ms  */
 				/* If 2 clicks before the timeout ==> Single Click */
 				g_timeout_add (400, (void*) click_timeout, te);

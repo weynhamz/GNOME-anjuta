@@ -819,6 +819,27 @@ sync_to_props (StyleEditor *se)
 }
 
 static void
+apply_styles (StyleEditor *se)
+{
+	FILE *ofile;
+	gchar *filename;
+	
+	sync_to_props (se);
+	filename = g_build_filename (g_get_home_dir (), ".anjuta",
+								 "editor-style.properties", NULL);
+	ofile = fopen (filename, "w");
+	if (!ofile) {
+		g_warning ("Could not open %s for writing", filename);
+	} else {
+		style_editor_save (se, ofile);
+		fclose (ofile);
+		g_free (filename);
+	}
+	anjuta_preferences_set_int (se->prefs, DISABLE_SYNTAX_HILIGHTING, 1);
+	anjuta_preferences_set_int (se->prefs, DISABLE_SYNTAX_HILIGHTING, 0);
+}
+
+static void
 on_response (GtkWidget *dialog, gint res, StyleEditor *se)
 {
 	g_return_if_fail (se);
@@ -826,14 +847,10 @@ on_response (GtkWidget *dialog, gint res, StyleEditor *se)
 	switch (res)
 	{
 	case GTK_RESPONSE_APPLY:
-		sync_to_props (se);
-		anjuta_preferences_set_int (se->prefs, DISABLE_SYNTAX_HILIGHTING, 1);
-		anjuta_preferences_set_int (se->prefs, DISABLE_SYNTAX_HILIGHTING, 0);
+		apply_styles (se);
 		return;
 	case GTK_RESPONSE_OK:
-		sync_to_props (se);
-		anjuta_preferences_set_int (se->prefs, DISABLE_SYNTAX_HILIGHTING, 1);
-		anjuta_preferences_set_int (se->prefs, DISABLE_SYNTAX_HILIGHTING, 0);
+		apply_styles (se);
 	case GTK_RESPONSE_CANCEL:
 		style_editor_hide (se);
 		return;
@@ -951,7 +968,7 @@ void style_editor_hide (StyleEditor *se)
 }
 
 void
-style_editor_save_yourself (StyleEditor *se, FILE *fp)
+style_editor_save (StyleEditor *se, FILE *fp)
 {
 	gint i;
 	gchar *str;

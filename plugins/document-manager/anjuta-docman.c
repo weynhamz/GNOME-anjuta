@@ -533,7 +533,7 @@ anjuta_docman_add_editor (AnjutaDocman *docman, const gchar *uri,
 	gtk_signal_handler_unblock_by_func (GTK_OBJECT (docman),
 			    GTK_SIGNAL_FUNC (on_notebook_switch_page),
 			    docman);
-	g_signal_connect (TEXT_EDITOR (te), "save_point",
+	g_signal_connect (G_OBJECT (te), "save_point",
 					  G_CALLBACK (on_editor_save_point), docman);
 	
 	anjuta_docman_set_current_editor(docman, TEXT_EDITOR (te));
