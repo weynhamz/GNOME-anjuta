@@ -1,3 +1,13 @@
+2004-02-11  Johannes Schmid <jhs@cvs.gnome.org>
+	
+	* data/template/Makefile.am
+	data/template/language/Makefile.am
+	data/template/library/Makefile.am
+	data/template/text/Makefile.am
+	data/template/project/Makefile.am
+	data/template/project/terminal/Makefile.am
+	configure.in: Created Makefile to install templates
+
 2004-02-11  Naba Kumar  <naba@gnome.org>
 
 	* plugins/editor/action-callbacks.c,

@@ -598,6 +598,12 @@ data/welcome.txt
 data/properties/Makefile
 data/macros/Makefile
 data/macros2/Makefile
+data/template/Makefile
+data/template/language/Makefile
+data/template/library/Makefile
+data/template/project/Makefile
+data/template/project/terminal/Makefile
+data/template/text/Makefile
 doc/anjuta.1
 doc/anjuta_launcher.1
 doc/Makefile

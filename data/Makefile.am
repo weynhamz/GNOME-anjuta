@@ -4,7 +4,7 @@
 ## If you don't want it to overwrite it,
 ## 	Please disable it in the Anjuta project configuration
 
-SUBDIRS = properties macros macros2
+SUBDIRS = properties macros macros2 template
 
 anjuta_datadir = $(prefix)/@NO_PREFIX_PACKAGE_DATA_DIR@
 
