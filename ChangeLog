@@ -58,6 +58,8 @@
 	src/utilities.c: Debuggged and finally made plugins
 	loadable.
 
+	* global-tags/Makefile.am: Fixed build error.
+
 2004-01-03  Naba Kumar  <naba@gnome.org>
 
 	* configure.in: Users GDL from external package.
