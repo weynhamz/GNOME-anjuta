@@ -1,3 +1,10 @@
+2001-12-02  Christian Rose  <menthos@menthos.com>
+
+	* sv.po: Fixes to the Swedish translation. Thanks to
+	Göran Uddeborg <goeran@uddeborg.pp.se> and
+	Peter Karlsson <peter@softwolves.pp.se> for their reviews
+	and comments.
+
 2001-11-29  Christian Meyer  <chrisime@gnome.org>
 
 	* de.po: Major cleanup, consistence check for release.
