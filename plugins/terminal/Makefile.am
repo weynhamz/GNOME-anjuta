@@ -1,5 +1,3 @@
-# Sample Makefile for a anjuta plugin.
-
 # Plugin glade file
 anjuta_gladedir = $(prefix)/@NO_PREFIX_PACKAGE_DATA_DIR@/glade
 anjuta_glade_DATA =  anjuta-terminal-plugin.glade

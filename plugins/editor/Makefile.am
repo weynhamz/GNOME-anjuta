@@ -1,10 +1,16 @@
+# Plugin glade file
+anjuta_gladedir = $(prefix)/@NO_PREFIX_PACKAGE_DATA_DIR@/glade
+anjuta_glade_DATA =  anjuta-document-manager.glade
 
+# Plugin UI file
 anjuta_uidir = $(prefix)/@NO_PREFIX_PACKAGE_DATA_DIR@/ui
 anjuta_ui_DATA =  anjuta-document-manager.ui
 
+# Plugin Icon file
 plugin_icondir = $(prefix)/@NO_PREFIX_PACKAGE_PIXMAPS_DIR@
 plugin_icon_DATA = anjuta-document-manager.png
 
+# Plugin Icon file
 plugin_in_files = anjuta-document-manager.plugin.in
 %.plugin: %.plugin.in $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*po) ; \
 	$(INTLTOOL_MERGE) $(top_srcdir)/po $< $@ -d -u \ \
@@ -55,6 +61,8 @@ libanjuta_editor_la_SOURCES= \
 	search-replace.c \
 	search-replace_backend.c \
 	search-replace_backend.h \
+	search_preferences.c \
+	search_preferences.h \
 	search_incremental.c \
 	search_incremental.h \
 	goto_line.c \

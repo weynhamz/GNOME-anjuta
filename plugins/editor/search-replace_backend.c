@@ -857,6 +857,7 @@ create_search_replace_instance(AnjutaDocman *docman)
 		sr = g_new0(SearchReplace, 1);
 	else
 		clear_search_replace_instance ();
-	sr->docman = docman;
+	if (docman)
+		sr->docman = docman;
 	return sr;
 }

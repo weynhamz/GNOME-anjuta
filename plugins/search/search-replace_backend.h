@@ -177,7 +177,7 @@ typedef struct _MatchInfo
 } MatchInfo;
 
 
-void search_and_replace_backend_init (AnjutaDocman *dm);
+//  void search_and_replace_backend_init (AnjutaDocman *dm);
 
 void function_select (TextEditor *te);
 

@@ -18,11 +18,11 @@
       <property name="visible">True</property>
       <property name="label_xalign">0</property>
       <property name="label_yalign">0.5</property>
-      <property name="shadow_type">GTK_SHADOW_ETCHED_IN</property>
+      <property name="shadow_type">GTK_SHADOW_NONE</property>
 
       <child>
 	<widget class="GtkTable" id="table24">
-	  <property name="border_width">5</property>
+	  <property name="border_width">10</property>
 	  <property name="visible">True</property>
 	  <property name="n_rows">2</property>
 	  <property name="n_columns">2</property>
@@ -127,9 +127,9 @@
       <child>
 	<widget class="GtkLabel" id="label166">
 	  <property name="visible">True</property>
-	  <property name="label" translatable="yes">Terminal options</property>
+	  <property name="label" translatable="yes">&lt;b&gt;Terminal options&lt;/b&gt;</property>
 	  <property name="use_underline">False</property>
-	  <property name="use_markup">False</property>
+	  <property name="use_markup">True</property>
 	  <property name="justify">GTK_JUSTIFY_LEFT</property>
 	  <property name="wrap">False</property>
 	  <property name="selectable">False</property>

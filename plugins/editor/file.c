@@ -37,7 +37,7 @@
 #include "text_editor.h"
 #include "file.h"
 
-#define GLADE_FILE_FILE PACKAGE_DATA_DIR"/glade/anjuta.glade"
+#define GLADE_FILE_FILE PACKAGE_DATA_DIR"/glade/anjuta-document-manager.glade"
 #define NEW_FILE_DIALOG "dialog.new.file"
 #define NEW_FILE_ENTRY "new.file.entry"
 #define NEW_FILE_TYPE "new.file.type"

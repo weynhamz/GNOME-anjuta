@@ -31,9 +31,12 @@
 #include "action-callbacks.h"
 #include "aneditor.h"
 #include "lexer.h"
+#include "search-replace.h"
 #include "plugin.h"
 
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-document-manager.ui"
+#define PREFS_GLADE PACKAGE_DATA_DIR"/glade/anjuta-document-manager.glade"
+#define ICON_FILE "anjuta-document-manager.png"
 
 gpointer parent_class;
 
@@ -247,7 +250,8 @@ static GtkActionEntry actions_navigation[] = {
 };
 
 static GtkActionEntry actions_edit[] = {
-  // { "ActionMenuEdit", N_("_Edit"), NULL, NULL, NULL, NULL, NULL },
+  { "ActionMenuEdit", N_("_Edit"), NULL, NULL, NULL, NULL},
+  { "ActionMenuViewEditor", N_("_Editor"), NULL, NULL, NULL, NULL},
   { "ActionEditUndo", N_("U_ndo"), GTK_STOCK_UNDO, "<control>z",
 	N_("Undo the last action"),
     G_CALLBACK (on_editor_command_undo_activate)},
@@ -276,7 +280,6 @@ static GtkActionEntry actions_edit[] = {
 };
 
 static GtkToggleActionEntry actions_view[] = {
-  { "ActionMenuViewEditor", N_("_Editor"), NULL, NULL, NULL, NULL},
   { "ActionViewEditorLinenumbers", N_("_Line numbers margin"), NULL, NULL,
 	N_("Show/Hide line numbers"),
     G_CALLBACK (on_editor_linenos1_activate), FALSE},
@@ -520,6 +523,34 @@ swap_toggle_label_and_stock (GtkToggleActionEntry* actions, gint size)
 	}
 }
 
+static void
+ui_states_init (AnjutaPlugin *plugin)
+{
+	gint i;
+	EditorPlugin *eplugin;
+	static const gchar *prefs[] = {
+		"margin.linenumber.visible",
+		"margin.marker.visible",
+		"margin.fold.visible",
+		"view.indentation.guides",
+		"view.whitespace",
+		"view.eol",
+		"view.line.wrap"
+	};
+	
+	eplugin = (EditorPlugin*)plugin;
+	for (i = 0; i < sizeof (actions_view)/sizeof(GtkToggleActionEntry); i++)
+	{
+		GtkAction *action;
+		gboolean state;
+		
+		state = anjuta_preferences_get_int (eplugin->prefs, prefs[i]);
+		action = anjuta_ui_get_action (eplugin->ui, "ActionGroupEditorView",
+									   actions_view[i].name);
+		gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action), state);
+	}
+}
+
 static gboolean
 activate_plugin (AnjutaPlugin *plugin)
 {
@@ -528,6 +559,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	EditorPlugin *editor_plugin;
 	GtkActionGroup *group;
 	GtkAction *action;
+	GladeXML *gxml;
 	gint i;
 	
 	g_message ("EditorPlugin: Activating Editor plugin ...");
@@ -538,6 +570,17 @@ activate_plugin (AnjutaPlugin *plugin)
 	ui = editor_plugin->ui;
 	docman = anjuta_docman_new (editor_plugin->prefs);
 	editor_plugin->docman = docman;
+	
+	/* Add preferences */
+	gxml = glade_xml_new (PREFS_GLADE, "preferences_dialog", NULL);
+	
+	anjuta_preferences_add_page (editor_plugin->prefs,
+								 gxml, "Editor", ICON_FILE);
+	/*
+	g_signal_connect (G_OBJECT (editor_plugin->prefs), "changed",
+					  G_CALLBACK (preferences_changed), editor_plugin);
+	*/
+	g_object_unref (G_OBJECT (gxml));
 	
 	/* Add all our editor actions */
 	for (i = 0; i < G_N_ELEMENTS (action_groups); i++)
@@ -612,7 +655,9 @@ activate_plugin (AnjutaPlugin *plugin)
 	editor_plugin->uiid = anjuta_ui_merge (ui, UI_FILE);
 	anjuta_shell_add_widget (plugin->shell, docman,
 							 "AnjutaDocumentManager", _("Documents"),
-							 ANJUTA_SHELL_PLACEMENT_CENTER, NULL);
+							 ANJUTA_SHELL_PLACEMENT_CENTER, NULL); 
+	ui_states_init(plugin);
+	search_and_replace_init (ANJUTA_DOCMAN (docman));
 	return TRUE;
 }
 
