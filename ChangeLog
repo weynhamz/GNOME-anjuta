@@ -1,3 +1,8 @@
+2004-05-13  Naba Kumar  <naba@gnome.org>
+	
+	* libanjuta/anjuta-preferences.c,
+	libanjuta/anjuta-ui.c: Fixed some ref/unref counting bugs.
+
 2004-05-13  Johannes Schmid <jhs@cvs.gnome.org>
 	
 	* plugins/message-view/plugin.c: Fixed glade file loading

@@ -458,7 +458,7 @@ anjuta_preferences_register_property_raw (AnjutaPreferences *pr,
 	p->custom = FALSE;
 	p->set_property = NULL;
 	p->get_property = NULL;
-	pr->priv->properties = g_list_append (pr->priv->properties, p);
+	pr->priv->properties = g_list_prepend (pr->priv->properties, p);
 	return TRUE;
 }
 
@@ -511,7 +511,7 @@ anjuta_preferences_register_property_custom (AnjutaPreferences *pr,
 	p->set_property = set_property;
 	p->get_property = get_property;
 	
-	pr->priv->properties = g_list_append (pr->priv->properties, p);
+	pr->priv->properties = g_list_prepend (pr->priv->properties, p);
 	return TRUE;
 }
 
@@ -1098,13 +1098,12 @@ static void
 anjuta_preferences_dispose (GObject *obj)
 {
 	AnjutaPreferences *pr = ANJUTA_PREFERENCES (obj);
-
-	prop_set_destroy (pr->props_global);
-	prop_set_destroy (pr->props_local);
-	prop_set_destroy (pr->props_session);
-	prop_set_destroy (pr->props);
-	
-	g_list_foreach (pr->priv->properties, (GFunc)property_destroy, NULL);
+	if (pr->priv->properties)
+	{
+		/* This will release the refs on property objects */
+		g_list_foreach (pr->priv->properties, (GFunc)property_destroy, NULL);
+		pr->priv->properties = NULL;
+	}
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (obj));
 }
 
@@ -1234,6 +1233,12 @@ static void
 anjuta_preferences_finalize (GObject *obj)
 {
 	AnjutaPreferences *dlg = ANJUTA_PREFERENCES (obj);	
+
+	prop_set_destroy (pr->props_global);
+	prop_set_destroy (pr->props_local);
+	prop_set_destroy (pr->props_session);
+	prop_set_destroy (pr->props);
+	
 	g_free (dlg->priv);
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (obj));
 }

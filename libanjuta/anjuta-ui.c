@@ -266,6 +266,17 @@ accel_set_func (GtkTreeViewColumn *tree_column,
 	}
 }
 
+static void
+tree_view_row_deleted (GtkTreeModel *model, GtkTreePath *path, AnjutaUI *ui)
+{
+	GtkAction *action;
+	GtkTreeIter iter;
+	gtk_tree_model_get_iter (model, &iter, path);
+	gtk_tree_model_get (model, &iter, COLUMN_DATA, &action);
+	if (action)
+		g_object_unref (action);
+}
+
 static void anjuta_ui_class_init (AnjutaUIClass *class);
 static void anjuta_ui_instance_init (AnjutaUI *ui);
 
@@ -278,8 +289,26 @@ anjuta_ui_dispose (GObject *obj)
 	AnjutaUI *ui = ANJUTA_UI (obj);
 
 	if (ui->priv->model) {
+		/* This will also release the refs on actions.
+		 * Clear is necessary because following unref() might not actually
+		 * finalize the model. It basically ensures all refs on actions
+		 * are released irrespective of whether the model is finalized
+		 * or not.
+		 */
+		gtk_tree_model_clear (ui->priv->model);
+		
 		g_object_unref (G_OBJECT (ui->priv->model));
 		ui->priv->model = NULL;
+	}
+	if (ui->priv->action_groups)
+	{
+		/* This will also release the refs on all action groups */
+		g_hash_table_destroy (ui->priv->action_groups);
+		ui->priv->action_groups = NULL;
+	}
+	if (ui->priv->icon_factory) {
+		g_object_unref (G_OBJECT (ui->priv->icon_factory));
+		ui->priv->icon_factory = NULL;
 	}
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (obj));
 }
@@ -287,7 +316,7 @@ anjuta_ui_dispose (GObject *obj)
 static void
 anjuta_ui_finalize (GObject *obj)
 {
-	AnjutaUI *ui = ANJUTA_UI (obj);	
+	AnjutaUI *ui = ANJUTA_UI (obj);
 	g_free (ui->priv);
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (obj));
 }
@@ -313,7 +342,7 @@ anjuta_ui_instance_init (AnjutaUI *ui)
 	ui->priv->actions_hash = g_hash_table_new_full (g_str_hash,
 													g_str_equal,
 													(GDestroyNotify) g_free,
-													(GDestroyNotify) NULL);
+													(GDestroyNotify) g_object_unref);
 	/* Create Icon factory */
 	ui->priv->icon_factory = gtk_icon_factory_new ();
 	gtk_icon_factory_add_default (ui->priv->icon_factory);
@@ -331,7 +360,10 @@ anjuta_ui_instance_init (AnjutaUI *ui)
 	gtk_tree_sortable_set_sort_column_id (GTK_TREE_SORTABLE(store),
 										  COLUMN_ACTION, GTK_SORT_ASCENDING);
 	
-	// unreferenced in destroy() method.
+	g_signal_connect (G_OBJECT (model), "row_deleted",
+					  G_CALLBACK (tree_model_row_deleted), ui);
+	
+	// unreferenced in dispose() method.
 	ui->priv->model = GTK_TREE_MODEL (store);
 }
 
@@ -458,10 +490,14 @@ anjuta_ui_add_action_group (AnjutaUI *ui,
 	g_return_if_fail (GTK_IS_ACTION_GROUP (action_group));
 	g_return_if_fail (action_group_name != NULL);
 	g_return_if_fail (action_group_name != NULL);
-	
+
+	/* We are holding a ref to the action_group in hash table.
+	   It will be unrefed when the hash table is destroyed */
+	g_object_ref (action_group);
 	gtk_ui_manager_insert_action_group (GTK_UI_MANAGER (ui), action_group, 0);
 	g_hash_table_insert (ui->priv->actions_hash,
 						g_strdup (action_group_name), action_group);
+	
 	actions = gtk_action_group_list_actions (action_group);
 	gtk_tree_store_append (GTK_TREE_STORE (ui->priv->model),
 						   &parent, NULL);
@@ -483,6 +519,11 @@ anjuta_ui_add_action_group (AnjutaUI *ui,
 		
 		if (!action)
 			continue;
+		
+		/* We are holding the action refs in treeview rows. They will be
+		   unrefed when the model is cleared, unrefed or row deleted */
+		g_object_ref (action);
+		
 		gtk_tree_store_append (GTK_TREE_STORE (ui->priv->model),
 							   &iter, &parent);
 		action_label = get_action_label (action);
@@ -552,9 +593,6 @@ anjuta_ui_remove_action_group (AnjutaUI *ui, GtkActionGroup *action_group)
 		
 	const gchar *name;
 	name = gtk_action_group_get_name (action_group);
-	g_hash_table_foreach_remove (ui->priv->actions_hash,
-								 on_action_group_remove_hash, action_group);
-	
 	model = ui->priv->model;
 	valid = gtk_tree_model_get_iter_first (model, &iter);
 	while (valid)
@@ -577,12 +615,17 @@ anjuta_ui_remove_action_group (AnjutaUI *ui, GtkActionGroup *action_group)
 #ifdef DEBUG
 			g_message ("Removing action group from tree: %s", group);
 #endif
+			/* This will also release all action refs */
 			valid = gtk_tree_store_remove (GTK_TREE_STORE (model), &iter);
 		}
 		else
 			valid = gtk_tree_model_iter_next (model, &iter);
 	}
 	gtk_ui_manager_remove_action_group (GTK_UI_MANAGER (ui), action_group);
+	
+	/* This will also release the ref on action group */
+	g_hash_table_foreach_remove (ui->priv->actions_hash,
+								 on_action_group_remove_hash, action_group);
 }
 
 /**
