@@ -48,8 +48,8 @@
 	(bug #866143).
 
 2004-02-24  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
-	* src/search_incremental.c
-	Fixed bug #900903
+	
+	* src/search_incremental.c: Fixed bug #900903
 
 2004-02-23  Pavol Bosik <Pavol.Bosik@siemens.com>
 	
@@ -76,7 +76,7 @@
 	
 2004-02-18  Franco Catrin  <fcatrin@tuxpan.com>
 
-	* src/mainmenu_callbacks.c, widgets/gnomefilelist.c
+	* src/mainmenu_callbacks.c, widgets/gnomefilelist.c:
 	Use defined file name when saving new files (fixes bug #898105)
 	Don't change filename when clicking on a directory
 	
