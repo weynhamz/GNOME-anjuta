@@ -23,12 +23,14 @@
 #include <libgnomevfs/gnome-vfs-mime-handlers.h>
 
 #include <libanjuta/anjuta-shell.h>
+#include <libanjuta/anjuta-status.h>
+#include <libanjuta/plugins.h>
+#include <libanjuta/anjuta-debug.h>
+
 #include <libanjuta/interfaces/ianjuta-file.h>
 #include <libanjuta/interfaces/ianjuta-file-loader.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
 #include <libanjuta/interfaces/ianjuta-wizard.h>
-#include <libanjuta/plugins.h>
-#include <libanjuta/anjuta-debug.h>
 
 #include <libegg/recent-files/egg-recent-view.h>
 #include <libegg/recent-files/egg-recent-view-gtk.h>
@@ -858,10 +860,11 @@ iloader_load (IAnjutaFileLoader *loader, const gchar *uri,
 			  gboolean read_only, GError **err)
 {
 	gchar *mime_type;
-	GSList *plugin_descs = NULL;
-	GObject *plugin = NULL;	
 	gchar *new_uri;
 	GnomeVFSURI* vfs_uri;
+	AnjutaStatus *status;
+	GSList *plugin_descs = NULL;
+	GObject *plugin = NULL;	
 	
 	g_return_val_if_fail (uri != NULL, NULL);
 	vfs_uri = gnome_vfs_uri_new (uri);
@@ -877,6 +880,9 @@ iloader_load (IAnjutaFileLoader *loader, const gchar *uri,
 		g_free (new_uri);
 		return NULL;
 	}
+	
+	status = anjuta_shell_get_status (ANJUTA_PLUGIN (loader)->shell, NULL);
+	anjuta_status_busy_push (status);
 	
 	g_message ("Opening URI: %s", uri);
 	plugin_descs = anjuta_plugins_query (ANJUTA_PLUGIN(loader)->shell,
@@ -919,6 +925,7 @@ iloader_load (IAnjutaFileLoader *loader, const gchar *uri,
 		g_slist_free (plugin_descs);
 	g_free (mime_type);
 	g_free (new_uri);
+	anjuta_status_busy_pop (status);
 
 	return plugin;
 }

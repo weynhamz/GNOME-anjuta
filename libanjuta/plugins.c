@@ -777,6 +777,7 @@ update_enabled (GtkTreeModel *model, GHashTable *installed_tools)
 static GHashTable*
 tool_set_update (AnjutaShell *shell, AvailableTool* selected_tool, gboolean load)
 {
+	AnjutaStatus *status;
 	GObject *tool_obj;
 	GHashTable *installed_tools, *tools_cache;
 	GSList *l;
@@ -799,6 +800,9 @@ tool_set_update (AnjutaShell *shell, AvailableTool* selected_tool, gboolean load
 				   selected_tool->name);
 		return installed_tools;
 	}
+	
+	status = anjuta_shell_get_status (shell, NULL);
+	anjuta_status_busy_push (status);
 	
 	if (!load) {
 		/* reverse available_tools when unloading, so that plugins are
@@ -842,6 +846,7 @@ tool_set_update (AnjutaShell *shell, AvailableTool* selected_tool, gboolean load
 			}
 		}
 	}
+	anjuta_status_busy_pop (status);
 	return installed_tools;
 }
 

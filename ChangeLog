@@ -1,3 +1,8 @@
+2004-12-20  Naba Kumar  <naba@gnome.org>
+	
+	*libanjuta/plugins.c, plugins/file-loader/plugin.c:
+	Show busy cursor during loading and unloading.
+	
 2004-12-19  Naba Kumar  <naba@gnome.org>
 
 	* libanjuta/anjuta-plugin.c, libanjuta/anjuta-ui.c: Fixed
