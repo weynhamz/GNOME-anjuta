@@ -370,7 +370,17 @@ AnMessageWindow::get_cur_line()
 string
 AnMessageWindow::get_cur_msg()
 {
-	return m_messages[m_line];
+	GtkTreeIter iter;
+	GtkTreeSelection *select;
+	GtkTreeModel *model;
+	
+	select = gtk_tree_view_get_selection (GTK_TREE_VIEW (m_tree));
+	if (!gtk_tree_selection_get_selected (select, &model, &iter))
+		return "";
+	int line;
+	gtk_tree_model_get (model, &iter, COLUMN_LINE, &line, -1);
+	set_cur_line (line);
+	return m_messages[line];
 }
 
 void
@@ -463,7 +473,6 @@ void AnMessageWindow::on_selection_changed(GtkTreeSelection* select, gpointer da
 	gtk_tree_model_get(model, &iter, COLUMN_LINE, &line, -1);
 	win->set_cur_line(line);
 }
-
 
 gboolean AnMessageWindow::on_mesg_event (GtkTreeView* list, GdkEvent * event, gpointer data)
 {

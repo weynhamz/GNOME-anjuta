@@ -110,6 +110,7 @@ create_cvs_gui (CVS *cvs, int dialog_type, gchar* filename, gboolean bypass_dial
 	gtk_window_set_wmclass (GTK_WINDOW (gui->dialog), "cvs-file", "anjuta");
 	gtk_window_set_transient_for (GTK_WINDOW(gui->dialog),
 	                              GTK_WINDOW(app->widgets.window));
+	gtk_dialog_set_default_response (GTK_DIALOG (gui->dialog), GTK_RESPONSE_OK);
 	
 	table = gtk_table_new (5, 2, FALSE);
 	gtk_container_add (GTK_CONTAINER (GTK_DIALOG (gui->dialog)->vbox), table);
@@ -221,6 +222,7 @@ create_cvs_diff_gui (CVS *cvs, gchar *filename, gboolean bypass_dialog)
 	                              GTK_DIALOG_DESTROY_WITH_PARENT,
 	                              GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
 	                              _("Diff"), GTK_RESPONSE_OK, NULL);
+	gtk_dialog_set_default_response (GTK_DIALOG (gui->dialog), GTK_RESPONSE_OK);
 	gtk_window_set_transient_for (GTK_WINDOW(gui->dialog),
 	                              GTK_WINDOW(app->widgets.window));
 
@@ -330,6 +332,7 @@ create_cvs_login_gui (CVS *cvs)
 		                GTK_DIALOG_DESTROY_WITH_PARENT,
 		                GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
 		                _("Login"), GTK_RESPONSE_OK, NULL);
+	gtk_dialog_set_default_response (GTK_DIALOG (gui->dialog), GTK_RESPONSE_OK);
 	gtk_window_set_transient_for (GTK_WINDOW(gui->dialog),
 	                              GTK_WINDOW(app->widgets.window));
 	
@@ -425,6 +428,7 @@ void create_cvs_import_gui (CVS *cvs)
 	                              GTK_DIALOG_DESTROY_WITH_PARENT,
 	                              GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
 	                              _("Import"), GTK_RESPONSE_OK, NULL);
+	gtk_dialog_set_default_response (GTK_DIALOG (gui->dialog), GTK_RESPONSE_OK);
 	gtk_window_set_transient_for (GTK_WINDOW(gui->dialog), GTK_WINDOW(app->widgets.window));
 	
 	table = gtk_table_new (2, 1, FALSE);

@@ -5,6 +5,10 @@
 	
 	* src/controls.c: De-sensitize run-to-cursor when debugger
 	is not running.
+	* src/cvs_gui.c: Set default reponse for various cvs dialogs.
+	
+	* src/message-manager-private.cc: Fixed to properly jump at
+	the right file:line.
 	
 2003-06-20  Naba Kumar  <naba@gnome.org>
 
