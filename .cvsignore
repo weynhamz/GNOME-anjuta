@@ -33,5 +33,10 @@ tags.cache
 xml-i18n-extract*
 xml-i18n-merge*
 xml-i18n-update*
+intltool-extract*
+intltool-merge*
+intltool-update*
+autom4te-2.53.cache
+m4
 anjuta.prj
 anjuta.pws

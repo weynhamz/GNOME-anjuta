@@ -55,7 +55,7 @@ anjuta_pixmaps_DATA = \
 	calltip.xpm \
 	cfolder.xpm \
 	close_file_small.xpm \
-	close_project.xpm \
+	close_project.png \
 	compile.xpm \
 	configure.xpm \
 	console.xpm \
@@ -107,7 +107,7 @@ anjuta_pixmaps_DATA = \
 	mini_term.xpm \
 	new_folder.xpm \
 	ofolder.xpm \
-	open_project.xpm \
+	open_project.png \
 	password.png \
 	pointer.xpm \
 	print_color.xpm \
@@ -118,7 +118,7 @@ anjuta_pixmaps_DATA = \
 	project.xpm \
 	registers.xpm \
 	run_to_cursor.xpm \
-	save_project.xpm \
+	save_project.png \
 	stack.xpm \
 	step_in.xpm \
 	step_out.xpm \
@@ -138,7 +138,7 @@ anjuta_pixmaps_DATA = \
 	sv_unknown.xpm \
 	sv_variable.xpm \
 	syntax.xpm \
-	undock.xpm \
+	undock.png \
 	watch.xpm \
 	wizard.xpm
 

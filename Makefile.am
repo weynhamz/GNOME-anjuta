@@ -48,3 +48,15 @@ dist-hook:
 
 rpm: dist
 	rpm -ta $(distdir).tar.gz
+
+## Install in RedHat's sytem menu, only if the system is RH.
+install-data-local:
+	-dfi=`which desktop-file-install` ; \
+	if [ "x$$dfi" != "x" -a -x $$dfi -a -w $(datadir)/applications ] ; then \
+		mkdir -p $(datadir)/applications ; \
+		$$dfi --vendor anjuta --delete-original \
+		  --dir $(datadir)/applications \
+		  --add-category X-Red-Hat-Base --add-category Application \
+		  --add-category Development \
+		  $(prefix)/@NO_PREFIX_PACKAGE_MENU_DIR@/Development/anjuta.desktop ; \
+	fi

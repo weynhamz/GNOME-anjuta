@@ -118,19 +118,20 @@ on_toolbar_detach_clicked (GtkButton * button, gpointer user_data)
 				 "activate");
 }
 
-void
+gboolean
 on_toolbar_find_incremental_start (GtkEntry *entry,
 	GdkEvent *e, gpointer user_data)
 {
 	gchar *entry_text;
 	TextEditor *te = anjuta_get_current_text_editor();
-	if (!te) return;
+	if (!te) return FALSE;
 	app->find_replace->find_text->incremental_pos =
 		text_editor_get_current_position(te);
 	app->find_replace->find_text->incremental_wrap = FALSE;
+	return FALSE;
 }
 
-void
+gboolean
 on_toolbar_find_incremental_end (GtkEntry *entry,
 	GdkEvent *e, gpointer user_data)
 {
@@ -143,7 +144,7 @@ on_toolbar_find_incremental_end (GtkEntry *entry,
 				    (app->widgets.toolbar.main_toolbar.
 				     find_entry));
 	if (!string1 || strlen (string1) == 0)
-		return;
+		return FALSE;
 	string = g_strdup (string1);
 	app->find_replace->find_text->find_history =
 		update_string_list (app->find_replace->find_text->
@@ -154,6 +155,7 @@ on_toolbar_find_incremental_end (GtkEntry *entry,
 				       app->find_replace->find_text->
 				       find_history);
 	g_free (string);
+	return FALSE;
 }
 
 void

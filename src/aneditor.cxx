@@ -443,7 +443,7 @@ AnEditor::AnEditor(PropSetFile* p) {
 	ptrEditor = Platform::SendScintilla(wEditor.GetID(), 
 		SCI_GETDIRECTPOINTER, 0, 0);
 
-	g_signal_connect(wEditor.GetID(), "notify", G_CALLBACK(NotifySignal), this);
+	g_signal_connect(wEditor.GetID(), "sci-notify", G_CALLBACK(NotifySignal), this);
 
 	/* We will handle all accels ourself */
 	/* SendEditor(SCI_CLEARALLCMDKEYS); */
@@ -3298,9 +3298,9 @@ aneditor_new(gpointer propset)
      return (AnEditorID)-1;
   }
   g_signal_connect(ed->GetID(), "focus_in_event", 
-	  G_CALLBACK(on_aneditor_focus_in), ed);
+				   G_CALLBACK(on_aneditor_focus_in), ed);
   g_signal_connect(ed->GetID(), "focus_out_event", 
-	  G_CALLBACK(on_aneditor_focus_out), ed);
+				   G_CALLBACK(on_aneditor_focus_out), ed);
   g_object_ref (ed->GetID());
   editors = g_list_append(editors, ed);
   return (AnEditorID)(g_list_length(editors) - 1);

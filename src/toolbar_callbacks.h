@@ -65,10 +65,10 @@ void
 on_toolbar_detach_clicked                (GtkButton       *button,
                                         gpointer         user_data);
 
-void
+gboolean
 on_toolbar_find_incremental_start (GtkEntry *entry,
 								  GdkEvent* e, gpointer user_data);
-void
+gboolean
 on_toolbar_find_incremental_end (GtkEntry *entry,
 								  GdkEvent*e, gpointer user_data);
 void

@@ -1,3 +1,22 @@
+2003-02-10  Naba Kumar <naba@gnome.org>
+
+	* pixmaps/Makefile.am, pixmaps/anjuta_icon.png, 
+	(added) pixmaps/close_project.png, (removed) pixmaps/close_project.xpm,
+	(added) pixmaps/open_project.png, (removed) pixmaps/open_project.xpm,
+	(added) pixmaps/save_project.png, (removed) pixmaps/save_project.xpm,
+	(added) pixmaps/undock.png, (removed) pixmaps/undock.xpm: Better
+	icons and images.
+
+	* src/aneditor.cxx, src/pixmaps.h, src/toolbar_callbacks.c,
+	src/toolbar_callbacks.h: Fixed scintilla notification signal name
+	and fixed to properly handle focus in find entry box.
+
+	* Makefile.am: Added code for RH system menu update.
+
+	* .cvsignore: Updated.
+
+	* NEWS: Updated.
+
 2003-02-03  Naba Kumar <naba@gnome.org>
 
 	* src/anjuta.glade, src/anjuta_dialogs_strings.c: Added edge.column
