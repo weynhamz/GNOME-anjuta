@@ -82,10 +82,10 @@ rm -fr %{buildroot}/var/scrollkeeper
 rm -rf %{buildroot}
 
 %post
-scrollkeeper-update || :
+if which scrollkeeper-update>/dev/null 2>&1; then scrollkeeper-update; fi
 
 %postun
-scrollkeeper-update || :
+if which scrollkeeper-update>/dev/null 2>&1; then scrollkeeper-update; fi
 
 %files
 %doc AUTHORS COPYING ChangeLog INSTALL NEWS README THANKS TODO
