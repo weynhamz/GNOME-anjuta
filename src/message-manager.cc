@@ -60,6 +60,7 @@ static gboolean on_popup_clicked (AnjutaMessageManager * amm,
 				  GdkEvent * event);
 static void on_msg_double_clicked (GtkCList * list, gint row, gint column,
 				   GdkEvent * event, gpointer msg_win);
+static gboolean on_mesg_event (GtkCList *list, GdkEvent * event, gpointer user_data);
 
 // Intern functions:
 
@@ -216,6 +217,10 @@ anjuta_message_manager_add_type (AnjutaMessageManager * amm, gint type_name,
 		gtk_signal_connect (GTK_OBJECT (window->get_msg_list ()),
 				    "select_row",
 				    GTK_SIGNAL_FUNC (on_msg_double_clicked),
+				    window);
+		gtk_signal_connect (GTK_OBJECT (window->get_msg_list ()),
+				    "event",
+				    GTK_SIGNAL_FUNC (on_mesg_event),
 				    window);
 		sub_win = window;
 	}
@@ -760,8 +765,8 @@ on_dock_activate (GtkWidget * menuitem, AnjutaMessageManager * amm)
 static gboolean
 on_popup_clicked (AnjutaMessageManager * amm, GdkEvent * event)
 {
-	if (!amm)
-		return false;
+	if (!amm || !event)
+		return FALSE;
 	
 	if (event->type == GDK_BUTTON_PRESS
 	    && ((GdkEventButton *) event)->button == 3)
@@ -770,9 +775,9 @@ on_popup_clicked (AnjutaMessageManager * amm, GdkEvent * event)
 				NULL, NULL,
 				((GdkEventButton *) event)->button,
 				((GdkEventButton *) event)->time);
-		return true;
+		return TRUE;
 	}
-	return false;
+	return FALSE;
 }
 
 static gboolean
@@ -816,21 +821,43 @@ on_msg_double_clicked (GtkCList * list, gint row, gint column,
 	AnjutaMessageWindow *win =
 			reinterpret_cast < AnjutaMessageWindow * >(data);
 	win->set_cur_line (row);
+	
 	if (event == NULL)
 		return;
-	if (event->type == GDK_BUTTON_PRESS
-	    && ((GdkEventButton *) event)->button == 1)
-	{
-		return;
+	
+	if (event->type == GDK_2BUTTON_PRESS) {
+		if (((GdkEventButton *) event)->button == 1) {
+			gtk_signal_emit (GTK_OBJECT (win->get_parent ()),
+				 anjuta_message_manager_signals[MESSAGE_CLICKED],
+					win->get_messages()[row].c_str());
+		}
 	}
-	if (event->type != GDK_2BUTTON_PRESS)
-		return;
-	if (((GdkEventButton *) event)->button != 1)
-		return;
+}
 
-	gtk_signal_emit (GTK_OBJECT (win->get_parent ()),
-			 anjuta_message_manager_signals[MESSAGE_CLICKED], win->get_messages()[row].c_str());
-	return;
+gboolean
+on_mesg_event (GtkCList *list, GdkEvent * event, gpointer data)
+{
+	g_return_val_if_fail(data != NULL, FALSE);
+	AnjutaMessageWindow *win =
+			reinterpret_cast < AnjutaMessageWindow * >(data);
+	
+	if (event == NULL)
+		return FALSE;
+	
+	if (event->type == GDK_KEY_PRESS){
+		switch(((GdkEventKey *)event)->keyval) {
+			case GDK_space:
+			case GDK_Return:
+				gtk_signal_emit (GTK_OBJECT (win->get_parent ()),
+				 anjuta_message_manager_signals[MESSAGE_CLICKED],
+					win->get_messages()[win->get_cur_line()].c_str());
+				return TRUE;
+				break;
+			default:
+				return FALSE;
+		}
+	}
+	return FALSE;
 }
 
 // Utilities:

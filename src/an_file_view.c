@@ -153,12 +153,54 @@ static void fv_create_context_menu(void)
 	gtk_menu_append(GTK_MENU(fv->menu), item);
 }
 
-static void fv_on_button_press(GtkWidget *widget
-  , GdkEventButton *event, gpointer user_data)
+static gboolean
+fv_on_event(GtkWidget *widget, GdkEvent *event, gpointer user_data)
 {
-	if ((event->type == GDK_BUTTON_PRESS) && (event->button == 3))
+	if (!event)
+		return FALSE;
+
+	if (event->type == GDK_BUTTON_PRESS) {
+		if (((GdkEventButton *) event)->button != 3)
+			return FALSE;
+		
+		/* Popup project menu */
 		gtk_menu_popup(GTK_MENU(fv->menu), NULL, NULL, NULL, NULL
-		  , event->button, event->time);
+		  , ((GdkEventButton *) event)->button, ((GdkEventButton *) event)->time);
+		
+		return TRUE;
+	} else if (event->type == GDK_KEY_PRESS){
+		gint row;
+		GtkCTree *tree;
+		GtkCTreeNode *node;
+		tree = GTK_CTREE(widget);
+		row = tree->clist.focus_row;
+		node = gtk_ctree_node_nth(tree,row);
+		
+		if (!node)
+			return FALSE;
+			
+		switch(((GdkEventKey *)event)->keyval) {
+			case GDK_space:
+			case GDK_Return:
+				if(GTK_CTREE_ROW(node)->is_leaf) {
+					fv->file = (char *) gtk_ctree_node_get_row_data(
+					  GTK_CTREE(fv->tree), GTK_CTREE_NODE(node));
+					if (fv->file)
+						anjuta_fv_open_file(fv->file, TRUE);
+				}
+				break;
+			case GDK_Left:
+				gtk_ctree_collapse(tree, node);
+				break;
+			case GDK_Right:
+				gtk_ctree_expand(tree, node);
+				break;
+			default:
+				return FALSE;
+		}
+		return TRUE;
+	}
+	return FALSE;
 }
 
 static void fv_on_select_row(GtkCList *clist, gint row, gint column
@@ -182,7 +224,7 @@ static void fv_disconnect(void)
 	gtk_signal_disconnect_by_func(GTK_OBJECT(fv->tree)
 	  , GTK_SIGNAL_FUNC(fv_on_select_row), NULL);
 	gtk_signal_disconnect_by_func(GTK_OBJECT(fv->tree)
-	  , GTK_SIGNAL_FUNC(fv_on_button_press), NULL);
+	  , GTK_SIGNAL_FUNC(fv_on_event), NULL);
 }
 
 static void fv_connect(void)
@@ -190,8 +232,8 @@ static void fv_connect(void)
 	g_return_if_fail(fv && fv->tree);
 	gtk_signal_connect(GTK_OBJECT(fv->tree), "select_row"
 	  , GTK_SIGNAL_FUNC(fv_on_select_row), NULL);
-	gtk_signal_connect(GTK_OBJECT(fv->tree), "button_press_event"
-	  , GTK_SIGNAL_FUNC(fv_on_button_press), NULL);
+	gtk_signal_connect(GTK_OBJECT(fv->tree), "event"
+	  , GTK_SIGNAL_FUNC(fv_on_event), NULL);
 }
 
 static void fv_create(void)

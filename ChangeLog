@@ -1,3 +1,14 @@
+2002-03-03  Naba Kumar <kh_naba@users.sourceforge.net>
+
+	* src/message-manager-private.cc:
+	Set message clist selection mode to BROWSE.
+	
+	* src/message-manager.cc, src/an_symbol_view.c,
+	src/an_file_view.c:
+	Added Key navigation for the CTree and CList. Arrow left for
+	node collapse, right for node expand, space (or enter) for
+	activation (same as double click).
+	
 2002-03-03 Roel Vanhout <roel@stack.be>
 	
 	Reviewed by Naba Kumar <kh_naba@users.sourceforge.net>

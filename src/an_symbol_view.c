@@ -254,12 +254,57 @@ static void sv_create_context_menu(void)
 	gtk_menu_append(GTK_MENU(sv->menu), item);
 }
 
-static void sv_on_button_press(GtkWidget *widget
-  , GdkEventButton *event, gpointer user_data)
+static gboolean
+sv_on_event(GtkWidget *widget, GdkEvent *event, gpointer user_data)
 {
-	if ((event->type == GDK_BUTTON_PRESS) && (event->button == 3))
+	if (!event)
+		return FALSE;
+
+	if (event->type == GDK_BUTTON_PRESS) {
+		if (((GdkEventButton *) event)->button != 3)
+			return FALSE;
+		
+		/* Popup project menu */
 		gtk_menu_popup(GTK_MENU(sv->menu), NULL, NULL, NULL, NULL
-		  , event->button, event->time);
+		  , ((GdkEventButton *) event)->button, ((GdkEventButton *) event)->time);
+		
+		return TRUE;
+	} else if (event->type == GDK_KEY_PRESS){
+		gint row;
+		GtkCTree *tree;
+		GtkCTreeNode *node;
+		tree = GTK_CTREE(widget);
+		row = tree->clist.focus_row;
+		node = gtk_ctree_node_nth(tree,row);
+		
+		if (!node)
+			return FALSE;
+			
+		switch(((GdkEventKey *)event)->keyval) {
+			case GDK_space:
+			case GDK_Return:
+				if(GTK_CTREE_ROW(node)->is_leaf) {
+					
+					sv->sinfo = (SymbolFileInfo *) gtk_ctree_node_get_row_data(
+					  GTK_CTREE(sv->tree), GTK_CTREE_NODE(node));
+					
+					if (sv->sinfo && sv->sinfo->def.name)
+							anjuta_goto_file_line_mark(sv->sinfo->def.name
+							  , sv->sinfo->def.line, TRUE);
+				}
+				break;
+			case GDK_Left:
+				gtk_ctree_collapse(tree, node);
+				break;
+			case GDK_Right:
+				gtk_ctree_expand(tree, node);
+				break;
+			default:
+				return FALSE;
+		}
+		return TRUE;
+	}
+	return FALSE;
 }
 
 static void sv_on_select_row(GtkCList *clist, gint row, gint column
@@ -284,7 +329,7 @@ static void sv_disconnect(void)
 	gtk_signal_disconnect_by_func(GTK_OBJECT(sv->tree)
 	  , GTK_SIGNAL_FUNC(sv_on_select_row), NULL);
 	gtk_signal_disconnect_by_func(GTK_OBJECT(sv->tree)
-	  , GTK_SIGNAL_FUNC(sv_on_button_press), NULL);
+	  , GTK_SIGNAL_FUNC(sv_on_event), NULL);
 }
 
 static void sv_connect(void)
@@ -292,8 +337,8 @@ static void sv_connect(void)
 	g_return_if_fail(sv);
 	gtk_signal_connect(GTK_OBJECT(sv->tree), "select_row"
 	  , GTK_SIGNAL_FUNC(sv_on_select_row), NULL);
-	gtk_signal_connect(GTK_OBJECT(sv->tree), "button_press_event"
-	  , GTK_SIGNAL_FUNC(sv_on_button_press), NULL);
+	gtk_signal_connect(GTK_OBJECT(sv->tree), "event"
+	  , GTK_SIGNAL_FUNC(sv_on_event), NULL);
 }
 
 static void sv_create(void)

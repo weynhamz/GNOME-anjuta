@@ -226,7 +226,8 @@ on_project_dbase_clist_select_row (GtkCList * clist,
 			return;
 		}
 	} else if (event->type == GDK_KEY_PRESS) {
-		if (((GdkEventKey *) event)->keyval == GDK_Return)
+		if (((GdkEventKey *) event)->keyval == GDK_Return ||
+			((GdkEventKey *) event)->keyval == GDK_space)
 			on_project_edit1_activate (NULL, NULL);
 	}
 }
@@ -295,6 +296,7 @@ on_project_dbase_event (GtkWidget * widget,
 		node = gtk_ctree_node_nth(tree,row);
 		
 		switch(((GdkEventKey *)event)->keyval) {
+			case GDK_space:
 			case GDK_Return:
 				if(GTK_CTREE_ROW(node)->is_leaf)
 					on_project_dbase_clist_select_row (GTK_CLIST(&tree->clist),row,-1,event,user_data);

@@ -138,6 +138,7 @@ AnjutaMessageWindow::AnjutaMessageWindow(AnjutaMessageManager* p_amm, int p_type
 	gtk_container_add(GTK_CONTAINER(m_scrolled_win), m_msg_list);
 	gtk_widget_show(m_msg_list);
 	gtk_clist_columns_autosize (GTK_CLIST(m_msg_list));
+	gtk_clist_set_selection_mode(GTK_CLIST(m_msg_list), GTK_SELECTION_BROWSE);
 	
 	GtkWidget* label = create_label();
 	
