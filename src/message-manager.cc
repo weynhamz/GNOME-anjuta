@@ -141,17 +141,20 @@ anjuta_message_manager_init (GtkObject * obj)
 
 	// Create Menu
 	static GtkItemFactoryEntry menu_items[] = {
-		{_("/Dock | Undock"), NULL,
-		 GTK_SIGNAL_FUNC (on_dock_activate), (gint) amm, NULL},
 		{"/separator", NULL, NULL, 0, "<Separator>"}
 	};
+	GtkWidget* dock_item = gtk_menu_item_new_with_label(_("Dock/Undock"));
+	gtk_signal_connect(GTK_OBJECT(dock_item), "activate", GTK_SIGNAL_FUNC(on_dock_activate), amm);
+	gtk_widget_show(dock_item);
+	
 	GtkAccelGroup *agroup = gtk_accel_group_new ();
 	GtkItemFactory *factory =
 		gtk_item_factory_new (GTK_TYPE_MENU, "<none>", agroup);
-	gtk_item_factory_create_items (factory, 2, menu_items, NULL);
+	gtk_item_factory_create_items (factory, 1, menu_items, NULL);
 	amm->intern->popupmenu =
 		gtk_item_factory_get_widget (factory, "<none>");
-
+	gtk_menu_prepend(GTK_MENU(amm->intern->popupmenu), dock_item);
+	
 	gtk_signal_connect (GTK_OBJECT (amm), "button_press_event",
 			    GTK_SIGNAL_FUNC (on_popup_clicked), amm);
 
@@ -260,7 +263,7 @@ anjuta_message_manager_append (AnjutaMessageManager * amm,
 		}
 		if (!found)
 		{
-			g_warning ("Could not find message type %s!\n",
+			g_warning (_("Could not find message type %s!\n"),
 				   type.c_str ());
 			return false;
 		}

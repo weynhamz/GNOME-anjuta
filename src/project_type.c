@@ -107,7 +107,7 @@ gchar* project_type_gtkmm[] =
 	
 	"\n"
 	"AM_PATH_GTKMM(1.2.5, ,\n"
-	"			   AC_MSG_ERROR(Cannot find GTK--: Is gtkmm-config in path?))\n",
+	"			   AC_MSG_ERROR(Cannot find GTKmm: Is gtkmm-config in path?))\n",
 	
 	"/autogen.sh.gtkmm",
 	
@@ -130,9 +130,9 @@ gchar* project_type_gnomemm[] =
 	"GNOME_INIT\n"
 	"GNOME_COMPILE_WARNINGS\nGNOME_X_CHECKS\n"
 	"\n"
-	"dnl GNOME-- macros. \n"
-	"AM_PATH_GTKMM(1.2.5, , AC_MSG_ERROR(\"Gtk-- not found\"))\n"
-	"AM_PATH_GNOMEMM(1.2.0, , AC_MSG_ERROR(\"Gnome-- not found\"))\n",
+	"dnl GNOMEmm macros. \n"
+	"AM_PATH_GTKMM(1.2.5, , AC_MSG_ERROR(\"GTKmm not found\"))\n"
+	"AM_PATH_GNOMEMM(1.2.0, , AC_MSG_ERROR(\"GNOMEmm not found\"))\n",
 	
 	"/autogen.sh.gnomemm",
 	

@@ -142,6 +142,7 @@
 #define ANJUTA_PIXMAP_APP_GNOME "appwiz_gnome.png"
 #define ANJUTA_PIXMAP_APP_GTKMM "appwiz_gtkmm.png"
 #define ANJUTA_PIXMAP_APP_GNOMEMM "appwiz_gnomemm.png"
+#define ANJUTA_PIXMAP_APP_LIBGLADE "appwiz_libglade.png"
 
 #define ANJUTA_PIXMAP_RED_LED "ledred.xpm"
 #define ANJUTA_PIXMAP_GREEN_LED "ledgreen.xpm"

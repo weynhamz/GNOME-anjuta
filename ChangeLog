@@ -1,3 +1,23 @@
+2002-01-23	Andy Piper <andy.piper@freeuk.com>
+
+	* src/project_dbase.c: completed string updates for GTKmm and GNOMEmm
+	* pixmaps/appwiz_libglade.png, src/pixmaps.h, pixmaps/Makefile.am: new 
+	  icon for new project type (thanks to Misha)
+	* configure.in: build and install Danish translation
+	* src/about.c, THANKS, manuals/C/anjuta-manual/authors.sgml: updated 
+	  credits to cover new patches and translations
+
+2002-01-23  Johannes Schmid <clubfan@users.sourceforge.net>
+	
+	* src/preferences.c, src/message-manager.cc, src/project_type.c,
+	  src/appwiz_page1.c:
+	
+      - Font preferences are restored properly now (\n was missing)
+	  - Dock menu label of message-manager is "Dock/Undock" instead
+	  of "Dock|Undock" to match with the rest of anjuta.
+	  - Name of GTK-- and GNOME-- have changed to GTKmm and GNOMEmm, so I
+	  changed it in anjuta, too 
+
 2002-01-21  Naba Kumar <kh_naba@users.sourceforge.net>
 
 	* tagmanager/tm_source_file.c,

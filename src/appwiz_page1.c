@@ -127,7 +127,7 @@ create_app_wizard_page1 (AppWizard * aw)
   icon4_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_APP_GTKMM);
   icon5_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_APP_GNOMEMM);
   icon6_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_APP_COMPONENT);
-  icon7_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_APP_GNOME);
+  icon7_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_APP_LIBGLADE);
 
   if (icon1_file)
 	  gnome_icon_list_append (GNOME_ICON_LIST (iconlist1),
@@ -143,11 +143,11 @@ create_app_wizard_page1 (AppWizard * aw)
 
   if (icon4_file)
 	  gnome_icon_list_append (GNOME_ICON_LIST (iconlist1),
-			  icon4_file, _("GTK-- project"));
+			  icon4_file, _("GTKmm project"));
   
   if (icon5_file)
 	  gnome_icon_list_append (GNOME_ICON_LIST (iconlist1),
- 			  icon5_file, _("GNOME-- project"));
+ 			  icon5_file, _("GNOMEmm project"));
   
   if (icon6_file)
 	  gnome_icon_list_append (GNOME_ICON_LIST (iconlist1),

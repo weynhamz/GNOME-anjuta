@@ -98,8 +98,8 @@ gchar *project_type_map[]=
 	"GTK",
 	"GNOME",
 	"BONOBO",
-	"GTK--",
-	"GNOME--",
+	"GTKmm",
+	"GNOMEmm",
 	"LIBGLADE",
 	NULL
 };

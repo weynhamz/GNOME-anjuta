@@ -692,7 +692,7 @@ gboolean preferences_save_yourself (Preferences * pr, FILE * fp)
 
 	fprintf (fp, "%s=%d\n", BUILD_OPTION_JOBS,
 		 preferences_get_int (pr, BUILD_OPTION_JOBS));
-	fprintf (fp, "%s=%d", BUILD_OPTION_AUTOSAVE,
+	fprintf (fp, "%s=%d\n", BUILD_OPTION_AUTOSAVE,
 		 preferences_get_int (pr, BUILD_OPTION_AUTOSAVE));
 	
 	/* Page 2 */

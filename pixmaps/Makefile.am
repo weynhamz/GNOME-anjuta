@@ -18,6 +18,7 @@ anjuta_pixmaps_DATA = \
 	appwiz_gnomemm.png\
 	appwiz_gtk.png\
 	appwiz_gtkmm.png\
+	appwiz_libglade.png\
 	appwiz_terminal.png\
 	autocomplete.xpm\
 	bfoldc.xpm\

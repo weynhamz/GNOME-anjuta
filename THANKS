@@ -5,6 +5,11 @@ invaluable supports and contributions in making the Anjuta project a
 grand success. Without them the project wouldn't have stood where it
 is now.
 	
+	- Dick Knol <dknol@gmx.net>, for his libglade project type patch, 
+	
+	- Jason Williams <jason_williams@suth.com>, for his save files on build 
+	  patch,
+
 	- Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>, for his
 	  TagManager library and many updates and patches,
 
@@ -40,7 +45,8 @@ is now.
 	  (that's worth saying), all his patches, his nice communication and for overall 
 	  support,
 
-	- Johannes Schmid <johannes.schmid@gmx.de>, for the GTK--/GNOME-- integration,
+	- Johannes Schmid <johannes.schmid@gmx.de>, for the GTK--/GNOME-- integration, 
+	  patches and great debugging work,
 	
 	- Hector Rivera Falu <misha@phreaker.net>, for the whole Anjuta website
 	  design & content management, and his overall artwork on the Anjuta project,
@@ -48,11 +54,11 @@ is now.
 	- Stéphane Démurget <demurgets@free.fr>, for working on his new project manager
 	  for Anjuta, which will substitute the current one,
 	
-	- Luca Bellonda <lbell@tsc4.com>, for his work on the glade integration and his
+	- Luca Bellonda <lbell@tsc4.com>, for his work on the Glade integration and his
 	  overall work on improving the project,
 
 	- Naba Kumar <kh_naba@yahoo.com>, for presenting me this project as a gift of
-	  love. I shall value it for whole of my life. :-)
+	  love. I shall value it for the whole of my life. :-)
 
 
 I also extend my heartiest thanks to all the translators for their generous help
@@ -63,7 +69,7 @@ in translating the project.
 	- Takeshi Aihana <aihana@gnome.gr.jp>, for his Japanese translation,
 	- M.Ali Vardar <ali@gelecek.com.tr>, for his Turkish translation,
 	- Michele Campeotto <micampe@f2s.com>, for his Italian translation,
-	- Christian Rose <menthos@menthos.com>, for his Swedish translation,
+	- Christian Rose <menthos@menthos.com>, for the Swedish and Danish translations,
 	- Yuriy Syrota <rasta@renome.rovno.ua>, for his Ukrainian translation,
 	- Valek Filippov <frob@df.ru>, for his Russian translation,
 	- Marc Botermans <marc.botermans@home.nl>, for his Dutch translation,
@@ -77,9 +83,11 @@ in translating the project.
 	  translation,
 	- Dinesh Nadarajah <n_dinesh@yahoo.com> for his Tamil translation,
 	- Simos Xenitellis <simos@hellug.gr>, for his Greek translation,
-	- Duarte Loreto <happyguy_pt@hotmail.com>, for his Portuguese translation.
+	- Duarte Loreto <happyguy_pt@hotmail.com>, for his Portuguese translation,
 	- Marcelo Elias Del Valle <marceloelias@iname.com>, for his Brazilian 
-	  Portuguese translation
+	  Portuguese translation,
+	- Gitte Wange <gitte@babytux.dk>, Göran Weinholt <weinholt@linux.nu>, and 
+	  Keld Simonsen <keld@dkuug.dk>, for their Danish translation.
 	
 With warm regards,
 

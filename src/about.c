@@ -54,6 +54,8 @@ create_about_gui ()
 		"Dan Elphick <dre00r@ecs.soton.ac.uk>",
 		"Jens Georg <mail@jensgeorg.de>",
 		"Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>",
+		"Dick Knol <dknol@gmx.net>",
+		"Jason Williams <jason_williams@suth.com>",
 		NULL
 	};
 	GtkWidget *about_gui;
