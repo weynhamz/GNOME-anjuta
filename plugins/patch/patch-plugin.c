@@ -1,4 +1,6 @@
 /*  patch-plugin.c (C) 2002 Johannes Schmid
+ *  					     2005 Massimo Cora'  [ported to the new plugin architetture]
+ *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation; either version 2 of the License, or
@@ -14,21 +16,11 @@
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
  
-#include "../../src/anjuta.h"
-#include "../../src/launcher.h"
-#include "../../src/anjuta_info.h"
-#include "../../src/anjuta-plugins.h"
+#include <libanjuta/anjuta-launcher.h>
+#include <libanjuta/anjuta-debug.h>
 
-gchar   *GetDescr       (void);
-glong    GetVersion     (void);
-gchar *GetMenu(void);
-gboolean Init           (GModule *self, void **pUserData, AnjutaApp* p);
-void     CleanUp        (GModule *self, void *pUserData, AnjutaApp* p);
-void     Activate       (GModule *self, void *pUserData, AnjutaApp* p);
-gchar   *GetMenuTitle   (GModule *self, void *pUserData);
-gchar   *GetTooltipText (GModule *self, void *pUserData);
-
-typedef struct _PatchPluginGUI PatchPluginGUI;
+#include "plugin.h"
+#include "patch-plugin.h"
 
 static void patch_level_changed (GtkAdjustment *adj);
 
@@ -42,49 +34,9 @@ static void on_patch_terminated (AnjutaLauncher *launcher,
 								 gint child_pid, gint status, gulong time_taken,
 								 gpointer data);
 
-struct _PatchPluginGUI
-{
-	GtkWidget* dialog;
-	
-	GtkWidget* ok_button;
-	GtkWidget* cancel_button;
-	
-	GtkWidget* entry_patch_dir;
-	GtkWidget* entry_patch_file;
-	
-	GtkWidget* hscale_patch_level;
-};
 
 gint patch_level = 0;
 
-/* Get module description */
-gchar *
-GetDescr()
-{
-	return g_strdup(_("Interface to patch Projects or individual files"));
-}
-	/* GetModule Version hi/low word 1.02 0x10002 */
-glong
-GetVersion()
-{
-	return 0x100000;
-}
-
-gchar *GetMenu(void)
-{
-	return g_strdup("format");
-}
-
-gboolean
-Init( GModule *self, void **pUserData, AnjutaApp* p )
-{
-	return TRUE ;
-}
-
-void
-CleanUp( GModule *self, void *pUserData, AnjutaApp* p )
-{
-}
 
 static void
 patch_level_changed (GtkAdjustment *adj)
@@ -93,9 +45,9 @@ patch_level_changed (GtkAdjustment *adj)
 }
 
 void
-Activate( GModule *self, void *pUserData, AnjutaApp* p)
+patch_show_gui (PatchPlugin *plugin)
 {
-	PatchPluginGUI* gui;
+	PatchPluginGUI *gui;
 	GtkObject* adj;
 	GtkWidget* dir_label = gtk_label_new (_("File/Dir to patch"));
 	GtkWidget* file_label = gtk_label_new (_("Patch file"));
@@ -104,8 +56,10 @@ Activate( GModule *self, void *pUserData, AnjutaApp* p)
 
 	gui = g_new0 (PatchPluginGUI, 1);
 	
+	/* setting plugin reference */
+	gui->plugin = plugin;
+	
 	gui->dialog = gnome_dialog_new (_("Patch Plugin"), _("Cancel"), _("Patch"), NULL);
-	gtk_window_set_transient_for (GTK_WINDOW(gui->dialog), GTK_WINDOW(p));
 	gui->entry_patch_dir = gnome_file_entry_new ("patch-dir", 
 	_("Selected directory to patch"));
 	gui->entry_patch_file = gnome_file_entry_new ("patch-file",
@@ -142,24 +96,30 @@ Activate( GModule *self, void *pUserData, AnjutaApp* p)
 	gtk_widget_show_all (gui->dialog);
 }
 
-gchar
-*GetMenuTitle( GModule *self, void *pUserData )
-{
-	return g_strdup(_("Patch plugin"));
-}
 
-gchar
-*GetTooltipText( GModule *self, void *pUserData ) 
-{
-   return g_strdup(_("The patch plugin"));
-}
-
-static void on_ok_clicked (GtkButton *button, PatchPluginGUI* gui)
+static void 
+on_ok_clicked (GtkButton *button, PatchPluginGUI* gui)
 {
 	const gchar* directory;
 	const gchar* patch_file;
 	GString* command = g_string_new (NULL);
 	gchar* message;
+	IAnjutaMessageManager *mesg_manager;
+	PatchPlugin *p_plugin;
+	p_plugin = gui->plugin;
+	
+	g_return_if_fail (p_plugin != NULL);
+
+	mesg_manager = anjuta_shell_get_interface 
+		(ANJUTA_PLUGIN (p_plugin)->shell,	IAnjutaMessageManager, NULL);
+	
+	g_return_if_fail (mesg_manager != NULL);
+	
+	gui->mesg_view =
+		ianjuta_message_manager_add_view (mesg_manager, _("Patch"), 
+		ICON_FILE, NULL);
+	
+	ianjuta_message_manager_set_current_view (mesg_manager, gui->mesg_view, NULL);	
 	
 	directory = gtk_entry_get_text(GTK_ENTRY(
 		gnome_file_entry_gtk_entry(GNOME_FILE_ENTRY(gui->entry_patch_dir))));
@@ -178,57 +138,78 @@ static void on_ok_clicked (GtkButton *button, PatchPluginGUI* gui)
 	
 	message = g_strdup_printf (_("Patching %s using %s\n"), 
 			  directory, patch_file);
-	
-	an_message_manager_show (app->messages, MESSAGE_BUILD);
-	an_message_manager_append (app->messages, message, MESSAGE_BUILD);
-	an_message_manager_append (app->messages,
-			_("Patching...\n"), MESSAGE_BUILD);
 
-	g_signal_connect (app->launcher, "child-exited",
-					  G_CALLBACK (on_patch_terminated), NULL);
+	ianjuta_message_view_append (gui->mesg_view,
+								 IANJUTA_MESSAGE_VIEW_TYPE_NORMAL,
+								 message, "", NULL);
 	
-	if (!anjuta_launcher_is_busy (app->launcher))
-		anjuta_launcher_execute (app->launcher, command->str,
-								 on_msg_arrived, NULL);
+	ianjuta_message_view_append (gui->mesg_view,
+								 IANJUTA_MESSAGE_VIEW_TYPE_NORMAL,
+								 _("Patching...\n"), "", NULL);
+
+	g_signal_connect (p_plugin->launcher, "child-exited",
+					  G_CALLBACK (on_patch_terminated), gui);
+	
+	if (!anjuta_launcher_is_busy (p_plugin->launcher))
+		anjuta_launcher_execute (p_plugin->launcher, command->str,
+								 (AnjutaLauncherOutputCallback)on_msg_arrived, gui);
 	else
 		gnome_ok_dialog (
 			_("There are unfinished jobs, please wait until they are finished"));
 	g_string_free(command, TRUE);
-	
 	on_cancel_clicked (GTK_BUTTON(gui->cancel_button), gui);
+
 }
 
-static void on_cancel_clicked (GtkButton *button, PatchPluginGUI* gui)
+static void 
+on_cancel_clicked (GtkButton *button, PatchPluginGUI* gui)
 {
 	gtk_widget_hide (gui->dialog);
 	gtk_widget_destroy (gui->dialog);
-	g_free(gui);
 }
 
-static void on_msg_arrived (AnjutaLauncher *launcher,
+static void 
+on_msg_arrived (AnjutaLauncher *launcher,
 							AnjutaLauncherOutputType output_type,
 							const gchar* line, gpointer data)
 {
+	PatchPluginGUI *gui = (PatchPluginGUI*)data;
+	
 	g_return_if_fail (line != NULL);
-	an_message_manager_append (app->messages, line, MESSAGE_BUILD);
+	g_return_if_fail (gui != NULL);
+	
+	ianjuta_message_view_append (gui->mesg_view,
+								 IANJUTA_MESSAGE_VIEW_TYPE_NORMAL,
+								 line, "", NULL);
 }
 
-static void on_patch_terminated (AnjutaLauncher *launcher,
+static void 
+on_patch_terminated (AnjutaLauncher *launcher,
 								 gint child_pid, gint status, gulong time_taken,
 								 gpointer data)
 {
+	PatchPluginGUI *gui = (PatchPluginGUI*)data;
+	
+	g_return_if_fail (gui != NULL);
+	g_return_if_fail (launcher != NULL);
+	
 	g_signal_handlers_disconnect_by_func (G_OBJECT (launcher),
 										  G_CALLBACK (on_patch_terminated),
-										  data);
-	if (status)
+										  gui);
+
+	if (status != 0)
 	{
-		an_message_manager_append (app->messages,
-			_("Patch failed.\nPlease review the failure messages.\n"
-			"Examine and remove any rejected files.\n"),
-			MESSAGE_BUILD);
+		ianjuta_message_view_append (gui->mesg_view,
+								 IANJUTA_MESSAGE_VIEW_TYPE_ERROR,
+								 _("Patch failed.\nPlease review the failure messages.\n"
+			"Examine and remove any rejected files.\n"), "", NULL);		
 	}
 	else
 	{
-		an_message_manager_append (app->messages,
-			_("Patch successful.\n"), MESSAGE_BUILD);	}
+		ianjuta_message_view_append (gui->mesg_view,
+								 IANJUTA_MESSAGE_VIEW_TYPE_NORMAL,
+								 _("Patch successful.\n"), "", NULL);
+	}
+
+	gui->mesg_view = NULL;
 }

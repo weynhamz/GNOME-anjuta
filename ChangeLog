@@ -1,5 +1,19 @@
 2005-02-23  Naba Kumar  <naba@gnome.org>
 
+	Patch from Massimo Cora' <maxcvs@email.it>:
+	* plugins/Makefile.am,
+	plugins/patch/Makefile.am,
+	(added) plugins/patch/anjuta-patch-plugin.png,
+	(added) plugins/patch/anjuta-patch.plugin.in,
+	(added) plugins/patch/anjuta-patch.ui,
+	plugins/patch/patch-plugin.c,
+	(added) plugins/patch/patch-plugin.h,
+	(added) plugins/patch/plugin.c,
+	(added) plugins/patch/plugin.h: Ported patch plugin to Anjuta 2.0
+	architecture.
+
+2005-02-23  Naba Kumar  <naba@gnome.org>
+
 	* libanjuta/anjuta-marshal.list, libanjuta/anjuta-plugin.[ch],
 	file-loader/plugin.c, profile-default/plugin.c:
 	Implemented "activated" and "deactivated" signals for plugin class.

@@ -1,33 +1,48 @@
-#
-# Sample Makefile for a gIDE plugin.
-#
-# Where can we find the gIDE include files.
-#
+# Plugin UI file
+patch_uidir = $(anjuta_ui_dir)
+patch_ui_DATA = anjuta-patch.ui
 
-ANJUTA_SRC_DIR = $(top_srcdir)/src
+# Plugin Icon file
+patch_pixmapsdir = $(anjuta_image_dir)
+patch_pixmaps_DATA = \
+	anjuta-patch-plugin.png
 
-#
+# Plugin description file
+plugin_in_files = anjuta-patch.plugin.in
+%.plugin: %.plugin.in $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*po) ; $(INTLTOOL_MERGE) $(top_srcdir)/po $< $@ -d -u -c $(top_builddir)/po/.intltool-merge-cache
+
+
+patch_plugindir = $(anjuta_plugin_dir)
+patch_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
+
+# Include paths
+INCLUDES= \
+	$(WARN_CFLAGS) \
+	$(DEPRECATED_FLAGS) \
+	$(LIBANJUTA_CFLAGS) 
+
 # Where to install the plugin
-#
-plugindir = $(prefix)/@NO_PREFIX_PACKAGE_PLUGIN_DIR@
+plugindir = $(anjuta_plugin_dir)
 
-# NOTE :
-# The naming convention is very intentional
-# We are forced to use the prefix 'lib' by automake and libtool
-#    There is probably a way to avoid it but it is not worth to effort
-#    to find out.
-# The 'anjuta_' prfix is a safety measure to avoid conflicts where the
-#    plugin 'libpython.so' needs to link with the real 'libpython.so'
+# The plugin
+plugin_LTLIBRARIES = libanjuta-patch.la
 
-plugin_LTLIBRARIES = libanjuta_patch.la
+# Plugin sources
+libanjuta_patch_la_SOURCES = \
+	plugin.c \
+	plugin.h \
+	patch-plugin.c \
+	patch-plugin.h
 
-libanjuta_patch_la_SOURCES = patch-plugin.c
+# Plugin dependencies
+libanjuta_patch_la_LIBADD = \
+	$(LIBANJUTA_LIBS) 
 
-INCLUDES = 						\
-	-I$(ANJUTA_SRC_DIR)				\
-	-I$(top_srcdir)	\
-	-I$(top_srcdir)/tagmanager/include      \
-	-DGNOMELOCALEDIR=\""$(datadir)/locale"\" 	\
-	-DVERSION=\""$(VERSION)"\"             		\
-	-I$(includedir)					\
-	$(ANJUTA_CFLAGS)
+
+#libanjuta_patch_la_LDFLAGS = -module
+	
+EXTRA_DIST = \
+	$(plugin_in_files) \
+	$(patch_plugin_DATA) \
+	$(patch_ui_DATA) \
+	$(patch_pixmaps_DATA)

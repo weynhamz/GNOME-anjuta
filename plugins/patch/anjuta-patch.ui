@@ -1,0 +1,11 @@
+<!--*- xml -*-->
+<ui>
+	<menubar name="MenuMain">
+		<menu name="MenuEdit" action="ActionMenuEdit">
+			<placeholder name="PlaceholderPatchMenus">			
+				<separator name="separator1"/>
+				<menuitem name="Patch" action="ActionEditPatch" />
+			</placeholder>
+		</menu>
+	</menubar>
+</ui>
