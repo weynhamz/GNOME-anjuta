@@ -8,8 +8,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
-"POT-Creation-Date: 2003-06-23 23:47+0200\n"
-"PO-Revision-Date: 2003-06-23 23:47+0200\n"
+"POT-Creation-Date: 2003-08-23 12:18+0200\n"
+"PO-Revision-Date: 2003-08-23 12:19+0200\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -24,116 +24,23 @@ msgstr "Utvecklingsmiljön Anjuta"
 msgid "Integrated Development Environment"
 msgstr "Integrerad utvecklingsmiljö (IDE)"
 
-#: anjuta.glade.h:1 anjuta_dialogs_strings.c:489
-msgid ""
-"\n"
-"Anjuta Dev Studio\n"
-"Copyright (C) Naba Kumar\n"
-"\n"
-"This program is free software; you can redistribute it and/or modify it "
-"under the terms of the GNU General Public License as published by the Free "
-"Software Foundation; either version 2 of the License, or (at your option) "
-"any later version. \n"
-"\n"
-"This program is distributed in the hope that it will be useful, but WITHOUT "
-"ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
-"FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for "
-"more details. \n"
-"\n"
-"You should have received a copy of the GNU General Public License along with "
-"this program; if not, write to the Free Software Foundation, Inc., 59 Temple "
-"Place, Suite 330, Boston, MA 02111-1307 USA \n"
-msgstr ""
-"\n"
-"Utvecklingsstudion Anjuta\n"
-"Copyright © Naba Kumar\n"
-"\n"
-"Följande text är en informell översättning som enbart tillhandahålls i "
-"informativt syfte. För alla juridiska tolkningar gäller den engelska "
-"originaltexten.\n"
-"\n"
-"Detta program är fri programvara. Du kan distribuera det och/eller modifiera "
-"det under villkoren i GNU General Public License, publicerad av Free "
-"Software Foundation, version 2 av licensen eller (om du så vill) någon "
-"senare version.\n"
-"\n"
-"Detta program distribueras i hopp om att det ska vara användbart, men UTAN "
-"NÅGON GARANTI, även utan underförstådd garanti vid KÖP eller LÄMPLIGHET FÖR "
-"NÅGOT SPECIELLT ÄNDAMÅL. Se GNU General Public License för ytterligare "
-"information.\n"
-"\n"
-"Du bör ha fått en kopia av GNU General Public Licence tillsammans med detta "
-"program. Om inte bör du skriva till Free Software Foundation, Inc., 59 "
-"Temple Place, Suite 330, Boston, MA 02111-1307 USA.\n"
-"\n"
-"This program is free software; you can redistribute it and/or modify it "
-"under the terms of the GNU General Public License as published by the Free "
-"Software Foundation; either version 2 of the License, or (at your option) "
-"any later version. \n"
-"\n"
-"This program is distributed in the hope that it will be useful, but WITHOUT "
-"ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
-"FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for "
-"more details. \n"
-"\n"
-"You should have received a copy of the GNU General Public License along with "
-"this program; if not, write to the Free Software Foundation, Inc., 59 Temple "
-"Place, Suite 330, Boston, MA 02111-1307 USA \n"
-
-#: anjuta.glade.h:11 anjuta_dialogs_strings.c:24 anjuta_dialogs_strings.c:34
+#: anjuta.glade.h:1
 msgid "    "
 msgstr "    "
 
-#: anjuta.glade.h:12 anjuta_dialogs_strings.c:145
+#: anjuta.glade.h:2
 msgid "$(module.source.files) $(module.include.files)"
 msgstr "$(module.source.files) $(module.include.files)"
 
-#: anjuta.glade.h:13 anjuta_dialogs_strings.c:19 anjuta_dialogs_strings.c:20
-#: anjuta_dialogs_strings.c:21 anjuta_dialogs_strings.c:29
-#: anjuta_dialogs_strings.c:30 anjuta_dialogs_strings.c:31
-#: anjuta_dialogs_strings.c:32 anjuta_dialogs_strings.c:39
-#: anjuta_dialogs_strings.c:40 anjuta_dialogs_strings.c:41
-#: anjuta_dialogs_strings.c:43 anjuta_dialogs_strings.c:49
-#: anjuta_dialogs_strings.c:52 anjuta_dialogs_strings.c:55
-#: anjuta_dialogs_strings.c:59 anjuta_dialogs_strings.c:74
-#: anjuta_dialogs_strings.c:75 anjuta_dialogs_strings.c:76
-#: anjuta_dialogs_strings.c:81 anjuta_dialogs_strings.c:83
-#: anjuta_dialogs_strings.c:91 anjuta_dialogs_strings.c:92
-#: anjuta_dialogs_strings.c:95 anjuta_dialogs_strings.c:99
-#: anjuta_dialogs_strings.c:101 anjuta_dialogs_strings.c:116
-#: anjuta_dialogs_strings.c:134 anjuta_dialogs_strings.c:140
-#: anjuta_dialogs_strings.c:142 anjuta_dialogs_strings.c:143
-#: anjuta_dialogs_strings.c:144 anjuta_dialogs_strings.c:149
-#: anjuta_dialogs_strings.c:155 anjuta_dialogs_strings.c:160
-#: anjuta_dialogs_strings.c:163 anjuta_dialogs_strings.c:175
-#: anjuta_dialogs_strings.c:180 anjuta_dialogs_strings.c:185
-#: anjuta_dialogs_strings.c:187 anjuta_dialogs_strings.c:189
-#: anjuta_dialogs_strings.c:193 anjuta_dialogs_strings.c:197
-#: anjuta_dialogs_strings.c:199 anjuta_dialogs_strings.c:227
-#: anjuta_dialogs_strings.c:230 anjuta_dialogs_strings.c:241
-#: anjuta_dialogs_strings.c:243 anjuta_dialogs_strings.c:250
-#: anjuta_dialogs_strings.c:253 anjuta_dialogs_strings.c:254
-#: anjuta_dialogs_strings.c:257 anjuta_dialogs_strings.c:258
-#: anjuta_dialogs_strings.c:260 anjuta_dialogs_strings.c:267
-#: anjuta_dialogs_strings.c:272 anjuta_dialogs_strings.c:278
-#: anjuta_dialogs_strings.c:285 anjuta_dialogs_strings.c:287
-#: anjuta_dialogs_strings.c:300 anjuta_dialogs_strings.c:316
-#: anjuta_dialogs_strings.c:329 anjuta_dialogs_strings.c:345
-#: anjuta_dialogs_strings.c:346 anjuta_dialogs_strings.c:350
-#: anjuta_dialogs_strings.c:356 anjuta_dialogs_strings.c:379
-#: anjuta_dialogs_strings.c:396 anjuta_dialogs_strings.c:409
-#: anjuta_dialogs_strings.c:412 anjuta_dialogs_strings.c:430
-#: anjuta_dialogs_strings.c:436 anjuta_dialogs_strings.c:437
-#: anjuta_dialogs_strings.c:438 anjuta_dialogs_strings.c:458
-#: anjuta_dialogs_strings.c:501 gdl/layout.glade.h:1
+#: anjuta.glade.h:3 gdl/layout.glade.h:1
 msgid "*"
 msgstr "*"
 
-#: anjuta.glade.h:14 anjuta_dialogs_strings.c:151 anjuta_dialogs_strings.c:274
+#: anjuta.glade.h:4
 msgid "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp"
 msgstr "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp"
 
-#: anjuta.glade.h:15 anjuta_dialogs_strings.c:152 anjuta_dialogs_strings.c:275
+#: anjuta.glade.h:5
 msgid ""
 "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp Makefile.am configure.* "
 "README AUTHORS ChangeLog *.m4"
@@ -141,326 +48,297 @@ msgstr ""
 "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp Makefile.am configure.* "
 "README AUTHORS ChangeLog *.m4"
 
-#: anjuta.glade.h:16 anjuta_dialogs_strings.c:156 anjuta_dialogs_strings.c:279
+#: anjuta.glade.h:6
 msgid "*.so *.o *.a *.la"
 msgstr "*.so *.o *.a *.la"
 
-#: anjuta.glade.h:17 anjuta_dialogs_strings.c:150 anjuta_dialogs_strings.c:273
+#: anjuta.glade.h:7
 msgid "*\\.*"
 msgstr "*\\.*"
 
-#: anjuta.glade.h:18 anjuta_dialogs_strings.c:56 anjuta_dialogs_strings.c:60
+#: anjuta.glade.h:8
 msgid "<: Enter Here"
 msgstr "<: Ange här"
 
-#: anjuta.glade.h:19 anjuta_dialogs_strings.c:422
+#: anjuta.glade.h:9
 msgid "Add line number every:"
 msgstr "Lägg till radnummer var:"
 
-#: anjuta.glade.h:20 anjuta_dialogs_strings.c:420
+#: anjuta.glade.h:10
 msgid "Add page header"
 msgstr "Lägg till sidhuvud"
 
-#: anjuta.glade.h:21 anjuta_dialogs_strings.c:217
+#: anjuta.glade.h:11
 msgid "Additional"
 msgstr "Ytterligare"
 
-#: anjuta.glade.h:22 anjuta_dialogs_strings.c:72
+#: anjuta.glade.h:12
 msgid "Additional Libraries (LDADD):"
 msgstr "Ytterligare bibliotek (LDADD):"
 
-#: anjuta.glade.h:23 anjuta_dialogs_strings.c:77 src/wizard_gui.c:573
+#: anjuta.glade.h:13 src/wizard_gui.c:573
 msgid "Additional Options"
 msgstr "Ytterligare alternativ"
 
-#: anjuta.glade.h:24 anjuta_dialogs_strings.c:355
+#: anjuta.glade.h:14
 msgid "Additional build options:"
 msgstr "Ytterligare byggalternativ:"
 
-#: anjuta.glade.h:25 anjuta_dialogs_strings.c:504
+#: anjuta.glade.h:15
 msgid "Always save in UTF-8 encoding (faster)"
 msgstr "Spara alltid med UTF-8-kodning (snabbare)"
 
-#: anjuta.glade.h:26 anjuta_dialogs_strings.c:476
-msgid "Anjuta Setup Wizard"
-msgstr "Anjuta-konfigurationsguide"
-
-#: anjuta.glade.h:27 anjuta_dialogs_strings.c:179
+#: anjuta.glade.h:16
 msgid "Anjuta help search"
 msgstr "Hjälpsökning för Anjuta"
 
-#: anjuta.glade.h:28 anjuta_dialogs_strings.c:475
-msgid "Anjuta setup wizard"
-msgstr "Anjuta-konfigurationsguide"
-
-#: anjuta.glade.h:29 anjuta_dialogs_strings.c:477
-msgid ""
-"Anjuta setup wizard will guide with the initial setup of Anjuta. These setup "
-"could be changed later from Anjuta settings menu (Main menu->Settings). "
-msgstr ""
-"Anjuta-konfigurationsguiden kommer att hjälpa till med den ursprungliga "
-"konfigurationen av Anjuta. Denna konfiguration kommer att kunna ändras "
-"senare från Anjutas inställningsmeny (Huvudmeny->Inställningar)."
-
-#: anjuta.glade.h:30 anjuta_dialogs_strings.c:463
+#: anjuta.glade.h:17
 msgid "Anjuta start with dialog"
 msgstr "Anjutas starta med-dialog"
 
-#: anjuta.glade.h:31 anjuta_dialogs_strings.c:462
-msgid "Anjuta windows"
-msgstr "Anjuta-fönster"
-
-#: anjuta.glade.h:32 anjuta_dialogs_strings.c:89
+#: anjuta.glade.h:18
 msgid "Append messages"
 msgstr "Lägg till meddelanden"
 
-#: anjuta.glade.h:33 anjuta_dialogs_strings.c:465 src/appwizard_gui.c:76
-#: src/appwizard_gui.c:90
+#: anjuta.glade.h:19 src/appwizard_gui.c:76 src/appwizard_gui.c:90
 msgid "Application Wizard"
 msgstr "Programguide"
 
-#: anjuta.glade.h:34 anjuta_dialogs_strings.c:248
+#: anjuta.glade.h:20
 msgid "Ask for parameters at run-time"
 msgstr "Fråga efter parametrar vid körning"
 
-#.
-#. * Translatable strings file generated by Glade.
-#. * Add this file to your project's POTFILES.in.
-#. * DO NOT compile it as part of your application.
-#.
-#: anjuta.glade.h:35 anjuta_dialogs_strings.c:7
+#: anjuta.glade.h:21
 msgid "Attach to process"
 msgstr "Anslut till process"
 
-#: anjuta.glade.h:36 anjuta_dialogs_strings.c:303
+#: anjuta.glade.h:22
 msgid "Attributes:"
 msgstr "Attribut:"
 
-#: anjuta.glade.h:37 anjuta_dialogs_strings.c:367
+#: anjuta.glade.h:23
 msgid "Autocomplete XML/HTML closing tags"
 msgstr "Fyll automatiskt i stängtaggar för XML/HTML"
 
-#: anjuta.glade.h:38 anjuta_dialogs_strings.c:369
+#: anjuta.glade.h:24
 msgid "Autocompletion"
 msgstr "Autokomplettering"
 
-#: anjuta.glade.h:39 anjuta_dialogs_strings.c:368
+#: anjuta.glade.h:25
 msgid "Autocompletion pop up choices"
 msgstr "Autokomplettera popupval"
 
-#: anjuta.glade.h:40 anjuta_dialogs_strings.c:335
+#: anjuta.glade.h:26
 msgid "Automatically load last Project"
 msgstr "Läs automatiskt in senaste projekt"
 
-#: anjuta.glade.h:41 anjuta_dialogs_strings.c:365
+#: anjuta.glade.h:27
 msgid "Autosave"
 msgstr "Spara automatiskt"
 
-#: anjuta.glade.h:42 anjuta_dialogs_strings.c:358
+#: anjuta.glade.h:28
 msgid "Autosave editor files before build starts"
 msgstr "Spara automatiskt redigerarfiler innan bygget påbörjas"
 
-#: anjuta.glade.h:43 anjuta_dialogs_strings.c:305
+#: anjuta.glade.h:29
 msgid "Back color:"
 msgstr "Bakgrundsfärg:"
 
-#: anjuta.glade.h:44 anjuta_dialogs_strings.c:107 anjuta_dialogs_strings.c:122
+#: anjuta.glade.h:30
 msgid "Backwards"
 msgstr "Bakåt"
 
-#: anjuta.glade.h:45 anjuta_dialogs_strings.c:339
+#: anjuta.glade.h:31
 msgid "Beep on job complete"
 msgstr "Pip när jobbet är klart"
 
-#: anjuta.glade.h:46 anjuta_dialogs_strings.c:310
+#: anjuta.glade.h:32
 msgid "Bold"
 msgstr "Fet"
 
-#: anjuta.glade.h:47 anjuta_dialogs_strings.c:237
+#: anjuta.glade.h:33
 msgid "Bookmark"
 msgstr "Bokmärke"
 
-#: anjuta.glade.h:48 anjuta_dialogs_strings.c:15
+#: anjuta.glade.h:34
 msgid "Breakpoint properties"
 msgstr "Brytpunktsegenskaper"
 
-#: anjuta.glade.h:49 anjuta_dialogs_strings.c:11
+#: anjuta.glade.h:35
 msgid "Breakpoints"
 msgstr "Brytpunkter"
 
-#: anjuta.glade.h:50 anjuta_dialogs_strings.c:236 src/build_file.c:107
-#: src/message-manager.cc:43 src/text_editor_gui.c:172 src/toolbar.c:273
+#: anjuta.glade.h:36 src/build_file.c:107 src/message-manager.cc:43
+#: src/text_editor_gui.c:172 src/toolbar.c:271
 msgid "Build"
 msgstr "Bygge"
 
-#: anjuta.glade.h:51 anjuta_dialogs_strings.c:349
+#: anjuta.glade.h:37
 msgid "Build command:"
 msgstr "Byggkommando:"
 
-#: anjuta.glade.h:52 anjuta_dialogs_strings.c:337
+#: anjuta.glade.h:38
 msgid "Build file browser automatically"
 msgstr "Bygg filbläddrare automatiskt"
 
-#: anjuta.glade.h:53 anjuta_dialogs_strings.c:211
+#: anjuta.glade.h:39
 msgid "Build files"
 msgstr "Byggfiler"
 
-#: anjuta.glade.h:54 anjuta_dialogs_strings.c:357
+#: anjuta.glade.h:40
 msgid "Build options"
 msgstr "Byggalternativ"
 
-#: anjuta.glade.h:55 anjuta_dialogs_strings.c:336
+#: anjuta.glade.h:41
 msgid "Build symbol browser automatically"
 msgstr "Bygg symbolbläddrare automatiskt"
 
 #. 2
-#: anjuta.glade.h:56 anjuta_dialogs_strings.c:164 anjuta_dialogs_strings.c:239
-#: anjuta_dialogs_strings.c:288 src/an_file_view.c:414
-#: src/message-manager.cc:45
+#: anjuta.glade.h:42 src/an_file_view.c:414 src/message-manager.cc:45
 msgid "CVS"
 msgstr "CVS"
 
-#: anjuta.glade.h:57 anjuta_dialogs_strings.c:455
+#: anjuta.glade.h:43
 msgid "CVS command options"
 msgstr "CVS-kommandoalternativ"
 
-#: anjuta.glade.h:58 anjuta_dialogs_strings.c:450
+#: anjuta.glade.h:44
 msgid "CVS compression level:"
 msgstr "CVS-komprimeringsnivå:"
 
-#: anjuta.glade.h:59 anjuta_dialogs_strings.c:453
+#: anjuta.glade.h:45
 msgid "CVS context diff format"
 msgstr "Sammanhangsformat för CVS diff"
 
-#: anjuta.glade.h:60 anjuta_dialogs_strings.c:165 anjuta_dialogs_strings.c:289
+#: anjuta.glade.h:46
 msgid "CVS intl po"
 msgstr "CVS intl po"
 
-#: anjuta.glade.h:61 anjuta_dialogs_strings.c:454
+#: anjuta.glade.h:47
 msgid "CVS unified diff format"
 msgstr "Enhetligt format för CVS diff"
 
-#: anjuta.glade.h:62 anjuta_dialogs_strings.c:451
+#: anjuta.glade.h:48
 msgid "CVS update and prune directories [-dP]"
 msgstr "Uppdatera och töm CVS-kataloger [-dP]"
 
-#: anjuta.glade.h:63 anjuta_dialogs_strings.c:35
+#: anjuta.glade.h:49
 msgid "C_ompile:"
 msgstr "K_ompilera:"
 
-#: anjuta.glade.h:64 anjuta_dialogs_strings.c:320
+#: anjuta.glade.h:50
 msgid "Calltip background:"
 msgstr "Anropstipsbakgrund:"
 
-#: anjuta.glade.h:65 anjuta_dialogs_strings.c:321
+#: anjuta.glade.h:51
 msgid "Caret (cursor) color:"
 msgstr "Caret-färg (markörfärg):"
 
-#: anjuta.glade.h:66 anjuta_dialogs_strings.c:388
+#: anjuta.glade.h:52
 msgid "Caret blink period in milli-seconds"
 msgstr "Blinkperiod för caret i millisekunder"
 
-#: anjuta.glade.h:67 anjuta_dialogs_strings.c:133
+#: anjuta.glade.h:53
 msgid "Case insensitive"
 msgstr "Gör skillnad på gemener/VERSALER"
 
-#: anjuta.glade.h:68 anjuta_dialogs_strings.c:86
+#: anjuta.glade.h:54
 msgid "Case sensitive"
 msgstr "Gör skillnad på gemener/VERSALER"
 
-#: anjuta.glade.h:69 anjuta_dialogs_strings.c:158
+#: anjuta.glade.h:55
 msgid "Choose Directories:"
 msgstr "Välj kataloger:"
 
-#: anjuta.glade.h:70 anjuta_dialogs_strings.c:147
+#: anjuta.glade.h:56
 msgid "Choose Files:"
 msgstr "Välj filer:"
 
-#: anjuta.glade.h:71 anjuta_dialogs_strings.c:366
+#: anjuta.glade.h:57
 msgid "Choose autocomplete for single match"
 msgstr "Välj automatisk ifyllnad för enkel träff"
 
-#: anjuta.glade.h:72 anjuta_dialogs_strings.c:282
+#: anjuta.glade.h:58
 msgid "Choose directories"
 msgstr "Välj kataloger"
 
-#: anjuta.glade.h:73 anjuta_dialogs_strings.c:270
+#: anjuta.glade.h:59
 msgid "Choose files"
 msgstr "Välj filer"
 
-#: anjuta.glade.h:74 anjuta_dialogs_strings.c:380
+#: anjuta.glade.h:60
 msgid "Code folding"
 msgstr "Kodinhängning"
 
-#: anjuta.glade.h:75 anjuta_dialogs_strings.c:377
+#: anjuta.glade.h:61
 msgid "Collapse all code folds on file open"
 msgstr "Fäll ihop alla kodinhägnader vid filöppning"
 
-#: anjuta.glade.h:76 anjuta_dialogs_strings.c:418
+#: anjuta.glade.h:62
 msgid "Colour"
 msgstr "Färg"
 
-#: anjuta.glade.h:77 anjuta_dialogs_strings.c:389
+#: anjuta.glade.h:63
 msgid "Column at edge indicator"
 msgstr "Kantkolumnindikator"
 
-#: anjuta.glade.h:78 anjuta_dialogs_strings.c:333
+#: anjuta.glade.h:64
 msgid "Combo Popdown:"
 msgstr "Kombinationsmeny:"
 
-#: anjuta.glade.h:79 anjuta_dialogs_strings.c:96
+#: anjuta.glade.h:65
 msgid "Command Line Parameters"
 msgstr "Kommandoradsparametrar"
 
-#: anjuta.glade.h:80 anjuta_dialogs_strings.c:266
+#: anjuta.glade.h:66
 msgid "Command line parameters"
 msgstr "Kommandoradsparametrar"
 
-#: anjuta.glade.h:81 anjuta_dialogs_strings.c:229
+#: anjuta.glade.h:67
 msgid "Command:"
 msgstr "Kommando:"
 
-#: anjuta.glade.h:82 anjuta_dialogs_strings.c:22
+#: anjuta.glade.h:68
 msgid "Commands"
 msgstr "Kommandon"
 
-#: anjuta.glade.h:83 anjuta_dialogs_strings.c:23
+#: anjuta.glade.h:69
 msgid "Common commands:"
 msgstr "Vanliga kommandon:"
 
-#: anjuta.glade.h:84 anjuta_dialogs_strings.c:375
+#: anjuta.glade.h:70
 msgid "Compact folding"
 msgstr "Kompakt inhängning"
 
-#: anjuta.glade.h:85 anjuta_dialogs_strings.c:215
+#: anjuta.glade.h:71
 msgid "Compiler"
 msgstr "Kompilator"
 
-#: anjuta.glade.h:86 anjuta_dialogs_strings.c:71
+#: anjuta.glade.h:72
 msgid "Compiler Flags (CFLAGS):"
 msgstr "Kompilatorflaggor (CFLAGS):"
 
-#: anjuta.glade.h:87 anjuta_dialogs_strings.c:46
+#: anjuta.glade.h:73
 msgid "Compiler and linker options"
 msgstr "Kompilator- och länkarinställningar"
 
-#: anjuta.glade.h:88 anjuta_dialogs_strings.c:220
+#: anjuta.glade.h:74
 msgid "Configuration"
 msgstr "Konfiguration"
 
-#: anjuta.glade.h:89 anjuta_dialogs_strings.c:219
+#: anjuta.glade.h:75
 msgid "Configuration script segments"
 msgstr "Konfigurationsskriptsegment"
 
-#: anjuta.glade.h:90 anjuta_dialogs_strings.c:84
+#: anjuta.glade.h:76
 msgid "Configure Parameters"
 msgstr "Konfigurera parametrar"
 
-#: anjuta.glade.h:91 anjuta_dialogs_strings.c:413
+#: anjuta.glade.h:77
 msgid "Custom style"
 msgstr "Anpassad stil"
 
-#: anjuta.glade.h:92 anjuta_dialogs_strings.c:408
+#: anjuta.glade.h:78
 msgid ""
 "Custom style,GNU coding style,Kernighan & Ritchie style,Original Berkeley "
 "style,Style of Kangleipak,Hello World style,Crazy boy style"
@@ -468,187 +346,169 @@ msgstr ""
 "Anpassad stil,GNU-kodningsstil,Kernighan & Ritchie-stil,ursprunglig Berkeley-"
 "stil,Kangleipak-stil,Hej världen!-stil,galenpannastil"
 
-#: anjuta.glade.h:93 anjuta_dialogs_strings.c:269
+#: anjuta.glade.h:79
 msgid "Customize File Browser"
 msgstr "Anpassa filbläddrare"
 
-#: anjuta.glade.h:94 anjuta_dialogs_strings.c:268
+#: anjuta.glade.h:80
 msgid "Customize what is to be shown in the file tree"
 msgstr "Anpassa vad som ska visas i filträdet"
 
-#: anjuta.glade.h:95 anjuta_dialogs_strings.c:207
+#: anjuta.glade.h:81
 msgid "Data module Makefile.am"
 msgstr "Datamoduk Makefile.am"
 
 #. 13
-#: anjuta.glade.h:96 anjuta_dialogs_strings.c:238 src/message-manager.cc:49
-#: src/text_editor_menu.c:319 src/toolbar.c:307
+#: anjuta.glade.h:82 src/message-manager.cc:49 src/text_editor_menu.c:319
+#: src/toolbar.c:305
 msgid "Debug"
 msgstr "Felsök"
 
-#: anjuta.glade.h:97 anjuta_dialogs_strings.c:70
+#: anjuta.glade.h:83
 msgid "Debugging and Profiling"
 msgstr "Felsökning och profilering"
 
-#: anjuta.glade.h:98 anjuta_dialogs_strings.c:459
+#: anjuta.glade.h:84
 msgid "Default"
 msgstr "Standardvärde"
 
-#: anjuta.glade.h:99 anjuta_dialogs_strings.c:61
+#: anjuta.glade.h:85
 msgid "Defines"
 msgstr "Definitioner"
 
-#: anjuta.glade.h:100 anjuta_dialogs_strings.c:298
+#: anjuta.glade.h:86
 msgid "Delete Theme"
 msgstr "Ta bort tema"
 
-#: anjuta.glade.h:101 anjuta_dialogs_strings.c:340
+#: anjuta.glade.h:87
 msgid "Dialog on job complete"
 msgstr "Dialogfönster då jobbet är klart"
 
-#: anjuta.glade.h:102 anjuta_dialogs_strings.c:108
-#: anjuta_dialogs_strings.c:123
+#: anjuta.glade.h:88
 msgid "Direction"
 msgstr "Riktning"
 
-#: anjuta.glade.h:103 anjuta_dialogs_strings.c:330 widgets/gnomefilelist.c:342
+#: anjuta.glade.h:89 widgets/gnomefilelist.c:342
 msgid "Directories"
 msgstr "Kataloger"
 
-#: anjuta.glade.h:104 anjuta_dialogs_strings.c:291
+#: anjuta.glade.h:90
 msgid "Directory filter"
 msgstr "Katalogfilter"
 
-#: anjuta.glade.h:105 anjuta_dialogs_strings.c:407
+#: anjuta.glade.h:91
 msgid "Disable auto-format"
 msgstr "Inaktivera automatisk formatering"
 
-#: anjuta.glade.h:106 anjuta_dialogs_strings.c:210
+#: anjuta.glade.h:92
 msgid "Disable overwriting files"
 msgstr "Inaktivera överskrivning av filer"
 
-#: anjuta.glade.h:107 anjuta_dialogs_strings.c:294
-#: anjuta_dialogs_strings.c:381
+#: anjuta.glade.h:93
 msgid "Disable syntax highlighting"
 msgstr "Inaktivera syntaxfärgning"
 
-#: anjuta.glade.h:108 anjuta_dialogs_strings.c:290
+#: anjuta.glade.h:94
 msgid "Do not show hidden directories"
 msgstr "Visa inte dolda kataloger"
 
-#: anjuta.glade.h:109 anjuta_dialogs_strings.c:280
+#: anjuta.glade.h:95
 msgid "Do not show hidden files"
 msgstr "Visa inte dolda filer"
 
-#: anjuta.glade.h:110 anjuta_dialogs_strings.c:474
+#: anjuta.glade.h:96
 msgid "Do not show start with dialog again."
 msgstr "Visa inte starta med-dialogen igen."
 
-#: anjuta.glade.h:111 anjuta_dialogs_strings.c:394
+#: anjuta.glade.h:97
 msgid "Do not show tabs"
 msgstr "Visa inte flikar"
 
-#: anjuta.glade.h:112 anjuta_dialogs_strings.c:486
-msgid "Docked style"
-msgstr "Dockad stil"
-
-#: anjuta.glade.h:113 anjuta_dialogs_strings.c:482
-msgid ""
-"Docked style presents Anjuta \n"
-"in the classic IDE form with all\n"
-"sub-windows docked on the\n"
-"main window."
-msgstr ""
-"Dockad stil visar Anjuta i den\n"
-"klassiska IDE-formen med alla\n"
-"underfönster dockade i\n"
-"huvudfönstret."
-
-#: anjuta.glade.h:117 anjuta_dialogs_strings.c:208
+#: anjuta.glade.h:98
 msgid "Document module Makefile.am"
 msgstr "Dokumentmodul Makefile.am"
 
-#: anjuta.glade.h:118 anjuta_dialogs_strings.c:376
+#: anjuta.glade.h:99
 msgid "Draw line below folded lines"
 msgstr "Rita linje under inhägnade rader"
 
-#: anjuta.glade.h:119 anjuta_dialogs_strings.c:232
+#: anjuta.glade.h:100
 msgid "Edit"
 msgstr "Redigera"
 
-#: anjuta.glade.h:120 anjuta_dialogs_strings.c:387
+#: anjuta.glade.h:101
 msgid "Editor caret (cursor) width in pixels"
 msgstr "Bredd på redigerar-caret (markör) i bildpunkter"
 
-#: anjuta.glade.h:121 anjuta_dialogs_strings.c:397
+#: anjuta.glade.h:102
 msgid "Editor tabs"
 msgstr "Redigerarflikar"
 
-#: anjuta.glade.h:122 anjuta_dialogs_strings.c:68
+#: anjuta.glade.h:103
 msgid "Enable Debugging"
 msgstr "Aktivera felsökning"
 
-#: anjuta.glade.h:123 anjuta_dialogs_strings.c:374
+#: anjuta.glade.h:104
 msgid "Enable HTML tags folding"
 msgstr "Aktivera inhängning av HTML-taggar"
 
-#: anjuta.glade.h:124 anjuta_dialogs_strings.c:69
+#: anjuta.glade.h:105
 msgid "Enable Profiling"
 msgstr "Aktivera profilering"
 
-#: anjuta.glade.h:125 anjuta_dialogs_strings.c:12
+#: anjuta.glade.h:106
 msgid "Enable _all"
 msgstr "Aktivera _alla"
 
-#: anjuta.glade.h:126 anjuta_dialogs_strings.c:401
+#: anjuta.glade.h:107
 msgid "Enable automatic indentation"
 msgstr "Aktivera automatisk indentering"
 
-#: anjuta.glade.h:127 anjuta_dialogs_strings.c:432
+#: anjuta.glade.h:108
 msgid "Enable automatic messages indicators"
 msgstr "Aktivera automatiska meddelandeindikatorer"
 
-#: anjuta.glade.h:128 anjuta_dialogs_strings.c:382
+#: anjuta.glade.h:109
 msgid "Enable braces check"
 msgstr "Aktivera klammerkontroll"
 
-#: anjuta.glade.h:129 anjuta_dialogs_strings.c:370
+#: anjuta.glade.h:110
 msgid "Enable code folding"
 msgstr "Aktivera kodinhängning"
 
-#: anjuta.glade.h:130 anjuta_dialogs_strings.c:371
+#: anjuta.glade.h:111
 msgid "Enable comments folding"
 msgstr "Aktivera kommentarinhängning"
 
-#: anjuta.glade.h:131 anjuta_dialogs_strings.c:362
+#: anjuta.glade.h:112
 msgid "Enable files autosave"
 msgstr "Aktivera automatiskt sparande av filer"
 
-#: anjuta.glade.h:132 anjuta_dialogs_strings.c:421
+#: anjuta.glade.h:113
 msgid "Enable line wrap"
 msgstr "Aktivera radbrytning"
 
-#: anjuta.glade.h:133 anjuta_dialogs_strings.c:372
+#: anjuta.glade.h:114
 msgid "Enable python comments folding"
 msgstr "Aktivera inhängning av pythonkommentarer"
 
-#: anjuta.glade.h:134 anjuta_dialogs_strings.c:373
+#: anjuta.glade.h:115
 msgid "Enable python quoted strings folding"
 msgstr "Aktivera inhängning av pythonciterade strängar"
 
-#: anjuta.glade.h:135 anjuta_dialogs_strings.c:261 src/breakpoints.c:111
+#: anjuta.glade.h:116 src/breakpoints.c:111
 msgid "Enabled"
 msgstr "Påslaget"
 
-#: anjuta.glade.h:136 anjuta_dialogs_strings.c:507
+#: anjuta.glade.h:117
 msgid "Encoding to use when saving files"
 msgstr "Kodning att använda vid sparande av filer"
 
-#: anjuta.glade.h:137 anjuta_dialogs_strings.c:502
+#: anjuta.glade.h:118
 msgid "Enter a Hexa adress or select one in the data"
 msgstr "Ange en Hexa-adress eller välj en i data"
 
-#: anjuta.glade.h:138 anjuta_dialogs_strings.c:411
+#: anjuta.glade.h:119
 msgid ""
 "Enter the command line arguments for the 'indent' program. Read the info "
 "page for 'indent' for more details"
@@ -656,103 +516,100 @@ msgstr ""
 "Ange kommandoradsargumenten för \"indent\"-programmet. Läs infosidan för "
 "\"indent\" för mer information"
 
-#: anjuta.glade.h:139 anjuta_dialogs_strings.c:435
+#: anjuta.glade.h:120
 msgid "Error message indicator style:"
 msgstr "Stil för felmeddelandeindikator:"
 
-#: anjuta.glade.h:140 anjuta_dialogs_strings.c:440
+#: anjuta.glade.h:121
 msgid "Errors messages:"
 msgstr "Felmeddelanden:"
 
-#: anjuta.glade.h:141 anjuta_dialogs_strings.c:94
+#: anjuta.glade.h:122
 msgid "Execute Program"
 msgstr "Kör program"
 
-#: anjuta.glade.h:142 anjuta_dialogs_strings.c:176
+#: anjuta.glade.h:123
 msgid "Expand regex back references"
 msgstr "Expandera bakåtreferenser i reguljära uttryck"
 
-#: anjuta.glade.h:143 anjuta_dialogs_strings.c:231 src/an_file_view.c:665
-#: src/breakpoints.c:111
+#: anjuta.glade.h:124 src/an_file_view.c:665 src/breakpoints.c:111
 msgid "File"
 msgstr "Fil"
 
-#: anjuta.glade.h:144 anjuta_dialogs_strings.c:169
+#: anjuta.glade.h:125
 msgid "File Filter"
 msgstr "Filfilter"
 
-#: anjuta.glade.h:145 anjuta_dialogs_strings.c:281
+#: anjuta.glade.h:126
 msgid "File filter"
 msgstr "Filfilter"
 
-#: anjuta.glade.h:146 anjuta_dialogs_strings.c:246
+#: anjuta.glade.h:127
 msgid "File level"
 msgstr "Filnivå"
 
-#: anjuta.glade.h:147 anjuta_dialogs_strings.c:90
+#: anjuta.glade.h:128
 msgid "File/Directory to add:"
 msgstr "Fil/Katalog att lägga till:"
 
-#: anjuta.glade.h:148 anjuta_dialogs_strings.c:384
+#: anjuta.glade.h:129
 msgid "Filter extraneous characters in DOS mode"
 msgstr "Filtrera onödiga tecken i DOS-läge"
 
-#: anjuta.glade.h:149 anjuta_dialogs_strings.c:129
+#: anjuta.glade.h:130
 msgid "Find & Replace"
 msgstr "Sök och ersätt"
 
-#: anjuta.glade.h:150 anjuta_dialogs_strings.c:98 anjuta_dialogs_strings.c:115
+#: anjuta.glade.h:131
 msgid "Find and replace"
 msgstr "Sök och ersätt"
 
-#: anjuta.glade.h:151 anjuta_dialogs_strings.c:85 src/find_in_files.c:301
+#: anjuta.glade.h:132 src/find_in_files.c:301
 msgid "Find in Files"
 msgstr "Sök i filer"
 
-#: anjuta.glade.h:152 anjuta_dialogs_strings.c:378
+#: anjuta.glade.h:133
 msgid "Fold style:"
 msgstr "Inhängningsstil:"
 
-#: anjuta.glade.h:153 anjuta_dialogs_strings.c:302
+#: anjuta.glade.h:134
 msgid "Font:"
 msgstr "Typsnitt:"
 
-#: anjuta.glade.h:154 anjuta_dialogs_strings.c:304
+#: anjuta.glade.h:135
 msgid "Fore color:"
 msgstr "Förgrundsfärg:"
 
-#: anjuta.glade.h:155 anjuta_dialogs_strings.c:235
+#: anjuta.glade.h:136
 msgid "Format"
 msgstr "Format"
 
-#: anjuta.glade.h:156 anjuta_dialogs_strings.c:410 src/toolbar.c:863
+#: anjuta.glade.h:137 src/toolbar.c:861
 msgid "Format style"
 msgstr "Formateringsstil"
 
-#: anjuta.glade.h:157 anjuta_dialogs_strings.c:106
-#: anjuta_dialogs_strings.c:121
+#: anjuta.glade.h:138
 msgid "Forwards"
 msgstr "Framåt"
 
-#: anjuta.glade.h:158 anjuta_dialogs_strings.c:104
-#: anjuta_dialogs_strings.c:119
+#: anjuta.glade.h:139
 msgid "From cursor"
 msgstr "Från markör"
 
-#: anjuta.glade.h:159 anjuta_dialogs_strings.c:216 src/an_symbol_view.c:54
+#: anjuta.glade.h:140 src/an_symbol_view.c:54
 msgid "Functions"
 msgstr "Funktioner"
 
-#: anjuta.glade.h:160 anjuta_dialogs_strings.c:190
+#: anjuta.glade.h:141
 msgid "GUI editor command:"
 msgstr "GUI-redigerarkommando:"
 
 #. 3
-#: anjuta.glade.h:161 anjuta_dialogs_strings.c:195 src/main_menubar_def.h:392
+#: anjuta.glade.h:142 src/main_menubar_def.h:392
 msgid "General"
 msgstr "Allmänt"
 
-#: anjuta.glade.h:162 anjuta_dialogs_strings.c:198
+#: anjuta.glade.h:143
 msgid ""
 "Give a space separated list of directories to be built after source module. "
 "This will be set in configure and Makefiles will be generated for them. They "
@@ -763,7 +620,7 @@ msgstr ""
 "kommer att skapas för dem. De kommer att byggas efter källkodskatalogen "
 "(src/) under \"make\"."
 
-#: anjuta.glade.h:163 anjuta_dialogs_strings.c:196
+#: anjuta.glade.h:144
 msgid ""
 "Give a space separated list of directories to be built before source module. "
 "This will be set in configure.in and Makefiles will be generated for them. "
@@ -774,88 +631,87 @@ msgstr ""
 "kommer att skapas för dem. De kommer att byggas innan källkodskatalogen "
 "(src/) under \"make\"."
 
-#: anjuta.glade.h:164 anjuta_dialogs_strings.c:181
+#: anjuta.glade.h:145
 msgid "Gnome API"
 msgstr "Gnome-API"
 
-#: anjuta.glade.h:165 anjuta_dialogs_strings.c:132
+#: anjuta.glade.h:146
 msgid "Greedy matching"
 msgstr "Girig matchning"
 
-#: anjuta.glade.h:166 anjuta_dialogs_strings.c:27
+#: anjuta.glade.h:147
 msgid "HTML _viewer:"
 msgstr "HTML-_visare:"
 
-#: anjuta.glade.h:167 anjuta_dialogs_strings.c:214
+#: anjuta.glade.h:148
 msgid "Headers"
 msgstr "Huvud"
 
-#: anjuta.glade.h:168 anjuta_dialogs_strings.c:205
+#: anjuta.glade.h:149
 msgid "Help module Makefile.am"
 msgstr "Hjälpmodul Makefile.am"
 
-#: anjuta.glade.h:169 anjuta_dialogs_strings.c:66
+#: anjuta.glade.h:150
 msgid "High-Level Optimization (Functions inlined wherever possible)"
 msgstr "Högnivåoptimering (funktioner är inline:ade där det är möjligt"
 
-#: anjuta.glade.h:170 anjuta_dialogs_strings.c:317
+#: anjuta.glade.h:151
 msgid "Highlight style"
 msgstr "Färgningsstil"
 
-#: anjuta.glade.h:171 anjuta_dialogs_strings.c:334
+#: anjuta.glade.h:152
 msgid "History sizes"
 msgstr "Historikstorlekar"
 
-#: anjuta.glade.h:172 anjuta_dialogs_strings.c:194
-msgid "Ignome files and directories"
-msgstr "Ignorera filer och kataloger"
-
-#: anjuta.glade.h:173 anjuta_dialogs_strings.c:167
+#: anjuta.glade.h:153
 msgid "Ignore Binary Files"
 msgstr "Ignorera binära filer"
 
-#: anjuta.glade.h:174 anjuta_dialogs_strings.c:88
+#: anjuta.glade.h:154
 msgid "Ignore CVS directory"
 msgstr "Ignorera CVS-katalog"
 
-#: anjuta.glade.h:175 anjuta_dialogs_strings.c:161
+#: anjuta.glade.h:155
 msgid "Ignore Directories:"
 msgstr "Ignorera kataloger:"
 
-#: anjuta.glade.h:176 anjuta_dialogs_strings.c:153
+#: anjuta.glade.h:156
 msgid "Ignore Files:"
 msgstr "Ignorera filer:"
 
-#: anjuta.glade.h:177 anjuta_dialogs_strings.c:166
+#: anjuta.glade.h:157
 msgid "Ignore Hidden Directories"
 msgstr "Ignorera dolda kataloger"
 
-#: anjuta.glade.h:178 anjuta_dialogs_strings.c:157
+#: anjuta.glade.h:158
 msgid "Ignore Hidden Files"
 msgstr "Ignorera dolda filer"
 
-#: anjuta.glade.h:179 anjuta_dialogs_strings.c:87
+#: anjuta.glade.h:159
 msgid "Ignore binary files"
 msgstr "Ignorera binära filer"
 
-#: anjuta.glade.h:180 anjuta_dialogs_strings.c:114
-#: anjuta_dialogs_strings.c:128
+#: anjuta.glade.h:160
 msgid "Ignore case"
 msgstr "Ignorera skillnad på gemener/VERSALER"
 
-#: anjuta.glade.h:181 anjuta_dialogs_strings.c:283
+#: anjuta.glade.h:161
 msgid "Ignore directories"
 msgstr "Ignorera kataloger"
 
-#: anjuta.glade.h:182 anjuta_dialogs_strings.c:276
+#: anjuta.glade.h:162
 msgid "Ignore files"
 msgstr "Ignorera filer"
 
-#: anjuta.glade.h:183 anjuta_dialogs_strings.c:467
+#: anjuta.glade.h:163
+msgid "Ignore files and directories"
+msgstr "Ignorera filer och kataloger"
+
+#: anjuta.glade.h:164
 msgid "Import Wizard"
 msgstr "Importguide"
 
-#: anjuta.glade.h:184 anjuta_dialogs_strings.c:466
+#: anjuta.glade.h:165
 msgid ""
 "Import existing project. The Import Wizard will guide you to import an "
 "existing Project into Anjuta and convert it into Anjuta Project. There will "
@@ -866,187 +722,184 @@ msgstr ""
 "projekt. Inga data kommer att förloras och inga ändringar kommer att göras i "
 "projektet."
 
-#: anjuta.glade.h:185 anjuta_dialogs_strings.c:50
+#: anjuta.glade.h:166
 msgid "Include Paths"
 msgstr "Inkluderingssökvägar"
 
-#: anjuta.glade.h:186 anjuta_dialogs_strings.c:204
+#: anjuta.glade.h:167
 msgid "Include module Makefile.am"
 msgstr "Inkludera modulen Makefile.am"
 
-#: anjuta.glade.h:187 anjuta_dialogs_strings.c:404
+#: anjuta.glade.h:168
 msgid "Indent closing braces"
 msgstr "Indentera stängparenteser"
 
-#: anjuta.glade.h:188 anjuta_dialogs_strings.c:403
+#: anjuta.glade.h:169
 msgid "Indent opening braces"
 msgstr "Indentera öppningsparenteser"
 
-#: anjuta.glade.h:189 anjuta_dialogs_strings.c:415
+#: anjuta.glade.h:170
 msgid "Indentation and auto-format options"
 msgstr "Alternativ för indentering och automatisk formatering"
 
-#: anjuta.glade.h:190 anjuta_dialogs_strings.c:400
+#: anjuta.glade.h:171
 msgid "Indentation size in spaces:"
 msgstr "Automatisk indenteringsstorlek i blanksteg:"
 
-#: anjuta.glade.h:191 anjuta_dialogs_strings.c:439
+#: anjuta.glade.h:172
 msgid "Indicators"
 msgstr "Indikatorer"
 
-#: anjuta.glade.h:192 anjuta_dialogs_strings.c:183
+#: anjuta.glade.h:173
 msgid "Info Pages"
 msgstr "Infosidor"
 
-#: anjuta.glade.h:193 anjuta_dialogs_strings.c:251
+#: anjuta.glade.h:174
 msgid "Input string:"
 msgstr "Indatasträng:"
 
-#: anjuta.glade.h:194 anjuta_dialogs_strings.c:500 src/text_editor_menu.c:174
-#: src/toolbar.c:606
+#: anjuta.glade.h:175 src/text_editor_menu.c:174 src/toolbar.c:604
 msgid "Inspect"
 msgstr "Inspektera"
 
-#: anjuta.glade.h:195 anjuta_dialogs_strings.c:311
+#: anjuta.glade.h:176
 msgid "Italic"
 msgstr "Kursiv"
 
-#: anjuta.glade.h:196 anjuta_dialogs_strings.c:351
+#: anjuta.glade.h:177
 msgid "Keep going when some targets can not be made"
 msgstr "Fortsätt då en del mål inte kan skapas"
 
-#: anjuta.glade.h:197 anjuta_dialogs_strings.c:33
+#: anjuta.glade.h:178
 msgid "Language-specific commands:"
 msgstr "Språkspecifika kommandon:"
 
-#: anjuta.glade.h:198 anjuta_dialogs_strings.c:57 anjuta_dialogs_strings.c:213
+#: anjuta.glade.h:179
 msgid "Libraries"
 msgstr "Bibliotek"
 
-#: anjuta.glade.h:199 anjuta_dialogs_strings.c:53
+#: anjuta.glade.h:180
 msgid "Library Paths"
 msgstr "Bibliotekssökvägar"
 
-#: anjuta.glade.h:200 anjuta_dialogs_strings.c:386
+#: anjuta.glade.h:181
 msgid "Line numbers margin width in pixels"
 msgstr "Bredd på radnummermarginal i bildpunkter"
 
-#: anjuta.glade.h:201 anjuta_dialogs_strings.c:423 printing/print.c:1055
-#: src/anjuta_info.c:126
+#: anjuta.glade.h:182 printing/print.c:1055 src/anjuta_info.c:126
 msgid "Lines"
 msgstr "Rader"
 
-#: anjuta.glade.h:202 anjuta_dialogs_strings.c:73
+#: anjuta.glade.h:183
 msgid "Linker Flags (LDFLAGS):"
 msgstr "Länkarflaggor (LDFLAGS):"
 
-#: anjuta.glade.h:203 anjuta_dialogs_strings.c:44
+#: anjuta.glade.h:184
 msgid "Load _global defaults"
 msgstr "Läs in _globala standardalternativ"
 
-#: anjuta.glade.h:204 anjuta_dialogs_strings.c:45
+#: anjuta.glade.h:185
 msgid "Load _user defaults"
 msgstr "Läs in _användarstandardalternativ"
 
-#: anjuta.glade.h:205 anjuta_dialogs_strings.c:64
+#: anjuta.glade.h:186
 msgid "Low-Level Optimization (Machine dependent optimization)"
 msgstr "Lågnivåoptimering (maskinberoende optimering)"
 
-#: anjuta.glade.h:206 anjuta_dialogs_strings.c:222
+#: anjuta.glade.h:187
 msgid "Makefile.am"
 msgstr "Makefile.am"
 
-#: anjuta.glade.h:207 anjuta_dialogs_strings.c:182
+#: anjuta.glade.h:188
 msgid "Man pages"
 msgstr "Manualsidor"
 
-#: anjuta.glade.h:208 anjuta_dialogs_strings.c:135
+#: anjuta.glade.h:189
 msgid "Match at start of word"
 msgstr "Matcha början på ord"
 
-#: anjuta.glade.h:209 anjuta_dialogs_strings.c:136
+#: anjuta.glade.h:190
 msgid "Match complete lines"
 msgstr "Matcha hela rader"
 
-#: anjuta.glade.h:210 anjuta_dialogs_strings.c:137
+#: anjuta.glade.h:191
 msgid "Match complete words"
 msgstr "Matcha hela ord"
 
-#: anjuta.glade.h:211 anjuta_dialogs_strings.c:170
+#: anjuta.glade.h:192
 msgid "Max. Actions"
 msgstr "Maximalt antal åtgärder"
 
-#: anjuta.glade.h:212 anjuta_dialogs_strings.c:354
+#: anjuta.glade.h:193
 msgid "Maximum number of independent jobs (0 == no limit)"
 msgstr "Maximalt antal oberoende jobb (0 == ingen gräns)"
 
-#: anjuta.glade.h:213 anjuta_dialogs_strings.c:65
+#: anjuta.glade.h:194
 msgid "Medium-Level Optimization (Without space-speed trade-off)"
 msgstr "Mellannivåoptimering (utan storlek-hastighetskompromiss)"
 
-#: anjuta.glade.h:214 anjuta_dialogs_strings.c:499
+#: anjuta.glade.h:195
 msgid "Memory"
 msgstr "Minne"
 
-#: anjuta.glade.h:215 anjuta_dialogs_strings.c:259
+#: anjuta.glade.h:196
 msgid "Menu icon:"
 msgstr "Menyikon:"
 
-#: anjuta.glade.h:216 anjuta_dialogs_strings.c:228
+#: anjuta.glade.h:197
 msgid "Menu location:"
 msgstr "Menyplacering:"
 
-#: anjuta.glade.h:217 anjuta_dialogs_strings.c:448
+#: anjuta.glade.h:198
 msgid "Message colors"
 msgstr "Meddelandefärger"
 
-#: anjuta.glade.h:218 anjuta_dialogs_strings.c:431
+#: anjuta.glade.h:199
 msgid "Messages options"
 msgstr "Meddelandealternativ"
 
-#: anjuta.glade.h:219 anjuta_dialogs_strings.c:390
+#: anjuta.glade.h:200
 msgid "Misc options"
 msgstr "Diverse alternativ"
 
-#: anjuta.glade.h:220 anjuta_dialogs_strings.c:417
+#: anjuta.glade.h:201
 msgid "Mode:"
 msgstr "Läge:"
 
-#: anjuta.glade.h:221 anjuta_dialogs_strings.c:200
+#: anjuta.glade.h:202
 msgid "Modules"
 msgstr "Moduler"
 
-#: anjuta.glade.h:222 anjuta_dialogs_strings.c:419
+#: anjuta.glade.h:203
 msgid "Monochrome"
 msgstr "Svartvit"
 
-#: anjuta.glade.h:223 anjuta_dialogs_strings.c:226
+#: anjuta.glade.h:204
 msgid "Name:"
 msgstr "Namn:"
 
-#: anjuta.glade.h:224 anjuta_dialogs_strings.c:472 src/main_menubar_def.h:30
-#: src/text_editor_gui.c:97 src/toolbar.c:76
+#: anjuta.glade.h:205 src/main_menubar_def.h:30 src/text_editor_gui.c:97
+#: src/toolbar.c:76
 msgid "New file"
 msgstr "Ny fil"
 
-#: anjuta.glade.h:225 anjuta_dialogs_strings.c:171
+#: anjuta.glade.h:206
 msgid "No Limit"
 msgstr "Ingen gräns"
 
-#: anjuta.glade.h:226 anjuta_dialogs_strings.c:63
+#: anjuta.glade.h:207
 msgid "No Optimization"
 msgstr "Ingen optimering"
 
-#: anjuta.glade.h:227 anjuta_dialogs_strings.c:433
+#: anjuta.glade.h:208
 msgid "Normal message indicator style:"
 msgstr "Stil för normal meddelandeindikator:"
 
-#: anjuta.glade.h:228 anjuta_dialogs_strings.c:442
+#: anjuta.glade.h:209
 msgid "Normal messages:"
 msgstr "Normala meddelanden:"
 
-#: anjuta.glade.h:229 anjuta_dialogs_strings.c:360
-#: anjuta_dialogs_strings.c:414
+#: anjuta.glade.h:210
 msgid ""
 "Note: If there is a project open, the preferences in this page are project "
 "preferences and will be loaded from and saved with the project. If there is "
@@ -1057,348 +910,333 @@ msgstr ""
 "projektet. Om inget projekt är öppet kommer de att vara globala "
 "inställningar."
 
-#: anjuta.glade.h:230 anjuta_dialogs_strings.c:427
+#: anjuta.glade.h:211
 msgid "Number of first characters to show:"
 msgstr "Antal första tecken att visa:"
 
-#: anjuta.glade.h:231 anjuta_dialogs_strings.c:428
+#: anjuta.glade.h:212
 msgid "Number of last characters to show:"
 msgstr "Antal sista tecken att visa:"
 
 #. Must declare static, because it will be used forever
-#: anjuta.glade.h:232 anjuta_dialogs_strings.c:470 src/project_dbase.c:220
-#: src/toolbar.c:213
+#: anjuta.glade.h:213 src/project_dbase.c:220 src/toolbar.c:211
 msgid "Open Project"
 msgstr "Öppna projekt"
 
-#: anjuta.glade.h:233 anjuta_dialogs_strings.c:468
+#: anjuta.glade.h:214
 msgid "Open existing Project."
 msgstr "Öppna befintligt projekt."
 
-#: anjuta.glade.h:234 anjuta_dialogs_strings.c:471
+#: anjuta.glade.h:215
 msgid "Open existing file or create a new file."
 msgstr "Öppna befintlig fil eller skapa en ny fil."
 
-#: anjuta.glade.h:235 anjuta_dialogs_strings.c:473 src/main_menubar_def.h:36
-#: src/text_editor_gui.c:101 src/toolbar.c:80
+#: anjuta.glade.h:216 src/main_menubar_def.h:36 src/text_editor_gui.c:101
+#: src/toolbar.c:80
 msgid "Open file"
 msgstr "Öppna fil"
 
-#: anjuta.glade.h:236 anjuta_dialogs_strings.c:469
+#: anjuta.glade.h:217
 msgid "Open last working Project"
 msgstr "Öppna senaste arbetsprojektet"
 
-#: anjuta.glade.h:237 anjuta_dialogs_strings.c:67
+#: anjuta.glade.h:218
 msgid "Optimization"
 msgstr "Optimeringar"
 
 #. 15
-#: anjuta.glade.h:238 anjuta_dialogs_strings.c:78 anjuta_dialogs_strings.c:342
-#: src/text_editor_menu.c:329
+#: anjuta.glade.h:219 src/text_editor_menu.c:329
 msgid "Options"
 msgstr "Alternativ"
 
-#: anjuta.glade.h:239 anjuta_dialogs_strings.c:326
+#: anjuta.glade.h:220
 msgid "Other colors"
 msgstr "Andra färger"
 
-#: anjuta.glade.h:240 anjuta_dialogs_strings.c:443
+#: anjuta.glade.h:221
 msgid "Other messages:"
 msgstr "Övriga meddelanden:"
 
-#: anjuta.glade.h:241 anjuta_dialogs_strings.c:359 src/an_symbol_view.c:54
+#: anjuta.glade.h:222 src/an_symbol_view.c:54
 msgid "Others"
 msgstr "Annat"
 
-#: anjuta.glade.h:242 anjuta_dialogs_strings.c:218
+#: anjuta.glade.h:223
 msgid "Output files"
 msgstr "Utdatafiler"
 
-#: anjuta.glade.h:243 anjuta_dialogs_strings.c:313
-#: anjuta_dialogs_strings.c:314 anjuta_dialogs_strings.c:322
-#: anjuta_dialogs_strings.c:323 anjuta_dialogs_strings.c:324
-#: anjuta_dialogs_strings.c:325 anjuta_dialogs_strings.c:444
-#: anjuta_dialogs_strings.c:445 anjuta_dialogs_strings.c:446
-#: anjuta_dialogs_strings.c:447
+#: anjuta.glade.h:224
 msgid "Pick a color"
 msgstr "Välj en färg"
 
-#: anjuta.glade.h:244 anjuta_dialogs_strings.c:206
+#: anjuta.glade.h:225
 msgid "Pixmap module Makefile.am"
 msgstr "Pixmapmodul Makefile.am"
 
-#: anjuta.glade.h:245 anjuta_dialogs_strings.c:209
+#: anjuta.glade.h:226
 msgid "Po module (translation) Makefile.am"
 msgstr "Po-modul (översättning) Makefile.am"
 
-#: anjuta.glade.h:246 anjuta_dialogs_strings.c:395
+#: anjuta.glade.h:227
 msgid "Position:"
 msgstr "Position:"
 
-#: anjuta.glade.h:247 anjuta_dialogs_strings.c:292
+#: anjuta.glade.h:228
 msgid "Press this button to dismiss the dialog"
 msgstr "Tryck på denna knapp för att stänga dialogfönstret"
 
-#: anjuta.glade.h:248 anjuta_dialogs_strings.c:406
+#: anjuta.glade.h:229
 msgid "Pressing backspace un-indents"
 msgstr "Tryck på bakåtsteg tar bort indentering"
 
-#: anjuta.glade.h:249 anjuta_dialogs_strings.c:405
+#: anjuta.glade.h:230
 msgid "Pressing tab indents"
 msgstr "Tryck på tabulatortangenten indenterar"
 
-#: anjuta.glade.h:250 anjuta_dialogs_strings.c:424
+#: anjuta.glade.h:231
 msgid "Print options"
 msgstr "Utskriftsalternativ "
 
-#: anjuta.glade.h:251 anjuta_dialogs_strings.c:212
+#: anjuta.glade.h:232
 msgid "Programs"
 msgstr "Program"
 
-#: anjuta.glade.h:252 anjuta_dialogs_strings.c:234 src/project_dbase_gui.c:610
-#: src/project_dbase_gui.c:627 src/toolbar.c:149
+#: anjuta.glade.h:233 src/project_dbase_gui.c:610 src/project_dbase_gui.c:627
+#: src/toolbar.c:149
 msgid "Project"
 msgstr "Projekt"
 
-#: anjuta.glade.h:253 anjuta_dialogs_strings.c:184
+#: anjuta.glade.h:234
 msgid "Project Configuration"
 msgstr "Projektkonfiguration"
 
-#: anjuta.glade.h:254 anjuta_dialogs_strings.c:192 src/wizard_gui.c:469
+#: anjuta.glade.h:235 src/wizard_gui.c:469
 msgid "Project Description"
 msgstr "Projektbeskrivning"
 
-#: anjuta.glade.h:255 anjuta_dialogs_strings.c:191
+#: anjuta.glade.h:236
 msgid "Project Version"
 msgstr "Projektversion"
 
-#: anjuta.glade.h:256 anjuta_dialogs_strings.c:201
+#: anjuta.glade.h:237
 msgid "Project configure.in"
 msgstr "configure.in för projektet"
 
-#: anjuta.glade.h:257 anjuta_dialogs_strings.c:247
+#: anjuta.glade.h:238
 msgid "Project level"
 msgstr "Projektnivå"
 
-#: anjuta.glade.h:258 anjuta_dialogs_strings.c:328
+#: anjuta.glade.h:239
 msgid "Projects:"
 msgstr "Projekt:"
 
-#: anjuta.glade.h:259 anjuta_dialogs_strings.c:113
+#: anjuta.glade.h:240
 msgid "Prompt before replace"
 msgstr "Fråga innan ersättning"
 
-#: anjuta.glade.h:260 anjuta_dialogs_strings.c:332
+#: anjuta.glade.h:241
 msgid "Recent Files:"
 msgstr "Senaste filer:"
 
-#: anjuta.glade.h:261 anjuta_dialogs_strings.c:331
+#: anjuta.glade.h:242
 msgid "Recent Projects:"
 msgstr "Senaste projekt:"
 
-#: anjuta.glade.h:262 anjuta_dialogs_strings.c:109
-#: anjuta_dialogs_strings.c:124
+#: anjuta.glade.h:243
 msgid "Regexp"
 msgstr "Reguljärt uttryck"
 
-#: anjuta.glade.h:263 anjuta_dialogs_strings.c:100
-#: anjuta_dialogs_strings.c:117
+#: anjuta.glade.h:244
 msgid "Regexp/String to find"
 msgstr "Reguljärt uttryck/Sträng att söka efter"
 
-#: anjuta.glade.h:264 anjuta_dialogs_strings.c:131
+#: anjuta.glade.h:245
 msgid "Regular Expression"
 msgstr "Reguljärt uttryck"
 
-#: anjuta.glade.h:265 anjuta_dialogs_strings.c:296
+#: anjuta.glade.h:246
 msgid "Reload Session Defaults"
 msgstr "Läs om sessionsstandardalternativ"
 
-#: anjuta.glade.h:266 anjuta_dialogs_strings.c:295
+#: anjuta.glade.h:247
 msgid "Reload System Defaults"
 msgstr "Läs om systemstandardalternativ"
 
-#: anjuta.glade.h:267 anjuta_dialogs_strings.c:177
+#: anjuta.glade.h:248
 msgid "Replace Expression"
 msgstr "Ersättningsuttryck"
 
-#: anjuta.glade.h:268 anjuta_dialogs_strings.c:174
+#: anjuta.glade.h:249
 msgid "Replace With:"
 msgstr "Ersätt med:"
 
-#: anjuta.glade.h:269 anjuta_dialogs_strings.c:452
+#: anjuta.glade.h:250
 msgid "Reset all sticky tags during update (looses branch) [-A]"
 msgstr ""
 "Återställ alla klistriga taggar vid uppdatering (tappar greninformation) [-A]"
 
-#: anjuta.glade.h:270 anjuta_dialogs_strings.c:82
+#: anjuta.glade.h:251
 msgid "Run Configure Script"
 msgstr "Kör configure-skript"
 
-#: anjuta.glade.h:271 anjuta_dialogs_strings.c:244
+#: anjuta.glade.h:252
 msgid "Run detached"
 msgstr "Kör frånkopplad"
 
-#: anjuta.glade.h:272 anjuta_dialogs_strings.c:97
+#: anjuta.glade.h:253
 msgid "Run in Terminal"
 msgstr "Kör i terminal"
 
-#: anjuta.glade.h:273 anjuta_dialogs_strings.c:245
+#: anjuta.glade.h:254
 msgid "Run in terminal"
 msgstr "Kör i terminal"
 
-#: anjuta.glade.h:274 anjuta_dialogs_strings.c:262
+#: anjuta.glade.h:255
 msgid "Save all files"
 msgstr "Spara alla filer"
 
-#: anjuta.glade.h:275 anjuta_dialogs_strings.c:363
+#: anjuta.glade.h:256
 msgid "Save files interval in minutes"
 msgstr "Tidsintervall i minuter för filsparande"
 
-#: anjuta.glade.h:276 anjuta_dialogs_strings.c:364
+#: anjuta.glade.h:257
 msgid "Save session interval in minutes"
 msgstr "Tidsintervall i minuter för sessionssparande"
 
-#: anjuta.glade.h:277 anjuta_dialogs_strings.c:105
-#: anjuta_dialogs_strings.c:120
+#: anjuta.glade.h:258
 msgid "Scope"
 msgstr "Omfattning"
 
-#: anjuta.glade.h:278 anjuta_dialogs_strings.c:221
+#: anjuta.glade.h:259
 msgid "Scripts at the end of top level Makefile.am"
 msgstr "Skript på slutet av översta Makefile.am"
 
-#: anjuta.glade.h:279 anjuta_dialogs_strings.c:178 src/search-replace.c:1332
-#: src/search-replace.c:1495 src/search-replace.c:1501
+#: anjuta.glade.h:260 src/search-replace.c:1332 src/search-replace.c:1495
+#: src/search-replace.c:1501
 msgid "Search"
 msgstr "Sök"
 
-#: anjuta.glade.h:280 anjuta_dialogs_strings.c:172
+#: anjuta.glade.h:261
 msgid "Search Action:"
 msgstr "Sökåtgärd:"
 
-#: anjuta.glade.h:281 anjuta_dialogs_strings.c:141
+#: anjuta.glade.h:262
 msgid "Search Direction:"
 msgstr "Sökriktning:"
 
-#: anjuta.glade.h:282 anjuta_dialogs_strings.c:138
+#: anjuta.glade.h:263
 msgid "Search Expression"
 msgstr "Sökuttryck"
 
-#: anjuta.glade.h:283 anjuta_dialogs_strings.c:130
+#: anjuta.glade.h:264
 msgid "Search Expression:"
 msgstr "Sökuttryck:"
 
-#: anjuta.glade.h:284 anjuta_dialogs_strings.c:139
+#: anjuta.glade.h:265
 msgid "Search In:"
 msgstr "Sök i:"
 
-#: anjuta.glade.h:285 anjuta_dialogs_strings.c:168
+#: anjuta.glade.h:266
 msgid "Search Recursively"
 msgstr "Sök rekursivt"
 
-#: anjuta.glade.h:286 anjuta_dialogs_strings.c:93
+#: anjuta.glade.h:267
 msgid "Search String"
 msgstr "Sök sträng"
 
-#: anjuta.glade.h:287 anjuta_dialogs_strings.c:173
+#: anjuta.glade.h:268
 msgid "Search Target"
 msgstr "Sökmål"
 
-#: anjuta.glade.h:288 anjuta_dialogs_strings.c:146
+#: anjuta.glade.h:269
 msgid "Search Variable"
 msgstr "Sök variabel"
 
-#: anjuta.glade.h:289 anjuta_dialogs_strings.c:111
-#: anjuta_dialogs_strings.c:126
+#: anjuta.glade.h:270
 msgid "Search type"
 msgstr "Söktyp"
 
-#: anjuta.glade.h:290 anjuta_dialogs_strings.c:315
+#: anjuta.glade.h:271
 msgid "Select highlight style to edit:"
 msgstr "Välj färgningsstil att redigera:"
 
-#: anjuta.glade.h:291 anjuta_dialogs_strings.c:299
+#: anjuta.glade.h:272
 msgid "Select theme:"
 msgstr "Välj tema:"
 
-#: anjuta.glade.h:292 anjuta_dialogs_strings.c:319
+#: anjuta.glade.h:273
 msgid "Selection background:"
 msgstr "Markeringsbakgrund:"
 
-#: anjuta.glade.h:293 anjuta_dialogs_strings.c:318
+#: anjuta.glade.h:274
 msgid "Selection foreground:"
 msgstr "Markeringsförgrund:"
 
-#: anjuta.glade.h:294 anjuta_dialogs_strings.c:240
+#: anjuta.glade.h:275
 msgid "Settings"
 msgstr "Inställningar"
 
-#: anjuta.glade.h:295 anjuta_dialogs_strings.c:256
+#: anjuta.glade.h:276
 msgid "Short cut:"
 msgstr "Genväg:"
 
-#: anjuta.glade.h:296 anjuta_dialogs_strings.c:341
+#: anjuta.glade.h:277
 msgid "Show tooltips"
 msgstr "Visa verktygstips"
 
-#: anjuta.glade.h:297 anjuta_dialogs_strings.c:352
+#: anjuta.glade.h:278
 msgid "Silent. That is, do not echo shell commads during make"
 msgstr "Tyst: Dvs eka inte skalkommandon under körning av make"
 
-#: anjuta.glade.h:298 anjuta_dialogs_strings.c:392
+#: anjuta.glade.h:279
 msgid "Sorted by most recent use"
 msgstr "Sorterat efter senaste användning"
 
-#: anjuta.glade.h:299 anjuta_dialogs_strings.c:393
+#: anjuta.glade.h:280
 msgid "Sorted in alphabetical order"
 msgstr "Sorterade i alfabetisk ordning"
 
-#: anjuta.glade.h:300 anjuta_dialogs_strings.c:391
+#: anjuta.glade.h:281
 msgid "Sorted in the order you open them"
 msgstr "Sorterat i den ordning du öppnade dem"
 
-#: anjuta.glade.h:301 anjuta_dialogs_strings.c:79
+#: anjuta.glade.h:282
 msgid "Source Directories"
 msgstr "Källkodskataloger"
 
-#: anjuta.glade.h:302 anjuta_dialogs_strings.c:203
+#: anjuta.glade.h:283
 msgid "Source module Makefile.am"
 msgstr "Källkodsmodul Makefile.am"
 
-#: anjuta.glade.h:303 anjuta_dialogs_strings.c:162
-#: anjuta_dialogs_strings.c:286
+#: anjuta.glade.h:284
 msgid "Space-seperated list of directory name patterns to ignore"
 msgstr "Blankstegsseparerad lista med katalognamnsmönster att ignorera"
 
-#: anjuta.glade.h:304 anjuta_dialogs_strings.c:159
-#: anjuta_dialogs_strings.c:284
+#: anjuta.glade.h:285
 msgid "Space-seperated list of directory name patterns to match"
 msgstr "Blankstegsseparerad lista med katalognamnsmönster att matcha"
 
-#: anjuta.glade.h:305 anjuta_dialogs_strings.c:154
-#: anjuta_dialogs_strings.c:277
+#: anjuta.glade.h:286
 msgid "Space-seperated list of file name patterns to ignore"
 msgstr "Blankstegsseparerad lista med filnamnsmönster att ignorera"
 
-#: anjuta.glade.h:306 anjuta_dialogs_strings.c:148
-#: anjuta_dialogs_strings.c:271
+#: anjuta.glade.h:287
 msgid "Space-seperated list of file name patterns to match"
 msgstr "Blankstegsseparerad lista med filnamnsmönster att matcha"
 
-#: anjuta.glade.h:307 anjuta_dialogs_strings.c:255
+#: anjuta.glade.h:288
 msgid "Standard error:"
 msgstr "Standardfel:"
 
-#: anjuta.glade.h:308 anjuta_dialogs_strings.c:249
+#: anjuta.glade.h:289
 msgid "Standard input:"
 msgstr "Standardindata:"
 
-#: anjuta.glade.h:309 anjuta_dialogs_strings.c:252
+#: anjuta.glade.h:290
 msgid "Standard output:"
 msgstr "Standardutdata:"
 
-#: anjuta.glade.h:310 anjuta_dialogs_strings.c:464
+#: anjuta.glade.h:291
 msgid ""
 "Start with a new Project. Application wizard will guide you with Project "
 "creation. With the Application Wizard, you will be able to create the "
@@ -1408,289 +1246,226 @@ msgstr ""
 "skapandet av ett projekt. Med programguiden kommer du att kunna skapa skalet "
 "för många olika typer av projekt."
 
-#: anjuta.glade.h:311 anjuta_dialogs_strings.c:110
-#: anjuta_dialogs_strings.c:125
+#: anjuta.glade.h:292
 msgid "String"
 msgstr "Sträng"
 
-#: anjuta.glade.h:312 anjuta_dialogs_strings.c:102
+#: anjuta.glade.h:293
 msgid "String to replace"
 msgstr "Sträng att ersätta"
 
-#: anjuta.glade.h:313 anjuta_dialogs_strings.c:383
+#: anjuta.glade.h:294
 msgid "Strip trailling spaces on file save"
 msgstr "Ta bort eftersläpande blanksteg vid filsparande"
 
-#: anjuta.glade.h:314 anjuta_dialogs_strings.c:488 src/wizard_gui.c:743
-msgid "Summary"
-msgstr "Sammanfattning"
-
-#: anjuta.glade.h:315 anjuta_dialogs_strings.c:508 src/anjuta-encodings.c:723
+#: anjuta.glade.h:295 src/anjuta-encodings.c:723
 msgid "Supported Encodings"
 msgstr "Kodningar som stöds"
 
-#: anjuta.glade.h:316 anjuta_dialogs_strings.c:47
+#: anjuta.glade.h:296
 msgid "Supports"
 msgstr "Stöd"
 
-#: anjuta.glade.h:317 anjuta_dialogs_strings.c:293
+#: anjuta.glade.h:297
 msgid "Syntax highlight editor"
 msgstr "Syntaxfärga redigerare"
 
-#: anjuta.glade.h:318 anjuta_dialogs_strings.c:399
+#: anjuta.glade.h:298
 msgid "Tab size in spaces:"
 msgstr "Tabulatorstorlek i blanksteg:"
 
-#: anjuta.glade.h:319 anjuta_dialogs_strings.c:429
+#: anjuta.glade.h:299
 msgid "Tabs position:"
 msgstr "Tabulatorposition:"
 
-#: anjuta.glade.h:320 anjuta_dialogs_strings.c:188
+#: anjuta.glade.h:300
 msgid "Target:"
 msgstr "Mål:"
 
-#: anjuta.glade.h:321 anjuta_dialogs_strings.c:461
+#: anjuta.glade.h:301
 msgid "Terminal options"
 msgstr "Terminalalternativ"
 
-#: anjuta.glade.h:322 anjuta_dialogs_strings.c:301
+#: anjuta.glade.h:302
 msgid "Theme"
 msgstr "Tema"
 
-#: anjuta.glade.h:323 anjuta_dialogs_strings.c:225
-#: anjuta_dialogs_strings.c:263
+#: anjuta.glade.h:303
 msgid "Tool Editor"
 msgstr "Verktygsredigerare"
 
-#: anjuta.glade.h:324 anjuta_dialogs_strings.c:202
+#: anjuta.glade.h:304
 msgid "Top level Makefile.am"
 msgstr "Toppnivå Makefile.am"
 
-#: anjuta.glade.h:325 anjuta_dialogs_strings.c:426
+#: anjuta.glade.h:305
 msgid "Truncate long messages"
 msgstr "Kapa långa meddelanden"
 
-#: anjuta.glade.h:326 anjuta_dialogs_strings.c:506
+#: anjuta.glade.h:306
 msgid "Try to save in current locale's encoding"
 msgstr "Försök spara med kodningen för den aktuella lokalen"
 
-#: anjuta.glade.h:327 anjuta_dialogs_strings.c:505
+#: anjuta.glade.h:307
 msgid "Try to save in original encoding"
 msgstr "Försök spara i ursprunglig kodning"
 
-#: anjuta.glade.h:328 anjuta_dialogs_strings.c:312
+#: anjuta.glade.h:308
 msgid "Underlined"
 msgstr "Understruken"
 
-#: anjuta.glade.h:329 anjuta_dialogs_strings.c:487
-msgid "Undocked style"
-msgstr "Odockad stil"
-
-#: anjuta.glade.h:330 anjuta_dialogs_strings.c:479
-msgid ""
-"Undocked style presents Anjuta\n"
-"in with all sub-windows undocked\n"
-"from the main window."
-msgstr ""
-"Odockad stil visar Anjuta\n"
-"med alla underfönster odockade\n"
-"från huvudfönstret."
-
-#: anjuta.glade.h:333 anjuta_dialogs_strings.c:48 anjuta_dialogs_strings.c:51
-#: anjuta_dialogs_strings.c:54 anjuta_dialogs_strings.c:58 src/cvs_gui.c:73
-#: src/registers_gui.c:47 src/sharedlib_gui.c:40 src/signals_gui.c:54
-#: src/stack_trace.c:370
+#: anjuta.glade.h:309 src/cvs_gui.c:73 src/registers_gui.c:47
+#: src/sharedlib_gui.c:40 src/signals_gui.c:54 src/stack_trace.c:370
 msgid "Update"
 msgstr "Uppdatera"
 
-#: anjuta.glade.h:334 anjuta_dialogs_strings.c:338
+#: anjuta.glade.h:310
 msgid "Update tags image automatically"
 msgstr "Uppdatera automatiskt taggbilder"
 
-#: anjuta.glade.h:335 anjuta_dialogs_strings.c:457
+#: anjuta.glade.h:311
 msgid "Use GNOME terminal profile:"
 msgstr "Använd GNOME:s terminalprofil:"
 
-#: anjuta.glade.h:336 anjuta_dialogs_strings.c:460
+#: anjuta.glade.h:312
 msgid "Use currently selected profile in GNOME terminal"
 msgstr "Använd för tillfället markerad profil i GNOME-terminalen"
 
-#: anjuta.glade.h:337 anjuta_dialogs_strings.c:306
-#: anjuta_dialogs_strings.c:307 anjuta_dialogs_strings.c:308
-#: anjuta_dialogs_strings.c:309
+#: anjuta.glade.h:313
 msgid "Use default"
 msgstr "Använd standardvärde"
 
-#: anjuta.glade.h:338 anjuta_dialogs_strings.c:402
+#: anjuta.glade.h:314
 msgid "Use tabs for indentation"
 msgstr "Använd tabulatorer för indentering"
 
-#: anjuta.glade.h:339 anjuta_dialogs_strings.c:223
+#: anjuta.glade.h:315
 msgid "User Tools"
 msgstr "Användarverktyg"
 
-#: anjuta.glade.h:340 anjuta_dialogs_strings.c:344
+#: anjuta.glade.h:316
 msgid "User email address:"
 msgstr "Användarens e-postadress:"
 
-#: anjuta.glade.h:341 anjuta_dialogs_strings.c:347
+#: anjuta.glade.h:317
 msgid "User information"
 msgstr "Användarinformation"
 
-#: anjuta.glade.h:342 anjuta_dialogs_strings.c:343
+#: anjuta.glade.h:318
 msgid "User name:"
 msgstr "Användarnamn:"
 
-#: anjuta.glade.h:343 anjuta_dialogs_strings.c:264
-#: anjuta_dialogs_strings.c:265
+#: anjuta.glade.h:319
 msgid "Variable list"
 msgstr "Variabellista"
 
-#: anjuta.glade.h:344 anjuta_dialogs_strings.c:186 src/project_dbase_gui.c:932
+#: anjuta.glade.h:320 src/project_dbase_gui.c:932
 msgid "Version:"
 msgstr "Version:"
 
-#: anjuta.glade.h:345 anjuta_dialogs_strings.c:233
+#: anjuta.glade.h:321
 msgid "View"
 msgstr "Visning"
 
-#: anjuta.glade.h:346 anjuta_dialogs_strings.c:353
+#: anjuta.glade.h:322
 msgid "Warn when an undefined variable is referenced in the Makefile"
 msgstr "Varna då en odefinierad variabel refereras i Makefile"
 
-#: anjuta.glade.h:347 anjuta_dialogs_strings.c:434
+#: anjuta.glade.h:323
 msgid "Warning message indicator style:"
 msgstr "Stil för varningsmeddelandeindikator:"
 
-#: anjuta.glade.h:348 anjuta_dialogs_strings.c:62
+#: anjuta.glade.h:324
 msgid "Warnings"
 msgstr "Varningar"
 
-#: anjuta.glade.h:349 anjuta_dialogs_strings.c:441
+#: anjuta.glade.h:325
 msgid "Warnings messages:"
 msgstr "Varningsmeddelanden:"
 
-#: anjuta.glade.h:350 anjuta_dialogs_strings.c:103
-#: anjuta_dialogs_strings.c:118
+#: anjuta.glade.h:326
 msgid "Whole document"
 msgstr "Hela dokumentet"
 
-#: anjuta.glade.h:351 anjuta_dialogs_strings.c:112
-#: anjuta_dialogs_strings.c:127
+#: anjuta.glade.h:327
 msgid "Whole word"
 msgstr "Hela ord"
 
-#: anjuta.glade.h:352 anjuta_dialogs_strings.c:478
-msgid "Windows style"
-msgstr "Fönsterstil"
-
-#: anjuta.glade.h:353 anjuta_dialogs_strings.c:242
+#: anjuta.glade.h:328
 msgid "Working directory:"
 msgstr "Arbetskatalog:"
 
-#: anjuta.glade.h:354 anjuta_dialogs_strings.c:385
+#: anjuta.glade.h:329
 msgid "Wrap bookmarks search around"
 msgstr "Börja om bokmärkessökning från början"
 
-#: anjuta.glade.h:355 anjuta_dialogs_strings.c:9
+#: anjuta.glade.h:330
 msgid "_Attach"
 msgstr "_Anslut"
 
-#: anjuta.glade.h:356 anjuta_dialogs_strings.c:36
+#: anjuta.glade.h:331
 msgid "_Build a file:"
 msgstr "_Bygg en fil:"
 
-#: anjuta.glade.h:357 anjuta_dialogs_strings.c:17
+#: anjuta.glade.h:332
 msgid "_Condition:"
 msgstr "_Villkor:"
 
-#: anjuta.glade.h:358 anjuta_dialogs_strings.c:13
+#: anjuta.glade.h:333
 msgid "_Disable all"
 msgstr "_Inaktivera alla"
 
-#: anjuta.glade.h:359 anjuta_dialogs_strings.c:224
+#: anjuta.glade.h:334
 msgid "_Edit"
 msgstr "_Redigera"
 
-#: anjuta.glade.h:360 anjuta_dialogs_strings.c:37
+#: anjuta.glade.h:335
 msgid "_Execute:"
 msgstr "_Kör:"
 
-#: anjuta.glade.h:361 anjuta_dialogs_strings.c:26
+#: anjuta.glade.h:336
 msgid "_Image editor:"
 msgstr "_Bildredigerare:"
 
-#: anjuta.glade.h:362 anjuta_dialogs_strings.c:42
+#: anjuta.glade.h:337
 msgid "_Language:"
 msgstr "_Språk:"
 
-#: anjuta.glade.h:363 anjuta_dialogs_strings.c:16
+#: anjuta.glade.h:338
 msgid "_Location:"
 msgstr "_Plats:"
 
-#: anjuta.glade.h:364 anjuta_dialogs_strings.c:38
+#: anjuta.glade.h:339
 msgid "_Make a file:"
 msgstr "_Skapa en fil:"
 
-#: anjuta.glade.h:365 anjuta_dialogs_strings.c:18
+#: anjuta.glade.h:340
 msgid "_Pass:"
 msgstr "_Pass:"
 
-#: anjuta.glade.h:366 anjuta_dialogs_strings.c:25
+#: anjuta.glade.h:341
 msgid "_Pixmap editor:"
 msgstr "_Pixmapredigerare:"
 
-#: anjuta.glade.h:367 anjuta_dialogs_strings.c:10
+#: anjuta.glade.h:342
 msgid "_Process to attach to:"
 msgstr "_Process att ansluta till:"
 
-#: anjuta.glade.h:368 anjuta_dialogs_strings.c:14
+#: anjuta.glade.h:343
 msgid "_Remove all"
 msgstr "_Ta bort alla"
 
-#: anjuta.glade.h:369 anjuta_dialogs_strings.c:297
+#: anjuta.glade.h:344
 msgid "_Save Theme As"
 msgstr "_Spara tema som"
 
-#: anjuta.glade.h:370 anjuta_dialogs_strings.c:28
+#: anjuta.glade.h:345
 msgid "_Terminal:"
 msgstr "_Terminal:"
 
-#: anjuta.glade.h:371 anjuta_dialogs_strings.c:8 anjuta_dialogs_strings.c:80
+#: anjuta.glade.h:346
 msgid "_Update"
 msgstr "_Uppdatera"
-
-#: anjuta_dialogs_strings.c:327 anjuta_dialogs_strings.c:503
-msgid "window1"
-msgstr "fönster1"
-
-#: anjuta_dialogs_strings.c:348
-msgid "window2"
-msgstr "fönster2"
-
-#: anjuta_dialogs_strings.c:361
-msgid "window3"
-msgstr "fönster3"
-
-#: anjuta_dialogs_strings.c:398
-msgid "window4"
-msgstr "fönster4"
-
-#: anjuta_dialogs_strings.c:416
-msgid "window5"
-msgstr "fönster5"
-
-#: anjuta_dialogs_strings.c:425
-msgid "window6"
-msgstr "fönster6"
-
-#: anjuta_dialogs_strings.c:449
-msgid "window7"
-msgstr "fönster7"
-
-#: anjuta_dialogs_strings.c:456
-msgid "window8"
-msgstr "fönster8"
 
 #: gdl/gdl-dock-item-grip.c:244
 msgid "Dock the toolbar"
@@ -1836,7 +1611,7 @@ msgid "Item"
 msgstr "Objekt"
 
 #: gdl/gdl-dock-layout.c:737 gdl/gdl-dock-object.c:120
-#: src/compiler_options.c:816 src/windows-dialog.c:294
+#: src/compiler_options.c:816
 msgid "Name"
 msgstr "Namn"
 
@@ -2732,7 +2507,7 @@ msgstr "Det finns redan ett verktyg med namnet \"%s\"!"
 msgid "Unable to build user interface for tool help"
 msgstr "Kan inte bygga användargränssnitt för verktygshjälp"
 
-#: src/anjuta-tools.c:1781 src/debug_tree.c:1458 src/debug_tree.c:1478
+#: src/anjuta-tools.c:1781 src/debug_tree.c:1454 src/debug_tree.c:1474
 #: src/watch_gui.c:127
 msgid "Variable"
 msgstr "Variabel"
@@ -2741,7 +2516,7 @@ msgstr "Variabel"
 msgid "Meaning"
 msgstr "Betydelse"
 
-#: src/anjuta-tools.c:1793 src/debug_tree.c:1458 src/debug_tree.c:1487
+#: src/anjuta-tools.c:1793 src/debug_tree.c:1454 src/debug_tree.c:1483
 #: src/watch_gui.c:136
 msgid "Value"
 msgstr "Värde"
@@ -2770,48 +2545,48 @@ msgstr "Öppna fil"
 msgid "Save File As"
 msgstr "Spara fil som"
 
-#: src/anjuta.c:259
+#: src/anjuta.c:244
 msgid "Cannot create application... exiting\n"
 msgstr "Kan inte skapa program...avslutar\n"
 
-#: src/anjuta.c:309 src/anjuta.c:313 src/anjuta.c:1134 src/anjuta.c:1150
+#: src/anjuta.c:294 src/anjuta.c:298 src/anjuta.c:1119 src/anjuta.c:1135
 #, c-format
 msgid "Anjuta: %s"
 msgstr "Anjuta: %s"
 
-#: src/anjuta.c:370
+#: src/anjuta.c:355
 msgid "Recent Files "
 msgstr "Senaste filer "
 
-#: src/anjuta.c:923
+#: src/anjuta.c:908
 msgid "# * DO NOT EDIT OR RENAME THIS FILE ** Generated by Anjuta **\n"
 msgstr ""
 "# * REDIGERA INTE ELLER BYT INTE NAMN PÅ DENNA FIL ** Genererad av Anjuta "
 "**\n"
 
-#: src/anjuta.c:1099
+#: src/anjuta.c:1084
 msgid "All files saved ..."
 msgstr "Alla filer sparade..."
 
-#: src/anjuta.c:1127
+#: src/anjuta.c:1112
 #, c-format
 msgid "Anjuta: %s (Saved)"
 msgstr "Anjuta: %s (Sparad)"
 
-#: src/anjuta.c:1142
+#: src/anjuta.c:1127
 #, c-format
 msgid "Anjuta: %s (Unsaved)"
 msgstr "Anjuta: %s (Osparad)"
 
-#: src/anjuta.c:1167
+#: src/anjuta.c:1152
 msgid "Anjuta: No file"
 msgstr "Anjuta: Ingen fil"
 
-#: src/anjuta.c:1483 src/anjuta.c:1585
+#: src/anjuta.c:1465 src/anjuta.c:1567
 msgid "ERROR: "
 msgstr "FEL: "
 
-#: src/anjuta.c:1504 src/anjuta.c:1604
+#: src/anjuta.c:1486 src/anjuta.c:1586
 msgid ""
 "\n"
 "System: "
@@ -2819,7 +2594,7 @@ msgstr ""
 "\n"
 "System: "
 
-#: src/anjuta.c:2077
+#: src/anjuta.c:2059
 #, c-format
 msgid ""
 "The \"%s\" utility is not installed.\n"
@@ -2828,35 +2603,35 @@ msgstr ""
 "Verktyget \"%s\" är inte installerat.\n"
 "Installera det och starta sedan om Anjuta."
 
-#: src/anjuta.c:2103 src/anjuta.c:2159
+#: src/anjuta.c:2085 src/anjuta.c:2141
 msgid "None"
 msgstr "Ingen"
 
-#: src/anjuta.c:2114
+#: src/anjuta.c:2096
 msgid "DOS (CRLF)"
 msgstr "DOS (CRLF)"
 
-#: src/anjuta.c:2117 src/anjuta.c:2151
+#: src/anjuta.c:2099 src/anjuta.c:2133
 msgid "Unix (LF)"
 msgstr "Unix (LF)"
 
-#: src/anjuta.c:2120
+#: src/anjuta.c:2102
 msgid "Mac (CR)"
 msgstr "Mac (CR)"
 
-#: src/anjuta.c:2123
+#: src/anjuta.c:2105
 msgid "Unknown"
 msgstr "Okänd"
 
-#: src/anjuta.c:2140
+#: src/anjuta.c:2122
 msgid "OVR"
 msgstr "ÖVR"
 
-#: src/anjuta.c:2144 src/anjuta.c:2150
+#: src/anjuta.c:2126 src/anjuta.c:2132
 msgid "INS"
 msgstr "INS"
 
-#: src/anjuta.c:2162
+#: src/anjuta.c:2144
 #, c-format
 msgid ""
 "  Project: %s       Zoom: %d       Line: %04d       Col: %03d       %s       "
@@ -2865,11 +2640,11 @@ msgstr ""
 "  Projekt: %s       Zoom: %d       Rad: %04d        Kolumn: %03d    %s      "
 "Jobb: %s      Läge: %s"
 
-#: src/anjuta.c:2399
+#: src/anjuta.c:2381
 msgid "Looking up symbol"
 msgstr "Slår upp symbol"
 
-#: src/anjuta.c:2401 src/find_in_files.c:306
+#: src/anjuta.c:2383 src/find_in_files.c:306
 msgid "Finding in Files ....\n"
 msgstr "Söker i filer...\n"
 
@@ -2890,7 +2665,7 @@ msgstr ""
 "Filen \"%s\" finns redan.\n"
 "Vill du ersätta den med den du sparar?"
 
-#: src/anjuta_cbs.c:511 src/anjuta_cbs.c:575 src/find_replace.c:342
+#: src/anjuta_cbs.c:511 src/anjuta_cbs.c:575 src/find_replace.c:343
 msgid "_Replace"
 msgstr "_Ersätt"
 
@@ -2902,12 +2677,12 @@ msgstr "Kunde inte öppna fil för skrivning"
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
-"Do you want to overwrite it?."
+"Do you want to replace it with the one you are saving?."
 msgstr ""
 "Filen \"%s\" finns redan.\n"
-"Vill du skriva över den?"
+"Vill du ersätta den med den du sparar?"
 
-#: src/anjuta_dirs.c:52
+#: src/anjuta_dirs.c:51
 msgid "Unable to create settings directory.\n"
 msgstr "Kan inte skapa inställningskatalog.\n"
 
@@ -3065,7 +2840,7 @@ msgstr "Villkor"
 #. breakpoints_dbase_update,
 #. debugger.breakpoints_dbase);
 #.
-#: src/breakpoints.c:166 src/debugger.c:1792
+#: src/breakpoints.c:166 src/debugger.c:1814
 msgid "All breakpoints enabled:\n"
 msgstr "Alla brytpunkter är aktiverade:\n"
 
@@ -3074,7 +2849,7 @@ msgstr "Alla brytpunkter är aktiverade:\n"
 #. breakpoints_dbase_update,
 #. debugger.breakpoints_dbase);
 #.
-#: src/breakpoints.c:184 src/debugger.c:1838
+#: src/breakpoints.c:184 src/debugger.c:1860
 msgid "All breakpoints disabled:\n"
 msgstr "Alla brytpunkter är frånkopplade:\n"
 
@@ -3354,7 +3129,7 @@ msgstr "Objektfilen är aktuell. Omkompilering behövs inte."
 msgid "No compile command has been specified for this type of file."
 msgstr "Inget kompileringskommando har angivits för denna typ av fil."
 
-#: src/compile.c:158 src/text_editor_gui.c:168 src/toolbar.c:250
+#: src/compile.c:158 src/text_editor_gui.c:168 src/toolbar.c:248
 msgid "Compile"
 msgstr "Kompilera"
 
@@ -3422,7 +3197,7 @@ msgstr ""
 "Projektet har inget körbart configure-skript.\n"
 "Du måste autogenerera projektet först."
 
-#: src/configurer.c:187 src/toolbar.c:262
+#: src/configurer.c:187 src/toolbar.c:260
 msgid "Configure"
 msgstr "Konfigurera"
 
@@ -3678,57 +3453,57 @@ msgstr "Serverinställningar"
 msgid "Import settings"
 msgstr "Importinställningar"
 
-#: src/debug_tree.c:1498
+#: src/debug_tree.c:1494
 msgid "Default format"
 msgstr "Standardformat"
 
-#: src/debug_tree.c:1502
+#: src/debug_tree.c:1498
 msgid "Binary"
 msgstr "Binärt"
 
-#: src/debug_tree.c:1505
+#: src/debug_tree.c:1501
 msgid "Octal"
 msgstr "Oktalt"
 
-#: src/debug_tree.c:1508
+#: src/debug_tree.c:1504
 msgid "Signed decimal"
 msgstr "Decimalt med tecken"
 
-#: src/debug_tree.c:1511
+#: src/debug_tree.c:1507
 msgid "Unsigned decimal"
 msgstr "Decimalt utan tecken"
 
-#: src/debug_tree.c:1514 src/registers_gui.c:111
+#: src/debug_tree.c:1510 src/registers_gui.c:111
 msgid "Hex"
 msgstr "Hexadecimalt"
 
-#: src/debug_tree.c:1517
+#: src/debug_tree.c:1513
 msgid "Char"
 msgstr "Tecken"
 
-#: src/debug_tree.c:1522
+#: src/debug_tree.c:1518
 msgid "Inspect memory"
 msgstr "Inspektera minne"
 
 #. Must declare static, because it will be used forever
-#: src/debugger.c:84
+#: src/debugger.c:85
 msgid "Load Executable File"
 msgstr "Läs in körbar fil"
 
 #. Must declare static, because it will be used forever
-#: src/debugger.c:90
+#: src/debugger.c:91
 msgid "Load Core File"
 msgstr "Läs in core-fil"
 
-#: src/debugger.c:195 src/debugger.c:644
+#: src/debugger.c:197 src/debugger.c:646
 msgid "Loading Executable: "
 msgstr "Läser in körbar fil: "
 
-#: src/debugger.c:246
+#: src/debugger.c:248
 msgid "Loading Core: "
 msgstr "Läser in core-fil: "
 
-#: src/debugger.c:291 src/debugger.c:319
+#: src/debugger.c:293 src/debugger.c:321
 msgid ""
 "You have a process ATTACHED under the debugger.\n"
 "Please detach it first and then load the executable file."
@@ -3736,7 +3511,7 @@ msgstr ""
 "Du har en process ANSLUTEN under felsökaren.\n"
 "Koppla ifrån den först och läs sedan in den körbara filen."
 
-#: src/debugger.c:294 src/debugger.c:322
+#: src/debugger.c:296 src/debugger.c:324
 msgid ""
 "You have a process RUNNING under the debugger.\n"
 "Please stop it first and then load the executable file."
@@ -3744,7 +3519,7 @@ msgstr ""
 "Du har en process KÖRANDES under felsökaren.\n"
 "Stoppa den först och läs sedan in den körbara filen."
 
-#: src/debugger.c:571
+#: src/debugger.c:573
 #, c-format
 msgid ""
 "Unable to find: %s.\n"
@@ -3755,40 +3530,40 @@ msgstr ""
 "Kan inte initiera felsökaren.\n"
 "Försäkra dig om att Anjuta är korrekt installerat."
 
-#: src/debugger.c:640
+#: src/debugger.c:642
 msgid "Debugger"
 msgstr "Felsökare"
 
-#: src/debugger.c:642
+#: src/debugger.c:644
 msgid "Getting ready to start debugging session ...\n"
 msgstr "Förbereder start av felsökningssession...\n"
 
-#: src/debugger.c:655
+#: src/debugger.c:657
 msgid "No executable specified\n"
 msgstr "Ingen körbar fil angiven\n"
 
-#: src/debugger.c:658
+#: src/debugger.c:660
 msgid "Open an executable or attach to a process to start debugging.\n"
 msgstr ""
 "Öppna en körbar fil eller anslut till en process för att starta felsökning.\n"
 
-#: src/debugger.c:665
+#: src/debugger.c:667
 msgid "There was an error whilst launching the debugger.\n"
 msgstr "Ett fel inträffade vid start av felsökaren.\n"
 
-#: src/debugger.c:668
+#: src/debugger.c:670
 msgid "Make sure 'gdb' is installed on the system.\n"
 msgstr "Försäkra dig om att \"gdb\" är installerat på systemet.\n"
 
-#: src/debugger.c:807
+#: src/debugger.c:832
 msgid "Error: "
 msgstr "Fel: "
 
-#: src/debugger.c:828
+#: src/debugger.c:853
 msgid "Debugger is ready.\n"
 msgstr "Felsökaren är redo.\n"
 
-#: src/debugger.c:935
+#: src/debugger.c:957
 msgid ""
 "\n"
 "Well, did you find the BUG? Debugging session completed.\n"
@@ -3798,29 +3573,29 @@ msgstr ""
 "Så, hittade du FELET? Felsökningssessionen är avslutad.\n"
 "\n"
 
-#: src/debugger.c:1170
+#: src/debugger.c:1192
 msgid "Cannot execute gnome-terminal"
 msgstr "Kan inte köra gnome-terminal"
 
-#: src/debugger.c:1205
+#: src/debugger.c:1227
 msgid "Cannot start terminal for debugging."
 msgstr "Kan inte starta terminal för felsökning."
 
-#: src/debugger.c:1269
+#: src/debugger.c:1291
 msgid "Warning: No debug terminal. Redirecting stdio to /dev/null.\n"
 msgstr ""
 "Varning: Ingen felsökningsterminal. Omdirigerar stdio till /dev/null.\n"
 
-#: src/debugger.c:1288
+#: src/debugger.c:1310
 msgid "Running program ... \n"
 msgstr "Kör program... \n"
 
-#: src/debugger.c:1418
+#: src/debugger.c:1440
 #, c-format
 msgid "Attaching to process: %d\n"
 msgstr "Ansluter till process: %d\n"
 
-#: src/debugger.c:1448
+#: src/debugger.c:1470
 msgid ""
 "A process is already running.\n"
 "Would you like to terminate it and attach the new process?"
@@ -3828,16 +3603,16 @@ msgstr ""
 "En process kör redan.\n"
 "Vill du avsluta den och ansluta till den nya processen?"
 
-#: src/debugger.c:1460
+#: src/debugger.c:1482
 msgid "Anjuta is unable to attach to itself."
 msgstr "Anjuta kan inte fästa vid sig själv."
 
-#: src/debugger.c:1546
+#: src/debugger.c:1568
 #, c-format
 msgid "Detaching the process: %d\n"
 msgstr "Kopplar ifrån processen: %d\n"
 
-#: src/debugger.c:1602
+#: src/debugger.c:1624
 msgid ""
 "Program is ATTACHED.\n"
 "Do you still want to stop Debugger?"
@@ -3845,7 +3620,7 @@ msgstr ""
 "Programmet är ANSLUTET.\n"
 "Vill du stoppa felsökaren?"
 
-#: src/debugger.c:1605
+#: src/debugger.c:1627
 msgid ""
 "Program is RUNNING.\n"
 "Do you still want to stop Debugger?"
@@ -3858,21 +3633,21 @@ msgstr ""
 #. breakpoints_dbase_update,
 #. debugger.breakpoints_dbase);
 #.
-#: src/debugger.c:1884
+#: src/debugger.c:1906
 msgid "All breakpoints deleted:\n"
 msgstr "Alla brytpunkter är borttagna:\n"
 
-#: src/debugger.c:1917
+#: src/debugger.c:1939
 #, c-format
 msgid "Interrupting the process: %d\n"
 msgstr "Avbryter processen: %d\n"
 
-#: src/debugger.c:1949
+#: src/debugger.c:1971
 #, c-format
 msgid "Sending signal %s to the process: %d\n"
 msgstr "Skickar signalen %s till processen: %d\n"
 
-#: src/debugger.c:1970
+#: src/debugger.c:1992
 msgid "Error whilst signalling the process."
 msgstr "Fel under signalering till processen."
 
@@ -3938,15 +3713,15 @@ msgid "No search string supplied."
 msgstr "Ingen söksträng angiven."
 
 #: src/find_replace.c:337
-msgid "Do you want to replace this?"
-msgstr "Vill du ersätta detta?"
+msgid "Do you want to replace this occurence?"
+msgstr "Vill du ersätta denna förekomst?"
 
-#: src/find_replace.c:398
+#: src/find_replace.c:399
 #, c-format
 msgid "The string \"%s\" was not found in the selected text"
 msgstr "Strängen \"%s\" hittades inte i den markerade texten"
 
-#: src/find_replace.c:403
+#: src/find_replace.c:404
 #, c-format
 msgid "The string \"%s\" was not found from the current location"
 msgstr "Strängen \"%s\" hittades inte från den aktuella platsen"
@@ -4060,17 +3835,17 @@ msgstr "Projektet autogenererades utan problem."
 msgid " Goto Line number "
 msgstr " Gå till radnummer "
 
-#: src/launcher.c:166
+#: src/launcher.c:173
 #, c-format
 msgid "launcher.c: error while reading child stdout - %s\n"
 msgstr "launcher.c: fel vid läsning av standard ut för barn - %s\n"
 
-#: src/launcher.c:193
+#: src/launcher.c:200
 #, c-format
 msgid "launcher.c: error while reading child stderr - %s\n"
 msgstr "launcher.c: fel vid läsning av standard fel för barn - %s\n"
 
-#: src/launcher.c:370 src/text_editor.c:1468
+#: src/launcher.c:377 src/text_editor.c:1468
 msgid "Cannot execute command shell"
 msgstr "Kan inte köra kommandoskal"
 
@@ -4175,7 +3950,7 @@ msgstr ""
 msgid "Open P_roject ..."
 msgstr "Öppna p_rojekt..."
 
-#: src/main_menubar_def.h:91 src/toolbar.c:214
+#: src/main_menubar_def.h:91 src/toolbar.c:212
 msgid "Open a Project"
 msgstr "Öppna ett projekt"
 
@@ -4184,7 +3959,7 @@ msgstr "Öppna ett projekt"
 msgid "Sa_ve Project"
 msgstr "Spara pr_ojekt"
 
-#: src/main_menubar_def.h:97 src/toolbar.c:225
+#: src/main_menubar_def.h:97 src/toolbar.c:223
 msgid "Save the current Project"
 msgstr "Spara det aktuella projektet"
 
@@ -4193,7 +3968,7 @@ msgstr "Spara det aktuella projektet"
 msgid "Close Pro_ject"
 msgstr "Stäng pro_jekt"
 
-#: src/main_menubar_def.h:103 src/toolbar.c:237
+#: src/main_menubar_def.h:103 src/toolbar.c:235
 msgid "Close the current Project"
 msgstr "Stäng det aktuella projektet"
 
@@ -5602,7 +5377,7 @@ msgstr "Stoppa den aktuella kompilerings- eller byggprocessen"
 msgid "_Execute"
 msgstr "_Kör"
 
-#: src/main_menubar_def.h:1311 src/toolbar.c:297
+#: src/main_menubar_def.h:1311 src/toolbar.c:295
 msgid "Execute the program"
 msgstr "Kör programmet"
 
@@ -6834,7 +6609,7 @@ msgstr "Välj regionalspråk:"
 msgid "Unable to find pixmap file: %s"
 msgstr "Kan inte hitta pixmapfilen: %s"
 
-#: src/project_dbase_gui.c:1344
+#: src/project_dbase_gui.c:1342
 #, c-format
 msgid ""
 "\"%s\"\n"
@@ -6845,12 +6620,12 @@ msgstr ""
 "finns inte.\n"
 "Vill du skapa den nu?"
 
-#: src/project_dbase_gui.c:1362
+#: src/project_dbase_gui.c:1360
 #, c-format
 msgid "Not a regular file: %s."
 msgstr "Inte en vanlig fil: %s."
 
-#: src/project_dbase_gui.c:1372
+#: src/project_dbase_gui.c:1370
 #, c-format
 msgid ""
 "\"%s\"\n"
@@ -7051,7 +6826,7 @@ msgstr "Kärnsignaler"
 msgid "Signal"
 msgstr "Signal"
 
-#: src/signals_gui.c:119 src/toolbar.c:315 src/toolbar.c:673
+#: src/signals_gui.c:119 src/toolbar.c:313 src/toolbar.c:671
 msgid "Stop"
 msgstr "Stoppa"
 
@@ -7132,7 +6907,7 @@ msgstr "Aktiv"
 msgid "Count"
 msgstr "Räkna"
 
-#: src/stack_trace.c:470 src/toolbar.c:619
+#: src/stack_trace.c:470 src/toolbar.c:617
 msgid "Frame"
 msgstr "Ram"
 
@@ -7148,8 +6923,8 @@ msgstr "Denna fil är för stor. Kan inte allokera minne."
 #: src/text_editor.c:933
 msgid ""
 "The file does not look like a text file or the file encoding is not "
-"supported.Please check if the encoding of file is in the supported encodings "
-"list. If not, add it from the preferences."
+"supported. Please check if the encoding of file is in the supported "
+"encodings list. If not, add it from the preferences."
 msgstr ""
 "Filen verkar inte vara en textfil eller så stöds inte filkodningen. "
 "Kontrollera att kodningen för filen finns i listan över kodningar som stöds. "
@@ -7290,7 +7065,7 @@ msgstr "Sök och ersätt sträng"
 msgid "line: "
 msgstr "rad: "
 
-#: src/text_editor_gui.c:169 src/toolbar.c:251
+#: src/text_editor_gui.c:169 src/toolbar.c:249
 msgid "Compile the current file"
 msgstr "Kompilera den aktuella filen"
 
@@ -7330,7 +7105,7 @@ msgstr "Föregående bokmärke"
 msgid "Next bookmark"
 msgstr "Nästa bokmärke"
 
-#: src/text_editor_menu.c:143 src/toolbar.c:543
+#: src/text_editor_menu.c:143 src/toolbar.c:541
 msgid "Step in"
 msgstr "Stega in"
 
@@ -7342,7 +7117,7 @@ msgstr "Stega över"
 msgid "Step out"
 msgstr "Stega ut"
 
-#: src/text_editor_menu.c:161 src/toolbar.c:532
+#: src/text_editor_menu.c:161 src/toolbar.c:530
 msgid "Run to cursor"
 msgstr "Kör till markör"
 
@@ -7350,7 +7125,7 @@ msgstr "Kör till markör"
 msgid "Run/Continue"
 msgstr "Kör/Fortsätt"
 
-#: src/text_editor_menu.c:181 src/toolbar.c:580
+#: src/text_editor_menu.c:181 src/toolbar.c:578
 msgid "Interrupt"
 msgstr "Avbryt"
 
@@ -7399,7 +7174,7 @@ msgid "Swap .h/.c"
 msgstr "Byt .h/.c"
 
 #. 10
-#: src/text_editor_menu.c:301 src/toolbar.c:519
+#: src/text_editor_menu.c:301 src/toolbar.c:517
 msgid "Go"
 msgstr "Gå"
 
@@ -7453,267 +7228,267 @@ msgstr "Ange radnumret att gå till"
 msgid "Context sensitive help"
 msgstr "Sammanhangskänslig hjälp"
 
-#: src/toolbar.c:224
+#: src/toolbar.c:222
 msgid "Save Project"
 msgstr "Spara projekt"
 
-#: src/toolbar.c:236
+#: src/toolbar.c:234
 msgid "Close Project"
 msgstr "Stäng projekt"
 
-#: src/toolbar.c:263
+#: src/toolbar.c:261
 msgid "Run configure"
 msgstr "Kör configure"
 
-#: src/toolbar.c:275
+#: src/toolbar.c:273
 msgid "Build current file, or build the source directory of the Project"
 msgstr "Bygg aktuell fil, eller bygg källkodskatalogen för projektet"
 
-#: src/toolbar.c:286
+#: src/toolbar.c:284
 msgid "Build_all"
 msgstr "Bygg_allt"
 
-#: src/toolbar.c:288
+#: src/toolbar.c:286
 msgid "Build from the top directory of the Project"
 msgstr "Bygg från toppkatalogen av projektet"
 
-#: src/toolbar.c:296
+#: src/toolbar.c:294
 msgid "Execute"
 msgstr "Kör"
 
-#: src/toolbar.c:308
+#: src/toolbar.c:306
 msgid "Start the Debugger"
 msgstr "Starta felsökningsprogrammet"
 
-#: src/toolbar.c:316
+#: src/toolbar.c:314
 msgid "Stop/interrupt compile or build"
 msgstr "Stoppa/avbryt kompilering eller bygge"
 
-#: src/toolbar.c:385 src/toolbar.c:769
+#: src/toolbar.c:383 src/toolbar.c:767
 msgid "Toggle"
 msgstr "Slå på/av"
 
-#: src/toolbar.c:386
+#: src/toolbar.c:384
 msgid "Toggle bookmark at current location"
 msgstr "Slå på/av bokmärke på aktuell plats"
 
-#: src/toolbar.c:392
+#: src/toolbar.c:390
 msgid "First"
 msgstr "Första"
 
-#: src/toolbar.c:393
+#: src/toolbar.c:391
 msgid "Goto first bookmark in this document"
 msgstr "Gå till första bokmärket i detta dokument"
 
-#: src/toolbar.c:399 src/toolbar.c:421
+#: src/toolbar.c:397 src/toolbar.c:419
 msgid "Prev"
 msgstr "Föreg"
 
-#: src/toolbar.c:400
+#: src/toolbar.c:398
 msgid "Goto previous bookmark in this document"
 msgstr "Gå till föregående bokmärke i detta dokument"
 
-#: src/toolbar.c:405 src/toolbar.c:428
+#: src/toolbar.c:403 src/toolbar.c:426
 msgid "Next"
 msgstr "Nästa"
 
-#: src/toolbar.c:406
+#: src/toolbar.c:404
 msgid "Goto next bookmark in this document"
 msgstr "Gå till nästa bokmärke i detta dokument"
 
-#: src/toolbar.c:411
+#: src/toolbar.c:409
 msgid "Last"
 msgstr "Sista"
 
-#: src/toolbar.c:412
+#: src/toolbar.c:410
 msgid "Goto last bookmark in this document"
 msgstr "Gå till sista bokmärket i detta dokument"
 
-#: src/toolbar.c:422
+#: src/toolbar.c:420
 msgid "Goto previous message in this document"
 msgstr "Gå till föregående meddelande i detta dokument"
 
-#: src/toolbar.c:429
+#: src/toolbar.c:427
 msgid "Goto next message in this document"
 msgstr "Gå till nästa meddelande i detta dokument"
 
-#: src/toolbar.c:437
+#: src/toolbar.c:435
 msgid "Start"
 msgstr "Starta"
 
-#: src/toolbar.c:438
+#: src/toolbar.c:436
 msgid "Goto start of current code block"
 msgstr "Gå till början på aktuellt kodblock"
 
-#: src/toolbar.c:444
+#: src/toolbar.c:442
 msgid "End"
 msgstr "Slut"
 
-#: src/toolbar.c:445
+#: src/toolbar.c:443
 msgid "Goto end of current code block"
 msgstr "Gå till slut på aktuellt kodblock"
 
-#: src/toolbar.c:452
+#: src/toolbar.c:450
 msgid "Tags:"
 msgstr "Taggar:"
 
-#: src/toolbar.c:461
+#: src/toolbar.c:459
 msgid "Goto Tag"
 msgstr "Gå till tagg"
 
-#: src/toolbar.c:462
+#: src/toolbar.c:460
 msgid "Search for the given tag in the current file"
 msgstr "Sök efter den angivna taggen i den aktuella filen"
 
-#: src/toolbar.c:477
+#: src/toolbar.c:475
 msgid "Enter the tag to jump to"
 msgstr "Ange den tagg som ska hoppas till"
 
-#: src/toolbar.c:520
+#: src/toolbar.c:518
 msgid "Go or continue execution"
 msgstr "Gå eller fortsätt körning"
 
-#: src/toolbar.c:531
+#: src/toolbar.c:529
 msgid "Run"
 msgstr "Kör"
 
-#: src/toolbar.c:544
+#: src/toolbar.c:542
 msgid "Single step in execution"
 msgstr "Enkelstega under körning"
 
-#: src/toolbar.c:555
+#: src/toolbar.c:553
 msgid "Step Over"
 msgstr "Stega över"
 
-#: src/toolbar.c:556
+#: src/toolbar.c:554
 msgid "Step over the function"
 msgstr "Stega över funktionen"
 
-#: src/toolbar.c:566
+#: src/toolbar.c:564
 msgid "Step Out"
 msgstr "Stega ut"
 
-#: src/toolbar.c:567
+#: src/toolbar.c:565
 msgid "Step out of the function"
 msgstr "Stega ut från funktionen"
 
-#: src/toolbar.c:582
+#: src/toolbar.c:580
 msgid "Interrupt execution of the program"
 msgstr "Avbryt körningen av programmet"
 
-#: src/toolbar.c:595
+#: src/toolbar.c:593
 msgid "Breakpoint"
 msgstr "Brytpunkt"
 
-#: src/toolbar.c:596
+#: src/toolbar.c:594
 msgid "Toggle breakpoint at cursor"
 msgstr "Slå på/av brytpunkt vid markör"
 
-#: src/toolbar.c:608
+#: src/toolbar.c:606
 msgid "Inspect or evaluate an expression"
 msgstr "Inspektera eller evaluera ett uttryck"
 
-#: src/toolbar.c:621
+#: src/toolbar.c:619
 msgid "Display the current frame information"
 msgstr "Visa den aktuella raminformationen"
 
-#: src/toolbar.c:647
+#: src/toolbar.c:645
 msgid "Signals"
 msgstr "Signaler"
 
-#: src/toolbar.c:648
+#: src/toolbar.c:646
 msgid "kernel signals of the program"
 msgstr "kärnsignaler för programmet"
 
-#: src/toolbar.c:659
+#: src/toolbar.c:657
 msgid "Registers"
 msgstr "Register"
 
-#: src/toolbar.c:660
+#: src/toolbar.c:658
 msgid "CPU registers and their contents"
 msgstr "Processorregister och deras innehåll"
 
-#: src/toolbar.c:674
+#: src/toolbar.c:672
 msgid "End the debugging session"
 msgstr "Avsluta felsökningssessionen"
 
-#: src/toolbar.c:771
+#: src/toolbar.c:769
 msgid "Toggle current code fold hide/show"
 msgstr "Slå på/av aktuell kodinhägnad göm/visa"
 
-#: src/toolbar.c:782
+#: src/toolbar.c:780
 msgid "Close all"
 msgstr "Stäng alla"
 
-#: src/toolbar.c:784
+#: src/toolbar.c:782
 msgid "Close all code folds in this document"
 msgstr "Stäng alla kodinhägnader i detta dokument"
 
-#: src/toolbar.c:795
+#: src/toolbar.c:793
 msgid "Open all"
 msgstr "Öppna alla"
 
-#: src/toolbar.c:797
+#: src/toolbar.c:795
 msgid "Open all code folds in this document"
 msgstr "Öppna alla kodinhägnader i detta dokument"
 
-#: src/toolbar.c:810
+#: src/toolbar.c:808
 msgid "Select"
 msgstr "Markera"
 
-#: src/toolbar.c:811
+#: src/toolbar.c:809
 msgid "Select current code block"
 msgstr "Markera det aktuella kodblocket"
 
-#: src/toolbar.c:822
+#: src/toolbar.c:820
 msgid "Indent inc"
 msgstr "Öka indentering"
 
-#: src/toolbar.c:824
+#: src/toolbar.c:822
 msgid "Increase indentation of block/line"
 msgstr "Öka indentering av block/rad"
 
-#: src/toolbar.c:835
+#: src/toolbar.c:833
 msgid "Indent dcr"
 msgstr "Minska indentering"
 
-#: src/toolbar.c:837
+#: src/toolbar.c:835
 msgid "Decrease indentation of block/line"
 msgstr "Minska indentering av block/rad"
 
-#: src/toolbar.c:850
+#: src/toolbar.c:848
 msgid "Autoformat"
 msgstr "Autoformatering"
 
-#: src/toolbar.c:852
+#: src/toolbar.c:850
 msgid "Automatically format the code"
 msgstr "Formatera koden automatiskt"
 
-#: src/toolbar.c:864
+#: src/toolbar.c:862
 msgid "Configure style to use for auto format"
 msgstr "Konfigurera stil att använda för autoformatering"
 
-#: src/toolbar.c:877
+#: src/toolbar.c:875
 msgid "Calltip"
 msgstr "Anropstips"
 
-#: src/toolbar.c:877
+#: src/toolbar.c:875
 msgid "Show Calltip"
 msgstr "Visa anropstips"
 
-#: src/toolbar.c:890
+#: src/toolbar.c:888
 msgid "Autocomplete"
 msgstr "Autokomplettera"
 
-#: src/toolbar.c:891
+#: src/toolbar.c:889
 msgid "Autocomplete word"
 msgstr "Autokomplettera ord"
 
-#: src/toolbar_callbacks.c:235
+#: src/toolbar_callbacks.c:240
 msgid "No matches. Wrap search around the document?"
 msgstr "Inga träffar. Fortsätt sökningen i början av dokumentet?"
 
-#: src/toolbar_callbacks.c:279
+#: src/toolbar_callbacks.c:284
 #, c-format
 msgid "There is line number %d in \"%s\"."
 msgstr "Det finns radnummer %d i \"%s\"."
@@ -7778,18 +7553,6 @@ msgstr "Inspektera/Evaluera uttryck"
 #: src/watch_gui.c:327
 msgid "Add To Watch"
 msgstr "Lägg till i bevakare"
-
-#: src/windows-dialog.c:278
-msgid "Icon"
-msgstr "Ikon"
-
-#: src/windows-dialog.c:286
-msgid "Float"
-msgstr "Flytande"
-
-#: src/windows-dialog.c:316
-msgid "Anjuta Windows Dialog"
-msgstr "Anjuta-fönsterdialog"
 
 #: src/wizard_gui.c:97
 msgid "Project Type"
@@ -7931,6 +7694,10 @@ msgstr "Grupp:"
 msgid "Needs terminal"
 msgstr "Behöver terminal"
 
+#: src/wizard_gui.c:743
+msgid "Summary"
+msgstr "Sammanfattning"
+
 #: widgets/cell-renderer-captioned-image.c:207
 msgid "Text"
 msgstr "Text"
@@ -8045,6 +7812,160 @@ msgstr "Skapande av mapp misslyckades \"%s\": %s"
 #: widgets/gnomefilelist.c:2002
 msgid "Folder name:"
 msgstr "Mappnamn:"
+
+#~ msgid ""
+#~ "\n"
+#~ "Anjuta Dev Studio\n"
+#~ "Copyright (C) Naba Kumar\n"
+#~ "\n"
+#~ "This program is free software; you can redistribute it and/or modify it "
+#~ "under the terms of the GNU General Public License as published by the "
+#~ "Free Software Foundation; either version 2 of the License, or (at your "
+#~ "option) any later version. \n"
+#~ "\n"
+#~ "This program is distributed in the hope that it will be useful, but "
+#~ "WITHOUT ANY WARRANTY; without even the implied warranty of "
+#~ "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General "
+#~ "Public License for more details. \n"
+#~ "\n"
+#~ "You should have received a copy of the GNU General Public License along "
+#~ "with this program; if not, write to the Free Software Foundation, Inc., "
+#~ "59 Temple Place, Suite 330, Boston, MA 02111-1307 USA \n"
+#~ msgstr ""
+#~ "\n"
+#~ "Utvecklingsstudion Anjuta\n"
+#~ "Copyright © Naba Kumar\n"
+#~ "\n"
+#~ "Följande text är en informell översättning som enbart tillhandahålls i "
+#~ "informativt syfte. För alla juridiska tolkningar gäller den engelska "
+#~ "originaltexten.\n"
+#~ "\n"
+#~ "Detta program är fri programvara. Du kan distribuera det och/eller "
+#~ "modifiera det under villkoren i GNU General Public License, publicerad av "
+#~ "Free Software Foundation, version 2 av licensen eller (om du så vill) "
+#~ "någon senare version.\n"
+#~ "\n"
+#~ "Detta program distribueras i hopp om att det ska vara användbart, men "
+#~ "UTAN NÅGON GARANTI, även utan underförstådd garanti vid KÖP eller "
+#~ "LÄMPLIGHET FÖR NÅGOT SPECIELLT ÄNDAMÅL. Se GNU General Public License för "
+#~ "ytterligare information.\n"
+#~ "\n"
+#~ "Du bör ha fått en kopia av GNU General Public Licence tillsammans med "
+#~ "detta program. Om inte bör du skriva till Free Software Foundation, Inc., "
+#~ "59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.\n"
+#~ "\n"
+#~ "This program is free software; you can redistribute it and/or modify it "
+#~ "under the terms of the GNU General Public License as published by the "
+#~ "Free Software Foundation; either version 2 of the License, or (at your "
+#~ "option) any later version. \n"
+#~ "\n"
+#~ "This program is distributed in the hope that it will be useful, but "
+#~ "WITHOUT ANY WARRANTY; without even the implied warranty of "
+#~ "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General "
+#~ "Public License for more details. \n"
+#~ "\n"
+#~ "You should have received a copy of the GNU General Public License along "
+#~ "with this program; if not, write to the Free Software Foundation, Inc., "
+#~ "59 Temple Place, Suite 330, Boston, MA 02111-1307 USA \n"
+
+#~ msgid "Anjuta Setup Wizard"
+#~ msgstr "Anjuta-konfigurationsguide"
+
+#~ msgid "Anjuta setup wizard"
+#~ msgstr "Anjuta-konfigurationsguide"
+
+#~ msgid ""
+#~ "Anjuta setup wizard will guide with the initial setup of Anjuta. These "
+#~ "setup could be changed later from Anjuta settings menu (Main menu-"
+#~ ">Settings). "
+#~ msgstr ""
+#~ "Anjuta-konfigurationsguiden kommer att hjälpa till med den ursprungliga "
+#~ "konfigurationen av Anjuta. Denna konfiguration kommer att kunna ändras "
+#~ "senare från Anjutas inställningsmeny (Huvudmeny->Inställningar)."
+
+#~ msgid "Anjuta windows"
+#~ msgstr "Anjuta-fönster"
+
+#~ msgid "Docked style"
+#~ msgstr "Dockad stil"
+
+#~ msgid ""
+#~ "Docked style presents Anjuta \n"
+#~ "in the classic IDE form with all\n"
+#~ "sub-windows docked on the\n"
+#~ "main window."
+#~ msgstr ""
+#~ "Dockad stil visar Anjuta i den\n"
+#~ "klassiska IDE-formen med alla\n"
+#~ "underfönster dockade i\n"
+#~ "huvudfönstret."
+
+#~ msgid "Ignome files and directories"
+#~ msgstr "Ignorera filer och kataloger"
+
+#~ msgid "Undocked style"
+#~ msgstr "Odockad stil"
+
+#~ msgid ""
+#~ "Undocked style presents Anjuta\n"
+#~ "in with all sub-windows undocked\n"
+#~ "from the main window."
+#~ msgstr ""
+#~ "Odockad stil visar Anjuta\n"
+#~ "med alla underfönster odockade\n"
+#~ "från huvudfönstret."
+
+#~ msgid "Windows style"
+#~ msgstr "Fönsterstil"
+
+#~ msgid "window1"
+#~ msgstr "fönster1"
+
+#~ msgid "window2"
+#~ msgstr "fönster2"
+
+#~ msgid "window3"
+#~ msgstr "fönster3"
+
+#~ msgid "window4"
+#~ msgstr "fönster4"
+
+#~ msgid "window5"
+#~ msgstr "fönster5"
+
+#~ msgid "window6"
+#~ msgstr "fönster6"
+
+#~ msgid "window7"
+#~ msgstr "fönster7"
+
+#~ msgid "window8"
+#~ msgstr "fönster8"
+
+#~ msgid ""
+#~ "The file '%s' already exists.\n"
+#~ "Do you want to overwrite it?."
+#~ msgstr ""
+#~ "Filen \"%s\" finns redan.\n"
+#~ "Vill du skriva över den?"
+
+#~ msgid ""
+#~ "The file does not look like a text file or the file encoding is not "
+#~ "supported.Please check if the encoding of file is in the supported "
+#~ "encodings list. If not, add it from the preferences."
+#~ msgstr ""
+#~ "Filen verkar inte vara en textfil eller så stöds inte filkodningen. "
+#~ "Kontrollera att kodningen för filen finns i listan över kodningar som "
+#~ "stöds. Om inte, lägg till den i inställningarna."
+
+#~ msgid "Icon"
+#~ msgstr "Ikon"
+
+#~ msgid "Float"
+#~ msgstr "Flytande"
+
+#~ msgid "Anjuta Windows Dialog"
+#~ msgstr "Anjuta-fönsterdialog"
 
 #~ msgid "Memory Dump"
 #~ msgstr "Minnesdump"
@@ -8198,15 +8119,6 @@ msgstr "Mappnamn:"
 
 #~ msgid "Don't save"
 #~ msgstr "Spara inte"
-
-#~ msgid ""
-#~ "The file does not look like a text file or the file encoding is not "
-#~ "supported. Please check if the encoding of file is in the supported "
-#~ "encodings list. If not, add it from the preferences."
-#~ msgstr ""
-#~ "Filen verkar inte vara en textfil eller så stöds inte filkodningen. "
-#~ "Kontrollera att kodningen för filen finns i listan över kodningar som "
-#~ "stöds. Om inte, lägg till den i inställningarna."
 
 #~ msgid "Are you sure you want to delete tool '%s'"
 #~ msgstr "Är du säker på att du vill ta bort verktyget \"%s\""
@@ -8768,9 +8680,6 @@ msgstr "Mappnamn:"
 
 #~ msgid "Target"
 #~ msgstr "Mål"
-
-#~ msgid "Ignore files and directories"
-#~ msgstr "Ignorera filer och kataloger"
 
 #~ msgid "Program"
 #~ msgstr "Program"
