@@ -37,15 +37,16 @@ on_prj_name_entry_changed (GtkEditable * editable, gpointer user_data)
 {
 	gchar *text;
 	gint i;
-	
 	AppWizard *aw = user_data;
+
 	text = g_strdup (gtk_entry_get_text (GTK_ENTRY (editable)));
-	for (i = 0; i <strlen (text); i++)
-		text[i] = tolower (text[i]);
-	if (text) 
-		gtk_entry_set_text (GTK_ENTRY (aw->widgets.target_entry), text);
-	else
-		gtk_entry_set_text (GTK_ENTRY (aw->widgets.target_entry), "");
+
+	if (text)
+		for (i = 0; i < strlen (text); i++)
+			text[i] = (text[i] == '-') ? '_' : tolower (text[i]);
+
+	gtk_entry_set_text (GTK_ENTRY (aw->widgets.target_entry),
+			    text ? text : "");
 	string_assign (&aw->target, text);
 	g_free (text);
 }

@@ -137,15 +137,17 @@ on_druidpagestandard2_next (GnomeDruidPage *
 		error_no = 1;
 		goto error_down;
 	}
-	if (!isalpha (temp[0]) && temp[0] != '_')
+	if (!isalpha (temp[0]))
 	{
 		error_no = 1;
 		goto error_down;
 	}
 	for (i = 0; i < strlen (temp); i++)
 	{
-		if (!isalpha (temp[i]) && !isdigit (temp[i])
-		    && temp[i] != '_')
+		if (!isalpha (temp[i]) &&
+		    !isdigit (temp[i]) &&
+		    temp[i] != '_' &&
+		    temp[i] != '-')
 		{
 			error_no = 1;
 			goto error_down;
@@ -158,27 +160,27 @@ on_druidpagestandard2_next (GnomeDruidPage *
 	 */
 	if (aw->version == NULL)
 	{
-		error_no = 6;
+		error_no = 3;
 		goto error_down;
 	}
 	temp = g_strstrip (aw->version);
 	if (strlen (temp) == 0)
 	{
-		error_no = 6;
+		error_no = 3;
 		goto error_down;
 	}
 	for (i = 0; i < strlen (temp); i++)
 	{
 		if (isspace (temp[i]))
 		{
-			error_no = 6;
+			error_no = 3;
 			goto error_down;
 		}
 	}
 	if (error_no)
 		goto error_down;
 	/*
-	 * Check for valid program name
+	 * Check for valid target name
 	 */
 	if (aw->target == NULL)
 	{
@@ -212,8 +214,8 @@ error_down:
 		sprintf (buffer,
 			 _
 			 ("Invalid %s field:\nYou must supply a valid %s field to proceed further."),
-			 _(error_mesg[error_no - 1]),
-			 _(error_mesg[error_no - 1]));
+			 error_mesg[error_no - 1],
+			 error_mesg[error_no - 1]);
 		anjuta_error (buffer);
 		return TRUE;
 	}

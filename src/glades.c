@@ -181,7 +181,7 @@ gladen_write_glade_file ( ProjectDBase * data )
 {
 	CORBA_Object	gladen;
 	FILE *fp;
-	gchar *filename, *target;
+	gchar *filename, *target, *prj_name;
 	gchar *prj, *src, *pix;
 	gint type, lang;
 
@@ -193,8 +193,10 @@ gladen_write_glade_file ( ProjectDBase * data )
 	type = project_dbase_get_project_type (data);
 	target =	prop_get (data->props, "project.source.target");
 	g_strdelimit (target, "-", '_');
-	
-	filename = g_strconcat (data->top_proj_dir, "/", target, ".glade", NULL);
+
+	prj_name = project_dbase_get_proj_name (data);	
+	filename = g_strconcat (data->top_proj_dir, "/", prj_name, ".glade", NULL);
+	g_free (prj_name);
 
 	/* FIXME: If *.glade exists, just leave it, for now. */
 	if (file_is_regular (filename))

@@ -1384,28 +1384,29 @@ project_dbase_show_info (ProjectDBase * p)
 gboolean
 project_dbase_summon_glade (ProjectDBase *p)
 {
-	gchar *filename, *target;
+	gchar *filename, *prj_name;
 	gboolean ret;
 
 	if (p->project_is_open == FALSE)
 		return FALSE;
 
-	target =	prop_get (p->props, "project.source.target");
-	g_strdelimit (target, "-", '_');
-
+	prj_name = project_dbase_get_proj_name (p);
 	filename = g_strdup_printf ("%s/%s.glade",
 				    p->top_proj_dir,
-				    target);
+				    prj_name);
+	g_free (prj_name);
+
 	if (file_is_regular (filename) == FALSE)
 	{
-		g_free (filename);
 		anjuta_error (
 			_("A .glade file does not\n"
 			"exist in the top level Project directory."));
-		return FALSE;
-	}
-	ret = glade_iface_start_glade_editing (filename);
+		ret = FALSE;
+	} else
+		ret = glade_iface_start_glade_editing (filename);
+
 	g_free (filename);
+
 	return ret;
 }
 
@@ -1413,25 +1414,24 @@ project_dbase_summon_glade (ProjectDBase *p)
 gboolean
 project_dbase_generate_source_code (ProjectDBase *p)
 {
-	gchar *filename, *target;
+	gchar *filename, *prj_name;
 	gboolean ret;
 	
 	if (p->project_is_open == FALSE)
 		return FALSE;
 
-	target =	prop_get (p->props, "project.source.target");
-	g_strdelimit (target, "-", '_');
-	
 	if (project_dbase_get_project_type (p)->id == PROJECT_TYPE_GENERIC
 		|| project_dbase_get_target_type(p) != PROJECT_TARGET_TYPE_EXECUTABLE)
 	{
 		return source_write_generic_main_c (p);
 	}
-	
+
+	prj_name = project_dbase_get_proj_name (p);
 	filename = g_strdup_printf ("%s/%s.glade",
 				    p->top_proj_dir,
-				    target);
-	g_free (target);
+				    prj_name);
+	g_free (prj_name);
+
 	if (file_is_regular (filename) == FALSE)
 	{
 		anjuta_error (

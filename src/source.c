@@ -185,7 +185,7 @@ static gboolean
 source_write_configure_in (ProjectDBase * data)
 {
 	FILE *fp;
-	gchar *filename, *actual_file, *target, *version;
+	gchar *filename, *actual_file, *prj_name, *version;
 	Project_Type* type;
 	gint lang_type, i;
 	GList *list, *node;
@@ -208,9 +208,8 @@ source_write_configure_in (ProjectDBase * data)
 		g_free (actual_file);
 		return FALSE;
 	}
-	target =
-		prop_get (data->props, "project.source.target");
-	g_strdelimit (target, "-", '_');
+
+	prj_name = project_dbase_get_proj_name (data);
 	version = project_dbase_get_version (data);
 
 	/* FIXME: Using AC_INIT(configure.in) is not really correct - we should be
@@ -225,7 +224,7 @@ source_write_configure_in (ProjectDBase * data)
 		 "AM_INIT_AUTOMAKE(%s, %s)\n"
 		 "AM_CONFIG_HEADER(config.h)\n"
 		 "\n"
-		 "AC_ISC_POSIX\n", target, version);
+		 "AC_ISC_POSIX\n", prj_name, version);
 	switch (lang_type)
 	{
 		case PROJECT_PROGRAMMING_LANGUAGE_C:
@@ -438,7 +437,7 @@ source_write_configure_in (ProjectDBase * data)
 
 	if (type->gnome_support)
 	{
-		fprintf (fp, "%s.desktop\n", target);
+		fprintf (fp, "%s.desktop\n", prj_name);
 	}
 	fprintf (fp, "])\n\n");
 	fclose (fp);
@@ -447,7 +446,7 @@ source_write_configure_in (ProjectDBase * data)
 		anjuta_system_error (errno, _("Unable to create file: %s."), actual_file);
 	g_free (filename);
 	g_free (actual_file);
-	g_free (target);
+	g_free (prj_name);
 	g_free (version);
 	return TRUE;
 }
@@ -456,7 +455,7 @@ static gboolean
 source_write_toplevel_makefile_am (ProjectDBase * data)
 {
 	FILE *fp;
-	gchar *filename, *actual_file, *target;
+	gchar *filename, *actual_file, *target, *prj_name;
 	gint i;
 	Project_Type* type;
 
@@ -494,7 +493,9 @@ source_write_toplevel_makefile_am (ProjectDBase * data)
 			continue;
 		if (project_dbase_module_is_empty (data, i))
 			continue;
+
 		subdir = project_dbase_get_module_name (data, i);
+
 		if (subdir)
 		{
 			fprintf (fp, " %s", subdir);
@@ -506,9 +507,11 @@ source_write_toplevel_makefile_am (ProjectDBase * data)
 		fprintf (fp, " %s", data->project_config->extra_modules_after);
 
 	fprintf (fp, "\n\n");
-	target =
-		prop_get (data->props, "project.source.target");
+
+	prj_name = project_dbase_get_proj_name (data);
+	target = prop_get (data->props, "project.source.target");
 	g_strdelimit (target, "-", '_');
+
 	fprintf (fp,
 		"%sdocdir = ${prefix}/doc/%s\n"
 		"%sdoc_DATA = \\\n"
@@ -518,7 +521,7 @@ source_write_toplevel_makefile_am (ProjectDBase * data)
 		"\tChangeLog\\\n"
 		"\tINSTALL\\\n"
 		"\tNEWS\\\n"
-		"\tTODO", target, target, target);
+		"\tTODO", target, prj_name, target);
 	if (prop_get_int (data->props, "project.has.gettext", 1))
 	{
 		fprintf (fp,
@@ -526,7 +529,7 @@ source_write_toplevel_makefile_am (ProjectDBase * data)
 	}
 	fprintf (fp,
 		"\n\nEXTRA_DIST = %s $(%sdoc_DATA)\n\n",
-		extract_filename (data->proj_filename), target);
+		extract_filename (prj_name), target);
 	if(type->gnome_support)
 	{
 		gchar *group;
@@ -534,7 +537,7 @@ source_write_toplevel_makefile_am (ProjectDBase * data)
 		group = prop_get (data->props, "project.menu.group");
 		if (!group) group = g_strdup ("Applications");
 		fprintf (fp, "gnomemenudir = $(prefix)/@NO_PREFIX_PACKAGE_MENU_DIR@/%s\n", group);
-		fprintf (fp, "gnomemenu_DATA = %s.desktop\n\n", target);
+		fprintf (fp, "gnomemenu_DATA = %s.desktop\n\n", prj_name);
 		g_free (group);
 	}
 	if (data->project_config->makefile_am)
@@ -556,6 +559,7 @@ source_write_toplevel_makefile_am (ProjectDBase * data)
 		anjuta_system_error (errno, _("Unable to create file: %s."), actual_file);
 	g_free (actual_file);
 	g_free (target);
+	g_free (prj_name);
 	g_free (filename);
 	free_project_type(type);
 	return TRUE;
@@ -1061,8 +1065,7 @@ source_write_pixmap_files (ProjectDBase * data)
 	fprintf (fp,"## Process this file with automake to produce Makefile.in\n\n");
 	source_write_no_modify_warning (data, fp);
 
-	target =
-		prop_get (data->props, "project.source.target");
+	target = prop_get (data->props, "project.source.target");
 	g_strdelimit (target, "-", '_');
 	fprintf (fp, "%s_pixmapsdir = $(prefix)/@NO_PREFIX_PACKAGE_PIXMAPS_DIR@\n\n", target);
 	
@@ -1115,8 +1118,7 @@ source_write_help_files (ProjectDBase * data)
 	fprintf (fp,"## Process this file with automake to produce Makefile.in\n\n");
 	source_write_no_modify_warning (data, fp);
 
-	target =
-		prop_get (data->props, "project.source.target");
+	target = prop_get (data->props, "project.source.target");
 	g_strdelimit (target, "-", '_');
 	fprintf (fp, "%s_helpdir = $(prefix)/@NO_PREFIX_PACKAGE_HELP_DIR@/C\n\n", target);
 	fprintf (fp, "%s_help_DATA = \\\n", target);
@@ -1279,23 +1281,24 @@ static gboolean
 source_write_desktop_entry (ProjectDBase * data)
 {
 	FILE *fp;
-	gchar *filename, *target, *name, *comment, *term, *icon;
+	gchar *filename, *target, *name, *comment, *term, *icon, *prj_name;
 	gint t;
 	gboolean has_icon;
 
 	g_return_val_if_fail (data != NULL, FALSE);
 
-	target =
-		prop_get (data->props, "project.source.target");
+	prj_name = project_dbase_get_proj_name (data);
+	target = prop_get (data->props, "project.source.target");
 	g_strdelimit (target, "-", '_');
 	
-	filename = g_strconcat (data->top_proj_dir, "/", target, ".desktop.in", NULL);
+	filename = g_strconcat (data->top_proj_dir, "/", prj_name, ".desktop.in", NULL);
 
 	/* FIXME: If *.desktop.in exists, just leave it, for now. */
 	if (file_is_regular (filename))
 	{
 		g_free (filename);
 		g_free (target);
+		g_free (prj_name);
 		return TRUE;
 	}
 
@@ -1304,6 +1307,8 @@ source_write_desktop_entry (ProjectDBase * data)
 	{
 		anjuta_system_error (errno, _("Unable to create file: %s."), filename);
 		g_free (filename);
+		g_free (target);
+		g_free (prj_name);
 		return FALSE;
 	}
 	name = prop_get (data->props, "project.menu.entry");
@@ -1343,7 +1348,9 @@ source_write_desktop_entry (ProjectDBase * data)
 	g_free (comment);
 	g_free (icon);
 	g_free (target);
+	g_free (prj_name);
 	g_free (term);
+
 	return TRUE;
 }
 
@@ -1352,7 +1359,7 @@ static gboolean
 source_write_glade_file (ProjectDBase * data)
 {
 	FILE *fp;
-	gchar *filename, *target;
+	gchar *filename, *target, *prj_name;
 	gchar *prj, *src, *pix;
 	Project_Type* type;
 	gint lang;
@@ -1361,16 +1368,18 @@ source_write_glade_file (ProjectDBase * data)
 	g_return_val_if_fail (data != NULL, FALSE);
 
 	type = project_dbase_get_project_type (data);
-	target =	prop_get (data->props, "project.source.target");
+	prj_name = project_dbase_get_proj_name (data);
+	target = prop_get (data->props, "project.source.target");
 	g_strdelimit (target, "-", '_');
 	
-	filename = g_strconcat (data->top_proj_dir, "/", target, ".glade", NULL);
+	filename = g_strconcat (data->top_proj_dir, "/", prj_name, ".glade", NULL);
+	g_free (prj_name);
 
 	/* FIXME: If *.glade exists, just leave it, for now. */
 	if (file_is_regular (filename))
 	{
-		g_free (filename);
 		free_project_type(type);
+		g_free (filename);
 		g_free (target);
 		return TRUE;
 	}
@@ -1381,6 +1390,7 @@ source_write_glade_file (ProjectDBase * data)
 		anjuta_system_error (errno, _("Unable to create file: %s."), filename);
 		free_project_type(type);
 		g_free (filename);
+		g_free (target);
 		return FALSE;
 	}
 	fprintf(fp,
@@ -1546,17 +1556,16 @@ gboolean
 source_write_libglade_main_c (ProjectDBase *data)
 {
 	FILE *fp;
-	gchar *filename, *src_dir, *gladefile, *target;
+	gchar *filename, *src_dir, *gladefile, *prj_name;
 	gint lang;
-
-	target = prop_get (data->props, "project.source.target");
-	g_strdelimit (target, "-", '_');
-	
-	gladefile = g_strconcat (data->top_proj_dir, "/", target, ".glade", NULL);
 
 	g_return_val_if_fail (data != NULL, FALSE);
 	g_return_val_if_fail (data->project_is_open, FALSE);
 
+	prj_name = project_dbase_get_proj_name (data);
+	gladefile = g_strconcat (data->top_proj_dir, "/", prj_name, ".glade", NULL);
+	g_free (prj_name);
+	
 	src_dir = project_dbase_get_module_dir (data, MODULE_SOURCE);
 	if (!src_dir)
 		return FALSE;
