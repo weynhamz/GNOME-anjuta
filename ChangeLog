@@ -1,5 +1,8 @@
 2005-03-10  Naba Kumar  <naba@gnome.org>
 
+	* src/action-callbacks.c: Removed reference to src/help.h (dead
+	file).
+
 	* plugins/editor/text_editor.c: Removed reference to
 	src/launcher.h (a dead file).
 

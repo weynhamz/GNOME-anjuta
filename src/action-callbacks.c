@@ -38,7 +38,7 @@
 #include <libanjuta/plugins.h>
 
 #include "anjuta-app.h"
-#include "help.h"
+// #include "help.h"
 #include "about.h"
 #include "action-callbacks.h"
 #include "anjuta.h"
