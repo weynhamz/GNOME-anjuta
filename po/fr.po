@@ -3191,7 +3191,7 @@ msgstr "Préférences"
 
 #: src/preferences_gui.c:160 src/project_config.c:769
 msgid "General"
-msgstr "Générales"
+msgstr "Général"
 
 #: src/preferences_gui.c:180
 msgid "Styles"
@@ -3199,7 +3199,7 @@ msgstr "Styles"
 
 #: src/preferences_gui.c:190
 msgid "Editor"
-msgstr "_Editeur"
+msgstr "Editeur"
 
 #: src/preferences_gui.c:200
 msgid "Print Setup"
