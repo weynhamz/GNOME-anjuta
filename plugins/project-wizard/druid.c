@@ -46,6 +46,7 @@
 /*---------------------------------------------------------------------------*/
 
 #define PROJECT_WIZARD_DIRECTORY PACKAGE_DATA_DIR"/project"
+#define LOCAL_PROJECT_WIZARD_DIRECTORY "/.anjuta/project"
 #define PIXMAP_APPWIZ_LOGO PACKAGE_DATA_DIR"/glade/applogo.png"
 #define PIXMAP_APPWIZ_WATERMARK PACKAGE_DATA_DIR"/glade/appwizard.png"
 
@@ -64,6 +65,7 @@
 #define PROJECT_SELECTION_SCROLL_LIST "project_scroll_list"
 #define PROJECT_SELECTION_FRAME "project_table"
 #define PROJECT_SELECTION_BOOK "project_book"
+#define PROJECT_SELECTION_BOOK_LABEL "project_book_label"
 #define PROJECT_DESCRIPTION "project_description"
 #define DRUID_WIDGET "druid"
 #define DRUID_START_PAGE "start_page"
@@ -270,7 +272,11 @@ cb_druid_insert_project_page (NPWHeader* header, gpointer user_data)
 	g_object_unref (xml);
 
 	/* Create label */
-	label = gtk_label_new(npw_header_get_category(header));
+	xml = glade_xml_new (GLADE_FILE, PROJECT_SELECTION_BOOK_LABEL, NULL);
+	g_return_if_fail (xml != NULL);
+	label = glade_xml_get_widget (xml, PROJECT_SELECTION_BOOK_LABEL);
+	g_object_unref (xml);
+	gtk_label_set_text (GTK_LABEL(label), category);
 
 	gtk_notebook_append_page (this->project_book, frame, label);
 }
@@ -279,12 +285,19 @@ cb_druid_insert_project_page (NPWHeader* header, gpointer user_data)
 static gboolean
 npw_druid_fill_selection_page (NPWDruid* this)
 {
+	gboolean ok;
+	gchar* local_dir;
+
 	/* Create list of projects */
 	if (this->header_list != NULL) npw_header_list_free (this->header_list);
 	this->header_list = npw_header_list_new ();	
 
 	/* Fill list with all project in directory */
-	if (!npw_header_list_readdir (this->header_list, PROJECT_WIZARD_DIRECTORY))
+	ok = npw_header_list_readdir (this->header_list, PROJECT_WIZARD_DIRECTORY);
+	local_dir = g_build_filename (g_get_home_dir(), LOCAL_PROJECT_WIZARD_DIRECTORY, NULL);
+	ok = npw_header_list_readdir (this->header_list, local_dir) || ok;
+	g_free (local_dir);
+	if (!ok)
 	{
 		anjuta_util_dialog_error (GTK_WINDOW (ANJUTA_PLUGIN (this->plugin)->shell),_("Unable to find any project template in %s"), PROJECT_WIZARD_DIRECTORY);		
 		return FALSE;

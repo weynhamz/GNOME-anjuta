@@ -423,7 +423,7 @@
 			      </child>
 
 			      <child>
-				<widget class="GtkLabel" id="label49">
+				<widget class="GtkLabel" id="project_book_label">
 				  <property name="visible">True</property>
 				  <property name="label" translatable="yes">label49</property>
 				  <property name="use_underline">False</property>
@@ -433,7 +433,7 @@
 				  <property name="selectable">False</property>
 				  <property name="xalign">0.5</property>
 				  <property name="yalign">0.5</property>
-				  <property name="xpad">0</property>
+				  <property name="xpad">5</property>
 				  <property name="ypad">0</property>
 				</widget>
 				<packing>

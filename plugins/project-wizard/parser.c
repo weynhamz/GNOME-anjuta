@@ -97,7 +97,6 @@ npw_header_list_readdir (NPWHeaderList* this, const gchar* path)
 {
 	GDir* dir;
 	const gchar* name;
-	gchar* filename;
 	gboolean ok = FALSE;
 
 	g_return_val_if_fail (this != NULL, FALSE);
@@ -109,20 +108,25 @@ npw_header_list_readdir (NPWHeaderList* this, const gchar* path)
 
 	while ((name = g_dir_read_name (dir)) != NULL)
 	{
-		if (g_str_has_suffix (name, PROJECT_WIZARD_EXTENSION))
-		{
-			filename = g_build_filename (path, name, NULL);
+		char* filename = g_build_filename (path, name, NULL);
 
-		       	if (!g_file_test (filename, G_FILE_TEST_IS_DIR))
+		if (g_file_test (filename, G_FILE_TEST_IS_DIR))
+		{
+			/* Search recursively in sub directory */
+			if (npw_header_list_readdir (this, filename))
 			{
-				if (npw_header_list_read (this, filename))
-				{
-					/* Read at least one project file */
-					ok = TRUE;
-				}
+				ok = TRUE;
 			}
-			g_free (filename);
 		}
+		else if (g_str_has_suffix (name, PROJECT_WIZARD_EXTENSION))
+		{
+			if (npw_header_list_read (this, filename))
+			{
+				/* Read at least one project file */
+				ok = TRUE;
+			}
+		}
+		g_free (filename);
 	}
 
 	g_dir_close (dir);

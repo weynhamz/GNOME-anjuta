@@ -1,3 +1,14 @@
+2005-02-26  Sebastien Granjoux  <seb.sfo@free.fr>
+	
+	* plugins/project-wizard/anjuta-project-wizard.glade,
+	plugins/project-wizard/druid.c:
+	Add some padding in tab label in project selection page
+	
+	* plugins/project-wizard/druid.c,
+	plugins/project-wizard/parser.c:
+	Search for project template recursively
+	Add ~/.anjuta/project to the search paths
+
 2005-02-26  Naba Kumar  <naba@gnome.org>
 
 	* plugins/file-wizard/action-callbacks.c: Fixed memory curruption.
