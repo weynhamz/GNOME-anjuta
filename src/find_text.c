@@ -511,6 +511,9 @@ on_find_text_ok_clicked (GtkButton * button, gpointer user_data)
 		break;
 	}
 	ret = text_editor_find (te, string, ft->area, ft->forward, ft->regexp, ft->ignore_case, ft->whole_word);
+
+	gtk_entry_set_text(GTK_ENTRY(app->widgets.toolbar.main_toolbar.find_entry), string);
+
 	g_free (string);
 	if (ret < 0)
 	{

@@ -1,3 +1,11 @@
+2002-03-03 Roel Vanhout <roel@stack.be>
+
+	Reviewed by Naba Kumar <kh_naba@users.sourceforge.net>
+	
+	* src/find_text.c
+	Store 'Find...' search string on search so that 'Find Next' will search for
+	that string, even if the dialog hasn't been closed yet.
+
 2002-03-03  Naba Kumar <kh_naba@users.sourceforge.net>
 
 	* src/anjuta.[h,c], src/anjuta_gui.c, src/anjuta_cbs.c,
