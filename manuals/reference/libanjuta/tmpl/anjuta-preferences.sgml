@@ -99,17 +99,6 @@ are mainly two ways a plugin could register its preferences in Anjuta.
 
 </para>
 
-@props_global: 
-@props_local: 
-@props_session: 
-@props: 
-
-<!-- ##### SIGNAL AnjutaPreferences::changed ##### -->
-<para>
-
-</para>
-
-@anjutapreferences: the object which received the signal.
 
 <!-- ##### USER_FUNCTION AnjutaPreferencesCallback ##### -->
 <para>

@@ -1,3 +1,9 @@
+2004-11-12  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
+	* plugins/editor/search-replace.[c,h], 
+	  plugins/editor/search-replace_backend.c
+	  Update search entry in main toolbar.
+	  Clean code.
+
 2004-11-11  Naba Kumar  <naba@gnome.org>
 
 	* TODO.tasks: Updated.

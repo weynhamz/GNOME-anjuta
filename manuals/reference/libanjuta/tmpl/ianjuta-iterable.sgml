@@ -22,16 +22,11 @@ ianjuta-iterable
 @IANJUTA_ITERABLE_INVALID_ITER: 
 @IANJUTA_ITERABLE_UNSETTABLE: 
 
-<!-- ##### STRUCT IAnjutaIterableIter ##### -->
+<!-- ##### TYPEDEF IAnjutaIterableIter ##### -->
 <para>
 
 </para>
 
-@a: 
-@b: 
-@c: 
-@d: 
-@e: 
 
 <!-- ##### MACRO IANJUTA_ITERABLE_ERROR ##### -->
 <para>

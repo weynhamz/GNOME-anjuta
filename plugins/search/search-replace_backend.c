@@ -42,9 +42,7 @@
 
 #include <libanjuta/anjuta-utils.h>
 
-// #include "anjuta.h"
 #include "text_editor.h"
-// #include "anjuta-tools.h"
 
 #define GTK
 #undef PLAT_GTK
@@ -457,6 +455,7 @@ get_next_match(FileBuffer *fb, SearchDirection direction, SearchExpression *s)
 	MatchInfo *mi = NULL;
 
 	g_return_val_if_fail(fb && s, NULL);
+	
 	if (s->regex)
 	{
 		/* Regular expression match */

@@ -41,9 +41,13 @@
 
 @g_iface: 
 @add_buffer: 
+@delete_all_markers: 
+@find_editor_with_path: 
 @get_current_editor: 
 @get_editors: 
+@get_full_filename: 
 @goto_file_line: 
+@goto_file_line_mark: 
 @set_current_editor: 
 
 <!-- ##### FUNCTION ianjuta_document_manager_error_quark ##### -->

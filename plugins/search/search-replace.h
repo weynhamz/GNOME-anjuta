@@ -40,6 +40,8 @@ GladeWidget *sr_get_gladewidget(const gchar *name);
 void search_replace_populate(void);
 void search_update_dialog(void);
 
+void search_toolbar_set_text(gchar *search_text);
+
 #define GLADE_FILE "anjuta.glade"
 #define SEARCH_REPLACE_DIALOG "dialog.search.replace"
 #define CLOSE_BUTTON "button.close"

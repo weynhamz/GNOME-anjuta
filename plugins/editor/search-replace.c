@@ -37,9 +37,9 @@
 #include <libanjuta/interfaces/ianjuta-message-manager.h>
 #include <libanjuta/interfaces/ianjuta-message-view.h>
 
-// #include "anjuta.h"
+#include <libegg/menu/egg-entry-action.h>
+
 #include "text_editor.h"
-// #include "anjuta-tools.h"
 
 #define GTK
 #undef PLAT_GTK
@@ -48,7 +48,6 @@
 #include "SciLexer.h"
 #include "ScintillaWidget.h"
 
-// #include "toolbar_callbacks.h"
 
 #include "search-replace_backend.h"
 #include "search-replace.h"
@@ -263,6 +262,9 @@ search_and_replace (void)
 	g_return_if_fail(sr);
 	s = &(sr->search);
 	
+	if (s->expr.search_str == NULL)
+		return;
+	
 	end_activity = FALSE;
 	search_make_sensitive(FALSE);
 	
@@ -431,7 +433,7 @@ search_and_replace (void)
  							offset += mi->len - (sr->replace.repl_str?strlen(sr->replace.repl_str):0);
 						break;
 					default:
-						// FIXME: anjuta_not_implemented(__FILE__, __LINE__);
+						g_message("Not implemented - File %s - Line %d\n", __FILE__, __LINE__);
 						break;
 				}  // switch
 
@@ -953,7 +955,6 @@ show_jump_button (gboolean show)
 static gboolean
 create_dialog(void)
 {
-	// char glade_file[PATH_MAX];
 	GladeWidget *w;
 	GList *combo_strings;
 	int i;
@@ -961,7 +962,7 @@ create_dialog(void)
 	g_return_val_if_fail(NULL != sr, FALSE);
 	if (NULL != sg) return TRUE;
 	sg = g_new0(SearchReplaceGUI, 1);
-	// snprintf(glade_file, PATH_MAX, "%s/%s", PACKAGE_DATA_DIR, GLADE_FILE);
+
 	if (NULL == (sg->xml = glade_xml_new(GLADE_FILE_SEARCH_REPLACE,
 		SEARCH_REPLACE_DIALOG, NULL)))
 	{
@@ -1032,6 +1033,19 @@ list_max_items(GList *list, guint nb_max)
 
 #define MAX_ITEMS_SEARCH_COMBO 16
 
+void
+search_toolbar_set_text(gchar *search_text)
+{
+	AnjutaUI *ui; 
+	GtkAction *action; 
+	
+	ui = anjuta_shell_get_ui (ANJUTA_DOCMAN(sr->docman)->shell, NULL);
+	action = anjuta_ui_get_action (ui, "ActionGroupNavigation",
+								   "ActionEditSearchEntry");
+	egg_entry_action_set_text (EGG_ENTRY_ACTION(action), search_text);	
+}
+
+
 //  FIXME  free GList sr->search.expr_history ?????
 
 static void
@@ -1057,6 +1071,9 @@ search_update_combos(void)
 					MAX_ITEMS_SEARCH_COMBO);
 				gtk_combo_set_popdown_strings((GtkCombo *) search_list,
 					sr->search.expr_history);
+				
+				search_toolbar_set_text(search_word);	
+				//  FIXME  comboentry instead of entry				
 				//~ entry_set_text_n_select (app->widgets.toolbar.main_toolbar.find_entry,
 								 //~ search_word, FALSE);
 			}
@@ -1087,18 +1104,6 @@ replace_update_combos(void)
 					MAX_ITEMS_SEARCH_COMBO);
 				gtk_combo_set_popdown_strings((GtkCombo *) replace_list,
 					sr->replace.expr_history);
-/*				
-				g_signal_handlers_disconnect_by_func(
-					G_OBJECT(app->widgets.toolbar.main_toolbar.find_entry), 
-					(GtkSignalFunc)on_toolbar_find_incremental, 
-					NULL);
-  				entry_set_text_n_select (app->widgets.toolbar.main_toolbar.find_entry,
-								search_word, FALSE);
-				g_signal_connect (
-					G_OBJECT(app->widgets.toolbar.main_toolbar.find_entry),
-					"changed",
-					G_CALLBACK (on_toolbar_find_incremental),
-					NULL); */
 			}
 		}
 	}
@@ -1606,13 +1611,14 @@ anjuta_search_replace_activate (gboolean replace, gboolean project)
 	gchar *current_word = NULL;
 	TextEditor *te;  
 	GtkWidget *notebook;
-	
+
 	create_dialog ();
 
 	te = anjuta_docman_get_current_editor(sr->docman);
 	search_update_dialog();
 
 	search_replace_populate();
+
 	reset_flags_and_search_button();
 	/* Set properties */
 	search_entry = sr_get_gladewidget(SEARCH_STRING)->widget;
