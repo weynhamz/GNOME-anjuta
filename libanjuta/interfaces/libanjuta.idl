@@ -470,6 +470,18 @@ interface IAnjutaMessageManager
 	 *
 	 */
 	void set_current_view (IAnjutaMessageView *view);
+	
+	/**
+	 * ianjuta_message_manager_set_view_title:
+	 * @obj: Self
+	 * @view: A message view
+	 * @title: Sets the title of view.
+	 * @err: Error propagation and reporting
+	 *
+	 * Sets the title of view.
+	 *
+	 */
+	void set_view_title (IAnjutaMessageView *view, const gchar *title);
 }
 
 interface IAnjutaFileManager

@@ -7,6 +7,9 @@ typedef struct _BasicAutotoolsPluginClass BasicAutotoolsPluginClass;
 struct _BasicAutotoolsPlugin{
 	AnjutaPlugin parent;
 	
+	/* Build contexts pool */
+	GList *contexts_pool;
+
 	/* Watch IDs */
 	gint fm_watch_id;
 	gint project_watch_id;

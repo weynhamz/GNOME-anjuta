@@ -1,3 +1,16 @@
+2005-02-24  Naba Kumar  <naba@gnome.org>
+
+	* libanjuta/interfaces/libanjuta.idl,
+	plugins/message-view/anjuta-msgman.c,
+	plugins/message-view/anjuta-msgman.h,
+	plugins/message-view/plugin.c: Added and implemented
+	set_view_title() method.
+	
+	* plugins/build-basic-autotools/build-basic-autotools.c,
+	plugins/build-basic-autotools/build-basic-autotools.h: Implemented
+	build context pooling. Maximum 3 contexts are reused. Additional
+	contexts are created when all are busy.
+
 2005-02-23  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
 
 	* plugins/macro/macro-actions.c, plugins/macro/macro-db.[ch],

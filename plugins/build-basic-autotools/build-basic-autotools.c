@@ -37,6 +37,7 @@
 #define ICON_FILE "anjuta-build-basic-autotools-plugin.png"
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-build-basic-autotools-plugin.ui"
 #define MAKE_COMMAND "make"
+#define MAX_BUILD_PANES 3
 
 static gpointer parent_class;
 
@@ -138,7 +139,11 @@ build_context_destroy (BuildContext *context)
 	if (context->message_view)
 		gtk_widget_destroy (GTK_WIDGET (context->message_view));
 	if (context->launcher)
+	{
+		if (anjuta_launcher_is_busy (context->launcher))
+			anjuta_launcher_reset (context->launcher);
 		g_object_unref (context->launcher);
+	}
 	if (context->build_dir_stack)
 		g_hash_table_destroy (context->build_dir_stack);
 	g_free (context->command);
@@ -532,53 +537,110 @@ on_build_terminated (AnjutaLauncher *launcher,
 }
 
 static void
+build_release_context (BasicAutotoolsPlugin *plugin, BuildContext *context)
+{
+	plugin->contexts_pool = g_list_remove (plugin->contexts_pool, context);
+	build_context_destroy (context);
+}
+
+static void
 on_message_view_destroyed (BuildContext *context, GtkWidget *view)
 {
 	DEBUG_PRINT ("Destroying build context");
 	context->message_view = NULL;
-	build_context_destroy (context);
+	build_release_context ((BasicAutotoolsPlugin*)(context->plugin), context);
+}
+
+static BuildContext*
+build_get_context (BasicAutotoolsPlugin *plugin, const gchar *dir,
+				   const gchar *command)
+{
+	IAnjutaMessageManager *mesg_manager;
+	gchar mname[128];
+	gchar *subdir;
+	BuildContext *context = NULL;
+	static gint message_pane_count = 0;
+	
+	/* Initialise regex rules */
+	build_regex_init();
+
+	subdir = g_path_get_basename (dir);
+	snprintf (mname, 128, _("Build %d: %s"), ++message_pane_count, subdir);
+	g_free (subdir);
+	
+	/* If we already have MAX_BUILD_PANES build panes, find a free context */
+	if (g_list_length (plugin->contexts_pool) >= MAX_BUILD_PANES)
+	{
+		GList *node;
+		node = plugin->contexts_pool;
+		while (node)
+		{
+			BuildContext *c;
+			c = node->data;
+			if (c->launcher == NULL)
+			{
+				context = c;
+				break;
+			}
+			node = g_list_next (node);
+		}
+	}
+	
+	mesg_manager = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
+											   IAnjutaMessageManager, NULL);
+	if (context)
+	{
+		/* Reset context */
+		g_free (context->command);
+		ianjuta_message_view_clear (context->message_view, NULL);
+		g_hash_table_destroy (context->build_dir_stack);
+		context->build_dir_stack = NULL;
+		
+		/* It will be re-inserted in right order */
+		plugin->contexts_pool = g_list_remove (plugin->contexts_pool, context);
+		ianjuta_message_manager_set_view_title (mesg_manager,
+												context->message_view,
+												mname, NULL);
+	}
+	else
+	{
+		/* If no free context found, create one */
+		context = g_new0 (BuildContext, 1);
+		context->plugin = ANJUTA_PLUGIN(plugin);
+		
+		context->message_view =
+			ianjuta_message_manager_add_view (mesg_manager, mname,
+											  ICON_FILE, NULL);
+		g_signal_connect (G_OBJECT (context->message_view), "buffer_flushed",
+						  G_CALLBACK (on_build_mesg_format), context);
+		g_signal_connect (G_OBJECT (context->message_view), "message_clicked",
+						  G_CALLBACK (on_build_mesg_parse), context);
+		g_object_weak_ref (G_OBJECT (context->message_view),
+						   (GWeakNotify)on_message_view_destroyed, context);
+	}
+	
+	context->command = g_strdup (command);
+	context->launcher = anjuta_launcher_new ();
+	g_signal_connect (G_OBJECT (context->launcher), "child-exited",
+					  G_CALLBACK (on_build_terminated), context);
+	build_context_push_dir (context, "default", dir);
+	chdir (dir);
+	
+	plugin->contexts_pool = g_list_append (plugin->contexts_pool, context);
+	ianjuta_message_manager_set_current_view (mesg_manager,
+											  context->message_view, NULL);
+	return context;
 }
 
 static void
 build_execute_command (BasicAutotoolsPlugin* plugin, const gchar *dir,
 					   const gchar *command)
 {
-	IAnjutaMessageManager *mesg_manager;
 	BuildContext *context;
-	gchar mname[128];
-	gchar *subdir;
-	
-	static gint message_pane_count = 0;
 	
 	g_return_if_fail (command != NULL);
 	
-	build_regex_init();
-	
-	context = g_new0 (BuildContext, 1);
-	context->plugin = ANJUTA_PLUGIN(plugin);
-	context->command = g_strdup (command);
-	
-	mesg_manager = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
-											   IAnjutaMessageManager, NULL);
-	subdir = g_path_get_basename (dir);
-	snprintf (mname, 128, _("Build %d: %s"), ++message_pane_count, subdir);
-	g_free (subdir);
-	
-	context->message_view =
-		ianjuta_message_manager_add_view (mesg_manager, mname,
-										  ICON_FILE, NULL);
-	g_signal_connect (G_OBJECT (context->message_view), "buffer_flushed",
-					  G_CALLBACK (on_build_mesg_format), context);
-	g_signal_connect (G_OBJECT (context->message_view), "message_clicked",
-					  G_CALLBACK (on_build_mesg_parse), context);
-	g_object_weak_ref (G_OBJECT (context->message_view),
-					   (GWeakNotify)on_message_view_destroyed, context);
-	/*g_signal_connect (G_OBJECT (context->message_view), "destroy",
-					  G_CALLBACK (on_message_view_destroyed), context);
-	*/
-	context->launcher = anjuta_launcher_new ();
-	g_signal_connect (G_OBJECT (context->launcher), "child-exited",
-					  G_CALLBACK (on_build_terminated), context);
+	context = build_get_context (plugin, dir, command);
 	
 	ianjuta_message_view_buffer_append (context->message_view,
 										"Building in directory: ", NULL);
@@ -587,8 +649,6 @@ build_execute_command (BasicAutotoolsPlugin* plugin, const gchar *dir,
 	ianjuta_message_view_buffer_append (context->message_view, command, NULL);
 	ianjuta_message_view_buffer_append (context->message_view, "\n", NULL);
 	
-	build_context_push_dir (context, "default", dir);
-	chdir (dir);
 	anjuta_launcher_execute (context->launcher, command,
 							 on_build_mesg_arrived, context);
 }
@@ -1349,6 +1409,7 @@ basic_autotools_plugin_instance_init (GObject *obj)
 	ba_plugin->fm_current_filename = NULL;
 	ba_plugin->project_root_dir = NULL;
 	ba_plugin->current_editor_filename = NULL;
+	ba_plugin->contexts_pool = NULL;
 }
 
 static void

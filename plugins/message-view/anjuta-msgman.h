@@ -60,4 +60,7 @@ void anjuta_msgman_set_current_view (AnjutaMsgman * msgman, MessageView * mv);
 
 GList *anjuta_msgman_get_all_views (AnjutaMsgman * msgman);
 
+void anjuta_msgman_set_view_title (AnjutaMsgman *msgman, MessageView *view,
+								   const gchar *title);
+
 #endif /* _ANJUTA_MSGMAN_H */

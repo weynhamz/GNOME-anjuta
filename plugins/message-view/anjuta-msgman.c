@@ -361,3 +361,17 @@ anjuta_msgman_get_all_views (AnjutaMsgman * msgman)
 {
 	return msgman->priv->views;
 }
+
+void
+anjuta_msgman_set_view_title (AnjutaMsgman *msgman, MessageView *view,
+							  const gchar *title)
+{
+	AnjutaMsgmanPage *page;
+	
+	g_return_if_fail (title != NULL);
+	
+	page = anjuta_msgman_page_from_widget (msgman, view);
+	g_return_if_fail (page != NULL);
+	
+	gtk_label_set_text (GTK_LABEL (page->label), title);
+}

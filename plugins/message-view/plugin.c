@@ -281,6 +281,16 @@ ianjuta_msgman_set_current_view (IAnjutaMessageManager *plugin,
 }
 
 static void
+ianjuta_msgman_set_view_title (IAnjutaMessageManager *plugin,
+							   IAnjutaMessageView *message_view,
+							   const gchar *title, GError ** e)
+{
+	GtkWidget *msgman = ((MessageViewPlugin*)plugin)->msgman;
+	anjuta_msgman_set_view_title (ANJUTA_MSGMAN (msgman),
+								  MESSAGE_VIEW (message_view), title);
+}
+
+static void
 ianjuta_msgman_iface_init (IAnjutaMessageManagerIface *iface)
 {
 	iface->add_view = ianjuta_msgman_add_view;
@@ -289,6 +299,7 @@ ianjuta_msgman_iface_init (IAnjutaMessageManagerIface *iface)
 	iface->get_current_view = ianjuta_msgman_get_current_view;
 	iface->set_current_view = ianjuta_msgman_set_current_view;
 	iface->get_all_views = ianjuta_msgman_get_all_views;
+	iface->set_view_title = ianjuta_msgman_set_view_title;
 }
 
 ANJUTA_PLUGIN_BEGIN (MessageViewPlugin, message_view_plugin);
