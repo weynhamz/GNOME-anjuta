@@ -1367,8 +1367,8 @@ breakpoints_dbase_add_brkpnt (BreakpointsDBase *bd, gchar *brkpnt)
 	GList *node;
 	gchar* full_fname = NULL;
 	gchar brkno[10];
-	gchar function[256];
-	gchar fileln[512];
+	gchar *function;
+	gchar *fileln;
 	gchar file[512];
 	gchar line[10];
 	gchar ignore[10];
@@ -1387,15 +1387,21 @@ breakpoints_dbase_add_brkpnt (BreakpointsDBase *bd, gchar *brkpnt)
 	if (strstr (brkpnt, "watchpoint"))
 		return;
 
-	count = sscanf (brkpnt, "%s %*s %*s %s %*s in %s at %s",
-					brkno, enb, function, fileln);
+	count = sscanf (brkpnt, "%s %*s %*s %s", brkno, enb);
+	function = strstr (brkpnt, " in ");
+	fileln = g_strrstr (brkpnt, " at ");
 
-	if (count == 4 || count == 2) {
+	if (count == 2 && function && fileln)
+	{
 		GtkTreeStore *store;
 		GtkTreeIter iter;
 
-		if (count == 4)
+		if (count == 2)
 		{
+			function += 4; // skip " in "
+			*fileln = 0; // finish function part
+			fileln += 4; // skip " at "
+
 			/* get file and line no */
 			ptr = strchr (fileln, ':');
 			ptr++;
@@ -1404,22 +1410,13 @@ breakpoints_dbase_add_brkpnt (BreakpointsDBase *bd, gchar *brkpnt)
 			*ptr = '\0';
 			strcpy (file, fileln);
 		}
-		else
-		{
-			strcpy (file, "??");
-			strcpy (line, "??");
-			strcpy (function, "??");
-		}
 
 		/* add breakpoint to list */
 
 		bi = breakpoint_item_new ();
 		bi->file = g_strdup (file);
 
-		if (count == 4)
-			bi->line = atoi (line);
-		else
-			bi->line = -1;
+		bi->line = atoi (line);
 
 		bi->function = g_strdup (function);
 		bi->id = atoi (brkno);
