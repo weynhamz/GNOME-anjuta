@@ -684,6 +684,49 @@ int gtodo_client_check_file(GTodoClient *cl, GError **error)
 	return FALSE;
 }
 
+/* Remove unwanted text nodes from the document */
+
+static void
+gtodo_client_cleanup_doc (GTodoClient *cl)
+{
+	xmlNodePtr  level1, next1;
+	level1 = cl->root->xmlChildrenNode;
+	while(level1 != NULL){
+		xmlNodePtr level2, next2;
+		next1 = level1->next;
+
+		if(xmlNodeIsText(level1)) {
+			xmlUnlinkNode(level1);
+			xmlFreeNode(level1);
+		} else {
+			level2 = level1->xmlChildrenNode;
+			while(level2 != NULL) {
+				xmlNodePtr level3, next3;
+				next2 = level2->next;
+				
+				if(xmlNodeIsText(level2)) {
+					xmlUnlinkNode(level2);
+					xmlFreeNode(level2);
+				} else {
+					level3 = level2->xmlChildrenNode;
+					while (level3 != NULL) {
+					// xmlNodePtr level4, next4;
+					next3 = level3->next;
+						
+						if(xmlNodeIsText(level3)) {
+							xmlUnlinkNode(level3);
+							xmlFreeNode(level3);
+						}
+						level3 = next3;
+					}
+				}
+				level2 = next2;
+			}
+		}
+		level1 = next1;
+	}
+}
+
 /* save the gtodo_Client */
 
 int gtodo_client_save_xml(GTodoClient *cl, GError **error)
@@ -693,6 +736,7 @@ int gtodo_client_save_xml(GTodoClient *cl, GError **error)
 	g_return_val_if_fail(error == NULL || *error == NULL,FALSE);
 
 	if(debug)g_print("** DEBUG ** saving %s\n", cl->xml_path);
+		gtodo_client_cleanup_doc (cl);
 	if(gtodo_client_save_xml_to_file(cl, cl->xml_path, &tmp_error))
 	{
 		g_propagate_error(error, tmp_error);

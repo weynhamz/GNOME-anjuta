@@ -1,23 +1,14 @@
 <?xml version="1.0"?>
 <gtodo>
   <category title="Unfiled" place="0">
-    
-  <item><attribute id="1098255975" priority="2" done="1" start_date="731874" completed_date="731972" notify="0" last_edited="1106752594"/><summary>Anjuta 2.0 write up</summary><comment>Write a publication describing what's happening with anjuta
-development and what's new in Anjuta 2.0 release.</comment></item></category>
+    <item>
+      <attribute id="1098255975" priority="2" done="1" start_date="731874" completed_date="731972" notify="0" last_edited="1106752594"/>
+      <summary>Anjuta 2.0 write up</summary>
+      <comment>Write a publication describing what's happening with anjuta
+development and what's new in Anjuta 2.0 release.</comment>
+    </item>
+  </category>
   <category title="libanjuta" place="1">
-    <item>
-      <attribute id="1098255692" priority="1" done="0" start_date="731874" enddate="99999999" notify="0" endtime="-60" last_edited="1098255692"/>
-      <summary>Move encodings source files</summary>
-      <comment>Move encodings source files (anjuta-encodings.h and anjuta-encodings.c)
-into editor plugin.</comment>
-    </item>
-    <item>
-      <attribute id="1098253494" priority="2" done="0" start_date="731874" enddate="99999999" notify="0" endtime="-60" last_edited="1098256210"/>
-      <summary>Preferences keys with no defaults do not register</summary>
-      <comment>Preferences keys without default values (defined in .glade file) are not
-registered during preferences registeration. This results in gconf type
-mismatch when the keys are queried.</comment>
-    </item>
     <item>
       <attribute id="1098253934" priority="1" done="1" start_date="731874" completed_date="731901" notify="0" last_edited="1100584623"/>
       <summary>Key notification API</summary>
@@ -32,16 +23,21 @@ We have problem with dynamic class registeration.
 Until we figure out that, the plugins should not be unloaded
 when deactivated.</comment>
     </item>
-  </category>
-  <category title="Plugin: Editor" place="3">
-    
     <item>
-      <attribute id="1098253712" priority="1" done="0" start_date="731874" enddate="99999999" notify="0" endtime="-60" last_edited="1098253712"/>
-      <summary>Configure syntax highlighting</summary>
-      <comment>Add Syntax highlighting configuration dialog in editor
-preferences page. A button in the page, which will pop up the
-configuration dialog.</comment>
+      <attribute id="1098255692" priority="1" done="0" start_date="731874" enddate="99999999" notify="0" endtime="-60" last_edited="1107240311"/>
+      <summary>Move encodings source files</summary>
+      <comment>Move encodings source files (anjuta-encodings.h and anjuta-encodings.c)
+by CVS surgery into editor plugin.</comment>
     </item>
+    <item>
+      <attribute id="1098253494" priority="2" done="0" start_date="731874" enddate="99999999" notify="0" endtime="-60" last_edited="1107249856"/>
+      <summary>Preferences keys with no defaults do not register</summary>
+      <comment>Preferences keys without default values (defined in .glade file) are not
+registered during preferences registeration. This results in gconf type
+mismatch when the keys are queried.</comment>
+    </item>
+  </category>
+  <category title="Plugin: Editor" place="4">
     <item>
       <attribute id="1098255400" priority="1" done="1" start_date="731874" completed_date="731902" notify="0" last_edited="1100696776"/>
       <summary>Add "saved" signal</summary>
@@ -53,8 +49,47 @@ configuration dialog.</comment>
       <comment>Connect to save point state signal of editor and
 accordingly update undo/redo ui sensitivity.</comment>
     </item>
-  <item><attribute id="1098253642" priority="1" done="0" start_date="731874" notify="0" last_edited="1105392177"/><summary>Apply prefererences</summary><comment>Editor preferences are not applied now.</comment></item></category>
-  <category title="Plugin: Project Manager" place="6">
+    <item>
+      <attribute id="1098253642" priority="1" done="0" start_date="731874" enddate="99999999" notify="0" endtime="-60" last_edited="1107239862"/>
+      <summary>Apply prefererences</summary>
+      <comment>Hidden editor preferences (those which are not settable from
+preferences dialog) are not applied now.</comment>
+    </item>
+    <item>
+      <attribute id="1098253712" priority="1" done="0" start_date="731874" enddate="99999999" notify="0" endtime="-60" last_edited="1107239957"/>
+      <summary>Update on configure syntax highlighting</summary>
+      <comment>When syntax highlighting colors/fonts are changed, the
+changes are not propagated to all editors, but it should, just
+like a gconf key.</comment>
+    </item>
+    <item>
+      <attribute id="1107240087" priority="1" done="0" start_date="731978" enddate="99999999" notify="0" endtime="-60" last_edited="1107240087"/>
+      <summary>Enable 'Tab' auto-indentation</summary>
+      <comment>Automatic indentation (ala emacs) is working in Editor. For cpp lexer,
+'Tab' should be be trapped from the editor and used to auto-indent
+current line. Currently, trapping 'Tab' key in editor does not work.</comment>
+    </item>
+    <item>
+      <attribute id="1107240185" priority="1" done="0" start_date="731978" enddate="99999999" notify="0" endtime="-60" last_edited="1107240185"/>
+      <summary>Expose editor functions to IAnjutaEditor</summary>
+      <comment>Currently, only a limited numbers of Editor are exposed through
+IAnjutaEditor, IAnjutaMarkable and IAnjutaFileSavable interface.
+Most of the API should be exposed.</comment>
+    </item>
+    <item>
+      <attribute id="1107240279" priority="1" done="0" start_date="731978" enddate="99999999" notify="0" endtime="-60" last_edited="1107240279"/>
+      <summary>Move CVS directories</summary>
+      <comment>Move data/properties/ and scintilla/ directories (by CVS surgery, and
+not by add/remove) into plugins/editor/ directory.</comment>
+    </item>
+    <item>
+      <attribute id="1107240796" priority="1" done="0" start_date="731978" enddate="99999999" notify="0" endtime="-60" last_edited="1107240796"/>
+      <summary>Add editor view on idle</summary>
+      <comment>Add editor view using gtk_idle_add() to minimize UI freeze. Also set
+busy/unbusy on AnjutaStatus during split operation</comment>
+    </item>
+  </category>
+  <category title="Plugin: Project Manager" place="7">
     <item>
       <attribute id="1098254033" priority="1" done="0" start_date="731874" enddate="99999999" notify="0" endtime="-60" last_edited="1098254070"/>
       <summary>Context menu</summary>
@@ -62,15 +97,24 @@ accordingly update undo/redo ui sensitivity.</comment>
 Export currenct selected target or source.
 Added context menu based on current selected target or source.</comment>
     </item>
-    
     <item>
       <attribute id="1100059926" priority="1" done="0" start_date="731895" enddate="99999999" notify="0" endtime="-60" last_edited="1100059926"/>
       <summary>Display progress window</summary>
       <comment>Display a "Loading project" window before loading a project and update gtk events.</comment>
     </item>
-  <item><attribute id="1100059875" priority="1" done="1" start_date="731895" completed_date="731972" notify="0" last_edited="1106752638"/><summary>Error messages for loading project</summary><comment>Display error messages after loading of project fails.</comment></item></category>
-  <category title="Plugin: File Manager" place="5"/>
-  <category title="Plugin: Automake Build" place="2">
+    <item>
+      <attribute id="1100059875" priority="1" done="1" start_date="731895" completed_date="731972" notify="0" last_edited="1106752638"/>
+      <summary>Error messages for loading project</summary>
+      <comment>Display error messages after loading of project fails.</comment>
+    </item>
+    <item>
+      <attribute id="1107240342" priority="1" done="0" start_date="731978" enddate="99999999" notify="0" endtime="-60" last_edited="1107240342"/>
+      <summary>Implemente IAnjutaProjectManager</summary>
+      <comment>Implemente IAnjutaProjectManager interface.</comment>
+    </item>
+  </category>
+  <category title="Plugin: File Manager" place="6"/>
+  <category title="Plugin: Automake Build" place="3">
     <item>
       <attribute id="1098254207" priority="1" done="0" start_date="731874" enddate="99999999" notify="0" endtime="-60" last_edited="1098255751"/>
       <summary>Project manager watch</summary>
@@ -78,13 +122,19 @@ Added context menu based on current selected target or source.</comment>
 merge context menu into project manager.</comment>
     </item>
     <item>
-      <attribute id="1100521161" priority="1" done="0" start_date="731900" enddate="99999999" notify="0" endtime="-60" last_edited="1100521161"/>
+      <attribute id="1100521161" priority="1" done="0" start_date="731900" enddate="99999999" notify="0" endtime="-60" last_edited="1107241480"/>
       <summary>Define compile commands</summary>
       <comment>Define compile commands for various file extensions.
-</comment>
+Normally, plugin should search for a Makefile and invoke it with
+correct target (for example for a c file, it will be 'make file.o').
+There should be a file that contains regexs for deriving target
+from a file name for invoking 'make'. Also, if there is no Makefile
+found in the directory with which to invoke the compile command,
+user should be prompted to create a Makefile (possibly filling it
+up with some template contents).</comment>
     </item>
   </category>
-  <category title="Plugin: Symbol Browser" place="7">
+  <category title="Plugin: Symbol Browser" place="9">
     <item>
       <attribute id="1098255485" priority="1" done="0" start_date="731874" enddate="99999999" notify="0" endtime="-60" last_edited="1098255485"/>
       <summary>Updated tags image on file save</summary>
@@ -115,15 +165,36 @@ corresponding workspace symbols are not updated. That is when
 "goto symbol" to a symbol in this file from some other place is
 activated (eg. symbol pane), the old location is used.</comment>
     </item>
+    <item>
+      <attribute id="1107240408" priority="1" done="0" start_date="731978" enddate="99999999" notify="0" endtime="-60" last_edited="1107240408"/>
+      <summary>Update on Add/Remove files in project</summary>
+      <comment>Using IAnjutaProjectManager interface, update symbol database
+on add/remove of sources.</comment>
+    </item>
+    <item>
+      <attribute id="1107240520" priority="1" done="0" start_date="731978" enddate="99999999" notify="0" endtime="-60" last_edited="1107240535"/>
+      <summary>Tags search do not retrieve all matching symbols</summary>
+      <comment>Tags search (plugins/editor/aneditor.cxx) during calltips query
+do not retrieve all matching function prototypes.
+Perhaps, the tags
+are not sorted, leading to incomplete binary search.
+Investigate it in tag-manager/ directory.
+</comment>
+    </item>
+    <item>
+      <attribute id="1107240571" priority="1" done="0" start_date="731978" enddate="99999999" notify="0" endtime="-60" last_edited="1107240571"/>
+      <summary>Possible memory leak</summary>
+      <comment>Investigate possible memory lead on load/unload of symbol-browser.</comment>
+    </item>
   </category>
-  <category title="Documentation" place="8">
+  <category title="Documentation" place="11">
     <item>
       <attribute id="1098255636" priority="1" done="0" start_date="731874" notify="0" last_edited="1101603303"/>
       <summary>Update</summary>
       <comment>All documents need update.</comment>
     </item>
   </category>
-  <category title="Plugin: File Loader" place="4">
+  <category title="Plugin: File Loader" place="5">
     <item>
       <attribute id="1098254131" priority="1" done="0" start_date="731874" enddate="99999999" notify="0" endtime="-60" last_edited="1098256394"/>
       <summary>Project manager watch</summary>
@@ -134,6 +205,64 @@ with context menu in project manager.</comment>
       <attribute id="1098256384" priority="1" done="0" start_date="731874" enddate="99999999" notify="0" endtime="-60" last_edited="1100696989"/>
       <summary>Open with plugins</summary>
       <comment>Add open with plugins menus along with open with programs menus.</comment>
+    </item>
+  </category>
+  <category title="libanjuta-interfaces" place="2">
+    <item>
+      <attribute id="1107240705" priority="1" done="0" start_date="731978" enddate="99999999" notify="0" endtime="-60" last_edited="1107240705"/>
+      <summary>Documentation</summary>
+      <comment>Add gdoc API documentation in libanjuta.idl.</comment>
+    </item>
+  </category>
+  <category title="Plugin: Task Manager" place="10">
+    <item>
+      <attribute id="1107240955" priority="1" done="0" start_date="731978" enddate="99999999" notify="0" endtime="-60" last_edited="1107240955"/>
+      <summary>Proper deactivation</summary>
+      <comment>Some stuffs are left out during deactivation of the plugin. For example,
+gnome-vfs monitor for TODO.tasks is not removed, leading
+to crash when the file changes when the plugin is not active.</comment>
+    </item>
+    <item>
+      <attribute id="1107241016" priority="1" done="0" start_date="731978" enddate="99999999" notify="0" endtime="-60" last_edited="1107241016"/>
+      <summary>Text wrap</summary>
+      <comment>Text (title and description) are not automatically wrapped for long lines.</comment>
+    </item>
+    <item>
+      <attribute id="1107241155" priority="1" done="0" start_date="731978" enddate="99999999" notify="0" endtime="-60" last_edited="1107241155"/>
+      <summary>Create text version TODO file</summary>
+      <comment>Create human readable TODO file, which will be plain text,
+during save.</comment>
+    </item>
+    <item>
+      <attribute id="1107240984" priority="1" done="1" start_date="731978" completed_date="731978" notify="0" last_edited="1107250499"/>
+      <summary>Scrollbars</summary>
+      <comment>Set horizontal and vertical scrollbars AUTOMATIC.</comment>
+    </item>
+    <item>
+      <attribute id="1107241255" priority="1" done="1" start_date="731978" completed_date="731978" notify="0" last_edited="1107250502"/>
+      <summary>Remove text nodes during save</summary>
+      <comment>Remove text nodes between tags that do not have text contents.
+It can be done either during save or load. Without this fix, the save xml is distorted.</comment>
+    </item>
+  </category>
+  <category title="Plugin: Project Wizard" place="8">
+    <item>
+      <attribute id="1107241611" priority="1" done="0" start_date="731978" enddate="99999999" notify="0" endtime="-60" last_edited="1107241611"/>
+      <summary>Proper message output</summary>
+      <comment>Produce a proper message output when files are created from
+templates. For example, 'Creating project-name/file-path/file-name.c'
+instead of full path names.</comment>
+    </item>
+    <item>
+      <attribute id="1107241649" priority="1" done="0" start_date="731978" enddate="99999999" notify="0" endtime="-60" last_edited="1107241649"/>
+      <summary>More templates</summary>
+      <comment>Create more project templates, such as gnome, sdl, x11 etc..</comment>
+    </item>
+    <item>
+      <attribute id="1107241699" priority="1" done="0" start_date="731978" enddate="99999999" notify="0" endtime="-60" last_edited="1107241699"/>
+      <summary>Prompt error when autogen could not be found</summary>
+      <comment>Prompt user with an error when 'autogen' could not be found and
+abort the process.</comment>
     </item>
   </category>
 </gtodo>

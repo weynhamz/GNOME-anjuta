@@ -95,20 +95,40 @@ struct _TextEditorClass
 
 GType text_editor_get_type (void);
 
+/* New instance of TextEditor */
 GtkWidget* text_editor_new (AnjutaPreferences * pr, const gchar *uri,
 							const gchar *tab_name);
 
+/* Freeze and thaw editor */
 void text_editor_freeze (TextEditor * te);
-
 void text_editor_thaw (TextEditor * te);
 
+/* Set context pop up menu */
 void text_editor_set_popup_menu (TextEditor *te, GtkWidget *popup_menu);
 
+/*
+ * Sets the custom (forced) highlight style for the editor. Pass a dummy file
+ * name (with extension) to force particular highlight style. This function
+ * does not actualy rehighlight the editor, but only sets the highlight type
+ * which will be used in subsequent call to text_editor_hil().
+ */
 void text_editor_set_hilite_type (TextEditor * te, const gchar *file_extension);
+
+/*
+ * (Re) highlights the Editor. The 'force' parameter is used to tell if the
+ * preferences setting for 'Disable highlight' should not be considered.
+ * If force == FALSE, there will be no highlight if 'Disable highlight' is
+ * set ON.
+ */
 void text_editor_hilite (TextEditor *te, gboolean force);
 
+/*
+ * Set the zoom factor. Zoom factor basically increases or decreases the
+ * text font size by a factor of (2*zfac)
+ */
 void text_editor_set_zoom_factor (TextEditor * te, gint zfac);
 
+ /* Undo or redo last action */
 void text_editor_undo (TextEditor * te);
 void text_editor_redo (TextEditor * te);
 
@@ -118,73 +138,86 @@ text_editor_find (TextEditor * te, const gchar * str, gint scope,
 				  gboolean forward, gboolean regexp, gboolean ignore_case,
 				  gboolean whole_word, gboolean wrap);
 
+/* Replaces current selection with given string */
 void text_editor_replace_selection (TextEditor * te, const gchar * r_str);
 
-guint text_editor_get_total_lines (TextEditor * te);
-glong text_editor_get_current_position (TextEditor * te);
-guint text_editor_get_current_lineno (TextEditor * te);
-guint text_editor_get_current_column (TextEditor * te);
-guint text_editor_get_line_from_position (TextEditor * te, glong pos);
-gchar* text_editor_get_selection (TextEditor * te);
+/* Various editor information */
+guint    text_editor_get_total_lines (TextEditor * te);
+glong    text_editor_get_current_position (TextEditor * te);
+guint    text_editor_get_current_lineno (TextEditor * te);
+guint    text_editor_get_current_column (TextEditor * te);
+guint    text_editor_get_line_from_position (TextEditor * te, glong pos);
+gchar*   text_editor_get_selection (TextEditor * te);
 gboolean text_editor_get_overwrite (TextEditor * te);
+glong    text_editor_get_selection_start (TextEditor * te);
+glong    text_editor_get_selection_end (TextEditor * te);
+gboolean text_editor_has_selection (TextEditor * te);
+gboolean text_editor_is_saved (TextEditor * te);
 
+/* Jump to various locations */
 gboolean text_editor_goto_point (TextEditor * te, glong num);
 gboolean text_editor_goto_line (TextEditor * te, glong num,
 								gboolean mark, gboolean ensure_visible);
 gint text_editor_goto_block_start (TextEditor* te);
 gint text_editor_goto_block_end (TextEditor* te);
 
-void text_editor_set_line_marker (TextEditor * te, glong line);
-gint text_editor_set_marker (TextEditor * te, glong line, gint marker);
-gint text_editor_set_indicator (TextEditor *te, glong line, gint indicator);
-
+/* Save or load file */
 gboolean text_editor_load_file (TextEditor * te);
 gboolean text_editor_save_file (TextEditor * te, gboolean update);
 
-gboolean text_editor_is_saved (TextEditor * te);
-gboolean text_editor_has_selection (TextEditor * te);
-glong text_editor_get_selection_start (TextEditor * te);
-glong text_editor_get_selection_end (TextEditor * te);
-
 void text_editor_update_controls (TextEditor * te);
-
 gboolean text_editor_save_yourself (TextEditor * te, FILE * stream);
 gboolean text_editor_recover_yourself (TextEditor * te, FILE * stream);
-
 gboolean text_editor_check_disk_status (TextEditor * te, const gboolean bForce );
 
+/* Autoformats code using 'indent' program */
 void text_editor_autoformat (TextEditor * te);
-gboolean text_editor_is_marker_set (TextEditor* te, glong line, gint marker);
-void text_editor_delete_marker (TextEditor* te, glong line, gint marker);
-void text_editor_delete_marker_all (TextEditor *te, gint marker);
-gint text_editor_line_from_handle (TextEditor* te, gint marker_handle);
-gint text_editor_get_bookmark_line ( TextEditor* te, const glong nLineStart );
-gint text_editor_get_num_bookmarks (TextEditor* te);
 
+/* Markers and indicators */
+void     text_editor_set_line_marker (TextEditor * te, glong line);
+gint     text_editor_set_marker (TextEditor * te, glong line, gint marker);
+gboolean text_editor_is_marker_set (TextEditor* te, glong line, gint marker);
+void     text_editor_delete_marker (TextEditor* te, glong line, gint marker);
+void     text_editor_delete_marker_all (TextEditor *te, gint marker);
+gint     text_editor_line_from_handle (TextEditor* te, gint marker_handle);
+gint     text_editor_get_bookmark_line (TextEditor* te, const glong nLineStart);
+gint     text_editor_get_num_bookmarks (TextEditor* te);
+gint     text_editor_set_indicator (TextEditor *te, glong line, gint indicator);
+
+/* Get currect word near by cursor location */
 gchar* text_editor_get_current_word (TextEditor *te);
 
+/* Updates linewidth according to total line numbers */
 void text_editor_set_line_number_width (TextEditor* te);
 
+/* Grab focus */
 void text_editor_grab_focus (TextEditor *te);
 
+/* Select the function block where the cursor is content */
 void text_editor_function_select(TextEditor *te);
 
+/* Get the global properties set */
 gint text_editor_get_props (void);
 
+/* Set busy cursor on Editor window */
 void text_editor_set_busy (TextEditor *te, gboolean state);
 
+/* Multiple views addition and removal */
 void text_editor_add_view (TextEditor *te);
 void text_editor_remove_view (TextEditor *te);
 
+/* Direct editor commands to AnEditor and Scintilla */
 void text_editor_command(TextEditor *te, gint command,
 						 glong wparam, glong lparam);
-
 void text_editor_scintilla_command (TextEditor *te, gint command,
 									glong wparam, glong lparam);
 
+/*
+ * Conversion from scintilla line number to TextEditor line
+ * number representation
+ */
 #define linenum_text_editor_to_scintilla(x) (x-1)
 #define linenum_scintilla_to_text_editor(x) (x+1)
-
 
 /* Editor preferences */
 #define DISABLE_SYNTAX_HILIGHTING  "disable.syntax.hilighting"

@@ -190,7 +190,9 @@ GtkWidget * gui_create_todo_widget()
 
 	sw = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_shadow_type(GTK_SCROLLED_WINDOW(sw), GTK_SHADOW_ETCHED_IN);
-	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(sw), GTK_POLICY_NEVER, GTK_POLICY_ALWAYS);
+	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(sw),
+								   GTK_POLICY_AUTOMATIC,
+								   GTK_POLICY_AUTOMATIC);
 	gtk_container_add(GTK_CONTAINER(sw), mw.treeview);
 
 	gtk_box_pack_end(GTK_BOX(mw.vbox), sw, TRUE, TRUE, 0);
@@ -224,8 +226,9 @@ GtkWidget * gui_create_todo_widget()
 	gtk_tree_sortable_set_sort_func((GtkTreeSortable *)mw.sortmodel,0, (GtkTreeIterCompareFunc)sort_function_test, NULL, NULL);
 	gtk_tree_sortable_set_sort_column_id((GtkTreeSortable *)mw.sortmodel,0, settings.sortorder);	    
 
-	gtk_tree_view_column_set_fixed_width(column, 10);
-	gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_FIXED);	
+	// gtk_tree_view_column_set_fixed_width(column, 10);
+	gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
+	gtk_tree_view_set_expander_column (GTK_TREE_VIEW (mw.treeview), column);
 
 	/* handlers */
 	g_signal_connect(G_OBJECT(mw.treeview), "motion-notify-event", G_CALLBACK(mw_motion_cb), NULL);

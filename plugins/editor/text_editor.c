@@ -1725,12 +1725,14 @@ text_editor_line_from_handle (TextEditor* te, gint marker_handle)
 	return linenum_scintilla_to_text_editor (line);
 }
 
-gint text_editor_get_bookmark_line( TextEditor* te, const glong nLineStart )
+gint
+text_editor_get_bookmark_line( TextEditor* te, const glong nLineStart )
 {
-	return aneditor_command (te->editor_id, ANE_GETBOOKMARK_POS, nLineStart, 0 );
+	return aneditor_command (te->editor_id, ANE_GETBOOKMARK_POS, nLineStart, 0);
 }
 
-gint text_editor_get_num_bookmarks(TextEditor* te)
+gint
+text_editor_get_num_bookmarks(TextEditor* te)
 {
 	gint	nLineNo = -1 ;
 	gint	nMarkers = 0 ;
@@ -1746,10 +1748,12 @@ gint text_editor_get_num_bookmarks(TextEditor* te)
 	return nMarkers ;
 }
 
-/* Get the current selection. If there is no selection, or if the selection
-** is all blanks, get the word under teh cursor.
-*/
-gchar *text_editor_get_current_word(TextEditor *te)
+/*
+ *Get the current selection. If there is no selection, or if the selection
+ * is all blanks, get the word under teh cursor.
+ */
+gchar
+*text_editor_get_current_word(TextEditor *te)
 {
 	char *buf = text_editor_get_selection(te);
 	if (buf)

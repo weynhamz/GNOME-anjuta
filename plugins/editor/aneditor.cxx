@@ -505,6 +505,9 @@ AnEditor::AnEditor(PropSetFile* p) {
 	SendEditor(SCI_USEPOPUP, false);
 	/* Set default editor mode */
 	SendEditor(SCI_SETEOLMODE, SC_EOL_LF);
+	
+	// Trap 'TAB' key for automatic indentation.
+	// SendEditor (SCI_ASSIGNCMDKEY, SCK_TAB, SCI_NULL);
 
 #if 0
 	/* Register images to be used for autocomplete */
@@ -3355,17 +3358,39 @@ void AnEditor::Notify(SCNotification *notification) {
 			ResumeCallTip (false);
 			break;
 	case SCN_KEY: {
-			if(!accelGroup) break;
-			int mods = 0;
-			if (notification->modifiers & SCMOD_SHIFT)
-				mods |= GDK_SHIFT_MASK;
-			if (notification->modifiers & SCMOD_CTRL)
-				mods |= GDK_CONTROL_MASK;
-			if (notification->modifiers & SCMOD_ALT)
-				mods |= GDK_MOD1_MASK;
-			gtk_accel_groups_activate(G_OBJECT (accelGroup), notification->ch,
-				static_cast<GdkModifierType>(mods));
+		// Trap 'TAB' key for automatic indentation.
+		// printf ("Key is '%c'\n", notification->ch);
+		if (notification->ch == SCK_TAB) {
+			if ((lexLanguage == SCLEX_CPP) &&
+				(notification->modifiers == 0) &&
+				(!indentMaintain) &&
+				(props->GetInt("indent.automatic"))) {
+				
+				CharacterRange crange = GetSelection();
+				int selStart = crange.cpMin;
+				int selEnd = crange.cpMax;
+				
+				if (selStart == selEnd) {
+					AutomaticIndentation('\t');
+				} else {
+					SendEditor (SCI_TAB);
+				}
+			} else {
+				SendEditor (SCI_TAB);
+			}
+			break;
 		}
+		if(!accelGroup) break;
+		int mods = 0;
+		if (notification->modifiers & SCMOD_SHIFT)
+			mods |= GDK_SHIFT_MASK;
+		if (notification->modifiers & SCMOD_CTRL)
+			mods |= GDK_CONTROL_MASK;
+		if (notification->modifiers & SCMOD_ALT)
+			mods |= GDK_MOD1_MASK;
+		gtk_accel_groups_activate(G_OBJECT (accelGroup), notification->ch,
+			static_cast<GdkModifierType>(mods));
+	}
 
 	case SCN_CHARADDED:
 		CharAdded(static_cast<char>(notification->ch));
