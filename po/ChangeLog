@@ -1,3 +1,8 @@
+2004-08-17  Duarte Loreto <happyguy_pt@hotmail.com>
+
+	* POTFILES.in: Added missing and removed non-existing
+	fixing the pot file generation and status pages.
+
 2004-08-07  Laszlo Dvornik  <dvornik@gnome.hu>
 
 	* hu.po: Updated Hungarian translation.
