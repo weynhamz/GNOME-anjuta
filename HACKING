@@ -15,6 +15,120 @@ Anjuta is written using a mixture of C and C++. You will require
 the standard GNU toolchain and current stable GNOME libraries to 
 build and work with the Anjuta sources.
 
+Coding style
+------------
+
+o Tab size is 4 spaces.
+o Use tabs for indentation.
+o Use spaces less than 4, if necessary, to complete indentation.
+o Use a space after comma. There should be no space before comma.
+o Operators (other than ->) should be padded by one space on either side.
+
+	e.g:- final = (current > last->data) current : last->data;
+	
+o If break is required, break it just after a delimiter, operator etc.
+o Return type in separate line as function name
+o Long function definitions and function calls be broken at tokens and aligned
+  to the first parameter.
+  
+  	e.g:-
+	void
+	function (SomeLongClassTypeDefName *class, const gpointer *user_data,
+	--->--->..SomeMoreTypeDef *param1, gint param2)
+	{
+	--->gint count = anjuta_document_n_style ((AnjutaApp*) user_data,
+	--->--->--->--->--->--->--->--->--->--->..g_strdup_printf ("%d",
+	--->--->--->--->--->--->--->--->--->--->--->--->--->--->...param2),
+	--->--->--->--->--->--->--->--->--->--->..param1);
+	}
+
+o Use const keyword wherever necessary.
+o Space between function name and paranthesis.
+o Function names on new line in function definitions.
+
+	e.g. gchar *
+	     preferences_get (Preferences *p, const gchar *key)
+	     {
+	     	...
+	     }
+		 
+o The pointer operator (*) sticks with the variable (and not the type).
+	
+	e.g. ProjectDbase *project;
+	     gchar *string_data, *buffer;
+	
+o switch statements (which is rather confusing while indenting)
+
+	switch (int_data)
+	{
+	case CASE_1:
+		function1 (param1, param2);
+		break;
+	
+	case CASE_2:
+		funtion2 (param1, param2);
+		break;
+	}
+
+o Local variables should always be defined within it's
+  requirement blocks and not everything should be dumped
+  in the start of the function.
+
+o Indent program's command line options which will approximately generate the
+  above indentation style.
+  
+	-bad -bap -bbb -sob -nbbo -nbc -bl -fca -fc1 -lc80 -d0 -c50 -cd33 -cp10
+	-sc -ncdb -bl -bli0 -ncdw -cli0 -cbi4 -ss -pcs -cs -bs -saf -sai -saw
+	-di16 -nbfda -psl -brs -i4 -ci4 -lp -ts4 -l80 -nhnl -pmt 
+
+o An example.
+
+gboolean
+anjuta_goto_local_tag (TextEditor *te, const char *qual_name)
+{
+	guint		 line;
+	gchar		*spos;
+	gchar		*epos;
+
+	g_return_val_if_fail ((te && qual_name), FALSE);
+	spos = strchr (qual_name, '[');
+	if (spos)
+	{
+		epos = strchr (spos+1, ']');
+		if (epos)
+		{
+			*epos = '\0';
+			line = atol (spos + 1);
+			*epos = ']';
+			if (0 < line)
+			{
+				text_editor_goto_line (te, line, TRUE);
+				return TRUE;
+			}
+			else
+			{
+				g_warning ("Invalid line number detected");
+			}
+		}
+	}
+	for (i = 0; i < ws->work_objects->len; i++)
+	{
+		wo = TM_WORK_OBJECT (ws->work_objects->pdata[i]);
+		if (IS_TM_SOURCE_FILE (wo))
+			files = g_list_append (files,
+								   wo->file_name);
+		else if (IS_TM_PROJECT (wo) && (TM_PROJECT (wo)->file_list))
+		{
+			for (j = 0; j < TM_PROJECT (wo)->file_list->len; ++j)
+				files = g_list_append (files,
+									   TM_WORK_OBJECT (TM_PROJECT(wo)->
+									   				   file_list->pdata[j])->
+									   file_name);
+		}
+	}
+
+	return FALSE;
+}
 
 Submitting patches
 ------------------

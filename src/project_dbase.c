@@ -169,6 +169,9 @@ static const gchar* editor_prefs[] =
 	NULL
 };
 
+/* The preferences prefix in .prj file */
+#define PREFERENCES_PREFIX "preferences."
+
 void
 get_pixmask_on_file_ext (FileExtType t, GdkPixmap ** p_c,
 			 GdkBitmap ** m_c, GdkPixmap ** p_o,
@@ -382,6 +385,7 @@ project_dbase_new (PropsID pr_props)
 	p->win_height = 400;
 	p->top_proj_dir = NULL;
 	p->current_file_data = NULL;
+	// p->saved_prefs = g_hash_table_new (g_str_hash, g_str_equal);
 	
 	create_project_dbase_gui (p);
 	gtk_window_set_title (GTK_WINDOW (p->widgets.window),
@@ -951,8 +955,8 @@ project_dbase_save_project (ProjectDBase * p)
 #endif
 	for(i=0; editor_prefs[i]; i++)
 	{
-		str_prop = g_strdup_printf("preferences.%s", editor_prefs[i]);
-		str = prop_get(app->project_dbase->props, str_prop);
+		str_prop = g_strdup_printf(PREFERENCES_PREFIX"%s", editor_prefs[i]);
+		str = prop_get(p->props, str_prop);
 		if (str) {
 			fprintf(fp, "%s=%s\n", str_prop, str);
 			g_free(str);
@@ -1867,11 +1871,11 @@ project_dbase_scan_files_in_module(ProjectDBase* p, PrjModule module, gboolean w
 	return files;
 }
 
-void
-project_dbase_clean_left (ProjectDBase * p)
+static gboolean
+project_dbase_clear_preferences (ProjectDBase *p)
 {
-	gint i;
 	gboolean pref_changed = FALSE;
+	gint i;
 	
 	/* Clear project related preferences that have been set. */
 #ifdef DEBUG
@@ -1881,12 +1885,12 @@ project_dbase_clean_left (ProjectDBase * p)
 	{
 		gchar *str, *str_prop;
 	
-		str_prop = g_strdup_printf("preferences.%s", editor_prefs[i]);			
-		str = prop_get(p->props, str_prop);
-		g_free(str_prop);
-		if (str) {
-			g_free(str);
-			str_prop = g_strdup_printf("%s", editor_prefs[i]);			
+		//str_prop = g_strdup_printf("preferences.%s", editor_prefs[i]);			
+		//str = prop_get(p->props, str_prop);
+		//g_free(str_prop);
+		//if (str) {
+		//	g_free(str);
+			str_prop = g_strdup (editor_prefs[i]);	
 			str = prop_get(app->preferences->props_session, str_prop);
 			g_free(str_prop);
 			if (str) {
@@ -1896,15 +1900,77 @@ project_dbase_clean_left (ProjectDBase * p)
 				prop_set_with_key(app->preferences->props, editor_prefs[i], "");
 			}
 			pref_changed = TRUE;
+		//}
+	}
+	return pref_changed;
+}
+
+static gboolean
+project_dbase_load_preferences (ProjectDBase *p)
+{
+	gboolean pref_changed = FALSE;
+	gint i;
+	
+	/* Load project related preferences that have been set. */
+#ifdef DEBUG
+	printf("Setting project preferences\n");
+#endif
+	for(i=0; editor_prefs[i]; i++)
+	{
+		gchar *str, *str_prop;
+	
+		str_prop = g_strdup_printf(PREFERENCES_PREFIX"%s", editor_prefs[i]);			
+		str = prop_get(p->props, str_prop);
+		g_free(str_prop);
+		if (str) {
+			preferences_set (app->preferences, editor_prefs[i], str);
+			g_free(str);
+			pref_changed = TRUE;
 		}
 	}
+	return pref_changed;
+}
+
+gboolean
+project_dbase_sync_preferences (ProjectDBase *p)
+{
+	gboolean pref_changed = FALSE;
+	gint i;
 	
+	/* Clear project related preferences that have been set. */
+#ifdef DEBUG
+	printf("Clearing project preferences\n");
+#endif
+	for(i=0; editor_prefs[i]; i++)
+	{
+		gchar *str, *str_prop;
+		
+		str_prop = g_strdup_printf ("%s", editor_prefs[i]);			
+		str = prop_get (app->preferences->props, str_prop);
+		g_free (str_prop);
+		if (str) {
+			gchar *key = g_strdup_printf (PREFERENCES_PREFIX"%s", editor_prefs[i]);
+			prop_set_with_key (p->props, key, str);
+			g_free (key);
+			g_free (str);
+			pref_changed = TRUE;
+		}
+	}
+	if (pref_changed)
+		p->is_saved = FALSE;
+	return pref_changed;
+}	
+
+void
+project_dbase_clean_left (ProjectDBase * p)
+{
+	gint i;
+	gboolean pref_changed = project_dbase_clear_preferences (p);
 	project_dbase_clear (p);
 	project_config_clear (p->project_config);
 
 	compiler_options_load (app->compiler_options, app->preferences->props);
 	src_paths_load (app->src_paths, app->preferences->props);
-	
 	if (pref_changed)
 		anjuta_apply_preferences ();
 }
@@ -2558,12 +2624,13 @@ done:
 #ifdef DEBUG
 	printf("Loading editor preferences from project\n");
 #endif
+#if 0
 	prefs_changed = FALSE;
 	for(i=0; editor_prefs[i]; i++)
 	{
 		gchar *str_prop;
 		
-		str_prop = g_strdup_printf("preferences.%s", editor_prefs[i]);			
+		str_prop = g_strdup_printf(PREFERENCES_PREFIX"%s", editor_prefs[i]);			
 		str = prop_get(p->props, str_prop);
 		g_free(str_prop);
 		if (str) {
@@ -2572,9 +2639,10 @@ done:
 			prefs_changed = TRUE;
 		}
 	}
+	project_dbase_load_preferences (p);	
 	if (prefs_changed)
 		anjuta_apply_preferences ();
-	
+#endif
 	p->is_saved = TRUE;
 	p->top_proj_dir = tm_get_real_path(p->proj_filename);
 	*(strrchr(p->top_proj_dir, '/')) = '\0';
@@ -2614,6 +2682,10 @@ project_dbase_load_project_finish (ProjectDBase * p, gboolean show_project)
 {
 	gboolean build_sv = preferences_get_int(app->preferences, BUILD_SYMBOL_BROWSER);
 	gboolean build_fv = preferences_get_int(app->preferences, BUILD_FILE_BROWSER);
+	
+	/* Load project preferences */
+	if (project_dbase_load_preferences (p))
+		anjuta_apply_preferences ();	
 
 	/* Now Project setup */
 	project_dbase_update_tree (p);

@@ -143,6 +143,7 @@ preferences_new ()
 		pr->is_showing = FALSE;
 		pr->win_pos_x = 100;
 		pr->win_pos_y = 80;
+		pr->save_prefs = NULL;
 		create_preferences_gui (pr);
 	}
 	return pr;
@@ -928,6 +929,39 @@ gboolean preferences_save_yourself (Preferences * pr, FILE * fp)
 	}
 	
 	/* Page 3 */
+	/* Save the settings from session if a project is open */
+	/* Otherwise save the current settings */
+	if (app->project_dbase->project_is_open)
+	{
+		fprintf (fp, "%s=%d\n", INDENT_AUTOMATIC,
+				 prop_get_int (pr->props_session, INDENT_AUTOMATIC, 1));
+		fprintf (fp, "%s=%d\n", USE_TABS,
+				 prop_get_int (pr->props_session, USE_TABS, 1));
+		fprintf (fp, "%s=%d\n", INDENT_OPENING,
+				 prop_get_int (pr->props_session, INDENT_OPENING, 1));
+		fprintf (fp, "%s=%d\n", INDENT_CLOSING,
+				 prop_get_int (pr->props_session, INDENT_CLOSING, 1));
+		fprintf (fp, "%s=%d\n", TAB_SIZE,
+				 prop_get_int (pr->props_session, TAB_SIZE, 4));
+		fprintf (fp, "%s=%d\n", INDENT_SIZE,
+				 prop_get_int (pr->props_session, INDENT_SIZE, 4));
+	}
+	else
+	{
+		fprintf (fp, "%s=%d\n", INDENT_AUTOMATIC,
+			 preferences_get_int (pr, INDENT_AUTOMATIC));
+		fprintf (fp, "%s=%d\n", USE_TABS, preferences_get_int (pr, USE_TABS));
+		fprintf (fp, "%s=%d\n", INDENT_OPENING,
+			 preferences_get_int (pr, INDENT_OPENING));
+		fprintf (fp, "%s=%d\n", INDENT_CLOSING,
+			 preferences_get_int (pr, INDENT_CLOSING));
+		fprintf (fp, "%s=%d\n", TAB_SIZE, preferences_get_int (pr, TAB_SIZE));
+		fprintf (fp, "%s=%d\n", INDENT_SIZE,
+			 preferences_get_int (pr, INDENT_SIZE));
+	}
+	
+	fprintf (fp, "%s=%d\n", BRACES_CHECK,
+		 preferences_get_int (pr, BRACES_CHECK));
 	fprintf (fp, "%s=%d\n", STRIP_TRAILING_SPACES,
 		 preferences_get_int (pr, STRIP_TRAILING_SPACES));
 	fprintf (fp, "%s=%d\n", FOLD_ON_OPEN,
@@ -936,21 +970,9 @@ gboolean preferences_save_yourself (Preferences * pr, FILE * fp)
 		 preferences_get_int (pr, DISABLE_SYNTAX_HILIGHTING));
 	fprintf (fp, "%s=%d\n", SAVE_AUTOMATIC,
 		 preferences_get_int (pr, SAVE_AUTOMATIC));
-	fprintf (fp, "%s=%d\n", INDENT_AUTOMATIC,
-		 preferences_get_int (pr, INDENT_AUTOMATIC));
-	fprintf (fp, "%s=%d\n", USE_TABS, preferences_get_int (pr, USE_TABS));
-	fprintf (fp, "%s=%d\n", BRACES_CHECK,
-		 preferences_get_int (pr, BRACES_CHECK));
 	fprintf (fp, "%s=%d\n", DOS_EOL_CHECK, preferences_get_int(pr, DOS_EOL_CHECK));
-	fprintf (fp, "%s=%d\n", INDENT_OPENING,
-		 preferences_get_int (pr, INDENT_OPENING));
-	fprintf (fp, "%s=%d\n", INDENT_CLOSING,
-		 preferences_get_int (pr, INDENT_CLOSING));
 	fprintf (fp, "%s=%d\n", WRAP_BOOKMARKS, preferences_get_int(pr, WRAP_BOOKMARKS));
 
-	fprintf (fp, "%s=%d\n", TAB_SIZE, preferences_get_int (pr, TAB_SIZE));
-	fprintf (fp, "%s=%d\n", INDENT_SIZE,
-		 preferences_get_int (pr, INDENT_SIZE));
 	fprintf (fp, "%s=%d\n", AUTOSAVE_TIMER,
 		 preferences_get_int (pr, AUTOSAVE_TIMER));
 	fprintf (fp, "%s=%d\n", MARGIN_LINENUMBER_WIDTH,
@@ -982,16 +1004,36 @@ gboolean preferences_save_yourself (Preferences * pr, FILE * fp)
 		 preferences_get_int_with_default (pr, PRINT_MARGIN_BOTTOM, 54));
 
 	/* Page 5 */
-	fprintf (fp, "%s=%d\n", AUTOFORMAT_DISABLE,
-		 preferences_get_int (pr, AUTOFORMAT_DISABLE));
-
-	str = preferences_get (pr, AUTOFORMAT_CUSTOM_STYLE);
-	fprintf (fp, "%s=%s\n", AUTOFORMAT_CUSTOM_STYLE, str);
-	g_free (str);
-
-	str = preferences_get (pr, AUTOFORMAT_STYLE);
-	fprintf (fp, "%s=%s\n", AUTOFORMAT_STYLE, str);
-	g_free (str);
+	/* Save the settings from session if a project is open */
+	/* Otherwise save the current settings */
+	if (app->project_dbase->project_is_open)
+	{
+		fprintf (fp, "%s=%d\n", AUTOFORMAT_DISABLE,
+				 prop_get_int (pr->props_session, AUTOFORMAT_DISABLE, 0));
+	
+		str = prop_get (pr->props_session, AUTOFORMAT_CUSTOM_STYLE);
+		if (str)
+			fprintf (fp, "%s=%s\n", AUTOFORMAT_CUSTOM_STYLE, str);
+		g_free (str);
+	
+		str = prop_get (pr->props_session, AUTOFORMAT_STYLE);
+		if (str)
+			fprintf (fp, "%s=%s\n", AUTOFORMAT_STYLE, str);
+		g_free (str);
+	}
+	else
+	{
+		fprintf (fp, "%s=%d\n", AUTOFORMAT_DISABLE,
+			 preferences_get_int (pr, AUTOFORMAT_DISABLE));
+	
+		str = preferences_get (pr, AUTOFORMAT_CUSTOM_STYLE);
+		fprintf (fp, "%s=%s\n", AUTOFORMAT_CUSTOM_STYLE, str);
+		g_free (str);
+	
+		str = preferences_get (pr, AUTOFORMAT_STYLE);
+		fprintf (fp, "%s=%s\n", AUTOFORMAT_STYLE, str);
+		g_free (str);
+	}
 	
 	/* Page 6 */
 	fprintf (fp, "%s=%d\n", TRUNCAT_MESSAGES,

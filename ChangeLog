@@ -1,3 +1,10 @@
+2002-12-30  Naba Kumar <naba@gnome.org>
+
+	* HACKING: Added coding style information.
+	* src/preferences_gui.c, src/preferences.[c,h],
+	src/project_dbase.[c,h]: Fixed preferences bug. The editor
+	preferences are saved and restored properly with projects.
+	
 2002-12-23  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
 	* anjuta.spec.in: Add scrollkeeper docs to docs distribution.
 	* configure.in: Bumped up version number.

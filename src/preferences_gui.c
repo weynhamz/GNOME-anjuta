@@ -2291,70 +2291,34 @@ on_preferences_apply_clicked (GtkButton * button, gpointer user_data)
 		g_free (str);
 	}
 
-/* page 3 */
-        
-	if (app->project_dbase->project_is_open == TRUE)
-	{
-		// if we have a project, save as part of the project
-#ifdef DEBUG
-		printf("Storing editor preferences in the current project file\n");
-#endif
-		prop_set_int_with_key(app->project_dbase->props, "preferences." INDENT_AUTOMATIC,
-			     gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
+/* page 3 */        
+	preferences_set_int (pr, INDENT_AUTOMATIC,
+				 gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
 							   (pr->widgets.
-							    auto_indent_check)));
-		prop_set_int_with_key(app->project_dbase->props, "preferences." USE_TABS,
-			     gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
+								auto_indent_check)));
+	preferences_set_int (pr, USE_TABS,
+				 gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
 							   (pr->widgets.
-							    use_tabs_check)));
-		prop_set_int_with_key(app->project_dbase->props, "preferences." INDENT_OPENING,
-			     gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
+								use_tabs_check)));
+	preferences_set_int (pr, INDENT_OPENING,
+				 gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
 							   (pr->widgets.
-							    indent_open_brace)));
-		prop_set_int_with_key(app->project_dbase->props, "preferences." INDENT_CLOSING,
-			     gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
+								indent_open_brace)));
+
+	preferences_set_int (pr, INDENT_CLOSING,
+				 gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
 							   (pr->widgets.
-							    indent_close_brace)));
-		prop_set_int_with_key(app->project_dbase->props, "preferences." TAB_SIZE,
-			     gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON
-							       (pr->widgets.
+								indent_close_brace)));
+
+	preferences_set_int (pr, TAB_SIZE,
+				 gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON
+								   (pr->widgets.
 								tab_size_spin)));
-		prop_set_int_with_key(app->project_dbase->props, "preferences." INDENT_SIZE,
-			     gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON
-							       (pr->widgets.
+	preferences_set_int (pr, INDENT_SIZE,
+				 gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON
+								   (pr->widgets.
 								autoindent_size_spin)));
-		// mark the project file as modified
-		app->project_dbase->is_saved = FALSE;
-	}
-	else
-	{
-		preferences_set_int (pr, INDENT_AUTOMATIC,
-					 gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
-								   (pr->widgets.
-									auto_indent_check)));
-		preferences_set_int (pr, USE_TABS,
-					 gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
-								   (pr->widgets.
-									use_tabs_check)));
-		preferences_set_int (pr, INDENT_OPENING,
-					 gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
-								   (pr->widgets.
-									indent_open_brace)));
-	
-		preferences_set_int (pr, INDENT_CLOSING,
-					 gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
-								   (pr->widgets.
-									indent_close_brace)));
-	
-		preferences_set_int (pr, TAB_SIZE,
-					 gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON
-									   (pr->widgets.
-									tab_size_spin)));
-		preferences_set_int (pr, INDENT_SIZE,
-					 gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON
-									   (pr->widgets.
-									autoindent_size_spin)));
-	}
+
 	prev_hilite_value = preferences_get_int(pr, DISABLE_SYNTAX_HILIGHTING);
 	current_hilite_value = 			     gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
 							   (pr->widgets.
@@ -2432,42 +2396,19 @@ on_preferences_apply_clicked (GtkButton * button, gpointer user_data)
 							   (pr->widgets.margin_bottom_spin)));
 
 /* Page 5 */
-	if (app->project_dbase->project_is_open == TRUE)
-	{
-		// if we have a project, save as part of the project
-#ifdef DEBUG
-		printf("Storing autoformat preferences in the current project file\n");
-#endif
-		prop_set_with_key (app->project_dbase->props, "preferences." AUTOFORMAT_STYLE,
-				 gtk_entry_get_text (GTK_ENTRY
-							 (GTK_COMBO
-							  (pr->widgets.
-							   format_style_combo)->entry)));
-		prop_set_with_key(app->project_dbase->props, "preferences." AUTOFORMAT_CUSTOM_STYLE,
-				 gtk_entry_get_text (GTK_ENTRY
-							 (pr->widgets.
-							  custom_style_entry)));
-		prop_set_int_with_key(app->project_dbase->props, "preferences." AUTOFORMAT_DISABLE,
-					 gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
-								   (pr->widgets.
-									format_disable_check)));
-	}
-	else
-	{
-		preferences_set (pr, AUTOFORMAT_STYLE,
-				 gtk_entry_get_text (GTK_ENTRY
-							 (GTK_COMBO
-							  (pr->widgets.
-							   format_style_combo)->entry)));
-		preferences_set (pr, AUTOFORMAT_CUSTOM_STYLE,
-				 gtk_entry_get_text (GTK_ENTRY
-							 (pr->widgets.
-							  custom_style_entry)));
-		preferences_set_int (pr, AUTOFORMAT_DISABLE,
-					 gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
-								   (pr->widgets.
-									format_disable_check)));
-	}		
+	preferences_set (pr, AUTOFORMAT_STYLE,
+			 gtk_entry_get_text (GTK_ENTRY
+						 (GTK_COMBO
+						  (pr->widgets.
+						   format_style_combo)->entry)));
+	preferences_set (pr, AUTOFORMAT_CUSTOM_STYLE,
+			 gtk_entry_get_text (GTK_ENTRY
+						 (pr->widgets.
+						  custom_style_entry)));
+	preferences_set_int (pr, AUTOFORMAT_DISABLE,
+				 gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
+							   (pr->widgets.
+								format_disable_check)));
 /* Page Messages */
 	preferences_set_int (pr, TRUNCAT_MESG_FIRST,
 			     gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON
@@ -2662,6 +2603,15 @@ on_preferences_apply_clicked (GtkButton * button, gpointer user_data)
 			te = (TextEditor*) (tmp->data);
 			te->force_hilite = TE_LEXER_AUTOMATIC;
 		}
+	}
+	
+	if (app->project_dbase->project_is_open == TRUE)
+	{
+		// if we have a project, save as part of the project
+#ifdef DEBUG
+		printf("Storing editor preferences in the current project file\n");
+#endif
+		project_dbase_sync_preferences (app->project_dbase);
 	}
 
 /* At last the end */

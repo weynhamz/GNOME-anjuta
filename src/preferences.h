@@ -203,6 +203,7 @@ struct _Preferences
 
 	gboolean is_showing;
 	gint win_pos_x, win_pos_y;
+	GHashTable *save_prefs;
 };
 
 /* Style data to be used in style editor */

@@ -183,6 +183,9 @@ project_dbase_show (ProjectDBase * p);
 void
 project_dbase_hide (ProjectDBase * p);
 
+gboolean
+project_dbase_sync_preferences (ProjectDBase *p);
+
 void
 project_dbase_open_project (ProjectDBase * p);
 
