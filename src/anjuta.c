@@ -454,8 +454,11 @@ anjuta_set_current_text_editor (TextEditor * te)
 	if (te == NULL)
 	{
 		chdir (app->dirs->home);
+		aneditor_set_focused_ed_ID (ANE_ID_INVALID);
 		return;
 	}
+	else
+		aneditor_set_focused_ed_ID (te->editor_id);
 	if (te->full_filename)
 	{
 		gchar* dir;
