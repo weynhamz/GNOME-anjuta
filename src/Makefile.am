@@ -116,6 +116,8 @@ anjuta_SOURCES = \
 	dnd.h\
 	executer.c\
 	executer.h\
+	file.c\
+	file.h\
 	file_history.c\
 	file_history.h\
 	fileselection.c\

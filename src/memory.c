@@ -99,14 +99,11 @@ memory_info_new (guchar *ptr)
 {
 	int i;
 	MemApp *memapp;
-	char glade_file[PATH_MAX];
 	
 	memapp = g_new0 (MemApp, 1);
 	memapp->adr = ptr;
 	
-	snprintf (glade_file, PATH_MAX, "%s/%s", PACKAGE_DATA_DIR, GLADE_FILE);	
-	
-	if (NULL == (memapp->xml = glade_xml_new (glade_file, MEMORY_DIALOG, NULL)))
+	if (NULL == (memapp->xml = glade_xml_new (GLADE_FILE_ANJUTA, MEMORY_DIALOG, NULL)))
 	{
 		anjuta_error (_("Unable to build user interface for Memory\n"));
 		g_free (memapp);

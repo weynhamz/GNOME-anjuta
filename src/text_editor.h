@@ -130,7 +130,8 @@ struct _TextEditor
 void create_text_editor_gui (TextEditor * te);
 
 TextEditor *text_editor_new (gchar * full_filename,
-							 TextEditor * parent, AnjutaPreferences * pr);
+							 TextEditor * parent, AnjutaPreferences * pr,
+                             gchar *name);
 
 void text_editor_freeze (TextEditor * te);
 

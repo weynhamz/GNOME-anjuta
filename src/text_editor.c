@@ -112,7 +112,8 @@ static void text_editor_update_preferences (AnjutaPreferences *pr,
 											TextEditor * te);
 
 TextEditor *
-text_editor_new (gchar * filename, TextEditor * parent, AnjutaPreferences * eo)
+text_editor_new (gchar * filename, TextEditor * parent, AnjutaPreferences * eo,
+                 gchar *name)
 {
 	gchar *buff;
 	TextEditor *te;
@@ -122,7 +123,10 @@ text_editor_new (gchar * filename, TextEditor * parent, AnjutaPreferences * eo)
 	if (te == NULL)
 		return NULL;
 	te->size	= sizeof(TextEditor);
-	te->filename = g_strdup_printf ("Newfile#%d", ++new_file_count);
+	if (name)  
+		te->filename = g_strdup(name); 
+	else 
+		te->filename = g_strdup_printf ("Newfile#%d", ++new_file_count);
 	te->full_filename = NULL;
 	te->tm_file = NULL;
 	

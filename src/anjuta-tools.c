@@ -446,7 +446,7 @@ static void handle_tool_output(int type, GString *s, gboolean is_error)
 		return;
 	}
 	if (AN_TBUF_NEW == type || (NULL == app->current_text_editor))
-		te = anjuta_append_text_editor(NULL);
+		te = anjuta_append_text_editor(NULL, NULL);
 	else
 		te = app->current_text_editor;
 	if (NULL == te)

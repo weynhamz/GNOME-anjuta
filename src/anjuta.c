@@ -279,7 +279,7 @@ anjuta_session_restore (GnomeClient* client)
 }
 
 TextEditor *
-anjuta_append_text_editor (gchar * filename)
+anjuta_append_text_editor (gchar * filename, gchar * name)
 {
 	GtkWidget *tab_widget, *eventbox;
 	TextEditor *te, *cur_page;
@@ -287,7 +287,7 @@ anjuta_append_text_editor (gchar * filename)
 
 	cur_page = anjuta_get_current_text_editor ();
 	te = text_editor_new (filename, cur_page,
-						  ANJUTA_PREFERENCES (app->preferences));
+						  ANJUTA_PREFERENCES (app->preferences), name);
 	if (te == NULL) return NULL;
 	g_signal_handlers_block_by_func (GTK_OBJECT (app->widgets.notebook),
 				       GTK_SIGNAL_FUNC (on_anjuta_notebook_switch_page),
@@ -547,7 +547,7 @@ anjuta_goto_file_line_mark (gchar * fname, glong lineno, gboolean mark)
 		}
 		node = g_list_next (node);
 	}
-	te = anjuta_append_text_editor (fn);
+	te = anjuta_append_text_editor (fn, NULL);
 	if (te)
 	{
 		an_file_history_push(te->full_filename, lineno);

@@ -105,6 +105,8 @@ extern "C" {
 #define   ANE_WORDSELECT                (ANE_COMMAND_BASE+69)
 #define   ANE_LINESELECT                (ANE_COMMAND_BASE+70)
 #define   ANE_CUSTOMINDENT              (ANE_COMMAND_BASE+71)
+#define   ANE_GETCURRENTPOS             (ANE_COMMAND_BASE+72)
+#define   ANE_GOTOPOS                   (ANE_COMMAND_BASE+73)
 
 typedef guint AnEditorID;
 typedef struct _FindParameters FindParameters;

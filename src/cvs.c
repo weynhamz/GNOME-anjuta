@@ -489,7 +489,7 @@ cvs_status (CVS *cvs, const gchar *filename, gboolean is_dir)
 	an_message_manager_show (app->messages, MESSAGE_CVS);
 	
 	// Create Text Editor for diff
-	diff_editor = anjuta_append_text_editor(NULL);
+	diff_editor = anjuta_append_text_editor(NULL, NULL);
 	diff_editor->force_hilite = TE_LEXER_DIFF;
 	diff_editor->used_by_cvs = TRUE;
 	text_editor_set_hilite_type (diff_editor);
@@ -544,7 +544,7 @@ cvs_log (CVS *cvs, const gchar *filename, gboolean is_dir)
 	an_message_manager_show (app->messages, MESSAGE_CVS);
 
 	// Create Text Editor for diff
-	diff_editor = anjuta_append_text_editor(NULL);
+	diff_editor = anjuta_append_text_editor(NULL, NULL);
 	diff_editor->force_hilite = TE_LEXER_DIFF;
 	diff_editor->used_by_cvs = TRUE;
 	text_editor_set_hilite_type (diff_editor);
@@ -623,7 +623,7 @@ cvs_diff (CVS *cvs, const gchar *filename, const gchar *revision,
 	an_message_manager_show (app->messages, MESSAGE_CVS);
 
 	// Create Text Editor for diff
-	diff_editor = anjuta_append_text_editor(NULL);
+	diff_editor = anjuta_append_text_editor(NULL, NULL);
 	diff_editor->used_by_cvs = TRUE;
 	diff_editor->force_hilite = TE_LEXER_DIFF;
 	text_editor_set_hilite_type (diff_editor);

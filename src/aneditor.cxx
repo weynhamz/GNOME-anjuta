@@ -2567,7 +2567,13 @@ long AnEditor::Command(int cmdID, long wParam, long lParam) {
 	case ANE_LINESELECT:
 		LineSelect();
 		break;
-
+	
+	case ANE_GETCURRENTPOS:
+		return SendEditor(SCI_GETCURRENTPOS);
+	
+	case ANE_GOTOPOS:
+		return SendEditor(SCI_GOTOPOS, wParam);
+	
 	default:
 		break;
 	}

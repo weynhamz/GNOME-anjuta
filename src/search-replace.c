@@ -1094,7 +1094,7 @@ search_and_replace (void)
 								sr->replace.repl_str = g_strdup(regex_backref(mi, fb));
 						
 						if (fb->te == NULL)
-							fb->te = anjuta_append_text_editor(se->path);
+							fb->te = anjuta_append_text_editor(se->path, NULL);
 						scintilla_send_message(SCINTILLA(fb->te->widgets.editor), 
 							SCI_SETSEL, mi->pos - os, mi->pos + mi->len - os);
 						scintilla_send_message(SCINTILLA(fb->te->widgets.editor),
@@ -1109,7 +1109,7 @@ search_and_replace (void)
 						if ((sr->replace.regex) && (sr->search.expr.regex))
 							sr->replace.repl_str = g_strdup(regex_backref(mi, fb));
 						if (fb->te == NULL)
-							fb->te = anjuta_append_text_editor(se->path);
+							fb->te = anjuta_append_text_editor(se->path, NULL);
 						scintilla_send_message(SCINTILLA(fb->te->widgets.editor), 
 							SCI_SETSEL, mi->pos - offset, mi->pos + mi->len - offset);
 						scintilla_send_message(SCINTILLA(fb->te->widgets.editor),
@@ -1736,14 +1736,12 @@ on_search_button_save_clicked(GtkButton *button, gpointer user_data)
 static gboolean
 create_dialog(void)
 {
-	char glade_file[PATH_MAX];
 	GladeWidget *w;
 	GList *combo_strings;
 	int i;
 
 	g_return_val_if_fail(NULL == sr, FALSE);
 	sg = g_new0(SearchReplaceGUI, 1);
-	snprintf(glade_file, PATH_MAX, "%s/%s", PACKAGE_DATA_DIR, GLADE_FILE);
 	if (NULL == (sg->xml = glade_xml_new(GLADE_FILE_ANJUTA, SEARCH_REPLACE_DIALOG, NULL)))
 	{
 		anjuta_error(_("Unable to build user interface for Search And Replace"));

@@ -25,11 +25,11 @@
 #include <signal.h>
 #include <string.h>
 #include <sched.h>
-#include <time.h>
 #include <sys/wait.h>
 #include <errno.h>
 
 #include <gnome.h>
+
 #include <libgnomeui/gnome-window-icon.h>
 
 #include "anjuta.h"
@@ -67,19 +67,18 @@
 #include "signals_cbs.h"
 #include "watch_cbs.h"
 #include "start-with.h"
+#include "file.h"
 
 void on_toolbar_find_clicked (EggAction *action, gpointer user_data);
 
 gboolean closing_state;		/* Do not tamper with this variable  */
-
-static char *insert_date_time(void);
 
 static gchar *insert_header_c( TextEditor *te);
 
 void
 on_new_file1_activate (EggAction * action, gpointer user_data)
 {
-	anjuta_append_text_editor (NULL);
+	display_new_file();
 }
 
 
@@ -370,546 +369,124 @@ on_transform_eolchars1_activate (EggAction * action, gpointer user_data)
 	aneditor_command (te->editor_id, ANE_EOL_CONVERT, mode, 0);
 }
 
-static gchar *
-insert_c_gpl_notice(void)
-{
-	gchar *GPLNotice =
-	"/*\n"
-	" *  This program is free software; you can redistribute it and/or modify\n"
-	" *  it under the terms of the GNU General Public License as published by\n"
-	" *  the Free Software Foundation; either version 2 of the License, or\n"
-	" *  (at your option) any later version.\n"
-	" *\n"
-	" *  This program is distributed in the hope that it will be useful,\n"
-	" *  but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
-	" *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
-	" *  GNU Library General Public License for more details.\n"
-	" *\n"
-	" *  You should have received a copy of the GNU General Public License\n"
-	" *  along with this program; if not, write to the Free Software\n"
-	" *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.\n"
-	" */\n"
-	" \n";
-
-	return  GPLNotice;
-}
-
 void
 on_insert_c_gpl_notice(EggAction * action, gpointer user_data)
 {
-	TextEditor *te;
-	gchar *GPLNotice;
-
-	te = anjuta_get_current_text_editor ();
-	if (te == NULL)
-		return;
-	GPLNotice = insert_c_gpl_notice();
-	aneditor_command (te->editor_id, ANE_INSERTTEXT, -1, (long)GPLNotice);
-}
-
-static gchar *
-insert_cpp_gpl_notice(void)
-{
-	gchar *GPLNotice =
-	"// This program is free software; you can redistribute it and/or modify\n"
-	"// it under the terms of the GNU General Public License as published by\n"
-	"// the Free Software Foundation; either version 2 of the License, or\n"
-	"// (at your option) any later version.\n"
-	"//\n"
-	"// This program is distributed in the hope that it will be useful,\n"
-	"// but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
-	"// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
-	"// GNU Library General Public License for more details.\n"
-	"//\n"
-	"// You should have received a copy of the GNU General Public License\n"
-	"// along with this program; if not, write to the Free Software\n"
-	"// Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.\n"
-	"\n";
-
-	return GPLNotice;
+	insert_c_gpl_notice();
 }
 
 void
 on_insert_cpp_gpl_notice(EggAction * action, gpointer user_data)
 {
-	TextEditor *te;
-	gchar *GPLNotice;
-
-	te = anjuta_get_current_text_editor ();
-	if (te == NULL)
-		return;
-	GPLNotice = insert_cpp_gpl_notice();
-	aneditor_command (te->editor_id, ANE_INSERTTEXT, -1, (long)GPLNotice);
-}
-
-static gchar *
-insert_py_gpl_notice(void)
-{
-	char *GPLNotice =
-	"# This program is free software; you can redistribute it and/or modify\n"
-	"# it under the terms of the GNU General Public License as published by\n"
-	"# the Free Software Foundation; either version 2 of the License, or\n"
-	"# (at your option) any later version.\n"
-	"#\n"
-	"# This program is distributed in the hope that it will be useful,\n"
-	"# but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
-	"# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
-	"# GNU Library General Public License for more details.\n"
-	"#\n"
-	"# You should have received a copy of the GNU General Public License\n"
-	"# along with this program; if not, write to the Free Software\n"
-	"# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.\n"
-	"\n";
-	return GPLNotice;
+	insert_cpp_gpl_notice();
 }
 
 void
 on_insert_py_gpl_notice(EggAction * action, gpointer user_data)
 {
-	TextEditor *te;
-	gchar *GPLNotice;
-
-	te = anjuta_get_current_text_editor ();
-	if (te == NULL)
-		return;
-	GPLNotice = insert_py_gpl_notice();
-	aneditor_command (te->editor_id, ANE_INSERTTEXT, -1, (long)GPLNotice);
-}
-
-static gchar *
-insert_username(void)
-{
-	gchar *Username;
-	
-	Username = getenv("USERNAME");
-	if (!Username)
-		Username =
-			anjuta_preferences_get (ANJUTA_PREFERENCES (app->preferences),
-									IDENT_NAME);
-	if (!Username)
-		Username = getenv("USER");
-	return Username;
+	insert_py_gpl_notice();
 }
 
 void
 on_insert_username(EggAction * action, gpointer user_data)
 {
-	TextEditor *te;
-	gchar *Username;
-		
-	te = anjuta_get_current_text_editor ();
-	if (te == NULL)
-		return;
-	Username = insert_username();
-	aneditor_command (te->editor_id, ANE_INSERTTEXT, -1, (long)Username);
-}
-
-static gchar *insert_name(void)
-{
-	gchar *Username;
-
-	Username =
-		anjuta_preferences_get (ANJUTA_PREFERENCES (app->preferences),
-								IDENT_NAME);
-	  if (!Username)
-			Username = getenv("USERNAME");
-		if (!Username)
-			Username = getenv("USER");
-	return Username;
-}
-
-static gchar *insert_email(void)
-{
-	gchar *email;
-	gchar *Username;
-
-	email =
-		anjuta_preferences_get (ANJUTA_PREFERENCES (app->preferences),
-								IDENT_EMAIL);
-	if (!email)
-	{
-		email = getenv("HOSTNAME");
-		Username = getenv("USERNAME");
-		if (!Username)
-			Username = getenv("USER");
-		email = g_strconcat(Username, "@", email, NULL);
-	}
-	return email;
-}
-
-
-static gchar *
-insert_copyright(void)
-{
-	gchar *Username;
-	gchar *copyright;
-	gchar datetime[20];
-	struct tm *lt;
-	time_t cur_time = time(NULL);
-
-	lt = localtime(&cur_time);
-	strftime (datetime, 20, N_("%Y"), lt);
-	Username = insert_name();
-	copyright = g_strconcat("Copyright  ", datetime, "  ", Username, NULL);
-
-	return copyright;
-}
-
-static gchar *
-insert_changelog_entry(void)
-{
-	gchar *Username;
-	gchar *email;
-	gchar *CLEntry;
-	gchar datetime[20];
-	struct tm *lt;
-	time_t cur_time = time(NULL);
-
-	CLEntry = g_new(gchar, 200);
-	lt = localtime(&cur_time);
-	strftime (datetime, 20, N_("%Y-%m-%d"), lt);
-
-	Username =  insert_name();
-	email = insert_email();
-	sprintf(CLEntry,"%s  %s <%s>\n", datetime, Username, email);
-	g_free(email);
-  	
-	return  CLEntry;
+	insert_username();
 }
 
 void
 on_insert_changelog_entry(EggAction * action, gpointer user_data)
 {
-	TextEditor *te;
-	gchar *changelog;
-
-	te = anjuta_get_current_text_editor ();
-	if (te == NULL)
-  	return;
-	changelog = insert_changelog_entry();
-	aneditor_command (te->editor_id, ANE_INSERTTEXT, -1, (long)changelog);
-	g_free(changelog);
+	insert_changelog_entry();
 }
-
-static char *
-insert_date_time(void)
-{
-	time_t cur_time = time(NULL);
-	gchar *DateTime;
-
-	DateTime = g_new(gchar, 100);
-	sprintf(DateTime,ctime(&cur_time));
-	return DateTime;
-}                                                            ;
 
 void
 on_insert_date_time(EggAction * action, gpointer user_data)
 {
-	TextEditor *te;
-	gchar *DateTime;
-
-	te = anjuta_get_current_text_editor ();
-	if (te == NULL)
-		return;
-	DateTime = insert_date_time();
-	aneditor_command (te->editor_id, ANE_INSERTTEXT, -1, (long)DateTime);
-	g_free(DateTime);
+	insert_date_time();
 }
-
-static gchar *
-insert_header_template(TextEditor *te)
-{
-	gchar *header_template =
-	"_H\n"
-	"\n"
-	"#ifdef __cplusplus\n"
-	"extern \"C\"\n"
-	"{\n"
-	"#endif\n"
-	"\n"
-	"#ifdef __cplusplus\n"
-	"}\n"
-	"#endif\n"
-	"\n"
-	"#endif /* _";
-	gchar *buffer;
-	gchar *name = NULL;
-	gchar mesg[256];
-	gint i;
-
-	i = strlen(te->filename);
-	if ( g_strcasecmp((te->filename) + i - 2, ".h") == 0)
-		name = g_strndup(te->filename, i - 2);
-	else
-	{
-		sprintf(mesg, _("The file \"%s\" is not a header file."),
-				te->filename);
-		anjuta_warning (mesg);
-		return NULL;
-	}
-	g_strup(name);  /* do not use with GTK2 */
-	buffer = g_strconcat("#ifndef _", name, "_H\n#define _", name,
-						header_template, name, "_H */\n", NULL);
-
-	g_free(name);
-	return buffer;
-}
-
 
 void
 on_insert_header_template(EggAction * action, gpointer user_data)
 {
-	TextEditor *te;
-	gchar *header;
-
-	te = anjuta_get_current_text_editor ();
-	if (te == NULL)
-		return;
-
-	header =  insert_header_template(te);
-	if (header == NULL)
-		return;
-	aneditor_command (te->editor_id, ANE_INSERTTEXT, -1, (long)header);
-	g_free(header);
-}
-
-static gchar *
-insert_header_c( TextEditor *te)
-{
- 	gchar *buffer;
-	gchar *tmp;
-	gchar *star;
-	gchar *copyright;
-	gchar *email;
-
-	star =  g_strnfill(75, '*');
-	tmp = g_strdup(te->filename);
-	buffer = g_strconcat("/", star, "\n *            ", tmp, "\n *\n", NULL);
-	g_free(tmp);
-	tmp = insert_date_time();
-	buffer = g_strconcat( buffer, " *  ", tmp, NULL);
-	g_free(tmp);
-	copyright = insert_copyright();
-	buffer = g_strconcat(buffer, " *  ", copyright, "\n", NULL);
-	g_free(copyright);
-	email = insert_email();
-	buffer = g_strconcat(buffer, " *  ", email, "\n", NULL);
-	g_free(email);
-	buffer = g_strconcat(buffer, " ", star, "*/\n", NULL);
-	g_free(star);
-
-	return buffer;
+	insert_header_template();
 }
 
 void
 on_insert_header(EggAction * action, gpointer user_data)
 {
-	TextEditor *te;
-	gchar *header;
-
-	te = anjuta_get_current_text_editor ();
-	if (te == NULL)
-		return;
-
-	header = insert_header_c(te);
-	aneditor_command (te->editor_id, ANE_INSERTTEXT, -1, (long)header);
-	g_free(header);
+	insert_header();
 }
 
 void
 on_insert_switch_template(EggAction * action, gpointer user_data)
 {
-	TextEditor *te;
-	gchar *switch_template =
-	"switch ( )\n"
-	"{\n"
-	"\tcase  :\n"
-	"\t\t;\n"
-	"\t\tbreak;\n"
-	"\tcase  :\n"
-	"\t\t;\n"
-	"\t\tbreak;\n"
-	"\tdefaults:\n"
-	"\t\t;\n"
-	"\t\tbreak;\n"
-	"}\n";
-
-	te = anjuta_get_current_text_editor ();
-	if (te == NULL)
-		return;
-	aneditor_command (te->editor_id, ANE_INSERTTEXT, -1, (long)switch_template);
+	insert_switch_template();
 }
 
 void
 on_insert_for_template(EggAction * action, gpointer user_data)
 {
-	TextEditor *te;
-	gchar *for_template =
-	"for ( ; ; )\n"
-	"{\n"
-	"\t;\n"
-	"}\n";
-
-	te = anjuta_get_current_text_editor ();
-	if (te == NULL)
-		return;
-	aneditor_command (te->editor_id, ANE_INSERTTEXT, -1, (long)for_template);
+	insert_for_template();
 }
 
 void
 on_insert_while_template(EggAction * action, gpointer user_data)
 {
-	TextEditor *te;
-	gchar *while_template =
-	"while ( )\n"
-	"{\n"
-	"\t;\n"
-	"}\n";
-
-	te = anjuta_get_current_text_editor ();
-	if (te == NULL)
-		return;
-	aneditor_command (te->editor_id, ANE_INSERTTEXT, -1, (long)while_template);
+	insert_while_template();
 }
 
 void
 on_insert_ifelse_template(EggAction * action, gpointer user_data)
 {
-	TextEditor *te;
-	gchar *ifelse_template =
-	"if ( )\n"
-	"{\n"
-	"\t;\n"
-	"}\n"
-	"else\n"
-	"{\n"
-	"\t;\n"
-	"}\n";
-
-	te = anjuta_get_current_text_editor ();
-	if (te == NULL)
-		return;
-	aneditor_command (te->editor_id, ANE_INSERTTEXT, -1, (long)ifelse_template);
+	insert_ifelse_template();
 }
 
 void
 on_insert_cvs_author(EggAction * action, gpointer user_data)
 {
-	TextEditor *te;
-	gchar *cvs_string_value = "Author";
-	gchar *cvs_string;
-	
-	cvs_string = g_strconcat("$", cvs_string_value, "$\n", NULL);
-	
-	te = anjuta_get_current_text_editor ();
-	if (te == NULL)
-		return;
-	aneditor_command (te->editor_id, ANE_INSERTTEXT, -1, (long)cvs_string);
+	insert_cvs_author();
 }
 
 void
 on_insert_cvs_date(EggAction * action, gpointer user_data)
 {
-	TextEditor *te;
-	gchar *cvs_string_value = "Date";
-	gchar *cvs_string;
-	
-	cvs_string = g_strconcat("$", cvs_string_value, "$\n", NULL);
-
-	te = anjuta_get_current_text_editor ();
-	if (te == NULL)
-		return;
-	aneditor_command (te->editor_id, ANE_INSERTTEXT, -1, (long)cvs_string);
+	insert_cvs_date();
 }
 
 void
 on_insert_cvs_header(EggAction * action, gpointer user_data)
 {
-	TextEditor *te;
-	gchar *cvs_string_value = "Header";
-	gchar *cvs_string;
-	
-	cvs_string = g_strconcat("$", cvs_string_value, "$\n", NULL);
-
-	te = anjuta_get_current_text_editor ();
-	if (te == NULL)
-		return;
-	aneditor_command (te->editor_id, ANE_INSERTTEXT, -1, (long)cvs_string);
+	insert_cvs_header();
 }
 
 void
 on_insert_cvs_id(EggAction * action, gpointer user_data)
 {
-	TextEditor *te;
-	gchar *cvs_string_value = "Id";
-	gchar *cvs_string;
-	
-	cvs_string = g_strconcat("$", cvs_string_value, "$\n", NULL);
-
-	te = anjuta_get_current_text_editor ();
-	if (te == NULL)
-		return;
-	aneditor_command (te->editor_id, ANE_INSERTTEXT, -1, (long)cvs_string);
+	insert_cvs_id();
 }
 
 void
 on_insert_cvs_log(EggAction * action, gpointer user_data)
 {
-	TextEditor *te;
-	gchar *cvs_string_value = "Log";
-	gchar *cvs_string;
-	
-	cvs_string = g_strconcat("$", cvs_string_value, "$\n", NULL);
-
-	te = anjuta_get_current_text_editor ();
-	if (te == NULL)
-		return;
-	aneditor_command (te->editor_id, ANE_INSERTTEXT, -1, (long)cvs_string);
+	insert_cvs_log();
 }
 
 void
 on_insert_cvs_name(EggAction * action, gpointer user_data)
 {
-	TextEditor *te;
-	gchar *cvs_string_value = "Name";
-	gchar *cvs_string;
-	
-	cvs_string = g_strconcat("$", cvs_string_value, "$\n", NULL);
-
-	te = anjuta_get_current_text_editor ();
-	if (te == NULL)
-		return;
-	aneditor_command (te->editor_id, ANE_INSERTTEXT, -1, (long)cvs_string);
+	insert_cvs_name();
 }
 
 void
 on_insert_cvs_revision(EggAction * action, gpointer user_data)
 {
-	TextEditor *te;
-	gchar *cvs_string_value = "Revision";
-	gchar *cvs_string;
-	
-	cvs_string = g_strconcat("$", cvs_string_value, "$\n", NULL);
-
-	te = anjuta_get_current_text_editor ();
-	if (te == NULL)
-		return;
-	aneditor_command (te->editor_id, ANE_INSERTTEXT, -1, (long)cvs_string);
+	insert_cvs_revision();
 }
 
 void
 on_insert_cvs_source(EggAction * action, gpointer user_data)
 {
-	TextEditor *te;
-	gchar *cvs_string_value = "Source";
-	gchar *cvs_string;
-	
-	cvs_string = g_strconcat("$", cvs_string_value, "$\n", NULL);
-
-	te = anjuta_get_current_text_editor ();
-	if (te == NULL)
-		return;
-	aneditor_command (te->editor_id, ANE_INSERTTEXT, -1, (long)cvs_string);
+	insert_cvs_source();
 }
 
 void
