@@ -1,3 +1,12 @@
+2004-02-23  Naba Kumar  <naba@gnome.or>
+
+	* src/source.c: Fixed to pass cflags correctly
+	and suppress the automake's default cflags.
+	bug #816130, #801056, #782798, #773459
+	
+	* data/properties/anjuta.properties: Do not defualt to -k make option.
+	bug #875486.
+	
 2004-02-25  Adam Weinberger  <adamw@FreeBSD.org>
 
 	* configure.in: Added 'en_CA' (Canadian English) to ALL_LINGUAS.

@@ -227,21 +227,21 @@ source_write_configure_in (ProjectDBase * data)
 	switch (lang_type)
 	{
 		case PROJECT_PROGRAMMING_LANGUAGE_C:
-			fprintf (fp, "AC_SUBST(CFLAGS,$CFLAGS)\n");
+			fprintf (fp, "CFLAGS=\"\"\nAC_SUBST(CFLAGS)\n");
 			fprintf (fp, "AC_PROG_CC\n");
 			break;
 		case PROJECT_PROGRAMMING_LANGUAGE_CPP:
-			fprintf (fp, "AC_SUBST(CXXFLAGS,$CXXFLAGS)\n");
+			fprintf (fp, "CXXFLAGS=\"\"\nAC_SUBST(CXXFLAGS)\n");
 			fprintf (fp, "AC_PROG_CXX\n");
 			break;
 		case PROJECT_PROGRAMMING_LANGUAGE_C_CPP:
-			fprintf (fp, "AC_SUBST(CFLAGS,$CFLAGS)\n");
-			fprintf (fp, "AC_SUBST(CXXFLAGS,$CXXFLAGS)\n");
+			fprintf (fp, "CFLAGS=\"\"\nAC_SUBST(CFLAGS)\n");
+			fprintf (fp, "CXXFLAGS=\"\"\nAC_SUBST(CXXFLAGS)\n");
 			fprintf (fp, "AC_PROG_CC\n");
 			fprintf (fp, "AC_PROG_CXX\n");
 			break;
 		default:
-			fprintf (fp, "AC_SUBST(CFLAGS,$CFLAGS)\n");
+			fprintf (fp, "CFLAGS=\"\"\nAC_SUBST(CFLAGS)\n");
 			fprintf (fp, "AC_PROG_CC\n");
 			break;
 	}
@@ -786,14 +786,14 @@ source_write_executable_source_files (ProjectDBase * data)
 	if (lang == PROJECT_PROGRAMMING_LANGUAGE_C ||
 		lang == PROJECT_PROGRAMMING_LANGUAGE_C_CPP)
 	{
-		fprintf (fp, "%s_CFLAGS =", target);
+		fprintf (fp, "AM_CFLAGS =");
 		compiler_options_set_prjcflags_in_file (app->compiler_options, fp);
 		fprintf (fp, "\n\n");
 	}
 	if (lang == PROJECT_PROGRAMMING_LANGUAGE_CPP ||
 		lang == PROJECT_PROGRAMMING_LANGUAGE_C_CPP)
 	{
-		fprintf (fp, "%s_CXXFLAGS =", target);
+		fprintf (fp, "AM_CXXFLAGS =");
 		compiler_options_set_prjcflags_in_file (app->compiler_options, fp);
 		fprintf (fp, "\n\n");
 	}
@@ -878,14 +878,14 @@ source_write_static_lib_source_files (ProjectDBase * data)
 	if (lang == PROJECT_PROGRAMMING_LANGUAGE_C ||
 		lang == PROJECT_PROGRAMMING_LANGUAGE_C_CPP)
 	{
-		fprintf (fp, "%s_%s_CFLAGS =", target, "a");
+		fprintf (fp, "AM_CFLAGS =");
 		compiler_options_set_prjcflags_in_file (app->compiler_options, fp);
 		fprintf (fp, "\n\n");
 	}
 	if (lang == PROJECT_PROGRAMMING_LANGUAGE_CPP ||
 		lang == PROJECT_PROGRAMMING_LANGUAGE_C_CPP)
 	{
-		fprintf (fp, "%s_%s_CXXFLAGS =", target, "a");
+		fprintf (fp, "AM_CXXFLAGS =");
 		compiler_options_set_prjcflags_in_file (app->compiler_options, fp);
 		fprintf (fp, "\n\n");
 	}
@@ -969,14 +969,14 @@ source_write_dynamic_lib_source_files (ProjectDBase * data)
 	if (lang == PROJECT_PROGRAMMING_LANGUAGE_C ||
 		lang == PROJECT_PROGRAMMING_LANGUAGE_C_CPP)
 	{
-		fprintf (fp, "%s_%s_CFLAGS =", target, "la");
+		fprintf (fp, "AM_CFLAGS =");
 		compiler_options_set_prjcflags_in_file (app->compiler_options, fp);
 		fprintf (fp, "\n\n");
 	}
 	if (lang == PROJECT_PROGRAMMING_LANGUAGE_CPP ||
 		lang == PROJECT_PROGRAMMING_LANGUAGE_C_CPP)
 	{
-		fprintf (fp, "%s_%s_CXXFLAGS =", target, "la");
+		fprintf (fp, "AM_CXXFLAGS =");
 		compiler_options_set_prjcflags_in_file (app->compiler_options, fp);
 		fprintf (fp, "\n\n");
 	}
