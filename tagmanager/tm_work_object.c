@@ -73,7 +73,7 @@ gboolean tm_work_object_init(TMWorkObject *work_object, guint type, const char *
 	}
 	if (0 != status)
 	{
-		g_warning("Unable to stat %s", file_name);
+		/* g_warning("Unable to stat %s", file_name);*/
 		return FALSE;
 	}
 	if (!S_ISREG(s.st_mode))
@@ -102,7 +102,7 @@ time_t tm_get_file_timestamp(const char *file_name)
 
 	if (0 != stat(file_name, &s))
 	{
-		g_warning("Unable to stat %s", file_name);
+		/*g_warning("Unable to stat %s", file_name);*/
 		return (time_t) 0;
 	}
 	else

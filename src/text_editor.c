@@ -1080,8 +1080,10 @@ save_to_file (TextEditor * te, gchar * fn)
 			size = fwrite (data, size, 1, fp);
 		}
 		g_free (data);
-		if (size != nchars)
+		/* FIXME: Find a nice way to check that all the bytes have been written */
+		/* if (size != nchars)
 			g_warning("Text length and number of bytes saved is not equal [%d != %d]", nchars, size);
+		*/
 	}
 	if (ferror (fp))
 	{

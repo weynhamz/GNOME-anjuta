@@ -13,7 +13,10 @@
 	every time a build is done) -- speeds up buld operations.
 	* src/file_history.c: Should be if() conditional instead of
 	assertion check.
-
+	* tagmanager/tm_work_object.c, src/utilities.c, src/text_editor.c:
+	Disabled useless warnings.
+	* src/project_dbase.c: Fixed bonobo 2 project name.
+	
 2003-06-21  Naba Kumar  <naba@gnome.org>
 
 	* src/aneditor.cxx: Fixed bugs with debug tip dwell start and end.

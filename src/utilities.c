@@ -1250,12 +1250,12 @@ gboolean is_file_same(gchar *a, gchar *b)
 
 	if(stat(a, &st_a) == -1)
 	{
-		printf("WARNING: Unable to stat '%s'.", a);
+		/* printf("WARNING: Unable to stat '%s'.", a);*/
 		return FALSE;
 	}
 	if(stat(b, &st_b) == -1)
 	{
-		printf("WARNING: Unable to stat '%s'.", b);
+		/* printf("WARNING: Unable to stat '%s'.", b);*/
 		return FALSE;
 	}
 
