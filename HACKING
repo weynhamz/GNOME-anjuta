@@ -59,6 +59,17 @@ ROADMAP file that comes with the source code to understand where we are
 and where we want to be in the long term. Then pick up one of the action
 points and try to implement it.
 
+Resources:
+----------
+
+Homepage: http://www.anjuta.org/
+Project details page: http://sourceforge.net/projects/anjuta/
+CVS snapshots: http://www.anjuta.org/cvs/
+Mailing Lists: http://sourceforge.net/mail/?group_id=14222
+Bug database: http://sourceforge.net/tracker/?atid=114222&group_id=14222&func=browse
+Feature Requests: http://sourceforge.net/tracker/?atid=364222&group_id=14222&func=browse
+Forums: http://sourceforge.net/forum/?group_id=14222
+IRC: irc.gnome.org (Channel: #anjuta and #devel-apps)
 
 Tools
 -----
@@ -255,7 +266,8 @@ graphics and do not use the filenames directly.
 ARCHITECTURE:
 -------------
 
-FIXME.
+The current architecture is rather monolithic and inflexible. There is a drive
+undergoing to change this. Please have a look at the ROADMAP file for details.
 
 1) Event Driven:
 ----------------
@@ -336,7 +348,8 @@ internally to manage the children.
 
 2) How to add new menu items in the Main Menu:
 ----------------------------------------------
-FIXME.
+The files to look for are main_menubar_def.h, mainmenu_callbacks.[ch] and
+main_menubar.[ch]. You might also need to have a peek at controls.[ch].
 
 2a) How to add new menu items in the Edit->Insert menu:
 -------------------------------------------------------
@@ -356,7 +369,7 @@ the menu widget em->insert_* (as specified in main_menubar.h)
 
 3) How to add new toolbar items in the Toolbars:
 ------------------------------------------------
-FIXME.
+Have a look at toolbar.[ch] and controls.[ch].
 
 
 4) Dialogs and Windows:
