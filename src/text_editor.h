@@ -183,6 +183,8 @@ gint text_editor_line_from_handle (TextEditor* te, gint marker_handle);
 gint text_editor_get_bookmark_line( TextEditor* te, const glong nLineStart );
 gint text_editor_get_num_bookmarks(TextEditor* te);
 
+GtkWidget* text_editor_tab_widget_new(TextEditor* te);
+void text_editor_tab_widget_destroy(TextEditor* te);
 
 #define linenum_text_editor_to_scintilla(x) (x-1)
 

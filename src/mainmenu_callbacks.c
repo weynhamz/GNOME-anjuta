@@ -1188,6 +1188,7 @@ on_detach1_activate (GtkMenuItem * menuitem, gpointer user_data)
 	text_editor_undock (te, container);
 	gtk_notebook_remove_page (GTK_NOTEBOOK (app->widgets.notebook),
 				  page_num);
+	
 	on_anjuta_window_focus_in_event (NULL, NULL, NULL);
 }
 

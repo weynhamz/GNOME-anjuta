@@ -114,21 +114,22 @@ on_text_editor_window_focus_in_event (GtkWidget * widget,
 void
 on_text_editor_dock_activate (GtkButton * button, gpointer user_data)
 {
-	GtkWidget *label, *eventbox;
+	GtkWidget *tab_widget, *eventbox;
+	
 	TextEditor *te = anjuta_get_current_text_editor ();
-	label = gtk_label_new (te->filename);
-	te->widgets.tab_label = label;
-	gtk_widget_show (label);
+	
+	tab_widget = text_editor_tab_widget_new(te);
+
 	eventbox = gtk_event_box_new ();
 	gtk_widget_show (eventbox);
 	text_editor_dock (te, eventbox);
 
-	/* For your kind info, this same data is also set in */
+	/* For your kind info, this same data are also set in */
 	/* the function anjuta_append_text_editor() */
 	gtk_object_set_data (GTK_OBJECT (eventbox), "TextEditor", te);
 
 	gtk_notebook_prepend_page (GTK_NOTEBOOK (app->widgets.notebook),
-				   eventbox, label);
+				   eventbox, tab_widget);
 	gtk_window_set_title (GTK_WINDOW (app->widgets.window),
 			      te->full_filename);
 	gtk_notebook_set_page (GTK_NOTEBOOK (app->widgets.notebook), 0);

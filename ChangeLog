@@ -1,3 +1,23 @@
+2002-01-04  Naba Kumar <kh_naba@users.sourceforge.net>
+
+	* src/anjuta.c
+	  src/anjuta_cbs.c
+	  src/text_editor.c
+	  src/mainmenu_callbacks.c
+	  src/text_editor.h
+	  src/text_editor.c
+	  src/text_editor_cbs.c
+	  src/text_editor-gui.c:
+	  
+	  Earlier code for adding 'cross' button
+	  for closing pages were too error prone and unorganized.
+	  Cleaned up the code and shifted the 'extra' widgets
+	  creation (eg. close button, close_pixmap and lable)
+	  from anjuta to text_editor. This takes care of proper
+	  widgets creation and destruction. Otherwise, anjuta
+	  was crashing at too many points, especially related
+	  to docking and undocking.
+	  
 2002-01-04  Stephane Demurget  <demurgets@free.fr>
 
 	* src/aneditor.cxx: removed debugging code.

@@ -233,7 +233,7 @@ anjuta_session_restore (GnomeClient* client)
 TextEditor *
 anjuta_append_text_editor (gchar * filename)
 {
-	GtkWidget *label, *eventbox, *box;
+	GtkWidget *tab_widget, *eventbox;
 	TextEditor *te, *cur_page;
 	gchar *buff;
 
@@ -251,22 +251,13 @@ anjuta_append_text_editor (gchar * filename)
 	switch (te->mode)
 	{
 	case TEXT_EDITOR_PAGED:
-		label = gtk_label_new (te->filename);
-		gtk_object_ref (GTK_OBJECT(label));
-		te->widgets.tab_label = label;
-		gtk_widget_show (label);
-		
-		box = gtk_hbox_new(FALSE, 0);
-		gtk_box_pack_start(GTK_BOX(box), label, TRUE, TRUE, 0);
-        gtk_box_pack_start(GTK_BOX(box), te->buttons.close, FALSE, FALSE, 0);
-        gtk_box_pack_start(GTK_BOX(box), te->widgets.close_pixmap, FALSE, FALSE, 0);
-		gtk_widget_show(box);
-						
+		tab_widget = text_editor_tab_widget_new(te);
+	
 		eventbox = gtk_event_box_new ();
 		gtk_widget_show (eventbox);
 		gtk_notebook_prepend_page (GTK_NOTEBOOK
 					   (app->widgets.notebook), eventbox,
-					   box);
+					   tab_widget);
 
 		gtk_container_add (GTK_CONTAINER (eventbox),
 				   te->widgets.client);
@@ -275,10 +266,6 @@ anjuta_append_text_editor (gchar * filename)
 		/* the function on_text_editor_dock_activated() */
 		gtk_object_set_data (GTK_OBJECT (eventbox), "TextEditor", te);
 		
-		/* This label data is used to update the page tab later */
-		gtk_object_set_data_full (GTK_OBJECT (eventbox),
-				"NotebookLabel", label, gtk_object_unref);
-
 		if (te->full_filename)
 			buff =
 				g_strdup_printf (_("Anjuta: %s"),

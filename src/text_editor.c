@@ -38,6 +38,7 @@
 #include "text_editor_menu.h"
 #include "utilities.h"
 #include "launcher.h"
+#include "pixmaps.h"
 
 #define GTK
 #undef PLAT_GTK
@@ -114,6 +115,7 @@ text_editor_new (gchar * filename, TextEditor * parent, Preferences * eo)
 	te->filename = g_strdup_printf ("Newfile#%d", ++new_file_count);
 	te->full_filename = NULL;
 	te->tm_file = NULL;
+	
 	te->modified_time = time (NULL);
 	te->preferences = eo;
 	te->force_hilite = TE_LEXER_AUTOMATIC;
@@ -229,6 +231,7 @@ text_editor_destroy (TextEditor * te)
 		gtk_widget_unref (te->widgets.client);
 		gtk_widget_unref (te->widgets.line_label);
 		gtk_widget_unref (te->widgets.editor);
+		gtk_widget_unref (te->widgets.tab_label);
 		gtk_widget_unref (te->buttons.new);
 		gtk_widget_unref (te->buttons.new);
 		gtk_widget_unref (te->buttons.open);
@@ -246,6 +249,10 @@ text_editor_destroy (TextEditor * te)
 
 		if (te->widgets.window)
 			gtk_widget_destroy (te->widgets.window);
+		
+		if (te->buttons.close)
+			text_editor_tab_widget_destroy(te);
+		
 		if (te->filename)
 			g_free (te->filename);
 		if (te->full_filename)
@@ -277,6 +284,7 @@ text_editor_undock (TextEditor * te, GtkWidget * container)
 			   te->widgets.client);
 	gtk_widget_show (te->widgets.client);
 	gtk_widget_show (te->widgets.window);
+	text_editor_tab_widget_destroy(te);
 }
 
 void
@@ -1183,4 +1191,72 @@ gint text_editor_get_num_bookmarks(TextEditor* te)
 	}
 	//printf( "out Line %d\n", nLineNo );
 	return nMarkers ;
+}
+
+GtkWidget* text_editor_tab_widget_new(TextEditor* te)
+{
+	GtkWidget *button15;
+	GtkWidget *close_pixmap;
+	GtkWidget *tmp_toolbar_icon;
+	GtkWidget *label;
+	GtkWidget *box;
+	GtkRequisition r;
+	
+	g_return_val_if_fail(te != NULL, NULL);
+	
+	if (te->buttons.close)
+		text_editor_tab_widget_destroy(te);
+	
+	tmp_toolbar_icon = anjuta_res_get_pixmap_widget (te->widgets.window,
+		ANJUTA_PIXMAP_CLOSE_FILE_SMALL, FALSE);
+	gtk_widget_show(tmp_toolbar_icon);
+	
+	button15 = gtk_button_new();
+	gtk_container_add(GTK_CONTAINER(button15), tmp_toolbar_icon);
+	gtk_button_set_relief(GTK_BUTTON(button15), GTK_RELIEF_NONE);
+	gtk_widget_show (button15);
+	
+	close_pixmap = anjuta_res_get_pixmap_widget (te->widgets.window,
+		ANJUTA_PIXMAP_CLOSE_FILE_SMALL, FALSE);
+	gtk_widget_size_request (button15, &r);
+	gtk_widget_set_usize (close_pixmap, r.width, r.height);
+	gtk_widget_set_sensitive(close_pixmap, FALSE);
+	
+	label = gtk_label_new (te->filename);
+	gtk_widget_show (label);
+		
+	box = gtk_hbox_new(FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(box), label, TRUE, TRUE, 0);
+    gtk_box_pack_start(GTK_BOX(box), button15, FALSE, FALSE, 0);
+    gtk_box_pack_start(GTK_BOX(box), close_pixmap, FALSE, FALSE, 0);
+	gtk_widget_show(box);
+
+	gtk_signal_connect (GTK_OBJECT (button15), "clicked",
+				GTK_SIGNAL_FUNC(on_text_editor_notebook_close_page),
+				te);
+
+	te->widgets.close_pixmap = close_pixmap;
+	te->buttons.close = button15;
+	te->widgets.tab_label = label;
+	
+	gtk_widget_ref (te->buttons.close);
+	gtk_widget_ref (te->widgets.close_pixmap);
+	gtk_widget_ref (te->widgets.tab_label);
+	
+	return box;
+}
+
+void
+text_editor_tab_widget_destroy(TextEditor* te)
+{
+	g_return_if_fail(te != NULL);
+	g_return_if_fail(te->buttons.close != NULL);
+
+	gtk_widget_unref (te->buttons.close);
+	gtk_widget_unref (te->widgets.close_pixmap);
+	gtk_widget_unref (te->widgets.tab_label);
+	
+	te->widgets.close_pixmap = NULL;
+	te->buttons.close = NULL;
+	te->widgets.tab_label = NULL;
 }
