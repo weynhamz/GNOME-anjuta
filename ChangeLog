@@ -16,6 +16,8 @@
 	* tagmanager/tm_work_object.c, src/utilities.c, src/text_editor.c:
 	Disabled useless warnings.
 	* src/project_dbase.c: Fixed bonobo 2 project name.
+	* src/project_dbase.c, src/source.c: Corrected bonobo2 project name
+	and uses correct glade-2 for file generation.
 	
 2003-06-21  Naba Kumar  <naba@gnome.org>
 

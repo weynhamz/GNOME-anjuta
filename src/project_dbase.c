@@ -74,7 +74,7 @@ gchar *project_type_map[]=
 	"GNOME 2.0",
 	"LIBGLADE2",
 	"gnomemm 2.0",
-	"BONOBO 2.0",
+	"BONOBO2",
 	"XLib",
 	"XLib Dock App",
 	NULL

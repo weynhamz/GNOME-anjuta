@@ -2810,7 +2810,8 @@ source_write_build_files (ProjectDBase * data)
 			type->id == PROJECT_TYPE_GNOMEMM2 ||
 			type->id == PROJECT_TYPE_GTK2 ||
 			type->id == PROJECT_TYPE_GNOME2 ||
-			type->id == PROJECT_TYPE_LIBGLADE2)
+			type->id == PROJECT_TYPE_LIBGLADE2 ||
+			type->id == PROJECT_TYPE_BONOBO2)
 			ret = source_write_glade2_file (data);
 		else
 			ret = source_write_glade_file (data);
