@@ -1,5 +1,7 @@
-GLOBAL_TAGS_FILE=system.tags
 FILES="/usr/include/*.h /usr/local/include/*.h"
+BASEDIR=`pwd`
+PROGDIR=`dirname $0`
+GLOBAL_TAGS_FILE=$BASEDIR/system.tags
 CFLAGS=""
 
 GNOME_PREFIX=`gnome-config --prefix gnome 2>/dev/null`
@@ -23,8 +25,8 @@ then
     fi
   done
   CFLAGS="$GNOME_CFLAGS $PGK_CONFIG_CFLAGS"
-  echo "Files are $FILES"
-  echo "CFLAGS are $CFLAGS"
+#  echo "Files are $FILES"
+#  echo "CFLAGS are $CFLAGS"
 fi
 export CFLAGS
-./tm_global_tags $GLOBAL_TAGS_FILE "$FILES"
+$PROGDIR/tm_global_tags $GLOBAL_TAGS_FILE "$FILES" 2>/dev/null

@@ -45,6 +45,7 @@ gboolean tm_project_init(TMProject *project, const char *file_name,
 	else
 		project->project_name = NULL;
 	project->file_list = NULL;
+	project->root = NULL;
 	tm_workspace_add_object(TM_WORK_OBJECT(project));
 	if (!exists)
 	{
@@ -71,9 +72,11 @@ TMWorkObject *tm_project_new(const char *file_name, const char *project_name)
 
 void tm_project_destroy(TMProject *project)
 {
+#ifdef TM_DEBUG
+	g_message("Destroying project: %s", project->work_object.file_name);
+#endif
+
 	tm_project_save(project);
-	g_free(project->project_name);
-	tm_workspace_remove_object(TM_WORK_OBJECT(project), FALSE);
 	if (NULL != project->file_list)
 	{
 		int i;
@@ -81,6 +84,8 @@ void tm_project_destroy(TMProject *project)
 			tm_source_file_free(TM_SOURCE_FILE(project->file_list->pdata[i]));
 		g_ptr_array_free(project->file_list, TRUE);
 	}
+	tm_workspace_remove_object(TM_WORK_OBJECT(project), FALSE);
+	g_free(project->project_name);
 	tm_work_object_destroy(&(project->work_object));
 }
 
@@ -162,13 +167,15 @@ void tm_project_recreate_tags_array(TMProject *project)
 	TMTagAttrType sort_attrs[] = { tm_tag_attr_name_t, tm_tag_attr_scope_t,
 		tm_tag_attr_type_t, 0};
 
+#ifdef TM_DEBUG
+	g_message("Recreating tags for project: %s", project->work_object.file_name);
+#endif
+
 	if (NULL != project->work_object.tags_array)
 		g_ptr_array_set_size(project->work_object.tags_array, 0);
 	else
 		project->work_object.tags_array = g_ptr_array_new();
 
-	/* ToDo: Do this faster by pre-calculating required length
-	** and doing direct memcpy() */
 	for (i=0; i < project->file_list->len; ++i)
 	{
 		source_file = TM_WORK_OBJECT(project->file_list->pdata[i]);
@@ -183,6 +190,7 @@ void tm_project_recreate_tags_array(TMProject *project)
 		}
 	}
 	tm_tags_sort(project->work_object.tags_array, sort_attrs, TRUE);
+	project->root = tm_symbol_tree_update(project->root, project->work_object.tags_array);
 }
 
 gboolean tm_project_update(TMWorkObject *work_object, gboolean force
@@ -197,6 +205,11 @@ gboolean tm_project_update(TMWorkObject *work_object, gboolean force
 		g_warning("%s: Not a project", work_object->file_name);
 		return FALSE;
 	}
+
+#ifdef TM_DEBUG
+	g_message("Updating project: %s", work_object->file_name);
+#endif
+
 	project = TM_PROJECT(work_object);
 	if ((NULL != project->file_list) && (project->file_list->len > 0))
 	{

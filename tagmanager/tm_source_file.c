@@ -17,6 +17,10 @@ static TMSourceFile *current_source_file = NULL;
 
 gboolean tm_source_file_init(TMSourceFile *source_file, const char *file_name, gboolean update)
 {
+#ifdef TM_DEBUG
+	g_message("Source File init: %s", file_name);
+#endif
+
 	if (0 == source_file_class_id)
 		source_file_class_id = tm_work_object_register(tm_source_file_free
 		  , tm_source_file_update, NULL);
@@ -42,6 +46,10 @@ TMWorkObject *tm_source_file_new(const char *file_name, gboolean update)
 
 void tm_source_file_destroy(TMSourceFile *source_file)
 {
+#ifdef TM_DEBUG
+	g_message("Destroying source file: %s", source_file->work_object.file_name);
+#endif
+
 	if (NULL != TM_WORK_OBJECT(source_file)->tags_array)
 	{
 		tm_tags_array_free(TM_WORK_OBJECT(source_file)->tags_array, TRUE);
@@ -69,6 +77,11 @@ gboolean tm_source_file_parse(TMSourceFile *source_file)
 		g_warning("Attempt to parse NULL file");
 		return FALSE;
 	}
+
+#ifdef TM_DEBUG
+	g_message("Parsing %s", source_file->work_object.file_name);
+#endif
+
 	if (NULL == LanguageTable)
 	{
 		initializeParsing();

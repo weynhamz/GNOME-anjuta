@@ -17,6 +17,7 @@ libctags_a_SOURCES = \
 	tm_work_object.c\
 	tm_source_file.c\
 	tm_project.c\
+	tm_symbol.c\
 	tm_tag.c\
 	tm_tagmanager.c\
 	args.c\

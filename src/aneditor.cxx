@@ -1728,6 +1728,62 @@ void AnEditor::ReadProperties(const char *fileForExt) {
 
 	SString kw0 = props->GetNewExpand("keywords.", fileNameForExtension.c_str());
 	SendEditorString(SCI_SETKEYWORDS, 0, kw0.c_str());
+	/* For C/C++ projects, get list of typedefs for colorizing */
+	if (SCLEX_CPP == lexLanguage)
+	{
+		const TMWorkspace *workspace = tm_get_workspace();
+
+		/* Assign global keywords */
+		if ((workspace) && (workspace->global_tags))
+		{
+			GPtrArray *g_typedefs = tm_tags_extract(workspace->global_tags
+			  , tm_tag_typedef_t | tm_tag_struct_t | tm_tag_class_t);
+			if ((g_typedefs) && (g_typedefs->len > 0))
+			{
+				GString *s = g_string_sized_new(g_typedefs->len * 10);
+				for (guint i = 0; i < g_typedefs->len; ++i)
+				{
+					if (!(TM_TAG(g_typedefs->pdata[i])->atts.entry.scope))
+					{
+						g_string_append(s, TM_TAG(g_typedefs->pdata[i])->name);
+						g_string_append_c(s, ' ');
+					}
+				}
+				SendEditorString(SCI_SETKEYWORDS, 2, s->str);
+				g_string_free(s, TRUE);
+			}
+			g_ptr_array_free(g_typedefs, TRUE);
+		}
+
+		/* Assign project keywords */
+		if ((workspace) && (workspace->work_object.tags_array))
+		{
+			GPtrArray *typedefs = tm_tags_extract(workspace->work_object.tags_array
+			  , tm_tag_typedef_t | tm_tag_struct_t | tm_tag_class_t);
+			if ((typedefs) && (typedefs->len > 0))
+			{
+				GString *s = g_string_sized_new(typedefs->len * 10);
+				for (guint i = 0; i < typedefs->len; ++i)
+				{
+					if (!(TM_TAG(typedefs->pdata[i])->atts.entry.scope))
+					{
+						if (!TM_TAG(typedefs->pdata[i])->name)
+						{
+							g_warning("NULL tag name encountered!");
+							sleep(10000);
+						}
+						g_string_append(s, TM_TAG(typedefs->pdata[i])->name);
+						g_string_append_c(s, ' ');
+					}
+				}
+				SendEditorString(SCI_SETKEYWORDS, 1, s->str);
+				g_string_free(s, TRUE);
+			}
+			g_ptr_array_free(typedefs, TRUE);
+		}
+	}
+	else
+	{
 	SString kw1 = props->GetNewExpand("keywords2.", fileNameForExtension.c_str());
 	SendEditorString(SCI_SETKEYWORDS, 1, kw1.c_str());
 	SString kw2 = props->GetNewExpand("keywords3.", fileNameForExtension.c_str());
@@ -1736,6 +1792,7 @@ void AnEditor::ReadProperties(const char *fileForExt) {
 	SendEditorString(SCI_SETKEYWORDS, 3, kw3.c_str());
 	SString kw4 = props->GetNewExpand("keywords5.", fileNameForExtension.c_str());
 	SendEditorString(SCI_SETKEYWORDS, 4, kw4.c_str());
+	}
 
 	SString fold = props->Get("fold");
 	SendEditorString(SCI_SETPROPERTY, reinterpret_cast<unsigned long>("fold"),

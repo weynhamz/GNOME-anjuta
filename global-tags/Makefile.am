@@ -18,5 +18,5 @@ all-local: system.tags
 
 system.tags: create_global_tags.sh tm_global_tags
 	echo "Detecting header files and Generating global symbols ....."
-	$(srcdir)/create_global_tags.sh 2> /dev/null ; echo "....... Done"
+	$(srcdir)/create_global_tags.sh
 	cp $(srcdir)/system.tags $(top_srcdir)/data

@@ -13,6 +13,10 @@ guint workspace_class_id = 0;
 static gboolean tm_create_workspace()
 {
 	char *file_name = g_strdup_printf("%s/%d", P_tmpdir, getpid());
+#ifdef TM_DEBUG
+	g_message("Workspace created: %s", file_name);
+#endif
+
 	workspace_class_id = tm_work_object_register(tm_workspace_free, tm_workspace_update
 		  , tm_workspace_find_object);
 	theWorkspace = g_new(TMWorkspace, 1);
@@ -38,6 +42,11 @@ void tm_workspace_free(gpointer workspace)
 
 	if (workspace != theWorkspace)
 		return;
+
+#ifdef TM_DEBUG
+	g_message("Workspace destroyed");
+#endif
+
 	if (NULL != theWorkspace)
 	{
 		if (NULL != theWorkspace->work_objects)
@@ -90,7 +99,7 @@ gboolean tm_workspace_remove_object(TMWorkObject *w, gboolean free)
 			if (free)
 				tm_work_object_free(w);
 			g_ptr_array_remove_index_fast(theWorkspace->work_objects, i);
-			tm_workspace_update(TM_WORK_OBJECT(theWorkspace), FALSE, TRUE, FALSE);
+			tm_workspace_update(TM_WORK_OBJECT(theWorkspace), TRUE, TRUE, FALSE);
 			return TRUE;
 		}
 	}
@@ -218,17 +227,26 @@ void tm_workspace_recreate_tags_array()
 	TMTagAttrType sort_attrs[] = { tm_tag_attr_name_t, tm_tag_attr_file_t
 		, tm_tag_attr_scope_t, tm_tag_attr_type_t, 0};
 
-	if ((NULL == theWorkspace) || (NULL == theWorkspace->work_objects)
-		  || (0 == theWorkspace->work_objects->len))
+#ifdef TM_DEBUG
+	g_message("Recreating workspace tags array");
+#endif
+
+	if ((NULL == theWorkspace) || (NULL == theWorkspace->work_objects))
 		return;
 	if (NULL != theWorkspace->work_object.tags_array)
 		g_ptr_array_set_size(theWorkspace->work_object.tags_array, 0);
 	else
 		theWorkspace->work_object.tags_array = g_ptr_array_new();
 
+#ifdef TM_DEBUG
+	g_message("Total %d objects", theWorkspace->work_objects->len);
+#endif
 	for (i=0; i < theWorkspace->work_objects->len; ++i)
 	{
 		w = TM_WORK_OBJECT(theWorkspace->work_objects->pdata[i]);
+#ifdef TM_DEBUG
+		g_message("Adding tags of %s", w->file_name);
+#endif
 		if ((NULL != w) && (NULL != w->tags_array) && (w->tags_array->len > 0))
 		{
 			for (j = 0; j < w->tags_array->len; ++j)
@@ -238,6 +256,9 @@ void tm_workspace_recreate_tags_array()
 			}
 		}
 	}
+#ifdef TM_DEBUG
+	g_message("Total: %d tags", theWorkspace->work_object.tags_array->len);
+#endif
 	tm_tags_sort(theWorkspace->work_object.tags_array, sort_attrs, TRUE);
 }
 
@@ -247,6 +268,10 @@ gboolean tm_workspace_update(TMWorkObject *workspace, gboolean force
 	int i;
 	gboolean update_tags = force;
 	
+#ifdef TM_DEBUG
+	g_message("Updating workspace");
+#endif
+
 	if (workspace != TM_WORK_OBJECT(theWorkspace))
 		return FALSE;
 	if (NULL == theWorkspace)
@@ -256,7 +281,7 @@ gboolean tm_workspace_update(TMWorkObject *workspace, gboolean force
 		for (i=0; i < theWorkspace->work_objects->len; ++i)
 		{
 			if (TRUE == tm_work_object_update(TM_WORK_OBJECT(
-				  theWorkspace->work_objects->pdata[i]), force, TRUE, FALSE))
+				  theWorkspace->work_objects->pdata[i]), FALSE, TRUE, FALSE))
 				update_tags = TRUE;
 		}
 	}

@@ -2029,6 +2029,8 @@ project_dbase_add_file_to_module (ProjectDBase * p, PrjModule module,
 	g_free (new_file_list);
 	g_free (file_list);
 	g_free (mod_files);
+	if ((MODULE_INCLUDE == module) || (MODULE_SOURCE == module))
+		tm_project_add_file(TM_PROJECT(p->tm_project), filename, TRUE);
 	project_dbase_update_tree (p);
 	p->is_saved = FALSE;
 }
@@ -2038,6 +2040,7 @@ project_dbase_remove_file (ProjectDBase * p)
 {
 	gchar *key, *fn, *files, *pos;
 	gint i;
+	TMWorkObject *source_file;
 	PrjModule module;
 	
 	module = p->current_file_data->module;
@@ -2048,6 +2051,9 @@ project_dbase_remove_file (ProjectDBase * p)
 		g_free (key);
 		return;
 	}
+	source_file = tm_project_find_file(p->tm_project, p->current_file_data->filename);
+	if (source_file)
+		tm_project_remove_object(TM_PROJECT(p->tm_project), source_file);
 	fn = extract_filename (p->current_file_data->filename);
 	
 	pos = strstr (files, fn);

@@ -4,6 +4,7 @@
 #include <glib.h>
 #include "tm_work_object.h"
 #include "tm_source_file.h"
+#include "tm_symbol.h"
 
 /*! \file
  The TMProject structure and associated functions can be used to group together
@@ -41,6 +42,7 @@ typedef struct _TMProject
 	TMWorkObject work_object; /*!< The parent work object */
 	char *project_name; /*!< The name of the project */
 	GPtrArray *file_list; /*!< Array of TMSourceFile present in the project */
+	TMSymbol *root; /*!< Root of the symbol tree */
 } TMProject;
 
 /*! Initializes a TMSourceFile structure from specified parameters

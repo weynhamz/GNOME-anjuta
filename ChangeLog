@@ -1,3 +1,33 @@
+2001-11-26 Naba Kumar <kh_naba@users.sourceforge.net>
+
+	* global-tags/Makefile.am
+	global-tags/create_global_tags.sh
+	global-tags/tm_global_tags.c
+	scintilla/LexCPP.cxx
+	scintilla/include/SciLexer.h
+	src/aneditor.cxx
+	src/project_dbase.c
+	tagmanager/Makefile.am
+	tagmanager/include/Makefile.am
+	tagmanager/include/tm_project.h
+	tagmanager/include/tm_tag.h
+	tagmanager/include/tm_tagmanager.h
+	tagmanager/tm_project.c
+	tagmanager/tm_source_file.c
+	tagmanager/tm_tag.c
+	tagmanager/tm_workspace.c:
+	
+	Includes the syntax highliting patch to scintilla).
+	and more stable code.
+	
+	*tagmanager/include/tm_symbol.h: New file.
+	*tagmanager/tm_symbol.c: New file.
+	
+	Add symbol tree building functionality at project level
+	
+	Patch from:
+	Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
+	
 2001-11-22 Naba Kumar <kh_naba@users.sourceforge.net>
 
 	* pixmaps/file_cpp.xpm,   pixmaps/file_html.xpm,  pixmaps/file_icon.xpm,

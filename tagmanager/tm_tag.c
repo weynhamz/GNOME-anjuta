@@ -12,7 +12,7 @@ static GMemChunk *tag_mem_chunk = NULL;
 
 #define TAG_NEW(T) {\
 	if (!tag_mem_chunk) \
-		tag_mem_chunk = g_mem_chunk_new("tag mem chunk", sizeof(TMTag), 1024 \
+		tag_mem_chunk = g_mem_chunk_new("TMTag memChunk", sizeof(TMTag), 1024 \
 		  , G_ALLOC_AND_FREE); \
 	(T) = g_chunk_new0(TMTag, tag_mem_chunk);}
 

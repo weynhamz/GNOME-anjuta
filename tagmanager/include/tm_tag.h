@@ -43,9 +43,9 @@ typedef enum
 	tm_tag_enumerator_t = 4, /*!< Enumerator value */
 	tm_tag_field_t = 8, /*!< Field (Java only) */
 	tm_tag_function_t = 16, /*!< Function definition */
-	tm_tag_interface_t = 32, /*!< Interface (Java only */
+	tm_tag_interface_t = 32, /*!< Interface (Java only) */
 	tm_tag_member_t = 64, /*!< Member variable of class/struct */
-	tm_tag_method_t = 128, /*!< Class method (Java only */
+	tm_tag_method_t = 128, /*!< Class method (Java only) */
 	tm_tag_namespace_t = 256, /*!< Namespace declaration */
 	tm_tag_package_t = 512, /*!< Package (Java only) */
 	tm_tag_prototype_t = 1024, /*!< Function prototype */
@@ -54,9 +54,9 @@ typedef enum
 	tm_tag_union_t = 8192, /*!< Union */
 	tm_tag_variable_t = 16384, /*!< Variable */
 	tm_tag_externvar_t = 32768, /*!< Extern or forward declaration */
-	tm_tag_macro_t = 65536, /*!< Macro (withour arguments) */
+	tm_tag_macro_t = 65536, /*!< Macro (without arguments) */
 	tm_tag_macro_with_arg_t = 131072, /*!< Parameterized macro */
-	tm_tag_file_t = 262144, /*!< File (Pseudo tag */
+	tm_tag_file_t = 262144, /*!< File (Pseudo tag) */
 	tm_tag_max_t = 524287 /*!< Maximum value of TMTagType */
 } TMTagType;
 
