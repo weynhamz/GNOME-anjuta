@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 2.2\n"
-"POT-Creation-Date: 2003-03-06 19:28+0100\n"
+"POT-Creation-Date: 2003-03-24 17:29+0530\n"
 "PO-Revision-Date: 2003-03-10 02:30-0300\n"
 "Last-Translator: Alexandre Folle de Menezes <afmenez@terra.com.br>\n"
 "Language-Team: Brazilian Portuguese <ldp-br@bazar.conectiva.com.br>\n"
@@ -83,30 +83,30 @@ msgstr "_Passar:"
 #: anjuta_dialogs_strings.c:91 anjuta_dialogs_strings.c:92
 #: anjuta_dialogs_strings.c:95 anjuta_dialogs_strings.c:99
 #: anjuta_dialogs_strings.c:101 anjuta_dialogs_strings.c:116
-#: anjuta_dialogs_strings.c:135 anjuta_dialogs_strings.c:145
-#: anjuta_dialogs_strings.c:146 anjuta_dialogs_strings.c:147
-#: anjuta_dialogs_strings.c:152 anjuta_dialogs_strings.c:158
-#: anjuta_dialogs_strings.c:164 anjuta_dialogs_strings.c:167
-#: anjuta_dialogs_strings.c:174 anjuta_dialogs_strings.c:178
-#: anjuta_dialogs_strings.c:183 anjuta_dialogs_strings.c:188
-#: anjuta_dialogs_strings.c:190 anjuta_dialogs_strings.c:192
-#: anjuta_dialogs_strings.c:196 anjuta_dialogs_strings.c:200
-#: anjuta_dialogs_strings.c:202 anjuta_dialogs_strings.c:230
-#: anjuta_dialogs_strings.c:233 anjuta_dialogs_strings.c:244
-#: anjuta_dialogs_strings.c:246 anjuta_dialogs_strings.c:253
-#: anjuta_dialogs_strings.c:256 anjuta_dialogs_strings.c:257
-#: anjuta_dialogs_strings.c:260 anjuta_dialogs_strings.c:261
-#: anjuta_dialogs_strings.c:263 anjuta_dialogs_strings.c:270
-#: anjuta_dialogs_strings.c:275 anjuta_dialogs_strings.c:281
-#: anjuta_dialogs_strings.c:288 anjuta_dialogs_strings.c:290
-#: anjuta_dialogs_strings.c:303 anjuta_dialogs_strings.c:319
-#: anjuta_dialogs_strings.c:332 anjuta_dialogs_strings.c:348
-#: anjuta_dialogs_strings.c:349 anjuta_dialogs_strings.c:353
-#: anjuta_dialogs_strings.c:359 anjuta_dialogs_strings.c:381
-#: anjuta_dialogs_strings.c:402 anjuta_dialogs_strings.c:417
-#: anjuta_dialogs_strings.c:427 anjuta_dialogs_strings.c:445
-#: anjuta_dialogs_strings.c:455 anjuta_dialogs_strings.c:461
-#: anjuta_dialogs_strings.c:467 anjuta_dialogs_strings.c:491
+#: anjuta_dialogs_strings.c:134 anjuta_dialogs_strings.c:141
+#: anjuta_dialogs_strings.c:143 anjuta_dialogs_strings.c:144
+#: anjuta_dialogs_strings.c:145 anjuta_dialogs_strings.c:150
+#: anjuta_dialogs_strings.c:156 anjuta_dialogs_strings.c:162
+#: anjuta_dialogs_strings.c:165 anjuta_dialogs_strings.c:175
+#: anjuta_dialogs_strings.c:181 anjuta_dialogs_strings.c:186
+#: anjuta_dialogs_strings.c:188 anjuta_dialogs_strings.c:190
+#: anjuta_dialogs_strings.c:194 anjuta_dialogs_strings.c:198
+#: anjuta_dialogs_strings.c:200 anjuta_dialogs_strings.c:228
+#: anjuta_dialogs_strings.c:231 anjuta_dialogs_strings.c:242
+#: anjuta_dialogs_strings.c:244 anjuta_dialogs_strings.c:251
+#: anjuta_dialogs_strings.c:254 anjuta_dialogs_strings.c:255
+#: anjuta_dialogs_strings.c:258 anjuta_dialogs_strings.c:259
+#: anjuta_dialogs_strings.c:261 anjuta_dialogs_strings.c:268
+#: anjuta_dialogs_strings.c:273 anjuta_dialogs_strings.c:279
+#: anjuta_dialogs_strings.c:286 anjuta_dialogs_strings.c:288
+#: anjuta_dialogs_strings.c:301 anjuta_dialogs_strings.c:317
+#: anjuta_dialogs_strings.c:330 anjuta_dialogs_strings.c:346
+#: anjuta_dialogs_strings.c:347 anjuta_dialogs_strings.c:351
+#: anjuta_dialogs_strings.c:357 anjuta_dialogs_strings.c:379
+#: anjuta_dialogs_strings.c:400 anjuta_dialogs_strings.c:415
+#: anjuta_dialogs_strings.c:425 anjuta_dialogs_strings.c:443
+#: anjuta_dialogs_strings.c:453 anjuta_dialogs_strings.c:459
+#: anjuta_dialogs_strings.c:465 anjuta_dialogs_strings.c:489
 msgid "*"
 msgstr "*"
 
@@ -197,7 +197,7 @@ msgstr "Caminhos de Biblioteca"
 msgid "<: Enter Here"
 msgstr "<: Informe Aqui"
 
-#: anjuta_dialogs_strings.c:57 anjuta_dialogs_strings.c:216
+#: anjuta_dialogs_strings.c:57 anjuta_dialogs_strings.c:214
 msgid "Libraries"
 msgstr "Bibliotecas"
 
@@ -258,7 +258,7 @@ msgid "Additional Options"
 msgstr "Opções Adicionais"
 
 #. 15
-#: anjuta_dialogs_strings.c:78 anjuta_dialogs_strings.c:345
+#: anjuta_dialogs_strings.c:78 anjuta_dialogs_strings.c:343
 #: src/text_editor_menu.c:329
 msgid "Options"
 msgstr "Opções"
@@ -267,15 +267,16 @@ msgstr "Opções"
 msgid "Source Directories"
 msgstr "Diretórios de Código Fonte"
 
-#: anjuta_dialogs_strings.c:82 anjuta_dialogs_strings.c:94
-msgid "dialog1"
-msgstr "diálogo1"
+#: anjuta_dialogs_strings.c:82
+#, fuzzy
+msgid "Run Configure Script"
+msgstr "Executar configuração"
 
 #: anjuta_dialogs_strings.c:84
 msgid "Configure Parameters"
 msgstr "Configurar Parâmetros"
 
-#: anjuta_dialogs_strings.c:85 src/find_in_files.c:280
+#: anjuta_dialogs_strings.c:85 src/find_in_files.c:301
 msgid "Find in Files"
 msgstr "Encontrar nos Arquivos"
 
@@ -283,7 +284,7 @@ msgstr "Encontrar nos Arquivos"
 msgid "Case sensitive"
 msgstr "Sensível à capitalização"
 
-#: anjuta_dialogs_strings.c:87 anjuta_dialogs_strings.c:161
+#: anjuta_dialogs_strings.c:87
 msgid "Ignore binary files"
 msgstr "Ignorar arquivos binários"
 
@@ -302,6 +303,11 @@ msgstr "Arquivo/Diretório a adicionar:"
 #: anjuta_dialogs_strings.c:93
 msgid "Search String"
 msgstr "Expressão de busca"
+
+#: anjuta_dialogs_strings.c:94
+#, fuzzy
+msgid "Execute Program"
+msgstr "Executa o programa"
 
 #: anjuta_dialogs_strings.c:96
 msgid "Command Line Parameters"
@@ -372,90 +378,82 @@ msgid "Ignore case"
 msgstr "Ignorar capitalização"
 
 #: anjuta_dialogs_strings.c:129
-msgid "Search and Replace"
-msgstr "Procurar e Substituir"
+#, fuzzy
+msgid "Find & Replace"
+msgstr "Procurar e substituir"
 
-#: anjuta_dialogs_strings.c:130
-msgid "Search expression:"
+#: anjuta_dialogs_strings.c:130 anjuta_dialogs_strings.c:138
+#, fuzzy
+msgid "Search Expression"
 msgstr "Procurar expressão:"
 
 #: anjuta_dialogs_strings.c:131
-msgid "Is the regular expression or simple string"
-msgstr "É a expressão regular ou expressão simples"
-
-#: anjuta_dialogs_strings.c:132
-msgid "Regular expression"
+#, fuzzy
+msgid "Regular Expression"
 msgstr "Expressão regular"
 
-#: anjuta_dialogs_strings.c:133
+#: anjuta_dialogs_strings.c:132
 msgid "Greedy matching"
 msgstr "Busca gananciosa"
 
-#: anjuta_dialogs_strings.c:134
-msgid "Give the search expression"
-msgstr "Informe a expressão a procurar"
+#: anjuta_dialogs_strings.c:133
+msgid "Case insensitive"
+msgstr "Insensível à capitalização"
 
-#: anjuta_dialogs_strings.c:136
+#: anjuta_dialogs_strings.c:135
 msgid "Match at start of word"
 msgstr "Equivaler no início da palavra"
 
-#: anjuta_dialogs_strings.c:137
+#: anjuta_dialogs_strings.c:136
 msgid "Match complete lines"
 msgstr "Equivaler linhas completas"
 
-#: anjuta_dialogs_strings.c:138
+#: anjuta_dialogs_strings.c:137
 msgid "Match complete words"
 msgstr "Equivaler palavras completas"
 
 #: anjuta_dialogs_strings.c:139
-msgid "Case insensitive"
-msgstr "Insensível à capitalização"
-
-#: anjuta_dialogs_strings.c:140 anjuta_dialogs_strings.c:181
-msgid "Search"
-msgstr "Procurar"
-
-#: anjuta_dialogs_strings.c:141
-msgid "Search in:"
+#, fuzzy
+msgid "Search In"
 msgstr "Procurar em:"
 
-#: anjuta_dialogs_strings.c:142
-msgid "Search action:"
+#: anjuta_dialogs_strings.c:140
+#, fuzzy
+msgid "Search Action"
 msgstr "Ação de procura:"
 
-#: anjuta_dialogs_strings.c:143
-msgid "Search direction:"
+#: anjuta_dialogs_strings.c:142
+#, fuzzy
+msgid "Search Direction"
 msgstr "Direção de busca:"
 
-#: anjuta_dialogs_strings.c:144
-msgid "The search target(s) where search will be performed"
-msgstr "O(s) alvo(s) onde a procura será efetuada"
-
-#: anjuta_dialogs_strings.c:148
+#: anjuta_dialogs_strings.c:146
 msgid "$(module.source.files) $(module.include.files)"
 msgstr "$(arquivo.código.módulo) $(arquivo.include.módulo)"
 
-#: anjuta_dialogs_strings.c:149
-msgid "Search variable"
+#: anjuta_dialogs_strings.c:147
+#, fuzzy
+msgid "Search Variable"
 msgstr "Variável de procura"
 
-#: anjuta_dialogs_strings.c:150
-msgid "Choose files:"
-msgstr "Escolher arquivos:"
+#: anjuta_dialogs_strings.c:148
+#, fuzzy
+msgid "Choose Files"
+msgstr "Escolher arquivos"
 
-#: anjuta_dialogs_strings.c:151 anjuta_dialogs_strings.c:274
+#: anjuta_dialogs_strings.c:149 anjuta_dialogs_strings.c:272
 msgid "Space-seperated list of file name patterns to match"
 msgstr "Lista separada por espaços de padrões de arquivos a equiparar"
 
-#: anjuta_dialogs_strings.c:153 anjuta_dialogs_strings.c:276
+#: anjuta_dialogs_strings.c:151 anjuta_dialogs_strings.c:274
 msgid "*\\.*"
 msgstr "*\\.*"
 
-#: anjuta_dialogs_strings.c:154 anjuta_dialogs_strings.c:277
+#: anjuta_dialogs_strings.c:152 anjuta_dialogs_strings.c:275
 msgid "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp"
 msgstr "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp"
 
-#: anjuta_dialogs_strings.c:155 anjuta_dialogs_strings.c:278
+#: anjuta_dialogs_strings.c:153 anjuta_dialogs_strings.c:276
 msgid ""
 "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp Makefile.am configure.* "
 "README AUTHORS ChangeLog *.m4"
@@ -463,135 +461,160 @@ msgstr ""
 "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp Makefile.am configure.* "
 "README AUTHORS ChangeLog *.m4"
 
-#: anjuta_dialogs_strings.c:156
-msgid "Ignore files:"
-msgstr "Ignorar arquivos:"
+#: anjuta_dialogs_strings.c:154
+#, fuzzy
+msgid "Ignore Files"
+msgstr "Ignorar arquivos"
 
-#: anjuta_dialogs_strings.c:157 anjuta_dialogs_strings.c:280
+#: anjuta_dialogs_strings.c:155 anjuta_dialogs_strings.c:278
 msgid "Space-seperated list of file name patterns to ignore"
 msgstr "Lista separada por espaços de padrões de arquivos a ignorar"
 
-#: anjuta_dialogs_strings.c:159 anjuta_dialogs_strings.c:282
+#: anjuta_dialogs_strings.c:157 anjuta_dialogs_strings.c:280
 msgid "*.so *.o *.a *.la"
 msgstr "*.so *.o *.a *.la"
 
-#: anjuta_dialogs_strings.c:160
-msgid "Ignore hidden files:"
+#: anjuta_dialogs_strings.c:158
+#, fuzzy
+msgid "Ignore Hidden Files"
 msgstr "Ignorar arquivos escondidos:"
 
-#: anjuta_dialogs_strings.c:162
-msgid "Choose directories:"
-msgstr "Escolher diretórios:"
+#: anjuta_dialogs_strings.c:159
+#, fuzzy
+msgid "Ignore Binary Files"
+msgstr "Ignorar arquivos binários"
 
-#: anjuta_dialogs_strings.c:163 anjuta_dialogs_strings.c:287
+#: anjuta_dialogs_strings.c:160
+#, fuzzy
+msgid "Choose Directories"
+msgstr "Escolher diretórios"
+
+#: anjuta_dialogs_strings.c:161 anjuta_dialogs_strings.c:285
 msgid "Space-seperated list of directory name patterns to match"
 msgstr "Lista separada por espaços de padrões de diretórios a equiparar"
 
-#: anjuta_dialogs_strings.c:165
-msgid "Ignore directories:"
-msgstr "Ignorar diretórios:"
+#: anjuta_dialogs_strings.c:163
+#, fuzzy
+msgid "Ignore Directories"
+msgstr "Ignorar diretórios"
 
-#: anjuta_dialogs_strings.c:166 anjuta_dialogs_strings.c:289
+#: anjuta_dialogs_strings.c:164 anjuta_dialogs_strings.c:287
 msgid "Space-seperated list of directory name patterns to ignore"
 msgstr "Lista separada por espaços de padrões de diretórios a ignorar"
 
 #. 2
-#: anjuta_dialogs_strings.c:168 anjuta_dialogs_strings.c:242
-#: anjuta_dialogs_strings.c:291 src/an_file_view.c:414 src/preferences.c:723
+#: anjuta_dialogs_strings.c:166 anjuta_dialogs_strings.c:240
+#: anjuta_dialogs_strings.c:289 src/an_file_view.c:414 src/preferences.c:723
 msgid "CVS"
 msgstr "CVS"
 
-#: anjuta_dialogs_strings.c:169 anjuta_dialogs_strings.c:292
+#: anjuta_dialogs_strings.c:167 anjuta_dialogs_strings.c:290
 msgid "CVS intl po"
 msgstr "CVS intl po"
 
-#: anjuta_dialogs_strings.c:170
-msgid "Ignore hidden directories"
+#: anjuta_dialogs_strings.c:168
+#, fuzzy
+msgid "Ignore Hidden Directories"
 msgstr "Ignorar diretórios escondidos"
 
-#: anjuta_dialogs_strings.c:171
-msgid "Search recursively"
+#: anjuta_dialogs_strings.c:169
+#, fuzzy
+msgid "Search Recursively"
 msgstr "Procurar recursivamente"
 
-#: anjuta_dialogs_strings.c:172 anjuta_dialogs_strings.c:284
-msgid "File filter"
+#: anjuta_dialogs_strings.c:170
+#, fuzzy
+msgid "File Filter"
 msgstr "Filtro de arquivos"
 
-#: anjuta_dialogs_strings.c:173
-msgid "Max. actions"
+#: anjuta_dialogs_strings.c:171
+#, fuzzy
+msgid "Max. Actions"
 msgstr "Máx. ações"
 
-#: anjuta_dialogs_strings.c:175
-msgid "No limit"
+#: anjuta_dialogs_strings.c:172
+#, fuzzy
+msgid "No Limit"
 msgstr "Sem limite"
 
-#: anjuta_dialogs_strings.c:176
-msgid "Details"
-msgstr "Detalhes"
+#: anjuta_dialogs_strings.c:173
+#, fuzzy
+msgid "Search Target"
+msgstr "Variável de procura"
 
-#: anjuta_dialogs_strings.c:177
-msgid "Replace with:"
+#: anjuta_dialogs_strings.c:174
+#, fuzzy
+msgid "Replace With"
 msgstr "Sustituir por:"
 
-#: anjuta_dialogs_strings.c:179
+#: anjuta_dialogs_strings.c:176
 msgid "Expand regex back references"
 msgstr "Expandir referências anteriores regex"
 
-#: anjuta_dialogs_strings.c:180 src/text_editor_gui.c:140
+#: anjuta_dialogs_strings.c:177 src/text_editor_gui.c:140
 msgid "Replace"
 msgstr "Substituir"
 
-#: anjuta_dialogs_strings.c:182
+#: anjuta_dialogs_strings.c:178
+#, fuzzy
+msgid "Replace Expression"
+msgstr "Expressão regular"
+
+#: anjuta_dialogs_strings.c:179
+msgid "Search"
+msgstr "Procurar"
+
+#: anjuta_dialogs_strings.c:180
 msgid "Anjuta help search"
 msgstr "Procura ajuda Anjuta"
 
-#: anjuta_dialogs_strings.c:184
+#: anjuta_dialogs_strings.c:182
 msgid "Gnome API"
 msgstr "API Gnome"
 
-#: anjuta_dialogs_strings.c:185
+#: anjuta_dialogs_strings.c:183
 msgid "Man pages"
 msgstr "Páginas man"
 
-#: anjuta_dialogs_strings.c:186
+#: anjuta_dialogs_strings.c:184
 msgid "Info Pages"
 msgstr "Páginas Info"
 
-#: anjuta_dialogs_strings.c:187
+#: anjuta_dialogs_strings.c:185
 msgid "Project Configuration"
 msgstr "Configuração do Projeto"
 
-#: anjuta_dialogs_strings.c:189 src/project_dbase_gui.c:918
+#: anjuta_dialogs_strings.c:187 src/project_dbase_gui.c:918
 msgid "Version:"
 msgstr "Versão:"
 
-#: anjuta_dialogs_strings.c:191
+#: anjuta_dialogs_strings.c:189
 msgid "Target:"
 msgstr "Alvo:"
 
-#: anjuta_dialogs_strings.c:193
+#: anjuta_dialogs_strings.c:191
 msgid "GUI editor command:"
 msgstr "Comando editor GUI:"
 
-#: anjuta_dialogs_strings.c:194
+#: anjuta_dialogs_strings.c:192
 msgid "Project Version"
 msgstr "Versão do Projeto"
 
-#: anjuta_dialogs_strings.c:195 src/wizard_gui.c:506
+#: anjuta_dialogs_strings.c:193 src/wizard_gui.c:506
 msgid "Project Description"
 msgstr "Descrição do Projeto"
 
-#: anjuta_dialogs_strings.c:197
+#: anjuta_dialogs_strings.c:195
 msgid "Ignome files and directories"
 msgstr "Ignorar arquivos e diretórios"
 
 #. 3
-#: anjuta_dialogs_strings.c:198 src/main_menubar_def.h:374
+#: anjuta_dialogs_strings.c:196 src/main_menubar_def.h:374
 #: src/preferences.c:696
 msgid "General"
 msgstr "Geral"
 
-#: anjuta_dialogs_strings.c:199
+#: anjuta_dialogs_strings.c:197
 msgid ""
 "Give a space separated list of directories to be bult before source module. "
 "This will be set in configure.in and Makefiles will be generated for them. "
@@ -602,7 +625,7 @@ msgstr ""
 "geradas para eles. Serão compilados antes do diretório de código (src/) "
 "durante o \"make\"."
 
-#: anjuta_dialogs_strings.c:201
+#: anjuta_dialogs_strings.c:199
 msgid ""
 "Give a space separated list of directories to be built after source module. "
 "This will be set in configure and Makefiles will be generated for them. They "
@@ -613,472 +636,476 @@ msgstr ""
 "geradas para eles. Serão compilados após o diretório de código (src/) "
 "durante o \"make\"."
 
-#: anjuta_dialogs_strings.c:203
+#: anjuta_dialogs_strings.c:201
 msgid "Modules"
 msgstr "Módulos"
 
-#: anjuta_dialogs_strings.c:204
+#: anjuta_dialogs_strings.c:202
 msgid "Project configure.in"
 msgstr "configure.in do projeto"
 
-#: anjuta_dialogs_strings.c:205
+#: anjuta_dialogs_strings.c:203
 msgid "Top level Makefile.am"
 msgstr "Makefile.am de topo"
 
-#: anjuta_dialogs_strings.c:206
+#: anjuta_dialogs_strings.c:204
 msgid "Source module Makefile.am"
 msgstr "Makefile.am módulo de código fonte"
 
-#: anjuta_dialogs_strings.c:207
+#: anjuta_dialogs_strings.c:205
 msgid "Include module Makefile.am"
 msgstr "Makefile.am módulo de include"
 
-#: anjuta_dialogs_strings.c:208
+#: anjuta_dialogs_strings.c:206
 msgid "Help module Makefile.am"
 msgstr "Makefile.am módulo de ajuda"
 
-#: anjuta_dialogs_strings.c:209
+#: anjuta_dialogs_strings.c:207
 msgid "Pixmap module Makefile.am"
 msgstr "Makefile.am módulo de pixmaps"
 
-#: anjuta_dialogs_strings.c:210
+#: anjuta_dialogs_strings.c:208
 msgid "Data module Makefile.am"
 msgstr "Makefile.am módulo de dados"
 
-#: anjuta_dialogs_strings.c:211
+#: anjuta_dialogs_strings.c:209
 msgid "Document module Makefile.am"
 msgstr "Makefile.am módulo de documentação"
 
-#: anjuta_dialogs_strings.c:212
+#: anjuta_dialogs_strings.c:210
 msgid "Po module (translation) Makefile.am"
 msgstr "Makefile.am módulo Po (tradução)"
 
-#: anjuta_dialogs_strings.c:213
+#: anjuta_dialogs_strings.c:211
 msgid "Disable overwriting files"
 msgstr "Desativar sobrescrita de arquivos"
 
-#: anjuta_dialogs_strings.c:214
+#: anjuta_dialogs_strings.c:212
 msgid "Build files"
 msgstr "Construir arquivos"
 
-#: anjuta_dialogs_strings.c:215
+#: anjuta_dialogs_strings.c:213
 msgid "Programs"
 msgstr "Programas"
 
-#: anjuta_dialogs_strings.c:217
+#: anjuta_dialogs_strings.c:215
 msgid "Headers"
 msgstr "Cabeçalhos"
 
-#: anjuta_dialogs_strings.c:218
+#: anjuta_dialogs_strings.c:216
 msgid "Compiler"
 msgstr "Compilador"
 
-#: anjuta_dialogs_strings.c:219 src/an_symbol_view.c:54
+#: anjuta_dialogs_strings.c:217 src/an_symbol_view.c:54
 msgid "Functions"
 msgstr "Funções"
 
-#: anjuta_dialogs_strings.c:220
+#: anjuta_dialogs_strings.c:218
 msgid "Additional"
 msgstr "Adicional"
 
-#: anjuta_dialogs_strings.c:221
+#: anjuta_dialogs_strings.c:219
 msgid "Output files"
 msgstr "Arquivos de saida"
 
-#: anjuta_dialogs_strings.c:222
+#: anjuta_dialogs_strings.c:220
 msgid "Configuration script segments"
 msgstr "Segmentos de scripts de configuração"
 
-#: anjuta_dialogs_strings.c:223
+#: anjuta_dialogs_strings.c:221
 msgid "Configuration"
 msgstr "Configuração"
 
-#: anjuta_dialogs_strings.c:224
+#: anjuta_dialogs_strings.c:222
 msgid "Scripts at the end of top level Makefile.am"
 msgstr "Scripts no final do Makefile.am de topo"
 
-#: anjuta_dialogs_strings.c:225
+#: anjuta_dialogs_strings.c:223
 msgid "Makefile.am"
 msgstr "Makefile.am"
 
-#: anjuta_dialogs_strings.c:226
+#: anjuta_dialogs_strings.c:224
 msgid "User Tools"
 msgstr "Ferramentas do Usuário"
 
-#: anjuta_dialogs_strings.c:227
+#: anjuta_dialogs_strings.c:225
 msgid "_Edit"
 msgstr "_Editar"
 
-#: anjuta_dialogs_strings.c:228 anjuta_dialogs_strings.c:266
+#: anjuta_dialogs_strings.c:226 anjuta_dialogs_strings.c:264
 msgid "Tool Editor"
 msgstr "Editor de Ferramentas"
 
-#: anjuta_dialogs_strings.c:229
+#: anjuta_dialogs_strings.c:227
 msgid "Name:"
 msgstr "Nome:"
 
-#: anjuta_dialogs_strings.c:231
+#: anjuta_dialogs_strings.c:229
 msgid "Menu location:"
 msgstr "Localização do menu:"
 
-#: anjuta_dialogs_strings.c:232
+#: anjuta_dialogs_strings.c:230
 msgid "Command:"
 msgstr "Comando:"
 
-#: anjuta_dialogs_strings.c:234 src/an_file_view.c:665 src/breakpoints.c:102
+#: anjuta_dialogs_strings.c:232 src/an_file_view.c:665 src/breakpoints.c:102
 msgid "File"
 msgstr "Arquivo"
 
-#: anjuta_dialogs_strings.c:235
+#: anjuta_dialogs_strings.c:233
 msgid "Edit"
 msgstr "Editar"
 
-#: anjuta_dialogs_strings.c:236
+#: anjuta_dialogs_strings.c:234
 msgid "View"
 msgstr "Vista"
 
-#: anjuta_dialogs_strings.c:237 src/project_dbase_gui.c:596
+#: anjuta_dialogs_strings.c:235 src/project_dbase_gui.c:596
 #: src/project_dbase_gui.c:613 src/toolbar.c:148
 msgid "Project"
 msgstr "Projeto"
 
-#: anjuta_dialogs_strings.c:238
+#: anjuta_dialogs_strings.c:236
 msgid "Format"
 msgstr "Formatar"
 
-#: anjuta_dialogs_strings.c:239 src/build_file.c:107 src/preferences.c:711
+#: anjuta_dialogs_strings.c:237 src/build_file.c:107 src/preferences.c:711
 #: src/text_editor_gui.c:172 src/toolbar.c:272
 msgid "Build"
 msgstr "Compilar"
 
-#: anjuta_dialogs_strings.c:240
+#: anjuta_dialogs_strings.c:238
 msgid "Bookmark"
 msgstr "Marcador"
 
 #. 13
-#: anjuta_dialogs_strings.c:241 src/text_editor_menu.c:319 src/toolbar.c:306
+#: anjuta_dialogs_strings.c:239 src/text_editor_menu.c:319 src/toolbar.c:306
 msgid "Debug"
 msgstr "Depurar"
 
-#: anjuta_dialogs_strings.c:243
+#: anjuta_dialogs_strings.c:241
 msgid "Settings"
 msgstr "Definições"
 
-#: anjuta_dialogs_strings.c:245
+#: anjuta_dialogs_strings.c:243
 msgid "Working directory:"
 msgstr "Diretório de trabalho:"
 
-#: anjuta_dialogs_strings.c:247
+#: anjuta_dialogs_strings.c:245
 msgid "Run detached"
 msgstr "Executar separadamente"
 
-#: anjuta_dialogs_strings.c:248
+#: anjuta_dialogs_strings.c:246
 msgid "Run in terminal"
 msgstr "Executar em terminal"
 
-#: anjuta_dialogs_strings.c:249
+#: anjuta_dialogs_strings.c:247
 msgid "File level"
 msgstr "Nível do arquivo"
 
-#: anjuta_dialogs_strings.c:250
+#: anjuta_dialogs_strings.c:248
 msgid "Project level"
 msgstr "Nível do projeto"
 
-#: anjuta_dialogs_strings.c:251
+#: anjuta_dialogs_strings.c:249
 msgid "Ask for parameters at run-time"
 msgstr "Pedir por parâmetros durante a execução"
 
-#: anjuta_dialogs_strings.c:252
+#: anjuta_dialogs_strings.c:250
 msgid "Standard input:"
 msgstr "Entrada padrão:"
 
-#: anjuta_dialogs_strings.c:254
+#: anjuta_dialogs_strings.c:252
 msgid "Input string:"
 msgstr "Expressão de entrada:"
 
-#: anjuta_dialogs_strings.c:255
+#: anjuta_dialogs_strings.c:253
 msgid "Standard output:"
 msgstr "Saída padrão:"
 
-#: anjuta_dialogs_strings.c:258
+#: anjuta_dialogs_strings.c:256
 msgid "Standard error:"
 msgstr "Saída de Erros padrão:"
 
-#: anjuta_dialogs_strings.c:259
+#: anjuta_dialogs_strings.c:257
 msgid "Short cut:"
 msgstr "Atalho:"
 
-#: anjuta_dialogs_strings.c:262
+#: anjuta_dialogs_strings.c:260
 msgid "Menu icon:"
 msgstr "Ícone de menu:"
 
-#: anjuta_dialogs_strings.c:264 src/breakpoints.c:102
+#: anjuta_dialogs_strings.c:262 src/breakpoints.c:102
 msgid "Enabled"
 msgstr "Habilitado"
 
-#: anjuta_dialogs_strings.c:265
+#: anjuta_dialogs_strings.c:263
 msgid "Save all files"
 msgstr "Salvar todos arquivos"
 
-#: anjuta_dialogs_strings.c:267 anjuta_dialogs_strings.c:268
+#: anjuta_dialogs_strings.c:265 anjuta_dialogs_strings.c:266
 msgid "Variable list"
 msgstr "Lista de variáveis"
 
-#: anjuta_dialogs_strings.c:269
+#: anjuta_dialogs_strings.c:267
 msgid "Command line parameters"
 msgstr "Parâmetros de linha de comando"
 
-#: anjuta_dialogs_strings.c:271
+#: anjuta_dialogs_strings.c:269
 msgid "Customize what is to be shown in the file tree"
 msgstr "Customizar o que mostrar na árvore de arquivos"
 
-#: anjuta_dialogs_strings.c:272
+#: anjuta_dialogs_strings.c:270
 msgid "Customize File Browser"
 msgstr "Customizar Navegador Arquivos"
 
-#: anjuta_dialogs_strings.c:273
+#: anjuta_dialogs_strings.c:271
 msgid "Choose files"
 msgstr "Escolher arquivos"
 
-#: anjuta_dialogs_strings.c:279
+#: anjuta_dialogs_strings.c:277
 msgid "Ignore files"
 msgstr "Ignorar arquivos"
 
-#: anjuta_dialogs_strings.c:283
+#: anjuta_dialogs_strings.c:281
 msgid "Do not show hidden files"
 msgstr "Não mostrar arquivos escondidos"
 
-#: anjuta_dialogs_strings.c:285
+#: anjuta_dialogs_strings.c:282
+msgid "File filter"
+msgstr "Filtro de arquivos"
+
+#: anjuta_dialogs_strings.c:283
 msgid "Choose directories"
 msgstr "Escolher diretórios"
 
-#: anjuta_dialogs_strings.c:286
+#: anjuta_dialogs_strings.c:284
 msgid "Ignore directories"
 msgstr "Ignorar diretórios"
 
-#: anjuta_dialogs_strings.c:293
+#: anjuta_dialogs_strings.c:291
 msgid "Do not show hidden directories"
 msgstr "Não mostrar diretórios escondidos"
 
-#: anjuta_dialogs_strings.c:294
+#: anjuta_dialogs_strings.c:292
 msgid "Directory filter"
 msgstr "Filtro de diretórios"
 
-#: anjuta_dialogs_strings.c:295
+#: anjuta_dialogs_strings.c:293
 msgid "Press this button to dismiss the dialog"
 msgstr "Pressionar este botão para fechar a janela"
 
-#: anjuta_dialogs_strings.c:296
+#: anjuta_dialogs_strings.c:294
 msgid "Syntax highlight editor"
 msgstr "Realce de sintaxe no editor"
 
-#: anjuta_dialogs_strings.c:297 anjuta_dialogs_strings.c:366
+#: anjuta_dialogs_strings.c:295 anjuta_dialogs_strings.c:364
 msgid "Disable syntax highlighting"
 msgstr "Desabilitar realce de sintaxe"
 
-#: anjuta_dialogs_strings.c:298
+#: anjuta_dialogs_strings.c:296
 msgid "Reload System Defaults"
 msgstr "Recarregar Padrões do Sistema"
 
-#: anjuta_dialogs_strings.c:299
+#: anjuta_dialogs_strings.c:297
 msgid "Reload Session Defaults"
 msgstr "Recarregar Padrões da Sessão"
 
-#: anjuta_dialogs_strings.c:300
+#: anjuta_dialogs_strings.c:298
 msgid "_Save Theme As"
 msgstr "_Salvar Tema Como"
 
-#: anjuta_dialogs_strings.c:301
+#: anjuta_dialogs_strings.c:299
 msgid "Delete Theme"
 msgstr "Excluir Tema"
 
-#: anjuta_dialogs_strings.c:302
+#: anjuta_dialogs_strings.c:300
 msgid "Select theme:"
 msgstr "Selecionar tema:"
 
-#: anjuta_dialogs_strings.c:304
+#: anjuta_dialogs_strings.c:302
 msgid "Theme"
 msgstr "Tema"
 
-#: anjuta_dialogs_strings.c:305
+#: anjuta_dialogs_strings.c:303
 msgid "Font:"
 msgstr "Fonte:"
 
-#: anjuta_dialogs_strings.c:306
+#: anjuta_dialogs_strings.c:304
 msgid "Attributes:"
 msgstr "Atributos:"
 
-#: anjuta_dialogs_strings.c:307
+#: anjuta_dialogs_strings.c:305
 msgid "Fore color:"
 msgstr "Cor do plano de frente:"
 
-#: anjuta_dialogs_strings.c:308
+#: anjuta_dialogs_strings.c:306
 msgid "Back color:"
 msgstr "Cor do plano de fundo:"
 
+#: anjuta_dialogs_strings.c:307 anjuta_dialogs_strings.c:308
 #: anjuta_dialogs_strings.c:309 anjuta_dialogs_strings.c:310
-#: anjuta_dialogs_strings.c:311 anjuta_dialogs_strings.c:312
 msgid "Use default"
 msgstr "Usar padrão"
 
-#: anjuta_dialogs_strings.c:313
+#: anjuta_dialogs_strings.c:311
 msgid "Bold"
 msgstr "Negrito"
 
-#: anjuta_dialogs_strings.c:314
+#: anjuta_dialogs_strings.c:312
 msgid "Italic"
 msgstr "Itálico"
 
-#: anjuta_dialogs_strings.c:315
+#: anjuta_dialogs_strings.c:313
 msgid "Underlined"
 msgstr "Sublinhado"
 
-#: anjuta_dialogs_strings.c:316 anjuta_dialogs_strings.c:317
+#: anjuta_dialogs_strings.c:314 anjuta_dialogs_strings.c:315
+#: anjuta_dialogs_strings.c:323 anjuta_dialogs_strings.c:324
 #: anjuta_dialogs_strings.c:325 anjuta_dialogs_strings.c:326
-#: anjuta_dialogs_strings.c:327 anjuta_dialogs_strings.c:328
+#: anjuta_dialogs_strings.c:476 anjuta_dialogs_strings.c:477
 #: anjuta_dialogs_strings.c:478 anjuta_dialogs_strings.c:479
-#: anjuta_dialogs_strings.c:480 anjuta_dialogs_strings.c:481
 msgid "Pick a color"
 msgstr "Selecione uma cor"
 
-#: anjuta_dialogs_strings.c:318
+#: anjuta_dialogs_strings.c:316
 msgid "Select highlight style to edit:"
 msgstr "Selecione o estilo de realce a editar:"
 
-#: anjuta_dialogs_strings.c:320
+#: anjuta_dialogs_strings.c:318
 msgid "Highlight style"
 msgstr "Estilo de realce"
 
-#: anjuta_dialogs_strings.c:321
+#: anjuta_dialogs_strings.c:319
 msgid "Selection foreground:"
 msgstr "Plano de Frente de seleção:"
 
-#: anjuta_dialogs_strings.c:322
+#: anjuta_dialogs_strings.c:320
 msgid "Selection background:"
 msgstr "Plano de Fundo de seleção:"
 
-#: anjuta_dialogs_strings.c:323
+#: anjuta_dialogs_strings.c:321
 msgid "Calltip background:"
 msgstr "Plano de Fundo da caixa de dica:"
 
-#: anjuta_dialogs_strings.c:324
+#: anjuta_dialogs_strings.c:322
 msgid "Caret (cursor) color:"
 msgstr "Cor do cursor:"
 
-#: anjuta_dialogs_strings.c:329
+#: anjuta_dialogs_strings.c:327
 msgid "Other colors"
 msgstr "Outras cores"
 
-#: anjuta_dialogs_strings.c:330
+#: anjuta_dialogs_strings.c:328
 msgid "window1"
 msgstr "janela1"
 
-#: anjuta_dialogs_strings.c:331
+#: anjuta_dialogs_strings.c:329
 msgid "Projects:"
 msgstr "Projetos:"
 
-#: anjuta_dialogs_strings.c:333 widgets/gnomefilelist.c:338
+#: anjuta_dialogs_strings.c:331 widgets/gnomefilelist.c:338
 msgid "Directories"
 msgstr "Diretórios"
 
-#: anjuta_dialogs_strings.c:334
+#: anjuta_dialogs_strings.c:332
 msgid "Recent Projects:"
 msgstr "Projetos Recentes:"
 
-#: anjuta_dialogs_strings.c:335
+#: anjuta_dialogs_strings.c:333
 msgid "Recent Files:"
 msgstr "Arquivos Recentes:"
 
-#: anjuta_dialogs_strings.c:336
+#: anjuta_dialogs_strings.c:334
 msgid "Combo Popdown:"
 msgstr "Caixa de combinação:"
 
-#: anjuta_dialogs_strings.c:337
+#: anjuta_dialogs_strings.c:335
 msgid "History sizes"
 msgstr "Tamanhos do histórico"
 
-#: anjuta_dialogs_strings.c:338
+#: anjuta_dialogs_strings.c:336
 msgid "Automatically load last Project"
 msgstr "Carregar automaticamente o último Projeto"
 
-#: anjuta_dialogs_strings.c:339
+#: anjuta_dialogs_strings.c:337
 msgid "Build symbol browser automatically"
 msgstr "Construir automaticamente navegador símbolos"
 
-#: anjuta_dialogs_strings.c:340
+#: anjuta_dialogs_strings.c:338
 msgid "Build file browser automatically"
 msgstr "Construir automaticamente navegador arquivos"
 
-#: anjuta_dialogs_strings.c:341
+#: anjuta_dialogs_strings.c:339
 msgid "Update tags image automatically"
 msgstr "Atualizar automaticamente imagem de etiquetas"
 
-#: anjuta_dialogs_strings.c:342
+#: anjuta_dialogs_strings.c:340
 msgid "Beep on job complete"
 msgstr "Soar um beep ao terminar tarefa"
 
-#: anjuta_dialogs_strings.c:343
+#: anjuta_dialogs_strings.c:341
 msgid "Dialog on job complete"
 msgstr "Diálogo ao terminar tarefa"
 
-#: anjuta_dialogs_strings.c:344
+#: anjuta_dialogs_strings.c:342
 msgid "Show tooltips"
 msgstr "Mostrar dicas de ferramentas"
 
-#: anjuta_dialogs_strings.c:346
+#: anjuta_dialogs_strings.c:344
 msgid "User name:"
 msgstr "Nome do usuário:"
 
-#: anjuta_dialogs_strings.c:347
+#: anjuta_dialogs_strings.c:345
 msgid "User email address:"
 msgstr "Email do usuário:"
 
-#: anjuta_dialogs_strings.c:350
+#: anjuta_dialogs_strings.c:348
 msgid "User information"
 msgstr "Informações do usuário"
 
-#: anjuta_dialogs_strings.c:351
+#: anjuta_dialogs_strings.c:349
 msgid "window2"
 msgstr "janela2"
 
-#: anjuta_dialogs_strings.c:352
+#: anjuta_dialogs_strings.c:350
 msgid "Build command:"
 msgstr "Comando de construção:"
 
-#: anjuta_dialogs_strings.c:354
+#: anjuta_dialogs_strings.c:352
 msgid "Keep going when some targets can not be made"
 msgstr "Continuar quando alguns alvos não puderem ser feitos"
 
-#: anjuta_dialogs_strings.c:355
+#: anjuta_dialogs_strings.c:353
 msgid "Silent. That is, do not echo shell commads during make"
 msgstr "Silencioso. Isto é, não enviar comandos de shell durante o make"
 
-#: anjuta_dialogs_strings.c:356
+#: anjuta_dialogs_strings.c:354
 msgid "Warn when an undefined variable is referenced in the Makefile"
 msgstr "Avisar quando uma variável não definida é referenciada na Makefile"
 
-#: anjuta_dialogs_strings.c:357
+#: anjuta_dialogs_strings.c:355
 msgid "Maximum number of independent jobs (0 == no limit)"
 msgstr "Número máximo de processos independentes (0 == sem limite)"
 
-#: anjuta_dialogs_strings.c:358
+#: anjuta_dialogs_strings.c:356
 msgid "Additional build options:"
 msgstr "Opções adicionais de compilação:"
 
-#: anjuta_dialogs_strings.c:360
+#: anjuta_dialogs_strings.c:358
 msgid "Build options"
 msgstr "Opções de compilação"
 
-#: anjuta_dialogs_strings.c:361
+#: anjuta_dialogs_strings.c:359
 msgid "Autosave editor files before build starts"
 msgstr ""
 "Salvar automaticamente arquivos do editor antes do início da construção"
 
-#: anjuta_dialogs_strings.c:362 src/an_symbol_view.c:54
+#: anjuta_dialogs_strings.c:360 src/an_symbol_view.c:54
 msgid "Others"
 msgstr "Outros"
 
-#: anjuta_dialogs_strings.c:363 anjuta_dialogs_strings.c:429
+#: anjuta_dialogs_strings.c:361 anjuta_dialogs_strings.c:427
 msgid ""
 "Note: If there is a project open, the preferences in this page are project "
 "preferences and will be loaded from and saved with the project. If there is "
@@ -1088,239 +1115,239 @@ msgstr ""
 "preferências de projeto e serão lidas e gravadas com o projeto. Se não "
 "estiver um projeto aberto, serão preferências globais."
 
-#: anjuta_dialogs_strings.c:364
+#: anjuta_dialogs_strings.c:362
 msgid "window3"
 msgstr "janela3"
 
-#: anjuta_dialogs_strings.c:365
+#: anjuta_dialogs_strings.c:363
 msgid "Syntax highlighting and color styles"
 msgstr "Realce de sintaxe e estilos de cores"
 
-#: anjuta_dialogs_strings.c:367
+#: anjuta_dialogs_strings.c:365
 msgid "Enable files autosave"
 msgstr "Ativar salvamento automático de arquivos"
 
-#: anjuta_dialogs_strings.c:368
+#: anjuta_dialogs_strings.c:366
 msgid "Enable braces check"
 msgstr "Habilitar verificação parênteses"
 
-#: anjuta_dialogs_strings.c:369
+#: anjuta_dialogs_strings.c:367
 msgid "Strip trailling spaces on file save"
 msgstr "Remover espaços no final linhas ao salvar arquivo"
 
-#: anjuta_dialogs_strings.c:370
+#: anjuta_dialogs_strings.c:368
 msgid "Collapse all code folds on file open"
 msgstr "Recolher todas as pastas de código ao abrir arquivo"
 
-#: anjuta_dialogs_strings.c:371
+#: anjuta_dialogs_strings.c:369
 msgid "Filter extraneous characters in DOS mode"
 msgstr "Filtrar caracteres extra em modo DOS"
 
-#: anjuta_dialogs_strings.c:372
+#: anjuta_dialogs_strings.c:370
 msgid "Wrap bookmarks search around"
 msgstr "Ciclar pesquisa de marcadores"
 
-#: anjuta_dialogs_strings.c:373
+#: anjuta_dialogs_strings.c:371
 msgid "Choose autocomplete for single match"
 msgstr "Escolher autocompletar para equivalência única"
 
-#: anjuta_dialogs_strings.c:374
+#: anjuta_dialogs_strings.c:372
 msgid "Autocomplete XML/HML closing tags"
 msgstr "Auto completar marcas de encerramento XML/HML"
 
-#: anjuta_dialogs_strings.c:375
+#: anjuta_dialogs_strings.c:373
 msgid "Pressing tab indents"
 msgstr "Pressionar tab indenta"
 
-#: anjuta_dialogs_strings.c:376
+#: anjuta_dialogs_strings.c:374
 msgid "Pressing backspace un-indents"
 msgstr "Pressionar backspace desindenta"
 
-#: anjuta_dialogs_strings.c:377
+#: anjuta_dialogs_strings.c:375
 msgid "Do not show"
 msgstr "Não mostrar"
 
-#: anjuta_dialogs_strings.c:378
+#: anjuta_dialogs_strings.c:376
 msgid "Bring recent tabs first on page switch"
 msgstr "Trazer primeiro as abas recentes ao trocar de página"
 
-#: anjuta_dialogs_strings.c:379
+#: anjuta_dialogs_strings.c:377
 msgid "Sort in alphabetical order"
 msgstr "Ordenar alfabeticamente"
 
-#: anjuta_dialogs_strings.c:380
+#: anjuta_dialogs_strings.c:378
 msgid "Position:"
 msgstr "Posição:"
 
-#: anjuta_dialogs_strings.c:382 anjuta_dialogs_strings.c:446
+#: anjuta_dialogs_strings.c:380 anjuta_dialogs_strings.c:444
 msgid "Top"
 msgstr "Topo"
 
-#: anjuta_dialogs_strings.c:383 anjuta_dialogs_strings.c:447
+#: anjuta_dialogs_strings.c:381 anjuta_dialogs_strings.c:445
 msgid "Bottom"
 msgstr "Fundo"
 
-#: anjuta_dialogs_strings.c:384 anjuta_dialogs_strings.c:448
+#: anjuta_dialogs_strings.c:382 anjuta_dialogs_strings.c:446
 msgid "Left"
 msgstr "Esquerda"
 
-#: anjuta_dialogs_strings.c:385 anjuta_dialogs_strings.c:449
+#: anjuta_dialogs_strings.c:383 anjuta_dialogs_strings.c:447
 msgid "Right"
 msgstr "Direita"
 
-#: anjuta_dialogs_strings.c:386
+#: anjuta_dialogs_strings.c:384
 msgid "Editor notebook tabs"
 msgstr "Abas de caderno do editor"
 
-#: anjuta_dialogs_strings.c:387
+#: anjuta_dialogs_strings.c:385
 msgid "Line numbers margin width (pixels)"
 msgstr "Largura de margem do número de linha (pixels)"
 
-#: anjuta_dialogs_strings.c:388
+#: anjuta_dialogs_strings.c:386
 msgid "Autosave timer interval in minutes"
 msgstr "Intervalo de auto-salvamento em minutos"
 
-#: anjuta_dialogs_strings.c:389
+#: anjuta_dialogs_strings.c:387
 msgid "Session timer interval in minutes"
 msgstr "Intervalo temporização de sessão em minutos"
 
-#: anjuta_dialogs_strings.c:390
+#: anjuta_dialogs_strings.c:388
 msgid "Editor caret (cursor) width in pixel"
 msgstr "Largura do cursor de edição em pixels"
 
-#: anjuta_dialogs_strings.c:391
+#: anjuta_dialogs_strings.c:389
 msgid "Autocomplete automatic size"
 msgstr "Tamanho automático do auto-completar"
 
-#: anjuta_dialogs_strings.c:392
+#: anjuta_dialogs_strings.c:390
 msgid "Caret blink period in milli-seconds"
 msgstr "Intervalo de piscada do cursor em milisegundos"
 
-#: anjuta_dialogs_strings.c:393
+#: anjuta_dialogs_strings.c:391
 msgid "Column at edge indicator"
 msgstr "Indicador de coluna na margem"
 
-#: anjuta_dialogs_strings.c:394
+#: anjuta_dialogs_strings.c:392
 msgid "Enable code folding"
 msgstr "Ativar dobra de código"
 
-#: anjuta_dialogs_strings.c:395
+#: anjuta_dialogs_strings.c:393
 msgid "Enable comments folding"
 msgstr "Ativar dobra de comentários"
 
-#: anjuta_dialogs_strings.c:396
+#: anjuta_dialogs_strings.c:394
 msgid "Compact folding"
 msgstr "Dobra compacta"
 
-#: anjuta_dialogs_strings.c:397
+#: anjuta_dialogs_strings.c:395
 msgid "Draw lines below folded lines"
 msgstr "Desenhar linhas abaixo de linhas dobradas"
 
-#: anjuta_dialogs_strings.c:398
+#: anjuta_dialogs_strings.c:396
 msgid "Enable python comments folding"
 msgstr "Ativar dobra de comentários python"
 
-#: anjuta_dialogs_strings.c:399
+#: anjuta_dialogs_strings.c:397
 msgid "Enable python quoted strings folding"
 msgstr "Ativar dobra de expressões citadas python"
 
-#: anjuta_dialogs_strings.c:400
+#: anjuta_dialogs_strings.c:398
 msgid "Enable HTML tags folding"
 msgstr "Ativar dobra de marcas HTML"
 
-#: anjuta_dialogs_strings.c:401
+#: anjuta_dialogs_strings.c:399
 msgid "Fold style:"
 msgstr "Estilo de dobra:"
 
-#: anjuta_dialogs_strings.c:403
+#: anjuta_dialogs_strings.c:401
 msgid "Arrows"
 msgstr "Setas"
 
-#: anjuta_dialogs_strings.c:404
+#: anjuta_dialogs_strings.c:402
 msgid "Plus/Minus"
 msgstr "Mais/Menos"
 
-#: anjuta_dialogs_strings.c:405
+#: anjuta_dialogs_strings.c:403
 msgid "Circular"
 msgstr "Circular"
 
-#: anjuta_dialogs_strings.c:406
+#: anjuta_dialogs_strings.c:404
 msgid "Squares"
 msgstr "Quadrados"
 
-#: anjuta_dialogs_strings.c:407
+#: anjuta_dialogs_strings.c:405
 msgid "Code folding options"
 msgstr "Opções de dobra de código"
 
-#: anjuta_dialogs_strings.c:408
+#: anjuta_dialogs_strings.c:406
 msgid "Editor options"
 msgstr "Opções do editor"
 
-#: anjuta_dialogs_strings.c:409
+#: anjuta_dialogs_strings.c:407
 msgid "window4"
 msgstr "janela4"
 
-#: anjuta_dialogs_strings.c:410
+#: anjuta_dialogs_strings.c:408
 msgid "Tab size in spaces:"
 msgstr "Tamanho da tabulação em espaços:"
 
-#: anjuta_dialogs_strings.c:411
+#: anjuta_dialogs_strings.c:409
 msgid "Indentation size in spaces:"
 msgstr "Tamanho de indentação em espaços:"
 
-#: anjuta_dialogs_strings.c:412
+#: anjuta_dialogs_strings.c:410
 msgid "Disable auto-format"
 msgstr "Desativar auto-formatação"
 
-#: anjuta_dialogs_strings.c:413
+#: anjuta_dialogs_strings.c:411
 msgid "Enable automatic indentation"
 msgstr "Habilitar indentação automática"
 
-#: anjuta_dialogs_strings.c:414
+#: anjuta_dialogs_strings.c:412
 msgid "Use tabs for indentation"
 msgstr "Usar tabs para indentação"
 
-#: anjuta_dialogs_strings.c:415
+#: anjuta_dialogs_strings.c:413
 msgid "Indent opening braces"
 msgstr "Indentar abertura de chaves"
 
-#: anjuta_dialogs_strings.c:416
+#: anjuta_dialogs_strings.c:414
 msgid "Indent closing braces"
 msgstr "Indentar fechamento de chaves"
 
-#: anjuta_dialogs_strings.c:418 anjuta_dialogs_strings.c:428
+#: anjuta_dialogs_strings.c:416 anjuta_dialogs_strings.c:426
 msgid "Custom style"
 msgstr "Estilo Customizado"
 
-#: anjuta_dialogs_strings.c:419
+#: anjuta_dialogs_strings.c:417
 msgid "GNU coding style"
 msgstr "Estilo código GNU"
 
-#: anjuta_dialogs_strings.c:420
+#: anjuta_dialogs_strings.c:418
 msgid "Kernighan & Ritchie style"
 msgstr "Estilo Kernighan & Ritchie"
 
-#: anjuta_dialogs_strings.c:421
+#: anjuta_dialogs_strings.c:419
 msgid "Original Berkeley style"
 msgstr "Estilo Berkeley original"
 
-#: anjuta_dialogs_strings.c:422
+#: anjuta_dialogs_strings.c:420
 msgid "Style of Kangleipak"
 msgstr "Estilo de Kangleipak"
 
-#: anjuta_dialogs_strings.c:423
+#: anjuta_dialogs_strings.c:421
 msgid "Hello World style"
 msgstr "Estilo Olá Mundo"
 
-#: anjuta_dialogs_strings.c:424
+#: anjuta_dialogs_strings.c:422
 msgid "Crazy boy style"
 msgstr "Estilo rapaz maluco"
 
-#: anjuta_dialogs_strings.c:425 src/toolbar.c:861
+#: anjuta_dialogs_strings.c:423 src/toolbar.c:861
 msgid "Format style"
 msgstr "Estilo de formatação"
 
-#: anjuta_dialogs_strings.c:426
+#: anjuta_dialogs_strings.c:424
 msgid ""
 "Enter the command line arguments for the 'indent' program. Read the info "
 "page for 'indent' for more details"
@@ -1328,178 +1355,183 @@ msgstr ""
 "Entre com os argumentos de linha de comando para o programa 'indent'. Leia a "
 "página info do 'indent' para maiores detalhes"
 
-#: anjuta_dialogs_strings.c:430
+#: anjuta_dialogs_strings.c:428
 msgid "Indentation and auto-format options"
 msgstr "Opções de indentação e auto-formatação"
 
-#: anjuta_dialogs_strings.c:431
+#: anjuta_dialogs_strings.c:429
 msgid "window5"
 msgstr "janela5"
 
-#: anjuta_dialogs_strings.c:432
+#: anjuta_dialogs_strings.c:430
 msgid "Mode:"
 msgstr "Modo:"
 
-#: anjuta_dialogs_strings.c:433
+#: anjuta_dialogs_strings.c:431
 msgid "Colour"
 msgstr "Cor"
 
-#: anjuta_dialogs_strings.c:434
+#: anjuta_dialogs_strings.c:432
 msgid "Monochrome"
 msgstr "Monocromático"
 
-#: anjuta_dialogs_strings.c:435
+#: anjuta_dialogs_strings.c:433
 msgid "Add page header"
 msgstr "Adicionar cabeçalho de página"
 
-#: anjuta_dialogs_strings.c:436
+#: anjuta_dialogs_strings.c:434
 msgid "Enable line wrap"
 msgstr "Ativar quebra linha"
 
-#: anjuta_dialogs_strings.c:437
+#: anjuta_dialogs_strings.c:435
 msgid "Add line number every:"
 msgstr "Adicionar número de linha a cada:"
 
-#: anjuta_dialogs_strings.c:438 printing/print.c:1055
+#: anjuta_dialogs_strings.c:436 printing/print.c:1055
 msgid "Lines"
 msgstr "Linhas"
 
-#: anjuta_dialogs_strings.c:439
+#: anjuta_dialogs_strings.c:437
 msgid "Print options"
 msgstr "Opções de impressão"
 
-#: anjuta_dialogs_strings.c:440
+#: anjuta_dialogs_strings.c:438
 msgid "window6"
 msgstr "janela6"
 
-#: anjuta_dialogs_strings.c:441
+#: anjuta_dialogs_strings.c:439
 msgid "Truncate long messages"
 msgstr "Truncar mensagens longas"
 
-#: anjuta_dialogs_strings.c:442
+#: anjuta_dialogs_strings.c:440
 msgid "Number of first characters to show:"
 msgstr "Número de caracteres iniciais a mostrar:"
 
-#: anjuta_dialogs_strings.c:443
+#: anjuta_dialogs_strings.c:441
 msgid "Number of last characters to show:"
 msgstr "Número de caracteres finais a mostrar:"
 
-#: anjuta_dialogs_strings.c:444
+#: anjuta_dialogs_strings.c:442
 msgid "Tabs position:"
 msgstr "Posição das abas:"
 
-#: anjuta_dialogs_strings.c:450
+#: anjuta_dialogs_strings.c:448
 msgid "Messages options"
 msgstr "Opções de mensagens"
 
-#: anjuta_dialogs_strings.c:451
+#: anjuta_dialogs_strings.c:449
 msgid "Enable automatic messages indicators"
 msgstr "Habilitar indicadores automáticos de mensagens"
 
-#: anjuta_dialogs_strings.c:452
+#: anjuta_dialogs_strings.c:450
 msgid "Normal message indicator style:"
 msgstr "Estilo de indicador de mensagens normais:"
 
-#: anjuta_dialogs_strings.c:453
+#: anjuta_dialogs_strings.c:451
 msgid "Warning message indicator style:"
 msgstr "Estilo de indicador de mensagens aviso:"
 
-#: anjuta_dialogs_strings.c:454
+#: anjuta_dialogs_strings.c:452
 msgid "Error message indicator style:"
 msgstr "Estilo de indicador de mensagens erro:"
 
-#: anjuta_dialogs_strings.c:456 anjuta_dialogs_strings.c:462
-#: anjuta_dialogs_strings.c:468
+#: anjuta_dialogs_strings.c:454 anjuta_dialogs_strings.c:460
+#: anjuta_dialogs_strings.c:466
 msgid "Underline-Plain"
 msgstr "Sublinhar-Simples"
 
-#: anjuta_dialogs_strings.c:457 anjuta_dialogs_strings.c:463
-#: anjuta_dialogs_strings.c:469
+#: anjuta_dialogs_strings.c:455 anjuta_dialogs_strings.c:461
+#: anjuta_dialogs_strings.c:467
 msgid "Underline-Squiggle"
 msgstr "Sublinhar-Ondulado"
 
-#: anjuta_dialogs_strings.c:458 anjuta_dialogs_strings.c:464
-#: anjuta_dialogs_strings.c:470
+#: anjuta_dialogs_strings.c:456 anjuta_dialogs_strings.c:462
+#: anjuta_dialogs_strings.c:468
 msgid "Underline-TT"
 msgstr "Sublinhar-TT"
 
-#: anjuta_dialogs_strings.c:459 anjuta_dialogs_strings.c:465
-#: anjuta_dialogs_strings.c:471
+#: anjuta_dialogs_strings.c:457 anjuta_dialogs_strings.c:463
+#: anjuta_dialogs_strings.c:469
 msgid "Diagonal"
 msgstr "Diagonal"
 
-#: anjuta_dialogs_strings.c:460 anjuta_dialogs_strings.c:466
-#: anjuta_dialogs_strings.c:472
+#: anjuta_dialogs_strings.c:458 anjuta_dialogs_strings.c:464
+#: anjuta_dialogs_strings.c:470
 msgid "Strike-Out"
 msgstr "Riscar"
 
-#: anjuta_dialogs_strings.c:473
+#: anjuta_dialogs_strings.c:471
 msgid "Indicators"
 msgstr "Indicadores"
 
-#: anjuta_dialogs_strings.c:474
+#: anjuta_dialogs_strings.c:472
 msgid "Errors messages:"
 msgstr "Mensagens de erro:"
 
-#: anjuta_dialogs_strings.c:475
+#: anjuta_dialogs_strings.c:473
 msgid "Warnings messages:"
 msgstr "Mensagens de aviso:"
 
-#: anjuta_dialogs_strings.c:476
+#: anjuta_dialogs_strings.c:474
 msgid "Normal messages:"
 msgstr "Mensagens normais:"
 
-#: anjuta_dialogs_strings.c:477
+#: anjuta_dialogs_strings.c:475
 msgid "Other messages:"
 msgstr "Outras mensagens:"
 
-#: anjuta_dialogs_strings.c:482
+#: anjuta_dialogs_strings.c:480
 msgid "Message colors"
 msgstr "Cores das mensagens"
 
-#: anjuta_dialogs_strings.c:483
+#: anjuta_dialogs_strings.c:481
 msgid "window7"
 msgstr "janela7"
 
-#: anjuta_dialogs_strings.c:484
+#: anjuta_dialogs_strings.c:482
 msgid "CVS compression level:"
 msgstr "Nivel de compressão CVS:"
 
-#: anjuta_dialogs_strings.c:485
+#: anjuta_dialogs_strings.c:483
 msgid "CVS forced update [-dP -A]"
 msgstr "Atualização forçada CVS [-dP -A]"
 
-#: anjuta_dialogs_strings.c:486
+#: anjuta_dialogs_strings.c:484
 msgid "CVS context diff format"
 msgstr "Formato diff de contexto CVS"
 
-#: anjuta_dialogs_strings.c:487
+#: anjuta_dialogs_strings.c:485
 msgid "CVS unified diff format"
 msgstr "Formato diff unificado CVS"
 
-#: anjuta_dialogs_strings.c:488
+#: anjuta_dialogs_strings.c:486
 msgid "CVS command options"
 msgstr "Opções comando CVS"
 
-#: anjuta_dialogs_strings.c:489
+#: anjuta_dialogs_strings.c:487
 msgid "window8"
 msgstr "janela8"
 
-#: anjuta_dialogs_strings.c:490
+#: anjuta_dialogs_strings.c:488
 msgid "Use GNOME terminal profile:"
 msgstr "Usar perfil de terminal GNOME:"
 
-#: anjuta_dialogs_strings.c:492
+#: anjuta_dialogs_strings.c:490
 msgid "Default"
 msgstr "Padrão"
 
-#: anjuta_dialogs_strings.c:493
+#: anjuta_dialogs_strings.c:491
 msgid "Use currently selected profile in GNOME terminal"
 msgstr "Usar perfil atualmente selecionado no terminal GNOME"
 
-#: anjuta_dialogs_strings.c:494
+#: anjuta_dialogs_strings.c:492
 msgid "Terminal options"
 msgstr "Opções do terminal"
+
+#: anjuta_dialogs_strings.c:493
+#, fuzzy
+msgid "Anjuta windows"
+msgstr "Anjuta: %s"
 
 #: plugins/class-gen/clsGen.c:449
 msgid "Class name not valid"
@@ -1921,61 +1953,61 @@ msgstr "Customizar o navegador de arquivos"
 msgid "Rev"
 msgstr "Rev"
 
-#: src/anjuta.c:70 src/anjuta.c:77
+#: src/anjuta.c:71 src/anjuta.c:78
 #, c-format
 msgid "Anjuta: Caught signal %d (%s) !"
 msgstr "Anjuta: Sinal recebido %d (%s) !"
 
 #. Must declare static, because it will be used forever
-#: src/anjuta.c:105
+#: src/anjuta.c:106
 msgid "Open File"
 msgstr "Abrir Arquivo"
 
 #. Must declare static, because it will be used forever
-#: src/anjuta.c:111 src/anjuta.c:116
+#: src/anjuta.c:112 src/anjuta.c:117
 msgid "Save File As"
 msgstr "Salvar Arquivo Como"
 
-#: src/anjuta.c:245
+#: src/anjuta.c:261
 msgid "Cannot create application... exiting\n"
 msgstr "Impossível criar aplicação... saindo\n"
 
-#: src/anjuta.c:295 src/anjuta.c:299 src/anjuta.c:1111 src/anjuta.c:1127
+#: src/anjuta.c:311 src/anjuta.c:315 src/anjuta.c:1127 src/anjuta.c:1143
 #, c-format
 msgid "Anjuta: %s"
 msgstr "Anjuta: %s"
 
-#: src/anjuta.c:356
+#: src/anjuta.c:372
 msgid "Recent Files "
 msgstr "Arquivos Recentes "
 
-#: src/anjuta.c:907
+#: src/anjuta.c:923
 msgid "# * DO NOT EDIT OR RENAME THIS FILE ** Generated by Anjuta **\n"
 msgstr "# * NÃO EDITE OU RENOMEIE ESTE ARQUIVO ** Gerado pelo Anjuta **\n"
 
-#: src/anjuta.c:1076
+#: src/anjuta.c:1092
 msgid "All files saved ..."
 msgstr "Todos os arquivos foram salvos ..."
 
-#: src/anjuta.c:1104
+#: src/anjuta.c:1120
 #, c-format
 msgid "Anjuta: %s (Saved)"
 msgstr "Anjuta: %s (Salvo)"
 
-#: src/anjuta.c:1119
+#: src/anjuta.c:1135
 #, c-format
 msgid "Anjuta: %s (Unsaved)"
 msgstr "Anjuta: %s (Não Salvo)"
 
-#: src/anjuta.c:1144
+#: src/anjuta.c:1160
 msgid "Anjuta: No file"
 msgstr "Anjuta: Nenhum arquivo"
 
-#: src/anjuta.c:1464 src/anjuta.c:1540
+#: src/anjuta.c:1480 src/anjuta.c:1556
 msgid "ERROR: "
 msgstr "ERRO: "
 
-#: src/anjuta.c:1485 src/anjuta.c:1558
+#: src/anjuta.c:1501 src/anjuta.c:1574
 msgid ""
 "\n"
 "System: "
@@ -1983,7 +2015,7 @@ msgstr ""
 "\n"
 "Sistema: "
 
-#: src/anjuta.c:2030
+#: src/anjuta.c:2046
 #, c-format
 msgid ""
 "The \"%s\" utility is not installed.\n"
@@ -1992,35 +2024,35 @@ msgstr ""
 "O utilitário \"%s\" não está instalado.\n"
 "Instale-o e depois reinicie o Anjuta."
 
-#: src/anjuta.c:2056 src/anjuta.c:2112
+#: src/anjuta.c:2072 src/anjuta.c:2128
 msgid "None"
 msgstr "Nenhum"
 
-#: src/anjuta.c:2067
+#: src/anjuta.c:2083
 msgid "DOS (CRLF)"
 msgstr "DOS (CRLF)"
 
-#: src/anjuta.c:2070 src/anjuta.c:2104
+#: src/anjuta.c:2086 src/anjuta.c:2120
 msgid "Unix (LF)"
 msgstr "Unix (LF)"
 
-#: src/anjuta.c:2073
+#: src/anjuta.c:2089
 msgid "Mac (CR)"
 msgstr "Mac (CR)"
 
-#: src/anjuta.c:2076
+#: src/anjuta.c:2092
 msgid "Unknown"
 msgstr "Desconhecido"
 
-#: src/anjuta.c:2093
+#: src/anjuta.c:2109
 msgid "OVR"
 msgstr "OVR"
 
-#: src/anjuta.c:2097 src/anjuta.c:2103
+#: src/anjuta.c:2113 src/anjuta.c:2119
 msgid "INS"
 msgstr "INS"
 
-#: src/anjuta.c:2115
+#: src/anjuta.c:2131
 #, c-format
 msgid ""
 "  Project: %s       Zoom: %d       Line: %04d       Col: %03d       %s       "
@@ -2029,11 +2061,11 @@ msgstr ""
 "  Projeto: %s       Zoom: %d       Linha: %04d      Col: %03d       %s       "
 "Tarefa: %s    Modo: %s"
 
-#: src/anjuta.c:2399
+#: src/anjuta.c:2415
 msgid "Looking up symbol"
 msgstr ""
 
-#: src/anjuta.c:2401 src/find_in_files.c:285
+#: src/anjuta.c:2417 src/find_in_files.c:306
 msgid "Finding in Files ....\n"
 msgstr "Pesquisando dentro de arquivos ...\n"
 
@@ -2045,17 +2077,17 @@ msgstr ""
 "Um ou mais arquivos não foram salvos.\n"
 "Deseja sair assim mesmo?"
 
-#: src/anjuta_cbs.c:404 src/project_dbase_gui.c:1346
+#: src/anjuta_cbs.c:405 src/project_dbase_gui.c:1346
 #, c-format
 msgid "Not a regular file: %s."
 msgstr "Erros encontrados no arquivo: %s."
 
-#: src/anjuta_cbs.c:410
+#: src/anjuta_cbs.c:411
 #, c-format
 msgid "No read permission for: %s."
 msgstr "Sem permissão de leitura: %s."
 
-#: src/anjuta_cbs.c:522 src/anjuta_cbs.c:579
+#: src/anjuta_cbs.c:523 src/anjuta_cbs.c:580
 #, fuzzy, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -2064,7 +2096,7 @@ msgstr ""
 "O arquivo \"%s\" existe.\n"
 "Deseja escrever por cima?"
 
-#: src/anjuta_cbs.c:555
+#: src/anjuta_cbs.c:556
 #, fuzzy
 msgid "Could not open file for writing"
 msgstr "Impossível carregar arquivo: %s"
@@ -2117,57 +2149,57 @@ msgstr "Impossível carregar o projeto: %s"
 msgid "Out of memory scanning for plugins."
 msgstr ""
 
-#: src/anjuta-tools.c:910
+#: src/anjuta-tools.c:911
 #, fuzzy
 msgid "Tool"
 msgstr "até"
 
-#: src/anjuta-tools.c:1094
+#: src/anjuta-tools.c:1095
 msgid "Unable to build user interface for tool editor"
 msgstr ""
 
-#: src/anjuta-tools.c:1289
+#: src/anjuta-tools.c:1291
 #, c-format
 msgid "Are you sure you want to delete tool '%s'"
 msgstr "Tem certeza de que deseja excluir a ferramenta '%s'"
 
-#: src/anjuta-tools.c:1387
+#: src/anjuta-tools.c:1389
 msgid "You must provide a tool name!"
 msgstr ""
 
-#: src/anjuta-tools.c:1393
+#: src/anjuta-tools.c:1395
 msgid "You must provide a tool command!"
 msgstr ""
 
-#: src/anjuta-tools.c:1408
+#: src/anjuta-tools.c:1410
 #, c-format
 msgid "A tool with the name '%s' already exists!"
 msgstr ""
 
-#: src/anjuta-tools.c:1692
+#: src/anjuta-tools.c:1694
 msgid "Unable to build user interface for tool help"
 msgstr ""
 
-#: src/anjuta-tools.c:1706 src/debug_tree.c:1502 src/debug_tree.c:1527
+#: src/anjuta-tools.c:1709 src/debug_tree.c:1464 src/debug_tree.c:1486
 #, fuzzy
 msgid "Variable"
 msgstr "Variáveis"
 
-#: src/anjuta-tools.c:1712
+#: src/anjuta-tools.c:1715
 #, fuzzy
 msgid "Meaning"
 msgstr "Avisos"
 
-#: src/anjuta-tools.c:1718 src/debug_tree.c:1502 src/debug_tree.c:1536
+#: src/anjuta-tools.c:1721 src/debug_tree.c:1464 src/debug_tree.c:1495
 #: src/watch_gui.c:133
 msgid "Value"
 msgstr "Valor"
 
-#: src/anjuta-tools.c:1781
+#: src/anjuta-tools.c:1784
 msgid "Unable to build user interface for tool parameters"
 msgstr ""
 
-#: src/anjuta-tools.c:1785
+#: src/anjuta-tools.c:1788
 #, fuzzy, c-format
 msgid "%s: Command line parameters"
 msgstr "Parámetros (opcional)"
@@ -2383,7 +2415,7 @@ msgstr "Compilando arquivo: %s ...\n"
 #: src/build_file.c:130 src/build_project.c:331 src/build_project.c:368
 #: src/build_project.c:406 src/build_project.c:440 src/build_project.c:474
 #: src/clean_project.c:118 src/clean_project.c:201 src/compile.c:198
-#: src/configurer.c:219 src/cvs.c:746 src/find_in_files.c:320
+#: src/configurer.c:219 src/cvs.c:746 src/find_in_files.c:341
 #: src/project_import.c:179
 #, c-format
 msgid "Total time taken: %d secs\n"
@@ -3190,6 +3222,36 @@ msgstr "Enviando sinal %s para o processo: %d\n"
 msgid "Error whilst signalling the process."
 msgstr "Houve um erro ao assinalar  processo."
 
+#: src/debug_tree.c:1520
+#, fuzzy
+msgid "Default format"
+msgstr "Auto formatar"
+
+#: src/debug_tree.c:1524
+msgid "Binary"
+msgstr ""
+
+#: src/debug_tree.c:1527
+msgid "Octal"
+msgstr ""
+
+#: src/debug_tree.c:1530
+msgid "Signed decimal"
+msgstr ""
+
+#: src/debug_tree.c:1533
+msgid "Unsigned decimal"
+msgstr ""
+
+#: src/debug_tree.c:1536 src/registers_gui.c:111
+msgid "Hex"
+msgstr "Hexa"
+
+#: src/debug_tree.c:1539
+#, fuzzy
+msgid "Char"
+msgstr "Limpar"
+
 #: src/executer.c:53 src/mainmenu_callbacks.c:1700
 #, fuzzy
 msgid "The target executable of this Project is unknown"
@@ -3233,63 +3295,63 @@ msgstr "Este arquivo não foi salvo, salve-o primeiro."
 msgid "Unable to execute file. Check Settings->Commands."
 msgstr "Impossível exeutar o arquivo. Cheque Opções->Comandos."
 
-#: src/find_in_files.c:306
+#: src/find_in_files.c:327
 msgid "Find in Files completed...............Unsuccessful\n"
 msgstr "Pesquisa dentro de arquivos concluída..............Incorretamente\n"
 
-#: src/find_in_files.c:309
+#: src/find_in_files.c:330
 msgid "Find in Files completed ... unsuccessful"
 msgstr "Pesquisa dentro de arquivos concluída ... Incorretamente"
 
-#: src/find_in_files.c:315
+#: src/find_in_files.c:336
 msgid "Find in Files completed...............Successful\n"
 msgstr "Pesquisa dentro de arquivos concluída..............Corretamente\n"
 
-#: src/find_in_files.c:317
+#: src/find_in_files.c:338
 msgid "Find in Files completed ... successful"
 msgstr "Pesquisa dentro de arquivos concluída ... corretamente"
 
-#: src/find_in_files_cbs.c:97
+#: src/find_in_files_cbs.c:103
 msgid "No input files supplied."
 msgstr ""
 
-#: src/find_in_files_cbs.c:104
+#: src/find_in_files_cbs.c:110
 #, fuzzy
 msgid "No search string supplied."
 msgstr "Buscar texto"
 
-#: src/find_replace.c:331
+#: src/find_replace.c:337
 msgid "Do you want to replace this?"
 msgstr "Deseja substituir isso?"
 
-#: src/find_replace.c:373
+#: src/find_replace.c:395
 #, c-format
 msgid "The string \"%s\" was not found in the selected text"
 msgstr "O texto \"%s\" não foi encontrado na região de procura selecionada."
 
-#: src/find_replace.c:378
+#: src/find_replace.c:400
 #, c-format
 msgid "The string \"%s\" was not found from the current location"
 msgstr "O texto  \"%s\" não foi encontrado a partir da posição atual."
 
-#: src/find_text.c:139
+#: src/find_text.c:163
 #, c-format
 msgid "The match \"%s\" was not found in the whole document"
 msgstr "O texto \"%s\" não foi encontrado na pesquisa do documento inteiro"
 
-#: src/find_text.c:144
+#: src/find_text.c:168
 #, c-format
 msgid "The match \"%s\" was not found in the selected text"
 msgstr ""
 "O texto \"%s\" não foi encontrado na pesquisa dentro do texto selecionado"
 
-#: src/find_text.c:149
+#: src/find_text.c:173
 #, c-format
 msgid "The match \"%s\" was not found from the current location"
 msgstr ""
 "O texto \"%s\" não foi encontrado na pesquisa a partir da posição atual."
 
-#: src/find_text.c:171 src/toolbar_callbacks.c:234
+#: src/find_text.c:196 src/toolbar_callbacks.c:234
 msgid "No matches. Wrap search around the document?"
 msgstr ""
 
@@ -3390,7 +3452,7 @@ msgstr "O projeto foi autogerado corretamente."
 msgid " Goto Line number "
 msgstr "Ir para a linha Nº."
 
-#: src/launcher.c:369 src/text_editor.c:1222
+#: src/launcher.c:371 src/text_editor.c:1225
 msgid "Cannot execute command shell"
 msgstr "Impossível executar a linha de comandos."
 
@@ -3403,11 +3465,11 @@ msgstr "Não mostrar a janela de início (splash)"
 msgid "Integrated Development Environment"
 msgstr "Ambiente de Desenvolvimento Integrado (IDE)"
 
-#: src/main_menubar.c:382
+#: src/main_menubar.c:383
 msgid "Recent Files    "
 msgstr "Arquivos recentes    "
 
-#: src/main_menubar.c:393 src/project_dbase.c:2054
+#: src/main_menubar.c:394 src/project_dbase.c:2054
 msgid "Recent Projects "
 msgstr "Projetos recentes "
 
@@ -4895,7 +4957,7 @@ msgid "Compile the current source file using Make"
 msgstr "Compila o arquivo atual"
 
 #. 2
-#: src/main_menubar_def.h:1248 src/main_menubar_def.h:1864
+#: src/main_menubar_def.h:1248 src/main_menubar_def.h:1871
 msgid "_Build"
 msgstr "C_onstruir"
 
@@ -5542,174 +5604,184 @@ msgstr "Desabilitar estilo realçado de sintaxe."
 
 #. 6
 #: src/main_menubar_def.h:1743
-msgid "_Edit user.properties file ..."
-msgstr ""
+#, fuzzy
+msgid "Windows settings ..."
+msgstr "Imprimindo ..."
 
 #: src/main_menubar_def.h:1744
-msgid "Edit user properties file"
+msgid "Edit windows settings"
 msgstr ""
 
 #. 7
 #: src/main_menubar_def.h:1749
-msgid "Set _Default Preferences"
-msgstr "Preferências _padrão"
+msgid "_Edit user.properties file ..."
+msgstr ""
 
 #: src/main_menubar_def.h:1750
-msgid "But I prefer tea."
-msgstr "Mas eu prefiro chá..."
+msgid "Edit user properties file"
+msgstr ""
 
 #. 8
 #: src/main_menubar_def.h:1755
-msgid "C_ustomize shortcuts"
-msgstr ""
+msgid "Set _Default Preferences"
+msgstr "Preferências _padrão"
 
 #: src/main_menubar_def.h:1756
-msgid "Customize shortcuts associated with menu items"
-msgstr ""
+msgid "But I prefer tea."
+msgstr "Mas eu prefiro chá..."
 
 #. 9
 #: src/main_menubar_def.h:1761
+msgid "C_ustomize shortcuts"
+msgstr ""
+
+#: src/main_menubar_def.h:1762
+msgid "Customize shortcuts associated with menu items"
+msgstr ""
+
+#. 10
+#: src/main_menubar_def.h:1767
 #, fuzzy
 msgid "_Tools Editor"
 msgstr "_Editor"
 
-#: src/main_menubar_def.h:1762
+#: src/main_menubar_def.h:1768
 msgid "Customize user-defined tools"
 msgstr ""
 
 #. 0
 #. 1
 #. 2
-#: src/main_menubar_def.h:1773
+#: src/main_menubar_def.h:1780
 #, fuzzy
 msgid "Browse GNOME _API Pages"
 msgstr "Navegar nas páginas de API Gnome"
 
-#: src/main_menubar_def.h:1774
+#: src/main_menubar_def.h:1781
 #, fuzzy
 msgid "The GNOME API pages"
 msgstr "Navega nas páginas de API Gnome"
 
 #. 3
-#: src/main_menubar_def.h:1779
+#: src/main_menubar_def.h:1786
 #, fuzzy
 msgid "Browse _Man Pages"
 msgstr "Navegar pelas páginas Man"
 
-#: src/main_menubar_def.h:1780
+#: src/main_menubar_def.h:1787
 msgid "The good old manual pages"
 msgstr "As boas e velhas páginas de manual..."
 
 #. 4
-#: src/main_menubar_def.h:1785
+#: src/main_menubar_def.h:1792
 #, fuzzy
 msgid "Browse _Info Pages"
 msgstr "Navegar nas páginas Info"
 
-#: src/main_menubar_def.h:1786
+#: src/main_menubar_def.h:1793
 #, fuzzy
 msgid "Browse Info pages"
 msgstr "Navegar nas páginas Info"
 
 #. 5
 #. 6
-#: src/main_menubar_def.h:1792
+#: src/main_menubar_def.h:1799
 #, fuzzy
 msgid "_Context Help"
 msgstr "Ajuda pelo contexto"
 
-#: src/main_menubar_def.h:1793
+#: src/main_menubar_def.h:1800
 msgid "Search help for the current word in the editor"
 msgstr "Pesquisar por ajuda usando a palavra atual no editor"
 
 #. 7
-#: src/main_menubar_def.h:1798
+#: src/main_menubar_def.h:1805
 msgid "_Search a topic"
 msgstr "Proc_urar um tópico"
 
-#: src/main_menubar_def.h:1799
+#: src/main_menubar_def.h:1806
 msgid "May I help you?"
 msgstr "Posso ajuda-lo?"
 
 #. 8
 #. 9
-#: src/main_menubar_def.h:1805
+#: src/main_menubar_def.h:1812
 msgid "Anjuta _Home Page"
 msgstr "Página do An_juta"
 
-#: src/main_menubar_def.h:1806
+#: src/main_menubar_def.h:1813
 msgid "Online documentation and resources"
 msgstr "Documentação online e recursos"
 
 #. 10
 #. 11
-#: src/main_menubar_def.h:1812
+#: src/main_menubar_def.h:1819
 #, fuzzy
 msgid "_Libraries API references"
 msgstr "Referências para API de bibliotecas"
 
-#: src/main_menubar_def.h:1813
+#: src/main_menubar_def.h:1820
 msgid "Online reference library for GDK, GLib, GNOME etc.."
 msgstr "Referência on-line das bibliotecas para GDK, GLib, GNOME, etc."
 
 #. 12
-#: src/main_menubar_def.h:1818
+#: src/main_menubar_def.h:1825
 msgid "Report _Bugs"
 msgstr "Relatar _Bugs"
 
-#: src/main_menubar_def.h:1819
+#: src/main_menubar_def.h:1826
 msgid "Submit a bug report for Anjuta"
 msgstr "Relatar um bug para Anjuta"
 
 #. 13
-#: src/main_menubar_def.h:1824
+#: src/main_menubar_def.h:1831
 #, fuzzy
 msgid "Request _Features"
 msgstr "Requisitar novos recursos"
 
-#: src/main_menubar_def.h:1825
+#: src/main_menubar_def.h:1832
 msgid "Submit a feature request for Anjuta"
 msgstr "Pedir que a aplicação Anjuta tenha algum recurso a mais"
 
 #. 14
-#: src/main_menubar_def.h:1830
+#: src/main_menubar_def.h:1837
 msgid "Submit _patches"
 msgstr "Enviar _correções"
 
-#: src/main_menubar_def.h:1831
+#: src/main_menubar_def.h:1838
 msgid "Submit patches for Anjuta"
 msgstr "Enviar correções para o Anjuta"
 
 #. 15
-#: src/main_menubar_def.h:1836
+#: src/main_menubar_def.h:1843
 msgid "Ask a _question"
 msgstr "Fazer uma per_gunta"
 
-#: src/main_menubar_def.h:1837
+#: src/main_menubar_def.h:1844
 msgid "Submit a question for FAQs"
 msgstr "Enviar perguntas para a FAQ (Questões frequentemente perguntadas)"
 
-#: src/main_menubar_def.h:1852
+#: src/main_menubar_def.h:1859
 msgid "_Project"
 msgstr "_Projeto"
 
-#: src/main_menubar_def.h:1858
+#: src/main_menubar_def.h:1865
 msgid "For_mat"
 msgstr "For_matar"
 
-#: src/main_menubar_def.h:1870
+#: src/main_menubar_def.h:1877
 msgid "Bookmar_k"
 msgstr "Ma_rcador"
 
-#: src/main_menubar_def.h:1876
+#: src/main_menubar_def.h:1883
 msgid "_Debug"
 msgstr "_Depurar"
 
-#: src/main_menubar_def.h:1882
+#: src/main_menubar_def.h:1889
 msgid "_CVS"
 msgstr "_CVS"
 
-#: src/main_menubar_def.h:1888
+#: src/main_menubar_def.h:1895
 msgid "_Settings"
 msgstr "Definiçõe_s"
 
@@ -5759,7 +5831,7 @@ msgstr "O executável não está atualizado."
 msgid "Debugger is not running. Start it first."
 msgstr "O depurador  não está sendo rodado. Inicio o mesmo antes."
 
-#: src/mainmenu_callbacks.c:2128
+#: src/mainmenu_callbacks.c:2134
 msgid ""
 "Hover the mouse pointer over any menu item and press\n"
 " the shortcut key to associate with it."
@@ -6347,10 +6419,6 @@ msgstr "Registradores da CPU"
 msgid "Register"
 msgstr "Registrador"
 
-#: src/registers_gui.c:111
-msgid "Hex"
-msgstr "Hexa"
-
 #: src/registers_gui.c:115
 msgid "Decimal"
 msgstr "Decimal"
@@ -6370,7 +6438,7 @@ msgstr "Impossível encontrar arquivo de imagem da aplicação: %s"
 msgid "Could not find application pixmap file: %s"
 msgstr "Impossível encontrar arquivo pixmap da aplicação: %s"
 
-#: src/resources.c:265 src/resources.c:273
+#: src/resources.c:266 src/resources.c:274
 msgid "Cannot execute Devhelp. Make sure it is installed"
 msgstr "Impossível executar Devhelp. Certifique-se que ele está instalado"
 
@@ -6460,7 +6528,7 @@ msgstr "Erro ao escrever em: %s."
 msgid "Anjuta"
 msgstr "Anjuta"
 
-#: src/src_paths.c:259
+#: src/src_paths.c:260
 msgid "Source Paths"
 msgstr "Caminhos de Código"
 
@@ -6493,33 +6561,33 @@ msgstr "Pilha"
 msgid "Couldn't find pixmap file: %s"
 msgstr "Impossível encontrar o arquivo pixmap: %s"
 
-#: src/text_editor.c:873
+#: src/text_editor.c:876
 msgid "Loading file ..."
 msgstr "Carregando arquivo ..."
 
-#: src/text_editor.c:879
+#: src/text_editor.c:882
 #, c-format
 msgid "Could not load file: %s"
 msgstr "Impossível carregar arquivo: %s"
 
-#: src/text_editor.c:898
+#: src/text_editor.c:901
 msgid "File loaded successfully"
 msgstr "Arquivo carregado com sucesso"
 
-#: src/text_editor.c:913
+#: src/text_editor.c:916
 msgid "Saving file ..."
 msgstr "Salvando arquivo ..."
 
-#: src/text_editor.c:918
+#: src/text_editor.c:921
 #, c-format
 msgid "Could not save file: %s."
 msgstr "Impossível salvar arquivo: %s."
 
-#: src/text_editor.c:955
+#: src/text_editor.c:958
 msgid "File saved successfully"
 msgstr "Arquivo salvo com sucesso"
 
-#: src/text_editor.c:1053
+#: src/text_editor.c:1056
 #, c-format
 msgid ""
 "The file '%s' on the disk is more recent than\n"
@@ -6530,20 +6598,20 @@ msgstr ""
 "buffer atual.\n"
 "Deseja recarregá-lo?"
 
-#: src/text_editor.c:1190
+#: src/text_editor.c:1193
 msgid "Auto format is currently disabled. Change the setting in Preferences."
 msgstr ""
 "Auto formatação está desabilitada. Se desejado, habilite-a em Preferências."
 
-#: src/text_editor.c:1196
+#: src/text_editor.c:1199
 msgid "Auto formatting ..."
 msgstr "Auto formatando ..."
 
-#: src/text_editor.c:1206 src/text_editor.c:1233
+#: src/text_editor.c:1209 src/text_editor.c:1236
 msgid "Error in auto formatting ..."
 msgstr "Erro na auto formatação ..."
 
-#: src/text_editor.c:1239
+#: src/text_editor.c:1242
 msgid "Auto formatting completed"
 msgstr "Auto formatação completada"
 
@@ -7395,3 +7463,33 @@ msgstr "Objeto Pixbuf"
 #: widgets/cell-renderer-captioned-image.c:215
 msgid "The pixbuf to render."
 msgstr "O pixbuf a renderizar."
+
+#~ msgid "dialog1"
+#~ msgstr "diálogo1"
+
+#~ msgid "Search and Replace"
+#~ msgstr "Procurar e Substituir"
+
+#~ msgid "Is the regular expression or simple string"
+#~ msgstr "É a expressão regular ou expressão simples"
+
+#~ msgid "Give the search expression"
+#~ msgstr "Informe a expressão a procurar"
+
+#~ msgid "The search target(s) where search will be performed"
+#~ msgstr "O(s) alvo(s) onde a procura será efetuada"
+
+#~ msgid "Choose files:"
+#~ msgstr "Escolher arquivos:"
+
+#~ msgid "Ignore files:"
+#~ msgstr "Ignorar arquivos:"
+
+#~ msgid "Choose directories:"
+#~ msgstr "Escolher diretórios:"
+
+#~ msgid "Ignore directories:"
+#~ msgstr "Ignorar diretórios:"
+
+#~ msgid "Details"
+#~ msgstr "Detalhes"

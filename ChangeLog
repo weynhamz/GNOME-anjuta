@@ -1,4 +1,6 @@
 2003-03-23  Naba Kumar  <naba@gnome.org>
+
+	* Makefile.am, anjuta.spec.in: Fixed rpm build errors.
 	
 	* anjuta.spec.in: Fixed spec file for correct file paths and
 	corrected rpmbuild.
