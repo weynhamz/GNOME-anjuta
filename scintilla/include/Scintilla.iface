@@ -2,7 +2,7 @@
 
 ## This file defines the interface to Scintilla
 
-## Copyright 2000-2002 by Neil Hodgson <neilh@scintilla.org>
+## Copyright 2000-2003 by Neil Hodgson <neilh@scintilla.org>
 ## The License.txt file describes the conditions under which this software may be distributed.
 
 ## A line starting with ## is a pure comment and should be stripped by readers.
@@ -1440,6 +1440,9 @@ set void SetHotspotActiveBack=2411(bool useSetting, colour back)
 # Enable / Disable underlining active hotspots.
 set void SetHotspotActiveUnderline=2412(bool underline,)
 
+# Limit hotspots to single line so hotspots on two lines don't merge.
+set void SetHotspotSingleLine=2421(bool singleLine,)
+
 # Move caret between paragraphs (delimited by empty lines)
 fun void ParaDown=2413(,)
 fun void ParaDownExtend=2414(,)
@@ -1594,6 +1597,10 @@ val SCLEX_NSIS=43
 val SCLEX_MMIXAL=44
 val SCLEX_CLW=45
 val SCLEX_CLWNOCASE=46
+val SCLEX_LOT=47
+val SCLEX_YAML=48
+val SCLEX_TEX=49
+val SCLEX_METAPOST=50
 
 # When a lexer specifies its language as SCLEX_AUTOMATIC it receives a
 # value assigned in sequence from SCLEX_AUTOMATIC+1.
@@ -1998,25 +2005,21 @@ val SCE_MATLAB_IDENTIFIER=7
 # Lexical states for SCLEX_SCRIPTOL
 lex Sol=SCLEX_SCRIPTOL SCE_SCRIPTOL_
 val SCE_SCRIPTOL_DEFAULT=0
-val SCE_SCRIPTOL_COMMENT=1
+val SCE_SCRIPTOL_WHITE=1
 val SCE_SCRIPTOL_COMMENTLINE=2
-val SCE_SCRIPTOL_COMMENTDOC=3
-val SCE_SCRIPTOL_NUMBER=4
-val SCE_SCRIPTOL_WORD=5
-val SCE_SCRIPTOL_STRING=6
-val SCE_SCRIPTOL_CHARACTER=7
-val SCE_SCRIPTOL_UUID=8
-val SCE_SCRIPTOL_PREPROCESSOR=9
-val SCE_SCRIPTOL_OPERATOR=10
-val SCE_SCRIPTOL_IDENTIFIER=11
-val SCE_SCRIPTOL_STRINGEOL=12
-val SCE_SCRIPTOL_VERBATIM=13
-val SCE_SCRIPTOL_REGEX=14
-val SCE_SCRIPTOL_COMMENTLINEDOC=15
-val SCE_SCRIPTOL_WORD2=16
-val SCE_SCRIPTOL_COMMENTDOCKEYWORD=17
-val SCE_SCRIPTOL_COMMENTDOCKEYWORDERROR=18
-val SCE_SCRIPTOL_COMMENTBASIC=19
+val SCE_SCRIPTOL_PERSISTENT=3
+val SCE_SCRIPTOL_CSTYLE=4
+val SCE_SCRIPTOL_COMMENTBLOCK=5
+val SCE_SCRIPTOL_NUMBER=6
+val SCE_SCRIPTOL_STRING=7
+val SCE_SCRIPTOL_CHARACTER=8
+val SCE_SCRIPTOL_STRINGEOL=9
+val SCE_SCRIPTOL_KEYWORD=10
+val SCE_SCRIPTOL_OPERATOR=11
+val SCE_SCRIPTOL_IDENTIFIER=12
+val SCE_SCRIPTOL_TRIPLE=13
+val SCE_SCRIPTOL_CLASSNAME=14
+val SCE_SCRIPTOL_PREPROCESSOR=15
 # Lexical states for SCLEX_ASM
 lex Asm=SCLEX_ASM SCE_ASM_
 val SCE_ASM_DEFAULT=0
@@ -2182,6 +2185,42 @@ val SCE_CLW_STRUCTURE_DATA_TYPE=11
 val SCE_CLW_ATTRIBUTE=12
 val SCE_CLW_STANDARD_EQUATE=13
 val SCE_CLW_ERROR=14
+# Lexical states for SCLEX_LOT
+lex LOT=SCLEX_LOT SCE_LOT_
+val SCE_LOT_DEFAULT=0
+val SCE_LOT_HEADER=1
+val SCE_LOT_BREAK=2
+val SCE_LOT_SET=3
+val SCE_LOT_PASS=4
+val SCE_LOT_FAIL=5
+val SCE_LOT_ABORT=6
+# Lexical states for SCLEX_YAML
+lex YAML=SCLEX_YAML SCE_YAML_
+val SCE_YAML_DEFAULT=0
+val SCE_YAML_COMMENT=1
+val SCE_YAML_IDENTIFIER=2
+val SCE_YAML_KEYWORD=3
+val SCE_YAML_NUMBER=4
+val SCE_YAML_REFERENCE=5
+val SCE_YAML_DOCUMENT=6
+val SCE_YAML_TEXT=7
+val SCE_YAML_ERROR=8
+# Lexical states for SCLEX_TEX
+lex TeX=SCLEX_TEX SCE_TEX_
+val SCE_TEX_DEFAULT=0
+val SCE_TEX_SPECIAL=1
+val SCE_TEX_GROUP=2
+val SCE_TEX_SYMBOL=3
+val SCE_TEX_COMMAND=4
+val SCE_TEX_TEXT=5
+lex Metapost=SCLEX_METAPOST SCE_METAPOST_
+val SCE_METAPOST_DEFAULT=0
+val SCE_METAPOST_SPECIAL=1
+val SCE_METAPOST_GROUP=2
+val SCE_METAPOST_SYMBOL=3
+val SCE_METAPOST_COMMAND=4
+val SCE_METAPOST_TEXT=5
+val SCE_METAPOST_EXTRA=6
 
 # Events
 

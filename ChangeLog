@@ -1,3 +1,28 @@
+2003-09-29  Naba Kumar  <naba@gnome.org>
+
+	* src/find_in_files.c: Ignores binary by default. Disabled the option
+	of NOCVS search, because launcher does not use sh and hence can not
+	pipe.
+	
+	* src/project_dbase.c, src/session.[h,c]: Fixed to save the
+	"clean before build" state in project session and not in account session,
+	otherwise the state gets reflected to other projects causing annoyance.
+	
+	* src/compiler_options.c: Fixed a bug where compiler options were always
+	claimed 'modified'.
+
+	* src/build_project.c, data/properties/anjuta.properties: Fixed a bad bug
+	where clean-before-build doesn't work.
+	
+	* scintilla/patches/research-cvs-nolog.diff,
+	scintilla/patches/scintilla-ac-gtk2-port.diff,
+	scintilla/patches/scintilla-ac-sort-fix.diff,
+	scintilla-optimization.diff: Removed, because they are already in
+	scintilla CVS.
+	
+	* scintilla/*/*: Update scintilla to current CVS (just after 1.55 release,
+	2003-09-29).
+
 2003-09-26  Naba Kumar  <naba@gnome.org>
 
 	* src/anjuta.c: Only connects to kernel SIGCHLD signal.

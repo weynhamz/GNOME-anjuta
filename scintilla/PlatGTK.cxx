@@ -718,8 +718,6 @@ public:
 	void SetDBCSMode(int codePage);
 };
 
-#ifdef USE_PANGO
-
 const char *CharacterSetID(int characterSet) {
 	switch (characterSet) {
 	case SC_CHARSET_ANSI:
@@ -727,15 +725,15 @@ const char *CharacterSetID(int characterSet) {
 	case SC_CHARSET_DEFAULT:
 		return "LATIN1";
 	case SC_CHARSET_BALTIC:
-		return "ISO8859-13";
+		return "ISO-8859-13";
 	case SC_CHARSET_CHINESEBIG5:
 		return "BIG-5";
 	case SC_CHARSET_EASTEUROPE:
-		return "ISO8859-2";
+		return "ISO-8859-2";
 	case SC_CHARSET_GB2312:
 		return "GB2312";
 	case SC_CHARSET_GREEK:
-		return "ISO8859-7";
+		return "ISO-8859-7";
 	case SC_CHARSET_HANGUL:
 		return "";
 	case SC_CHARSET_MAC:
@@ -749,21 +747,23 @@ const char *CharacterSetID(int characterSet) {
 	case SC_CHARSET_SYMBOL:
 		return "";
 	case SC_CHARSET_TURKISH:
-		return "ISO8859-9";
+		return "ISO-8859-9";
 	case SC_CHARSET_JOHAB:
 		return "JOHAB";
 	case SC_CHARSET_HEBREW:
-		return "ISO8859-8";
+		return "ISO-8859-8";
 	case SC_CHARSET_ARABIC:
-		return "ISO8859-6";
+		return "ISO-8859-6";
 	case SC_CHARSET_VIETNAMESE:
 		return "";
 	case SC_CHARSET_THAI:
-		return "ISO8859-1";
+		return "ISO-8859-1";
 	default:
 		return "";
 	}
 }
+
+#ifdef USE_PANGO
 
 void SurfaceImpl::SetIconv(int characterSet_) {
 	if (characterSet != characterSet_) {
@@ -773,7 +773,7 @@ void SurfaceImpl::SetIconv(int characterSet_) {
 		characterSet = characterSet_;
 		const char *source = CharacterSetID(characterSet);
 		if (*source) {
-			iconvh = iconv_open("UTF8", source);
+			iconvh = iconv_open("UTF-8", source);
 		}
 	}
 }
@@ -1048,6 +1048,21 @@ static char *UTF8FromIconv(iconv_t iconvh, const char *s, int len) {
 	return 0;
 }
 
+static size_t MultiByteLenFromIconv(iconv_t iconvh, const char *s, size_t len) {
+	for (size_t lenMB=1; (lenMB<4) && (lenMB <= len); lenMB++) {
+		char wcForm[2];
+		char *pin = const_cast<char *>(s);
+		size_t inLeft = lenMB;
+		char *pout = wcForm;
+		size_t outLeft = 2;
+		size_t conversions = iconv(iconvh, &pin, &inLeft, &pout, &outLeft);
+		if (conversions != ((size_t)(-1))) {
+			return lenMB;
+		}
+	}
+	return 1;
+}
+
 static char *UTF8FromLatin1(const char *s, int len) {
 	char *utfForm = new char[len*2+1];
 	size_t lenU = 0;
@@ -1100,6 +1115,18 @@ static char *UTF8FromDBCS(const char *s, int len) {
 	return utfForm;
 }
 
+static size_t UTF8CharLength(const char *s) {
+	const unsigned char *us = reinterpret_cast<const unsigned char *>(s);
+	unsigned char ch = *us;
+	if (ch < 0x80) {
+		return 1;
+	} else if (ch < 0x80 + 0x40 + 0x20) {
+		return 2;
+	} else {
+		return 3;
+	}
+}
+
 #endif
 
 // On GTK+, wchar_t is 4 bytes
@@ -1118,20 +1145,17 @@ void SurfaceImpl::DrawTextBase(PRectangle rc, Font &font_, int ybase, const char
 			if (et == UTF8) {
 				pango_layout_set_text(layout, s, len);
 			} else {
-				if (et == dbcs) {
-					// Convert to utf8
-					utfForm = UTF8FromDBCS(s, len);
-				}
-				if (!utfForm) {	// DBCS failed so treat as iconv
+				if (!utfForm) {
 					SetIconv(PFont(font_)->characterSet);
 					utfForm = UTF8FromIconv(iconvh, s, len);
 				}
-				//~ if (!utfForm) {	// DBCS failed so treat as locale
-					//~ gsize w; // stub
-					//~ utfForm = g_locale_to_utf8(s, len, NULL, &w, NULL);
-					//~ useGFree = static_cast<bool>(utfForm);
-				//~ };
-				if (!utfForm) {	// g_locale_to_utf8 failed so treat as Latin1
+				if (!utfForm) {	// iconv failed so try DBCS if DBCS mode
+					if (et == dbcs) {
+						// Convert to utf8
+						utfForm = UTF8FromDBCS(s, len);
+					}
+				}
+				if (!utfForm) {	// iconv and DBCS failed so treat as Latin1
 					utfForm = UTF8FromLatin1(s, len);
 				}
 				pango_layout_set_text(layout, utfForm, strlen(utfForm));
@@ -1245,43 +1269,44 @@ void SurfaceImpl::MeasureWidths(Font &font_, const char *s, int len, int *positi
 				}
 				pango_layout_iter_free (iter);
 			} else {
-				int wclen = 0;
+				int positionsCalculated = 0;
 				if (et == dbcs) {
-					GdkWChar *wctext = new GdkWChar[len + 1];
-					GdkWChar *wcp = wctext;
-					wclen = gdk_mbstowcs(wcp, s, len);
-					if (wclen >= 1 ) {
+					SetIconv(PFont(font_)->characterSet);
+					char *utfForm = UTF8FromIconv(iconvh, s, len);
+					if (utfForm) {
 						// Convert to UTF-8 so can ask Pango for widths, then
 						// Loop through UTF-8 and DBCS forms, taking account of different
 						// character byte lengths.
-						char *utfForm = UTF8FromGdkWChar(wctext, wclen);
+						iconv_t iconvhMeasure =
+							iconv_open("UCS-2", CharacterSetID(characterSet));
 						pango_layout_set_text(layout, utfForm, strlen(utfForm));
 						int i = 0;
+						int utfIndex = 0;
 						PangoLayoutIter *iter = pango_layout_get_iter (layout);
 						while (pango_layout_iter_next_cluster (iter)) {
-							size_t lenChar = mblen(s+i, MB_CUR_MAX);
 							pango_layout_iter_get_cluster_extents (iter, NULL, &pos);
 							int position = PANGO_PIXELS(pos.x);
-							positions[i++] = position;
-							while (lenChar--) {
-								positions[i++] = position;
+							int utfIndexNext = pango_layout_iter_get_index (iter);
+							while (utfIndex < utfIndexNext) {
+								size_t lenChar = MultiByteLenFromIconv(iconvhMeasure, s+i, len-i);
+								//size_t lenChar = mblen(s+i, MB_CUR_MAX);
+								while (lenChar--) {
+									positions[i++] = position;
+									positionsCalculated++;
+								}
+								utfIndex += UTF8CharLength(utfForm+utfIndex);
 							}
 						}
 						pango_layout_iter_free (iter);
 						delete []utfForm;
+						iconv_close(iconvhMeasure);
 					}
-					delete []wctext;
 				}
-				if (wclen < 1 ) {
+				if (positionsCalculated < 1 ) {
 					// Either Latin1 or DBCS conversion failed so treat as Latin1.
 					bool useGFree = false;
 					SetIconv(PFont(font_)->characterSet);
 					char *utfForm = UTF8FromIconv(iconvh, s, len);
-					//~ if (!utfForm) {	// iconv failed so treat as locale
-						//~ gsize w; // stub
-						//~ utfForm = g_locale_to_utf8(s, len, NULL, &w, NULL);
-						//~ useGFree = static_cast<bool>(utfForm);
-					//~ }
 					if (!utfForm) {
 						utfForm = UTF8FromLatin1(s, len);
 					}
@@ -1289,10 +1314,10 @@ void SurfaceImpl::MeasureWidths(Font &font_, const char *s, int len, int *positi
 					int i = 0;
 					PangoLayoutIter *iter = pango_layout_get_iter (layout);
 					while (pango_layout_iter_next_cluster (iter)) {
-						pango_layout_iter_get_cluster_extents (iter, NULL, &pos);
+						pango_layout_iter_get_cluster_extents(iter, NULL, &pos);
 						positions[i++] = PANGO_PIXELS(pos.x);
 					}
-					pango_layout_iter_free (iter);
+					pango_layout_iter_free(iter);
 					if (useGFree) {
 						g_free(utfForm);
 					} else {
@@ -1376,11 +1401,6 @@ int SurfaceImpl::WidthText(Font &font_, const char *s, int len) {
 					SetIconv(PFont(font_)->characterSet);
 					utfForm = UTF8FromIconv(iconvh, s, len);
 				}
-				//~ if (!utfForm) {	// iconv failed so treat as locale
-					//~ gsize w;
-					//~ utfForm = g_locale_to_utf8(s, len, NULL, &w, NULL);
-					//~ useGFree = static_cast<bool>(utfForm);
-				//~ };
 				if (!utfForm) {	// g_locale_to_utf8 failed so treat as Latin1
 					utfForm = UTF8FromLatin1(s, len);
 				}
@@ -1388,7 +1408,7 @@ int SurfaceImpl::WidthText(Font &font_, const char *s, int len) {
 				len = strlen(utfForm);
 			}
 			PangoLayoutLine *pangoLine = pango_layout_get_line(layout, 0);
-			pango_layout_line_get_extents (pangoLine, NULL, &pos);
+			pango_layout_line_get_extents(pangoLine, NULL, &pos);
 			if (useGFree) {
 				g_free(utfForm);
 			} else {
@@ -1537,7 +1557,7 @@ void SurfaceImpl::SetUnicodeMode(bool unicodeMode_) {
 }
 
 void SurfaceImpl::SetDBCSMode(int codePage) {
-	if (codePage == SC_CP_DBCS)
+	if (codePage && (codePage != SC_CP_UTF8))
 		et = dbcs;
 }
 
@@ -1759,7 +1779,6 @@ public:
 	virtual int GetSelection();
 	virtual int Find(const char *prefix);
 	virtual void GetValue(int n, char *value, int len);
-	virtual void Sort();
 	virtual void RegisterImage(int type, const char *xpm_data);
 	virtual void ClearRegisteredImages();
 	virtual void SetDoubleClickAction(CallBackAction action, void *data) {
@@ -1795,7 +1814,7 @@ void ListBoxX::Create(Window &, int, int, bool) {
 	id = gtk_window_new(GTK_WINDOW_POPUP);
 
 	GtkWidget *frame = gtk_frame_new(NULL);
-	gtk_widget_show (frame);
+	gtk_widget_show(frame);
 	gtk_container_add(GTK_CONTAINER(GetID()), frame);
 	gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_OUT);
 	gtk_container_set_border_width(GTK_CONTAINER(frame), 0);
@@ -1821,38 +1840,37 @@ void ListBoxX::Create(Window &, int, int, bool) {
 #else
 	/* Tree and its model */
 	GtkListStore *store =
-		gtk_list_store_new (N_COLUMNS, GDK_TYPE_PIXBUF, G_TYPE_STRING);
+		gtk_list_store_new(N_COLUMNS, GDK_TYPE_PIXBUF, G_TYPE_STRING);
 
-	list = gtk_tree_view_new_with_model (GTK_TREE_MODEL(store));
+	list = gtk_tree_view_new_with_model(GTK_TREE_MODEL(store));
 	GtkTreeSelection *selection =
-		gtk_tree_view_get_selection (GTK_TREE_VIEW (list));
-	gtk_tree_selection_set_mode (selection, GTK_SELECTION_SINGLE);
+		gtk_tree_view_get_selection(GTK_TREE_VIEW(list));
+	gtk_tree_selection_set_mode(selection, GTK_SELECTION_SINGLE);
 	gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(list), FALSE);
-	gtk_tree_view_set_reorderable (GTK_TREE_VIEW(list), FALSE);
-	
-	/* Columns */
-	GtkTreeViewColumn *column = gtk_tree_view_column_new ();
-	gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
-	gtk_tree_view_column_set_title (column, "Autocomplete");
-	gtk_tree_view_column_set_sort_column_id (column, TEXT_COLUMN);
+	gtk_tree_view_set_reorderable(GTK_TREE_VIEW(list), FALSE);
 
-	GtkCellRenderer *renderer = gtk_cell_renderer_pixbuf_new ();
-	gtk_tree_view_column_pack_start (column, renderer, FALSE);
-	gtk_tree_view_column_add_attribute (column, renderer,
+	/* Columns */
+	GtkTreeViewColumn *column = gtk_tree_view_column_new();
+	gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
+	gtk_tree_view_column_set_title(column, "Autocomplete");
+
+	GtkCellRenderer *renderer = gtk_cell_renderer_pixbuf_new();
+	gtk_tree_view_column_pack_start(column, renderer, FALSE);
+	gtk_tree_view_column_add_attribute(column, renderer,
 										"pixbuf", PIXBUF_COLUMN);
 
-	renderer = gtk_cell_renderer_text_new ();
-	gtk_tree_view_column_pack_start (column, renderer, TRUE);
-	gtk_tree_view_column_add_attribute (column, renderer,
+	renderer = gtk_cell_renderer_text_new();
+	gtk_tree_view_column_pack_start(column, renderer, TRUE);
+	gtk_tree_view_column_add_attribute(column, renderer,
 										"text", TEXT_COLUMN);
 
-	gtk_tree_view_append_column (GTK_TREE_VIEW (list), column);
+	gtk_tree_view_append_column(GTK_TREE_VIEW(list), column);
 	gtk_container_add(GTK_CONTAINER(PWidget(scroller)), PWidget(list));
 	gtk_widget_show(PWidget(list));
-	
-	gtk_tree_sortable_set_sort_column_id (GTK_TREE_SORTABLE(store),
+
+	gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(store),
 										  TEXT_COLUMN, GTK_SORT_ASCENDING);
-	
+
 	gtk_signal_connect(GTK_OBJECT(PWidget(list)), "button_press_event",
 	                   GTK_SIGNAL_FUNC(ButtonPress), this);
 #endif
@@ -1883,7 +1901,7 @@ void ListBoxX::SetFont(Font &scint_font) {
 		}
 	} else if (PFont(scint_font)->pfd) {
 		// Current font is Pango font
-		gtk_widget_modify_font (PWidget(list), PFont(scint_font)->pfd);
+		gtk_widget_modify_font(PWidget(list), PFont(scint_font)->pfd);
 	}
 #endif
 }
@@ -1917,15 +1935,16 @@ PRectangle ListBoxX::GetDesiredRect() {
 		                 + GTK_CONTAINER(PWidget(list))->border_width));
 #else
 		// Get cell height
-		int row_height;
+		int row_width=0;
+		int row_height=0;
 		GtkTreeViewColumn * column =
-			gtk_tree_view_get_column (GTK_TREE_VIEW (list), 0);
-		gtk_tree_view_column_cell_get_size (column, NULL, NULL,
-											NULL, NULL, &row_height);
+			gtk_tree_view_get_column(GTK_TREE_VIEW(list), 0);
+		gtk_tree_view_column_cell_get_size(column, NULL,
+			NULL, NULL, &row_width, &row_height);
 		int ythickness = PWidget(list)->style->ythickness;
 		height = (rows * row_height
 		          + 2 * (ythickness
-		                 + GTK_CONTAINER(PWidget(list))->border_width));
+		                 + GTK_CONTAINER(PWidget(list))->border_width + 1));
 #endif
 		gtk_widget_set_usize(GTK_WIDGET(PWidget(list)), -1, height);
 
@@ -1953,8 +1972,8 @@ void ListBoxX::Clear() {
 #if GTK_MAJOR_VERSION < 2
 	gtk_clist_clear(GTK_CLIST(list));
 #else
-	GtkTreeModel *model = gtk_tree_view_get_model (GTK_TREE_VIEW (list));
-	gtk_list_store_clear (GTK_LIST_STORE (model));
+	GtkTreeModel *model = gtk_tree_view_get_model(GTK_TREE_VIEW(list));
+	gtk_list_store_clear(GTK_LIST_STORE(model));
 #endif
 	maxItemCharacters = 0;
 }
@@ -1996,9 +2015,9 @@ static void init_pixmap(ListImage *list_image) {
 	}
 #else
 	if (list_image->pixbuf)
-		gdk_pixbuf_unref (list_image->pixbuf);
+		gdk_pixbuf_unref(list_image->pixbuf);
 	list_image->pixbuf =
-		gdk_pixbuf_new_from_xpm_data ((const gchar**)xpm_lineform);
+		gdk_pixbuf_new_from_xpm_data((const gchar**)xpm_lineform);
 #endif
 	delete []xpm_lineformfromtext;
 }
@@ -2023,21 +2042,21 @@ void ListBoxX::Append(char *s, int type) {
 #else
 	GtkTreeIter iter;
 	GtkListStore *store =
-		GTK_LIST_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (list)));
-	gtk_list_store_append (GTK_LIST_STORE (store), &iter);
+		GTK_LIST_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(list)));
+	gtk_list_store_append(GTK_LIST_STORE(store), &iter);
 	if (list_image) {
 		if (NULL == list_image->pixbuf)
 			init_pixmap(list_image);
 		if (list_image->pixbuf) {
-			gtk_list_store_set (GTK_LIST_STORE (store), &iter,
+			gtk_list_store_set(GTK_LIST_STORE(store), &iter,
 								PIXBUF_COLUMN, list_image->pixbuf,
 								TEXT_COLUMN, s, -1);
 		} else {
-			gtk_list_store_set (GTK_LIST_STORE (store), &iter,
+			gtk_list_store_set(GTK_LIST_STORE(store), &iter,
 								TEXT_COLUMN, s, -1);
 		}
 	} else {
-			gtk_list_store_set (GTK_LIST_STORE (store), &iter,
+			gtk_list_store_set(GTK_LIST_STORE(store), &iter,
 								TEXT_COLUMN, s, -1);
 	}
 #endif
@@ -2051,8 +2070,8 @@ int ListBoxX::Length() {
 #if GTK_MAJOR_VERSION < 2
 		return GTK_CLIST(list)->rows;
 #else
-		return gtk_tree_model_iter_n_children (gtk_tree_view_get_model
-											   (GTK_TREE_VIEW (list)), NULL);
+		return gtk_tree_model_iter_n_children(gtk_tree_view_get_model
+											   (GTK_TREE_VIEW(list)), NULL);
 #endif
 	return 0;
 }
@@ -2062,28 +2081,32 @@ void ListBoxX::Select(int n) {
 	gtk_clist_select_row(GTK_CLIST(list), n, 0);
 	gtk_clist_moveto(GTK_CLIST(list), n, 0, 0.5, 0.5);
 #else
+	if (n < 0)
+		return;
+
 	GtkTreeIter iter;
-	GtkTreeModel *model = gtk_tree_view_get_model (GTK_TREE_VIEW(list));
+	GtkTreeModel *model = gtk_tree_view_get_model(GTK_TREE_VIEW(list));
 	GtkTreeSelection *selection =
-		gtk_tree_view_get_selection (GTK_TREE_VIEW(list));
-	bool valid = gtk_tree_model_iter_nth_child (model, &iter, NULL, n);
+		gtk_tree_view_get_selection(GTK_TREE_VIEW(list));
+	bool valid = gtk_tree_model_iter_nth_child(model, &iter, NULL, n);
 	if (valid) {
-		gtk_tree_selection_select_iter (selection, &iter);
-	
+		gtk_tree_selection_select_iter(selection, &iter);
+
 		// Move the scrollbar to show the selection.
 		int total = Length();
 		GtkAdjustment *adj =
-			gtk_tree_view_get_vadjustment (GTK_TREE_VIEW(list));
+			gtk_tree_view_get_vadjustment(GTK_TREE_VIEW(list));
 		gfloat value = ((gfloat)n / total) * (adj->upper - adj->lower)
 							+ adj->lower - adj->page_size / 2;
-		
+
 		// Get cell height
+		int row_width;
 		int row_height;
 		GtkTreeViewColumn * column =
-			gtk_tree_view_get_column (GTK_TREE_VIEW (list), 0);
-		gtk_tree_view_column_cell_get_size (column, NULL, NULL,
-											NULL, NULL, &row_height);
-		
+			gtk_tree_view_get_column(GTK_TREE_VIEW(list), 0);
+		gtk_tree_view_column_cell_get_size(column, NULL, NULL,
+											NULL, &row_width, &row_height);
+
 		int rows = Length();
 		if ((rows == 0) || (rows > desiredVisibleRows))
 			rows = desiredVisibleRows;
@@ -2096,9 +2119,9 @@ void ListBoxX::Select(int n) {
 		value = (value < 0)? 0 : value;
 		value = (value > (adj->upper - adj->page_size))?
 					(adj->upper - adj->page_size) : value;
-		
+
 		// Set it.
-		gtk_adjustment_set_value (adj, value);
+		gtk_adjustment_set_value(adj, value);
 	}
 #endif
 }
@@ -2110,10 +2133,10 @@ int ListBoxX::GetSelection() {
 	GtkTreeIter iter;
 	GtkTreeModel *model;
 	GtkTreeSelection *selection;
-	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (list));
-	if (gtk_tree_selection_get_selected (selection, &model, &iter)) {
-		GtkTreePath *path = gtk_tree_model_get_path (model, &iter);
-		int *indices = gtk_tree_path_get_indices (path);
+	selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(list));
+	if (gtk_tree_selection_get_selected(selection, &model, &iter)) {
+		GtkTreePath *path = gtk_tree_model_get_path(model, &iter);
+		int *indices = gtk_tree_path_get_indices(path);
 		// Don't free indices.
 		if (indices)
 			return indices[0];
@@ -2134,18 +2157,17 @@ int ListBoxX::Find(const char *prefix) {
 	}
 #else
 	GtkTreeIter iter;
-	GtkTreeModel *model = 
-		gtk_tree_view_get_model (GTK_TREE_VIEW(list));
-	bool valid = gtk_tree_model_get_iter_first (model, &iter);
+	GtkTreeModel *model =
+		gtk_tree_view_get_model(GTK_TREE_VIEW(list));
+	bool valid = gtk_tree_model_get_iter_first(model, &iter);
 	int i = 0;
-	while (valid)
-	{
+	while(valid) {
 		gchar *s;
-		gtk_tree_model_get (model, &iter, TEXT_COLUMN, &s, -1);
+		gtk_tree_model_get(model, &iter, TEXT_COLUMN, &s, -1);
 		if (s && (0 == strncmp(prefix, s, strlen(prefix)))) {
 			return i;
 		}
-		valid = gtk_tree_model_iter_next (model, &iter);
+		valid = gtk_tree_model_iter_next(model, &iter);
 		i++;
 	}
 #endif
@@ -2168,10 +2190,10 @@ void ListBoxX::GetValue(int n, char *value, int len) {
 	}
 #else
 	GtkTreeIter iter;
-	GtkTreeModel *model = gtk_tree_view_get_model (GTK_TREE_VIEW(list));
-	bool valid = gtk_tree_model_iter_nth_child (model, &iter, NULL, n);
+	GtkTreeModel *model = gtk_tree_view_get_model(GTK_TREE_VIEW(list));
+	bool valid = gtk_tree_model_iter_nth_child(model, &iter, NULL, n);
 	if (valid) {
-		gtk_tree_model_get (model, &iter, TEXT_COLUMN, &text, -1);
+		gtk_tree_model_get(model, &iter, TEXT_COLUMN, &text, -1);
 	}
 #endif
 	if (text && len > 0) {
@@ -2180,17 +2202,6 @@ void ListBoxX::GetValue(int n, char *value, int len) {
 	} else {
 		value[0] = '\0';
 	}
-}
-
-void ListBoxX::Sort() {
-#if GTK_MAJOR_VERSION < 2
-	gtk_clist_sort(GTK_CLIST(list));
-#else
-	GtkTreeModel *model = gtk_tree_view_get_model (GTK_TREE_VIEW(list));
-	gtk_tree_sortable_set_sort_column_id (GTK_TREE_SORTABLE(model),
-										  TEXT_COLUMN, GTK_SORT_ASCENDING);
-	
-#endif	
 }
 
 // g_return_if_fail causes unnecessary compiler warning in release compile.
@@ -2222,7 +2233,7 @@ void ListBoxX::RegisterImage(int type, const char *xpm_data) {
 		list_image->bitmap = 0;
 #else
 		if (list_image->pixbuf)
-			gdk_pixbuf_unref (list_image->pixbuf);
+			gdk_pixbuf_unref(list_image->pixbuf);
 		list_image->pixbuf = NULL;
 #endif
 		list_image->xpm_data = xpm_data;
@@ -2379,20 +2390,42 @@ long Platform::SendScintillaPointer(
 	                              reinterpret_cast<sptr_t>(lParam));
 }
 
-bool Platform::IsDBCSLeadByte(int /*codePage*/, char /*ch*/) {
+bool Platform::IsDBCSLeadByte(int /* codePage */, char /* ch */) {
 	return false;
 }
 
-int Platform::DBCSCharLength(int /*codePage*/, const char *s) {
+#if GTK_MAJOR_VERSION < 2
+int Platform::DBCSCharLength(int, const char *s) {
 	int bytes = mblen(s, MB_CUR_MAX);
 	if (bytes >= 1)
 		return bytes;
 	else
 		return 1;
 }
+#else
+int Platform::DBCSCharLength(int codePage, const char *s) {
+	if (codePage == 999932) {
+		// Experimental and disabled code - change 999932 to 932 above to
+		// enable locale avoiding but expensive character length determination.
+		// Avoid locale with explicit use of iconv
+		iconv_t iconvhMeasure =
+			iconv_open("UCS-2", CharacterSetID(SC_CHARSET_SHIFTJIS));
+		size_t lenChar = MultiByteLenFromIconv(iconvhMeasure, s, strlen(s));
+		iconv_close(iconvhMeasure);
+		return lenChar;
+	} else {
+		int bytes = mblen(s, MB_CUR_MAX);
+		if (bytes >= 1)
+			return bytes;
+		else
+			return 1;
+	}
+}
+#endif
 
 int Platform::DBCSCharMaxLength() {
 	return MB_CUR_MAX;
+	//return 2;
 }
 
 // These are utility functions not really tied to a platform

@@ -566,6 +566,9 @@ project_dbase_reload_session (ProjectDBase * p)
 	find_replace_load_session( app->find_replace, p );
 	executer_load_session( app->executer, p );
 	find_in_files_load_session( app->find_in_files, p );
+	p->clean_before_build = 
+		session_get_bool (p, SECSTR (SECTION_PROJECT_STATE),
+						  "clean before build", FALSE);
 }
 
 gboolean
@@ -860,7 +863,7 @@ error_show:
 gboolean
 project_dbase_save_yourself (ProjectDBase * p, FILE * stream)
 {
-	int clean_before_build;
+	/* int clean_before_build; */
 	g_return_val_if_fail (p != NULL, FALSE);
 	g_return_val_if_fail (stream != NULL, FALSE);
 
@@ -879,8 +882,10 @@ project_dbase_save_yourself (ProjectDBase * p, FILE * stream)
 	fprintf (stream, "project.win.pos.y=%d\n", p->win_pos_y);
 	fprintf (stream, "project.win.width=%d\n", p->win_width);
 	fprintf (stream, "project.win.height=%d\n", p->win_height);
+	/*
 	clean_before_build = p->clean_before_build ? 1 : 0;
 	fprintf (stream, "project.clean_before_build=%d\n", clean_before_build);
+	*/
 	return TRUE;
 }
 
@@ -888,7 +893,7 @@ gboolean
 project_dbase_load_yourself (ProjectDBase * p, PropsID props)
 {
 	gboolean dock_flag;
-	int clean_before_build;
+	/* int clean_before_build; */
 
 	g_return_val_if_fail (p != NULL, FALSE);
 
@@ -900,8 +905,8 @@ project_dbase_load_yourself (ProjectDBase * p, PropsID props)
 	p->win_pos_y = prop_get_int (props, "project.win.pos.y", 80);
 	p->win_width = prop_get_int (props, "project.win.width", 200);
 	p->win_height = prop_get_int (props, "project.win.height", 400);
-	clean_before_build = prop_get_int (props, "project.clean_before_build", 0);
-	p->clean_before_build = clean_before_build == 1 ? TRUE : FALSE;
+	/* clean_before_build = prop_get_int (props, "project.clean_before_build", 0);
+	p->clean_before_build = clean_before_build == 1 ? TRUE : FALSE; */
 	if (dock_flag)
 		project_dbase_dock (p);
 	else
@@ -1300,6 +1305,9 @@ project_dbase_save_session (ProjectDBase * p)
 	find_replace_save_session (app->find_replace, p);
 	executer_save_session (app->executer, p);
 	find_in_files_save_session (app->find_in_files, p);
+	/* session_clear_section (p, SECSTR (SECTION_PROJECT_STATE)); */
+	session_save_bool(p, SECSTR (SECTION_PROJECT_STATE), "clean before build",
+					  p->clean_before_build);
 	session_sync();
 }
 

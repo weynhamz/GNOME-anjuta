@@ -391,7 +391,6 @@ Editor::~Editor() {
 	pdoc->Release();
 	pdoc = 0;
 	DropGraphics();
-	/* 	SetIdle(false) must be called in a platform independent way */
 	delete pixmapLine;
 	delete pixmapSelMargin;
 	delete pixmapSelPattern;
@@ -503,7 +502,9 @@ const char *ControlCharacterString(unsigned char ch) {
 	}
 }
 
-// Convenience class to ensure LineLayout objects are always disposed.
+/**
+ * Convenience class to ensure LineLayout objects are always disposed.
+ */
 class AutoLineLayout {
 	LineLayoutCache &llc;
 	LineLayout *ll;
@@ -689,8 +690,10 @@ int Editor::PositionFromLineX(int lineDoc, int x) {
 	return retVal;
 }
 
-// If painting then abandon the painting because a wider redraw is needed.
-// Return true if calling code should stop drawing
+/**
+ * If painting then abandon the painting because a wider redraw is needed.
+ * @return true if calling code should stop drawing.
+ */
 bool Editor::AbandonPaint() {
 	if ((paintState == painting) && !paintingAllText) {
 		paintState = paintAbandoned;
@@ -1307,7 +1310,6 @@ void Editor::InvalidateCaret() {
 }
 
 void Editor::NeedWrapping(int docLineStartWrapping, int docLineEndWrapping) {
-
 	bool noWrap = (docLastLineToWrap == docLineLastWrapped);
 	if (docLineLastWrapped > (docLineStartWrapping - 1)) {
 		docLineLastWrapped = docLineStartWrapping - 1;
@@ -1346,8 +1348,12 @@ void Editor::NeedWrapping(int docLineStartWrapping, int docLineEndWrapping) {
 bool Editor::WrapLines(bool fullWrap, int priorityWrapLineStart) {
 	// If there are any pending wraps do them during idle.
 	if (wrapState != eWrapNone) {
-		if (docLineLastWrapped < docLastLineToWrap)
-			SetIdle(true);
+		if (docLineLastWrapped < docLastLineToWrap) {
+			if (!SetIdle(true)) {
+				// If platform does not have Idle events, perform full wrap
+				fullWrap = true;
+			}
+		}
 		if (!fullWrap && priorityWrapLineStart >= 0 &&
 			// .. and if the paint window is outside pending wraps
 			(((priorityWrapLineStart + 100) < docLineLastWrapped) ||
@@ -1399,7 +1405,7 @@ bool Editor::WrapLines(bool fullWrap, int priorityWrapLineStart) {
 							lastLineToWrap = docLastLineToWrap;
 					}
 				} // else do a fullWrap.
-				
+
 				// printf("Wraplines: full = %d, priorityStart = %d (wrapping: %d to %d)\n", fullWrap, priorityWrapLineStart, firstLineToWrap, lastLineToWrap);
 				// printf("Pending wraps: %d to %d\n", docLineLastWrapped, docLastLineToWrap);
 				while (firstLineToWrap <= lastLineToWrap) {
@@ -1417,8 +1423,10 @@ bool Editor::WrapLines(bool fullWrap, int priorityWrapLineStart) {
 					}
 				}
 				// If wrapping is done, bring it to resting position
-				if (docLineLastWrapped > docLastLineToWrap)
-					docLineLastWrapped = docLastLineToWrap = -1;
+				if (docLineLastWrapped > docLastLineToWrap) {
+					docLineLastWrapped = -1;
+					docLastLineToWrap = -1;
+				}
 			}
 			goodTopLine = cs.DisplayFromDoc(lineDocTop);
 			if (subLineTop < cs.GetHeight(lineDocTop))
@@ -1955,7 +1963,7 @@ ColourAllocated Editor::TextBackground(ViewStyle &vsDraw, bool overrideBackgroun
 		        (i >= ll->edgeColumn) &&
 		        !IsEOLChar(ll->chars[i]))
 			return vsDraw.edgecolour.allocated;
-		if (inHotspot)
+		if (inHotspot && vsDraw.hotspotBackgroundSet)
 			return vsDraw.hotspotBackground.allocated;
 		if (overrideBackground)
 			return background;
@@ -2292,14 +2300,16 @@ void Editor::DrawLine(Surface *surface, ViewStyle &vsDraw, int line, int lineVis
 		indStart[indica] = 0;
 
 	for (int indicPos = lineStart; indicPos <= lineEnd; indicPos++) {
-		if ((ll->indicators[indicPos] != ll->indicators[indicPos + 1]) || (indicPos == lineEnd)) {
+		if ((indicPos == lineEnd) || (ll->indicators[indicPos] != ll->indicators[indicPos + 1])) {
 			int mask = 1 << pdoc->stylingBits;
 			for (int indicnum = 0; mask < 0x100; indicnum++) {
-				if ((ll->indicators[indicPos + 1] & mask) && !(ll->indicators[indicPos] & mask)) {
+				if ((indicPos == lineEnd)) {
+					indStart[indicnum] = ll->positions[indicPos];
+				} else if ((ll->indicators[indicPos + 1] & mask) && !(ll->indicators[indicPos] & mask)) {
 					indStart[indicnum] = ll->positions[indicPos + 1];
 				}
-				if ((ll->indicators[indicPos] & mask) && (
-					!(ll->indicators[indicPos + 1] & mask) || (indicPos == lineEnd))) {
+				if ((ll->indicators[indicPos] & mask) && 
+					((indicPos == lineEnd) || !(ll->indicators[indicPos + 1] & mask))) {
 					int endIndicator = indicPos;
 					if (endIndicator >= lineEnd)
 						endIndicator = lineEnd-1;
@@ -2547,7 +2557,7 @@ void Editor::Paint(Surface *surfaceWindow, PRectangle rcArea) {
 				DrawLine(surface, vs, lineDoc, visibleLine, xStart, rcLine, ll, subLine);
 				//durPaint += et.Duration(true);
 
-				// Restore the precvious styles for the brace highlights in case layout is in cache.
+				// Restore the previous styles for the brace highlights in case layout is in cache.
 				ll->RestoreBracesHighlight(rangeLine, braces);
 
 				bool expanded = cs.GetExpanded(lineDoc);
@@ -3647,7 +3657,8 @@ void Editor::LineDuplicate() {
 	delete []thisLine;
 }
 
-void Editor::CancelModes() {}
+void Editor::CancelModes() {
+}
 
 void Editor::NewLine() {
 	ClearSelection();
@@ -4556,7 +4567,7 @@ void Editor::ButtonDown(Point pt, unsigned int curTime, bool shift, bool ctrl, b
 		//Platform::DebugPrintf("Double click: %d - %d\n", anchor, currentPos);
 		if (doubleClick) {
 			NotifyDoubleClick(pt, shift);
-			if (PositionIsHotspot(newPos))
+			if (PointIsHotspot(newPos))
 				NotifyHotSpotDoubleClicked(newPos, shift, ctrl, alt);
 		}
 	} else {	// Single click
@@ -4588,7 +4599,7 @@ void Editor::ButtonDown(Point pt, unsigned int curTime, bool shift, bool ctrl, b
 			SetMouseCapture(true);
 			selectionType = selLine;
 		} else {
-			if (PositionIsHotspot(newPos)) {
+			if (PointIsHotspot(pt)) {
 				NotifyHotSpotClicked(newPos, shift, ctrl, alt);
 			}
 			if (!shift) {
@@ -4622,7 +4633,9 @@ bool Editor::PositionIsHotspot(int position) {
 }
 
 bool Editor::PointIsHotspot(Point pt) {
-	int pos = PositionFromLocation(pt);
+	int pos = PositionFromLocationClose(pt);
+	if(pos == INVALID_POSITION)
+		return false;
 	return PositionIsHotspot(pos);
 }
 
@@ -4633,8 +4646,8 @@ void Editor::SetHotSpotRange(Point *pt) {
 		// If we don't limit this to word characters then the
 		// range can encompass more than the run range and then
 		// the underline will not be drawn properly.
-		int hsStart_ = pdoc->ExtendStyleRange(pos, -1);
-		int hsEnd_ = pdoc->ExtendStyleRange(pos, 1);
+		int hsStart_ = pdoc->ExtendStyleRange(pos, -1, vs.hotspotSingleLine);
+		int hsEnd_ = pdoc->ExtendStyleRange(pos, 1, vs.hotspotSingleLine);
 
 		// Only invalidate the range if the hotspot range has changed...
 		if (hsStart_ != hsStart || hsEnd_ != hsEnd) {
@@ -4827,19 +4840,19 @@ void Editor::Tick() {
 }
 
 bool Editor::Idle() {
-	
+
 	bool idleDone = false;
 	// Wrap lines during idle.
 	WrapLines(false, -1);
 	// No more wrapping
 	if (docLineLastWrapped == docLastLineToWrap)
 		idleDone = true;
-	
+
 	// Add more idle things to do here, but make sure idleDone is
 	// set correctly before the function returns. returning
 	// false will stop calling this idle funtion until SetIdle() is
 	// called again.
-	
+
 	return !idleDone;
 }
 
@@ -6518,6 +6531,11 @@ sptr_t Editor::WndProc(unsigned int iMessage, uptr_t wParam, sptr_t lParam) {
 
 	case SCI_SETHOTSPOTACTIVEUNDERLINE:
 		vs.hotspotUnderline = wParam != 0;
+		InvalidateStyleRedraw();
+		break;
+
+	case SCI_SETHOTSPOTSINGLELINE:
+		vs.hotspotSingleLine = wParam != 0;
 		InvalidateStyleRedraw();
 		break;
 

@@ -1626,7 +1626,7 @@ compiler_options_load (CompilerOptions * co, PropsID props)
 	
 	compiler_options_set_in_properties (co, co->priv->props);
 	
-	compiler_options_set_dirty_flag (co, TRUE);
+	compiler_options_set_dirty_flag (co, FALSE);
 }
 
 void

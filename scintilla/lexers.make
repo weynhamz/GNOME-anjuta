@@ -19,7 +19,9 @@ LEXER_OBJS = \
 	$(top_srcdir)/scintilla/LexLout.o\
 	$(top_srcdir)/scintilla/LexLua.o\
 	$(top_srcdir)/scintilla/LexMatlab.o\
+	$(top_srcdir)/scintilla/LexMetapost.o\
 	$(top_srcdir)/scintilla/LexMMIXAL.o\
+	$(top_srcdir)/scintilla/LexMPT.o\
 	$(top_srcdir)/scintilla/LexNsis.o\
 	$(top_srcdir)/scintilla/LexOthers.o\
 	$(top_srcdir)/scintilla/LexPascal.o\
@@ -30,7 +32,9 @@ LEXER_OBJS = \
 	$(top_srcdir)/scintilla/LexRuby.o\
 	$(top_srcdir)/scintilla/LexScriptol.o\
 	$(top_srcdir)/scintilla/LexSQL.o\
-	$(top_srcdir)/scintilla/LexVB.o
+	$(top_srcdir)/scintilla/LexTeX.o\
+	$(top_srcdir)/scintilla/LexVB.o\
+	$(top_srcdir)/scintilla/LexYAML.o
 
 LEXER_SRCS = \
 	LexAda.cxx\
@@ -51,7 +55,9 @@ LEXER_SRCS = \
 	LexLout.cxx\
 	LexLua.cxx\
 	LexMatlab.cxx\
+	LexMetapost.cxx\
 	LexMMIXAL.cxx\
+	LexMPT.cxx\
 	LexNsis.cxx\
 	LexOthers.cxx\
 	LexPascal.cxx\
@@ -62,4 +68,6 @@ LEXER_SRCS = \
 	LexRuby.cxx\
 	LexScriptol.cxx\
 	LexSQL.cxx\
-	LexVB.cxx
+	LexTeX.cxx\
+	LexVB.cxx\
+	LexYAML.cxx

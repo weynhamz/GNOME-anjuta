@@ -466,7 +466,7 @@ protected:	// ScintillaBase subclass needs access to much of Editor
 	void Tick();
 	bool Idle();
 	virtual void SetTicking(bool on) = 0;
-	virtual void SetIdle(bool on) = 0;
+	virtual bool SetIdle(bool) { return false; }
 	virtual void SetMouseCapture(bool on) = 0;
 	virtual bool HaveMouseCapture() = 0;
 	void SetFocusState(bool focusState);

@@ -54,19 +54,23 @@ build_project ()
 			return;
 	}
 	
-	/* perform a clean, if required before the build */
-	if (app->project_dbase->clean_before_build == TRUE)
-	{
-		clean_project (build_project);
-		return;
-	}
-	
 	src_dir = project_dbase_get_module_dir (app->project_dbase, MODULE_SOURCE);
 	if (src_dir)
 	{
 		gchar *prj_name, *cmd;
 		
-		cmd = command_editor_get_command (app->command_editor, COMMAND_BUILD_MODULE);
+		/* perform a clean, if required before the build */
+		if (app->project_dbase->clean_before_build == TRUE)
+		{
+			cmd = command_editor_get_command (app->command_editor,
+											  COMMAND_CLEAN_BUILD_MODULE);
+			app->project_dbase->clean_before_build = FALSE;
+		}
+		else
+		{
+			cmd = command_editor_get_command (app->command_editor,
+											  COMMAND_BUILD_MODULE);
+		}
 		if (cmd == NULL)
 		{
 			anjuta_warning (_("Unable to build module. Check Settings->Commands."));
@@ -122,16 +126,20 @@ build_all_project ()
 			return;
 	}
 
-	/* perform a clean, if required before the build */
-	if (app->project_dbase->clean_before_build == TRUE)
-	{
-		clean_project (build_all_project);
-		return;
-	}
-	
 	if (app->project_dbase->project_is_open)
 	{
-		cmd = command_editor_get_command (app->command_editor, COMMAND_BUILD_PROJECT);
+		/* perform a clean, if required before the build */
+		if (app->project_dbase->clean_before_build == TRUE)
+		{
+			cmd = command_editor_get_command (app->command_editor,
+											  COMMAND_CLEAN_BUILD_PROJECT);
+			app->project_dbase->clean_before_build = FALSE;
+		}
+		else
+		{
+			cmd = command_editor_get_command (app->command_editor,
+											  COMMAND_BUILD_PROJECT);
+		}
 		if (cmd == NULL)
 		{
 			anjuta_warning (_("Unable to build Project. Check Settings->Commands."));

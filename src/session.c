@@ -95,6 +95,9 @@ SessionSectionString (const SessionSectionTypes p_Session)
 	case SECTION_GENERAL:
 		return "General";
 		break;
+	case SECTION_PROJECT_STATE:
+		return "Project State";
+		break;
 	}
 }
 

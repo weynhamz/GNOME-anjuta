@@ -97,7 +97,13 @@ create_find_in_files_gui (FindInFiles *sf)
 	gtk_widget_ref (sf->widgets.regexp_entry);
 	gtk_widget_ref (sf->widgets.regexp_combo);
 	
-	gtk_window_add_accel_group (GTK_WINDOW (sf->widgets.window), app->accel_group);
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(sf->widgets.ignore_binary),
+								  TRUE);
+	/* FIXME: Since launcher doesn't use sh, piping is not possible. */
+	gtk_widget_hide (sf->widgets.nocvs);
+	
+	gtk_window_add_accel_group (GTK_WINDOW (sf->widgets.window),
+								app->accel_group);
 
 	g_signal_connect (G_OBJECT (sf->widgets.window), "delete_event",
 					  G_CALLBACK (on_search_in_files_delete_event),
@@ -251,12 +257,8 @@ find_in_files_process (FindInFiles * ff)
 	nocvs  =
 		gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
 					      (ff->widgets.nocvs));
-	temp = (gchar*)gtk_entry_get_text (GTK_ENTRY (ff->widgets.regexp_entry));
 
-	command = g_strconcat ("grep -n -r -e \"", temp, "\"", NULL);
-	ff->regexp_history =
-		update_string_list (ff->regexp_history, temp,
-				    COMBO_LIST_LENGTH);
+	command = g_strdup ("grep -n -r ");
 	if (!case_sensitive)
 	{
 		temp = g_strconcat (command, " -i ", NULL);
@@ -269,6 +271,14 @@ find_in_files_process (FindInFiles * ff)
 		g_free (command);
 		command = temp;
 	}
+	temp = (gchar*)gtk_entry_get_text (GTK_ENTRY (ff->widgets.regexp_entry));
+	ff->regexp_history =
+		update_string_list (ff->regexp_history, temp,
+				    COMBO_LIST_LENGTH);
+	temp = g_strconcat (command, "-e '", temp, "' ", NULL);
+	g_free (command);
+	command = temp;
+	
 	model = gtk_tree_view_get_model (GTK_TREE_VIEW (ff->widgets.clist));
 	valid = gtk_tree_model_get_iter_first (model, &iter);
 	while(valid)
@@ -279,12 +289,16 @@ find_in_files_process (FindInFiles * ff)
 		g_free (command);
 		command = temp;
 	}
+/* FIXME: Since launcher doesn't use sh, piping is not possible. */
+#if 0
 	if (nocvs)
 	{
 		temp = g_strconcat(command, " | grep -Fv '/CVS/'", NULL);
 		g_free(command);
 		command = temp;
 	}
+#endif
+
 #ifdef DEBUG
 	g_message("Find: '%s'\n", command);
 #endif
