@@ -15,14 +15,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.HEAD.pt_BR\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-22 10:36+0100\n"
-"PO-Revision-Date: 2005-01-24 13:20-0200\n"
+"POT-Creation-Date: 2005-01-25 10:36+0100\n"
+"PO-Revision-Date: 2005-01-25 12:55-0200\n"
 "Last-Translator: Afonso Celso Medina <medina@maua.br>\n"
-"Language-Team: Português/Brasil <gnome-l10n-br@listas.cipsga.org.br>\n"
+"Language-Team: Portuguese/Brazil <gnome-l10n-br@listas.cipsga.org.br>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.9.1\n"
+"Content-Transfer-Encoding: 8bit"
 
 #: anjuta.desktop.in.in.h:1
 msgid "Anjuta IDE"
@@ -380,7 +379,8 @@ msgstr "Ocultar parâ_metros de processo"
 
 #: anjuta.glade.h:76
 msgid "High-Level Optimization (Functions inlined wherever possible)"
-msgstr "Otimização de Alto Nível (utilizar funções inlined sempre que possível)"
+msgstr ""
+"Otimização de Alto Nível (utilizar funções inlined sempre que possível)"
 
 #: anjuta.glade.h:77
 msgid "History sizes"
@@ -532,7 +532,7 @@ msgstr "Abre um Projeto existente."
 msgid "Open existing file or create a new file."
 msgstr "Abre um arquivo existente ou cria um novo arquivo."
 
-#: anjuta.glade.h:110 plugins/editor/anjuta-docman.c:328
+#: anjuta.glade.h:110 plugins/editor/anjuta-docman.c:303
 #: plugins/file-loader/plugin.c:440 plugins/file-loader/plugin.c:599
 #: plugins/file-loader/plugin.c:606 src/toolbar.c:80
 msgid "Open file"
@@ -587,7 +587,7 @@ msgid "Programs"
 msgstr "Programas"
 
 #: anjuta.glade.h:122 plugins/project-manager/plugin.c:346
-#: plugins/project-manager/plugin.c:727 plugins/project-manager/plugin.c:945
+#: plugins/project-manager/plugin.c:726 plugins/project-manager/plugin.c:944
 #: plugins/project-manager/project_dbase_gui.c:581 src/anjuta_gui.c:114
 #: src/toolbar.c:150
 msgid "Project"
@@ -729,7 +729,8 @@ msgstr "Suporte"
 
 #: anjuta.glade.h:153
 msgid "Supports are only available to File mode compilation and build."
-msgstr "O suporte está disponível apenas para o modo de compilação de Arquivos."
+msgstr ""
+"O suporte está disponível apenas para o modo de compilação de Arquivos."
 
 #: anjuta.glade.h:154
 msgid "Target:"
@@ -1219,7 +1220,7 @@ msgstr "O tipo de acelerador."
 
 #: libegg/eggcellrendererkeys.c:219
 msgid "Disabled"
-msgstr "Desabilitar"
+msgstr "Desabilitado"
 
 #: libegg/eggcellrendererkeys.c:330 libegg/eggcellrendererkeys.c:564
 msgid "Type a new accelerator, or press Backspace to clear"
@@ -1353,14 +1354,14 @@ msgid "_Lock dock items"
 msgstr "_Travar itens docados"
 
 #: libegg/test-actions.c:140 plugins/devhelp/plugin.c:212
-#: plugins/editor/plugin.c:1044 plugins/editor/search-replace.c:725
+#: plugins/editor/plugin.c:1043 plugins/editor/search-replace.c:725
 #: plugins/editor/search-replace.c:1358 plugins/editor/search-replace.c:1365
 #: plugins/editor/search-replace.c:1377 plugins/editor/search-replace.c:1678
 #: plugins/symbol-browser/plugin.c:687
 msgid "Search"
 msgstr "Procurar"
 
-#: libegg/test-actions.c:141 plugins/editor/plugin.c:1045
+#: libegg/test-actions.c:141 plugins/editor/plugin.c:1044
 msgid "Incremental search"
 msgstr "Procura incremental"
 
@@ -1374,7 +1375,8 @@ msgstr "Abre arquivos utilizados recentemente"
 
 #: plugins/build/build_file.c:48
 msgid "This file has not been saved. Save it first and then build."
-msgstr "Este arquivo não foi salvo. Salve-o primeiro e então utilize o comando build."
+msgstr ""
+"Este arquivo não foi salvo. Salve-o primeiro e então utilize o comando build."
 
 #: plugins/build/build_file.c:73
 msgid "The executable is up-to-date, there is no need to build it again."
@@ -1418,28 +1420,24 @@ msgstr "Concluído... com sucesso"
 
 #: plugins/build/build_project.c:76 plugins/build/compile.c:61
 msgid "Unable to build module. Check Settings->Commands."
-msgstr ""
-"Impossível compilar e linkar (build) o módulo. Verifique Definições-"
-">Comandos."
+msgstr "Impossível compilar e linkar (build) o módulo. Verifique Definições->Comandos."
 
 #: plugins/build/build_project.c:95 plugins/build/build_project.c:160
 #: plugins/build/compile.c:74
 msgid "Build Project"
-msgstr "Compilar e Linkar o Projeto (Build)"
+msgstr "Compilar e Linkar (Build) o Projeto"
 
 #: plugins/build/build_project.c:97 plugins/build/compile.c:76
 msgid "Building source directory of the Project: "
-msgstr "Compilando e linkando o diretório fonte do Projeto: "
+msgstr "Compilando e linkando (building) o diretório fonte do Projeto: "
 
 #: plugins/build/build_project.c:145
 msgid "Unable to build Project. Check Settings->Commands."
-msgstr ""
-"Impossível compilar e linkar (build) o Projeto. Verifique Definições-"
-">Comandos."
+msgstr "Impossível compilar e linkar (build) o Projeto. Verifique Definições->Comandos."
 
 #: plugins/build/build_project.c:163
 msgid "Building the whole Project: "
-msgstr "Compilando e linkando (build) todo o Projeto: "
+msgstr "Compilando e linkando (building) todo o Projeto: "
 
 #: plugins/build/build_project.c:196
 msgid "Unable to build tarball. Check Settings->Commands."
@@ -1447,11 +1445,11 @@ msgstr "Impossível construir o arquivo tar. Verifique Definições->Comandos."
 
 #: plugins/build/build_project.c:211
 msgid "Build Distribution"
-msgstr "Compilar e Gerar um Executável para Distribuição"
+msgstr "Gerar um Executável para Distribuição"
 
 #: plugins/build/build_project.c:215
 msgid "Building the distribution package of the Project: "
-msgstr "Construindo o pacote de distribuição para o Projeto: "
+msgstr "Gerando o pacote de distribuição para o Projeto: "
 
 #: plugins/build/build_project.c:247
 msgid "Do you prefer installing as root ?"
@@ -1463,7 +1461,7 @@ msgstr "Impossível autogerar. Verifique Definições->Comandos."
 
 #: plugins/build/build_project.c:299
 msgid "Auto generate Project"
-msgstr "Autogerar Projeto"
+msgstr "Autogerar o Projeto"
 
 #: plugins/build/build_project.c:302
 msgid "Auto generating the Project: "
@@ -1475,7 +1473,7 @@ msgstr "Impossível instalar o Projeto. Verifique Opções->Comandos."
 
 #: plugins/build/build_project.c:339 plugins/build/build_project.c:374
 msgid "Install Project"
-msgstr "Instalar Projeto"
+msgstr "Instalar o Projeto"
 
 #: plugins/build/build_project.c:341 plugins/build/build_project.c:376
 msgid "Installing the Project: "
@@ -1534,7 +1532,7 @@ msgid ""
 msgstr ""
 "Você alterou algumas das opções de compilação do Projeto, você\n"
 "gostaria que a primeira ação de compilação e geração do executável\n"
-"(build) provocasse um compilação completa do Projeto?"
+"(build) provocasse uma recompilação completa do Projeto?"
 
 #: plugins/build/compiler_options.c:726
 #: plugins/project-manager/src_paths.c:218
@@ -1619,7 +1617,7 @@ msgstr "O executável não está atualizado."
 
 #: plugins/build/executer.c:118
 msgid "Unable to execute Project. Check Settings->Commands."
-msgstr "Impossível executar Projeto. Verifique Definições->Comandos."
+msgstr "Impossível executar o Projeto. Verifique Definições->Comandos."
 
 #: plugins/build/executer.c:132
 msgid "This file has not been saved. Save it first."
@@ -1679,11 +1677,11 @@ msgstr "Compilar e Linkar o Projeto (_Build)"
 
 #: plugins/build-basic-autotools/build-basic-autotools.c:832
 msgid "Build whole project"
-msgstr "Compila todo o Projeto"
+msgstr "Compila e Linka todo o Projeto"
 
 #: plugins/build-basic-autotools/build-basic-autotools.c:837
 msgid "_Install Project"
-msgstr "_Instalar Projeto"
+msgstr "_Instalar o Projeto"
 
 #: plugins/build-basic-autotools/build-basic-autotools.c:838
 msgid "Install whole project"
@@ -1715,7 +1713,7 @@ msgstr "Gera automaticamente os arquivos do Projeto"
 
 #: plugins/build-basic-autotools/build-basic-autotools.c:861
 msgid "Build _Tarball"
-msgstr "Compilar e Linkar o _Tarball"
+msgstr "Gerar o _Tarball"
 
 #: plugins/build-basic-autotools/build-basic-autotools.c:862
 msgid "Build project tarball distribution"
@@ -1723,7 +1721,7 @@ msgstr "Gera um arquivo .tar.gz (tarball) para distribuição do Projeto"
 
 #: plugins/build-basic-autotools/build-basic-autotools.c:867
 msgid "_Build Module"
-msgstr "_Build Módulo"
+msgstr "_Build o Módulo"
 
 #: plugins/build-basic-autotools/build-basic-autotools.c:868
 msgid "Build module associated with current file"
@@ -1933,8 +1931,10 @@ msgid "V 0.0.2 (June 11, 2002)"
 msgstr "V 0.0.2 (11 de Junho de 2002)"
 
 #: plugins/class-gen/clsGen.c:1587
-msgid "TODO: add the ability to declare member functions and their parameters here."
-msgstr "TODO: adicionar aqui a capacidade de declarar funções e seus parâmetros."
+msgid ""
+"TODO: add the ability to declare member functions and their parameters here."
+msgstr ""
+"TODO: adicionar aqui a capacidade de declarar funções e seus parâmetros."
 
 #: plugins/class-gen/clsGen.c:1597
 msgid "Welcome to the Anjuta Class Builder. "
@@ -2633,9 +2633,10 @@ msgstr "Não existe linha número %d em \"%s\"."
 
 #: plugins/editor/action-callbacks.c:1280
 msgid "No matches. Wrap search around the document?"
-msgstr "Nenhuma equivalência. Continuar a busca a partir do início do documento?"
+msgstr ""
+"Nenhuma equivalência. Continuar a busca a partir do início do documento?"
 
-#: plugins/editor/anjuta-docman.c:301 src/anjuta_cbs.c:426
+#: plugins/editor/anjuta-docman.c:276 src/anjuta_cbs.c:426
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -2644,12 +2645,12 @@ msgstr ""
 "O arquivo '%s' já existe.\n"
 "Deseja sobrescrevê-lo?"
 
-#: plugins/editor/anjuta-docman.c:308 src/anjuta-callbacks.c:79
+#: plugins/editor/anjuta-docman.c:283 src/anjuta-callbacks.c:79
 #: src/anjuta_cbs.c:433 src/anjuta_cbs.c:497
 msgid "_Replace"
 msgstr "_Substituir"
 
-#: plugins/editor/anjuta-docman.c:349
+#: plugins/editor/anjuta-docman.c:324
 msgid "Save file as"
 msgstr "Salva o arquivo como"
 
@@ -2885,7 +2886,7 @@ msgid "Do not show tabs"
 msgstr "Não mostrar tabulações"
 
 #: plugins/editor/anjuta-document-manager.glade.h:59
-#: plugins/editor/plugin.c:1067
+#: plugins/editor/plugin.c:1066
 msgid "Documents"
 msgstr "Documentos"
 
@@ -3528,8 +3529,10 @@ msgid "Find and R_eplace ..."
 msgstr "Procurar e Su_bstituir ..."
 
 #: plugins/editor/plugin.c:209
-msgid "Search for and replace a string or regular expression with another string"
-msgstr "Procura e substitui uma expressão ou expressão regular por outra expressão"
+msgid ""
+"Search for and replace a string or regular expression with another string"
+msgstr ""
+"Procura e substitui uma expressão ou expressão regular por outra expressão"
 
 #: plugins/editor/plugin.c:211
 msgid "Advanced Search And Replace"
@@ -4209,15 +4212,15 @@ msgstr "Col"
 msgid "Mode"
 msgstr "Modo"
 
-#: plugins/editor/plugin.c:1033
+#: plugins/editor/plugin.c:1032
 msgid "Goto line"
 msgstr "Vai para a linha"
 
-#: plugins/editor/plugin.c:1034
+#: plugins/editor/plugin.c:1033
 msgid "Enter the line number to jump and press enter"
 msgstr "Informe o número de linha para onde ir e pressione enter"
 
-#: plugins/editor/plugin.c:1062
+#: plugins/editor/plugin.c:1061
 msgid "Editor quick navigations"
 msgstr "Navegações rápidas do editor"
 
@@ -5277,7 +5280,8 @@ msgstr "O depurador está preparado.\n"
 
 #: plugins/gdb/debugger.c:1206
 msgid "Warning: No debug terminal. Redirecting stdio to /dev/null.\n"
-msgstr "Aviso: Nenhum terminal de depuração. Redirecionando stdio para /dev/null.\n"
+msgstr ""
+"Aviso: Nenhum terminal de depuração. Redirecionando stdio para /dev/null.\n"
 
 #: plugins/gdb/debugger.c:1224
 msgid "Running program ..."
@@ -6217,7 +6221,8 @@ msgstr "--new"
 #: plugins/gtodo/mcategory.c:145
 #, c-format
 msgid "When you delete the category \"%s\", all containing items are lost"
-msgstr "Quando você deleta a categoria \"%s\", todos os itens contidos são eliminados"
+msgstr ""
+"Quando você deleta a categoria \"%s\", todos os itens contidos são eliminados"
 
 #: plugins/gtodo/mcategory.c:146
 msgid "Delete"
@@ -6817,24 +6822,24 @@ msgstr "Re_mover"
 msgid "Remove from project"
 msgstr "Remove do Projeto"
 
-#: plugins/project-manager/plugin.c:709
+#: plugins/project-manager/plugin.c:708
 msgid "Project manager actions"
 msgstr "Ações do gerenciador de Projeto"
 
-#: plugins/project-manager/plugin.c:715
+#: plugins/project-manager/plugin.c:714
 msgid "Project manager popup actions"
 msgstr "Ações de popup do gerenciador de Projeto"
 
-#: plugins/project-manager/plugin.c:829
+#: plugins/project-manager/plugin.c:828
 msgid "Loading project. Please wait ..."
 msgstr "Carregando o Projeto. Por favor, aguarde..."
 
-#: plugins/project-manager/plugin.c:900
+#: plugins/project-manager/plugin.c:899
 #, c-format
 msgid "Loading project: %s"
 msgstr "Carregando o Projeto: %s"
 
-#: plugins/project-manager/plugin.c:911
+#: plugins/project-manager/plugin.c:910
 #, c-format
 msgid "Failed to load project %s: %s"
 msgstr "Falha ao carregar o Projeto %s: %s"
@@ -7469,9 +7474,19 @@ msgid ""
 "including all of the build files. It will ask for details of the initial "
 "structure for the application. Please answer the questions carefully, as it "
 "may not be possible to change some of the settings later."
-msgstr "O Assistente de Aplicação irá gerar a estrutura básica de um Projeto, incluindo todos os arquivos de compilação. Ele solicitará alguns detalhes sobre a estrutura inicial da aplicação. Por favor, Responda atentamente às questões, já que poderá não ser possível modificar algumas destas definições posteriormente."
+msgstr ""
+"O Assistente de Aplicação irá gerar a estrutura básica de um Projeto, "
+"incluindo todos os arquivos de compilação. Ele solicitará alguns detalhes "
+"sobre a estrutura inicial da aplicação. Por favor, Responda atentamente às "
+"questões, já que poderá não ser possível modificar algumas destas definições "
+"posteriormente."
 
-#: plugins/project-wizard/druid.c:178
+#: plugins/project-wizard/druid.c:140
+#, c-format
+msgid "Unable to find any project template in %s"
+msgstr "Impossível encontrar algum modelo de Projeto em %s"
+
+#: plugins/project-wizard/druid.c:181
 msgid ""
 "Confim the following information:\n"
 "\n"
@@ -7479,35 +7494,35 @@ msgstr ""
 "Confirme as seguintes informações:\n"
 "\n"
 
-#: plugins/project-wizard/druid.c:180
+#: plugins/project-wizard/druid.c:183
 msgid "Project Type: "
 msgstr "Tipo de Projeto: "
 
-#: plugins/project-wizard/druid.c:527
+#: plugins/project-wizard/druid.c:530
 #, c-format
 msgid "Field \"%s\" is mandatory. Please enter it."
 msgstr "O campo \"%s\" é obrigatório. Por favor, você deve preenche-lo."
 
-#: plugins/project-wizard/druid.c:611
+#: plugins/project-wizard/druid.c:614
 msgid "Unable to build project wizard user interface"
 msgstr "Impossível criar interface do assistente de Projeto"
 
 #. Create new view
-#: plugins/project-wizard/install.c:181
+#: plugins/project-wizard/install.c:189
 msgid "New Project Wizard"
 msgstr "Assistente de Criação de um Novo Projeto"
 
 #. All files have been installed
-#: plugins/project-wizard/install.c:300
+#: plugins/project-wizard/install.c:380
 msgid "New project has been created successfully"
 msgstr "Projeto foi criado com sucesso"
 
-#: plugins/project-wizard/install.c:366
+#: plugins/project-wizard/install.c:448
 #, c-format
 msgid "Copying %s to %s with AutoGen"
 msgstr "Copiando %s para %s com o AutoGen"
 
-#: plugins/project-wizard/install.c:370
+#: plugins/project-wizard/install.c:452
 #, c-format
 msgid "Copying %s to %s"
 msgstr "Copiando %s para %s"
@@ -7963,7 +7978,8 @@ msgstr "Não mostrar a tela de logotipo"
 
 #: src/main.c:67
 msgid "Shutdown anjuta properly releasing all resources (for debugging)"
-msgstr "Desligando o anjuta corretamente liberando todos os recursos (para depuração)"
+msgstr ""
+"Desligando o anjuta corretamente liberando todos os recursos (para depuração)"
 
 #: src/mainmenu_callbacks.c:545
 msgid "The executable is not up-to-date."
