@@ -31,6 +31,10 @@ libscintilla_a_SOURCES =\
 	LexPython.cxx \
 	LexSQL.cxx \
 	LexVB.cxx \
+	LexCrontab.cxx\
+	LexEiffel.cxx\
+	LexLisp.cxx\
+	LexRuby.cxx\
 	LineMarker.cxx \
 	PlatGTK.cxx \
 	PropSet.cxx \
@@ -38,6 +42,7 @@ libscintilla_a_SOURCES =\
 	ScintillaBase.cxx \
 	ScintillaGTK.cxx \
 	Style.cxx \
+	StyleContext.cxx\
 	UniConversion.cxx \
 	ViewStyle.cxx \
 	WindowAccessor.cxx \
@@ -57,10 +62,5 @@ libscintilla_a_SOURCES =\
 	Style.h \
 	UniConversion.h \
 	ViewStyle.h\
-	LexCrontab.cxx\
-	LexEiffel.cxx\
-	LexLisp.cxx\
-	LexRuby.cxx\
-	StyleContext.h\
-	StyleContext.cxx
+	StyleContext.h
 
