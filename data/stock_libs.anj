@@ -1,34 +1,34 @@
 # This should be the only comment line. Libraries and their descriptions. read README.stock_libs
-BLT
+BLT Additional widgets for the Tk toolkit
 BrokenLocale
 BrokenLocale_p
 Eterm
-Festival
-FlagShip
+Festival Multi-lingual speech synthesis
+FlagShip Database porting system for xBase-based languages
 Fn
-IDL
+IDL Create trees of CORBA Interface Definition Language files
 IIOP
 Im
-ORBit
+ORBit High-performance CORBA object request broker
 ORBitCosNaming
 ORBitutil
-PropList
-apm
+PropList GNUstep-compatible preferences maintenance
+apm Advanced Power Management utilities
 art_lgpl
-audiofile
+audiofile Access to audio file formats such as WAVE and AIFF
 balsasrv
 bfd
 bsd-compat
 bsd
-bz2
+bz2 Bzip2 data compression
 c
 c_nonshared
 c_p
 c_stubs
 capi20
-capplet
+capplet Support for GNOME Control Center capplets
 cfont
-com_err
+com_err Common error display handling
 compface
 console
 crypt
@@ -67,13 +67,20 @@ gimp
 gimpui
 gkb_applet
 glade-gnome
-glade
+glade-gnomemm
+glade Dynamic creation of widgets from *.glade files
 g
 gmodule
 gmp
 gnome
+gnomecanvaspixbuf
+gnomemm
+gnomeole2
+gnomeprint
 gnomesupport
 gnomeui
+gnomevfs
+gnomevfs-pthread
 gnorba
 gnorbagtk
 gpc
@@ -215,5 +222,5 @@ xml
 xmlparse
 xmltok
 xmms
-z
-zvt
+z General-purpose lossless data compression
+zvt Embeddable terminal widget (Zed's Virtual Terminal)
