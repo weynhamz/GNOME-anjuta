@@ -6,6 +6,7 @@
 	do that at this point). Incidentally, something also happens in the
 	atexit call which freezes the UI for far too long when the application
 	exits and we want to avoid that..
+	* src/glade_iface.c: Fixed compiler warning.
 	
 2004-03-06  Naba Kumar  <naba@gnome.org>
 
