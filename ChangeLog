@@ -1,3 +1,8 @@
+2003-01-30  Naba Kumar <naba@gnome.org>
+
+	* data/properties/anjuta.properties: Disabled automatic word
+	autocomplete, because many complaints have about it's annoyance.
+	
 2003-01-16  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
 	* src/search-replace.c: More patches from Jean-Noel.
 
