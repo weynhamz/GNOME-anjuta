@@ -1,5 +1,15 @@
 2003-02-19  Naba Kumar <naba@gnome.org>
 
+	* Makefile.am, src/Makefile.am,
+	(removed) src/anjuta.glade, (removed) src/anjuta.gladep,
+	(removed) src/anjuta_dialog_strings.c,
+	(removed) src/anjuta_dialogs_strings.c,
+	(added) anjuta.gladep, (added) anjuta_dialogs_strings.c,
+	(added) anjuta.glade: Transfered glade files from src/ directory
+	to the top level directory.
+
+	* po/POTFILES.in: Updated.
+	
 	* (removed) macrocs2/*: Transfered to data/ directory.
 	
 	* (added) data/macro/*, (added) data/macros2/*, Makefile.am, configure.in,

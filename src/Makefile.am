@@ -228,8 +228,3 @@ anjuta_LDADD =  \
 	$(top_builddir)/widgets/libwidgets.a\
 	$(top_builddir)/printing/libanjutaprint.a\
 	$(SCILEXERS)
-
-anjuta_glade_filedir = $(prefix)/@NO_PREFIX_PACKAGE_DATA_DIR@/glade
-anjuta_glade_file_DATA = anjuta.glade
-
-EXTRA_DIST = anjuta_dialog_strings.c $(anjuta_glade_file_DATA)

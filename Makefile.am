@@ -20,6 +20,9 @@ anjutadoc_DATA = \
 	TODO\
 	FUTURE
 
+anjuta_glade_filedir = $(prefix)/@NO_PREFIX_PACKAGE_DATA_DIR@/glade
+anjuta_glade_file_DATA = anjuta.glade
+
 EXTRA_DIST = \
 	anjuta.desktop.in.in \
 	anjuta.spec.in \
@@ -29,8 +32,10 @@ EXTRA_DIST = \
 	intltool-extract.in\
 	intltool-merge.in\
 	intltool-update.in\
-	$(anjutadoc_DATA)
-
+	$(anjutadoc_DATA)\
+	$(anjuta_glade_file_DATA)\
+	anjuta_dialog_strings.c
+	
 gnomemenudir = $(prefix)/@NO_PREFIX_PACKAGE_MENU_DIR@/Development
 
 gnomemenu_premerge_file = anjuta.desktop.in
