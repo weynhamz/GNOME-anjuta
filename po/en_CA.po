@@ -8,10 +8,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-22 03:43-0500\n"
-"PO-Revision-Date: 2005-02-22 12:57-0400\n"
+"POT-Creation-Date: 2005-02-23 11:15-0500\n"
+"PO-Revision-Date: 2005-02-23 12:57-0400\n"
 "Last-Translator: Adam Weinberger <adamw@gnome.org>\n"
-"Language-Team: en_CA <adamw@FreeBSD.org>\n"
+"Language-Team: en_CA <adamw@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -20,7 +20,7 @@ msgstr ""
 msgid "Anjuta IDE"
 msgstr "Anjuta IDE"
 
-#: anjuta.desktop.in.in.h:2 src/about.c:97 src/about.c:109 src/main.c:143
+#: anjuta.desktop.in.in.h:2 src/about.c:97 src/about.c:109 src/main.c:140
 #: src/main.cpp:122
 msgid "Integrated Development Environment"
 msgstr "Integrated Development Environment"
@@ -1015,11 +1015,11 @@ msgstr "launcher.c: Failed to set channel encoding!"
 msgid "Cannot execute command: \"%s\""
 msgstr "Cannot execute command: \"%s\""
 
-#: libanjuta/anjuta-plugin.c:184
+#: libanjuta/anjuta-plugin.c:193
 msgid "Anjuta Shell"
 msgstr "Anjuta Shell"
 
-#: libanjuta/anjuta-plugin.c:185
+#: libanjuta/anjuta-plugin.c:194
 msgid "Anjuta shell that will contain the plugin"
 msgstr "Anjuta shell that will contain the plugin"
 
@@ -1143,11 +1143,11 @@ msgstr "Pixbuf Object"
 msgid "The pixbuf to render."
 msgstr "The pixbuf to render."
 
-#: libanjuta/plugins.c:930 plugins/symbol-browser/an_symbol_prefs.c:330
+#: libanjuta/plugins.c:931 plugins/symbol-browser/an_symbol_prefs.c:330
 msgid "Load"
 msgstr "Load"
 
-#: libanjuta/plugins.c:949 libanjuta/plugins.c:1357
+#: libanjuta/plugins.c:950 libanjuta/plugins.c:1472
 msgid "Available Plugins"
 msgstr "Available Plugins"
 
@@ -1824,7 +1824,7 @@ msgstr "Class Builder"
 msgid "Help"
 msgstr "Help"
 
-#: plugins/class-gen/clsGen.c:1369 plugins/patch/patch-plugin.c:107
+#: plugins/class-gen/clsGen.c:1369 plugins/patch/patch-plugin.c:62
 msgid "Cancel"
 msgstr "Cancel"
 
@@ -2367,11 +2367,11 @@ msgstr "Unable to execute: %s."
 msgid "Unable to open the file: %s\n"
 msgstr "Unable to open the file: %s\n"
 
-#: plugins/debug-manager/plugin.c:44
+#: plugins/debug-manager/plugin.c:45
 msgid "Load Target to debug"
 msgstr "Load Target to debug"
 
-#: plugins/debug-manager/plugin.c:56 plugins/file-loader/plugin.c:424
+#: plugins/debug-manager/plugin.c:57 plugins/file-loader/plugin.c:424
 #: plugins/project-manager/project_dbase.c:363
 #: plugins/project-manager/project_dbase_gui.c:153
 #: plugins/project-manager/project_dbase_gui.c:170
@@ -2385,121 +2385,121 @@ msgstr "All files"
 
 #. Action name
 #. Stock icon, if any
-#: plugins/debug-manager/plugin.c:232 plugins/gdb/plugin.c:51
+#: plugins/debug-manager/plugin.c:233 plugins/gdb/plugin.c:51
 msgid "_Debug"
 msgstr "_Debug"
 
 #. Action name
 #. Stock icon, if any
-#: plugins/debug-manager/plugin.c:240
+#: plugins/debug-manager/plugin.c:241
 msgid "_Start Debugger"
 msgstr "_Start Debugger"
 
 #. Display label
 #. short-cut
-#: plugins/debug-manager/plugin.c:242
+#: plugins/debug-manager/plugin.c:243
 msgid "Start the debugging session"
 msgstr "Start the debugging session"
 
 #. Action name
 #. Stock icon, if any
-#: plugins/debug-manager/plugin.c:248
+#: plugins/debug-manager/plugin.c:249
 msgid "Load debugging target ..."
 msgstr "Load debugging target..."
 
 #. Display label
 #. short-cut
-#: plugins/debug-manager/plugin.c:250
+#: plugins/debug-manager/plugin.c:251
 msgid "Open the target for debugging"
 msgstr "Open the target for debugging"
 
 #. Action name
 #. Stock icon, if any
-#: plugins/debug-manager/plugin.c:256
+#: plugins/debug-manager/plugin.c:257
 msgid "_Attach to Process ..."
 msgstr "_Attach to Process..."
 
 #. Display label
 #. short-cut
-#: plugins/debug-manager/plugin.c:258
+#: plugins/debug-manager/plugin.c:259
 msgid "Attach to a running program"
 msgstr "Attach to a running program"
 
 #. Action name
 #. Stock icon, if any
-#: plugins/debug-manager/plugin.c:264
+#: plugins/debug-manager/plugin.c:265
 msgid "_Execution"
 msgstr "_Execution"
 
 #. Action name
 #. Stock icon, if any
-#: plugins/debug-manager/plugin.c:272
+#: plugins/debug-manager/plugin.c:273
 msgid "Run/_Continue"
 msgstr "Run/_Continue"
 
 #. Display label
 #. short-cut
-#: plugins/debug-manager/plugin.c:274
+#: plugins/debug-manager/plugin.c:275
 msgid "Continue the execution of the program"
 msgstr "Continue execution of the program"
 
 #. Action name
 #. Stock icon, if any
-#: plugins/debug-manager/plugin.c:280
+#: plugins/debug-manager/plugin.c:281
 msgid "Step _In"
 msgstr "Step _In"
 
 #. Display label
 #. short-cut
-#: plugins/debug-manager/plugin.c:282
+#: plugins/debug-manager/plugin.c:283
 msgid "Single step into function"
 msgstr "Single step into function"
 
 #. Action name
 #. Stock icon, if any
-#: plugins/debug-manager/plugin.c:288
+#: plugins/debug-manager/plugin.c:289
 msgid "Step O_ver"
 msgstr "Step O_ver"
 
 #. Display label
 #. short-cut
-#: plugins/debug-manager/plugin.c:290
+#: plugins/debug-manager/plugin.c:291
 msgid "Single step over function"
 msgstr "Single step over function"
 
 #. Action name
 #. Stock icon, if any
-#: plugins/debug-manager/plugin.c:296
+#: plugins/debug-manager/plugin.c:297
 msgid "Step _Out"
 msgstr "Step _Out"
 
 #. Display label
 #. short-cut
-#: plugins/debug-manager/plugin.c:298
+#: plugins/debug-manager/plugin.c:299
 msgid "Single step out of the function"
 msgstr "Single step out of the function"
 
 #. Action name
 #. Stock icon, if any
-#: plugins/debug-manager/plugin.c:304
+#: plugins/debug-manager/plugin.c:305
 msgid "_Run to cursor"
 msgstr "_Run to cursor"
 
 #. Display label
 #. short-cut
-#: plugins/debug-manager/plugin.c:306
+#: plugins/debug-manager/plugin.c:307
 msgid "Run to the cursor"
 msgstr "Run to the cursor"
 
-#: plugins/debug-manager/plugin.c:312
+#: plugins/debug-manager/plugin.c:313
 msgid "St_op Debugger"
 msgstr "St_op Debugger"
 
-#: plugins/debug-manager/plugin.c:314
+#: plugins/debug-manager/plugin.c:315
 msgid "Say goodbye to the debugger"
 msgstr "Say goodbye to the debugger"
 
-#: plugins/debug-manager/plugin.c:442
+#: plugins/debug-manager/plugin.c:443
 msgid "Debugger operations"
 msgstr "Debugger operations"
 
@@ -4707,16 +4707,16 @@ msgstr "Lesser General Public Licence (LGPL)"
 msgid "Unable to build user interface for New File"
 msgstr "Unable to build user interface for New File"
 
-#: plugins/file-wizard/file.c:460
+#: plugins/file-wizard/file.c:442
 #, c-format
 msgid "The file \"%s\" is not a header file."
 msgstr "The file \"%s\" is not a header file."
 
-#: plugins/file-wizard/file.c:554
+#: plugins/file-wizard/file.c:536
 msgid "%Y"
 msgstr "%Y"
 
-#: plugins/file-wizard/file.c:573
+#: plugins/file-wizard/file.c:555
 msgid "%Y-%m-%d"
 msgstr "%Y-%m-%d"
 
@@ -6588,27 +6588,27 @@ msgstr "Name: "
 msgid "Shortcut:"
 msgstr "Shortcut:"
 
-#: plugins/macro/macro-actions.c:40
+#: plugins/macro/macro-actions.c:116
 msgid "Press macro shortcut ..."
 msgstr "Press macro shortcut..."
 
-#: plugins/macro/macro-actions.c:47
+#: plugins/macro/macro-actions.c:123
 msgid "Press shortcut"
 msgstr "Press shortcut"
 
-#: plugins/macro/macro-db.c:100
+#: plugins/macro/macro-db.c:241
 msgid "Anjuta macros"
 msgstr "Anjuta macros"
 
-#: plugins/macro/macro-db.c:104
+#: plugins/macro/macro-db.c:245
 msgid "My macros"
 msgstr "My macros"
 
-#: plugins/macro/macro-dialog.c:93
+#: plugins/macro/macro-dialog.c:253
 msgid "Insert macro"
 msgstr "Insert macro"
 
-#: plugins/macro/macro-edit.c:91
+#: plugins/macro/macro-edit.c:195
 msgid "Add/Edit macro"
 msgstr "Add/Edit macro"
 
@@ -6629,58 +6629,66 @@ msgid "C"
 msgstr "C"
 
 #: plugins/macro/macros.xml.h:6
+msgid "EXPAND"
+msgstr "EXPAND"
+
+#: plugins/macro/macros.xml.h:7
+msgid "Expand_Test"
+msgstr "Expand_Test"
+
+#: plugins/macro/macros.xml.h:8
 msgid "Licenses"
 msgstr "Licences"
 
-#: plugins/macro/macros.xml.h:7
+#: plugins/macro/macros.xml.h:9
 msgid "azerty"
 msgstr "azerty"
 
-#: plugins/macro/macros.xml.h:8
+#: plugins/macro/macros.xml.h:10
 msgid "cvs_author"
 msgstr "cvs_author"
 
-#: plugins/macro/macros.xml.h:9
+#: plugins/macro/macros.xml.h:11
 msgid "cvs_date"
 msgstr "cvs_date"
 
-#: plugins/macro/macros.xml.h:10
+#: plugins/macro/macros.xml.h:12
 msgid "cvs_header"
 msgstr "cvs_header"
 
-#: plugins/macro/macros.xml.h:11
+#: plugins/macro/macros.xml.h:13
 msgid "cvs_id"
 msgstr "cvs_id"
 
-#: plugins/macro/macros.xml.h:12
+#: plugins/macro/macros.xml.h:14
 msgid "cvs_log"
 msgstr "cvs_log"
 
-#: plugins/macro/macros.xml.h:13
+#: plugins/macro/macros.xml.h:15
 msgid "cvs_name"
 msgstr "cvs_name"
 
-#: plugins/macro/macros.xml.h:14
+#: plugins/macro/macros.xml.h:16
 msgid "cvs_revision"
 msgstr "cvs_revision"
 
-#: plugins/macro/macros.xml.h:15
+#: plugins/macro/macros.xml.h:17
 msgid "cvs_source"
 msgstr "cvs_source"
 
-#: plugins/macro/macros.xml.h:16
+#: plugins/macro/macros.xml.h:18
 msgid "for"
 msgstr "for"
 
-#: plugins/macro/macros.xml.h:17
+#: plugins/macro/macros.xml.h:19
 msgid "if...else"
 msgstr "if...else"
 
-#: plugins/macro/macros.xml.h:18
+#: plugins/macro/macros.xml.h:20
 msgid "switch"
 msgstr "switch"
 
-#: plugins/macro/macros.xml.h:19
+#: plugins/macro/macros.xml.h:21
 msgid "while"
 msgstr "while"
 
@@ -6826,64 +6834,52 @@ msgstr "Previous message"
 msgid "Next/Prev Message"
 msgstr "Next/Prev Message"
 
-#: plugins/patch/patch-plugin.c:64
-msgid "Interface to patch Projects or individual files"
-msgstr "Interface to patch Projects or individual files"
-
-#: plugins/patch/patch-plugin.c:100
+#: plugins/patch/patch-plugin.c:52
 msgid "File/Dir to patch"
 msgstr "File/Dir to patch"
 
-#: plugins/patch/patch-plugin.c:101
+#: plugins/patch/patch-plugin.c:53
 msgid "Patch file"
 msgstr "Patch file"
 
-#: plugins/patch/patch-plugin.c:102
+#: plugins/patch/patch-plugin.c:54
 msgid "Patch level (-p)"
 msgstr "Patch level (-p)"
 
-#: plugins/patch/patch-plugin.c:107
+#: plugins/patch/patch-plugin.c:62
 msgid "Patch Plugin"
 msgstr "Patch Plugin"
 
-#: plugins/patch/patch-plugin.c:107
+#: plugins/patch/patch-plugin.c:62 plugins/patch/patch-plugin.c:119
 msgid "Patch"
 msgstr "Patch"
 
-#: plugins/patch/patch-plugin.c:110
+#: plugins/patch/patch-plugin.c:64
 msgid "Selected directory to patch"
 msgstr "Selected directory to patch"
 
-#: plugins/patch/patch-plugin.c:112
+#: plugins/patch/patch-plugin.c:66
 msgid "Selected patch file"
 msgstr "Selected patch file"
 
-#: plugins/patch/patch-plugin.c:148
-msgid "Patch plugin"
-msgstr "Patch plugin"
-
-#: plugins/patch/patch-plugin.c:154
-msgid "The patch plugin"
-msgstr "The patch plugin"
-
-#: plugins/patch/patch-plugin.c:172
+#: plugins/patch/patch-plugin.c:132
 msgid "Please select the directory where the patch should be applied"
 msgstr "Please select the directory where the patch should be applied"
 
-#: plugins/patch/patch-plugin.c:179
+#: plugins/patch/patch-plugin.c:139
 #, c-format
 msgid "Patching %s using %s\n"
 msgstr "Patching %s using %s\n"
 
-#: plugins/patch/patch-plugin.c:185
+#: plugins/patch/patch-plugin.c:148
 msgid "Patching...\n"
 msgstr "Patching...\n"
 
-#: plugins/patch/patch-plugin.c:195
+#: plugins/patch/patch-plugin.c:158
 msgid "There are unfinished jobs, please wait until they are finished"
 msgstr "There are unfinished jobs, please wait until they are finished"
 
-#: plugins/patch/patch-plugin.c:226
+#: plugins/patch/patch-plugin.c:204
 msgid ""
 "Patch failed.\n"
 "Please review the failure messages.\n"
@@ -6893,7 +6889,7 @@ msgstr ""
 "Please review the failure messages.\n"
 "Examine and remove any rejected files.\n"
 
-#: plugins/patch/patch-plugin.c:233
+#: plugins/patch/patch-plugin.c:211
 msgid "Patch successful.\n"
 msgstr "Patch successful.\n"
 
@@ -7908,7 +7904,7 @@ msgstr ""
 "Unable to display help. Please make sure Anjuta documentation package is "
 "install. It can be downloaded from http://anjuta.org"
 
-#: src/anjuta.c:86 src/anjuta_cbs.c:93
+#: src/anjuta.c:115 src/anjuta_cbs.c:93
 msgid ""
 "One or more files are not saved.\n"
 "Do you still want to exit?"
