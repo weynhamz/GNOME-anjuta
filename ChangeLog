@@ -1,3 +1,15 @@
+2003-09-11  Naba Kumar  <naba@gnome.org>
+
+	Patch from: Jean-Noel Guiheneuf  <jnoel@saudionline.com.sa>
+	* src/style-editor.c: Fixed bug #769130 (Crash on font
+	selection dialog).
+	
+	* src/message-manger.[h,cc]: Made AnMessageManager
+	derived from GtkWidget
+	
+	* src/breakpoints.c, src/search-replace.c, src/source.c: Fixed
+	compiler warnings.
+	
 2003-09-09  Naba Kumar  <naba@gnome.org>
 
 	* src/Makefile.am: Addded rules for built sources.

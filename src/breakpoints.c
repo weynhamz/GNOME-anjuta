@@ -1625,9 +1625,9 @@ breakpoints_dbase_toggle_breakpoint (BreakpointsDBase *bd, guint l)
 	gchar *buff;
 	TextEditor* te;
 
-	g_return_if_fail (bd != NULL);
+	g_return_val_if_fail (bd != NULL, FALSE);
 	te = anjuta_get_current_text_editor ();
-	g_return_if_fail (te != NULL);
+	g_return_val_if_fail (te != NULL, FALSE);
 	
 	if (debugger_is_active() == FALSE) return FALSE;
 	if (debugger_is_ready() == FALSE) return FALSE;

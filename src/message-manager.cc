@@ -53,7 +53,7 @@ static char *labels[] =
 };
 
 // Intern functions
-static void an_message_manager_destroy (GtkObject * object);
+static void an_message_manager_finalize (GObject * object);
 static void an_message_manager_class_init (AnMessageManagerClass *
 					       klass);
 static void an_message_manager_init (GtkObject * obj);
@@ -70,7 +70,7 @@ on_popup_clicked (GtkWidget* widget, GdkEvent * event,
 	AnMessageManagerPrivate* intern);
 // Intern functions:
 
-GtkFrameClass *parent_class;
+GtkWidgetClass *parent_class;
 
 GtkWidget *
 an_message_manager_new ()
@@ -100,7 +100,7 @@ an_message_manager_get_type (void)
 			(GInstanceInitFunc) an_message_manager_init,
 			NULL            /* value_table */
 		};
-		type = g_type_register_static (GTK_TYPE_FRAME,
+		type = g_type_register_static (GTK_TYPE_WIDGET,
 									   "AnMessageManager",
 									   &info, (GTypeFlags)0);
 	}
@@ -110,11 +110,11 @@ an_message_manager_get_type (void)
 static void
 an_message_manager_class_init (AnMessageManagerClass * klass)
 {
-	GtkObjectClass *object_class =
-		reinterpret_cast < GtkObjectClass * >(klass);
+	GObjectClass *object_class =
+		reinterpret_cast < GObjectClass * >(klass);
 
-	parent_class = reinterpret_cast < GtkFrameClass * >(klass);
-	object_class->destroy = an_message_manager_destroy;
+	parent_class = reinterpret_cast < GtkWidgetClass * >(klass);
+	object_class->finalize = an_message_manager_finalize;
 }
 
 static void
@@ -175,7 +175,7 @@ an_message_manager_init (GtkObject * obj)
 }
 
 static void
-an_message_manager_destroy (GtkObject * obj)
+an_message_manager_finalize (GObject * obj)
 {
 	AnMessageManager *amm = AN_MESSAGE_MANAGER (obj);
 	typedef vector < MessageSubwindow * >::iterator I;
@@ -184,7 +184,7 @@ an_message_manager_destroy (GtkObject * obj)
 	{
 		delete *cur_win;
 	}
-	GTK_OBJECT_CLASS (parent_class)->destroy (obj);
+	G_OBJECT_CLASS (parent_class)->finalize (obj);
 }
 
 // Public:

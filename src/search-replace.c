@@ -1407,7 +1407,7 @@ on_search_replace_delete_event(GtkWidget *window, GdkEvent *event,
 	return TRUE;
 }
 
-static void
+void
 on_search_match_whole_word_toggled (GtkToggleButton *togglebutton, 
 									gpointer user_data)
 {
@@ -1429,7 +1429,7 @@ on_search_match_whole_word_toggled (GtkToggleButton *togglebutton,
 	                   on_search_match_word_start_toggled, NULL);
 }
 
-static void
+void
 on_search_match_whole_line_toggled (GtkToggleButton *togglebutton, 
 									gpointer user_data)
 {
@@ -1451,7 +1451,7 @@ on_search_match_whole_line_toggled (GtkToggleButton *togglebutton,
 	                   on_search_match_whole_word_toggled, NULL);
 }
 
-static void
+void
 on_search_match_word_start_toggled (GtkToggleButton *togglebutton, 
 									gpointer user_data)
 {

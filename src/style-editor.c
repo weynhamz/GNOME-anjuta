@@ -98,8 +98,10 @@ style_data_get_string (StyleData * sdata)
 {
 	gchar *tmp, *str;
 
+	g_return_if_fail (sdata);
+	
 	str = NULL;
-	if (strlen (sdata->font) && sdata->font_use_default == FALSE)
+	if ((sdata->font) && strlen (sdata->font) && sdata->font_use_default == FALSE)
 	{
 		str = g_strconcat ("font:", sdata->font, NULL);
 	}
@@ -245,6 +247,8 @@ style_data_set_font (StyleData * sdata, const gchar *font)
 	PangoFontDescription *desc;
 	const gchar *font_family;
 	
+	g_return_if_fail (sdata);
+	
 	desc = pango_font_description_from_string (font);
 	font_family = pango_font_description_get_family(desc);
 	string_assign (&sdata->font, font_family);
@@ -267,6 +271,8 @@ style_data_set_font_size_from_pango (StyleData * sdata, const gchar *font)
 {
 	PangoFontDescription *desc;
 	
+	g_return_if_fail (sdata);
+	
 	desc = pango_font_description_from_string (font);
 	sdata->size = pango_font_description_get_size (desc) / PANGO_SCALE;
 	pango_font_description_free (desc);
@@ -275,18 +281,21 @@ style_data_set_font_size_from_pango (StyleData * sdata, const gchar *font)
 static void
 style_data_set_fore (StyleData * sdata, const gchar *fore)
 {
+	g_return_if_fail (sdata);	
 	string_assign (&sdata->fore, fore);
 }
 
 static void
 style_data_set_back (StyleData * sdata, const gchar *back)
 {
+	g_return_if_fail (sdata);	
 	string_assign (&sdata->back, back);
 }
 
 static void
 style_data_set_item (StyleData * sdata, const gchar *item)
 {
+	g_return_if_fail (sdata);
 	string_assign (&sdata->item, item);
 }
 
@@ -416,6 +425,7 @@ on_use_default_font_toggled (GtkToggleButton * tb, gpointer data)
 	gchar* font_name;
 	gboolean state;
 
+	g_return_if_fail (data);
 	p = data;
 
 	gtk_widget_set_sensitive (p->priv->font_picker, TRUE);
@@ -453,6 +463,7 @@ on_use_default_attrib_toggled (GtkToggleButton * tb, gpointer data)
 {
 	StyleEditor *p;
 
+	g_return_if_fail (data);
 	p = data;
 	gtk_widget_set_sensitive (p->priv->font_bold_check, TRUE);
 	gtk_widget_set_sensitive (p->priv->font_italics_check, TRUE);
@@ -496,6 +507,7 @@ on_use_default_fore_toggled (GtkToggleButton * tb, gpointer data)
 	StyleEditor *p;
 	guint8 r, g, b;
 
+	g_return_if_fail (data);
 	p = data;
 
 	gtk_widget_set_sensitive (p->priv->fore_colorpicker, TRUE);
@@ -522,6 +534,7 @@ on_use_default_back_toggled (GtkToggleButton * tb, gpointer data)
 	StyleEditor *p;
 	guint8 r, g, b;
 
+	g_return_if_fail (data);
 	p = data;
 	gtk_widget_set_sensitive (p->priv->back_colorpicker, TRUE);
 	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (tb)))
@@ -547,6 +560,7 @@ on_hilite_style_entry_changed (GtkEditable * editable, gpointer user_data)
 	StyleEditor *p;
 	const gchar *style_item;
 
+	g_return_if_fail (user_data);
 	p = user_data;
 
 	style_item = gtk_entry_get_text (GTK_ENTRY (editable));
@@ -649,6 +663,7 @@ sync_from_props (StyleEditor *se)
 	gchar *str;
 	guint8 r, g, b;
 	
+	g_return_if_fail (se);
 	/* Never hurts to use g_object_*_data as temp hash buffer */
 	for (i = 0;; i += 2)
 	{
@@ -740,6 +755,7 @@ sync_to_props (StyleEditor *se)
 	gchar *str;
 	guint8 r, g, b, a;
 
+	g_return_if_fail (se);
 	/* Sync the current item */	
 	on_hilite_style_entry_changed (GTK_EDITABLE (GTK_COMBO
 					(se->priv->hilite_item_combo)->entry), se);
@@ -802,6 +818,8 @@ sync_to_props (StyleEditor *se)
 static void
 on_response (GtkWidget *dialog, gint res, StyleEditor *se)
 {
+	g_return_if_fail (se);
+	
 	switch (res)
 	{
 	case GTK_RESPONSE_APPLY:
@@ -820,6 +838,7 @@ on_response (GtkWidget *dialog, gint res, StyleEditor *se)
 static void
 on_delete_event (GtkWidget *dialog, GdkEvent *event, StyleEditor *se)
 {
+	g_return_if_fail (se);
 	style_editor_hide (se);
 }
 

@@ -1625,7 +1625,7 @@ source_write_glade2_file (ProjectDBase * data)
 {
 	FILE *fp;
 	gchar *filename, *target, *prj_name;
-	gchar *prj, *pix, *src;
+	gchar *pix, *src;
 	ProjectType* type;
 	gint lang;
 	gboolean bOK = TRUE ;

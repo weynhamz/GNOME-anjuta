@@ -14,11 +14,10 @@
 
     You should have received a copy of the GNU General Public License
     along with this program; if not, write to the Free Software
-    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+    Foundation, Inc., 59 Temple Place, Suiate 330, Boston, MA  02111-1307  USA
 */
 
 #include <gtk/gtk.h>
-#include <gnome.h>
 
 #include "preferences.h"
 
@@ -57,14 +56,14 @@ typedef struct _AnMessageManagerPrivate AnMessageManagerPrivate;
 
 struct _AnMessageManager
 {
-	GtkFrame parent;
+	GtkWidget parent;
 	
 	AnMessageManagerPrivate* intern;
 };
 
 struct _AnMessageManagerClass
 {
-	GtkFrameClass parent_class;
+	GtkWidgetClass parent_class;
 };
 
 // Public functions
