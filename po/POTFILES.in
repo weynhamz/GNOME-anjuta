@@ -29,8 +29,8 @@ plugins/build/configurer.c
 plugins/build/executer.c
 plugins/build-basic-autotools/build-basic-autotools.c
 plugins/class-gen/action-callbacks.c
+plugins/class-gen/anjuta-class-gen-plugin.glade
 plugins/class-gen/class_gen.c
-plugins/class-gen/clsGen.c
 plugins/class-gen/plugin.c
 plugins/cvs-plugin/anjuta-cvs-plugin.glade
 plugins/cvs-plugin/cvs-actions.c
@@ -99,6 +99,7 @@ plugins/macro/macro-actions.c
 plugins/macro/macro-db.c
 plugins/macro/macro-dialog.c
 plugins/macro/macro-edit.c
+plugins/macro/macro-util.c
 plugins/macro/macros.xml
 plugins/macro/plugin.c
 plugins/message-view/anjuta-message-manager-plugin.glade
@@ -106,6 +107,7 @@ plugins/message-view/message-view.c
 plugins/message-view/plugin.c
 plugins/patch/patch-plugin.c
 plugins/patch/plugin.c
+plugins/profile-default/plugin.c
 plugins/project-manager/plugin.c
 plugins/project-manager/project_dbase.c
 plugins/project-manager/project_dbase_gui.c
@@ -120,6 +122,11 @@ plugins/project-wizard/install.c
 plugins/project-wizard/plugin.c
 plugins/project-wizard/property.c
 plugins/sample1/plugin.c
+plugins/subversion/anjuta-subversion.glade
+plugins/subversion/plugin.c
+plugins/subversion/subversion-callbacks.c
+plugins/subversion/svn-notify.c
+plugins/subversion/svn-thread.c
 plugins/symbol-browser/an_symbol_info.c
 plugins/symbol-browser/an_symbol_prefs.c
 plugins/symbol-browser/an_symbol_search.c
