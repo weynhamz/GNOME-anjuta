@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta IDE\n"
 "POT-Creation-Date: 2001-07-25 23:09+0400\n"
-"PO-Revision-Date: 2001-08-10 15:46+0400\n"
+"PO-Revision-Date: 2001-09-29 20:43+0400\n"
 "Last-Translator: Valek Filippov <frob@df.ru>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -181,11 +181,11 @@ msgstr "Тип проекта:    "
 
 #: src/appwizard_cbs.c:256
 msgid "Target Type:     "
-msgstr ""
+msgstr "Тип цели:       "
 
 #: src/appwizard_cbs.c:257
 msgid "Source Target:   "
-msgstr ""
+msgstr "Источник цели:  "
 
 #: src/appwizard_cbs.c:258
 msgid "Version:         "
@@ -247,7 +247,7 @@ msgstr ""
 
 #: src/attach_process_gui.c:80
 msgid "Pid"
-msgstr ""
+msgstr "Pid"
 
 #: src/attach_process_gui.c:84
 msgid "Owner"
@@ -275,7 +275,7 @@ msgstr "Подключить"
 
 #: src/breakpoints.c:319
 msgid "Old breakpoints disabled."
-msgstr ""
+msgstr "Старые точки останова отключены."
 
 #: src/breakpoints.c:473 src/breakpoints_cbs.c:131
 msgid "YES"
@@ -295,7 +295,7 @@ msgstr "Вы уверены, в том что хотите удалить все точки останова?"
 
 #: src/breakpoints_cbs.c:276
 msgid "You must give a valid location to set the breakpoint."
-msgstr ""
+msgstr "Вы должны задать допустимое место для установки точки останова."
 
 #: src/breakpoints_gui.c:62
 msgid "Anjuta: Breakpoints"
@@ -382,11 +382,11 @@ msgstr "Файл не сохранён. Сохраните его и соберите."
 
 #: src/build_file.c:76
 msgid "The executable is up-to-date. No need to build again."
-msgstr ""
+msgstr "Для исполняемых файлов не требуется пересборка."
 
 #: src/build_file.c:92
 msgid "I do not really know how to build this file."
-msgstr ""
+msgstr "Неизвестно как собрать этот файл."
 
 #: src/build_file.c:107 src/messages.c:533 src/preferences_gui.c:169
 #: src/text_editor_gui.c:245 src/toolbar.c:477
@@ -436,7 +436,7 @@ msgstr ""
 
 #: src/build_project.c:114
 msgid "Unable to build project. Check Preferences->Commands."
-msgstr ""
+msgstr "Не удалось собрать проект. Проверьте \"Настройки->Команды\"."
 
 #: src/build_project.c:129
 msgid "Building the whole project: "
@@ -488,11 +488,11 @@ msgstr "Сборка прекращена с ошибкой."
 
 #: src/build_project.c:316
 msgid "Build completed...............Successful\n"
-msgstr ""
+msgstr "Сборка завершена..................Успешно\n"
 
 #: src/build_project.c:318
 msgid "Build completed ... successful."
-msgstr ""
+msgstr "Сборка завершена.............успешно."
 
 #: src/build_project.c:338
 msgid "Build all completed...............Unsuccessful\n"
@@ -541,11 +541,11 @@ msgstr ""
 
 #: src/build_project.c:416
 msgid "Install completed...............Successful\n"
-msgstr ""
+msgstr "Установка завершена............Успешно\n"
 
 #: src/build_project.c:418
 msgid "Install completed ... successful"
-msgstr ""
+msgstr "Установка завешена ... успешно"
 
 #: src/build_project.c:439
 msgid "Autogenaration completed...............Unsuccessful\n"
@@ -696,7 +696,7 @@ msgstr ""
 
 #: src/compile.c:128 src/compile.c:131
 msgid "Compile completed ... successful"
-msgstr ""
+msgstr "Компиляция завершена ... успешно"
 
 #: src/compiler_options_cbs.c:232
 #, c-format
@@ -770,13 +770,13 @@ msgstr ""
 
 #: src/compiler_options_cbs.c:270
 msgid "    Not Installed.\n"
-msgstr ""
+msgstr "    Не установлено.\n"
 
 #: src/compiler_options_cbs.c:330 src/compiler_options_cbs.c:393
 #: src/compiler_options_cbs.c:457 src/compiler_options_cbs.c:516
 #: src/src_paths_cbs.c:135
 msgid "Are you sure you want to clear the list?"
-msgstr ""
+msgstr "Вы уверены, в том что хотите очистить список?"
 
 #: src/compiler_options_gui.c:65
 msgid "Compiler Options"
@@ -1068,7 +1068,7 @@ msgstr ""
 
 #: src/debugger.c:564
 msgid "There was an error while launching Debugger!!\n"
-msgstr ""
+msgstr "При запуске отладчика возникла ошибка!\n"
 
 #: src/debugger.c:568
 msgid "Make sure you have 'gdb' installed in your box.\n"
@@ -1082,6 +1082,7 @@ msgstr "Ошибка: "
 msgid "Debugger is ready.\n"
 msgstr "Отладчик готов.\n"
 
+# Заполнить страницу
 #: src/debugger.c:816
 msgid ""
 "\n"
@@ -1091,11 +1092,11 @@ msgstr ""
 
 #: src/debugger.c:941
 msgid "Cannot execute gnome-terminal"
-msgstr ""
+msgstr "Невозможно выполнить gnome-terminal"
 
 #: src/debugger.c:976
 msgid "Error: Cannot start terminal for debugging."
-msgstr ""
+msgstr "Ошибка: Невозможно запустить терминал для отладки."
 
 #: src/debugger.c:1013
 msgid "Warning: No debug terminal. Redirecting stdio to /dev/null.\n"
@@ -1108,7 +1109,7 @@ msgstr "Запуск программы ...\n"
 #: src/debugger.c:1114
 #, c-format
 msgid "Attaching to process: %d\n"
-msgstr ""
+msgstr "Подключение к процессу: %d\n"
 
 #: src/debugger.c:1137
 msgid ""
@@ -1118,34 +1119,34 @@ msgstr ""
 
 #: src/debugger.c:1145
 msgid "You FOOL! I can not attach to myself."
-msgstr ""
+msgstr "Невозможно подключиться к самому себе."
 
 #: src/debugger.c:1213
 #, c-format
 msgid "Detaching the process: %d\n"
-msgstr ""
+msgstr "Отключение от процесса: %d\n"
 
 #: src/debugger.c:1424
 msgid "All breakpoints enabled:\n"
-msgstr ""
+msgstr "Все точки останова включены:\n"
 
 #: src/debugger.c:1456
 msgid "All breakpoints disabled:\n"
-msgstr ""
+msgstr "Все точки останова отключены:\n"
 
 #: src/debugger.c:1488
 msgid "All breakpoints deleted:\n"
-msgstr ""
+msgstr "Все точки останова удалены:\n"
 
 #: src/debugger.c:1511
 #, c-format
 msgid "Interrupting the process: %d\n"
-msgstr ""
+msgstr "Прерывание процесса: %d\n"
 
 #: src/debugger.c:1535
 #, c-format
 msgid "Sending signal %s to the process: %d\n"
-msgstr ""
+msgstr "Отправка сигнала %s процессу: %d\n"
 
 #: src/debugger.c:1565
 msgid "There was some error while signaling the process."
@@ -1157,7 +1158,7 @@ msgstr "Выполнить"
 
 #: src/executer.c:98
 msgid "Command arguments (if any)"
-msgstr ""
+msgstr "Аргументы команды (если есть)"
 
 #: src/executer.c:111
 msgid "Run in Terminal"
@@ -1177,7 +1178,7 @@ msgstr ""
 
 #: src/executer.c:215
 msgid "No file or project opened."
-msgstr ""
+msgstr "Файл или проект не открыт."
 
 #: src/executer.c:220 src/executer.c:239 src/mainmenu_callbacks.c:1448
 #: src/mainmenu_callbacks.c:1459
@@ -1194,11 +1195,11 @@ msgstr ""
 
 #: src/executer.c:270
 msgid "This file is not saved. Save it first."
-msgstr ""
+msgstr "Этот файл не сохранён. Сначала сохраните его."
 
 #: src/executer.c:278
 msgid "Unable to execute file. Check Settings->Commands."
-msgstr ""
+msgstr "Невозможно выполнить файл. Проверьте \"Установки->Команды\"."
 
 #: src/find_in_files.c:161
 msgid "Find in files"
@@ -1218,11 +1219,11 @@ msgstr ""
 
 #: src/find_in_files.c:193
 msgid "Find in Files completed...............Successful\n"
-msgstr ""
+msgstr "Поиск в файлах завершён ... Успешно\n"
 
 #: src/find_in_files.c:195
 msgid "Find in Files completed ... successful"
-msgstr ""
+msgstr "Поиск в файлах завершён ... успешно"
 
 #: src/find_in_files_cbs.c:87
 msgid ""
@@ -1242,11 +1243,11 @@ msgstr "Поиск в файлах"
 
 #: src/find_in_files_gui.c:87
 msgid "File/Directory to add:"
-msgstr ""
+msgstr "Добавляемый файл/каталог:"
 
 #: src/find_in_files_gui.c:118
 msgid "List of Files/Directories to be searched"
-msgstr ""
+msgstr "Список файлов/каталогов, в которых будет производиться поиск"
 
 #: src/find_in_files_gui.c:147
 msgid "Case Sensitive"
@@ -1439,19 +1440,19 @@ msgstr ""
 
 #: src/main.c:44
 msgid "Don't show the splashscreen"
-msgstr ""
+msgstr "Не показывать экран-заставку"
 
 #: src/main_menubar.c:388
 msgid "Recent Files    "
-msgstr ""
+msgstr "Недавно использованные файлы "
 
 #: src/main_menubar.c:399 src/project_dbase.c:1659
 msgid "Recent Projects "
-msgstr ""
+msgstr "Недавно использованные проекты"
 
 #: src/main_menubar.c:418
 msgid "You have a project opened. Close it first."
-msgstr ""
+msgstr "У вас открыт проект. Сначала закройте его."
 
 #: src/main_menubar_def.h:27
 msgid "project1"
@@ -1599,7 +1600,7 @@ msgstr "Преобразовать символы EOL в LF"
 
 #: src/main_menubar_def.h:156
 msgid "Convert End Of Line characters to UNIX EOL (line feed: LF)"
-msgstr ""
+msgstr "Преобразовать символы конца строки в стандарт UNIX (перенос строки: LF)"
 
 #: src/main_menubar_def.h:165
 msgid "_Select All"
@@ -1611,11 +1612,11 @@ msgstr "Выделить весь текст в редакторе"
 
 #: src/main_menubar_def.h:171
 msgid "Select to _Brace"
-msgstr ""
+msgstr "Выделить до скобки"
 
 #: src/main_menubar_def.h:172
 msgid "Select the text in the matching braces"
-msgstr ""
+msgstr "Выделить текст в парных скобках"
 
 #: src/main_menubar_def.h:177
 msgid "Select Code Block"
@@ -1855,11 +1856,11 @@ msgstr ""
 
 #: src/main_menubar_def.h:411
 msgid "_Indentation guides"
-msgstr ""
+msgstr "Направляющие выравнивания"
 
 #: src/main_menubar_def.h:412
 msgid "Show/Hide Indentation guides"
-msgstr ""
+msgstr "Показать/Скрыть направляющие выравнивания"
 
 #: src/main_menubar_def.h:417
 msgid "_White spaces"
@@ -2023,7 +2024,7 @@ msgstr "Стэк программы"
 
 #: src/main_menubar_def.h:563
 msgid "Show stack trace of the program"
-msgstr ""
+msgstr "Показать трассировку стека программы"
 
 #: src/main_menubar_def.h:568
 msgid "Shared _Libraries"
@@ -2059,7 +2060,7 @@ msgstr "Показать консоль, в которой запущена программа"
 
 #: src/main_menubar_def.h:597 src/project_dbase_gui.c:336
 msgid "Include file"
-msgstr ""
+msgstr "Файлы заголовков"
 
 #: src/main_menubar_def.h:603 src/project_dbase_gui.c:342
 msgid "Source file"
@@ -2131,15 +2132,15 @@ msgstr "Автоматически"
 
 #: src/main_menubar_def.h:705
 msgid "Automatically determine the highlight style"
-msgstr ""
+msgstr "Автомагически определять стиль подстветки"
 
 #: src/main_menubar_def.h:710
 msgid "No Highlight style"
-msgstr ""
+msgstr "Без стиля подсветки"
 
 #: src/main_menubar_def.h:711
 msgid "Force the highlight style to None"
-msgstr ""
+msgstr "Принудительно отключить подстветку"
 
 #: src/main_menubar_def.h:716
 msgid "C and C++"
@@ -2147,7 +2148,7 @@ msgstr "C и С++"
 
 #: src/main_menubar_def.h:717
 msgid "Force the highlight style to C and C++"
-msgstr ""
+msgstr "Принудительное подсвечивание стиля C и C++"
 
 #: src/main_menubar_def.h:722
 msgid "C and C++ with GNOME"
@@ -2335,7 +2336,7 @@ msgstr ""
 
 #: src/main_menubar_def.h:866
 msgid "Force _Highlight Style"
-msgstr ""
+msgstr "Принудительный стиль подсветки"
 
 #: src/main_menubar_def.h:873
 msgid "_Close All Folds"
@@ -2499,43 +2500,43 @@ msgstr "Продолжить выполнение программы"
 
 #: src/main_menubar_def.h:1033
 msgid "Step _In"
-msgstr ""
+msgstr "Шаг в"
 
 #: src/main_menubar_def.h:1034
 msgid "Single step into functions"
-msgstr ""
+msgstr "Один шаг в функции"
 
 #: src/main_menubar_def.h:1039
 msgid "Step O_ver"
-msgstr ""
+msgstr "Шаг через"
 
 #: src/main_menubar_def.h:1040
 msgid "Single step over functions"
-msgstr ""
+msgstr "Один шаг через функции"
 
 #: src/main_menubar_def.h:1045
 msgid "Step _Out"
-msgstr ""
+msgstr "Шаг из"
 
 #: src/main_menubar_def.h:1046
 msgid "Single step out of the functions"
-msgstr ""
+msgstr "Один шаг из функции"
 
 #: src/main_menubar_def.h:1051
 msgid "_Run to cursor"
-msgstr ""
+msgstr "Запуск до курсора"
 
 #: src/main_menubar_def.h:1052
 msgid "Run to the cursor"
-msgstr ""
+msgstr "Запустить до курсора"
 
 #: src/main_menubar_def.h:1061 src/text_editor_menu.c:96
 msgid "Toggle breakpoint"
-msgstr ""
+msgstr "Переключить точку останова"
 
 #: src/main_menubar_def.h:1062
 msgid "Toggle breakpoint at the current location"
-msgstr ""
+msgstr "Переключить точку останова в текущей позиции"
 
 #: src/main_menubar_def.h:1067
 msgid "Set Breakpoint ..."
@@ -2583,7 +2584,7 @@ msgstr "Информация о программе"
 
 #: src/main_menubar_def.h:1103
 msgid "Get the information about the execution status of the program"
-msgstr ""
+msgstr "Получить информацию о состоянии выполнения программы"
 
 #: src/main_menubar_def.h:1108
 msgid "Info _Kernel User Struct"
@@ -2603,19 +2604,19 @@ msgstr ""
 
 #: src/main_menubar_def.h:1120
 msgid "Info _Global variables"
-msgstr ""
+msgstr "Информация о глобальных переменных"
 
 #: src/main_menubar_def.h:1121
 msgid "All the global and static variables of the program"
-msgstr ""
+msgstr "Все глобальные и статические переменные программы"
 
 #: src/main_menubar_def.h:1126
 msgid "Info _Local variables"
-msgstr ""
+msgstr "Информация о локальных переменных"
 
 #: src/main_menubar_def.h:1127
 msgid "All the local variables of the current frame"
-msgstr ""
+msgstr "Все локальные переменные текущего кадра"
 
 #: src/main_menubar_def.h:1132
 msgid "Info _Current Frame"
@@ -2627,11 +2628,11 @@ msgstr ""
 
 #: src/main_menubar_def.h:1138
 msgid "Info Function _Arguments"
-msgstr ""
+msgstr "Информация об аргументах функции"
 
 #: src/main_menubar_def.h:1139
 msgid "Function arguments of the current frame"
-msgstr ""
+msgstr "Аргументы функции текущего кадра"
 
 #: src/main_menubar_def.h:1148
 msgid "_Start Debugger"
@@ -2659,11 +2660,11 @@ msgstr ""
 
 #: src/main_menubar_def.h:1167
 msgid "_Attach to Process ..."
-msgstr ""
+msgstr "Подключение к процессу..."
 
 #: src/main_menubar_def.h:1168
 msgid "Attach to an already running program"
-msgstr ""
+msgstr "Подключение к уже запущенной программе"
 
 #: src/main_menubar_def.h:1174
 msgid "_Restart Program"
@@ -2683,7 +2684,7 @@ msgstr "Остановить отладку программы"
 
 #: src/main_menubar_def.h:1186
 msgid "_Detach Debugger"
-msgstr ""
+msgstr "Отсоединение отладчика"
 
 #: src/main_menubar_def.h:1187
 msgid "Detach the program if you have attached to it"
@@ -2819,7 +2820,7 @@ msgstr "Что вы предпочитаете: кофе или чай? Проверьте это."
 
 #: src/main_menubar_def.h:1354
 msgid "Set _Default Preferences"
-msgstr ""
+msgstr "Установить настройки по умолчанию"
 
 #: src/main_menubar_def.h:1355
 msgid "But I prefer tea."
@@ -2835,7 +2836,7 @@ msgstr "Старые добрые man-страницы"
 
 #: src/main_menubar_def.h:1372
 msgid "Browse Info Pages"
-msgstr ""
+msgstr "Просмотр страниц Info"
 
 #: src/main_menubar_def.h:1373
 msgid "Info pages, where you cannot find what you are looking for"
@@ -2883,6 +2884,8 @@ msgid ""
 "The file \"%s\" is not saved.\n"
 "Do you want to save it before closing?"
 msgstr ""
+"Файл \"%s\" не сохранён.\n"
+"Хотите сохранить его перед тем как выйти?"
 
 #: src/mainmenu_callbacks.c:161
 #, c-format
@@ -2890,6 +2893,8 @@ msgid ""
 "Are you sure you want to reload %s.\n"
 "You will lose any unsaved modification."
 msgstr ""
+"Вы уверены, в том что хотите перезагрузить %s?\n"
+"Вы потеряете все несохранёные изменения."
 
 #: src/mainmenu_callbacks.c:231
 #, c-format
@@ -2942,7 +2947,7 @@ msgstr ""
 #: src/mainmenu_callbacks.c:1704 src/mainmenu_callbacks.c:1722
 #: src/mainmenu_callbacks.c:1741 src/mainmenu_callbacks.c:1759
 msgid "Cannot launch gnome-help-browser"
-msgstr ""
+msgstr "Невозможно запустить gnome-help-browser"
 
 #: src/messages.c:221
 msgid "Unknown type in Message window\n"
@@ -3048,11 +3053,11 @@ msgstr " Размер истории "
 
 #: src/preferences_gui.c:377
 msgid "Recent Projects:"
-msgstr ""
+msgstr "Недавние проекты:"
 
 #: src/preferences_gui.c:384
 msgid "Recent Files:"
-msgstr ""
+msgstr "Недавние файлы:"
 
 #: src/preferences_gui.c:391
 msgid "Combo Popdown:"
@@ -3064,7 +3069,7 @@ msgstr ""
 
 #: src/preferences_gui.c:459
 msgid "Beep on job complete"
-msgstr ""
+msgstr "Гудок при завершении задании"
 
 #: src/preferences_gui.c:468
 msgid "Dialog on job complete"
@@ -3091,9 +3096,8 @@ msgid "Max no of jobs:"
 msgstr ""
 
 #: src/preferences_gui.c:646
-#, fuzzy
 msgid "Select Highlight item to edit:"
-msgstr "Выделить весь текст в редакторе"
+msgstr "Выделить подсвеченный элемент для редактирования:"
 
 #: src/preferences_gui.c:670
 msgid " Highlight Style "
@@ -3177,9 +3181,8 @@ msgid "Strip trailing spaces on file save"
 msgstr "Отсекать конечные пробелы при сохранении файла"
 
 #: src/preferences_gui.c:997
-#, fuzzy
 msgid "Collapse all folds on file open"
-msgstr "Закрыть все папки кода в редакторе"
+msgstr "Свернуть все папки при открытии файла"
 
 #: src/preferences_gui.c:1028
 msgid " Paper Size"
@@ -3448,7 +3451,7 @@ msgstr ""
 
 #: src/project_config.c:1111
 msgid "Makefile.am"
-msgstr ""
+msgstr "Makefile.am"
 
 #: src/project_dbase_gui.c:87
 #, c-format
@@ -4691,14 +4694,14 @@ msgid "Could not find application image file: %s"
 msgstr "Не удалось найти файл изображения для приложения: %s"
 
 #: src/resources.c:121
-#, fuzzy, c-format
+#, c-format
 msgid "Could not find application pixmap file: %s"
-msgstr "Не удалось найти файл изображений: %s"
+msgstr "Не удалось найти файл изображения для приложения: %s"
 
 #: src/resources.c:132
-#, fuzzy, c-format
+#, c-format
 msgid "Could not find gnome pixmap file: %s"
-msgstr "Не удалось найти файл изображений: %s"
+msgstr "Не удалось найти файл изображений gnome: %s"
 
 #: src/resources.c:149
 #, c-format
