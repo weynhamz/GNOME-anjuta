@@ -21,7 +21,8 @@ SUBDIRS = . \
 	macro \
 	class-gen \
 	patch \
-	subversion
+	subversion \
+	project-import
 
 ## This a temporary measure to insure anjuta does not crash due to old plugin.
 ## Make sure there are no old plugins left

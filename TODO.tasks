@@ -255,7 +255,7 @@ activated (eg. symbol pane), the old location is used.</comment>
 with context menu in project manager.</comment>
     </item>
     <item>
-      <attribute id="1098256384" priority="1" done="0" start_date="731874" enddate="99999999" notify="0" endtime="-60" last_edited="1100696989"/>
+      <attribute id="1098256384" priority="1" done="1" start_date="731874" completed_date="732012" notify="0" last_edited="1110230616"/>
       <summary>Open with plugins</summary>
       <comment>Add open with plugins menus along with open with programs menus.</comment>
     </item>

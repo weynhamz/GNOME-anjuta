@@ -1,3 +1,13 @@
+2005-03-09  Johanes Schmid <jhs@cvs.gnome.org>
+	
+	* plugins/project-import/*
+	plugins/Makefile.am
+	configure.in:
+	Added project import plugin. Might be a bit buggy and limited
+	but works for now.
+	* plugins/cvs-plugin/anjuta-cvs-plugin.png:
+	Icon from old pixmaps dir
+
 2005-02-20  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
 
 	* plugins/file-wizard/plugin.c, plugins/macro/macro-dialog.c

@@ -1,0 +1,6 @@
+[Anjuta Plugin]
+_Name=Project Import Plugin
+_Description=Import an existing autotools project to anjuta
+Location=anjuta-project-import:AnjutaProjectImportPlugin
+Icon=anjuta-project-import.png
+Interfaces=IAnjutaWizard
