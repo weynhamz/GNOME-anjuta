@@ -9,7 +9,7 @@ Introduction:
 Anjuta is a versatile Integrated Development Environment (IDE) for C and C++ 
 on GNU/Linux. It has been written for GTK/GNOME, and features a number of 
 advanced programming facilities. These include project management, 
-application wizards, an onboard interactive debugger, and a powerful source 
+application wizards, an on board interactive debugger, and a powerful source 
 editor with source browsing and syntax highlighting.
 
 Anjuta is an effort to marry the flexibility and power of text-based 
@@ -62,7 +62,7 @@ Presently available features in Anjuta:
 	
 	3. Highly interactive source level debugger (built over gdb).
 		o Interactive execution.
-		o Breakpoints/watches/signal/stack manupulation.
+		o Breakpoints/watches/signal/stack manipulation.
 		o ... and much more.
 	
 	4. Inbuilt application wizards to create terminal/GTK/GNOME applications 
@@ -90,7 +90,7 @@ Some of the 'immediately' needed features:
 ------------------------------------------
 
     1. Interactive help system. 
-    2. More advanced interaction (Bonobo component) with Glade to faciliate GUI editing. 
+    2. More advanced interaction (Bonobo component) with Glade to facilitate GUI editing. 
     3. Source code version management system (CVS). 
     4. Support for Help development system with SGML. 
     5. Making it faster.  ??
@@ -202,7 +202,7 @@ INSTALLATION:
 
 	1) Get the RPM package anjuta-0.1.1-1.i386.rpm (visit www.sourceforge.net).
 
-	2) Change to the directory containing the rpm pakage.
+	2) Change to the directory containing the rpm package.
 
 	3) Type: rpm -ivh anjuta-0.1.1-1.i386.rpm.
 

@@ -47,17 +47,17 @@ New Features in Anjuta 0.1.3:
 		* Automatic syntax hilighting (using lexers).
 		* Code folding/hiding .
 		* Linenumbers/markers display.
-		* Text zoomming.
+		* Text zooming.
 		* Text autocompletion
 		* Automatic indentation and indentation guides
 		* ... and much more.
 
 	=> Dynamic Project Management:
 	-----------------------------
-		* Anjuta no longer uses the templete based project management.
+		* Anjuta no longer uses the template based project management.
 		* Provides project configuration.
 		* Added two more modules in project management:
-			(Help module and Transtaltion module).
+			(Help module and Translation module).
 		* Added BONOBO support and BONOBO application wizard.
 		
 	=> Java style Properties management:
@@ -72,17 +72,17 @@ New Features in Anjuta 0.1.3:
 		
 	=> On-Board command editor:
 	--------------------------
-		Facilates customization of commands used
+		Facilitates customization of commands used
 		for compiling, building and execution.
 	
 	=> Provides Hilite style editor:
 	-------------------------------
-		Used for custumizing Syntax hiliting style.
+		Used for customizing Syntax hiliting style.
 	
-	=> More inteligent messaging system:
+	=> More intelligent messaging system:
 	-----------------------------------
 		* Now error messages (or messages in general)
-		can be browsed using goto Prev/Next message,
+		can be browsed using go to Prev/Next message,
 		goto start/end of block and goto matching braces.
 	
 	=> Bookmarks management:
@@ -100,7 +100,7 @@ New Features in Anjuta 0.1.3:
 	--------------------------
 		* Browser toolbar for browsing messages,
 		bookmarks and code blocks.
-		* Format toolbar for easy formating
+		* Format toolbar for easy formatting
 		of code statements.
 		
 	=> Application GUI:
@@ -127,7 +127,7 @@ Anjuta 0.1.2:	(03rd Nov 2000)		-- Nabakumar.
    => Release of second version (Beta) with lesser bugs.
 
    => Minor fixes in Doc files.
-   => Fixed to ignore non-existant dir for blank prj.
+   => Fixed to ignore non-existent dir for blank prj.
    => More checking in project creation, especially to confirm
 	that the prj file already does not exist.
    => Now Menu item "Format/Detach current document" is inactive

@@ -32,4 +32,4 @@ BUGS:
 3) In a C++ projects, checking for the gtkmm and gnomemm packages
 
 4) For whatever reason db1-devel_1.85-4mdk was not installed by default and
-ld gave me errors (can't find -ldb1). Checking for db1 depenency (both rpm and configure).
+ld gave me errors (can't find -ldb1). Checking for db1 dependency (both rpm and configure).
