@@ -24,7 +24,7 @@ msgstr ""
 #: src/anjuta_cbs.c:129 src/project_dbase_gui.c:1199
 #, c-format
 msgid "Not a regular file: %s."
-msgstr "%s n'est pas un fichier ordinaire."
+msgstr "%s n'est pas un fichier régulier."
 
 #: src/anjuta_cbs.c:135
 #, c-format
@@ -143,7 +143,7 @@ msgid ""
 "Invalid %s field:\n"
 "You must supply a valid %s field to proceed further."
 msgstr ""
-"Le champ %s est invalide, vous devez fournir un champ %s\n"
+"Le champ %s est invalide: vous devez fournir un champ %s\n"
 "valide avant de pouvoir poursuivre."
 
 #. For the time being
@@ -290,7 +290,7 @@ msgstr "Voulez-vous vraiment supprimer tous les points d'arrêts ?"
 
 #: src/breakpoints_cbs.c:276
 msgid "You must give a valid location to set the breakpoint."
-msgstr "Vous devez placer les points d'arrêtsà des endroits valides."
+msgstr "Vous devez placer les points d'arrêts à des endroits valides."
 
 #: src/breakpoints_gui.c:62
 msgid "Anjuta: Breakpoints"
@@ -411,11 +411,11 @@ msgstr "La construction a echouée"
 
 #: src/build_file.c:142
 msgid "Build completed ... successful\n"
-msgstr "La construction a réussie\n"
+msgstr "La construction a réussi\n"
 
 #: src/build_file.c:144
 msgid "Build completed ... successful"
-msgstr "La construction a réussie"
+msgstr "La construction a réussi"
 
 #: src/build_project.c:60
 msgid "Unable to build module. Check Preferences->Commands."
@@ -509,11 +509,11 @@ msgstr "La reconstruction complète a échouée"
 
 #: src/build_project.c:347
 msgid "Build all completed...............Successful\n"
-msgstr "La reconstruction complète a réussie\n"
+msgstr "La reconstruction complète a réussi\n"
 
 #: src/build_project.c:349
 msgid "Build all completed ... successful"
-msgstr "La reconstruction complète à réussie"
+msgstr "La reconstruction complète à réussi"
 
 #: src/build_project.c:370
 msgid "Build-Distribution completed...............Unsuccessful\n"
@@ -526,7 +526,7 @@ msgstr ""
 
 #: src/build_project.c:379
 msgid "Build-Distribution completed...............Successful\n"
-msgstr "La construction de la distribution a réussie\n"
+msgstr "La construction de la distribution a réussi\n"
 
 #: src/build_project.c:383
 msgid ""
@@ -537,23 +537,23 @@ msgstr ""
 
 #: src/build_project.c:386
 msgid "Build-Distribution completed ... successful"
-msgstr "La construction de la distribution a réussie"
+msgstr "La construction de la distribution a réussi"
 
 #: src/build_project.c:407
 msgid "Install completed...............Unsuccessful\n"
-msgstr "L'installation a échouée\n"
+msgstr "L'installation a échoué\n"
 
 #: src/build_project.c:410
 msgid "Install completed...............Unsuccessful"
-msgstr "L'installation a échouée"
+msgstr "L'installation a échoué"
 
 #: src/build_project.c:416
 msgid "Install completed...............Successful\n"
-msgstr "L'installation a réussie\n"
+msgstr "L'installation a réussi\n"
 
 #: src/build_project.c:418
 msgid "Install completed ... successful"
-msgstr "L'installation a réussie"
+msgstr "L'installation a réussi"
 
 #: src/build_project.c:439
 msgid "Autogenaration completed...............Unsuccessful\n"
@@ -705,11 +705,11 @@ msgstr "Compilation du fichier : %s ...\n"
 
 #: src/compile.c:120 src/compile.c:123
 msgid "Compile completed ... unsuccessful"
-msgstr "La compilation a échouée"
+msgstr "La compilation a échoué"
 
 #: src/compile.c:128 src/compile.c:131
 msgid "Compile completed ... successful"
-msgstr "La compilation a réussie"
+msgstr "La compilation a réussi"
 
 #: src/compiler_options_cbs.c:216
 #, c-format
@@ -1019,11 +1019,11 @@ msgstr "Une erreur s'est produite lors de la configuration"
 
 #: src/configurer.c:231
 msgid "Configure completed...............Successful\n"
-msgstr "La configuration a réussie\n"
+msgstr "La configuration a réussi\n"
 
 #: src/configurer.c:233
 msgid "Configure completed ... successful"
-msgstr "La configuration a réussie"
+msgstr "La configuration a réussi"
 
 #. Must declare static, because it will be used forever
 #: src/debugger.c:56
@@ -1271,11 +1271,11 @@ msgstr "La recherche dans des fichiers n'a pas rapporté de résultat"
 
 #: src/find_in_files.c:193
 msgid "Find in Files completed...............Successful\n"
-msgstr "La recherche dans des fichiers a réussie\n"
+msgstr "La recherche dans des fichiers a réussi\n"
 
 #: src/find_in_files.c:195
 msgid "Find in Files completed ... successful"
-msgstr "La recherche dans des fichiers a réussie"
+msgstr "La recherche dans des fichiers a réussi"
 
 #: src/find_in_files_cbs.c:87
 msgid ""

@@ -485,7 +485,7 @@ file_is_link (const gchar * fn)
 	int ret;
 	if (!fn)
 		return FALSE;
-	ret = stat (fn, &st);
+	ret = lstat (fn, &st);
 	if (ret)
 		return FALSE;
 	if (S_ISLNK (st.st_mode))
