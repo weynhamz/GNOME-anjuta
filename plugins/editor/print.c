@@ -990,7 +990,7 @@ anjuta_print_document (PrintJobInfo * pji)
 		if (current_pos[0] == '\n' || ret == 1) {
 			current_line++;
 			if (pji->print_line_numbers > 0 &&
-					((current_line+1) % pji->print_line_numbers == 0))
+					((current_line) % pji->print_line_numbers == 0))
 				anjuta_print_show_linenum (pji, current_line, padding);
 		}
 		if (i % 50 ==  0)

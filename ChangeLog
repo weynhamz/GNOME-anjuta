@@ -1,5 +1,9 @@
 2004-11-10  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
-	* plugins/search-replace.c
+	* plugins/editor/print.c
+	Fixed bug 1047624 : Add line number every X lines.
+
+2004-11-10  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
+	* plugins/editor/search-replace.c
 	Fixed a crash bug (995755) when searching "%n"
 
 2004-11-09  Naba Kumar  <naba@gnome.org>
