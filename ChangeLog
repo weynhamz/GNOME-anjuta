@@ -1,4 +1,9 @@
-2004-03-09  Naba Kumar  <naba@gnome.org>
+2004-04-11  Naba Kumar  <naba@gnome.org>
+
+	* configure.in: Added ga in ALL_LINGUAS.
+	* ChangeLog: Fixed dates.
+	
+2004-04-09  Naba Kumar  <naba@gnome.org>
 
 	* src/print.c: Fixed buffer styling bug when printing with
 	selection.
@@ -12,7 +17,7 @@
 	
 	* src/an_file_view.c: Fixed possible crash bug.
 
-2004-03-07  Naba Kumar  <naba@gnome.org>
+2004-04-07  Naba Kumar  <naba@gnome.org>
 
 	* src/anjuta.c: Use _exit() instead of exit() (or gtk_quit() or
 	gtk_main_quit() etc..), so that atexit() functions are not called
@@ -22,7 +27,7 @@
 	exits and we want to avoid that..
 	* src/glade_iface.c: Fixed compiler warning.
 	
-2004-03-06  Naba Kumar  <naba@gnome.org>
+2004-04-06  Naba Kumar  <naba@gnome.org>
 
 	* src/project_dbase_gui.c: Fixed errors.
 
