@@ -67,6 +67,8 @@ struct _AnjutaPluginClass {
 	GObjectClass parent_class;
 
 	void (*shell_set) (AnjutaPlugin *tool);
+  void (*prefs_set) (AnjutaPlugin *tool);
+  void (*ui_set) (AnjutaPlugin *tool);
 	gboolean (*shutdown) (AnjutaPlugin *tool);
 };
 

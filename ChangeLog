@@ -1,3 +1,63 @@
+2004-01-05  Naba Kumar  <naba@gnome.org>
+	
+	* configure.in: Sets correct dependencies and
+	uses gdl external library.
+
+	* libanjuta/Makefile.am, libanjuta/anjuta-plugin.c,
+	libanjuta/anjuta-plugin.h, libanjuta/anjuta-utils.c,
+	libanjuta/anjuta-utils.h, libanjuta/fileselection.c
+	libanjuta/fileselection.h, libanjuta/glue-factory.c,
+	libanjuta/gnomefilelist.c, libanjuta/gnomefilelist.h,
+	libanjuta/plugins.c, libanjuta/plugins.h: Fixed plugin system
+	and added file dialogs.
+
+	* libegg/menu/Makefile.am, libegg/toolbar/Makefile.am,
+	libegg/treeviewutils/Makefile.am, libegg/util/Makefile.am:
+	Build dynamic libraries for libegg.
+
+	* plugins/Makefile.am, plugins/editor/Makefile.am,
+	plugins/editor/action-callbacks.c, 
+	plugins/editor/action-callbacks.h,
+	plugins/editor/anjuta-docman.c,
+	plugins/editor/anjuta-docman.h
+	plugins/editor/anjuta-document-manager.plugin.in
+	plugins/editor/anjuta-document-manager.png
+	plugins/editor/anjuta-document-manager.ui
+	plugins/editor/file.c
+	plugins/editor/file.h
+	plugins/editor/plugin.c
+	plugins/editor/print.c
+	plugins/editor/print.h
+	plugins/editor/search-replace.c
+	plugins/editor/search_incremental.c
+	plugins/editor/search_incremental.h
+	plugins/editor/text_editor.c
+	plugins/editor/text_editor.h
+	plugins/editor/text_editor_cbs.c
+	plugins/editor/text_editor_menu.h
+	plugins/sample1/Makefile.am
+	plugins/sample1/anjuta-sample-plugin.png
+	plugins/sample1/anjuta-sample.plugin.in
+	plugins/sample1/anjuta-sample.ui
+	plugins/sample1/plugin-sample1.c
+	plugins/sample1/plugin.c
+	plugins/sample1/plugin.h: Created sample
+	plugin and fixed editor plugin.
+
+	* printing/*: Removed.
+
+	* scintilla/Makefile.am: Builds dynamic library.
+
+	* src/Makefile.am, src/action-callbacks.c,
+	src/action-callbacks.h, (removed) src/an_symbol_view.c,
+	src/anjuta-actions.h, src/anjuta-app.c,
+	src/anjuta-app.h, src/anjuta-callbacks.c,
+	src/anjuta-callbacks.h, (removed) src/anjuta.c,
+	(removed) src/anjuta.h, src/anjuta.ui,
+	src/layout.xml, src/main.c, src/preferences.h,
+	src/utilities.c: Debuggged and finally made plugins
+	loadable.
+
 2004-01-03  Naba Kumar  <naba@gnome.org>
 
 	* configure.in: Users GDL from external package.

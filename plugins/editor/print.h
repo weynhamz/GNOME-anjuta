@@ -22,10 +22,22 @@
 #ifndef AN_PRINTING_PRINT_H
 #define AN_PRINTING_PRINT_H
 
+#include "text_editor.h"
+
 G_BEGIN_DECLS
 
-void anjuta_print_cb (GtkWidget *widget, gpointer notused);
-void anjuta_print_preview_cb(GtkWidget *widget, gpointer notused);
+void anjuta_print (gboolean preview, AnjutaPreferences *p, TextEditor *te);
+
+#define PRINT_PAPER_SIZE           "print.paper.size"
+#define PRINT_HEADER               "print.header"
+#define PRINT_WRAP                 "print.linewrap"
+#define PRINT_LINENUM_COUNT        "print.linenumber.count"
+#define PRINT_LANDSCAPE            "print.landscape"
+#define PRINT_MARGIN_LEFT          "print.margin.left"
+#define PRINT_MARGIN_RIGHT         "print.margin.right"
+#define PRINT_MARGIN_TOP           "print.margin.top"
+#define PRINT_MARGIN_BOTTOM        "print.margin.bottom"
+#define PRINT_COLOR                "print.color"
 
 G_END_DECLS
 

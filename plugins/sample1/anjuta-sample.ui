@@ -1,0 +1,10 @@
+<!--*- xml -*-->
+<Root>
+	<menu name="MenuMain">
+		<submenu name="MenuFile" verb="ActionMenuFile">
+			<placeholder name="PlaceholderFileMenus">
+				<menuitem name="SampleAction" verb="ActionFileSample" />
+			</placeholder>
+		</submenu>
+	</menu>
+</Root>

@@ -82,6 +82,12 @@ GList* anjuta_util_glist_strings_dup (GList * list);
 ** Useful for deduping Recent Files and Recent Projects */
 GList* anjuta_util_glist_path_dedup(GList *list);
 
+/* Adds the given string in the list, if it does not already exist. */
+/* The added string will come at the top of the list */
+/* The list will be then truncated to (length) items only */
+GList * anjuta_util_update_string_list (GList *p_list, const gchar *p_str,
+										gint length);
+
 /* Temporarily copied here */
 
 #define ANJUTA_TYPE_BEGIN(class_name, prefix, parent_type) \

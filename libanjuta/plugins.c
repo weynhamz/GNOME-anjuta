@@ -14,6 +14,8 @@
 #include <gconf/gconf-client.h>
 #include "plugins.h"
 #include <libanjuta/anjuta-shell.h>
+#include <libanjuta/anjuta-ui.h>
+#include <libanjuta/anjuta-preferences.h>
 #include <libanjuta/anjuta-plugin-parser.h>
 #include <e-splash.h>
 #include "resources.h"
@@ -594,7 +596,7 @@ load_tool_set (const char *name)
 				       name, tool->id);
 		load = get_bool_with_default (gconf_client, key, load_new);
 		g_free (key);
-
+		g_message ("Loading .. %s:%s", name, tool->id);
 		g_hash_table_insert (ret->tools, tool, GINT_TO_POINTER (load));
 	}
 	
@@ -626,7 +628,8 @@ load_tool_sets (void)
 }
 
 static GObject *
-activate_tool (AnjutaShell *shell, AvailableTool *tool)
+activate_tool (AnjutaShell *shell, AnjutaUI *ui,
+	       AnjutaPreferences *prefs, AvailableTool *tool)
 {
 	GType type;
 	GObject *ret;
@@ -641,7 +644,7 @@ activate_tool (AnjutaShell *shell, AvailableTool *tool)
 	
 	if (!type) {
 		char **pieces;
-	
+
 		pieces = g_strsplit (tool->id, ":", -1);
 		type = glue_factory_get_object_type (glue_factory,
 						     pieces[0],
@@ -654,10 +657,11 @@ activate_tool (AnjutaShell *shell, AvailableTool *tool)
 	}
 	
 	if (type == G_TYPE_INVALID) {
-		g_warning ("Invalid type\n");
+		g_warning ("Invalid type: Can not load %s\n", tool->id);
 		ret = NULL;
 	} else {
-		ret = g_object_new (type, "shell", shell, NULL);
+		ret = g_object_new (type, "ui", ui, "prefs", prefs,
+				    "shell", shell, NULL);
 	}
 	
 	return ret;
@@ -746,7 +750,8 @@ should_load (AvailableTool *tool, ToolSet *set)
 }
 
 static void
-tool_set_update (AnjutaShell *shell, ToolSet *tool_set)
+tool_set_update (AnjutaShell *shell, AnjutaUI *ui,
+		 AnjutaPreferences *prefs, ToolSet *tool_set)
 {
 	GHashTable *installed_tools;
 	GSList *l;
@@ -773,7 +778,8 @@ tool_set_update (AnjutaShell *shell, ToolSet *tool_set)
 		AvailableTool *tool = l->data;
 		if (should_load (tool, tool_set)
 		    && !g_hash_table_lookup (installed_tools, tool)) {
-			GObject *tool_obj = activate_tool (shell, tool);
+			GObject *tool_obj = activate_tool (shell, ui,
+							   prefs, tool);
 			if (tool_obj) {
 				g_hash_table_insert (installed_tools,
 						     tool, tool_obj);
@@ -784,7 +790,9 @@ tool_set_update (AnjutaShell *shell, ToolSet *tool_set)
 
 /* Load a toolset for a given AnjutaWindow */
 void
-anjuta_plugins_load (AnjutaShell *shell, ESplash *splash, const char *name)
+anjuta_plugins_load (AnjutaShell *shell, AnjutaUI *ui,
+		     AnjutaPreferences *prefs,
+		     ESplash *splash, const char *name)
 {
 	ToolSet *tool_set = g_hash_table_lookup (tool_sets, name);
 	// AnjutaShell *shell = ANJUTA_SHELL (win);
@@ -827,7 +835,8 @@ anjuta_plugins_load (AnjutaShell *shell, ESplash *splash, const char *name)
 	for (l = available_tools; l != NULL; l = l->next) {
 		AvailableTool *tool = l->data;
 		if (should_load (tool, tool_set)) {
-			GObject *tool_obj = activate_tool (shell, tool);
+			GObject *tool_obj = activate_tool (shell, ui,
+							   prefs, tool);
 			if (tool_obj) {
 				g_hash_table_insert (installed_tools,
 						     tool, tool_obj);
@@ -837,8 +846,8 @@ anjuta_plugins_load (AnjutaShell *shell, ESplash *splash, const char *name)
 							     image_index++, 
 							     TRUE);
 			}
-			while (gtk_events_pending ())
-				gtk_main_iteration ();
+			// while (gtk_events_pending ())
+			//	gtk_main_iteration ();
 		}
 	}
 
@@ -941,7 +950,8 @@ disable_hashfunc (gpointer key, gpointer value, gpointer data)
 }
 
 static void
-apply_toolset (ToolSet *tool_set, AnjutaShell *shell)
+apply_toolset (ToolSet *tool_set, AnjutaShell *shell,
+	       AnjutaUI *ui, AnjutaPreferences *prefs)
 {
 /*
 	GList *windows;
@@ -955,7 +965,7 @@ apply_toolset (ToolSet *tool_set, AnjutaShell *shell)
 
 	g_list_free (windows);
 */
-	tool_set_update (shell, tool_set);
+	tool_set_update (shell, ui, prefs, tool_set);
 }
 
 static void
@@ -968,11 +978,15 @@ plugin_toggled (GtkCellRendererToggle *cell, char *path_str, gpointer data)
 	gboolean enabled;
 	ToolSet *tool_set;
 	AnjutaShell *shell;
+	AnjutaUI *ui;
+	AnjutaPreferences *prefs;
 	
 	path = gtk_tree_path_new_from_string (path_str);
 	
 	tool_set = g_object_get_data (G_OBJECT (store), "ToolSet");
 	shell = g_object_get_data (G_OBJECT (store), "Shell");
+	ui = g_object_get_data (G_OBJECT (store), "UI");
+	prefs = g_object_get_data (G_OBJECT (store), "Preferences");
 
 	gtk_tree_model_get_iter (GTK_TREE_MODEL (store), &iter, path);
 	gtk_tree_model_get (GTK_TREE_MODEL (store), &iter,
@@ -997,7 +1011,7 @@ plugin_toggled (GtkCellRendererToggle *cell, char *path_str, gpointer data)
 	
 	save_tool_set (tool_set);
 
-	apply_toolset (tool_set, shell);
+	apply_toolset (tool_set, shell, ui, prefs);
 }
 
 static void

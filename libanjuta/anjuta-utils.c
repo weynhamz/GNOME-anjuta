@@ -593,3 +593,33 @@ anjuta_util_glist_from_map (AnjutaUtilStringMap *map)
 	}
 	return out_list;
 }
+
+
+GList *
+anjuta_util_update_string_list (GList *p_list, const gchar *p_str, gint length)
+{
+	gint i;
+	gchar *str;
+	if (!p_str)
+		return p_list;
+	for (i = 0; i < g_list_length (p_list); i++)
+	{
+		str = (gchar *) g_list_nth_data (p_list, i);
+		if (!str)
+			continue;
+		if (strcmp (p_str, str) == 0)
+		{
+			p_list = g_list_remove (p_list, str);
+			p_list = g_list_prepend (p_list, str);
+			return p_list;
+		}
+	}
+	p_list = g_list_prepend (p_list, g_strdup (p_str));
+	while (g_list_length (p_list) > length)
+	{
+		str = g_list_nth_data (p_list, g_list_length (p_list) - 1);
+		p_list = g_list_remove (p_list, str);
+		g_free (str);
+	}
+	return p_list;
+}

@@ -30,9 +30,10 @@
 #include <libgnomeprint/gnome-print-job.h>
 #include <libgnomeprintui/gnome-print-dialog.h>
 #include <libgnomeprintui/gnome-print-job-preview.h>
+#include <libanjuta/anjuta-utils.h>
 
-#include "anjuta.h"
-#include "preferences.h"
+// #include "anjuta.h"
+#include <libanjuta/anjuta-preferences.h>
 
 #define GTK
 #undef PLAT_GTK
@@ -40,7 +41,6 @@
 
 #include "Scintilla.h"
 #include "ScintillaWidget.h"
-#include "text_editor.h"
 #include "print.h"
 
 #ifdef DEBUG
@@ -471,17 +471,17 @@ anjuta_print_update_page_size_and_margins (PrintJobInfo *pji)
 }
 
 static PrintJobInfo*
-anjuta_print_job_info_new (void)
+anjuta_print_job_info_new (AnjutaPreferences *p, TextEditor *te)
 {
 	PrintJobInfo *pji;
-	AnjutaPreferences *p = ANJUTA_PREFERENCES (app->preferences);
 	gint i;
 	gchar *buffer;
 
 	pji = g_new0(PrintJobInfo, 1);
-	if (NULL == (pji->te = anjuta_get_current_text_editor()))
+	if (NULL == (pji->te = te))
 	{
-		anjuta_error(_("No file to print!"));
+		anjuta_util_dialog_error (GTK_WINDOW (gtk_widget_get_toplevel (GTK_WIDGET(te))),
+								  _("No file to print!"));
 		g_free(pji);
 		return NULL;
 	}
@@ -500,7 +500,7 @@ anjuta_print_job_info_new (void)
 	gnome_print_config_ref (pji->config);
 	
 	/* Load Buffer to be printed. The buffer loaded is the text/style combination.*/
-	pji->buffer_size = scintilla_send_message(SCINTILLA(pji->te->widgets.editor), SCI_GETLENGTH, 0, 0);
+	pji->buffer_size = scintilla_send_message(SCINTILLA(pji->te->scintilla), SCI_GETLENGTH, 0, 0);
 	buffer = (gchar *) aneditor_command(pji->te->editor_id, ANE_GETSTYLEDTEXT, 0, pji->buffer_size);
 	pji->buffer = g_new(char, pji->buffer_size + 1);
 	pji->styles = g_new(char, pji->buffer_size + 1);
@@ -514,7 +514,8 @@ anjuta_print_job_info_new (void)
 	g_free (buffer);
 	if (NULL == pji->buffer)
 	{
-		anjuta_error(_("Unable to get text buffer for printing"));
+		anjuta_util_dialog_error (GTK_WINDOW (gtk_widget_get_toplevel (GTK_WIDGET(te))),
+								  _("Unable to get text buffer for printing"));
 		anjuta_print_job_info_destroy(pji);
 		return NULL;
 	}
@@ -677,9 +678,9 @@ anjuta_print_set_buffer_as_selection (PrintJobInfo *pji)
 	pji->range_start_line = 1;
 	pji->range_end_line = text_editor_get_total_lines (pji->te);
 	
-	from = scintilla_send_message (SCINTILLA (pji->te->widgets.editor),
+	from = scintilla_send_message (SCINTILLA (pji->te->scintilla),
 				SCI_GETSELECTIONSTART, 0, 0);
-	to = scintilla_send_message (SCINTILLA (pji->te->widgets.editor),
+	to = scintilla_send_message (SCINTILLA (pji->te->scintilla),
 				SCI_GETSELECTIONEND, 0, 0);
 	if (from == to) return;
 	proper_from = MIN(from, to);
@@ -692,9 +693,9 @@ anjuta_print_set_buffer_as_selection (PrintJobInfo *pji)
 				ANE_GETSTYLEDTEXT, proper_from, proper_to);
 	g_return_if_fail(pji->buffer!=NULL);
 	pji->buffer_size = proper_to - proper_from;
-	pji->range_start_line = scintilla_send_message (SCINTILLA (pji->te->widgets.editor),
+	pji->range_start_line = scintilla_send_message (SCINTILLA (pji->te->scintilla),
 				SCI_LINEFROMPOSITION, proper_from, 0);
-	pji->range_end_line = scintilla_send_message (SCINTILLA (pji->te->widgets.editor),
+	pji->range_end_line = scintilla_send_message (SCINTILLA (pji->te->scintilla),
 				SCI_LINEFROMPOSITION, proper_to, 0);
 	
 	/* Same crapy misalignment */
@@ -707,9 +708,9 @@ anjuta_print_set_buffer_as_range (PrintJobInfo *pji)
 	gint from, to;
 	gint proper_from, proper_to;
 	
-	from = scintilla_send_message (SCINTILLA (pji->te->widgets.editor),
+	from = scintilla_send_message (SCINTILLA (pji->te->scintilla),
 				SCI_POSITIONFROMLINE, pji->range_start_line - 1, 0);
-	to = scintilla_send_message (SCINTILLA (pji->te->widgets.editor),
+	to = scintilla_send_message (SCINTILLA (pji->te->scintilla),
 				SCI_POSITIONFROMLINE, pji->range_end_line, 0);
 	if (from == to) return;
 	to--;
@@ -840,7 +841,7 @@ anjuta_print_progress_start(PrintJobInfo * pji)
 	GtkWidget *progress_bar;
 	GtkWidget *window;
 
-	window = gtk_widget_get_toplevel (pji->te->widgets.editor);
+	window = gtk_widget_get_toplevel (pji->te->scintilla);
 	dialog = gtk_dialog_new_with_buttons (_("Printing .."),
 										  GTK_WINDOW (window),
 										  GTK_DIALOG_DESTROY_WITH_PARENT,
@@ -1039,13 +1040,13 @@ anjuta_print_preview_real (PrintJobInfo *pji)
 	gtk_widget_show (GTK_WIDGET (gpmp));
 }
 
-static void
-anjuta_print (gboolean preview)
+void
+anjuta_print (gboolean preview, AnjutaPreferences *p, TextEditor *te)
 {
 	PrintJobInfo *pji;
 	gboolean cancel = FALSE;
 
-	if (NULL == (pji = anjuta_print_job_info_new()))
+	if (NULL == (pji = anjuta_print_job_info_new(p, te)))
 		return;
 	pji->preview = preview;
 	if (!pji->preview)
@@ -1081,16 +1082,4 @@ anjuta_print (gboolean preview)
 		gnome_print_job_print (pji->print_job);
 	
 	anjuta_print_job_info_destroy (pji);
-}
-
-void
-anjuta_print_cb (GtkWidget *widget, gpointer notused)
-{
-	anjuta_print(FALSE);
-}
-
-void
-anjuta_print_preview_cb(GtkWidget *widget, gpointer notused)
-{
-	anjuta_print(TRUE);
 }

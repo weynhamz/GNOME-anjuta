@@ -48,7 +48,7 @@
 #define IDENT_NAME                 "ident.name"
 #define IDENT_EMAIL                "ident.email"
 
-static gboolean create_new_file_dialog(void);
+static gboolean create_new_file_dialog(AnjutaDocman *docman);
 
 static gchar *insert_c_gpl(void);
 static gchar *insert_cpp_gpl(void);
@@ -95,10 +95,10 @@ NewfileType new_file_type[] = {
 NewFileGUI *nfg = NULL;
 
 void
-display_new_file(void)
+display_new_file(AnjutaDocman *docman)
 {
 	if (!nfg)
-		if (! create_new_file_dialog())
+		if (! create_new_file_dialog(docman))
 			return;
 	if (nfg && !(nfg->showing))
 	{
@@ -122,7 +122,7 @@ void on_new_file_entry_changed (GtkEditable *entry, gpointer user_data);
 void on_new_file_type_changed (GtkOptionMenu   *optionmenu, gpointer user_data);
 
 static gboolean
-create_new_file_dialog(void)
+create_new_file_dialog(AnjutaDocman *docman)
 {
 	GtkWidget *optionmenu;
 	GtkWidget *menu;
@@ -153,12 +153,12 @@ create_new_file_dialog(void)
 	//gtk_window_set_transient_for (GTK_WINDOW(nfg->dialog),
 	//	                          GTK_WINDOW(app)); 
 
+	g_object_set_data (G_OBJECT (nfg->dialog), "AnjutaDocman", docman);
 	glade_xml_signal_autoconnect(nfg->xml);
 	gtk_signal_emit_by_name(GTK_OBJECT (optionmenu), "changed");
 	
 	return TRUE;
 }
-
 
 gboolean
 on_new_file_cancelbutton_clicked(GtkWidget *window, GdkEvent *event,
@@ -171,7 +171,6 @@ on_new_file_cancelbutton_clicked(GtkWidget *window, GdkEvent *event,
 	}
 	return TRUE;
 }
-
 
 //~ Offset<0 	:	Move cursor to the end of txt
 //~ Offset >=0 	:	Move cursor + offset
@@ -202,8 +201,10 @@ on_new_file_okbutton_clicked(GtkWidget *window, GdkEvent *event,
 	gint sel;
 	TextEditor *te;
 	AnjutaDocman *docman;
-	
-	docman = ANJUTA_DOCMAN (user_data);
+	GtkWidget *toplevel;
+
+	toplevel= gtk_widget_get_toplevel (window);
+	docman = ANJUTA_DOCMAN (g_object_get_data (G_OBJECT(toplevel), "AnjutaDocman"));
 	entry = glade_xml_get_widget(nfg->xml, NEW_FILE_ENTRY);
 	name = g_strdup(gtk_entry_get_text(GTK_ENTRY(entry)));
 	if (strlen(name) > 0)

@@ -2,7 +2,7 @@
 
 SUBDIRS = include
 
-noinst_LIBRARIES = libscintilla.a
+lib_LTLIBRARIES = libanjuta-scintilla.la
 
 INCLUDES = -I$(srcdir)/include $(GTK_CFLAGS)
 
@@ -10,7 +10,7 @@ AM_CXXFLAGS = -DGTK -DSCI_LEXER -DUSE_XIM
 
 include $(srcdir)/lexers.make
 
-libscintilla_a_SOURCES =\
+libanjuta_scintilla_la_SOURCES =\
 	AutoComplete.cxx \
 	CallTip.cxx \
 	CellBuffer.cxx \
@@ -60,8 +60,8 @@ test_scintilla_CXXFLAGS = -DGTK
 test_scintilla_SOURCES = test-scintilla.cxx
 test_scintilla_LDADD = \
 	$(ANJUTA_LIBS) \
-	$(top_builddir)/scintilla/libscintilla.a
-test_scintilla_DEPENDENCIES = $(top_builddir)/scintilla/libscintilla.a
+	$(top_builddir)/scintilla/libanjuta-scintilla.la
+test_scintilla_DEPENDENCIES = $(top_builddir)/scintilla/libanjuta-scintilla.la
 
 update-scintilla:
 	cp $(srcdir)/scintilla/gtk/*.cxx $(srcdir)/

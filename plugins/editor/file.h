@@ -31,9 +31,9 @@ extern "C"
 #endif
 
 #include <gnome.h>
-
+#include "anjuta-docman.h"
 	
-void display_new_file(void);	
+void display_new_file(AnjutaDocman *docman);	
 //~ void clear_new_file(void);	
 	
 void file_insert_text(TextEditor *te, gchar *txt, gint offset);

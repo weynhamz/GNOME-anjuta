@@ -11,10 +11,10 @@ lib_LTLIBRARIES=libanjuta.la
 libanjuta_la_LIADD = $(LIBANJUTA_LIBS)
 libanjuta_la_LIBADD = \
 	$(top_builddir)/widgets/libwidgets.a\
-	$(top_builddir)/libegg/treeviewutils/libegg-treeview.a\
-	$(top_builddir)/libegg/toolbar/libegg-toolbar.a\
-	$(top_builddir)/libegg/menu/libegg-menu.a\
-	$(top_builddir)/libegg/util/libeggutil.a
+	$(top_builddir)/libegg/treeviewutils/libanjuta-egg-treeview.la\
+	$(top_builddir)/libegg/toolbar/libanjuta-egg-toolbar.la\
+	$(top_builddir)/libegg/menu/libanjuta-egg-menu.la\
+	$(top_builddir)/libegg/util/libanjuta-eggutil.la
 
 libanjuta_la_SOURCES= \
 	anjuta-shell.c \
@@ -36,7 +36,11 @@ libanjuta_la_SOURCES= \
 	glue-plugin.c \
 	glue-factory.c \
 	plugins.c \
-	plugins.h
+	plugins.h \
+	gnomefilelist.c \
+	gnomefilelist.h \
+	fileselection.c \
+	fileselection.h
 
 libanjutaincludedir=$(includedir)/libanjuta-1.0/libanjuta
 libanjutainclude_HEADERS = \

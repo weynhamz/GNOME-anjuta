@@ -6,10 +6,10 @@ INCLUDES = \
   -DG_DISABLE_DEPRECATED
 
 
-noinst_LIBRARIES = libegg-menu.a
+lib_LTLIBRARIES = libanjuta-egg-menu.la
 
 # libegg_menu_a_LIBADD = ../toolbar/libegg-toolbar.a $(ANJUTA_LIBS) 
-libegg_menu_a_SOURCES = \
+libanjuta_egg_menu_la_SOURCES = \
   egg-action.c \
   egg-action-group.c \
   egg-toggle-action.c \
@@ -35,19 +35,19 @@ noinst_HEADERS = \
 noinst_PROGRAMS = test-actions test-merge
 
 test_actions_SOURCES = test-actions.c
-test_actions_LDFLAGS = libegg-menu.a \
-	$(top_builddir)/libegg/toolbar/libegg-toolbar.a \
-	$(top_builddir)/libegg/util/libeggutil.a \
+test_actions_LDFLAGS = libanjuta-egg-menu.la \
+	$(top_builddir)/libegg/toolbar/libanjuta-egg-toolbar.la \
+	$(top_builddir)/libegg/util/libanjuta-eggutil.la \
 	$(ANJUTA_LIBS)
-test_actions_DEPENDENCIES = libegg-menu.a \
-	$(top_builddir)/libegg/toolbar/libegg-toolbar.a \
-	$(top_builddir)/libegg/util/libeggutil.a
+test_actions_DEPENDENCIES = libanjuta-egg-menu.la \
+	$(top_builddir)/libegg/toolbar/libanjuta-egg-toolbar.la \
+	$(top_builddir)/libegg/util/libanjuta-eggutil.la
 
 test_merge_SOURCES = test-merge.c
-test_merge_LDFLAGS = libegg-menu.a \
-	$(top_builddir)/libegg/toolbar/libegg-toolbar.a \
-	$(top_builddir)/libegg/util/libeggutil.a \
+test_merge_LDFLAGS = libanjuta-egg-menu.la \
+	$(top_builddir)/libegg/toolbar/libanjuta-egg-toolbar.la \
+	$(top_builddir)/libegg/util/libanjuta-eggutil.la \
 	$(ANJUTA_LIBS)
-test_merge_DEPENDENCIES = libegg-menu.a \
-	$(top_builddir)/libegg/toolbar/libegg-toolbar.a \
-	$(top_builddir)/libegg/util/libeggutil.a
+test_merge_DEPENDENCIES = libanjuta-egg-menu.la \
+	$(top_builddir)/libegg/toolbar/libanjuta-egg-toolbar.la \
+	$(top_builddir)/libegg/util/libanjuta-eggutil.la

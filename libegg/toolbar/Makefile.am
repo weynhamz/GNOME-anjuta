@@ -8,13 +8,13 @@ INCLUDES = \
   -I$(top_builddir)/libegg/util \
   -Wmissing-prototypes
 
-noinst_LIBRARIES = libegg-toolbar.a
+lib_LTLIBRARIES = libanjuta-egg-toolbar.la
 
 # libegg_toolbar_a_LIBADD = \
 #	$(ANJUTA_LIBS) \
 #	$(top_builddir)/libegg/util/libeggutil.a
 
-libegg_toolbar_a_SOURCES = \
+libanjuta_egg_toolbar_la_SOURCES = \
   eggtoolbar.c \
   eggtoolitem.c \
   eggseparatortoolitem.c \
@@ -35,8 +35,8 @@ noinst_PROGRAMS = gtkexample test-drag #test-toolbar
 gtkexample_SOURCES = gtkexample.c
 
 gtkexample_LDADD = $(ANJUTA_LIBS) \
-  $(top_builddir)/libegg/toolbar/libegg-toolbar.a \
-  $(top_builddir)/libegg/util/libeggutil.a
+  $(top_builddir)/libegg/toolbar/libanjuta-egg-toolbar.la \
+  $(top_builddir)/libegg/util/libanjuta-eggutil.la
 
 #test_toolbar_SOURCES = test-toolbar.c prop-editor.c
 
@@ -47,6 +47,6 @@ gtkexample_LDADD = $(ANJUTA_LIBS) \
 test_drag_SOURCES = test-drag.c
 
 test_drag_LDADD = $(ANJUTA_LIBS) \
-  $(top_builddir)/libegg/toolbar/libegg-toolbar.a \
-  $(top_builddir)/libegg/util/libeggutil.a
+  $(top_builddir)/libegg/toolbar/libanjuta-egg-toolbar.la \
+  $(top_builddir)/libegg/util/libanjuta-eggutil.la
 

@@ -73,17 +73,6 @@ void anjuta_preferences_initialize (AnjutaPreferences *pref);
 #define BUILD_FILE_BROWSER         "build.file.browser"
 #define SHOW_TOOLTIPS              "show.tooltips"
 
-#define PRINT_PAPER_SIZE           "print.paper.size"
-#define PRINT_HEADER               "print.header"
-#define PRINT_WRAP                 "print.linewrap"
-#define PRINT_LINENUM_COUNT        "print.linenumber.count"
-#define PRINT_LANDSCAPE            "print.landscape"
-#define PRINT_MARGIN_LEFT          "print.margin.left"
-#define PRINT_MARGIN_RIGHT         "print.margin.right"
-#define PRINT_MARGIN_TOP           "print.margin.top"
-#define PRINT_MARGIN_BOTTOM        "print.margin.bottom"
-#define PRINT_COLOR                "print.color"
-
 #define USE_COMPONENTS             "components.enable"
 
 #define IDENT_NAME                 "ident.name"

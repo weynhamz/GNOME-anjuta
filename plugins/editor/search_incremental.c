@@ -30,8 +30,10 @@
 
 
 #include <gnome.h>
+#include <libanjuta/anjuta-utils.h>
 
 #include "text_editor.h"
+#include "search_incremental.h"
 
 #define GTK
 #undef PLAT_GTK
@@ -65,7 +67,7 @@ search_incremental_init (AnjutaDocman *dm)
 	sr = create_search_replace_instance (dm);
 }
 
-static
+static void
 incremental_save_retrieve_expr(gboolean save)
 {
 	static gboolean save_regex = FALSE;
@@ -95,7 +97,6 @@ incremental_save_retrieve_expr(gboolean save)
 	}
 }
 
-
 static gint
 incremental_search(TextEditor *te, gchar *string, SearchDirection direction)
 {
@@ -120,19 +121,21 @@ incremental_search(TextEditor *te, gchar *string, SearchDirection direction)
 		return -1;
 }
 
-
 void
-enter_selection_as_search_target(void)
+enter_selection_as_search_target(AnjutaDocman *dm)
 {
+	TextEditor *te;
 	gchar *selectionText = NULL;
 
 	//~ if (sr == NULL)
 		//~ sr = create_search_replace_instance();
-	
-	selectionText = (gchar*) anjuta_get_current_selection ();
+	te = anjuta_docman_get_current_editor (dm);
+	if (!te) return;
+		
+	selectionText = (gchar*) text_editor_get_selection (te);
 	if (selectionText != NULL && selectionText[0] != '\0')
-	{	
-		update_string_list (sr->search.expr_history,
+	{
+		anjuta_util_update_string_list (sr->search.expr_history,
 			                selectionText, COMBO_LIST_LENGTH);
 //		entry_set_text_n_select (app->widgets.toolbar.main_toolbar.find_entry,
 //								 selectionText, FALSE);
@@ -143,7 +146,7 @@ enter_selection_as_search_target(void)
 
 
 void
-toolbar_search_incremental_start (void)
+toolbar_search_incremental_start (AnjutaDocman *dm)
 {
 	gchar *string;
 	const gchar *string1;
@@ -161,7 +164,7 @@ toolbar_search_incremental_start (void)
 	if (string1 && strlen (string1) > 0)
 	{
 		string = g_strdup (string1);
-		sr->search.expr_history = update_string_list (sr->search.expr_history, 
+		sr->search.expr_history = anjuta_util_update_string_list (sr->search.expr_history, 
 													string, COMBO_LIST_LENGTH);
 		//~ gtk_combo_set_popdown_strings (GTK_COMBO
 						   //~ (app->widgets.toolbar.main_toolbar.find_combo),
@@ -173,13 +176,13 @@ toolbar_search_incremental_start (void)
 	sr->search.incremental_wrap = FALSE;
 }
 void
-toolbar_search_incremental_end (void)
+toolbar_search_incremental_end (AnjutaDocman *dm)
 {
 	sr->search.incremental_pos = -1;
 }
 
 void
-toolbar_search_incremental (void)
+toolbar_search_incremental (AnjutaDocman *dm)
 {
 	const gchar *entry_text;
 	TextEditor *te;
@@ -267,9 +270,10 @@ toolbar_search_clicked (SearchDirection direction)
 		{
 			if (search_wrap == FALSE)
 			{
-				anjuta_status(
-				"Failling I-Search: '%s'. Press Enter or click Find to overwrap.",
-				string);
+				g_warning ("Pass program status here ... ");
+				// anjuta_status(
+				// "Failling I-Search: '%s'. Press Enter or click Find to overwrap.",
+				// string);
 				sr->search.incremental_wrap = TRUE;
 				//~ if (anjuta_preferences_get (ANJUTA_PREFERENCES (app->preferences),
 											//~ BEEP_ON_BUILD_COMPLETE))
@@ -277,7 +281,8 @@ toolbar_search_clicked (SearchDirection direction)
 			}
 			else
 			{
-				anjuta_status ("Failling Overwrapped I-Search: %s.", string);
+				g_warning ("Pass program status here ... ");
+				// anjuta_status ("Failling Overwrapped I-Search: %s.", string);
 			}
 		}
 	}

@@ -21,6 +21,7 @@
 
 #include <gtk/gtk.h>
 
+#if 0
 typedef struct _TextEditorMenu TextEditorMenu;
 struct _TextEditorMenu
 {
@@ -42,5 +43,5 @@ void text_editor_menu_destroy (TextEditorMenu *);
 void text_editor_menu_popup (TextEditorMenu * menu, GdkEventButton * bevent);
 void on_text_editor_menu_tags_activate (GtkMenuItem * menuitem, gpointer data);
 void on_text_editor_menu_swap_activate (GtkMenuItem * menuitem, gpointer data);
-
+#endif
 #endif

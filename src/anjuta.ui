@@ -2,117 +2,23 @@
 <Root>
 	<menu name="MenuMain">
 		<submenu name="MenuFile" verb="ActionMenuFile">
-			<placeholder name="PlaceholderFileMenus" />
-			<menuitem name="ProjectNew" verb="ActionProjectNew" />
-			<menuitem name="ProjctImport" verb="ActionProjectImport" />
-			<menuitem name="ProjectOpen" verb="ActionProjectOpen" />
-			<menuitem name="ProjectSave" verb="ActionProjectSave" />
-			<menuitem name="ProjectClose" verb="ActionProjectClose" />
-			<separator name="separator2"/>
-			<placeholder name="PlaceholderPrintMenus" />
-			<placeholder name="PlaceholderRecentMenus" >
-				<submenu name="RecentProjects" verb="ActionMenuFileRecentProjects"/>
-			<separator name="separator4"/>
-			</placeholder>
+			<placeholder name="PlaceholderFileMenus"/>
+			<placeholder name="PlaceholderPrintMenus"/>
+			<placeholder name="PlaceholderRecentMenus"/>
 			<menuitem name="Quit" verb="ActionExit" />
 		</submenu>
 		<submenu name="MenuEdit" verb="ActionMenuEdit">
-			<placeholder name="PlaceholderEditMenus"/>
-			<placeholder name="PlaceholderSelectMenus"/>
-			<placeholder name="PlaceholderInsertMenus"/>
-			<placeholder name="PlaceholderSearchMenus"/>
-			<submenu name="Goto" verb="ActionMenuEditGoto">
-				<placeholder name="PlaceholderGotoMenus"/>
-				<menuitem name="PreviousMessage" verb="ActionEditGotoMessagePrev" />
-				<menuitem name="NextMessage" verb="ActionEditGotoMessageNext" />
-				<separator name="separator3"/>
-				<menuitem name="Back" verb="ActionEditGotoHistoryBack" />
-				<menuitem name="Forward" verb="ActionEditGotoHistoryForward" />
-				<separator name="separator4"/>
-				<menuitem name="TagDefinition" verb="ActionEditGotoTagDefinition" />
-				<menuitem name="TagDeclaration" verb="ActionEditGotoTagDeclaration" />
-			</submenu>
 		</submenu>
 		<submenu name="MenuView" verb="ActionMenuView">
-			<menuitem name="MessageWindow" verb="ActionViewWindowMessageManager" />
-			<menuitem name="ProjectWindow" verb="ActionViewWindowProjectManager" />
-			<separator name="separator1"/>
-			<submenu name="MenuViewToolbars" verb="ActionMenuViewToolbars">
-				<menuitem name="MainToolbar" verb="ActionViewToolbarMain" />
-				<menuitem name="ExtendedToolbar" verb="ActionViewToolbarExtended" />
-				<menuitem name="DebugToolbar" verb="ActionViewToolbarDebug" />
-				<menuitem name="BrowserToolbar" verb="ActionViewToolbarBrowser" />
-				<menuitem name="FormatToolbar" verb="ActionViewToolbarFormat" />
-			</submenu>
-			<placeholder name="PlaceholderViewMenus"/>
-			<menuitem name="Bookmarks" verb="ActionViewWindowBookmarks" />
-			<menuitem name="Breakpoints" verb="ActionViewWindowBreakpoints" />
-			<menuitem name="Registers" verb="ActionViewWindowRegisters" />
-			<menuitem name="SharedLibraries" verb="ActionViewWindowSharedLibs" />
-			<menuitem name="KernalSignals" verb="ActionViewWindowKernelSignals" />
-			<menuitem name="MemoryDump" verb="ActionViewWindowMemoryDump" />
 		</submenu>
-		<submenu name="MenuProject" verb="Act<separator name="separator2"/>ionMenuProject">
-			<submenu name="MenuAddFile" verb="ActionMenuProjectAddFile">
-				<menuitem name="Header" verb="ActionProjectAddFileHearder" />
-				<menuitem name="Source" verb="ActionProjectAddFileSource" />
-				<menuitem name="Help" verb="ActionProjectAddFileHelp" />
-				<menuitem name="Data" verb="ActionProjectAddFileData" />
-				<menuitem name="Pixmap" verb="ActionProjectAddFilePixmap" />
-				<menuitem name="Translation" verb="ActionProjectAddFileTranslation" />
-				<menuitem name="Document" verb="ActionProjectAddFileDoc" />
-			</submenu>
-			<menuitem name="OpenInDefaultViewer" verb="ActionProjectOpenInDefaultViewer" />
-			<menuitem name="OpenInAnjuta" verb="ActionProjectOpenInAnjuta" />
-			<menuitem name="RemoveFile" verb="ActionProjectRemoveFile" />
-			<separator name="separator1" />
-			<menuitem name="Configure" verb="ActionProjectConfigure" />
-			<menuitem name="Info" verb="ActionProjectInfo" />
-			<separator name="separator2" />
-			<menuitem name="SymbolsUpdate" verb="ActionProjectSymbolsUpdate" />
-			<menuitem name="SymbolsRebuild" verb="ActionProjectSymbolsRebuild" />
-			<menuitem name="EditGUI" verb="ActionProjectEditGUI" />
-		</submenu>
-		<placeholder name="PlaceholderFormatMenus"/>
-		<submenu name="MenuBuild" verb="ActionMenuBuild">
-			<menuitem name="Compile" verb="ActionBuildCompile" />
-			<menuitem name="CompileWithMake" verb="ActionBuildCompileWithMake" />
-			<separator name="separator1" />
-			<menuitem name="Build" verb="ActionBuildBuild" />
-			<menuitem name="BuildAll" verb="ActionBuildBuildAll" />
-			<separator name="separator2" />
-			<menuitem name="Save" verb="ActionBuildSave" />
-			<separator name="separator3" />
-			<menuitem name="Install" verb="ActionBuildInstall" />
-			<menuitem name="Distribution" verb="ActionBuildDistribution" />
-			<separator name="separator4" />
-			<menuitem name="Configure" verb="ActionBuildConfigure" />
-			<menuitem name="Autogen" verb="ActionBuildAutogen" />
-			<separator name="separator5" />
-			<menuitem name="Clean" verb="ActionBuildClean" />
-			<menuitem name="CleanAll" verb="ActionBuildCleanAll" />
-			<separator name="separator6" />
-			<menuitem name="Stop" verb="ActionBuildStop" />
-			<separator name="separator7" />
-			<menuitem name="Execute" verb="ActionBuildExecute" />
-			<menuitem name="SetExecute" verb="ActionBuildSetExecute" />
-		</submenu>
+		<placeholder name="PlaceHolderProjectMenus"/>
+		<placeholder name="PlaceHolderFormatMenus"/>
+		<placeholder name="PlaceHolderBuildMenus"/>
 		<placeholder name="PlaceHolderBookmarkMenus"/>
 		<submenu name="MenuSettings" verb="ActionMenuSettings" >
-			<menuitem name="Build" verb="ActionSettingsBuild" />
-			<menuitem name="Paths" verb="ActionSettingsPaths" />
-			<separator name="separator1" />
-			<menuitem name="Commands" verb="ActionSettingsComamnds" />
 			<menuitem name="Preferences" verb="ActionSettingsPreferences" />
-			<menuitem name="EditorColors" verb="ActionSettingseEditorColors" />
-			<menuitem name="FileFilters" verb="ActionSettingsFileFilters" />
-			<menuitem name="UserProperties" verb="ActionSettingsUserProperties" />
 			<menuitem name="Defaults" verb="ActionSettingsDefaults" />
 			<menuitem name="Shortcuts" verb="ActionSettingsShortcuts" />
-			<separator name="separator2" />
-			<menuitem name="Tools" verb="ActionSettingsTools" />
-			<menuitem name="Startwith" verb="ActionSettingsStartwith" />
-			<menuitem name="Setup" verb="ActionSettingsSetup" />
 		</submenu>
 		<submenu name="MenuHelp" verb="ActionMenuHelp" >
 			<menuitem name="Gnome" verb="ActionHelpGnome" />
@@ -135,27 +41,9 @@
 		<placeholder name="TestPlaceholder" />
 	</menu>
 	<dockitem name="ToolbarMain">
-		<placeholder name="PlaceholderFileToolbar" />
-		<toolitem name="Project" verb="ActionViewWindowProjectManager" />
-		<toolitem name="Messages" verb="ActionViewWindowMessageManager" />
-		<separator name="separator6" />
-		<toolitem name="ContextHelp" verb="ActionHelpContext" />
 	</dockitem>
 	<dockitem name="ToolbarBrowser">
-		<placeholder name="PlaceholderBrowserToolbar" />
-		<toolitem name="MessagePrev" verb="ActionEditGotoMessagePrev"/>
-		<toolitem name="MessageNext" verb="ActionEditGotoMessageNext"/>
 	</dockitem>
 	<dockitem name="ToolbarExtended">
-		<toolitem name="ProjectOpen" verb="ActionProjectOpen"/>
-		<toolitem name="ProjectSave" verb="ActionProjectSave"/>
-		<toolitem name="ProjectClose" verb="ActionProjectClose"/>
-		<separator name="separator1" />
-		<toolitem name="Compile" verb="ActionBuildCompile"/>
-		<toolitem name="Configure" verb="ActionBuildConfigure"/>
-		<toolitem name="Build" verb="ActionBuildBuild"/>
-		<toolitem name="BuildAll" verb="ActionBuildBuildAll"/>
-		<toolitem name="Execute" verb="ActionBuildExecute"/>
-		<toolitem name="BuildStop" verb="ActionBuildStop"/>
 	</dockitem>
 </Root>

@@ -1,8 +1,8 @@
 ## Process this file with automake to produce Makefile.in
 SUBDIRS = include
 INCLUDES = -I$(srcdir)/include $(GLIB_CFLAGS)
-noinst_LIBRARIES = libctags.a
-libctags_a_SOURCES =\
+lib_LTLIBRARIES = libanjuta-ctags.la
+libanjuta_ctags_la_SOURCES =\
 	debug.h\
 	general.h\
 	keyword.h\

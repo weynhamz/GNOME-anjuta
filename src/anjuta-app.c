@@ -1,3 +1,4 @@
+/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
  * anjuta.c Copyright (C) 2000 Naba Kumar
  * 
@@ -29,19 +30,68 @@
 #include <gnome.h>
 #include <gtk/gtkwidget.h>
 #include <glade/glade.h>
+#include <libegg/toolbar/eggtoolbar.h>
 #include <libegg/menu/egg-toggle-action.h>
 #include <gdl/gdl-dock.h>
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-utils.h>
 #include <libanjuta/resources.h>
 #include <libanjuta/pixmaps.h>
+#include <libanjuta/anjuta-stock.h>
 
 #include "anjuta-app.h"
+#include "anjuta-callbacks.h"
+#include "anjuta-actions.h"
+
+#define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta.ui"
 
 // static GdkCursor *app_cursor;
 
 static gboolean anjuta_app_save_layout_to_file (AnjutaApp *app);
+
 gpointer parent_class;
+
+#define REGISTER_ICON(icon, stock_id) \
+	pixbuf = anjuta_res_get_pixbuf (icon); \
+	icon_set = gtk_icon_set_new_from_pixbuf (pixbuf); \
+	gtk_icon_factory_add (icon_factory, stock_id, icon_set); \
+	//g_object_unref (pixbuf);
+
+static void
+create_stock_icons (AnjutaUI *ui)
+{
+	GtkIconFactory *icon_factory;
+	GtkIconSet *icon_set;
+	GdkPixbuf *pixbuf;
+	
+	icon_factory = anjuta_ui_get_icon_factory (ui);
+	
+	REGISTER_ICON (ANJUTA_PIXMAP_UNDOCK, ANJUTA_STOCK_UNDOCK);
+	REGISTER_ICON (ANJUTA_PIXMAP_PROJECT, ANJUTA_STOCK_PROJECT);
+	REGISTER_ICON (ANJUTA_PIXMAP_MESSAGES, ANJUTA_STOCK_MESSAGES);
+	REGISTER_ICON (ANJUTA_PIXMAP_BOOKMARK_TOGGLE, ANJUTA_STOCK_TOGGLE_BOOKMARK);
+	REGISTER_ICON (ANJUTA_PIXMAP_ERROR_NEXT, ANJUTA_STOCK_NEXT_MESSAGE);
+	REGISTER_ICON (ANJUTA_PIXMAP_ERROR_PREV, ANJUTA_STOCK_PREV_MESSAGE);
+	REGISTER_ICON (ANJUTA_PIXMAP_BLOCK_START, ANJUTA_STOCK_BLOCK_START);
+	REGISTER_ICON (ANJUTA_PIXMAP_BLOCK_END, ANJUTA_STOCK_BLOCK_END);
+	REGISTER_ICON (ANJUTA_PIXMAP_OPEN_PROJECT, ANJUTA_STOCK_OPEN_PROJECT);
+	REGISTER_ICON (ANJUTA_PIXMAP_CLOSE_PROJECT, ANJUTA_STOCK_CLOSE_PROJECT);
+	REGISTER_ICON (ANJUTA_PIXMAP_SAVE_PROJECT, ANJUTA_STOCK_SAVE_PROJECT);
+	REGISTER_ICON (ANJUTA_PIXMAP_COMPILE, ANJUTA_STOCK_COMPILE);
+	REGISTER_ICON (ANJUTA_PIXMAP_BUILD, ANJUTA_STOCK_BUILD);
+	REGISTER_ICON (ANJUTA_PIXMAP_BUILD_ALL, ANJUTA_STOCK_BUILD_ALL);
+	REGISTER_ICON (ANJUTA_PIXMAP_CONFIGURE, ANJUTA_STOCK_CONFIGURE);
+	REGISTER_ICON (ANJUTA_PIXMAP_DEBUG, ANJUTA_STOCK_DEBUG);
+	REGISTER_ICON (ANJUTA_PIXMAP_FOLD_TOGGLE, ANJUTA_STOCK_FOLD_TOGGLE);
+	REGISTER_ICON (ANJUTA_PIXMAP_FOLD_OPEN, ANJUTA_STOCK_FOLD_OPEN);
+	REGISTER_ICON (ANJUTA_PIXMAP_FOLD_CLOSE, ANJUTA_STOCK_FOLD_CLOSE);
+	REGISTER_ICON (ANJUTA_PIXMAP_BLOCK_SELECT, ANJUTA_STOCK_BLOCK_SELECT);
+	REGISTER_ICON (ANJUTA_PIXMAP_INDENT_INC, ANJUTA_STOCK_INDENT_INC);
+	REGISTER_ICON (ANJUTA_PIXMAP_INDENT_DCR, ANJUTA_STOCK_INDENT_DCR);
+	REGISTER_ICON (ANJUTA_PIXMAP_INDENT_AUTO, ANJUTA_STOCK_INDENT_AUTO);
+	REGISTER_ICON (ANJUTA_PIXMAP_AUTOFORMAT_SETTING, ANJUTA_STOCK_AUTOFORMAT_SETTINGS);
+	REGISTER_ICON (ANJUTA_PIXMAP_AUTOCOMPLETE, ANJUTA_STOCK_AUTOCOMPLETE);
+}
 
 static void 
 layout_dirty_notify (GObject    *object,
@@ -61,25 +111,119 @@ layout_dirty_notify (GObject    *object,
 	}
 }
 
+static void
+on_add_merge_widget (GtkWidget *merge, GtkWidget *widget,
+					 GtkWidget *ui_container)
+{
+#ifdef DEBUG
+	g_message ("Adding UI item ...");
+#endif
+	if (GTK_IS_MENU_BAR (widget))
+	{
+		gnome_app_set_menus (GNOME_APP (ui_container), GTK_MENU_BAR (widget));
+		gtk_widget_show (widget);
+		// create_recent_files ();
+	}
+	else
+	{
+		static gchar *toolbar_name[] =
+		{
+			ANJUTA_MAIN_TOOLBAR,
+			ANJUTA_BROWSER_TOOLBAR,
+			ANJUTA_EXTENDED_TOOLBAR,
+			ANJUTA_FORMAT_TOOLBAR,
+			ANJUTA_DEBUG_TOOLBAR,
+			NULL,
+		};
+		static gchar *action_name[] =
+		{
+			"ActionViewToolbarMain",
+			"ActionViewToolbarBrowser",
+			"ActionViewToolbarExtended",
+			"ActionViewToolbarFormat",
+			"ActionViewToolbarDebug",
+			NULL,
+		};
+		static gint count = 0;
+		gchar *toolbarname;
+		BonoboDockItem* item;
+		gchar* key;
+		PropsID pr;
+		EggAction *action;
+		egg_toolbar_set_icon_size (EGG_TOOLBAR (widget),
+								   GTK_ICON_SIZE_SMALL_TOOLBAR);
+ 		//egg_toolbar_set_show_arrow (EGG_TOOLBAR (widget), TRUE);
+		if (count < 5)
+		{
+			toolbarname = g_strdup (toolbar_name[count]);
+		}
+		else
+		{
+			toolbarname = g_strdup_printf ("toolbar%d", count + 1);
+		}
+		g_message ("Adding toolbar: %s", toolbarname);
+		gnome_app_add_docked (GNOME_APP (ui_container), widget,
+							  toolbarname,
+							  BONOBO_DOCK_ITEM_BEH_NEVER_VERTICAL,
+							  BONOBO_DOCK_TOP, count + 1, 0, 0);
+		
+		// Show/hide toolbar
+		gtk_widget_show (widget);
+		if (count < 5)
+		{
+			pr = ANJUTA_PREFERENCES (ANJUTA_APP(ui_container)->preferences)->props;
+			key = g_strconcat (toolbarname, ".visible", NULL);
+			action = anjuta_ui_get_action (ANJUTA_APP(ui_container)->ui, "ActionGroupView",
+										   action_name[count]);
+			egg_toggle_action_set_active (EGG_TOGGLE_ACTION (action),
+										  prop_get_int (pr, key, 1));
+			g_free (key);
+		} else {
+			item = gnome_app_get_dock_item_by_name (GNOME_APP (ui_container),
+													toolbarname);
+			gtk_widget_show (GTK_WIDGET (item));
+			gtk_widget_show (GTK_BIN(item)->child);
+		}
+		g_free (toolbarname);
+		count ++;
+	}
+	//else
+	//	g_warning ("Unknow UI widget: Can not add in container");
+}
+
+static void
+on_remove_merge_widget (GtkWidget *merge, GtkWidget *widget,
+					 GtkWidget *ui_container)
+{
+}
+
 GtkWidget *
 anjuta_app_new (void)
 {
 	AnjutaApp *app;
 
 	app = ANJUTA_APP (g_object_new (ANJUTA_TYPE_APP, 
-					      "win_name", "Anjuta",
-					      "title", "Anjuta",
-					      NULL));
+									"win_name", "Anjuta",
+									"title", "Anjuta",
+									NULL));
 
 	return GTK_WIDGET (app);
 }
 
 static void
-anjuta_app_instance_init (AnjutaApp *appl)
+init_user_data (EggActionGroupEntry* actions, gint size, gpointer data)
 {
-	/* Very bad hack */
-	app = appl;
-	
+	int i;
+	for (i = 0; i < size; i++)
+		if (actions[i].user_data == NULL)
+			actions[i].user_data = data;
+}
+
+static void
+anjuta_app_instance_init (AnjutaApp *app)
+{
+	gint merge_id;
+
 	g_message ("Initializing Anjuta...");
 	app->layout_manager = NULL;
 	app->values = g_hash_table_new (g_str_hash, g_str_equal);
@@ -109,6 +253,42 @@ anjuta_app_instance_init (AnjutaApp *appl)
 	/* Preferencesnces */
 	app->preferences = ANJUTA_PREFERENCES (anjuta_preferences_new ());
 	anjuta_preferences_initialize (app->preferences);
+
+	/* UI engine */
+	app->ui = ANJUTA_UI (anjuta_ui_new (GTK_WIDGET (app),
+					    G_CALLBACK (on_add_merge_widget),
+					    G_CALLBACK (on_remove_merge_widget)));
+	gtk_window_set_transient_for (GTK_WINDOW (app->ui),
+				      GTK_WINDOW (app));
+
+	/* Create stock icons */
+	create_stock_icons (app->ui);
+
+	/* Register actions */
+	init_user_data (menu_entries_file, G_N_ELEMENTS (menu_entries_file), app);
+	anjuta_ui_add_action_group_entries (app->ui, "ActionGroupFile", _("File"),
+										menu_entries_file,
+										G_N_ELEMENTS (menu_entries_file));
+	init_user_data (menu_entries_edit, G_N_ELEMENTS (menu_entries_edit), app);
+	anjuta_ui_add_action_group_entries (app->ui, "ActionGroupEdit", _("Edit"),
+										menu_entries_edit,
+										G_N_ELEMENTS (menu_entries_edit));
+	init_user_data (menu_entries_view, G_N_ELEMENTS (menu_entries_view), app);
+	anjuta_ui_add_action_group_entries (app->ui, "ActionGroupView", _("View"),
+										menu_entries_view,
+										G_N_ELEMENTS (menu_entries_view));
+	init_user_data (menu_entries_settings, G_N_ELEMENTS (menu_entries_settings), app);
+	anjuta_ui_add_action_group_entries (app->ui, "ActionGroupSettings", _("Settings"),
+										menu_entries_settings,
+										G_N_ELEMENTS (menu_entries_settings));
+	init_user_data (menu_entries_help, G_N_ELEMENTS (menu_entries_help), app);
+	anjuta_ui_add_action_group_entries (app->ui, "ActionGroupHelp", _("Help"),
+										menu_entries_help,
+										G_N_ELEMENTS (menu_entries_help));
+
+	/* Merge UI */
+	merge_id = anjuta_ui_merge (app->ui, UI_FILE);
+
 	gtk_window_set_transient_for (GTK_WINDOW (app->preferences),
 								  GTK_WINDOW (app));
 	gtk_window_add_accel_group (GTK_WINDOW (app->preferences),
@@ -129,13 +309,20 @@ anjuta_app_instance_init (AnjutaApp *appl)
 
 	app->icon_set = gdl_icons_new(24, 16.0);
 
-	// gtk_widget_set_uposition (app, app->win_pos_x, app->win_pos_y);
-	// gtk_window_set_default_size (GTK_WINDOW (app), app->win_width,
-	//							 app->win_height);
+	gtk_widget_set_uposition (GTK_WIDGET (app), app->win_pos_x, app->win_pos_y);
+	gtk_window_set_default_size (GTK_WINDOW (app), app->win_width,
+								 app->win_height);
 	// anjuta_apply_preferences(ANJUTA_PREFERENCES (app->preferences), app);
 	
 	/* Load layout */
 	anjuta_app_load_layout (app, NULL);
+
+	g_signal_connect (G_OBJECT (app), "delete-event",
+					  G_CALLBACK (on_anjuta_app_delete_event),
+					  app);
+	g_signal_connect (G_OBJECT (app), "destroy",
+					  G_CALLBACK (on_anjuta_app_destroy_event),
+					  app);
 }
 
 static void
@@ -229,10 +416,10 @@ anjuta_app_remove_value (AnjutaShell *shell,
 		g_free (key);
 	}
 	
-	if (g_hash_table_lookup_extended (app->values, name, 
+	if (g_hash_table_lookup_extended (window->values, name, 
 					  (gpointer*)&key, (gpointer*)&value)) {
-		g_hash_table_remove (app->values, name);
-		g_signal_emit_by_name (app, "value_removed", name);
+		g_hash_table_remove (window->values, name);
+		g_signal_emit_by_name (window, "value_removed", name);
 		g_value_unset (value);
 		g_free (value);
 	}
@@ -278,7 +465,7 @@ anjuta_app_save_layout_to_file (AnjutaApp *window)
 	if (!g_file_test (dir, G_FILE_TEST_IS_DIR)) {
 		mkdir (dir, 0755);
 		if (!g_file_test (dir, G_FILE_TEST_IS_DIR)) {
-			anjuta_util_dialog_error (GTK_WINDOW (app),
+			anjuta_util_dialog_error (GTK_WINDOW (window),
 									  "Could not create .anjuta directory.");
 			return FALSE;
 		}
@@ -403,7 +590,7 @@ anjuta_app_class_init (AnjutaAppClass *class)
 	object_class = (GObjectClass*) class;
 	widget_class = (GtkWidgetClass*) class;
 	object_class->dispose = anjuta_app_dispose;
-	widget_class->show = anjuta_app_show;
+	//	widget_class->show = anjuta_app_show;
 }
 
 static void
@@ -543,7 +730,6 @@ anjuta_app_load_yourself (AnjutaApp *app, PropsID pr)
 	app->win_pos_y = prop_get_int (pr, "anjuta.win.pos.y", app->win_pos_y);
 	app->win_width = prop_get_int (pr, "anjuta.win.width", app->win_width);
 	app->win_height = prop_get_int (pr, "anjuta.win.height", app->win_height);
-
 	return TRUE;
 }
 

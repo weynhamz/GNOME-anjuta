@@ -26,6 +26,10 @@ void on_save_all1_activate (EggAction * action, gpointer user_data);
 void on_close_file1_activate (EggAction * action, gpointer user_data);
 void on_reload_file1_activate (EggAction * action, gpointer user_data);
 void on_close_all_file1_activate (EggAction * action, gpointer user_data);
+
+void anjuta_print_cb (EggAction *action, gpointer user_data);
+void anjuta_print_preview_cb (EggAction *action, gpointer user_data);
+
 void on_editor_command_activate (EggAction * action, gpointer user_data);
 void on_editor_select_function  (EggAction * action, gpointer user_data);
 void on_editor_select_word (EggAction *action, gpointer user_data);

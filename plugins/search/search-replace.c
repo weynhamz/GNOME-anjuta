@@ -623,7 +623,7 @@ search_get_item_combo(GtkEditable *editable, AnjutaUtilStringMap *map)
 	gint item;
 	
 	s = gtk_editable_get_chars(GTK_EDITABLE(editable), 0, -1);
-	item = type_from_string(map, s);
+	item = anjuta_util_type_from_string(map, s);
 	g_free(s);
 	return item;
 }
@@ -841,8 +841,8 @@ modify_label_image_button(gchar *button_name, gchar *name, char *stock_image)
 	GList *list, *l;
 	GtkHBox *hbox;
 	GtkWidget *alignment;
-	GtkWidget *label;
-	GtkWidget *image;
+	// GtkWidget *label;
+	// GtkWidget *image;
 	GtkWidget *button = sr_get_gladewidget(button_name)->widget;
 	
 	list = gtk_container_get_children(GTK_CONTAINER (button));
@@ -1324,7 +1324,7 @@ on_search_direction_changed (GtkEditable *editable, gpointer user_data)
 void
 on_search_action_changed (GtkEditable *editable, gpointer user_data)
 {
-	GtkWidget *replace_frame = sr_get_gladewidget(REPLACE_FRAME)->widget;
+	// GtkWidget *replace_frame = sr_get_gladewidget(REPLACE_FRAME)->widget;
 	SearchAction act;
 	SearchRangeType rt;
 	
@@ -1493,7 +1493,7 @@ void
 on_search_forward_toggled (GtkToggleButton *togglebutton, 
 									gpointer user_data)
 {
-	GtkWidget *widget;
+	// GtkWidget *widget;
 	if (gtk_toggle_button_get_active(togglebutton))
 	{
 		search_set_direction(SD_FORWARD);
@@ -1505,7 +1505,7 @@ void
 on_search_backward_toggled (GtkToggleButton *togglebutton, 
 									gpointer user_data)
 {
-	GtkWidget *widget;
+	// GtkWidget *widget;
 	
 	if (gtk_toggle_button_get_active(togglebutton))
 	{

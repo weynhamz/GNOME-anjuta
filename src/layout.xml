@@ -20,6 +20,7 @@
 				<notebook orientation="horizontal" locked="no" page="0">
 					<item name="AnjutaDocumentManager" orientation="horizontal" locked="no"/>
 					<item name="DevHelpBrowser" orientation="horizontal" locked="no"/>
+					<item name="AnjutaSamplePlugin" orientation="horizontal" locked="no"/>
 				</notebook>
 				<item name="AnjutaMessageManager" orientation="horizontal" locked="no">
 					<placeholder name="ph_bottom" next-placement="center"/>

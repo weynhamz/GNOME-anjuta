@@ -31,20 +31,29 @@
 #include "search-replace_backend.h"
 #include "plugin.h"
 #include "goto_line.h"
+#include "print.h"
 
 gboolean closing_state;
 
 void
 on_new_file1_activate (EggAction * action, gpointer user_data)
 {
-	display_new_file();
-}
+	AnjutaDocman *docman;
+	EditorPlugin *plugin;
+	plugin = (EditorPlugin *) user_data;
+	docman = ANJUTA_DOCMAN (plugin->docman);
 
+	display_new_file(docman);
+}
 
 void
 on_open1_activate (EggAction * action, gpointer user_data)
 {
-	// gtk_widget_show (app->fileselection);
+	AnjutaDocman *docman;
+	EditorPlugin *plugin;
+	plugin = (EditorPlugin *) user_data;
+	docman = ANJUTA_DOCMAN (plugin->docman);
+	anjuta_docman_open_file (docman);
 }
 
 void
@@ -56,7 +65,8 @@ on_save1_activate (EggAction *action, gpointer user_data)
 	EditorPlugin *plugin;
 	plugin = (EditorPlugin *) user_data;
 	docman = ANJUTA_DOCMAN (plugin->docman);
-
+	anjuta_docman_save_as_file (docman);
+	
 	te = anjuta_docman_get_current_editor (docman);
 	if (te == NULL)
 		return;
@@ -74,21 +84,14 @@ on_save1_activate (EggAction *action, gpointer user_data)
 	}
 }
 
-
 void
 on_save_as1_activate (EggAction * action, gpointer user_data)
 {
-	TextEditor *te;
 	AnjutaDocman *docman;
 	EditorPlugin *plugin;
 	plugin = (EditorPlugin *) user_data;
 	docman = ANJUTA_DOCMAN (plugin->docman);
-
-	te = anjuta_docman_get_current_editor (docman);
-	if (te == NULL)
-		return;
-	// fileselection_set_filename (app->save_as_fileselection, te->full_filename);
-	// gtk_widget_show (app->save_as_fileselection);
+	anjuta_docman_save_as_file (docman);
 }
 
 void
@@ -231,6 +234,36 @@ on_reload_file1_activate (EggAction * action, gpointer user_data)
 		// anjuta_update_title ();
 	}
 	gtk_widget_destroy (dialog);
+}
+
+void
+anjuta_print_cb (EggAction *action, gpointer user_data)
+{
+	TextEditor *te;
+	AnjutaDocman *docman;
+	EditorPlugin *plugin;
+	
+	plugin = (EditorPlugin *) user_data;
+	docman = ANJUTA_DOCMAN (plugin->docman);
+	te = anjuta_docman_get_current_editor (docman);
+	if (te == NULL)
+		return;
+	anjuta_print (FALSE, ANJUTA_PLUGIN (plugin)->prefs, te);
+}
+
+void
+anjuta_print_preview_cb (EggAction * action, gpointer user_data)
+{
+	TextEditor *te;
+	AnjutaDocman *docman;
+	EditorPlugin *plugin;
+	
+	plugin = (EditorPlugin *) user_data;
+	docman = ANJUTA_DOCMAN (plugin->docman);
+	te = anjuta_docman_get_current_editor (docman);
+	if (te == NULL)
+		return;
+	anjuta_print (TRUE, ANJUTA_PLUGIN (plugin)->prefs, te);
 }
 
 void
@@ -1349,4 +1382,9 @@ on_toolbar_find_clicked (EggAction * action, gpointer user_data)
 		}
 	}
 #endif
+}
+
+void
+on_calltip1_activate (EggAction * action, gpointer user_data)
+{
 }

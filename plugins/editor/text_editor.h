@@ -44,7 +44,7 @@ struct _TextEditor
 {
 	GtkVBox vbox;
 	
-	TextEditorMenu *menu;
+	// TextEditorMenu *menu;
 
 	gchar *filename;
 	gchar *full_filename;

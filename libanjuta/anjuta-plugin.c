@@ -1,3 +1,4 @@
+/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /* Anjuta
  * Copyright 2000 Dave Camp
  *
@@ -52,7 +53,9 @@ struct _AnjutaPluginPrivate {
 
 enum {
 	PROP_0,
-	PROP_SHELL
+	PROP_SHELL,
+	PROP_UI,
+	PROP_PREFS
 };
 
 static void anjuta_plugin_finalize (GObject         *object);
@@ -120,6 +123,12 @@ anjuta_plugin_get_property (GObject *object,
 	case PROP_SHELL:
 		g_value_set_object (value, tool->shell);
 		break;
+	case PROP_UI:
+	  g_value_set_object (value, tool->ui);
+	  break;
+	case PROP_PREFS:
+	  g_value_set_object (value, tool->prefs);
+	  break;
 	default :
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, param_id, pspec);
 		break;
@@ -144,6 +153,24 @@ anjuta_plugin_set_property (GObject *object,
 
 		g_object_notify (object, "shell");
 		break;
+	case PROP_UI:
+	  g_return_if_fail (tool->ui == NULL);
+	  tool->ui = g_value_get_object (value);
+	  g_object_ref (tool->ui);
+
+	  ANJUTA_PLUGIN_GET_CLASS (object)->ui_set (tool);
+	  
+	  g_object_notify (object, "ui");
+	  break;
+	case PROP_PREFS:
+	  g_return_if_fail (tool->prefs == NULL);
+	  tool->prefs = g_value_get_object (value);
+	  g_object_ref (tool->prefs);
+
+	  ANJUTA_PLUGIN_GET_CLASS (object)->prefs_set (tool);
+
+	  g_object_notify (object, "prefs");
+	  break;
 	default :
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, param_id, pspec);
 		break;
@@ -170,6 +197,22 @@ anjuta_plugin_class_init (AnjutaPluginClass *class)
 				      _("Anjuta Shell"),
 				      _("Anjuta shell that will contain the tool"),
 				      ANJUTA_TYPE_SHELL,
+				      G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
+	g_object_class_install_property
+		(object_class,
+		 PROP_UI,
+		 g_param_spec_object ("ui",
+				      _("Anjuta UI"),
+				      _("Anjuta UI that will contain Menus and toolbars"),
+				      ANJUTA_TYPE_UI,
+				      G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
+	g_object_class_install_property
+		(object_class,
+		 PROP_PREFS,
+		 g_param_spec_object ("prefs",
+				      _("Anjuta Preferences"),
+				      _("Anjuta preferences that will contain preferences"),
+				      ANJUTA_TYPE_PREFERENCES,
 				      G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
 }
 

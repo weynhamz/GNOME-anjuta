@@ -35,7 +35,7 @@
 #include "e-splash.h"
 
 /* One and only one instance of AnjutaApp. */
-AnjutaApp *app;			
+// AnjutaApp *app;			
 
 gboolean no_splash = 0;
 GList* command_args;
@@ -97,10 +97,10 @@ static gint
 restore_session_on_idle (gpointer data)
 {
 	// GnomeClient* client = data;
-	while (gtk_events_pending ())
-	{
-		gtk_main_iteration ();
-	}
+	//while (gtk_events_pending ())
+	//{
+	//	gtk_main_iteration ();
+	//}
 	// FIXME: anjuta_session_restore(client);
 	return FALSE;
 }
@@ -109,15 +109,15 @@ static gint
 load_command_lines_on_idle(gpointer data)
 {
 	// int argc = (int)data;
-	while (gtk_events_pending ())
-	{
-		gtk_main_iteration ();
-	}
+	// while (gtk_events_pending ())
+	//{
+	//	gtk_main_iteration ();
+	//}
 	// FIXME: anjuta_load_cmdline_files();
 	// FIXME: if( ( 1 == argc ) &&	app->b_reload_last_project )
-	{
+	//{
 		// FIXME: anjuta_load_last_project();
-	}
+  //}
 	return FALSE;
 }
 
@@ -159,6 +159,7 @@ get_command_line_args (GnomeProgram *program)
 int
 main (int argc, char *argv[])
 {
+  AnjutaApp *app;
 	GtkWidget *splash = NULL;
 	GnomeProgram *program;
 	GnomeClient *client;
@@ -225,10 +226,12 @@ main (int argc, char *argv[])
 	app = ANJUTA_APP (anjuta_app_new ());
 	
 	/* Load plugins */
-	anjuta_plugins_load (ANJUTA_SHELL (app), E_SPLASH (splash), "Default");
+	anjuta_plugins_load (ANJUTA_SHELL (app), 
+			     app->ui, app->preferences,
+			     E_SPLASH (splash), "default");
 
-	while (gtk_events_pending ())
-		gtk_main_iteration ();
+	//	while (gtk_events_pending ())
+	//	gtk_main_iteration ();
 	
 	gtk_widget_show (GTK_WIDGET (app));
 

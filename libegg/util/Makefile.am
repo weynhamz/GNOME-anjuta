@@ -1,7 +1,7 @@
 INCLUDES = \
 	$(ANJUTA_CFLAGS)
 
-noinst_LIBRARIES=libeggutil.a
+lib_LTLIBRARIES = libanjuta-eggutil.la
 
 eggmarshalers.h: eggmarshalers.list
 	cd $(srcdir) \
@@ -17,7 +17,7 @@ eggmarshalers.c: eggmarshalers.list
 
 egg-marshal.c: eggmarshalers.h eggmarshalers.c
 
-libeggutil_a_SOURCES =	\
+libanjuta_eggutil_la_SOURCES =	\
 	egg-marshal.c
 
 noinst_HEADERS = \

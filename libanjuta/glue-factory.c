@@ -172,7 +172,7 @@ load_plugin (GlueFactory *factory, const gchar *component_name, const gchar *typ
 	  module = g_module_open (plugin_path, 0);
 	  if (module == NULL)
 	    {
-	      g_print ("couldn't open module: %s\n", g_module_error ());
+	      g_warning ("Could not open module: %s\n", g_module_error ());
 	      goto move_to_next_dir;
 	    }
 

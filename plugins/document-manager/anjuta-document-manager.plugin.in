@@ -1,0 +1,5 @@
+[Anjuta Plugin]
+Location=anjuta-editor:EditorPlugin
+Icon=anjuta-document-manager.png
+_Name=Document Manager
+_Description=Provides document management capabilities.

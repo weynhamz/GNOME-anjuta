@@ -81,7 +81,7 @@ text_editor_instance_init (TextEditor *te)
 	te->force_hilite = TE_LEXER_AUTOMATIC;
 	te->freeze_count = 0;
 	te->current_line = 0;
-	te->menu = NULL;
+	// te->menu = NULL;
 	te->autosave_on = FALSE;
 	te->autosave_it = 10;
 	te->props_base = 0;
@@ -167,6 +167,7 @@ text_editor_new (AnjutaPreferences *eo, gchar *filename, gchar *name)
 			  (glong) app->accel_group, 0);
 	*/
 	te->scintilla = aneditor_get_widget (te->editor_id);
+	gtk_widget_show (te->scintilla);
 	gtk_container_add (GTK_CONTAINER (te), te->scintilla);
 
 	gtk_signal_connect (GTK_OBJECT (te->scintilla), "event",
@@ -199,7 +200,7 @@ text_editor_new (AnjutaPreferences *eo, gchar *filename, gchar *name)
 			return NULL;
 		}
 	}
-	te->menu = text_editor_menu_new ();
+	// te->menu = text_editor_menu_new ();
 	text_editor_update_preferences (te, te->preferences);
 	text_editor_update_controls (te);
 	te->changed_id = g_signal_connect (G_OBJECT (te->preferences), "changed",
@@ -225,8 +226,8 @@ text_editor_destroy (GObject *obj)
 	// if (te->tm_file)
 		// if (te->tm_file->parent == TM_WORK_OBJECT(app->tm_workspace))
 			// tm_workspace_remove_object(te->tm_file, TRUE);
-	if (te->menu)
-		text_editor_menu_destroy (te->menu);
+	// if (te->menu)
+	//	text_editor_menu_destroy (te->menu);
 	if (te->editor_id)
 		aneditor_destroy (te->editor_id);
 	// if (te->used_by_cvs)

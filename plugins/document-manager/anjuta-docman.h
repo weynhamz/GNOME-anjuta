@@ -1,3 +1,4 @@
+/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
     anjuta-docman.h
     Copyright (C) 2003  Naba Kumar <naba@gnome.org>
@@ -36,12 +37,12 @@ typedef struct _AnjutaDocmanPriv AnjutaDocmanPriv;
 typedef struct _AnjutaDocmanClass AnjutaDocmanClass;
 
 struct _AnjutaDocman {
-	GtkWidget parent;
+	GtkNotebook parent;
 	AnjutaDocmanPriv *priv;
 };
 
 struct _AnjutaDocmanClass {
-	GtkWidgetClass parent_class;
+	GtkNotebookClass parent_class;
 };
 
 GType anjuta_docman_get_type (void);
@@ -79,5 +80,9 @@ TextEditor* anjuta_docman_find_editor_with_path (AnjutaDocman *docman,
 												 const gchar *file_path);
 
 GList* anjuta_docman_get_all_editors (AnjutaDocman *docman);
+
+void anjuta_docman_open_file (AnjutaDocman *docman);
+
+void anjuta_docman_save_as_file (AnjutaDocman *docman);
 
 #endif

@@ -1,3 +1,4 @@
+/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
     anjuta-docman.c
     Copyright (C) 2003  Naba Kumar <naba@gnome.org>
@@ -21,14 +22,19 @@
 #include <libanjuta/resources.h>
 #include <libanjuta/anjuta-utils.h>
 #include <libanjuta/anjuta-preferences.h>
+#include <libanjuta/fileselection.h>
 
 #include "text_editor.h"
 #include "anjuta-docman.h"
 #include "file_history.h"
 
+gboolean closing_state;
+
 struct _AnjutaDocmanPriv {
 	AnjutaPreferences *preferences;
 	TextEditor *current_editor;
+	GtkWidget *fileselection;
+	GtkWidget *save_as_fileselection;
 	GList *editors;
 };
 
@@ -113,8 +119,8 @@ editor_tab_widget_new(AnjutaDocmanPage* page)
 	
 	box = gtk_hbox_new(FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(box), label, TRUE, TRUE, 0);
-    gtk_box_pack_start(GTK_BOX(box), button15, FALSE, FALSE, 0);
-    gtk_box_pack_start(GTK_BOX(box), close_pixmap, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(box), button15, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(box), close_pixmap, FALSE, FALSE, 0);
 	
 	gtk_widget_show(box);
 
@@ -154,11 +160,226 @@ anjuta_docman_page_destroy (AnjutaDocmanPage *page)
 	g_free (page);
 }
 
+void
+anjuta_docman_open_file (AnjutaDocman *docman)
+{
+	gtk_widget_show (docman->priv->fileselection);
+}
+
+void
+anjuta_docman_save_as_file (AnjutaDocman *docman)
+{
+	TextEditor *te;
+
+	te = anjuta_docman_get_current_editor (docman);
+	if (te == NULL)
+		return;
+	fileselection_set_filename (docman->priv->save_as_fileselection,
+								te->full_filename);
+	gtk_widget_show (docman->priv->save_as_fileselection);
+}
+
+static void
+on_open_filesel_ok_clicked (GtkButton * button, AnjutaDocman *docman)
+{
+	gchar *full_filename;
+	gchar *entry_filename = NULL;
+	int i;
+	GList * list;
+	int elements;
+	
+	list = fileselection_get_filelist(docman->priv->fileselection);
+	elements = g_list_length(list);
+	/* If filename is only written in entry but not selected (Bug #506441) */
+	if (elements == 0)
+	{
+		entry_filename = fileselection_get_filename(docman->priv->fileselection);
+		if (entry_filename)
+		{
+			list = g_list_append(list, entry_filename);
+			elements++;
+		}
+	}
+	for(i=0;i<elements;i++)
+	{
+		full_filename = g_strdup(g_list_nth_data(list,i));
+		if (!full_filename)
+			return;
+		anjuta_docman_goto_file_line (docman, full_filename, -1);
+		g_free (full_filename);
+	}
+
+	if (entry_filename)
+	{
+		g_list_remove(list, entry_filename);
+		g_free(entry_filename);
+	}
+	/* g_free(list); */
+}
+
+static void
+save_as_real (AnjutaDocman *docman)
+{
+	TextEditor *te;
+	gchar *full_filename, *saved_filename, *saved_full_filename;
+	gint page_num;
+	GtkWidget *child;
+	gint status;
+	gchar *basename;
+
+	full_filename = fileselection_get_filename (docman->priv->save_as_fileselection);
+	if (!full_filename)
+		return;
+
+	te = anjuta_docman_get_current_editor (docman);
+	basename = g_path_get_basename (full_filename);
+
+	g_return_if_fail (te != NULL);
+	g_return_if_fail ((basename != NULL && strlen (basename) > 0));
+
+	saved_filename = te->filename;
+	saved_full_filename = te->full_filename;
+	
+	te->full_filename = g_strdup (full_filename);
+	te->filename = basename;
+	status = text_editor_save_file (te, TRUE);
+	gtk_widget_hide (docman->priv->save_as_fileselection);
+	if (status == FALSE)
+	{
+		g_free (te->filename);
+		te->filename = saved_filename;
+		g_free (te->full_filename);
+		te->full_filename = saved_full_filename;
+		if (closing_state) closing_state = FALSE;
+		g_free (full_filename);
+		return;
+	} else {
+		if (saved_filename)
+			g_free (saved_filename);
+		if (saved_full_filename)
+		{
+			g_free (saved_full_filename);
+		}
+		if (closing_state)
+		{
+			anjuta_docman_remove_editor (docman, NULL);
+			closing_state = FALSE;
+		}
+		else
+		{
+			text_editor_set_hilite_type(te);
+#if 0
+			if (te->mode == TEXT_EDITOR_PAGED)
+			{
+				GtkLabel* label;
+				
+				page_num =
+					gtk_notebook_get_current_page (GTK_NOTEBOOK
+									   (app->notebook));
+				g_return_if_fail (page_num >= 0);
+				child =
+					gtk_notebook_get_nth_page (GTK_NOTEBOOK
+								   (app->notebook), page_num);
+				/* This crashes */
+				/* gtk_notebook_set_tab_label_text (GTK_NOTEBOOK (app->notebook),
+								 child,
+								 anjuta_get_notebook_text_editor
+								 (page_num)->filename);
+				*/
+				label = GTK_LABEL(te->widgets.tab_label);
+				gtk_label_set_text(GTK_LABEL(label),
+								   anjuta_get_notebook_text_editor
+								   (page_num)->filename);
+	
+				gtk_notebook_set_menu_label_text(GTK_NOTEBOOK(app->notebook),
+								child,
+								anjuta_get_notebook_text_editor
+								(page_num)->filename);
+			}
+#endif
+		}
+		// anjuta_update_title ();
+		g_free (full_filename);
+	}
+}
+
+static void
+on_save_as_filesel_ok_clicked (GtkButton * button, AnjutaDocman *docman)
+{
+	gchar *filename;
+
+	filename = fileselection_get_filename (docman->priv->save_as_fileselection);
+	if (g_file_test (filename, G_FILE_TEST_IS_REGULAR))
+	{
+		GtkWidget *dialog;
+		GtkWidget *parent;
+		parent = gtk_widget_get_toplevel (GTK_WIDGET (docman));
+		dialog = gtk_message_dialog_new (GTK_WINDOW (parent),
+										 GTK_DIALOG_DESTROY_WITH_PARENT,
+										 GTK_MESSAGE_QUESTION,
+										 GTK_BUTTONS_NONE,
+										 _("The file '%s' already exists.\n"
+										 "Do you want to replace it with the one you are saving?"),
+										 filename);
+		gtk_dialog_add_button (GTK_DIALOG(dialog),
+							   GTK_STOCK_CANCEL,
+							   GTK_RESPONSE_CANCEL);
+		anjuta_util_dialog_add_button (GTK_DIALOG (dialog),
+								  _("_Replace"),
+								  GTK_STOCK_REFRESH,
+								  GTK_RESPONSE_YES);
+		if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_YES)
+			save_as_real (docman);
+		gtk_widget_destroy (dialog);
+	}
+	else
+		save_as_real (docman);
+	g_free (filename);
+
+	if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (docman->priv->preferences),
+									EDITOR_TABS_ORDERING))
+		anjuta_docman_order_tabs (docman);
+}
+
+static void
+on_save_as_filesel_cancel_clicked (GtkButton * button, AnjutaDocman *docman)
+{
+	gtk_widget_hide (docman->priv->save_as_fileselection);
+	closing_state = FALSE;
+}
+
 gpointer parent_class;
 
 static void
 anjuta_docman_instance_init (AnjutaDocman *docman)
 {
+	GtkWidget *parent;
+
+	/* Must declare static, because it will be used forever */
+	static FileSelData fsd1 = { N_("Open File"), NULL,
+								on_open_filesel_ok_clicked,
+								NULL, NULL
+	};
+	
+	/* Must declare static, because it will be used forever */
+	static FileSelData fsd2 = { N_("Save File As"), NULL,
+								on_save_as_filesel_ok_clicked,
+								on_save_as_filesel_cancel_clicked, NULL
+	};
+	fsd1.data = docman;
+	fsd2.data = docman;
+
+	parent = gtk_widget_get_toplevel (GTK_WIDGET (docman));
+	docman->priv = g_new0 (AnjutaDocmanPriv, 1);
+	docman->priv->fileselection =
+		create_fileselection_gui (&fsd1, GTK_WINDOW (parent));
+	/* Set to the current dir */
+	/* Spends too much time */
+	/* getcwd(wd, PATH_MAX);
+	   fileselection_set_dir (app->fileselection, wd); */
+	docman->priv->save_as_fileselection =
+		create_fileselection_gui (&fsd2, GTK_WINDOW (parent));
+	gtk_window_set_modal ((GtkWindow *) docman->priv->save_as_fileselection, TRUE);
 }
 
 static void
@@ -169,6 +390,16 @@ anjuta_docman_class_init (AnjutaDocmanClass *klass)
 
 ANJUTA_TYPE_BEGIN(AnjutaDocman, anjuta_docman, GTK_TYPE_NOTEBOOK);
 ANJUTA_TYPE_END;
+
+GtkWidget*
+anjuta_docman_new (AnjutaPreferences *pref)
+{
+	GtkWidget *docman = NULL;
+	docman = gtk_widget_new (ANJUTA_TYPE_DOCMAN, NULL);
+	if (docman)
+	    ANJUTA_DOCMAN (docman)->priv->preferences = pref;
+	return docman;
+}
 
 /*! state flag for Ctrl-TAB */
 static gboolean g_tabbing = FALSE;
@@ -202,6 +433,7 @@ anjuta_docman_add_editor (AnjutaDocman *docman, gchar *filename, gchar *name)
 	// cur_page = anjuta_docman_get_current_editor ();
 	te = text_editor_new (ANJUTA_PREFERENCES (docman->priv->preferences),
 						  filename, name);
+	gtk_widget_show (te);
 	g_return_val_if_fail (te != NULL, NULL);
 	page = anjuta_docman_page_new (te);
 	

@@ -159,7 +159,10 @@ PKG_CHECK_MODULES(LIBANJUTA, \
 	glib-2.0 >= $GLIB_REQUIRED \
 	gtk+-2.0 >= $GTK_REQUIRED \
 	libglade-2.0 >= $LIBGLADE_REQUIRED \
-	libgnomeui-2.0 >= $GNOME_UI_REQUIRED)
+	libgnomeprint-2.2 >= $GNOME_PRINT_REQUIRED \
+	libgnomeprintui-2.2 >= $GNOME_PRINT_UI_REQUIRED \
+	libgnomeui-2.0 >= $GNOME_UI_REQUIRED \
+	gdl-1.0 >= $GDL_REQUIRED)
 
 AC_SUBST(LIBANJUTA_CFLAGS)
 AC_SUBST(LIBANJUTA_LIBS)
@@ -547,7 +550,6 @@ libegg/treeviewutils/Makefile
 libegg/toolbar/Makefile
 libegg/menu/Makefile
 widgets/Makefile
-printing/Makefile
 scintilla/include/Makefile
 anjuta.spec
 libanjuta/Makefile

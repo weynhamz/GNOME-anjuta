@@ -6,10 +6,10 @@ INCLUDES = \
   -DGTK_DISABLE_DEPRECATED \
   -I$(top_builddir)/libegg/util
 
-noinst_LIBRARIES = libegg-treeview.a
+lib_LTLIBRARIES = libanjuta-egg-treeview.la
 
 # libegg_treeview_a_LIBADD = $(ANJUTA_LIBS)
-libegg_treeview_a_SOURCES = \
+libanjuta_egg_treeview_la_SOURCES = \
   eggaccelerators.c	\
   eggcellrendererkeys.c \
   eggcellrendererpopup.c \
@@ -32,13 +32,13 @@ noinst_HEADERS = \
 noinst_PROGRAMS = test-tree-utils test-multi-drag test-union
 
 test_tree_utils_SOURCES = test-tree-utils.c
-test_tree_utils_LDADD = libegg-treeview.a $(ANJUTA_LIBS)
-test_tree_utils_DEPENDENCIES = libegg-treeview.a
+test_tree_utils_LDADD = libanjuta-egg-treeview.la $(ANJUTA_LIBS)
+test_tree_utils_DEPENDENCIES = libanjuta-egg-treeview.la
 
 test_multi_drag_SOURCES = test-multi-drag.c
-test_multi_drag_LDADD = libegg-treeview.a $(ANJUTA_LIBS)
-test_multi_drag_DEPENDENCIES = libegg-treeview.a
+test_multi_drag_LDADD = libanjuta-egg-treeview.la $(ANJUTA_LIBS)
+test_multi_drag_DEPENDENCIES = libanjuta-egg-treeview.la
 
 test_union_SOURCES = test-union.c
-test_union_LDADD = libegg-treeview.a $(ANJUTA_LIBS)
-test_union_DEPENDENCIES = libegg-treeview.a
+test_union_LDADD = libanjuta-egg-treeview.la $(ANJUTA_LIBS)
+test_union_DEPENDENCIES = libanjuta-egg-treeview.la

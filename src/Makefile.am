@@ -8,6 +8,7 @@ INCLUDES = \
 	$(PCRE_CFLAGS)\
 	$(FREEBSD_BUILD)\
 	-I$(top_srcdir)\
+	-I$(top_srcdir)/libegg\
 	-I$(srcdir)/../scintilla/include \
 	-I$(srcdir)/../tagmanager/include \
 	-I$(srcdir)/../widgets \
@@ -23,25 +24,19 @@ include $(top_srcdir)/scintilla/lexers.make
 bin_PROGRAMS = anjuta
 
 anjuta_SOURCES = \
-	about.c\
-	about.h\
-	anjuta-app.c\
-	anjuta-app.h\
-	preferences.c\
-	preferences.h\
+	about.c \
+	about.h \
+	anjuta-app.c \
+	anjuta-app.h \
+	anjuta-callbacks.h \
+	anjuta-callbacks.c \
+	anjuta-actions.h \
+	action-callbacks.h \
+	action-callbacks.c \
+	preferences.c \
+	preferences.h \
 	main.cpp
-#	an_file_view.c\
-#	an_file_view.h\
-#	an_symbol_view.c\
-#	an_symbol_view.h\
-#	anjuta-tools.c\
-#	anjuta-tools.h\
-#	anjuta-plugins.c\
-#	anjuta-plugins.h\
-#	aneditor.cxx\
-#	aneditor.h\
-#	anjuta.h\
-#	anjuta_cbs.c\
+
 #	anjuta_dirs.c\
 #	anjuta_dirs.h\
 #	anjuta-encodings.c\
@@ -201,16 +196,16 @@ anjuta_SOURCES = \
 anjuta_LDADD =  \
 	$(ANJUTA_LIBS) -lutil\
 	$(PCRE_LIBS)\
-	$(top_builddir)/tagmanager/libctags.a\
+	$(top_builddir)/tagmanager/libanjuta-ctags.la\
 	$(top_builddir)/widgets/libwidgets.a\
-	$(top_builddir)/printing/libanjutaprint.a\
-	$(top_builddir)/libegg/treeviewutils/libegg-treeview.a\
-	$(top_builddir)/libegg/menu/libegg-menu.a\
-	$(top_builddir)/libegg/toolbar/libegg-toolbar.a\
-	$(top_builddir)/libegg/util/libeggutil.a\
 	$(top_builddir)/libanjuta/libanjuta.la\
-	$(top_builddir)/scintilla/libscintilla.a
+	$(top_builddir)/scintilla/libanjuta-scintilla.la
 
+#	$(top_builddir)/libegg/treeviewutils/libegg-treeview.a\
+#	$(top_builddir)/libegg/menu/libegg-menu.a\
+#	$(top_builddir)/libegg/toolbar/libegg-toolbar.a\
+#	$(top_builddir)/libegg/util/libeggutil.a\
+#	$(top_builddir)/printing/libanjutaprint.a\
 #	$(LEXER_OBJS) \
 #	$(top_builddir)/gdl/libgdl.a\
 
