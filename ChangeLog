@@ -1,5 +1,11 @@
 2002-05-03  Andy Piper <andy.piper@freeuk.com>
 
+	* launcher/anjuta_launcher.c, src/dnd.c, src/session.c, 
+	widgets/scroll_menu.c: fixed up some compiler warnings (patch
+	from Philip Van Hoof)
+
+2002-05-03  Andy Piper <andy.piper@freeuk.com>
+
 	* manuals/C/anjuta-tutorial/Makefile.am: removed a circular 
 	dependency
 	* manuals/ja/anjuta-manual/anjuta-manual.sgml, 

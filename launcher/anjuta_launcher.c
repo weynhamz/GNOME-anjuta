@@ -26,6 +26,9 @@
 #include <sys/wait.h>
 #include <stdio.h>
 #include <glib.h>
+#include <unistd.h>
+#include <string.h>
+#include <stdlib.h>
 
 /* #define DEBUG */
 

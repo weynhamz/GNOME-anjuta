@@ -162,7 +162,7 @@ scintilla_uri_dropped(const char *uri)
 {
 	GtkSelectionData tmp;
 	
-	tmp.data = uri;
+	tmp.data = (guchar *) uri;
 
 	drag_data_received_cb (NULL, NULL, 0, 0, &tmp, 0,0,NULL);
 	return;

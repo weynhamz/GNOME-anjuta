@@ -575,7 +575,7 @@ anjuta_session_load_strings( const gchar *szSection, GList *pList )
 				for (i = 0; i < nMax ; i++)
 				{
 					sortKey	*pSort = (sortKey*) g_list_nth ( pListSorted, i ) -> data ;
-					pList = g_list_append( pList, pSort->m_szStr );
+					pList = g_list_append( pList, (gpointer) pSort->m_szStr );
 					g_free( pSort );
 				}
 			}
@@ -587,7 +587,7 @@ anjuta_session_load_strings( const gchar *szSection, GList *pList )
 			for (i = 0; i < nMax ; i++)
 			{
 				sortKey	*pSort = (sortKey*) g_list_nth ( pList, i ) -> data ;
-				g_free( pSort->m_szStr );
+				g_free( (gpointer) pSort->m_szStr );
 				g_free( pSort );
 			}
 		}

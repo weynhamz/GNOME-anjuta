@@ -5,6 +5,7 @@
  */
 
 #include <gtk/gtk.h>
+#include <string.h>
 
 #include "scroll-menu.h"
 
