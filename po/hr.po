@@ -1,0 +1,6851 @@
+# Translation of anjuta to Croatiann
+# Copyright (C) Croatiann team
+# Translators: Automatski Prijevod <>,Danijel Studen <dstuden@vuka.hr>,Denis Lackovic <delacko@fly.srk.fer.hr>,Ivan Jankovic <rbrrneck@gmx.net>,Nikola Planinac <>,Vedran Vyroubal <vedran.vyroubal@inet.hr>,
+msgid ""
+msgstr ""
+"Project-Id-Version: anjuta 0\n"
+"POT-Creation-Date: 2004-02-09 18:46+0100\n"
+"PO-Revision-Date: 2004-02-09 18:46+CET\n"
+"Last-Translator: auto\n"
+"Language-Team: Croatian <lokalizacija@linux.hr>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: TransDict server\n"
+
+#: anjuta.desktop.in.in.h:1
+msgid "Anjuta IDE"
+msgstr "Anjuta IDE"
+
+#: anjuta.desktop.in.in.h:2 src/about.c:96 src/main.c:187 src/main.cpp:186
+msgid "Integrated Development Environment"
+msgstr ""
+
+#: anjuta.glade.h:1
+msgid "    "
+msgstr "    "
+
+#: anjuta.glade.h:2
+msgid ""
+"\"Search & Replace\" has to be tested completely !\n"
+"Many search-replacement possibilities are possible and need\n"
+"a lot of time to be verified.\n"
+"\n"
+"Limits :\n"
+"- Regular expressions can only be found in forward direction\n"
+"Todo :\t\n"
+"- Allow interruption on execution of long search/replace activity\n"
+"- Allow the user to save search/replace settings and give them names\n"
+"- . . ."
+msgstr ""
+
+#: anjuta.glade.h:12
+msgid "$(module.source.files) $(module.include.files)"
+msgstr "$(module.source.files) $(module.include.files)"
+
+#: anjuta.glade.h:13 gdl/layout.glade.h:1
+msgid "*"
+msgstr "*"
+
+#: anjuta.glade.h:14
+msgid "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp"
+msgstr "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp"
+
+#: anjuta.glade.h:15
+msgid ""
+"*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp Makefile.am configure.* "
+"README AUTHORS ChangeLog *.m4"
+msgstr ""
+"*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp Makefile.am configure.* "
+"README AUTHORS ChangeLog *.m4"
+
+#: anjuta.glade.h:16
+msgid "*.so *.o *.a *.la"
+msgstr "*.so *.o *.a *.la"
+
+#: anjuta.glade.h:17
+msgid "*\\.*"
+msgstr "*\\.*"
+
+#: anjuta.glade.h:18
+msgid "<: Enter Here"
+msgstr ""
+
+#: anjuta.glade.h:19
+msgid "Add line number every:"
+msgstr "Dodaj broj linije svaku:"
+
+#: anjuta.glade.h:20
+msgid "Add page header"
+msgstr "Dodaj novu komponentu trenutnom projektu."
+
+#: anjuta.glade.h:21
+msgid "Additional"
+msgstr "Dodatne"
+
+#: anjuta.glade.h:22
+msgid "Additional Libraries (LDADD):"
+msgstr "Dodatne knjižnice (LDADD):"
+
+#: anjuta.glade.h:23 plugins/project-wizard/wizard_gui.c:576
+msgid "Additional Options"
+msgstr "Dodatne odrednice"
+
+#: anjuta.glade.h:24
+msgid "Additional build options:"
+msgstr ""
+
+#: anjuta.glade.h:25
+msgid "Always save in UTF-8 encoding (faster)"
+msgstr ""
+
+#: anjuta.glade.h:26
+msgid "Anjuta help search"
+msgstr ""
+
+#: anjuta.glade.h:27
+msgid "Anjuta start with dialog"
+msgstr ""
+
+#: anjuta.glade.h:28 plugins/project-wizard/appwizard_gui.c:77
+#: plugins/project-wizard/appwizard_gui.c:91
+msgid "Application Wizard"
+msgstr ""
+
+#: anjuta.glade.h:29
+msgid "Arrows"
+msgstr "Strelice"
+
+#: anjuta.glade.h:30
+msgid "Ask for parameters at run-time"
+msgstr ""
+
+#: anjuta.glade.h:31
+msgid "Attach to process"
+msgstr ""
+
+#: anjuta.glade.h:32
+msgid "Attributes:"
+msgstr "Atributi:"
+
+#: anjuta.glade.h:33
+msgid "Autocomplete XML/HTML closing tags"
+msgstr ""
+
+#: anjuta.glade.h:34
+msgid "Autocompletion"
+msgstr "Automatsko dovršavanje"
+
+#: anjuta.glade.h:35
+msgid "Autocompletion pop up choices"
+msgstr ""
+
+#: anjuta.glade.h:36
+msgid "Automatically load last Project"
+msgstr ""
+
+#: anjuta.glade.h:37
+msgid "Autosave"
+msgstr "Automatsko spremanje"
+
+#: anjuta.glade.h:38
+msgid "Autosave editor files before build starts"
+msgstr ""
+
+#: anjuta.glade.h:39
+msgid "Back color:"
+msgstr ""
+
+#: anjuta.glade.h:40
+msgid "Beep on job complete"
+msgstr ""
+
+#: anjuta.glade.h:41
+msgid "Bold"
+msgstr "Masno"
+
+#: anjuta.glade.h:42
+msgid "Bookmark"
+msgstr "Knjižna bilješka"
+
+#: anjuta.glade.h:43
+msgid "Bottom"
+msgstr "Dno"
+
+#: anjuta.glade.h:44
+msgid "Breakpoint properties"
+msgstr ""
+
+#: anjuta.glade.h:45
+msgid "Breakpoints"
+msgstr "Mjesto prekida"
+
+#: anjuta.glade.h:46 plugins/build/build_file.c:102 src/anjuta_gui.c:117
+#: src/toolbar.c:273
+msgid "Build"
+msgstr "Izgradi"
+
+#: anjuta.glade.h:47
+msgid "Build command:"
+msgstr ""
+
+#: anjuta.glade.h:48
+msgid "Build file browser automatically"
+msgstr ""
+
+#: anjuta.glade.h:49
+msgid "Build files"
+msgstr ""
+
+#: anjuta.glade.h:50
+msgid "Build options"
+msgstr ""
+
+#: anjuta.glade.h:51
+msgid "Build symbol browser automatically"
+msgstr ""
+
+#. 2
+#: anjuta.glade.h:52 plugins/file-manager/an_file_view.c:421
+msgid "CVS"
+msgstr ""
+
+#: anjuta.glade.h:53
+msgid "CVS command options"
+msgstr ""
+
+#: anjuta.glade.h:54
+msgid "CVS compression level:"
+msgstr ""
+
+#: anjuta.glade.h:55
+msgid "CVS context diff format"
+msgstr ""
+
+#: anjuta.glade.h:56
+msgid "CVS intl po"
+msgstr ""
+
+#: anjuta.glade.h:57
+msgid "CVS unified diff format"
+msgstr ""
+
+#: anjuta.glade.h:58
+msgid "CVS update and prune directories [-dP]"
+msgstr ""
+
+#: anjuta.glade.h:59
+msgid "C_ompile:"
+msgstr ""
+
+#: anjuta.glade.h:60
+msgid "Calltip background:"
+msgstr ""
+
+#: anjuta.glade.h:61
+msgid "Caret (cursor) color:"
+msgstr ""
+
+#: anjuta.glade.h:62
+msgid "Caret blink period in milli-seconds"
+msgstr ""
+
+#: anjuta.glade.h:63
+msgid "Case insensitive"
+msgstr "Ne razlikuj velika i mala slova"
+
+#: anjuta.glade.h:64
+msgid "Choose Directories:"
+msgstr ""
+
+#: anjuta.glade.h:65
+msgid "Choose Files:"
+msgstr ""
+
+#: anjuta.glade.h:66
+msgid "Choose autocomplete for single match"
+msgstr ""
+
+#: anjuta.glade.h:67
+msgid "Choose directories"
+msgstr ""
+
+#: anjuta.glade.h:68
+msgid "Choose files"
+msgstr ""
+
+#: anjuta.glade.h:69
+msgid "Circular"
+msgstr "Kružno"
+
+#: anjuta.glade.h:70
+msgid "Code folding"
+msgstr "Sklapanje koda"
+
+#: anjuta.glade.h:71
+msgid "Collapse all code folds on file open"
+msgstr ""
+
+#: anjuta.glade.h:72
+msgid "Colour"
+msgstr "Boja"
+
+#: anjuta.glade.h:73
+msgid "Column at edge indicator"
+msgstr ""
+
+#: anjuta.glade.h:74
+msgid "Combo Popdown:"
+msgstr ""
+
+#: anjuta.glade.h:75
+msgid "Command Line Parameters"
+msgstr ""
+
+#: anjuta.glade.h:76
+msgid "Command line parameters"
+msgstr ""
+
+#: anjuta.glade.h:77
+msgid "Command:"
+msgstr "Naredba:"
+
+#: anjuta.glade.h:78
+msgid "Commands"
+msgstr "Naredbe"
+
+#: anjuta.glade.h:79
+msgid "Common commands:"
+msgstr ""
+
+#: anjuta.glade.h:80
+msgid "Compact folding"
+msgstr ""
+
+#: anjuta.glade.h:81
+msgid "Compiler"
+msgstr ""
+
+#: anjuta.glade.h:82
+msgid "Compiler Flags (CFLAGS):"
+msgstr ""
+
+#: anjuta.glade.h:83
+msgid "Compiler and linker options"
+msgstr ""
+
+#: anjuta.glade.h:84
+msgid "Configuration"
+msgstr "Postava"
+
+#: anjuta.glade.h:85
+msgid "Configuration script segments"
+msgstr ""
+
+#: anjuta.glade.h:86
+msgid "Configure Parameters"
+msgstr ""
+
+#: anjuta.glade.h:87
+msgid "Costom style"
+msgstr ""
+
+#: anjuta.glade.h:88
+msgid "Crazy boy style"
+msgstr ""
+
+#: anjuta.glade.h:89
+msgid "Custom style"
+msgstr ""
+
+#: anjuta.glade.h:90
+msgid "Customize File Browser"
+msgstr ""
+
+#: anjuta.glade.h:91
+msgid "Customize what is to be shown in the file tree"
+msgstr ""
+
+#: anjuta.glade.h:92
+msgid "Data module Makefile.am"
+msgstr ""
+
+#. 13
+#: anjuta.glade.h:93 plugins/editor/text_editor_menu.c:321 src/toolbar.c:306
+msgid "Debug"
+msgstr "Pronalaženje grešaka"
+
+#: anjuta.glade.h:94
+msgid "Debugging and Profiling"
+msgstr ""
+
+#: anjuta.glade.h:95
+msgid "Default"
+msgstr "Uobičajeno"
+
+#: anjuta.glade.h:96
+msgid "Defines"
+msgstr ""
+
+#: anjuta.glade.h:97
+msgid "Delete Theme"
+msgstr ""
+
+#: anjuta.glade.h:98
+msgid "Diagonal"
+msgstr "Dijagonalno"
+
+#: anjuta.glade.h:99
+msgid "Dialog on job complete"
+msgstr ""
+
+#: anjuta.glade.h:100 libanjuta/gnomefilelist.c:342
+#: widgets/gnomefilelist.c:342
+msgid "Directories"
+msgstr "Direktoriji"
+
+#: anjuta.glade.h:101
+msgid "Directory filter"
+msgstr ""
+
+#: anjuta.glade.h:102
+msgid "Disable auto-format"
+msgstr ""
+
+#: anjuta.glade.h:103
+msgid "Disable overwriting files"
+msgstr ""
+
+#: anjuta.glade.h:104
+msgid "Disable syntax highlighting"
+msgstr ""
+
+#: anjuta.glade.h:105
+msgid "Display process _tree"
+msgstr ""
+
+#: anjuta.glade.h:106
+msgid "Do not show hidden directories"
+msgstr ""
+
+#: anjuta.glade.h:107
+msgid "Do not show hidden files"
+msgstr ""
+
+#: anjuta.glade.h:108
+msgid "Do not show start with dialog again."
+msgstr ""
+
+#: anjuta.glade.h:109
+msgid "Do not show tabs"
+msgstr ""
+
+#: anjuta.glade.h:110
+msgid "Document module Makefile.am"
+msgstr ""
+
+#: anjuta.glade.h:111
+msgid "Draw line below folded lines"
+msgstr ""
+
+#: anjuta.glade.h:112 src/anjuta-app.c:273 src/anjuta_gui.c:105
+msgid "Edit"
+msgstr "Uređivanje"
+
+#: anjuta.glade.h:113
+msgid "Editor caret (cursor) width in pixels"
+msgstr ""
+
+#: anjuta.glade.h:114
+msgid "Editor tabs"
+msgstr ""
+
+#: anjuta.glade.h:115
+msgid "Enable Debugging"
+msgstr ""
+
+#: anjuta.glade.h:116
+msgid "Enable HTML tags folding"
+msgstr ""
+
+#: anjuta.glade.h:117
+msgid "Enable Profiling"
+msgstr ""
+
+#: anjuta.glade.h:118
+msgid "Enable _all"
+msgstr ""
+
+#: anjuta.glade.h:119
+msgid "Enable automatic indentation"
+msgstr ""
+
+#: anjuta.glade.h:120
+msgid "Enable automatic messages indicators"
+msgstr ""
+
+#: anjuta.glade.h:121
+msgid "Enable braces check"
+msgstr ""
+
+#: anjuta.glade.h:122
+msgid "Enable code folding"
+msgstr ""
+
+#: anjuta.glade.h:123
+msgid "Enable comments folding"
+msgstr ""
+
+#: anjuta.glade.h:124
+msgid "Enable files autosave"
+msgstr ""
+
+#: anjuta.glade.h:125
+msgid "Enable line wrap"
+msgstr ""
+
+#: anjuta.glade.h:126
+msgid "Enable python comments folding"
+msgstr ""
+
+#: anjuta.glade.h:127
+msgid "Enable python quoted strings folding"
+msgstr ""
+
+#: anjuta.glade.h:128 plugins/debugger/breakpoints.c:113
+msgid "Enabled"
+msgstr "Omogućeno"
+
+#: anjuta.glade.h:129
+msgid "Encoding to use when saving files"
+msgstr ""
+
+#: anjuta.glade.h:130
+msgid "Enter a Hexa adress or select one in the data"
+msgstr ""
+
+#: anjuta.glade.h:131
+msgid ""
+"Enter the File name.\n"
+"The extension will be added according to the type."
+msgstr ""
+
+#: anjuta.glade.h:133
+msgid ""
+"Enter the command line arguments for the 'indent' program. Read the info "
+"page for 'indent' for more details"
+msgstr ""
+
+#: anjuta.glade.h:134
+msgid "Error message indicator style:"
+msgstr ""
+
+#: anjuta.glade.h:135
+msgid "Errors messages:"
+msgstr ""
+
+#: anjuta.glade.h:136
+msgid "Execute Program"
+msgstr ""
+
+#: anjuta.glade.h:137
+msgid "Expand regex back references"
+msgstr ""
+
+#: anjuta.glade.h:138 plugins/debugger/breakpoints.c:113
+#: plugins/file-manager/an_file_view.c:662 src/anjuta-app.c:269
+#: src/anjuta_gui.c:102
+msgid "File"
+msgstr "Datoteka"
+
+#: anjuta.glade.h:139
+msgid "File Filter"
+msgstr ""
+
+#: anjuta.glade.h:140
+msgid "File filter"
+msgstr ""
+
+#: anjuta.glade.h:141
+msgid "File level"
+msgstr ""
+
+#: anjuta.glade.h:142
+msgid "File name:"
+msgstr "Ime trake:"
+
+#: anjuta.glade.h:143
+msgid "File type:"
+msgstr "Vrsta datoteke:"
+
+#: anjuta.glade.h:144
+msgid "Filter extraneous characters in DOS mode"
+msgstr ""
+
+#: anjuta.glade.h:145
+msgid "Find & Replace"
+msgstr "Nađi & Zamijeni"
+
+#: anjuta.glade.h:146
+msgid "Fold style:"
+msgstr ""
+
+#: anjuta.glade.h:147
+msgid "Font:"
+msgstr "Pismo:"
+
+#: anjuta.glade.h:148
+msgid "Fore color:"
+msgstr ""
+
+#: anjuta.glade.h:149
+msgid "Format"
+msgstr "Oblikovanje"
+
+#: anjuta.glade.h:150 src/toolbar.c:856
+msgid "Format style"
+msgstr ""
+
+#: anjuta.glade.h:151 plugins/symbol-browser/an_symbol_view.c:55
+msgid "Functions"
+msgstr "Funkcije"
+
+#: anjuta.glade.h:152
+msgid "GNU coding style"
+msgstr ""
+
+#: anjuta.glade.h:153
+msgid "GPL Notice"
+msgstr ""
+
+#: anjuta.glade.h:154
+msgid "GUI editor command:"
+msgstr ""
+
+#: anjuta.glade.h:155
+msgid "General"
+msgstr "Općenito"
+
+#: anjuta.glade.h:156
+msgid ""
+"Give a space separated list of directories to be built after source module. "
+"This will be set in configure and Makefiles will be generated for them. They "
+"will be built after the source (src/) directory during \"make\"."
+msgstr ""
+
+#: anjuta.glade.h:157
+msgid ""
+"Give a space separated list of directories to be built before source module. "
+"This will be set in configure.in and Makefiles will be generated for them. "
+"They will be built before the source (src/) directory during \"make\"."
+msgstr ""
+
+#: anjuta.glade.h:158
+msgid "Gnome API"
+msgstr ""
+
+#: anjuta.glade.h:159
+msgid "Greedy matching"
+msgstr ""
+
+#: anjuta.glade.h:160
+msgid "HTML _viewer:"
+msgstr ""
+
+#: anjuta.glade.h:161
+msgid "Header"
+msgstr "Zaglavlje"
+
+#: anjuta.glade.h:162
+msgid "Header File Template"
+msgstr ""
+
+#: anjuta.glade.h:163
+msgid "Headers"
+msgstr "Zaglavlja"
+
+#: anjuta.glade.h:164
+msgid "Hello World style"
+msgstr ""
+
+#: anjuta.glade.h:165
+msgid "Help module Makefile.am"
+msgstr ""
+
+#: anjuta.glade.h:166
+msgid "Hide process para_meters"
+msgstr ""
+
+#: anjuta.glade.h:167
+msgid "High-Level Optimization (Functions inlined wherever possible)"
+msgstr ""
+
+#: anjuta.glade.h:168
+msgid "Highlight style"
+msgstr ""
+
+#: anjuta.glade.h:169
+msgid "History sizes"
+msgstr ""
+
+#: anjuta.glade.h:170
+msgid "Ignore Binary Files"
+msgstr ""
+
+#: anjuta.glade.h:171
+msgid "Ignore Directories:"
+msgstr ""
+
+#: anjuta.glade.h:172
+msgid "Ignore Files:"
+msgstr ""
+
+#: anjuta.glade.h:173
+msgid "Ignore Hidden Directories"
+msgstr ""
+
+#: anjuta.glade.h:174
+msgid "Ignore Hidden Files"
+msgstr ""
+
+#: anjuta.glade.h:175
+msgid "Ignore directories"
+msgstr ""
+
+#: anjuta.glade.h:176
+msgid "Ignore files"
+msgstr ""
+
+#: anjuta.glade.h:177
+msgid "Ignore files and directories"
+msgstr ""
+
+#: anjuta.glade.h:178
+msgid "Import Wizard"
+msgstr ""
+
+#: anjuta.glade.h:179
+msgid ""
+"Import existing project. The Import Wizard will guide you to import an "
+"existing Project into Anjuta and convert it into Anjuta Project. There will "
+"be no data loss or modification done to the project."
+msgstr ""
+
+#: anjuta.glade.h:180
+msgid "Include Paths"
+msgstr ""
+
+#: anjuta.glade.h:181
+msgid "Include module Makefile.am"
+msgstr ""
+
+#: anjuta.glade.h:182
+msgid "Indent closing braces"
+msgstr ""
+
+#: anjuta.glade.h:183
+msgid "Indent opening braces"
+msgstr ""
+
+#: anjuta.glade.h:184
+msgid "Indentation and auto-format options"
+msgstr ""
+
+#: anjuta.glade.h:185
+msgid "Indentation size in spaces:"
+msgstr ""
+
+#: anjuta.glade.h:186
+msgid "Indicators"
+msgstr ""
+
+#: anjuta.glade.h:187
+msgid "Info Pages"
+msgstr "Info stranice"
+
+#: anjuta.glade.h:188
+msgid "Input string:"
+msgstr ""
+
+#: anjuta.glade.h:189 plugins/editor/text_editor_menu.c:176 src/toolbar.c:599
+msgid "Inspect"
+msgstr ""
+
+#: anjuta.glade.h:190
+msgid "Italic"
+msgstr "Nakošeno"
+
+#: anjuta.glade.h:191
+msgid "Keep going when some targets can not be made"
+msgstr ""
+
+#: anjuta.glade.h:192
+msgid "Kernighan and Ritchie style"
+msgstr ""
+
+#: anjuta.glade.h:193
+msgid "Language-specific commands:"
+msgstr ""
+
+#: anjuta.glade.h:194
+msgid "Left"
+msgstr "Lijevo"
+
+#: anjuta.glade.h:195
+msgid "Libraries"
+msgstr "Biblioteke"
+
+#: anjuta.glade.h:196
+msgid "Library Paths"
+msgstr ""
+
+#: anjuta.glade.h:197
+msgid "Line numbers margin width in pixels"
+msgstr ""
+
+#: anjuta.glade.h:198 plugins/editor/print.c:1012 src/anjuta_info.c:127
+msgid "Lines"
+msgstr "Linije"
+
+#: anjuta.glade.h:199
+msgid "Linker Flags (LDFLAGS):"
+msgstr ""
+
+#: anjuta.glade.h:200
+msgid "Load _global defaults"
+msgstr ""
+
+#: anjuta.glade.h:201
+msgid "Load _user defaults"
+msgstr ""
+
+#: anjuta.glade.h:202
+msgid "Low-Level Optimization (Machine dependent optimization)"
+msgstr ""
+
+#: anjuta.glade.h:203
+msgid "Makefile.am"
+msgstr ""
+
+#: anjuta.glade.h:204
+msgid "Man pages"
+msgstr ""
+
+#: anjuta.glade.h:205
+msgid "Match at start of word"
+msgstr ""
+
+#: anjuta.glade.h:206
+msgid "Match complete lines"
+msgstr ""
+
+#: anjuta.glade.h:207
+msgid "Match complete words"
+msgstr ""
+
+#: anjuta.glade.h:208
+msgid "Max. Actions"
+msgstr ""
+
+#: anjuta.glade.h:209
+msgid "Maximum number of independent jobs (0 == no limit)"
+msgstr ""
+
+#: anjuta.glade.h:210
+msgid "Medium-Level Optimization (Without space-speed trade-off)"
+msgstr ""
+
+#: anjuta.glade.h:211
+msgid "Memory"
+msgstr "Memorija"
+
+#: anjuta.glade.h:212
+msgid "Menu icon:"
+msgstr ""
+
+#: anjuta.glade.h:213
+msgid "Menu location:"
+msgstr ""
+
+#: anjuta.glade.h:214
+msgid "Message colors"
+msgstr ""
+
+#: anjuta.glade.h:215
+msgid "Messages options"
+msgstr ""
+
+#: anjuta.glade.h:216
+msgid "Misc options"
+msgstr "Razne odrednice"
+
+#: anjuta.glade.h:217
+msgid "Mode:"
+msgstr "Način:"
+
+#: anjuta.glade.h:218
+msgid "Modules"
+msgstr "Moduli"
+
+#: anjuta.glade.h:219
+msgid "Monochrome"
+msgstr "Jednobojno"
+
+#: anjuta.glade.h:220
+msgid "Name:"
+msgstr "Ime:"
+
+#: anjuta.glade.h:221
+msgid "New File"
+msgstr "Nova datoteka"
+
+#: anjuta.glade.h:222 plugins/editor/plugin.c:41 src/toolbar.c:76
+msgid "New file"
+msgstr "Nova datoteka"
+
+#: anjuta.glade.h:223
+msgid "No Limit"
+msgstr "Bez ograničenja"
+
+#: anjuta.glade.h:224
+msgid "No Optimization"
+msgstr ""
+
+#: anjuta.glade.h:225
+msgid "Normal message indicator style:"
+msgstr ""
+
+#: anjuta.glade.h:226
+msgid "Normal messages:"
+msgstr ""
+
+#: anjuta.glade.h:227
+msgid ""
+"Note: If there is a project open, the preferences in this page are project "
+"preferences and will be loaded from and saved with the project. If there is "
+"no project open, they will be global preferences."
+msgstr ""
+
+#: anjuta.glade.h:228
+msgid "Number of first characters to show:"
+msgstr ""
+
+#: anjuta.glade.h:229
+msgid "Number of last characters to show:"
+msgstr ""
+
+#. Must declare static, because it will be used forever
+#: anjuta.glade.h:230 plugins/project-manager/project_dbase.c:198
+#: src/toolbar.c:213
+msgid "Open Project"
+msgstr "Otvori projekt"
+
+#: anjuta.glade.h:231
+msgid "Open existing Project."
+msgstr ""
+
+#: anjuta.glade.h:232
+msgid "Open existing file or create a new file."
+msgstr ""
+
+#: anjuta.glade.h:233 plugins/editor/plugin.c:44 src/toolbar.c:80
+msgid "Open file"
+msgstr "Otvori datoteku"
+
+#: anjuta.glade.h:234
+msgid "Open last working Project"
+msgstr ""
+
+#: anjuta.glade.h:235
+msgid "Optimization"
+msgstr ""
+
+#. 15
+#: anjuta.glade.h:236 plugins/editor/text_editor_menu.c:331
+msgid "Options"
+msgstr "Odrednice"
+
+#: anjuta.glade.h:237
+msgid "Original Berkeley style"
+msgstr ""
+
+#: anjuta.glade.h:238
+msgid "Other colors"
+msgstr ""
+
+#: anjuta.glade.h:239
+msgid "Other messages:"
+msgstr ""
+
+#: anjuta.glade.h:240 plugins/symbol-browser/an_symbol_view.c:55
+msgid "Others"
+msgstr "Drugi"
+
+#: anjuta.glade.h:241
+msgid "Output files"
+msgstr ""
+
+#: anjuta.glade.h:242
+msgid "Pick a color"
+msgstr "Odabir boje"
+
+#: anjuta.glade.h:243
+msgid "Pixmap module Makefile.am"
+msgstr ""
+
+#: anjuta.glade.h:244
+msgid "Plus/Minus"
+msgstr ""
+
+#: anjuta.glade.h:245
+msgid "Po module (translation) Makefile.am"
+msgstr ""
+
+#: anjuta.glade.h:246
+msgid "Position:"
+msgstr "Položaj:"
+
+#: anjuta.glade.h:247
+msgid "Press this button to dismiss the dialog"
+msgstr ""
+
+#: anjuta.glade.h:248
+msgid "Pressing backspace un-indents"
+msgstr ""
+
+#: anjuta.glade.h:249
+msgid "Pressing tab indents"
+msgstr ""
+
+#: anjuta.glade.h:250
+msgid "Print options"
+msgstr "Odrednice ispisa"
+
+#: anjuta.glade.h:251
+msgid "Programs"
+msgstr "Programi"
+
+#: anjuta.glade.h:252 plugins/project-manager/project_dbase_gui.c:581
+#: src/anjuta_gui.c:114 src/toolbar.c:150
+msgid "Project"
+msgstr "Projekt"
+
+#: anjuta.glade.h:253
+msgid "Project Configuration"
+msgstr ""
+
+#: anjuta.glade.h:254 plugins/project-wizard/wizard_gui.c:470
+msgid "Project Description"
+msgstr ""
+
+#: anjuta.glade.h:255
+msgid "Project Version"
+msgstr ""
+
+#: anjuta.glade.h:256
+msgid "Project configure.in"
+msgstr ""
+
+#: anjuta.glade.h:257
+msgid "Project level"
+msgstr ""
+
+#: anjuta.glade.h:258
+msgid "Projects:"
+msgstr ""
+
+#: anjuta.glade.h:259
+msgid "Read me"
+msgstr ""
+
+#: anjuta.glade.h:260
+msgid "Recent Files:"
+msgstr ""
+
+#: anjuta.glade.h:261
+msgid "Recent Projects:"
+msgstr ""
+
+#: anjuta.glade.h:262
+msgid "Regular Expression"
+msgstr "Regularni izraz"
+
+#: anjuta.glade.h:263
+msgid "Reload Session Defaults"
+msgstr ""
+
+#: anjuta.glade.h:264
+msgid "Reload System Defaults"
+msgstr ""
+
+#: anjuta.glade.h:265
+msgid "Replace With:"
+msgstr "&Zamjeni s:"
+
+#: anjuta.glade.h:266
+msgid "Reset all sticky tags during update (looses branch) [-A]"
+msgstr ""
+
+#: anjuta.glade.h:267
+msgid "Right"
+msgstr "Desno"
+
+#: anjuta.glade.h:268
+msgid "Run Configure Script"
+msgstr ""
+
+#: anjuta.glade.h:269
+msgid "Run detached"
+msgstr ""
+
+#: anjuta.glade.h:270
+msgid "Run in Terminal"
+msgstr "Pokreni u terminalu"
+
+#: anjuta.glade.h:271
+msgid "Run in terminal"
+msgstr "Pokreni u terminalu"
+
+#: anjuta.glade.h:272
+msgid "Save all files"
+msgstr ""
+
+#: anjuta.glade.h:273
+msgid "Save files interval in minutes"
+msgstr ""
+
+#: anjuta.glade.h:274
+msgid "Save session interval in minutes"
+msgstr ""
+
+#: anjuta.glade.h:275
+msgid "Scripts at the end of top level Makefile.am"
+msgstr ""
+
+#: anjuta.glade.h:276 plugins/editor/plugin.c:557
+#: plugins/editor/search-replace.c:715 plugins/editor/search-replace.c:1338
+#: plugins/editor/search-replace.c:1345 plugins/editor/search-replace.c:1357
+msgid "Search"
+msgstr "&Traži"
+
+#: anjuta.glade.h:277
+msgid "Search Action:"
+msgstr ""
+
+#: anjuta.glade.h:278
+msgid "Search Direction:"
+msgstr ""
+
+#: anjuta.glade.h:279
+msgid "Search Expression"
+msgstr ""
+
+#: anjuta.glade.h:280
+msgid "Search Expression:"
+msgstr ""
+
+#: anjuta.glade.h:281
+msgid "Search In:"
+msgstr "Traži u:"
+
+#: anjuta.glade.h:282
+msgid "Search Recursively"
+msgstr ""
+
+#: anjuta.glade.h:283
+msgid "Search Target"
+msgstr ""
+
+#: anjuta.glade.h:284
+msgid "Search Variable"
+msgstr ""
+
+#: anjuta.glade.h:285
+msgid "Select highlight style to edit:"
+msgstr ""
+
+#: anjuta.glade.h:286
+msgid "Select theme:"
+msgstr ""
+
+#: anjuta.glade.h:287
+msgid "Selection background:"
+msgstr ""
+
+#: anjuta.glade.h:288
+msgid "Selection foreground:"
+msgstr ""
+
+#: anjuta.glade.h:289 src/anjuta-app.c:281 src/anjuta_gui.c:120
+msgid "Settings"
+msgstr "Postavke"
+
+#: anjuta.glade.h:290
+msgid "Short cut:"
+msgstr ""
+
+#: anjuta.glade.h:291
+msgid "Show tooltips"
+msgstr "Pokaži &natuknice za alate"
+
+#: anjuta.glade.h:292
+msgid "Silent. That is, do not echo shell commads during make"
+msgstr ""
+
+#: anjuta.glade.h:293
+msgid "Sorted by most recent use"
+msgstr ""
+
+#: anjuta.glade.h:294
+msgid "Sorted in alphabetical order"
+msgstr ""
+
+#: anjuta.glade.h:295
+msgid "Sorted in the order you open them"
+msgstr ""
+
+#: anjuta.glade.h:296
+msgid "Source Directories"
+msgstr ""
+
+#: anjuta.glade.h:297
+msgid "Source module Makefile.am"
+msgstr ""
+
+#: anjuta.glade.h:298
+msgid "Space-seperated list of directory name patterns to ignore"
+msgstr ""
+
+#: anjuta.glade.h:299
+msgid "Space-seperated list of directory name patterns to match"
+msgstr ""
+
+#: anjuta.glade.h:300
+msgid "Space-seperated list of file name patterns to ignore"
+msgstr ""
+
+#: anjuta.glade.h:301
+msgid "Space-seperated list of file name patterns to match"
+msgstr ""
+
+#: anjuta.glade.h:302
+msgid "Squares"
+msgstr "Kvadrati"
+
+#: anjuta.glade.h:303
+msgid "Standard error:"
+msgstr ""
+
+#: anjuta.glade.h:304
+msgid "Standard input:"
+msgstr ""
+
+#: anjuta.glade.h:305
+msgid "Standard output:"
+msgstr ""
+
+#: anjuta.glade.h:306
+msgid ""
+"Start with a new Project. Application wizard will guide you with Project "
+"creation. With the Application Wizard, you will be able to create the "
+"skeleton of various Project types."
+msgstr ""
+
+#: anjuta.glade.h:307
+msgid "Strike-Out"
+msgstr ""
+
+#: anjuta.glade.h:308
+msgid "Strip trailling spaces on file save"
+msgstr ""
+
+#: anjuta.glade.h:309
+msgid "Style of Kangleipak"
+msgstr ""
+
+#: anjuta.glade.h:310 libanjuta/anjuta-encodings.c:721
+msgid "Supported Encodings"
+msgstr ""
+
+#: anjuta.glade.h:311
+msgid "Supports"
+msgstr ""
+
+#: anjuta.glade.h:312
+msgid "Syntax highlight editor"
+msgstr ""
+
+#: anjuta.glade.h:313
+msgid "Tab size in spaces:"
+msgstr ""
+
+#: anjuta.glade.h:314
+msgid "Tabs position:"
+msgstr ""
+
+#: anjuta.glade.h:315
+msgid "Target:"
+msgstr "Cilj:"
+
+#: anjuta.glade.h:316
+msgid "Terminal options"
+msgstr "Postavke terminala"
+
+#: anjuta.glade.h:317
+msgid "Theme"
+msgstr "Tema"
+
+#: anjuta.glade.h:318
+msgid "Tool Editor"
+msgstr ""
+
+#: anjuta.glade.h:319
+msgid "Top"
+msgstr "Vrh"
+
+#: anjuta.glade.h:320
+msgid "Top level Makefile.am"
+msgstr ""
+
+#: anjuta.glade.h:321
+msgid "Truncate long messages"
+msgstr ""
+
+#: anjuta.glade.h:322
+msgid "Try to save in current locale's encoding"
+msgstr ""
+
+#: anjuta.glade.h:323
+msgid "Try to save in original encoding"
+msgstr ""
+
+#: anjuta.glade.h:324
+msgid "Underline Plain"
+msgstr ""
+
+#: anjuta.glade.h:325
+msgid "Underline Squiggle"
+msgstr ""
+
+#: anjuta.glade.h:326
+msgid "Underline-TT"
+msgstr ""
+
+#: anjuta.glade.h:327
+msgid "Underlined"
+msgstr "Podcrtano"
+
+#: anjuta.glade.h:328 plugins/cvs-plugin/cvs_gui.c:73
+#: plugins/debugger/registers_gui.c:48 plugins/debugger/sharedlib_gui.c:41
+#: plugins/debugger/signals_gui.c:55 plugins/debugger/stack_trace.c:366
+msgid "Update"
+msgstr "Ažuriraj"
+
+#: anjuta.glade.h:329
+msgid "Update tags image automatically"
+msgstr ""
+
+#: anjuta.glade.h:330
+msgid "Use GNOME terminal profile:"
+msgstr ""
+
+#: anjuta.glade.h:331
+msgid "Use currently selected profile in GNOME terminal"
+msgstr ""
+
+#: anjuta.glade.h:332
+msgid "Use default"
+msgstr "Koristi uobičajeno"
+
+#: anjuta.glade.h:333
+msgid "Use tabs for indentation"
+msgstr ""
+
+#: anjuta.glade.h:334
+msgid "User Tools"
+msgstr ""
+
+#: anjuta.glade.h:335
+msgid "User email address:"
+msgstr ""
+
+#: anjuta.glade.h:336
+msgid "User information"
+msgstr "Informacije o korisniku"
+
+#: anjuta.glade.h:337
+msgid "User name:"
+msgstr "Ime korisnika:"
+
+#: anjuta.glade.h:338
+msgid "Variable list"
+msgstr ""
+
+#: anjuta.glade.h:339 plugins/project-manager/project_dbase_gui.c:871
+msgid "Version:"
+msgstr "Inačica:"
+
+#: anjuta.glade.h:340 src/anjuta-app.c:277 src/anjuta_gui.c:111
+msgid "View"
+msgstr "Pogled"
+
+#: anjuta.glade.h:341
+msgid "Warn when an undefined variable is referenced in the Makefile"
+msgstr ""
+
+#: anjuta.glade.h:342
+msgid "Warning message indicator style:"
+msgstr ""
+
+#: anjuta.glade.h:343
+msgid "Warnings"
+msgstr "Upozorenja"
+
+#: anjuta.glade.h:344
+msgid "Warnings messages:"
+msgstr ""
+
+#: anjuta.glade.h:345
+msgid "Working directory:"
+msgstr "Radni imenik:"
+
+#: anjuta.glade.h:346
+msgid "Wrap bookmarks search around"
+msgstr ""
+
+#: anjuta.glade.h:347
+msgid "_Attach"
+msgstr "_Dodaj"
+
+#: anjuta.glade.h:348
+msgid "_Build a file:"
+msgstr ""
+
+#: anjuta.glade.h:349
+msgid "_Condition:"
+msgstr "_Uvjet:"
+
+#: anjuta.glade.h:350
+msgid "_Disable all"
+msgstr ""
+
+#: anjuta.glade.h:351 libegg/menu/test-merge.c:82 src/anjuta-actions.h:30
+msgid "_Edit"
+msgstr "_Uredi"
+
+#: anjuta.glade.h:352
+msgid "_Execute:"
+msgstr ""
+
+#: anjuta.glade.h:353
+msgid "_Hide paths"
+msgstr ""
+
+#: anjuta.glade.h:354
+msgid "_Image editor:"
+msgstr ""
+
+#: anjuta.glade.h:355
+msgid "_Language:"
+msgstr "_Jezik:"
+
+#: anjuta.glade.h:356
+msgid "_Location:"
+msgstr "_Mjesto:"
+
+#: anjuta.glade.h:357
+msgid "_Make a file:"
+msgstr ""
+
+#: anjuta.glade.h:358
+msgid "_Pass:"
+msgstr ""
+
+#: anjuta.glade.h:359
+msgid "_Pixmap editor:"
+msgstr ""
+
+#: anjuta.glade.h:360
+msgid "_Process to attach to:"
+msgstr ""
+
+#: anjuta.glade.h:361
+msgid "_Remove all"
+msgstr "_Ukloni sve"
+
+#: anjuta.glade.h:362
+msgid "_Save Theme As"
+msgstr "_Snimi temu kao"
+
+#: anjuta.glade.h:363
+msgid "_Terminal:"
+msgstr ""
+
+#: anjuta.glade.h:364
+msgid "_Update"
+msgstr "_Ažuriraj"
+
+#: gdl/gdl-dock-item-grip.c:244
+msgid "Dock the toolbar"
+msgstr "Usidri traku s alatima"
+
+#: gdl/gdl-dock-item-grip.c:245
+msgid "Un dock the toolbar"
+msgstr "Odsidri traku s alatima"
+
+#: gdl/gdl-dock-item.c:242 libegg/toolbar/eggtoolbar.c:364
+msgid "Orientation"
+msgstr "Orijentacija"
+
+#: gdl/gdl-dock-item.c:243
+msgid "Orientation of the docking item"
+msgstr "Orijentacija stavki na ploči"
+
+#: gdl/gdl-dock-item.c:258
+msgid "Resizable"
+msgstr "Može se mijenjati veličina"
+
+#: gdl/gdl-dock-item.c:259
+msgid "If set, the dock item can be resized when docked in a paned"
+msgstr """Ako je omogućeno, stavci ploče može se promenjeniti veličina kada se "
+"pripoji"
+
+#: gdl/gdl-dock-item.c:266
+msgid "Item behavior"
+msgstr "Ponašanje kolačića"
+
+#: gdl/gdl-dock-item.c:267
+msgid ""
+"General behavior for the dock item (i.e. whether it can float, if it's "
+"locked, etc.)"
+msgstr ""
+"Osnovno ponašanje za stavku (npr. može li biti plutajuća, je li "
+"zaključana, itd.)"
+
+#: gdl/gdl-dock-item.c:275
+msgid "Grip size"
+msgstr "Veličina hvataljke"
+
+#: gdl/gdl-dock-item.c:276
+msgid "Size in pixels of the grip to drag the dock item"
+msgstr "Veličina hvataljke za pomicanje ploče u pikselima"
+
+#: gdl/gdl-dock-item.c:282 gdl/gdl-dock-master.c:143
+msgid "Locked"
+msgstr "Zaključano"
+
+#: gdl/gdl-dock-item.c:283
+msgid "If set, the dock item cannot be dragged around and it doesn't show a grip"
+msgstr """Ako je postavljeno, pripojena stavka se ne može pomicati i neće imati "
+"hvataljku"
+
+#: gdl/gdl-dock-item.c:291
+msgid "Preferred width"
+msgstr "Najpogodnija širina"
+
+#: gdl/gdl-dock-item.c:292
+msgid "Preferred width for the dock item"
+msgstr "Željena širina za stavku ploče"
+
+#: gdl/gdl-dock-item.c:298
+msgid "Preferred height"
+msgstr "Preporučena visina"
+
+#: gdl/gdl-dock-item.c:299
+msgid "Preferred height for the dock item"
+msgstr "Željena visina za stavku ploče"
+
+#: gdl/gdl-dock-item.c:546
+msgid ""
+"You can't add a dock object (%p of type %s) inside a %s. Use a GdlDock or "
+"some other compound dock object."
+msgstr ""
+"Ne možete dodati sidrišni objekt (%p tipa %s) unutar %s. Koristite GdlDock ili "
+"neki drugi objekt sidrišta."
+
+#: gdl/gdl-dock-item.c:553
+msgid ""
+"Attempting to add a widget with type %s to a %s, but it can only contain one "
+"widget at a time; it already contains a widget of type %s"
+msgstr ""
+"Pokušavanje dodavanja elementa tipa %s u %s, ali on može sadržavati samo jedan "
+"element; već sadrži element tipa %s"
+
+#: gdl/gdl-dock-item.c:1149
+msgid "Unsupported docking strategy %s in dock object of type %s"
+msgstr "Strategija pripajanja %s nije podržana u objektu ploče tipa %s"
+
+#. Hide menuitem.
+#: gdl/gdl-dock-item.c:1231
+msgid "Hide"
+msgstr "Sakrij"
+
+#. Lock menuitem
+#: gdl/gdl-dock-item.c:1237
+msgid "Lock"
+msgstr "Zaključano"
+
+#: gdl/gdl-dock-item.c:1404
+msgid "Attempt to bind an unbound item %p"
+msgstr "Pokušaj ugradnje bezgranične stavke %p"
+
+#: gdl/gdl-dock-layout.c:125
+msgid "Master"
+msgstr "Master"
+
+#: gdl/gdl-dock-layout.c:126
+msgid "GdlDockMaster object which the layout object is attached to"
+msgstr "GdlDockMaster objekt za koji je privezan objekt rasporeda"
+
+#: gdl/gdl-dock-layout.c:133
+msgid "Dirty"
+msgstr "Prvi"
+
+#: gdl/gdl-dock-layout.c:134
+msgid "True if the layouts have changed and need to be saved to a file"
+msgstr "Postavljeno ukoliko su rasporedi izmjenjeni i treba ih spremiti u datoteku"
+
+#: gdl/gdl-dock-layout.c:447
+msgid "You must provide a name for the layout"
+msgstr "Morate definirati naziv rasporeda"
+
+#. FIXME: pop up an error dialog
+#: gdl/gdl-dock-layout.c:625
+msgid "Could not load layout user interface file '%s'"
+msgstr "Ne mogu otvoriti otvoriti datoteku: %s"
+
+#: gdl/gdl-dock-layout.c:680 libanjuta/anjuta-ui.c:315
+#: libegg/menu/egg-action.c:158
+msgid "Visible"
+msgstr "Vidljivo"
+
+#: gdl/gdl-dock-layout.c:687
+msgid "Item"
+msgstr "Stavka"
+
+#: gdl/gdl-dock-layout.c:737 gdl/gdl-dock-object.c:120
+#: libegg/menu/egg-action.c:114 plugins/build/compiler_options.c:798
+msgid "Name"
+msgstr "Ime"
+
+#: gdl/gdl-dock-layout.c:776 gdl/layout.glade.h:2
+msgid "Dock items"
+msgstr "Stranice sa kolačićima"
+
+#: gdl/gdl-dock-layout.c:782 gdl/layout.glade.h:4
+msgid "Saved layouts"
+msgstr "Spremi kao"
+
+#: gdl/gdl-dock-layout.c:824
+msgid ""
+"While loading layout: don't know how to create a dock object whose nick is '%"
+"s'"
+msgstr ""
+"Prilikom učitavanja rasporeda: ne znam kako stvoriti objekt za pripajanje "
+"čiji je nadimak „%s“"
+
+#: gdl/gdl-dock-layout.c:1303
+msgid "Layout managment"
+msgstr "Upravljanje rasporedom"
+
+#: gdl/gdl-dock-master.c:136 gdl/gdl-dock.c:185
+msgid "Default title"
+msgstr "Uobičajena vrsta pisma (font)"
+
+#: gdl/gdl-dock-master.c:137
+msgid "Default title for newly created floating docks"
+msgstr "Uobičajeni naslov za novostvorene plutajuće objekte za pripajanje"
+
+#: gdl/gdl-dock-master.c:144
+msgid ""
+"If is set to 1, all the dock items bound to the master are locked; if it's "
+"0, all are unlocked; -1 indicates inconsistency among the items"
+msgstr ""
+"Ukoliko je postavljeno na 1, svi objekti za pripajanje vezani za glavni su "
+"zaključani; ukoliko je 0, svi su otključani; -1 označava nedosljednost među "
+"stavkama"
+
+#: gdl/gdl-dock-master.c:736
+msgid ""
+"master %p: unable to add object %p[%s] to the hash.  There already is an "
+"item with that name (%p)."
+msgstr ""
+"glavni %p: ne može dodati objekt %p[%s] u hash tablicu.  Već postoji stavka "
+"tog imena (%p)."
+
+#: gdl/gdl-dock-master.c:906
+msgid ""
+"The new dock controller %p is automatic.  Only manual dock objects should be "
+"named controller."
+msgstr ""
+"Novi upravljač pripajanjem %p je automatski.  Samo ručni objekti za "
+"pripajanje trebaju biti označeni kao upravljači."
+
+#: gdl/gdl-dock-notebook.c:134
+msgid "Page"
+msgstr "Stranica"
+
+#: gdl/gdl-dock-notebook.c:135
+msgid "The index of the current page"
+msgstr "Indeks odabrane strane"
+
+#: gdl/gdl-dock-object.c:121
+msgid "Unique name for identifying the dock object"
+msgstr "Jedinstveni naziv za identifikaciju objekta ploče"
+
+#: gdl/gdl-dock-object.c:128
+msgid "Long name"
+msgstr "Pregledaj ime_na"
+
+#: gdl/gdl-dock-object.c:129
+msgid "Human readable name for the dock object"
+msgstr "Ljudski razumljivo ima za objekt pripajanja"
+
+#: gdl/gdl-dock-object.c:135
+msgid "Dock master"
+msgstr "Upravitelj pripajanjem"
+
+#: gdl/gdl-dock-object.c:136
+msgid "Dock master this dock object is bound to"
+msgstr "Upravitelj pripajanjem na koji je ovaj objekt pripojen"
+
+#: gdl/gdl-dock-object.c:405
+msgid ""
+"Call to gdl_dock_object_dock in a dock object %p (object type is %s) which "
+"hasn't implemented this method"
+msgstr ""
+"Poziv funkciji gdl_dock_object_dock u objektu za pripajanje %p (tip objekta "
+"je %s) koji nije implementirao ovu metodu"
+
+#: gdl/gdl-dock-object.c:534
+msgid ""
+"Dock operation requested in a non-bound object %p. The application might "
+"crash"
+msgstr ""
+"Pokušaj izvođenja operacije pripajanja u nepovezanom objektu %p. Program "
+"se može srušiti."
+
+#: gdl/gdl-dock-object.c:541
+msgid "Cannot dock %p to %p because they belong to different masters"
+msgstr "Ne mogu pripojiti %p na %p zato što pripadaju raznim glavnim objektima"
+
+#: gdl/gdl-dock-object.c:583
+msgid "Attempt to bind to %p an already bound dock object %p (current master: %p)"
+msgstr """Pokušaj vezivanja na %p već vezanog objekta za pripajanje %p (trenutno "
+"glavni: %p)"
+
+#: gdl/gdl-dock-paned.c:134
+msgid "Position"
+msgstr "Položaj"
+
+#: gdl/gdl-dock-paned.c:135
+msgid "Position of the divider in pixels"
+msgstr "Pozicija djelitelja u pikselima"
+
+#: gdl/gdl-dock-placeholder.c:127
+msgid "Sticky"
+msgstr "Ljepljiv"
+
+#: gdl/gdl-dock-placeholder.c:128
+msgid ""
+"Whether the placeholder will stick to its host or move up the hierarchy when "
+"the host is redocked"
+msgstr ""
+"Hoće li se ovo rezerviano mjesto držati uz svog domaćina ili pomaknuti gore u "
+"hijerarhiji kada se domaćin odvoji"
+
+#: gdl/gdl-dock-placeholder.c:135
+msgid "Host"
+msgstr "Računalo"
+
+#: gdl/gdl-dock-placeholder.c:136
+msgid "The dock object this placeholder is attached to"
+msgstr "Objekt za pripajanje na koji je ovo rezervirano mjesto vezano"
+
+#: gdl/gdl-dock-placeholder.c:143
+msgid "Next placement"
+msgstr "Sljedeći raspored"
+
+#: gdl/gdl-dock-placeholder.c:144
+msgid ""
+"The position an item will be docked to our host if a request is made to dock "
+"to us"
+msgstr ""
+"Pozicija na koju će stavka biti pripojena domaćinu ako je napravljen zahtjev za "
+"pripajanje nama"
+
+#: gdl/gdl-dock-placeholder.c:305
+msgid "Attempt to dock a dock object to an unbound placeholder"
+msgstr "Pokušaj pripajanja objekta za pripajanje nevezanom rezerviranom mesta"
+
+#: gdl/gdl-dock-placeholder.c:419
+msgid "Got a detach signal from an object (%p) who is not our host %p"
+msgstr "Primljen je signal za odvajanje od objekta (%p) koji nije naš domaćin %p"
+
+#: gdl/gdl-dock-placeholder.c:440
+msgid ""
+"Something weird happened while getting the child placement for %p from "
+"parent %p"
+msgstr ""
+"Nešto čudno se dogodilo pri dohvatu položaja sadržanog elementa %p od "
+"roditelja %p"
+
+#: gdl/gdl-dock-tablabel.c:130
+msgid "Controlling dock item"
+msgstr "Upravljanje elementom pripajanja"
+
+#: gdl/gdl-dock-tablabel.c:131
+msgid "Dockitem which 'owns' this tablabel"
+msgstr "Element za pripajanje koji je „vlasnik“ ove oznake taba"
+
+#: gdl/gdl-dock.c:177
+msgid "Floating"
+msgstr "Plutanje"
+
+#: gdl/gdl-dock.c:178
+msgid "Whether the dock is floating in its own window"
+msgstr "Odvoji ovaj tab u vlastiti prozor"
+
+#: gdl/gdl-dock.c:186
+msgid "Default title for the newly created floating docks"
+msgstr "Uobičajeni naslov za novostvorene plutajuće objekte za pripajanje"
+
+#: gdl/gdl-dock.c:192 libegg/menu/egg-entry-action.c:117
+msgid "Width"
+msgstr "Širina"
+
+#: gdl/gdl-dock.c:193
+msgid "Width for the dock when it's of floating type"
+msgstr "Širina objekta za pripajanje kada je plutajući"
+
+#: gdl/gdl-dock.c:200
+msgid "Height"
+msgstr "Visina"
+
+#: gdl/gdl-dock.c:201
+msgid "Height for the dock when it's of floating type"
+msgstr "Visin objekta za pripajanje kada je plutajući"
+
+#: gdl/gdl-dock.c:208
+msgid "Float X"
+msgstr "Plutajući X"
+
+#: gdl/gdl-dock.c:209
+msgid "X coordinate for a floating dock"
+msgstr "X koordinata plutajućeg objekta za pripajanje"
+
+#: gdl/gdl-dock.c:216
+msgid "Float Y"
+msgstr "Plutajući Y"
+
+#: gdl/gdl-dock.c:217
+msgid "Y coordinate for a floating dock"
+msgstr "Y koordinata plutajućeg objekta za pripajanje"
+
+#: gdl/gdl-dock.c:494
+msgid "Dock #%d"
+msgstr "Pripajanje #%d"
+
+#: gdl/gdl-icons.c:141 gdl/gdl-icons.c:142
+msgid "Icon size"
+msgstr "Veličina sličice"
+
+#: gdl/gdl-icons.c:147 gdl/gdl-icons.c:148
+msgid "Icon zoom"
+msgstr "Uvećanje sličicice"
+
+#: gdl/layout.glade.h:3
+msgid "Layout Managment"
+msgstr "Upravljanje rasporedom"
+
+#: gdl/layout.glade.h:5
+msgid "_Load"
+msgstr "_Učitaj"
+
+#: gdl/layout.glade.h:6
+msgid "_Lock dock items"
+msgstr "_Zaključaj stavku sidrišta"
+
+#: libanjuta/anjuta-encodings.c:131 libanjuta/anjuta-encodings.c:157
+#: libanjuta/anjuta-encodings.c:198 libanjuta/anjuta-encodings.c:239
+msgid "Western"
+msgstr "Zapadni"
+
+#: libanjuta/anjuta-encodings.c:133 libanjuta/anjuta-encodings.c:200
+#: libanjuta/anjuta-encodings.c:235
+msgid "Central European"
+msgstr "Srednjeeuropski"
+
+#: libanjuta/anjuta-encodings.c:135
+msgid "South European"
+msgstr "Južnoeuropski"
+
+#: libanjuta/anjuta-encodings.c:137 libanjuta/anjuta-encodings.c:153
+#: libanjuta/anjuta-encodings.c:249
+msgid "Baltic"
+msgstr "Baltik"
+
+#: libanjuta/anjuta-encodings.c:139 libanjuta/anjuta-encodings.c:202
+#: libanjuta/anjuta-encodings.c:215 libanjuta/anjuta-encodings.c:219
+#: libanjuta/anjuta-encodings.c:237
+msgid "Cyrillic"
+msgstr "Ćirilica"
+
+#: libanjuta/anjuta-encodings.c:141 libanjuta/anjuta-encodings.c:208
+#: libanjuta/anjuta-encodings.c:247
+msgid "Arabic"
+msgstr "Arapski"
+
+#: libanjuta/anjuta-encodings.c:143 libanjuta/anjuta-encodings.c:241
+#: plugins/project-manager/project_dbase_gui.c:1081
+msgid "Greek"
+msgstr "Grčki"
+
+#: libanjuta/anjuta-encodings.c:145
+msgid "Hebrew Visual"
+msgstr "Hebrejski vidljivo"
+
+#: libanjuta/anjuta-encodings.c:147 libanjuta/anjuta-encodings.c:206
+#: libanjuta/anjuta-encodings.c:245
+msgid "Hebrew"
+msgstr "Hebrejski"
+
+#: libanjuta/anjuta-encodings.c:149 libanjuta/anjuta-encodings.c:204
+#: libanjuta/anjuta-encodings.c:243
+#: plugins/project-manager/project_dbase_gui.c:1101
+msgid "Turkish"
+msgstr "Turski"
+
+#: libanjuta/anjuta-encodings.c:151
+msgid "Nordic"
+msgstr "Nordijski"
+
+#: libanjuta/anjuta-encodings.c:155
+msgid "Celtic"
+msgstr "Celtic"
+
+#: libanjuta/anjuta-encodings.c:159
+#: plugins/project-manager/project_dbase_gui.c:1098
+msgid "Romanian"
+msgstr "Rumunjski"
+
+#: libanjuta/anjuta-encodings.c:162 libanjuta/anjuta-encodings.c:164
+#: libanjuta/anjuta-encodings.c:166 libanjuta/anjuta-encodings.c:168
+msgid "Unicode"
+msgstr "Unicode"
+
+#: libanjuta/anjuta-encodings.c:171
+msgid "Armenian"
+msgstr "Armenski"
+
+#: libanjuta/anjuta-encodings.c:173 libanjuta/anjuta-encodings.c:175
+#: libanjuta/anjuta-encodings.c:184
+msgid "Chinese Traditional"
+msgstr "Tradicionalni kineski"
+
+#: libanjuta/anjuta-encodings.c:177
+msgid "Cyrillic/Russian"
+msgstr "Ćirilica/ruski"
+
+#: libanjuta/anjuta-encodings.c:180 libanjuta/anjuta-encodings.c:211
+#: libanjuta/anjuta-encodings.c:224
+msgid "Japanese"
+msgstr "Japanski"
+
+#: libanjuta/anjuta-encodings.c:182 libanjuta/anjuta-encodings.c:213
+#: libanjuta/anjuta-encodings.c:217 libanjuta/anjuta-encodings.c:230
+#: plugins/project-manager/project_dbase_gui.c:1092
+msgid "Korean"
+msgstr "Korejski"
+
+#: libanjuta/anjuta-encodings.c:187 libanjuta/anjuta-encodings.c:189
+#: libanjuta/anjuta-encodings.c:191 libanjuta/anjuta-encodings.c:195
+msgid "Chinese Simplified"
+msgstr "Pojednostavljeni kineski"
+
+#: libanjuta/anjuta-encodings.c:193
+msgid "Georgian"
+msgstr "Gruzijski"
+
+#: libanjuta/anjuta-encodings.c:221
+msgid "Cyrillic/Ukrainian"
+msgstr "Ćirilica/ukrajinski"
+
+#: libanjuta/anjuta-encodings.c:226 libanjuta/anjuta-encodings.c:232
+#: libanjuta/anjuta-encodings.c:251
+msgid "Vietnamese"
+msgstr "Vijetnamska"
+
+#: libanjuta/anjuta-encodings.c:228
+msgid "Thai"
+msgstr "Tajlandski"
+
+#: libanjuta/anjuta-encodings.c:702
+msgid "Stock Encodings"
+msgstr ""
+
+#: libanjuta/anjuta-plugin.c:197
+msgid "Anjuta Shell"
+msgstr ""
+
+#: libanjuta/anjuta-plugin.c:198
+msgid "Anjuta shell that will contain the tool"
+msgstr ""
+
+#: libanjuta/anjuta-plugin.c:205
+msgid "Anjuta UI"
+msgstr ""
+
+#: libanjuta/anjuta-plugin.c:206
+msgid "Anjuta UI that will contain Menus and toolbars"
+msgstr ""
+
+#: libanjuta/anjuta-plugin.c:213 libanjuta/anjuta-preferences.c:1096
+msgid "Anjuta Preferences"
+msgstr ""
+
+#: libanjuta/anjuta-plugin.c:214
+msgid "Anjuta preferences that will contain preferences"
+msgstr ""
+
+#: libanjuta/anjuta-preferences-dialog.c:127
+msgid "Category"
+msgstr "Kategorija"
+
+#: libanjuta/anjuta-preferences-dialog.c:227
+msgid "Anjuta Preferences Dialog"
+msgstr ""
+
+#: libanjuta/anjuta-preferences.c:697
+msgid ""
+"Are you sure you want to reset the preferences to\n"
+"their default settings?"
+msgstr ""
+
+#: libanjuta/anjuta-preferences.c:701
+msgid "_Reset"
+msgstr "_Vrati izvorno"
+
+#: libanjuta/anjuta-preferences.c:970
+msgid ""
+"Cannot load Global defaults and configuration files:\n"
+"%s.\n"
+"This may result in improper behaviour or instabilities.\n"
+"Anjuta will fall back to built in (limited) settings"
+msgstr ""
+
+#. gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
+#: libanjuta/anjuta-ui.c:297
+msgid "Action"
+msgstr ""
+
+#: libanjuta/anjuta-ui.c:326 libegg/menu/egg-action.c:150
+msgid "Sensitive"
+msgstr ""
+
+#: libanjuta/anjuta-ui.c:335
+msgid "Shortcut"
+msgstr ""
+
+#: libanjuta/anjuta-ui.c:436
+msgid "Anjuta User Interface"
+msgstr ""
+
+#: libanjuta/anjuta-utils.c:54 src/utilities.c:697
+msgid "Unable to read file: %s."
+msgstr ""
+
+#: libanjuta/anjuta-utils.c:64 plugins/project-manager/source.c:120
+#: plugins/project-manager/source.c:167 plugins/project-manager/source.c:205
+#: plugins/project-manager/source.c:455 plugins/project-manager/source.c:480
+#: plugins/project-manager/source.c:575 plugins/project-manager/source.c:673
+#: plugins/project-manager/source.c:713 plugins/project-manager/source.c:728
+#: plugins/project-manager/source.c:762 plugins/project-manager/source.c:818
+#: plugins/project-manager/source.c:854 plugins/project-manager/source.c:909
+#: plugins/project-manager/source.c:945 plugins/project-manager/source.c:1001
+#: plugins/project-manager/source.c:1057 plugins/project-manager/source.c:1076
+#: plugins/project-manager/source.c:1109 plugins/project-manager/source.c:1128
+#: plugins/project-manager/source.c:1161 plugins/project-manager/source.c:1180
+#: plugins/project-manager/source.c:1211 plugins/project-manager/source.c:1229
+#: plugins/project-manager/source.c:1259 plugins/project-manager/source.c:1277
+#: plugins/project-manager/source.c:1306 plugins/project-manager/source.c:1355
+#: plugins/project-manager/source.c:1392 plugins/project-manager/source.c:1436
+#: plugins/project-manager/source.c:1517 plugins/project-manager/source.c:1649
+#: plugins/project-manager/source.c:1689 plugins/project-manager/source.c:1779
+#: plugins/project-manager/source.c:1852 plugins/project-manager/source.c:1946
+#: plugins/project-manager/source.c:2027 plugins/project-manager/source.c:2085
+#: plugins/project-manager/source.c:2199 plugins/project-manager/source.c:2262
+#: plugins/project-manager/source.c:2568 plugins/project-manager/source.c:2703
+#: src/utilities.c:705
+msgid "Unable to create file: %s."
+msgstr ""
+
+#: libanjuta/anjuta-utils.c:100 src/utilities.c:739
+msgid "Unable to complete file copy"
+msgstr ""
+
+#: libanjuta/anjuta-utils.c:291
+msgid ""
+"\n"
+"System: "
+msgstr ""
+
+#: libanjuta/anjuta-utils.c:341
+msgid ""
+"The \"%s\" utility is not installed.\n"
+"Please install it."
+msgstr ""
+
+#: libanjuta/gnomefilelist.c:224 widgets/gnomefilelist.c:224
+msgid "Go to the previous directory"
+msgstr ""
+
+#: libanjuta/gnomefilelist.c:228 widgets/gnomefilelist.c:228
+msgid "Go to the next directory"
+msgstr ""
+
+#: libanjuta/gnomefilelist.c:232 widgets/gnomefilelist.c:232
+msgid "Go to parent directory"
+msgstr ""
+
+#: libanjuta/gnomefilelist.c:237 widgets/gnomefilelist.c:237
+msgid "Go to home directory"
+msgstr ""
+
+#: libanjuta/gnomefilelist.c:243 widgets/gnomefilelist.c:243
+msgid "Refresh listing"
+msgstr ""
+
+#: libanjuta/gnomefilelist.c:249 widgets/gnomefilelist.c:249
+msgid "Delete file"
+msgstr "Obriši datoteku"
+
+#: libanjuta/gnomefilelist.c:253 libanjuta/gnomefilelist.c:1889
+#: widgets/gnomefilelist.c:253 widgets/gnomefilelist.c:1889
+msgid "Rename file"
+msgstr "Promijeni ime datoteci"
+
+#: libanjuta/gnomefilelist.c:257 libanjuta/gnomefilelist.c:1988
+#: widgets/gnomefilelist.c:257 widgets/gnomefilelist.c:1988
+msgid "Create new folder"
+msgstr "Napravi novu mapu"
+
+#: libanjuta/gnomefilelist.c:262 widgets/gnomefilelist.c:262
+msgid "Show Hidden"
+msgstr "Prikaži sakriveno"
+
+#: libanjuta/gnomefilelist.c:266 widgets/gnomefilelist.c:266
+msgid "Show hidden files"
+msgstr "Prikaži skrivene datoteke"
+
+#: libanjuta/gnomefilelist.c:274 widgets/gnomefilelist.c:274
+msgid "Directory: "
+msgstr ""
+
+#: libanjuta/gnomefilelist.c:403 widgets/gnomefilelist.c:403
+msgid "Files"
+msgstr "Datoteke"
+
+#: libanjuta/gnomefilelist.c:430 widgets/gnomefilelist.c:430
+msgid "Selection: "
+msgstr "Odabir:"
+
+#: libanjuta/gnomefilelist.c:458 widgets/gnomefilelist.c:458
+msgid "File type: "
+msgstr ""
+
+#: libanjuta/gnomefilelist.c:714 plugins/project-manager/project_dbase.c:363
+#: plugins/project-manager/project_dbase_gui.c:153
+#: plugins/project-manager/project_dbase_gui.c:170
+#: plugins/project-manager/project_dbase_gui.c:182
+#: plugins/project-manager/project_dbase_gui.c:190
+#: plugins/project-manager/project_dbase_gui.c:202
+#: plugins/project-manager/project_dbase_gui.c:211
+#: plugins/project-manager/project_dbase_gui.c:220 widgets/gnomefilelist.c:714
+msgid "All files"
+msgstr "Sve datoteke"
+
+#: libanjuta/gnomefilelist.c:717
+#: plugins/project-manager/project_dbase_gui.c:161 widgets/gnomefilelist.c:717
+msgid "C/C++ source files"
+msgstr ""
+
+#: libanjuta/gnomefilelist.c:721 widgets/gnomefilelist.c:721
+msgid "Java files"
+msgstr ""
+
+#: libanjuta/gnomefilelist.c:724
+#: plugins/project-manager/project_dbase_gui.c:163 widgets/gnomefilelist.c:724
+msgid "Pascal files"
+msgstr ""
+
+#: libanjuta/gnomefilelist.c:726
+#: plugins/project-manager/project_dbase_gui.c:164 widgets/gnomefilelist.c:726
+msgid "PHP files"
+msgstr ""
+
+#: libanjuta/gnomefilelist.c:729
+#: plugins/project-manager/project_dbase_gui.c:165 widgets/gnomefilelist.c:729
+msgid "Perl files"
+msgstr ""
+
+#: libanjuta/gnomefilelist.c:731
+#: plugins/project-manager/project_dbase_gui.c:166 widgets/gnomefilelist.c:731
+msgid "Python files"
+msgstr ""
+
+#: libanjuta/gnomefilelist.c:733 widgets/gnomefilelist.c:733
+msgid "Hyper Text Markup files"
+msgstr ""
+
+#: libanjuta/gnomefilelist.c:736
+#: plugins/project-manager/project_dbase_gui.c:167 widgets/gnomefilelist.c:736
+msgid "Shell Script files"
+msgstr ""
+
+#: libanjuta/gnomefilelist.c:739 widgets/gnomefilelist.c:739
+msgid "Config files"
+msgstr ""
+
+#: libanjuta/gnomefilelist.c:741
+#: plugins/project-manager/project_dbase_gui.c:168 widgets/gnomefilelist.c:741
+msgid "Visual Basic files"
+msgstr ""
+
+#: libanjuta/gnomefilelist.c:744 widgets/gnomefilelist.c:744
+msgid "Properties files"
+msgstr ""
+
+#: libanjuta/gnomefilelist.c:747 widgets/gnomefilelist.c:747
+msgid ".mak files"
+msgstr ".mak datoteke"
+
+#: libanjuta/gnomefilelist.c:749
+#: plugins/project-manager/project_dbase_gui.c:169 widgets/gnomefilelist.c:749
+msgid ".lua files"
+msgstr ".lua datoteke"
+
+#: libanjuta/gnomefilelist.c:751 widgets/gnomefilelist.c:751
+msgid "Diff files"
+msgstr ""
+
+#: libanjuta/gnomefilelist.c:1854 widgets/gnomefilelist.c:1854
+msgid "Really delete %s?"
+msgstr "Zaista Ĺželite obrisati %d datoteka?"
+
+#: libanjuta/gnomefilelist.c:1901 widgets/gnomefilelist.c:1901
+msgid "Rename file to:"
+msgstr ""
+
+#: libanjuta/gnomefilelist.c:1927 widgets/gnomefilelist.c:1927
+msgid "Renaming file failed '%s': %s"
+msgstr ""
+
+#: libanjuta/gnomefilelist.c:1960 widgets/gnomefilelist.c:1960
+msgid "Creating folder failed '%s': %s"
+msgstr ""
+
+#: libanjuta/gnomefilelist.c:2000 widgets/gnomefilelist.c:2000
+msgid "Folder name:"
+msgstr "Naziv mape:"
+
+#: libanjuta/plugins.c:1063
+msgid "Load"
+msgstr ""
+
+#: libanjuta/plugins.c:1071
+msgid "Plugin"
+msgstr ""
+
+#: libanjuta/plugins.c:1119
+msgid ""
+"This dialog displays all the available plugins for Anjuta.  You can select "
+"which plugins you want to use by clicking on the plugin in the list."
+msgstr ""
+
+#: libanjuta/resources.c:50
+#, c-format
+msgid "Widget not found: %s"
+msgstr "Element nije nađen: %s"
+
+#: libanjuta/resources.c:74
+msgid "Could not find application image file: %s"
+msgstr ""
+
+#: libanjuta/resources.c:100
+msgid "Could not find application pixmap file: %s"
+msgstr ""
+
+#: libanjuta/resources.c:263 libanjuta/resources.c:271
+msgid "Cannot execute Devhelp. Make sure it is installed"
+msgstr ""
+
+#: libegg/menu/egg-accel-dialog.c:114 libegg/menu/egg-accel-dialog.c:115
+msgid "Menu Merge"
+msgstr ""
+
+#: libegg/menu/egg-action.c:115
+msgid "A unique name for the action."
+msgstr ""
+
+#: libegg/menu/egg-action.c:122 libegg/toolbar/eggtoolbutton.c:137
+msgid "Label"
+msgstr ""
+
+#: libegg/menu/egg-action.c:123
+msgid "The label used for menu items and buttons that activate this action."
+msgstr ""
+
+#: libegg/menu/egg-action.c:129
+msgid "Short label"
+msgstr ""
+
+#: libegg/menu/egg-action.c:130
+msgid "A shorter label that may be used on toolbar buttons."
+msgstr ""
+
+#: libegg/menu/egg-action.c:136
+msgid "Tooltip"
+msgstr ""
+
+#: libegg/menu/egg-action.c:137
+msgid "A tooltip for this action."
+msgstr ""
+
+#: libegg/menu/egg-action.c:143
+msgid "Stock Icon"
+msgstr ""
+
+#: libegg/menu/egg-action.c:144
+msgid "The stock icon displayed in widgets representing this action."
+msgstr ""
+
+#: libegg/menu/egg-action.c:151
+msgid "Whether the action is enabled."
+msgstr ""
+
+#: libegg/menu/egg-action.c:159
+msgid "Whether the action is visible."
+msgstr ""
+
+#: libegg/menu/egg-entry-action.c:109 libegg/menu/test-actions.c:130
+#: widgets/cell-renderer-captioned-image.c:207
+msgid "Text"
+msgstr "Tekst"
+
+#: libegg/menu/egg-entry-action.c:110
+msgid "Text in the entry"
+msgstr ""
+
+#: libegg/menu/egg-entry-action.c:118
+msgid "Width of the entry."
+msgstr ""
+
+#: libegg/menu/egg-markup.c:268 libegg/menu/egg-menu-merge.c:599
+msgid "Unknown attribute '%s' on line %d char %d"
+msgstr ""
+
+#: libegg/menu/egg-markup.c:275 libegg/menu/egg-menu-merge.c:606
+msgid "Unknown tag '%s' on line %d char %d"
+msgstr ""
+
+#: libegg/menu/test-actions.c:52
+msgid "Disable Cut and paste ops"
+msgstr ""
+
+#: libegg/menu/test-actions.c:54
+msgid "Enable Cut and paste ops"
+msgstr ""
+
+#: libegg/menu/test-actions.c:91
+msgid "Menu _1"
+msgstr ""
+
+#: libegg/menu/test-actions.c:92
+msgid "Menu _2"
+msgstr ""
+
+#: libegg/menu/test-actions.c:93 plugins/editor/plugin.c:261
+msgid "C_ut"
+msgstr "I_zreži"
+
+#: libegg/menu/test-actions.c:94
+msgid "Cut the selected text to the clipboard"
+msgstr ""
+
+#: libegg/menu/test-actions.c:96 plugins/editor/plugin.c:264
+msgid "_Copy"
+msgstr "_Kopiraj"
+
+#: libegg/menu/test-actions.c:97 plugins/editor/plugin.c:265
+msgid "Copy the selected text to the clipboard"
+msgstr "Kopiraj odabrani tekst u odlagalište"
+
+#: libegg/menu/test-actions.c:99 plugins/editor/plugin.c:267
+msgid "_Paste"
+msgstr "_Zaljepi"
+
+#: libegg/menu/test-actions.c:100
+msgid "Paste the text from the clipboard"
+msgstr ""
+
+#: libegg/menu/test-actions.c:102
+msgid "_Bold"
+msgstr ""
+
+#: libegg/menu/test-actions.c:103
+msgid "Change to bold face"
+msgstr ""
+
+#: libegg/menu/test-actions.c:106
+msgid "_Left"
+msgstr ""
+
+#: libegg/menu/test-actions.c:107 libegg/menu/test-merge.c:101
+msgid "Left justify the text"
+msgstr ""
+
+#: libegg/menu/test-actions.c:109
+msgid "C_enter"
+msgstr ""
+
+#: libegg/menu/test-actions.c:110 libegg/menu/test-merge.c:104
+msgid "Center justify the text"
+msgstr ""
+
+#: libegg/menu/test-actions.c:112
+msgid "_Right"
+msgstr ""
+
+#: libegg/menu/test-actions.c:113 libegg/menu/test-merge.c:107
+msgid "Right justify the text"
+msgstr ""
+
+#: libegg/menu/test-actions.c:115
+msgid "_Fill"
+msgstr ""
+
+#: libegg/menu/test-actions.c:116 libegg/menu/test-merge.c:110
+msgid "Fill justify the text"
+msgstr ""
+
+#: libegg/menu/test-actions.c:119
+msgid "Quit the application"
+msgstr ""
+
+#: libegg/menu/test-actions.c:121
+msgid "Enable Cut/Copy/Paste"
+msgstr ""
+
+#: libegg/menu/test-actions.c:122
+msgid "Change the sensitivity of the cut, copy and paste actions"
+msgstr ""
+
+#: libegg/menu/test-actions.c:124
+msgid "Customise _Accels"
+msgstr ""
+
+#: libegg/menu/test-actions.c:125
+msgid "Customise keyboard shortcuts"
+msgstr ""
+
+#: libegg/menu/test-actions.c:127
+msgid "Icons"
+msgstr ""
+
+#: libegg/menu/test-actions.c:133
+msgid "Both"
+msgstr ""
+
+#: libegg/menu/test-actions.c:136
+msgid "Both Horizontal"
+msgstr ""
+
+#: libegg/menu/test-actions.c:139
+msgid "Small Icons"
+msgstr ""
+
+#: libegg/menu/test-actions.c:142
+msgid "Large Icons"
+msgstr ""
+
+#: libegg/menu/test-merge.c:81 src/anjuta-actions.h:23
+msgid "_File"
+msgstr ""
+
+#: libegg/menu/test-merge.c:83 src/anjuta-actions.h:54
+msgid "_Help"
+msgstr ""
+
+#: libegg/menu/test-merge.c:84
+msgid "Test"
+msgstr ""
+
+#: libegg/menu/test-merge.c:112 src/anjuta-actions.h:95
+msgid "_About"
+msgstr ""
+
+#: libegg/menu/test-merge.c:437
+msgid "line entry"
+msgstr ""
+
+#: libegg/menu/test-merge.c:438
+msgid "Enter the line number"
+msgstr ""
+
+#: libegg/menu/test-merge.c:450
+msgid "combo"
+msgstr ""
+
+#: libegg/menu/test-merge.c:451
+msgid "line number"
+msgstr ""
+
+#: libegg/toolbar/eggtoolbar.c:365
+msgid "The orientation of the toolbar"
+msgstr ""
+
+#: libegg/toolbar/eggtoolbar.c:373
+msgid "Toolbar Style"
+msgstr ""
+
+#: libegg/toolbar/eggtoolbar.c:374
+msgid "How to draw the toolbar"
+msgstr ""
+
+#: libegg/toolbar/eggtoolbar.c:381
+msgid "Show Arrow"
+msgstr ""
+
+#: libegg/toolbar/eggtoolbar.c:382
+msgid "If an arrow should be shown if the toolbar doesn't fit"
+msgstr ""
+
+#: libegg/toolbar/eggtoolbar.c:390
+msgid "Expand"
+msgstr ""
+
+#: libegg/toolbar/eggtoolbar.c:391
+msgid "Whether the item should receive extra space when the toolbar grows"
+msgstr ""
+
+#: libegg/toolbar/eggtoolbar.c:398
+msgid "Homogeneous"
+msgstr ""
+
+#: libegg/toolbar/eggtoolbar.c:399
+msgid "Whether the item should be the same size as other homogeneous items"
+msgstr ""
+
+#: libegg/toolbar/eggtoolbar.c:406
+msgid "Pack End"
+msgstr ""
+
+#: libegg/toolbar/eggtoolbar.c:407
+msgid "Whether the item is positioned at the end of the toolbar"
+msgstr ""
+
+#: libegg/toolbar/eggtoolbar.c:414
+msgid "Spacer size"
+msgstr ""
+
+#: libegg/toolbar/eggtoolbar.c:415
+msgid "Size of spacers"
+msgstr ""
+
+#: libegg/toolbar/eggtoolbar.c:423
+msgid "Internal padding"
+msgstr ""
+
+#: libegg/toolbar/eggtoolbar.c:424
+msgid "Amount of border space between the toolbar shadow and the buttons"
+msgstr ""
+
+#: libegg/toolbar/eggtoolbar.c:432
+msgid "Space style"
+msgstr ""
+
+#: libegg/toolbar/eggtoolbar.c:433
+msgid "Whether spacers are vertical lines or just blank"
+msgstr ""
+
+#: libegg/toolbar/eggtoolbar.c:440
+msgid "Button relief"
+msgstr ""
+
+#: libegg/toolbar/eggtoolbar.c:441
+msgid "Type of bevel around toolbar buttons"
+msgstr ""
+
+#: libegg/toolbar/eggtoolbar.c:447
+msgid "Shadow type"
+msgstr ""
+
+#: libegg/toolbar/eggtoolbar.c:448
+msgid "Style of bevel around the toolbar"
+msgstr ""
+
+#: libegg/toolbar/eggtoolbar.c:454
+msgid "Toolbar style"
+msgstr ""
+
+#: libegg/toolbar/eggtoolbar.c:455
+msgid "Whether default toolbars have text only, text and icons, icons only, etc."
+msgstr ""
+
+#: libegg/toolbar/eggtoolbar.c:461
+msgid "Toolbar icon size"
+msgstr ""
+
+#: libegg/toolbar/eggtoolbar.c:462
+msgid "Size of icons in default toolbars"
+msgstr ""
+
+#: libegg/toolbar/eggtoolbutton.c:138
+msgid "Text to show in the item."
+msgstr ""
+
+#: libegg/toolbar/eggtoolbutton.c:144
+msgid "Use underline"
+msgstr ""
+
+#: libegg/toolbar/eggtoolbutton.c:145
+msgid "Interpret underlines in the item label"
+msgstr ""
+
+#: libegg/toolbar/eggtoolbutton.c:151
+msgid "Label widget"
+msgstr ""
+
+#: libegg/toolbar/eggtoolbutton.c:152
+msgid "Widget to use as the item label"
+msgstr ""
+
+#: libegg/toolbar/eggtoolbutton.c:158
+msgid "Stock Id"
+msgstr ""
+
+#: libegg/toolbar/eggtoolbutton.c:159
+msgid "The stock icon displayed on the item"
+msgstr ""
+
+#: libegg/toolbar/eggtoolbutton.c:165
+msgid "Icon set"
+msgstr ""
+
+#: libegg/toolbar/eggtoolbutton.c:166
+msgid "Icon set to use to draw the item's icon"
+msgstr ""
+
+#: libegg/toolbar/eggtoolbutton.c:172
+msgid "Icon widget"
+msgstr ""
+
+#: libegg/toolbar/eggtoolbutton.c:173
+msgid "Icon widget to display in the item"
+msgstr ""
+
+#: libegg/toolbar/eggtoolitem.c:151
+msgid "Visible when horizontal"
+msgstr ""
+
+#: libegg/toolbar/eggtoolitem.c:152
+msgid ""
+"Whether the toolbar item is visible when the toolbar is in a horizontal "
+"orientation."
+msgstr ""
+
+#: libegg/toolbar/eggtoolitem.c:158
+msgid "Visible when vertical"
+msgstr ""
+
+#: libegg/toolbar/eggtoolitem.c:159
+msgid ""
+"Whether the toolbar item is visible when the toolbar is in a vertical "
+"orientation."
+msgstr ""
+
+#: libegg/treeviewutils/eggcellrendererkeys.c:160
+#: libegg/treeviewutils/eggcellrendererkeys.c:161
+msgid "Accelerator key"
+msgstr ""
+
+#: libegg/treeviewutils/eggcellrendererkeys.c:170
+#: libegg/treeviewutils/eggcellrendererkeys.c:171
+msgid "Accelerator modifiers"
+msgstr ""
+
+#: libegg/treeviewutils/eggcellrendererkeys.c:180
+msgid "Accelerator Mode"
+msgstr ""
+
+#: libegg/treeviewutils/eggcellrendererkeys.c:181
+msgid "The type of accelerator."
+msgstr ""
+
+#: libegg/treeviewutils/eggcellrendererkeys.c:219
+msgid "Disabled"
+msgstr ""
+
+#: libegg/treeviewutils/eggcellrendererkeys.c:330
+#: libegg/treeviewutils/eggcellrendererkeys.c:564
+msgid "Type a new accelerator, or press Backspace to clear"
+msgstr ""
+
+#: libegg/treeviewutils/eggcellrendererkeys.c:567
+msgid "Type a new accelerator"
+msgstr ""
+
+#: libegg/treeviewutils/eggtreemodelfilter.c:267
+msgid "The child model"
+msgstr ""
+
+#: libegg/treeviewutils/eggtreemodelfilter.c:268
+msgid "The model for the filtermodel to filter"
+msgstr ""
+
+#: libegg/treeviewutils/eggtreemodelfilter.c:275
+msgid "The virtual root"
+msgstr ""
+
+#: libegg/treeviewutils/eggtreemodelfilter.c:276
+msgid "The virtual root (relative to the child model) for this filtermodel"
+msgstr ""
+
+#: libegg/treeviewutils/eggtreeviewstate.c:54
+msgid "Line %d character %d: %s"
+msgstr ""
+
+#: libegg/treeviewutils/eggtreeviewstate.c:109
+msgid "Could not parse \"%s\" as an integer"
+msgstr ""
+
+#: libegg/treeviewutils/eggtreeviewstate.c:118
+msgid "Did not understand trailing characters \"%s\" in string \"%s\""
+msgstr ""
+
+#: libegg/treeviewutils/eggtreeviewstate.c:127
+msgid "Integer %ld must be positive"
+msgstr ""
+
+#: libegg/treeviewutils/eggtreeviewstate.c:135
+msgid "Integer %ld is too large, current max is %d"
+msgstr ""
+
+#: libegg/treeviewutils/eggtreeviewstate.c:181
+msgid "Boolean values must be \"true\" or \"false\" not \"%s\""
+msgstr ""
+
+#: libegg/treeviewutils/eggtreeviewstate.c:204
+msgid "The value \"%s\" is not part of the enum \"%s\""
+msgstr ""
+
+#: libegg/treeviewutils/eggtreeviewstate.c:234
+msgid "The type \"%s\" can't be parsed from a string"
+msgstr ""
+
+#: libegg/treeviewutils/eggtreeviewstate.c:255
+msgid "The property \"%s\" does not exist"
+msgstr ""
+
+#: libegg/treeviewutils/eggtreeviewstate.c:310
+msgid "The type attribute can only be specified once."
+msgstr ""
+
+#: libegg/treeviewutils/eggtreeviewstate.c:319
+msgid "The type \"%s\" is not a valid type."
+msgstr ""
+
+#: libegg/treeviewutils/eggtreeviewstate.c:327
+msgid "The type \"%s\" is not a cell renderer type."
+msgstr ""
+
+#: libegg/treeviewutils/eggtreeviewstate.c:339
+msgid "No type attribute specified."
+msgstr ""
+
+#: libegg/treeviewutils/eggtreeviewstate.c:457
+msgid "Outermost element in theme must be <treeview_state> not <%s>"
+msgstr ""
+
+#: libegg/treeviewutils/eggtreeviewstate.c:467
+msgid "Element inside of <treeview_state> must be <treeview> not <%s>"
+msgstr ""
+
+#: libegg/treeviewutils/eggtreeviewstate.c:477
+msgid "Element inside of <treeview> must be <column> not <%s>"
+msgstr ""
+
+#: libegg/treeviewutils/eggtreeviewstate.c:488
+msgid "Element inside of <column> must be <cell> not <%s>"
+msgstr ""
+
+#: libegg/treeviewutils/eggtreeviewstate.c:494
+msgid "The <cell> element must not have any children."
+msgstr ""
+
+#: plugins/build/build_file.c:48
+msgid "This file has not been saved. Save it first and then build."
+msgstr ""
+
+#: plugins/build/build_file.c:73
+msgid "The executable is up-to-date, there is no need to build it again."
+msgstr ""
+
+#: plugins/build/build_file.c:88
+msgid "No build command has been specified for this type of file."
+msgstr ""
+
+#: plugins/build/build_file.c:104
+msgid "Building file: %s ...\n"
+msgstr ""
+
+#: plugins/build/build_file.c:132 plugins/cvs-plugin/cvs.c:776
+#: plugins/project-manager/project_import.c:192
+msgid "Total time taken: %lu secs\n"
+msgstr ""
+
+#: plugins/build/build_file.c:136
+msgid "Completed ... unsuccessful\n"
+msgstr ""
+
+#: plugins/build/build_file.c:140
+msgid "Completed ... unsuccessful"
+msgstr ""
+
+#: plugins/build/build_file.c:145
+msgid "Completed ... successful\n"
+msgstr ""
+
+#: plugins/build/build_file.c:149
+msgid "Completed ... successful"
+msgstr ""
+
+#: plugins/build/build_project.c:76 plugins/build/compile.c:61
+msgid "Unable to build module. Check Settings->Commands."
+msgstr ""
+
+#: plugins/build/build_project.c:95 plugins/build/build_project.c:160
+#: plugins/build/compile.c:74
+msgid "Build Project"
+msgstr ""
+
+#: plugins/build/build_project.c:97 plugins/build/compile.c:76
+msgid "Building source directory of the Project: "
+msgstr ""
+
+#: plugins/build/build_project.c:145
+msgid "Unable to build Project. Check Settings->Commands."
+msgstr ""
+
+#: plugins/build/build_project.c:163
+msgid "Building the whole Project: "
+msgstr ""
+
+#: plugins/build/build_project.c:196
+msgid "Unable to build tarball. Check Settings->Commands."
+msgstr ""
+
+#: plugins/build/build_project.c:211
+msgid "Build Distribution"
+msgstr ""
+
+#: plugins/build/build_project.c:215
+msgid "Building the distribution package of the Project: "
+msgstr ""
+
+#: plugins/build/build_project.c:247
+msgid "Do you prefer installing as root ?"
+msgstr ""
+
+#: plugins/build/build_project.c:285
+msgid "Unable to auto generate. Check Settings->Commands."
+msgstr ""
+
+#: plugins/build/build_project.c:299
+msgid "Auto generate Project"
+msgstr ""
+
+#: plugins/build/build_project.c:302
+msgid "Auto generating the Project: "
+msgstr ""
+
+#: plugins/build/build_project.c:324 plugins/build/build_project.c:362
+msgid "Unable to install Project. Check Settings->Commands."
+msgstr ""
+
+#: plugins/build/build_project.c:339 plugins/build/build_project.c:374
+msgid "Install Project"
+msgstr ""
+
+#: plugins/build/build_project.c:341 plugins/build/build_project.c:376
+msgid "Installing the Project: "
+msgstr ""
+
+#: plugins/build/clean_project.c:61
+msgid "Unable to clean Project. Check Settings->Commands."
+msgstr ""
+
+#: plugins/build/clean_project.c:76
+msgid "Clean"
+msgstr ""
+
+#: plugins/build/clean_project.c:79
+msgid "Cleaning the source directory of the Project: "
+msgstr ""
+
+#: plugins/build/clean_project.c:115
+msgid "Unable to Clean All for the Project. Check Settings->Commands."
+msgstr ""
+
+#: plugins/build/clean_project.c:124
+msgid "Clean All"
+msgstr ""
+
+#: plugins/build/clean_project.c:127
+msgid "Cleaning whole of the Project: "
+msgstr ""
+
+#: plugins/build/compile.c:107
+msgid "This file has not been saved. Save it first and then compile."
+msgstr ""
+
+#: plugins/build/compile.c:128
+msgid "The object file is up-to-date, there is no need to compile it again."
+msgstr ""
+
+#: plugins/build/compile.c:140
+msgid "No compile command has been specified for this type of file."
+msgstr ""
+
+#: plugins/build/compile.c:153 src/toolbar.c:250
+msgid "Compile"
+msgstr "Prevedi"
+
+#: plugins/build/compile.c:155
+msgid "Compiling file: %s ...\n"
+msgstr ""
+
+#: plugins/build/compiler_options.c:503
+msgid ""
+"You have changed some of the compiler options of the project,\n"
+"would you like the next build action to perform a complete\n"
+"rebuild of the project?"
+msgstr ""
+
+#: plugins/build/compiler_options.c:726
+#: plugins/project-manager/src_paths.c:218
+msgid "Do you want to clear the list?"
+msgstr ""
+
+#: plugins/build/compiler_options.c:805 plugins/build/compiler_options.c:881
+#: plugins/build/compiler_options.c:904 plugins/build/compiler_options.c:949
+#: plugins/debugger/signals_gui.c:132
+msgid "Description"
+msgstr "Opis"
+
+#: plugins/build/compiler_options.c:820
+msgid "Include paths"
+msgstr ""
+
+#: plugins/build/compiler_options.c:835
+msgid "Libraries paths"
+msgstr ""
+
+#: plugins/build/compiler_options.c:858
+msgid "Libraries and modules"
+msgstr ""
+
+#: plugins/build/compiler_options.c:874
+msgid "Stock"
+msgstr "Dionica"
+
+#: plugins/build/compiler_options.c:919
+msgid "Stock Defines"
+msgstr ""
+
+#: plugins/build/compiler_options.c:942
+msgid "Warning"
+msgstr "Upozorenje"
+
+#: plugins/build/configurer.c:158
+msgid ""
+"Project does not have an executable configure script.\n"
+"Auto generate the Project first."
+msgstr ""
+
+#: plugins/build/configurer.c:189 src/toolbar.c:262
+msgid "Configure"
+msgstr "Podešavanje"
+
+#: plugins/build/configurer.c:191
+msgid "Configuring the Project ....\n"
+msgstr ""
+
+#: plugins/build/executer.c:54 src/mainmenu_callbacks.c:513
+msgid "The target executable of this Project is unknown"
+msgstr ""
+
+#: plugins/build/executer.c:59 src/mainmenu_callbacks.c:515
+msgid "The target executable of this Project is not executable"
+msgstr ""
+
+#: plugins/build/executer.c:64 src/mainmenu_callbacks.c:519
+msgid "The target executable does not exist for this Project"
+msgstr ""
+
+#: plugins/build/executer.c:77
+msgid "No file or Project opened."
+msgstr ""
+
+#: plugins/build/executer.c:82 plugins/build/executer.c:101
+#: src/mainmenu_callbacks.c:539 src/mainmenu_callbacks.c:550
+msgid "No executable for this file."
+msgstr ""
+
+#: plugins/build/executer.c:106
+msgid "Executable is not up-to-date."
+msgstr ""
+
+#: plugins/build/executer.c:118
+msgid "Unable to execute Project. Check Settings->Commands."
+msgstr ""
+
+#: plugins/build/executer.c:132
+msgid "This file has not been saved. Save it first."
+msgstr ""
+
+#: plugins/build/executer.c:140
+msgid "Unable to execute file. Check Settings->Commands."
+msgstr ""
+
+#: plugins/class-gen/clsGen.c:449
+msgid "Class name not valid"
+msgstr ""
+
+#: plugins/class-gen/clsGen.c:456
+msgid "Base class name not valid"
+msgstr ""
+
+#: plugins/class-gen/clsGen.c:462
+msgid "Declaration file name not valid"
+msgstr ""
+
+#: plugins/class-gen/clsGen.c:467
+msgid "Implementation file name not valid"
+msgstr ""
+
+#: plugins/class-gen/clsGen.c:726
+msgid "Error in importing files"
+msgstr ""
+
+#: plugins/class-gen/clsGen.c:1332
+msgid "Class Builder"
+msgstr ""
+
+#. 7
+#.  9
+#: plugins/class-gen/clsGen.c:1343 plugins/debugger/registers_gui.c:56
+#: plugins/debugger/sharedlib_gui.c:49 plugins/debugger/signals_gui.c:63
+#: plugins/debugger/stack_trace.c:381 plugins/debugger/watch_gui.c:74
+#: plugins/project-manager/project_dbase_gui.c:343 src/anjuta-app.c:285
+#: src/anjuta_gui.c:123
+msgid "Help"
+msgstr "Pomoć"
+
+#: plugins/class-gen/clsGen.c:1352 plugins/patch/patch-plugin.c:107
+msgid "Cancel"
+msgstr "Odustani"
+
+#: plugins/class-gen/clsGen.c:1361
+msgid "Finish"
+msgstr "Završetak"
+
+#: plugins/class-gen/clsGen.c:1378
+msgid "Enter the name for the class you want to add."
+msgstr ""
+
+#: plugins/class-gen/clsGen.c:1388
+msgid "Enter the declaration file name."
+msgstr ""
+
+#: plugins/class-gen/clsGen.c:1398
+msgid "Enter the implementation file name."
+msgstr ""
+
+#: plugins/class-gen/clsGen.c:1400 plugins/class-gen/clsGen.c:1410
+msgid "..."
+msgstr "..."
+
+#: plugins/class-gen/clsGen.c:1408
+msgid "Browse for the declaration file name."
+msgstr ""
+
+#: plugins/class-gen/clsGen.c:1418
+msgid "Browse for the implementation file name."
+msgstr ""
+
+#: plugins/class-gen/clsGen.c:1428
+msgid "Enter the name of the class your new class will inherit from."
+msgstr ""
+
+#: plugins/class-gen/clsGen.c:1453
+msgid ""
+"This plugin will create a class of the type you specify and add it to your "
+"project. "
+msgstr ""
+
+#. gtk_widget_set_usize (self->label_description, 400, 16);
+#: plugins/class-gen/clsGen.c:1462
+msgid "Class name: "
+msgstr ""
+
+#: plugins/class-gen/clsGen.c:1472
+msgid "Header file:  "
+msgstr ""
+
+#: plugins/class-gen/clsGen.c:1482
+msgid "Source file:  "
+msgstr ""
+
+#: plugins/class-gen/clsGen.c:1492
+msgid "Base class:   "
+msgstr ""
+
+#: plugins/class-gen/clsGen.c:1502
+msgid "Base class inheritance: "
+msgstr ""
+
+#: plugins/class-gen/clsGen.c:1538
+msgid "Inline the declaration and implementation"
+msgstr ""
+
+#. gtk_widget_set_usize (self->checkbutton_inline, 224, 24);
+#: plugins/class-gen/clsGen.c:1546
+msgid ""
+"If checked, the plugin will generate both the declaration and implementation "
+"in the header file and will not create a source file."
+msgstr ""
+
+#: plugins/class-gen/clsGen.c:1548
+msgid "By:  Dave Huseby <huseby@linuxprogrammer.org>"
+msgstr ""
+
+#: plugins/class-gen/clsGen.c:1559
+msgid "V 0.0.2 (June 11, 2002)"
+msgstr ""
+
+#: plugins/class-gen/clsGen.c:1570
+msgid "TODO: add the ability to declare member functions and their parameters here."
+msgstr ""
+
+#: plugins/class-gen/clsGen.c:1580
+msgid "Welcome to the Anjuta Class Builder. "
+msgstr ""
+
+#. gtk_widget_set_usize (self->label_welcome, 184, 16);
+#: plugins/class-gen/clsGen.c:1589
+msgid "Class type:   "
+msgstr ""
+
+#: plugins/class-gen/clsGen.c:1607 plugins/class-gen/clsGen.c:1620
+msgid "public"
+msgstr "gledaoci"
+
+#: plugins/class-gen/clsGen.c:1608
+msgid "protected"
+msgstr "zaštićen"
+
+#: plugins/class-gen/clsGen.c:1609
+msgid "private"
+msgstr "osoban"
+
+#: plugins/class-gen/clsGen.c:1618
+msgid "Choose the type of inheritence from the base class."
+msgstr ""
+
+#: plugins/class-gen/clsGen.c:1622
+msgid "Virtual destructor"
+msgstr ""
+
+#. gtk_widget_set_usize (self->checkbutton_virtual_destructor, 112, 24);
+#: plugins/class-gen/clsGen.c:1630
+msgid "If checked, the destructor of your class will be declared virtual."
+msgstr ""
+
+#: plugins/class-gen/clsGen.c:1640 plugins/class-gen/clsGen.c:1652
+msgid "Generic C++ Class"
+msgstr ""
+
+#: plugins/class-gen/clsGen.c:1641
+msgid "GTK+ Class"
+msgstr ""
+
+#: plugins/class-gen/clsGen.c:1650
+msgid "Select the type of class you would like to create."
+msgstr ""
+
+#: plugins/cvs-plugin/cvs.c:262
+msgid "CVS Updating "
+msgstr ""
+
+#: plugins/cvs-plugin/cvs.c:312
+msgid "CVS Committing "
+msgstr ""
+
+#: plugins/cvs-plugin/cvs.c:373
+msgid "CVS Importing...\n"
+msgstr ""
+
+#: plugins/cvs-plugin/cvs.c:413
+msgid "CVS Adding "
+msgstr ""
+
+#: plugins/cvs-plugin/cvs.c:445
+msgid "CVS Removing "
+msgstr ""
+
+#: plugins/cvs-plugin/cvs.c:486
+msgid "Getting CVS status "
+msgstr ""
+
+#: plugins/cvs-plugin/cvs.c:501 plugins/cvs-plugin/cvs.c:556
+#: plugins/cvs-plugin/cvs.c:635 plugins/cvs-plugin/cvs.c:891
+msgid "There are jobs running, please wait until they are finished"
+msgstr ""
+
+#: plugins/cvs-plugin/cvs.c:541
+msgid "Getting CVS log "
+msgstr ""
+
+#: plugins/cvs-plugin/cvs.c:620
+msgid "CVS diffing "
+msgstr ""
+
+#: plugins/cvs-plugin/cvs.c:667
+msgid "CVS login "
+msgstr ""
+
+#: plugins/cvs-plugin/cvs.c:765 plugins/project-manager/project_import.c:181
+msgid "Project import completed...unsuccessful\n"
+msgstr ""
+
+#: plugins/cvs-plugin/cvs.c:767 plugins/project-manager/project_import.c:183
+msgid "Project import completed...unsuccessful"
+msgstr ""
+
+#: plugins/cvs-plugin/cvs.c:772
+msgid "CVS completed...successful\n"
+msgstr ""
+
+#: plugins/cvs-plugin/cvs.c:774
+msgid "CVS completed...successful"
+msgstr ""
+
+#: plugins/cvs-plugin/cvs.c:782
+msgid "Updating versions in file tree..."
+msgstr ""
+
+#: plugins/cvs-plugin/cvs.c:784
+msgid "done\n"
+msgstr "završeno\n"
+
+#: plugins/cvs-plugin/cvs_cbs.c:41
+msgid "You do not need to login to a local server"
+msgstr ""
+
+#: plugins/cvs-plugin/cvs_gui.c:30
+msgid "Local"
+msgstr "Lokalno"
+
+#: plugins/cvs-plugin/cvs_gui.c:30
+msgid "Password"
+msgstr "Lozinka"
+
+#: plugins/cvs-plugin/cvs_gui.c:30
+msgid "Extern(rsh)"
+msgstr ""
+
+#: plugins/cvs-plugin/cvs_gui.c:30
+msgid "Server"
+msgstr "Poslužitelj"
+
+#: plugins/cvs-plugin/cvs_gui.c:72
+msgid "CVS: Update"
+msgstr ""
+
+#: plugins/cvs-plugin/cvs_gui.c:76
+msgid "CVS: Commit"
+msgstr ""
+
+#: plugins/cvs-plugin/cvs_gui.c:77
+msgid "Commit"
+msgstr "Pošalji"
+
+#: plugins/cvs-plugin/cvs_gui.c:80
+msgid "CVS: Status"
+msgstr ""
+
+#: plugins/cvs-plugin/cvs_gui.c:81
+msgid "Show status"
+msgstr ""
+
+#: plugins/cvs-plugin/cvs_gui.c:84
+msgid "CVS: Log"
+msgstr ""
+
+#: plugins/cvs-plugin/cvs_gui.c:85
+msgid "Show log"
+msgstr ""
+
+#: plugins/cvs-plugin/cvs_gui.c:88
+msgid "CVS: Add file"
+msgstr ""
+
+#: plugins/cvs-plugin/cvs_gui.c:89
+msgid "Add"
+msgstr "Dodaj"
+
+#: plugins/cvs-plugin/cvs_gui.c:92
+msgid "CVS: Remove file"
+msgstr ""
+
+#. 3
+#: plugins/cvs-plugin/cvs_gui.c:93 plugins/debugger/watch_gui.c:43
+#: plugins/project-manager/project_dbase_gui.c:323
+msgid "Remove"
+msgstr "Ukloni"
+
+#: plugins/cvs-plugin/cvs_gui.c:95
+msgid ""
+"WARNING: The file will be removed on disc. Use \"cvs commit\" .\n"
+"to apply to the repository. It will still be possible to retrieve older "
+"revisions of the file."
+msgstr ""
+
+#: plugins/cvs-plugin/cvs_gui.c:120 plugins/cvs-plugin/cvs_gui.c:238
+msgid "File: "
+msgstr "Datoteka: "
+
+#: plugins/cvs-plugin/cvs_gui.c:122
+msgid "Branch: "
+msgstr ""
+
+#: plugins/cvs-plugin/cvs_gui.c:124 plugins/cvs-plugin/cvs_gui.c:291
+msgid "Revision: "
+msgstr ""
+
+#: plugins/cvs-plugin/cvs_gui.c:125 plugins/cvs-plugin/cvs_gui.c:470
+msgid "Log message: "
+msgstr ""
+
+#: plugins/cvs-plugin/cvs_gui.c:128 plugins/cvs-plugin/cvs_gui.c:241
+msgid "Select file"
+msgstr "Odaberite datoteku"
+
+#: plugins/cvs-plugin/cvs_gui.c:225
+msgid "CVS: Diff file"
+msgstr ""
+
+#: plugins/cvs-plugin/cvs_gui.c:229 plugins/editor/plugin.c:364
+msgid "Diff"
+msgstr "Razlika"
+
+#: plugins/cvs-plugin/cvs_gui.c:265
+msgid "Date: "
+msgstr "Datum: "
+
+#: plugins/cvs-plugin/cvs_gui.c:333
+msgid "CVS Login"
+msgstr ""
+
+#: plugins/cvs-plugin/cvs_gui.c:337
+msgid "Login"
+msgstr "Korisnička oznaka"
+
+#: plugins/cvs-plugin/cvs_gui.c:347 plugins/cvs-plugin/cvs_gui.c:440
+msgid "Server type: "
+msgstr ""
+
+#: plugins/cvs-plugin/cvs_gui.c:348 plugins/cvs-plugin/cvs_gui.c:443
+msgid "Username: "
+msgstr ""
+
+#: plugins/cvs-plugin/cvs_gui.c:349 plugins/cvs-plugin/cvs_gui.c:441
+msgid "Server: "
+msgstr "Poslužitelj: "
+
+#: plugins/cvs-plugin/cvs_gui.c:350
+msgid "Directory on the server: "
+msgstr ""
+
+#: plugins/cvs-plugin/cvs_gui.c:427
+msgid "CVS: Import Project"
+msgstr ""
+
+#: plugins/cvs-plugin/cvs_gui.c:431
+msgid "Import"
+msgstr "Uvoz"
+
+#: plugins/cvs-plugin/cvs_gui.c:442
+msgid "Dir on the server: "
+msgstr ""
+
+#: plugins/cvs-plugin/cvs_gui.c:467
+msgid "Module name: "
+msgstr ""
+
+#: plugins/cvs-plugin/cvs_gui.c:468
+msgid "Release name: "
+msgstr ""
+
+#: plugins/cvs-plugin/cvs_gui.c:469
+msgid "Vendor tag: "
+msgstr ""
+
+#: plugins/cvs-plugin/cvs_gui.c:525
+msgid "Server settings"
+msgstr "Postavke poslužitelja"
+
+#: plugins/cvs-plugin/cvs_gui.c:529
+msgid "Import settings"
+msgstr "Uvezi postavke"
+
+#: plugins/debugger/attach_process.c:70
+msgid "Pid"
+msgstr "Pid"
+
+#: plugins/debugger/attach_process.c:70
+msgid "User"
+msgstr "Korisnik"
+
+#: plugins/debugger/attach_process.c:70
+msgid "Time"
+msgstr "Vrijeme"
+
+#: plugins/debugger/attach_process.c:70
+msgid "Command"
+msgstr "Naredba"
+
+#: plugins/debugger/attach_process.c:403
+msgid "Unable to execute: %s."
+msgstr ""
+
+#: plugins/debugger/attach_process.c:416
+msgid "Unable to open the file: %s\n"
+msgstr ""
+
+#: plugins/debugger/breakpoints.c:113
+msgid "Line"
+msgstr "Crta"
+
+#: plugins/debugger/breakpoints.c:114
+msgid "Function"
+msgstr "Funkcija"
+
+#: plugins/debugger/breakpoints.c:114 plugins/debugger/signals_gui.c:128
+msgid "Pass"
+msgstr ""
+
+#: plugins/debugger/breakpoints.c:114
+msgid "Condition"
+msgstr "Uvjet"
+
+#. debugger_put_cmd_in_queqe ("info breakpoints", DB_CMD_NONE,
+#.  breakpoints_dbase_update,
+#.  debugger.breakpoints_dbase);
+#: plugins/debugger/breakpoints.c:171 plugins/debugger/debugger.c:1825
+msgid "All breakpoints enabled:\n"
+msgstr ""
+
+#. debugger_put_cmd_in_queqe ("info breakpoints", DB_CMD_NONE,
+#.  breakpoints_dbase_update,
+#.  debugger.breakpoints_dbase);
+#: plugins/debugger/breakpoints.c:189 plugins/debugger/debugger.c:1871
+msgid "All breakpoints disabled:\n"
+msgstr ""
+
+#: plugins/debugger/breakpoints.c:653
+msgid "You must give a valid location to set the breakpoint."
+msgstr ""
+
+#: plugins/debugger/breakpoints.c:775
+msgid "Are you sure you want to delete all the breakpoints?"
+msgstr ""
+
+#: plugins/debugger/breakpoints.c:1298
+msgid "Old breakpoints disabled."
+msgstr ""
+
+#: plugins/debugger/breakpoints.c:1438
+msgid "0"
+msgstr "0"
+
+#: plugins/debugger/debug_tree.c:106 plugins/debugger/watch_gui.c:125
+#: plugins/tools/anjuta-tools.c:1807
+msgid "Variable"
+msgstr "Varijabla"
+
+#: plugins/debugger/debug_tree.c:106 plugins/debugger/watch_gui.c:134
+#: plugins/tools/anjuta-tools.c:1819
+msgid "Value"
+msgstr "Vrijednost"
+
+#: plugins/debugger/debug_tree.c:1190
+msgid "Local Variables"
+msgstr ""
+
+#: plugins/debugger/debug_tree.c:1504
+msgid "Default format"
+msgstr "Obriši okvir"
+
+#: plugins/debugger/debug_tree.c:1508
+msgid "Binary"
+msgstr "Binarno"
+
+#: plugins/debugger/debug_tree.c:1511
+msgid "Octal"
+msgstr "Oktalno"
+
+#: plugins/debugger/debug_tree.c:1514
+msgid "Signed decimal"
+msgstr ""
+
+#: plugins/debugger/debug_tree.c:1517
+msgid "Unsigned decimal"
+msgstr ""
+
+#: plugins/debugger/debug_tree.c:1520 plugins/debugger/registers_gui.c:112
+msgid "Hex"
+msgstr "Hex"
+
+#: plugins/debugger/debug_tree.c:1523
+msgid "Char"
+msgstr "Znak"
+
+#: plugins/debugger/debug_tree.c:1528
+msgid "Inspect memory"
+msgstr ""
+
+#. Must declare static, because it will be used forever
+#: plugins/debugger/debugger.c:90
+msgid "Load Executable File"
+msgstr ""
+
+#. Must declare static, because it will be used forever
+#: plugins/debugger/debugger.c:96
+msgid "Load Core File"
+msgstr ""
+
+#: plugins/debugger/debugger.c:202 plugins/debugger/debugger.c:654
+msgid "Loading Executable: "
+msgstr ""
+
+#: plugins/debugger/debugger.c:251
+msgid "Loading Core: "
+msgstr ""
+
+#: plugins/debugger/debugger.c:296 plugins/debugger/debugger.c:324
+msgid ""
+"You have a process ATTACHED under the debugger.\n"
+"Please detach it first and then load the executable file."
+msgstr ""
+
+#: plugins/debugger/debugger.c:299 plugins/debugger/debugger.c:327
+msgid ""
+"You have a process RUNNING under the debugger.\n"
+"Please stop it first and then load the executable file."
+msgstr ""
+
+#: plugins/debugger/debugger.c:574
+msgid ""
+"Unable to find: %s.\n"
+"Unable to initialize debugger.\n"
+"Make sure Anjuta is installed correctly."
+msgstr ""
+
+#: plugins/debugger/debugger.c:650
+msgid "Debugger"
+msgstr "Otkrivač pogrešaka"
+
+#: plugins/debugger/debugger.c:652
+msgid "Getting ready to start debugging session ...\n"
+msgstr ""
+
+#: plugins/debugger/debugger.c:665
+msgid "No executable specified\n"
+msgstr ""
+
+#: plugins/debugger/debugger.c:668
+msgid "Open an executable or attach to a process to start debugging.\n"
+msgstr ""
+
+#: plugins/debugger/debugger.c:675
+msgid "There was an error whilst launching the debugger.\n"
+msgstr ""
+
+#: plugins/debugger/debugger.c:678
+msgid "Make sure 'gdb' is installed on the system.\n"
+msgstr ""
+
+#: plugins/debugger/debugger.c:835
+msgid "Error: "
+msgstr "Greška:"
+
+#: plugins/debugger/debugger.c:856
+msgid "Debugger is ready.\n"
+msgstr ""
+
+#: plugins/debugger/debugger.c:964
+msgid ""
+"\n"
+"Well, did you find the BUG? Debugging session completed.\n"
+"\n"
+msgstr ""
+
+#: plugins/debugger/debugger.c:1202
+msgid "Cannot execute gnome-terminal"
+msgstr ""
+
+#: plugins/debugger/debugger.c:1237
+msgid "Cannot start terminal for debugging."
+msgstr ""
+
+#: plugins/debugger/debugger.c:1301
+msgid "Warning: No debug terminal. Redirecting stdio to /dev/null.\n"
+msgstr ""
+
+#: plugins/debugger/debugger.c:1320
+msgid "Running program ... \n"
+msgstr ""
+
+#: plugins/debugger/debugger.c:1450
+msgid "Attaching to process: %d\n"
+msgstr ""
+
+#: plugins/debugger/debugger.c:1480
+msgid ""
+"A process is already running.\n"
+"Would you like to terminate it and attach the new process?"
+msgstr ""
+
+#: plugins/debugger/debugger.c:1493
+msgid "Anjuta is unable to attach to itself."
+msgstr ""
+
+#: plugins/debugger/debugger.c:1579
+msgid "Detaching the process: %d\n"
+msgstr ""
+
+#: plugins/debugger/debugger.c:1635
+msgid ""
+"Program is ATTACHED.\n"
+"Do you still want to stop Debugger?"
+msgstr ""
+
+#: plugins/debugger/debugger.c:1638
+msgid ""
+"Program is RUNNING.\n"
+"Do you still want to stop Debugger?"
+msgstr ""
+
+#. debugger_put_cmd_in_queqe ("info breakpoints", DB_CMD_NONE,
+#.  breakpoints_dbase_update,
+#.  debugger.breakpoints_dbase);
+#: plugins/debugger/debugger.c:1917
+msgid "All breakpoints deleted:\n"
+msgstr ""
+
+#: plugins/debugger/debugger.c:1950
+msgid "Interrupting the process: %d\n"
+msgstr ""
+
+#: plugins/debugger/debugger.c:1982
+msgid "Sending signal %s to the process: %d\n"
+msgstr ""
+
+#: plugins/debugger/debugger.c:2003
+msgid "Error whilst signalling the process."
+msgstr ""
+
+#: plugins/debugger/memory.c:108
+msgid "Unable to build user interface for Memory\n"
+msgstr ""
+
+#: plugins/debugger/memory.c:410
+msgid "Enter a Hexa address or Select one in the data"
+msgstr ""
+
+#: plugins/debugger/memory.c:417
+msgid "Non accessible address !"
+msgstr ""
+
+#: plugins/debugger/registers_gui.c:41
+msgid "Modify"
+msgstr "Izmijeni"
+
+#: plugins/debugger/registers_gui.c:89
+msgid "CPU Registers"
+msgstr ""
+
+#: plugins/debugger/registers_gui.c:108
+msgid "Register"
+msgstr "Registracija"
+
+#: plugins/debugger/registers_gui.c:116
+msgid "Decimal"
+msgstr "Decimalni"
+
+#: plugins/debugger/sharedlib_gui.c:80
+msgid "Shared libraries"
+msgstr ""
+
+#: plugins/debugger/sharedlib_gui.c:101
+msgid "  Shared Object  "
+msgstr "  Objekt koji se dijeli"
+
+#: plugins/debugger/sharedlib_gui.c:105
+msgid "From"
+msgstr "Od"
+
+#: plugins/debugger/sharedlib_gui.c:109
+msgid "To"
+msgstr "Prima"
+
+#: plugins/debugger/sharedlib_gui.c:113
+msgid "Sysm Read"
+msgstr ""
+
+#. For the time being
+#: plugins/debugger/signals_cbs.c:114 plugins/debugger/signals_cbs.c:127
+#: plugins/debugger/signals_cbs.c:140
+#: plugins/project-manager/project_dbase.c:1466
+#: plugins/project-manager/project_dbase.c:1472
+#: plugins/project-manager/project_dbase.c:1475
+#: plugins/project-manager/project_import_cbs.c:227
+#: plugins/project-wizard/appwizard_cbs.c:282
+msgid "Yes"
+msgstr "Da"
+
+#: plugins/debugger/signals_cbs.c:116 plugins/debugger/signals_cbs.c:129
+#: plugins/debugger/signals_cbs.c:142
+#: plugins/project-manager/project_dbase.c:1468
+#: plugins/project-manager/project_dbase.c:1477
+#: plugins/project-manager/project_import_cbs.c:229
+#: plugins/project-wizard/appwizard_cbs.c:284
+msgid "No"
+msgstr "Ne"
+
+#: plugins/debugger/signals_gui.c:41
+msgid "Modify Signal"
+msgstr ""
+
+#: plugins/debugger/signals_gui.c:48
+msgid "Send to process"
+msgstr ""
+
+#: plugins/debugger/signals_gui.c:94
+msgid "Kernel signals"
+msgstr ""
+
+#: plugins/debugger/signals_gui.c:116
+msgid "Signal"
+msgstr "Signal"
+
+#: plugins/debugger/signals_gui.c:120 src/toolbar.c:666
+msgid "Stop"
+msgstr "Zaustavi"
+
+#: plugins/debugger/signals_gui.c:124 plugins/editor/print.c:1003
+msgid "Print"
+msgstr "Ispis"
+
+#: plugins/debugger/signals_gui.c:210
+msgid "Set Signal Property"
+msgstr ""
+
+#: plugins/debugger/signals_gui.c:253
+msgid " Stop: "
+msgstr " Zaustavi:"
+
+#: plugins/debugger/signals_gui.c:257
+msgid " Print: "
+msgstr " Ispis:"
+
+#: plugins/debugger/signals_gui.c:261
+msgid "Pass:"
+msgstr ""
+
+#: plugins/debugger/stack_trace.c:317
+msgid "Error getting selection\n"
+msgstr ""
+
+#: plugins/debugger/stack_trace.c:328
+msgid "Error getting source location from stack frame"
+msgstr ""
+
+#: plugins/debugger/stack_trace.c:345
+msgid "Frame set"
+msgstr ""
+
+#: plugins/debugger/stack_trace.c:352
+msgid "Frame info"
+msgstr ""
+
+#: plugins/debugger/stack_trace.c:359
+msgid "Frame args"
+msgstr ""
+
+#: plugins/debugger/stack_trace.c:373
+msgid "View Source"
+msgstr "Pogledaj Izvor"
+
+#: plugins/debugger/stack_trace.c:440
+msgid "Active"
+msgstr "Aktivan"
+
+#: plugins/debugger/stack_trace.c:451
+msgid "Count"
+msgstr "Brojanje"
+
+#: plugins/debugger/stack_trace.c:466 src/toolbar.c:612
+msgid "Frame"
+msgstr "Okvir"
+
+#: plugins/debugger/watch_cbs.c:228
+msgid "< Not defined in current context >"
+msgstr ""
+
+#: plugins/debugger/watch_gui.c:37
+msgid "Add expression"
+msgstr "Dodavanje izraza"
+
+#: plugins/debugger/watch_gui.c:49
+msgid "Update all"
+msgstr ""
+
+#: plugins/debugger/watch_gui.c:55
+msgid "Clear"
+msgstr "Obriši"
+
+#: plugins/debugger/watch_gui.c:61
+msgid "Toggle enable"
+msgstr ""
+
+#: plugins/debugger/watch_gui.c:67
+msgid "Change item"
+msgstr ""
+
+#: plugins/debugger/watch_gui.c:172
+msgid "Add Watch Expression"
+msgstr ""
+
+#: plugins/debugger/watch_gui.c:182
+msgid "Add expression to watch"
+msgstr ""
+
+#: plugins/debugger/watch_gui.c:238
+msgid "Modify Watch Expression"
+msgstr ""
+
+#: plugins/debugger/watch_gui.c:248
+msgid "Modify watched expression"
+msgstr ""
+
+#: plugins/debugger/watch_gui.c:305
+msgid "Inspect/Evaluate"
+msgstr ""
+
+#: plugins/debugger/watch_gui.c:315
+msgid "Inspect/Evaluate Expression"
+msgstr ""
+
+#: plugins/debugger/watch_gui.c:325
+msgid "Add To Watch"
+msgstr ""
+
+#: plugins/editor/action-callbacks.c:125
+msgid ""
+"The editor is being used as output buffer for an operation.\n"
+"Closing it will result in stopping the process.\n"
+"Do you still want close the editor?"
+msgstr ""
+
+#: plugins/editor/action-callbacks.c:139
+msgid ""
+"The file '%s' is not saved.\n"
+"Do you want to save it before closing?"
+msgstr ""
+
+#: plugins/editor/action-callbacks.c:149
+#: plugins/project-manager/project_dbase_gui.c:1066
+msgid "Do_n't save"
+msgstr "_Ne spremaj"
+
+#: plugins/editor/action-callbacks.c:215
+msgid ""
+"Are you sure you want to reload '%s'?\n"
+"Any unsaved changes will be lost."
+msgstr ""
+
+#: plugins/editor/action-callbacks.c:226 plugins/editor/text_editor.c:1313
+msgid "_Reload"
+msgstr "_Ponovno učitavanje"
+
+#: plugins/editor/action-callbacks.c:814
+msgid "There is no line number %d in \"%s\"."
+msgstr ""
+
+#: plugins/editor/action-callbacks.c:1363
+msgid "No matches. Wrap search around the document?"
+msgstr ""
+
+#: plugins/editor/anjuta-docman.c:321 src/anjuta_cbs.c:482
+msgid ""
+"The file '%s' already exists.\n"
+"Do you want to replace it with the one you are saving?"
+msgstr ""
+
+#: plugins/editor/anjuta-docman.c:328 src/anjuta-callbacks.c:391
+#: src/anjuta_cbs.c:489 src/anjuta_cbs.c:553
+msgid "_Replace"
+msgstr "_Zamijeni"
+
+#. Must declare static, because it will be used forever
+#: plugins/editor/anjuta-docman.c:359
+msgid "Open File"
+msgstr "Otvori datoteku"
+
+#. Must declare static, because it will be used forever
+#: plugins/editor/anjuta-docman.c:365
+msgid "Save File As"
+msgstr "Spremi datoteku kao"
+
+#: plugins/editor/anjuta-docman.c:513
+msgid "Recent Files "
+msgstr ""
+
+#: plugins/editor/file.c:84
+msgid "C Source File"
+msgstr ""
+
+#: plugins/editor/file.c:85
+msgid "C -C++ Header File"
+msgstr ""
+
+#: plugins/editor/file.c:86
+msgid "C++ Source File"
+msgstr ""
+
+#: plugins/editor/file.c:87
+msgid "C# Source File"
+msgstr ""
+
+#: plugins/editor/file.c:88
+msgid "Java Source File"
+msgstr ""
+
+#: plugins/editor/file.c:89
+msgid "Perl Source File"
+msgstr ""
+
+#: plugins/editor/file.c:90
+msgid "Python Source File"
+msgstr ""
+
+#: plugins/editor/file.c:91
+msgid "Shell Script File"
+msgstr ""
+
+#: plugins/editor/file.c:92
+msgid "Other"
+msgstr "Ostalo"
+
+#: plugins/editor/file.c:135
+msgid "Unable to build user interface for New File"
+msgstr ""
+
+#: plugins/editor/file.c:426
+msgid "The file \"%s\" is not a header file."
+msgstr ""
+
+#: plugins/editor/file.c:521
+msgid "%Y"
+msgstr "Nevedite gtkrc direktorij"
+
+#: plugins/editor/file.c:540
+msgid "%Y-%m-%d"
+msgstr "%Y-%m-%d"
+
+#: plugins/editor/goto_line.c:124
+msgid " Goto Line number "
+msgstr " Idi na broj linije"
+
+#: plugins/editor/plugin.c:40
+msgid "_New"
+msgstr "_Novi"
+
+#: plugins/editor/plugin.c:43
+msgid "_Open ..."
+msgstr ""
+
+#: plugins/editor/plugin.c:46
+msgid "_Save"
+msgstr "_Spremi"
+
+#: plugins/editor/plugin.c:47 src/toolbar.c:84
+msgid "Save current file"
+msgstr ""
+
+#: plugins/editor/plugin.c:49
+msgid "Save _As ..."
+msgstr ""
+
+#: plugins/editor/plugin.c:50
+msgid "Save the current file with a different name"
+msgstr "Makni trenutni pogled na spremink"
+
+#: plugins/editor/plugin.c:52
+msgid "Save A_ll"
+msgstr "Snimi sv&e"
+
+#: plugins/editor/plugin.c:53
+msgid "Save all currently open files, except new files"
+msgstr ""
+
+#: plugins/editor/plugin.c:55
+msgid "_Close File"
+msgstr "_Zatvori datoteku"
+
+#: plugins/editor/plugin.c:56 src/toolbar.c:92
+msgid "Close current file"
+msgstr "Nedavno korištene datoteke"
+
+#: plugins/editor/plugin.c:58
+msgid "Close All Files"
+msgstr "Zatvori sve datoteke"
+
+#: plugins/editor/plugin.c:59
+msgid "Close all files"
+msgstr "Isprazni filter"
+
+#: plugins/editor/plugin.c:61
+msgid "Reload F_ile"
+msgstr ""
+
+#: plugins/editor/plugin.c:62 src/toolbar.c:88
+msgid "Reload current file"
+msgstr ""
+
+#: plugins/editor/plugin.c:64
+msgid "Recent _Files"
+msgstr "_Nedavno korištene datoteke"
+
+#: plugins/editor/plugin.c:68
+msgid "_Print"
+msgstr "_Ispis"
+
+#: plugins/editor/plugin.c:69 src/toolbar.c:110
+msgid "Print the current file"
+msgstr "Zbroj u trenutnoj ćeliji."
+
+#: plugins/editor/plugin.c:71
+msgid "_Print Preview"
+msgstr "_Pogled prije ispisa"
+
+#: plugins/editor/plugin.c:72
+msgid "Print preview of the current file"
+msgstr ""
+
+#: plugins/editor/plugin.c:77
+msgid "_Transform"
+msgstr "_Transformacija"
+
+#: plugins/editor/plugin.c:78
+msgid "_Make Selection Uppercase"
+msgstr ""
+
+#: plugins/editor/plugin.c:79
+msgid "Make the selected text uppercase"
+msgstr ""
+
+#: plugins/editor/plugin.c:81
+msgid "Make Selection Lowercase"
+msgstr ""
+
+#: plugins/editor/plugin.c:82
+msgid "Make the selected text lowercase"
+msgstr ""
+
+#: plugins/editor/plugin.c:84
+msgid "Convert EOL chars to CRLF"
+msgstr ""
+
+#: plugins/editor/plugin.c:85
+msgid "Convert End Of Line characters to DOS EOL (CRLF)"
+msgstr ""
+
+#: plugins/editor/plugin.c:87
+msgid "Convert EOL chars to LF"
+msgstr ""
+
+#: plugins/editor/plugin.c:88
+msgid "Convert End Of Line characters to Unix EOL (LF)"
+msgstr ""
+
+#: plugins/editor/plugin.c:90
+msgid "Convert EOL chars to CR"
+msgstr ""
+
+#: plugins/editor/plugin.c:91
+msgid "Convert End Of Line characters to Mac OS EOL (CR)"
+msgstr ""
+
+#: plugins/editor/plugin.c:93
+msgid "Convert EOL chars to majority EOL"
+msgstr ""
+
+#: plugins/editor/plugin.c:94
+msgid "Convert End Of Line characters to majority of the EOL found in the file"
+msgstr ""
+
+#: plugins/editor/plugin.c:99
+msgid "_Select"
+msgstr "_Odaberi"
+
+#: plugins/editor/plugin.c:100
+msgid "Select _All"
+msgstr ""
+
+#: plugins/editor/plugin.c:101
+msgid "Select all text in the editor"
+msgstr ""
+
+#: plugins/editor/plugin.c:103
+msgid "Select to _Brace"
+msgstr ""
+
+#: plugins/editor/plugin.c:104
+msgid "Select the text in the matching braces"
+msgstr ""
+
+#: plugins/editor/plugin.c:106
+msgid "Select _Code Block"
+msgstr ""
+
+#: plugins/editor/plugin.c:108
+msgid "Select the current code block"
+msgstr ""
+
+#: plugins/editor/plugin.c:113
+msgid "_Insert text"
+msgstr "_Umetni dio"
+
+#: plugins/editor/plugin.c:114
+msgid "C _template"
+msgstr ""
+
+#: plugins/editor/plugin.c:115
+msgid "_CVS keyword"
+msgstr ""
+
+#: plugins/editor/plugin.c:116
+msgid "_General"
+msgstr ""
+
+#: plugins/editor/plugin.c:117 plugins/editor/plugin.c:159
+msgid "_Header"
+msgstr ""
+
+#: plugins/editor/plugin.c:118
+msgid "Insert a file header"
+msgstr ""
+
+#: plugins/editor/plugin.c:120
+msgid "/_* GPL Notice */"
+msgstr ""
+
+#: plugins/editor/plugin.c:121
+msgid "Insert GPL notice with C style comments"
+msgstr ""
+
+#: plugins/editor/plugin.c:123
+msgid "/_/ GPL Notice"
+msgstr ""
+
+#: plugins/editor/plugin.c:124
+msgid "Insert GPL notice with C++ style comments"
+msgstr ""
+
+#: plugins/editor/plugin.c:126
+msgid "_# GPL Notice"
+msgstr ""
+
+#: plugins/editor/plugin.c:127
+msgid "Insert GPL notice with Python style comments"
+msgstr ""
+
+#: plugins/editor/plugin.c:129
+msgid "Current _Username"
+msgstr ""
+
+#: plugins/editor/plugin.c:130
+msgid "Insert name of current user"
+msgstr ""
+
+#: plugins/editor/plugin.c:132
+msgid "Current _Date & Time"
+msgstr ""
+
+#: plugins/editor/plugin.c:133
+msgid "Insert current date & time"
+msgstr ""
+
+#: plugins/editor/plugin.c:135
+msgid "Header File _Template"
+msgstr ""
+
+#: plugins/editor/plugin.c:136
+msgid "Insert a standard header file template"
+msgstr ""
+
+#: plugins/editor/plugin.c:138
+msgid "ChangeLog entry"
+msgstr ""
+
+#: plugins/editor/plugin.c:139
+msgid "Insert a ChangeLog entry"
+msgstr ""
+
+#: plugins/editor/plugin.c:141
+msgid "_switch"
+msgstr ""
+
+#: plugins/editor/plugin.c:142
+msgid "Insert a switch template"
+msgstr ""
+
+#: plugins/editor/plugin.c:144
+msgid "_for"
+msgstr ""
+
+#: plugins/editor/plugin.c:145
+msgid "Insert a for template"
+msgstr ""
+
+#: plugins/editor/plugin.c:147
+msgid "_while"
+msgstr ""
+
+#: plugins/editor/plugin.c:148
+msgid "Insert a while template"
+msgstr ""
+
+#: plugins/editor/plugin.c:150
+msgid "_if...else"
+msgstr ""
+
+#: plugins/editor/plugin.c:151
+msgid "Insert an if...else template"
+msgstr ""
+
+#: plugins/editor/plugin.c:153
+msgid "_Author"
+msgstr ""
+
+#: plugins/editor/plugin.c:154
+msgid "Insert the CVS Author keyword (author of the change)"
+msgstr ""
+
+#: plugins/editor/plugin.c:156
+msgid "_Date"
+msgstr ""
+
+#: plugins/editor/plugin.c:157
+msgid "Insert the CVS Date keyword (date and time of the change)"
+msgstr ""
+
+#: plugins/editor/plugin.c:160
+msgid "Insert the CVS Header keyword (full path revision, date, author, state)"
+msgstr ""
+
+#: plugins/editor/plugin.c:162
+msgid "_Id"
+msgstr ""
+
+#: plugins/editor/plugin.c:163
+msgid "Insert the CVS Id keyword (file revision, date, author)"
+msgstr ""
+
+#: plugins/editor/plugin.c:165
+msgid "_Log"
+msgstr ""
+
+#: plugins/editor/plugin.c:166
+msgid "Insert the CVS Log keyword (log message)"
+msgstr ""
+
+#: plugins/editor/plugin.c:168
+msgid "_Name"
+msgstr ""
+
+#: plugins/editor/plugin.c:169
+msgid "Insert the CVS Name keyword (name of the sticky tag)"
+msgstr ""
+
+#: plugins/editor/plugin.c:171
+msgid "_Revision"
+msgstr ""
+
+#: plugins/editor/plugin.c:172
+msgid "Insert the CVS Revision keyword (revision number)"
+msgstr ""
+
+#: plugins/editor/plugin.c:174
+msgid "_Source"
+msgstr ""
+
+#: plugins/editor/plugin.c:175
+msgid "Insert the CVS Source keyword (full path)"
+msgstr ""
+
+#: plugins/editor/plugin.c:180
+msgid "_Search"
+msgstr ""
+
+#: plugins/editor/plugin.c:181
+msgid "_Find ..."
+msgstr ""
+
+#: plugins/editor/plugin.c:182
+msgid "Search for a string or regular expression in the editor"
+msgstr ""
+
+#: plugins/editor/plugin.c:184
+msgid "Find _Next"
+msgstr "_Traži sljedeće"
+
+#: plugins/editor/plugin.c:185 plugins/editor/plugin.c:189
+msgid "Repeat the last Find command"
+msgstr ""
+
+#: plugins/editor/plugin.c:187
+msgid "Find _Previous"
+msgstr ""
+
+#: plugins/editor/plugin.c:191
+msgid "Find and R_eplace ..."
+msgstr ""
+
+#: plugins/editor/plugin.c:193
+msgid "Search for and replace a string or regular expression with another string"
+msgstr ""
+
+#: plugins/editor/plugin.c:195
+msgid "Advanced Search And Replace"
+msgstr ""
+
+#: plugins/editor/plugin.c:197
+msgid "New advance search And replace stuff"
+msgstr ""
+
+#: plugins/editor/plugin.c:199
+msgid "_Enter Selection/I-Search"
+msgstr ""
+
+#: plugins/editor/plugin.c:201
+msgid "Enter the selected text as the search target"
+msgstr ""
+
+#: plugins/editor/plugin.c:203
+msgid "Fin_d in Files ..."
+msgstr ""
+
+#: plugins/editor/plugin.c:204
+msgid "Search for a string in multiple files or directories"
+msgstr ""
+
+#: plugins/editor/plugin.c:209
+msgid "Co_mment code"
+msgstr ""
+
+#: plugins/editor/plugin.c:210
+msgid "_Block Comment/Uncomment"
+msgstr ""
+
+#: plugins/editor/plugin.c:211
+msgid "Block comment the selected text"
+msgstr ""
+
+#: plugins/editor/plugin.c:213
+msgid "Bo_x Comment/Uncomment"
+msgstr ""
+
+#: plugins/editor/plugin.c:214
+msgid "Box comment the selected text"
+msgstr ""
+
+#: plugins/editor/plugin.c:216
+msgid "_Stream Comment/Uncomment"
+msgstr ""
+
+#: plugins/editor/plugin.c:217
+msgid "Stream comment the selected text"
+msgstr ""
+
+#. { "ActionMenuEditGoto", N_("G_oto"), NULL, NULL, NULL, NULL, NULL },
+#: plugins/editor/plugin.c:223
+msgid "_Goto Line number"
+msgstr ""
+
+#: plugins/editor/plugin.c:225 plugins/editor/plugin.c:229
+msgid "Go to a particular line in the editor"
+msgstr ""
+
+#: plugins/editor/plugin.c:227
+msgid "_Line number ..."
+msgstr ""
+
+#: plugins/editor/plugin.c:231
+msgid "Matching _Brace"
+msgstr ""
+
+#: plugins/editor/plugin.c:233
+msgid "Go to the matching brace in the editor"
+msgstr ""
+
+#: plugins/editor/plugin.c:235
+msgid "_Start of block"
+msgstr ""
+
+#: plugins/editor/plugin.c:237
+msgid "Go to the start of the current block"
+msgstr ""
+
+#: plugins/editor/plugin.c:239
+msgid "_End of block"
+msgstr ""
+
+#: plugins/editor/plugin.c:241
+msgid "Go to the end of the current block"
+msgstr ""
+
+#: plugins/editor/plugin.c:243
+msgid "Ne_xt occurrence"
+msgstr ""
+
+#: plugins/editor/plugin.c:245
+msgid "Find the next occurrence of current word"
+msgstr ""
+
+#: plugins/editor/plugin.c:247
+msgid "Pre_vious occurrence"
+msgstr ""
+
+#: plugins/editor/plugin.c:249
+msgid "Find the previous occurrence of current word"
+msgstr ""
+
+#. { "ActionMenuEdit", N_("_Edit"), NULL, NULL, NULL, NULL, NULL },
+#: plugins/editor/plugin.c:255
+msgid "U_ndo"
+msgstr "_Vrati"
+
+#: plugins/editor/plugin.c:256 src/toolbar.c:97
+msgid "Undo the last action"
+msgstr "Opozovi posljednju akciju"
+
+#: plugins/editor/plugin.c:258
+msgid "_Redo"
+msgstr "_Ponovi"
+
+#: plugins/editor/plugin.c:259 src/toolbar.c:101
+msgid "Redo the last undone action"
+msgstr "Izvrši zadnju poništenu radnju"
+
+#: plugins/editor/plugin.c:262
+msgid "Cut the selected text from the editor to the clipboard"
+msgstr ""
+
+#: plugins/editor/plugin.c:268
+msgid "Paste the content of clipboard at the current position"
+msgstr ""
+
+#: plugins/editor/plugin.c:270
+msgid "_Clear"
+msgstr ""
+
+#: plugins/editor/plugin.c:271
+msgid "Delete the selected text from the editor"
+msgstr ""
+
+#: plugins/editor/plugin.c:273
+msgid "_AutoComplete"
+msgstr "_SamoDovršetak"
+
+#: plugins/editor/plugin.c:275
+msgid "AutoComplete the current word"
+msgstr ""
+
+#: plugins/editor/plugin.c:277
+msgid "S_how calltip"
+msgstr ""
+
+#: plugins/editor/plugin.c:278
+msgid "Show calltip for the function"
+msgstr ""
+
+#: plugins/editor/plugin.c:283
+msgid "_Editor"
+msgstr "_Uređivač"
+
+#: plugins/editor/plugin.c:284
+msgid "_Line numbers margin"
+msgstr ""
+
+#: plugins/editor/plugin.c:285
+msgid "Show/Hide line numbers"
+msgstr ""
+
+#: plugins/editor/plugin.c:287
+msgid "_Markers Margin"
+msgstr ""
+
+#: plugins/editor/plugin.c:288
+msgid "Show/Hide markers margin"
+msgstr ""
+
+#: plugins/editor/plugin.c:290
+msgid "_Code fold margin"
+msgstr ""
+
+#: plugins/editor/plugin.c:291
+msgid "Show/Hide code fold margin"
+msgstr ""
+
+#: plugins/editor/plugin.c:293
+msgid "_Indentation guides"
+msgstr ""
+
+#: plugins/editor/plugin.c:294
+msgid "Show/Hide indentation guides"
+msgstr ""
+
+#: plugins/editor/plugin.c:296
+msgid "_White spaces"
+msgstr ""
+
+#: plugins/editor/plugin.c:297
+msgid "Show/Hide white spaces"
+msgstr ""
+
+#: plugins/editor/plugin.c:299
+msgid "_Line end characters"
+msgstr ""
+
+#: plugins/editor/plugin.c:300
+msgid "Show/Hide line end characters"
+msgstr ""
+
+#: plugins/editor/plugin.c:302
+msgid "Line _wrapping"
+msgstr ""
+
+#: plugins/editor/plugin.c:303
+msgid "Enable/disable line wrapping"
+msgstr ""
+
+#: plugins/editor/plugin.c:305
+msgid "Zoom in"
+msgstr ""
+
+#: plugins/editor/plugin.c:306
+msgid "Zoom in: Increase font size"
+msgstr ""
+
+#: plugins/editor/plugin.c:308
+msgid "Zoom out"
+msgstr ""
+
+#: plugins/editor/plugin.c:309
+msgid "Zoom out: Decrease font size"
+msgstr ""
+
+#: plugins/editor/plugin.c:314
+msgid "Force _Highlight Style"
+msgstr ""
+
+#: plugins/editor/plugin.c:316
+msgid "Automatic"
+msgstr "Automatski"
+
+#: plugins/editor/plugin.c:317
+msgid "Automatically determine the highlight style"
+msgstr ""
+
+#: plugins/editor/plugin.c:319
+msgid "No Highlight style"
+msgstr ""
+
+#: plugins/editor/plugin.c:320
+msgid "Remove the current highlight style"
+msgstr ""
+
+#: plugins/editor/plugin.c:322
+msgid "C and C++"
+msgstr ""
+
+#: plugins/editor/plugin.c:323
+msgid "Force the highlight style to C and C++"
+msgstr ""
+
+#: plugins/editor/plugin.c:325
+msgid "HTML"
+msgstr "HTML"
+
+#: plugins/editor/plugin.c:326
+msgid "Force the highlight style to HTML"
+msgstr ""
+
+#: plugins/editor/plugin.c:328
+msgid "XML"
+msgstr "XML"
+
+#: plugins/editor/plugin.c:329
+msgid "Force the highlight style to XML"
+msgstr ""
+
+#: plugins/editor/plugin.c:331
+msgid "Javascript"
+msgstr "JavaScript"
+
+#: plugins/editor/plugin.c:332
+msgid "Force the highlight style to Javascript"
+msgstr ""
+
+#: plugins/editor/plugin.c:334
+msgid "WScript"
+msgstr ""
+
+#: plugins/editor/plugin.c:335
+msgid "Force the highlight style to WScript"
+msgstr ""
+
+#: plugins/editor/plugin.c:337
+msgid "Makefile"
+msgstr "MakeFile"
+
+#: plugins/editor/plugin.c:338
+msgid "Force the highlight style to Makefile"
+msgstr ""
+
+#: plugins/editor/plugin.c:340
+msgid "Java"
+msgstr "Java"
+
+#: plugins/editor/plugin.c:341
+msgid "Force the highlight type to Java"
+msgstr ""
+
+#: plugins/editor/plugin.c:343
+msgid "LUA"
+msgstr ""
+
+#: plugins/editor/plugin.c:344
+msgid "Force the highlight style to LUA"
+msgstr ""
+
+#: plugins/editor/plugin.c:346
+msgid "Python"
+msgstr "Python"
+
+#: plugins/editor/plugin.c:347
+msgid "Force the highlight style to Python"
+msgstr ""
+
+#: plugins/editor/plugin.c:349
+msgid "Perl"
+msgstr "Perl"
+
+#: plugins/editor/plugin.c:350
+msgid "Force the highlight style to Perl"
+msgstr ""
+
+#: plugins/editor/plugin.c:352
+msgid "SQL"
+msgstr "SQL"
+
+#: plugins/editor/plugin.c:353
+msgid "Force the highlight style to SQL"
+msgstr ""
+
+#: plugins/editor/plugin.c:355
+msgid "PL/SQL"
+msgstr ""
+
+#: plugins/editor/plugin.c:356
+msgid "Force the highlight style to PL/SQL"
+msgstr ""
+
+#: plugins/editor/plugin.c:358
+msgid "PHP"
+msgstr "PHP"
+
+#: plugins/editor/plugin.c:359
+msgid "Force the highlight style to PHP"
+msgstr ""
+
+#: plugins/editor/plugin.c:361
+msgid "LaTex"
+msgstr "Latex"
+
+#: plugins/editor/plugin.c:362
+msgid "Force the highlight style to LaTex"
+msgstr ""
+
+#: plugins/editor/plugin.c:365
+msgid "Force the highlight style to Diff"
+msgstr ""
+
+#: plugins/editor/plugin.c:367
+msgid "Pascal"
+msgstr "Pascal"
+
+#: plugins/editor/plugin.c:368
+msgid "Force the highlight style to Pascal"
+msgstr ""
+
+#: plugins/editor/plugin.c:370
+msgid "Xcode"
+msgstr ""
+
+#: plugins/editor/plugin.c:371
+msgid "Force the highlight style to Xcode"
+msgstr ""
+
+#: plugins/editor/plugin.c:373
+msgid "Prj/Properties"
+msgstr ""
+
+#: plugins/editor/plugin.c:374
+msgid "Force the highlight style to project/properties files"
+msgstr ""
+
+#: plugins/editor/plugin.c:376
+msgid "Conf"
+msgstr ""
+
+#: plugins/editor/plugin.c:377
+msgid "Force the highlight style to UNIX conf files"
+msgstr ""
+
+#: plugins/editor/plugin.c:379
+msgid "Ada"
+msgstr "Ada"
+
+#: plugins/editor/plugin.c:380
+msgid "Force the highlight style to Ada"
+msgstr ""
+
+#: plugins/editor/plugin.c:382
+msgid "Baan"
+msgstr ""
+
+#: plugins/editor/plugin.c:383
+msgid "Force the highlight style to Baan"
+msgstr ""
+
+#: plugins/editor/plugin.c:385
+msgid "Lisp"
+msgstr ""
+
+#: plugins/editor/plugin.c:386
+msgid "Force the highlight style to Lisp"
+msgstr ""
+
+#: plugins/editor/plugin.c:388
+msgid "Ruby"
+msgstr "Ruby"
+
+#: plugins/editor/plugin.c:389
+msgid "Force the highlight style to Ruby"
+msgstr ""
+
+#: plugins/editor/plugin.c:391
+msgid "Matlab"
+msgstr ""
+
+#: plugins/editor/plugin.c:392
+msgid "Force the highlight style to Matlab"
+msgstr ""
+
+#: plugins/editor/plugin.c:397
+msgid "For_mat"
+msgstr "_Oblikovanje"
+
+#: plugins/editor/plugin.c:398
+msgid "Auto _Format"
+msgstr ""
+
+#: plugins/editor/plugin.c:400
+msgid "Autoformat the current source file"
+msgstr ""
+
+#: plugins/editor/plugin.c:402
+msgid "Autoformat _settings"
+msgstr ""
+
+#: plugins/editor/plugin.c:404
+msgid "Autoformat settings"
+msgstr ""
+
+#: plugins/editor/plugin.c:406
+msgid "_Increase Indent"
+msgstr "_Povećaj uvlaku"
+
+#: plugins/editor/plugin.c:408
+msgid "Increase indentation of line/selection"
+msgstr ""
+
+#: plugins/editor/plugin.c:410
+msgid "_Decrease Indent"
+msgstr "_Smanji uvlaku"
+
+#: plugins/editor/plugin.c:412
+msgid "Decrease indentation of line/selection"
+msgstr ""
+
+#: plugins/editor/plugin.c:414
+msgid "_Close All Folds"
+msgstr ""
+
+#: plugins/editor/plugin.c:416
+msgid "Close all code folds in the editor"
+msgstr ""
+
+#: plugins/editor/plugin.c:418
+msgid "_Open All Folds"
+msgstr ""
+
+#: plugins/editor/plugin.c:420
+msgid "Open all code folds in the editor"
+msgstr ""
+
+#: plugins/editor/plugin.c:422
+msgid "_Toggle Current Fold"
+msgstr ""
+
+#: plugins/editor/plugin.c:424
+msgid "Toggle current code fold in the editor"
+msgstr ""
+
+#: plugins/editor/plugin.c:433
+msgid "Bookmar_k"
+msgstr "_Knjižna bilješka"
+
+#: plugins/editor/plugin.c:434
+msgid "_Toggle bookmark"
+msgstr ""
+
+#: plugins/editor/plugin.c:436
+msgid "Toggle a bookmark at the current line position"
+msgstr ""
+
+#: plugins/editor/plugin.c:438
+msgid "_First bookmark"
+msgstr ""
+
+#: plugins/editor/plugin.c:440
+msgid "Jump to the first bookmark in the file"
+msgstr ""
+
+#: plugins/editor/plugin.c:442
+msgid "_Previous bookmark"
+msgstr "_Prethodna oznaka"
+
+#: plugins/editor/plugin.c:444
+msgid "Jump to the previous bookmark in the file"
+msgstr ""
+
+#: plugins/editor/plugin.c:446
+msgid "_Next bookmark"
+msgstr "_Sljedeća oznaka"
+
+#: plugins/editor/plugin.c:448
+msgid "Jump to the next bookmark in the file"
+msgstr ""
+
+#: plugins/editor/plugin.c:450
+msgid "_Last bookmark"
+msgstr ""
+
+#: plugins/editor/plugin.c:452
+msgid "Jump to the last bookmark in the file"
+msgstr ""
+
+#: plugins/editor/plugin.c:454
+msgid "_Clear all bookmarks"
+msgstr ""
+
+#: plugins/editor/plugin.c:456
+msgid "Clear bookmarks"
+msgstr "Obriši oznake"
+
+#: plugins/editor/plugin.c:468
+msgid "Editor file operations"
+msgstr ""
+
+#: plugins/editor/plugin.c:469
+msgid "Editor print operations"
+msgstr ""
+
+#: plugins/editor/plugin.c:470
+msgid "Editor text transformation"
+msgstr ""
+
+#: plugins/editor/plugin.c:471
+msgid "Editor text selection"
+msgstr ""
+
+#: plugins/editor/plugin.c:472
+msgid "Editor text insertions"
+msgstr ""
+
+#: plugins/editor/plugin.c:473
+msgid "Editor text searching"
+msgstr ""
+
+#: plugins/editor/plugin.c:474
+msgid "Editor code commenting"
+msgstr ""
+
+#: plugins/editor/plugin.c:475
+msgid "Editor navigations"
+msgstr ""
+
+#: plugins/editor/plugin.c:476
+msgid "Editor edit operations"
+msgstr ""
+
+#: plugins/editor/plugin.c:477
+msgid "Editor view settings"
+msgstr ""
+
+#: plugins/editor/plugin.c:478
+msgid "Editor syntax highlighting styles"
+msgstr ""
+
+#: plugins/editor/plugin.c:479
+msgid "Editor text formating"
+msgstr ""
+
+#: plugins/editor/plugin.c:480
+msgid "Editor bookmarks"
+msgstr ""
+
+#: plugins/editor/plugin.c:546
+msgid "Goto line"
+msgstr ""
+
+#: plugins/editor/plugin.c:547
+msgid "Enter the line number to jump and press enter"
+msgstr ""
+
+#: plugins/editor/plugin.c:558
+msgid "Incremental search"
+msgstr ""
+
+#: plugins/editor/plugin.c:573
+msgid "Editor quick navigations"
+msgstr ""
+
+#: plugins/editor/plugin.c:577
+msgid "Documents"
+msgstr ""
+
+#: plugins/editor/print.c:484
+msgid "No file to print!"
+msgstr ""
+
+#: plugins/editor/print.c:518
+msgid "Unable to get text buffer for printing"
+msgstr ""
+
+#: plugins/editor/print.c:732
+#, c-format
+msgid "File: %s"
+msgstr "Datoteka: %s"
+
+#: plugins/editor/print.c:733
+#, c-format
+msgid "%d"
+msgstr "%d"
+
+#: plugins/editor/print.c:845
+msgid "Printing .."
+msgstr ""
+
+#: plugins/editor/print.c:857
+msgid "Printing ..."
+msgstr ""
+
+#: plugins/editor/print.c:1039
+msgid "Print Preview"
+msgstr "Pogled prije ispisa"
+
+#: plugins/editor/search-replace.c:430
+msgid "Replace"
+msgstr "Zamijeni"
+
+#: plugins/editor/search-replace.c:718 plugins/editor/search-replace.c:1352
+msgid "Replace All"
+msgstr "Zamijeni sve"
+
+#: plugins/editor/search-replace.c:754
+msgid "The match \"%s\" was not found. Wrap search around the document?"
+msgstr ""
+
+#: plugins/editor/search-replace.c:777
+msgid "The match \"%s\" was not found."
+msgstr ""
+
+#: plugins/editor/search-replace.c:795
+msgid "The maximum number of results has been reached."
+msgstr ""
+
+#: plugins/editor/search-replace.c:808
+msgid "%d matches have been replaced."
+msgstr "%d podudarnosti je zamijenjeno."
+
+#: plugins/editor/search-replace.c:971
+msgid "Unable to build user interface for Search And Replace"
+msgstr ""
+
+#: plugins/editor/text_editor.c:884
+msgid "This file is too big. Unable to allocate memory."
+msgstr ""
+
+#: plugins/editor/text_editor.c:930
+msgid ""
+"The file does not look like a text file or the file encoding is not "
+"supported. Please check if the encoding of file is in the supported "
+"encodings list. If not, add it from the preferences."
+msgstr ""
+
+#: plugins/editor/text_editor.c:1112
+msgid ""
+"Could not load file: %s\n"
+"\n"
+"Details: %s"
+msgstr ""
+
+#: plugins/editor/text_editor.c:1156
+msgid "Could not save file: %s."
+msgstr ""
+
+#: plugins/editor/text_editor.c:1299
+msgid ""
+"The file '%s' on the disk is more recent than\n"
+"the current buffer.\n"
+"Do you want to reload it?"
+msgstr ""
+
+#: plugins/editor/text_editor.c:1473
+msgid "Auto format is currently disabled. Change the setting in Preferences."
+msgstr ""
+
+#: plugins/editor/text_editor.c:1492
+msgid "Error in auto formatting ..."
+msgstr ""
+
+#. FIXME: anjuta_set_active ();
+#: plugins/editor/text_editor.c:1508
+msgid "Anjuta does not know %s!"
+msgstr ""
+
+#: plugins/editor/text_editor.c:1526 plugins/launcher/launcher.c:854
+#: src/launcher.c:853
+msgid "Cannot execute command shell"
+msgstr ""
+
+#: plugins/editor/text_editor.c:1540
+msgid ""
+"Error in auto formatting ...\n"
+"Details: %s"
+msgstr ""
+
+#: plugins/editor/text_editor_cbs.c:108
+msgid "Autosave \"%s\" -- Failed"
+msgstr ""
+
+#: plugins/editor/text_editor_menu.c:79
+msgid "Back"
+msgstr "Nazad"
+
+#: plugins/editor/text_editor_menu.c:86
+msgid "Forward"
+msgstr "Naprijed"
+
+#: plugins/editor/text_editor_menu.c:95
+msgid "Tag Definition"
+msgstr ""
+
+#: plugins/editor/text_editor_menu.c:102
+msgid "Tag Declaration"
+msgstr ""
+
+#: plugins/editor/text_editor_menu.c:110
+msgid "Prev mesg"
+msgstr ""
+
+#: plugins/editor/text_editor_menu.c:116
+msgid "Next mesg"
+msgstr ""
+
+#: plugins/editor/text_editor_menu.c:122
+msgid "Prev bookmark"
+msgstr ""
+
+#: plugins/editor/text_editor_menu.c:128
+msgid "Next bookmark"
+msgstr "Sljedeća oznaka"
+
+#: plugins/editor/text_editor_menu.c:138
+msgid "Toggle breakpoint"
+msgstr "Preklopi točku prekida"
+
+#: plugins/editor/text_editor_menu.c:145 src/toolbar.c:536
+msgid "Step in"
+msgstr "Ukorači"
+
+#: plugins/editor/text_editor_menu.c:151
+msgid "Step over"
+msgstr ""
+
+#: plugins/editor/text_editor_menu.c:157
+msgid "Step out"
+msgstr "Iskorači"
+
+#: plugins/editor/text_editor_menu.c:163 src/toolbar.c:525
+msgid "Run to cursor"
+msgstr ""
+
+#: plugins/editor/text_editor_menu.c:169
+msgid "Run/Continue"
+msgstr "Izvrši/Nastavi"
+
+#: plugins/editor/text_editor_menu.c:183 src/toolbar.c:573
+msgid "Interrupt"
+msgstr "Prekid"
+
+#: plugins/editor/text_editor_menu.c:193
+msgid "Toggle Line numbers"
+msgstr ""
+
+#: plugins/editor/text_editor_menu.c:200
+msgid "Toggle Marker Margin"
+msgstr ""
+
+#: plugins/editor/text_editor_menu.c:207
+msgid "Toggle Fold Margin"
+msgstr ""
+
+#: plugins/editor/text_editor_menu.c:214
+msgid "Toggle Guides"
+msgstr ""
+
+#: plugins/editor/text_editor_menu.c:222
+msgid "++Zoom"
+msgstr "++ Povećaj"
+
+#: plugins/editor/text_editor_menu.c:229
+msgid "--Zoom"
+msgstr "-- Povećaj"
+
+#. 0
+#: plugins/editor/text_editor_menu.c:241
+msgid "Cut"
+msgstr "Izreži"
+
+#. 1
+#: plugins/editor/text_editor_menu.c:249
+msgid "Copy"
+msgstr "Kopiraj"
+
+#. 2
+#: plugins/editor/text_editor_menu.c:257
+msgid "Paste"
+msgstr "Umetni"
+
+#. 4
+#: plugins/editor/text_editor_menu.c:267
+msgid "Context Help"
+msgstr "Pomoć sadržaja"
+
+#. 6
+#: plugins/editor/text_editor_menu.c:277
+msgid "Toggle Bookmark"
+msgstr "Preklopi knjižnu oznaku"
+
+#. 7
+#: plugins/editor/text_editor_menu.c:285
+msgid "Auto format"
+msgstr ""
+
+#. 8
+#: plugins/editor/text_editor_menu.c:293
+msgid "Swap .h/.c"
+msgstr ""
+
+#. 10
+#: plugins/editor/text_editor_menu.c:303 src/toolbar.c:512
+msgid "Go"
+msgstr "Idi"
+
+#. 11
+#: plugins/editor/text_editor_menu.c:311 plugins/editor/text_editor_menu.c:433
+msgid "Tags"
+msgstr "Tagovi"
+
+#. 17
+#.  2
+#: plugins/editor/text_editor_menu.c:341
+#: plugins/symbol-browser/an_symbol_view.c:296
+msgid "Find Usage"
+msgstr ""
+
+#. 18
+#: plugins/editor/text_editor_menu.c:349
+msgid "Close"
+msgstr "Zatvori"
+
+#. 19
+#: plugins/editor/text_editor_menu.c:357
+msgid "Docked"
+msgstr "&Pristani"
+
+#: plugins/file-manager/an_file_view.c:64
+msgid "Unable to open %s in %s"
+msgstr ""
+
+#: plugins/file-manager/an_file_view.c:74
+msgid ""
+"No default viewer specified for the mime type %s.\n"
+"Please set it in GNOME control center"
+msgstr ""
+
+#: plugins/file-manager/an_file_view.c:274
+msgid "Unable to build user interface for file filter"
+msgstr ""
+
+#. 0
+#: plugins/file-manager/an_file_view.c:355
+msgid "Update file"
+msgstr ""
+
+#: plugins/file-manager/an_file_view.c:356
+msgid "Update current working copy"
+msgstr ""
+
+#. 1
+#: plugins/file-manager/an_file_view.c:362
+msgid "Commit file"
+msgstr ""
+
+#: plugins/file-manager/an_file_view.c:363
+msgid "Commit changes to the repository"
+msgstr ""
+
+#. 2
+#: plugins/file-manager/an_file_view.c:369
+msgid "Status of file"
+msgstr ""
+
+#: plugins/file-manager/an_file_view.c:370
+msgid "Print the status of the current file"
+msgstr ""
+
+#. 3
+#: plugins/file-manager/an_file_view.c:376
+msgid "Get file log"
+msgstr ""
+
+#: plugins/file-manager/an_file_view.c:377
+msgid "Print the CVS log for the current file"
+msgstr ""
+
+#. 4
+#: plugins/file-manager/an_file_view.c:383
+msgid "Add file"
+msgstr "Dodaj datoteku"
+
+#: plugins/file-manager/an_file_view.c:384
+msgid "Add the current file to the repository"
+msgstr "Dodavanje trenutne datoteke u repozitorij"
+
+#. 5
+#: plugins/file-manager/an_file_view.c:390
+msgid "Remove file"
+msgstr "Ukloni datoteku"
+
+#: plugins/file-manager/an_file_view.c:391
+msgid "Remove the current file from the repository"
+msgstr ""
+
+#. 6
+#: plugins/file-manager/an_file_view.c:397
+msgid "Diff file"
+msgstr "Diff datoteka"
+
+#: plugins/file-manager/an_file_view.c:398
+msgid "Create a diff between the working copy and the repository"
+msgstr ""
+
+#. 0
+#.  2
+#: plugins/file-manager/an_file_view.c:407
+#: plugins/project-manager/project_dbase_gui.c:317
+msgid "Open in Anjuta"
+msgstr ""
+
+#. 1
+#: plugins/file-manager/an_file_view.c:414
+#: plugins/project-manager/project_dbase_gui.c:311
+msgid "Open in default viewer"
+msgstr ""
+
+#. 3
+#: plugins/file-manager/an_file_view.c:428
+#: plugins/symbol-browser/an_symbol_view.c:303
+msgid "Refresh"
+msgstr "Osvježi"
+
+#. 4
+#.  5
+#: plugins/file-manager/an_file_view.c:436
+msgid "Customize"
+msgstr "Prilagodi"
+
+#: plugins/file-manager/an_file_view.c:437
+msgid "Customize the file browser"
+msgstr ""
+
+#: plugins/file-manager/an_file_view.c:675
+msgid "Rev"
+msgstr "Doh"
+
+#: plugins/launcher/launcher.c:583 src/launcher.c:582
+msgid "launcher.c: Error while reading child stdout\n"
+msgstr ""
+
+#: plugins/launcher/launcher.c:595 src/launcher.c:594
+msgid "launcher.c: STDOUT pipe closed"
+msgstr ""
+
+#: plugins/launcher/launcher.c:631 src/launcher.c:630
+msgid "launcher.c: Error while reading child stderr"
+msgstr ""
+
+#: plugins/launcher/launcher.c:643 src/launcher.c:642
+msgid "launcher.c: STDERR pipe closed"
+msgstr ""
+
+#: plugins/launcher/launcher.c:684 src/launcher.c:683
+msgid "launcher.c: Error while reading child pty\n"
+msgstr ""
+
+#: plugins/launcher/launcher.c:702 src/launcher.c:701
+msgid "launcher.c: PTY pipe error!"
+msgstr ""
+
+#: plugins/launcher/launcher.c:804 src/launcher.c:803
+msgid "launcher.c: Failed to set channel encoding!"
+msgstr ""
+
+#: plugins/message-view/message-view.c:349
+msgid "error:"
+msgstr ""
+
+#: plugins/message-view/message-view.c:351
+msgid "warning:"
+msgstr ""
+
+#: plugins/patch/patch-plugin.c:64
+msgid "Interface to patch Projects or individual files"
+msgstr ""
+
+#: plugins/patch/patch-plugin.c:100
+msgid "File/Dir to patch"
+msgstr ""
+
+#: plugins/patch/patch-plugin.c:101
+msgid "Patch file"
+msgstr ""
+
+#: plugins/patch/patch-plugin.c:102
+msgid "Patch level (-p)"
+msgstr ""
+
+#: plugins/patch/patch-plugin.c:107
+msgid "Patch Plugin"
+msgstr ""
+
+#: plugins/patch/patch-plugin.c:107
+msgid "Patch"
+msgstr ""
+
+#: plugins/patch/patch-plugin.c:110
+msgid "Selected directory to patch"
+msgstr ""
+
+#: plugins/patch/patch-plugin.c:112
+msgid "Selected patch file"
+msgstr ""
+
+#: plugins/patch/patch-plugin.c:148
+msgid "Patch plugin"
+msgstr ""
+
+#: plugins/patch/patch-plugin.c:154
+msgid "The patch plugin"
+msgstr ""
+
+#: plugins/patch/patch-plugin.c:172
+msgid "Please select the directory where the patch should be applied"
+msgstr ""
+
+#: plugins/patch/patch-plugin.c:179
+msgid "Patching %s using %s\n"
+msgstr ""
+
+#: plugins/patch/patch-plugin.c:185
+msgid "Patching...\n"
+msgstr ""
+
+#: plugins/patch/patch-plugin.c:195
+msgid "There are unfinished jobs, please wait until they are finished"
+msgstr ""
+
+#: plugins/patch/patch-plugin.c:226
+msgid ""
+"Patch failed.\n"
+"Please review the failure messages.\n"
+"Examine and remove any rejected files.\n"
+msgstr ""
+
+#: plugins/patch/patch-plugin.c:233
+msgid "Patch successful.\n"
+msgstr ""
+
+#. Must declare static, because it will be used forever
+#: plugins/project-manager/project_dbase.c:205
+msgid "Add to Project"
+msgstr "Dodavanje u projekt"
+
+#: plugins/project-manager/project_dbase.c:362
+msgid "Anjuta project files"
+msgstr ""
+
+#: plugins/project-manager/project_dbase.c:444
+#: plugins/project-manager/project_dbase.c:462
+msgid "Unable to load Project: %s"
+msgstr ""
+
+#: plugins/project-manager/project_dbase.c:455
+#: plugins/project-manager/project_dbase.c:2461
+msgid ""
+"Anjuta version %s or later is required to open this Project.\n"
+"Please upgrade to the latest version of Anjuta (Help for more information)."
+msgstr ""
+
+#: plugins/project-manager/project_dbase.c:836
+msgid "Project saved successfully"
+msgstr ""
+
+#: plugins/project-manager/project_dbase.c:842
+#: plugins/project-manager/project_dbase.c:845
+msgid "Unable to save the Project."
+msgstr ""
+
+#: plugins/project-manager/project_dbase.c:1543
+msgid ""
+"A .glade file does not exist in the top level Project directory. If you do "
+"not use glade for GUI editing,  please specify a custom command for it in "
+"[Project]->[Project Configuration]->[GUI editor command]"
+msgstr ""
+
+#: plugins/project-manager/project_dbase.c:1605
+msgid ""
+"A .glade file does not\n"
+"exist in the top level Project directory."
+msgstr ""
+
+#: plugins/project-manager/project_dbase.c:2021 src/anjuta_gui.c:146
+#: src/main_menubar.c:394
+msgid "Recent Projects "
+msgstr ""
+
+#. Set project title
+#: plugins/project-manager/project_dbase.c:2059
+msgid "Project: "
+msgstr "Projekt:"
+
+#: plugins/project-manager/project_dbase.c:2176
+msgid ""
+"Unable to get relative file name for %s\n"
+" in %s"
+msgstr ""
+
+#: plugins/project-manager/project_dbase.c:2241
+msgid " already exists in the project"
+msgstr "već postoji u projektu"
+
+#: plugins/project-manager/project_dbase.c:2274
+msgid "Error while copying the file inside the module."
+msgstr ""
+
+#: plugins/project-manager/project_dbase.c:2537
+#: plugins/project-manager/project_dbase.c:2540
+msgid "Error in loading Project: %s"
+msgstr ""
+
+#: plugins/project-manager/project_dbase.c:2561
+msgid "Project loaded successfully."
+msgstr ""
+
+#: plugins/project-manager/project_dbase_gui.c:76
+msgid ""
+"Are you sure you want to remove the item\n"
+"'%s' from the Project?"
+msgstr ""
+
+#: plugins/project-manager/project_dbase_gui.c:118
+msgid "There is already a Project open.Do you want to close it first?"
+msgstr ""
+
+#: plugins/project-manager/project_dbase_gui.c:152
+msgid "Help files"
+msgstr ""
+
+#: plugins/project-manager/project_dbase_gui.c:162
+msgid "Java source files"
+msgstr ""
+
+#: plugins/project-manager/project_dbase_gui.c:178
+msgid "PNG files"
+msgstr ""
+
+#: plugins/project-manager/project_dbase_gui.c:179
+msgid "JPG files"
+msgstr ""
+
+#: plugins/project-manager/project_dbase_gui.c:180
+msgid "BMP files"
+msgstr ""
+
+#: plugins/project-manager/project_dbase_gui.c:181
+msgid "GIF files"
+msgstr ""
+
+#: plugins/project-manager/project_dbase_gui.c:198
+msgid "Text files"
+msgstr "Tekstualne datoteke"
+
+#: plugins/project-manager/project_dbase_gui.c:199
+msgid "XML files"
+msgstr "XML datoteke"
+
+#: plugins/project-manager/project_dbase_gui.c:200
+msgid "HTML files"
+msgstr "HTML datoteke"
+
+#: plugins/project-manager/project_dbase_gui.c:201
+msgid "DOC files"
+msgstr ""
+
+#: plugins/project-manager/project_dbase_gui.c:210
+msgid "PO files"
+msgstr ""
+
+#: plugins/project-manager/project_dbase_gui.c:219
+msgid "C/C++ Headers"
+msgstr ""
+
+#: plugins/project-manager/project_dbase_gui.c:250
+msgid "Add file to module: "
+msgstr "Dodaj datoteku u modul:"
+
+#. 0
+#: plugins/project-manager/project_dbase_gui.c:259
+msgid "Include file"
+msgstr "Umetni datoteku"
+
+#. 1
+#: plugins/project-manager/project_dbase_gui.c:265
+msgid "Source file"
+msgstr "Izvorna datoteka"
+
+#. 2
+#: plugins/project-manager/project_dbase_gui.c:271
+msgid "Help file"
+msgstr "Datoteka pomoći"
+
+#. 3
+#: plugins/project-manager/project_dbase_gui.c:277
+msgid "Data file"
+msgstr ""
+
+#. 4
+#: plugins/project-manager/project_dbase_gui.c:283
+msgid "Pixmap file"
+msgstr ""
+
+#. 5
+#: plugins/project-manager/project_dbase_gui.c:289
+msgid "Translation file"
+msgstr ""
+
+#. 6
+#: plugins/project-manager/project_dbase_gui.c:295
+msgid "Doc file"
+msgstr ""
+
+#. 0
+#: plugins/project-manager/project_dbase_gui.c:305
+msgid "Add File"
+msgstr "Dodaj datoteku"
+
+#. 4
+#.  5
+#: plugins/project-manager/project_dbase_gui.c:330
+msgid "Configure Project"
+msgstr ""
+
+#. 6
+#: plugins/project-manager/project_dbase_gui.c:336
+msgid "Project Info"
+msgstr ""
+
+#: plugins/project-manager/project_dbase_gui.c:677
+msgid "Project Information"
+msgstr ""
+
+#: plugins/project-manager/project_dbase_gui.c:685
+msgid " Project Information "
+msgstr " Informacije o projektu"
+
+#: plugins/project-manager/project_dbase_gui.c:721
+msgid "Author:"
+msgstr "Autor:"
+
+#: plugins/project-manager/project_dbase_gui.c:729
+#: plugins/project-wizard/wizard_gui.c:299
+msgid "Project Name:"
+msgstr "Ime projekta:"
+
+#: plugins/project-manager/project_dbase_gui.c:808
+msgid "Program Name:"
+msgstr "Ime programa:"
+
+#: plugins/project-manager/project_dbase_gui.c:815
+msgid "Source files:"
+msgstr ""
+
+#: plugins/project-manager/project_dbase_gui.c:822
+msgid "Help files:"
+msgstr ""
+
+#: plugins/project-manager/project_dbase_gui.c:829
+msgid "Data files:"
+msgstr ""
+
+#: plugins/project-manager/project_dbase_gui.c:836
+msgid "Pixmap files:"
+msgstr ""
+
+#: plugins/project-manager/project_dbase_gui.c:843
+msgid "Doc files:"
+msgstr ""
+
+#: plugins/project-manager/project_dbase_gui.c:864
+msgid "Po files:"
+msgstr ""
+
+#: plugins/project-manager/project_dbase_gui.c:894
+msgid "GUI editable by Glade:"
+msgstr ""
+
+#: plugins/project-manager/project_dbase_gui.c:916
+msgid "Makefiles managed:"
+msgstr ""
+
+#: plugins/project-manager/project_dbase_gui.c:958
+msgid "Gettext support:"
+msgstr ""
+
+#: plugins/project-manager/project_dbase_gui.c:1016
+msgid "Project Type:"
+msgstr "Projekt tipovi"
+
+#: plugins/project-manager/project_dbase_gui.c:1061
+msgid ""
+"Project is not saved.\n"
+"Do you want to save it before closing?"
+msgstr ""
+
+#: plugins/project-manager/project_dbase_gui.c:1076
+#: plugins/project-manager/project_dbase_gui.c:1196
+msgid "Breton"
+msgstr "Bretonski"
+
+#: plugins/project-manager/project_dbase_gui.c:1077
+msgid "Catalan"
+msgstr "Katalonski"
+
+#: plugins/project-manager/project_dbase_gui.c:1078
+msgid "Czech"
+msgstr "Češki"
+
+#: plugins/project-manager/project_dbase_gui.c:1079
+msgid "Danish"
+msgstr "Danski"
+
+#: plugins/project-manager/project_dbase_gui.c:1080
+msgid "German"
+msgstr "Njemački"
+
+#: plugins/project-manager/project_dbase_gui.c:1082
+msgid "Esperanto"
+msgstr "Esperanto"
+
+#: plugins/project-manager/project_dbase_gui.c:1083
+msgid "Spanish"
+msgstr "Španjolski"
+
+#: plugins/project-manager/project_dbase_gui.c:1084
+msgid "Finnish"
+msgstr "Finski"
+
+#: plugins/project-manager/project_dbase_gui.c:1085
+msgid "French"
+msgstr "Francuski"
+
+#: plugins/project-manager/project_dbase_gui.c:1086
+msgid "Herbrew"
+msgstr ""
+
+#: plugins/project-manager/project_dbase_gui.c:1087
+#: plugins/project-manager/project_dbase_gui.c:1091
+msgid "Croatian"
+msgstr "Hrvatski"
+
+#: plugins/project-manager/project_dbase_gui.c:1088
+msgid "Hungarian"
+msgstr "Mađarski"
+
+#: plugins/project-manager/project_dbase_gui.c:1089
+msgid "Islandic"
+msgstr ""
+
+#: plugins/project-manager/project_dbase_gui.c:1090
+msgid "Italian"
+msgstr "Talijanski"
+
+#: plugins/project-manager/project_dbase_gui.c:1093
+msgid "Macedonian"
+msgstr "Makedonska"
+
+#: plugins/project-manager/project_dbase_gui.c:1094
+msgid "Dutch"
+msgstr "Nizozemski"
+
+#: plugins/project-manager/project_dbase_gui.c:1095
+msgid "Norwegian"
+msgstr "Norveški"
+
+#: plugins/project-manager/project_dbase_gui.c:1096
+msgid "Polish"
+msgstr "Poljski"
+
+#: plugins/project-manager/project_dbase_gui.c:1097
+msgid "Portuguese"
+msgstr "Portugalski"
+
+#: plugins/project-manager/project_dbase_gui.c:1099
+msgid "Russian"
+msgstr "Ruski"
+
+#: plugins/project-manager/project_dbase_gui.c:1100
+msgid "Slovak"
+msgstr "Slovački"
+
+#: plugins/project-manager/project_dbase_gui.c:1102
+msgid "Simplified Chinese"
+msgstr "Pojednostavljeni kineski"
+
+#: plugins/project-manager/project_dbase_gui.c:1103
+msgid "Chinese"
+msgstr "Kineski"
+
+#: plugins/project-manager/project_dbase_gui.c:1104
+msgid "Estonian"
+msgstr "Estonski"
+
+#: plugins/project-manager/project_dbase_gui.c:1148
+msgid "Select regional language"
+msgstr ""
+
+#: plugins/project-manager/project_dbase_gui.c:1164
+msgid "Select regional language:"
+msgstr ""
+
+#: plugins/project-manager/project_dbase_gui.c:1204
+msgid "Unable to find pixmap file: %s"
+msgstr ""
+
+#: plugins/project-manager/project_dbase_gui.c:1281
+msgid ""
+"\"%s\"\n"
+"does not exist.\n"
+"Do you want to create it now ?"
+msgstr ""
+
+#: plugins/project-manager/project_dbase_gui.c:1299
+msgid "Not a regular file: %s."
+msgstr ""
+
+#: plugins/project-manager/project_dbase_gui.c:1309
+msgid ""
+"\"%s\"\n"
+"does not exist in the current module directory.\n"
+"Do you want to IMPORT (copy) it into the module?"
+msgstr ""
+
+#: plugins/project-manager/project_import.c:89
+msgid "Unable to find import script %s"
+msgstr ""
+
+#: plugins/project-manager/project_import.c:94
+msgid "%s: Not a regular file"
+msgstr "Ne mogu priložiti datoteku %s: nije standardna datoteka"
+
+#: plugins/project-manager/project_import.c:109
+msgid "Importing Project from %s ...\n"
+msgstr ""
+
+#: plugins/project-manager/project_import.c:119
+msgid "Could not launch script!\n"
+msgstr ""
+
+#: plugins/project-manager/project_import.c:130
+msgid "Importing Project...please wait"
+msgstr ""
+
+#: plugins/project-manager/project_import.c:188
+msgid "Project import completed...successful\n"
+msgstr ""
+
+#: plugins/project-manager/project_import.c:190
+msgid "Project import completed...successful"
+msgstr ""
+
+#: plugins/project-manager/project_import.c:206
+msgid "Could not import Project: no project file found!"
+msgstr ""
+
+#: plugins/project-manager/project_import.c:213
+msgid "Opening Project...please wait"
+msgstr ""
+
+#: plugins/project-manager/project_import.c:216
+msgid "Could not open generated Project file"
+msgstr ""
+
+#: plugins/project-manager/project_import_cbs.c:126
+msgid "Please complete all of the required fields"
+msgstr ""
+
+#: plugins/project-manager/project_import_cbs.c:230
+#: plugins/project-wizard/appwizard_cbs.c:286
+msgid ""
+"Confirm the following information:\n"
+"\n"
+msgstr ""
+
+#: plugins/project-manager/project_import_cbs.c:231
+#: plugins/project-wizard/appwizard_cbs.c:287
+msgid "Project Name:    "
+msgstr ""
+
+#: plugins/project-manager/project_import_cbs.c:232
+#: plugins/project-wizard/appwizard_cbs.c:288
+msgid "Project Type:    "
+msgstr ""
+
+#: plugins/project-manager/project_import_cbs.c:234
+#: plugins/project-wizard/appwizard_cbs.c:289
+msgid "Target Type:     "
+msgstr ""
+
+#: plugins/project-manager/project_import_cbs.c:237
+#: plugins/project-wizard/appwizard_cbs.c:290
+msgid "Source Target:   "
+msgstr ""
+
+#: plugins/project-manager/project_import_cbs.c:238
+#: plugins/project-wizard/appwizard_cbs.c:291
+msgid "Version:         "
+msgstr ""
+
+#: plugins/project-manager/project_import_cbs.c:239
+#: plugins/project-wizard/appwizard_cbs.c:292
+msgid "Author:          "
+msgstr ""
+
+#: plugins/project-manager/project_import_cbs.c:240
+#: plugins/project-wizard/appwizard_cbs.c:293
+msgid "Language:        "
+msgstr ""
+
+#: plugins/project-manager/project_import_cbs.c:242
+#: plugins/project-wizard/appwizard_cbs.c:294
+msgid "Gettext Support: "
+msgstr ""
+
+#: plugins/project-manager/project_import_cbs.c:285
+msgid ""
+"The import operation has already begun.\n"
+"Click Cancel to skip the customisation stage, or Next to continue."
+msgstr ""
+
+#: plugins/project-manager/project_import_gui.c:46
+msgid ""
+"The Project Import Wizard scans the directory of an\n"
+"existing code project, and attempts to import the structure\n"
+"into an Anjuta Project. There will be a chance to update\n"
+"any autodetected values during the import process.\n"
+"\n"
+"THIS IS AN EXPERIMENTAL FEATURE\n"
+msgstr ""
+
+#: plugins/project-manager/project_import_gui.c:74
+#: plugins/project-manager/project_import_gui.c:159
+msgid "Project Import Wizard"
+msgstr ""
+
+#: plugins/project-manager/project_import_gui.c:190
+msgid "Select directory"
+msgstr "Izaberite direktorij"
+
+#: plugins/project-manager/project_import_gui.c:207
+msgid "Select top level directory of an existing project"
+msgstr ""
+
+#: plugins/project-manager/project_import_gui.c:211
+msgid "Select existing project directory"
+msgstr ""
+
+#: plugins/project-manager/project_import_gui.c:225
+msgid "Click Forward to begin the import"
+msgstr ""
+
+#: plugins/project-manager/source.c:112
+msgid "Error writing to file: %s."
+msgstr ""
+
+#: plugins/project-manager/source.c:1614 plugins/project-manager/source.c:1734
+msgid "Error writing to: %s."
+msgstr ""
+
+#: plugins/project-manager/src_paths.c:263
+msgid "Source Paths"
+msgstr ""
+
+#: plugins/project-wizard/appwizard_cbs.c:126
+msgid "Project name"
+msgstr "Naziv projekta"
+
+#: plugins/project-wizard/appwizard_cbs.c:127
+msgid "Source target name"
+msgstr ""
+
+#: plugins/project-wizard/appwizard_cbs.c:128
+msgid "Project version"
+msgstr ""
+
+#: plugins/project-wizard/appwizard_cbs.c:224
+msgid ""
+"Invalid %s field:\n"
+"You must supply a valid %s field to proceed further."
+msgstr ""
+
+#: plugins/project-wizard/appwizard_gui.c:41
+msgid ""
+"The Application Wizard will generate a basic\n"
+"skeleton for a project, including all of the\n"
+"build files. It will ask for details of the initial\n"
+"structure for the application.\n"
+"\n"
+"Please answer the questions carefully, as it\n"
+"may not be possible to change some of the\n"
+"settings later."
+msgstr ""
+
+#: plugins/project-wizard/gnome_project.c:65
+msgid ""
+"A project or file with the same name.already exists.\n"
+"Project creation aborted."
+msgstr ""
+
+#: plugins/project-wizard/gnome_project.c:81
+msgid "Generating Project ...\n"
+msgstr ""
+
+#: plugins/project-wizard/gnome_project.c:88
+#, c-format
+msgid "Cannot create file: %s"
+msgstr "Ne mogu napraviti datoteku: %s"
+
+#: plugins/project-wizard/gnome_project.c:159
+msgid "Loading Project ...\n"
+msgstr ""
+
+#: plugins/project-wizard/gnome_project.c:170
+#: plugins/project-wizard/gnome_project.c:231
+msgid "Saving Project ...\n"
+msgstr ""
+
+#: plugins/project-wizard/gnome_project.c:178
+msgid "Generating source codes ...\n"
+msgstr ""
+
+#. Creating icon pixmap file for gnome projects
+#: plugins/project-wizard/gnome_project.c:185
+msgid "Copying icon file ...\n"
+msgstr ""
+
+#: plugins/project-wizard/gnome_project.c:199
+msgid "Could not create icon file ...\n"
+msgstr ""
+
+#: plugins/project-wizard/gnome_project.c:213
+msgid "Locating files ...\n"
+msgstr ""
+
+#: plugins/project-wizard/gnome_project.c:235
+msgid "Updating Project ...\n"
+msgstr ""
+
+#: plugins/project-wizard/gnome_project.c:238
+msgid "Running autogen.sh ...\n"
+msgstr ""
+
+#: plugins/project-wizard/gnome_project.c:250
+msgid "App Wizard"
+msgstr ""
+
+#: plugins/project-wizard/gnome_project.c:272
+msgid "Auto generation completed...............Unsuccessful\n"
+msgstr ""
+
+#: plugins/project-wizard/gnome_project.c:275
+msgid ""
+"The Project was not successfully auto generated.\n"
+"Please run autogen.sh manually."
+msgstr ""
+
+#: plugins/project-wizard/gnome_project.c:281
+msgid ""
+"Auto generation completed...............Successful\n"
+"Now Build the Project to have a LOOK at it\n"
+msgstr ""
+
+#: plugins/project-wizard/gnome_project.c:284
+msgid "Project was successfully auto generated."
+msgstr ""
+
+#: plugins/project-wizard/wizard_gui.c:98
+msgid "Project Type"
+msgstr ""
+
+#: plugins/project-wizard/wizard_gui.c:120
+msgid "Select the type of application to be developed"
+msgstr ""
+
+#: plugins/project-wizard/wizard_gui.c:161
+msgid "Generic/Terminal project"
+msgstr ""
+
+#: plugins/project-wizard/wizard_gui.c:164
+msgid "GTK 2.0 project"
+msgstr ""
+
+#: plugins/project-wizard/wizard_gui.c:167
+msgid "GNOME 2.0 project"
+msgstr ""
+
+#: plugins/project-wizard/wizard_gui.c:170
+msgid "LibGlade 2.0 project"
+msgstr ""
+
+#: plugins/project-wizard/wizard_gui.c:173
+msgid "gtkmm 2.0 project"
+msgstr ""
+
+#: plugins/project-wizard/wizard_gui.c:176
+msgid "gnomemm 2.0 project"
+msgstr ""
+
+#: plugins/project-wizard/wizard_gui.c:179
+msgid "GNOME 2.0 Bonobo component"
+msgstr ""
+
+#: plugins/project-wizard/wizard_gui.c:182
+msgid "wxWindows project"
+msgstr ""
+
+#: plugins/project-wizard/wizard_gui.c:185
+msgid "Xlib project"
+msgstr ""
+
+#: plugins/project-wizard/wizard_gui.c:188
+msgid "X Dock App project"
+msgstr ""
+
+#: plugins/project-wizard/wizard_gui.c:262
+msgid "Basic Information"
+msgstr "Osnovni podaci"
+
+#: plugins/project-wizard/wizard_gui.c:283
+msgid "Enter the basic Project information"
+msgstr ""
+
+#: plugins/project-wizard/wizard_gui.c:306
+msgid "Project Version:"
+msgstr ""
+
+#: plugins/project-wizard/wizard_gui.c:313
+msgid "Project Author:"
+msgstr ""
+
+#: plugins/project-wizard/wizard_gui.c:320
+msgid "Project Target:"
+msgstr ""
+
+#: plugins/project-wizard/wizard_gui.c:351
+msgid "Programming language"
+msgstr ""
+
+#: plugins/project-wizard/wizard_gui.c:362
+msgid "C"
+msgstr "C"
+
+#: plugins/project-wizard/wizard_gui.c:370
+msgid "C++"
+msgstr "C++"
+
+#: plugins/project-wizard/wizard_gui.c:379
+msgid "Both C and C++"
+msgstr ""
+
+#: plugins/project-wizard/wizard_gui.c:386
+msgid "Target type"
+msgstr ""
+
+#: plugins/project-wizard/wizard_gui.c:402
+msgid "Executable target"
+msgstr ""
+
+#: plugins/project-wizard/wizard_gui.c:409
+msgid "Static library target"
+msgstr ""
+
+#: plugins/project-wizard/wizard_gui.c:415
+msgid "Dynamic library target"
+msgstr ""
+
+#: plugins/project-wizard/wizard_gui.c:491
+msgid "Enter a short description of the Project"
+msgstr ""
+
+#: plugins/project-wizard/wizard_gui.c:597
+msgid "Enter any additional Project options"
+msgstr ""
+
+#: plugins/project-wizard/wizard_gui.c:614
+msgid " Project Options "
+msgstr " Postavke projekta "
+
+#: plugins/project-wizard/wizard_gui.c:625
+msgid "Include GNU Copyright statement in file headings"
+msgstr ""
+
+#: plugins/project-wizard/wizard_gui.c:632
+msgid "Enable Gettext Support"
+msgstr ""
+
+#: plugins/project-wizard/wizard_gui.c:640
+msgid "Generate source code using glade or glademm"
+msgstr ""
+
+#: plugins/project-wizard/wizard_gui.c:647
+msgid "GNOME Menu Entry"
+msgstr ""
+
+#: plugins/project-wizard/wizard_gui.c:657
+msgid "Entry name:"
+msgstr ""
+
+#: plugins/project-wizard/wizard_gui.c:664
+msgid "Comment:"
+msgstr "Komentar:"
+
+#: plugins/project-wizard/wizard_gui.c:671
+msgid "Group:"
+msgstr "Grupa:"
+
+#: plugins/project-wizard/wizard_gui.c:713
+msgid "Needs terminal"
+msgstr ""
+
+#: plugins/project-wizard/wizard_gui.c:755
+msgid "Summary"
+msgstr "Sažetak"
+
+#: plugins/sample1/plugin.c:42
+msgid "_Sample action"
+msgstr ""
+
+#: plugins/sample1/plugin.c:43
+msgid "Sample action"
+msgstr ""
+
+#: plugins/sample1/plugin.c:83
+msgid "Sample file operations"
+msgstr ""
+
+#: plugins/sample1/plugin.c:88
+msgid "SamplePlugin"
+msgstr ""
+
+#: plugins/symbol-browser/an_symbol_view.c:55
+msgid "Classes"
+msgstr "Klase"
+
+#: plugins/symbol-browser/an_symbol_view.c:55
+msgid "Structs"
+msgstr "Strukture"
+
+#: plugins/symbol-browser/an_symbol_view.c:56
+msgid "Variables"
+msgstr "Varijable"
+
+#: plugins/symbol-browser/an_symbol_view.c:56
+msgid "Macros"
+msgstr "Makronaredbe"
+
+#. 0
+#: plugins/symbol-browser/an_symbol_view.c:282
+msgid "Goto Definition"
+msgstr ""
+
+#. 1
+#: plugins/symbol-browser/an_symbol_view.c:289
+msgid "Goto Declaration"
+msgstr ""
+
+#: plugins/symbol-browser/an_symbol_view.c:561
+msgid "Symbol"
+msgstr "Simbol"
+
+#: plugins/tools/anjuta-tools.c:1005
+msgid "Tool"
+msgstr "Alat"
+
+#: plugins/tools/anjuta-tools.c:1189
+msgid "Unable to build user interface for tool editor"
+msgstr ""
+
+#: plugins/tools/anjuta-tools.c:1385
+msgid "Are you sure you want to delete the '%s' tool?"
+msgstr ""
+
+#: plugins/tools/anjuta-tools.c:1487
+msgid "You must provide a tool name!"
+msgstr ""
+
+#: plugins/tools/anjuta-tools.c:1493
+msgid "You must provide a tool command!"
+msgstr ""
+
+#: plugins/tools/anjuta-tools.c:1508
+msgid "A tool with the name '%s' already exists!"
+msgstr ""
+
+#: plugins/tools/anjuta-tools.c:1792
+msgid "Unable to build user interface for tool help"
+msgstr ""
+
+#: plugins/tools/anjuta-tools.c:1813
+msgid "Meaning"
+msgstr "Značenje"
+
+#: plugins/tools/anjuta-tools.c:1882
+msgid "Unable to build user interface for tool parameters"
+msgstr ""
+
+#: plugins/tools/anjuta-tools.c:1886
+msgid "%s: Command line parameters"
+msgstr "%s: Parametri komandne linije"
+
+#: src/about.c:95
+msgid "Copyright (c) Naba Kumar"
+msgstr ""
+
+#: src/action-callbacks.c:74 src/mainmenu_callbacks.c:836
+msgid ""
+"Unable to display help. Please make sure Anjuta documentation package is "
+"install. It can be downloaded from http://anjuta.org"
+msgstr ""
+
+#: src/anjuta-actions.h:24
+msgid "_Quit"
+msgstr ""
+
+#: src/anjuta-actions.h:25
+msgid "Quit Anjuta IDE"
+msgstr ""
+
+#: src/anjuta-actions.h:34
+msgid "_View"
+msgstr ""
+
+#: src/anjuta-actions.h:38
+msgid "_Settings"
+msgstr "_Postavke"
+
+#: src/anjuta-actions.h:39
+msgid "_Preferences ..."
+msgstr "_Postavke ..."
+
+#: src/anjuta-actions.h:41
+msgid "Do you prefer coffee to tea? Check it out."
+msgstr ""
+
+#: src/anjuta-actions.h:43
+msgid "Set _Default Preferences"
+msgstr ""
+
+#: src/anjuta-actions.h:45
+msgid "But I prefer tea."
+msgstr ""
+
+#: src/anjuta-actions.h:47
+msgid "C_ustomize shortcuts"
+msgstr ""
+
+#: src/anjuta-actions.h:49
+msgid "Customize shortcuts associated with menu items"
+msgstr ""
+
+#: src/anjuta-actions.h:55
+msgid "The GNOME API pages"
+msgstr ""
+
+#: src/anjuta-actions.h:57
+msgid "Browse GNOME _API Pages"
+msgstr ""
+
+#: src/anjuta-actions.h:59
+msgid "Browse _Man Pages"
+msgstr ""
+
+#: src/anjuta-actions.h:61
+msgid "The good old manual pages"
+msgstr ""
+
+#: src/anjuta-actions.h:63
+msgid "Browse _Info Pages"
+msgstr ""
+
+#: src/anjuta-actions.h:65
+msgid "The good info pages"
+msgstr ""
+
+#: src/anjuta-actions.h:67
+msgid "_Context Help"
+msgstr "_Komentar"
+
+#: src/anjuta-actions.h:69
+msgid "Search help for the current word in the editor"
+msgstr ""
+
+#: src/anjuta-actions.h:71
+msgid "_Search a topic"
+msgstr ""
+
+#: src/anjuta-actions.h:72
+msgid "May I help you?"
+msgstr ""
+
+#: src/anjuta-actions.h:74
+msgid "Anjuta _Home Page"
+msgstr ""
+
+#: src/anjuta-actions.h:75
+msgid "Online documentation and resources"
+msgstr ""
+
+#: src/anjuta-actions.h:77
+msgid "_Libraries API references"
+msgstr ""
+
+#: src/anjuta-actions.h:78
+msgid "Online reference library for GDK, GLib, GNOME etc.."
+msgstr ""
+
+#: src/anjuta-actions.h:80
+msgid "Report _Bugs"
+msgstr ""
+
+#: src/anjuta-actions.h:81
+msgid "Submit a bug report for Anjuta"
+msgstr ""
+
+#: src/anjuta-actions.h:83
+msgid "Request _Features"
+msgstr ""
+
+#: src/anjuta-actions.h:85
+msgid "Submit a feature request for Anjuta"
+msgstr ""
+
+#: src/anjuta-actions.h:87
+msgid "Submit _patches"
+msgstr ""
+
+#: src/anjuta-actions.h:89
+msgid "Submit patches for Anjuta"
+msgstr ""
+
+#: src/anjuta-actions.h:91
+msgid "Ask a _question"
+msgstr ""
+
+#: src/anjuta-actions.h:93
+msgid "Submit a question for FAQs"
+msgstr ""
+
+#: src/anjuta-actions.h:97
+msgid "About Anjuta"
+msgstr ""
+
+#: src/anjuta-app.c:367
+msgid "Value doesn't exist"
+msgstr ""
+
+#: src/anjuta-app.c:650
+msgid "# * DO NOT EDIT OR RENAME THIS FILE ** Generated by Anjuta **\n"
+msgstr "# * NEMOJTE UREĐIVATI ILI MIJENJATI IME OVOJ DATOTECI ** Generira ju Anjuta **\n"
+
+#: src/anjuta-app.c:933
+msgid "Looking up symbol"
+msgstr ""
+
+#: src/anjuta-app.c:935
+msgid "Finding in Files ....\n"
+msgstr ""
+
+#: src/anjuta-callbacks.c:87 src/anjuta_cbs.c:149
+msgid ""
+"One or more files are not saved.\n"
+"Do you still want to exit?"
+msgstr ""
+
+#: src/anjuta-callbacks.c:360 src/anjuta_cbs.c:522
+msgid "Could not open file for writing"
+msgstr ""
+
+#: src/anjuta-callbacks.c:384 src/anjuta_cbs.c:546
+msgid ""
+"The file '%s' already exists.\n"
+"Do you want to replace it with the one you are saving?."
+msgstr ""
+
+#: src/anjuta_dirs.c:53
+msgid "Unable to create settings directory.\n"
+msgstr ""
+
+#: src/anjuta_gui.c:108
+msgid "Navigate"
+msgstr ""
+
+#: src/anjuta_gui.c:137 src/main_menubar.c:383
+msgid "Recent Files    "
+msgstr ""
+
+#: src/anjuta_info.c:51 src/anjuta_info.c:101
+msgid "Information"
+msgstr "Informacije"
+
+#: src/controls.c:210
+msgid "No tags"
+msgstr ""
+
+#: src/dnd.c:104
+msgid "File %s is not local."
+msgstr ""
+
+#: src/dnd.c:112
+msgid "Invalid filename %s."
+msgstr ""
+
+#: src/glade_iface.c:69
+msgid ""
+"Warning: Can not generate c/c++ source code.\n"
+"Warning: It is because either glade (for gtk/gnome projects) or glademm (for "
+"gtkmm/gnomemm projects) is not installed.\n"
+"Warning: Your generated project will still be fine, though.\n"
+msgstr ""
+
+#: src/glade_iface.c:108
+msgid "Cannot fork glade."
+msgstr ""
+
+#: src/glade_iface.c:148 src/glade_iface.c:229
+msgid "Cannot fork glade--."
+msgstr ""
+
+#: src/glade_iface.c:189
+msgid "Cannot fork glade-2."
+msgstr ""
+
+#: src/main.c:51 src/main.cpp:51
+msgid "Do not show the splashscreen"
+msgstr ""
+
+#: src/mainmenu_callbacks.c:545
+msgid "The executable is not up-to-date."
+msgstr ""
+
+#: src/mainmenu_callbacks.c:570
+msgid "Debugger is not running. Start it first."
+msgstr ""
+
+#: src/support.c:60 src/support.c:85
+#, c-format
+msgid "Couldn't find pixmap file: %s"
+msgstr "Ne mogu pronaći pixmap datoteku: %s"
+
+#: src/toolbar.c:105
+msgid "Detach"
+msgstr "Odspoji"
+
+#: src/toolbar.c:106
+msgid "Detach the current page"
+msgstr ""
+
+#: src/toolbar.c:115
+msgid "Search for the given string in the current file"
+msgstr ""
+
+#: src/toolbar.c:131
+msgid "Enter the string to search for"
+msgstr ""
+
+#: src/toolbar.c:137
+msgid "Go to the given line number in the current file"
+msgstr ""
+
+#: src/toolbar.c:144
+msgid "Enter the line number to go to"
+msgstr ""
+
+#: src/toolbar.c:151
+msgid "Show/Hide the Project window"
+msgstr ""
+
+#: src/toolbar.c:154
+msgid "Messages"
+msgstr "Poruke"
+
+#: src/toolbar.c:155
+msgid "Show/Hide the Message window"
+msgstr ""
+
+#: src/toolbar.c:160
+msgid "Context sensitive help"
+msgstr ""
+
+#: src/toolbar.c:214
+msgid "Open a Project"
+msgstr ""
+
+#: src/toolbar.c:224
+msgid "Save Project"
+msgstr "Spremiti projekt"
+
+#: src/toolbar.c:225
+msgid "Save the current Project"
+msgstr ""
+
+#: src/toolbar.c:236
+msgid "Close Project"
+msgstr ""
+
+#: src/toolbar.c:237
+msgid "Close the current Project"
+msgstr ""
+
+#: src/toolbar.c:251
+msgid "Compile the current file"
+msgstr ""
+
+#: src/toolbar.c:263
+msgid "Run configure"
+msgstr ""
+
+#: src/toolbar.c:275
+msgid "Build current file, or build the source directory of the Project"
+msgstr ""
+
+#: src/toolbar.c:286
+msgid "Build_all"
+msgstr ""
+
+#: src/toolbar.c:288
+msgid "Build from the top directory of the Project"
+msgstr ""
+
+#: src/toolbar.c:296
+msgid "Execute the program"
+msgstr ""
+
+#: src/toolbar.c:307
+msgid "Start the Debugger"
+msgstr ""
+
+#: src/toolbar.c:314
+msgid "Stop/interrupt compile or build"
+msgstr ""
+
+#: src/toolbar.c:383 src/toolbar.c:762
+msgid "Toggle"
+msgstr "Preklopi"
+
+#: src/toolbar.c:384
+msgid "Toggle bookmark at current location"
+msgstr ""
+
+#: src/toolbar.c:390
+msgid "Goto first bookmark in this document"
+msgstr ""
+
+#: src/toolbar.c:396
+msgid "Goto previous bookmark in this document"
+msgstr ""
+
+#: src/toolbar.c:401
+msgid "Goto next bookmark in this document"
+msgstr ""
+
+#: src/toolbar.c:406
+msgid "Goto last bookmark in this document"
+msgstr ""
+
+#: src/toolbar.c:415
+msgid "Prev"
+msgstr "Pret"
+
+#: src/toolbar.c:416
+msgid "Goto previous message in this document"
+msgstr ""
+
+#: src/toolbar.c:422
+msgid "Next"
+msgstr "Dalje"
+
+#: src/toolbar.c:423
+msgid "Goto next message in this document"
+msgstr ""
+
+#: src/toolbar.c:431
+msgid "Start"
+msgstr "Započni"
+
+#: src/toolbar.c:432
+msgid "Goto start of current code block"
+msgstr ""
+
+#: src/toolbar.c:438
+msgid "End"
+msgstr "Kraj"
+
+#: src/toolbar.c:439
+msgid "Goto end of current code block"
+msgstr ""
+
+#: src/toolbar.c:446
+msgid "Tags:"
+msgstr ""
+
+#: src/toolbar.c:455
+msgid "Search for the given tag in the current file"
+msgstr ""
+
+#: src/toolbar.c:470
+msgid "Enter the tag to jump to"
+msgstr ""
+
+#: src/toolbar.c:513
+msgid "Go or continue execution"
+msgstr ""
+
+#: src/toolbar.c:524
+msgid "Run"
+msgstr "Pokreni"
+
+#: src/toolbar.c:537
+msgid "Single step in execution"
+msgstr ""
+
+#: src/toolbar.c:548
+msgid "Step Over"
+msgstr "Prekorači"
+
+#: src/toolbar.c:549
+msgid "Step over the function"
+msgstr ""
+
+#: src/toolbar.c:559
+msgid "Step Out"
+msgstr "Iskorači"
+
+#: src/toolbar.c:560
+msgid "Step out of the function"
+msgstr ""
+
+#: src/toolbar.c:575
+msgid "Interrupt execution of the program"
+msgstr ""
+
+#: src/toolbar.c:588
+msgid "Breakpoint"
+msgstr "Mjesto prekida"
+
+#: src/toolbar.c:589
+msgid "Toggle breakpoint at cursor"
+msgstr ""
+
+#: src/toolbar.c:601
+msgid "Inspect or evaluate an expression"
+msgstr ""
+
+#: src/toolbar.c:614
+msgid "Display the current frame information"
+msgstr ""
+
+#: src/toolbar.c:640
+msgid "Signals"
+msgstr "Signali"
+
+#: src/toolbar.c:641
+msgid "kernel signals of the program"
+msgstr ""
+
+#: src/toolbar.c:652
+msgid "Registers"
+msgstr ""
+
+#: src/toolbar.c:653
+msgid "CPU registers and their contents"
+msgstr ""
+
+#: src/toolbar.c:667
+msgid "End the debugging session"
+msgstr ""
+
+#: src/toolbar.c:764
+msgid "Toggle current code fold hide/show"
+msgstr ""
+
+#: src/toolbar.c:775
+msgid "Close all"
+msgstr "Zatvori sve"
+
+#: src/toolbar.c:777
+msgid "Close all code folds in this document"
+msgstr ""
+
+#: src/toolbar.c:788
+msgid "Open all"
+msgstr ""
+
+#: src/toolbar.c:790
+msgid "Open all code folds in this document"
+msgstr ""
+
+#: src/toolbar.c:803
+msgid "Select"
+msgstr "Odaberi"
+
+#: src/toolbar.c:804
+msgid "Select current code block"
+msgstr ""
+
+#: src/toolbar.c:815
+msgid "Indent inc"
+msgstr ""
+
+#: src/toolbar.c:817
+msgid "Increase indentation of block/line"
+msgstr ""
+
+#: src/toolbar.c:828
+msgid "Indent dcr"
+msgstr ""
+
+#: src/toolbar.c:830
+msgid "Decrease indentation of block/line"
+msgstr ""
+
+#: src/toolbar.c:843
+msgid "Autoformat"
+msgstr "Automatsko oblikovanje"
+
+#: src/toolbar.c:845
+msgid "Automatically format the code"
+msgstr ""
+
+#: src/toolbar.c:857
+msgid "Configure style to use for auto format"
+msgstr ""
+
+#: src/toolbar.c:870
+msgid "Calltip"
+msgstr ""
+
+#: src/toolbar.c:870
+msgid "Show Calltip"
+msgstr ""
+
+#: src/toolbar.c:883
+msgid "Autocomplete"
+msgstr "Automatsko dovršavanje"
+
+#: src/toolbar.c:884
+msgid "Autocomplete word"
+msgstr ""
+
+#: widgets/cell-renderer-captioned-image.c:208
+msgid "Text to render"
+msgstr "Tekst za prikazivanje"
+
+#: widgets/cell-renderer-captioned-image.c:214
+msgid "Pixbuf Object"
+msgstr "_Objekt..."
+
+#: widgets/cell-renderer-captioned-image.c:215
+msgid "The pixbuf to render."
+msgstr "Pixbuf za iscrtavanje."
+
