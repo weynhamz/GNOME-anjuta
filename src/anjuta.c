@@ -1867,12 +1867,8 @@ plug_in_delete( AnjutaAddInPtr self )
 		g_module_close( self->m_Handle );
 
 	self->m_Handle	= NULL ;
-<<<<<<< anjuta.c
+	
 	g_free( self );
-=======
-
-	g_free( self );
->>>>>>> 1.21
 }
 
 
