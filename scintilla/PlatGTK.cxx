@@ -639,6 +639,7 @@ void Window::SetFont(Font &) {
 }
 
 void Window::SetCursor(Cursor curs) {
+	if(!id->window) return; // Varify if the widow exists.
 	switch (curs) {
 	case cursorText:
 		gdk_window_set_cursor(id->window, gdk_cursor_new(GDK_XTERM));

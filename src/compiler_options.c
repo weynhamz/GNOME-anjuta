@@ -87,6 +87,30 @@ gchar *anjuta_supports[][ANJUTA_SUPPORT_END_MARK] = {
 	 "",
 	 "gnome-config --version"}
 	,
+	{
+	"GTKMM",
+	 "C++ Bindings for GTK",
+	 "",
+	 "",
+	 "$(GTKMM_CFLAGS)",
+	 "$(GTKMM_LIBS)",
+	 "`gtkmm-config --cflags`",
+	 "`gtkmm-config --libs`",
+	 "",
+	 "gtkmm-config --version"}
+	 ,
+	{
+	 "GNOMEMM",
+	 "C++ bindings for GNOME",
+	 "",
+	 "",
+	 "$(GNOMEMM_CFLAGS)",
+	 "$(GNOMEMM_LIBS)",
+	 "`gnome-config --cflags gnomemm`",
+	 "`gnome-config --libs gnomemm`",
+	 "",
+	 "gnome-config --version"}
+	 ,
 	ANJUTA_SUPPORTS_END
 };
 

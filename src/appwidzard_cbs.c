@@ -69,13 +69,23 @@ on_druidpagestandard1_next (GnomeDruidPage * gnomedruidpage,
 	AppWidzard *aw;
 	aw = user_data;
 	if ( !(aw->prj_type == PROJECT_TYPE_GENERIC
-		|| aw->prj_type == PROJECT_TYPE_GTK))
+ 		|| aw->prj_type == PROJECT_TYPE_GTK
+ 		|| aw->prj_type == PROJECT_TYPE_GTKMM))
 	{
 		gtk_widget_set_sensitive (aw->widgets.menu_frame, TRUE);
 	}
 	else
 	{
 		gtk_widget_set_sensitive (aw->widgets.menu_frame, FALSE);
+	}
+	if (aw->prj_type == PROJECT_TYPE_GTKMM
+		|| aw->prj_type == PROJECT_TYPE_GNOMEMM)
+	{
+		   gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(aw->widgets.language_cpp_radio), TRUE);
+	}
+	else
+	{
+		   gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(aw->widgets.language_c_radio), TRUE);
 	}
 	gtk_widget_grab_focus (aw->widgets.prj_name_entry);
 	return FALSE;

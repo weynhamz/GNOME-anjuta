@@ -28,7 +28,7 @@
 #include <string.h>
 
 #include <gnome.h>
-
+#include <ccview.h>
 #include "resources.h"
 #include "anjuta.h"
 #include "tags_manager.h"
@@ -610,11 +610,14 @@ update_using_ctags (TagsManager * tm, gchar * filename)
 	int stdout_pipe[2], pid;
 	FILE *so_file;
 	int status;
+	gchar buffer[FILE_BUFFER_SIZE];
 	gchar tag_buff[512], type_buff[256], file_buff[512];
 	guint line;
 
+	/*
 	if (tags_manager_check_update (tm, filename) == TRUE)
 		return TRUE;
+	*/
 	if (anjuta_is_installed ("ctags", FALSE) == FALSE)
 		return FALSE;
 
@@ -648,13 +651,12 @@ update_using_ctags (TagsManager * tm, gchar * filename)
 		tags_manager_thaw (tm);
 		return FALSE;
 	}
-	while (fscanf
-	       (so_file, "%s %s %d %s", tag_buff, type_buff, &line,
-		file_buff) == 4)
+	while (fgets(buffer, FILE_BUFFER_SIZE, so_file))
 	{
-		if (ferror(so_file))
+		if (ferror(so_file) || feof(so_file))
 			break;
-		while (fgetc (so_file) != '\n') ;
+		if (sscanf(buffer, "%s %s %d %s", tag_buff, type_buff, &line, file_buff) != 4)
+			continue;
 		ti = g_malloc (sizeof (TagItem));
 		if (strcmp (type_buff, "function") == 0)
 			ti->type = function_t;
@@ -697,7 +699,6 @@ update_using_ctags (TagsManager * tm, gchar * filename)
 	return TRUE;
 }
 
-
 gboolean
 tags_manager_update (TagsManager * tm, gchar * filename)
 {
@@ -722,24 +723,50 @@ tags_manager_update (TagsManager * tm, gchar * filename)
 gboolean
 tags_manager_update_image (TagsManager * tm, GList * files)
 {
+	GList* node;
+	
 	if (tm == NULL)
 		return FALSE;
 	if (files == NULL)
 		return TRUE;
 	if (tm->update_in_progress)
 		return FALSE;
+	/*
 	if (g_list_length (files) == g_list_length (tm->file_list))
 		return TRUE;
-	tags_manager_freeze (tm);
 	tags_manager_clear (tm);
-	tm->update_file_list = glist_strings_dup (files);
-	tm->update_counter = 0;
-	tm->update_in_progress = TRUE;
-
-	anjuta_init_progress (_("Synchronizing and updating Tags Image ... hold on"),
-		g_list_length (files), on_tags_manager_updt_img_cancel, tm);
-
-	gtk_idle_add (on_tags_manager_on_idle, tm);
+	*/
+	tags_manager_freeze (tm);
+	tm->update_file_list = NULL;
+	node = files;
+	while (node)
+	{
+		gchar* fn =	anjuta_get_full_filename (node->data);
+		if(!fn) {node = g_list_next(node); continue;}
+		if (tags_manager_check_update (tm, fn) == FALSE)
+		{
+			tm->update_file_list = 
+				g_list_append(tm->update_file_list, g_strdup(node->data));
+		}
+		g_free (fn);
+		node = g_list_next(node);
+	}
+	if (tm->update_file_list)
+	{
+		tm->update_counter = 0;
+		tm->update_in_progress = TRUE;
+	
+		anjuta_init_progress (_("Synchronizing and updating Tags Image ... hold on"),
+			g_list_length (files), on_tags_manager_updt_img_cancel, tm);
+	
+		gtk_idle_add (on_tags_manager_on_idle, tm);
+	}
+	else
+	{
+		tags_manager_thaw(tm);
+		ccview_project_update(
+			CCVIEW_PROJECT(app->project_dbase->widgets.ccview));
+	}
 	return TRUE;
 }
 
@@ -760,6 +787,9 @@ on_tags_manager_on_idle (gpointer data)
 		glist_strings_free (tm->update_file_list);
 		tm->update_in_progress = FALSE;
 		tm->update_file_list = NULL;
+		tags_manager_save(tm);
+		ccview_project_update(
+			CCVIEW_PROJECT(app->project_dbase->widgets.ccview));
 		return FALSE;
 	}
 	if (app->project_dbase->project_is_open == FALSE)

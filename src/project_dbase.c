@@ -42,6 +42,7 @@
 #include "glade_iface.h"
 #include "compatibility_0.h"
 #include "defaults.h"
+#include "ccview.h"
 
 /* Including small pixmaps at compile time */
 /* So that these at least work when gnome pixmaps are not found */
@@ -74,6 +75,8 @@ gchar *project_type_map[]=
 	"GTK",
 	"GNOME",
 	"BONOBO",
+	"GTK--",
+	"GNOME--",
 	NULL
 };
 
@@ -227,14 +230,14 @@ gtree_insert_files (GtkWidget * ctree, GtkCTreeNode * parent,
 						       parent, NULL,
 						       dum_array, 5, pix_c,
 						       mask_c, pix_o, mask_o,
-						       FALSE, FALSE);
+						       TRUE, FALSE);
 		else
 			cnode =
 				gtk_ctree_insert_node (GTK_CTREE (ctree),
 						       parent, NULL,
 						       dum_array, 5, pix_c,
 						       mask_c, pix_o, mask_o,
-						       FALSE, FALSE);
+						       TRUE, FALSE);
 		full_fname = g_strconcat (dir_prefix, "/", node->data, NULL);
 		pfd =
 			project_file_data_new (parent, mod, full_fname);
@@ -377,6 +380,7 @@ project_dbase_destroy (ProjectDBase * p)
 	project_config_destroy (p->project_config);
 	
 	gtk_widget_unref (p->widgets.window);
+	gtk_widget_unref (p->widgets.ccview);
 	gtk_widget_unref (p->widgets.client_area);
 	gtk_widget_unref (p->widgets.client);
 	gtk_widget_unref (p->widgets.scrolledwindow);
@@ -474,6 +478,7 @@ project_dbase_show (ProjectDBase * p)
 			gtk_widget_show (p->widgets.window);
 		}
 		p->is_showing = TRUE;
+		gtk_widget_grab_focus (p->widgets.ctree);
 	}
 }
 
@@ -708,6 +713,8 @@ done:
 	p->top_proj_dir = g_dirname (p->proj_filename);
 	compiler_options_load (app->compiler_options, p->props);
 	src_paths_load (app->src_paths, p->props);
+	ccview_project_set_directory (CCVIEW_PROJECT(p->widgets.ccview),
+		p->top_proj_dir);
 	/* Project loading completed */
 
 	/* Now Project setup */
@@ -720,7 +727,7 @@ done:
 	if (show_project)
 		project_dbase_show (p);
 	return TRUE;
-	
+
 go_error:
 	prop_clear (p->props);
 	if (!error_shown) /* If error is not yet shown */
@@ -957,6 +964,7 @@ project_dbase_save_project (ProjectDBase * p)
 	if (src_paths_save (app->src_paths, fp) == FALSE)
 		goto error_show;
 	tags_manager_save (app->tags_manager);
+	ccview_project_save(CCVIEW_PROJECT(app->project_dbase->widgets.ccview));
 	p->is_saved = TRUE;
 	fclose (fp);
 	source_write_build_files (p);
@@ -1023,26 +1031,23 @@ project_dbase_load_yourself (ProjectDBase * p, PropsID props)
 void
 project_dbase_update_tags_image(ProjectDBase* p)
 {
+	GList *src_files;
+	gchar* src_dir;
 	if (p->project_is_open == FALSE)
 		return;
-	if (preferences_get_int (app->preferences, AUTOMATIC_TAGS_UPDATE))
+	
+	src_dir = project_dbase_get_module_dir (p, MODULE_SOURCE);
+	if (src_dir)
 	{
-		GList *src_files;
-		gchar* src_dir;
+		gchar* src_path;
 		
-		src_dir = project_dbase_get_module_dir (p, MODULE_SOURCE);
-		if (src_dir)
-		{
-			gchar* src_path;
-			
-			src_path = g_strconcat (src_dir, "/", NULL);
-			src_files = glist_from_data (p->props, "module.source.files");
-			glist_strings_prefix (src_files, src_path);
-			tags_manager_update_image (app->tags_manager, src_files);
-			glist_strings_free (src_files);
-			g_free (src_path);
-			g_free (src_dir);
-		}
+		src_path = g_strconcat (src_dir, "/", NULL);
+		src_files = glist_from_data (p->props, "module.source.files");
+		glist_strings_prefix (src_files, src_path);
+		tags_manager_update_image (app->tags_manager, src_files);
+		glist_strings_free (src_files);
+		g_free (src_path);
+		g_free (src_dir);
 	}
 }
 
@@ -1070,9 +1075,10 @@ project_dbase_close_project (ProjectDBase * p)
 				return;
 		}
 	}
-	project_dbase_update_menu (p);
+	/* project_dbase_update_menu (p); */
 	project_dbase_hide (p);
 	project_dbase_clean_left (p);
+	ccview_project_clear(CCVIEW_PROJECT(p->widgets.ccview));
 }
 
 void

@@ -138,6 +138,14 @@ create_new_project (AppWidzard * aw)
 	{
 		fprintf(fp, "compiler.options.supports=BONOBO\n\n");
 	}
+	else if (aw->prj_type == PROJECT_TYPE_GTKMM)
+	{
+		fprintf(fp, "compiler.options.supports=GTKMM\n\n");
+	}
+	else if (aw->prj_type == PROJECT_TYPE_GNOMEMM)
+	{
+		fprintf(fp, "compiler.options.supports=GNOMEMM\n\n");
+	}
 	fclose(fp);
 	messages_append (app->messages, _("Loading  project ...\n"), MESSAGE_BUILD);
 	

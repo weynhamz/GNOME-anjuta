@@ -509,13 +509,25 @@ on_edit_app_gui1_activate (GtkMenuItem * menuitem, gpointer user_data)
 void
 on_messages1_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
-	messages_show (app->messages, MESSAGE_TYPE_END);
+	gboolean state;
+	state = app->messages->is_showing;
+	if(state) {
+		messages_hide (app->messages);
+	} else {
+		messages_show (app->messages, MESSAGE_TYPE_END);
+	}
 }
 
 void
 on_project_listing1_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
-	project_dbase_show (app->project_dbase);
+	gboolean state;
+	state = app->project_dbase->is_showing;
+	if(state) {
+		project_dbase_hide (app->project_dbase);
+	} else {
+		project_dbase_show (app->project_dbase);
+	}
 }
 
 void
@@ -982,7 +994,7 @@ on_update_tags1_activate (GtkMenuItem * menuitem, gpointer user_data)
 	gint i;
 
 	tags_manager_freeze (app->tags_manager);
-	tags_manager_clear (app->tags_manager);
+	/*tags_manager_clear (app->tags_manager);*/
 
 	if (app->project_dbase->project_is_open)
 	{
@@ -990,6 +1002,7 @@ on_update_tags1_activate (GtkMenuItem * menuitem, gpointer user_data)
 	}
 	else
 	{
+		tags_manager_clear (app->tags_manager);
 		for (i = 0; i < g_list_length (app->text_editor_list); i++)
 		{
 			te = g_list_nth_data (app->text_editor_list, i);

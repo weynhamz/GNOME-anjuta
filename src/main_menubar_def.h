@@ -501,13 +501,13 @@ static GnomeUIInfo zoom_text1_submenu_uiinfo[] = {
 static GnomeUIInfo view1_menu_uiinfo[] = {
 	{
 	 GNOME_APP_UI_ITEM, N_("_Messages"),
-	 N_("Show the message window"),
+	 N_("Show/Hide the message window"),
 	 on_messages1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_ALIGN_LEFT,
 	 GDK_F1, GDK_CONTROL_MASK, NULL},
 	{
 	 GNOME_APP_UI_ITEM, N_("_Project Listing"),
-	 N_("Show the project window"),
+	 N_("Show/Hide the project window"),
 	 on_project_listing1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_ALIGN_LEFT,
 	 GDK_F2, GDK_CONTROL_MASK, NULL},

@@ -44,12 +44,11 @@ create_about_gui ()
 
 	about_imgfile = anjuta_res_get_pixmap_file ("anjuta_logo.png");
 	about_gui = gnome_about_new ("Anjuta", VERSION,
-		_("Copyright (c) 1999 Naba Kumar"),
+		_("Copyright (c) 1999-2001 Naba Kumar."),
 		authors,
 		NULL, about_imgfile);
 	if(about_imgfile)
 		g_free (about_imgfile);
-	gtk_widget_set_uposition (about_gui, 200, 150);
 	gtk_window_set_modal (GTK_WINDOW (about_gui), FALSE);
 	gtk_window_set_position (GTK_WINDOW (about_gui), GTK_WIN_POS_CENTER);
 

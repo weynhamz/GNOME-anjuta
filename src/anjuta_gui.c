@@ -28,6 +28,7 @@
 #include "anjuta.h"
 #include "resources.h"
 #include "main_menubar.h"
+#include "notebook.h"
 
 void
 create_anjuta_gui (AnjutaApp * appl)
@@ -293,7 +294,7 @@ create_anjuta_gui (AnjutaApp * appl)
 	gtk_widget_show (pixmap);
 	gtk_container_add (GTK_CONTAINER (button2), pixmap);
 
-	anjuta_notebook = gtk_notebook_new ();
+	anjuta_notebook = notebook_new ();
 	gtk_widget_ref (anjuta_notebook);
 	gtk_widget_show (anjuta_notebook);
 	gtk_notebook_set_show_border (GTK_NOTEBOOK (anjuta_notebook), TRUE);

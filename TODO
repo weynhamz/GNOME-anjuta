@@ -1,18 +1,38 @@
 Todo List:
--------
+----------
 	o New files
+	o Multiple files import.
 	o Helps
 	o Comments in source files
 	
-	o App widzards
+	o App wizards
 	o Compiler options: supports
+	o Different types of projects: executable/library/shared-library etc ...
+	o If any text is edited or changed in an open pane in the IDE, then the
+	  filename on the tab at the top of that pane could change colour.
+	o Being able to open a source rpm (.src.rpm) or a .tgz tarball and have it
+	  imported as a project.
 
 	o Debugger optimization.
-	o Accelerators.
 	o Gnome Print
 
 	o Confirm root before program installation.
 	o Utilities.
 	o Integration with glade, gtranslator, eog and other bonobo components
+	o Integrate ccview class viewer.
 	
-	o Configurable editing short-cut keys.
+	o Configurable editing short-cut keys (Accelerators).
+	o Enabling/disabling calltips in preferences.
+	o Double/single click open file in preferences.
+
+BUGS:
+-----
+1) Core dumps on three file imports in a sequence.
+
+2) Gdb Mismatch with Mandrak 8 distribution. Process ID not properly
+recognized with gdb v5.0.
+
+3) In a C++ projects, checking for the gtkmm and gnomemm packages
+
+4) For whatever reason db1-devel_1.85-4mdk was not installed by default and
+ld gave me errors (can't find -ldb1). Checking for db1 depenency (both rpm and configure).

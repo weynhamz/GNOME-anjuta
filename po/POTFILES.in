@@ -158,5 +158,7 @@ src/defaults.h
 src/about.h
 src/resources.c
 src/resources.h
+src/notebook.c
+src/notebook.h
 
 

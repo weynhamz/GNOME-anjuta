@@ -13,6 +13,14 @@ command line tools with the ease of graphical user interface of gnome.
 <PROJECT_DESCRIPTION_END>
 <CONFIG_PROGS_START>
 dnl ***************************************************************************
+dnl Check for Gnome XML
+dnl ***************************************************************************
+GNOME_XML_CHECK
+
+dnl Initialize xml-i18n-tools
+AM_PROG_XML_I18N_TOOLS
+
+dnl ***************************************************************************
 dnl Check for ScrollKeeper
 dnl ***************************************************************************
 AC_PATH_PROG(SCROLLKEEPER_CONFIG, scrollkeeper-config,no)
@@ -23,6 +31,8 @@ SCROLLKEEPER_REQUIRED=0.1.4
 AC_SUBST(SCROLLKEEPER_REQUIRED)
 <CONFIG_PROGS_END>
 <CONFIG_LIBS_START>
+dnl FIXME: Check for libdb1.a
+AC_CHECK_LIB(db1,main)
 <CONFIG_LIBS_END>
 <CONFIG_HEADERS_START>
 <CONFIG_HEADERS_END>
@@ -63,7 +73,7 @@ project.source.target=anjuta
 
 project.has.gettext=1
 
-project.programming.language=C
+project.programming.language=C_C++
 
 project.menu.entry=Anjuta C/C++ IDE
 project.menu.group=Development
@@ -75,8 +85,8 @@ project.configure.options=--prefix=/usr
 
 anjuta.program.arguments=
 
-project.config.disable.overwriting=1 1 1 1 1 1 1 1 1 
-project.config.extra.modules.before=scintilla widgets manuals omf-install
+project.config.disable.overwriting=0 0 0 0 0 0 0 0 0 
+project.config.extra.modules.before=scintilla ccview widgets manuals omf-install
 project.config.extra.modules.after=launcher
 
 module.incude.name=include
@@ -240,7 +250,9 @@ module.source.files=\
 	defaults.h\
 	about.h\
 	resources.c\
-	resources.h
+	resources.h\
+	notebook.c\
+	notebook.h
 
 module.pixmap.name=pixmaps
 module.pixmap.type=
@@ -372,7 +384,7 @@ module.pixmap.files=\
 
 module.data.name=data
 module.data.type=
-module.data.expanded=1
+module.data.expanded=0
 module.data.files=\
 	anjuta.properties\
 	gdb.init\
@@ -386,20 +398,21 @@ module.data.files=\
 	autogen.sh.generic\
 	linux-gnome-c.api\
 	tags2api.py\
+	autogen.sh.gtkmm\
+	autogen.sh.gnomemm
 
 module.help.name=help
 module.help.type=
-module.help.expanded=1
-module.help.files=\
-	topic.dat
+module.help.expanded=0
+module.help.files=
 
 module.doc.name=doc
 module.doc.type=
-module.doc.expanded=1
+module.doc.expanded=0
 module.doc.files=\
 	ScintillaDoc.html
 
-module.po.expanded=1
+module.po.expanded=0
 module.po.files=\
 	ja.po\
 	tr.po\
@@ -412,12 +425,14 @@ compiler.options.supports=GNOME
 compiler.options.include.paths=\
 	../scintilla/include\
 	../widgets\
+	../ccview\
 	..\
 	.
 
 compiler.options.library.paths=\
 	../scintilla\
-	../widgets
+	../widgets\
+	../ccview
 
 compiler.options.libraries=\
 	scintilla\
@@ -432,8 +447,10 @@ compiler.options.libraries=\
 	*../scintilla/LexVB.o\
 	*../scintilla/LexPascal.o\
 	*../scintilla/LexAVE.o\
-	widgets
-compiler.options.libraries.selected=1 1 1 1 1 1 1 1 1 1 1 1 1 
+	widgets\
+	ccview\
+	xml
+compiler.options.libraries.selected=1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 
 
 compiler.options.defines=\
 	HAVE_CONFIG_H
@@ -451,5 +468,6 @@ compiler.options.other.l.options=
 project.source.paths=\
 	scintilla\
 	launcher\
-	widgets
+	widgets\
+	ccview
 

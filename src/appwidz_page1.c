@@ -47,10 +47,16 @@ on_widzard_app_icon_select (GnomeIconList * gil, gint num,
   case 2:
     aw->prj_type = PROJECT_TYPE_GNOME;
     break;
-  case 3:
+   case 3:
+ 	aw->prj_type = PROJECT_TYPE_GTKMM;
+    	break;
+  case 4:
+ 	aw->prj_type = PROJECT_TYPE_GNOMEMM;
+  	break;
+  case 5:
     aw->prj_type = PROJECT_TYPE_BONOBO;
     break;
-  default: /* Invalid project type */
+ default: /* Invalid project type */
     aw->prj_type = PROJECT_TYPE_END_MARK;
     break;
   }
@@ -68,7 +74,7 @@ create_app_widzard_page1 (AppWidzard * aw)
   GtkWidget *label2;
   GtkWidget *druid_vbox1;
 
-  gchar *icon1_file, *icon2_file, *icon3_file, *icon4_file;
+  gchar *icon1_file, *icon2_file, *icon3_file, *icon4_file, *icon5_file, *icon6_file;
 
   frame = gtk_frame_new (NULL);
   gtk_widget_show (frame);
@@ -115,7 +121,9 @@ create_app_widzard_page1 (AppWidzard * aw)
   icon1_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_APP_GENERIC);
   icon2_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_APP_GTK);
   icon3_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_APP_GNOME);
-  icon4_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_APP_COMPONENT);
+  icon4_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_APP_GTKMM);
+  icon5_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_APP_GNOMEMM);
+  icon6_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_APP_COMPONENT);
 
   if (icon1_file)
 	  gnome_icon_list_append (GNOME_ICON_LIST (iconlist1),
@@ -131,14 +139,24 @@ create_app_widzard_page1 (AppWidzard * aw)
 
   if (icon4_file)
 	  gnome_icon_list_append (GNOME_ICON_LIST (iconlist1),
-			  icon4_file, _("Gnome Bonobo component"));
+			  icon4_file, _("Gtk-- based project"));
+  
+  if (icon5_file)
+	  gnome_icon_list_append (GNOME_ICON_LIST (iconlist1),
+ 			  icon5_file, _("Gnome-- based project"));
+  
+  if (icon6_file)
+	  gnome_icon_list_append (GNOME_ICON_LIST (iconlist1),
+			  icon6_file, _("Gnome Bonobo component"));
 
   string_free  (icon1_file);
   string_free (icon2_file);
   string_free (icon3_file);
   string_free (icon4_file);
+  string_free (icon5_file);
+  string_free (icon6_file);
 
   gtk_signal_connect (GTK_OBJECT (iconlist1), "select_icon",
 		      GTK_SIGNAL_FUNC (on_widzard_app_icon_select), aw);
-  gnome_icon_list_select_icon (GNOME_ICON_LIST (iconlist1), 3);
+  gnome_icon_list_select_icon (GNOME_ICON_LIST (iconlist1), 2);
 }

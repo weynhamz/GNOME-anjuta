@@ -53,6 +53,8 @@ enum
 	PROJECT_TYPE_GTK,
 	PROJECT_TYPE_GNOME,
 	PROJECT_TYPE_BONOBO,
+	PROJECT_TYPE_GTKMM,
+	PROJECT_TYPE_GNOMEMM,
 	PROJECT_TYPE_END_MARK
 };
 
@@ -88,6 +90,7 @@ struct _ProjectDBaseGui
 	GtkWidget *window;
 	GtkWidget *client_area;
 	GtkWidget *client;
+	GtkWidget *ccview; 
 	GtkWidget *scrolledwindow;
 	GtkWidget *ctree;
 	GtkWidget *menu;

@@ -99,7 +99,7 @@ gboolean parse_error_line(gchar *line, gchar **filename, int *lineno);
 /*  Functions that do not dynamic allocate memory. Return value should not be g_freed */
 /***********************************************************************************/
 
-#define string_free(str) if (str) g_free(str);
+void string_free(gchar* str);
 
 /* Get a fixed font */
 GdkFont* get_fixed_font (void);

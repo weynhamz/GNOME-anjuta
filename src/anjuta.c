@@ -199,7 +199,7 @@ anjuta_append_text_editor (gchar * filename)
 
 	cur_page = anjuta_get_current_text_editor ();
 	te = text_editor_new (filename, cur_page, app->preferences);
-	g_return_val_if_fail (te != NULL, NULL);
+	if (te == NULL) return NULL;
 	gtk_signal_disconnect_by_func (GTK_OBJECT (app->widgets.notebook),
 				       GTK_SIGNAL_FUNC
 				       (on_anjuta_notebook_switch_page),
@@ -710,8 +710,7 @@ gboolean anjuta_save_yourself (FILE * stream)
 		compiler_options_save (app->compiler_options, stream);
 
 	command_editor_save_yourself (app->command_editor, stream);
-	if (app->project_dbase->project_is_open == FALSE)
-		command_editor_save (app->command_editor, stream);
+	command_editor_save (app->command_editor, stream);
 
 	src_paths_save_yourself (app->src_paths, stream);
 	if (app->project_dbase->project_is_open == FALSE)

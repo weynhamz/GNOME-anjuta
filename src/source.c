@@ -159,6 +159,12 @@ source_write_autogen_sh (ProjectDBase * data)
 	case PROJECT_TYPE_GTK:
 		srcbuffer = g_strconcat (app->dirs->data, "/autogen.sh.gtk", NULL);
 		break;
+	case PROJECT_TYPE_GTKMM:
+		srcbuffer = g_strconcat (app->dirs->data, "/autogen.sh.gtkmm", NULL);
+		break;
+	case PROJECT_TYPE_GNOMEMM:
+		srcbuffer = g_strconcat (app->dirs->data, "/autogen.sh.gnomemm", NULL);
+		break;
 	case PROJECT_TYPE_GNOME:
 	case PROJECT_TYPE_BONOBO:
 		srcbuffer = g_strconcat (app->dirs->data, "/autogen.sh.gnome", NULL);
@@ -200,14 +206,17 @@ source_write_configure_in (ProjectDBase * data)
 {
 	FILE *fp;
 	gchar *filename, *actual_file, *target, *version;
-	gint type, i;
+	gint type, lang_type, i;
 	GList *list, *node;
 
 	g_return_val_if_fail (data != NULL, FALSE);
 
 	type = project_dbase_get_project_type(data);
 	g_return_val_if_fail (type < PROJECT_TYPE_END_MARK, FALSE);
-
+	
+	lang_type = project_dbase_get_language (data);
+	g_return_val_if_fail (lang_type < 	PROJECT_PROGRAMMING_LANGUAGE_END_MARK, FALSE);
+	
 	filename = get_a_tmp_file();
 	actual_file = g_strconcat (data->top_proj_dir, "/configure.in", NULL);
 
@@ -228,23 +237,38 @@ source_write_configure_in (ProjectDBase * data)
 	 * using a file unique to the project. */
 	fprintf (fp,
 		 "dnl Process this file with autoconf to produce a configure script.\n"
-		"dnl Created by Anjuta - will be overwritten\n"
-		"dnl If you don't want it to overwrite it,\n"
-		"dnl \tPlease disable it in the Anjtua Project configuration\n"
+		 "dnl Created by Anjuta - will be overwritten\n"
+		 "dnl If you don't want it to overwrite it,\n"
+		 "dnl \tPlease disable it in the Anjtua Project configuration\n"
 		 "\n"
 		 "AC_INIT(configure.in)\n"
 		 "AM_INIT_AUTOMAKE(%s, %s)\n"
 		 "AM_CONFIG_HEADER(config.h)\n"
 		 "\n"
-		 "AC_ISC_POSIX\n"
-		 "AC_PROG_CC\n"
-		 "AC_PROG_CXX\n"
-		 "AM_PROG_CC_STDC\n"
-		 "AC_HEADER_STDC\n", target, version);
+		 "AC_ISC_POSIX\n", target, version);
+	switch (lang_type)
+	{
+		case PROJECT_PROGRAMMING_LANGUAGE_C:
+			fprintf (fp, "AC_PROG_CC\n");
+			break;
+		case PROJECT_PROGRAMMING_LANGUAGE_CPP:
+			fprintf (fp, "AC_PROG_CXX\n");
+			break;
+		case PROJECT_PROGRAMMING_LANGUAGE_C_CPP:
+			fprintf (fp, "AC_PROG_CC\n");
+			fprintf (fp, "AC_PROG_CXX\n");
+			break;
+		default:
+			fprintf (fp, "AC_PROG_CC\n");
+			break;
+	}
+	fprintf(fp, "AM_PROG_CC_STDC\n"
+		 "AC_HEADER_STDC\n");
 	switch (type)
 	{
 	case PROJECT_TYPE_BONOBO:
 	case PROJECT_TYPE_GNOME:
+	case PROJECT_TYPE_GNOMEMM:
 		fprintf (fp,
 			 "\n"
 			 "dnl Pick up the Gnome macros.\n"
@@ -253,12 +277,22 @@ source_write_configure_in (ProjectDBase * data)
 			 "dnl Gnome macros.\n"
 			 "GNOME_INIT\n"
 			 "GNOME_COMPILE_WARNINGS\nGNOME_X_CHECKS\n");
+		if (type == PROJECT_TYPE_GNOMEMM)
+		{
+				/* Maybe there will be some Gnome-- checks in the future*/
+		}
 		break;
 	case PROJECT_TYPE_GTK:
 		fprintf (fp,
 			 "\n"
 			 "AM_PATH_GTK(1.2.0, ,\n"
 			 "            AC_MSG_ERROR(Cannot find GTK: Is gtk-config in path?))\n");
+		break;
+	case PROJECT_TYPE_GTKMM:
+		fprintf(fp, 
+			"\n"
+			"AM_PATH_GTKMM(1.2.0, ,\n"
+			"								AC_MSG_ERROR(Cannot find GTK--: Is gtkmm-config in path?))\n");
 		break;
 	case PROJECT_TYPE_GENERIC:
 		break;
@@ -278,7 +312,7 @@ source_write_configure_in (ProjectDBase * data)
 			 "dnl Languages which your application supports\n"
 			 "ALL_LINGUAS=\"");
 		files = project_dbase_get_module_files (data, MODULE_PO);
-		node = files;
+		node = glist_strings_sort (files);
 		while (node)
 		{
 			if (node->data)
@@ -387,7 +421,8 @@ source_write_configure_in (ProjectDBase * data)
 			 "intl/Makefile\n"
 			 "po/Makefile.in\n");
 	}
-	if (type == PROJECT_TYPE_GNOME || type == PROJECT_TYPE_BONOBO)
+	if (type == PROJECT_TYPE_GNOME || type == PROJECT_TYPE_BONOBO
+			|| type == PROJECT_TYPE_GNOMEMM)
 	{
 		fprintf (fp, "macros/Makefile\n");
 	}
@@ -443,7 +478,8 @@ source_write_configure_in (ProjectDBase * data)
 	}
 	glist_strings_free (list);
 
-	if (type == PROJECT_TYPE_GNOME || type == PROJECT_TYPE_BONOBO)
+	if (type == PROJECT_TYPE_GNOME || type == PROJECT_TYPE_BONOBO
+			|| type == PROJECT_TYPE_GNOMEMM)
 	{
 		fprintf (fp, "%s.desktop\n", target);
 	}
@@ -487,7 +523,9 @@ source_write_toplevel_makefile_am (ProjectDBase * data)
 
 	if (prop_get_int (data->props, "project.has.gettext", 1))
 		fprintf (fp, " intl po");
-	if (type != PROJECT_TYPE_GENERIC && type != PROJECT_TYPE_GTK)
+	if (type == PROJECT_TYPE_GNOME
+		|| type == PROJECT_TYPE_GNOMEMM
+		|| type == PROJECT_TYPE_BONOBO)
 		fprintf (fp, " macros");
 
 	if (data->project_config->extra_modules_before)
@@ -738,6 +776,14 @@ source_write_executable_source_files (ProjectDBase * data)
 	if (type == PROJECT_TYPE_GTK)
 	{
 		fprintf (fp, " \\\n\t`gtk-config --cflags`");
+	}
+	if (type == PROJECT_TYPE_GTKMM)
+	{
+		fprintf(fp, "\\\n\t`gtkmm-config --cflags`");
+	}
+	if (type == PROJECT_TYPE_GNOMEMM)
+	{
+		fprintf(fp, "\\\n\t`$GNOME_CONFIG --cflags gnomemm");
 	}
 	compiler_options_set_prjcflags_in_file (app->compiler_options, fp);
 	fprintf (fp, "\n\n");
@@ -1376,12 +1422,13 @@ source_write_build_files (ProjectDBase * data)
 		case PROJECT_TYPE_GENERIC:
 			break;
 		case PROJECT_TYPE_GTK:
-			ret = source_write_glade_file (data);
+		case PROJECT_TYPE_GTKMM:
+		ret = source_write_glade_file (data);
 			if (!ret) return FALSE;
-
 			break;
 		case PROJECT_TYPE_GNOME:
 		case PROJECT_TYPE_BONOBO:
+		case PROJECT_TYPE_GNOMEMM:
 			ret = source_write_desktop_entry (data);
 			if (!ret) return FALSE;
 			ret = source_write_glade_file (data);

@@ -7,7 +7,7 @@
 INCLUDES = \
 	-I$(top_srcdir)/intl \
 	$(GNOME_INCLUDEDIR)\
-	 -I../scintilla/include -I../widgets -I.. -I.\
+	 -I../scintilla/include -I../widgets -I../ccview -I.. -I.\
 	 -DHAVE_CONFIG_H\
 	 -Wall -Wimplicit -Wreturn-type -Wunused -Wswitch -Wcomment -Wuninitialized -Wparentheses -Wtraditional -Wpointer-arith -Wmissing-prototypes\
 	 -O1\
@@ -168,11 +168,13 @@ anjuta_SOURCES = \
 	defaults.h\
 	about.h\
 	resources.c\
-	resources.h
+	resources.h\
+	notebook.c\
+	notebook.h
 
 anjuta_LDADD =  \
 	$(INTLLIBS) \
 	$(GNOME_LIBDIR) $(GNOMEUI_LIBS)\
-	 -L../scintilla -L../widgets\
-	 -lscintilla ../scintilla/LexCPP.o ../scintilla/LexConf.o ../scintilla/LexHTML.o ../scintilla/LexLua.o ../scintilla/LexOthers.o ../scintilla/LexPerl.o ../scintilla/LexPython.o ../scintilla/LexSQL.o ../scintilla/LexVB.o ../scintilla/LexPascal.o ../scintilla/LexAVE.o -lwidgets
+	 -L../scintilla -L../widgets -L../ccview\
+	 -lscintilla ../scintilla/LexCPP.o ../scintilla/LexConf.o ../scintilla/LexHTML.o ../scintilla/LexLua.o ../scintilla/LexOthers.o ../scintilla/LexPerl.o ../scintilla/LexPython.o ../scintilla/LexSQL.o ../scintilla/LexVB.o ../scintilla/LexPascal.o ../scintilla/LexAVE.o -lwidgets -lccview -lxml
 

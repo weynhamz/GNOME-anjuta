@@ -122,6 +122,8 @@
 # define ANJUTA_PIXMAP_APP_GENERIC "appwid_console.xpm"
 # define ANJUTA_PIXMAP_APP_GTK "appwid_draw.xpm"
 # define ANJUTA_PIXMAP_APP_GNOME "appwid_wid.xpm"
+# define ANJUTA_PIXMAP_APP_GTKMM "appwid_cd.xpm"
+# define ANJUTA_PIXMAP_APP_GNOMEMM "appwid_data.xpm"
 
 # define ANJUTA_PIXMAP_RED_LED "ledred.xpm"
 # define ANJUTA_PIXMAP_GREEN_LED "ledgreen.xpm"

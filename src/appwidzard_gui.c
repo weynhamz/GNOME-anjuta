@@ -31,7 +31,7 @@
 #include "resources.h"
 
 #define WIDZARD_START_MESG \
-"Application Widzard  will generate the basic\n\
+"Application Wizard  will generate the basic\n\
 skelleton  for  your  application  including  all\n\
 the build  files. It  will promt you for the basic\n\
 initial  structure for  the application you want\n\
@@ -94,7 +94,7 @@ create_app_widzard_gui (AppWidzard * aw)
 
 	window1 = gtk_window_new (GTK_WINDOW_TOPLEVEL);
 	gtk_window_set_title (GTK_WINDOW (window1),
-			      _("Gnome Application Widzard"));
+			      _("Gnome Application Wizard"));
 	gtk_window_set_position (GTK_WINDOW (window1), GTK_WIN_POS_CENTER);
 
 	druid1 = gnome_druid_new ();
@@ -119,7 +119,7 @@ create_app_widzard_gui (AppWidzard * aw)
 	gnome_druid_page_start_set_title (GNOME_DRUID_PAGE_START
 					  (druidpagestart1),
 					  _
-					  ("Gnome Application Widzard:     Page 1 of 6"));
+					  ("Gnome Application Wizard:     Page 1 of 6"));
 	gnome_druid_page_start_set_text (GNOME_DRUID_PAGE_START
 					 (druidpagestart1),
 					 WIDZARD_START_MESG);
@@ -148,7 +148,7 @@ create_app_widzard_gui (AppWidzard * aw)
 	gnome_druid_page_standard_set_title (GNOME_DRUID_PAGE_STANDARD
 					     (druidpagestandard1),
 					     _
-					     ("Gnome Application Widzard:     Page 2 of 6"));
+					     ("Gnome Application Wizard:     Page 2 of 6"));
 	gnome_druid_page_standard_set_logo (GNOME_DRUID_PAGE_STANDARD
 					    (druidpagestandard1),
 					    anjuta_res_get_image  ("interface.xpm"));
@@ -172,7 +172,7 @@ create_app_widzard_gui (AppWidzard * aw)
 						   &druidpagestandard2_title_color);
 	gnome_druid_page_standard_set_title (GNOME_DRUID_PAGE_STANDARD
 					     (druidpagestandard2),
-					     _("Gnome Application Widzard:     Page 3 of 6"));
+					     _("Gnome Application Wizard:     Page 3 of 6"));
 	gnome_druid_page_standard_set_logo (GNOME_DRUID_PAGE_STANDARD
 					    (druidpagestandard2),
 					    anjuta_res_get_image  ("interface.xpm"));
@@ -197,7 +197,7 @@ create_app_widzard_gui (AppWidzard * aw)
 	gnome_druid_page_standard_set_title (GNOME_DRUID_PAGE_STANDARD
 					     (druidpagestandard3),
 					     _
-					     ("Gnome Application Widzard:     Page 4 of 6"));
+					     ("Gnome Application Wizard:     Page 4 of 6"));
 	gnome_druid_page_standard_set_logo (GNOME_DRUID_PAGE_STANDARD
 					    (druidpagestandard3),
 					    anjuta_res_get_image  ("interface.xpm"));
@@ -221,7 +221,7 @@ create_app_widzard_gui (AppWidzard * aw)
 	gnome_druid_page_standard_set_title (GNOME_DRUID_PAGE_STANDARD
 					     (druidpagestandard4),
 					     _
-					     ("Gnome Application Widzard:     Page 5 of 6"));
+					     ("Gnome Application Wizard:     Page 5 of 6"));
 	gnome_druid_page_standard_set_logo (GNOME_DRUID_PAGE_STANDARD
 					    (druidpagestandard4),
 					    anjuta_res_get_image  ("interface.xpm"));
@@ -244,7 +244,7 @@ create_app_widzard_gui (AppWidzard * aw)
 						 &druidpagefinish1_title_color);
 	gnome_druid_page_finish_set_title (GNOME_DRUID_PAGE_FINISH
 					   (druidpagefinish1),
-					   _("Gnome Application Widzard:     Page 6 of 6"));
+					   _("Gnome Application Wizard:     Page 6 of 6"));
 	gnome_druid_page_finish_set_logo (GNOME_DRUID_PAGE_FINISH
 					  (druidpagefinish1),
 					    anjuta_res_get_image  ("interface.xpm"));

@@ -159,7 +159,10 @@ prop_set_with_key(PropsID handle, const gchar *key, const gchar *val)
   PropSetFile* p;
   p = get_propset(handle);
   if(!p) return;
-  p->Set(key, val);
+  if(val)
+	  p->Set(key, val);
+  else
+	  p->Set(key, "");
 }
 
 void

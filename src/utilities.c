@@ -975,6 +975,12 @@ glist_strings_dup (GList * list)
 }
 
 void
+string_free(gchar* str)
+{
+	if (str) g_free(str);
+}
+
+void
 string_assign (gchar ** string, gchar * value)
 {
 	if (*string)
@@ -1017,10 +1023,20 @@ glist_strings_sufix (GList * list, gchar *sufix)
 	}
 }
 
+
+static gint
+sort_node (gchar* a, gchar *b)
+{
+	if ( !a && !b) return 0;
+	else if (!a) return -1;
+	else if (!b) return 1;
+	return strcmp (a, b);
+}
+
 GList*
 glist_strings_sort (GList * list)
 {
-	return g_list_sort(list, alphasort);
+	return g_list_sort(list, (GCompareFunc)sort_node);
 }
 
 gchar*

@@ -19,6 +19,7 @@ libscintilla_a_SOURCES =\
 	Indicator.cxx \
 	KeyMap.cxx \
 	KeyWords.cxx \
+	LexAda.cxx \
 	LexAVE.cxx \
 	LexCPP.cxx \
 	LexConf.cxx \

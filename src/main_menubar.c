@@ -80,9 +80,6 @@ create_main_menubar (GtkWidget * ap, MainMenuBar * mb)
 	mb->edit.autocomplete = edit1_menu_uiinfo[11].widget;
 	mb->edit.calltip = edit1_menu_uiinfo[12].widget;
 	
-	/* unimplemented */
-	gtk_widget_hide (edit1_menu_uiinfo[12].widget);
-	
 	mb->edit.find = edit1_menu_uiinfo[14].widget;
 	mb->edit.find_in_files = edit1_menu_uiinfo[15].widget;
 	mb->edit.find_replace = edit1_menu_uiinfo[16].widget;
@@ -199,8 +196,8 @@ create_main_menubar (GtkWidget * ap, MainMenuBar * mb)
 
 	mb->debug.cont = execution1_submenu_uiinfo[0].widget;
 	mb->debug.step_in = execution1_submenu_uiinfo[1].widget;
-	mb->debug.step_out = execution1_submenu_uiinfo[2].widget;
-	mb->debug.step_over = execution1_submenu_uiinfo[3].widget;
+	mb->debug.step_over = execution1_submenu_uiinfo[2].widget;
+	mb->debug.step_out = execution1_submenu_uiinfo[3].widget;
 	mb->debug.run_to_cursor = execution1_submenu_uiinfo[4].widget;
 
 	for (i = 0; i < 5; i++)

@@ -1,3 +1,39 @@
+2001-05-14  Naba Kumar <kh_naba@123india.com>
+	* project_dbase.c: Short-cut for expand/collasp project tree
+	* project_dbase_gui.c:
+	 (patch applied from  "Maxim Blagai" <maximblagai@yahoo.com>)
+
+2001-05-13  Naba Kumar <kh_naba@123india.com>
+	* notebook.[h,c]: Added
+	 (patch applied from  "Maxim Blagai" <maximblagai@yahoo.com>)
+	Project/message window now toggles on control and
+	and notebook switch short-cut
+
+2001-05-7  Naba Kumar <kh_naba@123india.com>
+	* Changed a new icon set which looks more gnomish.
+
+2001-07-6  Naba Kumar <kh_naba@123india.com>
+	* ccview/*: Integrated ccview for class view and file view
+		in the project Manager.
+	* widgets/gnomefilelist.[h,c]: Added show hidden files options.
+
+2001-07-1  Naba Kumar <kh_naba@123india.com>
+	* scintilla/*: Upgraded Scintilla to version 1.3.7
+	* manuals/anjuta-manual/C/chapter[00-12].sgml: Added many more stuffs.
+	
+2001-06-28  Naba Kumar <kh_naba@123india.com>
+	* src/debugger.c: Correct step-over and step-out swapping.
+	* manuals/anjuta-manual/C/chapter[00-12].sgml: Splitted manual
+	  chapters and added more stuffs.
+
+2001-06-13  Naba Kumar <kh_naba@123india.com>
+	* data/autogen.sh.gtkmm: Added
+	* data/autogen.sh.gnomemm: Added
+	* src/appwidz.c: Added two more application wizard templetes
+	* src/project: for gtk-- and gnome-- and proper support
+	* src/source.c: for c++ in the project configuration.
+	* src/source.h:
+
 2001-05-05  Naba Kumar <kh_naba@123india.com>
 
 	* Merged my pre-cvs modifications with 

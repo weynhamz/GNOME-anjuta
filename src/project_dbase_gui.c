@@ -25,6 +25,7 @@
 #include <string.h>
 
 #include <gnome.h>
+#include <ccview.h>
 #include "anjuta.h"
 #include "project_dbase.h"
 #include "utilities.h"
@@ -36,6 +37,13 @@ extern gchar *module_map[];
 static void on_project_dbase_remove_confirm_yes_clicked (GtkButton * button,
 							 gpointer user_data);
 static void add_file (ProjectDBase * p);
+
+static 
+void on_project_dbase_ccview_go_to (CcviewProject* cprj, gchar* file,
+			gint line, ProjectDBase* p)
+{
+	anjuta_goto_file_line (file, line);
+}
 
 void
 on_project_add_new1_activate (GtkMenuItem * menuitem, gpointer user_data)
@@ -201,7 +209,7 @@ on_project_dbase_clist_select_row (GtkCList * clist,
 	GtkCTreeNode *node;
 
 	ProjectDBase *p = user_data;
-
+	
 	g_return_if_fail (p != NULL);
 	node = gtk_ctree_node_nth (GTK_CTREE (p->widgets.ctree), row);
 	p->widgets.current_node = node;
@@ -216,11 +224,15 @@ on_project_dbase_clist_select_row (GtkCList * clist,
 
 	if (event == NULL)
 		return;
-	if (event->type != GDK_2BUTTON_PRESS)
-		return;
-	if (((GdkEventButton *) event)->button != 1)
-		return;
-	on_project_edit1_activate (NULL, NULL);
+	if (event->type == GDK_2BUTTON_PRESS) {
+		if (((GdkEventButton *) event)->button == 1) {
+			on_project_edit1_activate (NULL, NULL);
+			return;
+		}
+	} else if (event->type == GDK_KEY_PRESS) {
+		if (((GdkEventKey *) event)->keyval == GDK_Return)
+			on_project_edit1_activate (NULL, NULL);
+	}
 }
 
 static void
@@ -262,22 +274,46 @@ static gboolean
 on_project_dbase_event (GtkWidget * widget,
 			GdkEvent * event, gpointer user_data)
 {
+	gint row;
+	GtkCTree *tree;
+	GtkCTreeNode *node;
 	GdkEventButton *bevent;
 	ProjectDBase *pd = app->project_dbase;
 
-	if (event->type != GDK_BUTTON_PRESS)
-		return FALSE;
-	if (((GdkEventButton *) event)->button != 3)
-		return FALSE;
-	bevent = (GdkEventButton *) event;
-	bevent->button = 1;
-	project_dbase_update_controls (pd);
-
-	/* Popup project menu */
-	gtk_menu_popup (GTK_MENU (pd->widgets.menu), NULL,
-			NULL, NULL, NULL, bevent->button, bevent->time);
-
-	return TRUE;
+	if (event->type == GDK_BUTTON_PRESS) {
+		if (((GdkEventButton *) event)->button != 3)
+			return FALSE;
+		bevent = (GdkEventButton *) event;
+		bevent->button = 1;
+		project_dbase_update_controls (pd);
+	
+		/* Popup project menu */
+		gtk_menu_popup (GTK_MENU (pd->widgets.menu), NULL,
+				NULL, NULL, NULL, bevent->button, bevent->time);
+	
+		return TRUE;
+	} else if (event->type == GDK_KEY_PRESS){
+		tree = GTK_CTREE(widget);
+		row = tree->clist.focus_row;
+		node = gtk_ctree_node_nth(tree,row);
+		
+		switch(((GdkEventKey *)event)->keyval) {
+			case GDK_Return:
+				if(GTK_CTREE_ROW(node)->is_leaf)
+					on_project_dbase_clist_select_row (GTK_CLIST(&tree->clist),row,-1,event,user_data);
+				break;
+			case GDK_Left:
+				gtk_ctree_collapse(tree, node);
+				break;
+			case GDK_Right:
+				gtk_ctree_expand(tree, node);
+				break;
+			default:
+				return FALSE;
+		}
+		return TRUE;
+	}
+	return FALSE;
 }
 
 static void
@@ -431,7 +467,9 @@ create_project_dbase_gui (ProjectDBase * p)
 {
 	GtkWidget *window1;
 	GtkWidget *eventbox1;
+	GtkWidget *notebook1;
 	GtkWidget *scrolledwindow1;
+	GtkWidget *ccview_prj;
 	GtkWidget *ctree1;
 	GtkCList *clist1;
 
@@ -441,17 +479,28 @@ create_project_dbase_gui (ProjectDBase * p)
 	eventbox1 = gtk_event_box_new ();
 	gtk_widget_show (eventbox1);
 	gtk_container_add (GTK_CONTAINER (window1), eventbox1);
+	
+	ccview_prj = ccview_project_new();
+	gtk_widget_show (ccview_prj);
+	notebook1 = CCVIEW_PROJECT (ccview_prj)->notebook;
+	ccview_project_set_recursive (CCVIEW_PROJECT(ccview_prj), TRUE);
+	ccview_project_set_use_automake (CCVIEW_PROJECT(ccview_prj), FALSE);
+	ccview_project_set_follow_includes (CCVIEW_PROJECT(ccview_prj), FALSE);
 
 	scrolledwindow1 = gtk_scrolled_window_new (NULL, NULL);
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolledwindow1),
 					GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 	gtk_widget_show (scrolledwindow1);
+    gtk_notebook_prepend_page(GTK_NOTEBOOK(notebook1),scrolledwindow1,
+                             gtk_label_new(_("Project")));
+	gtk_notebook_set_page(GTK_NOTEBOOK(notebook1), 0);
 
 	ctree1 = gtk_ctree_new (1, 0);
 	clist1 = &(GTK_CTREE (ctree1)->clist);
 	gtk_clist_set_column_auto_resize (GTK_CLIST (ctree1), 0, TRUE);
 	gtk_container_add (GTK_CONTAINER (scrolledwindow1), ctree1);
 	gtk_clist_set_selection_mode (clist1, GTK_SELECTION_BROWSE);
+	gtk_ctree_set_line_style (GTK_CTREE(ctree1), GTK_CTREE_LINES_DOTTED);
 	gtk_widget_show (ctree1);
 
 	gtk_accel_group_attach (app->accel_group, GTK_OBJECT (window1));
@@ -465,15 +514,20 @@ create_project_dbase_gui (ProjectDBase * p)
 	gtk_signal_connect (GTK_OBJECT (ctree1), "event",
 			    GTK_SIGNAL_FUNC (on_project_dbase_event), p);
 
+	gtk_signal_connect (GTK_OBJECT (ccview_prj), "go_to",
+			    GTK_SIGNAL_FUNC (on_project_dbase_ccview_go_to), p);
+
 	p->widgets.window = window1;
+	p->widgets.ccview = ccview_prj;
 	p->widgets.client_area = eventbox1;
-	p->widgets.client = scrolledwindow1;
+	p->widgets.client = ccview_prj;
 	p->widgets.ctree = ctree1;
 	p->widgets.scrolledwindow = scrolledwindow1;
 
 	create_project_menus (p);
 
 	gtk_widget_ref (p->widgets.window);
+	gtk_widget_ref (p->widgets.ccview);
 	gtk_widget_ref (p->widgets.client_area);
 	gtk_widget_ref (p->widgets.client);
 	gtk_widget_ref (p->widgets.scrolledwindow);

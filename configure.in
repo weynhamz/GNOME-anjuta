@@ -23,6 +23,14 @@ GNOME_X_CHECKS
 
 dnl Checks for programs.
 dnl ***************************************************************************
+dnl Check for Gnome XML
+dnl ***************************************************************************
+GNOME_XML_CHECK
+
+dnl Initialize xml-i18n-tools
+AM_PROG_XML_I18N_TOOLS
+
+dnl ***************************************************************************
 dnl Check for ScrollKeeper
 dnl ***************************************************************************
 AC_PATH_PROG(SCROLLKEEPER_CONFIG, scrollkeeper-config,no)
@@ -34,6 +42,8 @@ AC_SUBST(SCROLLKEEPER_REQUIRED)
 
 
 dnl Checks for libraries.
+dnl FIXME: Check for libdb1.a
+AC_CHECK_LIB(db1,main)
 
 
 dnl Checks for header files.
@@ -113,6 +123,7 @@ intl/Makefile
 po/Makefile.in
 macros/Makefile
 scintilla/Makefile
+ccview/Makefile
 widgets/Makefile
 manuals/Makefile
 omf-install/Makefile
@@ -123,7 +134,6 @@ anjuta.spec
 src/Makefile
 pixmaps/Makefile
 data/Makefile
-help/Makefile
 doc/Makefile
 launcher/Makefile
 anjuta.desktop

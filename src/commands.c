@@ -261,6 +261,10 @@ command_editor_save (CommandEditor *ce, FILE* s)
 			if (fprintf (s, "%s=%s\n", key, str) < 2) return FALSE;
 			string_free (str);
 		}
+		else
+		{
+			if (fprintf (s, "%s=\n", key) < 1) return FALSE;
+		}
 		g_free (key);
 		
 		key = get_key_for_file_command (BUILD_INDEX, prog_language_map[i+1]);
@@ -270,6 +274,10 @@ command_editor_save (CommandEditor *ce, FILE* s)
 			if (fprintf (s, "%s=%s\n", key, str) < 2) return FALSE;
 			string_free (str);
 		}
+		else
+		{
+			if (fprintf (s, "%s=\n", key) < 1) return FALSE;
+		}
 		g_free (key);
 		
 		key = get_key_for_file_command (EXECUTE_INDEX, prog_language_map[i+1]);
@@ -278,6 +286,10 @@ command_editor_save (CommandEditor *ce, FILE* s)
 		{
 			if (fprintf (s, "%s=%s\n", key, str) < 2) return FALSE;
 			string_free (str);
+		}
+		else
+		{
+			if (fprintf (s, "%s=\n", key) < 1) return FALSE;
 		}
 		g_free (key);
 	}
@@ -289,6 +301,10 @@ command_editor_save (CommandEditor *ce, FILE* s)
 		if (fprintf (s, "%s=%s\n", key, str) < 2) return FALSE;
 		string_free (str);
 	}
+	else
+	{
+		if (fprintf (s, "%s=\n", key) < 1) return FALSE;
+	}
 	g_free (key);
 
 	key = get_key_for_file_command (OPEN_INDEX, "image");
@@ -298,6 +314,10 @@ command_editor_save (CommandEditor *ce, FILE* s)
 		if (fprintf (s, "%s=%s\n", key, str) < 2) return FALSE;
 		string_free (str);
 	}
+	else
+	{
+		if (fprintf (s, "%s=\n", key) < 1) return FALSE;
+	}
 	g_free (key);
 
 	key = get_key_for_file_command (VIEW_INDEX, "html");
@@ -306,6 +326,10 @@ command_editor_save (CommandEditor *ce, FILE* s)
 	{
 		if (fprintf (s, "%s=%s\n", key, str) < 2) return FALSE;
 		string_free (str);
+	}
+	else
+	{
+		if (fprintf (s, "%s=\n", key) < 1) return FALSE;
 	}
 	g_free (key);
 	
@@ -513,7 +537,9 @@ create_command_editor_gui (CommandEditor *ce)
 	GList* list = NULL;
 	gint i;
 	
-	dialog1 = gnome_dialog_new (NULL, NULL);
+	dialog1 = gnome_dialog_new (_("Anjuta: Commands"), NULL);
+	gtk_window_set_policy (GTK_WINDOW (dialog1), FALSE, FALSE, FALSE);
+	gnome_dialog_close_hides (GNOME_DIALOG (dialog1), TRUE);
 	
 	dialog_vbox1 = GNOME_DIALOG (dialog1)->vbox;
 	gtk_widget_show (dialog_vbox1);
