@@ -26,7 +26,12 @@
 	plugins/project-wizard/property.c,
 	plugins/project-wizard/property.h,
 	(added) plugins/project-wizard/values.c,
-	(added) plugins/project-wizard/values.h:
+	(added) plugins/project-wizard/values.h: Added a new NPWPropertyValues
+	objects (in values.c and values.h) containing the values of all
+	properties. The NPWProperty objects now keep their values in this
+	object which is persistant for one activation of the plugin, so the
+	user keeps all the values even if he goes backward. Used an anjuta
+	message view to list all files copied by the project wizard.
 
 2005-01-08  Johannes Schmid <jhs@cvs.gnome.org>
 
