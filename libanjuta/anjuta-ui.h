@@ -37,7 +37,7 @@
  */
 #include <gtk/gtkdialog.h>
 #include <gtk/gtkaccelgroup.h>
-#include <libegg/menu/egg-menu-merge.h>
+#include <gtk/gtkuimanager.h>
 
 #define ANJUTA_TYPE_UI        (anjuta_ui_get_type ())
 #define ANJUTA_UI(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), ANJUTA_TYPE_UI, AnjutaUI))
@@ -74,18 +74,25 @@ GtkIconFactory* anjuta_ui_get_icon_factory (AnjutaUI* ui);
  * as reference ID to remove the action-group later (after which the object
  * will no longer be valid).
  */
-EggActionGroup* anjuta_ui_add_action_group_entries (AnjutaUI *ui,
+GtkActionGroup* anjuta_ui_add_action_group_entries (AnjutaUI *ui,
 													const gchar *group_name,
 													const gchar *group_label,
-													EggActionGroupEntry *entries,
-													gint num_entries);
+													GtkActionEntry *entries,
+													gint num_entries,
+													gpointer user_data);
+GtkActionGroup* anjuta_ui_add_toggle_action_group_entries (AnjutaUI *ui,
+													const gchar *group_name,
+													const gchar *group_label,
+													GtkToggleActionEntry *entries,
+													gint num_entries,
+													gpointer user_data);
 void anjuta_ui_add_action_group (AnjutaUI *ui,
 								 const gchar *group_name,
 								 const gchar *group_label,
-								 EggActionGroup *action_group);
+								 GtkActionGroup *action_group);
 
 /* Removes the group of Actions */
-void anjuta_ui_remove_action_group (AnjutaUI *ui, EggActionGroup *action_group);
+void anjuta_ui_remove_action_group (AnjutaUI *ui, GtkActionGroup *action_group);
 
 /* Merges the given UI description file (written in xml)
    Returns an id representing it */
@@ -100,10 +107,10 @@ GtkAccelGroup* anjuta_ui_get_accel_group (AnjutaUI *ui);
 /* Warning: do not use it directly, except for things AnjutaUI 
  * is not capable of doing.
  */
-EggMenuMerge* anjuta_ui_get_menu_merge (AnjutaUI *ui);
+GtkUIManager* anjuta_ui_get_menu_merge (AnjutaUI *ui);
 
 /* Get the action object from the given group with the given name */
-EggAction * anjuta_ui_get_action (AnjutaUI *ui, const gchar *group_name,
+GtkAction * anjuta_ui_get_action (AnjutaUI *ui, const gchar *group_name,
 								  const gchar *action_name);
 
 /* Activates (calls the action callback) the action given by the action
@@ -115,7 +122,7 @@ void anjuta_ui_activate_action_by_path (AnjutaUI *ui, gchar *action_path);
  * action name.
  */
 void anjuta_ui_activate_action_by_group (AnjutaUI *ui,
-										 EggActionGroup *action_group,
+										 GtkActionGroup *action_group,
 										 const gchar *action_name);
 
 /* Dump the whole tree in STDOUT. Useful for debugging */

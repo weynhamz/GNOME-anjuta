@@ -50,10 +50,10 @@ struct _DevhelpPluginPriv {
 };
 
 static void
-activate_action (EggAction *action, DevhelpPlugin *plugin)
+activate_action (GtkAction *action, DevhelpPlugin *plugin)
 {
 	DevhelpPluginPriv *priv;
-	const gchar  *name = action->name;
+	const gchar  *name = gtk_action_get_name (action);
 	
 	priv = plugin->priv;
 	if (strcmp (name, "ActionDevhelpBack") == 0) {
@@ -74,21 +74,13 @@ activate_action (EggAction *action, DevhelpPlugin *plugin)
 	}
 }
 
-static EggActionGroupEntry actions[] = {
+static GtkActionEntry actions[] = {
 	/* Go menu */
-	{ "ActionDevhelpBack", NULL, GTK_STOCK_GO_BACK, NULL, NULL,
-	  G_CALLBACK (activate_action), NULL },
-	{ "ActionDevhelpForward", NULL, GTK_STOCK_GO_FORWARD, NULL, NULL,
-	  G_CALLBACK (activate_action), NULL },
+	{ "ActionDevhelpBack", GTK_STOCK_GO_BACK, NULL, NULL, NULL,
+	  G_CALLBACK (activate_action)},
+	{ "ActionDevhelpForward", GTK_STOCK_GO_FORWARD, NULL, NULL, NULL,
+	  G_CALLBACK (activate_action)},
 };
-
-static void
-init_user_data (EggActionGroupEntry* actions, gint size, gpointer data)
-{
-	int i;
-	for (i = 0; i < size; i++)
-		actions[i].user_data = data;
-}
 
 static gboolean 
 open_url (DevhelpPlugin *plugin, const gchar *url)
@@ -169,11 +161,11 @@ activate_plugin (AnjutaPlugin *plugin)
 	priv = devhelp_plugin->priv;
 	
 	/* Add all our editor actions */
-	init_user_data (actions, G_N_ELEMENTS (actions), devhelp_plugin);
 	anjuta_ui_add_action_group_entries (ui, "ActionGroupDevhelp",
 										_("Devhelp navigation operations"),
 										actions,
-										G_N_ELEMENTS (actions));
+										G_N_ELEMENTS (actions),
+										devhelp_plugin);
 	devhelp_plugin->uiid = anjuta_ui_merge (plugin->ui, UI_FILE);
 	
 	anjuta_shell_add_widget (plugin->shell, priv->notebook,

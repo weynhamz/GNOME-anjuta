@@ -371,7 +371,9 @@ anjuta_docman_instance_init (AnjutaDocman *docman)
 	fsd1.data = docman;
 	fsd2.data = docman;
 
-	parent = gtk_widget_get_toplevel (GTK_WIDGET (docman));
+	/* FIXME: */
+	// parent = gtk_widget_get_toplevel (GTK_WIDGET (docman));
+	parent = NULL;
 	docman->priv = g_new0 (AnjutaDocmanPriv, 1);
 	docman->priv->fileselection =
 		create_fileselection_gui (&fsd1, GTK_WINDOW (parent));

@@ -1,6 +1,5 @@
 ## Process this file with automake to produce Makefile.in
 
-
 # The name of the module.
 DOC_MODULE = libanjuta
 
@@ -27,7 +26,7 @@ HFILE_GLOB=$(top_srcdir)/libanjuta/anjuta-*.h
 CFILE_GLOB=$(top_srcdir)/libanjuta/anjuta-*.c
 
 # Header files to ignore when scanning
-IGNORE_HFILES=
+IGNORE_HFILES=egg*.h
 
 # Images to copy into HTML directory
 HTML_IMAGES =
@@ -42,39 +41,50 @@ extra_files = version.xml.in
 # CFLAGS and LDFLAGS for compiling scan program. Only needed
 # if $(DOC_MODULE).types is non-empty.
 GTKDOC_CFLAGS =						\
-	-pedantic					\
 	-I$(top_srcdir) 				\
 	-I$(top_builddir) 				\
 	-I$(top_builddir)/libanjuta			\
 	-I$(top_builddir)/scintilla/include		\
-	-I$(top_builddir)/widgets			\
 	$(LIBANJUTA_CFLAGS)
 
 GTKDOC_LIBS =						\
 	$(top_builddir)/libanjuta/libanjuta.la		\
 	$(top_builddir)/scintilla/libanjuta-scintilla.la \
-	$(top_builddir)/widgets/libwidgets.a		\
 	$(LIBANJUTA_LIBS)
-
-GTKDOC_CC=$(LIBTOOL) --mode=compile $(CXX)
-GTKDOC_LD=$(LIBTOOL) --mode=link $(CXX)
 
 DOC_OVERRIDES = $(DOC_MODULE)-overrides.txt
 
-###########################################################################
-# Everything below here is generic and you shouldn't need to change it.
-###########################################################################
+## include $(top_srcdir)/gtk-doc.make
+# -*- mode: makefile -*-
+
+####################################
+# Everything below here is generic #
+####################################
+
+## if GTK_DOC_USE_LIBTOOL
+GTKDOC_CC = $(LIBTOOL) --mode=compile $(CC) $(INCLUDES) $(AM_CFLAGS) $(CFLAGS)
+GTKDOC_LD = $(LIBTOOL) --mode=link $(CXX) $(AM_CXXFLAGS) $(CXXFLAGS) $(LDFLAGS)
+## else
+## GTKDOC_CC = $(CC) $(INCLUDES) $(AM_CFLAGS) $(CFLAGS)
+## GTKDOC_LD = $(CXX) $(AM_CXXFLAGS) $(CXXFLAGS) $(LDFLAGS)
+## endif
+
+# We set GPATH here; this gives us semantics for GNU make
+# which are more like other make's VPATH, when it comes to
+# whether a source that is a target of one rule is then
+# searched for in VPATH/GPATH.
+#
+GPATH = $(srcdir)
 
 TARGET_DIR=$(HTML_DIR)/$(DOC_MODULE)
 
 EXTRA_DIST = 				\
 	$(content_files)		\
-	$(extra_files)			\
 	$(HTML_IMAGES)			\
 	$(DOC_MAIN_SGML_FILE)		\
 	$(DOC_MODULE).types		\
 	$(DOC_MODULE)-sections.txt	\
-	$(DOC_OVERRIDES)
+	$(DOC_MODULE)-overrides.txt
 
 DOC_STAMPS=scan-build.stamp tmpl-build.stamp sgml-build.stamp html-build.stamp \
 	   $(srcdir)/tmpl.stamp $(srcdir)/sgml.stamp $(srcdir)/html.stamp
@@ -86,6 +96,8 @@ SCANOBJ_FILES = 		 \
 	$(DOC_MODULE).prerequisites \
 	$(DOC_MODULE).signals
 
+CLEANFILES = $(SCANOBJ_FILES) $(DOC_MODULE)-unused.txt $(DOC_STAMPS)
+
 if ENABLE_GTK_DOC
 all-local: html-build.stamp
 
@@ -93,9 +105,9 @@ all-local: html-build.stamp
 
 scan-build.stamp: $(HFILE_GLOB)
 	@echo '*** Scanning header files ***'
+	@-chmod -R u+w $(srcdir)
 	if grep -l '^..*$$' $(srcdir)/$(DOC_MODULE).types > /dev/null ; then \
-		cp `which gtkdoc-scangobj` $(srcdir) && patch < $(srcdir)/../gtkdoc-scangobj.diff; \
-	    CC="$(GTKDOC_CC)" LD="$(GTKDOC_LD)" CFLAGS="$(GTKDOC_CFLAGS)" LDFLAGS="$(GTKDOC_LIBS)" $(srcdir)/gtkdoc-scangobj $(SCANOBJ_OPTIONS) --module=$(DOC_MODULE) --output-dir=$(srcdir); \
+	    CC="$(GTKDOC_CC)" LD="$(GTKDOC_LD)" CFLAGS="$(GTKDOC_CFLAGS)" LDFLAGS="$(GTKDOC_LIBS)" gtkdoc-scangobj $(SCANGOBJ_OPTIONS) --module=$(DOC_MODULE) --output-dir=$(srcdir) ; \
 	else \
 	    cd $(srcdir) ; \
 	    for i in $(SCANOBJ_FILES) ; do \
@@ -111,20 +123,22 @@ $(DOC_MODULE)-decl.txt $(SCANOBJ_FILES): scan-build.stamp
 
 #### templates ####
 
-tmpl-build.stamp: $(DOC_MODULE)-decl.txt $(SCANOBJ_FILES) $(DOC_MODULE)-sections.txt $(DOC_OVERRIDES)
+tmpl-build.stamp: $(DOC_MODULE)-decl.txt $(SCANOBJ_FILES) $(DOC_MODULE)-sections.txt $(DOC_MODULE)-overrides.txt
 	@echo '*** Rebuilding template files ***'
+	@-chmod -R u+w $(srcdir)
 	cd $(srcdir) && gtkdoc-mktmpl --module=$(DOC_MODULE)
 	touch tmpl-build.stamp
 
 tmpl.stamp: tmpl-build.stamp
 	@true
 
-#### sgml ####
+#### xml ####
 
 sgml-build.stamp: tmpl.stamp $(CFILE_GLOB) $(srcdir)/tmpl/*.sgml
-	@echo '*** Building SGML ***'
+	@echo '*** Building XML ***'
+	@-chmod -R u+w $(srcdir)
 	cd $(srcdir) && \
-	gtkdoc-mkdb --module=$(DOC_MODULE) --source-dir=$(DOC_SOURCE_DIR) --main-sgml-file=$(DOC_MAIN_SGML_FILE) $(MKDB_OPTIONS)
+	gtkdoc-mkdb --module=$(DOC_MODULE) --source-dir=$(DOC_SOURCE_DIR) --output-format=xml $(MKDB_OPTIONS)
 	touch sgml-build.stamp
 
 sgml.stamp: sgml-build.stamp
@@ -134,7 +148,9 @@ sgml.stamp: sgml-build.stamp
 
 html-build.stamp: sgml.stamp $(DOC_MAIN_SGML_FILE) $(content_files)
 	@echo '*** Building HTML ***'
-	test -d $(srcdir)/html || mkdir $(srcdir)/html
+	@-chmod -R u+w $(srcdir)
+	rm -rf $(srcdir)/html 
+	mkdir $(srcdir)/html
 	cd $(srcdir)/html && gtkdoc-mkhtml $(DOC_MODULE) ../$(DOC_MAIN_SGML_FILE)
 	test "x$(HTML_IMAGES)" = "x" || ( cd $(srcdir) && cp $(HTML_IMAGES) html )
 	@echo '-- Fixing Crossreferences' 
@@ -145,15 +161,16 @@ endif
 ##############
 
 clean-local:
-	rm -f *~ *.bak $(SCANOBJ_FILES) *-unused.txt $(DOC_STAMPS)
+	rm -f *~ *.bak
+	rm -rf .libs
 
 maintainer-clean-local: clean
-	cd $(srcdir) && rm -rf sgml html $(DOC_MODULE)-decl-list.txt $(DOC_MODULE)-decl.txt
+	cd $(srcdir) && rm -rf xml html $(DOC_MODULE)-decl-list.txt $(DOC_MODULE)-decl.txt
 
 install-data-local:
 	$(mkinstalldirs) $(DESTDIR)$(TARGET_DIR)
-	(installfiles=`echo $(srcdir)/html/*.html`; \
-	if test "$$installfiles" = '$(srcdir)/html/*.html'; \
+	(installfiles=`echo $(srcdir)/html/*`; \
+	if test "$$installfiles" = '$(srcdir)/html/*'; \
 	then echo '-- Nothing to install' ; \
 	else \
 	  for i in $$installfiles; do \
@@ -161,8 +178,11 @@ install-data-local:
 	    $(INSTALL_DATA) $$i $(DESTDIR)$(TARGET_DIR); \
 	  done; \
 	  echo '-- Installing $(srcdir)/html/index.sgml' ; \
-	  $(INSTALL_DATA) $(srcdir)/html/index.sgml $(DESTDIR)$(TARGET_DIR); \
+	  $(INSTALL_DATA) $(srcdir)/html/index.sgml $(DESTDIR)$(TARGET_DIR) || :; \
 	fi)
+
+uninstall-local:
+	rm -f $(DESTDIR)$(TARGET_DIR)/*
 
 #
 # Require gtk-doc when making dist
@@ -177,16 +197,10 @@ endif
 
 dist-hook: dist-check-gtkdoc dist-hook-local
 	mkdir $(distdir)/tmpl
-	mkdir $(distdir)/sgml
+	mkdir $(distdir)/xml
 	mkdir $(distdir)/html
 	-cp $(srcdir)/tmpl/*.sgml $(distdir)/tmpl
-	-cp $(srcdir)/sgml/*.sgml $(distdir)/sgml
-	-cp $(srcdir)/html/index.sgml $(distdir)/html
-	-cp $(srcdir)/html/*.html $(srcdir)/html/*.css $(distdir)/html
-
-	images=$(HTML_IMAGES) ;    	      \
-	for i in $$images ; do		      \
-	  cp $(srcdir)/$$i $(distdir)/html ;  \
-	done
+	-cp $(srcdir)/xml/*.xml $(distdir)/xml
+	-cp $(srcdir)/html/* $(distdir)/html
 
 .PHONY : dist-hook-local

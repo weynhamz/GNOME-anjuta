@@ -63,6 +63,16 @@ struct _AnjutaPreferencesPriv
 	gboolean   is_showing;
 };
 
+/** 
+ * AnjutaPreferences::changed:
+ * @pref: The #AnjutaPreferences object which emitted the signal.
+ * 
+ * This signal is emitted when preferences is changed. Note that for
+ * now, it is only emitted when 'Apply' is clicked on the preferences
+ * dialog. In future, it is meant to be emitted when any set value
+ * is called on a preference key (and if value is different from the
+ *	old value.
+ */
 enum
 {
 	CHANGED,

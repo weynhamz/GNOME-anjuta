@@ -30,9 +30,9 @@
 #include <gnome.h>
 #include <gtk/gtkwidget.h>
 #include <glade/glade.h>
-#include <libegg/toolbar/eggtoolbar.h>
-#include <libegg/menu/egg-toggle-action.h>
+
 #include <libegg/dock/egg-dock.h>
+
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-utils.h>
 #include <libanjuta/resources.h>
@@ -150,10 +150,10 @@ on_add_merge_widget (GtkWidget *merge, GtkWidget *widget,
 		BonoboDockItem* item;
 		gchar* key;
 		PropsID pr;
-		EggAction *action;
+		GtkAction *action;
 		GtkWidget *menuitem;
 		
-		egg_toolbar_set_icon_size (EGG_TOOLBAR (widget),
+		gtk_toolbar_set_icon_size (GTK_TOOLBAR (widget),
 								   GTK_ICON_SIZE_SMALL_TOOLBAR);
  		//egg_toolbar_set_show_arrow (EGG_TOOLBAR (widget), TRUE);
 		if (count < 5)
@@ -167,9 +167,10 @@ on_add_merge_widget (GtkWidget *merge, GtkWidget *widget,
 		g_message ("Adding toolbar: %s", toolbarname);
 		gnome_app_add_docked (GNOME_APP (ui_container), widget,
 							  toolbarname,
-							  BONOBO_DOCK_ITEM_BEH_NEVER_VERTICAL,
+							  BONOBO_DOCK_ITEM_BEH_NEVER_VERTICAL ||
+							  BONOBO_DOCK_ITEM_BEH_EXCLUSIVE,
 							  BONOBO_DOCK_TOP, count + 1, 0, 0);
-		if (ANJUTA_APP (ui_container)->toolbars_menu)
+		if (!ANJUTA_APP (ui_container)->toolbars_menu)
 			ANJUTA_APP (ui_container)->toolbars_menu = gtk_menu_new ();
 		menuitem = gtk_menu_item_new_with_label (toolbarname);
 		gtk_menu_append (GTK_MENU (ANJUTA_APP (ui_container)->toolbars_menu),
@@ -214,15 +215,6 @@ anjuta_app_new (void)
 									NULL));
 
 	return GTK_WIDGET (app);
-}
-
-static void
-init_user_data (EggActionGroupEntry* actions, gint size, gpointer data)
-{
-	int i;
-	for (i = 0; i < size; i++)
-		if (actions[i].user_data == NULL)
-			actions[i].user_data = data;
 }
 
 static void
@@ -271,26 +263,21 @@ anjuta_app_instance_init (AnjutaApp *app)
 	create_stock_icons (app->ui);
 
 	/* Register actions */
-	init_user_data (menu_entries_file, G_N_ELEMENTS (menu_entries_file), app);
 	anjuta_ui_add_action_group_entries (app->ui, "ActionGroupFile", _("File"),
 										menu_entries_file,
-										G_N_ELEMENTS (menu_entries_file));
-	init_user_data (menu_entries_edit, G_N_ELEMENTS (menu_entries_edit), app);
+										G_N_ELEMENTS (menu_entries_file), app);
 	anjuta_ui_add_action_group_entries (app->ui, "ActionGroupEdit", _("Edit"),
 										menu_entries_edit,
-										G_N_ELEMENTS (menu_entries_edit));
-	init_user_data (menu_entries_view, G_N_ELEMENTS (menu_entries_view), app);
+										G_N_ELEMENTS (menu_entries_edit), app);
 	anjuta_ui_add_action_group_entries (app->ui, "ActionGroupView", _("View"),
 										menu_entries_view,
-										G_N_ELEMENTS (menu_entries_view));
-	init_user_data (menu_entries_settings, G_N_ELEMENTS (menu_entries_settings), app);
+										G_N_ELEMENTS (menu_entries_view), app);
 	anjuta_ui_add_action_group_entries (app->ui, "ActionGroupSettings", _("Settings"),
 										menu_entries_settings,
-										G_N_ELEMENTS (menu_entries_settings));
-	init_user_data (menu_entries_help, G_N_ELEMENTS (menu_entries_help), app);
+										G_N_ELEMENTS (menu_entries_settings), app);
 	anjuta_ui_add_action_group_entries (app->ui, "ActionGroupHelp", _("Help"),
 										menu_entries_help,
-										G_N_ELEMENTS (menu_entries_help));
+										G_N_ELEMENTS (menu_entries_help), app);
 
 	/* Merge UI */
 	merge_id = anjuta_ui_merge (app->ui, UI_FILE);
@@ -559,7 +546,7 @@ anjuta_app_show (GtkWidget *wid)
 {
 	AnjutaApp *app;
 	PropsID pr;
-	EggAction *action;
+	GtkAction *action;
 
 	app = ANJUTA_APP (wid);
 	GNOME_CALL_PARENT(GTK_WIDGET_CLASS, show, (wid));

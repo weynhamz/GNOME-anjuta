@@ -1,5 +1,5 @@
 
-SUBDIRS = util treeviewutils toolbar menu dock
+SUBDIRS = util treeviewutils menu dock
 
 gladefiledir = $(prefix)/@NO_PREFIX_PACKAGE_DATA_DIR@/glade
 gladefile_DATA = layout.glade
@@ -12,10 +12,11 @@ INCLUDES = \
 	-DEGG_GLADEDIR=\"$(gladefiledir)\" \
 	-I$(top_builddir)/libegg \
 	-I$(top_builddir)/libegg/menu \
-	-I$(top_builddir)/libegg/toolbar \
 	-I$(top_builddir)/libegg/treeviewutils \
 	-I$(top_builddir)/libegg/util \
 	-I$(top_builddir)/libegg/dock
+
+#	-I$(top_builddir)/libegg/toolbar 
 
 lib_LTLIBRARIES = libanjuta-egg.la
 
@@ -53,21 +54,8 @@ libeggdocktypebuiltins.c: dock/egg*.h
 
 libanjuta_egg_la_SOURCES = \
 	eggmarshalers.c \
-	egg-action.c \
-	egg-action-group.c \
-	egg-toggle-action.c \
-	egg-radio-action.c \
 	egg-entry-action.c \
 	egg-combo-action.c \
-	egg-markup.c \
-	egg-menu-merge.c \
-	egg-accel-dialog.c \
-	eggtoolbar.c \
-	eggtoolitem.c \
-	eggseparatortoolitem.c \
-	eggradiotoolbutton.c \
-	eggtoolbutton.c \
-	eggtoggletoolbutton.c \
 	eggaccelerators.c     \
 	eggcellrendererkeys.c \
 	eggcellrendererpopup.c \
@@ -93,33 +81,10 @@ libanjuta_egg_la_SOURCES = \
 noinst_HEADERS = gdl-icons.h gdl-i18n.h
 
 noinst_PROGRAMS = \
-	test-actions \
-	test-merge \
-	gtkexample \
-	test-drag \
 	test-tree-utils \
 	test-multi-drag \
 	test-union \
 	test-dock
-
-#	test-toolbar
-
-test_actions_SOURCES = test-actions.c
-test_actions_LDFLAGS = libanjuta-egg.la $(ANJUTA_LIBS)
-test_actions_DEPENDENCIES = libanjuta-egg.la
-
-test_merge_SOURCES = test-merge.c
-test_merge_LDFLAGS = libanjuta-egg.la $(ANJUTA_LIBS)
-test_merge_DEPENDENCIES = libanjuta-egg.la
-
-gtkexample_SOURCES = gtkexample.c
-gtkexample_LDADD = libanjuta-egg.la $(ANJUTA_LIBS)
-
-#test_toolbar_SOURCES = test-toolbar.c prop-editor.c
-#test_toolbar_LDADD = libanjuta-egg.la $(ANJUTA_LIBS)
-
-test_drag_SOURCES = test-drag.c
-test_drag_LDADD = libanjuta-egg.la $(ANJUTA_LIBS)
 
 test_tree_utils_SOURCES = test-tree-utils.c
 test_tree_utils_LDADD = libanjuta-egg.la $(ANJUTA_LIBS)
@@ -137,5 +102,5 @@ test_dock_sources=test-dock.c
 test_dock_LDADD=$(srcdir)/libanjuta-egg.la $(ANJUTA_LIBS)
 
 EXTRA_DIST = \
-        eggmarshalers.list \
+	eggmarshalers.list \
 	layout.glade

@@ -18,89 +18,145 @@
 #define _ACTION_CALLBACKS_H_
 
 
-void on_new_file1_activate (EggAction * action, gpointer user_data);
-void on_open1_activate (EggAction * action, gpointer user_data);
-void on_save1_activate (EggAction * action, gpointer user_data);
-void on_save_as1_activate (EggAction * action, gpointer user_data);
-void on_save_all1_activate (EggAction * action, gpointer user_data);
-void on_close_file1_activate (EggAction * action, gpointer user_data);
-void on_reload_file1_activate (EggAction * action, gpointer user_data);
-void on_close_all_file1_activate (EggAction * action, gpointer user_data);
+void on_new_file1_activate (GtkAction * action, gpointer user_data);
+void on_open1_activate (GtkAction * action, gpointer user_data);
+void on_save1_activate (GtkAction * action, gpointer user_data);
+void on_save_as1_activate (GtkAction * action, gpointer user_data);
+void on_save_all1_activate (GtkAction * action, gpointer user_data);
+void on_close_file1_activate (GtkAction * action, gpointer user_data);
+void on_reload_file1_activate (GtkAction * action, gpointer user_data);
+void on_close_all_file1_activate (GtkAction * action, gpointer user_data);
 
-void anjuta_print_cb (EggAction *action, gpointer user_data);
-void anjuta_print_preview_cb (EggAction *action, gpointer user_data);
+void anjuta_print_cb (GtkAction *action, gpointer user_data);
+void anjuta_print_preview_cb (GtkAction *action, gpointer user_data);
 
-void on_editor_command_activate (EggAction * action, gpointer user_data);
-void on_editor_select_function  (EggAction * action, gpointer user_data);
-void on_editor_select_word (EggAction *action, gpointer user_data);
-void on_editor_select_line (EggAction *action, gpointer user_data);
-void on_transform_eolchars1_activate (EggAction * action, gpointer user_data);
+void on_editor_command_upper_case_activate (GtkAction * action, gpointer data);
+void on_editor_command_lower_case_activate (GtkAction * action, gpointer data);
+void on_editor_command_eol_crlf_activate (GtkAction * action, gpointer data);
+void on_editor_command_eol_lf_activate (GtkAction * action, gpointer data);
+void on_editor_command_eol_cr_activate (GtkAction * action, gpointer data);
+void on_editor_command_select_all_activate (GtkAction * action, gpointer data);
+void on_editor_command_select_to_brace_activate (GtkAction * action, gpointer data);
+void on_editor_command_select_block_activate (GtkAction * action, gpointer data);
+void on_editor_command_match_brace_activate (GtkAction * action, gpointer data);
+void on_editor_command_undo_activate (GtkAction * action, gpointer data);
+void on_editor_command_redo_activate (GtkAction * action, gpointer data);
+void on_editor_command_cut_activate (GtkAction * action, gpointer data);
+void on_editor_command_copy_activate (GtkAction * action, gpointer data);
+void on_editor_command_paste_activate (GtkAction * action, gpointer data);
+void on_editor_command_clear_activate (GtkAction * action, gpointer data);
+void on_editor_command_complete_word_activate (GtkAction * action, gpointer data);
+void on_editor_command_indent_increase_activate (GtkAction * action, gpointer data);
+void on_editor_command_indent_decrease_activate (GtkAction * action, gpointer data);
+void on_editor_command_close_folds_all_activate (GtkAction * action, gpointer data);
+void on_editor_command_open_folds_all_activate (GtkAction * action, gpointer data);
+void on_editor_command_toggle_fold_activate (GtkAction * action, gpointer data);
+void on_editor_command_bookmark_toggle_activate (GtkAction * action, gpointer data);
+void on_editor_command_bookmark_first_activate (GtkAction * action, gpointer data);
+void on_editor_command_bookmark_next_activate (GtkAction * action, gpointer data);
+void on_editor_command_bookmark_prev_activate (GtkAction * action, gpointer data);
+void on_editor_command_bookmark_last_activate (GtkAction * action, gpointer data);
+void on_editor_command_bookmark_clear_activate (GtkAction * action, gpointer data);
 
-void on_search1_activate (EggAction * action, gpointer user_data);
-void on_find1_activate (EggAction * action, gpointer user_data);
-void on_find_and_replace1_activate (EggAction * action, gpointer user_data);
-void on_find_in_files1_activate (EggAction * action, gpointer user_data);
-void on_findnext1_activate (EggAction * action, gpointer user_data);
-void on_findprevious1_activate (EggAction * action, gpointer user_data);
-void on_enterselection (EggAction * action, gpointer user_data);
+void on_editor_select_function  (GtkAction * action, gpointer user_data);
+void on_editor_select_word (GtkAction *action, gpointer user_data);
+void on_editor_select_line (GtkAction *action, gpointer user_data);
+void on_transform_eolchars1_activate (GtkAction * action, gpointer user_data);
 
-void on_goto_activate (EggAction *action, gpointer user_data);
-void on_toolbar_goto_clicked (EggAction *action, gpointer user_data);
-void on_goto_line_no1_activate (EggAction * action, gpointer user_data);
+void on_search1_activate (GtkAction * action, gpointer user_data);
+void on_find1_activate (GtkAction * action, gpointer user_data);
+void on_find_and_replace1_activate (GtkAction * action, gpointer user_data);
+void on_find_in_files1_activate (GtkAction * action, gpointer user_data);
+void on_findnext1_activate (GtkAction * action, gpointer user_data);
+void on_findprevious1_activate (GtkAction * action, gpointer user_data);
+void on_enterselection (GtkAction * action, gpointer user_data);
 
-void on_next_occur (EggAction * action, gpointer user_data);
-void on_prev_occur (EggAction * action, gpointer user_data);
+void on_goto_activate (GtkAction *action, gpointer user_data);
+void on_toolbar_goto_clicked (GtkAction *action, gpointer user_data);
+void on_goto_line_no1_activate (GtkAction * action, gpointer user_data);
 
-void on_autocomplete1_activate (EggAction * action, gpointer user_data);
-void on_calltip1_activate (EggAction * action, gpointer user_data);
+void on_next_occur (GtkAction * action, gpointer user_data);
+void on_prev_occur (GtkAction * action, gpointer user_data);
 
-void on_comment_block (EggAction * action, gpointer user_data);
-void on_comment_box (EggAction * action, gpointer user_data);
-void on_comment_stream (EggAction * action, gpointer user_data);
-void on_insert_custom_indent (EggAction *action, gpointer user_data);
+void on_autocomplete1_activate (GtkAction * action, gpointer user_data);
+void on_calltip1_activate (GtkAction * action, gpointer user_data);
 
-void on_goto_block_start1_activate (EggAction * action, gpointer user_data);
-void on_goto_block_end1_activate (EggAction * action, gpointer user_data);
+void on_comment_block (GtkAction * action, gpointer user_data);
+void on_comment_box (GtkAction * action, gpointer user_data);
+void on_comment_stream (GtkAction * action, gpointer user_data);
+void on_insert_custom_indent (GtkAction *action, gpointer user_data);
 
-void on_editor_linenos1_activate (EggAction *action, gpointer user_data);
-void on_editor_markers1_activate (EggAction *action, gpointer user_data);
-void on_editor_codefold1_activate (EggAction *action, gpointer user_data);
-void on_editor_indentguides1_activate (EggAction *action,
+void on_goto_block_start1_activate (GtkAction * action, gpointer user_data);
+void on_goto_block_end1_activate (GtkAction * action, gpointer user_data);
+
+void on_editor_linenos1_activate (GtkAction *action, gpointer user_data);
+void on_editor_markers1_activate (GtkAction *action, gpointer user_data);
+void on_editor_codefold1_activate (GtkAction *action, gpointer user_data);
+void on_editor_indentguides1_activate (GtkAction *action,
 									   gpointer user_data);
-void on_editor_whitespaces1_activate (EggAction *action,
+void on_editor_whitespaces1_activate (GtkAction *action,
 									  gpointer user_data);
-void on_editor_eolchars1_activate (EggAction *action, gpointer user_data);
-void on_editor_linewrap1_activate (EggAction *action, gpointer user_data);
-void on_zoom_text_activate (EggAction * action, gpointer user_data);
-void on_force_hilite1_activate (EggAction * action, gpointer user_data);
-void on_indent1_activate (EggAction * action, gpointer user_data);
+void on_editor_eolchars1_activate (GtkAction *action, gpointer user_data);
+void on_editor_linewrap1_activate (GtkAction *action, gpointer user_data);
+void on_zoom_in_text_activate (GtkAction * action, gpointer user_data);
+void on_zoom_out_text_activate (GtkAction * action, gpointer user_data);
 
-void on_insert_header (EggAction * action, gpointer user_data);
-void on_insert_cvs_author (EggAction * action, gpointer user_data);
-void on_insert_cvs_date (EggAction * action, gpointer user_data);
-void on_insert_cvs_header (EggAction * action, gpointer user_data);
-void on_insert_cvs_id (EggAction * action, gpointer user_data);
-void on_insert_cvs_log (EggAction * action, gpointer user_data);
-void on_insert_cvs_name (EggAction * action, gpointer user_data);
-void on_insert_cvs_revision (EggAction * action, gpointer user_data);
-void on_insert_cvs_source (EggAction * action, gpointer user_data);
-void on_insert_switch_template (EggAction * action, gpointer user_data);
-void on_insert_for_template (EggAction * action, gpointer user_data);
-void on_insert_while_template (EggAction * action, gpointer user_data);
-void on_insert_ifelse_template (EggAction * action, gpointer user_data);
-void on_insert_c_gpl_notice (EggAction * action, gpointer user_data);
-void on_insert_cpp_gpl_notice (EggAction * action, gpointer user_data);
-void on_insert_py_gpl_notice (EggAction * action, gpointer user_data);
-void on_insert_date_time (EggAction * action, gpointer user_data);
-void on_insert_changelog_entry (EggAction * action, gpointer user_data);
-void on_insert_header_template (EggAction * action, gpointer user_data);
-void on_insert_username (EggAction * action, gpointer user_data);
+void on_force_hilite1_auto_activate (GtkAction * action, gpointer user_data);
+void on_force_hilite1_none_activate (GtkAction * action, gpointer user_data);
+void on_force_hilite1_cpp_activate (GtkAction * action, gpointer user_data);
+void on_force_hilite1_html_activate (GtkAction * action, gpointer user_data);
+void on_force_hilite1_xml_activate (GtkAction * action, gpointer user_data);
+void on_force_hilite1_js_activate (GtkAction * action, gpointer user_data);
+void on_force_hilite1_wscript_activate (GtkAction * action, gpointer user_data);
+void on_force_hilite1_make_activate (GtkAction * action, gpointer user_data);
+void on_force_hilite1_java_activate (GtkAction * action, gpointer user_data);
+void on_force_hilite1_lua_activate (GtkAction * action, gpointer user_data);
+void on_force_hilite1_python_activate (GtkAction * action, gpointer user_data);
+void on_force_hilite1_perl_activate (GtkAction * action, gpointer user_data);
+void on_force_hilite1_sql_activate (GtkAction * action, gpointer user_data);
+void on_force_hilite1_plsql_activate (GtkAction * action, gpointer user_data);
+void on_force_hilite1_php_activate (GtkAction * action, gpointer user_data);
+void on_force_hilite1_latex_activate (GtkAction * action, gpointer user_data);
+void on_force_hilite1_diff_activate (GtkAction * action, gpointer user_data);
+void on_force_hilite1_pascal_activate (GtkAction * action, gpointer user_data);
+void on_force_hilite1_xcode_activate (GtkAction * action, gpointer user_data);
+void on_force_hilite1_props_activate (GtkAction * action, gpointer user_data);
+void on_force_hilite1_conf_activate (GtkAction * action, gpointer user_data);
+void on_force_hilite1_ada_activate (GtkAction * action, gpointer user_data);
+void on_force_hilite1_baan_activate (GtkAction * action, gpointer user_data);
+void on_force_hilite1_lisp_activate (GtkAction * action, gpointer user_data);
+void on_force_hilite1_ruby_activate (GtkAction * action, gpointer user_data);
+void on_force_hilite1_matlab_activate (GtkAction * action, gpointer user_data);
 
-void on_format_indent_style_clicked (EggAction * action, gpointer user_data);
+void on_indent1_activate (GtkAction * action, gpointer user_data);
 
-gboolean on_toolbar_find_incremental_start (EggAction *action, gpointer user_data);
-gboolean on_toolbar_find_incremental_end (EggAction *action, gpointer user_data);
-void on_toolbar_find_incremental (EggAction *action, gpointer user_data);
-void on_toolbar_find_clicked (EggAction *action, gpointer user_data);
+void on_insert_header (GtkAction * action, gpointer user_data);
+void on_insert_cvs_author (GtkAction * action, gpointer user_data);
+void on_insert_cvs_date (GtkAction * action, gpointer user_data);
+void on_insert_cvs_header (GtkAction * action, gpointer user_data);
+void on_insert_cvs_id (GtkAction * action, gpointer user_data);
+void on_insert_cvs_log (GtkAction * action, gpointer user_data);
+void on_insert_cvs_name (GtkAction * action, gpointer user_data);
+void on_insert_cvs_revision (GtkAction * action, gpointer user_data);
+void on_insert_cvs_source (GtkAction * action, gpointer user_data);
+void on_insert_switch_template (GtkAction * action, gpointer user_data);
+void on_insert_for_template (GtkAction * action, gpointer user_data);
+void on_insert_while_template (GtkAction * action, gpointer user_data);
+void on_insert_ifelse_template (GtkAction * action, gpointer user_data);
+void on_insert_c_gpl_notice (GtkAction * action, gpointer user_data);
+void on_insert_cpp_gpl_notice (GtkAction * action, gpointer user_data);
+void on_insert_py_gpl_notice (GtkAction * action, gpointer user_data);
+void on_insert_date_time (GtkAction * action, gpointer user_data);
+void on_insert_changelog_entry (GtkAction * action, gpointer user_data);
+void on_insert_header_template (GtkAction * action, gpointer user_data);
+void on_insert_username (GtkAction * action, gpointer user_data);
+
+void on_format_indent_style_clicked (GtkAction * action, gpointer user_data);
+void on_detach1_activate  (GtkAction * action, gpointer user_data);
+
+gboolean on_toolbar_find_incremental_start (GtkAction *action, gpointer user_data);
+gboolean on_toolbar_find_incremental_end (GtkAction *action, gpointer user_data);
+void on_toolbar_find_incremental (GtkAction *action, gpointer user_data);
+void on_toolbar_find_clicked (GtkAction *action, gpointer user_data);
 
 #endif

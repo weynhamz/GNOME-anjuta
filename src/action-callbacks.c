@@ -43,39 +43,39 @@
 #include "anjuta.h"
 
 void
-on_exit1_activate (EggAction * action, GObject *app)
+on_exit1_activate (GtkAction * action, GObject *app)
 {
 	if (on_anjuta_delete_event (GTK_WIDGET (app), NULL, app) == FALSE)
 		on_anjuta_destroy (GTK_WIDGET (app), app);
 }
 
 void
-on_set_preferences1_activate (EggAction * action, AnjutaApp *app)
+on_set_preferences1_activate (GtkAction * action, AnjutaApp *app)
 {
 	gtk_widget_show (GTK_WIDGET (app->preferences));
 }
 
 void
-on_set_default_preferences1_activate (EggAction * action,
+on_set_default_preferences1_activate (GtkAction * action,
 				      AnjutaApp *app)
 {
 	anjuta_preferences_reset_defaults (ANJUTA_PREFERENCES (app->preferences));
 }
 
 void
-on_customize_shortcuts_activate(EggAction *action, AnjutaApp *app)
+on_customize_shortcuts_activate(GtkAction *action, AnjutaApp *app)
 {
 	gtk_widget_show (GTK_WIDGET (app->ui));
 }
 
 void
-on_layout_manager_activate(EggAction *action, AnjutaApp *app)
+on_layout_manager_activate(GtkAction *action, AnjutaApp *app)
 {
 	egg_dock_layout_run_manager (app->layout_manager);
 }
 
 void
-on_show_plugins_activate (EggAction *action, AnjutaApp *app)
+on_show_plugins_activate (GtkAction *action, AnjutaApp *app)
 {
 	GtkWidget *win, *plg;
 	
@@ -91,7 +91,7 @@ on_show_plugins_activate (EggAction *action, AnjutaApp *app)
 }
 
 void
-on_help_activate (EggAction *action, gpointer data)
+on_help_activate (GtkAction *action, gpointer data)
 {
 	if (gnome_help_display ((const gchar*)data, NULL, NULL) == FALSE)
 	{
@@ -100,7 +100,7 @@ on_help_activate (EggAction *action, gpointer data)
 }
 
 void
-on_gnome_pages1_activate (EggAction *action, AnjutaApp *app)
+on_gnome_pages1_activate (GtkAction *action, AnjutaApp *app)
 {
 	if (anjuta_util_prog_is_installed ("devhelp", TRUE))
 	{
@@ -109,7 +109,7 @@ on_gnome_pages1_activate (EggAction *action, AnjutaApp *app)
 }
 
 void
-on_context_help_activate (EggAction * action, AnjutaApp *app)
+on_context_help_activate (GtkAction * action, AnjutaApp *app)
 {
   /*	TextEditor* te;
 	gboolean ret;
@@ -124,22 +124,61 @@ on_context_help_activate (EggAction * action, AnjutaApp *app)
 }
 
 void
-on_search_a_topic1_activate (EggAction * action, AnjutaApp *app)
+on_search_a_topic1_activate (GtkAction * action, AnjutaApp *app)
 {
   //anjuta_help_show (app->help_system);
 }
 
 void
-on_url_activate (EggAction * action, gpointer user_data)
+on_url_man_activate (GtkAction * action, gpointer user_data)
 {
-	if (user_data)
-	{
-		anjuta_res_url_show(user_data);
-	}
+	anjuta_res_url_show("man:man");
 }
 
 void
-on_about1_activate (EggAction * action, gpointer user_data)
+on_url_info_activate (GtkAction * action, gpointer user_data)
+{
+	anjuta_res_url_show("info:info");
+}
+
+void
+on_url_home_activate (GtkAction * action, gpointer user_data)
+{
+	anjuta_res_url_show("http://anjuta.org");
+}
+
+void
+on_url_libs_activate (GtkAction * action, gpointer user_data)
+{
+	anjuta_res_url_show("http://lidn.sourceforge.net");
+}
+
+void
+on_url_bugs_activate (GtkAction * action, gpointer user_data)
+{
+	anjuta_res_url_show("http://sourceforge.net/tracker/?atid=114222&group_id=14222&func=browse");
+}
+
+void
+on_url_features_activate (GtkAction * action, gpointer user_data)
+{
+	anjuta_res_url_show("http://sourceforge.net/tracker/?atid=364222&group_id=14222&func=browse");
+}
+
+void
+on_url_patches_activate (GtkAction * action, gpointer user_data)
+{
+	anjuta_res_url_show("http://sourceforge.net/tracker/?atid=314222&group_id=14222&func=browse");
+}
+
+void
+on_url_faqs_activate (GtkAction * action, gpointer user_data)
+{
+	anjuta_res_url_show("mailto:anjuta-list@lists.sourceforge.net");
+}
+
+void
+on_about1_activate (GtkAction * action, gpointer user_data)
 {
 	GtkWidget *about_dlg = about_box_new ();
 	gtk_widget_show (about_dlg);

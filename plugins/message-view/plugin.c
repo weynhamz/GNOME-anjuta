@@ -25,35 +25,38 @@
 
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-message-manager.ui"
 
-static void on_next_message(GtkWidget* menuitem, gpointer data)
+static void on_next_message(GtkAction* menuitem, MessageViewPlugin *plugin)
 {
 	g_message("Next Message");
 }
 
-static void on_prev_message(GtkWidget* menuitem, gpointer data)
+static void on_prev_message(GtkAction* menuitem, MessageViewPlugin *plugin)
 {
 	g_message("Prev Message");
 }
 
-static void on_show_messages(GtkWidget* menuitem, gpointer data)
+static void on_show_messages(GtkAction* menuitem, MessageViewPlugin *plugin)
 {
 	g_message("Show Messages");
 }
 
 
-static EggActionGroupEntry actions_goto[] = {
-  { "ActionMessageNext", N_("_Next message"), GTK_STOCK_GO_FORWARD, NULL,
+static GtkActionEntry actions_goto[] = {
+  { "ActionMessageNext", GTK_STOCK_GO_FORWARD,
+    N_("_Next message"), NULL,
 	N_("Next message"),
-    G_CALLBACK (on_next_message), NULL },
-  { "ActionMessagePrev", N_("_Previous message"), GTK_STOCK_GO_BACK, NULL,
+    G_CALLBACK (on_next_message)},
+  { "ActionMessagePrev", GTK_STOCK_GO_BACK,
+    N_("_Previous message"), NULL,
 	N_("Previous message"),
-    G_CALLBACK (on_prev_message), NULL }
+    G_CALLBACK (on_prev_message)}
 };
 
-static EggActionGroupEntry actions_view[] = {
-  { "ActionViewMessageShow", N_("_Show messages"), NULL, NULL,
+static GtkActionEntry actions_view[] = {
+  { "ActionViewMessageShow", NULL,
+    N_("_Show messages"), NULL,
 	N_("Show messages"),
-    G_CALLBACK (on_show_messages), NULL }
+    G_CALLBACK (on_show_messages)}
 };
 
 gpointer parent_class;
@@ -74,11 +77,11 @@ activate_plugin (AnjutaPlugin *plugin)
 	anjuta_ui_add_action_group_entries (ui, "ActionGroupGotoMessages",
 										_("Next/Prev Message"),
 										actions_goto,
-										G_N_ELEMENTS (actions_goto));
+										G_N_ELEMENTS (actions_goto), plugin);
 	anjuta_ui_add_action_group_entries (ui, "ActionGroupViewMessages",
 										_("View Messages"),
 										actions_view,
-										G_N_ELEMENTS (actions_view));
+										G_N_ELEMENTS (actions_view), plugin);
 	
 	mv_plugin->uiid = anjuta_ui_merge (plugin->ui, UI_FILE);
 	anjuta_shell_add_widget (plugin->shell, msgman,

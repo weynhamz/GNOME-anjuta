@@ -18,25 +18,32 @@
 #define _MAINMENU_CALLBACKS_H_
 
 #include <gnome.h>
-#include <libegg/menu/egg-toggle-action.h>
 
-void on_exit1_activate (EggAction * action, GObject *app);
-void on_set_preferences1_activate (EggAction * action, AnjutaApp *app);
-void on_set_default_preferences1_activate (EggAction *action,
+void on_exit1_activate (GtkAction * action, GObject *app);
+void on_set_preferences1_activate (GtkAction * action, AnjutaApp *app);
+void on_set_default_preferences1_activate (GtkAction *action,
 					   AnjutaApp *app);
-void on_customize_shortcuts_activate (EggAction * action, AnjutaApp *app);
-void on_layout_manager_activate(EggAction *action, AnjutaApp *app);
-void on_show_plugins_activate(EggAction *action, AnjutaApp *app);
+void on_customize_shortcuts_activate (GtkAction * action, AnjutaApp *app);
+void on_layout_manager_activate(GtkAction *action, AnjutaApp *app);
+void on_show_plugins_activate(GtkAction *action, AnjutaApp *app);
 
 /*****************************************************************************/
-void on_help_activate (EggAction * action, gpointer url);
+void on_help_activate (GtkAction * action, gpointer url);
 
-void on_gnome_pages1_activate (EggAction * action, AnjutaApp *app);
-void on_man_pages1_activate (EggAction * action, AnjutaApp *app);
-void on_info_pages1_activate (EggAction * action, AnjutaApp *app);
-void on_context_help_activate (EggAction * action, AnjutaApp *app);
-void on_search_a_topic1_activate (EggAction * action, AnjutaApp *app);
-void on_url_activate (EggAction * action, gpointer url);
-void on_about1_activate (EggAction * action, gpointer user_data);
+void on_gnome_pages1_activate (GtkAction * action, AnjutaApp *app);
+void on_man_pages1_activate (GtkAction * action, AnjutaApp *app);
+void on_info_pages1_activate (GtkAction * action, AnjutaApp *app);
+void on_context_help_activate (GtkAction * action, AnjutaApp *app);
+void on_search_a_topic1_activate (GtkAction * action, AnjutaApp *app);
+void on_url_man_activate (GtkAction * action, gpointer user_data);
+void on_url_info_activate (GtkAction * action, gpointer user_data);
+void on_url_home_activate (GtkAction * action, gpointer user_data);
+void on_url_libs_activate (GtkAction * action, gpointer user_data);
+void on_url_bugs_activate (GtkAction * action, gpointer user_data);
+void on_url_features_activate (GtkAction * action, gpointer user_data);
+void on_url_patches_activate (GtkAction * action, gpointer user_data);
+void on_url_faqs_activate (GtkAction * action, gpointer user_data);
+void on_url_activate (GtkAction * action, gpointer url);
+void on_about1_activate (GtkAction * action, gpointer user_data);
 
 #endif

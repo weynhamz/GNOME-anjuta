@@ -1,32 +1,43 @@
---- gtkdoc-scangobj.old	2004-02-09 12:20:20.000000000 +0530
-+++ gtkdoc-scangobj	2004-02-09 12:22:44.000000000 +0530
+--- gtkdoc-scangobj	2004-04-13 22:52:13.000000000 +0530
++++ gtkdoc-scangobj.new	2004-04-13 22:52:02.000000000 +0530
 @@ -879,7 +879,7 @@
  static void
  output_widget_args (FILE *fp, GType object_type)
  {
--  GObjectClass *class;
-+  GObjectClass *klass;
+-  gpointer class;
++  gpointer klass;
    const gchar *object_class_name;
    gint arg;
    gchar flags[16], *pos;
-@@ -891,13 +891,13 @@
-   if (!G_TYPE_IS_CLASSED (object_type))
-     return;
+@@ -890,21 +890,21 @@
  
--  class = g_type_class_peek (object_type);
--  if (!class)
-+  klass = g_type_class_peek (object_type);
-+  if (!klass)
-     return;
+   if (G_TYPE_IS_CLASSED (object_type))
+     {
+-      class = g_type_class_peek (object_type);
+-      if (!class)
++      klass = g_type_class_peek (object_type);
++      if (!klass)
+ 	return;
  
-   object_class_name = g_type_name (object_type);
+-      properties = g_object_class_list_properties (class, &n_properties);
++      properties = g_object_class_list_properties (klass, &n_properties);
+     }
+ #if GLIB_MAJOR_VERSION > 2 || (GLIB_MAJOR_VERSION == 2 && GLIB_MINOR_VERSION >= 3)
+   else if (G_TYPE_IS_INTERFACE (object_type))
+     {
+-      class = g_type_default_interface_ref (object_type);
++      klass = g_type_default_interface_ref (object_type);
  
--  properties = g_object_class_list_properties (class, &n_properties);
-+  properties = g_object_class_list_properties (klass, &n_properties);
+-      if (!class)
++      if (!klass)
+ 	return;
  
-   child_prop = FALSE;
-   style_prop = FALSE;
-@@ -945,8 +945,8 @@
+-      properties = g_object_interface_list_properties (class, &n_properties);
++      properties = g_object_interface_list_properties (klass, &n_properties);
+     }
+ #endif
+   else
+@@ -958,8 +958,8 @@
      g_free (properties);
  
  #ifdef GTK_IS_CONTAINER_CLASS
@@ -37,7 +48,7 @@
        child_prop = TRUE;
        continue;
      }
-@@ -954,8 +954,8 @@
+@@ -967,8 +967,8 @@
  
  #ifdef GTK_IS_WIDGET_CLASS
  #if GTK_CHECK_VERSION(2,1,0)

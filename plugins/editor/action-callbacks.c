@@ -21,7 +21,6 @@
 #include <libanjuta/anjuta-utils.h>
 
 #include <libegg/menu/egg-entry-action.h>
-#include <libegg/menu/egg-toggle-action.h>
 
 #include "anjuta-docman.h"
 #include "action-callbacks.h"
@@ -32,11 +31,12 @@
 #include "plugin.h"
 #include "goto_line.h"
 #include "print.h"
+#include "lexer.h"
 
 gboolean closing_state;
 
 void
-on_new_file1_activate (EggAction * action, gpointer user_data)
+on_new_file1_activate (GtkAction * action, gpointer user_data)
 {
 	AnjutaDocman *docman;
 	EditorPlugin *plugin;
@@ -47,7 +47,7 @@ on_new_file1_activate (EggAction * action, gpointer user_data)
 }
 
 void
-on_open1_activate (EggAction * action, gpointer user_data)
+on_open1_activate (GtkAction * action, gpointer user_data)
 {
 	AnjutaDocman *docman;
 	EditorPlugin *plugin;
@@ -57,7 +57,7 @@ on_open1_activate (EggAction * action, gpointer user_data)
 }
 
 void
-on_save1_activate (EggAction *action, gpointer user_data)
+on_save1_activate (GtkAction *action, gpointer user_data)
 {
 	gboolean ret;
 	TextEditor *te;
@@ -85,7 +85,7 @@ on_save1_activate (EggAction *action, gpointer user_data)
 }
 
 void
-on_save_as1_activate (EggAction * action, gpointer user_data)
+on_save_as1_activate (GtkAction * action, gpointer user_data)
 {
 	AnjutaDocman *docman;
 	EditorPlugin *plugin;
@@ -95,13 +95,13 @@ on_save_as1_activate (EggAction * action, gpointer user_data)
 }
 
 void
-on_save_all1_activate (EggAction * action, gpointer user_data)
+on_save_all1_activate (GtkAction * action, gpointer user_data)
 {
 	// anjuta_docman_save_all_files();
 }
 
 void
-on_close_file1_activate (EggAction * action, gpointer user_data)
+on_close_file1_activate (GtkAction * action, gpointer user_data)
 {
 	AnjutaDocman *docman;
 	TextEditor *te;
@@ -169,7 +169,7 @@ on_close_file1_activate (EggAction * action, gpointer user_data)
 }
 
 void
-on_close_all_file1_activate (EggAction * action, gpointer user_data)
+on_close_all_file1_activate (GtkAction * action, gpointer user_data)
 {
 	GList *node;
 	AnjutaDocman *docman;
@@ -197,7 +197,7 @@ on_close_all_file1_activate (EggAction * action, gpointer user_data)
 }
 
 void
-on_reload_file1_activate (EggAction * action, gpointer user_data)
+on_reload_file1_activate (GtkAction * action, gpointer user_data)
 {
 	TextEditor *te;
 	gchar mesg[256];
@@ -237,7 +237,7 @@ on_reload_file1_activate (EggAction * action, gpointer user_data)
 }
 
 void
-anjuta_print_cb (EggAction *action, gpointer user_data)
+anjuta_print_cb (GtkAction *action, gpointer user_data)
 {
 	TextEditor *te;
 	AnjutaDocman *docman;
@@ -252,7 +252,7 @@ anjuta_print_cb (EggAction *action, gpointer user_data)
 }
 
 void
-anjuta_print_preview_cb (EggAction * action, gpointer user_data)
+anjuta_print_preview_cb (GtkAction * action, gpointer user_data)
 {
 	TextEditor *te;
 	AnjutaDocman *docman;
@@ -266,23 +266,158 @@ anjuta_print_preview_cb (EggAction * action, gpointer user_data)
 	anjuta_print (TRUE, ANJUTA_PLUGIN (plugin)->prefs, te);
 }
 
-void
-on_editor_command_activate (EggAction * action, gpointer user_data)
+static void
+on_editor_command_activate (GtkAction * action, gint command, gpointer user_data)
 {
 	TextEditor *te;
 	AnjutaDocman *docman;
 	EditorPlugin *plugin;
 	
-	plugin = (EditorPlugin *) g_object_get_data (G_OBJECT (action), "Plugin");
+	plugin = (EditorPlugin *) user_data;
 	docman = ANJUTA_DOCMAN (plugin->docman);
 	te = anjuta_docman_get_current_editor (docman);
 	if (te == NULL)
 		return;
-	aneditor_command (te->editor_id, (gint) user_data, 0, 0);
+	aneditor_command (te->editor_id, command, 0, 0);
+}
+
+void on_editor_command_upper_case_activate (GtkAction * action, gpointer data)
+{
+	on_editor_command_activate (action, ANE_UPRCASE, data);
+}
+
+void on_editor_command_lower_case_activate (GtkAction * action, gpointer data)
+{
+	on_editor_command_activate (action, ANE_LWRCASE, data);
+}
+
+void on_editor_command_eol_crlf_activate (GtkAction * action, gpointer data)
+{
+	on_editor_command_activate (action, ANE_EOL_CRLF, data);
+}
+
+void on_editor_command_eol_lf_activate (GtkAction * action, gpointer data)
+{
+	on_editor_command_activate (action, ANE_EOL_LF, data);
+}
+
+void on_editor_command_eol_cr_activate (GtkAction * action, gpointer data)
+{
+	on_editor_command_activate (action, ANE_EOL_CR, data);
+}
+
+void on_editor_command_select_all_activate (GtkAction * action, gpointer data)
+{
+	on_editor_command_activate (action, ANE_SELECTALL, data);
+}
+
+void on_editor_command_select_to_brace_activate (GtkAction * action, gpointer data)
+{
+	on_editor_command_activate (action, ANE_SELECTTOBRACE, data);
+}
+
+void on_editor_command_select_block_activate (GtkAction * action, gpointer data)
+{
+	on_editor_command_activate (action, ANE_SELECTBLOCK, data);
+}
+
+void on_editor_command_match_brace_activate (GtkAction * action, gpointer data)
+{
+	on_editor_command_activate (action, ANE_MATCHBRACE, data);
+}
+
+void on_editor_command_undo_activate (GtkAction * action, gpointer data)
+{
+	on_editor_command_activate (action, ANE_UNDO, data);
+}
+
+void on_editor_command_redo_activate (GtkAction * action, gpointer data)
+{
+	on_editor_command_activate (action, ANE_REDO, data);
+}
+
+void on_editor_command_cut_activate (GtkAction * action, gpointer data)
+{
+	on_editor_command_activate (action, ANE_CUT, data);
+}
+
+void on_editor_command_copy_activate (GtkAction * action, gpointer data)
+{
+	on_editor_command_activate (action, ANE_COPY, data);
+}
+
+void on_editor_command_paste_activate (GtkAction * action, gpointer data)
+{
+	on_editor_command_activate (action, ANE_PASTE, data);
+}
+
+void on_editor_command_clear_activate (GtkAction * action, gpointer data)
+{
+	on_editor_command_activate (action, ANE_CLEAR, data);
+}
+
+void on_editor_command_complete_word_activate (GtkAction * action, gpointer data)
+{
+	on_editor_command_activate (action, ANE_COMPLETEWORD, data);
+}
+
+void on_editor_command_indent_increase_activate (GtkAction * action, gpointer data)
+{
+	on_editor_command_activate (action, ANE_INDENT_INCREASE, data);
+}
+
+void on_editor_command_indent_decrease_activate (GtkAction * action, gpointer data)
+{
+	on_editor_command_activate (action, ANE_INDENT_DECREASE, data);
+}
+
+void on_editor_command_close_folds_all_activate (GtkAction * action, gpointer data)
+{
+	on_editor_command_activate (action, ANE_CLOSE_FOLDALL, data);
+}
+
+void on_editor_command_open_folds_all_activate (GtkAction * action, gpointer data)
+{
+	on_editor_command_activate (action, ANE_OPEN_FOLDALL, data);
+}
+
+void on_editor_command_toggle_fold_activate (GtkAction * action, gpointer data)
+{
+	on_editor_command_activate (action, ANE_TOGGLE_FOLD, data);
+}
+
+void on_editor_command_bookmark_toggle_activate (GtkAction * action, gpointer data)
+{
+	on_editor_command_activate (action, ANE_BOOKMARK_TOGGLE, data);
+}
+
+void on_editor_command_bookmark_first_activate (GtkAction * action, gpointer data)
+{
+	on_editor_command_activate (action, ANE_BOOKMARK_FIRST, data);
+}
+
+void on_editor_command_bookmark_next_activate (GtkAction * action, gpointer data)
+{
+	on_editor_command_activate (action, ANE_BOOKMARK_NEXT, data);
+}
+
+void on_editor_command_bookmark_prev_activate (GtkAction * action, gpointer data)
+{
+	on_editor_command_activate (action, ANE_BOOKMARK_PREV, data);
+}
+
+void on_editor_command_bookmark_last_activate (GtkAction * action, gpointer data)
+{
+	on_editor_command_activate (action, ANE_BOOKMARK_LAST, data);
+}
+
+void on_editor_command_bookmark_clear_activate (GtkAction * action, gpointer data)
+{
+	on_editor_command_activate (action, ANE_BOOKMARK_CLEAR, data);
 }
 
 void
-on_editor_select_function (EggAction *action, gpointer user_data)
+on_editor_select_function (GtkAction *action, gpointer user_data)
 {
 	TextEditor *te;
 	AnjutaDocman *docman;
@@ -295,7 +430,7 @@ on_editor_select_function (EggAction *action, gpointer user_data)
 	function_select(te);
 }
 
-void on_editor_select_word (EggAction *action, gpointer user_data)
+void on_editor_select_word (GtkAction *action, gpointer user_data)
 {
     TextEditor* te;
 	AnjutaDocman *docman;
@@ -307,7 +442,7 @@ void on_editor_select_word (EggAction *action, gpointer user_data)
     aneditor_command (te->editor_id, ANE_WORDSELECT, 0, 0);
 }
 
-void on_editor_select_line (EggAction *action, gpointer user_data)
+void on_editor_select_line (GtkAction *action, gpointer user_data)
 {
     TextEditor* te;
 	AnjutaDocman *docman;
@@ -320,7 +455,7 @@ void on_editor_select_line (EggAction *action, gpointer user_data)
 }
 
 void
-on_transform_eolchars1_activate (EggAction * action, gpointer user_data)
+on_transform_eolchars1_activate (GtkAction * action, gpointer user_data)
 {
 	// glong mode;
 	TextEditor *te;
@@ -339,7 +474,7 @@ on_transform_eolchars1_activate (EggAction * action, gpointer user_data)
 }
 
 void
-on_insert_c_gpl_notice(EggAction * action, gpointer user_data)
+on_insert_c_gpl_notice(GtkAction * action, gpointer user_data)
 {
     TextEditor* te;
 	AnjutaDocman *docman;
@@ -352,7 +487,7 @@ on_insert_c_gpl_notice(EggAction * action, gpointer user_data)
 }
 
 void
-on_insert_cpp_gpl_notice(EggAction * action, gpointer user_data)
+on_insert_cpp_gpl_notice(GtkAction * action, gpointer user_data)
 {
     TextEditor* te;
 	AnjutaDocman *docman;
@@ -365,7 +500,7 @@ on_insert_cpp_gpl_notice(EggAction * action, gpointer user_data)
 }
 
 void
-on_insert_py_gpl_notice(EggAction * action, gpointer user_data)
+on_insert_py_gpl_notice(GtkAction * action, gpointer user_data)
 {
     TextEditor* te;
 	AnjutaDocman *docman;
@@ -378,7 +513,7 @@ on_insert_py_gpl_notice(EggAction * action, gpointer user_data)
 }
 
 void
-on_insert_username(EggAction * action, gpointer user_data)
+on_insert_username(GtkAction * action, gpointer user_data)
 {
     TextEditor* te;
 	AnjutaDocman *docman;
@@ -391,7 +526,7 @@ on_insert_username(EggAction * action, gpointer user_data)
 }
 
 void
-on_insert_changelog_entry(EggAction * action, gpointer user_data)
+on_insert_changelog_entry(GtkAction * action, gpointer user_data)
 {
     TextEditor* te;
 	AnjutaDocman *docman;
@@ -404,7 +539,7 @@ on_insert_changelog_entry(EggAction * action, gpointer user_data)
 }
 
 void
-on_insert_date_time(EggAction * action, gpointer user_data)
+on_insert_date_time(GtkAction * action, gpointer user_data)
 {
     TextEditor* te;
 	AnjutaDocman *docman;
@@ -417,7 +552,7 @@ on_insert_date_time(EggAction * action, gpointer user_data)
 }
 
 void
-on_insert_header_template(EggAction * action, gpointer user_data)
+on_insert_header_template(GtkAction * action, gpointer user_data)
 {
     TextEditor* te;
 	AnjutaDocman *docman;
@@ -430,7 +565,7 @@ on_insert_header_template(EggAction * action, gpointer user_data)
 }
 
 void
-on_insert_header(EggAction * action, gpointer user_data)
+on_insert_header(GtkAction * action, gpointer user_data)
 {
     TextEditor* te;
 	AnjutaDocman *docman;
@@ -443,7 +578,7 @@ on_insert_header(EggAction * action, gpointer user_data)
 }
 
 void
-on_insert_switch_template(EggAction * action, gpointer user_data)
+on_insert_switch_template(GtkAction * action, gpointer user_data)
 {
     TextEditor* te;
 	AnjutaDocman *docman;
@@ -456,7 +591,7 @@ on_insert_switch_template(EggAction * action, gpointer user_data)
 }
 
 void
-on_insert_for_template(EggAction * action, gpointer user_data)
+on_insert_for_template(GtkAction * action, gpointer user_data)
 {
     TextEditor* te;
 	AnjutaDocman *docman;
@@ -469,7 +604,7 @@ on_insert_for_template(EggAction * action, gpointer user_data)
 }
 
 void
-on_insert_while_template(EggAction * action, gpointer user_data)
+on_insert_while_template(GtkAction * action, gpointer user_data)
 {
     TextEditor* te;
 	AnjutaDocman *docman;
@@ -482,7 +617,7 @@ on_insert_while_template(EggAction * action, gpointer user_data)
 }
 
 void
-on_insert_ifelse_template(EggAction * action, gpointer user_data)
+on_insert_ifelse_template(GtkAction * action, gpointer user_data)
 {
     TextEditor* te;
 	AnjutaDocman *docman;
@@ -495,7 +630,7 @@ on_insert_ifelse_template(EggAction * action, gpointer user_data)
 }
 
 void
-on_insert_cvs_author(EggAction * action, gpointer user_data)
+on_insert_cvs_author(GtkAction * action, gpointer user_data)
 {
     TextEditor* te;
 	AnjutaDocman *docman;
@@ -508,7 +643,7 @@ on_insert_cvs_author(EggAction * action, gpointer user_data)
 }
 
 void
-on_insert_cvs_date(EggAction * action, gpointer user_data)
+on_insert_cvs_date(GtkAction * action, gpointer user_data)
 {
     TextEditor* te;
 	AnjutaDocman *docman;
@@ -521,7 +656,7 @@ on_insert_cvs_date(EggAction * action, gpointer user_data)
 }
 
 void
-on_insert_cvs_header(EggAction * action, gpointer user_data)
+on_insert_cvs_header(GtkAction * action, gpointer user_data)
 {
     TextEditor* te;
 	AnjutaDocman *docman;
@@ -534,7 +669,7 @@ on_insert_cvs_header(EggAction * action, gpointer user_data)
 }
 
 void
-on_insert_cvs_id(EggAction * action, gpointer user_data)
+on_insert_cvs_id(GtkAction * action, gpointer user_data)
 {
     TextEditor* te;
 	AnjutaDocman *docman;
@@ -547,7 +682,7 @@ on_insert_cvs_id(EggAction * action, gpointer user_data)
 }
 
 void
-on_insert_cvs_log(EggAction * action, gpointer user_data)
+on_insert_cvs_log(GtkAction * action, gpointer user_data)
 {
     TextEditor* te;
 	AnjutaDocman *docman;
@@ -560,7 +695,7 @@ on_insert_cvs_log(EggAction * action, gpointer user_data)
 }
 
 void
-on_insert_cvs_name(EggAction * action, gpointer user_data)
+on_insert_cvs_name(GtkAction * action, gpointer user_data)
 {
     TextEditor* te;
 	AnjutaDocman *docman;
@@ -573,7 +708,7 @@ on_insert_cvs_name(EggAction * action, gpointer user_data)
 }
 
 void
-on_insert_cvs_revision(EggAction * action, gpointer user_data)
+on_insert_cvs_revision(GtkAction * action, gpointer user_data)
 {
     TextEditor* te;
 	AnjutaDocman *docman;
@@ -586,7 +721,7 @@ on_insert_cvs_revision(EggAction * action, gpointer user_data)
 }
 
 void
-on_insert_cvs_source(EggAction * action, gpointer user_data)
+on_insert_cvs_source(GtkAction * action, gpointer user_data)
 {
     TextEditor* te;
 	AnjutaDocman *docman;
@@ -599,7 +734,7 @@ on_insert_cvs_source(EggAction * action, gpointer user_data)
 }
 
 void
-on_autocomplete1_activate (EggAction * action, gpointer user_data)
+on_autocomplete1_activate (GtkAction * action, gpointer user_data)
 {
 	TextEditor *te;
 	AnjutaDocman *docman;
@@ -613,30 +748,30 @@ on_autocomplete1_activate (EggAction * action, gpointer user_data)
 }
 
 void
-on_search1_activate (EggAction * action, gpointer user_data)
+on_search1_activate (GtkAction * action, gpointer user_data)
 {
 	anjuta_search_replace_activate(FALSE, FALSE);
 }
 
 void
-on_find1_activate (EggAction * action, gpointer user_data)
+on_find1_activate (GtkAction * action, gpointer user_data)
 {
 	anjuta_search_replace_activate(FALSE, FALSE);
 }
 
 void
-on_find_and_replace1_activate (EggAction * action, gpointer user_data)
+on_find_and_replace1_activate (GtkAction * action, gpointer user_data)
 {
 	anjuta_search_replace_activate(TRUE, FALSE);
 }
 
 void
-on_find_in_files1_activate (EggAction * action, gpointer user_data)
+on_find_in_files1_activate (GtkAction * action, gpointer user_data)
 {
 	anjuta_search_replace_activate(FALSE, TRUE);
 }
 
-void on_prev_occur(EggAction * action, gpointer user_data)
+void on_prev_occur(GtkAction * action, gpointer user_data)
 {
     TextEditor* te;
 	AnjutaDocman *docman;
@@ -676,7 +811,7 @@ void on_prev_occur(EggAction * action, gpointer user_data)
 
 }
 
-void on_next_occur(EggAction * action, gpointer user_data)
+void on_next_occur(GtkAction * action, gpointer user_data)
 {
 	gboolean ret;
 	gchar *buffer = NULL;
@@ -714,7 +849,7 @@ void on_next_occur(EggAction * action, gpointer user_data)
 
 }
 
-void on_comment_block (EggAction * action, gpointer user_data)
+void on_comment_block (GtkAction * action, gpointer user_data)
 {
     TextEditor* te;
 	AnjutaDocman *docman;
@@ -726,7 +861,7 @@ void on_comment_block (EggAction * action, gpointer user_data)
     aneditor_command (te->editor_id, ANE_BLOCKCOMMENT, 0, 0);
 }
 
-void on_comment_box (EggAction * action, gpointer user_data)
+void on_comment_box (GtkAction * action, gpointer user_data)
 {
     TextEditor* te;
 	AnjutaDocman *docman;
@@ -738,7 +873,7 @@ void on_comment_box (EggAction * action, gpointer user_data)
     aneditor_command (te->editor_id, ANE_BOXCOMMENT, 0, 0);
 }
 
-void on_comment_stream (EggAction * action, gpointer user_data)
+void on_comment_stream (GtkAction * action, gpointer user_data)
 {
     TextEditor* te;
 	AnjutaDocman *docman;
@@ -750,7 +885,7 @@ void on_comment_stream (EggAction * action, gpointer user_data)
     aneditor_command (te->editor_id, ANE_STREAMCOMMENT, 0, 0);
 }
 
-void on_insert_custom_indent (EggAction *action, gpointer user_data)
+void on_insert_custom_indent (GtkAction *action, gpointer user_data)
 {
     TextEditor* te;
 	AnjutaDocman *docman;
@@ -763,7 +898,7 @@ void on_insert_custom_indent (EggAction *action, gpointer user_data)
 }
 
 void
-on_goto_activate (EggAction *action, gpointer user_data)
+on_goto_activate (GtkAction *action, gpointer user_data)
 {
 	EditorPlugin *plugin;
 	AnjutaUI *ui;
@@ -774,7 +909,7 @@ on_goto_activate (EggAction *action, gpointer user_data)
 }
 
 void
-on_toolbar_goto_clicked (EggAction *action, gpointer user_data)
+on_toolbar_goto_clicked (GtkAction *action, gpointer user_data)
 {
 	EditorPlugin *plugin;
 	AnjutaUI *ui;
@@ -794,7 +929,7 @@ on_toolbar_goto_clicked (EggAction *action, gpointer user_data)
 	}
 	else
 	{
-		EggAction *entry_action;
+		GtkAction *entry_action;
 		entry_action = anjuta_ui_get_action (ui, "ActionNavigation",
 									   "ActionEditSearchEntry");
 		g_return_if_fail (EGG_IS_ENTRY_ACTION (action));
@@ -818,7 +953,7 @@ on_toolbar_goto_clicked (EggAction *action, gpointer user_data)
 }
 
 void
-on_goto_line_no1_activate (EggAction * action, gpointer user_data)
+on_goto_line_no1_activate (GtkAction * action, gpointer user_data)
 {
 	GtkWidget *gt;
 	EditorPlugin *plugin;
@@ -834,7 +969,7 @@ on_goto_line_no1_activate (EggAction * action, gpointer user_data)
 }
 
 void
-on_goto_block_start1_activate (EggAction * action, gpointer user_data)
+on_goto_block_start1_activate (GtkAction * action, gpointer user_data)
 {
 	TextEditor *te;
 	AnjutaDocman *docman;
@@ -849,7 +984,7 @@ on_goto_block_start1_activate (EggAction * action, gpointer user_data)
 }
 
 void
-on_goto_block_end1_activate (EggAction * action, gpointer user_data)
+on_goto_block_end1_activate (GtkAction * action, gpointer user_data)
 {
 	TextEditor *te;
 	AnjutaDocman *docman;
@@ -864,7 +999,7 @@ on_goto_block_end1_activate (EggAction * action, gpointer user_data)
 }
 
 void
-on_editor_linenos1_activate (EggAction * action, gpointer user_data)
+on_editor_linenos1_activate (GtkAction * action, gpointer user_data)
 {
 	gboolean state;
 	GList *node, *editors;
@@ -876,7 +1011,7 @@ on_editor_linenos1_activate (EggAction * action, gpointer user_data)
 	docman = ANJUTA_DOCMAN (plugin->docman);
 	editors = anjuta_docman_get_all_editors (docman);
 	
-	state = (int) EGG_TOGGLE_ACTION (action)->active;
+	state = gtk_toggle_action_get_active (GTK_TOGGLE_ACTION (action));
 	anjuta_preferences_set_int (ANJUTA_PREFERENCES (ANJUTA_PLUGIN(plugin)->prefs),
 								"margin.linenumber.visible", state);
 	node = editors;
@@ -889,7 +1024,7 @@ on_editor_linenos1_activate (EggAction * action, gpointer user_data)
 }
 
 void
-on_editor_markers1_activate (EggAction * action, gpointer user_data)
+on_editor_markers1_activate (GtkAction * action, gpointer user_data)
 {
 	gboolean state;
 	GList *node, *editors;
@@ -901,7 +1036,8 @@ on_editor_markers1_activate (EggAction * action, gpointer user_data)
 	docman = ANJUTA_DOCMAN (plugin->docman);
 	editors = anjuta_docman_get_all_editors (docman);
 	
-	state = (int) EGG_TOGGLE_ACTION  (action)->active;
+	state = gtk_toggle_action_get_active (GTK_TOGGLE_ACTION (action));
+
 	anjuta_preferences_set_int (ANJUTA_PREFERENCES (ANJUTA_PLUGIN(plugin)->prefs),
 								"margin.marker.visible", state);
 	node = editors;
@@ -914,7 +1050,7 @@ on_editor_markers1_activate (EggAction * action, gpointer user_data)
 }
 
 void
-on_editor_codefold1_activate (EggAction * action, gpointer user_data)
+on_editor_codefold1_activate (GtkAction * action, gpointer user_data)
 {
 	gboolean state;
 	GList *node, *editors;
@@ -926,7 +1062,7 @@ on_editor_codefold1_activate (EggAction * action, gpointer user_data)
 	docman = ANJUTA_DOCMAN (plugin->docman);
 	editors = anjuta_docman_get_all_editors (docman);
 	
-	state = (int) EGG_TOGGLE_ACTION (action)->active;
+	state = gtk_toggle_action_get_active (GTK_TOGGLE_ACTION (action));
 	anjuta_preferences_set_int (ANJUTA_PREFERENCES (ANJUTA_PLUGIN(plugin)->prefs),
 								"margin.fold.visible", state);
 	node = editors;
@@ -939,7 +1075,7 @@ on_editor_codefold1_activate (EggAction * action, gpointer user_data)
 }
 
 void
-on_editor_indentguides1_activate (EggAction * action, gpointer user_data)
+on_editor_indentguides1_activate (GtkAction * action, gpointer user_data)
 {
 	gboolean state;
 	GList *node, *editors;
@@ -951,7 +1087,7 @@ on_editor_indentguides1_activate (EggAction * action, gpointer user_data)
 	docman = ANJUTA_DOCMAN (plugin->docman);
 	editors = anjuta_docman_get_all_editors (docman);
 	
-	state = (int) EGG_TOGGLE_ACTION (action)->active;
+	state = gtk_toggle_action_get_active (GTK_TOGGLE_ACTION (action));
 	anjuta_preferences_set_int (ANJUTA_PREFERENCES (ANJUTA_PLUGIN(plugin)->prefs),
 								"view.indentation.guides", state);
 	node = editors;
@@ -964,7 +1100,7 @@ on_editor_indentguides1_activate (EggAction * action, gpointer user_data)
 }
 
 void
-on_editor_whitespaces1_activate (EggAction * action, gpointer user_data)
+on_editor_whitespaces1_activate (GtkAction * action, gpointer user_data)
 {
 	gboolean state;
 	GList *node, *editors;
@@ -976,7 +1112,7 @@ on_editor_whitespaces1_activate (EggAction * action, gpointer user_data)
 	docman = ANJUTA_DOCMAN (plugin->docman);
 	editors = anjuta_docman_get_all_editors (docman);
 	
-	state = (int) EGG_TOGGLE_ACTION (action)->active;
+	state = gtk_toggle_action_get_active (GTK_TOGGLE_ACTION (action));
 	anjuta_preferences_set_int (ANJUTA_PREFERENCES (ANJUTA_PLUGIN(plugin)->prefs),
 								"view.whitespace", state);
 	node = editors;
@@ -989,7 +1125,7 @@ on_editor_whitespaces1_activate (EggAction * action, gpointer user_data)
 }
 
 void
-on_editor_eolchars1_activate (EggAction * action, gpointer user_data)
+on_editor_eolchars1_activate (GtkAction * action, gpointer user_data)
 {
 	gboolean state;
 	GList *node, *editors;
@@ -1001,7 +1137,7 @@ on_editor_eolchars1_activate (EggAction * action, gpointer user_data)
 	docman = ANJUTA_DOCMAN (plugin->docman);
 	editors = anjuta_docman_get_all_editors (docman);
 	
-	state = (int) EGG_TOGGLE_ACTION (action)->active;
+	state = gtk_toggle_action_get_active (GTK_TOGGLE_ACTION (action));
 	anjuta_preferences_set_int (ANJUTA_PREFERENCES (ANJUTA_PLUGIN(plugin)->prefs),
 								"view.eol", state);
 	node = editors;
@@ -1014,7 +1150,7 @@ on_editor_eolchars1_activate (EggAction * action, gpointer user_data)
 }
 
 void
-on_editor_linewrap1_activate (EggAction * action, gpointer user_data)
+on_editor_linewrap1_activate (GtkAction * action, gpointer user_data)
 {
 	gboolean state;
 	GList *node, *editors;
@@ -1026,7 +1162,7 @@ on_editor_linewrap1_activate (EggAction * action, gpointer user_data)
 	docman = ANJUTA_DOCMAN (plugin->docman);
 	editors = anjuta_docman_get_all_editors (docman);
 	
-	state = (int) EGG_TOGGLE_ACTION (action)->active;
+	state = gtk_toggle_action_get_active (GTK_TOGGLE_ACTION (action));
 	anjuta_preferences_set_int (ANJUTA_PREFERENCES (ANJUTA_PLUGIN(plugin)->prefs),
 								"view.line.wrap", state);
 	node = editors;
@@ -1041,18 +1177,17 @@ on_editor_linewrap1_activate (EggAction * action, gpointer user_data)
 #define MAX_ZOOM_FACTOR 8
 #define MIN_ZOOM_FACTOR -8
 
-void
-on_zoom_text_activate (EggAction * action, gpointer user_data)
+static void
+on_zoom_text_activate (GtkAction * action, const gchar *zoom_text,
+					   gpointer user_data)
 {
 	AnjutaPlugin *plugin;
 	AnjutaPreferences *p;
 	gint zoom;
 	gchar buf[20];
-	const gchar *zoom_text;
 	
-	plugin = (AnjutaPlugin *) g_object_get_data (G_OBJECT (action), "Plugin");
+	plugin = (AnjutaPlugin *) user_data;
 	p = ANJUTA_PREFERENCES (plugin->prefs);
-	zoom_text = (const gchar *) user_data;
 	
 	if (!zoom_text)
 		zoom = 0;
@@ -1072,13 +1207,26 @@ on_zoom_text_activate (EggAction * action, gpointer user_data)
 }
 
 void
-on_force_hilite1_activate (EggAction * action, gpointer user_data)
+on_zoom_in_text_activate (GtkAction * action, gpointer user_data)
+{
+	on_zoom_text_activate (action, "++", user_data);
+}
+
+void
+on_zoom_out_text_activate (GtkAction * action, gpointer user_data)
+{
+	on_zoom_text_activate (action, "--", user_data);
+}
+
+static void
+on_force_hilite1_activate (GtkAction * action, gint highlight_type,
+						   gpointer user_data)
 {
 	TextEditor *te;
 	AnjutaDocman *docman;
 	EditorPlugin *plugin;
 	
-	plugin = (EditorPlugin *) g_object_get_data (G_OBJECT(action), "Plugin");
+	plugin = (EditorPlugin *) user_data;
 	docman = ANJUTA_DOCMAN (plugin->docman);
 	te = anjuta_docman_get_current_editor (docman);
 	if (te == NULL)
@@ -1087,8 +1235,138 @@ on_force_hilite1_activate (EggAction * action, gpointer user_data)
 	text_editor_set_hilite_type (te);
 }
 
+void on_force_hilite1_auto_activate (GtkAction * action, gpointer user_data)
+{
+	on_force_hilite1_activate (action, TE_LEXER_AUTOMATIC, user_data);
+}
+
+void on_force_hilite1_none_activate (GtkAction * action, gpointer user_data)
+{
+	on_force_hilite1_activate (action, TE_LEXER_NONE, user_data);
+}
+
+void on_force_hilite1_cpp_activate (GtkAction * action, gpointer user_data)
+{
+	on_force_hilite1_activate (action, TE_LEXER_CPP, user_data);
+}
+
+void on_force_hilite1_html_activate (GtkAction * action, gpointer user_data)
+{
+	on_force_hilite1_activate (action, TE_LEXER_HTML, user_data);
+}
+
+void on_force_hilite1_xml_activate (GtkAction * action, gpointer user_data)
+{
+	on_force_hilite1_activate (action, TE_LEXER_XML, user_data);
+}
+
+void on_force_hilite1_js_activate (GtkAction * action, gpointer user_data)
+{
+	on_force_hilite1_activate (action, TE_LEXER_JS, user_data);
+}
+
+void on_force_hilite1_wscript_activate (GtkAction * action, gpointer user_data)
+{
+	on_force_hilite1_activate (action, TE_LEXER_WSCRIPT, user_data);
+}
+
+void on_force_hilite1_make_activate (GtkAction * action, gpointer user_data)
+{
+	on_force_hilite1_activate (action, TE_LEXER_MAKE, user_data);
+}
+
+void on_force_hilite1_java_activate (GtkAction * action, gpointer user_data)
+{
+	on_force_hilite1_activate (action, TE_LEXER_JAVA, user_data);
+}
+
+void on_force_hilite1_lua_activate (GtkAction * action, gpointer user_data)
+{
+	on_force_hilite1_activate (action, TE_LEXER_LUA, user_data);
+}
+
+void on_force_hilite1_python_activate (GtkAction * action, gpointer user_data)
+{
+	on_force_hilite1_activate (action, TE_LEXER_PYTHON, user_data);
+}
+
+void on_force_hilite1_perl_activate (GtkAction * action, gpointer user_data)
+{
+	on_force_hilite1_activate (action, TE_LEXER_PERL, user_data);
+}
+
+void on_force_hilite1_sql_activate (GtkAction * action, gpointer user_data)
+{
+	on_force_hilite1_activate (action, TE_LEXER_SQL, user_data);
+}
+
+void on_force_hilite1_plsql_activate (GtkAction * action, gpointer user_data)
+{
+	on_force_hilite1_activate (action, TE_LEXER_PLSQL, user_data);
+}
+
+void on_force_hilite1_php_activate (GtkAction * action, gpointer user_data)
+{
+	on_force_hilite1_activate (action, TE_LEXER_PHP, user_data);
+}
+
+void on_force_hilite1_latex_activate (GtkAction * action, gpointer user_data)
+{
+	on_force_hilite1_activate (action, TE_LEXER_LATEX, user_data);
+}
+
+void on_force_hilite1_diff_activate (GtkAction * action, gpointer user_data)
+{
+	on_force_hilite1_activate (action, TE_LEXER_DIFF, user_data);
+}
+
+void on_force_hilite1_pascal_activate (GtkAction * action, gpointer user_data)
+{
+	on_force_hilite1_activate (action, TE_LEXER_PASCAL, user_data);
+}
+
+void on_force_hilite1_xcode_activate (GtkAction * action, gpointer user_data)
+{
+	on_force_hilite1_activate (action, TE_LEXER_XCODE, user_data);
+}
+
+void on_force_hilite1_props_activate (GtkAction * action, gpointer user_data)
+{
+	on_force_hilite1_activate (action, TE_LEXER_PROPS, user_data);
+}
+
+void on_force_hilite1_conf_activate (GtkAction * action, gpointer user_data)
+{
+	on_force_hilite1_activate (action, TE_LEXER_CONF, user_data);
+}
+
+void on_force_hilite1_ada_activate (GtkAction * action, gpointer user_data)
+{
+	on_force_hilite1_activate (action, TE_LEXER_ADA, user_data);
+}
+
+void on_force_hilite1_baan_activate (GtkAction * action, gpointer user_data)
+{
+	on_force_hilite1_activate (action, TE_LEXER_BAAN, user_data);
+}
+
+void on_force_hilite1_lisp_activate (GtkAction * action, gpointer user_data)
+{
+	on_force_hilite1_activate (action, TE_LEXER_LISP, user_data);
+}
+
+void on_force_hilite1_ruby_activate (GtkAction * action, gpointer user_data)
+{
+	on_force_hilite1_activate (action, TE_LEXER_RUBY, user_data);
+}
+
+void on_force_hilite1_matlab_activate (GtkAction * action, gpointer user_data)
+{
+	on_force_hilite1_activate (action, TE_LEXER_MATLAB, user_data);
+}
+
 void
-on_indent1_activate (EggAction * action, gpointer user_data)
+on_indent1_activate (GtkAction * action, gpointer user_data)
 {
     //trying to restore line no where i was before autoformat invoked
     gint lineno;
@@ -1109,24 +1387,24 @@ on_indent1_activate (EggAction * action, gpointer user_data)
 
 /*  *user_data : TRUE=Forward  False=Backward  */
 void
-on_findnext1_activate (EggAction * action, gpointer user_data)
+on_findnext1_activate (GtkAction * action, gpointer user_data)
 {
 	search_replace_next();
 }
 
 void
-on_findprevious1_activate (EggAction * action, gpointer user_data)
+on_findprevious1_activate (GtkAction * action, gpointer user_data)
 {
 	search_replace_previous();
 }
 
 void
-on_enterselection (EggAction * action, gpointer user_data)
+on_enterselection (GtkAction * action, gpointer user_data)
 {
 	AnjutaDocman *docman;
 	AnjutaUI *ui;
 	EditorPlugin *plugin;
-	EggAction *entry_action;
+	GtkAction *entry_action;
 	
 	plugin = (EditorPlugin *) user_data;
 	docman = ANJUTA_DOCMAN (plugin->docman);
@@ -1142,7 +1420,7 @@ on_enterselection (EggAction * action, gpointer user_data)
 }
 
 void
-on_format_indent_style_clicked (EggAction * action, gpointer user_data)
+on_format_indent_style_clicked (GtkAction * action, gpointer user_data)
 {
 	EditorPlugin *plugin;
 	plugin = (EditorPlugin *) user_data;
@@ -1151,7 +1429,7 @@ on_format_indent_style_clicked (EggAction * action, gpointer user_data)
 }
 
 gboolean
-on_toolbar_find_incremental_start (EggAction *action, gpointer user_data)
+on_toolbar_find_incremental_start (GtkAction *action, gpointer user_data)
 {
 	// gchar *string;
 	// const gchar *string1;
@@ -1192,7 +1470,7 @@ on_toolbar_find_incremental_start (EggAction *action, gpointer user_data)
 }
 
 gboolean
-on_toolbar_find_incremental_end (EggAction *action, gpointer user_data)
+on_toolbar_find_incremental_end (GtkAction *action, gpointer user_data)
 {
 #if 0 /* Ambiguity during merge */
 	app->find_replace->find_text->incremental_pos = -1;
@@ -1228,7 +1506,7 @@ on_toolbar_find_incremental_end (EggAction *action, gpointer user_data)
 }
 
 void
-on_toolbar_find_incremental (EggAction *action, gpointer user_data)
+on_toolbar_find_incremental (GtkAction *action, gpointer user_data)
 {
 #if 0
 	const gchar *entry_text;
@@ -1264,7 +1542,7 @@ on_toolbar_find_incremental (EggAction *action, gpointer user_data)
 #if 0 //FIXME:
 /*  *user_data : TRUE=Forward  False=Backward  */
 static void
-on_toolbar_find_start_over (EggAction * action, gpointer user_data)
+on_toolbar_find_start_over (GtkAction * action, gpointer user_data)
 {
 	long length;
 	TextEditor *te;
@@ -1290,7 +1568,7 @@ on_toolbar_find_start_over (EggAction * action, gpointer user_data)
 
 /*  *user_data : TRUE=Forward  False=Backward  */
 void
-on_toolbar_find_clicked (EggAction * action, gpointer user_data)
+on_toolbar_find_clicked (GtkAction * action, gpointer user_data)
 {
 	const gchar *string;
 	// gint ret;
@@ -1314,7 +1592,7 @@ on_toolbar_find_clicked (EggAction * action, gpointer user_data)
 	}
 	else
 	{
-		EggAction *entry_action;
+		GtkAction *entry_action;
 		entry_action = anjuta_ui_get_action (ui, "ActionGroupNavigation",
 									   "ActionEditSearchEntry");
 		g_return_if_fail (EGG_IS_ENTRY_ACTION (action));
@@ -1387,6 +1665,11 @@ on_toolbar_find_clicked (EggAction * action, gpointer user_data)
 }
 
 void
-on_calltip1_activate (EggAction * action, gpointer user_data)
+on_calltip1_activate (GtkAction * action, gpointer user_data)
+{
+}
+
+void
+on_detach1_activate  (GtkAction * action, gpointer user_data)
 {
 }

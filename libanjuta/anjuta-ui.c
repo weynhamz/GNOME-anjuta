@@ -22,8 +22,16 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <gtk/gtkscrolledwindow.h>
+#include <gtk/gtkiconfactory.h>
+#include <gtk/gtktreeview.h>
+#include <gtk/gtktreestore.h>
+#include <gtk/gtkcellrenderertoggle.h>
+#include <gtk/gtkaccelmap.h>
+#include <gtk/gtkcellrendererpixbuf.h>
+#include <gtk/gtkimage.h>
+
 #include <libgnome/libgnome.h>
-#include <libegg/menu/egg-toggle-action.h>
 #include <libegg/treeviewutils/eggcellrendererkeys.h>
 
 #include "pixmaps.h"
@@ -31,7 +39,7 @@
 #include "anjuta-ui.h"
 
 struct _AnjutaUIPrivate {
-	EggMenuMerge *merge;
+	GtkUIManager *merge;
 	GtkIconFactory *icon_factory;
 	GtkTreeModel *model;
 	GHashTable *actions_hash;
@@ -62,7 +70,7 @@ sensitivity_toggled (GtkCellRendererToggle *cell,
 {
 	GtkTreePath *path;
 	GtkTreeIter iter;
-	EggAction *action;
+	GtkAction *action;
 	gboolean sensitive;
 	
 	path = gtk_tree_path_new_from_string (path_str);
@@ -83,7 +91,7 @@ visibility_toggled (GtkCellRendererToggle *cell,
 {
 	GtkTreePath *path;
 	GtkTreeIter iter;
-	EggAction *action;
+	GtkAction *action;
 	gboolean visible;
 	
 	path = gtk_tree_path_new_from_string (path_str);
@@ -99,9 +107,11 @@ visibility_toggled (GtkCellRendererToggle *cell,
 }
 
 static gchar*
-get_action_label (EggAction *action)
+get_action_label (GtkAction *action)
 {
 	gchar *action_label;
+/* FIXME: we need to get the label of the action */
+#if 0
 	if (action->label && strlen (action->label))
 	{
 		gchar *s, *d;
@@ -118,21 +128,22 @@ get_action_label (EggAction *action)
 		*d = '\0';
 	}
 	else
-		action_label = g_strdup (action->name);
+#endif
+		action_label = g_strdup (gtk_action_get_name (action));
 	return action_label;
 }
 
 static gchar*
-get_action_accel_path (EggAction *action, const gchar *group_name)
+get_action_accel_path (GtkAction *action, const gchar *group_name)
 {
 	gchar *accel_path;
 	accel_path = g_strconcat ("<Actions>/", group_name,
-							  "/", action->name, NULL);
+							  "/", gtk_action_get_name (action), NULL);
 	return accel_path;
 }
 
 static gchar*
-get_action_accel (EggAction *action, const gchar *group_name)
+get_action_accel (GtkAction *action, const gchar *group_name)
 {
 	gchar *accel_path;
 	gchar *accel_name;
@@ -158,9 +169,8 @@ accel_edited_callback (GtkCellRendererText *cell,
 	GtkTreeModel *model = (GtkTreeModel *)data;
 	GtkTreePath *path = gtk_tree_path_new_from_string (path_string);
 	GtkTreeIter iter;
-	EggAction *action;
-	GError *err;
-	gchar *str, *accel_path, *action_group;
+	GtkAction *action;
+	gchar *accel_path, *action_group;
 	
 	gtk_tree_model_get_iter (model, &iter, path);
 	gtk_tree_model_get (model, &iter,
@@ -240,7 +250,7 @@ accel_set_func (GtkTreeViewColumn *tree_column,
                 GtkTreeIter       *iter,
                 gpointer           data)
 {
-	EggAction *action;
+	GtkAction *action;
 	gchar *accel_name;
 	gchar *group_name;
 	guint keyval;
@@ -413,7 +423,7 @@ anjuta_ui_instance_init (AnjutaUI *ui)
 	GtkWidget *view;
 	
 	ui->priv = g_new0 (AnjutaUIPrivate, 1);
-	ui->priv->merge = egg_menu_merge_new();
+	ui->priv->merge = gtk_ui_manager_new();
 	ui->priv->actions_hash = g_hash_table_new_full (g_str_hash,
 													g_str_equal,
 													(GDestroyNotify) g_free,
@@ -438,11 +448,11 @@ anjuta_ui_new (GtkWidget *ui_container,
 	if (add_widget_cb)
 		g_signal_connect (G_OBJECT (ANJUTA_UI (widget)->priv->merge),
 						  "add_widget", G_CALLBACK (add_widget_cb),
-						  ui_container);
-	if (remove_widget_cb)
+	/* FIXME: */					  ui_container);
+	/* if (remove_widget_cb)
 		g_signal_connect (G_OBJECT (ANJUTA_UI (widget)->priv->merge),
 						  "remove_widget", G_CALLBACK (remove_widget_cb),
-						  ui_container);
+					  ui_container);*/
 	return widget;
 }
 
@@ -453,21 +463,46 @@ anjuta_ui_get_icon_factory (AnjutaUI *ui)
 	return ui->priv->icon_factory;
 }
 
-EggActionGroup*
+GtkActionGroup*
 anjuta_ui_add_action_group_entries (AnjutaUI *ui,
 									const gchar *action_group_name,
 									const gchar *action_group_label,
-									EggActionGroupEntry *entries,
-									gint num_entries)
+									GtkActionEntry *entries,
+									gint num_entries,
+									gpointer user_data)
 {
-	EggActionGroup *action_group;
+	GtkActionGroup *action_group;
 	
 	g_return_val_if_fail (ANJUTA_IS_UI (ui), NULL);
 	g_return_val_if_fail (action_group_name != NULL, NULL);
 	g_return_val_if_fail (action_group_name != NULL, NULL);
 	
-	action_group = egg_action_group_new (action_group_name);
-	egg_action_group_add_actions (action_group, entries, num_entries);
+	action_group = gtk_action_group_new (action_group_name);
+	gtk_action_group_add_actions (action_group, entries, num_entries,
+								  user_data);
+	anjuta_ui_add_action_group (ui, action_group_name,
+								action_group_label, action_group);
+	// g_object_unref (action_group);
+	return action_group;
+}
+
+GtkActionGroup*
+anjuta_ui_add_toggle_action_group_entries (AnjutaUI *ui,
+									const gchar *action_group_name,
+									const gchar *action_group_label,
+									GtkToggleActionEntry *entries,
+									gint num_entries,
+									gpointer user_data)
+{
+	GtkActionGroup *action_group;
+	
+	g_return_val_if_fail (ANJUTA_IS_UI (ui), NULL);
+	g_return_val_if_fail (action_group_name != NULL, NULL);
+	g_return_val_if_fail (action_group_name != NULL, NULL);
+	
+	action_group = gtk_action_group_new (action_group_name);
+	gtk_action_group_add_toggle_actions (action_group, entries, num_entries,
+										 user_data);
 	anjuta_ui_add_action_group (ui, action_group_name,
 								action_group_label, action_group);
 	// g_object_unref (action_group);
@@ -478,21 +513,21 @@ void
 anjuta_ui_add_action_group (AnjutaUI *ui,
 							const gchar *action_group_name,
 							const gchar *action_group_label,
-							EggActionGroup *action_group)
+							GtkActionGroup *action_group)
 {
 	GList *actions, *l;
 	GtkTreeIter parent;
 	GdkPixbuf *pixbuf;
 	
 	g_return_if_fail (ANJUTA_IS_UI (ui));
-	g_return_if_fail (EGG_IS_ACTION_GROUP (action_group));
+	g_return_if_fail (GTK_IS_ACTION_GROUP (action_group));
 	g_return_if_fail (action_group_name != NULL);
 	g_return_if_fail (action_group_name != NULL);
 	
-	egg_menu_merge_insert_action_group (ui->priv->merge, action_group, 0);
+	gtk_ui_manager_insert_action_group (ui->priv->merge, action_group, 0);
 	g_hash_table_insert (ui->priv->actions_hash,
 						g_strdup (action_group_name), action_group);
-	actions = egg_action_group_list_actions (action_group);
+	actions = gtk_action_group_list_actions (action_group);
 	gtk_tree_store_append (GTK_TREE_STORE (ui->priv->model),
 						   &parent, NULL);
 	pixbuf = anjuta_res_get_pixbuf (ANJUTA_PIXMAP_CLOSED_FOLDER);
@@ -507,35 +542,36 @@ anjuta_ui_add_action_group (AnjutaUI *ui,
 		// gchar *accel_name;
 		GtkTreeIter iter;
 		GtkWidget *icon;
-		EggAction *action = l->data;
+		GtkAction *action = l->data;
 		
 		if (!action)
 			continue;
 		gtk_tree_store_append (GTK_TREE_STORE (ui->priv->model),
 							   &iter, &parent);
 		action_label = get_action_label (action);
-		if (action->stock_id)
+		icon = gtk_action_create_icon (action, GTK_ICON_SIZE_MENU);
+		if (icon)
 		{
-			pixbuf = gtk_widget_render_icon (GTK_WIDGET (ui),
-											 action->stock_id,
-											 GTK_ICON_SIZE_MENU,
-											 NULL);
+			pixbuf = NULL;
+			// FIXME: Somehow get the pixbuf
+			// pixbuf = gtk_image_get_pixbuf (GTK_IMAGE (icon));
 			gtk_tree_store_set (GTK_TREE_STORE (ui->priv->model), &iter,
 								COLUMN_PIXBUF, pixbuf,
 								COLUMN_ACTION, action_label,
-								COLUMN_VISIBLE, action->visible,
-								COLUMN_SENSITIVE, action->sensitive,
+								COLUMN_VISIBLE, gtk_action_get_visible (action),
+								COLUMN_SENSITIVE, gtk_action_get_sensitive(action),
 								COLUMN_DATA, action,
 								COLUMN_GROUP, action_group_name,
 								-1);
-			g_object_unref (G_OBJECT (pixbuf));
+			// g_object_unref (G_OBJECT (pixbuf));
+			gtk_widget_destroy (icon);
 		}
 		else
 		{
 			gtk_tree_store_set (GTK_TREE_STORE (ui->priv->model), &iter,
 								COLUMN_ACTION, action_label,
-								COLUMN_VISIBLE, action->visible,
-								COLUMN_SENSITIVE, action->sensitive,
+								COLUMN_VISIBLE, gtk_action_get_visible (action),
+								COLUMN_SENSITIVE, gtk_action_get_sensitive (action),
 								COLUMN_DATA, action,
 								COLUMN_GROUP, action_group_name,
 								-1);
@@ -551,7 +587,7 @@ on_action_group_remove_hash (gpointer key, gpointer value, gpointer data)
 	{
 #ifdef DEBUG
 		g_message ("Removing action group from hash: %s",
-				   egg_action_group_get_name (EGG_ACTION_GROUP (data)));
+				   gtk_action_group_get_name (GTK_ACTION_GROUP (data)));
 #endif
 		return TRUE;
 	}
@@ -560,7 +596,7 @@ on_action_group_remove_hash (gpointer key, gpointer value, gpointer data)
 }
 
 void
-anjuta_ui_remove_action_group (AnjutaUI *ui, EggActionGroup *action_group)
+anjuta_ui_remove_action_group (AnjutaUI *ui, GtkActionGroup *action_group)
 {
 	GtkTreeModel *model;
 	GtkTreeIter iter;
@@ -569,7 +605,7 @@ anjuta_ui_remove_action_group (AnjutaUI *ui, EggActionGroup *action_group)
 	g_return_if_fail (ANJUTA_IS_UI (ui));
 		
 	const gchar *name;
-	name = egg_action_group_get_name (action_group);
+	name = gtk_action_group_get_name (action_group);
 	g_hash_table_foreach_remove (ui->priv->actions_hash,
 								 on_action_group_remove_hash, action_group);
 	
@@ -577,12 +613,12 @@ anjuta_ui_remove_action_group (AnjutaUI *ui, EggActionGroup *action_group)
 	valid = gtk_tree_model_get_iter_first (model, &iter);
 	while (valid)
 	{
-		GtkTreeIter parent;
+		// GtkTreeIter parent;
 		const gchar *group;
 		const gchar *group_name;
 		
 		gtk_tree_model_get (model, &iter, COLUMN_GROUP, &group, -1);
-		group_name = egg_action_group_get_name (EGG_ACTION_GROUP (action_group));
+		group_name = gtk_action_group_get_name (GTK_ACTION_GROUP (action_group));
 		
 		g_message ("%s == %s", group, group_name);
 		if (group_name == NULL || group == NULL)
@@ -600,7 +636,7 @@ anjuta_ui_remove_action_group (AnjutaUI *ui, EggActionGroup *action_group)
 		else
 			valid = gtk_tree_model_iter_next (model, &iter);
 	}
-	egg_menu_merge_remove_action_group (ui->priv->merge, action_group);
+	gtk_ui_manager_remove_action_group (ui->priv->merge, action_group);
 }
 
 gint
@@ -610,10 +646,13 @@ anjuta_ui_merge (AnjutaUI *ui, const gchar *ui_filename)
 	GError *err = NULL;
 	
 	g_return_val_if_fail (ANJUTA_IS_UI (ui), -1);
-	
-	id = egg_menu_merge_add_ui_from_file(ui->priv->merge, ui_filename, &err);
+	g_return_val_if_fail (ui_filename != NULL, -1);
+	id = gtk_ui_manager_add_ui_from_file(ui->priv->merge, ui_filename, &err);
 #ifdef DEBUG
-	g_message("merging [%d] %s", id, ui_filename);
+	{
+		gchar *basename = g_path_get_basename (ui_filename);
+		g_message("merged [%d] %s", id, basename);
+	}
 #endif
 	if (err != NULL)
 		g_warning ("Could not merge [%s]: %s", ui_filename, err->message);
@@ -627,9 +666,10 @@ anjuta_ui_unmerge (AnjutaUI *ui, gint id)
 	g_message("Menu unmerging %d", id);
 #endif
 	g_return_if_fail (ANJUTA_IS_UI (ui));
-	egg_menu_merge_remove_ui(ui->priv->merge, id);
+	gtk_ui_manager_remove_ui(ui->priv->merge, id);
 }
 
+#if 0
 static gchar *node_type_names[] = {
   "UNDECIDED",
   "ROOT",
@@ -645,10 +685,10 @@ static gchar *node_type_names[] = {
 };
 
 static void
-print_node (EggMenuMerge *merge, GNode *node, gint indent_level)
+print_node (GtkUIManager *merge, GNode *node, gint indent_level)
 {
 	gint i;
-	EggMenuMergeNode *mnode;
+	GtkUIManagerNode *mnode;
 	GNode *child;
 	gchar *action_label = NULL;
 	
@@ -668,39 +708,40 @@ print_node (EggMenuMerge *merge, GNode *node, gint indent_level)
 	for (child = node->children; child != NULL; child = child->next)
 		print_node(merge, child, indent_level + 1);
 }
+#endif
 
 GtkAccelGroup*
 anjuta_ui_get_accel_group (AnjutaUI *ui)
 {
 	g_return_val_if_fail (ANJUTA_IS_UI (ui), NULL);
-	return ui->priv->merge->accel_group;
+	return gtk_ui_manager_get_accel_group (ui->priv->merge);
 }
 
-EggMenuMerge*
+GtkUIManager*
 anjuta_ui_get_menu_merge (AnjutaUI *ui)
 {
 	g_return_val_if_fail (ANJUTA_IS_UI (ui), NULL);
 	return ui->priv->merge;
 }
 
-EggAction*
+GtkAction*
 anjuta_ui_get_action (AnjutaUI *ui, const gchar *action_group_name,
 					  const gchar *action_name)
 {
-	EggActionGroup *action_group;
-	EggAction *action;
+	GtkActionGroup *action_group;
+	GtkAction *action;
 	
 	g_return_val_if_fail (ANJUTA_IS_UI (ui), NULL);
 	
 	action_group = g_hash_table_lookup (ui->priv->actions_hash,
 										action_group_name);
-	if (EGG_IS_ACTION_GROUP (action_group) == FALSE)
+	if (GTK_IS_ACTION_GROUP (action_group) == FALSE)
 	{
 		g_warning ("Unable to find action group \"%s\"", action_group_name);
 		return NULL;
 	}
-	action = egg_action_group_get_action (action_group, action_name);
-	if (EGG_IS_ACTION (action))
+	action = gtk_action_group_get_action (action_group, action_name);
+	if (GTK_IS_ACTION (action))
 		return action;
 	g_warning ("Unable to find action \"%s\" in group \"%s\"",
 			  action_name, action_group_name);
@@ -712,7 +753,7 @@ anjuta_ui_activate_action_by_path (AnjutaUI *ui, gchar *action_path)
 {
 	const gchar *action_group_name;
 	const gchar *action_name;
-	EggAction *action;
+	GtkAction *action;
 	gchar **strv;
 	
 	g_return_if_fail (ANJUTA_IS_UI (ui));
@@ -726,24 +767,25 @@ anjuta_ui_activate_action_by_path (AnjutaUI *ui, gchar *action_path)
 	
 	action = anjuta_ui_get_action (ui, action_group_name, action_name);
 	if (action)
-		egg_action_activate (action);
+		gtk_action_activate (action);
 	g_strfreev (strv);
 }
 
 void
-anjuta_ui_activate_action_by_group (AnjutaUI *ui, EggActionGroup *action_group,
+anjuta_ui_activate_action_by_group (AnjutaUI *ui, GtkActionGroup *action_group,
 									const gchar *action_name)
 {
-	EggAction *action;
+	GtkAction *action;
 	
 	g_return_if_fail (ANJUTA_IS_UI (ui));
 	g_return_if_fail (action_group != NULL && action_name != NULL);
 	
-	action = egg_action_group_get_action (action_group, action_name);
-	if (EGG_IS_ACTION (action))
-		egg_action_activate (action);
+	action = gtk_action_group_get_action (action_group, action_name);
+	if (GTK_IS_ACTION (action))
+		gtk_action_activate (action);
 }
 
+#if 0
 void
 anjuta_ui_dump_tree (AnjutaUI *ui)
 {
@@ -752,3 +794,4 @@ anjuta_ui_dump_tree (AnjutaUI *ui)
 	egg_menu_merge_ensure_update (ui->priv->merge);
 	print_node (ui->priv->merge, ui->priv->merge->root_node, 0);
 }
+#endif

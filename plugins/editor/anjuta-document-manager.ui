@@ -1,234 +1,234 @@
 <!--*- xml -*-->
-<Root>
-	<menu name="MenuMain">
-		<submenu name="MenuFile" verb="ActionMenuFile">
+<ui>
+	<menubar name="MenuMain">
+		<menu name="MenuFile" action="ActionMenuFile">
 			<placeholder name="PlaceholderFileMenus">
-				<menuitem name="New" verb="ActionFileNew" />
-				<menuitem name="Open" verb="ActionFileOpen" />
-				<menuitem name="Save" verb="ActionFileSave" />
-				<menuitem name="SaveAs" verb="ActionFileSaveAs" />
-				<menuitem name="SaveAll" verb="ActionFileSaveAll" />
-				<menuitem name="Close" verb="ActionFileClose" />
-				<menuitem name="CloseAll" verb="ActionFileCloseAll" />
-				<menuitem name="Reload" verb="ActionFileReload" />
+				<menuitem name="New" action="ActionFileNew" />
+				<menuitem name="Open" action="ActionFileOpen" />
+				<menuitem name="Save" action="ActionFileSave" />
+				<menuitem name="SaveAs" action="ActionFileSaveAs" />
+				<menuitem name="SaveAll" action="ActionFileSaveAll" />
+				<menuitem name="Close" action="ActionFileClose" />
+				<menuitem name="CloseAll" action="ActionFileCloseAll" />
+				<menuitem name="Reload" action="ActionFileReload" />
 				<separator name="separator1"/>
 			</placeholder>
 			<placeholder name="PlaceholderPrintMenus">
-				<menuitem name="Print" verb="ActionPrintFile" />
-				<menuitem name="PrintPreview" verb="ActionPrintPreview" />
+				<menuitem name="Print" action="ActionPrintFile" />
+				<menuitem name="PrintPreview" action="ActionPrintPreview" />
 				<separator name="separator3"/>
 			</placeholder>
 			<placeholder name="PlaceholderRecentMenus">
-				<submenu name="RecentFiles" verb="ActionMenuFileRecentFiles" />
+				<menu name="RecentFiles" action="ActionMenuFileRecentFiles" />
 			</placeholder>
-		</submenu>
-		<submenu name="MenuEdit" verb="ActionMenuEdit">
+		</menu>
+		<menu name="MenuEdit" action="ActionMenuEdit">
 			<placeholder name="PlaceholderEditMenus">
-				<menuitem name="Undo" verb="ActionEditUndo" />
-				<menuitem name="Redo" verb="ActionEditRedo" />
+				<menuitem name="Undo" action="ActionEditUndo" />
+				<menuitem name="Redo" action="ActionEditRedo" />
 				<separator name="separator1"/>
-				<menuitem name="Cut" verb="ActionEditCut" />
-				<menuitem name="Copy" verb="ActionEditCopy" />
-				<menuitem name="Cut" verb="ActionEditPaste" />
-				<menuitem name="Clear" verb="ActionEditClear" />
+				<menuitem name="Cut" action="ActionEditCut" />
+				<menuitem name="Copy" action="ActionEditCopy" />
+				<menuitem name="Cut" action="ActionEditPaste" />
+				<menuitem name="Clear" action="ActionEditClear" />
 				<separator name="separator2"/>
-				<submenu name="Transform" verb="ActionMenuEditTransform">
-					<menuitem name="UpperCase" verb="ActionEditMakeSelectionUppercase" />
-					<menuitem name="LowerCase" verb="ActionEditMakeSelectionLowercase" />
-					<menuitem name="ConvertCRLF" verb="ActionEditConvertCRLF" />
-					<menuitem name="ConvertLF" verb="ActionEditConvertLF" />
-					<menuitem name="ConvertCR" verb="ActionEditConvertCR" />
-					<menuitem name="ConvertEOL" verb="ActionEditConvertEOL" />
-				</submenu>
-				<submenu name="Comment" verb="ActionMenuEditComment">
-					<menuitem name="Block" verb="ActionEditCommentBlock" />
-					<menuitem name="Box" verb="ActionEditCommentBox" />
-					<menuitem name="Stream" verb="ActionEditCommentStream" />
-				</submenu>
+				<menu name="Transform" action="ActionMenuEditTransform">
+					<menuitem name="UpperCase" action="ActionEditMakeSelectionUppercase" />
+					<menuitem name="LowerCase" action="ActionEditMakeSelectionLowercase" />
+					<menuitem name="ConvertCRLF" action="ActionEditConvertCRLF" />
+					<menuitem name="ConvertLF" action="ActionEditConvertLF" />
+					<menuitem name="ConvertCR" action="ActionEditConvertCR" />
+					<menuitem name="ConvertEOL" action="ActionEditConvertEOL" />
+				</menu>
+				<menu name="Comment" action="ActionMenuEditComment">
+					<menuitem name="Block" action="ActionEditCommentBlock" />
+					<menuitem name="Box" action="ActionEditCommentBox" />
+					<menuitem name="Stream" action="ActionEditCommentStream" />
+				</menu>
 			</placeholder>
 			<placeholder name="PlaceholderSelectMenus">
-				<submenu name="Select" verb="ActionMenuEditSelect">
-					<menuitem name="SelectAll" verb="ActionEditSelectAll" />
-					<menuitem name="SelectBrace" verb="ActionEditSelectToBrace" />
-					<menuitem name="SelectBlock" verb="ActionEditSelectBlock" />
-				</submenu>
+				<menu name="Select" action="ActionMenuEditSelect">
+					<menuitem name="SelectAll" action="ActionEditSelectAll" />
+					<menuitem name="SelectBrace" action="ActionEditSelectToBrace" />
+					<menuitem name="SelectBlock" action="ActionEditSelectBlock" />
+				</menu>
 			</placeholder>
 			<placeholder name="PlaceholderInsertMenus">
-				<submenu name="Insert" verb="ActionMenuEditInsert">
-					<menuitem name="Header" verb="ActionEditInsertHeader" />
-					<submenu name="CTemplate" verb="ActionMenuEditInsertCtemplate">
-						<menuitem name="Switch" verb="ActionEditInsertStatementSwitch" />
-						<menuitem name="For" verb="ActionEditInsertStatementFor" />
-						<menuitem name="While" verb="ActionEditInsertStatementWhile" />
-						<menuitem name="IfElse" verb="ActionEditInsertStatementIfElse" />
-					</submenu>
-					<submenu name="CVS" verb="ActionMenuEditInsertCvs">
-						<menuitem name="Author" verb="ActionEditInsertCVSAuthor" />
-						<menuitem name="Date" verb="ActionEditInsertCVSDate" />
-						<menuitem name="Header" verb="ActionEditInsertCVSHeader" />
-						<menuitem name="Id" verb="ActionEditInsertCVSID" />
-						<menuitem name="Log" verb="ActionEditInsertCVSLog" />
-						<menuitem name="Name" verb="ActionEditInsertCVSName" />
-						<menuitem name="Revision" verb="ActionEditInsertCVSRevision" />
-						<menuitem name="Source" verb="ActionEditInsertCVSSource" />
-					</submenu>
-					<submenu name="General" verb="ActionMenuEditInsertGeneral">
-						<menuitem name="CGPL" verb="ActionEditInsertCGPL" />
-						<menuitem name="CPPGPL" verb="ActionEditInsertCPPGPL" />
-						<menuitem name="PYGPL" verb="ActionEditInsertPYGPL" />
-						<menuitem name="Username" verb="ActionEditInsertUsername" />
-						<menuitem name="DateTime" verb="ActionEditInsertDateTime" />
-						<menuitem name="HeaderTemplate" verb="ActionEditInsertHeaderTemplate" />
-						<menuitem name="ChangeLog" verb="ActionEditInsertChangelog" />
-					</submenu>
-				</submenu>
+				<menu name="Insert" action="ActionMenuEditInsert">
+					<menuitem name="Header" action="ActionEditInsertHeader" />
+					<menu name="CTemplate" action="ActionMenuEditInsertCtemplate">
+						<menuitem name="Switch" action="ActionEditInsertStatementSwitch" />
+						<menuitem name="For" action="ActionEditInsertStatementFor" />
+						<menuitem name="While" action="ActionEditInsertStatementWhile" />
+						<menuitem name="IfElse" action="ActionEditInsertStatementIfElse" />
+					</menu>
+					<menu name="CVS" action="ActionMenuEditInsertCvs">
+						<menuitem name="Author" action="ActionEditInsertCVSAuthor" />
+						<menuitem name="Date" action="ActionEditInsertCVSDate" />
+						<menuitem name="Header" action="ActionEditInsertCVSHeader" />
+						<menuitem name="Id" action="ActionEditInsertCVSID" />
+						<menuitem name="Log" action="ActionEditInsertCVSLog" />
+						<menuitem name="Name" action="ActionEditInsertCVSName" />
+						<menuitem name="Revision" action="ActionEditInsertCVSRevision" />
+						<menuitem name="Source" action="ActionEditInsertCVSSource" />
+					</menu>
+					<menu name="General" action="ActionMenuEditInsertGeneral">
+						<menuitem name="CGPL" action="ActionEditInsertCGPL" />
+						<menuitem name="CPPGPL" action="ActionEditInsertCPPGPL" />
+						<menuitem name="PYGPL" action="ActionEditInsertPYGPL" />
+						<menuitem name="Username" action="ActionEditInsertUsername" />
+						<menuitem name="DateTime" action="ActionEditInsertDateTime" />
+						<menuitem name="HeaderTemplate" action="ActionEditInsertHeaderTemplate" />
+						<menuitem name="ChangeLog" action="ActionEditInsertChangelog" />
+					</menu>
+				</menu>
 			</placeholder>
 			<placeholder name="PlaceholderSearchMenus">
-				<submenu name="Search" verb="ActionMenuEditSearch">
-					<menuitem name="Find" verb="ActionEditSearchFind"/>
-					<menuitem name="FindNext" verb="ActionEditSearchFindNext"/>
-					<menuitem name="FindPrevious" verb="ActionEditSearchFindPrevious"/>
-					<menuitem name="Replace" verb="ActionEditSearchReplace"/>
-					<menuitem name="FindInFiles" verb="ActionEditSearchInFiles"/>
-					<menuitem name="ISearch" verb="ActionEditSearchSelectionISearch"/>
-				</submenu>
+				<menu name="Search" action="ActionMenuEditSearch">
+					<menuitem name="Find" action="ActionEditSearchFind"/>
+					<menuitem name="FindNext" action="ActionEditSearchFindNext"/>
+					<menuitem name="FindPrevious" action="ActionEditSearchFindPrevious"/>
+					<menuitem name="Replace" action="ActionEditSearchReplace"/>
+					<menuitem name="FindInFiles" action="ActionEditSearchInFiles"/>
+					<menuitem name="ISearch" action="ActionEditSearchSelectionISearch"/>
+				</menu>
 			</placeholder>
-			<submenu name="Goto" verb="ActionMenuEditGoto">
+			<menu name="Goto" action="ActionMenuEditGoto">
 				<placeholder name="PlaceholderGotoMenus">
-					<menuitem name="Line" verb="ActionEditGotoLine" />
-					<menuitem name="MatchingBrace" verb="ActionEditGotoMatchingBrace" />
+					<menuitem name="Line" action="ActionEditGotoLine" />
+					<menuitem name="MatchingBrace" action="ActionEditGotoMatchingBrace" />
 					<separator name="separator1"/>
-					<menuitem name="BlockStart" verb="ActionEditGotoBlockStart" />
-					<menuitem name="BlockEnd" verb="ActionEditGotoBlockEnd" />
+					<menuitem name="BlockStart" action="ActionEditGotoBlockStart" />
+					<menuitem name="BlockEnd" action="ActionEditGotoBlockEnd" />
 					<separator name="separator2"/>
-					<menuitem name="PreviousOccurance" verb="ActionEditGotoOccurancePrev" />
-					<menuitem name="NextOccurance" verb="ActionEditGotoOccuranceNext" />
+					<menuitem name="PreviousOccurance" action="ActionEditGotoOccurancePrev" />
+					<menuitem name="NextOccurance" action="ActionEditGotoOccuranceNext" />
 					<separator name="separator3"/>
 				</placeholder>
-			</submenu>
+			</menu>
 			<separator name="separator3"/>
-			<menuitem name="Autocomplete" verb="ActionEditAutocomplete" />
-			<menuitem name="AdvancedSearchReplace" verb="ActionEditAdvancedSearch" />
-		</submenu>
-		<submenu name="MenuView" verb="ActionMenuView">
+			<menuitem name="Autocomplete" action="ActionEditAutocomplete" />
+			<menuitem name="AdvancedSearchReplace" action="ActionEditAdvancedSearch" />
+		</menu>
+		<menu name="MenuView" action="ActionMenuView">
 			<placeholder name="PlaceholderViewMenus">
-				<submenu name="MenuViewEditor" verb="ActionMenuViewEditor">
-					<menuitem name="LineNumbersMargin" verb="ActionViewEditorLinenumbers" />
-					<menuitem name="MarkersMargin" verb="ActionViewEditorMarkers" />
-					<menuitem name="CodeFoldMargin" verb="ActionViewEditorFolds" />
-					<menuitem name="IndentationGuides" verb="ActionViewEditorGuides" />
-					<menuitem name="WhiteSpaces" verb="ActionViewEditorSpaces" />
-					<menuitem name="LineEndCharacters" verb="ActionViewEditorEOL" />
-					<menuitem name="LineWrapping" verb="ActionViewEditorWrapping" />
-				</submenu>
+				<menu name="MenuViewEditor" action="ActionMenuViewEditor">
+					<menuitem name="LineNumbersMargin" action="ActionViewEditorLinenumbers" />
+					<menuitem name="MarkersMargin" action="ActionViewEditorMarkers" />
+					<menuitem name="CodeFoldMargin" action="ActionViewEditorFolds" />
+					<menuitem name="IndentationGuides" action="ActionViewEditorGuides" />
+					<menuitem name="WhiteSpaces" action="ActionViewEditorSpaces" />
+					<menuitem name="LineEndCharacters" action="ActionViewEditorEOL" />
+					<menuitem name="LineWrapping" action="ActionViewEditorWrapping" />
+				</menu>
 				<separator name="separator2"/>
-				<menuitem name="ZoomIn" verb="ActionViewEditorZoomIn" />
-				<menuitem name="ZoomOut" verb="ActionViewEditorZoomOut" />
+				<menuitem name="ZoomIn" action="ActionViewEditorZoomIn" />
+				<menuitem name="ZoomOut" action="ActionViewEditorZoomOut" />
 				<separator name="separator3"/>
 			</placeholder>
-		</submenu>
+		</menu>
 		<placeholder name="PlaceHolderFormatMenus">
-			<submenu name="MenuFormat" verb="ActionMenuFormat">
-				<menuitem name="Autoformat" verb="ActionFormatAutoformat" />
-				<menuitem name="IndentationIncrease" verb="ActionFormatIndentationIncrease" />
-				<menuitem name="IndentationDecrease" verb="ActionFormatIndentationDecrease" />
-				<menuitem name="AutoformatSettings" verb="ActionFormatSettings" />
+			<menu name="MenuFormat" action="ActionMenuFormat">
+				<menuitem name="Autoformat" action="ActionFormatAutoformat" />
+				<menuitem name="IndentationIncrease" action="ActionFormatIndentationIncrease" />
+				<menuitem name="IndentationDecrease" action="ActionFormatIndentationDecrease" />
+				<menuitem name="AutoformatSettings" action="ActionFormatSettings" />
 				<separator name="separator1" />
-				<submenu name="MenuFormatSyle" verb="ActionMenuFormatStyle">
-					<menuitem name="Automatic" verb="ActionFormatHighlightStyleAutomatic" />
-					<menuitem name="None" verb="ActionFormatHighlightStyleNone" />
-					<menuitem name="Cpp" verb="ActionFormatHighlightStyleCpp" />
-					<menuitem name="HTML" verb="ActionFormatHighlightStyleHtml" />
-					<menuitem name="XML" verb="ActionFormatHighlightStyleXml" />
-					<menuitem name="JS" verb="ActionFormatHighlightStyleJs" />
-					<menuitem name="WScript" verb="ActionFormatHighlightStyleWScript" />
-					<menuitem name="Makefile" verb="ActionFormatHighlightStyleMakefile" />
-					<menuitem name="Java" verb="ActionFormatHighlightStyleJava" />
-					<menuitem name="Lua" verb="ActionFormatHighlightStyleLua" />
-					<menuitem name="Python" verb="ActionFormatHighlightStylePython" />
-					<menuitem name="Perl" verb="ActionFormatHighlightStylePerl" />
-					<menuitem name="SQL" verb="ActionFormatHighlightStyleSQL" />
-					<menuitem name="PLSQL" verb="ActionFormatHighlightStylePLSQL" />
-					<menuitem name="PHP" verb="ActionFormatHighlightStylePHP" />
-					<menuitem name="Latex" verb="ActionFormatHighlightStyleLatex" />
-					<menuitem name="Diff" verb="ActionFormatHighlightStyleDiff" />
-					<menuitem name="Pascal" verb="ActionFormatHighlightStylePascal" />
-					<menuitem name="Lexcode" verb="ActionFormatHighlightStyleXcode" />
-					<menuitem name="Props" verb="ActionFormatHighlightStyleProps" />
-					<menuitem name="Conf" verb="ActionFormatHighlightStyleConf" />
-					<menuitem name="Ada" verb="ActionFormatHighlightStyleAda" />
-					<menuitem name="Baan" verb="ActionFormatHighlightStyleBaan" />
-					<menuitem name="Lisp" verb="ActionFormatHighlightStyleLisp" />
-					<menuitem name="Ruby" verb="ActionFormatHighlightStyleRuby" />
-					<menuitem name="Matlab" verb="ActionFormatHighlightStyleMatlab" />
-				</submenu>
+				<menu name="MenuFormatSyle" action="ActionMenuFormatStyle">
+					<menuitem name="Automatic" action="ActionFormatHighlightStyleAutomatic" />
+					<menuitem name="None" action="ActionFormatHighlightStyleNone" />
+					<menuitem name="Cpp" action="ActionFormatHighlightStyleCpp" />
+					<menuitem name="HTML" action="ActionFormatHighlightStyleHtml" />
+					<menuitem name="XML" action="ActionFormatHighlightStyleXml" />
+					<menuitem name="JS" action="ActionFormatHighlightStyleJs" />
+					<menuitem name="WScript" action="ActionFormatHighlightStyleWScript" />
+					<menuitem name="Makefile" action="ActionFormatHighlightStyleMakefile" />
+					<menuitem name="Java" action="ActionFormatHighlightStyleJava" />
+					<menuitem name="Lua" action="ActionFormatHighlightStyleLua" />
+					<menuitem name="Python" action="ActionFormatHighlightStylePython" />
+					<menuitem name="Perl" action="ActionFormatHighlightStylePerl" />
+					<menuitem name="SQL" action="ActionFormatHighlightStyleSQL" />
+					<menuitem name="PLSQL" action="ActionFormatHighlightStylePLSQL" />
+					<menuitem name="PHP" action="ActionFormatHighlightStylePHP" />
+					<menuitem name="Latex" action="ActionFormatHighlightStyleLatex" />
+					<menuitem name="Diff" action="ActionFormatHighlightStyleDiff" />
+					<menuitem name="Pascal" action="ActionFormatHighlightStylePascal" />
+					<menuitem name="Lexcode" action="ActionFormatHighlightStyleXcode" />
+					<menuitem name="Props" action="ActionFormatHighlightStyleProps" />
+					<menuitem name="Conf" action="ActionFormatHighlightStyleConf" />
+					<menuitem name="Ada" action="ActionFormatHighlightStyleAda" />
+					<menuitem name="Baan" action="ActionFormatHighlightStyleBaan" />
+					<menuitem name="Lisp" action="ActionFormatHighlightStyleLisp" />
+					<menuitem name="Ruby" action="ActionFormatHighlightStyleRuby" />
+					<menuitem name="Matlab" action="ActionFormatHighlightStyleMatlab" />
+				</menu>
 				<separator name="separator2" />
-				<menuitem name="FoldCloseAll" verb="ActionFormatFoldCloseAll" />
-				<menuitem name="FoldOpenAll" verb="ActionFormatFoldOpenAll" />
-				<menuitem name="FoldToggle" verb="ActionFormatFoldToggle" />
+				<menuitem name="FoldCloseAll" action="ActionFormatFoldCloseAll" />
+				<menuitem name="FoldOpenAll" action="ActionFormatFoldOpenAll" />
+				<menuitem name="FoldToggle" action="ActionFormatFoldToggle" />
 				<separator name="separator3" />
-				<menuitem name="EditorDetach" verb="ActionFormatEditorDetach" />
-			</submenu>
+				<menuitem name="EditorDetach" action="ActionFormatEditorDetach" />
+			</menu>
 		</placeholder>
 		<placeholder name="PlaceHolderBookmarkMenus">
-			<submenu name="MenuBookmark" verb="ActionMenuBookmark">
-				<menuitem name="Toggle" verb="ActionBookmarkToggle" />
+			<menu name="MenuBookmark" action="ActionMenuBookmark">
+				<menuitem name="Toggle" action="ActionBookmarkToggle" />
 				<separator name="separator1" />
-				<menuitem name="First" verb="ActionBookmarkFirst" />
-				<menuitem name="Previous" verb="ActionBookmarkPrevious" />
-				<menuitem name="Next" verb="ActionBookmarkNext" />
-				<menuitem name="Last" verb="ActionBookmarkLast" />
+				<menuitem name="First" action="ActionBookmarkFirst" />
+				<menuitem name="Previous" action="ActionBookmarkPrevious" />
+				<menuitem name="Next" action="ActionBookmarkNext" />
+				<menuitem name="Last" action="ActionBookmarkLast" />
 				<separator name="separator1" />
-				<menuitem name="Clear" verb="ActionBookmarkClear" />
-			</submenu>
+				<menuitem name="Clear" action="ActionBookmarkClear" />
+			</menu>
 		</placeholder>
-	</menu>
-	<dockitem name="ToolbarMain">
+	</menubar>
+	<toolbar name="ToolbarMain">
 		<placeholder name="PlaceholderFileToolbar">
-			<toolitem name="New" verb="ActionFileNew" />
-			<toolitem name="Open" verb="ActionFileOpen" />
-			<toolitem name="Save" verb="ActionFileSave" />
-			<toolitem name="Reload" verb="ActionFileReload" />
-			<toolitem name="Close" verb="ActionFileClose" />
+			<toolitem name="New" action="ActionFileNew" />
+			<toolitem name="Open" action="ActionFileOpen" />
+			<toolitem name="Save" action="ActionFileSave" />
+			<toolitem name="Reload" action="ActionFileReload" />
+			<toolitem name="Close" action="ActionFileClose" />
 			<separator name="separator1"/>
-			<toolitem name="Undo" verb="ActionEditUndo" />
-			<toolitem name="Redo" verb="ActionEditRedo" />
+			<toolitem name="Undo" action="ActionEditUndo" />
+			<toolitem name="Redo" action="ActionEditRedo" />
 			<separator name="separator2" />
-			<toolitem name="Print" verb="ActionPrintFile" />
+			<toolitem name="Print" action="ActionPrintFile" />
 			<separator name="separator3"/>
-			<toolitem name="SearchNext" verb="ActionEditSearchFindNext" />
-			<toolitem name="SearchEntry" verb="ActionEditSearchEntry" />
+			<toolitem name="SearchNext" action="ActionEditSearchFindNext" />
+			<toolitem name="SearchEntry" action="ActionEditSearchEntry" />
 			<separator name="separator4"/>
-			<toolitem name="GotoLine" verb="ActionEditGotoLineActivate" />
-			<toolitem name="GotoLineEntry" verb="ActionEditGotoLineEntry" />
+			<toolitem name="GotoLine" action="ActionEditGotoLineActivate" />
+			<toolitem name="GotoLineEntry" action="ActionEditGotoLineEntry" />
 			<separator name="separator5"/>
 		</placeholder>
-	</dockitem>
-	<dockitem name="ToolbarBrowser">
+	</toolbar>
+	<toolbar name="ToolbarBrowser">
 		<placeholder name="PlaceholderBrowserToolbar" >
-			<toolitem name="Toggle" verb="ActionBookmarkToggle"/>
-			<toolitem name="First" verb="ActionBookmarkFirst"/>
-			<toolitem name="Previous" verb="ActionBookmarkPrevious"/>
-			<toolitem name="Next" verb="ActionBookmarkNext"/>
-			<toolitem name="Last" verb="ActionBookmarkLast"/>
+			<toolitem name="Toggle" action="ActionBookmarkToggle"/>
+			<toolitem name="First" action="ActionBookmarkFirst"/>
+			<toolitem name="Previous" action="ActionBookmarkPrevious"/>
+			<toolitem name="Next" action="ActionBookmarkNext"/>
+			<toolitem name="Last" action="ActionBookmarkLast"/>
 			<separator name="separator1" />
-			<toolitem name="BlockStart" verb="ActionEditGotoBlockStart"/>
-			<toolitem name="BlockEnd" verb="ActionEditGotoBlockEnd"/>
+			<toolitem name="BlockStart" action="ActionEditGotoBlockStart"/>
+			<toolitem name="BlockEnd" action="ActionEditGotoBlockEnd"/>
 			<separator name="separator2" />
 		</placeholder>
-	</dockitem>
-	<dockitem name="ToolbarFormat">
-		<toolitem name="FoldToggle" verb="ActionFormatFoldToggle" />
-		<toolitem name="FoldCloseAll" verb="ActionFormatFoldCloseAll" />
-		<toolitem name="FoldOpenAll" verb="ActionFormatFoldOpenAll" />
+	</toolbar>
+	<toolbar name="ToolbarFormat">
+		<toolitem name="FoldToggle" action="ActionFormatFoldToggle" />
+		<toolitem name="FoldCloseAll" action="ActionFormatFoldCloseAll" />
+		<toolitem name="FoldOpenAll" action="ActionFormatFoldOpenAll" />
 		<separator name="separator1" />
-		<toolitem name="BlockSelect" verb="ActionEditSelectBlock" />
-		<toolitem name="IndentationIncrease" verb="ActionFormatIndentationIncrease" />
-		<toolitem name="IndentationDecrease" verb="ActionFormatIndentationDecrease" />
+		<toolitem name="BlockSelect" action="ActionEditSelectBlock" />
+		<toolitem name="IndentationIncrease" action="ActionFormatIndentationIncrease" />
+		<toolitem name="IndentationDecrease" action="ActionFormatIndentationDecrease" />
 		<separator name="separator2" />
-		<toolitem name="Autoformat" verb="ActionFormatAutoformat" />
-		<toolitem name="AutoformatSettings" verb="ActionFormatSettings" />
+		<toolitem name="Autoformat" action="ActionFormatAutoformat" />
+		<toolitem name="AutoformatSettings" action="ActionFormatSettings" />
 		<separator name="separator3" />
-		<toolitem name="Autocomplete" verb="ActionEditAutocomplete" />
-	</dockitem>
-</Root>
+		<toolitem name="Autocomplete" action="ActionEditAutocomplete" />
+	</toolbar>
+</ui>

@@ -38,9 +38,11 @@ AnjutaShell
 @session_load: 
 @session_save: 
 @add_widget: 
+@remove_widget: 
 @add_value: 
 @get_value: 
 @remove_value: 
+@get_object: 
 
 <!-- ##### FUNCTION anjuta_shell_error_quark ##### -->
 <para>

@@ -72,23 +72,41 @@ typedef struct _AnjutaPreferences        AnjutaPreferences;
 typedef struct _AnjutaPreferencesClass   AnjutaPreferencesClass;
 typedef struct _AnjutaPreferencesPriv    AnjutaPreferencesPriv;
 
+/* AnjutaPreferences:
+ * @parent: Parent
+ * @props_build_in: Properties object holding buildin values.
+ * @props_global: Properties object holding global values.
+ * 
+ * This is a test description
+ */
 struct _AnjutaPreferences
 {
 	AnjutaPreferencesDialog parent;
 	
+	/*< public >*/
+	
+	/* Built in values */
 	PropsID props_built_in;
+	
+	/* System values */
 	PropsID props_global;
+	
+	/* User values */ 
 	PropsID props_local;
+	
+	/* Session values */
 	PropsID props_session;
+	
+	/* Instance values */
 	PropsID props;
 	
+	/*< private >*/
 	AnjutaPreferencesPriv *priv;
 };
 
 struct _AnjutaPreferencesClass
 {
 	AnjutaPreferencesDialogClass parent;
-	
 	void (*changed) (GtkWidget *pref);
 };
 
@@ -222,7 +240,13 @@ anjuta_preferences_register_property_custom (AnjutaPreferences *pr,
  */
 void anjuta_preferences_reset_defaults (AnjutaPreferences *pr);
 
-/* Save and (Loading is done in _new()) */
+/**
+ * anjuta_preferences_save:
+ * @p: a #AnjutaPreferences object.
+ * @stream: File stream where the preferences will be saved.
+ *
+ * Save and (Loading is done in _new())
+ */
 gboolean anjuta_preferences_save (AnjutaPreferences * p, FILE * stream);
 
 /* Save excluding the filtered properties. This will save only those

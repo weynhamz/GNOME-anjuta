@@ -269,10 +269,3 @@ AnjutaPreferences
 @Returns: 
 
 
-<!-- ##### SIGNAL AnjutaPreferences::changed ##### -->
-<para>
-
-</para>
-
-@anjutapreferences: the object which received the signal.
-

@@ -1,6 +1,6 @@
 #include <gtk/gtkwidget.h>
 #include <gtk/gtkentry.h>
-#include <libegg/toolbar/eggtoolitem.h>
+// #include <libegg/toolbar/eggtoolitem.h>
 
 #include "egg-combo-action.h"
 
@@ -39,10 +39,10 @@ egg_combo_action_get_type (void)
   return type;
 }
 
-static GtkWidget * create_tool_item        (EggAction *action);
-static void connect_proxy                  (EggAction *action,
+static GtkWidget * create_tool_item        (GtkAction *action);
+static void connect_proxy                  (GtkAction *action,
 					    GtkWidget *proxy);
-static void disconnect_proxy               (EggAction *action,
+static void disconnect_proxy               (GtkAction *action,
 					    GtkWidget *proxy);
 static void egg_combo_action_finalize      (GObject *object);
 
@@ -51,11 +51,11 @@ static GObjectClass *parent_class = NULL;
 static void
 egg_combo_action_class_init (EggComboActionClass *class)
 {
-  EggActionClass *action_class;
+  GtkActionClass *action_class;
   GObjectClass   *object_class;
 
   parent_class = g_type_class_peek_parent (class);
-  action_class = EGG_ACTION_CLASS (class);
+  action_class = GTK_ACTION_CLASS (class);
   object_class = G_OBJECT_CLASS (class);
 
   object_class->finalize     = egg_combo_action_finalize;
@@ -65,7 +65,7 @@ egg_combo_action_class_init (EggComboActionClass *class)
   action_class->disconnect_proxy = disconnect_proxy;
 
   action_class->menu_item_type = GTK_TYPE_CHECK_MENU_ITEM;
-  action_class->toolbar_item_type = EGG_TYPE_TOOL_ITEM;
+  action_class->toolbar_item_type = GTK_TYPE_TOOL_ITEM;
   action_class->create_tool_item = create_tool_item;
 }
 
@@ -99,14 +99,14 @@ egg_combo_action_finalize (GObject *object)
 }
 
 static GtkWidget *
-create_tool_item (EggAction *action)
+create_tool_item (GtkAction *action)
 {
-  EggToolItem *item;
+  GtkToolItem *item;
   GtkWidget *combo;
 
   g_return_val_if_fail (EGG_IS_COMBO_ACTION (action), NULL);
 
-  item = egg_tool_item_new ();
+  item = gtk_tool_item_new ();
   combo = gtk_combo_new();
   gtk_widget_set_size_request (combo, EGG_ENTRY_ACTION (action)->width, -1);
   gtk_widget_show(combo);
@@ -115,7 +115,7 @@ create_tool_item (EggAction *action)
 }
 
 static void
-connect_proxy (EggAction *action, GtkWidget *proxy)
+connect_proxy (GtkAction *action, GtkWidget *proxy)
 {
   EggComboAction *combo_action;
 
@@ -125,32 +125,32 @@ connect_proxy (EggAction *action, GtkWidget *proxy)
   if (GTK_IS_MENU_ITEM (proxy))
     gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (proxy),
 				    TRUE);
-  else if (EGG_IS_TOOL_ITEM (proxy))
+  else if (GTK_IS_TOOL_ITEM (proxy))
     {
       GtkWidget *combo;
       combo = gtk_bin_get_child (GTK_BIN (proxy));
       if (GTK_IS_COMBO (combo))
 	{
-	  (* EGG_ACTION_CLASS (parent_class)->connect_proxy) (action,
+	  (* GTK_ACTION_CLASS (parent_class)->connect_proxy) (action,
 			       GTK_COMBO(combo)->entry);
 	}
     }
 }
 
 static void
-disconnect_proxy (EggAction *action, GtkWidget *proxy)
+disconnect_proxy (GtkAction *action, GtkWidget *proxy)
 {
   EggComboAction *combo_action;
 
   combo_action = EGG_COMBO_ACTION (action);
 
-  if (EGG_IS_TOOL_ITEM (proxy))
+  if (GTK_IS_TOOL_ITEM (proxy))
     {
       GtkWidget *combo;
       combo = gtk_bin_get_child (GTK_BIN (proxy));
       if (GTK_IS_COMBO (combo))
 	{
-	  (* EGG_ACTION_CLASS (parent_class)->disconnect_proxy) (action,
+	  (* GTK_ACTION_CLASS (parent_class)->disconnect_proxy) (action,
 			       GTK_COMBO(combo)->entry);
 	}
     }
@@ -170,15 +170,16 @@ egg_combo_action_set_popdown_strings (EggComboAction *action, GList *strs)
 
   g_return_if_fail (EGG_IS_ENTRY_ACTION (action));
 
-  for (slist = EGG_ACTION (action)->proxies; slist; slist = slist->next)
+  for (slist = gtk_action_get_proxies (GTK_ACTION(action));
+	   slist; slist = slist->next)
     {
       GtkWidget *proxy = slist->data;
 
-      egg_action_block_activate_from (EGG_ACTION (action), proxy);
+      gtk_action_block_activate_from (GTK_ACTION (action), proxy);
       if (GTK_IS_CHECK_MENU_ITEM (proxy))
 	gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (proxy),
 					TRUE);
-      else if (EGG_IS_TOOL_ITEM (proxy))
+      else if (GTK_IS_TOOL_ITEM (proxy))
 	{
 	  GtkWidget *combo;
 	  combo = gtk_bin_get_child (GTK_BIN (proxy));
@@ -202,6 +203,6 @@ egg_combo_action_set_popdown_strings (EggComboAction *action, GList *strs)
 	g_warning ("Don't know how to set popdown for `%s' widgets",
 		   G_OBJECT_TYPE_NAME (proxy));
       }
-      egg_action_unblock_activate_from (EGG_ACTION (action), proxy);
+      gtk_action_unblock_activate_from (GTK_ACTION (action), proxy);
     }
 }

@@ -2,7 +2,7 @@
 #define EGG_ENTRY_ACTION_H
 
 #include <gtk/gtk.h>
-#include <libegg/menu/egg-action.h>
+// #include <libegg/menu/egg-action.h>
 
 #define EGG_TYPE_ENTRY_ACTION            (egg_entry_action_get_type ())
 #define EGG_ENTRY_ACTION(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), EGG_TYPE_ENTRY_ACTION, EggEntryAction))
@@ -16,7 +16,7 @@ typedef struct _EggEntryActionClass EggEntryActionClass;
 
 struct _EggEntryAction
 {
-  EggAction parent;
+  GtkAction parent;
 
   gchar* text;
   gint   width;
@@ -24,7 +24,7 @@ struct _EggEntryAction
 
 struct _EggEntryActionClass
 {
-  EggActionClass parent_class;
+  GtkActionClass parent_class;
 
   /* Signals */
   void (* changed)   (EggEntryAction *action);

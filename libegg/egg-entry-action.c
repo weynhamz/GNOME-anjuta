@@ -1,6 +1,7 @@
 #include <gtk/gtkwidget.h>
 #include <gtk/gtkentry.h>
-#include <libegg/toolbar/eggtoolitem.h>
+#include <gtk/gtktoolitem.h>
+//#include <libegg/toolbar/eggtoolitem.h>
 
 #include "egg-entry-action.h"
 
@@ -45,36 +46,36 @@ egg_entry_action_get_type (void)
         (GInstanceInitFunc) egg_entry_action_init,
       };
 
-      type = g_type_register_static (EGG_TYPE_ACTION,
+      type = g_type_register_static (GTK_TYPE_ACTION,
                                      "EggEntryAction",
                                      &type_info, 0);
     }
   return type;
 }
 
-//static void egg_entry_action_activate      (EggAction *action);
+//static void egg_entry_action_activate      (GtkAction *action);
 static void egg_entry_action_real_changed  (EggEntryAction *action);
-static GtkWidget * create_tool_item        (EggAction *action);
-static void connect_proxy                  (EggAction *action,
-					    GtkWidget *proxy);
-static void disconnect_proxy               (EggAction *action,
-					    GtkWidget *proxy);
+static GtkWidget * create_tool_item        (GtkAction *action);
+static void connect_proxy                  (GtkAction *action,
+										    GtkWidget *proxy);
+static void disconnect_proxy               (GtkAction *action,
+										    GtkWidget *proxy);
 static void entry_changed		   (GtkEntry *entry,
-					    EggEntryAction *entry_action);
+								    EggEntryAction *entry_action);
 static void entry_focus_in                 (GtkEntry *entry, GdkEvent *event,
-					    EggEntryAction *action);
+										    EggEntryAction *action);
 static void entry_focus_out                (GtkEntry *entry, GdkEvent *event,
-					    EggEntryAction *action);
-static void entry_activate                 (GtkEntry *entry, EggAction *action);
+										    EggEntryAction *action);
+static void entry_activate                 (GtkEntry *entry, GtkAction *action);
 static void egg_entry_action_finalize      (GObject *object);
 static void egg_entry_action_set_property  (GObject *object,
-					    guint prop_id,
-					    const GValue *value,
-					    GParamSpec *pspec);
+											guint prop_id,
+											const GValue *value,
+											GParamSpec *pspec);
 static void egg_entry_action_get_property  (GObject *object,
-					    guint prop_id,
-					    GValue *value,
-					    GParamSpec *pspec);
+											guint prop_id,
+											GValue *value,
+											GParamSpec *pspec);
 
 static GObjectClass *parent_class = NULL;
 static guint         action_signals[LAST_SIGNAL] = { 0 };
@@ -82,11 +83,11 @@ static guint         action_signals[LAST_SIGNAL] = { 0 };
 static void
 egg_entry_action_class_init (EggEntryActionClass *class)
 {
-  EggActionClass *action_class;
+  GtkActionClass *action_class;
   GObjectClass   *object_class;
 
   parent_class = g_type_class_peek_parent (class);
-  action_class = EGG_ACTION_CLASS (class);
+  action_class = GTK_ACTION_CLASS (class);
   object_class = G_OBJECT_CLASS (class);
 
   object_class->finalize     = egg_entry_action_finalize;
@@ -98,7 +99,7 @@ egg_entry_action_class_init (EggEntryActionClass *class)
   action_class->disconnect_proxy = disconnect_proxy;
 
   action_class->menu_item_type = GTK_TYPE_CHECK_MENU_ITEM;
-  action_class->toolbar_item_type = EGG_TYPE_TOOL_ITEM;
+  action_class->toolbar_item_type = GTK_TYPE_TOOL_ITEM;
   action_class->create_tool_item = create_tool_item;
 
   class->changed = egg_entry_action_real_changed;
@@ -213,55 +214,57 @@ egg_entry_action_get_property (GObject    *object,
 static void
 egg_entry_action_real_changed (EggEntryAction *action)
 {
-  GSList *slist;
-
-  g_return_if_fail (EGG_IS_ENTRY_ACTION (action));
-
-  for (slist = EGG_ACTION (action)->proxies; slist; slist = slist->next)
-    {
-      GtkWidget *proxy = slist->data;
-
-      egg_action_block_activate_from (EGG_ACTION (action), proxy);
-      if (GTK_IS_CHECK_MENU_ITEM (proxy))
-	gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (proxy),
-					TRUE);
-      else if (EGG_IS_TOOL_ITEM (proxy))
+	GSList *slist;
+	
+	g_return_if_fail (EGG_IS_ENTRY_ACTION (action));
+	
+	for (slist = gtk_action_get_proxies (GTK_ACTION (action));
+		 slist; slist = slist->next)
 	{
-	  GtkWidget *entry;
-	  entry = gtk_bin_get_child (GTK_BIN (proxy));
-	  if (GTK_IS_ENTRY (entry))
-	    {
-	      g_signal_handlers_block_by_func (entry,
-					       G_CALLBACK (entry_changed),
-					       action);
-	      gtk_entry_set_text (GTK_ENTRY (entry), action->text);
-	      g_signal_handlers_unblock_by_func (entry,
-						 G_CALLBACK (entry_changed),
-						 action);
-	    }
-	  else
-	    {
-	      g_warning ("Don't know how to change `%s' widgets",
-			 G_OBJECT_TYPE_NAME (proxy));
-	    }
+		GtkWidget *proxy = slist->data;
+		
+		gtk_action_block_activate_from (GTK_ACTION (action), proxy);
+		if (GTK_IS_CHECK_MENU_ITEM (proxy))
+			gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (proxy),
+											TRUE);
+		else if (GTK_IS_TOOL_ITEM (proxy))
+		{
+			GtkWidget *entry;
+			entry = gtk_bin_get_child (GTK_BIN (proxy));
+			if (GTK_IS_ENTRY (entry))
+			{
+				g_signal_handlers_block_by_func (entry,
+												 G_CALLBACK (entry_changed),
+												 action);
+				gtk_entry_set_text (GTK_ENTRY (entry), action->text);
+				g_signal_handlers_unblock_by_func (entry,
+												   G_CALLBACK (entry_changed),
+												   action);
+			}
+			else
+			{
+				g_warning ("Don't know how to change `%s' widgets",
+				G_OBJECT_TYPE_NAME (proxy));
+			}
+		}
+		else
+		{
+			g_warning ("Don't know how to change `%s' widgets",
+						G_OBJECT_TYPE_NAME (proxy));
+		}
+		gtk_action_unblock_activate_from (GTK_ACTION (action), proxy);
 	}
-      else {
-	g_warning ("Don't know how to change `%s' widgets",
-		   G_OBJECT_TYPE_NAME (proxy));
-      }
-      egg_action_unblock_activate_from (EGG_ACTION (action), proxy);
-    }
 }
 
 static GtkWidget *
-create_tool_item (EggAction *action)
+create_tool_item (GtkAction *action)
 {
-  EggToolItem *item;
+  GtkToolItem *item;
   GtkWidget *entry;
 
   g_return_val_if_fail (EGG_IS_ENTRY_ACTION (action), NULL);
 
-  item = egg_tool_item_new ();
+  item = gtk_tool_item_new ();
   entry = gtk_entry_new();
   gtk_widget_set_size_request (entry, EGG_ENTRY_ACTION (action)->width, -1);
   gtk_widget_show(entry);
@@ -270,7 +273,7 @@ create_tool_item (EggAction *action)
 }
 
 static void
-connect_proxy (EggAction *action, GtkWidget *proxy)
+connect_proxy (GtkAction *action, GtkWidget *proxy)
 {
   EggEntryAction *entry_action;
 
@@ -280,7 +283,7 @@ connect_proxy (EggAction *action, GtkWidget *proxy)
   if (GTK_IS_MENU_ITEM (proxy))
     gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (proxy),
 				    TRUE);
-  else if (EGG_IS_TOOL_ITEM (proxy))
+  else if (GTK_IS_TOOL_ITEM (proxy))
     {
       GtkWidget *entry;
       entry = gtk_bin_get_child (GTK_BIN (proxy));
@@ -297,16 +300,16 @@ connect_proxy (EggAction *action, GtkWidget *proxy)
 			    G_CALLBACK (entry_focus_out), action);
 	}
     }
-  (* EGG_ACTION_CLASS (parent_class)->connect_proxy) (action, proxy);
+  (* GTK_ACTION_CLASS (parent_class)->connect_proxy) (action, proxy);
 }
 
 static void
-disconnect_proxy (EggAction *action, GtkWidget *proxy)
+disconnect_proxy (GtkAction *action, GtkWidget *proxy)
 {
   EggEntryAction *entry_action;
 
   entry_action = EGG_ENTRY_ACTION (action);
-  if (EGG_IS_TOOL_ITEM (proxy))
+  if (GTK_IS_TOOL_ITEM (proxy))
     {
       GtkWidget *entry;
       entry = gtk_bin_get_child (GTK_BIN (proxy));
@@ -326,7 +329,7 @@ disconnect_proxy (EggAction *action, GtkWidget *proxy)
 						action);
 	}
     }
-  (* EGG_ACTION_CLASS (parent_class)->disconnect_proxy) (action, proxy);
+  (* GTK_ACTION_CLASS (parent_class)->disconnect_proxy) (action, proxy);
 }
 
 static void
@@ -339,9 +342,9 @@ entry_changed (GtkEntry *entry, EggEntryAction *entry_action)
 }
 
 static void
-entry_activate (GtkEntry *entry, EggAction *action)
+entry_activate (GtkEntry *entry, GtkAction *action)
 {
-  egg_action_activate (action);
+  gtk_action_activate (action);
 }
 
 static void

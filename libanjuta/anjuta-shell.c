@@ -310,7 +310,7 @@ anjuta_shell_base_init (gpointer gclass)
 		g_signal_new ("value_removed",
 			      ANJUTA_TYPE_SHELL,
 			      G_SIGNAL_RUN_LAST,
-			      G_STRUCT_OFFSET (AnjutaShellIface, value_added),
+			      G_STRUCT_OFFSET (AnjutaShellIface, value_removed),
 			      NULL, NULL,
 			      anjuta_cclosure_marshal_VOID__STRING,
 			      G_TYPE_NONE, 1,
@@ -332,6 +332,7 @@ anjuta_shell_base_init (gpointer gclass)
 			      g_cclosure_marshal_VOID__VOID,
 			      G_TYPE_NONE, 0,
 			      NULL);
+		initialized = TRUE;
 	}
 }
 

@@ -1,58 +1,54 @@
 <!--*- xml -*-->
-<Root>
-	<menu name="MenuMain">
-		<submenu name="MenuFile" verb="ActionMenuFile">
+<ui>
+	<menubar name="MenuMain">
+		<menu name="MenuFile" action="ActionMenuFile">
 			<placeholder name="PlaceholderFileMenus"/>
 			<placeholder name="PlaceholderPrintMenus"/>
 			<placeholder name="PlaceholderRecentMenus"/>
-			<menuitem name="Quit" verb="ActionExit" />
-		</submenu>
-		<submenu name="MenuEdit" verb="ActionMenuEdit">
+			<menuitem name="Quit" action="ActionExit" />
+		</menu>
+		<menu name="MenuEdit" action="ActionMenuEdit">
 			<placeholder name="PlaceholderEditMenus"/>
 			<placeholder name="PlaceholderSelectMenus"/>
 			<placeholder name="PlaceholderInsertMenus"/>
 			<placeholder name="PlaceholderSearchMenus"/>
-			<submenu name="Goto" verb="ActionMenuEditGoto">
+			<menu name="Goto" action="ActionMenuEditGoto">
 				<placeholder name="PlaceholderGotoMenus"/>
-			</submenu>
-		</submenu>
-		<submenu name="MenuView" verb="ActionMenuView">
-		</submenu>
+			</menu>
+		</menu>
+		<menu name="MenuView" action="ActionMenuView">
+		</menu>
 		<placeholder name="PlaceHolderProjectMenus"/>
 		<placeholder name="PlaceHolderFormatMenus"/>
 		<placeholder name="PlaceHolderBuildMenus"/>
 		<placeholder name="PlaceHolderBookmarkMenus"/>
-		<submenu name="MenuSettings" verb="ActionMenuSettings" >
-			<menuitem name="Preferences" verb="ActionSettingsPreferences" />
-			<menuitem name="Defaults" verb="ActionSettingsDefaults" />
-			<menuitem name="Shortcuts" verb="ActionSettingsShortcuts" />
-			<menuitem name="Layout Manager" verb="ActionSettingsLayout" />
-			<menuitem name="Plugins Manager" verb="ActionSettingsPlugins" />
-		</submenu>
-		<submenu name="MenuHelp" verb="ActionMenuHelp" >
-			<menuitem name="Gnome" verb="ActionHelpGnome" />
-			<menuitem name="Man" verb="ActionHelpMan" />
-			<menuitem name="Info" verb="ActionHelpInfo" />
+		<menu name="MenuSettings" action="ActionMenuSettings" >
+			<menuitem name="Preferences" action="ActionSettingsPreferences" />
+			<menuitem name="Defaults" action="ActionSettingsDefaults" />
+			<menuitem name="Shortcuts" action="ActionSettingsShortcuts" />
+			<menuitem name="Layout Manager" action="ActionSettingsLayout" />
+			<menuitem name="Plugins Manager" action="ActionSettingsPlugins" />
+		</menu>
+		<menu name="MenuHelp" action="ActionMenuHelp" >
+			<menuitem name="Gnome" action="ActionHelpGnome" />
+			<menuitem name="Man" action="ActionHelpMan" />
+			<menuitem name="Info" action="ActionHelpInfo" />
 			<separator name="separator1" />
-			<menuitem name="Context" verb="ActionHelpContext" />
-			<menuitem name="Search" verb="ActionHelpSearch" />
+			<menuitem name="Context" action="ActionHelpContext" />
+			<menuitem name="Search" action="ActionHelpSearch" />
 			<separator name="separator2" />
-			<menuitem name="AnjutaHome" verb="ActionHelpAnjutaHome" />
+			<menuitem name="AnjutaHome" action="ActionHelpAnjutaHome" />
 			<separator name="separator3" />
-			<menuitem name="Lidn" verb="ActionHelpLidn" />
-			<menuitem name="BugReport" verb="ActionHelpBugReport" />
-			<menuitem name="FetureRequest" verb="ActionHelpFeatureRequest" />
-			<menuitem name="SubmitPatch" verb="ActionHelpSubmitPatch" />
-			<menuitem name="Faq" verb="ActionHelpFaq" />
+			<menuitem name="Lidn" action="ActionHelpLidn" />
+			<menuitem name="BugReport" action="ActionHelpBugReport" />
+			<menuitem name="FetureRequest" action="ActionHelpFeatureRequest" />
+			<menuitem name="SubmitPatch" action="ActionHelpSubmitPatch" />
+			<menuitem name="Faq" action="ActionHelpFaq" />
 			<separator name="separator4" />
-			<menuitem name="AboutAnjuta" verb="ActionAboutAnjuta" />
-		</submenu>
+			<menuitem name="AboutAnjuta" action="ActionAboutAnjuta" />
+		</menu>
 		<placeholder name="TestPlaceholder" />
-	</menu>
-	<dockitem name="ToolbarMain">
-	</dockitem>
-	<dockitem name="ToolbarBrowser">
-	</dockitem>
-	<dockitem name="ToolbarExtended">
-	</dockitem>
-</Root>
+	</menubar>
+	<toolbar name="ToolbarMain"></toolbar>
+	<toolbar name="ToolbarBrowser"></toolbar>
+</ui>

@@ -1,16 +1,16 @@
 <!--*- xml -*-->
-<Root>
-	<menu name="MenuMain">
-		<submenu name="MenuEdit" verb="ActionMenuEdit">
-			<submenu name="Goto" verb="ActionMenuEditGoto">
+<ui>
+	<menubar name="MenuMain">
+		<menu name="MenuEdit" action="ActionMenuEdit">
+			<menu name="Goto" action="ActionMenuEditGoto">
 				<placeholder name="PlaceholderGotoMenus">
-						<menuitem name="NextMessage" verb="ActionMessageNext" />
-						<menuitem name="PrevMessage" verb="ActionMessagePrev" />
+						<menuitem name="NextMessage" action="ActionMessageNext" />
+						<menuitem name="PrevMessage" action="ActionMessagePrev" />
 				</placeholder>
-			</submenu>
-		</submenu>
-		<submenu name="MenuView" verb="ActionMenuView">	
-				<menuitem name="Show Messages" verb="ActionViewMessageShow" />
-		</submenu>
-	</menu>
-</Root>
+			</menu>
+		</menu>
+		<menu name="MenuView" action="ActionMenuView">	
+				<menuitem name="Show Messages" action="ActionViewMessageShow" />
+		</menu>
+	</menubar>
+</ui>

@@ -29,11 +29,9 @@
 gpointer parent_class;
 
 static void
-on_sample_action_activate (EggAction *action, gpointer data)
+on_sample_action_activate (GtkAction *action, SamplePlugin *plugin)
 {
 	GObject *obj;
-	SamplePlugin *plugin = (SamplePlugin *)data;
-	
 	IAnjutaEditor *editor;
 	IAnjutaDocumentManager *docman;
 	
@@ -50,19 +48,12 @@ on_sample_action_activate (EggAction *action, gpointer data)
 							 editor);
 }
 
-static EggActionGroupEntry actions_file[] = {
-  { "ActionFileSample", N_("_Sample action"), GTK_STOCK_NEW, NULL,
+static GtkActionEntry actions_file[] = {
+  { "ActionFileSample", GTK_STOCK_NEW,
+    N_("_Sample action"), NULL,
 	N_("Sample action"),
-    G_CALLBACK (on_sample_action_activate), NULL },
+    G_CALLBACK (on_sample_action_activate)},
 };
-
-static void
-init_user_data (EggActionGroupEntry* actions, gint size, gpointer data)
-{
-	int i;
-	for (i = 0; i < size; i++)
-		actions[i].user_data = data;
-}
 
 static void
 activate_plugin (AnjutaPlugin *plugin)
@@ -78,11 +69,11 @@ activate_plugin (AnjutaPlugin *plugin)
 	sample_plugin->widget = wid;
 	
 	/* Add all our editor actions */
-	init_user_data (actions_file, G_N_ELEMENTS (actions_file), sample_plugin);
 	anjuta_ui_add_action_group_entries (ui, "ActionGroupSampleFile",
 										_("Sample file operations"),
 										actions_file,
-										G_N_ELEMENTS (actions_file));
+										G_N_ELEMENTS (actions_file),
+										plugin);
 	sample_plugin->uiid = anjuta_ui_merge (plugin->ui, UI_FILE);
 	anjuta_shell_add_widget (plugin->shell, wid,
 				  "AnjutaSamplePlugin", _("SamplePlugin"), NULL);

@@ -1,17 +1,17 @@
 <!--*- xml -*-->
-<Root>
-	<menu name="MenuMain">
-		<submenu name="MenuEdit" verb="ActionMenuEdit">
-			<submenu name="Goto" verb="ActionMenuEditGoto">
+<ui>
+	<menubar name="MenuMain">
+		<menu name="MenuEdit" action="ActionMenuEdit">
+			<menu name="Goto" action="ActionMenuEditGoto">
 				<placeholder name="PlaceholderGotoMenus">
-						<menuitem name="BackHelp" verb="ActionDevhelpBack" />
-						<menuitem name="ForwardHelp" verb="ActionDevhelpForward" />
+						<menuitem name="BackHelp" action="ActionDevhelpBack" />
+						<menuitem name="ForwardHelp" action="ActionDevhelpForward" />
 				</placeholder>
-			</submenu>
-		</submenu>
-	</menu>
-	<dockitem name="ToolbarBrowser">
-		<toolitem name="BackHelp" verb="ActionDevhelpBack" />
-		<toolitem name="ForwardHelp" verb="ActionDevhelpForward" />
-	</dockitem>
-</Root>
+			</menu>
+		</menu>
+	</menubar>
+	<toolbar name="ToolbarBrowser">
+		<toolitem name="BackHelp" action="ActionDevhelpBack" />
+		<toolitem name="ForwardHelp" action="ActionDevhelpForward" />
+	</toolbar>
+</ui>

@@ -16,7 +16,10 @@ G_BEGIN_DECLS
 
 typedef struct _AnjutaShell      AnjutaShell;
 typedef struct _AnjutaShellIface AnjutaShellIface;
-typedef enum   _AnjutaShellError AnjutaShellError;
+
+typedef enum  {
+	ANJUTA_SHELL_ERROR_DOESNT_EXIST,
+} AnjutaShellError;
 
 struct _AnjutaShellIface {
 	GTypeInterface g_iface;
@@ -51,11 +54,6 @@ struct _AnjutaShellIface {
 							   const char   *iface_name,
 							   GError       **error);
 };
-
-enum AnjutaShellError {
-	ANJUTA_SHELL_ERROR_DOESNT_EXIST,
-};
-
 
 GQuark anjuta_shell_error_quark     (void);
 GType  anjuta_shell_get_type        (void);
