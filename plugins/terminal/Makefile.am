@@ -23,7 +23,8 @@ anjuta_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
 INCLUDES = \
 	$(WARN_CFLAGS) \
 	$(DEPRECATED_FLAGS) \
-	$(LIBANJUTA_CFLAGS)
+	$(LIBANJUTA_CFLAGS) \
+	$(VTE_CFLAGS)
 
 # Where to install the plugin
 plugindir = $(prefix)/@NO_PREFIX_PACKAGE_PLUGIN_DIR@

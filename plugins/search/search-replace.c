@@ -32,6 +32,10 @@
 #include <glade/glade.h>
 
 #include <libanjuta/anjuta-utils.h>
+#include <libanjuta/plugins.h>
+#include <libanjuta/anjuta-plugin.h>
+#include <libanjuta/interfaces/ianjuta-message-manager.h>
+#include <libanjuta/interfaces/ianjuta-message-view.h>
 
 // #include "anjuta.h"
 #include "text_editor.h"
@@ -254,10 +258,11 @@ search_and_replace (void)
 	static long end_sel = 0;
 	static gchar *ch= NULL;
 	gboolean save_file = FALSE;
-	
+	IAnjutaMessageManager* msgman;
+	IAnjutaMessageView* view;
 	g_return_if_fail(sr);
 	s = &(sr->search);
-
+	
 	end_activity = FALSE;
 	search_make_sensitive(FALSE);
 	
@@ -269,9 +274,16 @@ search_and_replace (void)
 
 	if (SA_FIND_PANE == s->action)
 	{
-		// FIXME: message-pane
-		// an_message_manager_clear(app->messages, MESSAGE_FIND);
-		// an_message_manager_show(app->messages, MESSAGE_FIND);
+		gchar* name = g_strconcat(_("Find: "), s->expr.search_str, NULL);		
+		msgman = anjuta_shell_get_interface(ANJUTA_PLUGIN(sr->docman)->shell, 
+			IAnjutaMessageManager, NULL);
+		g_return_if_fail(msgman != NULL);
+		
+		// FIXME: Add a nice icon here:
+		ianjuta_message_manager_add_view(msgman, name, NULL, NULL);
+		view = ianjuta_message_manager_get_view_by_name(msgman, name, NULL);
+		g_return_if_fail(view != NULL);
+		ianjuta_message_manager_set_current_view(msgman, view, NULL);
 	}
 
 	nb_results = 0;
@@ -319,7 +331,6 @@ search_and_replace (void)
 					case SA_BOOKMARK:
 						if (NULL == fb->te)
 						{
-							// FIXME: fb->te = anjuta_goto_file_line(fb->path, mi->line);
 							fb->te = anjuta_docman_goto_file_line (sr->docman, 
 											fb->path, mi->line);
 						}
@@ -333,7 +344,6 @@ search_and_replace (void)
 						
 					case SA_SELECT:
 						if (NULL == fb->te)
-							// FIXME: fb->te = anjuta_goto_file_line(fb->path, mi->line+1);
 							fb->te = anjuta_docman_goto_file_line (sr->docman, 
 											fb->path, mi->line+1);
 						scintilla_send_message(SCINTILLA(
@@ -346,15 +356,13 @@ search_and_replace (void)
 						snprintf(buf, BUFSIZ, "%s:%ld:%s\n", fb->path
 						  , mi->line + 1, match_line);
 						g_free(match_line);
-						// FIXME: an_message_manager_append(app->messages, buf
-						//  , MESSAGE_FIND);
+						ianjuta_message_view_append(view, buf, NULL);
 						break;
 					
 					case SA_REPLACE:
 						if (!interactive)
 						{
 							if (NULL == fb->te)
-								// FIXME: fb->te = anjuta_goto_file_line(fb->path, mi->line+1);
 								fb->te = anjuta_docman_goto_file_line (sr->docman, 
 											fb->path, mi->line+1);
 							scintilla_send_message(SCINTILLA(
@@ -384,6 +392,7 @@ search_and_replace (void)
 						
 						if (fb->te == NULL)
 						{
+							
 							//fb->te = anjuta_append_text_editor(se->path);
 						}
 						else
