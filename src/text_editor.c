@@ -37,7 +37,6 @@
 #include "text_editor_cbs.h"
 #include "text_editor_menu.h"
 #include "utilities.h"
-#include "syntax.h"
 #include "launcher.h"
 
 #define GTK

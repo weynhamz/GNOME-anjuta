@@ -164,7 +164,6 @@ anjuta_SOURCES = \
 	stack_trace_cbs.c\
 	stack_trace_cbs.h\
 	stack_trace_gui.c\
-	syntax.h\
 	tags_manager.c\
 	tags_manager.h\
 	text_editor.c\
