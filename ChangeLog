@@ -1,4 +1,4 @@
-2003-09-19  Naba Kumar  <naba@gnome.org>
+2003-09-22  Naba Kumar  <naba@gnome.org>
 
 	* src/scintilla/patches/scintilla-ac-gtk2-port.diff,
 	scintilla/PlatGTK.cxx: Ported autocomplete window to gtk2 by removing
