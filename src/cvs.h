@@ -44,11 +44,13 @@ void cvs_set_force_update (CVS * cvs, gboolean force_update);
 void cvs_set_unified_diff (CVS * cvs, gboolean unified_diff);
 void cvs_set_context_diff (CVS * cvs, gboolean context_diff);
 void cvs_set_compression (CVS * cvs, guint compression);
+void cvs_set_diff_use_date(CVS * cvs, gboolean state);
 
 gboolean cvs_get_force_update(CVS * cvs);
 gboolean cvs_get_unified_diff(CVS* cvs);
 gboolean cvs_get_context_diff(CVS* cvs);
 guint cvs_get_compression (CVS * cvs);
+gboolean cvs_get_diff_use_date(CVS * cvs);
 
 /* Command functions */
 void cvs_update (CVS * cvs, gchar * filename, gchar * branch, gboolean is_dir);

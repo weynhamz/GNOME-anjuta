@@ -42,6 +42,7 @@ struct _CVS
 	gboolean force_update;
 	gboolean unified_diff;
 	gboolean context_diff;
+	gboolean use_date_diff;
 	
 	guint compression;
 	
@@ -77,10 +78,10 @@ cvs_new (PropsID p)
 	CVS *cvs = g_new0 (CVS, 1);
 	
 	cvs->force_update = prop_get_int (p, "cvs.update.force", 0);
-	cvs->unified_diff = prop_get_int (p, "cvs.diff.unified", 0);
+	cvs->unified_diff = prop_get_int (p, "cvs.diff.unified", 1);
 	cvs->context_diff = prop_get_int (p, "cvs.diff.context", 0);
-	
-	cvs->compression = prop_get_int (p, "cvs.compression", 0);
+	cvs->use_date_diff = prop_get_int (p, "cvs.diff.usedate", 0);
+	cvs->compression = prop_get_int (p, "cvs.compression", 3);
 
 	cvs->editor_destroyed = FALSE;
 	
@@ -127,6 +128,12 @@ cvs_set_compression (CVS * cvs, guint compression)
 	cvs->compression = compression;
 }
 
+void
+cvs_set_diff_use_date(CVS* cvs, gboolean state)
+{
+	g_return_if_fail (cvs != NULL);
+	cvs->use_date_diff = state;
+}
 
 /*
 	Following functions allow to access the cvs module.
@@ -160,6 +167,12 @@ cvs_get_compression (CVS * cvs)
 	return cvs->compression;
 }
 
+gboolean
+cvs_get_diff_use_date(CVS* cvs)
+{
+	g_return_if_fail (cvs != NULL);
+	return cvs->use_date_diff;
+}
 
 /* 
 	Free the memory of the cvs module 
@@ -525,7 +538,7 @@ cvs_diff (CVS * cvs, gchar * filename, gchar * revision,
 		command = g_strconcat (command, " -c ", NULL);
 	if (revision != NULL && strlen (revision))
 		command = g_strconcat (command, " -r ", revision, NULL);
-	if (date > 0)
+	if (date > 0 && cvs->use_date_diff)
 	{
 		struct tm *tm_time = localtime (&date);
 		gchar *time_str = g_new0 (char, DATE_LENGTH + 1);
@@ -600,6 +613,7 @@ cvs_save_yourself (CVS * cvs, FILE * stream)
 	fprintf (stream, "cvs.update.force=%d\n", cvs->force_update);
 	fprintf (stream, "cvs.diff.unified=%d\n", cvs->unified_diff);
 	fprintf (stream, "cvs.diff.context=%d\n", cvs->context_diff);
+	fprintf (stream, "cvs.diff.usedate=%d\n", cvs->use_date_diff);
 	fprintf (stream, "cvs.compression=%d\n", cvs->compression);
 
 	return TRUE;

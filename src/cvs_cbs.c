@@ -157,6 +157,7 @@ void on_cvs_diff_ok (GtkWidget* button, CVSFileDiffGUI * gui)
 	gchar* filename;
 	gchar* revision;
 	time_t time;
+	gboolean state;
 	
 	GtkWidget* gtk_file_entry;
 	GtkWidget* gtk_rev_entry;
@@ -169,7 +170,8 @@ void on_cvs_diff_ok (GtkWidget* button, CVSFileDiffGUI * gui)
 	filename = gtk_entry_get_text(GTK_ENTRY(gtk_file_entry));
 	revision = gtk_entry_get_text(GTK_ENTRY(gtk_rev_entry));
 	time = gnome_date_edit_get_date(GNOME_DATE_EDIT(gui->entry_date));
-	
+	state = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(gui->check_date));
+	cvs_set_diff_use_date(app->cvs, state);
 	if (strlen(filename) > 0)
 	{
 		gboolean is_dir;
@@ -251,6 +253,13 @@ void on_cvs_type_combo_changed (GtkWidget* entry, CVSImportGUI* gui)
 			gtk_widget_set_sensitive (gui->entry_user, TRUE);
 			gtk_widget_set_sensitive (gui->entry_server, TRUE);
 	}
+}
+
+void on_cvs_diff_use_date_toggled (GtkToggleButton* b, CVSFileDiffGUI* gui)
+{
+	gboolean state;
+	state = gtk_toggle_button_get_active(b);
+	gtk_widget_set_sensitive(gui->entry_date, state);
 }
 
 /*

@@ -208,6 +208,7 @@ create_cvs_diff_gui (CVS * cvs, gchar* filename, gboolean bypass_dialog)
 	GtkWidget *label_rev;
 	GtkWidget *label_date;
 	GtkWidget *gtkentry;
+	GtkWidget *date_hbox;
 
 	gui = g_new0 (CVSFileDiffGUI, 1);
 
@@ -254,16 +255,30 @@ create_cvs_diff_gui (CVS * cvs, gchar* filename, gboolean bypass_dialog)
 			GTK_FILL | GTK_EXPAND, 0, 3, 3);
 
 	label_date = gtk_label_new (_("Date: "));
-	gtk_misc_set_alignment(GTK_MISC(label_date), 0, -1);	
-	gui->entry_date = gnome_date_edit_new (time (NULL), TRUE, TRUE);
 	gtk_widget_show (label_date);
+	gtk_misc_set_alignment(GTK_MISC(label_date), 0, -1);
+	
+	date_hbox = gtk_hbox_new(FALSE, 5);
+	gtk_widget_show(date_hbox);
+	
+	gui->check_date = gtk_check_button_new_with_label("Use date");
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(gui->check_date),
+			cvs_get_diff_use_date(cvs));
+	gtk_widget_show(gui->check_date);
+	gtk_box_pack_start_defaults(GTK_BOX(date_hbox), gui->check_date);
+	gtk_signal_connect(GTK_OBJECT(gui->check_date), "toggled",
+		(GtkSignalFunc)on_cvs_diff_use_date_toggled, gui);
+	gui->entry_date = gnome_date_edit_new (time (NULL), TRUE, TRUE);
 	gtk_widget_show (gui->entry_date);
+	gtk_widget_set_sensitive(gui->entry_date, cvs_get_diff_use_date(cvs));
+	gtk_box_pack_start_defaults(GTK_BOX(date_hbox), gui->entry_date);
+	
 	gtk_table_attach (GTK_TABLE (table),
 			label_date,
 			0, 1, 1, 2,
 			GTK_FILL, 0, 3, 3);
 	gtk_table_attach (GTK_TABLE (table),
-			gui->entry_date,
+			date_hbox,
 			1, 2, 1, 2,
 			GTK_FILL | GTK_EXPAND, 0, 3, 3);
 

@@ -38,5 +38,6 @@ void on_cvs_import_ok (GtkWidget* button, CVSImportGUI * gui);
 void on_cvs_import_cancel (GtkWidget* button, CVSImportGUI * gui);
 
 void on_cvs_type_combo_changed (GtkWidget* entry, CVSImportGUI* gui);
+void on_cvs_diff_use_date_toggled (GtkToggleButton* b, CVSFileDiffGUI* gui);
 
 #endif

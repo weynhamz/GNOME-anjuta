@@ -1,5 +1,14 @@
 2002-04-18 Naba Kumar <kh_naba@users.sourceforge.net>
 
+	* src/cvs.{h,c}, src/cvs_cbs.{h,c}, src/cvs_gui.{h,c}:
+	Added a new property in cvs class to hold a boolean
+	for enabling date in cvs diff. This fixed the bizzare
+	diff output due to the date that goes with the cvs
+	command. Also, set the default value of compression
+	to 3 and unified diff option to 1.
+	
+2002-04-18 Naba Kumar <kh_naba@users.sourceforge.net>
+
 	* src/cvs.c: The diff editor is set to hilite as
 	diff syntax hiliting.
 	

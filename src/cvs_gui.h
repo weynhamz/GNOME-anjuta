@@ -86,6 +86,7 @@ struct _CVSFileDiffGUI
 	GtkWidget* entry_file;
 	GtkWidget* entry_date;
 	GtkWidget* entry_rev;
+	GtkWidget* check_date;
 	
 	GtkWidget* diff_button;
 	GtkWidget* cancel_button;
