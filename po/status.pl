@@ -37,15 +37,25 @@ if ($pot_file eq "") {
 ## Determine the total messages available in this pot file.
 my $output = `msgfmt --statistics $pot_file 2>&1`;
 my @strs = split (", ", $output);
-my ($total_messages) = split (" ", $strs[2]);
+my ($pot_fuzzy, $pot_translated, $pot_untranslated) = (0,0,0);
+foreach my $term (@strs) {
+    if ($term =~ /translated/) {
+	($pot_translated) = split (" ", $term);
+    } elsif ($term =~ /fuzzy/) {
+	($pot_fuzzy) = split (" ", $term);
+    } elsif ($term =~ /untranslated/) {
+	($pot_untranslated) = split (" ", $term);
+    }
+}
+my $total_messages = $pot_translated + $pot_fuzzy + $pot_untranslated;
 
 print   "\n";
 print   "\t\tTRANSLATION STATISTICS\n";
 print   "\t\tTotal messages: $total_messages\n\n";
 print   "\tTranslations status given in percentage.\n";
-print   "+-----------------------------------------------------+\n";
-printf ("|  Po file  | Translated |    Fuzzy   |  Untranslated |\n");
-print   "+-----------------------------------------------------+\n";
+print   "+-------------------------------------------------------+\n";
+printf ("|  Po file  |  Translated  |   Fuzzy   |   Untranslated |\n");
+print   "+-------------------------------------------------------+\n";
 my @po_files = glob("*.po");
 
 foreach my $po_file (@po_files) {
@@ -65,14 +75,24 @@ foreach my $po_file (@po_files) {
 				($untranslated) = split (" ", $coin);
 			}
 		}
-		
-		$translated *= 100/$total_messages;
-		$fuzzy *= 100/$total_messages;
+		$untranslated = $total_messages - ($translated + $fuzzy);
+
 		$untranslated *= 100/$total_messages;
-		
-		printf ("|%10s:|    %5.2f   |    %5.2f   |      %5.2f    |\n", $po_file, $translated, $fuzzy, $untranslated);
+		$untranslated = ($untranslated < 0)? 0:$untranslated;
+		$untranslated = ($untranslated > 100)? 100:$untranslated;
+
+		$translated *= 100/$total_messages;
+		$translated = ($translated < 0)? 0:$translated;
+		$translated = ($translated > 100)? 100:$translated;
+
+		$fuzzy *= 100/$total_messages;
+		$fuzzy = ($fuzzy < 0)? 0:$fuzzy;
+		$fuzzy = ($fuzzy > 100)? 100:$fuzzy;
+
+		printf ("|%10s:|    %6.2f    ", $po_file, $translated);
+		printf ("|    %6.2f |      %6.2f    |\n", $fuzzy, $untranslated);
 	}
 }
-print   "+-----------------------------------------------------+\n";
+print   "+-------------------------------------------------------+\n";
 
 __END__

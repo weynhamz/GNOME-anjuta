@@ -1,3 +1,8 @@
+2001-10-26  Naba kumar <kh_naba@users.sourceforge.net>
+
+	* status.pl: Fixed unbalanced equation bug and
+	formatting errors.
+
 2001-10-24	Andy Piper	<andy.piper@freeuk.com>
 
 	* de.po: Update from Jens Georg <mail@jensgeorg.de>
