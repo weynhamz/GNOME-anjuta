@@ -1630,7 +1630,7 @@ anjuta_update_app_status (gboolean set_job, gchar* job_name)
 	str =
 		g_strdup_printf(
 		_("  Project: %s       Zoom: %d       Line: %04d       Col: %03d       %s       Job: %s"),
-		 prj, zoom, line, col, edit, job);
+		 prj, zoom, line+1, col, edit, job);
 	gnome_appbar_set_default (GNOME_APPBAR (app->widgets.appbar), str);
 	g_free (str);
 	g_free (prj);
