@@ -25,10 +25,13 @@
 
 #include <gnome.h>
 
-#include "splash.h"
 #include "anjuta.h"
 #include "utilities.h"
 #include "fileselection.h"
+
+#include "pixmaps.h"
+#include "resources.h"
+#include "e-splash.h"
 
 /* One and only one instance of AnjutaApp. */
 AnjutaApp *app;			
@@ -142,10 +145,11 @@ get_command_line_args (GnomeProgram *program)
 int
 main (int argc, char *argv[])
 {
+	GtkWidget *splash = NULL;
 	GnomeProgram *program;
 	GnomeClient *client;
 	GnomeClientFlags flags;
-	gchar *data_dir, tmp_str;
+	gchar *data_dir;
 
 	/* Before anything starts */
 	delete_old_config_file();
@@ -185,11 +189,25 @@ main (int argc, char *argv[])
 	/* Get the command line files */
 	command_args = get_command_line_args (program);
 
-	if (!no_splash)
-		splash_screen ();
+	if (!no_splash) {
+		char *im_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_SPLASH_SCREEN);
+		if (im_file) {
+			if (NULL != (splash = e_splash_new(im_file))) {
+				gtk_widget_show (splash);
+			        g_object_ref (G_OBJECT (splash));
+				while (gtk_events_pending ())
+					gtk_main_iteration ();
+			}
+		}
+	}
 	
 	anjuta_new ();
 	anjuta_show ();
+
+	if (splash) {
+		gtk_widget_unref (splash);
+        	gtk_widget_destroy (splash);
+	}
 
 	flags = gnome_client_get_flags(client);
 	if (flags & GNOME_CLIENT_RESTORED) {

@@ -35,15 +35,6 @@
 
 #include "search-replace.h"
 
-typedef struct _SearchReplaceGUI
-{
-	GladeXML *xml;
-	GtkWidget *dialog;
-	gboolean showing;
-} SearchReplaceGUI;
-
-static SearchReplaceGUI *sg = NULL;
-
 /* PCRE search compiled pattern and other info */
 typedef struct _PcreInfo
 {
@@ -69,16 +60,21 @@ typedef struct _SearchExpression
 } SearchExpression;
 
 
-void on_search_match_whole_word_toggled (GtkToggleButton *togglebutton,
-                                         gpointer user_data);
-void on_search_match_whole_line_toggled (GtkToggleButton *togglebutton,
-                                         gpointer user_data);
-void on_search_match_word_start_toggled (GtkToggleButton *togglebutton,
-                                         gpointer user_data);
-void on_search_regex_toggled (GtkToggleButton *togglebutton,
-                              gpointer user_data);
-void on_replace_regex_toggled (GtkToggleButton *togglebutton,
-                               gpointer user_data);
+static void search_update_combos (void);
+
+static void replace_update_combos (void);
+
+static void display_action_button(gchar *name);
+
+static void show_jump_button(gboolean show);
+
+static void search_end_alert(void);
+
+static void max_results_alert(void);
+
+static void nb_results_alert(gint nb);
+
+static void reset_flags(void);
 
 
 static void pcre_info_free(PcreInfo *re)
@@ -201,6 +197,7 @@ typedef struct _Replace
 	gboolean regex;
 	gboolean confirm;
 	gboolean load_file;
+	GList *expr_history;
 } Replace;
 
 typedef struct _SearchReplace
@@ -209,7 +206,15 @@ typedef struct _SearchReplace
 	Replace replace;
 } SearchReplace;
 
+/********************************************************************/
+
 static SearchReplace *sr = NULL;
+
+static gboolean interactive = FALSE;
+
+gboolean flag_select = FALSE;
+
+/*******************************************************************/
 
 /* Information about a matched substring */
 typedef struct _MatchSubStr
@@ -551,12 +556,12 @@ static gboolean extra_match(FileBuffer *fb, SearchExpression *s, gint match_len)
 	
 	if (s->whole_line)
 		if ((fb->pos == 0 || b == '\n' || b == '\r') &&
-			(e == '\0' || e == '\n' || e == '\r'))
+			(e == '\0'	|| e == '\n' || e == '\r'))
 			return TRUE;
 		else
 			return FALSE;
 	else if (s->whole_word)
-		if ((fb->pos ==0 || !isawordchar(b)) &&
+		if ((fb->pos ==0 || !isawordchar(b)) && 
 			(e=='\0' || !isawordchar(e)))
 			return TRUE;
 		else
@@ -788,6 +793,9 @@ static GList *create_search_entries(Search *s)
 	long selstart;
 	long tmp_pos;
 	
+	search_update_combos ();
+	if (s->action == SA_REPLACE || s->action == SA_REPLACEALL)
+		replace_update_combos ();
 	switch(s->range.type)
 	{
 		case SR_BUFFER:
@@ -956,15 +964,19 @@ static void search_and_replace(void)
 	char buf[BUFSIZ];
 	SearchEntry *se;
 	FileBuffer *fb;
-	MatchInfo *mi;
+	static MatchInfo *mi;
 	Search *s;
 	gint offset;
+	static gint os=0;
 	gchar *match_line;
 	gint nb_results;
-	gint memo_sel;	
+	static long start_sel = 0;
+	static long end_sel = 0;
+	
 	g_return_if_fail(sr);
 	s = &(sr->search);
 	entries = create_search_entries(s);
+	
 	if (SA_FIND_PANE == s->action)
 	{
 		anjuta_message_manager_clear(app->messages, MESSAGE_FIND);
@@ -975,6 +987,13 @@ static void search_and_replace(void)
 		 tmp = g_list_next(tmp))
 	{
 		se = (SearchEntry *) tmp->data;
+		if (flag_select)
+		{
+			se->start_pos = start_sel;
+			se->end_pos = end_sel;
+		}
+		else
+			end_sel = se->end_pos;
 		if (SE_BUFFER == se->type)
 			fb = file_buffer_new_from_te(se->te);
 		else /* if (SE_FILE == se->type) */
@@ -983,16 +1002,18 @@ static void search_and_replace(void)
 		{
 			fb->pos = se->start_pos;
 			offset = 0;
-			while ((NULL != (mi = get_next_match(fb, se->direction, &(s->expr)))))
+			while (interactive || 
+				NULL != (mi = get_next_match(fb, se->direction, &(s->expr))))
 			{
-				nb_results++;
-				if (nb_results > sr->search.expr.actions_max)
-					break;
 				if ((s->range.direction == SD_BACKWARD) && (mi->pos < se->end_pos))
 						break; 
 				if ((s->range.direction != SD_BACKWARD) && ((se->end_pos != -1) &&
 					(mi->pos+mi->len > se->end_pos)))
 						break; 
+				nb_results++; 
+				if (nb_results > sr->search.expr.actions_max)
+					break;
+				
 				
 				switch (s->action)
 				{
@@ -1011,9 +1032,7 @@ static void search_and_replace(void)
 						break;
 					case SA_SELECT:
 						if (NULL == fb->te)
-						{
 							fb->te = anjuta_goto_file_line(fb->path, mi->line+1);
-						}
 						scintilla_send_message(SCINTILLA(
 						  fb->te->widgets.editor), SCI_SETSEL, mi->pos
 						  , (mi->pos + mi->len));
@@ -1027,17 +1046,42 @@ static void search_and_replace(void)
 						  , MESSAGE_FIND);
 						break;
 					case SA_REPLACE:
-					case SA_REPLACEALL:
-						if (sr->replace.regex)
+						if (!interactive)
 						{
-							if (sr->search.expr.regex)
-								sr->replace.repl_str = g_strdup(regex_backref(mi, fb));
+							if (NULL == fb->te)
+								fb->te = anjuta_goto_file_line(fb->path, mi->line+1);
+							scintilla_send_message(SCINTILLA(
+						  		fb->te->widgets.editor), SCI_SETSEL,
+								mi->pos - offset, mi->pos - offset + mi->len);
+							interactive = TRUE;
+							os = offset;
+							display_action_button(_("Replace"));
+							show_jump_button(TRUE);
+							break;
 						}
+						
+						if (sr->replace.regex && sr->search.expr.regex)
+								sr->replace.repl_str = g_strdup(regex_backref(mi, fb));
+						
 						if (fb->te == NULL)
 							fb->te = anjuta_append_text_editor(se->path);
 						scintilla_send_message(SCINTILLA(fb->te->widgets.editor), 
-							SCI_SETSEL, mi->pos - offset, (mi->pos + mi->len - offset));
-						memo_sel = mi->pos - offset;
+							SCI_SETSEL, mi->pos - os, mi->pos + mi->len - os);
+						scintilla_send_message(SCINTILLA(fb->te->widgets.editor),
+							SCI_REPLACESEL, 0, (long) (sr->replace).repl_str); 
+					
+						if (se->direction != SD_BACKWARD)						
+							offset += mi->len - strlen(sr->replace.repl_str);
+						
+						interactive = FALSE;
+						break;
+					case SA_REPLACEALL:
+						if ((sr->replace.regex) && (sr->search.expr.regex))
+							sr->replace.repl_str = g_strdup(regex_backref(mi, fb));
+						if (fb->te == NULL)
+							fb->te = anjuta_append_text_editor(se->path);
+						scintilla_send_message(SCINTILLA(fb->te->widgets.editor), 
+							SCI_SETSEL, mi->pos - offset, mi->pos + mi->len - offset);
 						scintilla_send_message(SCINTILLA(fb->te->widgets.editor),
 							SCI_REPLACESEL, 0, (long) (sr->replace).repl_str); 
 						if (se->direction != SD_BACKWARD)						
@@ -1046,59 +1090,45 @@ static void search_and_replace(void)
 					default:
 						anjuta_not_implemented(__FILE__, __LINE__);
 						break;
-				}
-				match_info_free(mi);
+				}  // switch
+				if (se->direction != SD_BACKWARD)
+					start_sel = mi->pos + mi->len - offset; 
+				else
+					start_sel = mi->pos - offset; 
+				if (SA_REPLACE != s->action || (SA_REPLACE == s->action && !interactive))
+					match_info_free(mi);
 				
-				if (SA_SELECT == s->action || SA_REPLACE == s->action)
-				{
-					if (SA_REPLACE == s->action)
-						scintilla_send_message(SCINTILLA(fb->te->widgets.editor), 
-							SCI_SETSEL, memo_sel, memo_sel + strlen(sr->replace.repl_str));
+				if (SA_SELECT == s->action || ((SA_REPLACE == s->action || 
+					SA_REPLACEALL == s->action)&& interactive))
 					break;
-				}
-			}
-		}
+			} // while
+		}  // if (fb)
 		file_buffer_free(fb);
 		g_free(se);
 		if (SA_SELECT == s->action && nb_results > 0)
 			break;
-	}
+	}  // for
+	if (s->range.type == SR_BLOCK || s->range.type == SR_FUNCTION || 
+		s->range.type == SR_SELECTION)
+			flag_select = TRUE;
 	if (nb_results == 0)
-	{
-		GtkWidget *dialog;
-		dialog = gtk_message_dialog_new (GTK_WINDOW (sg->dialog),
-										 GTK_DIALOG_DESTROY_WITH_PARENT,
-										 GTK_MESSAGE_INFO,
-										 GTK_BUTTONS_CLOSE,
-										 _("No Matches."));
-		g_signal_connect (G_OBJECT (dialog), "response",
-				G_CALLBACK (gtk_widget_destroy), NULL);
-		gtk_widget_show (dialog);
-	}
-
-	if (nb_results > sr->search.expr.actions_max)
-	{
-		GtkWidget *dialog;
-		dialog = gtk_message_dialog_new (GTK_WINDOW (sg->dialog),
-										 GTK_DIALOG_DESTROY_WITH_PARENT,
-										 GTK_MESSAGE_INFO,
-										 GTK_BUTTONS_CLOSE,
-						_("The maximum number of results has been reached."));
-		g_signal_connect (G_OBJECT (dialog), "response",
-				G_CALLBACK (gtk_widget_destroy), NULL);
-		gtk_widget_show (dialog);
-	}
-
+		search_end_alert();
+	else if (nb_results > sr->search.expr.actions_max)
+		max_results_alert();
+	else if (s->action == SA_REPLACEALL)
+		nb_results_alert(nb_results);
+	
 	g_list_free(entries);
 	return;
 }
-
 /* The GUI part starts here */
 
+#define GLADE_FILE "anjuta.glade"
 #define SEARCH_REPLACE_DIALOG "dialog.search.replace"
 #define CLOSE_BUTTON "button.close"
 #define HELP_BUTTON "button.help"
 #define SEARCH_BUTTON "button.next"
+#define JUMP_BUTTON "button.jump"
 
 /* Frames */
 #define SEARCH_EXPR_FRAME "frame.search.expression"
@@ -1117,7 +1147,7 @@ static void search_and_replace(void)
 #define MATCH_DIRS "dir.filter.match"
 #define UNMATCH_DIRS "dir.filter.unmatch"
 #define REPLACE_STRING "replace.string"
-#define SEARCH_DIRECION "search.direction"
+#define SEARCH_DIRECTION "search.direction"
 #define ACTIONS_MAX "actions.max"
 
 /* Checkboxes */
@@ -1144,7 +1174,7 @@ static void search_and_replace(void)
 #define MATCH_DIRS_COMBO "dir.filter.match.combo"
 #define UNMATCH_DIRS_COMBO "dir.filter.unmatch.combo"
 #define REPLACE_STRING_COMBO "replace.string.combo"
-#define SEARCH_DIRECION_COMBO "search.direction.combo"
+#define SEARCH_DIRECTION_COMBO "search.direction.combo"
 
 /* GUI dropdown option strings */
 StringMap search_direction_strings[] = {
@@ -1199,6 +1229,7 @@ static GladeWidget glade_widgets[] = {
 	{GE_BUTTON, CLOSE_BUTTON, NULL, NULL},
 	{GE_BUTTON, HELP_BUTTON, NULL, NULL},
 	{GE_BUTTON, SEARCH_BUTTON, NULL, NULL},
+	{GE_BUTTON, JUMP_BUTTON, NULL, NULL},
 	{GE_NONE, SEARCH_EXPR_FRAME, NULL, NULL},
 	{GE_NONE, SEARCH_TARGET_FRAME, NULL, NULL},
 	{GE_NONE, SEARCH_VAR_FRAME, NULL, NULL},
@@ -1214,7 +1245,7 @@ static GladeWidget glade_widgets[] = {
 	{GE_TEXT, UNMATCH_DIRS, NULL, NULL},
 	{GE_TEXT, REPLACE_STRING, NULL, NULL},
 	{GE_TEXT, ACTIONS_MAX, NULL, NULL},
-	{GE_OPTION, SEARCH_DIRECION, search_direction_strings, NULL},
+	{GE_OPTION, SEARCH_DIRECTION, search_direction_strings, NULL},
 	{GE_BOOLEAN, SEARCH_REGEX, NULL, NULL},
 	{GE_BOOLEAN, GREEDY, NULL, NULL},
 	{GE_BOOLEAN, IGNORE_CASE, NULL, NULL},
@@ -1236,9 +1267,11 @@ static GladeWidget glade_widgets[] = {
 	{GE_COMBO, MATCH_DIRS_COMBO, NULL, NULL},
 	{GE_COMBO, UNMATCH_DIRS_COMBO, NULL, NULL},
 	{GE_COMBO, REPLACE_STRING_COMBO, NULL, NULL},
-	{GE_COMBO, SEARCH_DIRECION_COMBO, search_direction_strings, NULL},
+	{GE_COMBO, SEARCH_DIRECTION_COMBO, search_direction_strings, NULL},
 	{GE_NONE, NULL, NULL, NULL}
 };
+
+
 
 static void populate_value(const char *name, gpointer val_ptr)
 {
@@ -1282,6 +1315,56 @@ static void populate_value(const char *name, gpointer val_ptr)
 	}
 }
 
+typedef struct _SearchReplaceGUI
+{
+	GladeXML *xml;
+	GtkWidget *dialog;
+	gboolean showing;
+} SearchReplaceGUI;
+
+static SearchReplaceGUI *sg = NULL;
+
+static void reset_flags(void)
+{
+	flag_select = FALSE;
+	interactive = FALSE;
+	if (sr->search.action != SA_REPLACEALL)
+		display_action_button(_("Search"));
+	else
+		display_action_button(_("Replace All"));
+	show_jump_button(FALSE);
+}
+
+static void search_end_alert(void)
+{
+	GtkWidget *dialog = gtk_message_dialog_new(GTK_WINDOW (sg->dialog),
+				GTK_DIALOG_MODAL, GTK_MESSAGE_WARNING, GTK_BUTTONS_OK,
+		        	_("No matches."));
+	gtk_dialog_run(GTK_DIALOG(dialog));
+	gtk_widget_destroy(dialog);
+	reset_flags();
+}
+
+static void max_results_alert(void)
+{
+	GtkWidget *dialog = gtk_message_dialog_new(GTK_WINDOW (sg->dialog),
+				GTK_DIALOG_MODAL, GTK_MESSAGE_WARNING, GTK_BUTTONS_OK,
+		        	_("The maximum number of results has been reached."));
+	gtk_dialog_run(GTK_DIALOG(dialog));
+	gtk_widget_destroy(dialog);
+	reset_flags();
+}
+
+static void nb_results_alert(gint nb)
+{
+	GtkWidget *dialog = gtk_message_dialog_new(GTK_WINDOW (sg->dialog),
+				GTK_DIALOG_MODAL, GTK_MESSAGE_INFO, GTK_BUTTONS_OK,
+		        	_("%d matches have been replaced."), nb);
+	gtk_dialog_run(GTK_DIALOG(dialog));
+	gtk_widget_destroy(dialog);
+	reset_flags();
+}
+
 /* Callbacks */
 gboolean on_search_replace_delete_event(GtkWidget *window, GdkEvent *event
   , gboolean user_data)
@@ -1293,6 +1376,7 @@ gboolean on_search_replace_delete_event(GtkWidget *window, GdkEvent *event
 	}
 	return TRUE;
 }
+
 
 void on_search_match_whole_word_toggled (GtkToggleButton *togglebutton, 
                                          gpointer user_data)
@@ -1385,13 +1469,21 @@ on_replace_regex_toggled (GtkToggleButton *togglebutton, gpointer user_data)
  	  	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(search_regex) ,TRUE);	
 }
 
+static void display_action_button(gchar *name)
+{
+	GtkWidget *action_button = glade_xml_get_widget(sg->xml, SEARCH_BUTTON);
+	
+	gtk_label_set_text(GTK_LABEL(GTK_BIN(action_button)->child), name);
+}
+
+
 void on_search_action_changed(GtkEditable *editable, gpointer user_data)
 {
 	GtkWidget *replace_frame = glade_xml_get_widget(sg->xml, REPLACE_FRAME);
-	GtkWidget *action_button = glade_xml_get_widget(sg->xml, SEARCH_BUTTON);
 	char *s;
 	SearchAction act;
 
+	reset_flags();
 	s = gtk_editable_get_chars(editable, 0, -1);
 	act = type_from_string(search_action_strings, s);
 	switch(act)
@@ -1399,13 +1491,14 @@ void on_search_action_changed(GtkEditable *editable, gpointer user_data)
 		case SA_REPLACE:
 		case SA_REPLACEALL:
 			gtk_widget_show(replace_frame);
-			gtk_label_set_text(GTK_LABEL(GTK_BIN(action_button)->child)
-			  , (act == SA_REPLACE) ? "Replace" : "Replace All");
+		    if (act == SA_REPLACE)
+				display_action_button(_("Search"));
+			else
+				display_action_button(_("Replace All"));
 			break;
 		default:
 			gtk_widget_hide(replace_frame);
-			gtk_label_set_text(GTK_LABEL(GTK_BIN(action_button)->child)
-			  , "Search");
+			display_action_button(_("Search"));
 			break;
 	}
 }
@@ -1435,6 +1528,7 @@ void on_search_target_changed(GtkEditable *editable, gpointer user_data)
 			gtk_widget_hide(file_filter_frame);
 			break;
 	}
+	reset_flags();
 }
 
 void on_actions_no_limit_clicked(GtkButton *button, gpointer user_data)
@@ -1478,6 +1572,7 @@ static void search_replace_populate(void)
 	if (NULL == sr) /* Create a new SearchReplace instance */
 	{
 		sr = g_new0(SearchReplace, 1);
+		//sr->interactive = FALSE;
 	}
 	else /* Cleanup the old instance to prevent memory leaks */
 	{
@@ -1506,7 +1601,7 @@ static void search_replace_populate(void)
 	populate_value(WHOLE_LINE, &(sr->search.expr.whole_line));
 	populate_value(WORD_START, &(sr->search.expr.word_start));
 	populate_value(SEARCH_TARGET, &(sr->search.range.type));
-	populate_value(SEARCH_DIRECION, &(sr->search.range.direction));
+	populate_value(SEARCH_DIRECTION, &(sr->search.range.direction));
 	populate_value(ACTIONS_NO_LIMIT, &(sr->search.expr.no_limit));
 
 	if (sr->search.expr.no_limit)
@@ -1520,6 +1615,11 @@ static void search_replace_populate(void)
 
 	switch (sr->search.range.type)
 	{
+		case SR_FUNCTION:
+		case SR_BLOCK:
+			if (flag_select)
+				sr->search.range.type = SR_SELECTION;
+			break;
 		case SR_VARIABLE:
 			populate_value(SEARCH_VAR, &(sr->search.range.var));
 			break;
@@ -1554,6 +1654,25 @@ void on_search_button_next_clicked(GtkButton *button, gpointer user_data)
 	search_and_replace();
 }
 
+void on_search_button_jump_clicked(GtkButton *button, gpointer user_data)
+{
+	if (sr)
+		interactive = FALSE;
+	gtk_widget_hide(GTK_WIDGET(button));
+	search_replace_populate();
+	search_and_replace();
+}
+
+static void show_jump_button(gboolean show)
+{
+	GtkWidget *jump_button = glade_xml_get_widget(sg->xml, JUMP_BUTTON);
+	
+	if (show)
+		gtk_widget_show(jump_button);
+	else
+		gtk_widget_hide(jump_button);
+}
+
 void on_search_expression_activate(GtkEditable *edit, gpointer user_data)
 {
 	GtkWidget *combo;
@@ -1562,6 +1681,7 @@ void on_search_expression_activate(GtkEditable *edit, gpointer user_data)
 	search_and_replace();
 	combo = GTK_WIDGET(edit)->parent;
 	gtk_combo_disable_activate((GtkCombo*)combo);
+	reset_flags();
 }
 
 void on_search_button_save_clicked(GtkButton *button, gpointer user_data)
@@ -1571,14 +1691,15 @@ void on_search_button_save_clicked(GtkButton *button, gpointer user_data)
 
 static gboolean create_dialog(void)
 {
+	char glade_file[PATH_MAX];
 	GladeWidget *w;
 	GList *combo_strings;
 	int i;
 
 	g_return_val_if_fail(NULL == sr, FALSE);
 	sg = g_new0(SearchReplaceGUI, 1);
-	if (NULL == (sg->xml = glade_xml_new(GLADE_FILE_ANJUTA,
-    									 SEARCH_REPLACE_DIALOG, NULL)))
+	snprintf(glade_file, PATH_MAX, "%s/%s", PACKAGE_DATA_DIR, GLADE_FILE);
+	if (NULL == (sg->xml = glade_xml_new(GLADE_FILE_ANJUTA, SEARCH_REPLACE_DIALOG, NULL)))
 	{
 		anjuta_error(_("Unable to build user interface for Search And Replace"));
 		g_free(sg);
@@ -1586,9 +1707,8 @@ static gboolean create_dialog(void)
 		return FALSE;
 	}
 	sg->dialog = glade_xml_get_widget(sg->xml, SEARCH_REPLACE_DIALOG);
-	gtk_window_set_transient_for (GTK_WINDOW(sg->dialog),
-								  GTK_WINDOW(app->widgets.window));
-
+	/* gtk_window_set_transient_for (GTK_WINDOW(sg->dialog)
+	  , GTK_WINDOW(app->widgets.window)); */
 	for (i=0; NULL != glade_widgets[i].name; ++i)
 	{
 		w = &(glade_widgets[i]);
@@ -1614,39 +1734,134 @@ static void show_dialog()
 	}
 }
 
+static gboolean word_in_list(GList *list, gchar *word)
+{
+	GList *l = list;
+	
+	while (l != NULL)
+	{
+		if (strcmp(l->data, word) == 0)
+			return TRUE;
+		l = g_list_next(l);
+	}
+	return FALSE;
+}
+
+/*  Remove last item of the list if > nb_max  */
+
+static GList* list_max_items(GList *list, guint nb_max)
+{
+	GList *last;
+	
+	if (g_list_length(list) > nb_max)
+	{
+		last = g_list_last(list);
+		
+		list = g_list_remove(list, last->data);
+		g_free(last->data);
+	}
+	return list;
+}
+
+#define MAX_ITEMS_SEARCH_COMBO 16
+
+//  FIXME  free GList sr->search.expr_history ?????
+
+static void search_update_combos(void)
+{
+	GtkWidget *search_entry = NULL;
+	gchar *search_word = NULL;
+	TextEditor *te = anjuta_get_current_text_editor();
+
+	search_entry = glade_xml_get_widget(sg->xml, SEARCH_STRING);
+	if (search_entry && te)
+	{
+		search_word = g_strdup(gtk_entry_get_text((GtkEntry *) search_entry));
+		if (search_word  && strlen(search_word) > 0)
+		{
+			if (!word_in_list(sr->search.expr_history, search_word))
+			{
+				GtkWidget *search_list = glade_xml_get_widget(sg->xml,
+					SEARCH_STRING_COMBO);
+				sr->search.expr_history = g_list_prepend(sr->search.expr_history,
+					search_word);
+				sr->search.expr_history = list_max_items(sr->search.expr_history,
+					MAX_ITEMS_SEARCH_COMBO);
+				gtk_combo_set_popdown_strings((GtkCombo *) search_list,
+					sr->search.expr_history);
+			}
+		}
+	}
+}
+
+static void replace_update_combos(void)
+{
+	GtkWidget *replace_entry = NULL;
+	gchar *replace_word = NULL;
+	TextEditor *te = anjuta_get_current_text_editor();
+
+	replace_entry = glade_xml_get_widget(sg->xml, REPLACE_STRING);
+	if (replace_entry && te)
+	{
+		replace_word = g_strdup(gtk_entry_get_text((GtkEntry *) replace_entry));
+		if (replace_word  && strlen(replace_word) > 0)
+		{
+			if (!word_in_list(sr->replace.expr_history, replace_word))
+			{
+				GtkWidget *replace_list = glade_xml_get_widget(sg->xml,
+					REPLACE_STRING_COMBO);
+				sr->replace.expr_history = g_list_prepend(sr->replace.expr_history,
+					replace_word);
+				sr->replace.expr_history = list_max_items(sr->replace.expr_history,
+					MAX_ITEMS_SEARCH_COMBO);
+				gtk_combo_set_popdown_strings((GtkCombo *) replace_list,
+					sr->replace.expr_history);
+			}
+		}
+	}
+}
+
+#define MAX_LENGTH_SEARCH 64
+
 void anjuta_search_replace_activate(void)
 {
 	GtkWidget *search_entry = NULL;
 	gchar *current_word = NULL;
-	gchar *search_word = NULL;
 	TextEditor *te = anjuta_get_current_text_editor();
+	GtkWidget *search_list = NULL;
+	GtkWidget *replace_list = NULL;
 	
-	if (NULL == sr)
+	if (NULL == sg)
 	{
 		if (! create_dialog())
 			return;
     }
-	/* Set properties */
+	search_replace_populate();
+	reset_flags();
+	//~ /* Set properties */
 	search_entry = glade_xml_get_widget(sg->xml, SEARCH_STRING);
-	if (te)
-		current_word = text_editor_get_current_word(te);
-	if (search_entry && te && current_word && strlen(current_word) > 0)
+	if (te && search_entry && sr->search.range.type != SR_SELECTION)
 	{
-		search_word = gtk_entry_get_text((GtkEntry *) search_entry);
-		if (search_word  && strlen(search_word) > 0)
+		current_word = text_editor_get_current_word(te);
+		if (current_word && strlen(current_word) > 0 )
+			//&& sr && sr->search.range.type != SR_SELECTION)
 		{
-			GtkWidget *search_list = glade_xml_get_widget(sg->xml,
-														  SEARCH_STRING_COMBO);
-			sr->search.expr_history = g_list_prepend(sr->search.expr_history,
-													 search_word);
-			gtk_combo_set_popdown_strings((GtkCombo *) search_list,
-										  sr->search.expr_history);
-		}
-		gtk_entry_set_text((GtkEntry *) search_entry, current_word);
+			if (strlen(current_word) > MAX_LENGTH_SEARCH)
+				current_word = g_strndup (current_word, MAX_LENGTH_SEARCH);
+			gtk_entry_set_text((GtkEntry *) search_entry, current_word);
+			g_free(current_word);
+		}	
 	}
-	if (current_word)
-		g_free(current_word);
+	/* Set the text case sensitive */
+	search_list = glade_xml_get_widget(sg->xml, SEARCH_STRING_COMBO);
+	if (search_list)
+		gtk_combo_set_case_sensitive ((GtkCombo *) search_list, TRUE);
+	replace_list = glade_xml_get_widget(sg->xml, REPLACE_STRING_COMBO);
+	if (replace_list)
+		gtk_combo_set_case_sensitive ((GtkCombo *) replace_list, TRUE);
 	/* Show the dialog */
 	gtk_widget_grab_focus (search_entry);
+	
+	show_jump_button(FALSE);
 	show_dialog();
 }

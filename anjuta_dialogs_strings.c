@@ -177,6 +177,7 @@ gchar *s = N_("Expand regex back references");
 gchar *s = N_("Replace");
 gchar *s = N_("Replace Expression");
 gchar *s = N_("Search");
+gchar *s = N_("Next");
 gchar *s = N_("Anjuta help search");
 gchar *s = N_("*");
 gchar *s = N_("Gnome API");

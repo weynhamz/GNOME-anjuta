@@ -1,6 +1,7 @@
 2003-04-09  Biswapesh Chattopadhyay  <biswapesh_chatterjee@tcscal.co.in>
 	* src/anjuta-tools.c: Use CDATA for saving tools data.
 	* anjuta.glade, src/search-replace.c: Port from branch.
+	* widgets/e-splash.*, src/main.c: Better splash screen.
 
 2003-04-09  Naba Kumar  <naba@gnome.org>
 

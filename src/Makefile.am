@@ -176,8 +176,6 @@ anjuta_SOURCES = \
 	signals_cbs.c\
 	signals_cbs.h\
 	signals_gui.c\
-	splash.c\
-	splash.h\
 	src_paths.c\
 	src_paths.h\
 	stack_trace.c\

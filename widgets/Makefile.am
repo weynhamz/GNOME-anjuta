@@ -12,4 +12,6 @@ libwidgets_a_SOURCES = \
 	gnomefilelist.c \
 	gnomefilelist.h \
 	cell-renderer-captioned-image.c \
-	cell-renderer-captioned-image.h
+	cell-renderer-captioned-image.h \
+	e-splash.c \
+	e-splash.h
