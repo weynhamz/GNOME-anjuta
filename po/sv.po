@@ -8,8 +8,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
-"POT-Creation-Date: 2003-05-21 01:40+0200\n"
-"PO-Revision-Date: 2003-05-21 01:40+0200\n"
+"POT-Creation-Date: 2003-05-29 01:28+0200\n"
+"PO-Revision-Date: 2003-05-29 01:29+0200\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1186,8 +1186,8 @@ msgstr "Utskriftsalternativ "
 msgid "Programs"
 msgstr "Program"
 
-#: anjuta.glade.h:260 anjuta_dialogs_strings.c:235 src/project_dbase_gui.c:599
-#: src/project_dbase_gui.c:616 src/toolbar.c:148
+#: anjuta.glade.h:260 anjuta_dialogs_strings.c:235 src/project_dbase_gui.c:610
+#: src/project_dbase_gui.c:627 src/toolbar.c:148
 msgid "Project"
 msgstr "Projekt"
 
@@ -1598,7 +1598,7 @@ msgstr "Användarnamn:"
 msgid "Variable list"
 msgstr "Variabellista"
 
-#: anjuta.glade.h:356 anjuta_dialogs_strings.c:187 src/project_dbase_gui.c:921
+#: anjuta.glade.h:356 anjuta_dialogs_strings.c:187 src/project_dbase_gui.c:932
 msgid "Version:"
 msgstr "Version:"
 
@@ -1888,7 +1888,7 @@ msgid "Item"
 msgstr "Objekt"
 
 #: gdl/gdl-dock-layout.c:737 gdl/gdl-dock-object.c:120
-#: src/compiler_options.c:741 src/windows-dialog.c:294
+#: src/compiler_options.c:745 src/windows-dialog.c:294
 msgid "Name"
 msgstr "Namn"
 
@@ -2170,7 +2170,7 @@ msgstr "Klassbyggare"
 #. 13
 #. 14
 #: plugins/class-gen/clsGen.c:1343 src/main_menubar_def.h:1002
-#: src/project_dbase_gui.c:358 src/registers_gui.c:55 src/sharedlib_gui.c:48
+#: src/project_dbase_gui.c:367 src/registers_gui.c:55 src/sharedlib_gui.c:48
 #: src/signals_gui.c:62 src/stack_trace_gui.c:75 src/toolbar.c:158
 #: src/watch_gui.c:76
 msgid "Help"
@@ -2530,13 +2530,13 @@ msgstr "Skapa en diff mellan arbetskopian och lagret"
 
 #. 0
 #: src/an_file_view.c:400 src/main_menubar_def.h:950
-#: src/project_dbase_gui.c:326
+#: src/project_dbase_gui.c:335
 msgid "Open in Anjuta"
 msgstr "Öppna i Anjuta"
 
 #. 1
 #: src/an_file_view.c:407 src/main_menubar_def.h:944
-#: src/project_dbase_gui.c:320
+#: src/project_dbase_gui.c:329
 msgid "Open in default viewer"
 msgstr "Öppna i standardvisaren"
 
@@ -2548,7 +2548,7 @@ msgstr "Uppdatera"
 #. 4
 #. 5
 #: src/an_file_view.c:429 src/an_symbol_view.c:309 src/main_menubar_def.h:976
-#: src/message-manager.cc:134 src/project_dbase_gui.c:352
+#: src/message-manager.cc:134 src/project_dbase_gui.c:361
 #: src/text_editor_menu.c:355
 msgid "Docked"
 msgstr "Dockad"
@@ -2605,6 +2605,118 @@ msgstr "Sök användning"
 msgid "Symbol"
 msgstr "Symbol"
 
+#: src/anjuta-encodings.c:127 src/anjuta-encodings.c:153
+#: src/anjuta-encodings.c:194 src/anjuta-encodings.c:235
+msgid "Western"
+msgstr "Västlig"
+
+#: src/anjuta-encodings.c:129 src/anjuta-encodings.c:196
+#: src/anjuta-encodings.c:231
+msgid "Central European"
+msgstr "Centraleuropeisk"
+
+#: src/anjuta-encodings.c:131
+msgid "South European"
+msgstr "Sydeuropeisk"
+
+#: src/anjuta-encodings.c:133 src/anjuta-encodings.c:149
+#: src/anjuta-encodings.c:245
+msgid "Baltic"
+msgstr "Baltisk"
+
+#: src/anjuta-encodings.c:135 src/anjuta-encodings.c:198
+#: src/anjuta-encodings.c:211 src/anjuta-encodings.c:215
+#: src/anjuta-encodings.c:233
+msgid "Cyrillic"
+msgstr "Kyrillisk"
+
+#: src/anjuta-encodings.c:137 src/anjuta-encodings.c:204
+#: src/anjuta-encodings.c:243
+msgid "Arabic"
+msgstr "Arabisk"
+
+#: src/anjuta-encodings.c:139 src/anjuta-encodings.c:237
+#: src/project_dbase_gui.c:1142
+msgid "Greek"
+msgstr "Grekisk"
+
+#: src/anjuta-encodings.c:141
+msgid "Hebrew Visual"
+msgstr "Hebreisk visuell"
+
+#: src/anjuta-encodings.c:143 src/anjuta-encodings.c:202
+#: src/anjuta-encodings.c:241
+msgid "Hebrew"
+msgstr "Hebreisk"
+
+#: src/anjuta-encodings.c:145 src/anjuta-encodings.c:200
+#: src/anjuta-encodings.c:239 src/project_dbase_gui.c:1162
+msgid "Turkish"
+msgstr "Turkisk"
+
+#: src/anjuta-encodings.c:147
+msgid "Nordic"
+msgstr "Nordisk"
+
+#: src/anjuta-encodings.c:151
+msgid "Celtic"
+msgstr "Keltisk"
+
+#: src/anjuta-encodings.c:155 src/project_dbase_gui.c:1159
+msgid "Romanian"
+msgstr "Rumänsk"
+
+#: src/anjuta-encodings.c:158 src/anjuta-encodings.c:160
+#: src/anjuta-encodings.c:162 src/anjuta-encodings.c:164
+msgid "Unicode"
+msgstr "Unicode"
+
+#: src/anjuta-encodings.c:167
+msgid "Armenian"
+msgstr "Armenisk"
+
+#: src/anjuta-encodings.c:169 src/anjuta-encodings.c:171
+#: src/anjuta-encodings.c:180
+msgid "Chinese Traditional"
+msgstr "Traditionell kinesisk"
+
+#: src/anjuta-encodings.c:173
+msgid "Cyrillic/Russian"
+msgstr "Kyrillisk/Rysk"
+
+#: src/anjuta-encodings.c:176 src/anjuta-encodings.c:207
+#: src/anjuta-encodings.c:220
+msgid "Japanese"
+msgstr "Japansk"
+
+#: src/anjuta-encodings.c:178 src/anjuta-encodings.c:209
+#: src/anjuta-encodings.c:213 src/anjuta-encodings.c:226
+#: src/project_dbase_gui.c:1153
+msgid "Korean"
+msgstr "Koreansk"
+
+#: src/anjuta-encodings.c:183 src/anjuta-encodings.c:185
+#: src/anjuta-encodings.c:187 src/anjuta-encodings.c:191
+msgid "Chinese Simplified"
+msgstr "Förenklad kinesisk"
+
+#: src/anjuta-encodings.c:189
+msgid "Georgian"
+msgstr "Georgisk"
+
+#: src/anjuta-encodings.c:217
+msgid "Cyrillic/Ukrainian"
+msgstr "Kyrillisk/Ukrainsk"
+
+#: src/anjuta-encodings.c:222 src/anjuta-encodings.c:228
+#: src/anjuta-encodings.c:247
+msgid "Vietnamese"
+msgstr "Vietnamesisk"
+
+#: src/anjuta-encodings.c:224
+msgid "Thai"
+msgstr "Thailändsk"
+
 #: src/anjuta-plugins.c:115 src/anjuta-plugins.c:118
 #, c-format
 msgid "Unable to load plugin %s. Error: %s"
@@ -2648,45 +2760,45 @@ msgstr "Kan inte bygga användargränssnitt för verktygsredigerare"
 
 #: src/anjuta-tools.c:1359
 #, c-format
-msgid "Are you sure you want to delete tool '%s'"
-msgstr "Är du säker på att du vill ta bort verktyget \"%s\""
+msgid "Are you sure you want to delete the '%s' tool?"
+msgstr "Är du säker på att du vill ta bort verktyget \"%s\"?"
 
-#: src/anjuta-tools.c:1457
+#: src/anjuta-tools.c:1461
 msgid "You must provide a tool name!"
 msgstr "Du måste ange ett verktygsnamn!"
 
-#: src/anjuta-tools.c:1463
+#: src/anjuta-tools.c:1467
 msgid "You must provide a tool command!"
 msgstr "Du måste ange ett verktygskommando!"
 
-#: src/anjuta-tools.c:1478
+#: src/anjuta-tools.c:1482
 #, c-format
 msgid "A tool with the name '%s' already exists!"
 msgstr "Det finns redan ett verktyg med namnet \"%s\"!"
 
-#: src/anjuta-tools.c:1762
+#: src/anjuta-tools.c:1766
 msgid "Unable to build user interface for tool help"
 msgstr "Kan inte bygga användargränssnitt för verktygshjälp"
 
-#: src/anjuta-tools.c:1777 src/debug_tree.c:1458 src/debug_tree.c:1478
+#: src/anjuta-tools.c:1781 src/debug_tree.c:1458 src/debug_tree.c:1478
 #: src/watch_gui.c:130
 msgid "Variable"
 msgstr "Variabel"
 
-#: src/anjuta-tools.c:1783
+#: src/anjuta-tools.c:1787
 msgid "Meaning"
 msgstr "Betydelse"
 
-#: src/anjuta-tools.c:1789 src/debug_tree.c:1458 src/debug_tree.c:1487
+#: src/anjuta-tools.c:1793 src/debug_tree.c:1458 src/debug_tree.c:1487
 #: src/watch_gui.c:139
 msgid "Value"
 msgstr "Värde"
 
-#: src/anjuta-tools.c:1852
+#: src/anjuta-tools.c:1856
 msgid "Unable to build user interface for tool parameters"
 msgstr "Kan inte bygga användargränssnitt för verktygsparametrar"
 
-#: src/anjuta-tools.c:1856
+#: src/anjuta-tools.c:1860
 #, c-format
 msgid "%s: Command line parameters"
 msgstr "%s: Kommandoradsparametrar"
@@ -2706,48 +2818,48 @@ msgstr "Öppna fil"
 msgid "Save File As"
 msgstr "Spara fil som"
 
-#: src/anjuta.c:253
+#: src/anjuta.c:255
 msgid "Cannot create application... exiting\n"
 msgstr "Kan inte skapa program...avslutar\n"
 
-#: src/anjuta.c:303 src/anjuta.c:307 src/anjuta.c:1128 src/anjuta.c:1144
+#: src/anjuta.c:305 src/anjuta.c:309 src/anjuta.c:1130 src/anjuta.c:1146
 #, c-format
 msgid "Anjuta: %s"
 msgstr "Anjuta: %s"
 
-#: src/anjuta.c:364
+#: src/anjuta.c:366
 msgid "Recent Files "
 msgstr "Senaste filer "
 
-#: src/anjuta.c:917
+#: src/anjuta.c:919
 msgid "# * DO NOT EDIT OR RENAME THIS FILE ** Generated by Anjuta **\n"
 msgstr ""
 "# * REDIGERA INTE ELLER BYT INTE NAMN PÅ DENNA FIL ** Genererad av Anjuta "
 "**\n"
 
-#: src/anjuta.c:1093
+#: src/anjuta.c:1095
 msgid "All files saved ..."
 msgstr "Alla filer sparade..."
 
-#: src/anjuta.c:1121
+#: src/anjuta.c:1123
 #, c-format
 msgid "Anjuta: %s (Saved)"
 msgstr "Anjuta: %s (Sparad)"
 
-#: src/anjuta.c:1136
+#: src/anjuta.c:1138
 #, c-format
 msgid "Anjuta: %s (Unsaved)"
 msgstr "Anjuta: %s (Osparad)"
 
-#: src/anjuta.c:1161
+#: src/anjuta.c:1163
 msgid "Anjuta: No file"
 msgstr "Anjuta: Ingen fil"
 
-#: src/anjuta.c:1481 src/anjuta.c:1557
+#: src/anjuta.c:1484 src/anjuta.c:1561
 msgid "ERROR: "
 msgstr "FEL: "
 
-#: src/anjuta.c:1502 src/anjuta.c:1575
+#: src/anjuta.c:1505 src/anjuta.c:1579
 msgid ""
 "\n"
 "System: "
@@ -2755,7 +2867,7 @@ msgstr ""
 "\n"
 "System: "
 
-#: src/anjuta.c:2047
+#: src/anjuta.c:2052
 #, c-format
 msgid ""
 "The \"%s\" utility is not installed.\n"
@@ -2764,35 +2876,35 @@ msgstr ""
 "Verktyget \"%s\" är inte installerat.\n"
 "Installera det och starta sedan om Anjuta."
 
-#: src/anjuta.c:2073 src/anjuta.c:2129
+#: src/anjuta.c:2078 src/anjuta.c:2134
 msgid "None"
 msgstr "Ingen"
 
-#: src/anjuta.c:2084
+#: src/anjuta.c:2089
 msgid "DOS (CRLF)"
 msgstr "DOS (CRLF)"
 
-#: src/anjuta.c:2087 src/anjuta.c:2121
+#: src/anjuta.c:2092 src/anjuta.c:2126
 msgid "Unix (LF)"
 msgstr "Unix (LF)"
 
-#: src/anjuta.c:2090
+#: src/anjuta.c:2095
 msgid "Mac (CR)"
 msgstr "Mac (CR)"
 
-#: src/anjuta.c:2093
+#: src/anjuta.c:2098
 msgid "Unknown"
 msgstr "Okänd"
 
-#: src/anjuta.c:2110
+#: src/anjuta.c:2115
 msgid "OVR"
 msgstr "ÖVR"
 
-#: src/anjuta.c:2114 src/anjuta.c:2120
+#: src/anjuta.c:2119 src/anjuta.c:2125
 msgid "INS"
 msgstr "INS"
 
-#: src/anjuta.c:2132
+#: src/anjuta.c:2137
 #, c-format
 msgid ""
 "  Project: %s       Zoom: %d       Line: %04d       Col: %03d       %s       "
@@ -2801,11 +2913,11 @@ msgstr ""
 "  Projekt: %s       Zoom: %d       Rad: %04d        Kolumn: %03d    %s      "
 "Jobb: %s      Läge: %s"
 
-#: src/anjuta.c:2369
+#: src/anjuta.c:2374
 msgid "Looking up symbol"
 msgstr "Slår upp symbol"
 
-#: src/anjuta.c:2371 src/find_in_files.c:306
+#: src/anjuta.c:2376 src/find_in_files.c:306
 msgid "Finding in Files ....\n"
 msgstr "Söker i filer...\n"
 
@@ -2817,17 +2929,24 @@ msgstr ""
 "En eller flera filer är inte sparade.\n"
 "Vill du fortfarande avsluta?"
 
-#: src/anjuta_cbs.c:405 src/project_dbase_gui.c:1348
+#: src/anjuta_cbs.c:504
 #, c-format
-msgid "Not a regular file: %s."
-msgstr "Inte en vanlig fil: %s."
+msgid ""
+"The file '%s' already exists.\n"
+"Do you want to replace it with the one you are saving?"
+msgstr ""
+"Filen \"%s\" finns redan.\n"
+"Vill du ersätta den med den du sparar?"
 
-#: src/anjuta_cbs.c:411
-#, c-format
-msgid "No read permission for: %s."
-msgstr "Inga läsrättigheter för: %s."
+#: src/anjuta_cbs.c:511 src/anjuta_cbs.c:575 src/find_replace.c:342
+msgid "_Replace"
+msgstr "_Ersätt"
 
-#: src/anjuta_cbs.c:523 src/anjuta_cbs.c:580
+#: src/anjuta_cbs.c:544
+msgid "Could not open file for writing"
+msgstr "Kunde inte öppna fil för skrivning"
+
+#: src/anjuta_cbs.c:568
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -2835,10 +2954,6 @@ msgid ""
 msgstr ""
 "Filen \"%s\" finns redan.\n"
 "Vill du skriva över den?"
-
-#: src/anjuta_cbs.c:556
-msgid "Could not open file for writing"
-msgstr "Kunde inte öppna fil för skrivning"
 
 #: src/anjuta_dirs.c:52
 msgid "Unable to create settings directory.\n"
@@ -2998,7 +3113,7 @@ msgstr "Villkor"
 #. breakpoints_dbase_update,
 #. debugger.breakpoints_dbase);
 #.
-#: src/breakpoints.c:166 src/debugger.c:1814
+#: src/breakpoints.c:166 src/debugger.c:1818
 msgid "All breakpoints enabled:\n"
 msgstr "Alla brytpunkter är aktiverade:\n"
 
@@ -3007,7 +3122,7 @@ msgstr "Alla brytpunkter är aktiverade:\n"
 #. breakpoints_dbase_update,
 #. debugger.breakpoints_dbase);
 #.
-#: src/breakpoints.c:184 src/debugger.c:1860
+#: src/breakpoints.c:184 src/debugger.c:1864
 msgid "All breakpoints disabled:\n"
 msgstr "Alla brytpunkter är frånkopplade:\n"
 
@@ -3019,12 +3134,12 @@ msgstr "Du måste ha en giltig plats att sätta brytpunkten på."
 msgid "Are you sure you want to delete all the breakpoints?"
 msgstr "Är du säker på att du vill ta bort alla brytpunkter?"
 
-#: src/breakpoints.c:1282
+#: src/breakpoints.c:1286
 msgid "Old breakpoints disabled."
 msgstr "Gamla brytpunkter är inaktiverade."
 
 #. 5
-#: src/breakpoints.c:1424 src/main_menubar_def.h:758 src/text_editor_gui.c:161
+#: src/breakpoints.c:1428 src/main_menubar_def.h:758 src/text_editor_gui.c:161
 msgid "0"
 msgstr "0"
 
@@ -3308,32 +3423,32 @@ msgstr "Kompilering färdig... lyckades"
 msgid "Do you want to clear the list?"
 msgstr "Vill du tömma listan?"
 
-#: src/compiler_options.c:748 src/compiler_options.c:824
-#: src/compiler_options.c:847 src/compiler_options.c:892 src/signals_gui.c:131
+#: src/compiler_options.c:752 src/compiler_options.c:828
+#: src/compiler_options.c:851 src/compiler_options.c:896 src/signals_gui.c:131
 msgid "Description"
 msgstr "Beskrivning"
 
-#: src/compiler_options.c:763
+#: src/compiler_options.c:767
 msgid "Include paths"
 msgstr "Inkluderingssökvägar"
 
-#: src/compiler_options.c:778
+#: src/compiler_options.c:782
 msgid "Libraries paths"
 msgstr "Bibliotekssökvägar"
 
-#: src/compiler_options.c:801
+#: src/compiler_options.c:805
 msgid "Libraries and modules"
 msgstr "Bibliotek och moduler"
 
-#: src/compiler_options.c:817
+#: src/compiler_options.c:821
 msgid "Stock"
 msgstr "Standard"
 
-#: src/compiler_options.c:862
+#: src/compiler_options.c:866
 msgid "Stock Defines"
 msgstr "Standarddefinitioner"
 
-#: src/compiler_options.c:885
+#: src/compiler_options.c:889
 msgid "Warning"
 msgstr "Varning"
 
@@ -3498,7 +3613,7 @@ msgid "CVS: Remove file"
 msgstr "CVS: Ta bort fil"
 
 #. 3
-#: src/cvs_gui.c:92 src/project_dbase_gui.c:332 src/watch_gui.c:45
+#: src/cvs_gui.c:92 src/project_dbase_gui.c:341 src/watch_gui.c:45
 msgid "Remove"
 msgstr "Ta bort"
 
@@ -3742,7 +3857,7 @@ msgstr "Kör program... \n"
 msgid "Attaching to process: %d\n"
 msgstr "Ansluter till process: %d\n"
 
-#: src/debugger.c:1459
+#: src/debugger.c:1460
 msgid ""
 "A process is already running.\n"
 "Would you like to terminate it and attach the new process?"
@@ -3750,16 +3865,16 @@ msgstr ""
 "En process kör redan.\n"
 "Vill du avsluta den och ansluta till den nya processen?"
 
-#: src/debugger.c:1471
+#: src/debugger.c:1472
 msgid "Anjuta is unable to attach to itself."
 msgstr "Anjuta kan inte fästa vid sig själv."
 
-#: src/debugger.c:1557
+#: src/debugger.c:1558
 #, c-format
 msgid "Detaching the process: %d\n"
 msgstr "Kopplar ifrån processen: %d\n"
 
-#: src/debugger.c:1617
+#: src/debugger.c:1618
 msgid ""
 "Program is ATTACHED.\n"
 "Do you still want to stop Debugger?"
@@ -3767,7 +3882,7 @@ msgstr ""
 "Programmet är ANSLUTET.\n"
 "Vill du stoppa felsökaren?"
 
-#: src/debugger.c:1620
+#: src/debugger.c:1621
 msgid ""
 "Program is RUNNING.\n"
 "Do you still want to stop Debugger?"
@@ -3780,33 +3895,33 @@ msgstr ""
 #. breakpoints_dbase_update,
 #. debugger.breakpoints_dbase);
 #.
-#: src/debugger.c:1906
+#: src/debugger.c:1910
 msgid "All breakpoints deleted:\n"
 msgstr "Alla brytpunkter är borttagna:\n"
 
-#: src/debugger.c:1939
+#: src/debugger.c:1943
 #, c-format
 msgid "Interrupting the process: %d\n"
 msgstr "Avbryter processen: %d\n"
 
-#: src/debugger.c:1968
+#: src/debugger.c:1972
 #, c-format
 msgid "Sending signal %s to the process: %d\n"
 msgstr "Skickar signalen %s till processen: %d\n"
 
-#: src/debugger.c:1989
+#: src/debugger.c:1993
 msgid "Error whilst signalling the process."
 msgstr "Fel under signalering till processen."
 
-#: src/executer.c:53 src/mainmenu_callbacks.c:2136
+#: src/executer.c:53 src/mainmenu_callbacks.c:2142
 msgid "The target executable of this Project is unknown"
 msgstr "Den körbara målfilen för detta projekt är okänt"
 
-#: src/executer.c:58 src/mainmenu_callbacks.c:2138
+#: src/executer.c:58 src/mainmenu_callbacks.c:2144
 msgid "The target executable of this Project is not executable"
 msgstr "Den körbara målfilen för detta projekt är inte körbart"
 
-#: src/executer.c:63 src/mainmenu_callbacks.c:2142
+#: src/executer.c:63 src/mainmenu_callbacks.c:2148
 msgid "The target executable does not exist for this Project"
 msgstr "Den körbara målfilen finns inte för detta projekt"
 
@@ -3814,8 +3929,8 @@ msgstr "Den körbara målfilen finns inte för detta projekt"
 msgid "No file or Project opened."
 msgstr "Ingen fil eller projekt öppnades."
 
-#: src/executer.c:81 src/executer.c:100 src/mainmenu_callbacks.c:2162
-#: src/mainmenu_callbacks.c:2173
+#: src/executer.c:81 src/executer.c:100 src/mainmenu_callbacks.c:2168
+#: src/mainmenu_callbacks.c:2179
 msgid "No executable for this file."
 msgstr "Ingen körbar fil för denna fil."
 
@@ -3863,12 +3978,12 @@ msgstr "Ingen söksträng angiven."
 msgid "Do you want to replace this?"
 msgstr "Vill du ersätta detta?"
 
-#: src/find_replace.c:395
+#: src/find_replace.c:398
 #, c-format
 msgid "The string \"%s\" was not found in the selected text"
 msgstr "Strängen \"%s\" hittades inte i den markerade texten"
 
-#: src/find_replace.c:400
+#: src/find_replace.c:403
 #, c-format
 msgid "The string \"%s\" was not found from the current location"
 msgstr "Strängen \"%s\" hittades inte från den aktuella platsen"
@@ -3888,8 +4003,8 @@ msgstr "Träffen \"%s\" hittades inte i den markerade texten"
 msgid "The match \"%s\" was not found from the current location"
 msgstr "Träffen \"%s\" hittades inte från den aktuella platsen"
 
-#: src/find_text.c:196 src/toolbar_callbacks.c:234
-msgid "No matches. Wrap search around the document?"
+#: src/find_text.c:197
+msgid "No matches found. Wrap search around the document?"
 msgstr "Inga träffar. Fortsätt sökningen i början av dokumentet?"
 
 #: src/glade_iface.c:96 src/glade_iface.c:171
@@ -3988,7 +4103,7 @@ msgstr "launcher.c: fel vid läsning av standard ut för barn - %s\n"
 msgid "launcher.c: error while reading child stderr - %s\n"
 msgstr "launcher.c: fel vid läsning av standard fel för barn - %s\n"
 
-#: src/launcher.c:370 src/text_editor.c:1228
+#: src/launcher.c:370 src/text_editor.c:1466
 msgid "Cannot execute command shell"
 msgstr "Kan inte köra kommandoskal"
 
@@ -4653,8 +4768,8 @@ msgstr "Ko_mmentera kod"
 
 #. 12
 #: src/main_menubar_def.h:605
-msgid "_Search"
-msgstr "_Sök"
+msgid "S_earch"
+msgstr "S_ök"
 
 #. 13
 #: src/main_menubar_def.h:611
@@ -4682,8 +4797,8 @@ msgstr "Visa anropstips för funktionen"
 
 #. 17
 #: src/main_menubar_def.h:634
-msgid "Search And Replace"
-msgstr "Sök och ersätt"
+msgid "Search And Re_place"
+msgstr "Sök och ers_ätt"
 
 #: src/main_menubar_def.h:635
 msgid "New Search And Replace stuff"
@@ -5006,42 +5121,42 @@ msgid "Show/Hide Local variables in Message window"
 msgstr "Visa/Dölj lokala variabler i meddelandepanelen"
 
 #. 0
-#: src/main_menubar_def.h:891 src/project_dbase_gui.c:268
+#: src/main_menubar_def.h:891 src/project_dbase_gui.c:277
 msgid "Include file"
 msgstr "Inkludera fil"
 
 #. 1
-#: src/main_menubar_def.h:897 src/project_dbase_gui.c:274
+#: src/main_menubar_def.h:897 src/project_dbase_gui.c:283
 msgid "Source file"
 msgstr "Källfil"
 
 #. 2
-#: src/main_menubar_def.h:903 src/project_dbase_gui.c:280
+#: src/main_menubar_def.h:903 src/project_dbase_gui.c:289
 msgid "Help file"
 msgstr "Hjälpfil"
 
 #. 3
-#: src/main_menubar_def.h:909 src/project_dbase_gui.c:286
+#: src/main_menubar_def.h:909 src/project_dbase_gui.c:295
 msgid "Data file"
 msgstr "Datafil"
 
 #. 4
-#: src/main_menubar_def.h:915 src/project_dbase_gui.c:292
+#: src/main_menubar_def.h:915 src/project_dbase_gui.c:301
 msgid "Pixmap file"
 msgstr "Pixmapfil"
 
 #. 5
-#: src/main_menubar_def.h:921 src/project_dbase_gui.c:298
+#: src/main_menubar_def.h:921 src/project_dbase_gui.c:307
 msgid "Translation file"
 msgstr "Översättningsfil"
 
 #. 6
-#: src/main_menubar_def.h:927 src/project_dbase_gui.c:304
+#: src/main_menubar_def.h:927 src/project_dbase_gui.c:313
 msgid "Doc file"
 msgstr "Dokumentationsfil"
 
 #. 0
-#: src/main_menubar_def.h:938 src/project_dbase_gui.c:314
+#: src/main_menubar_def.h:938 src/project_dbase_gui.c:323
 msgid "Add File"
 msgstr "Lägg till fil"
 
@@ -5052,7 +5167,7 @@ msgstr "Ta bort fil"
 
 #. 4
 #. 5
-#: src/main_menubar_def.h:963 src/project_dbase_gui.c:339
+#: src/main_menubar_def.h:963 src/project_dbase_gui.c:348
 msgid "Configure Project"
 msgstr "Konfigurera projekt"
 
@@ -5061,7 +5176,7 @@ msgid "Configure options for the current Project"
 msgstr "Konfigurera alternativ för det aktuella projektet"
 
 #. 6
-#: src/main_menubar_def.h:969 src/project_dbase_gui.c:345
+#: src/main_menubar_def.h:969 src/project_dbase_gui.c:354
 msgid "Project Info"
 msgstr "Projektinformation"
 
@@ -6248,7 +6363,11 @@ msgstr ""
 "Filen \"%s\" är inte sparad.\n"
 "Vill du spara den innan du avslutar?"
 
-#: src/mainmenu_callbacks.c:235
+#: src/mainmenu_callbacks.c:180 src/project_dbase_gui.c:1127
+msgid "Do_n't save"
+msgstr "Spara i_nte"
+
+#: src/mainmenu_callbacks.c:237
 #, c-format
 msgid ""
 "Are you sure you want to reload '%s'?\n"
@@ -6257,24 +6376,28 @@ msgstr ""
 "Är du säker på att du vill läsa om \"%s\"?\n"
 "Du kommer att förlora alla ändringar som inte är sparade."
 
-#: src/mainmenu_callbacks.c:533
+#: src/mainmenu_callbacks.c:248 src/text_editor.c:1306
+msgid "_Reload"
+msgstr "_Läs om"
+
+#: src/mainmenu_callbacks.c:539
 msgid "%Y"
 msgstr "%Y"
 
-#: src/mainmenu_callbacks.c:552
+#: src/mainmenu_callbacks.c:558
 msgid "%Y-%m-%d"
 msgstr "%Y-%m-%d"
 
-#: src/mainmenu_callbacks.c:627
+#: src/mainmenu_callbacks.c:633
 #, c-format
 msgid "The file \"%s\" is not a header file."
 msgstr "Filen \"%s\" är inte en huvudfil."
 
-#: src/mainmenu_callbacks.c:1724
+#: src/mainmenu_callbacks.c:1730
 msgid "Debugger is not running. Start it first."
 msgstr "Felsökaren kör inte. Starta den först."
 
-#: src/mainmenu_callbacks.c:2113
+#: src/mainmenu_callbacks.c:2119
 msgid ""
 "Hover the mouse pointer over any menu item and press\n"
 " the shortcut key to associate with it."
@@ -6282,7 +6405,7 @@ msgstr ""
 "Vila muspekaren över en menypost och tryck\n"
 " genvägstangenten för att associera med den."
 
-#: src/mainmenu_callbacks.c:2168
+#: src/mainmenu_callbacks.c:2174
 msgid "The executable is not up-to-date."
 msgstr "Den körbara filen är inte aktuell."
 
@@ -6331,7 +6454,7 @@ msgstr "Standard fel"
 msgid "Could not find message type %s!\n"
 msgstr "Kan inte hitta meddelandetypen %s!\n"
 
-#: src/message-manager.cc:540 src/toolbar.c:152
+#: src/message-manager.cc:542 src/toolbar.c:152
 msgid "Messages"
 msgstr "Meddelanden"
 
@@ -6351,7 +6474,11 @@ msgstr ""
 "Är du säker på att du vill återställa inställningarna\n"
 "till deras standardalternativ?"
 
-#: src/preferences.c:940
+#: src/preferences.c:556
+msgid "_Reset"
+msgstr "_Återställ"
+
+#: src/preferences.c:936
 #, c-format
 msgid ""
 "Cannot load Global defaults and configuration files:\n"
@@ -6364,7 +6491,7 @@ msgstr ""
 "Detta kan orsaka felaktigt beteende eller instabiliteter.\n"
 "Anjuta kommer att återgå till inbyggda (begränsade) inställningar"
 
-#: src/preferences.c:1072
+#: src/preferences.c:1068
 msgid "Anjuta Preferences"
 msgstr "Inställningar för Anjuta"
 
@@ -6373,7 +6500,7 @@ msgstr "Inställningar för Anjuta"
 msgid "Add to Project"
 msgstr "Lägg till i projekt"
 
-#: src/project_dbase.c:259 src/project_dbase.c:330 src/project_dbase_gui.c:575
+#: src/project_dbase.c:259 src/project_dbase.c:330 src/project_dbase_gui.c:586
 msgid "Project: None"
 msgstr "Projekt: Inget"
 
@@ -6381,10 +6508,10 @@ msgstr "Projekt: Inget"
 msgid "Anjuta project files"
 msgstr "Anjuta-projektfiler"
 
-#: src/project_dbase.c:401 src/project_dbase_gui.c:162
-#: src/project_dbase_gui.c:179 src/project_dbase_gui.c:191
-#: src/project_dbase_gui.c:199 src/project_dbase_gui.c:211
-#: src/project_dbase_gui.c:220 src/project_dbase_gui.c:229
+#: src/project_dbase.c:401 src/project_dbase_gui.c:170
+#: src/project_dbase_gui.c:188 src/project_dbase_gui.c:200
+#: src/project_dbase_gui.c:208 src/project_dbase_gui.c:220
+#: src/project_dbase_gui.c:229 src/project_dbase_gui.c:238
 #: widgets/gnomefilelist.c:709
 msgid "All files"
 msgstr "Alla filer"
@@ -6469,163 +6596,163 @@ msgstr ""
 "Är du säker att du vill ta bort objektet\n"
 "\"%s\" från projektet?"
 
-#: src/project_dbase_gui.c:131
+#: src/project_dbase_gui.c:135
 msgid "There is already a Project open.Do you want to close it first?"
 msgstr "Det finns redan ett öppnat projekt. Vill du stänga det först?"
 
-#: src/project_dbase_gui.c:161
+#: src/project_dbase_gui.c:169
 msgid "Help files"
 msgstr "Hjälpfiler"
 
-#: src/project_dbase_gui.c:170 widgets/gnomefilelist.c:712
-msgid "C/C++ source files"
-msgstr "C/C++-källfiler"
-
-#: src/project_dbase_gui.c:171
-msgid "Java source files"
-msgstr "Java-källfiler"
-
-#: src/project_dbase_gui.c:172 widgets/gnomefilelist.c:719
-msgid "Pascal files"
-msgstr "Pascalfiler"
-
-#: src/project_dbase_gui.c:173 widgets/gnomefilelist.c:721
-msgid "PHP files"
-msgstr "PHP-filer"
-
-#: src/project_dbase_gui.c:174 widgets/gnomefilelist.c:724
-msgid "Perl files"
-msgstr "Perlfiler"
-
-#: src/project_dbase_gui.c:175 widgets/gnomefilelist.c:726
-msgid "Python files"
-msgstr "Pythonfiler"
-
-#: src/project_dbase_gui.c:176 widgets/gnomefilelist.c:731
-msgid "Shell Script files"
-msgstr "Skalskriptsfiler"
-
-#: src/project_dbase_gui.c:177 widgets/gnomefilelist.c:736
-msgid "Visual Basic files"
-msgstr "Visual Basic-filer"
-
-#: src/project_dbase_gui.c:178 widgets/gnomefilelist.c:744
-msgid ".lua files"
-msgstr ".lua-filer"
-
-#: src/project_dbase_gui.c:187
-msgid "PNG files"
-msgstr "PNG-filer"
-
-#: src/project_dbase_gui.c:188
-msgid "JPG files"
-msgstr "JPG-filer"
-
-#: src/project_dbase_gui.c:189
-msgid "BMP files"
-msgstr "BMP-filer"
-
-#: src/project_dbase_gui.c:190
-msgid "GIF files"
-msgstr "GIF-filer"
-
-#: src/project_dbase_gui.c:207
-msgid "Text files"
-msgstr "Textfiler"
-
-#: src/project_dbase_gui.c:208
-msgid "XML files"
-msgstr "XML-filer"
-
-#: src/project_dbase_gui.c:209
-msgid "HTML files"
-msgstr "HTML-filer"
-
-#: src/project_dbase_gui.c:210
-msgid "DOC files"
-msgstr "DOC-filer"
-
-#: src/project_dbase_gui.c:219
-msgid "PO files"
-msgstr "PO-filer"
-
-#: src/project_dbase_gui.c:228
+#: src/project_dbase_gui.c:178 src/project_dbase_gui.c:237
 msgid "C/C++ Headers"
 msgstr "C/C++-huvud"
 
-#: src/project_dbase_gui.c:259
+#: src/project_dbase_gui.c:179 widgets/gnomefilelist.c:712
+msgid "C/C++ source files"
+msgstr "C/C++-källfiler"
+
+#: src/project_dbase_gui.c:180
+msgid "Java source files"
+msgstr "Java-källfiler"
+
+#: src/project_dbase_gui.c:181 widgets/gnomefilelist.c:719
+msgid "Pascal files"
+msgstr "Pascalfiler"
+
+#: src/project_dbase_gui.c:182 widgets/gnomefilelist.c:721
+msgid "PHP files"
+msgstr "PHP-filer"
+
+#: src/project_dbase_gui.c:183 widgets/gnomefilelist.c:724
+msgid "Perl files"
+msgstr "Perlfiler"
+
+#: src/project_dbase_gui.c:184 widgets/gnomefilelist.c:726
+msgid "Python files"
+msgstr "Pythonfiler"
+
+#: src/project_dbase_gui.c:185 widgets/gnomefilelist.c:731
+msgid "Shell Script files"
+msgstr "Skalskriptsfiler"
+
+#: src/project_dbase_gui.c:186 widgets/gnomefilelist.c:736
+msgid "Visual Basic files"
+msgstr "Visual Basic-filer"
+
+#: src/project_dbase_gui.c:187 widgets/gnomefilelist.c:744
+msgid ".lua files"
+msgstr ".lua-filer"
+
+#: src/project_dbase_gui.c:196
+msgid "PNG files"
+msgstr "PNG-filer"
+
+#: src/project_dbase_gui.c:197
+msgid "JPG files"
+msgstr "JPG-filer"
+
+#: src/project_dbase_gui.c:198
+msgid "BMP files"
+msgstr "BMP-filer"
+
+#: src/project_dbase_gui.c:199
+msgid "GIF files"
+msgstr "GIF-filer"
+
+#: src/project_dbase_gui.c:216
+msgid "Text files"
+msgstr "Textfiler"
+
+#: src/project_dbase_gui.c:217
+msgid "XML files"
+msgstr "XML-filer"
+
+#: src/project_dbase_gui.c:218
+msgid "HTML files"
+msgstr "HTML-filer"
+
+#: src/project_dbase_gui.c:219
+msgid "DOC files"
+msgstr "DOC-filer"
+
+#: src/project_dbase_gui.c:228
+msgid "PO files"
+msgstr "PO-filer"
+
+#: src/project_dbase_gui.c:268
 msgid "Add file to module: "
 msgstr "Lägg till fil till modul: "
 
-#: src/project_dbase_gui.c:587 widgets/gnomefilelist.c:396
+#: src/project_dbase_gui.c:598 widgets/gnomefilelist.c:396
 msgid "Files"
 msgstr "Filer"
 
-#: src/project_dbase_gui.c:591
+#: src/project_dbase_gui.c:602
 msgid "Symbols"
 msgstr "Symboler"
 
-#: src/project_dbase_gui.c:727
+#: src/project_dbase_gui.c:738
 msgid "Project Information"
 msgstr "Projektinformation"
 
-#: src/project_dbase_gui.c:735
+#: src/project_dbase_gui.c:746
 msgid " Project Information "
 msgstr " Projektinformation "
 
-#: src/project_dbase_gui.c:771
+#: src/project_dbase_gui.c:782
 msgid "Author:"
 msgstr "Författare:"
 
-#: src/project_dbase_gui.c:779 src/wizard_gui.c:335
+#: src/project_dbase_gui.c:790 src/wizard_gui.c:335
 msgid "Project Name:"
 msgstr "Projektnamn:"
 
-#: src/project_dbase_gui.c:858
+#: src/project_dbase_gui.c:869
 msgid "Program Name:"
 msgstr "Programnamn:"
 
-#: src/project_dbase_gui.c:865
+#: src/project_dbase_gui.c:876
 msgid "Source files:"
 msgstr "Källfiler:"
 
-#: src/project_dbase_gui.c:872
+#: src/project_dbase_gui.c:883
 msgid "Help files:"
 msgstr "Hjälpfiler:"
 
-#: src/project_dbase_gui.c:879
+#: src/project_dbase_gui.c:890
 msgid "Data files:"
 msgstr "Datafiler:"
 
-#: src/project_dbase_gui.c:886
+#: src/project_dbase_gui.c:897
 msgid "Pixmap files:"
 msgstr "Pixmapfiler:"
 
-#: src/project_dbase_gui.c:893
+#: src/project_dbase_gui.c:904
 msgid "Doc files:"
 msgstr "Dokumentationsfiler:"
 
-#: src/project_dbase_gui.c:914
+#: src/project_dbase_gui.c:925
 msgid "Po files:"
 msgstr "Po-filer:"
 
-#: src/project_dbase_gui.c:944
+#: src/project_dbase_gui.c:955
 msgid "GUI editable by Glade:"
 msgstr "Grafiskt användargränssnitt redigerbart av Glade:"
 
-#: src/project_dbase_gui.c:966
+#: src/project_dbase_gui.c:977
 msgid "Makefiles managed:"
 msgstr "Makefiler hanterade:"
 
-#: src/project_dbase_gui.c:1008
+#: src/project_dbase_gui.c:1019
 msgid "Gettext support:"
 msgstr "Gettext-stöd:"
 
-#: src/project_dbase_gui.c:1066
+#: src/project_dbase_gui.c:1077
 msgid "Project Type:"
 msgstr "Projekttyp:"
 
-#: src/project_dbase_gui.c:1111
+#: src/project_dbase_gui.c:1122
 msgid ""
 "Project is not saved.\n"
 "Do you want to save it before closing?"
@@ -6633,132 +6760,116 @@ msgstr ""
 "Projektet är inte sparat.\n"
 "Vill du spara det innan du stänger?"
 
-#: src/project_dbase_gui.c:1123 src/project_dbase_gui.c:1243
+#: src/project_dbase_gui.c:1137 src/project_dbase_gui.c:1257
 msgid "Breton"
 msgstr "Bretonska"
 
-#: src/project_dbase_gui.c:1124
+#: src/project_dbase_gui.c:1138
 msgid "Catalan"
 msgstr "Katalanska"
 
-#: src/project_dbase_gui.c:1125
+#: src/project_dbase_gui.c:1139
 msgid "Czech"
 msgstr "Tjeckiska"
 
-#: src/project_dbase_gui.c:1126
+#: src/project_dbase_gui.c:1140
 msgid "Danish"
 msgstr "Danska"
 
-#: src/project_dbase_gui.c:1127
+#: src/project_dbase_gui.c:1141
 msgid "German"
 msgstr "Tyska"
 
-#: src/project_dbase_gui.c:1128
-msgid "Greek"
-msgstr "Grekiska"
-
-#: src/project_dbase_gui.c:1129
+#: src/project_dbase_gui.c:1143
 msgid "Esperanto"
 msgstr "Esperanto"
 
-#: src/project_dbase_gui.c:1130
+#: src/project_dbase_gui.c:1144
 msgid "Spanish"
 msgstr "Spanska"
 
-#: src/project_dbase_gui.c:1131
+#: src/project_dbase_gui.c:1145
 msgid "Finnish"
 msgstr "Finska"
 
-#: src/project_dbase_gui.c:1132
+#: src/project_dbase_gui.c:1146
 msgid "French"
 msgstr "Franska"
 
-#: src/project_dbase_gui.c:1133
+#: src/project_dbase_gui.c:1147
 msgid "Herbrew"
 msgstr "Hebreiska"
 
-#: src/project_dbase_gui.c:1134 src/project_dbase_gui.c:1138
+#: src/project_dbase_gui.c:1148 src/project_dbase_gui.c:1152
 msgid "Croatian"
 msgstr "Kroatiska"
 
-#: src/project_dbase_gui.c:1135
+#: src/project_dbase_gui.c:1149
 msgid "Hungarian"
 msgstr "Ungerska"
 
-#: src/project_dbase_gui.c:1136
+#: src/project_dbase_gui.c:1150
 msgid "Islandic"
 msgstr "Isländska"
 
-#: src/project_dbase_gui.c:1137
+#: src/project_dbase_gui.c:1151
 msgid "Italian"
 msgstr "Italienska"
 
-#: src/project_dbase_gui.c:1139
-msgid "Korean"
-msgstr "Koreanska"
-
-#: src/project_dbase_gui.c:1140
+#: src/project_dbase_gui.c:1154
 msgid "Macedonian"
 msgstr "Makedonska"
 
-#: src/project_dbase_gui.c:1141
+#: src/project_dbase_gui.c:1155
 msgid "Dutch"
 msgstr "Holländska"
 
-#: src/project_dbase_gui.c:1142
+#: src/project_dbase_gui.c:1156
 msgid "Norwegian"
 msgstr "Norska"
 
-#: src/project_dbase_gui.c:1143
+#: src/project_dbase_gui.c:1157
 msgid "Polish"
 msgstr "Polska"
 
-#: src/project_dbase_gui.c:1144
+#: src/project_dbase_gui.c:1158
 msgid "Portuguese"
 msgstr "Portugisiska"
 
-#: src/project_dbase_gui.c:1145
-msgid "Romanian"
-msgstr "Rumänska"
-
-#: src/project_dbase_gui.c:1146
+#: src/project_dbase_gui.c:1160
 msgid "Russian"
 msgstr "Ryska"
 
-#: src/project_dbase_gui.c:1147
+#: src/project_dbase_gui.c:1161
 msgid "Slovak"
 msgstr "Slovakiska"
 
-#: src/project_dbase_gui.c:1148
-msgid "Turkish"
-msgstr "Turkiska"
-
-#: src/project_dbase_gui.c:1149
+#: src/project_dbase_gui.c:1163
 msgid "Simplified Chinese"
 msgstr "Förenklad kinesiska"
 
-#: src/project_dbase_gui.c:1150
+#: src/project_dbase_gui.c:1164
 msgid "Chinese"
-msgstr "Kinesiska"
+msgstr "Kinesisk"
 
-#: src/project_dbase_gui.c:1151
+#: src/project_dbase_gui.c:1165
 msgid "Estonian"
 msgstr "Estländska"
 
-#: src/project_dbase_gui.c:1195
+#: src/project_dbase_gui.c:1209
 msgid "Select regional language"
 msgstr "Välj regionalspråk"
 
-#: src/project_dbase_gui.c:1211
+#: src/project_dbase_gui.c:1225
 msgid "Select regional language:"
 msgstr "Välj regionalspråk:"
 
-#: src/project_dbase_gui.c:1251
+#: src/project_dbase_gui.c:1265
 #, c-format
 msgid "Unable to find pixmap file: %s"
 msgstr "Kan inte hitta pixmapfilen: %s"
 
-#: src/project_dbase_gui.c:1330
+#: src/project_dbase_gui.c:1344
 #, c-format
 msgid ""
 "\"%s\"\n"
@@ -6769,7 +6880,12 @@ msgstr ""
 "finns inte.\n"
 "Vill du skapa den nu?"
 
-#: src/project_dbase_gui.c:1358
+#: src/project_dbase_gui.c:1362
+#, c-format
+msgid "Not a regular file: %s."
+msgstr "Inte en vanlig fil: %s."
+
+#: src/project_dbase_gui.c:1372
 #, c-format
 msgid ""
 "\"%s\"\n"
@@ -6900,12 +7016,12 @@ msgstr "Widget kunde inte hittas: %s"
 msgid "Could not find application image file: %s"
 msgstr "Kan inte hitta programbildfil: %s"
 
-#: src/resources.c:104
+#: src/resources.c:101
 #, c-format
 msgid "Could not find application pixmap file: %s"
 msgstr "Kan inte hitta programpixmapfil: %s"
 
-#: src/resources.c:266 src/resources.c:274
+#: src/resources.c:263 src/resources.c:271
 msgid "Cannot execute Devhelp. Make sure it is installed"
 msgstr "Kan inte köra Devhelp. Försäkra dig om att det är installerat"
 
@@ -7015,7 +7131,7 @@ msgstr "Kan inte skapa filen: %s."
 msgid "Error writing to: %s."
 msgstr "Fel vid skrivning till: %s."
 
-#: src/src_paths.c:260
+#: src/src_paths.c:264
 msgid "Source Paths"
 msgstr "Källkodssökvägar"
 
@@ -7060,33 +7176,53 @@ msgstr "Ram"
 msgid "Couldn't find pixmap file: %s"
 msgstr "Kan inte hitta pixmapfilen: %s"
 
-#: src/text_editor.c:876
+#: src/text_editor.c:887
+msgid "This file is too big. Unable to allocate memory."
+msgstr "Denna fil är för stor. Kan inte allokera minne."
+
+#: src/text_editor.c:933
+msgid ""
+"The file does not look like a text file or the file encoding is not "
+"supported.Please check if the encoding of file is in the supported encodings "
+"list. If not, add it from the preferences."
+msgstr ""
+"Filen verkar inte vara en textfil eller så stöds inte filkodningen. "
+"Kontrollera att kodningen för filen finns i listan över kodningar som stöds. "
+"Om inte, lägg till den i inställningarna."
+
+#: src/text_editor.c:1104
 msgid "Loading file ..."
 msgstr "Läser in fil..."
 
-#: src/text_editor.c:882
+#: src/text_editor.c:1110
 #, c-format
-msgid "Could not load file: %s"
-msgstr "Kan inte läsa in fil: %s"
+msgid ""
+"Could not load file: %s\n"
+"\n"
+"Details: %s"
+msgstr ""
+"Kunde inte läsa in fil: %s\n"
+"\n"
+"Detaljer: %s"
 
-#: src/text_editor.c:901
+#: src/text_editor.c:1131
 msgid "File loaded successfully"
 msgstr "Filen lästes in utan problem"
 
-#: src/text_editor.c:916
+#: src/text_editor.c:1146
 msgid "Saving file ..."
 msgstr "Sparar fil..."
 
-#: src/text_editor.c:921
+#: src/text_editor.c:1151
 #, c-format
 msgid "Could not save file: %s."
 msgstr "Kan inte spara fil: %s."
 
-#: src/text_editor.c:961
+#: src/text_editor.c:1191
 msgid "File saved successfully"
 msgstr "Filen sparades utan problem"
 
-#: src/text_editor.c:1059
+#: src/text_editor.c:1289
 #, c-format
 msgid ""
 "The file '%s' on the disk is more recent than\n"
@@ -7097,21 +7233,30 @@ msgstr ""
 "den aktuella bufferten.\n"
 "Vill du läsa om den?"
 
-#: src/text_editor.c:1196
+#: src/text_editor.c:1434
 msgid "Auto format is currently disabled. Change the setting in Preferences."
 msgstr ""
 "Autoformatering är för närvarande inaktiverad. Ändra inställningen i "
 "Inställningar."
 
-#: src/text_editor.c:1202
+#: src/text_editor.c:1440
 msgid "Auto formatting ..."
 msgstr "Autoformatering..."
 
-#: src/text_editor.c:1212 src/text_editor.c:1239
+#: src/text_editor.c:1450
 msgid "Error in auto formatting ..."
 msgstr "Fel i autoformatering..."
 
-#: src/text_editor.c:1245
+#: src/text_editor.c:1477
+#, c-format
+msgid ""
+"Error in auto formatting ...\n"
+"Details: %s"
+msgstr ""
+"Fel i autoformatering...\n"
+"Detaljer: %s"
+
+#: src/text_editor.c:1484
 msgid "Auto formatting completed"
 msgstr "Autoformatering färdig"
 
@@ -7591,7 +7736,11 @@ msgstr "Autokomplettera"
 msgid "Autocomplete word"
 msgstr "Autokomplettera ord"
 
-#: src/toolbar_callbacks.c:278
+#: src/toolbar_callbacks.c:235
+msgid "No matches. Wrap search around the document?"
+msgstr "Inga träffar. Fortsätt sökningen i början av dokumentet?"
+
+#: src/toolbar_callbacks.c:279
 #, c-format
 msgid "There is line number %d in \"%s\"."
 msgstr "Det finns radnummer %d i \"%s\"."
@@ -7948,6 +8097,39 @@ msgstr "Skapande av mapp misslyckades \"%s\": %s"
 msgid "Folder name:"
 msgstr "Mappnamn:"
 
+#~ msgid "East asian"
+#~ msgstr "Östasiatisk"
+
+#~ msgid "Traditional Chinese"
+#~ msgstr "Traditionell kinesisk"
+
+#~ msgid "Ukrainian"
+#~ msgstr "Ukrainsk"
+
+#~ msgid "Search And Replace"
+#~ msgstr "Sök och ersätt"
+
+#~ msgid "Don't save"
+#~ msgstr "Spara inte"
+
+#~ msgid ""
+#~ "The file does not look like a text file or the file encoding is not "
+#~ "supported. Please check if the encoding of file is in the supported "
+#~ "encodings list. If not, add it from the preferences."
+#~ msgstr ""
+#~ "Filen verkar inte vara en textfil eller så stöds inte filkodningen. "
+#~ "Kontrollera att kodningen för filen finns i listan över kodningar som "
+#~ "stöds. Om inte, lägg till den i inställningarna."
+
+#~ msgid "Are you sure you want to delete tool '%s'"
+#~ msgstr "Är du säker på att du vill ta bort verktyget \"%s\""
+
+#~ msgid "No read permission for: %s."
+#~ msgstr "Inga läsrättigheter för: %s."
+
+#~ msgid "_Search"
+#~ msgstr "_Sök"
+
 #~ msgid "Enter a Hexa address or select one in the data"
 #~ msgstr "Ange en Hexa-adress eller välj en i data"
 
@@ -8301,16 +8483,6 @@ msgstr "Mappnamn:"
 
 #~ msgid "Revision"
 #~ msgstr "Revision"
-
-#~ msgid ""
-#~ "The file '%s' already exists.\n"
-#~ "Do you want to overwrite it?"
-#~ msgstr ""
-#~ "Filen \"%s\" finns redan.\n"
-#~ "Vill du skriva över den?"
-
-#~ msgid "Are you sure you want to delete tool '%s'?"
-#~ msgstr "Är du säker på att du vill ta bort verktyget \"%s\"?"
 
 #~ msgid "Names"
 #~ msgstr "Namn"
