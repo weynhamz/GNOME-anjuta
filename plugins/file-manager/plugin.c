@@ -105,6 +105,7 @@ activate_plugin (AnjutaPlugin *plugin)
 {
 	GladeXML *gxml;
 	FileManagerPlugin *fm_plugin;
+	gboolean initialized = FALSE;
 	
 	g_message ("FileManagerPlugin: Activating File Manager plugin ...");
 	fm_plugin = (FileManagerPlugin*) plugin;
@@ -126,22 +127,24 @@ activate_plugin (AnjutaPlugin *plugin)
 	anjuta_shell_add_widget (plugin->shell, fm_plugin->scrolledwindow,
 							 "AnjutaFileManager", _("Files"), GTK_STOCK_OPEN,
 							 ANJUTA_SHELL_PLACEMENT_LEFT, NULL);
-	
-	/* Add preferences */
-	gxml = glade_xml_new (PREFS_GLADE, "dialog.file.filter", NULL);
-	
-	anjuta_preferences_add_page (fm_plugin->prefs,
-								gxml, "File Manager", ICON_FILE);
-	preferences_changed(fm_plugin->prefs, fm_plugin);
+	if (!initialized)
+	{
+		/* Add preferences */
+		gxml = glade_xml_new (PREFS_GLADE, "dialog.file.filter", NULL);
+		
+		anjuta_preferences_add_page (fm_plugin->prefs,
+									gxml, "File Manager", ICON_FILE);
+		preferences_changed(fm_plugin->prefs, fm_plugin);
+		g_object_unref (G_OBJECT (gxml));
+	}
 	g_signal_connect (G_OBJECT (fm_plugin->prefs), "changed",
 					  G_CALLBACK (preferences_changed), fm_plugin);
-	g_object_unref (G_OBJECT (gxml));
-	
 	/* set up project directory watch */
 	fm_plugin->root_watch_id = anjuta_plugin_add_watch (plugin,
 									"project_root_uri",
 									project_root_added,
 									project_root_removed, NULL);
+	initialized = FALSE;
 	return TRUE;
 }
 

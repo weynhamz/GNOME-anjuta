@@ -134,6 +134,7 @@ static gboolean
 activate_plugin (AnjutaPlugin *plugin)
 {
 	AnjutaFileWizardPlugin *w_plugin;
+	static gboolean initialized = FALSE;
 	
 	g_message ("AnjutaFileWizardPlugin: Activating File wizard plugin ...");
 	w_plugin = (AnjutaFileWizardPlugin*) plugin;
@@ -141,7 +142,8 @@ activate_plugin (AnjutaPlugin *plugin)
 	w_plugin->prefs = anjuta_shell_get_preferences (plugin->shell, NULL);
 	
 	/* Action groups */
-	swap_label_and_stock (actions_insert, G_N_ELEMENTS (actions_insert));
+	if (!initialized)
+		swap_label_and_stock (actions_insert, G_N_ELEMENTS (actions_insert));
 	w_plugin->action_group = 
 		anjuta_ui_add_action_group_entries (w_plugin->ui,
 											"ActionGroupFileWizard",
@@ -168,7 +170,7 @@ activate_plugin (AnjutaPlugin *plugin)
 					  G_CALLBACK (preferences_changed), fm_plugin);
 	g_object_unref (G_OBJECT (gxml));
 #endif
-	
+	initialized = TRUE;	
 	return TRUE;
 }
 
@@ -177,7 +179,7 @@ deactivate_plugin (AnjutaPlugin *plugin)
 {
 	AnjutaFileWizardPlugin *w_plugin;
 	w_plugin = (AnjutaFileWizardPlugin*) plugin;
-#if 0	
+#if 0
 	g_signal_handlers_disconnect_by_func (G_OBJECT (w_plugin->prefs),
 										  G_CALLBACK (preferences_changed),
 										  w_plugin);

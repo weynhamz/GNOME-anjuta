@@ -161,6 +161,7 @@ fv_prefs_free (FileFilter *ff)
 	if (ff->dir_unmatch_strings)
 		anjuta_util_glist_strings_free (ff->dir_unmatch_strings);
 */	g_free (ff);
+	ff = NULL;
 }
 
 static gchar *
@@ -858,11 +859,13 @@ fv_finalize (FileManagerPlugin *fv)
 		g_free (fv->top_dir);
 	g_object_unref (G_OBJECT (fv->tree));
 	g_object_unref (G_OBJECT (fv->scrolledwindow));
+	gtk_widget_destroy (fv->scrolledwindow);
 	fv->top_dir = NULL;
 	fv->tree = NULL;
 	fv->scrolledwindow = NULL;
 	if (ff != NULL)
 		fv_prefs_free (ff);
+	ff = NULL;
 }
 
 void

@@ -1,3 +1,23 @@
+2004-10-21  Naba Kumar  <naba@gnome.org>
+
+	* libanjuta/plugins.c: Do not unload plugins when they are
+	deactivated. Simply cache them for later activation. Unloading
+	modules have some problem with shared libs using static class
+	registration. Fixed hash type for installed plugins. Eventually,
+	we want to add "CanUnload" attribute for .plugin files (in
+	"Anjuta Plugin" group) to let plugin loader know if the plugin can
+	be unloaded from memory. Those plugins declaring CanUnload=false
+	will not be unloaded from memory and will be put in the cache. Those
+	not declaring anything or declaring CanUnload=true, will be unloaded
+	from memory when they are deactivated.
+
+	* plugins/editor/action-callbacks.c, plugins/editor/anjuta-docman.c,
+	plugins/editor/plugin.c, plugins/editor/text_editor.c,
+	plugins/editor/text_editor.h, plugins/file-manager/an_file_view.c,
+	plugins/file-manager/plugin.c, plugins/file-wizard/plugin.c,
+	plugins/project-manager/plugin.c: Fixed object finalization, dispose,
+	activation, deactivation. Fixed memory leaks.
+
 2004-10-20  Naba Kumar  <naba@gnome.org>
 
 	* TODO.tasks: Updated.

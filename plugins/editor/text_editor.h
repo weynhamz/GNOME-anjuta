@@ -44,11 +44,8 @@ struct _TextEditor
 {
 	GtkVBox vbox;
 	
-	// TextEditorMenu *menu;
-
 	gchar *filename;
 	gchar *uri;
-	// TMWorkObject *tm_file;
 	time_t modified_time;
 	gint force_hilite;
 
@@ -76,8 +73,6 @@ struct _TextEditor
 	
 /* First time exposer */
 	gboolean first_time_expose;
-/* Is the editor used by a cvs output? */
-	gboolean used_by_cvs;
 
 /* Handler for changed signal. Need to disconnect the signal when we destroy
    the object */

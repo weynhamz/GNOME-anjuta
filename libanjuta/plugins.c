@@ -687,10 +687,15 @@ static GHashTable*
 tool_set_update (AnjutaShell *shell, AvailableTool* selected_tool, gboolean load)
 {
 	GObject *tool_obj;
-	GHashTable *installed_tools;
+	GHashTable *installed_tools, *tools_cache;
 	GSList *l;
 	
 	installed_tools = g_object_get_data (G_OBJECT (shell), "InstalledTools");
+	tools_cache =  g_object_get_data (G_OBJECT (shell), "ToolsCache");
+	if (!tools_cache) {
+		tools_cache = g_hash_table_new (g_direct_hash, g_direct_equal);
+		g_object_set_data (G_OBJECT (shell), "ToolsCache", tools_cache);
+	}
 	tool_obj = g_hash_table_lookup (installed_tools, selected_tool);
 	
 	if (tool_obj && load) {
@@ -718,7 +723,8 @@ tool_set_update (AnjutaShell *shell, AvailableTool* selected_tool, gboolean load
 				
 				success = anjuta_plugin_deactivate (ANJUTA_PLUGIN (anjuta_tool));
 				if (success) {
-					g_object_unref (tool_obj);
+					// g_object_unref (tool_obj);
+					g_hash_table_insert (tools_cache, tool, tool_obj);
 					g_hash_table_remove (installed_tools, tool);
 				} else {
 					anjuta_util_dialog_info (GTK_WINDOW (shell),
@@ -732,10 +738,15 @@ tool_set_update (AnjutaShell *shell, AvailableTool* selected_tool, gboolean load
 		for (l = available_tools; l != NULL; l = l->next) {
 			AvailableTool *tool = l->data;
 			if (should_load (installed_tools, selected_tool, tool)) {
-				GObject *tool_obj = activate_tool (shell, tool);
+				GObject *tool_obj;
+				tool_obj = g_hash_table_lookup (tools_cache, tool);
+				if (!tool_obj)
+					tool_obj = activate_tool (shell, tool);
+				else
+					anjuta_plugin_activate (ANJUTA_PLUGIN (tool_obj));
 				if (tool_obj) {
-					g_hash_table_insert (installed_tools,
-								 tool, tool_obj);
+					g_hash_table_insert (installed_tools, tool, tool_obj);
+					g_hash_table_remove (tools_cache, tool);
 				}
 			}
 		}
@@ -921,7 +932,7 @@ create_plugin_page (AnjutaShell *shell)
 	/* FIXME: This should be moved to a proper location */
 	if (!installed_tools)
 	{
-		installed_tools = g_hash_table_new (g_str_hash, g_str_equal);
+		installed_tools = g_hash_table_new (g_direct_hash, g_direct_equal);
 		g_object_set_data (G_OBJECT (shell), "InstalledTools",
 						   installed_tools);
 	}
@@ -978,7 +989,7 @@ anjuta_plugins_get_plugin (AnjutaShell *shell,
 	installed_tools = g_object_get_data (G_OBJECT (shell), "InstalledTools");
 	if (installed_tools == NULL)
 	{
-		installed_tools = g_hash_table_new (g_str_hash, g_str_equal);
+		installed_tools = g_hash_table_new (g_direct_hash, g_direct_equal);
 		g_object_set_data (G_OBJECT (shell), "InstalledTools",
 						   installed_tools);
 	}
@@ -1017,7 +1028,7 @@ anjuta_plugins_get_plugin_by_location (AnjutaShell *shell,
 	installed_tools = g_object_get_data (G_OBJECT (shell), "InstalledTools");
 	if (installed_tools == NULL)
 	{
-		installed_tools = g_hash_table_new (g_str_hash, g_str_equal);
+		installed_tools = g_hash_table_new (g_direct_hash, g_direct_equal);
 		g_object_set_data (G_OBJECT (shell), "InstalledTools",
 						   installed_tools);
 	}

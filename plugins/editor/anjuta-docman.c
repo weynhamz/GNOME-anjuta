@@ -365,6 +365,40 @@ create_file_save_dialog_gui(GtkWindow* parent, AnjutaDocman* docman)
 gpointer parent_class;
 
 static void
+anjuta_docman_finalize (GObject *obj)
+{
+	AnjutaDocman *docman;
+	docman = ANJUTA_DOCMAN (obj);
+	if (docman->priv->popup_menu)
+	{
+		g_object_unref (docman->priv->popup_menu);
+		docman->priv->popup_menu = NULL;
+	}
+	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (G_OBJECT(obj)));
+}
+
+static void
+anjuta_docman_dispose (GObject *obj)
+{
+	AnjutaDocman *docman;
+	GList *node;
+	
+	docman = ANJUTA_DOCMAN (obj);
+	node = docman->priv->editors;
+	while (node)
+	{
+		AnjutaDocmanPage *page;
+		page = (AnjutaDocmanPage*)node->data;
+		anjuta_docman_page_destroy (page);
+		node = g_list_next (node);
+	}
+	g_list_free (docman->priv->editors);
+	gtk_widget_destroy (docman->priv->fileselection);
+	gtk_widget_destroy (docman->priv->save_as_fileselection);
+	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (G_OBJECT(obj)));
+}
+
+static void
 anjuta_docman_instance_init (AnjutaDocman *docman)
 {
 	GtkWidget *parent;
@@ -390,6 +424,11 @@ static void
 anjuta_docman_class_init (AnjutaDocmanClass *klass)
 {
 	static gboolean initialized;
+	GObjectClass *object_class = G_OBJECT_CLASS (klass);
+	
+	parent_class = g_type_class_peek_parent (klass);
+	object_class->finalize = anjuta_docman_finalize;
+	object_class->dispose = anjuta_docman_dispose;
 	
 	if (!initialized)
 	{
@@ -560,6 +599,10 @@ anjuta_docman_remove_editor (AnjutaDocman *docman, TextEditor* te)
 void
 anjuta_docman_set_popup_menu (AnjutaDocman *docman, GtkWidget *menu)
 {
+	if (menu)
+		g_object_ref (menu);
+	if (docman->priv->popup_menu)
+		g_object_unref (docman->priv->popup_menu);
 	docman->priv->popup_menu = menu;
 }
 

@@ -125,6 +125,7 @@ on_close_file1_activate (GtkAction * action, gpointer user_data)
 		return;
 	
 	parent = gtk_widget_get_toplevel (GTK_WIDGET (te));
+#if 0
 	if (te->used_by_cvs) {
 		GtkWidget* dialog;
 		gint value;
@@ -138,6 +139,7 @@ on_close_file1_activate (GtkAction * action, gpointer user_data)
 		gtk_widget_destroy (dialog);
 		if (value == 1) return;
 	}
+#endif
 	if (text_editor_is_saved (te) == FALSE)
 	{
 		gchar *mesg;

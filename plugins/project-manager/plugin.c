@@ -225,13 +225,15 @@ activate_plugin (AnjutaPlugin *plugin)
 {
 	GtkWidget *view, *scrolled_window;
 	GbfProjectModel *model;
+	static gboolean initialized = FALSE;
 	
 	// GladeXML *gxml;
 	ProjectManagerPlugin *pm_plugin;
 	
 	g_message ("ProjectManagerPlugin: Activating Project Manager plugin ...");
 	
-	register_stock_icons (plugin);
+	if (!initialized)
+		register_stock_icons (plugin);
 	
 	pm_plugin = (ProjectManagerPlugin*) plugin;
 	pm_plugin->ui = anjuta_shell_get_ui (plugin->shell, NULL);
@@ -239,10 +241,11 @@ activate_plugin (AnjutaPlugin *plugin)
 
 	/* create model & view and bind them */
 	model = gbf_project_model_new (NULL);
+	/* We already get a ref on model */
 	view = gbf_project_view_new ();
+	g_object_ref (view);
 	gtk_tree_view_set_model (GTK_TREE_VIEW (view),
 							 GTK_TREE_MODEL (model));
-	g_object_unref (model);
 	g_signal_connect (view, "uri-activated",
 					  G_CALLBACK (on_uri_activated), plugin);
 	g_signal_connect (view, "target-selected",
@@ -298,6 +301,7 @@ activate_plugin (AnjutaPlugin *plugin)
 					  G_CALLBACK (preferences_changed), pm_plugin);
 	g_object_unref (G_OBJECT (gxml));
 #endif	
+	initialized = TRUE;
 	return TRUE;
 }
 
@@ -311,9 +315,13 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	//									  G_CALLBACK (preferences_changed),
 	//									  pm_plugin);
 	// pm_finalize(pm_plugin);
+	anjuta_shell_remove_widget (plugin->shell, pm_plugin->scrolledwindow, NULL);
 	anjuta_ui_unmerge (pm_plugin->ui, pm_plugin->merge_id);
 	anjuta_ui_remove_action_group (pm_plugin->ui, pm_plugin->pm_action_group);
 	anjuta_ui_remove_action_group (pm_plugin->ui, pm_plugin->popup_action_group);
+	g_object_unref (G_OBJECT (pm_plugin->model));
+	g_object_unref (G_OBJECT (pm_plugin->view));
+	gtk_widget_destroy (pm_plugin->scrolledwindow);
 	return TRUE;
 }
 

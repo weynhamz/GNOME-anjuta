@@ -69,7 +69,8 @@
 
 static void text_editor_update_preferences (TextEditor *te,
 											AnjutaPreferences *pr);
-static void text_editor_destroy (GObject *obj);
+static void text_editor_finalize (GObject *obj);
+static void text_editor_dispose (GObject *obj);
 
 GtkVBoxClass *parent_class;
 
@@ -86,12 +87,11 @@ text_editor_instance_init (TextEditor *te)
 	te->force_hilite = TE_LEXER_AUTOMATIC;
 	te->freeze_count = 0;
 	te->current_line = 0;
-	// te->menu = NULL;
+	te->popup_menu = NULL;
 	te->autosave_on = FALSE;
 	te->autosave_it = 10;
 	te->props_base = 0;
 	te->first_time_expose = TRUE;
-	te->used_by_cvs = FALSE;
 	te->encoding = NULL;
 }
 
@@ -102,7 +102,8 @@ text_editor_class_init (TextEditorClass *klass)
 	GObjectClass *object_class = G_OBJECT_CLASS (klass);
 	
 	parent_class = g_type_class_peek_parent (klass);
-	object_class->finalize = text_editor_destroy;
+	object_class->finalize = text_editor_finalize;
+	object_class->dispose = text_editor_dispose;
 }
 
 /* marker fore and back colors */
@@ -232,36 +233,51 @@ text_editor_new (AnjutaPreferences *eo, const gchar *uri, const gchar *name)
 }
 
 void
-text_editor_destroy (GObject *obj)
+text_editor_finalize (GObject *obj)
 {
 	TextEditor *te = TEXT_EDITOR (obj);
 	if (te->autosave_on)
+	{
 		gtk_timeout_remove (te->autosave_id);
-	g_object_unref (G_OBJECT (te->scintilla));
-	
-	// gtk_widget_unref (te->scintilla);
-	
+		te->autosave_on = FALSE;
+		te->autosave_id = 0;
+	}
+	if (te->popup_menu)
+	{
+		g_object_unref (te->popup_menu);
+		te->popup_menu = NULL;
+	}
+	if (te->scintilla)
+	{
+		g_object_unref (G_OBJECT (te->scintilla));
+		te->scintilla = NULL;
+	}
+	if (te->editor_id)
+	{
+		aneditor_destroy (te->editor_id);
+		te->editor_id = 0;
+	}
+	if (te->changed_id)
+	{
+		g_signal_handler_disconnect (G_OBJECT (te->preferences), 
+									 te->changed_id);
+		te->changed_id = 0;
+	}
+	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (G_OBJECT(te)));
+}
+
+void
+text_editor_dispose (GObject *obj)
+{
+	TextEditor *te = TEXT_EDITOR (obj);
 	if (te->filename)
 		g_free (te->filename);
 	if (te->uri)
 		g_free (te->uri);
-	// FIXME:
-	// if (te->tm_file)
-		// if (te->tm_file->parent == TM_WORK_OBJECT(app->tm_workspace))
-			// tm_workspace_remove_object(te->tm_file, TRUE);
-	// if (te->menu)
-	//	text_editor_menu_destroy (te->menu);
-	if (te->editor_id)
-		aneditor_destroy (te->editor_id);
-	// if (te->used_by_cvs)
-		// FIXME: cvs_set_editor_destroyed (app->cvs);
-	if (te->changed_id)
-		g_signal_handler_disconnect (G_OBJECT (te->preferences), 
-									 te->changed_id);
 	if (te->encoding)
 		g_free (te->encoding);
 	
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (G_OBJECT(te)));
+	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (G_OBJECT(te)));
 }
 
 void
@@ -1733,11 +1749,11 @@ text_editor_grab_focus (TextEditor *te)
 void
 text_editor_set_popup_menu (TextEditor *te, GtkWidget *popup_menu)
 {
+	if (popup_menu)
+		g_object_ref (popup_menu);
 	if (te->popup_menu)
 		g_object_unref (te->popup_menu);
 	te->popup_menu = popup_menu;
-	if (popup_menu)
-		g_object_ref (popup_menu);
 }
 
 gint

@@ -699,6 +699,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	GtkAction *action;
 	GladeXML *gxml;
 	gint i;
+	static gboolean initialized = FALSE;
 	
 	DEBUG_PRINT ("EditorPlugin: Activating Editor plugin ...");
 	editor_plugin = (EditorPlugin*) plugin;
@@ -711,31 +712,39 @@ activate_plugin (AnjutaPlugin *plugin)
 					  G_CALLBACK (on_editor_changed), plugin);
 	editor_plugin->docman = docman;
 	
-	register_stock_icons (plugin);
+	if (!initialized)
+	{
+		register_stock_icons (plugin);
+		
+		/* Add preferences */
+		gxml = glade_xml_new (PREFS_GLADE, "preferences_dialog", NULL);
+		
+		anjuta_preferences_add_page (editor_plugin->prefs,
+									 gxml, "Editor", ICON_FILE);
+		anjuta_encodings_init (editor_plugin->prefs, gxml);
+		/*
+		g_signal_connect (G_OBJECT (editor_plugin->prefs), "changed",
+						  G_CALLBACK (preferences_changed), editor_plugin);
+		*/
+		g_object_unref (G_OBJECT (gxml));
+	}
 	
-	/* Add preferences */
-	gxml = glade_xml_new (PREFS_GLADE, "preferences_dialog", NULL);
-	
-	anjuta_preferences_add_page (editor_plugin->prefs,
-								 gxml, "Editor", ICON_FILE);
-	anjuta_encodings_init (editor_plugin->prefs, gxml);
-	/*
-	g_signal_connect (G_OBJECT (editor_plugin->prefs), "changed",
-					  G_CALLBACK (preferences_changed), editor_plugin);
-	*/
-	g_object_unref (G_OBJECT (gxml));
-	
+	editor_plugin->action_groups = NULL;
 	/* Add all our editor actions */
 	for (i = 0; i < G_N_ELEMENTS (action_groups); i++)
 	{
 		GList *actions, *act;
-		swap_label_and_stock (action_groups[i].group, action_groups[i].size);
+		if (!initialized)
+			swap_label_and_stock (action_groups[i].group,
+								  action_groups[i].size);
 		group = anjuta_ui_add_action_group_entries (ui, 
 													action_groups[i].name,
 													_(action_groups[i].label),
 													action_groups[i].group,
 													action_groups[i].size,
 													plugin);
+		editor_plugin->action_groups =
+			g_list_prepend (editor_plugin->action_groups, group);
 		actions = gtk_action_group_list_actions (group);
 		act = actions;
 		while (act) {
@@ -746,14 +755,17 @@ activate_plugin (AnjutaPlugin *plugin)
 	for (i = 0; i < G_N_ELEMENTS (action_toggle_groups); i++)
 	{
 		GList *actions, *act;
-		swap_toggle_label_and_stock (action_toggle_groups[i].group,
-									 action_toggle_groups[i].size);
+		if (!initialized)
+			swap_toggle_label_and_stock (action_toggle_groups[i].group,
+										 action_toggle_groups[i].size);
 		group = anjuta_ui_add_toggle_action_group_entries (ui, 
 												action_toggle_groups[i].name,
 												_(action_toggle_groups[i].label),
 												action_toggle_groups[i].group,
 												action_toggle_groups[i].size,
 												plugin);
+		editor_plugin->action_groups =
+			g_list_prepend (editor_plugin->action_groups, group);
 		actions = gtk_action_group_list_actions (group);
 		act = actions;
 		while (act) {
@@ -762,6 +774,8 @@ activate_plugin (AnjutaPlugin *plugin)
 		}
 	}
 	group = gtk_action_group_new ("ActionGroupNavigation");
+	editor_plugin->action_groups =
+		g_list_prepend (editor_plugin->action_groups, group);
 	
 	action = g_object_new (EGG_TYPE_ENTRY_ACTION,
 						   "name", "ActionEditGotoLineEntry",
@@ -811,8 +825,11 @@ activate_plugin (AnjutaPlugin *plugin)
 											"/PopupDocumentManager");
 	g_assert (popup_menu != NULL && GTK_IS_MENU (popup_menu));
 	anjuta_docman_set_popup_menu (ANJUTA_DOCMAN (docman), popup_menu);
-	
-	search_and_replace_init (ANJUTA_DOCMAN (docman));
+	if (!initialized)
+	{
+		search_and_replace_init (ANJUTA_DOCMAN (docman));
+	}
+	initialized = TRUE;
 	return TRUE;
 }
 
@@ -822,14 +839,25 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	// GtkIconFactory *icon_factory;
 	EditorPlugin *eplugin;
 	AnjutaUI *ui;
+	GList *node;
 	
 	eplugin = (EditorPlugin*)plugin;
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	DEBUG_PRINT ("EditorPlugin: Dectivating Editor plugin ...");
 	anjuta_shell_remove_widget (plugin->shell, eplugin->docman, NULL);
 	anjuta_ui_unmerge (ui, eplugin->uiid);
-	
+	node = eplugin->action_groups;
+	while (node)
+	{
+		GtkActionGroup *group = (GtkActionGroup*)node->data;
+		anjuta_ui_remove_action_group (ui, group);
+		node = g_list_next (node);
+	}
+	g_list_free (eplugin->action_groups);
+	eplugin->action_groups = NULL;
+	gtk_widget_destroy (eplugin->docman);
 	/* Unregister stock icons */
+	/* Unregister preferences */
 	/* FIXME: */
 	return TRUE;
 }
