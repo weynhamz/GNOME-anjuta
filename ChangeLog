@@ -1,3 +1,7 @@
+2004-01-09  Johannes Schmid <jhs@cvs.gnome.org>
+	
+	* plugins/message-view/message-view.c: Some code clean-up
+
 2004-01-09  Jean-Noel Guiheneuf <jnoel@lotuscompounds.com>
 
 	* Added: search_incremental[ch]

@@ -87,7 +87,10 @@ message_view_get_property (GObject * object,
 			   GValue * value, GParamSpec * pspec);
 
 static gboolean
-on_message_event (GObject* object, GdkEvent* event, gpointer data); 
+on_message_event (GObject* object, GdkEvent* event, gpointer data);
+
+/* Tools */
+void add_char(gchar** str, gchar c);
 
 /* Function to register the message-view object */
 
@@ -291,12 +294,7 @@ message_view_append (MessageView * view, gchar * message)
 		/* Is newline => print line */
 		if (message[cur_char] != '\n')
 		{
-			
-			gchar* buffer;
-			buffer = g_strdup_printf("%s%c",
-							view->privat->line_buffer, message[cur_char]);
-			g_free(view->privat->line_buffer);
-			view->privat->line_buffer = buffer;
+			add_char(&view->privat->line_buffer, message[cur_char]);
 		}
 		else
 		{
@@ -332,11 +330,8 @@ message_view_append (MessageView * view, gchar * message)
 				len = strlen(view->privat->line_buffer) - mesg_last;
 				for (cur_char = len; cur_char >= 0; cur_char++)
 				{
-						gchar* buffer;
-						buffer = g_strdup_printf("%s%c",
-							last_part, message[cur_char]);
-						g_free(last_part);
-						last_part = buffer;
+					add_char(&last_part, 
+						view->privat->line_buffer[cur_char]);
 				}
 				line = g_strconcat(first_part, "........", last_part, NULL);
 				g_free(first_part);
@@ -522,7 +517,7 @@ is availible or if the first line was selected, otherwise false */
 gboolean
 message_view_select_next (MessageView * view)
 {
-	g_return_if_fail(view != NULL);
+	g_return_val_if_fail(view != NULL, FALSE);
 	
 	GtkTreeIter iter;
 	GtkTreeModel *model;
@@ -563,7 +558,7 @@ message_view_select_previous (MessageView * view)
 	GtkTreeSelection *select;
 	GtkTreePath *path;
 
-	g_return_if_fail(view != NULL);
+	g_return_val_if_fail(view != NULL, FALSE);
 	
 	if (!gtk_tree_selection_get_selected (select, &model, &iter))
 	{
@@ -601,7 +596,7 @@ message_view_get_line (MessageView * view)
 	GtkTreeSelection *select;
 	guint line;
 
-	g_return_if_fail(view != NULL);
+	g_return_val_if_fail(view != NULL, 0);
 	
 	if (!gtk_tree_selection_get_selected (select, &model, &iter))
 		return view->privat->num_messages;
@@ -624,7 +619,7 @@ message_view_get_message (MessageView * view)
 	GtkTreeModel *model;
 	gchar *message;
 
-	g_return_if_fail(view != NULL);
+	g_return_val_if_fail(view != NULL, NULL);
 	
 	select = gtk_tree_view_get_selection (GTK_TREE_VIEW
 					      (view->privat->tree_view));
@@ -662,7 +657,7 @@ message_view_get_messages (MessageView * view)
 	gchar *line;
 	GList *messages = NULL;
 	
-	g_return_if_fail(view != NULL);
+	g_return_val_if_fail(view != NULL, NULL);
 
 	store = GTK_LIST_STORE (gtk_tree_view_get_model
 				(GTK_TREE_VIEW (view->privat->tree_view)));
@@ -742,4 +737,17 @@ on_message_event (GObject* object, GdkEvent* event, gpointer data)
 			return FALSE;
 	}		
 	return FALSE;
+}
+
+/* Adds the char c to the string str */
+
+void add_char(gchar** str, gchar c)
+{
+	gchar* buffer;	
+	
+	g_return_if_fail(str != NULL);
+	
+	buffer = g_strdup_printf("%s%c", *str, c);
+	g_free(str);
+	str = &buffer;
 }
