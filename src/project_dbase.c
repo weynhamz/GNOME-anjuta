@@ -868,6 +868,7 @@ project_dbase_save_yourself (ProjectDBase * p, FILE * stream)
 	if (project_config_save_yourself (p->project_config, stream)==FALSE)
 		return FALSE;
 
+	fprintf (stream, "project.is.showing=%d\n", p->is_showing);
 	fprintf (stream, "project.is.docked=%d\n", p->is_docked);
 	if (p->is_showing && !p->is_docked)
 	{
@@ -891,6 +892,7 @@ gboolean
 project_dbase_load_yourself (ProjectDBase * p, PropsID props)
 {
 	gboolean dock_flag;
+	gboolean showing_flag;
 	/* int clean_before_build; */
 
 	g_return_val_if_fail (p != NULL, FALSE);
@@ -898,17 +900,25 @@ project_dbase_load_yourself (ProjectDBase * p, PropsID props)
 	if (project_config_load_yourself (p->project_config, props)==FALSE)
 		return FALSE;
 
-	dock_flag = prop_get_int (props, "project.is.docked", 0);
+	showing_flag = prop_get_int (props, "project.is.showing", 1);
+	dock_flag = prop_get_int (props, "project.is.docked", 1);
 	p->win_pos_x = prop_get_int (props, "project.win.pos.x", 100);
 	p->win_pos_y = prop_get_int (props, "project.win.pos.y", 80);
 	p->win_width = prop_get_int (props, "project.win.width", 200);
 	p->win_height = prop_get_int (props, "project.win.height", 400);
 	/* clean_before_build = prop_get_int (props, "project.clean_before_build", 0);
 	p->clean_before_build = clean_before_build == 1 ? TRUE : FALSE; */
+
 	if (dock_flag)
 		project_dbase_dock (p);
 	else
 		project_dbase_undock (p);
+
+	if (showing_flag)
+		project_dbase_show (p);
+	else
+		project_dbase_hide (p);
+
 	return TRUE;
 }
 

@@ -614,7 +614,8 @@ an_message_manager_save_yourself (AnMessageManager * amm,
 {
 	if (!amm)
 		return false;
-	
+
+	fprintf (stream, "messages.is.shown=%d\n", amm->intern->is_shown);
 	fprintf (stream, "messages.is.docked=%d\n", amm->intern->is_docked);
 	if (amm->intern->is_shown && !amm->intern->is_docked)
 	{
@@ -648,16 +649,17 @@ an_message_manager_load_yourself (AnMessageManager * amm,
 {
 	if (!amm)
 		return false;
+	bool shown_flag;
 	bool dock_flag;
 	if (!amm)
 		return false;
 
-	dock_flag = prop_get_int (props, "messages.is.docked", 0);
+	shown_flag = prop_get_int (props, "messages.is.shown", 1);
+	dock_flag = prop_get_int (props, "messages.is.docked", 1);
 	amm->intern->xpos = prop_get_int (props, "messages.win.pos.x", 50);
 	amm->intern->ypos = prop_get_int (props, "messages.win.pos.y", 50);
 	amm->intern->width = prop_get_int (props, "messages.win.width", 600);
-	amm->intern->height =
-		prop_get_int (props, "messages.win.height", 300);
+	amm->intern->height = prop_get_int (props, "messages.win.height", 300);
 	
 	typedef vector < MessageSubwindow * >::iterator I;
 	for (I cur_win = amm->intern->msg_windows.begin ();
@@ -675,12 +677,16 @@ an_message_manager_load_yourself (AnMessageManager * amm,
 	}
 	
 	an_message_manager_update(amm);
-	
+
 	amm_hide_docked ();
 	if (!dock_flag)
 		an_message_manager_undock (amm);
 	else
 		amm->intern->is_docked = true;
+	if (shown_flag)
+	{
+		an_message_manager_show (amm, MESSAGE_NONE);
+	}
 	return true;
 }
 
