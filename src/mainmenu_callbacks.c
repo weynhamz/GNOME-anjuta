@@ -237,6 +237,12 @@ on_reload_file1_activate (GtkMenuItem * menuitem, gpointer user_data)
 	te = anjuta_get_current_text_editor ();
 	if (te == NULL)
 		return;
+	if (te->full_filename == NULL)
+	{
+		anjuta_error (_("A new file can not be reloaded."));
+		return;
+	}
+
 
 	sprintf (mesg, _("Are you sure you want to reload '%s'?\n"
 					 "Any unsaved changes will be lost."),
