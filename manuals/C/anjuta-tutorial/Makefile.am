@@ -1,6 +1,6 @@
 figs = \
 	figures/divided.png\
-	figures/glade-1.png\
+	figures/glade-l.png\
 	figures/icons.png\
 	figures/interface.png
 
