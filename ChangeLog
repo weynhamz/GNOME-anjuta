@@ -1,4 +1,19 @@
-2005-03-09  Johanes Schmid <jhs@cvs.gnome.org>
+2005-03-09  Johannes Schmid <jhs@cvs.gnome.org>
+
+	* plugins/project-wizard/templates/java.wiz
+	plugins/project-wizard/templates/java-logo.png (*)
+	plugins/project-wizard/templates/java/*
+	plugins/project-wizard/templates/Makefile.am
+	configure.in:
+	
+	Add Java project type. It generates a autoconf/automake
+	project which is compiled using gcj. It requires automake 
+	> 1.4 (1.9 is known to work) to work!
+	
+	(*) still awaiting response from the gcj team if we
+	may use their logo.
+	
+2005-03-09  Johannes Schmid <jhs@cvs.gnome.org>
 	
 	* plugins/project-import/*
 	plugins/Makefile.am

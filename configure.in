@@ -908,6 +908,9 @@ plugins/project-wizard/templates/xlib/po/Makefile
 plugins/project-wizard/templates/xlib-dock/Makefile
 plugins/project-wizard/templates/xlib-dock/src/Makefile
 plugins/project-wizard/templates/xlib-dock/po/Makefile
+plugins/project-wizard/templates/java/Makefile
+plugins/project-wizard/templates/java/src/Makefile
+plugins/project-wizard/templates/java/po/Makefile
 anjuta.desktop.in
 manuals/Makefile
 manuals/C/Makefile
