@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.ANJUTA_1_2_0.es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-06-27 03:49+0200\n"
-"PO-Revision-Date: 2003-06-27 20:10+0200\n"
+"POT-Creation-Date: 2003-07-23 19:13+0200\n"
+"PO-Revision-Date: 2003-07-24 02:21+0200\n"
 "Last-Translator: Francisco Javier F. Serrador <serrador@arrakis.es>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -393,8 +393,9 @@ msgid ""
 "Custom style,GNU coding style,Kernighan & Ritchie style,Original Berkeley "
 "style,Style of Kangleipak,Hello World style,Crazy boy style"
 msgstr ""
-"Estilo personalizado, estilo de codificación GNU, estilo Kernigham & Ritchie, estilo "
-"original de Berkeley, estilo de Kangleipak, estilo Hola Mundo, estilo loco"
+"Estilo personalizado, estilo de codificación GNU, estilo Kernigham & "
+"Ritchie, estilo original de Berkeley, estilo de Kangleipak, estilo Hola "
+"Mundo, estilo loco"
 
 #: anjuta.glade.h:79 anjuta_dialogs_strings.c:269
 msgid "Customize File Browser"
@@ -1705,18 +1706,18 @@ msgstr "Modificado"
 #: gdl/gdl-dock-layout.c:134
 msgid "True if the layouts have changed and need to be saved to a file"
 msgstr ""
-"Verdadero si los esquemas se han cambiado y necesitan ser guardados en un "
+"Verdadero si las disposiciones se han cambiado y necesitan ser guardados en un "
 "archivo"
 
 #: gdl/gdl-dock-layout.c:447
 msgid "You must provide a name for the layout"
-msgstr "Debe proporcionar un nombre para el esquema"
+msgstr "Debe proporcionar un nombre para la disposición"
 
 #. FIXME: pop up an error dialog
 #: gdl/gdl-dock-layout.c:625
 #, c-format
 msgid "Could not load layout user interface file '%s'"
-msgstr "No puedo cargar archivo de esquema de usuario: «%s»"
+msgstr "No se puede cargar archivo de disposición de usuario: «%s»"
 
 #: gdl/gdl-dock-layout.c:680
 msgid "Visible"
@@ -1737,7 +1738,7 @@ msgstr "Elementos empotrables"
 
 #: gdl/gdl-dock-layout.c:782 gdl/layout.glade.h:4
 msgid "Saved layouts"
-msgstr "Esquemas guardados"
+msgstr "Disposiciones guardadas"
 
 #: gdl/gdl-dock-layout.c:824
 #, c-format
@@ -1750,7 +1751,7 @@ msgstr ""
 
 #: gdl/gdl-dock-layout.c:1303
 msgid "Layout managment"
-msgstr "Administración de esquemas"
+msgstr "Administración de disposición"
 
 #: gdl/gdl-dock-master.c:136 gdl/gdl-dock.c:185
 msgid "Default title"
@@ -1972,7 +1973,7 @@ msgstr "Ampliación del icono"
 
 #: gdl/layout.glade.h:3
 msgid "Layout Managment"
-msgstr "Administrador esquemas"
+msgstr "Administrador disposiciones"
 
 #: gdl/layout.glade.h:5
 msgid "_Load"
@@ -2286,7 +2287,7 @@ msgstr "Copyright © Naba Kumar"
 #: src/an_file_view.c:57
 #, c-format
 msgid "Unable to open %s in %s"
-msgstr "No puedo abrir el archivo %s en %s"
+msgstr "No se puede abrir el archivo %s en %s"
 
 #: src/an_file_view.c:67
 #, c-format
@@ -2560,7 +2561,7 @@ msgstr "Codificaciones soportadas"
 #: src/anjuta-plugins.c:115 src/anjuta-plugins.c:118
 #, c-format
 msgid "Unable to load plugin %s. Error: %s"
-msgstr "No puedo cargar el extensión %s. Error: %s"
+msgstr "No se puede cargar el extensión %s. Error: %s"
 
 #: src/anjuta-plugins.c:121
 #, c-format
@@ -2570,7 +2571,7 @@ msgstr "El protocolo de extensiones %s es desconocido. Error:%s"
 #: src/anjuta-plugins.c:124
 #, c-format
 msgid "Unable to start plugin %s"
-msgstr "No puedo iniciar el extensión %s"
+msgstr "No se puede iniciar el extensión %s"
 
 #: src/anjuta-plugins.c:127
 #, c-format
@@ -2583,7 +2584,7 @@ msgid ""
 "Unable to load plugin %s.\n"
 "Error: %s"
 msgstr ""
-"No puedo cargar el extensión %s.\n"
+"No se puede cargar el extensión %s.\n"
 "Error: %s"
 
 #: src/anjuta-plugins.c:203
@@ -2662,7 +2663,7 @@ msgstr "Guardar Archivo Como"
 
 #: src/anjuta.c:244
 msgid "Cannot create application... exiting\n"
-msgstr "No puedo crear aplicación...terminando\n"
+msgstr "No se puede crear aplicación...terminando\n"
 
 #: src/anjuta.c:294 src/anjuta.c:298 src/anjuta.c:1119 src/anjuta.c:1135
 #, c-format
@@ -2797,7 +2798,7 @@ msgstr ""
 
 #: src/anjuta_dirs.c:51
 msgid "Unable to create settings directory.\n"
-msgstr "No puedo crear el directorio de configuración.\n"
+msgstr "No se puede crear el directorio de configuración.\n"
 
 #: src/anjuta_gui.c:191 src/anjuta_gui.c:280
 msgid "Click here to undock this window"
@@ -2924,12 +2925,12 @@ msgstr "Comando"
 #: src/attach_process.c:130
 #, c-format
 msgid "Unable to execute: %s."
-msgstr "No puedo ejecutar: %s."
+msgstr "No se puede ejecutar: %s."
 
 #: src/attach_process.c:140
 #, c-format
 msgid "Unable to open the file: %s\n"
-msgstr "No puedo abrir el archivo: %s\n"
+msgstr "No se puede abrir el archivo: %s\n"
 
 #: src/breakpoints.c:111
 msgid "Line"
@@ -3026,7 +3027,7 @@ msgstr "Compilación terminada ... correctamente"
 
 #: src/build_project.c:79 src/compile.c:63
 msgid "Unable to build module. Check Settings->Commands."
-msgstr "No puedo compilar el módulo. Compruebe Preferencias->Comandos."
+msgstr "No se puede compilar el módulo. Compruebe Preferencias->Comandos."
 
 #: src/build_project.c:100 src/build_project.c:163 src/compile.c:78
 msgid "Build Project"
@@ -3038,7 +3039,7 @@ msgstr "Compilando directorio fuente del Proyecto: "
 
 #: src/build_project.c:146
 msgid "Unable to build Project. Check Settings->Commands."
-msgstr "No puedo compilar el proyecto. Compruebe Opciones->Comandos."
+msgstr "No se puede compilar el proyecto. Compruebe Opciones->Comandos."
 
 #: src/build_project.c:166
 msgid "Building the whole Project: "
@@ -3046,7 +3047,7 @@ msgstr "Compilando todo el Proyecto: "
 
 #: src/build_project.c:199
 msgid "Unable to build tarball. Check Settings->Commands."
-msgstr "No puedo construir el archivo tar. Compruebe Preferencias->Comandos."
+msgstr "No se puede construir el archivo tar. Compruebe Preferencias->Comandos."
 
 #: src/build_project.c:216
 msgid "Build Distribution"
@@ -3062,7 +3063,7 @@ msgstr "¿Prefiere instalar como root?"
 
 #: src/build_project.c:291
 msgid "Unable to auto generate. Check Settings->Commands."
-msgstr "No puedo auto generar. Compruebe Preferencias->Comandos."
+msgstr "No se puede auto generar. Compruebe Preferencias->Comandos."
 
 #: src/build_project.c:307
 msgid "Auto generate Project"
@@ -3162,7 +3163,7 @@ msgstr "Auto generar terminó ... correctamente"
 
 #: src/build_project.c:516 src/build_project.c:561
 msgid "Unable to install Project. Check Settings->Commands."
-msgstr "No puedo instalar el proyecto. Compruebe Opciones->Comandos."
+msgstr "No se puede instalar el proyecto. Compruebe Opciones->Comandos."
 
 #: src/build_project.c:538 src/build_project.c:580
 msgid "Install Project"
@@ -3174,7 +3175,7 @@ msgstr "Instalando el Proyecto: "
 
 #: src/clean_project.c:65
 msgid "Unable to clean Project. Check Settings->Commands."
-msgstr "No puedo limpiar el Proyecto. Compruebe Opciones->Comandos."
+msgstr "No se puede limpiar el Proyecto. Compruebe Opciones->Comandos."
 
 #: src/clean_project.c:81
 msgid "Clean"
@@ -3186,7 +3187,7 @@ msgstr "Limpiando el directorio de código fuente del proyecto: "
 
 #: src/clean_project.c:120
 msgid "Unable to Clean All for the Project. Check Settings->Commands."
-msgstr "No puedo limpiar todo el Proyecto. Compruebe Opciones->Comandos."
+msgstr "No se puede limpiar todo el Proyecto. Compruebe Opciones->Comandos."
 
 #: src/clean_project.c:131
 msgid "Clean All"
@@ -3637,7 +3638,7 @@ msgid ""
 "Unable to initialize debugger.\n"
 "Make sure Anjuta is installed correctly."
 msgstr ""
-"No puedo encontrar: %s.\n"
+"No se puede encontrar: %s.\n"
 "No se puede iniciar el depurador.\n"
 "Asegúrese de haber instalado Anjuta correctamente."
 
@@ -3685,7 +3686,7 @@ msgstr ""
 
 #: src/debugger.c:1171
 msgid "Cannot execute gnome-terminal"
-msgstr "No puedo ejecutar gnome-terminal"
+msgstr "No se puede ejecutar gnome-terminal"
 
 #: src/debugger.c:1206
 msgid "Cannot start terminal for debugging."
@@ -3787,7 +3788,7 @@ msgstr "El ejecutable no está actualizado."
 
 #: src/executer.c:117
 msgid "Unable to execute Project. Check Settings->Commands."
-msgstr "No puedo ejecutar el proyecto. Compruebe Opciones->Comandos."
+msgstr "No se puede ejecutar el proyecto. Compruebe Opciones->Comandos."
 
 #: src/executer.c:131
 msgid "This file has not been saved. Save it first."
@@ -3795,7 +3796,7 @@ msgstr "El archivo no ha sido guardado. Guárdelo antes."
 
 #: src/executer.c:139
 msgid "Unable to execute file. Check Settings->Commands."
-msgstr "No puedo ejecutar el archivo. Compruebe Opciones->Comandos."
+msgstr "No se puede ejecutar el archivo. Compruebe Opciones->Comandos."
 
 #: src/find_in_files.c:327
 msgid "Find in Files completed...............Unsuccessful\n"
@@ -3858,15 +3859,15 @@ msgstr ""
 
 #: src/glade_iface.c:96
 msgid "Cannot fork glade."
-msgstr "No puedo hacer el fork para glade."
+msgstr "No se puede hacer el fork para glade."
 
 #: src/glade_iface.c:133 src/glade_iface.c:208
 msgid "Cannot fork glade--."
-msgstr "No puedo hacer el fork para glade--."
+msgstr "No se puede hacer el fork para glade--."
 
 #: src/glade_iface.c:171
 msgid "Cannot fork glade-2."
-msgstr "No puedo hacer el fork para glade-2."
+msgstr "No se puede hacer el fork para glade-2."
 
 #: src/gnome_project.c:62
 msgid ""
@@ -3883,7 +3884,7 @@ msgstr "Generando el Proyecto ...\n"
 #: src/gnome_project.c:85
 #, c-format
 msgid "Cannot create file: %s"
-msgstr "No puedo crear el archivo: %s"
+msgstr "No se puede crear el archivo: %s"
 
 #: src/gnome_project.c:154
 msgid "Loading Project ...\n"
@@ -3904,7 +3905,7 @@ msgstr "Copiando archivo de icono ...\n"
 
 #: src/gnome_project.c:193
 msgid "Could not create icon file ...\n"
-msgstr "No puedo crear archivo de icono ...\n"
+msgstr "No se puede crear archivo de icono ...\n"
 
 #: src/gnome_project.c:207
 msgid "Locating files ...\n"
@@ -3958,7 +3959,7 @@ msgstr "launcher.c: error al leer child stderr - %s\n"
 
 #: src/launcher.c:377 src/text_editor.c:1468
 msgid "Cannot execute command shell"
-msgstr "No puedo ejecutar el comando del shell"
+msgstr "No se puede ejecutar el comando del shell"
 
 #: src/main.c:50
 msgid "Do not show the splashscreen"
@@ -6299,7 +6300,7 @@ msgstr "Pila"
 #: src/message-manager.cc:268 src/message-manager.cc:323
 #, c-format
 msgid "Could not find message type %s!\n"
-msgstr "¡No puedo encontrar el tipo de mensaje %s!\n"
+msgstr "¡No se puede encontrar el tipo de mensaje %s!\n"
 
 #: src/message-manager.cc:552 src/toolbar.c:153
 msgid "Messages"
@@ -6333,7 +6334,7 @@ msgid ""
 "This may result in improper behaviour or instabilities.\n"
 "Anjuta will fall back to built in (limited) settings"
 msgstr ""
-"No puedo cargar valores por defecto y archivos de configuración:\n"
+"No se puede cargar valores por defecto y archivos de configuración:\n"
 "%s.\n"
 "Esto puede provocar comportamientos inapropiados e inestabilidades.\n"
 "Anjuta utilizará los valores iniciales (más limitados)"
@@ -6366,7 +6367,7 @@ msgstr "Todos los archivos"
 #: src/project_dbase.c:478 src/project_dbase.c:496
 #, c-format
 msgid "Unable to load Project: %s"
-msgstr "No puedo cargar Proyecto: %s"
+msgstr "No se puede cargar Proyecto: %s"
 
 #: src/project_dbase.c:489 src/project_dbase.c:2499
 #, c-format
@@ -6383,7 +6384,7 @@ msgstr "Proyecto guardado correctamente"
 
 #: src/project_dbase.c:880 src/project_dbase.c:882
 msgid "Unable to save the Project."
-msgstr "No puedo guardar el proyecto."
+msgstr "No se puede guardar el proyecto."
 
 #: src/project_dbase.c:1587
 msgid ""
@@ -6713,7 +6714,7 @@ msgstr "Seleccione lenguaje regional"
 #: src/project_dbase_gui.c:1265
 #, c-format
 msgid "Unable to find pixmap file: %s"
-msgstr "No puedo encontrar el archivo de imagen: %s"
+msgstr "No se puede encontrar el archivo de imagen: %s"
 
 #: src/project_dbase_gui.c:1344
 #, c-format
@@ -6744,7 +6745,7 @@ msgstr ""
 #: src/project_import.c:89
 #, c-format
 msgid "Unable to find import script %s"
-msgstr "No puedo encontrar el script de importación: %s"
+msgstr "No se puede encontrar el script de importación: %s"
 
 #: src/project_import.c:94
 #, c-format
@@ -6758,7 +6759,7 @@ msgstr "Importar proyecto desde %s ...\n"
 
 #: src/project_import.c:116
 msgid "Could not launch script!\n"
-msgstr "¡No puedo ejecutar script!\n"
+msgstr "¡No se puede ejecutar script!\n"
 
 #: src/project_import.c:127
 msgid "Importing Project...please wait"
@@ -6857,16 +6858,16 @@ msgstr "Widget no encontrado: %s"
 #: src/resources.c:75
 #, c-format
 msgid "Could not find application image file: %s"
-msgstr "No puedo encontrar el pixmap de la aplicación: %s"
+msgstr "No se puede encontrar el pixmap de la aplicación: %s"
 
 #: src/resources.c:101
 #, c-format
 msgid "Could not find application pixmap file: %s"
-msgstr "No puedo encontrar el pixmap de la aplicación: %s"
+msgstr "No se puede encontrar el pixmap de la aplicación: %s"
 
 #: src/resources.c:263 src/resources.c:271
 msgid "Cannot execute Devhelp. Make sure it is installed"
-msgstr "No puedo ejecutar Devhelp. Asegúrese de que está instalado"
+msgstr "No se puede ejecutar Devhelp. Asegúrese de que está instalado"
 
 #: src/search-replace.c:1058 src/text_editor_gui.c:140
 msgid "Replace"
@@ -6967,7 +6968,7 @@ msgstr "Error al escribir a archivo: %s."
 #: src/source.c:2701 src/utilities.c:744
 #, c-format
 msgid "Unable to create file: %s."
-msgstr "No puedo crear el archivo: %s"
+msgstr "No se puede crear el archivo: %s"
 
 #: src/source.c:1612 src/source.c:1732
 #, c-format
@@ -7017,7 +7018,7 @@ msgstr "Marco"
 #: src/support.c:60 src/support.c:85
 #, c-format
 msgid "Couldn't find pixmap file: %s"
-msgstr "No puedo encontrar el archivo de imagen : %s"
+msgstr "No se puede encontrar el archivo de imagen : %s"
 
 #: src/text_editor.c:887
 msgid "This file is too big. Unable to allocate memory."
@@ -7044,7 +7045,7 @@ msgid ""
 "\n"
 "Details: %s"
 msgstr ""
-"No puedo cargar archivo: %s\n"
+"No se puede cargar archivo: %s\n"
 "\n"
 "Detalles: %s"
 
@@ -7059,7 +7060,7 @@ msgstr "Guardando Archivo ..."
 #: src/text_editor.c:1153
 #, c-format
 msgid "Could not save file: %s."
-msgstr "No puedo guardar: %s."
+msgstr "No se puede guardar: %s."
 
 #: src/text_editor.c:1193
 msgid "File saved successfully"
@@ -7587,7 +7588,7 @@ msgstr "Autocompletar palabra"
 
 #: src/toolbar_callbacks.c:240
 msgid "No matches. Wrap search around the document?"
-msgstr "No hay concordancias"
+msgstr "No se encontró nada. ¿Quiere buscar desde el principio del documento?"
 
 #: src/toolbar_callbacks.c:284
 #, c-format
@@ -7597,11 +7598,11 @@ msgstr "Existe una linea nº %d en «%s»."
 #: src/utilities.c:736
 #, c-format
 msgid "Unable to read file: %s."
-msgstr "No puedo leer el archivo: %s."
+msgstr "No se puede leer el archivo: %s."
 
 #: src/utilities.c:778
 msgid "Unable to complete file copy"
-msgstr "No puedo copiar el archivo"
+msgstr "No se puede copiar el archivo"
 
 #: src/watch_cbs.c:236
 msgid "< Not defined in current context >"
