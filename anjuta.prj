@@ -461,17 +461,19 @@ module.pixmap.files=\
 	pixmaps/anjuta_splash.png\
 	pixmaps/applogo.png\
 	pixmaps/appwiz_bonobo.png\
+	pixmaps/appwiz_bonobo2.png\
 	pixmaps/appwiz_gnome.png\
 	pixmaps/appwiz_gnomemm.png\
-	pixmaps/appwiz_gtk.png\
-	pixmaps/appwiz_gtkmm.png\
-	pixmaps/appwiz_libglade.png\
-	pixmaps/appwiz_bonobo2.png\
 	pixmaps/appwiz_gnome2.png\
 	pixmaps/appwiz_gnomemm2.png\
+	pixmaps/appwiz_gtk.png\
+	pixmaps/appwiz_gtkmm.png\
 	pixmaps/appwiz_gtk2.png\
 	pixmaps/appwiz_gtkmm2.png\
+	pixmaps/appwiz_libglade.png\
 	pixmaps/appwiz_libglade2.png\
+	pixmaps/appwiz_opengl.png\
+	pixmaps/appwiz_sdl.png\
 	pixmaps/appwiz_terminal.png\
 	pixmaps/appwizard.png\
 	pixmaps/autocomplete.xpm\
