@@ -83,7 +83,7 @@ editor_tab_widget_new(AnjutaDocmanPage* page)
 	GtkWidget *tmp_toolbar_icon;
 	GtkWidget *label;
 	GtkWidget *box;
-	GtkRequisition r;
+	int h, w;
 	GdkColor color;
 	
 	g_return_val_if_fail(GTK_IS_WIDGET (page->widget), NULL);
@@ -91,16 +91,18 @@ editor_tab_widget_new(AnjutaDocmanPage* page)
 	if (page->close_image)
 		editor_tab_widget_destroy (page);
 	
-	tmp_toolbar_icon = anjuta_res_get_image (ANJUTA_PIXMAP_CLOSE_FILE_SMALL);
+	gtk_icon_size_lookup (GTK_ICON_SIZE_MENU, &w, &h);
+
+	tmp_toolbar_icon = gtk_image_new_from_stock(GTK_STOCK_CLOSE, GTK_ICON_SIZE_MENU);
 	gtk_widget_show(tmp_toolbar_icon);
 	
 	button15 = gtk_button_new();
 	gtk_container_add(GTK_CONTAINER(button15), tmp_toolbar_icon);
 	gtk_button_set_relief(GTK_BUTTON(button15), GTK_RELIEF_NONE);
+	gtk_widget_set_size_request (button15, w, h);
 	
-	close_pixmap = anjuta_res_get_image (ANJUTA_PIXMAP_CLOSE_FILE_SMALL);
-	gtk_widget_size_request (button15, &r);
-	gtk_widget_set_usize (close_pixmap, r.width, r.height);
+	close_pixmap = gtk_image_new_from_stock(GTK_STOCK_CLOSE, GTK_ICON_SIZE_MENU);
+	gtk_widget_set_size_request(close_pixmap, w,h);
 	gtk_widget_set_sensitive(close_pixmap, FALSE);
 	
 	label = gtk_label_new (TEXT_EDITOR (page->widget)->filename);
@@ -117,7 +119,7 @@ editor_tab_widget_new(AnjutaDocmanPage* page)
 	gtk_widget_modify_fg (button15, GTK_STATE_SELECTED, &color);
 	gtk_widget_show(button15);
 	
-	box = gtk_hbox_new(FALSE, 0);
+	box = gtk_hbox_new(FALSE, 2);
 	gtk_box_pack_start(GTK_BOX(box), label, TRUE, TRUE, 0);
 	gtk_box_pack_start(GTK_BOX(box), button15, FALSE, FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(box), close_pixmap, FALSE, FALSE, 0);
