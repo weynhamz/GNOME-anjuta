@@ -3,7 +3,7 @@
 	* anjuta.glade: re-designed the new file dialog
 	* anjuta_dialogs_strings.c: new strings from the new file dialog
 
-2004-04-30
+2004-04-30  Naba Kumar  <naba@gnome.org>
 
 	* libanjuta/interfaces/Makefile.am.iface,
 	libanjuta/interfaces/anjuta-idl-compiler.pl: Fixed errors.
