@@ -25,8 +25,8 @@
 GtkItemFactoryEntry class_popup::menus[]=
 {
     {N_("/_Class Definition"),NULL,GTK_SIGNAL_FUNC(class_popup::class_def),0,NULL},
-    {N_("/_Func Definition"),NULL,GTK_SIGNAL_FUNC(class_popup::func_def),0,NULL},
-    {N_("/Func _Declaration"),NULL,GTK_SIGNAL_FUNC(class_popup::func_decl),0,NULL}//,
+    {N_("/_Function Definition"),NULL,GTK_SIGNAL_FUNC(class_popup::func_def),0,NULL},
+    {N_("/Function _Declaration"),NULL,GTK_SIGNAL_FUNC(class_popup::func_decl),0,NULL}//,
     //{N_("/_Add function"),NULL,GTK_SIGNAL_FUNC(class_popup::add_func),0,NULL},
     //{N_("/_Properties"),NULL,GTK_SIGNAL_FUNC(class_popup::properties),0,NULL}
 };

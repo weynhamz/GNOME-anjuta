@@ -1,3 +1,8 @@
+2001-10-10	Andy Piper	<andy.piper@freeuk.com>
+
+	* src/toolbar.c: fix typo in tooltip text
+	* ccview/cccmd.cc: alter Func to Function in menu text
+
 2001-10-09	Andy Piper	<andy.piper@freeuk.com>
 
 	* src/find_text.c: applied patch from rikul <null@acm.org> to fix minor
@@ -33,7 +38,7 @@
     Implemented a check menu item to handle the 'show locals' flag
     for the current project.
 
-    * data/internal.properties: Removed the redundent command
+    * data/internal.properties: Removed the redundant command
     for gnome-terminal.
     
 2001-09-25  Naba Kumar <kh_naba@users.sourceforge.net>

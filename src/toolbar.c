@@ -1047,7 +1047,7 @@ create_debug_toolbar (GtkWidget * anjuta_gui, DebugToolbar * toolbar)
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
 					    _("Watch"),
 					    _
-					    ("Watch expresions during execution"),
+					    ("Watch expressions during execution"),
 					    NULL, tmp_toolbar_icon, NULL,
 					    NULL);
 	gtk_widget_ref (toolbar_watch);
