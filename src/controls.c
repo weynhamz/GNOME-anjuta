@@ -237,6 +237,7 @@ update_main_menubar ()
 	BookmarkSubMenu *mm;
 	DebugSubMenu *dm;
 	HelpSubMenu *hm;
+	CVSSubMenu* cvs;
 	gboolean F, P, SF, L, G, A, R, Pr, UD, RD, Ld, C, I, FLD, UT;
 	TextEditor *te;
 
@@ -251,7 +252,7 @@ update_main_menubar ()
 	mm = &(app->widgets.menubar.bookmark);
 	dm = &(app->widgets.menubar.debug);
 	hm = &(app->widgets.menubar.help);
-
+	cvs = &(app->widgets.menubar.cvs);
 	P = app->project_dbase->project_is_open;
 	if (P)
 		G = TRUE;
@@ -419,6 +420,14 @@ update_main_menubar ()
 	gtk_widget_set_sensitive (dm->info_locals, A && R);
 	gtk_widget_set_sensitive (dm->info_frame, A && R);
 	gtk_widget_set_sensitive (dm->info_args, A && R);
+	
+	gtk_widget_set_sensitive (cvs->update_project, P);
+	gtk_widget_set_sensitive (cvs->commit_project, P);
+	gtk_widget_set_sensitive (cvs->import_project, P);
+	gtk_widget_set_sensitive (cvs->status_project, P);
+	gtk_widget_set_sensitive (cvs->log_project, P);
+	gtk_widget_set_sensitive (cvs->diff_project, P);
+
 
 	update_led_animator ();
 }

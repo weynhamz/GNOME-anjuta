@@ -1354,7 +1354,7 @@ static GnomeUIInfo plugins_menu_uiinfo[NUM_PLUGINS_SUBMENUS+1] = {
 	GNOMEUIINFO_END/*1*/
 };
 
-#define NUM_CVS_SUBMENUS 18 
+#define NUM_CVS_SUBMENUS 16 
 static GnomeUIInfo cvs_menu_uiinfo[NUM_CVS_SUBMENUS+1] = {
 	{
 	 /* 0 */
@@ -1417,7 +1417,7 @@ static GnomeUIInfo cvs_menu_uiinfo[NUM_CVS_SUBMENUS+1] = {
 	 /* 9 */
 	 GNOME_APP_UI_ITEM, N_("Commit project"),
 	 N_("Commit the local changes in your project to the repositry"),
-	 on_cvs_login_activate, NULL, NULL,
+	 on_cvs_commit_project_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{
@@ -1456,16 +1456,8 @@ static GnomeUIInfo cvs_menu_uiinfo[NUM_CVS_SUBMENUS+1] = {
 	 on_cvs_login_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
-	GNOMEUIINFO_SEPARATOR, /* 16 */ 
-	{
-	 /* 17 */
-	 GNOME_APP_UI_ITEM, N_("_Settings ..."),
-	 N_("Change your CVS settings"),
-	 on_cvs_settings_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_PROP,
-	 0, 0, NULL},
-	/* 18 */
-	GNOMEUIINFO_END,
+	 /* 16 */
+	 GNOMEUIINFO_END,
 };
 
 #define NUM_SETTINGS_SUBMENUS 6

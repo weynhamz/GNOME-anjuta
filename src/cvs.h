@@ -40,18 +40,14 @@ enum
 CVS *cvs_new (PropsID p);
 void cvs_destroy (CVS * cvs);
 
-void cvs_set_server (CVS * cvs, gchar * server);
-void cvs_set_server_type (CVS * cvs, ServerType type);
-void cvs_set_directory (CVS * cvs, gchar * directory);
-void cvs_set_username (CVS * cvs, gchar * username);
-void cvs_set_passwd (CVS * cvs, gchar * passwd);
+void cvs_set_force_update (CVS * cvs, gboolean force_update);
+void cvs_set_unified_diff (CVS * cvs, gboolean unified_diff);
+void cvs_set_context_diff (CVS * cvs, gboolean context_diff);
 void cvs_set_compression (CVS * cvs, guint compression);
 
-gchar *cvs_get_server (CVS * cvs);
-ServerType cvs_get_server_type (CVS * cvs);
-gchar *cvs_get_directory (CVS * cvs);
-gchar *cvs_get_username (CVS * cvs);
-gchar *cvs_get_passwd (CVS * cvs);
+gboolean cvs_get_force_update(CVS * cvs);
+gboolean cvs_get_unified_diff(CVS* cvs);
+gboolean cvs_get_context_diff(CVS* cvs);
 guint cvs_get_compression (CVS * cvs);
 
 /* Command functions */
@@ -61,11 +57,12 @@ void cvs_commit (CVS * cvs, gchar * filename, gchar * revision,
 void cvs_status (CVS * cvs, gchar * filename, gboolean is_dir);
 void cvs_log (CVS * cvs, gchar * filename, gboolean is_dir);
 void cvs_diff (CVS * cvs, gchar * filename, gchar * rev,
-			time_t date, gboolean unified, gboolean is_dir);
+			time_t date, gboolean is_dir);
 void cvs_add_file (CVS * cvs, gchar * filename, gchar * message);
 void cvs_remove_file (CVS * cvs, gchar * filename);
 
-void cvs_login (CVS * cvs);
+void cvs_login (CVS * cvs, ServerType type, gchar* server, 
+			gchar* dir, gchar* user);
 
 
 gboolean cvs_save_yourself (CVS * cvs, FILE * stream);

@@ -1,3 +1,37 @@
+2002-04-10 Naba Kumar <kh_naba@users.sourceforge.net>
+	
+	* src/build_project.c: Taken care of memory leak
+	  by freeing cmd variable properly.
+
+	* src/main_menubar_def.h: Fixed wrong signal connection
+	  for cvs project commit.
+	  
+	* src/cvs_cbs.c: Fixed non-functional "cancel" button.
+	
+	* src/preferences_gui.c: Added some border and adjusted
+	  expandsion, filling in box adds to make the cvs preferences
+	  more nicer.
+	
+2002-04-03 Johannes Schmid <clubfan@users.sourceforge.net>
+
+	Reviewed by Naba Kumar <kh_naba@users.sourceforge.net>
+	
+	* src/cvs*, src/main_menubar*, src/preferences*: 
+	Moved CVS settings to preferences, added a nice login dialog.
+	
+	* src/controls.c, src/project_dbase.c:
+	CVS project options are only shown if a project is open
+	
+	* src/build_project.c:
+	User is now asked if he wants to install as root 
+	
+	* src/launcher.c:
+	Fixed a warning
+
+	* anjuta.prj: Updated with cvs files
+	
+	* TODO: Remove task which are done
+	
 2002-03-31 Naba Kumar <kh_naba@users.sourceforge.net>
 
 	* pixmaps/Makefile.am, src/compile.c, src/configurer.c,

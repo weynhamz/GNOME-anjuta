@@ -148,6 +148,12 @@ struct _PreferencesWidgets
 	GtkWidget *no_tag_check;
 	GtkWidget *tags_update_check;
 	
+	/* Page CVS */
+	GtkWidget *spin_compression;
+	GtkWidget *option_unified;
+	GtkWidget *option_context;
+	GtkWidget *option_force_update;
+	
 	/* Page Comps */
 	GtkWidget *use_components;
 };

@@ -41,154 +41,6 @@ static gchar* get_cur_filename()
 		
 
 /* 
-	Creates and show a dialog where server, username... for CVS 
-	can be set.
-*/
-
-void
-create_cvs_settings_dialog (CVS * cvs)
-{
-	CVSSettingsGUI *gui;
-	GtkWidget *server_page_label;
-	GtkWidget *table;
-
-	GtkWidget *label_server_type;
-	GList *string_list;
-	int i;
-
-	GtkWidget *label_server;
-	GtkWidget *label_server_dir;
-	GtkWidget *label_username;
-	GtkWidget *label_passwd;
-	GtkWidget *label_compression;
-	GtkAdjustment *adj;
-
-	gchar *server = cvs_get_server (cvs);
-	gchar *server_dir = cvs_get_directory (cvs);
-	ServerType server_type = cvs_get_server_type (cvs);
-	gchar *username = cvs_get_username (cvs);
-	gchar *passwd = cvs_get_passwd (cvs);
-	guint compression = cvs_get_compression (cvs);
-	string_list = g_list_alloc ();
-	for (i = 0; i < 4; i++)
-	{
-		string_list = g_list_append (string_list, server_types[i]);
-	}
-
-	gui = g_new0 (CVSSettingsGUI, 1);
-
-	gui->dialog = gnome_property_box_new ();
-	gtk_window_set_wmclass (GTK_WINDOW (gui->dialog), "cvs-settings",
-				"anjuta");
-	gtk_window_set_title (GTK_WINDOW (gui->dialog), _("CVS Settings"));
-
-	table = gtk_table_new (8, 2, TRUE);
-	gtk_widget_show (table);
-
-	label_server = gtk_label_new (_("CVS server: "));
-	gui->entry_server = gtk_entry_new ();
-	gtk_widget_show (label_server);
-	gtk_widget_show (gui->entry_server);
-	gtk_entry_set_text (GTK_ENTRY (gui->entry_server), server);
-	gtk_signal_connect (GTK_OBJECT (gui->entry_server), "changed",
-			    GTK_SIGNAL_FUNC (on_entry_changed), gui);
-	gtk_table_attach_defaults (GTK_TABLE (table), label_server, 0, 1, 1,
-				   2);
-	gtk_table_attach_defaults (GTK_TABLE (table), gui->entry_server, 1, 2,
-				   1, 2);
-
-	label_server_dir = gtk_label_new (_("Directory on the server: "));
-	gui->entry_server_dir = gtk_entry_new ();
-	gtk_widget_show (label_server_dir);
-	gtk_widget_show (gui->entry_server_dir);
-	gtk_entry_set_text (GTK_ENTRY (gui->entry_server_dir), server_dir);
-	gtk_signal_connect (GTK_OBJECT (gui->entry_server_dir), "changed",
-			    GTK_SIGNAL_FUNC (on_entry_changed), gui);
-	gtk_table_attach_defaults (GTK_TABLE (table), label_server_dir, 0, 1,
-				   2, 3);
-	gtk_table_attach_defaults (GTK_TABLE (table), gui->entry_server_dir,
-				   1, 2, 2, 3);
-
-	label_username = gtk_label_new (_("Username: "));
-	gui->entry_username = gtk_entry_new ();
-	gtk_widget_show (label_username);
-	gtk_widget_show (gui->entry_username);
-	gtk_entry_set_text (GTK_ENTRY (gui->entry_username), username);
-	gtk_signal_connect (GTK_OBJECT (gui->entry_username), "changed",
-			    GTK_SIGNAL_FUNC (on_entry_changed), gui);
-	gtk_table_attach_defaults (GTK_TABLE (table), label_username, 0, 1, 4,
-				   5);
-	gtk_table_attach_defaults (GTK_TABLE (table), gui->entry_username, 1,
-				   2, 4, 5);
-
-	label_passwd = gtk_label_new (_("Password: "));
-	gui->entry_passwd = gtk_entry_new ();
-	gtk_widget_show (label_passwd);
-	gtk_widget_show (gui->entry_passwd);
-	gtk_entry_set_visibility (GTK_ENTRY (gui->entry_passwd), FALSE);
-	gtk_entry_set_text (GTK_ENTRY (gui->entry_passwd), passwd);
-	gtk_signal_connect (GTK_OBJECT (gui->entry_passwd), "changed",
-			    GTK_SIGNAL_FUNC (on_entry_changed), gui);
-	gtk_table_attach_defaults (GTK_TABLE (table), label_passwd, 0, 1, 5,
-				   6);
-	gtk_table_attach_defaults (GTK_TABLE (table), gui->entry_passwd, 1, 2,
-				   5, 6);
-
-	label_compression = gtk_label_new (_("Compression:"));
-	adj = GTK_ADJUSTMENT (gtk_adjustment_new (0, 0, 9, 1, 10, 0));
-	gui->spin_compression = gtk_spin_button_new (adj, 1, 0);
-	gtk_widget_show (label_compression);
-	gtk_widget_show (gui->spin_compression);
-	gtk_spin_button_set_value
-		(GTK_SPIN_BUTTON (gui->spin_compression), compression);
-	gtk_signal_connect (GTK_OBJECT (gui->spin_compression), "changed",
-			    GTK_SIGNAL_FUNC (on_entry_changed), gui);
-	gtk_table_attach_defaults (GTK_TABLE (table), label_compression, 0, 1,
-				   7, 8);
-	gtk_table_attach_defaults (GTK_TABLE (table), gui->spin_compression,
-				   1, 2, 7, 8);
-
-	label_server_type = gtk_label_new (_("Select Server type:"));
-	gui->combo_server_type = gtk_combo_new ();
-	gtk_widget_show (label_server_type);
-	gtk_widget_show (gui->combo_server_type);
-	gtk_combo_set_popdown_strings (GTK_COMBO (gui->combo_server_type),
-				       string_list);
-	gtk_combo_set_value_in_list (GTK_COMBO (gui->combo_server_type),
-				     TRUE, FALSE);
-	gtk_signal_connect (GTK_OBJECT
-			    (GTK_COMBO (gui->combo_server_type)->entry),
-			    "changed", GTK_SIGNAL_FUNC (on_entry_changed),
-			    gui);
-	gtk_entry_set_text (GTK_ENTRY
-			    (GTK_COMBO (gui->combo_server_type)->entry),
-			    server_types[server_type]);
-	gtk_table_attach_defaults (GTK_TABLE (table), label_server_type, 0, 1,
-				   0, 1);
-	gtk_table_attach_defaults (GTK_TABLE (table), gui->combo_server_type,
-				   1, 2, 0, 1);
-
-	gtk_signal_connect (GTK_OBJECT
-			    (GNOME_PROPERTY_BOX (gui->dialog)->ok_button),
-			    "clicked", GTK_SIGNAL_FUNC (on_cvs_settings_ok),
-			    gui);
-	gtk_signal_connect (GTK_OBJECT
-			    (GNOME_PROPERTY_BOX (gui->dialog)->apply_button),
-			    "clicked",
-			    GTK_SIGNAL_FUNC (on_cvs_settings_apply), gui);
-	gtk_signal_connect (GTK_OBJECT
-			    (GNOME_PROPERTY_BOX (gui->dialog)->cancel_button),
-			    "clicked",
-			    GTK_SIGNAL_FUNC (on_cvs_settings_cancel), gui);
-
-	server_page_label = gtk_label_new ("CVS");
-	gnome_property_box_append_page
-		(GNOME_PROPERTY_BOX (gui->dialog), table, server_page_label);
-
-	gtk_widget_show (gui->dialog);
-}
-
-/* 
 	Create a dialog in which a filename can be specified.
 	If the user clicks the Update/Commit/Status button cvs is invoked.
 	Default for the filename is the current open file.
@@ -351,7 +203,7 @@ create_cvs_diff_gui (CVS * cvs, gchar* filename, gboolean bypass_dialog)
 	gtk_signal_connect (GTK_OBJECT (gui->cancel_button), "clicked",
 			    GTK_SIGNAL_FUNC (on_cvs_diff_cancel), gui);
 
-	table = gtk_table_new (4, 2, FALSE);
+	table = gtk_table_new (3, 2, FALSE);
 	gtk_widget_show (table);
 
 	label_file = gtk_label_new (_("File: "));
@@ -389,13 +241,6 @@ create_cvs_diff_gui (CVS * cvs, gchar* filename, gboolean bypass_dialog)
 	gtk_table_attach_defaults (GTK_TABLE (table), gui->entry_rev, 1, 2, 2,
 				   3);
 
-	gui->check_unified =
-		gtk_check_button_new_with_label (_("Create unified diff"));
-	gtk_widget_show (gui->check_unified);
-	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(gui->check_unified), TRUE);
-	gtk_table_attach_defaults (GTK_TABLE (table), gui->check_unified, 0,
-				   1, 3, 4);
-
 	gtk_box_pack_start_defaults (GTK_BOX(GNOME_DIALOG (gui->dialog)->vbox),
 			table);
 
@@ -404,4 +249,70 @@ create_cvs_diff_gui (CVS * cvs, gchar* filename, gboolean bypass_dialog)
 	} else {
 		gtk_widget_show (gui->dialog);
 	}
+}
+
+void 
+create_cvs_login_gui (CVS * cvs)
+{
+	GtkWidget* type_label;
+	GtkWidget* user_label;
+	GtkWidget* server_label;
+	GtkWidget* dir_label;
+	GtkWidget* table;
+	GtkWidget* ok_button;
+	GtkWidget* cancel_button;
+	
+	GList* strings;
+	int i;
+	CVSLoginGUI* gui;
+	
+	gui = g_new0(CVSLoginGUI, 1);
+	
+	gui->dialog = gnome_dialog_new (_("CVS Login"), _("Login"), _("Cancel"), NULL);
+	
+	gui->combo_type = gtk_combo_new();
+	gui->entry_user = gnome_entry_new ("cvs-user");
+	gui->entry_server = gnome_entry_new ("cvs-server");
+	gui->entry_dir = gnome_entry_new ("cvs-server-dir");
+	
+	type_label = gtk_label_new (_("Server type: "));
+	user_label = gtk_label_new (_("Username: "));
+	server_label = gtk_label_new (_("Server: "));
+	dir_label = gtk_label_new (_("Directory on the server: "));
+	
+	table = gtk_table_new (4, 2, TRUE);
+	gtk_table_attach_defaults (GTK_TABLE (table), type_label, 0, 1, 0, 1);
+	gtk_table_attach_defaults (GTK_TABLE (table), server_label, 0, 1, 1, 2);
+	gtk_table_attach_defaults (GTK_TABLE (table), dir_label, 0, 1, 2, 3);
+	gtk_table_attach_defaults (GTK_TABLE (table), user_label, 0, 1, 3, 4);
+	
+	gtk_table_attach_defaults (GTK_TABLE (table), gui->combo_type, 1, 2, 0, 1);
+	gtk_table_attach_defaults (GTK_TABLE (table), gui->entry_server, 1, 2, 1, 2);
+	gtk_table_attach_defaults (GTK_TABLE (table), gui->entry_dir, 1, 2, 2, 3);
+	gtk_table_attach_defaults (GTK_TABLE (table), gui->entry_user, 1, 2, 3, 4);
+	
+	strings = g_list_alloc();
+	for (i = 0; i < 4; i++)
+	{
+		strings = g_list_append (strings, server_types[i]);
+	}
+	
+	gtk_editable_set_editable (GTK_EDITABLE (GTK_COMBO (gui->combo_type)->entry), FALSE);
+	gtk_combo_set_popdown_strings (GTK_COMBO (gui->combo_type), strings);
+	gtk_combo_set_value_in_list (GTK_COMBO (gui->combo_type), TRUE, FALSE);
+	
+	gtk_box_pack_start_defaults (GTK_BOX (GNOME_DIALOG(gui->dialog)->vbox),
+				table);
+	
+	ok_button =
+		g_list_first (GNOME_DIALOG (gui->dialog)->buttons)->data;
+	cancel_button =
+		g_list_last (GNOME_DIALOG (gui->dialog)->buttons)->data;
+	
+	gtk_signal_connect (GTK_OBJECT (ok_button), "clicked", 
+			GTK_SIGNAL_FUNC (on_cvs_login_ok), gui);
+	gtk_signal_connect (GTK_OBJECT (cancel_button), "clicked",
+			GTK_SIGNAL_FUNC (on_cvs_login_cancel), gui);
+	
+	gtk_widget_show_all (gui->dialog);
 }

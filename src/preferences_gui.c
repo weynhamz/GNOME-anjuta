@@ -117,6 +117,9 @@ static GtkWidget *create_preferences_pagemsg (Preferences * p);
 
 static GtkWidget *create_preferences_page7 (Preferences * p);
 
+static GtkWidget *create_preferences_page_cvs (Preferences* pr);
+
+
 static GtkWidget *create_preferences_pageComp (Preferences * p);
 
 void
@@ -135,6 +138,7 @@ create_preferences_gui (Preferences * pr)
 	GtkWidget *page5;
 	GtkWidget *pagemsg;
 	GtkWidget *page7;
+	GtkWidget *pagecvs;
 	GtkWidget *pageComponents;
 	GtkWidget *label102;
 	GtkWidget *label103;
@@ -142,7 +146,8 @@ create_preferences_gui (Preferences * pr)
 	GtkWidget *label12;
 	GtkWidget *label15;
 	GtkWidget* labelmsg;
-	GtkWidget *labelComps;	
+	GtkWidget *labelComps;
+	GtkWidget *labelcvs;
 	GtkWidget *preferences_ok;
 	GtkWidget *preferences_apply;
 	GtkWidget *preferences_cancel;
@@ -242,6 +247,16 @@ create_preferences_gui (Preferences * pr)
 				    gtk_notebook_get_nth_page (GTK_NOTEBOOK
 							       (notebook2),
 							       7), label103);
+	
+	pagecvs = create_preferences_page_cvs(pr);
+	gtk_container_add (GTK_CONTAINER(notebook2), pagecvs);
+	
+	labelcvs = gtk_label_new(_("CVS"));
+	gtk_widget_show(labelcvs);
+	gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook2),
+					gtk_notebook_get_nth_page (GTK_NOTEBOOK(notebook2),
+					8), labelcvs);
+	
 	pageComponents = create_preferences_pageComp (pr);
 	gtk_container_add (GTK_CONTAINER (notebook2), pageComponents);
 
@@ -250,7 +265,7 @@ create_preferences_gui (Preferences * pr)
 	gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook2),
 				    gtk_notebook_get_nth_page (GTK_NOTEBOOK
 							       (notebook2),
-							       8), labelComps);
+							       9), labelComps);
 
 	dialog_action_area2 = GNOME_DIALOG (dialog1)->action_area;
 	gtk_widget_show (dialog_action_area2);
@@ -1664,6 +1679,59 @@ create_preferences_page7 (Preferences * p)
 	return frame1;
 }
 
+static GtkWidget *
+create_preferences_page_cvs (Preferences* pr)
+{
+	GtkWidget* frame;
+	GtkWidget* vbox;
+	
+	GtkWidget* compression_label;
+	GtkWidget* compression_box;
+	GtkWidget* compression_frame;
+	GtkAdjustment* compression_adj;
+	
+	GtkWidget* update_frame;
+	
+	GtkWidget* diff_box;
+	GtkWidget* diff_frame;
+	
+	frame = gtk_frame_new(NULL);
+	gtk_container_set_border_width(GTK_CONTAINER(frame), 5);
+	vbox = gtk_vbox_new(FALSE, 5);
+	
+	compression_adj = GTK_ADJUSTMENT(gtk_adjustment_new (0, 0, 9, 1, 10, 0));
+	pr->widgets.spin_compression = gtk_spin_button_new (compression_adj, 1, 0);
+	compression_label = gtk_label_new(_("Compression:"));
+	compression_box = gtk_hbox_new(FALSE, 5);
+	gtk_box_pack_start(GTK_BOX(compression_box), compression_label, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(compression_box), pr->widgets.spin_compression, FALSE, FALSE, 0);
+	compression_frame = gtk_frame_new(_("CVS Compression (-z)"));
+	gtk_container_set_border_width(GTK_CONTAINER(compression_frame), 5);
+	gtk_container_add(GTK_CONTAINER(compression_frame), compression_box);
+	
+	pr->widgets.option_force_update = gtk_check_button_new_with_label(_("Force update (-P -d -A)"));
+	update_frame = gtk_frame_new (_("CVS Update"));
+	gtk_container_set_border_width(GTK_CONTAINER(update_frame), 5);
+	gtk_container_add(GTK_CONTAINER(update_frame), pr->widgets.option_force_update);
+	
+	pr->widgets.option_unified = gtk_check_button_new_with_label(_("Unified diff format"));
+	pr->widgets.option_context = gtk_check_button_new_with_label(_("Context diff format"));
+	diff_box = gtk_hbox_new(FALSE, 5);
+	gtk_box_pack_start (GTK_BOX(diff_box), pr->widgets.option_unified, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX(diff_box), pr->widgets.option_context, FALSE, FALSE, 0);
+	diff_frame = gtk_frame_new (_("CVS Diff"));
+	gtk_container_set_border_width(GTK_CONTAINER(diff_frame), 5);
+	gtk_container_add(GTK_CONTAINER(diff_frame), diff_box);
+	
+	gtk_box_pack_start (GTK_BOX(vbox), compression_frame, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX(vbox), update_frame, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX(vbox), diff_frame, FALSE, FALSE, 0);
+	
+	gtk_container_add(GTK_CONTAINER(frame), vbox);
+	gtk_widget_show_all(frame);
+	return frame;
+}
+
 static gint
 IntFromHexDigit (const gchar ch)
 {
@@ -2066,6 +2134,15 @@ on_preferences_apply_clicked (GtkButton * button, gpointer user_data)
 		g_free(str);
 	}
 
+/* Page CVS */
+	cvs_set_compression (app->cvs, 
+		gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (pr->widgets.spin_compression)));
+	cvs_set_force_update (app->cvs,
+		gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (pr->widgets.option_force_update)));
+	cvs_set_unified_diff (app->cvs,
+		gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (pr->widgets.option_unified)));
+	cvs_set_context_diff (app->cvs,
+		gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (pr->widgets.option_context)));
 	
 /* Page Components */
 	preferences_set_int (pr, USE_COMPONENTS,

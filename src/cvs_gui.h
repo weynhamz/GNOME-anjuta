@@ -19,9 +19,9 @@
 
 #include "cvs.h"
 
-typedef struct _CVSSettingsGUI CVSSettingsGUI;
 typedef struct _CVSFileGUI CVSFileGUI;
 typedef struct _CVSFileDiffGUI CVSFileDiffGUI;
+typedef struct _CVSLoginGUI CVSLoginGUI;
 
 /* 
 	This is used to tell create_cvs_file_gui which dialog it should
@@ -38,18 +38,6 @@ enum
 	CVS_ACTION_REMOVE
 };
 
-struct _CVSSettingsGUI
-{
-	GtkWidget *dialog;
-
-	GtkWidget *combo_server_type;
-	GtkWidget *entry_server;
-	GtkWidget *entry_server_dir;
-	GtkWidget *entry_username;
-	GtkWidget *entry_passwd;
-	GtkWidget *spin_compression;
-};
-
 struct _CVSFileGUI
 {
 	GtkWidget* dialog;
@@ -64,6 +52,16 @@ struct _CVSFileGUI
 	int type;
 };
 
+struct _CVSLoginGUI
+{
+	GtkWidget* dialog;
+	
+	GtkWidget* combo_type;
+	GtkWidget* entry_server;
+	GtkWidget* entry_dir;
+	GtkWidget* entry_user;
+};
+
 struct _CVSFileDiffGUI
 {
 	GtkWidget* dialog;
@@ -72,15 +70,13 @@ struct _CVSFileDiffGUI
 	GtkWidget* entry_date;
 	GtkWidget* entry_rev;
 	
-	GtkWidget* check_unified;
-	
 	GtkWidget* diff_button;
 	GtkWidget* cancel_button;
 };
 
 extern gchar *server_types[4];
 
-void create_cvs_settings_dialog (CVS * cvs);
+void create_cvs_login_gui (CVS * cvs);
 
 void create_cvs_gui (CVS * cvs, int dialog_type, gchar* filename, gboolean bypass_dialog);
 

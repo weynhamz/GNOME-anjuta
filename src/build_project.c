@@ -35,6 +35,11 @@
 #include "launcher.h"
 #include "build_project.h"
 
+static void
+install_as_root (GtkWidget* button, gpointer data);
+static void
+install_as_user (GtkWidget* button, gpointer data);
+
 void
 build_project ()
 {
@@ -208,8 +213,6 @@ build_dist_project ()
 void
 build_install_project ()
 {
-	gchar *cmd, *prj_name;
-
 	if(app->project_dbase->is_saved == FALSE 
 		&& app->project_dbase->project_is_open==TRUE)
 	{
@@ -221,40 +224,11 @@ build_install_project ()
 
 	if (app->project_dbase->project_is_open)
 	{
-		cmd = command_editor_get_command (app->command_editor, COMMAND_BUILD_INSTALL);
-		if (cmd == NULL)
-		{
-			anjuta_warning (_
-					("Unable to install Project. Check Settings->Commands."));
-			return;
-		}
-		chdir (app->project_dbase->top_proj_dir);
-		anjuta_set_execution_dir(app->project_dbase->top_proj_dir);
-		
-		if(preferences_get_int(app->preferences, BUILD_OPTION_AUTOSAVE))
-		{
-			anjuta_save_all_files();
-		}
-	
-		if (launcher_execute
-		    (cmd, build_mesg_arrived, build_mesg_arrived,
-		     build_install_terminated) == FALSE)
-		{
-			g_free (cmd);
-			return;
-		}
-		anjuta_update_app_status (TRUE, _("Install Project"));
-		anjuta_message_manager_clear (app->messages, MESSAGE_BUILD);
-		anjuta_message_manager_append (app->messages, _("Installing the Project: "),
-				 MESSAGE_BUILD);
-		prj_name = project_dbase_get_proj_name (app->project_dbase);
-		anjuta_message_manager_append (app->messages, prj_name, MESSAGE_BUILD);
-		anjuta_message_manager_append (app->messages, " ...\n", MESSAGE_BUILD);
-		anjuta_message_manager_append (app->messages, cmd, MESSAGE_BUILD);
-		anjuta_message_manager_append (app->messages, "\n", MESSAGE_BUILD);
-		anjuta_message_manager_show (app->messages, MESSAGE_BUILD);
-		g_free (cmd);
-		g_free (prj_name);
+		messagebox2 (GNOME_MESSAGE_BOX_QUESTION,
+		     _("Do you want to install as root?"),
+		     GNOME_STOCK_BUTTON_YES, GNOME_STOCK_BUTTON_NO,
+		     GTK_SIGNAL_FUNC (install_as_root),
+			 GTK_SIGNAL_FUNC (install_as_user), NULL);
 	}
 }
 
@@ -483,4 +457,88 @@ build_autogen_terminated (int status, time_t time)
 		gdk_beep ();
 	g_free (buff1);
 	anjuta_update_app_status (TRUE, NULL);
+}
+
+static void
+install_as_root (GtkWidget* button, gpointer data)
+{
+	gchar *cmd, *build_cmd, *prj_name;
+	build_cmd = command_editor_get_command (app->command_editor, COMMAND_BUILD_INSTALL);
+	if (build_cmd == NULL)
+	{
+		anjuta_warning (_
+				("Unable to install Project. Check Settings->Commands."));
+		return;
+	}
+	cmd = g_strconcat ("su --command='", build_cmd, "'", NULL);
+	g_free(build_cmd);
+	
+	chdir (app->project_dbase->top_proj_dir);
+	anjuta_set_execution_dir(app->project_dbase->top_proj_dir);
+	
+	if(preferences_get_int(app->preferences, BUILD_OPTION_AUTOSAVE))
+	{
+		anjuta_save_all_files();
+	}
+
+	if (launcher_execute
+		(cmd, build_mesg_arrived, build_mesg_arrived,
+		 build_install_terminated) == FALSE)
+	{
+		g_free (cmd);
+		return;
+	}
+	anjuta_update_app_status (TRUE, _("Install Project"));
+	anjuta_message_manager_clear (app->messages, MESSAGE_BUILD);
+	anjuta_message_manager_append (app->messages, _("Installing the Project: "),
+			 MESSAGE_BUILD);
+	prj_name = project_dbase_get_proj_name (app->project_dbase);
+	anjuta_message_manager_append (app->messages, prj_name, MESSAGE_BUILD);
+	anjuta_message_manager_append (app->messages, " ...\n", MESSAGE_BUILD);
+	anjuta_message_manager_append (app->messages, cmd, MESSAGE_BUILD);
+	anjuta_message_manager_append (app->messages, "\n", MESSAGE_BUILD);
+	anjuta_message_manager_show (app->messages, MESSAGE_BUILD);
+	g_free (cmd);
+	g_free (prj_name);
+
+}
+
+static void
+install_as_user (GtkWidget* button, gpointer data)
+{
+	gchar *cmd, *prj_name;
+	cmd = command_editor_get_command (app->command_editor, COMMAND_BUILD_INSTALL);
+	if (cmd == NULL)
+	{
+		anjuta_warning (_
+				("Unable to install Project. Check Settings->Commands."));
+		return;
+	}
+	chdir (app->project_dbase->top_proj_dir);
+	anjuta_set_execution_dir(app->project_dbase->top_proj_dir);
+	
+	if(preferences_get_int(app->preferences, BUILD_OPTION_AUTOSAVE))
+	{
+		anjuta_save_all_files();
+	}
+
+	if (launcher_execute
+		(cmd, build_mesg_arrived, build_mesg_arrived,
+		 build_install_terminated) == FALSE)
+	{
+		g_free (cmd);
+		return;
+	}
+	anjuta_update_app_status (TRUE, _("Install Project"));
+	anjuta_message_manager_clear (app->messages, MESSAGE_BUILD);
+	anjuta_message_manager_append (app->messages, _("Installing the Project: "),
+			 MESSAGE_BUILD);
+	prj_name = project_dbase_get_proj_name (app->project_dbase);
+	anjuta_message_manager_append (app->messages, prj_name, MESSAGE_BUILD);
+	anjuta_message_manager_append (app->messages, " ...\n", MESSAGE_BUILD);
+	anjuta_message_manager_append (app->messages, cmd, MESSAGE_BUILD);
+	anjuta_message_manager_append (app->messages, "\n", MESSAGE_BUILD);
+	anjuta_message_manager_show (app->messages, MESSAGE_BUILD);
+	g_free (cmd);
+	g_free (prj_name);
 }

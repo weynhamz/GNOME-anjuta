@@ -482,6 +482,7 @@ launcher_pty_check_password(gchar* last_line)
 					launcher_reset();
 					break;
 				default:
+					break;
 			}
 			gtk_widget_destroy(dialog);
 		}

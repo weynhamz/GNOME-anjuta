@@ -39,13 +39,11 @@
 /* struct is private, use functions to access members */
 struct _CVS
 {
-	gchar *server;
-	gchar *server_dir;
-	ServerType server_type;
+	gboolean force_update;
+	gboolean unified_diff;
+	gboolean context_diff;
+	
 	guint compression;
-
-	gchar *username;
-	gchar *passwd;
 };
 
 /* Callbacks for launcher */
@@ -56,7 +54,8 @@ static void on_cvs_terminate (int status, time_t time);
 
 /* Utility functions */
 static void launch_cvs_command (gchar * command, gchar * dir);
-static gchar *get_full_cvsroot (CVS * cvs);
+static gchar *get_full_cvsroot (CVS * cvs, ServerType type, 
+		gchar* server, gchar* dir, gchar* user);
 static gchar *add_compression (CVS * cvs);
 
 /* Server types translation table */
@@ -74,24 +73,12 @@ CVS *
 cvs_new (PropsID p)
 {
 	CVS *cvs = g_new0 (CVS, 1);
-	cvs->server_dir = prop_get (p, "cvs.server.dir");
-
-	cvs->server = prop_get (p, "cvs.server");
-	cvs->server_type = prop_get_int (p, "cvs.server.type", CVS_LOCAL);
-
-	cvs->username = prop_get (p, "cvs.server.username");
-	cvs->passwd = prop_get (p, "cvs.server.passwd");
-
+	
+	cvs->force_update = prop_get_int (p, "cvs.update.force", 0);
+	cvs->unified_diff = prop_get_int (p, "cvs.diff.unified", 0);
+	cvs->context_diff = prop_get_int (p, "cvs.diff.context", 0);
+	
 	cvs->compression = prop_get_int (p, "cvs.compression", 0);
-
-	if (cvs->server == NULL)
-		cvs->server = g_strdup ("");
-	if (cvs->server_dir == NULL)
-		cvs->server_dir = g_strdup ("");
-	if (cvs->username == NULL)
-		cvs->username = g_strdup ("");
-	if (cvs->passwd == NULL)
-		cvs->passwd = g_strdup ("");
 
 	return cvs;
 }
@@ -103,98 +90,63 @@ cvs_new (PropsID p)
 */
 
 void
-cvs_set_server (CVS * cvs, gchar * server)
+cvs_set_force_update (CVS * cvs, gboolean force_update)
 {
 	g_return_if_fail (cvs != NULL);
-	g_return_if_fail (server != NULL);
-	g_free (cvs->server);
-	cvs->server = g_strdup (server);
+	cvs->force_update = force_update;
 }
 
 void
-cvs_set_server_type (CVS * cvs, ServerType type)
+cvs_set_unified_diff (CVS * cvs, gboolean unified_diff)
 {
 	g_return_if_fail (cvs != NULL);
-	cvs->server_type = type;
+	cvs->unified_diff = unified_diff;
 }
 
 void
-cvs_set_directory (CVS * cvs, gchar * directory)
+cvs_set_context_diff (CVS * cvs, gboolean context_diff)
 {
 	g_return_if_fail (cvs != NULL);
-	g_return_if_fail (directory != NULL);
-	g_free (cvs->server_dir);
-	cvs->server_dir = g_strdup (directory);
-}
-
-void
-cvs_set_username (CVS * cvs, gchar * username)
-{
-	g_return_if_fail (username != NULL);
-	g_free (cvs->username);
-	cvs->username = g_strdup (username);
-}
-
-/*
-	Here the password can be set by the user but it is not required.
-	If the password is needed an none is set, then the user will be asked.
-	If the password is stored in the preferences it is stored as clean text
-	so be careful if it should be "top-secret".
-*/
-
-void
-cvs_set_passwd (CVS * cvs, gchar * passwd)
-{
-	g_return_if_fail (passwd != NULL);
-	g_free (cvs->passwd);
-	cvs->passwd = g_strdup (passwd);
+	cvs->context_diff = context_diff;
 }
 
 void
 cvs_set_compression (CVS * cvs, guint compression)
 {
+	g_return_if_fail (cvs != NULL);
 	cvs->compression = compression;
 }
 
 
 /*
 	Following functions allow to access the cvs module.
-	If gchar* are returned they need to be g_freed
 */
 
-gchar *
-cvs_get_server (CVS * cvs)
+gboolean
+cvs_get_force_update(CVS * cvs)
 {
-	return g_strdup (cvs->server);
+	g_return_val_if_fail (cvs != NULL, 0);
+	return cvs->force_update;
 }
 
-ServerType
-cvs_get_server_type (CVS * cvs)
+gboolean 
+cvs_get_unified_diff(CVS* cvs)
 {
-	return cvs->server_type;
+	g_return_val_if_fail (cvs != NULL, 0);
+	return cvs->unified_diff;
 }
 
-gchar *
-cvs_get_directory (CVS * cvs)
+gboolean
+cvs_get_context_diff(CVS* cvs)
 {
-	return g_strdup (cvs->server_dir);
-}
-
-gchar *
-cvs_get_username (CVS * cvs)
-{
-	return g_strdup (cvs->username);
-}
-
-gchar *
-cvs_get_passwd (CVS * cvs)
-{
-	return g_strdup (cvs->passwd);
+	g_return_val_if_fail (cvs != NULL, 0);
+	return cvs->context_diff;
 }
 
 guint
 cvs_get_compression (CVS * cvs)
 {
+	g_return_val_if_fail (cvs != NULL, 0);
 	return cvs->compression;
 }
 
@@ -207,12 +159,6 @@ void
 cvs_destroy (CVS * cvs)
 {
 	g_return_if_fail (cvs != NULL);
-	g_free (cvs->server);
-	g_free (cvs->server_dir);
-
-	g_free (cvs->username);
-	g_free (cvs->passwd);
-
 	g_free (cvs);
 }
 
@@ -244,6 +190,9 @@ cvs_update (CVS * cvs, gchar * filename, gchar * branch, gboolean is_dir)
 
 	compression = add_compression (cvs);
 	command = g_strconcat ("cvs ", compression, " update ", NULL);
+	if (cvs->force_update)
+		command = g_strconcat (command, " -P -d -A ", NULL);
+	
 	if (branch != NULL && strlen (branch) > 0)
 		command = g_strconcat (command, "-j ", branch, " ", NULL);
 	if (file) 
@@ -476,7 +425,7 @@ cvs_log (CVS * cvs, gchar * filename, gboolean is_dir)
 
 void
 cvs_diff (CVS * cvs, gchar * filename, gchar * revision,
-	       time_t date, gboolean unified, gboolean is_dir)
+	       time_t date, gboolean is_dir)
 {
 	gchar *file;
 	gchar *dir;
@@ -494,9 +443,11 @@ cvs_diff (CVS * cvs, gchar * filename, gchar * revision,
 	}
 
 	compression = add_compression (cvs);
-	command = g_strconcat ("cvs ", compression, "diff", NULL);
-	if (unified)
+	command = g_strconcat ("cvs ", compression, " diff", NULL);
+	if (cvs->unified_diff)
 		command = g_strconcat (command, " -u ", NULL);
+	else if (cvs->context_diff)
+		command = g_strconcat (command, " -c ", NULL);
 	if (revision != NULL && strlen (revision))
 		command = g_strconcat (command, " -r ", revision, NULL);
 	if (date > 0)
@@ -511,7 +462,7 @@ cvs_diff (CVS * cvs, gchar * filename, gchar * revision,
 	}
 	if (file)
 		command = g_strconcat (command, file, NULL);
-
+	
 	anjuta_message_manager_clear (app->messages, MESSAGE_CVS);
 	anjuta_message_manager_append (app->messages, _("CVS diffing "), MESSAGE_CVS);
 	anjuta_message_manager_append (app->messages, filename, MESSAGE_CVS);
@@ -537,17 +488,15 @@ cvs_diff (CVS * cvs, gchar * filename, gchar * revision,
 */
 
 void
-cvs_login (CVS * cvs)
+cvs_login (CVS * cvs, ServerType type, gchar* server, gchar* dir, 
+		gchar* user)
 {
 	gchar *cvsroot;
 	gchar *command;
 
 	g_return_if_fail (cvs != NULL);
 
-	if (cvs->server_type != CVS_PASSWORD && cvs->server_type != CVS_EXT)
-		return;
-
-	cvsroot = get_full_cvsroot (cvs);
+	cvsroot = get_full_cvsroot (cvs, type, server, dir, user);
 	command = g_strconcat ("cvs -d ", cvsroot, " login", NULL);
 
 	/* Insert login code here */
@@ -572,12 +521,9 @@ cvs_save_yourself (CVS * cvs, FILE * stream)
 	if (!cvs)
 		return FALSE;
 
-	fprintf (stream, "cvs.server=%s\n", cvs->server);
-	fprintf (stream, "cvs.server.dir=%s\n", cvs->server_dir);
-	fprintf (stream, "cvs.server.type=%d\n", cvs->server_type);
-	fprintf (stream, "cvs.server.username=%s\n", cvs->username);
-	fprintf (stream, "cvs.server.passwd=%s\n", cvs->passwd);
-
+	fprintf (stream, "cvs.update.force=%d\n", cvs->force_update);
+	fprintf (stream, "cvs.diff.unified=%d\n", cvs->unified_diff);
+	fprintf (stream, "cvs.diff.context=%d\n", cvs->context_diff);
 	fprintf (stream, "cvs.compression=%d\n", cvs->compression);
 
 	return TRUE;
@@ -659,16 +605,17 @@ on_cvs_terminate (int status, time_t time)
 */
 
 static gchar *
-get_full_cvsroot (CVS * cvs)
+get_full_cvsroot (CVS * cvs, ServerType type, gchar* server, 
+		gchar* dir, gchar* user)
 {
-	char *cvsroot;
+	gchar *cvsroot;
 	g_return_val_if_fail (cvs != NULL, NULL);
-	cvsroot = g_strdup (server_type_identifiers[cvs->server_type]);
-	switch (cvs->server_type)
+	cvsroot = g_strdup (server_type_identifiers[type]);
+	switch (type)
 	{
 	case CVS_LOCAL:
 	{
-		cvsroot = g_strconcat (cvsroot, cvs->server_dir, NULL);
+		cvsroot = g_strconcat (cvsroot, ":", dir, NULL);
 		break;
 	}
 	case CVS_PASSWORD:
@@ -676,8 +623,8 @@ get_full_cvsroot (CVS * cvs)
 	case CVS_SERVER:
 	{
 		cvsroot =
-			g_strconcat (cvsroot, ":", cvs->username, "@",
-				     cvs->server, ":", cvs->server_dir, NULL);
+			g_strconcat (cvsroot, ":", user, "@",
+				     server, ":", dir, NULL);
 		break;
 	}
 	default:

@@ -614,6 +614,17 @@ preferences_sync (Preferences * pr)
 				      (pr->widgets.tags_update_check),
 				      preferences_get_int (pr,
 							   AUTOMATIC_TAGS_UPDATE));
+	/* Page CVS */
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (pr->widgets.option_force_update),
+			cvs_get_force_update (app->cvs));
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (pr->widgets.option_unified),
+			cvs_get_unified_diff (app->cvs));
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (pr->widgets.option_context),
+			cvs_get_context_diff (app->cvs));
+	
+	gtk_spin_button_set_value (GTK_SPIN_BUTTON (pr->widgets.spin_compression),
+			cvs_get_compression (app->cvs));
+	
 	/* Page Components */
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON
 				      (pr->widgets.use_components),
@@ -846,7 +857,7 @@ gboolean preferences_save_yourself (Preferences * pr, FILE * fp)
 		 preferences_get_int (pr, AUTOMATIC_TAGS_UPDATE));
 	fprintf (fp, "%s=%d\n", USE_COMPONENTS,
 		 preferences_get_int (pr, USE_COMPONENTS));
-
+	
 	/* Miscellaneous */
 	str = preferences_get(pr, CHARACTER_SET);
 	if (str)

@@ -114,6 +114,9 @@ module.include.files=\
 	src/compiler_options_cbs.h\
 	src/configurer.h\
 	src/controls.h\
+	src/cvs.h\
+	src/cvs_gui.h\
+	src/cvs_cbs.h\
 	src/debugger.h\
 	src/defaults.h\
 	src/dnd.h\
@@ -285,6 +288,9 @@ module.source.files=\
 	src/compiler_options_gui.c\
 	src/configurer.c\
 	src/controls.c\
+	src/cvs.c\
+	src/cvs_gui.c\
+	src/cvs_cbs.c\
 	src/debugger.c\
 	src/defaults.c\
 	src/dnd.c\

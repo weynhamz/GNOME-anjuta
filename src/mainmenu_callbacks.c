@@ -1842,14 +1842,7 @@ void
 on_cvs_login_activate                  (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-	cvs_login(app->cvs);
-}
-
-void
-on_cvs_settings_activate                  (GtkMenuItem     *menuitem,
-                                        gpointer         user_data)
-{
-	create_cvs_settings_dialog(app->cvs);
+	create_cvs_login_gui (app->cvs);
 }
 
 /************************************************************************************************/

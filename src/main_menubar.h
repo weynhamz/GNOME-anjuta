@@ -239,7 +239,6 @@ struct _CVSSubMenu
 	GtkWidget* log_project;
 	GtkWidget* diff_project;
 	GtkWidget* login;
-	GtkWidget* settings;
 };
 
 struct _SettingsSubMenu

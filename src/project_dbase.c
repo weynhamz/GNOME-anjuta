@@ -2019,6 +2019,13 @@ project_dbase_update_controls (ProjectDBase * pd)
 	gtk_widget_set_sensitive (pd->widgets.menu_remove, p);
 	gtk_widget_set_sensitive (pd->widgets.menu_configure, p);
 	gtk_widget_set_sensitive (pd->widgets.menu_info, p);
+	
+	gtk_widget_set_sensitive (app->widgets.menubar.cvs.update_project, p);
+	gtk_widget_set_sensitive (app->widgets.menubar.cvs.commit_project, p);
+	gtk_widget_set_sensitive (app->widgets.menubar.cvs.import_project, p);
+	gtk_widget_set_sensitive (app->widgets.menubar.cvs.status_project, p);
+	gtk_widget_set_sensitive (app->widgets.menubar.cvs.log_project, p);
+	gtk_widget_set_sensitive (app->widgets.menubar.cvs.diff_project, p);
 }
 
 

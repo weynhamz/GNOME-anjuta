@@ -216,7 +216,6 @@ create_main_menubar (GtkWidget * ap, MainMenuBar * mb)
 	mb->cvs.log_project = cvs_menu_uiinfo[12].widget;
 	mb->cvs.diff_project = cvs_menu_uiinfo[13].widget;
 	mb->cvs.login = cvs_menu_uiinfo[15].widget;
-	mb->cvs.settings = cvs_menu_uiinfo[17].widget;
 	
 	/* Settings submenu */
 	mb->settings.compiler = settings1_menu_uiinfo[0].widget;

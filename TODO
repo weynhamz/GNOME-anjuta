@@ -6,7 +6,6 @@ TODO List:
 
 	o new file widget
 	o rewrite manual
-	o CVS support
 	o improve find functionality
 	o project manager changes
 	
@@ -16,14 +15,12 @@ TODO List:
     o Comments in source files
 	
 	o Compiler options: supports
-	o Different types of projects: executable/library/shared-library etc.
 	o Being able to open a source rpm (.src.rpm) or a .tgz tarball and have it
 	  imported as a project
 
 	o Debugger optimization
 	o Gnome Print
 
-	o Confirm root before program installation
 	o Utilities
 	o Integration with glade, gtranslator, eog and other bonobo components
 	
@@ -47,11 +44,7 @@ TODO List:
 	  Well, that's a problem with the GtkPanedWindows, but I thing we make a
 	  temporary work around fix in anjuta by capturing the resize signal of
 	  the concerned widgets. Anybody care to have look in it? :-)
-	
-	o > It would be nice that when Opening a project only the *.prj files showed 
-	  > up by default.  And that the pattern be available for editing inside the 
-	  > file dialog.
-	  
+		  
 	o > I like the fact that you can right click a file name in the project 
 	  > viewer and view it through a browser for html file for example. I'd like 
 	  > to have the feature also available inside the context sensitive menu of 
@@ -64,12 +57,7 @@ TODO List:
 	  > if we want to continue from the top of the file.  Right now, very often 
 	  > the fail claim that the text is not there but if you go to the top and 
 	  > redo the search it works.
-	
-	o > I'd like to create a new project file, but without generating all the 
-	  > source and other things (as I've already got a stable setup, and I just 
-	  > want to evaluate anjuta). Is this possible? If not, it'd be nice to have 
-	  > it added to the suggestions list.
-	  
+		  
 	o > I had been using Multi-Edit in Windows days, and it had a great feature
 	  > for browsing code (Vim also has it).  It's a cross between searching
 	  > and syntax highlighting.  You enter a regular expression in a
@@ -90,12 +78,10 @@ TODO List:
 
 BUGS:
 -----
-- In a C++ projects, checking for the gtkmm and gnomemm packages
-
 - For whatever reason db1-devel_1.85-4mdk was not installed by default and
 ld gave me errors (can't find -ldb1). Checking for db1 dependency (both rpm and configure).
 
 - Tooltips that pop up for a function (eg. "printf(") persist
-onscreen when changing source files. If you edit file 2 and
-return they disappear. Tooltips need to be tied to the present
-editing panel.
+onscreen when changing source files. 
+This is now fixed but now calltips flicker if the curser touches
+them.

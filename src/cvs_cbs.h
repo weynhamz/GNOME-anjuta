@@ -22,12 +22,8 @@
 #define CVS_CBS_H
 
 /* CVS Settings */
-gboolean on_cvs_settings_apply (GtkWidget * button, CVSSettingsGUI * gui);
-void on_cvs_settings_ok (GtkWidget * button, CVSSettingsGUI * gui);
-void on_cvs_settings_cancel (GtkWidget * button, CVSSettingsGUI * gui);
-
-void on_combo_server_type_changed (GtkWidget * entry, CVSSettingsGUI * gui);
-void on_entry_changed (GtkWidget * entry, CVSSettingsGUI * gui);
+void on_cvs_login_ok (GtkWidget * button, CVSLoginGUI * gui);
+void on_cvs_login_cancel (GtkWidget * button, CVSLoginGUI * gui);
 
 /* CVS File Dialog */
 void on_cvs_ok (GtkWidget * button, CVSFileGUI * gui);
