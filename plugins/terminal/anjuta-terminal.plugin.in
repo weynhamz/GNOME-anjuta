@@ -1,0 +1,6 @@
+[Anjuta Plugin]
+_Name=Anjuta Terminal Plugin
+_Description=Terminal Plugin for Anjuta.
+Location=anjuta-terminal:TerminalPlugin
+Icon=anjuta-terminal-plugin.png
+Interfaces=IAnjutaTerminal

@@ -94,8 +94,8 @@ struct _TextEditorClass
 
 GType text_editor_get_type (void);
 
-GtkWidget* text_editor_new (AnjutaPreferences * pr, gchar * full_filename,
-							gchar *tab_name);
+GtkWidget* text_editor_new (AnjutaPreferences * pr, const gchar *full_filename,
+							const gchar *tab_name);
 
 void text_editor_freeze (TextEditor * te);
 
@@ -158,6 +158,8 @@ gint text_editor_get_num_bookmarks (TextEditor* te);
 gchar* text_editor_get_current_word (TextEditor *te);
 
 void text_editor_grab_focus (TextEditor *te);
+
+void text_editor_function_select(TextEditor *te);
 
 #define linenum_text_editor_to_scintilla(x) (x-1)
 #define linenum_scintilla_to_text_editor(x) (x+1)

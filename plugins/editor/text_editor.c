@@ -148,7 +148,7 @@ initialize_markers (TextEditor* te)
 }
 
 GtkWidget *
-text_editor_new (AnjutaPreferences *eo, gchar *filename, gchar *name)
+text_editor_new (AnjutaPreferences *eo, const gchar *filename, const gchar *name)
 {
 	static guint new_file_count;
 
@@ -219,7 +219,6 @@ text_editor_destroy (GObject *obj)
 		gtk_timeout_remove (te->autosave_id);
 	g_object_unref (G_OBJECT (te->scintilla));
 	
-#warning "G2: Strange we are missing one _unref() somewhere"
 	// gtk_widget_unref (te->scintilla);
 	
 	if (te->filename)
@@ -1445,11 +1444,11 @@ get_indent_style(AnjutaPreferences *pr, const gchar *name_style)
 	};
 	
 	gint n;
-	if (g_strcasecmp (name_style, "Custom style") == 0)
+	if (g_ascii_strcasecmp (name_style, "Custom style") == 0)
 		return anjuta_preferences_get (pr, AUTOFORMAT_CUSTOM_STYLE);
 	for (n=0; n < (sizeof(indentstyle)/sizeof(IndentStyle)); n++)
 	{
-		if (g_strcasecmp (name_style, _(indentstyle[n].name)) == 0)
+		if (g_ascii_strcasecmp (name_style, (indentstyle[n].name)) == 0)
 			return g_strdup(indentstyle[n].style);
 	}
 	return NULL;
@@ -1458,7 +1457,7 @@ get_indent_style(AnjutaPreferences *pr, const gchar *name_style)
 void
 text_editor_autoformat (TextEditor * te)
 {
-	gchar *cmd, *file, *fopts, *shell;
+	gchar *cmd, *file, *fopts, *dir;
 	pid_t pid;
 	int status;
 	gchar *err;
@@ -1513,20 +1512,13 @@ text_editor_autoformat (TextEditor * te)
 	}
 	cmd = g_strconcat ("indent ", fopts, " ", file, NULL);
 	g_free (fopts);
-
-	/* This does not work, because SIGCHILD is not emitted.
-	 * pid = gnome_execute_shell(app->dirs->tmp, cmd);
-	 * So using fork instead.
-	 */
-	shell = gnome_util_user_shell ();
-	if ((pid = fork ()) == 0)
-	{
-		execlp (shell, shell, "-c", cmd, NULL);
-		g_error (_("Cannot execute command shell"));
-	}
+	dir = g_path_get_dirname (file);
+	pid = anjuta_util_execute_shell (dir, cmd);
+	g_free (dir);
 	g_free (cmd);
 
 	waitpid (pid, &status, 0);
+
 	scintilla_send_message (SCINTILLA (te->scintilla),
 				SCI_GETCURRENTPOS, 0, 0);
 	scintilla_send_message (SCINTILLA (te->scintilla),
@@ -1659,6 +1651,47 @@ gchar *text_editor_get_current_word(TextEditor *te)
 	}
 #endif
 	return buf;
+}
+
+void
+text_editor_function_select(TextEditor *te)
+{
+	gint pos;
+	gint line;
+	gint fold_level;
+	gint start, end;	
+	gint line_count;
+	gint tmp;
+
+	line_count = scintilla_send_message(SCINTILLA(te->scintilla), 
+	                                    SCI_GETLINECOUNT, 0, 0);
+	pos = scintilla_send_message(SCINTILLA(te->scintilla), 
+	                             SCI_GETCURRENTPOS, 0, 0);
+	line = scintilla_send_message(SCINTILLA(te->scintilla),
+	                              SCI_LINEFROMPOSITION, pos, 0);
+
+	tmp = line + 1;	
+	fold_level = scintilla_send_message(SCINTILLA(te->scintilla), 
+	                                    SCI_GETFOLDLEVEL, line, 0) ;	
+	if ((fold_level & 0xFF) != 0)
+	{
+		while((fold_level & 0x10FF) != 0x1000 && line >= 0)
+			fold_level = scintilla_send_message(SCINTILLA(te->scintilla), 
+	                                    SCI_GETFOLDLEVEL, --line, 0) ;
+		start = scintilla_send_message(SCINTILLA(te->scintilla), 
+	                                    SCI_POSITIONFROMLINE, line + 1, 0);
+		line = tmp;
+		fold_level = scintilla_send_message(SCINTILLA(te->scintilla), 
+	                                        SCI_GETFOLDLEVEL, line, 0) ;
+		while((fold_level & 0x10FF) != 0x1000 && line < line_count)
+			fold_level = scintilla_send_message(SCINTILLA(te->scintilla), 
+	                                            SCI_GETFOLDLEVEL, ++line, 0) ;
+
+		end = scintilla_send_message(SCINTILLA(te->scintilla), 
+	                                 SCI_POSITIONFROMLINE, line , 0);
+		scintilla_send_message(SCINTILLA(te->scintilla), 
+	                           SCI_SETSEL, start, end) ;
+	}
 }
 
 void

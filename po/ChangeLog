@@ -1,3 +1,9 @@
+2004-05-08  Naba Kumar  <naba@gnome.org>
+
+	* ko.po, sq.po: Brought missing po files from ANJUTA_1_2_0 branch.
+	Please note that other po files need merging from the branch. I tried it
+	but there were way too many conflicts.
+
 2004-05-08  Vincent van Adrighem  <adrighem@gnome.org>
 
 	* nl.po: Translation updated by Tino Meinen.

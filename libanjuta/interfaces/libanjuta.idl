@@ -410,6 +410,12 @@ interface IAnjutaFileManager
 	void set_selected (const gchar *filename);
 }
 
+interface IAnjutaTerminal
+{
+	#include <sys/types.h>
+	pid_t execute_command (const gchar *command);
+}
+
 /* interface IAnjutaModule
  * {
  * }

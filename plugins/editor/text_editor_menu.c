@@ -45,33 +45,33 @@ on_tem_dock_undock_activate (GtkWidget* menuitem, gpointer data);
 static void
 on_tem_toggle_linenum_activate (GtkWidget* menuitem, gpointer data)
 {
-	gtk_signal_emit_by_name (GTK_OBJECT
-				 (app->menubar.view.editor_linenos),
-				 "activate");
+	g_signal_emit_by_name (G_OBJECT
+  				 (app->widgets.menubar.view.editor_linenos),
+  				 "activate");
 }
 
 static void
 on_tem_toggle_marker_margin_activate (GtkWidget* menuitem, gpointer data)
 {
-	gtk_signal_emit_by_name (GTK_OBJECT
-				 (app->menubar.view.editor_markers),
-				 "activate");
+	g_signal_emit_by_name (G_OBJECT
+  				 (app->widgets.menubar.view.editor_markers),
+  				 "activate");
 }
 
 static void
 on_tem_toggle_code_fold_activate (GtkWidget* menuitem, gpointer data)
 {
-	gtk_signal_emit_by_name (GTK_OBJECT
-				 (app->menubar.view.editor_folds),
-				 "activate");
+	g_signal_emit_by_name (G_OBJECT
+  				 (app->widgets.menubar.view.editor_folds),
+  				 "activate");
 }
 
 static void
 on_tem_toggle_guides_activate (GtkWidget* menuitem, gpointer data)
 {
-	gtk_signal_emit_by_name (GTK_OBJECT
-				 (app->menubar.view.editor_indentguides),
-				 "activate");
+	g_signal_emit_by_name (G_OBJECT
+  				 (app->widgets.menubar.view.editor_indentguides),
+  				 "activate");
 }
 
 GnomeUIInfo text_editor_menu_goto_submenu_uiinfo[] = {
@@ -431,7 +431,7 @@ text_editor_menu_popup (TextEditorMenu * menu, GdkEventButton * bevent)
 	{
 		submenu =
 			create_submenu (N_("Tags"), (GList *) local_tags,
-					GTK_SIGNAL_FUNC
+					G_CALLBACK
 					(on_text_editor_menu_tags_activate));
 		gtk_menu_item_set_submenu (GTK_MENU_ITEM
 					   (menu->functions), submenu);

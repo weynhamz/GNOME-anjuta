@@ -30,7 +30,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#include <libgnome/gnome-i18n.h>
+#include <libgnome/libgnome.h>
 #include <libanjuta/anjuta-utils.h>
 #include <libanjuta/properties.h>
 
@@ -622,4 +622,42 @@ anjuta_util_update_string_list (GList *p_list, const gchar *p_str, gint length)
 		g_free (str);
 	}
 	return p_list;
+}
+
+gboolean
+anjuta_util_create_dir (const gchar * d)
+{
+	if (g_file_test (d, G_FILE_TEST_IS_DIR))
+		return TRUE;
+	if (mkdir (d, 0755))
+		return FALSE;
+	return TRUE;
+}
+
+pid_t
+anjuta_util_execute_shell (const gchar *dir, const gchar *command)
+{
+	pid_t pid;
+	gchar *shell;
+	
+	g_return_val_if_fail (command != NULL, -1);
+	
+	shell = gnome_util_user_shell ();
+	pid = fork();
+	if (pid == 0)
+	{
+		if(dir)
+		{
+			anjuta_util_create_dir (dir);
+			chdir (dir);
+		}
+		execlp (shell, shell, "-c", command, NULL);
+		g_warning (_("Cannot execute command: %s (using shell %s)\n"), command, shell);
+		_exit(1);
+	}
+	if (pid < 0)
+		g_warning (_("Cannot execute command %s (using shell %s)\n"), command, shell);
+	g_free (shell);
+	// Anjuta will take care of child exit automatically.
+	return pid;
 }

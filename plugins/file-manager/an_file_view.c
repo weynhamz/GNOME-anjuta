@@ -39,34 +39,19 @@ enum {
 
 typedef struct _FileFilter
 {
-/* 	GladeXML *xml;
- * 	GtkWindow *dialog;
- * 	GtkEditable *file_match_en;
- * 	GtkEditable *file_unmatch_en;
- * 	GtkEditable *dir_match_en;
- * 	GtkEditable *dir_unmatch_en;
- * 	GtkCombo *file_match_combo;
- * 	GtkCombo *file_unmatch_combo;
- * 	GtkToggleButton *ignore_hidden_files_tb;
- * 	GtkCombo *dir_match_combo;
- * 	GtkCombo *dir_unmatch_combo;
- * 	GtkToggleButton *ignore_hidden_dirs_tb;
- */
 	GList *file_match;
 	GList *file_unmatch;
 	GList *dir_match;
 	GList *dir_unmatch;
-	GList *file_match_strings;
-	GList *file_unmatch_strings;
-	GList *dir_match_strings;
-	GList *dir_unmatch_strings;
+	// GList *file_match_strings;
+	// GList *file_unmatch_strings;
+	// GList *dir_match_strings;
+	// GList *dir_unmatch_strings;
 	gboolean ignore_hidden_files;
 	gboolean ignore_hidden_dirs;
-	// gboolean showing;
 } FileFilter;
 
 static GdlIcons *icon_set = NULL;
-// static FileManagerPlugin *fv = NULL;
 static FileFilter *ff = NULL;
 
 #if 0
@@ -128,9 +113,9 @@ typedef enum {
 	MENU_MAX
 } FVSignal;
 
-/* File browser customization */
-#define FILE_FILTER_DIALOG "dialog.file.filter"
-#define OK_BUTTON "button.ok"
+#endif
+
+/* File filters prefs */
 #define FILE_FILTER_MATCH "filter.file.match"
 #define FILE_FILTER_MATCH_COMBO "filter.file.match.combo"
 #define FILE_FILTER_UNMATCH "filter.file.unmatch"
@@ -142,182 +127,56 @@ typedef enum {
 #define DIR_FILTER_UNMATCH_COMBO "filter.dir.unmatch.combo"
 #define DIR_FILTER_IGNORE_HIDDEN "filter.dir.ignore.hidden"
 
-#define APPLY_PREF(var, P) \
-	s = gtk_editable_get_chars(ff->var ## _en, 0, -1); \
+#define GET_PREF(var, P) \
 	if (ff->var) \
-		glist_strings_free(ff->var); \
-	prop_set_with_key(p, P, s); \
-	ff->var = glist_from_string(s); \
-	update_string_list(ff->var ## _strings, s, 10); \
-	if (ff->var ## _strings) \
-		gtk_combo_set_popdown_strings(ff->var ## _combo, ff->var ## _strings); \
-	g_free(s)
-
-#define APPLY_PREF_BOOL(var, P) \
-	ff->var = gtk_toggle_button_get_active(ff->var ## _tb); \
-	prop_set_int_with_key(p, P, ff->var)
-
-static void fv_prefs_apply(void)
-{
-	if (ff)
-	{
-		PropsID p = app->project_dbase->props;
-		char *s;
-		APPLY_PREF(file_match, FILE_FILTER_MATCH);
-		APPLY_PREF(file_unmatch, FILE_FILTER_UNMATCH);
-		APPLY_PREF_BOOL(ignore_hidden_files, FILE_FILTER_IGNORE_HIDDEN);
-		APPLY_PREF(dir_match, DIR_FILTER_MATCH);
-		APPLY_PREF(dir_unmatch, DIR_FILTER_UNMATCH);
-		APPLY_PREF_BOOL(ignore_hidden_dirs, DIR_FILTER_IGNORE_HIDDEN);
-	}
-}
-
-#define PREF_LOAD(var, P) \
-	if (NULL != (value = prop_get(p->props, P))) \
-	{ \
-		pos = 0; \
-		gtk_editable_delete_text(ff->var ## _en, 0, -1); \
-		gtk_editable_insert_text(ff->var ## _en, value, strlen(value), &pos); \
-		g_free(value); \
-	} \
-
-#define PREF_LOAD_BOOL(var, P) \
-	gtk_toggle_button_set_active(ff->var ## _tb, \
-								 prop_get_int (p->props, P, 0)); \
-
-static void fv_prefs_load (void)
-{
-	gchar *value;
-	gint pos;
-	ProjectDBase *p = app->project_dbase;
-	
-	PREF_LOAD(file_match, FILE_FILTER_MATCH)
-	PREF_LOAD(file_unmatch, FILE_FILTER_UNMATCH)
-	PREF_LOAD_BOOL(ignore_hidden_files, FILE_FILTER_IGNORE_HIDDEN);
-	PREF_LOAD(dir_match, DIR_FILTER_MATCH)
-	PREF_LOAD(dir_unmatch, DIR_FILTER_UNMATCH)
-	PREF_LOAD_BOOL(ignore_hidden_dirs, DIR_FILTER_IGNORE_HIDDEN);
-	
-	fv_prefs_apply();
-}
-
-#define PREF_SAVE(P) \
-	if (NULL != (s = prop_get(p->props, P))) \
-	{ \
-		session_save_string (p, SECSTR (SECTION_FILE_VIEW), \
-							 P, s); \
+		anjuta_util_glist_strings_free(ff->var); \
+	ff->var = NULL; \
+	s = anjuta_preferences_get (fv->prefs, P); \
+	if (s) { \
+		ff->var = anjuta_util_glist_from_string(s); \
 		g_free(s); \
 	}
 
-void fv_session_save (ProjectDBase *p)
+#define GET_PREF_BOOL(var, P) \
+	ff->var = FALSE; \
+	ff->var = anjuta_preferences_get_int (fv->prefs, P);
+	
+static FileFilter*
+fv_prefs_new (FileManagerPlugin *fv)
 {
 	gchar *s;
-
-	g_return_if_fail(p);
-	
-	PREF_SAVE(FILE_FILTER_MATCH)
-	PREF_SAVE(FILE_FILTER_UNMATCH)
-	PREF_SAVE(FILE_FILTER_IGNORE_HIDDEN)
-	PREF_SAVE(DIR_FILTER_MATCH)
-	PREF_SAVE(DIR_FILTER_UNMATCH)
-	PREF_SAVE(DIR_FILTER_IGNORE_HIDDEN)
+	FileFilter *ff = g_new0(FileFilter, 1);
+	GET_PREF(file_match, FILE_FILTER_MATCH);
+	GET_PREF(file_unmatch, FILE_FILTER_UNMATCH);
+	GET_PREF_BOOL(ignore_hidden_files, FILE_FILTER_IGNORE_HIDDEN);
+	GET_PREF(dir_match, DIR_FILTER_MATCH);
+	GET_PREF(dir_unmatch, DIR_FILTER_UNMATCH);
+	GET_PREF_BOOL(ignore_hidden_dirs, DIR_FILTER_IGNORE_HIDDEN);
+	return ff;
 }
 
-void fv_session_load (ProjectDBase *p)
+static void
+fv_prefs_free (FileFilter *ff)
 {
-	gpointer config_iterator;
-	
-	config_iterator = session_get_iterator (p, SECSTR (SECTION_FILE_VIEW));
-	if (config_iterator !=  NULL)
-	{
-		gchar *szKey, *szValue;
-		while ((config_iterator = gnome_config_iterator_next (config_iterator,
-															  &szKey,
-															  &szValue)))
-		{
-			if (szKey && szValue)
-				prop_set_with_key (p->props, szKey, szValue);
-			g_free (szKey);
-			g_free (szValue);
-			szKey = NULL;
-			szValue = NULL;
-		}
-	}
-	if (!ff)
-		fv_customize(FALSE);
-	fv_prefs_load();
+	g_return_if_fail (ff != NULL);
+	if (ff->file_match)
+		anjuta_util_glist_strings_free (ff->file_match);
+	if (ff->file_unmatch)
+		anjuta_util_glist_strings_free (ff->file_unmatch);
+	if (ff->dir_match)
+		anjuta_util_glist_strings_free (ff->dir_match);
+	if (ff->dir_unmatch)
+		anjuta_util_glist_strings_free (ff->dir_unmatch);
+/*	if (ff->file_match_strings)
+		anjuta_util_glist_strings_free (ff->file_match_strings);
+	if (ff->file_unmatch_strings)
+		anjuta_util_glist_strings_free (ff->file_unmatch_strings);
+	if (ff->dir_match_strings)
+		anjuta_util_glist_strings_free (ff->dir_match_strings);
+	if (ff->dir_unmatch_strings)
+		anjuta_util_glist_strings_free (ff->dir_unmatch_strings);
+*/	g_free (ff);
 }
-
-gboolean
-on_file_filter_delete_event (GtkWidget *widget, GdkEventCrossing *event,
-							 gpointer user_data)
-{
-	if (ff->showing)
-	{
-		gtk_widget_hide((GtkWidget *) ff->dialog);
-		ff->showing = FALSE;
-	}
-	return TRUE;
-}
-
-void
-on_file_filter_close (GtkWidget *widget, gpointer user_data)
-{
-	if (ff->showing)
-	{
-		gtk_widget_hide((GtkWidget *) ff->dialog);
-		ff->showing = FALSE;
-	}
-}
-
-void
-on_file_filter_response (GtkWidget *dlg, gint res, gpointer user_data)
-{
-	if (ff->showing)
-	{
-		gtk_widget_hide((GtkWidget *) ff->dialog);
-		ff->showing = FALSE;
-	}
-	fv_prefs_apply();
-	fv_populate(TRUE);
-}
-
-#define SET_WIDGET(var,type,name) ff->var = (type *) glade_xml_get_widget(\
-	ff->xml, name); \
-	gtk_widget_ref((GtkWidget *) ff->var)
-
-void fv_customize(gboolean really_show)
-{
-	if (NULL == ff)
-	{
-		ff = g_new0(FileFilter, 1);
-		if (NULL == (ff->xml = glade_xml_new(GLADE_FILE_ANJUTA, FILE_FILTER_DIALOG, NULL)))
-		{
-			anjuta_error(_("Unable to build user interface for file filter"));
-			return;
-		}
-		SET_WIDGET(dialog, GtkWindow, FILE_FILTER_DIALOG);
-		SET_WIDGET(file_match_en, GtkEditable, FILE_FILTER_MATCH);
-		SET_WIDGET(file_match_combo, GtkCombo, FILE_FILTER_MATCH_COMBO);
-		SET_WIDGET(file_unmatch_en, GtkEditable, FILE_FILTER_UNMATCH);
-		SET_WIDGET(file_unmatch_combo, GtkCombo, FILE_FILTER_UNMATCH_COMBO);
-		SET_WIDGET(ignore_hidden_files_tb, GtkToggleButton, FILE_FILTER_IGNORE_HIDDEN);
-		SET_WIDGET(dir_match_en, GtkEditable, DIR_FILTER_MATCH);
-		SET_WIDGET(dir_match_combo, GtkCombo, DIR_FILTER_MATCH_COMBO);
-		SET_WIDGET(dir_unmatch_en, GtkEditable, DIR_FILTER_UNMATCH);
-		SET_WIDGET(dir_unmatch_combo, GtkCombo, DIR_FILTER_UNMATCH_COMBO);
-		SET_WIDGET(ignore_hidden_dirs_tb, GtkToggleButton, DIR_FILTER_IGNORE_HIDDEN);
-		gtk_window_set_transient_for (GTK_WINDOW(ff->dialog)
-		  , GTK_WINDOW(app->widgets.window));
-		glade_xml_signal_autoconnect(ff->xml);
-	}
-	if (really_show && !ff->showing)
-	{
-		gtk_widget_show((GtkWidget *) ff->dialog);
-		ff->showing = TRUE;
-	}
-}
-#endif
 
 static gchar *
 fv_construct_full_path (FileManagerPlugin *fv, GtkTreeIter *selected_iter)
@@ -718,10 +577,14 @@ fv_add_tree_entry (FileManagerPlugin *fv, const gchar *path, GtkTreeIter *root)
 {
 	GtkTreeStore *store;
 	gchar file_name[PATH_MAX];
-	gchar *entries = NULL;
 	struct stat s;
 	DIR *dir;
 	struct dirent *dir_entry;
+	GtkTreeIter iter;
+	GdkPixbuf *pixbuf;
+	GSList *file_node;
+	GSList *files = NULL;
+	gchar *entries = NULL;
 
 	g_return_if_fail (path != NULL);
 
@@ -755,14 +618,13 @@ fv_add_tree_entry (FileManagerPlugin *fv, const gchar *path, GtkTreeIter *root)
 	{
 		while (NULL != (dir_entry = readdir(dir)))
 		{
-			GtkTreeIter iter;
-			GdkPixbuf *pixbuf;
 			const gchar *file;
 			
 			file = dir_entry->d_name;
 			
-			if ((0 == strcmp(file, "."))
-			  || (0 == strcmp(file, "..")))
+			if ((ff->ignore_hidden_files && *file == '.') ||
+				(0 == strcmp(file, ".")) ||
+				(0 == strcmp(file, "..")))
 				continue;
 			
 			g_snprintf(file_name, PATH_MAX, "%s/%s", path, file);
@@ -773,11 +635,11 @@ fv_add_tree_entry (FileManagerPlugin *fv, const gchar *path, GtkTreeIter *root)
 			if (g_file_test (file_name, G_FILE_TEST_IS_DIR))
 			{
 				GtkTreeIter sub_iter;
-				if (!file_entry_apply_filter (file_name, ff->dir_match,
+				/*if (!file_entry_apply_filter (file_name, ff->dir_match,
 											  ff->dir_unmatch,
 											  ff->ignore_hidden_dirs))
 					continue;
-			
+				*/
 				pixbuf = anjuta_res_get_pixbuf (ANJUTA_PIXMAP_CLOSED_FOLDER);
 				gtk_tree_store_append (store, &iter, root);
 				gtk_tree_store_set (store, &iter,
@@ -791,40 +653,52 @@ fv_add_tree_entry (FileManagerPlugin *fv, const gchar *path, GtkTreeIter *root)
 							REV_COLUMN, "",
 							-1);
 			} else {
-				gchar *version = NULL;
-				if (!file_entry_apply_filter (file_name, ff->file_match,
-											  ff->file_unmatch,
-											  ff->ignore_hidden_files))
-					continue;
-				if (entries)
-				{
-					char *str = g_strconcat("\n/", file, "/", NULL);
-					char *name_pos = strstr(entries, str);
-					if (NULL != name_pos)
-					{
-						int len = strlen(str);
-						char *version_pos = strchr(name_pos + len, '/');
-						if (NULL != version_pos)
-						{
-							*version_pos = '\0';
-							version = g_strdup(name_pos + len);
-							*version_pos = '/';
-						}
-					}
-					g_free(str);
-				}
-				pixbuf = gdl_icons_get_uri_icon(icon_set, file_name);
-				gtk_tree_store_append (store, &iter, root);
-				gtk_tree_store_set (store, &iter,
-							PIXBUF_COLUMN, pixbuf,
-							FILENAME_COLUMN, file,
-							REV_COLUMN, version ? version : "",
-							-1);
-				gdk_pixbuf_unref (pixbuf);
-				g_free (version);
+				files = g_slist_prepend (files, g_strdup (file));
 			}
 		}
 		closedir(dir);
+		files = g_slist_reverse (files);
+		file_node = files;
+		while (file_node)
+		{
+			gchar *version = NULL;
+			gchar *fname = file_node->data;
+			g_snprintf(file_name, PATH_MAX, "%s/%s", path, fname);
+			/* if (!file_entry_apply_filter (fname, ff->file_match,
+										  ff->file_unmatch,
+										  ff->ignore_hidden_files))
+				continue;
+			*/
+			if (entries)
+			{
+				char *str = g_strconcat("\n/", fname, "/", NULL);
+				char *name_pos = strstr(entries, str);
+				if (NULL != name_pos)
+				{
+					int len = strlen(str);
+					char *version_pos = strchr(name_pos + len, '/');
+					if (NULL != version_pos)
+					{
+						*version_pos = '\0';
+						version = g_strdup(name_pos + len);
+						*version_pos = '/';
+					}
+				}
+				g_free(str);
+			}
+			pixbuf = gdl_icons_get_uri_icon(icon_set, file_name);
+			gtk_tree_store_append (store, &iter, root);
+			gtk_tree_store_set (store, &iter,
+						PIXBUF_COLUMN, pixbuf,
+						FILENAME_COLUMN, fname,
+						REV_COLUMN, version ? version : "",
+						-1);
+			gdk_pixbuf_unref (pixbuf);
+			g_free (version);
+			g_free (fname);
+			file_node = g_slist_next (file_node);
+		}
+		g_slist_free (files);
 	}
 	if (entries)
 		g_free (entries);
@@ -968,6 +842,8 @@ fv_finalize (FileManagerPlugin *fv)
 	fv->top_dir = NULL;
 	fv->tree = NULL;
 	fv->scrolledwindow = NULL;
+	if (ff != NULL)
+		fv_prefs_free (ff);
 }
 
 void
@@ -1026,6 +902,19 @@ fv_set_node_expansion_states (FileManagerPlugin *fv, GList *expansion_states)
 void
 fv_set_root (FileManagerPlugin *fv, const gchar *root_dir)
 {
+	if (!fv->top_dir || 0 != strcmp(fv->top_dir, root_dir))
+	{
+		/* Different directory*/
+		if (fv->top_dir)
+			g_free(fv->top_dir);
+		fv->top_dir = g_strdup(root_dir);
+		fv_refresh(fv);
+	}
+}
+
+void
+fv_refresh (FileManagerPlugin *fv)
+{
 	static gboolean busy = FALSE;
 	GList *selected_items;
 	GtkTreeIter sub_iter;
@@ -1047,29 +936,14 @@ fv_set_root (FileManagerPlugin *fv, const gchar *root_dir)
 	
 	if (icon_set == NULL)
 		icon_set = gdl_icons_new (24, 16.0);
-	if (ff == NULL)
-		ff = g_new0(FileFilter, 1);
+	if (ff != NULL)
+		fv_prefs_free (ff);
+	ff = fv_prefs_new (fv);
 	
 	fv_disconnect (fv);
 	selected_items = fv_get_node_expansion_states (fv);
 	fv_clear (fv);
 
-	// if (!app || !app->project_dbase || !app->project_dbase->top_proj_dir)
-	//	goto clean_leave;
-	// if (!fv->top_dir || 0 != strcmp(fv->top_dir, app->project_dbase->top_proj_dir))
-	if (!fv->top_dir || 0 != strcmp(fv->top_dir, root_dir))
-	{
-		/* Different project - reload project preferences */
-		if (fv->top_dir)
-			g_free(fv->top_dir);
-		fv->top_dir = g_strdup(root_dir);
-#if 0
-		if (!ff)
-			fv_customize(FALSE);
-		fv_prefs_load();
-#endif
-	}
-	
 	project_dir = g_path_get_basename (fv->top_dir);
 
 	model = gtk_tree_view_get_model (GTK_TREE_VIEW (fv->tree));

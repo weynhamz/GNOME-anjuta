@@ -1,9 +1,22 @@
+2004-05-11  Naba Kumar  <naba@gnome.org>
+
+
 2004-05-09  Johannes Schmid <jhs@cvs.gnome.org>
 
 	* configure.in: Changed GNOME_COMPILE_WARNIGS from error to maximum
 
 2004-05-07  Naba Kumar  <naba@gnome.org>
 
+	* libanjuta/anjuta-ui.c: Reads action labels and icons correctly.
+
+	* plugins/file-manager/an_file_view.c, plugins/file-manager/plugin.c:
+	Added preferences reading and loading.
+	
+	* anjuta.glade, anjuta_dialogs_strings.c, ChangeLog,
+	libanjuta/anjuta-preferences.c, libanjuta/defaults.c,
+	libanjuta/fileselection.c, libanjuta/fileselection.h,
+	libanjuta/resources.c: Merged with ANJUTA_1_2_0 branch.
+	
 	* manuals/reference/libanjuta/anjuta-architecture.sgml: Added some docs.
 
 	* AUTHORS, HACKING, NEWS, README, anjuta.desktop.in.in,
@@ -45,7 +58,7 @@
 
 2004-05-06  Naba Kumar  <naba@gnome.org>
 
-	* plugins/file-manager/Makefile.am,
+	* (added) plugins/file-manager/Makefile.am,
 	(added) plugins/file-manager/anjuta-file-manager-plugin.png,
 	(added) plugins/file-manager/anjuta-file-manager.plugin.in,
 	(added) plugins/file-manager/anjuta-file-manager.ui,
@@ -935,6 +948,598 @@
 2003-05-16  Danilo Šegan  <dsegan@gmx.net>
 
 	* configure.in: Added "sr" and "sr@Latn" to ALL_LINGUAS.
+
+2004-04-24  Andras Timar  <tmar@gnome.hu>
+
+	* configure.in: Added hu to ALL_LINGUAS.
+
+2004-04-14  Naba Kumar  <naba@gnome.org>
+
+	* src/Makefile.am, printing/Makefile.am,
+	tagmanager/Makefile.am, launcher/Makefile.am: Enabled deprecated code
+	because we are still using GtkCombo and build breaks with gtk-2.4.
+	
+2004-04-13  Naba Kumar  <naba@gnome.org>
+
+	* NEWS: Updated.
+	* anjuta.spec.in: Fixed build error.
+	* po/POTFILES.in: Updated.
+	* manuals/C/anjuta-advanced-tutorial/Makefile.am: Fixed build error.
+
+2004-04-11  Naba Kumar  <naba@gnome.org>
+
+	* NEWS: Updated.
+	* AUTHORS: Updated.
+	* configure.in: Added ga in ALL_LINGUAS.
+	* ChangeLog: Fixed dates.
+	
+2004-04-09  Naba Kumar  <naba@gnome.org>
+
+	* src/print.c: Fixed buffer styling bug when printing with
+	selection.
+
+	* data/properties/anjuta.properties: Defined only one base font and
+	used courier instead of lucidatypewriter, because most newer systems are
+	unlikely to have it (bug #885023, #925956, #890473).
+	
+	* configure.in, src/getline.c, src/compiler_options.c: Fixed compiler
+	warning.
+	
+	* src/an_file_view.c: Fixed possible crash bug.
+
+2004-04-07  Naba Kumar  <naba@gnome.org>
+
+	* src/anjuta.c: Use _exit() instead of exit() (or gtk_quit() or
+	gtk_main_quit() etc..), so that atexit() functions are not called
+	(which is apparently done to free up memory and we don't need to
+	do that at this point). Incidentally, something also happens in the
+	atexit call which freezes the UI for far too long when the application
+	exits and we want to avoid that..
+	* src/glade_iface.c: Fixed compiler warning.
+	
+2004-04-06  Naba Kumar  <naba@gnome.org>
+
+	* src/project_dbase_gui.c: Fixed errors.
+
+	* src/registers_gui.c: Fixed possible crash bug.
+	* src/signals_cbs.[c,h], src/signals_gui.c: Removed.
+	* src/signals.[c,h]: Used tree view and glade file for dialog.
+	* src/Makefile.am, src/about.c, src/an_file_view.c,
+	src/an_symbol_view.c, src/anjuta-plugins.c, src/anjuta-tools.c,
+	src/anjuta.c, src/anjuta_cbs.c, src/anjuta_gui.c, src/anjuta_info.c,
+	src/appwiz_page1.c, src/appwiz_page2.c, src/appwiz_page3.c,
+	src/appwiz_page4.c, src/appwizard_gui.c, src/breakpoints.c,
+	src/commands.c, src/compatibility_0.c, src/compiler_options.c,
+	src/cvs.c, src/cvs_cbs.c, src/cvs_gui.c, src/debug_tree.c,
+	src/debugger.c, src/dnd.c, src/file.c, src/fileselection.c,
+	src/glade_iface.c, src/goto_line.c, src/help.c, src/launcher.c,
+	src/launcher.h, src/main.c, src/main_menubar.c,
+	src/mainmenu_callbacks.c, src/memory.c, src/message-manager-dock.c,
+	src/message-manager-private.cc, src/message-manager.cc,
+	src/preferences.c, src/project_config.c, src/project_dbase.c,
+	src/project_dbase_gui.c, src/project_import.c, src/project_import_cbs.c,
+	src/project_import_gui.c, src/registers.c, src/registers_cbs.c,
+	src/registers_cbs.h, src/registers_gui.c, src/resources.c,
+	src/search-replace.c, src/search-replace_backend.c,
+	src/search_incremental.c, src/search_preferences.c,
+	src/sharedlib.c, src/sharedlib_gui.c, src/signals.c,
+	src/signals.h, src/signals_cbs.c, src/signals_cbs.h,
+	src/signals_gui.c, src/source.c, src/src_paths.c,
+	src/stack_trace.c, src/start-with.c, src/style-editor.c,
+	src/support.c, src/text_editor.c, src/text_editor_cbs.c,
+	src/text_editor_gui.c, src/text_editor_menu.c, src/toolbar.c,
+	src/toolbar_callbacks.c, src/watch_cbs.c, src/watch_cbs.h,
+	src/watch_gui.c, src/widget-registry.c, src/wizard_gui.c,
+	tagmanager/Makefile.am, scintilla/include/SString.h,
+	widgets/Makefile.am, widgets/gnomefilelist.c:
+
+	Removed all deprecated codes and substituted
+	with newer APIs. Fixed some possible crash bugs where cell renderers
+	were being shared.
+	
+	* scintilla/patches/scintilla-minor.patch: Minor patch.
+
+2004-04-06  Naba Kumar  <naba@gnome.org>
+
+	* src/project_dbase.c, src/project_dbase_gui.c: Refreshes the project
+	tree after all the files have been added (and not everytime a file
+	is added in the project). Also fixed some memory corruption
+	(possibly bug #900478).
+	
+	* src/anjuta.c, src/anjuta.h, src/anjuta_cbs.c, src/dnd.c,
+	src/dnd.h, src/executer.c, src/gnome_project.c, src/main_menubar.c,
+	src/mainmenu_callbacks.c, src/project_dbase.c, src/project_dbase.h,
+	src/project_dbase_gui.c, src/source.c, src/text_editor.c,
+	src/text_editor.h, src/utilities.c, src/utilities.h: Used 'const'
+	qualifier wherever appropriate.
+
+2004-04-05  Naba Kumar  <naba@gnome.org>
+
+	* src/launcher.[h,c], src/debugger.c: Added a method in launcher to 
+	switch terminal echo on/off. Debugger requires it off, while the
+	rest requires it on.
+
+	* src/search-replace.c: sets search direction and action (in addtion
+	to target) for find in files.
+	
+2004-04-02  Naba Kumar  <naba@gnome.org>
+
+	* src/mainmenu_callbacks.c: Sets filename during save of new files.
+
+	* src/project_dbase.c, src/debugger, src/an_file_view.c,
+	src/an_symbol_view.c: Added an gtk events loop for
+	displaying project loading status (for loading large projects) and
+	debugger program starting ... just to give an impression of fastness :-).
+
+	* configure.in, anjuta.prj: Bumped version to 1.2.2.
+
+	* src/an_symbol_view.c, src/an_file_view.c: Apperantly, fixed a
+	crash bug, which occurs when opening and closing a large project
+	repeatedly.
+	
+	* src/attach_process.c: Fixed a comiple error for old gcc.
+	
+	* src/launcher.c: Prints proper error message when launcher child
+	could not be executed and exits properly. Fixed a crash
+	bug (bug #926606).
+	
+	* src/resources.c, src/utilities.c, src/glade_iface.c,
+	src/debugger.c, src/attach_process.c: Properly exits forked children
+	when they could not be executed.
+	
+2004-04-01  Naba Kumar  <naba@gnome.org>
+
+	* src/search-replace.c: Fixed a crash bug (bug #921893).
+
+2004-03-31  Naba Kumar  <naba@gnome.org>
+
+	* anjuta.glade: Added a note on compiler options dialog ->support
+	dialog telling that supports are only available for file mode.
+
+	* src/anjuta.[c,h], src/project_dbase.[h,c], src/main.c,
+	src/anjuta_cbs.c:
+	Improved shutdown time delay by bypassing project closing
+	and unloading plugins.
+
+	* src/build_file.c, data/properties/anjuta.properties: Added a property
+	to toggle on/off for going to first error automatically.
+
+2004-03-31  Pavol Bosik <Pavol.Bosik@siemens.com>
+
+	* src/debugger.c: fixed core file loading
+	* src/aneditor.cxx, scintilla/include/SString.h: fixed HANGUP bug
+	for long lines (bugs #700968 and #911376)
+	* scintilla/ScintillaGTK.cxx, scintilla/PlatGTK.cxx: partially fixed bug
+	#917982.
+	* src/anjuta.c: Focuses current AnEditor correctly.
+
+2004-03-30  Naba Kumar  <naba@gnome.org>
+
+	* THANKS, anjuta.prj: Removed and moved all credits to AUTHORS file.
+	* AUTHORS: Updated with all contributors names.
+	* NEWS: Updated.
+	* src/about.c: Reads contributors names from AUTHORS file.
+	* manuals/C/anjuta-manual/authors.xml: Points to online
+	contributors list.
+	
+2004-03-29  Naba Kumar  <naba@gnome.org>
+
+	* data/properties/ada.properties: Fixed syntax colors. Patch
+	from Gabriel Rossetti <gabriel.rossetti _at_ eivd.ch>
+	(bug #923474).
+
+	* src/source.c, src/gnome_project.c, src/appwizard_cbs.c,
+	src/appwiz_page2.c:	Correctly defines PACKAGE_DATA_DIR for
+	generated projects, so that their pixmap files are
+	found properly (bug #919903).
+	
+	* configure.in, src/main.c: Defines SYSTEM_DATA_DIR for
+	anjuta.
+
+	* src/source.c: Installs .glade file of libgllade
+	projects in $(datadir)/$(package)/glade (part of bug #861038).
+	
+	* src/compiler_options.c: Fixed 'remove' and 'clear' of Defines list
+	in compiler options (bug #883837).
+	
+	* src/launcher.c: Disabled pty terminal echo. Correctly prompts
+	for passwords (eg. root install and ssh cvs access). Fixed Bug #894533.
+	
+2004-03-29  Pavol Bosik <Pavol.Bosik@siemens.com>
+
+	* anjuta/src/search-replace.c: fixed another crash bug in
+	"Find Usage"
+	* anjuta/src/debugger.c: wrong breakpoint condition gives error message,
+	breakpoint property fix
+
+2004-03-29  Naba Kumar  <naba@gnome.org>
+
+	* src/main_menubar_def.h, configure.in, manuals/C/Makefile.am,
+	(new) manuals/C/anjuta-advanced-tutorial/*:
+	Added menu entry for 'Anjuta Advanced Tutorial'
+	written by Olivier Pinçon  <opincon _at_ wanadoo.fr>.
+
+2004-03-28  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
+	
+	* src/fileselection.[ch], src/mainmenu_callbacks.c:
+	Fixed bug #908941  ('Open' starts in wrong directory)
+	
+2004-03-26  Naba Kumar  <naba@gnome.org>
+
+	* anjuta.h, src/message-manager-private.[h,cc]: Fixed
+	compile error and bug #905738 with terminal.
+
+	* src/search_incremental.c, src/register.c, src/sharedlib.c,
+	src/search-replace.[h,c], src/search_incremental.[h,c],
+	src/search_preferences.h, src/utilities.c, src/anjuta.c,
+	src/text_editor.[c,h]: Fixed compiler warnings.
+	
+	* src/search-replace.c: Fixed a memory corruption (possible
+	fix for bug #921893, but not yet confirmed).
+	
+	* src/launcher.c, src/glade-iface.c, src/project_dbase.c,
+	src/executer.c, src/utilities.c, src/utilities.h, src/text_editor.c,
+	src/anjuta-tools.c, src/message-manager-private.[h,cc]: Fixed a bug where
+	SIGCHLD was overwritten by gnome_execute_shell() - bug #905738.
+
+2004-03-25  Naba Kumar  <naba@gnome.org>
+
+	* src/attach_process.c, anjuta.glade, anjuta_dialogs_strings: Fixed a
+	crash bug with attach process dialog and made the dialog closable
+	with 'esc'.
+	
+	* src/breakpoints.c: Fixed bug #895536 (breakpoint glyphs do not
+	always display within the margin.)
+	
+	* src/debugger.c: Fixed a typo (detele -> delete) which deletes
+	the old breakpoint when it's properties are updated
+	(creating a new updated one).
+	
+2004-03-25  Pavol Bosik <Pavol.Bosik@siemens.com>
+
+	* src/aneditor.cxx, src/aneditor.h: fixed calltips
+	displayed for wrong file.
+	* src/breakpoints.c: conditional breakpoints
+	* src/controls.c: BUG #912618 - "Save all" for 1 file opened +
+	"Find in Files..." disabling policy
+
+2004-03-24  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
+
+	* src/build_file.c: Fixed bug #874380
+	Goto the first error if it exists.
+
+2004-03-24  Naba Kumar  <naba@gnome.org>
+
+	* src/anjuta.c: Fixed to get correct child exit status
+	using mask (bug #905738).
+	
+	* anjuta.glade, anjuta_dialog_strings.c, src/file.c:
+	Aligned buttons in the New file dialog,
+	set default response to OK, entry box activates default response,
+	ESC closes dialog and hides on delet_event.
+
+2004-03-19  Naba Kumar  <naba@gnome.org>
+
+	* src/project_dbase.c: fixed bug #893400 ("Remove file" in project
+	tree).
+
+2004-03-17  Pavol Bosik <Pavol.Bosik@siemens.com>
+
+	* src/search-replace.c: fixed "Find Usage" crash when no project open
+
+2004-03-17  Naba Kumar  <naba@gnome.org>
+
+	* data/autogen.sh.*, data/macros/autogen.sh, data/macros2/autogen.sh:
+	Fixed the generated projects to read m4 directory if the directory
+	exists (bug #917781).
+	
+2004-03-12  Naba Kumar  <naba@gnome.org>
+
+	* HACKING: Fixed formatting for auto-parsing.
+
+2004-03-10  Pavol Bosik <Pavol.Bosik@siemens.com>
+ 	
+ 	* src/anjuta.c, src/search-replace.c, src/search-replace.h: "Find Usage"
+ 	rework (bug #890609)
+
+2004-03-10  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
+	
+	* src/aneditor.cxx: Fixed bug #910097 (Insert comment)
+
+2004-03-08  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
+	
+	* src/search-replace.c: "Replace All" in not opened files (All Project files, File List ...).
+	* src/search_preferences.c: Fixed typo.
+	
+2004-02-26  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
+	
+	* src/search-replace.c: improved Search&Replace
+	For the moment "Replace All" does not work with non opened files
+	but Anjuta should not crash now ! ??? 
+	
+2004-02-26  Naba Kumar  <naba@gnome.or>
+
+	* src/source.c: Fixed to pass cflags correctly
+	and suppress the automake's default cflags.
+	bug #816130, #801056, #782798, #773459
+	
+	* data/properties/anjuta.properties: Do not defualt to -k make option.
+	bug #875486.
+
+	* manuals/C/anjuta-manual/build.xml: Changed build shortcut to F11.
+	bug #877683.
+	
+	* src/registers_gui.c: Fixed a runtime warning. bug #900087.
+	
+	* src/message-manager-private.cc: Disabled debug messages.
+	
+2004-02-25  Adam Weinberger  <adamw@FreeBSD.org>
+
+	* configure.in: Added 'en_CA' (Canadian English) to ALL_LINGUAS.
+
+2004-02-25  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
+	* anjuta.glade, src/search-replace.c:
+	Reduced Search&Replace dialog, bug #902636.
+	
+2004-02-23  Naba Kumar  <naba@gnome.or>
+
+	* manuals/C/anjuta-tutorial/anjuta-tutorial.xml: Fixed a typo
+	(bug #866143).
+
+2004-02-24  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
+	
+	* src/search_incremental.c: Fixed bug #900903
+
+2004-02-23  Pavol Bosik <Pavol.Bosik@siemens.com>
+	
+	* src/defaults.c, src/message-manager.cc, src/project_dbase.c,
+	src/anjuta.c: Fixed bugs #890609 and #890609
+
+2004-02-23  Naba Kumar  <naba@gnome.or>
+
+	* src/message-manager.cc: Disconnects menuitem signal properly.
+	Fixed bug #901723.
+	
+	* src/mainmenu_callbacks.c: Do not reload new files. Fixed
+	bug #900897.
+	
+2004-02-20  Naba Kumar  <naba@gnome.org>
+
+	* src/message-manager-private.[c,h]: Implemented keypress
+	event for the terminal and resets it when ctrl c or ctrl d
+	is pressed. But it doesn't seem to be working on keypress.
+	Added a workaround to let it work on key release instead.
+	(bug #878357).
+	
+	* src/search-replace: Fixed compiler warnings.
+	
+2004-02-18  Franco Catrin  <fcatrin@tuxpan.com>
+
+	* src/mainmenu_callbacks.c, widgets/gnomefilelist.c:
+	Use defined file name when saving new files (fixes bug #898105)
+	Don't change filename when clicking on a directory
+	
+	BTW: Happy birthday to me :-)
+	
+2004-02-18  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
+	
+	* src/search-replace.c: Fixed a crash bug 
+	Crash on Find & Replace (#887833)
+	
+2004-02-18  Naba Kumar  <naba@gnome.org>
+
+	* src/executer.c: Fixed a crash bug.
+	
+	* widgets/gnomefilelist.[h,c], src/fileselection.[h,c],
+	src/debugger.c, project_database_gui.c, src/anjuta.[h,c],
+	src/anjuta_cbs.c, src/project_database.h: Subclasses GtkDialog
+	instead of GtkWindow (Part of bug #671596).
+	
+	* anjuta.glade, src/breakpoints.c, src/anjuta_info.c,
+	src/registers_gui.c, src/registers_cbs.[h,c],
+	src/sharedlib_gui.c, src/sharedlib_cbs.[c,h],
+	src/signals_cbs.[h,c], src/signals_gui.c, src/executer.c,
+	src/compiler_options.c, src/an_file_view.c, start-with.c,
+	src/anjuta-tools.c, help.c:
+
+	Added "close" buttons on all
+	dialogs (HIG) and fixed to properly response to ESC close
+	(Part of bug #671596).
+
+	* src/launcher.c: Disabled printing of long debug lines.
+	
+	* src/utilities.h: Fixed a compiler warning.
+	
+2004-02-17  Franco Catrin  <fcatrin@tuxpan.com>
+
+	* src/anjuta.c: "Save all" action now asks for filenames for new files
+	(fixes bug #898111)
+
+2004-02-16  Franco Catrin  <fcatrin@tuxpan.com>
+
+	* anjuta.glade, src/text_editor.c:
+	Fixed a typo in Hello World indentation style 
+	Fixed misuse of translated strings when looking for style
+	This entry fixes bug #876037
+
+2004-02-16  Naba Kumar  <naba@gnome.org>
+
+	* src/utilities.c: Fixed return value when dest file could
+	not be created.
+
+	Patch from: Dennis Moehlmann  <darksaidin@users.sourceforge.net>
+	* src/utilities.[c,h]: Removed 'cmp' dependency and used
+	internal function to compare files.
+	
+2004-02-14  Franco Catrin  <fcatrin@tuxpan.com>
+
+	* src/message-manager-private.cc:
+	Set bold color as foreground color in terminal
+	(fixes bug #864924)
+
+	* src/aneditor.cxx:
+	Use font style defined for message indicators in
+	preferences/messages
+	(fixes bug #885032)
+
+2004-02-13  Franco Catrin  <fcatrin@tuxpan.com>
+
+	* src/build_project.c:
+	Use build.silent option from preferences (fixes bug #895726)
+	
+2004-02-11  Robert Sedak  <robert.sedak@sk.htnet.hr>
+
+        * configure.in: Added "hr" (Croatian) to ALL_LINGUAS.
+
+2004-01-27  Johannes Schmid <jhs@cvs.gnome.org>
+	
+	Patch from Massimo Corà <maxcvs@email.it>:
+	* scintilla/LexCPP.cxx: Support "///" comments
+
+2004-01-18  Jean-Noel Guiheneuf <jnoel@lotuscompounds.com>
+	* src/Makefile.am, src/anjuta.c, src/search-replace.c,
+	src/search_replace.h, src/search-replace_backend.h
+	anjuta.glade
+	
+	* Added: src/search_preferences.c, src/search_preferences.h
+	Allow the user to save search/replace settings and give them names.
+
+2004-01-16  Johannes Schmid <jhs@cvs.gnome.org>
+	
+	* scintilla/Makefile.am, scintilla/scintilla_marshal.[c/h/list],
+	scintilla/ScintillaGTK.cxx:
+	Hopefully fixed AMD 64 crash bug by using correct marshaller
+
+2004-01-16  Franco Catrin L. <fcatrin@tuxpan.com>
+
+	* src/preferences.c: Save GtkOptionMenu properties properly
+	* src/text_editor.c: Fixes editor mispell of fold.symbols property
+
+2004-01-15  Johannes Schmid <jhs@cvs.gnome.org>
+	
+	* configure.in, src/Makefile.am, scintilla/Makefile.am:
+	Fixed libiconv issue
+	* NEWS: Updated
+
+2004-01-15  Johannes Schmid <jhs@cvs.gnome.org>
+	
+	Patch from Pavol Bosik <Pavol.Bosik@siemens.com>:
+	*  src/attach_process.c, src/debugger.c, src/registers.c/h,
+	src/registers_cbs.c, src/registers_gui.c, src/search-replace.c
+	src/sharedlib.c, src/sharedlib.h, src/sharedlib_cbs.c
+	src/sharedlib_gui.c:
+	Debugger speed-up, replaced deprecated GtkCList
+
+2004-01-14  Franco Catrin L.<fcatrin@tuxpan.com>
+
+	* src/text-editor.c: Use stock gtk+ close button for editor tabs
+
+2004-01-13  Laurent Dhima  <laurenti@alblinux.net>
+
+	* configure.in: Added "sq" to ALL_LINGUAS.
+
+2004-01-12  Changwoo Ryu  <cwryu@debian.org>
+
+	* configure.in: Added "ko" to ALL_LINGUAS.
+
+2004-01-09  Jean-Noel Guiheneuf <jnoel@lotuscompounds.com>
+
+	* src/toolbar.c, src/toolbar_callbacks.c, src/toolbar_callbacks.h,
+	src/search_incremental.c, src/search_incremental.h: 
+	Search_incremental code cleanup
+
+2004-01-08  Jean-Noel Guiheneuf <jnoel@lotuscompounds.com>
+
+	* scintilla/*/*: Updated scintilla to CVS
+	* Added: scintilla/Readme.sync
+	* scintilla/Document.cxx, scintilla/Editor.cxx, scintilla/KeyWords.cxx,
+	scintilla/LexMatlab.cxx, scintilla/LexOthers.cxx, scintilla/LexRuby.cxx,
+	scintilla/LexVB.cxx, scintilla/ScintillaBase.cxx, scintilla/ScintillaBase.h,
+	scintilla/ScintillaGTK.cxx,
+	scintilla/include/SciLexer.h, scintilla/include/Scintilla.h,
+	scintilla/include/Scintilla.iface: Updated.
+
+2004-01-07  Jean-Noel Guiheneuf <jnoel@lotuscompounds.com>
+
+	* search-replace_backend.[ch], search_incremental[ch]: Added
+	
+	* find_text.[ch], find_in_files.[ch], find_in_files_cbs.[ch],
+	find_replace.[ch]: Removed.
+	
+	* anjuta.glade, src/search-replace.c, src/search-replace.h,
+	src/search-replace_backend.c, src/search-replace_backend.h,
+	src/mainmenu_callbacks.c, src/mainmenu_callbacks.h,
+	src/anjuta.c, src/anjuta.h, src/project_dbase.c, src/project_dbase.h,
+	src/toolbar_callbacks.c, src/Makefile.am: The advanced Search/Replace
+	functionality now replaces the older Find/Replace stuff. The Search/Replace
+	functionality can be interrupted during a long Search/Replace.
+
+2004-01-02  Dan Elphick <dre00r@ecs.soton.ac.uk>
+
+ 	* widgets/gnomefilesel.c: Fix use of previously freed memory on
+ 	selecting ".." and "." from file selector. 
+
+2004-01-02  Johannes Schmid <jhs@cvs.gnome.org>
+
+	* anjuta.glade: Fixed wrong "fold.symbols" property
+
+2003-12-31  Johannes Schmid <jhs@cvs.gnome.org>
+	
+	* src/project_dbase_gui.c: Alphabetical order ;-)
+	* src/compiler_options.c: Fixed bug #867539
+	* src/launcher.c: Workaround for bugs #864922, #849928,
+	#846386 and #845782: The launcher no longer hangs but does
+	not get the exit status correctly sometimes.
+	* Changes suggested by Bosik are obviously already in without
+	any Changelog entry (ClsGen.c, project_dbase_gui.c)
+	* NEWS, README, anjuta.prj, configure.in: 
+	Changed version to 1.2.1
+	
+	Patch from Andreas Volz <andreas99@users.sourceforge.net>:
+	* anjuta_dialogs_strings.c, anjuta.glade: 
+	Fixed bugs #860906, #859329
+	
+	Patch from grzegol@pld-linux.org
+	* anjuta.desktop.in.in: Fixed bug #858993 (Follow 
+	freedesktop.org standard)
+
+2003-12-31  Johannes Schmid <jhs@cvs.gnome.org>
+	
+	Patch from Stefano Vallarino <stevalla@libero.it>:
+	* src/source.[c/h]: Fixes cpp sample file to conform to 
+	ISO/IEC 14882, C++-Standard 
+
+2003-12-31  Dan Elphick  <dre00r@ecs.soton.ac.uk>
+ 
+ 	Review by Johannes Schmid <jhs@cvs.gnome.org>
+	* src/build_file.[ch]: Add build_execute_shell_command which executes the
+ 	command using sh -c.
+ 	* src/compile.c: Use build_execute_shell_command when compiling single
+ 	files.
+
+2003-12-31  Johannes Schmid <jhs@cvs.gnome.org>
+	
+	Patch from Pavol Bosik  <Pavol.Bosik@siemens.com>:
+	* src/breakpoints.c: Code cleanup, workaroud for possible 
+	launcher bug
+	* src/src_paths.c: Update debugger dirs on directory change
+
+2003-12-31  Pavol Bosik  <Pavol.Bosik@siemens.com>
+ 
+ 	Review by Johannes Schmid <jhs@cvs.gnome.org>
+	* src/attach_process.c, src/attach_process.h, anjuta.glade:
+ 	sortable headers, process tree, removal of path and process params
+ 	* src/debugger.c, src/debugger.h, anjuta/src/aneditor.cxx,
+ 	anjuta/src/mainmenu_callbacks.c, anjuta/src/watch_cbs.c:
+ 	code cleanup
+
+2003-12-31  Johannes Schmid <jhs@cvs.gnome.org>
+	
+	Patch from: Jean-Noel Guiheneuf <jnoel@lotuscompounds.com>
+	* anjuta.glade, src/mainmenu_callbacks.c, src/file.[c/h]:
+	Add a dialog for "New file" which lets the user set the 
+	filename and to add copyright/header templates to the file
+	* Review: Changed function names to contain modules name (file_)
 
 2003-12-09  Naba Kumar  <naba@gnome.org>
 

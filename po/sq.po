@@ -1,0 +1,7593 @@
+# translation of ANJUTA to Albanian
+# This file is distributed under the same license as the anjuta package.
+# Laurent Dhima <laurenti@alblinux.net>, 2004.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: anjuta.ANJUTA_1_2_0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-01-31 11:28+0100\n"
+"PO-Revision-Date: 2004-01-31 15:03+0100\n"
+"Last-Translator: Laurent Dhima <laurenti@alblinux.net>\n"
+"Language-Team: Albanian <gnome-albanian-perkthyesit@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.3\n"
+
+#: anjuta.desktop.in.in.h:1
+msgid "Anjuta IDE"
+msgstr "Anjuta IDE"
+
+#: anjuta.desktop.in.in.h:2 src/about.c:96 src/main.c:171
+msgid "Integrated Development Environment"
+msgstr "Ambien zhvillimi i integruar"
+
+#: anjuta.glade.h:1
+msgid "    "
+msgstr "    "
+
+#: anjuta.glade.h:2
+msgid ""
+"\"Search & Replace\" has to be tested completely !\n"
+"Many search-replacement possibilities are possible and need\n"
+"a lot of time to be verified.\n"
+"\n"
+"Limits :\n"
+"- Regular expressions can only be found in forward direction\n"
+"Todo :\t\n"
+"- Allow the user to save search/replace settings and give them names\n"
+"- . . ."
+msgstr ""
+"\"Gjej & Zevendëso\" duhet testuar komplet !\n"
+"Shumë mundësi zevendesimi ekzistojnë akoma dhe ka\n"
+"nevojë akoma për kohë që të verifikohen.\n"
+"\n"
+"Kufizime :\n"
+"- Shprehjet e rregullta mund të gjenden vetëm gjatë kërkimeve në drejtimin \"në vazhdim\"\n"
+"Për t'u bërë :\t\n"
+"- Mundësi përdoruesit për të ruajtur rregullimet gjej/zevendëso dhe dhënia e emrave për to\n"
+"- . . ."
+
+#: anjuta.glade.h:11
+msgid "$(module.source.files) $(module.include.files)"
+msgstr "$(module.source.files) $(module.include.files)"
+
+#: anjuta.glade.h:12 gdl/layout.glade.h:1
+msgid "*"
+msgstr "*"
+
+#: anjuta.glade.h:13
+msgid "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp"
+msgstr "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp"
+
+#: anjuta.glade.h:14
+msgid ""
+"*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp Makefile.am configure.* "
+"README AUTHORS ChangeLog *.m4"
+msgstr ""
+"*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp Makefile.am configure.* "
+"README AUTHORS ChangeLog *.m4"
+
+#: anjuta.glade.h:15
+msgid "*.so *.o *.a *.la"
+msgstr "*.so *.o *.a *.la"
+
+#: anjuta.glade.h:16
+msgid "*\\.*"
+msgstr "*\\.*"
+
+#: anjuta.glade.h:17
+msgid "<: Enter Here"
+msgstr "<: Shkruaj këtu"
+
+#: anjuta.glade.h:18
+msgid "Activate"
+msgstr "Aktivo"
+
+#: anjuta.glade.h:19
+msgid "Add line number every:"
+msgstr "Shto numrin e rreshtit çdo:"
+
+#: anjuta.glade.h:20
+msgid "Add page header"
+msgstr "Shto fillim faqe (header)"
+
+#: anjuta.glade.h:21
+msgid "Additional"
+msgstr "Shtesë"
+
+#: anjuta.glade.h:22
+msgid "Additional Libraries (LDADD):"
+msgstr "Librari shtesë (LDADD):"
+
+#: anjuta.glade.h:23 src/wizard_gui.c:575
+msgid "Additional Options"
+msgstr "Opcione shtesë"
+
+#: anjuta.glade.h:24
+msgid "Additional build options:"
+msgstr "Opcione shtesë të gjenerimit:"
+
+#: anjuta.glade.h:25
+msgid "Always save in UTF-8 encoding (faster)"
+msgstr "Ruaj gjithmonë në kodifikim UTF-8 (më e shpejtë)"
+
+#: anjuta.glade.h:26
+msgid "Anjuta help search"
+msgstr "Kërko ndihmë e Anjuta"
+
+#: anjuta.glade.h:27
+msgid "Anjuta start with dialog"
+msgstr "Anjuta fillon me dritaren e dialogut"
+
+#: anjuta.glade.h:28 src/appwizard_gui.c:76 src/appwizard_gui.c:90
+msgid "Application Wizard"
+msgstr "Wizard i aplikativit"
+
+#: anjuta.glade.h:29
+msgid "Arrows"
+msgstr "Shigjeta"
+
+#: anjuta.glade.h:30
+msgid "Ask for parameters at run-time"
+msgstr "Pyet për parametrat gjatë nisjes"
+
+#: anjuta.glade.h:31
+msgid "Attach to process"
+msgstr "Lidhja procesit"
+
+#: anjuta.glade.h:32
+msgid "Attributes:"
+msgstr "Veçoritë:"
+
+#: anjuta.glade.h:33
+msgid "Autocomplete XML/HTML closing tags"
+msgstr "Kompleto automatikisht tags mbyllës XML/HTML"
+
+#: anjuta.glade.h:34
+msgid "Autocompletion"
+msgstr "Plotësim automatik"
+
+#: anjuta.glade.h:35
+msgid "Autocompletion pop up choices"
+msgstr "Kompleto automatikisht zgjedhjet pop up"
+
+#: anjuta.glade.h:36
+msgid "Automatically load last Project"
+msgstr "Ngarko automatikisht projektin e fundit"
+
+#: anjuta.glade.h:37
+msgid "Autosave"
+msgstr "Ruaj automatikisht"
+
+#: anjuta.glade.h:38
+msgid "Autosave editor files before build starts"
+msgstr "Ruaj automatikisht files e ditorit para se të fillojë gjenerimi"
+
+#: anjuta.glade.h:39
+msgid "Back color:"
+msgstr "Kolori i sfondit:"
+
+#: anjuta.glade.h:40
+msgid "Backward"
+msgstr "Mbrapa"
+
+#: anjuta.glade.h:41
+msgid "Basic Search & Replace"
+msgstr "Gjej & Zevendëso e thjeshtë"
+
+#: anjuta.glade.h:42
+msgid "Beep on job complete"
+msgstr "Tingull kur puna të jetë kompletuar"
+
+#: anjuta.glade.h:43
+msgid "Bold"
+msgstr "Me të trasha"
+
+#: anjuta.glade.h:44
+msgid "Bookmark"
+msgstr "Libërshënues"
+
+#: anjuta.glade.h:45
+msgid "Bottom"
+msgstr "Poshtë"
+
+#: anjuta.glade.h:46
+msgid "Breakpoint properties"
+msgstr "Pronësitë e breakpoint"
+
+#: anjuta.glade.h:47
+msgid "Breakpoints"
+msgstr "Breakpoints"
+
+#: anjuta.glade.h:48 src/build_file.c:102 src/message-manager.cc:43
+#: src/toolbar.c:274
+msgid "Build"
+msgstr "Gjenero"
+
+#: anjuta.glade.h:49
+msgid "Build command:"
+msgstr "Komanda e gjenerimit:"
+
+#: anjuta.glade.h:50
+msgid "Build file browser automatically"
+msgstr "Gjenero automatikisht shfletuesin e file"
+
+#: anjuta.glade.h:51
+msgid "Build files"
+msgstr "Files e gjenerimit"
+
+#: anjuta.glade.h:52
+msgid "Build options"
+msgstr "Opcionet e gjenerimit"
+
+#: anjuta.glade.h:53
+msgid "Build symbol browser automatically"
+msgstr "Automatikisht gjenero shfletuesin e simboleve"
+
+#: anjuta.glade.h:54
+msgid "CPU registers"
+msgstr "Regjistrat e CPU"
+
+#. 2
+#: anjuta.glade.h:55 src/an_file_view.c:420 src/message-manager.cc:45
+msgid "CVS"
+msgstr "CVS"
+
+#: anjuta.glade.h:56
+msgid "CVS command options"
+msgstr "Opcionet e komandës CVS"
+
+#: anjuta.glade.h:57
+msgid "CVS compression level:"
+msgstr "Niveli i kompresimit CVS:"
+
+#: anjuta.glade.h:58
+msgid "CVS context diff format"
+msgstr "Formati i context diff të CVS"
+
+#: anjuta.glade.h:59
+msgid "CVS intl po"
+msgstr "CVS intl po"
+
+#: anjuta.glade.h:60
+msgid "CVS unified diff format"
+msgstr "Format i unifikuar diff për CVS"
+
+#: anjuta.glade.h:61
+msgid "CVS update and prune directories [-dP]"
+msgstr "CVS rifresko dhe pastro directories [-dP]"
+
+#: anjuta.glade.h:62
+msgid "C_ompile:"
+msgstr "K_ompilo:"
+
+#: anjuta.glade.h:63
+msgid "Calltip background:"
+msgstr "Sfondi i calltip:"
+
+#: anjuta.glade.h:64
+msgid "Caret (cursor) color:"
+msgstr "Ngjyra e vizores (kursor):"
+
+#: anjuta.glade.h:65
+msgid "Caret blink period in milli-seconds"
+msgstr "Intervali i pulsimit të kursorit në milisekonda"
+
+#: anjuta.glade.h:66
+msgid "Case insensitive"
+msgstr "I ndjeshëm ndaj diferencës gërma të mëdha/vogla"
+
+#: anjuta.glade.h:67
+msgid "Choose Directories:"
+msgstr "Zgjidh directories:"
+
+#: anjuta.glade.h:68
+msgid "Choose Files:"
+msgstr "Zgjidh files:"
+
+#: anjuta.glade.h:69
+msgid "Choose autocomplete for single match"
+msgstr "Zgjidh autokomletimin për korrisponduesit e vetëm"
+
+#: anjuta.glade.h:70
+msgid "Choose directories"
+msgstr "Zgjidh directories"
+
+#: anjuta.glade.h:71
+msgid "Choose files"
+msgstr "Zgjidh files"
+
+#: anjuta.glade.h:72
+msgid "Circular"
+msgstr "Qarkor"
+
+#: anjuta.glade.h:73
+msgid "Code folding"
+msgstr "Përsëritja e kodit"
+
+#: anjuta.glade.h:74
+msgid "Collapse all code folds on file open"
+msgstr ""
+
+#: anjuta.glade.h:75
+msgid "Colour"
+msgstr "Ngjyra"
+
+#: anjuta.glade.h:76
+msgid "Column at edge indicator"
+msgstr ""
+
+#: anjuta.glade.h:77
+msgid "Combo Popdown:"
+msgstr "Kutiza të kombinuara:"
+
+#: anjuta.glade.h:78
+msgid "Command Line Parameters"
+msgstr "Parametrat e rreshtit të komandës"
+
+#: anjuta.glade.h:79
+msgid "Command line parameters"
+msgstr "Parametrat e rreshtit të komandës"
+
+#: anjuta.glade.h:80
+msgid "Command:"
+msgstr "Komanda:"
+
+#: anjuta.glade.h:81
+msgid "Commands"
+msgstr "Komandat"
+
+#: anjuta.glade.h:82
+msgid "Common commands:"
+msgstr "Komandat e përbashkta:"
+
+#: anjuta.glade.h:83
+msgid "Compact folding"
+msgstr ""
+
+#: anjuta.glade.h:84
+msgid "Compiler"
+msgstr "Kompiluesi"
+
+#: anjuta.glade.h:85
+msgid "Compiler Flags (CFLAGS):"
+msgstr "Flags e Kompiluesit (CFLAGS):"
+
+#: anjuta.glade.h:86
+msgid "Compiler and linker options"
+msgstr "Opcionet e kompiluesit dhe linkuesit"
+
+#: anjuta.glade.h:87
+msgid "Configuration"
+msgstr "Konfigurimi"
+
+#: anjuta.glade.h:88
+msgid "Configuration script segments"
+msgstr "Segmentet e script-it të konfigurimit"
+
+#: anjuta.glade.h:89
+msgid "Configure Parameters"
+msgstr "Parametrat e konfigurimit"
+
+#: anjuta.glade.h:90
+msgid "Crazy boy style"
+msgstr "Stil \"Crazy boy\""
+
+#: anjuta.glade.h:91
+msgid "Custom style"
+msgstr "Stil i personalizuar"
+
+#: anjuta.glade.h:92
+msgid "Customize File Browser"
+msgstr "Personalizo shfletuesin e file"
+
+#: anjuta.glade.h:93
+msgid "Customize what is to be shown in the file tree"
+msgstr "Personalizo se çfarë duhet të jetë e dukshme tek degëzimi i file"
+
+#: anjuta.glade.h:94
+msgid "Data module Makefile.am"
+msgstr "Makefile.am i të dhënave"
+
+#. 13
+#: anjuta.glade.h:95 src/message-manager.cc:49 src/text_editor_menu.c:319
+#: src/toolbar.c:307
+msgid "Debug"
+msgstr "Gjetja dhe korrigjimi i gabimeve"
+
+#: anjuta.glade.h:96
+msgid "Debugging and Profiling"
+msgstr "Gjetja e korrigjimi i gabimeve dhe profilimi"
+
+#: anjuta.glade.h:97
+msgid "Default"
+msgstr "I/e prezgjedhur"
+
+#: anjuta.glade.h:98
+msgid "Defines"
+msgstr "Përcaktimet"
+
+#: anjuta.glade.h:99
+msgid "Delete Theme"
+msgstr "Hiq temën"
+
+#: anjuta.glade.h:100
+msgid "Diagonal"
+msgstr "Diagonale"
+
+#: anjuta.glade.h:101
+msgid "Dialog on job complete"
+msgstr "Mesazhi kur kompletohet puna"
+
+#: anjuta.glade.h:102 widgets/gnomefilelist.c:342
+msgid "Directories"
+msgstr "Directories"
+
+#: anjuta.glade.h:103
+msgid "Directory filter"
+msgstr "Filtri i Directory"
+
+#: anjuta.glade.h:104
+msgid "Disable auto-format"
+msgstr "Ç'aktivo formatin automatik"
+
+#: anjuta.glade.h:105
+msgid "Disable overwriting files"
+msgstr "Ç'aktivo mbishkrimin e files"
+
+#: anjuta.glade.h:106
+msgid "Disable syntax highlighting"
+msgstr "Ç'aktivo vënien në dukje të sintaksës"
+
+#: anjuta.glade.h:107
+msgid "Display process _tree"
+msgstr "Shfaq degëzimin e _proçesit"
+
+#: anjuta.glade.h:108
+msgid "Do not show hidden directories"
+msgstr "Mos trego directories e fshehura"
+
+#: anjuta.glade.h:109
+msgid "Do not show hidden files"
+msgstr "Mos trego files e fshehur"
+
+#: anjuta.glade.h:110
+msgid "Do not show start with dialog again."
+msgstr "Mos shfaq dritaren e dialogut në nisje."
+
+#: anjuta.glade.h:111
+msgid "Do not show tabs"
+msgstr "Mos shfaq skedat"
+
+#: anjuta.glade.h:112
+msgid "Document module Makefile.am"
+msgstr "Moduli Makefile.am i dokumentit"
+
+#: anjuta.glade.h:113
+msgid "Draw line below folded lines"
+msgstr "Vizato një vizë poshtë rreshtave të përsëritur"
+
+#: anjuta.glade.h:114
+msgid "Edit"
+msgstr "Ndrysho"
+
+#: anjuta.glade.h:115
+msgid "Editor caret (cursor) width in pixels"
+msgstr "Gjerësia e vizores (kursor) të editorit në pixels"
+
+#: anjuta.glade.h:116
+msgid "Editor tabs"
+msgstr "Skeda e editorit"
+
+#: anjuta.glade.h:117
+msgid "Enable Debugging"
+msgstr "Aktivo kërkimin dhe korrigjimin e gabimeve (debugging)"
+
+#: anjuta.glade.h:118
+msgid "Enable HTML tags folding"
+msgstr "Aktivo përsëritjen e tags HTML"
+
+#: anjuta.glade.h:119
+msgid "Enable Profiling"
+msgstr "Aktivo profilimin"
+
+#: anjuta.glade.h:120
+msgid "Enable _all"
+msgstr "Aktivo _gjithçka"
+
+#: anjuta.glade.h:121
+msgid "Enable automatic indentation"
+msgstr "Aktivo ngushtimin automatik"
+
+#: anjuta.glade.h:122
+msgid "Enable automatic messages indicators"
+msgstr "Aktivo indikatorët automatikë të mesazheve"
+
+#: anjuta.glade.h:123
+msgid "Enable braces check"
+msgstr "Aktivo kontrollin e thonjzave"
+
+#: anjuta.glade.h:124
+msgid "Enable code folding"
+msgstr "Aktivo përsëritjen e kodit"
+
+#: anjuta.glade.h:125
+msgid "Enable comments folding"
+msgstr "Aktivo përsëritjen e komenteve"
+
+#: anjuta.glade.h:126
+msgid "Enable files autosave"
+msgstr "Aktivo ruajtjen automatike të files"
+
+#: anjuta.glade.h:127
+msgid "Enable line wrap"
+msgstr "Aktivo në krye automatikisht"
+
+#: anjuta.glade.h:128
+msgid "Enable python comments folding"
+msgstr "Aktivo përsëritjen e komenteve python"
+
+#: anjuta.glade.h:129
+msgid "Enable python quoted strings folding"
+msgstr "Aktivo përsëritjen e stringave python të kuotuara"
+
+#: anjuta.glade.h:130 src/breakpoints.c:111
+msgid "Enabled"
+msgstr "Aktiv"
+
+#: anjuta.glade.h:131
+msgid "Encoding to use when saving files"
+msgstr "Kodifikimi që duhet përdorur kur ruhen files"
+
+#: anjuta.glade.h:132
+msgid "Enter a Hexa adress or select one in the data"
+msgstr "Shkruaj një adresë Hexa ose zgjidh një tek e dhëna"
+
+#: anjuta.glade.h:133
+msgid ""
+"Enter the File name.\n"
+"The extension will be added according to the type."
+msgstr ""
+"Shkruaj emrin e file.\n"
+"Prapashtesa do t'i shtohet automatikisht në varësi të llojit."
+
+#: anjuta.glade.h:135
+msgid ""
+"Enter the command line arguments for the 'indent' program. Read the info "
+"page for 'indent' for more details"
+msgstr ""
+"Shkruaj argumentet e rreshtit të komandës për programin 'indent'. Lexo faqen "
+"info të 'ident' për hollësi të mëtejshme"
+
+#: anjuta.glade.h:136
+msgid "Error message indicator style:"
+msgstr "Stili i treguesit të mesazhit të gabimit:"
+
+#: anjuta.glade.h:137
+msgid "Errors messages:"
+msgstr "Mesazhet e gabimeve:"
+
+#: anjuta.glade.h:138
+msgid "Execute Program"
+msgstr "Ekzekuto programin"
+
+#: anjuta.glade.h:139
+msgid "Expand regex back references"
+msgstr "Zgjero referimet e regex"
+
+#: anjuta.glade.h:140 src/an_file_view.c:671 src/breakpoints.c:111
+msgid "File"
+msgstr "File"
+
+#: anjuta.glade.h:141
+msgid "File Filter"
+msgstr "Filtri i file"
+
+#: anjuta.glade.h:142
+msgid "File filter"
+msgstr "Filtri i file"
+
+#: anjuta.glade.h:143
+msgid "File level"
+msgstr "Etiketa e file"
+
+#: anjuta.glade.h:144
+msgid "File name:"
+msgstr "Emri i file:"
+
+#: anjuta.glade.h:145
+msgid "File type:"
+msgstr "Lloji i file:"
+
+#: anjuta.glade.h:146
+msgid "Filter extraneous characters in DOS mode"
+msgstr "Filtro simbolet e huaj në modalitetin DOS"
+
+#: anjuta.glade.h:147
+msgid "Find & Replace"
+msgstr "Gjej & Zevendëso"
+
+#: anjuta.glade.h:148
+msgid "Fold style:"
+msgstr "Stili i përsëritjes:"
+
+#: anjuta.glade.h:149
+msgid "Font:"
+msgstr "Gërmat:"
+
+#: anjuta.glade.h:150
+msgid "Fore color:"
+msgstr "Ngjyra dalluese:"
+
+#: anjuta.glade.h:151
+msgid "Format"
+msgstr "Formati"
+
+#: anjuta.glade.h:152 src/toolbar.c:857
+msgid "Format style"
+msgstr "Stili i formatit"
+
+#: anjuta.glade.h:153 src/text_editor_menu.c:84
+msgid "Forward"
+msgstr "Para"
+
+#: anjuta.glade.h:154
+msgid "Full Buffer"
+msgstr "Buffer plot"
+
+#: anjuta.glade.h:155 src/an_symbol_view.c:54
+msgid "Functions"
+msgstr "Funksionet"
+
+#: anjuta.glade.h:156
+msgid "GNU coding style"
+msgstr "Stil kodimi GNU"
+
+#: anjuta.glade.h:157
+msgid "GPL Notice"
+msgstr "Shënim GPL"
+
+#: anjuta.glade.h:158
+msgid "GUI editor command:"
+msgstr "Komanda editorit GUI:"
+
+#. 3
+#: anjuta.glade.h:159 src/main_menubar_def.h:386
+msgid "General"
+msgstr "Të përgjithshme"
+
+#: anjuta.glade.h:160
+msgid ""
+"Give a space separated list of directories to be built after source module. "
+"This will be set in configure and Makefiles will be generated for them. They "
+"will be built after the source (src/) directory during \"make\"."
+msgstr ""
+"Jep një listë me directories të ndara me një hapësirë që duhen gjeneruar mbas "
+"modulit burues. Kjo do të vendoset në configure dhe Makefiles do të krijohet prej "
+"saj. Ato do të gjenerohen mbas directory të buruesit (src/) gjatë \"make\"."
+
+#: anjuta.glade.h:161
+msgid ""
+"Give a space separated list of directories to be built before source module. "
+"This will be set in configure.in and Makefiles will be generated for them. "
+"They will be built before the source (src/) directory during \"make\"."
+msgstr ""
+"Jep një listë me directories të ndara me një hapësirë që duhen gjeneruar para "
+"modulit burues. Kjo do të vendoset në configure dhe Makefiles do të krijohet prej "
+"saj. Ato do të gjenerohen përpara directory të buruesit (src/) gjatë \"make\"."
+
+#: anjuta.glade.h:162
+msgid "Gnome API"
+msgstr "API i Gnome"
+
+#: anjuta.glade.h:163
+msgid "Greedy matching"
+msgstr "Korrispondencë e plotë"
+
+#: anjuta.glade.h:164
+msgid "HTML _viewer:"
+msgstr "_Shikuesi HTML:"
+
+#. 0
+#: anjuta.glade.h:165 src/main_menubar_def.h:368
+msgid "Header"
+msgstr "Kreu i faqes"
+
+#. 5
+#: anjuta.glade.h:166 src/main_menubar_def.h:269
+msgid "Header File Template"
+msgstr "Shabllon file header"
+
+#: anjuta.glade.h:167
+msgid "Headers"
+msgstr "Headers"
+
+#: anjuta.glade.h:168
+msgid "Hello World style"
+msgstr "Stil Hello World"
+
+#: anjuta.glade.h:169
+msgid "Help module Makefile.am"
+msgstr "Moduli Makefile.am i ndihmës"
+
+#: anjuta.glade.h:170
+msgid "Hide process para_meters"
+msgstr "Fshih para_metrat e procesit"
+
+#: anjuta.glade.h:171
+msgid "High-Level Optimization (Functions inlined wherever possible)"
+msgstr "Optimizim i Nivelit të Lartë (Funksione të vëna në linjë kur është e mundur)"
+
+#: anjuta.glade.h:172
+msgid "Highlight style"
+msgstr "Stili i vënies në dukje"
+
+#: anjuta.glade.h:173
+msgid "History sizes"
+msgstr "Madhësia e kronollogjisë"
+
+#: anjuta.glade.h:174
+msgid "Ignore Binary Files"
+msgstr "Injoro files binarë"
+
+#: anjuta.glade.h:175
+msgid "Ignore Directories:"
+msgstr "Injoro directories:"
+
+#: anjuta.glade.h:176
+msgid "Ignore Files:"
+msgstr "Injoro files:"
+
+#: anjuta.glade.h:177
+msgid "Ignore Hidden Directories"
+msgstr "Injoro directories e padukshme"
+
+#: anjuta.glade.h:178
+msgid "Ignore Hidden Files"
+msgstr "Injoro files e padukshëm"
+
+#: anjuta.glade.h:179
+msgid "Ignore directories"
+msgstr "Injoro directories"
+
+#: anjuta.glade.h:180
+msgid "Ignore files"
+msgstr "Injoro files"
+
+#: anjuta.glade.h:181
+msgid "Ignore files and directories"
+msgstr "Injoro files dhe directories"
+
+#: anjuta.glade.h:182
+msgid "Import Wizard"
+msgstr "Importo Wizard"
+
+#: anjuta.glade.h:183
+msgid ""
+"Import existing project. The Import Wizard will guide you to import an "
+"existing Project into Anjuta and convert it into Anjuta Project. There will "
+"be no data loss or modification done to the project."
+msgstr ""
+"Importo një projekt ekzistues. Wizard i importimit do t'ju udhëheqë për importimin "
+"e një projekti ekzistues nën Anjuta dhe konvertimin e tij në një Projekt Anjuta. "
+"Gjatë kësaj faze nuk do të ketë humbje të dhënash apo ndryshime të projektit."
+
+#: anjuta.glade.h:184
+msgid "Include Paths"
+msgstr "Përfshi paths"
+
+#: anjuta.glade.h:185
+msgid "Include module Makefile.am"
+msgstr "Përfshi modulin Makefile.am"
+
+#: anjuta.glade.h:186
+msgid "Indent closing braces"
+msgstr "Kllapat mbyllëse të dhëmbëzimit"
+
+#: anjuta.glade.h:187
+msgid "Indent opening braces"
+msgstr "Kllapat hapëse të dhëmbëzimit"
+
+#: anjuta.glade.h:188
+msgid "Indentation and auto-format options"
+msgstr "Opcionet e ngushtimit dhe formatimit automatik"
+
+#: anjuta.glade.h:189
+msgid "Indentation size in spaces:"
+msgstr "Madhësia e ngushtimit e shprehur në hapësira bosh:"
+
+#: anjuta.glade.h:190
+msgid "Indicators"
+msgstr "Indikatorët"
+
+#: anjuta.glade.h:191
+msgid "Info Pages"
+msgstr "Faqe Info"
+
+#: anjuta.glade.h:192
+msgid "Input string:"
+msgstr "Stringa e input:"
+
+#: anjuta.glade.h:193 src/text_editor_menu.c:174 src/toolbar.c:600
+msgid "Inspect"
+msgstr "Inspekto"
+
+#: anjuta.glade.h:194
+msgid "Italic"
+msgstr "Italic"
+
+#: anjuta.glade.h:195
+msgid "Keep going when some targets can not be made"
+msgstr "Vazhdo edhe nëse ndonjë objektiv nuk mund të arrihet"
+
+#: anjuta.glade.h:196
+msgid "Kernighan and Ritchie style"
+msgstr "Stil \"Kernighan dhe Ritchie\""
+
+#: anjuta.glade.h:197
+msgid "Language-specific commands:"
+msgstr "Komandat specifike të gjuhës:"
+
+#: anjuta.glade.h:198
+msgid "Left"
+msgstr "Majtas"
+
+#: anjuta.glade.h:199
+msgid "Libraries"
+msgstr "Libreri"
+
+#: anjuta.glade.h:200
+msgid "Library Paths"
+msgstr "Pozicioni i librarisë"
+
+#: anjuta.glade.h:201
+msgid "Line numbers margin width in pixels"
+msgstr "Kufiri në pixels i numrave të rreshtit"
+
+#: anjuta.glade.h:202 printing/print.c:1011 src/anjuta_info.c:126
+msgid "Lines"
+msgstr "Rreshta"
+
+#: anjuta.glade.h:203
+msgid "Linker Flags (LDFLAGS):"
+msgstr "Flags e linkuesit (LDFLAGS):"
+
+#: anjuta.glade.h:204
+msgid "Load _global defaults"
+msgstr "Ngarko rregullimet _globale të prezgjedhura"
+
+#: anjuta.glade.h:205
+msgid "Load _user defaults"
+msgstr "Ngarko rregullimet e përcaktuara nga përdor_uesi"
+
+#: anjuta.glade.h:206
+msgid "Low-Level Optimization (Machine dependent optimization)"
+msgstr "Optimizim në nivel të ulët (Optimizim i varur nga makina)"
+
+#: anjuta.glade.h:207
+msgid "Makefile.am"
+msgstr "Makefile.am"
+
+#: anjuta.glade.h:208
+msgid "Man pages"
+msgstr "Faqe manuali"
+
+#: anjuta.glade.h:209
+msgid "Match at start of word"
+msgstr "Korrispondon me fillimin e fjalës"
+
+#: anjuta.glade.h:210
+msgid "Match complete lines"
+msgstr "Korrispondon me rreshtat e plotë"
+
+#: anjuta.glade.h:211
+msgid "Match complete words"
+msgstr "Korrispondon me fjalët e plota"
+
+#: anjuta.glade.h:212
+msgid "Max. Actions"
+msgstr "Veprimet maksimum"
+
+#: anjuta.glade.h:213
+msgid "Maximum number of independent jobs (0 == no limit)"
+msgstr "Numri maksimum i punimeve të pavarura (0 == asnjë limit)"
+
+#: anjuta.glade.h:214
+msgid "Medium-Level Optimization (Without space-speed trade-off)"
+msgstr "Nivel optimizimi mesatar (Duke patur kujdes shpejtësinë dhe hapësirën)"
+
+#: anjuta.glade.h:215
+msgid "Memory"
+msgstr "Kujtesa"
+
+#: anjuta.glade.h:216
+msgid "Menu icon:"
+msgstr "Ikona e menu:"
+
+#: anjuta.glade.h:217
+msgid "Menu location:"
+msgstr "Pozicioni i menu:"
+
+#: anjuta.glade.h:218
+msgid "Message colors"
+msgstr "Ngjyrat e mesazhit"
+
+#: anjuta.glade.h:219
+msgid "Messages options"
+msgstr "Opcionet e mesazheve"
+
+#: anjuta.glade.h:220
+msgid "Misc options"
+msgstr "Opcione të ndryshme"
+
+#: anjuta.glade.h:221
+msgid "Mode:"
+msgstr "Modaliteti:"
+
+#: anjuta.glade.h:222 src/registers_gui.c:51
+msgid "Modify"
+msgstr "Ndrysho"
+
+#: anjuta.glade.h:223
+msgid "Modules"
+msgstr "Modulët"
+
+#: anjuta.glade.h:224
+msgid "Monochrome"
+msgstr "Monochrome"
+
+#: anjuta.glade.h:225
+msgid "Name:"
+msgstr "Emri:"
+
+#: anjuta.glade.h:226
+msgid "New File"
+msgstr "File i ri"
+
+#: anjuta.glade.h:227 src/main_menubar_def.h:30 src/text_editor_gui.c:97
+#: src/toolbar.c:77
+msgid "New file"
+msgstr "File i ri"
+
+#: anjuta.glade.h:228
+msgid "No Limit"
+msgstr "Pa limit"
+
+#: anjuta.glade.h:229
+msgid "No Optimization"
+msgstr "Asnjë optimizim"
+
+#: anjuta.glade.h:230
+msgid "Normal message indicator style:"
+msgstr "Stili i treguesit të mesazhit të zakonshëm:"
+
+#: anjuta.glade.h:231
+msgid "Normal messages:"
+msgstr "Mesazhet normale:"
+
+#: anjuta.glade.h:232
+msgid ""
+"Note: If there is a project open, the preferences in this page are project "
+"preferences and will be loaded from and saved with the project. If there is "
+"no project open, they will be global preferences."
+msgstr ""
+
+#: anjuta.glade.h:233
+msgid "Number of first characters to show:"
+msgstr ""
+
+#: anjuta.glade.h:234
+msgid "Number of last characters to show:"
+msgstr ""
+
+#. Must declare static, because it will be used forever
+#: anjuta.glade.h:235 src/project_dbase.c:196 src/toolbar.c:214
+msgid "Open Project"
+msgstr ""
+
+#: anjuta.glade.h:236
+msgid "Open existing Project."
+msgstr ""
+
+#: anjuta.glade.h:237
+msgid "Open existing file or create a new file."
+msgstr ""
+
+#: anjuta.glade.h:238 src/main_menubar_def.h:36 src/text_editor_gui.c:101
+#: src/toolbar.c:81
+msgid "Open file"
+msgstr "Hap file"
+
+#: anjuta.glade.h:239
+msgid "Open last working Project"
+msgstr ""
+
+#: anjuta.glade.h:240
+msgid "Optimization"
+msgstr ""
+
+#. 15
+#: anjuta.glade.h:241 src/text_editor_menu.c:329
+msgid "Options"
+msgstr "Opcionet"
+
+#: anjuta.glade.h:242
+msgid "Original Berkeley style"
+msgstr ""
+
+#: anjuta.glade.h:243
+msgid "Other colors"
+msgstr ""
+
+#: anjuta.glade.h:244
+msgid "Other messages:"
+msgstr ""
+
+#: anjuta.glade.h:245 src/an_symbol_view.c:54
+msgid "Others"
+msgstr "Të tjerë"
+
+#: anjuta.glade.h:246
+msgid "Output files"
+msgstr ""
+
+#: anjuta.glade.h:247
+msgid "Pick a color"
+msgstr "Zgjidh një ngjyrë"
+
+#: anjuta.glade.h:248
+msgid "Pixmap module Makefile.am"
+msgstr ""
+
+#: anjuta.glade.h:249
+msgid "Plus/Minus"
+msgstr ""
+
+#: anjuta.glade.h:250
+msgid "Po module (translation) Makefile.am"
+msgstr ""
+
+#: anjuta.glade.h:251
+msgid "Position:"
+msgstr ""
+
+#: anjuta.glade.h:252
+msgid "Press this button to dismiss the dialog"
+msgstr ""
+
+#: anjuta.glade.h:253
+msgid "Pressing backspace un-indents"
+msgstr ""
+
+#: anjuta.glade.h:254
+msgid "Pressing tab indents"
+msgstr ""
+
+#: anjuta.glade.h:255
+msgid "Print options"
+msgstr ""
+
+#: anjuta.glade.h:256
+msgid "Programs"
+msgstr ""
+
+#: anjuta.glade.h:257 src/project_dbase_gui.c:609 src/project_dbase_gui.c:626
+#: src/toolbar.c:151
+msgid "Project"
+msgstr "Projekti"
+
+#: anjuta.glade.h:258
+msgid "Project Configuration"
+msgstr ""
+
+#: anjuta.glade.h:259 src/wizard_gui.c:469
+msgid "Project Description"
+msgstr ""
+
+#: anjuta.glade.h:260
+msgid "Project Version"
+msgstr ""
+
+#: anjuta.glade.h:261
+msgid "Project configure.in"
+msgstr ""
+
+#: anjuta.glade.h:262
+msgid "Project level"
+msgstr ""
+
+#: anjuta.glade.h:263
+msgid "Projects:"
+msgstr ""
+
+#: anjuta.glade.h:264
+msgid "Read me"
+msgstr "Lexomë"
+
+#: anjuta.glade.h:265
+msgid "Recent Files:"
+msgstr ""
+
+#: anjuta.glade.h:266
+msgid "Recent Projects:"
+msgstr ""
+
+#: anjuta.glade.h:267
+msgid "Regular Expression"
+msgstr ""
+
+#: anjuta.glade.h:268
+msgid "Reload Session Defaults"
+msgstr ""
+
+#: anjuta.glade.h:269
+msgid "Reload System Defaults"
+msgstr ""
+
+#: anjuta.glade.h:270
+msgid "Replace With:"
+msgstr ""
+
+#: anjuta.glade.h:271
+msgid "Reset all sticky tags during update (looses branch) [-A]"
+msgstr ""
+
+#: anjuta.glade.h:272
+msgid "Right"
+msgstr "Djathtas"
+
+#: anjuta.glade.h:273
+msgid "Run Configure Script"
+msgstr ""
+
+#: anjuta.glade.h:274
+msgid "Run detached"
+msgstr ""
+
+#: anjuta.glade.h:275
+msgid "Run in Terminal"
+msgstr ""
+
+#: anjuta.glade.h:276
+msgid "Run in terminal"
+msgstr ""
+
+#: anjuta.glade.h:277
+msgid "Save all files"
+msgstr ""
+
+#: anjuta.glade.h:278
+msgid "Save files interval in minutes"
+msgstr ""
+
+#: anjuta.glade.h:279
+msgid "Save session interval in minutes"
+msgstr ""
+
+#: anjuta.glade.h:280
+msgid "Scripts at the end of top level Makefile.am"
+msgstr ""
+
+#: anjuta.glade.h:281
+msgid "Search Action:"
+msgstr ""
+
+#: anjuta.glade.h:282
+msgid "Search Direction:"
+msgstr ""
+
+#: anjuta.glade.h:283
+msgid "Search Expression"
+msgstr ""
+
+#: anjuta.glade.h:284
+msgid "Search Expression:"
+msgstr ""
+
+#: anjuta.glade.h:285
+msgid "Search In:"
+msgstr ""
+
+#: anjuta.glade.h:286
+msgid "Search Recursively"
+msgstr ""
+
+#: anjuta.glade.h:287
+msgid "Search Target"
+msgstr ""
+
+#: anjuta.glade.h:288
+msgid "Search Variable"
+msgstr ""
+
+#: anjuta.glade.h:289
+msgid "Select highlight style to edit:"
+msgstr ""
+
+#: anjuta.glade.h:290
+msgid "Select theme:"
+msgstr ""
+
+#: anjuta.glade.h:291
+msgid "Selection background:"
+msgstr ""
+
+#: anjuta.glade.h:292
+msgid "Selection foreground:"
+msgstr ""
+
+#: anjuta.glade.h:293
+msgid "Setting"
+msgstr "Rregullimi"
+
+#: anjuta.glade.h:294
+msgid "Settings"
+msgstr "Rregullimet"
+
+#: anjuta.glade.h:295 src/sharedlib_gui.c:102
+msgid "Shared libraries"
+msgstr ""
+
+#: anjuta.glade.h:296
+msgid "Short cut:"
+msgstr ""
+
+#: anjuta.glade.h:297
+msgid "Show tooltips"
+msgstr ""
+
+#: anjuta.glade.h:298
+msgid "Silent. That is, do not echo shell commads during make"
+msgstr ""
+
+#: anjuta.glade.h:299
+msgid "Sorted by most recent use"
+msgstr ""
+
+#: anjuta.glade.h:300
+msgid "Sorted in alphabetical order"
+msgstr ""
+
+#: anjuta.glade.h:301
+msgid "Sorted in the order you open them"
+msgstr ""
+
+#: anjuta.glade.h:302
+msgid "Source Directories"
+msgstr ""
+
+#: anjuta.glade.h:303
+msgid "Source module Makefile.am"
+msgstr ""
+
+#: anjuta.glade.h:304
+msgid "Space-seperated list of directory name patterns to ignore"
+msgstr ""
+
+#: anjuta.glade.h:305
+msgid "Space-seperated list of directory name patterns to match"
+msgstr ""
+
+#: anjuta.glade.h:306
+msgid "Space-seperated list of file name patterns to ignore"
+msgstr ""
+
+#: anjuta.glade.h:307
+msgid "Space-seperated list of file name patterns to match"
+msgstr ""
+
+#: anjuta.glade.h:308
+msgid "Squares"
+msgstr ""
+
+#: anjuta.glade.h:309
+msgid "Standard error:"
+msgstr ""
+
+#: anjuta.glade.h:310
+msgid "Standard input:"
+msgstr ""
+
+#: anjuta.glade.h:311
+msgid "Standard output:"
+msgstr ""
+
+#: anjuta.glade.h:312
+msgid ""
+"Start with a new Project. Application wizard will guide you with Project "
+"creation. With the Application Wizard, you will be able to create the "
+"skeleton of various Project types."
+msgstr ""
+
+#: anjuta.glade.h:313
+msgid "Strike-Out"
+msgstr ""
+
+#: anjuta.glade.h:314
+msgid "Strip trailling spaces on file save"
+msgstr ""
+
+#: anjuta.glade.h:315
+msgid "Style of Kangleipak"
+msgstr ""
+
+#: anjuta.glade.h:316 src/anjuta-encodings.c:721
+msgid "Supported Encodings"
+msgstr ""
+
+#: anjuta.glade.h:317
+msgid "Supports"
+msgstr ""
+
+#: anjuta.glade.h:318
+msgid "Syntax highlight editor"
+msgstr ""
+
+#: anjuta.glade.h:319
+msgid "Tab size in spaces:"
+msgstr ""
+
+#: anjuta.glade.h:320
+msgid "Tabs position:"
+msgstr ""
+
+#: anjuta.glade.h:321
+msgid "Target:"
+msgstr "Objektivi:"
+
+#: anjuta.glade.h:322
+msgid "Terminal options"
+msgstr ""
+
+#: anjuta.glade.h:323
+msgid "Theme"
+msgstr "Tema"
+
+#: anjuta.glade.h:324
+msgid "Tool Editor"
+msgstr ""
+
+#: anjuta.glade.h:325
+msgid "Top"
+msgstr "Sipër"
+
+#: anjuta.glade.h:326
+msgid "Top level Makefile.am"
+msgstr ""
+
+#: anjuta.glade.h:327
+msgid "Truncate long messages"
+msgstr ""
+
+#: anjuta.glade.h:328
+msgid "Try to save in current locale's encoding"
+msgstr ""
+
+#: anjuta.glade.h:329
+msgid "Try to save in original encoding"
+msgstr ""
+
+#: anjuta.glade.h:330
+msgid "Underline Plain"
+msgstr ""
+
+#: anjuta.glade.h:331
+msgid "Underline Squiggle"
+msgstr ""
+
+#: anjuta.glade.h:332
+msgid "Underline-TT"
+msgstr ""
+
+#: anjuta.glade.h:333
+msgid "Underlined"
+msgstr ""
+
+#: anjuta.glade.h:334 src/cvs_gui.c:73 src/registers_gui.c:58
+#: src/sharedlib_gui.c:52 src/signals_gui.c:54 src/stack_trace.c:364
+msgid "Update"
+msgstr "Rifresko"
+
+#: anjuta.glade.h:335
+msgid "Update tags image automatically"
+msgstr ""
+
+#: anjuta.glade.h:336
+msgid "Use GNOME terminal profile:"
+msgstr ""
+
+#: anjuta.glade.h:337
+msgid "Use currently selected profile in GNOME terminal"
+msgstr ""
+
+#: anjuta.glade.h:338
+msgid "Use default"
+msgstr ""
+
+#: anjuta.glade.h:339
+msgid "Use tabs for indentation"
+msgstr ""
+
+#: anjuta.glade.h:340
+msgid "User Tools"
+msgstr ""
+
+#: anjuta.glade.h:341
+msgid "User email address:"
+msgstr ""
+
+#: anjuta.glade.h:342
+msgid "User information"
+msgstr ""
+
+#: anjuta.glade.h:343
+msgid "User name:"
+msgstr "Emri i përdoruesit:"
+
+#: anjuta.glade.h:344
+msgid "Variable list"
+msgstr ""
+
+#: anjuta.glade.h:345 src/project_dbase_gui.c:931
+msgid "Version:"
+msgstr "Versioni:"
+
+#: anjuta.glade.h:346
+msgid "View"
+msgstr "Paraqitja"
+
+#: anjuta.glade.h:347
+msgid "Warn when an undefined variable is referenced in the Makefile"
+msgstr ""
+
+#: anjuta.glade.h:348
+msgid "Warning message indicator style:"
+msgstr ""
+
+#: anjuta.glade.h:349
+msgid "Warnings"
+msgstr ""
+
+#: anjuta.glade.h:350
+msgid "Warnings messages:"
+msgstr ""
+
+#: anjuta.glade.h:351
+msgid "Working directory:"
+msgstr ""
+
+#: anjuta.glade.h:352
+msgid "Wrap bookmarks search around"
+msgstr ""
+
+#: anjuta.glade.h:353
+msgid "_Attach"
+msgstr ""
+
+#: anjuta.glade.h:354
+msgid "_Build a file:"
+msgstr ""
+
+#: anjuta.glade.h:355
+msgid "_Condition:"
+msgstr ""
+
+#: anjuta.glade.h:356
+msgid "_Disable all"
+msgstr ""
+
+#: anjuta.glade.h:357
+msgid "_Edit"
+msgstr "_Ndrysho"
+
+#: anjuta.glade.h:358
+msgid "_Execute:"
+msgstr ""
+
+#: anjuta.glade.h:359
+msgid "_Hide paths"
+msgstr ""
+
+#: anjuta.glade.h:360
+msgid "_Image editor:"
+msgstr ""
+
+#: anjuta.glade.h:361
+msgid "_Language:"
+msgstr ""
+
+#: anjuta.glade.h:362
+msgid "_Location:"
+msgstr "_Pozicioni:"
+
+#: anjuta.glade.h:363
+msgid "_Make a file:"
+msgstr ""
+
+#: anjuta.glade.h:364
+msgid "_Pass:"
+msgstr ""
+
+#: anjuta.glade.h:365
+msgid "_Pixmap editor:"
+msgstr ""
+
+#: anjuta.glade.h:366
+msgid "_Process to attach to:"
+msgstr ""
+
+#: anjuta.glade.h:367
+msgid "_Remove all"
+msgstr ""
+
+#: anjuta.glade.h:368
+msgid "_Save Theme As"
+msgstr ""
+
+#: anjuta.glade.h:369
+msgid "_Terminal:"
+msgstr ""
+
+#: anjuta.glade.h:370
+msgid "_Update"
+msgstr "_Rifresko"
+
+#: gdl/gdl-dock-item-grip.c:244
+msgid "Dock the toolbar"
+msgstr "Spiranco panelin e instrumentëve"
+
+#: gdl/gdl-dock-item-grip.c:245
+msgid "Un dock the toolbar"
+msgstr "Hiq spirancën nga paneli i instrumentëve"
+
+#: gdl/gdl-dock-item.c:242
+msgid "Orientation"
+msgstr "Orientimi"
+
+#: gdl/gdl-dock-item.c:243
+msgid "Orientation of the docking item"
+msgstr ""
+
+#: gdl/gdl-dock-item.c:258
+msgid "Resizable"
+msgstr "E ripërmasueshëm"
+
+#: gdl/gdl-dock-item.c:259
+msgid "If set, the dock item can be resized when docked in a paned"
+msgstr ""
+
+#: gdl/gdl-dock-item.c:266
+msgid "Item behavior"
+msgstr ""
+
+#: gdl/gdl-dock-item.c:267
+msgid ""
+"General behavior for the dock item (i.e. whether it can float, if it's "
+"locked, etc.)"
+msgstr ""
+
+#: gdl/gdl-dock-item.c:275
+msgid "Grip size"
+msgstr ""
+
+#: gdl/gdl-dock-item.c:276
+msgid "Size in pixels of the grip to drag the dock item"
+msgstr ""
+
+#: gdl/gdl-dock-item.c:282 gdl/gdl-dock-master.c:143
+msgid "Locked"
+msgstr "E bllokuar"
+
+#: gdl/gdl-dock-item.c:283
+msgid "If set, the dock item cannot be dragged around and it doesn't show a grip"
+msgstr ""
+
+#: gdl/gdl-dock-item.c:291
+msgid "Preferred width"
+msgstr "Gjerësia e preferuar"
+
+#: gdl/gdl-dock-item.c:292
+msgid "Preferred width for the dock item"
+msgstr ""
+
+#: gdl/gdl-dock-item.c:298
+msgid "Preferred height"
+msgstr "Lartësia e preferuar"
+
+#: gdl/gdl-dock-item.c:299
+msgid "Preferred height for the dock item"
+msgstr ""
+
+#: gdl/gdl-dock-item.c:546
+#, c-format
+msgid ""
+"You can't add a dock object (%p of type %s) inside a %s. Use a GdlDock or "
+"some other compound dock object."
+msgstr ""
+
+#: gdl/gdl-dock-item.c:553
+#, c-format
+msgid ""
+"Attempting to add a widget with type %s to a %s, but it can only contain one "
+"widget at a time; it already contains a widget of type %s"
+msgstr ""
+
+#: gdl/gdl-dock-item.c:1149
+#, c-format
+msgid "Unsupported docking strategy %s in dock object of type %s"
+msgstr ""
+
+#. Hide menuitem.
+#: gdl/gdl-dock-item.c:1231
+msgid "Hide"
+msgstr "Fshih"
+
+#. Lock menuitem
+#: gdl/gdl-dock-item.c:1237
+msgid "Lock"
+msgstr "Blloko"
+
+#: gdl/gdl-dock-item.c:1404
+#, c-format
+msgid "Attempt to bind an unbound item %p"
+msgstr ""
+
+#: gdl/gdl-dock-layout.c:125
+msgid "Master"
+msgstr ""
+
+#: gdl/gdl-dock-layout.c:126
+msgid "GdlDockMaster object which the layout object is attached to"
+msgstr ""
+
+#: gdl/gdl-dock-layout.c:133
+msgid "Dirty"
+msgstr ""
+
+#: gdl/gdl-dock-layout.c:134
+msgid "True if the layouts have changed and need to be saved to a file"
+msgstr ""
+
+#: gdl/gdl-dock-layout.c:447
+msgid "You must provide a name for the layout"
+msgstr ""
+
+#. FIXME: pop up an error dialog
+#: gdl/gdl-dock-layout.c:625
+#, c-format
+msgid "Could not load layout user interface file '%s'"
+msgstr ""
+
+#: gdl/gdl-dock-layout.c:680
+msgid "Visible"
+msgstr "I/e dukshëm"
+
+#: gdl/gdl-dock-layout.c:687
+msgid "Item"
+msgstr ""
+
+#: gdl/gdl-dock-layout.c:737 gdl/gdl-dock-object.c:120
+#: src/compiler_options.c:796
+msgid "Name"
+msgstr "Emri"
+
+#: gdl/gdl-dock-layout.c:776 gdl/layout.glade.h:2
+msgid "Dock items"
+msgstr ""
+
+#: gdl/gdl-dock-layout.c:782 gdl/layout.glade.h:4
+msgid "Saved layouts"
+msgstr ""
+
+#: gdl/gdl-dock-layout.c:824
+#, c-format
+msgid ""
+"While loading layout: don't know how to create a dock object whose nick is '%"
+"s'"
+msgstr ""
+
+#: gdl/gdl-dock-layout.c:1303
+msgid "Layout managment"
+msgstr ""
+
+#: gdl/gdl-dock-master.c:136 gdl/gdl-dock.c:185
+msgid "Default title"
+msgstr ""
+
+#: gdl/gdl-dock-master.c:137
+msgid "Default title for newly created floating docks"
+msgstr ""
+
+#: gdl/gdl-dock-master.c:144
+msgid ""
+"If is set to 1, all the dock items bound to the master are locked; if it's "
+"0, all are unlocked; -1 indicates inconsistency among the items"
+msgstr ""
+
+#: gdl/gdl-dock-master.c:736
+#, c-format
+msgid ""
+"master %p: unable to add object %p[%s] to the hash.  There already is an "
+"item with that name (%p)."
+msgstr ""
+
+#: gdl/gdl-dock-master.c:906
+#, c-format
+msgid ""
+"The new dock controller %p is automatic.  Only manual dock objects should be "
+"named controller."
+msgstr ""
+
+#: gdl/gdl-dock-notebook.c:134
+msgid "Page"
+msgstr "Faqja"
+
+#: gdl/gdl-dock-notebook.c:135
+msgid "The index of the current page"
+msgstr "Treguesi i faqes aktuale"
+
+#: gdl/gdl-dock-object.c:121
+msgid "Unique name for identifying the dock object"
+msgstr ""
+
+#: gdl/gdl-dock-object.c:128
+msgid "Long name"
+msgstr ""
+
+#: gdl/gdl-dock-object.c:129
+msgid "Human readable name for the dock object"
+msgstr ""
+
+#: gdl/gdl-dock-object.c:135
+msgid "Dock master"
+msgstr ""
+
+#: gdl/gdl-dock-object.c:136
+msgid "Dock master this dock object is bound to"
+msgstr ""
+
+#: gdl/gdl-dock-object.c:405
+#, c-format
+msgid ""
+"Call to gdl_dock_object_dock in a dock object %p (object type is %s) which "
+"hasn't implemented this method"
+msgstr ""
+
+#: gdl/gdl-dock-object.c:534
+#, c-format
+msgid ""
+"Dock operation requested in a non-bound object %p. The application might "
+"crash"
+msgstr ""
+
+#: gdl/gdl-dock-object.c:541
+#, c-format
+msgid "Cannot dock %p to %p because they belong to different masters"
+msgstr ""
+
+#: gdl/gdl-dock-object.c:583
+#, c-format
+msgid "Attempt to bind to %p an already bound dock object %p (current master: %p)"
+msgstr ""
+
+#: gdl/gdl-dock-paned.c:134
+msgid "Position"
+msgstr "Pozicioni"
+
+#: gdl/gdl-dock-paned.c:135
+msgid "Position of the divider in pixels"
+msgstr ""
+
+#: gdl/gdl-dock-placeholder.c:127
+msgid "Sticky"
+msgstr ""
+
+#: gdl/gdl-dock-placeholder.c:128
+msgid ""
+"Whether the placeholder will stick to its host or move up the hierarchy when "
+"the host is redocked"
+msgstr ""
+
+#: gdl/gdl-dock-placeholder.c:135
+msgid "Host"
+msgstr "Host"
+
+#: gdl/gdl-dock-placeholder.c:136
+msgid "The dock object this placeholder is attached to"
+msgstr ""
+
+#: gdl/gdl-dock-placeholder.c:143
+msgid "Next placement"
+msgstr ""
+
+#: gdl/gdl-dock-placeholder.c:144
+msgid ""
+"The position an item will be docked to our host if a request is made to dock "
+"to us"
+msgstr ""
+
+#: gdl/gdl-dock-placeholder.c:305
+msgid "Attempt to dock a dock object to an unbound placeholder"
+msgstr ""
+
+#: gdl/gdl-dock-placeholder.c:419
+#, c-format
+msgid "Got a detach signal from an object (%p) who is not our host %p"
+msgstr ""
+
+#: gdl/gdl-dock-placeholder.c:440
+#, c-format
+msgid ""
+"Something weird happened while getting the child placement for %p from "
+"parent %p"
+msgstr ""
+
+#: gdl/gdl-dock-tablabel.c:130
+msgid "Controlling dock item"
+msgstr ""
+
+#: gdl/gdl-dock-tablabel.c:131
+msgid "Dockitem which 'owns' this tablabel"
+msgstr ""
+
+#: gdl/gdl-dock.c:177
+msgid "Floating"
+msgstr ""
+
+#: gdl/gdl-dock.c:178
+msgid "Whether the dock is floating in its own window"
+msgstr ""
+
+#: gdl/gdl-dock.c:186
+msgid "Default title for the newly created floating docks"
+msgstr ""
+
+#: gdl/gdl-dock.c:192
+msgid "Width"
+msgstr "Gjerësia"
+
+#: gdl/gdl-dock.c:193
+msgid "Width for the dock when it's of floating type"
+msgstr ""
+
+#: gdl/gdl-dock.c:200
+msgid "Height"
+msgstr "Lartësia"
+
+#: gdl/gdl-dock.c:201
+msgid "Height for the dock when it's of floating type"
+msgstr ""
+
+#: gdl/gdl-dock.c:208
+msgid "Float X"
+msgstr ""
+
+#: gdl/gdl-dock.c:209
+msgid "X coordinate for a floating dock"
+msgstr ""
+
+#: gdl/gdl-dock.c:216
+msgid "Float Y"
+msgstr ""
+
+#: gdl/gdl-dock.c:217
+msgid "Y coordinate for a floating dock"
+msgstr ""
+
+#: gdl/gdl-dock.c:494
+#, c-format
+msgid "Dock #%d"
+msgstr ""
+
+#: gdl/gdl-icons.c:141 gdl/gdl-icons.c:142
+msgid "Icon size"
+msgstr "Madhësia e ikonës"
+
+#: gdl/gdl-icons.c:147 gdl/gdl-icons.c:148
+msgid "Icon zoom"
+msgstr ""
+
+#: gdl/layout.glade.h:3
+msgid "Layout Managment"
+msgstr ""
+
+#: gdl/layout.glade.h:5
+msgid "_Load"
+msgstr "_Ngarkesa"
+
+#: gdl/layout.glade.h:6
+msgid "_Lock dock items"
+msgstr ""
+
+#: plugins/class-gen/clsGen.c:449
+msgid "Class name not valid"
+msgstr ""
+
+#: plugins/class-gen/clsGen.c:456
+msgid "Base class name not valid"
+msgstr ""
+
+#: plugins/class-gen/clsGen.c:462
+msgid "Declaration file name not valid"
+msgstr ""
+
+#: plugins/class-gen/clsGen.c:467
+msgid "Implementation file name not valid"
+msgstr ""
+
+#: plugins/class-gen/clsGen.c:726
+msgid "Error in importing files"
+msgstr ""
+
+#: plugins/class-gen/clsGen.c:1332
+msgid "Class Builder"
+msgstr ""
+
+#. 13
+#. 14
+#. 9
+#: plugins/class-gen/clsGen.c:1343 src/main_menubar_def.h:997
+#: src/project_dbase_gui.c:366 src/registers_gui.c:66 src/sharedlib_gui.c:60
+#: src/signals_gui.c:62 src/stack_trace.c:379 src/watch_gui.c:74
+msgid "Help"
+msgstr "Ndihmë"
+
+#: plugins/class-gen/clsGen.c:1352 plugins/patch/patch-plugin.c:107
+msgid "Cancel"
+msgstr "Anulloje"
+
+#: plugins/class-gen/clsGen.c:1361
+msgid "Finish"
+msgstr ""
+
+#: plugins/class-gen/clsGen.c:1378
+msgid "Enter the name for the class you want to add."
+msgstr ""
+
+#: plugins/class-gen/clsGen.c:1388
+msgid "Enter the declaration file name."
+msgstr ""
+
+#: plugins/class-gen/clsGen.c:1398
+msgid "Enter the implementation file name."
+msgstr ""
+
+#: plugins/class-gen/clsGen.c:1400 plugins/class-gen/clsGen.c:1410
+msgid "..."
+msgstr "..."
+
+#: plugins/class-gen/clsGen.c:1408
+msgid "Browse for the declaration file name."
+msgstr ""
+
+#: plugins/class-gen/clsGen.c:1418
+msgid "Browse for the implementation file name."
+msgstr ""
+
+#: plugins/class-gen/clsGen.c:1428
+msgid "Enter the name of the class your new class will inherit from."
+msgstr ""
+
+#: plugins/class-gen/clsGen.c:1453
+msgid ""
+"This plugin will create a class of the type you specify and add it to your "
+"project. "
+msgstr ""
+
+#. gtk_widget_set_usize (self->label_description, 400, 16);
+#: plugins/class-gen/clsGen.c:1462
+msgid "Class name: "
+msgstr ""
+
+#: plugins/class-gen/clsGen.c:1472
+msgid "Header file:  "
+msgstr ""
+
+#: plugins/class-gen/clsGen.c:1482
+msgid "Source file:  "
+msgstr ""
+
+#: plugins/class-gen/clsGen.c:1492
+msgid "Base class:   "
+msgstr ""
+
+#: plugins/class-gen/clsGen.c:1502
+msgid "Base class inheritance: "
+msgstr ""
+
+#: plugins/class-gen/clsGen.c:1538
+msgid "Inline the declaration and implementation"
+msgstr ""
+
+#. gtk_widget_set_usize (self->checkbutton_inline, 224, 24);
+#: plugins/class-gen/clsGen.c:1546
+msgid ""
+"If checked, the plugin will generate both the declaration and implementation "
+"in the header file and will not create a source file."
+msgstr ""
+
+#: plugins/class-gen/clsGen.c:1548
+msgid "By:  Dave Huseby <huseby@linuxprogrammer.org>"
+msgstr ""
+
+#: plugins/class-gen/clsGen.c:1559
+msgid "V 0.0.2 (June 11, 2002)"
+msgstr ""
+
+#: plugins/class-gen/clsGen.c:1570
+msgid "TODO: add the ability to declare member functions and their parameters here."
+msgstr ""
+
+#: plugins/class-gen/clsGen.c:1580
+msgid "Welcome to the Anjuta Class Builder. "
+msgstr ""
+
+#. gtk_widget_set_usize (self->label_welcome, 184, 16);
+#: plugins/class-gen/clsGen.c:1589
+msgid "Class type:   "
+msgstr ""
+
+#: plugins/class-gen/clsGen.c:1607 plugins/class-gen/clsGen.c:1620
+msgid "public"
+msgstr ""
+
+#: plugins/class-gen/clsGen.c:1608
+msgid "protected"
+msgstr ""
+
+#: plugins/class-gen/clsGen.c:1609
+msgid "private"
+msgstr ""
+
+#: plugins/class-gen/clsGen.c:1618
+msgid "Choose the type of inheritence from the base class."
+msgstr ""
+
+#: plugins/class-gen/clsGen.c:1622
+msgid "Virtual destructor"
+msgstr ""
+
+#. gtk_widget_set_usize (self->checkbutton_virtual_destructor, 112, 24);
+#: plugins/class-gen/clsGen.c:1630
+msgid "If checked, the destructor of your class will be declared virtual."
+msgstr ""
+
+#: plugins/class-gen/clsGen.c:1640 plugins/class-gen/clsGen.c:1652
+msgid "Generic C++ Class"
+msgstr ""
+
+#: plugins/class-gen/clsGen.c:1641
+msgid "GTK+ Class"
+msgstr ""
+
+#: plugins/class-gen/clsGen.c:1650
+msgid "Select the type of class you would like to create."
+msgstr ""
+
+#: plugins/patch/patch-plugin.c:64
+msgid "Interface to patch Projects or individual files"
+msgstr ""
+
+#: plugins/patch/patch-plugin.c:100
+msgid "File/Dir to patch"
+msgstr ""
+
+#: plugins/patch/patch-plugin.c:101
+msgid "Patch file"
+msgstr ""
+
+#: plugins/patch/patch-plugin.c:102
+msgid "Patch level (-p)"
+msgstr ""
+
+#: plugins/patch/patch-plugin.c:107
+msgid "Patch Plugin"
+msgstr ""
+
+#: plugins/patch/patch-plugin.c:107
+msgid "Patch"
+msgstr ""
+
+#: plugins/patch/patch-plugin.c:110
+msgid "Selected directory to patch"
+msgstr ""
+
+#: plugins/patch/patch-plugin.c:112
+msgid "Selected patch file"
+msgstr ""
+
+#: plugins/patch/patch-plugin.c:148
+msgid "Patch plugin"
+msgstr ""
+
+#: plugins/patch/patch-plugin.c:154
+msgid "The patch plugin"
+msgstr ""
+
+#: plugins/patch/patch-plugin.c:172
+msgid "Please select the directory where the patch should be applied"
+msgstr ""
+
+#: plugins/patch/patch-plugin.c:179
+#, c-format
+msgid "Patching %s using %s\n"
+msgstr ""
+
+#: plugins/patch/patch-plugin.c:185
+msgid "Patching...\n"
+msgstr ""
+
+#: plugins/patch/patch-plugin.c:195
+msgid "There are unfinished jobs, please wait until they are finished"
+msgstr ""
+
+#: plugins/patch/patch-plugin.c:226
+msgid ""
+"Patch failed.\n"
+"Please review the failure messages.\n"
+"Examine and remove any rejected files.\n"
+msgstr ""
+
+#: plugins/patch/patch-plugin.c:233
+msgid "Patch successful.\n"
+msgstr ""
+
+#: plugins/sample1/plugin-sample1.c:18
+msgid "Sample Plugin Description. Holla!"
+msgstr ""
+
+#: plugins/sample1/plugin-sample1.c:49
+msgid "Hello world!"
+msgstr ""
+
+#: plugins/sample1/plugin-sample1.c:50
+msgid "Sample plugin!"
+msgstr ""
+
+#: plugins/sample1/plugin-sample1.c:58
+msgid "Sample plugin"
+msgstr ""
+
+#: plugins/sample1/plugin-sample1.c:64
+msgid "This is a sample plugin"
+msgstr ""
+
+#: printing/print.c:484
+msgid "No file to print!"
+msgstr ""
+
+#: printing/print.c:517
+msgid "Unable to get text buffer for printing"
+msgstr ""
+
+#: printing/print.c:731
+#, c-format
+msgid "File: %s"
+msgstr "File: %s"
+
+#: printing/print.c:732
+#, c-format
+msgid "%d"
+msgstr ""
+
+#: printing/print.c:844
+msgid "Printing .."
+msgstr ""
+
+#: printing/print.c:856
+msgid "Printing ..."
+msgstr ""
+
+#: printing/print.c:1002 src/signals_gui.c:123
+msgid "Print"
+msgstr "Printo"
+
+#: printing/print.c:1038
+msgid "Print Preview"
+msgstr "Pamja e parë e printimit"
+
+#: src/about.c:95
+msgid "Copyright (c) Naba Kumar"
+msgstr ""
+
+#: src/an_file_view.c:63
+#, c-format
+msgid "Unable to open %s in %s"
+msgstr ""
+
+#: src/an_file_view.c:73
+#, c-format
+msgid ""
+"No default viewer specified for the mime type %s.\n"
+"Please set it in GNOME control center"
+msgstr ""
+
+#: src/an_file_view.c:273
+msgid "Unable to build user interface for file filter"
+msgstr ""
+
+#. 0
+#: src/an_file_view.c:354
+msgid "Update file"
+msgstr ""
+
+#: src/an_file_view.c:355 src/main_menubar_def.h:1603
+msgid "Update current working copy"
+msgstr ""
+
+#. 1
+#: src/an_file_view.c:361
+msgid "Commit file"
+msgstr ""
+
+#: src/an_file_view.c:362 src/main_menubar_def.h:1610
+msgid "Commit changes to the repository"
+msgstr ""
+
+#. 2
+#: src/an_file_view.c:368
+msgid "Status of file"
+msgstr ""
+
+#: src/an_file_view.c:369 src/main_menubar_def.h:1617
+msgid "Print the status of the current file"
+msgstr ""
+
+#. 3
+#: src/an_file_view.c:375
+msgid "Get file log"
+msgstr ""
+
+#: src/an_file_view.c:376 src/main_menubar_def.h:1624
+msgid "Print the CVS log for the current file"
+msgstr ""
+
+#. 4
+#: src/an_file_view.c:382
+msgid "Add file"
+msgstr ""
+
+#: src/an_file_view.c:383 src/main_menubar_def.h:1631
+msgid "Add the current file to the repository"
+msgstr ""
+
+#. 5
+#: src/an_file_view.c:389
+msgid "Remove file"
+msgstr ""
+
+#: src/an_file_view.c:390 src/main_menubar_def.h:1638
+msgid "Remove the current file from the repository"
+msgstr ""
+
+#. 6
+#: src/an_file_view.c:396
+msgid "Diff file"
+msgstr "File diff"
+
+#: src/an_file_view.c:397 src/main_menubar_def.h:1645
+msgid "Create a diff between the working copy and the repository"
+msgstr ""
+
+#. 0
+#. 2
+#: src/an_file_view.c:406 src/main_menubar_def.h:945
+#: src/project_dbase_gui.c:334
+msgid "Open in Anjuta"
+msgstr ""
+
+#. 1
+#: src/an_file_view.c:413 src/main_menubar_def.h:939
+#: src/project_dbase_gui.c:328
+msgid "Open in default viewer"
+msgstr ""
+
+#. 3
+#: src/an_file_view.c:427 src/an_symbol_view.c:302
+msgid "Refresh"
+msgstr "Rifresko"
+
+#. 4
+#. 5
+#. 7
+#. 8
+#. 19
+#: src/an_file_view.c:435 src/an_symbol_view.c:309 src/main_menubar_def.h:971
+#: src/message-manager.cc:143 src/project_dbase_gui.c:360
+#: src/text_editor_menu.c:355
+msgid "Docked"
+msgstr ""
+
+#: src/an_file_view.c:436 src/an_symbol_view.c:310 src/main_menubar_def.h:972
+msgid "Dock/Undock the Project Window"
+msgstr ""
+
+#. 6
+#: src/an_file_view.c:442
+msgid "Customize"
+msgstr "Personalizimi"
+
+#: src/an_file_view.c:443
+msgid "Customize the file browser"
+msgstr ""
+
+#: src/an_file_view.c:684
+msgid "Rev"
+msgstr ""
+
+#: src/an_symbol_view.c:54
+msgid "Classes"
+msgstr ""
+
+#: src/an_symbol_view.c:54
+msgid "Structs"
+msgstr ""
+
+#: src/an_symbol_view.c:55
+msgid "Variables"
+msgstr "Të ndryshueshmet"
+
+#: src/an_symbol_view.c:55
+msgid "Macros"
+msgstr "Automatizime"
+
+#. 0
+#: src/an_symbol_view.c:281
+msgid "Goto Definition"
+msgstr ""
+
+#. 1
+#: src/an_symbol_view.c:288
+msgid "Goto Declaration"
+msgstr ""
+
+#. 2
+#. 17
+#: src/an_symbol_view.c:295 src/text_editor_menu.c:339
+msgid "Find Usage"
+msgstr ""
+
+#: src/an_symbol_view.c:569
+msgid "Symbol"
+msgstr ""
+
+#: src/anjuta-encodings.c:131 src/anjuta-encodings.c:157
+#: src/anjuta-encodings.c:198 src/anjuta-encodings.c:239
+msgid "Western"
+msgstr "Perëndimore"
+
+#: src/anjuta-encodings.c:133 src/anjuta-encodings.c:200
+#: src/anjuta-encodings.c:235
+msgid "Central European"
+msgstr "Europa qendrore"
+
+#: src/anjuta-encodings.c:135
+msgid "South European"
+msgstr "Europa Jugore"
+
+#: src/anjuta-encodings.c:137 src/anjuta-encodings.c:153
+#: src/anjuta-encodings.c:249
+msgid "Baltic"
+msgstr "Balltike"
+
+#: src/anjuta-encodings.c:139 src/anjuta-encodings.c:202
+#: src/anjuta-encodings.c:215 src/anjuta-encodings.c:219
+#: src/anjuta-encodings.c:237
+msgid "Cyrillic"
+msgstr "Cyrillic"
+
+#: src/anjuta-encodings.c:141 src/anjuta-encodings.c:208
+#: src/anjuta-encodings.c:247
+msgid "Arabic"
+msgstr "Arabe"
+
+#: src/anjuta-encodings.c:143 src/anjuta-encodings.c:241
+#: src/project_dbase_gui.c:1141
+msgid "Greek"
+msgstr "Greqisht"
+
+#: src/anjuta-encodings.c:145
+msgid "Hebrew Visual"
+msgstr "Hebraike vizuale"
+
+#: src/anjuta-encodings.c:147 src/anjuta-encodings.c:206
+#: src/anjuta-encodings.c:245
+msgid "Hebrew"
+msgstr "Hebraike"
+
+#: src/anjuta-encodings.c:149 src/anjuta-encodings.c:204
+#: src/anjuta-encodings.c:243 src/project_dbase_gui.c:1161
+msgid "Turkish"
+msgstr "Turqisht"
+
+#: src/anjuta-encodings.c:151
+msgid "Nordic"
+msgstr "Nordik"
+
+#: src/anjuta-encodings.c:155
+msgid "Celtic"
+msgstr "Celtic"
+
+#: src/anjuta-encodings.c:159 src/project_dbase_gui.c:1158
+msgid "Romanian"
+msgstr "Rumanisht"
+
+#: src/anjuta-encodings.c:162 src/anjuta-encodings.c:164
+#: src/anjuta-encodings.c:166 src/anjuta-encodings.c:168
+msgid "Unicode"
+msgstr "Unicode"
+
+#: src/anjuta-encodings.c:171
+msgid "Armenian"
+msgstr "Armenisht"
+
+#: src/anjuta-encodings.c:173 src/anjuta-encodings.c:175
+#: src/anjuta-encodings.c:184
+msgid "Chinese Traditional"
+msgstr "Kineze tradicionale"
+
+#: src/anjuta-encodings.c:177
+msgid "Cyrillic/Russian"
+msgstr "Cyrillic/Rusisht"
+
+#: src/anjuta-encodings.c:180 src/anjuta-encodings.c:211
+#: src/anjuta-encodings.c:224
+msgid "Japanese"
+msgstr "Japonisht"
+
+#: src/anjuta-encodings.c:182 src/anjuta-encodings.c:213
+#: src/anjuta-encodings.c:217 src/anjuta-encodings.c:230
+#: src/project_dbase_gui.c:1152
+msgid "Korean"
+msgstr "Koreane"
+
+#: src/anjuta-encodings.c:187 src/anjuta-encodings.c:189
+#: src/anjuta-encodings.c:191 src/anjuta-encodings.c:195
+msgid "Chinese Simplified"
+msgstr "Kineze e thjeshtuar"
+
+#: src/anjuta-encodings.c:193
+msgid "Georgian"
+msgstr "Gjeorgjisht"
+
+#: src/anjuta-encodings.c:221
+msgid "Cyrillic/Ukrainian"
+msgstr "Cyrillic/Ukrahina"
+
+#: src/anjuta-encodings.c:226 src/anjuta-encodings.c:232
+#: src/anjuta-encodings.c:251
+msgid "Vietnamese"
+msgstr "Vietnamisht"
+
+#: src/anjuta-encodings.c:228
+msgid "Thai"
+msgstr "Thai"
+
+#: src/anjuta-encodings.c:702
+msgid "Stock Encodings"
+msgstr ""
+
+#: src/anjuta-plugins.c:115 src/anjuta-plugins.c:118
+#, c-format
+msgid "Unable to load plugin %s. Error: %s"
+msgstr ""
+
+#: src/anjuta-plugins.c:121
+#, c-format
+msgid "Plugin protocol %s unknown Error:%s"
+msgstr ""
+
+#: src/anjuta-plugins.c:124
+#, c-format
+msgid "Unable to start plugin %s"
+msgstr ""
+
+#: src/anjuta-plugins.c:127
+#, c-format
+msgid "Bad parameters to plugin %s. Error: %s"
+msgstr ""
+
+#: src/anjuta-plugins.c:134
+#, c-format
+msgid ""
+"Unable to load plugin %s.\n"
+"Error: %s"
+msgstr ""
+
+#: src/anjuta-plugins.c:203
+msgid "Out of memory scanning for plugins."
+msgstr ""
+
+#: src/anjuta-tools.c:1005
+msgid "Tool"
+msgstr ""
+
+#: src/anjuta-tools.c:1189
+msgid "Unable to build user interface for tool editor"
+msgstr ""
+
+#: src/anjuta-tools.c:1385
+#, c-format
+msgid "Are you sure you want to delete the '%s' tool?"
+msgstr ""
+
+#: src/anjuta-tools.c:1487
+msgid "You must provide a tool name!"
+msgstr ""
+
+#: src/anjuta-tools.c:1493
+msgid "You must provide a tool command!"
+msgstr ""
+
+#: src/anjuta-tools.c:1508
+#, c-format
+msgid "A tool with the name '%s' already exists!"
+msgstr ""
+
+#: src/anjuta-tools.c:1792
+msgid "Unable to build user interface for tool help"
+msgstr ""
+
+#: src/anjuta-tools.c:1807 src/debug_tree.c:106 src/watch_gui.c:125
+msgid "Variable"
+msgstr "E ndryshueshme"
+
+#: src/anjuta-tools.c:1813
+msgid "Meaning"
+msgstr ""
+
+#: src/anjuta-tools.c:1819 src/debug_tree.c:106 src/watch_gui.c:134
+msgid "Value"
+msgstr "Vlera"
+
+#: src/anjuta-tools.c:1882
+msgid "Unable to build user interface for tool parameters"
+msgstr ""
+
+#: src/anjuta-tools.c:1886
+#, c-format
+msgid "%s: Command line parameters"
+msgstr ""
+
+#: src/anjuta.c:71 src/anjuta.c:78
+#, c-format
+msgid "Anjuta: Caught signal %d (%s) !"
+msgstr ""
+
+#. Must declare static, because it will be used forever
+#: src/anjuta.c:130
+msgid "Open File"
+msgstr "Hap File"
+
+#. Must declare static, because it will be used forever
+#: src/anjuta.c:136 src/anjuta.c:141
+msgid "Save File As"
+msgstr ""
+
+#: src/anjuta.c:268
+msgid "Cannot create application... exiting\n"
+msgstr ""
+
+#: src/anjuta.c:318 src/anjuta.c:322 src/anjuta.c:1146 src/anjuta.c:1162
+#, c-format
+msgid "Anjuta: %s"
+msgstr ""
+
+#: src/anjuta.c:379
+msgid "Recent Files "
+msgstr ""
+
+#: src/anjuta.c:934
+#, c-format
+msgid "# * DO NOT EDIT OR RENAME THIS FILE ** Generated by Anjuta **\n"
+msgstr ""
+
+#: src/anjuta.c:1111
+msgid "All files saved ..."
+msgstr ""
+
+#: src/anjuta.c:1139
+#, c-format
+msgid "Anjuta: %s (Saved)"
+msgstr ""
+
+#: src/anjuta.c:1154
+#, c-format
+msgid "Anjuta: %s (Unsaved)"
+msgstr ""
+
+#: src/anjuta.c:1179
+msgid "Anjuta: No file"
+msgstr ""
+
+#: src/anjuta.c:1484 src/anjuta.c:1586
+msgid "ERROR: "
+msgstr "GABIM:"
+
+#: src/anjuta.c:1505 src/anjuta.c:1605
+msgid ""
+"\n"
+"System: "
+msgstr ""
+
+#: src/anjuta.c:2085
+#, c-format
+msgid ""
+"The \"%s\" utility is not installed.\n"
+"Install it and then restart Anjuta."
+msgstr ""
+
+#: src/anjuta.c:2111 src/anjuta.c:2167
+msgid "None"
+msgstr "Asnjë"
+
+#: src/anjuta.c:2122
+msgid "DOS (CRLF)"
+msgstr ""
+
+#: src/anjuta.c:2125 src/anjuta.c:2159
+msgid "Unix (LF)"
+msgstr ""
+
+#: src/anjuta.c:2128
+msgid "Mac (CR)"
+msgstr ""
+
+#: src/anjuta.c:2131
+msgid "Unknown"
+msgstr "I/e panjohur"
+
+#: src/anjuta.c:2148
+msgid "OVR"
+msgstr ""
+
+#: src/anjuta.c:2152 src/anjuta.c:2158
+msgid "INS"
+msgstr ""
+
+#: src/anjuta.c:2170
+#, c-format
+msgid ""
+"  Project: %s       Zoom: %d       Line: %04d       Col: %03d       %s       "
+"Job: %s       Mode: %s"
+msgstr ""
+
+#. ~ g_signal_connect (app->launcher, "child-exited",
+#. ~ G_CALLBACK (find_in_files_terminated), NULL);
+#. ~ if (anjuta_launcher_execute (app->launcher, command,
+#. ~ find_in_files_mesg_arrived, NULL) == FALSE)
+#. ~ return;
+#: src/anjuta.c:2413
+msgid "Looking up symbol"
+msgstr ""
+
+#: src/anjuta.c:2415
+msgid "Finding in Files ....\n"
+msgstr ""
+
+#: src/anjuta_cbs.c:145
+msgid ""
+"One or more files are not saved.\n"
+"Do you still want to exit?"
+msgstr ""
+
+#: src/anjuta_cbs.c:505
+#, c-format
+msgid ""
+"The file '%s' already exists.\n"
+"Do you want to replace it with the one you are saving?"
+msgstr ""
+
+#: src/anjuta_cbs.c:512 src/anjuta_cbs.c:576
+msgid "_Replace"
+msgstr "_Zevëndëso"
+
+#: src/anjuta_cbs.c:545
+msgid "Could not open file for writing"
+msgstr ""
+
+#: src/anjuta_cbs.c:569
+#, c-format
+msgid ""
+"The file '%s' already exists.\n"
+"Do you want to replace it with the one you are saving?."
+msgstr ""
+
+#: src/anjuta_dirs.c:51
+msgid "Unable to create settings directory.\n"
+msgstr ""
+
+#: src/anjuta_gui.c:191 src/anjuta_gui.c:280
+msgid "Click here to undock this window"
+msgstr ""
+
+#: src/anjuta_gui.c:225 src/anjuta_gui.c:247
+msgid "Click here to hide this window"
+msgstr ""
+
+#: src/anjuta_info.c:50 src/anjuta_info.c:100
+msgid "Information"
+msgstr "Informacione"
+
+#: src/appwizard_cbs.c:126
+msgid "Project name"
+msgstr ""
+
+#: src/appwizard_cbs.c:127
+msgid "Source target name"
+msgstr ""
+
+#: src/appwizard_cbs.c:128
+msgid "Project version"
+msgstr ""
+
+#: src/appwizard_cbs.c:224
+#, c-format
+msgid ""
+"Invalid %s field:\n"
+"You must supply a valid %s field to proceed further."
+msgstr ""
+
+#. For the time being
+#: src/appwizard_cbs.c:282 src/project_dbase.c:1484 src/project_dbase.c:1490
+#: src/project_dbase.c:1493 src/project_import_cbs.c:227 src/signals_cbs.c:114
+#: src/signals_cbs.c:127 src/signals_cbs.c:140
+msgid "Yes"
+msgstr "Po"
+
+#: src/appwizard_cbs.c:284 src/project_dbase.c:1486 src/project_dbase.c:1495
+#: src/project_import_cbs.c:229 src/signals_cbs.c:116 src/signals_cbs.c:129
+#: src/signals_cbs.c:142
+msgid "No"
+msgstr "Jo"
+
+#: src/appwizard_cbs.c:286 src/project_import_cbs.c:230
+msgid ""
+"Confirm the following information:\n"
+"\n"
+msgstr ""
+
+#: src/appwizard_cbs.c:287 src/project_import_cbs.c:231
+msgid "Project Name:    "
+msgstr ""
+
+#: src/appwizard_cbs.c:288 src/project_import_cbs.c:232
+msgid "Project Type:    "
+msgstr ""
+
+#: src/appwizard_cbs.c:289 src/project_import_cbs.c:234
+msgid "Target Type:     "
+msgstr ""
+
+#: src/appwizard_cbs.c:290 src/project_import_cbs.c:237
+msgid "Source Target:   "
+msgstr ""
+
+#: src/appwizard_cbs.c:291 src/project_import_cbs.c:238
+msgid "Version:         "
+msgstr ""
+
+#: src/appwizard_cbs.c:292 src/project_import_cbs.c:239
+msgid "Author:          "
+msgstr ""
+
+#: src/appwizard_cbs.c:293 src/project_import_cbs.c:240
+msgid "Language:        "
+msgstr ""
+
+#: src/appwizard_cbs.c:294 src/project_import_cbs.c:242
+msgid "Gettext Support: "
+msgstr ""
+
+#: src/appwizard_gui.c:40
+msgid ""
+"The Application Wizard will generate a basic\n"
+"skeleton for a project, including all of the\n"
+"build files. It will ask for details of the initial\n"
+"structure for the application.\n"
+"\n"
+"Please answer the questions carefully, as it\n"
+"may not be possible to change some of the\n"
+"settings later."
+msgstr ""
+
+#: src/attach_process.c:68
+msgid "Pid"
+msgstr ""
+
+#: src/attach_process.c:68
+msgid "User"
+msgstr "Përdoruesi"
+
+#: src/attach_process.c:68
+msgid "Time"
+msgstr "Ora"
+
+#: src/attach_process.c:68
+msgid "Command"
+msgstr "Komanda"
+
+#: src/attach_process.c:400
+#, c-format
+msgid "Unable to execute: %s."
+msgstr ""
+
+#: src/attach_process.c:413
+#, c-format
+msgid "Unable to open the file: %s\n"
+msgstr ""
+
+#: src/breakpoints.c:111
+msgid "Line"
+msgstr "Linja"
+
+#: src/breakpoints.c:112
+msgid "Function"
+msgstr "Funksioni"
+
+#: src/breakpoints.c:112 src/signals_gui.c:127
+msgid "Pass"
+msgstr ""
+
+#: src/breakpoints.c:112
+msgid "Condition"
+msgstr "Kushti"
+
+#.
+#. debugger_put_cmd_in_queqe ("info breakpoints", DB_CMD_NONE,
+#. breakpoints_dbase_update,
+#. debugger.breakpoints_dbase);
+#.
+#: src/breakpoints.c:165 src/debugger.c:1825
+msgid "All breakpoints enabled:\n"
+msgstr ""
+
+#.
+#. debugger_put_cmd_in_queqe ("info breakpoints", DB_CMD_NONE,
+#. breakpoints_dbase_update,
+#. debugger.breakpoints_dbase);
+#.
+#: src/breakpoints.c:183 src/debugger.c:1871
+msgid "All breakpoints disabled:\n"
+msgstr ""
+
+#: src/breakpoints.c:636
+msgid "You must give a valid location to set the breakpoint."
+msgstr ""
+
+#: src/breakpoints.c:757
+msgid "Are you sure you want to delete all the breakpoints?"
+msgstr ""
+
+#: src/breakpoints.c:1278
+msgid "Old breakpoints disabled."
+msgstr ""
+
+#. 5
+#: src/breakpoints.c:1416 src/main_menubar_def.h:772 src/text_editor_gui.c:159
+msgid "0"
+msgstr "0"
+
+#: src/build_file.c:48
+msgid "This file has not been saved. Save it first and then build."
+msgstr ""
+
+#: src/build_file.c:73
+msgid "The executable is up-to-date, there is no need to build it again."
+msgstr ""
+
+#: src/build_file.c:88
+msgid "No build command has been specified for this type of file."
+msgstr ""
+
+#: src/build_file.c:104
+#, c-format
+msgid "Building file: %s ...\n"
+msgstr ""
+
+#: src/build_file.c:132 src/cvs.c:776 src/project_import.c:192
+#, c-format
+msgid "Total time taken: %lu secs\n"
+msgstr ""
+
+#: src/build_file.c:136
+msgid "Completed ... unsuccessful\n"
+msgstr ""
+
+#: src/build_file.c:140
+msgid "Completed ... unsuccessful"
+msgstr ""
+
+#: src/build_file.c:145
+msgid "Completed ... successful\n"
+msgstr ""
+
+#: src/build_file.c:149
+msgid "Completed ... successful"
+msgstr ""
+
+#: src/build_project.c:76 src/compile.c:61
+msgid "Unable to build module. Check Settings->Commands."
+msgstr ""
+
+#: src/build_project.c:95 src/build_project.c:160 src/compile.c:74
+msgid "Build Project"
+msgstr ""
+
+#: src/build_project.c:97 src/compile.c:76
+msgid "Building source directory of the Project: "
+msgstr ""
+
+#: src/build_project.c:145
+msgid "Unable to build Project. Check Settings->Commands."
+msgstr ""
+
+#: src/build_project.c:163
+msgid "Building the whole Project: "
+msgstr ""
+
+#: src/build_project.c:196
+msgid "Unable to build tarball. Check Settings->Commands."
+msgstr ""
+
+#: src/build_project.c:211
+msgid "Build Distribution"
+msgstr ""
+
+#: src/build_project.c:215
+msgid "Building the distribution package of the Project: "
+msgstr ""
+
+#: src/build_project.c:247
+msgid "Do you prefer installing as root ?"
+msgstr ""
+
+#: src/build_project.c:285
+msgid "Unable to auto generate. Check Settings->Commands."
+msgstr ""
+
+#: src/build_project.c:299
+msgid "Auto generate Project"
+msgstr ""
+
+#: src/build_project.c:302
+msgid "Auto generating the Project: "
+msgstr ""
+
+#: src/build_project.c:324 src/build_project.c:362
+msgid "Unable to install Project. Check Settings->Commands."
+msgstr ""
+
+#: src/build_project.c:339 src/build_project.c:374
+msgid "Install Project"
+msgstr ""
+
+#: src/build_project.c:341 src/build_project.c:376
+msgid "Installing the Project: "
+msgstr ""
+
+#: src/clean_project.c:61
+msgid "Unable to clean Project. Check Settings->Commands."
+msgstr ""
+
+#: src/clean_project.c:76
+msgid "Clean"
+msgstr ""
+
+#: src/clean_project.c:79
+msgid "Cleaning the source directory of the Project: "
+msgstr ""
+
+#: src/clean_project.c:115
+msgid "Unable to Clean All for the Project. Check Settings->Commands."
+msgstr ""
+
+#: src/clean_project.c:124
+msgid "Clean All"
+msgstr ""
+
+#: src/clean_project.c:127
+msgid "Cleaning whole of the Project: "
+msgstr ""
+
+#: src/compile.c:107
+msgid "This file has not been saved. Save it first and then compile."
+msgstr ""
+
+#: src/compile.c:128
+msgid "The object file is up-to-date, there is no need to compile it again."
+msgstr ""
+
+#: src/compile.c:140
+msgid "No compile command has been specified for this type of file."
+msgstr ""
+
+#: src/compile.c:153 src/toolbar.c:251
+msgid "Compile"
+msgstr "Kompilo"
+
+#: src/compile.c:155
+#, c-format
+msgid "Compiling file: %s ...\n"
+msgstr ""
+
+#: src/compiler_options.c:501
+msgid ""
+"You have changed some of the compiler options of the project,\n"
+"would you like the next build action to perform a complete\n"
+"rebuild of the project?"
+msgstr ""
+
+#: src/compiler_options.c:724 src/src_paths.c:222
+msgid "Do you want to clear the list?"
+msgstr ""
+
+#: src/compiler_options.c:803 src/compiler_options.c:879
+#: src/compiler_options.c:902 src/compiler_options.c:947 src/signals_gui.c:131
+msgid "Description"
+msgstr "Përshkrimi"
+
+#: src/compiler_options.c:818
+msgid "Include paths"
+msgstr ""
+
+#: src/compiler_options.c:833
+msgid "Libraries paths"
+msgstr ""
+
+#: src/compiler_options.c:856
+msgid "Libraries and modules"
+msgstr ""
+
+#: src/compiler_options.c:872
+msgid "Stock"
+msgstr ""
+
+#: src/compiler_options.c:917
+msgid "Stock Defines"
+msgstr ""
+
+#: src/compiler_options.c:940
+msgid "Warning"
+msgstr "Kujdes"
+
+#: src/configurer.c:157
+msgid ""
+"Project does not have an executable configure script.\n"
+"Auto generate the Project first."
+msgstr ""
+
+#: src/configurer.c:188 src/toolbar.c:263
+msgid "Configure"
+msgstr ""
+
+#: src/configurer.c:190
+msgid "Configuring the Project ....\n"
+msgstr ""
+
+#: src/controls.c:208
+msgid "No tags"
+msgstr ""
+
+#: src/cvs.c:262
+msgid "CVS Updating "
+msgstr ""
+
+#: src/cvs.c:312
+msgid "CVS Committing "
+msgstr ""
+
+#: src/cvs.c:373
+msgid "CVS Importing...\n"
+msgstr ""
+
+#: src/cvs.c:413
+msgid "CVS Adding "
+msgstr ""
+
+#: src/cvs.c:445
+msgid "CVS Removing "
+msgstr ""
+
+#: src/cvs.c:486
+msgid "Getting CVS status "
+msgstr ""
+
+#: src/cvs.c:501 src/cvs.c:556 src/cvs.c:635 src/cvs.c:891
+msgid "There are jobs running, please wait until they are finished"
+msgstr ""
+
+#: src/cvs.c:541
+msgid "Getting CVS log "
+msgstr ""
+
+#: src/cvs.c:620
+msgid "CVS diffing "
+msgstr ""
+
+#: src/cvs.c:667
+msgid "CVS login "
+msgstr ""
+
+#: src/cvs.c:765 src/project_import.c:181
+msgid "Project import completed...unsuccessful\n"
+msgstr ""
+
+#: src/cvs.c:767 src/project_import.c:183
+msgid "Project import completed...unsuccessful"
+msgstr ""
+
+#: src/cvs.c:772
+msgid "CVS completed...successful\n"
+msgstr ""
+
+#: src/cvs.c:774
+msgid "CVS completed...successful"
+msgstr ""
+
+#: src/cvs.c:782
+msgid "Updating versions in file tree..."
+msgstr ""
+
+#: src/cvs.c:784
+msgid "done\n"
+msgstr ""
+
+#: src/cvs_cbs.c:41
+msgid "You do not need to login to a local server"
+msgstr ""
+
+#: src/cvs_gui.c:30
+msgid "Local"
+msgstr ""
+
+#: src/cvs_gui.c:30
+msgid "Password"
+msgstr "Password"
+
+#: src/cvs_gui.c:30
+msgid "Extern(rsh)"
+msgstr ""
+
+#: src/cvs_gui.c:30
+msgid "Server"
+msgstr "Serveri"
+
+#: src/cvs_gui.c:72
+msgid "CVS: Update"
+msgstr ""
+
+#: src/cvs_gui.c:76
+msgid "CVS: Commit"
+msgstr ""
+
+#: src/cvs_gui.c:77
+msgid "Commit"
+msgstr ""
+
+#: src/cvs_gui.c:80
+msgid "CVS: Status"
+msgstr ""
+
+#: src/cvs_gui.c:81
+msgid "Show status"
+msgstr ""
+
+#: src/cvs_gui.c:84
+msgid "CVS: Log"
+msgstr ""
+
+#: src/cvs_gui.c:85
+msgid "Show log"
+msgstr ""
+
+#: src/cvs_gui.c:88
+msgid "CVS: Add file"
+msgstr ""
+
+#: src/cvs_gui.c:89
+msgid "Add"
+msgstr "Shto"
+
+#: src/cvs_gui.c:92
+msgid "CVS: Remove file"
+msgstr ""
+
+#. 3
+#: src/cvs_gui.c:93 src/project_dbase_gui.c:340 src/watch_gui.c:43
+msgid "Remove"
+msgstr "Hiq"
+
+#: src/cvs_gui.c:95
+msgid ""
+"WARNING: The file will be removed on disc. Use \"cvs commit\" .\n"
+"to apply to the repository. It will still be possible to retrieve older "
+"revisions of the file."
+msgstr ""
+
+#: src/cvs_gui.c:120 src/cvs_gui.c:238
+msgid "File: "
+msgstr ""
+
+#: src/cvs_gui.c:122
+msgid "Branch: "
+msgstr ""
+
+#: src/cvs_gui.c:124 src/cvs_gui.c:291
+msgid "Revision: "
+msgstr ""
+
+#: src/cvs_gui.c:125 src/cvs_gui.c:470
+msgid "Log message: "
+msgstr ""
+
+#: src/cvs_gui.c:128 src/cvs_gui.c:241
+msgid "Select file"
+msgstr "Zgjidh file"
+
+#: src/cvs_gui.c:225
+msgid "CVS: Diff file"
+msgstr ""
+
+#. 17
+#: src/cvs_gui.c:229 src/main_menubar_def.h:1110
+msgid "Diff"
+msgstr "Diff"
+
+#: src/cvs_gui.c:265
+msgid "Date: "
+msgstr ""
+
+#: src/cvs_gui.c:333
+msgid "CVS Login"
+msgstr ""
+
+#: src/cvs_gui.c:337
+msgid "Login"
+msgstr ""
+
+#: src/cvs_gui.c:347 src/cvs_gui.c:440
+msgid "Server type: "
+msgstr ""
+
+#: src/cvs_gui.c:348 src/cvs_gui.c:443
+msgid "Username: "
+msgstr ""
+
+#: src/cvs_gui.c:349 src/cvs_gui.c:441
+msgid "Server: "
+msgstr ""
+
+#: src/cvs_gui.c:350
+msgid "Directory on the server: "
+msgstr ""
+
+#: src/cvs_gui.c:427
+msgid "CVS: Import Project"
+msgstr ""
+
+#: src/cvs_gui.c:431
+msgid "Import"
+msgstr "Importim"
+
+#: src/cvs_gui.c:442
+msgid "Dir on the server: "
+msgstr ""
+
+#: src/cvs_gui.c:467
+msgid "Module name: "
+msgstr ""
+
+#: src/cvs_gui.c:468
+msgid "Release name: "
+msgstr ""
+
+#: src/cvs_gui.c:469
+msgid "Vendor tag: "
+msgstr ""
+
+#: src/cvs_gui.c:525
+msgid "Server settings"
+msgstr ""
+
+#: src/cvs_gui.c:529
+msgid "Import settings"
+msgstr ""
+
+#: src/debug_tree.c:1190
+msgid "Local Variables"
+msgstr ""
+
+#: src/debug_tree.c:1504
+msgid "Default format"
+msgstr ""
+
+#: src/debug_tree.c:1508
+msgid "Binary"
+msgstr "Binar"
+
+#: src/debug_tree.c:1511
+msgid "Octal"
+msgstr ""
+
+#: src/debug_tree.c:1514
+msgid "Signed decimal"
+msgstr ""
+
+#: src/debug_tree.c:1517
+msgid "Unsigned decimal"
+msgstr ""
+
+#: src/debug_tree.c:1520 src/registers_gui.c:43
+msgid "Hex"
+msgstr "Hex"
+
+#: src/debug_tree.c:1523
+msgid "Char"
+msgstr "Gërma"
+
+#: src/debug_tree.c:1528
+msgid "Inspect memory"
+msgstr ""
+
+#. Must declare static, because it will be used forever
+#: src/debugger.c:90
+msgid "Load Executable File"
+msgstr ""
+
+#. Must declare static, because it will be used forever
+#: src/debugger.c:96
+msgid "Load Core File"
+msgstr ""
+
+#: src/debugger.c:202 src/debugger.c:654
+msgid "Loading Executable: "
+msgstr ""
+
+#: src/debugger.c:251
+msgid "Loading Core: "
+msgstr ""
+
+#: src/debugger.c:296 src/debugger.c:324
+msgid ""
+"You have a process ATTACHED under the debugger.\n"
+"Please detach it first and then load the executable file."
+msgstr ""
+
+#: src/debugger.c:299 src/debugger.c:327
+msgid ""
+"You have a process RUNNING under the debugger.\n"
+"Please stop it first and then load the executable file."
+msgstr ""
+
+#: src/debugger.c:574
+#, c-format
+msgid ""
+"Unable to find: %s.\n"
+"Unable to initialize debugger.\n"
+"Make sure Anjuta is installed correctly."
+msgstr ""
+
+#: src/debugger.c:650
+msgid "Debugger"
+msgstr ""
+
+#: src/debugger.c:652
+msgid "Getting ready to start debugging session ...\n"
+msgstr ""
+
+#: src/debugger.c:665
+msgid "No executable specified\n"
+msgstr ""
+
+#: src/debugger.c:668
+msgid "Open an executable or attach to a process to start debugging.\n"
+msgstr ""
+
+#: src/debugger.c:675
+msgid "There was an error whilst launching the debugger.\n"
+msgstr ""
+
+#: src/debugger.c:678
+msgid "Make sure 'gdb' is installed on the system.\n"
+msgstr ""
+
+#: src/debugger.c:835
+msgid "Error: "
+msgstr ""
+
+#: src/debugger.c:856
+msgid "Debugger is ready.\n"
+msgstr ""
+
+#: src/debugger.c:964
+msgid ""
+"\n"
+"Well, did you find the BUG? Debugging session completed.\n"
+"\n"
+msgstr ""
+
+#: src/debugger.c:1202
+msgid "Cannot execute gnome-terminal"
+msgstr ""
+
+#: src/debugger.c:1237
+msgid "Cannot start terminal for debugging."
+msgstr ""
+
+#: src/debugger.c:1301
+msgid "Warning: No debug terminal. Redirecting stdio to /dev/null.\n"
+msgstr ""
+
+#: src/debugger.c:1320
+msgid "Running program ... \n"
+msgstr ""
+
+#: src/debugger.c:1450
+#, c-format
+msgid "Attaching to process: %d\n"
+msgstr ""
+
+#: src/debugger.c:1480
+msgid ""
+"A process is already running.\n"
+"Would you like to terminate it and attach the new process?"
+msgstr ""
+
+#: src/debugger.c:1493
+msgid "Anjuta is unable to attach to itself."
+msgstr ""
+
+#: src/debugger.c:1579
+#, c-format
+msgid "Detaching the process: %d\n"
+msgstr ""
+
+#: src/debugger.c:1635
+msgid ""
+"Program is ATTACHED.\n"
+"Do you still want to stop Debugger?"
+msgstr ""
+
+#: src/debugger.c:1638
+msgid ""
+"Program is RUNNING.\n"
+"Do you still want to stop Debugger?"
+msgstr ""
+
+#.
+#. debugger_put_cmd_in_queqe ("info breakpoints", DB_CMD_NONE,
+#. breakpoints_dbase_update,
+#. debugger.breakpoints_dbase);
+#.
+#: src/debugger.c:1917
+msgid "All breakpoints deleted:\n"
+msgstr ""
+
+#: src/debugger.c:1950
+#, c-format
+msgid "Interrupting the process: %d\n"
+msgstr ""
+
+#: src/debugger.c:1982
+#, c-format
+msgid "Sending signal %s to the process: %d\n"
+msgstr ""
+
+#: src/debugger.c:2003
+msgid "Error whilst signalling the process."
+msgstr ""
+
+#: src/dnd.c:104
+#, c-format
+msgid "File %s is not local."
+msgstr ""
+
+#: src/dnd.c:112
+#, c-format
+msgid "Invalid filename %s."
+msgstr ""
+
+#: src/executer.c:53 src/mainmenu_callbacks.c:1227
+msgid "The target executable of this Project is unknown"
+msgstr ""
+
+#: src/executer.c:58 src/mainmenu_callbacks.c:1229
+msgid "The target executable of this Project is not executable"
+msgstr ""
+
+#: src/executer.c:63 src/mainmenu_callbacks.c:1233
+msgid "The target executable does not exist for this Project"
+msgstr ""
+
+#: src/executer.c:76
+msgid "No file or Project opened."
+msgstr ""
+
+#: src/executer.c:81 src/executer.c:100 src/mainmenu_callbacks.c:1253
+#: src/mainmenu_callbacks.c:1264
+msgid "No executable for this file."
+msgstr ""
+
+#: src/executer.c:105
+msgid "Executable is not up-to-date."
+msgstr ""
+
+#: src/executer.c:117
+msgid "Unable to execute Project. Check Settings->Commands."
+msgstr ""
+
+#: src/executer.c:131
+msgid "This file has not been saved. Save it first."
+msgstr ""
+
+#: src/executer.c:139
+msgid "Unable to execute file. Check Settings->Commands."
+msgstr ""
+
+#: src/file.c:101
+msgid "C Source File"
+msgstr ""
+
+#: src/file.c:102
+msgid "C -C++ Header File"
+msgstr ""
+
+#: src/file.c:103
+msgid "C++ Source File"
+msgstr ""
+
+#: src/file.c:104
+msgid "C# Source File"
+msgstr ""
+
+#: src/file.c:105
+msgid "Java Source File"
+msgstr ""
+
+#: src/file.c:106
+msgid "Perl Source File"
+msgstr ""
+
+#: src/file.c:107
+msgid "Python Source File"
+msgstr ""
+
+#: src/file.c:108
+msgid "Shell Script File"
+msgstr ""
+
+#: src/file.c:109
+msgid "Other"
+msgstr "Tjetër"
+
+#: src/file.c:145
+msgid "Unable to build user interface for New File"
+msgstr ""
+
+#: src/file.c:439
+#, c-format
+msgid "The file \"%s\" is not a header file."
+msgstr ""
+
+#: src/file.c:548
+msgid "%Y"
+msgstr ""
+
+#: src/file.c:567
+msgid "%Y-%m-%d"
+msgstr ""
+
+#: src/glade_iface.c:69
+msgid ""
+"Warning: Can not generate c/c++ source code.\n"
+"Warning: It is because either glade (for gtk/gnome projects) or glademm (for "
+"gtkmm/gnomemm projects) is not installed.\n"
+"Warning: Your generated project will still be fine, though.\n"
+msgstr ""
+
+#: src/glade_iface.c:108
+msgid "Cannot fork glade."
+msgstr ""
+
+#: src/glade_iface.c:148 src/glade_iface.c:229
+msgid "Cannot fork glade--."
+msgstr ""
+
+#: src/glade_iface.c:189
+msgid "Cannot fork glade-2."
+msgstr ""
+
+#: src/gnome_project.c:65
+msgid ""
+"A project or file with the same name.already exists.\n"
+"Project creation aborted."
+msgstr ""
+
+#: src/gnome_project.c:81
+msgid "Generating Project ...\n"
+msgstr ""
+
+#: src/gnome_project.c:88
+#, c-format
+msgid "Cannot create file: %s"
+msgstr ""
+
+#: src/gnome_project.c:159
+msgid "Loading Project ...\n"
+msgstr ""
+
+#: src/gnome_project.c:170 src/gnome_project.c:231
+msgid "Saving Project ...\n"
+msgstr ""
+
+#: src/gnome_project.c:178
+msgid "Generating source codes ...\n"
+msgstr ""
+
+#. Creating icon pixmap file for gnome projects
+#: src/gnome_project.c:185
+msgid "Copying icon file ...\n"
+msgstr ""
+
+#: src/gnome_project.c:199
+msgid "Could not create icon file ...\n"
+msgstr ""
+
+#: src/gnome_project.c:213
+msgid "Locating files ...\n"
+msgstr ""
+
+#: src/gnome_project.c:235
+msgid "Updating Project ...\n"
+msgstr ""
+
+#: src/gnome_project.c:238
+msgid "Running autogen.sh ...\n"
+msgstr ""
+
+#: src/gnome_project.c:250
+msgid "App Wizard"
+msgstr ""
+
+#: src/gnome_project.c:272
+msgid "Auto generation completed...............Unsuccessful\n"
+msgstr ""
+
+#: src/gnome_project.c:275
+msgid ""
+"The Project was not successfully auto generated.\n"
+"Please run autogen.sh manually."
+msgstr ""
+
+#: src/gnome_project.c:281
+msgid ""
+"Auto generation completed...............Successful\n"
+"Now Build the Project to have a LOOK at it\n"
+msgstr ""
+
+#: src/gnome_project.c:284
+msgid "Project was successfully auto generated."
+msgstr ""
+
+#: src/goto_line.c:105
+msgid " Goto Line number "
+msgstr ""
+
+#: src/launcher.c:589
+msgid "launcher.c: Error while reading child stdout\n"
+msgstr ""
+
+#: src/launcher.c:601
+msgid "launcher.c: STDOUT pipe closed"
+msgstr ""
+
+#: src/launcher.c:637
+msgid "launcher.c: Error while reading child stderr"
+msgstr ""
+
+#: src/launcher.c:649
+msgid "launcher.c: STDERR pipe closed"
+msgstr ""
+
+#: src/launcher.c:690
+msgid "launcher.c: Error while reading child pty\n"
+msgstr ""
+
+#: src/launcher.c:708
+msgid "launcher.c: PTY pipe error!"
+msgstr ""
+
+#: src/launcher.c:813
+msgid "launcher.c: Failed to set channel encoding!"
+msgstr ""
+
+#: src/launcher.c:863 src/text_editor.c:1560
+msgid "Cannot execute command shell"
+msgstr ""
+
+#: src/main.c:50
+msgid "Do not show the splashscreen"
+msgstr ""
+
+#: src/main_menubar.c:382
+msgid "Recent Files    "
+msgstr ""
+
+#: src/main_menubar.c:393 src/project_dbase.c:2034
+msgid "Recent Projects "
+msgstr ""
+
+#. 0
+#: src/main_menubar_def.h:29
+msgid "_New"
+msgstr "_E re"
+
+#. 1
+#: src/main_menubar_def.h:35
+msgid "_Open ..."
+msgstr ""
+
+#. 2
+#: src/main_menubar_def.h:41
+msgid "_Save"
+msgstr "_Ruaj"
+
+#: src/main_menubar_def.h:42 src/text_editor_gui.c:107 src/toolbar.c:85
+msgid "Save current file"
+msgstr ""
+
+#. 3
+#: src/main_menubar_def.h:47
+msgid "Save _As ..."
+msgstr ""
+
+#: src/main_menubar_def.h:48
+msgid "Save the current file with a different name"
+msgstr "Ruaj file aktual me një emër tjetër"
+
+#. 4
+#: src/main_menubar_def.h:53
+msgid "Save A_ll"
+msgstr ""
+
+#: src/main_menubar_def.h:54
+msgid "Save all currently open files, except new files"
+msgstr ""
+
+#. 5
+#: src/main_menubar_def.h:59
+msgid "_Close File"
+msgstr ""
+
+#: src/main_menubar_def.h:60 src/toolbar.c:93
+msgid "Close current file"
+msgstr ""
+
+#. 6
+#: src/main_menubar_def.h:65
+msgid "Close All Files"
+msgstr ""
+
+#: src/main_menubar_def.h:66
+msgid "Close all files"
+msgstr ""
+
+#. 7
+#: src/main_menubar_def.h:71
+msgid "Reload F_ile"
+msgstr ""
+
+#: src/main_menubar_def.h:72 src/text_editor_gui.c:111 src/toolbar.c:89
+msgid "Reload current file"
+msgstr ""
+
+#. 8
+#. 9
+#: src/main_menubar_def.h:78
+msgid "N_ew Project ..."
+msgstr ""
+
+#: src/main_menubar_def.h:79
+msgid "Create a Project using the Application Wizard"
+msgstr ""
+
+#. 10
+#: src/main_menubar_def.h:84
+msgid "_Import Project ..."
+msgstr ""
+
+#: src/main_menubar_def.h:85
+msgid "Import an existing code project using the Project Import Wizard"
+msgstr ""
+
+#. 11
+#: src/main_menubar_def.h:90
+msgid "Open P_roject ..."
+msgstr ""
+
+#: src/main_menubar_def.h:91 src/toolbar.c:215
+msgid "Open a Project"
+msgstr ""
+
+#. 12
+#: src/main_menubar_def.h:96
+msgid "Sa_ve Project"
+msgstr ""
+
+#: src/main_menubar_def.h:97 src/toolbar.c:226
+msgid "Save the current Project"
+msgstr ""
+
+#. 13
+#: src/main_menubar_def.h:102
+msgid "Close Pro_ject"
+msgstr ""
+
+#: src/main_menubar_def.h:103 src/toolbar.c:238
+msgid "Close the current Project"
+msgstr ""
+
+#. 14
+#. 15
+#: src/main_menubar_def.h:109
+msgid "Rena_me ..."
+msgstr ""
+
+#: src/main_menubar_def.h:110
+msgid "Rename the current file"
+msgstr ""
+
+#. 16
+#. 17
+#: src/main_menubar_def.h:116
+msgid "_Print"
+msgstr "_Printo"
+
+#: src/main_menubar_def.h:117 src/text_editor_gui.c:177 src/toolbar.c:111
+msgid "Print the current file"
+msgstr "Printo file aktual"
+
+#. 18
+#: src/main_menubar_def.h:122
+msgid "_Print Preview"
+msgstr ""
+
+#: src/main_menubar_def.h:123
+msgid "Print preview of the current file"
+msgstr ""
+
+#. 19
+#. 20
+#: src/main_menubar_def.h:129
+msgid "Recent _Files"
+msgstr "_Files e përdorur të fundit"
+
+#. 21
+#: src/main_menubar_def.h:135
+msgid "Recent Projec_ts"
+msgstr ""
+
+#. 0
+#: src/main_menubar_def.h:149
+msgid "_Make Selection Uppercase"
+msgstr ""
+
+#: src/main_menubar_def.h:150
+msgid "Make the selected text uppercase"
+msgstr ""
+
+#. 1
+#: src/main_menubar_def.h:156
+msgid "Make Selection Lowercase"
+msgstr ""
+
+#: src/main_menubar_def.h:157
+msgid "Make the selected text lowercase"
+msgstr ""
+
+#. 3
+#: src/main_menubar_def.h:165
+msgid "Convert EOL chars to CRLF"
+msgstr ""
+
+#: src/main_menubar_def.h:166
+msgid "Convert End Of Line characters to DOS EOL (CRLF)"
+msgstr ""
+
+#. 4
+#: src/main_menubar_def.h:172
+msgid "Convert EOL chars to LF"
+msgstr ""
+
+#: src/main_menubar_def.h:173
+msgid "Convert End Of Line characters to Unix EOL (LF)"
+msgstr ""
+
+#. 5
+#: src/main_menubar_def.h:179
+msgid "Convert EOL chars to CR"
+msgstr ""
+
+#: src/main_menubar_def.h:180
+msgid "Convert End Of Line characters to Mac OS EOL (CR)"
+msgstr ""
+
+#. 6
+#: src/main_menubar_def.h:186
+msgid "Convert EOL chars to majority EOL"
+msgstr ""
+
+#: src/main_menubar_def.h:187
+msgid "Convert End Of Line characters to majority of the EOL found in the file"
+msgstr ""
+
+#. 0
+#: src/main_menubar_def.h:198
+msgid "_Select All"
+msgstr ""
+
+#: src/main_menubar_def.h:199
+msgid "Select all text in the editor"
+msgstr ""
+
+#. 1
+#: src/main_menubar_def.h:204
+msgid "Select to _Brace"
+msgstr ""
+
+#: src/main_menubar_def.h:205
+msgid "Select the text in the matching braces"
+msgstr ""
+
+#. 2
+#: src/main_menubar_def.h:210
+msgid "Select Code Block"
+msgstr ""
+
+#: src/main_menubar_def.h:211
+msgid "Select the current code block"
+msgstr ""
+
+#. 3
+#: src/main_menubar_def.h:216
+msgid "Current Function"
+msgstr ""
+
+#: src/main_menubar_def.h:217
+msgid "Select the current function"
+msgstr ""
+
+#. 4
+#: src/main_menubar_def.h:222
+msgid "Current Line"
+msgstr ""
+
+#: src/main_menubar_def.h:223
+msgid "Select the current line"
+msgstr ""
+
+#. 5
+#: src/main_menubar_def.h:228
+msgid "Current Word"
+msgstr ""
+
+#: src/main_menubar_def.h:229
+msgid "Select the current word"
+msgstr ""
+
+#. 0
+#: src/main_menubar_def.h:239
+msgid "/* GPL Notice */"
+msgstr ""
+
+#: src/main_menubar_def.h:240
+msgid "Insert GPL notice with C style comments"
+msgstr ""
+
+#. 1
+#: src/main_menubar_def.h:245
+msgid "// GPL Notice"
+msgstr ""
+
+#: src/main_menubar_def.h:246
+msgid "Insert GPL notice with C++ style comments"
+msgstr ""
+
+#. 2
+#: src/main_menubar_def.h:251
+msgid "# GPL Notice"
+msgstr ""
+
+#: src/main_menubar_def.h:252
+msgid "Insert GPL notice with Python style comments"
+msgstr ""
+
+#. 3
+#: src/main_menubar_def.h:257
+msgid "Current Username"
+msgstr ""
+
+#: src/main_menubar_def.h:258
+msgid "Insert name of current user"
+msgstr ""
+
+#. 4
+#: src/main_menubar_def.h:263
+msgid "Current Date & Time"
+msgstr ""
+
+#: src/main_menubar_def.h:264
+msgid "Insert current date & time"
+msgstr ""
+
+#: src/main_menubar_def.h:270
+msgid "Insert a standard header file template"
+msgstr ""
+
+#. 6
+#: src/main_menubar_def.h:275
+msgid "ChangeLog entry"
+msgstr ""
+
+#: src/main_menubar_def.h:276
+msgid "Insert a ChangeLog entry"
+msgstr ""
+
+#: src/main_menubar_def.h:287
+msgid "Insert a switch template"
+msgstr ""
+
+#: src/main_menubar_def.h:293
+msgid "Insert a for template"
+msgstr ""
+
+#: src/main_menubar_def.h:299
+msgid "Insert a while template"
+msgstr ""
+
+#: src/main_menubar_def.h:305
+msgid "Insert an if...else template"
+msgstr ""
+
+#: src/main_menubar_def.h:316
+msgid "Insert the CVS Author keyword (author of the change)"
+msgstr ""
+
+#: src/main_menubar_def.h:322
+msgid "Insert the CVS Date keyword (date and time of the change)"
+msgstr ""
+
+#: src/main_menubar_def.h:328
+msgid "Insert the CVS Header keyword (full path, revision, date, author, state)"
+msgstr ""
+
+#: src/main_menubar_def.h:334
+msgid "Insert the CVS Id keyword (file, revision, date, author)"
+msgstr ""
+
+#: src/main_menubar_def.h:340
+msgid "Insert the CVS Log keyword (log message)"
+msgstr ""
+
+#: src/main_menubar_def.h:346
+msgid "Insert the CVS Name keyword (name of the sticky tag)"
+msgstr ""
+
+#: src/main_menubar_def.h:352
+msgid "Insert the CVS Revision keyword (revision number)"
+msgstr ""
+
+#: src/main_menubar_def.h:358
+msgid "Insert the CVS Source keyword (full path)"
+msgstr ""
+
+#: src/main_menubar_def.h:369
+msgid "Insert a file header"
+msgstr ""
+
+#. 1
+#: src/main_menubar_def.h:374
+msgid "C template"
+msgstr ""
+
+#: src/main_menubar_def.h:375
+msgid "Insert a C template"
+msgstr ""
+
+#. 2
+#: src/main_menubar_def.h:380
+msgid "CVS keyword"
+msgstr ""
+
+#. 4
+#. 5
+#: src/main_menubar_def.h:393
+msgid "Custom Indent"
+msgstr ""
+
+#: src/main_menubar_def.h:394
+msgid "Indent Mode, Offset, Tab-width"
+msgstr ""
+
+#. 0
+#: src/main_menubar_def.h:404
+msgid "Block Comment/Uncomment"
+msgstr ""
+
+#: src/main_menubar_def.h:405
+msgid "Block comment/uncomment the selected text"
+msgstr ""
+
+#. 1
+#: src/main_menubar_def.h:410
+msgid "Box Comment/Uncomment"
+msgstr ""
+
+#: src/main_menubar_def.h:411
+msgid "Box comment/uncomment the selected text"
+msgstr ""
+
+#. 2
+#: src/main_menubar_def.h:416
+msgid "Stream Comment/Uncomment"
+msgstr ""
+
+#: src/main_menubar_def.h:417
+msgid "Stream comment/uncomment the selected text"
+msgstr ""
+
+#. 0
+#: src/main_menubar_def.h:427
+msgid "_Find ..."
+msgstr ""
+
+#: src/main_menubar_def.h:428
+msgid "Search for a string or regular expression in the editor"
+msgstr ""
+
+#. 1
+#: src/main_menubar_def.h:434
+msgid "Find _Next"
+msgstr "Gjej _pasardhësen"
+
+#: src/main_menubar_def.h:435
+msgid "Search Forward"
+msgstr ""
+
+#. 2
+#: src/main_menubar_def.h:441
+msgid "Find Previous"
+msgstr "Gjej paraardhësen"
+
+#: src/main_menubar_def.h:442
+msgid "Search Backward"
+msgstr ""
+
+#. 3
+#: src/main_menubar_def.h:448
+msgid "Find and R_eplace ..."
+msgstr ""
+
+#: src/main_menubar_def.h:449
+msgid "Search for and replace a string or regular expression with another string"
+msgstr ""
+
+#. 4
+#: src/main_menubar_def.h:455
+msgid "Fin_d in Files ..."
+msgstr ""
+
+#: src/main_menubar_def.h:456
+msgid "Search for a string in multiple files or directories"
+msgstr ""
+
+#. 5
+#: src/main_menubar_def.h:462
+msgid "_Enter Selection/I-Search"
+msgstr ""
+
+#: src/main_menubar_def.h:463
+msgid "Enter the selected text as the search target"
+msgstr ""
+
+#. 0
+#: src/main_menubar_def.h:474
+msgid "_Goto Line number ..."
+msgstr ""
+
+#: src/main_menubar_def.h:475
+msgid "Go to a particular line in the editor"
+msgstr ""
+
+#. 1
+#: src/main_menubar_def.h:480
+msgid "Goto Matching _Brace"
+msgstr ""
+
+#: src/main_menubar_def.h:481
+msgid "Go to the matching brace in the editor"
+msgstr ""
+
+#. 2
+#: src/main_menubar_def.h:486
+msgid "_Goto start of block"
+msgstr ""
+
+#: src/main_menubar_def.h:487
+msgid "Go to the start of the current block"
+msgstr ""
+
+#. 3
+#: src/main_menubar_def.h:492
+msgid "_Goto end of block"
+msgstr ""
+
+#: src/main_menubar_def.h:493
+msgid "Go to the end of the current block"
+msgstr ""
+
+#. 4
+#: src/main_menubar_def.h:498
+msgid "_Goto previous mesg"
+msgstr ""
+
+#: src/main_menubar_def.h:499
+msgid "Go to previous message"
+msgstr ""
+
+#. 5
+#: src/main_menubar_def.h:504
+msgid "_Goto next mesg"
+msgstr ""
+
+#: src/main_menubar_def.h:505
+msgid "Go to next message"
+msgstr ""
+
+#. 6
+#: src/main_menubar_def.h:510
+msgid "_Go Back"
+msgstr ""
+
+#: src/main_menubar_def.h:511
+msgid "Go back"
+msgstr "Kthehu mbrapa"
+
+#. 7
+#: src/main_menubar_def.h:516
+msgid "_Go Forward"
+msgstr ""
+
+#: src/main_menubar_def.h:517
+msgid "Go forward"
+msgstr "Shko përpara"
+
+#. 8
+#: src/main_menubar_def.h:522 src/text_editor_menu.c:93
+msgid "Tag Definition"
+msgstr ""
+
+#: src/main_menubar_def.h:523
+msgid "Goto tag definition"
+msgstr ""
+
+#. 9
+#: src/main_menubar_def.h:528 src/text_editor_menu.c:100
+msgid "Tag Declaration"
+msgstr ""
+
+#: src/main_menubar_def.h:529
+msgid "Goto tag declaration"
+msgstr ""
+
+#. 10
+#: src/main_menubar_def.h:534
+msgid "Next occurrence"
+msgstr ""
+
+#: src/main_menubar_def.h:535
+msgid "Find the next occurrence of current word"
+msgstr ""
+
+#. 11
+#: src/main_menubar_def.h:540
+msgid "Previous occurrence"
+msgstr ""
+
+#: src/main_menubar_def.h:541
+msgid "Find the previous occurrence of current word"
+msgstr ""
+
+#. 0
+#: src/main_menubar_def.h:552
+msgid "U_ndo"
+msgstr ""
+
+#: src/main_menubar_def.h:553 src/toolbar.c:98
+msgid "Undo the last action"
+msgstr "Anullo veprimin e fundit"
+
+#. 1
+#: src/main_menubar_def.h:559
+msgid "_Redo"
+msgstr "_Përsërit"
+
+#: src/main_menubar_def.h:560 src/toolbar.c:102
+msgid "Redo the last undone action"
+msgstr "Rikthe veprimin e fundit të anulluar"
+
+#. 2
+#. 3
+#: src/main_menubar_def.h:568
+msgid "C_ut"
+msgstr "P_rije"
+
+#: src/main_menubar_def.h:569
+msgid "Cut the selected text from the editor to the clipboard"
+msgstr ""
+
+#. 4
+#: src/main_menubar_def.h:575
+msgid "_Copy"
+msgstr "_Kopjo"
+
+#: src/main_menubar_def.h:576
+msgid "Copy the selected text to the clipboard"
+msgstr "Kopjo tekstin e zgjedhur tek shënimet"
+
+#. 5
+#: src/main_menubar_def.h:582
+msgid "_Paste"
+msgstr "_Ngjite"
+
+#: src/main_menubar_def.h:583
+msgid "Paste the content of clipboard at the current position"
+msgstr ""
+
+#. 6
+#: src/main_menubar_def.h:589
+msgid "C_lear"
+msgstr "P_astro"
+
+#: src/main_menubar_def.h:590
+msgid "Delete the selected text from the editor"
+msgstr ""
+
+#. 7
+#. 8
+#: src/main_menubar_def.h:598
+msgid "_Transform"
+msgstr ""
+
+#. 9
+#: src/main_menubar_def.h:605
+msgid "_Select"
+msgstr "_Zgjidh"
+
+#. 10
+#: src/main_menubar_def.h:612
+msgid "_Insert text"
+msgstr ""
+
+#. 11
+#: src/main_menubar_def.h:619
+msgid "Co_mment code"
+msgstr ""
+
+#. 12
+#: src/main_menubar_def.h:625
+msgid "S_earch"
+msgstr ""
+
+#. 13
+#: src/main_menubar_def.h:631
+msgid "G_o to"
+msgstr ""
+
+#. 14
+#. 15
+#: src/main_menubar_def.h:640
+msgid "_AutoComplete"
+msgstr ""
+
+#: src/main_menubar_def.h:641
+msgid "AutoComplete the current word"
+msgstr ""
+
+#. 16
+#: src/main_menubar_def.h:647
+msgid "S_how calltip"
+msgstr ""
+
+#: src/main_menubar_def.h:648
+msgid "Show calltip for the function"
+msgstr ""
+
+#. 0
+#: src/main_menubar_def.h:660
+msgid "_Main Toolbar"
+msgstr ""
+
+#: src/main_menubar_def.h:661
+msgid "Hide/Unhide Main toolbar"
+msgstr ""
+
+#. 1
+#: src/main_menubar_def.h:666
+msgid "_Extended Toolbar"
+msgstr ""
+
+#: src/main_menubar_def.h:667
+msgid "Hide/Unhide Extended toolbar"
+msgstr ""
+
+#. 2
+#: src/main_menubar_def.h:672
+msgid "_Debug Toolbar"
+msgstr ""
+
+#: src/main_menubar_def.h:673
+msgid "Hide/Unhide Debug toolbar"
+msgstr ""
+
+#. 3
+#: src/main_menubar_def.h:678
+msgid "_Browser Toolbar"
+msgstr ""
+
+#: src/main_menubar_def.h:679
+msgid "Hide/Unhide Browser toolbar"
+msgstr ""
+
+#. 4
+#: src/main_menubar_def.h:684
+msgid "_Format Toolbar"
+msgstr ""
+
+#: src/main_menubar_def.h:685
+msgid "Hide/Unhide Format toolbar"
+msgstr ""
+
+#. 0
+#: src/main_menubar_def.h:695
+msgid "_Line numbers margin"
+msgstr ""
+
+#: src/main_menubar_def.h:696
+msgid "Show/Hide line numbers"
+msgstr ""
+
+#. 1
+#: src/main_menubar_def.h:701
+msgid "_Markers Margin"
+msgstr ""
+
+#: src/main_menubar_def.h:702
+msgid "Show/Hide markers margin"
+msgstr ""
+
+#. 2
+#: src/main_menubar_def.h:707
+msgid "_Code fold margin"
+msgstr ""
+
+#: src/main_menubar_def.h:708
+msgid "Show/Hide code fold margin"
+msgstr ""
+
+#. 3
+#: src/main_menubar_def.h:713
+msgid "_Indentation guides"
+msgstr ""
+
+#: src/main_menubar_def.h:714
+msgid "Show/Hide indentation guides"
+msgstr ""
+
+#. 4
+#: src/main_menubar_def.h:719
+msgid "_White spaces"
+msgstr ""
+
+#: src/main_menubar_def.h:720
+msgid "Show/Hide white spaces"
+msgstr ""
+
+#. 5
+#: src/main_menubar_def.h:725
+msgid "_Line end characters"
+msgstr ""
+
+#: src/main_menubar_def.h:726
+msgid "Show/Hide line end characters"
+msgstr ""
+
+#. 6
+#: src/main_menubar_def.h:731
+msgid "Line _wrapping"
+msgstr ""
+
+#: src/main_menubar_def.h:732
+msgid "Enable/disable line wrapping"
+msgstr ""
+
+#. 0
+#: src/main_menubar_def.h:742
+msgid "++ Zoom"
+msgstr ""
+
+#: src/main_menubar_def.h:743
+msgid "Increase text zoom by 1 unit"
+msgstr ""
+
+#. 1
+#: src/main_menubar_def.h:748
+msgid "+8"
+msgstr ""
+
+#: src/main_menubar_def.h:749
+msgid "Zoom factor +8"
+msgstr ""
+
+#. 2
+#: src/main_menubar_def.h:754
+msgid "+6"
+msgstr ""
+
+#: src/main_menubar_def.h:755
+msgid "Zoom factor +6"
+msgstr ""
+
+#. 3
+#: src/main_menubar_def.h:760
+msgid "+4"
+msgstr ""
+
+#: src/main_menubar_def.h:761
+msgid "Zoom factor +4"
+msgstr ""
+
+#. 4
+#: src/main_menubar_def.h:766
+msgid "+2"
+msgstr ""
+
+#: src/main_menubar_def.h:767
+msgid "Zoom factor +2"
+msgstr ""
+
+#: src/main_menubar_def.h:773
+msgid "Zoom factor 0"
+msgstr ""
+
+#. 6
+#: src/main_menubar_def.h:778
+msgid "-2"
+msgstr ""
+
+#: src/main_menubar_def.h:779
+msgid "Zoom factor -2"
+msgstr ""
+
+#. 7
+#: src/main_menubar_def.h:784
+msgid "-4"
+msgstr ""
+
+#: src/main_menubar_def.h:785
+msgid "Zoom factor -4"
+msgstr ""
+
+#. 8
+#: src/main_menubar_def.h:790
+msgid "-6"
+msgstr ""
+
+#: src/main_menubar_def.h:791
+msgid "Zoom factor -6"
+msgstr ""
+
+#. 9
+#: src/main_menubar_def.h:796
+msgid "-8"
+msgstr ""
+
+#: src/main_menubar_def.h:797
+msgid "Zoom factor -8"
+msgstr ""
+
+#. 10
+#: src/main_menubar_def.h:802
+msgid "-- Zoom"
+msgstr ""
+
+#: src/main_menubar_def.h:803
+msgid "Reduce text zoom by 1 unit"
+msgstr ""
+
+#. 0
+#: src/main_menubar_def.h:813
+msgid "_Message window"
+msgstr ""
+
+#: src/main_menubar_def.h:814 src/toolbar.c:156
+msgid "Show/Hide the Message window"
+msgstr ""
+
+#. 1
+#: src/main_menubar_def.h:819
+msgid "_Project window"
+msgstr ""
+
+#: src/main_menubar_def.h:820 src/toolbar.c:152
+msgid "Show/Hide the Project window"
+msgstr ""
+
+#. 2
+#: src/main_menubar_def.h:825
+msgid "B_ookmarks"
+msgstr ""
+
+#: src/main_menubar_def.h:826
+msgid "Show the Bookmark window"
+msgstr ""
+
+#. 3
+#. 4
+#: src/main_menubar_def.h:832
+msgid "_Toolbars"
+msgstr ""
+
+#. 5
+#: src/main_menubar_def.h:838
+msgid "_Editor"
+msgstr ""
+
+#. 6
+#: src/main_menubar_def.h:844
+msgid "_Zoom text"
+msgstr ""
+
+#. 7
+#. 8
+#. 14
+#: src/main_menubar_def.h:851 src/main_menubar_def.h:1563
+msgid "_Breakpoints"
+msgstr ""
+
+#: src/main_menubar_def.h:852
+msgid "Show breakpoints editor window"
+msgstr ""
+
+#. 9
+#: src/main_menubar_def.h:857
+msgid "_Registers"
+msgstr ""
+
+#: src/main_menubar_def.h:858
+msgid "Show CPU registers and their contents"
+msgstr ""
+
+#. 10
+#: src/main_menubar_def.h:863
+msgid "Shared _Libraries"
+msgstr ""
+
+#: src/main_menubar_def.h:864
+msgid "Show shared libraries loaded by the program"
+msgstr ""
+
+#. 11
+#: src/main_menubar_def.h:869
+msgid "_Kernel Signals"
+msgstr ""
+
+#: src/main_menubar_def.h:870
+msgid "Show the kernel signals editor window"
+msgstr ""
+
+#. 12
+#: src/main_menubar_def.h:875
+msgid "Memory _Dump"
+msgstr ""
+
+#: src/main_menubar_def.h:876
+msgid "Show memory dump window"
+msgstr ""
+
+#. 0
+#: src/main_menubar_def.h:886 src/project_dbase_gui.c:276
+msgid "Include file"
+msgstr ""
+
+#. 1
+#: src/main_menubar_def.h:892 src/project_dbase_gui.c:282
+msgid "Source file"
+msgstr ""
+
+#. 2
+#: src/main_menubar_def.h:898 src/project_dbase_gui.c:288
+msgid "Help file"
+msgstr ""
+
+#. 3
+#: src/main_menubar_def.h:904 src/project_dbase_gui.c:294
+msgid "Data file"
+msgstr ""
+
+#. 4
+#: src/main_menubar_def.h:910 src/project_dbase_gui.c:300
+msgid "Pixmap file"
+msgstr ""
+
+#. 5
+#: src/main_menubar_def.h:916 src/project_dbase_gui.c:306
+msgid "Translation file"
+msgstr ""
+
+#. 6
+#: src/main_menubar_def.h:922 src/project_dbase_gui.c:312
+msgid "Doc file"
+msgstr ""
+
+#. 0
+#: src/main_menubar_def.h:933 src/project_dbase_gui.c:322
+msgid "Add File"
+msgstr ""
+
+#. 3
+#: src/main_menubar_def.h:951
+msgid "Remove File"
+msgstr ""
+
+#. 4
+#. 5
+#: src/main_menubar_def.h:958 src/project_dbase_gui.c:347
+msgid "Configure Project"
+msgstr ""
+
+#: src/main_menubar_def.h:959
+msgid "Configure options for the current Project"
+msgstr ""
+
+#. 6
+#: src/main_menubar_def.h:964 src/project_dbase_gui.c:353
+msgid "Project Info"
+msgstr ""
+
+#: src/main_menubar_def.h:965
+msgid "Display the Project information"
+msgstr ""
+
+#. 9
+#. 10
+#: src/main_menubar_def.h:978
+msgid "_Update tags image"
+msgstr ""
+
+#: src/main_menubar_def.h:979
+msgid "Update the tags image of the Project/opened files"
+msgstr ""
+
+#. 11
+#: src/main_menubar_def.h:984
+msgid "Rebuild tags image"
+msgstr ""
+
+#: src/main_menubar_def.h:985
+msgid "Rebuild the tags image of the Project"
+msgstr ""
+
+#. 12
+#: src/main_menubar_def.h:990
+msgid "Ed_it Application GUI ..."
+msgstr ""
+
+#: src/main_menubar_def.h:991
+msgid "Edit application GUI with the Glade GUI editor"
+msgstr ""
+
+#. 0
+#: src/main_menubar_def.h:1008
+msgid "Automatic"
+msgstr "Në menyrë automatike"
+
+#: src/main_menubar_def.h:1009
+msgid "Automatically determine the highlight style"
+msgstr ""
+
+#. 1
+#: src/main_menubar_def.h:1014
+msgid "No Highlight style"
+msgstr ""
+
+#: src/main_menubar_def.h:1015
+msgid "Remove the current highlight style"
+msgstr ""
+
+#. 2
+#: src/main_menubar_def.h:1020
+msgid "C and C++"
+msgstr ""
+
+#: src/main_menubar_def.h:1021
+msgid "Force the highlight style to C and C++"
+msgstr ""
+
+#. 3
+#: src/main_menubar_def.h:1026
+msgid "C and C++ with GNOME"
+msgstr ""
+
+#: src/main_menubar_def.h:1027
+msgid "Force the highlight style to C and C++ with GNOME"
+msgstr ""
+
+#. 4
+#: src/main_menubar_def.h:1032
+msgid "HTML"
+msgstr "HTML"
+
+#: src/main_menubar_def.h:1033
+msgid "Force the highlight style to HTML"
+msgstr ""
+
+#. 5
+#: src/main_menubar_def.h:1038
+msgid "XML"
+msgstr "XML"
+
+#: src/main_menubar_def.h:1039
+msgid "Force the highlight style to XML"
+msgstr ""
+
+#. 6
+#: src/main_menubar_def.h:1044
+msgid "Javascript"
+msgstr ""
+
+#: src/main_menubar_def.h:1045
+msgid "Force the highlight style to Javascript"
+msgstr ""
+
+#. 7
+#: src/main_menubar_def.h:1050
+msgid "WScript"
+msgstr ""
+
+#: src/main_menubar_def.h:1051
+msgid "Force the highlight style to WScript"
+msgstr ""
+
+#. 8
+#: src/main_menubar_def.h:1056
+msgid "Makefile"
+msgstr "Makefile"
+
+#: src/main_menubar_def.h:1057
+msgid "Force the highlight style to Makefile"
+msgstr ""
+
+#. 9
+#: src/main_menubar_def.h:1062
+msgid "Java"
+msgstr "Java"
+
+#: src/main_menubar_def.h:1063
+msgid "Force the highlight type to Java"
+msgstr ""
+
+#. 10
+#: src/main_menubar_def.h:1068
+msgid "LUA"
+msgstr ""
+
+#: src/main_menubar_def.h:1069
+msgid "Force the highlight style to LUA"
+msgstr ""
+
+#. 11
+#: src/main_menubar_def.h:1074
+msgid "Python"
+msgstr "Python"
+
+#: src/main_menubar_def.h:1075
+msgid "Force the highlight style to Python"
+msgstr ""
+
+#. 12
+#: src/main_menubar_def.h:1080
+msgid "Perl"
+msgstr "Perl"
+
+#: src/main_menubar_def.h:1081
+msgid "Force the highlight style to Perl"
+msgstr ""
+
+#. 13
+#: src/main_menubar_def.h:1086
+msgid "SQL"
+msgstr "SQL"
+
+#: src/main_menubar_def.h:1087
+msgid "Force the highlight style to SQL"
+msgstr ""
+
+#. 14
+#: src/main_menubar_def.h:1092
+msgid "PL/SQL"
+msgstr ""
+
+#: src/main_menubar_def.h:1093
+msgid "Force the highlight style to PL/SQL"
+msgstr ""
+
+#. 15
+#: src/main_menubar_def.h:1098
+msgid "PHP"
+msgstr "PHP"
+
+#: src/main_menubar_def.h:1099
+msgid "Force the highlight style to PHP"
+msgstr ""
+
+#. 16
+#: src/main_menubar_def.h:1104
+msgid "LaTex"
+msgstr ""
+
+#: src/main_menubar_def.h:1105
+msgid "Force the highlight style to LaTex"
+msgstr ""
+
+#: src/main_menubar_def.h:1111
+msgid "Force the highlight style to Diff"
+msgstr ""
+
+#. 18
+#: src/main_menubar_def.h:1116
+msgid "Pascal"
+msgstr ""
+
+#: src/main_menubar_def.h:1117
+msgid "Force the highlight style to Pascal"
+msgstr ""
+
+#. 19
+#: src/main_menubar_def.h:1122
+msgid "Xcode"
+msgstr ""
+
+#: src/main_menubar_def.h:1123
+msgid "Force the highlight style to Xcode"
+msgstr ""
+
+#. 20
+#: src/main_menubar_def.h:1128
+msgid "Prj/Properties"
+msgstr ""
+
+#: src/main_menubar_def.h:1129
+msgid "Force the highlight style to project/properties files"
+msgstr ""
+
+#. 21
+#: src/main_menubar_def.h:1134
+msgid "Conf"
+msgstr ""
+
+#: src/main_menubar_def.h:1135
+msgid "Force the highlight style to UNIX conf files"
+msgstr ""
+
+#. 22
+#: src/main_menubar_def.h:1140
+msgid "Ada"
+msgstr "Ada"
+
+#: src/main_menubar_def.h:1141
+msgid "Force the highlight style to Ada"
+msgstr ""
+
+#. 23
+#: src/main_menubar_def.h:1146
+msgid "Baan"
+msgstr ""
+
+#: src/main_menubar_def.h:1147
+msgid "Force the highlight style to Baan"
+msgstr ""
+
+#. 24
+#: src/main_menubar_def.h:1152
+msgid "Lisp"
+msgstr ""
+
+#: src/main_menubar_def.h:1153
+msgid "Force the highlight style to Lisp"
+msgstr ""
+
+#. 25
+#: src/main_menubar_def.h:1158
+msgid "Ruby"
+msgstr "Rubin"
+
+#: src/main_menubar_def.h:1159
+msgid "Force the highlight style to Ruby"
+msgstr ""
+
+#. 26
+#: src/main_menubar_def.h:1164
+msgid "Matlab"
+msgstr ""
+
+#: src/main_menubar_def.h:1165
+msgid "Force the highlight style to Matlab"
+msgstr ""
+
+#. 0
+#: src/main_menubar_def.h:1175
+msgid "Auto _Format"
+msgstr ""
+
+#: src/main_menubar_def.h:1176
+msgid "Autoformat the current source file"
+msgstr ""
+
+#. 1
+#: src/main_menubar_def.h:1181
+msgid "_Increase Indent"
+msgstr ""
+
+#: src/main_menubar_def.h:1182
+msgid "Increase indentation of line/selection"
+msgstr ""
+
+#. 2
+#: src/main_menubar_def.h:1187
+msgid "_Decrease Indent"
+msgstr ""
+
+#: src/main_menubar_def.h:1188
+msgid "Decrease indentation of line/selection"
+msgstr ""
+
+#. 3
+#. 4
+#: src/main_menubar_def.h:1194
+msgid "Force _Highlight Style"
+msgstr ""
+
+#. 5
+#. 6
+#: src/main_menubar_def.h:1201
+msgid "_Close All Folds"
+msgstr ""
+
+#: src/main_menubar_def.h:1202
+msgid "Close all code folds in the editor"
+msgstr ""
+
+#. 7
+#: src/main_menubar_def.h:1207
+msgid "_Open All Folds"
+msgstr ""
+
+#: src/main_menubar_def.h:1208
+msgid "Open all code folds in the editor"
+msgstr ""
+
+#. 8
+#: src/main_menubar_def.h:1213
+msgid "_Toggle Current Fold"
+msgstr ""
+
+#: src/main_menubar_def.h:1214
+msgid "Toggle current code fold in the editor"
+msgstr ""
+
+#. 9
+#. 10
+#: src/main_menubar_def.h:1220
+msgid "D_etach Current Document"
+msgstr ""
+
+#: src/main_menubar_def.h:1221
+msgid "Detach the current document into a separate editor window"
+msgstr ""
+
+#. 0
+#: src/main_menubar_def.h:1231
+msgid "_Compile"
+msgstr "_Kompilo"
+
+#: src/main_menubar_def.h:1232
+msgid "Compile the current source file"
+msgstr ""
+
+#. 1
+#: src/main_menubar_def.h:1237
+msgid "Compile With _Make"
+msgstr ""
+
+#: src/main_menubar_def.h:1238
+msgid "Compile the current source file using Make"
+msgstr ""
+
+#. 2
+#: src/main_menubar_def.h:1243 src/main_menubar_def.h:1896
+msgid "_Build"
+msgstr ""
+
+#: src/main_menubar_def.h:1244
+msgid "Build the source directory of the Project or the current source file"
+msgstr ""
+
+#. 3
+#: src/main_menubar_def.h:1249
+msgid "Build _All"
+msgstr ""
+
+#: src/main_menubar_def.h:1250
+msgid "Build the whole Project"
+msgstr ""
+
+#. 4
+#. 5
+#: src/main_menubar_def.h:1256
+msgid "Save Build Messages"
+msgstr ""
+
+#: src/main_menubar_def.h:1257
+msgid "Save build messages to a file"
+msgstr ""
+
+#. 6
+#. 7
+#: src/main_menubar_def.h:1263
+msgid "_Install"
+msgstr "_Instalo"
+
+#: src/main_menubar_def.h:1264
+msgid "Install the Project on your system"
+msgstr ""
+
+#. 8
+#: src/main_menubar_def.h:1269
+msgid "Build _Distribution"
+msgstr ""
+
+#: src/main_menubar_def.h:1270
+msgid "Build the distribution tarball of the Project"
+msgstr ""
+
+#. 9
+#. 10
+#: src/main_menubar_def.h:1276
+msgid "Con_figure ..."
+msgstr ""
+
+#: src/main_menubar_def.h:1277
+msgid "Configure the Project"
+msgstr ""
+
+#. 11
+#: src/main_menubar_def.h:1282
+msgid "Auto _generate ..."
+msgstr ""
+
+#: src/main_menubar_def.h:1283
+msgid "Auto generate all the build files for the Project"
+msgstr ""
+
+#. 12
+#. 13
+#: src/main_menubar_def.h:1289
+msgid "Clea_n"
+msgstr ""
+
+#: src/main_menubar_def.h:1290
+msgid "Clean the source directory"
+msgstr ""
+
+#. 14
+#: src/main_menubar_def.h:1295
+msgid "Clean A_ll"
+msgstr ""
+
+#: src/main_menubar_def.h:1296
+msgid "Clean the whole Project directory"
+msgstr ""
+
+#. 15
+#. 16
+#: src/main_menubar_def.h:1302
+msgid "_Stop Build"
+msgstr ""
+
+#: src/main_menubar_def.h:1303
+msgid "Stop the current compile or build process"
+msgstr ""
+
+#. 17
+#. 18
+#: src/main_menubar_def.h:1309
+msgid "_Execute"
+msgstr "_Ekzekuto"
+
+#: src/main_menubar_def.h:1310 src/toolbar.c:297
+msgid "Execute the program"
+msgstr ""
+
+#. 19
+#: src/main_menubar_def.h:1315
+msgid "Set _Program params ..."
+msgstr ""
+
+#: src/main_menubar_def.h:1316
+msgid "Set the execution parameters of the program"
+msgstr ""
+
+#. 0
+#: src/main_menubar_def.h:1326
+msgid "_Toggle bookmark"
+msgstr ""
+
+#: src/main_menubar_def.h:1327
+msgid "Toggle a bookmark at the current line position"
+msgstr ""
+
+#. 1
+#. 2
+#: src/main_menubar_def.h:1333
+msgid "_First bookmark"
+msgstr ""
+
+#: src/main_menubar_def.h:1334
+msgid "Jump to the first bookmark in the file"
+msgstr ""
+
+#. 3
+#: src/main_menubar_def.h:1339
+msgid "_Previous bookmark"
+msgstr ""
+
+#: src/main_menubar_def.h:1340
+msgid "Jump to the previous bookmark in the file"
+msgstr ""
+
+#. 4
+#: src/main_menubar_def.h:1345
+msgid "_Next bookmark"
+msgstr ""
+
+#: src/main_menubar_def.h:1346
+msgid "Jump to the next bookmark in the file"
+msgstr ""
+
+#. 5
+#: src/main_menubar_def.h:1351
+msgid "_Last bookmark"
+msgstr ""
+
+#: src/main_menubar_def.h:1352
+msgid "Jump to the last bookmark in the file"
+msgstr ""
+
+#. 6
+#. 7
+#: src/main_menubar_def.h:1358
+msgid "_Clear all bookmarks"
+msgstr ""
+
+#: src/main_menubar_def.h:1359
+msgid "Clear bookmarks"
+msgstr ""
+
+#. 0
+#: src/main_menubar_def.h:1369
+msgid "Run/_Continue"
+msgstr ""
+
+#: src/main_menubar_def.h:1370
+msgid "Continue the execution of the program"
+msgstr ""
+
+#. 1
+#: src/main_menubar_def.h:1375
+msgid "Step _In"
+msgstr ""
+
+#: src/main_menubar_def.h:1376
+msgid "Single step into function"
+msgstr ""
+
+#. 2
+#: src/main_menubar_def.h:1381
+msgid "Step O_ver"
+msgstr ""
+
+#: src/main_menubar_def.h:1382
+msgid "Single step over function"
+msgstr ""
+
+#. 3
+#: src/main_menubar_def.h:1387
+msgid "Step _Out"
+msgstr ""
+
+#: src/main_menubar_def.h:1388
+msgid "Single step out of the function"
+msgstr ""
+
+#. 4
+#: src/main_menubar_def.h:1393
+msgid "_Run to cursor"
+msgstr ""
+
+#: src/main_menubar_def.h:1394
+msgid "Run to the cursor"
+msgstr ""
+
+#. 0
+#: src/main_menubar_def.h:1404 src/text_editor_menu.c:136
+msgid "Toggle breakpoint"
+msgstr ""
+
+#: src/main_menubar_def.h:1405
+msgid "Toggle breakpoint at the current location"
+msgstr ""
+
+#. 1
+#: src/main_menubar_def.h:1410
+msgid "Set Breakpoint ..."
+msgstr ""
+
+#: src/main_menubar_def.h:1411
+msgid "Set a breakpoint"
+msgstr ""
+
+#. 2
+#. 3
+#: src/main_menubar_def.h:1417
+msgid "_Breakpoints ..."
+msgstr ""
+
+#: src/main_menubar_def.h:1418
+msgid "Edit breakpoints"
+msgstr ""
+
+#. 4
+#: src/main_menubar_def.h:1423
+msgid "Disable all Breakpoints"
+msgstr ""
+
+#: src/main_menubar_def.h:1424
+msgid "Deactivate all breakpoints"
+msgstr ""
+
+#. 5
+#: src/main_menubar_def.h:1429
+msgid "C_lear all Breakpoints"
+msgstr ""
+
+#: src/main_menubar_def.h:1430
+msgid "Delete all breakpoints"
+msgstr ""
+
+#. 0
+#: src/main_menubar_def.h:1440
+msgid "Info _Target Files"
+msgstr ""
+
+#: src/main_menubar_def.h:1441
+msgid "Display information on the files the debugger is active with"
+msgstr ""
+
+#. 1
+#: src/main_menubar_def.h:1446
+msgid "Info _Program"
+msgstr ""
+
+#: src/main_menubar_def.h:1447
+msgid "Display information on the execution status of the program"
+msgstr ""
+
+#. 2
+#: src/main_menubar_def.h:1452
+msgid "Info _Kernel User Struct"
+msgstr ""
+
+#: src/main_menubar_def.h:1453
+msgid "Display the contents of kernel 'struct user' for current child"
+msgstr ""
+
+#. 3
+#: src/main_menubar_def.h:1458
+msgid "Info _Threads"
+msgstr ""
+
+#: src/main_menubar_def.h:1459
+msgid "Display the IDs of currently known threads"
+msgstr ""
+
+#. 4
+#: src/main_menubar_def.h:1464
+msgid "Info _Global variables"
+msgstr ""
+
+#: src/main_menubar_def.h:1465
+msgid "Display all global and static variables of the program"
+msgstr ""
+
+#. 5
+#: src/main_menubar_def.h:1470
+msgid "Info _Local variables"
+msgstr ""
+
+#: src/main_menubar_def.h:1471
+msgid "Display local variables of the current frame"
+msgstr ""
+
+#. 6
+#: src/main_menubar_def.h:1476
+msgid "Info _Current Frame"
+msgstr ""
+
+#: src/main_menubar_def.h:1477
+msgid "Display information about the current frame of execution"
+msgstr ""
+
+#. 7
+#: src/main_menubar_def.h:1482
+msgid "Info Function _Arguments"
+msgstr ""
+
+#: src/main_menubar_def.h:1483
+msgid "Display function arguments of the current frame"
+msgstr ""
+
+#. 8
+#: src/main_menubar_def.h:1488
+msgid "Info _Memory"
+msgstr ""
+
+#: src/main_menubar_def.h:1489
+msgid "Display accessible memory"
+msgstr ""
+
+#. 0
+#: src/main_menubar_def.h:1499
+msgid "_Start Debugger"
+msgstr ""
+
+#: src/main_menubar_def.h:1500
+msgid "Start the debugging session"
+msgstr ""
+
+#. 1
+#. 2
+#: src/main_menubar_def.h:1506
+msgid "Load E_xecutable ..."
+msgstr ""
+
+#: src/main_menubar_def.h:1507
+msgid "Open the executable for debugging"
+msgstr ""
+
+#. 3
+#: src/main_menubar_def.h:1512
+msgid "Load _Core file ..."
+msgstr ""
+
+#: src/main_menubar_def.h:1513
+msgid "Load a core file to dissect"
+msgstr ""
+
+#. 4
+#: src/main_menubar_def.h:1518
+msgid "_Attach to Process ..."
+msgstr ""
+
+#: src/main_menubar_def.h:1519
+msgid "Attach to a running program"
+msgstr ""
+
+#. 5
+#. 6
+#: src/main_menubar_def.h:1525
+msgid "_Restart Program"
+msgstr ""
+
+#: src/main_menubar_def.h:1526
+msgid "Stop and restart the program"
+msgstr ""
+
+#. 7
+#: src/main_menubar_def.h:1531
+msgid "S_top Program"
+msgstr ""
+
+#: src/main_menubar_def.h:1532
+msgid "Stop the program being debugged"
+msgstr ""
+
+#. 8
+#: src/main_menubar_def.h:1537
+msgid "_Detach Debugger"
+msgstr ""
+
+#: src/main_menubar_def.h:1538
+msgid "Detach from an attached program"
+msgstr ""
+
+#. 9
+#. 10
+#: src/main_menubar_def.h:1544
+msgid "Pa_use Program"
+msgstr ""
+
+#: src/main_menubar_def.h:1545
+msgid "Pauses the execution of the program"
+msgstr ""
+
+#. 11
+#: src/main_menubar_def.h:1550
+msgid "Si_gnal to Process"
+msgstr ""
+
+#: src/main_menubar_def.h:1551
+msgid "Send a kernel signal to the process being debugged"
+msgstr ""
+
+#. 12
+#. 13
+#: src/main_menubar_def.h:1557
+msgid "_Execution"
+msgstr ""
+
+#. 15
+#. 16
+#: src/main_menubar_def.h:1570
+msgid "_Information"
+msgstr ""
+
+#. 17
+#. 18
+#: src/main_menubar_def.h:1577
+msgid "Ins_pect/Evaluate ..."
+msgstr ""
+
+#: src/main_menubar_def.h:1578
+msgid "Inspect or evaluate an expression or variable"
+msgstr ""
+
+#. 19
+#: src/main_menubar_def.h:1583
+msgid "Add Expression in _Watch ..."
+msgstr ""
+
+#: src/main_menubar_def.h:1584
+msgid "Add expression or variable to the watch"
+msgstr ""
+
+#. 20
+#. 21
+#: src/main_menubar_def.h:1590
+msgid "St_op Debugger"
+msgstr ""
+
+#: src/main_menubar_def.h:1591
+msgid "Say goodbye to the debugger"
+msgstr ""
+
+#. 0
+#: src/main_menubar_def.h:1602
+msgid "U_pdate file"
+msgstr ""
+
+#. 1
+#: src/main_menubar_def.h:1609
+msgid "C_ommit file"
+msgstr ""
+
+#. 2
+#: src/main_menubar_def.h:1616
+msgid "S_tatus of file"
+msgstr ""
+
+#. 3
+#: src/main_menubar_def.h:1623
+msgid "G_et file log"
+msgstr ""
+
+#. 4
+#: src/main_menubar_def.h:1630
+msgid "_Add file"
+msgstr ""
+
+#. 5
+#: src/main_menubar_def.h:1637
+msgid "_Remove file"
+msgstr ""
+
+#. 6
+#: src/main_menubar_def.h:1644
+msgid "D_iff file"
+msgstr ""
+
+#. 8
+#: src/main_menubar_def.h:1652
+msgid "_Update Project"
+msgstr ""
+
+#: src/main_menubar_def.h:1653
+msgid "Update the working copy of a Project"
+msgstr ""
+
+#. 9
+#: src/main_menubar_def.h:1659
+msgid "_Commit Project"
+msgstr ""
+
+#: src/main_menubar_def.h:1660
+msgid "Commit local changes to the repository"
+msgstr ""
+
+#. 10
+#: src/main_menubar_def.h:1666
+msgid "_Import Project"
+msgstr ""
+
+#: src/main_menubar_def.h:1667
+msgid "Import Project as a new module in the repository"
+msgstr ""
+
+#. 11
+#: src/main_menubar_def.h:1673
+msgid "_Status of Project"
+msgstr ""
+
+#: src/main_menubar_def.h:1674
+msgid "Print the status of the Project"
+msgstr ""
+
+#. 12
+#: src/main_menubar_def.h:1680
+msgid "Get Project _log"
+msgstr ""
+
+#: src/main_menubar_def.h:1681
+msgid "Print the CVS log of the Project"
+msgstr ""
+
+#. 13
+#: src/main_menubar_def.h:1687
+msgid "_Diff Project"
+msgstr ""
+
+#: src/main_menubar_def.h:1688
+msgid "Create a diff between the working copy of the Project and the repository"
+msgstr ""
+
+#. 15
+#: src/main_menubar_def.h:1695
+msgid "_Login"
+msgstr ""
+
+#: src/main_menubar_def.h:1696
+msgid "Login to a CVS server"
+msgstr ""
+
+#. 0
+#: src/main_menubar_def.h:1707
+msgid "_Compiler and Linker Settings ..."
+msgstr ""
+
+#: src/main_menubar_def.h:1708
+msgid "Settings for the compiler and linker"
+msgstr ""
+
+#. 1
+#: src/main_menubar_def.h:1713
+msgid "_Source Paths ..."
+msgstr ""
+
+#: src/main_menubar_def.h:1714
+msgid "Specify the source paths for Anjuta to search"
+msgstr ""
+
+#. 2
+#: src/main_menubar_def.h:1719
+msgid "Co_mmands ..."
+msgstr ""
+
+#: src/main_menubar_def.h:1720
+msgid "Specify the various commands for use"
+msgstr ""
+
+#. 3
+#. 4
+#: src/main_menubar_def.h:1726
+msgid "_Preferences ..."
+msgstr "_Preferime ..."
+
+#: src/main_menubar_def.h:1727
+msgid "Do you prefer coffee to tea? Check it out."
+msgstr ""
+
+#. 5
+#: src/main_menubar_def.h:1732
+msgid "_Editor colors and fonts ..."
+msgstr ""
+
+#: src/main_menubar_def.h:1733
+msgid "Syntax highlighting settings"
+msgstr ""
+
+#. 6
+#: src/main_menubar_def.h:1738
+msgid "File view filters ..."
+msgstr ""
+
+#: src/main_menubar_def.h:1739
+msgid "Edit file view filters"
+msgstr ""
+
+#. 7
+#: src/main_menubar_def.h:1744
+msgid "_Edit user.properties file ..."
+msgstr ""
+
+#: src/main_menubar_def.h:1745
+msgid "Edit user properties file"
+msgstr ""
+
+#. 8
+#: src/main_menubar_def.h:1750
+msgid "Set _Default Preferences"
+msgstr ""
+
+#: src/main_menubar_def.h:1751
+msgid "But I prefer tea."
+msgstr ""
+
+#. 9
+#: src/main_menubar_def.h:1756
+msgid "C_ustomize shortcuts"
+msgstr ""
+
+#: src/main_menubar_def.h:1757
+msgid "Customize shortcuts associated with menu items"
+msgstr ""
+
+#. 10
+#: src/main_menubar_def.h:1762
+msgid "_Tools Editor"
+msgstr ""
+
+#: src/main_menubar_def.h:1763
+msgid "Customize user-defined tools"
+msgstr ""
+
+#. 11
+#. 12
+#: src/main_menubar_def.h:1769
+msgid "St_art-with dialog"
+msgstr ""
+
+#: src/main_menubar_def.h:1770
+msgid "Show start-with dialog"
+msgstr ""
+
+#. 13
+#: src/main_menubar_def.h:1775
+msgid "An_juta setup wizard"
+msgstr ""
+
+#: src/main_menubar_def.h:1776
+msgid "Setup wizard for first time run"
+msgstr ""
+
+#. 0
+#: src/main_menubar_def.h:1786
+msgid "Anjuta Manual"
+msgstr ""
+
+#: src/main_menubar_def.h:1787
+msgid "Anjuta IDE Manual"
+msgstr ""
+
+#. 1
+#: src/main_menubar_def.h:1792
+msgid "Anjuta Tutorial"
+msgstr ""
+
+#: src/main_menubar_def.h:1793
+msgid "Anjuta IDE Tutorial"
+msgstr ""
+
+#. 2
+#: src/main_menubar_def.h:1798
+msgid "Anjuta Faqs"
+msgstr ""
+
+#: src/main_menubar_def.h:1799
+msgid "Anjuta IDE Faqs"
+msgstr ""
+
+#. 3
+#. 4
+#: src/main_menubar_def.h:1805
+msgid "Browse GNOME _API Pages"
+msgstr ""
+
+#: src/main_menubar_def.h:1806
+msgid "The GNOME API pages"
+msgstr ""
+
+#. 5
+#: src/main_menubar_def.h:1811
+msgid "Browse _Man Pages"
+msgstr ""
+
+#: src/main_menubar_def.h:1812
+msgid "The good old manual pages"
+msgstr ""
+
+#. 6
+#: src/main_menubar_def.h:1817
+msgid "Browse _Info Pages"
+msgstr ""
+
+#: src/main_menubar_def.h:1818
+msgid "Browse Info pages"
+msgstr ""
+
+#. 7
+#. 8
+#: src/main_menubar_def.h:1824
+msgid "_Context Help"
+msgstr ""
+
+#: src/main_menubar_def.h:1825
+msgid "Search help for the current word in the editor"
+msgstr ""
+
+#. 9
+#: src/main_menubar_def.h:1830
+msgid "_Search a topic"
+msgstr ""
+
+#: src/main_menubar_def.h:1831
+msgid "May I help you?"
+msgstr ""
+
+#. 10
+#. 11
+#: src/main_menubar_def.h:1837
+msgid "Anjuta _Home Page"
+msgstr ""
+
+#: src/main_menubar_def.h:1838
+msgid "Online documentation and resources"
+msgstr ""
+
+#. 12
+#. 13
+#: src/main_menubar_def.h:1844
+msgid "_Libraries API references"
+msgstr ""
+
+#: src/main_menubar_def.h:1845
+msgid "Online reference library for GDK, GLib, GNOME etc.."
+msgstr ""
+
+#. 14
+#: src/main_menubar_def.h:1850
+msgid "Report _Bugs"
+msgstr ""
+
+#: src/main_menubar_def.h:1851
+msgid "Submit a bug report for Anjuta"
+msgstr ""
+
+#. 15
+#: src/main_menubar_def.h:1856
+msgid "Request _Features"
+msgstr ""
+
+#: src/main_menubar_def.h:1857
+msgid "Submit a feature request for Anjuta"
+msgstr ""
+
+#. 16
+#: src/main_menubar_def.h:1862
+msgid "Submit _patches"
+msgstr ""
+
+#: src/main_menubar_def.h:1863
+msgid "Submit patches for Anjuta"
+msgstr ""
+
+#. 17
+#: src/main_menubar_def.h:1868
+msgid "Ask a _question"
+msgstr ""
+
+#: src/main_menubar_def.h:1869
+msgid "Submit a question for FAQs"
+msgstr ""
+
+#: src/main_menubar_def.h:1884
+msgid "_Project"
+msgstr ""
+
+#: src/main_menubar_def.h:1890
+msgid "For_mat"
+msgstr ""
+
+#: src/main_menubar_def.h:1902
+msgid "Bookmar_k"
+msgstr ""
+
+#: src/main_menubar_def.h:1908
+msgid "_Debug"
+msgstr "_Debug"
+
+#: src/main_menubar_def.h:1914
+msgid "_CVS"
+msgstr ""
+
+#: src/main_menubar_def.h:1920
+msgid "_Settings"
+msgstr "_Rregullimet"
+
+#: src/mainmenu_callbacks.c:157
+msgid ""
+"The editor is being used as output buffer for an operation.\n"
+"Closing it will result in stopping the process.\n"
+"Do you still want close the editor?"
+msgstr ""
+
+#: src/mainmenu_callbacks.c:171
+#, c-format
+msgid ""
+"The file '%s' is not saved.\n"
+"Do you want to save it before closing?"
+msgstr ""
+
+#: src/mainmenu_callbacks.c:181 src/project_dbase_gui.c:1126
+msgid "Do_n't save"
+msgstr "Mo_s ruaj"
+
+#: src/mainmenu_callbacks.c:238
+#, c-format
+msgid ""
+"Are you sure you want to reload '%s'?\n"
+"Any unsaved changes will be lost."
+msgstr ""
+
+#: src/mainmenu_callbacks.c:248 src/text_editor.c:1356
+msgid "_Reload"
+msgstr "_Rilexo"
+
+#: src/mainmenu_callbacks.c:1259
+msgid "The executable is not up-to-date."
+msgstr ""
+
+#: src/mainmenu_callbacks.c:1284
+msgid "Debugger is not running. Start it first."
+msgstr ""
+
+#: src/mainmenu_callbacks.c:1550
+msgid ""
+"Unable to display help. Please make sure Anjuta documentation package is "
+"install. It can be downloaded from http://anjuta.org"
+msgstr ""
+
+#: src/mainmenu_callbacks.c:1676
+msgid ""
+"You need to run gconf-editor, look for the key 'desktop/gnome/interface/"
+"can_change_accels' and set this toggle button ON. Then you can hover the "
+"mouse pointer over any menu item and press the shortcut key to associate "
+"with it."
+msgstr ""
+
+#: src/memory.c:108
+msgid "Unable to build user interface for Memory\n"
+msgstr ""
+
+#: src/memory.c:410
+msgid "Enter a Hexa address or Select one in the data"
+msgstr ""
+
+#: src/memory.c:417
+msgid "Non accessible address !"
+msgstr ""
+
+#: src/message-manager-private.cc:322
+msgid " warning: "
+msgstr ""
+
+#: src/message-manager.cc:44
+msgid "Find"
+msgstr "Gjej"
+
+#: src/message-manager.cc:46
+msgid "Terminal"
+msgstr "Terminali"
+
+#: src/message-manager.cc:47
+msgid "Stdout"
+msgstr ""
+
+#: src/message-manager.cc:48
+msgid "Stderr"
+msgstr ""
+
+#: src/message-manager.cc:50
+msgid "Locals"
+msgstr ""
+
+#: src/message-manager.cc:51
+msgid "Watches"
+msgstr ""
+
+#: src/message-manager.cc:52
+msgid "Stack"
+msgstr ""
+
+#: src/message-manager.cc:271 src/message-manager.cc:325
+#: src/message-manager.cc:363
+#, c-format
+msgid "Could not find message type %s!\n"
+msgstr ""
+
+#: src/message-manager.cc:592 src/toolbar.c:155
+msgid "Messages"
+msgstr ""
+
+#: src/preferences-dialog.c:125
+msgid "Category"
+msgstr "Kategoria"
+
+#: src/preferences-dialog.c:225
+msgid "Anjuta Preferences Dialog"
+msgstr ""
+
+#: src/preferences.c:694
+msgid ""
+"Are you sure you want to reset the preferences to\n"
+"their default settings?"
+msgstr ""
+
+#: src/preferences.c:697
+msgid "_Reset"
+msgstr "_Nga fillimi"
+
+#: src/preferences.c:1072
+#, c-format
+msgid ""
+"Cannot load Global defaults and configuration files:\n"
+"%s.\n"
+"This may result in improper behaviour or instabilities.\n"
+"Anjuta will fall back to built in (limited) settings"
+msgstr ""
+
+#: src/preferences.c:1204
+msgid "Anjuta Preferences"
+msgstr ""
+
+#. Must declare static, because it will be used forever
+#: src/project_dbase.c:203
+msgid "Add to Project"
+msgstr ""
+
+#: src/project_dbase.c:232 src/project_dbase.c:302 src/project_dbase_gui.c:585
+msgid "Project: None"
+msgstr ""
+
+#: src/project_dbase.c:372
+msgid "Anjuta project files"
+msgstr ""
+
+#: src/project_dbase.c:373 src/project_dbase_gui.c:170
+#: src/project_dbase_gui.c:187 src/project_dbase_gui.c:199
+#: src/project_dbase_gui.c:207 src/project_dbase_gui.c:219
+#: src/project_dbase_gui.c:228 src/project_dbase_gui.c:237
+#: widgets/gnomefilelist.c:714
+msgid "All files"
+msgstr "Të gjithë files"
+
+#: src/project_dbase.c:454 src/project_dbase.c:472
+#, c-format
+msgid "Unable to load Project: %s"
+msgstr ""
+
+#: src/project_dbase.c:465 src/project_dbase.c:2473
+#, c-format
+msgid ""
+"Anjuta version %s or later is required to open this Project.\n"
+"Please upgrade to the latest version of Anjuta (Help for more information)."
+msgstr ""
+
+#: src/project_dbase.c:846
+msgid "Project saved successfully"
+msgstr ""
+
+#: src/project_dbase.c:852 src/project_dbase.c:855
+msgid "Unable to save the Project."
+msgstr ""
+
+#: src/project_dbase.c:1561
+msgid ""
+"A .glade file does not exist in the top level Project directory. If you do "
+"not use glade for GUI editing,  please specify a custom command for it in "
+"[Project]->[Project Configuration]->[GUI editor command]"
+msgstr ""
+
+#: src/project_dbase.c:1623
+msgid ""
+"A .glade file does not\n"
+"exist in the top level Project directory."
+msgstr ""
+
+#. Set project title
+#: src/project_dbase.c:2071
+msgid "Project: "
+msgstr ""
+
+#: src/project_dbase.c:2188
+#, c-format
+msgid ""
+"Unable to get relative file name for %s\n"
+" in %s"
+msgstr ""
+
+#: src/project_dbase.c:2253
+msgid " already exists in the project"
+msgstr ""
+
+#: src/project_dbase.c:2286
+msgid "Error while copying the file inside the module."
+msgstr ""
+
+#: src/project_dbase.c:2549 src/project_dbase.c:2552
+#, c-format
+msgid "Error in loading Project: %s"
+msgstr ""
+
+#: src/project_dbase.c:2573
+msgid "Project loaded successfully."
+msgstr ""
+
+#: src/project_dbase_gui.c:74
+#, c-format
+msgid ""
+"Are you sure you want to remove the item\n"
+"'%s' from the Project?"
+msgstr ""
+
+#: src/project_dbase_gui.c:135
+msgid "There is already a Project open.Do you want to close it first?"
+msgstr ""
+
+#: src/project_dbase_gui.c:169
+msgid "Help files"
+msgstr ""
+
+#: src/project_dbase_gui.c:178 widgets/gnomefilelist.c:717
+msgid "C/C++ source files"
+msgstr ""
+
+#: src/project_dbase_gui.c:179
+msgid "Java source files"
+msgstr ""
+
+#: src/project_dbase_gui.c:180 widgets/gnomefilelist.c:724
+msgid "Pascal files"
+msgstr ""
+
+#: src/project_dbase_gui.c:181 widgets/gnomefilelist.c:729
+msgid "Perl files"
+msgstr ""
+
+#: src/project_dbase_gui.c:182 widgets/gnomefilelist.c:726
+msgid "PHP files"
+msgstr ""
+
+#: src/project_dbase_gui.c:183 widgets/gnomefilelist.c:731
+msgid "Python files"
+msgstr ""
+
+#: src/project_dbase_gui.c:184 widgets/gnomefilelist.c:736
+msgid "Shell Script files"
+msgstr ""
+
+#: src/project_dbase_gui.c:185 widgets/gnomefilelist.c:741
+msgid "Visual Basic files"
+msgstr ""
+
+#: src/project_dbase_gui.c:186 widgets/gnomefilelist.c:749
+msgid ".lua files"
+msgstr ""
+
+#: src/project_dbase_gui.c:195
+msgid "PNG files"
+msgstr ""
+
+#: src/project_dbase_gui.c:196
+msgid "JPG files"
+msgstr ""
+
+#: src/project_dbase_gui.c:197
+msgid "BMP files"
+msgstr ""
+
+#: src/project_dbase_gui.c:198
+msgid "GIF files"
+msgstr ""
+
+#: src/project_dbase_gui.c:215
+msgid "Text files"
+msgstr "Files teksti"
+
+#: src/project_dbase_gui.c:216
+msgid "XML files"
+msgstr "Files XML"
+
+#: src/project_dbase_gui.c:217
+msgid "HTML files"
+msgstr "Files HTML"
+
+#: src/project_dbase_gui.c:218
+msgid "DOC files"
+msgstr ""
+
+#: src/project_dbase_gui.c:227
+msgid "PO files"
+msgstr ""
+
+#: src/project_dbase_gui.c:236
+msgid "C/C++ Headers"
+msgstr ""
+
+#: src/project_dbase_gui.c:267
+msgid "Add file to module: "
+msgstr ""
+
+#: src/project_dbase_gui.c:597 widgets/gnomefilelist.c:403
+msgid "Files"
+msgstr "Files"
+
+#: src/project_dbase_gui.c:601
+msgid "Symbols"
+msgstr "Simbolet"
+
+#: src/project_dbase_gui.c:737
+msgid "Project Information"
+msgstr ""
+
+#: src/project_dbase_gui.c:745
+msgid " Project Information "
+msgstr ""
+
+#: src/project_dbase_gui.c:781
+msgid "Author:"
+msgstr "Autori:"
+
+#: src/project_dbase_gui.c:789 src/wizard_gui.c:298
+msgid "Project Name:"
+msgstr ""
+
+#: src/project_dbase_gui.c:868
+msgid "Program Name:"
+msgstr ""
+
+#: src/project_dbase_gui.c:875
+msgid "Source files:"
+msgstr ""
+
+#: src/project_dbase_gui.c:882
+msgid "Help files:"
+msgstr ""
+
+#: src/project_dbase_gui.c:889
+msgid "Data files:"
+msgstr ""
+
+#: src/project_dbase_gui.c:896
+msgid "Pixmap files:"
+msgstr ""
+
+#: src/project_dbase_gui.c:903
+msgid "Doc files:"
+msgstr ""
+
+#: src/project_dbase_gui.c:924
+msgid "Po files:"
+msgstr ""
+
+#: src/project_dbase_gui.c:954
+msgid "GUI editable by Glade:"
+msgstr ""
+
+#: src/project_dbase_gui.c:976
+msgid "Makefiles managed:"
+msgstr ""
+
+#: src/project_dbase_gui.c:1018
+msgid "Gettext support:"
+msgstr ""
+
+#: src/project_dbase_gui.c:1076
+msgid "Project Type:"
+msgstr ""
+
+#: src/project_dbase_gui.c:1121
+msgid ""
+"Project is not saved.\n"
+"Do you want to save it before closing?"
+msgstr ""
+
+#: src/project_dbase_gui.c:1136 src/project_dbase_gui.c:1256
+msgid "Breton"
+msgstr "Breton"
+
+#: src/project_dbase_gui.c:1137
+msgid "Catalan"
+msgstr "Katalane"
+
+#: src/project_dbase_gui.c:1138
+msgid "Czech"
+msgstr "Çekisht"
+
+#: src/project_dbase_gui.c:1139
+msgid "Danish"
+msgstr "Danisht"
+
+#: src/project_dbase_gui.c:1140
+msgid "German"
+msgstr "Gjermanisht"
+
+#: src/project_dbase_gui.c:1142
+msgid "Esperanto"
+msgstr "Esperanto"
+
+#: src/project_dbase_gui.c:1143
+msgid "Spanish"
+msgstr "Spanjisht"
+
+#: src/project_dbase_gui.c:1144
+msgid "Finnish"
+msgstr "Finlandeze"
+
+#: src/project_dbase_gui.c:1145
+msgid "French"
+msgstr "Frengjisht"
+
+#: src/project_dbase_gui.c:1146
+msgid "Herbrew"
+msgstr ""
+
+#: src/project_dbase_gui.c:1147 src/project_dbase_gui.c:1151
+msgid "Croatian"
+msgstr "Kroate"
+
+#: src/project_dbase_gui.c:1148
+msgid "Hungarian"
+msgstr "Hungarisht"
+
+#: src/project_dbase_gui.c:1149
+msgid "Islandic"
+msgstr ""
+
+#: src/project_dbase_gui.c:1150
+msgid "Italian"
+msgstr "Italisht"
+
+#: src/project_dbase_gui.c:1153
+msgid "Macedonian"
+msgstr "Maqedonisht"
+
+#: src/project_dbase_gui.c:1154
+msgid "Dutch"
+msgstr "Hollandeze"
+
+#: src/project_dbase_gui.c:1155
+msgid "Norwegian"
+msgstr "Norvegjeze"
+
+#: src/project_dbase_gui.c:1156
+msgid "Polish"
+msgstr "Polonisht"
+
+#: src/project_dbase_gui.c:1157
+msgid "Portuguese"
+msgstr "Portugeze"
+
+#: src/project_dbase_gui.c:1159
+msgid "Russian"
+msgstr "Rusisht"
+
+#: src/project_dbase_gui.c:1160
+msgid "Slovak"
+msgstr "Sllovake"
+
+#: src/project_dbase_gui.c:1162
+msgid "Simplified Chinese"
+msgstr "Kineze e thjeshtëzuar"
+
+#: src/project_dbase_gui.c:1163
+msgid "Chinese"
+msgstr "Kineze"
+
+#: src/project_dbase_gui.c:1164
+msgid "Estonian"
+msgstr "Estonisht"
+
+#: src/project_dbase_gui.c:1208
+msgid "Select regional language"
+msgstr ""
+
+#: src/project_dbase_gui.c:1224
+msgid "Select regional language:"
+msgstr ""
+
+#: src/project_dbase_gui.c:1264
+#, c-format
+msgid "Unable to find pixmap file: %s"
+msgstr ""
+
+#: src/project_dbase_gui.c:1341
+#, c-format
+msgid ""
+"\"%s\"\n"
+"does not exist.\n"
+"Do you want to create it now ?"
+msgstr ""
+
+#: src/project_dbase_gui.c:1359
+#, c-format
+msgid "Not a regular file: %s."
+msgstr ""
+
+#: src/project_dbase_gui.c:1369
+#, c-format
+msgid ""
+"\"%s\"\n"
+"does not exist in the current module directory.\n"
+"Do you want to IMPORT (copy) it into the module?"
+msgstr ""
+
+#: src/project_import.c:89
+#, c-format
+msgid "Unable to find import script %s"
+msgstr ""
+
+#: src/project_import.c:94
+#, c-format
+msgid "%s: Not a regular file"
+msgstr ""
+
+#: src/project_import.c:109
+#, c-format
+msgid "Importing Project from %s ...\n"
+msgstr ""
+
+#: src/project_import.c:119
+msgid "Could not launch script!\n"
+msgstr ""
+
+#: src/project_import.c:130
+msgid "Importing Project...please wait"
+msgstr ""
+
+#: src/project_import.c:188
+msgid "Project import completed...successful\n"
+msgstr ""
+
+#: src/project_import.c:190
+msgid "Project import completed...successful"
+msgstr ""
+
+#: src/project_import.c:206
+msgid "Could not import Project: no project file found!"
+msgstr ""
+
+#: src/project_import.c:213
+msgid "Opening Project...please wait"
+msgstr ""
+
+#: src/project_import.c:216
+msgid "Could not open generated Project file"
+msgstr ""
+
+#: src/project_import_cbs.c:126
+msgid "Please complete all of the required fields"
+msgstr ""
+
+#. We should never come here because this button is disabled
+#: src/project_import_cbs.c:285
+msgid ""
+"The import operation has already begun.\n"
+"Click Cancel to skip the customisation stage, or Next to continue."
+msgstr ""
+
+#: src/project_import_gui.c:45
+msgid ""
+"The Project Import Wizard scans the directory of an\n"
+"existing code project, and attempts to import the structure\n"
+"into an Anjuta Project. There will be a chance to update\n"
+"any autodetected values during the import process.\n"
+"\n"
+"THIS IS AN EXPERIMENTAL FEATURE\n"
+msgstr ""
+
+#: src/project_import_gui.c:73 src/project_import_gui.c:158
+msgid "Project Import Wizard"
+msgstr ""
+
+#: src/project_import_gui.c:189
+msgid "Select directory"
+msgstr ""
+
+#: src/project_import_gui.c:206
+msgid "Select top level directory of an existing project"
+msgstr ""
+
+#: src/project_import_gui.c:210
+msgid "Select existing project directory"
+msgstr ""
+
+#: src/project_import_gui.c:224
+msgid "Click Forward to begin the import"
+msgstr ""
+
+#: src/registers_gui.c:43
+msgid "Register"
+msgstr ""
+
+#: src/registers_gui.c:43
+msgid "Decimal"
+msgstr "Dhjetor"
+
+#: src/registers_gui.c:107
+msgid "CPU Registers"
+msgstr ""
+
+#: src/resources.c:51
+#, c-format
+msgid "Widget not found: %s"
+msgstr ""
+
+#: src/resources.c:75
+#, c-format
+msgid "Could not find application image file: %s"
+msgstr ""
+
+#: src/resources.c:101
+#, c-format
+msgid "Could not find application pixmap file: %s"
+msgstr ""
+
+#: src/resources.c:263 src/resources.c:271
+msgid "Cannot execute Devhelp. Make sure it is installed"
+msgstr ""
+
+#: src/search-replace.c:335
+msgid "Replace"
+msgstr "Zevëndëso"
+
+#: src/search-replace.c:620 src/search-replace.c:1235
+#: src/search-replace.c:1242 src/search-replace.c:1254
+#: src/search-replace.c:1496
+msgid "Search"
+msgstr "Kërko"
+
+#: src/search-replace.c:623 src/search-replace.c:1249
+msgid "Replace All"
+msgstr "Zevëndëso gjithçka"
+
+#: src/search-replace.c:659
+#, c-format
+msgid "The match \"%s\" was not found. Wrap search around the document?"
+msgstr ""
+
+#: src/search-replace.c:682
+#, c-format
+msgid "The match \"%s\" was not found."
+msgstr ""
+
+#: src/search-replace.c:700
+msgid "The maximum number of results has been reached."
+msgstr ""
+
+#: src/search-replace.c:713
+#, c-format
+msgid "%d matches have been replaced."
+msgstr ""
+
+#: src/search-replace.c:868
+msgid "Unable to build user interface for Search And Replace"
+msgstr ""
+
+#: src/search_incremental.c:256
+msgid "No matches. Wrap search around the document?"
+msgstr ""
+
+#: src/search_preferences.c:474
+msgid "The maximum number of settings has been reached."
+msgstr ""
+
+#: src/search_preferences.c:483
+msgid "This name is alredady used."
+msgstr ""
+
+#: src/sharedlib_gui.c:44
+msgid "Shared Object"
+msgstr ""
+
+#: src/sharedlib_gui.c:44
+msgid "From"
+msgstr ""
+
+#: src/sharedlib_gui.c:44
+msgid "To"
+msgstr ""
+
+#: src/sharedlib_gui.c:44
+msgid "Sysm Read"
+msgstr ""
+
+#: src/signals_gui.c:40
+msgid "Modify Signal"
+msgstr ""
+
+#: src/signals_gui.c:47
+msgid "Send to process"
+msgstr ""
+
+#: src/signals_gui.c:93
+msgid "Kernel signals"
+msgstr ""
+
+#: src/signals_gui.c:115
+msgid "Signal"
+msgstr "Sinjali"
+
+#: src/signals_gui.c:119 src/toolbar.c:667
+msgid "Stop"
+msgstr "Ndalo"
+
+#: src/signals_gui.c:209
+msgid "Set Signal Property"
+msgstr ""
+
+#: src/signals_gui.c:252
+msgid " Stop: "
+msgstr ""
+
+#: src/signals_gui.c:256
+msgid " Print: "
+msgstr ""
+
+#: src/signals_gui.c:260
+msgid "Pass:"
+msgstr ""
+
+#: src/source.c:112
+#, c-format
+msgid "Error writing to file: %s."
+msgstr ""
+
+#: src/source.c:120 src/source.c:167 src/source.c:205 src/source.c:455
+#: src/source.c:480 src/source.c:575 src/source.c:673 src/source.c:713
+#: src/source.c:728 src/source.c:762 src/source.c:818 src/source.c:854
+#: src/source.c:909 src/source.c:945 src/source.c:1001 src/source.c:1057
+#: src/source.c:1076 src/source.c:1109 src/source.c:1128 src/source.c:1161
+#: src/source.c:1180 src/source.c:1211 src/source.c:1229 src/source.c:1259
+#: src/source.c:1277 src/source.c:1306 src/source.c:1355 src/source.c:1392
+#: src/source.c:1436 src/source.c:1517 src/source.c:1649 src/source.c:1689
+#: src/source.c:1779 src/source.c:1836 src/source.c:1922 src/source.c:1995
+#: src/source.c:2053 src/source.c:2167 src/source.c:2230 src/source.c:2536
+#: src/source.c:2671 src/utilities.c:744
+#, c-format
+msgid "Unable to create file: %s."
+msgstr ""
+
+#: src/source.c:1614 src/source.c:1734
+#, c-format
+msgid "Error writing to: %s."
+msgstr ""
+
+#: src/src_paths.c:267
+msgid "Source Paths"
+msgstr ""
+
+#: src/stack_trace.c:315
+msgid "Error getting selection\n"
+msgstr ""
+
+#: src/stack_trace.c:326
+msgid "Error getting source location from stack frame"
+msgstr ""
+
+#: src/stack_trace.c:343
+msgid "Frame set"
+msgstr ""
+
+#: src/stack_trace.c:350
+msgid "Frame info"
+msgstr ""
+
+#: src/stack_trace.c:357
+msgid "Frame args"
+msgstr ""
+
+#: src/stack_trace.c:371
+msgid "View Source"
+msgstr ""
+
+#: src/stack_trace.c:438
+msgid "Active"
+msgstr "Aktiv"
+
+#: src/stack_trace.c:449
+msgid "Count"
+msgstr "Numëro"
+
+#: src/stack_trace.c:464 src/toolbar.c:613
+msgid "Frame"
+msgstr "Frame"
+
+#: src/support.c:60 src/support.c:85
+#, c-format
+msgid "Couldn't find pixmap file: %s"
+msgstr "E pamundur gjetja e file pixmap: %s"
+
+#: src/text_editor.c:936
+msgid "This file is too big. Unable to allocate memory."
+msgstr ""
+
+#: src/text_editor.c:981
+msgid ""
+"The file does not look like a text file or the file encoding is not "
+"supported. Please check if the encoding of file is in the supported "
+"encodings list. If not, add it from the preferences."
+msgstr ""
+
+#: src/text_editor.c:1154
+msgid "Loading file ..."
+msgstr ""
+
+#: src/text_editor.c:1160
+#, c-format
+msgid ""
+"Could not load file: %s\n"
+"\n"
+"Details: %s"
+msgstr ""
+
+#: src/text_editor.c:1181
+msgid "File loaded successfully"
+msgstr ""
+
+#: src/text_editor.c:1196
+msgid "Saving file ..."
+msgstr ""
+
+#: src/text_editor.c:1201
+#, c-format
+msgid "Could not save file: %s."
+msgstr ""
+
+#: src/text_editor.c:1241
+msgid "File saved successfully"
+msgstr ""
+
+#: src/text_editor.c:1339
+#, c-format
+msgid ""
+"The file '%s' on the disk is more recent than\n"
+"the current buffer.\n"
+"Do you want to reload it?"
+msgstr ""
+
+#: src/text_editor.c:1512
+msgid "Auto format is currently disabled. Change the setting in Preferences."
+msgstr ""
+
+#: src/text_editor.c:1518
+msgid "Auto formatting ..."
+msgstr ""
+
+#: src/text_editor.c:1528
+msgid "Error in auto formatting ..."
+msgstr ""
+
+#: src/text_editor.c:1543
+#, c-format
+msgid "Anjuta does not know %s!"
+msgstr ""
+
+#: src/text_editor.c:1571
+#, c-format
+msgid ""
+"Error in auto formatting ...\n"
+"Details: %s"
+msgstr ""
+
+#: src/text_editor.c:1578
+msgid "Auto formatting completed"
+msgstr ""
+
+#: src/text_editor_cbs.c:183
+#, c-format
+msgid "Autosaved \"%s\""
+msgstr ""
+
+#: src/text_editor_cbs.c:187
+#, c-format
+msgid "Autosave \"%s\" -- Failed"
+msgstr ""
+
+#: src/text_editor_gui.c:118
+msgid "Cut to clipboard"
+msgstr ""
+
+#: src/text_editor_gui.c:123
+msgid "Copy to clipboard"
+msgstr ""
+
+#: src/text_editor_gui.c:128
+msgid "Paste from clipboard"
+msgstr ""
+
+#: src/text_editor_gui.c:135
+msgid "Search string"
+msgstr ""
+
+#: src/text_editor_gui.c:139
+msgid "Search and replace string"
+msgstr ""
+
+#: src/text_editor_gui.c:155
+msgid "line: "
+msgstr ""
+
+#: src/text_editor_gui.c:167 src/toolbar.c:252
+msgid "Compile the current file"
+msgstr ""
+
+#: src/text_editor_gui.c:171
+msgid "Build current file or the source directory of the Project"
+msgstr ""
+
+#: src/text_editor_gui.c:180
+msgid "Attach"
+msgstr ""
+
+#: src/text_editor_gui.c:181
+msgid "Attach the current page"
+msgstr ""
+
+#: src/text_editor_menu.c:77
+msgid "Back"
+msgstr "Mbrapa"
+
+#: src/text_editor_menu.c:108
+msgid "Prev mesg"
+msgstr ""
+
+#: src/text_editor_menu.c:114
+msgid "Next mesg"
+msgstr ""
+
+#: src/text_editor_menu.c:120
+msgid "Prev bookmark"
+msgstr ""
+
+#: src/text_editor_menu.c:126
+msgid "Next bookmark"
+msgstr ""
+
+#: src/text_editor_menu.c:143 src/toolbar.c:537
+msgid "Step in"
+msgstr ""
+
+#: src/text_editor_menu.c:149
+msgid "Step over"
+msgstr ""
+
+#: src/text_editor_menu.c:155
+msgid "Step out"
+msgstr ""
+
+#: src/text_editor_menu.c:161 src/toolbar.c:526
+msgid "Run to cursor"
+msgstr ""
+
+#: src/text_editor_menu.c:167
+msgid "Run/Continue"
+msgstr ""
+
+#: src/text_editor_menu.c:181 src/toolbar.c:574
+msgid "Interrupt"
+msgstr ""
+
+#: src/text_editor_menu.c:191
+msgid "Toggle Line numbers"
+msgstr ""
+
+#: src/text_editor_menu.c:198
+msgid "Toggle Marker Margin"
+msgstr ""
+
+#: src/text_editor_menu.c:205
+msgid "Toggle Fold Margin"
+msgstr ""
+
+#: src/text_editor_menu.c:212
+msgid "Toggle Guides"
+msgstr ""
+
+#: src/text_editor_menu.c:220
+msgid "++Zoom"
+msgstr ""
+
+#: src/text_editor_menu.c:227
+msgid "--Zoom"
+msgstr ""
+
+#. 0
+#: src/text_editor_menu.c:239
+msgid "Cut"
+msgstr "Prije"
+
+#. 1
+#: src/text_editor_menu.c:247
+msgid "Copy"
+msgstr "Kopjo"
+
+#. 2
+#: src/text_editor_menu.c:255
+msgid "Paste"
+msgstr "Ngjite"
+
+#. 4
+#: src/text_editor_menu.c:265
+msgid "Context Help"
+msgstr ""
+
+#. 6
+#: src/text_editor_menu.c:275
+msgid "Toggle Bookmark"
+msgstr ""
+
+#. 7
+#: src/text_editor_menu.c:283
+msgid "Auto format"
+msgstr ""
+
+#. 8
+#: src/text_editor_menu.c:291
+msgid "Swap .h/.c"
+msgstr ""
+
+#. 10
+#: src/text_editor_menu.c:301 src/toolbar.c:513
+msgid "Go"
+msgstr "Shko"
+
+#. 11
+#: src/text_editor_menu.c:309 src/text_editor_menu.c:431
+msgid "Tags"
+msgstr "Tags"
+
+#. 18
+#: src/text_editor_menu.c:347
+msgid "Close"
+msgstr "Mbylle"
+
+#: src/toolbar.c:106
+msgid "Detach"
+msgstr ""
+
+#: src/toolbar.c:107
+msgid "Detach the current page"
+msgstr ""
+
+#: src/toolbar.c:116
+msgid "Search for the given string in the current file"
+msgstr ""
+
+#: src/toolbar.c:132
+msgid "Enter the string to search for"
+msgstr ""
+
+#: src/toolbar.c:138
+msgid "Go to the given line number in the current file"
+msgstr ""
+
+#: src/toolbar.c:145
+msgid "Enter the line number to go to"
+msgstr ""
+
+#: src/toolbar.c:161
+msgid "Context sensitive help"
+msgstr ""
+
+#: src/toolbar.c:225
+msgid "Save Project"
+msgstr ""
+
+#: src/toolbar.c:237
+msgid "Close Project"
+msgstr ""
+
+#: src/toolbar.c:264
+msgid "Run configure"
+msgstr ""
+
+#: src/toolbar.c:276
+msgid "Build current file, or build the source directory of the Project"
+msgstr ""
+
+#: src/toolbar.c:287
+msgid "Build_all"
+msgstr ""
+
+#: src/toolbar.c:289
+msgid "Build from the top directory of the Project"
+msgstr ""
+
+#: src/toolbar.c:308
+msgid "Start the Debugger"
+msgstr ""
+
+#: src/toolbar.c:315
+msgid "Stop/interrupt compile or build"
+msgstr ""
+
+#: src/toolbar.c:384 src/toolbar.c:763
+msgid "Toggle"
+msgstr "Kavo"
+
+#: src/toolbar.c:385
+msgid "Toggle bookmark at current location"
+msgstr ""
+
+#: src/toolbar.c:391
+msgid "Goto first bookmark in this document"
+msgstr ""
+
+#: src/toolbar.c:397
+msgid "Goto previous bookmark in this document"
+msgstr ""
+
+#: src/toolbar.c:402
+msgid "Goto next bookmark in this document"
+msgstr ""
+
+#: src/toolbar.c:407
+msgid "Goto last bookmark in this document"
+msgstr ""
+
+#: src/toolbar.c:416
+msgid "Prev"
+msgstr "Paraardhëse"
+
+#: src/toolbar.c:417
+msgid "Goto previous message in this document"
+msgstr ""
+
+#: src/toolbar.c:423
+msgid "Next"
+msgstr "Vazhdo"
+
+#: src/toolbar.c:424
+msgid "Goto next message in this document"
+msgstr ""
+
+#: src/toolbar.c:432
+msgid "Start"
+msgstr "Fillo"
+
+#: src/toolbar.c:433
+msgid "Goto start of current code block"
+msgstr ""
+
+#: src/toolbar.c:439
+msgid "End"
+msgstr ""
+
+#: src/toolbar.c:440
+msgid "Goto end of current code block"
+msgstr ""
+
+#: src/toolbar.c:447
+msgid "Tags:"
+msgstr ""
+
+#: src/toolbar.c:456
+msgid "Search for the given tag in the current file"
+msgstr ""
+
+#: src/toolbar.c:471
+msgid "Enter the tag to jump to"
+msgstr ""
+
+#: src/toolbar.c:514
+msgid "Go or continue execution"
+msgstr ""
+
+#: src/toolbar.c:525
+msgid "Run"
+msgstr "Ekzekuto"
+
+#: src/toolbar.c:538
+msgid "Single step in execution"
+msgstr ""
+
+#: src/toolbar.c:549
+msgid "Step Over"
+msgstr ""
+
+#: src/toolbar.c:550
+msgid "Step over the function"
+msgstr ""
+
+#: src/toolbar.c:560
+msgid "Step Out"
+msgstr ""
+
+#: src/toolbar.c:561
+msgid "Step out of the function"
+msgstr ""
+
+#: src/toolbar.c:576
+msgid "Interrupt execution of the program"
+msgstr ""
+
+#: src/toolbar.c:589
+msgid "Breakpoint"
+msgstr ""
+
+#: src/toolbar.c:590
+msgid "Toggle breakpoint at cursor"
+msgstr ""
+
+#: src/toolbar.c:602
+msgid "Inspect or evaluate an expression"
+msgstr ""
+
+#: src/toolbar.c:615
+msgid "Display the current frame information"
+msgstr ""
+
+#: src/toolbar.c:641
+msgid "Signals"
+msgstr ""
+
+#: src/toolbar.c:642
+msgid "kernel signals of the program"
+msgstr ""
+
+#: src/toolbar.c:653
+msgid "Registers"
+msgstr ""
+
+#: src/toolbar.c:654
+msgid "CPU registers and their contents"
+msgstr ""
+
+#: src/toolbar.c:668
+msgid "End the debugging session"
+msgstr ""
+
+#: src/toolbar.c:765
+msgid "Toggle current code fold hide/show"
+msgstr ""
+
+#: src/toolbar.c:776
+msgid "Close all"
+msgstr ""
+
+#: src/toolbar.c:778
+msgid "Close all code folds in this document"
+msgstr ""
+
+#: src/toolbar.c:789
+msgid "Open all"
+msgstr ""
+
+#: src/toolbar.c:791
+msgid "Open all code folds in this document"
+msgstr ""
+
+#: src/toolbar.c:804
+msgid "Select"
+msgstr "Zgjidh"
+
+#: src/toolbar.c:805
+msgid "Select current code block"
+msgstr ""
+
+#: src/toolbar.c:816
+msgid "Indent inc"
+msgstr ""
+
+#: src/toolbar.c:818
+msgid "Increase indentation of block/line"
+msgstr ""
+
+#: src/toolbar.c:829
+msgid "Indent dcr"
+msgstr ""
+
+#: src/toolbar.c:831
+msgid "Decrease indentation of block/line"
+msgstr ""
+
+#: src/toolbar.c:844
+msgid "Autoformat"
+msgstr ""
+
+#: src/toolbar.c:846
+msgid "Automatically format the code"
+msgstr ""
+
+#: src/toolbar.c:858
+msgid "Configure style to use for auto format"
+msgstr ""
+
+#: src/toolbar.c:871
+msgid "Calltip"
+msgstr ""
+
+#: src/toolbar.c:871
+msgid "Show Calltip"
+msgstr ""
+
+#: src/toolbar.c:884
+msgid "Autocomplete"
+msgstr ""
+
+#: src/toolbar.c:885
+msgid "Autocomplete word"
+msgstr ""
+
+#: src/toolbar_callbacks.c:167
+#, c-format
+msgid "There is line number %d in \"%s\"."
+msgstr ""
+
+#: src/utilities.c:736
+#, c-format
+msgid "Unable to read file: %s."
+msgstr ""
+
+#: src/utilities.c:778
+msgid "Unable to complete file copy"
+msgstr ""
+
+#: src/watch_cbs.c:228
+msgid "< Not defined in current context >"
+msgstr ""
+
+#: src/watch_gui.c:37
+msgid "Add expression"
+msgstr ""
+
+#: src/watch_gui.c:49
+msgid "Update all"
+msgstr ""
+
+#: src/watch_gui.c:55
+msgid "Clear"
+msgstr "Pastro (fshi)"
+
+#: src/watch_gui.c:61
+msgid "Toggle enable"
+msgstr ""
+
+#: src/watch_gui.c:67
+msgid "Change item"
+msgstr ""
+
+#: src/watch_gui.c:172
+msgid "Add Watch Expression"
+msgstr ""
+
+#: src/watch_gui.c:182
+msgid "Add expression to watch"
+msgstr ""
+
+#: src/watch_gui.c:238
+msgid "Modify Watch Expression"
+msgstr ""
+
+#: src/watch_gui.c:248
+msgid "Modify watched expression"
+msgstr ""
+
+#: src/watch_gui.c:305
+msgid "Inspect/Evaluate"
+msgstr ""
+
+#: src/watch_gui.c:315
+msgid "Inspect/Evaluate Expression"
+msgstr ""
+
+#: src/watch_gui.c:325
+msgid "Add To Watch"
+msgstr ""
+
+#: src/wizard_gui.c:97
+msgid "Project Type"
+msgstr ""
+
+#: src/wizard_gui.c:119
+msgid "Select the type of application to be developed"
+msgstr ""
+
+#: src/wizard_gui.c:160
+msgid "Generic/Terminal project"
+msgstr ""
+
+#: src/wizard_gui.c:163
+msgid "GTK 2.0 project"
+msgstr ""
+
+#: src/wizard_gui.c:166
+msgid "GNOME 2.0 project"
+msgstr ""
+
+#: src/wizard_gui.c:169
+msgid "LibGlade 2.0 project"
+msgstr ""
+
+#: src/wizard_gui.c:172
+msgid "gtkmm 2.0 project"
+msgstr ""
+
+#: src/wizard_gui.c:175
+msgid "gnomemm 2.0 project"
+msgstr ""
+
+#: src/wizard_gui.c:178
+msgid "GNOME 2.0 Bonobo component"
+msgstr ""
+
+#: src/wizard_gui.c:181
+msgid "wxWindows project"
+msgstr ""
+
+#: src/wizard_gui.c:184
+msgid "Xlib project"
+msgstr ""
+
+#: src/wizard_gui.c:187
+msgid "X Dock App project"
+msgstr ""
+
+#: src/wizard_gui.c:261
+msgid "Basic Information"
+msgstr ""
+
+#: src/wizard_gui.c:282
+msgid "Enter the basic Project information"
+msgstr ""
+
+#: src/wizard_gui.c:305
+msgid "Project Version:"
+msgstr ""
+
+#: src/wizard_gui.c:312
+msgid "Project Author:"
+msgstr ""
+
+#: src/wizard_gui.c:319
+msgid "Project Target:"
+msgstr ""
+
+#: src/wizard_gui.c:350
+msgid "Programming language"
+msgstr ""
+
+#: src/wizard_gui.c:361
+msgid "C"
+msgstr "C"
+
+#: src/wizard_gui.c:369
+msgid "C++"
+msgstr "C++"
+
+#: src/wizard_gui.c:378
+msgid "Both C and C++"
+msgstr ""
+
+#: src/wizard_gui.c:385
+msgid "Target type"
+msgstr ""
+
+#: src/wizard_gui.c:401
+msgid "Executable target"
+msgstr ""
+
+#: src/wizard_gui.c:408
+msgid "Static library target"
+msgstr ""
+
+#: src/wizard_gui.c:414
+msgid "Dynamic library target"
+msgstr ""
+
+#: src/wizard_gui.c:490
+msgid "Enter a short description of the Project"
+msgstr ""
+
+#: src/wizard_gui.c:596
+msgid "Enter any additional Project options"
+msgstr ""
+
+#: src/wizard_gui.c:613
+msgid " Project Options "
+msgstr ""
+
+#: src/wizard_gui.c:624
+msgid "Include GNU Copyright statement in file headings"
+msgstr ""
+
+#: src/wizard_gui.c:631
+msgid "Enable Gettext Support"
+msgstr ""
+
+#: src/wizard_gui.c:639
+msgid "Generate source code using glade or glademm"
+msgstr ""
+
+#: src/wizard_gui.c:646
+msgid "GNOME Menu Entry"
+msgstr ""
+
+#: src/wizard_gui.c:656
+msgid "Entry name:"
+msgstr ""
+
+#: src/wizard_gui.c:663
+msgid "Comment:"
+msgstr "Komenti:"
+
+#: src/wizard_gui.c:670
+msgid "Group:"
+msgstr "Grupi:"
+
+#: src/wizard_gui.c:712
+msgid "Needs terminal"
+msgstr ""
+
+#: src/wizard_gui.c:754
+msgid "Summary"
+msgstr "Përmbledhja"
+
+#: widgets/cell-renderer-captioned-image.c:207
+msgid "Text"
+msgstr "Teksti"
+
+#: widgets/cell-renderer-captioned-image.c:208
+msgid "Text to render"
+msgstr "Teksti që duhet vizatuar"
+
+#: widgets/cell-renderer-captioned-image.c:214
+msgid "Pixbuf Object"
+msgstr "Objekt Pixbuf"
+
+#: widgets/cell-renderer-captioned-image.c:215
+msgid "The pixbuf to render."
+msgstr ""
+
+#: widgets/gnomefilelist.c:224
+msgid "Go to the previous directory"
+msgstr ""
+
+#: widgets/gnomefilelist.c:228
+msgid "Go to the next directory"
+msgstr ""
+
+#: widgets/gnomefilelist.c:232
+msgid "Go to parent directory"
+msgstr ""
+
+#: widgets/gnomefilelist.c:237
+msgid "Go to home directory"
+msgstr ""
+
+#: widgets/gnomefilelist.c:243
+msgid "Refresh listing"
+msgstr ""
+
+#: widgets/gnomefilelist.c:249
+msgid "Delete file"
+msgstr ""
+
+#: widgets/gnomefilelist.c:253 widgets/gnomefilelist.c:1890
+msgid "Rename file"
+msgstr ""
+
+#: widgets/gnomefilelist.c:257 widgets/gnomefilelist.c:1989
+msgid "Create new folder"
+msgstr ""
+
+#: widgets/gnomefilelist.c:262
+msgid "Show Hidden"
+msgstr "Shfaq të padukshmit"
+
+#: widgets/gnomefilelist.c:266
+msgid "Show hidden files"
+msgstr ""
+
+#: widgets/gnomefilelist.c:274
+msgid "Directory: "
+msgstr ""
+
+#: widgets/gnomefilelist.c:430
+msgid "Selection: "
+msgstr ""
+
+#: widgets/gnomefilelist.c:458
+msgid "File type: "
+msgstr ""
+
+#: widgets/gnomefilelist.c:721
+msgid "Java files"
+msgstr ""
+
+#: widgets/gnomefilelist.c:733
+msgid "Hyper Text Markup files"
+msgstr ""
+
+#: widgets/gnomefilelist.c:739
+msgid "Config files"
+msgstr ""
+
+#: widgets/gnomefilelist.c:744
+msgid "Properties files"
+msgstr ""
+
+#: widgets/gnomefilelist.c:747
+msgid ".mak files"
+msgstr ""
+
+#: widgets/gnomefilelist.c:751
+msgid "Diff files"
+msgstr ""
+
+#: widgets/gnomefilelist.c:1855
+#, c-format
+msgid "Really delete %s?"
+msgstr ""
+
+#: widgets/gnomefilelist.c:1902
+msgid "Rename file to:"
+msgstr ""
+
+#: widgets/gnomefilelist.c:1928
+#, c-format
+msgid "Renaming file failed '%s': %s"
+msgstr ""
+
+#: widgets/gnomefilelist.c:1961
+#, c-format
+msgid "Creating folder failed '%s': %s"
+msgstr ""
+
+#: widgets/gnomefilelist.c:2001
+msgid "Folder name:"
+msgstr ""
+

@@ -731,7 +731,7 @@ anjuta_docman_show_editor (AnjutaDocman *docman, GtkWidget* te)
 		t = gtk_notebook_get_nth_page (GTK_NOTEBOOK (docman), i);
 		if (t && t == te)
 		{
-			gtk_notebook_set_page (GTK_NOTEBOOK (docman), i);
+			gtk_notebook_set_current_page (GTK_NOTEBOOK (docman), i);
 			anjuta_docman_set_current_editor (docman, TEXT_EDITOR (te));
 			return;
 		}

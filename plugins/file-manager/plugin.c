@@ -28,13 +28,22 @@
 
 #include "plugin.h"
 
-#define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-default-file_manager.ui"
+#define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-file-manager.ui"
+#define PREFS_GLADE PACKAGE_DATA_DIR"/glade/anjuta-file-manager-plugin.glade"
+#define ICON_FILE "anjuta-file-manager-plugin.png"
 
 gpointer parent_class;
+
+static void
+preferences_changed (AnjutaPreferences *prefs, FileManagerPlugin *fv)
+{
+	fv_refresh (fv);
+}
 
 static gboolean
 activate_plugin (AnjutaPlugin *plugin)
 {
+	GladeXML *gxml;
 	FileManagerPlugin *fm_plugin;
 	
 	g_message ("FileManagerPlugin: Activating File Manager plugin ...");
@@ -42,9 +51,21 @@ activate_plugin (AnjutaPlugin *plugin)
 	fm_plugin->ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	fm_plugin->prefs = anjuta_shell_get_preferences (plugin->shell, NULL);
 	fv_init (fm_plugin);
+	
+	/* Added widget in shell */
 	anjuta_shell_add_widget (plugin->shell, fm_plugin->scrolledwindow,
 							 "AnjutaFileManager", _("File"),
 							 ANJUTA_SHELL_PLACEMENT_LEFT, NULL);
+	
+	/* Add preferences page */
+	gxml = glade_xml_new (PREFS_GLADE, "dialog.file.filter", NULL);
+	
+	anjuta_preferences_add_page (fm_plugin->prefs,
+								gxml, "File Manager", ICON_FILE);
+	g_signal_connect (G_OBJECT (fm_plugin->prefs), "changed",
+					  G_CALLBACK (preferences_changed), fm_plugin);
+	g_object_unref (G_OBJECT (gxml));
+	
 	/* FIXME: For now just load '/' */
 	fv_set_root (fm_plugin, "/");
 	return TRUE;
@@ -55,6 +76,10 @@ deactivate_plugin (AnjutaPlugin *plugin)
 {
 	FileManagerPlugin *fm_plugin;
 	fm_plugin = (FileManagerPlugin*) plugin;
+	
+	g_signal_handlers_disconnect_by_func (G_OBJECT (fm_plugin->prefs),
+										  G_CALLBACK (preferences_changed),
+										  fm_plugin);
 	fv_finalize(fm_plugin);
 	return TRUE;
 }

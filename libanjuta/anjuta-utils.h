@@ -22,6 +22,7 @@
 
 #include <glib.h>
 #include <gtk/gtk.h>
+#include <sys/types.h>
 
 gboolean anjuta_util_copy_file (gchar * src, gchar * dest, gboolean show_error);
 
@@ -87,6 +88,9 @@ GList* anjuta_util_glist_path_dedup(GList *list);
 /* The list will be then truncated to (length) items only */
 GList * anjuta_util_update_string_list (GList *p_list, const gchar *p_str,
 										gint length);
+
+gboolean anjuta_util_create_dir (const gchar * d);
+pid_t anjuta_util_execute_shell (const gchar *dir, const gchar *command);
 
 /* Temporarily copied here */
 

@@ -1,0 +1,510 @@
+/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
+/*
+    plugin.c
+    Copyright (C) 2000 Naba Kumar
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+*/
+
+#include <config.h>
+#include <libanjuta/anjuta-shell.h>
+#include <libanjuta/anjuta-children.h>
+#include <libanjuta/interfaces/ianjuta-terminal.h>
+#include <libanjuta/plugins.h>
+
+#define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-terminal.ui"
+#define PREFS_GLADE PACKAGE_DATA_DIR"/glade/anjuta-terminal-plugin.glade"
+#define ICON_FILE "preferences-terminal.png"
+
+/* Some desktop/gnome-terminal gconf keys. */
+#define GCONF_MONOSPACE_FONT      "/desktop/gnome/interface/monospace_font_name"
+#define GCONF_DEFAULT_PROFILE     "/apps/gnome-terminal/global/default_profile"
+#define GCONF_PROFILE_LIST        "/apps/gnome-terminal/global/profile_list"
+
+#define GCONF_PROFILE_PREFIX      "/apps/gnome-terminal/profiles"
+#define GCONF_BACKGROUND_COLOR    "background_color"
+#define GCONF_BACKSPACE_BINDING   "backspace_binding"
+#define GCONF_CURSOR_BLINK        "cursor_blink"
+#define GCONF_DELETE_BINDING      "delete_binding"
+#define GCONF_EXIT_ACTION         "exit_action"
+#define GCONF_VTE_TERMINAL_FONT   "font"
+#define GCONF_FOREGROUND_COLOR    "foreground_color"
+#define GCONF_SCROLLBACK_LINES    "scrollback_lines"
+#define GCONF_SCROLL_ON_KEYSTROKE "scroll_on_keystroke"
+#define GCONF_SCROLL_ON_OUTPUT    "scroll_on_output"
+#define GCONF_SILENT_BELL         "silent_bell"
+#define GCONF_USE_SYSTEM_FONT     "use_system_font"
+#define GCONF_WORD_CHARS          "word_chars"
+
+#define PREFS_TERMINAL_PROFILE_USE_DEFAULT    "terminal.default.profile"
+#define PREFS_TERMINAL_PROFILE                "terminal.profile"
+
+#include <gconf/gconf-client.h>
+#include <vte/vte.h>
+#include <pwd.h>
+#include <gtk/gtk.h>
+#include <libanjuta/anjuta-plugin.h>
+
+extern char **environ;
+
+typedef struct _TerminalPlugin TerminalPlugin;
+typedef struct _TerminalPluginClass TerminalPluginClass;
+
+struct _TerminalPlugin{
+	AnjutaPlugin parent;
+	
+	AnjutaUI *ui;
+	AnjutaPreferences *prefs;
+	pid_t child_pid;
+	GtkWidget *term;
+	GtkWidget *hbox;
+	GtkWidget *frame;
+	GtkWidget *scrollbar;
+	GtkWidget *pref_profile_combo;
+	GtkWidget *pref_default_button;
+};
+
+struct _TerminalPluginClass{
+	AnjutaPluginClass parent_class;
+};
+
+gpointer parent_class;
+
+static const gchar*
+get_profile_key (const gchar *profile, const gchar *key)
+{
+	/* A resonably safe buffer */
+	static gchar buffer[1024];
+	
+	g_return_val_if_fail (profile != NULL && key != NULL, NULL);
+	
+	snprintf (buffer, 1024, "%s/%s/%s", GCONF_PROFILE_PREFIX, profile, key);
+	return buffer;
+}
+
+#define GET_PROFILE_BOOL(key) \
+			gconf_client_get_bool (client, \
+								   get_profile_key (profile, key), \
+								   NULL);
+#define GET_PROFILE_INT(key) \
+			gconf_client_get_int (client, \
+								  get_profile_key (profile, key), \
+								  NULL);
+#define GET_PROFILE_STRING(key) \
+			gconf_client_get_string (client, \
+									 get_profile_key (profile, key), \
+									 NULL);
+
+static void
+preferences_changed (AnjutaPreferences *prefs, TerminalPlugin *term)
+{
+	GConfClient *client;
+	char *text;
+	int value;
+	gboolean setting;
+	GdkColor color;
+	GtkWidget *vte;
+	gchar *profile;
+	AnjutaPreferences *pref;
+	GSList *profiles;
+	
+	pref = term->prefs;
+	vte = term->term;
+	client = gconf_client_get_default ();
+	
+	g_return_if_fail (client != NULL);
+	
+	/* Update the currently available list of terminal profiles */
+	profiles = gconf_client_get_list (client, GCONF_PROFILE_LIST,
+											  GCONF_VALUE_STRING, NULL);
+	if (profiles)
+	{
+		GList *list = NULL;
+		GSList *node = profiles;
+		while (node)
+		{
+			if (node->data)
+				list = g_list_append (list, node->data);
+			node = g_slist_next (node);
+		}
+		gtk_combo_set_popdown_strings (GTK_COMBO (term->pref_profile_combo), list);
+		g_list_free (list);
+	}
+	setting = anjuta_preferences_get_int (pref, PREFS_TERMINAL_PROFILE_USE_DEFAULT);
+	if (setting)
+	{
+		/* Use the currently selected profile in gnome-terminal */
+		text = gconf_client_get_string (client, GCONF_DEFAULT_PROFILE, NULL);
+		if (!text)
+			text = "Default";
+	}
+	else
+	{
+		/* Otherwise use the user selected profile */
+		text = anjuta_preferences_get (pref, PREFS_TERMINAL_PROFILE);
+		if (!text)
+			text = "Default";
+	}
+	profile = g_strdup (text);
+	
+	vte_terminal_set_mouse_autohide (VTE_TERMINAL (vte), TRUE);
+
+	/* Set terminal font either using the desktop wide font or g-t one. */
+	setting = GET_PROFILE_BOOL (GCONF_USE_SYSTEM_FONT);
+	if (setting) {
+		text = gconf_client_get_string (client, GCONF_MONOSPACE_FONT, NULL);
+		if (!text)
+			text = GET_PROFILE_STRING (GCONF_VTE_TERMINAL_FONT);
+	} else {
+		text = GET_PROFILE_STRING (GCONF_VTE_TERMINAL_FONT);
+	}
+	if (text)
+		vte_terminal_set_font_from_string (VTE_TERMINAL (vte), text);
+
+	setting = GET_PROFILE_BOOL (GCONF_CURSOR_BLINK);
+	vte_terminal_set_cursor_blinks (VTE_TERMINAL (vte), setting);
+	setting = GET_PROFILE_BOOL (GCONF_SILENT_BELL);
+	vte_terminal_set_audible_bell (VTE_TERMINAL (vte), !setting);
+	value = GET_PROFILE_INT (GCONF_SCROLLBACK_LINES);
+	vte_terminal_set_scrollback_lines (VTE_TERMINAL (vte), value);
+	setting = GET_PROFILE_BOOL (GCONF_SCROLL_ON_KEYSTROKE);
+	vte_terminal_set_scroll_on_keystroke (VTE_TERMINAL (vte), setting);
+	setting = GET_PROFILE_BOOL (GCONF_SCROLL_ON_OUTPUT);
+	vte_terminal_set_scroll_on_output (VTE_TERMINAL (vte), TRUE);
+	text = GET_PROFILE_STRING (GCONF_WORD_CHARS);
+	if (text)
+		vte_terminal_set_word_chars (VTE_TERMINAL (vte), text);
+
+	text = GET_PROFILE_STRING (GCONF_BACKSPACE_BINDING);
+	if (text)
+	{
+		if (!strcmp (text, "ascii-del"))
+			vte_terminal_set_backspace_binding (VTE_TERMINAL (vte),
+								VTE_ERASE_ASCII_DELETE);
+		else if (!strcmp (text, "escape-sequence"))
+			vte_terminal_set_backspace_binding (VTE_TERMINAL (vte),
+								VTE_ERASE_DELETE_SEQUENCE);
+		else if (!strcmp (text, "control-h"))
+			vte_terminal_set_backspace_binding (VTE_TERMINAL (vte),
+								VTE_ERASE_ASCII_BACKSPACE);
+		else
+			vte_terminal_set_backspace_binding (VTE_TERMINAL (vte),
+								VTE_ERASE_AUTO);
+	}
+	text = GET_PROFILE_STRING (GCONF_DELETE_BINDING);
+	if (text)
+	{
+		if (!strcmp (text, "ascii-del"))
+			vte_terminal_set_delete_binding (VTE_TERMINAL (vte),
+							 VTE_ERASE_ASCII_DELETE);
+		else if (!strcmp (text, "escape-sequence"))
+			vte_terminal_set_delete_binding (VTE_TERMINAL (vte),
+							 VTE_ERASE_DELETE_SEQUENCE);
+		else if (!strcmp (text, "control-h"))
+			vte_terminal_set_delete_binding (VTE_TERMINAL (vte),
+							 VTE_ERASE_ASCII_BACKSPACE);
+		else
+			vte_terminal_set_delete_binding (VTE_TERMINAL (vte),
+							 VTE_ERASE_AUTO);
+	}
+	/* Set fore- and background colors. */
+	text = GET_PROFILE_STRING (GCONF_BACKGROUND_COLOR);
+	if (text)
+	{
+		gdk_color_parse (text, &color);
+		vte_terminal_set_color_background (VTE_TERMINAL (vte), &color);
+	}
+	text = GET_PROFILE_STRING (GCONF_FOREGROUND_COLOR);
+	if (text)
+	{
+		gdk_color_parse (text, &color);
+		vte_terminal_set_color_foreground (VTE_TERMINAL (vte), &color);
+		vte_terminal_set_color_bold (VTE_TERMINAL (vte), &color);
+	}
+	g_free (profile);
+	g_object_unref (client);
+}
+
+static void
+use_default_profile_cb (GtkToggleButton *button,
+						TerminalPlugin *term)
+{
+	if (gtk_toggle_button_get_active (button))
+		gtk_widget_set_sensitive (term->pref_profile_combo, FALSE);
+	else
+		gtk_widget_set_sensitive (term->pref_profile_combo, TRUE);
+}
+
+static char **
+get_child_environment (GtkWidget *term)
+{
+	/* code from gnome-terminal, sort of. */
+	char **p;
+	int i;
+	char **retval;
+#define EXTRA_ENV_VARS 6
+
+	/* count env vars that are set */
+	for (p = environ; *p; p++);
+
+	i = p - environ;
+	retval = g_new (char *, i + 1 + EXTRA_ENV_VARS);
+
+	for (i = 0, p = environ; *p; p++) {
+		/* Strip all these out, we'll replace some of them */
+		if ((strncmp (*p, "COLUMNS=", 8) == 0) ||
+		    (strncmp (*p, "LINES=", 6) == 0)   ||
+		    (strncmp (*p, "TERM=", 5) == 0)    ||
+		    (strncmp (*p, "GNOME_DESKTOP_ICON=", 19) == 0)) {
+			/* nothing: do not copy */
+		} else {
+			retval[i] = g_strdup (*p);
+			++i;
+		}
+	}
+
+	retval[i] = g_strdup ("TERM=xterm"); /* FIXME configurable later? */
+	++i;
+
+	retval[i] = NULL;
+
+	return retval;
+}
+
+static void
+terminal_init_cb (GtkWidget *widget, TerminalPlugin *term_plugin)
+{
+	VteTerminal *term = VTE_TERMINAL (widget);
+	struct passwd *pw;
+	const char *shell;
+	const char *dir;
+	char **env;
+	
+	vte_terminal_reset (term, TRUE, TRUE);
+
+	pw = getpwuid (getuid ());
+	if (pw) {
+		shell = pw->pw_shell;
+		dir = pw->pw_dir;
+	} else {
+		shell = "/bin/sh";
+		dir = "/";
+	}
+	
+	env = get_child_environment (widget);
+#if OLD_VTE == 1
+	term_plugin->child_pid = vte_terminal_fork_command (term, shell,
+														NULL, env);
+#else
+	term_plugin->child_pid = vte_terminal_fork_command (term, shell, NULL,
+														env, dir, 0, 0, 0);
+#endif
+	g_strfreev (env);
+	
+	/* The fork command above overwirtes our SIGCHLD signal handler.
+	 * Restore it */
+	anjuta_children_init ();
+	preferences_changed (term_plugin->prefs, term_plugin);
+}
+
+static gboolean
+terminal_focus_cb (GtkWidget *widget, GdkEvent  *event,
+				   TerminalPlugin *term) 
+{
+	static gboolean need_init = TRUE;
+	if (need_init)
+	{
+		terminal_init_cb (widget, term);
+		need_init = FALSE;
+	}
+	gtk_widget_grab_focus (widget);
+	return FALSE;
+}
+
+static gboolean
+terminal_keypress_cb (GtkWidget *widget, GdkEventKey  *event,
+					  TerminalPlugin *term) 
+{
+	/* Fixme: GDK_KEY_PRESS doesn't seem to be called for our keys */
+	if (event->type != GDK_KEY_RELEASE)
+		return FALSE;
+	
+	// DEBUG_PRINT ("Terminal key pressed");
+	/* ctrl-c or ctrl-d */
+	if (event->keyval == GDK_c ||
+		event->keyval == GDK_d ||
+		event->keyval == GDK_C ||
+		event->keyval == GDK_D)
+	{
+		/* Ctrl pressed */
+		if (event->state & GDK_CONTROL_MASK)
+		{
+			// DEBUG_PRINT ("Ctrl c/d: Terminal reseting");
+			kill (term->child_pid, SIGINT);
+			term->child_pid = 0;
+			terminal_init_cb (GTK_WIDGET (term->term), term);
+			return TRUE;
+		}
+	}
+	return FALSE;
+}
+
+static void
+terminal_destroy_cb (GtkWidget *widget, TerminalPlugin *term)
+{
+	g_signal_handlers_disconnect_by_func (G_OBJECT (widget),
+							G_CALLBACK (terminal_init_cb), term);
+}
+
+static void
+terminal_create (TerminalPlugin *term_plugin)
+{
+	GtkWidget *sb, *frame, *hbox;
+	
+	g_return_if_fail(term_plugin != NULL);
+
+	term_plugin->child_pid = 0;
+	
+	/* Create new terminal. */
+	term_plugin->term = vte_terminal_new ();
+	gtk_widget_set_size_request (GTK_WIDGET (term_plugin->term), 10, 10);
+	vte_terminal_set_size (VTE_TERMINAL (term_plugin->term), 50, 1);
+	
+	g_signal_connect (G_OBJECT (term_plugin->term), "focus_in_event",
+					  G_CALLBACK (terminal_focus_cb), term_plugin);
+	g_signal_connect (G_OBJECT (term_plugin->term), "child-exited",
+					  G_CALLBACK (terminal_init_cb), term_plugin);
+	g_signal_connect (G_OBJECT (term_plugin->term), "destroy",
+					  G_CALLBACK (terminal_destroy_cb), term_plugin);
+	g_signal_connect (G_OBJECT (term_plugin->term), "event",
+					  G_CALLBACK (terminal_keypress_cb), term_plugin);
+
+	sb = gtk_vscrollbar_new (GTK_ADJUSTMENT (VTE_TERMINAL (term_plugin->term)->adjustment));
+	GTK_WIDGET_UNSET_FLAGS (sb, GTK_CAN_FOCUS);
+	
+	frame = gtk_frame_new (NULL);
+	gtk_widget_show (frame);
+	gtk_frame_set_shadow_type (GTK_FRAME (frame), GTK_SHADOW_IN);
+
+	hbox = gtk_hbox_new (FALSE, 0);
+	gtk_container_add (GTK_CONTAINER (frame), hbox);
+	gtk_box_pack_start (GTK_BOX (hbox), term_plugin->term, TRUE, TRUE, 0);
+	gtk_box_pack_start (GTK_BOX (hbox), sb, FALSE, TRUE, 0);
+	gtk_widget_show_all (frame);
+	
+	term_plugin->scrollbar = sb;
+	term_plugin->frame = frame;
+	term_plugin->hbox = hbox;
+}
+
+static gboolean
+activate_plugin (AnjutaPlugin *plugin)
+{
+	GladeXML *gxml;
+	
+	TerminalPlugin *term_plugin;
+	
+	g_message ("TerminalPlugin: Activating Terminal plugin ...");
+	term_plugin = (TerminalPlugin*) plugin;
+	term_plugin->ui = anjuta_shell_get_ui (plugin->shell, NULL);
+	term_plugin->prefs = anjuta_shell_get_preferences (plugin->shell, NULL);
+	terminal_create (term_plugin);
+	
+	/* Create the terminal preferences page */
+	gxml = glade_xml_new (PACKAGE_DATA_DIR"/glade/anjuta.glade",
+						  "preferences_dialog_terminal",
+						  NULL);
+	anjuta_preferences_add_page (term_plugin->prefs, gxml,
+								"Terminal", ICON_FILE);
+	term_plugin->pref_profile_combo = glade_xml_get_widget (gxml, "profile_list_combo");
+	term_plugin->pref_default_button =
+		glade_xml_get_widget (gxml,
+					"preferences_toggle:bool:1:0:terminal.default.profile");
+	g_signal_connect (G_OBJECT(term_plugin->pref_default_button), "toggled",
+					  G_CALLBACK (use_default_profile_cb), term_plugin);
+	g_signal_connect (G_OBJECT (term_plugin->prefs), "changed",
+					  G_CALLBACK (preferences_changed), term_plugin);
+	g_object_unref (gxml);
+	preferences_changed (term_plugin->prefs, term_plugin);
+	
+	// terminal_create (term_plugin);
+	
+	/* Added widget in shell */
+	anjuta_shell_add_widget (plugin->shell, term_plugin->frame,
+							 "AnjutaTerminal", _("Terminal"),
+							 ANJUTA_SHELL_PLACEMENT_BOTTOM, NULL);
+	
+	return TRUE;
+}
+
+static gboolean
+deactivate_plugin (AnjutaPlugin *plugin)
+{
+	TerminalPlugin *term_plugin;
+	term_plugin = (TerminalPlugin*) plugin;
+	
+	anjuta_shell_remove_widget (plugin->shell, term_plugin->frame, NULL);
+	g_signal_handlers_disconnect_by_func (G_OBJECT (term_plugin->prefs),
+										  G_CALLBACK (preferences_changed),
+										  term_plugin);
+	g_signal_handlers_disconnect_by_func (G_OBJECT (term_plugin->pref_default_button),
+										  G_CALLBACK (use_default_profile_cb),
+										  term_plugin);
+	// terminal_finalize(term_plugin);
+	return TRUE;
+}
+
+static void
+dispose (GObject *obj)
+{
+}
+
+static void
+terminal_plugin_instance_init (GObject *obj)
+{
+	// TerminalPlugin *plugin = (TerminalPlugin*) obj;
+}
+
+static void
+terminal_plugin_class_init (GObjectClass *klass) 
+{
+	AnjutaPluginClass *plugin_class = ANJUTA_PLUGIN_CLASS (klass);
+
+	parent_class = g_type_class_peek_parent (klass);
+
+	plugin_class->activate = activate_plugin;
+	plugin_class->deactivate = deactivate_plugin;
+	klass->dispose = dispose;
+}
+
+static pid_t
+iterminal_execute_command (IAnjutaTerminal *terminal,
+						   const gchar *command, GError **err)
+{
+	//FIXME:
+	return 0;
+}
+
+static void
+iterminal_iface_init(IAnjutaTerminalIface *iface)
+{
+	iface->execute_command = iterminal_execute_command;
+}
+
+ANJUTA_PLUGIN_BEGIN (TerminalPlugin, terminal_plugin);
+ANJUTA_INTERFACE (iterminal, IANJUTA_TYPE_TERMINAL);
+ANJUTA_PLUGIN_END;
+
+ANJUTA_SIMPLE_PLUGIN (TerminalPlugin, terminal_plugin);
