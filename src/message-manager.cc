@@ -506,6 +506,15 @@ anjuta_message_manager_save_yourself (AnjutaMessageManager * amm,
 	fprintf (stream, "messages.win.width=%d\n", amm->intern->width);
 	fprintf (stream, "messages.win.height=%d\n", amm->intern->height);
 	
+	typedef vector < MessageSubwindow * >::iterator I;
+	for (I cur_win = amm->intern->msg_windows.begin ();
+	     cur_win != amm->intern->msg_windows.end (); cur_win++)
+	{
+		fprintf(stream, "messages.show.%d=%d\n", (*cur_win)->get_type_id(),
+			(*cur_win)->is_shown());
+	}
+
+	
 	return true;
 }
 
@@ -525,6 +534,21 @@ anjuta_message_manager_load_yourself (AnjutaMessageManager * amm,
 	amm->intern->width = prop_get_int (props, "messages.win.width", 600);
 	amm->intern->height =
 		prop_get_int (props, "messages.win.height", 300);
+	
+	typedef vector < MessageSubwindow * >::iterator I;
+	for (I cur_win = amm->intern->msg_windows.begin ();
+	     cur_win != amm->intern->msg_windows.end (); cur_win++)
+	{
+		char* str = new char[sizeof("messages.tab.") + 3];
+		sprintf(str, "messages.show.%d", (*cur_win)->get_type_id());
+		int show = prop_get_int (props, str, 1);
+		if (!show)
+		{
+			(*cur_win)->hide();
+			(*cur_win)->set_check_item(false);
+		}
+		delete[] str;
+	}
 	
 	anjuta_message_manager_update(amm);
 	

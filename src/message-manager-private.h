@@ -77,6 +77,9 @@ class MessageSubwindow
 		gint get_page_num() const;
 		const string& get_type() const;
 		int get_type_id() const;
+		
+		/* No call this from the on_show_hide_tab callback */
+		void set_check_item(bool p_state);
 	
 	protected:
 		AnjutaMessageManager* m_parent;
@@ -140,6 +143,7 @@ class TerminalWindow : public MessageSubwindow
 		static gboolean zvterm_mouse_clicked(GtkWidget* widget, GdkEvent* event, gpointer user_data);
 		static void zvterm_reinit_child(ZvtTerm* term);
 		static void zvterm_terminate(ZvtTerm* term);
+		static int zvterm_focus_in(ZvtTerm* term, GdkEventFocus* event); 
 };
 
 void connect_menuitem_signal(GtkWidget* item, MessageSubwindow* msg_win);

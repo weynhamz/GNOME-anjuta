@@ -1,3 +1,16 @@
+2002-01-17	Naba Kumar <kh_naba@users.sourceforge.net>
+
+	* src/message-manager-private.cc
+	  src/message-manager-private.h
+	  src/message-manager.cc:
+	  
+	  Message-manager now restores the tabs which were shown on startup.
+	  The terminal is now created on demand (as requested by Biswa)
+	  and I have removed some debug messages.
+	  
+	  Patch submitted by: 
+	  Johannes Schmid <johannes.schmid@gmx.de>
+
 2002-01-13  Stephane Demurget  <demurgets@free.fr>
 
 	* src/anjuta_cbs.c: fixed the global shortcut handling to have a

@@ -86,10 +86,9 @@ void MessageSubwindow::activate()
 {
 	if (!m_is_shown)
 	{
-		disconnect_menuitem_signal(m_menuitem, this);
-		gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(m_menuitem), true);	
-		connect_menuitem_signal(m_menuitem, this);
 		show();
+		set_check_item(true);
+		
 		// reorder windows
 		vector<bool> win_is_shown;
 	
@@ -114,6 +113,13 @@ GtkWidget* MessageSubwindow::create_label() const
 	gtk_widget_ref(label);
 	gtk_widget_show(label);
 	return label;
+}
+
+void MessageSubwindow::set_check_item(bool p_state)
+{
+	disconnect_menuitem_signal(m_menuitem, this);
+	gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(m_menuitem), p_state);	
+	connect_menuitem_signal(m_menuitem, this);
 }
 
 // MessageWindow:
@@ -264,7 +270,6 @@ AnjutaMessageWindow::show()
 				break;
 			}
 		}
-		
 		m_is_shown = true;
 	}
 }
@@ -329,13 +334,16 @@ TerminalWindow::TerminalWindow(AnjutaMessageManager* p_amm, int p_type_id, strin
 	gtk_box_pack_start(GTK_BOX(m_hbox), m_scrollbar, FALSE, TRUE, 0);
 	gtk_widget_show (m_scrollbar);
 
-	zvterm_reinit_child(ZVT_TERM(m_terminal));
+	//zvterm_reinit_child(ZVT_TERM(m_terminal));
 	gtk_signal_connect(GTK_OBJECT(m_terminal), "button_press_event"
 	  , GTK_SIGNAL_FUNC(TerminalWindow::zvterm_mouse_clicked), m_terminal);
 	gtk_signal_connect (GTK_OBJECT(m_terminal), "child_died"
 	  , GTK_SIGNAL_FUNC (TerminalWindow::zvterm_reinit_child), NULL);
 	gtk_signal_connect (GTK_OBJECT (m_terminal),"destroy"
 	  , GTK_SIGNAL_FUNC (TerminalWindow::zvterm_terminate), NULL);
+
+	gtk_signal_connect (GTK_OBJECT (m_terminal), "focus_in_event",
+		GTK_SIGNAL_FUNC (TerminalWindow::zvterm_focus_in), NULL);
 }
 	
 void TerminalWindow::show()
@@ -408,14 +416,23 @@ void TerminalWindow::zvterm_reinit_child(ZvtTerm* term)
 			}
 			execle (shell->str, name->str, NULL, environ);
 		default:
-			g_message("Terminal restarted");
 			break;
 	}
 }
 
 void TerminalWindow::zvterm_terminate(ZvtTerm* term)
 {
-	g_message("Terminating terminal..");
 	gtk_signal_disconnect_by_func(GTK_OBJECT(term), GTK_SIGNAL_FUNC(TerminalWindow::zvterm_reinit_child), NULL);
 	zvt_term_closepty(term);
+}
+
+int TerminalWindow::zvterm_focus_in(ZvtTerm* term, GdkEventFocus* event)
+{
+	static bool need_init = true;
+	if (need_init)
+	{
+		zvterm_reinit_child(term);
+		need_init = false;
+	}
+	return true;
 }

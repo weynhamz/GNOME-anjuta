@@ -640,10 +640,14 @@ void anjuta_goto_symbol_definition(const char *symbol, TextEditor *te)
 		tag = global_proto;
 	else
 		return;
-	an_file_history_push(te->full_filename
-	  , aneditor_command(te->editor_id, ANE_GET_LINENO, (long) NULL, (long) NULL));
-	anjuta_goto_file_line_mark(tag->atts.entry.file->work_object.file_name
-		, tag->atts.entry.line, TRUE);
+	
+	/* Make sure te is not NULL */
+	if (te) {
+		an_file_history_push(te->full_filename
+		  , aneditor_command(te->editor_id, ANE_GET_LINENO, (long) NULL, (long) NULL));
+		anjuta_goto_file_line_mark(tag->atts.entry.file->work_object.file_name
+			, tag->atts.entry.line, TRUE);
+	}
 }
 
 static void
