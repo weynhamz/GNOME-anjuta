@@ -1,5 +1,9 @@
 2002-01-08  Naba Kumar <kh_naba@users.sourceforge.net>
 
+	* ccview/.cvsignore: Removed.
+	
+2002-01-08  Naba Kumar <kh_naba@users.sourceforge.net>
+
 	* ccview/
 		cccmd.cc, ccview_main.h, func_dialog.cc, struct.xpm,
 		cccmd.h, cfolder.xpm, func_dialog.h, ofolder.xpm, support.c,
