@@ -860,10 +860,10 @@ gboolean TerminalWindow::term_keypress_cb (GtkWidget *widget,
 										   GdkEventKey  *event,
 										   TerminalWindow *tw) 
 {
-	if (event->type != GDK_KEY_PRESS)
+	/* Fixme: GDK_KEY_PRESS doesn't seem to be called for our keys */
+	if (event->type != GDK_KEY_RELEASE)
 		return FALSE;
 	
-	/* Fixme: This doesn't seem to be called for desired keys :-( */
 	DEBUG_PRINT ("Terminal key pressed");
 	/* ctrl-c or ctrl-d */
 	if (event->keyval == GDK_c ||
