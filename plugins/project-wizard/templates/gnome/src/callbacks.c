@@ -16,5 +16,3 @@
 #include <gnome.h>
 
 #include "callbacks.h"
-#include "interface.h"
-#include "support.h"
