@@ -1,4 +1,9 @@
-2004-03-12  Naba Kumar <naba@gnome.org>
+2004-03-17  Naba Kumar  <naba@gnome.org>
+
+	* data/autogen.sh.*, data/macros/autogen.sh, data/macros2/autogen.sh:
+	Fixed to read m4 directory when it exists (bug #917781).
+	
+2004-03-12  Naba Kumar  <naba@gnome.org>
 
 	* HACKING: Fixed formatting for auto-parsing.
 

@@ -172,6 +172,7 @@ do
 	  libtoolize --force --copy
 	fi
       fi
+      test -d m4 && aclocalinclude="$aclocalinclude -I m4"
       echo "Running aclocal $aclocalinclude ..."
       aclocal $aclocalinclude || {
 	echo
