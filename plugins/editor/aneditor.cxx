@@ -2388,19 +2388,29 @@ void AnEditor::AutomaticIndentation(char ch) {
 			}
 		}
 	} else if ((ch == '\r' || ch == '\n') && (selStart == thisLineStart)) {
+		printf("New line block\n");
 		if (!indentClosing && !blockEnd.IsSingleChar()) {	// Dedent previous line maybe
 			SString controlWords[1];
+			printf ("First if\n");
+			
 			if (GetLinePartsInStyle(curLine-1, blockEnd.styleNumber,
 				-1, controlWords, ELEMENTS(controlWords))) {
+				printf ("Second if\n");
 				if (includes(blockEnd, controlWords[0])) {
+					printf ("Third if\n");
 					// Check if first keyword on line is an ender
 					SetLineIndentation(curLine-1, IndentOfBlock(curLine-2) - indentSize);
 					// Recalculate as may have changed previous line
 					indentBlock = IndentOfBlock(curLine - 1);
 				}
 			}
+			SetLineIndentation(curLine, indentBlock);
 		}
-		SetLineIndentation(curLine, indentBlock);
+		if (GetIndentState(curLine - 1) == isNone) {
+			MaintainIndentation(ch);
+		} else {
+			SetLineIndentation(curLine, indentBlock);
+		}
 	}
 }
 
@@ -2451,7 +2461,7 @@ void AnEditor::CharAdded(char ch) {
 			} else if (HandleXml(ch)) {
 				// Handled in the routine
 			}
-			else {												// we don't have nor autocompetion nor calltip active
+			else {	// we don't have autocompetion nor calltip active
 				if (ch == '(') {
 					braceCount = 1;
 					//StartCallTip();
@@ -2464,7 +2474,7 @@ void AnEditor::CharAdded(char ch) {
 					if ( g_queue_is_empty( call_tip_node_queue ) != TRUE )
 						ShutDownCallTip();
 					
-					// ok, let's start a new calltip					
+					// ok, let's start a new calltip			
 					StartCallTip_new();
 				} else {
 					autoCCausedByOnlyOne = false;

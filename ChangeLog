@@ -1,5 +1,7 @@
 2005-01-17  Naba Kumar  <naba@gnome.org>
 
+	* plugins/editor/aneditor.cxx: Fixed auto indentation.
+	
 	* configure.in: Fixed build errors.
 
 	* data/Makefile.am,	(removed) data/README.stock_libs,
