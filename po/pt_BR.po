@@ -15,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.HEAD.pt_BR\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-23 02:37+0100\n"
-"PO-Revision-Date: 2005-02-23 00:04-0300\n"
+"POT-Creation-Date: 2005-02-26 10:36+0100\n"
+"PO-Revision-Date: 2005-02-28 04:07-0300\n"
 "Last-Translator: Afonso Celso Medina <medina@maua.br>\n"
 "Language-Team: Portuguese/Brazil <gnome-l10n-br@listas.cipsga.org.br>\n"
 "MIME-Version: 1.0\n"
@@ -27,7 +27,7 @@ msgstr ""
 msgid "Anjuta IDE"
 msgstr "Anjuta IDE"
 
-#: anjuta.desktop.in.in.h:2 src/about.c:97 src/about.c:109 src/main.c:143
+#: anjuta.desktop.in.in.h:2 src/about.c:97 src/about.c:109 src/main.c:141
 #: src/main.cpp:122
 msgid "Integrated Development Environment"
 msgstr "Ambiente de Desenvolvimento Integrado (IDE)"
@@ -152,7 +152,7 @@ msgstr "Registradores de CPU"
 #: plugins/editor/anjuta-document-manager.glade.h:39
 #: plugins/file-manager/an_file_view.c:335
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:9
-#: plugins/macro/macros.xml.h:5
+#: plugins/macro/macros.xml.h:9
 msgid "CVS"
 msgstr "CVS"
 
@@ -496,7 +496,7 @@ msgstr "Localização do menu:"
 msgid "Modules"
 msgstr "Módulos"
 
-#: anjuta.glade.h:103 plugins/file-wizard/anjuta-file-wizard.glade.h:13
+#: anjuta.glade.h:103 plugins/file-wizard/anjuta-file-wizard.glade.h:11
 msgid "Name:"
 msgstr "Nome:"
 
@@ -838,7 +838,7 @@ msgstr "_Ocultar caminhos"
 
 #: anjuta.glade.h:176
 msgid "_Image editor:"
-msgstr "Editor de _imagens:"
+msgstr "_Editor de imagens:"
 
 #: anjuta.glade.h:177
 msgid "_Language:"
@@ -1030,11 +1030,11 @@ msgstr "laucher.c: Falhar ao definir o canal de codificação!"
 msgid "Cannot execute command: \"%s\""
 msgstr "Impossível executar o comando: \"%s\""
 
-#: libanjuta/anjuta-plugin.c:184
+#: libanjuta/anjuta-plugin.c:193
 msgid "Anjuta Shell"
 msgstr "Shell do Anjuta"
 
-#: libanjuta/anjuta-plugin.c:185
+#: libanjuta/anjuta-plugin.c:194
 msgid "Anjuta shell that will contain the plugin"
 msgstr "Shell do Anjuta que conterá o plugin"
 
@@ -1158,11 +1158,11 @@ msgstr "Objeto Pixbuf"
 msgid "The pixbuf to render."
 msgstr "O pixbuf a renderizar."
 
-#: libanjuta/plugins.c:930 plugins/symbol-browser/an_symbol_prefs.c:330
+#: libanjuta/plugins.c:931 plugins/symbol-browser/an_symbol_prefs.c:330
 msgid "Load"
 msgstr "Carregar"
 
-#: libanjuta/plugins.c:949 libanjuta/plugins.c:1357
+#: libanjuta/plugins.c:950 libanjuta/plugins.c:1472
 msgid "Available Plugins"
 msgstr "Plugins Disponíveis"
 
@@ -1392,14 +1392,14 @@ msgid "Building file: %s ...\n"
 msgstr "Construindo o arquivo executável: %s ...\n"
 
 #: plugins/build/build_file.c:132
-#: plugins/build-basic-autotools/build-basic-autotools.c:502
+#: plugins/build-basic-autotools/build-basic-autotools.c:507
 #: plugins/project-manager/project_import.c:192
 #, c-format
 msgid "Total time taken: %lu secs\n"
 msgstr "Tempo total utilizado: %lu segundos\n"
 
 #: plugins/build/build_file.c:136
-#: plugins/build-basic-autotools/build-basic-autotools.c:507
+#: plugins/build-basic-autotools/build-basic-autotools.c:512
 msgid "Completed ... unsuccessful\n"
 msgstr "Concluído... sem sucesso\n"
 
@@ -1408,7 +1408,7 @@ msgid "Completed ... unsuccessful"
 msgstr "Concluído... sem sucesso"
 
 #: plugins/build/build_file.c:145
-#: plugins/build-basic-autotools/build-basic-autotools.c:512
+#: plugins/build-basic-autotools/build-basic-autotools.c:517
 msgid "Completed ... successful\n"
 msgstr "Concluído... com sucesso\n"
 
@@ -1594,15 +1594,18 @@ msgstr "Configurar"
 msgid "Configuring the Project ....\n"
 msgstr "Configurando o Projeto....\n"
 
-#: plugins/build/executer.c:54 src/mainmenu_callbacks.c:513
+#: plugins/build/executer.c:54 plugins/gdb/actions.c:189
+#: src/mainmenu_callbacks.c:513
 msgid "The target executable of this Project is unknown"
 msgstr "O alvo executável deste Projeto é desconhecido"
 
-#: plugins/build/executer.c:59 src/mainmenu_callbacks.c:515
+#: plugins/build/executer.c:59 plugins/gdb/actions.c:191
+#: src/mainmenu_callbacks.c:515
 msgid "The target executable of this Project is not executable"
 msgstr "O alvo executável deste Projeto não é executável"
 
-#: plugins/build/executer.c:64 src/mainmenu_callbacks.c:519
+#: plugins/build/executer.c:64 plugins/gdb/actions.c:195
+#: src/mainmenu_callbacks.c:519
 msgid "The target executable does not exist for this Project"
 msgstr "O alvo executável não existe para este Projeto"
 
@@ -1611,6 +1614,7 @@ msgid "No file or Project opened."
 msgstr "Nenhum arquivo ou Projeto aberto."
 
 #: plugins/build/executer.c:82 plugins/build/executer.c:101
+#: plugins/gdb/actions.c:215 plugins/gdb/actions.c:226
 #: src/mainmenu_callbacks.c:539 src/mainmenu_callbacks.c:550
 msgid "No executable for this file."
 msgstr "Nenhum executável para este arquivo."
@@ -1633,258 +1637,269 @@ msgstr "Impossível executar o arquivo. Verifique Definições->Comandos."
 
 #. FIXME: What about translations in the following sscanf strings
 #. The translations should match that of 'make' program
-#: plugins/build-basic-autotools/build-basic-autotools.c:384
+#: plugins/build-basic-autotools/build-basic-autotools.c:389
 #, c-format
 msgid "make[%d]: Entering directory `%s'"
 msgstr "make[%d]: Entrando no diretório`%s'"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:385
+#: plugins/build-basic-autotools/build-basic-autotools.c:390
 #, c-format
 msgid "make: Entering directory `%s'"
 msgstr "make: Entrando no diretório`%s'"
 
 #. Traslation for the following should match that of 'make' program
-#: plugins/build-basic-autotools/build-basic-autotools.c:398
+#: plugins/build-basic-autotools/build-basic-autotools.c:403
 #, c-format
 msgid "make[%d]: Leaving directory `%s'"
 msgstr "make[%d]: Saindo do diretório `%s'"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:399
+#: plugins/build-basic-autotools/build-basic-autotools.c:404
 #, c-format
 msgid "make: Leaving directory `%s'"
 msgstr "make: Saindo do diretório `%s'"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:419
+#: plugins/build-basic-autotools/build-basic-autotools.c:424
 msgid "warning:"
 msgstr "aviso:"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:564
+#: plugins/build-basic-autotools/build-basic-autotools.c:568
 #, c-format
 msgid "Build %d: %s"
 msgstr "Build %d: %s"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:685
-#: plugins/build-basic-autotools/build-basic-autotools.c:712
+#: plugins/build-basic-autotools/build-basic-autotools.c:745
+#: plugins/build-basic-autotools/build-basic-autotools.c:772
 msgid "Configure Parameters:"
 msgstr "Configurar Parâmetros:"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:827
-#: plugins/build-basic-autotools/build-basic-autotools.c:891
-#: plugins/build-basic-autotools/build-basic-autotools.c:901
-#: plugins/build-basic-autotools/build-basic-autotools.c:1070
+#: plugins/build-basic-autotools/build-basic-autotools.c:887
+#: plugins/build-basic-autotools/build-basic-autotools.c:951
+#: plugins/build-basic-autotools/build-basic-autotools.c:961
+#: plugins/build-basic-autotools/build-basic-autotools.c:1130
 msgid "_Build"
 msgstr "_Build"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:831
+#: plugins/build-basic-autotools/build-basic-autotools.c:891
 msgid "_Build Project"
 msgstr "Compilar e Linkar o Projeto (_Build)"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:832
+#: plugins/build-basic-autotools/build-basic-autotools.c:892
 msgid "Build whole project"
 msgstr "Compila e Linka todo o Projeto"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:837
+#: plugins/build-basic-autotools/build-basic-autotools.c:897
 msgid "_Install Project"
-msgstr "_Instalar o Projeto"
+msgstr "I_nstalar o Projeto"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:838
+#: plugins/build-basic-autotools/build-basic-autotools.c:898
 msgid "Install whole project"
 msgstr "Instala todo o Projeto"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:843
+#: plugins/build-basic-autotools/build-basic-autotools.c:903
 msgid "_Clean Project"
 msgstr "_Limpar o Projeto"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:844
+#: plugins/build-basic-autotools/build-basic-autotools.c:904
 msgid "Clean whole project"
 msgstr "Limpa todo o Projeto"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:849
+#: plugins/build-basic-autotools/build-basic-autotools.c:909
 msgid "Run C_onfigure ..."
 msgstr "Executar C_onfiguração..."
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:850
+#: plugins/build-basic-autotools/build-basic-autotools.c:910
 msgid "Configure project"
 msgstr "Configura o Projeto"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:855
+#: plugins/build-basic-autotools/build-basic-autotools.c:915
 msgid "Run _Autogenerate ..."
 msgstr "Executar _Autogerar..."
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:856
+#: plugins/build-basic-autotools/build-basic-autotools.c:916
 msgid "Autogenrate project files"
 msgstr "Gera automaticamente os arquivos do Projeto"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:861
+#: plugins/build-basic-autotools/build-basic-autotools.c:921
 msgid "Build _Tarball"
 msgstr "Gerar o _Tarball"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:862
+#: plugins/build-basic-autotools/build-basic-autotools.c:922
 msgid "Build project tarball distribution"
 msgstr "Gera um arquivo .tar.gz (tarball) para distribuição do Projeto"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:867
+#: plugins/build-basic-autotools/build-basic-autotools.c:927
 msgid "_Build Module"
 msgstr "_Build o Módulo"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:868
+#: plugins/build-basic-autotools/build-basic-autotools.c:928
 msgid "Build module associated with current file"
 msgstr "Compila e linka o módulo associado com o arquivo atual"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:873
+#: plugins/build-basic-autotools/build-basic-autotools.c:933
 msgid "_Install Module"
-msgstr "_Instalar Módulo"
+msgstr "Instalar _Módulo"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:874
+#: plugins/build-basic-autotools/build-basic-autotools.c:934
 msgid "Install module associated with current file"
 msgstr "Instala o módulo associado com o arquivo atual"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:879
+#: plugins/build-basic-autotools/build-basic-autotools.c:939
 msgid "_Clean Module"
 msgstr "_Limpar Módulo"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:880
+#: plugins/build-basic-autotools/build-basic-autotools.c:940
 msgid "Clean module associated with current file"
 msgstr "Limpa o módulo associado ao arquivo atual"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:885
+#: plugins/build-basic-autotools/build-basic-autotools.c:945
 msgid "Co_mpile File"
 msgstr "Co_mpilar Arquivo"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:886
+#: plugins/build-basic-autotools/build-basic-autotools.c:946
 msgid "Compile current editor file"
 msgstr "Compila o arquivo de código atualmente no editor"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:895
+#: plugins/build-basic-autotools/build-basic-autotools.c:955
 msgid "_Compile"
 msgstr "_Compilar"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:896
+#: plugins/build-basic-autotools/build-basic-autotools.c:956
 msgid "Complie file"
 msgstr "Compila o arquivo"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:902
+#: plugins/build-basic-autotools/build-basic-autotools.c:962
 msgid "Build module"
 msgstr "Compila e linka (build) um módulo"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:907
-#: plugins/build-basic-autotools/build-basic-autotools.c:1074
+#: plugins/build-basic-autotools/build-basic-autotools.c:967
+#: plugins/build-basic-autotools/build-basic-autotools.c:1134
 msgid "_Install"
-msgstr "_Instalar"
+msgstr "I_nstalar"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:908
+#: plugins/build-basic-autotools/build-basic-autotools.c:968
 msgid "Install module"
 msgstr "Instala o módulo"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:913
-#: plugins/build-basic-autotools/build-basic-autotools.c:1078
+#: plugins/build-basic-autotools/build-basic-autotools.c:973
+#: plugins/build-basic-autotools/build-basic-autotools.c:1138
 msgid "_Clean"
 msgstr "_Limpar"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:914
+#: plugins/build-basic-autotools/build-basic-autotools.c:974
 msgid "Clean module"
 msgstr "Limpa o módulo"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:1082
+#: plugins/build-basic-autotools/build-basic-autotools.c:1142
 msgid "Co_mpile"
 msgstr "Co_mpilar"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:1091
+#: plugins/build-basic-autotools/build-basic-autotools.c:1151
 #, c-format
 msgid "_Build (%s)"
 msgstr "_Build (%s)"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:1098
+#: plugins/build-basic-autotools/build-basic-autotools.c:1158
 #, c-format
 msgid "_Install (%s)"
-msgstr "_Instalar (%s)"
+msgstr "I_nstalar (%s)"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:1105
+#: plugins/build-basic-autotools/build-basic-autotools.c:1165
 #, c-format
 msgid "_Clean (%s)"
 msgstr "_Limpar (%s)"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:1112
+#: plugins/build-basic-autotools/build-basic-autotools.c:1172
 #, c-format
 msgid "Co_mpile (%s)"
 msgstr "Co_mpilar (%s)"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:1277
+#: plugins/build-basic-autotools/build-basic-autotools.c:1337
 msgid "Build commands"
 msgstr "Comandos de compilação e linkagem (build) do arquivo executável"
 
-#: plugins/class-gen/clsGen.c:466
+#: plugins/class-gen/action-callbacks.c:40
+msgid "Select header file."
+msgstr "Arquivo de cabeçalho selecionado."
+
+#: plugins/class-gen/action-callbacks.c:55
+msgid "Select source file."
+msgstr "Arquivo de código fonte selecionado."
+
+#: plugins/class-gen/action-callbacks.c:199 plugins/class-gen/clsGen.c:466
 msgid "Class name not valid"
 msgstr "Nome de classe inválido"
 
-#: plugins/class-gen/clsGen.c:473
+#: plugins/class-gen/action-callbacks.c:206 plugins/class-gen/clsGen.c:473
 msgid "Base class name not valid"
 msgstr "Nome de classe base inválido"
 
-#: plugins/class-gen/clsGen.c:479
+#: plugins/class-gen/action-callbacks.c:212 plugins/class-gen/clsGen.c:479
 msgid "Declaration file name not valid"
 msgstr "Nome de arquivo de declarações inválido"
 
-#: plugins/class-gen/clsGen.c:484
+#: plugins/class-gen/action-callbacks.c:217 plugins/class-gen/clsGen.c:484
 msgid "Implementation file name not valid"
 msgstr "Nome de arquivo de implementação inválido"
 
-#: plugins/class-gen/clsGen.c:743
+#: plugins/class-gen/class_gen.c:268 plugins/class-gen/clsGen.c:743
 msgid "Error in importing files"
 msgstr "Erro ao importar arquivos"
 
-#: plugins/class-gen/clsGen.c:1349
+#: plugins/class-gen/class_gen.c:847 plugins/class-gen/clsGen.c:1349
 msgid "Class Builder"
 msgstr "Construtor de Classes"
 
 #. 7
 #. 9
-#: plugins/class-gen/clsGen.c:1360 plugins/devhelp/plugin.c:250
-#: plugins/devhelp/plugin.c:476 plugins/devhelp/plugin.c:489
-#: plugins/gdb/registers_gui.c:56 plugins/gdb/sharedlib_gui.c:49
-#: plugins/gdb/signals_gui.c:63 plugins/gdb/stack_trace.c:383
-#: plugins/gdb/watch_gui.c:74 plugins/project-manager/project_dbase_gui.c:343
-#: src/anjuta-app.c:279 src/anjuta_gui.c:123
+#: plugins/class-gen/class_gen.c:857 plugins/class-gen/clsGen.c:1360
+#: plugins/devhelp/plugin.c:250 plugins/devhelp/plugin.c:476
+#: plugins/devhelp/plugin.c:489 plugins/gdb/registers_gui.c:56
+#: plugins/gdb/sharedlib_gui.c:49 plugins/gdb/signals_gui.c:63
+#: plugins/gdb/stack_trace.c:383 plugins/gdb/watch_gui.c:74
+#: plugins/project-manager/project_dbase_gui.c:343 src/anjuta-app.c:279
+#: src/anjuta_gui.c:123
 msgid "Help"
 msgstr "Ajuda"
 
-#: plugins/class-gen/clsGen.c:1369 plugins/patch/patch-plugin.c:107
+#: plugins/class-gen/class_gen.c:866 plugins/class-gen/clsGen.c:1369
+#: plugins/patch/patch-plugin.c:62
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: plugins/class-gen/clsGen.c:1378
+#: plugins/class-gen/class_gen.c:875 plugins/class-gen/clsGen.c:1378
 msgid "Finish"
 msgstr "Encerrar"
 
-#: plugins/class-gen/clsGen.c:1395
+#: plugins/class-gen/class_gen.c:892 plugins/class-gen/clsGen.c:1395
 msgid "Enter the name for the class you want to add."
 msgstr "Informe o nome da classe que deseja adicionar."
 
-#: plugins/class-gen/clsGen.c:1405
+#: plugins/class-gen/class_gen.c:902 plugins/class-gen/clsGen.c:1405
 msgid "Enter the declaration file name."
 msgstr "Informe o nome do arquivo de declarações."
 
-#: plugins/class-gen/clsGen.c:1415
+#: plugins/class-gen/class_gen.c:912 plugins/class-gen/clsGen.c:1415
 msgid "Enter the implementation file name."
 msgstr "Informe o nome do arquivo de implementações."
 
+#: plugins/class-gen/class_gen.c:914 plugins/class-gen/class_gen.c:924
 #: plugins/class-gen/clsGen.c:1417 plugins/class-gen/clsGen.c:1427
 msgid "..."
 msgstr "..."
 
-#: plugins/class-gen/clsGen.c:1425
+#: plugins/class-gen/class_gen.c:922 plugins/class-gen/clsGen.c:1425
 msgid "Browse for the declaration file name."
 msgstr "Navega para o nome do arquivo de declarações."
 
-#: plugins/class-gen/clsGen.c:1435
+#: plugins/class-gen/class_gen.c:932 plugins/class-gen/clsGen.c:1435
 msgid "Browse for the implementation file name."
 msgstr "Navegar para o nome do arquivo de implementações."
 
-#: plugins/class-gen/clsGen.c:1445
+#: plugins/class-gen/class_gen.c:942 plugins/class-gen/clsGen.c:1445
 msgid "Enter the name of the class your new class will inherit from."
 msgstr "Informe o nome da classe que a sua nova classe irá herdar."
 
-#: plugins/class-gen/clsGen.c:1470
+#: plugins/class-gen/class_gen.c:967 plugins/class-gen/clsGen.c:1470
 msgid ""
 "This plugin will create a class of the type you specify and add it to your "
 "project. "
@@ -1893,32 +1908,32 @@ msgstr ""
 "seu Projeto. "
 
 #. gtk_widget_set_usize (self->label_description, 400, 16);
-#: plugins/class-gen/clsGen.c:1479
+#: plugins/class-gen/class_gen.c:975 plugins/class-gen/clsGen.c:1479
 msgid "Class name: "
 msgstr "Nome da classe: "
 
-#: plugins/class-gen/clsGen.c:1489
+#: plugins/class-gen/class_gen.c:984 plugins/class-gen/clsGen.c:1489
 msgid "Header file:  "
 msgstr "Arquivo de cabeçalho:  "
 
-#: plugins/class-gen/clsGen.c:1499
+#: plugins/class-gen/class_gen.c:993 plugins/class-gen/clsGen.c:1499
 msgid "Source file:  "
 msgstr "Arquivo fonte:  "
 
-#: plugins/class-gen/clsGen.c:1509
+#: plugins/class-gen/class_gen.c:1002 plugins/class-gen/clsGen.c:1509
 msgid "Base class:   "
 msgstr "Classe base:   "
 
-#: plugins/class-gen/clsGen.c:1519
+#: plugins/class-gen/class_gen.c:1011 plugins/class-gen/clsGen.c:1519
 msgid "Base class inheritance: "
 msgstr "Hereditariedade da classe base: "
 
-#: plugins/class-gen/clsGen.c:1555
+#: plugins/class-gen/class_gen.c:1046 plugins/class-gen/clsGen.c:1555
 msgid "Inline the declaration and implementation"
 msgstr "Torna inline a declaração e a implementação"
 
 #. gtk_widget_set_usize (self->checkbutton_inline, 224, 24);
-#: plugins/class-gen/clsGen.c:1563
+#: plugins/class-gen/class_gen.c:1053 plugins/class-gen/clsGen.c:1563
 msgid ""
 "If checked, the plugin will generate both the declaration and implementation "
 "in the header file and will not create a source file."
@@ -1926,65 +1941,71 @@ msgstr ""
 "Quando selecionado, o plugin irá gerar a declaração e a implementação no "
 "arquivo de cabeçalho e não criará um arquivo de código fonte."
 
-#: plugins/class-gen/clsGen.c:1565
+#: plugins/class-gen/class_gen.c:1055 plugins/class-gen/clsGen.c:1565
 msgid "By:  Dave Huseby <huseby@linuxprogrammer.org>"
 msgstr "Por:  Dave Huseby <huseby@linuxprogrammer.org>"
 
-#: plugins/class-gen/clsGen.c:1576
+#: plugins/class-gen/class_gen.c:1065 plugins/class-gen/clsGen.c:1576
 msgid "V 0.0.2 (June 11, 2002)"
 msgstr "V 0.0.2 (11 de Junho de 2002)"
 
-#: plugins/class-gen/clsGen.c:1587
+#: plugins/class-gen/class_gen.c:1075 plugins/class-gen/clsGen.c:1587
 msgid ""
 "TODO: add the ability to declare member functions and their parameters here."
 msgstr ""
 "TODO: adicionar aqui a capacidade de declarar funções e seus parâmetros."
 
-#: plugins/class-gen/clsGen.c:1597
+#: plugins/class-gen/class_gen.c:1084 plugins/class-gen/clsGen.c:1597
 msgid "Welcome to the Anjuta Class Builder. "
 msgstr "Bem vindo ao Construtor de Classes Anjuta. "
 
 #. gtk_widget_set_usize (self->label_welcome, 184, 16);
-#: plugins/class-gen/clsGen.c:1606
+#: plugins/class-gen/class_gen.c:1092 plugins/class-gen/clsGen.c:1606
 msgid "Class type:   "
 msgstr "Tipo de classe:   "
 
+#: plugins/class-gen/class_gen.c:1109 plugins/class-gen/class_gen.c:1122
 #: plugins/class-gen/clsGen.c:1624 plugins/class-gen/clsGen.c:1637
 msgid "public"
 msgstr "public"
 
-#: plugins/class-gen/clsGen.c:1625
+#: plugins/class-gen/class_gen.c:1110 plugins/class-gen/clsGen.c:1625
 msgid "protected"
 msgstr "protected"
 
-#: plugins/class-gen/clsGen.c:1626
+#: plugins/class-gen/class_gen.c:1111 plugins/class-gen/clsGen.c:1626
 msgid "private"
 msgstr "private"
 
-#: plugins/class-gen/clsGen.c:1635
+#: plugins/class-gen/class_gen.c:1120 plugins/class-gen/clsGen.c:1635
 msgid "Choose the type of inheritence from the base class."
 msgstr "Selecione o tipo de hereditariedade a partir da classe base."
 
-#: plugins/class-gen/clsGen.c:1639
+#: plugins/class-gen/class_gen.c:1124 plugins/class-gen/clsGen.c:1639
 msgid "Virtual destructor"
 msgstr "Destructor virtual"
 
 #. gtk_widget_set_usize (self->checkbutton_virtual_destructor, 112, 24);
-#: plugins/class-gen/clsGen.c:1647
+#: plugins/class-gen/class_gen.c:1131 plugins/class-gen/clsGen.c:1647
 msgid "If checked, the destructor of your class will be declared virtual."
 msgstr "Se selecionado, o destructor da sua classe será declarado virtual."
 
+#: plugins/class-gen/class_gen.c:1141 plugins/class-gen/class_gen.c:1153
 #: plugins/class-gen/clsGen.c:1657 plugins/class-gen/clsGen.c:1669
 msgid "Generic C++ Class"
 msgstr "Classe C++ Genérica"
 
-#: plugins/class-gen/clsGen.c:1658
+#: plugins/class-gen/class_gen.c:1142 plugins/class-gen/clsGen.c:1658
 msgid "GTK+ Class"
 msgstr "Classe GTK+"
 
-#: plugins/class-gen/clsGen.c:1667
+#: plugins/class-gen/class_gen.c:1151 plugins/class-gen/clsGen.c:1667
 msgid "Select the type of class you would like to create."
 msgstr "Selecione o tipo de classe que deseja criar."
+
+#: plugins/class-gen/plugin.c:150
+msgid "A project must be open before creating a class"
+msgstr "Um Projeto deve estar aberto antes de se criar uma classe"
 
 #: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:2
 msgid "/usr/bin/cvs"
@@ -2354,7 +2375,7 @@ msgstr "Mostra o log do arquivo/diretório"
 #. Stock icon, if any
 #: plugins/cvs-plugin/plugin.c:107
 msgid "_Import Tree"
-msgstr "_Importar Árvore"
+msgstr "I_mportar Árvore"
 
 #. Display label
 #. short-cut
@@ -2392,11 +2413,11 @@ msgstr "Impossível executar o arquivo: %s."
 msgid "Unable to open the file: %s\n"
 msgstr "Impossível abrir o arquivo: %s\n"
 
-#: plugins/debug-manager/plugin.c:44
+#: plugins/debug-manager/plugin.c:45
 msgid "Load Target to debug"
 msgstr "Carregar o Alvo para depuração"
 
-#: plugins/debug-manager/plugin.c:56 plugins/file-loader/plugin.c:424
+#: plugins/debug-manager/plugin.c:57 plugins/file-loader/plugin.c:424
 #: plugins/project-manager/project_dbase.c:363
 #: plugins/project-manager/project_dbase_gui.c:153
 #: plugins/project-manager/project_dbase_gui.c:170
@@ -2410,121 +2431,121 @@ msgstr "Todos os arquivos"
 
 #. Action name
 #. Stock icon, if any
-#: plugins/debug-manager/plugin.c:232 plugins/gdb/plugin.c:51
+#: plugins/debug-manager/plugin.c:233 plugins/gdb/plugin.c:51
 msgid "_Debug"
 msgstr "_Depurar"
 
 #. Action name
 #. Stock icon, if any
-#: plugins/debug-manager/plugin.c:240
+#: plugins/debug-manager/plugin.c:241
 msgid "_Start Debugger"
-msgstr "_Iniciar o Depurador"
+msgstr "I_niciar o Depurador"
 
 #. Display label
 #. short-cut
-#: plugins/debug-manager/plugin.c:242
+#: plugins/debug-manager/plugin.c:243
 msgid "Start the debugging session"
 msgstr "Inicia a sessão de depuração"
 
 #. Action name
 #. Stock icon, if any
-#: plugins/debug-manager/plugin.c:248
+#: plugins/debug-manager/plugin.c:249
 msgid "Load debugging target ..."
 msgstr "Carrega o alvo de depuração..."
 
 #. Display label
 #. short-cut
-#: plugins/debug-manager/plugin.c:250
+#: plugins/debug-manager/plugin.c:251
 msgid "Open the target for debugging"
 msgstr "Abre o executável para depuração"
 
 #. Action name
 #. Stock icon, if any
-#: plugins/debug-manager/plugin.c:256
+#: plugins/debug-manager/plugin.c:257
 msgid "_Attach to Process ..."
 msgstr "_Anexar ao Processo..."
 
 #. Display label
 #. short-cut
-#: plugins/debug-manager/plugin.c:258
+#: plugins/debug-manager/plugin.c:259
 msgid "Attach to a running program"
 msgstr "Anexa a um programa em execução"
 
 #. Action name
 #. Stock icon, if any
-#: plugins/debug-manager/plugin.c:264
+#: plugins/debug-manager/plugin.c:265
 msgid "_Execution"
 msgstr "_Execução"
 
 #. Action name
 #. Stock icon, if any
-#: plugins/debug-manager/plugin.c:272
+#: plugins/debug-manager/plugin.c:273
 msgid "Run/_Continue"
 msgstr "Executar/_Continuar"
 
 #. Display label
 #. short-cut
-#: plugins/debug-manager/plugin.c:274
+#: plugins/debug-manager/plugin.c:275
 msgid "Continue the execution of the program"
 msgstr "Continua a execução do programa"
 
 #. Action name
 #. Stock icon, if any
-#: plugins/debug-manager/plugin.c:280
+#: plugins/debug-manager/plugin.c:281
 msgid "Step _In"
 msgstr "Passo para _Dentro"
 
 #. Display label
 #. short-cut
-#: plugins/debug-manager/plugin.c:282
+#: plugins/debug-manager/plugin.c:283
 msgid "Single step into function"
 msgstr "Dá um passo para dentro da função"
 
 #. Action name
 #. Stock icon, if any
-#: plugins/debug-manager/plugin.c:288
+#: plugins/debug-manager/plugin.c:289
 msgid "Step O_ver"
 msgstr "Passar Por _Cima"
 
 #. Display label
 #. short-cut
-#: plugins/debug-manager/plugin.c:290
+#: plugins/debug-manager/plugin.c:291
 msgid "Single step over function"
 msgstr "Dá um único passo que varre toda a função"
 
 #. Action name
 #. Stock icon, if any
-#: plugins/debug-manager/plugin.c:296
+#: plugins/debug-manager/plugin.c:297
 msgid "Step _Out"
 msgstr "Passo para _Fora"
 
 #. Display label
 #. short-cut
-#: plugins/debug-manager/plugin.c:298
+#: plugins/debug-manager/plugin.c:299
 msgid "Single step out of the function"
 msgstr "Dá um passo para sair da função"
 
 #. Action name
 #. Stock icon, if any
-#: plugins/debug-manager/plugin.c:304
+#: plugins/debug-manager/plugin.c:305
 msgid "_Run to cursor"
 msgstr "_Executar até o cursor"
 
 #. Display label
 #. short-cut
-#: plugins/debug-manager/plugin.c:306
+#: plugins/debug-manager/plugin.c:307
 msgid "Run to the cursor"
 msgstr "Executa até o cursor"
 
-#: plugins/debug-manager/plugin.c:312
+#: plugins/debug-manager/plugin.c:313
 msgid "St_op Debugger"
 msgstr "_Parar o Depurador"
 
-#: plugins/debug-manager/plugin.c:314
+#: plugins/debug-manager/plugin.c:315
 msgid "Say goodbye to the debugger"
 msgstr "Diga adeus para o depurador"
 
-#: plugins/debug-manager/plugin.c:442
+#: plugins/debug-manager/plugin.c:443
 msgid "Debugger operations"
 msgstr "Operações de depuração"
 
@@ -2548,7 +2569,7 @@ msgstr "Procurar Ajuda:"
 #: plugins/devhelp/plugin.c:373 plugins/editor/plugin.c:243
 #: plugins/message-view/plugin.c:63 plugins/symbol-browser/plugin.c:235
 msgid "_Goto"
-msgstr "_Ir Para"
+msgstr "I_r Para"
 
 #: plugins/devhelp/plugin.c:381
 msgid "Previous Help"
@@ -3057,7 +3078,7 @@ msgid "Line numbers margin width in pixels"
 msgstr "Largura da margem de números de linha em pixels"
 
 #: plugins/editor/anjuta-document-manager.glade.h:99
-#: plugins/editor/print.c:1038
+#: plugins/editor/print.c:1038 plugins/gdb/info.c:126
 msgid "Lines"
 msgstr "Linhas"
 
@@ -3587,7 +3608,7 @@ msgstr "_Linha número..."
 
 #: plugins/editor/plugin.c:252
 msgid "Matching _Brace"
-msgstr "_Identificar a Chave Correspondente"
+msgstr "I_dentificar a Chave Correspondente"
 
 #: plugins/editor/plugin.c:254
 msgid "Go to the matching brace in the editor"
@@ -3752,7 +3773,7 @@ msgstr "Exibe/Oculta um indicador de fold na margem da linha"
 
 #: plugins/editor/plugin.c:328
 msgid "_Indentation guides"
-msgstr "Guias de _Indentação"
+msgstr "Guias de I_ndentação"
 
 #: plugins/editor/plugin.c:329
 msgid "Show/Hide indentation guides"
@@ -3824,7 +3845,7 @@ msgstr "Padrões de Autoformatação"
 
 #: plugins/editor/plugin.c:365
 msgid "_Increase Indent"
-msgstr "Aumentar _Indentação"
+msgstr "Aumentar I_ndentação"
 
 #: plugins/editor/plugin.c:367
 msgid "Increase indentation of line/selection"
@@ -4641,8 +4662,8 @@ msgid "<span weight=\"bold\">Options</span>"
 msgstr "<span weight=\"bold\">Opções</span>"
 
 #: plugins/file-wizard/anjuta-file-wizard.glade.h:4
-msgid "Add License Information (GPL)"
-msgstr "Adiciona Informação de Licença (GPL)"
+msgid "Add License Information"
+msgstr "Adiciona Informação de Licença"
 
 #: plugins/file-wizard/anjuta-file-wizard.glade.h:5
 msgid "Add to CVS"
@@ -4653,18 +4674,10 @@ msgid "Add to project"
 msgstr "Adicionar ao Projeto"
 
 #: plugins/file-wizard/anjuta-file-wizard.glade.h:7
-msgid "C++: // comment"
-msgstr "C++: // comentário"
-
-#: plugins/file-wizard/anjuta-file-wizard.glade.h:8
-msgid "Comment Style:"
-msgstr "Estilo de Comentário:"
-
-#: plugins/file-wizard/anjuta-file-wizard.glade.h:9
 msgid "Create corresponding header file"
 msgstr "Cria o arquivo de cabeçalho correspondente"
 
-#: plugins/file-wizard/anjuta-file-wizard.glade.h:10
+#: plugins/file-wizard/anjuta-file-wizard.glade.h:8
 msgid ""
 "Enter the File name.\n"
 "The extension will be added according to the type."
@@ -4672,64 +4685,56 @@ msgstr ""
 "Entre com o nome do Arquivo.\n"
 "A extensão será adicionada de acordo com o tipo de arquivo."
 
-#: plugins/file-wizard/anjuta-file-wizard.glade.h:12
+#: plugins/file-wizard/anjuta-file-wizard.glade.h:10
 #: plugins/project-wizard/anjuta-project-wizard.glade.h:10
 msgid "License:"
 msgstr "Licença:"
 
-#: plugins/file-wizard/anjuta-file-wizard.glade.h:14
+#: plugins/file-wizard/anjuta-file-wizard.glade.h:12
 msgid "New File"
 msgstr "Cria um novo arquivo"
 
-#: plugins/file-wizard/anjuta-file-wizard.glade.h:15
-msgid "Shell: # comment"
-msgstr "Shell: # comentário"
-
-#: plugins/file-wizard/anjuta-file-wizard.glade.h:16
+#: plugins/file-wizard/anjuta-file-wizard.glade.h:13
 msgid "Type:"
 msgstr "Tipo:"
 
-#: plugins/file-wizard/anjuta-file-wizard.glade.h:17
+#: plugins/file-wizard/anjuta-file-wizard.glade.h:14
 msgid "Use Template for the Header file"
 msgstr "Utiliza um Modelo para o arquivo de Cabeçalho"
 
-#: plugins/file-wizard/anjuta-file-wizard.glade.h:18
-msgid "_C: /* comment */"
-msgstr "_C: /* comentário */"
-
-#: plugins/file-wizard/file.c:80
+#: plugins/file-wizard/file.c:79
 msgid "C Source File"
 msgstr "Arquivo de fonte em C"
 
-#: plugins/file-wizard/file.c:81
+#: plugins/file-wizard/file.c:80
 msgid "C -C++ Header File"
 msgstr "Cabeçalhos C/C++"
 
-#: plugins/file-wizard/file.c:82
+#: plugins/file-wizard/file.c:81
 msgid "C++ Source File"
 msgstr "Arquivos de fonte em C/C++"
 
-#: plugins/file-wizard/file.c:83
+#: plugins/file-wizard/file.c:82
 msgid "C# Source File"
 msgstr "Arquivo de fonte em C#"
 
-#: plugins/file-wizard/file.c:84
+#: plugins/file-wizard/file.c:83
 msgid "Java Source File"
 msgstr "Arquivos de fonte em Java"
 
-#: plugins/file-wizard/file.c:85
+#: plugins/file-wizard/file.c:84
 msgid "Perl Source File"
 msgstr "Arquivo de fonte em Perl"
 
-#: plugins/file-wizard/file.c:86
+#: plugins/file-wizard/file.c:85
 msgid "Python Source File"
 msgstr "Arquivo de fonte em Python"
 
-#: plugins/file-wizard/file.c:87
+#: plugins/file-wizard/file.c:86
 msgid "Shell Script File"
 msgstr "Arquivos Script de Shell"
 
-#: plugins/file-wizard/file.c:88
+#: plugins/file-wizard/file.c:87
 msgid "Other"
 msgstr "Outro"
 
@@ -4741,26 +4746,13 @@ msgstr "General Public License (GPL)"
 msgid "Lesser General Public License (LGPL)"
 msgstr "Lesser General Public License (LGPL)"
 
-#: plugins/file-wizard/file.c:148
+#: plugins/file-wizard/file.c:146
 msgid "Unable to build user interface for New File"
 msgstr "Impossível criar interface de usuário para o Novo Arquivo"
 
-#: plugins/file-wizard/file.c:442
-#, c-format
-msgid "The file \"%s\" is not a header file."
-msgstr "O arquivo \"%s\" não é um arquivo de cabeçalho."
-
-#: plugins/file-wizard/file.c:536
-msgid "%Y"
-msgstr "%Y"
-
-#: plugins/file-wizard/file.c:555
-msgid "%Y-%m-%d"
-msgstr "%Y-%m-%d"
-
 #: plugins/file-wizard/plugin.c:49
 msgid "_Insert text"
-msgstr "_Inserir texto"
+msgstr "I_nserir texto"
 
 #: plugins/file-wizard/plugin.c:50
 msgid "C _template"
@@ -4864,7 +4856,7 @@ msgstr "Insere um modelo de while"
 
 #: plugins/file-wizard/plugin.c:86
 msgid "_if...else"
-msgstr "_if...else"
+msgstr "i_f...else"
 
 #: plugins/file-wizard/plugin.c:87
 msgid "Insert an if...else template"
@@ -4894,7 +4886,7 @@ msgstr ""
 
 #: plugins/file-wizard/plugin.c:98
 msgid "_Id"
-msgstr "_Id"
+msgstr "I_d"
 
 #: plugins/file-wizard/plugin.c:99
 msgid "Insert the CVS Id keyword (file revision, date, author)"
@@ -4939,6 +4931,14 @@ msgstr "Operações de arquivo de assistência"
 #: plugins/file-wizard/plugin.c:160
 msgid "File Wizard"
 msgstr "Assistente de Arquivos"
+
+#: plugins/gdb/actions.c:221 src/mainmenu_callbacks.c:545
+msgid "The executable is not up-to-date."
+msgstr "O executável não está atualizado."
+
+#: plugins/gdb/actions.c:246 src/mainmenu_callbacks.c:570
+msgid "Debugger is not running. Start it first."
+msgstr "O depurador não está rodando. Você deve iniciá-lo antes."
 
 #: plugins/gdb/breakpoints.c:117
 msgid "Function"
@@ -5155,6 +5155,10 @@ msgstr "Enviando sinal %s ao processo: %d"
 msgid "Error whilst signaling the process."
 msgstr "Erro no momento em que sinalizava o processo."
 
+#: plugins/gdb/info.c:51 plugins/gdb/info.c:100
+msgid "Information"
+msgstr "Informações"
+
 #: plugins/gdb/memory.c:108
 msgid "Unable to build user interface for Memory\n"
 msgstr "Impossível criar interface de usuário para a Memória\n"
@@ -5229,7 +5233,7 @@ msgstr "Exclui todos os ponto de interrupção"
 
 #: plugins/gdb/plugin.c:107
 msgid "_Info"
-msgstr "_Info"
+msgstr "I_nfo"
 
 #: plugins/gdb/plugin.c:115
 msgid "Info _Target Files"
@@ -5725,13 +5729,13 @@ msgstr "Alta"
 #: plugins/gtodo/add_edit_item.c:233 plugins/gtodo/list_tooltip.c:65
 #: plugins/gtodo/todo_db.c:124
 msgid "Medium"
-msgstr "Médio"
+msgstr "Média"
 
 #. create a priority string
 #: plugins/gtodo/add_edit_item.c:235 plugins/gtodo/list_tooltip.c:61
 #: plugins/gtodo/todo_db.c:123
 msgid "Low"
-msgstr "Baixo"
+msgstr "Baixa"
 
 #: plugins/gtodo/add_edit_item.c:250
 msgid "Comment:"
@@ -6110,7 +6114,7 @@ msgstr "/Tarefas/_Sair"
 
 #: plugins/gtodo/gtodo.c:134
 msgid "/_Item"
-msgstr "/_Item"
+msgstr "/I_tem"
 
 #: plugins/gtodo/gtodo.c:135
 msgid "/Item/_Add"
@@ -6159,7 +6163,7 @@ msgstr "/Ver/Ocultar Itens Completados"
 #: plugins/gtodo/gtodo.c:151 plugins/gtodo/gtodo.c:198
 #: plugins/gtodo/preferences.c:366
 msgid "/View/Hide Items that Are Past Due Date"
-msgstr "/Ver/Ocultar Itens que estão no Passado devido à Data"
+msgstr "/Ver/Ocultar Itens que são de Data de Término já Passada"
 
 #. "/schemas
 #. //    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(gtk_item_factory_get_widget(mw.item_factory, _("/View/Todo List/Hide Items without an end date"))), settings.hide_nodate);
@@ -6631,27 +6635,27 @@ msgstr "Nome: "
 msgid "Shortcut:"
 msgstr "Atalho:"
 
-#: plugins/macro/macro-actions.c:40
+#: plugins/macro/macro-actions.c:116
 msgid "Press macro shortcut ..."
 msgstr "Pressione a tecla de atalho de macro..."
 
-#: plugins/macro/macro-actions.c:47
+#: plugins/macro/macro-actions.c:123
 msgid "Press shortcut"
 msgstr "Pressione a tecla de atalho"
 
-#: plugins/macro/macro-db.c:100
+#: plugins/macro/macro-db.c:241
 msgid "Anjuta macros"
 msgstr "Macros do Anjuta"
 
-#: plugins/macro/macro-db.c:104
+#: plugins/macro/macro-db.c:245
 msgid "My macros"
 msgstr "Minhas macros"
 
-#: plugins/macro/macro-dialog.c:94
+#: plugins/macro/macro-dialog.c:252
 msgid "Insert macro"
 msgstr "Insere uma macro"
 
-#: plugins/macro/macro-edit.c:91
+#: plugins/macro/macro-edit.c:195
 msgid "Add/Edit macro"
 msgstr "Adiciona/Edita macro"
 
@@ -6660,78 +6664,154 @@ msgid "# GPL"
 msgstr "# GPL"
 
 #: plugins/macro/macros.xml.h:2
+msgid "# LGPL"
+msgstr "# LGPL"
+
+#: plugins/macro/macros.xml.h:3
 msgid "/* GPL */"
 msgstr "/* GPL */"
 
-#: plugins/macro/macros.xml.h:3
+#: plugins/macro/macros.xml.h:4
+msgid "/* LGPL */"
+msgstr "/* LGPL */"
+
+#: plugins/macro/macros.xml.h:5
 msgid "// GPL"
 msgstr "// GPL"
 
-#: plugins/macro/macros.xml.h:4
+#: plugins/macro/macros.xml.h:6
+msgid "// LGPL"
+msgstr "// LGPL"
+
+#: plugins/macro/macros.xml.h:7
+msgid "Basic"
+msgstr "Básico"
+
+#: plugins/macro/macros.xml.h:8
 msgid "C"
 msgstr "C"
 
-#: plugins/macro/macros.xml.h:6
+#: plugins/macro/macros.xml.h:10
+msgid "Changelog"
+msgstr "Changelog"
+
+#: plugins/macro/macros.xml.h:11
+msgid "Copyright"
+msgstr "Copyright"
+
+#: plugins/macro/macros.xml.h:12
+msgid "Date_Time"
+msgstr "Date_Time"
+
+#: plugins/macro/macros.xml.h:13
+msgid "Date_Y"
+msgstr "Date_Y"
+
+#: plugins/macro/macros.xml.h:14
+msgid "Date_Ymd"
+msgstr "Date_Ymd"
+
+#: plugins/macro/macros.xml.h:15
 msgid "EXPAND"
 msgstr "EXPAND"
 
-#: plugins/macro/macros.xml.h:7
-msgid "Expand_Test"
-msgstr "Expand_Test"
+#: plugins/macro/macros.xml.h:16
+msgid "Email"
+msgstr "Email"
 
-#: plugins/macro/macros.xml.h:8
+#: plugins/macro/macros.xml.h:17
+msgid "File_Name"
+msgstr "File_Name"
+
+#: plugins/macro/macros.xml.h:18
+msgid "File_Name_Up"
+msgstr "File_Name_Up"
+
+#: plugins/macro/macros.xml.h:19
+msgid "File_Name_Up_Prefix"
+msgstr "File_Name_Up_Prefix"
+
+#: plugins/macro/macros.xml.h:20
+msgid "Header_c"
+msgstr "Header_c"
+
+#: plugins/macro/macros.xml.h:21
+msgid "Header_cpp"
+msgstr "Header_cpp"
+
+#: plugins/macro/macros.xml.h:22
+msgid "Header_csharp"
+msgstr "Header_csharp"
+
+#: plugins/macro/macros.xml.h:23
+msgid "Header_h"
+msgstr "Header_h"
+
+#: plugins/macro/macros.xml.h:24
+msgid "Header_perl"
+msgstr "Header_perl"
+
+#: plugins/macro/macros.xml.h:25
+msgid "Header_shell"
+msgstr "Header_shell"
+
+#: plugins/macro/macros.xml.h:26
 msgid "Licenses"
 msgstr "Licenças"
 
-#: plugins/macro/macros.xml.h:9
+#: plugins/macro/macros.xml.h:27
+msgid "UserName"
+msgstr "UserName"
+
+#: plugins/macro/macros.xml.h:28
 msgid "azerty"
 msgstr "azerty"
 
-#: plugins/macro/macros.xml.h:10
+#: plugins/macro/macros.xml.h:29
 msgid "cvs_author"
 msgstr "cvs_author"
 
-#: plugins/macro/macros.xml.h:11
+#: plugins/macro/macros.xml.h:30
 msgid "cvs_date"
 msgstr "cvs_date"
 
-#: plugins/macro/macros.xml.h:12
+#: plugins/macro/macros.xml.h:31
 msgid "cvs_header"
 msgstr "cvs_header"
 
-#: plugins/macro/macros.xml.h:13
+#: plugins/macro/macros.xml.h:32
 msgid "cvs_id"
 msgstr "cvs_id"
 
-#: plugins/macro/macros.xml.h:14
+#: plugins/macro/macros.xml.h:33
 msgid "cvs_log"
 msgstr "cvs_log"
 
-#: plugins/macro/macros.xml.h:15
+#: plugins/macro/macros.xml.h:34
 msgid "cvs_name"
 msgstr "cvs_name"
 
-#: plugins/macro/macros.xml.h:16
+#: plugins/macro/macros.xml.h:35
 msgid "cvs_revision"
 msgstr "cvs_revision"
 
-#: plugins/macro/macros.xml.h:17
+#: plugins/macro/macros.xml.h:36
 msgid "cvs_source"
 msgstr "cvs_source"
 
-#: plugins/macro/macros.xml.h:18
+#: plugins/macro/macros.xml.h:37
 msgid "for"
 msgstr "for"
 
-#: plugins/macro/macros.xml.h:19
+#: plugins/macro/macros.xml.h:38
 msgid "if...else"
 msgstr "if...else"
 
-#: plugins/macro/macros.xml.h:20
+#: plugins/macro/macros.xml.h:39
 msgid "switch"
 msgstr "switch"
 
-#: plugins/macro/macros.xml.h:21
+#: plugins/macro/macros.xml.h:40
 msgid "while"
 msgstr "while"
 
@@ -6741,7 +6821,7 @@ msgstr "Macros"
 
 #: plugins/macro/plugin.c:40
 msgid "_Insert Macro ..."
-msgstr "_Inserir Macro..."
+msgstr "I_nserir Macro..."
 
 #: plugins/macro/plugin.c:42
 msgid "Insert a macro using a shortcut"
@@ -6877,64 +6957,52 @@ msgstr "Vai para a mensagem anterior"
 msgid "Next/Prev Message"
 msgstr "Mensagem Anterior/Próxima"
 
-#: plugins/patch/patch-plugin.c:64
-msgid "Interface to patch Projects or individual files"
-msgstr "Interface para aplicar correções a Projetos ou arquivos individuais"
-
-#: plugins/patch/patch-plugin.c:100
+#: plugins/patch/patch-plugin.c:52
 msgid "File/Dir to patch"
 msgstr "Arquivo/Diretório a corrigir"
 
-#: plugins/patch/patch-plugin.c:101
+#: plugins/patch/patch-plugin.c:53
 msgid "Patch file"
 msgstr "Arquivo de patch"
 
-#: plugins/patch/patch-plugin.c:102
+#: plugins/patch/patch-plugin.c:54
 msgid "Patch level (-p)"
 msgstr "Nível de patch (-p)"
 
-#: plugins/patch/patch-plugin.c:107
+#: plugins/patch/patch-plugin.c:62
 msgid "Patch Plugin"
 msgstr "Plugin de Patch"
 
-#: plugins/patch/patch-plugin.c:107
+#: plugins/patch/patch-plugin.c:62 plugins/patch/patch-plugin.c:119
 msgid "Patch"
 msgstr "Patch"
 
-#: plugins/patch/patch-plugin.c:110
+#: plugins/patch/patch-plugin.c:64
 msgid "Selected directory to patch"
 msgstr "Diretório selecionado para aplicar o patch"
 
-#: plugins/patch/patch-plugin.c:112
+#: plugins/patch/patch-plugin.c:66
 msgid "Selected patch file"
 msgstr "Arquivo de patch selecionado"
 
-#: plugins/patch/patch-plugin.c:148
-msgid "Patch plugin"
-msgstr "Plugin de patch"
-
-#: plugins/patch/patch-plugin.c:154
-msgid "The patch plugin"
-msgstr "O plugin de patch"
-
-#: plugins/patch/patch-plugin.c:172
+#: plugins/patch/patch-plugin.c:132
 msgid "Please select the directory where the patch should be applied"
 msgstr "Selecione o diretório onde deverá ser aplicado o patch"
 
-#: plugins/patch/patch-plugin.c:179
+#: plugins/patch/patch-plugin.c:139
 #, c-format
 msgid "Patching %s using %s\n"
 msgstr "Aplicando o patch em %s utilizando %s\n"
 
-#: plugins/patch/patch-plugin.c:185
+#: plugins/patch/patch-plugin.c:148
 msgid "Patching...\n"
 msgstr "Aplicando o patch...\n"
 
-#: plugins/patch/patch-plugin.c:195
+#: plugins/patch/patch-plugin.c:158
 msgid "There are unfinished jobs, please wait until they are finished"
 msgstr "Existem tarefas não terminadas, aguarde até que elas terminem"
 
-#: plugins/patch/patch-plugin.c:226
+#: plugins/patch/patch-plugin.c:204
 msgid ""
 "Patch failed.\n"
 "Please review the failure messages.\n"
@@ -6944,9 +7012,19 @@ msgstr ""
 "Por favor, verifique as mensagens de erro.\n"
 "Examine e remova qualquer arquivo rejeitado.\n"
 
-#: plugins/patch/patch-plugin.c:233
+#: plugins/patch/patch-plugin.c:211
 msgid "Patch successful.\n"
 msgstr "A aplicação do patch teve sucesso.\n"
+
+#. Action name
+#. Stock icon, if any
+#: plugins/patch/plugin.c:54
+msgid "_Patch"
+msgstr "_Patch"
+
+#: plugins/patch/plugin.c:79
+msgid "Patch files/directories"
+msgstr "Aplica o patch nos arquivos/diretórios"
 
 #: plugins/project-manager/plugin.c:334
 #, c-format
@@ -7965,7 +8043,7 @@ msgstr ""
 "documentação do Anjuta foi instalado. Ele pode ser obtido a partir do "
 "endereço http://anjuta.org"
 
-#: src/anjuta.c:86 src/anjuta_cbs.c:93
+#: src/anjuta.c:146 src/anjuta_cbs.c:93
 msgid ""
 "One or more files are not saved.\n"
 "Do you still want to exit?"
@@ -8225,14 +8303,6 @@ msgstr "Não exibir a tela de logotipo"
 msgid "Shutdown anjuta properly releasing all resources (for debugging)"
 msgstr ""
 "Desligando o anjuta corretamente liberando todos os recursos (para depuração)"
-
-#: src/mainmenu_callbacks.c:545
-msgid "The executable is not up-to-date."
-msgstr "O executável não está atualizado."
-
-#: src/mainmenu_callbacks.c:570
-msgid "Debugger is not running. Start it first."
-msgstr "O depurador não está rodando. Você deve iniciá-lo antes."
 
 #: src/shell.c:85
 msgid "Quit Anjuta Test Shell"
@@ -8557,6 +8627,39 @@ msgstr "Autocompletar"
 msgid "Autocomplete word"
 msgstr "Autocompleta a palavra"
 
+#~ msgid "C++: // comment"
+#~ msgstr "C++: // comentário"
+
+#~ msgid "Comment Style:"
+#~ msgstr "Estilo de Comentário:"
+
+#~ msgid "Shell: # comment"
+#~ msgstr "Shell: # comentário"
+
+#~ msgid "_C: /* comment */"
+#~ msgstr "_C: /* comentário */"
+
+#~ msgid "The file \"%s\" is not a header file."
+#~ msgstr "O arquivo \"%s\" não é um arquivo de cabeçalho."
+
+#~ msgid "%Y"
+#~ msgstr "%Y"
+
+#~ msgid "%Y-%m-%d"
+#~ msgstr "%Y-%m-%d"
+
+#~ msgid "Expand_Test"
+#~ msgstr "Expand_Test"
+
+#~ msgid "Interface to patch Projects or individual files"
+#~ msgstr "Interface para aplicar correções a Projetos ou arquivos individuais"
+
+#~ msgid "Patch plugin"
+#~ msgstr "Plugin de patch"
+
+#~ msgid "The patch plugin"
+#~ msgstr "O plugin de patch"
+
 #~ msgid "Load Executable File"
 #~ msgstr "Carregar Arquivo Executável"
 
@@ -8595,9 +8698,6 @@ msgstr "Autocompleta a palavra"
 
 #~ msgid "Submit patches for Anjuta"
 #~ msgstr "Envia patches para o Anjuta"
-
-#~ msgid "Information"
-#~ msgstr "Informações"
 
 #~ msgid "[+PluginClass+] widget"
 #~ msgstr "Componente [+PluginClass+]"
