@@ -4,6 +4,61 @@ Notes for Developers on contributing to Anjuta
 (TO BE EXPANDED OVER TIME - please post submissions to the Anjuta 
 Development mailing list or the project maintainer)
 
+Getting Started:
+---------------
+The first thing to do is to decide whether you want to work on Anjuta or
+Anjuta2. Briefly, Anjuta2 has a much cleaner architecture, so if you are
+a component/OOP freak, or are hear to teach yourself good GNOME
+programming, anjuta2 might be the right place. OTOH, Anjuta has many
+more features and is (arguably) more actively developed and maintained.
+So, if you want to contribute to an IDE that works now and use it
+yourself, IMO you're better off contrinuting to Anjuta. There are plans
+for a merge of some sort in the future.
+
+Second thing to do is to get a build working. Both anjuta and anjuta2are
+buildable using jhbuild, which is the recommended way to build GNOME
+2.2. and Anjuta(2). It is advisable to use '--enable-warnings
+--enable-debug' with configure while building anjuta if you want to hack
+on it. Anjuta can be used to hack on Anjuta, and there is a anjuta/prj
+file in CVS for this purpose.
+
+Once you have got anjuta built and loaded in itself, the most important
+thing is to decide what to work on (the TODO, as you say). There are
+many directions you can take. I'm listing some of the more common ones
+in order fo difficulty.
+
+0. Use it, test it, report bug, request features, etc. In short, become
+an active user. That is how most people become anjuta developers.
+
+1. Documentation and translation. While this might not be a very
+attractive option, it has many benefits for newbie developers. You get
+to know the codebase and featuresets better, and learn the way GNOME
+projects are developed. Also, you will be helping a lot of people to use
+Anjuta better. You can use the wiki or update teh manuals, DAQ, etc.
+that are supplied with the source.
+
+2. Scratch your itch. This is probably the most attractive option for a
+reasonably experienced developer. Find something which does not work for
+you, or some feature that you want but is missing. Then report it on the
+devel list saying that you'd want to work on it (this is essential to
+avoid duplication). Then send us patches !
+
+3. Fixing bugs and implementing feature requests. You can find our bug
+and RFE database at the sourceforge page (sf.net/projects/anjuta). You
+can also have a look at the reasonably up-to-date TODO file we maintain
+in the source code.
+
+4. Working on the porting anjuta features to anjuta2. This is a noble
+undertaking but likely to be hard work, and probably not suitable for
+newbie developers.
+
+5. Working on porting anjuta2 architecture to anjuta. This is probably
+the most difficult one. However, if you are an experienced developer,
+you'll find this enormously rewarding and very challanging. Read the
+ROADMAP file that comes with the source code to understand where we are
+and where we want to be in the long term. Then pick up one of the action
+points and try to implement it.
+
 
 Tools
 -----
@@ -97,6 +152,7 @@ Key elements:
 * src/ - the main Anjuta sources
 * scintilla/ - the editor
 * widgets/ - additional widgets used
+* gdl/ - Gdl Widgets (esp. the dock)
 * launcher/ - launcher wrapper used by the debugger
 * printing/ - gnome-print support
 * tagmanager/ - the tagmanager library
