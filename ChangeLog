@@ -1,3 +1,49 @@
+2002-04-25  Stephane Demurget  <demurgets@free.fr>
+
+	Fix for #531293.
+
+	* src/main_menubar_def.h: replaced the shortcut for "Find next" to
+	Shift-F6, to be more consistent with other Gnome apps.
+	Moved the "Search next" entry under the "Search" one, and swapped the
+	order of the "Find in files" and "Find and Replace" ones.
+
+	Some additional fixes ands cleanups on the edit menu.
+
+	* src/main_menubar.h: replaced all occurences of repeat_find by
+	find_again for the code to be more consistent.
+
+	* src/main_menubar.c (update_main_menubar): made the "Find next" entry
+	sensitiveness depending on the existence of an active text buffer.
+
+	* TODO: added some bits about improving the usability of the
+	search/search again couple.
+
+2002-04-25  Stephane Demurget  <demurgets@free.fr>
+
+	* src/preferences_gui.c: made the tab labels text more consistent
+	(s/misc/Misc/).
+
+2002-04-25  Biswapesh Chattopadhyay  <biswapesh_chatterjee@tcscal.co.in>
+
+	Patch reviewed and improved by Stephane Demurget  <demurgets@free.fr>
+
+	* manuals/C/anjuta-tutorial/Makefila.am: fixed the glade picture
+	filename.
+
+	* src/main.c (main): simplified some code and cleanups.
+
+	Fix a part of #499366:
+
+	* src/commands.[ch] (sync_from_props), (command_editor_save),
+	(on_apply_clicked), (create_command_editor_gui): added the gui
+	corresponding to the command.terminal preference.
+
+2002-04-25  Stephane Demurget  <demurgets@free.fr>
+
+	Fix for #465180.
+
+	* anjuta.spec.in: added build requirements for the source rpm.
+
 2002-04-24 Johannes Schmid <clubfan@users.sourceforge.net>
 
 	Reviewed by Naba Kumar <kh_naba@users.sourceforge.net>
