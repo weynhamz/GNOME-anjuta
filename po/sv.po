@@ -8,8 +8,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
-"POT-Creation-Date: 2003-03-04 02:13+0100\n"
-"PO-Revision-Date: 2002-03-04 02:14+0100\n"
+"POT-Creation-Date: 2003-03-06 13:23+0100\n"
+"PO-Revision-Date: 2002-03-06 13:25+0100\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -202,7 +202,7 @@ msgstr "Bibliotek"
 
 #: anjuta_dialogs_strings.c:61
 msgid "Defines"
-msgstr "Definationer"
+msgstr "Definitioner"
 
 #: anjuta_dialogs_strings.c:62
 msgid "Warnings"
@@ -296,7 +296,7 @@ msgstr "Lägg till meddelanden"
 
 #: anjuta_dialogs_strings.c:90
 msgid "File/Directory to add:"
-msgstr "File/Katalog att lägga till:"
+msgstr "Fil/Katalog att lägga till:"
 
 #: anjuta_dialogs_strings.c:93
 msgid "Search String"
@@ -857,26 +857,23 @@ msgstr "Katalogfilter"
 
 #: anjuta_dialogs_strings.c:295
 msgid "Press this button to dismiss the dialog"
-msgstr ""
+msgstr "Tryck på denna knapp för att stänga dialogfönstret"
 
 #: anjuta_dialogs_strings.c:296
-#, fuzzy
 msgid "Syntax highlight editor"
-msgstr "Inaktivera syntaxfärgning"
+msgstr "Syntaxfärga redigerare"
 
 #: anjuta_dialogs_strings.c:297 anjuta_dialogs_strings.c:366
 msgid "Disable syntax highlighting"
 msgstr "Inaktivera syntaxfärgning"
 
 #: anjuta_dialogs_strings.c:298
-#, fuzzy
 msgid "Reload System Defaults"
-msgstr "Läs in användarstandardalternativ"
+msgstr "Läs om systemstandardalternativ"
 
 #: anjuta_dialogs_strings.c:299
-#, fuzzy
 msgid "Reload Session Defaults"
-msgstr "Läs in användarstandardalternativ"
+msgstr "Läs om sessionsstandardalternativ"
 
 #: anjuta_dialogs_strings.c:300
 msgid "_Save Theme As"
@@ -936,44 +933,36 @@ msgid "Pick a color"
 msgstr "Välj en färg"
 
 #: anjuta_dialogs_strings.c:318
-#, fuzzy
 msgid "Select highlight style to edit:"
-msgstr "Välj färgningsobjekt att redigera:"
+msgstr "Välj färgningsstil att redigera:"
 
 #: anjuta_dialogs_strings.c:320
-#, fuzzy
 msgid "Highlight style"
-msgstr "Ingen färgningsstil"
+msgstr "Färgningsstil"
 
 #: anjuta_dialogs_strings.c:321
-#, fuzzy
 msgid "Selection foreground:"
 msgstr "Markeringsförgrund:"
 
 #: anjuta_dialogs_strings.c:322
-#, fuzzy
 msgid "Selection background:"
 msgstr "Markeringsbakgrund:"
 
 #: anjuta_dialogs_strings.c:323
-#, fuzzy
 msgid "Calltip background:"
-msgstr "Markeringsbakgrund:"
+msgstr "Anropstipsbakgrund:"
 
 #: anjuta_dialogs_strings.c:324
-#, fuzzy
 msgid "Caret (cursor) color:"
-msgstr "Caret-färg:"
+msgstr "Caret-färg (markörfärg):"
 
 #: anjuta_dialogs_strings.c:329
-#, fuzzy
 msgid "Other colors"
-msgstr "Annat"
+msgstr "Andra färger"
 
 #: anjuta_dialogs_strings.c:330
-#, fuzzy
 msgid "window1"
-msgstr "Docka fönster"
+msgstr "fönster1"
 
 #: anjuta_dialogs_strings.c:331
 msgid "Projects:"
@@ -996,23 +985,20 @@ msgid "Combo Popdown:"
 msgstr "Kombinationsmeny:"
 
 #: anjuta_dialogs_strings.c:337
-#, fuzzy
 msgid "History sizes"
-msgstr " Historikstorlek "
+msgstr "Historikstorlekar"
 
 #: anjuta_dialogs_strings.c:338
-#, fuzzy
 msgid "Automatically load last Project"
 msgstr "Läs automatiskt in senaste projekt"
 
 #: anjuta_dialogs_strings.c:339
 msgid "Build symbol browser automatically"
-msgstr ""
+msgstr "Bygg symbolbläddrare automatiskt"
 
 #: anjuta_dialogs_strings.c:340
-#, fuzzy
 msgid "Build file browser automatically"
-msgstr "Uppdatera automatiskt taggbilder"
+msgstr "Bygg filbläddrare automatiskt"
 
 #: anjuta_dialogs_strings.c:341
 msgid "Update tags image automatically"
@@ -1027,66 +1013,56 @@ msgid "Dialog on job complete"
 msgstr "Dialogfönster då jobbet är klart"
 
 #: anjuta_dialogs_strings.c:344
-#, fuzzy
 msgid "Show tooltips"
-msgstr "Visa anropstips"
+msgstr "Visa verktygstips"
 
 #: anjuta_dialogs_strings.c:346
-#, fuzzy
 msgid "User name:"
-msgstr "Mappnamn:"
+msgstr "Användarnamn:"
 
 #: anjuta_dialogs_strings.c:347
 msgid "User email address:"
-msgstr ""
+msgstr "Användarens e-postadress:"
 
 #: anjuta_dialogs_strings.c:350
-#, fuzzy
 msgid "User information"
-msgstr "Information"
+msgstr "Användarinformation"
 
 #: anjuta_dialogs_strings.c:351
-#, fuzzy
 msgid "window2"
-msgstr "Docka fönster"
+msgstr "fönster2"
 
 #: anjuta_dialogs_strings.c:352
 msgid "Build command:"
-msgstr ""
+msgstr "Byggkommando:"
 
 #: anjuta_dialogs_strings.c:354
-#, fuzzy
 msgid "Keep going when some targets can not be made"
 msgstr "Fortsätt då en del mål inte kan skapas"
 
 #: anjuta_dialogs_strings.c:355
-#, fuzzy
 msgid "Silent. That is, do not echo shell commads during make"
-msgstr "Tyst: eka inte kommandon"
+msgstr "Tyst: Dvs eka inte skalkommandon under körning av make"
 
 #: anjuta_dialogs_strings.c:356
-#, fuzzy
 msgid "Warn when an undefined variable is referenced in the Makefile"
-msgstr "Varna då odefinierad variabel refereras"
+msgstr "Varna då en odefinierad variabel refereras i Makefile"
 
 #: anjuta_dialogs_strings.c:357
 msgid "Maximum number of independent jobs (0 == no limit)"
-msgstr ""
+msgstr "Maximalt antal oberoende jobb (0 == ingen gräns)"
 
 #: anjuta_dialogs_strings.c:358
-#, fuzzy
 msgid "Additional build options:"
-msgstr "Ytterligare alternativ"
+msgstr "Ytterligare byggalternativ:"
 
 #: anjuta_dialogs_strings.c:360
-#, fuzzy
 msgid "Build options"
-msgstr "Byggfiler"
+msgstr "Byggalternativ"
 
 #: anjuta_dialogs_strings.c:361
-#, fuzzy
 msgid "Autosave editor files before build starts"
-msgstr "Spara automatiskt innan bygge"
+msgstr "Spara automatiskt redigerarfiler innan bygget påbörjas"
 
 #: anjuta_dialogs_strings.c:362 src/an_symbol_view.c:54
 msgid "Others"
@@ -1100,74 +1076,68 @@ msgid ""
 msgstr ""
 
 #: anjuta_dialogs_strings.c:364
-#, fuzzy
 msgid "window3"
-msgstr "Docka fönster"
+msgstr "fönster3"
 
 #: anjuta_dialogs_strings.c:365
 msgid "Syntax highlighting and color styles"
-msgstr ""
+msgstr "Syntaxfärgning och färgstilar"
 
 #: anjuta_dialogs_strings.c:367
-#, fuzzy
 msgid "Enable files autosave"
-msgstr "Aktivera automatiskt sparande"
+msgstr "Aktivera automatiskt sparande av filer"
 
 #: anjuta_dialogs_strings.c:368
 msgid "Enable braces check"
 msgstr "Aktivera klammerkontroll"
 
 #: anjuta_dialogs_strings.c:369
-#, fuzzy
 msgid "Strip trailling spaces on file save"
 msgstr "Ta bort eftersläpande blanksteg vid filsparande"
 
 #: anjuta_dialogs_strings.c:370
-#, fuzzy
 msgid "Collapse all code folds on file open"
-msgstr "Fäll ihop alla inhägnader vid filöppning"
+msgstr "Fäll ihop alla kodinhägnader vid filöppning"
 
 #: anjuta_dialogs_strings.c:371
-#, fuzzy
 msgid "Filter extraneous characters in DOS mode"
 msgstr "Filtrera onödiga tecken i DOS-läge"
 
 #: anjuta_dialogs_strings.c:372
 msgid "Wrap bookmarks search around"
-msgstr ""
+msgstr "Börja om bokmärkessökning från början"
 
 #: anjuta_dialogs_strings.c:373
 msgid "Choose autocomplete for single match"
-msgstr ""
+msgstr "Välj automatisk ifyllnad för enkel träff"
 
 #: anjuta_dialogs_strings.c:374
 msgid "Autocomplete XML/HML closing tags"
-msgstr ""
+msgstr "Fyll automatiskt i stängtaggar för XML/HML"
 
 #: anjuta_dialogs_strings.c:375
 msgid "Pressing tab indents"
-msgstr ""
+msgstr "Tryck på tabulatortangenten indenterar"
 
 #: anjuta_dialogs_strings.c:376
 msgid "Pressing backspace un-indents"
-msgstr ""
+msgstr "Tryck på bakåtsteg tar bort indentering"
 
 #: anjuta_dialogs_strings.c:377
 msgid "Do not show"
-msgstr ""
+msgstr "Visa inte"
 
 #: anjuta_dialogs_strings.c:378
 msgid "Bring recent tabs first on page switch"
-msgstr ""
+msgstr "Ta fram nyligen använda flikar vid sidbyte"
 
 #: anjuta_dialogs_strings.c:379
 msgid "Sort in alphabetical order"
-msgstr ""
+msgstr "Sortera alfabetiskt"
 
 #: anjuta_dialogs_strings.c:380
-#, fuzzy
 msgid "Position:"
-msgstr "Villkor:"
+msgstr "Position:"
 
 #: anjuta_dialogs_strings.c:382 anjuta_dialogs_strings.c:446
 msgid "Top"
@@ -1187,171 +1157,147 @@ msgstr "Höger"
 
 #: anjuta_dialogs_strings.c:386
 msgid "Editor notebook tabs"
-msgstr ""
+msgstr "Flikar i redigerarflikhäfte"
 
 #: anjuta_dialogs_strings.c:387
-#, fuzzy
 msgid "Line numbers margin width (pixels)"
-msgstr "Bredd på radnummermarginal i bildpunkter"
+msgstr "Bredd på radnummermarginal (bildpunkter)"
 
 #: anjuta_dialogs_strings.c:388
-#, fuzzy
 msgid "Autosave timer interval in minutes"
-msgstr "Tidintervall i minuter för automatiskt sparande"
+msgstr "Tidsintervall i minuter för automatiskt sparande"
 
 #: anjuta_dialogs_strings.c:389
-#, fuzzy
 msgid "Session timer interval in minutes"
-msgstr "Tidintervall i minuter för automatiskt sparande"
+msgstr "Tidsintervall i minuter för session"
 
 #: anjuta_dialogs_strings.c:390
-#, fuzzy
 msgid "Editor caret (cursor) width in pixel"
-msgstr "Bredd på radnummermarginal i bildpunkter"
+msgstr "Bredd på redigerar-caret (markör) i bildpunkt"
 
 #: anjuta_dialogs_strings.c:391
-#, fuzzy
 msgid "Autocomplete automatic size"
-msgstr "Autokomplettera ord"
+msgstr "Autokomplettera automatisk storlek"
 
 #: anjuta_dialogs_strings.c:392
 msgid "Caret blink period in milli-seconds"
-msgstr ""
+msgstr "Blinkperiod för caret i millisekunder"
 
 #: anjuta_dialogs_strings.c:393
 msgid "Column at edge indicator"
-msgstr ""
+msgstr "Kantkolumnindikator"
 
 #: anjuta_dialogs_strings.c:394
-#, fuzzy
 msgid "Enable code folding"
-msgstr "Aktivera profilering"
+msgstr "Aktivera kodinhängning"
 
 #: anjuta_dialogs_strings.c:395
-#, fuzzy
 msgid "Enable comments folding"
-msgstr "Aktivera profilering"
+msgstr "Aktivera kommentarinhängning"
 
 #: anjuta_dialogs_strings.c:396
 msgid "Compact folding"
-msgstr ""
+msgstr "Kompakt inhängning"
 
 #: anjuta_dialogs_strings.c:397
 msgid "Draw lines below folded lines"
-msgstr ""
+msgstr "Rita linjer under inhägnade rader"
 
 #: anjuta_dialogs_strings.c:398
-#, fuzzy
 msgid "Enable python comments folding"
-msgstr "Kan inte öppna %s i %s"
+msgstr "Aktivera inhängning av pythonkommentarer"
 
 #: anjuta_dialogs_strings.c:399
 msgid "Enable python quoted strings folding"
-msgstr ""
+msgstr "Aktivera inhängning av pythonciterade strängar"
 
 #: anjuta_dialogs_strings.c:400
-#, fuzzy
 msgid "Enable HTML tags folding"
-msgstr "Aktivera profilering"
+msgstr "Aktivera inhängning av HTML-taggar"
 
 #: anjuta_dialogs_strings.c:401
-#, fuzzy
 msgid "Fold style:"
-msgstr "Formateringsstil"
+msgstr "Inhängningsstil:"
 
 #: anjuta_dialogs_strings.c:403
-#, fuzzy
 msgid "Arrows"
-msgstr "Fel:"
+msgstr "Pilar"
 
 #: anjuta_dialogs_strings.c:404
-#, fuzzy
 msgid "Plus/Minus"
-msgstr "_Insticksmoduler"
+msgstr "Plus/Minus"
 
 #: anjuta_dialogs_strings.c:405
-#, fuzzy
 msgid "Circular"
-msgstr "Töm"
+msgstr "Cirkulär"
 
 #: anjuta_dialogs_strings.c:406
 msgid "Squares"
-msgstr ""
+msgstr "Kvadrater"
 
 #: anjuta_dialogs_strings.c:407
-#, fuzzy
 msgid "Code folding options"
-msgstr "Konfigureringsalternativ"
+msgstr "Alternativ för kodinhägnad"
 
 #: anjuta_dialogs_strings.c:408
-#, fuzzy
 msgid "Editor options"
-msgstr "Ytterligare alternativ"
+msgstr "Redigeraralternativ"
 
 #: anjuta_dialogs_strings.c:409
-#, fuzzy
 msgid "window4"
-msgstr "Docka fönster"
+msgstr "fönster4"
 
 #: anjuta_dialogs_strings.c:410
-#, fuzzy
 msgid "Tab size in spaces:"
-msgstr "Tabulatorstorlek i blanksteg"
+msgstr "Tabulatorstorlek i blanksteg:"
 
 #: anjuta_dialogs_strings.c:411
-#, fuzzy
 msgid "Indentation size in spaces:"
-msgstr "Automatisk indenteringsstorlek i blanksteg"
+msgstr "Automatisk indenteringsstorlek i blanksteg:"
 
 #: anjuta_dialogs_strings.c:412
-#, fuzzy
 msgid "Disable auto-format"
 msgstr "Inaktivera automatisk formatering"
 
 #: anjuta_dialogs_strings.c:413
-#, fuzzy
 msgid "Enable automatic indentation"
-msgstr "Aktivera autoindentering"
+msgstr "Aktivera automatisk indentering"
 
 #: anjuta_dialogs_strings.c:414
 msgid "Use tabs for indentation"
 msgstr "Använd tabulatorer för indentering"
 
 #: anjuta_dialogs_strings.c:415
-#, fuzzy
 msgid "Indent opening braces"
-msgstr "Öka indentering"
+msgstr "Indentera öppningsparenteser"
 
 #: anjuta_dialogs_strings.c:416
-#, fuzzy
 msgid "Indent closing braces"
-msgstr "Öka indentering"
+msgstr "Indentera stängparenteser"
 
 #: anjuta_dialogs_strings.c:418 anjuta_dialogs_strings.c:428
-#, fuzzy
 msgid "Custom style"
-msgstr " Anpassad stil "
+msgstr "Anpassad stil"
 
 #: anjuta_dialogs_strings.c:419
 msgid "GNU coding style"
-msgstr ""
+msgstr "GNU-kodningsstil"
 
 #: anjuta_dialogs_strings.c:420
 msgid "Kernighan & Ritchie style"
-msgstr ""
+msgstr "Kernighan & Ritchie-stil"
 
 #: anjuta_dialogs_strings.c:421
 msgid "Original Berkeley style"
-msgstr ""
+msgstr "Ursprunglig Berkeley-stil"
 
 #: anjuta_dialogs_strings.c:422
 msgid "Style of Kangleipak"
-msgstr ""
+msgstr "Kangleipak-stil"
 
 #: anjuta_dialogs_strings.c:423
-#, fuzzy
 msgid "Hello World style"
-msgstr "Hej världen!"
+msgstr "Hej världen!-stil"
 
 #: anjuta_dialogs_strings.c:424
 msgid "Crazy boy style"
@@ -1375,97 +1321,85 @@ msgid "Indentation and auto-format options"
 msgstr ""
 
 #: anjuta_dialogs_strings.c:431
-#, fuzzy
 msgid "window5"
-msgstr "Docka fönster"
+msgstr "fönster5"
 
 #: anjuta_dialogs_strings.c:432
-#, fuzzy
 msgid "Mode:"
-msgstr "Moduler"
+msgstr "Läge:"
 
 #: anjuta_dialogs_strings.c:433
-#, fuzzy
 msgid "Colour"
-msgstr "Färger"
+msgstr "Färg"
 
 #: anjuta_dialogs_strings.c:434
 msgid "Monochrome"
-msgstr ""
+msgstr "Svartvit"
 
 #: anjuta_dialogs_strings.c:435
 msgid "Add page header"
-msgstr ""
+msgstr "Lägg till sidhuvud"
 
 #: anjuta_dialogs_strings.c:436
-#, fuzzy
 msgid "Enable line wrap"
-msgstr "Aktivera profilering"
+msgstr "Aktivera radbrytning"
 
 #: anjuta_dialogs_strings.c:437
-#, fuzzy
 msgid "Add line number every:"
-msgstr " Gå till radnummer "
+msgstr "Lägg till radnummer var:"
 
 #: anjuta_dialogs_strings.c:438 printing/print.c:1055
-#, fuzzy
 msgid "Lines"
-msgstr "Rad"
+msgstr "Rader"
 
 #: anjuta_dialogs_strings.c:439
-#, fuzzy
 msgid "Print options"
-msgstr " Projektalternativ "
+msgstr "Utskriftsalternativ "
 
 #: anjuta_dialogs_strings.c:440
-#, fuzzy
 msgid "window6"
-msgstr "Docka fönster"
+msgstr "fönster6"
 
 #: anjuta_dialogs_strings.c:441
 msgid "Truncate long messages"
 msgstr "Kapa långa meddelanden"
 
 #: anjuta_dialogs_strings.c:442
-#, fuzzy
 msgid "Number of first characters to show:"
-msgstr "Antal första tecken att visa"
+msgstr "Antal första tecken att visa:"
 
 #: anjuta_dialogs_strings.c:443
-#, fuzzy
 msgid "Number of last characters to show:"
-msgstr "Antal sista tecken att visa"
+msgstr "Antal sista tecken att visa:"
 
 #: anjuta_dialogs_strings.c:444
 msgid "Tabs position:"
-msgstr ""
+msgstr "Tabulatorposition:"
 
 #: anjuta_dialogs_strings.c:450
-#, fuzzy
 msgid "Messages options"
-msgstr "Meddelanden"
+msgstr "Meddelandealternativ"
 
 #: anjuta_dialogs_strings.c:451
 msgid "Enable automatic messages indicators"
-msgstr ""
+msgstr "Aktivera automatiska meddelandeindikatorer"
 
 #: anjuta_dialogs_strings.c:452
 msgid "Normal message indicator style:"
-msgstr ""
+msgstr "Stil för normal meddelandeindikator:"
 
 #: anjuta_dialogs_strings.c:453
 msgid "Warning message indicator style:"
-msgstr ""
+msgstr "Stil för varningsmeddelandeindikator:"
 
 #: anjuta_dialogs_strings.c:454
 msgid "Error message indicator style:"
-msgstr ""
+msgstr "Stil för felmeddelandeindikator:"
 
 #: anjuta_dialogs_strings.c:456 anjuta_dialogs_strings.c:462
 #: anjuta_dialogs_strings.c:468
-#, fuzzy
 msgid "Underline-Plain"
-msgstr "Understruken"
+msgstr "Understruken-normal"
 
 #: anjuta_dialogs_strings.c:457 anjuta_dialogs_strings.c:463
 #: anjuta_dialogs_strings.c:469
@@ -1481,121 +1415,105 @@ msgstr "Understruken"
 
 #: anjuta_dialogs_strings.c:459 anjuta_dialogs_strings.c:465
 #: anjuta_dialogs_strings.c:471
-#, fuzzy
 msgid "Diagonal"
-msgstr "Signal"
+msgstr "Diagonal"
 
 #: anjuta_dialogs_strings.c:460 anjuta_dialogs_strings.c:466
 #: anjuta_dialogs_strings.c:472
-#, fuzzy
 msgid "Strike-Out"
-msgstr "Stega ut"
+msgstr "Genomstrykning"
 
 #: anjuta_dialogs_strings.c:473
-#, fuzzy
 msgid "Indicators"
-msgstr "Redigerare"
+msgstr "Indikatorer"
 
 #: anjuta_dialogs_strings.c:474
-#, fuzzy
 msgid "Errors messages:"
-msgstr "Programmeddelanden:"
+msgstr "Felmeddelanden:"
 
 #: anjuta_dialogs_strings.c:475
-#, fuzzy
 msgid "Warnings messages:"
-msgstr "Sökmeddelanden"
+msgstr "Varningsmeddelanden:"
 
 #: anjuta_dialogs_strings.c:476
-#, fuzzy
 msgid "Normal messages:"
-msgstr "Programmeddelanden:"
+msgstr "Normala meddelanden:"
 
 #: anjuta_dialogs_strings.c:477
 msgid "Other messages:"
 msgstr "Övriga meddelanden:"
 
 #: anjuta_dialogs_strings.c:482
-#, fuzzy
 msgid "Message colors"
-msgstr "Meddelanden"
+msgstr "Meddelandefärger"
 
 #: anjuta_dialogs_strings.c:483
-#, fuzzy
 msgid "window7"
-msgstr "Docka fönster"
+msgstr "fönster7"
 
 #: anjuta_dialogs_strings.c:484
 msgid "CVS compression level:"
-msgstr ""
+msgstr "CVS-komprimeringsnivå:"
 
 #: anjuta_dialogs_strings.c:485
 msgid "CVS forced update [-dP -A]"
-msgstr ""
+msgstr "Tvingad CVS-uppdatering [-dP -A]"
 
 #: anjuta_dialogs_strings.c:486
 msgid "CVS context diff format"
-msgstr ""
+msgstr "Sammanhangsformat för CVS diff"
 
 #: anjuta_dialogs_strings.c:487
 msgid "CVS unified diff format"
-msgstr ""
+msgstr "Enhetligt format för CVS diff"
 
 #: anjuta_dialogs_strings.c:488
 msgid "CVS command options"
-msgstr ""
+msgstr "CVS-kommandoalternativ"
 
 #: anjuta_dialogs_strings.c:489
-#, fuzzy
 msgid "window8"
-msgstr "Docka fönster"
+msgstr "fönster8"
 
 #: anjuta_dialogs_strings.c:490
 msgid "Use GNOME terminal profile:"
-msgstr ""
+msgstr "Använd GNOME:s terminalprofil:"
 
 #: anjuta_dialogs_strings.c:492
-#, fuzzy
 msgid "Default"
-msgstr "Använd standardvärde"
+msgstr "Standardvärde"
 
 #: anjuta_dialogs_strings.c:493
 msgid "Use currently selected profile in GNOME terminal"
-msgstr ""
+msgstr "Använd för tillfället markerad profil i GNOME-terminalen"
 
 #: anjuta_dialogs_strings.c:494
-#, fuzzy
 msgid "Terminal options"
-msgstr "Terminal"
+msgstr "Terminalalternativ"
 
 #: plugins/class-gen/clsGen.c:449
 msgid "Class name not valid"
 msgstr "Klassnamn är inte giltigt"
 
 #: plugins/class-gen/clsGen.c:456
-#, fuzzy
 msgid "Base class name not valid"
-msgstr "Klassnamn är inte giltigt"
+msgstr "Basklassnamn är inte giltigt"
 
 #: plugins/class-gen/clsGen.c:462
-#, fuzzy
 msgid "Declaration file name not valid"
 msgstr "Deklarationsfilnamn är inte giltigt"
 
 #: plugins/class-gen/clsGen.c:467
-#, fuzzy
 msgid "Implementation file name not valid"
 msgstr "Implementationsfilnamn är inte giltigt"
 
 #: plugins/class-gen/clsGen.c:726
-#, fuzzy
 msgid "Error in importing files"
 msgstr "Fel vid import av filer"
 
 #: plugins/class-gen/clsGen.c:1332
-#, fuzzy
 msgid "Class Builder"
-msgstr "Klasskapare"
+msgstr "Klassbyggare"
 
 #. 13
 #. 14
@@ -1607,41 +1525,36 @@ msgid "Help"
 msgstr "Hjälp"
 
 #: plugins/class-gen/clsGen.c:1352 plugins/patch/patch-plugin.c:103
-#, fuzzy
 msgid "Cancel"
-msgstr "C-spår"
+msgstr "Avbryt"
 
 #: plugins/class-gen/clsGen.c:1361
-#, fuzzy
 msgid "Finish"
-msgstr "Finska"
+msgstr "Slutför"
 
 #: plugins/class-gen/clsGen.c:1378
 msgid "Enter the name for the class you want to add."
-msgstr ""
+msgstr "Ange namnet på den klass du vill lägga till."
 
 #: plugins/class-gen/clsGen.c:1388
-#, fuzzy
 msgid "Enter the declaration file name."
-msgstr "Deklarationsfilnamn är inte giltigt"
+msgstr "Ange deklarationsfilnamnet."
 
 #: plugins/class-gen/clsGen.c:1398
-#, fuzzy
 msgid "Enter the implementation file name."
-msgstr "Implementationsfilnamn är inte giltigt"
+msgstr "Ange implementationsfilnamnet."
 
 #: plugins/class-gen/clsGen.c:1400 plugins/class-gen/clsGen.c:1410
 msgid "..."
-msgstr ""
+msgstr "..."
 
 #: plugins/class-gen/clsGen.c:1408
 msgid "Browse for the declaration file name."
-msgstr ""
+msgstr "Bläddra efter deklarationsfilnamnet."
 
 #: plugins/class-gen/clsGen.c:1418
-#, fuzzy
 msgid "Browse for the implementation file name."
-msgstr "Implementationsfilnamn är inte giltigt"
+msgstr "Bläddra efter implementationsfilnamnet."
 
 #: plugins/class-gen/clsGen.c:1428
 msgid "Enter the name of the class your new class will inherit from."
@@ -1655,31 +1568,28 @@ msgstr ""
 
 #. gtk_widget_set_usize (self->label_description, 400, 16);
 #: plugins/class-gen/clsGen.c:1462
-#, fuzzy
 msgid "Class name: "
-msgstr "Klassnamn:"
+msgstr "Klassnamn: "
 
 #: plugins/class-gen/clsGen.c:1472
-#, fuzzy
 msgid "Header file:  "
-msgstr "Huvudfilsmall"
+msgstr "Huvudfil:    "
 
 #: plugins/class-gen/clsGen.c:1482
-#, fuzzy
 msgid "Source file:  "
-msgstr "Källfiler:"
+msgstr "Källfil:     "
 
 #: plugins/class-gen/clsGen.c:1492
 msgid "Base class:   "
-msgstr ""
+msgstr "Basklass:"
 
 #: plugins/class-gen/clsGen.c:1502
 msgid "Base class inheritance: "
-msgstr ""
+msgstr "Basklassärvning: "
 
 #: plugins/class-gen/clsGen.c:1538
 msgid "Inline the declaration and implementation"
-msgstr ""
+msgstr "Inlin:a deklarationen och implementationen"
 
 #. gtk_widget_set_usize (self->checkbutton_inline, 224, 24);
 #: plugins/class-gen/clsGen.c:1546
@@ -1690,11 +1600,11 @@ msgstr ""
 
 #: plugins/class-gen/clsGen.c:1548
 msgid "By:  Dave Huseby <huseby@linuxprogrammer.org>"
-msgstr ""
+msgstr "Av:  Dave Huseby <huseby@linuxprogrammer.org>"
 
 #: plugins/class-gen/clsGen.c:1559
 msgid "V 0.0.2 (June 11, 2002)"
-msgstr ""
+msgstr "V 0.0.2 (11 juni 2002)"
 
 #: plugins/class-gen/clsGen.c:1570
 msgid ""
@@ -1703,118 +1613,108 @@ msgstr ""
 
 #: plugins/class-gen/clsGen.c:1580
 msgid "Welcome to the Anjuta Class Builder. "
-msgstr ""
+msgstr "Välkommen till Anjuta-klassbyggaren. "
 
 #. gtk_widget_set_usize (self->label_welcome, 184, 16);
 #: plugins/class-gen/clsGen.c:1589
-#, fuzzy
 msgid "Class type:   "
-msgstr "Klassnamn:"
+msgstr "Klasstyp:     "
 
 #: plugins/class-gen/clsGen.c:1607 plugins/class-gen/clsGen.c:1620
 msgid "public"
-msgstr ""
+msgstr "publik"
 
 #: plugins/class-gen/clsGen.c:1608
-#, fuzzy
 msgid "protected"
-msgstr "projekt1"
+msgstr "skyddad"
 
 #: plugins/class-gen/clsGen.c:1609
-#, fuzzy
 msgid "private"
-msgstr "Uppdatera"
+msgstr "privat"
 
 #: plugins/class-gen/clsGen.c:1618
 msgid "Choose the type of inheritence from the base class."
-msgstr ""
+msgstr "Välj typen av ärvning från basklassen."
 
 #: plugins/class-gen/clsGen.c:1622
 msgid "Virtual destructor"
-msgstr ""
+msgstr "Virtuell destruktor"
 
 #. gtk_widget_set_usize (self->checkbutton_virtual_destructor, 112, 24);
 #: plugins/class-gen/clsGen.c:1630
 msgid "If checked, the destructor of your class will be declared virtual."
 msgstr ""
+"Om detta är ikryssat kommer destruktorn i din klass att deklareras som "
+"virtuell."
 
 #: plugins/class-gen/clsGen.c:1640 plugins/class-gen/clsGen.c:1652
 msgid "Generic C++ Class"
-msgstr ""
+msgstr "Allmän C++-klass"
 
 #: plugins/class-gen/clsGen.c:1641
-#, fuzzy
 msgid "GTK+ Class"
-msgstr "Klass:"
+msgstr "GTK+-klass"
 
 #: plugins/class-gen/clsGen.c:1650
-#, fuzzy
 msgid "Select the type of class you would like to create."
-msgstr "Välj den typ av program du vill utveckla"
+msgstr "Välj den typ av klass du vill skapa."
 
 #: plugins/patch/patch-plugin.c:60
 msgid "Interface to patch Projects or individual files"
-msgstr ""
+msgstr "Gränssnitt för att patcha projekt eller enstaka filer"
 
 #: plugins/patch/patch-plugin.c:96
-#, fuzzy
 msgid "File/Dir to patch"
-msgstr "File/Katalog att lägga till:"
+msgstr "Fil/Katalog att patcha"
 
 #: plugins/patch/patch-plugin.c:97
-#, fuzzy
 msgid "Patch file"
-msgstr "Datafil"
+msgstr "Patchfil"
 
 #: plugins/patch/patch-plugin.c:98
 msgid "Patch level (-p)"
-msgstr ""
+msgstr "Patchnivå (-p)"
 
 #: plugins/patch/patch-plugin.c:103
-#, fuzzy
 msgid "Patch Plugin"
-msgstr "_Insticksmoduler"
+msgstr "Patchinsticksmodul"
 
 #: plugins/patch/patch-plugin.c:103
-#, fuzzy
 msgid "Patch"
-msgstr "Bevaka"
+msgstr "Patch"
 
 #: plugins/patch/patch-plugin.c:106
-#, fuzzy
 msgid "Selected directory to patch"
-msgstr "Välj katalog"
+msgstr "Vald katalog att patcha"
 
 #: plugins/patch/patch-plugin.c:108
-#, fuzzy
 msgid "Selected patch file"
-msgstr "Ta bort fil"
+msgstr "Vald patchfil"
 
 #: plugins/patch/patch-plugin.c:144
-#, fuzzy
 msgid "Patch plugin"
-msgstr "Exempelinsticksmodul"
+msgstr "Patchinsticksmodul"
 
 #: plugins/patch/patch-plugin.c:150
 msgid "The patch plugin"
-msgstr ""
+msgstr "Patchinsticksmodulen"
 
 #: plugins/patch/patch-plugin.c:168
 msgid "Please select the directory where the patch should be applied"
-msgstr ""
+msgstr "Välj den katalog där patchen ska appliceras"
 
 #: plugins/patch/patch-plugin.c:175
 #, c-format
 msgid "Patching %s using %s\n"
-msgstr ""
+msgstr "Patchar %s med %s\n"
 
 #: plugins/patch/patch-plugin.c:181
 msgid "Patching...\n"
-msgstr ""
+msgstr "Patchar...\n"
 
 #: plugins/patch/patch-plugin.c:188
 msgid "There are unfinished jobs, please wait until they are finished"
-msgstr ""
+msgstr "Det finns oavslutade arbeten. Vänta tills de avslutats."
 
 #: plugins/patch/patch-plugin.c:212
 msgid ""
@@ -1822,11 +1722,13 @@ msgid ""
 "Please review the failure messages.\n"
 "Examine and remove any rejected files.\n"
 msgstr ""
+"Patchningen misslyckades.\n"
+"Granska felmeddelandena.\n"
+"Granska och ta bort alla avvisade filer.\n"
 
 #: plugins/patch/patch-plugin.c:219
-#, fuzzy
 msgid "Patch successful.\n"
-msgstr "Projektet lästes in utan problem."
+msgstr "Patchningen lyckades.\n"
 
 #: plugins/sample1/plugin-sample1.c:17
 msgid "Sample Plugin Description. Holla!"
@@ -1850,32 +1752,29 @@ msgstr "Detta är en exempelinsticksmodul"
 
 #: printing/print.c:535
 msgid "No file to print!"
-msgstr ""
+msgstr "Ingen fil att skriva ut!"
 
 #: printing/print.c:558
-#, fuzzy
 msgid "Unable to get text buffer for printing"
-msgstr "Sidinställningar för utskrift"
+msgstr "Kan inte få tag i textbuffert för utskrift"
 
 #: printing/print.c:789
-#, fuzzy, c-format
+#, c-format
 msgid "File: %s"
-msgstr "Filer"
+msgstr "Fil: %s"
 
 #: printing/print.c:790
 #, c-format
 msgid "%d"
-msgstr ""
+msgstr "%d"
 
 #: printing/print.c:910
-#, fuzzy
 msgid "Printing .."
-msgstr "Skriv _ut..."
+msgstr "Skriver ut..."
 
 #: printing/print.c:922
-#, fuzzy
 msgid "Printing ..."
-msgstr "Skriv _ut..."
+msgstr "Skriver ut..."
 
 #: printing/print.c:1046 src/preferences.c:715 src/signals_gui.c:123
 #: src/text_editor_gui.c:178 src/toolbar.c:108
@@ -1884,7 +1783,7 @@ msgstr "Skriv ut"
 
 #: printing/print.c:1082
 msgid "Print Preview"
-msgstr ""
+msgstr "Förhandsgranskning av utskrift"
 
 #: src/an_file_view.c:56
 #, c-format
@@ -1902,130 +1801,111 @@ msgstr ""
 
 #: src/an_file_view.c:267
 msgid "Unable to build user interface for file filter"
-msgstr ""
+msgstr "Kan inte bygga användargränssnitt för filfilter"
 
 #. 0
 #: src/an_file_view.c:348
-#, fuzzy
 msgid "Update file"
-msgstr "Uppdaterar fil:"
+msgstr "Uppdatera fil"
 
 #: src/an_file_view.c:349 src/main_menubar_def.h:1608
 msgid "Update current working copy"
-msgstr ""
+msgstr "Uppdatera aktuell arbetskopia"
 
 #. 1
 #: src/an_file_view.c:355
-#, fuzzy
 msgid "Commit file"
-msgstr "Konfigurationsfiler"
+msgstr "Verkställ fil"
 
 #: src/an_file_view.c:356 src/main_menubar_def.h:1615
-#, fuzzy
 msgid "Commit changes to the repository"
-msgstr "Gå till föregående katalog"
+msgstr "Verkställ ändringarna i lagret"
 
 #. 2
 #: src/an_file_view.c:362
-#, fuzzy
 msgid "Status of file"
-msgstr "Anjuta: Ingen fil"
+msgstr "Filstatus"
 
 #: src/an_file_view.c:363 src/main_menubar_def.h:1622
-#, fuzzy
 msgid "Print the status of the current file"
-msgstr "Skriv ut den aktuella filen"
+msgstr "Skriv ut den aktuella filens status"
 
 #. 3
 #: src/an_file_view.c:369
-#, fuzzy
 msgid "Get file log"
-msgstr "Ta bort fil"
+msgstr "Hämta fillogg"
 
 #: src/an_file_view.c:370 src/main_menubar_def.h:1629
-#, fuzzy
 msgid "Print the CVS log for the current file"
-msgstr "Skriv ut den aktuella filen"
+msgstr "Skriv ut CVS-loggen för den aktuella filen"
 
 #. 4
 #: src/an_file_view.c:376
-#, fuzzy
 msgid "Add file"
-msgstr "Alla filer"
+msgstr "Lägg till fil"
 
 #: src/an_file_view.c:377 src/main_menubar_def.h:1636
-#, fuzzy
 msgid "Add the current file to the repository"
-msgstr "Ta bort den aktuella filen från projektet"
+msgstr "Lägg till den aktuella filen till lagret"
 
 #. 5
 #: src/an_file_view.c:383
-#, fuzzy
 msgid "Remove file"
-msgstr "Byt namn på fil"
+msgstr "Ta bort fil"
 
 #: src/an_file_view.c:384 src/main_menubar_def.h:1643
-#, fuzzy
 msgid "Remove the current file from the repository"
-msgstr "Ta bort den aktuella filen från projektet"
+msgstr "Ta bort den aktuella filen från lagret"
 
 #. 6
 #: src/an_file_view.c:390
-#, fuzzy
 msgid "Diff file"
-msgstr "Diff-filer"
+msgstr "Diff:a fil"
 
 #: src/an_file_view.c:391 src/main_menubar_def.h:1650
 msgid "Create a diff between the working copy and the repository"
-msgstr ""
+msgstr "Skapa en diff mellan arbetskopian och lagret"
 
 #. 0
 #: src/an_file_view.c:400 src/main_menubar_def.h:950
 #: src/project_dbase_gui.c:326
-#, fuzzy
 msgid "Open in Anjuta"
-msgstr "Anjuta"
+msgstr "Öppna i Anjuta"
 
 #. 1
 #: src/an_file_view.c:407 src/main_menubar_def.h:944
 #: src/project_dbase_gui.c:320
-#, fuzzy
 msgid "Open in default viewer"
-msgstr "Visa i standardvisaren"
+msgstr "Öppna i standardvisaren"
 
 #. 3
 #: src/an_file_view.c:421 src/an_symbol_view.c:302
-#, fuzzy
 msgid "Refresh"
-msgstr "Uppdatera träd"
+msgstr "Uppdatera"
 
 #. 4
 #. 5
 #: src/an_file_view.c:429 src/an_symbol_view.c:309 src/main_menubar_def.h:976
 #: src/project_dbase_gui.c:352 src/text_editor_menu.c:355
-#, fuzzy
 msgid "Docked"
-msgstr "Docka"
+msgstr "Dockad"
 
 #: src/an_file_view.c:430 src/an_symbol_view.c:310 src/main_menubar_def.h:977
-#, fuzzy
 msgid "Dock/Undock the Project Window"
-msgstr "Visa/Dölj projektfönstret"
+msgstr "Docka/Ta loss projektfönstret"
 
 #. 6
 #: src/an_file_view.c:436
-#, fuzzy
 msgid "Customize"
-msgstr " Anpassad stil "
+msgstr "Anpassa"
 
 #: src/an_file_view.c:437
 msgid "Customize the file browser"
-msgstr ""
+msgstr "Anpassa filbläddraren"
 
 #: src/an_file_view.c:678
-#, fuzzy
 msgid "Rev"
-msgstr "Ta bort"
+msgstr "Rev"
 
 #: src/anjuta.c:70 src/anjuta.c:77
 #, c-format
@@ -2122,7 +2002,7 @@ msgstr "Okänd"
 
 #: src/anjuta.c:2093
 msgid "OVR"
-msgstr "OVR"
+msgstr "ÖVR"
 
 #: src/anjuta.c:2097 src/anjuta.c:2103
 msgid "INS"
@@ -2139,19 +2019,18 @@ msgstr ""
 
 #: src/anjuta.c:2399
 msgid "Looking up symbol"
-msgstr ""
+msgstr "Slår upp symbol"
 
 #: src/anjuta.c:2401 src/find_in_files.c:285
 msgid "Finding in Files ....\n"
 msgstr "Söker i filer...\n"
 
 #: src/anjuta_cbs.c:145
-#, fuzzy
 msgid ""
 "One or more files are not saved.\n"
 "Do you still want to exit?"
 msgstr ""
-"En del filer (eller projektet) är inte sparat.\n"
+"En eller flera filer är inte sparade.\n"
 "Vill du fortfarande avsluta?"
 
 #: src/anjuta_cbs.c:404 src/project_dbase_gui.c:1346
@@ -2165,7 +2044,7 @@ msgid "No read permission for: %s."
 msgstr "Inga läsrättigheter för: %s."
 
 #: src/anjuta_cbs.c:522 src/anjuta_cbs.c:579
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The file '%s' already exists.\n"
 "Do you want to overwrite it?."
@@ -2174,9 +2053,8 @@ msgstr ""
 "Vill du skriva över den?"
 
 #: src/anjuta_cbs.c:555
-#, fuzzy
 msgid "Could not open file for writing"
-msgstr "Kan inte läsa in fil: %s"
+msgstr "Kunde inte öppna fil för skrivning"
 
 #: src/anjuta_dirs.c:52
 msgid "Unable to create settings directory.\n"
@@ -2228,45 +2106,42 @@ msgid "Out of memory scanning for plugins."
 msgstr "Slut på minne vid genomsökning efter insticksmoduler."
 
 #: src/anjuta-tools.c:910
-#, fuzzy
 msgid "Tool"
-msgstr "Till"
+msgstr "Verktyg"
 
 #: src/anjuta-tools.c:1094
 msgid "Unable to build user interface for tool editor"
-msgstr ""
+msgstr "Kan inte bygga användargränssnitt för verktygsredigerare"
 
 #: src/anjuta-tools.c:1289
-#, fuzzy, c-format
+#, c-format
 msgid "Are you sure you want to delete tool '%s'"
-msgstr "Är du säker på att du vill tömma listan?"
+msgstr "Är du säker på att du vill ta bort verktyget \"%s\""
 
 #: src/anjuta-tools.c:1387
 msgid "You must provide a tool name!"
-msgstr ""
+msgstr "Du måste ange ett verktygsnamn!"
 
 #: src/anjuta-tools.c:1393
 msgid "You must provide a tool command!"
-msgstr ""
+msgstr "Du måste ange ett verktygskommando!"
 
 #: src/anjuta-tools.c:1408
 #, c-format
 msgid "A tool with the name '%s' already exists!"
-msgstr ""
+msgstr "Det finns redan ett verktyg med namnet \"%s\"!"
 
 #: src/anjuta-tools.c:1692
 msgid "Unable to build user interface for tool help"
-msgstr ""
+msgstr "Kan inte bygga användargränssnitt för verktygshjälp"
 
 #: src/anjuta-tools.c:1706 src/debug_tree.c:1502 src/debug_tree.c:1527
-#, fuzzy
 msgid "Variable"
-msgstr "Variabler"
+msgstr "Variabel"
 
 #: src/anjuta-tools.c:1712
-#, fuzzy
 msgid "Meaning"
-msgstr "Varningar"
+msgstr "Betydelse"
 
 #: src/anjuta-tools.c:1718 src/debug_tree.c:1502 src/debug_tree.c:1536
 #: src/watch_gui.c:133
@@ -2275,12 +2150,12 @@ msgstr "Värde"
 
 #: src/anjuta-tools.c:1781
 msgid "Unable to build user interface for tool parameters"
-msgstr ""
+msgstr "Kan inte bygga användargränssnitt för verktygsparametrar"
 
 #: src/anjuta-tools.c:1785
-#, fuzzy, c-format
+#, c-format
 msgid "%s: Command line parameters"
-msgstr "Kommandoargument"
+msgstr "%s: Kommandoradsparametrar"
 
 #: src/an_symbol_view.c:54
 msgid "Classes"
@@ -2310,14 +2185,12 @@ msgstr "Gå till deklaration"
 
 #. 2
 #: src/an_symbol_view.c:295 src/text_editor_menu.c:339
-#, fuzzy
 msgid "Find Usage"
-msgstr "Sökmeddelanden"
+msgstr "Sök användning"
 
 #: src/an_symbol_view.c:569
-#, fuzzy
 msgid "Symbol"
-msgstr "Symboler"
+msgstr "Symbol"
 
 #: src/appwizard_cbs.c:126
 msgid "Project name"
@@ -2424,7 +2297,7 @@ msgstr "Pid"
 
 #: src/attach_process.c:46
 msgid "User"
-msgstr ""
+msgstr "Användare"
 
 #: src/attach_process.c:46
 msgid "Time"
@@ -2465,7 +2338,6 @@ msgid "You must give a valid location to set the breakpoint."
 msgstr "Du måste ha en giltig plats att sätta brytpunkten på."
 
 #: src/breakpoints.c:587
-#, fuzzy
 msgid "Are you sure you want to delete all the breakpoints?"
 msgstr "Är du säker på att du vill ta bort alla brytpunkter?"
 
@@ -2613,7 +2485,6 @@ msgid "Build Distribution completed...............Successful\n"
 msgstr "Bygge av distribution färdigt..............lyckades\n"
 
 #: src/build_project.c:399
-#, fuzzy
 msgid ""
 "The source tarball can be found in the top level directory of the Project.\n"
 msgstr "Källkodstarbollen kan hittas i projektets översta katalog.\n"
@@ -2756,14 +2627,12 @@ msgid "Compile completed ... successful"
 msgstr "Kompilering färdig... lyckades"
 
 #: src/compiler_options.c:675 src/src_paths.c:218
-#, fuzzy
 msgid "Do you want to clear the list?"
-msgstr "Är du säker på att du vill tömma listan?"
+msgstr "Vill du tömma listan?"
 
 #: src/compiler_options.c:740
-#, fuzzy
 msgid "Name"
-msgstr "Ram"
+msgstr "Namn"
 
 #: src/compiler_options.c:747 src/compiler_options.c:823
 #: src/compiler_options.c:846 src/compiler_options.c:891 src/signals_gui.c:131
@@ -2771,33 +2640,28 @@ msgid "Description"
 msgstr "Beskrivning"
 
 #: src/compiler_options.c:762
-#, fuzzy
 msgid "Include paths"
 msgstr "Inkluderingssökvägar"
 
 #: src/compiler_options.c:777
-#, fuzzy
 msgid "Libraries paths"
 msgstr "Bibliotekssökvägar"
 
 #: src/compiler_options.c:800
-#, fuzzy
 msgid "Libraries and modules"
-msgstr "Bibliotek"
+msgstr "Bibliotek och moduler"
 
 #: src/compiler_options.c:816
 msgid "Stock"
 msgstr "Standard"
 
 #: src/compiler_options.c:861
-#, fuzzy
 msgid "Stock Defines"
-msgstr "Definationer"
+msgstr "Standarddefinitioner"
 
 #: src/compiler_options.c:884
-#, fuzzy
 msgid "Warning"
-msgstr "Varningar"
+msgstr "Varning"
 
 #: src/configurer.c:153
 msgid ""
@@ -2832,34 +2696,32 @@ msgid "Configure completed ... successful"
 msgstr "Konfiguration färdig... lyckades"
 
 #: src/controls.c:208
-#, fuzzy
 msgid "No tags"
 msgstr "Inga taggar"
 
 #: src/cvs.c:236
-#, fuzzy
 msgid "CVS Updating "
-msgstr "Uppdaterar fil:"
+msgstr "CVS-uppdatering "
 
 #: src/cvs.c:286
 msgid "CVS Committing "
-msgstr ""
+msgstr "CVS-verkställer "
 
 #: src/cvs.c:347
 msgid "CVS Importing...\n"
-msgstr ""
+msgstr "CVS-importerar...\n"
 
 #: src/cvs.c:387
 msgid "CVS Adding "
-msgstr ""
+msgstr "CVS-tillägger "
 
 #: src/cvs.c:419
 msgid "CVS Removing "
-msgstr ""
+msgstr "CVS-borttager "
 
 #: src/cvs.c:460
 msgid "Getting CVS status "
-msgstr ""
+msgstr "Hämtar CVS-status "
 
 #: src/cvs.c:475 src/cvs.c:526 src/cvs.c:602 src/cvs.c:841
 msgid "There are jobs running, please wait until they are finished"
@@ -2867,15 +2729,15 @@ msgstr ""
 
 #: src/cvs.c:511
 msgid "Getting CVS log "
-msgstr ""
+msgstr "Hämtar CVS-logg "
 
 #: src/cvs.c:587
 msgid "CVS diffing "
-msgstr ""
+msgstr "CVS-diffar "
 
 #: src/cvs.c:631
 msgid "CVS login "
-msgstr ""
+msgstr "CVS-inloggning "
 
 #: src/cvs.c:734 src/project_import.c:167
 msgid "Project import completed...unsuccessful\n"
@@ -2886,92 +2748,80 @@ msgid "Project import completed...unsuccessful"
 msgstr "Projektimport färdig... misslyckades"
 
 #: src/cvs.c:742
-#, fuzzy
 msgid "CVS completed...successful\n"
-msgstr "Bygge färdigt... lyckades\n"
+msgstr "CVS färdigt... lyckades\n"
 
 #: src/cvs.c:744
-#, fuzzy
 msgid "CVS completed...successful"
-msgstr "Kompilering färdig... lyckades"
+msgstr "CVS färdigt... lyckades"
 
 #: src/cvs.c:752
-#, fuzzy
 msgid "Updating versions in file tree..."
-msgstr "Kopierar ikonfil...\n"
+msgstr "Uppdaterar versioner i filträd..."
 
 #: src/cvs.c:754
-#, fuzzy
 msgid "done\n"
-msgstr "Ingen"
+msgstr "klar\n"
 
 #: src/cvs_cbs.c:40
 msgid "You do not need to login to a local server"
-msgstr ""
+msgstr "Du behöver inte logga in på en lokal server"
 
 #: src/cvs_gui.c:30
-#, fuzzy
 msgid "Local"
-msgstr "Lokala variabler"
+msgstr "Lokal"
 
 #: src/cvs_gui.c:30
-#, fuzzy
 msgid "Password"
-msgstr "Pass"
+msgstr "Lösenord"
 
 #: src/cvs_gui.c:30
 msgid "Extern(rsh)"
-msgstr ""
+msgstr "Extern(rsh)"
 
 #: src/cvs_gui.c:30
-#, fuzzy
 msgid "Server"
-msgstr "Stega över"
+msgstr "Server"
 
 #: src/cvs_gui.c:71
-#, fuzzy
 msgid "CVS: Update"
-msgstr "Uppdatera"
+msgstr "CVS: Uppdatera"
 
 #: src/cvs_gui.c:75
 msgid "CVS: Commit"
-msgstr ""
+msgstr "CVS: Verkställ"
 
 #: src/cvs_gui.c:76
-#, fuzzy
 msgid "Commit"
-msgstr "Kommentar:"
+msgstr "Verkställ"
 
 #: src/cvs_gui.c:79
 msgid "CVS: Status"
-msgstr ""
+msgstr "CVS: Status"
 
 #: src/cvs_gui.c:80
-#, fuzzy
 msgid "Show status"
-msgstr "Visa sista"
+msgstr "Visa status"
 
 #: src/cvs_gui.c:83
 msgid "CVS: Log"
-msgstr ""
+msgstr "CVS: Logg"
 
 #: src/cvs_gui.c:84
-#, fuzzy
 msgid "Show log"
-msgstr "Visa sista"
+msgstr "Visa logg"
 
 #: src/cvs_gui.c:87
 msgid "CVS: Add file"
-msgstr ""
+msgstr "CVS: Lägg till fil"
 
 #: src/cvs_gui.c:88
 msgid "Add"
 msgstr "Lägg till"
 
 #: src/cvs_gui.c:91
-#, fuzzy
 msgid "CVS: Remove file"
-msgstr "Byt namn på fil"
+msgstr "CVS: Ta bort fil"
 
 #. 3
 #: src/cvs_gui.c:92 src/project_dbase_gui.c:332 src/watch_gui.c:43
@@ -2986,33 +2836,28 @@ msgid ""
 msgstr ""
 
 #: src/cvs_gui.c:118 src/cvs_gui.c:231
-#, fuzzy
 msgid "File: "
-msgstr "Fil:"
+msgstr "Fil: "
 
 #: src/cvs_gui.c:120
 msgid "Branch: "
-msgstr ""
+msgstr "Branch: "
 
 #: src/cvs_gui.c:122 src/cvs_gui.c:284
-#, fuzzy
 msgid "Revision: "
-msgstr "Version:"
+msgstr "Revision: "
 
 #: src/cvs_gui.c:123 src/cvs_gui.c:465
-#, fuzzy
 msgid "Log message: "
-msgstr "Programmeddelanden:"
+msgstr "Loggmeddelande: "
 
 #: src/cvs_gui.c:126 src/cvs_gui.c:234
-#, fuzzy
 msgid "Select file"
-msgstr "Ta bort fil"
+msgstr "Välj fil"
 
 #: src/cvs_gui.c:219
-#, fuzzy
 msgid "CVS: Diff file"
-msgstr "Diff-filer"
+msgstr "CVS: Diff:a fil"
 
 #. 17
 #: src/cvs_gui.c:223 src/main_menubar_def.h:1115
@@ -3021,73 +2866,63 @@ msgstr "Diff"
 
 #: src/cvs_gui.c:258
 msgid "Date: "
-msgstr ""
+msgstr "Datum: "
 
 #: src/cvs_gui.c:328
 msgid "CVS Login"
-msgstr ""
+msgstr "CVS-inloggning"
 
 #: src/cvs_gui.c:332
-#, fuzzy
 msgid "Login"
-msgstr "Rad"
+msgstr "Inloggning"
 
 #: src/cvs_gui.c:341 src/cvs_gui.c:435
-#, fuzzy
 msgid "Server type: "
-msgstr "Filtyp: "
+msgstr "Servertyp: "
 
 #: src/cvs_gui.c:342 src/cvs_gui.c:438
-#, fuzzy
 msgid "Username: "
-msgstr "Mappnamn:"
+msgstr "Användarnamn: "
 
 #: src/cvs_gui.c:343 src/cvs_gui.c:436
 msgid "Server: "
-msgstr ""
+msgstr "Server: "
 
 #: src/cvs_gui.c:344
-#, fuzzy
 msgid "Directory on the server: "
-msgstr "Katalog: "
+msgstr "Katalog på servern: "
 
 #: src/cvs_gui.c:423
-#, fuzzy
 msgid "CVS: Import Project"
-msgstr "_Importera projekt..."
+msgstr "CVS: Importera projekt"
 
 #: src/cvs_gui.c:427
-#, fuzzy
 msgid "Import"
-msgstr "Importera fil"
+msgstr "Importera"
 
 #: src/cvs_gui.c:437
 msgid "Dir on the server: "
-msgstr ""
+msgstr "Katalog på servern: "
 
 #: src/cvs_gui.c:462
-#, fuzzy
 msgid "Module name: "
-msgstr "Mappnamn:"
+msgstr "Modulnamn: "
 
 #: src/cvs_gui.c:463
-#, fuzzy
 msgid "Release name: "
-msgstr "Klassnamn:"
+msgstr "Versionsnamn: "
 
 #: src/cvs_gui.c:464
 msgid "Vendor tag: "
-msgstr ""
+msgstr "Leverantörstagg: "
 
 #: src/cvs_gui.c:520
-#, fuzzy
 msgid "Server settings"
-msgstr "_Inställningar"
+msgstr "Serverinställningar"
 
 #: src/cvs_gui.c:524
-#, fuzzy
 msgid "Import settings"
-msgstr "Importera fil"
+msgstr "Importinställningar"
 
 #. Must declare static, because it will be used forever
 #: src/debugger.c:78
@@ -3378,12 +3213,11 @@ msgid "Cannot fork glade--."
 msgstr "Kan inte grena glade--."
 
 #: src/gnome_project.c:62
-#, fuzzy
 msgid ""
 "A project or file with the same name.already exists.\n"
 "Project creation aborted."
 msgstr ""
-"Projektet finns redan.\n"
+"Ett projekt eller en fil med samma namn finns redan.\n"
 "Skapande av projekt avbröts."
 
 #: src/gnome_project.c:78
@@ -3617,9 +3451,8 @@ msgstr "Sidinställningar för utskrift"
 
 #. 18
 #: src/main_menubar_def.h:122
-#, fuzzy
 msgid "_Print"
-msgstr "Skriv ut"
+msgstr "Skriv _ut"
 
 #: src/main_menubar_def.h:123 src/text_editor_gui.c:179 src/toolbar.c:109
 msgid "Print the current file"
@@ -3628,12 +3461,11 @@ msgstr "Skriv ut den aktuella filen"
 #. 19
 #: src/main_menubar_def.h:128
 msgid "_Print Preview"
-msgstr ""
+msgstr "_Förhandsvisning"
 
 #: src/main_menubar_def.h:129
-#, fuzzy
 msgid "Print preview of the current file"
-msgstr "Skriv ut den aktuella filen"
+msgstr "Förhandsvisning av den aktuella filen"
 
 #. 20
 #. 21
@@ -3697,7 +3529,6 @@ msgid "Convert EOL chars to majority EOL"
 msgstr "Konvertera EOL-tecken till majoritets-EOL"
 
 #: src/main_menubar_def.h:193
-#, fuzzy
 msgid "Convert End Of Line characters to majority of the EOL found in the file"
 msgstr ""
 "Konvertera radslutstecken till de EOL-tecken som är i majoritet i filen"
@@ -3786,121 +3617,112 @@ msgstr "Infoga en standardhuvudfilsmall"
 #. 6
 #: src/main_menubar_def.h:263
 msgid "ChangeLog entry"
-msgstr ""
+msgstr "ChangeLog-post"
 
 #: src/main_menubar_def.h:264
 msgid "Insert a ChangeLog entry"
-msgstr ""
+msgstr "Infoga en ChangeLog-post"
 
 #: src/main_menubar_def.h:275
-#, fuzzy
 msgid "Insert a switch template"
-msgstr "Infoga en standardhuvudfilsmall"
+msgstr "Infoga en switch-mall"
 
 #: src/main_menubar_def.h:281
-#, fuzzy
 msgid "Insert a for template"
-msgstr "Infoga en standardhuvudfilsmall"
+msgstr "Infoga en for-mall"
 
 #: src/main_menubar_def.h:287
-#, fuzzy
 msgid "Insert a while template"
-msgstr "Infoga en standardhuvudfilsmall"
+msgstr "Infoga en while-mall"
 
 #: src/main_menubar_def.h:293
-#, fuzzy
 msgid "Insert an if...else template"
-msgstr "Infoga en standardhuvudfilsmall"
+msgstr "Infoga en if...else-mall"
 
 #: src/main_menubar_def.h:304
 msgid "Insert the CVS Author keyword (author of the change)"
-msgstr ""
+msgstr "Infoga nyckelordet CVS Author (författaren av ändringen)"
 
 #: src/main_menubar_def.h:310
 msgid "Insert the CVS Date keyword (date and time of the change)"
-msgstr ""
+msgstr "Infoga nyckelordet CVS Date (datum och tid för ändringen)"
 
 #: src/main_menubar_def.h:316
 msgid ""
 "Insert the CVS Header keyword (full path, revision, date, author, state)"
 msgstr ""
+"Infoga nyckelordet CVS Header (fullständig sökväg, revision, datum, "
+"författare, tillstånd)"
 
 #: src/main_menubar_def.h:322
 msgid "Insert the CVS Id keyword (file, revision, date, author)"
-msgstr ""
+msgstr "Infoga nyckelordet CVS Id (fil, revision, datum, författare)"
 
 #: src/main_menubar_def.h:328
 msgid "Insert the CVS Log keyword (log message)"
-msgstr ""
+msgstr "Infoga nyckelordet CVS Log (loggmeddelande)"
 
 #: src/main_menubar_def.h:334
 msgid "Insert the CVS Name keyword (name of the sticky tag)"
-msgstr ""
+msgstr "Infoga nyckelordet CVS Name (namn på klistrigtaggen)"
 
 #: src/main_menubar_def.h:340
 msgid "Insert the CVS Revision keyword (revision number)"
-msgstr ""
+msgstr "Infoga nyckelordet CVS Revision (revisionsnummer)"
 
 #: src/main_menubar_def.h:346
 msgid "Insert the CVS Source keyword (full path)"
-msgstr ""
+msgstr "Infoga nyckelordet CVS Source (fullständig sökväg)"
 
 #. 0
 #: src/main_menubar_def.h:356
-#, fuzzy
 msgid "Header"
-msgstr "Huvudkontroller"
+msgstr "Huvud"
 
 #: src/main_menubar_def.h:357
 msgid "Insert a file header"
-msgstr ""
+msgstr "Infoga ett filhuvud"
 
 #. 1
 #: src/main_menubar_def.h:362
 msgid "C template"
-msgstr ""
+msgstr "C-mall"
 
 #: src/main_menubar_def.h:363
-#, fuzzy
 msgid "Insert a C template"
-msgstr "_Infoga text"
+msgstr "Infoga en C-mall"
 
 #. 2
 #: src/main_menubar_def.h:368
 msgid "CVS keyword"
-msgstr ""
+msgstr "CVS-nyckelord"
 
 #. 0
 #: src/main_menubar_def.h:385
 msgid "Block Comment/Uncomment"
-msgstr ""
+msgstr "Blockkommentar/Avkommentera"
 
 #: src/main_menubar_def.h:386
-#, fuzzy
 msgid "Block comment the selected text"
-msgstr "Gör den markerade texten till gemener"
+msgstr "Blockkommentera den markerade texten"
 
 #. 1
 #: src/main_menubar_def.h:391
-#, fuzzy
 msgid "Box Comment"
-msgstr "Kommentar:"
+msgstr "Boxkommentar"
 
 #: src/main_menubar_def.h:392
-#, fuzzy
 msgid "Box comment the selected text"
-msgstr "Gör den markerade texten till versaler"
+msgstr "Boxkommentera den markerade texten"
 
 #. 2
 #: src/main_menubar_def.h:397
-#, fuzzy
 msgid "Stream Comment"
-msgstr "Kommentar:"
+msgstr "Flödeskommentar"
 
 #: src/main_menubar_def.h:398
-#, fuzzy
 msgid "Stream comment the selected text"
-msgstr "Gör den markerade texten till versaler"
+msgstr "Flödeskommentera den markerade texten"
 
 #. 0
 #: src/main_menubar_def.h:408
@@ -3943,14 +3765,12 @@ msgstr "Sök efter en sträng i flera filer eller kataloger"
 
 #. 4
 #: src/main_menubar_def.h:436
-#, fuzzy
 msgid "_Enter Selection/I-Search"
-msgstr "_Gör markeringen till versaler"
+msgstr "_Ange markering/I-sökning"
 
 #: src/main_menubar_def.h:437
-#, fuzzy
 msgid "Enter the selected text as the search target"
-msgstr "Ta bort den markerade texten från redigeraren"
+msgstr "Ange den markerade texten som sökmål"
 
 #. 0
 #: src/main_menubar_def.h:448
@@ -4008,24 +3828,21 @@ msgstr "Gå till nästa meddelande"
 
 #. 6
 #: src/main_menubar_def.h:484
-#, fuzzy
 msgid "_Go Back"
-msgstr "Bakåt"
+msgstr "_Gå bakåt"
 
 #: src/main_menubar_def.h:485
 msgid "Go back"
-msgstr ""
+msgstr "Gå bakåt"
 
 #. 7
 #: src/main_menubar_def.h:490
-#, fuzzy
 msgid "_Go Forward"
-msgstr "Framåt"
+msgstr "_Gå framåt"
 
 #: src/main_menubar_def.h:491
-#, fuzzy
 msgid "Go forward"
-msgstr "Framåt"
+msgstr "Gå framåt"
 
 #. 8
 #: src/main_menubar_def.h:496 src/text_editor_menu.c:93
@@ -4033,9 +3850,8 @@ msgid "Tag Definition"
 msgstr "Taggdefinition"
 
 #: src/main_menubar_def.h:497
-#, fuzzy
 msgid "Goto tag definition"
-msgstr "Gå till definition"
+msgstr "Gå till taggdefinition"
 
 #. 9
 #: src/main_menubar_def.h:502 src/text_editor_menu.c:100
@@ -4043,27 +3859,26 @@ msgid "Tag Declaration"
 msgstr "Taggdeklaration"
 
 #: src/main_menubar_def.h:503
-#, fuzzy
 msgid "Goto tag declaration"
-msgstr "Gå till deklaration"
+msgstr "Gå till taggdeklaration"
 
 #. 10
 #: src/main_menubar_def.h:508
 msgid "Next occurrence"
-msgstr ""
+msgstr "Nästa förekomst"
 
 #: src/main_menubar_def.h:509
 msgid "Find the next occurrence of current word"
-msgstr ""
+msgstr "Hitta nästa förekomst av det aktuella ordet"
 
 #. 11
 #: src/main_menubar_def.h:514
 msgid "Previous occurrence"
-msgstr ""
+msgstr "Föregående förekomst"
 
 #: src/main_menubar_def.h:515
 msgid "Find the previous occurrence of current word"
-msgstr ""
+msgstr "Hitta föregående förekomst av det aktuella ordet"
 
 #. 0
 #: src/main_menubar_def.h:526
@@ -4138,15 +3953,13 @@ msgstr "_Infoga text"
 
 #. 11
 #: src/main_menubar_def.h:593
-#, fuzzy
 msgid "Co_mment code"
-msgstr "Kommentar:"
+msgstr "Ko_mmentera kod"
 
 #. 12
 #: src/main_menubar_def.h:599
-#, fuzzy
 msgid "_Search"
-msgstr "Sök i hjälp"
+msgstr "_Sök"
 
 #. 13
 #: src/main_menubar_def.h:605
@@ -4174,14 +3987,12 @@ msgstr "Visa anropstips för funktionen"
 
 #. 17
 #: src/main_menubar_def.h:628
-#, fuzzy
 msgid "Search And Replace"
-msgstr "Sök och ersätt den angivna strängen"
+msgstr "Sök och ersätt"
 
 #: src/main_menubar_def.h:629
-#, fuzzy
 msgid "New Search And Replace stuff"
-msgstr "Sök och ersätt den angivna strängen"
+msgstr "Nya sök och ersätt-saker"
 
 #. 0
 #: src/main_menubar_def.h:640
@@ -4261,9 +4072,8 @@ msgid "_Indentation guides"
 msgstr "_Indenteringsguider"
 
 #: src/main_menubar_def.h:694
-#, fuzzy
 msgid "Show/Hide indentation guides"
-msgstr "Dölj/Visa indenteringsguider"
+msgstr "Visa/Dölj indenteringsguider"
 
 #. 4
 #: src/main_menubar_def.h:699
@@ -4286,11 +4096,11 @@ msgstr "Visa/Dölj radslutstecken"
 #. 6
 #: src/main_menubar_def.h:711
 msgid "Line _wrapping"
-msgstr ""
+msgstr "Rad_brytning"
 
 #: src/main_menubar_def.h:712
 msgid "Enable/disable line wrapping"
-msgstr ""
+msgstr "Aktivera/inaktivera radbrytning"
 
 #. 0
 #: src/main_menubar_def.h:722
@@ -4388,9 +4198,8 @@ msgstr "Minska textinzoomning med 1 enhet"
 
 #. 0
 #: src/main_menubar_def.h:793
-#, fuzzy
 msgid "_Message window"
-msgstr "_Meddelanden"
+msgstr "_Meddelandefönster"
 
 #: src/main_menubar_def.h:794 src/toolbar.c:153
 msgid "Show/Hide the Message window"
@@ -4398,9 +4207,8 @@ msgstr "Visa/Dölj meddelandefönstret"
 
 #. 1
 #: src/main_menubar_def.h:799
-#, fuzzy
 msgid "_Project window"
-msgstr "Projektinformation"
+msgstr "_Projektfönster"
 
 #: src/main_menubar_def.h:800 src/toolbar.c:149
 msgid "Show/Hide the Project window"
@@ -4443,9 +4251,8 @@ msgstr "Visa brytpunktsredigerarfönstret"
 
 #. 9
 #: src/main_menubar_def.h:837
-#, fuzzy
 msgid "Expression _Watch"
-msgstr "Uttrycksbevakning"
+msgstr "Uttrycks_bevakning"
 
 #: src/main_menubar_def.h:838
 msgid "Show expression watch window"
@@ -4552,15 +4359,13 @@ msgstr "Dokumentationsfil"
 
 #. 0
 #: src/main_menubar_def.h:938 src/project_dbase_gui.c:314
-#, fuzzy
 msgid "Add File"
-msgstr "Lägg till ny"
+msgstr "Lägg till fil"
 
 #. 3
 #: src/main_menubar_def.h:956
-#, fuzzy
 msgid "Remove File"
-msgstr "Byt namn på fil"
+msgstr "Ta bort fil"
 
 #. 4
 #. 5
@@ -4569,9 +4374,8 @@ msgid "Configure Project"
 msgstr "Konfigurera projekt"
 
 #: src/main_menubar_def.h:964
-#, fuzzy
 msgid "Configure options for the current Project"
-msgstr "Stäng det aktuella projektet"
+msgstr "Konfigurera alternativ för det aktuella projektet"
 
 #. 6
 #: src/main_menubar_def.h:969 src/project_dbase_gui.c:345
@@ -4579,9 +4383,8 @@ msgid "Project Info"
 msgstr "Projektinformation"
 
 #: src/main_menubar_def.h:970
-#, fuzzy
 msgid "Display the Project information"
-msgstr "Visa den aktuella raminformationen"
+msgstr "Visa projektinformationen"
 
 #. 9
 #. 10
@@ -4590,20 +4393,17 @@ msgid "_Update tags image"
 msgstr "_Uppdatera taggbild"
 
 #: src/main_menubar_def.h:984
-#, fuzzy
 msgid "Update the tags image of the Project/opened files"
 msgstr "Uppdatera taggbilden på projektet/öppnade filer"
 
 #. 11
 #: src/main_menubar_def.h:989
-#, fuzzy
 msgid "Rebuild tags image"
-msgstr "_Uppdatera taggbild"
+msgstr "Bygg om taggbild"
 
 #: src/main_menubar_def.h:990
-#, fuzzy
 msgid "Rebuild the tags image of the Project"
-msgstr "Bygg från toppkatalogen av projektet"
+msgstr "Bygg om taggbilden av projektet"
 
 #. 12
 #: src/main_menubar_def.h:995
@@ -4630,9 +4430,8 @@ msgid "No Highlight style"
 msgstr "Ingen färgningsstil"
 
 #: src/main_menubar_def.h:1020
-#, fuzzy
 msgid "Remove the current highlight style"
-msgstr "Byt namn på den aktuella filen"
+msgstr "Ta bort den aktuella färgningsstilen"
 
 #. 2
 #: src/main_menubar_def.h:1025
@@ -4830,33 +4629,29 @@ msgstr "Tvinga färgningsstilen till Baan"
 #. 24
 #: src/main_menubar_def.h:1157
 msgid "Lisp"
-msgstr ""
+msgstr "Lisp"
 
 #: src/main_menubar_def.h:1158
-#, fuzzy
 msgid "Force the highlight style to Lisp"
-msgstr "Tvinga färgningsstilen till XML"
+msgstr "Tvinga färgningsstilen till Lisp"
 
 #. 25
 #: src/main_menubar_def.h:1163
 msgid "Ruby"
-msgstr ""
+msgstr "Ruby"
 
 #: src/main_menubar_def.h:1164
-#, fuzzy
 msgid "Force the highlight style to Ruby"
-msgstr "Tvinga färgningsstilen till XML"
+msgstr "Tvinga färgningsstilen till Ruby"
 
 #. 26
 #: src/main_menubar_def.h:1169
-#, fuzzy
 msgid "Matlab"
-msgstr "Katalanska"
+msgstr "Matlab"
 
 #: src/main_menubar_def.h:1170
-#, fuzzy
 msgid "Force the highlight style to Matlab"
-msgstr "Tvinga färgningsstilen till Baan"
+msgstr "Tvinga färgningsstilen till Matlab"
 
 #. 0
 #: src/main_menubar_def.h:1180
@@ -4864,9 +4659,8 @@ msgid "Auto _Format"
 msgstr "Auto_formatera"
 
 #: src/main_menubar_def.h:1181
-#, fuzzy
 msgid "Autoformat the current source file"
-msgstr "Kompilera den aktuella källfilen"
+msgstr "Autoformatera den aktuella källfilen"
 
 #. 1
 #: src/main_menubar_def.h:1186
@@ -4908,9 +4702,8 @@ msgid "_Open All Folds"
 msgstr "_Öppna alla inhägnader"
 
 #: src/main_menubar_def.h:1213
-#, fuzzy
 msgid "Open all code folds in the editor"
-msgstr "Öppna alla kodinhägnader för redigeraren"
+msgstr "Öppna alla kodinhägnader i redigeraren"
 
 #. 8
 #: src/main_menubar_def.h:1218
@@ -4918,9 +4711,8 @@ msgid "_Toggle Current Fold"
 msgstr "_Slå på/av aktuell inhägnad"
 
 #: src/main_menubar_def.h:1219
-#, fuzzy
 msgid "Toggle current code fold in the editor"
-msgstr "Slå på/av aktuell kodinhägnad för redigeraren"
+msgstr "Slå på/av aktuell kodinhägnad i redigeraren"
 
 #. 9
 #. 10
@@ -4929,9 +4721,8 @@ msgid "D_etach Current Document"
 msgstr "_Koppla från aktuellt dokument"
 
 #: src/main_menubar_def.h:1226
-#, fuzzy
 msgid "Detach the current document into a separate editor window"
-msgstr "Koppla ifrån den aktuella redigeraren i ett separat fönster"
+msgstr "Koppla ifrån det aktuella dokumentet i ett separat fönster"
 
 #. 0
 #: src/main_menubar_def.h:1236
@@ -4957,9 +4748,8 @@ msgid "_Build"
 msgstr "_Bygg"
 
 #: src/main_menubar_def.h:1249
-#, fuzzy
 msgid "Build the source directory of the Project or the current source file"
-msgstr "Bygg projektets källkodskatalog/aktuell källkodsfil"
+msgstr "Bygg projektets källkodskatalog eller den aktuella källkodsfilen"
 
 #. 3
 #: src/main_menubar_def.h:1254
@@ -4977,9 +4767,8 @@ msgid "Save Build Messages"
 msgstr "Spara byggmeddelanden"
 
 #: src/main_menubar_def.h:1262
-#, fuzzy
 msgid "Save build messages to a file"
-msgstr "Spara byggmeddelanden till fil"
+msgstr "Spara byggmeddelanden i en fil"
 
 #. 6
 #. 7
@@ -5016,9 +4805,8 @@ msgid "Auto _generate ..."
 msgstr "Auto_generera..."
 
 #: src/main_menubar_def.h:1288
-#, fuzzy
 msgid "Auto generate all the build files for the Project"
-msgstr "Autogenerera alla byggfiler"
+msgstr "Autogenerera alla byggfiler för projektet"
 
 #. 12
 #. 13
@@ -5074,9 +4862,8 @@ msgid "_Toggle bookmark"
 msgstr "_Slå på/av bokmärken"
 
 #: src/main_menubar_def.h:1332
-#, fuzzy
 msgid "Toggle a bookmark at the current line position"
-msgstr "Slå på/av bokmärke på aktuell plats"
+msgstr "Slå på/av ett bokmärke på aktuell radposition"
 
 #. 1
 #. 2
@@ -5085,9 +4872,8 @@ msgid "_First bookmark"
 msgstr "_Första bokmärke"
 
 #: src/main_menubar_def.h:1339
-#, fuzzy
 msgid "Jump to the first bookmark in the file"
-msgstr "Gå till första bokmärket i detta dokument"
+msgstr "Hoppa till första bokmärket i filen"
 
 #. 3
 #: src/main_menubar_def.h:1344
@@ -5095,9 +4881,8 @@ msgid "_Previous bookmark"
 msgstr "_Föregående bokmärke"
 
 #: src/main_menubar_def.h:1345
-#, fuzzy
 msgid "Jump to the previous bookmark in the file"
-msgstr "Gå till föregående bokmärke i detta dokument"
+msgstr "Hoppa till föregående bokmärke i filen"
 
 #. 4
 #: src/main_menubar_def.h:1350
@@ -5105,9 +4890,8 @@ msgid "_Next bookmark"
 msgstr "_Nästa bokmärke"
 
 #: src/main_menubar_def.h:1351
-#, fuzzy
 msgid "Jump to the next bookmark in the file"
-msgstr "Gå till nästa bokmärke i detta dokument"
+msgstr "Hoppa till nästa bokmärke i filen"
 
 #. 5
 #: src/main_menubar_def.h:1356
@@ -5115,9 +4899,8 @@ msgid "_Last bookmark"
 msgstr "_Sista bokmärke"
 
 #: src/main_menubar_def.h:1357
-#, fuzzy
 msgid "Jump to the last bookmark in the file"
-msgstr "Gå till sista bokmärket i detta dokument"
+msgstr "Hoppa till sista bokmärket i filen"
 
 #. 6
 #. 7
@@ -5126,9 +4909,8 @@ msgid "_Clear all bookmarks"
 msgstr "_Töm alla bokmärken"
 
 #: src/main_menubar_def.h:1364
-#, fuzzy
 msgid "Clear bookmarks"
-msgstr "_Töm alla bokmärken"
+msgstr "Töm bokmärken"
 
 #. 0
 #: src/main_menubar_def.h:1374
@@ -5295,13 +5077,12 @@ msgstr "Visa funktionsargument för den aktuella ramen"
 
 #. 8
 #: src/main_menubar_def.h:1493
-#, fuzzy
 msgid "Info _Memory"
-msgstr "_Programinformation"
+msgstr "Informations_minne"
 
 #: src/main_menubar_def.h:1494
 msgid "Display accessible memory"
-msgstr ""
+msgstr "Visa tillgängligt minne"
 
 #. 0
 #: src/main_menubar_def.h:1504
@@ -5430,118 +5211,102 @@ msgstr "Säg hejdå till felsökaren"
 
 #. 0
 #: src/main_menubar_def.h:1607
-#, fuzzy
 msgid "U_pdate file"
-msgstr "Uppdaterar fil:"
+msgstr "U_ppdatera fil"
 
 #. 1
 #: src/main_menubar_def.h:1614
-#, fuzzy
 msgid "C_ommit file"
-msgstr "Konfigurationsfiler"
+msgstr "_Verkställ fil"
 
 #. 2
 #: src/main_menubar_def.h:1621
-#, fuzzy
 msgid "S_tatus of file"
-msgstr "Anjuta: Ingen fil"
+msgstr "Fils_tatus"
 
 #. 3
 #: src/main_menubar_def.h:1628
 msgid "G_et file log"
-msgstr ""
+msgstr "_Hämta fillogg"
 
 #. 4
 #: src/main_menubar_def.h:1635
-#, fuzzy
 msgid "_Add file"
-msgstr "Alla filer"
+msgstr "_Lägg till fil"
 
 #. 5
 #: src/main_menubar_def.h:1642
-#, fuzzy
 msgid "_Remove file"
-msgstr "Byt namn på fil"
+msgstr "_Ta bort fil"
 
 #. 6
 #: src/main_menubar_def.h:1649
-#, fuzzy
 msgid "D_iff file"
-msgstr "Diff-filer"
+msgstr "_Diff:a fil"
 
 #. 8
 #: src/main_menubar_def.h:1657
-#, fuzzy
 msgid "_Update Project"
-msgstr "Spara projekt"
+msgstr "_Uppdatera projekt"
 
 #: src/main_menubar_def.h:1658
-#, fuzzy
 msgid "Update the working copy of a Project"
-msgstr "Redigera konfigurationen för projektet"
+msgstr "Uppdatera arbetskopian av ett projekt"
 
 #. 9
 #: src/main_menubar_def.h:1664
-#, fuzzy
 msgid "_Commit Project"
-msgstr "Stäng projekt"
+msgstr "_Verkställ projekt"
 
 #: src/main_menubar_def.h:1665
 msgid "Commit local changes to the repository"
-msgstr ""
+msgstr "Verkställ lokala ändringar i lagret"
 
 #. 10
 #: src/main_menubar_def.h:1671
-#, fuzzy
 msgid "_Import Project"
-msgstr "_Importera projekt..."
+msgstr "_Importera projekt"
 
 #: src/main_menubar_def.h:1672
 msgid "Import Project as a new module in the repository"
-msgstr ""
+msgstr "Importera projekt som en ny modul i lagret"
 
 #. 11
 #: src/main_menubar_def.h:1678
-#, fuzzy
 msgid "_Status of Project"
-msgstr "Spara projekt"
+msgstr "Projekt_status"
 
 #: src/main_menubar_def.h:1679
-#, fuzzy
 msgid "Print the status of the Project"
-msgstr "Redigera konfigurationen för projektet"
+msgstr "Skriv ut statusen för projektet"
 
 #. 12
 #: src/main_menubar_def.h:1685
-#, fuzzy
 msgid "Get Project _log"
-msgstr "Senaste projekt "
+msgstr "Hämta projekt_loggen"
 
 #: src/main_menubar_def.h:1686
-#, fuzzy
 msgid "Print the CVS log of the Project"
-msgstr "Öppna NEWS-filen för projektet"
+msgstr "Skriv ut CVS-loggen för projektet"
 
 #. 13
 #: src/main_menubar_def.h:1692
-#, fuzzy
 msgid "_Diff Project"
-msgstr "_Projekt"
+msgstr "_Diff:a projekt"
 
 #: src/main_menubar_def.h:1693
 msgid ""
 "Create a diff between the working copy of the Project and the repository"
-msgstr ""
+msgstr "Skapa en diff mellan arbetskopian av projektet och lagret"
 
 #. 15
 #: src/main_menubar_def.h:1700
-#, fuzzy
 msgid "_Login"
-msgstr "Rad"
+msgstr "_Inloggning"
 
 #: src/main_menubar_def.h:1701
 msgid "Login to a CVS server"
-msgstr ""
+msgstr "Logga in på en CVS-server"
 
 #. 0
 #: src/main_menubar_def.h:1712
@@ -5563,9 +5328,8 @@ msgstr "Ange källkodssökvägarna för Anjuta att söka i"
 
 #. 2
 #: src/main_menubar_def.h:1724
-#, fuzzy
 msgid "Co_mmands ..."
-msgstr "_Kommandon..."
+msgstr "Ko_mmandon..."
 
 #: src/main_menubar_def.h:1725
 msgid "Specify the various commands for use"
@@ -5583,25 +5347,21 @@ msgstr "Föredrar du kaffe framför te? Testa detta."
 
 #. 5
 #: src/main_menubar_def.h:1737
-#, fuzzy
 msgid "Syntax _highlighting ..."
-msgstr "Inaktivera syntaxfärgning"
+msgstr "Syntaxfärgning..."
 
 #: src/main_menubar_def.h:1738
-#, fuzzy
 msgid "Syntax highlighting settings"
-msgstr "Inaktivera syntaxfärgning"
+msgstr "Inställningar för syntaxfärgning"
 
 #. 6
 #: src/main_menubar_def.h:1743
-#, fuzzy
 msgid "_Edit user.properties file ..."
-msgstr "Egenskapsfiler"
+msgstr "_Redigera filen user.properties..."
 
 #: src/main_menubar_def.h:1744
-#, fuzzy
 msgid "Edit user properties file"
-msgstr "Egenskapsfiler"
+msgstr "Redigera användaregenskapsfilen"
 
 #. 7
 #: src/main_menubar_def.h:1749
@@ -5615,29 +5375,27 @@ msgstr "Men jag föredrar te."
 #. 8
 #: src/main_menubar_def.h:1755
 msgid "C_ustomize shortcuts"
-msgstr ""
+msgstr "A_npassa genvägar"
 
 #: src/main_menubar_def.h:1756
 msgid "Customize shortcuts associated with menu items"
-msgstr ""
+msgstr "Anpassa genvägar som är associerade med menyposter"
 
 #. 9
 #: src/main_menubar_def.h:1761
-#, fuzzy
 msgid "_Tools Editor"
-msgstr "_Redigerare"
+msgstr "_Verktygsredigerare"
 
 #: src/main_menubar_def.h:1762
 msgid "Customize user-defined tools"
-msgstr ""
+msgstr "Anpassa användardefinierade verktyg"
 
 #. 0
 #. 1
 #. 2
 #: src/main_menubar_def.h:1773
-#, fuzzy
 msgid "Browse GNOME _API Pages"
-msgstr "Bläddra i API-sidor för GNOME"
+msgstr "Bläddra i _API-sidor för GNOME"
 
 #: src/main_menubar_def.h:1774
 msgid "The GNOME API pages"
@@ -5645,9 +5403,8 @@ msgstr "API-sidorna för GNOME"
 
 #. 3
 #: src/main_menubar_def.h:1779
-#, fuzzy
 msgid "Browse _Man Pages"
-msgstr "Bläddra i manualsidor"
+msgstr "Bläddra i _manualsidor"
 
 #: src/main_menubar_def.h:1780
 msgid "The good old manual pages"
@@ -5655,21 +5412,18 @@ msgstr "De gamla hederliga manualsidorna"
 
 #. 4
 #: src/main_menubar_def.h:1785
-#, fuzzy
 msgid "Browse _Info Pages"
-msgstr "Bläddra i infosidor"
+msgstr "Bläddra i _infosidor"
 
 #: src/main_menubar_def.h:1786
-#, fuzzy
 msgid "Browse Info pages"
 msgstr "Bläddra i infosidor"
 
 #. 5
 #. 6
 #: src/main_menubar_def.h:1792
-#, fuzzy
 msgid "_Context Help"
-msgstr "Sammanhangshjälp"
+msgstr "_Sammanhangshjälp"
 
 #: src/main_menubar_def.h:1793
 msgid "Search help for the current word in the editor"
@@ -5677,9 +5431,8 @@ msgstr "Sök hjälp för det aktuella ordet i redigeraren"
 
 #. 7
 #: src/main_menubar_def.h:1798
-#, fuzzy
 msgid "_Search a topic"
-msgstr "Sök ett ämne"
+msgstr "_Sök ett ämne"
 
 #: src/main_menubar_def.h:1799
 msgid "May I help you?"
@@ -5688,9 +5441,8 @@ msgstr "Kan jag hjälpa dig?"
 #. 8
 #. 9
 #: src/main_menubar_def.h:1805
-#, fuzzy
 msgid "Anjuta _Home Page"
-msgstr "Hemsida för Anjuta"
+msgstr "_Hemsida för Anjuta"
 
 #: src/main_menubar_def.h:1806
 msgid "Online documentation and resources"
@@ -5699,9 +5451,8 @@ msgstr "Online-dokumentation och resurser"
 #. 10
 #. 11
 #: src/main_menubar_def.h:1812
-#, fuzzy
 msgid "_Libraries API references"
-msgstr "Referenser till biblioteks-API"
+msgstr "Referenser till _biblioteks-API"
 
 #: src/main_menubar_def.h:1813
 msgid "Online reference library for GDK, GLib, GNOME etc.."
@@ -5709,9 +5460,8 @@ msgstr "Online-referensbibliotek för GDK, GLib, GNOME osv..."
 
 #. 12
 #: src/main_menubar_def.h:1818
-#, fuzzy
 msgid "Report _Bugs"
-msgstr "Rapportera fel"
+msgstr "Rapportera _fel"
 
 #: src/main_menubar_def.h:1819
 msgid "Submit a bug report for Anjuta"
@@ -5719,9 +5469,8 @@ msgstr "Skicka in en felrapport för Anjuta"
 
 #. 13
 #: src/main_menubar_def.h:1824
-#, fuzzy
 msgid "Request _Features"
-msgstr "Begär funktioner"
+msgstr "Begär _funktioner"
 
 #: src/main_menubar_def.h:1825
 msgid "Submit a feature request for Anjuta"
@@ -5729,9 +5478,8 @@ msgstr "Skicka in en begäran om nya funktioner för Anjuta"
 
 #. 14
 #: src/main_menubar_def.h:1830
-#, fuzzy
 msgid "Submit _patches"
-msgstr "Skicka programfixar"
+msgstr "Skicka _programfixar"
 
 #: src/main_menubar_def.h:1831
 msgid "Submit patches for Anjuta"
@@ -5739,9 +5487,8 @@ msgstr "Skicka programfixar för Anjuta"
 
 #. 15
 #: src/main_menubar_def.h:1836
-#, fuzzy
 msgid "Ask a _question"
-msgstr "Ställ en fråga"
+msgstr "Ställ en _fråga"
 
 #: src/main_menubar_def.h:1837
 msgid "Submit a question for FAQs"
@@ -5764,9 +5511,8 @@ msgid "_Debug"
 msgstr "Fels_ök"
 
 #: src/main_menubar_def.h:1882
-#, fuzzy
 msgid "_CVS"
-msgstr "CVS"
+msgstr "_CVS"
 
 #: src/main_menubar_def.h:1888
 msgid "_Settings"
@@ -5780,7 +5526,7 @@ msgid ""
 msgstr ""
 
 #: src/mainmenu_callbacks.c:167
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The file '%s' is not saved.\n"
 "Do you want to save it before closing?"
@@ -5789,26 +5535,26 @@ msgstr ""
 "Vill du spara den innan du avslutar?"
 
 #: src/mainmenu_callbacks.c:232
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Are you sure you want to reload '%s'?\n"
 "Any unsaved changes will be lost."
 msgstr ""
-"Är du säker på att du vill läsa om %s.\n"
+"Är du säker på att du vill läsa om \"%s\"?\n"
 "Du kommer att förlora alla ändringar som inte är sparade."
 
 #: src/mainmenu_callbacks.c:520
 msgid "%Y"
-msgstr ""
+msgstr "%Y"
 
 #: src/mainmenu_callbacks.c:539
 msgid "%Y-%m-%d"
-msgstr ""
+msgstr "%Y-%m-%d"
 
 #: src/mainmenu_callbacks.c:614
 #, c-format
 msgid "The file \"%s\" is not a header file."
-msgstr ""
+msgstr "Filen \"%s\" är inte en huvudfil."
 
 #: src/mainmenu_callbacks.c:1732
 msgid "The executable is not up-to-date."
@@ -5823,27 +5569,28 @@ msgid ""
 "Hover the mouse pointer over any menu item and press\n"
 " the shortcut key to associate with it."
 msgstr ""
+"Vila muspekaren över en menypost och tryck\n"
+" genvägstangenten för att associera med den."
 
 #: src/memory.c:132
 msgid "Memory"
-msgstr ""
+msgstr "Minne"
 
 #: src/memory.c:208
-#, fuzzy
 msgid "Inspect "
-msgstr "Inspektera"
+msgstr "Inspektera "
 
 #: src/memory.c:213
 msgid "Hexa address "
-msgstr ""
+msgstr "Hexadecimal adress "
 
 #: src/memory.c:224
 msgid "Quit"
-msgstr ""
+msgstr "Avsluta"
 
 #: src/memory.c:465
 msgid "Non accessible address !"
-msgstr ""
+msgstr "Adressen är inte åtkomlig!"
 
 #: src/preferences.c:524
 msgid ""
@@ -5858,9 +5605,8 @@ msgid "Editor"
 msgstr "Redigerare"
 
 #: src/preferences.c:707
-#, fuzzy
 msgid "Indentation"
-msgstr "Öka indentering"
+msgstr "Indentering"
 
 #: src/preferences.c:719 src/toolbar.c:152
 msgid "Messages"
@@ -5880,18 +5626,16 @@ msgstr ""
 "Anjuta kommer att återgå till inbyggda (begränsade) inställningar"
 
 #: src/preferences.c:969
-#, fuzzy
 msgid "Anjuta Preferences"
-msgstr "Inställningar"
+msgstr "Inställningar för Anjuta"
 
 #: src/preferences-dialog.c:125
 msgid "Category"
-msgstr ""
+msgstr "Kategori"
 
 #: src/preferences-dialog.c:225
-#, fuzzy
 msgid "Anjuta Preferences Dialog"
-msgstr "Inställningar"
+msgstr "Inställningsdialog för Anjuta"
 
 #. Must declare static, because it will be used forever
 #: src/project_dbase.c:227 src/toolbar.c:212
@@ -5962,16 +5706,17 @@ msgid "Project: "
 msgstr "Projekt: "
 
 #: src/project_dbase.c:2208
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Unable to get relative file name for %s\n"
 " in %s"
-msgstr "Kan inte skapa filen: %s."
+msgstr ""
+"Kan inte hämta relativt filnamn för %s\n"
+" i %s"
 
 #: src/project_dbase.c:2273
-#, fuzzy
 msgid " already exists in the project"
-msgstr "Körbar fil finns inte för detta projekt."
+msgstr " finns redan i projektet"
 
 #: src/project_dbase.c:2306
 msgid "Error while copying the file inside the module."
@@ -5987,7 +5732,7 @@ msgid "Project loaded successfully."
 msgstr "Projektet lästes in utan problem."
 
 #: src/project_dbase_gui.c:74
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Are you sure you want to remove the item\n"
 "'%s' from the Project?"
@@ -6000,18 +5745,16 @@ msgid "There is already a Project open.Do you want to close it first?"
 msgstr "Det finns redan ett öppnat projekt. Vill du stänga det först?"
 
 #: src/project_dbase_gui.c:161
-#, fuzzy
 msgid "Help files"
-msgstr "Hjälpfiler:"
+msgstr "Hjälpfiler"
 
 #: src/project_dbase_gui.c:170 widgets/gnomefilelist.c:712
 msgid "C/C++ source files"
 msgstr "C/C++-källfiler"
 
 #: src/project_dbase_gui.c:171
-#, fuzzy
 msgid "Java source files"
-msgstr "C/C++-källfiler"
+msgstr "Java-källfiler"
 
 #: src/project_dbase_gui.c:172 widgets/gnomefilelist.c:719
 msgid "Pascal files"
@@ -6042,57 +5785,48 @@ msgid ".lua files"
 msgstr ".lua-filer"
 
 #: src/project_dbase_gui.c:187
-#, fuzzy
 msgid "PNG files"
-msgstr "Po-filer:"
+msgstr "PNG-filer"
 
 #: src/project_dbase_gui.c:188
-#, fuzzy
 msgid "JPG files"
-msgstr "Po-filer:"
+msgstr "JPG-filer"
 
 #: src/project_dbase_gui.c:189
-#, fuzzy
 msgid "BMP files"
-msgstr "Po-filer:"
+msgstr "BMP-filer"
 
 #: src/project_dbase_gui.c:190
-#, fuzzy
 msgid "GIF files"
-msgstr "Filer"
+msgstr "GIF-filer"
 
 #: src/project_dbase_gui.c:207
-#, fuzzy
 msgid "Text files"
-msgstr "Perlfiler"
+msgstr "Textfiler"
 
 #: src/project_dbase_gui.c:208
-#, fuzzy
 msgid "XML files"
-msgstr "PHP-filer"
+msgstr "XML-filer"
 
 #: src/project_dbase_gui.c:209
-#, fuzzy
 msgid "HTML files"
-msgstr "PHP-filer"
+msgstr "HTML-filer"
 
 #: src/project_dbase_gui.c:210
-#, fuzzy
 msgid "DOC files"
-msgstr "Diff-filer"
+msgstr "DOC-filer"
 
 #: src/project_dbase_gui.c:219
-#, fuzzy
 msgid "PO files"
-msgstr "PHP-filer"
+msgstr "PO-filer"
 
 #: src/project_dbase_gui.c:228
 msgid "C/C++ Headers"
-msgstr ""
+msgstr "C/C++-huvud"
 
 #: src/project_dbase_gui.c:259
 msgid "Add file to module: "
-msgstr ""
+msgstr "Lägg till fil till modul: "
 
 #: src/project_dbase_gui.c:584 widgets/gnomefilelist.c:396
 msgid "Files"
@@ -6296,14 +6030,15 @@ msgid "Unable to find pixmap file: %s"
 msgstr "Kan inte hitta pixmapfilen: %s"
 
 #: src/project_dbase_gui.c:1328
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "\"%s\"\n"
 "does not exist.\n"
 "Do you want to create it now ?"
 msgstr ""
-"Filen \"%s\" finns redan.\n"
-"Vill du skriva över den?"
+"\"%s\"\n"
+"finns inte.\n"
+"Vill du skapa den nu?"
 
 #: src/project_dbase_gui.c:1356
 #, c-format
@@ -6322,9 +6057,9 @@ msgid "Unable to find import script %s"
 msgstr "Kan inte hitta pixmapfilen: %s"
 
 #: src/project_import.c:94
-#, fuzzy, c-format
+#, c-format
 msgid "%s: Not a regular file"
-msgstr "Inte en vanlig fil: %s."
+msgstr "%s: Inte en vanlig fil"
 
 #: src/project_import.c:106
 #, fuzzy, c-format
@@ -7493,6 +7228,313 @@ msgstr ""
 #: widgets/cell-renderer-captioned-image.c:215
 msgid "The pixbuf to render."
 msgstr ""
+
+#~ msgid "History size"
+#~ msgstr "Historikstorlek"
+
+#~ msgid "Silent. That is, do not echo shell commands during make"
+#~ msgstr "Tyst: Dvs eka inte skalkommandon under körning av make"
+
+#~ msgid "Strip trailing spaces on file save"
+#~ msgstr "Ta bort eftersläpande blanksteg vid filsparande"
+
+#~ msgid "Autocomplete XML/HTML closing tags"
+#~ msgstr "Fyll automatiskt i stängtaggar för XML/HTML"
+
+#~ msgid "Position"
+#~ msgstr "Position"
+
+#~ msgid "Editor caret (cursor) width in pixels"
+#~ msgstr "Bredd på redigerar-caret (markör) i bildpunkter"
+
+#~ msgid "Fold style"
+#~ msgstr "Inhängningsstil"
+
+#~ msgid "Arrow"
+#~ msgstr "Pil"
+
+#~ msgid "Tab size in spaces"
+#~ msgstr "Tabulatorstorlek i blanksteg"
+
+#~ msgid "Indentation size in spaces"
+#~ msgstr "Automatisk indenteringsstorlek i blanksteg"
+
+#~ msgid "Mode"
+#~ msgstr "Läge"
+
+#~ msgid "Color"
+#~ msgstr "Färg"
+
+#~ msgid "Colours"
+#~ msgstr "Färger"
+
+#~ msgid "Colors"
+#~ msgstr "Färger"
+
+#~ msgid "Number of first characters to show"
+#~ msgstr "Antal första tecken att visa"
+
+#~ msgid "Number of last characters to show"
+#~ msgstr "Antal sista tecken att visa"
+
+#~ msgid "Tabs position"
+#~ msgstr "Tabulatorposition"
+
+#~ msgid "Tab position"
+#~ msgstr "Tabulatorposition"
+
+#~ msgid "Message options"
+#~ msgstr "Meddelandealternativ"
+
+#~ msgid "Enable automatic message indicators"
+#~ msgstr "Aktivera automatiska meddelandeindikatorer"
+
+#~ msgid "Indicator"
+#~ msgstr "Indikator"
+
+#~ msgid "Error messages:"
+#~ msgstr "Felmeddelanden:"
+
+#~ msgid "Warning messages:"
+#~ msgstr "Varningsmeddelanden:"
+
+#~ msgid "Class name:"
+#~ msgstr "Klassnamn:"
+
+#~ msgid "Header file:"
+#~ msgstr "Huvudfil:"
+
+#~ msgid "Source file:"
+#~ msgstr "Källfil:"
+
+#~ msgid "Base class:"
+#~ msgstr "Basklass:"
+
+#~ msgid "Base class inheritance:"
+#~ msgstr "Basklassärvning:"
+
+#~ msgid "Welcome to the Anjuta Class Builder."
+#~ msgstr "Välkommen till Anjuta-klassbyggaren."
+
+#~ msgid "Class type:"
+#~ msgstr "Klasstyp:"
+
+#~ msgid "Class"
+#~ msgstr "Klass"
+
+#~ msgid "Patch level"
+#~ msgstr "Patchnivå"
+
+#~ msgid "Patching %s using %s"
+#~ msgstr "Patchar %s med %s"
+
+#~ msgid "Patching..."
+#~ msgstr "Patchar..."
+
+#~ msgid "Printing..."
+#~ msgstr "Skriver ut..."
+
+#~ msgid "Revision"
+#~ msgstr "Revision"
+
+#~ msgid ""
+#~ "The file '%s' already exists.\n"
+#~ "Do you want to overwrite it?"
+#~ msgstr ""
+#~ "Filen \"%s\" finns redan.\n"
+#~ "Vill du skriva över den?"
+
+#~ msgid "Are you sure you want to delete tool '%s'?"
+#~ msgstr "Är du säker på att du vill ta bort verktyget \"%s\"?"
+
+#~ msgid "Names"
+#~ msgstr "Namn"
+
+#~ msgid "Library paths"
+#~ msgstr "Bibliotekssökvägar"
+
+#~ msgid "Library"
+#~ msgstr "Bibliotek"
+
+#~ msgid "Module"
+#~ msgstr "Modul"
+
+#~ msgid "CVS Updating"
+#~ msgstr "CVS-uppdatering"
+
+#~ msgid "CVS Committing"
+#~ msgstr "CVS-verkställer"
+
+#~ msgid "CVS Importing..."
+#~ msgstr "CVS-importerar..."
+
+#~ msgid "CVS Importing"
+#~ msgstr "CVS-importerar"
+
+#~ msgid "CVS Adding"
+#~ msgstr "CVS-tillägger"
+
+#~ msgid "CVS Removing"
+#~ msgstr "CVS-borttager"
+
+#~ msgid "Getting CVS status"
+#~ msgstr "Hämtar CVS-status"
+
+#~ msgid "Getting CVS log"
+#~ msgstr "Hämtar CVS-logg"
+
+#~ msgid "CVS diffing"
+#~ msgstr "CVS-diffar"
+
+#~ msgid "CVS login"
+#~ msgstr "CVS-inloggning"
+
+#~ msgid "done"
+#~ msgstr "klar"
+
+#~ msgid "Extern"
+#~ msgstr "Extern"
+
+#~ msgid "File:"
+#~ msgstr "Fil:"
+
+#~ msgid "Branch:"
+#~ msgstr "Branch:"
+
+#~ msgid "Revision:"
+#~ msgstr "Revision:"
+
+#~ msgid "Log message:"
+#~ msgstr "Loggmeddelande:"
+
+#~ msgid "Date:"
+#~ msgstr "Datum:"
+
+#~ msgid "Server type:"
+#~ msgstr "Servertyp:"
+
+#~ msgid "Username:"
+#~ msgstr "Användarnamn:"
+
+#~ msgid "Server:"
+#~ msgstr "Server:"
+
+#~ msgid "Directory on the server:"
+#~ msgstr "Katalog på servern:"
+
+#~ msgid "Import Project"
+#~ msgstr "Importera projekt"
+
+#~ msgid "Dir on the server:"
+#~ msgstr "Katalog på servern:"
+
+#~ msgid "Module name:"
+#~ msgstr "Modulnamn:"
+
+#~ msgid "Release name:"
+#~ msgstr "Versionsnamn:"
+
+#~ msgid "Vendor tag:"
+#~ msgstr "Leverantörstagg:"
+
+#~ msgid "_Find..."
+#~ msgstr "_Sök..."
+
+#~ msgid "Find and R_eplace..."
+#~ msgstr "Sök och _ersätt..."
+
+#~ msgid "Fin_d in Files..."
+#~ msgstr "Sö_k i filer..."
+
+#~ msgid "Go Back"
+#~ msgstr "Gå bakåt"
+
+#~ msgid "Go Forward"
+#~ msgstr "Gå framåt"
+
+#~ msgid "Comment code"
+#~ msgstr "Kommentera kod"
+
+#~ msgid "Line wrapping"
+#~ msgstr "Radbrytning"
+
+#~ msgid "Message window"
+#~ msgstr "Meddelandefönster"
+
+#~ msgid "Project window"
+#~ msgstr "Projektfönster"
+
+#~ msgid "_Memory Info"
+#~ msgstr "_Minnesinformation"
+
+#~ msgid "Memory Info"
+#~ msgstr "Minnesinformation"
+
+#~ msgid "Update Project"
+#~ msgstr "Uppdatera projekt"
+
+#~ msgid "Commit Project"
+#~ msgstr "Verkställ projekt"
+
+#~ msgid "Co_mmands..."
+#~ msgstr "Ko_mmandon..."
+
+#~ msgid "Commands..."
+#~ msgstr "Kommandon..."
+
+#~ msgid "Syntax _highlighting..."
+#~ msgstr "Syntaxfärgning..."
+
+#~ msgid "_Edit user.properties file..."
+#~ msgstr "_Redigera filen user.properties..."
+
+#~ msgid "Customize shortcuts"
+#~ msgstr "Anpassa genvägar"
+
+#~ msgid "Tools Editor"
+#~ msgstr "Verktygsredigerare"
+
+#~ msgid "Browse GNOME API Pages"
+#~ msgstr "Bläddra i API-sidor för GNOME"
+
+#~ msgid "Browse Man Pages"
+#~ msgstr "Bläddra i manualsidor"
+
+#~ msgid "Browse Info Pages"
+#~ msgstr "Bläddra i infosidor"
+
+#~ msgid "Search a topic"
+#~ msgstr "Sök ett ämne"
+
+#~ msgid "Anjuta Home Page"
+#~ msgstr "Hemsida för Anjuta"
+
+#~ msgid "Libraries API references"
+#~ msgstr "Referenser till biblioteks-API"
+
+#~ msgid "Report Bugs"
+#~ msgstr "Rapportera fel"
+
+#~ msgid "Request Features"
+#~ msgstr "Begär funktioner"
+
+#~ msgid "Submit patches"
+#~ msgstr "Skicka programfixar"
+
+#~ msgid "Ask a question"
+#~ msgstr "Ställ en fråga"
+
+#~ msgid "Hex address"
+#~ msgstr "Hexadecimal adress"
+
+#~ msgid "Non accessible address!"
+#~ msgstr "Adressen är inte åtkomlig!"
+
+#~ msgid "Preferences"
+#~ msgstr "Inställningar"
+
+#~ msgid "Add file to module:"
+#~ msgstr "Lägg till fil till modul:"
 
 #~ msgid "Load global defaults"
 #~ msgstr "Läs in globala standardalternativ"
