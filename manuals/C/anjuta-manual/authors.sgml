@@ -1,36 +1,37 @@
  <chapter id="authors">
   <title>Authors</title>
    <para>
-    The <application>Anjuta</application> project was founded by 
-	Naba Kumar. Naba is from India (Manipur) and got his B.Tech degree in electronic and
-    communication engineering from <citetitle>North Eastern Regional
+    The <application>Anjuta</application> project was founded by Naba Kumar. Naba 
+    is from India (Manipur) and got his B.Tech degree in electronic and 
+    communication engineering from <citetitle>North Eastern Regional 
     Institute of Science and Technology (NERIST), India.</citetitle>
    </para>
 
    <para>
     <application>Anjuta</application> was written by Naba Kumar, Stéphane Démurget, Luca Bellonda, 
-	Hector Rivera Falu, Andy Piper, Max Blagai, Johannes Schmid, Rick Patel, Denis Boehme, Fatih Demir,
-	Archit Baweja, Martyn Bone, Venugopal Gummuluru, Gregory Schmitt, Yannick Koehler, 
-	Giovanni Corriga and Dan Elphick.
+    Hector Rivera Falu, Andy Piper, Max Blagai, Johannes Schmid, Rick Patel, Denis Boehme, Fatih Demir, 
+    Archit Baweja, Martyn Bone, Venugopal Gummuluru, Gregory Schmitt, Yannick Koehler, 
+    Giovanni Corriga and Dan Elphick.
    </para>
    
    <para>
     Thanks go to the translators: Javier Conde Rueda, Stéphane Démurget, Takeshi Aihana, 
-	M.Ali Vardar, Michele Campeotto, Christian Rose, Yuriy Syrota, Valek Filippov, Marc Botermans, 
-	Joe Man, Conner Mo, Jens Georg, Kjartan Maraas, Dinesh Nadarajah and the GNOME PL Team.
+    M.Ali Vardar, Michele Campeotto, Christian Rose, Yuriy Syrota, Valek Filippov, Marc Botermans, 
+    Joe Man, Conner Mo, Jens Georg, Kjartan Maraas, Dinesh Nadarajah, the GNOME PL Team, 
+    and Marcelo Elias Del Valle.
    </para>
 
    <para>
     For more information on <application>Anjuta</application>, please visit the project 
-	website at <ulink type="http" url="http://anjuta.sourceforge.net">http://anjuta.sourceforge.net</ulink>. 
-	Bug reports should be made using the Bug Tracker at the project development site 
-	<ulink type="http" url="http://www.sourceforge.net/projects/anjuta">
-	http://www.sourceforge.net/projects/anjuta</ulink>
+    website at <ulink type="http" url="http://anjuta.sourceforge.net">http://anjuta.sourceforge.net</ulink>. 
+    Bug reports should be made using the Bug Tracker at the project development site 
+    <ulink type="http" url="http://www.sourceforge.net/projects/anjuta">
+    http://www.sourceforge.net/projects/anjuta</ulink>
    </para>
    
    <para>
     This manual was written by Naba Kumar and Andy Piper. Please send all comments and suggestions regarding 
-	this manual to Andy Piper <email>andy.piper@freeuk.com</email>. Comments may also be submitted via the 
-	project Trackers at SourceForge.
+    this manual to Andy Piper <email>andy.piper@freeuk.com</email>. Comments may also be submitted via the 
+    project trackers at SourceForge.
    </para> 
 </chapter>

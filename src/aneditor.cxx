@@ -1,5 +1,5 @@
 /*
-    aneditor.c
+    aneditor.cxx
     Copyright (C) 2000  Kh. Naba Kumar Singh
 
     This program is free software; you can redistribute it and/or modify
@@ -17,7 +17,7 @@
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 /*
- * Most of the code stollen from SciTE and heavily modified.
+ * Most of the code stolen from SciTE and heavily modified.
  * If code sections are later imported from SciTE, utmost care
  * should be taken to ensure that it does not conflict with the present code.
  */
@@ -507,7 +507,6 @@ void AnEditor::BraceMatch() {
 			indentSize = props->GetInt("indent.size");
 			if (columnAtCaretNext - indentSize > 1)
 				columnAtCaret = columnAtCaretNext - indentSize;
-			//Platform::DebugPrintf(": %d %d %d\n", lineStart, indentPos, columnAtCaret);
 		}
 
 
@@ -655,7 +654,6 @@ void AnEditor::BookmarkClear() {
 }
 
 bool AnEditor::StartCallTip() {
-	//Platform::DebugPrintf("StartCallTip\n");
 	char linebuf[1000];
 	int current = GetLine(linebuf, sizeof(linebuf));
 	int pos = SendEditor(SCI_GETCURRENTPOS);
@@ -689,7 +687,6 @@ bool AnEditor::StartCallTip() {
 	linebuf[current] = '\0';
 	int rootlen = current - startword;
 	functionDefinition = "";
-	//Platform::DebugPrintf("word  is [%s] %d %d %d\n", linebuf + startword, rootlen, pos, pos - rootlen);
 	if (apis) {
 		const char *word = apis.GetNearestWord (linebuf + startword, rootlen, callTipIgnoreCase);
 		if (word) {
@@ -871,8 +868,6 @@ bool AnEditor::StartAutoCompleteWord() {
 		}
 		ft.chrg.cpMin = posFind + wordlen;
 	}
-	//DWORD dwEnd = timeGetTime();
-	//Platform::DebugPrintf("<%s> found %d characters took %d\n", root, length, dwEnd - dwStart);
 	if (length) {
 		SendEditorString(SCI_AUTOCSHOW, rootlen, words);
 	}
@@ -1075,7 +1070,7 @@ void AnEditor::AutomaticIndentation(char ch) {
 	}
 }
 
-// Upon a character being added, SciTE may decide to perform some action
+// Upon a character being added, AnEditor may decide to perform some action
 // such as displaying a completion list.
 void AnEditor::CharAdded(char ch) {
 	CharacterRange crange = GetSelection();
@@ -1083,7 +1078,6 @@ void AnEditor::CharAdded(char ch) {
 	int selEnd = crange.cpMax;
 	if ((selEnd == selStart) && (selStart > 0)) {
 		int style = SendEditor(SCI_GETSTYLEAT, selStart - 1, 0);
-		//Platform::DebugPrintf("Char added %d style = %d %d\n", ch, style, braceCount);
 		if (style != 1) {
 			if (SendEditor(SCI_CALLTIPACTIVE)) {
 				if (ch == ')') {
@@ -1121,7 +1115,7 @@ void AnEditor::GoMatchingBrace(bool select) {
 	int braceAtCaret = -1;
 	int braceOpposite = -1;
 	bool isInside = FindMatchingBracePosition(braceAtCaret, braceOpposite, true);
-	// Convert the chracter positions into caret positions based on whether
+	// Convert the character positions into caret positions based on whether
 	// the caret position was inside or outside the braces.
 	if (isInside) {
 		if (braceOpposite > braceAtCaret) {
@@ -1386,14 +1380,12 @@ long AnEditor::Command(int cmdID, long wParam, long lParam) {
 }
 
 void AnEditor::FoldChanged(int line, int levelNow, int levelPrev) {
-	//Platform::DebugPrintf("Fold %d %x->%x\n", line, levelPrev, levelNow);
 	if (levelNow & SC_FOLDLEVELHEADERFLAG) {
 		SendEditor(SCI_SETFOLDEXPANDED, line, 1);
 	} else if (levelPrev & SC_FOLDLEVELHEADERFLAG) {
-		//Platform::DebugPrintf("Fold removed %d-%d\n", line, SendEditor(SCI_GETLASTCHILD, line));
 		if (!SendEditor(SCI_GETFOLDEXPANDED, line)) {
-			// Removing the fold from one that has been contracted so dhould expand
-			// otherwise lines are left invisibe with no war to make them visible
+			// Removing the fold from one that has been contracted so should expand
+			// otherwise lines are left invisible with no way to make them visible
 			Expand(line, true, false, 0, levelPrev);
 		}
 	}
@@ -1536,7 +1528,6 @@ void AnEditor::EnsureRangeVisible(int posStart, int posEnd) {
 
 bool AnEditor::MarginClick(int position, int modifiers) {
 	int lineClick = SendEditor(SCI_LINEFROMPOSITION, position);
-	//Platform::DebugPrintf("Margin click %d %d %x\n", position, lineClick,
 	//	SendEditor(SCI_GETFOLDLEVEL, lineClick) & SC_FOLDLEVELHEADERFLAG);
 	if (modifiers & SCMOD_SHIFT) {
 		FoldCloseAll();
@@ -1570,9 +1561,7 @@ void AnEditor::NotifySignal(GtkWidget *, gint /*wParam*/, gpointer lParam, AnEdi
 }
 
 void AnEditor::Notify(SCNotification *notification) {
-	//Platform::DebugPrintf("Notify %d\n", notification->nmhdr.code);
 	switch (notification->nmhdr.code) {
-
 	case SCN_KEY:{
 			if(!accelGroup) break;
 			int mods = 0;
@@ -1641,7 +1630,6 @@ static Colour ColourFromString(const char *val) {
 
 void AnEditor::SetOneStyle(Window &win, int style, const char *s) {
 	char *val = StringDup(s);
-	//Platform::DebugPrintf("Style %d is [%s]\n", style, val);
 	char *opt = val;
 	while (opt) {
 		char *cpComma = strchr(opt, ',');
@@ -1831,7 +1819,6 @@ void AnEditor::ReadProperties(const char *fileForExt) {
 				apis.SetFromAllocated();
 			}
 			fclose(fp);
-			//Platform::DebugPrintf("Finished api file %d\n", len);
 		}
 	}
 
@@ -2050,7 +2037,7 @@ void AnEditor::ReadProperties(const char *fileForExt) {
 	firstPropertiesRead = true;
 }
 
-// Anjtua: In our case, we read it everytime
+// Anjuta: In our case, we read it everytime
 void AnEditor::ReadPropertiesInitial() {
 	indentationWSVisible = props->GetInt("view.indentation.whitespace", 1);
 	ViewWhitespace(props->GetInt("view.whitespace"));

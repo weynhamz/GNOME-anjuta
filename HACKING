@@ -32,6 +32,31 @@ Key elements:
 * ccview/ - the C++ class viewer
 * launcher/ - launcher wrapper used by the debugger
 
+
+Scintilla
+---------
+
+The editing component in Anjuta is Scintilla (www.scintilla.org). 
+The Scintilla sources are imported to the scintilla/ directory in the
+Anjuta source tree - some reorganisation is required:
+
+Scintilla		Anjuta
+---------		------
+src/		->	scintilla/
+gtk/		->	scintilla/
+include/	->	scintilla/include
+
+These are used to compile libscintilla.a, the library which provides
+the bulk of Anjuta's editing functions.
+
+The interface into Scintilla is in src/aneditor.cxx. This is based on
+SciTE and a lot of care needs to be taken when merging code, since it
+combines several different files from the SciTE source tree and is
+quite flexible in the ways that they are used. Also, note that lexer
+objects from Scintilla must be referenced in src/Makefile.am in order 
+to get linked into Anjuta.
+
+
 Documentation
 -------------
 
@@ -46,7 +71,8 @@ and menus are converted to RGB and the Script-Fu Drop Shadow effect applied
 Translations of application messages are stored in the standard po/ 
 directory structure at the top level of the source tree.
 
-ARCHITECHTURE:
+
+ARCHITECTURE:
 -------------
 
 FIXME.
@@ -138,7 +164,7 @@ FIXME.
 
 4) Property/Config management:
 ------------------------------
-Anjuta does not use gconf (atleast, not now), and instead has its own config 
+Anjuta does not use gconf (at least, not now), and instead has its own config 
 manager/properties manager. The source for this is in src/properties.cxx.
 There are some advantages in using this over gconf, including the ability to
 do variable substitution. Anjuta needs these advantages to operate properly.

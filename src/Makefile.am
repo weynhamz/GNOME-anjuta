@@ -32,7 +32,9 @@ SCILEXERS =\
 	../scintilla/LexCrontab.o\
 	../scintilla/LexEiffel.o\
 	../scintilla/LexLisp.o\
-	../scintilla/LexRuby.o
+	../scintilla/LexRuby.o\
+	../scintilla/LexBullant.o\
+	../scintilla/LexAda.o
 
 bin_PROGRAMS = anjuta
 

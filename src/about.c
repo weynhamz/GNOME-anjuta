@@ -50,7 +50,8 @@ create_about_gui ()
 		"Denis Boehme <boehme@synci.de>",
 		"Gregory Schmitt <gregory.schmitt@free.fr>",
 		"Yannick Koehler <yannick.koehler@colubris.com>", 
-		"Giovanni Corriga <valkadesh@libero.it>", 
+		"Giovanni Corriga <valkadesh@libero.it>",
+		"Dan Elphick <dre00r@ecs.soton.ac.uk>",
 		NULL
 	};
 	GtkWidget *about_gui;

@@ -1,8 +1,18 @@
+2001-11-07	Andy Piper	<andy.piper@freeuk.com>
+
+	* scintilla/: updated to 1.41
+	* src/Makefile.am: added Ada and Bullant lexers from Scintilla
+	* src/about.c: updated list of authors
+	* src/aneditor.cxx: tidied to remove unused SciTE debug calls
+	* HACKING: updated to cover Scintilla usage
+	* THANKS, manuals/C/anjuta-manual/authors.sgml: updated for new 
+	  translation
+
 2001-11-07  Naba Kumar <kh_naba@users.sourceforge.net>
 
 	* src/aneditor.cxx: Fixed compilation errors with it.
-	   by add include to gtk+ headers and typedefining a mysteriously
-	   vanished class Colour.
+	  by add include to gtk+ headers and typedefining a mysteriously
+	  vanished class Colour.
 
 2001-10-29  Naba Kumar <kh_naba@users.sourceforge.net>
 
