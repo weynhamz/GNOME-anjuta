@@ -203,11 +203,11 @@ gnome_filelist_new_with_path (const gchar * path)
 	file_list = gtk_type_new (GNOME_TYPE_FILELIST);
 	gnome_window_icon_set_from_default (GTK_WINDOW (file_list));
 	gtk_container_set_border_width (GTK_CONTAINER (file_list), 5);
-	// gtk_signal_connect(GTK_OBJECT(file_list), "key_press_event",
+	// g_signal_connect(G_OBJECT(file_list), "key_press_event",
 	// GTK_SIGNAL_FUNC(gnome_filelist_key_press), 0);
-	gtk_signal_connect (GTK_OBJECT (file_list), "show",
+	g_signal_connect (G_OBJECT (file_list), "show",
 						GTK_SIGNAL_FUNC (gnome_filelist_show), file_list);
-	gtk_signal_connect (GTK_OBJECT (file_list), "hide",
+	g_signal_connect (G_OBJECT (file_list), "hide",
 						GTK_SIGNAL_FUNC (gnome_filelist_hide), file_list);
 	main_box = gtk_vbox_new (FALSE, 5);
 	gtk_box_pack_start_defaults (GTK_BOX (GTK_DIALOG(file_list)->vbox), main_box);
@@ -265,7 +265,7 @@ gnome_filelist_new_with_path (const gchar * path)
 	gtk_toolbar_append_widget (GTK_TOOLBAR (toolbar),
 							   file_list->show_hidden_button,
 							   _("Show hidden files"), NULL);
-	gtk_signal_connect (GTK_OBJECT (file_list->show_hidden_button), "toggled",
+	g_signal_connect (G_OBJECT (file_list->show_hidden_button), "toggled",
 						GTK_SIGNAL_FUNC (show_hidden_toggled), file_list);
 
 	util_box = gtk_hbox_new (FALSE, 0);
@@ -283,14 +283,14 @@ gnome_filelist_new_with_path (const gchar * path)
 	gtk_entry_set_editable (GTK_ENTRY
 							(GTK_COMBO (file_list->history_combo)->entry),
 							FALSE);
-	gtk_signal_connect (GTK_OBJECT
+	g_signal_connect (G_OBJECT
 						(GTK_COMBO (file_list->history_combo)->entry),
 						"changed", GTK_SIGNAL_FUNC (history_combo_go),
 						file_list);
-	gtk_signal_connect (GTK_OBJECT
+	g_signal_connect (G_OBJECT
 						(GTK_COMBO (file_list->history_combo)->entry),
 						"activate", GTK_SIGNAL_FUNC (check_goto), file_list);
-	gtk_signal_connect (GTK_OBJECT
+	g_signal_connect (G_OBJECT
 						(GTK_COMBO (file_list->history_combo)->button),
 						"clicked", GTK_SIGNAL_FUNC (history_combo_clicked),
 						file_list);
@@ -314,7 +314,7 @@ gnome_filelist_new_with_path (const gchar * path)
 	dir_adjustment =
 		gtk_scrolled_window_get_vadjustment (GTK_SCROLLED_WINDOW
 											 (file_list->scrolled_window_dir));
-	gtk_signal_connect (GTK_OBJECT (dir_adjustment), "value-changed",
+	g_signal_connect (G_OBJECT (dir_adjustment), "value-changed",
 						GTK_SIGNAL_FUNC (dir_scrollbar_value_changed),
 						file_list);
 
@@ -372,7 +372,7 @@ gnome_filelist_new_with_path (const gchar * path)
 	file_adjustment =
 		gtk_scrolled_window_get_vadjustment (GTK_SCROLLED_WINDOW
 											 (file_list->scrolled_window_file));
-	gtk_signal_connect (GTK_OBJECT (file_adjustment), "value-changed",
+	g_signal_connect (G_OBJECT (file_adjustment), "value-changed",
 						GTK_SIGNAL_FUNC (file_scrollbar_value_changed),
 						file_list);
 
@@ -442,12 +442,12 @@ gnome_filelist_new_with_path (const gchar * path)
 	gtk_table_attach (GTK_TABLE (util_box), file_list->selection_entry, 1, 2, 0,
 					  1, (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
 					  (GtkAttachOptions) (0), 0, 0);
-	gtk_signal_connect (GTK_OBJECT (file_list->selection_entry),
+	g_signal_connect (G_OBJECT (file_list->selection_entry),
 						"key_press_event",
 						GTK_SIGNAL_FUNC (selection_entry_key_press), file_list);
-	gtk_signal_connect (GTK_OBJECT (file_list->selection_entry), "changed",
+	g_signal_connect (G_OBJECT (file_list->selection_entry), "changed",
 						GTK_SIGNAL_FUNC (check_ok_button_cb), file_list);
-	gtk_signal_connect (GTK_OBJECT (file_list->selection_entry), "activate",
+	g_signal_connect (G_OBJECT (file_list->selection_entry), "activate",
 						GTK_SIGNAL_FUNC (check_goto), file_list);
 	gtk_widget_show (file_list->selection_entry);
 
@@ -470,7 +470,7 @@ gnome_filelist_new_with_path (const gchar * path)
 	gtk_entry_set_editable (GTK_ENTRY
 							(GTK_COMBO (file_list->filetype_combo)->entry),
 							FALSE);
-	gtk_signal_connect (GTK_OBJECT
+	g_signal_connect (G_OBJECT
 						(GTK_COMBO (file_list->filetype_combo)->entry),
 						"changed", GTK_SIGNAL_FUNC (filetype_combo_go),
 						file_list);

@@ -7,6 +7,9 @@ INCLUDES = \
 	$(ANJUTA_CFLAGS)\
 	-DHAVE_CONFIG_H\
 	-DPIXMAPS_DIR=\"$(anjuta_pixmapsdir)\"
+#	-DG_DISABLE_DEPRECATED -DGDK_DISABLE_DEPRECATED \
+#	-DGDK_PIXBUF_DEPRECATED \
+#	-DGTK_DISABLE_DEPRECATED -DGNOME_DISABLE_DEPRECATED
 
 noinst_LIBRARIES = libwidgets.a
 
@@ -17,4 +20,3 @@ libwidgets_a_SOURCES = \
 	cell-renderer-captioned-image.h \
 	e-splash.h \
 	e-splash.c
-
