@@ -1,14 +1,14 @@
 2002-02-20  Johannes Schmid <clubfan@users.sourceforge.net>
   
-   * src/appwiz_page3.c, src/appwizard.c, src/appwizard_cbs.c, 
-     src/appwizard_gui.c, src/project_dbase.c, src/source.c,
-	 src/wizard_gui.c: Added support for static and dynamic libs
+	* src/appwiz_page3.c, src/appwizard.c, src/appwizard_cbs.c, 
+	  src/appwizard_gui.c, src/project_dbase.c, src/source.c,
+	  src/wizard_gui.c: Added support for static and dynamic libs
 	
 2002-02-20  Dan Elphick <dre00r@ecs.soton.ac.uk>
 
-   * widgets/gnomefilelist.c:
-     Fixed gnome_filelist_get_lastfilename so it no longer returns
-     a corrupted path.
+	* widgets/gnomefilelist.c:
+	  Fixed gnome_filelist_get_lastfilename so it no longer returns
+	  a corrupted path.
 
 2002-02-20  Naba Kumar <kh_naba@users.sourceforge.net>
 
