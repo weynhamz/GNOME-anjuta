@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-02-28 19:51+0100\n"
-"PO-Revision-Date: 2004-02-28 19:53+0100\n"
+"PO-Revision-Date: 2004-02-29 18:03+0100\n"
 "Last-Translator: Francisco Javier F. Serrador <serrador@cvs.gnome.org>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -46,7 +46,7 @@ msgstr ""
 "mucho tiempo para verificarse.\n"
 "\n"
 "Límites:\n"
-"- Las expresiones regulares sólo pueden ser buscadas hacia adelante\n"
+"- Las expresiones regulares sólo pueden ser buscadas hacia adelante"
 
 #: anjuta.glade.h:8
 msgid "$(module.source.files) $(module.include.files)"
@@ -163,8 +163,7 @@ msgstr "Autoguardar"
 
 #: anjuta.glade.h:35
 msgid "Autosave editor files before build starts"
-msgstr ""
-"Autoguardar los archivos del editor antes de que se inicie la construcción"
+msgstr "Autoguardar los archivos del editor antes de que se inicie la construcción"
 
 #: anjuta.glade.h:36
 msgid "Back color:"
@@ -1131,8 +1130,7 @@ msgstr "Reemplazar por:"
 
 #: anjuta.glade.h:266
 msgid "Reset all sticky tags during update (looses branch) [-A]"
-msgstr ""
-"Restablecer todas las etiquetas adhesivas al actualizar (pierde la rama) [-A]"
+msgstr "Restablecer todas las etiquetas adhesivas al actualizar (pierde la rama) [-A]"
 
 #: anjuta.glade.h:267
 msgid "Right"
@@ -1260,23 +1258,19 @@ msgstr "Módulo de fuentes Makefile.am"
 
 #: anjuta.glade.h:298
 msgid "Space-seperated list of directory name patterns to ignore"
-msgstr ""
-"Lista separada por espacios de patrones de nombres de directorio a ignorar"
+msgstr "Lista separada por espacios de patrones de nombres de directorio a ignorar"
 
 #: anjuta.glade.h:299
 msgid "Space-seperated list of directory name patterns to match"
-msgstr ""
-"Lista separada por espacios de patrones de nombres de directorio a coincidir"
+msgstr "Lista separada por espacios de patrones de nombres de directorio a coincidir"
 
 #: anjuta.glade.h:300
 msgid "Space-seperated list of file name patterns to ignore"
-msgstr ""
-"Lista separada por espacios de patrones de nombres de archivo a ignorar"
+msgstr "Lista separada por espacios de patrones de nombres de archivo a ignorar"
 
 #: anjuta.glade.h:301
 msgid "Space-seperated list of file name patterns to match"
-msgstr ""
-"Lista separada por espacios de patrones de nombres de archivo a coincidir"
+msgstr "Lista separada por espacios de patrones de nombres de archivo a coincidir"
 
 #: anjuta.glade.h:302
 msgid "Squares"
@@ -1596,8 +1590,7 @@ msgid "Locked"
 msgstr "Bloqueado"
 
 #: gdl/gdl-dock-item.c:283
-msgid ""
-"If set, the dock item cannot be dragged around and it doesn't show a grip"
+msgid "If set, the dock item cannot be dragged around and it doesn't show a grip"
 msgstr ""
 " Si se establece, el elemento acoplable no puede arrastrarse y no muestra un "
 "tirador"
@@ -1662,8 +1655,7 @@ msgstr "Principal"
 
 #: gdl/gdl-dock-layout.c:126
 msgid "GdlDockMaster object which the layout object is attached to"
-msgstr ""
-"Objeto GdlDockMaster con el cuál el objeto de disposición está encajado"
+msgstr "Objeto GdlDockMaster con el cuál el objeto de disposición está encajado"
 
 #: gdl/gdl-dock-layout.c:133
 msgid "Dirty"
@@ -1725,8 +1717,7 @@ msgstr "Título predeterminado"
 
 #: gdl/gdl-dock-master.c:137
 msgid "Default title for newly created floating docks"
-msgstr ""
-"Título predeterminado para los acoplables flotantes recientemente creados"
+msgstr "Título predeterminado para los acoplables flotantes recientemente creados"
 
 #: gdl/gdl-dock-master.c:144
 msgid ""
@@ -1808,8 +1799,7 @@ msgstr "No se puede acoplar %p a %p porque pertenecen a diferentes dueños"
 
 #: gdl/gdl-dock-object.c:583
 #, c-format
-msgid ""
-"Attempt to bind to %p an already bound dock object %p (current master: %p)"
+msgid "Attempt to bind to %p an already bound dock object %p (current master: %p)"
 msgstr ""
 "Se intentó vincular a %p un objeto acoplable ya vinculado %p (dueño actual : "
 "%p)"
@@ -2071,8 +2061,7 @@ msgid "V 0.0.2 (June 11, 2002)"
 msgstr "V 0.0.2 (11 de junio de 2002)"
 
 #: plugins/class-gen/clsGen.c:1570
-msgid ""
-"TODO: add the ability to declare member functions and their parameters here."
+msgid "TODO: add the ability to declare member functions and their parameters here."
 msgstr ""
 "POR hacer: añadir la capacidad para declarar funciones miembro y sus "
 "parámetros aquí."
@@ -2268,8 +2257,7 @@ msgstr ""
 
 #: src/an_file_view.c:283
 msgid "Unable to build user interface for file filter"
-msgstr ""
-"No se pudo compilar el interfaz de usuario para el el filtro de archivo"
+msgstr "No se pudo compilar el interfaz de usuario para el el filtro de archivo"
 
 #. 0
 #: src/an_file_view.c:363
@@ -2332,8 +2320,7 @@ msgstr "Archivo diff"
 
 #: src/an_file_view.c:406 src/main_menubar_def.h:1645
 msgid "Create a diff between the working copy and the repository"
-msgstr ""
-"Crear un archivo de diferencias entre la copia de trabajo y el repositorio"
+msgstr "Crear un archivo de diferencias entre la copia de trabajo y el repositorio"
 
 #. 0
 #. 2
@@ -2572,8 +2559,7 @@ msgstr "Herramienta"
 
 #: src/anjuta-tools.c:1188
 msgid "Unable to build user interface for tool editor"
-msgstr ""
-"No se pudo construir el interfaz de usuario para el editor de herramientas"
+msgstr "No se pudo construir el interfaz de usuario para el editor de herramientas"
 
 #: src/anjuta-tools.c:1400
 #, c-format
@@ -2595,8 +2581,7 @@ msgstr "Ya existe una herramienta con el nombre «%s»."
 
 #: src/anjuta-tools.c:1813
 msgid "Unable to build user interface for tool help"
-msgstr ""
-"No se puede construir el interfaz de usuario para la ayuda de herramienta"
+msgstr "No se puede construir el interfaz de usuario para la ayuda de herramienta"
 
 #: src/anjuta-tools.c:1830 src/debug_tree.c:106 src/watch_gui.c:125
 msgid "Variable"
@@ -2982,8 +2967,7 @@ msgstr "El ejecutable está actualizado, no necesita ser construido de nuevo."
 
 #: src/build_file.c:88
 msgid "No build command has been specified for this type of file."
-msgstr ""
-"No se ha especificado un comando de construcción para este tipo de archivo."
+msgstr "No se ha especificado un comando de construcción para este tipo de archivo."
 
 #: src/build_file.c:104
 #, c-format
@@ -4062,8 +4046,7 @@ msgstr "Convertir caracteres EOL a mayoría de EOL"
 
 #: src/main_menubar_def.h:187
 msgid "Convert End Of Line characters to majority of the EOL found in the file"
-msgstr ""
-"Convierte caracteres de fin de línea a la mayoría de los EOL'S en el archivo"
+msgstr "Convierte caracteres de fin de línea a la mayoría de los EOL'S en el archivo"
 
 #. 0
 #: src/main_menubar_def.h:198
@@ -4202,8 +4185,7 @@ msgid "Insert the CVS Date keyword (date and time of the change)"
 msgstr "Insertar la palabra clave CVS Date (fecha y hora del cambio)"
 
 #: src/main_menubar_def.h:328
-msgid ""
-"Insert the CVS Header keyword (full path, revision, date, author, state)"
+msgid "Insert the CVS Header keyword (full path, revision, date, author, state)"
 msgstr ""
 "Insertar la palabra clave CVS Header (ruta completa, revisión, fecha, autor, "
 "estado)"
@@ -4316,8 +4298,7 @@ msgid "Find and R_eplace ..."
 msgstr "Buscar y r_eemplazar ..."
 
 #: src/main_menubar_def.h:449
-msgid ""
-"Search for and replace a string or regular expression with another string"
+msgid "Search for and replace a string or regular expression with another string"
 msgstr "Buscar y reemplazar una cadena o expresión con otra cadena"
 
 #. 4
@@ -4915,8 +4896,7 @@ msgstr "Act_ualizar imagen de etiquetas"
 
 #: src/main_menubar_def.h:979
 msgid "Update the tags image of the Project/opened files"
-msgstr ""
-"Actualizar la imagen de las etiquetas de los archivos abiertos del proyecto"
+msgstr "Actualizar la imagen de las etiquetas de los archivos abiertos del proyecto"
 
 #. 11
 #: src/main_menubar_def.h:984
@@ -5531,8 +5511,7 @@ msgstr "Información de archivos _objetivo"
 
 #: src/main_menubar_def.h:1441
 msgid "Display information on the files the debugger is active with"
-msgstr ""
-"Mostrar información de los archivos con los que el depurador está trabajando"
+msgstr "Mostrar información de los archivos con los que el depurador está trabajando"
 
 #. 1
 #: src/main_menubar_def.h:1446
@@ -5819,10 +5798,8 @@ msgid "_Diff Project"
 msgstr "_Diff del proyecto"
 
 #: src/main_menubar_def.h:1688
-msgid ""
-"Create a diff between the working copy of the Project and the repository"
-msgstr ""
-"Crear una diferencia entre la copia de trabajo del proyecto y el repositorio"
+msgid "Create a diff between the working copy of the Project and the repository"
+msgstr "Crear una diferencia entre la copia de trabajo del proyecto y el repositorio"
 
 #. 15
 #: src/main_menubar_def.h:1695
@@ -6688,8 +6665,7 @@ msgstr "Importar proyecto terminó...correctamente"
 
 #: src/project_import.c:206
 msgid "Could not import Project: no project file found!"
-msgstr ""
-"No se puede importar el proyecto: No se encontró el archivo del proyecto."
+msgstr "No se puede importar el proyecto: No se encontró el archivo del proyecto."
 
 #: src/project_import.c:213
 msgid "Opening Project...please wait"
@@ -6955,8 +6931,7 @@ msgstr "No se puede encontrar el archivo de imagen : %s"
 
 #: src/text_editor.c:936
 msgid "This file is too big. Unable to allocate memory."
-msgstr ""
-"Este archivo es demasiado grande. No se puede reservar suficiente memoria."
+msgstr "Este archivo es demasiado grande. No se puede reservar suficiente memoria."
 
 #: src/text_editor.c:981
 msgid ""
@@ -8876,3 +8851,4 @@ msgstr "Nombre de carpeta:"
 
 #~ msgid "Multiple selection mode"
 #~ msgstr "Modo de seleción múltiple"
+
