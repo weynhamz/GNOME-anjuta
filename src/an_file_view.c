@@ -15,6 +15,8 @@
 #include "cvs_gui.h"
 #include "properties.h"
 
+#include "gdl-icons.h"
+
 #include "an_file_view.h"
 
 enum {
@@ -24,6 +26,8 @@ enum {
 	TMFILE_ENTRY_COLUMN,
 	COLUMNS_NB
 };
+
+static GdlIcons *icon_set = NULL;
 
 static AnFileView *fv = NULL;
 gboolean
@@ -749,9 +753,11 @@ fv_add_tree_entry (TMFileEntry *entry,
 		TMFileEntry *child = (TMFileEntry *) tmp->data;
 
 		if (tm_file_regular_t == child->type) {
+			/*
 			pixbuf = anjuta_res_get_icon_for_file (ANJUTA_PREFERENCES
-													(app->preferences)->props,
-												   child->name);
+					(app->preferences)->props, child->name);
+			*/
+			pixbuf = gdl_icons_get_uri_icon(icon_set, child->path);
 			gtk_tree_store_append (store, &sub_iter, &iter);
 			gtk_tree_store_set (store, &sub_iter,
 					    PIXBUF_COLUMN, pixbuf,
@@ -811,6 +817,8 @@ fv_populate (gboolean full)
 	static gboolean busy = FALSE;
 	GList *selected_items;
 
+	if (!icon_set)
+		icon_set = gdl_icons_new(24, 16.0);
 	if (!fv)
 		fv_create ();
 	if (busy)

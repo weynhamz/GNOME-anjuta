@@ -36,6 +36,7 @@ libgdl_headers = \
 	gdl-dock-tablabel.h \
 	gdl-dock-layout.h \
 	gdl-dock-placeholder.h \
+	gdl-icons.h \
 	gnomefilelist.h \
 	e-splash.h
 
@@ -54,6 +55,7 @@ libwidgets_a_SOURCES = \
 	gdl-dock-tablabel.c \
 	gdl-dock-layout.c \
 	gdl-dock-placeholder.c \
+	gdl-icons.c \
 	libgdltypebuiltins.h \
 	libgdltypebuiltins.c \
 	libgdlmarshal.h \

@@ -24,6 +24,7 @@
 #define __GDL_H__
 
 #include <gdl-tools.h>
+#include <gdl-icons.h>
 #include <gdl-dock-object.h>
 #include <gdl-dock-master.h>
 #include <gdl-dock.h>

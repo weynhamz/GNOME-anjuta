@@ -62,7 +62,7 @@ preferences.autoformat.disable=0
 
 module.include.name=.
 module.include.type=
-module.include.expanded=0
+module.include.expanded=1
 module.include.files=\
 	acconfig.h\
 	printing/print.h\
@@ -204,11 +204,25 @@ module.include.files=\
 	src/widget-registry.h\
 	src/anjuta-plugins.h\
 	widgets/e-splash.h\
-	widgets/cell-renderer-captioned-image.h
+	widgets/cell-renderer-captioned-image.h\
+	widgets/gdl.h\
+	widgets/gdl-tools.h\
+	widgets/gdl-icons.h\
+	widgets/gdl-i18n.h\
+	widgets/gdl-dock.h\
+	widgets/gdl-dock-tablabel.h\
+	widgets/gdl-dock-placeholder.h\
+	widgets/gdl-dock-paned.h\
+	widgets/gdl-dock-object.h\
+	widgets/gdl-dock-notebook.h\
+	widgets/gdl-dock-master.h\
+	widgets/gdl-dock-layout.h\
+	widgets/gdl-dock-item.h\
+	widgets/gdl-dock-item-grip.h
 
 module.source.name=.
 module.source.type=
-module.source.expanded=1
+module.source.expanded=0
 module.source.files=\
 	global-tags/tm_global_tags.c\
 	launcher/anjuta_launcher.c\
@@ -412,7 +426,21 @@ module.source.files=\
 	src/widget-registry.c\
 	src/anjuta-plugins.c\
 	widgets/e-splash.c\
-	widgets/cell-renderer-captioned-image.c
+	widgets/cell-renderer-captioned-image.c\
+	widgets/gdl-dock-item-grip.c\
+	widgets/gdl-tools.c\
+	widgets/gdl-icons.c\
+	widgets/gdl-i18n.c\
+	widgets/gdl-dock.c\
+	widgets/gdl-dock-tablabel.c\
+	widgets/gdl-dock-placeholder.c\
+	widgets/gdl-dock-paned.c\
+	widgets/gdl-dock-object.c\
+	widgets/gdl-dock-notebook.c\
+	widgets/gdl-dock-master.c\
+	widgets/gdl-dock-layout.c\
+	widgets/gdl-dock-item.c\
+	widgets/test-dock.c
 
 module.pixmap.name=.
 module.pixmap.type=
