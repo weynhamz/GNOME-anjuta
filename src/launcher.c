@@ -102,8 +102,8 @@ struct				/* Launcher */
   time_t start_time;
 
   /* Callbacks */
-  void (*stdout_arrived) (gchar *);
-  void (*stderr_arrived) (gchar *);
+  void (*stdout_arrived) (const gchar *);
+  void (*stderr_arrived) (const gchar *);
   void (*child_terminated) (gint status, time_t time);
 
 } launcher;
@@ -246,7 +246,7 @@ static gint launcher_poll_inputs_on_idle (gpointer data)
 }
 
 void
-launcher_send_stdin (gchar * input_str)
+launcher_send_stdin (const gchar * input_str)
 {
   write (launcher.stdin_pipe[1], input_str,
 	 strlen (input_str) * sizeof (char));
@@ -285,10 +285,10 @@ pid_t launcher_get_child_pid ()
 }
 
 gboolean
-launcher_execute (gchar * command_str,
-		  void (*so_line_arrived) (gchar *),
-		  void (*se_line_arrived) (gchar *),
-		  void (*cmd_terminated) (gint status, time_t time))
+launcher_execute (const gchar * command_str,
+				  void (*so_line_arrived) (const gchar *),
+				  void (*se_line_arrived) (const gchar *),
+				  void (*cmd_terminated) (gint status, time_t time))
 {
   int md;
   gchar *shell;

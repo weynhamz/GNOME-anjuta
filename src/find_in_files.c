@@ -310,7 +310,7 @@ find_in_files_process (FindInFiles * ff)
 }
 
 void
-find_in_files_mesg_arrived (gchar * mesg)
+find_in_files_mesg_arrived (const gchar * mesg)
 {
 	an_message_manager_append (app->messages, mesg, MESSAGE_FIND);
 }

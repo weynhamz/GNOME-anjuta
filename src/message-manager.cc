@@ -768,7 +768,8 @@ an_message_manager_build_is_empty(AnMessageManager* amm)
 		
 
 void
-an_message_manager_set_widget(AnMessageManager* amm, gint type_name, GtkWidget* widget)
+an_message_manager_set_widget(AnMessageManager* amm, gint type_name,
+							  GtkWidget* widget)
 {
 	MessageSubwindow* msb = NULL;
 	WidgetWindow* ww = NULL;

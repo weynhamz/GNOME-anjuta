@@ -33,6 +33,9 @@
 #include "message-manager.h"
 #include "compile.h"
 
+static void compile_mesg_arrived (const gchar* mesg);
+static void compile_terminated (int status, time_t time);
+
 #if 0
 
 void
@@ -164,7 +167,7 @@ compile_file (gboolean use_make)
 }
 
 void
-compile_mesg_arrived (gchar * mesg)
+compile_mesg_arrived (const gchar * mesg)
 {
 	an_message_manager_append (app->messages, mesg, MESSAGE_BUILD);
 }

@@ -20,11 +20,7 @@
 #ifndef  _CLEAN_PROJECT_H_
 #define _CLEAN_PROJECT_H_
 
-void
-clean_project(void (*on_clean_cb)(void));
-
-void
-clean_all_project(void);
-
+void clean_project (void (*on_clean_cb) (void));
+void clean_all_project (void);
 
 #endif

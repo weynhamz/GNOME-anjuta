@@ -53,26 +53,29 @@ enum {
 	DEBUGGER_RERUN_PROGRAM
 };
 
-static void debugger_info_prg(void);
+static void locals_update_controls (void);
+static void debugger_info_prg (void);
 static void on_debugger_open_exec_filesel_ok_clicked (GtkButton * button,
-						      gpointer user_data);
+												      gpointer user_data);
 static void on_debugger_load_core_filesel_ok_clicked (GtkButton * button,
-						      gpointer user_data);
+												      gpointer user_data);
 static void on_debugger_open_exec_filesel_cancel_clicked (GtkButton * button,
-							  gpointer user_data);
+														  gpointer user_data);
 static void on_debugger_load_core_filesel_cancel_clicked (GtkButton * button,
-							  gpointer user_data);
+														  gpointer user_data);
 static void debugger_stop_terminal (void);
-static void debugger_info_locals_cb(GList* list, gpointer data);
-static void debugger_handle_post_execution(void);
-static void debugger_command (gchar * com);
-static void gdb_terminated (int status, time_t t);
-static void debugger_update_controls ();
-static void debugger_stdo_flush (void);
-static void debugger_stde_flush (void);
-static void debugger_start_program (void);
-static void add_command_to_queue (gchar cmd[], gint flags,
-			void (*parser) (GList * outputs, gpointer data), gpointer data);
+static void debugger_info_locals_cb (GList* list, gpointer data);
+static void debugger_handle_post_execution (void);
+static void debugger_command (const gchar * com);
+static void debugger_clear_buffers (void);
+static void debugger_clear_cmd_queqe (void);
+
+static DebuggerCommand *debugger_get_next_command (void);
+static void debugger_set_next_command (void);
+
+static void gdb_stdout_line_arrived (const gchar * line);
+static void gdb_stderr_line_arrived (const gchar * line);
+static void gdb_terminated (int status, time_t);
 
 void
 debugger_init ()
@@ -118,9 +121,11 @@ debugger_init ()
 	debugger.load_core_filesel = create_fileselection_gui (&fsd2);
 	debugger.breakpoints_dbase = breakpoints_dbase_new ();
 	debugger.stack = stack_trace_new ();
-	an_message_manager_set_widget (app->messages, MESSAGE_STACK, debugger.stack->widgets.clist);
+	an_message_manager_set_widget (app->messages, MESSAGE_STACK,
+								   stack_trace_get_treeview (debugger.stack));
 	debugger.watch = expr_watch_new ();
-	an_message_manager_set_widget(app->messages, MESSAGE_WATCHES, debugger.watch->widgets.clist);
+	an_message_manager_set_widget(app->messages, MESSAGE_WATCHES,
+								  debugger.watch->widgets.clist);
 	debugger.cpu_registers = cpu_registers_new ();
 	debugger.signals = signals_new ();
 	debugger.sharedlibs = sharedlibs_new ();
@@ -322,8 +327,6 @@ debugger_load_core_file ()
 	gtk_widget_show (debugger.load_core_filesel);
 }
 
-/* shuts down the debugger object itself. the debugger cannot be used 
-   after this returns. used when Anjuta exits */
 void
 debugger_shutdown ()
 {
@@ -392,7 +395,7 @@ debugger_is_active ()
 	return debugger.active;
 }
 
-DebuggerCommand *
+static DebuggerCommand *
 debugger_get_next_command ()
 {
 	DebuggerCommand *dc;
@@ -411,7 +414,7 @@ debugger_get_next_command ()
 	return dc;
 }
 
-void
+static void
 debugger_set_next_command ()
 {
 	DebuggerCommand *dc;
@@ -436,7 +439,8 @@ debugger_set_next_command ()
 	g_free (dc);
 }
 
-/* adds a command to to debugger queue if the debugger is both ready and active */
+/* Adds a command to to debugger queue if the debugger is both
+   ready and active */
 void
 debugger_put_cmd_in_queqe (gchar cmd[], gint flags,
 			   void (*parser) (GList * outputs, gpointer data), gpointer data)
@@ -449,11 +453,18 @@ debugger_put_cmd_in_queqe (gchar cmd[], gint flags,
 	
 	if (!(debugger_is_active ()) || !(debugger_is_ready ()))
 		return;
-
-	add_command_to_queue (cmd, flags, parser, data);
+	dc = g_malloc (sizeof (DebuggerCommand));
+	if (dc)
+	{
+		strcpy (dc->cmd, cmd);
+		dc->flags = flags;
+		dc->parser = parser;
+		dc->data = data;
+	}
+	debugger.cmd_queqe = g_list_append (debugger.cmd_queqe, dc);
 }
 
-void
+static void
 debugger_clear_cmd_queqe ()
 {
 	GList *node;
@@ -478,7 +489,7 @@ debugger_clear_cmd_queqe ()
 	debugger_clear_buffers ();
 }
 
-void
+static void
 debugger_clear_buffers ()
 {
 	gint i;
@@ -527,11 +538,8 @@ debugger_execute_cmd_in_queqe ()
 	}
 }
 
-
-/* used to start the debugger. debugger would start and immediately load
-   'prog'. 'initial_command' allows specifying the first command */
 void
-debugger_start (const gchar *prog, const gchar* initial_command)
+debugger_start (const gchar * prog)
 {
 	gchar *command_str, *dir, *tmp, *text;
 	gchar *exec_dir;
@@ -549,7 +557,6 @@ debugger_start (const gchar *prog, const gchar* initial_command)
 	if (debugger_is_active ())
 		return;
 
-	/* initialization stuff */
 	debugger_set_active (TRUE);
 	debugger_set_ready (FALSE);
 	debugger_clear_cmd_queqe ();
@@ -632,8 +639,7 @@ debugger_start (const gchar *prog, const gchar* initial_command)
 	{
 		anjuta_update_app_status (TRUE, _("Debugger"));
 		an_message_manager_append (app->messages,
-				 _
-				 ("Getting ready to start debugging session ...\n"),
+				 _("Getting ready to start debugging session ...\n"),
 				 MESSAGE_DEBUG);
 		an_message_manager_append (app->messages, _("Loading Executable: "),
 				 MESSAGE_DEBUG);
@@ -642,36 +648,32 @@ debugger_start (const gchar *prog, const gchar* initial_command)
 		{
 			an_message_manager_append (app->messages, prog, MESSAGE_DEBUG);
 			an_message_manager_append (app->messages, "\n", MESSAGE_DEBUG);
-			if (initial_command)
-				add_command_to_queue (initial_command, DB_CMD_NONE, NULL, NULL);
 		}
 		else
 		{
-			an_message_manager_append (app->messages, _("No executable specified\n"),
-					 MESSAGE_DEBUG);
 			an_message_manager_append (app->messages,
-					 _
-					 ("Open an executable or attach to a process to start debugging.\n"),
-					 MESSAGE_DEBUG);
+									   _("No executable specified\n"),
+									   MESSAGE_DEBUG);
+			an_message_manager_append (app->messages,
+		 _("Open an executable or attach to a process to start debugging.\n"),
+									   MESSAGE_DEBUG);
 		}
 	}
 	else
 	{
 		an_message_manager_append (app->messages,
-				 _
-				 ("There was an error whilst launching the debugger.\n"),
+				 _("There was an error whilst launching the debugger.\n"),
 				 MESSAGE_DEBUG);
 		an_message_manager_append (app->messages,
-				 _
-				 ("Make sure 'gdb' is installed on the system.\n"),
+				 _("Make sure 'gdb' is installed on the system.\n"),
 				 MESSAGE_DEBUG);
 	}
 	an_message_manager_show (app->messages, MESSAGE_DEBUG);
 	g_free (command_str);
 }
 
-void
-gdb_stdout_line_arrived (gchar * chars)
+static void
+gdb_stdout_line_arrived (const gchar * chars)
 {
 	gint i = 0;
 
@@ -696,8 +698,8 @@ gdb_stdout_line_arrived (gchar * chars)
 	}
 }
 
-void
-gdb_stderr_line_arrived (gchar * chars)
+static void
+gdb_stderr_line_arrived (const gchar * chars)
 {
 	gint i;
 
@@ -722,7 +724,7 @@ gdb_stderr_line_arrived (gchar * chars)
 	}
 }
 
-static void
+void
 debugger_stdo_flush ()
 {
 	guint lineno;
@@ -735,9 +737,9 @@ debugger_stdo_flush ()
 	line = debugger.stdo_line;
 	if (strlen (line) == 0)
 	{
-		debugger.gdb_stdo_outputs = g_list_append (debugger.gdb_stdo_outputs,
+		debugger.gdb_stdo_outputs =
+			g_list_append (debugger.gdb_stdo_outputs,
 				       g_strdup (" "));
-		
 		if (debugger.current_cmd.flags & DB_CMD_SO_MESG)
 		{
 			an_message_manager_append (app->messages, "\n", MESSAGE_DEBUG);
@@ -755,22 +757,21 @@ debugger_stdo_flush ()
 	}
 	else if (strcmp (line, GDB_PROMPT) == 0)
 	{
-		gboolean program_exited = FALSE;
 		GList *list;
 		/* Ready */
 		debugger_set_ready (TRUE);
 
-		/* Check if the Program has terminated */
+		/* Check if the Program has exited / terminated */
 		list = debugger.gdb_stdo_outputs;
 		while (list)
 		{
-			if (strstr ((gchar *) list->data, "Program exited") != NULL)
+			if (strstr ((gchar *) list->data, "Program exited") != NULL ||
+				strstr ((gchar *) list->data, "Program terminated") != NULL)
 			{
 				debugger_put_cmd_in_queqe ("info program",
 							   DB_CMD_NONE,
 							   on_debugger_update_prog_status,
 							   NULL);
-				program_exited = TRUE;
 				break;
 			}
 			list = g_list_next (list);
@@ -794,7 +795,8 @@ debugger_stdo_flush ()
 		debugger.gdb_stdo_outputs = NULL;
 
 		if (debugger.current_cmd.flags & DB_CMD_SE_DIALOG)
-			debugger_dialog_error (debugger.gdb_stde_outputs, NULL);
+			debugger_dialog_error (debugger.gdb_stde_outputs,
+					       NULL);
 
 		/* Clear the Error Buffer */
 		list = debugger.gdb_stde_outputs;
@@ -817,20 +819,12 @@ debugger_stdo_flush ()
 		g_list_free (debugger.gdb_stde_outputs);
 		debugger.gdb_stde_outputs = NULL;
 
-		if (program_exited) 
-		{
-			debugger_put_cmd_in_queqe ("quit", DB_CMD_NONE, NULL, NULL);
-			debugger_execute_cmd_in_queqe ();
-			return;
-		}			
-
 		if (debugger.starting)
 		{
 			debugger.starting = FALSE;
 			breakpoints_dbase_set_all (debugger.breakpoints_dbase);
 			debugger_put_cmd_in_queqe ("info signals", DB_CMD_NONE,
 						   				signals_update, debugger.signals);
-			debugger_start_program ();
 			an_message_manager_append (app->messages, _("Debugger is ready.\n"),
 					 MESSAGE_DEBUG);
 		}
@@ -904,8 +898,7 @@ debugger_stdo_flush ()
 	debugger.stdo_cur_char_pos = 0;
 }
 
-
-static void
+void
 debugger_stde_flush ()
 {
 	gchar *line;
@@ -937,7 +930,9 @@ gdb_terminated (int status, time_t t)
 	debugger_stop_terminal ();
 
 	/* Good Bye message */
-	an_message_manager_append (app->messages, _("Debug session completed.\n\n"),
+	an_message_manager_append (app->messages,
+			 _
+			 ("\nWell, did you find the BUG? Debugging session completed.\n\n"),
 			 MESSAGE_DEBUG);
 	/* Ready to start again */
 	cpu_registers_clear (debugger.cpu_registers);
@@ -951,11 +946,10 @@ gdb_terminated (int status, time_t t)
 	debugger.term_is_running = FALSE;
 	debugger.term_pid = -1;
 	anjuta_update_app_status (TRUE, NULL);
-	debug_toolbar_update ();
 }
 
 static void
-debugger_command (gchar * com)
+debugger_command (const gchar * com)
 {
 
 #ifdef ANJUTA_DEBUG_DEBUGGER
@@ -963,17 +957,18 @@ debugger_command (gchar * com)
 #endif
 	
 	if (debugger_is_active () == FALSE)
-		return;		/* There is no point in accepting commands when debugger not active */
-	
+		return;		/* There is no point in accepting commands when */
 	if (debugger_is_ready () == FALSE)
 		return;		/* gdb is not running or it is busy */
 
+#ifdef ANJUTA_DEBUG_DEBUGGER
+	g_message ("Executing gdb command %s\n",com);
+#endif
 	debugger_set_ready (FALSE);
-
 	launcher_send_stdin (com);
 }
 
-static void
+void
 debugger_update_controls ()
 {
 
@@ -1051,8 +1046,7 @@ on_debugger_terminal_terminated (int status, gpointer data)
 */
 }
 
-
-static gchar *
+gchar *
 debugger_start_terminal ()
 {
 	gchar *file, *cmd, *encoded_cmd;
@@ -1215,8 +1209,6 @@ debugger_start_terminal ()
 	return NULL;
 }
 
-
-/* sends a signal to kill the terminal */
 static void
 debugger_stop_terminal ()
 {
@@ -1249,7 +1241,7 @@ debugger_stop_terminal ()
 	debugger.term_is_running = FALSE;
 }
 
-static void
+void
 debugger_start_program (void)
 {
 	gchar *term, *cmd, *args;
@@ -1274,8 +1266,9 @@ debugger_start_program (void)
 	if (!term)
 	{
 		an_message_manager_append (app->messages,
-				 _("Warning: No debug terminal. Redirecting stdio to /dev/null.\n"),
-				 MESSAGE_DEBUG);
+								   _("Warning: No debug terminal."
+								   " Redirecting stdio to /dev/null.\n"),
+								   MESSAGE_DEBUG);
 		cmd = g_strconcat ("run >/dev/null 2>/dev/null ", args, NULL);
 		debugger_put_cmd_in_queqe (cmd, DB_CMD_ALL, NULL, NULL);
 	}
@@ -1292,11 +1285,6 @@ debugger_start_program (void)
 	g_free (cmd);
 	debugger_put_cmd_in_queqe ("info program", DB_CMD_NONE,
 				   on_debugger_update_prog_status, NULL);
-
-	debugger_put_cmd_in_queqe ("info breakpoints", DB_CMD_NONE,
-							   breakpoints_dbase_update,
-							   debugger.breakpoints_dbase);
-
 	an_message_manager_append (app->messages, _("Running program ... \n"),
 			 MESSAGE_DEBUG);
 	debugger.post_execution_flag = DEBUGGER_NONE;
@@ -1406,7 +1394,7 @@ on_debugger_update_prog_status (GList * lines, gpointer data)
 #endif
 		debugger.prog_is_running = TRUE;
 		debugger.child_pid = pid;
-		debugger.stack->current_frame = 0;
+		stack_trace_set_frame (debugger.stack, 0);
 		debugger.child_pid = pid;
 		update_main_menubar ();
 		debug_toolbar_update ();
@@ -1536,7 +1524,7 @@ debugger_stop_program ()
 	an_message_manager_append (app->messages, "Program forcefully terminated\n",
 			 MESSAGE_DEBUG);
 	debugger_stop_terminal ();
-	debugger.stack->current_frame = 0;
+	stack_trace_set_frame (debugger.stack, 0);
 }
 
 void
@@ -1566,7 +1554,6 @@ debugger_detach_process ()
 	debugger_execute_cmd_in_queqe ();
 }
 
-/* performs the actual stopping of the debugger */
 static void
 debugger_stop_real (void)
 {
@@ -1575,12 +1562,8 @@ debugger_stop_real (void)
 	g_message ("In function: debugger_stop()");
 #endif
 	
-	/* if debugger is not active - nothing to do here */
 	if (debugger_is_active () == FALSE)
 		return;
-	
-	/* if debugger is currently busy - bring up the exit flag and
-	   stop the running program */
 	if (debugger_is_ready () == FALSE)
 	{
 		debugger.post_execution_flag = DEBUGGER_EXIT;
@@ -1593,21 +1576,22 @@ debugger_stop_real (void)
 			debugger_put_cmd_in_queqe ("detach", DB_CMD_NONE, NULL, NULL);
 
 		debugger_put_cmd_in_queqe ("quit", DB_CMD_NONE, NULL, NULL);
-			debugger_execute_cmd_in_queqe ();
+		debugger_execute_cmd_in_queqe ();
 		
-	debugger.stack->current_frame = 0;
+	stack_trace_set_frame (debugger.stack, 0);
 	debugger_stop_terminal();
 	}
 }
 
 /* if the program is running this function brings up a dialog
-   box for confirmation to stop the debugger 
-   returns: false if debugger was running and user decided not to stop it,
-		    true otherwise */
+ * box for confirmation to stop the debugger 
+ * returns: false if debugger was running and user decided not to stop it,
+ * true otherwise
+ */
 gboolean
 debugger_stop ()
 {
-	gboolean ret;
+	gboolean ret = TRUE;
 	
 	if (debugger.prog_is_running == TRUE)
 	{
@@ -1630,20 +1614,13 @@ debugger_stop ()
 								GTK_STOCK_STOP,		GTK_RESPONSE_YES,
 								NULL);
 		if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_YES)
-		{
 			debugger_stop_real ();
-			ret = TRUE;
-		}
 		else
 			ret = FALSE;
 		gtk_widget_destroy (dialog);
 	}
 	else
-	{
 		debugger_stop_real ();
-		ret = TRUE;
-	}
-	
 	return ret;
 }
 
@@ -1655,27 +1632,26 @@ debugger_run ()
 	g_message ("In function: debugger_run()");
 #endif
 	
+	/* Debugger not active - activate it and run program */
 	if (debugger_is_active () == FALSE)
 		return;
+	/* Debugger active but not ready - go back */
 	if (debugger_is_ready () == FALSE)
 		return;
 	
-	debugger.stack->current_frame = 0;	
-	
+	/* Program not running - start it */
 	if (debugger.prog_is_running == FALSE)
 	{
-		//debugger_put_cmd_in_queqe ("tbreak main", DB_CMD_NONE, NULL,
-			//		   NULL);
+		debugger_put_cmd_in_queqe ("tbreak main", DB_CMD_NONE, NULL, NULL);
 		debugger_start_program ();
-		/*debugger_put_cmd_in_queqe ("continue", DB_CMD_ALL, NULL,
-					   NULL);
+		debugger_put_cmd_in_queqe ("continue", DB_CMD_ALL, NULL, NULL);
 		debugger_put_cmd_in_queqe ("info program", DB_CMD_NONE,
-					   on_debugger_update_prog_status,
-					   NULL);*/
+								   on_debugger_update_prog_status, NULL);
 		debugger_execute_cmd_in_queqe ();
 		return;
 	}
-	else
+	/* Program running - continue */
+	stack_trace_set_frame (debugger.stack, 0);
 	debugger_put_cmd_in_queqe ("continue", DB_CMD_ALL, NULL, NULL);
 	debugger_info_prg ();
 }
@@ -1699,7 +1675,7 @@ debugger_step_in ()
 		debugger_execute_cmd_in_queqe ();
 		return;
 	}
-	debugger.stack->current_frame = 0;
+	stack_trace_set_frame (debugger.stack, 0);
 	debugger_put_cmd_in_queqe ("step", DB_CMD_ALL, NULL, NULL);
 	debugger_info_prg ();	
 }
@@ -1718,9 +1694,9 @@ debugger_step_over ()
 		return;
 	if (debugger.prog_is_running == FALSE)
 		return;
-	debugger.stack->current_frame = 0;
+	stack_trace_set_frame (debugger.stack, 0);
 	debugger_put_cmd_in_queqe ("next", DB_CMD_ALL, NULL, NULL);
-	debugger_info_prg ();	
+	debugger_info_prg();	
 }
 
 void
@@ -1737,12 +1713,12 @@ debugger_step_out ()
 		return;
 	if (debugger_is_ready () == FALSE)
 		return;
-	debugger.stack->current_frame = 0;
+	stack_trace_set_frame (debugger.stack, 0);
 	debugger_put_cmd_in_queqe ("finish", DB_CMD_ALL, NULL, NULL);
 	debugger_info_prg();	
 }
 
-void debugger_run_to_location(gchar *loc)
+void debugger_run_to_location(const gchar *loc)
 {
 	gchar *buff;
 
@@ -1750,27 +1726,25 @@ void debugger_run_to_location(gchar *loc)
 	g_message ("In function: debugger_run_to_location()");
 #endif
 	
+	if (debugger_is_active () == FALSE)
+		return;
 	if (debugger_is_ready () == FALSE)
 		return;
 	
-	/* if debugger active and program not running - add breakpoint 
-		and start program */
 	if (debugger.prog_is_running == FALSE)
 	{
 		buff = g_strconcat ("tbreak ", loc, NULL);
 		debugger_put_cmd_in_queqe (buff, DB_CMD_NONE, NULL, NULL);
+		g_free (buff);
 		debugger_start_program ();
 		debugger_execute_cmd_in_queqe ();
-		g_free (buff);		
+		return;
 	}
-	else /* debugger active and program is running - add breakpoint */
-	{
-	debugger.stack->current_frame = 0;
+	stack_trace_set_frame (debugger.stack, 0);
 	buff = g_strdup_printf ("until %s", loc);
 	debugger_put_cmd_in_queqe (buff, DB_CMD_ALL, NULL, NULL);
 	g_free (buff);
 	debugger_info_prg();
-	}
 }
 
 void
@@ -1900,8 +1874,8 @@ debugger_delete_all_breakpoints ()
 		return;
 	if (debugger_is_ready () == FALSE)
 		return;
-	
-	debugger_put_cmd_in_queqe ("delete breakpoints", DB_CMD_ALL, NULL, NULL);
+	debugger_put_cmd_in_queqe ("delete breakpoints", DB_CMD_ALL, NULL,
+				   NULL);
 	/*
 	debugger_put_cmd_in_queqe ("info breakpoints", DB_CMD_NONE,
 				   breakpoints_dbase_update,
@@ -1944,7 +1918,7 @@ debugger_interrupt ()
 				 (int) debugger.child_pid);
 	an_message_manager_append (app->messages, buff, MESSAGE_DEBUG);
 	g_free (buff);
-	debugger.stack->current_frame = 0;
+	stack_trace_set_frame (debugger.stack, 0);
 	debugger_signal ("SIGINT", FALSE);
 }
 
@@ -1963,13 +1937,16 @@ debugger_signal (const gchar *sig, gboolean show_msg)	/* eg:- "SIGTERM" */
 	if (debugger.prog_is_running == FALSE)
 		return;
 	if (debugger.child_pid < 1)
+	{
+#ifdef ANJUTA_DEBUG_DEBUGGER
+		g_message ("Not sending signal - pid not known\n");
+#endif
 		return;
+	}
 
 	if (show_msg)
 	{
-		buff =
-			g_strdup_printf (_
-					 ("Sending signal %s to the process: %d\n"),
+		buff = g_strdup_printf (_("Sending signal %s to the process: %d\n"),
 					 sig, (int) debugger.child_pid);
 		an_message_manager_append (app->messages, buff, MESSAGE_DEBUG);
 		g_free (buff);
@@ -1978,7 +1955,7 @@ debugger_signal (const gchar *sig, gboolean show_msg)	/* eg:- "SIGTERM" */
 	if (debugger_is_ready ())
 	{
 		cmd = g_strconcat ("signal ", sig, NULL);
-		debugger.stack->current_frame = 0;
+		stack_trace_set_frame (debugger.stack, 0);
 		debugger_put_cmd_in_queqe (cmd, DB_CMD_ALL, NULL, NULL);
 		debugger_put_cmd_in_queqe ("info program", DB_CMD_NONE,
 					   on_debugger_update_prog_status,
@@ -2006,17 +1983,21 @@ debugger_save_session_breakpoints( ProjectDBase *p )
 	g_return_if_fail( NULL != p );
 	breakpoints_dbase_save ( debugger.breakpoints_dbase, p );
 }
-/*
-gboolean
-debugger_is_engaged(void)
-{
-	return (	debugger_is_active () 
-				&& debugger_is_ready () 
-				&& debugger.prog_is_running
-				&& debugger.prog_is_attached ) ? TRUE : FALSE ;
-}
-*/
 
+static void
+locals_update_controls(void)
+{
+	if( NULL == app->messages )
+		return ;
+	if( NULL == app->project_dbase )
+		return ;
+	if( !app->project_dbase->m_prj_ShowLocal )
+		return ;
+
+	debugger_put_cmd_in_queqe ("info locals",
+				   DB_CMD_NONE/*DB_CMD_SE_MESG | DB_CMD_SE_DIALOG*/,
+				   debugger_info_locals_cb, NULL);
+}
 
 static void
 debugger_info_prg(void)
@@ -2030,8 +2011,7 @@ debugger_info_prg(void)
 				   debugger.cpu_registers);
 	debugger_put_cmd_in_queqe ("backtrace", DB_CMD_NONE,
 				   stack_trace_update, debugger.stack);
-	debugger_put_cmd_in_queqe ("info locals", DB_CMD_NONE, 
-							   debugger_info_locals_cb, NULL);
+	locals_update_controls();
 
 	debugger_execute_cmd_in_queqe ();
 }
@@ -2050,26 +2030,9 @@ static void debugger_handle_post_execution()
 			debugger_stop();
 			break;
 		case DEBUGGER_RERUN_PROGRAM:
-			debugger_run ();
+			debugger_run();
 			break;
 		default:
 			g_warning ("Execution should not reach here");
 	}
-}
-
-/* this performs the low level details of adding a command to the queue.
-   to be used with care - it does not check whether the debugger is active or ready */
-static void
-add_command_to_queue(gchar cmd[], gint flags,
-			   void (*parser) (GList * outputs, gpointer data), gpointer data)
-{
-	DebuggerCommand* dc = g_malloc (sizeof (DebuggerCommand));
-	if (dc)
-	{
-		strcpy (dc->cmd, cmd);
-		dc->flags = flags;
-		dc->parser = parser;
-		dc->data = data;
-	}
-	debugger.cmd_queqe = g_list_append (debugger.cmd_queqe, dc);
 }

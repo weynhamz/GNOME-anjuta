@@ -34,11 +34,8 @@ expr_watch_new ()
 {
 	ExprWatch *ew;
 
-	ew = g_malloc (sizeof (ExprWatch));
-	if (ew)
-	{
-		create_expr_watch_gui (ew);
-	}
+	ew = g_new0 (ExprWatch, 1);
+	create_expr_watch_gui (ew);
 	return ew;
 }
 

@@ -1561,8 +1561,8 @@ static GnomeUIInfo debug1_menu_uiinfo[NUM_DEBUG_SUBMENUS+1] = {
 	 0, 0, NULL},
 	GNOMEUIINFO_SEPARATOR,/*9*/
 	{/*10*/
-	 GNOME_APP_UI_ITEM, N_("I_nterrupt Program"),
-	 N_("Interrupt execution of the program"),
+	 GNOME_APP_UI_ITEM, N_("Pa_use Program"),
+	 N_("Pauses the execution of the program"),
 	 on_debugger_interrupt_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 GDK_I, GDK_CONTROL_MASK, NULL},

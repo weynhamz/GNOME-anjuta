@@ -35,7 +35,7 @@
 #include "gnome_project.h"
 #include "fileselection.h"
 
-static void new_prj_mesg_arrived (gchar * mesg);
+static void new_prj_mesg_arrived (const gchar * mesg);
 static void new_prj_terminated (int status, time_t t);
 
 gboolean
@@ -245,7 +245,7 @@ create_new_project (AppWizard * aw)
 }
 
 static void
-new_prj_mesg_arrived (gchar * mesg)
+new_prj_mesg_arrived (const gchar * mesg)
 {
 	an_message_manager_append (app->messages, mesg, MESSAGE_BUILD);
 }

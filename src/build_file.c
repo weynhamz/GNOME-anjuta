@@ -35,7 +35,7 @@
 #include "build_file.h"
 
 static void build_file_terminated (int status, time_t time);
-static void build_file_mesg_arrived (gchar * mesg);
+static void build_file_mesg_arrived (const gchar * mesg);
 
 void
 build_file ()
@@ -116,7 +116,7 @@ build_file ()
 }
 
 static void
-build_file_mesg_arrived (gchar * mesg)
+build_file_mesg_arrived (const gchar * mesg)
 {
 	an_message_manager_append (app->messages, mesg, MESSAGE_BUILD);
 }

@@ -30,9 +30,9 @@ struct _Configurer
 };
 
 
-Configurer* configurer_new(PropsID props);
-void configurer_show(Configurer* c);
+Configurer* configurer_new (PropsID props);
+void configurer_show (Configurer* c);
 /* Configurer is auto hide */
-void configurer_destroy(Configurer* c);
+void configurer_destroy (Configurer* c);
 
 #endif

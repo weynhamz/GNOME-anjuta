@@ -35,7 +35,7 @@ static void patch_level_changed (GtkAdjustment *adj);
 static void on_ok_clicked (GtkButton *button, PatchPluginGUI* gui);
 static void on_cancel_clicked (GtkButton *button, PatchPluginGUI* gui);
 
-static void on_msg_arrived (gchar* line);
+static void on_msg_arrived (const gchar* line);
 static void on_patch_terminate (int status, time_t time);
 
 struct _PatchPluginGUI
@@ -198,7 +198,7 @@ static void on_cancel_clicked (GtkButton *button, PatchPluginGUI* gui)
 	g_free(gui);
 }
 
-static void on_msg_arrived (gchar* line)
+static void on_msg_arrived (const gchar* line)
 {
 	g_return_if_fail (line != NULL);
 	an_message_manager_append (app->messages, line, MESSAGE_BUILD);

@@ -509,12 +509,12 @@ debug_ctree_cmd_gdb (GtkTreeView * ctree, GtkTreeIter * node, GList * list,
 	t = full_name;
 	full_name = g_strconcat (comm, full_name, NULL);
 	g_free (t);
-	g_print("gdb comm %s\n", full_name); 
-	debugger_put_cmd_in_queqe ("set print pretty on", 0, NULL, NULL);
-	debugger_put_cmd_in_queqe ("set verbose off", 0, NULL, NULL);
+	//g_print("gdb comm %s\n", full_name); 
+//	debugger_put_cmd_in_queqe ("set print pretty on", 0, NULL, NULL);
+//	debugger_put_cmd_in_queqe ("set verbose off", 0, NULL, NULL);
 	debugger_put_cmd_in_queqe (full_name, 0, (void *) parse_pointer_cbs, parse);
-	debugger_put_cmd_in_queqe ("set verbose on", 0, NULL, NULL);
-	debugger_put_cmd_in_queqe ("set print pretty off", 0, NULL, NULL);
+//	debugger_put_cmd_in_queqe ("set verbose on", 0, NULL, NULL);
+//	debugger_put_cmd_in_queqe ("set print pretty off", 0, NULL, NULL);
 	debugger_execute_cmd_in_queqe ();
 
 	g_free (full_name);
@@ -840,7 +840,7 @@ set_item (GtkTreeView* ctree, GtkTreeIter* parent, const gchar * var_name,
 	if (!var_name || !*var_name)
 		return;
 	
-	g_print("Setting variable %s with value %s\n",var_name, value);
+	//g_print("Setting variable %s with value %s\n",var_name, value);
 
 	model = gtk_tree_view_get_model (ctree);
 	success = gtk_tree_model_iter_children(model,&iter,parent);
@@ -1229,7 +1229,7 @@ set_not_analyzed(GtkTreeModel *model, GtkTreePath* path,
 
 	if (data && data->dataType != TYPE_ROOT)
 	{
-		g_print("Setting %s to not analyzed\n",data->name);
+		//g_print("Setting %s to not analyzed\n",data->name);
 		data->analyzed = FALSE;
 	}
 
@@ -1254,14 +1254,14 @@ destroy_recursive(GtkTreeModel *model, GtkTreePath* path,
 	
 	if (data->analyzed == FALSE && data->dataType != TYPE_ROOT)
 	{
-		g_print("Destroying %s\n",data->name);
+		//g_print("Destroying %s\n",data->name);
 		g_free (data->name);
 		g_free (data->value);
 		g_free (data);
 		gtk_tree_store_remove(GTK_TREE_STORE(model), iter);
 	}
-	else
-		g_print("Not destroying %s\n",data->name);
+	//else
+		//g_print("Not destroying %s\n",data->name);
 
 	return FALSE;
 }
@@ -1323,7 +1323,7 @@ find_expanded (GtkTreeModel *model, GtkTreePath* path,
 
 	if (data && data->expanded)
 	{
-		g_print("Appending %s to the expanded list\n",data->name);
+		//g_print("Appending %s to the expanded list\n",data->name);
 		*list = g_list_prepend (*list, gtk_tree_iter_copy(iter));
 	}
 	return FALSE;
@@ -1342,7 +1342,7 @@ delete_node(GtkTreeModel *model, GtkTreePath* path,
 
 	if (data)
 	{
-		g_print("Removing node",data->name);
+		//g_print("Removing node",data->name);
 		g_free (data->name);
 		g_free (data->value);
 		g_free (data);
@@ -1491,20 +1491,6 @@ debug_tree_create ()
 
 	g_signal_connect (d_tree->tree, "event", 
 					  G_CALLBACK (debug_tree_on_select_row), d_tree);
-
-	//g_signal_connect (d_tree->tree, "row-deleted",
-	//					G_CALLBACK (debug_tree_on_row_deleted), NULL);
-	//g_signal_handlers_unblock_by_func (d_tree->tree, 
-	//									 G_CALLBACK (debug_tree_on_select_row),
-	//									 NULL);
-	
-	//g_signal_connect_after (G_OBJECT (d_tree->tree), "row_expanded",
-	//						  G_CALLBACK (on_debug_tree_row_expanded), d_tree);
-	//g_signal_connect (G_OBJECT (selection), "changed",
-	//					G_CALLBACK (on_debug_tree_selection_changed), d_tree);
-
-	//g_signal_connect(G_OBJECT(d_tree->tree), "event",
-	//				 G_CALLBACK(debug_tree_on_middle_click), d_tree);
 
 	/* build middle click popup menu */
 	

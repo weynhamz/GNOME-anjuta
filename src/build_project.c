@@ -36,6 +36,14 @@
 #include "build_project.h"
 #include "clean_project.h"
 
+/* Private */
+static void build_mesg_arrived (const gchar* mesg);
+static void build_terminated (int status, time_t time);
+static void build_dist_terminated (int status, time_t time);
+static void build_all_terminated (int status, time_t time);
+static void build_install_terminated (int status, time_t time);
+static void build_autogen_terminated (int status, time_t time);
+
 static void install_as_root (GtkWidget* button, gpointer data);
 static void install_as_user (GtkWidget* button, gpointer data);
 
@@ -313,7 +321,7 @@ build_autogen_project ()
 }
 
 void
-build_mesg_arrived (gchar * mesg)
+build_mesg_arrived (const gchar * mesg)
 {
 	an_message_manager_append (app->messages, mesg, MESSAGE_BUILD);
 }

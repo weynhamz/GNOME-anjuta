@@ -1,3 +1,33 @@
+2003-06-20  Naba Kumar  <naba@gnome.org>
+
+	* src/message-manager.cc, mainmenu_callbacks.c: Code cleanup.
+	* src/watch_gui.c: Code cleanups.
+	* src/debugger.[c,h], src/stack_trace.[c,h],
+	(removed) src/stack_trace_cbs.[c,h], (removed) src/stack_trace_gui.h,
+	src/Makefile.am: Merged stack_trace[_cbs/_gui] into stack_trace.c,
+	Removed direct access to stack_trace private data, Increased debugger
+	command size from 256 to 1024 (to be on safer side). Also implemented
+	row-activated signle for seting frame and viewing the source.
+	* src/debugger.c: Avoids starting program and stopping debugger
+	when starting debugger and stopping program, respectively.
+	
+	* src/debugger.[c,h], src/main_menucallbacks.c, src/controls.c:
+	Reverted codes to start debugger automatically
+	The file is brought to the state just after the branching 
+	(debugger.c == 1.27 and debugger.h == 1.10 rev.), except for 
+	some code clean ups.
+	
+	* src/launcher.[h,c], plugins/patch/patch-plugin.c,
+	src/anjuta-tools.c, src/build_file.[c,h], src/build_project.[c,h],
+	src/compile.[c,h], src/clean_project.[c,h], src/configurer.[c,h],
+	src/cvs.c, src/find_in_files.[c,h], src/gnome_project.[c,h],
+	src/project_import.[c,h], src.anjuta.c, src/mainmenu_callbacks.c,:
+	src/project_dbase.c: Code clean ups.
+	
+	* anjuta.glade, anjuta_dialog_strings.c: Fixed a hard coded pref
+	(Projects dir) so that correct $HOME/Projects path is set when
+	anjuta is run for the first time.
+	
 2003-06-13  Guntupalli Karunakar  <karunakar@freedomink.org>
 
 	* configure.in: Added "ml" for Malayalam in ALL_LINGUAS.

@@ -41,8 +41,8 @@
 
 static gboolean project_import_load_project_values (gchar * filename);
 
-static void project_import_stdout_line_arrived (gchar * line);
-static void project_import_stderr_line_arrived (gchar * line);
+static void project_import_stdout_line_arrived (const gchar * line);
+static void project_import_stderr_line_arrived (const gchar * line);
 static void project_import_terminated (int status, time_t time);
 
 /* The maximum time allowed for importing a project (in seconds).
@@ -61,7 +61,7 @@ ProjectImportWizard *piw;
 #define IMPORT_SCRIPT PACKAGE_BIN_DIR "/anjuta_import.sh"
 
 gboolean
-project_import_start (gchar * topleveldir, ProjectImportWizard * piw)
+project_import_start (const gchar *topleveldir, ProjectImportWizard * piw)
 {
 	gchar *tmp;
 	gchar *command;
@@ -131,7 +131,7 @@ project_import_start (gchar * topleveldir, ProjectImportWizard * piw)
 }
 
 static void
-project_import_stdout_line_arrived (gchar * line)
+project_import_stdout_line_arrived (const gchar * line)
 {
 	gchar filename[512];
 	gchar *pos;
@@ -146,7 +146,7 @@ project_import_stdout_line_arrived (gchar * line)
 }
 
 static void
-project_import_stderr_line_arrived (gchar * line)
+project_import_stderr_line_arrived (const gchar * line)
 {
 	an_message_manager_append (app->messages, line, MESSAGE_BUILD);
 }

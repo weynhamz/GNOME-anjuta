@@ -50,9 +50,9 @@ struct _CVS
 };
 
 /* Callbacks for launcher */
-static void on_cvs_stdout (gchar * line);
-static void on_cvs_stderr (gchar * line);
-static void on_cvs_buffer_in (gchar * line);
+static void on_cvs_stdout (const gchar * line);
+static void on_cvs_stderr (const gchar * line);
+static void on_cvs_buffer_in (const gchar * line);
 static void on_cvs_terminate (int status, time_t time);
 
 /* Utility functions */
@@ -697,7 +697,7 @@ cvs_save_yourself (CVS * cvs, FILE * stream)
 */
 
 static void
-on_cvs_stdout (gchar * line)
+on_cvs_stdout (const gchar * line)
 {
 	an_message_manager_append (app->messages, line, MESSAGE_CVS);
 }
@@ -707,7 +707,7 @@ on_cvs_stdout (gchar * line)
 */
 
 static void
-on_cvs_stderr (gchar * line)
+on_cvs_stderr (const gchar * line)
 {
 	an_message_manager_append (app->messages, line, MESSAGE_CVS);
 }
@@ -716,7 +716,7 @@ on_cvs_stderr (gchar * line)
 	Puts the diff produced by cvs in a new text buffer.
 */
 static void
-on_cvs_buffer_in (gchar * line)
+on_cvs_buffer_in (const gchar * line)
 {
 	guint length;
 	g_return_if_fail (line != NULL);

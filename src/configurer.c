@@ -37,14 +37,14 @@
 #include "configurer.h"
 #include "resources.h"
 
-static GtkWidget* create_configurer_dialog(Configurer* c);
+static GtkWidget* create_configurer_dialog (Configurer* c);
 static void on_configurer_response (GtkDialog *dialog, gint res, gpointer data);
 static void on_configurer_entry_changed (GtkEditable *editable, gpointer data);
 static void on_configurer_environment_changed (GtkEditable * editable,
 											   gpointer user_data);
 
-static void conf_mesg_arrived(gchar *mesg);
-static void conf_terminated(int status, time_t t);
+static void conf_mesg_arrived (const gchar *mesg);
+static void conf_terminated (int status, time_t t);
 
 Configurer *
 configurer_new (PropsID props)
@@ -193,7 +193,7 @@ on_configurer_response (GtkDialog* dialog, gint res, gpointer user_data)
 }
 
 static void
-conf_mesg_arrived (gchar * mesg)
+conf_mesg_arrived (const gchar * mesg)
 {
 	an_message_manager_append (app->messages, mesg, MESSAGE_BUILD);
 }

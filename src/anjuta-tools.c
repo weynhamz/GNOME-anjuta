@@ -372,7 +372,7 @@ static gboolean an_user_tool_save(AnUserTool *tool, FILE *f)
 }
 
 /* Simplistic output handler - needs to be enhanced */
-static void tool_stdout_handler(gchar *line)
+static void tool_stdout_handler (const gchar *line)
 {
 	if (line && current_tool)
 	{
@@ -395,7 +395,7 @@ static void tool_stdout_handler(gchar *line)
 }
 
 /* Simplistic error handler - needs to be enhanced */
-static void tool_stderr_handler(gchar *line)
+static void tool_stderr_handler (const gchar *line)
 {
 	if (line && current_tool)
 	{

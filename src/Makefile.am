@@ -183,9 +183,6 @@ anjuta_SOURCES = \
 	src_paths.h\
 	stack_trace.c\
 	stack_trace.h\
-	stack_trace_cbs.c\
-	stack_trace_cbs.h\
-	stack_trace_gui.c\
 	support.c\
 	support.h\
 	text_editor.c\

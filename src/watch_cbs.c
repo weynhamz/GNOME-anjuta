@@ -136,14 +136,13 @@ on_watch_help_activate (GtkMenuItem * menuitem, gpointer user_data)
 
 }
 
-
 void
 on_ew_add_ok_clicked (GtkButton * button, gpointer user_data)
 {
-	ExprWatch* ew =(ExprWatch*) g_object_get_data (G_OBJECT(user_data), "user_data");
+	ExprWatch* ew = (ExprWatch*) g_object_get_data (G_OBJECT(user_data),
+													"user_data");
 	add_watch_entry ((GtkEntry *) user_data, ew);
 }
-
 
 void
 on_ew_add_help_clicked (GtkButton * button, gpointer user_data)
@@ -289,34 +288,34 @@ expr_watch_update (GList * lines, gpointer data)
 static void
 add_watch_entry (GtkEntry * ent, ExprWatch* ew)
 {
-	gchar *row, *buff;
+	const gchar *row;
+	gchar *buff;
 	GtkTreeModel *model;
 	GtkTreeIter iter;
 	struct watch_cb_data *cb_data;
 
 	if (GTK_IS_ENTRY (ent) == FALSE)
 		return;
-	row = (gchar *) gtk_entry_get_text (ent);
-	if (strlen (row) == 0)
+	row = gtk_entry_get_text (ent);
+	if (row == NULL || strlen (row) <= 0)
 		return;
 
 	if (expr_watch_entry_history)
 		g_free (expr_watch_entry_history);
 	expr_watch_entry_history = g_strdup (row);
 
-
 	model = gtk_tree_view_get_model (GTK_TREE_VIEW (ew->widgets.clist));	
 
 	/* add a watch entry */
 	gtk_list_store_append (GTK_LIST_STORE(model), &iter);
 	gtk_list_store_set (GTK_LIST_STORE(model), &iter, 
-						WATCH_VARIABLE_COLUMN, g_strdup (row), 
+						WATCH_VARIABLE_COLUMN, row,
 						WATCH_VALUE_COLUMN, "", -1);
 
 	/* send command to gdb to get the initial value */
 	buff = g_strconcat ("print ", row, NULL);
 	
-	cb_data = g_new (struct watch_cb_data, 1);
+	cb_data = g_new0 (struct watch_cb_data, 1);
 	cb_data->ew = ew;
 	cb_data->iter = gtk_tree_iter_copy (&iter);
 	

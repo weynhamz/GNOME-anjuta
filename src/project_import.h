@@ -88,17 +88,10 @@ struct _ProjectImportWizard
 
 extern ProjectImportWizard* piw;
 
-void
-create_project_import_gui(void);
-void
-destroy_project_import_gui(void);
-
-gboolean 
-project_import_start(gchar *topleveldir, ProjectImportWizard* piw);
-
-void
-project_import_save_values(ProjectImportWizard* piw);
+void create_project_import_gui (void);
+void destroy_project_import_gui (void);
+gboolean project_import_start (const gchar *topleveldir,
+							   ProjectImportWizard *piw);
+void project_import_save_values (ProjectImportWizard *piw);
 
 #endif // PROJECT_IMPORT_H
-
-

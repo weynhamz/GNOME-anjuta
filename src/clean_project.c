@@ -36,10 +36,9 @@
 #include "build_project.h"
 
 
-static void clean_mesg_arrived(gchar* mesg);
+static void clean_mesg_arrived (const gchar* mesg);
 static void clean_all_terminated (int status, time_t time);
 static void clean_terminated (int status, time_t time);
-
 
 static void (*on_clean_finished_cb) (void);
 
@@ -147,7 +146,7 @@ clean_all_project ()
 
 
 static void
-clean_mesg_arrived (gchar * mesg)
+clean_mesg_arrived (const gchar * mesg)
 {
 	an_message_manager_append (app->messages, mesg, MESSAGE_BUILD);
 }

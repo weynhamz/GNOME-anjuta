@@ -11005,7 +11005,7 @@
 		  <property name="modal">False</property>
 
 		  <child internal-child="entry">
-		    <widget class="GtkEntry" id="preferences_entry:text:/home/naba/:0:projects.directory">
+		    <widget class="GtkEntry" id="preferences_entry:text::0:projects.directory">
 		      <property name="visible">True</property>
 		      <property name="can_focus">True</property>
 		      <property name="editable">True</property>
@@ -15882,7 +15882,7 @@
 	<widget class="GnomeDruidPageStandard" id="druidpagestandard1">
 	  <property name="visible">True</property>
 	  <property name="title" translatable="yes">Windows style</property>
-	  <property name="logo_background">#ff500816588c</property>
+	  <property name="logo_background">#ff68081c488c</property>
 	  <property name="logo">applogo.png</property>
 
 	  <child internal-child="vbox">

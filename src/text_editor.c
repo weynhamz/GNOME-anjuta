@@ -1081,7 +1081,7 @@ save_to_file (TextEditor * te, gchar * fn)
 		}
 		g_free (data);
 		if (size != nchars)
-			g_warning("Text length and number of bytes saved is not equal");
+			g_warning("Text length and number of bytes saved is not equal [%d != %d]", nchars, size);
 	}
 	if (ferror (fp))
 	{

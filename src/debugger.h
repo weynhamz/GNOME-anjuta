@@ -38,13 +38,14 @@ extern "C" {
 #define DB_CMD_SE_DIALOG	0x2
 #define DB_CMD_SE_MESG		0x4
 #define DB_CMD_ALL (DB_CMD_SE_MESG|DB_CMD_SE_DIALOG|DB_CMD_SO_MESG)
+#define DEBUGGER_COMMAND_MAX_LENGTH  1024
 
 typedef struct _Debugger Debugger;
 typedef struct _DebuggerCommand DebuggerCommand;
 
 struct _DebuggerCommand
 {
-	char cmd[256];
+	char cmd[DEBUGGER_COMMAND_MAX_LENGTH];
 	gint flags;
 	void (*parser) (GList * outputs, gpointer data);
 	gpointer data;
@@ -92,33 +93,31 @@ void debugger_init (void);
 void debugger_shutdown (void);
 gboolean debugger_save_yourself (FILE * stream);
 gboolean debugger_load_yourself (PropsID props);
-void debugger_start (const gchar *prog, const gchar *initial_command);
+void debugger_start (const gchar * prog);
 gboolean debugger_is_active (void);
 gboolean debugger_is_ready (void);
 
 /*  Private. Don't touch */
-//gchar *debugger_start_terminal (void);
-DebuggerCommand *debugger_get_next_command (void);
-void debugger_set_next_command (void);
+gchar *debugger_start_terminal (void);
 void debugger_put_cmd_in_queqe (gchar cmd[], gint flags,
-				void (*parser) (GList * outputs,
-						gpointer data),
-				gpointer data);
-void debugger_clear_buffers (void);
-void debugger_clear_cmd_queqe (void);
+				void (*parser) (GList * outputs, gpointer data), gpointer data);
 void debugger_execute_cmd_in_queqe (void);
+void debugger_update_controls (void);
 void debugger_set_active (gboolean busy_state);
 void debugger_set_ready (gboolean busy_state);
-void gdb_stdout_line_arrived (gchar * line);
-void gdb_stderr_line_arrived (gchar * line);
+
+void debugger_stdo_flush (void);
+void debugger_stde_flush (void);
 void debugger_dialog_message (GList * lines, gpointer data);
 void debugger_dialog_error (GList * lines, gpointer data);
 
 /* Public */
 void debugger_open_exec_file (void);
 void debugger_load_core_file (void);
+
 void debugger_attach_process (gint pid);
 void debugger_restart_program (void);
+void debugger_start_program (void);
 void debugger_stop_program (void);
 void debugger_detach_process (void);
 gboolean debugger_stop (void);
@@ -128,7 +127,7 @@ void debugger_step_in (void);
 void debugger_step_over (void);
 void debugger_step_out (void);
 void debugger_continue (void);
-void debugger_run_to_location (gchar * loc);
+void debugger_run_to_location (const gchar * loc);
 
 void debugger_toggle_breakpoint (void);
 void debugger_toggle_tmp_breakpoint (void);
