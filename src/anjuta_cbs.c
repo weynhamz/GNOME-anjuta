@@ -141,9 +141,13 @@ gint on_anjuta_delete (GtkWidget * w, GdkEvent * event, gpointer data)
 		dialog = gtk_message_dialog_new (GTK_WINDOW (app->widgets.window),
 										 GTK_DIALOG_DESTROY_WITH_PARENT,
 										 GTK_MESSAGE_QUESTION,
-										 GTK_BUTTONS_YES_NO,
+										 GTK_BUTTONS_NONE,
 										 _("One or more files are not saved.\n"
 										 "Do you still want to exit?"));
+		gtk_dialog_add_buttons (GTK_DIALOG (dialog),
+								GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+								GTK_STOCK_QUIT,   GTK_RESPONSE_YES,
+								NULL);
 		response = gtk_dialog_run (GTK_DIALOG (dialog));
 		gtk_widget_destroy (dialog);
 		if (response == GTK_RESPONSE_YES)
@@ -496,10 +500,17 @@ on_save_as_filesel_ok_clicked (GtkButton * button, gpointer user_data)
 		dialog = gtk_message_dialog_new (GTK_WINDOW (app->widgets.window),
 										 GTK_DIALOG_DESTROY_WITH_PARENT,
 										 GTK_MESSAGE_QUESTION,
-										 GTK_BUTTONS_YES_NO,
+										 GTK_BUTTONS_NONE,
 										 _("The file '%s' already exists.\n"
-										 "Do you want to overwrite it?."),
+										 "Do you want to replace it with the one you are saving?"),
 										 filename);
+		gtk_dialog_add_button (GTK_DIALOG(dialog),
+							   GTK_STOCK_CANCEL,
+							   GTK_RESPONSE_CANCEL);
+		anjuta_dialog_add_button (GTK_DIALOG (dialog),
+								  _("_Replace"),
+								  GTK_STOCK_REFRESH,
+								  GTK_RESPONSE_YES);
 		if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_YES)
 			save_as_real ();
 		gtk_widget_destroy (dialog);
@@ -553,10 +564,17 @@ on_build_msg_save_ok_clicked(GtkButton * button, gpointer user_data)
 		dialog = gtk_message_dialog_new (GTK_WINDOW (app->widgets.window),
 										 GTK_DIALOG_DESTROY_WITH_PARENT,
 										 GTK_MESSAGE_QUESTION,
-										 GTK_BUTTONS_YES_NO,
+										 GTK_BUTTONS_NONE,
 										 _("The file '%s' already exists.\n"
 										 "Do you want to overwrite it?."),
 										 filename);
+		gtk_dialog_add_button (GTK_DIALOG (dialog),
+							   GTK_STOCK_CANCEL,
+							   GTK_RESPONSE_CANCEL);
+		anjuta_dialog_add_button (GTK_DIALOG (dialog),
+								  _("_Replace"),
+								  GTK_STOCK_REFRESH,
+								  GTK_RESPONSE_YES);
 		if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_YES)
 			build_msg_save_real ();
 		gtk_widget_destroy (dialog);

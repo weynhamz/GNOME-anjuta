@@ -1356,13 +1356,17 @@ on_user_tool_response (GtkDialog *dialog, gint res, gpointer user_data)
 			GtkWidget *dlg;
 			
 			snprintf(question, 10000,
-					 _("Are you sure you want to delete tool '%s'"),
+					 _("Are you sure you want to delete the '%s' tool?"),
 			  		 tool->name);
 			dlg = gtk_message_dialog_new (GTK_WINDOW (tl->dialog),
 										  GTK_DIALOG_DESTROY_WITH_PARENT,
 										  GTK_MESSAGE_QUESTION,
-										  GTK_BUTTONS_YES_NO,
+										  GTK_BUTTONS_NONE,
 										  question);
+			gtk_dialog_add_buttons (GTK_DIALOG (dlg),
+									GTK_STOCK_CANCEL, GTK_RESPONSE_NO,
+									GTK_STOCK_DELETE, GTK_RESPONSE_YES,
+									NULL);
 			if (gtk_dialog_run (GTK_DIALOG (dlg)) == GTK_RESPONSE_YES)
 				really_delete_tool ();
 			gtk_widget_destroy (dlg);

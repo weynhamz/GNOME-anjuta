@@ -602,7 +602,7 @@ static GnomeUIInfo edit1_menu_uiinfo[NUM_EDIT_SUBMENUS+1] = {
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
     {/*12*/
-	 GNOME_APP_UI_SUBTREE, N_("_Search"),
+	 GNOME_APP_UI_SUBTREE, N_("S_earch"),
 	 NULL,
 	 find_submenu_uiinfo, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
@@ -631,7 +631,7 @@ static GnomeUIInfo edit1_menu_uiinfo[NUM_EDIT_SUBMENUS+1] = {
 	 0, 0, NULL},
 
 	{/*17*/
-	 GNOME_APP_UI_ITEM, N_("Search And Replace"),
+	 GNOME_APP_UI_ITEM, N_("Search And Re_place"),
 	 N_("New Search And Replace stuff"),
 	 anjuta_search_replace_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,

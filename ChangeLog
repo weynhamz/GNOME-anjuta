@@ -1,3 +1,18 @@
+2003-05-27	Enver ALTIN  <ealtin@casdb.com>
+
+	Reviewed by Naba Kumar  <naba@gnome.org>
+	
+	* src/anjuta-tools.c, src/anjuta_cbs.c, src/breakpoints.c,
+	  src/compiler_options.c, src/debugger.c, src/find_replace.c,
+	  src/find_text.c, src/mainmenu_callbacks.c, src/preferences.c,
+	  src/project_dbase_gui.c, src/src_paths.c, src/text_editor.c,
+	  src/toolbar_callbacks.c: HIG compliant dialogs.
+
+	* src/utilities.c: anjuta_button_new_with_stock_image() and
+	  anjuta_dialog_add_button() stolen from gedit.
+
+	* src/main_menubar_def.h: Fixed mnemonics.
+
 2003-05-26  Naba Kumar  <naba@gnome.org>
 
 	* src/project_dbase_gui.c: Added header files filter for add file

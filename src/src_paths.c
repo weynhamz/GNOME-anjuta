@@ -214,9 +214,13 @@ on_response (GtkDialog *dlg, gint res, SrcPaths *co)
 		win = gtk_message_dialog_new (GTK_WINDOW (co->priv->dialog),
 									  GTK_DIALOG_DESTROY_WITH_PARENT,
 									  GTK_MESSAGE_QUESTION,
-									  GTK_BUTTONS_YES_NO,
+									  GTK_BUTTONS_NONE,
 									  _("Do you want to clear the list?"),
 									  NULL);
+		gtk_dialog_add_buttons (GTK_DIALOG (win),
+								GTK_STOCK_CANCEL,	GTK_RESPONSE_CANCEL,
+								GTK_STOCK_CLEAR,	GTK_RESPONSE_YES,
+								NULL);
 		if (gtk_dialog_run (GTK_DIALOG (win)) == GTK_RESPONSE_YES)
 			gtk_list_store_clear (GTK_LIST_STORE (model));
 		gtk_widget_destroy (win);

@@ -549,9 +549,11 @@ anjuta_preferences_reset_defaults (AnjutaPreferences * pr)
 	
 	dlg = gtk_message_dialog_new (GTK_WINDOW (pr),
 			GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_QUESTION,
-			GTK_BUTTONS_YES_NO,
+			GTK_BUTTONS_NONE,
 		     _("Are you sure you want to reset the preferences to\n"
 		       "their default settings?"));
+	gtk_dialog_add_button (GTK_DIALOG (dlg), GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL);
+	anjuta_dialog_add_button (GTK_DIALOG (dlg), _("_Reset"), GTK_STOCK_REVERT_TO_SAVED, GTK_RESPONSE_YES);
 	if (gtk_dialog_run (GTK_DIALOG (dlg)) == GTK_RESPONSE_YES)
 	{
 		prop_clear (pr->props_session);

@@ -227,6 +227,7 @@ on_toolbar_find_clicked (GtkButton * button, gpointer user_data)
 		if (app->find_replace->find_text->incremental_pos < 0)
 		{
 			GtkWidget *dialog;
+			// Dialog to be made HIG compliant.
 			dialog = gtk_message_dialog_new (GTK_WINDOW (app->widgets.window),
 											 GTK_DIALOG_DESTROY_WITH_PARENT,
 											 GTK_MESSAGE_QUESTION,

@@ -189,11 +189,12 @@ on_find_text_dialog_response (GtkDialog *dialog, gint response,
 		{
 			GtkWidget *dialog;
 			// Ask if user wants to wrap around the doc
+			// Dialog to be made HIG compliant.
 			dialog = gtk_message_dialog_new (GTK_WINDOW (ft->f_gui.GUI),
 											 GTK_DIALOG_DESTROY_WITH_PARENT,
 											 GTK_MESSAGE_QUESTION,
 											 GTK_BUTTONS_YES_NO,
-						 _("No matches. Wrap search around the document?"));
+						 _("No matches found. Wrap search around the document?"));
 			gtk_dialog_set_default_response (GTK_DIALOG (dialog),
 											 GTK_RESPONSE_YES);
 			g_signal_connect (G_OBJECT (dialog), "key-press-event",

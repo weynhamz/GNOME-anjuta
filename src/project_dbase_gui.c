@@ -77,7 +77,11 @@ on_project_remove1_activate (GtkMenuItem * menuitem, gpointer user_data)
 	dialog = gtk_message_dialog_new (GTK_WINDOW (p->widgets.window),
 									 GTK_DIALOG_DESTROY_WITH_PARENT,
 									 GTK_MESSAGE_QUESTION,
-									 GTK_BUTTONS_YES_NO, buff);
+									 GTK_BUTTONS_NONE, buff);
+	gtk_dialog_add_buttons (GTK_DIALOG (dialog),
+							GTK_STOCK_CANCEL,	GTK_RESPONSE_NO,
+							GTK_STOCK_REMOVE,	GTK_RESPONSE_YES,
+							NULL);
 	if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_YES)
 		project_dbase_remove_file (p);
 	gtk_widget_destroy (dialog);
@@ -133,7 +137,11 @@ on_open_prjfilesel_ok_clicked (GtkButton * button, gpointer user_data)
 		dialog = gtk_message_dialog_new (GTK_WINDOW (p->widgets.window),
 										 GTK_DIALOG_DESTROY_WITH_PARENT,
 										 GTK_MESSAGE_QUESTION,
-										 GTK_BUTTONS_YES_NO, buff);
+										 GTK_BUTTONS_NONE, buff);
+		gtk_dialog_add_buttons (GTK_DIALOG (dialog),
+								GTK_STOCK_CANCEL,	GTK_RESPONSE_NO,
+								GTK_STOCK_CLOSE,	GTK_RESPONSE_YES,
+								NULL);
 		if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_YES)
 		{
 			gtk_widget_hide (app->project_dbase->fileselection_open);
@@ -1114,10 +1122,13 @@ create_project_confirm_dlg (GtkWidget *parent)
 									  _("Project is not saved.\n"
 								"Do you want to save it before closing?"));
 	
-	gtk_dialog_add_buttons (GTK_DIALOG (mesgbox),
-							GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-							GTK_STOCK_NO, GTK_RESPONSE_NO,
-							GTK_STOCK_YES, GTK_RESPONSE_YES, NULL);
+	gtk_dialog_add_button (GTK_DIALOG (mesgbox),
+						   GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL);
+	anjuta_dialog_add_button (GTK_DIALOG (mesgbox), _("Do_n't save"),
+							  GTK_STOCK_NO, GTK_RESPONSE_NO);
+	gtk_dialog_add_button (GTK_DIALOG (mesgbox),
+						   GTK_STOCK_SAVE, GTK_RESPONSE_YES);
+	gtk_dialog_set_default_response (GTK_DIALOG (mesgbox), GTK_RESPONSE_YES);
 	return mesgbox;
 }
 

@@ -1298,7 +1298,14 @@ text_editor_check_disk_status (TextEditor * te, const gboolean bForce )
 			dlg = gtk_message_dialog_new (GTK_WINDOW (parent),
 										  GTK_DIALOG_DESTROY_WITH_PARENT,
 										  GTK_MESSAGE_WARNING,
-										  GTK_BUTTONS_YES_NO, buff);
+										  GTK_BUTTONS_NONE, buff);
+			gtk_dialog_add_button (GTK_DIALOG (dlg),
+								   GTK_STOCK_NO,
+								   GTK_RESPONSE_NO);
+			anjuta_dialog_add_button (GTK_DIALOG (dlg),
+									  _("_Reload"),
+									  GTK_STOCK_REFRESH,
+									  GTK_RESPONSE_YES);
 			g_free (buff);
 			if (gtk_dialog_run (GTK_DIALOG (dlg)) == GTK_RESPONSE_YES)
 					text_editor_load_file (te);

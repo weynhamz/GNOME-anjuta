@@ -1444,6 +1444,7 @@ anjuta_information_parented (GtkWidget *parent, gchar * mesg, ...)
 	va_start (args, mesg);
 	message = g_strdup_vprintf (mesg, args);
 	va_end (args);
+	// Dialog to be HIG compliant
 	dialog = gtk_message_dialog_new (GTK_WINDOW (parent),
 									 GTK_DIALOG_DESTROY_WITH_PARENT,
 									 GTK_MESSAGE_INFO,
@@ -1523,6 +1524,7 @@ anjuta_information (gchar * mesg, ...)
 	va_start (args, mesg);
 	message = g_strdup_vprintf (mesg, args);
 	va_end (args);
+	// Dialog to be HIG compliant.
 	dialog = gtk_message_dialog_new (GTK_WINDOW (app->widgets.window), 
 									 GTK_DIALOG_DESTROY_WITH_PARENT,
 									 GTK_MESSAGE_INFO,
@@ -1803,6 +1805,7 @@ void
 anjuta_not_implemented (char *file, guint line)
 {
 	GtkWidget *dialog;
+	// Dialog to be HIG compliant
 	dialog = gtk_message_dialog_new (GTK_WINDOW (app->widgets.window),
 									 GTK_DIALOG_DESTROY_WITH_PARENT,
 									 GTK_MESSAGE_QUESTION,

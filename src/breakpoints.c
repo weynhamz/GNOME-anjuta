@@ -751,9 +751,13 @@ on_bk_removeall_clicked (GtkWidget *button, BreakpointsDBase *bd)
 									 GTK_DIALOG_MODAL |
 										GTK_DIALOG_DESTROY_WITH_PARENT,
 									 GTK_MESSAGE_QUESTION,
-									 GTK_BUTTONS_YES_NO,
+									 GTK_BUTTONS_NONE,
 					_("Are you sure you want to delete all the breakpoints?"),
 									 NULL);
+	gtk_dialog_add_buttons (GTK_DIALOG (dialog),
+							GTK_STOCK_CANCEL, GTK_RESPONSE_NO,
+							GTK_STOCK_DELETE, GTK_RESPONSE_YES,
+							NULL);
 
 	if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_YES) {
 		debugger_delete_all_breakpoints ();

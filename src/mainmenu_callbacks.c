@@ -175,10 +175,12 @@ on_close_file1_activate (GtkMenuItem * menuitem, gpointer user_data)
 										 GTK_MESSAGE_QUESTION,
 										 GTK_BUTTONS_NONE, mesg);
 		g_free (mesg);
-		gtk_dialog_add_buttons (GTK_DIALOG (dialog), 
-								GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-								GTK_STOCK_NO, GTK_RESPONSE_NO,
-								GTK_STOCK_YES, GTK_RESPONSE_YES, NULL);
+		gtk_dialog_add_button (GTK_DIALOG (dialog), 
+							   GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL);
+		anjuta_dialog_add_button (GTK_DIALOG (dialog), _("Do_n't save"),
+								  GTK_STOCK_NO, GTK_RESPONSE_NO);
+		gtk_dialog_add_button (GTK_DIALOG (dialog),
+							   GTK_STOCK_SAVE, GTK_RESPONSE_YES);
 		gtk_dialog_set_default_response (GTK_DIALOG (dialog),
 										 GTK_RESPONSE_CANCEL);
 		res = gtk_dialog_run (GTK_DIALOG (dialog));
@@ -239,7 +241,11 @@ on_reload_file1_activate (GtkMenuItem * menuitem, gpointer user_data)
 	dialog = gtk_message_dialog_new (GTK_WINDOW (app->widgets.window),
 									 GTK_DIALOG_DESTROY_WITH_PARENT,
 									 GTK_MESSAGE_QUESTION,
-									 GTK_BUTTONS_YES_NO, mesg);
+									 GTK_BUTTONS_NONE, mesg);
+	gtk_dialog_add_button (GTK_DIALOG (dialog),
+						   GTK_STOCK_CANCEL,	GTK_RESPONSE_NO);
+	anjuta_dialog_add_button (GTK_WINDOW (dialog),
+							  _("_Reload"),		GTK_STOCK_REVERT_TO_SAVED,	GTK_RESPONSE_YES);
 	gtk_dialog_set_default_response (GTK_DIALOG (dialog),
 									 GTK_RESPONSE_NO);
 	if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_YES)
