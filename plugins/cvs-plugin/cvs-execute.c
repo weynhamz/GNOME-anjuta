@@ -23,6 +23,8 @@
 #include <libanjuta/interfaces/ianjuta-message-manager.h>
 #include <libanjuta/anjuta-launcher.h>
 
+#define CVS_ICON ""
+
 static void
 on_cvs_terminated (AnjutaLauncher *launcher,
 					 gint child_pid, gint status, gulong time_taken,
@@ -31,6 +33,9 @@ on_cvs_terminated (AnjutaLauncher *launcher,
 	g_return_if_fail (plugin != NULL);
 	
 	plugin->executing_command = FALSE;
+	/* We do not care about this view any longer, it will be freed when 
+	the users closes it */
+	plugin->mesg_view = NULL;
 	if (status != 0)
 	{
 		anjuta_util_dialog_error
@@ -44,7 +49,8 @@ on_cvs_message (AnjutaLauncher *launcher,
 					   const gchar * mesg, gpointer user_data)
 {
 	CVSPlugin* plugin = (CVSPlugin*)user_data;
-	ianjuta_message_view_buffer_append (plugin->mesg_view, mesg, NULL);
+	ianjuta_message_view_append (plugin->mesg_view, IANJUTA_MESSAGE_VIEW_TYPE_INFO,
+		mesg, "", NULL);
 }
 
 void 
@@ -54,29 +60,28 @@ cvs_execute(CVSPlugin* plugin, const gchar* command, const gchar* dir)
 	
 	g_return_if_fail (command != NULL);
 	g_return_if_fail (dir != NULL);	
+	
+	if (plugin->executing_command)
+	{
+		anjuta_util_dialog_error
+			(NULL,_("CVS command is running - please wait until it finishes!"), NULL);
+		return;
+	}
 		
-	/* We only open one message view because execution multiple cvs command
-	at the same time does not really make sense. */
-	if (plugin->mesg_view == NULL)
-	{
-		mesg_manager = anjuta_shell_get_interface 
-			(ANJUTA_PLUGIN (plugin)->shell,	IAnjutaMessageManager, NULL);
-		plugin->mesg_view =
-			ianjuta_message_manager_add_view (mesg_manager, _("CVS"), 
-			NULL, NULL);
-	}
-	else
-	{
-		ianjuta_message_view_clear(plugin->mesg_view, NULL);
-	}
+		
+	mesg_manager = anjuta_shell_get_interface 
+		(ANJUTA_PLUGIN (plugin)->shell,	IAnjutaMessageManager, NULL);
+	plugin->mesg_view =
+		ianjuta_message_manager_add_view (mesg_manager, _("CVS"), 
+		CVS_ICON, NULL);
+
 	plugin->launcher = anjuta_launcher_new ();
 	
 	g_signal_connect (G_OBJECT (plugin->launcher), "child-exited",
 					  G_CALLBACK (on_cvs_terminated), plugin);
-	ianjuta_message_view_buffer_append (plugin->mesg_view, command, NULL);
-	ianjuta_message_view_buffer_append (plugin->mesg_view, "\n", NULL);
 	chdir (dir);
 	plugin->executing_command = TRUE;
+	g_message("Executing: %s", command);	
 	anjuta_launcher_execute (plugin->launcher, command,
 							 on_cvs_message, plugin);
 }
