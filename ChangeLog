@@ -1,3 +1,11 @@
+2005-03-07  Naba Kumar  <naba@gnome.org>
+
+	* configure.in: Disable cygwin macro until someone fixes the
+	autoconf warnings.
+	
+	* plugins/subvesion/svn-thread.c: Use older API svn_client_add() for
+	backward compatibility.
+	
 2005-03-06  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
 
 	* src/about.c : Cleaned code.

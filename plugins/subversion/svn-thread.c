@@ -156,7 +156,11 @@ gpointer svn_add_thread(SVNAdd* add)
 	SVN* svn = add->svn;
 	svn_error_t* error;
 	
-	error = svn_client_add2(add->filename, add->force, add->recurse, 
+	/* svn_client_add2() is a newer API only available above
+	 * subversion 1.1.x. Older API is svn_client_add(). We should use the
+	 * older api as, they provice backward compatibility.
+	 */
+	error = svn_client_add (add->filename, /* add->force,*/ add->recurse, 
 							svn->ctx, svn->pool);
 	show_svn_error(error, add->svn);
 	
