@@ -79,6 +79,24 @@ static void on_diff_type_changed(GtkComboBox* combo, GtkWidget* unified_check)
 		gtk_combo_box_set_active(combo, DIFF_STANDARD);
 }
 
+static void init_whole_project(GtkWidget* project)
+{
+	gboolean project_loaded = FALSE; /* TODO */
+	
+	gtk_widget_set_sensitive(project, project_loaded);
+}	
+
+static void on_whole_project_toggled(GtkToggleButton* project, GtkEntry* fileentry)
+{
+	if (gtk_toggle_button_get_active(project))
+	{
+		/* TODO: Set to project root dir */
+		gtk_widget_set_sensitive(GTK_WIDGET(fileentry), FALSE);
+	}
+	else
+		gtk_widget_set_sensitive(GTK_WIDGET(fileentry), TRUE);	
+}
+
 void cvs_add_dialog(GtkAction* action, CVSPlugin* plugin, gchar *filename)
 {
 	GladeXML* gxml;
@@ -126,6 +144,7 @@ void cvs_commit_dialog (GtkAction* action, CVSPlugin* plugin, gchar *filename)
 	GladeXML* gxml;
 	GtkWidget* dialog; 
 	GtkWidget* fileentry;
+	GtkWidget* project;
 	CVSData* data;
 	
 	gxml = glade_xml_new(GLADE_FILE, "cvs_commit", NULL);
@@ -134,6 +153,11 @@ void cvs_commit_dialog (GtkAction* action, CVSPlugin* plugin, gchar *filename)
 	fileentry = glade_xml_get_widget(gxml, "cvs_filename");
 	if (filename)
 		gtk_entry_set_text(GTK_ENTRY(fileentry), filename);
+	
+	project = glade_xml_get_widget(gxml, "cvs_project");
+	init_whole_project(project);
+	g_signal_connect(G_OBJECT(project), "toggled", 
+		G_CALLBACK(on_whole_project_toggled), fileentry);
 	
 	data = cvs_data_new(plugin, gxml);
 	g_signal_connect(G_OBJECT(dialog), "response", 
@@ -148,6 +172,7 @@ void cvs_update_dialog (GtkAction* action, CVSPlugin* plugin, gchar *filename)
 	GladeXML* gxml;
 	GtkWidget* dialog; 
 	GtkWidget* fileentry;
+	GtkWidget* project;
 	CVSData* data;
 	
 	gxml = glade_xml_new(GLADE_FILE, "cvs_update", NULL);
@@ -156,6 +181,11 @@ void cvs_update_dialog (GtkAction* action, CVSPlugin* plugin, gchar *filename)
 	fileentry = glade_xml_get_widget(gxml, "cvs_filename");
 	if (filename)
 		gtk_entry_set_text(GTK_ENTRY(fileentry), filename);
+	
+	project = glade_xml_get_widget(gxml, "cvs_project");
+	init_whole_project(project);
+	g_signal_connect(G_OBJECT(project), "toggled", 
+		G_CALLBACK(on_whole_project_toggled), fileentry);
 	
 	data = cvs_data_new(plugin, gxml);
 	g_signal_connect(G_OBJECT(dialog), "response", 
@@ -171,6 +201,7 @@ void cvs_diff_dialog (GtkAction* action, CVSPlugin* plugin, gchar *filename)
 	GtkWidget* fileentry;
 	GtkWidget* diff_type;
 	GtkWidget* unified_diff;
+	GtkWidget* project;
 	CVSData* data;
 	
 	gxml = glade_xml_new(GLADE_FILE, "cvs_diff", NULL);
@@ -179,6 +210,12 @@ void cvs_diff_dialog (GtkAction* action, CVSPlugin* plugin, gchar *filename)
 	fileentry = glade_xml_get_widget(gxml, "cvs_filename");
 	if (filename)
 		gtk_entry_set_text(GTK_ENTRY(fileentry), filename);
+	
+	project = glade_xml_get_widget(gxml, "cvs_project");
+	init_whole_project(project);
+	g_signal_connect(G_OBJECT(project), "toggled", 
+		G_CALLBACK(on_whole_project_toggled), fileentry);
+	
 	diff_type = glade_xml_get_widget(gxml, "cvs_diff_type");
 	unified_diff = glade_xml_get_widget(gxml, "cvs_unified");
 	gtk_combo_box_set_active(GTK_COMBO_BOX(diff_type), DIFF_PATCH);
@@ -197,6 +234,7 @@ void cvs_status_dialog (GtkAction* action, CVSPlugin* plugin, gchar *filename)
 	GladeXML* gxml;
 	GtkWidget* dialog; 
 	GtkWidget* fileentry;
+	GtkWidget* project;
 	CVSData* data;
 	
 	gxml = glade_xml_new(GLADE_FILE, "cvs_status", NULL);
@@ -206,6 +244,11 @@ void cvs_status_dialog (GtkAction* action, CVSPlugin* plugin, gchar *filename)
 	if (filename)
 		gtk_entry_set_text(GTK_ENTRY(fileentry), filename);
 
+	project = glade_xml_get_widget(gxml, "cvs_project");
+	init_whole_project(project);
+	g_signal_connect(G_OBJECT(project), "toggled", 
+		G_CALLBACK(on_whole_project_toggled), fileentry);
+	
 	data = cvs_data_new(plugin, gxml);
 	g_signal_connect(G_OBJECT(dialog), "response", 
 		G_CALLBACK(on_cvs_status_response), data);
@@ -219,6 +262,7 @@ void cvs_log_dialog (GtkAction* action, CVSPlugin* plugin, gchar *filename)
 	GladeXML* gxml;
 	GtkWidget* dialog; 
 	GtkWidget* fileentry;
+	GtkWidget* project;
 	CVSData* data;
 
 	gxml = glade_xml_new(GLADE_FILE, "cvs_logdialog", NULL);
@@ -228,6 +272,10 @@ void cvs_log_dialog (GtkAction* action, CVSPlugin* plugin, gchar *filename)
 	if (filename)
 		gtk_entry_set_text(GTK_ENTRY(fileentry), filename);
 	
+	project = glade_xml_get_widget(gxml, "cvs_project");
+	init_whole_project(project);
+	g_signal_connect(G_OBJECT(project), "toggled", 
+		G_CALLBACK(on_whole_project_toggled), fileentry);
 	
 	data = cvs_data_new(plugin, gxml);
 	g_signal_connect(G_OBJECT(dialog), "response", 

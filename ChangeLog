@@ -1,11 +1,19 @@
 2005-01-18  Johannes Schmid <jhs@cvs.gnome.org>
+	
+	* plugins/cvs-plugin/anjuta-cvs-plugin.glade
+	plugins/cvs-plugin/cvs-actions.c:
+	Added "Whole project" infrastructure but it does not
+	work because I did not find a way to get the current project's
+	root dir.
+
+2005-01-18  Johannes Schmid <jhs@cvs.gnome.org>
 
 	* plugins/cvs-plugin/Makefile.am
-	* plugins/cvs-plugin/anjuta-cvs.plugin.in
-	* plugins/cvs-plugin/cvs-actions.c
-	* plugins/cvs-plugin/cvs-callbacks.c
-	* plugins/cvs-plugin/cvs-interface.[ch] (added)
-	* plugins/cvs-plugin/plugin.c:
+	plugins/cvs-plugin/anjuta-cvs.plugin.in
+	plugins/cvs-plugin/cvs-actions.c
+	plugins/cvs-plugin/cvs-callbacks.c
+	plugins/cvs-plugin/cvs-interface.[ch] (added)
+	plugins/cvs-plugin/plugin.c:
 	
 	Added IAnjutaCVS interface and improved cvs plugin. There
 	is still some work to do on cvs import and to add a current
