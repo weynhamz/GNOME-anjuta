@@ -2309,55 +2309,85 @@ project_dbase_import_file_real (ProjectDBase* p, PrjModule selMod, gchar* filena
 void
 project_dbase_remove_file (ProjectDBase * p)
 {
-	gchar *key, *fn, *files, *pos;
+	gchar *key, *fn;
 	gchar *cmp_dir, *full_fn;
-	gint i;
 	TMWorkObject *source_file;
 	PrjModule module;
 	GtkTreeSelection *selection;
 	GtkTreeModel *model;
 	GtkTreeIter iter, parent;
+	GList *files, *node;
+	gboolean found;
 
+	/* Get the list of source files */
 	module = p->current_file_data->module;
 	key = g_strconcat ("module.", module_map[module], ".files", NULL);
-	files = prop_get (p->props, key);
+	files = glist_from_data (p->props, key);
 	if (files == NULL)
 	{
-		g_free(key);
+		g_free (key);
+		return;
+	}
+	if (NULL == (fn = p->current_file_data->filename))
+	{
+		glist_strings_free (files);
+		g_free (key);
 		return;
 	}
 	
-	/* fn = extract_filename (p->current_file_data->filename); */
-	if (NULL == (fn = p->current_file_data->filename))
+	/* Remove current file from the list */
+	node = files;
+	found = FALSE;
+	while (node)
 	{
-		g_free(files);
-		g_free(key);
-		return;
+		if (strcmp ((gchar*)node->data, fn) == 0)
+		{
+			found = TRUE;
+			g_free (node->data);
+			files = g_list_remove (files, node->data);
+			break;
+		}
+		node = g_list_next (node);
 	}
-	pos = strstr (files, fn);
-	if (pos == NULL)
-	{
-		g_free (files);
-		g_free(key);
-		return;
+	
+	/* Save the updated list of source files */
+	if (found) {
+		gchar *files_str = NULL;
+		
+		node = files;
+		while (node)
+		{
+			if (files_str)
+				g_strconcat (files_str, " ", (gchar*)node->data, NULL);
+			else
+				files_str = g_strdup ((gchar*)node->data);
+			node = g_list_next (node);
+		}
+		if (files_str)
+		{
+			prop_set_with_key (p->props, key, files_str);
+			g_free(files_str);
+		} else {
+			prop_set_with_key (p->props, key, "");
+		}
 	}
-	for (i=0; i< strlen(fn); i++)
-		*pos++ = ' ';
+	glist_strings_free (files);
+	
 	if (NULL == (cmp_dir = project_dbase_get_module_dir (p, module)))
 	{
 		g_warning("Unable to get component directory!");
-		g_free(files);
-		g_free(key);
+		g_free (key);
 		return;
 	}
-	full_fn = g_strconcat(cmp_dir, "/", fn, NULL);
-	source_file = tm_project_find_file(p->tm_project, full_fn, FALSE);
+	
+	/* Remove the file from TM workspace */
+	full_fn = g_strconcat (cmp_dir, "/", fn, NULL);
+	source_file = tm_project_find_file (p->tm_project, full_fn, FALSE);
 	if (source_file)
 	{
-		GList *node;
 		TextEditor *te;
-		tm_project_remove_object(TM_PROJECT(p->tm_project), source_file);
-		for (node = app->text_editor_list; node; node = g_list_next(node))
+		tm_project_remove_object (TM_PROJECT(p->tm_project), source_file);
+		for (node = app->text_editor_list; node; node = g_list_next (node))
 		{
 			te = (TextEditor *) node->data;
 			if (te && (source_file == te->tm_file))
@@ -2365,29 +2395,29 @@ project_dbase_remove_file (ProjectDBase * p)
 		}
 	}
  	else
- 		g_warning("Unable to find %s in project", full_fn);
-	g_free(cmp_dir);
-	g_free(full_fn);
-	prop_set_with_key (p->props, key, files);
-	g_free(files);
+ 		g_warning ("Unable to find %s in project", full_fn);
+	g_free (cmp_dir);
+	g_free (full_fn);
 	
+	/* Remove the file from project tree */
 	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (p->widgets.treeview));
 	if (gtk_tree_selection_get_selected (selection, &model, &iter))
 	{
 		gboolean has_parent;
+		gchar * files_str;
 		
 		has_parent = gtk_tree_model_iter_parent (model, &parent, &iter);
 		gtk_tree_store_remove (GTK_TREE_STORE (model), &iter);
 		p->is_saved = FALSE;
 	
 		/* Check if the module is empty */
-		files = prop_get (p->props, key);
-		g_free(key);
-		if (files == NULL && has_parent)
+		files_str = prop_get (p->props, key);
+		if (files_str == NULL && has_parent)
 			/* Module is empty so remove the module */
 			gtk_tree_store_remove (GTK_TREE_STORE (model), &parent);
-		g_free (files);
+		g_free (files_str);
 	}
+	g_free (key);
 }
 
 gchar*

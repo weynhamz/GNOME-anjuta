@@ -1,3 +1,11 @@
+2004-03-19  Naba Kumar  <naba@gnome.org>
+
+	* src/project_dbase.c: fixed bug #893400 ("Remove file" in project tree)
+
+2004-03-17  Pavol Bosik <Pavol.Bosik@siemens.com>
+
+	* src/search-replace.c: fixed "Find Usage" crash when no project open
+
 2004-03-17  Naba Kumar  <naba@gnome.org>
 
 	* data/autogen.sh.*, data/macros/autogen.sh, data/macros2/autogen.sh:

@@ -1442,7 +1442,9 @@ void search_replace_find_usage(gchar *symbol)
 	sr->search.expr.actions_max = G_MAXINT;
 	sr->search.expr.re = NULL;
 
-	sr->search.range.type = SR_PROJECT;
+	sr->search.range.type =
+		app->project_dbase->project_is_open ? SR_PROJECT : SR_OPEN_BUFFERS;
+
 	sr->search.range.direction = SD_BEGINNING;
 
 	sr->search.range.var = NULL;
