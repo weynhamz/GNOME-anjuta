@@ -1,5 +1,10 @@
 2001-12-20	Andy Piper	<andy.piper@freeuk.com>
 
+	* launcher/anjuta_launcher.c: patch from Stef to fix #490816
+	  (debugger now catches correct signal from process)
+
+2001-12-20	Andy Piper	<andy.piper@freeuk.com>
+
 	* pixmaps/Makefile.am, pixmaps/appwiz_*.png: new images from Misha
 	* src/pixmaps.h: switch appwizard project icons to new designs
 	* pixmaps/appwid*xpm, pixmaps/gear.xpm: removed unused graphics

@@ -1,5 +1,5 @@
 /*
-    ajuta_launcher.c
+    anjuta_launcher.c
     Copyright (C) 2000  Kh. Naba Kumar Singh
 
     This program is free software; you can redistribute it and/or modify
@@ -77,7 +77,9 @@ main (int argc, char **argv)
 		else
 		{
 			waitpid (pid, &status, 0);
-			error = (WEXITSTATUS (status) < 0);
+
+			error = WIFSIGNALED (status) || !WIFEXITED (status) ||
+				WEXITSTATUS (status) < 0;
 		}
 		if (error)
 		{
@@ -125,8 +127,15 @@ main (int argc, char **argv)
 	{
 		waitpid (pid, &status, 0);
 		printf ("\n----------------------------------------------\n");
-		printf ("Program terminated with exit code %d\n",
-			WEXITSTATUS (status));
+
+		waitpid (pid, &status, 0);
+		
+		if (WIFSIGNALED (status)) {
+			int signal = WTERMSIG (status);
+
+			printf ("Program has been terminated receiving signal %d (%s)\n", signal, g_strsignal (signal));
+		} else if (WIFEXITED (status))
+			printf ("Program exited successfully with errcode (%d)\n", WEXITSTATUS (status));
 	}
 	printf ("Press any key to close this terminal ... \n");
 	getchar ();
