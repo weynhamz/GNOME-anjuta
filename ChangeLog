@@ -1,3 +1,11 @@
+2005-03-11  Naba Kumar  <naba@gnome.org>
+
+	* scintilla/ScintillaGTK.cxx: Fixed crash bug when focus in occurs
+	before scintilla widget is realized.
+	
+	* plugins/cvs-plugin/plugin.c: Aligned comments and added a shortcut
+	for Update menuitem.
+	
 2005-03-10  Naba Kumar  <naba@gnome.org>
 
 	* src/action-callbacks.c: Removed reference to src/help.h (dead
