@@ -683,6 +683,7 @@ void TerminalWindow::preferences_update ()
 	{
 		gdk_color_parse (text, &color);
 		vte_terminal_set_color_foreground (VTE_TERMINAL (vte), &color);
+		vte_terminal_set_color_bold (VTE_TERMINAL (vte), &color);
 	}
 	g_free (profile);
 	g_object_unref (client);
