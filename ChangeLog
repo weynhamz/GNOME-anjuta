@@ -4,6 +4,7 @@
 	* resources.c, resources.h: Changed gchar* return to void, to
 		avoid a compiler warning.
 	* scintilla/Makefile.am: Reorganized file entries.
+	* src/Makefile.am: Added StyleContex.o module directly with the lexers.
 
 2001-10-16  Naba Kumar <kh_naba@users.sourceforge.net>
 

@@ -17,6 +17,7 @@ INCLUDES = \
  	-g
 
 SCILEXERS =\
+    ../scintilla/StyleContext.o\
 	../scintilla/LexCPP.o\
 	../scintilla/LexConf.o\
 	../scintilla/LexHTML.o\
