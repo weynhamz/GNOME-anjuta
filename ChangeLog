@@ -1,3 +1,7 @@
+2001-10-29  Naba Kumar <kh_naba@users.sourceforge.net>
+
+	* configure.in: Added pt_BR in the languages.
+	
 2001-11-01	Andy Piper	<andy.piper@freeuk.com>
 
 	* src/executer.c, mainmenu_callbacks.c: patch from Dan Elphick
