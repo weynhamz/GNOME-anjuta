@@ -26,16 +26,16 @@ GtkItemFactoryEntry class_popup::menus[]=
 {
     {N_("/_Class Definition"),NULL,GTK_SIGNAL_FUNC(class_popup::class_def),0,NULL},
     {N_("/_Func Definition"),NULL,GTK_SIGNAL_FUNC(class_popup::func_def),0,NULL},
-    {N_("/Func _Declaration"),NULL,GTK_SIGNAL_FUNC(class_popup::func_decl),0,NULL},
-    {N_("/_Add function"),NULL,GTK_SIGNAL_FUNC(class_popup::add_func),0,NULL},
-    {N_("/_Properties"),NULL,GTK_SIGNAL_FUNC(class_popup::properties),0,NULL}
+    {N_("/Func _Declaration"),NULL,GTK_SIGNAL_FUNC(class_popup::func_decl),0,NULL}//,
+    //{N_("/_Add function"),NULL,GTK_SIGNAL_FUNC(class_popup::add_func),0,NULL},
+    //{N_("/_Properties"),NULL,GTK_SIGNAL_FUNC(class_popup::properties),0,NULL}
 };
 
 GtkItemFactoryEntry file_popup::menus[]=
 {
     {N_("/_Shell here"),NULL,GTK_SIGNAL_FUNC(file_popup::shell_here),0,NULL},
-    {N_("/_Open"),NULL,GTK_SIGNAL_FUNC(file_popup::open),0,NULL},
-    {N_("/_Properties"),NULL,GTK_SIGNAL_FUNC(file_popup::properties),0,NULL}
+    {N_("/_Open"),NULL,GTK_SIGNAL_FUNC(file_popup::open),0,NULL}//,
+    //{N_("/_Properties"),NULL,GTK_SIGNAL_FUNC(file_popup::properties),0,NULL}
 };
     
 popup_menu::popup_menu()

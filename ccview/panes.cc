@@ -223,6 +223,9 @@ do_shell_command(const char *path)
 void file_pane::popup_shell_here()
 {
 	if (current_data == NULL) return;
+	cout << "Dir = " << current_data->get_para1() << endl;
+	cout << "File = " << current_data->get_para2() << endl;
+	
 	if (current_data->get_type() == NTYPE_FOLDER
 		&& !current_data->get_para2().empty())
 	{
