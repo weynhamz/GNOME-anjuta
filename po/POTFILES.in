@@ -1,26 +1,27 @@
 # List of source files containing translatable strings.
 # Please keep this list in alphabetical order.
-
-## Created by Anjuta - will be overwritten
-## If you don't want it to overwrite it,
-## 	Please disable it in the Anjuta project configuration
-
-# Source files
 anjuta.desktop.in.in
+plugins/class-gen/clsGen.c
+plugins/sample1/plugin-sample1.c
+src/CORBA-Server.c
+src/about.c
+src/about.h
 src/an_file_view.c
 src/an_symbol_view.c
-src/support.c
 src/aneditor.cxx
 src/aneditor.h
+src/anjuta.c
 src/anjuta.h
 src/anjuta_cbs.c
 src/anjuta_dirs.c
 src/anjuta_dirs.h
+src/anjuta_gui.c
 src/anjuta_info.c
 src/anjuta_info.h
 src/appwiz_page1.c
 src/appwiz_page2.c
 src/appwiz_page3.c
+src/appwiz_page4.c
 src/appwizard.c
 src/appwizard.h
 src/appwizard_cbs.c
@@ -44,6 +45,8 @@ src/clean_project.c
 src/clean_project.h
 src/commands.c
 src/commands.h
+src/compatibility_0.c
+src/compatibility_0.h
 src/compile.c
 src/compile.h
 src/compiler_options.c
@@ -57,6 +60,8 @@ src/controls.c
 src/controls.h
 src/debugger.c
 src/debugger.h
+src/defaults.c
+src/defaults.h
 src/dnd.c
 src/dnd.h
 src/executer.c
@@ -72,6 +77,9 @@ src/find_replace.c
 src/find_replace.h
 src/find_text.c
 src/find_text.h
+src/glade_iface.c
+src/glade_iface.h
+src/glades.c
 src/global.h
 src/gnome_project.c
 src/gnome_project.h
@@ -88,22 +96,22 @@ src/main_menubar.h
 src/main_menubar_def.h
 src/mainmenu_callbacks.c
 src/mainmenu_callbacks.h
-src/messagebox.c
-src/messagebox.h
-src/message-manager.cc
-src/message-manager.h
 src/message-manager-dock.c
 src/message-manager-dock.h
 src/message-manager-private.cc
 src/message-manager-private.h
+src/message-manager.cc
+src/message-manager.h
+src/messagebox.c
+src/messagebox.h
 src/pixmaps.h
 src/preferences.c
 src/preferences.h
 src/preferences_gui.c
-src/project_dbase.c
-src/project_dbase.h
 src/project_config.c
 src/project_config.h
+src/project_dbase.c
+src/project_dbase.h
 src/project_dbase_gui.c
 src/properties.cxx
 src/properties.h
@@ -112,6 +120,8 @@ src/registers.h
 src/registers_cbs.c
 src/registers_cbs.h
 src/registers_gui.c
+src/resources.c
+src/resources.h
 src/sharedlib.c
 src/sharedlib.h
 src/sharedlib_cbs.c
@@ -122,6 +132,8 @@ src/signals.h
 src/signals_cbs.c
 src/signals_cbs.h
 src/signals_gui.c
+src/source.c
+src/source.h
 src/splash.c
 src/splash.h
 src/src_paths.c
@@ -134,6 +146,7 @@ src/stack_trace.h
 src/stack_trace_cbs.c
 src/stack_trace_cbs.h
 src/stack_trace_gui.c
+src/support.c
 src/tags_manager.c
 src/tags_manager.h
 src/text_editor.c
@@ -155,23 +168,6 @@ src/watch.h
 src/watch_cbs.c
 src/watch_cbs.h
 src/watch_gui.c
-src/about.c
-src/appwiz_page4.c
-src/source.c
-src/anjuta.c
-src/anjuta_gui.c
-src/source.h
-src/glade_iface.c
-src/glade_iface.h
-src/compatibility_0.c
-src/compatibility_0.h
-src/defaults.c
-src/defaults.h
-src/about.h
-src/resources.c
-src/resources.h
-widgets/scroll-menu.c
 widgets/gnomedirlist.c
 widgets/gnomefilelist.c
-plugins/sample1/plugin-sample1.c
-plugins/class-gen/clsGen.c
+widgets/scroll-menu.c
