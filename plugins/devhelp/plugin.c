@@ -22,7 +22,7 @@
 #include <gtk/gtk.h>
 
 #include <devhelp/dh-book-tree.h>
-#include <devhelp/dh-history.h>
+// #include <devhelp/dh-history.h>
 #include <devhelp/dh-html.h>
 #include <devhelp/dh-search.h>
 #include <devhelp/dh-base.h>
@@ -41,7 +41,7 @@ gchar *geometry = NULL;
 
 struct _DevhelpPluginPriv {
 	DhBase         *base;
-	DhHistory      *history;
+	//	DhHistory      *history;
 	DhHtml         *html;
 
 	GtkWidget      *notebook;
@@ -59,18 +59,18 @@ activate_action (GtkAction *action, DevhelpPlugin *plugin)
 	
 	priv = plugin->priv;
 	if (strcmp (name, "ActionDevhelpBack") == 0) {
-		gchar *uri = dh_history_go_back (priv->history);
-		if (uri) {
-			dh_html_open_uri (priv->html, uri);
-			g_free (uri);
-		}
+		dh_html_go_back (priv->html);
+		// if (uri) {
+		//	dh_html_open_uri (priv->html, uri);
+		//	g_free (uri);
+		//}
 	}
 	else if (strcmp (name, "ActionDevhelpForward") == 0) {
-		gchar *uri = dh_history_go_forward (priv->history);
-		if (uri) {
-			dh_html_open_uri (priv->html, uri);
-			g_free (uri);
-		}
+		dh_html_go_forward (priv->html);
+		//if (uri) {
+		//	dh_html_open_uri (priv->html, uri);
+		//	g_free (uri);
+		//}
 	} else {
 		g_message ("Unhandled action '%s'", name);
 	}
@@ -100,6 +100,14 @@ open_url (DevhelpPlugin *plugin, const gchar *url)
 }
 
 static void
+location_changed_cb (DhHtml      *html,
+					 const gchar *location,
+					 DevhelpPlugin *plugin)
+{
+	//	window_check_history (window);
+}
+
+static void
 link_selected_cb (GObject *ignored, DhLink *link, DevhelpPlugin *plugin)
 {
 	DevhelpPluginPriv   *priv;
@@ -109,12 +117,12 @@ link_selected_cb (GObject *ignored, DhLink *link, DevhelpPlugin *plugin)
 	priv = plugin->priv;
 
 	if (open_url (plugin, link->uri)) {
-		dh_history_goto (priv->history, link->uri);
+		// dh_history_goto (priv->history, link->uri);
 	}
 }
 
 static void
-back_exists_changed_cb (DhHistory *history, 
+back_exists_changed_cb (DhHtml *history, 
 						gboolean   exists,
 						DevhelpPlugin  *plugin)
 {
@@ -133,7 +141,7 @@ back_exists_changed_cb (DhHistory *history,
 }
 
 static void
-forward_exists_changed_cb (DhHistory *history, 
+forward_exists_changed_cb (DhHtml *history, 
 							gboolean   exists, 
 							DevhelpPlugin  *plugin)
 {
@@ -214,12 +222,14 @@ devhelp_plugin_instance_init (GObject *obj)
 	g_message ("Intializing Devhelp plugin");
 	
 	/* Create plugin widgets */
-	priv->history = dh_history_new ();
+	// priv->history = dh_history_new ();
 
-	g_signal_connect (priv->history, "forward_exists_changed",
-					  G_CALLBACK (forward_exists_changed_cb), obj);
-	g_signal_connect (priv->history, "back_exists_changed",
-					  G_CALLBACK (back_exists_changed_cb), obj);
+	g_signal_connect (priv->html, "location-changed",
+					  G_CALLBACK (location_changed_cb), obj);
+	// g_signal_connect (priv->history, "forward_exists_changed",
+	//				  G_CALLBACK (forward_exists_changed_cb), obj);
+	// g_signal_connect (priv->history, "back_exists_changed",
+	//				  G_CALLBACK (back_exists_changed_cb), obj);
 	
 	priv->base      = dh_base_new ();
 	priv->html      = dh_html_new ();

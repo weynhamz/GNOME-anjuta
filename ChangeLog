@@ -1,3 +1,8 @@
+2004-07-28  Naba Kumar  <naba@gnome.org>
+
+	* configure.in: Reduced gnome-print version requirement.
+	* plugins/devhelp/plugin.c: Fixed changes wrt develop >= 0.9.0.
+
 2004-07-21  Ray Strode  <rstrode@redhat.com>
 	* anjuta/anjuta.desktop.in.in: Add MimeType line to desktop file
 	new mime sytem.
