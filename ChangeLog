@@ -1,3 +1,8 @@
+2002-02-04	Andy Piper	<andy.piper@freeuk.com>
+
+	* manuals/C/anjuta-manual/*.sgml: fixed so that jade no longer
+	  reports a problem with missing end tags on <graphic>
+
 2002-02-03	Andy Piper	<andy.piper@freeuk.com>
 
 	* manuals/C/ChangeLog: removed since it was never used

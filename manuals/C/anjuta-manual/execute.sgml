@@ -28,7 +28,7 @@
    <title>Setting program parameters</title>
    <screenshot>
    <screeninfo>Setting program parameters</screeninfo>
-    <graphic fileref="figures/arguments" format="png" srccredit="andyp"/>
+    <graphic fileref="figures/arguments" format="png" srccredit="andyp"></graphic>
    </screenshot>
   </figure>
  </sect1>

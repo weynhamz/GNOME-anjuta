@@ -1,7 +1,5 @@
- <!-- ============= Getting Familiar with Anjuta  ============-->
-
- <chapter id="familiar">
-  <title>Getting familiar with Anjuta</title>
+<chapter id="familiar">
+  <title>Getting Familiar with Anjuta</title>
  <!-- ============= Getting Familiar: Menus  ============-->
   <sect1 id="launch">
    <title>Starting Anjuta</title>
@@ -13,7 +11,7 @@
       <title>Anjuta application icon</title>
 	  <screenshot>
       <screeninfo>Anjuta application icon on the Development menu</screeninfo>
-       <graphic fileref="figures/devt_menu" format="png" srccredit="andyp"/>
+       <graphic fileref="figures/devt_menu" format="png" srccredit="andyp"></graphic>
       </screenshot>
     </figure>
    <para>
@@ -40,7 +38,7 @@
       <title>Menubar</title>
 	  <screenshot>
       <screeninfo>Anjuta menubar</screeninfo>
-       <graphic fileref="figures/menu_main" format="png" srccredit="andyp"/>
+       <graphic fileref="figures/menu_main" format="png" srccredit="andyp"></graphic>
       </screenshot>
     </figure>
     
@@ -54,7 +52,7 @@
       <title>File menu (detached)</title>
       <screenshot>
       <screeninfo>File menu (detached)</screeninfo>
-       <graphic fileref="figures/menu_detached" format="png" srccredit="andyp"/>
+       <graphic fileref="figures/menu_detached" format="png" srccredit="andyp"></graphic>
       </screenshot>
     </figure>
 	
@@ -88,7 +86,7 @@
 	<title>Main toolbar (detached)</title>
      <screenshot>
      <screeninfo>Main toolbar (detached)</screeninfo>
-	  <graphic fileref="figures/toolbar_main" format="png" srccredit="andyp"/>
+	  <graphic fileref="figures/toolbar_main" format="png" srccredit="andyp"></graphic>
      </screenshot>
     </figure>
  
