@@ -271,6 +271,7 @@ update_main_menubar ()
 	gtk_widget_set_sensitive (fm->save_all_file,
 				  (g_list_length (app->text_editor_list) > 1));
 	gtk_widget_set_sensitive (fm->close_file, F);
+	gtk_widget_set_sensitive (fm->close_all_file, F);
 	gtk_widget_set_sensitive (fm->reload_file, F);
 	gtk_widget_set_sensitive (fm->new_project, !P);
 	gtk_widget_set_sensitive (fm->open_project, !P);

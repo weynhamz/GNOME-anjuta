@@ -124,6 +124,7 @@ find_text_show (FindText * ft)
 	entry_set_text_n_select (ft->f_gui.entry, NULL, TRUE);
 	if (ft->is_showing)
 	{
+		gtk_widget_show (ft->f_gui.GUI);
 		gdk_window_raise (ft->f_gui.GUI->window);
 
 		return;

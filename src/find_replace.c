@@ -164,6 +164,7 @@ find_replace_show (FindAndReplace * fr)
 
 	if (fr->is_showing)
 	{
+		gtk_widget_show (fr->r_gui.GUI->window);
 		gdk_window_raise (fr->r_gui.GUI->window);
 		return;
 	}

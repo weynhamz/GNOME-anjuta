@@ -41,6 +41,7 @@ struct _FileSubMenu
 	GtkWidget *save_as_file;
 	GtkWidget *save_all_file;
 	GtkWidget *close_file;
+	GtkWidget *close_all_file;
 	GtkWidget *reload_file;
 	GtkWidget *new_project;
 	GtkWidget *open_project;

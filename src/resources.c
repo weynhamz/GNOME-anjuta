@@ -291,7 +291,7 @@ anjuta_res_help_search (const gchar * word)
 	{
 		if(fork()==0)
 		{
-			execlp("devhelp", "devhelp", "-f", "-s", word, NULL);
+			execlp("devhelp", "devhelp", "-s", word, NULL);
 			g_error (_("Cannot execute Devhelp. Make sure it is installed"));
 		}
 	}

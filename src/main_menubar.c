@@ -43,23 +43,24 @@ create_main_menubar (GtkWidget * ap, MainMenuBar * mb)
 	mb->file.save_as_file = file1_menu_uiinfo[3].widget;
 	mb->file.save_all_file = file1_menu_uiinfo[4].widget;
 	mb->file.close_file = file1_menu_uiinfo[5].widget;
-	mb->file.reload_file = file1_menu_uiinfo[6].widget;
-	mb->file.new_project = file1_menu_uiinfo[8].widget;
-	mb->file.open_project = file1_menu_uiinfo[9].widget;
-	mb->file.save_project = file1_menu_uiinfo[10].widget;
-	mb->file.close_project = file1_menu_uiinfo[11].widget;
-	mb->file.rename = file1_menu_uiinfo[13].widget;
+	mb->file.close_all_file = file1_menu_uiinfo[6].widget;
+	mb->file.reload_file = file1_menu_uiinfo[7].widget;
+	mb->file.new_project = file1_menu_uiinfo[9].widget;
+	mb->file.open_project = file1_menu_uiinfo[10].widget;
+	mb->file.save_project = file1_menu_uiinfo[11].widget;
+	mb->file.close_project = file1_menu_uiinfo[12].widget;
+	mb->file.rename = file1_menu_uiinfo[14].widget;
 	
 	/* Unimplemented */
-	gtk_widget_hide (file1_menu_uiinfo[13].widget);
 	gtk_widget_hide (file1_menu_uiinfo[14].widget);
+	gtk_widget_hide (file1_menu_uiinfo[15].widget);
 
-	mb->file.page_setup = file1_menu_uiinfo[15].widget;
-	mb->file.print = file1_menu_uiinfo[16].widget;
-	mb->file.recent_files = file1_menu_uiinfo[18].widget;
-	mb->file.recent_projects = file1_menu_uiinfo[19].widget;
-	mb->file.exit = file1_menu_uiinfo[21].widget;
-	for (i = 0; i < 22; i++)
+	mb->file.page_setup = file1_menu_uiinfo[16].widget;
+	mb->file.print = file1_menu_uiinfo[17].widget;
+	mb->file.recent_files = file1_menu_uiinfo[19].widget;
+	mb->file.recent_projects = file1_menu_uiinfo[20].widget;
+	mb->file.exit = file1_menu_uiinfo[22].widget;
+	for (i = 0; i < 23; i++)
 		gtk_widget_ref (file1_menu_uiinfo[i].widget);
 
 	mb->edit.uppercase = transform1_submenu_uiinfo[0].widget;
@@ -294,7 +295,7 @@ void
 main_menu_unref ()
 {
 	gint i;
-	for (i = 0; i < 22; i++)
+	for (i = 0; i < 23; i++)
 		gtk_widget_unref (file1_menu_uiinfo[i].widget);
 	for (i = 0; i < 3; i++)
 		gtk_widget_unref (select1_submenu_uiinfo[i].widget);

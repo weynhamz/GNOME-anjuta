@@ -146,6 +146,29 @@ on_close_file1_activate (GtkMenuItem * menuitem, gpointer user_data)
 		anjuta_remove_current_text_editor ();
 }
 
+void
+on_close_all_file1_activate (GtkMenuItem * menuitem, gpointer user_data)
+{
+	GList *node;
+	
+	/* Close all 'saved' files */
+	node = app->text_editor_list;
+	while (node)
+	{
+		TextEditor* te;
+		GList* next;
+		te = node->data;
+		next = node->next; // Save it now, as we may change it.
+		if(te)
+		{
+			if (text_editor_is_saved (te) && te->full_filename)
+			{
+				anjuta_remove_text_editor(te);
+			}
+		}
+		node = next;
+	}
+}
 
 void
 on_reload_file1_activate (GtkMenuItem * menuitem, gpointer user_data)

@@ -126,8 +126,13 @@ anjuta_new ()
 		app->first_time_expose = TRUE;
 
 		create_anjuta_gui (app);
+		
 		app->dirs = anjuta_dirs_new ();
 		app->fileselection = create_fileselection_gui (&fsd1);
+		
+		/* Set to the current dir */
+		fileselection_set_dir (app->fileselection, (gchar *)get_current_dir_name());
+		
 		app->save_as_fileselection = create_fileselection_gui (&fsd2);
 		app->find_replace = find_replace_new ();
 		app->find_in_files = find_in_files_new ();

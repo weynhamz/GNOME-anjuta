@@ -1,3 +1,8 @@
+2001-08-27  Naba Kumar <kh_naba@users.sourceforge.net>
+
+	* Removed "-f" option in call to devhelp, because devhelp no longer
+	  supports that.
+	
 2001-08-26  Stephane Demurget <demurgets@free.fr>
 
 	All these modifications have been pointed out by
@@ -10,6 +15,23 @@
 
 	* TODO: added a couple of PHP suggestions from Gregory Schmitt.
 
+2001-08-25  Naba Kumar <kh_naba@users.sourceforge.net>
+	
+	* main_menubar.c,
+	  main_menubar.h,
+	  main_menubar_def.h,
+	  main_menubar_callbacks.c,
+	  controls.c:
+	  	Added new menu item for "close all fils".
+		(Patch from Rikul <rikul@shreve.net>, after revision)
+	
+	* project_dbase.c: project_dbase_close_project(): remove unnecessary printf() statement.
+	
+	* find_text.c, find_replace.c: Fixed dialog wins not show up once close by 'Esc'.
+		(Patch from Rikul <rikul@shreve.net>)
+	
+	* anjuta.c: Fixed to have the current dir in the fileopen dialog box.
+		(Patch from Rikul <rikul@shreve.net>)
 
 2001-08-22  Naba Kumar <kh_naba@users.sourceforge.net>
 	

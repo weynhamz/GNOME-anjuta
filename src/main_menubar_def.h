@@ -70,6 +70,12 @@ static GnomeUIInfo file1_menu_uiinfo[] = {
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_CLOSE,
 	 GDK_D, GDK_MOD1_MASK, NULL},
 	{
+	 GNOME_APP_UI_ITEM, N_("Close All Files"),
+	 N_("Close all files"),
+	 on_close_all_file1_activate, NULL, NULL,
+	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_CLOSE,
+	 GDK_D, GDK_MOD1_MASK, NULL},
+	{
 	 GNOME_APP_UI_ITEM, N_("Reload F_ile"),
 	 N_("Reload current file"),
 	 on_reload_file1_activate, NULL, NULL,

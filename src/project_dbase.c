@@ -1092,7 +1092,6 @@ project_dbase_close_project (ProjectDBase * p)
 			{
 				if (strncmp(te->full_filename, p->top_proj_dir, strlen(p->top_proj_dir)) ==0)
 				{
-					g_print("Closing file %s\n", te->filename);
 					anjuta_remove_text_editor(te);
 				}
 			}
