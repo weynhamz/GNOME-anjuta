@@ -1,3 +1,8 @@
+2004-02-13  Johannes Schmid <jhs@cvs.gnome.org>
+	
+	* data/template/*/.cvsignore:
+	Avoid all these ? in cvs output
+
 2004-02-13  Naba Kumar  <naba@gnome.org>
 
 	* configure.in, plugins/Makefile.am: Enabled devhelp plugin
