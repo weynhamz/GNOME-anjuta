@@ -162,7 +162,7 @@ gtree_insert_files (GtkTreeView *treeview, GtkTreeIter *parent,
 			continue;
 		full_fname = g_strconcat (dir_prefix, "/", node->data, NULL);
 		pixbuf = gdl_icons_get_uri_icon(app->icon_set, full_fname);
-		pfd = project_file_data_new (NULL, mod, node->data, full_fname);
+		pfd = project_file_data_new (mod, node->data, full_fname);
 		g_free (full_fname);
 		
 		store = GTK_TREE_STORE (gtk_tree_view_get_model (treeview));
@@ -176,7 +176,7 @@ gtree_insert_files (GtkTreeView *treeview, GtkTreeIter *parent,
 }
 
 ProjectFileData *
-project_file_data_new (GtkCTreeNode * parent, PrjModule mod,
+project_file_data_new (PrjModule mod,
 					   gchar* fname, gchar * full_fname)
 {
 	ProjectFileData *pfd;
@@ -186,7 +186,6 @@ project_file_data_new (GtkCTreeNode * parent, PrjModule mod,
 		return NULL;
 
 	pfd->module = mod;
-	pfd->parent_node = parent;
 	pfd->filename = NULL;
 	pfd->full_filename = NULL;
 	if (fname)
@@ -2097,7 +2096,7 @@ project_dbase_update_tree (ProjectDBase * p)
 	
 	store = GTK_TREE_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (p->widgets.treeview)));
 	pixbuf = anjuta_res_get_pixbuf (ANJUTA_PIXMAP_CLOSED_FOLDER);
-	pfd = project_file_data_new (NULL, MODULE_SOURCE, NULL, NULL);
+	pfd = project_file_data_new (MODULE_SOURCE, NULL, NULL);
 	gtk_tree_store_append (store, &parent, NULL);
 	gtk_tree_store_set (store, &parent, PROJECT_PIX_COLUMN, pixbuf,
 						PROJECT_NAME_COLUMN, tmp3, PROJECT_DATA_COLUMN, pfd, -1);
@@ -2125,7 +2124,7 @@ project_dbase_update_tree (ProjectDBase * p)
 		}
 
 		pixbuf = anjuta_res_get_pixbuf (ANJUTA_PIXMAP_CLOSED_FOLDER);
-		pfd = project_file_data_new (NULL, i, NULL, NULL);
+		pfd = project_file_data_new (i, NULL, NULL);
 		if (strcmp(tmp1, ".") == 0) {
 			tmp3 = g_strdup (module_map[i]);
 			prefix = g_strdup(p->top_proj_dir);

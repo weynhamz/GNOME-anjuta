@@ -483,7 +483,7 @@ gboolean AnMessageWindow::on_mesg_event (GtkTreeView* list, GdkEvent * event, gp
 			case GDK_Return:
 			{
 				gchar* message = NULL;
-				if (!win->get_messages().empty() && win->get_cur_line() > 0)
+				if (!win->get_messages().empty())
 				{
 					message = new gchar[win->get_cur_msg().size() + 1];	
 					strcpy(message, win->get_cur_msg().c_str());
@@ -502,7 +502,7 @@ gboolean AnMessageWindow::on_mesg_event (GtkTreeView* list, GdkEvent * event, gp
 		if (((GdkEventButton *) event)->button == 1)
 		{
 			gchar* message = NULL;
-			if (!win->get_messages().empty() && win->get_cur_line() > 0)
+			if (!win->get_messages().empty())
 			{
 				message = new gchar[win->get_cur_msg().size() + 1];	
 				strcpy(message, win->get_cur_msg().c_str());

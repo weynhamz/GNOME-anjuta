@@ -517,7 +517,7 @@ launcher_pty_check_password(gchar* last_line)
 			dialog = create_password_dialog (last_line);
 			button = gtk_dialog_run(GTK_DIALOG(dialog));
 			switch(button) {
-				case 0:
+				case GTK_RESPONSE_OK:
 					passwd = gtk_entry_get_text(
 						GTK_ENTRY(g_object_get_data(G_OBJECT(dialog),
 									"password_entry")));
@@ -525,8 +525,11 @@ launcher_pty_check_password(gchar* last_line)
 					launcher_send_ptyin(line);
 					g_free(line);
 					break;
-				case 1:
-					launcher_send_ptyin("<canceled>\n");
+				case GTK_RESPONSE_CANCEL:
+// Ged: this is IMHO useless
+//					launcher_send_ptyin("<canceled>\n");
+// FIXME: this doesn't seem to be enough...
+// and this has to be fixed in 1.0.2 too...				
 					launcher_reset();
 					break;
 				default:
@@ -552,6 +555,7 @@ create_password_dialog (gchar* prompt)
 	
 	dialog = gtk_dialog_new_with_buttons (prompt,
 	                        GTK_WINDOW (app->widgets.window),
+// Ged: shouldn't this dialog be modal? GTK_DIALOG_MODAL |
 	                        GTK_DIALOG_DESTROY_WITH_PARENT,
 	                        GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
 	                        GTK_STOCK_OK, GTK_RESPONSE_OK, NULL);
@@ -559,12 +563,16 @@ create_password_dialog (gchar* prompt)
 
 	gtk_window_set_wmclass (GTK_WINDOW (dialog), "launcher-password-prompt",
 				"anjuta");
-	gtk_window_set_transient_for (GTK_WINDOW(dialog),
-								  GTK_WINDOW(app->widgets.window));
+// Ged: I guess this kind of dialog shouldn't be resizable	
+//	gtk_window_set_resizable (GTK_WINDOW (dialog), FALSE);
+
+// Ged: useless since gtk_dialog_new_with_buttons calls it for us
+//	gtk_window_set_transient_for (GTK_WINDOW(dialog),
+//								  GTK_WINDOW(app->widgets.window));
 	
 	hbox = gtk_hbox_new(FALSE, 10);
 	gtk_widget_show(hbox);
-	gtk_container_add (GTK_CONTAINER (dialog), hbox);
+	gtk_container_add (GTK_CONTAINER (GTK_DIALOG(dialog)->vbox), hbox);
 	
 	icon = anjuta_res_get_image (ANJUTA_PIXMAP_PASSWORD);
 	gtk_widget_show(icon);
@@ -589,7 +597,7 @@ create_password_dialog (gchar* prompt)
 	
 	gtk_widget_ref(entry);
 	gtk_object_set_data_full(GTK_OBJECT(dialog), "password_entry",
-				entry, (GtkDestroyNotify)gtk_widget_unref);
+				gtk_widget_ref(entry), (GDestroyNotify)gtk_widget_unref);
 	gtk_widget_grab_focus(entry);
 	gtk_entry_set_activates_default (GTK_ENTRY (entry), TRUE);
 	

@@ -103,7 +103,6 @@ struct _ProjectFileData
 	PrjModule module;
 	gchar *filename;
 	gchar *full_filename;
-	GtkCTreeNode *parent_node;
 };
 
 struct _ProjectDBaseGui
@@ -163,7 +162,7 @@ extern gchar* programming_language_map[];
 
 /* File data to be set with the project tree nodes */
 ProjectFileData *
-project_file_data_new (GtkCTreeNode *parent_path, PrjModule mod,
+project_file_data_new (PrjModule mod,
 		gchar* fname, gchar * full_fname);
 
 void

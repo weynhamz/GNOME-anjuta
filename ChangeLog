@@ -2,6 +2,18 @@
 	* src/anjuta.[ch], src/print.c: Fixed warnings
 	* scintilla/*, src/aneditor.cxx: Restore LexCPP patch.
 
+2003-04-16  Naba Kumar  <naba@gnome.org>
+
+	Patch from Gaëtan de Menten  <ged@bugfactory.org>
+	* src/launcher.c: Fixed cvs dialog.
+	
+2003-04-15  Johannes Schmid <clubfan@users.sourceforge.net>
+	
+	* src/message-manager-private.cc: Fixed double-click on first line of 
+	output to properly select a line.
+	* src/project_dbase.[c/h]: Removed parent_node from ProjectFileData
+	because still was a deprecatd GtkCTreeNode and always NULL anyway.
+
 2003-04-15  Naba Kumar  <naba@gnome.org>
 
 	* src/message-manager-private.cc: Fixed the glade filename typo.
