@@ -1,3 +1,7 @@
+2004-12-18  Naba Kumar  <naba@gnome.org>
+
+	* plugins/file-loader/plugin.c: Fixed loading bug.
+	
 2004-12-17  Naba Kumar  <naba@gnome.org>
 	
 	* plugins/file-loader/Makefile.am,

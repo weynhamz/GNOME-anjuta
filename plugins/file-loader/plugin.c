@@ -28,6 +28,7 @@
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
 #include <libanjuta/interfaces/ianjuta-wizard.h>
 #include <libanjuta/plugins.h>
+#include <libanjuta/anjuta-debug.h>
 
 #include <libegg/recent-files/egg-recent-view.h>
 #include <libegg/recent-files/egg-recent-view-gtk.h>
