@@ -1433,14 +1433,18 @@ bool AnEditor::CanBeCommented(bool box_stream) {
 		lineEnd1 = selectionStart + start_comment_length;
 	else
 		lineEnd1 = selectionStart + start_comment_stream_length +1;
+	if (lineEnd1 > LengthDocument())
+		lineEnd1 = LengthDocument();
+
 	int lineStart1;
 	size_t start_cmt, end_cmt;
 	int index;	
 	// Find Backward StartComment
 	while (line >= 0 && start1 == false && end1 == false)
 	{
-		lineStart1 = SendEditor(SCI_POSITIONFROMLINE, line);	
+		lineStart1 = SendEditor(SCI_POSITIONFROMLINE, line);
 		GetRange(wEditor, lineStart1, lineEnd1, linebuf);
+
 		for (index = lineEnd1-lineStart1; index >= 0; index--)
 		{
 			if (end1= ((end_comment_length > 1 && !memcmp(linebuf+index,

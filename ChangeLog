@@ -1,3 +1,7 @@
+2004-03-10  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
+	* src/aneditor.cxx
+	Fixed bug #910097 (Insert comment)
+
 2004-03-08  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
 	* src/search-replace.c
 	"Replace All" in not opened files (All Project files, File List ...).
