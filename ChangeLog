@@ -29,6 +29,8 @@
 	* libegg/Makefile.am, libegg/*.c: Moved souce files in libegg
 	toplevel directory to created only one library as libanjuta-egg.
 
+	* data/Makefile.am: Fixed build error.
+	
 2004-02-11  Franco Catrin <fcatrin@tuxpan.com>
 
 	* plugins/editor/anjuta-docman.c:

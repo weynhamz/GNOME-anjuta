@@ -73,6 +73,6 @@ clean-local:
 	@rm -f system.tags
 
 system.tags:
-	cd $(top_builddir)/tagmanager && $(GMAKE) libctags.a
+	cd $(top_builddir)/tagmanager && $(GMAKE) libanjuta-ctags.la
 	cd $(top_builddir)/global-tags && $(GMAKE) system.tags
 	mv $(top_builddir)/global-tags/system.tags .
