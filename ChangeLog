@@ -1,6 +1,8 @@
 2005-02-26  Naba Kumar  <naba@gnome.org>
 
 	* plugins/file-wizard/action-callbacks.c: Fixed memory curruption.
+	* plugins/file-loader/plugin.c: Fixed crash bug.
+	* libanjuta/plugins.c: Fixed memory leak.
 	
 2005-02-26  Naba Kumar  <naba@gnome.org>
 	

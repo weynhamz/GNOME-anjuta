@@ -557,10 +557,11 @@ on_new_activate (GtkAction *action, AnjutaFileLoaderPlugin *loader)
 										 NULL);
 	if (g_slist_length (plugin_descs) > 0)
 	{
-		plugin = anjuta_plugins_select (ANJUTA_PLUGIN(loader)->shell,
-								"New",
+		plugin =
+			anjuta_plugins_select_and_activate (ANJUTA_PLUGIN(loader)->shell,
+												"New",
 						"Please select a wizard to create a new component.",
-								plugin_descs);
+												plugin_descs);
 		if (plugin)
 			ianjuta_wizard_activate (IANJUTA_WIZARD (plugin), NULL);
 	}
@@ -1019,10 +1020,11 @@ iloader_load (IAnjutaFileLoader *loader, const gchar *uri,
 	
 	if (g_slist_length (plugin_descs) > 1)
 	{
-		plugin = anjuta_plugins_select (ANJUTA_PLUGIN(loader)->shell,
-								"Open With",
+		plugin =
+			anjuta_plugins_select_and_activate (ANJUTA_PLUGIN(loader)->shell,
+												"Open With",
 								"Please select a plugin to open this file.",
-								plugin_descs);
+												plugin_descs);
 	}
 	else if (g_slist_length (plugin_descs) == 1)
 	{

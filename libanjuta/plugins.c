@@ -1657,6 +1657,7 @@ anjuta_plugins_select_and_activate (AnjutaShell *shell, gchar *title,
 		g_return_val_if_fail (location != NULL, NULL);
 		plugin =
 			anjuta_plugins_get_plugin_by_id (shell, location);
+		g_free (location);
 		return plugin;
 	}
 	return NULL;
