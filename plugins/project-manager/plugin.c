@@ -364,6 +364,10 @@ ifile_open (IAnjutaFile *project_manager,
 	g_value_init (value, G_TYPE_STRING);
 	g_value_take_string (value, vfs_dir);
 	
+	anjuta_shell_present_widget (ANJUTA_PLUGIN (pm_plugin)->shell,
+								 pm_plugin->scrolledwindow,
+								 NULL);
+	
 	anjuta_shell_add_value (ANJUTA_PLUGIN(pm_plugin)->shell,
 							"project_root_uri",
 							value, NULL);

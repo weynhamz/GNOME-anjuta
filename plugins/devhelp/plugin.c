@@ -103,7 +103,9 @@ devhelp_open_url (DevhelpPlugin *plugin, const gchar *url)
 	dh_html_open_uri (priv->html, url);
 	dh_book_tree_show_uri (DH_BOOK_TREE (priv->book_tree), url);
 	devhelp_check_history (plugin);
-	
+
+	anjuta_shell_present_widget (ANJUTA_PLUGIN (plugin)->shell,
+								 priv->browser_frame, NULL);
 	return TRUE;
 }
 
@@ -113,6 +115,8 @@ devhelp_location_changed_cb (DhHtml      *html,
 					 DevhelpPlugin *plugin)
 {
 	devhelp_check_history (plugin);
+	anjuta_shell_present_widget (ANJUTA_PLUGIN (plugin)->shell,
+								 plugin->priv->browser_frame, NULL);
 }
 
 static void
@@ -283,6 +287,9 @@ static void
 on_api_reference_activate (GtkAction * action, DevhelpPlugin *dh_plugin)
 {
 	devhelp_html_initialize (dh_plugin);
+	gtk_notebook_set_current_page (GTK_NOTEBOOK (dh_plugin->priv->notebook), 0);
+	anjuta_shell_present_widget (ANJUTA_PLUGIN (dh_plugin)->shell,
+								 dh_plugin->priv->notebook, NULL);
 }
 
 static void
@@ -545,6 +552,8 @@ ihelp_search (IAnjutaHelp *help, const gchar *query, GError **err)
 	priv = ((DevhelpPlugin*)help)->priv;
 	dh_search_set_search_string (DH_SEARCH (priv->search), query);
 	gtk_notebook_set_current_page (GTK_NOTEBOOK (priv->notebook), 1);
+	anjuta_shell_present_widget (ANJUTA_PLUGIN (help)->shell,
+								 priv->notebook, NULL);
 }
 
 static void

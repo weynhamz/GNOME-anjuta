@@ -499,7 +499,37 @@ anjuta_app_remove_widget (AnjutaShell *shell,
 
 	dock_item = g_object_get_data (G_OBJECT(w), "dockitem");
 	g_return_if_fail (dock_item != NULL);
-	gdl_dock_item_unbind(GDL_DOCK_ITEM(dock_item));
+	gdl_dock_item_unbind (GDL_DOCK_ITEM(dock_item));
+}
+
+static void 
+anjuta_app_present_widget (AnjutaShell *shell, 
+						   GtkWidget *w, 
+						   GError **error)
+{
+	AnjutaApp *window = ANJUTA_APP (shell);
+	GtkWidget *dock_item;
+	GtkWidget *parent;
+	
+	g_return_if_fail (w != NULL);
+
+	g_hash_table_foreach_steal (window->widgets, remove_from_widgets_hash, w);
+
+	dock_item = g_object_get_data (G_OBJECT(w), "dockitem");
+	g_return_if_fail (dock_item != NULL);
+	
+	/* FIXME: Hack to present the dock item, if it's in a notebook dock item */
+	parent = gtk_widget_get_parent (dock_item);
+	if (GTK_IS_NOTEBOOK (parent))
+	{
+		gint pagenum;
+		pagenum = gtk_notebook_page_num (GTK_NOTEBOOK (parent), dock_item);
+		gtk_notebook_set_current_page (GTK_NOTEBOOK (parent), pagenum);
+	}
+	/*
+		gdl_dock_object_present (GDL_DOCK_OBJECT (parent),
+							 GDL_DOCK_OBJECT(dock_item));
+	*/
 }
 
 static void
@@ -679,6 +709,7 @@ anjuta_shell_iface_init (AnjutaShellIface *iface)
 {
 	iface->add_widget = anjuta_app_add_widget;
 	iface->remove_widget = anjuta_app_remove_widget;
+	iface->present_widget = anjuta_app_present_widget;
 	iface->add_value = anjuta_app_add_value;
 	iface->get_value = anjuta_app_get_value;
 	iface->remove_value = anjuta_app_remove_value;

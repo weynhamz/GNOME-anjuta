@@ -152,6 +152,12 @@ initialize_markers (TextEditor* te)
 	}
 }
 
+static void
+on_preferences_changed (AnjutaPreferences *pr, TextEditor *te)
+{
+	text_editor_update_preferences (te, pr);
+}
+
 GtkWidget *
 text_editor_new (AnjutaPreferences *eo, const gchar *uri, const gchar *name)
 {
@@ -219,7 +225,7 @@ text_editor_new (AnjutaPreferences *eo, const gchar *uri, const gchar *name)
 	text_editor_update_preferences (te, te->preferences);
 	text_editor_update_controls (te);
 	te->changed_id = g_signal_connect (G_OBJECT (te->preferences), "changed",
-					  G_CALLBACK (text_editor_update_preferences), te);
+					  G_CALLBACK (on_preferences_changed), te);
 	return GTK_WIDGET (te);
 }
 

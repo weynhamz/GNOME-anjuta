@@ -919,7 +919,9 @@ ifile_open (IAnjutaFile* plugin, const gchar* uri, GError** e)
 {
 	AnjutaDocman *docman;
 	docman = ANJUTA_DOCMAN ((((EditorPlugin*)plugin)->docman));
-	anjuta_docman_goto_file_line(docman, uri, -1);
+	anjuta_docman_goto_file_line (docman, uri, -1);
+	anjuta_shell_present_widget (ANJUTA_PLUGIN (plugin)->shell,
+								 GTK_WIDGET (docman), NULL);
 }
 
 static gchar*
@@ -946,7 +948,7 @@ ifile_iface_init (IAnjutaFileIface *iface)
 
 /* Implement IAnjutaFileSavable interface */	
 static void
-isaveable_save(IAnjutaFileSavable* plugin, GError** e)
+isaveable_save (IAnjutaFileSavable* plugin, GError** e)
 {
 	/* Save all editors */
 	AnjutaDocman *docman;

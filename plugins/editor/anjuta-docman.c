@@ -378,7 +378,8 @@ anjuta_docman_instance_init (AnjutaDocman *docman)
 		create_file_open_dialog_gui(GTK_WINDOW (parent), docman);
 	docman->priv->save_as_fileselection =
 		create_file_save_dialog_gui (GTK_WINDOW (parent), docman);
-	gtk_window_set_modal ((GtkWindow *) docman->priv->save_as_fileselection, TRUE);
+	gtk_window_set_modal ((GtkWindow *) docman->priv->save_as_fileselection,
+						  TRUE);
 	
 	gtk_notebook_set_scrollable (GTK_NOTEBOOK (docman), TRUE);
 	g_signal_connect (G_OBJECT(docman), "switch_page",
@@ -447,7 +448,8 @@ on_editor_save_point (TextEditor *editor, gboolean entering,
 }
 
 TextEditor *
-anjuta_docman_add_editor (AnjutaDocman *docman, const gchar *uri, const gchar *name)
+anjuta_docman_add_editor (AnjutaDocman *docman, const gchar *uri,
+						  const gchar *name)
 {
 	GtkWidget *te;
 	AnjutaDocmanPage *page;
@@ -464,7 +466,6 @@ anjuta_docman_add_editor (AnjutaDocman *docman, const gchar *uri, const gchar *n
 	gtk_widget_show (te);
 	page = anjuta_docman_page_new (te, docman);
 	
-	anjuta_docman_set_current_editor (docman, TEXT_EDITOR (te));
 	docman->priv->editors = g_list_append (docman->priv->editors, (gpointer)page);
 	
 	gtk_notebook_prepend_page (GTK_NOTEBOOK (docman), te, page->box);
@@ -474,10 +475,10 @@ anjuta_docman_add_editor (AnjutaDocman *docman, const gchar *uri, const gchar *n
 	g_signal_handlers_block_by_func (GTK_OBJECT (docman),
 				       GTK_SIGNAL_FUNC (on_notebook_switch_page),
 				       docman);
+	gtk_notebook_set_current_page (GTK_NOTEBOOK (docman), 0);
 	if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (docman->priv->preferences),
 									EDITOR_TABS_ORDERING))
 			anjuta_docman_order_tabs (docman);
-	
 	gtk_signal_handler_unblock_by_func (GTK_OBJECT (docman),
 			    GTK_SIGNAL_FUNC (on_notebook_switch_page),
 			    docman);
@@ -550,7 +551,6 @@ anjuta_docman_remove_editor (AnjutaDocman *docman, TextEditor* te)
 		current_editor = gtk_notebook_get_nth_page (GTK_NOTEBOOK (docman),
 													page_num);
 		anjuta_docman_set_current_editor (docman, TEXT_EDITOR (current_editor));
-		gtk_widget_grab_focus (GTK_WIDGET (current_editor));
 	}
 	gtk_signal_handler_unblock_by_func (GTK_OBJECT (docman),
 			    GTK_SIGNAL_FUNC (on_notebook_switch_page),
@@ -605,6 +605,9 @@ anjuta_docman_set_current_editor (AnjutaDocman *docman, TextEditor * te)
 		if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (docman->priv->preferences),
 										EDITOR_TABS_ORDERING))
 				anjuta_docman_order_tabs (docman);
+		
+		gtk_widget_grab_focus (GTK_WIDGET (te));
+		anjuta_docman_grab_text_focus (docman);
 		
 		gtk_signal_handler_unblock_by_func (GTK_OBJECT (docman),
 					GTK_SIGNAL_FUNC (on_notebook_switch_page),
@@ -671,8 +674,6 @@ anjuta_docman_goto_file_line_mark (AnjutaDocman *docman, const gchar *fname,
 			if (lineno >= 0)
 				text_editor_goto_line (te, lineno, mark, TRUE);
 			anjuta_docman_show_editor (docman, GTK_WIDGET (te));
-			anjuta_docman_grab_text_focus (docman);
-			gtk_widget_grab_focus (GTK_WIDGET (te));
 			g_free (uri);
 			// an_file_history_push(te->uri, lineno);
 			return te;

@@ -176,6 +176,8 @@ ianjuta_msgman_add_view (IAnjutaMessageManager *plugin,
 	MessageView* message_view;
 	GtkWidget *msgman = ((MessageViewPlugin*)plugin)->msgman;
 	message_view = anjuta_msgman_add_view (ANJUTA_MSGMAN (msgman), file, icon);
+	anjuta_shell_present_widget (ANJUTA_PLUGIN (plugin)->shell,
+								 msgman, NULL);
 	return IANJUTA_MESSAGE_VIEW (message_view);
 }
 
@@ -221,6 +223,8 @@ ianjuta_msgman_set_current_view (IAnjutaMessageManager *plugin,
 								 GError ** e)
 {
 	GtkWidget *msgman = ((MessageViewPlugin*)plugin)->msgman;
+	anjuta_shell_present_widget (ANJUTA_PLUGIN (plugin)->shell,
+								 msgman, NULL);
 	return anjuta_msgman_set_current_view (ANJUTA_MSGMAN (msgman),
 					       MESSAGE_VIEW (message_view));
 }
