@@ -33,8 +33,10 @@ ianjuta-debugger-manager
 </para>
 
 @g_iface: 
-@is_debugger_active: 
-@toggle_breakpoint: 
+@is_active: 
+@is_busy: 
+@start: 
+@stop: 
 
 <!-- ##### FUNCTION ianjuta_debugger_manager_error_quark ##### -->
 <para>
@@ -42,25 +44,5 @@ ianjuta-debugger-manager
 </para>
 
 @Returns: 
-
-
-<!-- ##### FUNCTION ianjuta_debugger_manager_is_debugger_active ##### -->
-<para>
-
-</para>
-
-@obj: 
-@err: 
-@Returns: 
-
-
-<!-- ##### FUNCTION ianjuta_debugger_manager_toggle_breakpoint ##### -->
-<para>
-
-</para>
-
-@obj: 
-@line: 
-@err: 
 
 

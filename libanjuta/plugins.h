@@ -9,13 +9,6 @@
 void anjuta_plugins_init (GList *plugin_dirs);
 void anjuta_plugins_finalize (void);
 
-/* Plugin loading and unloading */
-GObject* anjuta_plugins_load (AnjutaShell *shell, const gchar *name);
-
-gboolean anjuta_plugins_unload (AnjutaShell *shell, const gchar *name);
-
-void anjuta_plugins_unload_all (AnjutaShell *shell);
-
 /* Selection dialogs */
 GtkWidget* anjuta_plugins_get_installed_dialog (AnjutaShell *shell);
 
@@ -25,26 +18,35 @@ const AnjutaPluginDescription*
 anjuta_plugins_get_description (AnjutaShell *shell, GObject *plugin);
 
 const AnjutaPluginDescription*
-anjuta_plugins_get_description_by_name (AnjutaShell *shell,
-										const gchar *plugin_name);
+anjuta_plugins_get_description_by_id (AnjutaShell *shell,
+									  const gchar *plugin_id);
 
+/* Returns a list of plugin Descriptions */
 GSList* anjuta_plugins_query (AnjutaShell *shell,
 							 const gchar *section_name,
 							 const gchar *attribute_name,
 							 const gchar *attribute_value,
 							 ...);
+
+/* Returns the plugin that has been selected and activated */
 GObject* anjuta_plugins_select (AnjutaShell *shell, gchar *title,
 								gchar *description,
 								GSList *plugin_descriptions);
 
-/* Plugin activation and retrival */
+/* Plugin activation, deactivation and retrival */
 
-GObject *
-anjuta_plugins_get_plugin (AnjutaShell *shell, const gchar *iface_name);
+GObject *anjuta_plugins_get_plugin (AnjutaShell *shell,
+									const gchar *iface_name);
 
-GObject *
-anjuta_plugins_get_plugin_by_location (AnjutaShell *shell,
-									   const gchar *plugin_location);
+GObject *anjuta_plugins_get_plugin_by_id (AnjutaShell *shell,
+										  const gchar *plugin_id);
+
+gboolean anjuta_plugins_unload_plugin (AnjutaShell *shell, GObject *plugin);
+
+gboolean anjuta_plugins_unload_plugin_by_id (AnjutaShell *shell,
+											 const gchar *plugin_id);
+
+void anjuta_plugins_unload_all (AnjutaShell *shell);
 
 /**
  * anjuta_plugins_get_interface:

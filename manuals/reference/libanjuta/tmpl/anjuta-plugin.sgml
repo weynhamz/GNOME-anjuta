@@ -242,6 +242,20 @@ else
 </para>
 
 
+<!-- ##### SIGNAL AnjutaPlugin::activated ##### -->
+<para>
+
+</para>
+
+@anjutaplugin: the object which received the signal.
+
+<!-- ##### SIGNAL AnjutaPlugin::deactivated ##### -->
+<para>
+
+</para>
+
+@anjutaplugin: the object which received the signal.
+
 <!-- ##### ARG AnjutaPlugin:shell ##### -->
 <para>
 

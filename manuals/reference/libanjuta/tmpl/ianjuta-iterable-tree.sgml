@@ -14,3 +14,66 @@ ianjuta-iterable-tree
 
 </para>
 
+<!-- ##### MACRO IANJUTA_ITERABLE_TREE_ERROR ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### STRUCT IAnjutaIterableTree ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### STRUCT IAnjutaIterableTreeIface ##### -->
+<para>
+
+</para>
+
+@g_iface: 
+@get_children: 
+@has_children: 
+@parent: 
+
+<!-- ##### FUNCTION ianjuta_iterable_tree_error_quark ##### -->
+<para>
+
+</para>
+
+@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_iterable_tree_get_children ##### -->
+<para>
+
+</para>
+
+@obj: 
+@ter: 
+@err: 
+@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_iterable_tree_has_children ##### -->
+<para>
+
+</para>
+
+@obj: 
+@iter: 
+@err: 
+@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_iterable_tree_parent ##### -->
+<para>
+
+</para>
+
+@obj: 
+@iter: 
+@err: 
+
+

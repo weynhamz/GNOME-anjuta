@@ -166,8 +166,8 @@ iprofile_load (IAnjutaProfile *profile, ESplash *splash, GError **err)
 		
 		if (strchr (interfaces[i], ':') != NULL)
 		{	
-			anjuta_plugins_get_plugin_by_location (ANJUTA_PLUGIN (profile)->shell,
-									 interfaces[i]);
+			anjuta_plugins_get_plugin_by_id (ANJUTA_PLUGIN (profile)->shell,
+											 interfaces[i]);
 		}
 		else
 		{	

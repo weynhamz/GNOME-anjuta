@@ -29,30 +29,6 @@ Plugins management and activation
 
 
 
-<!-- ##### FUNCTION anjuta_plugins_load ##### -->
-<para>
-
-</para>
-
-@shell: 
-@name: 
-@Returns: 
-<!-- # Unused Parameters # -->
-@ui: 
-@prefs: 
-@splash: 
-
-
-<!-- ##### FUNCTION anjuta_plugins_unload ##### -->
-<para>
-
-</para>
-
-@shell: 
-@name: 
-@Returns: 
-
-
 <!-- ##### FUNCTION anjuta_plugins_query ##### -->
 <para>
 
@@ -76,16 +52,6 @@ Plugins management and activation
 @Returns: 
 
 
-<!-- ##### FUNCTION anjuta_plugins_get_description_by_name ##### -->
-<para>
-
-</para>
-
-@shell: 
-@plugin_name: 
-@Returns: 
-
-
 <!-- ##### FUNCTION anjuta_plugins_get_plugin ##### -->
 <para>
 
@@ -96,16 +62,6 @@ Plugins management and activation
 @Returns: 
 <!-- # Unused Parameters # -->
 @interface_name: 
-
-
-<!-- ##### FUNCTION anjuta_plugins_get_plugin_by_location ##### -->
-<para>
-
-</para>
-
-@shell: 
-@plugin_location: 
-@Returns: 
 
 
 <!-- ##### MACRO anjuta_plugins_get_interface ##### -->

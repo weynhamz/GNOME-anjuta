@@ -137,7 +137,7 @@ class_gen_plugin_instance_init (GObject *obj)
 static void
 iwizard_activate (IAnjutaWizard *wiz, GError **err)
 {
-	IAnjutaProjectManager *pm;
+	/* IAnjutaProjectManager *pm; */
 	AnjutaClassGenPlugin *cg_plugin;
 	
 	cg_plugin = (AnjutaClassGenPlugin*)wiz;
@@ -146,10 +146,9 @@ iwizard_activate (IAnjutaWizard *wiz, GError **err)
 	if (cg_plugin->top_dir != NULL ) 
 		class_gen_create_code_class ((AnjutaClassGenPlugin*)wiz);
 	else
-		message_box (_("A project must be created before creating a class"), "", GTK_MESSAGE_INFO);
+		anjuta_util_dialog_error (NULL,
+								  _("A project must be open before creating a class"));
 }
-
-
 
 static void
 iwizard_iface_init (IAnjutaWizardIface *iface)

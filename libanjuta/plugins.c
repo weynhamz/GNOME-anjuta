@@ -60,12 +60,12 @@ enum {
 	N_COLS
 };
 
-static GList *plugin_dirs = NULL;
-static GSList *available_tools = NULL;
-static GHashTable *tools_by_interfaces = NULL;
-static GHashTable *tools_by_name = NULL;
-static GHashTable *tools_by_description = NULL;
-static GHashTable *tool_types = NULL;
+static GList       *plugin_dirs = NULL;
+static GSList      *available_tools = NULL;
+static GHashTable  *tools_by_interfaces = NULL;
+static GHashTable  *tools_by_name = NULL;
+static GHashTable  *tools_by_description = NULL;
+static GHashTable  *tool_types = NULL;
 static GlueFactory *glue_factory = NULL;
 
 static GHashTable* tool_set_update (AnjutaShell *shell,
@@ -775,7 +775,8 @@ update_enabled (GtkTreeModel *model, GHashTable *installed_tools)
 }
 
 static GHashTable*
-tool_set_update (AnjutaShell *shell, AvailableTool* selected_tool, gboolean load)
+tool_set_update (AnjutaShell *shell, AvailableTool* selected_tool,
+				 gboolean load)
 {
 	AnjutaStatus *status;
 	GObject *tool_obj;
@@ -1079,13 +1080,15 @@ anjuta_plugins_get_plugin (AnjutaShell *shell,
 						   const gchar *iface_name)
 {
 	AvailableTool *tool;
-	GSList *valid_tools;
+	GSList *valid_tools, *node;
 	GHashTable *installed_tools;
 	
 	g_return_val_if_fail (ANJUTA_IS_SHELL (shell), NULL);
 	g_return_val_if_fail (iface_name != NULL, NULL);
 	
 	tool = NULL;
+	
+	/* Get the installed plugins hash, create if not yet created */
 	installed_tools = g_object_get_data (G_OBJECT (shell), "InstalledTools");
 	if (installed_tools == NULL)
 	{
@@ -1093,36 +1096,68 @@ anjuta_plugins_get_plugin (AnjutaShell *shell,
 		g_object_set_data (G_OBJECT (shell), "InstalledTools",
 						   installed_tools);
 	}
+	
+	/* Find all plugins implementing this (primary) interface. */
 	valid_tools = g_hash_table_lookup (tools_by_interfaces, iface_name);
-	if (valid_tools) {
-		/* Just return the first tool. */
-		tool = valid_tools->data;
+	
+	/* Find the first installed plugin from the valid plugins */
+	node = valid_tools;
+	while (node) {
+		GObject *obj;
+		tool = node->data;
+		obj = g_hash_table_lookup (installed_tools, tool);
+		if (obj)
+			return obj;
+		node = g_slist_next (node);
 	}
 	
-	if (tool) {
+	/* If no plugin is installed yet, do something */
+	if (valid_tools && g_slist_length (valid_tools) == 1) {
+		
+		/* If there is just one plugin, consider it selected */
 		GObject *obj;
+		tool = valid_tools->data;
+		
+		/* Install and return it */
+		tool_set_update (shell, tool, TRUE);
 		obj = g_hash_table_lookup (installed_tools, tool);
-		if (obj) {
-			return obj;
-		} else {
-			tool_set_update (shell, tool, TRUE);
-			obj = g_hash_table_lookup (installed_tools, tool);
-			return obj;
+		
+		return obj;
+	
+	} else if (valid_tools) {
+		
+		/* Prompt the user to select one of these plugins */
+		GObject *obj;
+		GSList *descs = NULL;
+		node = valid_tools;
+		while (node) {
+			tool = node->data;
+			descs = g_slist_prepend (descs, tool->description);
+			node = g_slist_next (node);
 		}
+		descs = g_slist_reverse (descs);
+		obj = anjuta_plugins_select (shell,
+									 "Select a plugin",
+									 "Please select a plugin to activate",
+									 descs);
+		g_slist_free (descs);
+		return obj;
 	}
+	
+	/* No plugin implementing this interface found */
 	g_warning ("No plugin found implementing %s Interface.", iface_name);
 	return NULL;
 }
 
 GObject *
-anjuta_plugins_get_plugin_by_location (AnjutaShell *shell,
-									   const gchar *plugin_location)
+anjuta_plugins_get_plugin_by_id (AnjutaShell *shell,
+								 const gchar *plugin_id)
 {
 	AvailableTool *tool;
 	GHashTable *installed_tools;
 	
 	g_return_val_if_fail (ANJUTA_IS_SHELL (shell), NULL);
-	g_return_val_if_fail (plugin_location != NULL, NULL);
+	g_return_val_if_fail (plugin_id != NULL, NULL);
 	
 	tool = NULL;
 	installed_tools = g_object_get_data (G_OBJECT (shell), "InstalledTools");
@@ -1132,7 +1167,7 @@ anjuta_plugins_get_plugin_by_location (AnjutaShell *shell,
 		g_object_set_data (G_OBJECT (shell), "InstalledTools",
 						   installed_tools);
 	}
-	tool = g_hash_table_lookup (tools_by_name, plugin_location);
+	tool = g_hash_table_lookup (tools_by_name, plugin_id);
 	if (tool) {
 		GObject *obj;
 		obj = g_hash_table_lookup (installed_tools, tool);
@@ -1144,8 +1179,88 @@ anjuta_plugins_get_plugin_by_location (AnjutaShell *shell,
 			return obj;
 		}
 	}
-	g_warning ("No plugin found with location \"%s\".", plugin_location);
+	g_warning ("No plugin found with id \"%s\".", plugin_id);
 	return NULL;
+}
+
+gboolean
+anjuta_plugins_unload_plugin_by_id (AnjutaShell *shell,
+									const gchar *plugin_id)
+{
+	AvailableTool *tool;
+	GHashTable *installed_tools;
+	
+	g_return_val_if_fail (ANJUTA_IS_SHELL (shell), FALSE);
+	g_return_val_if_fail (plugin_id != NULL, FALSE);
+	
+	tool = NULL;
+	installed_tools = g_object_get_data (G_OBJECT (shell), "InstalledTools");
+	if (installed_tools == NULL)
+	{
+		installed_tools = g_hash_table_new (g_direct_hash, g_direct_equal);
+		g_object_set_data (G_OBJECT (shell), "InstalledTools",
+						   installed_tools);
+	}
+	tool = g_hash_table_lookup (tools_by_name, plugin_id);
+	if (tool) {
+		
+		tool_set_update (shell, tool, FALSE);
+		
+		/* Check if the plugin has been indeed unloaded */
+		if (!g_hash_table_lookup (installed_tools, tool))
+			return TRUE;
+		else
+			return FALSE;
+	}
+	g_warning ("No plugin found with id \"%s\".", plugin_id);
+	return FALSE;
+}
+
+static gboolean
+find_plugin_for_object (gpointer key, gpointer value, gpointer data)
+{
+	if (value == data)
+	{
+		g_object_set_data (G_OBJECT (data), "__plugin_tool", key);
+		return TRUE;
+	}
+	return FALSE;
+}
+
+gboolean
+anjuta_plugins_unload_plugin (AnjutaShell *shell, GObject *plugin)
+{
+	AvailableTool *tool;
+	GHashTable *installed_tools;
+	
+	g_return_val_if_fail (ANJUTA_IS_SHELL (shell), FALSE);
+	g_return_val_if_fail (ANJUTA_IS_PLUGIN (plugin), FALSE);
+	
+	tool = NULL;
+	installed_tools = g_object_get_data (G_OBJECT (shell), "InstalledTools");
+	if (installed_tools == NULL)
+	{
+		installed_tools = g_hash_table_new (g_direct_hash, g_direct_equal);
+		g_object_set_data (G_OBJECT (shell), "InstalledTools",
+						   installed_tools);
+	}
+	
+	/* Find the tool that correspond to this plugin object */
+	g_hash_table_find (installed_tools, find_plugin_for_object, plugin);
+	tool = g_object_get_data (G_OBJECT (plugin), "__plugin_tool");
+	
+	if (tool) {
+		
+		tool_set_update (shell, tool, FALSE);
+		
+		/* Check if the plugin has been indeed unloaded */
+		if (!g_hash_table_lookup (installed_tools, tool))
+			return TRUE;
+		else
+			return FALSE;
+	}
+	g_warning ("No plugin found with object \"%p\".", plugin);
+	return FALSE;
 }
 
 GtkWidget *
@@ -1462,8 +1577,7 @@ anjuta_plugins_select (AnjutaShell *shell, gchar *title, gchar *description,
 															  &location);
 						g_return_val_if_fail (location != NULL, NULL);
 						plugin =
-							anjuta_plugins_get_plugin_by_location (shell,
-																   location);
+							anjuta_plugins_get_plugin_by_id (shell, location);
 						gtk_widget_destroy (dlg);
 						return plugin;
 					}

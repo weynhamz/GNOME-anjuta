@@ -1510,6 +1510,7 @@ iproject_manager_add_source (IAnjutaProjectManager *project_manager, const gchar
 								 source_uri,
 								 target_uri);
 	update_operation_end (plugin, TRUE);
+	return TRUE;
 }
 
 static void

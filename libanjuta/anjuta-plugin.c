@@ -58,6 +58,15 @@ enum {
 	PROP_SHELL,
 };
 
+enum
+{
+	ACTIVATED_SIGNAL,
+	DEACTIVATED_SIGNAL,
+	LAST_SIGNAL
+};
+
+static guint plugin_signals[LAST_SIGNAL] = { 0 };
+
 static void anjuta_plugin_finalize (GObject *object);
 static void anjuta_plugin_class_init (AnjutaPluginClass *class);
 
@@ -185,6 +194,25 @@ anjuta_plugin_class_init (AnjutaPluginClass *class)
 				      _("Anjuta shell that will contain the plugin"),
 				      ANJUTA_TYPE_SHELL,
 				      G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
+	plugin_signals[ACTIVATED_SIGNAL] =
+		g_signal_new ("activated",
+					G_TYPE_FROM_CLASS (object_class),
+					G_SIGNAL_RUN_FIRST,
+					G_STRUCT_OFFSET (AnjutaPluginClass,
+									 activated_signal),
+					NULL, NULL,
+					anjuta_cclosure_marshal_VOID__VOID,
+					G_TYPE_NONE, 0);
+	
+	plugin_signals[ACTIVATED_SIGNAL] =
+		g_signal_new ("deactivated",
+					G_TYPE_FROM_CLASS (object_class),
+					G_SIGNAL_RUN_FIRST,
+					G_STRUCT_OFFSET (AnjutaPluginClass,
+									 deactivated_signal),
+					NULL, NULL,
+					anjuta_cclosure_marshal_VOID__VOID,
+					G_TYPE_NONE, 0);
 }
 
 static void
@@ -372,6 +400,9 @@ anjuta_plugin_activate (AnjutaPlugin *plugin)
 	g_return_val_if_fail (klass->activate != NULL, FALSE);
 	
 	plugin->priv->activated = klass->activate(plugin);
+	
+	if (plugin->priv->activated)
+		g_signal_emit_by_name (G_OBJECT (plugin), "activated");
 	return plugin->priv->activated;
 }
 
@@ -400,6 +431,8 @@ anjuta_plugin_deactivate (AnjutaPlugin *plugin)
 	
 	success = klass->deactivate(plugin);
 	plugin->priv->activated = !success;
+	if (!plugin->priv->activated)
+		g_signal_emit_by_name (G_OBJECT (plugin), "deactivated");
 	return success;
 }
 

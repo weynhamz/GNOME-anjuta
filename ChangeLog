@@ -1,3 +1,28 @@
+2005-02-23  Naba Kumar  <naba@gnome.org>
+
+	* libanjuta/anjuta-marshal.list, libanjuta/anjuta-plugin.[ch],
+	file-loader/plugin.c, profile-default/plugin.c:
+	Implemented "activated" and "deactivated" signals for plugin class.
+	Renamed *_location() functions to *_id(), because location is
+	ambiguous. Implemented anjuta_plugins_unload_plugin_by_id() and
+	anjuta_plugins_unload_plugin().
+	
+	* class-gen/plugin.c: Fixed complier warning and utility function call.
+	
+	* debug-manager/plugin.c: Unload debugger plugin correctly.
+	
+	* project-manager/plugin.c:	Fixed compiler warnings.
+	
+	* plugins/project-wizard/templates/gnome/.cvsignore,
+	plugins/project-wizard/templates/gnome/po/.cvsignore,
+	plugins/project-wizard/templates/gnome/src/.cvsignore,
+	plugins/project-wizard/templates/gtk/po/.cvsignore,
+	plugins/project-wizard/templates/gtkmm/po/.cvsignore,
+	plugins/project-wizard/templates/xlib/.cvsignore: Added cvsignores.
+	
+	* manuals/reference/libanjuta/tmpl/*: Unnecessary changes from the
+	build (we need to fix this thing).
+	
 2005-02-23  Johannes Schmid <jhs@cvs.gnome.org>
 
 	* plugins/macro/macro-action.[ch]

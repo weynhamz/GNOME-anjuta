@@ -269,8 +269,8 @@ open_with_dialog (AnjutaFileLoaderPlugin *plugin, const gchar *uri,
 				GObject *loaded_plugin;
 				
 				loaded_plugin =
-					anjuta_plugins_get_plugin_by_location (ANJUTA_PLUGIN(plugin)->shell,
-														   location);
+					anjuta_plugins_get_plugin_by_id (ANJUTA_PLUGIN(plugin)->shell,
+													 location);
 				if (loaded_plugin)
 				{
 					ianjuta_file_open (IANJUTA_FILE (loaded_plugin), uri, NULL);
@@ -626,8 +626,8 @@ fm_open_with (GtkMenuItem *menuitem, AnjutaFileLoaderPlugin *plugin)
 			GObject *loaded_plugin;
 			
 			loaded_plugin =
-				anjuta_plugins_get_plugin_by_location (ANJUTA_PLUGIN(plugin)->shell,
-													   location);
+				anjuta_plugins_get_plugin_by_id (ANJUTA_PLUGIN(plugin)->shell,
+												 location);
 			if (loaded_plugin)
 			{
 				ianjuta_file_open (IANJUTA_FILE (loaded_plugin), uri, NULL);
@@ -1033,8 +1033,8 @@ iloader_load (IAnjutaFileLoader *loader, const gchar *uri,
 											  "Location", &location);
 		g_return_val_if_fail (location != NULL, NULL);
 		plugin =
-			anjuta_plugins_get_plugin_by_location (ANJUTA_PLUGIN(loader)->shell,
-												   location);
+			anjuta_plugins_get_plugin_by_id (ANJUTA_PLUGIN(loader)->shell,
+											 location);
 		g_free (location);
 	}
 	else

@@ -33,16 +33,17 @@ ianjuta-debugger
 </para>
 
 @g_iface: 
-@is_active: 
-@load_core: 
-@load_executable: 
+@busy: 
+@breakpoint_delete: 
+@breakpoint_set: 
+@breakpoint_toggle: 
+@is_busy: 
+@load: 
 @run_continue: 
-@start: 
+@run_to_position: 
 @step_in: 
 @step_out: 
 @step_over: 
-@toggle_breakpoint: 
-@toggle_breakpoint1: 
 
 <!-- ##### FUNCTION ianjuta_debugger_error_quark ##### -->
 <para>
@@ -52,52 +53,12 @@ ianjuta-debugger
 @Returns: 
 
 
-<!-- ##### FUNCTION ianjuta_debugger_is_active ##### -->
-<para>
-
-</para>
-
-@obj: 
-@err: 
-@Returns: 
-
-
-<!-- ##### FUNCTION ianjuta_debugger_load_core ##### -->
-<para>
-
-</para>
-
-@obj: 
-@core: 
-@err: 
-
-
-<!-- ##### FUNCTION ianjuta_debugger_load_executable ##### -->
-<para>
-
-</para>
-
-@obj: 
-@prog: 
-@err: 
-
-
 <!-- ##### FUNCTION ianjuta_debugger_run_continue ##### -->
 <para>
 
 </para>
 
 @obj: 
-@err: 
-
-
-<!-- ##### FUNCTION ianjuta_debugger_start ##### -->
-<para>
-
-</para>
-
-@obj: 
-@prog: 
 @err: 
 
 
@@ -125,25 +86,6 @@ ianjuta-debugger
 </para>
 
 @obj: 
-@err: 
-
-
-<!-- ##### FUNCTION ianjuta_debugger_toggle_breakpoint ##### -->
-<para>
-
-</para>
-
-@obj: 
-@err: 
-
-
-<!-- ##### FUNCTION ianjuta_debugger_toggle_breakpoint1 ##### -->
-<para>
-
-</para>
-
-@obj: 
-@line: 
 @err: 
 
 

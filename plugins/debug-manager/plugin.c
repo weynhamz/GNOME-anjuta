@@ -21,6 +21,7 @@
 #include <config.h>
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-debug.h>
+#include <libanjuta/plugins.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
 #include <libanjuta/interfaces/ianjuta-editor.h>
 #include <libanjuta/interfaces/ianjuta-debugger-manager.h>
@@ -539,7 +540,8 @@ idebugger_manager_stop (IAnjutaDebuggerManager *debugman, GError** e)
 		g_signal_handlers_disconnect_by_func (G_OBJECT (plugin->debugger),
 											  debug_manager_plugin_update_ui,
 											  plugin);
-		if (anjuta_plugin_deactivate (ANJUTA_PLUGIN (plugin->debugger)))
+		if (anjuta_plugins_unload_plugin (ANJUTA_PLUGIN (plugin)->shell,
+										  G_OBJECT (plugin->debugger)))
 		{
 			plugin->debugger = NULL;
 			debug_manager_plugin_update_ui (plugin);
