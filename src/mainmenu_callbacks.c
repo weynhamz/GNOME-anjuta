@@ -63,6 +63,7 @@
 #include "file_history.h"
 #include "memory.h"
 #include "fileselection.h"
+#include "anjuta-tools.h"
 
 void on_toolbar_find_clicked (GtkButton * button, gpointer user_data);
 
@@ -2022,7 +2023,6 @@ void
 on_lookup_symbol_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
 	TextEditor* te;
-	gboolean ret;
 	gchar *buf = NULL;
 
 	te = anjuta_get_current_text_editor();

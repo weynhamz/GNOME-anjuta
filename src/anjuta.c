@@ -40,6 +40,9 @@
 #include "anjuta_info.h"
 #include "tm_tagmanager.h"
 #include "file_history.h"
+#include "anjuta-plugins.h"
+#include "anjuta-tools.h"
+#include "anjuta.h"
 
 #define GTK
 #undef PLAT_GTK
@@ -56,7 +59,6 @@ void anjuta_child_terminated (int t);
 static void on_message_clicked(GtkObject* obj, char* message);	
 static void on_message_indicate(GtkObject* obj, gint type_name, gchar* file, glong line, gint type);	
 static void anjuta_show_text_editor (TextEditor * te);
-static int select_all_files (const struct dirent *e);
 
 /*-------------------------------------------------------------------*/
 

@@ -731,7 +731,6 @@ void parse_data(GtkCTree * ctree, GtkCTreeNode * parent, gchar * buf)
   gchar *var_name = NULL;
   gchar *value = NULL;
   DataType dataType;
-  gchar* t;	
 
   //  g_print ("PARSEDATA %lx  %s\n", (long) buf, buf);
   g_return_if_fail (parent);
@@ -1455,5 +1454,3 @@ void on_inspect_memory_clicked(GtkMenuItem* menu_item, gpointer data)
     g_free(hexa);
   }
 }
-
-

@@ -6,6 +6,8 @@ extern "C"
 {
 #endif
 
+void anjuta_search_replace_activate(void);
+
 #ifdef __cplusplus
 }
 #endif

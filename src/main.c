@@ -23,6 +23,8 @@
 
 #include <sys/stat.h>
 #include <gnome.h>
+#include <glade/glade.h>
+
 #include "splash.h"
 #include "anjuta.h"
 #include "utilities.h"

@@ -234,4 +234,5 @@ gboolean anjuta_plugins_unload(void)
 {
 	free_plug_ins(app->addIns_list);
 	app->addIns_list = NULL;
+	return TRUE;
 }

@@ -19,6 +19,8 @@
 #ifndef _UTILITIES_H_
 #define _UTILITIES_H_
 
+#define FREE(x) if (x) g_free(x), x = NULL
+
 #include <dirent.h>
 
 #define COMBO_LIST_LENGTH \
@@ -275,5 +277,16 @@ gboolean is_file_in_dir(const gchar *file, const gchar *dir);
 GList *glist_path_dedup(GList *list);
 
 gint anjuta_util_check_gnome_terminal (void);
+
+/* String integer mapping utility functions */
+typedef struct _StringMap
+{
+	int type;
+	char *name;
+} StringMap;
+
+int type_from_string(StringMap *map, const char *str);
+const char *string_from_type(StringMap *map, int type);
+GList *glist_from_map(StringMap *map);
 
 #endif

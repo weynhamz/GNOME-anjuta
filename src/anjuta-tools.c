@@ -82,6 +82,7 @@ R7: Tool Storage
 #include "message-manager.h"
 #include "widget-registry.h"
 #include "anjuta.h"
+#include "launcher.h"
 #include "anjuta-tools.h"
 
 #define GTK
@@ -163,7 +164,7 @@ GString *current_tool_output = NULL;
 GString *current_tool_error = NULL;
 
 /* Destroys memory allocated to an user tool */
-#define FREE(x) if (x) g_free(x)
+
 static void an_user_tool_free(AnUserTool *tool, gboolean remove_from_list)
 {
 	if (tool)
@@ -233,7 +234,7 @@ static AnUserTool *an_user_tool_new(xmlNodePtr tool_node)
 		g_warning ("Anjuta tools xml parse error: Invalide Node");
 		return NULL;
 	}
-	
+
 	tool = g_new0(AnUserTool, 1);
 	/* Set default values */
 	tool->enabled = TRUE;
@@ -555,7 +556,6 @@ static void execute_tool(GtkMenuItem *item, gpointer data)
 	{
 		/* Attached mode - run through launcher */
 		char *buf = NULL;
-		char *tmp = NULL;
 		current_tool = tool;
 		if (current_tool_output)
 			g_string_truncate(current_tool_output, 0);
@@ -633,6 +633,7 @@ static gboolean anjuta_tools_load_from_file(const gchar *file_name)
 	xmlDocPtr xml_doc;
 	struct stat st;
 	AnUserTool *tool;
+	gboolean status = TRUE;
 
 #ifdef TOOL_DEBUG
 	g_message("Loading tools from %s\n", file_name);
@@ -661,13 +662,16 @@ static gboolean anjuta_tools_load_from_file(const gchar *file_name)
 		else
 		{
 			g_warning ("Anjuta tools xml parse error: Invalid xml document");
+			status = FALSE;
 		}
 		xmlFreeDoc(xml_doc);
 	}
 	else
 	{
 		g_warning ("Anjuta tools xml parse error: Invalid xml document");
+		status = FALSE;
 	}
+	return status;
 }
 
 gboolean anjuta_tools_load(void)
@@ -680,7 +684,7 @@ gboolean anjuta_tools_load(void)
 
 	/* Now, user tools */
 	snprintf(file_name, PATH_MAX, "%s/%s", app->dirs->settings, TOOLS_FILE);
-	anjuta_tools_load_from_file(file_name);
+	return anjuta_tools_load_from_file(file_name);
 }
 
 /* While saving, save only the user tools since it is unlikely that the
@@ -899,12 +903,6 @@ gboolean anjuta_tools_edit(void)
 	return TRUE;
 }
 
-typedef struct _StringMap
-{
-	int type;
-	char *name;
-} StringMap;
-
 StringMap input_type_strings[] = {
   { AN_TINP_NONE, "None" }
 , { AN_TINP_BUFFER, "Current buffer" }
@@ -928,43 +926,6 @@ StringMap output_strings[] = {
 , { AN_TBUF_POPUP, "Show as a popup message" }
 , { -1, NULL }
 };
-
-static int type_from_string(StringMap *map, const char *str)
-{
-	int i = 0;
-
-	while (-1 != map[i].type)
-	{
-		if (0 == strcmp(map[i].name, str))
-			return map[i].type;
-		++ i;
-	}
-	return -1;
-}
-
-static const char *string_from_type(StringMap *map, int type)
-{
-	int i = 0;
-	while (-1 != map[i].type)
-	{
-		if (map[i].type == type)
-			return map[i].name;
-		++ i;
-	}
-	return "";
-}
-
-static GList *glist_from_map(StringMap *map)
-{
-	GList *out_list = NULL;
-	int i = 0;
-	while (-1 != map[i].type)
-	{
-		out_list = g_list_append(out_list, map[i].name);
-		++ i;
-	}
-	return out_list;
-}
 
 static void clear_tool_editor()
 {
@@ -1595,11 +1556,6 @@ static struct
 , {NULL, NULL}
 };
 
-void anjuta_tools_show_variables()
-{
-	on_user_tool_edit_help_clicked(NULL, NULL);
-}
-
 gboolean on_user_tool_edit_help_clicked(GtkButton *button, gpointer user_data)
 {
 	int len;
@@ -1667,10 +1623,15 @@ gboolean on_user_tool_edit_help_clicked(GtkButton *button, gpointer user_data)
 	return TRUE;
 }
 
-on_user_tool_help_ok_clicked(GtkButton *button, gpointer user_data)
+void on_user_tool_help_ok_clicked(GtkButton *button, gpointer user_data)
 {
 	th->busy = FALSE;
 	gtk_widget_hide(th->dialog);
+}
+
+void anjuta_tools_show_variables()
+{
+	on_user_tool_edit_help_clicked(NULL, NULL);
 }
 
 /* Popup a dialog to ask for user parameters */

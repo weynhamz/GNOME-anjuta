@@ -948,7 +948,9 @@ project_dbase_save_project (ProjectDBase * p)
 	if (fprintf (fp, "anjuta.program.arguments=%s\n", str) < 1)
 		goto error_show;
 	g_free (str); str = NULL;
-	
+
+	/* Save file browser preferences */
+	fv_prefs_serialize(fp);
 	/* Save the editor preferences if present */
 #ifdef DEBUG
 	printf("Saving editor preferences in the project file\n");

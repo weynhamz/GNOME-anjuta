@@ -1,4 +1,4 @@
-# Anjuta Version 1.0.1 
+# Anjuta Version 1.0.2 
 Compatibility Level: 1 
 
 <PROJECT_DESCRIPTION_START>
@@ -24,7 +24,7 @@ a number of advanced programming facilities.<PROJECT_DESCRIPTION_END>
 
 props.file.type=project
 
-anjuta.version=1.0.1
+anjuta.version=1.0.2
 anjuta.compatibility.level=1
 
 project.name=anjuta
@@ -50,6 +50,9 @@ project.menu.need.terminal=0
 
 project.configure.options=
 anjuta.program.arguments=
+filter.file.unmatch=*.so *.o *.a *.la
+filter.file.ignore.hidden=0
+filter.dir.ignore.hidden=0
 preferences.indent.automatic=1
 preferences.use.tabs=1
 preferences.indent.opening=0

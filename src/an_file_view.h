@@ -1,6 +1,7 @@
 #ifndef AN_FILE_VIEW_H
 #define AN_FILE_VIEW_H
 
+#include <stdio.h>
 #include <gtk/gtk.h>
 
 #include "tm_tagmanager.h"
@@ -14,6 +15,7 @@ typedef struct _AnFileView
 {
 	GtkWidget *win;
 	GtkWidget *tree;
+	gchar *top_dir;
 	TMFileEntry *file_tree;
 	TMFileEntry *curr_entry;
 	struct
@@ -34,12 +36,14 @@ typedef struct _AnFileView
 		} cvs;
 		GtkWidget *refresh;
 		GtkWidget *docked;
+		GtkWidget *customize;
 	} menu;
 } AnFileView;
 
 AnFileView *fv_populate(gboolean full);
 void fv_clear(void);
 gboolean anjuta_fv_open_file(const char *path, gboolean use_anjuta);
+void fv_prefs_serialize(FILE *fp);
 
 #ifdef __cplusplus
 }

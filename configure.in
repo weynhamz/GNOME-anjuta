@@ -28,9 +28,15 @@ AC_DEFUN(CHECK_HEADER_DEFINE,
 
 dnl Enable debugging mode
 AC_ARG_ENABLE(debug,
-      [  --enable-debug           Enable debug messages],
-      CFLAGS="$CFLAGS -DDEBUG -O0 -g"
-      CXXFLAGS="$CFLAGS -DDEBUG -O0 -g")
+      [  --enable-debug           Enable debug mode],
+      CFLAGS="$CFLAGS -O0 -g"
+      CXXFLAGS="$CFLAGS -O0 -g")
+
+dnl Enable debugging messages
+AC_ARG_ENABLE(debug-messages,
+      [  --enable-debug-messages           Enable debug messages],
+      CFLAGS="$CFLAGS -DDEBUG"
+      CXXFLAGS="$CFLAGS -DDEBUG")
 
 dnl Enable stripped and optimized release builds
 AC_ARG_ENABLE(final,

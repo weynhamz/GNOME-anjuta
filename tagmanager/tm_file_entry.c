@@ -66,28 +66,53 @@ static TMFileType tm_file_entry_type(const char *path)
 		return tm_file_unknown_t;
 }
 
-TMFileEntry *tm_file_entry_new(const char *path, TMFileEntry *parent
-  , gboolean recurse, const char **match, const char **ignore
+static gboolean apply_filter(const char *name, GList *match, GList *unmatch
   , gboolean ignore_hidden)
 {
+	GList *tmp;
+	gboolean matched = (match == NULL);
+	g_return_val_if_fail(name, FALSE);
+	if (ignore_hidden && ('.' == name[0]))
+		return FALSE;
+	for (tmp = match; tmp; tmp = g_list_next(tmp))
+	{
+		if (0 == fnmatch((char *) tmp->data, name, 0))
+		{
+			matched = TRUE;
+			break;
+		}
+	}
+	if (!matched)
+		return FALSE;
+	for (tmp = unmatch; tmp; tmp = g_list_next(tmp))
+	{
+		if (0 == fnmatch((char *) tmp->data, name, 0))
+		{
+			return FALSE;
+		}
+	}
+	return matched;	
+}
+
+TMFileEntry *tm_file_entry_new(const char *path, TMFileEntry *parent
+  , gboolean recurse, GList *file_match, GList *file_unmatch
+  , GList *dir_match, GList *dir_unmatch, gboolean ignore_hidden_files
+  , gboolean ignore_hidden_dirs)
+{
 	TMFileEntry *entry;
-	const char **t_match;
-	const char **t_ignore;
+	GList *tmp;
 	char *real_path;
+	DIR *dir;
+	struct dirent *dir_entry;
+	TMFileEntry *new_entry;
+	char file_name[PATH_MAX];
+	struct stat s;
+	char *entries = NULL;
 
 	g_assert(path);
 	real_path = tm_get_real_path(path);
 	FILE_NEW(entry);
 	entry->type = tm_file_entry_type(real_path);
-	if (tm_file_unknown_t == entry->type)
-	{
-#ifdef TM_DEBUG
-		g_warning("Unknown file: %s", path);
-#endif
-		g_free(real_path);
-		FILE_FREE(entry);
-		return NULL;
-	}
 	entry->parent = parent;
 	entry->path = real_path;
 	entry->name = strrchr(entry->path, '/');
@@ -95,101 +120,63 @@ TMFileEntry *tm_file_entry_new(const char *path, TMFileEntry *parent
 		++ (entry->name);
 	else
 		entry->name = entry->path;
-	if (parent && match && (tm_file_regular_t == entry->type))
+	switch(entry->type)
 	{
-		gboolean matched = FALSE;
-		for (t_match = match; (*t_match); ++ t_match)
-		{
-			if (0 == fnmatch(*t_match, entry->name, 0))
-			{
-				matched = TRUE;
-				break;
-			}
-		}
-		if (!matched)
-		{
-#ifdef TM_DEBUG
-			g_warning("%s did not match list. Removing..", entry->path);
-#endif
-			tm_file_entry_free(entry);
+		case tm_file_unknown_t:
+			g_free(real_path);
+			FILE_FREE(entry);
 			return NULL;
-		}
-	}
-	if (parent && ignore)
-	{
-		gboolean ignored = FALSE;
-		for (t_ignore = ignore; (*t_ignore); ++ t_ignore)
-		{
-			if (0 == fnmatch(*t_ignore, entry->name, 0))
+		case tm_file_regular_t:
+			if (parent && !apply_filter(entry->name, file_match, file_unmatch
+			  , ignore_hidden_files))
 			{
-				ignored = TRUE;
-				break;
+				tm_file_entry_free(entry);
+				return NULL;
 			}
-		}
-		if (ignored)
-		{
-#ifdef TM_DEBUG
-			g_warning("%s matched %s. Ignoring..", entry->path, *ignore);
-#endif
-			tm_file_entry_free(entry);
-			return NULL;
-		}
-	}
-	if (('.' == entry->name[0]) && ignore_hidden && parent)
-	{
-#ifdef TM_DEBUG
-		g_warning("Ignoring hidden file %s", entry->path);
-#endif
-		tm_file_entry_free(entry);
-		return NULL;
-	}
-	if ((tm_file_dir_t == entry->type) && recurse)
-	{
-		DIR *dir;
-		struct dirent *dir_entry;
-		TMFileEntry *new_entry;
-		char file_name[PATH_MAX];
-		struct stat s;
-		char *entries = NULL;
-
-#ifdef TM_DEBUG
-		g_message("Recursing into %s", entry->path);
-#endif
-		g_snprintf(file_name, PATH_MAX, "%s/CVS/Entries", entry->path);
-		if (0 == stat(file_name, &s))
-		{
-			if (S_ISREG(s.st_mode))
+			break;
+		case tm_file_dir_t:
+			if (parent && !(recurse && apply_filter(entry->name, dir_match
+			  , dir_unmatch, ignore_hidden_dirs)))
 			{
-				int fd;
-				entries = g_new(char, s.st_size + 1);
-				if (0 > (fd = open(file_name, O_RDONLY)))
+				tm_file_entry_free(entry);
+				return NULL;
+			}
+			g_snprintf(file_name, PATH_MAX, "%s/CVS/Entries", entry->path);
+			if (0 == stat(file_name, &s))
+			{
+				if (S_ISREG(s.st_mode))
 				{
-					g_free(entries);
-					entries = NULL;
-				}
-				else
-				{
-					off_t n =0;
-					off_t total_read = 0;
-					while (0 < (n = read(fd, entries + total_read, s.st_size - total_read)))
-						total_read += n;
-					entries[s.st_size] = '\0';
-					close(fd);
-					entry->version = g_strdup("D");
+					int fd;
+					entries = g_new(char, s.st_size + 1);
+					if (0 > (fd = open(file_name, O_RDONLY)))
+					{
+						g_free(entries);
+						entries = NULL;
+					}
+					else
+					{
+						off_t n =0;
+						off_t total_read = 0;
+						while (0 < (n = read(fd, entries + total_read, s.st_size - total_read)))
+							total_read += n;
+						entries[s.st_size] = '\0';
+						close(fd);
+						entry->version = g_strdup("D");
+					}
 				}
 			}
-		}
-		if (NULL != (dir = opendir(entry->path)))
-		{
-			while (NULL != (dir_entry = readdir(dir)))
+			if (NULL != (dir = opendir(entry->path)))
 			{
-				if ((0 != strcmp(dir_entry->d_name, "."))
-					&& (0 != strcmp(dir_entry->d_name, "..")))
+				while (NULL != (dir_entry = readdir(dir)))
 				{
+					if ((0 == strcmp(dir_entry->d_name, "."))
+					  || (0 == strcmp(dir_entry->d_name, "..")))
+						continue;
 					g_snprintf(file_name, PATH_MAX, "%s/%s", entry->path
 					  , dir_entry->d_name);
-					new_entry = tm_file_entry_new(file_name, entry, TRUE, match
-					  , ignore, ignore_hidden);
+					new_entry = tm_file_entry_new(file_name, entry, TRUE
+					  , file_match, file_unmatch, dir_match, dir_unmatch
+			  		  , ignore_hidden_files, ignore_hidden_dirs);
 					if (new_entry)
 					{
 						if (entries)
@@ -215,9 +202,9 @@ TMFileEntry *tm_file_entry_new(const char *path, TMFileEntry *parent
 			}
 			closedir(dir);
 			entry->children = g_slist_sort(entry->children, (GCompareFunc) tm_file_entry_compare);
-		}
-		if (entries)
-			g_free(entries);
+			if (entries)
+				g_free(entries);
+			break;
 	}
 	return entry;
 }
@@ -262,4 +249,17 @@ void tm_file_entry_foreach(TMFileEntry *entry, TMFileEntryFunc func
 			tm_file_entry_foreach(TM_FILE_ENTRY(tmp->data), func
 			  , user_data, level + 1, FALSE);
 	}
+}
+
+GList *tm_file_entry_list(TMFileEntry *entry, GList *files)
+{
+	GSList *tmp;
+	files = g_list_prepend(files, g_strdup(entry->path));
+	for (tmp = entry->children; tmp; tmp = g_slist_next(tmp))
+	{
+		files = tm_file_entry_list((TMFileEntry *) tmp->data, files);
+	}
+	if (!files)
+		g_list_reverse(files);
+	return files;
 }

@@ -481,8 +481,7 @@ text_editor_set_indicator (TextEditor *te, glong line, gint indicator)
 	glong start, end;
 	gchar ch;
 	glong indic_mask[] = {INDIC0_MASK, INDIC1_MASK, INDIC2_MASK};
-	glong current_mask;
-	
+
 	g_return_val_if_fail (te != NULL, -1);
 	g_return_val_if_fail (IS_SCINTILLA (te->widgets.editor) == TRUE, -1);
 
@@ -505,7 +504,7 @@ text_editor_set_indicator (TextEditor *te, glong line, gint indicator)
 			end--;
 		} while (isspace(ch));
 		end++;
-		if (end < start) return;
+		if (end < start) return -1;
 		
 		if (indicator >= 0 && indicator < 3) {
 			char current_mask;
@@ -528,6 +527,7 @@ text_editor_set_indicator (TextEditor *te, glong line, gint indicator)
 			}
 		}
 	}
+	return 0;
 }
 
 void
@@ -908,8 +908,17 @@ text_editor_save_file (TextEditor * te)
 			{
 				check_tm_file(te);
 				if (te->tm_file)
+				{
+					GList *tmp;
+					TextEditor *te1;
 					tm_source_file_update(TM_WORK_OBJECT(te->tm_file)
 					  , FALSE, FALSE, TRUE);
+					for (tmp = app->text_editor_list; tmp; tmp = g_list_next(tmp))
+					{
+						te1 = (TextEditor *) tmp->data;
+						text_editor_set_hilite_type(te1);
+					}
+				}
 			}
 		}
 		/* we need to update UI with the call to scintilla */
@@ -1375,4 +1384,3 @@ gchar *text_editor_get_current_word(TextEditor *te)
 #endif
 	return buf;
 }
-

@@ -386,7 +386,8 @@ enum {
 
 enum {
 	ID_NEXTBUFFER = 1, /* Note: the value mustn't be 0 ! */
-	ID_PREVBUFFER
+	ID_PREVBUFFER,
+	ID_FIRSTBUFFER
 };
 
 typedef struct {
@@ -398,6 +399,16 @@ typedef struct {
 static ShortcutMapping global_keymap[] = {
 	{ m_C, GDK_Tab,		 ID_NEXTBUFFER },
 	{ mSC, GDK_ISO_Left_Tab, ID_PREVBUFFER },
+	{ m_C, GDK_1, ID_FIRSTBUFFER },
+	{ m_C, GDK_2, ID_FIRSTBUFFER + 1},
+	{ m_C, GDK_3, ID_FIRSTBUFFER + 2},
+	{ m_C, GDK_4, ID_FIRSTBUFFER + 3},
+	{ m_C, GDK_5, ID_FIRSTBUFFER + 4},
+	{ m_C, GDK_6, ID_FIRSTBUFFER + 5},
+	{ m_C, GDK_7, ID_FIRSTBUFFER + 6},
+	{ m_C, GDK_8, ID_FIRSTBUFFER + 7},
+	{ m_C, GDK_9, ID_FIRSTBUFFER + 8},
+	{ m_C, GDK_0, ID_FIRSTBUFFER + 9},
 	{ 0,   0,		 0 }
 };
 
@@ -438,11 +449,11 @@ on_anjuta_window_key_press_event (GtkWidget   *widget,
 		if (!notebook->children)
 			return FALSE;
 
-    if (!g_tabbing)
-    {
-      g_tabbing = TRUE;
-    }
-    
+		if (!g_tabbing)
+		{
+			g_tabbing = TRUE;
+		}
+
 		pages_nb = g_list_length (notebook->children);
 		cur_page = gtk_notebook_get_current_page (notebook);
 
@@ -456,7 +467,18 @@ on_anjuta_window_key_press_event (GtkWidget   *widget,
 		break;
 	}
 	default:
-		return FALSE;
+		if (global_keymap[i].id >= ID_FIRSTBUFFER &&
+		  global_keymap[i].id <= (ID_FIRSTBUFFER + 9))
+		{
+			GtkNotebook *notebook = GTK_NOTEBOOK (app->widgets.notebook);
+			int page_req = global_keymap[i].id - ID_FIRSTBUFFER;
+
+			if (!notebook->children)
+				return FALSE;
+			gtk_notebook_set_page(notebook, page_req);
+		}
+		else
+			return FALSE;
 	}
 
 	/* Note: No reason for a shortcut to do more than one thing a time */

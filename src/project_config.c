@@ -355,7 +355,6 @@ gboolean
 project_config_save (ProjectConfig * pc, FILE* stream)
 {
 	gint i;
-	gchar *str;
 	
 	g_return_val_if_fail (pc != NULL, FALSE);
 	g_return_val_if_fail (stream != NULL, FALSE);
@@ -1299,5 +1298,3 @@ create_project_config_gui (ProjectConfig * pc)
 	gtk_widget_ref (pc->widgets.extra_modules_after_entry);
 	gtk_widget_ref (pc->widgets.makefile_am_text);
 }
-
-

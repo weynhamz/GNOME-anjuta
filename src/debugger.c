@@ -1385,7 +1385,7 @@ on_debugger_update_prog_status (GList * lines, gpointer data)
 	}
     else if ((str = strstr(lines->data, "child lwp ")))
 	{
-		if (sscanf(str, "child lwp %d", &pid) != 1)
+		if (sscanf(str, "child lwp %ld", &pid) != 1)
 		{
 			error = TRUE;
 			goto down;

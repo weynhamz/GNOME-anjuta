@@ -3,6 +3,7 @@
 #endif
 
 #include <gnome.h>
+#include <glade/glade.h>
 #include <libgnomevfs/gnome-vfs.h>
 #include <libgnomevfs/gnome-vfs-mime.h>
 #include <libgnomevfs/gnome-vfs-mime-handlers.h>
@@ -12,6 +13,7 @@
 #include "mainmenu_callbacks.h"
 #include "pixmaps.h"
 #include "cvs_gui.h"
+#include "properties.h"
 
 #include "an_file_view.h"
 
@@ -112,8 +114,196 @@ typedef enum
 	OPEN,
 	VIEW,
 	REFRESH,
+	CUSTOMIZE,
 	MENU_MAX
 } FVSignal;
+
+/* File browser customization */
+#define GLADE_FILE "anjuta.glade"
+#define FILE_FILTER_DIALOG "dialog.file.filter"
+#define OK_BUTTON "button.ok"
+#define FILE_FILTER_MATCH "filter.file.match"
+#define FILE_FILTER_MATCH_COMBO "filter.file.match.combo"
+#define FILE_FILTER_UNMATCH "filter.file.unmatch"
+#define FILE_FILTER_UNMATCH_COMBO "filter.file.unmatch.combo"
+#define FILE_FILTER_IGNORE_HIDDEN "filter.file.ignore.hidden"
+#define DIR_FILTER_MATCH "filter.dir.match"
+#define DIR_FILTER_MATCH_COMBO "filter.dir.match.combo"
+#define DIR_FILTER_UNMATCH "filter.dir.unmatch"
+#define DIR_FILTER_UNMATCH_COMBO "filter.dir.unmatch.combo"
+#define DIR_FILTER_IGNORE_HIDDEN "filter.dir.ignore.hidden"
+
+typedef struct _FileFilter
+{
+	GladeXML *xml;
+	GtkWindow *dialog;
+	GtkEditable *file_match_en;
+	GtkEditable *file_unmatch_en;
+	GtkEditable *dir_match_en;
+	GtkEditable *dir_unmatch_en;
+	GtkCombo *file_match_combo;
+	GtkCombo *file_unmatch_combo;
+	GtkToggleButton *ignore_hidden_files_tb;
+	GtkCombo *dir_match_combo;
+	GtkCombo *dir_unmatch_combo;
+	GtkToggleButton *ignore_hidden_dirs_tb;
+	GtkButton *ok_button;
+	GList *file_match;
+	GList *file_unmatch;
+	GList *dir_match;
+	GList *dir_unmatch;
+	GList *file_match_strings;
+	GList *file_unmatch_strings;
+	GList *dir_match_strings;
+	GList *dir_unmatch_strings;
+	gboolean ignore_hidden_files;
+	gboolean ignore_hidden_dirs;
+	gboolean showing;
+} FileFilter;
+
+static FileFilter *ff = NULL;
+
+#define APPLY_PREF(var, P) \
+	s = gtk_editable_get_chars(ff->var ## _en, 0, -1); \
+	if (ff->var) \
+		glist_strings_free(ff->var); \
+	prop_set_with_key(p, P, s); \
+	ff->var = glist_from_string(s); \
+	update_string_list(ff->var ## _strings, s, 10); \
+	if (ff->var ## _strings) \
+		gtk_combo_set_popdown_strings(ff->var ## _combo, ff->var ## _strings); \
+	g_free(s)
+
+#define APPLY_PREF_BOOL(var, P) \
+	ff->var = gtk_toggle_button_get_active(ff->var ## _tb); \
+	prop_set_int_with_key(p, P, ff->var)
+
+static void fv_prefs_apply(void)
+{
+	if (ff)
+	{
+		PropsID p = app->project_dbase->props;
+		char *s;
+		APPLY_PREF(file_match, FILE_FILTER_MATCH);
+		APPLY_PREF(file_unmatch, FILE_FILTER_UNMATCH);
+		APPLY_PREF_BOOL(ignore_hidden_files, FILE_FILTER_IGNORE_HIDDEN);
+		APPLY_PREF(dir_match, DIR_FILTER_MATCH);
+		APPLY_PREF(dir_unmatch, DIR_FILTER_UNMATCH);
+		APPLY_PREF_BOOL(ignore_hidden_dirs, DIR_FILTER_IGNORE_HIDDEN);
+	}
+}
+
+#define PREF_SAVE(P) if (NULL != (s = prop_get(p, P))) \
+	{ \
+		fprintf(fp, "%s=%s\n", P, s); \
+		g_free(s); \
+	}
+
+void fv_prefs_serialize(FILE *fp)
+{
+	char *s;
+	PropsID p = app->project_dbase->props;
+	g_return_if_fail(fp && p);
+	PREF_SAVE(FILE_FILTER_MATCH)
+	PREF_SAVE(FILE_FILTER_UNMATCH)
+	PREF_SAVE(FILE_FILTER_IGNORE_HIDDEN)
+	PREF_SAVE(DIR_FILTER_MATCH)
+	PREF_SAVE(DIR_FILTER_UNMATCH)
+	PREF_SAVE(DIR_FILTER_IGNORE_HIDDEN)
+}
+
+#define PREF_LOAD(var, P) \
+	if (NULL != (s = prop_get(p, P))) \
+	{ \
+		pos = 0; \
+		gtk_editable_delete_text(ff->var ## _en, 0, -1); \
+		gtk_editable_insert_text(ff->var ## _en, s, strlen(s), &pos); \
+		g_free(s); \
+	} \
+
+#define PREF_LOAD_BOOL(var, P) \
+	if (NULL != (s = prop_get(p, P))) \
+	{ \
+		gtk_toggle_button_set_active(ff->var ## _tb, (gboolean) (0 < atoi(s))); \
+	}
+
+static void fv_prefs_load(void)
+{
+	if (ff)
+	{
+		PropsID p = app->project_dbase->props;
+		char *s;
+		int pos;
+		PREF_LOAD(file_match, FILE_FILTER_MATCH)
+		PREF_LOAD(file_unmatch, FILE_FILTER_UNMATCH)
+		PREF_LOAD_BOOL(ignore_hidden_files, FILE_FILTER_IGNORE_HIDDEN);
+		PREF_LOAD(dir_match, DIR_FILTER_MATCH)
+		PREF_LOAD(dir_unmatch, DIR_FILTER_UNMATCH)
+		PREF_LOAD_BOOL(ignore_hidden_dirs, DIR_FILTER_IGNORE_HIDDEN);
+		fv_prefs_apply();
+	}
+}
+
+gboolean on_file_filter_delete_event (GtkWidget *widget, GdkEventCrossing *event
+  , gpointer user_data)
+{
+	if (ff->showing)
+	{
+		gtk_widget_hide((GtkWidget *) ff->dialog);
+		ff->showing = FALSE;
+	}
+	return TRUE;
+}
+
+void on_file_filter_ok_button_clicked (GtkButton *button, gpointer user_data)
+{
+	if (ff->showing)
+	{
+		gtk_widget_hide((GtkWidget *) ff->dialog);
+		ff->showing = FALSE;
+	}
+	fv_prefs_apply();
+	fv_populate(TRUE);
+}
+
+#define SET_WIDGET(var,type,name) ff->var = (type *) glade_xml_get_widget(\
+	ff->xml, name); \
+	gtk_widget_ref((GtkWidget *) ff->var)
+
+static void fv_customize(gboolean really_show)
+{
+	if (NULL == ff)
+	{
+		char glade_file[PATH_MAX];
+		ff = g_new0(FileFilter, 1);
+		snprintf(glade_file, PATH_MAX, "%s/%s", PACKAGE_DATA_DIR, GLADE_FILE);
+		if (NULL == (ff->xml = glade_xml_new(glade_file, FILE_FILTER_DIALOG)))
+		{
+			anjuta_error(_("Unable to build user interface for file filter"));
+			return;
+		}
+		SET_WIDGET(dialog, GtkWindow, FILE_FILTER_DIALOG);
+		SET_WIDGET(file_match_en, GtkEditable, FILE_FILTER_MATCH);
+		SET_WIDGET(file_match_combo, GtkCombo, FILE_FILTER_MATCH_COMBO);
+		SET_WIDGET(file_unmatch_en, GtkEditable, FILE_FILTER_UNMATCH);
+		SET_WIDGET(file_unmatch_combo, GtkCombo, FILE_FILTER_UNMATCH_COMBO);
+		SET_WIDGET(ignore_hidden_files_tb, GtkToggleButton, FILE_FILTER_IGNORE_HIDDEN);
+		SET_WIDGET(dir_match_en, GtkEditable, DIR_FILTER_MATCH);
+		SET_WIDGET(dir_match_combo, GtkCombo, DIR_FILTER_MATCH_COMBO);
+		SET_WIDGET(dir_unmatch_en, GtkEditable, DIR_FILTER_UNMATCH);
+		SET_WIDGET(dir_unmatch_combo, GtkCombo, DIR_FILTER_UNMATCH_COMBO);
+		SET_WIDGET(ignore_hidden_dirs_tb, GtkToggleButton, DIR_FILTER_IGNORE_HIDDEN);
+		SET_WIDGET(ok_button, GtkButton, OK_BUTTON);
+		gtk_window_set_transient_for (GTK_WINDOW(ff->dialog)
+		  , GTK_WINDOW(app->widgets.window));
+		glade_xml_signal_autoconnect(ff->xml);
+	}
+	if (really_show && !ff->showing)
+	{
+		gtk_widget_show((GtkWidget *) ff->dialog);
+		ff->showing = TRUE;
+	}
+}
 
 static void on_file_view_cvs_event(GtkMenuItem *item, gpointer user_data)
 {
@@ -155,6 +345,8 @@ static void fv_context_handler(GtkMenuItem *item, gpointer user_data)
 		case REFRESH:
 			fv_populate(TRUE);
 			break;
+		case CUSTOMIZE:
+			fv_customize(TRUE);
 		default:
 			break;
 	}
@@ -250,7 +442,14 @@ static GnomeUIInfo an_file_view_menu_uiinfo[] = {
 	 PIX_FILE(DOCK),
 	 0, 0, NULL}
 	 ,
-	GNOMEUIINFO_END /* 6 */
+	{/* 6 */
+	 GNOME_APP_UI_ITEM, N_("Customize"),
+	 N_("Customize the file browser"),
+	 fv_context_handler, (gpointer) CUSTOMIZE, NULL,
+	 PIX_FILE(DOCK),
+	 0, 0, NULL}
+	 ,
+	GNOMEUIINFO_END /* 7 */
 };
 
 static void fv_create_context_menu(void)
@@ -279,6 +478,7 @@ static void fv_create_context_menu(void)
 	fv->menu.cvs.diff = an_file_view_cvs_uiinfo[6].widget;
 	fv->menu.refresh = an_file_view_menu_uiinfo[3].widget;
 	fv->menu.docked = an_file_view_menu_uiinfo[5].widget;
+	fv->menu.customize = an_file_view_menu_uiinfo[6].widget;
 	gtk_widget_show_all(fv->menu.top);
 }
 
@@ -418,13 +618,13 @@ void fv_clear(void)
 	gtk_clist_clear(GTK_CLIST(fv->tree));
 }
 
-void fv_hide(void)
+static void fv_hide(void)
 {
 	g_return_if_fail(fv && fv->tree);
 	gtk_widget_hide(fv->tree);
 }
 
-void fv_show(void)
+static void fv_show(void)
 {
 	g_return_if_fail(fv && fv->tree);
 	gtk_widget_show(fv->tree);
@@ -444,8 +644,10 @@ static void fv_add_tree_entry(TMFileEntry *entry, GtkCTreeNode *root)
 		return;
 	if ((tm_file_dir_t != entry->type) || (!entry->children))
 		return;
+	/*
 	while (gtk_events_pending())
 		gtk_main_iteration();
+	*/
 	closed_icon = fv_icons[fv_cfolder_t];
 	closed_bitmap = fv_bitmaps[fv_cfolder_t];
 	open_icon = fv_icons[fv_ofolder_t];
@@ -493,10 +695,7 @@ static void fv_add_tree_entry(TMFileEntry *entry, GtkCTreeNode *root)
 AnFileView *fv_populate(gboolean full)
 {
 	static gboolean busy = FALSE;
-	static const char *ignore[] = {"CVS", NULL};
-#ifdef DEBUG
-	g_message("Populating file view..");
-#endif
+
 	if (!fv)
 		fv_create();
 	if (busy)
@@ -509,10 +708,21 @@ AnFileView *fv_populate(gboolean full)
 	fv_clear();
 	if (!app || !app->project_dbase || !app->project_dbase->top_proj_dir)
 		goto clean_leave;
+	if (!fv->top_dir || 0 != strcmp(fv->top_dir, app->project_dbase->top_proj_dir))
+	{
+		/* Different project - reload project preferences */
+		if (fv->top_dir)
+			g_free(fv->top_dir);
+		fv->top_dir = g_strdup(app->project_dbase->top_proj_dir);
+		if (!ff)
+			fv_customize(FALSE);
+		fv_prefs_load();
+	}
 	if (fv->file_tree)
 		tm_file_entry_free(fv->file_tree);
-	fv->file_tree = tm_file_entry_new(app->project_dbase->top_proj_dir,
-	  NULL, full, NULL, ignore, TRUE);
+	fv->file_tree = tm_file_entry_new(fv->top_dir, NULL, full, ff->file_match
+	  , ff->file_unmatch, ff->dir_match, ff->dir_unmatch
+	  , ff->ignore_hidden_files, ff->ignore_hidden_dirs);
 	if (! fv->file_tree)
 		goto clean_leave;
 	fv_hide();

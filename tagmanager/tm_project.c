@@ -36,7 +36,16 @@ static const char *s_sources[] = { "*.c", "*.pc" /* C/Pro*C files */
 	, NULL /* Must terminate with NULL */
 };
 
-static const char *s_ignore[] = { "\\.*", "CVS", "intl", "po", NULL };
+static const char *s_ignore[] = { "CVS", "intl", "po", NULL };
+
+static GList *glist_from_array(const char **arr)
+{
+	GList *l = NULL;
+	int i;
+	for (i =0; arr[i]; ++ i)
+		l = g_list_prepend(l, (gpointer) arr[i]);
+	return g_list_reverse(l);
+}
 
 guint project_class_id = 0;
 
@@ -437,16 +446,23 @@ static void tm_project_add_file_recursive(TMFileEntry *entry
 gboolean tm_project_autoscan(TMProject *project)
 {
 	TMFileEntry *root_dir;
+	GList *file_match;
+	GList *dir_unmatch;
+
+	file_match = glist_from_array(project->sources);
+	dir_unmatch = glist_from_array(project->ignore);
 
 	if (!project || !IS_TM_PROJECT(TM_WORK_OBJECT(project))
 	  || (!project->dir))
 		return FALSE;
 	if (!(root_dir = tm_file_entry_new(project->dir, NULL, TRUE
-		, project->sources, project->ignore, TRUE)))
+		, file_match, NULL, NULL, dir_unmatch, TRUE, TRUE)))
 	{
 		g_warning("Unable to create file entry");
 		return FALSE;
 	}
+	g_list_free(file_match);
+	g_list_free(dir_unmatch);
 	tm_file_entry_foreach(root_dir, tm_project_add_file_recursive
 	  , project, 0, FALSE);
 	tm_file_entry_free(root_dir);

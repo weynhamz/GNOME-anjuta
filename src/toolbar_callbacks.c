@@ -123,7 +123,6 @@ void
 on_toolbar_find_incremental_start (GtkEntry *entry,
 	GdkEvent *e, gpointer user_data)
 {
-	gchar *entry_text;
 	TextEditor *te = anjuta_get_current_text_editor();
 	if (!te) return;
 	app->find_replace->find_text->incremental_pos =

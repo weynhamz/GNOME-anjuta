@@ -1,3 +1,18 @@
+2003-01-02  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
+	* anjuta.glade, src.search-replace.[ch], src/main_menubar_def.h
+	, src/main_menubar.ch, src/mainmenu_callbacks.c: Started new
+	search-replace implementation.
+	* configure.in: Segregated debugging from debug messages.
+	* anjuta.prj: Save file browser preferences.
+	* src/*, launcher/anjuta_launcher.c: Misc. warning and other
+	fixes.
+	* anjuta.glade, src.an_file_view.[ch], src/project_dbase.c:
+	Implemented file browser preferences.
+	* src/anjuta.c: Implemented jump to buffer by number.
+	* src/text_editor.c: Force correct highliting of symbols after
+	rebuilding tags while saving the file.
+	* tagmanager/*: Minor API changes/additions.
+
 2002-12-30  Naba Kumar <naba@gnome.org>
 
 	* HACKING: Added coding style information.

@@ -1042,7 +1042,7 @@ glist_strings_dup (GList * list)
 GList *glist_path_dedup(GList *list)
 {
     GList *nlist = NULL, *tmp, *tmp1;
-    gchar *path, path1;
+    gchar *path;
     struct stat s;
 	for (tmp = list; tmp; tmp = g_list_next(tmp))
 	{
@@ -1680,4 +1680,41 @@ anjuta_util_check_gnome_terminal (void)
     
     /* gnome-terminal-2 found */
     return 2;
+}
+
+int type_from_string(StringMap *map, const char *str)
+{
+	int i = 0;
+
+	while (-1 != map[i].type)
+	{
+		if (0 == strcmp(map[i].name, str))
+			return map[i].type;
+		++ i;
+	}
+	return -1;
+}
+
+const char *string_from_type(StringMap *map, int type)
+{
+	int i = 0;
+	while (-1 != map[i].type)
+	{
+		if (map[i].type == type)
+			return map[i].name;
+		++ i;
+	}
+	return "";
+}
+
+GList *glist_from_map(StringMap *map)
+{
+	GList *out_list = NULL;
+	int i = 0;
+	while (-1 != map[i].type)
+	{
+		out_list = g_list_append(out_list, map[i].name);
+		++ i;
+	}
+	return out_list;
 }

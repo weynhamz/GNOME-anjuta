@@ -456,13 +456,13 @@ void sv_clear(void)
 	gtk_clist_clear(GTK_CLIST(sv->tree));
 }
 
-void sv_hide(void)
+static void sv_hide(void)
 {
 	g_return_if_fail(sv && sv->tree);
 	gtk_widget_hide(sv->tree);
 }
 
-void sv_show(void)
+static void sv_show(void)
 {
 	g_return_if_fail(sv && sv->tree);
 	gtk_widget_show(sv->tree);

@@ -54,8 +54,6 @@ main (int argc, char **argv)
 	}
 	if (strcmp (argv[1], "--__debug_terminal") == 0)
 	{
-		gchar *cmd;
-		gboolean error;
 		FILE *fp;
 		
 		if (argc != 3)
