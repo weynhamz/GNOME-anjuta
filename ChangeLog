@@ -1,5 +1,14 @@
 2002-03-27 Naba Kumar <kh_naba@users.sourceforge.net>
 
+	* src/project_dbase.c:
+	
+	  Patch from Roy Wood <roy.wood@filogix.com>
+	  
+	  Fixed docking bug with the new docking patch
+	  to fix copy/paste bug.
+	  
+2002-03-27 Naba Kumar <kh_naba@users.sourceforge.net>
+
 	* src/cvs.c, src/cvs.h, src/cvs_cbs.c, src/cvs_cbs.h
 	  src/cvs_gui.c, src/cvs_gui.h, src/main_menubar.c,
 	  src/main_menubar.h, src/main_menubar_def.h,

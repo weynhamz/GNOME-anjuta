@@ -1854,7 +1854,9 @@ project_dbase_detach (ProjectDBase * p)
 void
 project_dbase_attach (ProjectDBase * p)
 {
-	gtk_widget_reparent (app->project_dbase->widgets.client, app->widgets.project_dbase_win_container);
+	gtk_widget_reparent (app->project_dbase->widgets.client,
+		app->widgets.project_dbase_win_container);
+	gtk_widget_reparent (app->widgets.notebook,app->widgets.client_area);
 
 	if (app->widgets.the_client == app->widgets.vpaned)
 	{
