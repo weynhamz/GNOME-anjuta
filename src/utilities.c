@@ -743,7 +743,7 @@ copy_file (gchar * src, gchar * dest, gboolean show_error)
 		if( show_error)
 			anjuta_system_error (errno, _("Unable to create file: %s."), dest);
 		fclose (input_fp);
-		return TRUE;
+		return FALSE;
 	}
 	
 	for (;;)

@@ -1,5 +1,8 @@
 2004-02-16  Naba Kumar  <naba@gnome.org>
 
+	* src/utilities.c: Fixed return value when dest file could
+	not be created.
+
 	Patch from: Dennis Moehlmann  <darksaidin@users.sourceforge.net>
 	* src/utilities.[c,h]: Removed 'cmp' dependency and used
 	internal function to compare files.
