@@ -921,6 +921,17 @@ set void SetWrapMode=2268(int mode,)
 # Retrieve whether text is word wrapped
 get int GetWrapMode=2269(,)
 
+val SC_CACHE_NONE=0
+val SC_CACHE_CARET=1
+val SC_CACHE_PAGE=2
+val SC_CACHE_DOCUMENT=3
+
+# Sets the degree of caching of layout information
+set void SetLayoutCache=2272(int mode,)
+
+# Retrieve the degree of caching of layout information
+get int GetLayoutCache=2273(,)
+
 ## Start of key messages
 # Move caret down one line.
 fun void LineDown=2300(,)
@@ -1335,6 +1346,7 @@ val SCLEX_VBSCRIPT=28
 val SCLEX_ASP=29
 val SCLEX_PHP=30
 val SCLEX_BAAN=31
+val SCLEX_MATLAB=32
 
 # When a lexer specifies its language as SCLEX_AUTOMATIC it receives a
 # value assigned in sequence from SCLEX_AUTOMATIC+1.
@@ -1669,6 +1681,15 @@ val SCE_NNCRONTAB_NUMBER=7
 val SCE_NNCRONTAB_STRING=8
 val SCE_NNCRONTAB_ENVIRONMENT=9
 val SCE_NNCRONTAB_IDENTIFIER=10
+# Lexical states for SCLEX_MATLAB
+val SCE_MATLAB_DEFAULT=0
+val SCE_MATLAB_COMMENT=1
+val SCE_MATLAB_COMMAND=2
+val SCE_MATLAB_NUMBER=3
+val SCE_MATLAB_KEYWORD=4
+val SCE_MATLAB_STRING=5
+val SCE_MATLAB_OPERATOR=6
+val SCE_MATLAB_IDENTIFIER=7
 
 # Events
 

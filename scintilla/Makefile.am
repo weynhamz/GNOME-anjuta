@@ -37,6 +37,7 @@ libscintilla_a_SOURCES =\
 	LexEiffel.cxx\
 	LexLisp.cxx\
 	LexRuby.cxx\
+	LexMatlab.cxx\
 	LineMarker.cxx \
 	PlatGTK.cxx \
 	PropSet.cxx \

@@ -18,7 +18,6 @@
 #include "Scintilla.h"
 #include "SciLexer.h"
 
-
 static int classifyWordPascal(unsigned int start, unsigned int end, WordList &keywords, Accessor &styler) {
 	char s[100];
 	for (unsigned int i = 0; i < end - start + 1 && i < 30; i++) {

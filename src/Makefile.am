@@ -38,7 +38,8 @@ SCILEXERS =\
 	../scintilla/LexRuby.o\
 	../scintilla/LexBullant.o\
 	../scintilla/LexAda.o\
-	../scintilla/LexBaan.o
+	../scintilla/LexBaan.o\
+	../scintilla/LexMatlab.o
 
 bin_PROGRAMS = anjuta
 
@@ -97,7 +98,7 @@ anjuta_SOURCES = \
 	cvs_gui.c\
 	cvs_gui.h\
 	cvs_cbs.c\
-	cvs_cvs.h\
+	cvs_cbs.h\
 	debugger.c\
 	debugger.h\
 	dnd.c\

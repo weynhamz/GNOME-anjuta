@@ -27,6 +27,7 @@ properties_data_DATA = \
 	python.properties \
 	xml.properties \
 	others.properties \
-	lisp.properties
+	lisp.properties \
+	matlab.properties
 
 EXTRA_DIST = $(properties_data_DATA)

@@ -230,6 +230,7 @@ module.source.files=\
 	scintilla/LexHTML.cxx\
 	scintilla/LexLisp.cxx\
 	scintilla/LexLua.cxx\
+	scintilla/LexMatlab.cxx\
 	scintilla/LexOthers.cxx\
 	scintilla/LexPascal.cxx\
 	scintilla/LexPerl.cxx\
