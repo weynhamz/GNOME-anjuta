@@ -286,13 +286,13 @@ fv_on_event(GtkWidget *widget, GdkEvent *event, gpointer user_data)
 {
 	gint row;
 	GtkTreeView *tree;
-	GtkTreePath *node;
+	GtkTreeIter iter;
 
 	g_return_val_if_fail (GTK_IS_TREE_VIEW (widget), FALSE);
-// PORT: FIXME
+
 	tree = GTK_TREE_VIEW (widget);
 	row = tree->clist.focus_row;
-	node = gtk_ctree_node_nth (tree,row);
+	iter = gtk_ctree_node_nth (tree,row); // PORT: FIXME: continue from this line
 
 	if (!node || !event)
 		return FALSE;
