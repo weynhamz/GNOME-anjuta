@@ -8,7 +8,7 @@
 development and what's new in Anjuta 2.0 release.</comment>
     </item>
     <item>
-      <attribute id="1108355059" priority="1" done="0" start_date="731991" enddate="99999999" notify="0" endtime="-60" last_edited="1108355059"/>
+      <attribute id="1108355059" priority="1" done="1" start_date="731991" completed_date="732012" enddate="99999999" notify="0" endtime="-60" last_edited="1110211623"/>
       <summary>Update credit list in AUTHORS file</summary>
       <comment>Update credit list in AUTHORS file and use this file in about dialog
 box (instead of hardcoded names in the source).</comment>
@@ -56,8 +56,8 @@ registered during preferences registeration. This results in gconf type
 mismatch when the keys are queried.</comment>
     </item>
     <item>
-      <attribute id="1109399546" priority="1" done="0" start_date="732003" enddate="99999999" notify="0" endtime="-60" last_edited="1109399706"/>
-      <summary>Implement prefrences as interface</summary>
+      <attribute id="1109399546" priority="1" done="0" start_date="732003" enddate="99999999" notify="0" endtime="-60" last_edited="1110211647"/>
+      <summary>Implement preferences as interface</summary>
       <comment>Define a IAnjutaPreferences interface with construct() method
 in it. Then, all plugins having preferences, implement this
 interface and initialize the preferences in it (instead of what
@@ -201,14 +201,6 @@ the editor is destroyed.</comment>
       <comment>Display progress window when refreshing symbols.</comment>
     </item>
     <item>
-      <attribute id="1100698396" priority="1" done="0" start_date="731902" enddate="99999999" notify="0" endtime="-60" last_edited="1100698396"/>
-      <summary>Workspace symbols not updated</summary>
-      <comment>Although, file symbols are updated when the file is saved,
-corresponding workspace symbols are not updated. That is when
-"goto symbol" to a symbol in this file from some other place is
-activated (eg. symbol pane), the old location is used.</comment>
-    </item>
-    <item>
       <attribute id="1107240408" priority="1" done="0" start_date="731978" enddate="99999999" notify="0" endtime="-60" last_edited="1107240408"/>
       <summary>Update on Add/Remove files in project</summary>
       <comment>Using IAnjutaProjectManager interface, update symbol database
@@ -233,6 +225,14 @@ Investigate it in tag-manager/ directory.
       <attribute id="1107253892" priority="1" done="0" start_date="731978" enddate="99999999" notify="0" endtime="-60" last_edited="1107253892"/>
       <summary>Refresh symbol-view on idle</summary>
       <comment>Implement symbol-view refresh on idle and show progress in a progress bar.</comment>
+    </item>
+    <item>
+      <attribute id="1100698396" priority="1" done="0" start_date="731902" enddate="99999999" notify="0" endtime="-60" last_edited="1110202511"/>
+      <summary>Workspace symbols not updated</summary>
+      <comment>Although, file symbols are updated when the file is saved,
+corresponding workspace symbols are not updated. That is when
+"goto symbol" to a symbol in this file from some other place is
+activated (eg. symbol pane), the old location is used.</comment>
     </item>
   </category>
   <category title="Documentation" place="16">
@@ -298,7 +298,7 @@ during save.</comment>
 It can be done either during save or load. Without this fix, the save xml is distorted.</comment>
     </item>
     <item>
-      <attribute id="1107253814" priority="1" done="0" start_date="731978" enddate="99999999" notify="0" endtime="-60" last_edited="1107253814"/>
+      <attribute id="1107253814" priority="1" done="1" start_date="731978" completed_date="732012" notify="0" last_edited="1110211719"/>
       <summary>Column sorting</summary>
       <comment>Implement column sorting (ala evolution).</comment>
     </item>
@@ -337,7 +337,7 @@ instead of full path names.</comment>
   </category>
   <category title="Plugin: Macros" place="12">
     <item>
-      <attribute id="1107522700" priority="1" done="0" start_date="731981" enddate="99999999" notify="0" endtime="-60" last_edited="1107522700"/>
+      <attribute id="1107522700" priority="1" done="1" start_date="731981" completed_date="732012" enddate="99999999" notify="0" endtime="-60" last_edited="1110211761"/>
       <summary>Dialogs do not close with escape</summary>
       <comment>Pressing escape should close all dialogs.</comment>
     </item>
