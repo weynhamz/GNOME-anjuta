@@ -68,7 +68,7 @@ drag_data_received_cb (GtkWidget *widget, GdkDragContext *context,
 
 
 	tmp1 = data->data;
-	tmppath = g_malloc(strlen(data->data));
+	tmppath = g_malloc(strlen(data->data) + 1);
 	tmpptr = tmppath;
 
 	while (*tmp1)

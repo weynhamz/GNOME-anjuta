@@ -15,6 +15,9 @@
 	and logs.
 	* (new) scintilla/test-scintilla.cxx: A test file for scintilla.
 	
+	Patch from: Bosik Pavol <Pavol.Bosik@siemens.com>
+	* src/dnd.c: Fixed a crash bug with DND.
+	
 2003-09-15  Naba Kumar  <naba@gnome.org>
 
 	* src/text_editor.[c,h], src/anjuta.c, src/breakpoints.c,
