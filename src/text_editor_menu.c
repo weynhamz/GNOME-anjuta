@@ -217,6 +217,14 @@ GnomeUIInfo text_editor_menu_uiinfo[] = {
 	,
 	GNOMEUIINFO_SEPARATOR,
 	{
+	 GNOME_APP_UI_ITEM, N_("Context Help"),
+	 NULL,
+	 on_context_help_activate, NULL, NULL,
+	 GNOME_APP_PIXMAP_NONE, NULL,
+ 	 0, 0, NULL}
+	 ,
+	GNOMEUIINFO_SEPARATOR,
+	{
 	 GNOME_APP_UI_ITEM, N_("Toggle Bookmark"),
 	 NULL,
 	 on_book_toggle1_activate, NULL, NULL,
