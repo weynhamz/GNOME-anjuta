@@ -22,6 +22,7 @@
 #include <libanjuta/resources.h>
 #include <libanjuta/anjuta-utils.h>
 #include <libanjuta/anjuta-preferences.h>
+#include <libanjuta/anjuta-debug.h>
 
 #include <gtk/gtkfilechooserdialog.h>
 #include <libgnomevfs/gnome-vfs.h>
@@ -383,18 +384,24 @@ anjuta_docman_dispose (GObject *obj)
 	AnjutaDocman *docman;
 	GList *node;
 	
+	DEBUG_PRINT ("Disposing AnjutaDocman object");
 	docman = ANJUTA_DOCMAN (obj);
-	node = docman->priv->editors;
-	while (node)
+	if (docman->priv)
 	{
-		AnjutaDocmanPage *page;
-		page = (AnjutaDocmanPage*)node->data;
-		anjuta_docman_page_destroy (page);
-		node = g_list_next (node);
+		node = docman->priv->editors;
+		while (node)
+		{
+			AnjutaDocmanPage *page;
+			page = (AnjutaDocmanPage*)node->data;
+			anjuta_docman_page_destroy (page);
+			node = g_list_next (node);
+		}
+		g_list_free (docman->priv->editors);
+		gtk_widget_destroy (docman->priv->fileselection);
+		gtk_widget_destroy (docman->priv->save_as_fileselection);
+		g_free (docman->priv);
+		docman->priv = NULL;
 	}
-	g_list_free (docman->priv->editors);
-	gtk_widget_destroy (docman->priv->fileselection);
-	gtk_widget_destroy (docman->priv->save_as_fileselection);
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (G_OBJECT(obj)));
 }
 

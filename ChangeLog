@@ -1,3 +1,21 @@
+2004-11-15  Naba Kumar  <naba@gnome.org>
+
+	* plugins/project-manager/plugin.c: Opens targets on double click.
+	
+	* plugins/message-view/message-view.c,
+	plugins/file-manager/anjuta-file-manager-plugin.glade,
+	plugins/file-manager/plugin.[c,h], plugins/terminal/terminal.c:
+	Added proper class finalization
+	and disposition. Added preferences notifications and callbacks to
+	change info/warning/error colors.
+	
+	* plugins/editor/anjuta-docman.c, plugins/editor/plugin.c,
+	plugins/editor/text_editor.[h,c], src/action-callbacks.c,
+	src/anjuta-app.c, src/anjuta.c: Fixed crash bug on exit.
+	Implemented finalize method for AnjutaApp. Code cleanups.
+	
+	* plugins/message-view/plugin.c: Static parent_class.
+	
 2004-11-12  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
 	* plugins/editor/search-replace.[c,h], 
 	  plugins/editor/search-replace_backend.c

@@ -515,7 +515,6 @@
 
 	      <child>
 		<widget class="GtkFrame" id="frame8">
-		  <property name="visible">True</property>
 		  <property name="label_xalign">0</property>
 		  <property name="label_yalign">0.5</property>
 		  <property name="shadow_type">GTK_SHADOW_NONE</property>
@@ -532,6 +531,7 @@
 
 		      <child>
 			<widget class="GtkLabel" id="label27">
+			  <property name="visible">True</property>
 			  <property name="label" translatable="yes">Choose directories</property>
 			  <property name="use_underline">False</property>
 			  <property name="use_markup">False</property>
@@ -555,6 +555,7 @@
 
 		      <child>
 			<widget class="GtkLabel" id="label28">
+			  <property name="visible">True</property>
 			  <property name="label" translatable="yes">Ignore directories</property>
 			  <property name="use_underline">False</property>
 			  <property name="use_markup">False</property>
@@ -578,6 +579,7 @@
 
 		      <child>
 			<widget class="GtkCombo" id="filter.dir.match.combo">
+			  <property name="visible">True</property>
 			  <property name="value_in_list">False</property>
 			  <property name="allow_empty">True</property>
 			  <property name="case_sensitive">False</property>
@@ -639,6 +641,7 @@
 
 		      <child>
 			<widget class="GtkCombo" id="filter.dir.unmatch.combo">
+			  <property name="visible">True</property>
 			  <property name="value_in_list">False</property>
 			  <property name="allow_empty">True</property>
 			  <property name="case_sensitive">False</property>

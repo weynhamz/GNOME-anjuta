@@ -17,6 +17,7 @@
  */
 
 #include <libanjuta/anjuta-shell.h>
+#include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-profile.h>
 
 #include "anjuta.h"
@@ -24,6 +25,7 @@
 gboolean
 on_anjuta_delete_event (GtkWidget *w, GdkEvent *event, gpointer data)
 {
+	DEBUG_PRINT ("AnjutaApp delete event");
 	gtk_main_quit ();
 #if 0
 	AnjutaApp *app;
@@ -95,8 +97,9 @@ on_anjuta_delete_event (GtkWidget *w, GdkEvent *event, gpointer data)
 void
 on_anjuta_destroy (GtkWidget * w, gpointer data)
 {
+	DEBUG_PRINT ("AnjutaApp destroy event");
 	/* Nothing to be done here */
-	gtk_main_quit ();
+	// gtk_main_quit ();
 }
 
 static gint

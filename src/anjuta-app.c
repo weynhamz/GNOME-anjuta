@@ -330,9 +330,6 @@ anjuta_app_instance_init (AnjutaApp *app)
 					  "add_widget", G_CALLBACK (on_add_merge_widget),
 					  app);
 	
-	gtk_window_add_accel_group (GTK_WINDOW (app),
-								anjuta_ui_get_accel_group (app->ui));
-	
 	/* Create stock icons */
 	create_stock_icons (app->ui);
 
@@ -378,8 +375,6 @@ anjuta_app_instance_init (AnjutaApp *app)
 								  GTK_WINDOW (app));
 	// gtk_window_add_accel_group (GTK_WINDOW (app->preferences),
 	//							app->accel_group);
-	// g_signal_connect (G_OBJECT (app->preferences), "changed",
-	//				  G_CALLBACK (anjuta_apply_preferences), app);
 
 	app->shutdown_in_progress = FALSE;
 	app->win_pos_x = 10;
@@ -667,12 +662,9 @@ anjuta_app_load_layout (AnjutaApp *window, const gchar *name)
 }
 
 static void
-anjuta_app_dispose (GObject *widget)
+anjuta_app_finalize (GObject *widget)
 {
 	AnjutaApp *window;
-	// GtkAllocation *alloc;
-	// AnjutaWindowState *state;
-	// AnjutaSession *session;
 
 	g_assert (ANJUTA_IS_APP (widget));
 	window = ANJUTA_APP (widget);
@@ -681,6 +673,17 @@ anjuta_app_dispose (GObject *widget)
 		g_object_unref (window->layout_manager);
 		window->layout_manager = NULL;
 	};
+	GNOME_CALL_PARENT(G_OBJECT_CLASS, finalize, (widget));
+}
+
+static void
+anjuta_app_dispose (GObject *widget)
+{
+	AnjutaApp *window;
+	
+	g_assert (ANJUTA_IS_APP (widget));
+	window = ANJUTA_APP (widget);
+
 	GNOME_CALL_PARENT(G_OBJECT_CLASS, dispose, (widget));
 }
 
@@ -709,6 +712,7 @@ anjuta_app_class_init (AnjutaAppClass *class)
 	parent_class = g_type_class_peek_parent (class);
 	object_class = (GObjectClass*) class;
 	widget_class = (GtkWidgetClass*) class;
+	object_class->finalize = anjuta_app_finalize;
 	object_class->dispose = anjuta_app_dispose;
 	//	widget_class->show = anjuta_app_show;
 }

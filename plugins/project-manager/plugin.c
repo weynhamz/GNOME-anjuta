@@ -82,6 +82,8 @@ static void
 on_target_activated (GtkWidget *widget, const gchar *target_id,
 					 ProjectManagerPlugin *plugin)
 {
+	gchar *target, *ptr;
+	
 #if 0
 	GList *list;
 	
@@ -95,7 +97,36 @@ on_target_activated (GtkWidget *widget, const gchar *target_id,
 	}
 	g_list_free (list);
 #endif
+	
 	DEBUG_PRINT ("Target activated: %s", target_id);
+	target = g_strdup (target_id);
+	ptr = strchr (target, ':');
+	if (ptr)
+	{
+		*ptr = '\0';
+		ptr++;
+		
+		if (strcmp (ptr, "static_lib") == 0 ||
+			strcmp (ptr, "shared_lib") == 0 ||
+			strcmp (ptr, "program") == 0 ||
+			strcmp (ptr, "configure_generated_file") == 0)
+		{
+			IAnjutaFileLoader *loader;
+			gchar *uri;
+			const gchar *project_root;
+			
+			anjuta_shell_get (ANJUTA_PLUGIN (plugin)->shell,
+							  "project_root_uri", G_TYPE_STRING,
+							  &project_root, NULL);
+			uri = g_build_filename (project_root, target, NULL);
+			loader = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
+												 IAnjutaFileLoader, NULL);
+			if (loader)
+				ianjuta_file_loader_load (loader, uri, FALSE, NULL);
+			g_free (uri);
+		}
+	}
+	g_free (target);
 }
 
 static void

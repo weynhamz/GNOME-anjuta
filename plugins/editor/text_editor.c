@@ -230,10 +230,7 @@ text_editor_new (AnjutaPreferences *eo, const gchar *uri, const gchar *name)
 		}
 	}
 	// te->menu = text_editor_menu_new ();
-	// text_editor_update_preferences (te, te->preferences);
 	text_editor_update_controls (te);
-	te->changed_id = g_signal_connect (G_OBJECT (te->preferences), "changed",
-					  G_CALLBACK (on_preferences_changed), te);
 	return GTK_WIDGET (te);
 }
 
@@ -261,12 +258,6 @@ text_editor_finalize (GObject *obj)
 	{
 		aneditor_destroy (te->editor_id);
 		te->editor_id = 0;
-	}
-	if (te->changed_id)
-	{
-		g_signal_handler_disconnect (G_OBJECT (te->preferences), 
-									 te->changed_id);
-		te->changed_id = 0;
 	}
 	if (te->gconf_notify_ids)
 	{

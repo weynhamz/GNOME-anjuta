@@ -18,6 +18,9 @@ struct _FileManagerPlugin{
 	gint merge_id;
 	gchar *top_dir;
 	guint root_watch_id;
+	
+	GList *gconf_notify_ids;
+	gboolean project_is_loaded;
 };
 
 struct _FileManagerPluginClass{

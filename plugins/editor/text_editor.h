@@ -74,10 +74,6 @@ struct _TextEditor
 /* First time exposer */
 	gboolean first_time_expose;
 
-/* Handler for changed signal. Need to disconnect the signal when we destroy
-   the object */
-	gulong changed_id;
-	
 /* File encoding */
 	gchar *encoding;
 	

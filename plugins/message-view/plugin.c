@@ -64,7 +64,7 @@ static GtkActionEntry actions_goto[] = {
     G_CALLBACK (on_prev_message)}
 };
 
-gpointer parent_class;
+static gpointer parent_class;
 
 #define REGISTER_ICON(icon, stock_id) \
 	pixbuf = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"icon, NULL); \

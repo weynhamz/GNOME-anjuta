@@ -39,6 +39,9 @@ struct _MessageViewPrivate
 	GtkWidget *tooltip_window;
 	gulong tooltip_timeout;
 	PangoLayout *tooltip_layout;
+	
+	/* gconf notification ids */
+	GList *gconf_notify_ids;
 };
 
 typedef struct
@@ -63,6 +66,11 @@ enum
 	MV_PROP_LABEL,
 	MV_PROP_HIGHLITE
 };
+
+static gpointer parent_class;
+
+static void prefs_init (MessageView *mview);
+static void prefs_finalize (MessageView *mview);
 
 /* Message object creation, copy and freeing */
 static Message*
@@ -514,6 +522,39 @@ message_view_get_property (GObject * object,
 }
 
 static void
+message_view_finalize (GObject *obj)
+{
+	MessageView *mview = MESSAGE_VIEW (obj);
+	if (mview->privat->gconf_notify_ids)
+	{
+		prefs_finalize (mview);
+		mview->privat->gconf_notify_ids = NULL;
+	}
+	if (mview->privat->tooltip_timeout) {
+		g_source_remove (mview->privat->tooltip_timeout);
+		mview->privat->tooltip_timeout = 0;
+	}
+	if (mview->privat->tooltip_window) {
+		gtk_widget_destroy (mview->privat->tooltip_window);
+		g_object_unref (mview->privat->tooltip_layout);
+		mview->privat->tooltip_window = NULL;
+	}
+	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (G_OBJECT(obj)));
+}
+
+static void
+message_view_dispose (GObject *obj)
+{
+	MessageView *mview = MESSAGE_VIEW (obj);
+	if (mview->privat->line_buffer)
+		g_free (mview->privat->line_buffer);
+	if (mview->privat->label)
+		g_free (mview->privat->label);
+	g_free (mview->privat);
+	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (G_OBJECT(obj)));
+}
+
+static void
 message_view_instance_init (MessageView * self)
 {
 	GtkWidget *scrolled_win;
@@ -593,11 +634,13 @@ message_view_class_init (MessageViewClass * klass)
 {
 	GParamSpec *message_view_spec_label;
 	GParamSpec *message_view_spec_highlite;
-	
 	GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
 	
+	parent_class = g_type_class_peek_parent (klass);
 	gobject_class->set_property = message_view_set_property;
 	gobject_class->get_property = message_view_get_property;
+	gobject_class->finalize = message_view_finalize;
+	gobject_class->dispose = message_view_dispose;
 	
 	message_view_spec_label = g_param_spec_string ("label",
 						       "Label of the view",
@@ -626,7 +669,90 @@ message_view_new (AnjutaPreferences* prefs)
 {
 	MessageView * mv = MESSAGE_VIEW (g_object_new (message_view_get_type (), NULL));
 	mv->privat->prefs = prefs;
+	prefs_init (mv);
 	return GTK_WIDGET(mv);
+}
+
+/* Preferences notifications */
+static void
+pref_change_color (MessageView *mview, IAnjutaMessageViewType type,
+				   const gchar *color_pref_key)
+{
+	GdkColor *color;
+	GtkListStore *store;
+	GtkTreeIter iter;
+	gboolean success;
+	
+	color = convert_color (mview->privat->prefs, color_pref_key);
+	store = GTK_LIST_STORE (gtk_tree_view_get_model
+				(GTK_TREE_VIEW (mview->privat->tree_view)));
+	success = gtk_tree_model_get_iter_first (GTK_TREE_MODEL (store), &iter);
+	while (success)
+	{
+		Message *message;
+		gtk_tree_model_get (GTK_TREE_MODEL (store), &iter, COLUMN_MESSAGE,
+							&message, -1);
+		if (message && message->type == type)
+		{
+			gtk_list_store_set (store, &iter, COLUMN_COLOR, color, -1);
+		}
+		success = gtk_tree_model_iter_next (GTK_TREE_MODEL (store), &iter);
+	}
+}
+
+static void
+on_gconf_notify_color_info (GConfClient *gclient, guint cnxn_id,
+							GConfEntry *entry, gpointer user_data)
+{
+	pref_change_color (MESSAGE_VIEW (user_data),
+					   IANJUTA_MESSAGE_VIEW_TYPE_INFO,
+					   "messages.color.info");
+}
+
+static void
+on_gconf_notify_color_warning (GConfClient *gclient, guint cnxn_id,
+							   GConfEntry *entry, gpointer user_data)
+{
+	pref_change_color (MESSAGE_VIEW (user_data),
+					   IANJUTA_MESSAGE_VIEW_TYPE_WARNING,
+					   "messages.color.warning");
+}
+
+static void
+on_gconf_notify_color_error (GConfClient *gclient, guint cnxn_id,
+							 GConfEntry *entry, gpointer user_data)
+{
+	pref_change_color (MESSAGE_VIEW (user_data),
+					   IANJUTA_MESSAGE_VIEW_TYPE_ERROR,
+					   "messages.color.error");
+}
+
+#define REGISTER_NOTIFY(key, func) \
+	notify_id = anjuta_preferences_notify_add (mview->privat->prefs, \
+											   key, func, mview, NULL); \
+	mview->privat->gconf_notify_ids = g_list_prepend (mview->privat->gconf_notify_ids, \
+										   (gpointer)(notify_id));
+static void
+prefs_init (MessageView *mview)
+{
+	guint notify_id;
+	REGISTER_NOTIFY ("messages.color.info", on_gconf_notify_color_info);
+	REGISTER_NOTIFY ("messages.color.warning", on_gconf_notify_color_warning);
+	REGISTER_NOTIFY ("messages.color.error", on_gconf_notify_color_error);
+}
+
+static void
+prefs_finalize (MessageView *mview)
+{
+	GList *node;
+	node = mview->privat->gconf_notify_ids;
+	while (node)
+	{
+		anjuta_preferences_notify_remove (mview->privat->prefs, (guint)node->data);
+		node = g_list_next (node);
+	}
+	g_list_free (mview->privat->gconf_notify_ids);
+	mview->privat->gconf_notify_ids = NULL;
 }
 
 /* IAnjutaMessageView interface implementation */

@@ -74,6 +74,7 @@ struct _TerminalPlugin{
 	GtkWidget *scrollbar;
 	GtkWidget *pref_profile_combo;
 	GtkWidget *pref_default_button;
+	GList *gconf_notify_ids;
 };
 
 struct _TerminalPluginClass{
@@ -235,6 +236,41 @@ preferences_changed (AnjutaPreferences *prefs, TerminalPlugin *term)
 	}
 	g_free (profile);
 	g_object_unref (client);
+}
+
+static void
+on_gconf_notify_prefs (GConfClient *gclient, guint cnxn_id,
+					   GConfEntry *entry, gpointer user_data)
+{
+	TerminalPlugin *tp = (TerminalPlugin*)user_data;
+	preferences_changed (tp->prefs, tp);
+}
+
+#define REGISTER_NOTIFY(key, func) \
+	notify_id = anjuta_preferences_notify_add (tp->prefs, \
+											   key, func, tp, NULL); \
+	tp->gconf_notify_ids = g_list_prepend (tp->gconf_notify_ids, \
+										   (gpointer)(notify_id));
+static void
+prefs_init (TerminalPlugin *tp)
+{
+	guint notify_id;
+	REGISTER_NOTIFY (PREFS_TERMINAL_PROFILE, on_gconf_notify_prefs);
+	REGISTER_NOTIFY (PREFS_TERMINAL_PROFILE_USE_DEFAULT, on_gconf_notify_prefs);
+}
+
+static void
+prefs_finalize (TerminalPlugin *tp)
+{
+	GList *node;
+	node = tp->gconf_notify_ids;
+	while (node)
+	{
+		anjuta_preferences_notify_remove (tp->prefs, (guint)node->data);
+		node = g_list_next (node);
+	}
+	g_list_free (tp->gconf_notify_ids);
+	tp->gconf_notify_ids = NULL;
 }
 
 static void
@@ -459,10 +495,9 @@ activate_plugin (AnjutaPlugin *plugin)
 					"preferences_toggle:bool:1:0:terminal.default.profile");
 	g_signal_connect (G_OBJECT(term_plugin->pref_default_button), "toggled",
 					  G_CALLBACK (use_default_profile_cb), term_plugin);
-	g_signal_connect (G_OBJECT (term_plugin->prefs), "changed",
-					  G_CALLBACK (preferences_changed), term_plugin);
 	g_object_unref (gxml);
-	preferences_changed (term_plugin->prefs, term_plugin);
+	prefs_init (term_plugin);
+	// preferences_changed (term_plugin->prefs, term_plugin);
 	
 	// terminal_create (term_plugin);
 	
@@ -471,7 +506,7 @@ activate_plugin (AnjutaPlugin *plugin)
 							 "AnjutaTerminal", _("Terminal"),
 							 "terminal-plugin-icon",
 							 ANJUTA_SHELL_PLACEMENT_BOTTOM, NULL);
-	terminal_focus_cb (term_plugin->term, NULL, term_plugin);
+	// terminal_focus_cb (term_plugin->term, NULL, term_plugin);
 	
 	return TRUE;
 }
@@ -482,14 +517,12 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	TerminalPlugin *term_plugin;
 	term_plugin = (TerminalPlugin*) plugin;
 	
+	prefs_finalize (term_plugin);
 	anjuta_shell_remove_widget (plugin->shell, term_plugin->frame, NULL);
-	g_signal_handlers_disconnect_by_func (G_OBJECT (term_plugin->prefs),
-										  G_CALLBACK (preferences_changed),
-										  term_plugin);
 	g_signal_handlers_disconnect_by_func (G_OBJECT (term_plugin->pref_default_button),
 										  G_CALLBACK (use_default_profile_cb),
 										  term_plugin);
-	// terminal_finalize(term_plugin);
+	// terminal_finalize (term_plugin);
 	return TRUE;
 }
 
@@ -501,7 +534,8 @@ dispose (GObject *obj)
 static void
 terminal_plugin_instance_init (GObject *obj)
 {
-	// TerminalPlugin *plugin = (TerminalPlugin*) obj;
+	TerminalPlugin *plugin = (TerminalPlugin*) obj;
+	plugin->gconf_notify_ids = NULL;
 }
 
 static void

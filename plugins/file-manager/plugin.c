@@ -37,6 +37,7 @@ static gpointer parent_class;
 
 static void refresh (GtkAction *action, FileManagerPlugin *plugin)
 {
+	fv_refresh (plugin);
 }
 
 static GtkActionEntry popup_actions[] = 
@@ -55,17 +56,56 @@ set_default_root_directory (FileManagerPlugin *fv)
 	if (root)
 	{
 		fv_set_root (fv, root);
+		g_free (root);
 	}
 	else
+	{
 		fv_set_root (fv, "/");
+	}
 	fv_refresh (fv);
 }
 
 static void
-preferences_changed (AnjutaPreferences *prefs, FileManagerPlugin *fv)
+on_gconf_notify_prefs (GConfClient *gclient, guint cnxn_id,
+					   GConfEntry *entry, gpointer user_data)
 {
-	if (fv->top_dir == NULL)
+	FileManagerPlugin *fv = (FileManagerPlugin*)user_data;
+	if (fv->project_is_loaded == FALSE)
 		set_default_root_directory (fv);
+	else
+		fv_refresh (fv);
+}
+
+#define REGISTER_NOTIFY(key, func) \
+	notify_id = anjuta_preferences_notify_add (fv->prefs, \
+											   key, func, fv, NULL); \
+	fv->gconf_notify_ids = g_list_prepend (fv->gconf_notify_ids, \
+										   (gpointer)(notify_id));
+static void
+prefs_init (FileManagerPlugin *fv)
+{
+	guint notify_id;
+	REGISTER_NOTIFY ("root.dir", on_gconf_notify_prefs);
+	REGISTER_NOTIFY ("filter.dir.ignore.hidden", on_gconf_notify_prefs);
+	REGISTER_NOTIFY ("filter.dir.match", on_gconf_notify_prefs);
+	REGISTER_NOTIFY ("filter.dir.unmatch", on_gconf_notify_prefs);
+	REGISTER_NOTIFY ("filter.file.ignore.hidden", on_gconf_notify_prefs);
+	REGISTER_NOTIFY ("filter.file.match", on_gconf_notify_prefs);
+	REGISTER_NOTIFY ("filter.file.unmatch", on_gconf_notify_prefs);
+}
+
+static void
+prefs_finalize (FileManagerPlugin *fv)
+{
+	GList *node;
+	node = fv->gconf_notify_ids;
+	while (node)
+	{
+		anjuta_preferences_notify_remove (fv->prefs, (guint)node->data);
+		node = g_list_next (node);
+	}
+	g_list_free (fv->gconf_notify_ids);
+	fv->gconf_notify_ids = NULL;
 }
 
 static void
@@ -84,6 +124,7 @@ project_root_added (AnjutaPlugin *plugin, const gchar *name,
 		{
 			fv_set_root (fm_plugin, root_dir);
 			fv_refresh (fm_plugin);
+			((FileManagerPlugin *)plugin)->project_is_loaded = TRUE;
 		}
 		else
 			set_default_root_directory (fm_plugin);
@@ -98,6 +139,7 @@ project_root_removed (AnjutaPlugin *plugin, const gchar *name,
 					  gpointer user_data)
 {
 	set_default_root_directory ((FileManagerPlugin *)plugin);
+	((FileManagerPlugin *)plugin)->project_is_loaded = FALSE;
 }
 
 static gboolean
@@ -134,11 +176,11 @@ activate_plugin (AnjutaPlugin *plugin)
 		
 		anjuta_preferences_add_page (fm_plugin->prefs,
 									gxml, "File Manager", ICON_FILE);
-		preferences_changed(fm_plugin->prefs, fm_plugin);
+		on_gconf_notify_prefs (NULL, 0, NULL, fm_plugin);
 		g_object_unref (G_OBJECT (gxml));
 	}
-	g_signal_connect (G_OBJECT (fm_plugin->prefs), "changed",
-					  G_CALLBACK (preferences_changed), fm_plugin);
+	prefs_init (fm_plugin);
+	
 	/* set up project directory watch */
 	fm_plugin->root_watch_id = anjuta_plugin_add_watch (plugin,
 									"project_root_uri",
@@ -154,9 +196,8 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	FileManagerPlugin *fm_plugin;
 	fm_plugin = (FileManagerPlugin*) plugin;
 	
-	g_signal_handlers_disconnect_by_func (G_OBJECT (fm_plugin->prefs),
-										  G_CALLBACK (preferences_changed),
-										  fm_plugin);
+	prefs_finalize (fm_plugin);
+	
 	/* Remove watches */
 	anjuta_plugin_remove_watch (plugin, fm_plugin->root_watch_id, FALSE);
 	
@@ -190,6 +231,8 @@ file_manager_plugin_instance_init (GObject *obj)
 	plugin->scrolledwindow = NULL;
 	plugin->top_dir = NULL;
 	plugin->root_watch_id = 0;
+	plugin->gconf_notify_ids = NULL;
+	plugin->project_is_loaded = FALSE;
 }
 
 static void
