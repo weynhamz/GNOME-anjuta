@@ -1,4 +1,8 @@
 2004-04-27  Naba Kumar  <naba@gnome.org>
+
+	* libanjuta/anjuta-preferences-dialog.c,
+	manuals/reference/libanjuta/tmpl/anjuta-preferences-dialog.sgml:
+	More documentation.
 	
 	* libanjuta/anjuta-preferences.c,
 	manuals/reference/libanjuta/libanjuta-docs.sgml,

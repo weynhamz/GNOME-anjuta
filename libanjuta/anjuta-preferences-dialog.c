@@ -220,6 +220,13 @@ anjuta_preferences_dialog_instance_init (AnjutaPreferencesDialog *dlg)
 	gtk_widget_show (hbox);
 }
 
+/**
+ * anjuta_preferences_dialog_new:
+ * 
+ * Creates a new #AnjutaPreferencesDialog object.
+ *
+ * Return value: a new #AnjutaPreferencesDialog object.
+ */
 GtkWidget *
 anjuta_preferences_dialog_new (void)
 {
@@ -228,6 +235,15 @@ anjuta_preferences_dialog_new (void)
 				 NULL);
 }
 
+/**
+ * anjuta_preferences_dialog_add_page:
+ * @name: Name of the preferences page.
+ * @icon: Icon file name.
+ * @page: page widget.
+ *
+ * Adds a widget page in preferences dialog. Name and icon appears
+ * on the left icon list where differnt pages are selected.
+ */
 void
 anjuta_preferences_dialog_add_page (AnjutaPreferencesDialog *dlg,
 									const char *name,
@@ -250,6 +266,12 @@ anjuta_preferences_dialog_add_page (AnjutaPreferencesDialog *dlg,
 			    -1);
 }
 
+/**
+ * anjuta_preferences_dialog_remove_page:
+ * @name: Name of the preferences page.
+ *
+ * Removes a preferences page.
+ */
 void
 anjuta_preferences_dialog_remove_page (AnjutaPreferencesDialog *dlg,
 									   const char *name)
