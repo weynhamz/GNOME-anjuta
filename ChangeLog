@@ -1,3 +1,12 @@
+2003-02-24  Joe Harnish <bigJoe@linuxmail.org>
+
+	* manuals/C/anjuta-faqs/anjuta-faqs-C.omf,
+	manuals/C/anjuta-manual/anjuta-manual-C.omf,
+	manuals/C/anjuta-tutorial/anjuta-tutorial-C.omf,
+	manuals/ja/anjuta-faqs/anjuta-faqs-ja_JP.eucJP.omf,
+	manuals/ja/anjuta-manual/anjuta-manual-ja_JP.eucJP.omf:
+	fixed omf errors
+
 2003-02-25  Naba Kumar  <naba@gnome.org>
 
 	* Makefile.am: Excluded omf-install from installation as the docs are
@@ -5426,7 +5435,7 @@ attached the fix for the menu
 	  
 2001-08-22  Naba Kumar <kh_naba@users.sourceforge.net>
 
-	* HACKING: corrected >>>>>>> Config management.
+	* HACKING: corrected >>>>>> Config management.
 	
 	* HACKING: Added many things.
 	
