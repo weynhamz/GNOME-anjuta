@@ -1,0 +1,14 @@
+60% symbol docs coverage.
+12 symbols documented.
+8 not documented.
+
+
+XML_IS_TEMPLATE
+XML_IS_TEMPLATE_CLASS
+XML_TEMPLATE
+XML_TEMPLATE_CLASS
+XML_TEMPLATE_GET_CLASS
+XML_TEMPLATE_TYPE
+XmlTemplate
+XmlTemplateClass
+

@@ -111,6 +111,15 @@ xml_template_finalize (GObject *self)
 
 }
 
+/**
+ * xml_template_new:
+ *
+ * This function creates a new instace of xmltemplate. You need this instance to 
+ * do anything usefull.
+ * 
+ * Returns: The newly created #XmlTemplate instance
+ */
+
 XmlTemplate*
 xml_template_new()
 {
@@ -136,6 +145,9 @@ xml_template_search_templates(XmlTemplate* self)
 	xml_template_search_text_templates(&self->priv->text_templates);
 
 }
+
+
+
 
 static void
 xml_template_search_prj_templates(GList** prj_templates)
@@ -241,6 +253,15 @@ xml_template_read_template_dir(GList** templates, const gchar* template_dir)
 	gnome_vfs_directory_close(dir);	
 }
 
+/**
+ * xml_template_get_all_projects:
+ * @xtmp: An #XmlTemplate instance
+ *
+ * Get a list of all availible #PrjTemplates
+ *
+ * Returns: A GList of project templates
+ */
+
 GList* xml_template_get_all_projects(XmlTemplate* xtmp)
 {
 	GList* templates = NULL;
@@ -266,6 +287,16 @@ GList* xml_template_get_all_projects(XmlTemplate* xtmp)
 	return templates;
 }
 
+/**
+ * xml_template_get_project:
+ * @xtmp: An #XmlTemplate instance
+ * @name: The name of the project template
+ *
+ * Get a specific project template by name
+ * 
+ * Returns: A #PrjTemplate or NULL in case to templates matches
+ */
+
 PrjTemplate* xml_template_get_project(XmlTemplate* xtmp, const gchar* name)
 {
 	GList* cur_file = xtmp->priv->prj_templates;
@@ -290,6 +321,17 @@ PrjTemplate* xml_template_get_project(XmlTemplate* xtmp, const gchar* name)
 	}
 	return NULL;
 }
+
+/**
+ * xml_template_query_projects_by_language:
+ * @xtmp: An #XmlTemplate instance
+ * @language: A string which descripes the languages (C, C++, etc.)
+ *
+ * Get all project templates for a given language
+ * 
+ * Returns: Returns a GList or #PrjTemplates which match the given language.
+ *	    The list might also be empty
+ */
 
 GList* xml_template_query_projects_by_language (XmlTemplate* xtmp, 
 	const gchar* language)
@@ -317,6 +359,15 @@ GList* xml_template_query_projects_by_language (XmlTemplate* xtmp,
 	return templates;
 }
 
+/**
+ * xml_template_get_all_libs:
+ * @xtmp: An #XmlTemplate instance
+ *
+ * Get all availible library templates
+ * 
+ * Returns: A GList of PrjTemplates
+ */
+
 GList* xml_template_get_all_libs(XmlTemplate* xtmp)
 {
 	GList* templates = NULL;
@@ -341,6 +392,16 @@ GList* xml_template_get_all_libs(XmlTemplate* xtmp)
 	}
 	return templates;
 }
+
+/**
+ * xml_template_get_lib:
+ * @xtmp: An #XmlTemplate instance
+ * @name: The name of the library template
+ *
+ * Get a specific library template by name
+ * 
+ * Returns: A #LibTemplate or NULL in case to templates matches
+ */
 
 LibTemplate* xml_template_get_lib(XmlTemplate* xtmp, const gchar* name)
 {
@@ -368,6 +429,17 @@ LibTemplate* xml_template_get_lib(XmlTemplate* xtmp, const gchar* name)
 	return NULL;
 }
 
+/**
+ * xml_template_query_libs_by_language:
+ * @xtmp: An #XmlTemplate instance
+ * @language: A string which descripes the languages (C, C++, etc.)
+ *
+ * Get all library templates for a given language
+ * 
+ * Returns: Returns a GList or LibTemplates which match the given language.
+ *	    The list might also be empty
+ */
+
 GList* xml_template_query_libs_by_language(XmlTemplate* xtmp, 
 	const gchar* language)
 {
@@ -394,6 +466,15 @@ GList* xml_template_query_libs_by_language(XmlTemplate* xtmp,
 	return templates;
 }
 
+/**
+ * xml_template_get_all_languages:
+ * @xtmp: An #XmlTemplate instance
+ *
+ * Get all availible language templates
+ * 
+ * Returns: A GList of #LangTemplates
+ */
+
 GList* xml_template_get_all_languages(XmlTemplate* xtmp)
 {
 	GList* templates = NULL;
@@ -418,6 +499,16 @@ GList* xml_template_get_all_languages(XmlTemplate* xtmp)
 	}
 	return templates;
 }
+
+/**
+ * xml_template_get_language:
+ * @xtmp: An #XmlTemplate instance
+ * @name: The name of the language template
+ *
+ * Get a specific language template by name
+ * 
+ * Returns: A #LangTemplate or NULL in case no templates matches
+ */
 
 LangTemplate* xml_template_get_language(XmlTemplate* xtmp, const gchar* name)
 {
@@ -445,6 +536,15 @@ LangTemplate* xml_template_get_language(XmlTemplate* xtmp, const gchar* name)
 	return NULL;
 }
 
+/**
+ * xml_template_get_all_texts:
+ * @xtmp: An #XmlTemplate instance
+ *
+ * Get all availible text templates
+ * 
+ * Returns: A GList of #TextTemplates
+ */
+
 GList* xml_template_get_all_texts(XmlTemplate* xtmp)
 {
 	GList* templates = NULL;
@@ -470,6 +570,16 @@ GList* xml_template_get_all_texts(XmlTemplate* xtmp)
 	return templates;
 }
 
+/**
+ * xml_template_get_text:
+ * @xtmp: An #XmlTemplate instance
+ * @name: The name of the text template
+ *
+ * Get a specific language template by name
+ * 
+ * Returns: A #TextTemplate or NULL in case to templates matches
+ */
+
 TextTemplate* xml_template_get_text(XmlTemplate* xtmp, const gchar* name)
 {
 	GList* cur_file = xtmp->priv->lib_templates;
@@ -494,6 +604,17 @@ TextTemplate* xml_template_get_text(XmlTemplate* xtmp, const gchar* name)
 	}
 	return NULL;
 }
+
+/**
+ * xml_template_query_texts_by_language:
+ * @xtmp: An #XmlTemplate instance
+ * @language: A string which descripes the languages (C, C++, etc.)
+ *
+ * Get all text templates for a given language
+ * 
+ * Returns: Returns a GList of #TextTemplates which match the given language.
+ *	    The list might also be empty
+ */
 
 GList* xml_template_query_texts_by_language(XmlTemplate* xtmp, 
 	const gchar* language)

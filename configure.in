@@ -637,4 +637,6 @@ manuals/ja/anjuta-manual/Makefile
 manuals/reference/Makefile
 manuals/reference/libanjuta/Makefile
 manuals/reference/libanjuta/version.xml
+manuals/reference/template/Makefile
+manuals/reference/template/version.xml
 ])

@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
+    "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+<book id="index" xmlns:xi="http://www.w3.org/2003/XInclude">
+  <bookinfo>
+    <authorgroup>
+      <author>
+	<firstname>Johannes</firstname>
+	<surname>Schmid</surname>
+	<authorblurb>
+	  <para>
+	    <email>jhs@cvs.gnome.org</email>
+	  </para>
+	</authorblurb>
+      </author>
+    </authorgroup>
+    <copyright>
+      <year>2004</year>
+      <holder>Johannes Schmid</holder>
+    </copyright>
+    <title>Anjuta Template System Developers Reference Manual</title>
+    <abstract>
+      <para>
+	  	XmlTemplate is the anjuta IDE template system
+      </para>
+    </abstract>
+
+    <legalnotice>
+      <para>
+		This document may be distributed subject to the terms and
+        conditions set forth in the Open Publication License, v1.0 or
+        later (the latest version is presently available at <ulink
+        url=" http://www.opencontent.org/openpub/"
+        type="http">http://www.opencontent.org/openpub/</ulink> )
+      </para>
+    </legalnotice>
+  </bookinfo>
+  <chapter>
+  	<title>Introduction</title>
+	<para>
+		The use of the template system is to cleanly seperate code and data.
+	The data for the template system is stored in xml files. Their format is descriped 
+	by DTDs which can be found in template/dtds. The XmlTemplate library is provided to
+	allow it to access the data easily. It is based on libxml2 and gnome-vfs, both core
+	components of the GNOME Desktop.
+	</para>
+  </chapter>
+  <chapter>
+  	<title>Using the Template System</title>
+	<para>
+		To use the template system you have to create an instance of the XmlTemplate
+		class using xml_template_new(). The will scan the system for availible templates,
+		they are stored in the PACKAGE_DATA_DIR"/template/ directory.
+	</para>
+  </chapter>
+  <chapter>
+	<title>Text Templates</title>
+	<para>
+		The most common template type is the text template. It provides simply text 
+		parts which can be inserted in the editor, for example disclammers or comment
+		blocks.
+	</para>
+	<para>
+		There are multiple possibilities to get a text template. 
+		xml_template_get_all_texts() privides a list of availible templates.
+		With xml_template_get_text() you can get a specific text template by name and
+		xml_template_query_by_language() gives a list of availible templates for a given
+		language. Don't forget to free a template after usage.
+	</para>
+  </chapter>
+</xml>

@@ -1,3 +1,9 @@
+2004-05-05  Johannes Schmid <jhs@cvs.gnome.org>
+	
+	* template/template.c/h: Added in-line doc
+	* manuals/reference/template/*: Added template documentation
+	* configure.in: Build template docs
+
 2004-05-05  Naba Kumar  <naba@gnome.org>
 
 	* autogen.sh: Added commands to generate initial interfaces.

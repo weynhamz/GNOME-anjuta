@@ -36,15 +36,6 @@ typedef struct _XmlTemplate XmlTemplate;
 typedef struct _XmlTemplateClass XmlTemplateClass;
 typedef struct _XmlTemplatePrivate XmlTemplatePrivate;
 
-enum 
-{
-	LANG_C,
-	LANG_C_CPP,
-	LANG_CPP,
-	LANG_END
-} TemplateLanguage;	
-
-
 struct _XmlTemplate
 {
 	GObject parent;
@@ -61,20 +52,20 @@ GType xml_template_get_type();
 XmlTemplate* xml_template_new();
 
 GList* xml_template_get_all_projects(XmlTemplate* xtmp);
-PrjTemplate* xml_template_get_project(XmlTemplate*, const gchar* name);
+PrjTemplate* xml_template_get_project(XmlTemplate* xtmp, const gchar* name);
 GList* xml_template_query_projects_by_language(XmlTemplate* xtmp, 
 	const gchar* language);
 
 GList* xml_template_get_all_libs(XmlTemplate* xtmp);
-LibTemplate* xml_template_get_lib(XmlTemplate*, const gchar* name);
+LibTemplate* xml_template_get_lib(XmlTemplate* xtmp, const gchar* name);
 GList* xml_template_query_libs_by_language(XmlTemplate* xtmp, 
 	const gchar* language);
 
 GList* xml_template_get_all_languages(XmlTemplate* xtmp);
-LangTemplate* xml_template_get_language(XmlTemplate*, const gchar* name);
+LangTemplate* xml_template_get_language(XmlTemplate* xtmp, const gchar* name);
 
 GList* xml_template_get_all_texts(XmlTemplate* xtmp);
-TextTemplate* xml_template_get_text(XmlTemplate*, const gchar* name);
+TextTemplate* xml_template_get_text(XmlTemplate* xtmp, const gchar* name);
 GList* xml_template_query_texts_by_language(XmlTemplate* xtmp, 
 	const gchar* language);
 
