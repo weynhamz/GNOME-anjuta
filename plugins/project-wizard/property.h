@@ -33,26 +33,35 @@
 
 typedef struct _NPWProperty NPWProperty;
 typedef struct _NPWPage NPWPage;
+typedef struct _NPWItem NPWItem;
 
 // Property
 
+// Update the NPWPropertyTypeString array in the .c file, after changing the
+//  NPWPropertyType enum 
 typedef enum {
+	NPW_UNKNOWN_PROPERTY = 0,
 	NPW_HIDDEN_PROPERTY,
 	NPW_BOOLEAN_PROPERTY,
 	NPW_INTEGER_PROPERTY,
 	NPW_STRING_PROPERTY,
+	NPW_LIST_PROPERTY,
 	NPW_DIRECTORY_PROPERTY,
-	NPW_FILE_PROPERTY
+	NPW_FILE_PROPERTY,
+	NPW_LAST_PROPERTY
 } NPWPropertyType;
 
 typedef enum {
 	NPW_MANDATORY_OPTION = 1 << 0,
-	NPW_SUMMARY_OPTION = 1 << 1
+	NPW_SUMMARY_OPTION = 1 << 1,
+	NPW_EDITABLE_OPTION = 1 << 2
 } NPWPropertyOptions;
 
-NPWProperty* npw_property_new(NPWPage* owner, NPWPropertyType type);
+NPWProperty* npw_property_new(NPWPage* owner);
 void npw_property_destroy(NPWProperty* this);
 
+void npw_property_set_type(NPWProperty* this, NPWPropertyType type);
+void npw_property_set_string_type(NPWProperty* this, const gchar* type);
 NPWPropertyType npw_property_get_type(const NPWProperty* this);
 
 void npw_property_set_name(NPWProperty* this, const gchar* name);
@@ -64,16 +73,21 @@ const gchar* npw_property_get_label(const NPWProperty* this);
 void npw_property_set_description(NPWProperty* this, const gchar* description);
 const gchar* npw_property_get_description(const NPWProperty* this);
 
+GtkWidget* npw_property_create_widget(NPWProperty* this);
 void npw_property_set_widget(NPWProperty* this, GtkWidget* widget);
 GtkWidget* npw_property_get_widget(const NPWProperty* this);
 
 void npw_property_set_default(NPWProperty* this, const gchar* value);
 
+void npw_property_set_value_from_widget(NPWProperty* this, gint tag);
 void npw_property_set_value(NPWProperty* this, const gchar* value, gint tag);
 const char* npw_property_get_value(const NPWProperty* this);
 
+gboolean npw_property_add_list_item(NPWProperty* this, const char* name, const gchar* label);
+
 void npw_property_set_mandatory_option(NPWProperty* this, gboolean value);
 void npw_property_set_summary_option(NPWProperty* this, gboolean value);
+void npw_property_set_editable_option(NPWProperty* this, gboolean value);
 NPWPropertyOptions npw_property_get_options(const NPWProperty* this);
 
 // Page = list of properties

@@ -202,95 +202,48 @@ cb_druid_destroy_widget(GtkWidget* widget, gpointer data)
 }
 
 static void
-cb_boolean_button_toggled (GtkButton *button, gpointer data)
-{
-	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (button)))
-		gtk_button_set_label (button, _("Yes"));
-	else
-		gtk_button_set_label (button, _("No"));
-}
-
-static void
 cb_druid_add_property(NPWProperty* property, gpointer data)
 {
 	GtkWidget* label;
 	GtkWidget* entry;
 	NPWPropertyContext* ctx = (NPWPropertyContext *)data;
-	const gchar* value;
 	const gchar* description;
 
-	value = npw_property_get_value(property);
-	if (npw_property_get_type(property) == NPW_HIDDEN_PROPERTY)
-		return;
-	
-	description = npw_property_get_description (property);
-	
-	switch(npw_property_get_type(property))
+
+	entry = npw_property_create_widget(property);
+	if (entry != NULL)
 	{
-	case NPW_BOOLEAN_PROPERTY:
-		entry = gtk_toggle_button_new_with_label (_("No"));
-		g_signal_connect (G_OBJECT (entry), "toggled",
-						  G_CALLBACK (cb_boolean_button_toggled), NULL);
-		if (value)
-		{
-			gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (entry),
-										  (gboolean)atoi(value));
-		}
-		break;
-	case NPW_INTEGER_PROPERTY:
-		entry = gtk_spin_button_new (NULL, 1, 0);
-		if (value)
-		{
-			gtk_spin_button_set_value (GTK_SPIN_BUTTON (entry), atoi(value));
-		}
-		break;
-	case NPW_STRING_PROPERTY:
-		entry = gtk_entry_new();
-		if (value) gtk_entry_set_text(GTK_ENTRY(entry), value);
-		break;
-	case NPW_DIRECTORY_PROPERTY:
-		entry = gnome_file_entry_new(NULL, NULL);
-		gnome_file_entry_set_directory_entry(GNOME_FILE_ENTRY(entry), TRUE);
-		if (value) gnome_file_entry_set_filename(GNOME_FILE_ENTRY(entry), value);
-		break;
-	case NPW_FILE_PROPERTY:
-		entry = gnome_file_entry_new(NULL, NULL);
-		gnome_file_entry_set_directory_entry(GNOME_FILE_ENTRY(entry), FALSE);
-		if (value) gnome_file_entry_set_filename(GNOME_FILE_ENTRY(entry), value);
-		break;
-	default:
-		g_warning ("Invalid property type: Don't know what widget to create");
-		return;
-	}
+		// Not hidden property
+		description = npw_property_get_description (property);
 	
-	// Set description tooltip
-	if (description && strlen (description) > 0)
-	{
-		GtkTooltips *tooltips;
+		// Set description tooltip
+		if (description && strlen (description) > 0)
+		{
+			GtkTooltips *tooltips;
 		
-		tooltips = ctx->druid->tooltips;
-		if (!tooltips)
-		{
-			tooltips = ctx->druid->tooltips = gtk_tooltips_new ();
-			ctx->druid->tooltips = tooltips;
-			g_object_ref (tooltips);
-			gtk_object_sink (GTK_OBJECT (tooltips));
+			tooltips = ctx->druid->tooltips;
+			if (!tooltips)
+			{
+				tooltips = ctx->druid->tooltips = gtk_tooltips_new ();
+				ctx->druid->tooltips = tooltips;
+				g_object_ref (tooltips);
+				gtk_object_sink (GTK_OBJECT (tooltips));
+			}
+			gtk_tooltips_set_tip (tooltips, entry, description, NULL);
 		}
-		gtk_tooltips_set_tip (tooltips, entry, description, NULL);
+
+		// Add label and entry
+		gtk_table_resize(ctx->druid->property_table, ctx->row + 1, 2);
+		label = gtk_label_new(_(npw_property_get_label(property)));
+		gtk_misc_set_alignment(GTK_MISC(label), 0, 0.5);
+		gtk_misc_set_padding(GTK_MISC(label), 5, 5);
+		gtk_table_attach(ctx->druid->property_table, label, 0, 1, ctx->row, ctx->row + 1,
+			(GtkAttachOptions)(GTK_FILL), (GtkAttachOptions)(0), 0, 0);
+		gtk_table_attach(ctx->druid->property_table, entry, 1, 2, ctx->row, ctx->row + 1,
+			(GtkAttachOptions)(GTK_EXPAND|GTK_FILL), (GtkAttachOptions)(0), 0, 0);
+
+		ctx->row++;
 	}
-
-	// Add label and entry
-	gtk_table_resize(ctx->druid->property_table, ctx->row + 1, 2);
-	label = gtk_label_new(_(npw_property_get_label(property)));
-	gtk_misc_set_alignment(GTK_MISC(label), 0, 0.5);
-	gtk_misc_set_padding(GTK_MISC(label), 5, 5);
-	gtk_table_attach(ctx->druid->property_table, label, 0, 1, ctx->row, ctx->row + 1,
-		(GtkAttachOptions)(GTK_FILL), (GtkAttachOptions)(0), 0, 0);
-	gtk_table_attach(ctx->druid->property_table, entry, 1, 2, ctx->row, ctx->row + 1,
-		(GtkAttachOptions)(GTK_EXPAND|GTK_FILL), (GtkAttachOptions)(0), 0, 0);
-
-	npw_property_set_widget(property, entry);
-	ctx->row++;
 };
 
 static NPWPage*
@@ -371,58 +324,14 @@ npw_druid_fill_property_page(NPWDruid* this, NPWPage* page)
 
 // Save in page all value entered by user
 
-static const gchar*
-npw_property_get_widget_value(NPWProperty* property)
-{
-	const gchar* value = NULL;
-
-	switch(npw_property_get_type(property))
-	{
-	case NPW_INTEGER_PROPERTY:
-		{
-			char buff[215];
-			gint int_value;
-			
-			int_value = gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON(npw_property_get_widget(property)));
-			snprintf (buff, 215, "%d", int_value);
-			value = buff;
-		}
-		break;
-	case NPW_BOOLEAN_PROPERTY:
-		{
-			char buff[215];
-			gint int_value;
-			
-			int_value = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (npw_property_get_widget(property)));
-			snprintf (buff, 215, "%d", int_value);
-			value = buff;
-		}
-		break;
-	case NPW_STRING_PROPERTY:
-		value = gtk_entry_get_text(GTK_ENTRY(npw_property_get_widget(property)));
-		break;
-	case NPW_DIRECTORY_PROPERTY:
-	case NPW_FILE_PROPERTY:
-		value = gnome_file_entry_get_full_path(GNOME_FILE_ENTRY(npw_property_get_widget(property)), FALSE);
-		break;
-	case NPW_HIDDEN_PROPERTY:
-		// FIXME
-		value = npw_property_get_value(property);
-		break;
-	default:
-		break;
-	}
-
-	return value;
-}
-
 static void
 cb_save_valid_property(NPWProperty* property, gpointer data)
 {
 	const gchar* value;
 	NPWPropertyContext *ctx = (NPWPropertyContext*)data;
 
-	value = npw_property_get_widget_value(property);
+	npw_property_set_value_from_widget(property, NPW_VALID_PROPERTY);
+	value = npw_property_get_value(property);
 
 	if ((ctx->required_property == NULL) &&
 		(value == NULL || strlen (value) <= 0) &&
@@ -431,17 +340,13 @@ cb_save_valid_property(NPWProperty* property, gpointer data)
 		// Mandatory field not filled.
 		ctx->required_property = npw_property_get_label (property);
 	}
-	npw_property_set_value(property, value, NPW_VALID_PROPERTY);
 };
 
 static void
 cb_save_old_property(NPWProperty* property, gpointer data)
 {
-	const gchar* value;
 
-	value = npw_property_get_widget_value(property);
-
-	npw_property_set_value(property, value, NPW_OLD_PROPERTY);
+	npw_property_set_value_from_widget(property, NPW_OLD_PROPERTY);
 };
 
 /* Returns the first mandatory property which has no value given */

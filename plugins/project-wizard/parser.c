@@ -37,13 +37,10 @@ typedef enum {
 	NPW_CATEGORY_TAG,
 	NPW_ICON_TAG,
 	NPW_PAGE_TAG,
-	NPW_HIDDEN_TAG,
-	NPW_BOOLEAN_TAG,
-	NPW_INTEGER_TAG,
-	NPW_STRING_TAG,
+	NPW_PROPERTY_TAG,
+	NPW_ITEM_TAG,
 	NPW_DIRECTORY_TAG,
 	NPW_FILE_TAG,
-	NPW_SCRIPT_TAG,
 	NPW_CONTENT_TAG,
 	NPW_UNKNOW_TAG
 } NPWTag;
@@ -53,12 +50,14 @@ typedef enum {
 	NPW_NAME_ATTRIBUTE,
 	NPW_LABEL_ATTRIBUTE,
 	NPW_DESCRIPTION_ATTRIBUTE,
-	NPW_DEFAULT_ATTRIBUTE,
+	NPW_VALUE_ATTRIBUTE,
 	NPW_SUMMARY_ATTRIBUTE,
+	NPW_TYPE_ATTRIBUTE,
 	NPW_MANDATORY_ATTRIBUTE,
+	NPW_EDITABLE_ATTRIBUTE,
 	NPW_SOURCE_ATTRIBUTE,
 	NPW_DESTINATION_ATTRIBUTE,
-	NPW_EXECUTE_ATTRIBUTE,
+	NPW_EXECUTABLE_ATTRIBUTE,
 	NPW_PROJECT_ATTRIBUTE,
 	NPW_AUTOGEN_ATTRIBUTE,
 	NPW_UNKNOW_ATTRIBUTE
@@ -134,29 +133,17 @@ parse_tag(const char* name)
 	{
 		return NPW_PAGE_TAG;
 	}
+	else if (strcmp("property", name) == 0)
+	{
+		return NPW_PROPERTY_TAG;
+	}
+	else if (strcmp("item", name) == 0)
+	{
+		return NPW_ITEM_TAG;
+	}	
 	else if (strcmp("directory", name) == 0)
 	{
 		return NPW_DIRECTORY_TAG;
-	}
-	else if (strcmp("file", name) == 0)
-	{
-		return NPW_FILE_TAG;
-	}
-	else if (strcmp("hidden", name) == 0)
-	{
-		return NPW_HIDDEN_TAG;
-	}
-	else if (strcmp("boolean", name) == 0)
-	{
-		return NPW_BOOLEAN_TAG;
-	}
-	else if (strcmp("integer", name) == 0)
-	{
-		return NPW_INTEGER_TAG;
-	}
-	else if (strcmp("string", name) == 0)
-	{
-		return NPW_STRING_TAG;
 	}
 	else if (strcmp("content", name) == 0)
 	{
@@ -165,10 +152,6 @@ parse_tag(const char* name)
 	else if (strcmp("file", name) == 0)
 	{
 		return NPW_FILE_TAG;
-	}
-	else if (strcmp("script", name) == 0)
-	{
-		return NPW_SCRIPT_TAG;
 	}
 	else
 	{
@@ -193,7 +176,11 @@ parse_attribute(const char* name)
 	}
 	else if (strcmp("default", name) == 0 || strcmp("value", name) == 0)
 	{
-		return NPW_DEFAULT_ATTRIBUTE;
+		return NPW_VALUE_ATTRIBUTE;
+	}
+	else if (strcmp("type", name) == 0)
+	{
+		return NPW_TYPE_ATTRIBUTE;
 	}
 	else if (strcmp("summary", name) == 0)
 	{
@@ -203,6 +190,10 @@ parse_attribute(const char* name)
 	{
 		return NPW_MANDATORY_ATTRIBUTE;
 	}
+	else if (strcmp("editable", name) == 0)
+	{
+		return NPW_EDITABLE_ATTRIBUTE;
+	}
 	else if (strcmp("source", name) == 0)
 	{
 		return NPW_SOURCE_ATTRIBUTE;
@@ -211,9 +202,9 @@ parse_attribute(const char* name)
 	{
 		return NPW_DESTINATION_ATTRIBUTE;
 	}
-	else if (strcmp("execute", name) == 0)
+	else if (strcmp("executable", name) == 0)
 	{
-		return NPW_EXECUTE_ATTRIBUTE;
+		return NPW_EXECUTABLE_ATTRIBUTE;
 	}
 	else if (strcmp("project", name) == 0)
 	{
@@ -408,18 +399,205 @@ npw_header_list_read(NPWHeaderList* this, const gchar* filename)
 
 // Read page
 
+#define NPW_PAGE_PARSER_MAX_LEVEL	3
+
 struct _NPWPageParser
 {
+	// Known element stack
+	NPWTag tag[NPW_PAGE_PARSER_MAX_LEVEL];
+	guint level;
+	// Unknown element stack
 	guint unknown;
-	NPWTag parent;
+
 	gint count;
-	gint tag_count;
-	NPWTag tag;
 	NPWParser type;
 	GMarkupParseContext* ctx;
 	NPWPage* page;
 	NPWProperty* property;
 };
+
+static gboolean
+npw_page_parse_page_element(NPWPageParser* this, 
+	const gchar** attributes,
+	const gchar** values)
+{
+	gboolean ok = TRUE;
+
+	if (this->count != 0)
+	{
+		// Skip this page
+		if (this->count > 0) this->count--;
+		// Push in unknown element stack
+		this->unknown++;
+	}
+	else
+	{
+		// Read this page
+		while (*attributes != NULL)
+		{
+			switch (parse_attribute(*attributes))
+			{
+			case NPW_NAME_ATTRIBUTE:
+				npw_page_set_name(this->page, *values);
+				break;
+			case NPW_LABEL_ATTRIBUTE:
+				npw_page_set_label(this->page, *values);
+				break;
+			case NPW_DESCRIPTION_ATTRIBUTE:
+				npw_page_set_description(this->page, *values);
+				break;
+			default:
+				g_warning ("Unknown page attribute \"%s\"", *attributes);
+				ok = FALSE;		
+			}
+			attributes++;
+			values++;
+		}
+		// Push in known element stack
+		this->tag[this->level] = NPW_PAGE_TAG;
+		this->level++;
+		this->count--;
+	}
+
+	return ok;
+}
+
+static gboolean
+npw_page_parse_property_element(NPWPageParser* this,
+	const gchar** attributes,
+	const gchar** values)
+{
+	gboolean ok = TRUE;
+
+	this->property = npw_property_new(this->page);
+	while (this->property && *attributes != NULL)
+	{
+		switch (parse_attribute(*attributes))
+		{
+		case NPW_TYPE_ATTRIBUTE:
+			npw_property_set_string_type(this->property, *values);
+			break;
+		case NPW_NAME_ATTRIBUTE:
+			npw_property_set_name(this->property, *values);
+			break;
+		case NPW_LABEL_ATTRIBUTE:
+			npw_property_set_label(this->property, *values);
+			break;
+		case NPW_DESCRIPTION_ATTRIBUTE:
+			npw_property_set_description(this->property, *values);
+			break;
+		case NPW_VALUE_ATTRIBUTE:
+			npw_property_set_default(this->property, *values);
+			break;
+		case NPW_SUMMARY_ATTRIBUTE:
+			npw_property_set_summary_option(this->property, parse_boolean_string(*values));
+			break;		
+		case NPW_MANDATORY_ATTRIBUTE:
+			npw_property_set_mandatory_option(this->property, parse_boolean_string(*values));
+			break;
+		case NPW_EDITABLE_ATTRIBUTE:
+			npw_property_set_editable_option(this->property, parse_boolean_string(*values));
+			break;
+		default:
+			g_warning ("Unknown property attribte \"%s\"", *attributes);
+			ok = FALSE;
+			break;
+		}
+		attributes++;
+		values++;
+	}	
+	// Push in known element stack
+	this->tag[this->level] = NPW_PROPERTY_TAG;
+	this->level++;
+
+	return ok;
+}
+
+static gboolean
+npw_page_parse_page_child(NPWPageParser* this, 
+	NPWTag tag,	
+	const gchar** attributes,
+	const gchar** values)
+{
+	gboolean ok = TRUE;
+
+	// Inside a page element
+	switch (tag)
+	{
+	case NPW_PROPERTY_TAG:
+		ok = npw_page_parse_property_element(this, attributes, values);
+		return ok;
+	default:
+		ok = FALSE;
+	}
+	
+	this->unknown++;
+
+	return ok;
+}
+
+static gboolean
+npw_page_parse_item_element(NPWPageParser* this,
+	const gchar** attributes,
+	const gchar** values)
+{
+	gboolean ok = TRUE;
+	const gchar* label = NULL;
+	const gchar* name = NULL;
+
+	while (*attributes != NULL)
+	{
+		switch (parse_attribute(*attributes))
+		{
+		case NPW_NAME_ATTRIBUTE:
+			name = *values;
+			break;
+		case NPW_LABEL_ATTRIBUTE:
+			label = *values;
+			break;
+		default:
+			g_warning ("Unknown item attribute \"%s\"", *attributes);
+			ok = FALSE;
+			break;
+		}
+		attributes++;
+		values++;
+	}
+	if (this->property != NULL)
+	{
+		npw_property_add_list_item(this->property, name, label == NULL ? name : label);
+	}
+
+	// Push in known element stack
+	this->tag[this->level] = NPW_ITEM_TAG;
+	this->level++;
+
+	return ok;
+}
+
+
+static gboolean
+npw_page_parse_property_child(NPWPageParser* this,
+		NPWTag tag,
+		const gchar** attributes,
+		const gchar** values)
+{
+	gboolean ok = TRUE;
+
+	// Inside a property element
+	switch  (tag)
+	{
+	case NPW_ITEM_TAG:
+		ok = npw_page_parse_item_element(this, attributes, values);
+		return ok;
+	default:
+		ok = FALSE;
+	}
+
+	this->unknown++;
+
+	return ok;
+}
 
 static void
 page_parse_start_element (GMarkupParseContext* context,
@@ -434,107 +612,43 @@ page_parse_start_element (GMarkupParseContext* context,
 
 	if (parser->unknown > 0)
 	{
-		// Parsing unknown tags
+		// All element inside an unknown tag are unknown
 		parser->unknown++;
+
+		return;
 	}
-	else
+
+	tag = parse_tag(name);
+	switch (parser->level)
 	{
-		tag = parse_tag(name);
-		if (parser->tag_count == 0 /* parser->parent == NPW_NO_TAG */)
+	case 0:
+		// Known element stack is empty
+		if (tag == NPW_PAGE_TAG)
 		{
-			if (tag == NPW_PAGE_TAG)
-			{
-				if (parser->count == 0)
-				{
-					// Read this page
-					parser->parent = tag;
-					while (*attributes != NULL)
-					{
-						switch (parse_attribute(*attributes))
-						{
-						case NPW_NAME_ATTRIBUTE:
-							npw_page_set_name(parser->page, *values);
-							break;
-						case NPW_LABEL_ATTRIBUTE:
-							npw_page_set_label(parser->page, *values);
-							break;
-						case NPW_DESCRIPTION_ATTRIBUTE:
-							npw_page_set_description(parser->page, *values);
-							break;
-						default:
-							g_warning ("Unknown page attribute \"%s\"", name);
-							break;
-						}
-						attributes++;
-						values++;
-					}	
-				}
-				parser->count--;
-			}
-			else
-			{
-				parser->unknown++;
-			}
+			npw_page_parse_page_element(parser, attributes, values);
+			return;
 		}
-		else if (parser->parent == NPW_PAGE_TAG)
+		break;
+	case 1:
+		if (parser->tag[parser->level - 1] == NPW_PAGE_TAG)
 		{
-			parser->tag = tag;
-			switch(tag)
-			{
-			case NPW_HIDDEN_TAG:
-				parser->property = npw_property_new(parser->page, NPW_HIDDEN_PROPERTY);
-				break;
-			case NPW_BOOLEAN_TAG:
-				parser->property = npw_property_new(parser->page, NPW_BOOLEAN_PROPERTY);
-				break;
-			case NPW_INTEGER_TAG:
-				parser->property = npw_property_new(parser->page, NPW_INTEGER_PROPERTY);
-				break;
-			case NPW_STRING_TAG:
-				parser->property = npw_property_new(parser->page, NPW_STRING_PROPERTY);
-				break;
-			case NPW_DIRECTORY_TAG:
-				parser->property = npw_property_new(parser->page, NPW_DIRECTORY_PROPERTY);
-				break;
-			case NPW_FILE_TAG:
-				parser->property = npw_property_new(parser->page, NPW_FILE_PROPERTY);
-				break;
-			default:
-				g_warning ("Invalid property \"%s\"", name);
-				break;
-			}
-			while (parser->property && *attributes != NULL)
-			{
-				switch (parse_attribute(*attributes))
-				{
-				case NPW_NAME_ATTRIBUTE:
-					npw_property_set_name(parser->property, *values);
-					break;
-				case NPW_LABEL_ATTRIBUTE:
-					npw_property_set_label(parser->property, *values);
-					break;
-				case NPW_DESCRIPTION_ATTRIBUTE:
-					npw_property_set_description(parser->property, *values);
-					break;
-				case NPW_DEFAULT_ATTRIBUTE:
-					npw_property_set_default(parser->property, *values);
-					break;
-				case NPW_SUMMARY_ATTRIBUTE:
-					npw_property_set_summary_option(parser->property, TRUE);
-					break;		
-				case NPW_MANDATORY_ATTRIBUTE:
-					npw_property_set_mandatory_option(parser->property, TRUE);
-					break;		
-				default:
-					g_warning ("Unknown property attribte \"%s\"", *attributes);
-					break;
-				}
-				attributes++;
-				values++;		
-			}
+			npw_page_parse_page_child(parser, tag, attributes, values);
+			return;
 		}
+		break;
+	case 2:
+		if (parser->tag[parser->level - 1] == NPW_PROPERTY_TAG)
+		{
+			npw_page_parse_property_child(parser, tag, attributes, values);
+			return;
+		}
+		break;
+	default:
+		break;
 	}
-	parser->tag_count++;
+
+	// Push in unknown element stack
+	parser->unknown++;
 }
 
 static void
@@ -544,26 +658,21 @@ page_parse_end_element (GMarkupParseContext* context,
 	GError** error)
 {
 	NPWPageParser* parser = (NPWPageParser*)data;
-	parser->tag_count--;
 	
 	if (parser->unknown > 0)
 	{
+		// Pop unknown element
 		parser->unknown--;
 	}
-	else if (parser->tag_count == 1/* && parser->tag != NPW_NO_TAG*/)
+	else if (parser->level > 0)
 	{
-		parser->tag = NPW_NO_TAG;
-		parser->property = NULL;
-	}
-	else if (parser->tag_count == 0/* && parser->parent != NPW_NO_TAG*/)
-	{
-		parser->parent = NPW_NO_TAG;
-		parser->unknown = 0;
+		// Pop known element
+		parser->level--;
 	}
 	else
 	{
+		// Error: end marker without a start
 		g_warning ("In error condition, possible malformed wizard file");
-		// error
 	}
 }
 
@@ -589,10 +698,11 @@ npw_page_parser_new(NPWPage* page, const gchar* filename, gint count)
 
 	this = g_new(NPWPageParser, 1);
 
+	// Clear element stack
+	this->level = 0;
+	// Clear unknow element stack
 	this->unknown = 0;
-	this->parent = NPW_NO_TAG;
-	this->tag = NPW_NO_TAG;
-	this->tag_count = 0;
+
 	this->count = count;
 	this->page = page;
 	this->property = NULL;
@@ -741,7 +851,7 @@ file_parse_start_element (GMarkupParseContext* context,
 			case NPW_PROJECT_ATTRIBUTE:
 				project = parse_boolean_string(*values);
 				break;
-			case NPW_EXECUTE_ATTRIBUTE:
+			case NPW_EXECUTABLE_ATTRIBUTE:
 				execute = parse_boolean_string(*values);
 				break;
 			case NPW_AUTOGEN_ATTRIBUTE:
@@ -771,10 +881,6 @@ file_parse_start_element (GMarkupParseContext* context,
 		switch(tag)
 		{
 		case NPW_FILE_TAG:
-		case NPW_SCRIPT_TAG:
-			// Remove this after removing all script tag in template file
-			if (tag == NPW_SCRIPT_TAG) execute = TRUE;
-			//
 			file = npw_file_new(parser->list);
 			npw_file_set_type(file, NPW_FILE);
 			path = g_queue_peek_nth(parser->src_path,0);

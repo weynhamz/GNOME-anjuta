@@ -1,3 +1,31 @@
+2005-01-17  Naba Kumar  <naba@gnome.org>
+	
+	* plugins/project-wizard/templates/anjuta-plugin.wiz,
+	plugins/project-wizard/templates/gtk.wiz,
+	plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade:
+	Updated templates to new format.
+	
+	Patch from Sébastien Granjoux <seb.sfo@free.fr>:
+	* plugins/project-wizard/druid.c,
+	plugins/project-wizard/parser.c,
+	plugins/project-wizard/property.c,
+	plugins/project-wizard/property.h,
+	plugins/project-wizard/templates/terminal.wiz,
+	plugins/project-wizard/templates/terminal/AUTHORS,
+	plugins/project-wizard/templates/terminal/ChangeLog,
+	plugins/project-wizard/templates/terminal/NEWS,
+	plugins/project-wizard/templates/terminal/README,
+	plugins/project-wizard/templates/terminal/project.anjuta,
+	plugins/project-wizard/templates/terminal/src/main.c:
+	Moveed code related to property types from druid.c and parser.c to 
+	property.c. Changed tag from "<string ..." to
+	"<property type="string..."	and so on. Rewrite parser
+	(warning still in progress). Added list property. Changed
+	terminal project to avoid using autogen on some file (much 
+	faster) using the autogen attribute. Add a license list box in
+	terminal project (just as an example). _label in item list is
+	optional now.
+
 2005-01-16  Naba Kumar  <naba@gnome.org>
 
 	* plugins/edtior/text_editor_menu.c, src/anjuta-actions.h,
