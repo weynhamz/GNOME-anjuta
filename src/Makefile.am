@@ -7,7 +7,9 @@ INCLUDES = \
 	-I$(srcdir)/../widgets \
 	-I$(srcdir)/../pixmaps \
 	-I$(srcdir)/../printing \
-	-I.. -I. -DPACKAGE_BIN_DIR=\"$(bindir)\"
+	-I.. -I. -DPACKAGE_BIN_DIR=\"$(bindir)\" \
+	-DG_DISABLE_DEPRECATED -DGDK_DISABLE_DEPRECATED \
+	-DGTK_DISABLE_DEPRECATED -DGNOME_DISABLE_DEPRECATED
 
 SCILEXERS =\
     ../scintilla/StyleContext.o\
@@ -136,10 +138,10 @@ anjuta_SOURCES = \
 	preferences.c\
 	preferences.h\
 	preferences_gui.c\
-	project_dbase.c\
-	project_dbase.h\
 	project_config.c\
 	project_config.h\
+	project_dbase.c\
+	project_dbase.h\
 	project_type.c\
 	project_type.h\
 	project_dbase_gui.c\

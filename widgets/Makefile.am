@@ -18,4 +18,3 @@ libwidgets_a_SOURCES = \
 	e-shell-about-box.h
 #	scroll-menu.c \
 #	scroll-menu.h \
-
