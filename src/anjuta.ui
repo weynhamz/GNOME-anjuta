@@ -36,20 +36,19 @@
 			<menu name="MenuHelp" action="ActionMenuHelp" >
 				<placeholder name="PlaceHolderHelpDevel" >
 						<separator name="separator1" />
-						<menuitem name="Man" action="ActionHelpMan" />
-						<menuitem name="Info" action="ActionHelpInfo" />
+						<menuitem name="UserManual" action="ActionHelpUserManual" />
+						<menuitem name="Tutorial" action="ActionHelpTutorial" />
+						<menuitem name="AdvancedTutorial" action="ActionHelpAdvancedTutorial" />
+						<menuitem name="FaqManual" action="ActionHelpFaqManual" />
 				</placeholder>
 				<placeholder name="PlaceHolderHelpWeb" >
 					<separator name="separator1" />
 					<menuitem name="AnjutaHome" action="ActionHelpAnjutaHome" />
-					<separator name="separator2" />
 					<menuitem name="BugReport" action="ActionHelpBugReport" />
-					<menuitem name="FetureRequest" action="ActionHelpFeatureRequest" />
-					<menuitem name="SubmitPatch" action="ActionHelpSubmitPatch" />
 					<menuitem name="Faq" action="ActionHelpFaq" />
 				</placeholder>
 				<placeholder name="PlaceHolderHelpAbout" >
-					<separator name="separator1" />
+					<separator name="separator2" />
 					<menuitem name="AboutAnjuta" action="ActionAboutAnjuta" />
 				</placeholder>
 			</menu>

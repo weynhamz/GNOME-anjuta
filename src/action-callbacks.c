@@ -113,25 +113,37 @@ on_show_plugins_activate (GtkAction *action, AnjutaApp *app)
 	gtk_widget_destroy (win);
 }
 
-void
-on_help_activate (GtkAction *action, gpointer data)
+static void
+help_activate (const gchar *item)
 {
-	if (gnome_help_display ((const gchar*)data, NULL, NULL) == FALSE)
+	if (gnome_help_display (item, NULL, NULL) == FALSE)
 	{
 	  anjuta_util_dialog_error (NULL, _("Unable to display help. Please make sure Anjuta documentation package is install. It can be downloaded from http://anjuta.org"));	
 	}
 }
 
 void
-on_url_man_activate (GtkAction * action, gpointer user_data)
+on_help_manual_activate (GtkAction *action, gpointer data)
 {
-	anjuta_res_url_show("man:man");
+	help_activate ("anjuta-manual.xml");
 }
 
 void
-on_url_info_activate (GtkAction * action, gpointer user_data)
+on_help_tutorial_activate (GtkAction *action, gpointer data)
 {
-	anjuta_res_url_show("info:info");
+	help_activate ("anjuta-tutorial.xml");
+}
+
+void
+on_help_advanced_tutorial_activate (GtkAction *action, gpointer data)
+{
+	help_activate ("anjuta-advanced-tutorial.xml");
+}
+
+void
+on_help_faqs_activate (GtkAction *action, gpointer data)
+{
+	help_activate ("anjuta-faqs.xml");
 }
 
 void
@@ -147,25 +159,13 @@ on_url_bugs_activate (GtkAction * action, gpointer user_data)
 }
 
 void
-on_url_features_activate (GtkAction * action, gpointer user_data)
-{
-	anjuta_res_url_show("http://bugzilla.gnome.org/simple-bug-guide.cgi");
-}
-
-void
-on_url_patches_activate (GtkAction * action, gpointer user_data)
-{
-	anjuta_res_url_show("http://sourceforge.net/tracker/?atid=314222&group_id=14222&func=browse");
-}
-
-void
 on_url_faqs_activate (GtkAction * action, gpointer user_data)
 {
 	anjuta_res_url_show("mailto:anjuta-list@lists.sourceforge.net");
 }
 
 void
-on_about1_activate (GtkAction * action, gpointer user_data)
+on_about_activate (GtkAction * action, gpointer user_data)
 {
 	GtkWidget *about_dlg = about_box_new ();
 	gtk_widget_show (about_dlg);

@@ -59,15 +59,24 @@ get_uri_mime_type (const gchar *uri)
 	const gchar *path;
 	gchar *mime_type;
 	
+	g_return_val_if_fail (uri != NULL, NULL);
+	
 	vfs_uri = gnome_vfs_uri_new (uri);
-	path = gnome_vfs_uri_get_path (vfs_uri);
+	if (vfs_uri)
+		path = gnome_vfs_uri_get_path (vfs_uri);
+	else
+		path = NULL;
 	
 	/* If Anjuta is not installed in system gnome prefix, the mime types 
 	 * may not have been correctly registed. In that case, we use the
 	 * following mime detection
 	 */
-	if (path_has_extension (path, "anjuta") ||
-		path_has_extension (path, "prj"))
+	if (!path)
+	{
+		mime_type = gnome_vfs_get_mime_type (uri);
+	}
+	else if (path_has_extension (path, "anjuta") ||
+			 path_has_extension (path, "prj"))
 	{
 		mime_type = g_strdup ("application/x-anjuta");
 	}
@@ -83,7 +92,9 @@ get_uri_mime_type (const gchar *uri)
 	{
 		mime_type = gnome_vfs_get_mime_type (uri);
 	}
-	gnome_vfs_uri_unref (vfs_uri);
+	
+	if (vfs_uri)
+		gnome_vfs_uri_unref (vfs_uri);
 	return mime_type;
 }
 

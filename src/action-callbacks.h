@@ -25,26 +25,21 @@ void on_exit1_activate (GtkAction * action, AnjutaApp *app);
 void on_fullscreen_toggle (GtkAction *action, AnjutaApp *app);
 void on_set_preferences1_activate (GtkAction * action, AnjutaApp *app);
 void on_set_default_preferences1_activate (GtkAction *action,
-					   AnjutaApp *app);
+										   AnjutaApp *app);
 void on_customize_shortcuts_activate (GtkAction * action, AnjutaApp *app);
 void on_layout_manager_activate(GtkAction *action, AnjutaApp *app);
 void on_show_plugins_activate(GtkAction *action, AnjutaApp *app);
 
-/*****************************************************************************/
-void on_help_activate (GtkAction * action, gpointer url);
+/* Help actions */
+void on_help_manual_activate (GtkAction *action, gpointer data);
+void on_help_tutorial_activate (GtkAction *action, gpointer data);
+void on_help_advanced_tutorial_activate (GtkAction *action, gpointer data);
+void on_help_faqs_activate (GtkAction *action, gpointer data);
 
-void on_man_pages1_activate (GtkAction * action, AnjutaApp *app);
-void on_info_pages1_activate (GtkAction * action, AnjutaApp *app);
-
-void on_url_man_activate (GtkAction * action, gpointer user_data);
-void on_url_info_activate (GtkAction * action, gpointer user_data);
 void on_url_home_activate (GtkAction * action, gpointer user_data);
 void on_url_bugs_activate (GtkAction * action, gpointer user_data);
-void on_url_features_activate (GtkAction * action, gpointer user_data);
-void on_url_patches_activate (GtkAction * action, gpointer user_data);
 void on_url_faqs_activate (GtkAction * action, gpointer user_data);
 void on_url_activate (GtkAction * action, gpointer url);
-
-void on_about1_activate (GtkAction * action, gpointer user_data);
+void on_about_activate (GtkAction * action, gpointer user_data);
 
 #endif

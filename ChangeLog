@@ -1,4 +1,11 @@
 2005-02-17  Naba Kumar  <naba@gnome.org>
+
+	* plugins/file-loader/plugin.c: Fixed possible crash.
+	
+	* src/action-callbacks.c, src/action-callbacks.h,
+	src/anjuta-actions.h, src/anjuta.ui: Fixed help menuitems.
+
+2005-02-17  Naba Kumar  <naba@gnome.org>
 	
 	* plugins/project-wizard/templates/anjuta-plugin.wiz,
 	plugins/project-wizard/templates/gnome.wiz,
