@@ -2038,9 +2038,15 @@ anjuta_toolbar_set_view (gchar* toolbar_name, gboolean view, gboolean resize, gb
 	g_return_if_fail (GNOME_IS_DOCK_ITEM (item));
 
 	if (view)
-		gtk_widget_show (GTK_WIDGET (item));
+	{
+		gtk_widget_show(GTK_WIDGET (item));
+		gtk_widget_show(GTK_BIN(item)->child);
+	}
 	else
-		gtk_widget_hide (GTK_WIDGET (item));
+	{
+		gtk_widget_hide(GTK_WIDGET (item));
+		gtk_widget_hide(GTK_BIN(item)->child);
+	}
 	dock = gnome_app_get_dock(GNOME_APP(app->widgets.window));
 	g_return_if_fail (dock != NULL);
 	if (resize)

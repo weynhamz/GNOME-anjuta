@@ -6,7 +6,7 @@
 	, bug #574470
 	* src/dnd.c: Fix typo
 	* src/an_[symbol|file]_view.c: Hide when updating (reduced flicker)
-	* src/anjuta.c: Bug #568895
+	* src/anjuta.c: Bug #568895, Bug #575419
 
 2002-12-18  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
 
