@@ -53,8 +53,6 @@
 #define ANJUTA_PIXMAP_SV_STRUCT           "sv_struct.xpm"
 #define ANJUTA_PIXMAP_SV_VARIABLE         "sv_variable.xpm"
 
-
-
 struct _AnjutaSymbolViewPriv
 {
 	TMWorkObject *tm_project;
@@ -63,7 +61,6 @@ struct _AnjutaSymbolViewPriv
 	GtkTreeModel *file_symbol_model;
 
 	GList *keyword_symbols;
-
 };
 
 enum
@@ -85,9 +82,8 @@ static char *sv_root_names[] = {
 };
 
 static GdlIcons *icon_set = NULL;
-static GdkPixbuf **sv_pixbufs = NULL;
+static GdkPixbuf **sv_symbol_pixbufs = NULL;
 static GtkTreeViewClass *parent_class;
-
 
 static SVNodeType
 sv_get_node_type (TMSymbol * sym)
@@ -182,21 +178,21 @@ sv_get_root_type (SVNodeType type)
 
 #define CREATE_SV_ICON(N, F) \
 	pix_file = anjuta_res_get_pixmap_file (F); \
-	sv_pixbufs[(N)] = gdk_pixbuf_new_from_file (pix_file, NULL); \
+	sv_symbol_pixbufs[(N)] = gdk_pixbuf_new_from_file (pix_file, NULL); \
 	g_free (pix_file);
 
 static void
-sv_load_pixbufs (AnjutaSymbolView * sv)
+sv_load_symbol_pixbufs (AnjutaSymbolView * sv)
 {
 	gchar *pix_file;
 
-	if (sv_pixbufs)
+	if (sv_symbol_pixbufs)
 		return;
 
 	if (icon_set == NULL)
 		icon_set = gdl_icons_new (16);
 
-	sv_pixbufs = g_new (GdkPixbuf *, sv_max_t + 1);
+	sv_symbol_pixbufs = g_new (GdkPixbuf *, sv_max_t + 1);
 
 	CREATE_SV_ICON (sv_none_t, ANJUTA_PIXMAP_SV_UNKNOWN);
 	CREATE_SV_ICON (sv_class_t, ANJUTA_PIXMAP_SV_CLASS);
@@ -210,29 +206,25 @@ sv_load_pixbufs (AnjutaSymbolView * sv)
 	CREATE_SV_ICON (sv_protected_var_t, ANJUTA_PIXMAP_SV_PROTECTED_VAR);
 	CREATE_SV_ICON (sv_public_func_t, ANJUTA_PIXMAP_SV_PUBLIC_FUN);
 	CREATE_SV_ICON (sv_public_var_t, ANJUTA_PIXMAP_SV_PUBLIC_VAR);
-	sv_pixbufs[sv_cfolder_t] = gdl_icons_get_mime_icon (icon_set,
+	sv_symbol_pixbufs[sv_cfolder_t] = gdl_icons_get_mime_icon (icon_set,
 							    "application/directory-normal");
-	sv_pixbufs[sv_ofolder_t] = gdl_icons_get_mime_icon (icon_set,
+	sv_symbol_pixbufs[sv_ofolder_t] = gdl_icons_get_mime_icon (icon_set,
 							    "application/directory-normal");
-	sv_pixbufs[sv_max_t] = NULL;
+	sv_symbol_pixbufs[sv_max_t] = NULL;
 }
-
-
 
 /*-----------------------------------------------------------------------------
  * return the pixbufs. It will initialize pixbufs first if they weren't before
  */
-GdkPixbuf **
-anjuta_symbol_view_get_pixbuf (AnjutaSymbolView * sv)
+GdkPixbuf *
+anjuta_symbol_view_get_pixbuf (AnjutaSymbolView * sv, SVNodeType node_type)
 {
-
-	if (!sv_pixbufs)
-		sv_load_pixbufs (sv);
-
-	return sv_pixbufs;
-
+	if (!sv_symbol_pixbufs)
+		sv_load_symbol_pixbufs (sv);
+	g_return_val_if_fail (node_type >=0 && node_type < sv_max_t, NULL);
+		
+	return sv_symbol_pixbufs[node_type];
 }
-
 
 static gboolean
 on_treeview_row_search (GtkTreeModel * model, gint column,
@@ -266,15 +258,18 @@ static void
 on_symbol_view_row_expanded (GtkTreeView * view,
 			     GtkTreeIter * iter, GtkTreePath * path)
 {
+	AnjutaSymbolView *sv;
 	GdkPixbuf *pixbuf;
 	GtkTreeStore *store = GTK_TREE_STORE (gtk_tree_view_get_model (view));
 
+	sv = ANJUTA_SYMBOL_VIEW (view);
 	gtk_tree_model_get (GTK_TREE_MODEL (store), iter,
 			    PIXBUF_COLUMN, &pixbuf, -1);
-	if (pixbuf == sv_pixbufs[sv_cfolder_t])
+	if (pixbuf == anjuta_symbol_view_get_pixbuf (sv, sv_cfolder_t));
 	{
 		gtk_tree_store_set (store, iter,
-				    PIXBUF_COLUMN, sv_pixbufs[sv_ofolder_t],
+				    PIXBUF_COLUMN,
+					anjuta_symbol_view_get_pixbuf (sv, sv_ofolder_t),
 				    -1);
 	}
 }
@@ -283,15 +278,18 @@ static void
 on_symbol_view_row_collapsed (GtkTreeView * view,
 			      GtkTreeIter * iter, GtkTreePath * path)
 {
+	AnjutaSymbolView *sv;
 	GdkPixbuf *pixbuf;
 	GtkTreeStore *store = GTK_TREE_STORE (gtk_tree_view_get_model (view));
+	sv = ANJUTA_SYMBOL_VIEW (view);
 
 	gtk_tree_model_get (GTK_TREE_MODEL (store), iter,
 			    PIXBUF_COLUMN, &pixbuf, -1);
-	if (pixbuf == sv_pixbufs[sv_ofolder_t])
+	if (pixbuf == anjuta_symbol_view_get_pixbuf (sv, sv_ofolder_t))
 	{
 		gtk_tree_store_set (store, iter,
-				    PIXBUF_COLUMN, sv_pixbufs[sv_cfolder_t],
+				    PIXBUF_COLUMN,
+					anjuta_symbol_view_get_pixbuf (sv, sv_cfolder_t),
 				    -1);
 	}
 }
@@ -346,10 +344,6 @@ sv_create (AnjutaSymbolView * sv)
 
 	gtk_tree_view_append_column (GTK_TREE_VIEW (sv), column);
 	gtk_tree_view_set_expander_column (GTK_TREE_VIEW (sv), column);
-
-	/* The remaining bits */
-	if (!sv_pixbufs)
-		sv_load_pixbufs (sv);
 
 	/* sv_create_context_menu (); */
 }
@@ -556,7 +550,8 @@ anjuta_symbol_view_open (AnjutaSymbolView * sv, const gchar * root_dir)
 		gtk_tree_store_append (store, &root[root_type], NULL);
 		/* setting the root_type and the pixmap */
 		gtk_tree_store_set (store, &root[root_type],
-				    PIXBUF_COLUMN, sv_pixbufs[sv_cfolder_t],
+				    PIXBUF_COLUMN,
+					anjuta_symbol_view_get_pixbuf (sv, sv_cfolder_t),
 				    NAME_COLUMN, sv_root_names[root_type],
 				    -1);
 	}
@@ -632,7 +627,7 @@ anjuta_symbol_view_open (AnjutaSymbolView * sv, const gchar * root_dir)
 		 * It will be done in anjuta_symbol_tree_clear();
 		 */
 		gtk_tree_store_set (store, &iter,
-				    PIXBUF_COLUMN, sv_pixbufs[type],
+				    PIXBUF_COLUMN, anjuta_symbol_view_get_pixbuf (sv, type),
 				    NAME_COLUMN, s->str,
 				    SVFILE_ENTRY_COLUMN, sfile, -1);
 
@@ -675,7 +670,7 @@ anjuta_symbol_view_open (AnjutaSymbolView * sv, const gchar * root_dir)
 						       &iter);
 				gtk_tree_store_set (store, &sub_iter,
 						    PIXBUF_COLUMN,
-						    sv_pixbufs[type],
+						    anjuta_symbol_view_get_pixbuf (sv, type),
 						    NAME_COLUMN, s->str,
 						    SVFILE_ENTRY_COLUMN,
 						    sfile, -1);
@@ -713,10 +708,10 @@ static void
 sv_dispose (GObject * obj)
 {
 	AnjutaSymbolView *sv = ANJUTA_SYMBOL_VIEW (obj);
+	
 	/* All file symbol refs would be freed when the hash table is distroyed */
-	/*
-	 * if (sv->priv->file_symbol_model)
-	 * g_object_unref (sv->priv->file_symbol_model);
+	/* if (sv->priv->file_symbol_model)
+	 *	g_object_unref (sv->priv->file_symbol_model);
 	 */
 	sv->priv->file_symbol_model = NULL;
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (obj));
@@ -1042,7 +1037,8 @@ create_file_symbols_model (AnjutaSymbolView * sv, TMWorkObject * tm_file,
 
 				/* filling the row */
 				gtk_tree_store_set (store, &iter,
-						    COL_PIX, sv_pixbufs[sv_type],
+						    COL_PIX,
+							anjuta_symbol_view_get_pixbuf (sv, sv_type),
 						    COL_NAME, tag_name,
 						    COL_LINE, tag->atts.entry.line, -1);
 				g_free (tag_name);
@@ -1208,7 +1204,6 @@ anjuta_symbol_view_workspace_get_line (AnjutaSymbolView * sv,
 GList *
 anjuta_symbol_view_get_keywords_symbols (AnjutaSymbolView * sv)
 {
-
 	AnjutaSymbolViewPriv *priv;
 
 	priv = sv->priv;
@@ -1217,9 +1212,7 @@ anjuta_symbol_view_get_keywords_symbols (AnjutaSymbolView * sv)
 		return NULL;
 
 	return priv->keyword_symbols;
-
 }
-
 
 #define IS_DECLARATION(T) ((tm_tag_prototype_t == (T)) || (tm_tag_externvar_t == (T)) \
   || (tm_tag_typedef_t == (T)))

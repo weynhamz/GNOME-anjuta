@@ -25,11 +25,9 @@
 
 #include <glib-object.h>
 #include <gtk/gtkwidget.h>
-#include "an_symbol_info.h"
-
+#include "an_symbol_view.h"
 
 G_BEGIN_DECLS
-
 
 #define ANJUTA_TYPE_SYMBOL_SEARCH		(anjuta_symbol_search_get_type ())
 #define ANJUTA_SYMBOL_SEARCH(obj)		(G_TYPE_CHECK_INSTANCE_CAST ((obj), ANJUTA_TYPE_SYMBOL_SEARCH, AnjutaSymbolSearch))
@@ -40,8 +38,6 @@ G_BEGIN_DECLS
 typedef struct _AnjutaSymbolSearchPriv   	AnjutaSymbolSearchPriv;
 typedef struct _AnjutaSymbolSearch     	AnjutaSymbolSearch;
 typedef struct _AnjutaSymbolSearchClass  	AnjutaSymbolSearchClass;
-
-
 
 struct _AnjutaSymbolSearch {
         GtkVBox parent;
@@ -57,7 +53,7 @@ struct _AnjutaSymbolSearchClass {
 };
 
 GType anjuta_symbol_search_get_type (void);
-GtkWidget * anjuta_symbol_search_new (void); 
+GtkWidget * anjuta_symbol_search_new (AnjutaSymbolView *symbol_view); 
 
 void anjuta_symbol_search_set_search_string  (AnjutaSymbolSearch *search, const gchar *str);
 void anjuta_symbol_search_grab_focus (AnjutaSymbolSearch *search);

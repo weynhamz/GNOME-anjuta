@@ -1,5 +1,16 @@
 2005-01-27  Naba Kumar  <naba@gnome.org>
 
+	* plugins/symbol-browser/an_symbol_info.c,
+	plugins/symbol-browser/an_symbol_info.h,
+	plugins/symbol-browser/an_symbol_search.c,
+	plugins/symbol-browser/an_symbol_search.h,
+	plugins/symbol-browser/an_symbol_view.c,
+	plugins/symbol-browser/an_symbol_view.h,
+	plugins/symbol-browser/plugin.c: Fixed object disposition. Fixed
+	pixbuf retrieval. Fixed runtime warning. Code clean up.
+
+2005-01-27  Naba Kumar  <naba@gnome.org>
+
 	* configure.in, plugins/Makefile.am, src/anjuta-app.c,
 	src/anjuta.ui, (new) plugins/glade/.cvsignore,
 	(new) plugins/glade/Makefile.am,

@@ -43,11 +43,10 @@
 
 #include "plugin.h"
 
-
 /* private class */
 struct _AnjutaSymbolSearchPriv
 {
-
+	AnjutaSymbolView *sv;
 	GtkTreeModel *model;	/* AnSymbolView's one [gtk_tree_store] */
 
 	GtkWidget *entry;	/* entrybox */
@@ -58,12 +57,9 @@ struct _AnjutaSymbolSearchPriv
 	guint idle_complete;
 	guint idle_filter;
 
-	GdkPixbuf **pixbufs;	/* pixbufs stuff */
-
 	GList *original_list;
 	GList *keyword_words;
 };
-
 
 static void an_symbol_search_init (AnjutaSymbolSearch * search);
 static void an_symbol_search_class_init (AnjutaSymbolSearchClass * klass);
@@ -100,14 +96,11 @@ static AnjutaSymbolInfo *an_symbol_search_model_filter (AnjutaSymbolSearch *
 static gint an_symbol_search_symbolfileinfo_compare (gconstpointer a,
 						     gconstpointer b);
 
-
-
 enum
 {
 	SYM_SELECTED,
 	LAST_SIGNAL
 };
-
 
 enum
 {
@@ -123,67 +116,60 @@ enum
 static GtkVBox *parent_class;
 static gint signals[LAST_SIGNAL] = { 0 };
 
-
-
-/*------------------------------------------------------------------------------
- * 
- */
+/*---------------------------------------------------------------------------*/
 static void
-an_symbol_search_dispose (GObject * obj) {
+an_symbol_search_dispose (GObject * obj)
+{
 	AnjutaSymbolSearch *search = ANJUTA_SYMBOL_SEARCH (obj);
 	AnjutaSymbolSearchPriv *priv = search->priv;
-	
-	priv->pixbufs = NULL;
 	
 	DEBUG_PRINT("Destroying symbolsearch");
 	
-	anjuta_symbol_search_clear(search);
+	if (priv->model)
+	{
+		anjuta_symbol_search_clear(search);
+		g_object_unref (priv->model);
+		priv->model = NULL;
+	}	
 	
 	/* anjuta_symbol_view's dispose should manage it's freeing */
-	if ( priv->original_list != NULL )
+	if (priv->original_list != NULL )
 		priv->original_list = NULL;
 	
-	if ( priv->keyword_words != NULL ) {
+	if (priv->keyword_words != NULL )
+	{
 		g_list_free( priv->keyword_words  );
 		priv->keyword_words = NULL;
 	}
-
-	gtk_widget_destroy( priv->entry );
-	gtk_widget_destroy( priv->hitlist );
-	
+	if (priv->entry)
+	{
+		priv->entry = NULL;
+	}
+	if (priv->hitlist)
+	{
+		priv->hitlist = NULL;
+	}
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (obj));	
 }
 
-
-
-/*------------------------------------------------------------------------------
- * 
- */
+/*---------------------------------------------------------------------------*/
 static void
-an_symbol_search_finalize (GObject * obj) {
-	
+an_symbol_search_finalize (GObject * obj)
+{
 	AnjutaSymbolSearch *search = ANJUTA_SYMBOL_SEARCH (obj);
 	AnjutaSymbolSearchPriv *priv = search->priv;
 
-	DEBUG_PRINT("Finalizing symbolsearch widget");
+	DEBUG_PRINT ("Finalizing symbolsearch widget");
 	
-	if ( priv->model != NULL )
-		gtk_tree_store_clear( GTK_TREE_STORE(priv->model));	
-
-	g_completion_free( priv->completion );
-	g_free( priv );
+	g_completion_free (priv->completion);
+	g_free (priv);
 			
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (obj));
 }
 
-
-
-
-/*------------------------------------------------------------------------------
- * perform cleaning issues. This function must be called when a project is removed.
- * 
+/*-----------------------------------------------------------------------------
+ * Cleaning issues. This function must be called when a project is removed.
  */
-
 void anjuta_symbol_search_clear (AnjutaSymbolSearch *search) {
 	
 	AnjutaSymbolSearchPriv *priv;
@@ -204,10 +190,7 @@ void anjuta_symbol_search_clear (AnjutaSymbolSearch *search) {
 	
 	/* keywords too */
 	priv->keyword_words = NULL;
-	
 }
-
-
 
 GType
 anjuta_symbol_search_get_type (void)
@@ -235,8 +218,6 @@ anjuta_symbol_search_get_type (void)
 	return type;
 }
 
-
-
 static void
 an_symbol_search_class_init (AnjutaSymbolSearchClass * klass)
 {
@@ -258,10 +239,7 @@ an_symbol_search_class_init (AnjutaSymbolSearchClass * klass)
 			      1, G_TYPE_POINTER);
 }
 
-
-/*------------------------------------------------------------------------------
- *
- */
+/*--------------------------------------------------------------------------*/
 static void
 an_symbol_search_init (AnjutaSymbolSearch * search)
 {
@@ -269,6 +247,7 @@ an_symbol_search_init (AnjutaSymbolSearch * search)
 	AnjutaSymbolSearchPriv *priv;
 	GtkTreeViewColumn *column;
 	GtkCellRenderer *renderer;
+	GtkWidget *frame, *list_sw;
 
 	/* allocate space for a AnjutaSymbolSearchPriv class. */
 	priv = g_new0 (AnjutaSymbolSearchPriv, 1);
@@ -276,7 +255,8 @@ an_symbol_search_init (AnjutaSymbolSearch * search)
 
 	priv->idle_complete = 0;
 	priv->idle_filter = 0;
-
+	priv->sv = NULL;
+	
 	priv->completion =
 		g_completion_new ((GCompletionFunc)
 				  an_symbol_search_complete_func);
@@ -288,70 +268,19 @@ an_symbol_search_init (AnjutaSymbolSearch * search)
 							  G_TYPE_STRING,
 							  ANJUTA_TYPE_SYMBOL_INFO));
 
-
 	gtk_tree_view_set_model (GTK_TREE_VIEW (priv->hitlist),
 				 GTK_TREE_MODEL (priv->model));
 	gtk_tree_view_set_rules_hint (GTK_TREE_VIEW (priv->hitlist), TRUE);
 
-/*/	
-		column = gtk_tree_view_column_new();
-		pix_renderer = gtk_cell_renderer_pixbuf_new ();
-		
-		
-		gtk_tree_view_column_set_title(column, _("Account"));
-		gtk_tree_view_column_pack_start(column, pix_renderer, FALSE);
-
-		gtk_tree_view_column_set_attributes(	column, pix_renderer, 
-															"pixbuf", PIXBUF_COLUMN, 
-															NULL);
-		g_object_set(pix_renderer, "xalign", 0.0, "ypad", 0, NULL);
-	
-
-		name_renderer = gtk_cell_renderer_text_new ();
-		
-		gtk_tree_view_column_pack_start (column, name_renderer, TRUE);
-		
-		gtk_tree_view_column_set_attributes (	column, name_renderer,
-							     							"markup", NAME_COLUMN,
-							     							NULL);	
-		g_object_set(	name_renderer, 
-							"ypad", 0, 
-							"yalign", 0.5, 
-							NULL);	
-
-	gtk_tree_view_append_column (GTK_TREE_VIEW (priv->hitlist), column);
-	gtk_tree_view_set_expander_column (GTK_TREE_VIEW (priv->hitlist), column);
-
-//
-	gtk_tree_view_insert_column_with_attributes( GTK_TREE_VIEW(priv->hitlist), 
-                                             	-1,     // posiziona alla fine             
-                                              	NULL,  // questa colonna non ha titolo
-                                              	pix_renderer,  // la cella          
-                                              	"pixbuf",  // attributo della cella
-                                              	PIXBUF_COLUMN, // colonna   
-                                              	NULL);    // fine attributi/colonna	
-
-	gtk_tree_view_insert_column_with_attributes( GTK_TREE_VIEW(priv->hitlist), 
-                                             	-1,     // posiziona alla fine             
-                                              	NULL,  // questa colonna non ha titolo
-                                              	name_renderer,  // la cella          
-                                              	"text",  // attributo della cella
-                                              	NAME_COLUMN, // colonna   
-                                              	NULL);    // fine attributi/colonna	
-//*/																
-
-		
 	/* column initialization */
 	column = gtk_tree_view_column_new ();
 	gtk_tree_view_column_set_sizing (column,
 					 GTK_TREE_VIEW_COLUMN_AUTOSIZE);
 	
-
 	renderer = gtk_cell_renderer_pixbuf_new ();
 	gtk_tree_view_column_pack_start (column, renderer, FALSE);
 	gtk_tree_view_column_add_attribute (column, renderer, "pixbuf",
 					    PIXBUF_COLUMN);
-
 
 	renderer = gtk_cell_renderer_text_new ();
 	gtk_tree_view_column_pack_start (column, renderer, TRUE);
@@ -363,8 +292,56 @@ an_symbol_search_init (AnjutaSymbolSearch * search)
 					   column);
 
 	gtk_box_set_spacing (GTK_BOX (search), 2);
-}
+	
+	priv->original_list = NULL;
+	priv->keyword_words = NULL;
 
+	gtk_container_set_border_width (GTK_CONTAINER (search), 2);
+
+	/* creating entry box, where we'll type the keyword to look for */
+	priv->entry = gtk_entry_new ();
+
+	/* set entry to not-editable till we'll load a project */
+	gtk_editable_set_editable (GTK_EDITABLE (priv->entry), FALSE);
+
+	/* set up some signals */
+	g_signal_connect (priv->entry, "key_press_event",
+			  G_CALLBACK (an_symbol_search_on_entry_key_press_event),
+			  search);
+
+	g_signal_connect (priv->hitlist, "row_activated",
+			  G_CALLBACK (an_symbol_search_on_tree_row_activate),
+			  search);
+
+	g_signal_connect (priv->entry, "changed",
+			  G_CALLBACK (an_symbol_search_on_entry_changed),
+			  search);
+
+	g_signal_connect (priv->entry, "activate",
+			  G_CALLBACK (an_symbol_search_on_entry_activated),
+			  search);
+
+	g_signal_connect (priv->entry, "insert_text",
+			  G_CALLBACK (an_symbol_search_on_entry_text_inserted), search);
+
+	gtk_box_pack_start (GTK_BOX (search), priv->entry, FALSE, FALSE, 0);
+
+	frame = gtk_frame_new (NULL);
+	gtk_frame_set_shadow_type (GTK_FRAME (frame), GTK_SHADOW_IN);
+
+	list_sw = gtk_scrolled_window_new (NULL, NULL);
+	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (list_sw),
+					GTK_POLICY_AUTOMATIC,
+					GTK_POLICY_AUTOMATIC);
+
+	gtk_container_add (GTK_CONTAINER (frame), list_sw);
+	gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (priv->hitlist), FALSE);
+
+	gtk_container_add (GTK_CONTAINER (list_sw), priv->hitlist);
+	gtk_box_pack_end_defaults (GTK_BOX (search), frame);
+
+	gtk_widget_show_all (GTK_WIDGET (search));
+}
 
 static gboolean
 an_symbol_search_on_tree_row_activate (GtkTreeView * view,
@@ -400,8 +377,6 @@ an_symbol_search_on_tree_row_activate (GtkTreeView * view,
 	return FALSE;
 }
 
-
-
 static gboolean
 an_symbol_search_on_entry_key_press_event (GtkEntry * entry,
 					   GdkEventKey * event,
@@ -432,7 +407,7 @@ an_symbol_search_on_entry_key_press_event (GtkEntry * entry,
 	{
 		GtkTreeIter iter;
 		AnjutaSymbolInfo *sym;
-		gchar *name;
+		const gchar *name;
 
 		DEBUG_PRINT("enter key pressed: getting the first entry found");
 
@@ -450,7 +425,9 @@ an_symbol_search_on_entry_key_press_event (GtkEntry * entry,
 
 			DEBUG_PRINT ("got -----> sym_name: %s ", sym->sym_name);
 			gtk_entry_set_text (GTK_ENTRY (entry), name);
-			g_free (name);
+			
+			/* Do not free this! */
+			/* g_free (name); */
 
 			gtk_editable_set_position (GTK_EDITABLE (entry), -1);
 			gtk_editable_select_region (GTK_EDITABLE (entry), -1,
@@ -504,7 +481,6 @@ an_symbol_search_on_entry_activated (GtkEntry * entry,
 	an_symbol_search_model_filter (search, str);
 }
 
-
 static void
 an_symbol_search_on_entry_text_inserted (GtkEntry * entry,
 					 const gchar * text,
@@ -524,7 +500,6 @@ an_symbol_search_on_entry_text_inserted (GtkEntry * entry,
 				    an_symbol_search_complete_idle, search);
 	}
 }
-
 
 static gboolean
 an_symbol_search_complete_idle (AnjutaSymbolSearch * search)
@@ -556,11 +531,9 @@ an_symbol_search_complete_idle (AnjutaSymbolSearch * search)
 		gtk_editable_select_region (GTK_EDITABLE (priv->entry),
 					    text_length, -1);
 	}
-
 	priv->idle_complete = 0;
 	return FALSE;
 }
-
 
 static gboolean
 an_symbol_search_filter_idle (AnjutaSymbolSearch * search)
@@ -592,7 +565,6 @@ an_symbol_search_filter_idle (AnjutaSymbolSearch * search)
 	return FALSE;
 }
 
-
 /*------------------------------------------------------------------------------
  * this should return the string from a GList of objects. In this case they are
  * AnjutaSymbolInfo. String will be used by autocompletion
@@ -604,9 +576,6 @@ an_symbol_search_complete_func (AnjutaSymbolInfo * sym)
 	return sym->sym_name;
 
 }
-
-
-
 
 /*------------------------------------------------------------------------------
  *
@@ -620,9 +589,7 @@ an_symbol_search_symbolfileinfo_compare (gconstpointer a, gconstpointer b)
 
 }
 
-
 /*------------------------------------------------------------------------------
- *
  */
 AnjutaSymbolInfo *
 an_symbol_search_model_filter (AnjutaSymbolSearch * search,
@@ -738,7 +705,8 @@ an_symbol_search_model_filter (AnjutaSymbolSearch * search,
 		gtk_tree_store_append (GTK_TREE_STORE (store), &iter, NULL);
 		
 		gtk_tree_store_set (GTK_TREE_STORE (store), &iter,
-				    PIXBUF_COLUMN, priv->pixbufs[sym->node_type],
+				    PIXBUF_COLUMN,
+					anjuta_symbol_view_get_pixbuf (priv->sv, sym->node_type),
 				    NAME_COLUMN, sym->sym_name,
 				    SVFILE_ENTRY_COLUMN, sym, -1);
 	}
@@ -752,9 +720,7 @@ an_symbol_search_model_filter (AnjutaSymbolSearch * search,
 	return exactsym;
 }
 
-
 /*------------------------------------------------------------------------------
- *
  */
 void
 anjuta_symbol_search_set_keywords_symbols (AnjutaSymbolSearch * search,
@@ -784,103 +750,14 @@ anjuta_symbol_search_set_keywords_symbols (AnjutaSymbolSearch * search,
 	gtk_editable_set_editable (GTK_EDITABLE (priv->entry), TRUE);
 }
 
-
-/*------------------------------------------------------------------------------
- * 
- */
-void
-anjuta_symbol_search_set_pixbufs (AnjutaSymbolSearch * search,
-				  GdkPixbuf ** pix)
-{
-
-	AnjutaSymbolSearchPriv *priv;
-
-	priv = search->priv;
-	priv->pixbufs = pix;
-
-}
-
-
-
-
-
-/*------------------------------------------------------------------------------
- * 
- */
+/*--------------------------------------------------------------------------*/
 GtkWidget *
-anjuta_symbol_search_new ()
+anjuta_symbol_search_new (AnjutaSymbolView *symbol_view)
 {
-
 	AnjutaSymbolSearch *search;
-	AnjutaSymbolSearchPriv *priv;
-	GtkWidget *list_sw;
-	GtkWidget *frame;
-
 	/* create a new object   */
 	search = g_object_new (ANJUTA_TYPE_SYMBOL_SEARCH, NULL);
-	priv = search->priv;
-
-	/* setting some variables to NULL */
-	priv->original_list = NULL;
-	priv->keyword_words = NULL;
-	priv->pixbufs = NULL;
-
-	gtk_container_set_border_width (GTK_CONTAINER (search), 2);
-
-	/* creating entry box, where we'll type the keyword to look for */
-	priv->entry = gtk_entry_new ();
-
-	/* set entry to not-editable till we'll load a project */
-	gtk_editable_set_editable (GTK_EDITABLE (priv->entry), FALSE);
-
-	/* set up some signals */
-	g_signal_connect (priv->entry, "key_press_event",
-			  G_CALLBACK
-			  (an_symbol_search_on_entry_key_press_event),
-			  search);
-
-	g_signal_connect (priv->hitlist, "row_activated",
-			  G_CALLBACK (an_symbol_search_on_tree_row_activate),
-			  search);
-
-	g_signal_connect (priv->entry, "changed",
-			  G_CALLBACK (an_symbol_search_on_entry_changed),
-			  search);
-
-	g_signal_connect (priv->entry, "activate",
-			  G_CALLBACK (an_symbol_search_on_entry_activated),
-			  search);
-
-	g_signal_connect (priv->entry, "insert_text",
-			  G_CALLBACK
-			  (an_symbol_search_on_entry_text_inserted), search);
-
-	gtk_box_pack_start (GTK_BOX (search), priv->entry, FALSE, FALSE, 0);
-
-	frame = gtk_frame_new (NULL);
-	gtk_frame_set_shadow_type (GTK_FRAME (frame), GTK_SHADOW_IN);
-
-	list_sw = gtk_scrolled_window_new (NULL, NULL);
-	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (list_sw),
-					GTK_POLICY_AUTOMATIC,
-					GTK_POLICY_AUTOMATIC);
-
-	gtk_container_add (GTK_CONTAINER (frame), list_sw);
-
-	gtk_tree_view_insert_column_with_attributes (GTK_TREE_VIEW
-						     (priv->hitlist), -1,
-						     _("Section"),
-						     gtk_cell_renderer_text_new
-						     (), "text", 0, NULL);
-
-	gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (priv->hitlist),
-					   FALSE);
-
-	gtk_container_add (GTK_CONTAINER (list_sw), priv->hitlist);
-	gtk_box_pack_end_defaults (GTK_BOX (search), frame);
-
-	gtk_widget_show_all (GTK_WIDGET (search));
-
+	search->priv->sv = symbol_view;
 	return GTK_WIDGET (search);
 }
 

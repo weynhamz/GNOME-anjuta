@@ -20,12 +20,8 @@
 #ifndef AN_SYMBOL_VIEW_H
 #define AN_SYMBOL_VIEW_H
 
-
-
 #include <gtk/gtk.h>
 #include "an_symbol_info.h"
-
-
 
 G_BEGIN_DECLS
 
@@ -47,7 +43,6 @@ typedef struct _AnjutaSymbolViewClass
 {
 	GtkTreeViewClass parent_class;
 } AnjutaSymbolViewClass;
-
 
 GType anjuta_symbol_view_get_type (void);
 GtkWidget *anjuta_symbol_view_new (void);
@@ -87,10 +82,12 @@ gboolean anjuta_symbol_view_get_file_symbol (AnjutaSymbolView *sv,
 											 gboolean prefer_definition,
 											 const gchar** const filename,
 											 gint *line);
+/* Returned GList must be unrefed */
+GList* anjuta_symbol_view_get_keywords_symbols( AnjutaSymbolView *sv );
 
-GList* anjuta_symbol_view_get_keywords_symbols( AnjutaSymbolView *sv ); 
-GdkPixbuf **anjuta_symbol_view_get_pixbuf( AnjutaSymbolView *sv );
-
+/* Caller does not get a reference */
+GdkPixbuf *anjuta_symbol_view_get_pixbuf (AnjutaSymbolView *sv,
+										  SVNodeType node_type);
 
 G_END_DECLS
 

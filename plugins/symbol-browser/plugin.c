@@ -52,8 +52,7 @@ static void trees_signals_unblock (SymbolBrowserPlugin *sv_plugin);
 
 static void on_treesearch_symbol_selected_event (AnjutaSymbolSearch *search, 
 												 AnjutaSymbolInfo *sym, 
-												 SymbolBrowserPlugin *sv_plugin );
-
+												 SymbolBrowserPlugin *sv_plugin);
 
 static void
 goto_file_line (AnjutaPlugin *plugin, const gchar *filename, gint lineno)
@@ -88,7 +87,6 @@ goto_file_tag (SymbolBrowserPlugin *sv_plugin, const char *symbol,
 		goto_file_line (ANJUTA_PLUGIN (sv_plugin), file, line);
 	}
 }
-
 
 static void
 on_goto_def_activate (GtkAction *action, SymbolBrowserPlugin *sv_plugin)
@@ -257,10 +255,6 @@ project_root_added (AnjutaPlugin *plugin, const gchar *name,
 			 */
 			anjuta_symbol_search_set_keywords_symbols (ANJUTA_SYMBOL_SEARCH (sv_plugin->ss), 
 				anjuta_symbol_view_get_keywords_symbols (ANJUTA_SYMBOL_VIEW (sv_plugin->sv_tree)));
-			
-			/* setting pixbufs */
-			anjuta_symbol_search_set_pixbufs (ANJUTA_SYMBOL_SEARCH (sv_plugin->ss), 
-						anjuta_symbol_view_get_pixbuf (ANJUTA_SYMBOL_VIEW (sv_plugin->sv_tree)));
 			
 			trees_signals_unblock (sv_plugin);
 		}
@@ -691,7 +685,8 @@ activate_plugin (AnjutaPlugin *plugin)
 
 	/* anjuta symbol search */
 	
-	sv_plugin->ss = anjuta_symbol_search_new ();
+	sv_plugin->ss =
+		anjuta_symbol_search_new (ANJUTA_SYMBOL_VIEW (sv_plugin->sv_tree));
 	sv_plugin->ss_tab_label = gtk_label_new (_("Search" ));
 
 	g_object_add_weak_pointer (G_OBJECT (sv_plugin->ss),
@@ -781,10 +776,6 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	anjuta_plugin_remove_watch (plugin, sv_plugin->editor_watch_id, TRUE);
 	
 	/* Remove widgets: Widgets will be destroyed when sw is removed */
-	anjuta_shell_remove_widget (plugin->shell, sv_plugin->sv_tree, NULL);
-	anjuta_shell_remove_widget (plugin->shell, sv_plugin->sv, NULL);
-	anjuta_shell_remove_widget (plugin->shell, sv_plugin->ss, NULL);
-
 	anjuta_shell_remove_widget (plugin->shell, sv_plugin->sw, NULL);
 	
 	/* Remove UI */

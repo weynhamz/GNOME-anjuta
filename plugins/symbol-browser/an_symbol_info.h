@@ -34,8 +34,6 @@ G_BEGIN_DECLS
 typedef struct _AnjutaSymbolInfo AnjutaSymbolInfo;
 typedef struct _AnjutaSymbolInfoPriv AnjutaSymbolInfoPriv;
 
-
-
 typedef enum
 {
 	sv_none_t,
@@ -55,7 +53,6 @@ typedef enum
 	sv_max_t
 } SVNodeType;
 
-
 typedef enum
 {
 	sv_root_class_t,
@@ -66,9 +63,6 @@ typedef enum
 	sv_root_none_t,
 	sv_root_max_t
 } SVRootType;
-
-
-
 
 struct _AnjutaSymbolInfo
 {
@@ -87,7 +81,6 @@ struct _AnjutaSymbolInfo
 	} decl;			/* the declaration struct for the symbol */
 
 };
-
 
 GType anjuta_symbol_info_get_type (void);
 AnjutaSymbolInfo *anjuta_symbol_info_new (TMSymbol * sym,

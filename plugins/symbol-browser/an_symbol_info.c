@@ -28,7 +28,6 @@
 static AnjutaSymbolInfo* symbol_info_dup (const AnjutaSymbolInfo *from);
 static void symbol_info_free (AnjutaSymbolInfo *sfile);
 
- 
 AnjutaSymbolInfo* anjuta_symbol_info_new (TMSymbol *sym, SVNodeType node_type )
 {
 	AnjutaSymbolInfo *sfile = g_new0 (AnjutaSymbolInfo, 1);
@@ -55,7 +54,6 @@ AnjutaSymbolInfo* anjuta_symbol_info_new (TMSymbol *sym, SVNodeType node_type )
 	return sfile;
 }
 
-
 void anjuta_symbol_info_destroy(AnjutaSymbolInfo *sym) {
 
 	g_return_if_fail( sym != NULL );
@@ -65,8 +63,6 @@ void anjuta_symbol_info_destroy(AnjutaSymbolInfo *sym) {
 	
 }
 	
-
-
 static AnjutaSymbolInfo*
 symbol_info_dup (const AnjutaSymbolInfo *from)
 {
@@ -113,19 +109,15 @@ symbol_info_free (AnjutaSymbolInfo *sfile)
 	}
 }
 
-
-
 GType anjuta_symbol_info_get_type (void) {
 	
 	static GType type = 0;
 	
 	if (!type)
 	{
-		
 		type = g_boxed_type_register_static ("AnjutaSymbolInfo",
 											 (GBoxedCopyFunc) symbol_info_dup,
 											 (GBoxedFreeFunc) symbol_info_free);
 	}
 	return type;
-	
 }
