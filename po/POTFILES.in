@@ -133,8 +133,6 @@ src/anjuta_cbs.c
 src/anjuta_dirs.c
 src/anjuta_dirs.h
 src/anjuta_gui.c
-src/anjuta_info.c
-src/anjuta_info.h
 src/controls.c
 src/controls.h
 src/fileselection.c
