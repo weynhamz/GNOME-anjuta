@@ -1,7 +1,7 @@
 2004-12-13  Naba Kumar  <naba@gnome.org>
 
-	* plugins/devhelp/plugin.c: Delay widget initialization, now that docking
-	is working.
+	* plugins/devhelp/plugin.c: Delay widget initialization, now that
+	docking	is working.
 	* plugins/sample1/plugin.c: Dock at bottom, mostly for testing.
 	* src/anjuta-app.c, src/layout.xml: Fixed dynamic docking.
 
@@ -15,8 +15,9 @@
 	
 2004-12-08  Naba Kumar  <naba@gnome.org>
 
-	* libanjuta/anjuta-launcher.c, libanjuta/anjuta-utils.c, src/utilities.c,
-	libanjuta/anjuta-utils.h: Added a function to escape quotes in a string.
+	* libanjuta/anjuta-launcher.c, libanjuta/anjuta-utils.c,
+	src/utilities.c, libanjuta/anjuta-utils.h: Added a function
+	to escape quotes in a string.
 	
 	* plugins/cvs-plugin/cvs-actions.c,
 	plugins/cvs-plugin/cvs-execute.c: Escaped commit message. Corrected
@@ -44,8 +45,8 @@
 	
 2004-12-05  Naba Kumar  <naba@gnome.org>
 
-	* plugins/editor/anjuta-docman.c: Fixed save-as, Fixed updating tab label,
-	Fixed mem leaks. Fixed uri handling. Fixed other minor bugs.
+	* plugins/editor/anjuta-docman.c: Fixed save-as, Fixed updating
+	tab label, Fixed mem leaks. Fixed uri handling. Fixed other minor bugs.
 	
 	* plugins/cvs-plugin/plugin.c,
 	plugins/cvs-plugin/cvs-execute.c: Fixed message output appending.
@@ -70,7 +71,9 @@
 	
 2004-12-02  Johannes Schmid <jhs@cvs.gnome.org>
 	
-	* plugins/cvs-plugin/anjuta-cvs-plugin.glade: Added cvs update and commit
+	* plugins/cvs-plugin/anjuta-cvs-plugin.glade: Added cvs update and
+	commit.
+	
 	* plugins/cvs-plugin/plugin.c, plugins/cvs-plugin/cvs-action.[ch],
 	plugins/cvs-plugin/anjuta-cvs.ui:
 	Implemented update/commit and changed menu layout 
@@ -114,7 +117,8 @@
 
 2004-11-29  Naba Kumar  <naba@gnome.org>
 
-	* plugins/editor/text_editor_cbs.c: Emit click signal in IAnjutaMarkable.
+	* plugins/editor/text_editor_cbs.c: Emit click signal in
+	IAnjutaMarkable.
 	* libanjuta/anjuta-status.c: More spacing between items.
 	
 2004-11-29  Naba Kumar  <naba@gnome.org>
@@ -164,16 +168,16 @@
 	Added AnjutaStatus class to libanjuta.
 	Added anjuta_shell_get_status() method.
 	
-	* libanjuta/interfaces/anjuta-idl-compiler.pl: Added gchar type and fixed
-	marshaller generation.
+	* libanjuta/interfaces/anjuta-idl-compiler.pl: Added gchar type
+	and fixed marshaller generation.
 	
-	* libanjuta/interfaces/libanjuta.idl: Added "char_added" and "updade_ui"
-	signals to IAnjutaEditor interface.
-	
+	* libanjuta/interfaces/libanjuta.idl: Added "char_added" and
+	"updade_ui" signals to IAnjutaEditor interface.
 	
 	* manuals/reference/libanjuta/tmpl/anjuta-shell.sgml: Updated.
 	
-	* plugins/build-basic-autotools/automake-c.filters: Fixed filter regexes.
+	* plugins/build-basic-autotools/automake-c.filters: Fixed filter
+	regexes.
 	
 	* plugins/class-gen/clsGen.c: Intial port.
 	
@@ -224,7 +228,8 @@
 	* plugins/editor/anjuta-docman.c, plugins/message-view/anjuta-msgman.c,
 	plugins/message-view/message-view.c: Fixed finalize and dispose
 	methods.
-	* plugins/debugger/*: Removed from cvs (development now in debug-manager).
+	* plugins/debugger/*: Removed from cvs (development now in
+	debug-manager).
 
 2004-11-17  Pavol Bosik  <pavol.bosik@radiantsystems.com>
 
@@ -232,8 +237,8 @@
 	
 	* libanjuta/interfaces/libanjuta.idl, plugins/Makefile.am,
 	plugins/editor/plugin.c, plugins/editor/text_editor.c,
-	plugins/gdb/breakpoints.c: all marker related stuff moved from editor and
-	docman interfaces to IAnjutaMarkable
+	plugins/gdb/breakpoints.c: all marker related stuff moved from
+	editor and docman interfaces to IAnjutaMarkable
 
 2004-11-17  Naba Kumar  <naba@gnome.org>
 
