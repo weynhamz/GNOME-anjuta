@@ -379,10 +379,8 @@ terminal_keypress_cb (GtkWidget *widget, GdkEventKey  *event,
 	if (event->type != GDK_KEY_RELEASE)
 		return FALSE;
 	
-	/* ctrl-c or ctrl-d */
-	if (event->keyval == GDK_c ||
-		event->keyval == GDK_d ||
-		event->keyval == GDK_C ||
+	/* ctrl-d */
+	if (event->keyval == GDK_d ||
 		event->keyval == GDK_D)
 	{
 		/* Ctrl pressed */

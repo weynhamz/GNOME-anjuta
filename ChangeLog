@@ -1,3 +1,14 @@
+2005-03-06	Johannes Schmid <jhs@cvs.gnome.org>
+
+	* plugins/Makefile.am
+	plugins/subversion/*:
+	Added subversion plugin. Add, Remove, Commit and Update work
+	everything else needs work.
+	
+	* plugins/terminal/terminal.c
+	Applied old 1.2.2 patch to fix Ctrl-C in terminal but
+	we still have focus problems with the editor.
+
 2005-03-04  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
 
 	* AUTHORS, src/about.c : Updated about dialog by AUTHORS file.
