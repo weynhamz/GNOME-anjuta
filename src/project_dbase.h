@@ -139,6 +139,7 @@ struct _ProjectDBase
 	gdouble progress_state;
 	PrjModule sel_module;
 	gboolean	m_prj_ShowLocal;	/* Cfg to show local variables */
+	GList* excluded_modules;
 };
 
 extern gchar* module_map[];

@@ -380,10 +380,10 @@ data/Makefile
 data/properties/Makefile
 doc/Makefile
 scripts/Makefile
+scripts/anjuta_import.sh
 launcher/Makefile
 plugins/Makefile
 plugins/sample1/Makefile
 plugins/class-gen/Makefile
 anjuta.desktop.in
 ])
-

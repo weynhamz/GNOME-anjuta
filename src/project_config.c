@@ -40,6 +40,7 @@ project_config_new (void)
 	{
 		pc->disable_overwrite[i] = FALSE;
 	}
+	pc->blocked = FALSE;
 	pc->description = NULL;
 	pc->config_progs = NULL;
 	pc->config_libs = NULL;
@@ -169,6 +170,15 @@ project_config_sync (ProjectConfig * pc)
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON
 					      (pc->widgets.disable_overwrite_check[i]), pc->disable_overwrite[i]);
 	}
+	if (pc->blocked)
+	{
+		for (i = 0; i < BUILD_FILE_END_MARK; i++)
+		{
+			gtk_widget_set_sensitive (pc->widgets.disable_overwrite_check[i],
+				FALSE);
+		}
+	}
+	
 	gtk_editable_delete_text (GTK_EDITABLE(pc->widgets.description_text), 0, -1);
 	if (pc->description)
 		gtk_text_insert (GTK_TEXT (pc->widgets.description_text), NULL, NULL, NULL, pc->description, -1);
@@ -298,6 +308,9 @@ project_config_save (ProjectConfig * pc, FILE* stream)
 	g_return_val_if_fail (pc != NULL, FALSE);
 	g_return_val_if_fail (stream != NULL, FALSE);
 
+	if (fprintf (stream, "project.config.blocked=%d\n\n", (int) pc->blocked) <1)
+		return FALSE;
+	
 	fprintf (stream, "project.config.disable.overwriting=");
 	for (i = 0; i < BUILD_FILE_END_MARK; i++)
 	{
@@ -351,44 +364,55 @@ project_config_set_disable_overwrite_all (ProjectConfig* pc, gboolean disable)
 gboolean
 project_config_load (ProjectConfig * pc, PropsID props)
 {
-	GList *list, *node;
-	gint i;
-	
 	g_return_val_if_fail (pc != NULL, FALSE);
 	
-	/* Do not call project_config_clear() */
-	/* Because we have already loaded the scripts */
-	list = glist_from_data (props, "project.config.disable.overwriting");
-	node = list;
-	i=0;
-	while (node)
-	{
-		if (node->data)
-		{
-			if (i >= BUILD_FILE_END_MARK)
-			{
-				glist_strings_free (list);
-				project_config_sync (pc);
-				return FALSE;
-			}
-			if (sscanf (node->data, "%d", &pc->disable_overwrite[i]) <1)
-			{
-				glist_strings_free (list);
-				project_config_sync (pc);
-				return FALSE;
-			}
-		}
-		i++;
-		node = g_list_next (node);
-	}
-	if (i < BUILD_FILE_END_MARK)
-	{
-		glist_strings_free (list);
-		project_config_sync (pc);
-		return FALSE;
-	}
-	glist_strings_free (list);
+	/* Is the project configuration blocked? */
+	pc->blocked = prop_get_int (props, "project.config.blocked", 0);
 	
+	if (pc->blocked == 0)
+	{
+		GList *list, *node;
+		gint i;
+		
+		/* Do not call project_config_clear() */
+		/* Because we have already loaded the scripts */
+		list = glist_from_data (props, "project.config.disable.overwriting");
+		node = list;
+		i=0;
+		while (node)
+		{
+			if (node->data)
+			{
+				if (i >= BUILD_FILE_END_MARK)
+				{
+					glist_strings_free (list);
+					project_config_sync (pc);
+					return FALSE;
+				}
+				if (sscanf (node->data, "%d", &pc->disable_overwrite[i]) <1)
+				{
+					glist_strings_free (list);
+					project_config_sync (pc);
+					return FALSE;
+				}
+			}
+			i++;
+			node = g_list_next (node);
+		}
+		if (i < BUILD_FILE_END_MARK)
+		{
+			glist_strings_free (list);
+			project_config_sync (pc);
+			return FALSE;
+		}
+		glist_strings_free (list);
+	}
+	else
+	{
+		int i;
+		for (i = 0; i < BUILD_FILE_END_MARK; i++)
+			pc->disable_overwrite[i] = 1;
+	}
 	pc->extra_modules_before = prop_get (props, "project.config.extra.modules.before");
 	pc->extra_modules_after = prop_get (props, "project.config.extra.modules.after");
 	project_config_sync (pc);

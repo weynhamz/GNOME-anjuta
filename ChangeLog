@@ -5,6 +5,26 @@
 	  
 	  Added freeze() and thaw() for the message window class to
 	  speed up the message manager update.
+	
+	* src/project_config.h, project_config.c,
+	  src/project_dbase.h, project_dbase.h
+	  scripts/anjuta_project.template:
+	  
+	  Added two new prject attributes: project.config.blocked and
+	  project.excluded.modules. The former will make sure that users
+	  are not given any previlidge in enabling the 'overwrite build
+	  files' flags and the later issues a list of modules in the project
+	  to be skipped for symbol browsing and project listing.
+	
+	* configure.in, scripts/anjuta_import.sh, scripts/Makefile.am:
+	
+	  Modified script to read the template from the anjuta data dir
+	  rather than from the directory in which the script exist. Otherwise,
+	  Being transfered to the bin dir, the script will not be able to
+	  find the template when it is run.
+	  
+	  The script is also create with configure.in to set in the anjuta
+	  data dir path inside the script.
 	  
 2002-01-26  Stephane Demurget  <demurgets@free.fr>
 

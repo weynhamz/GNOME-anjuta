@@ -32,6 +32,10 @@ project.version=${AN_PROJECT_VERSION:-"0.1"}
 project.author=${AN_PROJECT_AUTHOR:-"$(whoami)"}
 project.source.target=${AN_PROJECT_TARGET:-"unknown"}
 
+'#' List of modules '('directory or files')' to be excluded from
+'#' symbol browsing and project listing.
+project.excluded.modules=intl
+
 project.has.gettext=${AN_HAVE_GETTEXT:-"0"}
 
 project.programming.language=${AN_PROJECT_LANGUAGE:-"C"}
@@ -45,6 +49,11 @@ project.menu.need.terminal=${AN_PROJECT_NEED_TERMINAL:-"0"}
 project.configure.options=
 
 anjuta.program.arguments=
+
+'#' This project has been blocked from overwriting the build files.
+'#' To unblock it, set it to 0, but at the same time, please make
+'#' sure to edit it properly.
+project.config.blocked=1
 
 project.config.disable.overwriting=1 1 1 1 1 1 1 1 1 
 project.config.extra.modules.before=

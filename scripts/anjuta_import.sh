@@ -5,7 +5,10 @@
 # This file can be freely copied for any purpose. There are NO guarantees.
 #
 
-TEMPLATE="$(dirname $0)/anjuta_project.template"
+# Template file is in data dir, so:
+# TEMPLATE="$(dirname $0)/anjuta_project.template"
+TEMPLATE="/usr/share/anjuta/anjuta_project.template"
+
 PROGRAM=anjuta
 DIR=${1:-"."}
 TMPFILE=/tmp/$PROGRAM.$$.tmp

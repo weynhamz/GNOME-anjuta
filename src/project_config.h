@@ -62,6 +62,8 @@ struct _ProjectConfig
 {
 	ProjectConfigWidgets widgets;
 	
+	gboolean blocked;
+	
 	gboolean disable_overwrite[BUILD_FILE_END_MARK];
 
 	gchar* description;

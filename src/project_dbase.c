@@ -346,6 +346,7 @@ project_dbase_new (PropsID pr_props)
 	p->win_height = 400;
 	p->top_proj_dir = NULL;
 	p->current_file_data = NULL;
+	p->excluded_modules = NULL;
 	
 	create_project_dbase_gui (p);
 	gtk_window_set_title (GTK_WINDOW (p->widgets.window),
@@ -476,6 +477,10 @@ project_dbase_clear (ProjectDBase * p)
 	string_assign (&p->top_proj_dir, NULL);
 	string_assign (&p->proj_filename, NULL);
 	prop_clear (p->props);
+	if (p->excluded_modules) {
+		glist_strings_free(p->excluded_modules);
+		p->excluded_modules = NULL;
+	}
 	gtk_window_set_title (GTK_WINDOW (p->widgets.window),
 			      _("Project: None"));
 	p->project_is_open = FALSE;
@@ -828,6 +833,11 @@ done:
 	string_free (str);		
 	p->is_saved = TRUE;
 	p->top_proj_dir = g_dirname (p->proj_filename);
+	
+	if (p->excluded_modules)
+		glist_strings_free(p->excluded_modules);
+	p->excluded_modules = glist_from_data (p->props, "project.excluded.modules");
+	
 	compiler_options_load (app->compiler_options, p->props);
 	src_paths_load (app->src_paths, p->props);
 	/* Project loading completed */
@@ -941,6 +951,20 @@ project_dbase_save_project (ProjectDBase * p)
 	if (fprintf (fp, "project.source.target=%s\n\n", str) < 1)
 		goto error_show;
 	g_free (str); str = NULL;
+
+	fprintf (fp, "project.excluded.modules=");
+	if (p->excluded_modules) {
+		GList* node;
+		node = p->excluded_modules;
+		while (node)
+		{
+			if (node->data)
+				if (fprintf (fp, "\\\n\t%s", (gchar*)node->data) < 1)
+					goto error_show;
+			node = g_list_next (node);
+		}
+	}
+	fprintf (fp, "\n\n");
 
 	str = prop_get (p->props, "project.has.gettext");
 	if (!str) str = g_strdup ("1");
