@@ -648,7 +648,7 @@ static GnomeUIInfo editor1_submenu_uiinfo[NUM_EDITOR_SUBMENUS+1] = {
 	 0, 0, NULL},
 	{/*3*/
 	 GNOME_APP_UI_TOGGLEITEM, N_("_Indentation guides"),
-	 N_("Show/Hide undentation guides"),
+	 N_("Show/Hide indentation guides"),
 	 on_editor_indentguides1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},

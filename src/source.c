@@ -528,8 +528,7 @@ source_write_toplevel_makefile_am (ProjectDBase * data)
 			"\\\n\tABOUT-NLS");
 	}
 	fprintf (fp,
-		"\n\nEXTRA_DIST = %s $(%sdoc_DATA)\n\n",
-		extract_filename (prj_name), target);
+		"\n\nEXTRA_DIST = $(%sdoc_DATA)\n\n", target);
 	if(type->gnome_support)
 	{
 		gchar *group;

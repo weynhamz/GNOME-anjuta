@@ -1,3 +1,18 @@
+2002-10-03  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
+
+	* macros/autogen.sh: Require gettext 0.10.x for autogen
+	* src/text_editor.c: Fixes Bug #595303
+	* src/source.c: Fixes Bug #595970
+	* src/anjuta.c: Fixes Bug #598366
+	* scingtilla/LexCPP.cxx: Bug #602296
+	* src/main_menubar_def.h: Bug #604363
+	* src/find_in_files.[h,c], src/find_in_files_gui.c: Buf #608679
+	
+2002-10-07  Jens Georg <mail@jensgeorg.de>
+
+	Reviewed by: Naba Kumar <kh_naba@gnome.org>
+	* gnomefilelist.c: This patch fixes the bug #611542
+	
 2002-09-20  Naba Kumar <kh_naba@gnome.org>
 
 	* data/properties/Makefile.am: Added tcltk.properties file.

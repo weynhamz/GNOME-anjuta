@@ -1802,7 +1802,7 @@ static void create_dir_okbutton_cb(GtkWidget *button, GnomeFileList *file_list)
    indir = gnome_filelist_get_path(file_list);
    text = gtk_entry_get_text(GTK_ENTRY(file_list->createdir_entry));
    both = g_strdup_printf("%s%s", indir, text);    
-   if (mkdir (both, (S_IRWXU | S_IRGRP | S_IROTH)) != 0) {
+   if (mkdir (both, (S_IRWXU | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH)) != 0) {
 	   gnome_dialog_run_and_close (GNOME_DIALOG (gnome_error_dialog (_("Creating folder failed."))));
    } else {
 	   string = build_full_path(file_list->path, "");

@@ -37,6 +37,7 @@ struct  _FindInFilesGui
   GtkWidget *case_sensitive_check;
   GtkWidget *ignore_binary;
   GtkWidget *add;
+  GtkWidget *nocvs;
   GtkWidget *remove;
   GtkWidget *clear;
   GtkWidget *regexp_entry;

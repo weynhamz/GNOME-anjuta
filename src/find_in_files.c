@@ -154,7 +154,7 @@ find_in_files_process (FindInFiles * ff)
 {
 	gint i;
 	gchar *command, *temp, *file;
-	gboolean case_sensitive, ignore_binary;
+	gboolean case_sensitive, ignore_binary, nocvs;
 
 	if (anjuta_is_installed ("grep", TRUE) == FALSE)
 		return;
@@ -166,7 +166,10 @@ find_in_files_process (FindInFiles * ff)
 		gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
 					      (ff->widgets.
 					       ignore_binary));
-	
+	nocvs  =
+		gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
+					      (ff->widgets.nocvs));
+
 	temp = gtk_entry_get_text (GTK_ENTRY (ff->widgets.regexp_entry));
 	command = g_strconcat ("grep -n -r -e \"", temp, "\"", NULL);
 	ff->regexp_history =
@@ -192,6 +195,16 @@ find_in_files_process (FindInFiles * ff)
 		g_free (command);
 		command = temp;
 	}
+	if (nocvs)
+	{
+		temp = g_strconcat(command, " | grep -Fv '/CVS/'", NULL);
+		g_free(command);
+		command = temp;
+	}
+#ifdef DEBUG
+	g_message("Find: '%s'\n", command);
+#endif
+
 	anjuta_clear_execution_dir();
 	if (launcher_execute (command,
 			      find_in_files_mesg_arrived,

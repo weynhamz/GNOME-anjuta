@@ -212,6 +212,8 @@ text_editor_thaw (TextEditor * te)
 void
 text_editor_set_hilite_type (TextEditor * te)
 {
+	if (preferences_get_int(te->preferences, DISABLE_SYNTAX_HILIGHTING))
+		te->force_hilite = TE_LEXER_NONE;
 	aneditor_command (te->editor_id, ANE_SETLANGUAGE, te->force_hilite,
 			  0);
 	aneditor_command (te->editor_id, ANE_SETHILITE,

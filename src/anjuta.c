@@ -164,6 +164,7 @@ anjuta_new ()
 		app->b_reload_last_project	= TRUE ;
 		app->preferences = preferences_new ();
 		app->save_as_fileselection = create_fileselection_gui (&fsd2);
+		gtk_window_set_modal((GtkWindow *) app->save_as_fileselection, TRUE);
 		app->save_as_build_msg_sel = create_fileselection_gui (&fsd3);
 		app->find_replace = find_replace_new ();
 		app->find_in_files = find_in_files_new ();

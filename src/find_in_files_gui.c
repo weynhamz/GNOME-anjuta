@@ -62,6 +62,7 @@ create_find_in_files_gui (FindInFiles *sf)
   GtkWidget *dialog_action_area3;
   GtkWidget *button8;
   GtkWidget *button9;
+  GtkWidget *nocvs;
 
   dialog3 = gnome_dialog_new (_("Find in Files"), NULL);
   gtk_window_set_position (GTK_WINDOW (dialog3), GTK_WIN_POS_CENTER);
@@ -156,6 +157,11 @@ create_find_in_files_gui (FindInFiles *sf)
   gtk_box_pack_start (GTK_BOX (vbox4), checkbutton4, FALSE, FALSE, 0);
   gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (checkbutton4), TRUE);
 
+  nocvs = gtk_check_button_new_with_label (_("Ignore CVS directory"));
+  gtk_widget_show (nocvs);
+  gtk_box_pack_start (GTK_BOX (vbox4), nocvs, FALSE, FALSE, 0);
+  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (nocvs), TRUE);
+
 
   sf->widgets.append_messages = gtk_check_button_new_with_label (_("Append Messages"));
   gtk_widget_show (sf->widgets.append_messages);
@@ -234,6 +240,8 @@ create_find_in_files_gui (FindInFiles *sf)
       gtk_widget_ref(checkbutton3);
   sf->widgets.ignore_binary = checkbutton4;
 	  gtk_widget_ref(checkbutton4);
+  sf->widgets.nocvs = nocvs;
+	  gtk_widget_ref(nocvs);
 
 	gtk_window_set_transient_for(GTK_WINDOW(sf->widgets.window), GTK_WINDOW(app->widgets.window));
 }
