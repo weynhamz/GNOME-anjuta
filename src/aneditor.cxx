@@ -3495,7 +3495,7 @@ void AnEditor::ReadProperties(const char *fileForExt) {
 	SendEditor(SCI_SETMARGINSENSITIVEN, 1, 1); // Breakpoints-Bookmarks
 	SendEditor(SCI_SETMARGINSENSITIVEN, 2, 1);
 	
-	SString fold_symbols = props->Get("fold.symbols.style");
+	SString fold_symbols = props->Get("fold.symbols");
 	if (fold_symbols.length() <= 0)
 		fold_symbols = "plus/minus";
 	if (strcasecmp(fold_symbols.c_str(), "arrows") == 0)

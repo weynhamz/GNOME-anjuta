@@ -368,9 +368,6 @@ save_property (AnjutaPreferences *pr, AnjutaProperty *prop,
 
 	return_value = 0;
 	
-	if (prop->object_type == ANJUTA_PROPERTY_OBJECT_TYPE_MENU)
-		return TRUE;
-	
 	if ((filter != ANJUTA_PREFERENCES_FILTER_NONE) && (prop->flags & filter))
 	{
 #ifdef DEBUG
@@ -428,9 +425,8 @@ anjuta_preferences_register_property_raw (AnjutaPreferences *pr,
 				vstr = g_strsplit (default_value, ",", 100);
 				g_object_set_data(G_OBJECT(p->object), "untranslated",
 									vstr);
-			} /* For others */
-			else if (object_type != ANJUTA_PROPERTY_OBJECT_TYPE_MENU) 
-				prop_set_with_key (pr->props_built_in, key, default_value);
+			}
+			prop_set_with_key (pr->props_built_in, key, default_value);
 		}
 	}
 	p->flags = flags;
