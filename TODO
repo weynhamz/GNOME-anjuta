@@ -80,9 +80,6 @@ TODO List:
 BUGS:
 -----
 - For whatever reason db1-devel_1.85-4mdk was not installed by default and
-ld gave me errors (can't find -ldb1). Checking for db1 dependency (both rpm and configure).
+ld gave me errors (can't find -ldb1). Checking for db1 dependency (both rpm
+and configure).
 
-- Tooltips that pop up for a function (eg. "printf(") persist
-onscreen when changing source files. 
-This is now fixed but now calltips flicker if the cursor touches
-them.

@@ -66,4 +66,5 @@ scrollkeeper-update
 %{prefix}/share/gnome/help/anjuta
 %{prefix}/share/pixmaps/anjuta
 %{prefix}/share/omf/anjuta
+%{prefix}/share/doc/anjuta
 %{prefix}/share/locale/*/LC_MESSAGES/anjuta.mo

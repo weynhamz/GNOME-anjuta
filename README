@@ -1,16 +1,16 @@
                          Anjuta Version 1.0 Release
 
-                       Copyright (C) 2000-2002 Kh. Naba Kumar Singh
-                       Home site => http://anjuta.sourceforge.net
+                       Copyright (C) 2000-2002 Naba Kumar
+                       Home site => http://anjuta.org/
 
 Introduction:
 -------------
 
 Anjuta is a versatile Integrated Development Environment (IDE) for C and C++. 
-It has been written for GTK/GNOME, and features a number of advanced programming 
-facilities. These include project management, application wizards, an on-board 
-interactive debugger, and a powerful source editor with source browsing and 
-syntax highlighting.
+It has been written for GTK/GNOME, and features a number of advanced
+programming facilities. These include project management, application
+wizards, an on-board interactive debugger, and a powerful source editor
+with source browsing and syntax highlighting.
 
 Anjuta is an effort to marry the flexibility and power of text-based 
 command-line tools with the ease-of-use of the GNOME graphical user 
@@ -21,27 +21,26 @@ improve it. In the future, Anjuta is going to be much more capable and stable!
 Extensive debugging has not yet been performed, so at the moment it will 
 undoubtedly have lots of bugs. It would be great if you use it and report any 
 problems to us. That way, you will be helping to improve the software as well 
-as helping the Open Source community.
+as helping the Open Source community. Please read the file COPYRIGHT for
+details. 
 
 Any sort of suggestions or patches for Anjuta are also most welcome. 
-
-Remember, this program is FREEWARE and not shareware. 
-Please read the file COPYRIGHT for details. 
 
 Copyright (C) 2000-2002 Kh. Naba Kumar Singh
 --------------------------------------------
 
-This program is free software; you can redistribute it and/or modify it under the terms of 
-the GNU General Public License as published by the Free Software Foundation; either 
-version 2 of the License, or (at your option) any later version. 
+This program is free software; you can redistribute it and/or modify it under
+the terms of the GNU General Public License as published by the Free Software
+Foundation; either version 2 of the License, or (at your option) any later
+version. 
 
-This program is distributed in the hope that it will be useful, but WITHOUT ANY 
-WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS 
-FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. 
+This program is distributed in the hope that it will be useful, but WITHOUT
+ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
-You should have received a copy of the GNU General Public License along with this program; 
-if not, write to the Free Software Foundation, Inc., 59 Temple Place, Suite 330, 
-Boston, MA 02111-1307 USA 
+You should have received a copy of the GNU General Public License along with
+this program; if not, write to the Free Software Foundation, Inc., 59 Temple
+Place, Suite 330, Boston, MA 02111-1307 USA 
 
 
 Presently available features in Anjuta:
@@ -58,19 +57,20 @@ Presently available features in Anjuta:
 		o Automatic indentation and indentation guides.
 		o ... and much more.
 	
-	2. Each file opened can be operated in either paged mode or windowed mode. 
+	2. Each file opened can be operated in either paged mode
+	or windowed mode. 
 	
 	3. Highly interactive source level debugger (built over gdb).
 		o Interactive execution.
 		o Breakpoints/watches/signal/stack manipulation.
 		o ... and much more.
 	
-	4. Inbuilt application wizards to create terminal/GTK/GNOME applications 
-	   on-the-fly. 
+	4. Inbuilt application wizards to create terminal/GTK/GNOME
+	applications on-the-fly. 
 	
 	5. Dynamic Tags browsing.
-		o Function definition, structure, classes etc. can be reached with just 
-		  two mouse clicks.
+		o Function definition, structure, classes etc. can be reached
+		  with just two mouse clicks.
 		o Full tags management for project.
 	
 	6. Full project and build files management. 
@@ -80,7 +80,8 @@ Presently available features in Anjuta:
 	7. Basic windows are attachable and detachable.
 
 	9. Support for other languages 
-		o Java, Perl, Pascal ... etc. (only file mode, no project managements).
+		o Java, Perl, Pascal ... etc. (only file mode, no project
+		managements).
 
 	10. Interactive messaging system.
 
@@ -98,17 +99,14 @@ Anjuta Home site:	http://anjuta.sourceforge.net.
 Anjuta Project site: 	http://www.sourceforge.net/projects/anjuta
 
 For general discussions and queries use the discussion forums (two forums) 
+at the project site. Please report bugs at the projects bug tracking system
+or the mailing lists at the project site. News of Anjuta is also available
 at the project site.
-Please report bugs at the projec
-ts bug tracking system or the mailing 
-lists at the project site.
-News of Anjuta is also available at the project site.
 
 To subscribe to one or more of the mailing lists, visit 
 [ http://www.sourceforge.net/mail/?group_id=14222 ].
 or send a mail at <listname>-request@lists.sourceforge.net with a subject 
-just "subscribe".
-Where, <listname> is anjuta-list or anjuta-devel.
+just "subscribe". Where, <listname> is anjuta-list or anjuta-devel.
 
 Mailing lists:
 	o anjuta-list@lists.anjuta.sourceforge.net
@@ -120,8 +118,7 @@ Mailing lists:
 	o anjuta-announce@lists.anjuta.sourceforge.net
 		For announcements of new releases.
 
-
---------------
+-------------
 REQUIREMENTS:
 -------------
 
@@ -130,45 +127,45 @@ with GNOME 1.4 (Ximian GNOME recommended). The following are the minimum
 requirements. Development platform is RedHat Linux 7.x with GNOME 1.4
 
 1) Installation
-	# From Tarball:
-		* GNOME libs (1.2.8 or later)
-		* gnome-xml (aka libxml1) (1.4.0 or later)
-		* ORBit (0.5.0 or later)
-		* gnome-print (0.35 or later)
-		* gdk-pixbuf
-		* scrollkeeper (0.1.4 or later)
-		* pkgconfig
+# From Tarball:
+	* GNOME libs (1.2.8 or later)
+	* gnome-xml (aka libxml1) (1.4.0 or later)
+	* ORBit (0.5.0 or later)
+	* gnome-print (0.35 or later)
+	* gdk-pixbuf
+	* scrollkeeper (0.1.4 or later)
+	* pkgconfig
 
-	# From CVS:
-		* All the requirements for tarball
-		* GNU gettext 0.10.x (0.11.x does not work)
-		* Automake 1.4 (might not work with newer versions)
-		* Autoconf 2.13 (might not work with newer versions)
+# From CVS:
+	* All the requirements for tarball
+	* GNU gettext 0.10.x (or later)
+	* Automake 1.4 (or later)
+	* Autoconf 2.13 (or later)
 
-	# From Src RPM:
-		< RedHat 6.1 or upwards >
-		* gnome-libs & gnome-libs-devel (1.2.8 or later)
-		* libxml & libxml-devel (1.4.0 or later)
-		* ORBit & ORBit-devel (0.5.0 or later)
-		* gnome-print & gnome-print-devel (0.35 or later)
-		* gdk-pixbuf & gdk-pixbuf-devel (0.15 or later)
-		* scrollkeeper (0.1.4 or later)
-		* pkgconfig (0.10 or later)
-		* automake (1.4)
-		* gcc & gcc-c++ (2.95.2 or later)
-		* RPM (4.0 ?)
-		* xml-i18n-tools or intltool (for documentation)
+# From Src RPM:
+	< RedHat 6.1 or upwards >
+	* gnome-libs & gnome-libs-devel (1.2.8 or later)
+	* libxml & libxml-devel (1.4.0 or later)
+	* ORBit & ORBit-devel (0.5.0 or later)
+	* gnome-print & gnome-print-devel (0.35 or later)
+	* gdk-pixbuf & gdk-pixbuf-devel (0.15 or later)
+	* scrollkeeper (0.1.4 or later)
+	* pkgconfig (0.10 or later)
+	* automake (1.4)
+	* gcc & gcc-c++ (2.95.2 or later)
+	* RPM (4.0 ?)
+	* xml-i18n-tools or intltool (for documentation)
 
-	# From RPM Pkg:
-		< RedHat 7.1 or upwards >
-		* gnome-libs & gnome-libs-devel (1.2.8 or later)
-		* libxml (1.4.0 or later)
-		* ORBit (0.5.0 or later)
-		* gnome-print (0.35 or later)
-		* gdk-pixbuf (0.15 or later)
-		* scrollkeeper (0.1.4 or later)
-		* automake (1.4)
-		* RPM (4.0 ?)
+# From RPM Pkg:
+	< RedHat 7.1 or upwards >
+	* gnome-libs & gnome-libs-devel (1.2.8 or later)
+	* libxml (1.4.0 or later)
+	* ORBit (0.5.0 or later)
+	* gnome-print (0.35 or later)
+	* gdk-pixbuf (0.15 or later)
+	* scrollkeeper (0.1.4 or later)
+	* automake (1.4)
+	* RPM (4.0 ?)
 
 2) Running
 	< RedHat 6.1 or upwards >
@@ -176,7 +173,7 @@ requirements. Development platform is RedHat Linux 7.x with GNOME 1.4
 	* Bash command shell
 	* GNU Indent
 	* gnome-terminal
-	* gnome-help-browser (or Nautilus)
+	* gnome-help-browser (or Nautilus or mozilla)
 	* Automake/Autoconf
 	* GNU Make
 	* GNU C/C++ compiler
@@ -187,76 +184,68 @@ INSTALLATION:
 -------------
 
 # From Tarball:
-	Note:-
-		The package as an example is taken as anjuta-1.0.tar.gz
-		and '#' is the shell prompt. You must be logged in as root
-		to install Anjuta.
+	Note:- The package as an example is taken as anjuta-1.0.tar.gz
+	and '#' is the shell prompt. You must be logged in as root to
+	install Anjuta.
 
 	1) Get the tarball anjuta-1.0.tar.gz
-
 	2) copy it to your home dir.
-
 	3) Unzip it by typing:   #gunzip anjuta-1.0.tar.gz
-
 	4) Extract it by typing:   #tar -xvf anjuta-1.0.tar
-
 	5) Change dir:   #cd anjuta-1.0
+	6) Type:  # ./configue
+	7) Type:  # make
+	8) Type:  # make install
 
-	6) Type:  #./configue
-
-	7) Type:  #make
-
-	8) Type:  #make install
-
-		That's all. If everything went smoothly, congratulations.
-	If not, then please check that you have the latest libgnome and libgnomeui
+	That's all. If everything went smoothly, congratulations. If not,
+	then please check that you have the latest libgnome and libgnomeui
 	installed. Get them if you don't have and repeat the above steps.
 
 # From RPM Pkg:
-	Note:-
-		The package as an example is taken as anjuta-1.0-1.i386.rpm
-		and '#' is the shell prompt. You must be logged in as root
-		to install Anjuta.
+	Note:- The package as an example is taken as anjuta-1.0-1.i386.rpm
+	and '#' is the shell prompt. You must be logged in as root to
+	install Anjuta.
 
 	1) Get the RPM package anjuta-1.0-1.i386.rpm (visit www.sourceforge.net).
-
 	2) Change to the directory containing the rpm package.
-
 	3) Type: rpm -ivh anjuta-1.0-1.i386.rpm.
 
-		That's all. If everything went smoothly, congratulations.
+	That's all. If everything went smoothly, congratulations.
 	Otherwise, some dependency error will come up. You will have
 	to install the required components first. Then repeat the above.
 
 
-Following files will be installed in your system.
--------------------------------------------------
-
-Assume that the install dir is /usr/local (this is the default directory).
-
-/usr/local/bin/
---------- anjuta
---------- anjuta_launcher
-/usr/local/doc/ (All the document files).
-/usr/local/share/anjuta/ (All the data files).
-/usr/share/pixmaps/anjuta/ (All the pixmap files).
-/usr/share/gnome/help/anjuta/ (All the help files).
-/usr/share/gnome/apps/Development/anjuta.desktop. <Menu entry>
-
-For detailed custom installation, please read the file INSTALL.
-
-
 KNOWN ISSUES:
 -------------
-
 	* Printing is unstable with older versions of gnome-print and FreeType.
-If you experience crashes while printing, please upgrade gnome-print and
-FreeType to the latest stable versions (currently 0.36 and 2.1.2 respectively).
+	If you experience crashes while printing, please upgrade gnome-print and
+	FreeType to the latest stable versions (currently 0.36 and 2.1.2
+	respectively).
+	
 	* Debugger stepping may not work correctly if executables are compiled
-with optimization enabled (This is a GCC/GDB issue). If you plan to debug your
-application from Anjuta, please turn off optimization for debug builds.
+	with optimization enabled (This is a GCC/GDB issue). If you plan to
+	debug your application from Anjuta, please turn off optimization for
+	debug builds.
 
-
+	* Building anjuta on Debian (sid) may find a couple of issues related to zvt
+	library. If you encounter such problem, temporarily move out any libzvt2 
+	libraries that you can find. Build/install anjuta and restore the libzvt2 libs.
+	
+	* Building anjuta n Debian (sid) may also find gnome-terminal to be
+	interfering. Uninstall it temporarily and restore it after installing anjuta.
+	The above two debian (sid) problems may not apprear if anjuta rpms are
+	installed.
+	
+	* Some versions of gettext (0.11.x) prompts to press Enter in the middle
+	of project build (in anjuta). This will be a problem, as there is no known
+	way to provide user feedback in anjuta message manager. Upgrade your gettext
+	to higher version which does not exhibit this problem. gettext 0.11.40 and
+	above should be just fine.
+	
+	* Calltips flicker when the cursor touches them if you have your window
+	manager set to follow-mouse-cursor for focus. Change it to focus-follow
+	mouse click to fix it.
+	
 RUNNING:
 --------
 
@@ -264,13 +253,15 @@ To run Anjuta, choose Development->Anjuta from the GNOME Main Menu,
 or type:   # anjuta
 
 If you get the shell error 'Command not found', then make sure your PATH
-variable contains the executable path of Anjuta binary (by default: /usr/local/bin).
-Usually, the PATH variable is set in the file /etc/profile. Check it out.
+variable contains the executable path of Anjuta binary (by default:
+/usr/local/bin). Usually, the PATH variable is set in the file
+/etc/profile. Check it out.
+
+Usage: anjuta [--no-splash | -s] [ files ...] [ project ]
 
 If you do not want to see the Anjuta splash screen / logo, run Anjuta with 
-the command-line option "--no-splash".
-
-See the User Manual for further instructions.
+the command-line option "--no-splash". See the User Manual for further
+instructions.
 
 
 ** Good Luck **

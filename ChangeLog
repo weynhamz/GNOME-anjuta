@@ -14,6 +14,11 @@
 
 	* src/mainmenu_callbacks.c: Fixed a bug that loads system properties file
 	instead of user properties file.
+  
+	* README, anjuta.prj, configure.in: Bumped anjuta version to 1.0.0
+	* anjuta.spec.in: Added {prefix}/share/doc/anjuta for rpms.
+	* Makefile.am: Install docs in share/doc/anjuta and not doc/anjuta.
+	* README, TODO: Updated.
 	
 2002-10-28  Naba Kumar <naba@gnome.org>
 
