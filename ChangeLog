@@ -1,5 +1,10 @@
 2004-02-13  Naba Kumar  <naba@gnome.org>
 
+	* configure.in, plugins/Makefile.am: Enabled devhelp plugin
+	and set required version to devhelp 0.8. This devhelp version
+	can be acquired from gnome cvs branch devhelp branch
+	devhelp-gtk-2-2 or devhelp-0.8.tar.gz to be released soon.
+
 	* src/anjuta.ui, src/actions.h, src/actions-callbacks.h,
 	src/actions-callbacks.c: Added Dock Manager settings menu item.
 
