@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 23.32\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-11-10 22:19+0100\n"
-"PO-Revision-Date: 2003-11-10 23:24+0100\n"
+"POT-Creation-Date: 2003-11-12 13:01+0100\n"
+"PO-Revision-Date: 2003-11-12 13:02+0100\n"
 "Last-Translator: Slobodan Sredojević <ssl@uns.ns.ac.yu>\n"
 "Language-Team: Serbian (sr) <serbiangnome-lista@nongnu.org>\n"
 "MIME-Version: 1.0\n"
@@ -3680,15 +3680,26 @@ msgstr "Znakovni niz „%s“ nije pronađen u preostalom delu teksta"
 msgid "No matches found. Wrap search around the document?"
 msgstr "Nema traženog teksta. Da li da nastavim pretragu od početka dokumenta?"
 
-#: src/glade_iface.c:99
+#: src/glade_iface.c:69
+msgid ""
+"Warning: Can not generate c/c++ source code.\n"
+"Warning: It is because either glade (for gtk/gnome projects) or glademm (for "
+"gtkmm/gnomemm projects) is not installed.\n"
+"Warning: Your generated project will still be fine, though.\n"
+msgstr ""
+"Upozorenje: Ne mogu da sastavim izvorni C/C++ kod.\n"
+"Upozorenje: To je ili zato što glejd (za Gtk/Gnom projekte) ili glademm (za gtkmm/gnomemm projekte) nije instaliran.\n"
+"Upozorenje: Vaš obrazovani projekat će i dalje biti u redu.\n"
+
+#: src/glade_iface.c:108
 msgid "Cannot fork glade."
 msgstr "Ne mogu pokrenuti glade."
 
-#: src/glade_iface.c:136 src/glade_iface.c:211
+#: src/glade_iface.c:148 src/glade_iface.c:229
 msgid "Cannot fork glade--."
 msgstr "Ne mogu pokrenuti glade--."
 
-#: src/glade_iface.c:174
+#: src/glade_iface.c:189
 msgid "Cannot fork glade-2."
 msgstr "Ne mogu pokrenuti glade-2."
 
