@@ -1,4 +1,10 @@
-2005-01-08  Naba Kumar  <naba@gnome.org>
+2005-01-10  Naba Kumar  <naba@gnome.org>
+
+	* plugins/message-view/message-view.c, libanjuta/anjuta-ui.c,
+	plugins/symbol-browser/an_symbol_view.c: Fixed memory curruption
+	and leaks.
+
+2005-01-09  Naba Kumar  <naba@gnome.org>
 
 	* libegg/egg-recent-action.c, libegg/test-actions.c,
 	libegg/menu/egg-recent-action.h: Recent Action now takes multiple

@@ -35,6 +35,8 @@
 
 #define MAX_STRING_LENGTH 256
 
+#define SYMBOL_FILE_INFO_TYPE symbol_file_info_get_type()
+
 /* Pixmaps for symbol browsers */
 #define ANJUTA_PIXMAP_SV_UNKNOWN          "sv_unknown.xpm"
 #define ANJUTA_PIXMAP_SV_CLASS            "sv_class.xpm"
@@ -146,9 +148,8 @@ symbol_file_info_new (TMSymbol *sym)
 	return sfile;
 }
 
-#if 0
 static SymbolFileInfo*
-symbol_file_info_dup (SymbolFileInfo *from)
+symbol_file_info_dup (const SymbolFileInfo *from)
 {
 	if (NULL != from)
 	{
@@ -170,7 +171,6 @@ symbol_file_info_dup (SymbolFileInfo *from)
 	else
 		return NULL;
 }
-#endif
 
 static void
 symbol_file_info_free (SymbolFileInfo *sfile)
@@ -185,6 +185,20 @@ symbol_file_info_free (SymbolFileInfo *sfile)
 			g_free(sfile->decl.name);
 		g_free(sfile);
 	}
+}
+
+static GType
+symbol_file_info_get_type (void)
+{
+	static GType type = 0;
+	
+	if (!type)
+	{
+		type = g_boxed_type_register_static ("AnjutaSymbolInfo",
+											 (GBoxedCopyFunc) symbol_file_info_dup,
+											 (GBoxedFreeFunc) symbol_file_info_free);
+	}
+	return type;
 }
 
 static SVNodeType
@@ -344,22 +358,6 @@ sv_current_symbol (AnjutaSymbolView *sv)
 }
 
 static void
-on_symbol_model_row_deleted (GtkTreeModel *model,
-			     			 GtkTreePath  *path)
-{
-	GtkTreeIter iter;
-	SymbolFileInfo *sfile;
-
-	if (gtk_tree_model_get_iter (model, &iter, path))
-	{
-		gtk_tree_model_get (model, &iter,
-							SVFILE_ENTRY_COLUMN, &sfile,
-							-1);
-		symbol_file_info_free (sfile);
-	}
-}
-
-static void
 on_symbol_view_row_expanded (GtkTreeView *view,
 							 GtkTreeIter *iter,
 							 GtkTreePath *path)
@@ -407,9 +405,7 @@ sv_create (AnjutaSymbolView *sv)
 	store = gtk_tree_store_new (COLUMNS_NB,
 								GDK_TYPE_PIXBUF,
 								G_TYPE_STRING,
-								G_TYPE_POINTER);
-	g_signal_connect (G_OBJECT (store), "row_deleted",
-					  G_CALLBACK (on_symbol_model_row_deleted), NULL);
+								SYMBOL_FILE_INFO_TYPE);
 
 	gtk_tree_view_set_model (GTK_TREE_VIEW (sv), GTK_TREE_MODEL (store));
 	gtk_tree_view_set_rules_hint (GTK_TREE_VIEW (sv), TRUE);

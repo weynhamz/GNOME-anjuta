@@ -267,17 +267,6 @@ accel_set_func (GtkTreeViewColumn *tree_column,
 	}
 }
 
-static void
-tree_store_row_deleted (GtkTreeModel *model, GtkTreePath *path, AnjutaUI *ui)
-{
-	GtkAction *action;
-	GtkTreeIter iter;
-	gtk_tree_model_get_iter (model, &iter, path);
-	gtk_tree_model_get (model, &iter, COLUMN_DATA, &action, -1);
-	if (action)
-		g_object_unref (action);
-}
-
 static void anjuta_ui_class_init (AnjutaUIClass *class);
 static void anjuta_ui_instance_init (AnjutaUI *ui);
 
@@ -342,8 +331,8 @@ anjuta_ui_instance_init (AnjutaUI *ui)
 	ui->priv = g_new0 (AnjutaUIPrivate, 1);
 	ui->priv->actions_hash = g_hash_table_new_full (g_str_hash,
 													g_str_equal,
-													(GDestroyNotify) g_free,
-													(GDestroyNotify) g_object_unref);
+													(GDestroyNotify) g_free, NULL
+													/* (GDestroyNotify) g_object_unref*/);
 	/* Create Icon factory */
 	ui->priv->icon_factory = gtk_icon_factory_new ();
 	gtk_icon_factory_add_default (ui->priv->icon_factory);
@@ -354,15 +343,12 @@ anjuta_ui_instance_init (AnjutaUI *ui)
 								G_TYPE_STRING,
 								G_TYPE_BOOLEAN,
 								G_TYPE_BOOLEAN,
-								G_TYPE_POINTER,
+								G_TYPE_OBJECT,
 								G_TYPE_STRING);
 	gtk_tree_sortable_set_sort_func (GTK_TREE_SORTABLE(store), COLUMN_ACTION,
 									 iter_compare_func, NULL, NULL);
 	gtk_tree_sortable_set_sort_column_id (GTK_TREE_SORTABLE(store),
 										  COLUMN_ACTION, GTK_SORT_ASCENDING);
-	
-	g_signal_connect (G_OBJECT (store), "row_deleted",
-					  G_CALLBACK (tree_store_row_deleted), ui);
 	
 	// unreferenced in dispose() method.
 	ui->priv->model = GTK_TREE_MODEL (store);
@@ -493,8 +479,8 @@ anjuta_ui_add_action_group (AnjutaUI *ui,
 	g_return_if_fail (action_group_name != NULL);
 
 	/* We are holding a ref to the action_group in hash table.
-	   It will be unrefed when the hash table is destroyed */
-	g_object_ref (action_group);
+	   It will be unrefed when the action_group is removed */
+	// g_object_ref (action_group);
 	gtk_ui_manager_insert_action_group (GTK_UI_MANAGER (ui), action_group, 0);
 	g_hash_table_insert (ui->priv->actions_hash,
 						g_strdup (action_group_name), action_group);
@@ -520,10 +506,6 @@ anjuta_ui_add_action_group (AnjutaUI *ui,
 		
 		if (!action)
 			continue;
-		
-		/* We are holding the action refs in treeview rows. They will be
-		   unrefed when the model is cleared, unrefed or row deleted */
-		g_object_ref (action);
 		
 		gtk_tree_store_append (GTK_TREE_STORE (ui->priv->model),
 							   &iter, &parent);

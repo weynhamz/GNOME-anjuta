@@ -16,9 +16,11 @@
  */
 
 #include <libanjuta/anjuta-utils.h>
+#include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-message-view.h>
 
 #include "message-view.h"
+#define MESSAGE_TYPE message_get_type()
 
 struct _MessageViewPrivate
 {
@@ -77,6 +79,7 @@ static Message*
 message_new (IAnjutaMessageViewType type, const gchar *summary,
 			 const gchar *details)
 {
+	/* DEBUG_PRINT ("Creating message"); */
 	Message *message = g_new0 (Message, 1);
 	message->type = type;
 	if (summary)
@@ -86,12 +89,32 @@ message_new (IAnjutaMessageViewType type, const gchar *summary,
 	return message;
 }
 
+static Message*
+message_copy (const Message *src)
+{
+	return message_new (src->type, src->summary, src->details);
+}
+
 static void
 message_free (Message *message)
 {
+	/* DEBUG_PRINT ("Freeing message"); */
 	g_free (message->summary);
 	g_free (message->details);
 	g_free (message);
+}
+
+static GType
+message_get_type ()
+{
+	static GType type = 0;
+	if (!type)
+	{
+		type = g_boxed_type_register_static ("MessageViewMessage",
+											 (GBoxedCopyFunc) message_copy,
+											 (GBoxedFreeFunc) message_free);
+	}
+	return type;
 }
 
 /* Utility functions */
@@ -367,23 +390,6 @@ tooltip_leave_cb (GtkWidget *w, GdkEventCrossing *e, MessageView *view)
 }
 
 /* MessageView signal callbacks */
-static void
-on_message_row_deleted (GtkTreeModel *model, GtkTreePath *path,
-						MessageView *view)
-{
-#warning "We cannot do that because the row is no longer valid"
-	/* I think it is a bad idea to store a struct in the tree-view
-	because we should better use three columns for message,
-	details and summary */
-	/*Message *message;
-	GtkTreeIter iter;
-	
-	gtk_tree_model_get_iter (model, &iter, path);
-	gtk_tree_model_get (model, &iter, COLUMN_MESSAGE, &message, -1);
-	if (message)
-		message_free (message);*/
-}
-
 /* Send a signal if a message was double-clicked or ENTER or SPACE was pressed */
 static gboolean
 on_message_event (GObject* object, GdkEvent* event, gpointer data)
@@ -581,7 +587,7 @@ message_view_instance_init (MessageView * self)
 	/* Create the tree widget */
 	model = gtk_list_store_new (N_COLUMNS, GDK_TYPE_COLOR,
 								G_TYPE_STRING,
-								G_TYPE_POINTER);
+								MESSAGE_TYPE);
 	self->privat->tree_view =
 		gtk_tree_view_new_with_model (GTK_TREE_MODEL (model));
 	gtk_widget_show (self->privat->tree_view);
@@ -627,8 +633,6 @@ message_view_instance_init (MessageView * self)
 	/* Connect signals */
 	g_signal_connect (G_OBJECT(self->privat->tree_view), "event", 
 					  G_CALLBACK (on_message_event), self);
-	g_signal_connect (G_OBJECT(model), "row_deleted",
-					  G_CALLBACK (on_message_row_deleted), self);
 	g_signal_connect (G_OBJECT (self->privat->tree_view), "motion-notify-event",
 					  G_CALLBACK (tooltip_motion_cb), self);
 	g_signal_connect (G_OBJECT (self->privat->tree_view), "leave-notify-event",
@@ -880,6 +884,7 @@ imessage_view_append (IAnjutaMessageView *message_view,
 							COLUMN_MESSAGE, message,
 							-1);
 	}
+	message_free (message);
 	g_free (utf8_msg);
 	g_free (escaped_str);
 }
