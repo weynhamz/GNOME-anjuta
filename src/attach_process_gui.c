@@ -54,6 +54,7 @@ create_attach_process_gui (AttachProcess* ap)
   gtk_window_set_position (GTK_WINDOW (dialog1), GTK_WIN_POS_CENTER);
   gtk_window_set_policy (GTK_WINDOW (dialog1), FALSE, FALSE, FALSE);
   gtk_window_set_wmclass (GTK_WINDOW (dialog1), "attach_process", "Anjuta");
+  gnome_dialog_close_hides (GNOME_DIALOG (dialog1), TRUE);
 
   dialog_vbox1 = GNOME_DIALOG (dialog1)->vbox;
   gtk_widget_show (dialog_vbox1);
@@ -118,9 +119,9 @@ create_attach_process_gui (AttachProcess* ap)
 
   gtk_accel_group_attach(app->accel_group, GTK_OBJECT(dialog1));
 
-  gtk_signal_connect (GTK_OBJECT (dialog1), "delete_event",
-                      GTK_SIGNAL_FUNC (on_attach_process_delete_event),
-                      ap);
+  gtk_signal_connect (GTK_OBJECT (dialog1), "close",
+				  	  GTK_SIGNAL_FUNC (on_attach_process_close),
+					  ap);
   gtk_signal_connect (GTK_OBJECT (clist1), "select_row",
                       GTK_SIGNAL_FUNC (on_attach_process_clist_select_row),
                       ap);

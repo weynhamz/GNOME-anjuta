@@ -22,8 +22,7 @@
 #include <gnome.h>
 
 gboolean
-on_src_paths_delete_event (GtkWidget *w, GdkEvent *event,
-                                        gpointer         user_data);
+on_src_paths_close (GtkWidget *w, gpointer         user_data);
 
 void on_src_paths_ok_clicked(GtkButton *button, gpointer data);
 void on_src_paths_help_clicked(GtkButton *button, gpointer data);

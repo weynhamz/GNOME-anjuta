@@ -189,8 +189,8 @@ create_find_in_files_gui (FindInFiles *sf)
   gtk_signal_connect (GTK_OBJECT (clist1), "select_row",
                       GTK_SIGNAL_FUNC (on_search_in_files_clist_select_row),
                       sf);
-  gtk_signal_connect (GTK_OBJECT (dialog3), "delete_event",
-                      GTK_SIGNAL_FUNC (on_search_in_files_delete_event),
+  gtk_signal_connect (GTK_OBJECT (dialog3), "close",
+                      GTK_SIGNAL_FUNC (on_search_in_files_close),
                       sf);
   gtk_signal_connect (GTK_OBJECT (button10), "clicked",
                       GTK_SIGNAL_FUNC (on_search_in_files_add_clicked),

@@ -190,8 +190,8 @@ create_compiler_options_gui (CompilerOptions * co)
 	
 	compiler_options_connect_signals(co);
 	
-	gtk_signal_connect (GTK_OBJECT (dialog1), "delete_event",
-			    GTK_SIGNAL_FUNC (on_comopt_delete_event), co);
+	gtk_signal_connect (GTK_OBJECT (dialog1), "close",
+			    GTK_SIGNAL_FUNC (on_comopt_close), co);
 	gtk_signal_connect (GTK_OBJECT (comopt_ok), "clicked",
 			    GTK_SIGNAL_FUNC (on_comopt_ok_clicked), co);
 	gtk_signal_connect (GTK_OBJECT (comopt_help), "clicked",
@@ -204,7 +204,6 @@ create_compiler_options_gui (CompilerOptions * co)
 	co->widgets.window = window1;
 	gtk_widget_ref (window1);
 }
-
 
 static GtkWidget *
 create_compiler_options_page0 (CompilerOptions * co)

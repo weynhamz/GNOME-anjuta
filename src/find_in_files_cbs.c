@@ -28,13 +28,12 @@
 #include "resources.h"
 
 gboolean
-on_search_in_files_delete_event        (GtkWidget       *widget,
-                                        GdkEvent        *event,
-                                        gpointer         user_data)
+on_search_in_files_close			  (GtkWidget		*widget,
+									   gpointer			user_data)
 {
-  FindInFiles*  ff = user_data;
+  FindInFiles * ff = user_data;
   find_in_files_hide(ff);
-  return TRUE;
+  return FALSE;
 }
 
 void
@@ -95,7 +94,8 @@ on_search_in_files_ok_clicked          (GtkButton       *button,
        g_free(temp2);
        return;
    }
-  find_in_files_hide(ff);
+  if (NULL != ff)
+	gnome_dialog_close(GNOME_DIALOG(ff->widgets.window));
   find_in_files_process(ff);
 }
 
@@ -104,7 +104,8 @@ on_search_in_files_cancel_clicked      (GtkButton       *button,
                                         gpointer         user_data)
 {
   FindInFiles* ff = user_data;
-  find_in_files_hide(ff);
+  if (NULL != ff)
+	gnome_dialog_close(GNOME_DIALOG(ff->widgets.window));
 }
 
 void

@@ -24,12 +24,12 @@
 #include "attach_process_cbs.h"
 #include "debugger.h"
 
-gint
-on_attach_process_delete_event(GtkWidget* win, GdkEvent *event,  gpointer data)
+gboolean
+on_attach_process_close(GtkWidget* win, gpointer data)
 {
 	AttachProcess* ap = data;
 	attach_process_hide(ap);
-	return TRUE;
+	return FALSE;
 }
 
 void
@@ -65,5 +65,6 @@ void
 on_attach_process_cancel_clicked(GtkWidget* button, gpointer data)
 {
 	AttachProcess* ap = data;
-	attach_process_hide(ap);
+	if (NULL != ap)
+		gnome_dialog_close(GNOME_DIALOG(ap->widgets.window));
 }

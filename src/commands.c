@@ -234,7 +234,6 @@ command_editor_hide (CommandEditor *ce)
 
 	gdk_window_get_root_origin (ce->widgets.window->window, &ce->win_pos_x,
 			      &ce->win_pos_y);
-	gtk_widget_hide (ce->widgets.window);
 	ce->is_showing = FALSE;
 }
 
@@ -520,7 +519,9 @@ static void
 on_cancel_clicked       (GtkButton       *button,
                                         gpointer         user_data)
 {
-	command_editor_hide ( (CommandEditor*)user_data);
+	CommandEditor *ce = user_data;
+	if (NULL != ce)
+		gnome_dialog_close(GNOME_DIALOG(ce->widgets.window));
 }
 
 static void
@@ -532,13 +533,11 @@ on_ok_clicked           (GtkButton       *button,
 }
 
 static gboolean
-on_delete_event (GtkWidget      *w, GdkEvent *event,
-		gpointer         user_data)
-{
-	CommandEditor *ce = user_data;
-	g_return_val_if_fail ((ce != NULL), TRUE);
+on_close (GtkWidget *w, gpointer *user_data) {
+	CommandEditor *ce = (CommandEditor *)user_data;
+	g_return_val_if_fail ((ce != NULL), FALSE);
 	command_editor_hide(ce);
-	return TRUE;
+	return FALSE;
 }
 
 static void
@@ -788,8 +787,8 @@ create_command_editor_gui (CommandEditor *ce)
 	gtk_widget_show (button3);
 	GTK_WIDGET_SET_FLAGS (button3, GTK_CAN_DEFAULT);
 
-	gtk_signal_connect (GTK_OBJECT (dialog1), "delete_event",
-		      GTK_SIGNAL_FUNC (on_delete_event),
+	gtk_signal_connect (GTK_OBJECT (dialog1), "close",
+		      GTK_SIGNAL_FUNC (on_close),
 		      ce);
 	gtk_signal_connect (GTK_OBJECT (combo_entry1), "changed",
 		      GTK_SIGNAL_FUNC (on_language_entry_changed),

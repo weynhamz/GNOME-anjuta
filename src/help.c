@@ -71,7 +71,6 @@ void anjuta_help_show(AnjutaHelp* help)
 void anjuta_help_hide(AnjutaHelp* help)
 {
 	g_return_if_fail (help != NULL);
-	gtk_widget_hide(help->widgets.window);
 	help->is_showing = FALSE;
 }
 
@@ -97,7 +96,8 @@ on_ok_clicked                          (GtkButton       *button,
 {
 	gchar* word = gtk_entry_get_text (GTK_ENTRY(help->widgets.entry));
 	if(strlen(word)==0) return;
-	anjuta_help_hide(help);
+	if (NULL != help)
+		gnome_dialog_close(GNOME_DIALOG(help->widgets.window));
 	anjuta_help_search(help, word);
 }
 
@@ -105,7 +105,16 @@ static void
 on_cancel_clicked                      (GtkButton       *button,
                                         AnjutaHelp*   help)
 {
+	if (NULL != help)
+		gnome_dialog_close(GNOME_DIALOG(help->widgets.window));
+}
+
+static gboolean
+on_close							   (GtkWidget *w,
+										AnjutaHelp*  help)
+{
 	anjuta_help_hide(help);
+	return FALSE;
 }
 
 static void
@@ -183,6 +192,9 @@ create_anjuta_help_gui (AnjutaHelp* help)
   gtk_signal_connect (GTK_OBJECT (combo_entry1), "activate",
                       GTK_SIGNAL_FUNC (on_ok_clicked),
                       help);
+  gtk_signal_connect (GTK_OBJECT (dialog1), "close",
+				  	  GTK_SIGNAL_FUNC (on_close),
+					  help);
 
   help->widgets.window = dialog1;
   help->widgets.entry = combo_entry1;

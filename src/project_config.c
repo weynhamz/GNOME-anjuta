@@ -25,6 +25,7 @@
 #include "utilities.h"
 
 static void create_project_config_gui (ProjectConfig * pc);
+static gboolean on_close(GtkWidget *w, gpointer user_data);
 
 ProjectConfig *
 project_config_new (void)
@@ -152,7 +153,6 @@ project_config_hide (ProjectConfig * pc)
 				    &pc->win_pos_x, &pc->win_pos_y);
 	gdk_window_get_size (pc->widgets.window->window, &pc->win_width,
 			     &pc->win_height);
-	gtk_widget_hide (pc->widgets.window);
 	pc->is_showing = FALSE;
 }
 
@@ -677,9 +677,10 @@ on_ok_clicked                          (GtkButton       *button,
                                         gpointer         user_data)
 {
 	ProjectConfig* pc;
-	pc = user_data;
+	pc = (ProjectConfig *)user_data;
 	on_apply_clicked (button, pc);
-	project_config_hide (pc);
+	if (NULL != pc)
+		gnome_dialog_close(GNOME_DIALOG(pc->widgets.window));
 }
 
 static void
@@ -687,8 +688,17 @@ on_cancel_clicked                      (GtkButton       *button,
                                         gpointer         user_data)
 {
 	ProjectConfig* pc;
-	pc = user_data;
-	project_config_hide (pc);
+	pc = (ProjectConfig *)user_data;
+	if (NULL != pc)
+		gnome_dialog_close(GNOME_DIALOG(pc->widgets.window));
+}
+
+static gboolean
+on_close(GtkWidget *w, gpointer user_data)
+{
+	ProjectConfig *pc = (ProjectConfig *)user_data;
+	project_config_hide(pc);
+	return FALSE;
 }
 
 static void
@@ -761,6 +771,7 @@ create_project_config_gui (ProjectConfig * pc)
 	dialog1 = gnome_dialog_new (_("Project configuration"), NULL);
 	gtk_window_set_policy (GTK_WINDOW (dialog1), FALSE, TRUE, FALSE);
 	gtk_window_set_wmclass (GTK_WINDOW (dialog1), "proj_conf", "Anjuta");
+	gnome_dialog_close_hides(GNOME_DIALOG(dialog1), TRUE);
 
 	dialog_vbox1 = GNOME_DIALOG (dialog1)->vbox;
 	gtk_widget_show (dialog_vbox1);
@@ -1169,6 +1180,8 @@ create_project_config_gui (ProjectConfig * pc)
 			    GTK_SIGNAL_FUNC (on_apply_clicked), pc);
 	gtk_signal_connect (GTK_OBJECT (button3), "clicked",
 			    GTK_SIGNAL_FUNC (on_cancel_clicked), pc);
+	gtk_signal_connect (GTK_OBJECT (dialog1), "close",
+				GTK_SIGNAL_FUNC (on_close), pc);
 
 	pc->widgets.window = dialog1;
 	for(i=0; i< BUILD_FILE_END_MARK; i++)
@@ -1200,3 +1213,5 @@ create_project_config_gui (ProjectConfig * pc)
 	gtk_widget_ref (pc->widgets.extra_modules_after_entry);
 	gtk_widget_ref (pc->widgets.makefile_am_text);
 }
+
+

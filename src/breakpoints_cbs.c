@@ -30,12 +30,12 @@
 
 #include "breakpoints_cbs.h"
 
-gint
-on_breakpoints_delete_event (GtkWidget * w, GdkEvent * event, gpointer data)
+gboolean
+on_breakpoints_close (GtkWidget * w, gpointer data)
 {
 	BreakpointsDBase *bd = data;
 	breakpoints_dbase_hide (bd);
-	return TRUE;
+	return FALSE;
 }
 
 void
@@ -48,7 +48,10 @@ on_bk_view_clicked (GtkButton * button, gpointer user_data)
 	if (bd->breakpoints == NULL)
 		return;
 	bi = g_list_nth_data (bd->breakpoints, bd->current_index);
-	breakpoints_dbase_hide (bd);
+	if (FALSE == bd->is_docked)
+		gnome_dialog_close(GNOME_DIALOG(bd->widgets.window));
+	else
+		breakpoints_dbase_hide (bd);
 	anjuta_goto_file_line (bi->file, bi->line);
 }
 
@@ -176,7 +179,11 @@ on_bk_help_clicked (GtkButton * button, gpointer user_data)
 void
 on_bk_close_clicked (GtkButton * button, gpointer user_data)
 {
-	breakpoints_dbase_hide ((BreakpointsDBase *) user_data);
+	BreakpointsDBase *db = user_data;
+	if (NULL != db && FALSE == db->is_docked)
+		gnome_dialog_close(GNOME_DIALOG(db->widgets.window));
+	else
+		breakpoints_dbase_hide (db);
 }
 
 void

@@ -655,7 +655,6 @@ preferences_hide (Preferences * pr)
 		return;
 	gdk_window_get_root_origin (pr->widgets.window->window,
 				    &pr->win_pos_x, &pr->win_pos_y);
-	gtk_widget_hide (pr->widgets.window);
 	pr->is_showing = FALSE;
 }
 

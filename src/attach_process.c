@@ -195,7 +195,6 @@ attach_process_hide (AttachProcess * ap)
 					    &ap->win_pos_x, &ap->win_pos_y);
 		gdk_window_get_size (ap->widgets.window->window,
 				     &ap->win_width, &ap->win_height);
-		gtk_widget_hide (ap->widgets.window);
 		ap->is_showing = FALSE;
 	}
 }

@@ -86,9 +86,8 @@ create_src_paths_gui (SrcPaths* co)
 
   gtk_accel_group_attach( app->accel_group, GTK_OBJECT(window1));
 
-
-  gtk_signal_connect (GTK_OBJECT (dialog1), "delete_event",
-                      GTK_SIGNAL_FUNC (on_src_paths_delete_event),
+  gtk_signal_connect (GTK_OBJECT (dialog1), "close",
+                      GTK_SIGNAL_FUNC (on_src_paths_close),
                       co);
   gtk_signal_connect (GTK_OBJECT (button_ok), "clicked",
                       GTK_SIGNAL_FUNC (on_src_paths_ok_clicked),

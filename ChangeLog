@@ -1,3 +1,44 @@
+Naba Kumar <kh_naba@users.sourceforge.net>
+
+	* src/attach_process.c
+	src/attach_process_cbs.c
+	src/attach_process_cbs.h
+	src/attach_process_gui.c
+	src/breakpoints.c
+	src/breakpoints_cbs.c
+	src/breakpoints_cbs.h
+	src/breakpoints_gui.c
+	src/commands.c
+	src/compiler_options.c
+	src/compiler_options_cbs.c
+	src/compiler_options_cbs.h
+	src/compiler_options_gui.c
+	src/find_in_files.c
+	src/find_in_files_cbs.c
+	src/find_in_files_cbs.h
+	src/find_in_files_gui.c
+	src/find_replace.c
+	src/find_text.c
+	src/help.c
+	src/preferences.c
+	src/preferences_gui.c
+	src/project_config.c
+	src/src_paths.c
+	src/src_paths_cbs.c
+	src/src_paths_cbs.h
+	src/src_paths_gui.c:
+	
+	Bugs #521629 and #522427 fixed. The problem was, that the
+	escape-key was not catched and the dialog was hidden, but
+	the flag was not set correctly.
+
+	Changed the callbacks for delete_event to close, using gnome_dialog_close(),
+	using the gnome_dialog_close_hides()-setting present in most dialogs.
+	Instead of _hide() in the button-callbacks, calling gnome_dialog_close(), which
+	emits "close" and set the flag in the close-callback.
+
+	Patch from: Jens Georg <mail@jensgeorg.de>
+
 2002-05-06  Stephane Demurget  <demurgets@free.fr>
 
 	* src/*.{c,cpp}: s/string_free/g_free/

@@ -23,9 +23,8 @@
 #include "find_in_files.h"
 
 gboolean
-on_configure_delete_event              (GtkWidget       *widget,
-                                        GdkEvent        *event,
-                                        gpointer         user_data);
+on_search_in_files_close			  (GtkWidget		*widget,
+									   gpointer			user_data);
 
 void
 on_configure_ok_clicked                (GtkButton       *button,

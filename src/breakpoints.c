@@ -406,7 +406,6 @@ breakpoints_dbase_hide (BreakpointsDBase * bd)
 					    &bd->win_pos_y);
 		gdk_window_get_size (bd->widgets.window->window,
 				     &bd->win_width, &bd->win_height);
-		gtk_widget_hide (bd->widgets.window);
 	}
 	bd->is_showing = FALSE;
 }

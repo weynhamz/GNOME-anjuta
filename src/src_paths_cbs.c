@@ -32,13 +32,13 @@ static void
 on_clear_clist_confirm_yes_clicked (GtkButton * button, gpointer data);
 
 gboolean
-on_src_paths_delete_event (GtkWidget * w, GdkEvent * event,
-			   gpointer user_data)
+on_src_paths_close (GtkWidget * w, gpointer user_data)
 {
 	SrcPaths *co = user_data;
 	src_paths_hide (co);
-	return TRUE;
+	return FALSE;
 }
+
 
 
 void
@@ -51,7 +51,8 @@ on_src_paths_ok_clicked (GtkButton * button, gpointer user_data)
 {
 	SrcPaths *co = user_data;
 	on_src_paths_apply_clicked (NULL, co);
-	src_paths_hide (co);
+	if (NULL != co)
+		gnome_dialog_close(GNOME_DIALOG(co->widgets.window));
 }
 
 void
@@ -67,7 +68,8 @@ void
 on_src_paths_cancel_clicked (GtkButton * button, gpointer user_data)
 {
 	SrcPaths *co = user_data;
-	src_paths_hide (co);
+	if (NULL != co)
+		gnome_dialog_close(GNOME_DIALOG(co->widgets.window));
 }
 
 void

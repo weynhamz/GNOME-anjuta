@@ -21,8 +21,8 @@
 #define _ATTACH_PROCESS_CBS_H_
 #include <gnome.h>
 
-gint
-on_attach_process_delete_event(GtkWidget* win, GdkEvent *event,  gpointer data);
+gboolean
+on_attach_process_close(GtkWidget* w, gpointer data);
 
 void
 on_attach_process_clist_select_row(GtkCList        *clist,

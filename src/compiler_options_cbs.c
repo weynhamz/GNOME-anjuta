@@ -36,13 +36,12 @@ static void
 on_clear_clist_confirm_yes_clicked (GtkButton * button, gpointer data);
 
 gboolean
-on_comopt_delete_event (GtkWidget * w, GdkEvent * event, gpointer user_data)
+on_comopt_close (GtkWidget * w, gpointer user_data)
 {
 	CompilerOptions *co = user_data;
-	compiler_options_hide (co);
-	return TRUE;
+	compiler_options_hide(co);
+	return FALSE;
 }
-
 
 void
 on_comopt_help_clicked (GtkButton * button, gpointer user_data)
@@ -54,7 +53,8 @@ on_comopt_ok_clicked (GtkButton * button, gpointer user_data)
 {
 	CompilerOptions *co = user_data;
 	on_comopt_apply_clicked (NULL, co);
-	compiler_options_hide (co);
+	if (NULL != co)
+		gnome_dialog_close(GNOME_DIALOG(co->widgets.window));
 }
 
 void
@@ -117,7 +117,8 @@ void
 on_comopt_cancel_clicked (GtkButton * button, gpointer user_data)
 {
 	CompilerOptions *co = user_data;
-	compiler_options_hide (co);
+	if (NULL != co)
+		gnome_dialog_close(GNOME_DIALOG(co->widgets.window));
 }
 
 void

@@ -111,7 +111,6 @@ find_in_files_hide (FindInFiles * ff)
 		return;
 	gdk_window_get_root_origin (ff->widgets.window->window,
 				    &ff->win_pos_x, &ff->win_pos_y);
-	gtk_widget_hide (ff->widgets.window);
 	ff->is_showing = FALSE;
 }
 

@@ -75,8 +75,7 @@ static void on_preferences_apply_clicked (GtkButton * button,
 static void on_preferences_cancel_clicked (GtkButton * button,
 					   gpointer user_data);
 
-static gboolean on_preferences_delete_event (GtkWidget * w,
-					     GdkEvent * event,
+static gboolean on_preferences_close (GtkWidget * w,
 					     gpointer user_data);
 
 static void
@@ -281,8 +280,8 @@ create_preferences_gui (Preferences * pr)
 
 	gtk_accel_group_attach (app->accel_group, GTK_OBJECT (dialog1));
 
-	gtk_signal_connect (GTK_OBJECT (dialog1), "delete_event",
-			    GTK_SIGNAL_FUNC (on_preferences_delete_event),
+	gtk_signal_connect (GTK_OBJECT (dialog1), "close",
+			    GTK_SIGNAL_FUNC (on_preferences_close),
 			    pr);
 	gtk_signal_connect (GTK_OBJECT (preferences_ok), "clicked",
 			    GTK_SIGNAL_FUNC (on_preferences_ok_clicked), pr);
@@ -1752,20 +1751,19 @@ on_preferences_ok_clicked (GtkButton * button, gpointer user_data)
 	if (pr)
 	{
 		on_preferences_apply_clicked (NULL, user_data);
-		preferences_hide (pr);
+		gnome_dialog_close(GNOME_DIALOG(pr->widgets.window));
 	}
 }
 
 static gboolean
-on_preferences_delete_event (GtkWidget * w, GdkEvent * event,
-			     gpointer user_data)
+on_preferences_close (GtkWidget * w, gpointer user_data)
 {
 	Preferences *pr = (Preferences *) user_data;
 	if (pr)
 	{
 		preferences_hide (pr);
 	}
-	return TRUE;
+	return FALSE;
 }
 
 static void
@@ -2112,8 +2110,8 @@ static void
 on_preferences_cancel_clicked (GtkButton * button, gpointer user_data)
 {
 	Preferences *pr = (Preferences *) user_data;
-	if (pr)
-		preferences_hide (pr);
+	if (NULL != pr)
+		gnome_dialog_close(GNOME_DIALOG(pr->widgets.window));
 }
 
 static void

@@ -22,9 +22,8 @@
 
 #include <gnome.h>
 
-gint
-on_breakpoints_delete_event       (GtkWidget* w,
-                                   GdkEvent* event, gpointer data);
+gboolean
+on_breakpoints_close (GtkWidget * w, gpointer data);
 
 void
 on_bk_view_clicked                     (GtkButton       *button,

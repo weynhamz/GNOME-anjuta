@@ -231,9 +231,10 @@ create_breakpoints_dbase_gui (BreakpointsDBase *bd)
   gtk_signal_connect (GTK_OBJECT (button2), "clicked",
                       GTK_SIGNAL_FUNC (on_bk_close_clicked),
                       bd);
-  gtk_signal_connect (GTK_OBJECT (dialog1), "delete_event",
-                      GTK_SIGNAL_FUNC (on_breakpoints_delete_event),
+  gtk_signal_connect (GTK_OBJECT (dialog1), "close",
+                      GTK_SIGNAL_FUNC (on_breakpoints_close),
                       bd);
+
 
 
   bd->widgets.window = dialog1; gtk_widget_ref(dialog1);

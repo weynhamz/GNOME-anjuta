@@ -47,8 +47,8 @@ static void
 on_replace_text_help_clicked (GtkButton * button, gpointer user_data);
 
 static gboolean
-on_replace_text_delete_event (GtkWidget * widget,
-			      GdkEvent * event, gpointer user_data);
+on_replace_text_close (GtkWidget * widget,
+				  gpointer user_data);
 
 FindAndReplace *
 find_replace_new ()
@@ -231,7 +231,6 @@ find_replace_hide (FindAndReplace * fr)
 		return;
 	gdk_window_get_root_origin (fr->r_gui.GUI->window, &fr->pos_x,
 				    &fr->pos_y);
-	gtk_widget_hide (fr->r_gui.GUI);
 	fr->is_showing = FALSE;
 
 	fr->find_text->ignore_case =
@@ -505,9 +504,8 @@ create_find_replace_gui (FindAndReplace * fr)
 
 	gtk_accel_group_attach (app->accel_group, GTK_OBJECT (dialog2));
 
-
 	gtk_signal_connect (GTK_OBJECT (dialog2), "delete_event",
-			    GTK_SIGNAL_FUNC (on_replace_text_delete_event),
+			    GTK_SIGNAL_FUNC (on_replace_text_close),
 			    fr);
 	gtk_signal_connect (GTK_OBJECT (combo_entry2), "activate",
 			    GTK_SIGNAL_FUNC (on_replace_text_ok_clicked), fr);
@@ -610,7 +608,8 @@ on_replace_text_ok_clicked (GtkButton * button, gpointer user_data)
 	FindAndReplace *fr = user_data;
 	gint ret, count;
 
-	find_replace_hide (fr);
+	if (NULL != fr)
+		gnome_dialog_close(GNOME_DIALOG(fr->r_gui.GUI));
 /*	update_gtk ();*/
 	te = anjuta_get_current_text_editor ();
 	if (!te)
@@ -632,7 +631,6 @@ on_replace_text_ok_clicked (GtkButton * button, gpointer user_data)
 		sprintf (buff, _("The string \"%s\" was not found from the current location"), f_string);
 		break;
 	}
-	gtk_widget_hide (fr->r_gui.GUI);
 	count = 0;
 	while (1)
 	{
@@ -684,7 +682,9 @@ on_replace_text_ok_clicked (GtkButton * button, gpointer user_data)
 static void
 on_replace_text_cancel_clicked (GtkButton * button, gpointer user_data)
 {
-	find_replace_hide ((FindAndReplace *) user_data);
+	FindAndReplace *fr = (FindAndReplace *)user_data;
+	if (NULL != fr)
+		gnome_dialog_close(GNOME_DIALOG(fr->r_gui.GUI));
 }
 
 static void
@@ -694,10 +694,11 @@ on_replace_text_help_clicked (GtkButton * button, gpointer user_data)
 }
 
 static gboolean
-on_replace_text_delete_event (GtkWidget * widget,
-			      GdkEvent * event, gpointer user_data)
+on_replace_text_close (GtkWidget * widget,
+			      gpointer user_data)
 {
 	FindAndReplace *fr = (FindAndReplace *) user_data;
 	find_replace_hide (fr);
-	return TRUE;
+	return FALSE;
 }
+

@@ -21,9 +21,7 @@
 
 #include <gnome.h>
 
-gboolean
-on_comopt_delete_event (GtkWidget *w, GdkEvent *event,
-                                        gpointer         user_data);
+gboolean on_comopt_close(GtkWidget *w, gpointer data);
 
 void on_comopt_ok_clicked(GtkButton *button, gpointer data);
 void on_comopt_help_clicked(GtkButton *button, gpointer data);

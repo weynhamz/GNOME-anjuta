@@ -29,6 +29,9 @@
 static const gchar SecFT [] = {"FindText"};
 /*static const gchar SECTION_SEARCH [] =  {"search_text"};*/
 
+gboolean
+on_find_text_close (GtkWidget * widget,
+			   gpointer user_data);
 FindText *
 find_text_new ()
 {
@@ -177,7 +180,6 @@ find_text_hide (FindText * ft)
 		return;
 	gdk_window_get_root_origin (ft->f_gui.GUI->window, &ft->pos_x,
 				    &ft->pos_y);
-	gtk_widget_hide (ft->f_gui.GUI);
 	ft->is_showing = FALSE;
 
 
@@ -395,8 +397,8 @@ create_find_text_gui (FindText * ft)
 
 	gtk_accel_group_attach (app->accel_group, GTK_OBJECT (dialog1));
 
-	gtk_signal_connect (GTK_OBJECT (dialog1), "delete_event",
-			    GTK_SIGNAL_FUNC (on_find_text_delete_event), ft);
+	gtk_signal_connect (GTK_OBJECT (dialog1), "close",
+			    GTK_SIGNAL_FUNC (on_find_text_close), ft);
 	gtk_signal_connect (GTK_OBJECT (combo_entry1), "activate",
 			    GTK_SIGNAL_FUNC (on_find_text_ok_clicked), ft);
 	gtk_signal_connect (GTK_OBJECT (button1), "clicked",
@@ -537,7 +539,8 @@ void
 on_find_text_cancel_clicked (GtkButton * button, gpointer user_data)
 {
 	FindText *ft = user_data;
-	find_text_hide (ft);
+	if (NULL != ft)
+		gnome_dialog_close(GNOME_DIALOG(ft->f_gui.GUI));
 }
 
 void
@@ -546,14 +549,13 @@ on_find_text_help_clicked (GtkButton * button, gpointer user_data)
 }
 
 gboolean
-on_find_text_delete_event (GtkWidget * widget,
-			   GdkEvent * event, gpointer user_data)
+on_find_text_close (GtkWidget * widget,
+			   gpointer user_data)
 {
 	FindText *ft = (FindText *) user_data;
 	find_text_hide (ft);
-	return TRUE;
+	return FALSE;
 }
-
 
 void
 on_find_text_start_over (GtkButton * button, gpointer user_data)

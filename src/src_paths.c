@@ -165,7 +165,6 @@ src_paths_hide (SrcPaths * co)
 		return;
 	gdk_window_get_root_origin (co->widgets.window->window,
 				    &co->win_pos_x, &co->win_pos_y);
-	gtk_widget_hide (co->widgets.window);
 	co->is_showing = FALSE;
 }
 
