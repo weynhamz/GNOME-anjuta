@@ -1,3 +1,8 @@
+2004-01-27  Johannes Schmid <jhs@cvs.gnome.org>
+	
+	Patch from Massimo Corà <maxcvs@email.it>:
+	* scintilla/LexCPP.cxx: Support "///" comments
+
 2004-01-18  Jean-Noel Guiheneuf <jnoel@lotuscompounds.com>
 	* src/Makefile.am, src/anjuta.c, src/search-replace.c,
 	src/search_replace.h, src/search-replace_backend.h
