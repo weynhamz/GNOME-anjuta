@@ -8,8 +8,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
-"POT-Creation-Date: 2002-01-09 03:23+0100\n"
-"PO-Revision-Date: 2002-01-09 03:23+0100\n"
+"POT-Creation-Date: 2002-01-11 18:24+0100\n"
+"PO-Revision-Date: 2002-01-11 18:24+0100\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -96,7 +96,7 @@ msgstr "Detta är en exempelinsticksmodul"
 msgid "CORBA Module not Initialized"
 msgstr "CORBA-modulen är inte initierad"
 
-#: src/CORBA-Server.c:448 src/project_dbase_gui.c:1224
+#: src/CORBA-Server.c:448 src/project_dbase_gui.c:1225
 msgid "Error while copying the file inside the module."
 msgstr "Fel vid kopiering av filen inuti modulen."
 
@@ -127,7 +127,7 @@ msgstr "Spara fil som"
 msgid "Cannot create application... exiting\n"
 msgstr "Kan inte skapa program...avslutar\n"
 
-#: src/anjuta.c:275 src/anjuta.c:279 src/anjuta.c:1001 src/anjuta.c:1017
+#: src/anjuta.c:275 src/anjuta.c:279 src/anjuta.c:1002 src/anjuta.c:1018
 #, c-format
 msgid "Anjuta: %s"
 msgstr "Anjuta: %s"
@@ -146,25 +146,25 @@ msgstr ""
 "# * REDIGERA INTE ELLER BYT INTE NAMN PÅ DENNA FIL ** Genererad av Anjuta "
 "**\n"
 
-#: src/anjuta.c:994
+#: src/anjuta.c:995
 #, c-format
 msgid "Anjuta: %s (Saved)"
 msgstr "Anjuta: %s (Sparad)"
 
-#: src/anjuta.c:1009
+#: src/anjuta.c:1010
 #, c-format
 msgid "Anjuta: %s (Unsaved)"
 msgstr "Anjuta: %s (Osparad)"
 
-#: src/anjuta.c:1036
+#: src/anjuta.c:1037
 msgid "Anjuta: No file"
 msgstr "Anjuta: Ingen fil"
 
-#: src/anjuta.c:1294
+#: src/anjuta.c:1295
 msgid "ERROR: "
 msgstr "FEL: "
 
-#: src/anjuta.c:1311
+#: src/anjuta.c:1312
 msgid ""
 "\n"
 "System: "
@@ -172,7 +172,7 @@ msgstr ""
 "\n"
 "System: "
 
-#: src/anjuta.c:1545
+#: src/anjuta.c:1546
 #, c-format
 msgid ""
 "Not yet implemented.\n"
@@ -181,11 +181,11 @@ msgstr ""
 "Inte implementerad än.\n"
 "Infoga kod vid \"%s:%u\""
 
-#: src/anjuta.c:1761
+#: src/anjuta.c:1762
 msgid "Activate this to select this window"
 msgstr "Aktivera detta för att välja detta fönster"
 
-#: src/anjuta.c:1808
+#: src/anjuta.c:1809
 #, c-format
 msgid ""
 "The \"%s\" utility is not installed.\n"
@@ -194,19 +194,19 @@ msgstr ""
 "Verktyget \"%s\" är inte installerat.\n"
 "Installera det och starta sedan om Anjuta."
 
-#: src/anjuta.c:1834 src/anjuta.c:1869
+#: src/anjuta.c:1835 src/anjuta.c:1870
 msgid "None"
 msgstr "Ingen"
 
-#: src/anjuta.c:1851
+#: src/anjuta.c:1852
 msgid "OVR"
 msgstr "OVR"
 
-#: src/anjuta.c:1855 src/anjuta.c:1861
+#: src/anjuta.c:1856 src/anjuta.c:1862
 msgid "INS"
 msgstr "INS"
 
-#: src/anjuta.c:1872
+#: src/anjuta.c:1873
 #, c-format
 msgid ""
 "  Project: %s       Zoom: %d       Line: %04d       Col: %03d       %s       "
@@ -215,27 +215,27 @@ msgstr ""
 "  Projekt: %s       Zoom: %d       Rad: %04d       Kolumn: %03d      %s      "
 "Jobb: %s"
 
-#: src/anjuta.c:2084 src/anjuta.c:2087
+#: src/anjuta.c:2085 src/anjuta.c:2088
 #, c-format
 msgid "Unable to Load Plug in Module %s. Err: %s"
 msgstr "Kan inte läsa in insticksmodulen %s. Fel: %s"
 
-#: src/anjuta.c:2090
+#: src/anjuta.c:2091
 #, c-format
 msgid "Plug in Module protocol unknown %s Err:%s"
 msgstr "Protokoll för insticksmodul okänt %s Fel:%s"
 
-#: src/anjuta.c:2093
+#: src/anjuta.c:2094
 #, c-format
 msgid "Unable to Start Plug in Module %s"
 msgstr "Kan inte starta insticksmodulen %s"
 
-#: src/anjuta.c:2096
+#: src/anjuta.c:2097
 #, c-format
 msgid "Bad Parameters to Plug in %s. Err: %s"
 msgstr "Felaktiga parametrar till insticksmodulen %s. Fel: %s"
 
-#: src/anjuta.c:2104
+#: src/anjuta.c:2105
 #, c-format
 msgid ""
 "Unable to load plugin %s.\n"
@@ -244,7 +244,7 @@ msgstr ""
 "Kan inte läsa in insticksmodulen %s.\n"
 "Fel %s"
 
-#: src/anjuta.c:2175
+#: src/anjuta.c:2176
 msgid "Out of Memory scanning for plugins."
 msgstr "Slut på minne vid genomsökning efter insticksmoduler"
 
@@ -256,7 +256,7 @@ msgstr ""
 "En del filer (eller projektet) är inte sparat.\n"
 "Vill du fortfarande avsluta?"
 
-#: src/anjuta_cbs.c:197 src/project_dbase_gui.c:1272
+#: src/anjuta_cbs.c:197 src/project_dbase_gui.c:1273
 #, c-format
 msgid "Not a regular file: %s."
 msgstr "Inte en vanlig fil: %s."
@@ -323,7 +323,7 @@ msgstr "Bonobo-komponent"
 msgid "Enter the basic Project information"
 msgstr "Ange den grundläggande projektinformationen"
 
-#: src/appwiz_page2.c:170 src/project_dbase_gui.c:647
+#: src/appwiz_page2.c:170 src/project_dbase_gui.c:648
 msgid "Project Name:"
 msgstr "Projektnamn:"
 
@@ -359,7 +359,7 @@ msgstr "Både C och C++"
 msgid "Enter a short description of the Project"
 msgstr "Ange en kort beskrivning av projektet"
 
-#: src/appwiz_page3.c:149 src/project_dbase_gui.c:1122 src/support.c:100
+#: src/appwiz_page3.c:149 src/project_dbase_gui.c:1123 src/support.c:100
 #: src/support.c:138
 #, c-format
 msgid "Couldn't find pixmap file: %s"
@@ -435,13 +435,13 @@ msgstr ""
 "Du måste ange ett giltigt %s-fält för att kunna fortsätta."
 
 #. For the time being
-#: src/appwizard_cbs.c:251 src/project_dbase.c:1424 src/project_dbase.c:1429
-#: src/project_dbase.c:1432 src/signals_cbs.c:140 src/signals_cbs.c:153
+#: src/appwizard_cbs.c:251 src/project_dbase.c:1444 src/project_dbase.c:1449
+#: src/project_dbase.c:1452 src/signals_cbs.c:140 src/signals_cbs.c:153
 #: src/signals_cbs.c:166
 msgid "Yes"
 msgstr "Ja"
 
-#: src/appwizard_cbs.c:253 src/project_dbase.c:1426 src/project_dbase.c:1434
+#: src/appwizard_cbs.c:253 src/project_dbase.c:1446 src/project_dbase.c:1454
 #: src/signals_cbs.c:142 src/signals_cbs.c:155 src/signals_cbs.c:168
 msgid "No"
 msgstr "Nej"
@@ -698,7 +698,7 @@ msgstr "Den körbara filen är aktuell. Ombyggnad behövs inte."
 msgid "I do not really know how to build this file."
 msgstr "Jag vet egentligen inte hur denna fil ska byggas."
 
-#: src/build_file.c:107 src/message-manager.cc:43 src/preferences_gui.c:176
+#: src/build_file.c:107 src/message-manager.cc:43 src/preferences_gui.c:180
 #: src/text_editor_gui.c:246 src/toolbar.c:474
 msgid "Build"
 msgstr "Bygge"
@@ -1874,7 +1874,7 @@ msgstr "Visa inte startbilden"
 msgid "Recent Files    "
 msgstr "Senaste filer   "
 
-#: src/main_menubar.c:533 src/project_dbase.c:1897
+#: src/main_menubar.c:533 src/project_dbase.c:1917
 msgid "Recent Projects "
 msgstr "Senaste projekt "
 
@@ -3616,10 +3616,6 @@ msgstr ""
 msgid "Cannot launch gnome-help-browser"
 msgstr "Kan inte starta gnome-help-browser"
 
-#: src/message-manager-dock.c:34 src/toolbar.c:294
-msgid "Messages"
-msgstr "Meddelanden"
-
 #. 13
 #: src/message-manager.cc:43 src/text_editor_menu.c:314 src/toolbar.c:511
 msgid "Debug"
@@ -3637,9 +3633,13 @@ msgstr "Lokala variabler"
 msgid "Terminal"
 msgstr "Terminal"
 
-#: src/message-manager.cc:166
+#: src/message-manager.cc:144
 msgid "/Dock | Undock"
 msgstr "/Docka | Koppla loss"
+
+#: src/message-manager.cc:469 src/preferences_gui.c:230 src/toolbar.c:294
+msgid "Messages"
+msgstr "Meddelanden"
 
 #: src/preferences.c:101
 #, c-format
@@ -3654,7 +3654,7 @@ msgstr ""
 "Detta kan orsaka felaktigt beteende eller instabiliteter.\n"
 "Anjuta kommer att återgå till inbyggda (begränsade) inställningar"
 
-#: src/preferences.c:543
+#: src/preferences.c:619
 msgid ""
 "Are you sure you want to reset the preferences to\n"
 "their default settings?"
@@ -3662,236 +3662,236 @@ msgstr ""
 "Är du säker på att du vill återställa inställningarna\n"
 "till deras standardalternativ?"
 
-#: src/preferences_gui.c:147
+#: src/preferences_gui.c:151
 msgid "Preferences"
 msgstr "Inställningar"
 
-#: src/preferences_gui.c:166 src/project_config.c:769
+#: src/preferences_gui.c:170 src/project_config.c:769
 msgid "General"
 msgstr "Allmänt"
 
-#: src/preferences_gui.c:186
+#: src/preferences_gui.c:190
 msgid "Styles"
 msgstr "Stilar"
 
-#: src/preferences_gui.c:196
+#: src/preferences_gui.c:200
 msgid "Editor"
 msgstr "Redigerare"
 
-#: src/preferences_gui.c:206
+#: src/preferences_gui.c:210
 msgid "Print Setup"
 msgstr "Skrivarinställningar"
 
-#: src/preferences_gui.c:216
+#: src/preferences_gui.c:220
 msgid "Auto Format"
 msgstr "Autoformatera"
 
-#: src/preferences_gui.c:226
+#: src/preferences_gui.c:240
 msgid "misc"
 msgstr "div"
 
-#: src/preferences_gui.c:235
+#: src/preferences_gui.c:249
 msgid "Components"
 msgstr "Komponenter"
 
-#: src/preferences_gui.c:320
+#: src/preferences_gui.c:334
 msgid " Directories "
 msgstr " Kataloger "
 
-#: src/preferences_gui.c:356
+#: src/preferences_gui.c:370
 msgid "Projects:"
 msgstr "Projekt:"
 
-#: src/preferences_gui.c:363
+#: src/preferences_gui.c:377
 msgid "Tarballs:"
 msgstr "Tarbollar:"
 
-#: src/preferences_gui.c:370
+#: src/preferences_gui.c:384
 msgid "Rpms:"
 msgstr "Rpm:er:"
 
-#: src/preferences_gui.c:377
+#: src/preferences_gui.c:391
 msgid "Srpms:"
 msgstr "Srpm:er:"
 
-#: src/preferences_gui.c:384
+#: src/preferences_gui.c:398
 msgid " History size "
 msgstr " Historikstorlek "
 
-#: src/preferences_gui.c:393
+#: src/preferences_gui.c:407
 msgid "Recent Projects:"
 msgstr "Senaste projekt:"
 
-#: src/preferences_gui.c:400
+#: src/preferences_gui.c:414
 msgid "Recent Files:"
 msgstr "Senaste filer:"
 
-#: src/preferences_gui.c:407
+#: src/preferences_gui.c:421
 msgid "Combo Popdown:"
 msgstr "Kombinationsmeny:"
 
-#: src/preferences_gui.c:465
+#: src/preferences_gui.c:479
 msgid " Job Options "
 msgstr " Jobbalternativ "
 
-#: src/preferences_gui.c:475
+#: src/preferences_gui.c:489
 msgid "Beep on job complete"
 msgstr "Pip när jobbet är klart"
 
-#: src/preferences_gui.c:484
+#: src/preferences_gui.c:498
 msgid "Dialog on job complete"
 msgstr "Dialogfönster då jobbet är klart"
 
-#: src/preferences_gui.c:539
+#: src/preferences_gui.c:553
 msgid "Keep going when some targets cannot be made"
 msgstr "Fortsätt då en del mål inte kan skapas"
 
-#: src/preferences_gui.c:546
+#: src/preferences_gui.c:560
 msgid "Silent: Don't echo commands"
 msgstr "Tyst: Eka inte kommandon"
 
-#: src/preferences_gui.c:553
+#: src/preferences_gui.c:567
 msgid "Produce debugging outputs"
 msgstr "Skapa felsökningsutdata"
 
-#: src/preferences_gui.c:560
+#: src/preferences_gui.c:574
 msgid "Warn when an undefined variable is referenced"
 msgstr "Varna då odefinierad variabel refereras"
 
-#: src/preferences_gui.c:574
+#: src/preferences_gui.c:588
 msgid "Max no of jobs:"
 msgstr "Största antal jobb:"
 
-#: src/preferences_gui.c:655
+#: src/preferences_gui.c:669
 msgid "Select Highlight item to edit:"
 msgstr "Välj färgningsobjekt att redigera:"
 
-#: src/preferences_gui.c:679
+#: src/preferences_gui.c:693
 msgid " Highlight Style "
 msgstr " Färgningsstil "
 
-#: src/preferences_gui.c:710 src/preferences_gui.c:735
-#: src/preferences_gui.c:782 src/preferences_gui.c:789
+#: src/preferences_gui.c:724 src/preferences_gui.c:749
+#: src/preferences_gui.c:796 src/preferences_gui.c:803
 msgid "Use default"
 msgstr "Använd standardvärde"
 
-#: src/preferences_gui.c:723
+#: src/preferences_gui.c:737
 msgid "Bold"
 msgstr "Fet"
 
-#: src/preferences_gui.c:727
+#: src/preferences_gui.c:741
 msgid "Italic"
 msgstr "Kursiv"
 
-#: src/preferences_gui.c:731
+#: src/preferences_gui.c:745
 msgid "Underlined"
 msgstr "Understruken"
 
-#: src/preferences_gui.c:742
+#: src/preferences_gui.c:756
 msgid "Font:"
 msgstr "Typsnitt:"
 
-#: src/preferences_gui.c:749
+#: src/preferences_gui.c:763
 msgid "Attribute:"
 msgstr "Attribut:"
 
-#: src/preferences_gui.c:756
+#: src/preferences_gui.c:770
 msgid "Fore color:"
 msgstr "Förgrundsfärg:"
 
-#: src/preferences_gui.c:763
+#: src/preferences_gui.c:777
 msgid "Back color:"
 msgstr "Bakgrundsfärg:"
 
-#: src/preferences_gui.c:803
+#: src/preferences_gui.c:817
 msgid "Caret color:"
 msgstr "Caret-färg:"
 
-#: src/preferences_gui.c:816
+#: src/preferences_gui.c:830
 msgid "Calltip color:"
 msgstr "Färg på anropstips:"
 
-#: src/preferences_gui.c:829
+#: src/preferences_gui.c:843
 msgid "Selection Foreground:"
 msgstr "Markeringsförgrund:"
 
-#: src/preferences_gui.c:842
+#: src/preferences_gui.c:856
 msgid "Selection Background:"
 msgstr "Markeringsbakgrund:"
 
-#: src/preferences_gui.c:951
+#: src/preferences_gui.c:965
 msgid "Disable syntax highlighting"
 msgstr "Deaktivera syntaxfärgning"
 
-#: src/preferences_gui.c:958
+#: src/preferences_gui.c:972
 msgid "Enable Auto save"
 msgstr "Aktivera automatiskt sparande"
 
-#: src/preferences_gui.c:965
+#: src/preferences_gui.c:979
 msgid "Enable Auto indent"
 msgstr "Aktivera autoindentering"
 
-#: src/preferences_gui.c:973
+#: src/preferences_gui.c:987
 msgid "Use tabs for indentation"
 msgstr "Använd tabulatorer för indentering"
 
-#: src/preferences_gui.c:980
+#: src/preferences_gui.c:994
 msgid "Enable braces check"
 msgstr "Aktivera klammerkontroll"
 
-#: src/preferences_gui.c:987
+#: src/preferences_gui.c:1001
 msgid "Save in DOS format"
 msgstr "Spara i DOS-format"
 
-#: src/preferences_gui.c:1039
+#: src/preferences_gui.c:1053
 msgid "Tab size in spaces"
 msgstr "Tabulatorstorlek i blanksteg"
 
-#: src/preferences_gui.c:1046
+#: src/preferences_gui.c:1060
 msgid "Auto save timer interval in minutes"
 msgstr "Tidintervall i minuter för automatiskt sparande"
 
-#: src/preferences_gui.c:1053
+#: src/preferences_gui.c:1067
 msgid "Auto indent size in spaces"
 msgstr "Automatisk indenteringsstorlek i blanksteg"
 
-#: src/preferences_gui.c:1060
+#: src/preferences_gui.c:1074
 msgid "Line number margin width in pixels"
 msgstr "Bredd på radnummermarginal i bildpunkter"
 
-#: src/preferences_gui.c:1067
+#: src/preferences_gui.c:1081
 msgid "Save session time interval"
 msgstr "Tidsintervall för sparandesession"
 
-#: src/preferences_gui.c:1076
+#: src/preferences_gui.c:1090
 msgid "Strip trailing spaces on file save"
 msgstr "Ta bort eftersläpande blanksteg vid filsparande"
 
-#: src/preferences_gui.c:1084
+#: src/preferences_gui.c:1098
 msgid "Collapse all folds on file open"
 msgstr "Fäll ihop alla inhägnader vid filöppning"
 
-#: src/preferences_gui.c:1139
+#: src/preferences_gui.c:1153
 msgid " Paper Size"
 msgstr " Pappersstorlek"
 
-#: src/preferences_gui.c:1149
+#: src/preferences_gui.c:1163
 msgid " Print Command "
 msgstr " Utskriftskommando "
 
-#: src/preferences_gui.c:1211
+#: src/preferences_gui.c:1225
 msgid "Disable Auto format"
 msgstr "Deaktivera automatisk formatering"
 
-#: src/preferences_gui.c:1215
+#: src/preferences_gui.c:1229
 msgid " Format Style "
 msgstr " Formateringsstil "
 
-#: src/preferences_gui.c:1238
+#: src/preferences_gui.c:1252
 msgid " Custom Style "
 msgstr " Anpassad stil "
 
-#: src/preferences_gui.c:1249
+#: src/preferences_gui.c:1263
 msgid ""
 "Enter the command line arguments for the 'indent' program.\n"
 "Read the info page for 'indent' for more details."
@@ -3899,59 +3899,79 @@ msgstr ""
 "Ange kommandoradsargumenten för \"indent\"-programmet.\n"
 "Läs infosidan för \"indent\" för mer information."
 
-#: src/preferences_gui.c:1318
+#: src/preferences_gui.c:1337
 msgid " Messages"
 msgstr " Meddelanden"
 
-#: src/preferences_gui.c:1330
+#: src/preferences_gui.c:1349
 msgid "Truncate long messages"
 msgstr "Kapa långa meddelanden"
 
-#: src/preferences_gui.c:1357
+#: src/preferences_gui.c:1376
 msgid "Number of first characters to show"
 msgstr "Antal första tecken att visa"
 
-#: src/preferences_gui.c:1364
+#: src/preferences_gui.c:1383
 msgid "Number of last characters to show"
 msgstr "Antal sista tecken att visa"
 
-#: src/preferences_gui.c:1371
+#: src/preferences_gui.c:1391 src/preferences_gui.c:1540
 msgid " Notebook tags position "
 msgstr " Position för flikhäftestaggar "
 
-#: src/preferences_gui.c:1382
-msgid "Do not show notebook title tags"
-msgstr "Visa inte fikhäftestiteltaggar"
-
-#: src/preferences_gui.c:1396
+#: src/preferences_gui.c:1400 src/preferences_gui.c:1581
 msgid "Top"
 msgstr "Överst"
 
-#: src/preferences_gui.c:1405
+#: src/preferences_gui.c:1409 src/preferences_gui.c:1590
 msgid "Bottom"
 msgstr "Nederst"
 
-#: src/preferences_gui.c:1414
+#: src/preferences_gui.c:1418 src/preferences_gui.c:1599
 msgid "Left"
 msgstr "Vänster"
 
-#: src/preferences_gui.c:1423
+#: src/preferences_gui.c:1427 src/preferences_gui.c:1608
 msgid "Right"
 msgstr "Höger"
 
-#: src/preferences_gui.c:1431
+#: src/preferences_gui.c:1455
+msgid "Colors"
+msgstr "Färger"
+
+#: src/preferences_gui.c:1463
+msgid "Errors:"
+msgstr "Fel:"
+
+#: src/preferences_gui.c:1464
+msgid "Warnings:"
+msgstr "Varningar:"
+
+#: src/preferences_gui.c:1465
+msgid "Program messages:"
+msgstr "Programmeddelanden:"
+
+#: src/preferences_gui.c:1466
+msgid "Other messages:"
+msgstr "Övriga meddelanden:"
+
+#: src/preferences_gui.c:1551
+msgid "Do not show notebook title tags"
+msgstr "Visa inte fikhäftestiteltaggar"
+
+#: src/preferences_gui.c:1564
 msgid " Tags Browser "
 msgstr " Taggbläddrare"
 
-#: src/preferences_gui.c:1438
+#: src/preferences_gui.c:1571
 msgid "Update tags image automatically"
 msgstr "Uppdatera automatiskt taggbilder"
 
-#: src/preferences_gui.c:1507
+#: src/preferences_gui.c:1665
 msgid " Components"
 msgstr " Komponenter"
 
-#: src/preferences_gui.c:1519
+#: src/preferences_gui.c:1677
 msgid "Use Glade Components (experimental)"
 msgstr "Använd Glade-komponenter (experimentellt)"
 
@@ -4097,12 +4117,12 @@ msgstr "Lägg till i projekt"
 msgid "Project: None"
 msgstr "Projekt: Inget"
 
-#: src/project_dbase.c:614 src/project_dbase.c:633
+#: src/project_dbase.c:615 src/project_dbase.c:634
 #, c-format
 msgid "Unable to load project: %s"
 msgstr "Kan inte läsa in projekt: %s"
 
-#: src/project_dbase.c:625
+#: src/project_dbase.c:626
 #, c-format
 msgid ""
 "Error: You need Anjuta version %s or later to open this project.\n"
@@ -4113,7 +4133,7 @@ msgstr ""
 "Uppgradera Anjuta till den senaste versionen (Hjälp för mer information).\n"
 "För tillfället är jag för gammal för att läsa in det."
 
-#: src/project_dbase.c:780
+#: src/project_dbase.c:781
 #, c-format
 msgid ""
 "You need Anjuta version %s or later to open this project.\n"
@@ -4124,24 +4144,24 @@ msgstr ""
 "Uppgradera Anjuta till den senaste versionen (Hjälp för mer information).\n"
 "För tillfället är jag för gammal för att läsa in det."
 
-#: src/project_dbase.c:838
+#: src/project_dbase.c:843
 msgid "Project loaded successfully."
 msgstr "Projektet lästes in utan problem."
 
-#: src/project_dbase.c:853 src/project_dbase.c:857
+#: src/project_dbase.c:858 src/project_dbase.c:862
 #, c-format
 msgid "Error in loading Project: %s"
 msgstr "Fel vid inläsning av projekt: %s"
 
-#: src/project_dbase.c:1088
+#: src/project_dbase.c:1093
 msgid "Project Saved Successfully"
 msgstr "Projektet sparades utan problem"
 
-#: src/project_dbase.c:1094 src/project_dbase.c:1096
+#: src/project_dbase.c:1099 src/project_dbase.c:1101
 msgid "Unable to save the project."
 msgstr "Kan inte komma åt projektet."
 
-#: src/project_dbase.c:1488 src/project_dbase.c:1521
+#: src/project_dbase.c:1508 src/project_dbase.c:1541
 msgid ""
 "The Project glade file does not\n"
 "exist in the top level project directory."
@@ -4150,7 +4170,7 @@ msgstr ""
 "projektets översta katalog."
 
 #. Set project title
-#: src/project_dbase.c:1936
+#: src/project_dbase.c:1956
 msgid "Project: "
 msgstr "Projekt: "
 
@@ -4198,75 +4218,75 @@ msgstr "Hjälp"
 msgid "Files"
 msgstr "Filer"
 
-#: src/project_dbase_gui.c:490
+#: src/project_dbase_gui.c:491
 msgid "Symbols"
 msgstr "Symboler"
 
-#: src/project_dbase_gui.c:497 src/toolbar.c:283
+#: src/project_dbase_gui.c:498 src/toolbar.c:283
 msgid "Project"
 msgstr "Projekt"
 
-#: src/project_dbase_gui.c:596
+#: src/project_dbase_gui.c:597
 msgid "Project Information"
 msgstr "Projektinformation"
 
-#: src/project_dbase_gui.c:603
+#: src/project_dbase_gui.c:604
 msgid " Project Information "
 msgstr " Projektinformation "
 
-#: src/project_dbase_gui.c:639
+#: src/project_dbase_gui.c:640
 msgid "Author:"
 msgstr "Författare:"
 
-#: src/project_dbase_gui.c:726
+#: src/project_dbase_gui.c:727
 msgid "Program Name:"
 msgstr "Programnamn:"
 
-#: src/project_dbase_gui.c:733
+#: src/project_dbase_gui.c:734
 msgid "No of src files:"
 msgstr "Antal källkodsfiler:"
 
-#: src/project_dbase_gui.c:740
+#: src/project_dbase_gui.c:741
 msgid "No of help files:"
 msgstr "Antal hjälpfiler:"
 
-#: src/project_dbase_gui.c:747
+#: src/project_dbase_gui.c:748
 msgid "No of data files:"
 msgstr "Antal datafiler:"
 
-#: src/project_dbase_gui.c:754
+#: src/project_dbase_gui.c:755
 msgid "No of pix files:"
 msgstr "Antal bildfiler:"
 
-#: src/project_dbase_gui.c:761
+#: src/project_dbase_gui.c:762
 msgid "No of doc files:"
 msgstr "Antal dokumentationsfiler:"
 
-#: src/project_dbase_gui.c:782
+#: src/project_dbase_gui.c:783
 msgid "No of po files:"
 msgstr "Antal po-filer:"
 
-#: src/project_dbase_gui.c:789
+#: src/project_dbase_gui.c:790
 msgid "Version:"
 msgstr "Version:"
 
-#: src/project_dbase_gui.c:812
+#: src/project_dbase_gui.c:813
 msgid "GUI editable by Glade:"
 msgstr "Grafiskt användargränssnitt redigerbart av Glade:"
 
-#: src/project_dbase_gui.c:834
+#: src/project_dbase_gui.c:835
 msgid "Makefiles managed:"
 msgstr "Makefiler hanterade:"
 
-#: src/project_dbase_gui.c:876
+#: src/project_dbase_gui.c:877
 msgid "Gettext support:"
 msgstr "Gettext-stöd:"
 
-#: src/project_dbase_gui.c:934
+#: src/project_dbase_gui.c:935
 msgid "Project Type:"
 msgstr "Projekttyp:"
 
-#: src/project_dbase_gui.c:977
+#: src/project_dbase_gui.c:978
 msgid ""
 "Project is not saved.\n"
 "Do you want to save it before closing?"
@@ -4274,131 +4294,131 @@ msgstr ""
 "Projektet är inte sparat.\n"
 "Vill du spara det innan du stänger?"
 
-#: src/project_dbase_gui.c:994 src/project_dbase_gui.c:1114
+#: src/project_dbase_gui.c:995 src/project_dbase_gui.c:1115
 msgid "Breton"
 msgstr "Bretonska"
 
-#: src/project_dbase_gui.c:995
+#: src/project_dbase_gui.c:996
 msgid "Catalan"
 msgstr "Katalanska"
 
-#: src/project_dbase_gui.c:996
+#: src/project_dbase_gui.c:997
 msgid "Czech"
 msgstr "Tjeckiska"
 
-#: src/project_dbase_gui.c:997
+#: src/project_dbase_gui.c:998
 msgid "Danish"
 msgstr "Danska"
 
-#: src/project_dbase_gui.c:998
+#: src/project_dbase_gui.c:999
 msgid "German"
 msgstr "Tyska"
 
-#: src/project_dbase_gui.c:999
+#: src/project_dbase_gui.c:1000
 msgid "Greek"
 msgstr "Grekiska"
 
-#: src/project_dbase_gui.c:1000
+#: src/project_dbase_gui.c:1001
 msgid "Esperanto"
 msgstr "Esperanto"
 
-#: src/project_dbase_gui.c:1001
+#: src/project_dbase_gui.c:1002
 msgid "Spanish"
 msgstr "Spanska"
 
-#: src/project_dbase_gui.c:1002
+#: src/project_dbase_gui.c:1003
 msgid "Finnish"
 msgstr "Finska"
 
-#: src/project_dbase_gui.c:1003
+#: src/project_dbase_gui.c:1004
 msgid "French"
 msgstr "Franska"
 
-#: src/project_dbase_gui.c:1004
+#: src/project_dbase_gui.c:1005
 msgid "Herbrew"
 msgstr "Hebreiska"
 
-#: src/project_dbase_gui.c:1005 src/project_dbase_gui.c:1009
+#: src/project_dbase_gui.c:1006 src/project_dbase_gui.c:1010
 msgid "Croatian"
 msgstr "Kroatiska"
 
-#: src/project_dbase_gui.c:1006
+#: src/project_dbase_gui.c:1007
 msgid "Hungarian"
 msgstr "Ungerska"
 
-#: src/project_dbase_gui.c:1007
+#: src/project_dbase_gui.c:1008
 msgid "Islandic"
 msgstr "Isländska"
 
-#: src/project_dbase_gui.c:1008
+#: src/project_dbase_gui.c:1009
 msgid "Italian"
 msgstr "Italienska"
 
-#: src/project_dbase_gui.c:1010
+#: src/project_dbase_gui.c:1011
 msgid "Korean"
 msgstr "Koreanska"
 
-#: src/project_dbase_gui.c:1011
+#: src/project_dbase_gui.c:1012
 msgid "Macedonian"
 msgstr "Makedonska"
 
-#: src/project_dbase_gui.c:1012
+#: src/project_dbase_gui.c:1013
 msgid "Dutch"
 msgstr "Holländska"
 
-#: src/project_dbase_gui.c:1013
+#: src/project_dbase_gui.c:1014
 msgid "Norwegian"
 msgstr "Norska"
 
-#: src/project_dbase_gui.c:1014
+#: src/project_dbase_gui.c:1015
 msgid "Polish"
 msgstr "Polska"
 
-#: src/project_dbase_gui.c:1015
+#: src/project_dbase_gui.c:1016
 msgid "Portuguese"
 msgstr "Portugisiska"
 
-#: src/project_dbase_gui.c:1016
+#: src/project_dbase_gui.c:1017
 msgid "Romanian"
 msgstr "Rumänska"
 
-#: src/project_dbase_gui.c:1017
+#: src/project_dbase_gui.c:1018
 msgid "Russian"
 msgstr "Ryska"
 
-#: src/project_dbase_gui.c:1018
+#: src/project_dbase_gui.c:1019
 msgid "Slovak"
 msgstr "Slovakiska"
 
-#: src/project_dbase_gui.c:1019
+#: src/project_dbase_gui.c:1020
 msgid "Turkish"
 msgstr "Turkiska"
 
-#: src/project_dbase_gui.c:1020
+#: src/project_dbase_gui.c:1021
 msgid "Simplified Chinese"
 msgstr "Förenklad kinesiska"
 
-#: src/project_dbase_gui.c:1021
+#: src/project_dbase_gui.c:1022
 msgid "Chinese"
 msgstr "Kinesiska"
 
-#: src/project_dbase_gui.c:1022
+#: src/project_dbase_gui.c:1023
 msgid "Estonian"
 msgstr "Estländska"
 
-#: src/project_dbase_gui.c:1066
+#: src/project_dbase_gui.c:1067
 msgid "Select regional language"
 msgstr "Välj regionalspråk"
 
-#: src/project_dbase_gui.c:1082
+#: src/project_dbase_gui.c:1083
 msgid "Select Regional Language:"
 msgstr "Välj regionalspråk:"
 
-#: src/project_dbase_gui.c:1194
+#: src/project_dbase_gui.c:1195
 msgid "This file has already been added to the project."
 msgstr "Denna fil har redan lagts till i projektet."
 
-#: src/project_dbase_gui.c:1280
+#: src/project_dbase_gui.c:1281
 #, c-format
 msgid ""
 "\"%s\"\n"
@@ -4617,16 +4637,16 @@ msgstr ""
 "Kan inte grena för att köra ctags, jag vet inte varför!!\n"
 "I %s:%d"
 
-#: src/tags_manager.c:762
+#: src/tags_manager.c:771
 msgid "Synchronizing and updating Tags Image ... hold on"
 msgstr "Synkroniserar och uppdaterar taggbild... vänta"
 
-#: src/tags_manager.c:791
+#: src/tags_manager.c:805
 msgid "Updating Tags image completed"
 msgstr "Uppdatering av taggbild färdig"
 
-#: src/tags_manager.c:822
-msgid "Syncdronization of Tags image failed"
+#: src/tags_manager.c:843
+msgid "Synchronization of Tags image failed"
 msgstr "Synkronisering av taggbild misslyckades"
 
 #: src/text_editor.c:781
@@ -5339,9 +5359,6 @@ msgstr "Lägg till i bevakare"
 
 #~ msgid "Build messages"
 #~ msgstr "Byggmeddelanden"
-
-#~ msgid "Debug messages"
-#~ msgstr "Felsökningsmeddelanden"
 
 #~ msgid "Find messages"
 #~ msgstr "Sökmeddelanden"
