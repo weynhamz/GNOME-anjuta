@@ -1,4 +1,8 @@
 2002-05-03  Andy Piper <andy.piper@freeuk.com>
+	
+	* src/mainmenu_callbacks.c: fixed title of new About box
+
+2002-05-03  Andy Piper <andy.piper@freeuk.com>
 
 	* src/pixmaps.h: added macros for OpenGL and SDL project icons
 

@@ -2093,7 +2093,7 @@ on_about1_activate (GtkMenuItem * menuitem, gpointer user_data)
         gtk_signal_connect (GTK_OBJECT (about_box_window), "delete_event",
                             GTK_SIGNAL_FUNC (about_box_event_callback), &about_box_window);
 
-        gtk_window_set_title (GTK_WINDOW (about_box_window), _("About Ximian Evolution"));
+        gtk_window_set_title (GTK_WINDOW (about_box_window), _("About Anjuta"));
         gtk_container_add (GTK_CONTAINER (about_box_window), about_box);
         gtk_widget_show (about_box_window);
 }
