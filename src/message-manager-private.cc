@@ -26,6 +26,11 @@
 #include "debug_tree.h"
 #include "watch.h"
 
+extern "C"
+{
+#include "anjuta.h"
+};
+
 /* Some desktop/gnome-terminal gconf keys. */
 #define GCONF_MONOSPACE_FONT      "/desktop/gnome/interface/monospace_font_name"
 #define GCONF_DEFAULT_PROFILE     "/apps/gnome-terminal/global/default_profile"

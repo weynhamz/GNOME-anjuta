@@ -45,6 +45,7 @@
 #include "tm_tagmanager.h"
 #include "file_history.h"
 #include "launcher.h"
+#include "session.h"
 
 #define g_strdup_printfs2(_FORMAT_, _STR_) \
 	{ \
@@ -375,7 +376,5 @@ gboolean anjuta_set_editor_properties(void);
 #define ANJUTA_BROWSER_TOOLBAR             "browser.toolbar"
 
 #define ANJUTA_LAST_OPEN_PROJECT "anjuta.last.open.project"
-
-#include "session.h" /* WTF is this??? */
 
 #endif

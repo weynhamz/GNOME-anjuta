@@ -1,3 +1,21 @@
+2004-03-26  Naba Kumar  <naba@gnome.org>
+
+	* anjuta.h, src/message-manager-private.[h,cc]: Fixed
+	compile error and bug #905738 with terminal.
+
+	* src/search_incremental.c, src/register.c, src/sharedlib.c,
+	src/search-replace.[h,c], src/search_incremental.[h,c],
+	src/search_preferences.h, src/utilities.c, src/anjuta.c,
+	src/text_editor.[c,h]: Fixed compiler warnings.
+	
+	* src/search-replace.c: Fixed a memory corruption (possible
+	fix for bug #921893, but not yet confirmed).
+	
+	* src/launcher.c, src/glade-iface.c, src/project_dbase.c,
+	src/executer.c, src/utilities.c, src/utilities.h, src/text_editor.c,
+	src/anjuta-tools.c, src/message-manager-private.[h,cc]: Fixed a bug where
+	SIGCHLD was overwritten by gnome_execute_shell() - bug #905738.
+
 2004-03-25  Naba Kumar  <naba@gnome.org>
 
 	* src/attach_process.c, anjuta.glade, anjuta_dialogs_strings: Fixed a
