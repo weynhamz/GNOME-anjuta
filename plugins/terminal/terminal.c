@@ -423,9 +423,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	terminal_create (term_plugin);
 	
 	/* Create the terminal preferences page */
-	gxml = glade_xml_new (PACKAGE_DATA_DIR"/glade/anjuta.glade",
-						  "preferences_dialog_terminal",
-						  NULL);
+	gxml = glade_xml_new (PREFS_GLADE, "preferences_dialog_terminal", NULL);
 	anjuta_preferences_add_page (term_plugin->prefs, gxml,
 								"Terminal", ICON_FILE);
 	term_plugin->pref_profile_combo = glade_xml_get_widget (gxml, "profile_list_combo");
