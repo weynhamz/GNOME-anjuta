@@ -1,6 +1,12 @@
+2002-02-17  Stephane Demurget  <demurgets@free.fr>
+
+	* widgets/gnomefilelist.[ch]: (gnome_filelisttype_addtype_f):
+	  removed the amount arg and replaced with a NULL-ending list.
+	  (gnome_filelisttype_makedefaultlist): use the new prototype.
+
 2002-02-17  Andy Piper <andyp@users.sourceforge.net>
 
-    * src/about.c, THANKS: updated for new contributors
+	* src/about.c, THANKS: updated for new contributors
 	
 	* anjuta.prj: added new files
 	
@@ -19,11 +25,11 @@
 	
 2002-02-17  Johannes Schmid <clubfan@users.sourceforge.net>
 
-    * src/Makefile.am: Cleaned handling of compiler flags by moving them
-      to CFLAGS and CXXFLAGS. Anjuta is now compiled with -g -O2 and many
+	* src/Makefile.am: Cleaned handling of compiler flags by moving them
+	  to CFLAGS and CXXFLAGS. Anjuta is now compiled with -g -O2 and many
 	  warning flags. 
   
-    * configure.in: Changed version to 0.1.10-pre
+	* configure.in: Changed version to 0.1.10-pre
   
 2002-02-17  Stephane Demurget  <demurgets@free.fr>
 

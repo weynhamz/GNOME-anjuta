@@ -358,23 +358,25 @@ gnome_filelisttype_getfiletype(GnomeFileList *file_list, gchar *description)
 
 
 GList * 
-gnome_filelisttype_addtype_f(GList *filetypes, gchar *description, gint amount, ...)
+gnome_filelisttype_addtype_f(GList *filetypes, gchar *description, ...)
 {	
-   GList *exts = NULL;
-   gchar *ext;
-   gint i=0;
-   va_list ap;
+	GList *exts = NULL;
+	va_list ap;
 
-   va_start (ap, amount);
+	va_start (ap, description);
 
-   while ((ext = g_strdup (va_arg (ap, gchar *))) && i < amount) {
-	    i++;
-	    exts = g_list_append(exts, ext);
-   }
+	while (1) {
+		gchar *ext = va_arg (ap, gchar *);
 
-   va_end(ap);
+		if (!ext)
+			break;
 
-   return gnome_filelisttype_addtype(filetypes, description, exts);
+		exts = g_list_append (exts, g_strdup (ext));
+	}
+
+	va_end (ap);
+
+	return gnome_filelisttype_addtype (filetypes, description, exts);
 }
 
 
@@ -409,19 +411,20 @@ gnome_filelisttype_makedefaultlist(GList *filetypes)
 	GList *ftypes=filetypes;
 
 	ftypes = gnome_filelisttype_addtype(ftypes, _("All files"), NULL);
-	/* ftypes = gnome_filelisttype_addtype_f(ftypes, _("Anjuta project files"), 1, "prj"); */
-	ftypes = gnome_filelisttype_addtype_f(ftypes, _("C/C++ source files"), 9, ".c", ".cc", ".cxx", ".cpp", ".c++", ".cs", ".hpp", ".h", ".hh");
-	ftypes = gnome_filelisttype_addtype_f(ftypes, _("Java files"), 2, ".java", ".js");   
-	ftypes = gnome_filelisttype_addtype_f(ftypes, _("Pascal files"), 1, ".pas");
-	ftypes = gnome_filelisttype_addtype_f(ftypes, _("Perl files"), 1, ".pl");   
-	ftypes = gnome_filelisttype_addtype_f(ftypes, _("Python files"), 1, ".py");
-	ftypes = gnome_filelisttype_addtype_f(ftypes, _("Hyper Text Markup files"), 3, ".htm", ".html", ".css", ".htm");
-	ftypes = gnome_filelisttype_addtype_f(ftypes, _("Shell Script files"), 1, ".sh");
-	ftypes = gnome_filelisttype_addtype_f(ftypes, _("Config files"), 1, ".conf");
-	ftypes = gnome_filelisttype_addtype_f(ftypes, _("Visual Basic files"), 2, ".vb", ".vbs");
-	ftypes = gnome_filelisttype_addtype_f(ftypes, _("Properties files"), 1, ".properties");
-	ftypes = gnome_filelisttype_addtype_f(ftypes, _(".mak files"), 1, ".mak");
-	ftypes = gnome_filelisttype_addtype_f(ftypes, _(".lua files"), 1, ".lua");
+
+	ftypes = gnome_filelisttype_addtype_f(ftypes, _("C/C++ source files"), ".c", ".cc", ".cxx", ".cpp", ".c++", ".cs", ".hpp", ".h", ".hh", NULL);
+	ftypes = gnome_filelisttype_addtype_f(ftypes, _("Java files"), ".java", ".js", NULL);   
+	ftypes = gnome_filelisttype_addtype_f(ftypes, _("Pascal files"), ".pas", NULL);
+	ftypes = gnome_filelisttype_addtype_f(ftypes, _("Perl files"), ".pl", NULL);
+	ftypes = gnome_filelisttype_addtype_f(ftypes, _("Python files"), ".py", NULL);
+	ftypes = gnome_filelisttype_addtype_f(ftypes, _("Hyper Text Markup files"), ".htm", ".html", ".css", NULL);
+	ftypes = gnome_filelisttype_addtype_f(ftypes, _("Shell Script files"), ".sh", NULL);
+	ftypes = gnome_filelisttype_addtype_f(ftypes, _("Config files"), ".conf", NULL);
+	ftypes = gnome_filelisttype_addtype_f(ftypes, _("Visual Basic files"), ".vb", ".vbs", NULL);
+	ftypes = gnome_filelisttype_addtype_f(ftypes, _("Properties files"), ".properties", NULL);
+	ftypes = gnome_filelisttype_addtype_f(ftypes, _(".mak files"), ".mak", NULL);
+	ftypes = gnome_filelisttype_addtype_f(ftypes, _(".lua files"), ".lua", NULL);
+	ftypes = gnome_filelisttype_addtype_f(ftypes, _("Diff files"), "diff", ".cvsdiff", ".patch", NULL);
 
 	return ftypes;
 }
