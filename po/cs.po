@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-08-08 11:08+0200\n"
-"PO-Revision-Date: 2003-08-08 20:33+0200\n"
+"POT-Creation-Date: 2003-08-29 19:17+0200\n"
+"PO-Revision-Date: 2003-08-30 14:22+0200\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -2495,7 +2495,7 @@ msgstr "Nástroj s názvem '%s' již existuje!"
 msgid "Unable to build user interface for tool help"
 msgstr "Nemohu sestavit uživatelské rozhraní pro nápovědu nástrojů"
 
-#: src/anjuta-tools.c:1781 src/debug_tree.c:1458 src/debug_tree.c:1478
+#: src/anjuta-tools.c:1781 src/debug_tree.c:1454 src/debug_tree.c:1474
 #: src/watch_gui.c:127
 msgid "Variable"
 msgstr "Proměnná"
@@ -2504,7 +2504,7 @@ msgstr "Proměnná"
 msgid "Meaning"
 msgstr "Význam"
 
-#: src/anjuta-tools.c:1793 src/debug_tree.c:1458 src/debug_tree.c:1487
+#: src/anjuta-tools.c:1793 src/debug_tree.c:1454 src/debug_tree.c:1483
 #: src/watch_gui.c:136
 msgid "Value"
 msgstr "Hodnota"
@@ -2652,7 +2652,7 @@ msgstr ""
 "Soubor '%s' již existuje.\n"
 "Chcete jej nahradit tím, který ukládáte?"
 
-#: src/anjuta_cbs.c:511 src/anjuta_cbs.c:575 src/find_replace.c:342
+#: src/anjuta_cbs.c:511 src/anjuta_cbs.c:575 src/find_replace.c:343
 msgid "_Replace"
 msgstr "_Nahradit"
 
@@ -2664,10 +2664,10 @@ msgstr "Nemohu otevřít soubor pro zápis"
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
-"Do you want to overwrite it?."
+"Do you want to replace it with the one you are saving?."
 msgstr ""
 "Soubor '%s' již existuje.\n"
-"Chcete jej přepsat?."
+"Chcete jej nahradit tím, který ukládáte?"
 
 #: src/anjuta_dirs.c:51
 msgid "Unable to create settings directory.\n"
@@ -2824,7 +2824,7 @@ msgstr "Podmínka"
 #. breakpoints_dbase_update,
 #. debugger.breakpoints_dbase);
 #.
-#: src/breakpoints.c:166 src/debugger.c:1793
+#: src/breakpoints.c:166 src/debugger.c:1814
 msgid "All breakpoints enabled:\n"
 msgstr "Všechny breakpointy povoleny:\n"
 
@@ -2833,7 +2833,7 @@ msgstr "Všechny breakpointy povoleny:\n"
 #. breakpoints_dbase_update,
 #. debugger.breakpoints_dbase);
 #.
-#: src/breakpoints.c:184 src/debugger.c:1839
+#: src/breakpoints.c:184 src/debugger.c:1860
 msgid "All breakpoints disabled:\n"
 msgstr "Všechny breakpointy zakázány:\n"
 
@@ -3436,57 +3436,57 @@ msgstr "Nastavení serveru"
 msgid "Import settings"
 msgstr "Nastavení importu"
 
-#: src/debug_tree.c:1498
+#: src/debug_tree.c:1494
 msgid "Default format"
 msgstr "Implicitní formát"
 
-#: src/debug_tree.c:1502
+#: src/debug_tree.c:1498
 msgid "Binary"
 msgstr "Binární"
 
-#: src/debug_tree.c:1505
+#: src/debug_tree.c:1501
 msgid "Octal"
 msgstr "Osmičkový"
 
-#: src/debug_tree.c:1508
+#: src/debug_tree.c:1504
 msgid "Signed decimal"
 msgstr "Desítkový se znaménkem"
 
-#: src/debug_tree.c:1511
+#: src/debug_tree.c:1507
 msgid "Unsigned decimal"
 msgstr "Desítkový bez znaménka"
 
-#: src/debug_tree.c:1514 src/registers_gui.c:111
+#: src/debug_tree.c:1510 src/registers_gui.c:111
 msgid "Hex"
 msgstr "Šestnáctkový"
 
-#: src/debug_tree.c:1517
+#: src/debug_tree.c:1513
 msgid "Char"
 msgstr "Znak"
 
-#: src/debug_tree.c:1522
+#: src/debug_tree.c:1518
 msgid "Inspect memory"
 msgstr "Zkoumat paměť"
 
 #. Must declare static, because it will be used forever
-#: src/debugger.c:84
+#: src/debugger.c:85
 msgid "Load Executable File"
 msgstr "Načíst spustitelný soubor"
 
 #. Must declare static, because it will be used forever
-#: src/debugger.c:90
+#: src/debugger.c:91
 msgid "Load Core File"
 msgstr "Načíst soubor core"
 
-#: src/debugger.c:196 src/debugger.c:645
+#: src/debugger.c:197 src/debugger.c:646
 msgid "Loading Executable: "
 msgstr "Načítám spustitelný soubor: "
 
-#: src/debugger.c:247
+#: src/debugger.c:248
 msgid "Loading Core: "
 msgstr "Načítám core: "
 
-#: src/debugger.c:292 src/debugger.c:320
+#: src/debugger.c:293 src/debugger.c:321
 msgid ""
 "You have a process ATTACHED under the debugger.\n"
 "Please detach it first and then load the executable file."
@@ -3494,7 +3494,7 @@ msgstr ""
 "V debuggeru máte PŘIPOJEN proces.\n"
 "Nejdříve jej prosím odpojte a spustitelný soubor načtěte potom."
 
-#: src/debugger.c:295 src/debugger.c:323
+#: src/debugger.c:296 src/debugger.c:324
 msgid ""
 "You have a process RUNNING under the debugger.\n"
 "Please stop it first and then load the executable file."
@@ -3502,7 +3502,7 @@ msgstr ""
 "V debuggeru máte BĚŽÍCÍ proces.\n"
 "Nejdříve jej prosím zastavte a spustitelný soubor načtěte potom."
 
-#: src/debugger.c:572
+#: src/debugger.c:573
 #, c-format
 msgid ""
 "Unable to find: %s.\n"
@@ -3513,40 +3513,40 @@ msgstr ""
 "Nemohu inicializovat debugger.\n"
 "Přesvědčte se, že Anjuta je správně nainstalovaná."
 
-#: src/debugger.c:641
+#: src/debugger.c:642
 msgid "Debugger"
 msgstr "Debugger"
 
-#: src/debugger.c:643
+#: src/debugger.c:644
 msgid "Getting ready to start debugging session ...\n"
 msgstr "Připravuji se na spuštění ladicího sezení ...\n"
 
-#: src/debugger.c:656
+#: src/debugger.c:657
 msgid "No executable specified\n"
 msgstr "Nezadán spustitelný soubor\n"
 
-#: src/debugger.c:659
+#: src/debugger.c:660
 msgid "Open an executable or attach to a process to start debugging.\n"
 msgstr ""
 "Pro spuštění ladění otevřete spustitelný soubor nebo se připojte k procesu.\n"
 
-#: src/debugger.c:666
+#: src/debugger.c:667
 msgid "There was an error whilst launching the debugger.\n"
 msgstr "Při spuštění debuggeru došlo k chybě.\n"
 
-#: src/debugger.c:669
+#: src/debugger.c:670
 msgid "Make sure 'gdb' is installed on the system.\n"
 msgstr "Přesvědčte se, že v systému je nainstalován 'gdb'.\n"
 
-#: src/debugger.c:808
+#: src/debugger.c:832
 msgid "Error: "
 msgstr "Chyba: "
 
-#: src/debugger.c:829
+#: src/debugger.c:853
 msgid "Debugger is ready.\n"
 msgstr "Debugger je připraven.\n"
 
-#: src/debugger.c:936
+#: src/debugger.c:957
 msgid ""
 "\n"
 "Well, did you find the BUG? Debugging session completed.\n"
@@ -3556,28 +3556,28 @@ msgstr ""
 "No, našli jste tu CHYBU? Ladicí sezení dokončeno.\n"
 "\n"
 
-#: src/debugger.c:1171
+#: src/debugger.c:1192
 msgid "Cannot execute gnome-terminal"
 msgstr "Nemohu spustit gnome-terminal"
 
-#: src/debugger.c:1206
+#: src/debugger.c:1227
 msgid "Cannot start terminal for debugging."
 msgstr "Nemohu spustit terminál pro ladění."
 
-#: src/debugger.c:1270
+#: src/debugger.c:1291
 msgid "Warning: No debug terminal. Redirecting stdio to /dev/null.\n"
 msgstr "Varování: Žádný ladicí terminál. Přesměrovávám stdio do /dev/null.\n"
 
-#: src/debugger.c:1289
+#: src/debugger.c:1310
 msgid "Running program ... \n"
 msgstr "Spouštím program ... \n"
 
-#: src/debugger.c:1419
+#: src/debugger.c:1440
 #, c-format
 msgid "Attaching to process: %d\n"
 msgstr "Připojuji se k procesu: %d\n"
 
-#: src/debugger.c:1449
+#: src/debugger.c:1470
 msgid ""
 "A process is already running.\n"
 "Would you like to terminate it and attach the new process?"
@@ -3585,16 +3585,16 @@ msgstr ""
 "Proces již běží.\n"
 "Chcete jej přerušit a připojit se k novém procesu?"
 
-#: src/debugger.c:1461
+#: src/debugger.c:1482
 msgid "Anjuta is unable to attach to itself."
 msgstr "Anjuta se nemůže připojit sama k sobě."
 
-#: src/debugger.c:1547
+#: src/debugger.c:1568
 #, c-format
 msgid "Detaching the process: %d\n"
 msgstr "Odpojuji proces: %d\n"
 
-#: src/debugger.c:1603
+#: src/debugger.c:1624
 msgid ""
 "Program is ATTACHED.\n"
 "Do you still want to stop Debugger?"
@@ -3602,7 +3602,7 @@ msgstr ""
 "Program je PŘIPOJEN.\n"
 "Chcete přesto zastavit debugger?"
 
-#: src/debugger.c:1606
+#: src/debugger.c:1627
 msgid ""
 "Program is RUNNING.\n"
 "Do you still want to stop Debugger?"
@@ -3615,21 +3615,21 @@ msgstr ""
 #. breakpoints_dbase_update,
 #. debugger.breakpoints_dbase);
 #.
-#: src/debugger.c:1885
+#: src/debugger.c:1906
 msgid "All breakpoints deleted:\n"
 msgstr "Všechny breakpointy odstraněny:\n"
 
-#: src/debugger.c:1918
+#: src/debugger.c:1939
 #, c-format
 msgid "Interrupting the process: %d\n"
 msgstr "Přerušuji proces: %d\n"
 
-#: src/debugger.c:1950
+#: src/debugger.c:1971
 #, c-format
 msgid "Sending signal %s to the process: %d\n"
 msgstr "Posílám procesu signál %s: %d\n"
 
-#: src/debugger.c:1971
+#: src/debugger.c:1992
 msgid "Error whilst signalling the process."
 msgstr "Chyba při posílání signálu procesu."
 
@@ -3695,15 +3695,15 @@ msgid "No search string supplied."
 msgstr "Nezadán hledaný řetězec."
 
 #: src/find_replace.c:337
-msgid "Do you want to replace this?"
-msgstr "Chcete toto nahradit?"
+msgid "Do you want to replace this occurence?"
+msgstr "Chcete nahradit tento výskyt?"
 
-#: src/find_replace.c:398
+#: src/find_replace.c:399
 #, c-format
 msgid "The string \"%s\" was not found in the selected text"
 msgstr "Řetězec \"%s\" nebyl nalezen ve vybraném textu"
 
-#: src/find_replace.c:403
+#: src/find_replace.c:404
 #, c-format
 msgid "The string \"%s\" was not found from the current location"
 msgstr "Řetězec \"%s\" nebyl z aktuálního umístění nalezen"
@@ -6586,7 +6586,7 @@ msgstr "Vyberte jazyk regionu:"
 msgid "Unable to find pixmap file: %s"
 msgstr "Nemohu nalézt soubor pixmapy: %s"
 
-#: src/project_dbase_gui.c:1344
+#: src/project_dbase_gui.c:1342
 #, c-format
 msgid ""
 "\"%s\"\n"
@@ -6597,12 +6597,12 @@ msgstr ""
 "neexistuje.\n"
 "Chcete jej nyní vytvořit?"
 
-#: src/project_dbase_gui.c:1362
+#: src/project_dbase_gui.c:1360
 #, c-format
 msgid "Not a regular file: %s."
 msgstr "Není obyčejný soubor: %s."
 
-#: src/project_dbase_gui.c:1372
+#: src/project_dbase_gui.c:1370
 #, c-format
 msgid ""
 "\"%s\"\n"
