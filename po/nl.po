@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-02-29 02:58+0100\n"
-"PO-Revision-Date: 2004-02-29 12:47+0100\n"
+"POT-Creation-Date: 2004-03-14 02:59+0100\n"
+"PO-Revision-Date: 2004-03-14 15:03+0100\n"
 "Last-Translator: Daniel van Eeden <daniel_e@dds.nl>\n"
 "Language-Team: Dutch <vertaling@nl.linux.org>\n"
 "MIME-Version: 1.0\n"
@@ -2724,24 +2724,11 @@ msgstr ""
 "  Project: %s       Zoom: %d       Regel: %04d     Kolom: %03d       %"
 "s       Job: %s       Modus: %s"
 
-#: src/anjuta.c:2420
-msgid "Find in Files completed...............Unsuccessful\n"
-msgstr "Zoeken in bestanden compleet...........Niet succesvol\n"
-
-#: src/anjuta.c:2427
-msgid "Find in Files completed...............Successful\n"
-msgstr "Zoeken in bestanden compleet...........succesvol\n"
-
-#: src/anjuta.c:2432
-#, c-format
-msgid "Total time taken: %d secs\n"
-msgstr "Totale tijd: %d seconden\n"
-
-#: src/anjuta.c:2454
+#: src/anjuta.c:2408
 msgid "Looking up symbol"
 msgstr "Opzoeken van symbool"
 
-#: src/anjuta.c:2456
+#: src/anjuta.c:2410
 msgid "Finding in Files ....\n"
 msgstr "Zoeken in bestanden ....\n"
 
@@ -6781,40 +6768,41 @@ msgstr "Kon niet vinden applicatie pixmap bestand: %s"
 msgid "Cannot execute Devhelp. Make sure it is installed"
 msgstr "Kan Devhelp niet uitvoeren. Zorg ervoor dat het geinstalleerd is"
 
-#: src/search-replace.c:339
+#: src/search-replace.c:342
 msgid "Replace"
 msgstr "Vervangen"
 
-#: src/search-replace.c:635 src/search-replace.c:1257
-#: src/search-replace.c:1264 src/search-replace.c:1276
-#: src/search-replace.c:1520
+#: src/search-replace.c:684 src/search-replace.c:1306
+#: src/search-replace.c:1313 src/search-replace.c:1325
+#: src/search-replace.c:1611
 msgid "Search"
 msgstr "Zoeken"
 
-#: src/search-replace.c:638 src/search-replace.c:1271
+#: src/search-replace.c:687 src/search-replace.c:1320
 msgid "Replace All"
 msgstr "Alles vervangen"
 
-#: src/search-replace.c:674
+#: src/search-replace.c:723
 #, c-format
 msgid "The match \"%s\" was not found. Wrap search around the document?"
-msgstr "De tekst \"%s\" is niet gevonden. Zoeken vanaf het begin van het document?"
+msgstr ""
+"De tekst \"%s\" is niet gevonden. Zoeken vanaf het begin van het document?"
 
-#: src/search-replace.c:697
+#: src/search-replace.c:746
 #, c-format
 msgid "The match \"%s\" was not found."
 msgstr "De tekst \"%s\" is niet gevonden."
 
-#: src/search-replace.c:715
+#: src/search-replace.c:764
 msgid "The maximum number of results has been reached."
 msgstr "Het maximum aantal resultaten is behaald."
 
-#: src/search-replace.c:728
+#: src/search-replace.c:777
 #, c-format
 msgid "%d matches have been replaced."
 msgstr "%d overeenkomsten vervangen."
 
-#: src/search-replace.c:883
+#: src/search-replace.c:932
 msgid "Unable to build user interface for Search And Replace"
 msgstr "Kon geen gebruikersinterface maken voor Zoeken en vervangen"
 
@@ -6827,8 +6815,8 @@ msgid "The maximum number of settings has been reached."
 msgstr "Het maximum aantal instellingen is gehaald."
 
 #: src/search_preferences.c:483
-msgid "This name is alredady used."
-msgstr "Deze naam is al in gebruik."
+msgid "This name is already used."
+msgstr "Deze naam is al gebruikt."
 
 #: src/sharedlib_gui.c:44
 msgid "Shared Object"
@@ -7817,116 +7805,3 @@ msgstr "Aanmaken map '%s' mislukt: %s"
 msgid "Folder name:"
 msgstr "Mapnaam:"
 
-#~ msgid "Append messages"
-#~ msgstr "Boodschappen toevoegen"
-
-#~ msgid "Case sensitive"
-#~ msgstr "Hoofdlettergevoelig"
-
-#~ msgid "Costom style"
-#~ msgstr "Aangepaste stijl"
-
-#~ msgid "Customize File Browser"
-#~ msgstr "Bestandsbeheer aanpassen"
-
-#~ msgid "Customize what is to be shown in the file tree"
-#~ msgstr "Aanpassen wat in de mappenboom weergegeven wordt"
-
-#~ msgid "Direction"
-#~ msgstr "Richting"
-
-#~ msgid "File/Directory to add:"
-#~ msgstr "Bestand/map om toe te voegen:"
-
-#~ msgid "Find and replace"
-#~ msgstr "Zoeken en vervangen"
-
-#~ msgid "Find in Files"
-#~ msgstr "Zoeken in bestanden"
-
-#~ msgid "Forwards"
-#~ msgstr "Vooruit"
-
-#~ msgid "From cursor"
-#~ msgstr "Vanaf cursor"
-
-#~ msgid "Ignore CVS directory"
-#~ msgstr "CVS-map negeren"
-
-#~ msgid "Ignore binary files"
-#~ msgstr "Binaire bestanden negeren"
-
-#~ msgid "Ignore case"
-#~ msgstr "Hoofdletterongevoelig"
-
-#~ msgid "Press this button to dismiss the dialog"
-#~ msgstr "Druk op deze knop om het dialoogvenster te sluiten"
-
-#~ msgid "Prompt before replace"
-#~ msgstr "Vraag bij vervanging"
-
-#~ msgid "Regexp"
-#~ msgstr "Regexp"
-
-#~ msgid "Regexp/String to find"
-#~ msgstr "Reguliere expressie/tekst om te zoeken"
-
-#~ msgid "Replace Expression"
-#~ msgstr "Expressie vervangen"
-
-#~ msgid "Scope"
-#~ msgstr "Reikwijdte"
-
-#~ msgid "Search String"
-#~ msgstr "Zoektekst"
-
-#~ msgid "Search type"
-#~ msgstr "Manier van zoeken"
-
-#~ msgid "String"
-#~ msgstr "Tekenreeks"
-
-#~ msgid "String to replace"
-#~ msgstr "Te vervangen tekst"
-
-#~ msgid "Variable list"
-#~ msgstr "Variabelenlijst"
-
-#~ msgid "Whole document"
-#~ msgstr "Gehele document"
-
-#~ msgid "Whole word"
-#~ msgstr "Hele woord"
-
-#~ msgid "Find in Files completed ... unsuccessful"
-#~ msgstr "Zoeken in bestanden compleet ... niet succesvol"
-
-#~ msgid "Find in Files completed ... successful"
-#~ msgstr "Zoeken in bestand compleet ... succesvol"
-
-#~ msgid "No input files supplied."
-#~ msgstr "Geen invoerbestanden gegeven."
-
-#~ msgid "No search string supplied."
-#~ msgstr "Geen zoektekst opgegeven."
-
-#~ msgid "Do you want to replace this occurence?"
-#~ msgstr "Wilt u dit vervangen?"
-
-#~ msgid "The string \"%s\" was not found in the selected text"
-#~ msgstr "De tekst \"%s\" was niet gevonden in de selectie"
-
-#~ msgid "The string \"%s\" was not found from the current location"
-#~ msgstr "De tekst \"%s\" was niet gevonden vanaf de huidige locatie"
-
-#~ msgid "The match \"%s\" was not found in the whole document"
-#~ msgstr "De tekst \"%s\" was niet gevonden in het gehele document"
-
-#~ msgid "The match \"%s\" was not found from the current location"
-#~ msgstr "De tekst \"%s\" was niet gevonden vanaf de huidige locatie"
-
-#~ msgid "Advanced search and re_place"
-#~ msgstr "Geavanceerd zoeken en vervangen"
-
-#~ msgid "No matches."
-#~ msgstr "Geen overeenkomsten."
