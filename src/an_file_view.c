@@ -127,7 +127,7 @@ static void fv_context_handler(GtkMenuItem *item, gpointer user_data)
 				anjuta_fv_open_file(fv->file, FALSE);
 			break;
 		case REFRESH:
-			fv_populate();
+			fv_populate(TRUE);
 			break;
 		default:
 			break;
@@ -270,7 +270,7 @@ static void fv_create(void)
 	gtk_widget_show(fv->win);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(fv->win),
 	  GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
-	fv->tree=gtk_ctree_new(1,0);
+	fv->tree=gtk_ctree_new(2,0);
 	gtk_ctree_set_line_style (GTK_CTREE(fv->tree), GTK_CTREE_LINES_DOTTED);
 	gtk_ctree_set_expander_style (GTK_CTREE(fv->tree), GTK_CTREE_EXPANDER_SQUARE);
 	gtk_widget_ref(fv->tree);
@@ -305,7 +305,7 @@ void fv_clear(void)
 
 static void fv_add_tree_entry(TMFileEntry *entry, GtkCTreeNode *root)
 {
-	char *arr[1];
+	char *arr[2];
 	FVFileType type;
 	GtkCTreeNode *parent, *item;
 	TMFileEntry *child;
@@ -322,6 +322,10 @@ static void fv_add_tree_entry(TMFileEntry *entry, GtkCTreeNode *root)
 	open_icon = fv_icons[fv_ofolder_t];
 	open_bitmap = fv_bitmaps[fv_ofolder_t];
 	arr[0] = entry->name;
+	if (entry->version)
+		arr[1] = entry->version;
+	else
+		arr[1] = "";
 	parent = gtk_ctree_insert_node(GTK_CTREE(fv->tree), root, NULL
 	  , arr, 5, closed_icon, closed_bitmap, open_icon, open_bitmap
 	  , FALSE, !root);
@@ -342,6 +346,10 @@ static void fv_add_tree_entry(TMFileEntry *entry, GtkCTreeNode *root)
 			open_icon = fv_icons[type];
 			open_bitmap = fv_bitmaps[type];
 			arr[0] = child->name;
+			if (child->version)
+				arr[1] = child->version;
+			else
+				arr[1] = "";
 			item = gtk_ctree_insert_node(GTK_CTREE(fv->tree), parent, NULL
 			  , arr, 5, closed_icon, closed_bitmap, open_icon, open_bitmap
 			  , TRUE, FALSE);
@@ -351,7 +359,7 @@ static void fv_add_tree_entry(TMFileEntry *entry, GtkCTreeNode *root)
 	}
 }
 
-AnFileView *fv_populate(void)
+AnFileView *fv_populate(gboolean full)
 {
 	static const char *ignore[] = {"CVS", NULL};
 	TMFileEntry *file_tree;
@@ -366,7 +374,7 @@ AnFileView *fv_populate(void)
 	if (!app || !app->project_dbase || !app->project_dbase->top_proj_dir)
 		goto clean_leave;
 	file_tree = tm_file_entry_new(app->project_dbase->top_proj_dir,
-	  NULL, TRUE, NULL, ignore, TRUE);
+	  NULL, full, NULL, ignore, TRUE);
 	if (!file_tree)
 		goto clean_leave;
 	fv_add_tree_entry(file_tree, NULL);

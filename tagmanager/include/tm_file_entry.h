@@ -45,6 +45,7 @@ typedef struct _TMFileEntry
 	TMFileType type; /*!< File type */
 	char *path; /*!< Full path to the file (incl. dir and name) */
 	char *name; /*!< Just the file name (path minus the directory) */
+	char *version; /*!< CVS version in case there is a CVS entry for this file */
 	struct _TMFileEntry *parent; /*!< The parent directory file entry */
 	GSList *children; /*!< List of children (for directory) */
 } TMFileEntry;

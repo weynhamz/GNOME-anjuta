@@ -491,6 +491,8 @@ create_project_dbase_gui (ProjectDBase * p)
 	GtkCList *clist1;
 	AnSymbolView *sv;
 	AnFileView *fv;
+	gboolean build_sv = preferences_get_int(app->preferences, BUILD_SYMBOL_BROWSER);
+	gboolean build_fv = preferences_get_int(app->preferences, BUILD_FILE_BROWSER);
 
 	window1 = gtk_window_new (GTK_WINDOW_TOPLEVEL);
 	gtk_window_set_title (GTK_WINDOW (window1), _("Project: None"));
@@ -503,11 +505,11 @@ create_project_dbase_gui (ProjectDBase * p)
 	notebook1 = gtk_notebook_new();
 	gtk_widget_show(notebook1);
 	gtk_notebook_set_tab_pos(GTK_NOTEBOOK(notebook1), GTK_POS_BOTTOM);
-	fv = fv_populate();
+	fv = fv_populate(build_fv);
 	gtk_notebook_prepend_page(GTK_NOTEBOOK(notebook1), fv->win
 	  , gtk_label_new(_("Files")));
 
-	sv = sv_populate();
+	sv = sv_populate(build_sv);
 	gtk_notebook_prepend_page(GTK_NOTEBOOK(notebook1), sv->win
 	  , gtk_label_new(_("Symbols")));
 

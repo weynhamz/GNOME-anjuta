@@ -1372,7 +1372,9 @@ static void refresh_listing(GtkWidget *widget, GnomeFileList *file_list)
 {
    gchar *string;
    string = build_full_path(file_list->path, "");
-   gnome_filelist_set_dir(file_list, string);
+   if (!gnome_filelist_set_dir(file_list, string)) {
+       home_directory_cb(NULL, file_list);
+   }
    g_free(string);
 }
 
@@ -1411,7 +1413,9 @@ static void goto_parent(GtkWidget *widget, GnomeFileList *file_list)
    gchar *string, *parent;
    string = build_full_path(file_list->path, "");
    parent = get_parent_dir(string);
-   gnome_filelist_set_dir(file_list, parent);
+   if (!gnome_filelist_set_dir(file_list, parent)) {
+        home_directory_cb(NULL, file_list);
+   }
    file_list->history_position = -1;
    g_free(parent);
    g_free(string);

@@ -33,7 +33,7 @@ typedef struct _AnSymbolView
 	SymbolFileInfo *sinfo;
 } AnSymbolView;
 
-AnSymbolView *sv_populate(void);
+AnSymbolView *sv_populate(gboolean full);
 void sv_clear(void);
 
 #ifdef __cplusplus

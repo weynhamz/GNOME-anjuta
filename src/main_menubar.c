@@ -68,6 +68,11 @@ create_main_menubar (GtkWidget * ap, MainMenuBar * mb)
 	mb->edit.convert_lf = transform1_submenu_uiinfo[4].widget;
 	mb->edit.convert_cr = transform1_submenu_uiinfo[5].widget;
 	mb->edit.convert_auto = transform1_submenu_uiinfo[6].widget;
+	mb->edit.insert_header = insert_submenu_uiinfo[0].widget;
+  mb->edit.insert_c_switch = insert_template_c_uiinfo[0].widget;
+	mb->edit.insert_c_for = insert_template_c_uiinfo[1].widget;
+	mb->edit.insert_c_while = insert_template_c_uiinfo[2].widget;
+  mb->edit.insert_c_ifelse = insert_template_c_uiinfo[3].widget;
 	mb->edit.insert_c_gpl = inserttext1_submenu_uiinfo[0].widget;
 	mb->edit.insert_cpp_gpl = inserttext1_submenu_uiinfo[1].widget;
 	mb->edit.insert_py_gpl = inserttext1_submenu_uiinfo[2].widget;
@@ -289,10 +294,22 @@ main_menu_install_hints (GtkWidget* ap)
 			GTK_OBJECT(goto1_submenu_uiinfo[i].widget));
 	}
 	
+	for (i = 0; i < NUM_TEMPLATE_C_SUBMENUS; i++) {
+		gtk_widget_ref (insert_template_c_uiinfo[i].widget);
+		gtk_accel_group_attach(GNOME_APP(ap)->accel_group,
+			GTK_OBJECT(insert_template_c_uiinfo[i].widget));
+	}
+
 	for (i = 0; i < NUM_INSERTTEXT_SUBMENUS; i++) {
 		gtk_widget_ref (inserttext1_submenu_uiinfo[i].widget);
 		gtk_accel_group_attach(GNOME_APP(ap)->accel_group,
 			GTK_OBJECT(inserttext1_submenu_uiinfo[i].widget));
+	}
+
+	for (i = 0; i < NUM_INSERT_SUBMENUS; i++) {
+		gtk_widget_ref (insert_submenu_uiinfo[i].widget);
+		gtk_accel_group_attach(GNOME_APP(ap)->accel_group,
+			GTK_OBJECT(insert_submenu_uiinfo[i].widget));
 	}
 	
 	for (i = 0; i < NUM_EDIT_SUBMENUS ; i++) {
@@ -419,8 +436,14 @@ main_menu_unref ()
 	for (i = 0; i < NUM_GOTO_SUBMENUS; i++)
 		gtk_widget_unref (goto1_submenu_uiinfo[i].widget);
 	
+	for (i = 0; i < NUM_TEMPLATE_C_SUBMENUS; i++)
+		gtk_widget_unref (insert_template_c_uiinfo[i].widget);
+	
 	for (i = 0; i < NUM_INSERTTEXT_SUBMENUS; i++)
 		gtk_widget_unref (inserttext1_submenu_uiinfo[i].widget);
+
+	for (i = 0; i < NUM_INSERT_SUBMENUS; i++)
+		gtk_widget_unref (insert_submenu_uiinfo[i].widget);
 	
 	for (i = 0; i < NUM_EDIT_SUBMENUS ; i++)
 		gtk_widget_unref (edit1_menu_uiinfo[i].widget);

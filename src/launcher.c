@@ -175,7 +175,7 @@ launcher_scan_pty()
 	if (launcher.terminal)
 	{
 		chars = zvt_term_get_buffer(ZVT_TERM(launcher.terminal),
-		  &len, VT_SELTYPE_CHAR, -10000, 0, 10000, 0);
+		  &len, VT_SELTYPE_LINE, -10000, 0, 10000, 0);
 		zvt_term_reset(ZVT_TERM(launcher.terminal), TRUE);
 		launcher.char_pos = 1;
 		if (chars && strlen(chars) > launcher.char_pos)

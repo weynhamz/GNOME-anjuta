@@ -772,7 +772,7 @@ create_preferences_page2 (Preferences * p)
 	fontpicker1 = gnome_font_picker_new ();
 	gtk_widget_show (fontpicker1);
 	gtk_widget_set_usize (fontpicker1, 200, -1);
-	gnome_font_picker_set_mode (GNOME_FONT_PICKER(fontpicker1), GNOME_FONT_PICKER_MODE_FONT_INFO);
+	//gnome_font_picker_set_mode (GNOME_FONT_PICKER(fontpicker1), GNOME_FONT_PICKER_MODE_FONT_INFO);
 	gnome_font_picker_fi_set_use_font_in_label (GNOME_FONT_PICKER(fontpicker1), TRUE, 14);
 	gnome_font_picker_fi_set_show_size(GNOME_FONT_PICKER(fontpicker1), FALSE);
 	gtk_table_attach (GTK_TABLE (table1), fontpicker1, 1, 2, 0, 1,
@@ -1695,7 +1695,7 @@ create_preferences_pagemsg (Preferences* p)
 	gtk_box_pack_start (GTK_BOX (vbox1), frame2, FALSE, FALSE, 0);
 	gtk_container_set_border_width (GTK_CONTAINER (frame2), 5);
 
-	table1 = gtk_table_new (2, 3, FALSE);
+	table1 = gtk_table_new (4, 3, FALSE);
 	gtk_widget_show (table1);
 	gtk_container_add (GTK_CONTAINER (frame2), table1);
 	gtk_table_set_row_spacings (GTK_TABLE (table1), 5);
@@ -1886,6 +1886,9 @@ create_preferences_page7 (Preferences * p)
 	GtkWidget *checkbutton8;
 	GtkWidget *frame9;
 	GtkWidget *checkbutton9;
+	GtkWidget *build_symbols;
+	GtkWidget *build_file_tree;
+	GtkWidget *tags_vbox;
 	gint i;
 
 	window1 = p->widgets.window;
@@ -1970,17 +1973,36 @@ create_preferences_page7 (Preferences * p)
 			  (GtkAttachOptions) (0), (GtkAttachOptions) (0), 0, 0);
 
 	/* Tags browser */	
-	frame4 = gtk_frame_new (_(" Tags Browser "));
+	frame4 = gtk_frame_new (_(" Performance "));
 	gtk_widget_show (frame4);
 	gtk_box_pack_start (GTK_BOX (vbox1), frame4, FALSE, FALSE, 0);
 	gtk_container_set_border_width (GTK_CONTAINER (frame4), 5);
+
+	tags_vbox = gtk_vbox_new (FALSE, 0);
+	gtk_container_set_border_width (GTK_CONTAINER (tags_vbox), 5);
+	gtk_widget_show (tags_vbox);
+	gtk_container_add (GTK_CONTAINER (frame4), tags_vbox);
 
 	checkbutton7 =
 		gtk_check_button_new_with_label (_
 						 ("Update tags image automatically"));
 	gtk_widget_show (checkbutton7);
-	gtk_container_add (GTK_CONTAINER (frame4), checkbutton7);
+	gtk_box_pack_start (GTK_BOX (tags_vbox), checkbutton7, FALSE, FALSE, 0);
 	gtk_container_set_border_width (GTK_CONTAINER (checkbutton7), 5);
+
+	build_symbols =
+		gtk_check_button_new_with_label (_
+						 ("Build Symbol Browser automatically"));
+	gtk_widget_show (build_symbols);
+	gtk_box_pack_start (GTK_BOX (tags_vbox), build_symbols, FALSE, FALSE, 0);
+	gtk_container_set_border_width (GTK_CONTAINER (build_symbols), 5);
+
+	build_file_tree =
+		gtk_check_button_new_with_label (_
+						 ("Build File Browser automatically"));
+	gtk_widget_show (build_file_tree);
+	gtk_box_pack_start (GTK_BOX (tags_vbox), build_file_tree, FALSE, FALSE, 0);
+	gtk_container_set_border_width (GTK_CONTAINER (build_file_tree), 5);
 
 /* Show tooltips */	
 	frame9 = gtk_frame_new (_(" Tooltips"));
@@ -2007,6 +2029,10 @@ create_preferences_page7 (Preferences * p)
 	p->widgets.no_tag_check = checkbutton6;
 	gtk_widget_ref (checkbutton7);
 	p->widgets.tags_update_check = checkbutton7;
+	gtk_widget_ref(build_symbols);
+	p->widgets.build_symbols = build_symbols;
+	gtk_widget_ref(build_file_tree);
+	p->widgets.build_file_tree = build_file_tree;
 	gtk_widget_ref (checkbutton8);
 	p->widgets.tabs_ordering = checkbutton8;
 	gtk_widget_ref (checkbutton9);
@@ -2623,6 +2649,12 @@ on_preferences_apply_clicked (GtkButton * button, gpointer user_data)
 
 	preferences_set_int (pr, AUTOMATIC_TAGS_UPDATE,
 			     gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (pr->widgets.tags_update_check)));
+
+	preferences_set_int (pr, BUILD_SYMBOL_BROWSER,
+			     gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (pr->widgets.build_symbols)));
+
+	preferences_set_int (pr, BUILD_FILE_BROWSER,
+			     gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (pr->widgets.build_file_tree)));
 
 	show_tooltips = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (pr->widgets.show_tooltips));
 	preferences_set_int (pr, SHOW_TOOLTIPS,

@@ -74,4 +74,7 @@ void cvs_set_editor_destroyed (CVS* cvs);
 void cvs_apply_preferences(CVS *cvs, PropsID p);
 gboolean cvs_save_yourself (CVS * cvs, FILE * stream);
 
+/* Checks whether there exists a file CVS/Entries under this directory */
+gboolean is_cvs_active_for_dir(const gchar *dir);
+
 #endif

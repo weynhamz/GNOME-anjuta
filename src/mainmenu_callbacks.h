@@ -751,9 +751,24 @@ on_insert_changelog_entry(GtkMenuItem * menuitem, gpointer user_data);
 
 void
 on_insert_header_template(GtkMenuItem * menuitem, gpointer user_data);
- 
+
+void
+on_insert_header(GtkMenuItem * menuitem, gpointer user_data);
+
 void
 on_insert_username(GtkMenuItem * menuitem, gpointer user_data);
+
+void
+on_insert_switch_template(GtkMenuItem * menuitem, gpointer user_data);
+
+void
+on_insert_for_template(GtkMenuItem * menuitem, gpointer user_data);
+
+void
+on_insert_while_template(GtkMenuItem * menuitem, gpointer user_data);
+
+void
+on_insert_ifelse_template(GtkMenuItem * menuitem, gpointer user_data);
 
 void
 on_save_build_messages_activate (GtkMenuItem * menuitem, gpointer user_data);

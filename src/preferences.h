@@ -157,6 +157,8 @@ struct _PreferencesWidgets
 	GtkWidget *no_tag_check;
 	GtkWidget *tabs_ordering;
 	GtkWidget *tags_update_check;
+	GtkWidget *build_symbols;
+	GtkWidget *build_file_tree;
 	GtkWidget *show_tooltips;
 
 	/* Page CVS */
@@ -322,8 +324,11 @@ void preferences_set_build_options(Preferences* p);
 #define MESSAGES_COLOR_WARNING   "messages.color.warning"
 #define MESSAGES_COLOR_MESSAGES1 "messages.color.messages1"
 #define MESSAGES_COLOR_MESSAGES2 "messages.color.messages2"
+#define MESSAGES_WINDOW_VISIBLE  "messages.window.visible"
 
 #define AUTOMATIC_TAGS_UPDATE   "automatic.tags.update"
+#define BUILD_SYMBOL_BROWSER	 "build.symbol.browser"
+#define BUILD_FILE_BROWSER	 "build.file.browser"
 #define SHOW_TOOLTIPS           "show.tooltips"
 
 #define PRINT_PAPER_SIZE        "paper.size"

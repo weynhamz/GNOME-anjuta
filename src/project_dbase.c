@@ -1061,6 +1061,8 @@ void
 project_dbase_update_tags_image(ProjectDBase* p, gboolean rebuild)
 {
 	gchar* src_dir;
+	gboolean build_sv = preferences_get_int(app->preferences, BUILD_SYMBOL_BROWSER);
+	gboolean build_fv = preferences_get_int(app->preferences, BUILD_FILE_BROWSER);
 
 	g_return_if_fail (p != NULL);
 
@@ -1079,8 +1081,8 @@ project_dbase_update_tags_image(ProjectDBase* p, gboolean rebuild)
 	else if (p->top_proj_dir)
 		p->tm_project = tm_project_new(p->top_proj_dir, NULL, NULL, TRUE);
 
-	sv_populate();
-	fv_populate();
+	sv_populate(build_sv);
+	fv_populate(build_fv);
 
 	src_dir = project_dbase_get_module_dir (p, MODULE_SOURCE);
 
@@ -2061,7 +2063,9 @@ project_dbase_add_file_to_module (ProjectDBase * p, PrjModule module,
 	gchar *mod_files, *file_list, *new_file_list, *comp_dir;
 	/* gchar *relative_fn; */
 	gchar *short_file_name;
-	
+	gboolean build_sv = preferences_get_int(app->preferences, BUILD_SYMBOL_BROWSER);
+	gboolean build_fv = preferences_get_int(app->preferences, BUILD_FILE_BROWSER);
+
 	g_return_if_fail (p != NULL);
 	g_return_if_fail (p->sel_module < MODULE_END_MARK);
 
@@ -2100,8 +2104,8 @@ project_dbase_add_file_to_module (ProjectDBase * p, PrjModule module,
 	if ((MODULE_INCLUDE == module) || (MODULE_SOURCE == module))
 		tm_project_add_file(TM_PROJECT(p->tm_project), filename, TRUE);
 	project_dbase_update_tree (p);
-	sv_populate();
-	fv_populate();
+	sv_populate(build_sv);
+	fv_populate(build_fv);
 	p->is_saved = FALSE;
 }
 
@@ -2302,7 +2306,7 @@ done:
 	g_free (str);		
 	p->is_saved = TRUE;
 	p->top_proj_dir = g_dirname (p->proj_filename);
-	
+	p->has_cvs = is_cvs_active_for_dir(p->top_proj_dir);
 	/* Load excluded modules */
 	if (p->excluded_modules) {
 		glist_strings_free(p->excluded_modules);

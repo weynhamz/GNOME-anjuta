@@ -206,6 +206,8 @@ preferences_destroy (Preferences * pr)
 		gtk_widget_unref (pr->widgets.mesg_first_spin);
 		gtk_widget_unref (pr->widgets.mesg_last_spin);
 		gtk_widget_unref (pr->widgets.tags_update_check);
+		gtk_widget_unref (pr->widgets.build_symbols);
+		gtk_widget_unref (pr->widgets.build_file_tree);
 		gtk_widget_unref (pr->widgets.show_tooltips);
 		gtk_widget_unref (pr->widgets.no_tag_check);
 		for (i = 0; i < 4; i++)
@@ -677,6 +679,14 @@ preferences_sync (Preferences * pr)
 				      preferences_get_int (pr,
 							   AUTOMATIC_TAGS_UPDATE));
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON
+				      (pr->widgets.build_symbols),
+				      preferences_get_int (pr,
+							   BUILD_SYMBOL_BROWSER));
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON
+				      (pr->widgets.build_file_tree),
+				      preferences_get_int (pr,
+							   BUILD_FILE_BROWSER));
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON
 				      (pr->widgets.show_tooltips),
 				      preferences_get_int (pr,
 							   SHOW_TOOLTIPS));
@@ -705,14 +715,19 @@ preferences_sync (Preferences * pr)
 	if (!str)
 		str = getenv("USER");
 	gtk_entry_set_text (GTK_ENTRY (pr->widgets.name_entry), str);
-
+  g_free(str);
 	str2 = preferences_get (pr, IDENT_EMAIL);
 	if (!str2)
 	{
 		str2 = getenv("HOSTNAME");
+		str = getenv("USERNAME");
+		if (!str)
+			str = getenv("USER");
 		str2 = g_strconcat(str, "@", str2, NULL);
+		g_free(str);
 	}
 	gtk_entry_set_text (GTK_ENTRY (pr->widgets.email_entry), str2);
+	g_free(str2);
 }
 
 void
@@ -962,6 +977,10 @@ gboolean preferences_save_yourself (Preferences * pr, FILE * fp)
 		 preferences_get_int (pr, EDITOR_TABS_ORDERING));
 	fprintf (fp, "%s=%d\n", AUTOMATIC_TAGS_UPDATE,
 		 preferences_get_int (pr, AUTOMATIC_TAGS_UPDATE));
+	fprintf (fp, "%s=%d\n", BUILD_SYMBOL_BROWSER,
+		 preferences_get_int (pr, BUILD_SYMBOL_BROWSER));
+	fprintf (fp, "%s=%d\n", BUILD_FILE_BROWSER,
+		 preferences_get_int (pr, BUILD_FILE_BROWSER));
 	fprintf (fp, "%s=%d\n", SHOW_TOOLTIPS,
 		 preferences_get_int (pr, SHOW_TOOLTIPS));
 	fprintf (fp, "%s=%d\n", USE_COMPONENTS,
@@ -982,8 +1001,9 @@ gboolean preferences_save_yourself (Preferences * pr, FILE * fp)
 	}
 	fprintf (fp, "preferences.win.pos.x=%d\n", pr->win_pos_x);
 	fprintf (fp, "preferences.win.pos.y=%d\n", pr->win_pos_y);
-	fprintf (fp, "%s=%d\n", TEXT_ZOOM_FACTOR,
-	preferences_get_int (pr, TEXT_ZOOM_FACTOR));
+	fprintf (fp, "%s=%d\n", TEXT_ZOOM_FACTOR, preferences_get_int(pr, TEXT_ZOOM_FACTOR));
+	fprintf (fp, "%s=%d\n", MESSAGES_WINDOW_VISIBLE,
+	  anjuta_message_manager_is_shown(app->messages));
 
 	/* Identification */
 	str = preferences_get (pr, IDENT_NAME);

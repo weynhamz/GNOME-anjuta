@@ -1,3 +1,51 @@
+2002-06-07	Andy Piper	<andy.piper@freeuk.com>
+
+	* anjuta.prj: bump project version for release
+	* BUGS: removed unnecessary file
+
+2002-06-07	Philip Van Hoof	<freax@pandora.be>
+
+	* widgets/gnomefilelist.c: fix up issue with directory deleted 
+	during the life of the file list widget
+	* src/preferences_gui.c: sticking-plaster fix to font selection
+	causes segfault bug
+
+	Patches reviewed by Andy Piper <andy.piper@freeuk.com>
+
+2002-06-07	Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
+
+	* data/properties/anjuta.properties, src/an_file_view.[ch], 
+	src/an_symbol_view.[ch], src/defaults.c, src/preferences.[ch], 
+	src/preferences_gui.c, src/project_dbase.c, src/project_dbase_gui.c: 
+	added options for symbol and file browsers.
+	* data/properties/cpp.properties: linker flags should come after
+	the name of the file to compile.
+	* scintilla/Editor.cxx: fixed gcc compilation warning.
+	* src/Makefile.am, src/project_import.c: anjuta_import.sh should
+	be executed from bindir only.
+	* src/an_file_view.[ch], tagmanager/tm_file_entry.c, 
+	tagmanager/include/tm_file_entry.h: CVS version information in file 
+	browser.
+	* src/anjuta.c, src/preferences.[ch]: remember visibility of messages 
+	window.
+	* src/controls.c, src/cvs.[ch], src/project_dbase.[ch]: CVS fixes.
+	* src/launcher.c, src/project_import.c: (hopefully) fixed random ZVT
+	crashes during file import.
+	* src/project_import.c: disable project menu items during project 
+	import.
+	
+	Patch reviewed by Andy Piper <andy.piper@freeuk.com>
+
+2002-06-07  Jean-Noel Guiheneuf  <jnoel@saudionline.com.sa>
+
+	* src/mainmenu_callbacks.c, src/mainmenu_callbacks.h, 
+	src/preferences.c, src/main_menubar_def.h, src/main_menubar.c,
+	src/main_menubar.h, src/controls.c:	fixed Insert ChangeLog, 
+	modified Insert menu, added C functions template, header C 
+	template, modified header_template HEADER_H ==> NAMEFILE_H
+	
+	Patch reviewed by Andy Piper <andy.piper@freeuk.com>
+
 2002-06-05	Andy Piper	<andy.piper@freeuk.com>
 
 	* data/properties/html.properties: changed some file 

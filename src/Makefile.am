@@ -12,7 +12,7 @@ INCLUDES = \
 	-I$(srcdir)/../widgets \
 	-I$(srcdir)/../pixmaps \
 	-I$(srcdir)/../printing \
-	-I.. -I.
+	-I.. -I. -DPACKAGE_BIN_DIR=\"$(bindir)\"
 
 CFLAGS = -Wall -Wimplicit -Wreturn-type -Wunused -Wswitch -Wcomment\
 		 -Wuninitialized -Wparentheses -Wpointer-arith\

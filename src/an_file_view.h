@@ -17,7 +17,7 @@ typedef struct _AnFileView
 	char *file;
 } AnFileView;
 
-AnFileView *fv_populate(void);
+AnFileView *fv_populate(gboolean full);
 void fv_clear(void);
 gboolean anjuta_fv_open_file(const char *path, gboolean use_anjuta);
 

@@ -247,13 +247,13 @@ static GnomeUIInfo inserttext1_submenu_uiinfo[NUM_INSERTTEXT_SUBMENUS+1] = {
 		on_insert_username, NULL, NULL,
 		GNOME_APP_PIXMAP_NONE, NULL,
 		0, 0, NULL},
-       {/*4*/ 
+       {/*4*/
         GNOME_APP_UI_ITEM, N_("Current Date & Time"),
         N_("Insert current date & time"),
         on_insert_date_time, NULL, NULL,
         GNOME_APP_PIXMAP_NONE, NULL,
         0, 0, NULL},
-       {/*5*/ 
+       {/*5*/
         GNOME_APP_UI_ITEM, N_("Header File Template"),
         N_("Insert a standard header file template"),
         on_insert_header_template, NULL, NULL,
@@ -261,11 +261,63 @@ static GnomeUIInfo inserttext1_submenu_uiinfo[NUM_INSERTTEXT_SUBMENUS+1] = {
         0, 0, NULL},
 		{/*6*/
 		GNOME_APP_UI_ITEM, N_("ChangeLog entry"),
-        N_("Insert a ChangeLog entry"),
-        on_insert_changelog_entry, NULL, NULL,
-        GNOME_APP_PIXMAP_NONE, NULL,
-        0, 0, NULL},
-       GNOMEUIINFO_END/*7*/
+    N_("Insert a ChangeLog entry"),
+    on_insert_changelog_entry, NULL, NULL,
+    GNOME_APP_PIXMAP_NONE, NULL,
+    0, 0, NULL},
+    GNOMEUIINFO_END/*7*/
+};
+
+#define NUM_TEMPLATE_C_SUBMENUS 4
+static GnomeUIInfo insert_template_c_uiinfo[NUM_TEMPLATE_C_SUBMENUS+1] = {
+    {/*0*/
+    GNOME_APP_UI_ITEM, "switch",
+    N_("Insert a switch template"),
+    on_insert_switch_template, NULL, NULL,
+    GNOME_APP_PIXMAP_NONE, NULL,
+    0, 0, NULL},
+    {/*1*/
+    GNOME_APP_UI_ITEM, "for",
+    N_("Insert a for template"),
+    on_insert_for_template, NULL, NULL,
+    GNOME_APP_PIXMAP_NONE, NULL,
+    0, 0, NULL},
+	{/*2*/
+	GNOME_APP_UI_ITEM, "while",
+	N_("Insert a while template"),
+	on_insert_while_template, NULL, NULL,
+	GNOME_APP_PIXMAP_NONE, NULL,
+	0, 0, NULL},
+	{/*3*/
+	GNOME_APP_UI_ITEM, "if...else",
+	N_("Insert an if...else template"),
+	on_insert_ifelse_template, NULL, NULL,
+	GNOME_APP_PIXMAP_NONE, NULL,
+	0, 0, NULL},
+   	GNOMEUIINFO_END/*4*/
+};
+
+#define NUM_INSERT_SUBMENUS 3
+static GnomeUIInfo insert_submenu_uiinfo[NUM_INSERT_SUBMENUS+1] = {
+    {/*0*/
+    GNOME_APP_UI_ITEM, N_("Header"),
+    N_("Insert a file header"),
+    on_insert_header, NULL, NULL,
+    GNOME_APP_PIXMAP_NONE, NULL,
+    0, 0, NULL},
+	  {/*1*/
+		GNOME_APP_UI_SUBTREE, N_("C template"),
+		N_("Insert a C template"),
+		insert_template_c_uiinfo, NULL, NULL,
+		GNOME_APP_PIXMAP_NONE, NULL,
+		0, 0, NULL},
+	  {/*2*/
+		GNOME_APP_UI_SUBTREE, N_("Miscellaneous"),
+		NULL,
+		inserttext1_submenu_uiinfo, NULL, NULL,
+		GNOME_APP_PIXMAP_NONE, NULL,
+		0, 0, NULL},
+    GNOMEUIINFO_END/*3*/
 };
 
 #define NUM_GOTO_SUBMENUS 10
@@ -399,7 +451,7 @@ static GnomeUIInfo edit1_menu_uiinfo[NUM_EDIT_SUBMENUS+1] = {
 	{/*10*/
 	 GNOME_APP_UI_SUBTREE, N_("_Insert text"),
 	 NULL,
-	 inserttext1_submenu_uiinfo, NULL, NULL,
+	 insert_submenu_uiinfo, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	

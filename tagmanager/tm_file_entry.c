@@ -15,6 +15,7 @@
 #include <string.h>
 #include <dirent.h>
 #include <fnmatch.h>
+#include <fcntl.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 
@@ -88,7 +89,6 @@ TMFileEntry *tm_file_entry_new(const char *path, TMFileEntry *parent
 		return NULL;
 	}
 	entry->parent = parent;
-	entry->children = NULL;
 	entry->path = real_path;
 	entry->name = strrchr(entry->path, '/');
 	if (entry->name)
@@ -149,10 +149,35 @@ TMFileEntry *tm_file_entry_new(const char *path, TMFileEntry *parent
 		struct dirent *dir_entry;
 		TMFileEntry *new_entry;
 		char file_name[PATH_MAX];
+		struct stat s;
+		char *entries = NULL;
 
 #ifdef DEBUG
 		g_message("Recursing into %s", entry->path);
 #endif
+		g_snprintf(file_name, PATH_MAX, "%s/CVS/Entries", entry->path);
+		if (0 == stat(file_name, &s))
+		{
+			if (S_ISREG(s.st_mode))
+			{
+				int fd;
+				entries = g_new(char, s.st_size + 1);
+				if (0 > (fd = open(file_name, O_RDONLY)))
+				{
+					g_free(entries);
+					entries = NULL;
+				}
+				else
+				{
+					off_t n =0;
+					off_t total_read = 0;
+					while (0 < (n = read(fd, entries + total_read, s.st_size - total_read)))
+						total_read += n;
+					entries[s.st_size] = '\0';
+					close(fd);
+				}
+			}
+		}
 		if (NULL != (dir = opendir(entry->path)))
 		{
 			while (NULL != (dir_entry = readdir(dir)))
@@ -165,12 +190,33 @@ TMFileEntry *tm_file_entry_new(const char *path, TMFileEntry *parent
 					new_entry = tm_file_entry_new(file_name, entry, TRUE, match
 					  , ignore, ignore_hidden);
 					if (new_entry)
+					{
+						if (entries)
+						{
+							char *str = g_strconcat("\n/", new_entry->name, "/", NULL);
+							char *name_pos = strstr(entries, str);
+							if (NULL != name_pos)
+							{
+								int len = strlen(str);
+								char *version_pos = strchr(name_pos + len, '/');
+								if (NULL != version_pos)
+								{
+									*version_pos = '\0';
+									new_entry->version = g_strdup(name_pos + len);
+									*version_pos = '/';
+								}
+							}
+							g_free(str);
+						}
 						entry->children = g_slist_prepend(entry->children, new_entry);
+					}
 				}
 			}
 			closedir(dir);
 			entry->children = g_slist_sort(entry->children, (GCompareFunc) tm_file_entry_compare);
 		}
+		if (entries)
+			g_free(entries);
 	}
 	return entry;
 }
@@ -187,6 +233,8 @@ void tm_file_entry_free(gpointer entry)
 				tm_file_entry_free(tmp->data);
 			g_slist_free(file_entry->children);
 		}
+		if (file_entry->version)
+			g_free(file_entry->version);
 		g_free(file_entry->path);
 		FILE_FREE(file_entry);
 	}

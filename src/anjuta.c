@@ -1220,6 +1220,11 @@ anjuta_apply_preferences (void)
 	}
 	show_tooltips = preferences_get_int (pr, SHOW_TOOLTIPS);
 	show_hide_tooltips(show_tooltips);
+	if(preferences_get_int(pr, MESSAGES_WINDOW_VISIBLE))
+	{
+		if (!anjuta_message_manager_is_shown(app->messages))
+			anjuta_message_manager_show(app->messages, MESSAGE_NONE);
+	}	
 }
 
 void

@@ -73,6 +73,12 @@ struct _EditSubMenu
 	GtkWidget *convert_lf;
 	GtkWidget *convert_cr;
 	GtkWidget *convert_auto;
+
+	GtkWidget *insert_header;
+	GtkWidget *insert_c_switch;
+	GtkWidget *insert_c_for;
+	GtkWidget *insert_c_while;
+	GtkWidget *insert_c_ifelse;
 	
 	GtkWidget *insert_c_gpl;
 	GtkWidget *insert_cpp_gpl;

@@ -625,6 +625,20 @@ cvs_login (CVS * cvs, ServerType type, gchar* server, gchar* dir,
 	g_free (cvsroot);
 }
 
+gboolean is_cvs_active_for_dir(const gchar *dir)
+{
+	struct stat s;
+	char entries[PATH_MAX];
+	g_return_val_if_fail(dir, FALSE);
+	g_snprintf(entries, PATH_MAX, "%s/CVS/Entries", dir);
+	if (0 == stat(entries, &s))
+	{
+		if ((0 < s.st_size) && S_ISREG(s.st_mode))
+			return TRUE;
+	}
+	return FALSE;
+}
+
 /*
 	Saves the cvs settings to properties
 */

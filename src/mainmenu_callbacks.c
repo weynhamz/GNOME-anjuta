@@ -64,6 +64,10 @@ void on_toolbar_find_clicked (GtkButton * button, gpointer user_data);
 
 gboolean closing_state;		/* Do not tamper with this variable  */
 
+static char *insert_date_time(void);
+
+static gchar *insert_header_c( TextEditor *te);
+
 void
 on_new_file1_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
@@ -364,159 +368,251 @@ on_transform_eolchars1_activate (GtkMenuItem * menuitem, gpointer user_data)
 	aneditor_command (te->editor_id, ANE_EOL_CONVERT, mode, 0);
 }
 
+static gchar *
+insert_c_gpl_notice(void)
+{
+	gchar *GPLNotice =
+	"/*\n"
+	" *  This program is free software; you can redistribute it and/or modify\n"
+	" *  it under the terms of the GNU General Public License as published by\n"
+	" *  the Free Software Foundation; either version 2 of the License, or\n"
+	" *  (at your option) any later version.\n"
+	" *\n"
+	" *  This program is distributed in the hope that it will be useful,\n"
+	" *  but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+	" *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+	" *  GNU Library General Public License for more details.\n"
+	" *\n"
+	" *  You should have received a copy of the GNU General Public License\n"
+	" *  along with this program; if not, write to the Free Software\n"
+	" *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.\n"
+	" */\n"
+	" \n";
+
+	return  GPLNotice;
+}
+
 void
 on_insert_c_gpl_notice(GtkMenuItem * menuitem, gpointer user_data)
 {
-       TextEditor *te;
-       char *GPLNotice =
-			"/*\n"
-			" *  This program is free software; you can redistribute it and/or modify\n"
-			" *  it under the terms of the GNU General Public License as published by\n"
-			" *  the Free Software Foundation; either version 2 of the License, or\n"
-			" *  (at your option) any later version.\n"
-			" *\n"
-			" *  This program is distributed in the hope that it will be useful,\n"
-			" *  but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
-			" *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
-			" *  GNU Library General Public License for more details.\n"
-			" *\n"
-			" *  You should have received a copy of the GNU General Public License\n"
-			" *  along with this program; if not, write to the Free Software\n"
-			" *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.\n"
-			" */\n"
-			" \n";
+	TextEditor *te;
+	gchar *GPLNotice;
 
-       te = anjuta_get_current_text_editor ();
-       if (te == NULL)
-               return;
-       aneditor_command (te->editor_id, ANE_INSERTTEXT, -1, (long)GPLNotice);
+	te = anjuta_get_current_text_editor ();
+	if (te == NULL)
+		return;
+	GPLNotice = insert_c_gpl_notice();
+	aneditor_command (te->editor_id, ANE_INSERTTEXT, -1, (long)GPLNotice);
+}
+
+static gchar *
+insert_cpp_gpl_notice(void)
+{
+	gchar *GPLNotice =
+	"// This program is free software; you can redistribute it and/or modify\n"
+	"// it under the terms of the GNU General Public License as published by\n"
+	"// the Free Software Foundation; either version 2 of the License, or\n"
+	"// (at your option) any later version.\n"
+	"//\n"
+	"// This program is distributed in the hope that it will be useful,\n"
+	"// but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+	"// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+	"// GNU Library General Public License for more details.\n"
+	"//\n"
+	"// You should have received a copy of the GNU General Public License\n"
+	"// along with this program; if not, write to the Free Software\n"
+	"// Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.\n"
+	"\n";
+
+	return GPLNotice;
 }
 
 void
 on_insert_cpp_gpl_notice(GtkMenuItem * menuitem, gpointer user_data)
 {
-       TextEditor *te;
-       char *GPLNotice =
-			"// This program is free software; you can redistribute it and/or modify\n"
-			"// it under the terms of the GNU General Public License as published by\n"
-			"// the Free Software Foundation; either version 2 of the License, or\n"
-			"// (at your option) any later version.\n"
-			"//\n"
-			"// This program is distributed in the hope that it will be useful,\n"
-			"// but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
-			"// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
-			"// GNU Library General Public License for more details.\n"
-			"//\n"
-			"// You should have received a copy of the GNU General Public License\n"
-			"// along with this program; if not, write to the Free Software\n"
-			"// Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.\n"
-			"\n";
+	TextEditor *te;
+	gchar *GPLNotice;
 
-       te = anjuta_get_current_text_editor ();
-       if (te == NULL)
-               return;
-       aneditor_command (te->editor_id, ANE_INSERTTEXT, -1, (long)GPLNotice);
+	te = anjuta_get_current_text_editor ();
+	if (te == NULL)
+		return;
+	GPLNotice = insert_cpp_gpl_notice();
+	aneditor_command (te->editor_id, ANE_INSERTTEXT, -1, (long)GPLNotice);
+}
+
+static gchar *
+insert_py_gpl_notice(void)
+{
+	char *GPLNotice =
+	"# This program is free software; you can redistribute it and/or modify\n"
+	"# it under the terms of the GNU General Public License as published by\n"
+	"# the Free Software Foundation; either version 2 of the License, or\n"
+	"# (at your option) any later version.\n"
+	"#\n"
+	"# This program is distributed in the hope that it will be useful,\n"
+	"# but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+	"# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+	"# GNU Library General Public License for more details.\n"
+	"#\n"
+	"# You should have received a copy of the GNU General Public License\n"
+	"# along with this program; if not, write to the Free Software\n"
+	"# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.\n"
+	"\n";
+	return GPLNotice;
 }
 
 void
 on_insert_py_gpl_notice(GtkMenuItem * menuitem, gpointer user_data)
 {
-	   TextEditor *te;
-	   char *GPLNotice =
-		   "# This program is free software; you can redistribute it and/or modify\n"
-		   "# it under the terms of the GNU General Public License as published by\n"
-		   "# the Free Software Foundation; either version 2 of the License, or\n"
-		   "# (at your option) any later version.\n"
-		   "#\n"
-		   "# This program is distributed in the hope that it will be useful,\n"
-		   "# but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
-		   "# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
-		   "# GNU Library General Public License for more details.\n"
-		   "#\n"
-		   "# You should have received a copy of the GNU General Public License\n"
-		   "# along with this program; if not, write to the Free Software\n"
-		   "# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.\n"
-		   "\n";
+	TextEditor *te;
+	gchar *GPLNotice;
 
-	   te = anjuta_get_current_text_editor ();
-	   if (te == NULL)
-			   return;
-	   aneditor_command (te->editor_id, ANE_INSERTTEXT, -1, (long)GPLNotice);
+	te = anjuta_get_current_text_editor ();
+	if (te == NULL)
+		return;
+	GPLNotice = insert_py_gpl_notice();
+	aneditor_command (te->editor_id, ANE_INSERTTEXT, -1, (long)GPLNotice);
+}
+
+static gchar *
+insert_username(void)
+{
+	gchar *Username;
+	
+	Username = getenv("USERNAME");
+	if (!Username)
+		Username = preferences_get(app->preferences, IDENT_NAME);
+	if (!Username)
+		Username = getenv("USER");
+	return Username;
 }
 
 void
 on_insert_username(GtkMenuItem * menuitem, gpointer user_data)
 {
-		TextEditor *te;
-	    char *Username;
-	
-		Username = getenv("USERNAME");
-		if (!Username)
-			Username = preferences_get(app->preferences, IDENT_NAME);
+	TextEditor *te;
+	gchar *Username;
+		
+	te = anjuta_get_current_text_editor ();
+	if (te == NULL)
+		return;
+	Username = insert_username();
+	aneditor_command (te->editor_id, ANE_INSERTTEXT, -1, (long)Username);
+}
+
+static gchar *insert_name(void)
+{
+	gchar *Username;
+
+  Username = preferences_get(app->preferences, IDENT_NAME);
+	  if (!Username)
+			Username = getenv("USERNAME");
 		if (!Username)
 			Username = getenv("USER");
-		
-		te = anjuta_get_current_text_editor ();
-		if (te == NULL)
-		    return;
-		aneditor_command (te->editor_id, ANE_INSERTTEXT, -1, (long)Username);
+	return Username;
+}
+
+static gchar *insert_email(void)
+{
+	gchar *email;
+	gchar *Username;
+
+	email = preferences_get(app->preferences, IDENT_EMAIL);
+	if (!email)
+	{
+		email = getenv("HOSTNAME");
+		Username = getenv("USERNAME");
+		if (!Username)
+			Username = getenv("USER");
+		email = g_strconcat(Username, "@", email, NULL);
+	}
+	return email;
+}
+
+
+static gchar *
+insert_copyright(void)
+{
+	gchar *Username;
+	gchar *copyright;
+	gchar datetime[20];
+	struct tm *lt;
+	time_t cur_time = time(NULL);
+
+	lt = localtime(&cur_time);
+	strftime (datetime, 20, N_("%Y"), lt);
+	Username = insert_name();
+	copyright = g_strconcat("Copyright  ", datetime, "  ", Username, NULL);
+
+	return copyright;
+}
+
+static gchar *
+insert_changelog_entry(void)
+{
+	gchar *Username;
+	gchar *email;
+	gchar *CLEntry;
+	gchar datetime[20];
+	struct tm *lt;
+	time_t cur_time = time(NULL);
+
+	CLEntry = g_new(gchar, 200);
+	lt = localtime(&cur_time);
+	strftime (datetime, 20, N_("%Y-%m-%d"), lt);
+
+	Username =  insert_name();
+	email = insert_email();
+	sprintf(CLEntry,"%s\t%s\t<%s>\n", datetime, Username, email);
+	g_free(email);
+  	
+	return  CLEntry;
 }
 
 void
 on_insert_changelog_entry(GtkMenuItem * menuitem, gpointer user_data)
 {
-	  TextEditor *te;
-	  char *Username;
-	  char *email;
-	  char CLEntry[100];
-	  char datetime[20];
-      struct tm *lt;
-      time_t cur_time = time(NULL);
+	TextEditor *te;
+	gchar *changelog;
 
-	  lt = localtime(&cur_time);
-	  strftime (datetime, 20, N_("%Y-%m-%d"), lt);
-
-	  Username = preferences_get(app->preferences, IDENT_NAME);
-	  if (!Username)
-		  Username = getenv("USERNAME");
-	  if (!Username)
-		  Username = getenv("USER");
-
-	  email = preferences_get(app->preferences, IDENT_EMAIL);
-	  if (!email)
-		  email = getenv("HOSTNAME");
-	      email = g_strconcat(Username, "@", email, NULL);
-
-	  sprintf(CLEntry,"%s\t%s\t<%s>\n", datetime, Username, email);
-	  te = anjuta_get_current_text_editor ();
-	  if (te == NULL)
-		  return;
-	  aneditor_command (te->editor_id, ANE_INSERTTEXT, -1, (long)CLEntry);
+	te = anjuta_get_current_text_editor ();
+	if (te == NULL)
+  	return;
+	changelog = insert_changelog_entry();
+	aneditor_command (te->editor_id, ANE_INSERTTEXT, -1, (long)changelog);
+	g_free(changelog);
 }
+
+static char *
+insert_date_time(void)
+{
+	time_t cur_time = time(NULL);
+	gchar *DateTime;
+
+	DateTime = g_new(gchar, 100);
+	sprintf(DateTime,ctime(&cur_time));
+	return DateTime;
+}                                                            ;
 
 void
 on_insert_date_time(GtkMenuItem * menuitem, gpointer user_data)
 {
-       TextEditor *te;
-       time_t cur_time = time(NULL);
-       char DateTime[256] = {0};
-       
-       sprintf(DateTime,ctime(&cur_time));
-       DateTime[strlen(DateTime)-1] = '\0';    // strip the \n that ctime appends
-               
-       te = anjuta_get_current_text_editor ();
-       if (te == NULL)
-               return;
-       aneditor_command (te->editor_id, ANE_INSERTTEXT, -1, (long)DateTime);
+	TextEditor *te;
+	gchar *DateTime;
+
+	te = anjuta_get_current_text_editor ();
+	if (te == NULL)
+		return;
+	DateTime = insert_date_time();
+	aneditor_command (te->editor_id, ANE_INSERTTEXT, -1, (long)DateTime);
+	g_free(DateTime);
 }
 
-void
-on_insert_header_template(GtkMenuItem * menuitem, gpointer user_data)
+static gchar *
+insert_header_template(TextEditor *te)
 {
-       TextEditor *te;
-       char *header_template =
-	"#ifndef _HEADER_H\n"
-	"#define _HEADER_H\n"
+	gchar *header_template =
+	"_H\n"
 	"\n"
 	"#ifdef __cplusplus\n"
 	"extern \"C\"\n"
@@ -527,12 +623,165 @@ on_insert_header_template(GtkMenuItem * menuitem, gpointer user_data)
 	"}\n"
 	"#endif\n"
 	"\n"
-	"#endif /* _HEADER_H */\n";
+	"#endif /* _";
+	gchar *buffer;
+	gchar *name = NULL;
+	gchar mesg[256];
+	gint i;
 
-       te = anjuta_get_current_text_editor ();
-       if (te == NULL)
-               return;
-       aneditor_command (te->editor_id, ANE_INSERTTEXT, -1, (long)header_template);
+	i = strlen(te->filename);
+	if ( g_strcasecmp((te->filename) + i - 2, ".h") == 0)
+		name = g_strndup(te->filename, i - 2);
+	else
+	{
+		sprintf(mesg, _("The file \"%s\" is not a header file !"), te->filename);
+		messagebox1(GNOME_MESSAGE_BOX_WARNING, mesg, GNOME_STOCK_BUTTON_OK ,
+		            NULL, NULL);
+		return NULL;
+	}
+	g_strup(name);  /* do not use with GTK2 */
+	buffer = g_strconcat("#ifndef _", name, "_H\n#define _", name,
+						header_template, name, "_H */\n", NULL);
+
+	g_free(name);
+	return buffer;
+}
+
+
+void
+on_insert_header_template(GtkMenuItem * menuitem, gpointer user_data)
+{
+	TextEditor *te;
+	gchar *header;
+
+	te = anjuta_get_current_text_editor ();
+	if (te == NULL)
+		return;
+
+	header =  insert_header_template(te);
+	if (header == NULL)
+		return;
+	aneditor_command (te->editor_id, ANE_INSERTTEXT, -1, (long)header);
+	g_free(header);
+}
+
+static gchar *
+insert_header_c( TextEditor *te)
+{
+ 	gchar *buffer;
+	gchar *tmp;
+	gchar *star;
+	gchar *copyright;
+	gchar *email;
+
+	star =  g_strnfill(75, '*');
+	tmp = g_strdup(te->filename);
+	buffer = g_strconcat("/", star, "\n *            ", tmp, "\n *\n", NULL);
+	g_free(tmp);
+	tmp = insert_date_time();
+	buffer = g_strconcat( buffer, " *  ", tmp, NULL);
+	g_free(tmp);
+	copyright = insert_copyright();
+	buffer = g_strconcat(buffer, " *  ", copyright, "\n", NULL);
+	g_free(copyright);
+	email = insert_email();
+	buffer = g_strconcat(buffer, " *  ", email, "\n", NULL);
+	g_free(email);
+	buffer = g_strconcat(buffer, " ", star, "*/\n", NULL);
+	g_free(star);
+
+	return buffer;
+}
+
+void
+on_insert_header(GtkMenuItem * menuitem, gpointer user_data)
+{
+	TextEditor *te;
+	gchar *header;
+
+	te = anjuta_get_current_text_editor ();
+	if (te == NULL)
+		return;
+
+	header = insert_header_c(te);
+	aneditor_command (te->editor_id, ANE_INSERTTEXT, -1, (long)header);
+	g_free(header);
+}
+
+void
+on_insert_switch_template(GtkMenuItem * menuitem, gpointer user_data)
+{
+	TextEditor *te;
+	gchar *switch_template =
+	"switch ( )\n"
+	"{\n"
+	"\tcase  :\n"
+	"\t\t;\n"
+	"\t\tbreak;\n"
+	"\tcase  :\n"
+	"\t\t;\n"
+	"\t\tbreak;\n"
+	"\tdefaults:\n"
+	"\t\t;\n"
+	"\t\tbreak;\n"
+	"}\n";
+
+	te = anjuta_get_current_text_editor ();
+	if (te == NULL)
+		return;
+	aneditor_command (te->editor_id, ANE_INSERTTEXT, -1, (long)switch_template);
+}
+
+void
+on_insert_for_template(GtkMenuItem * menuitem, gpointer user_data)
+{
+	TextEditor *te;
+	gchar *for_template =
+	"for ( ; ; )\n"
+	"{\n"
+	"\t;\n"
+	"}\n";
+
+	te = anjuta_get_current_text_editor ();
+	if (te == NULL)
+		return;
+	aneditor_command (te->editor_id, ANE_INSERTTEXT, -1, (long)for_template);
+}
+
+void
+on_insert_while_template(GtkMenuItem * menuitem, gpointer user_data)
+{
+	TextEditor *te;
+	gchar *while_template =
+	"while ( )\n"
+	"{\n"
+	"\t;\n"
+	"}\n";
+
+	te = anjuta_get_current_text_editor ();
+	if (te == NULL)
+		return;
+	aneditor_command (te->editor_id, ANE_INSERTTEXT, -1, (long)while_template);
+}
+
+void
+on_insert_ifelse_template(GtkMenuItem * menuitem, gpointer user_data)
+{
+	TextEditor *te;
+	gchar *ifelse_template =
+	"if ( )\n"
+	"{\n"
+	"\t;\n"
+	"}\n"
+	"else\n"
+	"{\n"
+	"\t;\n"
+	"}\n";
+
+	te = anjuta_get_current_text_editor ();
+	if (te == NULL)
+		return;
+	aneditor_command (te->editor_id, ANE_INSERTTEXT, -1, (long)ifelse_template);
 }
 
 void

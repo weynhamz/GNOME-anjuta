@@ -238,7 +238,7 @@ update_main_menubar ()
 	DebugSubMenu *dm;
 	HelpSubMenu *hm;
 	CVSSubMenu* cvs;
-	gboolean F, P, SF, L, G, A, R, Pr, UD, RD, Ld, C, I, FLD, UT;
+	gboolean F, P, SF, L, G, A, R, Pr, UD, RD, Ld, C, I, FLD, UT, PCVS;
 	TextEditor *te;
 
 	if (app->shutdown_in_progress)
@@ -254,6 +254,7 @@ update_main_menubar ()
 	hm = &(app->widgets.menubar.help);
 	cvs = &(app->widgets.menubar.cvs);
 	P = app->project_dbase->project_is_open;
+	PCVS = P && app->project_dbase->has_cvs;
 	if (P)
 		G = TRUE;
 	else
@@ -320,6 +321,11 @@ update_main_menubar ()
 	gtk_widget_set_sensitive (em->convert_cr, F);
 	gtk_widget_set_sensitive (em->convert_auto, F);
 	
+	gtk_widget_set_sensitive (em->insert_header, F);
+	gtk_widget_set_sensitive (em->insert_c_switch, F);
+	gtk_widget_set_sensitive (em->insert_c_for, F);
+  gtk_widget_set_sensitive (em->insert_c_while, F);
+	gtk_widget_set_sensitive (em->insert_c_ifelse, F);
 	gtk_widget_set_sensitive (em->insert_c_gpl, F);
 	gtk_widget_set_sensitive (em->insert_cpp_gpl, F);
 	gtk_widget_set_sensitive (em->insert_py_gpl, F);
@@ -425,19 +431,19 @@ update_main_menubar ()
 	gtk_widget_set_sensitive (dm->info_frame, A && R);
 	gtk_widget_set_sensitive (dm->info_args, A && R);
 	
-	gtk_widget_set_sensitive (cvs->update_file, !L);
-	gtk_widget_set_sensitive (cvs->commit_file, !L);
-	gtk_widget_set_sensitive (cvs->status_file, !L);
-	gtk_widget_set_sensitive (cvs->add_file, !L);
-	gtk_widget_set_sensitive (cvs->remove_file, !L);
-	gtk_widget_set_sensitive (cvs->log_file, !L);
-	gtk_widget_set_sensitive (cvs->diff_file, !L);
-	gtk_widget_set_sensitive (cvs->update_project, P && !L);
-	gtk_widget_set_sensitive (cvs->commit_project, P && !L);
-	gtk_widget_set_sensitive (cvs->import_project, P && !L);
-	gtk_widget_set_sensitive (cvs->status_project, P && !L);
-	gtk_widget_set_sensitive (cvs->log_project, P && !L);
-	gtk_widget_set_sensitive (cvs->diff_project, P && !L);
+	gtk_widget_set_sensitive (cvs->update_file, !L && F);
+	gtk_widget_set_sensitive (cvs->commit_file, !L && F);
+	gtk_widget_set_sensitive (cvs->status_file, !L && F);
+	gtk_widget_set_sensitive (cvs->add_file, !L && F);
+	gtk_widget_set_sensitive (cvs->remove_file, !L && F);
+	gtk_widget_set_sensitive (cvs->log_file, !L && F);
+	gtk_widget_set_sensitive (cvs->diff_file, !L && F);
+	gtk_widget_set_sensitive (cvs->update_project, PCVS && !L);
+	gtk_widget_set_sensitive (cvs->commit_project, PCVS && !L);
+	gtk_widget_set_sensitive (cvs->import_project, PCVS && !L);
+	gtk_widget_set_sensitive (cvs->status_project, PCVS && !L);
+	gtk_widget_set_sensitive (cvs->log_project, PCVS && !L);
+	gtk_widget_set_sensitive (cvs->diff_project, PCVS && !L);
 	gtk_widget_set_sensitive (cvs->login, !L);
 
 	gtk_widget_set_sensitive(hm->gnome, app->has_devhelp);

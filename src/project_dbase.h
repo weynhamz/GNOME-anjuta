@@ -136,6 +136,7 @@ struct _ProjectDBase
 	gboolean is_saved;
 	gboolean is_showing;
 	gboolean is_docked;
+	gboolean has_cvs;
 	gint win_pos_x, win_pos_y, win_width, win_height;
 
 	/* Current node info */

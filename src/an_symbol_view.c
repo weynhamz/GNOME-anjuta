@@ -230,7 +230,7 @@ static void sv_context_handler(GtkMenuItem *item, gpointer user_data)
 				anjuta_search_sources_for_symbol(sv->sinfo->sym_name);
 			break;
 		case REFRESH:
-			sv_populate();
+			sv_populate(TRUE);
 			break;
 		default:
 			break;
@@ -443,7 +443,7 @@ static void sv_assign_node_name(TMSymbol *sym, GString *s)
 	  sv_bitmaps[sv_cfolder_t], sv_icons[sv_ofolder_t],\
 	  sv_bitmaps[sv_ofolder_t], FALSE, FALSE);}
 
-AnSymbolView *sv_populate(void)
+AnSymbolView *sv_populate(gboolean full)
 {
 	GString *s;
 	char *arr[1];
@@ -467,6 +467,13 @@ AnSymbolView *sv_populate(void)
 	sv_freeze();
 	sv_clear();
 
+	for (root_type = sv_root_none_t; root_type < sv_root_max_t; ++root_type)
+		CREATE_SV_NODE(root_type)
+	root[sv_root_max_t] = NULL;
+
+	if (!full)
+		goto clean_leave;
+
 	if (!app || !app->project_dbase || !app->project_dbase->tm_project ||
 	  !app->project_dbase->tm_project->tags_array ||
 	  (0 == app->project_dbase->tm_project->tags_array->len))
@@ -474,10 +481,6 @@ AnSymbolView *sv_populate(void)
 
 	if (!(symbol_tree = tm_symbol_tree_new(app->project_dbase->tm_project->tags_array)))
 		goto clean_leave;
-
-	for (root_type = sv_root_none_t; root_type < sv_root_max_t; ++root_type)
-		CREATE_SV_NODE(root_type)
-	root[sv_root_max_t] = NULL;
 
 	if (!symbol_tree->info.children || (0 == symbol_tree->info.children->len))
 	{

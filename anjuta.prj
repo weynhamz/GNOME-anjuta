@@ -1,4 +1,4 @@
-# Anjuta Version 0.1.9.99 
+# Anjuta Version 1.0-pre
 Compatibility Level: 1 
 
 <PROJECT_DESCRIPTION_START>
@@ -30,7 +30,7 @@ anjuta.compatibility.level=1
 project.name=anjuta
 project.type=GNOME
 project.target.type=EXECUTABLE
-project.version=0.1.10-pre
+project.version=1.0-pre
 project.author=naba
 project.source.target=src/anjuta
 
@@ -629,7 +629,6 @@ module.doc.type=
 module.doc.expanded=0
 module.doc.files=\
 	AUTHORS\
-	BUGS\
 	COPYING\
 	ChangeLog\
 	FUTURE\

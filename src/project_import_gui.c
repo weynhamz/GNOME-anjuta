@@ -18,6 +18,7 @@
 
 #include "anjuta.h"
 #include "resources.h"
+#include "controls.h"
 #include "pixmaps.h"
 #include "project_import.h"
 #include "project_import_cbs.h"
@@ -44,6 +45,14 @@ greetings_text ()
 void
 create_project_import_gui (void)
 {
+	FileSubMenu *fm = &(app->widgets.menubar.file);
+
+	gtk_widget_set_sensitive(fm->new_project, FALSE);
+	gtk_widget_set_sensitive(fm->import_project, FALSE);
+	gtk_widget_set_sensitive(fm->open_project, FALSE);
+	gtk_widget_set_sensitive(fm->save_project, FALSE);
+	gtk_widget_set_sensitive(fm->close_project, FALSE);
+
 	piw = g_new0 (ProjectImportWizard, 1);
 	piw->filename = NULL;
 
@@ -121,6 +130,7 @@ destroy_project_import_gui (void)
 	string_assign (&piw->prj_description, NULL);
 	g_free(piw);
 	piw = NULL;
+	update_main_menubar();
 }
 
 void

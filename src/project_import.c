@@ -22,6 +22,7 @@
 #include <sys/wait.h>
 #include <signal.h>
 #include <string.h>
+#include <errno.h>
 #include <time.h>
 
 #include "project_import.h"
@@ -53,12 +54,15 @@ static int timer;
 
 ProjectImportWizard *piw;
 
+#define IMPORT_SCRIPT PACKAGE_BIN_DIR "/anjuta_import.sh"
+
 gboolean
 project_import_start (gchar * topleveldir, ProjectImportWizard * piw)
 {
 	gchar *tmp;
 	gchar *command;
 	gboolean ret;
+	struct stat s;
 
 	piw->directory = g_strdup (topleveldir);
 
@@ -75,15 +79,23 @@ project_import_start (gchar * topleveldir, ProjectImportWizard * piw)
 	}
 	g_free (tmp);
 */
-	if (anjuta_is_installed("anjuta_import.sh", TRUE) == FALSE)
+	if (0 != stat(IMPORT_SCRIPT, &s))
+	{
+		anjuta_system_error_parented(app->widgets.window, errno
+		  , _("Unable to find import script %s"), IMPORT_SCRIPT);
 		return FALSE;
-	
-	command = g_strdup_printf ("anjuta_import.sh \"%s\"", topleveldir);
-	
+	}
+	if (!S_ISREG(s.st_mode))
+	{
+		anjuta_error_parented(app->widgets.window, _("%s: Not a regular file"), IMPORT_SCRIPT);
+		return FALSE;
+	}
+	command = g_strdup_printf (IMPORT_SCRIPT " \"%s\"", topleveldir);
+	g_message("Command: %s", command);
 	ret = launcher_execute (command, project_import_stdout_line_arrived,
 				project_import_stderr_line_arrived,
 				project_import_terminated);
-
+	g_free(command);
 	anjuta_message_manager_clear (app->messages, MESSAGE_BUILD);
 	if (ret)
 	{
@@ -118,14 +130,14 @@ static void
 project_import_stdout_line_arrived (gchar * line)
 {
 	gchar filename[512];
+	gchar *pos;
 	if (!line)
 		return;
-
 	anjuta_message_manager_append (app->messages, line, MESSAGE_BUILD);
-	if (sscanf (line, "Created Project file %s successfully.", filename)
-	    == 1)
+	if (NULL != (pos = strstr(line, "Created project file ")))
 	{
-		piw->filename = g_strdup (filename);
+		if (sscanf (pos, "Created project file %s successfully.", filename) == 1)
+			piw->filename = g_strdup (filename);
 	}
 }
 
@@ -169,7 +181,7 @@ project_import_terminated (int status, time_t time)
 	if (piw->filename == NULL)
 	{
 		anjuta_error (_
-			      ("Could not import project: Unexpected error"));
+			      ("Could not import project: no project file found!"));
 		destroy_project_import_gui ();
 		return;
 	}
