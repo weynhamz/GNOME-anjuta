@@ -19,6 +19,7 @@
 */
 
 #include <libgnomevfs/gnome-vfs-utils.h>
+#include <libgnomevfs/gnome-vfs.h>
 
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-preferences.h>
@@ -161,10 +162,14 @@ value_added_fm_current_uri (AnjutaPlugin *plugin, const char *name,
 							const GValue *value, gpointer data)
 {
 	AnjutaUI *ui;
-	/* GtkAction *action; */
+	GtkAction *cvs_menu_action;
 	const gchar *uri;
-	gchar /* *dirname, */ *filename;
-	/* gboolean makefile_exists, is_dir; */
+	GnomeVFSURI *cvs_uri;
+	gchar *cvs_text_uri, *cvs_dir;
+	gchar *filename;
+	GnomeVFSDirectoryHandle* handle;
+	GnomeVFSFileInfo info;
+	GnomeVFSResult result;
 	
 	uri = g_value_get_string (value);
 	filename = gnome_vfs_get_local_path_from_uri (uri);
@@ -177,46 +182,62 @@ value_added_fm_current_uri (AnjutaPlugin *plugin, const char *name,
 		g_free (cvs_plugin->fm_current_filename);
 	cvs_plugin->fm_current_filename = filename;
 	
-	/*
-	is_dir = g_file_test (filename, G_FILE_TEST_IS_DIR);
-	if (is_dir)
-		dirname = g_strdup (filename);
-	else
-		dirname = g_path_get_dirname (filename);
-	makefile_exists = directory_has_makefile (dirname);
-	g_free (dirname);
+	/* Show popup menu if CVS directory exists */
+	g_free(cvs_text_uri);
+	gnome_vfs_uri_unref(cvs_uri);
 	
-	if (!makefile_exists)
-		return;
+	cvs_menu_action = anjuta_ui_get_action (ui, "ActionGroupCVS", "ActionPopupCVS");
 	
-	action = anjuta_ui_get_action (ui, "ActionGroupBuild", "ActionPopupBuild");
-	g_object_set (G_OBJECT (action), "sensitive", TRUE, NULL);
-	action = anjuta_ui_get_action (ui, "ActionGroupBuild",
-										"ActionPopupBuildCompile");
-	if (is_dir)
-		g_object_set (G_OBJECT (action), "sensitive", FALSE, NULL);
+	/* If a directory is selected we check if it contains a "CVS" directory,
+	if it is a file we check if it's directory contains a "CVS" directory */
+	result = gnome_vfs_get_file_info(uri, &info, 
+		GNOME_VFS_FILE_INFO_DEFAULT);
+	if (result == GNOME_VFS_OK)
+	{
+		if (info.type == GNOME_VFS_FILE_TYPE_DIRECTORY)
+		{
+			cvs_dir = g_strconcat(uri, "/CVS", NULL);
+		}
+		
+		else
+		{
+			cvs_uri = gnome_vfs_uri_new (uri);
+			cvs_text_uri = gnome_vfs_uri_extract_dirname(cvs_uri);
+			cvs_dir = g_strconcat(cvs_text_uri, "/CVS", NULL);
+		}	
+	}
 	else
-		g_object_set (G_OBJECT (action), "sensitive", TRUE, NULL);
-	*/
+		return; /* Strange... */
+	if (gnome_vfs_directory_open(&handle, cvs_dir, 
+		GNOME_VFS_FILE_INFO_DEFAULT) == GNOME_VFS_OK) 
+	{
+		
+		g_object_set (G_OBJECT (cvs_menu_action), "sensitive", TRUE, NULL);
+	}
+	else
+	{
+		g_object_set (G_OBJECT (cvs_menu_action), "sensitive", FALSE, NULL);
+	}
+	g_free(cvs_dir);
 }
 
 static void
 value_removed_fm_current_uri (AnjutaPlugin *plugin,
 							  const char *name, gpointer data)
 {
-	/* AnjutaUI *ui;
-	GtkAction *action; */
+	AnjutaUI *ui;
+	GtkAction *action;
 	
 	CVSPlugin *cvs_plugin = (CVSPlugin*)plugin;
 	
 	if (cvs_plugin->fm_current_filename)
 		g_free (cvs_plugin->fm_current_filename);
 	cvs_plugin->fm_current_filename = NULL;
-	/*
+
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
-	action = anjuta_ui_get_action (ui, "ActionGroupBuild", "ActionPopupBuild");
+	action = anjuta_ui_get_action (ui, "ActionGroupCVS", "ActionPopupCVS");
 	g_object_set (G_OBJECT (action), "sensitive", FALSE, NULL);
-	*/
+	
 }
 
 static void

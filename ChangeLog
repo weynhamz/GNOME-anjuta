@@ -1,5 +1,11 @@
 2004-12-28  Johannes Schmid <jhs@cvs.gnome.org>
 	
+	* plugins/cvs-plugin/plugin.c:
+	Show popup menu only if the file is contained in
+	a directory containing a "CVS" directory
+
+2004-12-28  Johannes Schmid <jhs@cvs.gnome.org>
+	
 	* plugins/cvs-plugin/cvs-action.[ch],
 	* plugins/cvs-plugin/anjuta-cvs-plugin.glade,
 	* plugins/cvs-plugin/anjuta-cvs.ui,
