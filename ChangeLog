@@ -13,6 +13,11 @@
 	* data/internal.properties:
 	Correct mis-spelled "jave" to "java".
 	Added file.is.source for *.h, *.c, *.cpp properties.
+	
+	* global-tags/Makefile.am:
+	"chmod +x create_global_tags.sh" before it is executed, because
+	there is very high chance that it will be found "-x" and resulting
+	in error
 
 2001-12-31  Stephane Demurget  <demurgets@free.fr>
 
