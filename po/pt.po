@@ -1,12 +1,13 @@
-# anjuta2's Portuguese Translation
-# Copyright (C) 2002 Free Software Foundation, Inc.
+# anjuta's Portuguese Translation
+# Copyright (C) 2002, 2003 anjuta
+# Distributed under the same licence as the anjuta package
 # Duarte Loreto <happyguy_pt@hotmail.com>, 2001, 2002, 2003
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: 2.2\n"
 "POT-Creation-Date: 2003-03-31 23:44+0100\n"
-"PO-Revision-Date: 2003-03-31 23:55+0000\n"
+"PO-Revision-Date: 2003-03-17 18:59+0000\n"
 "Last-Translator: Duarte Loreto <happyguy_pt@hotmail.com>\n"
 "Language-Team: Portuguese <gnome_pt@yahoogroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -1101,7 +1102,7 @@ msgstr "Activar gravação automática ficheiros"
 
 #: anjuta_dialogs_strings.c:366
 msgid "Enable braces check"
-msgstr "Activar verificação parêntesis"
+msgstr "Activar verificação chavetas"
 
 #: anjuta_dialogs_strings.c:367
 msgid "Strip trailling spaces on file save"
@@ -3712,7 +3713,7 @@ msgstr "Seleccionar para _Parentêsis"
 
 #: src/main_menubar_def.h:211
 msgid "Select the text in the matching braces"
-msgstr "Seleccionar o texto nos parêntesis correspondentes"
+msgstr "Seleccionar o texto nas chavetas correspondentes"
 
 #. 2
 #: src/main_menubar_def.h:216
@@ -3945,11 +3946,11 @@ msgstr "Ir para uma linha em específico no editor"
 #. 1
 #: src/main_menubar_def.h:454
 msgid "Goto Matching _Brace"
-msgstr "_Ir Para Parêntesis Correspondente"
+msgstr "_Ir Para Chaveta Correspondente"
 
 #: src/main_menubar_def.h:455
 msgid "Go to the matching brace in the editor"
-msgstr "Ir para o parêntesis correspondente no editor"
+msgstr "Ir para a chaveta correspondente no editor"
 
 #. 2
 #: src/main_menubar_def.h:460
