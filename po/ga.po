@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: anjuta anjuta-1-2-0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2003-12-17 02:59+0100\n"
-"PO-Revision-Date: 2004-01-14 07:50-0000\n"
+"PO-Revision-Date: 2004-03-08 17:50-0000\n"
 "Last-Translator: Alastair McKinstry <mckinstry@computer.org>\n"
 "Language-Team: Irish <gaeilge-gnulinux@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -178,7 +178,7 @@ msgstr ""
 #: anjuta.glade.h:38 src/build_file.c:102 src/message-manager.cc:43
 #: src/toolbar.c:273
 msgid "Build"
-msgstr ""
+msgstr "Deán"
 
 #: anjuta.glade.h:39
 msgid "Build command:"
@@ -255,7 +255,7 @@ msgstr ""
 
 #: anjuta.glade.h:57
 msgid "Choose Directories:"
-msgstr ""
+msgstr "Roghnaigh Eolairí:"
 
 #: anjuta.glade.h:58
 msgid "Choose Files:"
@@ -509,7 +509,7 @@ msgstr ""
 
 #: anjuta.glade.h:120 src/breakpoints.c:111
 msgid "Enabled"
-msgstr ""
+msgstr "Cumasach"
 
 #: anjuta.glade.h:121
 msgid "Encoding to use when saving files"
@@ -646,7 +646,7 @@ msgstr ""
 
 #: anjuta.glade.h:152
 msgid "HTML _viewer:"
-msgstr ""
+msgstr "_Amarcóir HTML:"
 
 #: anjuta.glade.h:153
 msgid "Headers"
@@ -789,7 +789,7 @@ msgstr "Clé"
 
 #: anjuta.glade.h:187
 msgid "Libraries"
-msgstr ""
+msgstr "Leabharlanna"
 
 #: anjuta.glade.h:188
 msgid "Library Paths"
@@ -825,7 +825,7 @@ msgstr "Makefile.am"
 
 #: anjuta.glade.h:196
 msgid "Man pages"
-msgstr ""
+msgstr "Leath. Lámhleabhar"
 
 #: anjuta.glade.h:197
 msgid "Match at start of word"
@@ -877,7 +877,7 @@ msgstr ""
 
 #: anjuta.glade.h:209
 msgid "Mode:"
-msgstr ""
+msgstr "Módh:"
 
 #: anjuta.glade.h:210
 msgid "Modules"
@@ -1016,7 +1016,7 @@ msgstr ""
 
 #: anjuta.glade.h:242
 msgid "Programs"
-msgstr ""
+msgstr "Ríomhcláranna"
 
 #: anjuta.glade.h:243 src/project_dbase_gui.c:609 src/project_dbase_gui.c:626
 #: src/toolbar.c:150
@@ -1085,7 +1085,7 @@ msgstr ""
 
 #: anjuta.glade.h:259
 msgid "Replace With:"
-msgstr ""
+msgstr "Glac Áit le:"
 
 #: anjuta.glade.h:260
 msgid "Reset all sticky tags during update (looses branch) [-A]"
@@ -2166,7 +2166,7 @@ msgstr "Priontáil"
 
 #: printing/print.c:1038
 msgid "Print Preview"
-msgstr ""
+msgstr "Reamthaispeántas"
 
 #: src/about.c:95
 msgid "Copyright (c) Naba Kumar"
@@ -2236,7 +2236,7 @@ msgstr ""
 #. 5
 #: src/an_file_view.c:389
 msgid "Remove file"
-msgstr ""
+msgstr "Scríos comhad"
 
 #: src/an_file_view.c:390 src/main_menubar_def.h:1647
 msgid "Remove the current file from the repository"
@@ -2684,7 +2684,7 @@ msgstr "Eolas"
 
 #: src/appwizard_cbs.c:126
 msgid "Project name"
-msgstr ""
+msgstr "Ainm Tionscadal"
 
 #: src/appwizard_cbs.c:127
 msgid "Source target name"
@@ -2692,7 +2692,7 @@ msgstr ""
 
 #: src/appwizard_cbs.c:128
 msgid "Project version"
-msgstr ""
+msgstr "Leagan Tionscadal"
 
 #: src/appwizard_cbs.c:224
 #, c-format
@@ -2722,11 +2722,11 @@ msgstr ""
 
 #: src/appwizard_cbs.c:287 src/project_import_cbs.c:231
 msgid "Project Name:    "
-msgstr ""
+msgstr "Ainm Tionscadal: "
 
 #: src/appwizard_cbs.c:288 src/project_import_cbs.c:232
 msgid "Project Type:    "
-msgstr ""
+msgstr "Saghas Tionsc.   "
 
 #: src/appwizard_cbs.c:289 src/project_import_cbs.c:234
 msgid "Target Type:     "
