@@ -717,6 +717,8 @@ int gtodo_client_save_xml_to_file(GTodoClient *cl, gchar *file, GError **error)
 		return TRUE;
 	}
 	/* dump the xml to memory */
+	/* xmlIndentTreeOutput = 1; */
+	xmlKeepBlanksDefault(0);
 	xmlDocDumpFormatMemory(cl->gtodo_doc, &buffer, &size, TRUE);
 	/* dirty trick to get the whole crap to work on ftp */
 	if(!strncmp(file, "ftp://", MIN(strlen(file),6)))

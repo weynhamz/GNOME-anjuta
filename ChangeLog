@@ -1,5 +1,7 @@
 2004-11-28  Naba Kumar  <naba@gnome.org>
 
+	* TODO.tasks: Fixed indentations.
+	* plugins/gtodo/libgtodo.c: Save with indentation.
 	* plugins/file-manager/an_file_view.c: Sorts the files alphabatically.
 	* plugins/project-manager/plugin.c: Fixed runtime warnings.
 	* libanjuta/anjuta-status.c: Fixed busy cursors.
