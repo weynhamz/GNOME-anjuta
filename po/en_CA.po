@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-18 12:56-0500\n"
-"PO-Revision-Date: 2005-02-18 12:57-0400\n"
+"POT-Creation-Date: 2005-02-22 03:43-0500\n"
+"PO-Revision-Date: 2005-02-22 12:57-0400\n"
 "Last-Translator: Adam Weinberger <adamw@gnome.org>\n"
 "Language-Team: en_CA <adamw@FreeBSD.org>\n"
 "MIME-Version: 1.0\n"
@@ -143,6 +143,7 @@ msgstr "CPU Registers"
 #: plugins/editor/anjuta-document-manager.glade.h:39
 #: plugins/file-manager/an_file_view.c:335
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:9
+#: plugins/macro/macros.xml.h:5
 msgid "CVS"
 msgstr "CVS"
 
@@ -225,7 +226,7 @@ msgstr "Data module Makefile.am"
 
 #. 13
 #: anjuta.glade.h:46 plugins/editor/text_editor_menu.c:320
-#: plugins/gdb/plugin.c:41 plugins/gdb/utilities.c:322 src/toolbar.c:306
+#: plugins/gdb/plugin.c:42 plugins/gdb/utilities.c:322 src/toolbar.c:306
 msgid "Debug"
 msgstr "Debug"
 
@@ -483,7 +484,7 @@ msgstr "Menu location:"
 msgid "Modules"
 msgstr "Modules"
 
-#: anjuta.glade.h:103 plugins/file-wizard/anjuta-file-wizard.glade.h:11
+#: anjuta.glade.h:103 plugins/file-wizard/anjuta-file-wizard.glade.h:13
 msgid "Name:"
 msgstr "Name:"
 
@@ -1370,7 +1371,7 @@ msgstr "No build command has been specified for this type of file."
 #: plugins/build/build_file.c:104
 #, c-format
 msgid "Building file: %s ...\n"
-msgstr "Building file: %s ...\n"
+msgstr "Building file: %s...\n"
 
 #: plugins/build/build_file.c:132
 #: plugins/build-basic-autotools/build-basic-autotools.c:502
@@ -1382,20 +1383,20 @@ msgstr "Total time taken: %lu secs\n"
 #: plugins/build/build_file.c:136
 #: plugins/build-basic-autotools/build-basic-autotools.c:507
 msgid "Completed ... unsuccessful\n"
-msgstr "Completed ... unsuccessful\n"
+msgstr "Completed... unsuccessful\n"
 
 #: plugins/build/build_file.c:140
 msgid "Completed ... unsuccessful"
-msgstr "Completed ... unsuccessful"
+msgstr "Completed... unsuccessful"
 
 #: plugins/build/build_file.c:145
 #: plugins/build-basic-autotools/build-basic-autotools.c:512
 msgid "Completed ... successful\n"
-msgstr "Completed ... successful\n"
+msgstr "Completed... successful\n"
 
 #: plugins/build/build_file.c:149
 msgid "Completed ... successful"
-msgstr "Completed ... successful"
+msgstr "Completed... successful"
 
 #: plugins/build/build_project.c:76 plugins/build/compile.c:61
 msgid "Unable to build module. Check Settings->Commands."
@@ -1501,7 +1502,7 @@ msgstr "Compile"
 #: plugins/build/compile.c:155
 #, c-format
 msgid "Compiling file: %s ...\n"
-msgstr "Compiling file: %s ...\n"
+msgstr "Compiling file: %s...\n"
 
 #: plugins/build/compiler_options.c:503
 msgid ""
@@ -1567,7 +1568,7 @@ msgstr "Configure"
 
 #: plugins/build/configurer.c:191
 msgid "Configuring the Project ....\n"
-msgstr "Configuring the Project ....\n"
+msgstr "Configuring the Project....\n"
 
 #: plugins/build/executer.c:54 src/mainmenu_callbacks.c:513
 msgid "The target executable of this Project is unknown"
@@ -1676,7 +1677,7 @@ msgstr "Clean whole project"
 
 #: plugins/build-basic-autotools/build-basic-autotools.c:849
 msgid "Run C_onfigure ..."
-msgstr "Run C_onfigure ..."
+msgstr "Run C_onfigure..."
 
 #: plugins/build-basic-autotools/build-basic-autotools.c:850
 msgid "Configure project"
@@ -1684,7 +1685,7 @@ msgstr "Configure project"
 
 #: plugins/build-basic-autotools/build-basic-autotools.c:855
 msgid "Run _Autogenerate ..."
-msgstr "Run _Autogenerate ..."
+msgstr "Run _Autogenerate..."
 
 #: plugins/build-basic-autotools/build-basic-autotools.c:856
 msgid "Autogenrate project files"
@@ -1785,7 +1786,6 @@ msgid "Co_mpile (%s)"
 msgstr "Co_mpile (%s)"
 
 #: plugins/build-basic-autotools/build-basic-autotools.c:1277
-#: plugins/gdb/plugin.c:337
 msgid "Build commands"
 msgstr "Build commands"
 
@@ -2357,15 +2357,21 @@ msgstr "Time"
 msgid "Command"
 msgstr "Command"
 
+#: plugins/debug-manager/attach_process.c:407
+#, c-format
+msgid "Unable to execute: %s."
+msgstr "Unable to execute: %s."
+
+#: plugins/debug-manager/attach_process.c:421
+#, c-format
+msgid "Unable to open the file: %s\n"
+msgstr "Unable to open the file: %s\n"
+
 #: plugins/debug-manager/plugin.c:44
-msgid "Load Executable File"
-msgstr "Load Executable File"
+msgid "Load Target to debug"
+msgstr "Load Target to debug"
 
-#: plugins/debug-manager/plugin.c:45
-msgid "Load Core File"
-msgstr "Load Core File"
-
-#: plugins/debug-manager/plugin.c:61 plugins/file-loader/plugin.c:424
+#: plugins/debug-manager/plugin.c:56 plugins/file-loader/plugin.c:424
 #: plugins/project-manager/project_dbase.c:363
 #: plugins/project-manager/project_dbase_gui.c:153
 #: plugins/project-manager/project_dbase_gui.c:170
@@ -2379,143 +2385,121 @@ msgstr "All files"
 
 #. Action name
 #. Stock icon, if any
-#: plugins/debug-manager/plugin.c:211 plugins/gdb/plugin.c:50
+#: plugins/debug-manager/plugin.c:232 plugins/gdb/plugin.c:51
 msgid "_Debug"
 msgstr "_Debug"
 
 #. Action name
 #. Stock icon, if any
-#: plugins/debug-manager/plugin.c:219
+#: plugins/debug-manager/plugin.c:240
 msgid "_Start Debugger"
 msgstr "_Start Debugger"
 
 #. Display label
 #. short-cut
-#: plugins/debug-manager/plugin.c:221
+#: plugins/debug-manager/plugin.c:242
 msgid "Start the debugging session"
 msgstr "Start the debugging session"
 
 #. Action name
 #. Stock icon, if any
-#: plugins/debug-manager/plugin.c:227
-msgid "Load E_xecutable ..."
-msgstr "Load E_xecutable ..."
+#: plugins/debug-manager/plugin.c:248
+msgid "Load debugging target ..."
+msgstr "Load debugging target..."
 
 #. Display label
 #. short-cut
-#: plugins/debug-manager/plugin.c:229
-msgid "Open the executable for debugging"
-msgstr "Open the executable for debugging"
+#: plugins/debug-manager/plugin.c:250
+msgid "Open the target for debugging"
+msgstr "Open the target for debugging"
 
 #. Action name
 #. Stock icon, if any
-#: plugins/debug-manager/plugin.c:235
-msgid "Load _Core file ..."
-msgstr "Load _Core file ..."
-
-#. Display label
-#. short-cut
-#: plugins/debug-manager/plugin.c:237
-msgid "Load a core file to dissect"
-msgstr "Load a core file to dissect"
-
-#. Action name
-#. Stock icon, if any
-#: plugins/debug-manager/plugin.c:243
+#: plugins/debug-manager/plugin.c:256
 msgid "_Attach to Process ..."
-msgstr "_Attach to Process ..."
+msgstr "_Attach to Process..."
 
 #. Display label
 #. short-cut
-#: plugins/debug-manager/plugin.c:245
+#: plugins/debug-manager/plugin.c:258
 msgid "Attach to a running program"
 msgstr "Attach to a running program"
 
 #. Action name
 #. Stock icon, if any
-#: plugins/debug-manager/plugin.c:251
+#: plugins/debug-manager/plugin.c:264
 msgid "_Execution"
 msgstr "_Execution"
 
 #. Action name
 #. Stock icon, if any
-#: plugins/debug-manager/plugin.c:259
+#: plugins/debug-manager/plugin.c:272
 msgid "Run/_Continue"
 msgstr "Run/_Continue"
 
 #. Display label
 #. short-cut
-#: plugins/debug-manager/plugin.c:261
+#: plugins/debug-manager/plugin.c:274
 msgid "Continue the execution of the program"
 msgstr "Continue execution of the program"
 
 #. Action name
 #. Stock icon, if any
-#: plugins/debug-manager/plugin.c:267
+#: plugins/debug-manager/plugin.c:280
 msgid "Step _In"
 msgstr "Step _In"
 
 #. Display label
 #. short-cut
-#: plugins/debug-manager/plugin.c:269
+#: plugins/debug-manager/plugin.c:282
 msgid "Single step into function"
 msgstr "Single step into function"
 
 #. Action name
 #. Stock icon, if any
-#: plugins/debug-manager/plugin.c:275
+#: plugins/debug-manager/plugin.c:288
 msgid "Step O_ver"
 msgstr "Step O_ver"
 
 #. Display label
 #. short-cut
-#: plugins/debug-manager/plugin.c:277
+#: plugins/debug-manager/plugin.c:290
 msgid "Single step over function"
 msgstr "Single step over function"
 
 #. Action name
 #. Stock icon, if any
-#: plugins/debug-manager/plugin.c:283
+#: plugins/debug-manager/plugin.c:296
 msgid "Step _Out"
 msgstr "Step _Out"
 
 #. Display label
 #. short-cut
-#: plugins/debug-manager/plugin.c:285
+#: plugins/debug-manager/plugin.c:298
 msgid "Single step out of the function"
 msgstr "Single step out of the function"
 
 #. Action name
 #. Stock icon, if any
-#: plugins/debug-manager/plugin.c:291
+#: plugins/debug-manager/plugin.c:304
 msgid "_Run to cursor"
 msgstr "_Run to cursor"
 
 #. Display label
 #. short-cut
-#: plugins/debug-manager/plugin.c:293
+#: plugins/debug-manager/plugin.c:306
 msgid "Run to the cursor"
 msgstr "Run to the cursor"
 
-#. Action name
-#. Stock icon, if any
-#: plugins/debug-manager/plugin.c:299
-msgid "_Breakpoints"
-msgstr "_Breakpoints"
+#: plugins/debug-manager/plugin.c:312
+msgid "St_op Debugger"
+msgstr "St_op Debugger"
 
-#. Action name
-#. Stock icon, if any
-#: plugins/debug-manager/plugin.c:307 plugins/editor/text_editor_menu.c:137
-msgid "Toggle breakpoint"
-msgstr "Toggle breakpoint"
+#: plugins/debug-manager/plugin.c:314
+msgid "Say goodbye to the debugger"
+msgstr "Say goodbye to the debugger"
 
-#. Display label
-#. short-cut
-#: plugins/debug-manager/plugin.c:309
-msgid "Toggle breakpoint at the current location"
-msgstr "Toggle breakpoint at the current location"
-
-#: plugins/debug-manager/plugin.c:328
+#: plugins/debug-manager/plugin.c:442
 msgid "Debugger operations"
 msgstr "Debugger operations"
 
@@ -3320,7 +3304,7 @@ msgstr "Save current file"
 
 #: plugins/editor/plugin.c:135 plugins/glade/plugin.c:464
 msgid "Save _As ..."
-msgstr "Save _As ..."
+msgstr "Save _As..."
 
 #: plugins/editor/plugin.c:136
 msgid "Save the current file with a different name"
@@ -3474,7 +3458,7 @@ msgstr "_Search"
 
 #: plugins/editor/plugin.c:202
 msgid "_Find ..."
-msgstr "_Find ..."
+msgstr "_Find..."
 
 #: plugins/editor/plugin.c:203
 msgid "Search for a string or regular expression in the editor"
@@ -3494,7 +3478,7 @@ msgstr "Find _Previous"
 
 #: plugins/editor/plugin.c:212
 msgid "Find and R_eplace ..."
-msgstr "Find and R_eplace ..."
+msgstr "Find and R_eplace..."
 
 #: plugins/editor/plugin.c:214
 msgid ""
@@ -3520,7 +3504,7 @@ msgstr "Enter the selected text as the search target"
 
 #: plugins/editor/plugin.c:224
 msgid "Fin_d in Files ..."
-msgstr "Fin_d in Files ..."
+msgstr "Fin_d in Files..."
 
 #: plugins/editor/plugin.c:225
 msgid "Search for a string in multiple files or directories"
@@ -3564,7 +3548,7 @@ msgstr "Go to a particular line in the editor"
 
 #: plugins/editor/plugin.c:248
 msgid "_Line number ..."
-msgstr "_Line number ..."
+msgstr "_Line number..."
 
 #: plugins/editor/plugin.c:252
 msgid "Matching _Brace"
@@ -4030,7 +4014,7 @@ msgstr "Printing .."
 
 #: plugins/editor/print.c:882
 msgid "Printing ..."
-msgstr "Printing ..."
+msgstr "Printing..."
 
 #: plugins/editor/print.c:1029 plugins/gdb/signals_gui.c:124
 msgid "Print"
@@ -4143,7 +4127,7 @@ msgstr "Auto format is currently disabled. Change the setting in Preferences."
 
 #: plugins/editor/text_editor.c:1634
 msgid "Error in auto formatting ..."
-msgstr "Error in auto formatting ..."
+msgstr "Error in auto formatting..."
 
 #. FIXME: anjuta_set_active ();
 #: plugins/editor/text_editor.c:1650
@@ -4157,7 +4141,7 @@ msgid ""
 "Error in auto formatting ...\n"
 "Details: %s"
 msgstr ""
-"Error in auto formatting ...\n"
+"Error in auto formatting...\n"
 "Details: %s"
 
 #: plugins/editor/text_editor.c:1922
@@ -4205,6 +4189,12 @@ msgstr "Prev bookmark"
 #: plugins/editor/text_editor_menu.c:127
 msgid "Next bookmark"
 msgstr "Next bookmark"
+
+#. Action name
+#. Stock icon, if any
+#: plugins/editor/text_editor_menu.c:137 plugins/gdb/plugin.c:67
+msgid "Toggle breakpoint"
+msgstr "Toggle breakpoint"
 
 #: plugins/editor/text_editor_menu.c:144 src/toolbar.c:536
 msgid "Step in"
@@ -4399,7 +4389,7 @@ msgstr "Diff files"
 
 #: plugins/file-loader/plugin.c:667
 msgid "_New ..."
-msgstr "_New ..."
+msgstr "_New..."
 
 #: plugins/file-loader/plugin.c:669
 msgid "New file, project and project components."
@@ -4407,7 +4397,7 @@ msgstr "New file, project and project components."
 
 #: plugins/file-loader/plugin.c:675
 msgid "_Open ..."
-msgstr "_Open ..."
+msgstr "_Open..."
 
 #: plugins/file-loader/plugin.c:683
 msgid "_Open"
@@ -4536,7 +4526,7 @@ msgstr "Customize the file browser"
 #: plugins/file-manager/an_file_view.c:1075
 #: plugins/symbol-browser/an_symbol_view.c:538
 msgid "Loading ..."
-msgstr "Loading ..."
+msgstr "Loading..."
 
 #: plugins/file-manager/an_file_view.c:930
 msgid "Rev"
@@ -4617,18 +4607,26 @@ msgid "Add License Information (GPL)"
 msgstr "Add Licence Information (GPL)"
 
 #: plugins/file-wizard/anjuta-file-wizard.glade.h:5
+msgid "Add to CVS"
+msgstr "Add to CVS"
+
+#: plugins/file-wizard/anjuta-file-wizard.glade.h:6
+msgid "Add to project"
+msgstr "Add to project"
+
+#: plugins/file-wizard/anjuta-file-wizard.glade.h:7
 msgid "C++: // comment"
 msgstr "C++: // comment"
 
-#: plugins/file-wizard/anjuta-file-wizard.glade.h:6
+#: plugins/file-wizard/anjuta-file-wizard.glade.h:8
 msgid "Comment Style:"
 msgstr "Comment Style:"
 
-#: plugins/file-wizard/anjuta-file-wizard.glade.h:7
+#: plugins/file-wizard/anjuta-file-wizard.glade.h:9
 msgid "Create corresponding header file"
 msgstr "Create corresponding header file"
 
-#: plugins/file-wizard/anjuta-file-wizard.glade.h:8
+#: plugins/file-wizard/anjuta-file-wizard.glade.h:10
 msgid ""
 "Enter the File name.\n"
 "The extension will be added according to the type."
@@ -4636,28 +4634,28 @@ msgstr ""
 "Enter the File name.\n"
 "The extension will be added according to the type."
 
-#: plugins/file-wizard/anjuta-file-wizard.glade.h:10
+#: plugins/file-wizard/anjuta-file-wizard.glade.h:12
 #: plugins/project-wizard/anjuta-project-wizard.glade.h:10
 msgid "License:"
 msgstr "Licence:"
 
-#: plugins/file-wizard/anjuta-file-wizard.glade.h:12
+#: plugins/file-wizard/anjuta-file-wizard.glade.h:14
 msgid "New File"
 msgstr "New File"
 
-#: plugins/file-wizard/anjuta-file-wizard.glade.h:13
+#: plugins/file-wizard/anjuta-file-wizard.glade.h:15
 msgid "Shell: # comment"
 msgstr "Shell: # comment"
 
-#: plugins/file-wizard/anjuta-file-wizard.glade.h:14
+#: plugins/file-wizard/anjuta-file-wizard.glade.h:16
 msgid "Type:"
 msgstr "Type:"
 
-#: plugins/file-wizard/anjuta-file-wizard.glade.h:15
+#: plugins/file-wizard/anjuta-file-wizard.glade.h:17
 msgid "Use Template for the Header file"
 msgstr "Use Template for the Header file"
 
-#: plugins/file-wizard/anjuta-file-wizard.glade.h:16
+#: plugins/file-wizard/anjuta-file-wizard.glade.h:18
 msgid "_C: /* comment */"
 msgstr "_C: /* comment */"
 
@@ -4915,7 +4913,7 @@ msgstr "Pass"
 msgid "Condition"
 msgstr "Condition"
 
-#: plugins/gdb/breakpoints.c:184 plugins/gdb/debugger.c:1650
+#: plugins/gdb/breakpoints.c:184 plugins/gdb/debugger.c:1657
 msgid "All breakpoints enabled:"
 msgstr "All breakpoints enabled:"
 
@@ -4924,7 +4922,7 @@ msgstr "All breakpoints enabled:"
 #. breakpoints_dbase_update,
 #. debugger.breakpoints_dbase);
 #.
-#: plugins/gdb/breakpoints.c:202 plugins/gdb/debugger.c:1691
+#: plugins/gdb/breakpoints.c:202 plugins/gdb/debugger.c:1698
 msgid "All breakpoints disabled:"
 msgstr "All breakpoints disabled:"
 
@@ -4982,27 +4980,27 @@ msgstr "Char"
 msgid "Inspect memory"
 msgstr "Inspect memory"
 
-#: plugins/gdb/debugger.c:116
+#: plugins/gdb/debugger.c:120
 msgid "Stack"
 msgstr "Stack"
 
-#: plugins/gdb/debugger.c:119
+#: plugins/gdb/debugger.c:124
 msgid "Locals"
 msgstr "Locals"
 
-#: plugins/gdb/debugger.c:122
+#: plugins/gdb/debugger.c:128
 msgid "Watches"
 msgstr "Watches"
 
-#: plugins/gdb/debugger.c:179 plugins/gdb/debugger.c:523
+#: plugins/gdb/debugger.c:186 plugins/gdb/debugger.c:536
 msgid "Loading Executable: "
 msgstr "Loading Executable: "
 
-#: plugins/gdb/debugger.c:210
+#: plugins/gdb/debugger.c:217
 msgid "Loading Core: "
 msgstr "Loading Core: "
 
-#: plugins/gdb/debugger.c:436
+#: plugins/gdb/debugger.c:449
 #, c-format
 msgid ""
 "Unable to find: %s.\n"
@@ -5013,56 +5011,56 @@ msgstr ""
 "Unable to initialize debugger.\n"
 "Make sure Anjuta is installed correctly."
 
-#: plugins/gdb/debugger.c:520
+#: plugins/gdb/debugger.c:533
 msgid "Getting ready to start debugging session ..."
-msgstr "Getting ready to start debugging session ..."
+msgstr "Getting ready to start debugging session..."
 
-#: plugins/gdb/debugger.c:530
+#: plugins/gdb/debugger.c:543
 msgid "No executable specified."
 msgstr "No executable specified."
 
-#: plugins/gdb/debugger.c:532
+#: plugins/gdb/debugger.c:545
 msgid "Open an executable or attach to a process to start debugging."
 msgstr "Open an executable or attach to a process to start debugging."
 
-#: plugins/gdb/debugger.c:538
+#: plugins/gdb/debugger.c:551
 msgid "There was an error whilst launching the debugger."
 msgstr "There was an error while launching the debugger."
 
-#: plugins/gdb/debugger.c:540
+#: plugins/gdb/debugger.c:553
 msgid "Make sure 'gdb' is installed on the system.\n"
 msgstr "Make sure 'gdb' is installed on the system.\n"
 
-#: plugins/gdb/debugger.c:696
+#: plugins/gdb/debugger.c:710
 msgid "Error: "
 msgstr "Error: "
 
-#: plugins/gdb/debugger.c:713
+#: plugins/gdb/debugger.c:727
 msgid "Debugger is ready.\n"
 msgstr "Debugger is ready.\n"
 
-#: plugins/gdb/debugger.c:1056
+#: plugins/gdb/debugger.c:1063
 msgid "Cannot execute gnome-terminal"
 msgstr "Cannot execute gnome-terminal"
 
-#: plugins/gdb/debugger.c:1092
+#: plugins/gdb/debugger.c:1099
 msgid "Cannot start terminal for debugging."
 msgstr "Cannot start terminal for debugging."
 
-#: plugins/gdb/debugger.c:1155
+#: plugins/gdb/debugger.c:1162
 msgid "Warning: No debug terminal. Redirecting stdio to /dev/null.\n"
 msgstr "Warning: No debug terminal. Redirecting stdio to /dev/null.\n"
 
-#: plugins/gdb/debugger.c:1174
+#: plugins/gdb/debugger.c:1181
 msgid "Running program ..."
-msgstr "Running program ..."
+msgstr "Running program..."
 
-#: plugins/gdb/debugger.c:1296
+#: plugins/gdb/debugger.c:1301
 #, c-format
 msgid "Attaching to process: %d"
 msgstr "Attaching to process: %d"
 
-#: plugins/gdb/debugger.c:1327
+#: plugins/gdb/debugger.c:1332
 msgid ""
 "A process is already running.\n"
 "Would you like to terminate it and attach the new process?"
@@ -5070,20 +5068,20 @@ msgstr ""
 "A process is already running.\n"
 "Would you like to terminate it and attach the new process?"
 
-#: plugins/gdb/debugger.c:1341
+#: plugins/gdb/debugger.c:1346
 msgid "Anjuta is unable to attach to itself."
 msgstr "Anjuta is unable to attach to itself."
 
-#: plugins/gdb/debugger.c:1399
+#: plugins/gdb/debugger.c:1405
 msgid "Program forcefully terminated."
 msgstr "Program forcefully terminated."
 
-#: plugins/gdb/debugger.c:1418
+#: plugins/gdb/debugger.c:1424
 #, c-format
 msgid "Detaching the process: %d"
 msgstr "Detaching the process: %d"
 
-#: plugins/gdb/debugger.c:1472
+#: plugins/gdb/debugger.c:1478
 msgid ""
 "Program is ATTACHED.\n"
 "Do you still want to stop Debugger?"
@@ -5091,7 +5089,7 @@ msgstr ""
 "Program is ATTACHED.\n"
 "Do you still want to stop Debugger?"
 
-#: plugins/gdb/debugger.c:1475
+#: plugins/gdb/debugger.c:1481
 msgid ""
 "Program is RUNNING.\n"
 "Do you still want to stop Debugger?"
@@ -5099,219 +5097,255 @@ msgstr ""
 "Program is RUNNING.\n"
 "Do you still want to stop Debugger?"
 
-#: plugins/gdb/debugger.c:1732
+#: plugins/gdb/debugger.c:1739
 msgid "All breakpoints deleted:"
 msgstr "All breakpoints deleted:"
 
-#: plugins/gdb/debugger.c:1759
+#: plugins/gdb/debugger.c:1766
 #, c-format
 msgid "Interrupting the process: %d"
 msgstr "Interrupting the process: %d"
 
-#: plugins/gdb/debugger.c:1787
+#: plugins/gdb/debugger.c:1794
 #, c-format
 msgid "Sending signal %s to the process: %d"
 msgstr "Sending signal %s to the process: %d"
 
-#: plugins/gdb/debugger.c:1813
+#: plugins/gdb/debugger.c:1820
 msgid "Error whilst signaling the process."
 msgstr "Error while signalling the process."
 
-#: plugins/gdb/memory.c:412
+#: plugins/gdb/memory.c:108
+msgid "Unable to build user interface for Memory\n"
+msgstr "Unable to build user interface for Memory\n"
+
+#: plugins/gdb/memory.c:410
 msgid "Enter a Hexa address or Select one in the data"
 msgstr "Enter a Hexa address or Select one in the data"
 
-#: plugins/gdb/memory.c:419
+#: plugins/gdb/memory.c:417
 msgid "Non accessible address !"
 msgstr "Non-accessible address!"
 
 #. Action name
 #. Stock icon, if any
-#: plugins/gdb/plugin.c:58
+#: plugins/gdb/plugin.c:59
+msgid "_Breakpoints"
+msgstr "_Breakpoints"
+
+#. Display label
+#. short-cut
+#: plugins/gdb/plugin.c:69
+msgid "Toggle breakpoint at the current location"
+msgstr "Toggle breakpoint at the current location"
+
+#. Action name
+#. Stock icon, if any
+#: plugins/gdb/plugin.c:75
 msgid "Set Breakpoint ..."
 msgstr "Set Breakpoint..."
 
 #. Display label
 #. short-cut
-#: plugins/gdb/plugin.c:60
+#: plugins/gdb/plugin.c:77
 msgid "Set a breakpoint"
 msgstr "Set a breakpoint"
 
 #. Action name
 #. Stock icon, if any
-#: plugins/gdb/plugin.c:66
+#: plugins/gdb/plugin.c:83
 msgid "_Breakpoints ..."
 msgstr "_Breakpoints..."
 
 #. Display label
 #. short-cut
-#: plugins/gdb/plugin.c:68
+#: plugins/gdb/plugin.c:85
 msgid "Edit breakpoints"
 msgstr "Edit breakpoints"
 
 #. Action name
 #. Stock icon, if any
-#: plugins/gdb/plugin.c:74
+#: plugins/gdb/plugin.c:91
 msgid "Disable all Breakpoints"
 msgstr "Disable all Breakpoints"
 
 #. Display label
 #. short-cut
-#: plugins/gdb/plugin.c:76
+#: plugins/gdb/plugin.c:93
 msgid "Deactivate all breakpoints"
 msgstr "Deactivate all breakpoints"
 
 #. Action name
 #. Stock icon, if any
-#: plugins/gdb/plugin.c:82
+#: plugins/gdb/plugin.c:99
 msgid "C_lear all Breakpoints"
 msgstr "C_lear all Breakpoints"
 
 #. Display label
 #. short-cut
-#: plugins/gdb/plugin.c:84
+#: plugins/gdb/plugin.c:101
 msgid "Delete all breakpoints"
 msgstr "Delete all breakpoints"
 
-#: plugins/gdb/plugin.c:90
+#: plugins/gdb/plugin.c:107
 msgid "_Info"
 msgstr "_Info"
 
-#: plugins/gdb/plugin.c:98
+#: plugins/gdb/plugin.c:115
 msgid "Info _Target Files"
 msgstr "Info _Target Files"
 
-#: plugins/gdb/plugin.c:100
+#: plugins/gdb/plugin.c:117
 msgid "Display information on the files the debugger is active with"
 msgstr "Display information on the files the debugger is active with"
 
-#: plugins/gdb/plugin.c:106
+#: plugins/gdb/plugin.c:123
 msgid "Info _Program"
 msgstr "Info _Program"
 
-#: plugins/gdb/plugin.c:108
+#: plugins/gdb/plugin.c:125
 msgid "Display information on the execution status of the program"
 msgstr "Display information on the execution status of the program"
 
-#: plugins/gdb/plugin.c:114
+#: plugins/gdb/plugin.c:131
 msgid "Info _Kernel User Struct"
 msgstr "Info _Kernel User Struct"
 
-#: plugins/gdb/plugin.c:116
+#: plugins/gdb/plugin.c:133
 msgid "Display the contents of kernel 'struct user' for current child"
 msgstr "Display the contents of kernel 'struct user' for current child"
 
-#: plugins/gdb/plugin.c:122
+#: plugins/gdb/plugin.c:139
 msgid "Info _Threads"
 msgstr "Info _Threads"
 
-#: plugins/gdb/plugin.c:124
+#: plugins/gdb/plugin.c:141
 msgid "Display the IDs of currently known threads"
 msgstr "Display the IDs of currently known threads"
 
-#: plugins/gdb/plugin.c:130
+#: plugins/gdb/plugin.c:147
 msgid "Info _Global variables"
 msgstr "Info _Global variables"
 
-#: plugins/gdb/plugin.c:132
+#: plugins/gdb/plugin.c:149
 msgid "Display all global and static variables of the program"
 msgstr "Display all global and static variables of the program"
 
-#: plugins/gdb/plugin.c:138
+#: plugins/gdb/plugin.c:155
 msgid "Info _Local variables"
 msgstr "Info _Local variables"
 
-#: plugins/gdb/plugin.c:140
+#: plugins/gdb/plugin.c:157
 msgid "Display local variables of the current frame"
 msgstr "Display local variables of the current frame"
 
-#: plugins/gdb/plugin.c:146
+#: plugins/gdb/plugin.c:163
 msgid "Info _Current Frame"
 msgstr "Info _Current Frame"
 
-#: plugins/gdb/plugin.c:148
+#: plugins/gdb/plugin.c:165
 msgid "Display information about the current frame of execution"
 msgstr "Display information about the current frame of execution"
 
-#: plugins/gdb/plugin.c:154
+#: plugins/gdb/plugin.c:171
 msgid "Info Function _Arguments"
 msgstr "Info Function _Arguments"
 
-#: plugins/gdb/plugin.c:156
+#: plugins/gdb/plugin.c:173
 msgid "Display function arguments of the current frame"
 msgstr "Display function arguments of the current frame"
 
-#: plugins/gdb/plugin.c:162
-msgid "Info _Memory"
-msgstr "Info _Memory"
+#: plugins/gdb/plugin.c:179
+msgid "Examine _Memory"
+msgstr "Examine _Memory"
 
-#: plugins/gdb/plugin.c:164
+#: plugins/gdb/plugin.c:181
 msgid "Display accessible memory"
 msgstr "Display accessible memory"
 
-#: plugins/gdb/plugin.c:170
+#: plugins/gdb/plugin.c:187
 msgid "_Restart Program"
 msgstr "_Restart Program"
 
-#: plugins/gdb/plugin.c:172
+#: plugins/gdb/plugin.c:189
 msgid "Stop and restart the program"
 msgstr "Stop and restart the program"
 
-#: plugins/gdb/plugin.c:178
+#: plugins/gdb/plugin.c:195
 msgid "S_top Program"
 msgstr "S_top Program"
 
-#: plugins/gdb/plugin.c:180
+#: plugins/gdb/plugin.c:197
 msgid "Stop the program being debugged"
 msgstr "Stop the program being debugged"
 
-#: plugins/gdb/plugin.c:186
+#: plugins/gdb/plugin.c:203
 msgid "_Detach Debugger"
 msgstr "_Detach Debugger"
 
-#: plugins/gdb/plugin.c:188
+#: plugins/gdb/plugin.c:205
 msgid "Detach from an attached program"
 msgstr "Detach from an attached program"
 
-#: plugins/gdb/plugin.c:194
+#: plugins/gdb/plugin.c:211
 msgid "Pa_use Program"
 msgstr "Pa_use Program"
 
-#: plugins/gdb/plugin.c:196
+#: plugins/gdb/plugin.c:213
 msgid "Pauses the execution of the program"
 msgstr "Pauses the execution of the program"
 
-#: plugins/gdb/plugin.c:202
+#: plugins/gdb/plugin.c:219
 msgid "Si_gnal to Process"
 msgstr "Si_gnal to Process"
 
-#: plugins/gdb/plugin.c:204
+#: plugins/gdb/plugin.c:221
 msgid "Send a kernel signal to the process being debugged"
 msgstr "Send a kernel signal to the process being debugged"
 
-#: plugins/gdb/plugin.c:210
+#: plugins/gdb/plugin.c:227
 msgid "Ins_pect/Evaluate ..."
-msgstr "Ins_pect/Evaluate ..."
+msgstr "Ins_pect/Evaluate..."
 
-#: plugins/gdb/plugin.c:212
+#: plugins/gdb/plugin.c:229
 msgid "Inspect or evaluate an expression or variable"
 msgstr "Inspect or evaluate an expression or variable"
 
-#: plugins/gdb/plugin.c:218
+#: plugins/gdb/plugin.c:235
 msgid "Add Expression in _Watch ..."
 msgstr "Add Expression in _Watch..."
 
-#: plugins/gdb/plugin.c:220
+#: plugins/gdb/plugin.c:237
 msgid "Add expression or variable to the watch"
 msgstr "Add expression or variable to the watch"
 
-#: plugins/gdb/plugin.c:226
-msgid "St_op Debugger"
-msgstr "St_op Debugger"
+#: plugins/gdb/plugin.c:243
+msgid "Registers ..."
+msgstr "Registers..."
 
-#: plugins/gdb/plugin.c:228
-msgid "Say goodbye to the debugger"
-msgstr "Say goodbye to the debugger"
+#: plugins/gdb/plugin.c:245
+msgid "Show CPU register contents"
+msgstr "Show CPU register contents"
+
+#: plugins/gdb/plugin.c:251
+msgid "Shared Libraries ..."
+msgstr "Shared Libraries..."
+
+#: plugins/gdb/plugin.c:253
+msgid "Show shared libraries mappings"
+msgstr "Show shared library mappings"
+
+#: plugins/gdb/plugin.c:259
+msgid "Kernel Signals ..."
+msgstr "Kernel Signals..."
+
+#: plugins/gdb/plugin.c:261
+msgid "Show kernel signals"
+msgstr "Show kernel signals"
+
+#: plugins/gdb/plugin.c:487
+msgid "Gdb (debugger) commands"
+msgstr "Gdb (debugger) commands"
 
 #: plugins/gdb/registers_gui.c:108
 msgid "Register"
@@ -5499,11 +5533,11 @@ msgstr "Glade project '%s' saved"
 #. If instead we dont have a path yet, fire up a file selector
 #: plugins/glade/plugin.c:233
 msgid "Save glade file ..."
-msgstr "Save glade file ..."
+msgstr "Save glade file..."
 
 #: plugins/glade/plugin.c:260
 msgid "Save glade file as ..."
-msgstr "Save glade file as ..."
+msgstr "Save glade file as..."
 
 #: plugins/glade/plugin.c:288
 #, c-format
@@ -6554,11 +6588,11 @@ msgstr "Name: "
 msgid "Shortcut:"
 msgstr "Shortcut:"
 
-#: plugins/macro/macro-actions.c:37
+#: plugins/macro/macro-actions.c:40
 msgid "Press macro shortcut ..."
-msgstr "Press macro shortcut ..."
+msgstr "Press macro shortcut..."
 
-#: plugins/macro/macro-actions.c:44
+#: plugins/macro/macro-actions.c:47
 msgid "Press shortcut"
 msgstr "Press shortcut"
 
@@ -6594,55 +6628,91 @@ msgstr "// GPL"
 msgid "C"
 msgstr "C"
 
-#: plugins/macro/macros.xml.h:5
+#: plugins/macro/macros.xml.h:6
 msgid "Licenses"
 msgstr "Licences"
 
-#: plugins/macro/macros.xml.h:6
+#: plugins/macro/macros.xml.h:7
+msgid "azerty"
+msgstr "azerty"
+
+#: plugins/macro/macros.xml.h:8
+msgid "cvs_author"
+msgstr "cvs_author"
+
+#: plugins/macro/macros.xml.h:9
+msgid "cvs_date"
+msgstr "cvs_date"
+
+#: plugins/macro/macros.xml.h:10
+msgid "cvs_header"
+msgstr "cvs_header"
+
+#: plugins/macro/macros.xml.h:11
+msgid "cvs_id"
+msgstr "cvs_id"
+
+#: plugins/macro/macros.xml.h:12
+msgid "cvs_log"
+msgstr "cvs_log"
+
+#: plugins/macro/macros.xml.h:13
+msgid "cvs_name"
+msgstr "cvs_name"
+
+#: plugins/macro/macros.xml.h:14
+msgid "cvs_revision"
+msgstr "cvs_revision"
+
+#: plugins/macro/macros.xml.h:15
+msgid "cvs_source"
+msgstr "cvs_source"
+
+#: plugins/macro/macros.xml.h:16
 msgid "for"
 msgstr "for"
 
-#: plugins/macro/macros.xml.h:7
+#: plugins/macro/macros.xml.h:17
 msgid "if...else"
 msgstr "if...else"
 
-#: plugins/macro/macros.xml.h:8
+#: plugins/macro/macros.xml.h:18
 msgid "switch"
 msgstr "switch"
 
-#: plugins/macro/macros.xml.h:9
+#: plugins/macro/macros.xml.h:19
 msgid "while"
 msgstr "while"
 
-#: plugins/macro/plugin.c:31
+#: plugins/macro/plugin.c:33
 msgid "Macros"
 msgstr "Macros"
 
-#: plugins/macro/plugin.c:38
-msgid "_Insert Macro ..."
-msgstr "_Insert Macro ..."
-
 #: plugins/macro/plugin.c:40
+msgid "_Insert Macro ..."
+msgstr "_Insert Macro..."
+
+#: plugins/macro/plugin.c:42
 msgid "Insert a macro using a shortcut"
 msgstr "Insert a macro using a shortcut"
 
-#: plugins/macro/plugin.c:45
-msgid "_Add Macro ..."
-msgstr "_Add Macro ..."
-
 #: plugins/macro/plugin.c:47
+msgid "_Add Macro ..."
+msgstr "_Add Macro..."
+
+#: plugins/macro/plugin.c:49
 msgid "Add a macro"
 msgstr "Add a macro"
 
-#: plugins/macro/plugin.c:52
-msgid "Macros ..."
-msgstr "Macros ..."
-
 #: plugins/macro/plugin.c:54
+msgid "Macros ..."
+msgstr "Macros..."
+
+#: plugins/macro/plugin.c:56
 msgid "Add/Edit/Remove macros"
 msgstr "Add/Edit/Remove macros"
 
-#: plugins/macro/plugin.c:110
+#: plugins/macro/plugin.c:112
 msgid "Macro operations"
 msgstr "Macro operations"
 
@@ -6937,7 +7007,7 @@ msgstr "Project manager popup actions"
 
 #: plugins/project-manager/plugin.c:1017
 msgid "Loading project. Please wait ..."
-msgstr "Loading project. Please wait ..."
+msgstr "Loading project. Please wait..."
 
 #: plugins/project-manager/plugin.c:1088
 #, c-format
@@ -7399,7 +7469,7 @@ msgstr "%s: Not a regular file"
 #: plugins/project-manager/project_import.c:109
 #, c-format
 msgid "Importing Project from %s ...\n"
-msgstr "Importing Project from %s ...\n"
+msgstr "Importing Project from %s...\n"
 
 #: plugins/project-manager/project_import.c:119
 msgid "Could not launch script!\n"
@@ -7876,7 +7946,7 @@ msgstr "_Settings"
 
 #: src/anjuta-actions.h:48 src/shell.c:91
 msgid "_Preferences ..."
-msgstr "_Preferences ..."
+msgstr "_Preferences..."
 
 #: src/anjuta-actions.h:49
 msgid "Do you prefer coffee to tea? Check it out."
@@ -8001,7 +8071,7 @@ msgstr "Looking up symbol"
 
 #: src/anjuta-app.c:1166
 msgid "Finding in Files ....\n"
-msgstr "Finding in Files ....\n"
+msgstr "Finding in Files....\n"
 
 #: src/anjuta-callbacks.c:48 src/anjuta_cbs.c:466
 msgid "Could not open file for writing"
