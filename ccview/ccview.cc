@@ -201,7 +201,7 @@ ccview_project_destroy (GtkObject* obj)
 	g_return_if_fail(CCVIEW_IS_PROJECT(obj));
 
 	prj = GTK_WIDGET(obj);
-	delete CCVIEW_PROJECT(prj)->ccview;
+	delete (CcviewProject*)(CCVIEW_PROJECT(prj)->ccview);
 	gtk_widget_unref (CCVIEW_PROJECT(prj)->notebook);
 	if (GTK_OBJECT_CLASS (parent_class)->destroy)
 		(*GTK_OBJECT_CLASS (parent_class)->destroy) (obj);
