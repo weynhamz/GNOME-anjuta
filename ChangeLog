@@ -1,3 +1,9 @@
+2004-01-03  Johannes Schmid <jhs@cvs.gnome.org>
+	
+	* plugins/message-view/*: Added message-view plugin 
+	(still incomplete) 
+	* configure.in: Added plugins/message-view/Makefile
+
 2004-01-03  Naba Kumar  <naba@gnome.org>
 
 	* libanjuta/*.c: Added new files and updated old ones.
