@@ -1,3 +1,8 @@
+2002-02-07  Naba Kumar <kh_naba@users.sourceforge.net>
+
+	* src/anjuta.c: Fixed a crash bug.
+	patch from: Jens Georg <mail@jensgeorg.de>
+
 2002-02-04	Andy Piper	<andy.piper@freeuk.com>
 
 	* manuals/C/anjuta-manual/*.sgml: fixed so that jade no longer

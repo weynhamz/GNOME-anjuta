@@ -625,7 +625,7 @@ gboolean anjuta_goto_local_tag(TextEditor *te, const char *qual_name)
 		cmp = strcmp(name, tag->name);
 		if (0 == cmp)
 		{
-			if ((!scope && !tag->atts.entry.scope) || (0 == strcmp(scope, tag->atts.entry.scope)))
+			if ((!scope || !tag->atts.entry.scope) || (0 == strcmp(scope, tag->atts.entry.scope)))
 			{
 				text_editor_goto_line(te, tag->atts.entry.line, TRUE);
 				g_free(scope?scope:name);
