@@ -1,3 +1,12 @@
+2003-04-16  Naba Kumar  <naba@gnome.org>
+
+	* anjuta.prj: Fixed UI editor name (blank to use default) and
+	anjuta version.
+	
+	Patch from Patch from Gaëtan de Menten  <ged@bugfactory.org>
+	* anjuta.glade, anjuta_dialogs_strings.c: Reorganized
+	Editor preferences page.
+
 2003-04-16  Biswapesh Chattopadhyay  <biswapesh_chatterjee@tcscal.co.in>
 	* src/anjuta.[ch], src/print.c: Fixed warnings
 	* scintilla/*, src/aneditor.cxx: Restore LexCPP patch.

@@ -1,4 +1,4 @@
-# Anjuta Version 1.2.0 
+# Anjuta Version 1.1.1 
 Compatibility Level: 1 
 
 <PROJECT_DESCRIPTION_START>
@@ -24,7 +24,7 @@ a number of advanced programming facilities.<PROJECT_DESCRIPTION_END>
 
 props.file.type=project
 
-anjuta.version=1.2.0
+anjuta.version=1.1.1
 anjuta.compatibility.level=1
 
 project.name=anjuta
@@ -34,7 +34,7 @@ project.version=1.2.0
 project.author=naba
 project.source.target=src/anjuta
 project.has.gettext=1
-project.gui.command=glade-2
+project.gui.command=
 project.programming.language=C_C++
 project.excluded.modules=intl po CVS
 
