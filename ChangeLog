@@ -1,5 +1,13 @@
 2004-12-30  Johannes Schmid <jhs@cvs.gnome.org>
 	
+	* template/*,
+	date/template/*,
+	configure.in:
+	Removed template stuff completly because we dicussed to implement
+	a macro system for Edit->Insert Text
+
+2004-12-30  Johannes Schmid <jhs@cvs.gnome.org>
+	
 	* plugins/editor/aneditor.cxx,
 	plugins/editor/text_editor.c:
 	Set line number width dynamically
