@@ -19,7 +19,6 @@
 	selection is updated first and thus context menu is for the right file.
 	Reviewed and applied by Biswa.
 
->>>>>>> 1.484
 2003-04-14  Naba Kumar  <naba@gnome.org>
 
 	* anjuta.glade, anjuta_dialogs_strings.c: Updated setup dialog.
