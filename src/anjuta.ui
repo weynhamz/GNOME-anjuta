@@ -85,6 +85,7 @@
 			<submenu name="Search" verb="ActionMenuEditSearch">
 				<menuitem name="Find" verb="ActionEditSearchFind"/>
 				<menuitem name="FindNext" verb="ActionEditSearchFindNext"/>
+				<menuitem name="FindPrevious" verb="ActionEditSearchFindPrevious"/>
 				<menuitem name="Replace" verb="ActionEditSearchReplace"/>
 				<menuitem name="FindInFiles" verb="ActionEditSearchInFiles"/>
 				<menuitem name="ISearch" verb="ActionEditSearchSelectionISearch"/>

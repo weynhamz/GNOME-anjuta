@@ -156,9 +156,12 @@ static EggActionGroupEntry menu_entries_search[] = {
   { "ActionEditSearchFind", N_("_Find ..."), GTK_STOCK_FIND, "<control>f",
 	N_("Search for a string or regular expression in the editor"),
     G_CALLBACK (on_find1_activate), NULL },
-  { "ActionEditSearchFindNext", N_("Find _Next"), GTK_STOCK_FIND, "<shift>f6",
+  { "ActionEditSearchFindNext", N_("Find _Next"), GTK_STOCK_FIND, "<control>g",
 	N_("Repeat the last Find command"),
     G_CALLBACK (on_findnext1_activate), NULL },
+{ "ActionEditSearchFindPrevious", N_("Find _Previous"), GTK_STOCK_FIND, "<control><shift>g",
+	N_("Repeat the last Find command"),
+    G_CALLBACK (on_findprevious1_activate), NULL },
   { "ActionEditSearchReplace", N_("Find and R_eplace ..."),
 	GTK_STOCK_FIND_AND_REPLACE, "<shift><control>f",
 	N_("Search for and replace a string or regular expression with another string"),
@@ -270,7 +273,7 @@ static EggActionGroupEntry menu_entries_edit[] = {
   { "ActionEditAdvancedSearch", N_("Advanced Search And Replace"),
 	GTK_STOCK_FIND, NULL,
 	N_("New advance search And replace stuff"),
-    G_CALLBACK (anjuta_search_replace_activate), NULL },
+    G_CALLBACK (on_find1_activate), NULL },
 };
 
 static EggActionGroupEntry menu_entries_view[] = {
