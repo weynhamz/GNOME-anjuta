@@ -1,5 +1,8 @@
 2005-02-01  Naba Kumar  <naba@gnome.org>
 
+	* plugins/editor/anjuta-document-manager.glade: Improved search
+	relace dialog.
+	
 	* TODO.tasks: Fixed xml format.
 	
 	* plugins/editor/aneditor.cxx: Added code to trap 'tab' key (does not
