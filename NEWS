@@ -8,9 +8,13 @@ Bug fix: compile file works with shell expression line `command` now
 Bug fix: Buildiing on SMP systems
 Bug fix: debugger improvements & cleanups
 Bug fix: Sample file confirms to C++-Standard now
+Bug fix: Use gtk stock icon for editor tabs
+Bug fix: Should builf sucessfully on Slackware 9.1 now (libiconv)
 
-Thanks to Pavol Bosik, Andreas Volz, grzegol@pld-linux.org, Dan Elphick 
-and Stefano Vallarino for their patches.
+Known issues: Scintilla crashed on AMD-64
+
+Thanks to Pavol Bosik, Andreas Volz, grzegol@pld-linux.org, Dan Elphick,
+Franco Catrin L and Stefano Vallarino for their patches.
 
 From this release on anjuta has two new development responsibilities
 alongside with Naba Kumar <naba@gnome.org>:

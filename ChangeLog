@@ -1,3 +1,22 @@
+2004-01-15  Johannes Schmid <jhs@cvs.gnome.org>
+	
+	* configure.in, src/Makefile.am, scintilla/Makefile.am:
+	Fixed libiconv issue
+	* NEWS: Updated
+
+2004-01-15  Johannes Schmid <jhs@cvs.gnome.org>
+	
+	Patch from Pavol Bosik <Pavol.Bosik@siemens.com>:
+	*  src/attach_process.c, src/debugger.c, src/registers.c/h,
+	src/registers_cbs.c, src/registers_gui.c, src/search-replace.c
+	src/sharedlib.c, src/sharedlib.h, src/sharedlib_cbs.c
+	src/sharedlib_gui.c:
+	Debugger speed-up, replaced deprecated GtkCList
+
+2004-01-14  Franco Catrin L.<fcatrin@tuxpan.com>
+
+	* src/text-editor.c: Use stock gtk+ close button for editor tabs
+
 2004-01-13  Laurent Dhima  <laurenti@alblinux.net>
 
 	* configure.in: Added "sq" to ALL_LINGUAS.

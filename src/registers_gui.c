@@ -32,6 +32,17 @@
 #include "registers_cbs.h"
 #include "resources.h"
 
+enum {
+	COLUMN_REGS,
+	COLUMN_HEX,
+	COLUMN_DEC,
+	COLUMNS_NB
+};
+
+static const gchar *column_names[COLUMNS_NB] = {
+	N_("Register"), N_("Hex"), N_("Decimal")
+};
+
 GtkWidget* create_register_menu (void);
 
 static GnomeUIInfo register_menu_uiinfo[] =
@@ -75,69 +86,109 @@ create_register_menu ()
 void
 create_cpu_registers_gui(CpuRegisters *cr)
 {
-  GtkWidget *window3;
-  GtkWidget *scrolledwindow4;
-  GtkWidget *clist4;
-  GtkWidget *label6;
-  GtkWidget *label7;
-  GtkWidget *label8;
+	GladeXML *gxml;
+	GtkWidget *topwindow;
+	GtkTreeView *view;
+	GtkListStore *store;
+	GtkCellRenderer *renderer;
+	GtkTreeViewColumn *column;
+	guint i;
 
-  window3 = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-  gtk_window_set_transient_for(GTK_WINDOW(window3), GTK_WINDOW(app->widgets.window));
-  gtk_widget_set_usize (window3, 170, -2);
-  gtk_window_set_title (GTK_WINDOW (window3), _("CPU Registers"));
-  gtk_window_set_wmclass (GTK_WINDOW (window3), "cpu_registers", "Anjuta");
-  gtk_window_set_default_size (GTK_WINDOW (window3), 240, 230);
-  gnome_window_icon_set_from_default(GTK_WINDOW(window3));
+	gxml = glade_xml_new (GLADE_FILE_ANJUTA, "window.debugger.registers",
+				NULL);
+	topwindow = glade_xml_get_widget (gxml, "window.debugger.registers");
+	view = GTK_TREE_VIEW (glade_xml_get_widget (gxml,
+				"debugger.registers.tv"));
+	g_object_unref (gxml);
 
-  scrolledwindow4 = gtk_scrolled_window_new (NULL, NULL);
-  gtk_widget_show (scrolledwindow4);
-  gtk_container_add (GTK_CONTAINER (window3), scrolledwindow4);
-  gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolledwindow4), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+	// top level window
+	gtk_window_set_transient_for(GTK_WINDOW (topwindow),
+				GTK_WINDOW (app->widgets.window));
+	gtk_window_set_title (GTK_WINDOW (topwindow), _("CPU Registers"));
+	gtk_window_set_role (GTK_WINDOW (topwindow), "CPUregisters");
+	gnome_window_icon_set_from_default (GTK_WINDOW (topwindow));
 
-  clist4 = gtk_clist_new (3);
-  gtk_widget_show (clist4);
-  gtk_container_add (GTK_CONTAINER (scrolledwindow4), clist4);
-  gtk_clist_set_column_width (GTK_CLIST (clist4), 0, 80);
-  gtk_clist_set_column_width (GTK_CLIST (clist4), 1, 80);
-  gtk_clist_set_column_width (GTK_CLIST (clist4), 2, 80);
-  gtk_clist_set_selection_mode (GTK_CLIST (clist4), GTK_SELECTION_BROWSE);
-  gtk_clist_column_titles_show (GTK_CLIST (clist4));
+	// treeview
+	store = gtk_list_store_new (COLUMNS_NB,
+								G_TYPE_STRING,
+								G_TYPE_STRING,
+								G_TYPE_STRING);
+	gtk_tree_view_set_model (view, GTK_TREE_MODEL (store));
+	g_object_unref (G_OBJECT (store));
+	gtk_tree_selection_set_mode (gtk_tree_view_get_selection (view),
+				GTK_SELECTION_BROWSE);
+	gtk_tree_view_set_search_column (view, COLUMN_REGS);
+	gtk_tree_view_set_headers_clickable (view, FALSE);
 
-  label6 = gtk_label_new (_("Register"));
-  gtk_widget_show (label6);
-  gtk_clist_set_column_widget (GTK_CLIST (clist4), 0, label6);
+	renderer = gtk_cell_renderer_text_new ();
+	for (i = 0; i < COLUMNS_NB; i++)
+	{
+		column = gtk_tree_view_column_new_with_attributes (column_names[i],
+					renderer, "text", i, NULL);
+//		gtk_tree_view_column_set_sort_column_id (column, i);
+		gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
+		gtk_tree_view_append_column (view, column);
+	}
+//	gtk_tree_sortable_set_sort_column_id (GTK_TREE_SORTABLE (store),
+//				COLUMN_REGS, GTK_SORT_ASCENDING);
+	gtk_object_unref (GTK_OBJECT (renderer));
 
-  label7 = gtk_label_new (_("Hex"));
-  gtk_widget_show (label7);
-  gtk_clist_set_column_widget (GTK_CLIST (clist4), 1, label7);
+	// signals	
+	gtk_signal_connect (GTK_OBJECT (view), "select_row",
+				GTK_SIGNAL_FUNC (on_registers_clist_select_row), cr);
+	gtk_signal_connect (GTK_OBJECT (topwindow), "delete_event",
+				GTK_SIGNAL_FUNC (on_registers_delete_event), cr);
+	gtk_signal_connect (GTK_OBJECT (view), "event",
+				GTK_SIGNAL_FUNC (on_register_event), cr);
 
-  label8 = gtk_label_new (_("Decimal"));
-  gtk_widget_show (label8);
-  gtk_clist_set_column_widget (GTK_CLIST (clist4), 2, label8);
+	// other stuff
+	gtk_window_add_accel_group (GTK_WINDOW (topwindow), app->accel_group);
 
-  gtk_window_add_accel_group (GTK_WINDOW (window3), app->accel_group);
+	cr->widgets.window = topwindow;
+	cr->widgets.view = GTK_WIDGET (view);
+	cr->widgets.menu = create_register_menu ();
+	cr->widgets.menu_modify = register_menu_uiinfo[0].widget;
+	cr->widgets.menu_update = register_menu_uiinfo[1].widget;
+	
+	gtk_widget_ref (cr->widgets.window);
+	gtk_widget_ref (cr->widgets.view);
+	gtk_widget_ref (cr->widgets.menu);
+	gtk_widget_ref (cr->widgets.menu_modify);
+	gtk_widget_ref (cr->widgets.menu_update);
+}
 
-  gtk_signal_connect (GTK_OBJECT (clist4), "select_row",
-                      GTK_SIGNAL_FUNC (on_registers_clist_select_row),
-                      cr);
-  gtk_signal_connect (GTK_OBJECT (window3), "delete_event",
-                             GTK_SIGNAL_FUNC (on_registers_delete_event), cr);
+void
+cpu_registers_update_cb (GList *lines, gpointer data)
+{
+    CpuRegisters *ew;
+	GtkTreeModel *model;
+	GtkListStore *store;
+    gchar reg[10], hex[32], dec[32];
+    gint count;
+    GList *node, *list;
+	GtkTreeIter iter;
 
-  gtk_signal_connect (GTK_OBJECT (clist4), "event",
-                      GTK_SIGNAL_FUNC (on_register_event),
-                      cr);
+    list = remove_blank_lines(lines);
+    if (g_list_length (list) >= 2)
+	{
+		ew = (CpuRegisters *) data;
+		model = gtk_tree_view_get_model (GTK_TREE_VIEW (ew->widgets.view));
+		store = GTK_LIST_STORE (model);
 
-  cr->widgets.window = window3;
-  cr->widgets.clist = clist4;
-  cr->widgets.menu = create_register_menu();
-  cr->widgets.menu_modify = register_menu_uiinfo[0].widget;
-  cr->widgets.menu_update = register_menu_uiinfo[1].widget;
-  
-  gtk_widget_ref(cr->widgets.window);
-  gtk_widget_ref(cr->widgets.clist);
-  gtk_widget_ref(cr->widgets.menu);
-  gtk_widget_ref(cr->widgets.menu_modify);
-  gtk_widget_ref(cr->widgets.menu_update);
-
+		cpu_registers_clear (ew);
+		node = list->next;
+		while (node)
+		{
+			count = sscanf ((char *) node->data, "%s %s %s", reg, hex, dec);
+			node = g_list_next (node);
+			if (count != 3) continue;
+			gtk_list_store_append (store, &iter);
+			gtk_list_store_set (store, &iter,
+						COLUMN_REGS, reg,
+						COLUMN_HEX, hex,
+						COLUMN_DEC, dec,
+						-1);
+		}
+	}
+	g_list_free(list);
 }

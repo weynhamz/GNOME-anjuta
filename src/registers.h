@@ -29,7 +29,7 @@ typedef struct _CpuRegisters CpuRegisters;
 struct _CpuRegistersGui
 {
     GtkWidget*   window;
-    GtkWidget*   clist;
+    GtkWidget*   view;
     GtkWidget*   menu;
     GtkWidget*   menu_modify;
     GtkWidget*   menu_update;
@@ -56,7 +56,10 @@ void
 cpu_registers_clear(CpuRegisters *ew);
 
 void
-cpu_registers_update(GList *lines, gpointer  ew);
+cpu_registers_update(CpuRegisters *ew);
+
+void
+cpu_registers_update_cb(GList *lines, gpointer  ew);
 
 void
 cpu_registers_destroy(CpuRegisters*ew);
@@ -77,4 +80,3 @@ void
 registers_update_controls(CpuRegisters* ew);
 
 #endif
-

@@ -213,7 +213,7 @@ on_debugger_open_exec_filesel_ok_clicked (GtkButton * button,
 	debugger.starting = TRUE;
 
 	debugger_put_cmd_in_queqe ("info sharedlibrary", DB_CMD_NONE,
-				   sharedlibs_update, debugger.sharedlibs);
+				   sharedlibs_update_cb, debugger.sharedlibs);
 	expr_watch_cmd_queqe (debugger.watch);
 	stack_trace_clear (debugger.stack);
 	cpu_registers_clear (debugger.cpu_registers);
@@ -2029,12 +2029,9 @@ static void
 debugger_info_prg(void)
 {
 	// try to speedup
-	debugger_put_cmd_in_queqe ("info sharedlibrary", DB_CMD_NONE,
-				   sharedlibs_update, debugger.sharedlibs);
+	sharedlibs_update(debugger.sharedlibs);
 	expr_watch_cmd_queqe (debugger.watch);
-	debugger_put_cmd_in_queqe ("info registers", DB_CMD_NONE,
-				   cpu_registers_update,
-				   debugger.cpu_registers);
+	cpu_registers_update (debugger.cpu_registers);
 	debugger_put_cmd_in_queqe ("backtrace", DB_CMD_NONE,
 				   stack_trace_update, debugger.stack);
 	locals_update_controls();

@@ -60,7 +60,8 @@ test_scintilla_CXXFLAGS = -DGTK
 test_scintilla_SOURCES = test-scintilla.cxx
 test_scintilla_LDADD = \
 	$(ANJUTA_LIBS) \
-	$(top_builddir)/scintilla/libscintilla.a
+	$(top_builddir)/scintilla/libscintilla.a \
+	@LIBICONV@
 test_scintilla_DEPENDENCIES = $(top_builddir)/scintilla/libscintilla.a
 
 update-scintilla:

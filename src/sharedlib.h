@@ -29,7 +29,7 @@ typedef struct _Sharedlibs Sharedlibs;
 struct _SharedlibsGui
 {
     GtkWidget*   window;
-    GtkWidget*   clist;
+	GtkWidget*   view;
     GtkWidget*   menu;
     GtkWidget*   menu_update;
 };
@@ -54,7 +54,10 @@ void
 sharedlibs_clear(Sharedlibs *ew);
 
 void
-sharedlibs_update(GList *lines, gpointer  ew);
+sharedlibs_update(Sharedlibs *ew);
+
+void
+sharedlibs_update_cb(GList *lines, gpointer  ew);
 
 void
 sharedlibs_destroy(Sharedlibs*ew);
@@ -75,4 +78,3 @@ void
 sharedlibs_update_controls(Sharedlibs* ew);
 
 #endif
-

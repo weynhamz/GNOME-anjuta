@@ -56,8 +56,9 @@ void
 on_register_update_activate            (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
- debugger_put_cmd_in_queqe("info all-registers", DB_CMD_NONE, cpu_registers_update, debugger.cpu_registers);
- debugger_execute_cmd_in_queqe();
+	debugger_put_cmd_in_queqe("info all-registers", DB_CMD_NONE,
+				cpu_registers_update_cb, debugger.cpu_registers);
+	debugger_execute_cmd_in_queqe();
 }
 
 void

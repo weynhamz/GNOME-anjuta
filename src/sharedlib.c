@@ -46,46 +46,41 @@ Sharedlibs* sharedlibs_new()
 }
 
 void
-sharedlibs_clear(Sharedlibs *sg)
+sharedlibs_clear(Sharedlibs *ew)
 {
-   if(GTK_IS_CLIST(sg->widgets.clist)) gtk_clist_clear(GTK_CLIST(sg->widgets.clist));
+	GtkTreeModel *model;
+	GtkListStore *store;
+
+	g_return_if_fail (ew);
+
+	model = gtk_tree_view_get_model (GTK_TREE_VIEW (ew->widgets.view));
+	store = GTK_LIST_STORE (model);
+	if (store)
+	{
+		gtk_list_store_clear (store);
+	}
 }
 
 void
-sharedlibs_update( GList *lines, gpointer data)
+sharedlibs_update(Sharedlibs *ew)
 {
-    Sharedlibs *sl;
-    gchar obj[512], from[32], to[32], read[32];
-    gchar *row[4];
-    gint count;
-    GList *list, *node;
+	g_return_if_fail (ew);
 
-    sl = (Sharedlibs*)data;
-
-    list = remove_blank_lines(lines);
-    sharedlibs_clear(sl);
-    if(g_list_length(list) < 2 ){g_list_free(list); return;}
-    node = list->next;
-    while(node)
-    {
-        count = sscanf((char*)node->data, "%s %s %s %s", from,to,read,obj);
-        node = g_list_next(node);
-        if(count != 4) continue;
-        row[0]=(gchar*) extract_filename(obj);
-        row[1]=from;
-        row[2]=to;
-        row[3]=read;
-        gtk_clist_append(GTK_CLIST(sl->widgets.clist), row);
-     }
-     g_list_free(list);
+	if (ew->is_showing)
+	{
+		debugger_put_cmd_in_queqe ("info sharedlibrary", DB_CMD_NONE,
+				sharedlibs_update_cb, ew);
+	}
 }
 
 void
 sharedlibs_show(Sharedlibs* ew)
 {
+  gboolean was_showing;
+
   if(ew)
   {
-     if(ew->is_showing)
+     if (was_showing = ew->is_showing)
      {
          gdk_window_raise(ew->widgets.window->window);
 		 return;
@@ -94,6 +89,11 @@ sharedlibs_show(Sharedlibs* ew)
      gtk_window_set_default_size(GTK_WINDOW(ew->widgets.window), ew->win_width, ew->win_height);
      gtk_widget_show(ew->widgets.window);
      ew->is_showing = TRUE;
+	 if (debugger_is_active() && debugger_is_ready())
+	 {
+		 sharedlibs_update(ew);
+		 if (! was_showing) debugger_execute_cmd_in_queqe();
+	 }
   }
 }
 
@@ -147,7 +147,7 @@ sharedlibs_destroy(Sharedlibs* sg)
   {
      sharedlibs_clear(sg);
      gtk_widget_unref(sg->widgets.window);
-     gtk_widget_unref(sg->widgets.clist);
+     gtk_widget_unref(sg->widgets.view);
      gtk_widget_unref(sg->widgets.menu);
      gtk_widget_unref(sg->widgets.menu_update);
      if(GTK_IS_WIDGET(sg->widgets.window))

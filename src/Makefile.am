@@ -235,6 +235,7 @@ anjuta_SOURCES = \
 
 anjuta_LDADD =  \
 	$(ANJUTA_LIBS) -lutil\
+	@LIBICONV@\
 	$(PCRE_LIBS)\
 	$(top_builddir)/scintilla/libscintilla.a\
 	$(top_builddir)/tagmanager/libctags.a\

@@ -49,43 +49,38 @@ CpuRegisters* cpu_registers_new()
 void
 cpu_registers_clear(CpuRegisters *ew)
 {
-   gtk_clist_clear(GTK_CLIST(ew->widgets.clist));
+	GtkTreeModel *model;
+	GtkListStore *store;
+
+	g_return_if_fail (ew);
+
+	model = gtk_tree_view_get_model (GTK_TREE_VIEW (ew->widgets.view));
+	store = GTK_LIST_STORE (model);
+	if (store)
+	{
+		gtk_list_store_clear (store);
+	}
 }
 
 void
-cpu_registers_update( GList *lines, gpointer data)
+cpu_registers_update(CpuRegisters *ew)
 {
-    CpuRegisters *ew;
-    gchar reg[10], hex[32], dec[32];
-    gchar *row[3];
-    gint count;
-    GList *node, *list;
+	g_return_if_fail (ew);
 
-    ew = (CpuRegisters*)data;
-
-    list = remove_blank_lines(lines);
-    cpu_registers_clear(ew);
-    if(g_list_length(list) < 2 ){ g_list_free(list); return;}
-    node = list->next;
-    while(node)
-    {
-        count = sscanf((char*)node->data, "%s %s %s", reg, hex, dec);
-        node = g_list_next(node);
-        if(count != 3) continue;
-        row[0]=reg;
-        row[1]=hex;
-        row[2]=dec;
-        gtk_clist_append(GTK_CLIST(ew->widgets.clist), row);
-     }
-     g_list_free(list);
+	if (ew->is_showing)
+	{
+		debugger_put_cmd_in_queqe ("info registers", DB_CMD_NONE,
+					cpu_registers_update_cb, ew);
+	}
 }
-
 void
 cpu_registers_show(CpuRegisters* ew)
 {
+  gboolean was_showing;
+
   if(ew)
   {
-     if(ew->is_showing)
+     if (was_showing = ew->is_showing)
      {
 		 gdk_window_raise(ew->widgets.window->window);
      }
@@ -93,6 +88,11 @@ cpu_registers_show(CpuRegisters* ew)
      gtk_window_set_default_size(GTK_WINDOW(ew->widgets.window), ew->win_width, ew->win_height);
      gtk_widget_show(ew->widgets.window);
      ew->is_showing = TRUE;
+	 if (debugger_is_active() && debugger_is_ready())
+	 {
+		 cpu_registers_update(ew);
+		 if (! was_showing) debugger_execute_cmd_in_queqe();
+	 }
   }
 }
 
@@ -146,7 +146,7 @@ cpu_registers_destroy(CpuRegisters* cr)
   {
      cpu_registers_clear(cr);
      gtk_widget_unref(cr->widgets.window);
-     gtk_widget_unref(cr->widgets.clist);
+     gtk_widget_unref(cr->widgets.view);
      gtk_widget_unref(cr->widgets.menu);
      gtk_widget_unref(cr->widgets.menu_modify);
      gtk_widget_unref(cr->widgets.menu_update);

@@ -1307,7 +1307,8 @@ on_search_direction_changed (GtkEditable *editable, gpointer user_data)
 void
 on_search_action_changed (GtkEditable *editable, gpointer user_data)
 {
-	GtkWidget *replace_frame = sr_get_gladewidget(REPLACE_FRAME)->widget;
+//	GtkWidget *replace_frame = sr_get_gladewidget(REPLACE_FRAME)->widget;
+
 	SearchAction act;
 	SearchRangeType rt;
 	

@@ -26,7 +26,7 @@
 #include "debugger.h"
 
 gint
-on_sharedlibs_delete_event(GtkWidget* w, GdkEvent *event, gpointer data)
+on_sharedlibs_delete_event (GtkWidget *w, GdkEvent *event, gpointer data)
 {
   Sharedlibs* sl = data;
   sharedlibs_hide(sl);
@@ -34,24 +34,20 @@ on_sharedlibs_delete_event(GtkWidget* w, GdkEvent *event, gpointer data)
 }
 
 void
-on_sharedlibs_update_activate            (GtkMenuItem     *menuitem,
-                                        gpointer         user_data)
+on_sharedlibs_update_activate (GtkMenuItem *menuitem, gpointer user_data)
 {
-  debugger_put_cmd_in_queqe("info sharedlibrary", DB_CMD_NONE, sharedlibs_update, debugger.sharedlibs);
+  debugger_put_cmd_in_queqe("info sharedlibrary", DB_CMD_NONE,
+                           sharedlibs_update_cb, debugger.sharedlibs);
   debugger_execute_cmd_in_queqe();
 }
 
 void
-on_sharedlibs_help_activate              (GtkMenuItem     *menuitem,
-                                        gpointer         user_data)
+on_sharedlibs_help_activate (GtkMenuItem *menuitem, gpointer user_data)
 {
-
 }
 
 gboolean
-on_sharedlibs_event                (GtkWidget       *widget,
-                                          GdkEvent  *event,
-                                        gpointer         user_data)
+on_sharedlibs_event (GtkWidget *widget, GdkEvent *event, gpointer user_data)
 {
   GdkEventButton *bevent;
   Sharedlibs* ew = debugger.sharedlibs;

@@ -551,8 +551,7 @@ attach_process_show (AttachProcess * ap)
 	g_object_unref (G_OBJECT (store));
 
 	renderer = gtk_cell_renderer_text_new ();
-
-	for (i = PID_COLUMN; i < COLUMNS_NB; i++) {
+	for (i = 0; i < COLUMNS_NB; i++) {
 		GtkTreeViewColumn *column;
 
 		column = gtk_tree_view_column_new_with_attributes (column_names[i],
@@ -567,6 +566,8 @@ attach_process_show (AttachProcess * ap)
 					sort_pid, NULL, NULL);
 	gtk_tree_sortable_set_sort_column_id (GTK_TREE_SORTABLE (store),
 					START_COLUMN, GTK_SORT_DESCENDING);
+	gtk_tree_view_set_search_column (view, COMMAND_COLUMN);
+	gtk_object_unref (GTK_OBJECT (renderer));
 
 	ap->priv->hide_paths = gtk_toggle_button_get_active (
 						GTK_TOGGLE_BUTTON (checkb_hide_paths));
