@@ -846,7 +846,7 @@ breakpoints_dbase_save (BreakpointsDBase * bd, ProjectDBase * pdb )
 	session_clear_section( pdb, SECSTR(SECTION_BREAKPOINTS) );
 	model = gtk_tree_view_get_model (GTK_TREE_VIEW (bd->priv->treeview));
 	count = 0;
-	gtk_tree_model_foreach (model, on_treeview_foreach, bd);
+	gtk_tree_model_foreach (model, on_treeview_foreach, pdb);
 }
 
 void
@@ -875,7 +875,7 @@ breakpoints_dbase_load (BreakpointsDBase * bd, ProjectDBase *p )
 				{
 					if( breakpoint_item_load ( bi, szData ) )
 					{
-						breakpoints_dbase_set_from_item (bi);
+						breakpoints_dbase_set_from_item (bd, bi, TRUE);
 						bToDel = FALSE ;
 					}
 				}
@@ -1427,6 +1427,8 @@ breakpoints_dbase_toggle_breakpoint (BreakpointsDBase* bd)
 	if (debugger_is_active()==FALSE) return;
 	if (debugger_is_ready()==FALSE) return;
 
+	line = text_editor_get_current_lineno (te);
+	
 	/* Is breakpoint set? */
 	if (text_editor_is_marker_set (te, line, BREAKPOINTS_MARKER))
 	{

@@ -71,7 +71,7 @@ void ScintillaBase::AddCharUTF(char *s, unsigned int len, bool treatAsDBCS) {
 	}
 	if (ac.Active()) {
 		AutoCompleteCharacterAdded(s[0]);
-		// For fill ups add the character after the autocompletion has 
+		// For fill ups add the character after the autocompletion has
 		// triggered so containers see the key so can display a calltip.
 		if (isFillUp) {
 			Editor::AddCharUTF(s, len, treatAsDBCS);
@@ -517,6 +517,13 @@ sptr_t ScintillaBase::WndProc(unsigned int iMessage, uptr_t wParam, sptr_t lPara
 	case SCI_CLEARREGISTEREDIMAGES:
 		ac.lb->ClearRegisteredImages();
 		break;
+
+	case SCI_AUTOCSETTYPESEPARATOR:
+		ac.SetTypesep(static_cast<char>(wParam));
+		break;
+
+	case SCI_AUTOCGETTYPESEPARATOR:
+		return ac.GetTypesep();
 
 	case SCI_CALLTIPSHOW: {
 			AutoCompleteCancel();

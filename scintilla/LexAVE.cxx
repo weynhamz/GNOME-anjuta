@@ -127,8 +127,8 @@ static void ColouriseAveDoc(
 			} else if (sc.atLineEnd) {
 				sc.ChangeState(SCE_AVE_STRINGEOL);
 				sc.ForwardSetState(SCE_AVE_DEFAULT);
-		}
 			}
+		}
 
 		// Determine if a new state should be entered.
 		if (sc.state == SCE_AVE_DEFAULT) {
@@ -146,8 +146,8 @@ static void ColouriseAveDoc(
 			} else if (sc.Match('#')) {
 				sc.SetState(SCE_AVE_ENUM);
 				sc.Forward();
+			}
 		}
-				}
 	}
 	sc.Complete();
 }
@@ -178,28 +178,28 @@ static void FoldAveDoc(unsigned int startPos, int length, int /* initStyle */, W
 					}
 					s[j] = static_cast<char>(tolower(styler[i + j]));
 					s[j + 1] = '\0';
-					}
+				}
 
 				if ((strcmp(s, "then") == 0) || (strcmp(s, "for") == 0) || (strcmp(s, "while") == 0)) {
 					levelCurrent++;
-					}
+				}
 				if ((strcmp(s, "end") == 0)) {
 					levelCurrent--;
-					}
+				}
 			}
 		} else if (style == SCE_AVE_OPERATOR) {
 			if (ch == '{' || ch == '(') {
 				levelCurrent++;
 			} else if (ch == '}' || ch == ')') {
 				levelCurrent--;
-					}
-				}
+			}
+		}
 
 		if (atEOL) {
 			int lev = levelPrev;
 			if (visibleChars == 0 && foldCompact) {
 				lev |= SC_FOLDLEVELWHITEFLAG;
-				}
+			}
 			if ((levelCurrent > levelPrev) && (visibleChars > 0)) {
 				lev |= SC_FOLDLEVELHEADERFLAG;
 			}
@@ -216,8 +216,8 @@ static void FoldAveDoc(unsigned int startPos, int length, int /* initStyle */, W
 	}
 	// Fill in the real level of the next line, keeping the current flags as they will be filled in later
 
-		int flagsNext = styler.LevelAt(lineCurrent) & ~SC_FOLDLEVELNUMBERMASK;
-		styler.SetLevel(lineCurrent, levelPrev | flagsNext);
+	int flagsNext = styler.LevelAt(lineCurrent) & ~SC_FOLDLEVELNUMBERMASK;
+	styler.SetLevel(lineCurrent, levelPrev | flagsNext);
 }
 
 LexerModule lmAVE(SCLEX_AVE, ColouriseAveDoc, "ave", FoldAveDoc);

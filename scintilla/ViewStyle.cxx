@@ -73,6 +73,12 @@ ViewStyle::ViewStyle(const ViewStyle &source) {
 	selbackset = source.selbackset;
 	selbackground.desired = source.selbackground.desired;
 	selbackground2.desired = source.selbackground2.desired;
+
+	foldmarginColourSet = source.foldmarginColourSet;
+	foldmarginColour.desired = source.foldmarginColour.desired;
+	foldmarginHighlightColourSet = source.foldmarginHighlightColourSet;
+	foldmarginHighlightColour.desired = source.foldmarginHighlightColour.desired;
+
 	whitespaceForegroundSet = source.whitespaceForegroundSet;
 	whitespaceForeground.desired = source.whitespaceForeground.desired;
 	whitespaceBackgroundSet = source.whitespaceBackgroundSet;
@@ -125,6 +131,12 @@ void ViewStyle::Init() {
 	selbackset = true;
 	selbackground.desired = ColourDesired(0xc0, 0xc0, 0xc0);
 	selbackground2.desired = ColourDesired(0xb0, 0xb0, 0xb0);
+
+	foldmarginColourSet = false;
+	foldmarginColour.desired = ColourDesired(0xff, 0, 0);
+	foldmarginHighlightColourSet = false;
+	foldmarginHighlightColour.desired = ColourDesired(0xc0, 0xc0, 0xc0);
+
 	whitespaceForegroundSet = false;
 	whitespaceForeground.desired = ColourDesired(0, 0, 0);
 	whitespaceBackgroundSet = false;
@@ -139,6 +151,7 @@ void ViewStyle::Init() {
 	edgecolour.desired = ColourDesired(0xc0, 0xc0, 0xc0);
 	edgeState = EDGE_NONE;
 	caretWidth = 1;
+	someStylesProtected = false;
 
 	leftMarginWidth = 1;
 	rightMarginWidth = 1;
@@ -182,6 +195,10 @@ void ViewStyle::RefreshColourPalette(Palette &pal, bool want) {
 	pal.WantFind(selforeground, want);
 	pal.WantFind(selbackground, want);
 	pal.WantFind(selbackground2, want);
+
+	pal.WantFind(foldmarginColour, want);
+	pal.WantFind(foldmarginHighlightColour, want);
+
 	pal.WantFind(whitespaceForeground, want);
 	pal.WantFind(whitespaceBackground, want);
 	pal.WantFind(selbar, want);
@@ -197,6 +214,7 @@ void ViewStyle::Refresh(Surface &surface) {
 	styles[STYLE_DEFAULT].Realise(surface, zoomLevel);
 	maxAscent = styles[STYLE_DEFAULT].ascent;
 	maxDescent = styles[STYLE_DEFAULT].descent;
+	someStylesProtected = false;
 	for (unsigned int i=0;i<(sizeof(styles)/sizeof(styles[0]));i++) {
 		if (i != STYLE_DEFAULT) {
 			styles[i].Realise(surface, zoomLevel, &styles[STYLE_DEFAULT]);
@@ -204,6 +222,9 @@ void ViewStyle::Refresh(Surface &surface) {
 				maxAscent = styles[i].ascent;
 			if (maxDescent < styles[i].descent)
 				maxDescent = styles[i].descent;
+		}
+		if (styles[i].IsProtected()) {
+			someStylesProtected = true;
 		}
 	}
 
@@ -242,4 +263,8 @@ void ViewStyle::ClearStyles() {
 
 void ViewStyle::SetStyleFontName(int styleIndex, const char *name) {
 	styles[styleIndex].fontName = fontNames.Save(name);
+}
+
+bool ViewStyle::ProtectionActive() const {
+    return someStylesProtected;
 }

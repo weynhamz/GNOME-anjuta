@@ -1,6 +1,6 @@
 // Scintilla source code edit control
 // ScintillaGTK.cxx - GTK+ specific subclass of ScintillaBase
-// Copyright 1998-2002 by Neil Hodgson <neilh@scintilla.org>
+// Copyright 1998-2003 by Neil Hodgson <neilh@scintilla.org>
 // The License.txt file describes the conditions under which this software may be distributed.
 
 #include <stdlib.h>
@@ -153,7 +153,10 @@ private:
 	static gint FocusOut(GtkWidget *widget, GdkEventFocus *event);
 	static void SizeRequest(GtkWidget *widget, GtkRequisition *requisition);
 	static void SizeAllocate(GtkWidget *widget, GtkAllocation *allocation);
-	static gint Expose(GtkWidget *widget, GdkEventExpose *ose, ScintillaGTK *sciThis);
+#if GTK_MAJOR_VERSION >= 2
+	static gint ScrollOver(GtkWidget *widget, GdkEventMotion *event);
+#endif
+	gint Expose(GtkWidget *widget, GdkEventExpose *ose);
 	static gint ExposeMain(GtkWidget *widget, GdkEventExpose *ose);
 	static void Draw(GtkWidget *widget, GdkRectangle *area);
 
@@ -162,7 +165,7 @@ private:
 	gint PressThis(GdkEventButton *event);
 	static gint Press(GtkWidget *widget, GdkEventButton *event);
 	static gint MouseRelease(GtkWidget *widget, GdkEventButton *event);
-#if PLAT_GTK_WIN32
+#if PLAT_GTK_WIN32 || (GTK_MAJOR_VERSION >= 2)
 	static gint ScrollEvent(GtkWidget *widget, GdkEventScroll *event);
 #endif
 	static gint Motion(GtkWidget *widget, GdkEventMotion *event);
@@ -174,7 +177,9 @@ private:
 	static void SelectionGet(GtkWidget *widget, GtkSelectionData *selection_data,
 	                         guint info, guint time);
 	static gint SelectionClear(GtkWidget *widget, GdkEventSelection *selection_event);
+#if GTK_MAJOR_VERSION < 2
 	static gint SelectionNotify(GtkWidget *widget, GdkEventSelection *selection_event);
+#endif
 	static void DragBegin(GtkWidget *widget, GdkDragContext *context);
 	static gboolean DragMotion(GtkWidget *widget, GdkDragContext *context,
 	                           gint x, gint y, guint time);
@@ -387,8 +392,8 @@ void ScintillaGTK::MapThis() {
 	GTK_WIDGET_SET_FLAGS(PWidget(wMain), GTK_MAPPED);
 	MapWidget(PWidget(scrollbarh));
 	MapWidget(PWidget(scrollbarv));
-	scrollbarv.SetCursor(Window::cursorReverseArrow);
-	scrollbarh.SetCursor(Window::cursorReverseArrow);
+	scrollbarv.SetCursor(Window::cursorArrow);
+	scrollbarh.SetCursor(Window::cursorArrow);
 	gdk_window_show(PWidget(wMain)->window);
 }
 
@@ -487,11 +492,24 @@ void ScintillaGTK::SizeAllocate(GtkWidget *widget, GtkAllocation *allocation) {
 #endif
 }
 
+#if GTK_MAJOR_VERSION >= 2
+gint ScintillaGTK::ScrollOver(GtkWidget *widget, GdkEventMotion */*event*/) {
+	// Ensure cursor goes back to arrow over scroll bar.
+	GtkWidget *parent = gtk_widget_get_parent(widget);
+	ScintillaGTK *sciThis = ScintillaFromWidget(parent);
+	sciThis->wMain.SetCursor(Window::cursorArrow);
+	return FALSE;
+}
+#endif
+
 void ScintillaGTK::Initialise() {
 	//Platform::DebugPrintf("ScintillaGTK::Initialise\n");
 	parentClass = reinterpret_cast<GtkWidgetClass *>(
 	                  gtk_type_class(gtk_container_get_type()));
 
+#if GTK_MAJOR_VERSION >= 2
+	gtk_widget_set_double_buffered(PWidget(wMain), FALSE);
+#endif
 	GTK_WIDGET_SET_FLAGS(PWidget(wMain), GTK_CAN_FOCUS);
 	GTK_WIDGET_SET_FLAGS(GTK_WIDGET(PWidget(wMain)), GTK_SENSITIVE);
 	gtk_widget_set_events(PWidget(wMain),
@@ -546,6 +564,12 @@ void ScintillaGTK::Initialise() {
 	                  static_cast<GdkDragAction>(GDK_ACTION_COPY | GDK_ACTION_MOVE));
 
 	SetTicking(true);
+#if GTK_MAJOR_VERSION >= 2
+	gtk_signal_connect(GTK_OBJECT(scrollbarv.GetID()),"motion-notify-event",
+		GTK_SIGNAL_FUNC(ScrollOver), NULL);
+	gtk_signal_connect(GTK_OBJECT(scrollbarh.GetID()),"motion-notify-event",
+		GTK_SIGNAL_FUNC(ScrollOver), NULL);
+#endif
 }
 
 void ScintillaGTK::Finalise() {
@@ -621,6 +645,7 @@ bool ScintillaGTK::HaveMouseCapture() {
 
 // Redraw all of text area. This paint will not be abandoned.
 void ScintillaGTK::FullPaint() {
+#if GTK_MAJOR_VERSION < 2
 	paintState = painting;
 	rcPaint = GetClientRectangle();
 	//Platform::DebugPrintf("ScintillaGTK::FullPaint %0d,%0d %0d,%0d\n",
@@ -636,14 +661,17 @@ void ScintillaGTK::FullPaint() {
 		}
 	}
 	paintState = notPainting;
+#else
+	wMain.InvalidateAll();
+#endif
 }
 
 PRectangle ScintillaGTK::GetClientRectangle() {
 	PRectangle rc = wMain.GetClientPosition();
 	if (verticalScrollBarVisible)
-		rc.right -= scrollBarWidth + 1;
-	if (horizontalScrollBarVisible)
-		rc.bottom -= scrollBarHeight + 1;
+		rc.right -= scrollBarWidth;
+	if (horizontalScrollBarVisible && (wrapState == eWrapNone))
+		rc.bottom -= scrollBarHeight;
 	// Move to origin
 	rc.right -= rc.left;
 	rc.bottom -= rc.top;
@@ -696,7 +724,7 @@ void ScintillaGTK::ScrollText(int linesToMove) {
 		                0, diff,
 		                0, 0,
 		                rc.Width()-1, rc.Height() - diff);
-		SyncPaint(PRectangle(0, rc.Height() - diff - vs.lineHeight,
+		SyncPaint(PRectangle(0, rc.Height() - diff,
 		                     rc.Width(), rc.Height()+1));
 
 	// Redraw exposed bit : scrolling downwards
@@ -706,7 +734,7 @@ void ScintillaGTK::ScrollText(int linesToMove) {
 		                0, 0,
 		                0, -diff,
 		                rc.Width()-1, rc.Height() + diff);
-		SyncPaint(PRectangle(0, 0, rc.Width(), -diff + vs.lineHeight));
+		SyncPaint(PRectangle(0, 0, rc.Width(), -diff));
 	}
 
 	// Look for any graphics expose
@@ -1084,8 +1112,9 @@ void ScintillaGTK::Resize(int width, int height) {
 
 	// These allocations should never produce negative sizes as they would wrap around to huge
 	// unsigned numbers inside GTK+ causing warnings.
+	bool showSBHorizontal = horizontalScrollBarVisible && (wrapState == eWrapNone);
 	int horizontalScrollBarHeight = scrollBarWidth;
-	if (!horizontalScrollBarVisible)
+	if (!showSBHorizontal)
 		horizontalScrollBarHeight = 0;
 	int verticalScrollBarHeight = scrollBarHeight;
 	if (!verticalScrollBarVisible)
@@ -1093,7 +1122,7 @@ void ScintillaGTK::Resize(int width, int height) {
 
 	GtkAllocation alloc;
 	alloc.x = 0;
-	if (horizontalScrollBarVisible) {
+	if (showSBHorizontal) {
 		alloc.y = height - scrollBarHeight;
 		alloc.width = Platform::Maximum(1, width - scrollBarWidth) + 1;
 		alloc.height = horizontalScrollBarHeight;
@@ -1109,13 +1138,15 @@ void ScintillaGTK::Resize(int width, int height) {
 		alloc.x = width - scrollBarWidth;
 		alloc.width = scrollBarWidth;
 		alloc.height = Platform::Maximum(1, height - scrollBarHeight) + 1;
+		if (!showSBHorizontal)
+			alloc.height += scrollBarWidth-2;
 	} else {
 		alloc.x = -scrollBarWidth;
 		alloc.width = 0;
 		alloc.height = 0;
 	}
 	gtk_widget_size_allocate(GTK_WIDGET(PWidget(scrollbarv)), &alloc);
-	
+
 	ChangeSize();
 }
 
@@ -1172,12 +1203,16 @@ gint ScintillaGTK::PressThis(GdkEventButton *event) {
 		gtk_selection_convert(GTK_WIDGET(PWidget(wMain)), GDK_SELECTION_PRIMARY,
 		                      gdk_atom_intern("STRING", FALSE), event->time);
 	} else if (event->button == 3) {
-		// PopUp menu
-		// Convert to screen
-		int ox = 0;
-		int oy = 0;
-		gdk_window_get_origin(PWidget(wMain)->window, &ox, &oy);
-		ContextMenu(Point(pt.x + ox, pt.y + oy));
+		if (displayPopupMenu) {
+			// PopUp menu
+			// Convert to screen
+			int ox = 0;
+			int oy = 0;
+			gdk_window_get_origin(PWidget(wMain)->window, &ox, &oy);
+			ContextMenu(Point(pt.x + ox, pt.y + oy));
+		} else {
+			return FALSE;
+		}
 	} else if (event->button == 4) {
 		// Wheel scrolling up (only xwin gtk does it this way)
 		if (ctrl)
@@ -1227,7 +1262,7 @@ gint ScintillaGTK::MouseRelease(GtkWidget *widget, GdkEventButton *event) {
 
 // win32gtk has a special wheel mouse event for whatever reason and doesn't
 // use the button4/5 trick used under X windows.
-#if PLAT_GTK_WIN32
+#if PLAT_GTK_WIN32 || (GTK_MAJOR_VERSION >= 2)
 gint ScintillaGTK::ScrollEvent(GtkWidget *widget,
                                GdkEventScroll *event) {
 	ScintillaGTK *sciThis = ScintillaFromWidget(widget);
@@ -1418,7 +1453,11 @@ gint ScintillaGTK::KeyRelease(GtkWidget *, GdkEventKey * /*event*/) {
 }
 
 void ScintillaGTK::Destroy(GtkObject* object) {
-	ScintillaGTK *sciThis = ScintillaFromWidget(GTK_WIDGET(object));
+	ScintillaObject *scio = reinterpret_cast<ScintillaObject *>(object);
+	// This avoids a double destruction
+	if (!scio->pscin)
+		return;
+	ScintillaGTK *sciThis = reinterpret_cast<ScintillaGTK *>(scio->pscin);
 	//Platform::DebugPrintf("Destroying %x %x\n", sciThis, object);
 	sciThis->Finalise();
 
@@ -1426,6 +1465,7 @@ void ScintillaGTK::Destroy(GtkObject* object) {
 		(* GTK_OBJECT_CLASS (parent_class)->destroy) (object);
 
 	delete sciThis;
+	scio->pscin = 0;
 }
 
 static void DrawChild(GtkWidget *widget, GdkRectangle *area) {
@@ -1460,42 +1500,49 @@ gint ScintillaGTK::ExposeMain(GtkWidget *widget, GdkEventExpose *ose) {
 	ScintillaGTK *sciThis = ScintillaFromWidget(widget);
 	//Platform::DebugPrintf("Expose Main %0d,%0d %0d,%0d\n",
 	//ose->area.x, ose->area.y, ose->area.width, ose->area.height);
-	return Expose(widget, ose, sciThis);
+	return sciThis->Expose(widget, ose);
 }
 
-gint ScintillaGTK::Expose(GtkWidget *, GdkEventExpose *ose, ScintillaGTK *sciThis) {
-	//Platform::DebugPrintf("Expose %0d,%0d %0d,%0d\n",
+gint ScintillaGTK::Expose(GtkWidget *, GdkEventExpose *ose) {
+	//fprintf(stderr, "Expose %0d,%0d %0d,%0d\n",
 	//ose->area.x, ose->area.y, ose->area.width, ose->area.height);
 
-	sciThis->paintState = painting;
+	paintState = painting;
 
-	sciThis->rcPaint.left = ose->area.x;
-	sciThis->rcPaint.top = ose->area.y;
-	sciThis->rcPaint.right = ose->area.x + ose->area.width;
-	sciThis->rcPaint.bottom = ose->area.y + ose->area.height;
+	rcPaint.left = ose->area.x;
+	rcPaint.top = ose->area.y;
+	rcPaint.right = ose->area.x + ose->area.width;
+	rcPaint.bottom = ose->area.y + ose->area.height;
 
-	PRectangle rcClient = sciThis->GetClientRectangle();
-	sciThis->paintingAllText = sciThis->rcPaint.Contains(rcClient);
+	PRectangle rcClient = GetClientRectangle();
+	paintingAllText = rcPaint.Contains(rcClient);
 	Surface *surfaceWindow = Surface::Allocate();
 	if (surfaceWindow) {
-		surfaceWindow->Init((PWidget(sciThis->wMain))->window);
-		sciThis->Paint(surfaceWindow, sciThis->rcPaint);
+		surfaceWindow->Init((PWidget(wMain))->window);
+		// Fill the corner between the scrollbars
+		PRectangle rcCorner = wMain.GetClientPosition();
+		if (verticalScrollBarVisible)
+			rcCorner.left = rcCorner.right - scrollBarWidth + 1;
+		if (horizontalScrollBarVisible && (wrapState == eWrapNone))
+			rcCorner.top = rcCorner.bottom - scrollBarHeight + 1;
+		surfaceWindow->FillRectangle(rcCorner,
+			vs.styles[STYLE_LINENUMBER].back.allocated);
+
+		Paint(surfaceWindow, rcPaint);
 		surfaceWindow->Release();
 		delete surfaceWindow;
 	}
-	if (sciThis->paintState == paintAbandoned) {
+	if (paintState == paintAbandoned) {
 		// Painting area was insufficient to cover new styling or brace highlight positions
-		sciThis->FullPaint();
+		FullPaint();
 	}
-	sciThis->paintState = notPainting;
+	paintState = notPainting;
 
 #if GTK_MAJOR_VERSION >= 2
-	gtk_container_propagate_expose(GTK_CONTAINER(PWidget(sciThis->wMain)),
-					PWidget(sciThis->scrollbarh),
-					ose);
-	gtk_container_propagate_expose(GTK_CONTAINER(PWidget(sciThis->wMain)),
-					PWidget(sciThis->scrollbarv),
-					ose);
+	gtk_container_propagate_expose(
+		GTK_CONTAINER(PWidget(wMain)), PWidget(scrollbarh), ose);
+	gtk_container_propagate_expose(
+		GTK_CONTAINER(PWidget(wMain)), PWidget(scrollbarv), ose);
 #endif
 
 	return FALSE;
@@ -1530,10 +1577,12 @@ gint ScintillaGTK::SelectionClear(GtkWidget *widget, GdkEventSelection *selectio
 	return gtk_selection_clear(widget, selection_event);
 }
 
+#if GTK_MAJOR_VERSION < 2
 gint ScintillaGTK::SelectionNotify(GtkWidget *widget, GdkEventSelection *selection_event) {
 	//Platform::DebugPrintf("Selection notify\n");
 	return gtk_selection_notify(widget, selection_event);
 }
+#endif
 
 void ScintillaGTK::DragBegin(GtkWidget *, GdkDragContext *) {
 	//Platform::DebugPrintf("DragBegin\n");
@@ -1680,7 +1729,7 @@ void ScintillaGTK::ClassInit(GtkObjectClass* object_class, GtkWidgetClass *widge
 	widget_class->motion_notify_event = Motion;
 	widget_class->button_press_event = Press;
 	widget_class->button_release_event = MouseRelease;
-#if PLAT_GTK_WIN32
+#if PLAT_GTK_WIN32 || (GTK_MAJOR_VERSION >= 2)
 	widget_class->scroll_event = ScrollEvent;
 #endif
 	widget_class->key_press_event = KeyPress;
@@ -1690,7 +1739,9 @@ void ScintillaGTK::ClassInit(GtkObjectClass* object_class, GtkWidgetClass *widge
 	widget_class->selection_received = SelectionReceived;
 	widget_class->selection_get = SelectionGet;
 	widget_class->selection_clear_event = SelectionClear;
+#if GTK_MAJOR_VERSION < 2
 	widget_class->selection_notify_event = SelectionNotify;
+#endif
 
 	widget_class->drag_data_received = DragDataReceived;
 	widget_class->drag_motion = DragMotion;

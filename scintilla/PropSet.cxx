@@ -102,8 +102,8 @@ void PropSet::Set(const char *key, const char *val, int lenKey, int lenVal) {
 		lenVal = static_cast<int>(strlen(val));
 	unsigned int hash = HashString(key, lenKey);
 	for (Property *p = props[hash % hashRoots]; p; p = p->next) {
-		if ((hash == p->hash) && 
-			((strlen(p->key) == static_cast<unsigned int>(lenKey)) && 
+		if ((hash == p->hash) &&
+			((strlen(p->key) == static_cast<unsigned int>(lenKey)) &&
 				(0 == strncmp(p->key, key, lenKey)))) {
 			// Replace current value
 			delete [](p->val);
@@ -673,13 +673,13 @@ char *WordList::GetNearestWords(
 			if (!cond) {
 				// Find first match
 				while ((pivot > start) &&
-					(0 == CompareNCaseInsensitive(wordStart, 
+					(0 == CompareNCaseInsensitive(wordStart,
 						wordsNoCase[pivot-1], searchLen))) {
 					--pivot;
 				}
 				// Grab each match
 				while ((pivot <= end) &&
-					(0 == CompareNCaseInsensitive(wordStart, 
+					(0 == CompareNCaseInsensitive(wordStart,
 						wordsNoCase[pivot], searchLen))) {
 					wordlen = LengthWord(wordsNoCase[pivot], otherSeparator) + 1;
 					wordsNear.append(wordsNoCase[pivot], wordlen, ' ');
@@ -699,14 +699,14 @@ char *WordList::GetNearestWords(
 			if (!cond) {
 				// Find first match
 				while ((pivot > start) &&
-					(0 == strncmp(wordStart, 
-						words[pivot-1], searchLen))) { 
+					(0 == strncmp(wordStart,
+						words[pivot-1], searchLen))) {
 					--pivot;
 				}
 				// Grab each match
 				while ((pivot <= end) &&
-					(0 == strncmp(wordStart, 
-						words[pivot], searchLen))) { 
+					(0 == strncmp(wordStart,
+						words[pivot], searchLen))) {
 					wordlen = LengthWord(words[pivot], otherSeparator) + 1;
 					wordsNear.append(words[pivot], wordlen, ' ');
 					++pivot;

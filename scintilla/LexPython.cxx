@@ -382,14 +382,14 @@ static void FoldPyDoc(unsigned int startPos, int length, int /*initStyle - unuse
 		        (lineNext < docLines) &&
 		        ((indentNext & SC_FOLDLEVELWHITEFLAG) ||
 		         (lineNext <= docLines && IsCommentLine(lineNext, styler)))) {
-
+				
 			lineNext++;
 			indentNext = styler.IndentAmount(lineNext, &spaceFlags, NULL);
 		}
-
+		
 		const int levelAfterComments = indentNext & SC_FOLDLEVELNUMBERMASK;
 		const int levelBeforeComments = Platform::Maximum(indentCurrentLevel,levelAfterComments);
-
+		
 		// Now set all the indent levels on the lines we skipped
 		// Do this from end to start.  Once we encounter one line
 		// which is indented more than the line after the end of

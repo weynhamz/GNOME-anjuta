@@ -30,21 +30,21 @@ public:
 	ColourPair colourShade;
 	ColourPair colourLight;
 	int codePage;
-	
+
 	CallTip();
 	~CallTip();
-	
+
 	/// Claim or accept palette entries for the colours required to paint a calltip.
 	void RefreshColourPalette(Palette &pal, bool want);
-	
+
 	void PaintCT(Surface *surfaceWindow);
-	
+
 	/// Setup the calltip and return a rectangle of the area required.
-	PRectangle CallTipStart(int pos, Point pt, const char *defn, 
+	PRectangle CallTipStart(int pos, Point pt, const char *defn,
 		const char *faceName, int size, int codePage_);
-		
+
 	void CallTipCancel();
-	
+
 	/// Set a range of characters to be displayed in a highlight style.
 	/// Commonly used to highlight the current parameter.
 	void SetHighlight(int start, int end);

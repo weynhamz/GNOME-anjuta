@@ -127,9 +127,9 @@ static void ColouriseFortranDoc(unsigned int startPos, int length, int initStyle
 					sc.ForwardSetState(SCE_F_DEFAULT);
 					posLineStart = sc.currentPos;
 				} else {
-				sc.ChangeState(SCE_F_STRINGEOL);
-				sc.ForwardSetState(SCE_F_DEFAULT);
-			}
+					sc.ChangeState(SCE_F_STRINGEOL);
+					sc.ForwardSetState(SCE_F_DEFAULT);
+				}
 			}
 		} else if (sc.state == SCE_F_STRING2) {
 			prevState = sc.state;
@@ -138,8 +138,8 @@ static void ColouriseFortranDoc(unsigned int startPos, int length, int initStyle
 					sc.ForwardSetState(SCE_F_DEFAULT);
 					posLineStart = sc.currentPos;
 				} else {
-				sc.ChangeState(SCE_F_STRINGEOL);
-				sc.ForwardSetState(SCE_F_DEFAULT);
+					sc.ChangeState(SCE_F_STRINGEOL);
+					sc.ForwardSetState(SCE_F_DEFAULT);
 				}
 			} else if (sc.ch == '\"') {
 				if (sc.chNext == '\"') {

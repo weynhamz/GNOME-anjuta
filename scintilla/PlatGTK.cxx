@@ -1,6 +1,6 @@
 // Scintilla source code edit control
 // PlatGTK.cxx - implementation of platform facilities on GTK+/Linux
-// Copyright 1998-2002 by Neil Hodgson <neilh@scintilla.org>
+// Copyright 1998-2003 by Neil Hodgson <neilh@scintilla.org>
 // The License.txt file describes the conditions under which this software may be distributed.
 
 #include <string.h>
@@ -245,9 +245,9 @@ static bool IsDBCSCharacterSet(int characterSet) {
 }
 
 static void GenerateFontSpecStrings(const char *fontName, int characterSet,
-                             char *foundary, int foundary_len,
-                             char *faceName, int faceName_len,
-                             char *charset, int charset_len) {
+                                    char *foundary, int foundary_len,
+                                    char *faceName, int faceName_len,
+                                    char *charset, int charset_len) {
 	// supported font strings include:
 	// foundary-fontface-isoxxx-x
 	// fontface-isoxxx-x
@@ -305,11 +305,11 @@ static void SetLogFont(LOGFONT &lf, const char *faceName, int characterSet, int 
  */
 static int HashFont(const char *faceName, int characterSet, int size, bool bold, bool italic) {
 	return
-		size ^
-		(characterSet << 10) ^
-		(bold ? 0x10000000 : 0) ^
-		(italic ? 0x20000000 : 0) ^
-		faceName[0];
+	    size ^
+	    (characterSet << 10) ^
+	    (bold ? 0x10000000 : 0) ^
+	    (italic ? 0x20000000 : 0) ^
+	    faceName[0];
 }
 
 class FontCached : Font {
@@ -321,8 +321,8 @@ class FontCached : Font {
 	~FontCached() {}
 	bool SameAs(const char *faceName_, int characterSet_, int size_, bool bold_, bool italic_);
 	virtual void Release();
-        static FontID CreateNewFont(const char *fontName, int characterSet,
-                  int size, bool bold, bool italic);
+	static FontID CreateNewFont(const char *fontName, int characterSet,
+	                            int size, bool bold, bool italic);
 	static FontCached *first;
 public:
 	static FontID FindOrCreate(const char *faceName_, int characterSet_, int size_, bool bold_, bool italic_);
@@ -341,10 +341,10 @@ next(0), usage(0), hash(0) {
 
 bool FontCached::SameAs(const char *faceName_, int characterSet_, int size_, bool bold_, bool italic_) {
 	return
-		lf.size == size_ &&
-		lf.bold == bold_ &&
-		lf.italic == italic_ &&
-		lf.characterSet == characterSet_ &&
+	    lf.size == size_ &&
+	    lf.bold == bold_ &&
+	    lf.italic == italic_ &&
+	    lf.characterSet == characterSet_ &&
 	    0 == strcmp(lf.faceName, faceName_);
 }
 
@@ -360,7 +360,7 @@ FontID FontCached::FindOrCreate(const char *faceName_, int characterSet_, int si
 	int hashFind = HashFont(faceName_, characterSet_, size_, bold_, italic_);
 	for (FontCached *cur = first; cur; cur = cur->next) {
 		if ((cur->hash == hashFind) &&
-			cur->SameAs(faceName_, characterSet_, size_, bold_, italic_)) {
+		        cur->SameAs(faceName_, characterSet_, size_, bold_, italic_)) {
 			cur->usage++;
 			ret = cur->id;
 		}
@@ -405,7 +405,7 @@ static FontID LoadFontOrSet(const char *fontspec, int characterSet) {
 }
 
 FontID FontCached::CreateNewFont(const char *fontName, int characterSet,
-                  int size, bool bold, bool italic) {
+                                 int size, bool bold, bool italic) {
 	char fontset[1024];
 	char fontspec[300];
 	char foundary[50];
@@ -416,7 +416,7 @@ FontID FontCached::CreateNewFont(const char *fontName, int characterSet,
 	foundary[0] = '\0';
 	faceName[0] = '\0';
 	charset[0] = '\0';
-        FontID newid = 0;
+	FontID newid = 0;
 
 	// If name of the font begins with a '-', assume, that it is
 	// a full fontspec.
@@ -601,8 +601,10 @@ public:
 	void Ellipse(PRectangle rc, ColourAllocated fore, ColourAllocated back);
 	void Copy(PRectangle rc, Point from, Surface &surfaceSource);
 
+	void DrawTextBase(PRectangle rc, Font &font_, int ybase, const char *s, int len, ColourAllocated fore);
 	void DrawTextNoClip(PRectangle rc, Font &font_, int ybase, const char *s, int len, ColourAllocated fore, ColourAllocated back);
 	void DrawTextClipped(PRectangle rc, Font &font_, int ybase, const char *s, int len, ColourAllocated fore, ColourAllocated back);
+	void DrawTextTransparent(PRectangle rc, Font &font_, int ybase, const char *s, int len, ColourAllocated fore);
 	void MeasureWidths(Font &font_, const char *s, int len, int *positions);
 	int WidthText(Font &font_, const char *s, int len);
 	int WidthChar(Font &font_, char ch);
@@ -821,9 +823,8 @@ void SurfaceImpl::Copy(PRectangle rc, Point from, Surface &surfaceSource) {
 
 #define MAX_US_LEN 5000
 
-void SurfaceImpl::DrawTextNoClip(PRectangle rc, Font &font_, int ybase, const char *s, int len,
-                                 ColourAllocated fore, ColourAllocated back) {
-	FillRectangle(rc, back);
+void SurfaceImpl::DrawTextBase(PRectangle rc, Font &font_, int ybase, const char *s, int len,
+                                 ColourAllocated fore) {
 	PenColour(fore);
 	if (gc && drawable) {
 		// Draw text as a series of segments to avoid limitations in X servers
@@ -896,10 +897,23 @@ void SurfaceImpl::DrawTextNoClip(PRectangle rc, Font &font_, int ybase, const ch
 	}
 }
 
+void SurfaceImpl::DrawTextNoClip(PRectangle rc, Font &font_, int ybase, const char *s, int len,
+                                 ColourAllocated fore, ColourAllocated back) {
+	FillRectangle(rc, back);
+	DrawTextBase(rc, font_, ybase, s, len, fore);
+}
+
 // On GTK+, exactly same as DrawTextNoClip
 void SurfaceImpl::DrawTextClipped(PRectangle rc, Font &font_, int ybase, const char *s, int len,
                                   ColourAllocated fore, ColourAllocated back) {
-	DrawTextNoClip(rc, font_, ybase, s, len, fore, back);
+	FillRectangle(rc, back);
+	DrawTextBase(rc, font_, ybase, s, len, fore);
+}
+
+// On GTK+, exactly same as DrawTextNoClip
+void SurfaceImpl::DrawTextTransparent(PRectangle rc, Font &font_, int ybase, const char *s, int len,
+                                  ColourAllocated fore) {
+	DrawTextBase(rc, font_, ybase, s, len, fore);
 }
 
 void SurfaceImpl::MeasureWidths(Font &font_, const char *s, int len, int *positions) {
@@ -1209,20 +1223,19 @@ void Window::SetFont(Font &) {
 }
 
 void Window::SetCursor(Cursor curs) {
-	GdkCursor *gdkCurs;
-
 	// We don't set the cursor to same value numerous times under gtk because
 	// it stores the cursor in the window once it's set
 	if (curs == cursorLast)
 		return;
-	cursorLast = curs;
 
+	cursorLast = curs;
+	GdkCursor *gdkCurs;
 	switch (curs) {
 	case cursorText:
 		gdkCurs = gdk_cursor_new(GDK_XTERM);
 		break;
 	case cursorArrow:
-		gdkCurs = gdk_cursor_new(GDK_ARROW);
+		gdkCurs = gdk_cursor_new(GDK_LEFT_PTR);
 		break;
 	case cursorUp:
 		gdkCurs = gdk_cursor_new(GDK_CENTER_PTR);
@@ -1231,10 +1244,10 @@ void Window::SetCursor(Cursor curs) {
 		gdkCurs = gdk_cursor_new(GDK_WATCH);
 		break;
 	case cursorReverseArrow:
-		gdkCurs = gdk_cursor_new(GDK_TOP_LEFT_ARROW);
+		gdkCurs = gdk_cursor_new(GDK_RIGHT_PTR);
 		break;
 	default:
-		gdkCurs = gdk_cursor_new(GDK_ARROW);
+		gdkCurs = gdk_cursor_new(GDK_LEFT_PTR);
 		cursorLast = cursorArrow;
 		break;
 	}
@@ -1288,8 +1301,8 @@ public:
 	}
 	virtual ~ListBoxX() {
 		if (pixhash) {
-	g_hash_table_foreach((GHashTable *) pixhash, list_image_free, NULL);
-	g_hash_table_destroy((GHashTable *) pixhash);
+			g_hash_table_foreach((GHashTable *) pixhash, list_image_free, NULL);
+			g_hash_table_destroy((GHashTable *) pixhash);
 		}
 	}
 	virtual void SetFont(Font &font);
@@ -1486,14 +1499,14 @@ void ListBoxX::Append(char *s, int type) {
 	ListImage *list_image = NULL;
 	if ((type >= 0) && pixhash) {
 		list_image = (ListImage *) g_hash_table_lookup((GHashTable *) pixhash
-	  , (gconstpointer) GINT_TO_POINTER(type));
+		             , (gconstpointer) GINT_TO_POINTER(type));
 	}
 	int rownum = gtk_clist_append(GTK_CLIST(list), szs);
 	if (list_image) {
 		if (NULL == list_image->pixmap)
 			init_pixmap(list_image, (GtkWidget *) list);
 		gtk_clist_set_pixtext(GTK_CLIST(list), rownum, 0, s, SPACING
-		  , list_image->pixmap, list_image->bitmap);
+		                      , list_image->pixmap, list_image->bitmap);
 	}
 	size_t len = strlen(s);
 	if (maxItemCharacters < len)
@@ -1531,14 +1544,14 @@ void ListBoxX::GetValue(int n, char *value, int len) {
 	char *text = NULL;
 	GtkCellType type = gtk_clist_get_cell_type(GTK_CLIST(list), n, 0);
 	switch (type) {
-		case GTK_CELL_TEXT:
-			gtk_clist_get_text(GTK_CLIST(list), n, 0, &text);
-			break;
-		case GTK_CELL_PIXTEXT:
-			gtk_clist_get_pixtext(GTK_CLIST(list), n, 0, &text, NULL, NULL, NULL);
-			break;
-		default:
-			break;
+	case GTK_CELL_TEXT:
+		gtk_clist_get_text(GTK_CLIST(list), n, 0, &text);
+		break;
+	case GTK_CELL_PIXTEXT:
+		gtk_clist_get_pixtext(GTK_CLIST(list), n, 0, &text, NULL, NULL, NULL);
+		break;
+	default:
+		break;
 	}
 	if (text && len > 0) {
 		strncpy(value, text, len);
@@ -1580,8 +1593,8 @@ void ListBoxX::RegisterImage(int type, const char *xpm_data) {
 		list_image->bitmap = 0;
 		list_image->xpm_data = xpm_data;
 	} else {
-	list_image = g_new0(ListImage, 1);
-	list_image->xpm_data = xpm_data;
+		list_image = g_new0(ListImage, 1);
+		list_image->xpm_data = xpm_data;
 		g_hash_table_insert((GHashTable *) pixhash, GINT_TO_POINTER(type),
 			(gpointer) list_image);
 	}
@@ -1767,7 +1780,7 @@ int Platform::Clamp(int val, int minVal, int maxVal) {
 }
 
 void Platform_Initialise() {
-        FontMutexAllocate();
+	FontMutexAllocate();
 }
 
 void Platform_Finalise() {

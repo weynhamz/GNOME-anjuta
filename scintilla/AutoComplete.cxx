@@ -14,7 +14,7 @@
 #include "PropSet.h"
 #include "AutoComplete.h"
 
-AutoComplete::AutoComplete() : 
+AutoComplete::AutoComplete() :
 	active(false),
 	separator(' '),
 	typesep('?'),
@@ -72,7 +72,7 @@ void AutoComplete::SetFillUpChars(const char *fillUpChars_) {
 bool AutoComplete::IsFillUpChar(char ch) {
 	return ch && strchr(fillUpChars, ch);
 }
- 
+
 void AutoComplete::SetSeparator(char separator_) {
 	separator = separator_;
 }
@@ -107,7 +107,7 @@ void AutoComplete::SetList(const char *list) {
 				numword = NULL;
 			} else if (words[i] == typesep) {
 				numword = words + i;
-		}
+			}
 		}
 		if (startword) {
 			if (numword)

@@ -1,3 +1,11 @@
+2003-02-20  Naba Kumar <naba@gnome.org>
+
+	* src/breakpoints.c: Fixed breakpoints session saving/loading
+	crash bug.
+	
+	* scintilla/*, scintilla/include/*: Updated to scintilla
+	release 1.51
+	
 2003-02-19  Naba Kumar <naba@gnome.org>
 
 	* src/about.c: Fixed a typo reported by Enver ALTIN <ealtin@casdb.com>
