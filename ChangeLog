@@ -1,3 +1,11 @@
+2004-12-30  Johannes Schmid <jhs@cvs.gnome.org>
+	
+	* plugins/editor/aneditor.cxx,
+	plugins/editor/text_editor.c:
+	Set line number width dynamically
+	* src/about.c:
+	Prepered new GTK 2.6 about dialog
+
 2004-12-30  Naba Kumar  <naba@gnome.org>
 
 	patch from: Massimo Corà  <maxcvs@email.it>

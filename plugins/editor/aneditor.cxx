@@ -3904,13 +3904,15 @@ void AnEditor::ReadPropertiesInitial() {
 	SetLineWrap(props->GetInt("view.line.wrap", 1));
 
 	lineNumbersWidth = 0;
+	/* FIXME: This is nowhere configureable
 	SString linenums = props->Get("margin.linenumber.width");
 	if (linenums.length())
-		lineNumbersWidth = linenums.value();
+		lineNumbersWidth = linenums.value(); */
 	lineNumbers = lineNumbersWidth;
-	if (lineNumbersWidth == 0)
-		lineNumbersWidth = lineNumbersWidthDefault;
-
+	/* We do this dynamicly in text_editor_load_file now */
+	/* if (lineNumbersWidth == 0)
+		lineNumbersWidth = lineNumbersWidthDefault;*/
+			
 	marginWidth = 0;
 	SString margwidth = props->Get("margin.marker.width");
 	if (margwidth.length())
@@ -3926,7 +3928,6 @@ void AnEditor::ReadPropertiesInitial() {
 
 	lineNumbers = props->GetInt("margin.linenumber.visible", 0);
 	SendEditor(SCI_SETMARGINWIDTHN, 0, lineNumbers ? lineNumbersWidth : 0);
-
 	margin = props->GetInt("margin.marker.visible", 0);
 	SendEditor(SCI_SETMARGINWIDTHN, 1, margin ? marginWidth : 0);
 

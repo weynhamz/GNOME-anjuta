@@ -96,5 +96,27 @@ about_box_new ()
 							  _("Copyright (c) Naba Kumar"),
 							  _("Integrated Development Environment"),
 							  authors, documentors, NULL, pix);
+#if 0
+	/* GTK provides a new about dialog now, please activate
+	when we swith to GTK 2.6 */
+	dialog = gtk_about_dialog_new();
+	gtk_about_dialog_set_name(GTK_ABOUT_DIALOG(dialog), "Anjuta");
+	gtk_about_dialog_set_version(GTK_ABOUT_DIALOG(dialog), VERSION);
+	gtk_about_dialog_set_copyright(GTK_ABOUT_DIALOG(dialog), 
+		_("Copyright (c) Naba Kumar"));
+	gtk_about_dialog_set_comments(GTK_ABOUT_DIALOG(dialog),
+		_("Integrated Development Environment");
+	gtk_about_dialog_set_license(GTK_ABOUT_DIALOG(dialog), 
+		_("GNU General Public License"));
+	gtk_about_dialog_set_website(GTK_ABOUT_DIALOG(dialog), "www.anjuta.org");
+	gtk_about_dialog_set_icon(GTK_ABOUT_DIALOG(dialog), pix);
+	
+	gtk_about_dialog_set_authors(GTK_ABOUT_DIALOG(dialog), authors);
+	gtk_about_dialog_set_documenters(GTK_ABOUT_DIALOG(dialog), documentors);
+	/* We should fill this!
+	gtk_about_dialog_set_translator_credits(GTK_ABOUT_DIALOG(dialog), ???);
+	gtk_about_dialog_set_artists(GTK_ABOUT_DIALOG(dialog), ???);*/
+#endif
+	
 	return dialog;
 }

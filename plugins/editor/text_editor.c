@@ -1205,6 +1205,28 @@ text_editor_load_file (TextEditor * te)
 	{
 		aneditor_command (te->editor_id, ANE_CLOSE_FOLDALL, 0, 0);
 	}
+	/* Set line numbers with according to file size */
+	if (anjuta_preferences_get_int_with_default(te->preferences,
+			"margin.linenumber.visible", 0))
+	{
+		int lines, line_number_width;
+		gchar* line_number;
+		gchar* line_number_dummy;
+		lines = 
+			(int) scintilla_send_message
+				(SCINTILLA(te->scintilla), SCI_GETLINECOUNT, 0,0);
+		line_number = g_strdup_printf("%d", lines);
+		line_number_dummy = g_strnfill(strlen(line_number) + 1, '9');
+		line_number_width = 
+			(int) scintilla_send_message (
+				SCINTILLA(te->scintilla), SCI_TEXTWIDTH, STYLE_LINENUMBER, (long) line_number_dummy);
+		scintilla_send_message
+			(SCINTILLA(te->scintilla), 
+			SCI_SETMARGINWIDTHN, 0, 
+			line_number_width);
+		g_free(line_number_dummy);
+		g_free(line_number);
+	}
 	// FIXME: anjuta_status (_("File loaded successfully"));
 	return TRUE;
 }
