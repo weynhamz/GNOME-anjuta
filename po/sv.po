@@ -8,8 +8,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
-"POT-Creation-Date: 2001-12-13 14:05+0100\n"
-"PO-Revision-Date: 2001-12-13 14:05+0100\n"
+"POT-Creation-Date: 2001-12-19 04:25+0100\n"
+"PO-Revision-Date: 2001-12-19 04:25+0100\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -132,8 +132,8 @@ msgid "Information"
 msgstr "Information"
 
 #: src/appwiz_page1.c:95
-msgid "Select the type of application you want to develop"
-msgstr "Ange typen av program du vill utveckla"
+msgid "Select the type of application to be developed"
+msgstr "Välj den typ av program du vill utveckla"
 
 #: src/appwiz_page1.c:130
 msgid "Generic/Terminal project"
@@ -159,7 +159,7 @@ msgstr "Projekt med GNOME--"
 msgid "Bonobo component"
 msgstr "Bonobo-komponent"
 
-#: src/appwiz_page2.c:154 src/appwiz_page4.c:109
+#: src/appwiz_page2.c:154
 msgid "Enter the basic Project information"
 msgstr "Ange den grundläggande projektinformationen"
 
@@ -281,62 +281,53 @@ msgid "Language:        "
 msgstr "Språk:           "
 
 #: src/appwizard_cbs.c:263
-msgid "Gettext support: "
+msgid "Gettext Support: "
 msgstr "Gettext-stöd:    "
 
 #: src/appwizard_gui.c:36
 msgid ""
 "The Application Wizard will generate a basic\n"
-"skeleton for your application, including all\n"
-"the build files. It will ask you for the basic\n"
-"initial structure for the application you want\n"
-"to develop.\n"
+"skeleton for a project, including all of the\n"
+"build files. It will ask for details of the initial\n"
+"structure for the application.\n"
 "\n"
 "Please answer the questions carefully, as it\n"
 "may not be possible to change some of the\n"
-"settings later.\n"
-"\n"
-"Click Next to proceed ..."
+"settings later."
 msgstr ""
 "Programguiden kommer att generera ett enkelt\n"
 "skelett för ditt program, inklusive alla\n"
 "byggfiler. Det kommer att fråga dig om den\n"
 "grundläggande ursprungliga strukturen för\n"
-"det programmet du vill utveckla.\n"
+"programmet.\n"
 "\n"
 "Svara noggrannt på frågorna, eftersom det\n"
 "kan vara omöjligt att ändra en del av\n"
-"inställningarna senare.\n"
-"\n"
-"Klicka på Nästa för att fortsätta..."
+"inställningarna senare."
 
-#: src/appwizard_gui.c:100
+#: src/appwizard_gui.c:99 src/appwizard_gui.c:131
 msgid "Application Wizard"
 msgstr "Programguide"
 
-#: src/appwizard_gui.c:126
-msgid "Application Wizard:     Page 1 of 6"
-msgstr "Programguide:     Sida 1 av 6"
+#: src/appwizard_gui.c:161
+msgid "Project Type"
+msgstr "Projekttyp"
 
-#: src/appwizard_gui.c:155
-msgid "Application Wizard:     Page 2 of 6"
-msgstr "Programguide:     Sida 2 av 6"
+#: src/appwizard_gui.c:186
+msgid "Basic Information"
+msgstr "Grundläggande information"
 
-#: src/appwizard_gui.c:179
-msgid "Application Wizard:     Page 3 of 6"
-msgstr "Programguide:     Sida 3 av 6"
+#: src/appwizard_gui.c:212 src/project_config.c:748
+msgid "Project Description"
+msgstr "Projektbeskrivning"
 
-#: src/appwizard_gui.c:204
-msgid "Application Wizard:     Page 4 of 6"
-msgstr "Programguide:     Sida 4 av 6"
+#: src/appwizard_gui.c:237 src/compiler_options_gui.c:1104
+msgid "Additional Options"
+msgstr "Ytterligare alternativ"
 
-#: src/appwizard_gui.c:228
-msgid "Application Wizard:     Page 5 of 6"
-msgstr "Programguide:     Sida 5 av 6"
-
-#: src/appwizard_gui.c:251
-msgid "Application Wizard:     Page 6 of 6"
-msgstr "Programguide:     Sida 6 av 6"
+#: src/appwizard_gui.c:265
+msgid "Summary"
+msgstr "Sammanfattning"
 
 #: src/attach_process.c:118
 #, c-format
@@ -429,7 +420,7 @@ msgstr "Fil"
 msgid "Line"
 msgstr "Rad"
 
-#: src/breakpoints_gui.c:105 src/text_editor_menu.c:262
+#: src/breakpoints_gui.c:105 src/text_editor_menu.c:269
 msgid "Function"
 msgstr "Function"
 
@@ -504,7 +495,7 @@ msgstr "Den körbara filen är aktuell. Ombyggnad behövs inte."
 msgid "I do not really know how to build this file."
 msgstr "Jag vet egentligen inte hur denna fil ska byggas."
 
-#: src/build_file.c:107 src/messages.c:535 src/preferences_gui.c:174
+#: src/build_file.c:107 src/messages.c:535 src/preferences_gui.c:176
 #: src/text_editor_gui.c:246 src/toolbar.c:474
 msgid "Build"
 msgstr "Bygge"
@@ -1089,10 +1080,6 @@ msgstr "Aktivera felsökning"
 msgid "Enable Profiling"
 msgstr "Aktivera profilering"
 
-#: src/compiler_options_gui.c:1104
-msgid "Additional Options"
-msgstr "Ytterligare alternativ"
-
 #: src/configurer.c:87 src/configurer.c:203 src/toolbar.c:463
 msgid "Configure"
 msgstr "Konfigurera"
@@ -1315,15 +1302,15 @@ msgstr "Kör i terminal"
 msgid "Execute"
 msgstr "Kör"
 
-#: src/executer.c:234 src/mainmenu_callbacks.c:1547
+#: src/executer.c:234 src/mainmenu_callbacks.c:1549
 msgid "Target of this project is unknown"
 msgstr "Målet för detta projekt är okänt"
 
-#: src/executer.c:239 src/mainmenu_callbacks.c:1549
+#: src/executer.c:239 src/mainmenu_callbacks.c:1551
 msgid "Target of this project is not executable"
 msgstr "Målet för detta projekt är inte körbart"
 
-#: src/executer.c:244 src/mainmenu_callbacks.c:1553
+#: src/executer.c:244 src/mainmenu_callbacks.c:1555
 msgid "Executable does not exist for this project."
 msgstr "Körbar fil finns inte för detta projekt."
 
@@ -1331,12 +1318,12 @@ msgstr "Körbar fil finns inte för detta projekt."
 msgid "No file or project opened."
 msgstr "Ingen fil eller projekt öppnades."
 
-#: src/executer.c:262 src/executer.c:281 src/mainmenu_callbacks.c:1573
-#: src/mainmenu_callbacks.c:1584
+#: src/executer.c:262 src/executer.c:281 src/mainmenu_callbacks.c:1575
+#: src/mainmenu_callbacks.c:1586
 msgid "No executable for this file."
 msgstr "Ingen körbar fil för denna fil."
 
-#: src/executer.c:286 src/mainmenu_callbacks.c:1579
+#: src/executer.c:286 src/mainmenu_callbacks.c:1581
 msgid "Executable is not up-to-date."
 msgstr "Körbar fil är inte aktuell."
 
@@ -3254,11 +3241,11 @@ msgstr "_Verktyg"
 msgid "_Settings"
 msgstr "_Inställningar"
 
-#: src/mainmenu_callbacks.c:120
+#: src/mainmenu_callbacks.c:122
 msgid "All files saved ..."
 msgstr "Alla filer sparade..."
 
-#: src/mainmenu_callbacks.c:137
+#: src/mainmenu_callbacks.c:139
 #, c-format
 msgid ""
 "The file \"%s\" is not saved.\n"
@@ -3267,7 +3254,7 @@ msgstr ""
 "Filen \"%s\" är inte sparad.\n"
 "Vill du spara den innan du avslutar?"
 
-#: src/mainmenu_callbacks.c:188
+#: src/mainmenu_callbacks.c:190
 #, c-format
 msgid ""
 "Are you sure you want to reload %s.\n"
@@ -3276,12 +3263,12 @@ msgstr ""
 "Är du säker på att du vill läsa om %s.\n"
 "Du kommer att förlora alla ändringar som inte är sparade."
 
-#: src/mainmenu_callbacks.c:258
+#: src/mainmenu_callbacks.c:260
 #, c-format
 msgid "Could not execute cmd: %s"
 msgstr "Kunde inte köra kommando: %s"
 
-#: src/mainmenu_callbacks.c:265
+#: src/mainmenu_callbacks.c:267
 #, c-format
 msgid ""
 "There was an error while printing.\n"
@@ -3290,27 +3277,27 @@ msgstr ""
 "Det uppstod ett fel under utskrift.\n"
 "Kommandot är: %s"
 
-#: src/mainmenu_callbacks.c:271
+#: src/mainmenu_callbacks.c:273
 msgid "The file has been sent for printing."
 msgstr "Filen har skickats för utskrift."
 
-#: src/mainmenu_callbacks.c:287
+#: src/mainmenu_callbacks.c:289
 msgid "You must save the file first and then print"
 msgstr "Du måste spara filen först och sedan skriva ut"
 
-#: src/mainmenu_callbacks.c:291
+#: src/mainmenu_callbacks.c:293
 msgid "Are you sure you want to print the current file?"
 msgstr "Är du säker på att du vill skriva ut den aktuella filen?"
 
-#: src/mainmenu_callbacks.c:1140
+#: src/mainmenu_callbacks.c:1142
 msgid "Tags image update successfully."
 msgstr "Uppdatering av taggbild lyckades."
 
-#: src/mainmenu_callbacks.c:1604
+#: src/mainmenu_callbacks.c:1606
 msgid "Debugger is not running. Start it first."
 msgstr "Felsökaren kör inte. Starta den först."
 
-#: src/mainmenu_callbacks.c:1640
+#: src/mainmenu_callbacks.c:1642
 msgid ""
 "Program is ATTACHED.\n"
 "Do you still want to stop Debugger?"
@@ -3318,7 +3305,7 @@ msgstr ""
 "Programmet är ANSLUTET.\n"
 "Vill du stoppa felsökaren?"
 
-#: src/mainmenu_callbacks.c:1650
+#: src/mainmenu_callbacks.c:1652
 msgid ""
 "Program is running.\n"
 "Do you still want to stop Debugger?"
@@ -3326,8 +3313,8 @@ msgstr ""
 "Programmet kör.\n"
 "Vill du stoppa felsökaren?"
 
-#: src/mainmenu_callbacks.c:1829 src/mainmenu_callbacks.c:1847
-#: src/mainmenu_callbacks.c:1875 src/mainmenu_callbacks.c:1893
+#: src/mainmenu_callbacks.c:1831 src/mainmenu_callbacks.c:1849
+#: src/mainmenu_callbacks.c:1877 src/mainmenu_callbacks.c:1895
 msgid "Cannot launch gnome-help-browser"
 msgstr "Kan inte starta gnome-help-browser"
 
@@ -3359,7 +3346,7 @@ msgstr "Felsök lokallistning"
 msgid "Embedded Terminal"
 msgstr "Inbyggd terminal"
 
-#: src/messages.c:536 src/text_editor_menu.c:270 src/toolbar.c:511
+#: src/messages.c:536 src/text_editor_menu.c:277 src/toolbar.c:511
 msgid "Debug"
 msgstr "Felsök"
 
@@ -3395,236 +3382,236 @@ msgstr ""
 "Är du säker på att du vill återställa inställningarna\n"
 "till deras standardalternativ?"
 
-#: src/preferences_gui.c:145
+#: src/preferences_gui.c:147
 msgid "Preferences"
 msgstr "Inställningar"
 
-#: src/preferences_gui.c:164 src/project_config.c:769
+#: src/preferences_gui.c:166 src/project_config.c:769
 msgid "General"
 msgstr "Allmänt"
 
-#: src/preferences_gui.c:184
+#: src/preferences_gui.c:186
 msgid "Styles"
 msgstr "Stilar"
 
-#: src/preferences_gui.c:194
+#: src/preferences_gui.c:196
 msgid "Editor"
 msgstr "Redigerare"
 
-#: src/preferences_gui.c:204
+#: src/preferences_gui.c:206
 msgid "Print Setup"
 msgstr "Skrivarinställningar"
 
-#: src/preferences_gui.c:214
+#: src/preferences_gui.c:216
 msgid "Auto Format"
 msgstr "Autoformatera"
 
-#: src/preferences_gui.c:224
+#: src/preferences_gui.c:226
 msgid "misc"
 msgstr "div"
 
-#: src/preferences_gui.c:233
+#: src/preferences_gui.c:235
 msgid "Components"
 msgstr "Komponenter"
 
-#: src/preferences_gui.c:318
+#: src/preferences_gui.c:320
 msgid " Directories "
 msgstr " Kataloger "
 
-#: src/preferences_gui.c:354
+#: src/preferences_gui.c:356
 msgid "Projects:"
 msgstr "Projekt:"
 
-#: src/preferences_gui.c:361
+#: src/preferences_gui.c:363
 msgid "Tarballs:"
 msgstr "Tarbollar:"
 
-#: src/preferences_gui.c:368
+#: src/preferences_gui.c:370
 msgid "Rpms:"
 msgstr "Rpm:er:"
 
-#: src/preferences_gui.c:375
+#: src/preferences_gui.c:377
 msgid "Srpms:"
 msgstr "Srpm:er:"
 
-#: src/preferences_gui.c:382
+#: src/preferences_gui.c:384
 msgid " History size "
 msgstr " Historikstorlek "
 
-#: src/preferences_gui.c:391
+#: src/preferences_gui.c:393
 msgid "Recent Projects:"
 msgstr "Senaste projekt:"
 
-#: src/preferences_gui.c:398
+#: src/preferences_gui.c:400
 msgid "Recent Files:"
 msgstr "Senaste filer:"
 
-#: src/preferences_gui.c:405
+#: src/preferences_gui.c:407
 msgid "Combo Popdown:"
 msgstr "Kombinationsmeny:"
 
-#: src/preferences_gui.c:463
+#: src/preferences_gui.c:465
 msgid " Job Options "
 msgstr " Jobbalternativ "
 
-#: src/preferences_gui.c:473
+#: src/preferences_gui.c:475
 msgid "Beep on job complete"
 msgstr "Pip när jobbet är klart"
 
-#: src/preferences_gui.c:482
+#: src/preferences_gui.c:484
 msgid "Dialog on job complete"
 msgstr "Dialogfönster då jobbet är klart"
 
-#: src/preferences_gui.c:537
+#: src/preferences_gui.c:539
 msgid "Keep going when some targets cannot be made"
 msgstr "Fortsätt då en del mål inte kan skapas"
 
-#: src/preferences_gui.c:544
+#: src/preferences_gui.c:546
 msgid "Silent: Don't echo commands"
 msgstr "Tyst: Eka inte kommandon"
 
-#: src/preferences_gui.c:551
+#: src/preferences_gui.c:553
 msgid "Produce debugging outputs"
 msgstr "Skapa felsökningsutdata"
 
-#: src/preferences_gui.c:558
+#: src/preferences_gui.c:560
 msgid "Warn when an undefined variable is referenced"
 msgstr "Varna då odefinierad variabel refereras"
 
-#: src/preferences_gui.c:572
+#: src/preferences_gui.c:574
 msgid "Max no of jobs:"
 msgstr "Största antal jobb:"
 
-#: src/preferences_gui.c:653
+#: src/preferences_gui.c:655
 msgid "Select Highlight item to edit:"
 msgstr "Välj färgningsobjekt att redigera:"
 
-#: src/preferences_gui.c:677
+#: src/preferences_gui.c:679
 msgid " Highlight Style "
 msgstr " Färgningsstil "
 
-#: src/preferences_gui.c:708 src/preferences_gui.c:733
-#: src/preferences_gui.c:780 src/preferences_gui.c:787
+#: src/preferences_gui.c:710 src/preferences_gui.c:735
+#: src/preferences_gui.c:782 src/preferences_gui.c:789
 msgid "Use default"
 msgstr "Använd standardvärde"
 
-#: src/preferences_gui.c:721
+#: src/preferences_gui.c:723
 msgid "Bold"
 msgstr "Fet"
 
-#: src/preferences_gui.c:725
+#: src/preferences_gui.c:727
 msgid "Italic"
 msgstr "Kursiv"
 
-#: src/preferences_gui.c:729
+#: src/preferences_gui.c:731
 msgid "Underlined"
 msgstr "Understruken"
 
-#: src/preferences_gui.c:740
+#: src/preferences_gui.c:742
 msgid "Font:"
 msgstr "Typsnitt:"
 
-#: src/preferences_gui.c:747
+#: src/preferences_gui.c:749
 msgid "Attribute:"
 msgstr "Attribut:"
 
-#: src/preferences_gui.c:754
+#: src/preferences_gui.c:756
 msgid "Fore color:"
 msgstr "Förgrundsfärg:"
 
-#: src/preferences_gui.c:761
+#: src/preferences_gui.c:763
 msgid "Back color:"
 msgstr "Bakgrundsfärg:"
 
-#: src/preferences_gui.c:801
+#: src/preferences_gui.c:803
 msgid "Caret color:"
 msgstr "Caret-färg:"
 
-#: src/preferences_gui.c:814
+#: src/preferences_gui.c:816
 msgid "Calltip color:"
 msgstr "Färg på anropstips:"
 
-#: src/preferences_gui.c:827
+#: src/preferences_gui.c:829
 msgid "Selection Foreground:"
 msgstr "Markeringsförgrund:"
 
-#: src/preferences_gui.c:840
+#: src/preferences_gui.c:842
 msgid "Selection Background:"
 msgstr "Markeringsbakgrund:"
 
-#: src/preferences_gui.c:949
+#: src/preferences_gui.c:951
 msgid "Disable syntax highlighting"
 msgstr "Deaktivera syntaxfärgning"
 
-#: src/preferences_gui.c:956
+#: src/preferences_gui.c:958
 msgid "Enable Auto save"
 msgstr "Aktivera automatiskt sparande"
 
-#: src/preferences_gui.c:963
+#: src/preferences_gui.c:965
 msgid "Enable Auto indent"
 msgstr "Aktivera autoindentering"
 
-#: src/preferences_gui.c:971
+#: src/preferences_gui.c:973
 msgid "Use tabs for indentation"
 msgstr "Använd tabulatorer för indentering"
 
-#: src/preferences_gui.c:978
+#: src/preferences_gui.c:980
 msgid "Enable braces check"
 msgstr "Aktivera klammerkontroll"
 
-#: src/preferences_gui.c:985
+#: src/preferences_gui.c:987
 msgid "Save in DOS format"
 msgstr "Spara i DOS-format"
 
-#: src/preferences_gui.c:1037
+#: src/preferences_gui.c:1039
 msgid "Tab size in spaces"
 msgstr "Tabulatorstorlek i blanksteg"
 
-#: src/preferences_gui.c:1044
+#: src/preferences_gui.c:1046
 msgid "Auto save timer interval in minutes"
 msgstr "Tidintervall i minuter för automatiskt sparande"
 
-#: src/preferences_gui.c:1051
+#: src/preferences_gui.c:1053
 msgid "Auto indent size in spaces"
 msgstr "Automatisk indenteringsstorlek i blanksteg"
 
-#: src/preferences_gui.c:1058
+#: src/preferences_gui.c:1060
 msgid "Line number margin width in pixels"
 msgstr "Bredd på radnummermarginal i bildpunkter"
 
-#: src/preferences_gui.c:1065
+#: src/preferences_gui.c:1067
 msgid "Save session time interval"
 msgstr "Tidsintervall för sparandesession"
 
-#: src/preferences_gui.c:1074
+#: src/preferences_gui.c:1076
 msgid "Strip trailing spaces on file save"
 msgstr "Ta bort eftersläpande blanksteg vid filsparande"
 
-#: src/preferences_gui.c:1082
+#: src/preferences_gui.c:1084
 msgid "Collapse all folds on file open"
 msgstr "Fäll ihop alla inhägnader vid filöppning"
 
-#: src/preferences_gui.c:1137
+#: src/preferences_gui.c:1139
 msgid " Paper Size"
 msgstr " Pappersstorlek"
 
-#: src/preferences_gui.c:1147
+#: src/preferences_gui.c:1149
 msgid " Print Command "
 msgstr " Utskriftskommando "
 
-#: src/preferences_gui.c:1209
+#: src/preferences_gui.c:1211
 msgid "Disable Auto format"
 msgstr "Deaktivera automatisk formatering"
 
-#: src/preferences_gui.c:1213
+#: src/preferences_gui.c:1215
 msgid " Format Style "
 msgstr " Formateringsstil "
 
-#: src/preferences_gui.c:1236
+#: src/preferences_gui.c:1238
 msgid " Custom Style "
 msgstr " Anpassad stil "
 
-#: src/preferences_gui.c:1247
+#: src/preferences_gui.c:1249
 msgid ""
 "Enter the command line arguments for the 'indent' program.\n"
 "Read the info page for 'indent' for more details."
@@ -3632,59 +3619,59 @@ msgstr ""
 "Ange kommandoradsargumenten för \"indent\"-programmet.\n"
 "Läs infosidan för \"indent\" för mer information."
 
-#: src/preferences_gui.c:1316
+#: src/preferences_gui.c:1318
 msgid " Messages"
 msgstr " Meddelanden"
 
-#: src/preferences_gui.c:1328
+#: src/preferences_gui.c:1330
 msgid "Truncate long messages"
 msgstr "Kapa långa meddelanden"
 
-#: src/preferences_gui.c:1355
+#: src/preferences_gui.c:1357
 msgid "Number of first characters to show"
 msgstr "Antal första tecken att visa"
 
-#: src/preferences_gui.c:1362
+#: src/preferences_gui.c:1364
 msgid "Number of last characters to show"
 msgstr "Antal sista tecken att visa"
 
-#: src/preferences_gui.c:1369
+#: src/preferences_gui.c:1371
 msgid " Notebook tags position "
 msgstr " Position för flikhäftestaggar "
 
-#: src/preferences_gui.c:1380
+#: src/preferences_gui.c:1382
 msgid "Do not show notebook title tags"
 msgstr "Visa inte fikhäftestiteltaggar"
 
-#: src/preferences_gui.c:1394
+#: src/preferences_gui.c:1396
 msgid "Top"
 msgstr "Överst"
 
-#: src/preferences_gui.c:1403
+#: src/preferences_gui.c:1405
 msgid "Bottom"
 msgstr "Nederst"
 
-#: src/preferences_gui.c:1412
+#: src/preferences_gui.c:1414
 msgid "Left"
 msgstr "Vänster"
 
-#: src/preferences_gui.c:1421
+#: src/preferences_gui.c:1423
 msgid "Right"
 msgstr "Höger"
 
-#: src/preferences_gui.c:1429
+#: src/preferences_gui.c:1431
 msgid " Tags Browser "
 msgstr " Taggbläddrare"
 
-#: src/preferences_gui.c:1436
+#: src/preferences_gui.c:1438
 msgid "Update tags image automatically"
 msgstr "Uppdatera automatiskt taggbilder"
 
-#: src/preferences_gui.c:1505
+#: src/preferences_gui.c:1507
 msgid " Components"
 msgstr " Komponenter"
 
-#: src/preferences_gui.c:1517
+#: src/preferences_gui.c:1519
 msgid "Use Glade Components (experimental)"
 msgstr "Använd Glade-komponenter (experimentellt)"
 
@@ -3762,10 +3749,6 @@ msgstr "Projekt: "
 #: src/project_config.c:737
 msgid "Project configuration"
 msgstr "Projektkonfiguration"
-
-#: src/project_config.c:748
-msgid "Project Description"
-msgstr "Projektbeskrivning"
 
 #: src/project_config.c:776
 msgid "Disable Overwriting project files"
@@ -4514,31 +4497,35 @@ msgstr "++Zoom"
 msgid "--Zoom"
 msgstr "--Zoom"
 
-#: src/text_editor_menu.c:232
+#: src/text_editor_menu.c:231
+msgid "Goto Tag"
+msgstr "Gå till tagg"
+
+#: src/text_editor_menu.c:239
 msgid "Toggle Bookmark"
 msgstr "Slå på/av bokmärken"
 
-#: src/text_editor_menu.c:239
+#: src/text_editor_menu.c:246
 msgid "Auto format"
 msgstr "Autoformatering"
 
-#: src/text_editor_menu.c:246
+#: src/text_editor_menu.c:253
 msgid "Swap .h/.c"
 msgstr "Byt .h/.c"
 
-#: src/text_editor_menu.c:254
+#: src/text_editor_menu.c:261
 msgid "Goto"
 msgstr "Gå till"
 
-#: src/text_editor_menu.c:278
+#: src/text_editor_menu.c:285
 msgid "Options"
 msgstr "Alternativ"
 
-#: src/text_editor_menu.c:286 src/toolbar.c:157
+#: src/text_editor_menu.c:293 src/toolbar.c:157
 msgid "Close"
 msgstr "Stäng"
 
-#: src/text_editor_menu.c:348
+#: src/text_editor_menu.c:355
 msgid "Functions "
 msgstr "Funktioner "
 
@@ -4969,6 +4956,10 @@ msgstr "Copyright © 1999-2001 Naba Kumar"
 msgid "Anjuta Home Site"
 msgstr "Hemsida för Anjuta"
 
+#: src/appwiz_page4.c:109
+msgid "Enter any additional Project options"
+msgstr "Ange eventuella ytterligare projektalternativ"
+
 #: src/appwiz_page4.c:126
 msgid " Project Options "
 msgstr " Projektalternativ "
@@ -5203,6 +5194,24 @@ msgstr "Kunde inte skapa pixmap från fil: %s"
 #: src/resources.c:295 src/resources.c:303
 msgid "Cannot execute Devhelp. Make sure it is installed"
 msgstr "Kan inte köra Devhelp. Försäkra dig om att det är installerat"
+
+#~ msgid "Application Wizard:     Page 1 of 6"
+#~ msgstr "Programguide:     Sida 1 av 6"
+
+#~ msgid "Application Wizard:     Page 2 of 6"
+#~ msgstr "Programguide:     Sida 2 av 6"
+
+#~ msgid "Application Wizard:     Page 3 of 6"
+#~ msgstr "Programguide:     Sida 3 av 6"
+
+#~ msgid "Application Wizard:     Page 4 of 6"
+#~ msgstr "Programguide:     Sida 4 av 6"
+
+#~ msgid "Application Wizard:     Page 5 of 6"
+#~ msgstr "Programguide:     Sida 5 av 6"
+
+#~ msgid "Application Wizard:     Page 6 of 6"
+#~ msgstr "Programguide:     Sida 6 av 6"
 
 #~ msgid "Use Components"
 #~ msgstr "Använd komponenter"
