@@ -70,9 +70,11 @@ create_new_project (AppWizard * aw)
 	prj_file = g_strdup_printf ("%s/%s.prj", top_dir, aw->prj_name);
 	g_free (top_dir);
 	
-	fileselection_set_filename (app->project_dbase->fileselection_open, prj_file);
+	fileselection_set_filename (app->project_dbase->fileselection_open,
+								prj_file);
 	anjuta_message_manager_clear (app->messages, MESSAGE_BUILD);
-	anjuta_message_manager_append (app->messages, _("Generating Project ...\n"), MESSAGE_BUILD);
+	anjuta_message_manager_append (app->messages, _("Generating Project ...\n"),
+								   MESSAGE_BUILD);
 	anjuta_message_manager_show (app->messages, MESSAGE_BUILD);
 
 	fp = fopen (prj_file, "w");
@@ -80,11 +82,8 @@ create_new_project (AppWizard * aw)
 	{
 		anjuta_system_error (errno, _("Cannot create file: %s"), prj_file);
 		g_free (prj_file);
-		
 		return FALSE;
 	}
-
-	g_free (prj_file);
 
 	fprintf(fp, "# Anjuta Version %s\n", VERSION);
 	fprintf(fp, "Compatibility Level: %d\n\n", COMPATIBILITY_LEVEL);
@@ -115,11 +114,13 @@ create_new_project (AppWizard * aw)
 	fprintf(fp, "anjuta.compatibility.level=%d\n\n", COMPATIBILITY_LEVEL);
 	fprintf(fp, "project.name=%s\n", _STR(aw->prj_name));
 	fprintf(fp, "project.type=%s\n", project_type_map[aw->prj_type]);
-	fprintf(fp, "project.target.type=%s\n", project_target_type_map[aw->target_type]);
+	fprintf(fp, "project.target.type=%s\n",
+			project_target_type_map[aw->target_type]);
 	fprintf(fp, "project.version=%s\n", _STR(aw->version));
 	fprintf(fp, "project.author=%s\n", _STR(aw->author));
 	fprintf(fp, "project.source.target=%s\n", _STR(aw->target));
-	fprintf(fp, "project.programming.language=%s\n\n", programming_language_map[aw->language]);
+	fprintf(fp, "project.programming.language=%s\n\n",
+			programming_language_map[aw->language]);
 	fprintf(fp, "project.has.gettext=%d\n", aw->gettext_support);
 	fprintf(fp, "project.use.header=%d\n\n", aw->use_header);
 	fprintf(fp, "project.menu.entry=%s\n", _STR(aw->menu_entry));
@@ -139,41 +140,56 @@ create_new_project (AppWizard * aw)
 
 	fprintf(fp, "project.menu.need.terminal=%d\n\n", aw->need_terminal);
 
-	type = load_project_type(aw->prj_type);
+	type = load_project_type (aw->prj_type);
 	if (type->id != PROJECT_TYPE_GENERIC)
 	{
-		fprintf(fp, "compiler.options.supports=%s\n\n", _STR(type->save_string));
+		fprintf (fp, "compiler.options.supports=%s\n\n",
+				 _STR(type->save_string));
 		//free_project_type(type);
 		//type = NULL ;
 	}
 	fclose(fp);
-	anjuta_message_manager_append (app->messages, _("Loading Project ...\n"), MESSAGE_BUILD);
+	anjuta_message_manager_append (app->messages, _("Loading Project ...\n"),
+								   MESSAGE_BUILD);
 	
-	if(project_dbase_load_project(app->project_dbase, FALSE)==FALSE)
+	if (project_dbase_load_project (app->project_dbase, prj_file,
+									FALSE) == FALSE)
+	{
+		g_free (prj_file);
 		return FALSE;
-	anjuta_message_manager_append (app->messages, _("Saving Project ...\n"), MESSAGE_BUILD);
+	}
+	g_free (prj_file);
+
+	anjuta_message_manager_append (app->messages, _("Saving Project ...\n"),
+								   MESSAGE_BUILD);
 	app->project_dbase->is_saved = FALSE;
-	if (project_dbase_save_project(app->project_dbase)==FALSE)
+	if (project_dbase_save_project (app->project_dbase) == FALSE)
 		return FALSE;
 
 	/*  Source codes are generated */
-	anjuta_message_manager_append (app->messages, _("Generating source codes ...\n"), MESSAGE_BUILD);
+	anjuta_message_manager_append (app->messages,
+								   _("Generating source codes ...\n"),
+								   MESSAGE_BUILD);
 	if (project_dbase_generate_source_code (app->project_dbase)==FALSE)
 		return FALSE;
 	
 	/* Creating icon pixmap file for gnome projects */
-	anjuta_message_manager_append (app->messages, _("Copying icon file ...\n"), MESSAGE_BUILD);
+	anjuta_message_manager_append (app->messages, _("Copying icon file ...\n"),
+								   MESSAGE_BUILD);
 	if (type->gnome_support && aw->icon_file)
 	{
 		gchar* dir;
 		gchar* dest;
 		
 		dir = project_dbase_get_module_dir (app->project_dbase, MODULE_PIXMAP);
-		dest = g_strdup_printf ("%s/%s_icon.%s", dir, _STR(aw->target), _STR(get_file_extension (aw->icon_file)));
+		dest = g_strdup_printf ("%s/%s_icon.%s", dir, _STR(aw->target),
+								_STR(get_file_extension (aw->icon_file)));
 		force_create_dir (dir);
 		if (copy_file (aw->icon_file, dest, FALSE) == FALSE)
 		{
-			anjuta_message_manager_append (app->messages, _("Could not create icon file ...\n"), MESSAGE_BUILD);
+			anjuta_message_manager_append (app->messages,
+										  _("Could not create icon file ...\n"),
+										   MESSAGE_BUILD);
 		}
 		g_free (dir);
 		g_free (dest);
@@ -186,14 +202,16 @@ create_new_project (AppWizard * aw)
 		type = NULL;
 	}
 
-	anjuta_message_manager_append (app->messages, _("Locating files ...\n"), MESSAGE_BUILD);
+	anjuta_message_manager_append (app->messages, _("Locating files ...\n"),
+								   MESSAGE_BUILD);
 	for(i=0; i<MODULE_END_MARK; i++)
 	{
 		gchar *key;	
 
 		if (i == MODULE_PO)
 			continue;
-		list = project_dbase_scan_files_in_module (app->project_dbase, i, FALSE);
+		list = project_dbase_scan_files_in_module (app->project_dbase,
+												   i, FALSE);
 		files = string_from_glist(list);
 		if (files)
 		{
@@ -202,12 +220,15 @@ create_new_project (AppWizard * aw)
 			g_free (key);
 		}
 	}
-	anjuta_message_manager_append (app->messages, _("Saving Project ...\n"), MESSAGE_BUILD);
+	anjuta_message_manager_append (app->messages, _("Saving Project ...\n"),
+								   MESSAGE_BUILD);
 	if (project_dbase_save_project(app->project_dbase)==FALSE)
 		return FALSE;
-	anjuta_message_manager_append (app->messages, _("Updating Project ...\n"), MESSAGE_BUILD);
+	anjuta_message_manager_append (app->messages, _("Updating Project ...\n"),
+								   MESSAGE_BUILD);
 	project_dbase_update_tree (app->project_dbase);
-	anjuta_message_manager_append (app->messages, _("Running autogen.sh ...\n"), MESSAGE_BUILD);
+	anjuta_message_manager_append (app->messages, _("Running autogen.sh ...\n"),
+								   MESSAGE_BUILD);
 	chdir (app->project_dbase->top_proj_dir);
 	if (launcher_execute ("./autogen.sh",
 			new_prj_mesg_arrived,

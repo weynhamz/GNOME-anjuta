@@ -47,19 +47,7 @@
 
 #include "an_file_view.h"
 #include "an_symbol_view.h"
-
-/* Including small pixmaps at compile time */
-/* So that these at least work when gnome pixmaps are not found */
-#include "../pixmaps/bfoldo.xpm"
-#include "../pixmaps/bfoldc.xpm"
-#include "../pixmaps/file_file.xpm"
-#include "../pixmaps/file_c.xpm"
-#include "../pixmaps/file_cpp.xpm"
-#include "../pixmaps/file_h.xpm"
-#include "../pixmaps/file_pix.xpm"
-#include "../pixmaps/file_icon.xpm"
-#include "../pixmaps/file_html.xpm"
-#include "../pixmaps/file_i18n.xpm"
+#include "pixmaps.h"
 
 // To debug it
 #define	SHOW_LOCALS_DEFAULT 	TRUE
@@ -70,20 +58,9 @@ static void project_dbase_reload_session (ProjectDBase * p);
 static void project_dbase_save_session_files (ProjectDBase * p);
 static void project_dbase_save_markers( ProjectDBase * p, TextEditor *te, const gint nItem );
 static void project_dbase_make_default_filetype_list(ProjectDBase * p);
+static void session_load_node_expansion_states (ProjectDBase *p);
 
 static const gchar szShowLocalsItem[] = { "ShowLocals" };
-
-static GdkPixmap *opened_folder_pix,
-	*closed_folder_pix,
-	*file_h_pix, *file_c_pix, *file_cpp_pix, *file_pix_pix,
-	*file_file_pix, *file_icon_pix, *file_html_pix,
-	*file_i18n_pix;
-
-static GdkBitmap *opened_folder_mask,
-	*closed_folder_mask,
-	*file_h_mask, *file_c_mask, *file_cpp_mask, *file_pix_mask,
-	*file_file_mask, *file_icon_mask, *file_html_mask,
-	*file_i18n_mask;
 
 gchar *project_type_map[]=
 {
@@ -166,144 +143,43 @@ static const gchar* editor_prefs[] =
 	NULL
 };
 
-void
-get_pixmask_on_file_ext (FileExtType t, GdkPixmap ** p_c,
-			 GdkBitmap ** m_c, GdkPixmap ** p_o,
-			 GdkBitmap ** m_o);
-
-int select_only_file (const struct dirent *e);
-
 static void
-get_pixmask_on_file_type (FileExtType t, GtkWidget * parent,
-			  GdkPixmap ** p_c, GdkBitmap ** m_c,
-			  GdkPixmap ** p_o, GdkBitmap ** m_o)
-{
-	switch (t)
-	{
-	case FILE_TYPE_DIR:
-		*p_c = closed_folder_pix;
-		*m_c = closed_folder_mask;
-		*p_o = opened_folder_pix;
-		*m_o = opened_folder_mask;
-		return;
-
-	case FILE_TYPE_C:
-		*p_c = file_c_pix;
-		*m_c = file_c_mask;
-		*p_o = file_c_pix;
-		*m_o = file_c_mask;
-		return;
-
-	case FILE_TYPE_CPP:
-		*p_c = file_cpp_pix;
-		*m_c = file_cpp_mask;
-		*p_o = file_cpp_pix;
-		*m_o = file_cpp_mask;
-		return;
-
-	case FILE_TYPE_HEADER:
-		*p_c = file_h_pix;
-		*m_c = file_h_mask;
-		*p_o = file_h_pix;
-		*m_o = file_h_mask;
-		return;
-
-	case FILE_TYPE_IMAGE:
-		*p_c = file_pix_pix;
-		*m_c = file_pix_mask;
-		*p_o = file_pix_pix;
-		*m_o = file_pix_mask;
-		return;
-
-	case FILE_TYPE_ICON:
-		*p_c = file_icon_pix;
-		*m_c = file_icon_mask;
-		*p_o = file_icon_pix;
-		*m_o = file_icon_mask;
-		return;
-	
-	case FILE_TYPE_HTML:
-		*p_c = file_html_pix;
-		*m_c = file_html_mask;
-		*p_o = file_html_pix;
-		*m_o = file_html_mask;
-		return;
-
-	case FILE_TYPE_PO:
-		*p_c = file_i18n_pix;
-		*m_c = file_i18n_mask;
-		*p_o = file_i18n_pix;
-		*m_o = file_i18n_mask;
-		return;
-
-	default:
-		*p_c = file_file_pix;
-		*m_c = file_file_mask;
-		*p_o = file_file_pix;
-		*m_o = file_file_mask;
-		return;
-	}
-}
-
-static void
-gtree_insert_files (GtkWidget * ctree, GtkCTreeNode * parent,
-		    PrjModule mod,  gchar * dir_prefix, GList * items)
+gtree_insert_files (GtkTreeView *treeview, GtkTreeIter *parent,
+					PrjModule mod,  gchar *dir_prefix, GList *items)
 {
 	GList *node;
-	gchar *dum_array[1];
-
-	GdkPixmap *pix_c;
-	GdkPixmap *pix_o;
-	GdkBitmap *mask_c;
-	GdkBitmap *mask_o;
-
-
+	
 	node = g_list_sort (items, compare_string_func);
 	while (node)
 	{
-		FileExtType ftype;
-		gchar *fname;
 		gchar *full_fname;
 		ProjectFileData *pfd;
-		GtkCTreeNode *cnode;
+		GtkTreeStore *store;
+		GtkTreeIter iter;
+		GdkPixbuf *pixbuf;
 
 		if (node->data == NULL)
 			continue;
-		ftype = get_file_ext_type (node->data);
-		get_pixmask_on_file_type (ftype,
-					  app->project_dbase->widgets.window,
-					  &pix_c, &mask_c, &pix_o, &mask_o);
-		dum_array[0] = node->data;
-		if (ftype == FILE_TYPE_HEADER)
-			cnode = gtk_ctree_insert_node (GTK_CTREE (ctree),
-						       parent, NULL,
-						       dum_array, 5, pix_c,
-						       mask_c, pix_o, mask_o,
-						       TRUE, FALSE);
-		else
-			cnode =
-				gtk_ctree_insert_node (GTK_CTREE (ctree),
-						       parent, NULL,
-						       dum_array, 5, pix_c,
-						       mask_c, pix_o, mask_o,
-						       TRUE, FALSE);
 		
-		fname = node->data;
-		full_fname = g_strconcat (dir_prefix, "/", fname, NULL);
-		pfd =
-			project_file_data_new (parent, mod, fname, full_fname);
+		pixbuf = anjuta_res_get_icon_for_file (app->preferences->props,
+											   node->data);
+		full_fname = g_strconcat (dir_prefix, "/", node->data, NULL);
+		pfd = project_file_data_new (NULL, mod, node->data, full_fname);
 		g_free (full_fname);
-		gtk_ctree_node_set_row_data_full (GTK_CTREE (ctree),
-						  GTK_CTREE_NODE (cnode), pfd,
-						  (GtkDestroyNotify)
-						  project_file_data_destroy);
+		
+		store = GTK_TREE_STORE (gtk_tree_view_get_model (treeview));
+		gtk_tree_store_append (store, &iter, parent);
+		gtk_tree_store_set (store, &iter,
+							PROJECT_PIX_COLUMN, pixbuf,
+							PROJECT_NAME_COLUMN, node->data,
+							PROJECT_DATA_COLUMN, pfd, -1);
 		node = g_list_next (node);
 	}
 }
 
 ProjectFileData *
 project_file_data_new (GtkCTreeNode * parent, PrjModule mod,
-				gchar* fname, gchar * full_fname)
+					   gchar* fname, gchar * full_fname)
 {
 	ProjectFileData *pfd;
 
@@ -363,12 +239,6 @@ project_dbase_new (PropsID pr_props)
 	fsd2.data = p;
 	
 	p->tm_project = NULL;
-	p->widgets.root_node = NULL;
-	p->widgets.current_node = NULL;
-	for(i=0; i<MODULE_END_MARK; i++)
-	{
-		p->widgets.module_node[i] = NULL;
-	}
 	p->m_prj_ShowLocal = SHOW_LOCALS_DEFAULT ;
 	p->project_is_open = FALSE;
 	p->is_showing = TRUE;
@@ -389,47 +259,6 @@ project_dbase_new (PropsID pr_props)
 	p->props = prop_set_new ();
 	prop_set_parent (p->props, pr_props);
 	p->project_config = project_config_new (p->props);
-
-	closed_folder_pix =
-		gdk_pixmap_colormap_create_from_xpm_d(NULL,
-			gtk_widget_get_colormap(p->widgets.window),
-			&closed_folder_mask, NULL, bfoldc_xpm);
-	opened_folder_pix =
-		gdk_pixmap_colormap_create_from_xpm_d(NULL,
-			gtk_widget_get_colormap(p->widgets.window),
-			&opened_folder_mask, NULL, bfoldo_xpm);
-	file_h_pix =
-		gdk_pixmap_colormap_create_from_xpm_d(NULL,
-			gtk_widget_get_colormap(p->widgets.window),
-			&file_h_mask, NULL, file_h_xpm);
-	file_c_pix =
-		gdk_pixmap_colormap_create_from_xpm_d(NULL,
-			gtk_widget_get_colormap(p->widgets.window),
-			&file_c_mask, NULL, file_c_xpm);
-	file_cpp_pix =
-		gdk_pixmap_colormap_create_from_xpm_d(NULL,
-			gtk_widget_get_colormap(p->widgets.window),
-			&file_cpp_mask, NULL, file_cpp_xpm);
-	file_pix_pix =
-		gdk_pixmap_colormap_create_from_xpm_d(NULL,
-			gtk_widget_get_colormap(p->widgets.window),
-			&file_pix_mask, NULL, file_pix_xpm);
-	file_file_pix =
-		gdk_pixmap_colormap_create_from_xpm_d(NULL,
-			gtk_widget_get_colormap(p->widgets.window),
-			&file_file_mask, NULL, file_file_xpm);
-	file_icon_pix =
-		gdk_pixmap_colormap_create_from_xpm_d(NULL,
-			gtk_widget_get_colormap(p->widgets.window),
-			&file_icon_mask, NULL, file_icon_xpm);
-	file_html_pix =
-		gdk_pixmap_colormap_create_from_xpm_d(NULL,
-			gtk_widget_get_colormap(p->widgets.window),
-			&file_html_mask, NULL, file_html_xpm);
-	file_i18n_pix =
-		gdk_pixmap_colormap_create_from_xpm_d(NULL,
-			gtk_widget_get_colormap(p->widgets.window),
-			&file_i18n_mask, NULL, file_i18n_xpm);
 	return p;
 }
 
@@ -447,7 +276,7 @@ project_dbase_destroy (ProjectDBase * p)
 	gtk_widget_unref (p->widgets.client_area);
 	gtk_widget_unref (p->widgets.client);
 	gtk_widget_unref (p->widgets.scrolledwindow);
-	gtk_widget_unref (p->widgets.ctree);
+	gtk_widget_unref (p->widgets.treeview);
 	gtk_widget_unref (p->widgets.menu);
 	gtk_widget_unref (p->widgets.menu_import);
 	gtk_widget_unref (p->widgets.menu_view);
@@ -471,33 +300,13 @@ static void
 project_dbase_clear_ctree (ProjectDBase * p)
 {
 	gint i;
-
-	if (!p) return;
-	if (!p->widgets.root_node) return;
-
-	for (i=0; i<MODULE_END_MARK; i++)
-	{
-		gchar *filename, *key, buff[256];
-		GdkPixmap *pixc, *pixo;
-		GdkBitmap *maskc, *masko;
-		gint8 space;
-		gboolean is_leaf, expanded;
-		
-		if (p->widgets.module_node[i] == NULL) continue;
-		gtk_ctree_get_node_info (GTK_CTREE (p->widgets.ctree),
-					 p->widgets.module_node[i],
-					 &filename, &space,
-					 &pixc, &maskc, &pixo, &masko, &is_leaf,
-					 &expanded);
-		key = g_strconcat ("module.", module_map[i], ".expanded", NULL);
-		sprintf (buff, "%d", expanded);
-		prop_set_with_key (p->props, key, buff);
-		g_free (key);
-		p->widgets.module_node[i] = NULL;
-	}
-	gtk_ctree_remove_node (GTK_CTREE (p->widgets.ctree),
-			       p->widgets.root_node);
-	p->widgets.root_node = NULL;
+	GtkTreeStore *store;
+	
+	if (!p)
+		return;
+	store = GTK_TREE_STORE (gtk_tree_view_get_model (
+							GTK_TREE_VIEW (p->widgets.treeview)));
+	gtk_tree_store_clear (store);
 	session_sync();
 }
 
@@ -545,7 +354,7 @@ project_dbase_show (ProjectDBase * p)
 			gtk_widget_show (p->widgets.window);
 		}
 		p->is_showing = TRUE;
-		gtk_widget_grab_focus (p->widgets.ctree);
+		gtk_widget_grab_focus (p->widgets.treeview);
 	}
 }
 
@@ -757,22 +566,30 @@ project_dbase_reload_session (ProjectDBase * p)
 	g_return_if_fail( NULL != p );
 	debugger_reload_session_breakpoints(p);	
 	project_reload_session_files(p);
-
+	session_load_node_expansion_states (p);
 	find_replace_load_session( app->find_replace, p );
 	executer_load_session( app->executer, p );
 	find_in_files_load_session( app->find_in_files, p );
-	p->m_prj_ShowLocal = session_get_bool( p, SECSTR(SECTION_PROJECTDBASE), szShowLocalsItem, SHOW_LOCALS_DEFAULT );
+	p->m_prj_ShowLocal = session_get_bool (p, SECSTR(SECTION_PROJECTDBASE),
+										   szShowLocalsItem,
+										   SHOW_LOCALS_DEFAULT );
 	
 	/* Updates the menu */
-	gtk_check_menu_item_set_active( GTK_CHECK_MENU_ITEM (app->widgets.menubar.view.show_hide_locals), p->m_prj_ShowLocal );
+	gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM
+			(app->widgets.menubar.view.show_hide_locals), p->m_prj_ShowLocal);
 }
 
-
 gboolean
-project_dbase_load_project (ProjectDBase * p, gboolean show_project)
+project_dbase_load_project (ProjectDBase * p, const gchar *project_file,
+							gboolean show_project)
 {
-	gchar* filename = fileselection_get_filename (p->fileselection_open);
+	gchar* filename;
 	gboolean ret;
+	
+	if (project_file)
+		filename = g_strdup (project_file);
+	else
+		filename = fileselection_get_filename (p->fileselection_open);
 	
 	anjuta_set_busy ();
 	ret = project_dbase_load_project_file(p, filename);
@@ -1001,22 +818,6 @@ project_dbase_save_project (ProjectDBase * p)
 			g_free (key);
 		}
 		
-		key = g_strconcat ("module.", module_map[i], ".expanded", NULL);
-		if (p->widgets.module_node[i])
-			gtk_ctree_get_node_info (GTK_CTREE (p->widgets.ctree),
-				 GTK_CTREE_NODE (p->widgets.module_node[i]),
-				 &filename, &space,
-				 &pixc, &maskc, &pixo, &masko, &is_leaf,
-				 &expanded);
-		else
-			expanded = FALSE;
-		if (fprintf (fp, "%s=%d\n", key, (int)expanded) < 1)
-		{
-			g_free (key);
-			goto error_show;
-		}
-		g_free (key);
-		
 		key = g_strconcat ("module.", module_map[i], ".files", NULL);
 		files = glist_from_data (p->props, key);
 		if (fprintf (fp, "%s=", key) < 1)
@@ -1239,7 +1040,7 @@ project_dbase_save_session_files (ProjectDBase * p)
 	g_return_if_fail (p->project_is_open == TRUE);
 	
 	/* Save session.... */
-	session_clear_section( p, SECSTR(SECTION_FILELIST) );
+	session_clear_section (p, SECSTR (SECTION_FILELIST));
 	node = app->text_editor_list;
 	while (node)
 	{
@@ -1247,11 +1048,13 @@ project_dbase_save_session_files (ProjectDBase * p)
 		te = node->data;
 		if(te)
 		{
-			if ( te->full_filename )
+			if (te->full_filename)
 			{
-				session_save_string_n( p, SECSTR(SECTION_FILELIST), nIndex, te->full_filename );
-				session_save_long_n( p, SECSTR(SECTION_FILENUMBER), nIndex, te->current_line );
-				project_dbase_save_markers( p, te, nIndex );
+				session_save_string_n (p, SECSTR (SECTION_FILELIST),
+									   nIndex, te->full_filename);
+				session_save_long_n (p, SECSTR (SECTION_FILENUMBER),
+									 nIndex, te->current_line);
+				project_dbase_save_markers (p, te, nIndex);
 				nIndex++;
 			}
 		}
@@ -1259,34 +1062,209 @@ project_dbase_save_session_files (ProjectDBase * p)
 	}
 }
 
-
 static void
-project_dbase_save_markers( ProjectDBase * p, TextEditor *te, const gint nItem )
+project_dbase_save_markers (ProjectDBase * p, TextEditor *te, const gint nItem)
 {
-	gint	nLineNo = -1 ;
-	gint	nIndex = 0 ;
+	gint	nLineNo = -1;
+	gint	nIndex = 0;
 	gint	nMarks;
 	gchar	*szSaveStr;
 
 	g_return_if_fail (p != NULL);
 	g_return_if_fail (te != NULL);
-	nMarks = text_editor_get_num_bookmarks(te);
-	szSaveStr = g_malloc( nMarks*20+2);
-	if( ( NULL != szSaveStr ) && nMarks )
+	nMarks = text_editor_get_num_bookmarks (te);
+	szSaveStr = g_malloc (nMarks*20+2);
+	if ((NULL != szSaveStr) && nMarks)
 	{
-		gchar	*sz = szSaveStr ;
-		strcpy( sz, "" );
-		while( ( nLineNo = text_editor_get_bookmark_line( te, nLineNo ) ) >= 0 )
+		gchar *sz = szSaveStr;
+		strcpy (sz, "");
+		while ((nLineNo = text_editor_get_bookmark_line (te, nLineNo)) >= 0)
 		{
-			sz += sprintf( sz, "%d,", nLineNo );
-			nIndex ++ ;
-			if( nIndex > nMarks )
+			sz += sprintf (sz, "%d,", nLineNo);
+			nIndex ++;
+			if (nIndex > nMarks)
 				break;
 		}
-		session_save_string_n( p, SECSTR(SECTION_FILEMARKERS), nItem, szSaveStr );
+		session_save_string_n (p, SECSTR (SECTION_FILEMARKERS), nItem, szSaveStr);
 	} else
-		session_save_string_n( p, SECSTR(SECTION_FILEMARKERS), nItem, "" );
-	g_free( szSaveStr );
+		session_save_string_n (p, SECSTR (SECTION_FILEMARKERS), nItem, "");
+	g_free (szSaveStr);
+}
+
+static void
+mapping_function (GtkTreeView *treeview, GtkTreePath *path, gpointer data)
+{
+	gchar *str;
+	GList *map = * ((GList **) data);
+	
+	str = gtk_tree_path_to_string (path);
+	map = g_list_append (map, str);
+	* ((GList **) data) = map;
+};
+
+/* Maps the expanded nodes for saving */
+static GList *
+tree_view_get_expansion_states (GtkTreeView *treeview)
+{
+	GList *map = NULL;
+	gtk_tree_view_map_expanded_rows (treeview, mapping_function, &map);
+	return map;
+}
+
+void
+tree_view_set_expansion_states (GtkTreeView *treeview,
+								GList *expansion_states)
+{
+	/* Restore expanded nodes */	
+	if (expansion_states)
+	{
+		GtkTreePath *path;
+		GtkTreeModel *model;
+		GList *node;
+		node = expansion_states;
+		
+		model = gtk_tree_view_get_model (treeview);
+		while (node)
+		{
+			path = gtk_tree_path_new_from_string (node->data);
+			gtk_tree_view_expand_row (treeview, path, FALSE);
+			gtk_tree_path_free (path);
+			node = g_list_next (node);
+		}
+	}
+}
+
+static void
+session_save_node_expansion_states (ProjectDBase *p)
+{
+	GList *expansion_states = NULL;
+	GList *node;
+	gint   nIndex = 0;
+
+	/* Project tree */
+	expansion_states =
+		tree_view_get_expansion_states (GTK_TREE_VIEW (p->widgets.treeview));
+	session_clear_section (p, SECSTR (SECTION_PROJECT_TREE));
+	node = expansion_states;
+	while (node)
+	{
+		session_save_string_n (p, SECSTR (SECTION_PROJECT_TREE),
+							   nIndex, node->data);
+		nIndex++;
+		node = node->next;
+	}
+	glist_strings_free (expansion_states);
+	expansion_states = NULL;
+	
+	/* Symbol tree */
+	nIndex = 0;
+	expansion_states = sv_get_node_expansion_states ();
+	session_clear_section (p, SECSTR (SECTION_SYMBOL_TREE));
+	node = expansion_states;
+	while (node)
+	{
+		session_save_string_n (p, SECSTR (SECTION_SYMBOL_TREE),
+							   nIndex, node->data);
+		nIndex++;
+		node = node->next;
+	}
+	glist_strings_free (expansion_states);
+	expansion_states = NULL;
+	
+	/* File tree */
+	nIndex = 0;
+	expansion_states = fv_get_node_expansion_states ();
+	session_clear_section (p, SECSTR (SECTION_FILE_TREE));
+	node = expansion_states;
+	while (node)
+	{
+		session_save_string_n (p, SECSTR (SECTION_FILE_TREE),
+							   nIndex, node->data);
+		nIndex++;
+		node = node->next;
+	}
+	glist_strings_free (expansion_states);
+	expansion_states = NULL;
+}
+
+static void
+session_load_node_expansion_states (ProjectDBase *p)
+{
+	GList *expansion_states = NULL;
+	GList *node;
+	gpointer config_iterator;
+
+	g_return_if_fail (p != NULL);
+
+	/* Project tree */
+	config_iterator = session_get_iterator (p, SECSTR (SECTION_PROJECT_TREE));
+	if (config_iterator !=  NULL)
+	{
+		gchar *szItem, *szNode;
+		while ((config_iterator = gnome_config_iterator_next (config_iterator,
+															  &szItem,
+															  &szNode)))
+		{
+			if (szNode)
+				expansion_states = g_list_prepend (expansion_states, szNode);
+#ifdef DEBUG
+			g_message ("Project Tree: %s", szNode);
+#endif
+			g_free (szItem);
+			szItem = NULL;
+			szNode = NULL;
+		}
+	}
+	tree_view_set_expansion_states (GTK_TREE_VIEW (p->widgets.treeview),
+									expansion_states);
+	glist_strings_free (expansion_states);
+	expansion_states = NULL;
+	
+	/* Symbol tree */
+	config_iterator = session_get_iterator (p, SECSTR (SECTION_SYMBOL_TREE));
+	if (config_iterator !=  NULL)
+	{
+		gchar *szItem, *szNode;
+		while ((config_iterator = gnome_config_iterator_next (config_iterator,
+															  &szItem,
+															  &szNode)))
+		{
+			if (szNode)
+				expansion_states = g_list_prepend (expansion_states, szNode);
+#ifdef DEBUG
+			g_message ("Symbol Tree: %s", szNode);
+#endif
+			g_free (szItem);
+			szItem = NULL;
+			szNode = NULL;
+		}
+	}
+	sv_set_node_expansion_states (expansion_states);
+	glist_strings_free (expansion_states);
+	expansion_states = NULL;
+	
+	/* File tree */
+	config_iterator = session_get_iterator (p, SECSTR (SECTION_FILE_TREE));
+	if (config_iterator !=  NULL)
+	{
+		gchar *szItem, *szNode;
+		while ((config_iterator = gnome_config_iterator_next (config_iterator,
+															  &szItem,
+															  &szNode)))
+		{
+			if (szNode)
+				expansion_states = g_list_prepend (expansion_states, szNode);
+#ifdef DEBUG
+			g_message ("File Tree: %s", szNode);
+#endif
+			g_free (szItem);
+			szItem = NULL;
+			szNode = NULL;
+		}
+	}
+	fv_set_node_expansion_states (expansion_states);
+	glist_strings_free (expansion_states);
+	expansion_states = NULL;
 }
 
 static void
@@ -1297,10 +1275,11 @@ project_dbase_save_session (ProjectDBase * p)
 	find_replace_save_session( app->find_replace, p );
 	executer_save_session( app->executer, p );
 	find_in_files_save_session( app->find_in_files, p );
-	session_save_bool( p, SECSTR(SECTION_PROJECTDBASE), szShowLocalsItem, p->m_prj_ShowLocal );
+	session_save_bool (p, SECSTR (SECTION_PROJECTDBASE),
+					   szShowLocalsItem, p->m_prj_ShowLocal );
+	session_save_node_expansion_states (p);
 	session_sync();
 }
-
 
 void
 project_dbase_close_project (ProjectDBase * p)
@@ -2016,15 +1995,13 @@ void
 project_dbase_update_tree (ProjectDBase * p)
 {
 	gchar *tmp1, *tmp2, *tmp3, *title;
-	gchar *dum_array[1];
 	gint i;
 
-	GtkCTreeNode *parent, *sub_parent;
-	GdkPixmap *pix_c;
-	GdkPixmap *pix_o;
-	GdkBitmap *mask_c;
-	GdkBitmap *mask_o;
+	GtkTreeStore *store;
+	GtkTreeIter iter, parent, sub_parent;
+	GdkPixbuf *pixbuf;
 	ProjectFileData *pfd;
+	GList *saved_map = NULL;
 
 	/* Read the basic information */
 	tmp1 = prop_get (p->props, "project.name");
@@ -2045,24 +2022,19 @@ project_dbase_update_tree (ProjectDBase * p)
 	gtk_window_set_title (GTK_WINDOW (p->widgets.window), title);
 	g_free (title);
 
+	saved_map =
+		tree_view_get_expansion_states (GTK_TREE_VIEW (p->widgets.treeview));
+	
 	/* Add the root in the ctree */
-	gtk_clist_freeze (GTK_CLIST (p->widgets.ctree));
 	project_dbase_clear_ctree(p);
-	get_pixmask_on_file_type (FILE_TYPE_DIR, p->widgets.window, &pix_c,
-				  &mask_c, &pix_o, &mask_o);
-	dum_array[0] = tmp3;
-	parent = gtk_ctree_insert_node (GTK_CTREE (p->widgets.ctree),
-					NULL, NULL, dum_array, 5, pix_c,
-					mask_c, pix_o, mask_o, FALSE, TRUE);
-	pfd =
-		project_file_data_new (NULL, MODULE_SOURCE, NULL, NULL);
-	gtk_ctree_node_set_row_data_full (GTK_CTREE (p->widgets.ctree),
-					  GTK_CTREE_NODE (parent), pfd,
-					  (GtkDestroyNotify)
-					  project_file_data_destroy);
-
+	
+	store = GTK_TREE_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (p->widgets.treeview)));
+	pixbuf = anjuta_res_get_pixbuf (ANJUTA_PIXMAP_CLOSED_FOLDER);
+	pfd = project_file_data_new (NULL, MODULE_SOURCE, NULL, NULL);
+	gtk_tree_store_append (store, &parent, NULL);
+	gtk_tree_store_set (store, &parent, PROJECT_PIX_COLUMN, pixbuf,
+						PROJECT_NAME_COLUMN, tmp3, PROJECT_DATA_COLUMN, pfd, -1);
 	g_free (tmp3);
-	p->widgets.root_node = parent;
 	
 	/* Read the all the modules of the project */
 	for (i=0; i<MODULE_END_MARK; i++)
@@ -2085,40 +2057,31 @@ project_dbase_update_tree (ProjectDBase * p)
 			continue;
 		}
 
-		get_pixmask_on_file_type (FILE_TYPE_DIR,
-					  p->widgets.window, &pix_c,
-					  &mask_c, &pix_o, &mask_o);
-		dum_array[0] = g_strconcat (module_map[i], " [", tmp1, "]", NULL);
-		key = g_strconcat ("module.", module_map[i], ".expanded", NULL);
-		sub_parent =
-			gtk_ctree_insert_node (GTK_CTREE
-					       (p->widgets.ctree),
-					       parent, NULL,
-					       dum_array, 5, pix_c,
-					       mask_c, pix_o, mask_o,
-					       FALSE, prop_get_int (p->props, key, 1));
-		g_free (key);
-		g_free (dum_array[0]);
-		p->widgets.module_node[i] = sub_parent;
-		pfd = project_file_data_new (parent, i, NULL, NULL);
-		gtk_ctree_node_set_row_data_full (GTK_CTREE
-						  (p->widgets.ctree),
-						  GTK_CTREE_NODE
-						  (sub_parent), pfd,
-						  (GtkDestroyNotify)
-						  project_file_data_destroy);
+		pixbuf = anjuta_res_get_pixbuf (ANJUTA_PIXMAP_CLOSED_FOLDER);
+		pfd = project_file_data_new (NULL, i, NULL, NULL);
 		if (strcmp(tmp1, ".") == 0) {
+			tmp3 = g_strdup (module_map[i]);
 			prefix = g_strdup(p->top_proj_dir);
 		} else {
-			prefix =
-				g_strconcat (p->top_proj_dir, "/", tmp1, NULL);
+			tmp3 = g_strconcat (module_map[i], " - ", tmp1, NULL);
+			prefix = g_strconcat (p->top_proj_dir, "/", tmp1, NULL);
 		}
-		gtree_insert_files (p->widgets.ctree, sub_parent, i, prefix, list);
-		g_free (prefix);
-		glist_strings_free (list);
+		gtk_tree_store_append (store, &sub_parent, &parent);
+		gtk_tree_store_set (store, &sub_parent,
+							PROJECT_PIX_COLUMN, pixbuf,
+							PROJECT_NAME_COLUMN, tmp3,
+							PROJECT_DATA_COLUMN, pfd, -1);
+		g_free (tmp3);
 		g_free (tmp1);
+		
+		gtree_insert_files (GTK_TREE_VIEW (p->widgets.treeview),
+							&sub_parent, i, prefix, list);
+		g_free (prefix);
+		
+		glist_strings_free (list);
 	}
-	gtk_clist_thaw (GTK_CLIST (p->widgets.ctree));
+	tree_view_set_expansion_states (GTK_TREE_VIEW (p->widgets.treeview),
+									saved_map);
 }
 
 void
@@ -2280,6 +2243,9 @@ project_dbase_remove_file (ProjectDBase * p)
 	gint i;
 	TMWorkObject *source_file;
 	PrjModule module;
+	GtkTreeSelection *selection;
+	GtkTreeModel *model;
+	GtkTreeIter iter, parent;
 
 	module = p->current_file_data->module;
 	key = g_strconcat ("module.", module_map[module], ".files", NULL);
@@ -2332,23 +2298,25 @@ project_dbase_remove_file (ProjectDBase * p)
 	g_free(cmp_dir);
 	g_free(full_fn);
 	prop_set_with_key (p->props, key, files);
-	gtk_ctree_remove_node (GTK_CTREE (p->widgets.ctree),
-		p->widgets.current_node);
-	p->is_saved = FALSE;
-	/* Check if the module is empty */
 	g_free(files);
-	files = prop_get (p->props, key);
-	if (files == NULL)
+	
+	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (p->widgets.treeview));
+	if (gtk_tree_selection_get_selected (selection, &model, &iter))
 	{
-		/* Module is empty so remove the module */
-		gtk_ctree_remove_node (GTK_CTREE (p->widgets.ctree),
-			p->widgets.module_node[module]);
-		g_free(files);
+		gboolean has_parent;
+		
+		has_parent = gtk_tree_model_iter_parent (model, &parent, &iter);
+		gtk_tree_store_remove (GTK_TREE_STORE (model), &iter);
+		p->is_saved = FALSE;
+	
+		/* Check if the module is empty */
+		files = prop_get (p->props, key);
 		g_free(key);
-		return;
+		if (files == NULL && has_parent)
+			/* Module is empty so remove the module */
+			gtk_tree_store_remove (GTK_TREE_STORE (model), &parent);
+		g_free (files);
 	}
-	g_free (key);
-	g_free (files);
 }
 
 gchar*
@@ -2449,9 +2417,10 @@ project_dbase_load_project_file (ProjectDBase * p, gchar * filename)
 	}
 	if (level > COMPATIBILITY_LEVEL)
 	{
-		anjuta_error (_
-		 ("Anjuta version %s or later is required to open this Project.\n"
-		"Please upgrade to the latest version of Anjuta (Help for more information)."), buff);
+		anjuta_error (_("Anjuta version %s or later is required"
+					  " to open this Project.\n"
+					  "Please upgrade to the latest version of Anjuta"
+					  " (Help for more information)."), buff);
 		error_shown = TRUE;
 		goto go_error;
 	}
@@ -2489,10 +2458,10 @@ done:
 	str = prop_get (p->props, "anjuta.program.parameters");
 	if (str)
 		prop_set_with_key (app->preferences->props,
-			"anjuta.program.parameters", str);
+						   "anjuta.program.parameters", str);
 	else
 		prop_set_with_key (app->preferences->props,
-			"anjuta.program.parameters", "");
+						   "anjuta.program.parameters", "");
 	g_free (str);	
 	
 	/* some preferences may be stored in project file */
@@ -2519,7 +2488,6 @@ done:
 	return TRUE;
 	
 go_error:
-	prop_clear (p->props);
 	if (!error_shown) /* If error is not yet shown */
 	{
 		if (syserr)
@@ -2531,6 +2499,7 @@ go_error:
 			anjuta_error (_("Error in loading Project: %s"), p->proj_filename);
 		}
 	}
+	prop_clear (p->props);
 	string_assign (&p->proj_filename, NULL);
 	p->proj_filename = NULL;
 	p->project_is_open = FALSE;

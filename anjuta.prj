@@ -1,4 +1,4 @@
-# Anjuta Version 1.1.8 
+# Anjuta Version 1.2.0 
 Compatibility Level: 1 
 
 <PROJECT_DESCRIPTION_START>
@@ -24,7 +24,7 @@ a number of advanced programming facilities.<PROJECT_DESCRIPTION_END>
 
 props.file.type=project
 
-anjuta.version=1.1.8
+anjuta.version=1.2.0
 anjuta.compatibility.level=1
 
 project.name=anjuta
@@ -62,7 +62,6 @@ preferences.autoformat.disable=0
 
 module.include.name=.
 module.include.type=
-module.include.expanded=0
 module.include.files=\
 	acconfig.h\
 	printing/print.h\
@@ -212,7 +211,6 @@ module.include.files=\
 
 module.source.name=.
 module.source.type=
-module.source.expanded=0
 module.source.files=\
 	global-tags/tm_global_tags.c\
 	launcher/anjuta_launcher.c\
@@ -424,7 +422,6 @@ module.source.files=\
 
 module.pixmap.name=.
 module.pixmap.type=
-module.pixmap.expanded=0
 module.pixmap.files=\
 	manuals/C/anjuta-manual/figures/arguments.png\
 	manuals/C/anjuta-manual/figures/attach.png\
@@ -632,17 +629,14 @@ module.pixmap.files=\
 
 module.data.name=.
 module.data.type=
-module.data.expanded=0
 module.data.files=
 
 module.help.name=.
 module.help.type=
-module.help.expanded=0
 module.help.files=
 
 module.doc.name=.
 module.doc.type=
-module.doc.expanded=0
 module.doc.files=\
 	AUTHORS\
 	COPYING\
@@ -676,7 +670,6 @@ module.doc.files=\
 	macros/ChangeLog\
 	manuals/C/anjuta-manual/tools.sgml
 
-module.po.expanded=0
 module.po.files=\
 	az.po\
 	da.po\

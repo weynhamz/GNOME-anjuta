@@ -43,6 +43,8 @@ typedef struct _AnSymbolView
 
 AnSymbolView *sv_populate (gboolean full);
 void	      sv_clear (void);
+GList*        sv_get_node_expansion_states (void);
+void          sv_set_node_expansion_states (GList *expansion_states);
 
 #ifdef __cplusplus
 }

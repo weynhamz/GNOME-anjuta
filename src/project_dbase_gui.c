@@ -43,20 +43,18 @@ void
 on_project_view1_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
 	ProjectDBase *p = app->project_dbase;
-	g_return_if_fail (p->widgets.current_node != NULL);
 	g_return_if_fail (p->current_file_data != NULL);
-	if (p->widgets.current_node && p->current_file_data) {
-		anjuta_fv_open_file(p->current_file_data->full_filename, FALSE);
-	}
+	if (p->current_file_data && p->current_file_data->full_filename)
+		anjuta_fv_open_file (p->current_file_data->full_filename, FALSE);
 }
 
 void
 on_project_edit1_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
 	ProjectDBase *p = app->project_dbase;
-	g_return_if_fail (p->widgets.current_node != NULL);
 	g_return_if_fail (p->current_file_data != NULL);
-	anjuta_fv_open_file(p->current_file_data->full_filename, TRUE);
+	if (p->current_file_data && p->current_file_data->full_filename)
+		anjuta_fv_open_file (p->current_file_data->full_filename, TRUE);
 }
 
 void
@@ -108,7 +106,6 @@ on_project_dock_undock1_activate (GtkMenuItem * menuitem, gpointer user_data)
 		project_dbase_dock (p);
 }
 
-
 void
 on_project_help1_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
@@ -122,47 +119,6 @@ on_project_dbase_win_delete_event (GtkWidget * w, GdkEvent * event,
 	ProjectDBase *p = data;
 	project_dbase_hide (p);
 	return TRUE;
-}
-
-static void
-on_project_dbase_clist_select_row (GtkCList * clist,
-				   gint row,
-				   gint column,
-				   GdkEvent * event, gpointer user_data)
-{
-	gchar *filename;
-	GdkPixmap *pixc, *pixo;
-	GdkBitmap *maskc, *masko;
-	gint8 space;
-	gboolean is_leaf, expanded;
-	GtkCTreeNode *node;
-
-	ProjectDBase *p = user_data;
-	
-	g_return_if_fail (p != NULL);
-	node = gtk_ctree_node_nth (GTK_CTREE (p->widgets.ctree), row);
-	p->widgets.current_node = node;
-	p->current_file_data =
-		gtk_ctree_node_get_row_data (GTK_CTREE (p->widgets.ctree),
-					     GTK_CTREE_NODE (node));
-	gtk_ctree_get_node_info (GTK_CTREE (p->widgets.ctree),
-				 node,
-				 &filename, &space,
-				 &pixc, &maskc, &pixo, &masko, &is_leaf,
-				 &expanded);
-
-	if (event == NULL)
-		return;
-	if (event->type == GDK_2BUTTON_PRESS) {
-		if (((GdkEventButton *) event)->button == 1) {
-			on_project_edit1_activate (NULL, NULL);
-			return;
-		}
-	} else if (event->type == GDK_KEY_PRESS) {
-		if (((GdkEventKey *) event)->keyval == GDK_Return ||
-			((GdkEventKey *) event)->keyval == GDK_space)
-			on_project_edit1_activate (NULL, NULL);
-	}
 }
 
 void
@@ -182,60 +138,13 @@ on_open_prjfilesel_ok_clicked (GtkButton * button, gpointer user_data)
 		{
 			gtk_widget_hide (app->project_dbase->fileselection_open);
 			project_dbase_close_project (p);
-			project_dbase_load_project (p, TRUE);
+			project_dbase_load_project (p, NULL, TRUE);
 		}
 		gtk_widget_destroy (dialog);
 		return;
 	}
 	gtk_widget_hide (p->fileselection_open);
-	project_dbase_load_project (p, TRUE);
-}
-
-static gboolean
-on_project_dbase_event (GtkWidget * widget,
-			GdkEvent * event, gpointer user_data)
-{
-	gint row;
-	GtkCTree *tree;
-	GtkCTreeNode *node;
-	GdkEventButton *bevent;
-	ProjectDBase *pd = app->project_dbase;
-
-	if (event->type == GDK_BUTTON_PRESS) {
-		if (((GdkEventButton *) event)->button != 3)
-			return FALSE;
-		bevent = (GdkEventButton *) event;
-		bevent->button = 1;
-		project_dbase_update_controls (pd);
-	
-		/* Popup project menu */
-		gtk_menu_popup (GTK_MENU (pd->widgets.menu), NULL,
-				NULL, NULL, NULL, bevent->button, bevent->time);
-	
-		return TRUE;
-	} else if (event->type == GDK_KEY_PRESS){
-		tree = GTK_CTREE(widget);
-		row = tree->clist.focus_row;
-		node = gtk_ctree_node_nth(tree,row);
-		
-		switch(((GdkEventKey *)event)->keyval) {
-			case GDK_space:
-			case GDK_Return:
-				if(GTK_CTREE_ROW(node)->is_leaf)
-					on_project_dbase_clist_select_row (GTK_CLIST(&tree->clist),row,-1,event,user_data);
-				break;
-			case GDK_Left:
-				gtk_ctree_collapse(tree, node);
-				break;
-			case GDK_Right:
-				gtk_ctree_expand(tree, node);
-				break;
-			default:
-				return FALSE;
-		}
-		return TRUE;
-	}
-	return FALSE;
+	project_dbase_load_project (p, NULL, TRUE);
 }
 
 static void
@@ -474,9 +383,175 @@ create_project_menus (ProjectDBase * p)
 	gtk_widget_ref (menu);
 }
 
+static void
+on_tree_model_row_deleted (GtkTreeModel *model, GtkTreePath  *path)
+{
+	GtkTreeIter iter;
+	ProjectFileData *pfd;
+
+	if (gtk_tree_model_get_iter (model, &iter, path))
+	{
+		gtk_tree_model_get (model, &iter,
+							PROJECT_DATA_COLUMN, &pfd,
+							-1);
+		project_file_data_destroy (pfd);
+	}
+}
+
+static void
+on_tree_view_row_expanded (GtkTreeView *view, GtkTreeIter *iter,
+						   GtkTreePath *path)
+{
+	GdkPixbuf *pixbuf;
+	
+	GtkTreeStore *store = GTK_TREE_STORE (gtk_tree_view_get_model (view));
+	pixbuf = anjuta_res_get_pixbuf (ANJUTA_PIXMAP_OPEN_FOLDER);
+	gtk_tree_store_set (store, iter,
+						PROJECT_PIX_COLUMN, pixbuf,
+						-1);
+}
+
+static void
+on_tree_view_row_collapsed (GtkTreeView *view,
+							GtkTreeIter *iter,
+							GtkTreePath *path)
+{
+	GdkPixbuf *pixbuf;
+	
+	GtkTreeStore *store = GTK_TREE_STORE (gtk_tree_view_get_model (view));
+	pixbuf = anjuta_res_get_pixbuf (ANJUTA_PIXMAP_CLOSED_FOLDER);
+	gtk_tree_store_set (store, iter,
+						PROJECT_PIX_COLUMN, pixbuf,
+						-1);
+}
+
+static void
+on_tree_view_row_activated (GtkTreeView *treeview,
+							GtkTreePath *arg1,
+							GtkTreeViewColumn *arg2,
+							ProjectDBase *p)
+{
+	GtkTreeModel *model;
+	GtkTreeSelection *selection;
+	GtkTreeIter iter;
+	ProjectFileData *info;
+
+#ifdef DEBUG
+	g_message ("Project row activated\n");
+#endif
+	selection = gtk_tree_view_get_selection (treeview);
+	if (!gtk_tree_selection_get_selected (selection, &model, &iter))
+	{
+		p->current_file_data = NULL;
+		return;
+	}
+	gtk_tree_model_get (model, &iter, PROJECT_DATA_COLUMN, &info, -1);
+	p->current_file_data = info;
+	on_project_edit1_activate (NULL, NULL);
+}
+
+static void
+on_tree_selection_changed (GtkTreeSelection *selection, ProjectDBase *p)
+{
+	GtkTreeModel *model;
+	GtkTreeIter iter;
+	ProjectFileData *info;
+
+#ifdef DEBUG
+	g_message ("Project tree selection changed");
+#endif
+	if (!gtk_tree_selection_get_selected (selection, &model, &iter))
+	{
+		p->current_file_data = NULL;
+		return;
+	}
+	gtk_tree_model_get (model, &iter, PROJECT_DATA_COLUMN, &info, -1);
+#ifdef DEBUG
+	g_message ("Project tree selection changed to %X", info);
+#endif
+	p->current_file_data = info;
+}
+
+static gboolean
+on_tree_view_event (GtkWidget *widget,
+					GdkEvent *event, ProjectDBase *pd)
+{
+	GtkTreeView *view;
+	GtkTreeModel *model;
+	GtkTreeSelection *selection;
+	GtkTreeIter iter;
+	ProjectFileData *info;
+	GdkEventButton *bevent;
+
+	g_return_val_if_fail (GTK_IS_TREE_VIEW (widget), FALSE);
+
+	view = GTK_TREE_VIEW (widget);
+	model = gtk_tree_view_get_model (view);
+	selection = gtk_tree_view_get_selection (view);
+
+	if (!gtk_tree_selection_get_selected (selection, NULL, &iter) || !event)
+	{
+		pd->current_file_data = NULL;
+		return FALSE;
+	}
+	gtk_tree_model_get (model, &iter, PROJECT_DATA_COLUMN, &info, -1);
+	
+	if (event->type == GDK_BUTTON_PRESS) {
+		if (((GdkEventButton *) event)->button != 3)
+			return FALSE;
+		bevent = (GdkEventButton *) event;
+		bevent->button = 1;
+		project_dbase_update_controls (pd);
+	
+		/* Popup project menu */
+		gtk_menu_popup (GTK_MENU (pd->widgets.menu), NULL,
+				NULL, NULL, NULL, bevent->button, bevent->time);
+	
+		return TRUE;
+	} else if (event->type == GDK_KEY_PRESS){
+		GtkTreePath *path;
+		GdkEventKey *e = (GdkEventKey *) event;
+
+		switch (e->keyval) {
+			case GDK_Return:
+				if (!gtk_tree_model_iter_has_child (model, &iter))
+				{
+					on_project_edit1_activate (NULL, NULL);
+					return TRUE;
+				}
+			case GDK_Left:
+				if (gtk_tree_model_iter_has_child (model, &iter))
+				{
+					path = gtk_tree_model_get_path (model, &iter);
+					gtk_tree_view_collapse_row (GTK_TREE_VIEW (view),
+												path);
+					gtk_tree_path_free (path);
+					return TRUE;
+				}
+			case GDK_Right:
+				if (gtk_tree_model_iter_has_child (model, &iter))
+				{
+					path = gtk_tree_model_get_path (model, &iter);
+					gtk_tree_view_expand_row (GTK_TREE_VIEW (view),
+											  path, FALSE);
+					gtk_tree_path_free (path);
+					return TRUE;
+				}
+			default:
+				return FALSE;
+		}
+	}
+	return FALSE;
+}
+
 void
 create_project_dbase_gui (ProjectDBase * p)
 {
+	GtkTreeStore *store;
+	GtkTreeViewColumn *column;
+	GtkCellRenderer *renderer;
+	GtkTreeSelection *selection;
+	
 	GtkWidget *window1;
 	GtkWidget *eventbox1;
 	GtkWidget *notebook1;
@@ -485,12 +560,15 @@ create_project_dbase_gui (ProjectDBase * p)
 	GtkCList *clist1;
 	AnSymbolView *sv;
 	AnFileView *fv;
-	gboolean build_sv = preferences_get_int(app->preferences, BUILD_SYMBOL_BROWSER);
-	gboolean build_fv = preferences_get_int(app->preferences, BUILD_FILE_BROWSER);
+	gboolean build_sv = preferences_get_int (app->preferences,
+											 BUILD_SYMBOL_BROWSER);
+	gboolean build_fv = preferences_get_int (app->preferences,
+											 BUILD_FILE_BROWSER);
 
 	window1 = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-	gtk_window_set_transient_for(GTK_WINDOW(window1), GTK_WINDOW(app->widgets.window));
-	gnome_window_icon_set_from_default((GtkWindow *) window1);
+	gtk_window_set_transient_for (GTK_WINDOW (window1),
+								  GTK_WINDOW (app->widgets.window));
+	gnome_window_icon_set_from_default ((GtkWindow *) window1);
 	gtk_window_set_title (GTK_WINDOW (window1), _("Project: None"));
 	gtk_window_set_wmclass (GTK_WINDOW (window1), "project_dbase", "Anjuta");
 
@@ -498,60 +576,90 @@ create_project_dbase_gui (ProjectDBase * p)
 	gtk_widget_show (eventbox1);
 	gtk_container_add (GTK_CONTAINER (window1), eventbox1);
 
-	notebook1 = gtk_notebook_new();
-	gtk_widget_show(notebook1);
-	gtk_notebook_set_tab_pos(GTK_NOTEBOOK(notebook1), GTK_POS_BOTTOM);
-	fv = fv_populate(build_fv);
-	gtk_notebook_prepend_page(GTK_NOTEBOOK(notebook1), fv->win
-	  , gtk_label_new(_("Files")));
+	notebook1 = gtk_notebook_new ();
+	gtk_widget_show (notebook1);
+	gtk_notebook_set_tab_pos (GTK_NOTEBOOK (notebook1), GTK_POS_BOTTOM);
+	fv = fv_populate (build_fv);
+	gtk_notebook_prepend_page (GTK_NOTEBOOK (notebook1), fv->win,
+							   gtk_label_new(_("Files")));
 
-	sv = sv_populate(build_sv);
-	gtk_notebook_prepend_page(GTK_NOTEBOOK(notebook1), sv->win
-	  , gtk_label_new(_("Symbols")));
+	sv = sv_populate (build_sv);
+	gtk_notebook_prepend_page (GTK_NOTEBOOK (notebook1), sv->win,
+							   gtk_label_new (_("Symbols")));
 
 	scrolledwindow1 = gtk_scrolled_window_new (NULL, NULL);
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolledwindow1),
-					GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+									GTK_POLICY_AUTOMATIC,
+									GTK_POLICY_AUTOMATIC);
 	gtk_widget_show (scrolledwindow1);
-	gtk_notebook_prepend_page(GTK_NOTEBOOK(notebook1),scrolledwindow1,
-                             gtk_label_new(_("Project")));
-	gtk_notebook_set_page(GTK_NOTEBOOK(notebook1), 0);
+	gtk_notebook_prepend_page (GTK_NOTEBOOK (notebook1), scrolledwindow1,
+							   gtk_label_new(_("Project")));
+	gtk_notebook_set_page (GTK_NOTEBOOK (notebook1), 0);
 
-	ctree1 = gtk_ctree_new (1, 0);
-	clist1 = &(GTK_CTREE (ctree1)->clist);
-	gtk_clist_set_column_auto_resize (GTK_CLIST (ctree1), 0, TRUE);
+	store = gtk_tree_store_new (N_PROJECT_COLUMNS,
+								GDK_TYPE_PIXBUF,
+								G_TYPE_STRING,
+								G_TYPE_POINTER);
+	ctree1 = gtk_tree_view_new_with_model (GTK_TREE_MODEL (store));
+	gtk_tree_view_set_rules_hint (GTK_TREE_VIEW (ctree1), TRUE);
+	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (ctree1));
+	gtk_tree_selection_set_mode (selection, GTK_SELECTION_SINGLE);
 	gtk_container_add (GTK_CONTAINER (scrolledwindow1), ctree1);
-	gtk_clist_set_selection_mode (clist1, GTK_SELECTION_BROWSE);
-	gtk_ctree_set_line_style (GTK_CTREE(ctree1), GTK_CTREE_LINES_DOTTED);
-	gtk_ctree_set_expander_style (GTK_CTREE(ctree1), GTK_CTREE_EXPANDER_SQUARE);
 	gtk_widget_show (ctree1);
 
+	/* Columns */
+	column = gtk_tree_view_column_new ();
+	gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
+	gtk_tree_view_column_set_title (column, _("Project"));
+
+	renderer = gtk_cell_renderer_pixbuf_new ();
+	gtk_tree_view_column_pack_start (column, renderer, FALSE);
+	gtk_tree_view_column_add_attribute (column, renderer,
+										"pixbuf", PROJECT_PIX_COLUMN);
+
+	renderer = gtk_cell_renderer_text_new ();
+	gtk_tree_view_column_pack_start (column, renderer, TRUE);
+	gtk_tree_view_column_add_attribute (column, renderer,
+										"text", PROJECT_NAME_COLUMN);
+
+	gtk_tree_view_append_column (GTK_TREE_VIEW (ctree1), column);
+	gtk_tree_view_set_expander_column (GTK_TREE_VIEW (ctree1), column);
+
+	/* Signals */
+	g_signal_connect (G_OBJECT(store), "row_deleted",
+					  G_CALLBACK (on_tree_model_row_deleted), NULL);
+	g_signal_connect (G_OBJECT(ctree1), "row_expanded",
+					  G_CALLBACK (on_tree_view_row_expanded), p);
+	g_signal_connect (G_OBJECT(ctree1), "row_collapsed",
+					  G_CALLBACK (on_tree_view_row_collapsed), p);
+	g_signal_connect (G_OBJECT (ctree1), "event",
+					  G_CALLBACK (on_tree_view_event), p);
+	g_signal_connect (G_OBJECT(ctree1), "row_activated",
+					  G_CALLBACK (on_tree_view_row_activated), p);
+	g_signal_connect (G_OBJECT(selection), "changed",
+					  G_CALLBACK (on_tree_selection_changed), p);
+	g_object_unref (store);
+
+	g_signal_connect (G_OBJECT (window1), "delete_event",
+					  G_CALLBACK (on_project_dbase_win_delete_event), p);
+	
 	gtk_window_add_accel_group (GTK_WINDOW (window1), app->accel_group);
-
-	gtk_signal_connect (GTK_OBJECT (window1), "delete_event",
-			    GTK_SIGNAL_FUNC
-			    (on_project_dbase_win_delete_event), p);
-	gtk_signal_connect (GTK_OBJECT (clist1), "select_row",
-			    GTK_SIGNAL_FUNC
-			    (on_project_dbase_clist_select_row), p);
-	gtk_signal_connect (GTK_OBJECT (ctree1), "event",
-			    GTK_SIGNAL_FUNC (on_project_dbase_event), p);
-
+	
 	p->widgets.window = window1;
 	p->widgets.notebook = notebook1;
 	p->widgets.client_area = eventbox1;
 	p->widgets.client = notebook1;
-	p->widgets.ctree = ctree1;
+	p->widgets.treeview = ctree1;
 	p->widgets.scrolledwindow = scrolledwindow1;
 
 	create_project_menus (p);
 
 	gtk_widget_ref (p->widgets.window);
-	gtk_widget_ref(p->widgets.notebook);
+	gtk_widget_ref (p->widgets.notebook);
 	gtk_widget_ref (p->widgets.client_area);
 	gtk_widget_ref (p->widgets.client);
 	gtk_widget_ref (p->widgets.scrolledwindow);
-	gtk_widget_ref (p->widgets.ctree);
+	gtk_widget_ref (p->widgets.treeview);
 }
 
 GtkWidget *

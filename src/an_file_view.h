@@ -41,6 +41,8 @@ typedef struct _AnFileView {
 AnFileView *fv_populate (gboolean full);
 void	    fv_clear (void);
 gboolean    anjuta_fv_open_file (const char *path, gboolean use_anjuta);
+GList*      fv_get_node_expansion_states (void);
+void        fv_set_node_expansion_states (GList *expansion_states);
 
 #ifdef __cplusplus
 }

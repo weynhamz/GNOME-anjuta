@@ -564,7 +564,7 @@ static GnomeUIInfo edit1_menu_uiinfo[NUM_EDIT_SUBMENUS+1] = {
 	 N_("Delete the selected text from the editor"),
 	 on_editor_command_activate, (gpointer) ANE_CLEAR, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
-	 GDK_Delete, 0, NULL},
+	 0, 0, NULL},
 	
 	GNOMEUIINFO_SEPARATOR,/*7*/
 	
@@ -1243,13 +1243,13 @@ static GnomeUIInfo build1_menu_uiinfo[NUM_BUILD_SUBMENUS+1] = {
 	 N_("Build the source directory of the Project or the current source file"),
 	 on_build_project1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GTK_STOCK_EXECUTE,
-	 GDK_F10, 0, NULL},
+	 GDK_F11, 0, NULL},
 	{/*3*/
 	 GNOME_APP_UI_ITEM, N_("Build _All"),
 	 N_("Build the whole Project"),
 	 on_build_all_project1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
-	 GDK_F11, 0, NULL},
+	 GDK_F11, GDK_SHIFT_MASK, NULL},
 	GNOMEUIINFO_SEPARATOR,/*4*/
 	{/*5*/
 	 GNOME_APP_UI_ITEM, N_("Save Build Messages"),

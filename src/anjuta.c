@@ -1,5 +1,5 @@
 /*
- * anjuta2.c Copyright (C) 2000  Kh. Naba Kumar Singh
+ * anjuta.c Copyright (C) 2000 Naba Kumar
  * 
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free 
@@ -159,21 +159,21 @@ anjuta_new ()
 		app->b_reload_last_project	= TRUE ;
 		app->preferences = preferences_new ();
 		app->save_as_fileselection = create_fileselection_gui (&fsd2);
-		gtk_window_set_modal((GtkWindow *) app->save_as_fileselection, TRUE);
+		gtk_window_set_modal ((GtkWindow *) app->save_as_fileselection, TRUE);
 		app->save_as_build_msg_sel = create_fileselection_gui (&fsd3);
 		app->find_replace = find_replace_new ();
 		app->find_in_files = find_in_files_new ();
 		app->compiler_options = compiler_options_new (app->preferences->props);
 		app->src_paths = src_paths_new ();
 		app->messages = ANJUTA_MESSAGE_MANAGER (anjuta_message_manager_new ());
-		create_default_types(app->messages);
+		create_default_types (app->messages);
 		gtk_signal_connect(GTK_OBJECT(app->messages),
 						   "message_clicked",
-						   GTK_SIGNAL_FUNC(on_message_clicked),
+						   GTK_SIGNAL_FUNC (on_message_clicked),
 						   NULL);
-		gtk_signal_connect(GTK_OBJECT(app->messages),
+		gtk_signal_connect(GTK_OBJECT (app->messages),
 						   "message_indicate",
-						   GTK_SIGNAL_FUNC(on_message_indicate),
+						   GTK_SIGNAL_FUNC (on_message_indicate),
 						   NULL);
 		app->project_dbase = project_dbase_new (app->preferences->props);
 		app->configurer = configurer_new (app->project_dbase->props);
@@ -397,13 +397,13 @@ anjuta_set_current_text_editor (TextEditor * te)
 	TextEditor *ote = app->current_text_editor;
 	
 	if (ote != NULL && ote->buttons.close != NULL) {
-		gtk_widget_hide(ote->buttons.close);
-		gtk_widget_show(ote->widgets.close_pixmap);
+		gtk_widget_hide (ote->buttons.close);
+		gtk_widget_show (ote->widgets.close_pixmap);
 	}
 	app->current_text_editor = te;
 	if (te != NULL && te->buttons.close != NULL) {
-		gtk_widget_show(te->buttons.close);
-		gtk_widget_hide(te->widgets.close_pixmap);
+		gtk_widget_show (te->buttons.close);
+		gtk_widget_hide (te->widgets.close_pixmap);
 	}
 	main_toolbar_update ();
 	extended_toolbar_update ();
@@ -1927,8 +1927,10 @@ anjuta_load_cmdline_files ()
 		case FILE_TYPE_PROJECT:
 			if (!app->project_dbase->project_is_open)
 			{
-				fileselection_set_filename (app->project_dbase->fileselection_open, node->data);
-				project_dbase_load_project (app->project_dbase, TRUE);
+				fileselection_set_filename (app->project_dbase->fileselection_open,
+											node->data);
+				project_dbase_load_project (app->project_dbase,
+											node->data, TRUE);
 			}
 			break;
 		default:
@@ -2266,8 +2268,10 @@ anjuta_load_this_project( const gchar * szProjectPath )
 	}
 	if( app->project_dbase->project_is_open )
 		return ;
-	fileselection_set_filename (app->project_dbase->fileselection_open, (gchar*)szProjectPath);
-	project_dbase_load_project (app->project_dbase, TRUE);
+	fileselection_set_filename (app->project_dbase->fileselection_open,
+								(gchar*)szProjectPath);
+	project_dbase_load_project (app->project_dbase, 
+								(const gchar*)szProjectPath, TRUE);
 }
 
 void
@@ -2288,17 +2292,19 @@ anjuta_load_last_project()
 {
 	//printf ("anjuta_load_last_project");
 	
-	if(		(NULL!=app->last_open_project ) 
-		&&	strlen(app->last_open_project ) )
+	if ((NULL != app->last_open_project) 
+		&&	strlen (app->last_open_project))
 	{
 #ifdef	DEBUG_LOAD_PROJECTS	/* debug code, may return useful */
 		char	szppp[1024];
-		sprintf( szppp, "%d, >>%s<<", strlen(app->last_open_project) , app->last_open_project );
-		MessageBox( szppp );
+		sprintf (szppp, "%d, >>%s<<", strlen (app->last_open_project),
+				 app->last_open_project );
+		MessageBox (szppp);
 #endif
 		anjuta_load_this_project( app->last_open_project );
 	}
 }
+
 typedef struct _order_struct order_struct;
 struct _order_struct
 {

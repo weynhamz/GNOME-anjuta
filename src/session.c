@@ -66,19 +66,26 @@ const gchar	*SessionSectionString( const SessionSectionTypes p_Session )
 		return "FindInFilesSettings"; break;
 	case SECTION_FIND_IN_FILES_PROFILES:		
 		return "FindInFilesProfiles"; break;
+	case SECTION_PROJECT_TREE:		
+		return "Project Tree"; break;
+	case SECTION_SYMBOL_TREE:		
+		return "Symbol Tree"; break;
+	case SECTION_FILE_TREE:		
+		return "File Tree"; break;
 	case SECTION_GENERAL:
 		return "General"; break;
 	}
 }
 
 
-void write_config(void)
+void write_config (void)
 {
 	//gnome_config_private_sync_file("anjuta");
 	gnome_config_sync();
 }
 
-gchar *GetProfileString( const gchar* szSection, const gchar* szItem, const gchar* szDefault )
+gchar *GetProfileString (const gchar* szSection, const gchar* szItem,
+						 const gchar* szDefault )
 {
 	gchar	szBuf[256];
 	g_snprintf( szBuf, 255, "/anjuta/%s/%s=%s", szSection, szItem, szDefault );

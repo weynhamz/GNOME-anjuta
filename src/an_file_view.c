@@ -370,25 +370,6 @@ fv_connect ()
 }
 
 static void
-mapping_function (GtkTreeView *treeview, GtkTreePath *path, gpointer data)
-{
-	gchar *str;
-	GList *map = * ((GList **) data);
-	
-	str = gtk_tree_path_to_string (path);
-	map = g_list_append (map, str);
-	* ((GList **) data) = map;
-};
-
-static GList *
-fv_map_tree_view_state (GtkTreeView *treeview)
-{
-	GList *map = NULL;
-	gtk_tree_view_map_expanded_rows (treeview, mapping_function, &map);
-	return map;
-}
-
-static void
 on_file_view_row_expanded (GtkTreeView *view,
 			   GtkTreeIter *iter,
 			   GtkTreePath *path)
@@ -556,6 +537,48 @@ fv_add_tree_entry (TMFileEntry *entry,
 	}
 }
 
+static void
+mapping_function (GtkTreeView *treeview, GtkTreePath *path, gpointer data)
+{
+	gchar *str;
+	GList *map = * ((GList **) data);
+	
+	str = gtk_tree_path_to_string (path);
+	map = g_list_append (map, str);
+	* ((GList **) data) = map;
+};
+
+GList *
+fv_get_node_expansion_states (void)
+{
+	GList *map = NULL;
+	gtk_tree_view_map_expanded_rows (GTK_TREE_VIEW (fv->tree),
+									 mapping_function, &map);
+	return map;
+}
+
+void
+fv_set_node_expansion_states (GList *expansion_states)
+{
+	/* Restore expanded nodes */	
+	if (expansion_states)
+	{
+		GtkTreePath *path;
+		GtkTreeModel *model;
+		GList *node;
+		node = expansion_states;
+		
+		model = gtk_tree_view_get_model (GTK_TREE_VIEW (fv->tree));
+		while (node)
+		{
+			path = gtk_tree_path_new_from_string (node->data);
+			gtk_tree_view_expand_row (GTK_TREE_VIEW (fv->tree), path, FALSE);
+			gtk_tree_path_free (path);
+			node = g_list_next (node);
+		}
+	}
+}
+
 AnFileView *
 fv_populate (gboolean full)
 {
@@ -575,7 +598,7 @@ fv_populate (gboolean full)
 		busy = TRUE;
 
 	fv_disconnect ();
-	selected_items = fv_map_tree_view_state (GTK_TREE_VIEW (fv->tree));
+	selected_items = fv_get_node_expansion_states ();
 	fv_clear ();
 
 	if (!app || !app->project_dbase || !app->project_dbase->top_proj_dir)
@@ -602,24 +625,8 @@ fv_populate (gboolean full)
 		gtk_tree_view_expand_row (GTK_TREE_VIEW (fv->tree), path, FALSE);
 		gtk_tree_path_free (path);
 	}
-	/* Restore expanded nodes */	
-	if (selected_items)
-	{
-		GtkTreePath *path;
-		GtkTreeModel *model;
-		GList *node;
-		node = selected_items;
-		
-		model = gtk_tree_view_get_model (GTK_TREE_VIEW (fv->tree));
-		while (node)
-		{
-			path = gtk_tree_path_new_from_string (node->data);
-			gtk_tree_view_expand_row (GTK_TREE_VIEW (fv->tree), path, FALSE);
-			gtk_tree_path_free (path);
-			node = g_list_next (node);
-		}
-	}
-
+	fv_set_node_expansion_states (selected_items);
+	
 clean_leave:
 	if (selected_items)
 		glist_strings_free (selected_items);

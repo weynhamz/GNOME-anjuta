@@ -1,3 +1,19 @@
+2003-02-23  Naba Kumar  <naba@gnome.org>
+
+	* src/project_dbase.[h,c], src/project_dbase_gui.c: GNOME2 ported
+	the project tree/window.
+
+	* src/an_symbol_view.[h,c], src/an_file_view.[h,c],
+	src/project_dbase.[h,c], src/project_dbase_gui.c, src/session.[h,c]:
+	Correct the use of a variable and implemented session save/load
+	for tree expansion states.
+	
+	* src/main_menubar_def.h: Fixed shortcuts keys.
+	
+	* src/anjuta.c, src/gnome_project.c: Code clean ups.
+	
+	* anjuta.prj: Updated.
+	
 2003-02-22  Naba Kumar  <naba@gnome.org>
 
 	* src/debug_tree.[c,h]: GNOME2 port from 

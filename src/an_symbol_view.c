@@ -333,25 +333,6 @@ sv_create_context_menu ()
 	gtk_widget_show_all(sv->menu.top);
 }
 
-static void
-mapping_function (GtkTreeView *treeview, GtkTreePath *path, gpointer data)
-{
-	gchar *str;
-	GList *map = * ((GList **) data);
-	
-	str = gtk_tree_path_to_string (path);
-	map = g_list_append (map, str);
-	* ((GList **) data) = map;
-};
-
-static GList *
-sv_map_tree_view_state (GtkTreeView *treeview)
-{
-	GList *map = NULL;
-	gtk_tree_view_map_expanded_rows (treeview, mapping_function, &map);
-	return map;
-}
-
 static gboolean
 on_treeview_row_search (GtkTreeModel *model, gint column,
 						const gchar *key, GtkTreeIter *iter, gpointer data)
@@ -444,7 +425,7 @@ on_treeview_event (GtkWidget *widget,
 				if (gtk_tree_model_iter_has_child (model, &iter))
 				{
 					path = gtk_tree_model_get_path (model, &iter);
-					gtk_tree_view_collapse_row (GTK_TREE_VIEW (sv->tree),
+					gtk_tree_view_collapse_row (GTK_TREE_VIEW (view),
 												path);
 					gtk_tree_path_free (path);
 					return TRUE;
@@ -453,7 +434,7 @@ on_treeview_event (GtkWidget *widget,
 				if (gtk_tree_model_iter_has_child (model, &iter))
 				{
 					path = gtk_tree_model_get_path (model, &iter);
-					gtk_tree_view_expand_row (GTK_TREE_VIEW (sv->tree),
+					gtk_tree_view_expand_row (GTK_TREE_VIEW (view),
 											  path, FALSE);
 					gtk_tree_path_free (path);
 					return TRUE;
@@ -651,6 +632,48 @@ static void sv_assign_node_name(TMSymbol *sym, GString *s)
 	}
 }
 
+static void
+mapping_function (GtkTreeView *treeview, GtkTreePath *path, gpointer data)
+{
+	gchar *str;
+	GList *map = * ((GList **) data);
+	
+	str = gtk_tree_path_to_string (path);
+	map = g_list_append (map, str);
+	* ((GList **) data) = map;
+};
+
+GList *
+sv_get_node_expansion_states (void)
+{
+	GList *map = NULL;
+	gtk_tree_view_map_expanded_rows (GTK_TREE_VIEW (sv->tree),
+									 mapping_function, &map);
+	return map;
+}
+
+void
+sv_set_node_expansion_states (GList *expansion_states)
+{
+	/* Restore expanded nodes */	
+	if (expansion_states)
+	{
+		GtkTreePath *path;
+		GtkTreeModel *model;
+		GList *node;
+		node = expansion_states;
+		
+		model = gtk_tree_view_get_model (GTK_TREE_VIEW (sv->tree));
+		while (node)
+		{
+			path = gtk_tree_path_new_from_string (node->data);
+			gtk_tree_view_expand_row (GTK_TREE_VIEW (sv->tree), path, FALSE);
+			gtk_tree_path_free (path);
+			node = g_list_next (node);
+		}
+	}
+}
+
 AnSymbolView *
 sv_populate (gboolean full)
 {
@@ -679,7 +702,7 @@ sv_populate (gboolean full)
 		busy = TRUE;
 
 	sv_disconnect ();
-	selected_items = sv_map_tree_view_state (GTK_TREE_VIEW (sv->tree));
+	selected_items = sv_get_node_expansion_states ();
 	sv_clear ();
 
 	store = GTK_TREE_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (sv->tree)));
@@ -783,23 +806,7 @@ sv_populate (gboolean full)
 	}
 	g_string_free (s, TRUE);
 	tm_symbol_tree_free (symbol_tree);
-	
-	if (selected_items)
-	{
-		GtkTreePath *path;
-		GtkTreeModel *model;
-		GList *node;
-		node = selected_items;
-		
-		model = gtk_tree_view_get_model (GTK_TREE_VIEW (sv->tree));
-		while (node)
-		{
-			path = gtk_tree_path_new_from_string (node->data);
-			gtk_tree_view_expand_row (GTK_TREE_VIEW (sv->tree), path, FALSE);
-			gtk_tree_path_free (path);
-			node = g_list_next (node);
-		}
-	}
+	sv_set_node_expansion_states (selected_items);
 
 clean_leave:
 	if (selected_items)
