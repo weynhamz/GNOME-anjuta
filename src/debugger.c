@@ -444,10 +444,10 @@ debugger_set_next_command ()
 	g_free (dc);
 }
 
-/* Adds a command to to debugger queue if the debugger is both
+/* Adds a command to debugger queue if the debugger is both
    ready and active */
 void
-debugger_put_cmd_in_queqe (gchar cmd[], gint flags,
+debugger_put_cmd_in_queqe (const gchar cmd[], gint flags,
 			   void (*parser) (GList * outputs, gpointer data), gpointer data)
 {
 	DebuggerCommand *dc;
@@ -2061,4 +2061,123 @@ static void debugger_handle_post_execution()
 		default:
 			g_warning ("Execution should not reach here");
 	}
+}
+
+
+void debugger_query_execute (void)
+{
+	debugger_execute_cmd_in_queqe ();
+}
+
+static void query_set_cmd (const gchar *cmd, gboolean state)
+{
+	gchar buffer[50];
+	gchar *tmp = g_stpcpy (buffer, cmd);
+	strcpy (tmp, state ? "on" : "off");
+	debugger_put_cmd_in_queqe (buffer, DB_CMD_NONE, NULL, NULL);
+}
+
+static void query_set_verbose (gboolean state)
+{
+	query_set_cmd ("set verbose ", state);
+}
+
+static void query_set_print_staticmembers (gboolean state)
+{
+	query_set_cmd ("set print static-members ", state);
+}
+
+static void query_set_print_pretty (gboolean state)
+{
+	query_set_cmd ("set print pretty ", state);
+}
+
+void debugger_query_evaluate_expr_tip (const gchar *expr,
+			void (*parser) (GList *outputs, gpointer data), gpointer data)
+{
+	query_set_verbose (FALSE);
+	query_set_print_staticmembers (FALSE);
+	gchar *printcmd = g_strconcat ("print ", expr, NULL);
+	debugger_put_cmd_in_queqe (printcmd, DB_CMD_NONE, parser, data);
+	query_set_verbose (TRUE);
+	query_set_print_staticmembers (TRUE);
+	g_free (printcmd);
+}
+
+void debugger_query_evaluate_expr (const gchar *expr,
+			void (*parser) (GList *outputs, gpointer data), gpointer data)
+{
+	query_set_print_pretty (TRUE);
+	query_set_verbose (FALSE);
+	gchar *printcmd = g_strconcat ("print ", expr, NULL);
+	debugger_put_cmd_in_queqe (printcmd, DB_CMD_SE_MESG | DB_CMD_SE_DIALOG,
+				parser, data);
+	query_set_print_pretty (FALSE);
+	query_set_verbose (TRUE);
+	g_free (printcmd);
+}
+
+static void debugger_query_info_cmd (
+			const gchar *cmd, void (*parser) (GList *outputs, gpointer data))
+{
+	query_set_print_pretty (TRUE);
+	query_set_verbose (FALSE);
+	debugger_put_cmd_in_queqe (cmd, DB_CMD_SE_MESG | DB_CMD_SE_DIALOG,
+				parser, NULL);
+	query_set_print_pretty (FALSE);
+	query_set_verbose (TRUE);
+}
+
+void debugger_query_info_target (void (*parser) (GList *outputs, gpointer data))
+{
+	debugger_query_info_cmd ("info target", parser);
+}
+
+void debugger_query_info_program (
+			void (*parser) (GList *outputs, gpointer data))
+{
+	query_set_print_pretty (TRUE);
+	query_set_verbose (FALSE);
+	debugger_put_cmd_in_queqe ("info program",
+				   DB_CMD_SE_MESG | DB_CMD_SE_DIALOG, parser, NULL);
+	debugger_put_cmd_in_queqe ("info program",
+				   DB_CMD_NONE, on_debugger_update_prog_status, NULL);
+	query_set_print_pretty (FALSE);
+	query_set_verbose (TRUE);
+}
+
+void debugger_query_info_udot (
+			void (*parser) (GList *outputs, gpointer data))
+{
+	debugger_query_info_cmd ("info udot", parser);
+}
+
+void debugger_query_info_threads (
+			void (*parser) (GList *outputs, gpointer data))
+{
+	debugger_query_info_cmd ("info threads", parser);
+}
+
+void debugger_query_info_variables (
+			void (*parser) (GList *outputs, gpointer data))
+{
+	debugger_query_info_cmd ("info variables", parser);
+}
+
+void debugger_query_info_locals (
+			void (*parser) (GList *outputs, gpointer data))
+{
+	debugger_query_info_cmd ("info locals", parser);
+}
+
+void debugger_query_info_frame (
+			void (*parser) (GList *outputs, gpointer data))
+{
+	debugger_query_info_cmd ("info frame", parser);
+}
+
+void debugger_query_info_args (
+			void (*parser) (GList *outputs, gpointer data))
+{
+	debugger_query_info_cmd ("info args", parser);
 }

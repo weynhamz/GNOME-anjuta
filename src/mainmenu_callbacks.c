@@ -1560,123 +1560,57 @@ on_execution_run_to_cursor1_activate (EggAction * action,
 void
 on_info_targets_activate (EggAction * action, gpointer user_data)
 {
-	debugger_put_cmd_in_queqe ("set print pretty on", DB_CMD_NONE, NULL,
-				   NULL);
-	debugger_put_cmd_in_queqe ("set verbos off", DB_CMD_NONE, NULL, NULL);
-	debugger_put_cmd_in_queqe ("info target",
-				   DB_CMD_SE_MESG | DB_CMD_SE_DIALOG,
-				   debugger_dialog_message, NULL);
-	debugger_put_cmd_in_queqe ("set verbos on", DB_CMD_NONE, NULL, NULL);
-	debugger_put_cmd_in_queqe ("set print pretty off", DB_CMD_NONE, NULL,
-				   NULL);
-	debugger_execute_cmd_in_queqe ();
+	debugger_query_info_target (debugger_dialog_message);
+	debugger_query_execute ();
 }
 
 void
 on_info_program_activate (EggAction * action, gpointer user_data)
 {
-	debugger_put_cmd_in_queqe ("set print pretty on", DB_CMD_NONE, NULL,
-				   NULL);
-	debugger_put_cmd_in_queqe ("set verbos off", DB_CMD_NONE, NULL, NULL);
-	debugger_put_cmd_in_queqe ("info program",
-				   DB_CMD_SE_MESG | DB_CMD_SE_DIALOG,
-				   debugger_dialog_message, NULL);
-	debugger_put_cmd_in_queqe ("info program", DB_CMD_NONE,
-				   on_debugger_update_prog_status, NULL);
-	debugger_put_cmd_in_queqe ("set verbos on", DB_CMD_NONE, NULL, NULL);
-	debugger_put_cmd_in_queqe ("set print pretty off", DB_CMD_NONE, NULL,
-				   NULL);
-	debugger_execute_cmd_in_queqe ();
+	debugger_query_info_program (debugger_dialog_message);
+	debugger_query_execute ();
 }
 
 void
 on_info_udot_activate (EggAction * action, gpointer user_data)
 {
-	debugger_put_cmd_in_queqe ("set print pretty on", DB_CMD_NONE, NULL,
-				   NULL);
-	debugger_put_cmd_in_queqe ("set verbos off", DB_CMD_NONE, NULL, NULL);
-	debugger_put_cmd_in_queqe ("info udot",
-				   DB_CMD_SE_MESG | DB_CMD_SE_DIALOG,
-				   debugger_dialog_message, NULL);
-	debugger_put_cmd_in_queqe ("set verbos on", DB_CMD_NONE, NULL, NULL);
-	debugger_put_cmd_in_queqe ("set print pretty off", DB_CMD_NONE, NULL,
-				   NULL);
-	debugger_execute_cmd_in_queqe ();
+	debugger_query_info_udot (debugger_dialog_message);
+	debugger_query_execute ();
 }
 
 void
 on_info_threads_activate (EggAction * action, gpointer user_data)
 {
-	debugger_put_cmd_in_queqe ("set print pretty on", DB_CMD_NONE, NULL,
-				   NULL);
-	debugger_put_cmd_in_queqe ("set verbos off", DB_CMD_NONE, NULL, NULL);
-	debugger_put_cmd_in_queqe ("info threads",
-				   DB_CMD_SE_MESG | DB_CMD_SE_DIALOG,
-				   debugger_dialog_message, NULL);
-	debugger_put_cmd_in_queqe ("set verbos on", DB_CMD_NONE, NULL, NULL);
-	debugger_put_cmd_in_queqe ("set print pretty off", DB_CMD_NONE, NULL,
-				   NULL);
-	debugger_execute_cmd_in_queqe ();
+	debugger_query_info_threads (debugger_dialog_message);
+	debugger_query_execute ();
 }
 
 void
 on_info_variables_activate (EggAction * action, gpointer user_data)
 {
-	debugger_put_cmd_in_queqe ("set print pretty on", DB_CMD_NONE, NULL,
-				   NULL);
-	debugger_put_cmd_in_queqe ("set verbos off", DB_CMD_NONE, NULL, NULL);
-	debugger_put_cmd_in_queqe ("info variables",
-				   DB_CMD_SE_MESG | DB_CMD_SE_DIALOG,
-				   debugger_dialog_message, NULL);
-	debugger_put_cmd_in_queqe ("set verbos on", DB_CMD_NONE, NULL, NULL);
-	debugger_put_cmd_in_queqe ("set print pretty off", DB_CMD_NONE, NULL,
-				   NULL);
-	debugger_execute_cmd_in_queqe ();
+	debugger_query_info_variables (debugger_dialog_message);
+	debugger_query_execute ();
 }
 
 void
 on_info_locals_activate (EggAction * action, gpointer user_data)
 {
-	debugger_put_cmd_in_queqe ("set print pretty on", DB_CMD_NONE, NULL,
-				   NULL);
-	debugger_put_cmd_in_queqe ("set verbos off", DB_CMD_NONE, NULL, NULL);
-	debugger_put_cmd_in_queqe ("info locals",
-				   DB_CMD_SE_MESG | DB_CMD_SE_DIALOG,
-				   debugger_dialog_message, NULL);
-	debugger_put_cmd_in_queqe ("set verbos on", DB_CMD_NONE, NULL, NULL);
-	debugger_put_cmd_in_queqe ("set print pretty off", DB_CMD_NONE, NULL,
-				   NULL);
-	debugger_execute_cmd_in_queqe ();
+	debugger_query_info_locals (debugger_dialog_message);
+	debugger_query_execute ();
 }
 
 void
 on_info_frame_activate (EggAction * action, gpointer user_data)
 {
-	debugger_put_cmd_in_queqe ("set print pretty on", DB_CMD_NONE, NULL,
-				   NULL);
-	debugger_put_cmd_in_queqe ("set verbos off", DB_CMD_NONE, NULL, NULL);
-	debugger_put_cmd_in_queqe ("info frame",
-				   DB_CMD_SE_MESG | DB_CMD_SE_DIALOG,
-				   debugger_dialog_message, NULL);
-	debugger_put_cmd_in_queqe ("set verbos on", DB_CMD_NONE, NULL, NULL);
-	debugger_put_cmd_in_queqe ("set print pretty off", DB_CMD_NONE, NULL,
-				   NULL);
-	debugger_execute_cmd_in_queqe ();
+	debugger_query_info_frame (debugger_dialog_message);
+	debugger_query_execute ();
 }
 
 void
 on_info_args_activate (EggAction * action, gpointer user_data)
 {
-	debugger_put_cmd_in_queqe ("set print pretty on", DB_CMD_NONE, NULL,
-				   NULL);
-	debugger_put_cmd_in_queqe ("set verbos off", DB_CMD_NONE, NULL, NULL);
-	debugger_put_cmd_in_queqe ("info args",
-				   DB_CMD_SE_MESG | DB_CMD_SE_DIALOG,
-				   debugger_dialog_message, NULL);
-	debugger_put_cmd_in_queqe ("set verbos on", DB_CMD_NONE, NULL, NULL);
-	debugger_put_cmd_in_queqe ("set print pretty off", DB_CMD_NONE, NULL,
-				   NULL);
-	debugger_execute_cmd_in_queqe ();
+	debugger_query_info_args (debugger_dialog_message);
+	debugger_query_execute ();
 }
 
 void

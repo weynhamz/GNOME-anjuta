@@ -35,6 +35,27 @@
 #include "anjuta.h"
 #include "debugger.h"
 
+enum
+{
+	CLEAR_INITIAL,
+	CLEAR_UPDATE,
+	CLEAR_REVIEW,
+	CLEAR_FINAL
+};
+
+struct _AttachProcessPriv
+{
+	gboolean    hide_paths;
+	gboolean    hide_params;
+	gboolean    process_tree;
+
+	gchar*      ps_output;
+	GSList*     iter_stack;
+	gint        iter_stack_level;
+	gint        num_spaces_to_skip;
+	gint        num_spaces_per_level;
+};
+
 enum {
 	PID_COLUMN,
 	USER_COLUMN,
@@ -47,79 +68,330 @@ static char *column_names[COLUMNS_NB] = {
 	N_("Pid"), N_("User"), N_("Time"), N_("Command")
 };
 
+
+static void attach_process_clear (AttachProcess * ap, gint ClearRequest);
+
+
 AttachProcess *
 attach_process_new ()
 {
 	AttachProcess *ap;
 	ap = g_new0 (AttachProcess, 1);
-	ap->pid = -1L;
+	ap->priv = g_new0 (AttachProcessPriv, 1);
+	attach_process_clear (ap, CLEAR_INITIAL);
 	return ap;
 }
 
 static void
-attach_process_clear (AttachProcess * ap)
+attach_process_clear (AttachProcess * ap, gint ClearRequest)
 {
 	GtkTreeModel *model;
-	model = gtk_tree_view_get_model (GTK_TREE_VIEW (ap->treeview));
-	gtk_tree_store_clear (GTK_TREE_STORE (model));
-	ap->pid = -1;
+
+	// latest ps output
+	switch (ClearRequest)
+	{
+	case CLEAR_UPDATE:
+	case CLEAR_FINAL:
+		if (ap->priv->ps_output)
+		{
+			g_free (ap->priv->ps_output);
+		}
+	case CLEAR_INITIAL:
+		ap->priv->ps_output = NULL;
+	}
+
+	// helper variables
+	switch (ClearRequest)
+	{
+	case CLEAR_INITIAL:
+	case CLEAR_UPDATE:
+	case CLEAR_REVIEW:
+		ap->pid = -1L;
+		ap->priv->iter_stack = NULL;
+		ap->priv->iter_stack_level = -1;
+		ap->priv->num_spaces_to_skip = -1;
+	}
+
+	// tree model
+	switch (ClearRequest)
+	{
+	case CLEAR_UPDATE:
+	case CLEAR_REVIEW:
+	case CLEAR_FINAL:
+		model = gtk_tree_view_get_model (GTK_TREE_VIEW (ap->treeview));
+		gtk_tree_store_clear (GTK_TREE_STORE (model));
+	}
+
+	// dialog widget
+	if (ClearRequest == CLEAR_FINAL)
+	{
+		gtk_widget_destroy (ap->dialog);
+		ap->dialog = NULL;
+	}
+}
+
+static inline gchar *
+skip_spaces (gchar *pos)
+{
+	while (*pos == ' ')
+		pos++;
+	return pos;
+}
+
+static inline gchar *
+skip_token (gchar *pos)
+{
+	while (*pos != ' ')
+		pos++;
+	*pos++ = '\0';
+	return pos;
+}
+
+static gchar *
+skip_token_and_spaces (gchar *pos)
+{
+	pos = skip_token (pos);
+	return skip_spaces (pos);
+}
+
+static GtkTreeIter *
+iter_stack_push_new (AttachProcess *ap, GtkTreeStore *store)
+{
+	GtkTreeIter *new_iter, *top_iter;
+	new_iter = g_new (GtkTreeIter, 1);
+	top_iter = (GtkTreeIter *) (g_slist_nth_data (ap->priv->iter_stack, 0));
+	ap->priv->iter_stack =
+			g_slist_prepend (ap->priv->iter_stack, (gpointer) (new_iter));
+	gtk_tree_store_append (store, new_iter, top_iter);
+	ap->priv->iter_stack_level++;
+	return new_iter;
+}
+
+static gboolean
+iter_stack_pop (AttachProcess *ap)
+{
+	if (ap->priv->iter_stack_level < 0)
+		return FALSE;
+
+	GtkTreeIter *iter =
+			(GtkTreeIter *) (g_slist_nth_data (ap->priv->iter_stack, 0));
+	ap->priv->iter_stack =
+			g_slist_delete_link (ap->priv->iter_stack, ap->priv->iter_stack);
+	g_free (iter);
+	ap->priv->iter_stack_level--;
+	return TRUE;
 }
 
 static void
-attach_process_add_pid (AttachProcess * ap, gchar * line)
+iter_stack_clear (AttachProcess *ap)
 {
-	gchar pid[10];
-	gchar user[512];
-	gchar start[512];
-	gchar time_s[512];
-	gint count;
+	while (iter_stack_pop (ap));
+}
 
-	if (!ap)
-		return;
+static gchar *
+calc_depth_and_get_iter (AttachProcess *ap, GtkTreeStore *store,
+			GtkTreeIter **iter, gchar *pos)
+{
+	gchar *orig_pos;
+	guint num_spaces, depth, i;
 
-	/* this should not happen, abort */
-	if (isspace (line[0]))
-		return;
+	// count spaces
+	orig_pos = pos;
+	while (*pos == ' ')
+		pos++;
+	num_spaces = pos - orig_pos;
 
-	count = sscanf (line, "%s %s %*s %*s %*s %*s %*s %*s %s %s",
-			user, pid, start, time_s);
-
-	if (count == 4) {
-		GtkTreeIter iter;
-		GtkTreeStore *store;
-		gchar *command;
-
-		command = strstr (line, time_s);
-		command += strlen (time_s);
-
-		if (!command)
-			return;	/* Should not happen */
-
-		store = GTK_TREE_STORE (gtk_tree_view_get_model
-								(GTK_TREE_VIEW (ap->treeview)));
-		gtk_tree_store_append (store, &iter, NULL);
-		gtk_tree_store_set (store, &iter,
-							PID_COLUMN, pid,
-							USER_COLUMN, user,
-							START_COLUMN, start,
-							COMMAND_COLUMN, command,
-							-1);
+	if (ap->priv->process_tree)
+	{
+		if (ap->priv->num_spaces_to_skip < 0)
+		{
+			// first process to be inserted
+			ap->priv->num_spaces_to_skip = num_spaces;
+			ap->priv->num_spaces_per_level = -1;
+			*iter = iter_stack_push_new (ap, store);
+		}
+		else
+		{
+			if (ap->priv->num_spaces_per_level < 0)
+			{
+				if (num_spaces == ap->priv->num_spaces_to_skip)
+				{
+					// num_spaces_per_level still unknown
+					iter_stack_pop (ap);
+					*iter = iter_stack_push_new (ap, store);
+				}
+				else
+				{
+					// first time at level 1
+					ap->priv->num_spaces_per_level = 
+							num_spaces - ap->priv->num_spaces_to_skip;
+					*iter = iter_stack_push_new (ap, store);
+				}
+			}
+			else
+			{
+				depth = (num_spaces - ap->priv->num_spaces_to_skip) /
+						ap->priv->num_spaces_per_level;
+				if (depth == ap->priv->iter_stack_level)
+				{
+					// level not changed
+					iter_stack_pop (ap);
+					*iter = iter_stack_push_new (ap, store);
+				}
+				else
+					if (depth == ap->priv->iter_stack_level + 1)
+						*iter = iter_stack_push_new (ap, store);
+					else
+						if (depth < ap->priv->iter_stack_level)
+						{
+							// jump some levels backward
+							depth = ap->priv->iter_stack_level - depth;
+							for (i = 0; i <= depth; i++)
+								iter_stack_pop (ap);
+							*iter = iter_stack_push_new (ap, store);
+						}
+						else
+						{
+							// should never get here
+							g_warning("Unknown error");
+							iter_stack_pop (ap);
+							*iter = iter_stack_push_new (ap, store);
+						}
+			}
+		}
 	}
+	else
+	{
+		iter_stack_pop (ap);
+		*iter = iter_stack_push_new (ap, store);
+	}
+
+	return pos;
+}
+
+static gchar *
+skip_path (gchar *pos)
+{
+	/* can't use g_path_get_basename() - wouldn't work for a processes
+	started with parameters containing '/' */
+	gchar c, *final_pos = pos;
+
+	if (*pos == G_DIR_SEPARATOR)
+		do
+		{
+			c = *pos;
+			if (c == G_DIR_SEPARATOR)
+			{
+				final_pos = ++pos;
+				continue;
+			}
+			else
+				if (c == ' ' || c == '\0')
+					break;
+				else
+					++pos;
+		}
+		while (1);
+
+	return final_pos;
+}
+
+static inline void
+remove_params (gchar *pos)
+{
+	do
+	{
+		if (*(++pos) == ' ')
+			*pos = '\0';
+	}
+	while (*pos);
+}
+
+static void
+attach_process_add_line (AttachProcess *ap, GtkTreeStore *store, gchar *line)
+{
+	gchar *pid, *user, *start, *command, *tmp;
+	guint i, level;
+	GtkTreeIter *iter;
+
+	pid = skip_spaces (line); // skip leading spaces
+	user = skip_token_and_spaces (pid); // skip PID
+	start = skip_token_and_spaces (user); // skip USER
+	tmp = skip_token (start); // skip START (do not skip spaces)
+
+	command = calc_depth_and_get_iter (ap, store, &iter, tmp);
+
+	if (ap->priv->hide_paths)
+	{
+		command = skip_path (command);
+	}
+
+	if (ap->priv->hide_params)
+	{
+		remove_params(command);
+	}
+
+	gtk_tree_store_set (store, iter,
+						PID_COLUMN, pid,
+						USER_COLUMN, user,
+						START_COLUMN, start,
+						COMMAND_COLUMN, command,
+						-1);
+}
+
+static void
+attach_process_review (AttachProcess *ap)
+{
+	gchar *ps_output, *begin, *end, c;
+	guint line_num = 0;
+	GtkTreeStore *store;
+
+	g_return_if_fail (ap);
+	g_return_if_fail (ap->priv->ps_output);
+	store = GTK_TREE_STORE (gtk_tree_view_get_model 
+							(GTK_TREE_VIEW (ap->treeview)));
+	g_return_if_fail (store);
+
+	ps_output = g_strdup (ap->priv->ps_output);
+	end = ps_output;
+	while (*end)
+	{
+		begin = end;
+		while (*end && *end != '\n') end++;
+		if (++line_num > 2) // skip description line & process 'init'
+		{
+			*end = '\0';
+			attach_process_add_line (ap, store, begin);
+		}
+		end++;
+	}
+	g_free (ps_output);
+
+	iter_stack_clear (ap);
+	gtk_tree_view_expand_all (GTK_TREE_VIEW (ap->treeview));
 }
 
 static void
 attach_process_update (AttachProcess * ap)
 {
-	gchar buffer[FILE_BUFFER_SIZE], *tmp, *cmd;
-	gint i, ch_pid, count, first_flag;
-	FILE *file;
+	gchar *tmp, *tmp1, *cmd, *contents;
+	gint ch_pid;
 	gchar *shell;
+	GtkTreeStore *store;
+	gsize i;
+	gboolean result;
+	guint num_lines = 0;
+
+	g_return_if_fail (ap);
+	store = GTK_TREE_STORE (gtk_tree_view_get_model
+							(GTK_TREE_VIEW (ap->treeview)));
+	g_return_if_fail (store);
 
 	if (anjuta_is_installed ("ps", TRUE) == FALSE)
 		return;
 
 	tmp = get_a_tmp_file ();
-	cmd = g_strconcat ("ps --sort=-pid -auxw > ", tmp, NULL);
+	cmd = g_strconcat ("ps axw -H -o pid,user,start_time,args > ", tmp, NULL);
 	shell = gnome_util_user_shell ();
 	ch_pid = fork ();
 	if (ch_pid == 0)
@@ -135,44 +407,23 @@ attach_process_update (AttachProcess * ap)
 	}
 	waitpid (ch_pid, NULL, 0);
 	g_free (cmd);
-	file = fopen (tmp, "r");
-	if (file == NULL)
-	{
-		anjuta_system_error (errno, _("Unable to open the file: %s\n"), tmp);
-		remove (tmp);
-		g_free (tmp);
-		g_free (cmd);
-		return;
-	}
-	attach_process_clear (ap);
-	i = 0;
-	first_flag = 0;
-	while (!feof (file))
-	{
-		if (i > FILE_BUFFER_SIZE - 3)
-			i = 0;
-		count = fread (&buffer[i], sizeof (char), 1, file);
-		if (count != 1)
-		{
-			fclose (file);
-			remove (tmp);
-			g_free (tmp);
-			return;
-		}
-		if (buffer[i] == '\n')
-		{
-			buffer[i] = '\0';
-			if (first_flag > 2)
-				attach_process_add_pid (ap, buffer);
-			first_flag++;
-			i = 0;
-			continue;
-		}
-		i++;
-	}
-	fclose (file);
+
+	result = g_file_get_contents (tmp, &tmp1, NULL, NULL);
 	remove (tmp);
 	g_free (tmp);
+	if (! result)
+	{
+		anjuta_system_error (errno, _("Unable to open the file: %s\n"), tmp);
+		return;
+	}
+
+	attach_process_clear (ap, CLEAR_UPDATE);
+	ap->priv->ps_output = anjuta_util_convert_to_utf8 (tmp1);
+	g_free (tmp1);
+	if (ap->priv->ps_output)
+	{
+		attach_process_review (ap);
+	}
 }
 
 static void
@@ -212,9 +463,7 @@ on_response (GtkWidget* dialog, gint res, gpointer data)
 		case GTK_RESPONSE_OK:
 			if (ap->pid > 0) debugger_attach_process (ap->pid);
 		case GTK_RESPONSE_CLOSE:
-			gtk_widget_destroy (ap->dialog);
-			ap->pid = -1L;
-			ap->dialog = NULL;
+			attach_process_clear (ap, CLEAR_FINAL);
 	}
 }
 
@@ -222,9 +471,48 @@ static gboolean
 on_delete_event (GtkWidget *dialog, GdkEvent *event, AttachProcess *ap)
 {
 	g_return_val_if_fail (ap, FALSE);
-	ap->dialog = NULL;
-	ap->pid = -1L;
+	attach_process_clear (ap, CLEAR_FINAL);
 	return FALSE;
+}
+
+static gint
+sort_pid (GtkTreeModel *model, GtkTreeIter *a, GtkTreeIter *b,
+		gpointer user_data)
+{
+	gchar *nptr;
+	gint pid1, pid2;
+
+	gtk_tree_model_get (model, a, PID_COLUMN, &nptr, -1);
+	pid1 = atoi (nptr);
+
+	gtk_tree_model_get (model, b, PID_COLUMN, &nptr, -1);
+	pid2 = atoi (nptr);
+
+	return pid1 - pid2;
+}
+
+static void
+on_toggle_hide_paths (GtkToggleButton *togglebutton, AttachProcess * ap)
+{
+	ap->priv->hide_paths = gtk_toggle_button_get_active (togglebutton);
+	attach_process_clear (ap, CLEAR_REVIEW);
+	attach_process_review (ap);
+}
+
+static void
+on_toggle_hide_params (GtkToggleButton *togglebutton, AttachProcess * ap)
+{
+	ap->priv->hide_params = gtk_toggle_button_get_active (togglebutton);
+	attach_process_clear (ap, CLEAR_REVIEW);
+	attach_process_review (ap);
+}
+
+static void
+on_toggle_process_tree (GtkToggleButton *togglebutton, AttachProcess * ap)
+{
+	ap->priv->process_tree = gtk_toggle_button_get_active (togglebutton);
+	attach_process_clear (ap, CLEAR_REVIEW);
+	attach_process_review (ap);
 }
 
 void
@@ -235,7 +523,10 @@ attach_process_show (AttachProcess * ap)
 	GtkTreeStore *store;
 	GtkCellRenderer *renderer;
 	GtkTreeSelection *selection;
-	int i;
+	GtkCheckButton *checkb_hide_paths;
+	GtkCheckButton *checkb_hide_params;
+	GtkCheckButton *checkb_process_tree;
+	gint i;
 	
 	g_return_if_fail (ap);
 
@@ -243,8 +534,14 @@ attach_process_show (AttachProcess * ap)
 	gxml = glade_xml_new (GLADE_FILE_ANJUTA, "attach_process_dialog", NULL);
 	ap->dialog = glade_xml_get_widget (gxml, "attach_process_dialog");
 	ap->treeview = glade_xml_get_widget (gxml, "attach_process_tv");
+	checkb_hide_paths = GTK_CHECK_BUTTON (
+							glade_xml_get_widget (gxml, "checkb_hide_paths"));
+	checkb_hide_params = GTK_CHECK_BUTTON (
+							glade_xml_get_widget (gxml, "checkb_hide_params"));
+	checkb_process_tree = GTK_CHECK_BUTTON (
+							glade_xml_get_widget (gxml, "checkb_process_tree"));
 	g_object_unref (gxml);
-	
+
 	view = GTK_TREE_VIEW (ap->treeview);
 	store = gtk_tree_store_new (COLUMNS_NB,
 								G_TYPE_STRING,
@@ -262,11 +559,27 @@ attach_process_show (AttachProcess * ap)
 		GtkTreeViewColumn *column;
 
 		column = gtk_tree_view_column_new_with_attributes (column_names[i],
-													 renderer, "text", i, NULL);
+													renderer, "text", i, NULL);
+		gtk_tree_view_column_set_sort_column_id(column, i);
 		gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
 		gtk_tree_view_append_column (view, column);
+		if (i == COMMAND_COLUMN)
+			gtk_tree_view_set_expander_column(view, column);
 	}
+	gtk_tree_sortable_set_sort_func (GTK_TREE_SORTABLE (store), PID_COLUMN,
+					sort_pid, NULL, NULL);
+	gtk_tree_sortable_set_sort_column_id (GTK_TREE_SORTABLE (store),
+					START_COLUMN, GTK_SORT_DESCENDING);
+
+	ap->priv->hide_paths = gtk_toggle_button_get_active (
+						GTK_TOGGLE_BUTTON (checkb_hide_paths));
+	ap->priv->hide_params = gtk_toggle_button_get_active (
+						GTK_TOGGLE_BUTTON (checkb_hide_params));
+	ap->priv->process_tree = gtk_toggle_button_get_active (
+						GTK_TOGGLE_BUTTON (checkb_process_tree));
+
 	attach_process_update (ap);
+
 	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (ap->treeview));
 	g_signal_connect (G_OBJECT (selection), "changed",
 					  G_CALLBACK (on_selection_changed), ap);
@@ -274,6 +587,12 @@ attach_process_show (AttachProcess * ap)
 					  G_CALLBACK (on_response), ap);
 	g_signal_connect (G_OBJECT (ap->dialog), "delete_event",
 					  G_CALLBACK (on_delete_event), ap);
+	g_signal_connect (GTK_OBJECT (checkb_hide_paths), "toggled",
+						G_CALLBACK (on_toggle_hide_paths), ap);
+	g_signal_connect (GTK_OBJECT (checkb_hide_params), "toggled",
+						G_CALLBACK (on_toggle_hide_params), ap);
+	g_signal_connect (GTK_OBJECT (checkb_process_tree), "toggled",
+						G_CALLBACK (on_toggle_process_tree), ap);
 
 	gtk_window_set_transient_for (GTK_WINDOW (ap->dialog),
 								  GTK_WINDOW (app->widgets.window));
@@ -284,5 +603,6 @@ void
 attach_process_destroy (AttachProcess * ap)
 {
 	g_return_if_fail (ap);
+	g_free (ap->priv);
 	g_free (ap);
 }

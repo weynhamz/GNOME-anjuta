@@ -2873,19 +2873,10 @@ void AnEditor::HandleDwellStart(int mousePos) {
 	// We don't want static members of classes to clutter up
 	// the displayed tip, however.
 
-	debugger_put_cmd_in_queqe ("set verbose off", DB_CMD_NONE, NULL, NULL);
-	debugger_put_cmd_in_queqe ("set print static-members off",
-				DB_CMD_NONE, NULL, NULL);
-	gchar *printcmd = g_strconcat ("print ", expr, NULL);
 	ExpressionEvaluationTipInfo *info =
 			new ExpressionEvaluationTipInfo(this, mousePos, expr);
-	debugger_put_cmd_in_queqe (printcmd, DB_CMD_NONE,
-				eval_output_arrived_for_aneditor, info);
-	debugger_put_cmd_in_queqe ("set verbose on", DB_CMD_NONE, NULL, NULL);
-	debugger_put_cmd_in_queqe ("set print static-members on",
-				DB_CMD_NONE, NULL, NULL);
-	g_free (printcmd);
-	debugger_execute_cmd_in_queqe ();
+	debugger_query_evaluate_expr_tip (expr, eval_output_arrived_for_aneditor, info);
+	debugger_query_execute ();
 	debugTipOn = true;
 }
 

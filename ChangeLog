@@ -1,3 +1,11 @@
+2003-12-11  Pavol Bosik  <Pavol.Bosik@siemens.com>
+
+	* src/attach_process.c, src/attach_process.h, anjuta/anjuta.glade:
+	sortable headers, process tree, removal of path and process params
+	* src/debugger.c, src/debugger.h, anjuta/src/aneditor.cxx,
+	anjuta/src/mainmenu_callbacks.c, anjuta/src/watch_cbs.c:
+	code cleanup
+
 2003-12-10  Naba Kumar  <naba@gnome.org>
 
 	* Merged changes from cvs branch ANJUTA_1_2_0 (tag: MERGE_LEVEL_3)
