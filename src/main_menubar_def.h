@@ -23,7 +23,7 @@
 #include "lexer.h"
 #include "print.h"
 
-#define NUM_FILE_SUBMENUS 25
+#define NUM_FILE_SUBMENUS 24
 static GnomeUIInfo file1_menu_uiinfo[NUM_FILE_SUBMENUS+1] = {
 	{/*0*/
 	 GNOME_APP_UI_ITEM, N_("_New"),
@@ -113,39 +113,33 @@ static GnomeUIInfo file1_menu_uiinfo[NUM_FILE_SUBMENUS+1] = {
 	 0, 0, NULL},
 	GNOMEUIINFO_SEPARATOR,/*16*/
 	{/*17*/
-	 GNOME_APP_UI_ITEM, N_("Page Set_up ..."),
-	 N_("Page setup for printing"),
-	 on_page_setup1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
-	 0, 0, NULL},
-	{/*18*/
 	 GNOME_APP_UI_ITEM, N_("_Print"),
 	 N_("Print the current file"),
 	 anjuta_print_cb, NULL, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GTK_STOCK_PRINT,
 	 GDK_P, GDK_MOD1_MASK, NULL},
-	{/*19*/
+	{/*18*/
 	 GNOME_APP_UI_ITEM, N_("_Print Preview"),
 	 N_("Print preview of the current file"),
 	 anjuta_print_preview_cb, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
-	GNOMEUIINFO_SEPARATOR, /*20*/
-	{/*21*/
+	GNOMEUIINFO_SEPARATOR, /*19*/
+	{/*20*/
 	 GNOME_APP_UI_ITEM, N_("Recent _Files"),
 	 NULL,
 	 NULL, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
-	{/*22*/
+	{/*21*/
 	 GNOME_APP_UI_ITEM, N_("Recent Projec_ts"),
 	 NULL,
 	 NULL, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	GNOMEUIINFO_SEPARATOR,/*22*/
-	GNOMEUIINFO_MENU_EXIT_ITEM (on_exit1_activate, NULL),/*24*/
-	GNOMEUIINFO_END/*25*/
+	GNOMEUIINFO_MENU_EXIT_ITEM (on_exit1_activate, NULL),/*23*/
+	GNOMEUIINFO_END/*24*/
 };
 
 # define NUM_TRANSFORM_SUBMENUS 7

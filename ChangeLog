@@ -1,3 +1,18 @@
+2003-09-03  Naba Kumar  <naba@gnome.org>
+
+	* scintilla/*/*: Updated...
+	* src/an_symbol_view.c: Fixed a crash bug.
+	* src/compiler_options.c, src/project_dbase.c: Fixed compile
+	and build bugs.
+	* src/main_menubar.[c,h]: Removed 'page setup' menu item.
+	* src/source.c: Fixed project generation bug with gettext code.
+	* tagmanager/tm_project.c: Fixed a crash bug.
+	* src/compiler_options.c, src/project_dbase.c: Fixed build failure
+	bug when there is no project open. Bug #____.
+	* src/source.c: Fixed a bug with build failure with non-gnome
+	project with glade-generated source (eg. gtk2). Bug #____.
+	* NEWS: Updated...
+
 2003-08-22  Naba Kumar  <naba@gnome.org>
 
 	Patch from: Rob Bradford  <rob@debianplanet.org>

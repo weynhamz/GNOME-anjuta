@@ -254,13 +254,10 @@ source_write_configure_in (ProjectDBase * data)
 	if (prop_get_int (data->props, "project.has.gettext", 1))
 	{
 		GList *files, *node;
-		if (type->gnome2_support) 
-		{
-			fprintf (fp, "GETTEXT_PACKAGE=%s\n"
-					 "AC_SUBST(GETTEXT_PACKAGE)\n"
-					 "AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, \"$GETTTEXT_PACKAGE\","
-					 " [Package name for gettext])\n\n", prj_name);
-		}
+		fprintf (fp, "GETTEXT_PACKAGE=%s\n"
+				 "AC_SUBST(GETTEXT_PACKAGE)\n"
+				 "AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, \"$GETTTEXT_PACKAGE\","
+				 " [Package name for gettext])\n\n", prj_name);
 		fprintf (fp,
 			 "\n"
 			 "dnl Languages which your application supports\n"

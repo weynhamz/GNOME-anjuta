@@ -47,7 +47,6 @@ struct _FileSubMenu
 	GtkWidget *save_project;
 	GtkWidget *close_project;
 	GtkWidget *rename;
-	GtkWidget *page_setup;
 	GtkWidget *print;
 	GtkWidget *print_preview;
 	GtkWidget *recent_files;

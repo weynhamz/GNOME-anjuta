@@ -494,6 +494,7 @@ FontID FontCached::CreateNewFont(const char *fontName, int characterSet,
 	charset[0] = '\0';
 
 #ifdef USE_PANGO
+	//if (fontName[0] == '!') {
 	PangoFontDescription *pfd = pango_font_description_new();
 	if (pfd) {
 		pango_font_description_set_family(pfd, fontName);
@@ -502,6 +503,7 @@ FontID FontCached::CreateNewFont(const char *fontName, int characterSet,
 		pango_font_description_set_style(pfd, italic ? PANGO_STYLE_ITALIC : PANGO_STYLE_NORMAL);
 		return new FontHandle(pfd, characterSet);
 	}
+	//}
 #endif
 
 	GdkFont *newid = 0;

@@ -326,6 +326,7 @@ project_dbase_clear (ProjectDBase * p)
 	gtk_window_set_title (GTK_WINDOW (p->widgets.window),
 			      _("Project: None"));
 	p->project_is_open = FALSE;
+	p->clean_before_build = FALSE;
 	gtk_widget_set_sensitive(app->widgets.menubar.file.recent_projects, TRUE);
 	p->is_saved = TRUE;
 	extended_toolbar_update ();

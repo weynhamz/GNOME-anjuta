@@ -27,8 +27,10 @@ libscintilla_a_SOURCES =\
 	LexBullant.cxx \
 	LexCPP.cxx \
 	LexConf.cxx \
+	LexEScript.cxx \
 	LexHTML.cxx \
 	LexLua.cxx \
+	LexLout.cxx \
 	LexOthers.cxx \
 	LexPascal.cxx \
 	LexPerl.cxx \

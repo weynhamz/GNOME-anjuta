@@ -34,7 +34,6 @@ void on_open_project1_activate (GtkMenuItem * menuitem, gpointer user_data);
 void on_save_project1_activate (GtkMenuItem * menuitem, gpointer user_data);
 void on_close_project1_activate (GtkMenuItem * menuitem, gpointer user_data);
 void on_rename1_activate (GtkMenuItem * menuitem, gpointer user_data);
-void on_page_setup1_activate (GtkMenuItem * menuitem, gpointer user_data);
 void on_nonimplemented_activate (GtkMenuItem * menuitem, gpointer user_data);
 void on_exit1_activate (GtkMenuItem * menuitem, gpointer user_data);
 

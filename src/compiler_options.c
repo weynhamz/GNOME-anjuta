@@ -516,7 +516,8 @@ on_comp_finish (CompilerOptions* co)
 {
 	gboolean should_rebuild;
 	
-	if (co->priv->dirty) 
+	if (co->priv->dirty && 
+		app->project_dbase->project_is_open)
 	{
 		gchar* msg = _("You have changed some of the compiler options of the project,\n"
 					   "would you like the next build action to perform a complete\n"
@@ -524,6 +525,11 @@ on_comp_finish (CompilerOptions* co)
 		should_rebuild = anjuta_boolean_question (msg);
 		if (should_rebuild)
 			app->project_dbase->clean_before_build = TRUE;
+		else
+			app->project_dbase->clean_before_build = FALSE;
+	} else {
+		co->priv->dirty = FALSE;
+		app->project_dbase->clean_before_build = FALSE;
 	}
 	compiler_options_set_in_properties(co, co->priv->props);
 	project_dbase_save_project (app->project_dbase);
@@ -575,7 +581,7 @@ on_toggle_clist_row_activated          (GtkTreeView     *treeview,
 		gtk_tree_model_get (model, &iter, info->col, &value, -1);
 		value = value? FALSE : TRUE;
 		gtk_list_store_set (GTK_LIST_STORE (model), &iter, info->col, value, -1);
-		info->co->priv->dirty = TRUE;
+		compiler_options_set_dirty_flag (info->co, TRUE);
 	}
 }
 
@@ -591,7 +597,7 @@ on_update_selection_changed (GtkTreeSelection *sel, EntrySignalInfo *info)
 	{
 		gtk_tree_model_get (model, &iter, col, &text, -1);
 		gtk_entry_set_text (entry, text);
-		info->co->priv->dirty = TRUE;
+		compiler_options_set_dirty_flag (info->co, TRUE);
 	}
 }
 
@@ -600,14 +606,14 @@ static void
 on_button_selection_changed (GtkToggleButton *togglebutton, gpointer user_data)
 {
 	CompilerOptions *co = (CompilerOptions*) user_data;
-	co->priv->dirty = TRUE;
+	compiler_options_set_dirty_flag (co, TRUE);
 }
 
 static void
 on_entry_changed (GtkEntry *togglebutton, gpointer user_data)
 {
 	CompilerOptions *co = (CompilerOptions*) user_data;
-	co->priv->dirty = TRUE;
+	compiler_options_set_dirty_flag (co, TRUE);
 }
 
 
@@ -667,7 +673,7 @@ on_add_to_clist_clicked (GtkButton * button, gpointer data)
 		gtk_list_store_set (GTK_LIST_STORE(model), &iter, 0, TRUE, -1);
 	gtk_entry_set_text (GTK_ENTRY (entry), "");
 	g_free (str);
-	info->co->priv->dirty = TRUE;	
+	compiler_options_set_dirty_flag (info->co, TRUE);
 }
 
 static void
@@ -703,7 +709,7 @@ on_update_in_clist_clicked (GtkButton * button, gpointer data)
 		gtk_entry_set_text (GTK_ENTRY (entry), "");
 	}
 	g_free (str);
-	info->co->priv->dirty = TRUE;	
+	compiler_options_set_dirty_flag (info->co, TRUE);
 }
 
 void
@@ -723,7 +729,7 @@ on_remove_from_clist_clicked (GtkButton * button, gpointer data)
 	{
 		gtk_list_store_remove (GTK_LIST_STORE(model), &iter);
 		gtk_entry_set_text (GTK_ENTRY (entry), "");
-		info->co->priv->dirty = TRUE;	
+		compiler_options_set_dirty_flag (info->co, TRUE);
 	}
 }
 
@@ -749,7 +755,7 @@ on_clear_clist_clicked (GtkButton * button, gpointer data)
 	if (gtk_dialog_run (GTK_DIALOG (win)) == GTK_RESPONSE_YES)
 	{
 		gtk_list_store_clear (GTK_LIST_STORE (model));
-		info->co->priv->dirty = TRUE;
+		compiler_options_set_dirty_flag (info->co, TRUE);
 	}
 	gtk_widget_destroy (win);
 }
@@ -1647,7 +1653,7 @@ compiler_options_load (CompilerOptions * co, PropsID props)
 	
 	compiler_options_set_in_properties (co, co->priv->props);
 	
-	co->priv->dirty = FALSE;
+	compiler_options_set_dirty_flag (co, TRUE);
 }
 
 void
@@ -2096,5 +2102,5 @@ compiler_options_set_prjmacros_in_file (CompilerOptions * co, FILE* fp)
 void 
 compiler_options_set_dirty_flag (CompilerOptions* co, gboolean is_dirty)
 {
-	co->priv->dirty = is_dirty;
+	co->priv->dirty = is_dirty && app->project_dbase->project_is_open;
 }

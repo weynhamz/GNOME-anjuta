@@ -29,10 +29,6 @@
  *
  * Modification history:
  *
- * $Log$
- * Revision 1.14  2003/04/15 08:34:48  biswapesh
- * *** empty log message ***
- *
  * Revision 1.9  2003/03/21 10:36:08  nyamatongwe
  * Detect patterns too long in regular expression search.
  *

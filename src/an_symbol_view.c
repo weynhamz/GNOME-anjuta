@@ -718,7 +718,8 @@ sv_populate (gboolean full)
 	if (!full)
 		goto clean_leave;
 
-	if (!app || !app->project_dbase || !app->project_dbase->tm_project ||
+	if (!app || !app->project_dbase || !app->project_dbase->project_is_open
+		|| !app->project_dbase->tm_project ||
 	    !app->project_dbase->tm_project->tags_array ||
 	    (0 == app->project_dbase->tm_project->tags_array->len))
 		goto clean_leave;

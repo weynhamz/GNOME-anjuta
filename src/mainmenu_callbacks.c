@@ -300,23 +300,11 @@ on_rename1_activate (GtkMenuItem * menuitem, gpointer user_data)
 	anjuta_not_implemented (__FILE__, __LINE__);
 }
 
-
-void
-on_page_setup1_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-#warning "G2: Show print setup preferences page here"
-
-	//gtk_notebook_set_page (GTK_NOTEBOOK
-	//		       (app->preferences->notebook), 4);
-	gtk_widget_show (GTK_WIDGET (app->preferences));
-}
-
 void
 on_nonimplemented_activate(GtkMenuItem * menuitem, gpointer user_data)
 {
 	anjuta_not_implemented (__FILE__, __LINE__);
 }
-
 
 void
 on_exit1_activate (GtkMenuItem * menuitem, gpointer user_data)
