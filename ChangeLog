@@ -1,7 +1,7 @@
 2005-03-08  Adam Weinberger  <adamw@gnome.org>
 
-	* plugins/class-gen/anjuta-class-gen-plugin.glade: Fix grammar
-	  error
+	* plugins/class-gen/anjuta-class-gen-plugin.glade,
+	  plugins/class-gen/class_gen.c: Fix grammar/spelling errors
 
 2005-03-08  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
 

@@ -185,7 +185,7 @@ gobject_class_create_code (ClassGenData* data) {
 		ianjuta_project_manager_add_source (pm, header_file, header_file, NULL);
 	} else {
 		anjuta_util_dialog_error (NULL,
-							  _("An error occured when trying to write GObject Class Template. Check file permissions."));
+							  _("An error occurred when trying to write GObject Class Template. Check file permissions."));
 	}
 	
 	g_free(header_file_base);
