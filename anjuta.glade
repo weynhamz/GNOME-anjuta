@@ -12519,7 +12519,7 @@
 		      </child>
 
 		      <child>
-			<widget class="GtkOptionMenu" id="preferences_menu:text:Plus/Minus,Arrows,Circular,Squares:0:fold.symbols.style">
+			<widget class="GtkOptionMenu" id="preferences_menu:text:Plus/Minus,Arrows,Circular,Squares:0:fold.symbols">
 			  <property name="visible">True</property>
 			  <property name="can_focus">True</property>
 			  <property name="history">0</property>

@@ -1,4 +1,13 @@
-2003-13-31  Johannes Schmid <jhs@cvs.gnome.org>
+2004-01-02  Dan Elphick <dre00r@ecs.soton.ac.uk>
+
+ 	* widgets/gnomefilesel.c: Fix use of previously freed memory on
+ 	selecting ".." and "." from file selector. 
+
+2003-01-02  Johannes Schmid <jhs@cvs.gnome.org>
+
+	* anjuta.glade: Fixed wrong "fold.symbols" property
+
+2003-12-31  Johannes Schmid <jhs@cvs.gnome.org>
 	
 	* src/project_dbase_gui.c: Alphabetical order ;-)
 	* src/compiler_options.c: Fixed bug #867539
@@ -15,7 +24,7 @@
 	Fixed bugs #860906, #859329
 	
 	Patch from grzegol@pld-linux.org
-	* anjuta.desktop.in.in: Fixes bug #858993 (Follow 
+	* anjuta.desktop.in.in: Fixed bug #858993 (Follow 
 	freedesktop.org standard)
 
 2003-12-31  Johannes Schmid <jhs@cvs.gnome.org>

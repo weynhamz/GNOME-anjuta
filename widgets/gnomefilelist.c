@@ -1107,7 +1107,7 @@ on_row_activated_dir   (GtkTreeView     *treeview, GtkTreePath     *arg1,
 		g_free (file_list->path);
 		file_list->path = path;
 #ifdef DEBUG
-		g_message ("Original file path: %s\n", file_list->path);
+		g_message ("New file path: %s\n", file_list->path);
 #endif
 		gnome_filelist_set_dir (file_list, file_list->path);
 	}
@@ -1294,9 +1294,10 @@ set_dir_internal (GnomeFileList * file_list, const gchar * path)
 	g_free (path_bak);
 
 	// temp = file_list->path;
+	path_bak = build_full_path (path, "");
 	if (file_list->path)
 		g_free (file_list->path);
-	file_list->path = build_full_path (path, "");
+	file_list->path = path_bak;
 	// strcpy(file_list->path, path);
 	gnome_filelist_get_dirs (file_list);
 	g_free (file_list->selected);
