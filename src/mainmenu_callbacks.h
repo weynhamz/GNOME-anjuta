@@ -89,6 +89,9 @@ on_file2_activate                      (GtkMenuItem     *menuitem,
 void
 on_project1_activate                   (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
+void
+on_nonimplemented_activate             (GtkMenuItem     *menuitem,
+                                        gpointer         user_data);
 
 void
 on_exit1_activate                      (GtkMenuItem     *menuitem,

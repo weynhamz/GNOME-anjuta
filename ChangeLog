@@ -1,3 +1,15 @@
+2001-10-14	Andy Piper	<andy.piper@freeuk.com>
+
+	* added skeleton plugin functionality (lbell <lbell@tsc4.com>). 
+	This is not documented yet; plugins to come later.
+	* src/find*.c: find dialogs now persistent 
+	(Rick <rikul@bellsouth.net>)
+	* widgets/gnomefilelist.c: fixed multiple file open issue 
+	(Rick <rikul@bellsouth.net>)
+	* changes to recent file and project lists handling 
+	(lbell <lbell@tsc4.com>)
+	* more minor UI updates (me)
+
 2001-10-11	Andy Piper	<andy.piper@freeuk.com>
 
 	* src/Makefile.am: removed warnings for traditional C syntax

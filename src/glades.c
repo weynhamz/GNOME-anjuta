@@ -121,13 +121,13 @@ cglade_iface_generate_source_code(gchar* glade_file)
 gboolean
 gladen_start(void)
 {
-#ifdef	USE_GLADEN
-
-	gchar *szStrCmd;
-	szStrCmd = g_strdup_printf( "gladen --SERVER=%s", GetCorbaManager()->m_serv.m_SrvStr );
-	gnome_execute_shell (".", szStrCmd);
-	g_free (szStrCmd);
-#endif
+	if( app->bUseComponentUI )
+	{
+		gchar *szStrCmd;
+		szStrCmd = g_strdup_printf( "gladen --SERVER=%s", GetCorbaManager()->m_serv.m_SrvStr );
+		gnome_execute_shell (".", szStrCmd);
+		g_free (szStrCmd);
+	}
 	return TRUE;
 }
 

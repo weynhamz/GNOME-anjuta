@@ -114,6 +114,8 @@ static GtkWidget *create_preferences_page5 (Preferences * p);
 
 static GtkWidget *create_preferences_page6 (Preferences * p);
 
+static GtkWidget *create_preferences_pageComp (Preferences * p);
+
 void
 create_preferences_gui (Preferences * pr)
 {
@@ -129,11 +131,13 @@ create_preferences_gui (Preferences * pr)
 	GtkWidget *page4;
 	GtkWidget *page5;
 	GtkWidget *page6;
+	GtkWidget *pageComponents;
 	GtkWidget *label102;
 	GtkWidget *label103;
 	GtkWidget *label1;
 	GtkWidget *label12;
 	GtkWidget *label15;
+	GtkWidget *labelComps;	
 	GtkWidget *preferences_ok;
 	GtkWidget *preferences_apply;
 	GtkWidget *preferences_cancel;
@@ -223,6 +227,15 @@ create_preferences_gui (Preferences * pr)
 				    gtk_notebook_get_nth_page (GTK_NOTEBOOK
 							       (notebook2),
 							       6), label103);
+	pageComponents = create_preferences_pageComp (pr);
+	gtk_container_add (GTK_CONTAINER (notebook2), pageComponents);
+
+	labelComps = gtk_label_new (_("Components"));
+	gtk_widget_show (labelComps);
+	gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook2),
+				    gtk_notebook_get_nth_page (GTK_NOTEBOOK
+							       (notebook2),
+							       7), labelComps);
 
 	dialog_action_area2 = GNOME_DIALOG (dialog1)->action_area;
 	gtk_widget_show (dialog_action_area2);
@@ -1468,6 +1481,58 @@ IntFromHexDigit (const gchar ch)
 		return 0;
 }
 
+static GtkWidget *
+create_preferences_pageComp (Preferences * p)
+{
+	GtkWidget *window1;
+	GtkWidget *frame1;
+	GtkWidget *vbox1;
+	GtkWidget *frame2;
+	GtkWidget *table1;
+	GtkWidget *checkbutton1;
+
+
+	window1 = p->widgets.window;
+
+	frame1 = gtk_frame_new (NULL);
+	gtk_widget_show (frame1);
+	gtk_container_set_border_width (GTK_CONTAINER (frame1), 5);
+
+	vbox1 = gtk_vbox_new (FALSE, 0);
+	gtk_widget_show (vbox1);
+	gtk_container_add (GTK_CONTAINER (frame1), vbox1);
+
+	frame2 = gtk_frame_new (_(" Components"));
+	gtk_widget_show (frame2);
+	gtk_box_pack_start (GTK_BOX (vbox1), frame2, FALSE, FALSE, 0);
+	gtk_container_set_border_width (GTK_CONTAINER (frame2), 5);
+
+	table1 = gtk_table_new (1, 1, FALSE);
+	gtk_widget_show (table1);
+	gtk_container_add (GTK_CONTAINER (frame2), table1);
+	gtk_table_set_row_spacings (GTK_TABLE (table1), 5);
+	gtk_table_set_col_spacings (GTK_TABLE (table1), 5);
+
+	checkbutton1 =
+		gtk_check_button_new_with_label (_("Use Components"));
+	gtk_widget_show (checkbutton1);
+	gtk_table_attach (GTK_TABLE (table1), checkbutton1, 0, 3, 0, 1,
+			  (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
+			  (GtkAttachOptions) (0), 0, 0);
+	gtk_container_set_border_width (GTK_CONTAINER (checkbutton1), 5);
+
+	/*gtk_signal_connect (GTK_OBJECT (checkbutton1), "clicked",
+			    GTK_SIGNAL_FUNC (on_use_components), p);*/
+
+	gtk_widget_ref (checkbutton1);
+	p->widgets.use_components	= checkbutton1;
+	
+	on_trunc_mesg_check_clicked (GTK_BUTTON (p->widgets.use_components), p);
+	
+	return frame1;
+}
+
+
 void
 ColorFromString (const gchar * val, guint8 * r, guint8 * g, guint8 * b)
 {
@@ -1729,6 +1794,11 @@ on_preferences_apply_clicked (GtkButton * button, gpointer user_data)
 			     gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
 							   (pr->widgets.
 							    truncat_mesg_check)));
+/* Page Components */
+	preferences_set_int (pr, USE_COMPONENTS,
+			     gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
+							   (pr->widgets.
+							    use_components)));
 
 	if (gtk_toggle_button_get_active
 	    (GTK_TOGGLE_BUTTON (pr->widgets.tag_pos_radio[0])) == TRUE)

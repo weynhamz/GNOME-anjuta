@@ -96,6 +96,7 @@ text_editor_new (gchar * filename, TextEditor * parent, Preferences * eo)
 	te = (TextEditor *) g_malloc (sizeof (TextEditor));
 	if (te == NULL)
 		return NULL;
+	te->size	= sizeof(TextEditor);
 	te->filename = g_strdup_printf ("Newfile#%d", ++new_file_count);
 	te->full_filename = NULL;
 	te->modified_time = time (NULL);

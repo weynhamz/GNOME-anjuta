@@ -194,6 +194,8 @@ preferences_destroy (Preferences * pr)
 		for (i = 0; i < 4; i++)
 			gtk_widget_unref (pr->widgets.tag_pos_radio[i]);
 
+		gtk_widget_unref (pr->widgets.use_components);
+		
 		gtk_widget_destroy (pr->widgets.window);
 		g_free (pr);
 		pr = NULL;
@@ -512,6 +514,11 @@ preferences_sync (Preferences * pr)
 				      (pr->widgets.tags_update_check),
 				      preferences_get_int (pr,
 							   AUTOMATIC_TAGS_UPDATE));
+	/* Page Components */
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON
+				      (pr->widgets.use_components),
+				      preferences_get_int (pr,
+							   USE_COMPONENTS));
 }
 
 void
@@ -708,6 +715,9 @@ gboolean preferences_save_yourself (Preferences * pr, FILE * fp)
 		 preferences_get_int (pr, TRUNCAT_MESG_LAST));
 	fprintf (fp, "%s=%d\n", AUTOMATIC_TAGS_UPDATE,
 		 preferences_get_int (pr, AUTOMATIC_TAGS_UPDATE));
+	fprintf (fp, "%s=%d\n", USE_COMPONENTS,
+		 preferences_get_int (pr, USE_COMPONENTS));
+
 	if (pr->is_showing)
 	{
 		gdk_window_get_root_origin (pr->widgets.window->window,

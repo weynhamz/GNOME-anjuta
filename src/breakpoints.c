@@ -264,7 +264,6 @@ breakpoints_dbase_save (BreakpointsDBase * bd, ProjectDBase * pdb )
 void
 breakpoints_dbase_load (BreakpointsDBase * bd, ProjectDBase *p )
 {
-	/*gint i;*/
 	gpointer	config_iterator;
 	guint		loaded = 0;
 
@@ -301,7 +300,7 @@ breakpoints_dbase_load (BreakpointsDBase * bd, ProjectDBase *p )
 	}
 }
 
-
+#if 0
 void
 experimental_not_use_breakpoints_dbase_toggle_breakpoint (BreakpointsDBase* b)
 {
@@ -335,6 +334,7 @@ experimental_not_use_breakpoints_dbase_toggle_breakpoint (BreakpointsDBase* b)
 	g_free (buff);
 	debugger_execute_cmd_in_queqe ();
 }
+#endif
 
 void
 breakpoints_dbase_clear (BreakpointsDBase * bd)

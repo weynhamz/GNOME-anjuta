@@ -131,6 +131,8 @@ struct _PreferencesWidgets
 	GtkWidget *tag_pos_radio[4];
 	GtkWidget *no_tag_check;
 	GtkWidget *tags_update_check;
+	/* Page Comps */
+	GtkWidget *use_components;
 };
 
 struct _Preferences
@@ -272,6 +274,8 @@ void preferences_set_build_options(Preferences* p);
 #define AUTOMATIC_TAGS_UPDATE "automatic.tags.update"
 
 #define COMMAND_PRINT "command.print"
+#define USE_COMPONENTS "components.enable"
+
 
 void
 ColorFromString (const gchar * val, guint8 * r, guint8 * g, guint8 * b);

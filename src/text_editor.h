@@ -74,6 +74,7 @@ struct _TextEditorGui
 
 struct _TextEditor
 {
+	glong	size;
 	TextEditorGui widgets;
 	TextEditorMode mode;
 	TextEditorMenu *menu;

@@ -319,7 +319,7 @@ project_dbase_new (PropsID pr_props)
 
 	p = g_malloc (sizeof (ProjectDBase));
 	if (!p) return NULL;
-
+	p->size = sizeof(ProjectDBase);
 	/* Cannot assign p to static fsd.data, so doing it now */
 	fsd1.data = p;
 	fsd2.data = p;
@@ -709,7 +709,7 @@ project_dbase_reload_session (ProjectDBase * p)
 	p->m_prj_ShowLocal = session_get_bool( p, SECSTR(SECTION_PROJECTDBASE), szShowLocalsItem, SHOW_LOCALS_DEFAULT );
 	
 	/* Updates the menu */
-	gtk_check_menu_item_set_active( GTK_CHECK_MENU_ITEM (&app->widgets.menubar.view.show_hide_locals), p->m_prj_ShowLocal );
+	gtk_check_menu_item_set_active( GTK_CHECK_MENU_ITEM (app->widgets.menubar.view.show_hide_locals), p->m_prj_ShowLocal );
 }
 
 

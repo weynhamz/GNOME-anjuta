@@ -508,14 +508,16 @@ GList * gnome_filelist_get_filelist(GnomeFileList * file_list)
 	gchar * path = NULL;
 	gchar * full = NULL;
 	GList * list = NULL;
+	int i;
 	int num_elements;
 	GList * temp = GTK_CLIST(file_list->file_list)->selection;
 	num_elements = g_list_length(temp);
 	
+	i=0;
 	while(num_elements!=0)
 	{
 		gchar *text;
-		GtkCTreeNode * node = g_list_nth_data(temp,0);
+		GtkCTreeNode * node = g_list_nth_data(temp,i);
 	
 		if(gtk_ctree_node_get_pixtext(GTK_CTREE(file_list->file_list), node, 0, &text, NULL, NULL, NULL))
 		{
@@ -526,6 +528,7 @@ GList * gnome_filelist_get_filelist(GnomeFileList * file_list)
 //		gtk_ctree_unselect(GTK_CTREE(file_list->file_list), node);
 		temp = GTK_CLIST(file_list->file_list)->selection;
 		num_elements--;
+		i++;
 	}
 	return list;
 }

@@ -38,7 +38,7 @@
 
 #include "glades.h"
 
-static gboolean
+gboolean
 ImportFileInProject ( const gchar * p_szModule, const gchar *p_szFileName );
 static guint
 final_setup_from_main_loop (gpointer data);
@@ -398,7 +398,7 @@ project_dbase_get_source_target (ProjectDBase * p)
 
 // absolute FilePath 
 
-static gboolean
+gboolean
 ImportFileInProject ( const gchar * p_szModule, const gchar *p_szFileName )
 {
 	gchar		*dir, *comp_dir, *fn, *filename ;

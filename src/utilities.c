@@ -1402,7 +1402,6 @@ gchar* GetStrCod( const gchar *szIn )
 			{
 				*szDst++ = *szIn ++ ;
 			}
-			szIn ++ ;
 		}
 		szDst [0] = '\0' ;
 	}

@@ -79,6 +79,7 @@ void on_find_text_help_clicked (GtkButton * button, gpointer user_data);
 void on_find_text_ok_clicked (GtkButton * button, gpointer user_data);
 
 void on_find_text_cancel_clicked (GtkButton * button, gpointer user_data);
+void on_find_text_start_over (GtkButton * button, gpointer user_data);
 
 gboolean
 on_find_text_delete_event (GtkWidget * widget,

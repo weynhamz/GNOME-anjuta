@@ -631,6 +631,7 @@ update_using_ctags (TagsManager * tm, gchar * filename)
 	if ((pid = fork ()) == 0)
 	{
 		close (1);
+		close (2);	// no error output on screen.
 		dup (stdout_pipe[1]);
 		close (stdout_pipe[0]);
 		execlp ("ctags", "ctags", "-x", "--c-types=+C", filename,

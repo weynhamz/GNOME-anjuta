@@ -219,4 +219,7 @@ create_find_in_files_gui (FindInFiles *sf)
   sf->widgets.ok = button9;gtk_widget_ref(button9);
   sf->widgets.case_sensitive_check = checkbutton3;
       gtk_widget_ref(checkbutton3);
+
+
+	gtk_window_set_transient_for(GTK_WINDOW(sf->widgets.window), GTK_WINDOW(app->widgets.window));
 }

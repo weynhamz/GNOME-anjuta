@@ -492,13 +492,13 @@ create_find_replace_gui (FindAndReplace * fr)
 	GTK_WIDGET_SET_FLAGS (button9, GTK_CAN_DEFAULT);
 
 	gnome_dialog_append_button (GNOME_DIALOG (dialog2),
-				    GNOME_STOCK_BUTTON_CANCEL);
+				    GNOME_STOCK_BUTTON_CLOSE);
 	button10 = g_list_last (GNOME_DIALOG (dialog2)->buttons)->data;
 	gtk_widget_show (button10);
 	GTK_WIDGET_SET_FLAGS (button10, GTK_CAN_DEFAULT);
 
 	gnome_dialog_append_button (GNOME_DIALOG (dialog2),
-				    GNOME_STOCK_BUTTON_OK);
+				    "Replace");
 	button11 = g_list_last (GNOME_DIALOG (dialog2)->buttons)->data;
 	gtk_widget_show (button11);
 	GTK_WIDGET_SET_FLAGS (button11, GTK_CAN_DEFAULT);
@@ -554,6 +554,7 @@ create_find_replace_gui (FindAndReplace * fr)
 	gtk_widget_ref (fr->r_gui.whole_word_check);
 
 	gtk_widget_grab_focus (combo_entry2);
+	gtk_window_set_transient_for(GTK_WINDOW(fr->r_gui.GUI), GTK_WINDOW(app->widgets.window));
 }
 
 static GtkWidget *

@@ -32,6 +32,16 @@ static GnomeUIInfo recent_projects1_menu_uiinfo[] = {
 	GNOMEUIINFO_END
 };
 
+static GnomeUIInfo plugins_menu_uiinfo[] = {
+	{
+	 GNOME_APP_UI_ITEM, N_("plugins"),
+	 NULL,
+	 on_nonimplemented_activate, NULL, NULL,
+	 GNOME_APP_PIXMAP_NONE, NULL,
+	 0, 0, NULL},
+	GNOMEUIINFO_END
+};
+
 static GnomeUIInfo file1_menu_uiinfo[] = {
 	{
 	 GNOME_APP_UI_ITEM, N_("_New"),
@@ -252,7 +262,7 @@ static GnomeUIInfo goto1_submenu_uiinfo[] = {
 };
 
 
-#define	NUM_EDIT_MENUES	(24)
+#define	NUM_EDIT_MENUES	(25)
 
 static GnomeUIInfo edit1_menu_uiinfo[NUM_EDIT_MENUES+1] = {
 	{/*0*/
@@ -390,6 +400,13 @@ static GnomeUIInfo edit1_menu_uiinfo[NUM_EDIT_MENUES+1] = {
 	 GNOME_APP_UI_ITEM, N_("Save Build Messages"),
 	 N_("Save build messages to file"),
 	 on_save_build_messages_activate, NULL, NULL,
+	 GNOME_APP_PIXMAP_NONE, NULL,
+	 0, 0, NULL},
+	 
+	{/*24*/
+	 GNOME_APP_UI_SUBTREE, N_("_Plug Ins"),
+	 NULL,
+	 plugins_menu_uiinfo, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 

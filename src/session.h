@@ -32,6 +32,9 @@ enum _SessionSectionTypes {
 	SECTION_EXECUTERARGS,
 	SECTION_EXECUTER,
 	SECTION_PROJECTDBASE,
+	SECTION_RECENTFILES,
+	SECTION_RECENTPROJECTS,
+
 	SECTION_END
 };
 
@@ -81,5 +84,16 @@ session_save_bool( ProjectDBase * p, const gchar *szSection, const gchar *szItem
 
 gboolean
 session_get_bool( ProjectDBase * p, const gchar *szSection, const gchar *szItem, const gboolean bValDefault );
+
+gboolean
+anjuta_save_strings( const gchar *szSection, GList *pLStrings );
+void
+anjuta_session_clear_section( const gchar *szSection );
+GList*
+anjuta_session_load_strings( const gchar *szSection, GList *pList );
+gpointer
+anjuta_session_get_iterator( const gchar *szSection );
+gboolean
+anjuta_session_save_strings( const gchar *szSection, GList *pLStrings );
 
 #endif	/*_SESSION_H_*/

@@ -111,6 +111,7 @@ struct _ProjectDBaseGui
 
 struct _ProjectDBase
 {
+	glong	size;	/* sizeof() used as version # for components */
 	ProjectDBaseGui widgets;
 	GtkWidget *fileselection_open;
 	GtkWidget *fileselection_add_file;

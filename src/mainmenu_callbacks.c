@@ -307,6 +307,12 @@ on_project1_activate (GtkMenuItem * menuitem, gpointer user_data)
 	anjuta_not_implemented (__FILE__, __LINE__);
 }
 
+void
+on_nonimplemented_activate(GtkMenuItem * menuitem, gpointer user_data)
+{
+	anjuta_not_implemented (__FILE__, __LINE__);
+}
+
 
 void
 on_exit1_activate (GtkMenuItem * menuitem, gpointer user_data)

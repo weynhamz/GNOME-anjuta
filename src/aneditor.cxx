@@ -1369,6 +1369,9 @@ long AnEditor::Command(int cmdID, long wParam, long lParam) {
 		IndentationDecrease();
 		break;
 	
+	case ANE_GETLENGTH:
+		return SendEditor(SCI_GETLENGTH);
+
 	default:
 		break;
 	}

@@ -56,6 +56,10 @@ const gchar	*SessionSectionString( const SessionSectionTypes p_Session )
 		return "executer"; break;
 	case SECTION_PROJECTDBASE:
 		return "Project DBase"; break;
+	case SECTION_RECENTFILES:
+		return "RecentFiles"; break;
+	case SECTION_RECENTPROJECTS:
+		return "RecentProjects"; break;
 	}
 }
 
@@ -353,3 +357,91 @@ session_get_bool( ProjectDBase * p, const gchar *szSection, const gchar *szItem,
 	g_free( szSect );	
 	return bRet ;
 }
+
+/*-------------------------------------------------------------------------------------------------------*/
+void
+anjuta_session_clear_section( const gchar *szSection )
+{
+	gchar *szSect = NULL ;
+	g_return_if_fail( (NULL != szSection) );
+	/* Now appends the item and the specific data... */
+	szSect = g_strdup_printf( "/anjuta/%s", szSection );
+	if( NULL !=  szSect )
+	{
+		gnome_config_private_clean_section(szSect);
+	}
+	g_free( szSect );
+}
+
+gboolean
+anjuta_session_save_strings( const gchar *szSection, GList *pLStrings )
+{
+	gboolean	bOK = TRUE ;
+	g_return_val_if_fail( NULL != szSection, FALSE );
+	
+	anjuta_session_clear_section( szSection );
+	if( pLStrings )
+	{
+		const gchar *szValue ;
+		int 			i;
+		int			nLen = g_list_length (pLStrings); 
+		for (i = 0; i < nLen ; i++)
+		{
+			szValue = (gchar*)g_list_nth (pLStrings, i)->data ;
+			/*gchar *WriteBufS( gchar* szDst, const gchar* szVal );*/
+			if( szValue && szValue[0] )
+			{
+				gchar	szCounter[40];
+				sprintf( szCounter, "%d", i );
+				bOK = WriteProfileString( szSection, szCounter, szValue ) && bOK ;
+			}
+		}
+	}
+	return bOK;
+}
+
+
+gpointer
+anjuta_session_get_iterator( const gchar *szSection )
+{
+	gchar	*szSect = NULL ;
+	gpointer	gIterator = NULL ;
+	
+	g_return_val_if_fail( (NULL != szSection), NULL );
+	/* Now appends the item and the specific data... */
+	szSect = g_strdup_printf( "/anjuta/%s", szSection );
+	if( NULL !=  szSect )
+	{
+		gIterator = gnome_config_private_init_iterator(szSect);
+	}
+	g_free( szSect );
+	return gIterator ;
+}
+
+GList*
+anjuta_session_load_strings( const gchar *szSection, GList *pList )
+{
+	gpointer	config_iterator;
+	g_return_val_if_fail( szSection != NULL, NULL );
+
+	free_string_list ( pList );
+	pList = NULL ;
+
+	config_iterator = anjuta_session_get_iterator( szSection );
+	if ( config_iterator !=  NULL )
+	{
+		gchar * szItem, *szData;
+		while ((config_iterator = gnome_config_iterator_next( config_iterator,
+									&szItem, &szData )))
+		{
+			if( ( NULL != szData ) )
+			{
+				pList = g_list_append(pList, g_strdup (szData) );
+			}
+			g_free( szItem );
+			g_free( szData );
+		}
+	}
+	return pList ;
+}
+

@@ -110,6 +110,7 @@ create_fileselection_gui (FileSelData * fsd)
 
 	fsd->filesel = fileselection_gui;
 	gtk_widget_ref (fileselection_gui);
+	gtk_window_set_transient_for(GTK_WINDOW(fileselection_gui), GTK_WINDOW(app->widgets.window));
 	return fileselection_gui;
 }
 

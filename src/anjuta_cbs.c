@@ -406,7 +406,7 @@ on_build_msg_save_overwrite(GtkButton * button, gpointer user_data)
 	msgdata = g_list_first(app->messages->data[MESSAGE_BUILD]);
 	while (msgdata)
 	{
-		fprintf(msgfile, "%s\n", msgdata->data);
+		fprintf(msgfile, "%s\n", (char*)msgdata->data);
 		msgdata = g_list_next(msgdata);
 	}
 			
