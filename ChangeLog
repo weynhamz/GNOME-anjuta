@@ -5,6 +5,15 @@
 
 	* .cvsignore, po/.cvsignore, scripts/.cvsignore:
 	  Updated files.
+	  
+	* src/main_menubar_def.h:
+	
+	  Changed shortcut for Find/Replace to CTRL+SHIFT+F (to
+	  reflect the opposite of Find (CTRL+F) and also to leave
+	  CTRL+R or Redo.
+	  
+	  Changed Glade summon with ALT+G, which frees the ATL+E
+	  for poping up the edit menu.
 
 2002-01-28	Andy Piper	<andy.piper@freeuk.com>
 

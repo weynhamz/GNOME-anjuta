@@ -404,7 +404,7 @@ static GnomeUIInfo edit1_menu_uiinfo[NUM_EDIT_MENUS+1] = {
 	N_("Search for and replace a string or regexp with another string"),
 	on_find_and_replace1_activate, NULL, NULL,
 	GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_SRCHRPL,
-	GDK_R, GDK_CONTROL_MASK, NULL},
+	GDK_F, GDK_CONTROL_MASK | GDK_SHIFT_MASK, NULL},
 	
 	{/*18*/
 	 GNOME_APP_UI_ITEM, N_("Find _Next"),
@@ -427,7 +427,7 @@ static GnomeUIInfo edit1_menu_uiinfo[NUM_EDIT_MENUS+1] = {
 	 N_("Edit application GUI with the Glade GUI editor"),
 	 on_edit_app_gui1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
-	 GDK_E, GDK_MOD1_MASK, NULL},
+	 GDK_G, GDK_MOD1_MASK, NULL},
 	
 	GNOMEUIINFO_SEPARATOR,/*22*/
 	
