@@ -462,7 +462,7 @@ static void tool_terminate_handler(gint status, time_t time)
 }
 
 /* Popup a dialog to ask for user parameters */
-static char *get_user_params(AnUserTool *tool, gboolean *button);
+static const gchar *get_user_params(AnUserTool *tool, gint *response_ptr);
 
 /* Menu activate handler which executes the tool. It should do command
 ** substitution, input, output and error redirection, setting the
@@ -473,7 +473,7 @@ static char *get_user_params(AnUserTool *tool, gboolean *button);
 static void execute_tool(GtkMenuItem *item, gpointer data)
 {
 	AnUserTool *tool = (AnUserTool *) data;
-	char *params = NULL;
+	const gchar *params = NULL;
 	gchar *command;
 
 #ifdef TOOL_DEBUG
@@ -482,9 +482,9 @@ static void execute_tool(GtkMenuItem *item, gpointer data)
 	/* Ask for user parameters if required */
 	if (tool->user_params)
 	{
-		gboolean button;
-		params = get_user_params(tool, &button);
-		if (button != 0) /* No OK button clicked */
+		gint response;
+		params = get_user_params(tool, &response);
+		if (response != GTK_RESPONSE_OK) /* No OK button clicked */
 			return;
 	}
 	/* Expand variables to get the full command */
@@ -742,24 +742,14 @@ void anjuta_tools_sensitize(void)
 /* Structure containing the required properties of the tool list GUI */
 typedef struct _AnToolList
 {
-	GladeXML *xml;
 	GtkWidget *dialog;
-	gboolean busy;
 	GtkWidget *clist;
-	GtkButton *new_btn;
-	GtkButton *edit_btn;
-	GtkButton *delete_btn;
-	GtkButton *ok_btn;
-	GtkTreeIter *row; /* Current selected row */
-	AnUserTool *tool; /* Current selected tool */
 } AnToolList;
 
 /* Structure containing the required properties of the tool editor GUI */
 typedef struct _AnToolEditor
 {
-	GladeXML *xml;
 	GtkWidget *dialog;
-	gboolean busy;
 	GtkEditable *name_en;
 	GtkEditable *location_en;
 	GtkEditable *command_en;
@@ -779,46 +769,19 @@ typedef struct _AnToolEditor
 	GtkCombo *error_com;
 	GtkEditable *shortcut_en;
 	GtkEditable *icon_en;
-	GtkButton *ok_btn;
-	GtkButton *cancel_btn;
 	AnUserTool *tool;
 	gboolean editing;
 } AnToolEditor;
 
-typedef struct _AnToolHelp
-{
-	GladeXML *xml;
-	GtkWidget *dialog;
-	GtkWidget *clist;
-	GtkButton *ok_btn;
-	gboolean busy;
-} AnToolHelp;
-
-typedef struct _AnToolParams
-{
-	GladeXML *xml;
-	GtkWidget *dialog;
-	GtkEditable *params_en;
-	GtkCombo *params_com;
-} AnToolParams;
-
 static AnToolList *tl = NULL;
 static AnToolEditor *ted = NULL;
-static AnToolHelp *th = NULL;
-static AnToolParams *tp = NULL;
 
-#define GLADE_FILE "anjuta.glade"
 #define TOOL_LIST "dialog.tool.list"
 #define TOOL_EDITOR "dialog.tool.edit"
 #define TOOL_HELP "dialog.tool.help"
 #define TOOL_PARAMS "dialog.tool.params"
 #define TOOL_CLIST "tools.clist"
 #define TOOL_HELP_CLIST "tools.help.clist"
-#define OK_BUTTON "button.ok"
-#define CANCEL_BUTTON "button.cancel"
-#define NEW_BUTTON "button.new"
-#define EDIT_BUTTON "button.edit"
-#define DELETE_BUTTON "button.delete"
 #define TOOL_NAME "tool.name"
 #define TOOL_LOCATION "tool.location"
 #define TOOL_COMMAND "tool.command"
@@ -854,68 +817,57 @@ void on_user_tool_selection_changed (GtkTreeSelection *sel, AnToolList *tl);
 /* Start the tool lister and editor */
 gboolean anjuta_tools_edit(void)
 {
+	GladeXML *xml;
 	GSList *tmp;
 	char *s[2];
 	int row;
+	GtkTreeModel *model;
+	GtkCellRenderer *renderer;
+	GtkTreeViewColumn *column;
+	GtkTreeSelection *selection;
 
-	if (NULL == tl)
-	{
-		GtkTreeModel *model;
-		GtkCellRenderer *renderer;
-		GtkTreeViewColumn *column;
-		GtkTreeSelection *selection;
-		
-		char glade_file[PATH_MAX];
-
-		tl = g_new0(AnToolList, 1);
-		snprintf(glade_file, PATH_MAX, "%s/%s", PACKAGE_DATA_DIR, GLADE_FILE);
-		if (NULL == (tl->xml = glade_xml_new(glade_file, TOOL_LIST, NULL)))
-		{
-			anjuta_error("Unable to build user interface for tool list");
-			g_free(tl);
-			tl = NULL;
-			return FALSE;
-		}
-		tl->dialog = glade_xml_get_widget(tl->xml, TOOL_LIST);
-		gtk_window_set_transient_for (GTK_WINDOW(tl->dialog)
-		  , GTK_WINDOW(app->widgets.window));
-		gtk_widget_ref(tl->dialog);
-		
-		tl->clist = (GtkWidget *) glade_xml_get_widget(tl->xml, TOOL_CLIST);
-		gtk_list_store_new (N_AN_TOOLS_COLUMNS, G_TYPE_STRING, G_TYPE_STRING);
-		gtk_tree_view_set_model (GTK_TREE_VIEW (tl->clist), model);
-		renderer = gtk_cell_renderer_text_new ();
-		column = gtk_tree_view_column_new_with_attributes (_("Tool"), renderer,
-		                                                   "text",
-		                                                   AN_TOOLS_NAME_COLUMN,
-		                                                   NULL);
-		gtk_tree_view_append_column (GTK_TREE_VIEW(tl->clist), column);
-		renderer = gtk_cell_renderer_text_new ();
-		column = gtk_tree_view_column_new_with_attributes (_("Enabled"), renderer,
-		                                                   "text",
-		                                                   AN_TOOLS_ENABLED_COLUMN,
-		                                                   NULL);
-		gtk_tree_view_append_column (GTK_TREE_VIEW(tl->clist), column);
-		selection = gtk_tree_view_get_selection (GTK_TREE_VIEW(tl->clist));
-		g_signal_connect (G_OBJECT (selection), "changed",
-		                  G_CALLBACK (on_user_tool_selection_changed), tl);
-		gtk_widget_ref((GtkWidget *) tl->clist);
-		
-		tl->new_btn = (GtkButton *) glade_xml_get_widget(tl->xml, NEW_BUTTON);
-		gtk_widget_ref((GtkWidget *) tl->new_btn);
-		tl->edit_btn = (GtkButton *) glade_xml_get_widget(tl->xml, EDIT_BUTTON);
-		gtk_widget_ref((GtkWidget *) tl->edit_btn);
-		tl->delete_btn = (GtkButton *) glade_xml_get_widget(tl->xml, DELETE_BUTTON);
-		gtk_widget_ref((GtkWidget *) tl->delete_btn);
-		tl->ok_btn = (GtkButton *) glade_xml_get_widget(tl->xml, OK_BUTTON);
-		gtk_widget_ref((GtkWidget *) tl->ok_btn);
-		tl->row = NULL;
-		gtk_widget_set_sensitive((GtkWidget *) tl->edit_btn, FALSE);
-		gtk_widget_set_sensitive((GtkWidget *) tl->delete_btn, FALSE);
-		glade_xml_signal_autoconnect(tl->xml);
-	}
-	if (tl->busy)
+	if (tl)
 		return FALSE;
+	tl = g_new0(AnToolList, 1);
+	if (NULL == (xml = glade_xml_new(GLADE_FILE_ANJUTA, TOOL_LIST, NULL)))
+	{
+		anjuta_error("Unable to build user interface for tool list");
+		g_free(tl);
+		tl = NULL;
+		return FALSE;
+	}
+	tl->dialog = glade_xml_get_widget(xml, TOOL_LIST);
+	gtk_window_set_transient_for (GTK_WINDOW(tl->dialog)
+	  , GTK_WINDOW(app->widgets.window));
+	
+	tl->clist = (GtkWidget *) glade_xml_get_widget(xml, TOOL_CLIST);
+	model = (GtkTreeModel*)gtk_list_store_new (N_AN_TOOLS_COLUMNS, G_TYPE_STRING,
+						G_TYPE_STRING, G_TYPE_POINTER);
+	gtk_tree_view_set_model (GTK_TREE_VIEW (tl->clist), model);
+	renderer = gtk_cell_renderer_text_new ();
+	column = gtk_tree_view_column_new_with_attributes (_("Tool"), renderer,
+													   "text",
+													   AN_TOOLS_NAME_COLUMN,
+													   NULL);
+	gtk_tree_view_append_column (GTK_TREE_VIEW(tl->clist), column);
+	renderer = gtk_cell_renderer_text_new ();
+	column = gtk_tree_view_column_new_with_attributes (_("Enabled"), renderer,
+													   "text",
+													   AN_TOOLS_ENABLED_COLUMN,
+													   NULL);
+	gtk_tree_view_append_column (GTK_TREE_VIEW(tl->clist), column);
+	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW(tl->clist));
+	g_signal_connect (G_OBJECT (selection), "changed",
+					  G_CALLBACK (on_user_tool_selection_changed), tl);
+	
+	// tl->row = NULL;
+	gtk_dialog_set_response_sensitive (GTK_DIALOG (tl->dialog),
+										 GTK_RESPONSE_APPLY, FALSE);
+	gtk_dialog_set_response_sensitive (GTK_DIALOG (tl->dialog),
+										 GTK_RESPONSE_NO, FALSE);
+	glade_xml_signal_autoconnect(xml);
+	g_object_unref (xml);
+	
 	gtk_list_store_clear (GTK_LIST_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(tl->clist))));
 	s[1] = "";
 	for (tmp = tool_list; tmp; tmp = g_slist_next(tmp))
@@ -936,8 +888,6 @@ gboolean anjuta_tools_edit(void)
 				AN_TOOLS_DATA_COLUMN, tmp->data,
 				-1);
 	}
-	tl->busy = TRUE;
-	gtk_widget_show(tl->dialog);
 	return TRUE;
 }
 
@@ -1113,77 +1063,52 @@ static void set_tool_editor_widget_sensitivity(gboolean s1, gboolean s2)
 
 static gboolean show_tool_editor(AnUserTool *tool, gboolean editing)
 {
-	if (NULL == ted)
-	{
-		char glade_file[PATH_MAX];
-		GList *strlist;
-
-		ted = g_new0(AnToolEditor, 1);
-		snprintf(glade_file, PATH_MAX, "%s/%s", PACKAGE_DATA_DIR, GLADE_FILE);
-		if (NULL == (ted->xml = glade_xml_new(glade_file, TOOL_EDITOR, NULL)))
-		{
-			anjuta_error(_("Unable to build user interface for tool editor"));
-			g_free(ted);
-			ted = NULL;
-			return FALSE;
-		}
-		ted->dialog = glade_xml_get_widget(ted->xml, TOOL_EDITOR);
-		gtk_window_set_transient_for (GTK_WINDOW(ted->dialog)
-		  , GTK_WINDOW(app->widgets.window));
-		gtk_widget_ref(ted->dialog);
-		ted->name_en = (GtkEditable *) glade_xml_get_widget(ted->xml, TOOL_NAME);
-		gtk_widget_ref((GtkWidget *) ted->name_en);
-		ted->location_en = (GtkEditable *) glade_xml_get_widget(ted->xml, TOOL_LOCATION);
-		gtk_widget_ref((GtkWidget *) ted->location_en);
-		ted->command_en = (GtkEditable *) glade_xml_get_widget(ted->xml, TOOL_COMMAND);
-		gtk_widget_ref((GtkWidget *) ted->command_en);
-		ted->dir_en = (GtkEditable *) glade_xml_get_widget(ted->xml, TOOL_WORKING_DIR);
-		gtk_widget_ref((GtkWidget *) ted->dir_en);
-		ted->enabled_tb = (GtkToggleButton *) glade_xml_get_widget(ted->xml, TOOL_ENABLED);
-		gtk_widget_ref((GtkWidget *) ted->enabled_tb);
-		ted->detached_tb = (GtkToggleButton *) glade_xml_get_widget(ted->xml, TOOL_DETACHED);
-		gtk_widget_ref((GtkWidget *) ted->detached_tb);
-		ted->terminal_tb = (GtkToggleButton *) glade_xml_get_widget(ted->xml, TOOL_TERMINAL);
-		gtk_widget_ref((GtkWidget *) ted->terminal_tb);
-		ted->params_tb = (GtkToggleButton *) glade_xml_get_widget(ted->xml, TOOL_USER_PARAMS);
-		gtk_widget_ref((GtkWidget *) ted->params_tb);
-		ted->file_tb = (GtkToggleButton *) glade_xml_get_widget(ted->xml, TOOL_FILE_LEVEL);
-		gtk_widget_ref((GtkWidget *) ted->file_tb);
-		ted->project_tb = (GtkToggleButton *) glade_xml_get_widget(ted->xml, TOOL_PROJECT_LEVEL);
-		gtk_widget_ref((GtkWidget *) ted->project_tb);
-		ted->input_type_en = (GtkEditable *) glade_xml_get_widget(ted->xml, TOOL_INPUT_TYPE);
-		gtk_widget_ref((GtkWidget *) ted->input_type_en);
-		ted->input_type_com = (GtkCombo *) glade_xml_get_widget(ted->xml, TOOL_INPUT_TYPE_COMBO);
-		gtk_widget_ref((GtkWidget *) ted->input_type_com);
-		ted->input_en = (GtkEditable *) glade_xml_get_widget(ted->xml, TOOL_INPUT);
-		gtk_widget_ref((GtkWidget *) ted->input_en);
-		ted->output_en = (GtkEditable *) glade_xml_get_widget(ted->xml, TOOL_OUTPUT);
-		gtk_widget_ref((GtkWidget *) ted->output_en);
-		ted->output_com = (GtkCombo *) glade_xml_get_widget(ted->xml, TOOL_OUTPUT_COMBO);
-		gtk_widget_ref((GtkWidget *) ted->output_com);
-		ted->error_en = (GtkEditable *) glade_xml_get_widget(ted->xml, TOOL_ERROR);
-		gtk_widget_ref((GtkWidget *) ted->error_en);
-		ted->error_com = (GtkCombo *) glade_xml_get_widget(ted->xml, TOOL_ERROR_COMBO);
-		gtk_widget_ref((GtkWidget *) ted->error_com);
-		ted->shortcut_en = (GtkEditable *) glade_xml_get_widget(ted->xml, TOOL_SHORTCUT);
-		gtk_widget_ref((GtkWidget *) ted->shortcut_en);
-		ted->icon_en = (GtkEditable *) glade_xml_get_widget(ted->xml, TOOL_ICON);
-		gtk_widget_ref((GtkWidget *) ted->icon_en);
-		ted->ok_btn = (GtkButton *) glade_xml_get_widget(ted->xml, OK_BUTTON);
-		gtk_widget_ref((GtkWidget *) ted->ok_btn);
-		ted->cancel_btn = (GtkButton *) glade_xml_get_widget(ted->xml, CANCEL_BUTTON);
-		gtk_widget_ref((GtkWidget *) ted->cancel_btn);
-		strlist = glist_from_map(input_type_strings);
-		gtk_combo_set_popdown_strings(ted->input_type_com, strlist);
-		g_list_free(strlist);
-		strlist = glist_from_map(output_strings);
-		gtk_combo_set_popdown_strings(ted->output_com, strlist);
-		gtk_combo_set_popdown_strings(ted->error_com, strlist);
-		g_list_free(strlist);
-		glade_xml_signal_autoconnect(ted->xml);
-	}
-	if (ted->busy)
+	GList *strlist;
+	GladeXML *xml;
+	
+	if (ted)
 		return FALSE;
+
+	ted = g_new0(AnToolEditor, 1);
+	if (NULL == (xml = glade_xml_new(GLADE_FILE_ANJUTA, TOOL_EDITOR, NULL)))
+	{
+		anjuta_error(_("Unable to build user interface for tool editor"));
+		g_free(ted);
+		ted = NULL;
+		return FALSE;
+	}
+	ted->dialog = glade_xml_get_widget(xml, TOOL_EDITOR);
+	gtk_window_set_transient_for (GTK_WINDOW(ted->dialog)
+	  , GTK_WINDOW(app->widgets.window));
+	ted->name_en = (GtkEditable *) glade_xml_get_widget(xml, TOOL_NAME);
+	ted->location_en = (GtkEditable *) glade_xml_get_widget(xml, TOOL_LOCATION);
+	ted->command_en = (GtkEditable *) glade_xml_get_widget(xml, TOOL_COMMAND);
+	ted->dir_en = (GtkEditable *) glade_xml_get_widget(xml, TOOL_WORKING_DIR);
+	ted->enabled_tb = (GtkToggleButton *) glade_xml_get_widget(xml, TOOL_ENABLED);
+	ted->detached_tb = (GtkToggleButton *) glade_xml_get_widget(xml, TOOL_DETACHED);
+	ted->terminal_tb = (GtkToggleButton *) glade_xml_get_widget(xml, TOOL_TERMINAL);
+	ted->params_tb = (GtkToggleButton *) glade_xml_get_widget(xml, TOOL_USER_PARAMS);
+	ted->file_tb = (GtkToggleButton *) glade_xml_get_widget(xml, TOOL_FILE_LEVEL);
+	ted->project_tb = (GtkToggleButton *) glade_xml_get_widget(xml, TOOL_PROJECT_LEVEL);
+	ted->input_type_en = (GtkEditable *) glade_xml_get_widget(xml, TOOL_INPUT_TYPE);
+	ted->input_type_com = (GtkCombo *) glade_xml_get_widget(xml, TOOL_INPUT_TYPE_COMBO);
+	ted->input_en = (GtkEditable *) glade_xml_get_widget(xml, TOOL_INPUT);
+	ted->output_en = (GtkEditable *) glade_xml_get_widget(xml, TOOL_OUTPUT);
+	ted->output_com = (GtkCombo *) glade_xml_get_widget(xml, TOOL_OUTPUT_COMBO);
+	ted->error_en = (GtkEditable *) glade_xml_get_widget(xml, TOOL_ERROR);
+	ted->error_com = (GtkCombo *) glade_xml_get_widget(xml, TOOL_ERROR_COMBO);
+	ted->shortcut_en = (GtkEditable *) glade_xml_get_widget(xml, TOOL_SHORTCUT);
+	ted->icon_en = (GtkEditable *) glade_xml_get_widget(xml, TOOL_ICON);
+	strlist = glist_from_map(input_type_strings);
+	gtk_combo_set_popdown_strings(ted->input_type_com, strlist);
+	g_list_free(strlist);
+	strlist = glist_from_map(output_strings);
+	gtk_combo_set_popdown_strings(ted->output_com, strlist);
+	gtk_combo_set_popdown_strings(ted->error_com, strlist);
+	g_list_free(strlist);
+	glade_xml_signal_autoconnect(xml);
+	g_object_unref (xml);
+
 	clear_tool_editor();
 	ted->editing = editing;
 	if (tool)
@@ -1195,9 +1120,21 @@ static gboolean show_tool_editor(AnUserTool *tool, gboolean editing)
 	}
 	else
 		ted->tool = NULL;
-	ted->busy = TRUE;
-	gtk_widget_show(ted->dialog);
 	return TRUE;
+}
+
+void
+on_user_tool_row_activated (GtkTreePath     *arg1,
+                            GtkTreeViewColumn *arg2,
+                            gpointer         user_data)
+{
+	GtkTreeSelection *sel;
+	GtkTreeModel *model;
+	GtkTreeIter iter;
+	
+	sel = gtk_tree_view_get_selection (GTK_TREE_VIEW (tl->clist));
+	if (gtk_tree_selection_get_selected (sel, &model, &iter))
+		gtk_dialog_response (GTK_DIALOG (tl->dialog), GTK_RESPONSE_APPLY);
 }
 
 /* Callbacks for tool list GUI */
@@ -1205,101 +1142,133 @@ void on_user_tool_selection_changed (GtkTreeSelection *sel, AnToolList *tl)
 {
 	GtkTreeModel *model;
 	GtkTreeIter iter;
-	
-	if (tl->row)
-		gtk_tree_iter_free (tl->row);
+
 	if (gtk_tree_selection_get_selected (sel, &model, &iter))
 	{
-		tl->row = gtk_tree_iter_copy(&iter);
-		gtk_tree_model_get (model, &iter,
-		                    AN_TOOLS_DATA_COLUMN, &tl->tool, -1);
-		gtk_widget_set_sensitive((GtkWidget *) tl->edit_btn, TRUE);
-		gtk_widget_set_sensitive((GtkWidget *) tl->delete_btn, TRUE);
-		//if (event && GDK_2BUTTON_PRESS == event->type && 1 == event->button)
-		//{
-		gtk_button_clicked(tl->edit_btn);
-		//}
+		gtk_dialog_set_response_sensitive (GTK_DIALOG (tl->dialog),
+										   GTK_RESPONSE_APPLY, TRUE);
+		gtk_dialog_set_response_sensitive (GTK_DIALOG (tl->dialog),
+										   GTK_RESPONSE_NO, TRUE);
 	}
 	else 
 	{
-		tl->row = NULL;
-		tl->tool = NULL;
-		gtk_widget_set_sensitive((GtkWidget *) tl->edit_btn, FALSE);
-		gtk_widget_set_sensitive((GtkWidget *) tl->delete_btn, FALSE);
+		gtk_dialog_set_response_sensitive (GTK_DIALOG (tl->dialog),
+										   GTK_RESPONSE_APPLY, FALSE);
+		gtk_dialog_set_response_sensitive (GTK_DIALOG (tl->dialog),
+										   GTK_RESPONSE_NO, FALSE);
 	}
 }
 
-void on_user_tool_ok_clicked(GtkButton *button, gpointer user_data)
+gint on_user_tool_delete_event (GtkWindow *window, GdkEvent* event,
+								gpointer user_data)
 {
-	/* Don't hide the tool list if a tool is being edited */
-	if ((NULL == ted) || (TRUE != ted->busy))
+	g_message ("Tools: Delete event called");
+	g_free (tl);
+	tl = NULL;
+	return FALSE;
+}
+
+static void really_delete_tool ()
+{
+	AnUserTool *tool;
+	GtkTreeModel *model;
+	GtkTreeSelection *sel;
+	GtkTreeIter iter;
+	
+	sel = gtk_tree_view_get_selection (GTK_TREE_VIEW (tl->clist));
+	if (gtk_tree_selection_get_selected (sel, &model, &iter))
 	{
-		GSList *tmp;
-		AnUserTool *tool;
-		anjuta_tools_save();
-		for (tmp = tool_list; tmp; tmp = g_slist_next(tmp))
-		{
-			tool = (AnUserTool *) tmp->data;
-			if (NULL == tool->menu_item)
-				an_user_tool_activate(tool);
-		}
-		anjuta_tools_sensitize();
-		gtk_widget_hide(tl->dialog);
-		tl->busy = FALSE;
+		gtk_tree_model_get (model, &iter,
+		                    AN_TOOLS_DATA_COLUMN, &tool, -1);
+		gtk_list_store_remove (GTK_LIST_STORE (model), &iter);
+		if (tool)
+			an_user_tool_free(tool, TRUE);
 	}
 }
 
-void on_user_tool_edit_clicked(GtkButton *button, gpointer user_data)
-{
-	if (0 <= tl->row)
-		show_tool_editor(tl->tool, TRUE);
-}
-
-void on_user_tool_new_clicked(GtkButton *button, gpointer user_data)
+void on_user_tool_response (GtkDialog *dialog, gint res, gpointer user_data)
 {
 	GtkTreeSelection *selection;
-	
-	/* Make sure no tool is selected, so that the edit form is cleared
-	when a new tool is created */
-	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW(tl->clist));
-	if (tl)
-		gtk_tree_selection_unselect_all (selection);
-	show_tool_editor(tl->tool, FALSE);
-}
+	GtkTreeModel *model;
+	GtkTreeIter iter;
+	AnUserTool *tool;
+	gboolean has_selection = FALSE;
 
-static void really_delete_tool(GtkButton * button, gpointer user_data)
-{
-	if (tl->tool)
+	if (tl)
 	{
-		GtkTreeModel *model;
-		GtkTreeIter *iter;
-		
-		an_user_tool_free(tl->tool, TRUE);
-		tl->tool = NULL;
-		iter = tl->row;
-		if (iter)
+		selection = gtk_tree_view_get_selection (GTK_TREE_VIEW(tl->clist));
+		has_selection = gtk_tree_selection_get_selected (selection, &model,
+														 &iter);
+		if (has_selection) 
 		{
-			model = gtk_tree_view_get_model(GTK_TREE_VIEW(tl->clist));
-			gtk_list_store_remove (GTK_LIST_STORE (model), iter);
-			gtk_tree_iter_free (iter);
-			tl->row = NULL;
+			gtk_tree_model_get (model, &iter,
+								AN_TOOLS_DATA_COLUMN, &tool, -1);
+			g_assert (tool);
 		}
 	}
-}
-
-void on_user_tool_delete_clicked(GtkButton *button, gpointer user_data)
-{
-	/* Don't allow deletes if a tool is being edited */
-	if (ted && ted->busy)
-		return;
-	if (tl->tool)
+	
+	switch (res)
 	{
-		char question[1000];
-		snprintf(question, 10000, N_("Are you sure you want to delete tool '%s'")
-		  , tl->tool->name);
-		messagebox2 (GTK_MESSAGE_QUESTION,
-		  _(question), GTK_STOCK_YES, GTK_STOCK_NO,
-		  G_CALLBACK(really_delete_tool), NULL, NULL);
+	case GTK_RESPONSE_OK:
+		/* Don't hide the tool list if a tool is being edited */
+		if (ted)
+		{
+			GSList *tmp;
+			AnUserTool *tool;
+			anjuta_tools_save();
+			for (tmp = tool_list; tmp; tmp = g_slist_next(tmp))
+			{
+				tool = (AnUserTool *) tmp->data;
+				if (NULL == tool->menu_item)
+					an_user_tool_activate(tool);
+				gtk_widget_destroy (tl->dialog);
+			}
+			anjuta_tools_sensitize();
+		}
+		return;
+		
+	case GTK_RESPONSE_APPLY:
+		/* Make sure no tool is selected, so that the edit form is cleared
+		when a new tool is created */
+		if (has_selection)
+			show_tool_editor(tool, TRUE);
+		return;
+		
+	case GTK_RESPONSE_YES:
+		if (ted && ted->dialog)
+			return;
+		if (has_selection)
+		{
+			/* Make sure no tool is selected, so that the edit form is cleared
+			when a new tool is created */
+			if (tl)
+				gtk_tree_selection_unselect_all (selection);
+			show_tool_editor(NULL, FALSE);
+		}
+		return;
+
+	case GTK_RESPONSE_NO:
+		/* Don't allow deletes if a tool is being edited */
+		if (ted && ted->dialog)
+			return;
+		if (has_selection)
+		{
+			char question[1000];
+			GtkWidget *dlg;
+			
+			snprintf(question, 10000,
+					 _("Are you sure you want to delete tool '%s'"),
+			  		 tool->name);
+			dlg = gtk_message_dialog_new (GTK_WINDOW (tl->dialog),
+										  GTK_DIALOG_DESTROY_WITH_PARENT,
+										  GTK_MESSAGE_QUESTION,
+										  GTK_BUTTONS_YES_NO,
+										  question);
+			if (gtk_dialog_run (GTK_DIALOG (dlg)) == GTK_RESPONSE_YES)
+				really_delete_tool ();
+			gtk_widget_destroy (dlg);
+		}
+		return;
 	}
 }
 
@@ -1363,7 +1332,8 @@ void on_user_tool_edit_input_type_changed(GtkEditable *editable, gboolean user_d
 	  , (AN_TINP_STRING == input_type));
 }
 
-void on_user_tool_edit_ok_clicked(GtkButton *button, gpointer user_data)
+void on_user_tool_edit_response (GtkDialog *dialog, gint response,
+								 gpointer data)
 {
 	GtkTreeModel *model;
 	AnUserTool *tool, *tool1 = NULL;
@@ -1371,73 +1341,90 @@ void on_user_tool_edit_ok_clicked(GtkButton *button, gpointer user_data)
 	int row;
 	char *s[2];
 
-	tool = an_user_tool_from_gui();
-	/* Check for all mandatory fields */
-	if (!tool->name || '\0' == tool->name[0])
+	switch (response)
 	{
-		anjuta_error("You must provide a tool name!");
-		an_user_tool_free(tool, FALSE);
+	case GTK_RESPONSE_HELP:
+		anjuta_tools_show_variables ();
 		return;
-	}
-	if (!tool->command || '\0' == tool->command[0])
-	{
-		anjuta_error("You must provide a tool command!");
-		an_user_tool_free(tool, FALSE);
-		return;
-	}
-	if (NULL == tool_hash)
-		tool_hash = g_hash_table_new(g_str_hash, g_str_equal);
-	else
-	{
-		tool1 = g_hash_table_lookup(tool_hash, tool->name);
-		if (tool1)
+	
+	case GTK_RESPONSE_OK:
+		tool = an_user_tool_from_gui();
+		
+		/* Check for all mandatory fields */
+		if (!tool->name || '\0' == tool->name[0])
 		{
-			/* A tool with the same name exists */
-			if (!ted->editing || tool1 != ted->tool)
+			anjuta_error(_("You must provide a tool name!"));
+			an_user_tool_free(tool, FALSE);
+			return;
+		}
+		if (!tool->command || '\0' == tool->command[0])
+		{
+			anjuta_error(_("You must provide a tool command!"));
+			an_user_tool_free(tool, FALSE);
+			return;
+		}
+		if (NULL == tool_hash)
+			tool_hash = g_hash_table_new(g_str_hash, g_str_equal);
+		else
+		{
+			tool1 = g_hash_table_lookup(tool_hash, tool->name);
+			if (tool1)
 			{
-				anjuta_error_parented(ted->dialog, "A tool with the name '%s' already exists!"
-				  , tool->name);
-				return;
+				/* A tool with the same name exists */
+				if (!ted->editing || tool1 != ted->tool)
+				{
+					anjuta_error_parented(ted->dialog,
+						_("A tool with the name '%s' already exists!"),
+					  tool->name);
+					return;
+				}
+			}
+		}
+		if (ted->editing)
+			an_user_tool_free(ted->tool, TRUE);
+		g_hash_table_insert(tool_hash, tool->name, tool);
+		tool_list = g_slist_append(tool_list, tool);
+		ted->tool = NULL;
+		
+		if (tl->dialog)
+		{
+			gtk_dialog_set_response_sensitive((GtkDialog *) tl->dialog,
+											  GTK_RESPONSE_OK, FALSE);
+			gtk_dialog_set_response_sensitive((GtkDialog *) tl->dialog,
+											  GTK_RESPONSE_NO, FALSE);
+			model = gtk_tree_view_get_model (GTK_TREE_VIEW(tl->clist));
+			gtk_list_store_clear (GTK_LIST_STORE (model));
+			s[1] = "";
+			for (tmp = tool_list; tmp; tmp = g_slist_next(tmp))
+			{
+				GtkTreeIter iter;
+				s[0] = ((AnUserTool *) tmp->data)->name;
+				if (((AnUserTool *) tmp->data)->enabled)
+					s[1] = _("Enabled");
+				else
+					s[1] = "";
+				gtk_list_store_append (GTK_LIST_STORE (model), &iter);
+				gtk_list_store_set (GTK_LIST_STORE (model), &iter,
+									AN_TOOLS_NAME_COLUMN, s[0],
+									AN_TOOLS_ENABLED_COLUMN, s[1],
+									AN_TOOLS_DATA_COLUMN, tmp->data,
+									-1);
 			}
 		}
 	}
-	if (ted->editing)
-		an_user_tool_free(ted->tool, TRUE);
-	g_hash_table_insert(tool_hash, tool->name, tool);
-	tool_list = g_slist_append(tool_list, tool);
-	ted->tool = NULL;
-	if (tl->row)
-		gtk_tree_iter_free (tl->row);
-	tl->row = NULL;
-	tl->tool = NULL;
-	gtk_widget_set_sensitive((GtkWidget *) tl->edit_btn, FALSE);
-	gtk_widget_set_sensitive((GtkWidget *) tl->delete_btn, FALSE);
-	model = gtk_tree_view_get_model (GTK_TREE_VIEW(tl->clist));
-	gtk_list_store_clear (GTK_LIST_STORE (model));
-	s[1] = "";
-	for (tmp = tool_list; tmp; tmp = g_slist_next(tmp))
-	{
-		GtkTreeIter iter;
-		s[0] = ((AnUserTool *) tmp->data)->name;
-		if (((AnUserTool *) tmp->data)->enabled)
-			s[1] = "Enabled";
-		else
-			s[1] = "";
-		gtk_list_store_append (GTK_LIST_STORE (model), &iter);
-		gtk_list_store_set (GTK_LIST_STORE (model), &iter,
-		                    AN_TOOLS_NAME_COLUMN, s[0],
-		                    AN_TOOLS_ENABLED_COLUMN, s[1],
-		                    AN_TOOLS_DATA_COLUMN, tmp->data,
-		                    -1);
-	}
-	gtk_widget_hide(ted->dialog);
-	ted->busy = FALSE;
+	gtk_widget_destroy (ted->dialog);
+	ted->dialog = NULL;
 }
 
-void on_user_tool_edit_cancel_clicked(GtkButton *button, gpointer user_data)
+gint on_user_tool_edit_delete_event (GtkWindow *button, GdkEvent* event,
+									 gpointer user_data)
 {
-	gtk_widget_hide(ted->dialog);
-	ted->busy = FALSE;
+//#ifdef DEBUG
+	g_message ("Tools editor: Destroy event called");
+//#endif
+	g_free (ted);
+	ted = NULL;
+	return FALSE;
 }
 
 /* List of variables understood by the tools editor and their values.
@@ -1671,68 +1658,54 @@ enum {
 
 void anjuta_tools_show_variables()
 {
-	on_user_tool_edit_help_clicked(NULL, NULL);
-}
-
-gboolean on_user_tool_edit_help_clicked(GtkButton *button, gpointer user_data)
-{
 	int len;
 	int i = 0;
 	char *s[4];
+	GladeXML* xml;
+	GtkTreeModel *model;
+	GtkCellRenderer *renderer;
+	GtkTreeViewColumn *column;
+	GtkWidget *dialog;
+	GtkWidget *clist;
 
-	if (NULL == th)
+	if (NULL == (xml = glade_xml_new(GLADE_FILE_ANJUTA, TOOL_HELP, NULL)))
 	{
-		GtkTreeModel *model;
-		GtkCellRenderer *renderer;
-		GtkTreeViewColumn *column;
-		char glade_file[PATH_MAX];
-
-		th = g_new0(AnToolHelp, 1);
-		snprintf(glade_file, PATH_MAX, "%s/%s", PACKAGE_DATA_DIR, GLADE_FILE, NULL);
-		if (NULL == (th->xml = glade_xml_new(glade_file, TOOL_HELP, NULL)))
-		{
-			anjuta_error("Unable to build user interface for tool help");
-			g_free(th);
-			th = NULL;
-			return FALSE;
-		}
-		th->dialog = glade_xml_get_widget(th->xml, TOOL_HELP);
-		gtk_window_set_transient_for (GTK_WINDOW(th->dialog)
-		  , GTK_WINDOW(app->widgets.window));
-		gtk_widget_ref(th->dialog);
-		
-		th->clist = (GtkWidget *) glade_xml_get_widget(th->xml, TOOL_HELP_CLIST);
-		model = GTK_TREE_MODEL(gtk_list_store_new (N_AN_TOOLS_HELP_COLUMNS,
-		                                           G_TYPE_STRING,
-		                                           G_TYPE_STRING,
-		                                           G_TYPE_STRING));
-		gtk_tree_view_set_model (GTK_TREE_VIEW (tl->clist), model);
-		renderer = gtk_cell_renderer_text_new ();
-		column = gtk_tree_view_column_new_with_attributes (_("Variable"), renderer,
-		                                                   "text",
-		                                                   AN_TOOLS_HELP_VAR_COLUMN,
-		                                                   NULL);
-		gtk_tree_view_append_column (GTK_TREE_VIEW(tl->clist), column);
-		renderer = gtk_cell_renderer_text_new ();
-		column = gtk_tree_view_column_new_with_attributes (_("Meaning"), renderer,
-		                                                   "text",
-		                                                   AN_TOOLS_HELP_MEAN_COLUMN,
-		                                                   NULL);
-		renderer = gtk_cell_renderer_text_new ();
-		column = gtk_tree_view_column_new_with_attributes (_("Value"), renderer,
-		                                                   "text",
-		                                                   AN_TOOLS_HELP_VALUE_COLUMN,
-		                                                   NULL);
-		gtk_tree_view_append_column (GTK_TREE_VIEW(tl->clist), column);
-		gtk_widget_ref((GtkWidget *) th->clist);
-		
-		th->ok_btn = (GtkButton *) glade_xml_get_widget(th->xml, OK_BUTTON);
-		gtk_widget_ref((GtkWidget *) th->ok_btn);
-		glade_xml_signal_autoconnect(th->xml);
+		anjuta_error("Unable to build user interface for tool help");
+		return;
 	}
-	if (th->busy)
-		return FALSE;
-	gtk_list_store_clear (GTK_LIST_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(tl->clist))));
+	dialog = glade_xml_get_widget(xml, TOOL_HELP);
+	gtk_window_set_transient_for (GTK_WINDOW(dialog)
+	  , GTK_WINDOW(app->widgets.window));
+	
+	clist = (GtkWidget *) glade_xml_get_widget(xml, TOOL_HELP_CLIST);
+	model = GTK_TREE_MODEL(gtk_list_store_new (N_AN_TOOLS_HELP_COLUMNS,
+											   G_TYPE_STRING,
+											   G_TYPE_STRING,
+											   G_TYPE_STRING));
+	gtk_tree_view_set_model (GTK_TREE_VIEW (clist), model);
+	renderer = gtk_cell_renderer_text_new ();
+	column = gtk_tree_view_column_new_with_attributes (_("Variable"), renderer,
+													   "text",
+													   AN_TOOLS_HELP_VAR_COLUMN,
+													   NULL);
+	gtk_tree_view_append_column (GTK_TREE_VIEW(clist), column);
+	renderer = gtk_cell_renderer_text_new ();
+	column = gtk_tree_view_column_new_with_attributes (_("Meaning"), renderer,
+													   "text",
+													   AN_TOOLS_HELP_MEAN_COLUMN,
+													   NULL);
+	gtk_tree_view_append_column (GTK_TREE_VIEW(clist), column);
+	renderer = gtk_cell_renderer_text_new ();
+	column = gtk_tree_view_column_new_with_attributes (_("Value"), renderer,
+													   "text",
+													   AN_TOOLS_HELP_VALUE_COLUMN,
+													   NULL);
+	gtk_tree_view_append_column (GTK_TREE_VIEW(clist), column);
+	
+	glade_xml_signal_autoconnect(xml);
+	g_object_unref (xml);
+	
+	gtk_list_store_clear (GTK_LIST_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(clist))));
 	if (app->current_text_editor)
 	{
 		/* Update file level properties */
@@ -1752,7 +1725,7 @@ gboolean on_user_tool_edit_help_clicked(GtkButton *button, gpointer user_data)
 		GtkTreeModel *model;
 		GtkTreeIter iter;
 		
-		model = gtk_tree_view_get_model (GTK_TREE_VIEW(tl->clist));
+		model = gtk_tree_view_get_model (GTK_TREE_VIEW(clist));
 		s[0] = variable_list[i].name;
 		s[1] = variable_list[i].value;
 		s[2] = prop_get(app->project_dbase->props, s[0]);
@@ -1773,49 +1746,37 @@ gboolean on_user_tool_edit_help_clicked(GtkButton *button, gpointer user_data)
 		g_free(s[2]);
 		++ i;
 	}
-	th->busy = TRUE;
-	gtk_widget_show(th->dialog);
-	return TRUE;
-}
-
-on_user_tool_help_ok_clicked(GtkButton *button, gpointer user_data)
-{
-	th->busy = FALSE;
-	gtk_widget_hide(th->dialog);
+	return;
 }
 
 /* Popup a dialog to ask for user parameters */
-static char *get_user_params(AnUserTool *tool, gboolean *button)
+static const gchar *
+get_user_params(AnUserTool *tool, gint *response_ptr)
 {
-	if (NULL == tp)
+	char title[256];
+	GladeXML *xml;
+	GtkWidget *dialog;
+	GtkEntry *params_en;
+	GtkCombo *params_com;
+	
+	if (NULL == (xml = glade_xml_new(GLADE_FILE_ANJUTA, TOOL_PARAMS, NULL)))
 	{
-		char glade_file[PATH_MAX];
-		char title[256];
-
-		tp = g_new0(AnToolParams, 1);
-		snprintf(glade_file, PATH_MAX, "%s/%s", PACKAGE_DATA_DIR, GLADE_FILE);
-		if (NULL == (tp->xml = glade_xml_new(glade_file, TOOL_PARAMS, NULL)))
-		{
-			anjuta_error("Unable to build user interface for tool parameters");
-			g_free(tp);
-			tp = NULL;
-			return FALSE;
-		}
-		tp->dialog = glade_xml_get_widget(tp->xml, TOOL_PARAMS);
-		snprintf(title, 256, _("%s: Command line parameters"), tool->name);
-		gtk_window_set_title (GTK_WINDOW(tp->dialog), title);
-		gtk_window_set_transient_for (GTK_WINDOW(tp->dialog)
-		  , GTK_WINDOW(app->widgets.window));
-		gtk_widget_ref(tp->dialog);
-		tp->params_en = (GtkEditable *) glade_xml_get_widget(tp->xml, TOOL_PARAMS_EN);
-		gtk_widget_ref((GtkWidget *) tp->params_en);
-		tp->params_com = (GtkCombo *) glade_xml_get_widget(tp->xml, TOOL_PARAMS_EN_COMBO);
-		gtk_widget_ref((GtkWidget *) tp->params_com);
-		gtk_combo_disable_activate (GTK_COMBO(tp->params_com));
-		gnome_dialog_editable_enters (GNOME_DIALOG (tp->dialog),
-			GTK_EDITABLE(GTK_COMBO(tp->params_com)->entry));
-		glade_xml_signal_autoconnect(tp->xml);
+		anjuta_error("Unable to build user interface for tool parameters");
+		return FALSE;
 	}
-	*button = gtk_dialog_run ((GtkDialog *) tp->dialog);
-	return gtk_editable_get_chars(tp->params_en, 0, -1);
+	dialog = glade_xml_get_widget(xml, TOOL_PARAMS);
+	snprintf(title, 256, _("%s: Command line parameters"), tool->name);
+	gtk_window_set_title (GTK_WINDOW(dialog), title);
+	gtk_window_set_transient_for (GTK_WINDOW(dialog)
+	  , GTK_WINDOW(app->widgets.window));
+	params_en = (GtkEntry *) glade_xml_get_widget(xml, TOOL_PARAMS_EN);
+	params_com = (GtkCombo *) glade_xml_get_widget(xml, TOOL_PARAMS_EN_COMBO);
+	gtk_combo_disable_activate (GTK_COMBO(params_com));
+	gnome_dialog_editable_enters (GNOME_DIALOG (dialog),
+		GTK_EDITABLE(GTK_COMBO(params_com)->entry));
+	glade_xml_signal_autoconnect(xml);
+	g_object_unref (xml);
+	*response_ptr = gtk_dialog_run ((GtkDialog *) dialog);
+	gtk_widget_destroy (dialog);
+	return gtk_entry_get_text(params_en);
 }

@@ -53,9 +53,8 @@ void preferences_hide (Preferences *);
 void preferences_show (Preferences *);
 void preferences_destroy (Preferences *);
 
-/* Save and Load */
-gboolean preferences_save_yourself (Preferences * p, FILE * stream);
-gboolean preferences_load_yourself (Preferences * p, PropsID pr);
+/* Save and (Loading is done in _new()) */
+gboolean preferences_save (Preferences * p, FILE * stream);
 
 /* Sets the value (string) of a key */
 void preferences_set (Preferences *, gchar * key, gchar * value);

@@ -974,7 +974,7 @@ gboolean anjuta_save_yourself (FILE * stream)
     find_in_files_save_yourself (app->find_in_files, stream);
 	debugger_save_yourself (stream);
 	cvs_save_yourself(app->cvs, stream);
-	preferences_save_yourself (app->preferences, stream);
+	preferences_save (app->preferences, stream);
 	return TRUE;
 }
 
@@ -982,8 +982,6 @@ gboolean anjuta_load_yourself (PropsID pr)
 {
 	gint length;
 
-	preferences_load_yourself (app->preferences, pr);
-	
 	app->win_pos_x = prop_get_int (pr, "anjuta.win.pos.x", app->win_pos_x);
 	app->win_pos_y = prop_get_int (pr, "anjuta.win.pos.y", app->win_pos_y);
 	app->win_width = prop_get_int (pr, "anjuta.win.width", app->win_width);
@@ -1181,15 +1179,15 @@ anjuta_apply_preferences (void)
 						  (app->widgets.notebook),
 						  GTK_POS_TOP);
 		} else {
-			if (strcmp (tag_pos, "bottom") == 0)
+			if (strcasecmp (tag_pos, "bottom") == 0)
 				gtk_notebook_set_tab_pos (GTK_NOTEBOOK
 							  (app->widgets.notebook),
 							  GTK_POS_BOTTOM);
-			else if (strcmp (tag_pos, "left") == 0)
+			else if (strcasecmp (tag_pos, "left") == 0)
 				gtk_notebook_set_tab_pos (GTK_NOTEBOOK
 							  (app->widgets.notebook),
 							  GTK_POS_LEFT);
-			else if (strcmp (tag_pos, "right") == 0)
+			else if (strcasecmp (tag_pos, "right") == 0)
 				gtk_notebook_set_tab_pos (GTK_NOTEBOOK
 							  (app->widgets.notebook),
 							  GTK_POS_RIGHT);

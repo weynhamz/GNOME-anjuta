@@ -65,7 +65,6 @@ struct _PreferencesPriv {
 	GtkWidget *dialog;
 	GtkWidget *notebook;
 	gboolean is_showing;
-	gint win_pos_x, win_pos_y;
 };
 
 #define PREFERENCE_PROPERTY_PREFIX "preferences_"
@@ -198,8 +197,8 @@ set_property_value_as_string (AnjutaProperty *prop, const gchar *value)
 			if (value)
 				gtk_text_buffer_set_text (buffer, value, -1);
 			else
-				gtk_text_buffer_set_text (buffer, value,
-										  (gchar*) prop->default_value);
+				gtk_text_buffer_set_text (buffer, (gchar*) prop->default_value,
+										  -1);
 			break;
 		}
 	}
@@ -218,9 +217,12 @@ static gboolean
 save_property (AnjutaProperty *prop, FILE *fp)
 {
 	gchar *value;
+	gboolean return_value;
+	
 	value = get_property_value_as_string (prop);
-	fprintf (fp, "%s=%s\n", prop->key, value);
+	return_value = fprintf (fp, "%s=%s\n", prop->key, value);
 	g_free (value);
+	return return_value;
 }
 
 gboolean
@@ -392,64 +394,38 @@ on_preferences_dialog_response (GtkDialog *dialog,
 		switch (response)
 		{
 		case GTK_RESPONSE_OK:
-			gtk_dialog_response (GTK_DIALOG(pr->priv->dialog),
-								 GTK_RESPONSE_NONE);
+			preferences_hide (pr);
 			/* Note: No break here */
 		case GTK_RESPONSE_APPLY:
 			preferences_objects_to_prop (pr);
 			break;
 		case GTK_RESPONSE_CANCEL:
-			preferences_objects_to_prop (pr);
-			gtk_dialog_response (GTK_DIALOG(pr->priv->dialog),
-								 GTK_RESPONSE_NONE);
+			preferences_hide (pr);
 			break;
 		}
 	}
 }
 
-static void
-on_preferences_reset_default_yes_clicked (GtkButton * button,
-					  gpointer user_data)
-{
-	Preferences *pr = (Preferences *) user_data;
-	if (!pr)
-		return;
-	prop_clear (pr->props_session);
-	prop_clear (pr->props);
-}
-
 void
 preferences_reset_defaults (Preferences * pr)
 {
-	messagebox2 (GTK_MESSAGE_QUESTION,
+	GtkWidget *dlg;
+	
+	dlg = gtk_message_dialog_new (GTK_WINDOW (app->widgets.window),
+			GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_QUESTION,
+			GTK_BUTTONS_YES_NO,
 		     _("Are you sure you want to reset the preferences to\n"
-		       "their default settings?"),
-		     GTK_STOCK_YES, GTK_STOCK_NO,
-		     G_CALLBACK (on_preferences_reset_default_yes_clicked), NULL, pr);
-}
-
-void
-preferences_hide (Preferences * pr)
-{
-	if (!pr)
-		return;
-	if (pr->priv->is_showing == FALSE)
-		return;
-	gdk_window_get_root_origin (pr->priv->dialog->window,
-				    &pr->priv->win_pos_x, &pr->priv->win_pos_y);
-	pr->priv->is_showing = FALSE;
+		       "their default settings?"));
+	if (gtk_dialog_run (GTK_DIALOG (dlg)) == GTK_RESPONSE_YES)
+	{
+		prop_clear (pr->props_session);
+		prop_clear (pr->props);
+	}
+	gtk_widget_destroy (dlg);
 }
 
 gboolean
-preferences_load_yourself (Preferences * pr, PropsID props)
-{
-	pr->priv->win_pos_x = prop_get_int (props, "preferences.win.pos.x", 100);
-	pr->priv->win_pos_y = prop_get_int (props, "preferences.win.pos.y", 80);
-	return TRUE;
-}
-
-gboolean
-preferences_save_yourself (Preferences *pr, FILE *fp)
+preferences_save (Preferences *pr, FILE *fp)
 {
 	AnjutaProperty *p;
 	GList *node;
@@ -463,15 +439,22 @@ preferences_save_yourself (Preferences *pr, FILE *fp)
 	}
 }
 
-static gboolean
-on_preferences_dialog_close (GtkDialog *dialog, gpointer user_data)
+void 
+preferences_hide (Preferences *pr)
 {
-	Preferences *pr = (Preferences *) user_data;
-	if (pr)
-	{
-		preferences_hide (pr);
-	}
-	return FALSE;
+	g_return_if_fail (pr);
+	gtk_widget_hide (GTK_WIDGET (pr->priv->dialog));
+	pr->priv->is_showing = FALSE;
+}
+
+static gboolean
+on_preferences_dialog_delete_event (GtkDialog *dialog,
+									GdkEvent *event,
+									gpointer user_data)
+{
+	Preferences *pr = (Preferences*) user_data;
+	preferences_hide (pr);
+	return TRUE;
 }
 
 static gboolean
@@ -494,17 +477,10 @@ preferences_prop_to_objects (Preferences *pr)
 void
 preferences_show (Preferences * pr)
 {
-	if (!pr)
-		return;
-
+	g_return_if_fail (pr);
 	if (pr->priv->is_showing)
-	{
-		gdk_window_raise (pr->priv->dialog->window);
 		return;
-	}
 	preferences_prop_to_objects (pr);
-	gtk_widget_set_uposition (pr->priv->dialog, pr->priv->win_pos_x,
-				  pr->priv->win_pos_y);
 	gtk_widget_show (pr->priv->dialog);
 	pr->priv->is_showing = TRUE;
 }
@@ -516,12 +492,14 @@ create_preferences_gui (Preferences * pr)
 	glade_xml_signal_autoconnect (pr->priv->gxml);
 	pr->priv->dialog = glade_xml_get_widget (pr->priv->gxml, "preferences_dialog");
 	gtk_widget_hide (pr->priv->dialog);
+	gtk_window_set_transient_for (GTK_WINDOW (pr->priv->dialog),
+								  GTK_WINDOW (app->widgets.window));
 	pr->priv->notebook = glade_xml_get_widget (pr->priv->gxml, "preferences_notebook");
 
 	gtk_window_add_accel_group (GTK_WINDOW (pr->priv->dialog), app->accel_group);
 
-	g_signal_connect (G_OBJECT (pr->priv->dialog), "close",
-			    G_CALLBACK (on_preferences_dialog_close), pr);
+	g_signal_connect (G_OBJECT (pr->priv->dialog), "delete_event",
+			    G_CALLBACK (on_preferences_dialog_delete_event), pr);
 	g_signal_connect (G_OBJECT (pr->priv->dialog), "response",
 			    G_CALLBACK (on_preferences_dialog_response), pr);
 }
@@ -606,7 +584,8 @@ preferences_new ()
 		
 		/* Create user.properties file, if it doesn't exist */
 		if (file_is_regular (propfile) == FALSE) {
-			gchar* user_propfile = g_strconcat (app->dirs->data, "/properties/user.properties", NULL);
+			gchar* user_propfile = g_strconcat (app->dirs->data,
+						"/properties/user.properties", NULL);
 			copy_file (user_propfile, propfile, FALSE);
 			g_free (user_propfile);
 		}
@@ -633,8 +612,6 @@ preferences_new ()
 #warning "G2: Make sure build options are set properly here"
 		//preferences_set_build_options (pr);
 		pr->priv->is_showing = FALSE;
-		pr->priv->win_pos_x = 100;
-		pr->priv->win_pos_y = 80;
 		create_preferences_gui (pr);
 		preferences_register_all_properties_from_glade_xml (pr, pr->priv->gxml);
 	}

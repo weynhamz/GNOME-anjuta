@@ -1,3 +1,15 @@
+2002-01-14  Naba Kumar <naba@gnome.org>
+
+	* src/anjuta.glade, src/preferences.[h,c],
+	src/anjuta_dialogs_strings.c: Added build and editor
+	preferences pages and other UIs. Fixed preferense loading and saving.
+	
+	* src/anjuta.c: Does case-insensitive match for tabs position
+	preferences and removed preferences loading (done at _new() call).
+	
+	* anjuta-tools.c: Debugged tools dialog handling.
+	* plugins/class-gen/clsGen.c: Fixed an undefined function.
+	
 2002-01-13  Naba Kumar <naba@gnome.org>
 
 	* ABOUT-NLS: Update (strange).

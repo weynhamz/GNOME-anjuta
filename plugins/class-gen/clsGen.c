@@ -1282,7 +1282,7 @@ CG_Show(CG_Creator *self)
 	if(NULL != CreateDialogClass(self))
 	{
 		gtk_widget_show (self->dlgClass);
-		gtk_widget_draw_focus(self->entry_class_name);
+		gtk_widget_grab_focus(self->entry_class_name);
 		gtk_widget_set_sensitive(self->button_browse_header_file, FALSE);
 		gtk_widget_set_sensitive(self->button_browse_source_file, FALSE);
 		gtk_widget_set_sensitive(self->button_finish, FALSE);
@@ -1665,4 +1665,3 @@ CreateDialogClass(CG_Creator *self)
   gtk_widget_grab_focus(self->entry_class_name);
   return self->dlgClass;
 }
-
