@@ -1,3 +1,9 @@
+2004-02-29  Johannes Schmid <jhs@cvs.gnome.org>
+	
+	* template/Makefile.am, data/templates/library/Makefile.am
+	Fixed some automake-1.7 incompatibilities
+	* template/xmltemplate.c: Small fix
+
 2004-02-23  Naba Kumar  <naba@gnome.org>
 
 	* src/actions-callbacks.[c,h], src/anjuta-actions.h, src/anjuta.ui:

@@ -42,11 +42,11 @@ struct _XmlTemplatePrivate
 };
 
 static void
-xml_template_class_init (XmlTemplateClass *klass);
+xml_template_class_init (GObjectClass *klass);
 static void
-xml_template_instance_init(XmlTemplate* self);
+xml_template_instance_init(GObject* self);
 static void
-xml_template_finalize (XmlTemplate *self);
+xml_template_finalize (GObject *self);
 
 
 static void
@@ -91,22 +91,22 @@ xml_template_get_type (void)
 
 
 static void
-xml_template_class_init (XmlTemplateClass *klass)
+xml_template_class_init (GObjectClass *klass)
 {
-  	GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
+
 }
 
 static void
-xml_template_instance_init (XmlTemplate   *instance)
+xml_template_instance_init (GObject *instance)
 {	
-	XmlTemplate *self = instance;
+	XmlTemplate *self = XML_TEMPLATE(instance);
   	self->priv = g_new0 (XmlTemplatePrivate, 1);
 	xml_template_search_templates(self);	
 }
 
 
 static void
-xml_template_finalize (XmlTemplate *self)
+xml_template_finalize (GObject *self)
 {
 
 }
