@@ -131,7 +131,6 @@ create_cvs_gui (CVS *cvs, int dialog_type, gchar* filename, gboolean is_project)
 	
 	text_frame = gtk_frame_new (NULL);
 	gtk_frame_set_shadow_type (GTK_FRAME (text_frame), GTK_SHADOW_IN);
-	gtk_widget_show (text_frame);
 	
 	gui->text_message = gtk_text_view_new ();
 	gtk_widget_set_usize (gui->text_message, 400, 150);
@@ -147,6 +146,7 @@ create_cvs_gui (CVS *cvs, int dialog_type, gchar* filename, gboolean is_project)
 	if (gui->type == CVS_ACTION_COMMIT || gui->type == CVS_ACTION_ADD)
 	{
 		gtk_widget_show (label_msg);
+		gtk_widget_show (text_frame);
 		gtk_widget_show (gui->text_message);
 		//gtk_text_set_editable (GTK_TEXT (gui->text_message), TRUE);
 	}
