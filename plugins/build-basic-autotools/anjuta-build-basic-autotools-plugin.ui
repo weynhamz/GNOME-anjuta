@@ -1,0 +1,22 @@
+<!--*- xml -*-->
+<ui>
+	<menubar name="MenuMain">
+		<placeholder name="PlaceHolderBuildMenus">
+			<menu name="MenuBuild" action="ActionMenuBuild">
+				<menuitem name="BuildProject" action="ActionBuildBuildProject"/>
+				<menuitem name="InstallProject" action="ActionBuildInstallProject"/>
+				<menuitem name="CleanProject" action="ActionBuildCleanProject"/>
+				<separator/>
+				<menuitem name="BuildDistribution" action="ActionBuildDistribution"/>
+				<menuitem name="Configure" action="ActionBuildConfigure"/>
+				<menuitem name="Autogen" action="ActionBuildAutogen"/>
+				<separator/>
+				<menuitem name="BuildModule" action="ActionBuildBuildModule"/>
+				<menuitem name="InstallModule" action="ActionBuildInstallModule"/>
+				<menuitem name="CleanModule" action="ActionBuildCleanModule"/>
+				<separator/>
+				<menuitem name="CompileFile" action="ActionBuildCompileFile"/>
+			</menu>
+		</placeholder>
+	</menubar>
+</ui>

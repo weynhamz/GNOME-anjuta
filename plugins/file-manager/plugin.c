@@ -34,6 +34,19 @@
 
 gpointer parent_class;
 
+static void refresh (GtkAction *action, FileManagerPlugin *plugin)
+{
+}
+
+static GtkActionEntry popup_actions[] = 
+{
+	{
+		"ActionPopupFileManagerRefresh", GTK_STOCK_REFRESH,
+		N_("_Refresh"), NULL, N_("Refresh file manager tree"),
+		G_CALLBACK (refresh)
+	}
+};
+
 static void
 preferences_changed (AnjutaPreferences *prefs, FileManagerPlugin *fv)
 {
@@ -58,6 +71,16 @@ activate_plugin (AnjutaPlugin *plugin)
 	fm_plugin->ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	fm_plugin->prefs = anjuta_shell_get_preferences (plugin->shell, NULL);
 	fv_init (fm_plugin);
+	
+	/* Action groups */
+	fm_plugin->action_group = 
+		anjuta_ui_add_action_group_entries (fm_plugin->ui,
+											"ActionGroupFileManager",
+											_("File manager popup actions"),
+											popup_actions, 1, plugin);
+	/* Merge UI */
+	fm_plugin->merge_id = 
+		anjuta_ui_merge (fm_plugin->ui, UI_FILE);
 	
 	/* Added widget in shell */
 	anjuta_shell_add_widget (plugin->shell, fm_plugin->scrolledwindow,
@@ -87,6 +110,8 @@ deactivate_plugin (AnjutaPlugin *plugin)
 										  G_CALLBACK (preferences_changed),
 										  fm_plugin);
 	fv_finalize(fm_plugin);
+	anjuta_ui_unmerge (fm_plugin->ui, fm_plugin->merge_id);
+	anjuta_ui_remove_action_group (fm_plugin->ui, fm_plugin->action_group);
 	return TRUE;
 }
 

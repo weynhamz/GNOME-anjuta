@@ -21,9 +21,10 @@
 
 #include "anjuta.h"
 
-gint
+gboolean
 on_anjuta_delete_event (GtkWidget *w, GdkEvent *event, gpointer data)
 {
+	gtk_main_quit ();
 #if 0
 	AnjutaApp *app;
 	TextEditor *te;
@@ -209,7 +210,7 @@ anjuta_new (gchar *prog_name, GList *prog_args, ESplash *splash)
 	/* Initialize application */
 	app = ANJUTA_APP (anjuta_app_new ());
 
-	g_signal_connect (G_OBJECT (app), "delete-event",
+	g_signal_connect (G_OBJECT (app), "delete_event",
 					  G_CALLBACK (on_anjuta_delete_event), NULL);
 	g_signal_connect (G_OBJECT (app), "destroy",
 					  G_CALLBACK (on_anjuta_destroy), NULL);

@@ -49,6 +49,7 @@
 // static GdkCursor *app_cursor;
 
 static gboolean anjuta_app_save_layout_to_file (AnjutaApp *app);
+static void on_toggle_widget_view (GtkCheckMenuItem *menuitem, GtkWidget *dockitem);
 
 gpointer parent_class;
 
@@ -140,11 +141,13 @@ on_toolbar_view_toggled (GtkCheckMenuItem *menuitem, GtkWidget *widget)
 														 name);
 			g_object_set_data (G_OBJECT(widget), "dock_item", dock_item);
 		}
-		gtk_widget_show_all (GTK_WIDGET (dock_item));
+		gtk_widget_show (GTK_WIDGET (dock_item));
+		gtk_widget_show (GTK_BIN (dock_item)->child);
 	}
 	else if (dock_item)
 	{
-		gtk_widget_hide_all (GTK_WIDGET (dock_item));
+		gtk_widget_hide (GTK_WIDGET (dock_item));
+		gtk_widget_hide (GTK_BIN (dock_item)->child);
 	}
 }
 
@@ -217,8 +220,74 @@ anjuta_app_new (void)
 	app = ANJUTA_APP (g_object_new (ANJUTA_TYPE_APP, 
 									"title", "Anjuta",
 									NULL));
-
 	return GTK_WIDGET (app);
+}
+
+/* FIXME: Something doesnt work here */
+static void
+on_dock_item_show (GtkWidget *dockitem, GtkCheckMenuItem *menuitem)
+{
+//	g_signal_handlers_block_by_func (G_OBJECT (menuitem),
+//									 on_toggle_widget_view, dockitem);
+	gtk_check_menu_item_set_active (menuitem, TRUE);
+//	g_signal_handlers_unblock_by_func (G_OBJECT (menuitem),
+//									   on_toggle_widget_view, dockitem);
+}
+
+static void
+on_dock_item_hide (GtkWidget *dockitem, GtkCheckMenuItem *menuitem)
+{
+//	g_signal_handlers_block_by_func (G_OBJECT (menuitem),
+//									 on_toggle_widget_view, dockitem);
+	gtk_check_menu_item_set_active (menuitem, FALSE);
+//	g_signal_handlers_unblock_by_func (G_OBJECT (menuitem),
+//									   on_toggle_widget_view, dockitem);
+}
+
+static void
+on_toggle_widget_view (GtkCheckMenuItem *menuitem, GtkWidget *dockitem)
+{
+	gboolean state;
+	state = gtk_check_menu_item_get_active (menuitem);
+	if (state)
+	{
+		g_signal_handlers_block_by_func (G_OBJECT (dockitem),
+										 on_dock_item_show, menuitem);
+		gtk_widget_show (dockitem);
+		g_signal_handlers_unblock_by_func (G_OBJECT (dockitem),
+										   on_dock_item_show, menuitem);
+	}
+	else
+	{
+		g_signal_handlers_block_by_func (G_OBJECT (dockitem),
+										 on_dock_item_hide, menuitem);
+		gtk_widget_hide (dockitem);
+		g_signal_handlers_unblock_by_func (G_OBJECT (dockitem),
+										   on_dock_item_hide, menuitem);
+	}
+}
+
+static void
+on_add_widget_to_menu (gpointer key, gpointer value, gpointer user_data)
+{
+	const gchar *name = key;
+	GtkWidget *wid = value;
+	AnjutaApp *app = user_data;
+	GtkCheckMenuItem *menuitem;
+	gpointer dockitem;
+	
+	menuitem = GTK_CHECK_MENU_ITEM (gtk_check_menu_item_new_with_label (name));
+	gtk_widget_show (GTK_WIDGET (menuitem));
+	gtk_check_menu_item_set_active (menuitem, TRUE);
+	gtk_menu_append (GTK_MENU (app->view_menu), GTK_WIDGET (menuitem));
+	dockitem = g_object_get_data (G_OBJECT (wid), "dockitem");
+	
+	g_signal_connect (G_OBJECT (menuitem), "toggled",
+					  G_CALLBACK (on_toggle_widget_view), dockitem);
+	g_signal_connect (G_OBJECT (dockitem), "show",
+					  G_CALLBACK (on_dock_item_show), menuitem);
+	g_signal_connect (G_OBJECT (dockitem), "hide",
+					  G_CALLBACK (on_dock_item_hide), menuitem);
 }
 
 static void
@@ -226,7 +295,8 @@ anjuta_app_instance_init (AnjutaApp *app)
 {
 	gint merge_id;
 	GtkWidget *toolbar_menu;
-
+	GtkWidget *view_menu;
+	
 	g_message ("Initializing Anjuta...");
 	gnome_app_enable_layout_config (GNOME_APP (app), FALSE);
 	
@@ -298,6 +368,14 @@ anjuta_app_instance_init (AnjutaApp *app)
 	else
 		g_warning ("Cannot retrive main menu widget");
 
+	/* Create widgets menu */
+	view_menu = 
+		gtk_ui_manager_get_widget (GTK_UI_MANAGER(app->ui),
+								  "/MenuMain/MenuView");
+	app->view_menu = gtk_menu_item_get_submenu (GTK_MENU_ITEM (view_menu));
+	// g_object_set_data (G_OBJECT (app), "view_menu", app->view_menu);
+	g_hash_table_foreach (app->widgets, on_add_widget_to_menu, app);
+	
 	gtk_window_set_transient_for (GTK_WINDOW (app->preferences),
 								  GTK_WINDOW (app));
 	// gtk_window_add_accel_group (GTK_WINDOW (app->preferences),
@@ -391,10 +469,9 @@ anjuta_app_add_widget (AnjutaShell *shell,
 	item = egg_dock_item_new (name, title, EGG_DOCK_ITEM_BEH_NORMAL);
 	gtk_container_add (GTK_CONTAINER (item), w);
 	g_object_set_data (G_OBJECT (w), "dockitem", item);
-
 	egg_dock_add_item (EGG_DOCK (window->dock), 
 					   EGG_DOCK_ITEM (item), (EggDockPlacement)placement);
-	
+	on_add_widget_to_menu ((gpointer)title, w, window);
 	gtk_widget_show_all (item);	
 }
 

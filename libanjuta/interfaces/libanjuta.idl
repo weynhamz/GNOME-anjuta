@@ -255,6 +255,7 @@ interface IAnjutaBuildable
 	void compile (const gchar* filename);
 	void build ();
 	void clean ();
+	void install ();
 }
 
 // Studio profile. Like c++ profile, java profiler etc.
@@ -414,6 +415,11 @@ interface IAnjutaTerminal
 {
 	#include <sys/types.h>
 	pid_t execute_command (const gchar *command);
+}
+
+interface IAnjutaProjectManager
+{
+	void configure();
 }
 
 /* interface IAnjutaModule

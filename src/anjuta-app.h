@@ -56,6 +56,7 @@ struct _AnjutaApp
 {
 	GnomeApp parent;
 	GtkWidget *toolbars_menu;
+	GtkWidget *view_menu;
 	GtkWidget *dock;
  	EggDockLayout *layout_manager;
 
@@ -63,8 +64,6 @@ struct _AnjutaApp
 	GHashTable *widgets;
 
 	GtkWidget *appbar;
-	
-// GdlIcons *icon_set;
 	
 	GtkAccelGroup *accel_group;
 	AnjutaUI *ui;

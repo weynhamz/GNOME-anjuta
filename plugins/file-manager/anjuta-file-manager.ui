@@ -1,10 +1,8 @@
 <!--*- xml -*-->
 <ui>
-	<menubar name="MenuMain">
-		<menu name="MenuFile" action="ActionMenuFile">
-			<placeholder name="PlaceholderFileMenus">
-				<menuitem name="SampleAction" action="ActionFileSample" />
-			</placeholder>
-		</menu>
-	</menubar>
+	<popup name="PopupFileManager">
+		<placeholder name="PlaceholderPopupFileBuild"/>
+		<separator/>
+		<menuitem name="PopupFileManagerRefresh" action="ActionPopupFileManagerRefresh"/>
+	</popup>
 </ui>

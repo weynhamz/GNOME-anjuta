@@ -23,6 +23,7 @@
 #include <libanjuta/interfaces/ianjuta-help.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
 #include <libanjuta/interfaces/ianjuta-message-manager.h>
+#include <libanjuta/interfaces/ianjuta-project-manager.h>
 #include <libanjuta/interfaces/ianjuta-profile.h>
 #include <libanjuta/plugins.h>
 
@@ -77,6 +78,7 @@ iprofile_load (IAnjutaProfile *profile, ESplash *splash, GError **err)
 		"IAnjutaMessageManager",
 		"IAnjutaFileManager",
 		"IAnjutaTerminal",
+		"IAnjutaBuildable",
 		NULL
 	};
 	max_icons = 0;

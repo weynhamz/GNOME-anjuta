@@ -1,3 +1,26 @@
+2004-05-17  Naba Kumar  <naba@gnome.org>
+
+	* configure.in, plugins/Makefile.am, plugins/profile-default/plugin.c,
+	plugins/build-basic-autotools/.cvsignore,
+	plugins/build-basic-autotools/Makefile.am,
+	plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.png,
+	plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui,
+	plugins/build-basic-autotools/anjuta-build-basic-autotools.plugin.in,
+	plugins/build-basic-autotools/build-basic-autotools.c,
+	plugins/build-basic-autotools/build-basic-autotools.h: Added basic autotools
+	build plugin.
+	
+	* libanjuta/interfaces/libanjuta.idl: Added IAnjutaProject interface
+	definition.
+	
+	* plugins/file-manager/an_file_view.c,
+	plugins/file-manager/anjuta-file-manager.ui,
+	plugins/file-manager/plugin.c, plugins/file-manager/plugin.h:
+	Added context menu UI.
+	
+	* src/anjuta-app.c, src/anjuta-app.h, src/anjuta.c: Added widgets show/hide
+	in view menu.
+
 2004-05-16	Johannes Schmid <jhs@cvs.gnome.org>
 	
 	* libanjuta/anjuta-preferences.[ch]: 

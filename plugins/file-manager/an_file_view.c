@@ -83,7 +83,7 @@ anjuta_fv_open_file (FileManagerPlugin * fv, const char *path, gboolean use_anju
 	gboolean status = FALSE;
 	const char *mime_type = gnome_vfs_get_mime_type(path);
 	if (use_anjuta)
-	{		
+	{
 		status = anjuta_file_iface_open(fv, path);
 	}
 	else
@@ -477,9 +477,13 @@ on_tree_view_event  (GtkWidget *widget,
 	gtk_tree_model_get (model, &iter, REV_COLUMN, &version, -1);
 
 	if (event->type == GDK_BUTTON_PRESS) {
-		// GdkEventButton *e = (GdkEventButton *) event;
-#if 0
+		GdkEventButton *e = (GdkEventButton *) event;
 		if (e->button == 3) {
+			GtkWidget *popup;
+			popup = gtk_ui_manager_get_widget (GTK_UI_MANAGER (fv->ui),
+											   "/PopupFileManager");
+			g_return_val_if_fail (GTK_IS_WIDGET (popup), TRUE);
+#if 0
 			gboolean has_cvs_entry = (version && strlen(version) > 0);
 
 			GTK_CHECK_MENU_ITEM (fv->menu.docked)->active = app->project_dbase->is_docked;
@@ -492,13 +496,12 @@ on_tree_view_event  (GtkWidget *widget,
 			gtk_widget_set_sensitive (fv->menu.cvs.add,   !has_cvs_entry);
 			gtk_widget_set_sensitive (fv->menu.cvs.remove, has_cvs_entry);
 			gtk_widget_set_sensitive (fv->menu.cvs.diff,   has_cvs_entry);
-
-			gtk_menu_popup (GTK_MENU (fv->menu.top),
+#endif
+			gtk_menu_popup (GTK_MENU (popup),
 					NULL, NULL, NULL, NULL,
 					((GdkEventButton *) event)->button,
 					((GdkEventButton *) event)->time);
 		}
-#endif
 	} else if (event->type == GDK_KEY_PRESS) {
 		GtkTreePath *path;
 		GdkEventKey *e = (GdkEventKey *) event;
@@ -657,13 +660,16 @@ fv_add_tree_entry (FileManagerPlugin *fv, const gchar *path, GtkTreeIter *root)
 											  ff->ignore_hidden_dirs))
 					continue;
 				*/
-				pixbuf = anjuta_res_get_pixbuf (ANJUTA_PIXMAP_CLOSED_FOLDER);
+				pixbuf = gdl_icons_get_mime_icon (icon_set,
+											"application/directory-normal");
+				// pixbuf = anjuta_res_get_pixbuf (ANJUTA_PIXMAP_CLOSED_FOLDER);
 				gtk_tree_store_append (store, &iter, root);
 				gtk_tree_store_set (store, &iter,
 							PIXBUF_COLUMN, pixbuf,
 							FILENAME_COLUMN, file,
 							REV_COLUMN, "D",
 							-1);
+				g_object_unref (pixbuf);
 				gtk_tree_store_append (store, &sub_iter, &iter);
 				gtk_tree_store_set (store, &sub_iter,
 							FILENAME_COLUMN, _("Loading ..."),
@@ -734,8 +740,10 @@ on_file_view_row_expanded (GtkTreeView *view,
 	
 	GtkTreeStore *store = GTK_TREE_STORE (gtk_tree_view_get_model (view));
 	
-	pix = anjuta_res_get_pixbuf (ANJUTA_PIXMAP_OPEN_FOLDER);
+	// pix = anjuta_res_get_pixbuf (ANJUTA_PIXMAP_OPEN_FOLDER);
+	pix = gdl_icons_get_mime_icon (icon_set, "application/directory-normal");
 	gtk_tree_store_set (store, iter, PIXBUF_COLUMN, pix, -1);
+	g_object_unref (pix);
 	
 	full_path = fv_construct_full_path (fv, iter);
 	
@@ -766,8 +774,10 @@ on_file_view_row_collapsed (GtkTreeView *view,
 	GtkTreeIter child;
 	
 	GtkTreeStore *store = GTK_TREE_STORE (gtk_tree_view_get_model (view));
-	pix = anjuta_res_get_pixbuf (ANJUTA_PIXMAP_CLOSED_FOLDER);
+	// pix = anjuta_res_get_pixbuf (ANJUTA_PIXMAP_CLOSED_FOLDER);
+	pix = gdl_icons_get_mime_icon (icon_set, "application/directory-normal");
 	gtk_tree_store_set (store, iter, PIXBUF_COLUMN, pix, -1);
+	g_object_unref (pix);
 	
 	// Remove all but one children
 	if (gtk_tree_model_iter_children (GTK_TREE_MODEL (store), &child, iter))
@@ -781,6 +791,21 @@ on_file_view_row_collapsed (GtkTreeView *view,
 			while (!gtk_tree_store_remove (store, &child));
 		}
 	}
+}
+
+static void
+on_tree_view_selection_changed (GtkTreeSelection *sel, FileManagerPlugin *fv)
+{
+	gchar *filename;
+	GValue *value;
+	
+	filename = fv_get_selected_file_path (fv);
+	value = g_new0 (GValue, 1);
+	g_value_init (value, G_TYPE_STRING);
+	g_value_take_string (value, filename);
+	anjuta_shell_add_value (ANJUTA_PLUGIN(fv)->shell,
+							"file_manager_current_filename",
+							value, NULL);
 }
 
 void
@@ -815,6 +840,8 @@ fv_init (FileManagerPlugin *fv)
 					  G_CALLBACK (on_file_view_row_collapsed), fv);
 	g_signal_connect (fv->tree, "event-after",
 					  G_CALLBACK (on_tree_view_event), fv);
+	g_signal_connect (G_OBJECT (selection), "changed",
+					  G_CALLBACK (on_tree_view_selection_changed), fv);
 	g_signal_connect (fv->tree, "row_activated",
 					  G_CALLBACK (on_treeview_row_activated), fv);
 	gtk_widget_show (fv->tree);

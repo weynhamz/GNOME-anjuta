@@ -14,6 +14,8 @@ struct _FileManagerPlugin{
 	AnjutaPreferences *prefs;
 	GtkWidget *scrolledwindow;
 	GtkWidget *tree;
+	GtkActionGroup *action_group;
+	gint merge_id;
 	gchar *top_dir;
 	guint root_watch_id;
 };
