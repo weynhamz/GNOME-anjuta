@@ -785,22 +785,36 @@ anjuta_update_title ()
 			extended_toolbar_update ();
 		}
 		else
-			window = te->widgets.window;
+			{ window = te->widgets.window;}
 
 		if (text_editor_is_saved (te))
 		{
-			buff1 =
-				g_strdup_printf (_("Anjuta: %s(Saved)"),
+			if (te->full_filename)
+			{
+				buff1 =
+					g_strdup_printf (_("Anjuta: %s(Saved)"),
 						 te->full_filename);
+			}
+			else
+			{
+				buff1 = g_strdup("");
+			}
 			buff2 =
 				g_strdup_printf (_("Anjuta: %s"),
 						 te->filename);
 		}
 		else
 		{
-			buff1 =
-				g_strdup_printf (_("Anjuta: %s(Unsaved)"),
-						 te->full_filename);
+			if (te->full_filename)
+			{
+				buff1 =
+					g_strdup_printf (_("Anjuta: %s(Unsaved)"),
+							 te->full_filename);
+			}
+			else
+			{
+				buff1 = g_strdup("");
+			}
 			buff2 =
 				g_strdup_printf (_("Anjuta: %s"),
 						 te->filename);
@@ -812,13 +826,16 @@ anjuta_update_title ()
 						   te->full_filename);
 		}
 		else
-			gtk_window_set_title (GTK_WINDOW (window), buff2);
+		{ gtk_window_set_title (GTK_WINDOW (window), buff2);}
+		
 		g_free (buff1);
 		g_free (buff2);
 	}
 	else
+	{
 		gtk_window_set_title (GTK_WINDOW (app->widgets.window),
 				      _("Anjuta: No file"));
+	}
 }
 
 void
