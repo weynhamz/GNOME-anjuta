@@ -1,3 +1,10 @@
+2005-03-07  Naba Kumar  <naba@gnome.org>
+
+	* plugins/editor/anjuta-document-manager-plugin.in: Added some mime
+	types (perl, python, shellscript).
+	
+	* plugins/editor/plugin.c: Fixed to show all highlight options.
+	
 2005-03-07  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
 
 	* TODO.tasks : updated tasks.

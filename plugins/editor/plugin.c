@@ -1001,7 +1001,7 @@ create_highlight_submenu (EditorPlugin *plugin)
 
 	menu_entries = prop_get (text_editor_get_props (), "menu.language");
 	g_return_val_if_fail (menu_entries != NULL, NULL);
-	strv = g_strsplit (menu_entries, "|", 100);
+	strv = g_strsplit (menu_entries, "|", -1);
 	token = strv;
 	while (*token)
 	{
