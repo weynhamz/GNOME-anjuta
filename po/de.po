@@ -5153,6 +5153,7 @@ msgid ""
 "Job: %s"
 msgstr ""
 "  Projekt: %s       Zoom: %d       Zeile: %04d      Spalte: %03d    %s       "
+"Jobs: %s"
 
 #: src/anjuta.c:1928 src/anjuta.c:1931
 #, c-format
@@ -5162,7 +5163,7 @@ msgstr "Plugin in Modul %s konnte nicht geladen werden. Fehler: %s"
 #: src/anjuta.c:1934
 #, fuzzy, c-format
 msgid "Plug in Module protocol unknown %s Err:%s"
-msgstr "Plugin in Modul %s "
+msgstr "Unbekanntes Protokoll im Plugin Modul %s. Fehler: %s"
 
 #: src/anjuta.c:1937
 #, c-format
