@@ -864,7 +864,7 @@ gboolean TerminalWindow::term_keypress_cb (GtkWidget *widget,
 	if (event->type != GDK_KEY_RELEASE)
 		return FALSE;
 	
-	DEBUG_PRINT ("Terminal key pressed");
+	// DEBUG_PRINT ("Terminal key pressed");
 	/* ctrl-c or ctrl-d */
 	if (event->keyval == GDK_c ||
 		event->keyval == GDK_d ||
@@ -874,7 +874,7 @@ gboolean TerminalWindow::term_keypress_cb (GtkWidget *widget,
 		/* Ctrl pressed */
 		if (event->state & GDK_CONTROL_MASK)
 		{
-			DEBUG_PRINT ("Ctrl c/d: Terminal reseting");
+			// DEBUG_PRINT ("Ctrl c/d: Terminal reseting");
 			kill (tw->m_child_pid, SIGINT);
 			tw->m_child_pid = 0;
 			term_init_cb (GTK_WIDGET (tw->m_terminal), tw);

@@ -133,19 +133,20 @@ create_cpu_registers_gui(CpuRegisters *cr)
 	}
 //	gtk_tree_sortable_set_sort_column_id (GTK_TREE_SORTABLE (store),
 //				COLUMN_REGS, GTK_SORT_ASCENDING);
-	gtk_object_unref (GTK_OBJECT (renderer));
+	g_object_unref (G_OBJECT (renderer));
 
 	// signals	
-	gtk_signal_connect (GTK_OBJECT (view), "select_row",
-				GTK_SIGNAL_FUNC (on_registers_clist_select_row), cr);
-	gtk_signal_connect (GTK_OBJECT (topwindow), "delete_event",
-				GTK_SIGNAL_FUNC (on_registers_delete_event), cr);
-	gtk_signal_connect (GTK_OBJECT (topwindow), "close",
-				GTK_SIGNAL_FUNC (on_registers_close), cr);
-	gtk_signal_connect (GTK_OBJECT (topwindow), "response",
-				GTK_SIGNAL_FUNC (on_registers_response), cr);
-	gtk_signal_connect (GTK_OBJECT (view), "event",
-				GTK_SIGNAL_FUNC (on_register_event), cr);
+	// g_signal_connect (G_OBJECT (gtk_tree_view_get_selection
+	//			(GTK_TREE_VIEW (view))), "changed",
+	//				  G_CALLBACK (on_registers_clist_select_row), cr);
+	g_signal_connect (G_OBJECT (topwindow), "delete_event",
+				G_CALLBACK (on_registers_delete_event), cr);
+	g_signal_connect (G_OBJECT (topwindow), "close",
+				G_CALLBACK (on_registers_close), cr);
+	g_signal_connect (G_OBJECT (topwindow), "response",
+				G_CALLBACK (on_registers_response), cr);
+	g_signal_connect (G_OBJECT (view), "event",
+				G_CALLBACK (on_register_event), cr);
 
 	// other stuff
 	gtk_window_add_accel_group (GTK_WINDOW (topwindow), app->accel_group);
@@ -156,11 +157,11 @@ create_cpu_registers_gui(CpuRegisters *cr)
 	cr->widgets.menu_modify = register_menu_uiinfo[0].widget;
 	cr->widgets.menu_update = register_menu_uiinfo[1].widget;
 	
-	gtk_widget_ref (cr->widgets.window);
-	gtk_widget_ref (cr->widgets.view);
-	gtk_widget_ref (cr->widgets.menu);
-	gtk_widget_ref (cr->widgets.menu_modify);
-	gtk_widget_ref (cr->widgets.menu_update);
+	g_object_ref (G_OBJECT (cr->widgets.window));
+	g_object_ref (G_OBJECT (cr->widgets.view));
+	g_object_ref (G_OBJECT (cr->widgets.menu));
+	g_object_ref (G_OBJECT (cr->widgets.menu_modify));
+	g_object_ref (G_OBJECT (cr->widgets.menu_update));
 }
 
 void
