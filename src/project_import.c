@@ -204,7 +204,6 @@ project_import_load_project_values (gchar * filename)
 {
 	Project_Type *type;
 	ProjectDBase *p = app->project_dbase;
-	gchar *str;
 
 	if (!project_dbase_load_project_file (p, filename))
 	{

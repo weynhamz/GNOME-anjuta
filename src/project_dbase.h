@@ -85,6 +85,7 @@ struct _ProjectFileData
 {
 	PrjModule module;
 	gchar *filename;
+	gchar *full_filename;
 	GtkCTreeNode* parent_node;
 };
 
@@ -147,7 +148,8 @@ extern gchar* programming_language_map[];
 
 /* File data to be set with the project tree nodes */
 ProjectFileData *
-project_file_data_new (GtkCTreeNode * parent, PrjModule mod, gchar * full_fname);
+project_file_data_new (GtkCTreeNode * parent, PrjModule mod,
+		gchar* fname, gchar * full_fname);
 
 void
 project_file_data_destroy (ProjectFileData * pfd);

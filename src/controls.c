@@ -214,11 +214,13 @@ browser_toolbar_update()
 			    "selection-changed", GTK_SIGNAL_FUNC (on_toolbar_tag_clicked), NULL);
 			gtk_widget_show(bt->tag_combo);
 			gtk_widget_show(bt->tag);
+			gtk_label_set_text(GTK_LABEL(bt->tag_label), _("Tags: "));
 		}
 		else
 		{
 			gtk_widget_hide(bt->tag_combo);
 			gtk_widget_hide(bt->tag);
+			gtk_label_set_text(GTK_LABEL(bt->tag_label), _("No Tags"));
 		}
 	}
 }

@@ -37,7 +37,8 @@ greetings_text ()
 	return _("The Import Project Wizard scans the directory of an\n"
 		 "existing project and tries to import the project structure\n"
 		 "into an anjuta project. You can adjust the autodetected\n"
-		 "values later.");
+		 "values later.\n"
+		 "THIS IS AN EXPERIMENTAL FEATURE\n");
 }
 
 void
@@ -48,7 +49,7 @@ create_project_import_gui (void)
 
 	piw->widgets.window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
 	gtk_window_set_title (GTK_WINDOW (piw->widgets.window),
-			      _("Import Project Wizard"));
+			      _("Project Import Wizard"));
 	gtk_window_set_wmclass (GTK_WINDOW (piw->widgets.window),
 				"project_import_wizard", "anjuta");
 	gtk_window_set_position (GTK_WINDOW (piw->widgets.window),
@@ -109,6 +110,7 @@ destroy_project_import_gui (void)
 	// This should destroy all underlying widgets
 	gtk_widget_hide(piw->widgets.window);
 	gtk_widget_destroy (piw->widgets.window);
+	
 	string_assign (&piw->prj_name, NULL);
 	string_assign (&piw->prj_source_target, NULL);
 	string_assign (&piw->prj_author, NULL);
@@ -116,9 +118,8 @@ destroy_project_import_gui (void)
 	string_assign (&piw->prj_menu_entry, NULL);
 	string_assign (&piw->prj_menu_comment, NULL);
 	string_assign (&piw->prj_menu_icon, NULL);
-	string_assign (&piw->prj_menu_need_terminal, NULL);
 	string_assign (&piw->prj_description, NULL);
-	string_assign (&piw->prj_menu_icon, NULL);
+	g_free(piw);
 	piw = NULL;
 }
 
@@ -228,9 +229,24 @@ create_import_wizard_page4 (ProjectImportWizard * piw)
 					   &piw->widgets.language_c_cpp_radio);
 
 	gtk_signal_connect (GTK_OBJECT (piw->widgets.prj_name_entry), "focus_out_event",
-			    GTK_SIGNAL_FUNC
-			    (on_prj_name_entry_focus_out_event), piw);
+			    GTK_SIGNAL_FUNC(on_prj_name_entry_focus_out_event), piw);
 
+	gtk_signal_connect (GTK_OBJECT (piw->widgets.prj_name_entry), "changed",
+			    GTK_SIGNAL_FUNC (on_piw_text_entry_changed), &piw->prj_name);
+
+	gtk_signal_connect (GTK_OBJECT (piw->widgets.target_entry), "changed",
+			    GTK_SIGNAL_FUNC (on_piw_text_entry_changed), &piw->prj_source_target);
+
+	gtk_signal_connect (GTK_OBJECT (piw->widgets.version_entry), "changed",
+			    GTK_SIGNAL_FUNC (on_piw_text_entry_changed), &piw->prj_version);
+	gtk_signal_connect (GTK_OBJECT (piw->widgets.version_entry), "realize",
+			    GTK_SIGNAL_FUNC (on_piw_text_entry_realize), piw->prj_version);
+
+	gtk_signal_connect (GTK_OBJECT (piw->widgets.author_entry), "changed",
+			    GTK_SIGNAL_FUNC (on_piw_text_entry_changed), &piw->prj_author);
+	gtk_signal_connect (GTK_OBJECT (piw->widgets.author_entry), "realize",
+			    GTK_SIGNAL_FUNC (on_piw_text_entry_realize), piw->prj_author);
+	
 	gtk_signal_connect (GTK_OBJECT (piw->widgets.language_c_radio), "toggled",
 			    GTK_SIGNAL_FUNC (on_lang_c_toggled), piw);
 	gtk_signal_connect (GTK_OBJECT (piw->widgets.language_cpp_radio), "toggled",

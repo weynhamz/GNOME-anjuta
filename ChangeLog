@@ -1,5 +1,50 @@
 2002-01-30  Naba Kumar <kh_naba@users.sourceforge.net>
 
+	* src/toolbars.c,
+	  src/toolbars.h,
+	  src/anjuta_gui.c,
+	  src/controls.c:
+	  
+	  Tag dropdown exclusive (takes
+	  all space in the toolbar) and never vertical and
+	  increased the width of the tag combo to 256 pixs.
+	  Toolbar separator before the combo and button.
+	  Added tags label before the tag button.
+	  Reorganized the dock bands for the toolbars.
+	  
+	* src/project_import_gui.c
+	  src/project_import.c:
+	  Fixed an error and removed an unused variable.
+	  
+	* data/properties/anjuta.properties:
+	  Removed the property for the old toolbar and set
+	  browser toolbar show to default.
+	  
+	* src/project_dbase.c: excluded modules were not
+	  loaded. Fixed.
+	  
+	* src/source.c:
+	  No build files will be written if the project is blocked.
+	  
+	* src/project_import.c,
+	  src/project_import_cbs.c,
+	  src/project_gui.c,
+	  src/wizard_gui.c:
+	  
+	  Manually applied Johannes patch to fix some memory
+	  issues and gui clean up.
+	  Patch from: Johannes Schmid <clubfan@users.sourceforge.net>
+	
+	* src/project_dbase.c, project_dbase.h, project_dbase_gui.h:
+	  Fixed a bad bug with remove file from project because of
+	  files were never removed properly from the project and
+	  from the tagmanager.
+	  
+	* src/appwiz_page3.c: Disabled unused codes to clear
+	  compiler warnings.
+	  
+2002-01-30  Naba Kumar <kh_naba@users.sourceforge.net>
+
 	* tagmanager/*/*: Upgraded to 0.7.1 version from Biswa.
 	
 	* data/Makefile.am
@@ -28,7 +73,12 @@
 	  src/toolbar_callbacks.c
 	  src/toolbar_callbacks.h :
 	  
-	  Biswa's patch.
+	  Patch submitted by:
+	  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
+	  
+	  Removes the Tags toolbar and substituted it with
+	  tags combo dropdown list. Fixes a couple of bugs.
+	  
 	  Moved the tag combo to browser toolbar because
 	  main toolbar was becoming too long.
 	  Made a new icon of tag toolbar.

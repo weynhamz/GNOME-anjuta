@@ -121,6 +121,7 @@ struct _BrowserToolbar
 	GtkWidget *block_start;
 	GtkWidget *block_end;
 	
+	GtkWidget *tag_label;
 	GtkWidget *tag;
 	GtkWidget *tag_combo;
 	GtkWidget *tag_entry;

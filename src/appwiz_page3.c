@@ -33,6 +33,7 @@
 #include "appwizard_cbs.h"
 #include "pixmaps.h"
 
+#if 0
 static void
 on_target_exec_toggled                 (GtkToggleButton *togglebutton,
                                         gpointer         user_data)
@@ -68,6 +69,7 @@ on_target_dlib_toggled                 (GtkToggleButton *togglebutton,
 	if (gtk_toggle_button_get_active(togglebutton))
 		aw->target_type = PROJECT_TARGET_TYPE_DYNAMIC_LIB;
 }
+#endif
 
 void
 create_app_wizard_page3 (AppWizard * aw)

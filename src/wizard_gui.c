@@ -97,7 +97,7 @@ create_project_type_selection_page (GnomeDruid * druid, GtkWidget ** iconlist)
 	gnome_druid_page_standard_set_title_color (GNOME_DRUID_PAGE_STANDARD
 						   (page), &page_title_color);
 	gnome_druid_page_standard_set_title (GNOME_DRUID_PAGE_STANDARD
-					     (page), _("Select directory"));
+					     (page), _("Project Type"));
 	gnome_druid_page_standard_set_logo (GNOME_DRUID_PAGE_STANDARD
 					    (page),
 					    anjuta_res_get_image
@@ -240,7 +240,7 @@ create_project_props_page (GnomeDruid * druid,
 	gnome_druid_page_standard_set_title_color (GNOME_DRUID_PAGE_STANDARD
 						   (page), &page_title_color);
 	gnome_druid_page_standard_set_title (GNOME_DRUID_PAGE_STANDARD
-					     (page), _("Select directory"));
+					     (page), _("Basic Information"));
 	gnome_druid_page_standard_set_logo (GNOME_DRUID_PAGE_STANDARD
 					    (page),
 					    anjuta_res_get_image
@@ -409,7 +409,7 @@ create_project_description_page (GnomeDruid * druid,
 	gnome_druid_page_standard_set_title_color (GNOME_DRUID_PAGE_STANDARD
 						   (page), &page_title_color);
 	gnome_druid_page_standard_set_title (GNOME_DRUID_PAGE_STANDARD
-					     (page), _("Select directory"));
+					     (page), _("Project Description"));
 	gnome_druid_page_standard_set_logo (GNOME_DRUID_PAGE_STANDARD
 					    (page),
 					    anjuta_res_get_image

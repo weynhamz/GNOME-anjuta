@@ -60,19 +60,16 @@ on_page3_next (GnomeDruidPage * page3, gpointer arg1, gpointer data)
 {
 	ProjectImportWizard *piw = (ProjectImportWizard *) data;
 	g_assert (data != NULL);
+	
+	gtk_entry_set_text(GTK_ENTRY(piw->widgets.prj_name_entry), piw->prj_name);
+	gtk_entry_set_text(GTK_ENTRY(piw->widgets.version_entry), piw->prj_version);
+	gtk_entry_set_text(GTK_ENTRY(piw->widgets.target_entry), piw->prj_source_target);
+	gtk_entry_set_text(GTK_ENTRY(piw->widgets.author_entry), piw->prj_author);
 
 	if (piw->prj_type == PROJECT_TYPE_END_MARK)
 		return TRUE;
 	else
 	{
-		gtk_entry_set_text (GTK_ENTRY (piw->widgets.prj_name_entry),
-				    piw->prj_name);
-		gtk_entry_set_text (GTK_ENTRY (piw->widgets.version_entry),
-				    piw->prj_version);
-		gtk_entry_set_text (GTK_ENTRY (piw->widgets.target_entry),
-				    piw->prj_source_target);
-		gtk_entry_set_text (GTK_ENTRY (piw->widgets.author_entry),
-				    piw->prj_author);
 		if (strcmp
 		    (piw->prj_programming_language,
 		     programming_language_map
@@ -115,7 +112,10 @@ on_page4_next (GnomeDruidPage * page4, gpointer arg1, gpointer data)
 	author = gtk_entry_get_text (GTK_ENTRY (piw->widgets.author_entry));
 	version = gtk_entry_get_text (GTK_ENTRY (piw->widgets.version_entry));
 	target = gtk_entry_get_text (GTK_ENTRY (piw->widgets.target_entry));
-	
+
+	// Bad hack to fill the gnome-menu-entries:
+	on_prj_name_entry_focus_out_event(piw->widgets.prj_name_entry, NULL, piw);
+
 	if (!strlen (name) || !strlen (author)
 	    || !strlen (version) || !strlen (target))
 	{
@@ -159,9 +159,11 @@ on_page5_next (GnomeDruidPage * page, gpointer arg1, gpointer data)
 					      (piw->widgets.term_check),
 					      piw->prj_menu_need_terminal);
 
+/*
 	gtk_entry_set_text(GTK_ENTRY(piw->widgets.menu_entry_entry), piw->prj_menu_entry);
 	gtk_entry_set_text(GTK_ENTRY(piw->widgets.menu_comment_entry), piw->prj_menu_comment);
 	gtk_entry_set_text(GTK_ENTRY(piw->widgets.app_group_entry), piw->prj_menu_group);
+*/
 	// That icon will never exist.
 	
 	return FALSE;
@@ -346,7 +348,6 @@ on_prj_name_entry_changed (GtkEditable * editable, gpointer user_data)
 	else
 		gtk_entry_set_text (GTK_ENTRY (piw->widgets.target_entry),
 				    "");
-	string_assign (&piw->prj_source_target, text);
 	string_free (text);
 }
 

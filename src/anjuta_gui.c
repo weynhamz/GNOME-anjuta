@@ -39,9 +39,9 @@ create_anjuta_gui (AnjutaApp * appl)
 	GtkWidget *eventbox1;
 	GtkWidget *toolbar1;
 	GtkWidget *toolbar2;
+	GtkWidget *toolbar3;
 	GtkWidget *toolbar4;
 	GtkWidget *toolbar5;
-	GtkWidget *toolbar6;
 	GtkWidget *vpaned1;
 	GtkWidget *hpaned1;
 	GtkWidget *vbox1;
@@ -100,24 +100,39 @@ create_anjuta_gui (AnjutaApp * appl)
 				     GTK_TOOLBAR_SPACE_LINE);
 	gtk_toolbar_set_button_relief (GTK_TOOLBAR (toolbar1),
 				       GTK_RELIEF_NONE);
-
+	
 	toolbar2 =
-		create_extended_toolbar (anjuta_gui,
-					 &(appl->widgets.toolbar.
-					   extended_toolbar));
+		create_browser_toolbar (anjuta_gui,
+					&(appl->widgets.toolbar.
+					  browser_toolbar));
 	gnome_app_add_toolbar (GNOME_APP (anjuta_gui), GTK_TOOLBAR (toolbar2),
-			       ANJUTA_EXTENDED_TOOLBAR,
-			       GNOME_DOCK_ITEM_BEH_NORMAL,
-			       GNOME_DOCK_TOP, 3, 0, 0);
+			       ANJUTA_BROWSER_TOOLBAR,
+			       GNOME_DOCK_ITEM_BEH_EXCLUSIVE |
+			       GNOME_DOCK_ITEM_BEH_NEVER_VERTICAL,
+			       GNOME_DOCK_TOP, 2, 0, 0);
 	gtk_toolbar_set_space_size (GTK_TOOLBAR (toolbar2), 5);
 	gtk_toolbar_set_space_style (GTK_TOOLBAR (toolbar2),
 				     GTK_TOOLBAR_SPACE_LINE);
 	gtk_toolbar_set_button_relief (GTK_TOOLBAR (toolbar2),
 				       GTK_RELIEF_NONE);
 
-	toolbar4 =
+	toolbar3 =
 		create_debug_toolbar (anjuta_gui,
-				      &(appl->widgets.toolbar.debug_toolbar));
+					 &(appl->widgets.toolbar.
+					   debug_toolbar));
+	gnome_app_add_toolbar (GNOME_APP (anjuta_gui), GTK_TOOLBAR (toolbar3),
+			       ANJUTA_EXTENDED_TOOLBAR,
+			       GNOME_DOCK_ITEM_BEH_NORMAL,
+			       GNOME_DOCK_TOP, 3, 0, 0);
+	gtk_toolbar_set_space_size (GTK_TOOLBAR (toolbar3), 5);
+	gtk_toolbar_set_space_style (GTK_TOOLBAR (toolbar3),
+				     GTK_TOOLBAR_SPACE_LINE);
+	gtk_toolbar_set_button_relief (GTK_TOOLBAR (toolbar3),
+				       GTK_RELIEF_NONE);
+
+	toolbar4 =
+		create_format_toolbar (anjuta_gui,
+				      &(appl->widgets.toolbar.format_toolbar));
 	gnome_app_add_toolbar (GNOME_APP (anjuta_gui), GTK_TOOLBAR (toolbar4),
 			       ANJUTA_DEBUG_TOOLBAR,
 			       GNOME_DOCK_ITEM_BEH_NORMAL,
@@ -129,31 +144,17 @@ create_anjuta_gui (AnjutaApp * appl)
 				       GTK_RELIEF_NONE);
 
 	toolbar5 =
-		create_browser_toolbar (anjuta_gui,
-					&(appl->widgets.toolbar.
-					  browser_toolbar));
+		create_extended_toolbar (anjuta_gui,
+				       &(appl->widgets.toolbar.
+					 extended_toolbar));
 	gnome_app_add_toolbar (GNOME_APP (anjuta_gui), GTK_TOOLBAR (toolbar5),
-			       ANJUTA_BROWSER_TOOLBAR,
+			       ANJUTA_FORMAT_TOOLBAR,
 			       GNOME_DOCK_ITEM_BEH_NORMAL,
 			       GNOME_DOCK_TOP, 4, 0, 0);
 	gtk_toolbar_set_space_size (GTK_TOOLBAR (toolbar5), 5);
 	gtk_toolbar_set_space_style (GTK_TOOLBAR (toolbar5),
 				     GTK_TOOLBAR_SPACE_LINE);
 	gtk_toolbar_set_button_relief (GTK_TOOLBAR (toolbar5),
-				       GTK_RELIEF_NONE);
-
-	toolbar6 =
-		create_format_toolbar (anjuta_gui,
-				       &(appl->widgets.toolbar.
-					 format_toolbar));
-	gnome_app_add_toolbar (GNOME_APP (anjuta_gui), GTK_TOOLBAR (toolbar6),
-			       ANJUTA_FORMAT_TOOLBAR,
-			       GNOME_DOCK_ITEM_BEH_NORMAL,
-			       GNOME_DOCK_TOP, 4, 1, 0);
-	gtk_toolbar_set_space_size (GTK_TOOLBAR (toolbar6), 5);
-	gtk_toolbar_set_space_style (GTK_TOOLBAR (toolbar6),
-				     GTK_TOOLBAR_SPACE_LINE);
-	gtk_toolbar_set_button_relief (GTK_TOOLBAR (toolbar6),
 				       GTK_RELIEF_NONE);
 
 	eventbox1 = gtk_event_box_new ();

@@ -238,6 +238,7 @@ gtree_insert_files (GtkWidget * ctree, GtkCTreeNode * parent,
 	while (node)
 	{
 		FileExtType ftype;
+		gchar *fname;
 		gchar *full_fname;
 		ProjectFileData *pfd;
 		GtkCTreeNode *cnode;
@@ -262,9 +263,11 @@ gtree_insert_files (GtkWidget * ctree, GtkCTreeNode * parent,
 						       dum_array, 5, pix_c,
 						       mask_c, pix_o, mask_o,
 						       TRUE, FALSE);
-		full_fname = g_strconcat (dir_prefix, "/", node->data, NULL);
+		
+		fname = node->data;
+		full_fname = g_strconcat (dir_prefix, "/", fname, NULL);
 		pfd =
-			project_file_data_new (parent, mod, full_fname);
+			project_file_data_new (parent, mod, fname, full_fname);
 		g_free (full_fname);
 		gtk_ctree_node_set_row_data_full (GTK_CTREE (ctree),
 						  GTK_CTREE_NODE (cnode), pfd,
@@ -275,7 +278,8 @@ gtree_insert_files (GtkWidget * ctree, GtkCTreeNode * parent,
 }
 
 ProjectFileData *
-project_file_data_new (GtkCTreeNode * parent, PrjModule mod, gchar * full_fname)
+project_file_data_new (GtkCTreeNode * parent, PrjModule mod,
+				gchar* fname, gchar * full_fname)
 {
 	ProjectFileData *pfd;
 
@@ -286,8 +290,11 @@ project_file_data_new (GtkCTreeNode * parent, PrjModule mod, gchar * full_fname)
 	pfd->module = mod;
 	pfd->parent_node = parent;
 	pfd->filename = NULL;
+	pfd->full_filename = NULL;
+	if (fname)
+		pfd->filename = g_strdup (fname);
 	if (full_fname)
-		pfd->filename = g_strdup (full_fname);
+		pfd->full_filename = g_strdup (full_fname);
 	return pfd;
 }
 
@@ -297,6 +304,8 @@ project_file_data_destroy (ProjectFileData * pfd)
 	g_return_if_fail (pfd != NULL);
 	if (pfd->filename)
 		g_free (pfd->filename);
+	if (pfd->full_filename)
+		g_free (pfd->full_filename);
 	g_free (pfd);
 }
 
@@ -1832,7 +1841,7 @@ project_dbase_update_tree (ProjectDBase * p)
 					NULL, NULL, dum_array, 5, pix_c,
 					mask_c, pix_o, mask_o, FALSE, TRUE);
 	pfd =
-		project_file_data_new (NULL, MODULE_SOURCE, NULL);
+		project_file_data_new (NULL, MODULE_SOURCE, NULL, NULL);
 	gtk_ctree_node_set_row_data_full (GTK_CTREE (p->widgets.ctree),
 					  GTK_CTREE_NODE (parent), pfd,
 					  (GtkDestroyNotify)
@@ -1874,16 +1883,19 @@ project_dbase_update_tree (ProjectDBase * p)
 		g_free (key);
 		g_free (dum_array[0]);
 		p->widgets.module_node[i] = sub_parent;
-		pfd = project_file_data_new (parent, i, NULL);
+		pfd = project_file_data_new (parent, i, NULL, NULL);
 		gtk_ctree_node_set_row_data_full (GTK_CTREE
 						  (p->widgets.ctree),
 						  GTK_CTREE_NODE
 						  (sub_parent), pfd,
 						  (GtkDestroyNotify)
 						  project_file_data_destroy);
-		prefix =
-			g_strconcat (p->top_proj_dir, "/", tmp1,
-				     NULL);
+		if (strcmp(tmp1, ".") == 0) {
+			prefix = g_strdup(p->top_proj_dir);
+		} else {
+			prefix =
+				g_strconcat (p->top_proj_dir, "/", tmp1, NULL);
+		}
 		gtree_insert_files (p->widgets.ctree, sub_parent, i, prefix, list);
 		g_free (prefix);
 		glist_strings_free (list);
@@ -1954,7 +1966,9 @@ project_dbase_remove_file (ProjectDBase * p)
 		tm_project_remove_object(TM_PROJECT(p->tm_project), source_file);
  	else
  		g_warning("Unable to find %s in project", p->current_file_data->filename);
-	fn = extract_filename (p->current_file_data->filename);
+	
+	/* fn = extract_filename (p->current_file_data->filename); */
+	fn = p->current_file_data->filename;
 
 	pos = strstr (files, fn);
 	if (pos == NULL)
@@ -2116,6 +2130,13 @@ done:
 	string_free (str);		
 	p->is_saved = TRUE;
 	p->top_proj_dir = g_dirname (p->proj_filename);
+	
+	/* Load excluded modules */
+	if (p->excluded_modules) {
+		glist_strings_free(p->excluded_modules);
+	}
+	p->excluded_modules = glist_from_data(p->props, "project.excluded.modules");
+
 	compiler_options_load (app->compiler_options, p->props);
 	src_paths_load (app->src_paths, p->props);
 	/* Project loading completed */

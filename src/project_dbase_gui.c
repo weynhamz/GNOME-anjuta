@@ -53,7 +53,7 @@ on_project_view1_activate (GtkMenuItem * menuitem, gpointer user_data)
 	g_return_if_fail (p->widgets.current_node != NULL);
 	g_return_if_fail (p->current_file_data != NULL);
 	if (p->widgets.current_node && p->current_file_data) {
-		anjuta_view_file (p->current_file_data->filename);
+		anjuta_view_file (p->current_file_data->full_filename);
 	}
 }
 
@@ -64,7 +64,7 @@ on_project_edit1_activate (GtkMenuItem * menuitem, gpointer user_data)
 	ProjectDBase *p = app->project_dbase;
 	g_return_if_fail (p->widgets.current_node != NULL);
 	g_return_if_fail (p->current_file_data != NULL);
-	anjuta_open_file (p->current_file_data->filename);
+	anjuta_open_file (p->current_file_data->full_filename);
 }
 
 void

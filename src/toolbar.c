@@ -584,6 +584,7 @@ create_browser_toolbar (GtkWidget * anjuta_gui, BrowserToolbar * toolbar)
 	GtkWidget *button9;
 	GtkWidget *button10;
 	/* Goto Tag functionality - Biswa */
+	GtkWidget *toolbar_tag_label;
 	GtkWidget *toolbar_tag;
 	GtkWidget *toolbar_tag_combo;
 	GtkWidget *toolbar_tag_entry;
@@ -733,6 +734,14 @@ create_browser_toolbar (GtkWidget * anjuta_gui, BrowserToolbar * toolbar)
 	gtk_widget_show (button10);
 	
 	/* Tag combo entry - added by Biswa */
+	gtk_toolbar_append_space (GTK_TOOLBAR (toolbar2));
+	
+	toolbar_tag_label = gtk_label_new(_("Tags: "));
+	gtk_widget_show(toolbar_tag_label);
+	gtk_widget_ref(toolbar_tag_label);
+	gtk_toolbar_append_widget (GTK_TOOLBAR (toolbar2), toolbar_tag_label,
+				   NULL, NULL);
+	
 	tmp_toolbar_icon =
 		anjuta_res_get_pixmap_widget (anjuta_gui, ANJUTA_PIXMAP_TAG, FALSE);
 	toolbar_tag =
@@ -748,6 +757,7 @@ create_browser_toolbar (GtkWidget * anjuta_gui, BrowserToolbar * toolbar)
 	toolbar_tag_combo = gtk_combo_new ();
 	gtk_widget_ref (toolbar_tag_combo);
 	gtk_combo_set_case_sensitive (GTK_COMBO (toolbar_tag_combo), TRUE);
+	gtk_widget_set_usize(toolbar_tag_combo, 256, -1);
 	gtk_widget_show (toolbar_tag_combo);
 	gtk_toolbar_append_widget (GTK_TOOLBAR (toolbar2), toolbar_tag_combo,
 				   NULL, NULL);
@@ -761,7 +771,6 @@ create_browser_toolbar (GtkWidget * anjuta_gui, BrowserToolbar * toolbar)
 			      ("Enter the tag to jump to"),
 			      NULL);
 
-	gtk_toolbar_append_space (GTK_TOOLBAR (toolbar2));
 	/* Tag combo entry ends here */
 
 
@@ -811,6 +820,7 @@ create_browser_toolbar (GtkWidget * anjuta_gui, BrowserToolbar * toolbar)
 	toolbar->block_start = button9;
 	toolbar->block_end = button10;
 	/* Goto Tag stuff - added by Biswa */
+	toolbar->tag_label = toolbar_tag_label;
 	toolbar->tag = toolbar_tag;
 	toolbar->tag_combo = toolbar_tag_combo;
 	toolbar->tag_entry = toolbar_tag_entry;

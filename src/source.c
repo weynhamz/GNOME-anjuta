@@ -1455,6 +1455,11 @@ source_write_build_files (ProjectDBase * data)
 	g_return_val_if_fail (data != NULL, FALSE);
 	g_return_val_if_fail (data->project_is_open, FALSE);
 
+	/* project is blocked, don't bother to disturb the
+	project */
+	if (data->project_config->blocked)
+		return TRUE;
+	
 	ret = source_write_autogen_sh (data);
 	if (!ret) return FALSE;
 	ret = source_write_acconfig_h (data);
