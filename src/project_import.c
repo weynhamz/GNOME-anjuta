@@ -97,12 +97,11 @@ project_import_start (const gchar *topleveldir, ProjectImportWizard * piw)
 	command = g_strdup_printf (IMPORT_SCRIPT " \"%s\"", topleveldir);
 	g_message("Command: %s", command);
 	
-	g_signal_connect (G_OBJECT (app->launcher), "output-arrived",
-					  G_CALLBACK (on_import_output_arrived), piw);
 	g_signal_connect (G_OBJECT (app->launcher), "child-exited",
 					  G_CALLBACK (on_import_terminated), piw);
 
-	ret = anjuta_launcher_execute (app->launcher, command);
+	ret = anjuta_launcher_execute (app->launcher, command,
+								   on_import_output_arrived, piw);
 	g_free(command);
 	an_message_manager_clear (app->messages, MESSAGE_BUILD);
 	if (ret)
@@ -170,9 +169,6 @@ on_import_terminated (AnjutaLauncher *launcher,
 		gtk_timeout_remove (piw->progress_timer_id);
 	piw->progress_timer_id = 0;
 	
-	g_signal_handlers_disconnect_by_func (launcher,
-										  G_CALLBACK (on_import_output_arrived),
-										  NULL);
 	g_signal_handlers_disconnect_by_func (launcher,
 										  G_CALLBACK (on_import_terminated),
 										  NULL);

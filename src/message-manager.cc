@@ -237,25 +237,15 @@ gboolean
 an_message_manager_append (AnMessageManager * amm,
 			       const gchar * msg_string, gint type_name)
 {
-	gsize rbytes,wbytes;
-	GError *error = NULL;
-	gchar *utf8_msg_string;
-
-	utf8_msg_string = g_locale_to_utf8(msg_string, -1, &rbytes, &wbytes, &error);
-	if(!utf8_msg_string && error != NULL) {
-		if(g_utf8_validate(msg_string, -1, NULL)) {
-				utf8_msg_string = g_strdup(msg_string);
-		} else {
-			g_printerr("g_locale_to_utf8 failed: %s\n", error->message);
-			return false;
-		}
-	}
-
-	if (!amm)
-		return false;
+	g_return_val_if_fail (amm != NULL, false);
 	
 	string type = labels[type_name];
-	string msg = utf8_msg_string;
+	
+	gchar *utf8_str = anjuta_util_convert_to_utf8 (msg_string);
+	g_return_val_if_fail (utf8_str != NULL, false);
+	string msg = utf8_str;
+	g_free (utf8_str);
+	
 	vector < MessageSubwindow * >::iterator cur_win;
 
 	if (!amm->intern->msg_windows.empty ())

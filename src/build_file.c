@@ -127,9 +127,6 @@ on_build_terminated (AnjutaLauncher *launcher,
 	gchar *buff1;
 
 	g_signal_handlers_disconnect_by_func (launcher,
-										  G_CALLBACK (on_build_mesg_arrived),
-										  NULL);
-	g_signal_handlers_disconnect_by_func (launcher,
 										  G_CALLBACK (on_build_terminated),
 										  NULL);
 	buff1 = g_strdup_printf (_("Total time taken: %lu secs\n"), time_taken);
@@ -162,9 +159,8 @@ on_build_terminated (AnjutaLauncher *launcher,
 gboolean
 build_execute_command (const gchar *command)
 {
-	g_signal_connect (G_OBJECT (app->launcher), "output-arrived",
-					  G_CALLBACK (on_build_mesg_arrived), NULL);
 	g_signal_connect (G_OBJECT (app->launcher), "child-exited",
 					  G_CALLBACK (on_build_terminated), NULL);
-	return anjuta_launcher_execute (app->launcher, command);
+	return anjuta_launcher_execute (app->launcher, command,
+									on_build_mesg_arrived, NULL);
 }

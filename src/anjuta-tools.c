@@ -488,9 +488,6 @@ static void tool_terminate_handler (AnjutaLauncher *launcher,
 									gulong time_taken, gpointer data)
 {
 	g_signal_handlers_disconnect_by_func (G_OBJECT (launcher),
-										  G_CALLBACK (tool_output_handler),
-										  NULL);
-	g_signal_handlers_disconnect_by_func (G_OBJECT (launcher),
 										  G_CALLBACK (tool_terminate_handler),
 										  NULL);
 	if (current_tool)
@@ -673,12 +670,11 @@ static void execute_tool(GtkMenuItem *item, gpointer data)
 #ifdef TOOL_DEBUG
 	g_message("Final command: '%s'\n", command);
 #endif
-		g_signal_connect (app->launcher, "output-arrived",
-						  G_CALLBACK (tool_output_handler), NULL);
 		g_signal_connect (app->launcher, "child-exited",
 						  G_CALLBACK (tool_terminate_handler), NULL);
 		
-		if (FALSE == anjuta_launcher_execute(app->launcher, command))
+		if (FALSE == anjuta_launcher_execute(app->launcher, command,
+											 tool_output_handler, NULL))
 		{
 			anjuta_error("%s: Unable to launch!", command);
 		}

@@ -290,12 +290,11 @@ find_in_files_process (FindInFiles * ff)
 #endif
 
 	anjuta_clear_execution_dir();
-	g_signal_connect (app->launcher, "output-arrived",
-					  G_CALLBACK (find_in_files_mesg_arrived), NULL);
 	g_signal_connect (app->launcher, "child-exited",
 					  G_CALLBACK (find_in_files_terminated), NULL);
 	
-	if (anjuta_launcher_execute (app->launcher, command) == FALSE)
+	if (anjuta_launcher_execute (app->launcher, command,
+								 find_in_files_mesg_arrived, NULL) == FALSE)
 	{
 		g_free (command);
 		return;
@@ -327,9 +326,6 @@ find_in_files_terminated (AnjutaLauncher *launcher,
 {
 	gchar *buff1;
 
-	g_signal_handlers_disconnect_by_func (G_OBJECT (launcher),
-									  G_CALLBACK (find_in_files_mesg_arrived),
-										  NULL);
 	g_signal_handlers_disconnect_by_func (G_OBJECT (launcher),
 										  G_CALLBACK (find_in_files_terminated),
 										  NULL);

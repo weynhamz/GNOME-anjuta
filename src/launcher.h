@@ -44,6 +44,11 @@ typedef enum {
 	ANJUTA_LAUNCHER_OUTPUT_PTY
 } AnjutaLauncherOutputType;
 
+typedef void (*AnjutaLauncherOutputCallback) (AnjutaLauncher *launcher,
+										  AnjutaLauncherOutputType output_type,
+											  const gchar *chars,
+											  gpointer user_data);
+
 struct _AnjutaLauncher
 {
     GObject parent;
@@ -55,9 +60,6 @@ struct _AnjutaLauncherClass
     GObjectClass parent_class;
 	
 	/* Signals */
-	void (*output_arrived_signal) (AnjutaLauncher *launcher,
-								   AnjutaLauncherOutputType output_type,
-								   const gchar *chars);
 	void (*child_exited_signal) (AnjutaLauncher *launcher,
 								 int child_pid, int exit_status,
 								 gulong time_taken_in_seconds);
@@ -68,15 +70,22 @@ guint anjuta_launcher_get_type (void);
 GObject *anjuta_launcher_new (void);
 gboolean anjuta_launcher_is_busy (AnjutaLauncher *launcher);
 gboolean anjuta_launcher_execute (AnjutaLauncher *launcher,
-								  const gchar *command);
+								  const gchar *command,
+								  AnjutaLauncherOutputCallback callback,
+								  gpointer callback_data);
 gboolean anjuta_launcher_execute_v (AnjutaLauncher *launcher,
-									gchar *const argv[]);
+									gchar *const argv[],
+									AnjutaLauncherOutputCallback callback,
+									gpointer callback_data);
 void anjuta_launcher_send_stdin (AnjutaLauncher *launcher, const gchar *in);
 void anjuta_launcher_send_ptyin (AnjutaLauncher *launcher, const gchar *in);
 gint anjuta_launcher_get_child_pid (AnjutaLauncher *launcher);
 void anjuta_launcher_reset (AnjutaLauncher *launcher);
 void anjuta_launcher_signal (AnjutaLauncher *launcher, int sig);
-
+void anjuta_launcher_set_buffered_output (AnjutaLauncher *launcher,
+										  gboolean buffered);
+void anjuta_launcher_set_check_passwd_prompt (AnjutaLauncher *launcher,
+											  gboolean buffered);
 #ifdef __cplusplus
 };
 #endif

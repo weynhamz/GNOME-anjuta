@@ -294,6 +294,9 @@ void anjuta_util_color_from_string (const gchar * val,
 
 gchar *anjuta_util_string_from_color (guint8 r, guint8 g, guint8 b);
 
+/* Return must be freed. Works even if str is already UTF8 string */
+gchar *anjuta_util_convert_to_utf8 (const gchar *str);
+
 GtkWidget * anjuta_util_toolbar_append_button (GtkWidget *toolbar,
 											   const gchar *iconfile,
 											   const gchar *label,

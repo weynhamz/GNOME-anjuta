@@ -1,3 +1,22 @@
+2003-09-24  Naba Kumar  <naba@gnome.org>
+
+	* src/launcher.[c,h], plugins/patch/patch-plugin.c, src/anjuta-tools.c,
+	src/build_file.c, src/cvs.c, src/find_in_files.c, src/gnome_project.c,
+	src/project-import.c, src/anjuta.c: Implemented buffered outputs for
+	stdout and stderr. Also buffered output and check-for-password
+	can be enabled/disabled. Added proper UTF8 handling. Fixed pty input
+	with password prompts. Checkes for password prompts from all outputs.
+	
+	* src/utilities.[h,c]: Defined anjuta_util_convert_to_utf8() function
+	which takes a string (which could be utf8 also) and converts into
+	utf8 string.
+	
+	* src/main.c: Connects kernel signals after gnome_program_init().
+	
+	Patch from: Jean-Noel Guiheneuf  <jnoel@saudionline.com.sa>
+	* src/message-manager.c: Fixed bug #787026 by converting the strings
+	to proper UTF8.
+	
 2003-09-22  Naba Kumar  <naba@gnome.org>
 
 	* src/scintilla/patches/scintilla-ac-gtk2-port.diff,

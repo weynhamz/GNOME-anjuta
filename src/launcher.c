@@ -55,13 +55,17 @@ struct _AnjutaLauncherPriv
 	/* GIO channels */
 	GIOChannel *stdout_channel;
 	GIOChannel *stderr_channel;
-	GIOChannel *stdin_channel;
+	/*GIOChannel *stdin_channel;*/
 	GIOChannel *pty_channel;
 
 	/* GIO watch handles */
 	guint stdout_watch;
 	guint stderr_watch;
 	guint pty_watch;
+	
+	/* Output line buffers */
+	gchar *stdout_buffer;
+	gchar *stderr_buffer;
 	
 	/* Output of the pty is constantly stored here.*/
 	gchar *pty_output_buffer;
@@ -76,11 +80,23 @@ struct _AnjutaLauncherPriv
 	
 	/* Start time of execution */
 	time_t start_time;
+	
+	/* Should the outputs be buffered */
+	gboolean buffered_output;
+	
+	/* Should we check for password prompts in stdout and pty */
+	gboolean check_for_passwd_prompt;
+	
+	/* Output callback */
+	AnjutaLauncherOutputCallback output_callback;
+	
+	/* Callback data */
+	gpointer callback_data;
 };
 
 enum
 {
-	OUTPUT_ARRIVED_SIGNAL,
+	/* OUTPUT_ARRIVED_SIGNAL, */
 	CHILD_EXITED_SIGNAL,
 	BUSY_SIGNAL,
 	LAST_SIGNAL
@@ -108,6 +124,10 @@ anjuta_launcher_initialize (AnjutaLauncher *obj)
 	obj->priv->stderr_channel = NULL;
 	obj->priv->pty_channel = NULL;
 	
+	/* Output line buffers */
+	obj->priv->stdout_buffer = NULL;
+	obj->priv->stderr_buffer = NULL;
+	
 	/* Pty buffer */
 	obj->priv->pty_output_buffer = NULL;
 	
@@ -121,6 +141,12 @@ anjuta_launcher_initialize (AnjutaLauncher *obj)
 	
 	/* Start time of execution */
 	obj->priv->start_time = 0;
+	
+	obj->priv->buffered_output = TRUE;
+	obj->priv->check_for_passwd_prompt = TRUE;
+	
+	/* Output callback */
+	obj->priv->output_callback = NULL;
 }
 
 guint
@@ -183,8 +209,8 @@ anjuta_launcher_finalize (GObject *obj)
 		g_io_channel_unref (launcher->priv->pty_channel);
 		
 		/* Shutdowin stdin */
-		g_io_channel_shutdown (launcher->priv->stdin_channel, TRUE, NULL);
-		g_io_channel_unref (launcher->priv->stdin_channel);
+		//g_io_channel_shutdown (launcher->priv->stdin_channel, TRUE, NULL);
+		//g_io_channel_unref (launcher->priv->stdin_channel);
 	}
 	g_free (launcher->priv);
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (obj));
@@ -200,7 +226,7 @@ anjuta_launcher_class_init (AnjutaLauncherClass * klass)
 	g_message ("Initializing launcher class");
 	
 	parent_class = g_type_class_peek_parent (klass);
-	
+	/*
 	launcher_signals[OUTPUT_ARRIVED_SIGNAL] =
 		g_signal_new ("output-arrived",
 					G_TYPE_FROM_CLASS (object_class),
@@ -210,7 +236,7 @@ anjuta_launcher_class_init (AnjutaLauncherClass * klass)
 					NULL, NULL,
 					anjuta_cclosure_marshal_VOID__INT_STRING,
 					G_TYPE_NONE, 2, GTK_TYPE_INT, GTK_TYPE_STRING);
-	
+	*/
 	launcher_signals[CHILD_EXITED_SIGNAL] =
 		g_signal_new ("child-exited",
 					G_TYPE_FROM_CLASS (object_class),
@@ -262,23 +288,26 @@ anjuta_launcher_set_busy (AnjutaLauncher *launcher, gboolean flag)
 void
 anjuta_launcher_send_stdin (AnjutaLauncher *launcher, const gchar * input_str)
 {
+	anjuta_launcher_send_ptyin (launcher, input_str);
+#if 0	
 	int bytes_written;
 	GError *err = NULL;
 	
 	if (!input_str || strlen(input_str) == 0) return;
 	
-	g_io_channel_write_chars (launcher->priv->stdin_channel,
+	/*g_io_channel_write_chars (launcher->priv->stdin_channel,
 							  input_str, strlen (input_str),
-							  &bytes_written, &err);
+							  &bytes_written, &err);*/
 	if (err)
 		g_error_free (err);
 	
 	err = NULL;
-	g_io_channel_write_chars (launcher->priv->stdin_channel,
+	/*g_io_channel_write_chars (launcher->priv->stdin_channel,
 							  "\n", 1,
-							  &bytes_written, &err);
+							  &bytes_written, &err);*/
 	if (err)
 		g_error_free (err);
+#endif
 }
 
 void
@@ -292,6 +321,7 @@ anjuta_launcher_send_ptyin (AnjutaLauncher *launcher, const gchar * input_str)
 	g_io_channel_write_chars (launcher->priv->pty_channel,
 							  input_str, strlen (input_str),
 							  &bytes_written, &err);
+	g_io_channel_flush (launcher->priv->pty_channel, NULL);
 	if (err)
 	{
 		g_warning ("Error encountered while writing to PTY!. %s",
@@ -333,94 +363,6 @@ anjuta_launcher_synchronize (AnjutaLauncher *launcher)
 		gtk_timeout_add (50, anjuta_launcher_check_for_execution_done,
 						 launcher);
 	}
-}
-
-static gboolean
-anjuta_launcher_scan_output (GIOChannel *channel, GIOCondition condition,
-							 AnjutaLauncher *launcher)
-{
-	int n;
-	gchar buffer[FILE_BUFFER_SIZE];
-	gboolean ret = TRUE;
-	
-	if (condition & G_IO_IN)
-	{
-		GError *err = NULL;
-		g_io_channel_read_chars (channel, buffer, FILE_BUFFER_SIZE-1, &n, &err);
-		if (n > 0 && !err) /* There is output */
-		{
-			buffer[n] = '\0';
-			g_signal_emit_by_name (launcher, "output-arrived",
-								   ANJUTA_LAUNCHER_OUTPUT_STDOUT, buffer);
-		}
-		/* The pipe is closed on the other side */
-		/* if not related to non blocking read or interrupted syscall */
-		else if (err && errno != EAGAIN && errno != EINTR)
-		{
-#ifdef DEBUG
-			g_message(_("launcher.c: Error while reading child stdout\n"));
-#endif
-			launcher->priv->stdout_is_done = TRUE;
-			anjuta_launcher_synchronize (launcher);
-			ret = FALSE;
-		}
-		if (err)
-			g_error_free (err);
-	}
-	if ((condition & G_IO_ERR) || (condition & G_IO_HUP))
-	{
-#ifdef DEBUG
-		g_message(_("launcher.c: STDOUT pipe closed"));
-#endif
-		launcher->priv->stdout_is_done = TRUE;
-		anjuta_launcher_synchronize (launcher);
-		ret = FALSE;
-	}
-	return ret;
-}
-
-static gboolean
-anjuta_launcher_scan_error (GIOChannel *channel, GIOCondition condition,
-							AnjutaLauncher *launcher)
-{
-	int n;
-	gchar buffer[FILE_BUFFER_SIZE];
-	gboolean ret = TRUE;
-	
-	if (condition & G_IO_IN)
-	{
-		GError *err = NULL;
-		g_io_channel_read_chars (channel, buffer, FILE_BUFFER_SIZE-1, &n, &err);
-		if (n > 0 && !err) /* There is stderr output */
-		{
-			buffer[n] = '\0';
-			g_signal_emit_by_name (launcher, "output-arrived",
-								   ANJUTA_LAUNCHER_OUTPUT_STDERR, buffer);
-		}
-		/* The pipe is closed on the other side */
-		/* if not related to non blocking read or interrupted syscall */
-		else if (err && errno != EAGAIN && errno != EINTR)
-		{
-#ifdef DEBUG
-			g_message(_("launcher.c: Error while reading child stderr"));
-#endif
-			launcher->priv->stderr_is_done = TRUE;
-			anjuta_launcher_synchronize (launcher);
-			ret = FALSE;
-		}
-		if (err)
-			g_error_free (err);
-	}
-	if ((condition & G_IO_ERR) || (condition & G_IO_HUP))
-	{
-#ifdef DEBUG
-		g_message (_("launcher.c: STDERR pipe closed"));
-#endif
-		launcher->priv->stderr_is_done = TRUE;
-		anjuta_launcher_synchronize (launcher);
-		ret = FALSE;
-	}
-	return ret;
 }
 
 /* Password dialog */
@@ -483,8 +425,8 @@ create_password_dialog (const gchar* prompt)
 
 /* pty buffer check for password authentication */
 static void
-anjuta_launcher_pty_check_password (AnjutaLauncher *launcher,
-									const gchar* last_line)
+anjuta_launcher_check_password_real (AnjutaLauncher *launcher,
+									 const gchar* last_line)
 {
 	gchar *prompt = "assword: ";
 	const gchar *prompt_index;
@@ -528,6 +470,198 @@ anjuta_launcher_pty_check_password (AnjutaLauncher *launcher,
 	}
 }
 
+static void
+anjuta_launcher_check_password (AnjutaLauncher *launcher, const gchar *chars)
+{
+	glong start, end;
+	gchar *last_line;
+
+	if (!chars || strlen(chars) <= 0)
+		return;
+#ifdef DEBUG
+	g_message("Chars buffer = %s", chars);
+#endif
+	start = end = strlen (chars);
+	while (start > 0 && chars[start-1] != '\n') start--;
+
+	if (end > start)
+	{
+		last_line = g_strndup (&chars[start], end - start + 1);
+
+#ifdef DEBUG
+		g_message ("Last line = %s", last_line);
+#endif
+		/* Checks for password, again */
+		anjuta_launcher_check_password_real (launcher, last_line);
+		g_free (last_line);
+	}
+}
+
+static void
+anjuta_launcher_buffered_output (AnjutaLauncher *launcher,
+								 AnjutaLauncherOutputType output_type,
+								 const gchar *chars)
+{
+	gchar *all_lines;
+	gchar *incomplete_line;
+	gchar **buffer;
+	
+	g_return_if_fail (chars != NULL);
+	g_return_if_fail (strlen (chars) > 0);
+	
+	if (launcher->priv->output_callback == NULL)
+		return;
+	if (launcher->priv->buffered_output == FALSE)
+	{
+		(launcher->priv->output_callback)(launcher, output_type, chars,
+										  launcher->priv->callback_data);
+		return;
+	}
+	switch (output_type)
+	{
+	case ANJUTA_LAUNCHER_OUTPUT_STDOUT:
+		buffer = &launcher->priv->stdout_buffer;
+		break;
+	case ANJUTA_LAUNCHER_OUTPUT_STDERR:
+		buffer = &launcher->priv->stderr_buffer;
+		break;
+	default:
+		g_warning ("Should not reach here");
+		return;
+	}
+	if (*buffer) 
+		all_lines = g_strconcat (*buffer, chars, NULL);
+	else
+		all_lines = g_strdup (chars);
+	
+	/* Buffer the last incomplete line */
+	incomplete_line = all_lines + strlen (all_lines) - 1;
+	while (incomplete_line > all_lines &&
+		   *incomplete_line != '\n')
+	{
+		incomplete_line = g_utf8_prev_char (incomplete_line);
+	}
+	if (*incomplete_line == '\n')
+		incomplete_line++;
+	
+	/* Update line buffer */
+	g_free(*buffer);
+	*buffer = NULL;
+	if (strlen(incomplete_line))
+	{
+		*buffer = g_strdup (incomplete_line);
+#ifdef DEBUG
+		g_message ("Line buffer for %d: %s", output_type, incomplete_line);
+#endif
+	}
+	/* Check for password prompt */
+	if (launcher->priv->check_for_passwd_prompt)
+		anjuta_launcher_check_password (launcher, incomplete_line);
+	
+	/* Deliver complete lines */
+	*incomplete_line = '\0';
+	if (strlen (all_lines) > 0)
+		(launcher->priv->output_callback)(launcher, output_type, all_lines,
+										  launcher->priv->callback_data);
+	g_free (all_lines);
+}
+
+static gboolean
+anjuta_launcher_scan_output (GIOChannel *channel, GIOCondition condition,
+							 AnjutaLauncher *launcher)
+{
+	int n;
+	gchar buffer[FILE_BUFFER_SIZE];
+	gboolean ret = TRUE;
+	
+	if (condition & G_IO_IN)
+	{
+		GError *err = NULL;
+		g_io_channel_read_chars (channel, buffer, FILE_BUFFER_SIZE-1, &n, &err);
+		if (n > 0 && !err) /* There is output */
+		{
+			gchar *utf8_chars;
+			buffer[n] = '\0';
+			utf8_chars = anjuta_util_convert_to_utf8 (buffer);
+			anjuta_launcher_buffered_output (launcher,
+											 ANJUTA_LAUNCHER_OUTPUT_STDOUT,
+											 utf8_chars);
+			g_free (utf8_chars);
+		}
+		/* The pipe is closed on the other side */
+		/* if not related to non blocking read or interrupted syscall */
+		else if (err && errno != EAGAIN && errno != EINTR)
+		{
+#ifdef DEBUG
+			g_message(_("launcher.c: Error while reading child stdout\n"));
+#endif
+			launcher->priv->stdout_is_done = TRUE;
+			anjuta_launcher_synchronize (launcher);
+			ret = FALSE;
+		}
+		if (err)
+			g_error_free (err);
+	}
+	if ((condition & G_IO_ERR) || (condition & G_IO_HUP))
+	{
+#ifdef DEBUG
+		g_message(_("launcher.c: STDOUT pipe closed"));
+#endif
+		launcher->priv->stdout_is_done = TRUE;
+		anjuta_launcher_synchronize (launcher);
+		ret = FALSE;
+	}
+	return ret;
+}
+
+static gboolean
+anjuta_launcher_scan_error (GIOChannel *channel, GIOCondition condition,
+							AnjutaLauncher *launcher)
+{
+	int n;
+	gchar buffer[FILE_BUFFER_SIZE];
+	gboolean ret = TRUE;
+	
+	if (condition & G_IO_IN)
+	{
+		GError *err = NULL;
+		g_io_channel_read_chars (channel, buffer, FILE_BUFFER_SIZE-1, &n, &err);
+		if (n > 0 && !err) /* There is stderr output */
+		{
+			gchar *utf8_chars;
+			buffer[n] = '\0';
+			utf8_chars = anjuta_util_convert_to_utf8 (buffer);
+			anjuta_launcher_buffered_output (launcher,
+											 ANJUTA_LAUNCHER_OUTPUT_STDERR,
+											 utf8_chars);
+			g_free (utf8_chars);
+		}
+		/* The pipe is closed on the other side */
+		/* if not related to non blocking read or interrupted syscall */
+		else if (err && errno != EAGAIN && errno != EINTR)
+		{
+#ifdef DEBUG
+			g_message(_("launcher.c: Error while reading child stderr"));
+#endif
+			launcher->priv->stderr_is_done = TRUE;
+			anjuta_launcher_synchronize (launcher);
+			ret = FALSE;
+		}
+		if (err)
+			g_error_free (err);
+	}
+	if ((condition & G_IO_ERR) || (condition & G_IO_HUP))
+	{
+#ifdef DEBUG
+		g_message (_("launcher.c: STDERR pipe closed"));
+#endif
+		launcher->priv->stderr_is_done = TRUE;
+		anjuta_launcher_synchronize (launcher);
+		ret = FALSE;
+	}
+	return ret;
+}
+
 static gboolean
 anjuta_launcher_scan_pty (GIOChannel *channel, GIOCondition condition,
 						  AnjutaLauncher *launcher)
@@ -542,22 +676,19 @@ anjuta_launcher_scan_pty (GIOChannel *channel, GIOCondition condition,
 		g_io_channel_read_chars (channel, buffer, FILE_BUFFER_SIZE-1, &n, &err);
 		if (n > 0 && !err) /* There is stderr output */
 		{
+			gchar *utf8_chars;
 			gchar *old_str = launcher->priv->pty_output_buffer;
 			buffer[n] = '\0';
+			utf8_chars = anjuta_util_convert_to_utf8 (buffer);
 			if (old_str)
 			{
-				gchar *str = g_strconcat (old_str, buffer, NULL);
+				gchar *str = g_strconcat (old_str, utf8_chars, NULL);
 				launcher->priv->pty_output_buffer = str;
 				g_free (old_str);
 			}
 			else
-				launcher->priv->pty_output_buffer = g_strdup (buffer);
-			
-			/* Is there any significant of this? If yes, uncomment */
-			/*
-			g_signal_emit_by_name (launcher, "output-arrived",
-								   ANJUTA_LAUNCHER_OUTPUT_PTY, buffer);
-			*/
+				launcher->priv->pty_output_buffer = g_strdup (utf8_chars);
+			g_free (utf8_chars);
 		}
 		/* The pipe is closed on the other side */
 		/* if not related to non blocking read or interrupted syscall */
@@ -568,32 +699,12 @@ anjuta_launcher_scan_pty (GIOChannel *channel, GIOCondition condition,
 		}
 		if (err)
 			g_error_free (err);
-		if (launcher->priv->pty_output_buffer
+		if (launcher->priv->check_for_passwd_prompt
+			&& launcher->priv->pty_output_buffer
 			&& strlen (launcher->priv->pty_output_buffer) > 0)
 		{
-			glong start, end;
-			gchar *chars, *last_line;
-			
-			chars = launcher->priv->pty_output_buffer;
-#ifdef DEBUG
-			g_message("Chars buffer = %s", chars);
-#endif
-			end = strlen (chars)-1;
-			while (end > 0 && chars[end] == '\n') end--;
-			start = end;
-			while (start > 0 && chars[start-1] != '\n') start--;
-	
-			if (end > start)
-			{
-				last_line = g_strndup (&chars[start], end-start+1);
-	
-#ifdef DEBUG
-				g_message ("Last line = %s", last_line);
-#endif
-				/* Checks for password, again */
-				anjuta_launcher_pty_check_password (launcher, last_line);
-				g_free (last_line);
-			}
+			anjuta_launcher_check_password (launcher,
+											launcher->priv->pty_output_buffer);
 		}
 	}
 	/* In pty case, we handle the cases in different invocations */
@@ -619,12 +730,12 @@ anjuta_launcher_execution_done_cleanup (AnjutaLauncher *launcher)
 	
 	g_io_channel_shutdown (launcher->priv->stdout_channel, TRUE, NULL);
 	g_io_channel_shutdown (launcher->priv->stderr_channel, TRUE, NULL);
-	g_io_channel_shutdown (launcher->priv->stdin_channel, TRUE, NULL);
+	//g_io_channel_shutdown (launcher->priv->stdin_channel, TRUE, NULL);
 	g_io_channel_shutdown (launcher->priv->pty_channel, TRUE, NULL);
 	
 	g_io_channel_unref (launcher->priv->stdout_channel);
 	g_io_channel_unref (launcher->priv->stderr_channel);
-	g_io_channel_unref (launcher->priv->stdin_channel);
+	//g_io_channel_unref (launcher->priv->stdin_channel);
 	g_io_channel_unref (launcher->priv->pty_channel);
 	
 	if (launcher->priv->pty_output_buffer)
@@ -690,7 +801,7 @@ anjuta_launcher_fork (AnjutaLauncher *launcher, gchar *const args[])
 {
 	char *working_dir;
 	int pty_master_fd, pty_slave_fd, md;
-	int stdout_pipe[2], stderr_pipe[2], stdin_pipe[2];
+	int stdout_pipe[2], stderr_pipe[2]/*, stdin_pipe[2]*/;
 	pid_t child_pid;
 	
 	working_dir = g_get_current_dir ();
@@ -698,7 +809,7 @@ anjuta_launcher_fork (AnjutaLauncher *launcher, gchar *const args[])
 	/* The pipes */
 	pipe (stderr_pipe);
 	pipe (stdout_pipe);
-	pipe (stdin_pipe);
+	// pipe (stdin_pipe);
 
 	/* Fork the command */
 	child_pid = forkpty (&pty_master_fd, NULL, NULL, NULL);
@@ -708,13 +819,13 @@ anjuta_launcher_fork (AnjutaLauncher *launcher, gchar *const args[])
 		dup (stderr_pipe[1]);
 		close (1);
 		dup (stdout_pipe[1]);
-		close (0);
+		/*close (0);
 		dup (stdin_pipe[0]);
-		
+		*/
 		/* Close unnecessary pipes */
 		close (stderr_pipe[0]);
 		close (stdout_pipe[0]);
-		close (stdin_pipe[1]);
+		// close (stdin_pipe[1]);
 		
 		/*
 		if ((ioctl(pty_slave_fd, TIOCSCTTY, NULL))
@@ -735,7 +846,7 @@ anjuta_launcher_fork (AnjutaLauncher *launcher, gchar *const args[])
 	/* Close parent's side pipes */
 	close (stderr_pipe[1]);
 	close (stdout_pipe[1]);
-	close (stdin_pipe[0]);
+	// close (stdin_pipe[0]);
 	
 	if (child_pid < 0)
 	{
@@ -743,7 +854,7 @@ anjuta_launcher_fork (AnjutaLauncher *launcher, gchar *const args[])
 		/* Close parent's side pipes */
 		close (stderr_pipe[0]);
 		close (stdout_pipe[0]);
-		close (stdin_pipe[1]);
+		// close (stdin_pipe[1]);
 		return child_pid;
 	}
 	
@@ -762,7 +873,7 @@ anjuta_launcher_fork (AnjutaLauncher *launcher, gchar *const args[])
 	launcher->priv->child_pid = child_pid;
 	launcher->priv->stderr_channel = g_io_channel_unix_new (stderr_pipe[0]);
 	launcher->priv->stdout_channel = g_io_channel_unix_new (stdout_pipe[0]);
-	launcher->priv->stdin_channel = g_io_channel_unix_new (stdin_pipe[1]);
+	// launcher->priv->stdin_channel = g_io_channel_unix_new (stdin_pipe[1]);
 	launcher->priv->pty_channel = g_io_channel_unix_new (pty_master_fd);
 	
 	launcher->priv->stdout_watch = 
@@ -787,7 +898,9 @@ anjuta_launcher_fork (AnjutaLauncher *launcher, gchar *const args[])
 }
 
 gboolean
-anjuta_launcher_execute_v (AnjutaLauncher *launcher, gchar *const args[])
+anjuta_launcher_execute_v (AnjutaLauncher *launcher, gchar *const args[],
+						   AnjutaLauncherOutputCallback callback,
+						   gpointer callback_data)
 {
 	if (anjuta_launcher_is_busy (launcher))
 		return FALSE;
@@ -800,6 +913,8 @@ anjuta_launcher_execute_v (AnjutaLauncher *launcher, gchar *const args[])
 	launcher->priv->stderr_is_done = FALSE;
 	launcher->priv->child_has_terminated = FALSE;
 	launcher->priv->in_synchronization = FALSE;
+	launcher->priv->output_callback = callback;
+	launcher->priv->callback_data = callback_data;
 	
 	/* On a fork error perform a cleanup and return */
 	if (anjuta_launcher_fork (launcher, args) < 0)
@@ -811,7 +926,9 @@ anjuta_launcher_execute_v (AnjutaLauncher *launcher, gchar *const args[])
 }
 
 gboolean
-anjuta_launcher_execute (AnjutaLauncher *launcher, const gchar *command_str)
+anjuta_launcher_execute (AnjutaLauncher *launcher, const gchar *command_str,
+						 AnjutaLauncherOutputCallback callback,
+						 gpointer callback_data)
 {
 	GList *args_list, *args_list_ptr;
 	gchar **args, **args_ptr;
@@ -830,7 +947,7 @@ anjuta_launcher_execute (AnjutaLauncher *launcher, const gchar *command_str)
 	}
 	*args_ptr = NULL;
 
-	ret = anjuta_launcher_execute_v (launcher, args);
+	ret = anjuta_launcher_execute_v (launcher, args, callback, callback_data);
 	g_free (args);
 	glist_strings_free (args_list);
 	return ret;

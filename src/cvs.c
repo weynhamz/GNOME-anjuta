@@ -502,11 +502,10 @@ cvs_status (CVS *cvs, const gchar *filename, gboolean is_dir)
 	}
 	else
 	{
-		g_signal_connect (G_OBJECT (app->launcher), "output-arrived",
-						  G_CALLBACK (on_cvs_buffer_output_arrived), NULL);
 		g_signal_connect (G_OBJECT (app->launcher), "child-exited",
 						  G_CALLBACK (on_cvs_buffer_terminated), NULL);
-		anjuta_launcher_execute (app->launcher, command);
+		anjuta_launcher_execute (app->launcher, command,
+								 on_cvs_buffer_output_arrived, NULL);
 	}
 
 	g_free (compression);
@@ -558,11 +557,10 @@ cvs_log (CVS *cvs, const gchar *filename, gboolean is_dir)
 	}
 	else
 	{
-		g_signal_connect (G_OBJECT (app->launcher), "output-arrived",
-						  G_CALLBACK (on_cvs_buffer_output_arrived), NULL);
 		g_signal_connect (G_OBJECT (app->launcher), "child-exited",
 						  G_CALLBACK (on_cvs_buffer_terminated), NULL);
-		anjuta_launcher_execute (app->launcher, command);
+		anjuta_launcher_execute (app->launcher, command,
+								 on_cvs_buffer_output_arrived, NULL);
 	}
 	g_free (compression);
 	g_free (command);
@@ -638,11 +636,10 @@ cvs_diff (CVS *cvs, const gchar *filename, const gchar *revision,
 	}
 	else
 	{
-		g_signal_connect (G_OBJECT (app->launcher), "output-arrived",
-						  G_CALLBACK (on_cvs_buffer_output_arrived), NULL);
 		g_signal_connect (G_OBJECT (app->launcher), "child-exited",
 						  G_CALLBACK (on_cvs_buffer_terminated), NULL);
-		anjuta_launcher_execute (app->launcher, command);
+		anjuta_launcher_execute (app->launcher, command,
+								 on_cvs_buffer_output_arrived, NULL);
 	}
 	g_free (command);
 	g_free (dir);
@@ -805,9 +802,6 @@ on_cvs_terminated (AnjutaLauncher *launcher, gint child_pid,
 				   gint status, gulong time_taken, gpointer data)
 {
 	g_signal_handlers_disconnect_by_func (G_OBJECT (app->launcher),
-										  G_CALLBACK (on_cvs_output_arrived),
-										  NULL);
-	g_signal_handlers_disconnect_by_func (G_OBJECT (app->launcher),
 										  G_CALLBACK (on_cvs_terminated),
 										  NULL);
 	on_cvs_terminated_real (status, time_taken);
@@ -817,9 +811,6 @@ static void
 on_cvs_buffer_terminated (AnjutaLauncher *launcher, gint child_pid,
 				   gint status, gulong time_taken, gpointer data)
 {
-	g_signal_handlers_disconnect_by_func (G_OBJECT (app->launcher),
-										  G_CALLBACK (on_cvs_buffer_output_arrived),
-										  NULL);
 	g_signal_handlers_disconnect_by_func (G_OBJECT (app->launcher),
 										  G_CALLBACK (on_cvs_buffer_terminated),
 										  NULL);
@@ -904,10 +895,9 @@ launch_cvs_command (gchar * command, gchar * dir)
 
 	an_message_manager_show (app->messages, MESSAGE_CVS);
 
-	g_signal_connect (G_OBJECT (app->launcher), "output-arrived",
-					  G_CALLBACK (on_cvs_output_arrived), NULL);
 	g_signal_connect (G_OBJECT (app->launcher), "child-exited",
 					  G_CALLBACK (on_cvs_terminated), NULL);
-	anjuta_launcher_execute (app->launcher, command);
+	anjuta_launcher_execute (app->launcher, command,
+							 on_cvs_output_arrived, NULL);
 	return;
 }

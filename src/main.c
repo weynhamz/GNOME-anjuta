@@ -160,9 +160,6 @@ main (int argc, char *argv[])
 	textdomain (PACKAGE);
 #endif
 	
-	/* Connect the necessary kernal signals */
-	anjuta_kernel_signals_connect ();
-
 	data_dir = g_strdup (PACKAGE_DATA_DIR);
 	data_dir[strlen (data_dir) - strlen (PACKAGE) - 1] = '\0';
 	
@@ -223,6 +220,9 @@ main (int argc, char *argv[])
 		gtk_idle_add(load_command_lines_on_idle, (gpointer)argc);
 	}
 	
+	/* Connect the necessary kernal signals */
+	anjuta_kernel_signals_connect ();
+
 	gtk_main();
 	
 	anjuta_application_exit();

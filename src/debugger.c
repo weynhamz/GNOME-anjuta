@@ -640,12 +640,11 @@ debugger_start (const gchar * prog)
 	debugger.starting = TRUE;
 
 	// Prepare for launch.	
-	g_signal_connect (G_OBJECT (app->launcher), "output-arrived",
-					  G_CALLBACK (on_gdb_output_arrived), NULL);
 	g_signal_connect (G_OBJECT (app->launcher), "child-exited",
 					  G_CALLBACK (on_gdb_terminated), NULL);
 	
-	ret = anjuta_launcher_execute (app->launcher, command_str);
+	ret = anjuta_launcher_execute (app->launcher, command_str,
+								   on_gdb_output_arrived, NULL);
 	an_message_manager_clear (app->messages, MESSAGE_DEBUG);
 	if (ret == TRUE)
 	{
@@ -971,9 +970,6 @@ static void
 on_gdb_terminated (AnjutaLauncher *launcher,
 				gint child_pid, gint status, gulong t, gpointer data)
 {
-	g_signal_handlers_disconnect_by_func (G_OBJECT (launcher),
-										  G_CALLBACK (on_gdb_output_arrived),
-										  NULL);
 	g_signal_handlers_disconnect_by_func (G_OBJECT (launcher),
 										  G_CALLBACK (on_gdb_terminated),
 										  NULL);

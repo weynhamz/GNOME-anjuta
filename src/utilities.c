@@ -1765,6 +1765,33 @@ anjuta_util_string_from_color (guint8 r, guint8 g, guint8 b)
 	return g_strdup (str);
 }
 
+gchar *
+anjuta_util_convert_to_utf8 (const gchar *str)
+{
+	GError *error = NULL;
+	gchar *utf8_msg_string = NULL;
+	
+	g_return_val_if_fail (str != NULL, NULL);
+	g_return_val_if_fail (strlen (str) > 0, NULL);
+	
+	if (g_utf8_validate(str, -1, NULL))
+	{
+		utf8_msg_string = g_strdup (str);
+	}
+	else
+	{
+		gsize rbytes, wbytes;
+		utf8_msg_string = g_locale_to_utf8 (str, -1, &rbytes, &wbytes, &error);
+		if (error != NULL) {
+			g_warning ("g_locale_to_utf8 failed: %s\n", error->message);
+			g_error_free (error);
+			g_free (utf8_msg_string);
+			return NULL;
+		}
+	}
+	return utf8_msg_string;
+}
+
 GtkWidget *
 anjuta_util_toolbar_append_button (GtkWidget *toolbar, const gchar *iconfile,
 					   const gchar *label, const gchar *tooltip,

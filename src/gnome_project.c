@@ -236,11 +236,10 @@ create_new_project (AppWizard * aw)
 								   MESSAGE_BUILD);
 	chdir (app->project_dbase->top_proj_dir);
 	
-	g_signal_connect (G_OBJECT (app->launcher), "output-arrived",
-					  G_CALLBACK (new_prj_mesg_arrived), NULL);
 	g_signal_connect (G_OBJECT (app->launcher), "child-exited",
 					  G_CALLBACK (new_prj_terminated), NULL);
-	if (anjuta_launcher_execute (app->launcher, "./autogen.sh") == FALSE)
+	if (anjuta_launcher_execute (app->launcher, "./autogen.sh",
+								 new_prj_mesg_arrived, NULL) == FALSE)
 	{
 		anjuta_error ("Could not run ./autogen.sh");
 		return FALSE;

@@ -2398,12 +2398,11 @@ void anjuta_search_sources_for_symbol(const gchar *s)
 	snprintf(command, BUFSIZ, "grep -FInHr '%s' %s", s,
 			 project_dbase_get_dir(app->project_dbase));
 	
-	g_signal_connect (app->launcher, "output-arrived",
-					  G_CALLBACK (find_in_files_mesg_arrived), NULL);
 	g_signal_connect (app->launcher, "child-exited",
 					  G_CALLBACK (find_in_files_terminated), NULL);
 	
-	if (anjuta_launcher_execute (app->launcher, command) == FALSE)
+	if (anjuta_launcher_execute (app->launcher, command,
+								 find_in_files_mesg_arrived, NULL) == FALSE)
 		return;
 	
 	anjuta_update_app_status (TRUE, _("Looking up symbol"));
