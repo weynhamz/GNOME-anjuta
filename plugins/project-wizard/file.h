@@ -32,9 +32,9 @@ typedef enum {
 } NPWFileType;
 
 typedef enum {
-	NPW_DEFAULT = -1,
-	NPW_FALSE = 0,
-	NPW_TRUE = 1
+	NPW_FILE_DEFAULT = -1,
+	NPW_FILE_FALSE = 0,
+	NPW_FILE_TRUE = 1
 } NPWFileBooleanValue;
 
 NPWFile* npw_file_new (NPWFileList* owner);

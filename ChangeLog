@@ -1,3 +1,9 @@
+2005-02-12  Naba Kumar  <naba@gnome.org>
+
+	* plugins/project-wizard/file.[ch]: Renamed
+	true/false enum values to fix compile error
+	(conflict with other definition).
+
 2005-02-12  Sebastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/project-wizard/values.c,

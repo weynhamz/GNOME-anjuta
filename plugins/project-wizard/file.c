@@ -168,14 +168,14 @@ npw_file_set_autogen (NPWFile* this, NPWFileBooleanValue value)
 {
 	switch (value)
 	{
-	case NPW_TRUE:
+	case NPW_FILE_TRUE:
 		this->attribute |= NPW_AUTOGEN_FILE | NPW_AUTOGEN_SET;
 		break;
-	case NPW_FALSE:
+	case NPW_FILE_FALSE:
 		this->attribute |= NPW_AUTOGEN_SET;
 		this->attribute &= ~NPW_AUTOGEN_FILE;
 		break;
-	case NPW_DEFAULT:
+	case NPW_FILE_DEFAULT:
 		this->attribute &= ~(NPW_AUTOGEN_SET | NPW_AUTOGEN_FILE);
 		break;
 	}
@@ -184,7 +184,7 @@ npw_file_set_autogen (NPWFile* this, NPWFileBooleanValue value)
 NPWFileBooleanValue
 npw_file_get_autogen (const NPWFile* this)
 {
-	return this->attribute & NPW_AUTOGEN_SET ? (this->attribute & NPW_AUTOGEN_FILE ? NPW_TRUE : NPW_FALSE) : NPW_DEFAULT;
+	return this->attribute & NPW_AUTOGEN_SET ? (this->attribute & NPW_AUTOGEN_FILE ? NPW_FILE_TRUE : NPW_FILE_FALSE) : NPW_FILE_DEFAULT;
 }
 
 const NPWFile*
