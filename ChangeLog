@@ -1,4 +1,9 @@
+2002-02-01  Andy Piper <andy.piper@freeuk.com>
+
+	* HACKING: added info on submitting patches
+
 2002-01-31  Johannes Schmid <clubfan@users.sourceforge.net>
+
 	* src/project_import_gui.c, src/project_import.c:
 	  - If Project Import Wizard is canceled everything is 
 		cleaned up now.
