@@ -1,10 +1,8 @@
-
 [Desktop Entry]
-Name=Anjuta C/C++ IDE
-Comment=Integrated Development Environment
+_Name=Anjuta C/C++ IDE
+_Comment=Integrated Development Environment
 Exec=anjuta
 Icon=@PACKAGE_PIXMAPS_DIR@/anjuta_icon.xpm
 Terminal=false
 MultipleArgs=false
 Type=Application
-

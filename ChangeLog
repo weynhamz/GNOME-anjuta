@@ -1,5 +1,10 @@
 2001-08-01  Fatih Demir <kabalak@gtranslator.org>
 
+	* .cvsignore & ABOUT-NLS: Erh, this file shouldn't be in CVS.
+
+	* anjuta.desktop.in: Made the desktop file being ready for 
+		xml-i18n-tools action.
+
 	* NEWS, README, THANKS & TODO: Spelling fixes.
 
 2001-08-01  Stephane Demurget <demurgets@free.fr>

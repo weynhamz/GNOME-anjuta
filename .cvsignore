@@ -2,6 +2,7 @@ Makefile
 Makefile.in
 *~
 .*swp
+ABOUT-NLS
 aclocal.m4
 intl
 anjuta.desktop
