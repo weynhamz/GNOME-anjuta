@@ -835,7 +835,7 @@ static gboolean
 anjuta_launcher_scan_output (GIOChannel *channel, GIOCondition condition,
 							 AnjutaLauncher *launcher)
 {
-	int n;
+	gsize n;
 	gchar buffer[FILE_BUFFER_SIZE];
 	gboolean ret = TRUE;
 	
@@ -883,7 +883,7 @@ static gboolean
 anjuta_launcher_scan_error (GIOChannel *channel, GIOCondition condition,
 							AnjutaLauncher *launcher)
 {
-	int n;
+	gsize n;
 	gchar buffer[FILE_BUFFER_SIZE];
 	gboolean ret = TRUE;
 	

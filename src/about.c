@@ -110,7 +110,7 @@ about_box_new ()
 		GList *node;
 		char *line;
 		char *utfline;
-		int count;
+		size_t count;
 		
 		list = NULL;
 		while (!feof(infile) && !ferror (infile))

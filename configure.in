@@ -183,7 +183,6 @@ GETTEXT_PACKAGE=anjuta
 AC_SUBST(GETTEXT_PACKAGE)
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE", [GETTEXT package name])
 AM_GLIB_GNU_GETTEXT
-AC_PROG_INTLTOOL
 
 dnl ***************************************************************************
 dnl Check for Gnome XML [Is this still required?]
@@ -275,8 +274,6 @@ AC_CHECK_HEADERS(sys/dir.h sys/stat.h sys/times.h sys/types.h)
 
 
 dnl Checks for typedefs, structures, and compiler characteristics.
-AC_CYGWIN
-AC_MINGW32
 AC_C_CONST
 AC_OBJEXT
 AC_EXEEXT
@@ -544,8 +541,6 @@ pixmaps/Makefile
 data/Makefile
 data/welcome.txt
 data/properties/Makefile
-data/macros/Makefile
-data/macros2/Makefile
 doc/anjuta.1
 doc/anjuta_launcher.1
 doc/Makefile

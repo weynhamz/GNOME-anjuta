@@ -32,112 +32,40 @@ gchar* project_type_generic[] = {
 	
 	"", // configure macros
 	
-	"/autogen.sh.generic", // autogen file
-	
 	"0", // gnome support
 	"0", // gnome2 support
 	"0", // glade support
 	"0" // Deprecated
 };
 
-gchar* project_type_gtk[] =
-{
-	"GTK",
-	
-	" \\\n\t$(GTK_CFLAGS)",
-	" \\\n\t$(GTK_LIBS)",
-	
-	"\n"
-	"AM_PATH_GTK(1.2.0, ,\n"
-	"            AC_MSG_ERROR(Cannot find GTK: Is gtk-config in path?))\n",
-	
-	"/autogen.sh.gtk",
-	
-	"0",
-	"0", 
-	"1",
-	"1"
-};
-
 gchar* project_type_gtk2[] =
 {
 	"GTK2",
 	
-	" \\\n\t$(GTK_CFLAGS)",
-	" \\\n\t$(GTK_LIBS)",
+	" \\\n\t$(PACKAGE_CFLAGS)",
+	" \\\n\t$(PACKAGE_LIBS)",
 	
-	"PKG_CHECK_MODULES(GTK, gtk+-2.0 gdk-2.0,,exit)\n"
-	"AC_SUBST(GTK_LIBS)\n"
-	"AC_SUBST(GTK_CFLAGS)",
-	
-	"/autogen.sh.gtk",
-	
+	"PKG_CHECK_MODULES(PACKAGE, [gtk+-2.0 gdk-2.0])\n"
+	"AC_SUBST(PACKAGE_CFLAGS)\n"
+	"AC_SUBST(PACKAGE_LIBS)",
+
 	"0",
 	"0", 
 	"1",
 	"0"
 };
 
-gchar* project_type_libglade[] =
-{
-	"LIBGLADE",
-	
-	" \\\n\t$(GNOME_INCLUDEDIR) $(LIBGLADE_CFLAGS)",
-	" \\\n\t$(LIBGLADE_LIBS)",
-	
-	"\n"
-	"dnl Pick up the GNOME macros.\n"
-	"AM_ACLOCAL_INCLUDE(macros)\n"
-	"\n"
-	"dnl GNOME macros.\n"
-	"GNOME_INIT\n"
-	"GNOME_COMPILE_WARNINGS\nGNOME_X_CHECKS\n"
-	"AM_PATH_LIBGLADE(,,\"gnome\")",
-	
-	"/autogen.sh.gnome",
-	
-	"1",
-	"0", 
-	"1",
-	"1"
-};
-
-gchar* project_type_gnome[] =
-{
-	"GNOME",
-	
-	" \\\n\t$(GNOME_INCLUDEDIR)",
-	" \\\n\t$(GNOME_LIBDIR) $(GNOMEUI_LIBS)",
-	
-	"\n"
-	"dnl Pick up the GNOME macros.\n"
-	"AM_ACLOCAL_INCLUDE(macros)\n"
-	"\n"
-	"dnl GNOME macros.\n"
-	"GNOME_INIT\n"
-	"GNOME_COMPILE_WARNINGS\nGNOME_X_CHECKS\n",
-	
-	"/autogen.sh.gnome",
-	
-	"1",
-	"0", 
-	"1",
-	"1"
-};
-
 gchar* project_type_gnome2[] =
 {
 	"GNOME2",
 	
-	" \\\n\t$(GNOME_CFLAGS)",
-	" \\\n\t$(GNOME_LIBS)",
+	" \\\n\t$(PACKAGE_CFLAGS)",
+	" \\\n\t$(PACKAGE_LIBS)",
 	
-	"PKG_CHECK_MODULES(GNOME, libgnomeui-2.0 gtk+-2.0,,exit)\n"
-	"AC_SUBST(GNOME_LIBS)\n"
-	"AC_SUBST(GNOME_CFLAGS)",
-	
-	"/autogen.sh.gnome2",
-	
+	"PKG_CHECK_MODULES(PACKAGE, [libgnomeui-2.0 gtk+-2.0])\n"
+	"AC_SUBST(PACKAGE_CFLAGS)\n"
+	"AC_SUBST(PACKAGE_LIBS)",
+
 	"1", 
 	"1",
 	"1",
@@ -148,98 +76,46 @@ gchar* project_type_libglade2[] =
 {
 	"LIBGLADE2",
 	
-	" \\\n\t$(GNOME_CFLAGS)",
-	" \\\n\t$(GNOME_LIBS)",
+	" \\\n\t$(PACKAGE_CFLAGS)",
+	" \\\n\t$(PACKAGE_LIBS)",
 	
-	"PKG_CHECK_MODULES(GNOME, libgnomeui-2.0 gtk+-2.0 libglade-2.0,,exit)\n"
-	"AC_SUBST(GNOME_LIBS)\n"
-	"AC_SUBST(GNOME_CFLAGS)",
-	
-	"/autogen.sh.gnome2",
+	"PKG_CHECK_MODULES(PACKAGE, [libgnomeui-2.0 gtk+-2.0 libglade-2.0])\n"
+	"AC_SUBST(PACKAGE_CFLAGS)\n"
+	"AC_SUBST(PACKAGE_LIBS)",
 	
 	"1", 
 	"1",
 	"1",
 	"0"
-};
-
-gchar* project_type_glademm_gtkmm[] =
-{
-	"glademm (gtkmm 1.2)",
-	
-	"\\\n\t$(GTKMM_CFLAGS)",
-	"\\\n\t$(GTKMM_LIBS)",
-	
-	"\n"
-	"AM_PATH_GTKMM(1.2.5, ,\n"
-	"			   AC_MSG_ERROR(Cannot find gtkmm 1.2: Is gtkmm-config in path?))\n",
-	
-	"/autogen.sh.gtkmm",
-	
-	"0",
-	"0", 
-	"1",
-	"1"
 };
 
 gchar* project_type_gtkmm2[] =
 {
 	"GTKMM2",
 	
-	"\\\n\t$(GTKMM_CFLAGS)",
-	"\\\n\t$(GTKMM_LIBS)",
+	"\\\n\t$(PACKAGE_CFLAGS)",
+	"\\\n\t$(PACKAGE_LIBS)",
 	
-	"PKG_CHECK_MODULES(GTKMM, gtkmm-2.0,,exit)\n"
-	"AC_SUBST(GTKMM_LIBS)\n"
-	"AC_SUBST(GTKMM_CFLAGS)",
-	
-	"/autogen.sh.gtkmm",
-	
+	"PKG_CHECK_MODULES(PACKAGE, [gtkmm-2.0])\n"
+	"AC_SUBST(PACKAGE_CFLAGS)\n"
+	"AC_SUBST(PACKAGE_LIBS)",
+
 	"0",
 	"0", 
 	"1",
 	"0"
 };
 
-gchar* project_type_glademm_gnomemm[] =
-{
-	"glademm (gnomemm 1.2)",
-	
-	"\\\n\t$(GNOMEMM_CFLAGS)",
-	"\\\n\t$(GNOMEMM_LIBS)",
-	
-	"\n"
-	"dnl Pick up the GNOME macros.\n"
-	"AM_ACLOCAL_INCLUDE(macros)\n"
-	"\n"
-	"dnl GNOME macros.\n"
-	"GNOME_INIT\n"
-	"GNOME_COMPILE_WARNINGS\nGNOME_X_CHECKS\n"
-	"\n"
-	"dnl gnomemm macros. \n"
-	"AM_PATH_GTKMM(1.2.5, , AC_MSG_ERROR(\"gtkmm 1.2 not found\"))\n"
-	"AM_PATH_GNOMEMM(1.2.0, , AC_MSG_ERROR(\"gnomemm 1.2 not found\"))\n",
-	
-	"/autogen.sh.gnomemm",
-	
-	"1",
-	"0", 
-	"1",
-	"1"
-};
-
 gchar* project_type_gnomemm2[] =
 {
 	"gnomemm 2",
 	
-	"\\\n\t$(GNOMEMM_CFLAGS)",
-	"\\\n\t$(GNOMEMM_LIBS)",
+	"\\\n\t$(PACKAGE_CFLAGS)",
+	"\\\n\t$(PACKAGE_LIBS)",
 	
-	"PKG_CHECK_MODULES(GNOMEMM, libgnomeuimm-2.0,,exit)\n"
-	"AC_SUBST(GNOMEMM_LIBS)\n"
-	"AC_SUBST(GNOMEMM_CFLAGS)",
-	
-	"/autogen.sh.gnome2",
+	"PKG_CHECK_MODULES(PACKAGE, [libgnomeuimm-2.0])\n"
+	"AC_SUBST(PACKAGE_CFLAGS)\n"
+	"AC_SUBST(PACKAGE_LIBS)",
 	
 	"1", 
 	"1",
@@ -247,43 +123,16 @@ gchar* project_type_gnomemm2[] =
 	"0"
 };
 
-gchar* project_type_bonobo[] =
-{
-	"BONOBO",
-	
-	" \\\n\t$(GNOME_INCLUDEDIR)"
-	" \\\n\t$(BONOBO_CFLAGS)",
-	" \\\n\t$(GNOME_LIBDIR) $(GNOMEUI_LIBS)"
-	" \\\n\t$(BONOBO_LIBS)",
-	
-	"\n"
-	"dnl Pick up the GNOME macros.\n"
-	"AM_ACLOCAL_INCLUDE(macros)\n"
-	"\n"
-	"dnl GNOME macros.\n"
-	"GNOME_INIT\n"
-	"GNOME_COMPILE_WARNINGS\nGNOME_X_CHECKS\n",
-	
-	"/autogen.sh.gnome",
-	
-	"1",
-	"0", 
-	"1",
-	"1"
-};
-
 gchar* project_type_bonobo2[] =
 {
 	"BONOBO2",
 	
-	" \\\n\t$(GNOME_CFLAGS)",
-	" \\\n\t$(GNOME_LIBS)",
+	" \\\n\t$(PACKAGE_CFLAGS)",
+	" \\\n\t$(PACKAGE_LIBS)",
 	
-	"PKG_CHECK_MODULES(GNOME, libgnomeui-2.0 gtk+-2.0 libbonoboui-2.0,,exit)\n"
-	"AC_SUBST(GNOME_LIBS)\n"
-	"AC_SUBST(GNOME_CFLAGS)",
-	
-	"/autogen.sh.gnome2",
+	"PKG_CHECK_MODULES(PACKAGE, [libgnomeui-2.0 gtk+-2.0 libbonoboui-2.0])\n"
+	"AC_SUBST(PACKAGE_CFLAGS)\n"
+	"AC_SUBST(PACKAGE_LIBS)",
 
 	"1",
 	"1", 
@@ -326,12 +175,7 @@ gchar* project_type_wxwin[] =
 	"               LIBS=$ac_save_LIBS\n"
 	"               CXXFLAGS=$ac_save_CXXFLAGS\n"
 	"        fi\n"
-	"\n"
-	"AM_PATH_GTK(1.2.7, ,\n"
-	"            AC_MSG_ERROR(Cannot find GTK: Is gtk-config in path?),\n"
-	"            gthread)\n",
-	
-	"/autogen.sh.wxwin",
+	"\n\n",
 
 	"0",
 	"0",
@@ -354,8 +198,6 @@ gchar* project_type_xwin[] =
 	"\tMake sure you have X and it's headers and libraries"
 	"(the -devel packages in Linux) installed.])\n"
 	"fi\n",
-	
-	"/autogen.sh.generic",
 
 	"0",
 	"0",
@@ -378,8 +220,6 @@ gchar* project_type_xwindockapp[] =
 	"\tMake sure you have X and it's headers and libraries"
 	"(the -devel packages in Linux) installed.])\n"
 	"fi\n",
-	
-	"/autogen.sh.generic",
 
 	"0",
 	"0",
@@ -401,29 +241,14 @@ project_type_load (gint id)
 			type = load_type_from_data (project_type_generic, id);
 			break;
 		}
-		case PROJECT_TYPE_GTK:
-		{
-			type = load_type_from_data (project_type_gtk, id);
-			break;
-		}
 		case PROJECT_TYPE_GTK2:
 		{
 			type = load_type_from_data (project_type_gtk2, id);
 			break;
 		}
-		case PROJECT_TYPE_GTKMM:
-		{
-			type = load_type_from_data (project_type_glademm_gtkmm, id);
-			break;
-		}
 		case PROJECT_TYPE_GTKMM2:
 		{
 			type = load_type_from_data (project_type_gtkmm2, id);
-			break;
-		}
-		case PROJECT_TYPE_GNOME:
-		{
-			type = load_type_from_data (project_type_gnome, id);
 			break;
 		}
 		case PROJECT_TYPE_GNOME2:
@@ -436,29 +261,14 @@ project_type_load (gint id)
 			type = load_type_from_data (project_type_libglade2, id);
 			break;
 		}
-		case PROJECT_TYPE_GNOMEMM:
-		{
-			type = load_type_from_data (project_type_glademm_gnomemm, id);
-			break;
-		}
 		case PROJECT_TYPE_GNOMEMM2:
 		{
 			type = load_type_from_data (project_type_gnomemm2, id);
 			break;
 		}
-		case PROJECT_TYPE_BONOBO:
-		{
-			type = load_type_from_data (project_type_bonobo, id);
-			break;
-		}
 		case PROJECT_TYPE_BONOBO2:
 		{
 			type = load_type_from_data (project_type_bonobo2, id);
-			break;
-		}
-		case PROJECT_TYPE_LIBGLADE:
-		{
-			type = load_type_from_data (project_type_libglade, id);
 			break;
 		}
 		case PROJECT_TYPE_WXWIN:
@@ -504,11 +314,10 @@ load_type_from_data (char* type_data[], gint id)
 	type->ldadd = type_data[2];
 		
 	type->configure_macros = type_data[3];
-	type->autogen_file = type_data[4];
 			
-	type->gnome_support = atoi (type_data[5]);
-	type->gnome2_support = atoi (type_data[6]);
-	type->glade_support = atoi (type_data[7]);
-	type->deprecated = atoi (type_data[8]);
+	type->gnome_support = atoi (type_data[4]);
+	type->gnome2_support = atoi (type_data[5]);
+	type->glade_support = atoi (type_data[6]);
+	type->deprecated = atoi (type_data[7]);
 	return type;
 }

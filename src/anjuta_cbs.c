@@ -261,6 +261,21 @@ on_anjuta_window_focus_in_event (GtkWidget * widget,
 	return FALSE;
 }
 
+gint
+on_anjuta_window_state (GtkWidget	*widget,GdkEventWindowState *event,
+						gpointer user_data)
+{
+	/* If window has been maximized, set app->win_maximized accordingly */
+	
+	if ((event->new_window_state & GDK_WINDOW_STATE_MAXIMIZED))
+		app->win_maximized = TRUE;
+	else
+		app->win_maximized = FALSE;
+	
+	return TRUE;
+}
+	
+
 enum {
 	m___ = 0,
 	mS__ = GDK_SHIFT_MASK,

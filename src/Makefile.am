@@ -48,6 +48,8 @@ include $(top_srcdir)/scintilla/lexers.make
 bin_PROGRAMS = anjuta
 
 anjuta_SOURCES = \
+	filename-utils.c\
+	filename-utils.h\
 	about.c\
 	about.h\
 	an_file_view.c\

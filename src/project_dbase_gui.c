@@ -1382,7 +1382,10 @@ on_add_prjfilesel_ok_clicked (GtkDialog * button, gpointer user_data)
 			if(button == GTK_RESPONSE_YES) {
 				on_prj_import_confirm_yes (NULL, filename, p);
 				files_added = TRUE;
+				gtk_widget_destroy (dialog);
 			}
+			else
+				gtk_widget_destroy (dialog);
 		}
 		g_free (comp_dir);
 		node = g_list_next (node);

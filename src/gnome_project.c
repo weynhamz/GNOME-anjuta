@@ -34,6 +34,7 @@
 #include "message-manager.h"
 #include "gnome_project.h"
 #include "fileselection.h"
+#include "build_project.h"
 
 static void new_prj_mesg_arrived (AnjutaLauncher *launcher,
 								  AnjutaLauncherOutputType output_type,
@@ -237,16 +238,8 @@ create_new_project (AppWizard * aw)
 	project_dbase_update_tree (app->project_dbase);
 	an_message_manager_append (app->messages, _("Running autogen.sh ...\n"),
 								   MESSAGE_BUILD);
-	chdir (app->project_dbase->top_proj_dir);
+	build_autogen_project();
 	
-	g_signal_connect (G_OBJECT (app->launcher), "child-exited",
-					  G_CALLBACK (new_prj_terminated), NULL);
-	if (anjuta_launcher_execute (app->launcher, "./autogen.sh",
-								 new_prj_mesg_arrived, NULL) == FALSE)
-	{
-		anjuta_error ("Could not run ./autogen.sh");
-		return FALSE;
-	}
 	anjuta_update_app_status (TRUE, _("App Wizard"));
 	return TRUE;
 }

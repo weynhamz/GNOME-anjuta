@@ -1,4 +1,4 @@
-Anjuta 1.2.3 (x Oct 2004) -- Johannes Schmid
+Anjuta 1.2.3 (2 Apr 2005) -- Johannes Schmid
 
 After a long time I made another release to bring some patches from the community to all users:
 
@@ -7,6 +7,8 @@ New: New realtime func/macros/var/struct define exporer in message windows.
 Bug fix: IA64 and Solaris problems
 Bug fix: Terminal Ctrl-C and Shift-Insert
 Bug fix: Debugger improvements
+Bug fix: Project generation
+Bug fix: double tags loading
 
 Of course there are many many other bugs but development is concentrating on anjuta2
 

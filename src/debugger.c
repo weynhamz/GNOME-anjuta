@@ -36,6 +36,7 @@
 #include "launcher.h"
 #include "fileselection.h"
 #include "anjuta_info.h"
+#include "filename-utils.h"  /* Pathnames with spaces fix */
 
 /* only needed when we are debugging ourselves */
 /* if you use it, please remember to comment   */
@@ -188,7 +189,7 @@ static void
 on_debugger_open_exec_filesel_ok_clicked (GtkDialog *dlg,
 					  gpointer user_data)
 {
-	gchar *filename, *command, *dir;
+	gchar *filename, *command, *dir, *quoted_filename;
 
 
 #ifdef ANJUTA_DEBUG_DEBUGGER
@@ -197,14 +198,21 @@ on_debugger_open_exec_filesel_ok_clicked (GtkDialog *dlg,
 	
 	gtk_widget_hide (debugger.open_exec_filesel);
 	filename = fileselection_get_filename (debugger.open_exec_filesel);
+
 	if (!filename)
 		return;
+	
+	/* put quotes around the filename to allow spaces in the path */
+	quoted_filename = quote_filename(filename);
+	if (!quoted_filename)
+		return;
+	
 	an_message_manager_append (app->messages, _("Loading Executable: "),
 			 MESSAGE_DEBUG);
 	an_message_manager_append (app->messages, filename, MESSAGE_DEBUG);
 	an_message_manager_append (app->messages, "\n", MESSAGE_DEBUG);
 
-	command = g_strconcat ("file ", filename, NULL);
+	command = g_strconcat ("file ", quoted_filename, NULL);
 	dir = extract_directory (filename);
 	anjuta_set_execution_dir(dir);
 	g_free (dir);
@@ -219,6 +227,7 @@ on_debugger_open_exec_filesel_ok_clicked (GtkDialog *dlg,
 	cpu_registers_clear (debugger.cpu_registers);
 	debugger_execute_cmd_in_queqe ();
 	g_free (filename);
+	g_free(quoted_filename);
 }
 
 static void
@@ -237,7 +246,7 @@ static void
 on_debugger_load_core_filesel_ok_clicked (GtkDialog *dlg,
 					  gpointer user_data)
 {
-	gchar *filename, *command, *dir;
+	gchar *filename, *command, *dir, *quoted_filename;
 
 
 #ifdef ANJUTA_DEBUG_DEBUGGER
@@ -248,11 +257,17 @@ on_debugger_load_core_filesel_ok_clicked (GtkDialog *dlg,
 	filename = fileselection_get_filename (debugger.load_core_filesel);
 	if (!filename)
 		return;
+	
+	quoted_filename = quote_filename(filename);
+	
+	if (!quoted_filename)
+		return;
+	
 	an_message_manager_append (app->messages, _("Loading Core: "), MESSAGE_DEBUG);
 	an_message_manager_append (app->messages, filename, MESSAGE_DEBUG);
 	an_message_manager_append (app->messages, "\n", MESSAGE_DEBUG);
 
-	command = g_strconcat ("core ", filename, NULL);
+	command = g_strconcat ("core ", quoted_filename, NULL);
 	dir = extract_directory (filename);
 	anjuta_set_execution_dir(dir);
 	g_free (dir);
@@ -261,6 +276,7 @@ on_debugger_load_core_filesel_ok_clicked (GtkDialog *dlg,
 	g_free (command);
 	debugger_info_prg();
 	g_free (filename);
+	g_free(quoted_filename);
 }
 
 static void
@@ -361,7 +377,7 @@ debugger_set_active (gboolean state)
 {
 
 #ifdef ANJUTA_DEBUG_DEBUGGER
-	// g_message ("In function: debugger_set_active()");
+	g_message ("In function: debugger_set_active()");
 #endif
 	
 	debugger.active = state;
@@ -372,7 +388,7 @@ void
 debugger_set_ready (gboolean state)
 {
 #ifdef ANJUTA_DEBUG_DEBUGGER
-	// g_message ("In function: debugger_set_ready()");
+	g_message ("In function: debugger_set_ready()");
 #endif
 	
 	debugger.ready = state;
@@ -384,7 +400,7 @@ gboolean
 debugger_is_ready ()
 {
 #ifdef ANJUTA_DEBUG_DEBUGGER
-	// g_message ("In function: debugger_is_ready()");
+	g_message ("In function: debugger_is_ready()");
 #endif
 	
 	return debugger.ready;
@@ -394,7 +410,7 @@ gboolean
 debugger_is_active ()
 {
 #ifdef ANJUTA_DEBUG_DEBUGGER
-	// g_message ("In function: debugger_is_active()");
+	 g_message ("In function: debugger_is_active()");
 #endif
 	
 	return debugger.active;
@@ -616,7 +632,7 @@ debugger_start (const gchar * prog)
 	}
 	glist_strings_free (list);
 	
-	if (prog)
+	if (prog && strlen(prog) > 0)
 	{
 		tmp = extract_directory (prog);
 		chdir (tmp);
@@ -798,7 +814,8 @@ debugger_stdo_flush ()
 		list = debugger.gdb_stdo_outputs;
 		while (list)
 		{
-			if (strstr ((gchar *) list->data, "Program exited") != NULL ||
+			if (strstr ((gchar *)list->data, "No such process") != NULL ||
+				strstr ((gchar *) list->data, "Program exited") != NULL ||
 				strstr ((gchar *) list->data, "Program terminated") != NULL)
 			{
 				debugger_put_cmd_in_queqe ("info program",

@@ -352,7 +352,7 @@ populate_supports (GtkListStore *tmodel)
 	gchar *pkg_cmd;
 	FILE  *pkg_fd;
 	gchar *line;
-	gint   length;
+	size_t   length;
 	GtkTreeIter iter;
 	
 	int i = 0;

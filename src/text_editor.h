@@ -129,6 +129,9 @@ struct _TextEditor
 
 void create_text_editor_gui (TextEditor * te);
 
+/*Return the modification time of the currently open file*/
+time_t get_file_modification_time(TextEditor * te);
+
 TextEditor *text_editor_new (const gchar * full_filename,
 							 TextEditor * parent, AnjutaPreferences * pr,
                              const gchar *name);

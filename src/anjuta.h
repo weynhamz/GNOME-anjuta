@@ -116,6 +116,7 @@ struct _AnjutaApp
 	gint hpaned_width;
 	gint vpaned_height;
 	gint win_pos_x, win_pos_y, win_width, win_height;
+	gboolean win_maximized;
 	gboolean auto_gtk_update;
 
 	GnomeAppProgressKey progress_key;
@@ -305,6 +306,11 @@ gint on_anjuta_window_key_press_event (GtkWidget   *widget,
 gint on_anjuta_window_key_release_event (GtkWidget   *widget,
 										 GdkEventKey *event,
 										 gpointer     user_data);
+										 
+gint on_anjuta_window_state (GtkWidget	*widget,
+							 GdkEventWindowState *event,
+							 gpointer user_data);
+							 
                
 void on_open_filesel_ok_clicked (GtkDialog *dlg, gpointer data);
 void on_open_filesel_cancel_clicked (GtkDialog *dlg, gpointer data);

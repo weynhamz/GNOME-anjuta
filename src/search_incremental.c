@@ -272,16 +272,24 @@ toolbar_search_clicked (void)
 void
 toolbar_search_clicked_cb (void)
 {
-	if (sr->search.incremental_wrap == 2)
+	/* Make sure that sr isn't null. We can't just assume that the user entered
+	   text. If the user didn't enter any text, sr will be null, so we must exit
+	   the function so that it doesn't get referenced, thereby avoiding a 
+	   segfault */
+	
+	if (sr != NULL)
 	{
-		sr->search.incremental_wrap = 1;
-		toolbar_search_start_over ();
-	}
-	else 
-	{
-		if (sr->search.incremental_wrap == 0)
+		if (sr->search.incremental_wrap == 2)
+		{
 			sr->search.incremental_wrap = 1;
-		toolbar_search_clicked ();
+			toolbar_search_start_over ();
+		}
+		else 
+		{
+			if (sr->search.incremental_wrap == 0)
+				sr->search.incremental_wrap = 1;
+			toolbar_search_clicked ();
+		}
 	}
 }
 

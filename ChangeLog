@@ -1,3 +1,44 @@
+2005-04-06  Johannes Schmid <jhs@cvs.gnome.org>
+	
+	Anonymous patch from SF Tracker
+	* src/about.c
+	src/launcher.c
+	
+	More 64-Bit fixes
+
+	Patch from Visti Andresen sftalpa@users.sourceforge.net:
+	* src/texteditor.c
+	src/texteditor.h:
+	
+	Fixed a bug where anjuta did not recognize files that
+	changed on disk.
+
+2005-04-02  Johannes Schmid <jhs@cvs.gnome.org>
+	
+	* configure.in: Fixed build process
+	* src/compiler_options.c: Fixed 64-Bit bug,
+	thanks to Angel Vidal (Kry) <kry@amule.org>
+
+2005-04-02  Johannes Schmid <jhs@cvs.gnome.org>
+	
+	Patch from James Liggett <jrliggett@cox.net>:
+	* configure.in, data/Makefile.am
+	src/Makefile.am, src/anjuta.c, src/anjuta.h, src/anjuta_cbs.c,
+	src/anjuta_gui.c, src/debugger.c, src/gnome_project.c,
+	src/project_dbase.c, src/project_dbase_gui.c
+	src/project_type.c, src/project_type.h
+	src/search_incremental.c, src/source.c:
+	
+	Fixed project generation and other things.
+
+2005-04-02  Johannes Schmid <jhs@cvs.gnome.org>
+	
+	Patch from rafal bursig <bursig@poczta.fm>:
+	
+	* src/debug_tree.c: Fixed crash
+	* src/project_dbase.c: Fixed double tags loading
+	
+
 2004-11-05  Kjartan Maraas  <kmaraas@gnome.org>
 
 	* configure.in: Add «nb» to ALL_LINGUAS.

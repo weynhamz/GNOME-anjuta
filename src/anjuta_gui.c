@@ -309,6 +309,8 @@ create_anjuta_gui (AnjutaApp * appl)
 			    G_CALLBACK (on_anjuta_delete), NULL);
 	g_signal_connect (G_OBJECT (anjuta_gui), "destroy",
 			    G_CALLBACK (on_anjuta_destroy), NULL);
+	g_signal_connect (G_OBJECT (anjuta_gui), "window_state_event",
+					G_CALLBACK (on_anjuta_window_state), NULL);
 	g_signal_connect (G_OBJECT (anjuta_notebook), "switch_page",
 			    G_CALLBACK (on_anjuta_notebook_switch_page),
 			    NULL);

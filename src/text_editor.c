@@ -108,6 +108,17 @@ static void initialize_markers (TextEditor* te)
 	}
 }
 
+time_t get_file_modification_time(TextEditor * te)
+{
+  struct stat status;
+	if (stat (te->full_filename, &status) == 0){
+    return status.st_mtime;
+  }
+  else {
+    return time(NULL);
+	}
+}
+
 static void text_editor_update_preferences (AnjutaPreferences *pr,
 											TextEditor * te);
 
@@ -130,7 +141,7 @@ text_editor_new (const gchar * filename, TextEditor * parent, AnjutaPreferences 
 	te->full_filename = NULL;
 	te->tm_file = NULL;
 	
-	te->modified_time = time (NULL);
+	te->modified_time = get_file_modification_time(te);
 	te->preferences = eo;
 	te->force_hilite = TE_LEXER_AUTOMATIC;
 	te->freeze_count = 0;
@@ -1153,7 +1164,7 @@ text_editor_load_file (TextEditor * te)
 	anjuta_status (_("Loading file ..."));
 	text_editor_freeze (te);
 	anjuta_set_busy ();
-	te->modified_time = time (NULL);
+	te->modified_time = get_file_modification_time(te);
 	if (load_from_file (te, te->full_filename, &err) == FALSE)
 	{
 		anjuta_error (_("Could not load file: %s\n\nDetails: %s"),
@@ -1202,7 +1213,7 @@ text_editor_save_file (TextEditor * te, gboolean update)
 	}
 	else
 	{
-		te->modified_time = time (NULL);
+		te->modified_time = get_file_modification_time(te);
 		tags_update =
 			anjuta_preferences_get_int (te->preferences,
 					     AUTOMATIC_TAGS_UPDATE);
@@ -1359,7 +1370,7 @@ text_editor_check_disk_status (TextEditor * te, const gboolean bForce )
 			if (gtk_dialog_run (GTK_DIALOG (dlg)) == GTK_RESPONSE_YES)
 					text_editor_load_file (te);
 			else
-					te->modified_time = time (NULL);
+					te->modified_time = status.st_mtime;
 			gtk_widget_destroy (dlg);
 			return FALSE;
 		}

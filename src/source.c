@@ -146,13 +146,10 @@ source_write_autogen_sh (ProjectDBase * data)
 {
 	gchar *srcbuffer, *destbuffer;
 	gint old_umask;
-	ProjectType* type;
-
+	
 	g_return_val_if_fail (data != NULL, FALSE);
 
-	type = project_dbase_get_project_type(data);
-
-	srcbuffer = g_strconcat (app->dirs->data, type->autogen_file, NULL);
+	srcbuffer = g_strconcat (app->dirs->data, "/autogen.sh", NULL);
 	destbuffer = g_strconcat (data->top_proj_dir, "/autogen.sh", NULL);
 
 	/* FIXME: If *.desktop.in exists, just leave it, for now. */
@@ -223,39 +220,21 @@ source_write_configure_in (ProjectDBase * data)
 		 "AC_INIT(configure.in)\n"
 		 "AM_INIT_AUTOMAKE(%s, %s)\n"
 		 "AM_CONFIG_HEADER(config.h)\n"
-		 "\n"
-		 "AC_ISC_POSIX\n", prj_name, version);
-	switch (lang_type)
+		 "AM_MAINTAINER_MODE"
+		 "\n\n"
+		 "AC_ISC_POSIX\n"
+	     "AC_PROG_CC\n", prj_name, version);
+	
+		fprintf(fp, "AM_PROG_CC_STDC\n"
+		 "AC_HEADER_STDC\n\n");
+		 
+	/* Add C++ defines if this is a C++ project */
+	if ((lang_type == PROJECT_PROGRAMMING_LANGUAGE_CPP) ||
+		(lang_type == PROJECT_PROGRAMMING_LANGUAGE_C_CPP))
 	{
-		case PROJECT_PROGRAMMING_LANGUAGE_C:
-			fprintf (fp, "CFLAGS=\"\"\nAC_SUBST(CFLAGS)\n");
-			fprintf (fp, "AC_PROG_CC\n");
-			break;
-		case PROJECT_PROGRAMMING_LANGUAGE_CPP:
-			fprintf (fp, "CXXFLAGS=\"\"\nAC_SUBST(CXXFLAGS)\n");
-			fprintf (fp, "AC_PROG_CXX\n");
-			break;
-		case PROJECT_PROGRAMMING_LANGUAGE_C_CPP:
-			fprintf (fp, "CFLAGS=\"\"\nAC_SUBST(CFLAGS)\n");
-			fprintf (fp, "CXXFLAGS=\"\"\nAC_SUBST(CXXFLAGS)\n");
-			fprintf (fp, "AC_PROG_CC\n");
-			fprintf (fp, "AC_PROG_CXX\n");
-			break;
-		default:
-			fprintf (fp, "CFLAGS=\"\"\nAC_SUBST(CFLAGS)\n");
-			fprintf (fp, "AC_PROG_CC\n");
-			break;
+		fprintf(fp, "AC_PROG_CPP\n"
+					"AC_PROG_CXX\n\n");
 	}
-	fprintf(fp, "AM_PROG_CC_STDC\n"
-		 "AC_HEADER_STDC\n");
-	if (project_dbase_get_source_target != 
-		PROJECT_TARGET_TYPE_EXECUTABLE)
-	{
-		fprintf (fp, "AM_PROG_LIBTOOL\n");
-	}
- 	fprintf(fp, type->configure_macros);
-	fprintf (fp, "\n");
-	project_config_write_scripts (data->project_config, fp);
 
 	if (prop_get_int (data->props, "project.has.gettext", 1))
 	{
@@ -263,7 +242,7 @@ source_write_configure_in (ProjectDBase * data)
 		fprintf (fp, "GETTEXT_PACKAGE=%s\n"
 				 "AC_SUBST(GETTEXT_PACKAGE)\n"
 				 "AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, \"$GETTEXT_PACKAGE\","
-				 " [Package name for gettext])\n\n", prj_name);
+				 " [Package name for gettext])\n", prj_name);
 		fprintf (fp,
 			 "\n"
 			 "dnl Languages which your application supports\n"
@@ -286,17 +265,19 @@ source_write_configure_in (ProjectDBase * data)
 			if (node)
 				fprintf(fp, " ");
 		}
-		fprintf (fp, "\"\nAM_GNU_GETTEXT\n");
-		fprintf (fp, "AM_GNU_GETTEXT_VERSION(0.10.40)\n\n");
-		
-		fprintf (fp,
-			 "dnl Set PACKAGE_LOCALE_DIR in config.h.\n"
-			 "if test \"x${prefix}\" = \"xNONE\"; then\n"
-			 "  AC_DEFINE_UNQUOTED(PACKAGE_LOCALE_DIR, \"${ac_default_prefix}/${DATADIRNAME}/locale\")\n"
-			 "else\n"
-			 "  AC_DEFINE_UNQUOTED(PACKAGE_LOCALE_DIR, \"${prefix}/${DATADIRNAME}/locale\")\n"
-			 "fi\n" "\n");
+		fprintf(fp, "\"\n");
+		fprintf (fp, "AM_GLIB_GNU_GETTEXT\n\n");
 	}
+	
+	if (project_dbase_get_source_target(data) != 
+		PROJECT_TARGET_TYPE_EXECUTABLE)
+	{
+		fprintf (fp, "AM_PROG_LIBTOOL\n\n");
+	}
+ 	fprintf(fp, type->configure_macros);
+	fprintf (fp, "\n");
+
+
 
 	/* Define PACKAGE_SOURCE_DIR in config.h so the app can find uninstalled
 	 * pixmaps. */
@@ -386,12 +367,7 @@ source_write_configure_in (ProjectDBase * data)
 	if (prop_get_int (data->props, "project.has.gettext", 1))
 	{
 		fprintf (fp,
-			 "intl/Makefile\n"
 			 "po/Makefile.in\n");
-	}
-	if (type->gnome_support)
-	{
-		fprintf (fp, "macros/Makefile\n");
 	}
 
 	list = glist_from_data (data->props, "project.config.extra.modules.before");
@@ -490,9 +466,7 @@ source_write_toplevel_makefile_am (ProjectDBase * data)
 	fprintf (fp, "SUBDIRS =");
 
 	if (prop_get_int (data->props, "project.has.gettext", 1))
-		fprintf (fp, " intl po");
-	if (type->gnome_support)
-		fprintf (fp, " macros");
+		fprintf (fp, " po");
 
 	str = prop_get (data->props, "project.config.extra.modules.before");
 	if (str) {
@@ -539,11 +513,7 @@ source_write_toplevel_makefile_am (ProjectDBase * data)
 		"\tINSTALL\\\n"
 		"\tNEWS\\\n"
 		"\tTODO", canonicalize_target, prj_name, canonicalize_target);
-	if (prop_get_int (data->props, "project.has.gettext", 1))
-	{
-		fprintf (fp,
-			"\\\n\tABOUT-NLS");
-	}
+	
 	fprintf (fp,
 		"\n\nEXTRA_DIST = $(%sdoc_DATA)\n\n", canonicalize_target);
 	if(type->gnome_support)
@@ -586,108 +556,6 @@ source_write_toplevel_makefile_am (ProjectDBase * data)
 	g_free (prj_name);
 	g_free (filename);
 	project_type_free (type);
-	return TRUE;
-}
-
-static gboolean
-source_write_macros_files (ProjectDBase * data)
-{
-	static const gchar *gnome1_files[] = {
-		"ChangeLog",
-		"Makefile.am",
-		"autogen.sh",
-		"aclocal-include.m4",
-		"compiler-flags.m4",
-		"curses.m4",
-		"gnome-bonobo-check.m4",
-		"gnome-common.m4",
-		"gnome-fileutils.m4",
-		"gnome-gettext.m4",
-		"gnome-ghttp-check.m4",
-		"gnome-gnorba-check.m4",
-		"gnome-guile-checks.m4",
-		"gnome-libgtop-check.m4",
-		"gnome-objc-checks.m4",
-		"gnome-orbit-check.m4",
-		"gnome-print-check.m4",
-		"gnome-pthread-check.m4",
-		"gnome-support.m4",
-		"gnome-undelfs.m4",
-		"gnome-vfs.m4",
-		"gnome-x-checks.m4",
-		"gnome-xml-check.m4",
-		"gnome.m4",
-		"linger.m4",
-		"need-declaration.m4",
-		NULL
-	};
-	static const gchar *gnome2_files[] = {
-		"ChangeLog",
-		"Makefile.am",
-		"autogen.sh",
-		"check-utmp.m4",
-		"gnome-cxx-check.m4",
-		"gnome-pthread-check.m4",
-		"compiler-flags.m4",
-		"gnome-gettext.m4",
-		"gnome-x-checks.m4",
-		"curses.m4",
-		"gnome-pkgconfig.m4",
-		"linger.m4",
-		"gnome-common.m4",
-		"gnome-platform.m4",
-		NULL
-	};
-	gchar const **files;
-	/* This is the maximum length of the above filenames, so we can use the
-	 * same buffers for each file. */
-	static const gint MAX_MACROS_FILENAME_LEN = 64;
-	gchar *srcbuffer, *destbuffer;
-	ProjectType* type;
-	gint i;
-
-	g_return_val_if_fail (data != NULL, FALSE);
-
-	srcbuffer =
-		g_malloc (strlen (app->dirs->data) + MAX_MACROS_FILENAME_LEN);
-	destbuffer =
-		g_malloc (strlen (data->top_proj_dir) +
-			  MAX_MACROS_FILENAME_LEN);
-
-	/* Create the source directory if it doesn't exist. */
-	sprintf (destbuffer, "%s/macros", data->top_proj_dir);
-	force_create_dir (destbuffer);
-
-	type = project_dbase_get_project_type(data);
-	
-	if (type->gnome2_support) {
-		files = gnome2_files;
-	} else {
-		files = gnome1_files;
-	}
-	for (i = 0; files[i]; i++)
-	{
-		if (type->gnome2_support)
-		{
-			sprintf (srcbuffer, "%s/gnome2/%s", app->dirs->data, files[i]);
-		} else {
-			sprintf (srcbuffer, "%s/gnome/%s", app->dirs->data, files[i]);
-		}
-		sprintf (destbuffer, "%s/macros/%s", data->top_proj_dir, files[i]);
-		if (file_is_regular (destbuffer) == FALSE)
-		{
-			if (!copy_file (srcbuffer, destbuffer, FALSE))
-			{
-				anjuta_system_error (errno, _("Unable to create file: %s."), destbuffer);
-				g_free (srcbuffer);
-				g_free (destbuffer);
-				return FALSE;
-			}
-		}
-	}
-
-	g_free (srcbuffer);
-	g_free (destbuffer);
 	return TRUE;
 }
 
@@ -2809,11 +2677,7 @@ source_write_build_files (ProjectDBase * data)
 		ret = source_write_desktop_entry (data);
 		if (!ret) return FALSE;
 	}
-	if (type->gnome_support)
-	{
-		ret = source_write_macros_files (data);
-		if (!ret) return FALSE;
-	}
+
 	project_type_free (type);
 
 	if (!project_config_get_overwrite_disabled (data->project_config,

@@ -4,7 +4,7 @@
 ## If you don't want it to overwrite it,
 ## 	Please disable it in the Anjuta project configuration
 
-SUBDIRS = properties macros macros2
+SUBDIRS = properties
 
 anjuta_datadir = $(prefix)/@NO_PREFIX_PACKAGE_DATA_DIR@
 
@@ -14,13 +14,7 @@ anjuta_data_DATA = \
 	header.c\
 	stock_libs.anj\
 	welcome.txt\
-	autogen.sh.gnome\
-	autogen.sh.gnome2\
-	autogen.sh.gtk\
-	autogen.sh.generic\
-	autogen.sh.gtkmm\
-	autogen.sh.gnomemm\
-	autogen.sh.wxwin
+	autogen.sh
 
 
 anjuta_mimedir = $(prefix)/share/mime-info
@@ -29,31 +23,9 @@ anjuta_mime_DATA = anjuta.mime
 anjuta_mimelnkdir = $(prefix)/share/mimelnk/application
 anjuta_mimelnk_DATA = x-anjuta-project.desktop
 
-MACROS = \
-	ChangeLog \
-	Makefile.am.project \
-	autogen.sh \
-	*.m4
-
-MACROS_dir = $(prefix)/@NO_PREFIX_PACKAGE_DATA_DIR@/gnome
-
-MACROS2 = \
-	ChangeLog \
-	Makefile.am.project \
-	autogen.sh \
-	*.m4
-
-MACROS2_dir = $(prefix)/@NO_PREFIX_PACKAGE_DATA_DIR@/gnome2
-
 EXTRA_DIST = $(anjuta_data_DATA) $(anjuta_mime_DATA) $(anjuta_mimelnk_DATA)
 
 install-data-local: system.tags
-	mkdir -p $(DESTDIR)$(MACROS_dir)
-	mkdir -p $(DESTDIR)$(MACROS2_dir)
-	$(INSTALL_DATA) $(MACROS:%=$(srcdir)/macros/%) $(DESTDIR)$(MACROS_dir)
-	$(INSTALL_DATA) $(MACROS2:%=$(srcdir)/macros2/%) $(DESTDIR)$(MACROS2_dir)
-	mv $(DESTDIR)$(MACROS_dir)/Makefile.am.project $(DESTDIR)$(MACROS_dir)/Makefile.am
-	mv $(DESTDIR)$(MACROS2_dir)/Makefile.am.project $(DESTDIR)$(MACROS2_dir)/Makefile.am
 	$(INSTALL_DATA) system.tags $(DESTDIR)$(anjuta_datadir)
 	$(INSTALL_DATA) $(top_srcdir)/setup-gettext $(DESTDIR)$(anjuta_datadir)
 
