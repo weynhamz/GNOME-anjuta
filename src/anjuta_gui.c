@@ -337,5 +337,5 @@ create_anjuta_gui (AnjutaApp * appl)
 	app->widgets.mesg_win_container = hbox2;
 	app->widgets.project_dbase_win_container = vbox1;
 
-	main_menu_install_hints ();
+	main_menu_install_hints (anjuta_gui);
 }

@@ -235,9 +235,7 @@ update_main_menubar ()
 	FormatSubMenu *ftm;
 	BuildSubMenu *bm;
 	BookmarkSubMenu *mm;
-	WindowsSubMenu *wm;
 	DebugSubMenu *dm;
-	UtilitiesSubMenu *um;
 	HelpSubMenu *hm;
 	gboolean F, P, SF, L, G, A, R, Pr, UD, RD, Ld, C, I, FLD, UT;
 	TextEditor *te;
@@ -251,9 +249,7 @@ update_main_menubar ()
 	ftm = &(app->widgets.menubar.format);
 	bm = &(app->widgets.menubar.build);
 	mm = &(app->widgets.menubar.bookmark);
-	wm = &(app->widgets.menubar.windows);
 	dm = &(app->widgets.menubar.debug);
-	um = &(app->widgets.menubar.utilities);
 	hm = &(app->widgets.menubar.help);
 
 	P = app->project_dbase->project_is_open;
@@ -389,8 +385,6 @@ update_main_menubar ()
 	gtk_widget_set_sensitive (mm->last, F);
 	gtk_widget_set_sensitive (mm->first, F);
 	gtk_widget_set_sensitive (mm->clear, F);
-
-	gtk_widget_set_sensitive (wm->close, F);
 
 	gtk_widget_set_sensitive (dm->start_debug, !L);
 	gtk_widget_set_sensitive (dm->open_exec, A && R);

@@ -1,5 +1,15 @@
 2002-03-03  Naba Kumar <kh_naba@users.sourceforge.net>
 
+	* src/anjuta.[h,c], src/anjuta_gui.c, src/anjuta_cbs.c,
+	src/controls.c,	src/main_menubar.h,	src/main_menubar.[h,c],
+	src/main_menubar_def.h:
+	
+	Organized menus, removed "Windows" and "Utilities" menus from the
+	menubar [they are no longer needed]. Also removed some extragenous
+	separators.
+	  
+2002-03-03  Naba Kumar <kh_naba@users.sourceforge.net>
+
 	* src/message-manager-private.cc:
 	Set message clist selection mode to BROWSE.
 	

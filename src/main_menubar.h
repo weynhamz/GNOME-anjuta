@@ -224,25 +224,6 @@ struct _DebugSubMenu
 	GtkWidget *info_args;
 };
 
-struct _UtilitiesSubMenu
-{
-	GtkWidget *grep;
-	GtkWidget *compare;
-	GtkWidget *diff;
-	GtkWidget *view;
-	GtkWidget *indent;
-	GtkWidget *flow;
-	GtkWidget *cross_ref;
-	GtkWidget *trace;
-	GtkWidget *archive;
-};
-
-struct _WindowsSubMenu
-{
-	GtkWidget *new;
-	GtkWidget *close;
-};
-
 struct _SettingsSubMenu
 {
 	GtkWidget *compiler;
@@ -272,8 +253,6 @@ struct _MainMenuBar
 	BuildSubMenu build;
 	BookmarkSubMenu bookmark;
 	DebugSubMenu debug;
-	UtilitiesSubMenu utilities;
-	WindowsSubMenu windows;
 	SettingsSubMenu settings;
 	HelpSubMenu help;
 };
@@ -284,6 +263,6 @@ GtkWidget *create_submenu (gchar * title, GList * strings,
 			   GtkSignalFunc callback_func);
 
 
-void main_menu_install_hints (void);
+void main_menu_install_hints (GtkWidget* gnome_app);
 
 #endif

@@ -56,8 +56,6 @@ extern gboolean closing_state;
 static GdkCursor *app_cursor;
 /*-------------------------------------------------------------------*/
 void anjuta_child_terminated (int t);
-static void on_anjuta_window_selected (GtkMenuItem * menuitem,
-				       gpointer user_data);
 static void on_message_clicked(GtkObject* obj, char* message);					  
 static void anjuta_show_text_editor (TextEditor * te);
 static void plugins_foreach_delete( gpointer data, gpointer user_data );
@@ -292,19 +290,12 @@ anjuta_append_text_editor (gchar * filename)
 		gtk_widget_show (te->widgets.window);
 		break;
 	}
-	anjuta_fill_windows_menu ();
 	gtk_signal_connect (GTK_OBJECT (app->widgets.notebook), "switch_page",
 			    GTK_SIGNAL_FUNC (on_anjuta_notebook_switch_page),
 			    NULL);
 	anjuta_set_current_text_editor(te);
 	anjuta_grab_text_focus ();
 	return te;
-}
-
-static void
-on_anjuta_window_selected (GtkMenuItem * menuitem, gpointer user_data)
-{
-	anjuta_show_text_editor ((TextEditor *) user_data);
 }
 
 void
@@ -382,7 +373,6 @@ anjuta_remove_text_editor (TextEditor* te)
 			g_list_remove (app->text_editor_list, te);
 		break;
 	}
-	anjuta_fill_windows_menu ();
 	text_editor_destroy (te);
 	gtk_signal_connect (GTK_OBJECT (app->widgets.notebook), "switch_page",
 			    GTK_SIGNAL_FUNC (on_anjuta_notebook_switch_page),
@@ -1885,44 +1875,6 @@ anjuta_delete_all_marker (gint marker)
 		scintilla_send_message (SCINTILLA (te->widgets.editor), SCI_MARKERDELETEALL,
 			marker, 0);
 		node = g_list_next (node);
-	}
-}
-
-void
-anjuta_fill_windows_menu ()
-{
-	gint count, i;
-	GnomeUIInfo wininfo[] = {
-		{
-		 GNOME_APP_UI_ITEM, NULL,
-		 N_("Activate this to select this window"),
-		 on_anjuta_window_selected, NULL, NULL,
-		 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_FORWARD, 0, 0, NULL}
-		, GNOMEUIINFO_END
-	};
-	GnomeUIInfo sep[] = {
-		GNOMEUIINFO_SEPARATOR,
-		GNOMEUIINFO_END
-	};
-	count = g_list_length (app->text_editor_list);
-	if (count > 0)
-	{
-		gnome_app_insert_menus (GNOME_APP (app->widgets.window),
-					"_Windows/Cl_ose current window",
-					sep);
-		for (i = (count - 1); i >= 0; i--)
-		{
-			TextEditor *te;
-			te = g_list_nth_data (app->text_editor_list, i);
-			wininfo[0].label = te->filename;
-			if (te == NULL)
-				continue;
-			wininfo[0].user_data = te;
-			gnome_app_insert_menus (GNOME_APP
-						(app->widgets.window),
-						"_Windows/<Separator>",
-						wininfo);
-		}
 	}
 }
 
