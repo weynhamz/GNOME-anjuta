@@ -1,6 +1,10 @@
 2001-09-18  Naba Kumar <kh_naba@users.sourceforge.net>
 
 	* Applied patch from Luca.
+	
+	* src/source.c: source_write_build_files(): Fixed the project generation
+	  failure. The fist return statement and the free_project_type were 
+	  misplaced.
 
 2001-09-14  Naba Kumar <kh_naba@users.sourceforge.net>
 	

@@ -1374,10 +1374,11 @@ source_write_build_files (ProjectDBase * data)
 				break;
 			default:
 				anjuta_error (_("Project type does not support glade."));
+				free_project_type(type);
+				return FALSE;
 		}
-			return FALSE;
-	free_project_type(type);
 	}
+	free_project_type(type);
 
 	if (data->project_config->disable_overwrite[BUILD_FILE_CONFIGURE_IN] == FALSE)
 	{
