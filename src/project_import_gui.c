@@ -175,6 +175,7 @@ create_import_wizard_page2 (ProjectImportWizard * piw)
 	vbox2 = gtk_vbox_new (FALSE, 5);
 	gtk_widget_show (vbox2);
 	gtk_container_add (GTK_CONTAINER (frame), vbox2);
+	gtk_container_set_border_width(GTK_CONTAINER(vbox2), 5);
 
 	label1 = gtk_label_new (_("Select project toplevel directory:"));
 	gtk_widget_show (label1);
@@ -187,16 +188,17 @@ create_import_wizard_page2 (ProjectImportWizard * piw)
 	gtk_box_pack_start (GTK_BOX (vbox2), piw->widgets.file_entry,
 			    FALSE, TRUE, 5);
 
+	piw->widgets.progressbar = gtk_progress_bar_new ();
+	gtk_widget_show (piw->widgets.progressbar);
+	gtk_box_pack_start (GTK_BOX (vbox2), piw->widgets.progressbar,
+			    FALSE, TRUE, 5);
+	
 	piw->widgets.label =
 		gtk_label_new (_("Press \"Next\" to start import"));
 	gtk_widget_show (piw->widgets.label);
 	gtk_box_pack_start (GTK_BOX (vbox2), piw->widgets.label, FALSE, TRUE,
 			    40);
 
-	piw->widgets.progressbar = gtk_progress_bar_new ();
-	gtk_widget_show (piw->widgets.progressbar);
-	gtk_box_pack_start (GTK_BOX (vbox2), piw->widgets.progressbar,
-			    FALSE, TRUE, 5);
 }
 
 void

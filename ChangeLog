@@ -1,3 +1,8 @@
+2002-01-30  Naba Kumar <kh_naba@users.sourceforge.net>
+
+	* src/project_import_gui.c: Reorganized project
+	import gui page 2.
+	
 2002-01-29  Andy Piper <andy.piper@freeuk.com>
 
 	* HACKING: added info on creating windows and dialogs
@@ -76,7 +81,7 @@
 
 	* src/gnomefilelist.h, src/gnomefilelist.c:
 	
-	  Fixed multiple selection bug. The OK button is
+	  Fixed multiple selection bug (#497085). The OK button is
 	  sensitive when in multiple mode, if the no. of
 	  selection is one or more.
 	  
