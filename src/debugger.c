@@ -1004,7 +1004,9 @@ on_gdb_terminated (AnjutaLauncher *launcher,
 static void
 debugger_command (const gchar * com)
 {
-
+	gchar *cmd;
+	
+	g_return_if_fail (com != NULL);
 #ifdef ANJUTA_DEBUG_DEBUGGER
 	g_message ("In function: debugger_command()");
 #endif
@@ -1018,7 +1020,9 @@ debugger_command (const gchar * com)
 	g_message ("Executing gdb command %s\n",com);
 #endif
 	debugger_set_ready (FALSE);
-	anjuta_launcher_send_stdin (app->launcher, com);
+	cmd = g_strconcat (com, "\n", NULL);
+	anjuta_launcher_send_stdin (app->launcher, cmd);
+	g_free (cmd);
 }
 
 void

@@ -1,10 +1,12 @@
-2003-09-25  Naba Kumar  <naba@gnome.org>
+2003-09-26  Naba Kumar  <naba@gnome.org>
 
 	* src/anjuta.c: Only connects to kernel SIGCHLD signal.
 	* src/find_replace.c, src/find_text.c, src/mainmenu_callbacks.c,
 	src/text_editor.[c,h], src/toolbar_callbacks.c: Added wrap in
 	text_editor_find() and Fixed I-Search wrapping.
-	
+	* src/debugger.c: Fixed to pass a newline after a debugger
+	command (which was broken since the launcher was refactored.
+
 2003-09-25  Naba Kumar  <naba@gnome.org>
 
 	* src/toolbar_callbacks.c: Fixed start of incremental search.
