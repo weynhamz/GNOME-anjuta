@@ -2679,9 +2679,10 @@ msgstr ""
 msgid "  Shared Object  "
 msgstr "Objekt i përbashkët"
 
+#. GRUT modified this item
 #: plugins/debugger/sharedlib_gui.c:105
 msgid "From"
-msgstr ""
+msgstr "Nga"
 
 #: plugins/debugger/sharedlib_gui.c:109
 msgid "To"
@@ -3095,9 +3096,10 @@ msgstr "_Zgjidh"
 msgid "Select _All"
 msgstr "Zgjidh _gjithçka"
 
+#. GRUT modified this item
 #: plugins/editor/plugin.c:103
 msgid "Select all text in the editor"
-msgstr ""
+msgstr "Zgjidh të gjithë tekstin në editor"
 
 #: plugins/editor/plugin.c:105
 msgid "Select to _Brace"
