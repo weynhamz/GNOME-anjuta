@@ -1080,7 +1080,7 @@ static gchar *lang_data[] = {
 	N_("Slovak"), "sk",
 	N_("Turkish"), "tr",
 	N_("Simplified Chinese"), "zh_CN.GB2312",
-	N_("Chinese"), "zh_TW.Big5",
+	N_("Chinese"), "zh_TW",
 	N_("Estonian"), "et",
 	NULL
 };

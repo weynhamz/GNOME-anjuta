@@ -1,3 +1,8 @@
+2001-09-05  Abel Cheung  <maddog@linux.org.hk>
+
+	* src/project_dbase_gui.c(*lang_data[]): Rename zh_TW.Big5 to zh_TW .
+	  This is useless; but just in case...
+
 2001-08-4  Naba Kumar <kh_naba@users.sourceforge.net>
 
 	* data/internal.properties: modified a bit of perl properties.
