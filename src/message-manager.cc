@@ -44,7 +44,7 @@ static guint anjuta_message_manager_signals[SIGNALS_END] = { 0 };
 // Data:
 static char *labels[] =
 	{ N_("Build"), N_("Debug"), N_("Find"), N_("CVS"), N_("Locals"),
-N_("Terminal") };
+N_("Terminal"), N_("Stdout"), N_("Stderr") };
 
 // Intern functions
 static void anjuta_message_manager_destroy (GtkObject * object);
@@ -941,6 +941,10 @@ create_default_types (AnjutaMessageManager * amm)
 	anjuta_message_manager_add_type (amm, MESSAGE_LOCALS,
 					 ANJUTA_PIXMAP_MINI_LOCALS);
 	anjuta_message_manager_add_type (amm, MESSAGE_TERMINAL,
+					 ANJUTA_PIXMAP_MINI_TERMINAL);
+	anjuta_message_manager_add_type (amm, MESSAGE_STDOUT,
+					 ANJUTA_PIXMAP_MINI_TERMINAL);
+	anjuta_message_manager_add_type (amm, MESSAGE_STDERR,
 					 ANJUTA_PIXMAP_MINI_TERMINAL);
 	
 	// Fix for bug #509192 (Crash on next message)

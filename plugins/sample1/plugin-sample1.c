@@ -1,5 +1,6 @@
 #include "../../src/anjuta.h"
 #include "../../src/anjuta_info.h"
+#include "../../src/anjuta-plugins.h"
 
 gchar   *GetDescr       (void);
 glong    GetVersion     (void);
@@ -20,6 +21,12 @@ glong
 GetVersion()
 {
 	return 0x10000L ;
+}
+
+/* Place this entry under the 'View' menu */
+gchar *GetMenu(void)
+{
+	return g_strdup("view");
 }
 
 gboolean

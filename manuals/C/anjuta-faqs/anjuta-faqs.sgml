@@ -724,6 +724,22 @@
 	<qandaentry>
     <question>
      <para>
+		I imported a project using the Project Import feature. Now, when I add source files to the project,
+		I find that they no longer compile.
+     </para>
+    </question>
+    <answer>
+     <para>
+		You'll have to manually edit your Makefile.am to add the necessary files. This is because Anjuta is
+		currently not smart enough to parse your Makefiles and make the addition of the source files without
+		risking damage to your build system.
+	</para>
+    </answer>
+   </qandaentry>
+
+	<qandaentry>
+    <question>
+     <para>
 		The project/messages panes keep shrinking back to zero size ?
      </para>
     </question>

@@ -23,7 +23,6 @@
 #include <unistd.h>
 #include <signal.h>
 #include <string.h>
-#include <syslog.h>
 #include <ctype.h>
 #include <sys/wait.h>
 #include <gnome.h>
@@ -50,18 +49,12 @@
 #include "properties.h"
 #include "commands.h"
 /*-------------------------------------------------------------------*/
-#define	LOCALS_PLUGIN_DIR	"/.anjuta/plugins"
-
 extern gboolean closing_state;
 static GdkCursor *app_cursor;
 /*-------------------------------------------------------------------*/
 void anjuta_child_terminated (int t);
 static void on_message_clicked(GtkObject* obj, char* message);					  
 static void anjuta_show_text_editor (TextEditor * te);
-static void plugins_foreach_delete( gpointer data, gpointer user_data );
-static void free_plug_ins( GList * pList );
-static PlugInErr plug_in_init( AnjutaAddInPtr self, const gchar *szModName );
-static GList*scan_AddIns_in_directory( AnjutaApp* pApp, const gchar *szDirName, GList *pList );
 static int select_all_files (const struct dirent *e);
 
 /*-------------------------------------------------------------------*/
@@ -183,7 +176,6 @@ anjuta_new ()
 			g_warning("Unable to load global tag file");
 		app->help_system = anjuta_help_new();
 		app->cvs = cvs_new(app->preferences->props);
-
 		app->widgets.the_client = app->widgets.vpaned;
 		app->widgets.hpaned_client = app->widgets.hpaned;
 		gtk_container_add (GTK_CONTAINER (app->widgets.hpaned),
@@ -206,18 +198,8 @@ anjuta_new ()
 		anjuta_update_title ();
 		launcher_init ();
 		debugger_init ();
-		app->addIns_list = scan_AddIns_in_directory( app, PACKAGE_PLUGIN_DIR, NULL );
-		{		
-			gchar *plugin_dir;
-			char const * const home_dir = getenv ("HOME");
-			/* Load the user plugins */
-			if (home_dir != NULL)
-			{
-				plugin_dir = g_strconcat (home_dir, LOCALS_PLUGIN_DIR, NULL);
-				app->addIns_list = scan_AddIns_in_directory( app, plugin_dir, app->addIns_list );
-				g_free (plugin_dir);
-			}
-		}
+		anjuta_plugins_load();
+		anjuta_tools_load();
 		anjuta_load_yourself (app->preferences->props);
 		gtk_widget_set_uposition (app->widgets.window, app->win_pos_x,
 					  app->win_pos_y);
@@ -1246,7 +1228,7 @@ anjuta_application_exit(void)
 	{
 		project_dbase_close_project(app->project_dbase) ;
 	}
-	free_plug_ins( app->addIns_list );
+	anjuta_plugins_unload();
 	app->addIns_list	= NULL ;
 }
 
@@ -2114,207 +2096,6 @@ anjuta_reload_file( const gchar *szFullPath )
 		text_editor_goto_line ( te,  nNowPos, FALSE );
 	}
 	return;
-}
-
-
-
-AnjutaAddInPtr plug_in_new(void)
-{
-	AnjutaAddInPtr	self = g_new( AnjutaAddIn, 1 );
-	if( NULL != self )
-	{
-		self->m_Handle			= NULL ;
-		self->m_szModName		= NULL ;
-		self->m_bStarted		= FALSE ;
-		self->m_UserData		= NULL ;		
-	
-		self->GetDescr			= NULL ;
-		self->GetVersion		= NULL ;
-		self->Init				= NULL ;
-		self->CleanUp			= NULL ;
-		self->Activate			= NULL ;
-		self->GetMenuTitle		= NULL ;
-		self->GetTooltipText	= NULL ;
-	}
-	return self ;
-}
-
-void 
-plug_in_delete( AnjutaAddInPtr self )
-{
-	g_return_if_fail( NULL != self );
-	
-	if( self->m_Handle && self->CleanUp )
-		(*self->CleanUp)( self->m_Handle, self->m_UserData, app );
-
-	if( NULL != self->m_szModName )
-		g_free( self->m_szModName );
-
-	if( self->m_Handle )
-		g_module_close( self->m_Handle );
-
-	self->m_Handle	= NULL ;
-	
-	g_free( self );
-}
-
-
-static PlugInErr
-plug_in_init( AnjutaAddInPtr self, const gchar *szModName )
-{
-	PlugInErr	pieError = PIE_OK ;
-	
-	g_return_val_if_fail( (NULL != self), PIE_BADPARMS );
-	g_return_val_if_fail( (szModName != NULL ) && strlen(szModName) , PIE_BADPARMS ) ;
-	
-	self->m_szModName	= g_strdup( szModName ) ;
-	self->m_Handle		= g_module_open ( szModName , 0 );
-	if( NULL != self->m_Handle )
-	{
-		/* Symbol load */
-		if( 		g_module_symbol( self->m_Handle, "GetDescr", (gpointer*)&self->GetDescr ) 
-			&&	g_module_symbol( self->m_Handle, "GetVersion", (gpointer*)&self->GetVersion )
-			&&	g_module_symbol( self->m_Handle, "Init", (gpointer*)&self->Init )
-			&&	g_module_symbol( self->m_Handle, "CleanUp", (gpointer*)&self->CleanUp )
-			&&	g_module_symbol( self->m_Handle, "Activate", (gpointer*)&self->Activate )
-			&&	g_module_symbol( self->m_Handle, "GetMenuTitle", (gpointer*)&self->GetMenuTitle )
-			&&	g_module_symbol( self->m_Handle, "GetTooltipText", (gpointer*)&self->GetTooltipText ) )
-		{
-			self->m_bStarted = (*self->Init)( self->m_Handle, &self->m_UserData, app ) ;
-			if( !self->m_bStarted )
-			{
-				pieError = PIE_INITFAILED ;
-			}			
-		} else
-		{
-			self->GetDescr		= NULL ;
-			self->GetVersion	= NULL ;
-			self->Init			= NULL ;
-			self->CleanUp		= NULL ;
-			self->Activate		= NULL ;
-			self->GetMenuTitle	= NULL ;
-			self->m_bStarted	= FALSE ;
-			pieError = PIE_SYMBOLSNOTFOUND ;
-		}
-	} else
-		pieError = PIE_NOTLOADED ;
-	return pieError ;
-}
-
-static gboolean
-Load_plugIn( AnjutaAddInPtr self, const gchar *szModName )
-{
-	gboolean		bOK = FALSE ;
-	PlugInErr	lErr = plug_in_init( self, szModName ) ;
-	const gchar	*pErr = g_module_error();
-	if( NULL == pErr )
-		pErr = "";
-	switch( lErr )
-	{
-	default:
-		syslog( LOG_WARNING|LOG_USER, _("Unable to load plugin %s. Error: %s"), szModName, pErr );
-		break;
-	case PIE_NOTLOADED:
-		syslog( LOG_WARNING|LOG_USER, _("Unable to load plugin %s. Error: %s"), szModName, pErr );
-		break;
-	case PIE_SYMBOLSNOTFOUND:
-		syslog( LOG_WARNING|LOG_USER, _("Plugin protocol %s unknown Error:%s"), szModName, pErr );
-		break;
-	case PIE_INITFAILED:
-		syslog( LOG_WARNING|LOG_USER, _("Unable to start plugin %s"), szModName );
-		break;
-	case PIE_BADPARMS:
-		syslog( LOG_WARNING|LOG_USER, _("Bad parameters to plugin %s. Error: %s"), szModName, pErr );
-		break;
-	case PIE_OK:
-		bOK = TRUE ;
-		break;
-	}
-		
-	if( ! bOK )
-		anjuta_error ( _("Unable to load plugin %s.\nError: %s"), szModName, pErr  );
-	return bOK ;
-}
-
-
-static void
-plugins_foreach_delete( gpointer data, gpointer user_data )
-{
-	plug_in_delete( (AnjutaAddInPtr)data );
-}
-
-static void
-free_plug_ins( GList * pList )
-{
-	if( pList )
-	{
-		g_list_foreach( pList, plugins_foreach_delete, NULL );
-		g_list_free (pList);
-	}
-}
-
-static int
-select_all_files (const struct dirent *e)
-{
-	return TRUE; 
-}
-
-
-static GList *
-scan_AddIns_in_directory (AnjutaApp* pApp, const gchar *szDirName, GList *pList)
-{
-	GList *files;
-	GList *node;
-
-	if (!g_module_supported ())
-		return NULL ;
-	
-	g_return_val_if_fail (pApp != NULL, pList);
-	g_return_val_if_fail (((NULL != szDirName) && strlen(szDirName)), pList);
-
-	files = NULL;
-
-	/* Can not use p->top_proj_dir yet. */
-
-	/* Can not use project_dbase_get_module_dir() yet */
-	files = scan_files_in_dir (szDirName, select_all_files);
-
-	node = files;
-	while (node)
-	{
-		const char* entry_name;
-		gboolean bOK = FALSE;
-			
-		entry_name = (const char*) node->data;
-		node = g_list_next (node);
-
-		if ((NULL != entry_name) && strlen (entry_name) > 3
-			&& (0 == strcmp (&entry_name[strlen(entry_name)-3], ".so")))
-		{
-			/* FIXME: e questo ? bah library_file = g_module_build_path (module_dir, module_file); */
-			gchar *pPIPath = g_strdup_printf ("%s/%s", szDirName, entry_name);
-			AnjutaAddInPtr pPlugIn = plug_in_new ();
-
-			if ((NULL != pPlugIn) && (NULL != pPIPath))
-			{
-				if (Load_plugIn (pPlugIn, pPIPath))
-				{
-					pList = g_list_prepend (pList, pPlugIn);
-					bOK = TRUE ;
-				}
-			} else
-				anjuta_error (_("Out of memory scanning for plugins."));
-
-			g_free (pPIPath);
-
-			if (!bOK && (NULL != pPlugIn))
-				plug_in_delete (pPlugIn);
-		}
-	}
-
-	free_string_list (files);
-
-	return pList;
 }
 
 static void on_message_clicked(GtkObject* obj, char* message)

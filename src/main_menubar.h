@@ -306,7 +306,6 @@ void create_main_menubar (GtkWidget * app, MainMenuBar * mb);
 GtkWidget *create_submenu (gchar * title, GList * strings,
 			   GtkSignalFunc callback_func);
 
-
 void main_menu_install_hints (GtkWidget* gnome_app);
 
 #endif

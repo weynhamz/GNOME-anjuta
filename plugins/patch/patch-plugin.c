@@ -17,9 +17,11 @@
 #include "../../src/anjuta.h"
 #include "../../src/launcher.h"
 #include "../../src/anjuta_info.h"
+#include "../../src/anjuta-plugins.h"
 
 gchar   *GetDescr       (void);
 glong    GetVersion     (void);
+gchar *GetMenu(void);
 gboolean Init           (GModule *self, void **pUserData, AnjutaApp* p);
 void     CleanUp        (GModule *self, void *pUserData, AnjutaApp* p);
 void     Activate       (GModule *self, void *pUserData, AnjutaApp* p);
@@ -62,6 +64,11 @@ glong
 GetVersion()
 {
 	return 0x100000;
+}
+
+gchar *GetMenu(void)
+{
+	return g_strdup("format");
 }
 
 gboolean

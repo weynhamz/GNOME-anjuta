@@ -34,6 +34,7 @@
 
 #include "../../src/anjuta.h"
 #include "../../src/project_dbase.h"
+#include "../../src/anjuta-plugins.h"
 #include "class_logo.xpm"
 
 #ifdef HAVE_CONFIG_H
@@ -153,6 +154,7 @@ void CleanUp(GModule* self, void* pUserData, AnjutaApp* p);
 void Activate(GModule* self, void* pUserData, AnjutaApp* p);
 gchar* GetMenuTitle(GModule* self, void* pUserData);
 gchar* GetTooltipText(GModule* self, void* pUserData);
+gchar *GetMenu(void);
 
 /*
  * Event Callbacks
@@ -214,6 +216,10 @@ GetVersion()
 	return 0x10000L; 
 }
 
+gchar *GetMenu(void)
+{
+	return g_strdup("project");
+}
 
 gboolean
 Init(GModule *self, void **pUserData, AnjutaApp* p)

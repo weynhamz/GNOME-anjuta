@@ -90,7 +90,7 @@ void create_default_types(AnjutaMessageManager* amm);
 #endif
 
 // Sync with label in message-manager.cc
-enum
+typedef enum _AnMessageType
 { 
 	MESSAGE_BUILD = 0,
 	MESSAGE_DEBUG,
@@ -98,7 +98,9 @@ enum
 	MESSAGE_CVS,
 	MESSAGE_LOCALS,
 	MESSAGE_TERMINAL,
+	MESSAGE_STDOUT,
+	MESSAGE_STDERR,
 	MESSAGE_NONE = -1,
-};
+} AnMessageType;
 
 #endif

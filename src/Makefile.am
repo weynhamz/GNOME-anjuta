@@ -44,6 +44,10 @@ anjuta_SOURCES = \
 	an_file_view.h\
 	an_symbol_view.c\
 	an_symbol_view.h\
+	anjuta-tools.c\
+	anjuta-tools.h\
+	anjuta-plugins.c\
+	anjuta-plugins.h\
 	aneditor.cxx\
 	aneditor.h\
 	anjuta.h\
@@ -224,7 +228,9 @@ anjuta_SOURCES = \
 	resources.c\
 	resources.h\
 	session.c\
-	session.h
+	session.h\
+	widget-registry.h\
+	widget-registry.c
 
 anjuta_LDADD =  \
 	$(INTLLIBS) \

@@ -28,11 +28,10 @@
 #include "main_menubar_def.h"
 #include "fileselection.h"
 #include "scroll-menu.h"
+#include "widget-registry.h"
 
 static void on_file_menu_realize (GtkWidget * widget, gpointer data);
 static void on_project_menu_realize (GtkWidget * widget, gpointer data);
-static void on_plugins_menu_realize (GtkWidget * widget, gpointer data);
-static void on_plugins_menu_item_activate (GtkMenuItem * item, AnjutaAddInPtr pPlug );
 
 void
 create_main_menubar (GtkWidget * ap, MainMenuBar * mb)
@@ -266,18 +265,23 @@ create_main_menubar (GtkWidget * ap, MainMenuBar * mb)
 	gtk_widget_hide (project1_menu_uiinfo[13].widget);
 	gtk_widget_hide (project1_menu_uiinfo[14].widget);
 
-	/* Note: this is because we don't know yet what's the
-	 *contents of these menus
-	 */
 	/* Recent files and project submenu */
 	gtk_signal_connect (GTK_OBJECT (mb->file.recent_files), "realize",
 			    GTK_SIGNAL_FUNC (on_file_menu_realize), NULL);
 	gtk_signal_connect (GTK_OBJECT (mb->file.recent_projects), "realize",
 			    GTK_SIGNAL_FUNC (on_project_menu_realize), NULL);
 
-	/* Plugin Menu */
-	gtk_signal_connect (GTK_OBJECT (menubar1_uiinfo[8].widget), "realize",
-			    GTK_SIGNAL_FUNC (on_plugins_menu_realize), NULL);
+	/* Populate the menu map */
+	an_register_submenu("file", GTK_MENU_ITEM(menubar1_uiinfo[0].widget)->submenu);
+	an_register_submenu(NULL /*"edit"*/,  GTK_MENU_ITEM(menubar1_uiinfo[1].widget)->submenu);
+	an_register_submenu("view", GTK_MENU_ITEM(menubar1_uiinfo[2].widget)->submenu);
+	an_register_submenu("project", GTK_MENU_ITEM(menubar1_uiinfo[3].widget)->submenu);
+	an_register_submenu("format", GTK_MENU_ITEM(menubar1_uiinfo[4].widget)->submenu);
+	an_register_submenu("build", GTK_MENU_ITEM(menubar1_uiinfo[5].widget)->submenu);
+	an_register_submenu("bookmark", GTK_MENU_ITEM(menubar1_uiinfo[6].widget)->submenu);
+	an_register_submenu("debug", GTK_MENU_ITEM(menubar1_uiinfo[7].widget)->submenu);
+	an_register_submenu("cvs", GTK_MENU_ITEM(menubar1_uiinfo[8].widget)->submenu);
+	an_register_submenu("settings", GTK_MENU_ITEM(menubar1_uiinfo[9].widget)->submenu);
 }
 
 void
@@ -285,6 +289,10 @@ main_menu_install_hints (GtkWidget* ap)
 {
 	gint i;
 	
+	for (i = 0; i < NUM_TOPLEVEL_SUBMENUS; i++) {
+		gtk_widget_ref (menubar1_uiinfo[i].widget);
+	}
+
 	for (i = 0; i < NUM_FILE_SUBMENUS; i++) {
 		gtk_widget_ref (file1_menu_uiinfo[i].widget);
 		gtk_accel_group_attach(GNOME_APP(ap)->accel_group,
@@ -438,7 +446,10 @@ void
 main_menu_unref ()
 {
 	gint i;
-	
+
+	for (i=0; i < NUM_TOPLEVEL_SUBMENUS; ++i)
+		gtk_widget_unref(menubar1_uiinfo[i].widget);
+
 	for (i = 0; i < NUM_FILE_SUBMENUS; i++)
 		gtk_widget_unref (file1_menu_uiinfo[i].widget);
 	
@@ -524,7 +535,7 @@ create_submenu (gchar * title, GList * strings, GtkSignalFunc callback_func)
 	submenu = scroll_menu_new ();
 
 	/* FIXME: what about the user opinion on tearoff menuitems ?
-	          perhaps (s)he has desactivated the option. */
+	          perhaps (s)he has deactivated the option. */
 	item = gtk_tearoff_menu_item_new ();
 	gtk_menu_append (GTK_MENU (submenu), item);
 	gtk_widget_show (item);
@@ -552,43 +563,6 @@ create_submenu (gchar * title, GList * strings, GtkSignalFunc callback_func)
 	return GTK_WIDGET (submenu);
 }
 
-static GtkWidget *
-create_submenu_plugin (GList * pList, GtkSignalFunc callback_func)
-{
-	GtkWidget *submenu;
-	GtkWidget *item;
-	gint i;
-
-	submenu = scroll_menu_new ();
-
-	/* FIXME: what about the user opinion on tearoff menuitems ?
-	          perhaps (s)he has desactivated the option. */
-	item = gtk_tearoff_menu_item_new ();
-	gtk_menu_append (GTK_MENU (submenu), item);
-	gtk_widget_show (item);
-
-	for (i = 0; i < g_list_length (pList); i++) {
-		AnjutaAddInPtr pPlug;
-		gchar *szTitle;
-
-		pPlug = (AnjutaAddInPtr) (g_list_nth (pList, i)->data);
-		szTitle = (*pPlug->GetMenuTitle)( pPlug->m_Handle, pPlug->m_UserData ) ;
-
-		item = gtk_menu_item_new_with_label ( szTitle );
-
-		g_free( szTitle );
-
-		gtk_menu_append (GTK_MENU (submenu), item);
-		gtk_widget_show (item);
-		gtk_signal_connect (GTK_OBJECT (item), "activate",
-				    callback_func, pPlug );
-	}
-
-	gtk_widget_show (submenu);
-
-	return GTK_WIDGET (submenu);
-}
-
 static void
 on_file_menu_realize (GtkWidget * widget, gpointer data)
 {
@@ -598,27 +572,6 @@ on_file_menu_realize (GtkWidget * widget, gpointer data)
 				(on_recent_files_menu_item_activate));
 	gtk_menu_item_set_submenu (GTK_MENU_ITEM (widget), submenu);
 	app->widgets.menubar.file.recent_files = widget;
-}
-
-static void
-on_plugins_menu_realize (GtkWidget * widget, gpointer data)
-{
-	if (app->addIns_list) {
-		GtkWidget *submenu =
-			create_submenu_plugin (app->addIns_list,
-					GTK_SIGNAL_FUNC
-					(on_plugins_menu_item_activate));
-		gtk_menu_item_set_submenu (GTK_MENU_ITEM (widget), submenu);
-	} else
-		/* Note: we only hide it to keep a proper ref counting */
-		gtk_widget_hide (widget);
-		
-}
-
-static void
-on_plugins_menu_item_activate (GtkMenuItem * item, AnjutaAddInPtr pPlug )
-{
-	(*pPlug->Activate)( pPlug->m_Handle, pPlug->m_UserData, app ) ;
 }
 
 static void

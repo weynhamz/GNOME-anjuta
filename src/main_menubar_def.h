@@ -1557,17 +1557,6 @@ static GnomeUIInfo debug1_menu_uiinfo[NUM_DEBUG_SUBMENUS+1] = {
 	GNOMEUIINFO_END/*22*/
 };
 
-#define NUM_PLUGINS_SUBMENUS 1
-static GnomeUIInfo plugins_menu_uiinfo[NUM_PLUGINS_SUBMENUS+1] = {
-	{/*0*/
-	 GNOME_APP_UI_ITEM, N_("plugins"),
-	 NULL,
-	 on_nonimplemented_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
-	 0, 0, NULL},
-	GNOMEUIINFO_END/*1*/
-};
-
 #define NUM_CVS_SUBMENUS 16 
 static GnomeUIInfo cvs_menu_uiinfo[NUM_CVS_SUBMENUS+1] = {
 	{
@@ -1800,6 +1789,7 @@ static GnomeUIInfo help1_menu_uiinfo[NUM_HELP_SUBMENUS+1] = {
 	GNOMEUIINFO_END/*18*/
 };
 
+#define NUM_TOPLEVEL_SUBMENUS 11
 static GnomeUIInfo menubar1_uiinfo[] = {
 	GNOMEUIINFO_MENU_FILE_TREE (file1_menu_uiinfo),
 	GNOMEUIINFO_MENU_EDIT_TREE (edit1_menu_uiinfo),
@@ -1832,12 +1822,6 @@ static GnomeUIInfo menubar1_uiinfo[] = {
 	 GNOME_APP_UI_SUBTREE, N_("_Debug"),
 	 NULL,
 	 debug1_menu_uiinfo, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
-	 0, 0, NULL},
-	{
-	 GNOME_APP_UI_SUBTREE, N_("Plug_ins"),
-	 NULL,
-	 plugins_menu_uiinfo, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{

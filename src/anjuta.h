@@ -19,8 +19,6 @@
 #ifndef _ANJUTA_H_
 #define _ANJUTA_H_
 
-#include <gmodule.h>
-
 #include "toolbar.h"
 #include "text_editor.h"
 #include "messagebox.h"
@@ -51,43 +49,6 @@
 typedef struct _AnjutaAppGui AnjutaAppGui;
 typedef struct _AnjutaApp AnjutaApp;
 typedef struct _FileLineInfo FileLineInfo;
-
-/*--------------------------------------------------------------------------*/
-typedef	enum {
-	PIE_OK,
-	PIE_NOTLOADED,
-	PIE_SYMBOLSNOTFOUND,
-	PIE_INITFAILED,
-	PIE_BADPARMS,
-	} PlugInErr ;
-
-typedef struct {
-	
-	GModule	*m_Handle;
-	gchar	*m_szModName;
-	gboolean	m_bStarted;	/* Flag successfuly initialized */
-	void		*m_UserData;	/* user data */
-	
-	/* Get module description */
-	gchar	*(*GetDescr)();
-	/* GetModule Version hi/low word 1.02 0x10002 */
-	glong	(*GetVersion)();
-	/* Init Module */
-	gboolean (*Init)( GModule *self, void **pUserData, AnjutaApp* p );
-	/* Clean-up */
-	void (*CleanUp)( GModule *self, void *pUserData, AnjutaApp* p );
-	/* Activation */
-	void (*Activate)( GModule *self, void *pUserData, AnjutaApp* p);
-	/* User Interface */
-	gchar *(*GetMenuTitle)( GModule *self, void *pUserData ) ;
-	gchar *(*GetTooltipText)( GModule *self, void *pUserData ) ;
-	
-} AnjutaAddIn, *AnjutaAddInPtr ;
-
-AnjutaAddInPtr plug_in_new(void);
-void plug_in_delete( AnjutaAddInPtr self );
-
-/*--------------------------------------------------------------------------*/
 
 struct _AnjutaAppGui
 {
