@@ -289,26 +289,10 @@ anjuta_launcher_set_busy (AnjutaLauncher *launcher, gboolean flag)
 void
 anjuta_launcher_send_stdin (AnjutaLauncher *launcher, const gchar * input_str)
 {
+	g_return_if_fail (launcher);
+	g_return_if_fail (input_str);
+
 	anjuta_launcher_send_ptyin (launcher, input_str);
-#if 0	
-	int bytes_written;
-	GError *err = NULL;
-	
-	if (!input_str || strlen(input_str) == 0) return;
-	
-	/*g_io_channel_write_chars (launcher->priv->stdin_channel,
-							  input_str, strlen (input_str),
-							  &bytes_written, &err);*/
-	if (err)
-		g_error_free (err);
-	
-	err = NULL;
-	/*g_io_channel_write_chars (launcher->priv->stdin_channel,
-							  "\n", 1,
-							  &bytes_written, &err);*/
-	if (err)
-		g_error_free (err);
-#endif
 }
 
 void
@@ -797,6 +781,29 @@ anjuta_launcher_child_terminated (int status, gpointer data)
 	anjuta_launcher_synchronize (launcher);
 }
 
+gboolean
+anjuta_launcher_set_encoding (AnjutaLauncher *launcher, const gchar *charset)
+{
+	GIOStatus s;
+	gboolean r = TRUE;
+
+	g_return_if_fail (launcher != NULL);
+	// charset can be NULL
+
+	s = g_io_channel_set_encoding (launcher->priv->stderr_channel, charset, NULL);
+	if (s != G_IO_STATUS_NORMAL) r = FALSE;
+	s = g_io_channel_set_encoding (launcher->priv->stdout_channel, charset, NULL);
+	if (s != G_IO_STATUS_NORMAL) r = FALSE;
+	s = g_io_channel_set_encoding (launcher->priv->pty_channel, charset, NULL);
+	if (s != G_IO_STATUS_NORMAL) r = FALSE;
+
+	if (! r)
+	{
+		g_warning (_("launcher.c: Failed to set channel encoding!"));
+	}
+	return r;
+}
+
 static pid_t
 anjuta_launcher_fork (AnjutaLauncher *launcher, gchar *const args[])
 {
@@ -805,6 +812,7 @@ anjuta_launcher_fork (AnjutaLauncher *launcher, gchar *const args[])
 	int stdout_pipe[2], stderr_pipe[2]/*, stdin_pipe[2]*/;
 	pid_t child_pid;
 	struct termios termios_flags;
+	const gchar *charset;
 	
 	working_dir = g_get_current_dir ();
 	
@@ -877,13 +885,23 @@ anjuta_launcher_fork (AnjutaLauncher *launcher, gchar *const args[])
 	launcher->priv->stdout_channel = g_io_channel_unix_new (stdout_pipe[0]);
 	// launcher->priv->stdin_channel = g_io_channel_unix_new (stdin_pipe[1]);
 	launcher->priv->pty_channel = g_io_channel_unix_new (pty_master_fd);
-	
-	g_io_channel_set_encoding (launcher->priv->stderr_channel, NULL, NULL);
-	g_io_channel_set_encoding (launcher->priv->stdout_channel, NULL, NULL);
-	g_io_channel_set_encoding (launcher->priv->pty_channel, NULL, NULL);
+
+	g_get_charset (&charset);
+	anjuta_launcher_set_encoding (launcher, charset);
 
 	tcgetattr(pty_master_fd, &termios_flags);
-	termios_flags.c_lflag &= ~ECHO;
+	termios_flags.c_iflag &= ~(IGNPAR | INPCK | INLCR | IGNCR | ICRNL | IXON |
+					IXOFF | ISTRIP);
+	termios_flags.c_iflag |= IGNBRK | BRKINT | IMAXBEL | IXANY;
+	termios_flags.c_oflag &= ~OPOST;
+//	termios_flags.c_oflag |= 0;
+	termios_flags.c_cflag &= ~(CSTOPB | CREAD | PARENB | HUPCL);
+	termios_flags.c_cflag |= CS8 | CLOCAL;
+	termios_flags.c_lflag &= ~(ECHOKE | ECHOE | ECHO | ECHONL | ECHOPRT |
+					ECHOCTL | ISIG | ICANON | IEXTEN | NOFLSH | TOSTOP);
+//	termios_flags.c_lflag |= 0;
+	termios_flags.c_cc[VMIN] = 0;
+	cfsetospeed(&termios_flags, __MAX_BAUD);
 	tcsetattr(pty_master_fd, TCSANOW, &termios_flags);
 
 	launcher->priv->stdout_watch = 

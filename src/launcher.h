@@ -77,6 +77,8 @@ gboolean anjuta_launcher_execute_v (AnjutaLauncher *launcher,
 									gchar *const argv[],
 									AnjutaLauncherOutputCallback callback,
 									gpointer callback_data);
+gboolean anjuta_launcher_set_encoding (AnjutaLauncher *launcher,
+									   const gchar *charset);
 void anjuta_launcher_send_stdin (AnjutaLauncher *launcher, const gchar *in);
 void anjuta_launcher_send_ptyin (AnjutaLauncher *launcher, const gchar *in);
 gint anjuta_launcher_get_child_pid (AnjutaLauncher *launcher);

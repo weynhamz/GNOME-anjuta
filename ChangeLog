@@ -1,3 +1,12 @@
+2003-11-18  Pavol Bosik  <Pavol.Bosik@siemens.com>
+
+	Reviewed by Naba Kumar  <naba@gnome.org>
+	* src/launcher.[h,c], src/debugger.c: Fixed encoding bug with GIOChannel
+	and debugger. Sets default settings for pty in launcher.
+	* data/gdb.init: Removed charset work around (now works with user's
+	native charset)
+	* src/debugger.c: Code cleanup
+
 2003-11-18  Naba Kumar  <naba@gnome.org>
 
 	* src/anjuta-encodings.c, src/preferences.c: Renamed all variable

@@ -75,7 +75,6 @@ static void debugger_set_next_command (void);
 
 static void gdb_stdout_line_arrived (const gchar * line);
 static void gdb_stderr_line_arrived (const gchar * line);
-static gchar * gdb_convert_line_to_UTF (const gchar * line);
 
 static void on_gdb_output_arrived (AnjutaLauncher *launcher,
 								   AnjutaLauncherOutputType output_type,
@@ -645,6 +644,8 @@ debugger_start (const gchar * prog)
 	
 	ret = anjuta_launcher_execute (app->launcher, command_str,
 								   on_gdb_output_arrived, NULL);
+	anjuta_launcher_set_encoding (app->launcher, "ISO-8859-1");
+
 	an_message_manager_clear (app->messages, MESSAGE_DEBUG);
 	if (ret == TRUE)
 	{
@@ -750,29 +751,6 @@ on_gdb_output_arrived (AnjutaLauncher *launcher,
 		break;
 	default:
 		break;
-	}
-}
-
-static gchar * gdb_convert_line_to_UTF (const gchar * line)
-{
-	gsize read, written;
-	gchar *result;
-
-#ifdef ANJUTA_DEBUG_DEBUGGER
-	// g_message ("In function: gdb_convert_line_to_UTF()");
-#endif
-
-	result = g_locale_to_utf8 (line, -1, &read, &written, NULL);
-	if (result)
-	{
-		return result;
-	}
-	else
-	{
-		g_warning ("Failed to convert gdb output to UTF-8. Passing it as is.");
-		/* some widgets (e.g. GtkTreeView) may crash when trying to display /
-		 * "not a valid UTF-8" strings */
-		return g_strdup (line);
 	}
 }
 
@@ -911,7 +889,7 @@ debugger_stdo_flush ()
 				{
 					debugger.gdb_stdo_outputs =
 						g_list_append (debugger.gdb_stdo_outputs,
-							       gdb_convert_line_to_UTF (line));
+							       anjuta_util_convert_to_utf8 (line));
 				}
 				if (debugger.current_cmd.
 				    flags & DB_CMD_SO_MESG)
@@ -931,7 +909,7 @@ debugger_stdo_flush ()
 			{
 				debugger.gdb_stdo_outputs =
 					g_list_append (debugger.gdb_stdo_outputs,
-						       gdb_convert_line_to_UTF (line));
+						       anjuta_util_convert_to_utf8 (line));
 			}
 			if (debugger.current_cmd.flags & DB_CMD_SO_MESG)
 			{
