@@ -8,8 +8,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
-"POT-Creation-Date: 2003-06-06 13:57+0200\n"
-"PO-Revision-Date: 2003-06-06 13:57+0200\n"
+"POT-Creation-Date: 2003-06-11 01:50+0200\n"
+"PO-Revision-Date: 2003-06-11 01:51+0200\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -169,7 +169,7 @@ msgstr "Ytterligare"
 msgid "Additional Libraries (LDADD):"
 msgstr "Ytterligare bibliotek (LDADD):"
 
-#: anjuta.glade.h:23 anjuta_dialogs_strings.c:77 src/wizard_gui.c:610
+#: anjuta.glade.h:23 anjuta_dialogs_strings.c:77 src/wizard_gui.c:573
 msgid "Additional Options"
 msgstr "Ytterligare alternativ"
 
@@ -1202,7 +1202,7 @@ msgstr "Projekt"
 msgid "Project Configuration"
 msgstr "Projektkonfiguration"
 
-#: anjuta.glade.h:264 anjuta_dialogs_strings.c:192 src/wizard_gui.c:506
+#: anjuta.glade.h:264 anjuta_dialogs_strings.c:192 src/wizard_gui.c:469
 msgid "Project Description"
 msgstr "Projektbeskrivning"
 
@@ -1477,11 +1477,11 @@ msgstr "Ta bort eftersläpande blanksteg vid filsparande"
 msgid "Style of Kangleipak"
 msgstr "Kangleipak-stil"
 
-#: anjuta.glade.h:328 anjuta_dialogs_strings.c:521 src/wizard_gui.c:780
+#: anjuta.glade.h:328 anjuta_dialogs_strings.c:521 src/wizard_gui.c:743
 msgid "Summary"
 msgstr "Sammanfattning"
 
-#: anjuta.glade.h:329 anjuta_dialogs_strings.c:541
+#: anjuta.glade.h:329 anjuta_dialogs_strings.c:541 src/anjuta-encodings.c:593
 msgid "Supported Encodings"
 msgstr "Kodningar som stöds"
 
@@ -2629,117 +2629,121 @@ msgstr "Sök användning"
 msgid "Symbol"
 msgstr "Symbol"
 
-#: src/anjuta-encodings.c:127 src/anjuta-encodings.c:153
-#: src/anjuta-encodings.c:194 src/anjuta-encodings.c:235
+#: src/anjuta-encodings.c:131 src/anjuta-encodings.c:157
+#: src/anjuta-encodings.c:198 src/anjuta-encodings.c:239
 msgid "Western"
 msgstr "Västlig"
 
-#: src/anjuta-encodings.c:129 src/anjuta-encodings.c:196
-#: src/anjuta-encodings.c:231
+#: src/anjuta-encodings.c:133 src/anjuta-encodings.c:200
+#: src/anjuta-encodings.c:235
 msgid "Central European"
 msgstr "Centraleuropeisk"
 
-#: src/anjuta-encodings.c:131
+#: src/anjuta-encodings.c:135
 msgid "South European"
 msgstr "Sydeuropeisk"
 
-#: src/anjuta-encodings.c:133 src/anjuta-encodings.c:149
-#: src/anjuta-encodings.c:245
+#: src/anjuta-encodings.c:137 src/anjuta-encodings.c:153
+#: src/anjuta-encodings.c:249
 msgid "Baltic"
 msgstr "Baltisk"
 
-#: src/anjuta-encodings.c:135 src/anjuta-encodings.c:198
-#: src/anjuta-encodings.c:211 src/anjuta-encodings.c:215
-#: src/anjuta-encodings.c:233
+#: src/anjuta-encodings.c:139 src/anjuta-encodings.c:202
+#: src/anjuta-encodings.c:215 src/anjuta-encodings.c:219
+#: src/anjuta-encodings.c:237
 msgid "Cyrillic"
 msgstr "Kyrillisk"
 
-#: src/anjuta-encodings.c:137 src/anjuta-encodings.c:204
-#: src/anjuta-encodings.c:243
+#: src/anjuta-encodings.c:141 src/anjuta-encodings.c:208
+#: src/anjuta-encodings.c:247
 msgid "Arabic"
 msgstr "Arabisk"
 
-#: src/anjuta-encodings.c:139 src/anjuta-encodings.c:237
+#: src/anjuta-encodings.c:143 src/anjuta-encodings.c:241
 #: src/project_dbase_gui.c:1142
 msgid "Greek"
 msgstr "Grekisk"
 
-#: src/anjuta-encodings.c:141
+#: src/anjuta-encodings.c:145
 msgid "Hebrew Visual"
 msgstr "Hebreisk visuell"
 
-#: src/anjuta-encodings.c:143 src/anjuta-encodings.c:202
-#: src/anjuta-encodings.c:241
+#: src/anjuta-encodings.c:147 src/anjuta-encodings.c:206
+#: src/anjuta-encodings.c:245
 msgid "Hebrew"
 msgstr "Hebreisk"
 
-#: src/anjuta-encodings.c:145 src/anjuta-encodings.c:200
-#: src/anjuta-encodings.c:239 src/project_dbase_gui.c:1162
+#: src/anjuta-encodings.c:149 src/anjuta-encodings.c:204
+#: src/anjuta-encodings.c:243 src/project_dbase_gui.c:1162
 msgid "Turkish"
 msgstr "Turkisk"
 
-#: src/anjuta-encodings.c:147
+#: src/anjuta-encodings.c:151
 msgid "Nordic"
 msgstr "Nordisk"
 
-#: src/anjuta-encodings.c:151
+#: src/anjuta-encodings.c:155
 msgid "Celtic"
 msgstr "Keltisk"
 
-#: src/anjuta-encodings.c:155 src/project_dbase_gui.c:1159
+#: src/anjuta-encodings.c:159 src/project_dbase_gui.c:1159
 msgid "Romanian"
 msgstr "Rumänsk"
 
-#: src/anjuta-encodings.c:158 src/anjuta-encodings.c:160
 #: src/anjuta-encodings.c:162 src/anjuta-encodings.c:164
+#: src/anjuta-encodings.c:166 src/anjuta-encodings.c:168
 msgid "Unicode"
 msgstr "Unicode"
 
-#: src/anjuta-encodings.c:167
+#: src/anjuta-encodings.c:171
 msgid "Armenian"
 msgstr "Armenisk"
 
-#: src/anjuta-encodings.c:169 src/anjuta-encodings.c:171
-#: src/anjuta-encodings.c:180
+#: src/anjuta-encodings.c:173 src/anjuta-encodings.c:175
+#: src/anjuta-encodings.c:184
 msgid "Chinese Traditional"
 msgstr "Traditionell kinesisk"
 
-#: src/anjuta-encodings.c:173
+#: src/anjuta-encodings.c:177
 msgid "Cyrillic/Russian"
 msgstr "Kyrillisk/Rysk"
 
-#: src/anjuta-encodings.c:176 src/anjuta-encodings.c:207
-#: src/anjuta-encodings.c:220
+#: src/anjuta-encodings.c:180 src/anjuta-encodings.c:211
+#: src/anjuta-encodings.c:224
 msgid "Japanese"
 msgstr "Japansk"
 
-#: src/anjuta-encodings.c:178 src/anjuta-encodings.c:209
-#: src/anjuta-encodings.c:213 src/anjuta-encodings.c:226
+#: src/anjuta-encodings.c:182 src/anjuta-encodings.c:213
+#: src/anjuta-encodings.c:217 src/anjuta-encodings.c:230
 #: src/project_dbase_gui.c:1153
 msgid "Korean"
 msgstr "Koreansk"
 
-#: src/anjuta-encodings.c:183 src/anjuta-encodings.c:185
-#: src/anjuta-encodings.c:187 src/anjuta-encodings.c:191
+#: src/anjuta-encodings.c:187 src/anjuta-encodings.c:189
+#: src/anjuta-encodings.c:191 src/anjuta-encodings.c:195
 msgid "Chinese Simplified"
 msgstr "Förenklad kinesisk"
 
-#: src/anjuta-encodings.c:189
+#: src/anjuta-encodings.c:193
 msgid "Georgian"
 msgstr "Georgisk"
 
-#: src/anjuta-encodings.c:217
+#: src/anjuta-encodings.c:221
 msgid "Cyrillic/Ukrainian"
 msgstr "Kyrillisk/Ukrainsk"
 
-#: src/anjuta-encodings.c:222 src/anjuta-encodings.c:228
-#: src/anjuta-encodings.c:247
+#: src/anjuta-encodings.c:226 src/anjuta-encodings.c:232
+#: src/anjuta-encodings.c:251
 msgid "Vietnamese"
 msgstr "Vietnamesisk"
 
-#: src/anjuta-encodings.c:224
+#: src/anjuta-encodings.c:228
 msgid "Thai"
 msgstr "Thailändsk"
+
+#: src/anjuta-encodings.c:577
+msgid "Stock Encodings"
+msgstr "Standardkodningar"
 
 #: src/anjuta-plugins.c:115 src/anjuta-plugins.c:118
 #, c-format
@@ -2827,63 +2831,63 @@ msgstr "Kan inte bygga användargränssnitt för verktygsparametrar"
 msgid "%s: Command line parameters"
 msgstr "%s: Kommandoradsparametrar"
 
-#: src/anjuta.c:70 src/anjuta.c:77
+#: src/anjuta.c:71 src/anjuta.c:78
 #, c-format
 msgid "Anjuta: Caught signal %d (%s) !"
 msgstr "Anjuta: Tog emot signal %d (%s)!"
 
 #. Must declare static, because it will be used forever
-#: src/anjuta.c:105
+#: src/anjuta.c:106
 msgid "Open File"
 msgstr "Öppna fil"
 
 #. Must declare static, because it will be used forever
-#: src/anjuta.c:111 src/anjuta.c:116
+#: src/anjuta.c:112 src/anjuta.c:117
 msgid "Save File As"
 msgstr "Spara fil som"
 
-#: src/anjuta.c:255
+#: src/anjuta.c:259
 msgid "Cannot create application... exiting\n"
 msgstr "Kan inte skapa program...avslutar\n"
 
-#: src/anjuta.c:305 src/anjuta.c:309 src/anjuta.c:1130 src/anjuta.c:1146
+#: src/anjuta.c:309 src/anjuta.c:313 src/anjuta.c:1134 src/anjuta.c:1150
 #, c-format
 msgid "Anjuta: %s"
 msgstr "Anjuta: %s"
 
-#: src/anjuta.c:366
+#: src/anjuta.c:370
 msgid "Recent Files "
 msgstr "Senaste filer "
 
-#: src/anjuta.c:919
+#: src/anjuta.c:923
 msgid "# * DO NOT EDIT OR RENAME THIS FILE ** Generated by Anjuta **\n"
 msgstr ""
 "# * REDIGERA INTE ELLER BYT INTE NAMN PÅ DENNA FIL ** Genererad av Anjuta "
 "**\n"
 
-#: src/anjuta.c:1095
+#: src/anjuta.c:1099
 msgid "All files saved ..."
 msgstr "Alla filer sparade..."
 
-#: src/anjuta.c:1123
+#: src/anjuta.c:1127
 #, c-format
 msgid "Anjuta: %s (Saved)"
 msgstr "Anjuta: %s (Sparad)"
 
-#: src/anjuta.c:1138
+#: src/anjuta.c:1142
 #, c-format
 msgid "Anjuta: %s (Unsaved)"
 msgstr "Anjuta: %s (Osparad)"
 
-#: src/anjuta.c:1163
+#: src/anjuta.c:1167
 msgid "Anjuta: No file"
 msgstr "Anjuta: Ingen fil"
 
-#: src/anjuta.c:1484 src/anjuta.c:1586
+#: src/anjuta.c:1488 src/anjuta.c:1590
 msgid "ERROR: "
 msgstr "FEL: "
 
-#: src/anjuta.c:1505 src/anjuta.c:1605
+#: src/anjuta.c:1509 src/anjuta.c:1609
 msgid ""
 "\n"
 "System: "
@@ -2891,7 +2895,7 @@ msgstr ""
 "\n"
 "System: "
 
-#: src/anjuta.c:2078
+#: src/anjuta.c:2082
 #, c-format
 msgid ""
 "The \"%s\" utility is not installed.\n"
@@ -2900,35 +2904,35 @@ msgstr ""
 "Verktyget \"%s\" är inte installerat.\n"
 "Installera det och starta sedan om Anjuta."
 
-#: src/anjuta.c:2104 src/anjuta.c:2160
+#: src/anjuta.c:2108 src/anjuta.c:2164
 msgid "None"
 msgstr "Ingen"
 
-#: src/anjuta.c:2115
+#: src/anjuta.c:2119
 msgid "DOS (CRLF)"
 msgstr "DOS (CRLF)"
 
-#: src/anjuta.c:2118 src/anjuta.c:2152
+#: src/anjuta.c:2122 src/anjuta.c:2156
 msgid "Unix (LF)"
 msgstr "Unix (LF)"
 
-#: src/anjuta.c:2121
+#: src/anjuta.c:2125
 msgid "Mac (CR)"
 msgstr "Mac (CR)"
 
-#: src/anjuta.c:2124
+#: src/anjuta.c:2128
 msgid "Unknown"
 msgstr "Okänd"
 
-#: src/anjuta.c:2141
+#: src/anjuta.c:2145
 msgid "OVR"
 msgstr "ÖVR"
 
-#: src/anjuta.c:2145 src/anjuta.c:2151
+#: src/anjuta.c:2149 src/anjuta.c:2155
 msgid "INS"
 msgstr "INS"
 
-#: src/anjuta.c:2163
+#: src/anjuta.c:2167
 #, c-format
 msgid ""
 "  Project: %s       Zoom: %d       Line: %04d       Col: %03d       %s       "
@@ -2937,11 +2941,11 @@ msgstr ""
 "  Projekt: %s       Zoom: %d       Rad: %04d        Kolumn: %03d    %s      "
 "Jobb: %s      Läge: %s"
 
-#: src/anjuta.c:2400
+#: src/anjuta.c:2404
 msgid "Looking up symbol"
 msgstr "Slår upp symbol"
 
-#: src/anjuta.c:2402 src/find_in_files.c:306
+#: src/anjuta.c:2406 src/find_in_files.c:306
 msgid "Finding in Files ....\n"
 msgstr "Söker i filer...\n"
 
@@ -6738,7 +6742,7 @@ msgstr " Projektinformation "
 msgid "Author:"
 msgstr "Författare:"
 
-#: src/project_dbase_gui.c:790 src/wizard_gui.c:335
+#: src/project_dbase_gui.c:790 src/wizard_gui.c:298
 msgid "Project Name:"
 msgstr "Projektnamn:"
 
@@ -7852,167 +7856,143 @@ msgstr "Flytande"
 msgid "Anjuta Windows Dialog"
 msgstr "Anjuta-fönsterdialog"
 
-#: src/wizard_gui.c:98
+#: src/wizard_gui.c:97
 msgid "Project Type"
 msgstr "Projekttyp"
 
-#: src/wizard_gui.c:120
+#: src/wizard_gui.c:119
 msgid "Select the type of application to be developed"
 msgstr "Välj den typ av program du vill utveckla"
 
-#: src/wizard_gui.c:167
+#: src/wizard_gui.c:160
 msgid "Generic/Terminal project"
 msgstr "Allmänt projekt/Terminalprojekt"
 
-#: src/wizard_gui.c:171
-msgid "GTK project"
-msgstr "GTK-projekt"
-
-#: src/wizard_gui.c:175
-msgid "GNOME project"
-msgstr "GNOME-projekt"
-
-#: src/wizard_gui.c:179
-msgid "glademm (gtkmm 1.2) project"
-msgstr "glademm-projekt (gtkmm 1.2)"
-
-#: src/wizard_gui.c:183
-msgid "glademm (gnomemm 1.2) project"
-msgstr "glademm-projekt (gnomemm 1.2)"
-
-#: src/wizard_gui.c:187
-msgid "Bonobo component"
-msgstr "Bonobo-komponent"
-
-#: src/wizard_gui.c:191
-msgid "LibGlade project"
-msgstr "LibGlade-projekt"
-
-#: src/wizard_gui.c:194
-msgid "wxWindows project"
-msgstr "wxWindows-projekt"
-
-#: src/wizard_gui.c:197
+#: src/wizard_gui.c:163
 msgid "GTK 2.0 project"
 msgstr "GTK 2.0-projekt"
 
-#: src/wizard_gui.c:200
+#: src/wizard_gui.c:166
 msgid "GNOME 2.0 project"
 msgstr "GNOME 2.0-projekt"
 
-#: src/wizard_gui.c:203
-msgid "GNOME 2.0 Bonobo component"
-msgstr "GNOME 2.0 Bonobo-komponent"
-
-#: src/wizard_gui.c:206
+#: src/wizard_gui.c:169
 msgid "LibGlade 2.0 project"
 msgstr "LibGlade 2.0-projekt"
 
-#: src/wizard_gui.c:209
+#: src/wizard_gui.c:172
 msgid "gtkmm 2.0 project"
 msgstr "gtkmm 2.0-projekt"
 
-#: src/wizard_gui.c:212
+#: src/wizard_gui.c:175
 msgid "gnomemm 2.0 project"
 msgstr "gnomemm 2.0-projekt"
 
-#: src/wizard_gui.c:215
+#: src/wizard_gui.c:178
+msgid "GNOME 2.0 Bonobo component"
+msgstr "GNOME 2.0 Bonobo-komponent"
+
+#: src/wizard_gui.c:181
+msgid "wxWindows project"
+msgstr "wxWindows-projekt"
+
+#: src/wizard_gui.c:184
 msgid "Xlib project"
 msgstr "Xlib-projekt"
 
-#: src/wizard_gui.c:218
+#: src/wizard_gui.c:187
 msgid "X Dock App project"
 msgstr "X-dockprogramsprojekt"
 
-#: src/wizard_gui.c:298
+#: src/wizard_gui.c:261
 msgid "Basic Information"
 msgstr "Grundläggande information"
 
-#: src/wizard_gui.c:319
+#: src/wizard_gui.c:282
 msgid "Enter the basic Project information"
 msgstr "Ange den grundläggande projektinformationen"
 
-#: src/wizard_gui.c:342
+#: src/wizard_gui.c:305
 msgid "Project Version:"
 msgstr "Projektversion:"
 
-#: src/wizard_gui.c:349
+#: src/wizard_gui.c:312
 msgid "Project Author:"
 msgstr "Projektförfattare:"
 
-#: src/wizard_gui.c:356
+#: src/wizard_gui.c:319
 msgid "Project Target:"
 msgstr "Projektmål:"
 
-#: src/wizard_gui.c:387
+#: src/wizard_gui.c:350
 msgid "Programming language"
 msgstr "Programspråk"
 
-#: src/wizard_gui.c:398
+#: src/wizard_gui.c:361
 msgid "C"
 msgstr "C"
 
-#: src/wizard_gui.c:406
+#: src/wizard_gui.c:369
 msgid "C++"
 msgstr "C++"
 
-#: src/wizard_gui.c:415
+#: src/wizard_gui.c:378
 msgid "Both C and C++"
 msgstr "Både C och C++"
 
-#: src/wizard_gui.c:422
+#: src/wizard_gui.c:385
 msgid "Target type"
 msgstr "Måltyp"
 
-#: src/wizard_gui.c:438
+#: src/wizard_gui.c:401
 msgid "Executable target"
 msgstr "Körbart mål"
 
-#: src/wizard_gui.c:445
+#: src/wizard_gui.c:408
 msgid "Static library target"
 msgstr "Statiskt biblioteksmål"
 
-#: src/wizard_gui.c:451
+#: src/wizard_gui.c:414
 msgid "Dynamic library target"
 msgstr "Dynamiskt biblioteksmål"
 
-#: src/wizard_gui.c:527
+#: src/wizard_gui.c:490
 msgid "Enter a short description of the Project"
 msgstr "Ange en kort beskrivning av projektet"
 
-#: src/wizard_gui.c:631
+#: src/wizard_gui.c:594
 msgid "Enter any additional Project options"
 msgstr "Ange eventuella ytterligare projektalternativ"
 
-#: src/wizard_gui.c:648
+#: src/wizard_gui.c:611
 msgid " Project Options "
 msgstr " Projektalternativ "
 
-#: src/wizard_gui.c:659
+#: src/wizard_gui.c:622
 msgid "Include GNU Copyright statement in file headings"
 msgstr "Inkludera GNU:s copyrighttext i filhuvuden"
 
-#: src/wizard_gui.c:666
+#: src/wizard_gui.c:629
 msgid "Enable Gettext Support"
 msgstr "Aktivera Gettext-stöd"
 
-#: src/wizard_gui.c:673
+#: src/wizard_gui.c:636
 msgid "GNOME Menu Entry"
 msgstr "GNOME-menypost"
 
-#: src/wizard_gui.c:683
+#: src/wizard_gui.c:646
 msgid "Entry name:"
 msgstr "Postnamn:"
 
-#: src/wizard_gui.c:690
+#: src/wizard_gui.c:653
 msgid "Comment:"
 msgstr "Kommentar:"
 
-#: src/wizard_gui.c:697
+#: src/wizard_gui.c:660
 msgid "Group:"
 msgstr "Grupp:"
 
-#: src/wizard_gui.c:739
+#: src/wizard_gui.c:702
 msgid "Needs terminal"
 msgstr "Behöver terminal"
 
@@ -8130,6 +8110,24 @@ msgstr "Skapande av mapp misslyckades \"%s\": %s"
 #: widgets/gnomefilelist.c:1984
 msgid "Folder name:"
 msgstr "Mappnamn:"
+
+#~ msgid "GTK project"
+#~ msgstr "GTK-projekt"
+
+#~ msgid "GNOME project"
+#~ msgstr "GNOME-projekt"
+
+#~ msgid "glademm (gtkmm 1.2) project"
+#~ msgstr "glademm-projekt (gtkmm 1.2)"
+
+#~ msgid "glademm (gnomemm 1.2) project"
+#~ msgstr "glademm-projekt (gnomemm 1.2)"
+
+#~ msgid "Bonobo component"
+#~ msgstr "Bonobo-komponent"
+
+#~ msgid "LibGlade project"
+#~ msgstr "LibGlade-projekt"
 
 #~ msgid "CVS update and prune directories"
 #~ msgstr "Uppdatera och töm CVS-kataloger"
