@@ -27,4 +27,6 @@
 AnjutaApp* anjuta_new (gchar *prog_name, GList *prog_args, ESplash *splash,
 					   gboolean proper_shutdown);
 
+void anjuta_set_window_geometry (AnjutaApp *app, const gchar *anjuta_geometry);
+
 #endif

@@ -1,4 +1,8 @@
 2005-02-23  Naba Kumar  <naba@gnome.org>
+	
+	* src/anjuta.c, src/anjuta.h, src/main.c: Save and restore window
+	geometry on exit and startup (only if there is no geometry from the
+	session).
 
 	* TODO.tasks: Updated.
 	

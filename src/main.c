@@ -122,9 +122,6 @@ main (int argc, char *argv[])
 	gchar *data_dir;
 	GList *plugins_dirs = NULL;
 	GList* command_args;
-	GdkGeometry size_hints = {
-    	100, 100, 0, 0, 100, 100, 0, 0, 0.0, 0.0, GDK_GRAVITY_NORTH_WEST  
-  	};
 	
 #ifdef ENABLE_NLS
 	bindtextdomain (PACKAGE, PACKAGE_LOCALE_DIR);
@@ -175,39 +172,10 @@ main (int argc, char *argv[])
         gtk_widget_destroy (splash);
 	}
 	
+	/* Set window geometry */
+	anjuta_set_window_geometry (app, anjuta_geometry);
+	
 	/* Run Anjuta application */
-	gtk_window_set_geometry_hints (GTK_WINDOW (app), GTK_WIDGET (app),
-								   &size_hints, GDK_HINT_RESIZE_INC);
-	if (anjuta_geometry)
-	{
-		gint pos_x, pos_y, width, height;
-		DEBUG_PRINT ("Setting geometry: %s", anjuta_geometry);
-		/* Parse geometry doesn't seem to work here :( */
-		/* gtk_window_parse_geometry (GTK_WINDOW (app), anjuta_geometry); */
-		if (sscanf (anjuta_geometry, "%dx%d+%d+%d", &width, &height,
-			&pos_x, &pos_y) == 4)
-		{
-			gtk_window_set_default_size (GTK_WINDOW (app), width, height);
-			gtk_window_move (GTK_WINDOW (app), pos_x, pos_y);
-		}
-		else
-		{
-			g_warning ("Failed to parse geometry: %s", anjuta_geometry);
-		}
-	}
-	else
-	{
-		gint pos_x, pos_y, width, height;
-		
-		pos_x = 10;
-		pos_y = 10;
-		width = gdk_screen_width () - 10;
-		height = gdk_screen_height () - 25;
-		width = (width < 790)? width : 790;
-		height = (height < 575)? width : 575;
-		gtk_window_set_default_size (GTK_WINDOW (app), width, height);
-		gtk_window_move (GTK_WINDOW (app), pos_x, pos_y);
-	}
 	gtk_window_set_auto_startup_notification(TRUE);
 	gtk_widget_show (GTK_WIDGET (app));
 	gtk_main();

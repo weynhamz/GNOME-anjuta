@@ -26,13 +26,42 @@
 
 #include "anjuta.h"
 
+static void
+anjuta_save_window_geometry (GtkWidget * w)
+{
+	gint width, height, posx, posy;
+	AnjutaPreferences *prefs;
+	
+	/* Save window geometry */
+	width = height = posx = posy = 0;
+	if (GTK_WIDGET(w)->window)
+	{
+		gtk_window_get_size (GTK_WINDOW (w), &width, &height);
+		gdk_window_get_origin (GTK_WIDGET(w)->window, &posx, &posy);
+	}
+	prefs = ANJUTA_APP (w)->preferences;
+	anjuta_preferences_set_int (prefs, "anjuta_window_width", width);
+	anjuta_preferences_set_int (prefs, "anjuta_window_height", height);
+	anjuta_preferences_set_int (prefs, "anjuta_window_posx", posx);
+	anjuta_preferences_set_int (prefs, "anjuta_window_posy", posy);
+}	
+
 static gboolean
 on_anjuta_delete_event (GtkWidget *w, GdkEvent *event, gpointer data)
 {
+	const gchar *proper_shutdown;
+	
 	DEBUG_PRINT ("AnjutaApp delete event");
 
-	gtk_widget_hide (w);
-	anjuta_plugins_unload_all (ANJUTA_SHELL (w));
+	anjuta_save_window_geometry (w);
+	proper_shutdown = g_object_get_data (G_OBJECT (w), "__proper_shutdown");
+	
+	if (proper_shutdown)
+	{
+		gtk_widget_hide (w);
+		anjuta_plugins_unload_all (ANJUTA_SHELL (w));
+	}
+	
 	return FALSE;
 
 #if 0
@@ -105,7 +134,7 @@ static void
 on_anjuta_destroy (GtkWidget * w, gpointer data)
 {
 	DEBUG_PRINT ("AnjutaApp destroy event");
-	/* Nothing to be done here */
+	
 	gtk_widget_hide (w);
 	gtk_main_quit ();
 }
@@ -214,9 +243,10 @@ anjuta_new (gchar *prog_name, GList *prog_args, ESplash *splash,
 
 	if (proper_shutdown)
 	{
-		g_signal_connect (G_OBJECT (app), "delete_event",
-						  G_CALLBACK (on_anjuta_delete_event), NULL);
+		g_object_set_data (G_OBJECT (app), "__proper_shutdown", "1");
 	}
+	g_signal_connect (G_OBJECT (app), "delete_event",
+					  G_CALLBACK (on_anjuta_delete_event), NULL);
 	g_signal_connect (G_OBJECT (app), "destroy",
 					  G_CALLBACK (on_anjuta_destroy), NULL);
 	
@@ -252,4 +282,63 @@ anjuta_new (gchar *prog_name, GList *prog_args, ESplash *splash,
 	/* Set layout */
 	anjuta_app_load_layout (app, NULL);
 	return app;
+}
+
+void
+anjuta_set_window_geometry (AnjutaApp *app, const gchar *anjuta_geometry)
+{
+	gint pos_x, pos_y, width, height;
+	gboolean geometry_set = FALSE;
+	
+	AnjutaPreferences *prefs;
+	GdkGeometry size_hints = {
+    	100, 100, 0, 0, 100, 100, 0, 0, 0.0, 0.0, GDK_GRAVITY_NORTH_WEST  
+  	};
+	
+	prefs = app->preferences;
+	
+	gtk_window_set_geometry_hints (GTK_WINDOW (app), GTK_WIDGET (app),
+								   &size_hints, GDK_HINT_RESIZE_INC);
+	if (anjuta_geometry)
+	{
+		DEBUG_PRINT ("Setting geometry: %s", anjuta_geometry);
+		/* Parse geometry doesn't seem to work here :( */
+		/* gtk_window_parse_geometry (GTK_WINDOW (app), anjuta_geometry); */
+		if (sscanf (anjuta_geometry, "%dx%d+%d+%d", &width, &height,
+			&pos_x, &pos_y) == 4)
+		{
+			gtk_window_set_default_size (GTK_WINDOW (app), width, height);
+			gtk_window_move (GTK_WINDOW (app), pos_x, pos_y);
+			geometry_set = TRUE;
+		}
+		else
+		{
+			g_warning ("Failed to parse geometry: %s", anjuta_geometry);
+		}
+	}
+	
+	if (!geometry_set &&
+		anjuta_preferences_get_int (prefs, "anjuta_window_width") > 0)
+	{
+		width = anjuta_preferences_get_int (prefs, "anjuta_window_width");
+		height = anjuta_preferences_get_int (prefs, "anjuta_window_height");
+		pos_x = anjuta_preferences_get_int (prefs, "anjuta_window_posx");
+		pos_y = anjuta_preferences_get_int (prefs, "anjuta_window_posy");
+		
+		gtk_window_set_default_size (GTK_WINDOW (app), width, height);
+		gtk_window_move (GTK_WINDOW (app), pos_x, pos_y);
+		geometry_set = TRUE;
+	}
+	
+	if (!geometry_set)
+	{
+		pos_x = 10;
+		pos_y = 10;
+		width = gdk_screen_width () - 10;
+		height = gdk_screen_height () - 25;
+		width = (width < 790)? width : 790;
+		height = (height < 575)? width : 575;
+		gtk_window_set_default_size (GTK_WINDOW (app), width, height);
+		gtk_window_move (GTK_WINDOW (app), pos_x, pos_y);
+	}
 }
