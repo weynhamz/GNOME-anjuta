@@ -1,24 +1,13 @@
 ## Process this file with automake to produce Makefile.in
 
-EXTRA_DIST = glades.h Prj-skelimpl.c Prj-skels.c Prj-stubs.c
-
 INCLUDES = \
-	-I$(top_srcdir)/intl \
-	$(GNOME_INCLUDEDIR)\
-	$(EXTRA_GNOME_CFLAGS)\
-	$(EXTRA_ORBIT_CFLAGS)\
+	$(ANJUTA_CFLAGS)\
 	-I$(srcdir)/../scintilla/include \
 	-I$(srcdir)/../tagmanager/include \
 	-I$(srcdir)/../widgets \
 	-I$(srcdir)/../pixmaps \
 	-I$(srcdir)/../printing \
 	-I.. -I. -DPACKAGE_BIN_DIR=\"$(bindir)\"
-
-CFLAGS = -Wall -Wimplicit -Wreturn-type -Wunused -Wswitch -Wcomment\
-		 -Wuninitialized -Wparentheses -Wpointer-arith\
-		 -Wmissing-prototypes -g -O2
-
-CXXFLAGS = $(CFLAGS)
 
 SCILEXERS =\
     ../scintilla/StyleContext.o\
@@ -236,14 +225,9 @@ anjuta_SOURCES = \
 	session.h
 
 anjuta_LDADD =  \
-	$(INTLLIBS) \
-	$(GNOME_LIBDIR)\
-	$(GNOMEUI_LIBS)\
-	$(EXTRA_GNOME_LIBS)\
-	$(EXTRA_ORBIT_LIBS)\
+	$(ANJUTA_LIBS)
 	$(top_builddir)/scintilla/libscintilla.a\
 	$(top_builddir)/tagmanager/libctags.a\
 	$(top_builddir)/widgets/libwidgets.a\
 	$(top_builddir)/printing/libanjutaprint.a\
 	$(SCILEXERS)
-

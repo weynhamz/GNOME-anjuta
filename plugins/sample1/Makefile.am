@@ -29,4 +29,4 @@ INCLUDES = 						\
 	-DGNOMELOCALEDIR=\""$(datadir)/locale"\" 	\
 	-DVERSION=\""$(VERSION)"\"             		\
 	-I$(includedir)					\
-	$(GNOME_INCLUDEDIR)
+	$(ANJUTA_CFLAGS)

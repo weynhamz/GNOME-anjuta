@@ -1,5 +1,5 @@
 
-INCLUDES = `glib-config --cflags` -I. -I.. -g -O
+INCLUDES = $(ANJUTA_CFLAGS) -I. -I.. -g -O
 
 bin_PROGRAMS = anjuta_launcher
 

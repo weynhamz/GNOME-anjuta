@@ -12,6 +12,10 @@
 #undef PACKAGE_MENU_DIR
 #undef PACKAGE_SOURCE_DIR
 #undef PACKAGE_PLUGIN_DIR
+#undef PACKAGE
+#undef VERSION
+#undef GETTEXT_PACKAGE
+#undef GNOME_EXPLICIT_TRANSLATION_DOMAIN
 
 #undef clock_t
 #undef fpos_t

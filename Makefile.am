@@ -3,7 +3,9 @@
 ## If you don't want it to overwrite it,
 ## 	Please disable it in the Anjuta project configuration
 
-SUBDIRS = intl po macros tagmanager global-tags scintilla \
+@INTLTOOL_DESKTOP_RULE@
+
+SUBDIRS = po tagmanager global-tags scintilla \
 	widgets printing manuals omf-install pixmaps data \
 	doc launcher plugins scripts src
 
@@ -28,8 +30,6 @@ EXTRA_DIST = \
 	autogen.sh \
 	anjuta.prj\
 	$(anjutadoc_DATA)
-
-@XML_I18N_MERGE_DESKTOP_RULE@
 
 gnomemenudir = $(prefix)/@NO_PREFIX_PACKAGE_MENU_DIR@/Development
 

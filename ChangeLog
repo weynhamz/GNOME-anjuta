@@ -1,3 +1,12 @@
+2002-07-30  Naba Kumar <kh_naba@users.sourceforge.net>
+
+	* configure.in, acconfig.h, Makefile.am, autogen.sh, launcher/Makefile.am,
+	plugins/class-gen/Makefile.am, plugins/patch/Makefile.am, plugins/sample1/Makefile.am,
+	printing/Makefile.am, src/Makefile.am, tagmanager/include/Makefile.am,
+	widgets/Makefile.am:
+	
+	Upgraded the build system to gnome2 platform.
+	
 2002-07-24  Biswapesh Chattopadhyay  <biswapesh_chatterjee@tcscal.co.in>
 
 	* tm_project.c: Added *.i and *.pc to C code files.

@@ -2,8 +2,7 @@ anjuta_pixmapsdir = $(prefix)/@NO_PREFIX_PACKAGE_PIXMAPS_DIR@
 
 INCLUDES = \
 	-I$(top_srcdir)/intl \
-	$(GNOME_INCLUDEDIR)\
-	$(EXTRA_GNOME_CFLAGS)\
+	$(ANJUTA_CFLAGS)\
 	-DHAVE_CONFIG_H\
 	-DPIXMAPS_DIR=\"$(anjuta_pixmapsdir)\"
 	-g -O2
