@@ -7,8 +7,9 @@
 	plugins/file-loader/Makefile.am, plugins/file-manager/Makefile.am,
 	plugins/file-wizard/Makefile.am, plugins/message-view/Makefile.am,
 	plugins/profile-default/Makefile.am, plugins/sample1/Makefile.am,
-	plugins/terminal/Makefile.am, src/Makefile.am: Fixed makefile
-	syntax errors.
+	plugins/terinal/Makefile.am, src/Makefile.am,
+	plugins/gtodo/Makefile.am, plugins/project-manager/Makefile.am:
+	Fixed makefile syntax errors.
 
 2004-08-16  Naba Kumar  <naba@gnome.org>
 
