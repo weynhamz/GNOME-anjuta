@@ -377,6 +377,9 @@ gnome_filelist_new_with_path (const gchar * path)
 
 	/* File tree view */
 	file_list->file_list = gtk_tree_view_new ();
+	selection = gtk_tree_view_get_selection(GTK_TREE_VIEW (file_list->file_list));
+	gtk_tree_selection_set_mode (GTK_TREE_SELECTION (selection),
+								 GTK_SELECTION_MULTIPLE);
 	gtk_widget_show (file_list->file_list);
 	gtk_container_add (GTK_CONTAINER (file_list->scrolled_window_file),
 					   file_list->file_list);
@@ -1024,20 +1027,31 @@ on_selection_changed_file (GtkTreeSelection * selection, GnomeFileList * file_li
 {
 	GtkTreeIter iter;
 	GtkTreeModel *model;
-	gint valid;
+	gint count;
 	gchar *selected;
 
 	g_free (file_list->selected);
 	file_list->selected = NULL;
 	
-	valid = gtk_tree_selection_get_selected (selection, &model, &iter);
-	if (valid)
+	count = gtk_tree_selection_count_selected_rows(selection);
+	if (count > 0)
 	{
+		GList *list, *last;
+		
+		list = gtk_tree_selection_get_selected_rows (selection, &model);
+		last = g_list_last (list);
+		gtk_tree_model_get_iter (model, &iter, last->data);
 		gtk_tree_model_get (model, &iter, DIRECTORY_COLUMN, &selected, -1);
 		if (selected && strlen (selected) > 0)
+		{
+			if (file_list->selected)
+				g_free (file_list->selected);
 			file_list->selected = g_strdup (selected);
+			set_file_selection (file_list);
+		}
+		g_list_foreach (list, (GFunc)gtk_tree_path_free, NULL);
+		g_list_free (list);
 	}
-	set_file_selection (file_list);
 }
 
 static void
@@ -1057,9 +1071,13 @@ on_selection_changed_dir (GtkTreeSelection * selection,
 	{
 		gtk_tree_model_get (model, &iter, FILE_COLUMN, &selected, -1);
 		if (selected && strlen (selected) > 0)
+		{
+			if (file_list->selected)
+				g_free (file_list->selected);
 			file_list->selected = g_strdup (selected);
+			set_file_selection (file_list);
+		}
 	}
-	set_file_selection (file_list);
 }
 
 static void

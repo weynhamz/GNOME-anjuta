@@ -2,6 +2,7 @@
 
 	* widgets/e-splash.c: Removed border around the splash image.
 	* anjuta.spec: correct libgnomeprintui22 name in depencencies.
+	* widgets/gnomefilelist.c: Implemented multiple file selection mode.
 	
 2003-06-21  Naba Kumar  <naba@gnome.org>
 
