@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta 0.1.8\n"
 "POT-Creation-Date: 2002-01-26 19:53+0530\n"
-"PO-Revision-Date: 2001-12-06 02:48+0100\n"
+"PO-Revision-Date: 2002-03-03 15:19+0100\n"
 "Last-Translator: Christian Meyer <chrisime@gnome.org>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -25,9 +25,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: anjuta.desktop.in.in.h:1
-#, fuzzy
 msgid "Anjuta IDE"
-msgstr "Anjuta C/C++ IDE"
+msgstr "Anjuta IDE"
 
 #: anjuta.desktop.in.in.h:2
 msgid "Integrated Development Environment"
@@ -35,92 +34,83 @@ msgstr "Integrierte Entwicklungsumgebung"
 
 #: plugins/class-gen/clsGen.c:197
 msgid "Class name not valid"
-msgstr ""
+msgstr "Ungültiger Klassenname"
 
 #: plugins/class-gen/clsGen.c:202
 msgid "Declaration filename not valid"
-msgstr ""
+msgstr "Dateiname der Deklarationdatei ungültig"
 
 #: plugins/class-gen/clsGen.c:207
 msgid "Implementation filename not valid"
-msgstr ""
+msgstr "Dateiname der Implementationsdatei ungültig"
 
 #: plugins/class-gen/clsGen.c:506
-#, fuzzy
 msgid "Error in importing source file"
-msgstr "Fehler beim Schreiben in Datei %s."
+msgstr "Fehler beim Import der Quelldatei"
 
 #: plugins/class-gen/clsGen.c:510
 msgid "Error in importing include file"
-msgstr ""
+msgstr "Fehler beim Import der Quelldatei"
 
 #: plugins/class-gen/clsGen.c:513
-#, fuzzy
 msgid "Error in importing files"
-msgstr "Fehler beim Schreiben in Datei %s."
+msgstr "Fehler beim Import der Dateien"
 
 #: plugins/class-gen/clsGen.c:542
-#, fuzzy
 msgid "Class Creator"
-msgstr "Klassen"
+msgstr "Klassen-Ersteller"
 
 #: plugins/class-gen/clsGen.c:549
-#, fuzzy
 msgid "New Class "
-msgstr "Klasse:"
+msgstr "Neue Klasse:"
 
 #: plugins/class-gen/clsGen.c:563 plugins/class-gen/clsGen.c:572
 msgid "Browse..."
-msgstr ""
+msgstr "Durchsuchen..."
 
 #: plugins/class-gen/clsGen.c:599
-#, fuzzy
 msgid "Class Name:"
-msgstr "Klasse:"
+msgstr "Klassenname:"
 
 #: plugins/class-gen/clsGen.c:608
-#, fuzzy
 msgid "Declaration File:"
-msgstr "Deklarationen"
+msgstr "Deklarationsdatei:"
 
 #: plugins/class-gen/clsGen.c:617
-#, fuzzy
 msgid "Implementation File:"
-msgstr "Dokumentationsdatei"
+msgstr "Implementationsdatei"
 
 #: plugins/sample1/plugin-sample1.c:8
 msgid "Sample Plugin Description. Holla!"
-msgstr ""
+msgstr "Beispiel Plug-in Bescreibung. Holla!"
 
 #: plugins/sample1/plugin-sample1.c:32
 msgid "Hello world!"
-msgstr ""
+msgstr "Hallo Welt!"
 
 #: plugins/sample1/plugin-sample1.c:33
 msgid "Sample plugin!"
-msgstr ""
+msgstr "Beispiel Plug-in"
 
 #: plugins/sample1/plugin-sample1.c:41
-#, fuzzy
 msgid "Sample plugin"
-msgstr "Plugins"
+msgstr "Beispiel Plug-in"
 
 #: plugins/sample1/plugin-sample1.c:47
 msgid "This is a sample plugin"
-msgstr ""
+msgstr "Dies is ein Beispiel Plug-in"
 
 #: src/CORBA-Server.c:196
 msgid "CORBA Module not Initialized"
-msgstr ""
+msgstr "CORBA Modul nicht initialisiert"
 
 #: src/CORBA-Server.c:448 src/project_dbase_gui.c:1225
 msgid "Error while copying the file inside the module."
 msgstr "Fehler beim Kopieren der Datei in das Modul"
 
 #: src/about.c:68
-#, fuzzy
 msgid "Copyright (c) 1999-2002 Naba Kumar"
-msgstr "Copyright (c) 1999-2001 Naba Kumar"
+msgstr "Copyright (c) 1999-2002 Naba Kumar"
 
 #: src/about.c:79
 msgid "Anjuta Home Site"
@@ -217,20 +207,19 @@ msgstr "Kein"
 
 #: src/anjuta.c:1886
 msgid "Dos (CRLF)"
-msgstr ""
+msgstr "DOS (CRLF)"
 
 #: src/anjuta.c:1889 src/anjuta.c:1923
 msgid "Unix (LF)"
-msgstr ""
+msgstr "Unix (LF)"
 
 #: src/anjuta.c:1892
 msgid "Mac (CR)"
-msgstr ""
+msgstr "MacOS (CR)"
 
 #: src/anjuta.c:1895
-#, fuzzy
 msgid "Unknown"
-msgstr "Unions"
+msgstr "Unbekannt"
 
 #: src/anjuta.c:1912
 msgid "OVR"
@@ -241,13 +230,13 @@ msgid "INS"
 msgstr "EINF"
 
 #: src/anjuta.c:1934
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "  Project: %s       Zoom: %d       Line: %04d       Col: %03d       %s       "
 "Job: %s       Mode: %s"
 msgstr ""
 "  Projekt: %s       Zoom: %d       Zeile: %04d      Spalte: %03d    %s       "
-"Jobs: %s"
+"Jobs: %s       Modus: %s"
 
 #: src/anjuta.c:2147 src/anjuta.c:2150
 #, c-format
@@ -343,23 +332,20 @@ msgid "GNOME project"
 msgstr "GNOME-basiertes Projekt"
 
 #: src/appwiz_page1.c:146
-#, fuzzy
 msgid "GTKmm project"
-msgstr "GTK-basiertes Projekt"
+msgstr "GTKmm-basiertes Projekt"
 
 #: src/appwiz_page1.c:150
-#, fuzzy
 msgid "GNOMEmm project"
-msgstr "GNOME-basiertes Projekt"
+msgstr "GNOMEmm-basiertes Projekt"
 
 #: src/appwiz_page1.c:154
 msgid "Bonobo component"
 msgstr "Bonobo-Komponente"
 
 #: src/appwiz_page1.c:158
-#, fuzzy
 msgid "LibGlade project"
-msgstr "Projekt übersetzen"
+msgstr "LibGlade Projekt"
 
 #: src/appwiz_page2.c:154
 msgid "Enter the basic Project information"
@@ -415,9 +401,8 @@ msgid "Dynamic library target"
 msgstr "Ziel: dynamische Bibliothek"
 
 #: src/appwiz_page4.c:109
-#, fuzzy
 msgid "Enter any additional Project options"
-msgstr "Eingabe der grundlegenden Projekt-Informationen"
+msgstr "Eingabe zusätzlicher Projekt-Informationen"
 
 #: src/appwiz_page4.c:126
 msgid " Project Options "
@@ -559,9 +544,8 @@ msgid "Project Type"
 msgstr "Projekttyp:"
 
 #: src/appwizard_gui.c:188
-#, fuzzy
 msgid "Basic Information"
-msgstr "Informationen"
+msgstr "Grundlegende Informationen"
 
 #: src/appwizard_gui.c:214 src/project_config.c:748
 msgid "Project Description"
@@ -573,7 +557,7 @@ msgstr "Zusätzliche Optionen"
 
 #: src/appwizard_gui.c:267
 msgid "Summary"
-msgstr ""
+msgstr "Zusammenfassung"
 
 #: src/attach_process.c:118
 #, c-format
@@ -1002,9 +986,8 @@ msgid "Compile File:"
 msgstr "Datei compilieren:"
 
 #: src/commands.c:648
-#, fuzzy
 msgid "Make File:"
-msgstr "Makefile"
+msgstr "Datei erstellen"
 
 #: src/commands.c:656
 msgid "Build File:"
@@ -1517,7 +1500,7 @@ msgstr ""
 
 #: src/debugger.c:1342
 msgid "Anjuta is unable to attach to itself."
-msgstr ""
+msgstr "Anjuta kann sich nicht an sich selbst anhängen."
 
 #: src/debugger.c:1425
 #, c-format
@@ -1794,31 +1777,31 @@ msgstr "Die Datei %s konnte nicht erstellt werden."
 
 #: src/glades.c:392 src/glades.c:402 src/glades.c:412
 msgid "You need to set the Translatable Strings File option"
-msgstr ""
+msgstr "Sie müssen die \"Übersetztbare Zeichenketten Datei option setzen"
 
 #: src/glades.c:396 src/glades.c:406
 msgid "You need to set the Project Directory option"
-msgstr ""
+msgstr "Sie müssen ein Projekt Verzeichnis angeben"
 
 #: src/glades.c:398 src/glades.c:408
 msgid "You need to set the Project File option"
-msgstr ""
+msgstr "Sie müssen eine Projekt Datei angeben"
 
 #: src/glades.c:414
 msgid "You need to set the Project Name option"
-msgstr ""
+msgstr "Sie müssen einen Projekname eingeben"
 
 #: src/glades.c:416
 msgid "You need to set the Program Name option"
-msgstr ""
+msgstr "Sie müssen einen Programmnamen angeben"
 
 #: src/glades.c:419
 msgid "You need to set the Source Directory option"
-msgstr ""
+msgstr "Sie müssen ein Verzeichnis für die Quellen angeben"
 
 #: src/glades.c:422
 msgid "You need to set the Pixmaps Directory option"
-msgstr ""
+msgstr "Sie müssen ein Pixmaps Verzeichnis angeben"
 
 #: src/gnome_project.c:60
 msgid ""
@@ -1953,9 +1936,8 @@ msgid "_New"
 msgstr "_Neu"
 
 #: src/main_menubar_def.h:38
-#, fuzzy
 msgid "New file"
-msgstr "Datei öffnen"
+msgstr "Neue Datei"
 
 #: src/main_menubar_def.h:43
 msgid "_Open ..."
@@ -2103,9 +2085,8 @@ msgid "Convert EOL chars to CRLF"
 msgstr "EOL zu LF umwandeln"
 
 #: src/main_menubar_def.h:168
-#, fuzzy
 msgid "Convert End Of Line characters to DOS EOL (CRLF)"
-msgstr "Konvertiert EOL nach UNIX EOL (line feed: LF)"
+msgstr "Konvertiert EOL von UNIX nach DOS (LF -> CRLF)"
 
 #. 4
 #: src/main_menubar_def.h:174
@@ -2119,25 +2100,22 @@ msgstr "Konvertiert EOL nach UNIX EOL (line feed: LF)"
 
 #. 5
 #: src/main_menubar_def.h:181
-#, fuzzy
 msgid "Convert EOL chars to CR"
-msgstr "EOL zu LF umwandeln"
+msgstr "EOL zu CR umwandeln"
 
 #: src/main_menubar_def.h:182
-#, fuzzy
 msgid "Convert End Of Line characters to MacOS EOL (CR)"
-msgstr "Konvertiert EOL nach UNIX EOL (line feed: LF)"
+msgstr "Konvertiert^EOL^nach^MacOS^EOL^(CR)"
 
 #. 6
 #: src/main_menubar_def.h:188
-#, fuzzy
 msgid "Convert EOL chars to majority EOL"
-msgstr "EOL zu LF umwandeln"
+msgstr "EOL zu mehrheits EOL umwandeln"
 
 #: src/main_menubar_def.h:189
-#, fuzzy
-msgid "Convert End Of Line characters to mojority of the EOL found in the file"
-msgstr "Konvertiert EOL nach UNIX EOL (line feed: LF)"
+msgid ""
+"Convert End Of Line characters to mojority of the EOL found in the file"
+msgstr "EOL zu dem meisten in der Datei gefundenen EOL umwandeln"
 
 #: src/main_menubar_def.h:199
 msgid "_Select All"
@@ -2180,24 +2158,20 @@ msgid "Insert GPL notice with C++ style comments"
 msgstr "GPL-Hinweis mit C++-Kommentaren einfügen"
 
 #: src/main_menubar_def.h:233
-#, fuzzy
 msgid "# GPL Notice"
-msgstr "// GPL-Hinweis"
+msgstr "# GPL-Hinweis"
 
 #: src/main_menubar_def.h:234
-#, fuzzy
 msgid "Insert GPL notice with Python style comments"
-msgstr "GPL-Hinweis in C-Kommentaren einfügen"
+msgstr "GPL-Hinweis in Python-Kommentaren einfügen"
 
 #: src/main_menubar_def.h:239
-#, fuzzy
 msgid "Current Username"
-msgstr "Info aktueller Rahmen"
+msgstr "Aktueller Benutzername"
 
 #: src/main_menubar_def.h:240
-#, fuzzy
 msgid "Insert name of current user"
-msgstr "Die aktuelle Datei umbenennen"
+msgstr "Den aktuellen Benutzernamen einfügen"
 
 #: src/main_menubar_def.h:245
 msgid "Current Date & Time"
@@ -2209,11 +2183,11 @@ msgstr "Das aktuelle Datum und die aktuelle Uhrzeit einfügen"
 
 #: src/main_menubar_def.h:251
 msgid "Header File Template"
-msgstr ""
+msgstr "Header Datei Template"
 
 #: src/main_menubar_def.h:252
 msgid "Insert a standard header file template"
-msgstr ""
+msgstr "Standart Header Datei Template einfügen"
 
 #: src/main_menubar_def.h:262
 msgid "_Goto Line no ..."
@@ -2979,23 +2953,20 @@ msgid "Force the highlight style to UNIX conf files"
 msgstr "Highlightstil auf UNIX conf-Dateien zwingen"
 
 #: src/main_menubar_def.h:941
-#, fuzzy
 msgid "Ada"
-msgstr "Hinzufügen"
+msgstr "Ada"
 
 #: src/main_menubar_def.h:942
-#, fuzzy
 msgid "Force the highlight style to Ada"
-msgstr "Highlightstil auf LUA zwingen"
+msgstr "Highlightstil auf Ada zwingen"
 
 #: src/main_menubar_def.h:947
 msgid "Baan"
-msgstr ""
+msgstr "Baan"
 
 #: src/main_menubar_def.h:948
-#, fuzzy
 msgid "Force the highlight style to Baan"
-msgstr "Highlightstil auf Pascal zwingen"
+msgstr "Highlightstil auf Baan zwingen"
 
 #: src/main_menubar_def.h:957
 msgid "Auto _Format"
@@ -3074,14 +3045,12 @@ msgid "Compile the current source file"
 msgstr "Die aktuelle Quelldatei compilieren"
 
 #: src/main_menubar_def.h:1026
-#, fuzzy
 msgid "Compile With _Make"
-msgstr "Datei compilieren:"
+msgstr "Datei mit _Make übersetzen:"
 
 #: src/main_menubar_def.h:1027
-#, fuzzy
 msgid "Compile the current source file using Make"
-msgstr "Die aktuelle Quelldatei compilieren"
+msgstr "Die aktuelle Quelldatei mit Make übersetzen"
 
 #: src/main_menubar_def.h:1032 src/main_menubar_def.h:1588
 msgid "_Build"
@@ -3648,9 +3617,8 @@ msgid "_Debug"
 msgstr "Deb_ug"
 
 #: src/main_menubar_def.h:1606
-#, fuzzy
 msgid "Plug_ins"
-msgstr "Plugins"
+msgstr "Plug_ins"
 
 # --
 #: src/main_menubar_def.h:1612
@@ -3748,18 +3716,17 @@ msgid "Locals"
 msgstr "Lokale"
 
 #: src/message-manager.cc:44
-#, fuzzy
 msgid "Terminal"
-msgstr "Im Terminal ausführen"
+msgstr "Terminal"
 
 #: src/message-manager.cc:146 src/project_dbase_gui.c:425
 msgid "Dock/Undock"
 msgstr "Andocken/Abtrennen"
 
 #: src/message-manager.cc:266
-#, fuzzy, c-format
+#, c-format
 msgid "Could not find message type %s!\n"
-msgstr "Pixmap %s von GNOME kann nicht gefunden werden."
+msgstr "Meldungstyp %s konnte nicht gefunden werden!\n"
 
 #: src/message-manager.cc:472 src/preferences_gui.c:230 src/toolbar.c:294
 msgid "Messages"
@@ -3773,6 +3740,10 @@ msgid ""
 "This may result in improper behaviour or instabilities.\n"
 "Anjuta will fall back to built in (limited) settings"
 msgstr ""
+"Konnte globale Konfigurationsdateien und Vorgaben nicht laden:\n"
+"%s.\n"
+"Dies kann falsches Verhalten und instabilitäten zur Folge haben.\n"
+"Anjuta fällt auch die (begrenzten) Standarteinstellungen zurück"
 
 #: src/preferences.c:626
 msgid ""
@@ -3881,7 +3852,7 @@ msgstr "Warnen bei Referenzen auf undefinierte Variablen"
 
 #: src/preferences_gui.c:582
 msgid "Autosave Before Build"
-msgstr ""
+msgstr "Vor den Erstellen alle Dateien automatisch speichern"
 
 #: src/preferences_gui.c:597
 msgid "Max no of jobs:"
@@ -3968,7 +3939,7 @@ msgstr "Klammernüberprüfung einschalten"
 
 #: src/preferences_gui.c:1012
 msgid "Filter extrageneous chars in DOS mode"
-msgstr ""
+msgstr "Spezielle Zeichen im DOS modus Filtern"
 
 #: src/preferences_gui.c:1064
 msgid "Tab size in spaces"
@@ -4063,9 +4034,8 @@ msgid "Right"
 msgstr "Rechts"
 
 #: src/preferences_gui.c:1466
-#, fuzzy
 msgid "Colors"
-msgstr "Schließen"
+msgstr "Farben"
 
 #: src/preferences_gui.c:1474
 #, fuzzy
@@ -4073,19 +4043,16 @@ msgid "Errors:"
 msgstr "Fehler: "
 
 #: src/preferences_gui.c:1475
-#, fuzzy
 msgid "Warnings:"
-msgstr "Warnungen"
+msgstr "Warnungen:"
 
 #: src/preferences_gui.c:1476
-#, fuzzy
 msgid "Program messages:"
-msgstr "Programmname"
+msgstr "Nachrichten von Programmen"
 
 #: src/preferences_gui.c:1477
-#, fuzzy
 msgid "Other messages:"
-msgstr "Debug-Nachrichten"
+msgstr "Andere Nachrichten"
 
 #: src/preferences_gui.c:1562
 msgid "Do not show notebook title tags"
@@ -4105,7 +4072,7 @@ msgstr " Komponenten"
 
 #: src/preferences_gui.c:1688
 msgid "Use Glade Components (experimental)"
-msgstr ""
+msgstr "Glade Komponente benutzen (experimentel)"
 
 #: src/project_config.c:737
 msgid "Project configuration"
@@ -4349,9 +4316,8 @@ msgid "Files"
 msgstr "Dateien"
 
 #: src/project_dbase_gui.c:491
-#, fuzzy
 msgid "Symbols"
-msgstr "Stile"
+msgstr "Symbole"
 
 #: src/project_dbase_gui.c:498 src/toolbar.c:283
 msgid "Project"
@@ -4640,7 +4606,7 @@ msgstr "Nach"
 # ??
 #: src/sharedlib_gui.c:108
 msgid "Sysm Read"
-msgstr ""
+msgstr "Sysm Lesen"
 
 #: src/signals_gui.c:37
 msgid "Modify Signal"
@@ -4954,19 +4920,16 @@ msgid "Attach the editor window as paged editor"
 msgstr "Das Editorfenster andocken"
 
 #: src/text_editor_menu.c:72
-#, fuzzy
 msgid "Back"
-msgstr "Rückwärts"
+msgstr "Zurück"
 
 #: src/text_editor_menu.c:86
-#, fuzzy
 msgid "History"
-msgstr " Größe der Chronik"
+msgstr "Chronik"
 
 #: src/text_editor_menu.c:95
-#, fuzzy
 msgid "Symbol Definition"
-msgstr "/_Klassendefinitionen"
+msgstr "Symboldefinitionen"
 
 #: src/text_editor_menu.c:103
 msgid "Prev mesg"
