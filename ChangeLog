@@ -1,3 +1,10 @@
+2001-09-09  Stephane Demurget <demurgets@free.fr>
+
+	* scintilla/Makefile.am: added to $(GTK_CFLAGS) INCLUDES.
+
+	* po/fr.po: updated to the latest sources.
+
+
 2001-09-07 Johannes Schmid <clubfan@users.sourceforge.net>
 	
 	* Fixed bug #445752

@@ -4,7 +4,7 @@ SUBDIRS = include
 
 noinst_LIBRARIES = libscintilla.a
 
-INCLUDES = -I$(srcdir)/include
+INCLUDES = -I$(srcdir)/include $(GTK_CFLAGS)
 
 CXXFLAGS = -DGTK -DSCI_LEXER -DUSE_XIM -W -Wall -g -O
 
