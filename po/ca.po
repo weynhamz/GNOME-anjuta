@@ -5,10 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: anjuta 1.2.1\n"
+"Project-Id-Version: anjuta 1.2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-11-13 14:29+0100\n"
-"PO-Revision-Date: 2003-11-20 13:45+0100\n"
+"POT-Creation-Date: 2003-11-12 02:58+0100\n"
+"PO-Revision-Date: 2003-12-12 14:30+0100\n"
 "Last-Translator: Xavier A. Conde Rueda <xaviconde@eresmas.com>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
 "MIME-Version: 1.0\n"
@@ -129,7 +129,7 @@ msgstr "Completa automàticament"
 
 #: anjuta.glade.h:26
 msgid "Autocompletion pop up choices"
-msgstr "Diàleg emeregent amb alternatives per autocompletar"
+msgstr "Diàleg emergent amb alternatives per autocompletar"
 
 #: anjuta.glade.h:27
 msgid "Automatically load last Project"
@@ -494,23 +494,23 @@ msgstr "Habilit_a'ls tots"
 
 #: anjuta.glade.h:111
 msgid "Enable automatic indentation"
-msgstr "Habilita sagnat automàtic"
+msgstr "Habilita el sagnat automàtic"
 
 #: anjuta.glade.h:112
 msgid "Enable automatic messages indicators"
-msgstr "Habilita indicadors automàtics de missatge"
+msgstr "Habilita els indicadors automàtics de missatge"
 
 #: anjuta.glade.h:113
 msgid "Enable braces check"
-msgstr "Comprova concordància entre claus/parèntesis"
+msgstr "Comprova la concordància entre claus/parèntesis"
 
 #: anjuta.glade.h:114
 msgid "Enable code folding"
-msgstr "Habilita desplegament de codi"
+msgstr "Habilita el desplegament de codi"
 
 #: anjuta.glade.h:115
 msgid "Enable comments folding"
-msgstr "Habilita desplegament de comentaris"
+msgstr "Habilita el desplegament de comentaris"
 
 #: anjuta.glade.h:116
 msgid "Enable files autosave"
@@ -518,15 +518,15 @@ msgstr "Habilita desar automàticament"
 
 #: anjuta.glade.h:117
 msgid "Enable line wrap"
-msgstr "Habilita tall de línia"
+msgstr "Habilita el tall de línia"
 
 #: anjuta.glade.h:118
 msgid "Enable python comments folding"
-msgstr "Habilita desplegament de comentaris estil python"
+msgstr "Habilita el desplegament de comentaris estil python"
 
 #: anjuta.glade.h:119
 msgid "Enable python quoted strings folding"
-msgstr "Habilita desplegament de cadenes comentades python"
+msgstr "Habilita el desplegament de cadenes comentades python"
 
 # Netscape_4.7->Menu:NSNOTIFY.EXE
 #: anjuta.glade.h:120 src/breakpoints.c:111
@@ -539,7 +539,7 @@ msgstr "Codificació que s'emprarà en desar els fitxers"
 
 #: anjuta.glade.h:122
 msgid "Enter a Hexa adress or select one in the data"
-msgstr "Introduïu una adreça en hexadecimal o seleccioneu un en les dades"
+msgstr "Introduïu una adreça en hexadecimal o seleccioneu una en les dades"
 
 #: anjuta.glade.h:123
 msgid ""
@@ -565,6 +565,7 @@ msgstr "Executa el programa"
 msgid "Expand regex back references"
 msgstr ""
 
+# Netscape_4.7->Menu:TALKBACK.EXE
 #: anjuta.glade.h:128 src/an_file_view.c:671 src/breakpoints.c:111
 msgid "File"
 msgstr "Fitxer"
@@ -610,7 +611,7 @@ msgstr "Estil del format:"
 # Netscape_4.7->Dialog Box Control:RESDLL.DLL
 #: anjuta.glade.h:138
 msgid "Font:"
-msgstr "Font:"
+msgstr "Tipus de lletra:"
 
 #: anjuta.glade.h:139
 msgid "Fore color:"
@@ -779,7 +780,7 @@ msgstr "Camins per incloure fitxers"
 
 #: anjuta.glade.h:173
 msgid "Include module Makefile.am"
-msgstr "Mòdul d'Inclusió de Makefile.am"
+msgstr "Mòdul d'inclusió de Makefile.am"
 
 #: anjuta.glade.h:174
 msgid "Indent closing braces"
@@ -1656,7 +1657,7 @@ msgstr "Orientació"
 
 #: gdl/gdl-dock-item.c:243
 msgid "Orientation of the docking item"
-msgstr "Orientació de l'element enganxable"
+msgstr "Orientació de l'element adjuntable"
 
 #: gdl/gdl-dock-item.c:258
 msgid "Resizable"
@@ -1665,8 +1666,8 @@ msgstr "Canvia el tamany"
 #: gdl/gdl-dock-item.c:259
 msgid "If set, the dock item can be resized when docked in a paned"
 msgstr ""
-"Si està activat, es pot canviar el tamany de l'element enganxable quan "
-"estigui enganxat en un plafó"
+"Si està activat, es pot canviar el tamany de l'element adjuntable quan "
+"estigui adjuntat en una subfinestra"
 
 #: gdl/gdl-dock-item.c:266
 msgid "Item behavior"
@@ -1677,7 +1678,7 @@ msgid ""
 "General behavior for the dock item (i.e. whether it can float, if it's "
 "locked, etc.)"
 msgstr ""
-"Comportament general de l'element enganxable (si pot flotar, si està "
+"Comportament general de l'element adjuntable (si pot flotar, si està "
 "bloquejat, etc.)"
 
 #: gdl/gdl-dock-item.c:275
@@ -1686,7 +1687,7 @@ msgstr "Mida per agafar"
 
 #: gdl/gdl-dock-item.c:276
 msgid "Size in pixels of the grip to drag the dock item"
-msgstr "Mida en píxels per agafar i moure l'element enganxable"
+msgstr "Mida en píxels per agafar i moure l'element adjuntable"
 
 #: gdl/gdl-dock-item.c:282 gdl/gdl-dock-master.c:143
 msgid "Locked"
@@ -1696,7 +1697,7 @@ msgstr "Enganxat"
 msgid ""
 "If set, the dock item cannot be dragged around and it doesn't show a grip"
 msgstr ""
-"Si està activat, l'element enganxable no es pot moure enlloc i no es pot "
+"Si està activat, l'element adjuntable no es pot moure enlloc i no es pot "
 "agafar"
 
 #: gdl/gdl-dock-item.c:291
@@ -1705,7 +1706,7 @@ msgstr "Amplada preferida"
 
 #: gdl/gdl-dock-item.c:292
 msgid "Preferred width for the dock item"
-msgstr "Amplada preferida per a l'element enganxable"
+msgstr "Amplada preferida per a l'element adjuntable"
 
 #: gdl/gdl-dock-item.c:298
 msgid "Preferred height"
@@ -1713,7 +1714,7 @@ msgstr "Alçada preferida"
 
 #: gdl/gdl-dock-item.c:299
 msgid "Preferred height for the dock item"
-msgstr "Alçada preferida per a l'element enganxable"
+msgstr "Alçada preferida per a l'element adjuntable"
 
 #: gdl/gdl-dock-item.c:546
 #, c-format
@@ -1721,8 +1722,8 @@ msgid ""
 "You can't add a dock object (%p of type %s) inside a %s. Use a GdlDock or "
 "some other compound dock object."
 msgstr ""
-"No es pot afegir un objecte enganxable (%p de tipus %s) dins de %s. Faci "
-"servir GdlDock o un altre tipus d'objecte enganxable compost."
+"No es pot afegir un objecte adjuntable (%p de tipus %s) dins de %s. Faci "
+"servir GdlDock o un altre tipus d'objecte adjuntable compost."
 
 #: gdl/gdl-dock-item.c:553
 #, c-format
@@ -1737,7 +1738,7 @@ msgstr ""
 #, c-format
 msgid "Unsupported docking strategy %s in dock object of type %s"
 msgstr ""
-"No es suporta l'estrategia d'enganxat %s en l'objtecte enganxat de tipus %s"
+"No es suporta l'estrategia adjuntable %s en l'objtecte adjuntat de tipus %s"
 
 # Netscape_4.7->String:RESDLL.DLL
 #. Hide menuitem.
@@ -1754,7 +1755,7 @@ msgstr "Bloqueja"
 #: gdl/gdl-dock-item.c:1404
 #, c-format
 msgid "Attempt to bind an unbound item %p"
-msgstr "Intenta adjuntar-se a un element %p sense adjuntar"
+msgstr "Intenta vincular-se a un element %p sense vincular"
 
 # Netscape_4.7->String:RESDLL.DLL
 #: gdl/gdl-dock-layout.c:125
@@ -1801,7 +1802,7 @@ msgstr "Nom"
 
 #: gdl/gdl-dock-layout.c:776 gdl/layout.glade.h:2
 msgid "Dock items"
-msgstr "Elements enganxables"
+msgstr "Elements adjuntables"
 
 #: gdl/gdl-dock-layout.c:782 gdl/layout.glade.h:4
 msgid "Saved layouts"
@@ -1813,7 +1814,7 @@ msgid ""
 "While loading layout: don't know how to create a dock object whose nick is '%"
 "s'"
 msgstr ""
-"Mentre es carregava la disposició: no es pot crear un objecte enganxable amb "
+"Mentre es carregava la disposició: no es pot crear un objecte adjuntable amb "
 "el nom '%s'"
 
 #: gdl/gdl-dock-layout.c:1303
@@ -1826,15 +1827,15 @@ msgstr "Títol per defecte"
 
 #: gdl/gdl-dock-master.c:137
 msgid "Default title for newly created floating docks"
-msgstr "Títol per defecte per als nous elements enganxables flotants"
+msgstr "Títol per defecte per als nous elements adjuntables flotants"
 
 #: gdl/gdl-dock-master.c:144
 msgid ""
 "If is set to 1, all the dock items bound to the master are locked; if it's "
 "0, all are unlocked; -1 indicates inconsistency among the items"
 msgstr ""
-"Si val 1, tots els elements enganxables adjunts al mestre están enganxats; "
-"si val 0, tots estan separats; -1 indica inconsistència entre els elements"
+"Si val 1, tots els elements adjuntables vinculats al mestre están bloquejats; "
+"si val 0, tots estan desbloquejats; -1 indica inconsistència entre els elements"
 
 #: gdl/gdl-dock-master.c:736
 #, c-format
@@ -1851,7 +1852,7 @@ msgid ""
 "The new dock controller %p is automatic.  Only manual dock objects should be "
 "named controller."
 msgstr ""
-"El nou controlador %p és automàtic. Només els objectes enganxables "
+"El nou controlador %p és automàtic. Només els objectes adjuntables "
 "manualment s'han de dir controladors."
 
 #: gdl/gdl-dock-notebook.c:134
@@ -1864,7 +1865,7 @@ msgstr "Índex de la pàgina actual"
 
 #: gdl/gdl-dock-object.c:121
 msgid "Unique name for identifying the dock object"
-msgstr "Nom únic per indentificar l'objecte enganxable"
+msgstr "Nom únic per indentificar l'objecte adjuntable"
 
 #: gdl/gdl-dock-object.c:128
 msgid "Long name"
@@ -1872,7 +1873,7 @@ msgstr "Nom llarg"
 
 #: gdl/gdl-dock-object.c:129
 msgid "Human readable name for the dock object"
-msgstr "Nom per a l'objecte enganxable"
+msgstr "Nom per a l'objecte adjuntable"
 
 #: gdl/gdl-dock-object.c:135
 msgid "Dock master"
@@ -1880,7 +1881,7 @@ msgstr "Enganxable mestre"
 
 #: gdl/gdl-dock-object.c:136
 msgid "Dock master this dock object is bound to"
-msgstr "Enganxable mestre al qual l'objecte enganxable està adjunt"
+msgstr "Enganxable mestre al qual l'objecte adjuntable està vinculat"
 
 #: gdl/gdl-dock-object.c:405
 #, c-format
@@ -1888,7 +1889,7 @@ msgid ""
 "Call to gdl_dock_object_dock in a dock object %p (object type is %s) which "
 "hasn't implemented this method"
 msgstr ""
-"Crida a gdl_dock_object_dock en un objecte enganxable %p (l'objecte és de "
+"Crida a gdl_dock_object_dock en un objecte adjuntable %p (l'objecte és de "
 "tipus %s) el qual no té implementat aquest mètod"
 
 #: gdl/gdl-dock-object.c:534
@@ -1897,20 +1898,20 @@ msgid ""
 "Dock operation requested in a non-bound object %p. The application might "
 "crash"
 msgstr ""
-"S'ha demanat una operació sobre un objecte no adjuntable %p. L'aplicació "
-"podria tancar-se automàticament"
+"S'ha demanat una operació sobre un objecte no vinculat %p. L'aplicació "
+"podria destruir-se automàticament"
 
 #: gdl/gdl-dock-object.c:541
 #, c-format
 msgid "Cannot dock %p to %p because they belong to different masters"
-msgstr "No es pot enganxar %p a %p perquè pertanyen a mestres diferents"
+msgstr "No es pot adjuntar %p a %p perquè pertanyen a mestres diferents"
 
 #: gdl/gdl-dock-object.c:583
 #, c-format
 msgid ""
 "Attempt to bind to %p an already bound dock object %p (current master: %p)"
 msgstr ""
-"No es pot adjuntar %p a un objecte enganxable adjuntat %p (mestre actual: %p)"
+"No es pot vincular %p a un objecte adjuntable vinculat %p (mestre actual: %p)"
 
 #: gdl/gdl-dock-paned.c:134
 msgid "Position"
@@ -1946,7 +1947,7 @@ msgstr "Següent emplaçament"
 msgid ""
 "The position an item will be docked to our host if a request is made to dock "
 "to us"
-msgstr "La posició on un element s'enganxarà al nostre element amfitrió, en el cas que se'ns demani enganxar-se a nosaltres"
+msgstr "La posició on un element s'adjuntarà al nostre element amfitrió, en el cas que se'ns demani adjuntar-se a nosaltres"
 
 #: gdl/gdl-dock-placeholder.c:305
 msgid "Attempt to dock a dock object to an unbound placeholder"
@@ -1968,11 +1969,11 @@ msgstr ""
 
 #: gdl/gdl-dock-tablabel.c:130
 msgid "Controlling dock item"
-msgstr "Controla l'element enganxable"
+msgstr "Controla l'element adjuntable"
 
 #: gdl/gdl-dock-tablabel.c:131
 msgid "Dockitem which 'owns' this tablabel"
-msgstr "Element enganxable que 'posseeix' l'etiqueta de la pestanya"
+msgstr "Element adjuntable que 'posseeix' l'etiqueta de la pestanya"
 
 # Mozilla 1.3->hr
 #: gdl/gdl-dock.c:177
@@ -1981,7 +1982,7 @@ msgstr "Flotant"
 
 #: gdl/gdl-dock.c:178
 msgid "Whether the dock is floating in its own window"
-msgstr "Si l'enganxable està flotant a la seva pròpia finestra"
+msgstr "Si l'adjuntable està flotant a la seva pròpia finestra"
 
 #: gdl/gdl-dock.c:186
 msgid "Default title for the newly created floating docks"
@@ -1993,16 +1994,18 @@ msgstr "Amplada"
 
 #: gdl/gdl-dock.c:193
 msgid "Width for the dock when it's of floating type"
-msgstr "Amplada de l'element enganxable quan és un objecte flotant"
+msgstr "Amplada de l'element adjuntable quan és un objecte flotant"
 
+# Netscape_4.7->Dialog Box Control:EDITOR32.DLL
 #: gdl/gdl-dock.c:200
 msgid "Height"
 msgstr "Alçada"
 
 #: gdl/gdl-dock.c:201
 msgid "Height for the dock when it's of floating type"
-msgstr "Alçada de l'element enganxable quan és un objecte flotant"
+msgstr "Alçada de l'element adjuntable quan és un objecte flotant"
 
+# Netscape_4.7->Menu:RESDLL.DLL
 #: gdl/gdl-dock.c:208
 msgid "Float X"
 msgstr "Flota X"
@@ -2011,6 +2014,7 @@ msgstr "Flota X"
 msgid "X coordinate for a floating dock"
 msgstr "Coordenada X per a l'element flotant"
 
+# Netscape_4.7->Menu:RESDLL.DLL
 #: gdl/gdl-dock.c:216
 msgid "Float Y"
 msgstr "Flota Y"
@@ -2022,7 +2026,7 @@ msgstr "Coordenada Y per a l'element flotant"
 #: gdl/gdl-dock.c:494
 #, c-format
 msgid "Dock #%d"
-msgstr "Objecte enganxat nº %d"
+msgstr "Objecte adjuntat nº %d"
 
 #: gdl/gdl-icons.c:141 gdl/gdl-icons.c:142
 msgid "Icon size"
@@ -2036,13 +2040,14 @@ msgstr "Icona de l'ampliació"
 msgid "Layout Managment"
 msgstr "Gestió de disposició"
 
+# Projecte_Gnome_2.2 [scrollkeeper.HEAD.ca.po]
 #: gdl/layout.glade.h:5
 msgid "_Load"
 msgstr "_Carrega"
 
 #: gdl/layout.glade.h:6
 msgid "_Lock dock items"
-msgstr "B_loqueja elements enganxables"
+msgstr "B_loqueja elements adjuntables"
 
 #: plugins/class-gen/clsGen.c:449
 msgid "Class name not valid"
@@ -2068,6 +2073,7 @@ msgstr "S'ha produït un error en importar fitxers"
 msgid "Class Builder"
 msgstr "Constructor de classes"
 
+# Winrar 2.9->Menu:rarlng.dll
 #. 13
 #. 14
 #: plugins/class-gen/clsGen.c:1343 src/main_menubar_def.h:1006
@@ -2076,10 +2082,12 @@ msgstr "Constructor de classes"
 msgid "Help"
 msgstr "Ajuda"
 
+# Winrar 2.9->Dialog Box Control:rarlng.dll
 #: plugins/class-gen/clsGen.c:1352 plugins/patch/patch-plugin.c:107
 msgid "Cancel"
 msgstr "Cancel·la"
 
+# Netscape_4.7->Dialog Box Control:_ISRES.DLL
 #: plugins/class-gen/clsGen.c:1361
 msgid "Finish"
 msgstr "Acaba"
@@ -2181,6 +2189,7 @@ msgstr "Benvingut al constructor de classes d'Anjuta. "
 msgid "Class type:   "
 msgstr "Tipus de classe: "
 
+# Projecte_Gnome_2.2 [glade.glade-gnome2-branch.ca.po]
 #: plugins/class-gen/clsGen.c:1607 plugins/class-gen/clsGen.c:1620
 msgid "public"
 msgstr "pública"
@@ -2262,7 +2271,7 @@ msgstr "El connector per aplicar un pedaç"
 
 #: plugins/patch/patch-plugin.c:172
 msgid "Please select the directory where the patch should be applied"
-msgstr "Seleccioneu el directori on el pedaç serà aplicat"
+msgstr "Seleccioneu el directori on s'aplicarà el pedaç"
 
 #: plugins/patch/patch-plugin.c:179
 #, c-format
@@ -2283,7 +2292,7 @@ msgid ""
 "Please review the failure messages.\n"
 "Examine and remove any rejected files.\n"
 msgstr ""
-"L'aplicació del pedaç ha fallat.\n"
+"Ha fallat l'aplicació del pedaç.\n"
 "Reviseu els missatges d'error.\n"
 "Examineu i esborreu els fitxers rebutjats.\n"
 
@@ -2446,6 +2455,7 @@ msgstr "Obre dins d'Anjuta"
 msgid "Open in default viewer"
 msgstr "Obre en el visualitzador per defecte"
 
+# Netscape_4.7->Menu:RESDLL.DLL
 #. 3
 #: src/an_file_view.c:427 src/an_symbol_view.c:302
 msgid "Refresh"
@@ -3484,7 +3494,7 @@ msgstr "CVS: Fitxer de diferències"
 #. 17
 #: src/cvs_gui.c:229 src/main_menubar_def.h:1119
 msgid "Diff"
-msgstr "Diferències"
+msgstr "Diff"
 
 # Mozilla 1.3->dateField.label
 #: src/cvs_gui.c:265
@@ -3860,8 +3870,8 @@ msgid ""
 "Warning: Your generated project will still be fine, though.\n"
 msgstr ""
 "Atenció: no es pot generar codi font c/c++.\n"
-"Atenció: es deu a que o bé el glade (per a projectes gtk/gnome) o el glademm "
-"(per a projectes gtkmm/gnomemm) no deu estar instal·lat\n"
+"Atenció: es deu a que o bé el glade (per a projectes gtk/gnome) o el glademm (per a "
+"projectes gtkmm/gnomemm) no deu estar instal·lat\n"
 "Atenció: tot i això, el projecte s'ha generat correctament.\n"
 
 #: src/glade_iface.c:108
@@ -3999,7 +4009,7 @@ msgstr "No mostra la pantalla d'inici"
 
 #: src/main_menubar.c:382
 msgid "Recent Files    "
-msgstr "Fitxers Recents    "
+msgstr "Fitxers recents    "
 
 #: src/main_menubar.c:393 src/project_dbase.c:2042
 msgid "Recent Projects "
@@ -4472,7 +4482,7 @@ msgstr "Cerca cap endavant"
 #. 2
 #: src/main_menubar_def.h:441
 msgid "Find Previous"
-msgstr "Troba anterior"
+msgstr "Cerca l'anterior"
 
 # source\ui\docvw\docvw.src menuitem MN_READONLY_POPUP MN_READONLY_BROWSE_BACKWARD
 # Projecte_Open_Office_1.1 [sw.po]
@@ -4513,11 +4523,11 @@ msgstr "Introduïu el text seleccionat com a objectiu de la cerca"
 #. 7
 #: src/main_menubar_def.h:471
 msgid "Advanced search and re_place"
-msgstr "Cerca i reem_plaçament avançat"
+msgstr "Cerca i reem_plaçament avançada"
 
 #: src/main_menubar_def.h:472
 msgid "Advanced Search And Replace"
-msgstr "Cerca i reemplaçament avançat"
+msgstr "Cerca i reemplaçament avançada"
 
 #. 0
 #: src/main_menubar_def.h:483
@@ -4630,12 +4640,12 @@ msgstr "Troba el cas anterior de la paraula actual"
 #. 0
 #: src/main_menubar_def.h:561
 msgid "U_ndo"
-msgstr "Des_fà"
+msgstr "Des_fés"
 
 # Projecte_Gnome_2.2 [mrproject.HEAD.ca.po]
 #: src/main_menubar_def.h:562 src/toolbar.c:97
 msgid "Undo the last action"
-msgstr "Desfà l'última acció"
+msgstr "Desfés l'última acció"
 
 # Projecte_Gnome_2.2 [libgnomeui.gnome-2-0.ca.po]
 #. 1
@@ -5393,7 +5403,7 @@ msgstr "Formateja automàticament el fitxer de codi actual"
 #. 1
 #: src/main_menubar_def.h:1190
 msgid "_Increase Indent"
-msgstr "_Incremente el sagnat"
+msgstr "_Incrementa el sagnat"
 
 #: src/main_menubar_def.h:1191
 msgid "Increase indentation of line/selection"
@@ -6085,7 +6095,7 @@ msgstr "Preferiu cafè o té?"
 #. 5
 #: src/main_menubar_def.h:1741
 msgid "_Editor colors and fonts ..."
-msgstr "_Edita colors i fonts ..."
+msgstr "_Edita colors i tipus de lletra ..."
 
 #: src/main_menubar_def.h:1742
 msgid "Syntax highlighting settings"
@@ -6376,8 +6386,8 @@ msgid ""
 "Unable to display help. Please make sure Anjuta documentation package is "
 "install. It can be downloaded from http://anjuta.org"
 msgstr ""
-"No es pot mostrar l'ajuda. Assegureu-vos que el paquet de documentació "
-"d'Anjuta està instal·lat. El podeu descarregar d'http://anjuta.org"
+"No es pot mostrar l'ajuda. Assegureu-vos que el paquet de documentació d'Anjuta "
+"està instal·lat. El podeu descarregar d'http://anjuta.org"
 
 #: src/mainmenu_callbacks.c:2165
 msgid ""
@@ -7085,7 +7095,7 @@ msgstr "s'han reeemplaçat %d concordàncies."
 
 #: src/search-replace.c:1749
 msgid "Unable to build user interface for Search And Replace"
-msgstr "No es pot construir la interfície d'usuari per a Cerca i Reemplaça"
+msgstr "No es pot construir la interfície d'usuari per a cercar i reemplaçar"
 
 #: src/sharedlib_gui.c:79
 msgid "Shared libraries"
@@ -7418,7 +7428,7 @@ msgstr "Interromp"
 
 #: src/text_editor_menu.c:191
 msgid "Toggle Line numbers"
-msgstr "Commuta número de línia"
+msgstr "Commuta el número de línia"
 
 #: src/text_editor_menu.c:198
 msgid "Toggle Marker Margin"
@@ -8050,6 +8060,8 @@ msgstr "Esborra fitxer"
 msgid "Rename file"
 msgstr "Canvia el nom d'un fitxer"
 
+# source\filepicker\iodlg.src fixedline DLG_SVT_QUERYFOLDERNAME FL_SVT_QUERYFOLDERNAME_DLG_NAME
+# Projecte_Open_Office_1.1 [svtools.po]
 #: widgets/gnomefilelist.c:257 widgets/gnomefilelist.c:1988
 msgid "Create new folder"
 msgstr "Crea una carpeta nova"
@@ -8066,6 +8078,7 @@ msgstr "Mostra els fitxers ocults"
 msgid "Directory: "
 msgstr "Directori: "
 
+# Projecte_Gnome_2.2 [gtk+.gtk-2-0.ca.po]
 #: widgets/gnomefilelist.c:430
 msgid "Selection: "
 msgstr "Selecció: "
