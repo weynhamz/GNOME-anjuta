@@ -172,11 +172,12 @@ iter_stack_push_new (AttachProcess *ap, GtkTreeStore *store)
 static gboolean
 iter_stack_pop (AttachProcess *ap)
 {
+	GtkTreeIter *iter;
+	
 	if (ap->priv->iter_stack_level < 0)
 		return FALSE;
 
-	GtkTreeIter *iter =
-			(GtkTreeIter *) (g_slist_nth_data (ap->priv->iter_stack, 0));
+	iter = (GtkTreeIter *) (g_slist_nth_data (ap->priv->iter_stack, 0));
 	ap->priv->iter_stack =
 			g_slist_delete_link (ap->priv->iter_stack, ap->priv->iter_stack);
 	g_free (iter);
