@@ -24,8 +24,10 @@
 #include <subversion-1/svn_pools.h>
 #include <subversion-1/svn_auth.h>
 #include <subversion-1/svn_config.h>
+/*
 #include <apr.h>
 #include <apr_date.h>
+*/
 
 static gpointer parent_class;
 
