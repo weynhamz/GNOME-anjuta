@@ -1,3 +1,6 @@
+2002-11-06  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
+	* plugins/class-gen/clsGen.c: Refined the class generator a bit.
+
 2002-11-06  Naba Kumar <naba@gnome.org>
 
 	* README: Updated
