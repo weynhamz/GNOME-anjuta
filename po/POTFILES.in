@@ -44,7 +44,6 @@ plugins/devhelp/plugin.c
 plugins/editor/action-callbacks.c
 plugins/editor/anjuta-docman.c
 plugins/editor/anjuta-document-manager.glade
-#plugins/editor/file.c
 plugins/editor/goto_line.c
 plugins/editor/plugin.c
 plugins/editor/print.c
@@ -91,7 +90,6 @@ plugins/gtodo/preferences.c
 plugins/gtodo/tasklists.c
 plugins/gtodo/todo_db.c
 plugins/gtodo/tray-icon.c
-#plugins/launcher/launcher.c
 plugins/message-view/anjuta-message-manager-plugin.glade
 plugins/message-view/message-view.c
 plugins/message-view/plugin.c

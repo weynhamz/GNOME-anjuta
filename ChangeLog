@@ -1,5 +1,7 @@
 2004-12-18  Naba Kumar  <naba@gnome.org>
 
+	* po/POTFILES.in: Removed commented lines.
+	* configure.in: Commented dupilcate call to AC_PROG_INTLTOOL.
 	* plugins/devhelp/plugin.c: Fixed loading/unloading bug.
 	* plugins/gdb/plugin.c: Fixed compile error.
 	
