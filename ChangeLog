@@ -1,5 +1,11 @@
 2004-10-22  Johannes Schmid <jhs@cvs.gnome.org>
 	
+	* plugins/cvs-plugin/cvs-execute.[ch]: Add basic command execute infrastructure
+	* plugins/cvs-plugin/plugin.c, /plugins/cvs-plugin/anjuta-cvs-plugin.glade:
+	Added preferences dialog (not yet complete)
+
+2004-10-22  Johannes Schmid <jhs@cvs.gnome.org>
+	
 	* global-tags/Makefile.am
 	mime/Makefile.am
 	
@@ -24,8 +30,17 @@
 	
 	Remove everything except text-templates to replace hardcoded 
 	Edit->Insert texts with dynamic loaded.
-		
 
+	* plugins/cvs-plugin/plugin.[ch]
+	plugins/cvs-actions.[ch]
+	plugins/Makefile.am
+	plugins/cvs-plugin/Makefile.am
+	plugins/cvs-plugin/anjuta-cvs-plugin.ui
+	plugins/cvs-plugin/anjuta-cvs-plugin.glade
+	plugins/cvs-plugin/anjuta-cvs.plugin.in
+	
+	Added initial cvs-plugin code
+		
 2004-10-21  Naba Kumar  <naba@gnome.org>
 	
 	* libanjuta/anjuta-plugin.c,

@@ -1,7 +1,7 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
-    plugin.h
-    Copyright (C) 2004 Naba Kumar, Johannes Schmid
+    cvs-execute.h
+    Copyright (C) 2004 Johannes Schmid
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -18,27 +18,12 @@
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
-#ifndef PLUGIN_H
-#define PLUGIN_H
+#ifndef CVS_EXECUTE_H
+#define CVS_EXECUTE_H
 
-#include <libanjuta/anjuta-plugin.h>
-#include <libanjuta/anjuta-launcher.h>
-#include <libanjuta/interfaces/ianjuta-message-manager.h>
+#include "plugin.h"
 
-typedef struct _CVSPlugin CVSPlugin;
-typedef struct _CVSPluginClass CVSPluginClass;
-
-struct _CVSPlugin{
-	AnjutaPlugin parent;
-	gint uiid;
-	
-	IAnjutaMessageView* mesg_view;
-	AnjutaLauncher* launcher;
-	gboolean executing_command;
-};
-
-struct _CVSPluginClass{
-	AnjutaPluginClass parent_class;
-};
+void 
+cvs_execute(CVSPlugin* plugin, const gchar* command, const gchar* dir);
 
 #endif

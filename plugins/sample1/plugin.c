@@ -21,11 +21,14 @@
 #include <config.h>
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
+#include <libanjuta/anjuta-preferences.h>
 
 #include "plugin.h"
 #include "cvs-actions.h"
 
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-cvs.ui"
+#define PREFS_GLADE PACKAGE_DATA_DIR"/glade/anjuta-cvs-plugin.glade"
+#define ICON_FILE "anjuta-cvs-plugin.png"
 
 static gpointer parent_class;
 
@@ -99,6 +102,8 @@ static GtkActionEntry actions_cvs[] = {
 static gboolean
 activate_plugin (AnjutaPlugin *plugin)
 {
+	GladeXML* gxml;
+	AnjutaPreferences *prefs;
 	AnjutaUI *ui;
 	CVSPlugin *cvs_plugin;
 	
@@ -107,7 +112,13 @@ activate_plugin (AnjutaPlugin *plugin)
 	
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	
-	/* Add all our editor actions */
+	/* Create the messages preferences page */
+	prefs = anjuta_shell_get_preferences (plugin->shell, NULL);
+	gxml = glade_xml_new (PREFS_GLADE, "cvs", NULL);
+	anjuta_preferences_add_page (prefs, gxml, "cvs", ICON_FILE);
+	g_object_unref (gxml);
+	
+	/* Add all our actions */
 	anjuta_ui_add_action_group_entries (ui, "ActionGroupCVS",
 					_("CVS operations"),
 					actions_cvs,
@@ -137,6 +148,8 @@ cvs_plugin_instance_init (GObject *obj)
 {
 	CVSPlugin *plugin = (CVSPlugin*)obj;
 	plugin->uiid = 0;
+	plugin->executing_command = FALSE;
+	plugin->mesg_view = NULL;
 }
 
 static void
