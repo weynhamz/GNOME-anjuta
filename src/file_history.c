@@ -100,8 +100,8 @@ void an_file_history_back(void)
 {
 	AnHistFile *h_file;
 
-	g_return_if_fail(s_history && s_history->current
-	  && s_history->current->next);
+	if (!(s_history && s_history->current && s_history->current->next))
+		return;
 
 	s_history->current = s_history->current->next;
 	h_file = (AnHistFile *) s_history->current->data;
@@ -112,9 +112,9 @@ void an_file_history_forward(void)
 {
 	AnHistFile *h_file;
 
-	g_return_if_fail(s_history && s_history->current
-	  && s_history->current->prev);
-
+	if (!(s_history && s_history->current && s_history->current->prev))
+		return;
+	
 	s_history->current = s_history->current->prev;
 	h_file = (AnHistFile *) s_history->current->data;
 	anjuta_goto_file_line_mark(h_file->file, h_file->line, FALSE);

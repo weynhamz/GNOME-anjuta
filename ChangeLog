@@ -9,7 +9,11 @@
 	dialog (in different locale other than en_US). Used widget names
 	to pass the combo list items.
 	* po/POTFILES.in: Updated.
-	
+	* src/launcher.c: Creates the zvt terminal at startup (and not
+	every time a build is done) -- speeds up buld operations.
+	* src/file_history.c: Should be if() conditional instead of
+	assertion check.
+
 2003-06-21  Naba Kumar  <naba@gnome.org>
 
 	* src/aneditor.cxx: Fixed bugs with debug tip dwell start and end.

@@ -112,6 +112,21 @@ struct				/* Launcher */
 void
 launcher_init ()
 {
+  launcher.terminal = zvt_term_new ();
+  zvt_term_set_size(ZVT_TERM (launcher.terminal), 100, 100);
+  gtk_signal_connect (GTK_OBJECT (launcher.terminal), "child_died", 
+  		GTK_SIGNAL_FUNC (to_terminal_child_terminated), NULL);
+
+#ifdef LAUNCHER_DEBUG
+  if (launcher.terminal) {
+	  GtkWindow* win;
+	  win = gtk_window_new(0);
+	  gtk_window_set_transient_for(GTK_WINDOW(win), GTK_WINDOW(app->widgets.window));
+	  gtk_container_add(GTK_CONTAINER(win), launcher.terminal);
+	  gtk_widget_show_all(win);
+  }
+#endif
+  
   launcher_set_busy (FALSE);
 }
 
@@ -321,21 +336,6 @@ launcher_execute (const gchar * command_str,
   if (NULL == shell || '\0' == shell[0])
     shell = "sh";
   
-  launcher.terminal = zvt_term_new ();
-  zvt_term_set_size(ZVT_TERM (launcher.terminal), 100, 100);
-  gtk_signal_connect (GTK_OBJECT (launcher.terminal), "child_died", 
-  		GTK_SIGNAL_FUNC (to_terminal_child_terminated), NULL);
-
-#ifdef LAUNCHER_DEBUG
-  if (launcher.terminal) {
-	  GtkWindow* win;
-	  win = gtk_window_new(0);
-	  gtk_window_set_transient_for(GTK_WINDOW(win), GTK_WINDOW(app->widgets.window));
-	  gtk_container_add(GTK_CONTAINER(win), launcher.terminal);
-	  gtk_widget_show_all(win);
-  }
-#endif
-  
   launcher.child_pid = zvt_term_forkpty (ZVT_TERM (launcher.terminal), 
 		ZVT_TERM_DO_UTMP_LOG | ZVT_TERM_DO_WTMP_LOG);
   if (launcher.child_pid == 0)
@@ -455,8 +455,8 @@ execution_done_cleanup ()
 	
   zvt_term_closepty(ZVT_TERM(launcher.terminal));
   zvt_term_reset(ZVT_TERM(launcher.terminal), 1);
-  gtk_widget_destroy(launcher.terminal);
-  launcher.terminal = NULL;
+  /* gtk_widget_destroy(launcher.terminal);
+  launcher.terminal = NULL; */
   launcher_set_busy (FALSE);
   
   launcher.waiting_for_done = FALSE; /* After this, we can only return FALSE; */	
