@@ -1,3 +1,8 @@
+2002-02-18  Naba Kumar <kh_naba@users.sourceforge.net>
+
+	* src/anjuta.c, main.c:
+	Used tm_get_real_path in anjuta_get_full_filename();
+	
 2002-02-18  Andy Piper <andyp@users.sourceforge.net>
 	
 	* anjuta.prj: update version

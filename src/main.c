@@ -144,12 +144,16 @@ main (int argc, char *argv[])
 		
 		while (args[i]) {
 			gchar *full_name;
+			gchar *real_path;
+			
 			if (args[i][0] != '/') {
 				full_name = g_strconcat (cur_dir, "/", args[i], NULL);
 			} else {
 				full_name = g_strdup(args[i]);
 			}
-			command_args = g_list_append (command_args, full_name);
+			real_path = tm_get_real_path (full_name);
+			g_free(full_name);
+			command_args = g_list_append (command_args, real_path);
 			i++;
 		}
 		g_free (cur_dir);

@@ -1525,58 +1525,70 @@ gchar *
 anjuta_get_full_filename (gchar * fn)
 {
 	gchar *cur_dir, *dummy;
+	gchar *real_path;
 	GList *list;
 	gchar *text;
 	gint i;
+	
 	if (!fn)
 		return NULL;
 	if (fn[0] == '/')
-		return g_strdup (fn);
+		return tm_get_real_path (fn);
 
 	if( app->execution_dir)
 	{
 		dummy = g_strconcat (app->execution_dir, "/", fn, NULL);
-		if (file_is_regular (dummy) == TRUE)
-			return dummy;
-		g_free (dummy);
+		real_path = tm_get_real_path(dummy);
+		g_free(dummy);
+		if (file_is_regular (real_path) == TRUE)
+			return real_path;
+		g_free (real_path);
 	}
 	cur_dir = g_get_current_dir ();
 	if (app->project_dbase->project_is_open)
 	{
 		gchar *src_dir;
+		gchar *real_path;
 
 		/* See if it on of the source files */
 		src_dir = project_dbase_get_module_dir (app->project_dbase, MODULE_SOURCE);
 		dummy = g_strconcat (src_dir, "/", fn, NULL);
 		g_free (src_dir);
-		if (file_is_regular (dummy) == TRUE)
+		real_path = tm_get_real_path(dummy);
+		g_free(dummy);
+		if (file_is_regular (real_path) == TRUE)
 		{
 			g_free (cur_dir);
-			return dummy;
+			return real_path;
 		}
-		g_free (dummy);
+		g_free (real_path);
 		
 		/* See if the file is relative to the top project dir */
 		src_dir = app->project_dbase->top_proj_dir;
 		if (src_dir) {
 			dummy = g_strconcat (src_dir, "/", fn, NULL);
-			if (file_is_regular (dummy) == TRUE)
+			real_path = tm_get_real_path(dummy);
+			g_free(dummy);
+			if (file_is_regular (real_path) == TRUE)
 			{
 				g_free (cur_dir);
-				return dummy;
+				return real_path;
 			}
-			g_free (dummy);
+			g_free (real_path);
 		}
 	}
 	else
 	{
 		dummy = g_strconcat (cur_dir, "/", fn, NULL);
-		if (file_is_regular (dummy) == TRUE)
+		real_path = tm_get_real_path(dummy);
+		g_free(dummy);
+
+		if (file_is_regular (real_path) == TRUE)
 		{
 			g_free (cur_dir);
-			return dummy;
+			return real_path;
 		}
-		g_free (dummy);
+		g_free (real_path);
 	}
 
 	list = GTK_CLIST (app->src_paths->widgets.src_clist)->row_list;
@@ -1593,17 +1605,22 @@ anjuta_get_full_filename (gchar * fn)
 			dummy =
 				g_strconcat (cur_dir, "/", text, "/", fn,
 					     NULL);
-		if (file_is_regular (dummy) == TRUE)
+		real_path = tm_get_real_path(dummy);
+		g_free(dummy);
+
+		if (file_is_regular (real_path) == TRUE)
 		{
 			g_free (cur_dir);
-			return dummy;
+			return real_path;
 		}
-		g_free (dummy);
+		g_free (real_path);
 	}
 	dummy = g_strconcat (cur_dir, "/", fn, NULL);
+	real_path = tm_get_real_path(dummy);
+	g_free(dummy);
 
 	g_free (cur_dir);
-	return dummy;
+	return real_path;
 }
 
 gboolean
