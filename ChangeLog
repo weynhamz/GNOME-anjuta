@@ -1,3 +1,7 @@
+2004-04-24  Andras Timar  <tmar@gnome.hu>
+
+	* configure.in: Added hu to ALL_LINGUAS.
+
 2004-04-14  Naba Kumar  <naba@gnome.org>
 
 	* src/Makefile.am, printing/Makefile.am,
