@@ -527,6 +527,49 @@ GList * gnome_filelist_get_filelist(GnomeFileList * file_list)
 	return list;
 }
 
+GList * gnome_filelist_get_nodelist(GnomeFileList * file_list)
+{
+	GList * list = NULL;
+	int num_elements;
+	GList * temp = GTK_CLIST(file_list->file_list)->selection;
+	num_elements = g_list_length(temp);
+	
+	while(num_elements!=0)
+	{
+		GtkCTreeNode * node = g_list_nth_data(temp,0);
+		list = g_list_append(list, node);
+		gtk_ctree_unselect(GTK_CTREE(file_list->file_list), node);
+		temp = GTK_CLIST(file_list->file_list)->selection;
+		num_elements--;
+	}
+	return list;
+}
+
+gchar * gnome_filelist_get_lastfilename(GnomeFileList * file_list, GList * list)
+{
+	GtkCTreeNode * node = g_list_nth_data(list, 0);
+	gchar * filename = NULL;
+	gchar * text = NULL;
+	gchar * full = NULL;
+	gchar * path;
+
+	if(!gtk_ctree_node_get_pixtext(GTK_CTREE(file_list->file_list), node, 0, &text, NULL, NULL, NULL))
+		return NULL;
+	filename = g_strdup(text);
+	gtk_ctree_select(GTK_CTREE(file_list->file_list), node);
+   path = gtk_entry_get_text(GTK_ENTRY(GTK_COMBO(file_list->history_combo)->entry));
+	if(!path)
+		return;
+	g_free(file_list->selected);
+   file_list->selected = g_new(char, strlen(text)+1);
+   strcpy(file_list->selected, text);
+   set_file_selection(file_list);
+	
+	full = g_strconcat(path, filename, NULL);
+	g_free(filename);
+	return full;
+}
+	
 gchar *gnome_filelist_get_path(GnomeFileList *file_list)
 {
    g_return_val_if_fail(file_list != NULL, NULL);

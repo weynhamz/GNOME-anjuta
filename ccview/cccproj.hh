@@ -24,9 +24,9 @@
 #include <fstream>
 #include <regex.h>
 #include <time.h>
-#include <hash_map>
-#include <set>
-#include <list>
+#include <hash_map.h>
+#include <set.h>
+#include <list.h>
 #include <gnome.h>
 #include <gnome-xml/tree.h>
 #include <gnome-xml/parser.h>

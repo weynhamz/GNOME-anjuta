@@ -82,6 +82,8 @@ GtkWidget *gnome_filelist_new_with_path(gchar *path);
 gchar *gnome_filelist_get_filename(GnomeFileList *file_list);
 gchar *gnome_filelist_get_path(GnomeFileList *file_list);
 GList * gnome_filelist_get_filelist(GnomeFileList * file_list);
+GList * gnome_filelist_get_nodelist(GnomeFileList * file_list);
+gchar * gnome_filelist_get_lastfilename(GnomeFileList * file_list, GList * list);
 
 void gnome_filelist_set_title(GnomeFileList *file_list, gchar *title);
 gboolean gnome_filelist_set_dir(GnomeFileList *file_list, gchar *path);

@@ -30,8 +30,10 @@
 #include "appwizard_cbs.h"
 #include "resources.h"
 
-#define WIZARD_START_MESG N_(\
-"The Application Wizard will generate a basic\n\
+static gchar*
+greetings_text ()
+{
+	return _("The Application Wizard will generate a basic\n\
 skeleton for your application, including all\n\
 the build files. It will ask you for the basic\n\
 initial structure for the application you want\n\
@@ -39,7 +41,8 @@ to develop.\n\n\
 Please answer the questions carefully, as it\n\
 may not be possible to change some of the\n\
 settings later.\n\n\
-Click Next to proceed ...")
+Click Next to proceed ...");
+}
 
 void create_new_project (AppWizard * aw);
 void create_app_wizard_gui (AppWizard * aw);
@@ -123,7 +126,7 @@ create_app_wizard_gui (AppWizard * aw)
 					  ("Application Wizard:     Page 1 of 6"));
 	gnome_druid_page_start_set_text (GNOME_DRUID_PAGE_START
 					 (druidpagestart1),
-					 _(WIZARD_START_MESG));
+					 greetings_text());
 
 	gnome_druid_page_start_set_logo (GNOME_DRUID_PAGE_START
 					 (druidpagestart1),

@@ -1,3 +1,22 @@
+2001-08-4  Naba Kumar <kh_naba@users.sourceforge.net>
+
+	* data/internal.properties: modified a bit of perl properties.
+	
+2001-08-3  Naba Kumar <kh_naba@users.sourceforge.net>
+
+	* ccview/cccproj.hh, ccview/hash_str.h, src/fileselection.c, src/fileselection.h
+	  src/project_dbase_gui.c, widgets/gnomefilelist.c, widgets/gnomefilelist.h:
+	  Added support for multiple file imports. Changed the standrd C++
+	  convention of #include <file> to #include <file.h>, because I had given
+	  some wrong options while compiling my gcc-3.0.1 compiler, so it does not
+	  now support the #include <file> convention. That is something to be fixed :). 
+	  # Patch from: venugopal gummuluru <vgummuluru@yahoo.com>
+
+2001-08-1  Naba Kumar <kh_naba@users.sourceforge.net>
+
+	* src/anjuta.c: Added function static greetings_text(), to solve the non
+		translation of the greetings text in the wizard.
+		
 2001-08-31  Andy Piper <andy.piper@freeuk.com>
 
 	* src/find_in_files_gui.c: made order of buttons consistent with other Find

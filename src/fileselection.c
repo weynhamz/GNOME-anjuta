@@ -117,11 +117,23 @@ fileselection_get_filelist(GtkWidget * filesel)
 	 return gnome_filelist_get_filelist (GNOME_FILELIST(filesel));
 }
 
+GList * fileselection_get_nodelist(GtkWidget * filesel)
+{
+	return gnome_filelist_get_nodelist (GNOME_FILELIST(filesel));
+}
+
+
 /* Free the return */
 gchar*
 fileselection_get_path (GtkWidget* filesel)
 {
 	return gnome_filelist_get_path (GNOME_FILELIST(filesel));
+}
+
+gchar *
+fileselection_get_lastfilename(GtkWidget * filesel, GList * list)
+{
+	 return gnome_filelist_get_lastfilename (GNOME_FILELIST(filesel), list);
 }
 
 void

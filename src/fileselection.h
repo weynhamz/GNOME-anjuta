@@ -53,4 +53,10 @@ fileselection_set_filename (GtkWidget* filesel, gchar* fname);
 GList *
 fileselection_get_filelist(GtkWidget * filesel);
 
+GList *
+fileselection_get_nodelist(GtkWidget * filesel);
+
+gchar * 
+fileselection_get_lastfilename(GtkWidget * widget, GList * list);
+
 #endif

@@ -19,7 +19,7 @@
 
 #ifndef __HASH_STR__H__
 #define __HASH_STR__H__
-#include <hash_map>
+#include <hash_map.h>
 struct hash_str
 {
     size_t operator()(const string& str) const

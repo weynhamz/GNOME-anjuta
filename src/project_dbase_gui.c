@@ -1301,38 +1301,67 @@ on_add_prjfilesel_cancel_clicked (GtkButton * button, gpointer user_data)
 	gtk_widget_hide (app->project_dbase->fileselection_add_file);
 }
 
+		
+
 void
 on_add_prjfilesel_ok_clicked (GtkButton * button, gpointer user_data)
 {
 	gchar *filename, *dir, *comp_dir, *mesg;
 	ProjectDBase *p = user_data;
+	GList * list;
+	int i;
+	int num_elements;
 
-	filename =  fileselection_get_filename (p->fileselection_add_file);
-	if (!filename)
-		return;
-	if (file_is_regular (filename) == FALSE)
+	list = fileselection_get_nodelist(p->fileselection_add_file);
+	num_elements = g_list_length(list);
+	
+	for(i=0;i<num_elements;i++)
 	{
-		anjuta_error (_("Not a regular file: %s."), filename);
+		gpointer list_data;
+		filename = fileselection_get_lastfilename (p->fileselection_add_file,list);
+		list_data = g_list_nth_data(list, 0);
+		list = g_list_remove(list, list_data);
+	
+		if (!filename)
+			return;
+		if (file_is_regular (filename) == FALSE)
+		{
+			anjuta_error (_("Not a regular file: %s."), filename);
+			g_free (filename);
+			continue;
+		}
+		dir = g_dirname (filename);
+		comp_dir = project_dbase_get_module_dir (p, p->sel_module);
+		mesg =
+			g_strdup_printf (_
+					 ("\"%s\"\ndoes not exist in the current module directory."
+					  "\nDo you want to IMPORT (copy) into the module?"),
+					filename);
+		if (strcmp (dir, comp_dir) == 0)
+			on_prj_import_confirm_yes (NULL, user_data);
+
+		else
+		{
+		
+			int button;
+			GtkWidget * label = gtk_label_new(mesg);
+			GtkWidget * dialog = gnome_dialog_new(
+						"Import File confirm",
+						GNOME_STOCK_BUTTON_YES,
+						GNOME_STOCK_BUTTON_NO,
+						NULL);
+			gtk_box_pack_start(GTK_BOX(GNOME_DIALOG(dialog)->vbox),label,TRUE, TRUE, 0);
+			gtk_widget_show(label);
+			button = gnome_dialog_run_and_close(GNOME_DIALOG(dialog));
+			if(button == 0)
+				on_prj_import_confirm_yes (NULL, p);
+		}
+		
+		
+		gtk_widget_hide (p->fileselection_add_file);
+		g_free (dir);
+		g_free (mesg);
+		g_free (comp_dir);
 		g_free (filename);
-		return;
 	}
-	dir = g_dirname (filename);
-	comp_dir = project_dbase_get_module_dir (p, p->sel_module);
-	mesg =
-		g_strdup_printf (_
-				 ("\"%s\"\ndoes not exist in the current module directory."
-				  "\nDo you want to IMPORT (copy) into the module?"),
-				filename);
-	if (strcmp (dir, comp_dir) == 0)
-		on_prj_import_confirm_yes (NULL, user_data);
-	else
-		messagebox2 (GNOME_MESSAGE_BOX_INFO, mesg,
-			     GNOME_STOCK_BUTTON_YES,
-			     GNOME_STOCK_BUTTON_NO,
-			     on_prj_import_confirm_yes, NULL, user_data);
-	gtk_widget_hide (p->fileselection_add_file);
-	g_free (dir);
-	g_free (mesg);
-	g_free (comp_dir);
-	g_free (filename);
 }
