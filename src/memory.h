@@ -45,7 +45,7 @@ struct _MemApp
 };
 
 GtkWidget* memory_info_new (guchar *ptr);
-gboolean memory_info_address_is_accessible(guchar *adr, MemApp *memapp);
+gboolean memory_info_address_is_accessible (guchar *adr, MemApp *memapp);
 guchar *memory_info_address_to_decimal (gchar *hex_address);
 
 #ifdef __cplusplus

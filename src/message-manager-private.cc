@@ -267,6 +267,13 @@ AnMessageWindow::AnMessageWindow(AnMessageManager* p_amm,
 		G_CALLBACK(AnMessageWindow::on_mesg_event), this);
 	g_signal_connect(G_OBJECT(select), "changed",
 		G_CALLBACK(AnMessageWindow::on_selection_changed), this);
+	GtkAdjustment* adj =
+			gtk_scrolled_window_get_vadjustment (GTK_SCROLLED_WINDOW
+												     (m_scrolled_win));
+	adj_chgd_hdlr = g_signal_connect(G_OBJECT(adj), "changed",
+		G_CALLBACK(AnMessageWindow::on_adjustment_changed), this);
+	g_signal_connect(G_OBJECT(adj), "value_changed",
+		G_CALLBACK(AnMessageWindow::on_adjustment_value_changed), this);
 }
 
 const vector<string>& 
@@ -287,12 +294,6 @@ AnMessageWindow::append_buffer()
 	GtkAdjustment* adj =
 			gtk_scrolled_window_get_vadjustment (GTK_SCROLLED_WINDOW
 												     (m_scrolled_win));
-	/* If the scrollbar is almost at the end, */
-	/* then only we scroll to the end */
-	bool update_adj = false;
-	if (adj->value > 0.95 * (adj->upper-adj->page_size) || adj->value == 0)
-		update_adj = true;
-	
 	string message = m_line_buffer;
 	m_line_buffer = string();
 	m_messages.push_back(message);
@@ -358,8 +359,6 @@ AnMessageWindow::append_buffer()
 		COLUMN_LINE, m_line, -1);
 	m_line++;
 	g_free(utf8_msg);
-	if (update_adj) 
-		gtk_adjustment_set_value (adj, adj->upper - adj->page_size);
 }
 
 int
@@ -514,6 +513,34 @@ gboolean AnMessageWindow::on_mesg_event (GtkTreeView* list, GdkEvent * event, gp
 		}
 	}		
 	return FALSE;
+}
+
+void 
+AnMessageWindow::on_adjustment_changed (GtkAdjustment* adj, gpointer data)
+{
+	gtk_adjustment_set_value (adj, adj->upper - adj->page_size);
+}
+
+void 
+AnMessageWindow::on_adjustment_value_changed (GtkAdjustment* adj, gpointer data)
+{
+	AnMessageWindow *amw = (AnMessageWindow *) data;
+	if (adj->value > (adj->upper - adj->page_size) - 0.1)
+	{
+		if (!amw->adj_chgd_hdlr)
+		{
+			amw->adj_chgd_hdlr = g_signal_connect (G_OBJECT (adj), "changed",
+				G_CALLBACK (AnMessageWindow::on_adjustment_changed), NULL);
+		}
+	}
+	else
+	{
+		if (amw->adj_chgd_hdlr)
+		{
+			g_signal_handler_disconnect (G_OBJECT (adj), amw->adj_chgd_hdlr);
+			amw->adj_chgd_hdlr = 0;
+		}
+	}
 }
 
 static const gchar * get_profile_key (const gchar *profile, const gchar *key)

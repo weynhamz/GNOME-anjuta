@@ -1117,11 +1117,6 @@ on_registers1_activate (GtkMenuItem * menuitem, gpointer user_data)
 }
 
 
-void
-on_program_stack1_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-	stack_trace_show (debugger.stack);
-}
 
 void
 on_shared_lib1_activate (GtkMenuItem * menuitem, gpointer user_data)
@@ -1803,7 +1798,7 @@ on_debugger_signal_activate (GtkMenuItem * menuitem, gpointer user_data)
 void
 on_debugger_inspect_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
-	GtkWidget *w = create_eval_dialog (GTK_WINDOW(app->widgets.window));
+	GtkWidget *w = create_eval_dialog (GTK_WINDOW(app->widgets.window), debugger.watch);
 	gtk_widget_show (w);
 }
 

@@ -20,10 +20,6 @@
 #ifndef _STACK_TRACE_CBS_H_
 #define _STACK_TRACE_CBS_H_
 
-gboolean
-on_stack_trace_window_delete_event           (GtkWidget       *widget,
-                                        GdkEvent        *event,
-                                        gpointer         user_data);
 
 void
 on_stack_trace_clist_select_row              (GtkCList        *clist,
@@ -40,14 +36,6 @@ on_stack_trace_clist_unselect_row              (GtkCList        *clist,
                                         gpointer         user_data);
 
 void
-on_stack_trace_set_clicked                    (GtkButton       *button,
-                                        gpointer         user_data);
-
-void
-on_stack_trace_info_clicked                 (GtkButton       *button,
-                                        gpointer         user_data);
-
-void
 on_stack_trace_help_clicked                 (GtkButton       *button,
                                         gpointer         user_data);
 
@@ -57,6 +45,9 @@ on_stack_frame_set_activate            (GtkMenuItem     *menuitem,
 
 void
 on_stack_frame_info_activate           (GtkMenuItem     *menuitem,
+                                        gpointer         user_data);
+void
+on_stack_frame_args_activate            (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
 
 void
@@ -70,14 +61,10 @@ on_stack_view_src_activate             (GtkMenuItem     *menuitem,
 void
 on_stack_help_activate                 (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
+
 gboolean
 on_stack_trace_event                (GtkWidget       *widget,
                                         GdkEvent  *event,
-                                        gpointer         user_data);
-
-gboolean
-on_stack_trace_buttonpress                (GtkWidget       *widget,
-                                        GdkEventButton  *event,
                                         gpointer         user_data);
 
 #endif

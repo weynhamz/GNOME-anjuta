@@ -32,6 +32,7 @@
 #include "stack_trace_cbs.h"
 #include "resources.h"
 
+
 static GnomeUIInfo stack_menu_uiinfo[] =
 {
   {
@@ -45,6 +46,13 @@ static GnomeUIInfo stack_menu_uiinfo[] =
     GNOME_APP_UI_ITEM, N_("Frame info"),
     NULL,
     on_stack_frame_info_activate, NULL, NULL,
+    GNOME_APP_PIXMAP_NONE, NULL,
+    0, 0, NULL
+  },
+  {
+    GNOME_APP_UI_ITEM, N_("Frame args"),
+    NULL,
+    on_stack_frame_args_activate, NULL, NULL,
     GNOME_APP_PIXMAP_NONE, NULL,
     0, 0, NULL
   },
@@ -73,87 +81,83 @@ static GnomeUIInfo stack_menu_uiinfo[] =
   GNOMEUIINFO_END
 };
 
-GtkWidget* create_stack_menu (void);
+static GtkWidget* create_stack_menu (StackTrace* st);
 
-GtkWidget*
-create_stack_menu ()
-{
-  GtkWidget *menu4;
-
-  menu4 = gtk_menu_new ();
-  gnome_app_fill_menu (GTK_MENU_SHELL (menu4), stack_menu_uiinfo,
-                       NULL, FALSE, 0);
-  return menu4;
-}
 
 void
 create_stack_trace_gui(StackTrace *st)
 {
-  GtkWidget *window1;
-  GtkWidget *scrolledwindow1;
-  GtkWidget *clist1;
-  GtkWidget *label1;
-  GtkWidget *label2;
-  GtkWidget *label3;
+  GtkTreeModel* model;
+  GtkTreeSelection *selection;
+  GtkTreeViewColumn *column;
+  GtkCellRenderer *renderer;	
+	
+  model = GTK_TREE_MODEL(gtk_list_store_new (STACK_TRACE_N_COLUMNS,
+											GDK_TYPE_PIXBUF,
+											GTK_TYPE_STRING,
+											GTK_TYPE_STRING));
 
-  window1 = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-  gtk_window_set_transient_for(GTK_WINDOW(window1), GTK_WINDOW(app->widgets.window));
-  gtk_window_set_title (GTK_WINDOW (window1), _("Stack Trace"));
-  gtk_window_set_wmclass (GTK_WINDOW (window1), "stack_trace", "Anjuta");
-  gnome_window_icon_set_from_default(GTK_WINDOW(window1));
+  st->widgets.clist = gtk_tree_view_new_with_model (model);
+  selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (st->widgets.clist));
+  gtk_tree_selection_set_mode (selection, GTK_SELECTION_SINGLE);
+  g_object_unref (G_OBJECT (model));
 
-  scrolledwindow1 = gtk_scrolled_window_new (NULL, NULL);
-  gtk_widget_show (scrolledwindow1);
-  gtk_container_add (GTK_CONTAINER (window1), scrolledwindow1);
-  gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolledwindow1), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+  /* Columns */
+  column = gtk_tree_view_column_new ();
+  gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
+  gtk_tree_view_column_set_title (column, _("Active"));
+  renderer = gtk_cell_renderer_pixbuf_new ();
+  gtk_tree_view_column_pack_start (column, renderer, TRUE);
+  gtk_tree_view_column_add_attribute (column, renderer, "pixbuf", STACK_TRACE_ACTIVE_COLUMN);
+  gtk_tree_view_append_column (GTK_TREE_VIEW (st->widgets.clist), column);
+  gtk_tree_view_set_expander_column (GTK_TREE_VIEW (st->widgets.clist), column);
 
-  clist1 = gtk_clist_new (3);
-  gtk_widget_show (clist1);
-  gtk_container_add (GTK_CONTAINER (scrolledwindow1), clist1);
-  gtk_clist_set_column_width (GTK_CLIST (clist1), 0, 17);
-  gtk_clist_set_column_width (GTK_CLIST (clist1), 1, 50);
-  gtk_clist_set_column_width (GTK_CLIST (clist1), 2, 80);
-  gtk_clist_set_column_auto_resize (GTK_CLIST (clist1), 2, TRUE);
-  gtk_clist_column_titles_show (GTK_CLIST (clist1));
+  column = gtk_tree_view_column_new ();
+  gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
+  gtk_tree_view_column_set_title (column, _("Count"));
+  renderer = gtk_cell_renderer_text_new ();
+  gtk_tree_view_column_pack_start (column, renderer, TRUE);
+  gtk_tree_view_column_add_attribute (column, renderer, "text", STACK_TRACE_COUNT_COLUMN);
+  gtk_tree_view_append_column (GTK_TREE_VIEW (st->widgets.clist), column);
+  gtk_tree_view_set_expander_column (GTK_TREE_VIEW (st->widgets.clist), column);
 
-  label1 = gtk_label_new ("");
-  gtk_widget_show (label1);
-  gtk_clist_set_column_widget (GTK_CLIST (clist1), 0, label1);
+  column = gtk_tree_view_column_new ();
+  renderer = gtk_cell_renderer_text_new ();
+  gtk_tree_view_column_pack_start (column, renderer, TRUE);
+  gtk_tree_view_column_add_attribute (column, renderer, "text", STACK_TRACE_FRAME_COLUMN);
+  gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
+  gtk_tree_view_column_set_title (column, _("Frame"));
+  gtk_tree_view_append_column (GTK_TREE_VIEW (st->widgets.clist), column);
 
-  label2 = gtk_label_new (_("Frame"));
-  gtk_widget_show (label2);
-  gtk_clist_set_column_widget (GTK_CLIST (clist1), 1, label2);
+  g_signal_connect (st->widgets.clist, "event", G_CALLBACK (on_stack_trace_event), st);  
 
-  label3 = gtk_label_new (_("Stack"));
-  gtk_widget_show (label3);
-  gtk_clist_set_column_widget (GTK_CLIST (clist1), 2, label3);
-
-  gtk_signal_connect (GTK_OBJECT (window1), "delete_event",
-                      GTK_SIGNAL_FUNC (on_stack_trace_window_delete_event),
-                      st);
-  gtk_signal_connect (GTK_OBJECT (clist1), "select_row",
-                      GTK_SIGNAL_FUNC (on_stack_trace_clist_select_row),
-                      st);
-  gtk_signal_connect (GTK_OBJECT (clist1), "unselect_row",
-                      GTK_SIGNAL_FUNC (on_stack_trace_clist_unselect_row),
-                      st);
-  gtk_signal_connect (GTK_OBJECT (window1), "event",
-                      GTK_SIGNAL_FUNC (on_stack_trace_event),
-                      st);
-
-  st->widgets.window = window1;
-  st->widgets.clist = clist1;
-  st->widgets.menu = create_stack_menu();
+  st->widgets.menu = create_stack_menu(st);
   st->widgets.menu_set = stack_menu_uiinfo[0].widget;
   st->widgets.menu_info = stack_menu_uiinfo[1].widget; 
   st->widgets.menu_update = stack_menu_uiinfo[2].widget;
   st->widgets.menu_view = stack_menu_uiinfo[3].widget;
 
-  gtk_widget_ref(st->widgets.window);
   gtk_widget_ref(st->widgets.clist);
   gtk_widget_ref(st->widgets.menu);
   gtk_widget_ref(st->widgets.menu_set);
   gtk_widget_ref(st->widgets.menu_info);
   gtk_widget_ref(st->widgets.menu_update);
   gtk_widget_ref(st->widgets.menu_view);
+}
+
+
+static GtkWidget*
+create_stack_menu (StackTrace *st)
+{
+  GtkWidget *menu4;
+  int i;
+  int entries = sizeof (stack_menu_uiinfo) / sizeof (GnomeUIInfo);
+	
+	/* set all user data in the stack trace menu to the StackTrace struct parameter */
+  for (i = 0; i < entries; i++)
+  	stack_menu_uiinfo[i].user_data = st;
+
+  menu4 = gtk_menu_new ();
+  gnome_app_fill_menu (GTK_MENU_SHELL (menu4), stack_menu_uiinfo, NULL, FALSE, 0);
+  return menu4;
 }

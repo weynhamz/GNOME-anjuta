@@ -28,7 +28,6 @@ typedef struct _StackTrace StackTrace;
 
 struct _StackTraceGui
 {
-  GtkWidget *window;
   GtkWidget *clist;
   GtkWidget *menu;
   GtkWidget *menu_set;
@@ -40,11 +39,19 @@ struct _StackTraceGui
 struct _StackTrace
 {
   StackTraceGui widgets;
-  gint current_index;
   gint current_frame;
-  gboolean is_showing;
-  gint win_pos_x, win_pos_y, win_width, win_height;
+  gint current_index;
+  GtkTreeIter *current_frame_iter;
+  GtkTreeIter *current_index_iter;
 };
+
+enum {
+	STACK_TRACE_ACTIVE_COLUMN,
+	STACK_TRACE_COUNT_COLUMN,
+	STACK_TRACE_FRAME_COLUMN,
+	STACK_TRACE_N_COLUMNS
+};
+
 
 StackTrace *stack_trace_new (void);
 
@@ -57,13 +64,5 @@ void stack_trace_update (GList * lines, gpointer st);
 void stack_trace_update_controls (StackTrace * st);
 
 void stack_trace_destroy (StackTrace * st);
-
-gboolean stack_trace_save_yourself (StackTrace * st, FILE * stream);
-
-gboolean stack_trace_load_yourself (StackTrace * st, PropsID props);
-
-void stack_trace_show (StackTrace * st);
-
-void stack_trace_hide (StackTrace * st);
 
 #endif

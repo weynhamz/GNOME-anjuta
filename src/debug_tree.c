@@ -1298,15 +1298,15 @@ destroy_non_analyzed (GtkTreeModel* model, GtkTreeIter* parent)
 		}
 		if (!data->analyzed)
 		{
-			g_print("destroying %s\n",data->name);
+			/* g_print("destroying %s\n",data->name); */
 			g_free (data->name);
 			g_free (data->value);
 			g_free (data);
-			gtk_tree_store_remove(GTK_TREE_STORE(model),&iter);	
+			success = gtk_tree_store_remove (GTK_TREE_STORE (model), &iter);
 		}
 		else
 		{
-			g_print("not destroying %s\n",data->name);
+			/* g_print("not destroying %s\n",data->name); */
 			success = gtk_tree_model_iter_next (model, &iter);
 		}
 	}
@@ -1407,7 +1407,7 @@ on_inspect_memory_clicked (GtkMenuItem * menu_item, gpointer data)
 		while ((*end >= '0' && *end <= '9') || (*end >= 'a' && *end <= 'f'))
 			end++;
 		hexa = g_strndup (start, end - start);
-		adr = adr_to_decimal (hexa);
+		adr = memory_info_address_to_decimal (hexa);
 		memory = memory_info_new (adr);
 		gtk_widget_show (memory);
 		g_free (hexa);

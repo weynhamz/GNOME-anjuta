@@ -141,7 +141,8 @@ void anjuta_preferences_add_page (AnjutaPreferences* pr, GladeXML *gxml,
  * but you want them to be part of preferences system.
  */
 void anjuta_preferences_register_all_properties_from_glade_xml (AnjutaPreferences* pr,
-																GladeXML *gxml);
+																GladeXML *gxml,
+																GtkWidget *parent);
 /* This registers only one widget. The widget could be shown elsewhere.
  * the property_description should be of the form described before.
  */
@@ -298,40 +299,6 @@ gint anjuta_preferences_default_get_int (AnjutaPreferences * p, gchar * key);
 
 #define IDENT_NAME                 "ident.name"
 #define IDENT_EMAIL                "ident.email"
-
-/* Miscellaneous */
-// #define CHARACTER_SET "character.set"
-
-/* Terminal preferences */
-// #define TERMINAL_FONT			"terminal.font"
-// #define TERMINAL_SCROLLSIZE		"terminal.scrollsize"
-// #define TERMINAL_TERM			"terminal.term"
-// #define TERMINAL_WORDCLASS		"terminal.wordclass"
-// #define TERMINAL_BLINK			"terminal.blink"
-// #define TERMINAL_BELL			"terminal.bell"
-// #define TERMINAL_SCROLL_KEY		"terminal.scroll.keystroke"
-// #define TERMINAL_SCROLL_OUTPUT	"terminal.scroll.output"
-
-/*
-** Provide some reasonable failsafe values for the embedded
-** terminal widget - Biswa
-*/
-// #ifndef DEFAULT_ZVT_FONT
-// #define DEFAULT_ZVT_FONT "Courier 12"
-// #endif
-
-// #ifndef DEFAULT_ZVT_SCROLLSIZE
-// #define DEFAULT_ZVT_SCROLLSIZE 200
-//~ #define MAX_ZVT_SCROLLSIZE 100000
-//~ #endif
-
-//~ #ifndef DEFAULT_ZVT_TERM
-//~ #define DEFAULT_ZVT_TERM "xterm"
-//~ #endif
-
-//~ #ifndef DEFAULT_ZVT_WORDCLASS
-//~ #define DEFAULT_ZVT_WORDCLASS "-A-Za-z0-9/_:.,?+%="
-//~ #endif
 
 #ifdef __cplusplus
 };

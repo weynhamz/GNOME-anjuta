@@ -839,12 +839,12 @@ static GnomeUIInfo view1_menu_uiinfo[NUM_VIEW_SUBMENUS+1] = {
 	 on_registers1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 GDK_F6, GDK_CONTROL_MASK, NULL},
-	{/*10*/
-	 GNOME_APP_UI_ITEM, N_("Program _Stack"),
+	//{/*10*/
+	 /*GNOME_APP_UI_ITEM, N_("Program _Stack"),
 	 N_("Show stack trace of the program"),
 	 on_program_stack1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
-	 GDK_F7, GDK_CONTROL_MASK, NULL},
+	 GDK_F7, GDK_CONTROL_MASK, NULL},*/
 	{/*11*/
 	 GNOME_APP_UI_ITEM, N_("Shared _Libraries"),
 	 N_("Show shared libraries loaded by the program"),

@@ -384,9 +384,14 @@ anjuta_preferences_register_property_from_string (AnjutaPreferences *pr,
 	return TRUE;
 }
 
+/*
+ * Registers all properties defined for widgets below the 'parent' widget
+ * in the given gxml glade UI tree
+ */
 void
 anjuta_preferences_register_all_properties_from_glade_xml (AnjutaPreferences* pr,
-														   GladeXML *gxml)
+														   GladeXML *gxml,
+														   GtkWidget *parent)
 {
 	GList *widgets;
 	GList *node;
@@ -399,7 +404,28 @@ anjuta_preferences_register_all_properties_from_glade_xml (AnjutaPreferences* pr
 	while (node)
 	{
 		const gchar *name;
-		GtkWidget *widget = node->data;
+		GtkWidget *widget, *p;
+		gboolean cont_flag = FALSE;
+		
+		widget = node->data;
+		
+		p = gtk_widget_get_parent (widget);
+		/* Added only if it's a desendend child of the parent */
+		while (p != parent)
+		{
+			if (p == NULL)
+			{
+				cont_flag = TRUE;
+				break;
+			}
+			p = gtk_widget_get_parent (p);
+		}
+		if (cont_flag == TRUE)
+		{
+			node = g_list_next (node);
+			continue;
+		}
+		
 		name = glade_get_widget_name (widget);
 		if (strncmp (name, PREFERENCE_PROPERTY_PREFIX,
                      strlen (PREFERENCE_PROPERTY_PREFIX)) == 0)
@@ -682,8 +708,8 @@ anjuta_preferences_add_page (AnjutaPreferences* pr, GladeXML *gxml,
 	pixbuf = anjuta_res_get_pixbuf (icon_filename);
 	anjuta_preferences_dialog_add_page (ANJUTA_PREFERENCES_DIALOG (pr),
 										glade_widget_name, pixbuf, page);
+	anjuta_preferences_register_all_properties_from_glade_xml (pr, gxml, page);
 	g_object_unref (page);
-	anjuta_preferences_register_all_properties_from_glade_xml (pr, gxml);
 }
 
 
@@ -695,7 +721,8 @@ e.g. "General" corresponds to "preferences-general.png"
 for future this maybe a map or something like 
 but for now let's simply transform prefs_chapter to icon_name 
 */
-gchar* get_preferences_icon_name(gchar* prefs_chapter)
+static gchar*
+get_preferences_icon_name (gchar* prefs_chapter)
 {
     GString * st=g_string_new(prefs_chapter);
     st=g_string_ascii_down(st);
@@ -709,14 +736,15 @@ utility function for previous one. The output structure completely
 describes widget that was specified in input by its name
 02/04 by Vitaly<vvv@rfniias.ru>
 */
-GladeWidgetInfo* glade_get_toplevel_by_name(GladeInterface *gi,gchar *name)
+static GladeWidgetInfo*
+glade_get_toplevel_by_name (GladeInterface *gi, gchar *name)
 {
 	int i;
-	if(gi==NULL)
-	return NULL;
-	for(i=0;i<gi->n_toplevels;i++)
+	if(gi == NULL)
+		return NULL;
+	for(i = 0; i < gi->n_toplevels; i++)
 	{
-		if(!strcmp(gi->toplevels[i]->name,name))
+		if (!strcmp (gi->toplevels[i]->name, name))
 		return gi->toplevels[i];
 	}
 	return NULL;
@@ -733,24 +761,24 @@ info:
     this provided to make glade extract main frame's names from toplevel 
     names to avoid mess when they are specified by hand
   
-02/04 by Vitaly<vvv@rfniias.ru>*/
-
-gchar* glade_get_from_toplevel_child_name_nth(GladeInterface *gi,
-											  gchar *toplevel_name, gint index)
-{	
-
+02/04 by Vitaly<vvv@rfniias.ru>
+*/
+static gchar*
+glade_get_from_toplevel_child_name_nth(GladeInterface *gi,
+									   gchar *toplevel_name, gint index)
+{
 	GladeWidgetInfo *wi;
-	gint dd=index+1;
+	gint dd = index + 1;
     
-	wi=glade_get_toplevel_by_name(gi,toplevel_name);
-	if(wi==NULL)
-	return NULL;
-	if(index>wi->children->child->n_children)
-	return NULL;
-	while(dd--)
+	wi = glade_get_toplevel_by_name (gi, toplevel_name);
+	if (wi == NULL)
+		return NULL;
+	if (index>wi->children->child->n_children)
+		return NULL;
+	while (dd--)
 	{
-		wi=wi->children->child;
-	}	
+		wi = wi->children->child;
+	}
 	return wi->name;
 }
 
@@ -763,17 +791,20 @@ add_all_default_pages (AnjutaPreferences *pr)
 	
 	GladeInterface *gi;
 
-	gxml = glade_xml_new (GLADE_FILE_ANJUTA,NULL, NULL);
-	gi=glade_parser_parse_file(GLADE_FILE_ANJUTA,(const gchar*)NULL);
+	gxml = glade_xml_new (GLADE_FILE_ANJUTA, NULL, NULL);
+	gi = glade_parser_parse_file (GLADE_FILE_ANJUTA, (const gchar*) NULL);
 	
-	node=glade_xml_get_widget_prefix(gxml,"preferences_dialog");
-	
+	node = glade_xml_get_widget_prefix (gxml,"preferences_dialog");
+
+#ifdef DEBUG
+	g_message ("Number of preferences page found: %d", g_list_length (node));
+#endif
 	while (node)
 	{
 		const gchar *name;
 		GtkWidget *widget = node->data;
 		name = glade_get_widget_name (widget);
-		if(!strstr(name, "terminal"))
+		if(!strstr (name, "terminal"))
 			if (strncmp (name, PREFERENCE_PROPERTY_PREFIX,
 				strlen (PREFERENCE_PROPERTY_PREFIX)) == 0)
 			{
@@ -782,6 +813,9 @@ add_all_default_pages (AnjutaPreferences *pr)
 															(gchar*) name, 0);
 				anjuta_preferences_add_page (pr, gxml, MainFrame,
 							get_preferences_icon_name ((gchar*) MainFrame));
+#ifdef DEBUG
+				g_message ("Added preferences page : %s", MainFrame);
+#endif	
 			}
 		node = g_list_next (node);
 	}

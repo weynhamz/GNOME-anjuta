@@ -1,3 +1,40 @@
+2003-05-05  Naba Kumar  <naba@gnome.org>
+
+	Patch from Etay Meiri <etay-m@bezeqint.net>
+	* src/debugger.c, src/debugger.h, src/main_menubar_def.h,
+	src/mainmenu_callbacks.c, src/message-manager.cc,
+	src/message-manager.h, src/stack_trace.c, src/stack_trace.h,
+	src/stack_trace_cbs.c, src/stack_trace_cbs.h, src/stack_trace_gui.c:
+	Ported stack trace to GNOME2 and added it in the message manager
+	pane.
+
+2003-05-02  Naba Kumar  <naba@gnome.org>
+
+	* src/memory.[h,c], debug_tree.c: Fixed a compiler error/warning.
+	
+	* src/preferences.[h,c]: Fixed preferences to save only one copy of
+	preferences property.
+	
+	* anjuta.prj: Fixed multiple preferences saved data.
+	
+	* scintilla/Document.cxx, scintilla/Editor.cxx, scintilla/Editor.h,
+	scintilla/LexCPP.cxx, scintilla/Makefile.am, scintilla/PlatGTK.cxx,
+	scintilla/PropSet.cxx, scintilla/ScintillaGTK.cxx,
+	scintilla/include/Platform.h, scintilla/include/PropSet.h,
+	scintilla/include/Scintilla.h, scintilla/include/Scintilla.iface:
+	Upgraded scitilla from CVS with faster window repaint
+	and more bugfixes.
+	
+	Patch from  Etay Meiri  <etay-m@bezeqint.net>
+	* src/watch.[c,h], src/watch_gui.c, (new) src/watch_gui.h: Fixed bugs
+	and code cleanups
+	
+2003-04-30  Dan Elphick <dre00r@ecs.soton.ac.uk>
+
+	* message-manager-private.[ch]: Make AnMessageWindow keep scrolling 
+	the window if messages are appended to the end and the scrollbar is
+	at the end.
+
 2003-04-29  Naba Kumar  <naba@gnome.org>
 
 	* configure.in: Removed omf-install from Makefiles list.

@@ -21,13 +21,14 @@
 #include <gnome.h>
 #include "debugger.h"
 #include "watch_cbs.h"
+#include "watch_gui.h"
+#include "utilities.h"
 
 extern gchar *eval_entry_history;
 extern gchar *expr_watch_entry_history;
 
-static void add_watch_entry (GtkEntry * ent);
-static void change_watch_entry (GtkEntry * ent);
-
+static void add_watch_entry (GtkEntry * ent, ExprWatch* ew);
+static void change_watch_entry (GtkEntry * ent, ExprWatch* ew);
 
 gboolean
 on_watch_event (GtkWidget * widget, GdkEvent * event, gpointer user_data)
@@ -45,7 +46,7 @@ on_watch_event (GtkWidget * widget, GdkEvent * event, gpointer user_data)
 	if (((GdkEventButton *) event)->button == 3) {
 	bevent = (GdkEventButton *) event;
 	bevent->button = 1;
-	expr_watch_update_controls (debugger.watch);
+	expr_watch_update_controls (ew);
 	gtk_menu_popup (GTK_MENU (ew->widgets.menu), NULL, NULL, NULL, NULL,
 					bevent->button, bevent->time);
 	return TRUE;
@@ -66,9 +67,11 @@ on_watch_event (GtkWidget * widget, GdkEvent * event, gpointer user_data)
 void
 on_watch_add_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
-	GtkWidget *dialog = create_watch_add_dialog ();
+	ExprWatch* ew = (ExprWatch*) user_data;
+	GtkWidget *dialog = create_watch_add_dialog (ew);
 	gtk_widget_show (dialog);
 }
+
 
 void
 on_watch_remove_activate (GtkMenuItem * menuitem, gpointer user_data)
@@ -78,8 +81,9 @@ on_watch_remove_activate (GtkMenuItem * menuitem, gpointer user_data)
 	GtkTreeModel *model;
 	GtkTreeSelection *selection;
 	GtkTreeIter iter;
+	ExprWatch* ew = (ExprWatch*) user_data;
 
-	view = GTK_TREE_VIEW (debugger.watch->widgets.clist);
+	view = GTK_TREE_VIEW (ew->widgets.clist);
 	model = gtk_tree_view_get_model (view);
 	selection = gtk_tree_view_get_selection (view);
 
@@ -90,13 +94,15 @@ on_watch_remove_activate (GtkMenuItem * menuitem, gpointer user_data)
 	}	
 	
 	gtk_list_store_remove(GTK_LIST_STORE(model), &iter);
-	expr_watch_update_controls (debugger.watch);
+	expr_watch_update_controls (ew);
 }
 
 void
 on_watch_clear_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
-	expr_watch_clear (debugger.watch);
+	ExprWatch* ew = (ExprWatch*) user_data;
+	
+	expr_watch_clear (ew);
 }
 
 void
@@ -109,15 +115,18 @@ void
 on_watch_change_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
 	GtkWidget *dialog;
+	ExprWatch* ew = (ExprWatch*) user_data;
 
-	dialog = create_watch_change_dialog ();
+	dialog = create_watch_change_dialog (ew);
 	gtk_widget_show (dialog);
 }
 
 void
 on_watch_update_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
-	expr_watch_cmd_queqe (debugger.watch);
+	ExprWatch* ew = (ExprWatch*) user_data;
+	
+	expr_watch_cmd_queqe (ew);
 	debugger_execute_cmd_in_queqe ();
 }
 
@@ -127,7 +136,15 @@ on_watch_help_activate (GtkMenuItem * menuitem, gpointer user_data)
 
 }
 
-/*****************************************************************************/
+
+void
+on_ew_add_ok_clicked (GtkButton * button, gpointer user_data)
+{
+	ExprWatch* ew =(ExprWatch*) g_object_get_data (G_OBJECT(user_data), "user_data");
+	add_watch_entry ((GtkEntry *) user_data, ew);
+}
+
+
 void
 on_ew_add_help_clicked (GtkButton * button, gpointer user_data)
 {
@@ -157,111 +174,12 @@ on_ew_change_help_clicked (GtkButton * wid, gpointer user_data)
 void
 on_ew_change_ok_clicked (GtkButton * wid, gpointer user_data)
 {
-	change_watch_entry ((GtkEntry *) user_data);
+	ExprWatch* ew =(ExprWatch*)g_object_get_data(G_OBJECT(user_data),"user_data");	
+	change_watch_entry ((GtkEntry *) user_data, ew);
 }
 
-static void
-change_watch_entry (GtkEntry * ent)
-{
-	gchar *row, *exp, *buff;
-	GtkTreeView *view;
-	GtkTreeModel *model;
-	GtkTreeSelection *selection;
-	GtkTreeIter iter;
-	struct watch_cb_data* cb_data;
-
-	if (GTK_IS_ENTRY (ent) == FALSE)
-		return;
-
-	row = (gchar *) gtk_entry_get_text (ent);
-	if (strlen (row) == 0)
-		return;
-
-	view = GTK_TREE_VIEW (debugger.watch->widgets.clist);
-	model = gtk_tree_view_get_model (view);
-	selection = gtk_tree_view_get_selection (view);
-
-	/* get iterator to the currently selected line */
-	if (!gtk_tree_selection_get_selected (selection, NULL, &iter))
-	{
-		g_warning("Error getting selection\n");
-		return;
-	}
-
-	if (expr_watch_entry_history)
-		g_free (expr_watch_entry_history);
-
-	expr_watch_entry_history = g_strdup (row);
-
-	/* change the variable */
-	gtk_list_store_set(GTK_LIST_STORE(model),&iter,
-					   WATCH_VARIABLE_COLUMN,g_strdup(row),
-					   WATCH_VALUE_COLUMN,"", -1);
-
-	/* send command to gdb to get the initial value */	
-	buff = g_strconcat ("print ", row, NULL);
-	
-	cb_data = g_new(struct watch_cb_data,1);
-	cb_data->ew = debugger.watch;
-	cb_data->iter = gtk_tree_iter_copy(&iter);
-	
-	debugger_put_cmd_in_queqe (buff, DB_CMD_NONE, expr_watch_update,cb_data);
-	debugger_execute_cmd_in_queqe ();
-
-	g_free (buff);	
-	/* update the values */
-	/*expr_watch_cmd_queqe (debugger.watch);
-
-	debugger_execute_cmd_in_queqe ();*/
-}
-
-static void
-add_watch_entry (GtkEntry * ent)
-{
-	gchar *row, *buff;
-	GtkTreeModel* model;
-	GtkTreeIter iter;
-	struct watch_cb_data* cb_data;
-
-	if (GTK_IS_ENTRY (ent) == FALSE)
-		return;
-	row = (gchar *) gtk_entry_get_text (ent);
-	if (strlen (row) == 0)
-		return;
-
-	if (expr_watch_entry_history)
-		g_free (expr_watch_entry_history);
-	expr_watch_entry_history = g_strdup(row);
 
 
-	model = gtk_tree_view_get_model (GTK_TREE_VIEW(debugger.watch->widgets.clist));	
-
-	/* add a watch entry */
-	gtk_list_store_append(GTK_LIST_STORE(model), &iter);
-	gtk_list_store_set(GTK_LIST_STORE(model), &iter, 
-					   WATCH_VARIABLE_COLUMN, g_strdup(row), 
-					   WATCH_VALUE_COLUMN, "", -1);
-
-	/* send command to gdb to get the initial value */	
-	buff = g_strconcat ("print ", row, NULL);
-	
-	cb_data = g_new(struct watch_cb_data,1);
-	cb_data->ew = debugger.watch;
-	cb_data->iter = gtk_tree_iter_copy(&iter);
-	
-	debugger_put_cmd_in_queqe (buff, DB_CMD_NONE, expr_watch_update,cb_data);
-	debugger_execute_cmd_in_queqe ();
-
-	g_free (buff);
-}
-
-void
-on_ew_add_ok_clicked (GtkButton * button, gpointer user_data)
-{
-	add_watch_entry ((GtkEntry *) user_data);
-}
-
-/*****************************************************************************/
 void
 on_eval_help_clicked (GtkButton * button, gpointer user_data)
 {
@@ -274,6 +192,15 @@ on_eval_entry_activate (GtkWidget * wid, gpointer user_data)
 	on_eval_ok_clicked (NULL, wid);
 	gtk_widget_destroy (GTK_WIDGET (user_data));
 }
+
+void
+on_eval_add_watch (GtkButton * button, gpointer user_data)
+{
+	ExprWatch* ew = (ExprWatch*) g_object_get_data (G_OBJECT(user_data), "user_data");	
+	add_watch_entry ((GtkEntry *) user_data, ew);
+}
+
+
 
 void
 on_eval_ok_clicked (GtkButton * button, gpointer user_data)
@@ -301,11 +228,6 @@ on_eval_ok_clicked (GtkButton * button, gpointer user_data)
 	debugger_execute_cmd_in_queqe ();
 }
 
-void
-on_eval_add_watch (GtkButton * button, gpointer user_data)
-{
-	add_watch_entry ((GtkEntry *) user_data);
-}
 
 void
 expr_watch_update (GList * lines, gpointer data)
@@ -360,4 +282,97 @@ expr_watch_update (GList * lines, gpointer data)
 	if (list)
 		g_list_free (list);
 	g_free(cb_data);
+}
+
+/* ************ private methods ***************/
+
+static void
+add_watch_entry (GtkEntry * ent, ExprWatch* ew)
+{
+	gchar *row, *buff;
+	GtkTreeModel *model;
+	GtkTreeIter iter;
+	struct watch_cb_data *cb_data;
+
+	if (GTK_IS_ENTRY (ent) == FALSE)
+		return;
+	row = (gchar *) gtk_entry_get_text (ent);
+	if (strlen (row) == 0)
+		return;
+
+	if (expr_watch_entry_history)
+		g_free (expr_watch_entry_history);
+	expr_watch_entry_history = g_strdup (row);
+
+
+	model = gtk_tree_view_get_model (GTK_TREE_VIEW (ew->widgets.clist));	
+
+	/* add a watch entry */
+	gtk_list_store_append (GTK_LIST_STORE(model), &iter);
+	gtk_list_store_set (GTK_LIST_STORE(model), &iter, 
+						WATCH_VARIABLE_COLUMN, g_strdup (row), 
+						WATCH_VALUE_COLUMN, "", -1);
+
+	/* send command to gdb to get the initial value */
+	buff = g_strconcat ("print ", row, NULL);
+	
+	cb_data = g_new (struct watch_cb_data, 1);
+	cb_data->ew = ew;
+	cb_data->iter = gtk_tree_iter_copy (&iter);
+	
+	debugger_put_cmd_in_queqe (buff, DB_CMD_NONE, expr_watch_update, cb_data);
+	debugger_execute_cmd_in_queqe ();
+
+	g_free (buff);
+}
+
+static void
+change_watch_entry (GtkEntry * ent, ExprWatch* ew)
+{
+	gchar *row, *exp, *buff;
+	GtkTreeView *view;
+	GtkTreeModel *model;
+	GtkTreeSelection *selection;
+	GtkTreeIter iter;
+	struct watch_cb_data *cb_data;
+
+	if (GTK_IS_ENTRY (ent) == FALSE)
+		return;
+
+	row = (gchar *) gtk_entry_get_text (ent);
+	if (strlen (row) == 0)
+		return;
+
+	view = GTK_TREE_VIEW (ew->widgets.clist);
+	model = gtk_tree_view_get_model (view);
+	selection = gtk_tree_view_get_selection (view);
+
+	/* get iterator to the currently selected line */
+	if (!gtk_tree_selection_get_selected (selection, NULL, &iter))
+	{
+		g_warning("Error getting watch tree selection\n");
+		return;
+	}
+
+	if (expr_watch_entry_history)
+		g_free (expr_watch_entry_history);
+	
+	expr_watch_entry_history = g_strdup (row);
+
+	/* change the variable */
+	gtk_list_store_set (GTK_LIST_STORE (model), &iter,
+						WATCH_VARIABLE_COLUMN, g_strdup (row),
+						WATCH_VALUE_COLUMN, "", -1);
+
+	/* send command to gdb to get the initial value */	
+	buff = g_strconcat ("print ", row, NULL);
+	
+	cb_data = g_new (struct watch_cb_data, 1);
+	cb_data->ew = ew;
+	cb_data->iter = gtk_tree_iter_copy (&iter);
+	
+	debugger_put_cmd_in_queqe (buff, DB_CMD_NONE, expr_watch_update, cb_data);
+	debugger_execute_cmd_in_queqe ();
+
+	g_free (buff);
 }

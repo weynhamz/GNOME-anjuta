@@ -39,7 +39,7 @@ extern "C"
 
 // Data:
 static char *labels[] =
-	{ N_("Build"), N_("Debug"), N_("Find"), N_("CVS"), N_("Locals"), N_("Watches"),
+	{ N_("Build"), N_("Debug"), N_("Find"), N_("CVS"), N_("Locals"), N_("Watches"), N_("Stack"),
 N_("Terminal"), N_("Stdout"), N_("Stderr") };
 
 // Intern functions
@@ -207,6 +207,7 @@ an_message_manager_add_type (AnMessageManager * amm, gint type_name,
 		    sub_win = new LocalsWindow(amm, type_name, type, pixmap);
 			break;
 		case MESSAGE_WATCHES:
+		case MESSAGE_STACK:
 			sub_win = new WidgetWindow(amm, type_name, type, pixmap);
 			break;
 		default:
@@ -920,6 +921,8 @@ create_default_types (AnMessageManager * amm)
 	an_message_manager_add_type (amm, MESSAGE_LOCALS,
 					 ANJUTA_PIXMAP_MINI_LOCALS);
 	an_message_manager_add_type (amm, MESSAGE_WATCHES,
+					 ANJUTA_PIXMAP_MINI_LOCALS);	
+	an_message_manager_add_type (amm, MESSAGE_STACK,
 					 ANJUTA_PIXMAP_MINI_LOCALS);	
 	an_message_manager_add_type (amm, MESSAGE_TERMINAL,
 					 ANJUTA_PIXMAP_MINI_TERMINAL);

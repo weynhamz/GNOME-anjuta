@@ -45,6 +45,8 @@
  #define ANJUTA_DEBUG_DEBUGGER
 #endif
 
+Debugger debugger;
+
 enum {
 	DEBUGGER_NONE,
 	DEBUGGER_EXIT,
@@ -52,11 +54,7 @@ enum {
 };
 
 static void locals_update_controls(void);
-
 static void debugger_info_prg(void);
-
-Debugger debugger;
-
 static void on_debugger_open_exec_filesel_ok_clicked (GtkButton * button,
 						      gpointer user_data);
 static void on_debugger_load_core_filesel_ok_clicked (GtkButton * button,
@@ -66,10 +64,9 @@ static void on_debugger_open_exec_filesel_cancel_clicked (GtkButton * button,
 static void on_debugger_load_core_filesel_cancel_clicked (GtkButton * button,
 							  gpointer user_data);
 static void debugger_stop_terminal (void);
-
 static void debugger_info_locals_cb(GList* list, gpointer data);
-
 static void debugger_handle_post_execution(void);
+static void debugger_command (gchar * com);
 
 void
 debugger_init ()
@@ -115,6 +112,7 @@ debugger_init ()
 	debugger.load_core_filesel = create_fileselection_gui (&fsd2);
 	debugger.breakpoints_dbase = breakpoints_dbase_new ();
 	debugger.stack = stack_trace_new ();
+	an_message_manager_set_widget (app->messages, MESSAGE_STACK, debugger.stack->widgets.clist);
 	debugger.watch = expr_watch_new ();
 	an_message_manager_set_widget(app->messages, MESSAGE_WATCHES, debugger.watch->widgets.clist);
 	debugger.cpu_registers = cpu_registers_new ();
@@ -139,15 +137,11 @@ debugger_save_yourself (FILE * stream)
 	if (!breakpoints_dbase_save_yourself
 	    (debugger.breakpoints_dbase, stream))
 		return FALSE;
-	/*if (!expr_watch_save_yourself (debugger.watch, stream))
-		return FALSE;*/
 	if (!cpu_registers_save_yourself (debugger.cpu_registers, stream))
 		return FALSE;
 	if (!signals_save_yourself (debugger.signals, stream))
 		return FALSE;
 	if (!sharedlibs_save_yourself (debugger.sharedlibs, stream))
-		return FALSE;
-	if (!stack_trace_save_yourself (debugger.stack, stream))
 		return FALSE;
 	return TRUE;
 }
@@ -163,15 +157,11 @@ debugger_load_yourself (PropsID stream)
 	if (!breakpoints_dbase_load_yourself
 	    (debugger.breakpoints_dbase, stream))
 		return FALSE;
-	/*if (!expr_watch_load_yourself (debugger.watch, stream))
-		return FALSE;*/
 	if (!cpu_registers_load_yourself (debugger.cpu_registers, stream))
 		return FALSE;
 	if (!signals_load_yourself (debugger.signals, stream))
 		return FALSE;
 	if (!sharedlibs_load_yourself (debugger.sharedlibs, stream))
-		return FALSE;
-	if (!stack_trace_load_yourself (debugger.stack, stream))
 		return FALSE;
 	return TRUE;
 }
@@ -365,7 +355,6 @@ debugger_set_active (gboolean state)
 void
 debugger_set_ready (gboolean state)
 {
-
 #ifdef ANJUTA_DEBUG_DEBUGGER
 	// g_message ("In function: debugger_set_ready()");
 #endif
@@ -378,7 +367,6 @@ debugger_set_ready (gboolean state)
 gboolean
 debugger_is_ready ()
 {
-
 #ifdef ANJUTA_DEBUG_DEBUGGER
 	// g_message ("In function: debugger_is_ready()");
 #endif
@@ -389,7 +377,6 @@ debugger_is_ready ()
 gboolean
 debugger_is_active ()
 {
-
 #ifdef ANJUTA_DEBUG_DEBUGGER
 	// g_message ("In function: debugger_is_active()");
 #endif
@@ -679,14 +666,12 @@ debugger_start (gchar * prog)
 void
 gdb_stdout_line_arrived (gchar * chars)
 {
-	gint i;
-
+	gint i = 0;
 
 #ifdef ANJUTA_DEBUG_DEBUGGER
 	g_message ("In function: gdb_stdout_line_arrived()");
 #endif
-	
-	for (i = 0; i < strlen (chars); i++)
+	while (chars[i])
 	{
 		if (chars[i] == '\n'
 		    || debugger.stdo_cur_char_pos >= (FILE_BUFFER_SIZE - 1))
@@ -700,6 +685,7 @@ gdb_stdout_line_arrived (gchar * chars)
 				chars[i];
 			debugger.stdo_cur_char_pos++;
 		}
+		i++;
 	}
 }
 
@@ -734,7 +720,6 @@ debugger_stdo_flush ()
 {
 	guint lineno;
 	gchar *filename, *line;
-
 
 #ifdef ANJUTA_DEBUG_DEBUGGER
 	g_message ("In function: debugger_stdo_flush()");
@@ -957,7 +942,7 @@ gdb_terminated (int status, time_t t)
 	anjuta_update_app_status (TRUE, NULL);
 }
 
-void
+static void
 debugger_command (gchar * com)
 {
 
@@ -969,6 +954,7 @@ debugger_command (gchar * com)
 		return;		/* There is no point in accepting commands when */
 	if (debugger_is_ready () == FALSE)
 		return;		/* gdb is not running or it is busy */
+
 	debugger_set_ready (FALSE);
 	launcher_send_stdin (com);
 }
@@ -998,6 +984,7 @@ debugger_dialog_message (GList * lines, gpointer data)
 	
 	if (g_list_length (lines) < 1)
 		return;
+	
 	anjuta_info_show_list (lines, 0, 0);
 }
 

@@ -59,21 +59,6 @@ struct watch_cb_data {
 ExprWatch*
 expr_watch_new(void);
 
-GtkWidget*
-create_watch_menu(void);
-
-void
-create_expr_watch_gui(ExprWatch* ew);
-
-GtkWidget*
-create_watch_add_dialog();
-
-GtkWidget*
-create_watch_change_dialog();
-
-GtkWidget*
-create_eval_dialog(GtkWindow* parent);
-
 void
 expr_watch_clear(ExprWatch *ew);
 

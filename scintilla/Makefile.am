@@ -13,6 +13,8 @@ libscintilla_a_SOURCES =\
 	CallTip.cxx \
 	CellBuffer.cxx \
 	ContractionState.cxx \
+	ExternalLexer.cxx \
+	ExternalLexer.h \
 	Document.cxx \
 	DocumentAccessor.cxx \
 	Editor.cxx \

@@ -25,8 +25,7 @@
 #include <libgnomeui/gnome-window-icon.h>
 
 #include "anjuta.h"
-#include "watch.h"
-#include "debugger.h"
+#include "watch_gui.h"
 #include "watch_cbs.h"
 #include "utilities.h"
 
@@ -82,12 +81,20 @@ static GnomeUIInfo watch_menu_uiinfo[] = {
   GNOMEUIINFO_END
 };
 
-GtkWidget *
-create_watch_menu ()
+
+static GtkWidget *
+create_watch_menu (ExprWatch* ew)
 {
+  int i;
   GtkWidget *watch_menu;
+  int entries = sizeof (watch_menu_uiinfo) / sizeof (GnomeUIInfo);
+
+	/* set all user data in the watch menu to the ExprWatch struct parameter */
+  for (i = 0 ; i < entries ; i++)
+  	watch_menu_uiinfo[i].user_data = ew;
 
   watch_menu = gtk_menu_new ();
+
   gnome_app_fill_menu (GTK_MENU_SHELL (watch_menu), watch_menu_uiinfo,
 		       NULL, FALSE, 0);
 
@@ -134,7 +141,7 @@ create_expr_watch_gui (ExprWatch * ew)
 
   g_signal_connect (ew->widgets.clist, "event", G_CALLBACK (on_watch_event), ew);
 
-  ew->widgets.menu = create_watch_menu ();
+  ew->widgets.menu = create_watch_menu (ew);	
   ew->widgets.menu_add = watch_menu_uiinfo[0].widget;
   ew->widgets.menu_remove = watch_menu_uiinfo[1].widget;
   ew->widgets.menu_update = watch_menu_uiinfo[2].widget;
@@ -153,7 +160,7 @@ create_expr_watch_gui (ExprWatch * ew)
 }
 
 GtkWidget *
-create_watch_add_dialog ()
+create_watch_add_dialog (ExprWatch *ew)
 {
   GtkWidget *dialog3;
   GtkWidget *dialog_vbox3;
@@ -179,6 +186,7 @@ create_watch_add_dialog ()
   gtk_box_pack_start (GTK_BOX (dialog_vbox3), label15, FALSE, FALSE, 0);
 
   entry7 = gtk_entry_new ();
+  g_object_set_data (G_OBJECT (entry7), "user_data", ew);
   entry_set_text_n_select (entry7, expr_watch_entry_history, TRUE);
   gtk_widget_show (entry7);
   gtk_box_pack_start (GTK_BOX (dialog_vbox3), entry7, FALSE, FALSE, 0);
@@ -218,7 +226,7 @@ create_watch_add_dialog ()
 }
 
 GtkWidget *
-create_watch_change_dialog ()
+create_watch_change_dialog (ExprWatch *ew)
 {
   GtkWidget *dialog3;
   GtkWidget *dialog_vbox3;
@@ -244,6 +252,7 @@ create_watch_change_dialog ()
   gtk_box_pack_start (GTK_BOX (dialog_vbox3), label15, FALSE, FALSE, 0);
 
   entry7 = gtk_entry_new ();
+  g_object_set_data (G_OBJECT (entry7), "user_data", ew);
   entry_set_text_n_select (entry7, expr_watch_entry_history, TRUE);
   gtk_widget_show (entry7);
   gtk_box_pack_start (GTK_BOX (dialog_vbox3), entry7, FALSE, FALSE, 0);
@@ -283,7 +292,7 @@ create_watch_change_dialog ()
 }
 
 GtkWidget *
-create_eval_dialog (GtkWindow* parent)
+create_eval_dialog (GtkWindow* parent, ExprWatch *ew)
 {
   GtkWidget *dialog4;
   GtkWidget *dialog_vbox4;
@@ -310,6 +319,7 @@ create_eval_dialog (GtkWindow* parent)
   gtk_box_pack_start (GTK_BOX (dialog_vbox4), label16, FALSE, FALSE, 0);
 
   entry8 = gtk_entry_new ();
+  g_object_set_data (G_OBJECT (entry8), "user_data", ew);  
   entry_set_text_n_select (entry8, eval_entry_history, TRUE);
   gtk_widget_show (entry8);
   gtk_box_pack_start (GTK_BOX (dialog_vbox4), entry8, FALSE, FALSE, 0);

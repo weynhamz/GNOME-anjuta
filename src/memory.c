@@ -274,7 +274,7 @@ hexa_to_decimal (gchar c)
 }
 
 guchar *
-adr_to_decimal (gchar * hexa)
+memory_info_address_to_decimal (gchar * hexa)
 {
   gchar *ptr;
   gulong dec;
@@ -629,7 +629,7 @@ on_inspect_button_clicked (GtkButton *button, MemApp *memapp)
   g_free (string);
   remove_space (ptr);
 
-  inspect_memory (adr_to_decimal (ptr), memapp );
+  inspect_memory (memory_info_address_to_decimal (ptr), memapp );
 }
 
 static void

@@ -93,7 +93,6 @@ void debugger_shutdown (void);
 gboolean debugger_save_yourself (FILE * stream);
 gboolean debugger_load_yourself (PropsID props);
 void debugger_start (gchar * prog);
-void debugger_command (gchar * com);
 gboolean debugger_is_active (void);
 gboolean debugger_is_ready (void);
 

@@ -28,6 +28,7 @@
 #include "resources.h"
 #include "debugger.h"
 #include "utilities.h"
+#include "pixmaps.h"
 
 /* Including pixmaps at compile time */
 /* So that these at least work when gnome pixmaps are not found */
@@ -36,11 +37,8 @@
 
 static void add_frame (StackTrace * st, gchar *);
 
-GdkPixmap *pointer_pix;
-GdkBitmap *pointer_pix_mask;
+GdkPixbuf *pointer_pix;
 
-GdkPixmap *blank_pix;
-GdkBitmap *blank_pix_mask;
 
 StackTrace *
 stack_trace_new ()
@@ -51,22 +49,12 @@ stack_trace_new ()
 	if (st)
 	{
 		create_stack_trace_gui (st);
-		st->current_index = -1;
 		st->current_frame = 0;
-		st->is_showing = FALSE;
-		st->win_pos_x = 30;
-		st->win_pos_y = 200;
-		st->win_width = 400;
-		st->win_height = 150;
-
-		pointer_pix =
-			gdk_pixmap_colormap_create_from_xpm_d(NULL,
-				gtk_widget_get_colormap(st->widgets.window),
-				&pointer_pix_mask, NULL, pointer_xpm);
-		blank_pix =
-			gdk_pixmap_colormap_create_from_xpm_d(NULL,
-				gtk_widget_get_colormap(st->widgets.window),
-				&blank_pix_mask, NULL, blank_xpm);
+		st->current_index = 0;
+		st->current_frame_iter = NULL;
+		st->current_index_iter = NULL;
+		
+		pointer_pix = anjuta_res_get_pixbuf (ANJUTA_PIXMAP_POINTER);
 	}
 	return st;
 }
@@ -74,9 +62,16 @@ stack_trace_new ()
 void
 stack_trace_clear (StackTrace * st)
 {
-	gtk_clist_unselect_all (GTK_CLIST (st->widgets.clist));
-	gtk_clist_clear (GTK_CLIST (st->widgets.clist));
-	st->current_index = -1;
+	GtkTreeModel* model;
+	
+	model = gtk_tree_view_get_model (GTK_TREE_VIEW (st->widgets.clist));
+
+	gtk_list_store_clear (GTK_LIST_STORE (model));
+
+	st->current_frame = 0;
+	st->current_index = 0;
+	st->current_frame_iter = NULL;
+	st->current_index_iter = NULL;
 }
 
 void
@@ -90,18 +85,14 @@ stack_trace_update (GList * outputs, gpointer data)
 
 	st = (StackTrace *) data;
 	list = remove_blank_lines (outputs);
-	adj = gtk_clist_get_vadjustment (GTK_CLIST (st->widgets.clist));
-	if (st->current_frame > 0)
-		adj_value = adj->value;
-	else
-		adj_value = 0;
+	stack_trace_clear (st);
 
-	stack_trace_clear (debugger.stack);
 	if (g_list_length (list) < 1)
 	{
 		g_list_free (list);
 		return;
 	}
+
 	node = list->next;
 	ptr = g_strdup ((gchar *) list->data);
 	while (node)
@@ -128,121 +119,51 @@ stack_trace_update (GList * outputs, gpointer data)
 		g_free (ptr);
 		ptr = NULL;
 	}
-	gtk_adjustment_set_value (adj, adj_value);
+
 	g_list_free (list);
 }
 
 static void
 add_frame (StackTrace * st, gchar * line)
 {
-	gchar frame[10], *dummy_fn;
-	gchar *row[3];
-	gint count, last_row, dummy_int;
+	gchar frame_no[10], *dummy_fn;
+	gint count;
 	GdkColor blue = { 16, 0, 0, -1 };
 	GdkColor red = { 16, -1, 0, 0 };
+	GtkTreeModel *model;
+	GtkTreeIter iter;
+	GdkPixbuf *pic;
 
-	count = sscanf (line, "#%s", frame);
+	count = sscanf (line, "#%s", frame_no);
 	if (count != 1)
 		return;
 	while (!isspace (*line))
 		line++;
 	while (isspace (*line))
 		line++;
-	row[0] = NULL;
-	row[1] = frame;
-	row[2] = line;
-	gtk_clist_append (GTK_CLIST (st->widgets.clist), row);
-	last_row =
-		g_list_length (GTK_CLIST (st->widgets.clist)->row_list) - 1;
-	if (parse_error_line (line, &dummy_fn, &dummy_int))
-	{
-		gtk_clist_set_foreground (GTK_CLIST (st->widgets.clist),
-					  last_row, &red);
-		g_free (dummy_fn);
+
+	model = gtk_tree_view_get_model (GTK_TREE_VIEW (st->widgets.clist));	
+
+	gtk_list_store_append (GTK_LIST_STORE (model), &iter);
+
+	count = atoi(frame_no);
+
+	/* if we are on the current frame set iterator and pixmap correctly */
+	if (count == st->current_frame) {
+		if (st->current_frame_iter) 
+			gtk_tree_iter_free (st->current_frame_iter);
+		st->current_frame_iter = gtk_tree_iter_copy (&iter);
+		pic = pointer_pix;
 	}
 	else
-	{
-		gtk_clist_set_foreground (GTK_CLIST (st->widgets.clist),
-					  last_row, &blue);
-	}
-	if (last_row == st->current_frame)
-	{
-		gtk_clist_set_pixmap (GTK_CLIST (st->widgets.clist), last_row,
-				      0, pointer_pix, pointer_pix_mask);
-	}
+		pic = NULL;
+
+	gtk_list_store_set(GTK_LIST_STORE(model), &iter, 
+					   STACK_TRACE_ACTIVE_COLUMN, pic,
+					   STACK_TRACE_COUNT_COLUMN, g_strdup (frame_no), 
+					   STACK_TRACE_FRAME_COLUMN, g_strdup (line), -1);
 }
 
-void
-stack_trace_show (StackTrace * st)
-{
-	if (st)
-	{
-		if (st->is_showing)
-		{
-			gdk_window_raise (st->widgets.window->window);
-			return;
-		}
-		gtk_widget_set_uposition (st->widgets.window,
-						  st->win_pos_x,
-						  st->win_pos_y);
-		gtk_window_set_default_size (GTK_WINDOW
-						     (st->widgets.window),
-						     st->win_width,
-						     st->win_height);
-		gtk_widget_show (st->widgets.window);
-		st->is_showing = TRUE;
-	}
-}
-
-void
-stack_trace_hide (StackTrace * st)
-{
-	if (st)
-	{
-		if (st->is_showing == FALSE)
-			return;
-		gdk_window_get_root_origin (st->widgets.window->
-						    window, &st->win_pos_x,
-						    &st->win_pos_y);
-		gdk_window_get_size (st->widgets.window->window,
-						 &st->win_width, &st->win_height);
-		gtk_widget_hide (st->widgets.window);
-		st->is_showing = FALSE;
-	}
-}
-
-gboolean
-stack_trace_save_yourself (StackTrace * st, FILE * stream)
-{
-	if (!st)
-		return FALSE;
-
-	if (st->is_showing)
-	{
-		gdk_window_get_root_origin (st->widgets.window->window,
-					    &st->win_pos_x, &st->win_pos_y);
-		gdk_window_get_size (st->widgets.window->window,
-				     &st->win_width, &st->win_height);
-	}
-	fprintf (stream, "stack.trace.win.pos.x=%d\n", st->win_pos_x);
-	fprintf (stream, "stack.trace.win.pos.y=%d\n", st->win_pos_y);
-	fprintf (stream, "stack.trace.win.width=%d\n", st->win_width);
-	fprintf (stream, "stack.trace.win.height=%d\n", st->win_height);
-	return TRUE;
-}
-
-gboolean
-stack_trace_load_yourself (StackTrace * st, PropsID props)
-{
-	if (!st)
-		return FALSE;
-
-	st->win_pos_x = prop_get_int (props, "stack.trace.win.pos.x", 30);
-	st->win_pos_y = prop_get_int (props, "stack.trace.win.pos.y", 200);
-	st->win_width = prop_get_int (props, "stack.trace.win.width", 400);
-	st->win_height = prop_get_int (props, "stack.trace.win.height", 150);
-	return TRUE;
-}
 
 void
 stack_trace_destroy (StackTrace * st)
@@ -250,7 +171,6 @@ stack_trace_destroy (StackTrace * st)
 	if (st)
 	{
 		stack_trace_clear (st);
-		gtk_widget_unref (st->widgets.window);
 		gtk_widget_unref (st->widgets.clist);
 		gtk_widget_unref (st->widgets.menu);
 		gtk_widget_unref (st->widgets.menu_set);
@@ -258,8 +178,6 @@ stack_trace_destroy (StackTrace * st)
 		gtk_widget_unref (st->widgets.menu_update);
 		gtk_widget_unref (st->widgets.menu_view);
 
-		if (GTK_IS_WIDGET (st->widgets.window))
-			gtk_widget_destroy (st->widgets.window);
 		g_free (st);
 	}
 }
@@ -267,13 +185,13 @@ stack_trace_destroy (StackTrace * st)
 void
 stack_trace_update_controls (StackTrace * st)
 {
-	gboolean A, R, S;
+	gboolean A, R;
 
 	A = debugger_is_active ();
 	R = debugger_is_ready ();
-	S = (st->current_index >= 0);
-	gtk_widget_set_sensitive (st->widgets.menu_set, A && R && S);
+
+	gtk_widget_set_sensitive (st->widgets.menu_set, A && R);
 	gtk_widget_set_sensitive (st->widgets.menu_info, A && R);
 	gtk_widget_set_sensitive (st->widgets.menu_update, A && R);
-	gtk_widget_set_sensitive (st->widgets.menu_view, A && R && S);
+	gtk_widget_set_sensitive (st->widgets.menu_view, A && R);
 }
