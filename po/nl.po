@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta 0.1.7\n"
-"POT-Creation-Date: 2001-11-30 06:12-0500\n"
+"POT-Creation-Date: 2001-11-28 06:17-0500\n"
 "PO-Revision-Date: 2001-11-29 11:15+1\n"
 "Last-Translator: Marc Botermans <marc.botermans@home.nl>\n"
 "Language-Team: none\n"
@@ -26,14 +26,12 @@ msgid "/_Class Definition"
 msgstr "/_Class Definition"
 
 #: ccview/cccmd.cc:28
-#, fuzzy
 msgid "/_Function Definition"
-msgstr "/_Func Definition"
+msgstr "/_Functie Definitie"
 
 #: ccview/cccmd.cc:29
-#, fuzzy
 msgid "/Function _Declaration"
-msgstr "/Func _Declaration"
+msgstr "/Functie _Declaratie"
 
 #: ccview/cccmd.cc:36
 msgid "/_Shell here"
@@ -232,13 +230,13 @@ msgstr ""
 "U moet een geldig %s veld invoeren om verder te kunnen gaan."
 
 #. For the time being
-#: src/appwizard_cbs.c:251 src/project_dbase.c:1418 src/project_dbase.c:1423
-#: src/project_dbase.c:1426 src/signals_cbs.c:140 src/signals_cbs.c:153
+#: src/appwizard_cbs.c:251 src/project_dbase.c:1411 src/project_dbase.c:1416
+#: src/project_dbase.c:1419 src/signals_cbs.c:140 src/signals_cbs.c:153
 #: src/signals_cbs.c:166
 msgid "Yes"
 msgstr "Ja"
 
-#: src/appwizard_cbs.c:253 src/project_dbase.c:1420 src/project_dbase.c:1428
+#: src/appwizard_cbs.c:253 src/project_dbase.c:1413 src/project_dbase.c:1421
 #: src/signals_cbs.c:142 src/signals_cbs.c:155 src/signals_cbs.c:168
 msgid "No"
 msgstr "Nee"
@@ -297,6 +295,17 @@ msgid ""
 "\n"
 "Click Next to proceed ..."
 msgstr ""
+"De Applicatie Wizard zal een basis skelet\n"
+"genereren voor uw applicatie, inclusief alle\n"
+"bouwbestanden. Het zal u vragen naar de basis\n"
+"initiele structuur van de applicatie die u wilt\n"
+"ontwikkelen.\n"
+"\n"
+"Beantwoord de vragen zorgvuldig omdat het niet\n"
+"altijd mogelijk is om sommige van de instellingen\n"
+"later te veranderen.\n"
+"\n"
+"Druk op Volgende om verder te gaan ..."
 
 #: src/appwizard_gui.c:100
 msgid "Application Wizard"
@@ -787,8 +796,7 @@ msgstr "Dit bestand is niet bewaard. Bewaar het eerst en compileer dan."
 
 #: src/compile.c:129
 msgid "The object file is up to date. No need to compile again."
-msgstr ""
-"Het objectbestand is al bijgewerkt. Geen reden om opnieuw te compileren."
+msgstr "Het objectbestand is al bijgewerkt. Geen reden om opnieuw te compileren."
 
 #: src/compile.c:143
 msgid "I do not really know how to compile this file."
@@ -981,66 +989,54 @@ msgid "All Warnings"
 msgstr "Alle waarschuwingen"
 
 #: src/compiler_options_gui.c:870
-#, fuzzy
 msgid "Warning for implicit declarations"
 msgstr "Waarschuwing voor impliciete declaratie"
 
 #: src/compiler_options_gui.c:878
-#, fuzzy
 msgid "Warning for mismatched return types"
-msgstr "Waarschuwing voor niet-kloppend retourneertypes"
+msgstr "Waarschuwing voor onjuiste retour types"
 
 #: src/compiler_options_gui.c:886
-#, fuzzy
 msgid "Warning for unused variables"
 msgstr "Waarschuwing voor ongebruikte variabelen"
 
 #: src/compiler_options_gui.c:894
-#, fuzzy
 msgid "Warning for unhandled switch case with enums"
-msgstr "Waarschuwing voor onbehandelde Switch case met enumeraties"
+msgstr "Waarschuwing voor onafgehandelde Switch case met enumeraties"
 
 #: src/compiler_options_gui.c:902
-#, fuzzy
 msgid "Warning for nested comment"
-msgstr "Waarschuwing voor genest commentaar"
+msgstr "Waarschuwing voor gebruik van genest commentaar"
 
 #: src/compiler_options_gui.c:910
-#, fuzzy
 msgid "Warning for uninitialized variable use"
 msgstr "Waarschuwing voor gebruik van niet geïnitialiseerde variabele"
 
 #: src/compiler_options_gui.c:918
-#, fuzzy
 msgid "Warning for missing parentheses"
 msgstr "Waarschuwing voor het onbreken van haakjes"
 
 #: src/compiler_options_gui.c:926
-#, fuzzy
 msgid "Warning on differences to traditional syntax"
-msgstr "Waarschuwing voor ongebruikelijke syntax"
+msgstr "Waarschuwing: hier wordt ongebruikelijke syntax toegepast"
 
 #: src/compiler_options_gui.c:934
-#, fuzzy
 msgid "Warning for variable shadowing"
 msgstr "Waarschuwing voor het schaduwen van variabele"
 
 #: src/compiler_options_gui.c:942
-#, fuzzy
 msgid "Warning for suspected pointer arithmetic"
-msgstr "Waarschuwing voor gevaarlijk pointerbewerking"
+msgstr "Waarschuwing voor verdachte pointerbewerking"
 
 #: src/compiler_options_gui.c:950
-#, fuzzy
 msgid "Warning for missing prototypes"
 msgstr "Waarschuwing voor missende prototypes"
 
 #: src/compiler_options_gui.c:958
 msgid "Warning if declarations cannot be inlined"
-msgstr ""
+msgstr "Waarschuwing als declaraties niet als inline verwerkt kunnen worden"
 
 #: src/compiler_options_gui.c:966
-#, fuzzy
 msgid "Warning for overloaded virtuals"
 msgstr "Waarschuwing voor overloaded virtuals"
 
@@ -1049,17 +1045,14 @@ msgid "No optimization"
 msgstr "Geen optimalisatie"
 
 #: src/compiler_options_gui.c:1012
-#, fuzzy
 msgid "Low-level optimization (machine-dependent)"
 msgstr "Laag niveau optimalisatie (Machine afhankelijk)"
 
 #: src/compiler_options_gui.c:1022
-#, fuzzy
 msgid "Higher-level optimization (without space-speed tradeoff)"
 msgstr "Hoger niveau optimalisatie ( zonder ruimte-snelheid wisselwerking)"
 
 #: src/compiler_options_gui.c:1032
-#, fuzzy
 msgid "Fastest-code optimization (functions inlined whereever possible"
 msgstr "Snelste code optimalisatie (Functie inline waar mogelijk)"
 
@@ -1088,9 +1081,8 @@ msgid "Enable Profiling"
 msgstr "Aanzetten profiling"
 
 #: src/compiler_options_gui.c:1104
-#, fuzzy
 msgid "Additional Options"
-msgstr "Toegevoegd scipt"
+msgstr "Toegevoegde opties"
 
 #: src/configurer.c:87 src/configurer.c:203 src/toolbar.c:463
 msgid "Configure"
@@ -1299,14 +1291,12 @@ msgid "There was an error whilst signaling the process."
 msgstr "Er is een fout opgetreden tijdens het signaleren van het proces. "
 
 #: src/executer.c:119
-#, fuzzy
 msgid "Execute with arguments"
-msgstr "Uitvoerbaar doelbestand"
+msgstr "Uitvoerbaar doelbestand met argumenten"
 
 #: src/executer.c:133
-#, fuzzy
 msgid "Command arguments"
-msgstr "Commando argumenten (indien aanwezig)"
+msgstr "Commando argumenten"
 
 #: src/executer.c:147
 msgid "Run in Terminal"
@@ -1326,7 +1316,6 @@ msgid "Target of this project is not executable"
 msgstr "Doelbestand van dit project is niet uitvoerbaar"
 
 #: src/executer.c:244 src/mainmenu_callbacks.c:1553
-#, fuzzy
 msgid "Executable does not exist for this project."
 msgstr "Uitvoerbaar bestand bestaat niet voor dit project. "
 
@@ -1499,7 +1488,6 @@ msgid "Whole document"
 msgstr "Geheel document"
 
 #: src/find_text.c:300
-#, fuzzy
 msgid "From cursor"
 msgstr "Vanaf cursor"
 
@@ -1520,7 +1508,7 @@ msgstr "De tekst \"%s\" was niet gevonden vanaf de huidige locatie"
 
 #: src/find_text.c:521
 msgid "No matches. Wrap search around the document?"
-msgstr ""
+msgstr "Geen overeenkomsten. Zoeken van het het begin van het document?"
 
 #: src/gnome_project.c:60
 msgid ""
@@ -1639,9 +1627,9 @@ msgstr "Recente bestanden   "
 
 #: src/main_menubar.c:531
 msgid "Plug Ins"
-msgstr ""
+msgstr "Plug Ins"
 
-#: src/main_menubar.c:548 src/project_dbase.c:1891
+#: src/main_menubar.c:548 src/project_dbase.c:1884
 msgid "Recent Projects "
 msgstr "Recente Projecten "
 
@@ -1655,7 +1643,7 @@ msgstr "project1"
 
 #: src/main_menubar_def.h:37
 msgid "plugins"
-msgstr ""
+msgstr "plugins"
 
 #: src/main_menubar_def.h:47
 msgid "_New"
@@ -1706,12 +1694,10 @@ msgid "Close current file"
 msgstr "Sluit huidige bestand"
 
 #: src/main_menubar_def.h:83
-#, fuzzy
 msgid "Close All Files"
-msgstr "_Sluit alle bestanden"
+msgstr "Sluit alle bestanden"
 
 #: src/main_menubar_def.h:84
-#, fuzzy
 msgid "Close all files"
 msgstr "Sluit alles"
 
@@ -1837,27 +1823,27 @@ msgstr "Selekteer het huidige codeblok"
 
 #: src/main_menubar_def.h:203
 msgid "/* GPL Notice */"
-msgstr ""
+msgstr "/*GPL Notice */"
 
 #: src/main_menubar_def.h:204
 msgid "Insert GPL notice with C style comments"
-msgstr ""
+msgstr "Invoegen GPL notice met C stijl commentaar"
 
 #: src/main_menubar_def.h:209
 msgid "// GPL Notice"
-msgstr ""
+msgstr "// GPL Notice"
 
 #: src/main_menubar_def.h:210
 msgid "Insert GPL notice with C++ style comments"
-msgstr ""
+msgstr "Invoegen GPL notice met C++ stijl commentaar"
 
 #: src/main_menubar_def.h:215
 msgid "Current Date & Time"
-msgstr ""
+msgstr "Huidige Datum & Tijd"
 
 #: src/main_menubar_def.h:216
 msgid "Insert current date & time"
-msgstr ""
+msgstr "Invoeren huidige datum & tijd"
 
 #: src/main_menubar_def.h:226
 msgid "_Goto Line no ..."
@@ -1979,7 +1965,7 @@ msgstr "_Selecteer"
 #. 10
 #: src/main_menubar_def.h:329
 msgid "_Insert text"
-msgstr ""
+msgstr "_Invoer tekst"
 
 #. 11
 #. 12
@@ -2032,12 +2018,11 @@ msgstr ""
 #. 18
 #: src/main_menubar_def.h:375
 msgid "Find _Next"
-msgstr ""
+msgstr "Vind Volge_nde"
 
 #: src/main_menubar_def.h:376
-#, fuzzy
 msgid "Repeat the Last Find command"
-msgstr "Doe de laatste ongedane aktie opnieuw"
+msgstr "Herhaal de Laatste Vind opdracht"
 
 #. 19
 #: src/main_menubar_def.h:382
@@ -2057,19 +2042,17 @@ msgstr "Wijzig de applicatie GUI met de Glade GUI tekstverwerker"
 #. 22
 #. 23
 #: src/main_menubar_def.h:400
-#, fuzzy
 msgid "Save Build Messages"
-msgstr "Bouw boodschappen"
+msgstr "Bewaar bouwmeldingen"
 
 #: src/main_menubar_def.h:401
-#, fuzzy
 msgid "Save build messages to file"
-msgstr "Bouw boodschappen"
+msgstr "Bewaar Bouwmeldingen in bestand"
 
 #. 24
 #: src/main_menubar_def.h:407
 msgid "_Plug Ins"
-msgstr ""
+msgstr "_Plug Ins"
 
 #: src/main_menubar_def.h:419
 msgid "_Main Toolbar"
@@ -2148,9 +2131,8 @@ msgid "_Indentation guides"
 msgstr "_Inspring regels"
 
 #: src/main_menubar_def.h:483
-#, fuzzy
 msgid "Show/Hide undentation guides"
-msgstr "Toon/Verberg inspringregels"
+msgstr "Toon/Verberg uitspringregels"
 
 #: src/main_menubar_def.h:488
 msgid "_White spaces"
@@ -2374,13 +2356,12 @@ msgstr "Toont het console waarin het programma loopt"
 
 #. 20
 #: src/main_menubar_def.h:665
-#, fuzzy
 msgid "Show _Locals"
-msgstr "T_oon aanroeptip"
+msgstr "Toon _Localen"
 
 #: src/main_menubar_def.h:666
 msgid "Show/Hide Local Variables in MessagePane"
-msgstr ""
+msgstr "Toon/Verberg locake variabelen in Boodschappenvenster"
 
 #: src/main_menubar_def.h:675 src/project_dbase_gui.c:392
 msgid "Include file"
@@ -3143,7 +3124,6 @@ msgid "_Preferences ..."
 msgstr "_Instellingen ..."
 
 #: src/main_menubar_def.h:1427
-#, fuzzy
 msgid "Do you prefer coffee to tea? Check it out."
 msgstr "Geeft u de voorkeur voor koffie boven thee? Kijk er even naar."
 
@@ -3367,7 +3347,7 @@ msgstr "CVS boodschappen"
 
 #: src/messages.c:508
 msgid "Debug Locals Listing"
-msgstr ""
+msgstr "Debug locale Lijst"
 
 #: src/messages.c:518 src/text_editor_menu.c:270 src/toolbar.c:511
 msgid "Debug"
@@ -3378,9 +3358,8 @@ msgid "CVS"
 msgstr "CVS"
 
 #: src/messages.c:521
-#, fuzzy
 msgid "Locals"
-msgstr "Laatst"
+msgstr "Localen"
 
 #: src/messages.c:592 src/toolbar.c:294
 msgid "Messages"
@@ -3431,9 +3410,8 @@ msgid "misc"
 msgstr "Diversen"
 
 #: src/preferences_gui.c:233
-#, fuzzy
 msgid "Components"
-msgstr "Commentaar:"
+msgstr "Componenten:"
 
 #: src/preferences_gui.c:318
 msgid " Directories "
@@ -3582,7 +3560,7 @@ msgstr "Inschakelen haakjescontrole"
 
 #: src/preferences_gui.c:985
 msgid "Save in DOS format"
-msgstr ""
+msgstr "Bewaar in DOS formaat"
 
 #: src/preferences_gui.c:1037
 msgid "Tab size in spaces"
@@ -3689,14 +3667,12 @@ msgid "Update tags image automatically"
 msgstr "Automatisch bijwerken tags image"
 
 #: src/preferences_gui.c:1505
-#, fuzzy
 msgid " Components"
-msgstr "Bonobo component"
+msgstr "Ccomponenten"
 
 #: src/preferences_gui.c:1517
-#, fuzzy
 msgid "Use Components"
-msgstr "Bonobo component"
+msgstr "Gebruik componenten"
 
 #. Must declare static, because it will be used forever
 #: src/project_dbase.c:307 src/toolbar.c:413
@@ -3756,7 +3732,7 @@ msgstr "Project bewaard succesvol"
 msgid "Unable to save the project."
 msgstr "Niet in staat het project te bewaren."
 
-#: src/project_dbase.c:1482 src/project_dbase.c:1515
+#: src/project_dbase.c:1475 src/project_dbase.c:1508
 msgid ""
 "The Project glade file does not\n"
 "exist in the top level project directory."
@@ -3765,7 +3741,7 @@ msgstr ""
 "in het begin van de projectdirectory."
 
 #. Set project title
-#: src/project_dbase.c:1930
+#: src/project_dbase.c:1923
 msgid "Project: "
 msgstr "Project: "
 
@@ -4306,7 +4282,6 @@ msgid "Updating Tags image completed"
 msgstr "Bijwerken Tags image compleet"
 
 #: src/tags_manager.c:816
-#, fuzzy
 msgid "Syncdronization of Tags image failed"
 msgstr "Synchronisatie van Tags image mislukt"
 
@@ -4348,18 +4323,15 @@ msgstr ""
 "Wilt u het opnieuw laden?"
 
 #: src/text_editor.c:1068
-#, fuzzy
 msgid "Autoformat is disablde. If you want, enable in Preferences."
 msgstr ""
 "Autoformaat is uitgeschakeld. Indien gewenst, aanzetten in Instellingen."
 
 #: src/text_editor.c:1074
-#, fuzzy
 msgid "Auto formating ..."
 msgstr "Automatisch opmaken  ..."
 
 #: src/text_editor.c:1084 src/text_editor.c:1111
-#, fuzzy
 msgid "Error in auto formating ..."
 msgstr "Fout bij automatisch opmaken ..."
 
@@ -4784,7 +4756,6 @@ msgid "Watch"
 msgstr "Watch"
 
 #: src/toolbar.c:1050
-#, fuzzy
 msgid "Watch expressions during execution"
 msgstr "Watch expressies gedurende executies"
 
@@ -4974,9 +4945,8 @@ msgid "Inspect/Evaluate Expression"
 msgstr "Inspecteer/Evalueer expressie"
 
 #: src/watch_gui.c:274
-#, fuzzy
 msgid "Add To Watch"
-msgstr "Toevoegen aan project"
+msgstr "Toevoegen aan Watch"
 
 #: src/about.c:64
 msgid "Copyright (c) 1999-2001 Naba Kumar"
@@ -5024,13 +4994,12 @@ msgid "Error writing to file: %s."
 msgstr "Fout schrijven naar bestand: %s."
 
 #: src/source.c:1268
-#, fuzzy, c-format
 msgid "Error writing to : %s."
-msgstr "Fout schrijven naar bestand: %s."
+msgstr "Fout schrijven naar : %s."
 
 #: src/source.c:1384
 msgid "Project type does not support glade."
-msgstr ""
+msgstr "Project type ondersteunt glade niet."
 
 #: src/anjuta.c:72 src/anjuta.c:79
 #, c-format
@@ -5141,33 +5110,35 @@ msgstr ""
 #: src/anjuta.c:1932 src/anjuta.c:1935
 #, c-format
 msgid "Unable to Load Plug in Module %s. Err: %s"
-msgstr ""
+msgstr "Niet in staat om Plug in Module %s te laden. Fout: %s"
 
 #: src/anjuta.c:1938
 #, c-format
 msgid "Plug in Module protocol unknown %s Err:%s"
-msgstr ""
+msgstr "Plug in Module protocol niet bekend %s Fout:%s"
 
 #: src/anjuta.c:1941
 #, c-format
 msgid "Unable to Start Plug in Module %s"
-msgstr ""
+msgstr "Niet in staat om Plug in Module %s te starten"
 
 #: src/anjuta.c:1944
 #, c-format
 msgid "Bad Parameters to Plug in %s. Err: %s"
-msgstr ""
+msgstr "Verkeerde parameters naar Plug in %s. Fout: %s"
 
 #: src/anjuta.c:1952
 #, c-format
 msgid ""
 "Unable to load plugin %s.\n"
 "Error %s"
-msgstr ""
+msgstr "" 
+"Plugin %s kan niet geladen worden.\n"
+"Fout %s"
 
 #: src/anjuta.c:2022
 msgid "Out of Memory scanning for plugins."
-msgstr ""
+msgstr "Onvoldoende geheugen bij zoeken naar plugins"
 
 #: src/anjuta_gui.c:208 src/anjuta_gui.c:297
 msgid "Click here to undock this window"
@@ -5218,20 +5189,20 @@ msgstr "Kon niet maken pixmap van bestand: %s"
 msgid "Cannot execute Devhelp. Make sure it is installed"
 msgstr "Kan Devhelp niet uitvoeren. Zorg ervoor dat het geinstalleerd is"
 
-msgid "Warning for Un-Inline-able declarations"
-msgstr "Waarschuwing voor inline declaraties"
+#~ msgid "Warning for Un-Inline-able declarations"
+#~ msgstr "Waarschuwing voor inline declaraties"
 
-msgid "Additional compiler options (command line options)"
-msgstr "Toegevoegde compiler opties (commando regel opties)"
+#~ msgid "Additional compiler options (command line options)"
+#~ msgstr "Toegevoegde compiler opties (commando regel opties)"
 
-msgid "Additional linker options (command line options)"
-msgstr "Toegevoegde linker opties (command regel opties)"
+#~ msgid "Additional linker options (command line options)"
+#~ msgstr "Toegevoegde linker opties (command regel opties)"
 
-msgid "Goto line"
-msgstr "Ga naar regel"
+#~ msgid "Goto line"
+#~ msgstr "Ga naar regel"
 
-msgid "Executable does not exsits this project."
-msgstr "Uitvoerbaar bestand bestaat niet voor dit project."
+#~ msgid "Executable does not exsits this project."
+#~ msgstr "Uitvoerbaar bestand bestaat niet voor dit project."
 
-msgid "Unkown project type."
-msgstr "Onbekend project type."
+#~ msgid "Unkown project type."
+#~ msgstr "Onbekend project type."
