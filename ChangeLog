@@ -1,3 +1,7 @@
+2004-02-24  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
+	* src/search_incremental.c
+	Fixed bug #900903
+
 2004-02-23  Pavol Bosik <Pavol.Bosik@siemens.com>
 	
 	* src/defaults.c

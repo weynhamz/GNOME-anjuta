@@ -46,13 +46,13 @@
 
 
 static void
-toolbar_search_start_over (SearchDirection direction);
+toolbar_search_start_over (void);
 
 static void
-toolbar_search_clicked (SearchDirection direction);
+toolbar_search_clicked (void);
 
 static gint
-incremental_search(TextEditor *te, gchar *string, SearchDirection direction);
+incremental_search(TextEditor *te, gchar *string);
 
 
 
@@ -91,12 +91,12 @@ incremental_save_retrieve_expr(gboolean save)
 
 
 static gint
-incremental_search(TextEditor *te, gchar *string, SearchDirection direction)
+incremental_search(TextEditor *te, gchar *string)
 {
 	FileBuffer *fb;
 	static MatchInfo *mi;
 	Search *s;
-		
+
 	fb = file_buffer_new_from_te(te);
 	s = &(sr->search);
 	
@@ -104,7 +104,7 @@ incremental_search(TextEditor *te, gchar *string, SearchDirection direction)
 		g_free(s->expr.search_str);
 	s->expr.search_str = g_strdup(string);
 	
-	if ((mi = get_next_match(fb, direction, &(s->expr))))
+	if ((mi = get_next_match(fb, SD_FORWARD, &(s->expr))))
 	{
 		scintilla_send_message(SCINTILLA(fb->te->widgets.editor),
 			SCI_SETSEL, mi->pos, (mi->pos + mi->len));
@@ -143,7 +143,7 @@ toolbar_search_incremental_start (void)
 	gchar *string;
 	const gchar *string1;
 	TextEditor *te;
-	
+
 	if (!(te = anjuta_get_current_text_editor()))
 		return;
 	if (sr == NULL)
@@ -165,8 +165,9 @@ toolbar_search_incremental_start (void)
 	}
 	/* Prepare to begin incremental search */	
 	sr->search.incremental_pos = text_editor_get_current_position(te);
-	sr->search.incremental_wrap = FALSE;
+	sr->search.incremental_wrap = 0;
 }
+
 void
 toolbar_search_incremental_end (void)
 {
@@ -193,40 +194,28 @@ toolbar_search_incremental (void)
 				    (app->widgets.toolbar.main_toolbar.find_entry));
 	if (!entry_text || strlen(entry_text) < 1) return;
 	
-	toolbar_search_clicked (SD_FORWARD);
+	toolbar_search_clicked ();
 }
 
 
 static void
-toolbar_search_clicked (SearchDirection direction)
+toolbar_search_clicked (void)
 {
 	TextEditor *te;
 	const gchar *string;
 	gint ret;
 	gboolean search_wrap = FALSE;
-	
+
 	if (!(te = anjuta_get_current_text_editor()))
 		return;
 	if (sr == NULL)
 		sr = create_search_replace_instance();
 
-	string = gtk_entry_get_text (GTK_ENTRY
-								 (app->widgets.toolbar.main_toolbar.
+	string = gtk_entry_get_text (GTK_ENTRY(app->widgets.toolbar.main_toolbar.
 							     find_entry));
 	
-	/* The 2 below is checked to make sure the wrapping is only done when
-	   it is called by 'activate' (and not 'changed') signal */ 
-	if (sr->search.incremental_pos >= 0 &&
-		(sr->search.incremental_wrap == 2 ||
-		 (sr->search.incremental_wrap == 1 )))
-	{
-		/* If incremental search wrap requested, so wrap it. */
-		search_wrap = TRUE;
-		sr->search.incremental_wrap = 2;
-	}
 	if (sr->search.incremental_pos >= 0)
 	{
-		/* If incremental search */
 		incremental_save_retrieve_expr(TRUE); // Save parameters
 		sr->search.expr.regex = FALSE;
 		sr->search.expr.greedy = FALSE;
@@ -235,14 +224,14 @@ toolbar_search_clicked (SearchDirection direction)
 		sr->search.expr.whole_line = FALSE;
 		sr->search.expr.word_start = FALSE;
 		
-		ret = incremental_search(te, (gchar*)string, direction);
+		ret = incremental_search(te, (gchar*)string);
 		
-		incremental_save_retrieve_expr(FALSE); // Retieve parameters
+		incremental_save_retrieve_expr(FALSE); // Retrieve parameters
 	}
 	else
 	{
 		/* Normal search */
-		ret = incremental_search(te, (gchar*)string, direction);
+		ret = incremental_search(te, (gchar*)string);
 	}
 	if (ret < 0) {
 		if (sr->search.incremental_pos < 0)
@@ -255,53 +244,58 @@ toolbar_search_clicked (SearchDirection direction)
 											 GTK_BUTTONS_YES_NO,
 					_("No matches. Wrap search around the document?"));
 			if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_YES)
-				toolbar_search_start_over (direction);
+				toolbar_search_start_over ();
 			gtk_widget_destroy (dialog);
 		}
 		else
 		{
-			if (search_wrap == FALSE)
+			if (sr->search.incremental_wrap == 1)
 			{
 				anjuta_status(
 				"Failling I-Search: '%s'. Press Enter or click Find to overwrap.",
 				string);
-				sr->search.incremental_wrap = TRUE;
-				if (anjuta_preferences_get (ANJUTA_PREFERENCES (app->preferences),
-											BEEP_ON_BUILD_COMPLETE))
-					gdk_beep();
+				sr->search.incremental_wrap = FALSE;
+				
+				sr->search.incremental_wrap = 2;
 			}
 			else
-			{
 				anjuta_status ("Failling Overwrapped I-Search: %s.", string);
-			}
+				
+			if (anjuta_preferences_get (ANJUTA_PREFERENCES (app->preferences),
+										BEEP_ON_BUILD_COMPLETE))
+				gdk_beep();
 		}
 	}
+	else
+		sr->search.incremental_pos = ret;
 }
 
 
 void
 toolbar_search_clicked_cb (void)
 {
-	toolbar_search_clicked (SD_FORWARD);
+	if (sr->search.incremental_wrap == 2)
+	{
+		sr->search.incremental_wrap = 1;
+		toolbar_search_start_over ();
+	}
+	else 
+	{
+		if (sr->search.incremental_wrap == 0)
+			sr->search.incremental_wrap = 1;
+		toolbar_search_clicked ();
+	}
 }
 
 
 static void
-toolbar_search_start_over (SearchDirection direction)
+toolbar_search_start_over (void)
 {
 	TextEditor *te;
-	long length;
-	
+
 	if (!(te = anjuta_get_current_text_editor()))
 		return;
-	length = aneditor_command(te->editor_id, ANE_GETLENGTH, 0, 0);
 
-	if (direction != SD_BACKWARD)
-		/* search from doc start */
-		text_editor_goto_point (te, 0);
-	else
-		/* search from doc end */
-		text_editor_goto_point (te, length);
-
-	toolbar_search_clicked (direction);
+	text_editor_goto_point (te, 0);
+	toolbar_search_clicked ();
 }
