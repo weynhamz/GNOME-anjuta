@@ -28,7 +28,8 @@
 #include "resources.h"
 
 gboolean
-on_search_in_files_close			  (GtkWidget		*widget,
+on_search_in_files_delete_event		  (GtkWidget		*widget,
+									   GdkEvent			*event,
 									   gpointer			user_data)
 {
   FindInFiles * ff = user_data;
@@ -43,10 +44,11 @@ on_search_in_files_add_clicked         (GtkButton       *button,
 	GtkTreeModel *model;
 	GtkTreeIter iter;
 	
-	const gchar *filename[1];
+	const gchar *filename;
 	FindInFiles* ff = user_data;
-	filename[0] = gtk_entry_get_text(GTK_ENTRY(ff->widgets.file_entry));
-	if(strlen(filename[0]) == 0) return;
+	filename = gtk_entry_get_text(GTK_ENTRY(ff->widgets.file_entry));
+	if(strlen(filename) == 0)
+		return;
 	
 	model = gtk_tree_view_get_model (GTK_TREE_VIEW (ff->widgets.clist));
 	gtk_list_store_append (GTK_LIST_STORE(model), &iter);
@@ -63,7 +65,8 @@ on_search_in_files_remove_clicked      (GtkButton       *button,
 	GtkTreeIter iter;
 	gboolean valid;
 	FindInFiles* ff = user_data;
-	if(ff->cur_row == NULL) return;
+	if(ff->cur_row == NULL)
+		return;
 	model = gtk_tree_view_get_model (GTK_TREE_VIEW (ff->widgets.clist));
 	valid = gtk_tree_model_get_iter_from_string (model, &iter, ff->cur_row);
 	gtk_list_store_remove (GTK_LIST_STORE(model), &iter);
@@ -85,49 +88,79 @@ on_search_in_files_clear_clicked       (GtkButton       *button,
 }
 
 void
-on_search_in_files_ok_clicked          (GtkButton       *button,
-                                        gpointer         user_data)
+on_search_in_files_response (GtkDialog *dialog, guint response,
+							 gpointer user_data)
 {
-   FindInFiles* ff = user_data;
-   const gchar *temp;
-   gchar *temp2;
-   temp = gtk_entry_get_text(GTK_ENTRY(ff->widgets.regexp_entry));
-   if(ff->length <= 0)
-   {
-       anjuta_error(_("No input files supplied."));
-       return;
-   }
-   temp2 = g_strdup(temp);
-   temp = g_strchomp(temp2);
-   if(temp == NULL || strlen(temp) == 0)
-   {
-       anjuta_error(_("No search string supplied."));
-       g_free(temp2);
-       return;
-   }
-  if (NULL != ff)
-	gtk_dialog_response (GTK_DIALOG (ff->widgets.window), GTK_RESPONSE_NONE);
-  find_in_files_process(ff);
+	FindInFiles *ff = user_data;
+	/* check for find */
+	if (response == 0)
+	{
+		const gchar *temp;
+		gchar *temp2;
+		temp = gtk_entry_get_text (GTK_ENTRY (ff->widgets.regexp_entry));
+		if (ff->length <= 0)
+		{
+			anjuta_error (_("No input files supplied."));
+			return;
+		}
+		temp2 = g_strdup (temp);
+		temp = g_strchomp (temp2);
+		if(temp == NULL || strlen (temp) == 0)
+		{
+			anjuta_error (_("No search string supplied."));
+			g_free (temp2);
+			return;
+		}
+		find_in_files_process (ff);
+	}
+	else /* response must be GTK_RESPONSE_CLOSE */
+	{
+		find_in_files_hide (ff);
+	}
 }
 
 void
-on_search_in_files_cancel_clicked      (GtkButton       *button,
-                                        gpointer         user_data)
+on_search_in_files_changed (GtkTreeSelection            *selection,
+                            gpointer                     user_data)
 {
-  FindInFiles* ff = user_data;
-  if (NULL != ff)
-	gtk_dialog_response (GTK_DIALOG (ff->widgets.window), GTK_RESPONSE_NONE);
+	GtkTreeIter iter;
+	GtkTreeModel *model;
+	GtkTreePath *path;
+	gchar *filename;
+	FindInFiles *ff = user_data;
+
+	if (gtk_tree_selection_get_selected (selection, &model, &iter))
+	{
+		path = gtk_tree_model_get_path (model, &iter);
+		g_free (ff->cur_row);
+		ff->cur_row = gtk_tree_path_to_string(path);
+		gtk_tree_path_free(path);
+	}
+	else
+	{
+		/* No row selected */
+		if(ff->cur_row)
+		{
+			g_free (ff->cur_row);
+			ff->cur_row = NULL;
+		}
+	}
 }
 
-void
-on_search_in_files_clist_row_activated (GtkTreeView     *treeview,
-                                        GtkTreePath     *arg1,
-                                        GtkTreeViewColumn *arg2,
-                                        gpointer         user_data)
-
+gboolean
+on_search_in_files_key_press (GtkWidget                 *widget,
+                              GdkEventKey               *event,
+                              gpointer                   user_data)
 {
-  FindInFiles* ff = user_data;
-  if (ff->cur_row)
-	  g_free (ff->cur_row);
-  ff->cur_row = gtk_tree_path_to_string(arg1);
+	if (event->keyval == GDK_Escape)
+	{
+		if (user_data)
+		{
+			FindInFiles *ff = user_data;
+			find_in_files_hide (ff);
+			return TRUE;
+		}
+	}
+	return FALSE;
 }
+

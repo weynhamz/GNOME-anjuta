@@ -48,13 +48,9 @@ on_search_in_files_help_clicked        (GtkButton       *button,
                                         gpointer         user_data);
 
 void
-on_search_in_files_ok_clicked          (GtkButton       *button,
+on_search_in_files_response            (GtkDialog       *dialog, 
+                                        guint            response,
                                         gpointer         user_data);
-
-void
-on_search_in_files_cancel_clicked      (GtkButton       *button,
-                                        gpointer         user_data);
-
 
 void
 on_search_in_files_fileentry_realize   (GtkWidget       *widget,
@@ -69,5 +65,14 @@ on_search_in_files_clist_row_activated  (GtkTreeView     *treeview,
                                         GtkTreePath     *arg1,
                                         GtkTreeViewColumn *arg2,
                                         gpointer         user_data);
+
+void
+on_search_in_files_changed (GtkTreeSelection            *selection,
+                            gpointer                     user_data);
+
+gboolean
+on_search_in_files_key_press (GtkWidget                 *widget,
+                              GdkEventKey               *event,
+							  gpointer                   user_data);
 
 #endif

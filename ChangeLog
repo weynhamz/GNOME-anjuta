@@ -1,3 +1,21 @@
+2003-03-14  Etay Meiri <etay-m@bezeqint.net>
+	* src/debug_tree.c: Improve debug tree view.
+
+2003-03-10  Dan Elphick <dre00r@ecs.soton.ac.uk>
+
+	* anjuta.glade, anjuta_dialog_strings.c: Change dialog1 titles to
+	'Run Configure Script' and 'Execute Program'. Increase minimum width
+	of Configure dialog.
+	* find_in_files.c, find_in_files_cbs.*: Properly create the file
+	list widget by setting a model and adding a column and renderer.
+	  Actually store the nocvs toggle button in FindInFiles data structure.
+	  Handle selection changes via changed signal rather than row_activated.
+	  Use response signal for handling the close and find buttons.
+	  Close window when escape is pressed.
+	* find_replace.c: Close window when escape is pressed.
+	* find_text.c: Close window when escape is pressed in find dialog as
+	well as wrap search question, where now Yes is the default button.
+
 2003-03-05  Naba Kumar  <naba@gnome.org>
 
 	Patch from: Dan Elphick  <dre00r@ecs.soton.ac.uk>

@@ -118,6 +118,10 @@ struct _TextEditor
 	gboolean first_time_expose;
 /* Is the editor used by a cvs output? */
 	gboolean used_by_cvs;
+
+/* Handler for changed signal. Need to disconnect the signal when we destroy
+   the object */
+	gulong changed_id;
 };
 
 void create_text_editor_gui (TextEditor * te);

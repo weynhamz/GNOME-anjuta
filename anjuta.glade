@@ -3128,11 +3128,11 @@
 </widget>
 
 <widget class="GtkDialog" id="configurer_dialog">
-  <property name="title" translatable="yes">dialog1</property>
+  <property name="title" translatable="yes">Run Configure Script</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
   <property name="window_position">GTK_WIN_POS_CENTER</property>
   <property name="modal">False</property>
-  <property name="default_width">250</property>
+  <property name="default_width">350</property>
   <property name="wmclass_name">configurer</property>
   <property name="wmclass_class">Anjuta</property>
   <property name="resizable">True</property>
@@ -3634,7 +3634,7 @@
 </widget>
 
 <widget class="GtkDialog" id="executer_dialog">
-  <property name="title" translatable="yes">dialog1</property>
+  <property name="title" translatable="yes">Execute Program</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
   <property name="window_position">GTK_WIN_POS_NONE</property>
   <property name="modal">False</property>
@@ -9015,7 +9015,6 @@
 </widget>
 
 <widget class="GtkWindow" id="dialog.tool.help">
-  <property name="visible">True</property>
   <property name="title" translatable="yes">Variable list</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
   <property name="window_position">GTK_WIN_POS_NONE</property>

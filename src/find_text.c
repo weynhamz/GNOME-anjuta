@@ -59,6 +59,30 @@ on_find_text_start_over (void)
 								  app->find_replace->find_text);
 }
 
+static gboolean
+on_find_text_dialog_key_press (GtkWidget *widget, GdkEventKey *event,
+                               gpointer user_data)
+{
+	if (event->keyval == GDK_Escape)
+	{
+		if (user_data)
+		{
+			/* Escape pressed in Find window */
+			find_text_hide ((FindText *) user_data);
+		}
+		else
+		{
+			/* Escape pressed in wrap yes/no window */
+			gtk_dialog_response (GTK_DIALOG (widget), GTK_RESPONSE_NO);
+		}
+		return TRUE;
+	}
+	else
+	{
+		return FALSE;
+	}
+}
+
 static void
 on_find_text_dialog_response (GtkDialog *dialog, gint response,
                               gpointer user_data)
@@ -165,10 +189,15 @@ on_find_text_dialog_response (GtkDialog *dialog, gint response,
 		{
 			GtkWidget *dialog;
 			// Ask if user wants to wrap around the doc
-			dialog = gtk_message_dialog_new (GTK_WINDOW (ft->f_gui.GUI),											 GTK_DIALOG_DESTROY_WITH_PARENT,
+			dialog = gtk_message_dialog_new (GTK_WINDOW (ft->f_gui.GUI),
+											 GTK_DIALOG_DESTROY_WITH_PARENT,
 											 GTK_MESSAGE_QUESTION,
 											 GTK_BUTTONS_YES_NO,
 						 _("No matches. Wrap search around the document?"));
+			gtk_dialog_set_default_response (GTK_DIALOG (dialog),
+											 GTK_RESPONSE_YES);
+			g_signal_connect (G_OBJECT (dialog), "key-press-event",
+							  G_CALLBACK (on_find_text_dialog_key_press), NULL);
 			if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_YES)
 			{
 				on_find_text_start_over ();
@@ -207,6 +236,8 @@ create_find_text_gui (FindText * ft)
 	                  G_CALLBACK (on_find_text_delete_event), ft);
 	g_signal_connect (G_OBJECT (ft->f_gui.GUI), "response",
 	                  G_CALLBACK (on_find_text_dialog_response), ft);
+	g_signal_connect (G_OBJECT (ft->f_gui.GUI), "key-press-event",
+	                  G_CALLBACK (on_find_text_dialog_key_press), ft);
 
 	gtk_widget_grab_focus (ft->f_gui.entry);
 }

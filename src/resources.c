@@ -259,6 +259,7 @@ anjuta_res_help_search (const gchar * word)
 {
 	if(word)
 	{
+		fprintf(stderr, "Word is %s\n", word);
 		if(fork()==0)
 		{
 			execlp("devhelp", "devhelp", "-s", word, NULL);

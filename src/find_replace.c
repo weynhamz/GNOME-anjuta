@@ -38,6 +38,10 @@ static void create_find_replace_gui (FindAndReplace * fr);
 static GtkWidget *create_replace_messagebox (FindAndReplace *fr);
 static void on_replace_dialog_response (GtkDialog *dialog, gint response,
                                         gpointer user_data);
+static gboolean on_replace_dialog_key_press (GtkWidget *widget,
+                                             GdkEventKey *event,
+                                             gpointer user_data);
+
 
 /*
 static gboolean
@@ -316,6 +320,8 @@ create_find_replace_gui (FindAndReplace * fr)
 	                  G_CALLBACK (on_replace_dialog_response), fr);
 	g_signal_connect (G_OBJECT (fr->r_gui.GUI), "delete_event",
 	                  G_CALLBACK (on_replace_dialog_response), fr);
+	g_signal_connect (G_OBJECT (fr->r_gui.GUI), "key-press-event",
+	                  G_CALLBACK (on_replace_dialog_key_press), fr);
 
 	gtk_widget_grab_focus (fr->r_gui.find_entry);
 }
@@ -335,6 +341,22 @@ create_replace_messagebox (FindAndReplace *fr)
 							GTK_STOCK_YES, GTK_RESPONSE_YES, NULL);
 	gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_OK);
 	return dialog;
+}
+
+static gboolean 
+on_replace_dialog_key_press (GtkWidget *widget, GdkEventKey *event,
+                             gpointer user_data)
+{
+	if(event->keyval == GDK_Escape)
+	{
+		find_replace_hide ((FindAndReplace *) user_data);
+		return TRUE;
+	}
+	else
+	{
+		return FALSE;
+	}
+
 }
 
 static void

@@ -40,6 +40,10 @@ static void
 create_find_in_files_gui (FindInFiles *sf)
 {
 	GtkWidget *button;
+	GtkListStore *list_store;
+	GtkCellRenderer *renderer;
+	GtkTreeViewColumn *column;
+	GtkTreeSelection *select;
 	
 	sf->gxml = glade_xml_new (GLADE_FILE_ANJUTA, "find_in_files_dialog", NULL);
 	glade_xml_signal_autoconnect (sf->gxml);
@@ -54,6 +58,8 @@ create_find_in_files_gui (FindInFiles *sf)
 		glade_xml_get_widget (sf->gxml, "find_in_files_case_sensitive");
 	sf->widgets.ignore_binary =
 		glade_xml_get_widget (sf->gxml, "find_in_files_ignore_binary");
+	sf->widgets.nocvs =
+		glade_xml_get_widget (sf->gxml, "find_in_files_ignore_cvs_directory");
 	sf->widgets.append_messages =
 		glade_xml_get_widget (sf->gxml, "find_in_files_append_messages");
 	sf->widgets.regexp_entry =
@@ -61,22 +67,38 @@ create_find_in_files_gui (FindInFiles *sf)
 	sf->widgets.regexp_combo =
 		glade_xml_get_widget (sf->gxml, "find_in_files_regex_combo");
 	
+	/* Set up list of files */
+	list_store = gtk_list_store_new (1, G_TYPE_STRING);
+
+	gtk_tree_view_set_model (GTK_TREE_VIEW (sf->widgets.clist),
+							 GTK_TREE_MODEL (list_store));
+	renderer = gtk_cell_renderer_text_new ();
+	column = gtk_tree_view_column_new_with_attributes ("Files",
+													   renderer,
+													   "text",
+													   0,
+													   NULL);
+	gtk_tree_view_append_column (GTK_TREE_VIEW (sf->widgets.clist), column);
+
+	select = gtk_tree_view_get_selection (GTK_TREE_VIEW (sf->widgets.clist));
+	g_signal_connect (G_OBJECT (select), "changed",
+					  G_CALLBACK (on_search_in_files_changed),
+					  sf);
+
 	gtk_widget_ref (sf->widgets.window);
 	gtk_widget_ref (sf->widgets.file_entry);
 	gtk_widget_ref (sf->widgets.clist);
 	gtk_widget_ref (sf->widgets.case_sensitive_check);
 	gtk_widget_ref (sf->widgets.ignore_binary);
+	gtk_widget_ref (sf->widgets.nocvs);
 	gtk_widget_ref (sf->widgets.append_messages);
 	gtk_widget_ref (sf->widgets.regexp_entry);
 	gtk_widget_ref (sf->widgets.regexp_combo);
 	
 	gtk_window_add_accel_group (GTK_WINDOW (sf->widgets.window), app->accel_group);
 
-	g_signal_connect (G_OBJECT (sf->widgets.clist), "row_activated",
-					  G_CALLBACK (on_search_in_files_clist_row_activated),
-					  sf);
-	g_signal_connect (G_OBJECT (sf->widgets.window), "close",
-					  G_CALLBACK (on_search_in_files_close),
+	g_signal_connect (G_OBJECT (sf->widgets.window), "delete_event",
+					  G_CALLBACK (on_search_in_files_delete_event),
 					  sf);
 	button = glade_xml_get_widget (sf->gxml, "find_in_files_add");
 	g_signal_connect (G_OBJECT (button), "clicked",
@@ -90,17 +112,17 @@ create_find_in_files_gui (FindInFiles *sf)
 	g_signal_connect (G_OBJECT (button), "clicked",
 					  G_CALLBACK (on_search_in_files_clear_clicked),
 					  sf);
-	button = glade_xml_get_widget (sf->gxml, "find_in_files_close_button");
-	g_signal_connect (G_OBJECT (button), "clicked",
-					  G_CALLBACK (on_search_in_files_cancel_clicked),
-					  sf);
-	button = glade_xml_get_widget (sf->gxml, "find_in_files_find_button");
-	g_signal_connect (G_OBJECT (button), "clicked",
-					  G_CALLBACK (on_search_in_files_ok_clicked),
+
+	g_signal_connect (G_OBJECT (sf->widgets.window), "response",
+					  G_CALLBACK (on_search_in_files_response), 
 					  sf);
 
-	gtk_window_set_transient_for(GTK_WINDOW(sf->widgets.window),
-	                             GTK_WINDOW(app->widgets.window));
+	g_signal_connect (G_OBJECT (sf->widgets.window), "key-press-event",
+					  G_CALLBACK (on_search_in_files_key_press),
+					  sf);
+
+	gtk_window_set_transient_for (GTK_WINDOW(sf->widgets.window),
+	                              GTK_WINDOW(app->widgets.window));
 }
 
 FindInFiles *
@@ -186,6 +208,7 @@ find_in_files_hide (FindInFiles * ff)
 	gdk_window_get_root_origin (ff->widgets.window->window,
 				    &ff->win_pos_x, &ff->win_pos_y);
 	ff->is_showing = FALSE;
+	gtk_widget_hide (ff->widgets.window);
 }
 
 void
@@ -221,12 +244,10 @@ find_in_files_process (FindInFiles * ff)
 		return;
 	case_sensitive =
 		gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
-					      (ff->widgets.
-					       case_sensitive_check));
+					      (ff->widgets.case_sensitive_check));
 	ignore_binary  =
 		gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
-					      (ff->widgets.
-					       ignore_binary));
+					      (ff->widgets.ignore_binary));
 	nocvs  =
 		gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
 					      (ff->widgets.nocvs));

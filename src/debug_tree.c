@@ -35,8 +35,7 @@ static void change_display_type (DebugTree *d_tree, gint display_type);
 static void debug_ctree_cmd_gdb (GtkTreeView *ctree, GtkTreeIter *node,
 								 GList *list, gint display_type,
 								 gboolean is_pointer);
-static gboolean find_expanded (GtkTreeModel *tree, GtkTreePath *path,
-							   GtkTreeIter *node, gpointer list);
+static gboolean find_expanded (GtkTreeModel* , GtkTreePath* , GtkTreeIter*, gpointer);
 static gboolean debug_tree_on_select_row (GtkWidget *widget, GdkEvent *event,
 										  gpointer user_data);
 static void parse_data (GtkTreeView *ctree, GtkTreeIter *parent, gchar *buf);
@@ -61,8 +60,6 @@ static gchar* skip_token_end (gchar *buf);
 static gboolean destroy_recursive(GtkTreeModel *model, GtkTreePath *path,
 								  GtkTreeIter* iter, gpointer pdata);
 
-#define MAX_BUFFER 10000
-
 #define FORMAT_DEFAULT  0	/* gdb print command without switches */
 #define FORMAT_BINARY   1	/* print/t */
 #define FORMAT_OCTAL    2	/* print/o */
@@ -71,6 +68,7 @@ static gboolean destroy_recursive(GtkTreeModel *model, GtkTreePath *path,
 #define FORMAT_HEX      5	/* print/x */
 #define FORMAT_CHAR     6	/* print/c */
 
+/* gdb print commands array for different display types */
 gchar* DisplayCommands[] = { "print " ,
 							 "print/t ",
 							 "print/o ",
@@ -79,10 +77,6 @@ gchar* DisplayCommands[] = { "print " ,
 							 "print/x ",
 							 "print/c " };
 
-struct parse_private_data {
-	DebugTree *d_tree;
-	GtkTreeView *node;
-};
 
 gchar *type_names[] = {
 	"Root",
@@ -113,7 +107,7 @@ enum {
  * display on the menu item @param signalhandler signal handler for item
  * selection @param menu menu the item belongs to @param data private data for 
  * the signal handler */
-#if 0
+
 static
 GtkWidget *
 build_menu_item (gchar * menutext, GtkSignalFunc signalhandler,
@@ -127,8 +121,7 @@ build_menu_item (gchar * menutext, GtkSignalFunc signalhandler,
 		menuitem = gtk_menu_item_new ();
 
 	if (signalhandler)
-		gtk_signal_connect (GTK_OBJECT (menuitem), "activate", signalhandler,
-							data);
+		gtk_signal_connect (GTK_OBJECT (menuitem), "activate",signalhandler,data);
 
 	if (menu)
 		gtk_menu_append (GTK_MENU (menu), menuitem);
@@ -181,43 +174,43 @@ debug_tree_on_middle_click (GtkWidget *widget,
 {
 	GdkEventButton *buttonevent = NULL;
 	DebugTree *d_tree = NULL;
-	GtkCTree *tree = NULL;
+	GtkTreeView *tree = NULL;
 	gint row;
-	GtkTreeIter *node = NULL;
+	GtkTreeIter iter;
+	GtkTreeIter parent;
 	TrimmableItem *node_data = NULL;
-
-	/* only mouse press events */
-	if (event->type != GDK_BUTTON_PRESS)
-		return FALSE;
-
+	GtkTreeSelection* selection;
+	GtkTreeModel* model = NULL;
+		
 	buttonevent = (GdkEventButton *) event;
 
-	/* only middle mouse button */
-	if (buttonevent->button != 2)
-		return FALSE;
-
 	/* get the selected row */
-	d_tree = (DebugTree *) data;
-	tree = GTK_CTREE (d_tree->tree);
-	row = tree->clist.focus_row;
-
-	/* extract node */
-	node = gtk_ctree_node_nth (GTK_CTREE (d_tree->tree), row);
-
-	/* Debug assertions should not be used where the event is bound to happen
-	 * in real situations. Instead use conditional statements.
-	 * g_return_val_if_fail (node != NULL, FALSE); */
-	if (node == NULL)
+	d_tree = (DebugTree*)data;
+	tree = GTK_TREE_VIEW (widget);
+	model = gtk_tree_view_get_model(tree);
+	
+	selection = gtk_tree_view_get_selection (tree);
+	
+	if (!gtk_tree_selection_get_selected(selection,NULL,&iter)) {
+		g_warning("Unable to get selected row\n");
 		return FALSE;
-
-	node_data = ((GNode*)node->user_data)->data;
+	}
+		
+	gtk_tree_model_get (model, &iter, DTREE_ENTRY_COLUMN, &node_data, -1);
 
 	/* only for items with 'real' data */
-	if (!node_data || node_data->dataType == TYPE_ROOT)
+	if (!node_data || node_data->dataType == TYPE_ROOT) {
+		g_print("Not real data\n");
 		return FALSE;
+	}
+
+	if (!gtk_tree_model_iter_parent(model,&parent,&iter)) {
+		g_warning("Unable to get parent\n");
+		return FALSE;
+	}
 
 	/* Do not allow long arrays */
-	if (is_long_array (GTK_CTREE (d_tree->tree), GTK_CTREE_ROW (node)->parent))
+	if (is_long_array (GTK_TREE_VIEW (tree), &parent))
 		return FALSE;
 
 	if (node_data->dataType == TYPE_VALUE)
@@ -230,7 +223,7 @@ debug_tree_on_middle_click (GtkWidget *widget,
 		show_hide_popup_menu_items (d_tree->middle_click_menu, 8, 9, TRUE);
 	}
 
-	d_tree->cur_node = node;
+	d_tree->cur_node = gtk_tree_iter_copy(&iter);
 
 	/* ok - show the menu */
 	gtk_widget_show_all (GTK_WIDGET (d_tree->middle_click_menu));
@@ -278,7 +271,6 @@ static void
 on_format_hex_clicked (GtkMenuItem * menu_item, gpointer data)
 {
 	DebugTree *d_tree = (DebugTree *) data;
-
 	change_display_type (d_tree, FORMAT_HEX);
 }
 
@@ -286,7 +278,6 @@ static void
 on_format_char_clicked (GtkMenuItem * menu_item, gpointer data)
 {
 	DebugTree *d_tree = (DebugTree *) data;
-
 	change_display_type (d_tree, FORMAT_CHAR);
 }
 
@@ -295,11 +286,14 @@ static void
 change_display_type (DebugTree *d_tree, gint display_type)
 {
 	TrimmableItem *node_data = NULL;
+	GtkTreeModel* model;
 
 	g_return_if_fail (d_tree);
+	
+	model = gtk_tree_view_get_model(GTK_TREE_VIEW(d_tree->tree));
 
 	/* get the node's private data */
-	node_data =  ((GNode*)(d_tree->cur_node->user_data))->data;
+	gtk_tree_model_get (model, d_tree->cur_node, DTREE_ENTRY_COLUMN, &node_data, -1);
 	
 	g_return_if_fail (node_data != NULL);
 
@@ -313,48 +307,11 @@ change_display_type (DebugTree *d_tree, gint display_type)
 	debug_ctree_cmd_gdb (GTK_TREE_VIEW(d_tree->tree),
 						 d_tree->cur_node, NULL,
 						 display_type, FALSE);
+	
+	gtk_tree_iter_free(d_tree->cur_node);
+	d_tree->cur_node = NULL;
 }
-#endif
 
-/* return the correct display command according to the display type. caller
- * must free the returned string! */
-#if 0
-static gchar *
-get_display_command (gint display_mask)
-{
-	gchar *s = NULL;
-
-	switch (display_mask)
-	{
-	case FORMAT_DEFAULT:
-		s = g_strdup ("print ");
-		break;
-	case FORMAT_BINARY:
-		s = g_strdup ("print/t ");
-		break;
-	case FORMAT_OCTAL:
-		s = g_strdup ("print/o ");
-		break;
-	case FORMAT_SDECIMAL:
-		s = g_strdup ("print/d ");
-		break;
-	case FORMAT_UDECIMAL:
-		s = g_strdup ("print/u ");
-		break;
-	case FORMAT_HEX:
-		s = g_strdup ("print/x ");
-		break;
-	case FORMAT_CHAR:
-		s = g_strdup ("print/c ");
-		break;
-	default:
-		g_warning ("Warning! unknown display type: %d\n", display_mask);
-		s = g_strdup ("print ");
-	}
-
-	return s;
-}
-#endif
 
 /*
  Return full name of the supplied node. caller must free the returned
@@ -390,8 +347,6 @@ extract_full_name (GtkTreeView * ctree, GtkTreeIter *node)
 		/* get the current node's parent */
 		if (!gtk_tree_model_iter_parent(model,&parent,&child))
 			break;
-		
-		/* piter = &iter2; */
 		
 		gtk_tree_model_get (model, &parent, DTREE_ENTRY_COLUMN, &data, -1);
 
@@ -600,9 +555,17 @@ debug_tree_on_select_row (GtkWidget *widget, GdkEvent *event,
 	GtkTreeModel *model;
 	GtkTreeSelection *selection;
 	GtkTreeIter iter;
+	GdkEventButton *buttonevent = NULL;
 	
 	g_return_if_fail (GTK_IS_TREE_VIEW (widget));
 
+	if (event->type == GDK_BUTTON_PRESS) {
+		buttonevent = (GdkEventButton *) event;
+
+		if (buttonevent->button == 3)
+			return debug_tree_on_middle_click(widget,event,user_data);
+	}
+	
 	/* only when double clicking */
 	if (!(event->type == GDK_2BUTTON_PRESS))
 		return FALSE;
@@ -676,7 +639,7 @@ parse_data (GtkTreeView* ctree, GtkTreeIter* parent, gchar * buf)
 
 	model = gtk_tree_view_get_model (ctree);
 	gtk_tree_model_get (model, parent, DTREE_ENTRY_COLUMN, &item, -1);	
-	/* item = gtk_ctree_node_get_row_data (ctree, parent); */
+
 	if (item->dataType == TYPE_ARRAY)
 	{
 		parse_array (ctree, parent, buf);
@@ -751,7 +714,6 @@ parse_array (GtkTreeView* ctree, GtkTreeIter* parent, gchar * buf)
 	g_return_if_fail (ctree);
 	g_return_if_fail (parent);
 
-	/* item = gtk_ctree_node_get_row_data (ctree, parent); */
 	model = gtk_tree_view_get_model (ctree);
 	gtk_tree_model_get (model, parent, DTREE_ENTRY_COLUMN, &item, -1);	
 
@@ -1514,15 +1476,12 @@ debug_tree_create (GtkWidget * container)
 	gtk_container_add (GTK_CONTAINER (container), d_tree->tree);
 	gtk_widget_show (d_tree->tree);
 	g_object_unref (G_OBJECT (model));
-	// gtk_ctree_set_line_style (GTK_CTREE (d_tree->tree),
-	// GTK_CTREE_LINES_DOTTED);
 
 	/* Columns */
 	column = gtk_tree_view_column_new ();
 	renderer = gtk_cell_renderer_text_new ();
 	gtk_tree_view_column_pack_start (column, renderer, TRUE);
-	gtk_tree_view_column_add_attribute (column, renderer, "text",
-										VARIABLE_COLUMN);
+	gtk_tree_view_column_add_attribute (column, renderer, "text",	VARIABLE_COLUMN);
 	gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
 	gtk_tree_view_column_set_title (column, _("Variable"));
 	gtk_tree_view_append_column (GTK_TREE_VIEW (d_tree->tree), column);
@@ -1539,7 +1498,7 @@ debug_tree_create (GtkWidget * container)
 	debug_tree_init (d_tree);
 
 	g_signal_connect (d_tree->tree, "event", 
-					  G_CALLBACK (debug_tree_on_select_row), NULL);
+					  G_CALLBACK (debug_tree_on_select_row), d_tree);
 
 	//g_signal_connect (d_tree->tree, "row-deleted",
 	//					G_CALLBACK (debug_tree_on_row_deleted), NULL);
@@ -1556,7 +1515,7 @@ debug_tree_create (GtkWidget * container)
 	//				 G_CALLBACK(debug_tree_on_middle_click), d_tree);
 
 	/* build middle click popup menu */
-	/*
+	
 	d_tree->middle_click_menu = gtk_menu_new ();
 	build_menu_item (_("Default format"),
 					 GTK_SIGNAL_FUNC(on_format_default_clicked),
@@ -1582,7 +1541,7 @@ debug_tree_create (GtkWidget * container)
 					 d_tree->middle_click_menu, d_tree);
 
 	add_menu_separator (d_tree->middle_click_menu);
-	build_menu_item (_("Inspect memory"),
+/*	build_menu_item (_("Inspect memory"),
 					 GTK_SIGNAL_FUNC(on_inspect_memory_clicked),
 					 d_tree->middle_click_menu, d_tree);
 	*/

@@ -195,7 +195,7 @@ text_editor_new (gchar * filename, TextEditor * parent, AnjutaPreferences * eo)
 	te->menu = text_editor_menu_new ();
 	text_editor_update_preferences (te->preferences, te);
 	text_editor_update_controls (te);
-	g_signal_connect (G_OBJECT (te->preferences), "changed",
+	te->changed_id = g_signal_connect (G_OBJECT (te->preferences), "changed",
 					  G_CALLBACK (text_editor_update_preferences), te);
 	return te;
 }
@@ -282,6 +282,9 @@ text_editor_destroy (TextEditor * te)
 			aneditor_destroy (te->editor_id);
 		if (te->used_by_cvs)
 			cvs_set_editor_destroyed (app->cvs);
+		if (te->changed_id)
+			g_signal_handler_disconnect (G_OBJECT (te->preferences), 
+										 te->changed_id);
 		g_free (te);
 		te = NULL;
 	}
