@@ -187,7 +187,6 @@ on_executer_dialog_response (GtkDialog *dialog, gint response,
 	Executer	*e =(Executer*) user_data ;
 
 	e->is_showing = FALSE;
-	gtk_widget_destroy (GTK_WIDGET (dialog));
 	if (response == GTK_RESPONSE_OK)
 	{		
 		g_return_if_fail( NULL != user_data );
@@ -196,6 +195,7 @@ on_executer_dialog_response (GtkDialog *dialog, gint response,
 								COMBO_LIST_LENGTH);
 		executer_execute (e);
 	}
+	gtk_widget_destroy (GTK_WIDGET (dialog));
 }
 
 /*
