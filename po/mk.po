@@ -3495,6 +3495,7 @@ msgid "Configure completed ... unsuccessful"
 msgstr "Конфигурирањето е завршено ... неуспешно"
 
 #: src/configurer.c:218
+#, fuzzy
 msgid "Configure completed...............Successful\n"
 msgstr "Конфигурирањето е завршено...............Успешно"
 
