@@ -245,7 +245,7 @@ free_string_list ( GList * pList );
  * Escapes single and double quotes in the given string *
  * Return string must be g_freed()                      *
  ********************************************************/
-gchar* anjuta_util_escape_quotes(gchar* str);
+gchar* anjuta_util_escape_quotes(const gchar* str);
 
 /********************************************************
  * Use this function instead of kill() to send a signal *
