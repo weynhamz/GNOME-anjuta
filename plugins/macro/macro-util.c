@@ -182,7 +182,6 @@ expand_keyword(MacroPlugin * plugin, gchar *keyword, gchar **expand)
 			*expand = get_email(plugin);
 			break;
 		default:
-			//*expand = 
 			return FALSE;
 	}
 	

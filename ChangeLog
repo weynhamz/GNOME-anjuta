@@ -1,5 +1,12 @@
 2005-02-24  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
 
+	* plugins/file-wizard/file.[ch], plugins/macro/macro-util.c,
+	plugins/macro/macros.xml :
+	
+	Added Headers macros. Cleaned file.c
+
+2005-02-24  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
+
 	* plugins/file-wizard/action-callbacks.c, plugins/macro/macro-util.c, 
 	plugins/macro/macros.xml :
 	

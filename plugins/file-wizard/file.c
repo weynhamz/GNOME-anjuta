@@ -36,6 +36,7 @@
 #include <libanjuta/anjuta-utils.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
+#include <libanjuta/interfaces/ianjuta-macro.h>
 
 #include "plugin.h"
 #include "file.h"
@@ -55,7 +56,6 @@
 static gboolean create_new_file_dialog(IAnjutaDocumentManager *docman);
 
 static gchar *insert_header_templ(IAnjutaEditor *te);
-static gchar *insert_header_c( IAnjutaEditor *te, AnjutaPreferences *prefs);
 
 typedef struct _NewFileGUI
 {
@@ -122,11 +122,6 @@ display_new_file(IAnjutaDocumentManager *docman)
 	}
 }
 
-//~ void
-//~ clear_new_file(void)
-//~ {
-//~     Free nfg at Anjuta closing
-//~ }
 
 /* Callback declarations */
 gboolean on_new_file_cancelbutton_clicked(GtkWidget *window, GdkEvent *event,
@@ -233,11 +228,14 @@ on_new_file_okbutton_clicked(GtkWidget *window, GdkEvent *event,
 	IAnjutaEditor *te;
 	IAnjutaDocumentManager *docman;
 	GtkWidget *toplevel;
-	AnjutaPreferences *prefs;
+	IAnjutaMacro* macro;
 	
 	toplevel= gtk_widget_get_toplevel (window);
 	docman = IANJUTA_DOCUMENT_MANAGER (g_object_get_data (G_OBJECT(toplevel),
 										"IAnjutaDocumentManager"));
+	macro = anjuta_shell_get_interface
+		                      (ANJUTA_PLUGIN(docman)->shell, 
+		                       IAnjutaMacro, NULL);
 	entry = glade_xml_get_widget(nfg->xml, NEW_FILE_ENTRY);
 	name = g_strdup(gtk_entry_get_text(GTK_ENTRY(entry)));
 	if (strlen(name) > 0)
@@ -251,14 +249,6 @@ on_new_file_okbutton_clicked(GtkWidget *window, GdkEvent *event,
 
 	optionmenu = glade_xml_get_widget(nfg->xml, NEW_FILE_TYPE);
 	source_type = gtk_option_menu_get_history(GTK_OPTION_MENU(optionmenu));
-
-	checkbutton = glade_xml_get_widget(nfg->xml, NEW_FILE_HEADER);
-	if (GTK_WIDGET_SENSITIVE(checkbutton) && 
-			gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(checkbutton)))
-	{
-		prefs = get_preferences(ANJUTA_PLUGIN(docman));
-		insert_header(te, prefs, source_type);
-	}
 	
 	checkbutton = glade_xml_get_widget(nfg->xml, NEW_FILE_LICENSE);
 	if (GTK_WIDGET_SENSITIVE(checkbutton) && 
@@ -275,9 +265,16 @@ on_new_file_okbutton_clicked(GtkWidget *window, GdkEvent *event,
 	if (GTK_WIDGET_SENSITIVE(checkbutton) && 
 			gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(checkbutton)))
 	{
-//FIXME : call ianjuta_macro_insert( ...., "Date_Time", NULL)
-		insert_header_template (te);
+		ianjuta_macro_insert(macro, "Header_h", NULL);
 	}		
+	
+	checkbutton = glade_xml_get_widget(nfg->xml, NEW_FILE_HEADER);
+	if (GTK_WIDGET_SENSITIVE(checkbutton) && 
+			gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(checkbutton)))
+	{
+		insert_header(macro, source_type);
+	}
+	
 	gtk_widget_hide(nfg->dialog);
 	nfg->showing = FALSE;
 	
@@ -492,234 +489,27 @@ insert_date_time(IAnjutaEditor *te)
 	g_free(DateTime);
 }
 
-static gchar *get_username(AnjutaPreferences *prefs)
-{
-	gchar *Username;
-
-	Username = anjuta_preferences_get (prefs, IDENT_NAME);
-	if (!Username)
-		Username = getenv("USERNAME");
-	if (!Username)
-		Username = getenv("USER");
-	return Username;
-}
-
-//~ void
-//~ insert_username(IAnjutaEditor *te, AnjutaPreferences *prefs)
-//~ {
-	//~ file_insert_text(te, get_username(prefs), -1);
-//~ }
-
-static gchar *insert_email(AnjutaPreferences *prefs)
-{
-	gchar *email;
-	gchar *Username;
-	email = anjuta_preferences_get (prefs, IDENT_EMAIL);
-	if (!email)
-	{
-		email = getenv("HOSTNAME");
-		Username = getenv("USERNAME");
-		if (!Username)
-			Username = getenv("USER");
-		email = g_strconcat(Username, "@", email, NULL);
-	}
-	return email;
-}
-
-
-static gchar *
-insert_copyright(AnjutaPreferences *prefs)
-{
-	gchar *Username;
-	gchar *copyright;
-	gchar datetime[20];
-	struct tm *lt;
-	time_t cur_time = time(NULL);
-
-	lt = localtime(&cur_time);
-	strftime (datetime, 20, N_("%Y"), lt);
-	Username = get_username(prefs);
-	copyright = g_strconcat("Copyright  ", datetime, "  ", Username, NULL);
-
-	return copyright;
-}
-
-//~ static gchar *
-//~ insert_changelog(AnjutaPreferences *prefs)
-//~ {
-	//~ gchar *Username;
-	//~ gchar *email;
-	//~ gchar *CLEntry;
-	//~ gchar datetime[20];
-	//~ struct tm *lt;
-	//~ time_t cur_time = time(NULL);
-
-	//~ CLEntry = g_new(gchar, 200);
-	//~ lt = localtime(&cur_time);
-	//~ strftime (datetime, 20, N_("%Y-%m-%d"), lt);
-
-	//~ Username =  get_username(prefs);
-	//~ email = insert_email(prefs);
-	//~ sprintf(CLEntry,"%s  %s <%s>\n", datetime, Username, email);
-	//~ g_free(email);
-  	
-	//~ return  CLEntry;
-//~ }
-
-//~ void
-//~ insert_changelog_entry(IAnjutaEditor *te, AnjutaPreferences *prefs)
-//~ {
-	//~ gchar *changelog;
-	//~ changelog = insert_changelog(prefs);
-	//~ file_insert_text(te, changelog, -1);
-
-	//~ g_free(changelog);
-//~ }
-
-static gchar*
-insert_header_file_copyright_email (IAnjutaEditor *te, AnjutaPreferences *prefs)
-{
-	gchar *buffer;
-	gchar *tmp;
-	gchar *copyright;
-	gchar *email;
-	const gchar *filename;
-
-	filename = ianjuta_editor_get_filename (IANJUTA_EDITOR (te), NULL);	
-	buffer = g_strconcat("#           ", filename, "\n", NULL);
-	tmp = insert_d_t();
-	buffer = g_strconcat( buffer, "#  ", tmp, NULL);
-	g_free(tmp);
-	copyright = insert_copyright(prefs);
-	buffer = g_strconcat(buffer, "#  ", copyright, "\n", NULL);
-	g_free(copyright);
-	email = insert_email(prefs);
-	buffer = g_strconcat(buffer, "#  ", email, "\n", NULL);
-	g_free(email);
-
-	return buffer;
-}
-static gchar*
-insert_header_shell (IAnjutaEditor *te, AnjutaPreferences *prefs)
-{
- 	gchar *buffer;
-	gchar *tmp;
-
-	buffer = g_strdup("#!/bin/sh \n\n");
-	tmp = insert_header_file_copyright_email (te, prefs);
-	buffer = g_strconcat(buffer, tmp, NULL);
-	g_free(tmp);
-	
-	return buffer;
-}
-
-static gchar*
-insert_header_perl (IAnjutaEditor *te, AnjutaPreferences *prefs)
-{
- 	gchar *buffer;
-	gchar *tmp;
-
-	buffer = g_strdup("#!/usr/bin/perl -w\n\n");
-	tmp = insert_header_file_copyright_email (te, prefs);
-	buffer = g_strconcat(buffer, tmp, NULL);
-	g_free(tmp);
-	
-	return buffer;
-}
-
-static gchar*
-insert_header_csharp (IAnjutaEditor *te, AnjutaPreferences *prefs)
-{
- 	gchar *buffer;
-	
-	buffer = g_strdup("// <file>\n//     <copyright see=\"prj:///doc/copyright.txt\"/>\n");
-	buffer = g_strconcat( buffer, "//     <license see=\"prj:///doc/license.txt\"/>\n", NULL);
-	buffer = g_strconcat( buffer, "//     <owner name=\"", get_username(prefs), "\" ", NULL);
-	buffer = g_strconcat( buffer, " email=\"", insert_email(prefs),"\"/>\n", NULL);
-	buffer = g_strconcat( buffer, "//     <version value=\"$version\"/>\n", NULL);
-	buffer = g_strconcat( buffer, "// </file>", NULL);
-	
-	return buffer;
-}
-
-static gchar*
-insert_header_cpp (IAnjutaEditor *te, AnjutaPreferences *prefs)
-{
- 	gchar *buffer;
-	gchar *tmp;
-	gchar *copyright;
-	gchar *email;
-	const gchar *filename;
-
-	filename = ianjuta_editor_get_filename (IANJUTA_EDITOR (te), NULL);	
-	buffer = g_strconcat("//           ", filename, "\n", NULL);
-	tmp = insert_d_t();
-	buffer = g_strconcat( buffer, "//  ", tmp, NULL);
-	g_free(tmp);
-	copyright = insert_copyright(prefs);
-	buffer = g_strconcat(buffer, "//  ", copyright, "\n", NULL);
-	g_free(copyright);
-	email = insert_email(prefs);
-	buffer = g_strconcat(buffer, "//  ", email, "\n", NULL);
-	g_free(email);
-
-	return buffer;
-}
-
-static gchar*
-insert_header_c (IAnjutaEditor *te, AnjutaPreferences *prefs)
-{
- 	gchar *buffer;
-	gchar *tmp;
-	gchar *star;
-	gchar *copyright;
-	gchar *email;
-	const gchar *filename;
-
-	filename = ianjuta_editor_get_filename (IANJUTA_EDITOR (te), NULL);	
-	star =  g_strnfill(75, '*');
-	buffer = g_strconcat("/", star, "\n *            ", filename, "\n *\n", NULL);
-	tmp = insert_d_t();
-	buffer = g_strconcat( buffer, " *  ", tmp, NULL);
-	g_free(tmp);
-	copyright = insert_copyright(prefs);
-	buffer = g_strconcat(buffer, " *  ", copyright, "\n", NULL);
-	g_free(copyright);
-	email = insert_email(prefs);
-	buffer = g_strconcat(buffer, " *  ", email, "\n", NULL);
-	g_free(email);
-	buffer = g_strconcat(buffer, " ", star, "*/\n\n", NULL);
-	g_free(star);
-
-	return buffer;
-}
-
 void
-insert_header(IAnjutaEditor *te, AnjutaPreferences *prefs, gint source_type)
+insert_header(IAnjutaMacro* macro, gint source_type)
 {
-	gchar *header;
-
 	switch (source_type)
 	{
 		case  CMT_C: case CMT_HC:
-			header = insert_header_c(te, prefs);
+			ianjuta_macro_insert(macro, "Header_c", NULL);
 			break;
 		case  CMT_CPLUS: case CMT_JAVA:
-			header = insert_header_cpp(te, prefs);
+			ianjuta_macro_insert(macro, "Header_cpp", NULL);
 			break;
 		case  CMT_CSHARP:
-			header = insert_header_csharp(te, prefs);
+			ianjuta_macro_insert(macro, "Header_csharp", NULL);
 			break;
 		case CMT_PERL:
-			header = insert_header_perl(te, prefs);
+			ianjuta_macro_insert(macro, "Header_perl", NULL);
 			break;
 		case CMT_SHELL:
-			header = insert_header_shell(te, prefs);;
+			ianjuta_macro_insert(macro, "Header_shell", NULL);
 			break;
 		default:
 			break;
 	}
-	file_insert_text(te, header, -1);
-
-	g_free(header);
 }

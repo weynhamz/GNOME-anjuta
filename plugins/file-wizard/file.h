@@ -35,9 +35,9 @@ extern "C"
 #include <libanjuta/anjuta-preferences.h>
 #include <libanjuta/interfaces/ianjuta-editor.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
+#include <libanjuta/interfaces/ianjuta-macro.h>
 
 void display_new_file(IAnjutaDocumentManager *docman);	
-//~ void clear_new_file(void);	
 
 AnjutaPreferences *get_preferences (AnjutaPlugin *plugin);
 	
@@ -49,8 +49,7 @@ void insert_header_template(IAnjutaEditor *te);
 void insert_date_time(IAnjutaEditor *te);
 void insert_username(IAnjutaEditor *te, AnjutaPreferences *prefs);
 void insert_changelog_entry(IAnjutaEditor *te, AnjutaPreferences *prefs);
-void insert_header(IAnjutaEditor *te, AnjutaPreferences *prefs, gint source_type);
-
+void insert_header(IAnjutaMacro* macro, gint source_type);
 void on_new_file_license_toggled(GtkToggleButton *button, gpointer user_data);
 
 typedef enum _Cmt

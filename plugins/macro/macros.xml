@@ -121,4 +121,31 @@ extern "C"
  ****************************************************************************/
 
 ]]></macro>
+<macro _name="Header_cpp" _category="EXPAND" _shortcut=""><![CDATA[//           @FILE_NAME@
+//  @DATE_TIME@
+//  Copyright  @DATE_Y@  @USER_NAME@
+//  <@EMAIL@>
+]]></macro>
+<macro _name="Header_csharp" _category="EXPAND" _shortcut=""><![CDATA[// <file>
+//     <copyright see="prj:///doc/copyright.txt"/>
+//     <license see="prj:///doc/license.txt"/>
+//     <owner name="@USER_NAME@"  email="@EMAIL@"/>
+//     <version value="version"/>
+// </file>
+]]></macro>
+<macro _name="Header_perl" _category="EXPAND" _shortcut=""><![CDATA[#!/usr/bin/perl -w
+#
+#           @FILE_NAME@
+#  @DATE_TIME@
+#  Copyright  @DATE_Y@  @USER_NAME@
+#  <@EMAIL@>
+]]></macro>
+<macro _name="Header_shell" _category="EXPAND" _shortcut=""><![CDATA[#!/bin/sh 
+#
+#           @FILE_NAME@
+#  @DATE_TIME@
+#  Copyright  @DATE_Y@  @USER_NAME@
+#  <@EMAIL@>
+]]></macro>
+
 </anjuta-macros>
