@@ -141,12 +141,15 @@ gboolean tm_project_add_file(TMProject *project, const char *file_name
 
 	g_return_val_if_fail((project && file_name), FALSE);
 	path = tm_get_real_path(file_name);
+#ifdef TM_DEBUG
+	g_message("Adding %s to project", path);
+#endif
 	/* Check if the file is already loaded in the workspace */
 	source_file = tm_workspace_find_object(TM_WORK_OBJECT(workspace), path, FALSE);
 	if (NULL != source_file)
-		{
+	{
 		if ((workspace == source_file->parent) || (NULL == source_file->parent))
-			{
+		{
 #ifdef TM_DEBUG
 			g_message("%s moved from workspace to project", path);
 #endif
@@ -447,6 +450,25 @@ gboolean tm_project_autoscan(TMProject *project)
 	tm_file_entry_foreach(root_dir, tm_project_add_file_recursive
 	  , project, 0, FALSE);
 	tm_file_entry_free(root_dir);
+	tm_project_update(TM_WORK_OBJECT(project), TRUE, FALSE, TRUE);
+	return TRUE;
+}
+
+gboolean tm_project_sync(TMProject *project, GList *files)
+{
+	GList *tmp;
+	guint i;
+
+	if (project->file_list)
+	{
+		for (i = 0; i < project->file_list->len; ++i)
+			tm_source_file_free(project->file_list->pdata[i]);
+		g_ptr_array_set_size(project->file_list, 0);
+	}
+	for (tmp = files; tmp; tmp = g_list_next(tmp))
+	{
+		tm_project_add_file(project, (const char *) tmp->data, FALSE);
+	}
 	tm_project_update(TM_WORK_OBJECT(project), TRUE, FALSE, TRUE);
 	return TRUE;
 }

@@ -311,18 +311,44 @@ static void tool_terminate_handler(gint status, time_t time)
 static void execute_tool(GtkMenuItem *item, gpointer data)
 {
 	AnUserTool *tool = (AnUserTool *) data;
+	gchar *command;
 
 #ifdef TOOL_DEBUG
-	fprintf(stderr, "Tool: %s (%s)\n", tool->name, tool->command);
+	g_message("Tool: %s (%s)\n", tool->name, tool->command);
 #endif
+	/* Expand variables to get the full command */
+	if (app->current_text_editor && app->current_text_editor->full_filename)
+		anjuta_set_file_properties(app->current_text_editor->full_filename);
+	command = prop_expand(app->project_dbase->props, tool->command);
+	if (NULL == command)
+		return;
+#ifdef TOOL_DEBUG
+	g_message("Command is '%s'", command);
+#endif
+
+	/* Set the current working directory */
+	if (tool->working_dir)
+	{
+		gchar *working_dir = prop_expand(app->project_dbase->props
+		  , tool->working_dir);
+		if (working_dir)
+		{
+#ifdef TOOL_DEBUG
+			g_message("Working dir is %s", working_dir);
+#endif
+			chdir(working_dir);
+			g_free(working_dir);
+		}
+	}
 	anjuta_message_manager_clear(app->messages, MESSAGE_STDOUT);
 	anjuta_message_manager_clear(app->messages, MESSAGE_STDERR);
 	anjuta_message_manager_show(app->messages, MESSAGE_STDOUT);
-	if (FALSE == launcher_execute(tool->command, tool_stdout_handler
+	if (FALSE == launcher_execute(command, tool_stdout_handler
 	  , tool_stderr_handler, tool_terminate_handler))
 	{
 		anjuta_error("%s: Unable to launch!", tool->command);
 	}
+	g_free(command);
 }
 
 /* Loads toolset from a configuration file. Tools properties are saved
@@ -346,7 +372,7 @@ static gboolean anjuta_tools_load_from_file(const gchar *file_name)
 	AnUserTool *tool;
 
 #ifdef TOOLS_DEBUG
-	fprintf(stderr, "Loading tools from %s\n", file_name);
+	g_message("Loading tools from %s\n", file_name);
 #endif
 	if (0 != stat(file_name, &st))
 	{

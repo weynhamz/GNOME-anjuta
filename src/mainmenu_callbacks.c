@@ -1290,7 +1290,12 @@ void
 on_update_tagmanager_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
 	if (app->project_dbase->project_is_open)
-		project_dbase_update_tags_image(app->project_dbase, (gboolean) user_data);
+	{
+		if (user_data)
+			project_dbase_sync_tags_image(app->project_dbase);
+		else
+			project_dbase_update_tags_image(app->project_dbase, FALSE);
+	}
 }
 
 /*************************************************************************/

@@ -1105,6 +1105,81 @@ project_dbase_load_yourself (ProjectDBase * p, PropsID props)
 	return TRUE;
 }
 
+void project_dbase_sync_tags_image(ProjectDBase *p)
+{
+	gchar* src_dir, *inc_dir;
+	gboolean build_sv = preferences_get_int(app->preferences
+	  , BUILD_SYMBOL_BROWSER);
+	gboolean build_fv = preferences_get_int(app->preferences
+	  , BUILD_FILE_BROWSER);
+
+	g_return_if_fail (p != NULL);
+
+	if (p->project_is_open == FALSE)
+		return;
+
+	if (p->top_proj_dir && !p->tm_project)
+		p->tm_project = tm_project_new(p->top_proj_dir, NULL, NULL, TRUE);
+
+	src_dir = project_dbase_get_module_dir (p, MODULE_SOURCE);
+	inc_dir = project_dbase_get_module_dir (p, MODULE_INCLUDE);
+
+	if (src_dir)
+	{
+		gchar* src_path, *inc_path = NULL, *tmp;
+		GList *src_files, *inc_files, *node;
+		TextEditor *te;
+
+		src_path = g_strconcat (src_dir, "/", NULL);
+		if (inc_dir)
+			inc_path = g_strconcat (inc_dir, "/", NULL);
+		src_files = glist_from_data (p->props, "module.source.files");
+		inc_files = glist_from_data (p->props, "module.include.files");
+#ifdef DEBUG
+		g_message("%d source files, %d include files"
+		  , g_list_length(src_files), g_list_length(inc_files));
+#endif
+		glist_strings_prefix (src_files, src_path);
+		if (inc_files && inc_path)
+		{
+			glist_strings_prefix (inc_files, inc_path);
+			src_files = g_list_concat(src_files, inc_files);
+		}
+		for (node = src_files; node; node = g_list_next(node))
+		{
+			tmp = tm_get_real_path((const gchar *) node->data);
+			g_free(node->data);
+			node->data = tmp;
+		}
+		/* Since the open text editors hold a pointer to the
+		source file, set it to NULL since the pointer might have
+		been free()d by the syncing process
+		*/
+		for (node = app->text_editor_list; node; node = g_list_next(node))
+		{
+			te = (TextEditor *) node->data;
+			te->tm_file = NULL;
+		}
+		tm_project_sync(TM_PROJECT(p->tm_project), src_files);
+		/* Set the pointers back again */
+		for (node = app->text_editor_list; node; node = g_list_next(node))
+		{
+			te = (TextEditor *) node->data;
+			te->tm_file = tm_workspace_find_object(TM_WORK_OBJECT(
+			  app->tm_workspace), te->full_filename, TRUE);
+		}
+		glist_strings_free (src_files);
+		g_free (src_path);
+		g_free (src_dir);
+		if (inc_path)
+			g_free (inc_path);
+		if (inc_dir)
+			g_free (inc_dir);
+	}
+	sv_populate(build_sv);
+	fv_populate(build_fv);
+}
+
 void
 project_dbase_update_tags_image(ProjectDBase* p, gboolean rebuild)
 {

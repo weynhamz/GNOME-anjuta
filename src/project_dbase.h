@@ -202,6 +202,8 @@ gboolean project_dbase_save_project (ProjectDBase * p);
 
 void project_dbase_update_tags_image(ProjectDBase* p, gboolean rebuild);
 
+void project_dbase_sync_tags_image(ProjectDBase* p);
+
 gboolean project_dbase_save_yourself (ProjectDBase * p, FILE * stream);
 
 gboolean project_dbase_load_yourself (ProjectDBase * p, PropsID props);
