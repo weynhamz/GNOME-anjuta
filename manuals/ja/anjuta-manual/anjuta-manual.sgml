@@ -17,6 +17,8 @@
   <title>Anjuta IDE マニュアル</title>
   <edition>v0.0.4</edition>
 
+  <legalnotice>
+   <para>
 フリーソフトウェア財団が発行する <citetitle>GNU フリー文書利用許諾契約書</citetitle> の第1.1版またはそれ以降の版の下で複写、改編/修正による再配布が認められています。但し不変なセクション、表紙のテキスト、裏表紙のテキストは除きます。貴方はフリーソフトウェア財団から <citetitle>GNU フリー文書利用許諾契約書</citetitle> のコピーを <ulink type="http" url="http://www.fsf.org">ウェブサイト</ulink> から、または次にメールを送ることで入手することが可能です: Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
    </para>
    <para>

@@ -4,8 +4,7 @@ figs = \
 	figures/icons.png\
 	figures/interface.png
 
-sgml_ents =\
-	anjuta-tutorial.sgml
+sgml_ents =
 
 docname = anjuta-tutorial
 lang = C

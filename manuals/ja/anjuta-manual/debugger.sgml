@@ -276,6 +276,7 @@
    <title>ブレークポイントの削除</title>
    <para>
 	メニュー・アイテム <menuchoice><guisubmenu>表示(_V)</guisubmenu><guimenuitem>ブレークポイント(_B)</guimenuitem></menuchoice> または <menuchoice><guisubmenu>デバッグ(_D)</guisubmenu><guisubmenu>ブレークポイント(_B)</guisubmenu><guimenuitem>ブレークポイント(_B)&hellip;</guimenuitem></menuchoice> を選択して <interface>ブレークポイント編集ウィンドウ</interface> を開いて下さい。編集するブレークポイントを選択して <guibutton>削除</guibutton> ボタンをクリックします。するとそのブレークポイントが削除されます。
+   </para>
    <para>
     全てのブレークポイントを削除する場合は <guibutton>全て削除</guibutton> ボタンをクリックして下さい。
    </para>
