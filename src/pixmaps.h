@@ -229,6 +229,7 @@
 /* Useful macros for specifying pixmaps in UIInfo structures */
 /* #define PIX_FILE(F) GNOME_APP_PIXMAP_FILENAME, PACKAGE_PIXMAPS_DIR "/" ANJUTA_PIXMAP_ ## F */
 #define PIX_FILE(F) GNOME_APP_PIXMAP_NONE, NULL
-#define PIX_STOCK(F) GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_ ## F
+#define PIX_STOCK(F) GNOME_APP_PIXMAP_STOCK, F 
+/* GNOME_STOCK_MENU_ ## F */
 
 #endif

@@ -67,23 +67,23 @@ GtkWidget* create_messagebox_gui(MesgBoxData);
 
 /* Some handfull  message boxs with 1/2/3 buttons */
 
-void messagebox(char *type, char* mesg); //Just displays the message
+void messagebox(GtkMessageType type, char* mesg); //Just displays the message
 
 
-void messagebox1(char *type,    //Message box with 1 button
+void messagebox1(GtkMessageType type,    //Message box with 1 button
                        char *mesg,
                        char *butt_type,
                        GtkSignalFunc callback,
                        gpointer data );
 
-void messagebox2(char *type,    //Message box with 2 buttons
+void messagebox2(GtkMessageType type,    //Message box with 2 buttons
                        char *mesg,
                        char *butt1_type, char *butt2_type,
                        GtkSignalFunc callback1,
                        GtkSignalFunc callback2,
                        gpointer data );
 
-void messagebox3(char *type,    //Message box with 3 buttons
+void messagebox3(GtkMessageType type,    //Message box with 3 buttons
                        char *mesg,
                        char *butt1_type,char *butt2_type,char *butt3_type,
                        GtkSignalFunc callback1,

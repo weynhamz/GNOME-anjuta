@@ -94,7 +94,7 @@ struct _ProjectFileData
 	PrjModule module;
 	gchar *filename;
 	gchar *full_filename;
-	GtkCTreeNode* parent_node;
+	GtkTreePath* parent_node;
 };
 
 struct _ProjectDBaseGui
@@ -115,9 +115,9 @@ struct _ProjectDBaseGui
 	GtkWidget *menu_docked;
 
 	/* Ctree nodes and info */
-	GtkCTreeNode *root_node;
-	GtkCTreeNode *module_node[MODULE_END_MARK];
-	GtkCTreeNode *current_node;
+	GtkTreePath *root_node;
+	GtkTreePath *module_node[MODULE_END_MARK];
+	GtkTreePath *current_node;
 };
 
 struct _ProjectDBase
@@ -158,7 +158,7 @@ extern gchar* programming_language_map[];
 
 /* File data to be set with the project tree nodes */
 ProjectFileData *
-project_file_data_new (GtkCTreeNode * parent, PrjModule mod,
+project_file_data_new (GtkTreePath *parent, PrjModule mod,
 		gchar* fname, gchar * full_fname);
 
 void

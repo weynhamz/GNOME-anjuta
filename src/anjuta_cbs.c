@@ -126,11 +126,11 @@ gint on_anjuta_delete (GtkWidget * w, GdkEvent * event, gpointer data)
 	close project call later. */
 	if (file_not_saved)
 	{
-		messagebox2 (GNOME_MESSAGE_BOX_QUESTION,
+		messagebox2 (GTK_MESSAGE_QUESTION,
 			     _("One or more files are not saved.\n"
 				"Do you still want to exit?"),
-			     GNOME_STOCK_BUTTON_YES,
-			     GNOME_STOCK_BUTTON_NO,
+			     GTK_STOCK_YES,
+			     GTK_STOCK_NO,
 			     GTK_SIGNAL_FUNC
 			     (on_anjuta_exit_yes_clicked), NULL,
 			     NULL);
@@ -244,8 +244,8 @@ on_save_as_filesel_ok_clicked (GtkButton * button, gpointer user_data)
 			g_strdup_printf (_
 					 ("The file \"%s\" already exists.\nDo you want to overwrite it?."),
 					 filename);
-		messagebox2 (GNOME_MESSAGE_BOX_QUESTION, buff,
-			     GNOME_STOCK_BUTTON_YES, GNOME_STOCK_BUTTON_NO,
+		messagebox2 (GTK_MESSAGE_QUESTION, buff,
+			     GTK_STOCK_YES, GTK_STOCK_NO,
 			     GTK_SIGNAL_FUNC
 			     (on_save_as_overwrite_yes_clicked), NULL,
 			     user_data);
@@ -510,8 +510,8 @@ on_build_msg_save_ok_clicked(GtkButton * button, gpointer user_data)
 			g_strdup_printf (_
 					 ("The file \"%s\" already exists.\nDo you want to overwrite it?."),
 					 filename);
-		messagebox2 (GNOME_MESSAGE_BOX_QUESTION, buff,
-			     GNOME_STOCK_BUTTON_YES, GNOME_STOCK_BUTTON_NO,
+		messagebox2 (GTK_MESSAGE_QUESTION, buff,
+			     GTK_STOCK_YES, GTK_STOCK_NO,
 			     GTK_SIGNAL_FUNC
 			     (on_build_msg_save_overwrite), NULL,
 			     user_data);

@@ -117,11 +117,11 @@ struct _CompilerOptions
 
 extern gchar *anjuta_supports[][ANJUTA_SUPPORT_END_MARK];
 
-void co_clist_row_data_set_true (GtkCList* clist, gint row);
-void co_clist_row_data_set_false (GtkCList* clist, gint row);
-gboolean co_clist_row_data_get_state (GtkCList* clist, gint row);
-void co_clist_row_data_set_state (GtkCList* clist, gint row, gboolean state);
-void co_clist_row_data_toggle_state (GtkCList* clist, gint row);
+void co_clist_row_data_set_true (GtkTreeView *treeview, gint row);
+void co_clist_row_data_set_false (GtkTreeView *treeview, gint row);
+gboolean co_clist_row_data_get_state (GtkTreeView *treeview, gint row);
+void co_clist_row_data_set_state (GtkTreeView *treeview, gint row, gboolean state);
+void co_clist_row_data_toggle_state (GtkTreeView *treeview, gint row);
 
 void create_compiler_options_gui (CompilerOptions * co);
 

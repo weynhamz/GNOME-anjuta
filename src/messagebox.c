@@ -70,7 +70,7 @@ create_messagebox_gui (MesgBoxData mbd)
 
 /* Just displays the message */
 void
-messagebox(char *type, char* mesg) 
+messagebox(GtkMessageType type, char* mesg) 
 {
   messagebox1(type,
               mesg,
@@ -80,7 +80,7 @@ messagebox(char *type, char* mesg)
 }
 
 void
-messagebox1           (char *type,    //Message box with 1 button
+messagebox1           (GtkMessageType type,    //Message box with 1 button
                        char *mesg,
                        char *butt_type,
                        GtkSignalFunc callback,
@@ -101,7 +101,7 @@ messagebox1           (char *type,    //Message box with 1 button
 }
 
 void
-messagebox2           (char *type,    //Message box with 2 buttons
+messagebox2           (GtkMessageType type,    //Message box with 2 buttons
                        char *mesg,
                        char *butt1_type, char *butt2_type,
                        GtkSignalFunc callback1,
@@ -125,7 +125,7 @@ messagebox2           (char *type,    //Message box with 2 buttons
 }
 
 void
-messagebox3           (char *type,    //Message box with 3 buttons
+messagebox3           (GtkMessageType type,    //Message box with 3 buttons
                        char *mesg,
                        char *butt1_type,char *butt2_type,char *butt3_type,
                        GtkSignalFunc callback1,

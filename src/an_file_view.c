@@ -4,7 +4,6 @@
 
 #include <gnome.h>
 #include <libgnomevfs/gnome-vfs.h>
-#include <libgnomevfs/gnome-vfs-mime.h>
 #include <libgnomevfs/gnome-vfs-mime-handlers.h>
 
 #include "anjuta.h"
@@ -218,14 +217,14 @@ static GnomeUIInfo an_file_view_menu_uiinfo[] = {
 	 GNOME_APP_UI_ITEM, N_("Open in Anjuta"),
 	 NULL,
 	 fv_context_handler, (gpointer) OPEN, NULL,
-	 PIX_STOCK(OPEN),
+	 PIX_STOCK (GTK_STOCK_OPEN),
 	 0, 0, NULL}
 	,
 	{/* 1 */
 	 GNOME_APP_UI_ITEM, N_("Open in default viewer"),
 	 NULL,
 	 fv_context_handler, (gpointer) VIEW, NULL,
-	 PIX_STOCK(BOOK_OPEN),
+	 PIX_STOCK (GNOME_STOCK_BOOK_OPEN),
 	 0, 0, NULL}
 	,
 	{/* 2 */
@@ -239,7 +238,7 @@ static GnomeUIInfo an_file_view_menu_uiinfo[] = {
 	 GNOME_APP_UI_ITEM, N_("Refresh"),
 	 NULL,
 	 fv_context_handler, (gpointer) REFRESH, NULL,
-	 PIX_STOCK(REFRESH),
+	 PIX_STOCK(GTK_STOCK_REFRESH),
 	 0, 0, NULL}
 	,
 	 GNOMEUIINFO_SEPARATOR, /* 4 */
@@ -286,11 +285,14 @@ static gboolean
 fv_on_event(GtkWidget *widget, GdkEvent *event, gpointer user_data)
 {
 	gint row;
-	GtkCTree *tree;
-	GtkCTreeNode *node;
-	tree = GTK_CTREE(widget);
+	GtkTreeView *tree;
+	GtkTreePath *node;
+
+	g_return_val_if_fail (GTK_IS_TREE_VIEW (widget), FALSE);
+// PORT: FIXME
+	tree = GTK_TREE_VIEW (widget);
 	row = tree->clist.focus_row;
-	node = gtk_ctree_node_nth(tree,row);
+	node = gtk_ctree_node_nth (tree,row);
 
 	if (!node || !event)
 		return FALSE;

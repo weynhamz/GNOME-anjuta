@@ -384,8 +384,7 @@ AnEditor::AnEditor(PropSetFile* p) {
 	ptrEditor = Platform::SendScintilla(wEditor.GetID(), 
 		SCI_GETDIRECTPOINTER, 0, 0);
 
-	gtk_signal_connect(GTK_OBJECT(wEditor.GetID()), "notify",
-		GtkSignalFunc(NotifySignal), this);
+	g_signal_connect(wEditor.GetID(), "notify", G_CALLBACK(NotifySignal), this);
 
 	/* We will handle all accels ourself */
 	/* SendEditor(SCI_CLEARALLCMDKEYS); */
@@ -1869,7 +1868,7 @@ void AnEditor::Notify(SCNotification *notification) {
 				mods |= GDK_CONTROL_MASK;
 			if (notification->modifiers & SCMOD_ALT)
 				mods |= GDK_MOD1_MASK;
-			gtk_accel_group_activate(accelGroup, notification->ch,
+			gtk_accel_groups_activate(G_OBJECT (accelGroup), notification->ch,
 				static_cast<GdkModifierType>(mods));
 		}
 
@@ -2499,10 +2498,10 @@ aneditor_new(gpointer propset)
      g_warning("Memory allocation error.");
      return (AnEditorID)-1;
   }
-  gtk_signal_connect(GTK_OBJECT(ed->GetID()), "focus_in_event", 
-	  GTK_SIGNAL_FUNC(on_aneditor_focus_in), ed);
-  gtk_signal_connect(GTK_OBJECT(ed->GetID()), "focus_out_event", 
-	  GTK_SIGNAL_FUNC(on_aneditor_focus_out), ed);
+  g_signal_connect(ed->GetID(), "focus_in_event", 
+	  G_CALLBACK(on_aneditor_focus_in), ed);
+  g_signal_connect(ed->GetID(), "focus_out_event", 
+	  G_CALLBACK(on_aneditor_focus_out), ed);
   editors = g_list_append(editors, ed);
   return (AnEditorID)(g_list_length(editors) - 1);
 }
