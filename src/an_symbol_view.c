@@ -485,6 +485,7 @@ static void sv_assign_node_name(TMSymbol *sym, GString *s)
 
 AnSymbolView *sv_populate(gboolean full)
 {
+	static gboolean busy = FALSE;
 	GString *s;
 	char *arr[1];
 	TMSymbol *sym, *sym1, *symbol_tree;
@@ -503,6 +504,11 @@ AnSymbolView *sv_populate(gboolean full)
 
 	if (!sv)
 		sv_create();
+
+	if (busy)
+		return sv;
+	else
+		busy = TRUE;
 
 	sv_disconnect();
 	sv_freeze();
@@ -570,6 +576,8 @@ AnSymbolView *sv_populate(gboolean full)
 				}
 			}
 		}
+		while (gtk_events_pending())
+			gtk_main_iteration();
 		if (has_children)
 		{
 			for (j=0; j < sym->info.children->len; ++j)
@@ -601,6 +609,8 @@ AnSymbolView *sv_populate(gboolean full)
 				}
 				gtk_ctree_node_set_row_data_full(GTK_CTREE(sv->tree)
 				  , subitem, sfile, (GtkDestroyNotify) symbol_file_info_free);
+				while (gtk_events_pending())
+					gtk_main_iteration();
 			}
 		}
 	}
@@ -623,5 +633,6 @@ AnSymbolView *sv_populate(gboolean full)
 clean_leave:
 	sv_connect();
 	sv_thaw();
+	busy = FALSE;
 	return sv;
 }

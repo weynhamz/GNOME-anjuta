@@ -432,6 +432,8 @@ static void fv_add_tree_entry(TMFileEntry *entry, GtkCTreeNode *root)
 		return;
 	if ((tm_file_dir_t != entry->type) || (!entry->children))
 		return;
+	while (gtk_events_pending())
+		gtk_main_iteration();
 	closed_icon = fv_icons[fv_cfolder_t];
 	closed_bitmap = fv_bitmaps[fv_cfolder_t];
 	open_icon = fv_icons[fv_ofolder_t];
@@ -478,12 +480,18 @@ static void fv_add_tree_entry(TMFileEntry *entry, GtkCTreeNode *root)
 
 AnFileView *fv_populate(gboolean full)
 {
+	static gboolean busy = FALSE;
 	static const char *ignore[] = {"CVS", NULL};
 #ifdef DEBUG
 	g_message("Populating file view..");
 #endif
 	if (!fv)
 		fv_create();
+	if (busy)
+		return fv;
+	else
+		busy = TRUE;
+
 	fv_disconnect();
 	fv_freeze();
 	fv_clear();
@@ -500,5 +508,6 @@ AnFileView *fv_populate(gboolean full)
 clean_leave:
 	fv_connect();
 	fv_thaw();
+	busy = FALSE;
 	return fv;
 }

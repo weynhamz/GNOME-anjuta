@@ -1336,9 +1336,12 @@ gchar *text_editor_get_current_word(TextEditor *te)
 			buf = NULL;
 		}
 	}
+#ifdef DEBUG
 	if (buf)
 	{
 		g_message("Current word is '%s'", buf);
 	}
+#endif
 	return buf;
 }
+
