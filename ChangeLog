@@ -1,3 +1,15 @@
+2002-06-13	Naba Kumar	<kh_naba@users.sourceforge.net>
+
+	* Makefile.am: src module should be build last to complete
+	the dependencies with the libraries.
+	
+2002-06-13	Dave Huseby <huseby@shockfusion.com>
+
+	Reviewed by Naba Kumar <kh_naba@users.sourceforge.net>
+	
+	* plugins/class-gen/clsGen.c: Upgraded to new class generator.
+	* plugins/class-gen/class_logo.xpm: cvs added file.
+	
 2002-06-12  Naba Kumar <kh_naba@users.sourceforge.net>
 
 	* data/properties/anjuta.properties: Added anjuta.terminal property
