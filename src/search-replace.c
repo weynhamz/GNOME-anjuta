@@ -401,6 +401,18 @@ static long file_buffer_line_from_pos(FileBuffer *fb, int pos)
 		return -1;
 }
 
+static gchar *file_match_line_from_pos(FileBuffer *fb, int pos)
+{
+	gint length=1;
+	gint i;
+	g_return_val_if_fail(fb && pos >= 0, NULL);
+
+	for (i= pos+1; ((fb->buf[i] != '\n') && (fb->buf[i] != '\0')); i++, length++);
+	for (i= pos-1; (fb->buf[i] != '\n') && (i >= 0); i--, length++);
+	
+	return g_strndup (fb->buf + i + 1, length);
+}
+
 /* Generate a list of files to search in. Call with start = TRUE and
 ** top_dir = sf->top_dir. This is used when the search range is specified as
 SR_FILES */
@@ -463,16 +475,29 @@ static GList *get_project_file_list(void)
 	{
 		GList *names = NULL;
 		GList *tmp;
+		GList *file_name;
 		struct stat s;
 		gchar module_file_var[128];
 		char path[PATH_MAX];
+		gchar module_name_var[128];
+		gchar *module_name;
 		int i;
 
 		for (i=0; i < MODULE_END_MARK; ++i)
 		{
 			snprintf(module_file_var, 128, "module.%s.files", module_map[i]);
-			names = g_list_concat(names, glist_from_data(
-			  app->project_dbase->props, module_file_var));
+			snprintf(module_name_var, 128, "module.%s.name", module_map[i]);
+			module_name = prop_get (app->project_dbase->props, module_name_var);
+			
+			file_name = glist_from_data(app->project_dbase->props, 
+			                            module_file_var);
+	
+			if (*module_name != '.')	/* New Projects */
+				for (tmp = file_name; tmp; tmp = g_list_next(tmp))
+					tmp->data = g_strconcat (module_name, "/", tmp->data, NULL);
+               
+			names = g_list_concat(names, file_name);
+			g_free(module_name);
 		}
 		for (tmp = names; tmp; tmp = g_list_next(tmp))
 		{
@@ -696,7 +721,6 @@ static GList *create_search_entries(Search *s)
 	switch(s->range.type)
 	{
 		case SR_BUFFER:
-		case SR_BLOCK: /* FIXME */
 		case SR_FUNCTION: /* FIXME */
 			se = g_new0(SearchEntry, 1);
 			se->type = SE_BUFFER;
@@ -723,11 +747,14 @@ static GList *create_search_entries(Search *s)
 			}
 			break;
 		case SR_SELECTION:
+		case SR_BLOCK:
 			se = g_new0(SearchEntry, 1);
 			se->type = SE_BUFFER;
 			if ((se->te = app->current_text_editor) != NULL)
 			{
 				se->direction = s->range.direction;
+				if (s->range.type == SR_BLOCK)
+					aneditor_command(se->te->editor_id, ANE_SELECTBLOCK, 0, 0);
 				if (SD_BEGINNING == se->direction)
 					se->direction = SD_FORWARD;
 				se->start_pos = scintilla_send_message(SCINTILLA(
@@ -790,6 +817,8 @@ static GList *create_search_entries(Search *s)
 	return entries;
 }
 
+#define MAX_RESULTS 200
+
 static void search_and_replace(void)
 {
 	GList *entries;
@@ -800,7 +829,9 @@ static void search_and_replace(void)
 	MatchInfo *mi;
 	Search *s;
 	gint offset;
-
+	gchar *match_line;
+	gint nb_results;
+	
 	g_return_if_fail(sr);
 	s = &(sr->search);
 	entries = create_search_entries(s);
@@ -809,7 +840,8 @@ static void search_and_replace(void)
 		anjuta_message_manager_clear(app->messages, MESSAGE_FIND);
 		anjuta_message_manager_show(app->messages, MESSAGE_FIND);
 	}
-	for (tmp = entries; tmp; tmp = g_list_next(tmp))
+	nb_results = 0;
+	for (tmp = entries; tmp && (nb_results <= MAX_RESULTS); tmp = g_list_next(tmp))
 	{
 		se = (SearchEntry *) tmp->data;
 		if (SE_BUFFER == se->type)
@@ -822,6 +854,9 @@ static void search_and_replace(void)
 			offset = 0;
 			while ((NULL != (mi = get_next_match(fb, se->direction, &(s->expr)))))
 			{
+				nb_results++;
+				if (nb_results > MAX_RESULTS)
+					break;
 				if ((s->range.direction == SD_BACKWARD) && (mi->pos < se->end_pos))
 						break; 
 				if ((s->range.direction != SD_BACKWARD) && ((se->end_pos != -1) &&
@@ -847,9 +882,11 @@ static void search_and_replace(void)
 							  , (mi->pos + mi->len));
 						}
 						break;
-					case SA_FIND_PANE: /* FIXME - add the line */
-						snprintf(buf, BUFSIZ, "%s:%ld:Match found\n", fb->path
-						  , mi->line + 1);
+					case SA_FIND_PANE: 
+						match_line = file_match_line_from_pos(fb, mi->pos);
+						snprintf(buf, BUFSIZ, "%s:%ld:%s\n", fb->path
+						  , mi->line + 1, match_line);
+						g_free(match_line);
 						anjuta_message_manager_append(app->messages, buf
 						  , MESSAGE_FIND);
 						break;
@@ -879,6 +916,10 @@ static void search_and_replace(void)
 		file_buffer_free(fb);
 		g_free(se);
 	}
+	if (nb_results > MAX_RESULTS)
+		messagebox1(GNOME_MESSAGE_BOX_WARNING, 
+		            _("The maximum number of results has been reached."),
+		            GNOME_STOCK_BUTTON_OK, NULL, NULL);
 	g_list_free(entries);
 	return;
 }
@@ -1160,10 +1201,10 @@ void on_search_button_help_clicked(GtkButton *button, gpointer user_data)
 }
 
 #define FREE_FN(fn, v) if (v) { fn(v); v = NULL; }
-#define POP_LIST(str, var) populate_value(str, &s); \
+#define POP_LIST(str, var) populate_value(str, &s);\
 			if (s) \
-			{ \
-				sr->search.range.files.var = glist_from_string(s); \			
+			{\
+				sr->search.range.files.var = glist_from_string(s);\
 			}
 
 static void search_replace_populate(void)
