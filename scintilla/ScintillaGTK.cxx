@@ -58,6 +58,14 @@
 
 #if !PLAT_GTK_WIN32
 #include <iconv.h>
+// Since various versions of iconv can not agree on whether the src argument
+// is char ** or const char ** provide a templatised adaptor.
+template<typename T>
+size_t iconv_adaptor(size_t(*f_iconv)(iconv_t, T, size_t *, char **, size_t *),
+		iconv_t cd, char** src, size_t *srcleft,
+		char **dst, size_t *dstleft) {
+	return f_iconv(cd, (T)src, srcleft, dst, dstleft);
+}
 #endif
 
 #ifdef _MSC_VER
@@ -115,7 +123,7 @@ class ScintillaGTK : public ScintillaBase {
 public:
 	ScintillaGTK(_ScintillaObject *sci_);
 	virtual ~ScintillaGTK();
-	static void ClassInit(GtkObjectClass* object_class, GtkWidgetClass *widget_class);
+	static void ClassInit(GtkObjectClass* object_class, GtkWidgetClass *widget_class, GtkContainerClass *container_class);
 
 private:
 	virtual void Initialise();
@@ -175,6 +183,8 @@ private:
 	gint Expose(GtkWidget *widget, GdkEventExpose *ose);
 	static gint ExposeMain(GtkWidget *widget, GdkEventExpose *ose);
 	static void Draw(GtkWidget *widget, GdkRectangle *area);
+	void ForAll(GtkCallback callback, gpointer callback_data);
+	static void MainForAll(GtkContainer *container, gboolean include_internals, GtkCallback callback, gpointer callback_data);
 
 	static void ScrollSignal(GtkAdjustment *adj, ScintillaGTK *sciThis);
 	static void ScrollHSignal(GtkAdjustment *adj, ScintillaGTK *sciThis);
@@ -446,6 +456,20 @@ void ScintillaGTK::UnMapThis() {
 void ScintillaGTK::UnMap(GtkWidget *widget) {
 	ScintillaGTK *sciThis = ScintillaFromWidget(widget);
 	sciThis->UnMapThis();
+}
+
+void ScintillaGTK::ForAll(GtkCallback callback, gpointer callback_data) {
+	(*callback) (PWidget(wText), callback_data);
+	(*callback) (PWidget(scrollbarv), callback_data);
+	(*callback) (PWidget(scrollbarh), callback_data);
+}
+
+void ScintillaGTK::MainForAll(GtkContainer *container, gboolean include_internals, GtkCallback callback, gpointer callback_data) {
+	ScintillaGTK *sciThis = ScintillaFromWidget((GtkWidget *)container);
+
+	if (callback != NULL && include_internals) {
+		sciThis->ForAll(callback, callback_data);
+	}
 }
 
 #ifdef INTERNATIONAL_INPUT
@@ -969,7 +993,7 @@ int ScintillaGTK::KeyDefault(int key, int modifiers) {
 						size_t inLeft = strlen(utfVal);
 						char *pout = localeVal;
 						size_t outLeft = sizeof(localeVal);
-						size_t conversions = iconv(iconvh, &pin, &inLeft, &pout, &outLeft);
+						size_t conversions = iconv_adaptor(iconv, iconvh, &pin, &inLeft, &pout, &outLeft);
 						iconv_close(iconvh);
 						if (conversions != ((size_t)(-1))) {
 							*pout = '\0';
@@ -1107,7 +1131,7 @@ static char *ConvertText(size_t *lenResult, char *s, size_t len, const char *cha
 		size_t inLeft = len;
 		char *pout = destForm;
 		size_t outLeft = len*3+1;
-		size_t conversions = iconv(iconvh, &pin, &inLeft, &pout, &outLeft);
+		size_t conversions = iconv_adaptor(iconv, iconvh, &pin, &inLeft, &pout, &outLeft);
 		if (conversions == ((size_t)(-1))) {
 fprintf(stderr, "iconv failed for %s\n", static_cast<char *>(s));
 			delete []destForm;
@@ -2057,7 +2081,7 @@ guint scintilla_get_type() {
 	return scintilla_type;
 }
 
-void ScintillaGTK::ClassInit(GtkObjectClass* object_class, GtkWidgetClass *widget_class) {
+void ScintillaGTK::ClassInit(GtkObjectClass* object_class, GtkWidgetClass *widget_class, GtkContainerClass *container_class) {
 	// Define default signal handlers for the class:  Could move more
 	// of the signal handlers here (those that currently attached to wDraw
 	// in Initialise() may require coordinate translation?)
@@ -2099,6 +2123,8 @@ void ScintillaGTK::ClassInit(GtkObjectClass* object_class, GtkWidgetClass *widge
 	widget_class->unrealize = UnRealize;
 	widget_class->map = Map;
 	widget_class->unmap = UnMap;
+
+	container_class->forall = MainForAll;
 }
 
 #if GTK_MAJOR_VERSION < 2
@@ -2113,6 +2139,7 @@ void ScintillaGTK::ClassInit(GtkObjectClass* object_class, GtkWidgetClass *widge
 static void scintilla_class_init(ScintillaClass *klass) {
 	GtkObjectClass *object_class = (GtkObjectClass*) klass;
 	GtkWidgetClass *widget_class = (GtkWidgetClass*) klass;
+	GtkContainerClass *container_class = (GtkContainerClass*) klass;
 
 	parent_class = (GtkWidgetClass*) gtk_type_class(gtk_container_get_type());
 
@@ -2140,7 +2167,7 @@ static void scintilla_class_init(ScintillaClass *klass) {
 	klass->command = NULL;
 	klass->notify = NULL;
 
-	ScintillaGTK::ClassInit(object_class, widget_class);
+	ScintillaGTK::ClassInit(object_class, widget_class, container_class);
 }
 
 static void scintilla_init(ScintillaObject *sci) {

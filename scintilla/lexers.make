@@ -12,7 +12,9 @@ LEXER_OBJS = \
 	$(top_srcdir)/scintilla/LexCrontab.o\
 	$(top_srcdir)/scintilla/LexCSS.o\
 	$(top_srcdir)/scintilla/LexEiffel.o\
+	$(top_srcdir)/scintilla/LexErlang.o\
 	$(top_srcdir)/scintilla/LexEScript.o\
+	$(top_srcdir)/scintilla/LexForth.o\
 	$(top_srcdir)/scintilla/LexFortran.o\
 	$(top_srcdir)/scintilla/LexHTML.o\
 	$(top_srcdir)/scintilla/LexLisp.o\
@@ -25,6 +27,7 @@ LEXER_OBJS = \
 	$(top_srcdir)/scintilla/LexNsis.o\
 	$(top_srcdir)/scintilla/LexOthers.o\
 	$(top_srcdir)/scintilla/LexPascal.o\
+	$(top_srcdir)/scintilla/LexPB.o\
 	$(top_srcdir)/scintilla/LexPerl.o\
 	$(top_srcdir)/scintilla/LexPOV.o\
 	$(top_srcdir)/scintilla/LexPS.o\
@@ -48,7 +51,9 @@ LEXER_SRCS = \
 	LexCrontab.cxx\
 	LexCSS.cxx\
 	LexEiffel.cxx\
+	LexErlang.cxx\
 	LexEScript.cxx\
+	LexForth.cxx\
 	LexFortran.cxx\
 	LexHTML.cxx\
 	LexLisp.cxx\
@@ -61,6 +66,7 @@ LEXER_SRCS = \
 	LexNsis.cxx\
 	LexOthers.cxx\
 	LexPascal.cxx\
+	LexPB.cxx\
 	LexPerl.cxx\
 	LexPOV.cxx\
 	LexPS.cxx\
