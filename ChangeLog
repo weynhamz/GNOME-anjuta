@@ -1,3 +1,18 @@
+2002-06-23	Naba Kumar	<kh_naba@users.sourceforge.net>
+
+	* src/preferences_gui.c: Added pixmaps to the preferences tab labels
+	
+	* src/pixmaps.h, pixmaps/Makefile.am, pixmaps/prefs_*.xpm,
+	anjuta.prj: Added xpm pixmap files and their entries.
+	
+	(Patch from Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>)
+	
+	* src/utilities.h, tagmanager/tm_project.c: Cleanups
+	
+	* src/project_dbase.c, src/project_dbase_gui.c: Fixed the
+	file-path-corruption bug and the cannot-import-file-in-project
+	bug and taken care of both generated and imported projects.
+	
 2002-06-13	Naba Kumar	<kh_naba@users.sourceforge.net>
 
 	* Makefile.am: src module should be build last to complete

@@ -115,7 +115,7 @@ gboolean write_string(FILE* stream, gchar* token, gchar *str);
 gboolean write_line(FILE* stream, gchar *str);
 
 /* Get the filename */
-char* extract_filename(char* full_filename);
+char* extract_filename(gchar* full_filename);
 
 /* Get directory of file, return value must be g_freed */
 char* extract_directory(char* full_filename);

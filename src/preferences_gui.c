@@ -111,6 +111,14 @@ static GtkWidget *create_preferences_page5 (Preferences * p);
 static GtkWidget *create_preferences_pagemsg (Preferences * p);
 static GtkWidget *create_preferences_page_cvs (Preferences* pr);
 
+static GtkWidget*
+create_label(GtkWidget* parent, gchar* text, gchar* pix_name)
+{
+	GtkWidget* label = create_xpm_label_box(parent, pix_name, FALSE, text);
+	gtk_widget_show(label);
+	return label;
+}
+
 void
 create_preferences_gui (Preferences * pr)
 {
@@ -156,8 +164,7 @@ create_preferences_gui (Preferences * pr)
 	page0 = create_preferences_page0 (pr);
 	gtk_container_add (GTK_CONTAINER (notebook2), page0);
 
-	label1 = gtk_label_new (_("General"));
-	gtk_widget_show (label1);
+	label1 = create_label (dialog1, _("General"), ANJUTA_PIXMAP_PREFS_GENERAL);
 	gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook2),
 				    gtk_notebook_get_nth_page (GTK_NOTEBOOK
 							       (notebook2),
@@ -166,8 +173,7 @@ create_preferences_gui (Preferences * pr)
 	page1 = create_preferences_page1 (pr);
 	gtk_container_add (GTK_CONTAINER (notebook2), page1);
 
-	label1 = gtk_label_new (_("Build"));
-	gtk_widget_show (label1);
+	label1 = create_label (dialog1, _("Build"), ANJUTA_PIXMAP_PREFS_BUILD);
 	gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook2),
 				    gtk_notebook_get_nth_page (GTK_NOTEBOOK
 							       (notebook2),
@@ -176,8 +182,7 @@ create_preferences_gui (Preferences * pr)
 	page2 = create_preferences_page2 (pr);
 	gtk_container_add (GTK_CONTAINER (notebook2), page2);
 
-	label1 = gtk_label_new (_("Styles"));
-	gtk_widget_show (label1);
+	label1 = create_label (dialog1, _("Styles"), ANJUTA_PIXMAP_PREFS_STYLES);
 	gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook2),
 				    gtk_notebook_get_nth_page (GTK_NOTEBOOK
 							       (notebook2),
@@ -186,8 +191,7 @@ create_preferences_gui (Preferences * pr)
 	page3 = create_preferences_page3 (pr);
 	gtk_container_add (GTK_CONTAINER (notebook2), page3);
 
-	label12 = gtk_label_new (_("Editor"));
-	gtk_widget_show (label12);
+	label12 = create_label (dialog1, _("Editor"), ANJUTA_PIXMAP_PREFS_EDITOR);
 	gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook2),
 				    gtk_notebook_get_nth_page (GTK_NOTEBOOK
 							       (notebook2),
@@ -196,8 +200,7 @@ create_preferences_gui (Preferences * pr)
 	page4 = create_preferences_page4 (pr);
 	gtk_container_add (GTK_CONTAINER (notebook2), page4);
 
-	label15 = gtk_label_new (_("Print Setup"));
-	gtk_widget_show (label15);
+	label15 = create_label (dialog1, _("Print"), ANJUTA_PIXMAP_PREFS_PRINT);
 	gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook2),
 				    gtk_notebook_get_nth_page (GTK_NOTEBOOK
 							       (notebook2),
@@ -206,8 +209,7 @@ create_preferences_gui (Preferences * pr)
 	page5 = create_preferences_page5 (pr);
 	gtk_container_add (GTK_CONTAINER (notebook2), page5);
 
-	label102 = gtk_label_new (_("Auto Format"));
-	gtk_widget_show (label102);
+	label102 = create_label (dialog1, _("Auto Format"), ANJUTA_PIXMAP_PREFS_AUTOFORMAT);
 	gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook2),
 				    gtk_notebook_get_nth_page (GTK_NOTEBOOK
 							       (notebook2),
@@ -216,8 +218,7 @@ create_preferences_gui (Preferences * pr)
 	pagemsg = create_preferences_pagemsg (pr);
 	gtk_container_add (GTK_CONTAINER (notebook2), pagemsg);
 	
-	labelmsg = gtk_label_new (_("Messages"));
-	gtk_widget_show (labelmsg);
+	labelmsg = create_label (dialog1, _("Messages"), ANJUTA_PIXMAP_PREFS_MESSAGES);
 	gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook2),
 				    gtk_notebook_get_nth_page (GTK_NOTEBOOK
 							       (notebook2),
@@ -226,8 +227,7 @@ create_preferences_gui (Preferences * pr)
 	pagecvs = create_preferences_page_cvs(pr);
 	gtk_container_add (GTK_CONTAINER(notebook2), pagecvs);
 	
-	labelcvs = gtk_label_new(_("CVS"));
-	gtk_widget_show(labelcvs);
+	labelcvs = create_label (dialog1, _("CVS"), ANJUTA_PIXMAP_PREFS_CVS);
 	gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook2),
 					gtk_notebook_get_nth_page (GTK_NOTEBOOK(notebook2),
 					7), labelcvs);

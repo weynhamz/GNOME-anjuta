@@ -140,7 +140,7 @@ gboolean tm_project_add_file(TMProject *project, const char *file_name
 	gboolean exists = FALSE;
 
 	g_return_val_if_fail((project && file_name), FALSE);
-		path = tm_get_real_path(file_name);
+	path = tm_get_real_path(file_name);
 	/* Check if the file is already loaded in the workspace */
 	source_file = tm_workspace_find_object(TM_WORK_OBJECT(workspace), path, FALSE);
 	if (NULL != source_file)
@@ -170,7 +170,7 @@ gboolean tm_project_add_file(TMProject *project, const char *file_name
 	if (NULL == (source_file = tm_source_file_new(file_name, TRUE)))
 	{
 		g_warning("Unable to create source file for file %s", file_name);
-			g_free(path);
+		g_free(path);
 		return FALSE;
 	}
 	}
@@ -179,6 +179,7 @@ gboolean tm_project_add_file(TMProject *project, const char *file_name
 		project->file_list = g_ptr_array_new();
 	if (!exists)
 	g_ptr_array_add(project->file_list, source_file);
+	TM_SOURCE_FILE(source_file)->inactive = FALSE;
 	if (update)
 		tm_project_update(TM_WORK_OBJECT(project), TRUE, FALSE, TRUE);
 	g_free(path);

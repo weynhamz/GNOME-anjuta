@@ -1258,6 +1258,8 @@ on_prj_import_confirm_yes (GtkButton * button, gpointer user_data)
 				    _("Error while copying the file inside the module."));
 			return;
 		}
+		g_free(real_fn);
+		real_fn = tm_get_real_path(fn);
 		g_free(fn);
 	}
 	project_dbase_add_file_to_module (p, p->sel_module, real_fn);

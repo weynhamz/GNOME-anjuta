@@ -215,6 +215,16 @@
 /* Tag Combo */
 #define ANJUTA_PIXMAP_TAG "an_tag.xpm"
 
+/* Preferences dialog tabs pixmaps */
+#define ANJUTA_PIXMAP_PREFS_GENERAL        "prefs_general.xpm"
+#define ANJUTA_PIXMAP_PREFS_BUILD          "prefs_build.xpm"
+#define ANJUTA_PIXMAP_PREFS_STYLES         "prefs_styles.xpm"
+#define ANJUTA_PIXMAP_PREFS_EDITOR         "prefs_editor.xpm"
+#define ANJUTA_PIXMAP_PREFS_PRINT          "prefs_print.xpm"
+#define ANJUTA_PIXMAP_PREFS_AUTOFORMAT     "prefs_autoformat.xpm"
+#define ANJUTA_PIXMAP_PREFS_MESSAGES       "prefs_messages.xpm"
+#define ANJUTA_PIXMAP_PREFS_CVS            "prefs_cvs.xpm"
+
 /* Useful macros for specifying pixmaps in UIInfo structures */
 /* #define PIX_FILE(F) GNOME_APP_PIXMAP_FILENAME, PACKAGE_PIXMAPS_DIR "/" ANJUTA_PIXMAP_ ## F */
 #define PIX_FILE(F) GNOME_APP_PIXMAP_NONE, NULL

@@ -2064,8 +2064,7 @@ project_dbase_add_file_to_module (ProjectDBase * p, PrjModule module,
 				  gchar * filename)
 {
 	gchar *mod_files, *file_list, *new_file_list, *comp_dir;
-	/* gchar *relative_fn; */
-	gchar *short_file_name;
+	gchar *relative_fn;
 	gboolean build_sv = preferences_get_int(app->preferences, BUILD_SYMBOL_BROWSER);
 	gboolean build_fv = preferences_get_int(app->preferences, BUILD_FILE_BROWSER);
 
@@ -2077,35 +2076,44 @@ project_dbase_add_file_to_module (ProjectDBase * p, PrjModule module,
 		g_warning("Unable to get component directory!");
 		return;
 	}
-	/*
 	relative_fn = get_relative_file_name(comp_dir, filename);
 	if (!relative_fn)
 	{
 		anjuta_error(_("Unable to get relative file name for %s\n in %s"), filename, comp_dir);
 		g_free(comp_dir);
 		return;
-	}*/
-	short_file_name = extract_filename(filename);
+	}
 	g_free(comp_dir);
 
 	if (NULL == (mod_files = g_strconcat ("module.", module_map[module], ".files", NULL)))
 	{
 		g_warning("mod_files for %s is NULL", module_map[module]);
-		/* g_free(relative_fn); */
+		g_free(relative_fn);
 		return;
 	}
 	file_list = prop_get (p->props, mod_files);
 	if (!file_list)
 		file_list = g_strdup ("");
-	/* new_file_list =	g_strconcat (file_list, " ", relative_fn, NULL); */
-	new_file_list =	g_strconcat (file_list, " ", short_file_name, NULL);
+	new_file_list = g_strconcat (file_list, " ", relative_fn, NULL);
 	prop_set_with_key (p->props, mod_files, new_file_list);
 	g_free (new_file_list);
 	g_free (file_list);
 	g_free (mod_files);
-	/* g_free(relative_fn); */
+	g_free(relative_fn);
 	if ((MODULE_INCLUDE == module) || (MODULE_SOURCE == module))
+	{
+		GList *tmp;
+		TextEditor *te;
+
 		tm_project_add_file(TM_PROJECT(p->tm_project), filename, TRUE);
+		for (tmp = app->text_editor_list; tmp; tmp = g_list_next(tmp))
+		{
+			te = (TextEditor *) tmp->data;
+			if (te && !te->tm_file && (0 == strcmp(te->full_filename, filename)))
+				te->tm_file = tm_workspace_find_object(TM_WORK_OBJECT(app->tm_workspace)
+				  , filename, FALSE);
+		}
+	}
 	project_dbase_update_tree (p);
 	sv_populate(build_sv);
 	fv_populate(build_fv);
@@ -2126,7 +2134,7 @@ project_dbase_remove_file (ProjectDBase * p)
 	files = prop_get (p->props, key);
 	if (files == NULL)
 	{
-		g_free (key);
+		g_free(key);
 		return;
 	}
 	
@@ -2141,7 +2149,7 @@ project_dbase_remove_file (ProjectDBase * p)
 	if (pos == NULL)
 	{
 		g_free (files);
-		g_free (key);
+		g_free(key);
 		return;
 	}
 	for (i=0; i< strlen(fn); i++)

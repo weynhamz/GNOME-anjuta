@@ -578,6 +578,14 @@ module.pixmap.files=\
 	pixmaps/paste.xpm\
 	pixmaps/pointer.xpm\
 	pixmaps/preferences.xpm\
+	prefs_autoformat.xpm\
+	prefs_build.xpm\
+	prefs_cvs.xpm\
+	prefs_editor.xpm\
+	prefs_general.xpm\
+	prefs_messages.xpm\
+	prefs_print.xpm\
+	prefs_styles.xpm\
 	pixmaps/print.xpm\
 	pixmaps/print_color.xpm\
 	pixmaps/print_nocolor.xpm\

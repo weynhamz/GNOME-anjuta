@@ -159,7 +159,15 @@ anjuta_pixmaps_DATA = \
 	print_landscape.xpm\
 	print_color.xpm\
 	print_nocolor.xpm\
-	madeinanjuta.xcf
+	madeinanjuta.xcf\
+	prefs_general.xpm\
+	prefs_build.xpm\
+	prefs_styles.xpm\
+	prefs_editor.xpm\
+	prefs_print.xpm\
+	prefs_autoformat.xpm\
+	prefs_messages.xpm\
+	prefs_cvs.xpm
 
 EXTRA_DIST = $(anjuta_pixmaps_DATA)
 
