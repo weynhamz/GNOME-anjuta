@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: anjuta.ANJUTA_1_2_0.es\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2003-07-23 19:13+0200\n"
-"PO-Revision-Date: 2003-08-01 02:45+0200\n"
+"PO-Revision-Date: 2003-08-05 17:55+0200\n"
 "Last-Translator: Francisco Javier F. Serrador <serrador@arrakis.es>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -764,7 +764,7 @@ msgstr "Ignorar archivos"
 
 #: anjuta.glade.h:164 anjuta_dialogs_strings.c:466
 msgid "Import Wizard"
-msgstr "Asistente de importación"
+msgstr "Asistente de Importación"
 
 #: anjuta.glade.h:165 anjuta_dialogs_strings.c:465
 msgid ""
@@ -6593,7 +6593,7 @@ msgstr "Makefiles administrados:"
 
 #: src/project_dbase_gui.c:1019
 msgid "Gettext support:"
-msgstr "Soporte de Gettext:"
+msgstr "Soporte de gettext:"
 
 #: src/project_dbase_gui.c:1077
 msgid "Project Type:"
@@ -6808,15 +6808,14 @@ msgid ""
 "THIS IS AN EXPERIMENTAL FEATURE\n"
 msgstr ""
 "El Asistente de Importación de Proyectos revisa el directorio de un proyecto "
-"existente, e intenta importar la estructura\n"
-"dentro de un proyecto de Anjuta. Tendrá la oportunidad de actualizar\n"
-"cualquier valor autodetectado durante la importación.\n"
+"existente, e intenta importar la estructura dentro de un proyecto de Anjuta.\n"
+"Tendrá la oportunidad de actualizar cualquier valor autodetectado durante la importación.\n"
 "\n"
 "ESTA ES UNA CARACTERÍSTICA EXPERIMENTAL\n"
 
 #: src/project_import_gui.c:70 src/project_import_gui.c:151
 msgid "Project Import Wizard"
-msgstr "Asistente de Importación del proyecto"
+msgstr "Asistente de Importación de Proyecto"
 
 #: src/project_import_gui.c:182
 msgid "Select directory"
@@ -6832,7 +6831,7 @@ msgstr "Seleccione el directorio de un proyecto existente"
 
 #: src/project_import_gui.c:217
 msgid "Click Next to begin the import"
-msgstr "Presione Siguiente para comenzar la importación"
+msgstr "Pulse «Adelante» para comenzar la importación"
 
 #: src/registers_gui.c:40
 msgid "Modify"
@@ -7009,7 +7008,7 @@ msgstr "Activo"
 
 #: src/stack_trace.c:455
 msgid "Count"
-msgstr "Cuenta"
+msgstr "Contador"
 
 #: src/stack_trace.c:470 src/toolbar.c:617
 msgid "Frame"
@@ -7774,7 +7773,7 @@ msgstr "Incluir preámbulo de Copyright GNU en las cabeceras"
 
 #: src/wizard_gui.c:629
 msgid "Enable Gettext Support"
-msgstr "Soporte de Gettext"
+msgstr "Activar soporte de gettext"
 
 #: src/wizard_gui.c:636
 msgid "GNOME Menu Entry"
