@@ -173,8 +173,9 @@ on_anjuta_notebook_switch_page (GtkNotebook * notebook,
 	
 	anjuta_set_current_text_editor (anjuta_get_notebook_text_editor
 									(page_num));
-	if (!g_tabbing && anjuta_preferences_get_int (app->preferences,
-												  EDITOR_TABS_RECENT_FIRST))
+	if (!g_tabbing &&
+		!anjuta_preferences_get_int (app->preferences, EDITOR_TABS_ORDERING) && 
+		anjuta_preferences_get_int (app->preferences, EDITOR_TABS_RECENT_FIRST))
 	{
 		/* TTimo: reorder so that the most recently used files are always
 		 * at the beginning of the tab list
