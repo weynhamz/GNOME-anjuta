@@ -1098,6 +1098,7 @@ static gboolean show_tool_editor(AnUserTool *tool, gboolean editing)
 		return FALSE;
 	}
 	ted->dialog = glade_xml_get_widget(xml, TOOL_EDITOR);
+	gtk_dialog_show (ted->dialog);
 	gtk_window_set_transient_for (GTK_WINDOW(ted->dialog)
 	  , GTK_WINDOW(app->widgets.window));
 	ted->name_en = (GtkEditable *) glade_xml_get_widget(xml, TOOL_NAME);
@@ -1694,6 +1695,7 @@ void anjuta_tools_show_variables()
 		return;
 	}
 	dialog = glade_xml_get_widget(xml, TOOL_HELP);
+	gtk_dialog_show (dialog);
 	gtk_window_set_transient_for (GTK_WINDOW(dialog)
 	  , GTK_WINDOW(app->widgets.window));
 	

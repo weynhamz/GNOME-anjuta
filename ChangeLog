@@ -1,5 +1,8 @@
 2003-03-21  Naba Kumar  <naba@gnome.org>
 
+	* src/anjuta-tools.c, src/attach_process.c: Fixed more window
+	show bugs.
+	
 	* src/commands.c, src/src_paths.c, src/style-editor.c,
 	src/anjuta-tools.c: Added gtk_widget_show() calls for the dialogs
 	becuase they are now hidden by default (from glade editing).
