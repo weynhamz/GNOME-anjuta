@@ -5,14 +5,13 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.ANJUTA_1_2_0.az\n"
-"POT-Creation-Date: 2003-08-11 11:10+0200\n"
-"PO-Revision-Date: 2003-08-18 01:00+0300\n"
+"POT-Creation-Date: 2003-08-23 03:26+0200\n"
+"PO-Revision-Date: 2003-08-23 11:50+0200\n"
 "Last-Translator: Mətin Əmirov <metin@karegen.com>\n"
 "Language-Team: Azerbaijani <gnome@azitt.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.0.1\n"
 
 #: anjuta.desktop.in.in.h:1
 msgid "Anjuta IDE"
@@ -2121,11 +2120,9 @@ msgstr "%2$s içindəki %1$s faylı açıla bilmir"
 
 #: src/an_file_view.c:67
 #, c-format
-msgid ""
-"No default viewer specified for the mime type %s.\n"
+msgid "No default viewer specified for the mime type %s.\n"
 "Please set it in GNOME control center"
-msgstr ""
-"%s mime növü üçün heç bir əsas nümayişçi tə'yin edilməyib.\n"
+msgstr "%s mime növü üçün heç bir əsas nümayişçi tə'yin edilməyib.\n"
 "Xahiş edirik, GNOME idarə mərkəzindən seçin"
 
 #: src/an_file_view.c:267
@@ -2448,8 +2445,7 @@ msgstr "%s əlavəsi üçün səhv paramterlər. Xəta: %s"
 
 #: src/anjuta-plugins.c:134
 #, c-format
-msgid ""
-"Unable to load plugin %s.\n"
+msgid "Unable to load plugin %s.\n"
 "Error: %s"
 msgstr "%s əlavəsi yüklənə bilmir. Xəta: %s"
 
@@ -2488,8 +2484,8 @@ msgid "Unable to build user interface for tool help"
 msgstr "Vasitə yardımı üçün istifadəçi ara üzü yaradıla bilmir"
 
 #: src/anjuta-tools.c:1781
-#: src/debug_tree.c:1458
-#: src/debug_tree.c:1478
+#: src/debug_tree.c:1454
+#: src/debug_tree.c:1474
 #: src/watch_gui.c:127
 msgid "Variable"
 msgstr "Dəyişən"
@@ -2499,8 +2495,8 @@ msgid "Meaning"
 msgstr "Mə'na"
 
 #: src/anjuta-tools.c:1793
-#: src/debug_tree.c:1458
-#: src/debug_tree.c:1487
+#: src/debug_tree.c:1454
+#: src/debug_tree.c:1483
 #: src/watch_gui.c:136
 msgid "Value"
 msgstr "Qiymət"
@@ -2576,20 +2572,16 @@ msgstr "XƏTA: "
 
 #: src/anjuta.c:1486
 #: src/anjuta.c:1586
-msgid ""
-"\n"
+msgid "\n"
 "System: "
-msgstr ""
-"\n"
+msgstr "\n"
 "Sistem: "
 
 #: src/anjuta.c:2059
 #, c-format
-msgid ""
-"The \"%s\" utility is not installed.\n"
+msgid "The \"%s\" utility is not installed.\n"
 "Install it and then restart Anjuta."
-msgstr ""
-"Sisteminizdə \"%s\" qurulu deyil.\n"
+msgstr "Sisteminizdə \"%s\" qurulu deyil.\n"
 "Bunu qurun və Anjuta'nı yenidən başladın."
 
 #: src/anjuta.c:2085
@@ -2638,25 +2630,21 @@ msgid "Finding in Files ....\n"
 msgstr "Fayllarda Axtarılır ....\n"
 
 #: src/anjuta_cbs.c:145
-msgid ""
-"One or more files are not saved.\n"
+msgid "One or more files are not saved.\n"
 "Do you still want to exit?"
-msgstr ""
-"Bəzi fayllar qeyd edilməyib.\n"
+msgstr "Bəzi fayllar qeyd edilməyib.\n"
 "Yenə də çıxmaq istəyirsiniz?"
 
 #: src/anjuta_cbs.c:504
 #, c-format
-msgid ""
-"The file '%s' already exists.\n"
+msgid "The file '%s' already exists.\n"
 "Do you want to replace it with the one you are saving?"
-msgstr ""
-"'%s' faylı onsuz da mövcuddur.\n"
+msgstr "'%s' faylı onsuz da mövcuddur.\n"
 "Onu qeyd etdiyinizlə əvəz etmək istəyirsiniz?"
 
 #: src/anjuta_cbs.c:511
 #: src/anjuta_cbs.c:575
-#: src/find_replace.c:342
+#: src/find_replace.c:343
 msgid "_Replace"
 msgstr "Ə_vəz Et"
 
@@ -2666,12 +2654,10 @@ msgstr "Fayl yazılmaq üçün açıla bilmədi"
 
 #: src/anjuta_cbs.c:568
 #, c-format
-msgid ""
-"The file '%s' already exists.\n"
-"Do you want to overwrite it?."
-msgstr ""
-"'%s' faylı onsuz da mövcuddur.\n"
-"Üstünə yazmaq istəyirsiniz?"
+msgid "The file '%s' already exists.\n"
+"Do you want to replace it with the one you are saving?."
+msgstr "'%s' faylı onsuz da mövcuddur.\n"
+"Onu qeyd etdiyinizlə əvəz etmək istəyirsiniz?"
 
 #: src/anjuta_dirs.c:51
 msgid "Unable to create settings directory.\n"
@@ -2706,11 +2692,9 @@ msgstr "Layihə buraxılışı"
 
 #: src/appwizard_cbs.c:224
 #, c-format
-msgid ""
-"Invalid %s field:\n"
+msgid "Invalid %s field:\n"
 "You must supply a valid %s field to proceed further."
-msgstr ""
-"Hökmsüz %s sahəsi:\n"
+msgstr "Hökmsüz %s sahəsi:\n"
 "Davam etmək üçün hökmlü %s sahəsi əlavə etməlisiniz."
 
 #. For the time being
@@ -2737,11 +2721,9 @@ msgstr "Xeyir"
 
 #: src/appwizard_cbs.c:281
 #: src/project_import_cbs.c:224
-msgid ""
-"Confirm the following information:\n"
+msgid "Confirm the following information:\n"
 "\n"
-msgstr ""
-"Aşağıdakı mə'lumatı təsdiqləyin:\n"
+msgstr "Aşağıdakı mə'lumatı təsdiqləyin:\n"
 "\n"
 
 #: src/appwizard_cbs.c:282
@@ -2852,7 +2834,7 @@ msgstr "Şərt"
 #. debugger.breakpoints_dbase);
 #.
 #: src/breakpoints.c:166
-#: src/debugger.c:1793
+#: src/debugger.c:1814
 msgid "All breakpoints enabled:\n"
 msgstr "Bütün qırma nöqtələri fəallaşdırıldı:\n"
 
@@ -2862,7 +2844,7 @@ msgstr "Bütün qırma nöqtələri fəallaşdırıldı:\n"
 #. debugger.breakpoints_dbase);
 #.
 #: src/breakpoints.c:184
-#: src/debugger.c:1839
+#: src/debugger.c:1860
 msgid "All breakpoints disabled:\n"
 msgstr "Bütün qırma nöqtələri qeyri-fəallaşdırıldı:\n"
 
@@ -3065,11 +3047,9 @@ msgid "Auto generation completed ... unsuccessful"
 msgstr "Qurma tamamlandı.....................uğursuz"
 
 #: src/build_project.c:491
-msgid ""
-"Auto generation completed...............Successful\n"
+msgid "Auto generation completed...............Successful\n"
 "Now Configure the Project.\n"
-msgstr ""
-"Qurma tamamlandı.....................Uğurlu\n"
+msgstr "Qurma tamamlandı.....................Uğurlu\n"
 " İndi Layihəni Quraşdır \n"
 
 #: src/build_project.c:495
@@ -3228,11 +3208,9 @@ msgid "Warning"
 msgstr "Xəbərdarlıq"
 
 #: src/configurer.c:155
-msgid ""
-"Project does not have an executable configure script.\n"
+msgid "Project does not have an executable configure script.\n"
 "Auto generate the Project first."
-msgstr ""
-"Layihənin icra edilə bilən quraşdırma skripti yoxdur.\n"
+msgstr "Layihənin icra edilə bilən quraşdırma skripti yoxdur.\n"
 "Əvvəlcə layihəni avtmatik yaradın (auto generate)."
 
 #: src/configurer.c:187
@@ -3401,11 +3379,9 @@ msgid "Remove"
 msgstr "Sil"
 
 #: src/cvs_gui.c:95
-msgid ""
-"WARNING: The file will be removed on disc. Use \"cvs commit\" .\n"
+msgid "WARNING: The file will be removed on disc. Use \"cvs commit\" .\n"
 "to apply to the repository. It will still be possible to retrieve older revisions of the file."
-msgstr ""
-"DİQQƏT: Fayl diskdən silinəcək. Saxlanılan yerə tədbiq etmək üçün\n"
+msgstr "DİQQƏT: Fayl diskdən silinəcək. Saxlanılan yerə tədbiq etmək üçün\n"
 "\"cvs commit\" işlədin. Faylın daha əvvəlki buraxılışları yenə də alına biləcək."
 
 #: src/cvs_gui.c:120
@@ -3505,77 +3481,73 @@ msgstr "Verici qurğuları"
 msgid "Import settings"
 msgstr "İdxal etmə qurğuları"
 
-#: src/debug_tree.c:1498
+#: src/debug_tree.c:1494
 msgid "Default format"
 msgstr "Əsas format"
 
-#: src/debug_tree.c:1502
+#: src/debug_tree.c:1498
 msgid "Binary"
 msgstr "İkili"
 
-#: src/debug_tree.c:1505
+#: src/debug_tree.c:1501
 msgid "Octal"
 msgstr "Səkkizli"
 
-#: src/debug_tree.c:1508
+#: src/debug_tree.c:1504
 msgid "Signed decimal"
 msgstr "İşarəli onluq"
 
-#: src/debug_tree.c:1511
+#: src/debug_tree.c:1507
 msgid "Unsigned decimal"
 msgstr "İşarəsiz onluq"
 
-#: src/debug_tree.c:1514
+#: src/debug_tree.c:1510
 #: src/registers_gui.c:111
 msgid "Hex"
 msgstr "Səkkizlik"
 
-#: src/debug_tree.c:1517
+#: src/debug_tree.c:1513
 msgid "Char"
 msgstr "Char"
 
-#: src/debug_tree.c:1522
+#: src/debug_tree.c:1518
 msgid "Inspect memory"
 msgstr "Yaddaşı təftiş et"
 
 #. Must declare static, because it will be used forever
-#: src/debugger.c:84
+#: src/debugger.c:85
 msgid "Load Executable File"
 msgstr "İcraçı Faylı Yüklə"
 
 #. Must declare static, because it will be used forever
-#: src/debugger.c:90
+#: src/debugger.c:91
 msgid "Load Core File"
 msgstr "Çökmə Faylını Yüklə"
 
-#: src/debugger.c:196
-#: src/debugger.c:645
+#: src/debugger.c:197
+#: src/debugger.c:646
 msgid "Loading Executable: "
 msgstr "İcraçı Yeklənir: "
 
-#: src/debugger.c:247
+#: src/debugger.c:248
 msgid "Loading Core: "
 msgstr "Çöküntü Yüklənir: "
 
-#: src/debugger.c:292
-#: src/debugger.c:320
-msgid ""
-"You have a process ATTACHED under the debugger.\n"
+#: src/debugger.c:293
+#: src/debugger.c:321
+msgid "You have a process ATTACHED under the debugger.\n"
 "Please detach it first and then load the executable file."
-msgstr ""
-"Xəta ayıqlayıcı altında TAXILI gedişatınız var.\n"
+msgstr "Xəta ayıqlayıcı altında TAXILI gedişatınız var.\n"
 "Xahiş edirik, sərbət buraxıb icraçı faylı yükləyin."
 
-#: src/debugger.c:295
-#: src/debugger.c:323
-msgid ""
-"You have a process RUNNING under the debugger.\n"
+#: src/debugger.c:296
+#: src/debugger.c:324
+msgid "You have a process RUNNING under the debugger.\n"
 "Please stop it first and then load the executable file."
-msgstr ""
-"Xəta ayıqlayıcı altında İŞLƏYƏN gedişatınız var.\n"
+msgstr "Xəta ayıqlayıcı altında İŞLƏYƏN gedişatınız var.\n"
 "Xahiş edirik, sərbət buraxıb icraçı faylı yükləyin."
 
-#: src/debugger.c:572
+#: src/debugger.c:573
 #, c-format
 msgid ""
 "Unable to find: %s.\n"
@@ -3586,39 +3558,39 @@ msgstr ""
 "Xəta ayırıcı (debugger) hazırlana bilmir.\n"
 "Anjuta'nın düzgün qurulduğunu yoxlayın."
 
-#: src/debugger.c:641
+#: src/debugger.c:642
 msgid "Debugger"
 msgstr "Xəta Ayıqlayıcı"
 
-#: src/debugger.c:643
+#: src/debugger.c:644
 msgid "Getting ready to start debugging session ...\n"
 msgstr "Xəta ayıqlama iclasına hazırlaşıram ...\n"
 
-#: src/debugger.c:656
+#: src/debugger.c:657
 msgid "No executable specified\n"
 msgstr "İcraçı bildirilməyib\n"
 
-#: src/debugger.c:659
+#: src/debugger.c:660
 msgid "Open an executable or attach to a process to start debugging.\n"
 msgstr "Xəta ayıqlamaya soxulacaq icraçını açın.\n"
 
-#: src/debugger.c:666
+#: src/debugger.c:667
 msgid "There was an error whilst launching the debugger.\n"
 msgstr "Xəta ayırıcı açıldığı vaxt xəta oldu.\n"
 
-#: src/debugger.c:669
+#: src/debugger.c:670
 msgid "Make sure 'gdb' is installed on the system.\n"
 msgstr "Sistemdə 'gdb' qurulu olub olmadığlnı yoxlayın.\n"
 
-#: src/debugger.c:808
+#: src/debugger.c:832
 msgid "Error: "
 msgstr "Xəta: "
 
-#: src/debugger.c:829
+#: src/debugger.c:853
 msgid "Debugger is ready.\n"
 msgstr "Xəta ayıqlayıcı hazırdır.\n"
 
-#: src/debugger.c:936
+#: src/debugger.c:957
 msgid ""
 "\n"
 "Well, did you find the BUG? Debugging session completed.\n"
@@ -3628,58 +3600,52 @@ msgstr ""
 "Hmm, XƏTA tapdınız? :: Xəta ayırma iclası qurtardı.\n"
 "\n"
 
-#: src/debugger.c:1171
+#: src/debugger.c:1192
 msgid "Cannot execute gnome-terminal"
 msgstr "Gnome-terminal icra edilə bilmir"
 
-#: src/debugger.c:1206
+#: src/debugger.c:1227
 msgid "Cannot start terminal for debugging."
 msgstr "Xəta ayırma üçün terminal açıla bilmir."
 
-#: src/debugger.c:1270
+#: src/debugger.c:1291
 msgid "Warning: No debug terminal. Redirecting stdio to /dev/null.\n"
 msgstr "Xəbərdarlıq: Xəta ayıqlama terminalı yoxdur. Stdio /dev/null avadanlığına istiqamətləndirilir.\n"
 
-#: src/debugger.c:1289
+#: src/debugger.c:1310
 msgid "Running program ... \n"
 msgstr "Proqram icra edilir...\n"
 
-#: src/debugger.c:1419
+#: src/debugger.c:1440
 #, c-format
 msgid "Attaching to process: %d\n"
 msgstr "Gedişata ilişdirilir: %d\n"
 
-#: src/debugger.c:1449
-msgid ""
-"A process is already running.\n"
+#: src/debugger.c:1470
+msgid "A process is already running.\n"
 "Would you like to terminate it and attach the new process?"
-msgstr ""
-"Gedişat onsuz da işləməkdədir.\n"
+msgstr "Gedişat onsuz da işləməkdədir.\n"
 "Onu sonlandırmamı, yoxsa yeni gedişat ilişdirməkmi istəyərdiniz?"
 
-#: src/debugger.c:1461
+#: src/debugger.c:1482
 msgid "Anjuta is unable to attach to itself."
 msgstr "Anjuta özünə ilişdirə bilməz."
 
-#: src/debugger.c:1547
+#: src/debugger.c:1568
 #, c-format
 msgid "Detaching the process: %d\n"
 msgstr "Gedişat sökülür: %d\n"
 
-#: src/debugger.c:1603
-msgid ""
-"Program is ATTACHED.\n"
+#: src/debugger.c:1624
+msgid "Program is ATTACHED.\n"
 "Do you still want to stop Debugger?"
-msgstr ""
-"Proqram İLİŞDİRİLİB.\n"
+msgstr "Proqram İLİŞDİRİLİB.\n"
 "Hələ də Xəta Ayıqlayıcını dayandıraq istəyirsiniz?"
 
-#: src/debugger.c:1606
-msgid ""
-"Program is RUNNING.\n"
+#: src/debugger.c:1627
+msgid "Program is RUNNING.\n"
 "Do you still want to stop Debugger?"
-msgstr ""
-"Proqram İŞLƏYİR.\n"
+msgstr "Proqram İŞLƏYİR.\n"
 "Yenə də Xəta Ayırıcını dayandıraq istəyirsiniz?"
 
 #.
@@ -3687,21 +3653,21 @@ msgstr ""
 #. breakpoints_dbase_update,
 #. debugger.breakpoints_dbase);
 #.
-#: src/debugger.c:1885
+#: src/debugger.c:1906
 msgid "All breakpoints deleted:\n"
 msgstr "Bütün qırma nöqtələri silindi:\n"
 
-#: src/debugger.c:1918
+#: src/debugger.c:1939
 #, c-format
 msgid "Interrupting the process: %d\n"
 msgstr "Gedişat kəsilir: %d\n"
 
-#: src/debugger.c:1950
+#: src/debugger.c:1971
 #, c-format
 msgid "Sending signal %s to the process: %d\n"
 msgstr "Gedişata %s siqnalı göndərilir: %d\n"
 
-#: src/debugger.c:1971
+#: src/debugger.c:1992
 msgid "Error whilst signalling the process."
 msgstr "Gedişat siqnallanarkən xəta oldu."
 
@@ -3772,15 +3738,15 @@ msgid "No search string supplied."
 msgstr "Heç bir axtarış qatarı verilməyib."
 
 #: src/find_replace.c:337
-msgid "Do you want to replace this?"
+msgid "Do you want to replace this occurence?"
 msgstr "Bunu əvəz etmək istəyirsiniz?"
 
-#: src/find_replace.c:398
+#: src/find_replace.c:399
 #, c-format
 msgid "The string \"%s\" was not found in the selected text"
 msgstr "\"%s\" kəlməsi seçili mətndə tapıla bilmədi"
 
-#: src/find_replace.c:403
+#: src/find_replace.c:404
 #, c-format
 msgid "The string \"%s\" was not found from the current location"
 msgstr "\"%s\" kəlməsi oxdan etibarən tapıla bilmədi"
@@ -3818,11 +3784,9 @@ msgid "Cannot fork glade-2."
 msgstr "Glade-2 fork edilə bilmir."
 
 #: src/gnome_project.c:62
-msgid ""
-"A project or file with the same name.already exists.\n"
+msgid "A project or file with the same name.already exists.\n"
 "Project creation aborted."
-msgstr ""
-"Bu adlı layihə onsuz da mövcuddur.\n"
+msgstr "Bu adlı layihə onsuz da mövcuddur.\n"
 "Layihə yaradılması ləğv edildi."
 
 #: src/gnome_project.c:78
@@ -3873,19 +3837,15 @@ msgid "App Wizard"
 msgstr "Prq Sehirbazı"
 
 #: src/gnome_project.c:262
-msgid ""
-"The Project was not successfully auto generated.\n"
+msgid "The Project was not successfully auto generated.\n"
 "Please run autogen.sh manually."
-msgstr ""
-"Layihə avotmatik olaraq yaradıla bilmədi.\n"
+msgstr "Layihə avotmatik olaraq yaradıla bilmədi.\n"
 "Xahiş edirik, autogen.sh faylını əllə icra edin."
 
 #: src/gnome_project.c:268
-msgid ""
-"Auto generation completed...............Successful\n"
+msgid "Auto generation completed...............Successful\n"
 "Now Build the Project to have a LOOK at it\n"
-msgstr ""
-"Avtomatik yaratma qurtardı...............Uğurlu\n"
+msgstr "Avtomatik yaratma qurtardı...............Uğurlu\n"
 "İndi isə layihəni GÖRMƏK üçün, onu inşa edin\n"
 
 #: src/gnome_project.c:271
@@ -6175,11 +6135,9 @@ msgstr ""
 
 #: src/mainmenu_callbacks.c:170
 #, c-format
-msgid ""
-"The file '%s' is not saved.\n"
+msgid "The file '%s' is not saved.\n"
 "Do you want to save it before closing?"
-msgstr ""
-"%s faylı qeyd edilməyib.\n"
+msgstr "%s faylı qeyd edilməyib.\n"
 "Bağlamadan əvvəl onu qeyd etmək istəyirsiniz?"
 
 #: src/mainmenu_callbacks.c:180
@@ -6189,11 +6147,9 @@ msgstr "Qeyd et_mə"
 
 #: src/mainmenu_callbacks.c:237
 #, c-format
-msgid ""
-"Are you sure you want to reload '%s'?\n"
+msgid "Are you sure you want to reload '%s'?\n"
 "Any unsaved changes will be lost."
-msgstr ""
-"%s'i yenidən yükləmək istəyirsiniz?\n"
+msgstr "%s'i yenidən yükləmək istəyirsiniz?\n"
 "Qeyd edilməmiş dəyişiklikləri itirəcəksiniz."
 
 #: src/mainmenu_callbacks.c:248
@@ -6288,11 +6244,9 @@ msgid "Anjuta Preferences Dialog"
 msgstr "Anjuta Qurğular Dialoqu"
 
 #: src/preferences.c:689
-msgid ""
-"Are you sure you want to reset the preferences to\n"
+msgid "Are you sure you want to reset the preferences to\n"
 "their default settings?"
-msgstr ""
-"Xassələrə əsas qiymətlərini həqiqətən də\n"
+msgstr "Xassələrə əsas qiymətlərini həqiqətən də\n"
 "fəallaşdırmaq istəyirsiniz?"
 
 #: src/preferences.c:692
@@ -6352,11 +6306,9 @@ msgstr "Layihə yüklənə bilmir: %s"
 #: src/project_dbase.c:489
 #: src/project_dbase.c:2499
 #, c-format
-msgid ""
-"Anjuta version %s or later is required to open this Project.\n"
+msgid "Anjuta version %s or later is required to open this Project.\n"
 "Please upgrade to the latest version of Anjuta (Help for more information)."
-msgstr ""
-"Bu layihəni açmaq üçün Anjuta buraxılış %s və ya daha üstünə ehtiyacınız var.\n"
+msgstr "Bu layihəni açmaq üçün Anjuta buraxılış %s və ya daha üstünə ehtiyacınız var.\n"
 "Xahiş edirik Anjuta'nın ən son buraxılışını qurun. Ətraflı mə'lumat üçün yardıma baxın."
 
 #: src/project_dbase.c:874
@@ -6373,11 +6325,9 @@ msgid "A .glade file does not exist in the top level Project directory. If you d
 msgstr "Üst səviyyə layihə cərgəsində .glade faylı mövcud deyil. Əgər ara üz işləri üçün Glade'i işlətmirsinizsə işlətdiyiniz proqram üçün xüsusi əmri [Layihə]->[Layihə Qurğuları]->[GUI editoru əmri]'də tə'yin edin."
 
 #: src/project_dbase.c:1649
-msgid ""
-"A .glade file does not\n"
+msgid "A .glade file does not\n"
 "exist in the top level Project directory."
-msgstr ""
-"Layihənin üst cərgəsində\n"
+msgstr "Layihənin üst cərgəsində\n"
 "glade faylı mövcud deyil."
 
 #. Set project title
@@ -6387,11 +6337,9 @@ msgstr "Lahiyə: "
 
 #: src/project_dbase.c:2214
 #, c-format
-msgid ""
-"Unable to get relative file name for %s\n"
+msgid "Unable to get relative file name for %s\n"
 " in %s"
-msgstr ""
-"%2$s içində %1$s üçün nisbi fayl adı\n"
+msgstr "%2$s içində %1$s üçün nisbi fayl adı\n"
 "alına bilmir"
 
 #: src/project_dbase.c:2279
@@ -6414,11 +6362,9 @@ msgstr "Lahiyə müvəffəqiyyətlə yükləndi."
 
 #: src/project_dbase_gui.c:74
 #, c-format
-msgid ""
-"Are you sure you want to remove the item\n"
+msgid "Are you sure you want to remove the item\n"
 "'%s' from the Project?"
-msgstr ""
-"%s üzvünü layihənizdən çıxartmaq\n"
+msgstr "%s üzvünü layihənizdən çıxartmaq\n"
 "istədiyinizdən əminsiniz?"
 
 #: src/project_dbase_gui.c:135
@@ -6589,11 +6535,9 @@ msgid "Project Type:"
 msgstr "Lahiyə Növü:"
 
 #: src/project_dbase_gui.c:1122
-msgid ""
-"Project is not saved.\n"
+msgid "Project is not saved.\n"
 "Do you want to save it before closing?"
-msgstr ""
-"Layihə qeyd edilmədi.\n"
+msgstr "Layihə qeyd edilmədi.\n"
 "bağlamadan əvvəl qeyd etmək istəyirsiniz?"
 
 #: src/project_dbase_gui.c:1137
@@ -6707,7 +6651,7 @@ msgstr "Yerli dili seç:"
 msgid "Unable to find pixmap file: %s"
 msgstr "Piksməp faylı tapıla bilmədi: %s"
 
-#: src/project_dbase_gui.c:1344
+#: src/project_dbase_gui.c:1342
 #, c-format
 msgid ""
 "\"%s\"\n"
@@ -6718,12 +6662,12 @@ msgstr ""
 "faylı mövcud deyil.\n"
 "İndi onu yaratmaq istəyirsiniz?"
 
-#: src/project_dbase_gui.c:1362
+#: src/project_dbase_gui.c:1360
 #, c-format
 msgid "Not a regular file: %s."
 msgstr "Sıravı fayl deyildir: %s."
 
-#: src/project_dbase_gui.c:1372
+#: src/project_dbase_gui.c:1370
 #, c-format
 msgid ""
 "\"%s\"\n"
@@ -6783,8 +6727,7 @@ msgstr "Xahiş edirik, məcburi olan bütün sahələri doldurun"
 
 #. We should never come here because this button is disabled
 #: src/project_import_cbs.c:278
-msgid ""
-"The import operation has already begun.\n"
+msgid "The import operation has already begun.\n"
 "Click Cancel to skip the customisation stage, or Next to continue."
 msgstr ""
 "İdxal etmə əməliyyatı onsuzda başlayıb.\n"
@@ -7118,11 +7061,9 @@ msgstr "Avtomatik şəkilləndirmədə xəta ..."
 
 #: src/text_editor.c:1479
 #, c-format
-msgid ""
-"Error in auto formatting ...\n"
+msgid "Error in auto formatting ...\n"
 "Details: %s"
-msgstr ""
-"Avtomatik şəkilləndirmədə xəta ...\n"
+msgstr "Avtomatik şəkilləndirmədə xəta ...\n"
 "Ətraflı: %s"
 
 #: src/text_editor.c:1486
