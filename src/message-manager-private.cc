@@ -352,11 +352,11 @@ AnMessageWindow::append_buffer()
 	GtkListStore* store = GTK_LIST_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(m_tree)));
 	gtk_list_store_append(store, &iter);
 	gchar* utf8_msg = g_utf8_normalize(c_message.c_str(), -1, 
-		G_NORMALIZE_DEFAULT);
+									   G_NORMALIZE_DEFAULT);
 	gtk_list_store_set (store, &iter,
-		COLUMN_MESSAGES, utf8_msg,
-		COLUMN_COLOR, &color,
-		COLUMN_LINE, m_line, -1);
+						COLUMN_MESSAGES, utf8_msg,
+						COLUMN_COLOR, &color,
+						COLUMN_LINE, m_line, -1);
 	m_line++;
 	g_free(utf8_msg);
 }

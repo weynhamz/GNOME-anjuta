@@ -539,7 +539,7 @@ an_message_manager_undock (AnMessageManager * amm)
 		gtk_window_set_wmclass(GTK_WINDOW(amm->intern->window), "message-manager", "an");
 		gtk_window_set_title(GTK_WINDOW(amm->intern->window), _("Messages"));
 		gtk_window_set_default_size(GTK_WINDOW(amm->intern->window), amm->intern->width, amm->intern->height);
-		#warning G2 Port: uposition is deprecated but how to replace it?
+#warning G2 Port: uposition is deprecated but how to replace it?
 		//gtk_widget_set_uposition(amm->intern->window, amm->intern->xpos, amm->intern->ypos);
 		
 		amm_undock (GTK_WIDGET (amm), &amm->intern->window);
@@ -802,7 +802,7 @@ an_message_manager_show_impl (GtkWidget * widget)
 	
 	if (!amm->intern->is_docked)
 	{
-		#warning G2 second time upostion
+#warning G2 second time upostion
 		gtk_widget_set_uposition (amm->intern->window,
 					  amm->intern->xpos,
 					  amm->intern->ypos);

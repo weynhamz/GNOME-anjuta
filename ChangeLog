@@ -1,3 +1,7 @@
+2003-05-06  Naba Kumar  <naba@gnome.org>
+
+	src/message-manager-private.cc, src/message-manager.cc: Clean ups.
+
 2003-05-07  Biswapesh Chattopadhyay  <biswapesh_chatterjee@tcscal.co.in>
 	* gdl/Makefile.am, printing/Makefile.am: distcheck fixes.
 
