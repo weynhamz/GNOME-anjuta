@@ -420,35 +420,39 @@ cvs_plugin_class_init (GObjectClass *klass)
 
 /* Interface */
 
-void ianjuta_vcs_add (IAnjutaVcs *obj, const gchar* filename, 
+static void
+ianjuta_cvs_add (IAnjutaVcs *obj, const gchar* filename, 
 	GError **err)
 {
 	anjuta_cvs_add(ANJUTA_PLUGIN(obj), filename, FALSE, err);
 }
 	
-void ianjuta_vcs_commit (IAnjutaVcs *obj, const gchar* filename, const gchar* log, 
+static void
+ianjuta_cvs_commit (IAnjutaVcs *obj, const gchar* filename, const gchar* log, 
 						 gboolean recurse, GError **err)
 {
 	anjuta_cvs_commit (ANJUTA_PLUGIN(obj), filename, log, "", recurse, err);
 }
 
-void ianjuta_vcs_remove (IAnjutaVcs *obj, const gchar* filename, GError **err)
+static void
+ianjuta_cvs_remove (IAnjutaVcs *obj, const gchar* filename, GError **err)
 {
 	anjuta_cvs_remove (ANJUTA_PLUGIN(obj), filename, err);
 }
 
 
-void ianjuta_vcs_update (IAnjutaVcs *obj, const gchar* filename, gboolean recurse, GError **err)
+static void
+ianjuta_cvs_update (IAnjutaVcs *obj, const gchar* filename, gboolean recurse, GError **err)
 {
 	anjuta_cvs_update(ANJUTA_PLUGIN(obj), filename, recurse, FALSE, TRUE, FALSE,"", err);}
 
 static void
 ianjuta_vcs_iface_init (IAnjutaVcsIface *iface)
 {
-	iface->add = ianjuta_vcs_add;
-	iface->remove = ianjuta_vcs_remove;
-	iface->update = ianjuta_vcs_update;
-	iface->commit = ianjuta_vcs_commit;	
+	iface->add = ianjuta_cvs_add;
+	iface->remove = ianjuta_cvs_remove;
+	iface->update = ianjuta_cvs_update;
+	iface->commit = ianjuta_cvs_commit;	
 }
 
 

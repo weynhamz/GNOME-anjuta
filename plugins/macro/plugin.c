@@ -174,9 +174,10 @@ macro_plugin_class_init (GObjectClass * klass)
 	klass->finalize = finalize;
 }
 
-void ianjuta_macro_insert(IAnjutaMacro* macro, const gchar* key, GError** err)
+static void 
+ianjuta_macro_iface_insert(IAnjutaMacro* macro, const gchar* key, GError** err)
 {
-	MacroPlugin* plugin = (MacroPlugin*)(macro);
+	MacroPlugin* plugin = (MacroPlugin*)macro;
 	insert_macro(key, plugin);
 }
 
@@ -184,7 +185,7 @@ void ianjuta_macro_insert(IAnjutaMacro* macro, const gchar* key, GError** err)
 static void
 ianjuta_macro_iface_init (IAnjutaMacroIface *iface)
 {
-	iface->insert = ianjuta_macro_insert;
+	iface->insert = ianjuta_macro_iface_insert;
 }
 
 ANJUTA_PLUGIN_BEGIN (MacroPlugin, macro_plugin);

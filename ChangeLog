@@ -1,3 +1,10 @@
+2005-02-22  Johannes Schmid <jhs@cvs.gnome.org>
+
+	* plugins/macro/plugin.c
+	plugins/cvs-plugin/plugin.c:
+	
+	Fixed interfaces (use static)
+
 2005-02-21  Johannes Schmid <jhs@cvs.gnome.org>
 	
 	* plugins/macro/macro-actions.[ch]
