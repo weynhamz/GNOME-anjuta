@@ -1,5 +1,11 @@
 2005-01-17  Naba Kumar  <naba@gnome.org>
 
+	* data/Makefile.am,	(removed) data/README.stock_libs,
+	(removed) data/anjuta.mime, (removed) data/autogen.sh*,
+	(removed) data/header.c, (removed) data/stock_libs.anj,
+	(removed) data/x-anjuta-project.desktop,
+	(removed) data/macros/*, (removed) data/macros2/*: Removed old files.
+
 	* libanjuta/anjuta-plugin-description.c,
 	libanjuta/anjuta-shell.c: Updated documentations.
 
