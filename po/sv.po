@@ -8,8 +8,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
-"POT-Creation-Date: 2002-01-31 02:52+0100\n"
-"PO-Revision-Date: 2002-01-31 02:52+0100\n"
+"POT-Creation-Date: 2002-02-05 17:13+0100\n"
+"PO-Revision-Date: 2002-02-05 17:13+0100\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -107,6 +107,55 @@ msgstr "Copyright © 1999-2002 Naba Kumar"
 #: src/about.c:79 src/main_menubar_def.h:1529
 msgid "Anjuta Home Page"
 msgstr "Hemsida för Anjuta"
+
+#: src/an_file_view.c:88
+#, c-format
+msgid "Unable to open %s in %s"
+msgstr "Kan inte öppna %s i %s"
+
+#: src/an_file_view.c:131 src/text_editor_gui.c:122 src/toolbar.c:120
+msgid "Open"
+msgstr "Öppna"
+
+#: src/an_file_view.c:137
+msgid "View in Default Viewer"
+msgstr "Visa i standardvisaren"
+
+#: src/an_file_view.c:143 src/an_symbol_view.c:249
+msgid "Refresh Tree"
+msgstr "Uppdatera träd"
+
+#: src/an_symbol_view.c:72 src/compiler_options_gui.c:152
+msgid "Others"
+msgstr "Annat"
+
+#: src/an_symbol_view.c:72
+msgid "Classes"
+msgstr "Klasser"
+
+#: src/an_symbol_view.c:72
+msgid "Structs"
+msgstr "Strukter"
+
+#: src/an_symbol_view.c:72
+msgid "Functions"
+msgstr "Functioner"
+
+#: src/an_symbol_view.c:73
+msgid "Variables"
+msgstr "Variabler"
+
+#: src/an_symbol_view.c:73
+msgid "Macros"
+msgstr "Makron"
+
+#: src/an_symbol_view.c:237
+msgid "Goto Definition"
+msgstr "Gå till definition"
+
+#: src/an_symbol_view.c:243
+msgid "Goto Declaration"
+msgstr "Gå till deklaration"
 
 #: src/anjuta.c:75 src/anjuta.c:82
 #, c-format
@@ -330,18 +379,18 @@ msgstr ""
 
 #. For the time being
 #: src/appwizard_cbs.c:251 src/project_dbase.c:1326 src/project_dbase.c:1331
-#: src/project_dbase.c:1334 src/project_import_cbs.c:201 src/signals_cbs.c:128
+#: src/project_dbase.c:1334 src/project_import_cbs.c:218 src/signals_cbs.c:128
 #: src/signals_cbs.c:141 src/signals_cbs.c:154
 msgid "Yes"
 msgstr "Ja"
 
 #: src/appwizard_cbs.c:253 src/project_dbase.c:1328 src/project_dbase.c:1336
-#: src/project_import_cbs.c:203 src/signals_cbs.c:130 src/signals_cbs.c:143
+#: src/project_import_cbs.c:220 src/signals_cbs.c:130 src/signals_cbs.c:143
 #: src/signals_cbs.c:156
 msgid "No"
 msgstr "Nej"
 
-#: src/appwizard_cbs.c:255 src/project_import_cbs.c:204
+#: src/appwizard_cbs.c:255 src/project_import_cbs.c:221
 msgid ""
 "Confirm the following information:\n"
 "\n"
@@ -349,35 +398,35 @@ msgstr ""
 "Bekräfta följande information:\n"
 "\n"
 
-#: src/appwizard_cbs.c:256 src/project_import_cbs.c:205
+#: src/appwizard_cbs.c:256 src/project_import_cbs.c:222
 msgid "Project Name:    "
 msgstr "Projektnamn:     "
 
-#: src/appwizard_cbs.c:257 src/project_import_cbs.c:206
+#: src/appwizard_cbs.c:257 src/project_import_cbs.c:223
 msgid "Project Type:    "
 msgstr "Projekttyp:      "
 
-#: src/appwizard_cbs.c:258 src/project_import_cbs.c:208
+#: src/appwizard_cbs.c:258 src/project_import_cbs.c:225
 msgid "Target Type:     "
 msgstr "Måltyp:          "
 
-#: src/appwizard_cbs.c:259 src/project_import_cbs.c:211
+#: src/appwizard_cbs.c:259 src/project_import_cbs.c:228
 msgid "Source Target:   "
 msgstr "Källmål:         "
 
-#: src/appwizard_cbs.c:260 src/project_import_cbs.c:212
+#: src/appwizard_cbs.c:260 src/project_import_cbs.c:229
 msgid "Version:         "
 msgstr "Version:         "
 
-#: src/appwizard_cbs.c:261 src/project_import_cbs.c:213
+#: src/appwizard_cbs.c:261 src/project_import_cbs.c:230
 msgid "Author:          "
 msgstr "Författare:      "
 
-#: src/appwizard_cbs.c:262 src/project_import_cbs.c:214
+#: src/appwizard_cbs.c:262 src/project_import_cbs.c:231
 msgid "Language:        "
 msgstr "Språk:           "
 
-#: src/appwizard_cbs.c:263 src/project_import_cbs.c:216
+#: src/appwizard_cbs.c:263 src/project_import_cbs.c:233
 msgid "Gettext Support: "
 msgstr "Gettext-stöd:    "
 
@@ -1009,10 +1058,6 @@ msgstr "Varningar"
 msgid "Optimization"
 msgstr "Optimeringar"
 
-#: src/compiler_options_gui.c:152
-msgid "Others"
-msgstr "Annat"
-
 #: src/compiler_options_gui.c:251
 msgid "Select the support libraries to add"
 msgstr "Välj de stödbibliotek som ska läggas till"
@@ -1590,11 +1635,11 @@ msgstr "Kan inte grena glade--."
 
 #: src/glades.c:210 src/source.c:121 src/source.c:168 src/source.c:206
 #: src/source.c:442 src/source.c:466 src/source.c:551 src/source.c:617
-#: src/source.c:657 src/source.c:672 src/source.c:705 src/source.c:741
-#: src/source.c:813 src/source.c:832 src/source.c:865 src/source.c:885
-#: src/source.c:918 src/source.c:938 src/source.c:969 src/source.c:987
-#: src/source.c:1017 src/source.c:1035 src/source.c:1062 src/source.c:1115
-#: src/source.c:1191 src/source.c:1323 src/source.c:1396 src/utilities.c:723
+#: src/source.c:657 src/source.c:672 src/source.c:706 src/source.c:761
+#: src/source.c:833 src/source.c:852 src/source.c:885 src/source.c:905
+#: src/source.c:938 src/source.c:958 src/source.c:989 src/source.c:1007
+#: src/source.c:1037 src/source.c:1055 src/source.c:1082 src/source.c:1135
+#: src/source.c:1211 src/source.c:1343 src/source.c:1416 src/utilities.c:723
 #, c-format
 msgid "Unable to create file: %s."
 msgstr "Kan inte skapa filen: %s."
@@ -1726,7 +1771,7 @@ msgstr "Infosidor"
 msgid "Cannot execute command shell"
 msgstr "Kan inte köra kommandoskal"
 
-#: src/main.c:46
+#: src/main.c:48
 msgid "Do not show the splashscreen"
 msgstr "Visa inte startbilden"
 
@@ -3544,7 +3589,7 @@ msgstr ""
 "Detta kan orsaka felaktigt beteende eller instabiliteter.\n"
 "Anjuta kommer att återgå till inbyggda (begränsade) inställningar"
 
-#: src/preferences.c:626
+#: src/preferences.c:637
 msgid ""
 "Are you sure you want to reset the preferences to\n"
 "their default settings?"
@@ -4370,11 +4415,12 @@ msgstr "Öppnar projekt...vänta!"
 msgid "Could not open generated project file!"
 msgstr "Kunde inte öppna genererad projektfil!"
 
-#: src/project_import_cbs.c:122
+#: src/project_import_cbs.c:126
 msgid "Please fill in all needed values!"
 msgstr "Fyll i alla nödvändiga värden!"
 
-#: src/project_import_cbs.c:257
+#. We should never come here because this button is disabled
+#: src/project_import_cbs.c:275
 msgid ""
 "The import operation has already begun.\n"
 "Click Cancel to skip the customisation stage, or Next to continue."
@@ -4534,12 +4580,12 @@ msgstr " Skriv ut: "
 msgid "Error writing to file: %s."
 msgstr "Fel vid skrivning till fil: %s."
 
-#: src/source.c:1274
+#: src/source.c:1294
 #, c-format
 msgid "Error writing to: %s."
 msgstr "Fel vid skrivning till: %s."
 
-#: src/source.c:1490
+#: src/source.c:1510
 msgid "Project type does not support Glade."
 msgstr "Projekttypen stöder inte Glade."
 
@@ -4580,65 +4626,6 @@ msgstr "Stack"
 #, c-format
 msgid "Unable to create pixmap from file: %s"
 msgstr "Kan inte skapa pixmap från fil: %s"
-
-#: src/tags_manager.c:187
-msgid "# *********** DO NOT EDIT OR RENAME THIS FILE *****************\n"
-msgstr "# ********* REDIGERA INTE ELLER BYT NAMN PÅ DENNA FIL *********\n"
-
-#: src/tags_manager.c:190
-msgid ""
-"# ******************* Created by  Anjuta ********************************\n"
-msgstr ""
-"# *************************** Skapad av Anjuta ***************************\n"
-
-#: src/tags_manager.c:193
-msgid "# ***************** Anjuta Tags cache file ********************\n"
-msgstr "# ******************** Anjuta-taggcachefil ********************\n"
-
-#: src/tags_manager.c:503
-msgid "File:"
-msgstr "Fil:"
-
-#: src/tags_manager.c:506
-msgid "Function:"
-msgstr "Funktion:"
-
-#: src/tags_manager.c:543
-msgid "Class:"
-msgstr "Klass:"
-
-#: src/tags_manager.c:546
-msgid "Mem Func:"
-msgstr "Minnesfunktion:"
-
-#: src/tags_manager.c:587
-msgid "Tag:"
-msgstr "Tagg:"
-
-#: src/tags_manager.c:641
-msgid "Cannot execute ctags"
-msgstr "Kan inte köra \"ctags\""
-
-#: src/tags_manager.c:646
-#, c-format
-msgid ""
-"Cannot fork to execute ctags.\n"
-"In %s:%d"
-msgstr ""
-"Kan inte grena för att köra ctags.\n"
-"I %s:%d"
-
-#: src/tags_manager.c:765
-msgid "Synchronizing and updating tags image ... please wait"
-msgstr "Synkroniserar och uppdaterar taggbild... vänta"
-
-#: src/tags_manager.c:797
-msgid "Updating tags image completed"
-msgstr "Uppdatering av taggbild färdig"
-
-#: src/tags_manager.c:833
-msgid "Synchronization of tags image failed"
-msgstr "Synkronisering av taggbild misslyckades"
 
 #: src/text_editor.c:760
 msgid "Loading file ..."
@@ -4712,10 +4699,6 @@ msgstr "Ny"
 #: src/text_editor_gui.c:112 src/toolbar.c:109
 msgid "New Text File"
 msgstr "Ny textfil"
-
-#: src/text_editor_gui.c:122 src/toolbar.c:120
-msgid "Open"
-msgstr "Öppna"
 
 #: src/text_editor_gui.c:122
 msgid "Open Text File"
@@ -5455,6 +5438,53 @@ msgstr "Markering: "
 msgid "Multiple selection mode"
 msgstr "Flervalsläge"
 
+#~ msgid "# *********** DO NOT EDIT OR RENAME THIS FILE *****************\n"
+#~ msgstr "# ********* REDIGERA INTE ELLER BYT NAMN PÅ DENNA FIL *********\n"
+
+#~ msgid ""
+#~ "# ******************* Created by  Anjuta "
+#~ "********************************\n"
+#~ msgstr ""
+#~ "# *************************** Skapad av Anjuta "
+#~ "***************************\n"
+
+#~ msgid "# ***************** Anjuta Tags cache file ********************\n"
+#~ msgstr "# ******************** Anjuta-taggcachefil ********************\n"
+
+#~ msgid "File:"
+#~ msgstr "Fil:"
+
+#~ msgid "Function:"
+#~ msgstr "Funktion:"
+
+#~ msgid "Class:"
+#~ msgstr "Klass:"
+
+#~ msgid "Mem Func:"
+#~ msgstr "Minnesfunktion:"
+
+#~ msgid "Tag:"
+#~ msgstr "Tagg:"
+
+#~ msgid "Cannot execute ctags"
+#~ msgstr "Kan inte köra \"ctags\""
+
+#~ msgid ""
+#~ "Cannot fork to execute ctags.\n"
+#~ "In %s:%d"
+#~ msgstr ""
+#~ "Kan inte grena för att köra ctags.\n"
+#~ "I %s:%d"
+
+#~ msgid "Synchronizing and updating tags image ... please wait"
+#~ msgstr "Synkroniserar och uppdaterar taggbild... vänta"
+
+#~ msgid "Updating tags image completed"
+#~ msgstr "Uppdatering av taggbild färdig"
+
+#~ msgid "Synchronization of tags image failed"
+#~ msgstr "Synkronisering av taggbild misslyckades"
+
 #~ msgid "Executable target"
 #~ msgstr "Körbart mål"
 
@@ -5498,26 +5528,11 @@ msgstr "Flervalsläge"
 #~ msgid "The Wizard"
 #~ msgstr "Guiden"
 
-#~ msgid "Functions"
-#~ msgstr "Functioner"
-
-#~ msgid "Classes"
-#~ msgstr "Klasser"
-
-#~ msgid "Structs"
-#~ msgstr "Strukter"
-
 #~ msgid "Unions"
 #~ msgstr "Unioner"
 
 #~ msgid "Enums"
 #~ msgstr "Enumar"
-
-#~ msgid "Variables"
-#~ msgstr "Variabler"
-
-#~ msgid "Macros"
-#~ msgstr "Makron"
 
 #~ msgid "There is already a Project open. Do you want to close it first?"
 #~ msgstr "Det finns redan ett öppnat projekt. Vill du stänga det först?"
