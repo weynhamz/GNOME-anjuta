@@ -1,4 +1,5 @@
-FILES="\"/usr/include/*.h\" \"/usr/local/include/*.h\""
+## FILES="\"/usr/include/*.h\" \"/usr/local/include/*.h\""
+FILES=""
 BASEDIR=`pwd`
 PROGDIR=. # `dirname $0`
 GLOBAL_TAGS_FILE=$BASEDIR/system.tags
@@ -46,7 +47,11 @@ then
     module=`echo $file | sed 's/^.*\///' | sed 's/Conf\.sh//'`
     GNOME_MODULES="$GNOME_MODULES $module"
   done
-  PKG_CONFIG_MODULES=`pkg-config --list-all 2>/dev/null | awk '{printf("%s ",  $1);}'`
+## This is dangerously big database in RH 8.0, so only taking selective
+## packages.
+  PKG_CONFIG_GNOME_MODULES=`pkg-config --list-all 2>/dev/null | grep "gnome" | awk '{printf("%s ",  $1);}'`
+  PKG_CONFIG_GTK_MODULES=`pkg-config --list-all 2>/dev/null | grep "gtk" | awk '{printf("%s ",  $1);}'`
+  PKG_CONFIG_MODULES="$PKG_CONFIG_GNOME_MODULES $PKG_CONFIG_GTK_MODULES"
   GNOME_CFLAGS=`gnome-config --cflags $GNOME_MODULES 2>/dev/null`
   PKG_CONFIG_CFLAGS=`pkg-config --cflags $PKG_CONFIG_MODULES 2>/dev/null`
   for cflag in $GNOME_CFLAGS $PKG_CONFIG_CFLAGS
