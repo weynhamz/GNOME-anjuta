@@ -1,3 +1,13 @@
+2004-01-09  Jean-Noel Guiheneuf <jnoel@lotuscompounds.com>
+
+	* Added: search_incremental[ch]
+	
+	* anjuta.glade, src/search-replace.c, src/search-replace_backend.h,
+	src/mainmenu_callbacks.c, src/toolbar.c
+	src/toolbar_callbacks.c, src/toolbar_callbacks.h, src/Makefile.am
+	
+	* Incremental Search
+
 2004-01-03  Johannes Schmid <jhs@cvs.gnome.org>
 	
 	* plugins/message-view/anjuta-msgman.[c/h]:

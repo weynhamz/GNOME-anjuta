@@ -88,9 +88,9 @@ typedef struct _SearchRange
 typedef enum _SearchAction
 {
 	SA_SELECT, /* Jump to the first match and select it (current buffer only)*/
-	SA_FIND_PANE, /* Show result in find pane */
 	SA_BOOKMARK, /* Bookmark the line (open buffers only) */
 	SA_HIGHLIGHT, /* Highlight matched string (open buffers only) */
+	SA_FIND_PANE, /* Show result in find pane */
 	SA_REPLACE, /* Replace first match with specified string */
 	SA_REPLACEALL /* Replace all matches with specified string */
 } SearchAction;
@@ -102,6 +102,8 @@ typedef struct _Search
 	SearchRange range;
 	SearchAction action;
 	GList *expr_history;
+	gint incremental_pos;
+	gboolean incremental_wrap;
 } Search;
 
 /* Contains information about replacement */

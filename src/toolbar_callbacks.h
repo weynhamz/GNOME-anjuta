@@ -66,13 +66,29 @@ void
 on_toolbar_detach_clicked                (EggAction       *action,
                                         gpointer         user_data);
 
-gboolean on_toolbar_find_incremental_start (EggAction *action, gpointer user_data);
-gboolean on_toolbar_find_incremental_end (EggAction *action, gpointer user_data);
-void on_toolbar_find_incremental (EggAction *action, gpointer user_data);
-void on_toolbar_find_clicked (EggAction *action, gpointer user_data);
+gboolean 
+on_toolbar_find_incremental_start 		(EggAction *action, 
+										gpointer user_data);
+										
+gboolean 
+on_toolbar_find_incremental_end 		(EggAction *action, 
+										gpointer user_data);
+										
+void 
+on_toolbar_find_incremental 			(EggAction *action, 
+										gpointer user_data);
+										
+void 
+on_toolbar_find_clicked 				(EggAction *action, 
+										gpointer user_data);
 
-void on_toolbar_goto_activate (EggAction *action, gpointer user_data);
-void on_toolbar_goto_clicked (EggAction *action, gpointer user_data);
+void 
+on_toolbar_goto_activate 				(EggAction *action, 
+										gpointer user_data);
+										
+void 
+on_toolbar_goto_clicked 				(EggAction *action, 
+										gpointer user_data);
 
 void
 on_toolbar_tag_clicked                (EggAction       *action,

@@ -510,12 +510,24 @@ static void
 search_replace_next_previous(SearchDirection dir)
 {
 	SearchDirection save_direction;
+	SearchAction save_action;
+	SearchRangeType save_type;
 	
 	if (sr)
 	{
+		save_action = sr->search.action;
+		save_type = sr->search.range.type;
 		save_direction = sr->search.range.direction;
-		sr->search.range.direction = dir;				
+		sr->search.range.direction = dir;	
+		if (save_type == SR_OPEN_BUFFERS || save_type == SR_PROJECT ||
+				save_type == SR_VARIABLE || save_type == SR_FILES)
+			sr->search.range.direction = SR_BUFFER;
+		sr->search.action = SA_SELECT;
+		
 		search_and_replace();
+		
+		sr->search.action = save_action;
+		sr->search.range.type = save_type;
 		sr->search.range.direction = save_direction;
 	}	
 }
@@ -1027,6 +1039,8 @@ search_update_combos(void)
 					MAX_ITEMS_SEARCH_COMBO);
 				gtk_combo_set_popdown_strings((GtkCombo *) search_list,
 					sr->search.expr_history);
+				entry_set_text_n_select (app->widgets.toolbar.main_toolbar.find_entry,
+								 search_word, FALSE);
 			}
 		}
 	}
@@ -1372,9 +1386,14 @@ on_search_target_changed(GtkEditable *editable, gpointer user_data)
 		search_set_toggle_direction(SD_BEGINNING);
 
 		act = search_get_item_combo_name(SEARCH_ACTION, search_action_strings);	
-		if (act == SA_SELECT)
-			search_set_action(SA_BOOKMARK);
-		if (act == SA_REPLACE)
+		if (act != SA_REPLACE && act != SA_REPLACEALL)
+		{
+			if (tgt == SR_OPEN_BUFFERS)
+				search_set_action(SA_BOOKMARK);
+			else
+				search_set_action(SA_FIND_PANE);
+		}
+		else
 			search_set_action(SA_REPLACEALL);	
 	}
 	reset_flags_and_search_button();

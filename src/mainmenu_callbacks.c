@@ -62,6 +62,7 @@
 #include "fileselection.h"
 #include "anjuta-tools.h"
 #include "search-replace.h"
+#include "search_incremental.h"
 #include "anjuta_info.h"
 #include "watch_gui.h"
 #include "signals_cbs.h"

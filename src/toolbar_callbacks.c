@@ -32,6 +32,7 @@
 #include "mainmenu_callbacks.h"
 #include "toolbar_callbacks.h"
 #include "debugger.h"
+#include "search_incremental.h"
 
 void
 on_toolbar_new_clicked (EggAction * action, gpointer user_data)
@@ -121,215 +122,27 @@ on_toolbar_detach_clicked (EggAction * action, gpointer user_data)
 gboolean
 on_toolbar_find_incremental_start (EggAction *action, gpointer user_data)
 {
-	gchar *string;
-	const gchar *string1;
-	TextEditor *te = anjuta_get_current_text_editor();
-	if (!te) return FALSE;
-
-	/* Updated find combo history */
-	string1 =
-		gtk_entry_get_text (GTK_ENTRY
-				    (app->widgets.toolbar.main_toolbar.
-				     find_entry));
-	if (string1 && strlen (string1) > 0)
-	{
-		string = g_strdup (string1);
-//		app->find_replace->find_text->find_history =
-//			update_string_list (app->find_replace->find_text->
-//						find_history, string, COMBO_LIST_LENGTH);
-//		gtk_combo_set_popdown_strings (GTK_COMBO
-//						   (app->widgets.toolbar.main_toolbar.
-//						find_combo),
-//						   app->find_replace->find_text->
-//						   find_history);
-		g_free (string);
-	}
-	/* Prepare to begin incremental search */	
-//	app->find_replace->find_text->incremental_pos =
-//		text_editor_get_current_position(te);
-//	app->find_replace->find_text->incremental_wrap = FALSE;
+	toolbar_search_incremental_start ();
 	return FALSE;
 }
 
 gboolean
 on_toolbar_find_incremental_end (EggAction *action, gpointer user_data)
 {
-//	app->find_replace->find_text->incremental_pos = -1;
-#if 0 /* Ambiguity during merge */
-	if (EGG_IS_ENTRY_ACTION (action))
-	{
-		string1 = egg_entry_action_get_text (EGG_ENTRY_ACTION (action));
-	}
-	else
-	{
-		AnjutaUI *ui;
-		EggEntryAction *entry_action;
-		ui = ANJUTA_UI (app->ui);
-		action = anjuta_ui_get_action (ui, "ActionGroupNavigation",
-									   "ActionEditSearchEntry");
-		g_return_if_fail (EGG_IS_ENTRY_ACTION (action));
-		string1 = egg_entry_action_get_text (EGG_ENTRY_ACTION (action));
-	}
-	if (!string1 || strlen (string1) == 0)
-		return FALSE;
-	string = g_strdup (string1);
-	app->find_replace->find_text->find_history =
-		update_string_list (app->find_replace->find_text->
-				    find_history, string, COMBO_LIST_LENGTH);
-	/*
-	gtk_combo_set_popdown_strings (GTK_COMBO
-				       (app->widgets.toolbar.main_toolbar.
-					find_combo),
-				       app->find_replace->find_text->
-				       find_history);
-	*/
-	g_free (string);
-#endif
+	toolbar_search_incremental_end ();
 	return FALSE;
 }
 
 void
 on_toolbar_find_incremental (EggAction *action, gpointer user_data)
 {
-	const gchar *entry_text;
-	TextEditor *te = anjuta_get_current_text_editor();
-	if (!te)
-		return;
-//	if (app->find_replace->find_text->incremental_pos < 0)
-//		return;
-	
-//	text_editor_goto_point (te, app->find_replace->find_text->incremental_pos);
-
-	if (EGG_IS_ENTRY_ACTION (action))
-	{
-		entry_text = egg_entry_action_get_text (EGG_ENTRY_ACTION (action));
-	}
-	else
-	{
-		AnjutaUI *ui;
-		EggEntryAction *entry_action;
-		ui = ANJUTA_UI (app->ui);
-		action = anjuta_ui_get_action (ui, "ActionGroupNavigation",
-									   "ActionEditSearchEntry");
-		g_return_if_fail (EGG_IS_ENTRY_ACTION (action));
-		entry_text = egg_entry_action_get_text (EGG_ENTRY_ACTION (action));
-	}
-	if (!entry_text || strlen(entry_text) < 1) return;
-	
-	/* 2 is passed to indicate the call is from incremental and at the
-	   same time the search is forward */
-	on_toolbar_find_clicked (NULL, GINT_TO_POINTER(2));
+	toolbar_search_incremental ();
 }
 
-/*  *user_data : TRUE=Forward  False=Backward  */
-static void
-on_toolbar_find_start_over (EggAction * action, gpointer user_data)
-{
-	TextEditor *te = anjuta_get_current_text_editor();
-	long length;
-	
-	length = aneditor_command(te->editor_id, ANE_GETLENGTH, 0, 0);
-
-	if (GPOINTER_TO_INT(user_data))
-		/* search from doc start */
-		text_editor_goto_point (te, 0);
-	else
-		/* search from doc end */
-		text_editor_goto_point (te, length);
-
-	on_toolbar_find_clicked (action, user_data);
-}
-
-/*  *user_data : TRUE=Forward  False=Backward  */
 void
 on_toolbar_find_clicked (EggAction * action, gpointer user_data)
 {
-	TextEditor *te;
-	const gchar *string;
-	gint ret;
-	gboolean search_wrap = FALSE;
-	
-	te = anjuta_get_current_text_editor ();
-	if (!te)
-		return;
-
-	if (EGG_IS_ENTRY_ACTION (action))
-	{
-		string = egg_entry_action_get_text (EGG_ENTRY_ACTION (action));
-	}
-	else
-	{
-		AnjutaUI *ui;
-		EggEntryAction *entry_action;
-		ui = ANJUTA_UI (app->ui);
-		action = anjuta_ui_get_action (ui, "ActionGroupNavigation",
-									   "ActionEditSearchEntry");
-		g_return_if_fail (EGG_IS_ENTRY_ACTION (action));
-		string = egg_entry_action_get_text (EGG_ENTRY_ACTION (action));
-	}
-	
-	/* The 2 below is checked to make sure the wrapping is only done when
-	  it is called by 'activate' (and not 'changed') signal */ 
-//	if (app->find_replace->find_text->incremental_pos >= 0 &&
-//		(app->find_replace->find_text->incremental_wrap == 2 ||
-//		 (app->find_replace->find_text->incremental_wrap == 1 &&
-//		  GPOINTER_TO_INT (user_data) < 2)))
-	{
-		/* If incremental search wrap requested, so wrap it. */
-		search_wrap = TRUE;
-//		app->find_replace->find_text->incremental_wrap = 2;
-	}
-	//~ if (app->find_replace->find_text->incremental_pos >= 0)
-	//~ {
-		//~ /* If incremental search */
-		//~ ret = text_editor_find (te, string,
-					//~ TEXT_EDITOR_FIND_SCOPE_CURRENT,
-					//~ GPOINTER_TO_INT(user_data), /* Forward - Backward */
-					//~ FALSE, TRUE, FALSE, search_wrap);
-	//~ }
-	//~ else
-	//~ {
-		//~ /* Normal search */
-		//~ ret = text_editor_find (te, string,
-					//~ TEXT_EDITOR_FIND_SCOPE_CURRENT,
-					//~ GPOINTER_TO_INT(user_data), /* Forward - Backward */
-					//~ app->find_replace->find_text->regexp,
-					//~ app->find_replace->find_text->ignore_case,
-					//~ app->find_replace->find_text->whole_word,
-					//~ FALSE);
-	//~ }
-	//~ if (ret < 0) {
-		//~ if (app->find_replace->find_text->incremental_pos < 0)
-		//~ {
-			//~ GtkWidget *dialog;
-			//~ // Dialog to be made HIG compliant.
-			//~ dialog = gtk_message_dialog_new (GTK_WINDOW (app->widgets.window),
-											 //~ GTK_DIALOG_DESTROY_WITH_PARENT,
-											 //~ GTK_MESSAGE_QUESTION,
-											 //~ GTK_BUTTONS_YES_NO,
-					//~ _("No matches. Wrap search around the document?"));
-			//~ if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_YES)
-				//~ on_toolbar_find_start_over (action, user_data);
-			//~ gtk_widget_destroy (dialog);
-		//~ }
-		//~ else
-		//~ {
-			//~ if (search_wrap == FALSE)
-			//~ {
-				//~ anjuta_status(
-				//~ "Failling I-Search: '%s'. Press Enter or click Find to overwrap.",
-				//~ string);
-				//~ app->find_replace->find_text->incremental_wrap = TRUE;
-				//~ if (anjuta_preferences_get (ANJUTA_PREFERENCES (app->preferences),
-											//~ BEEP_ON_BUILD_COMPLETE))
-					//~ gdk_beep();
-			//~ }
-			//~ else
-			//~ {
-				//~ anjuta_status ("Failling Overwrapped I-Search: %s.", string);
-			//~ }
-		//~ }
-	//}
+	toolbar_search_clicked_cb ();
 }
 
 void
@@ -366,6 +179,12 @@ on_toolbar_goto_clicked (EggAction *action, gpointer user_data)
 	te = anjuta_get_current_text_editor ();
 	if (te)
 	{
+		line_ascii =
+			gtk_entry_get_text (GTK_ENTRY
+					    (app->widgets.toolbar.
+					     main_toolbar.line_entry));
+		if (strlen (line_ascii) == 0)
+			return;
 		line = atoi (line_ascii);
 		if (text_editor_goto_line (te, line, TRUE, TRUE) == FALSE)
 		{

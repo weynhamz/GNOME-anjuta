@@ -27,6 +27,7 @@
 #include <gnome.h>
 
 #include "toolbar_callbacks.h"
+#include "search_incremental.h"
 
 #include "resources.h"
 #include "toolbar.h"
@@ -114,7 +115,7 @@ create_main_toolbar (GtkWidget * anjuta_gui, MainToolbar * toolbar)
 		anjuta_util_toolbar_append_stock (toolbar1, GTK_STOCK_FIND, 
 						   _("Search for the given string in the current file"),
 						   G_CALLBACK (on_toolbar_find_clicked),
-						   GINT_TO_POINTER(TRUE));
+						   NULL);
 
 	toolbar->find_combo = gtk_combo_new ();
 	gtk_widget_ref (toolbar->find_combo);
@@ -162,7 +163,7 @@ create_main_toolbar (GtkWidget * anjuta_gui, MainToolbar * toolbar)
 	
 	gtk_signal_connect (GTK_OBJECT (toolbar->find_entry), "activate",
 						GTK_SIGNAL_FUNC (on_toolbar_find_clicked),
-						GINT_TO_POINTER(TRUE));
+						NULL);
 	gtk_signal_connect (GTK_OBJECT (toolbar->find_entry), "changed",
 						GTK_SIGNAL_FUNC (on_toolbar_find_incremental),
 						NULL);
