@@ -1399,17 +1399,13 @@ void Editor::NeedWrapping(int docLineStartWrapping, int docLineEndWrapping) {
 	}
 	if (noWrap) {
 		docLastLineToWrap = docLineEndWrapping;
-		if (docLastLineToWrap < -1)
-			docLastLineToWrap = -1;
-		if (docLastLineToWrap > pdoc->LinesTotal())
-			docLastLineToWrap = pdoc->LinesTotal();
 	} else if (docLastLineToWrap < docLineEndWrapping) {
 		docLastLineToWrap = docLineEndWrapping + 1;
-		if (docLastLineToWrap < -1)
-			docLastLineToWrap = -1;
-		if (docLastLineToWrap > pdoc->LinesTotal())
-			docLastLineToWrap = pdoc->LinesTotal();
 	}
+	if (docLastLineToWrap < -1)
+		docLastLineToWrap = -1;
+	if (docLastLineToWrap >= pdoc->LinesTotal())
+		docLastLineToWrap = pdoc->LinesTotal()-1;
 	// Wrap lines during idle.
 	if (backgroundWrapEnabled && docLastLineToWrap != docLineLastWrapped ) {
 		SetIdle(true);
@@ -1481,14 +1477,14 @@ bool Editor::WrapLines(bool fullWrap, int priorityWrapLineStart) {
 					} else {
 						// This is idle wrap.
 						lastLineToWrap = docLineLastWrapped + 100;
-						if (lastLineToWrap >= docLastLineToWrap)
-							lastLineToWrap = docLastLineToWrap;
 					}
+					if (lastLineToWrap >= docLastLineToWrap)
+						lastLineToWrap = docLastLineToWrap;
 				} // else do a fullWrap.
 
 				// printf("Wraplines: full = %d, priorityStart = %d (wrapping: %d to %d)\n", fullWrap, priorityWrapLineStart, firstLineToWrap, lastLineToWrap);
 				// printf("Pending wraps: %d to %d\n", docLineLastWrapped, docLastLineToWrap);
-				while (firstLineToWrap <= lastLineToWrap) {
+				while (firstLineToWrap < lastLineToWrap) {
 					firstLineToWrap++;
 					if (!priorityWrap)
 						docLineLastWrapped++;
@@ -1826,6 +1822,7 @@ LineLayout *Editor::RetrieveLineLayout(int lineNumber) {
 void Editor::LayoutLine(int line, Surface *surface, ViewStyle &vstyle, LineLayout *ll, int width) {
 	if (!ll)
 		return;
+	PLATFORM_ASSERT(line < pdoc->LinesTotal());
 	int posLineStart = pdoc->LineStart(line);
 	int posLineEnd = pdoc->LineStart(line + 1);
 	// If the line is very long, limit the treatment to a length that should fit in the viewport
@@ -4835,7 +4832,7 @@ void Editor::ButtonDown(Point pt, unsigned int curTime, bool shift, bool ctrl, b
 }
 
 bool Editor::PositionIsHotspot(int position) {
-	return vs.styles[pdoc->StyleAt(position)].hotspot;
+	return vs.styles[pdoc->StyleAt(position) & pdoc->stylingBitsMask].hotspot;
 }
 
 bool Editor::PointIsHotspot(Point pt) {
@@ -4907,7 +4904,17 @@ void Editor::ButtonMove(Point pt) {
 				SetSelection(movePos);
 			} else if (selectionType == selWord) {
 				// Continue selecting by word
-				if (movePos >= originalAnchorPos) {	// Moved forward
+				if (movePos == originalAnchorPos) {	// Didn't move
+					// No need to do anything. Previously this case was lumped
+					// in with "Moved forward", but that can be harmful in this
+					// case: a handler for the NotifyDoubleClick re-adjusts
+					// the selection for a fancier definition of "word" (for
+					// example, in Perl it is useful to include the leading
+					// '$', '%' or '@' on variables for word selection). In this
+					// the ButtonMove() called via Tick() for auto-scrolling
+					// could result in the fancier word selection adjustment
+					// being unmade.
+				} else if (movePos > originalAnchorPos) {	// Moved forward
 					SetSelection(pdoc->ExtendWordSelect(movePos, 1),
 					             pdoc->ExtendWordSelect(originalAnchorPos, -1));
 				} else {	// Moved backward
@@ -5225,6 +5232,7 @@ void Editor::SetDocPointer(Document *document) {
 	pdoc->AddRef();
 
 	// Ensure all positions within document
+	selType = selStream;
 	currentPos = 0;
 	anchor = 0;
 	targetStart = 0;
@@ -5691,7 +5699,7 @@ sptr_t Editor::WndProc(unsigned int iMessage, uptr_t wParam, sptr_t lParam) {
 			if (lParam == 0)
 				return 0;
 			int insertPos = wParam;
-			if (static_cast<short>(wParam) == -1)
+			if (static_cast<int>(wParam) == -1)
 				insertPos = CurrentPosition();
 			int newCurrent = CurrentPosition();
 			char *sz = CharPtrFromSPtr(lParam);
@@ -5811,7 +5819,7 @@ sptr_t Editor::WndProc(unsigned int iMessage, uptr_t wParam, sptr_t lParam) {
 		return printWrapState;
 
 	case SCI_GETSTYLEAT:
-		if (static_cast<short>(wParam) >= pdoc->Length())
+		if (static_cast<int>(wParam) >= pdoc->Length())
 			return 0;
 		else
 			return pdoc->StyleAt(wParam);
