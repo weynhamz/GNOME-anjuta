@@ -1,0 +1,94 @@
+//libanjuta interfaces
+
+IAnjutaBuffer
+{
+	gchar* get_selection ();
+	gchar* get_text (gint start, gint end);
+	gchar* get_attributes (gint start, gint end);
+	
+	IAnjutaEditor
+	{
+		// Signals
+		void ::save_point (gboolean entered);
+
+		gchar* get_filename ();
+		void   goto_line (gint lineno);
+	}
+}
+
+// Stream interface
+IAnjutaStream
+{
+	void open(FILE *stream);
+	void save(FILE *stream)
+}
+
+// File interface
+// Implemented by all plugins that can open files
+IAnjutaFile
+{
+	void open(const gchar *filename);
+	void save(const gchar *filename);
+	
+	// Implemented by AnjutaSession
+	IAnjutaPersistent
+	{
+		store(const gchar *name, GValue *blurb);
+	}
+}
+
+IAnjutaLoader
+{
+	IAnjutaMetaDOMLoader
+	{
+	}
+	IAnjutaMetaLoader
+	{
+		IAnjutaProject
+		{
+		}
+		IAnjutaModule
+		{
+			IAnjutaModuleSource
+			{
+			}
+			IAnjutaModuleData
+			{
+			}
+			IAnjutaModuleDoc
+			{
+			}
+			IAnjutaModuleReference
+			{
+			}
+		}
+	}
+}
+
+// Implemented by plugins which can render itself
+IAnjutaRenderable
+{
+	// Implemented by plugins which can render itself into text
+	IAnjutaRenderableText
+	{
+	}
+	
+	// Implemented by plugins which can render itself into tree
+	IAnjutaRenderableTree
+	{
+	}
+	
+	// Implemented by plugins which can render itself into graphics
+	IAnjutaRenderableGraphic
+	{
+	}
+}
+
+// Implemented by plugins which can manage something
+IAnjutaManager
+{
+	// Implemented by plugins which can manage metafiles
+	IAnjutaMataManager
+	{
+	}
+}
