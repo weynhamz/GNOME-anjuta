@@ -21,9 +21,12 @@
 #ifndef PLUGIN_H
 #define PLUGIN_H
 
+#include <config.h>
 #include <libanjuta/anjuta-plugin.h>
 #include <libanjuta/anjuta-launcher.h>
 #include <libanjuta/interfaces/ianjuta-message-manager.h>
+
+#define GLADE_FILE PACKAGE_DATA_DIR"/glade/anjuta-cvs-plugin.glade"
 
 typedef struct _CVSPlugin CVSPlugin;
 typedef struct _CVSPluginClass CVSPluginClass;

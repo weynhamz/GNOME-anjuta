@@ -18,7 +18,6 @@
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
-#include <config.h>
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
 #include <libanjuta/anjuta-preferences.h>
@@ -27,7 +26,6 @@
 #include "cvs-actions.h"
 
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-cvs.ui"
-#define PREFS_GLADE PACKAGE_DATA_DIR"/glade/anjuta-cvs-plugin.glade"
 #define ICON_FILE "anjuta-cvs-plugin.png"
 
 static gpointer parent_class;
@@ -44,7 +42,7 @@ static GtkActionEntry actions_cvs[] = {
 	{
 		"ActionCVSAdd",                       /* Action name */
 		GTK_STOCK_ADD,                            /* Stock icon, if any */
-		N_("_Add File"),                     /* Display label */
+		N_("_Add File/Directory"),                     /* Display label */
 		NULL,                                     /* short-cut */
 		N_("Add a new file to the CVS tree"),                      /* Tooltip */
 		G_CALLBACK (on_cvs_add_activate)    /* action callback */
@@ -114,7 +112,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	
 	/* Create the messages preferences page */
 	prefs = anjuta_shell_get_preferences (plugin->shell, NULL);
-	gxml = glade_xml_new (PREFS_GLADE, "cvs", NULL);
+	gxml = glade_xml_new (GLADE_FILE, "cvs", NULL);
 	anjuta_preferences_add_page (prefs, gxml, "cvs", ICON_FILE);
 	g_object_unref (gxml);
 	

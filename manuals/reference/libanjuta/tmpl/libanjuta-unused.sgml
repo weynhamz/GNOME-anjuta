@@ -1093,6 +1093,25 @@ GnomeFileList
 @err: 
 @Returns: 
 
+<!-- ##### FUNCTION ianjuta_markable_get_all_marks ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+@Returns: 
+
+<!-- ##### FUNCTION ianjuta_markable_get_mark ##### -->
+<para>
+
+</para>
+
+@obj: 
+@location: 
+@err: 
+@Returns: 
+
 <!-- ##### FUNCTION ianjuta_message_view_get_line ##### -->
 <para>
 

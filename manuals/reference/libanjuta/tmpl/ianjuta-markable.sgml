@@ -50,8 +50,9 @@ ianjuta-markable
 </para>
 
 @g_iface: 
-@get_all_marks: 
-@get_mark: 
+@delete_all_markers: 
+@is_marker_set: 
+@location_from_handle: 
 @mark: 
 @unmark: 
 
@@ -60,27 +61,6 @@ ianjuta-markable
 
 </para>
 
-@Returns: 
-
-
-<!-- ##### FUNCTION ianjuta_markable_get_all_marks ##### -->
-<para>
-
-</para>
-
-@obj: 
-@err: 
-@Returns: 
-
-
-<!-- ##### FUNCTION ianjuta_markable_get_mark ##### -->
-<para>
-
-</para>
-
-@obj: 
-@location: 
-@err: 
 @Returns: 
 
 
@@ -93,6 +73,7 @@ ianjuta-markable
 @location: 
 @marker: 
 @err: 
+@Returns: 
 
 
 <!-- ##### FUNCTION ianjuta_markable_unmark ##### -->
@@ -102,6 +83,7 @@ ianjuta-markable
 
 @obj: 
 @location: 
+@marker: 
 @err: 
 
 

@@ -34,6 +34,7 @@ ianjuta-file-savable
 
 @g_iface: 
 @save_point: 
+@saved: 
 @is_dirty: 
 @save: 
 @save_as: 

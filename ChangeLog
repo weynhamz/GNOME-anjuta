@@ -1,3 +1,11 @@
+2004-11-20  Johannes Schmid <jhs@cvs.gnome.org>
+	
+	* plugins/cvs-plugin/cvs-actions.c
+	plugins/cvs-plugin/plugin.[ch]
+	plugins/cvs-plugin/anjuta-cvs-plugin.glade:
+	Implemented cvs add but ran into a launcher/message_view
+	problem because of a limitation of the idl compiler
+
 2004-11-19  Naba Kumar  <naba@gnome.org>
 
 	* plugins/project-manager/plugin.c: Displays a progress window during

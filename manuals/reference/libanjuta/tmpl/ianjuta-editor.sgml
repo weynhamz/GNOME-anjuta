@@ -40,7 +40,6 @@
 </para>
 
 @g_iface: 
-@delete_marker: 
 @get_attributes: 
 @get_current_word: 
 @get_filename: 
@@ -50,11 +49,8 @@
 @get_selection: 
 @get_text: 
 @goto_line: 
-@goto_line_ex: 
 @goto_position: 
 @insert: 
-@is_marker_set: 
-@set_marker: 
 
 <!-- ##### FUNCTION ianjuta_editor_error_quark ##### -->
 <para>

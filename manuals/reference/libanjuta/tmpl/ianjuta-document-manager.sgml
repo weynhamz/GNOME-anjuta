@@ -41,7 +41,6 @@
 
 @g_iface: 
 @add_buffer: 
-@delete_all_markers: 
 @find_editor_with_path: 
 @get_current_editor: 
 @get_editors: 
