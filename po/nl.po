@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-04-18 19:00+0200\n"
-"PO-Revision-Date: 2004-05-20 02:30+0200\n"
+"POT-Creation-Date: 2004-07-21 03:01+0200\n"
+"PO-Revision-Date: 2004-07-31 11:55+0200\n"
 "Last-Translator: Tino Meinen <a.t.meinen@chello.nl>\n"
 "Language-Team: Dutch <vertaling@nl.linux.org>\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +19,7 @@ msgstr ""
 msgid "Anjuta IDE"
 msgstr "Anjuta IDE"
 
-#: anjuta.desktop.in.in.h:2 src/about.c:96 src/main.c:121 src/main.cpp:186
+#: anjuta.desktop.in.in.h:2 src/about.c:96 src/main.c:121 src/main.cpp:121
 msgid "Integrated Development Environment"
 msgstr "Integrated Development Environment"
 
@@ -28,1484 +28,806 @@ msgid "    "
 msgstr "    "
 
 #: anjuta.glade.h:2
-msgid ""
-"\"Search & Replace\" has to be tested completely !\n"
-"Many search-replacement possibilities are possible and need\n"
-"a lot of time to be verified.\n"
-"\n"
-"Limits :\n"
-"- Regular expressions can only be found in forward direction\n"
-"Todo :\t\n"
-"- Allow interruption on execution of long search/replace activity\n"
-"- Allow the user to save search/replace settings and give them names\n"
-"- . . ."
-msgstr ""
-
-#: anjuta.glade.h:12
-msgid "$(module.source.files) $(module.include.files)"
-msgstr "$(module.source.files) $(module.include.files)"
-
-#: anjuta.glade.h:13
 msgid "*"
 msgstr "*"
 
-#: anjuta.glade.h:14
-msgid "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp"
-msgstr "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp"
-
-#: anjuta.glade.h:15
-msgid ""
-"*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp Makefile.am configure.* "
-"README AUTHORS ChangeLog *.m4"
-msgstr ""
-"*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp Makefile.am configure.* "
-"README AUTHORS ChangeLog *.m4"
-
-#: anjuta.glade.h:16
-msgid "*.so *.o *.a *.la"
-msgstr "*.so *.o *.a *.la"
-
-#: anjuta.glade.h:17
-msgid "*\\.*"
-msgstr "*\\.*"
-
-#: anjuta.glade.h:18
+#: anjuta.glade.h:3
 msgid "<: Enter Here"
 msgstr "<: Hier invoeren"
 
-#: anjuta.glade.h:19
-msgid "Add line number every:"
-msgstr "Regelnummering toevoegen op iedere:"
-
-#: anjuta.glade.h:20
-msgid "Add page header"
-msgstr "Paginakop toevoegen"
-
-#: anjuta.glade.h:21
+#: anjuta.glade.h:4
 msgid "Additional"
 msgstr "Toegevoegd script"
 
-#: anjuta.glade.h:22
+#: anjuta.glade.h:5
 msgid "Additional Libraries (LDADD):"
 msgstr "Extra bibliotheken (LDADD):"
 
-#: anjuta.glade.h:23 plugins/project-wizard/wizard_gui.c:576
+#: anjuta.glade.h:6 plugins/project-wizard/wizard_gui.c:576
 msgid "Additional Options"
 msgstr "Toegevoegde opties"
 
-#: anjuta.glade.h:24
+#: anjuta.glade.h:7
 msgid "Additional build options:"
 msgstr "Extra bouw-opties:"
 
-#: anjuta.glade.h:25
-msgid "Always save in UTF-8 encoding (faster)"
-msgstr "Altijd opslaan in UTF-8 (sneller)"
-
-#: anjuta.glade.h:26
+#: anjuta.glade.h:8
 msgid "Anjuta help search"
 msgstr "Doorzoek de hulp bij Anjuta"
 
-#: anjuta.glade.h:27
+#: anjuta.glade.h:9
 msgid "Anjuta start with dialog"
 msgstr "Anjuta start met dialoogvenster"
 
-#: anjuta.glade.h:28 plugins/project-wizard/appwizard_gui.c:77
+#: anjuta.glade.h:10 plugins/project-wizard/appwizard_gui.c:77
 #: plugins/project-wizard/appwizard_gui.c:91
 msgid "Application Wizard"
 msgstr "Applicatie Wizard"
 
-#: anjuta.glade.h:29
-msgid "Arrows"
-msgstr "Pijlen"
-
-#: anjuta.glade.h:30
+#: anjuta.glade.h:11
 msgid "Ask for parameters at run-time"
 msgstr "Vragen om parameters tijdens uitvoeren"
 
-#: anjuta.glade.h:31
+#: anjuta.glade.h:12
 msgid "Attach to process"
 msgstr "Verbinden aan proces"
 
-#: anjuta.glade.h:32
-msgid "Attributes:"
-msgstr "Attributen:"
-
-#: anjuta.glade.h:33
-msgid "Autocomplete XML/HTML closing tags"
-msgstr "XML/HTML sluit-tags AutoAfmaken"
-
-#: anjuta.glade.h:34
-msgid "Autocompletion"
-msgstr "Auto-aanvullen"
-
-#: anjuta.glade.h:35
-msgid "Autocompletion pop up choices"
-msgstr "Auto-aanvullen pup-up keuzes"
-
-#: anjuta.glade.h:36
+#: anjuta.glade.h:13
 msgid "Automatically load last Project"
 msgstr "Het laatste project automatisch laden"
 
-#: anjuta.glade.h:37
-msgid "Autosave"
-msgstr "Automatisch opslaan"
-
-#: anjuta.glade.h:38
+#: anjuta.glade.h:14
 msgid "Autosave editor files before build starts"
 msgstr "Bestanden automatisch opslaan voor bouwen"
 
-#: anjuta.glade.h:39
-msgid "Back color:"
-msgstr "Achtergrondkleur:"
-
-#: anjuta.glade.h:40
+#: anjuta.glade.h:15
 msgid "Beep on job complete"
 msgstr "Piepen als de taak volbracht is"
 
-#: anjuta.glade.h:41
-msgid "Bold"
-msgstr "Vet"
-
-#: anjuta.glade.h:42
+#: anjuta.glade.h:16
 msgid "Bookmark"
 msgstr "Bladwijzer"
 
-# onderkant
-#: anjuta.glade.h:43
-msgid "Bottom"
-msgstr "Onder"
-
-#: anjuta.glade.h:44
+#: anjuta.glade.h:17
 msgid "Breakpoint properties"
 msgstr "Breekpunt eigenschappen"
 
-#: anjuta.glade.h:45
+#: anjuta.glade.h:18
 msgid "Breakpoints"
 msgstr "Breekpunten"
 
-#: anjuta.glade.h:46 plugins/build/build_file.c:102 src/anjuta_gui.c:117
+#: anjuta.glade.h:19 plugins/build/build_file.c:102 src/anjuta_gui.c:117
 #: src/toolbar.c:273
 msgid "Build"
 msgstr "Bouwen"
 
-#: anjuta.glade.h:47
+#: anjuta.glade.h:20
 msgid "Build command:"
 msgstr "Bouw-opdracht:"
 
-#: anjuta.glade.h:48
+#: anjuta.glade.h:21
 msgid "Build file browser automatically"
 msgstr "Maak automatisch een bestandsoverzicht"
 
-#: anjuta.glade.h:49
+#: anjuta.glade.h:22
 msgid "Build files"
 msgstr "Bestanden bouwen"
 
-#: anjuta.glade.h:50
+#: anjuta.glade.h:23
 msgid "Build options"
 msgstr "Bouw-opties"
 
-#: anjuta.glade.h:51
+#: anjuta.glade.h:24
 msgid "Build symbol browser automatically"
 msgstr "Symboolbladermogelijkheid automatisch bouwen"
 
+#: anjuta.glade.h:25 plugins/debugger/registers_gui.c:89
+msgid "CPU Registers"
+msgstr "CPU Registers"
+
 #. 2
-#: anjuta.glade.h:52 plugins/file-manager/an_file_view.c:421
+#: anjuta.glade.h:26 plugins/file-manager/an_file_view.c:372
 msgid "CVS"
 msgstr "CVS"
 
-#: anjuta.glade.h:53
+#: anjuta.glade.h:27
 msgid "CVS command options"
 msgstr "Opties voor CVS-opdracht"
 
-#: anjuta.glade.h:54
+#: anjuta.glade.h:28
 msgid "CVS compression level:"
 msgstr "CVS compressieniveau:"
 
-#: anjuta.glade.h:55
+#: anjuta.glade.h:29
 msgid "CVS context diff format"
 msgstr "CVS context diff formaat"
 
-#: anjuta.glade.h:56
-msgid "CVS intl po"
-msgstr "CVS intl po"
-
-#: anjuta.glade.h:57
+#: anjuta.glade.h:30
 msgid "CVS unified diff format"
 msgstr "CVS unified diff formaat"
 
-#: anjuta.glade.h:58
+#: anjuta.glade.h:31
 msgid "CVS update and prune directories [-dP]"
 msgstr "CVS update mappen verwijderen [-dP]"
 
-#: anjuta.glade.h:59
+#: anjuta.glade.h:32
 msgid "C_ompile:"
 msgstr "_Compileer"
 
-#: anjuta.glade.h:60
-msgid "Calltip background:"
-msgstr "Achtergrondkleur voor hulpballon:"
-
-#: anjuta.glade.h:61
-msgid "Caret (cursor) color:"
-msgstr "Cursorkleur:"
-
-#: anjuta.glade.h:62
-msgid "Caret blink period in milli-seconds"
-msgstr "Knippersnelheid van cursor in miiliseconden"
-
-#: anjuta.glade.h:63
-msgid "Case insensitive"
-msgstr "Hoofdletterongevoelig"
-
-#: anjuta.glade.h:64
-msgid "Choose Directories:"
-msgstr "Mappen kiezen:"
-
-#: anjuta.glade.h:65
-msgid "Choose Files:"
-msgstr "Bestanden kiezen:"
-
-#: anjuta.glade.h:66
-msgid "Choose autocomplete for single match"
-msgstr "AutoAfmaken voor enkele overeenkomst kiezen"
-
-#: anjuta.glade.h:67
-msgid "Choose directories"
-msgstr "Mappen kiezen"
-
-#: anjuta.glade.h:68
-msgid "Choose files"
-msgstr "Bestanden kiezen"
-
-#: anjuta.glade.h:69
-msgid "Circular"
-msgstr "Circulair"
-
-#: anjuta.glade.h:70
-msgid "Code folding"
-msgstr "Code opvouwen"
-
-#: anjuta.glade.h:71
-msgid "Collapse all code folds on file open"
-msgstr "Bij bestand openen code opvouwen "
-
-#: anjuta.glade.h:72
-msgid "Colour"
-msgstr "Kleur"
-
-#: anjuta.glade.h:73
-msgid "Column at edge indicator"
-msgstr "Kolom aan rand indicator"
-
-#: anjuta.glade.h:74
+#: anjuta.glade.h:33
 msgid "Combo Popdown:"
 msgstr "Combo popdown:"
 
-#: anjuta.glade.h:75
+#: anjuta.glade.h:34
 msgid "Command Line Parameters"
 msgstr "Argumenten op de opdrachtregel"
 
-#: anjuta.glade.h:76
+#: anjuta.glade.h:35
 msgid "Command line parameters"
 msgstr "Argumenten op de opdrachtregel"
 
-#: anjuta.glade.h:77
+#: anjuta.glade.h:36
 msgid "Command:"
 msgstr "Opdracht:"
 
-#: anjuta.glade.h:78
+#: anjuta.glade.h:37
 msgid "Commands"
 msgstr "Opdrachten"
 
-#: anjuta.glade.h:79
+#: anjuta.glade.h:38
 msgid "Common commands:"
 msgstr "Veelgebruikte opdrachten"
 
-#: anjuta.glade.h:80
-msgid "Compact folding"
-msgstr "Compact vouwen"
-
-#: anjuta.glade.h:81
+#: anjuta.glade.h:39
 msgid "Compiler"
 msgstr "Compiler"
 
-#: anjuta.glade.h:82
+#: anjuta.glade.h:40
 msgid "Compiler Flags (CFLAGS):"
 msgstr "Compilervlaggen (CFLAGS):"
 
-#: anjuta.glade.h:83
+#: anjuta.glade.h:41
 msgid "Compiler and linker options"
 msgstr "Compiler en Linker instellingen"
 
-#: anjuta.glade.h:84
+#: anjuta.glade.h:42
 msgid "Configuration"
 msgstr "Configuratie"
 
-#: anjuta.glade.h:85
+#: anjuta.glade.h:43
 msgid "Configuration script segments"
 msgstr "Configuratie-script delen"
 
-#: anjuta.glade.h:86
+#: anjuta.glade.h:44
 msgid "Configure Parameters"
 msgstr "Configureer parameters"
 
-#: anjuta.glade.h:87
-msgid "Costom style"
-msgstr "Aangepaste stijl"
-
-#: anjuta.glade.h:88
-msgid "Crazy boy style"
-msgstr "Crazy boy stijl"
-
-#: anjuta.glade.h:89
-msgid "Custom style"
-msgstr "Aangepaste stijl "
-
-#: anjuta.glade.h:90
-msgid "Customize File Browser"
-msgstr "Bestandsbeheer aanpassen"
-
-#: anjuta.glade.h:91
-msgid "Customize what is to be shown in the file tree"
-msgstr "Aanpassen wat in de mappenboom weergegeven wordt"
-
-#: anjuta.glade.h:92
+#: anjuta.glade.h:45
 msgid "Data module Makefile.am"
 msgstr "Data module Makefile.am"
 
 #. 13
-#: anjuta.glade.h:93 plugins/editor/text_editor_menu.c:321 src/toolbar.c:306
+#: anjuta.glade.h:46 plugins/editor/text_editor_menu.c:321 src/toolbar.c:306
 msgid "Debug"
 msgstr "Debuggen"
 
-#: anjuta.glade.h:94
+#: anjuta.glade.h:47
 msgid "Debugging and Profiling"
 msgstr "Debugging en profilering"
 
-#: anjuta.glade.h:95
-msgid "Default"
-msgstr "Standaard"
-
-#: anjuta.glade.h:96
+#: anjuta.glade.h:48
 msgid "Defines"
 msgstr "Definities"
 
-#: anjuta.glade.h:97
-msgid "Delete Theme"
-msgstr "Thema verwijderen"
+#: anjuta.glade.h:49
+msgid "Description:"
+msgstr "Beschrijving:"
 
-#: anjuta.glade.h:98
-msgid "Diagonal"
-msgstr "Diagonaal"
-
-#: anjuta.glade.h:99
+#: anjuta.glade.h:50
 msgid "Dialog on job complete"
 msgstr "Dialoog als de taak klaar is"
 
-#: anjuta.glade.h:100 libanjuta/gnomefilelist.c:342
+#: anjuta.glade.h:51
 msgid "Directories"
 msgstr "Mappen"
 
-#: anjuta.glade.h:101
-msgid "Directory filter"
-msgstr "Mappenfilter"
-
-#: anjuta.glade.h:102
-msgid "Disable auto-format"
-msgstr "Automatisch formaat uitschakelen"
-
-#: anjuta.glade.h:103
+#: anjuta.glade.h:52
 msgid "Disable overwriting files"
 msgstr "Schakel het overschrijven van projectbestanden uit"
 
-#: anjuta.glade.h:104
-msgid "Disable syntax highlighting"
-msgstr "Uitschakelen belichtingsstijl"
-
-#: anjuta.glade.h:105
+#: anjuta.glade.h:53
 msgid "Display process _tree"
 msgstr "Proces_boom weergeven"
 
-#: anjuta.glade.h:106
-msgid "Do not show hidden directories"
-msgstr "Verborgen mappen niet weergeven"
-
-#: anjuta.glade.h:107
-msgid "Do not show hidden files"
-msgstr "Verborgen bestanden niet tonen"
-
-#: anjuta.glade.h:108
+#: anjuta.glade.h:54
 msgid "Do not show start with dialog again."
 msgstr "Niet meer starten met dialoogvenster."
 
-#: anjuta.glade.h:109
-msgid "Do not show tabs"
-msgstr "Geen tabs tonen"
-
-#: anjuta.glade.h:110
+#: anjuta.glade.h:55
 msgid "Document module Makefile.am"
 msgstr "Document module Makefile.am"
 
-#: anjuta.glade.h:111
-msgid "Draw line below folded lines"
-msgstr "Lijn onder opgevouwen lijnen tekenen"
-
-#: anjuta.glade.h:112 src/anjuta-app.c:279 src/anjuta_gui.c:105
+#: anjuta.glade.h:56 src/anjuta-app.c:345 src/anjuta_gui.c:105
 msgid "Edit"
 msgstr "Bewerken"
 
-#: anjuta.glade.h:113
-msgid "Editor caret (cursor) width in pixels"
-msgstr "Editor-dakje (cursor) breedte in pixels"
-
-#: anjuta.glade.h:114
-msgid "Editor tabs"
-msgstr "Editor tabs"
-
-#: anjuta.glade.h:115
+#: anjuta.glade.h:57
 msgid "Enable Debugging"
 msgstr "Aanzetten debuggen"
 
-#: anjuta.glade.h:116
-msgid "Enable HTML tags folding"
-msgstr "Aanzetten HTML-omloop"
-
-#: anjuta.glade.h:117
+#: anjuta.glade.h:58
 msgid "Enable Profiling"
 msgstr "Aanzetten profiling"
 
-#: anjuta.glade.h:118
+#: anjuta.glade.h:59
 msgid "Enable _all"
 msgstr "Alles _inschakelen"
 
-#: anjuta.glade.h:119
-msgid "Enable automatic indentation"
-msgstr "Automatisch inspringen inschakelen"
-
-#: anjuta.glade.h:120
-msgid "Enable automatic messages indicators"
-msgstr "Automatische berichtindicatoren inschakelen"
-
-#: anjuta.glade.h:121
-msgid "Enable braces check"
-msgstr "Haakjescontrole inschakelen"
-
-#: anjuta.glade.h:122
-msgid "Enable code folding"
-msgstr "codetekst omloop aanzetten"
-
-#: anjuta.glade.h:123
-msgid "Enable comments folding"
-msgstr "Commentaar-omloop aanzetten"
-
-#: anjuta.glade.h:124
-msgid "Enable files autosave"
-msgstr "Automatisch bewaren inschakelen"
-
-#: anjuta.glade.h:125
-msgid "Enable line wrap"
-msgstr "Regeldoorloop aanzetten"
-
-#: anjuta.glade.h:126
-msgid "Enable python comments folding"
-msgstr "Python commentaarvouwen inschakelen"
-
-#: anjuta.glade.h:127
-msgid "Enable python quoted strings folding"
-msgstr "Python citaat-tekenreeksen vouwen inschakelen"
-
-#: anjuta.glade.h:128 plugins/debugger/breakpoints.c:113
+#: anjuta.glade.h:60 plugins/debugger/breakpoints.c:113
 msgid "Enabled"
 msgstr "Ingeschakeld"
 
-#: anjuta.glade.h:129
-msgid "Encoding to use when saving files"
-msgstr "Te gebruiken codering bij opslaan van bestanden"
-
-#: anjuta.glade.h:130
+#: anjuta.glade.h:61
 msgid "Enter a Hexa adress or select one in the data"
 msgstr "Geef een Hex-adres of kies er een in de data"
 
-#: anjuta.glade.h:131
-msgid ""
-"Enter the File name.\n"
-"The extension will be added according to the type."
-msgstr ""
-"Geef de bestandsnaam.\n"
-"De extensie zal worden toegevoegd volgens het type."
-
-#: anjuta.glade.h:133
-msgid ""
-"Enter the command line arguments for the 'indent' program. Read the info "
-"page for 'indent' for more details"
-msgstr "Geef de opdrachtregel-argumenten voor het programma 'indent'. Lees de infopagina voor 'indent' voor meer details."
-
-#: anjuta.glade.h:134
-msgid "Error message indicator style:"
-msgstr "Foutmelding indicatorstijl:"
-
-#: anjuta.glade.h:135
-msgid "Errors messages:"
-msgstr "Foutmeldingen:"
-
-#: anjuta.glade.h:136
+#: anjuta.glade.h:62
 msgid "Execute Program"
 msgstr "Programma uitvoeren"
 
-#: anjuta.glade.h:137
-msgid "Expand regex back references"
-msgstr "'Regexp back references' uitklappen"
-
-#: anjuta.glade.h:138 plugins/debugger/breakpoints.c:113
-#: plugins/file-manager/an_file_view.c:662 src/anjuta-app.c:275
-#: src/anjuta_gui.c:102
+#. Register actions
+#: anjuta.glade.h:63 plugins/debugger/breakpoints.c:113
+#: plugins/file-manager/an_file_view.c:854 plugins/file-manager/plugin.c:87
+#: src/anjuta-app.c:342 src/anjuta_gui.c:102
 msgid "File"
 msgstr "Bestand"
 
-#: anjuta.glade.h:139
-msgid "File Filter"
-msgstr "Bestandsfilter"
-
-#: anjuta.glade.h:140
-msgid "File filter"
-msgstr "Bestandsfilter"
-
-#: anjuta.glade.h:141
+#: anjuta.glade.h:64
 msgid "File level"
 msgstr "Bestandsniveau"
 
-#: anjuta.glade.h:142
-msgid "File name:"
-msgstr "Bestandsnaam:"
-
-#: anjuta.glade.h:143
-msgid "File type:"
-msgstr "Bestandstype:"
-
-#: anjuta.glade.h:144
-msgid "Filter extraneous characters in DOS mode"
-msgstr "Extra tekens filteren in DOS-stand"
-
-#: anjuta.glade.h:145
-msgid "Find & Replace"
-msgstr "Zoeken & vervangen"
-
-#: anjuta.glade.h:146
-msgid "Fold style:"
-msgstr "Opvouwen-stijl"
-
-#: anjuta.glade.h:147
-msgid "Font:"
-msgstr "Lettertype:"
-
-#: anjuta.glade.h:148
-msgid "Fore color:"
-msgstr "Voorgrondkleur:"
-
-#: anjuta.glade.h:149
+#: anjuta.glade.h:65
 msgid "Format"
 msgstr "Opmaak"
 
-#: anjuta.glade.h:150 src/toolbar.c:856
-msgid "Format style"
-msgstr "Opmaakstijl"
-
-#: anjuta.glade.h:151 plugins/symbol-browser/an_symbol_view.c:55
+#: anjuta.glade.h:66 plugins/symbol-browser/an_symbol_view.c:55
 msgid "Functions"
 msgstr "Functies"
 
-#: anjuta.glade.h:152
-msgid "GNU coding style"
-msgstr "GNU coding stijl"
-
-#: anjuta.glade.h:153
-msgid "GPL Notice"
-msgstr "GPL mededeling"
-
-#: anjuta.glade.h:154
+#: anjuta.glade.h:67
 msgid "GUI editor command:"
 msgstr "GUI-editor opdracht:"
 
-#: anjuta.glade.h:155
+#: anjuta.glade.h:68
 msgid "General"
 msgstr "Algemeen"
 
-#: anjuta.glade.h:156
+#: anjuta.glade.h:69
 msgid ""
 "Give a space separated list of directories to be built after source module. "
 "This will be set in configure and Makefiles will be generated for them. They "
 "will be built after the source (src/) directory during \"make\"."
 msgstr ""
-" Geef een door spaties gescheiden lijst van mappen om te bouwen na de broncode."
-" Dit zal in configure."
-"in worden ingesteld en de nodige Makefiles worden ervoor gemaakt."
-" Ze zullen na de map met broncode (src/) gebouwd worden tijden \"make\"."
+" Geef een door spaties gescheiden lijst van mappen om te bouwen na de "
+"broncode. Dit zal in configure.in worden ingesteld en de nodige Makefiles "
+"worden ervoor gemaakt. Ze zullen na de map met broncode (src/) gebouwd "
+"worden tijden \"make\"."
 
-#: anjuta.glade.h:157
+#: anjuta.glade.h:70
 msgid ""
 "Give a space separated list of directories to be built before source module. "
 "This will be set in configure.in and Makefiles will be generated for them. "
 "They will be built before the source (src/) directory during \"make\"."
 msgstr ""
-" Geef een door spaties gescheiden lijst van mappen om te bouwen voor de broncode."
-" Dit zal in configure."
-"in worden ingesteld en de nodige Makefiles worden ervoor gemaakt."
-" Ze zullen voor de map met broncode (src/) gebouwd worden tijden \"make\"."
+" Geef een door spaties gescheiden lijst van mappen om te bouwen voor de "
+"broncode. Dit zal in configure.in worden ingesteld en de nodige Makefiles "
+"worden ervoor gemaakt. Ze zullen voor de map met broncode (src/) gebouwd "
+"worden tijden \"make\"."
 
-#: anjuta.glade.h:158
+#: anjuta.glade.h:71
 msgid "Gnome API"
 msgstr "Gnome API"
 
-#: anjuta.glade.h:159
-msgid "Greedy matching"
-msgstr "Greedy matchen"
-
-#: anjuta.glade.h:160
+#: anjuta.glade.h:72
 msgid "HTML _viewer:"
 msgstr "HTML _viewer: "
 
-#: anjuta.glade.h:161
-msgid "Header"
-msgstr "Header"
-
-#: anjuta.glade.h:162
-msgid "Header File Template"
-msgstr "Sjabloon headerbestand"
-
-#: anjuta.glade.h:163
+#: anjuta.glade.h:73
 msgid "Headers"
 msgstr "Kopteksten"
 
-#: anjuta.glade.h:164
-msgid "Hello World style"
-msgstr "'Hallo wereld' stijl"
-
-#: anjuta.glade.h:165
+#: anjuta.glade.h:74
 msgid "Help module Makefile.am"
 msgstr "Help module Makefile.am"
 
-#: anjuta.glade.h:166
+#: anjuta.glade.h:75
 msgid "Hide process para_meters"
 msgstr "Proces-para_meters verbergen"
 
-#: anjuta.glade.h:167
+#: anjuta.glade.h:76
 msgid "High-Level Optimization (Functions inlined wherever possible)"
 msgstr "Optimalisatie op lhoog niveau (Functies inline waar mogelijk)"
 
-#: anjuta.glade.h:168
-msgid "Highlight style"
-msgstr "Belichtingsstijl"
-
-#: anjuta.glade.h:169
+#: anjuta.glade.h:77
 msgid "History sizes"
 msgstr "Geschiedenisgrootte"
 
-#: anjuta.glade.h:170
-msgid "Ignore Binary Files"
-msgstr "Binaire bestanden negeren"
-
-#: anjuta.glade.h:171
-msgid "Ignore Directories:"
-msgstr "Mappen negeren:"
-
-#: anjuta.glade.h:172
-msgid "Ignore Files:"
-msgstr "Bestanden negeren:"
-
-#: anjuta.glade.h:173
-msgid "Ignore Hidden Directories"
-msgstr "Verborgen mappen negeren"
-
-#: anjuta.glade.h:174
-msgid "Ignore Hidden Files"
-msgstr "Verborgen bestanden negeren"
-
-#: anjuta.glade.h:175
-msgid "Ignore directories"
-msgstr "Mappen negeren"
-
-#: anjuta.glade.h:176
-msgid "Ignore files"
-msgstr "Bestanden negeren"
-
-#: anjuta.glade.h:177
+#: anjuta.glade.h:78
 msgid "Ignore files and directories"
 msgstr "Bestanden en mappen negeren"
 
-#: anjuta.glade.h:178
+#: anjuta.glade.h:79
 msgid "Import Wizard"
 msgstr "Import-assistent"
 
-#: anjuta.glade.h:179
+#: anjuta.glade.h:80
 msgid ""
 "Import existing project. The Import Wizard will guide you to import an "
 "existing Project into Anjuta and convert it into Anjuta Project. There will "
 "be no data loss or modification done to the project."
-msgstr "Bestaand project importeren. De import-assistent zal u helpen bij het importeren en converteren van een bestaand project naar een Anjuta-project. Er zal geen dataverlies zijn en niets aan uw project zal worden gewijzigd."
+msgstr ""
+"Bestaand project importeren. De import-assistent zal u helpen bij het "
+"importeren en converteren van een bestaand project naar een Anjuta-project. "
+"Er zal geen dataverlies zijn en niets aan uw project zal worden gewijzigd."
 
-#: anjuta.glade.h:180
+#: anjuta.glade.h:81
 msgid "Include Paths"
 msgstr "Include paden"
 
-#: anjuta.glade.h:181
+#: anjuta.glade.h:82
 msgid "Include module Makefile.am"
 msgstr "Include module Makefile.am"
 
-#: anjuta.glade.h:182
-msgid "Indent closing braces"
-msgstr "Afluitende haakjes inspringen"
-
-#: anjuta.glade.h:183
-msgid "Indent opening braces"
-msgstr "Openingshaakjes inspringen"
-
-#: anjuta.glade.h:184
-msgid "Indentation and auto-format options"
-msgstr "Insping- en Automatische-opmaak opties"
-
-#: anjuta.glade.h:185
-msgid "Indentation size in spaces:"
-msgstr "Inspringafstand in spaties:"
-
-# aanwijzers
-#: anjuta.glade.h:186
-msgid "Indicators"
-msgstr "Indicators"
-
-#: anjuta.glade.h:187
+#: anjuta.glade.h:83
 msgid "Info Pages"
 msgstr "Info pagina's"
 
-#: anjuta.glade.h:188
+#: anjuta.glade.h:84
 msgid "Input string:"
 msgstr "Invoer tekenreeks:"
 
-#: anjuta.glade.h:189 plugins/editor/text_editor_menu.c:176 src/toolbar.c:599
+#: anjuta.glade.h:85 plugins/editor/text_editor_menu.c:176 src/toolbar.c:599
 msgid "Inspect"
 msgstr "Inspecteren"
 
-#: anjuta.glade.h:190
-msgid "Italic"
-msgstr "Cursief"
-
-#: anjuta.glade.h:191
+#: anjuta.glade.h:86
 msgid "Keep going when some targets can not be made"
 msgstr "Ga door als sommige doelen niet gemaakt kunnen worden"
 
-#: anjuta.glade.h:192
-msgid "Kernighan and Ritchie style"
-msgstr "Kernighan and Ritchie stijl"
+#: anjuta.glade.h:87
+msgid "Kernel Signals"
+msgstr "Signalen van de kernel"
 
-#: anjuta.glade.h:193
+#: anjuta.glade.h:88
 msgid "Language-specific commands:"
 msgstr "Taalspecifieke opdrachten:"
 
-#: anjuta.glade.h:194
-msgid "Left"
-msgstr "Links"
-
-#: anjuta.glade.h:195
+#: anjuta.glade.h:89
 msgid "Libraries"
 msgstr "Bibliotheken"
 
-#: anjuta.glade.h:196
+#: anjuta.glade.h:90
 msgid "Library Paths"
 msgstr "Bibliotheekpaden"
 
-#: anjuta.glade.h:197
-msgid "Line numbers margin width in pixels"
-msgstr "Marge voor regelnummers in pixels"
-
-#: anjuta.glade.h:198 plugins/editor/print.c:1012 src/anjuta_info.c:127
-msgid "Lines"
-msgstr "Regels"
-
-#: anjuta.glade.h:199
+#: anjuta.glade.h:91
 msgid "Linker Flags (LDFLAGS):"
 msgstr "Linkvlaggen (LDFLAGS):"
 
-#: anjuta.glade.h:200
+#: anjuta.glade.h:92
 msgid "Load _global defaults"
 msgstr "_Algemene standaarden laden"
 
-#: anjuta.glade.h:201
+#: anjuta.glade.h:93
 msgid "Load _user defaults"
 msgstr "_Gebruikersinstellingen laden"
 
-#: anjuta.glade.h:202
+#: anjuta.glade.h:94
 msgid "Low-Level Optimization (Machine dependent optimization)"
 msgstr "Optimalisatie op laag niveau (Machine afhankelijke optimalisatie)"
 
-#: anjuta.glade.h:203
+#: anjuta.glade.h:95
 msgid "Makefile.am"
 msgstr "Makefile.am"
 
-#: anjuta.glade.h:204
+#: anjuta.glade.h:96
 msgid "Man pages"
 msgstr "Man pagina's"
 
-#: anjuta.glade.h:205
-msgid "Match at start of word"
-msgstr "Matchen op begin van woord"
-
-#: anjuta.glade.h:206
-msgid "Match complete lines"
-msgstr "Hele regels matchen"
-
-#: anjuta.glade.h:207
-msgid "Match complete words"
-msgstr "Complete woorden matchen"
-
-#: anjuta.glade.h:208
-msgid "Max. Actions"
-msgstr "Max acties"
-
-#: anjuta.glade.h:209
+#: anjuta.glade.h:97
 msgid "Maximum number of independent jobs (0 == no limit)"
 msgstr "Maximum aantal onafhankelijke taken ( 0 = ongelimiteerd)"
 
-#: anjuta.glade.h:210
+#: anjuta.glade.h:98
 msgid "Medium-Level Optimization (Without space-speed trade-off)"
 msgstr ""
 "Optimalisatie op gemiddeld niveau (zonder ruimte-snelheid wisselwerking)"
 
-#: anjuta.glade.h:211
+#: anjuta.glade.h:99
 msgid "Memory"
 msgstr "Geheugen"
 
-#: anjuta.glade.h:212
+#: anjuta.glade.h:100
 msgid "Menu icon:"
 msgstr "Menupictogram:"
 
-#: anjuta.glade.h:213
+#: anjuta.glade.h:101
 msgid "Menu location:"
 msgstr "Menulocatie:"
 
-#: anjuta.glade.h:214
-msgid "Message colors"
-msgstr "Berichtkleuren"
-
-#: anjuta.glade.h:215
-msgid "Messages options"
-msgstr "Berichtopties"
-
-#: anjuta.glade.h:216
-msgid "Misc options"
-msgstr "Overige opties"
-
-#: anjuta.glade.h:217
-msgid "Mode:"
-msgstr "Stand:"
-
-#: anjuta.glade.h:218
+#: anjuta.glade.h:102
 msgid "Modules"
 msgstr "Modules"
 
-#: anjuta.glade.h:219
-msgid "Monochrome"
-msgstr "Monochroom"
-
-#: anjuta.glade.h:220
+#: anjuta.glade.h:103
 msgid "Name:"
 msgstr "Naam:"
 
-#: anjuta.glade.h:221
-msgid "New File"
-msgstr "Nieuw bestand"
-
-#: anjuta.glade.h:222 plugins/editor/plugin.c:42 src/toolbar.c:76
+#: anjuta.glade.h:104 plugins/editor/plugin.c:47 src/toolbar.c:76
 msgid "New file"
 msgstr "Nieuw bestand"
 
-#: anjuta.glade.h:223
-msgid "No Limit"
-msgstr "Geen limiet"
-
-#: anjuta.glade.h:224
+#: anjuta.glade.h:105
 msgid "No Optimization"
 msgstr "Geen optimalisatie"
 
-#: anjuta.glade.h:225
-msgid "Normal message indicator style:"
-msgstr "Normaal bericht indicatorstijl:"
-
-#: anjuta.glade.h:226
-msgid "Normal messages:"
-msgstr "Normale berichten:"
-
-#: anjuta.glade.h:227
+#: anjuta.glade.h:106
 msgid ""
 "Note: If there is a project open, the preferences in this page are project "
 "preferences and will be loaded from and saved with the project. If there is "
 "no project open, they will be global preferences."
 msgstr ""
-"Let op:"
-" Als u een project geopend heeft zullen deze voorkeuren specifiek voor dit project zijn en geladen en opgeslagen worden tezamen met het project."
-" Als u geen project geopend heeft, zijn de voorkeuren globaal."
-
-#: anjuta.glade.h:228
-msgid "Number of first characters to show:"
-msgstr "Aantal eerste tekens dat getoond wordt:"
-
-#: anjuta.glade.h:229
-msgid "Number of last characters to show:"
-msgstr "Aantal laatste tekens dat getoond wordt:"
+"Let op: Als u een project geopend heeft zullen deze voorkeuren specifiek "
+"voor dit project zijn en geladen en opgeslagen worden tezamen met het "
+"project. Als u geen project geopend heeft, zijn de voorkeuren globaal."
 
 #. Must declare static, because it will be used forever
-#: anjuta.glade.h:230 plugins/project-manager/project_dbase.c:198
+#: anjuta.glade.h:107 plugins/project-manager/project_dbase.c:198
 #: src/toolbar.c:213
 msgid "Open Project"
 msgstr "Project openen"
 
-#: anjuta.glade.h:231
+#: anjuta.glade.h:108
 msgid "Open existing Project."
 msgstr "Eeb bestaand project openen."
 
-#: anjuta.glade.h:232
+#: anjuta.glade.h:109
 msgid "Open existing file or create a new file."
 msgstr "Bestaand bestand openen of nieuw bestand aanmaken."
 
-#: anjuta.glade.h:233 plugins/editor/plugin.c:45 src/toolbar.c:80
+#: anjuta.glade.h:110 plugins/editor/anjuta-docman.c:327
+#: plugins/editor/plugin.c:49 src/toolbar.c:80
 msgid "Open file"
 msgstr "Bestand openen"
 
-#: anjuta.glade.h:234
+#: anjuta.glade.h:111
 msgid "Open last working Project"
 msgstr "Laatste werkproject openen"
 
-#: anjuta.glade.h:235
+#: anjuta.glade.h:112
 msgid "Optimization"
 msgstr "Optimalisatie"
 
 #. 15
-#: anjuta.glade.h:236 plugins/editor/text_editor_menu.c:331
+#: anjuta.glade.h:113 plugins/editor/text_editor_menu.c:331
 msgid "Options"
 msgstr "Opties"
 
-#: anjuta.glade.h:237
-msgid "Original Berkeley style"
-msgstr "Originele Berkeley stijl"
-
-#: anjuta.glade.h:238
-msgid "Other colors"
-msgstr "Overige kleuren"
-
-#: anjuta.glade.h:239
-msgid "Other messages:"
-msgstr "Overige berichten:"
-
-#: anjuta.glade.h:240 plugins/symbol-browser/an_symbol_view.c:55
+#: anjuta.glade.h:114 plugins/symbol-browser/an_symbol_view.c:55
 msgid "Others"
 msgstr "Overigen"
 
-#: anjuta.glade.h:241
+#: anjuta.glade.h:115
 msgid "Output files"
 msgstr "Uitvoerbestanden"
 
-#: anjuta.glade.h:242
-msgid "Pick a color"
-msgstr "Kies een kleur"
+#: anjuta.glade.h:116 plugins/debugger/signals_gui.c:261
+msgid "Pass:"
+msgstr "Passeer:"
 
-#: anjuta.glade.h:243
+#: anjuta.glade.h:117
 msgid "Pixmap module Makefile.am"
 msgstr "Pixmap module Makefile.am"
 
-#: anjuta.glade.h:244
-msgid "Plus/Minus"
-msgstr "Plus/Minus"
-
-#: anjuta.glade.h:245
+#: anjuta.glade.h:118
 msgid "Po module (translation) Makefile.am"
 msgstr "Po module (Dutch) Makefile.am"
 
-#: anjuta.glade.h:246
-msgid "Position:"
-msgstr "Positie:"
+#: anjuta.glade.h:119
+msgid "Print:"
+msgstr "Afdrukken:"
 
-#: anjuta.glade.h:247
-msgid "Press this button to dismiss the dialog"
-msgstr "Druk op deze knop om het dialoogvenster te sluiten"
+#: anjuta.glade.h:120
+msgid "Program Interrupt"
+msgstr "Programma onderbroken"
 
-#: anjuta.glade.h:248
-msgid "Pressing backspace un-indents"
-msgstr "Backspace verwijdert inspinging"
-
-#: anjuta.glade.h:249
-msgid "Pressing tab indents"
-msgstr "Tab springt in"
-
-#: anjuta.glade.h:250
-msgid "Print options"
-msgstr "Afdrukopties"
-
-#: anjuta.glade.h:251
+#: anjuta.glade.h:121
 msgid "Programs"
 msgstr "Programma's"
 
-#: anjuta.glade.h:252 plugins/project-manager/project_dbase_gui.c:581
+#: anjuta.glade.h:122 plugins/project-manager/project_dbase_gui.c:581
 #: src/anjuta_gui.c:114 src/toolbar.c:150
 msgid "Project"
 msgstr "Project"
 
-#: anjuta.glade.h:253
+#: anjuta.glade.h:123
 msgid "Project Configuration"
 msgstr "Project configuratie"
 
-#: anjuta.glade.h:254 plugins/project-wizard/wizard_gui.c:470
+#: anjuta.glade.h:124 plugins/project-wizard/wizard_gui.c:470
 msgid "Project Description"
 msgstr "Projectbeschrijving"
 
-#: anjuta.glade.h:255
+#: anjuta.glade.h:125
 msgid "Project Version"
 msgstr "Projectversie:"
 
-#: anjuta.glade.h:256
+#: anjuta.glade.h:126
 msgid "Project configure.in"
 msgstr "Project's configure.in"
 
-#: anjuta.glade.h:257
+#: anjuta.glade.h:127
 msgid "Project level"
 msgstr "Project niveau"
 
-#: anjuta.glade.h:258
+#: anjuta.glade.h:128
 msgid "Projects:"
 msgstr "Projecten:"
 
-# vertalen of niet?
-#: anjuta.glade.h:259
-msgid "Read me"
-msgstr "Lees mij"
-
-#: anjuta.glade.h:260
+#: anjuta.glade.h:129
 msgid "Recent Files:"
 msgstr "Recente bestanden:"
 
-#: anjuta.glade.h:261
+#: anjuta.glade.h:130
 msgid "Recent Projects:"
 msgstr "Recente Projecten:"
 
-#: anjuta.glade.h:262
-msgid "Regular Expression"
-msgstr "Reguliere expressie"
-
-#: anjuta.glade.h:263
-msgid "Reload Session Defaults"
-msgstr "Sessie-instellingen herladen"
-
-#: anjuta.glade.h:264
-msgid "Reload System Defaults"
-msgstr "Systeem-standaarden herladen"
-
-#: anjuta.glade.h:265
-msgid "Replace With:"
-msgstr "Vervangen door:"
-
-#: anjuta.glade.h:266
+#: anjuta.glade.h:131
 msgid "Reset all sticky tags during update (looses branch) [-A]"
 msgstr ""
-"Alle blijvende tags resetten tijdens bijwerken (branch-"
-"informatie gaat verloren) [-A]"
+"Alle blijvende tags resetten tijdens bijwerken (branch-informatie gaat "
+"verloren) [-A]"
 
-#: anjuta.glade.h:267
-msgid "Right"
-msgstr "Rechts"
-
-#: anjuta.glade.h:268
+#: anjuta.glade.h:132
 msgid "Run Configure Script"
 msgstr "Configure-script uitvoeren"
 
-#: anjuta.glade.h:269
+#: anjuta.glade.h:133
 msgid "Run detached"
 msgstr "Losgekoppeld uitvoeren"
 
-#: anjuta.glade.h:270
+#: anjuta.glade.h:134
 msgid "Run in Terminal"
 msgstr "Uitvoeren in terminal"
 
-#: anjuta.glade.h:271
+#: anjuta.glade.h:135
 msgid "Run in terminal"
 msgstr "Uitvoeren in console"
 
-#: anjuta.glade.h:272
+#: anjuta.glade.h:136
+msgid "SIGINT"
+msgstr "SIGINT"
+
+#: anjuta.glade.h:137
 msgid "Save all files"
 msgstr "Alle bestanden opslaan"
 
-#: anjuta.glade.h:273
-msgid "Save files interval in minutes"
-msgstr "Autosave tijdsinterval in minuten"
-
-#: anjuta.glade.h:274
-msgid "Save session interval in minutes"
-msgstr "Sessie opslaginterval in minuten"
-
-#: anjuta.glade.h:275
+#: anjuta.glade.h:138
 msgid "Scripts at the end of top level Makefile.am"
 msgstr "Scripts aan het eind van bovenste Makefile.am"
 
-#: anjuta.glade.h:276 plugins/editor/plugin.c:543
-#: plugins/editor/search-replace.c:715 plugins/editor/search-replace.c:1338
-#: plugins/editor/search-replace.c:1345 plugins/editor/search-replace.c:1357
-msgid "Search"
-msgstr "Zoeken"
+#: anjuta.glade.h:139 plugins/debugger/signals_gui.c:210
+msgid "Set Signal Property"
+msgstr "Zet signaaleigenschap"
 
-#: anjuta.glade.h:277
-msgid "Search Action:"
-msgstr "Zoekactie:"
-
-#: anjuta.glade.h:278
-msgid "Search Direction:"
-msgstr "Zoekrichting:"
-
-#: anjuta.glade.h:279
-msgid "Search Expression"
-msgstr "Zoekexpressie"
-
-#: anjuta.glade.h:280
-msgid "Search Expression:"
-msgstr "Zoekexpressie:"
-
-#: anjuta.glade.h:281
-msgid "Search In:"
-msgstr "Zoeken in:"
-
-#: anjuta.glade.h:282
-msgid "Search Recursively"
-msgstr "Recursief zoeken"
-
-#: anjuta.glade.h:283
-msgid "Search Target"
-msgstr "Zoekdoel"
-
-#: anjuta.glade.h:284
-msgid "Search Variable"
-msgstr "Zoekvariabele"
-
-#: anjuta.glade.h:285
-msgid "Select highlight style to edit:"
-msgstr "Selecteer een belichtingsstijl om te bewerken:"
-
-#: anjuta.glade.h:286
-msgid "Select theme:"
-msgstr "Selecteer thema:"
-
-#: anjuta.glade.h:287
-msgid "Selection background:"
-msgstr "Selectie achtergrond:"
-
-#: anjuta.glade.h:288
-msgid "Selection foreground:"
-msgstr "Selectie voorgrond:"
-
-#: anjuta.glade.h:289 src/anjuta-app.c:287 src/anjuta_gui.c:120
+#: anjuta.glade.h:140 src/anjuta-app.c:351 src/anjuta_gui.c:120
 msgid "Settings"
 msgstr "Instellingen"
 
-#: anjuta.glade.h:290
+#: anjuta.glade.h:141
 msgid "Short cut:"
 msgstr "Snelkoppeling:"
 
-#: anjuta.glade.h:291
+#: anjuta.glade.h:142
 msgid "Show tooltips"
 msgstr "Hulpballonnen tonen"
 
-#: anjuta.glade.h:292
+#: anjuta.glade.h:143
+msgid "Signal:"
+msgstr "Signaal:"
+
+#: anjuta.glade.h:144
 msgid "Silent. That is, do not echo shell commads during make"
 msgstr "Stil. Dat betekent: opdrachten niet weergeven tijdens de 'make'"
 
-#: anjuta.glade.h:293
-msgid "Sorted by most recent use"
-msgstr "Sorteren op recent gebruik"
-
-#: anjuta.glade.h:294
-msgid "Sorted in alphabetical order"
-msgstr "Alfabetisch gesorteerd"
-
-#: anjuta.glade.h:295
-msgid "Sorted in the order you open them"
-msgstr "Sorteren op openvolgorde"
-
-#: anjuta.glade.h:296
+#: anjuta.glade.h:145
 msgid "Source Directories"
 msgstr "Bron mappen"
 
-#: anjuta.glade.h:297
+#: anjuta.glade.h:146
 msgid "Source module Makefile.am"
 msgstr "Bronmodule Makefile.am"
 
-#: anjuta.glade.h:298
-msgid "Space-seperated list of directory name patterns to ignore"
-msgstr "Door spaties gescheiden lijst van te negeren mapnaampatronen"
-
-#: anjuta.glade.h:299
-msgid "Space-seperated list of directory name patterns to match"
-msgstr "Door spaties gescheiden lijst van mappatronen om te matchen"
-
-#: anjuta.glade.h:300
-msgid "Space-seperated list of file name patterns to ignore"
-msgstr "Door spaties gescheiden lijst van te negeren bestandsnaampatronen"
-
-#: anjuta.glade.h:301
-msgid "Space-seperated list of file name patterns to match"
-msgstr "Door spaties gescheiden lijst van bestandsnaampatronen om te matchen"
-
-#: anjuta.glade.h:302
-msgid "Squares"
-msgstr "Vierkanten"
-
-#: anjuta.glade.h:303
+#: anjuta.glade.h:147
 msgid "Standard error:"
 msgstr "Standaardfout:"
 
-#: anjuta.glade.h:304
+#: anjuta.glade.h:148
 msgid "Standard input:"
 msgstr "Standaardinvoer:"
 
-#: anjuta.glade.h:305
+#: anjuta.glade.h:149
 msgid "Standard output:"
 msgstr "Standaarduitvoer:"
 
-#: anjuta.glade.h:306
+#: anjuta.glade.h:150
 msgid ""
 "Start with a new Project. Application wizard will guide you with Project "
 "creation. With the Application Wizard, you will be able to create the "
 "skeleton of various Project types."
-msgstr "Start met een nieuw project. De toepassing-assistent zal u helpen bij het aanmaken van het project. Met de toepassing-assistent kunt op eenvoudige wijze een sjabloon voor verschillende soorten projecten opbouwen."
+msgstr ""
+"Start met een nieuw project. De toepassing-assistent zal u helpen bij het "
+"aanmaken van het project. Met de toepassing-assistent kunt op eenvoudige "
+"wijze een sjabloon voor verschillende soorten projecten opbouwen."
 
-#: anjuta.glade.h:307
-msgid "Strike-Out"
-msgstr "Doorstrepen"
+#: anjuta.glade.h:151
+msgid "Stop:"
+msgstr "Stoppen:"
 
-#: anjuta.glade.h:308
-msgid "Strip trailling spaces on file save"
-msgstr "Verwijder beginspaties bij opslaan bestand"
-
-#: anjuta.glade.h:309
-msgid "Style of Kangleipak"
-msgstr "Kangleipak stijl"
-
-#: anjuta.glade.h:310 libanjuta/anjuta-encodings.c:721
-msgid "Supported Encodings"
-msgstr "Ondersteunde coderingen"
-
-#: anjuta.glade.h:311
+#: anjuta.glade.h:152
 msgid "Supports"
 msgstr "Ondersteunt"
 
-#: anjuta.glade.h:312
-msgid "Syntax highlight editor"
-msgstr "Belichtingsstijl bewerken"
+#: anjuta.glade.h:153
+msgid "Supports are only available to File mode compilation and build."
+msgstr ""
 
-#: anjuta.glade.h:313
-msgid "Tab size in spaces:"
-msgstr "Tabgrootte in spaties:"
-
-#: anjuta.glade.h:314
-msgid "Tabs position:"
-msgstr "Tabpositie:"
-
-#: anjuta.glade.h:315
+#: anjuta.glade.h:154
 msgid "Target:"
 msgstr "Doel:"
 
-#: anjuta.glade.h:316
-msgid "Terminal options"
-msgstr "Terminalopties"
-
-#: anjuta.glade.h:317
-msgid "Theme"
-msgstr "Thema"
-
-#: anjuta.glade.h:318
+#: anjuta.glade.h:155
 msgid "Tool Editor"
 msgstr "Hulpmiddelen bewerken"
 
-#: anjuta.glade.h:319
-msgid "Top"
-msgstr "Boven"
-
-#: anjuta.glade.h:320
+#: anjuta.glade.h:156
 msgid "Top level Makefile.am"
 msgstr "Top level Makefile.am"
 
-#: anjuta.glade.h:321
-msgid "Truncate long messages"
-msgstr "Lange berichten afbreken"
-
-#: anjuta.glade.h:322
-msgid "Try to save in current locale's encoding"
-msgstr "In codering van huidge omgeving proberen op te slaan"
-
-#: anjuta.glade.h:323
-msgid "Try to save in original encoding"
-msgstr "Probeer op te slaan in originele codering"
-
-#: anjuta.glade.h:324
-msgid "Underline Plain"
-msgstr "Onderstrepen normaal"
-
-#: anjuta.glade.h:325
-msgid "Underline Squiggle"
-msgstr "Onderstrepen gegolfd"
-
-# wat betekent TT?
-#: anjuta.glade.h:326
-msgid "Underline-TT"
-msgstr "Onderstrepen TT"
-
-#: anjuta.glade.h:327
-msgid "Underlined"
-msgstr "Onderstreept"
-
-#: anjuta.glade.h:328 plugins/cvs-plugin/cvs_gui.c:73
+#: anjuta.glade.h:157 plugins/cvs-plugin/cvs_gui.c:73
 #: plugins/debugger/registers_gui.c:48 plugins/debugger/sharedlib_gui.c:41
 #: plugins/debugger/signals_gui.c:55 plugins/debugger/stack_trace.c:366
 msgid "Update"
 msgstr "Verversen"
 
-#: anjuta.glade.h:329
+#: anjuta.glade.h:158
 msgid "Update tags image automatically"
 msgstr "Tag-afbeelding automatisch verversen"
 
-#: anjuta.glade.h:330
-msgid "Use GNOME terminal profile:"
-msgstr "GNOME terminalprofiel gebruiken:"
-
-#: anjuta.glade.h:331
-msgid "Use currently selected profile in GNOME terminal"
-msgstr "Gebruik huidig geselecteerd GNOME-terminal profiel"
-
-#: anjuta.glade.h:332
-msgid "Use default"
-msgstr "Standaard gebruiken"
-
-#: anjuta.glade.h:333
-msgid "Use tabs for indentation"
-msgstr "Gebruik tabs voor inspringen"
-
-#: anjuta.glade.h:334
+#: anjuta.glade.h:159
 msgid "User Tools"
 msgstr "Gebruikershulpmiddelen"
 
-#: anjuta.glade.h:335
+#: anjuta.glade.h:160
 msgid "User email address:"
 msgstr "E-mail adres van gebruiker:"
 
-#: anjuta.glade.h:336
+#: anjuta.glade.h:161
 msgid "User information"
 msgstr "Gebruikersinformatie"
 
-#: anjuta.glade.h:337
+#: anjuta.glade.h:162
 msgid "User name:"
 msgstr "Gebruikersnaam:"
 
-#: anjuta.glade.h:338
-msgid "Variable list"
-msgstr "Variabelenlijst"
-
-#: anjuta.glade.h:339 plugins/project-manager/project_dbase_gui.c:871
+#: anjuta.glade.h:163 plugins/project-manager/project_dbase_gui.c:871
 msgid "Version:"
 msgstr "Versie:"
 
-#: anjuta.glade.h:340 src/anjuta-app.c:283 src/anjuta_gui.c:111
+#: anjuta.glade.h:164 src/anjuta-app.c:348 src/anjuta_gui.c:111
 msgid "View"
 msgstr "Weergeven"
 
-#: anjuta.glade.h:341
+#: anjuta.glade.h:165
 msgid "Warn when an undefined variable is referenced in the Makefile"
 msgstr ""
 "Waarschuw als een ongedefinieerde variabele wordt gebruikt in de Makefile"
 
-#: anjuta.glade.h:342
-msgid "Warning message indicator style:"
-msgstr "Waarschuwingsbericht indicatorstijl:"
-
-#: anjuta.glade.h:343
+#: anjuta.glade.h:166
 msgid "Warnings"
 msgstr "Waarschuwingen"
 
-#: anjuta.glade.h:344
-msgid "Warnings messages:"
-msgstr "Waarschuwingsberichten:"
-
-#: anjuta.glade.h:345
+#: anjuta.glade.h:167
 msgid "Working directory:"
 msgstr "Werkmap:"
 
-#: anjuta.glade.h:346
-msgid "Wrap bookmarks search around"
-msgstr "Bladwijzerzoekopdracht doorgaan na documenteinde"
+#. For the time being
+#: anjuta.glade.h:168 plugins/debugger/signals_cbs.c:114
+#: plugins/debugger/signals_cbs.c:127 plugins/debugger/signals_cbs.c:140
+#: plugins/project-manager/project_dbase.c:1466
+#: plugins/project-manager/project_dbase.c:1472
+#: plugins/project-manager/project_dbase.c:1475
+#: plugins/project-manager/project_import_cbs.c:227
+#: plugins/project-wizard/appwizard_cbs.c:282
+msgid "Yes"
+msgstr "Ja"
 
-#: anjuta.glade.h:347
+#: anjuta.glade.h:169
 msgid "_Attach"
 msgstr "Bij_voegen"
 
-#: anjuta.glade.h:348
+#: anjuta.glade.h:170
 msgid "_Build a file:"
 msgstr "Een bestand _bouwen:"
 
-#: anjuta.glade.h:349
+#: anjuta.glade.h:171
 msgid "_Condition:"
 msgstr "_Voorwaarde:"
 
-#: anjuta.glade.h:350
+#: anjuta.glade.h:172
 msgid "_Disable all"
 msgstr "Alles _uitschakelen"
 
-#: anjuta.glade.h:351 libegg/test-merge.c:82 src/anjuta-actions.h:30
+#: anjuta.glade.h:173 plugins/editor/plugin.c:255 src/anjuta-actions.h:30
 msgid "_Edit"
 msgstr "Be_werken"
 
-#: anjuta.glade.h:352
+#: anjuta.glade.h:174
 msgid "_Execute:"
 msgstr "_Uitvoeren:"
 
-#: anjuta.glade.h:353
+#: anjuta.glade.h:175
 msgid "_Hide paths"
 msgstr "Paden _verbergen"
 
-#: anjuta.glade.h:354
+#: anjuta.glade.h:176
 msgid "_Image editor:"
 msgstr "_Afbeelding-editor:"
 
-#: anjuta.glade.h:355
+#: anjuta.glade.h:177
 msgid "_Language:"
 msgstr "_Taal:"
 
-#: anjuta.glade.h:356
+#: anjuta.glade.h:178
 msgid "_Location:"
 msgstr "_Lokatie:"
 
-#: anjuta.glade.h:357
+#: anjuta.glade.h:179
 msgid "_Make a file:"
 msgstr "Maak een bestand:"
 
-#: anjuta.glade.h:358
+#: anjuta.glade.h:180
 msgid "_Pass:"
 msgstr "_Pass:"
 
-#: anjuta.glade.h:359
+#: anjuta.glade.h:181
 msgid "_Pixmap editor:"
 msgstr "_Pictogram editor:"
 
-#: anjuta.glade.h:360
+#: anjuta.glade.h:182
 msgid "_Process to attach to:"
 msgstr "_Proces om bij te voegen:"
 
-#: anjuta.glade.h:361
+#: anjuta.glade.h:183
 msgid "_Remove all"
 msgstr "_Verwijder alles"
 
-#: anjuta.glade.h:362
-msgid "_Save Theme As"
-msgstr "_Thema opslaan als"
-
-#: anjuta.glade.h:363
+#: anjuta.glade.h:184
 msgid "_Terminal:"
 msgstr "_Terminal:"
 
-#: anjuta.glade.h:364
+#: anjuta.glade.h:185
 msgid "_Update"
 msgstr "_Verversen"
+
+# dialoogvenster2 ?
+#: anjuta.glade.h:186
+msgid "dialog2"
+msgstr "dialoog2"
+
+#: anjuta.glade.h:187
+msgid "dialog4"
+msgstr "dialoog4"
 
 #: libanjuta/anjuta-encodings.c:131 libanjuta/anjuta-encodings.c:157
 #: libanjuta/anjuta-encodings.c:198 libanjuta/anjuta-encodings.c:239
@@ -1625,42 +947,28 @@ msgstr "Thai"
 msgid "Stock Encodings"
 msgstr "Standaard coderingen"
 
+#: libanjuta/anjuta-encodings.c:721
+msgid "Supported Encodings"
+msgstr "Ondersteunde coderingen"
+
 # opdrachtregel?
-#: libanjuta/anjuta-plugin.c:199
+#: libanjuta/anjuta-plugin.c:175
 msgid "Anjuta Shell"
 msgstr "Anjuta shell"
 
-#: libanjuta/anjuta-plugin.c:200
-msgid "Anjuta shell that will contain the tool"
-msgstr "Anjuta shell die het werktuig zla bevatten"
-
-# gebruikersinterface
-# grafische bediening
-#: libanjuta/anjuta-plugin.c:207
-msgid "Anjuta UI"
-msgstr "Anjuta UI"
-
-#: libanjuta/anjuta-plugin.c:208
-msgid "Anjuta UI that will contain Menus and toolbars"
-msgstr "Anjuta UI dat de menus en werkbalken zal bevatten"
-
-#: libanjuta/anjuta-plugin.c:215 libanjuta/anjuta-preferences.c:1096
-msgid "Anjuta Preferences"
-msgstr "Anjuta voorkeuren"
-
-#: libanjuta/anjuta-plugin.c:216
-msgid "Anjuta preferences that will contain preferences"
-msgstr "Anjuta voorkeuren die de voorkeuren zal bevatten"
+#: libanjuta/anjuta-plugin.c:176
+msgid "Anjuta shell that will contain the plugin"
+msgstr "Anjuta shell die de plugin zal bevatten"
 
 #: libanjuta/anjuta-preferences-dialog.c:127
 msgid "Category"
 msgstr "Categorie"
 
-#: libanjuta/anjuta-preferences-dialog.c:227
+#: libanjuta/anjuta-preferences-dialog.c:234
 msgid "Anjuta Preferences Dialog"
 msgstr "Anjuta voorkeuren dialoogvenster"
 
-#: libanjuta/anjuta-preferences.c:697
+#: libanjuta/anjuta-preferences.c:878
 msgid ""
 "Are you sure you want to reset the preferences to\n"
 "their default settings?"
@@ -1669,11 +977,11 @@ msgstr ""
 "hun fabrieksinstellingen?"
 
 # Herstellen?
-#: libanjuta/anjuta-preferences.c:701
+#: libanjuta/anjuta-preferences.c:882
 msgid "_Reset"
 msgstr "_Resetten"
 
-#: libanjuta/anjuta-preferences.c:970
+#: libanjuta/anjuta-preferences.c:1301
 #, c-format
 msgid ""
 "Cannot load Global defaults and configuration files:\n"
@@ -1682,30 +990,27 @@ msgid ""
 "Anjuta will fall back to built in (limited) settings"
 msgstr ""
 
+#: libanjuta/anjuta-preferences.c:1439
+msgid "Anjuta Preferences"
+msgstr "Anjuta voorkeuren"
+
 #. gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
-#: libanjuta/anjuta-ui.c:297
+#: libanjuta/anjuta-ui.c:813
 msgid "Action"
 msgstr "Actie"
 
-#: libanjuta/anjuta-ui.c:315 libegg/egg-action.c:158
-#: libegg/egg-dock-layout.c:680
+#: libanjuta/anjuta-ui.c:831 libegg/egg-dock-layout.c:680
 msgid "Visible"
 msgstr "Zichtbaar"
 
 # hoofdlettergevoelig?
-#: libanjuta/anjuta-ui.c:326 libegg/egg-action.c:150
+#: libanjuta/anjuta-ui.c:842
 msgid "Sensitive"
 msgstr "Gevoelig"
 
-#: libanjuta/anjuta-ui.c:335
+#: libanjuta/anjuta-ui.c:851
 msgid "Shortcut"
 msgstr "Snelkoppeling"
-
-# gebruikers interface
-# bediening
-#: libanjuta/anjuta-ui.c:436
-msgid "Anjuta User Interface"
-msgstr "Anjuta gebruikersinterface"
 
 #: libanjuta/anjuta-utils.c:54 src/utilities.c:697
 #, c-format
@@ -1759,8 +1064,17 @@ msgstr ""
 "U heeft \"%s\" niet geinstalleerd op uw computer.\n"
 "Installeer het alstublieft."
 
-#: libanjuta/cell-renderer-captioned-image.c:207 libegg/egg-entry-action.c:109
-#: libegg/test-actions.c:130
+#: libanjuta/anjuta-utils.c:655
+#, c-format
+msgid "Cannot execute command: %s (using shell %s)\n"
+msgstr "Kan de opdracht %s niet uitvoeren (via de shell %s)\n"
+
+#: libanjuta/anjuta-utils.c:659
+#, c-format
+msgid "Cannot execute command %s (using shell %s)\n"
+msgstr "Kan de opdracht %s niet uitvoeren (via de shell %s)\n"
+
+#: libanjuta/cell-renderer-captioned-image.c:207 libegg/egg-entry-action.c:110
 msgid "Text"
 msgstr "Tekst"
 
@@ -1776,174 +1090,22 @@ msgstr "Pixbuf object"
 msgid "The pixbuf to render."
 msgstr "De te renderen pixbuf"
 
-#: libanjuta/gnomefilelist.c:224
-msgid "Go to the previous directory"
-msgstr "Ga naar de vorige map"
-
-#: libanjuta/gnomefilelist.c:228
-msgid "Go to the next directory"
-msgstr "Ga naar volgende map"
-
-#: libanjuta/gnomefilelist.c:232
-msgid "Go to parent directory"
-msgstr "Ga naar bovenliggende map"
-
-#: libanjuta/gnomefilelist.c:237
-msgid "Go to home directory"
-msgstr "Ga naar persoonlijke map"
-
-# listing?
-#: libanjuta/gnomefilelist.c:243
-msgid "Refresh listing"
-msgstr "Opsomming verversen"
-
-#: libanjuta/gnomefilelist.c:249
-msgid "Delete file"
-msgstr "Bestand verwijderen"
-
-#: libanjuta/gnomefilelist.c:253 libanjuta/gnomefilelist.c:1889
-msgid "Rename file"
-msgstr "Bestand hernoemen"
-
-#: libanjuta/gnomefilelist.c:257 libanjuta/gnomefilelist.c:1988
-msgid "Create new folder"
-msgstr "Nieuwe map aanmaken"
-
-#: libanjuta/gnomefilelist.c:262
-msgid "Show Hidden"
-msgstr "Verborgen tonen"
-
-#: libanjuta/gnomefilelist.c:266
-msgid "Show hidden files"
-msgstr "Verborgen bestanden tonen"
-
-#: libanjuta/gnomefilelist.c:274
-msgid "Directory: "
-msgstr "Map: "
-
-#: libanjuta/gnomefilelist.c:403
-msgid "Files"
-msgstr "Bestanden"
-
-#: libanjuta/gnomefilelist.c:430
-msgid "Selection: "
-msgstr "Selectie: "
-
-#: libanjuta/gnomefilelist.c:458
-msgid "File type: "
-msgstr "Bestandstype: "
-
-#: libanjuta/gnomefilelist.c:714 plugins/project-manager/project_dbase.c:363
-#: plugins/project-manager/project_dbase_gui.c:153
-#: plugins/project-manager/project_dbase_gui.c:170
-#: plugins/project-manager/project_dbase_gui.c:182
-#: plugins/project-manager/project_dbase_gui.c:190
-#: plugins/project-manager/project_dbase_gui.c:202
-#: plugins/project-manager/project_dbase_gui.c:211
-#: plugins/project-manager/project_dbase_gui.c:220
-msgid "All files"
-msgstr "Alle bestanden"
-
-#: libanjuta/gnomefilelist.c:717
-#: plugins/project-manager/project_dbase_gui.c:161
-msgid "C/C++ source files"
-msgstr "C/C++ bronbestanden"
-
-#: libanjuta/gnomefilelist.c:721
-msgid "Java files"
-msgstr "Java bestanden"
-
-#: libanjuta/gnomefilelist.c:724
-#: plugins/project-manager/project_dbase_gui.c:163
-msgid "Pascal files"
-msgstr "Pascal bestanden"
-
-#: libanjuta/gnomefilelist.c:726
-#: plugins/project-manager/project_dbase_gui.c:164
-msgid "PHP files"
-msgstr "PHP bestanden"
-
-#: libanjuta/gnomefilelist.c:729
-#: plugins/project-manager/project_dbase_gui.c:165
-msgid "Perl files"
-msgstr "Perl bestanden"
-
-#: libanjuta/gnomefilelist.c:731
-#: plugins/project-manager/project_dbase_gui.c:166
-msgid "Python files"
-msgstr "Python bestanden"
-
-#: libanjuta/gnomefilelist.c:733
-msgid "Hyper Text Markup files"
-msgstr "Hyper Text Markup bestanden"
-
-#: libanjuta/gnomefilelist.c:736
-#: plugins/project-manager/project_dbase_gui.c:167
-msgid "Shell Script files"
-msgstr "Shell script bestanden"
-
-#: libanjuta/gnomefilelist.c:739
-msgid "Config files"
-msgstr "Configuratiebestanden"
-
-#: libanjuta/gnomefilelist.c:741
-#: plugins/project-manager/project_dbase_gui.c:168
-msgid "Visual Basic files"
-msgstr "Visual Basic bestanden"
-
-#: libanjuta/gnomefilelist.c:744
-msgid "Properties files"
-msgstr "Eigenschap bestanden"
-
-#: libanjuta/gnomefilelist.c:747
-msgid ".mak files"
-msgstr ".mak bestanden"
-
-#: libanjuta/gnomefilelist.c:749
-#: plugins/project-manager/project_dbase_gui.c:169
-msgid ".lua files"
-msgstr ".lua bestanden"
-
-#: libanjuta/gnomefilelist.c:751
-msgid "Diff files"
-msgstr "Diff bestanden"
-
-#: libanjuta/gnomefilelist.c:1854
-#, c-format
-msgid "Really delete %s?"
-msgstr "%s echt verwijderen?"
-
-#: libanjuta/gnomefilelist.c:1901
-msgid "Rename file to:"
-msgstr "Bestand hernoemen naar:"
-
-#: libanjuta/gnomefilelist.c:1927
-#, c-format
-msgid "Renaming file failed '%s': %s"
-msgstr "Bestand hernoemen mislukt '%s': %s"
-
-#: libanjuta/gnomefilelist.c:1960
-#, c-format
-msgid "Creating folder failed '%s': %s"
-msgstr "Aanmaken map '%s' mislukt: %s"
-
-#: libanjuta/gnomefilelist.c:2000
-msgid "Folder name:"
-msgstr "Mapnaam:"
-
-#: libanjuta/plugins.c:1109
+#: libanjuta/plugins.c:817
 msgid "Load"
 msgstr "Laden"
 
-#: libanjuta/plugins.c:1117
+#: libanjuta/plugins.c:825
 msgid "Plugin"
 msgstr "Plugin"
 
-#: libanjuta/plugins.c:1166
+#: libanjuta/plugins.c:885
 msgid ""
 "This dialog displays all the available plugins for Anjuta.  You can select "
 "which plugins you want to use by clicking on the plugin in the list."
-msgstr "Dit dialoogvenster toont alle beschikbare plugins voor Anjuta.  U kunt kiezen welke plugins u wilt gebruiken door in de lijst op de plugin te klikken."
+msgstr ""
+"Dit dialoogvenster toont alle beschikbare plugins voor Anjuta.  U kunt "
+"kiezen welke plugins u wilt gebruiken door in de lijst op de plugin te "
+"klikken."
 
 #: libanjuta/resources.c:50
 #, c-format
@@ -1960,64 +1122,12 @@ msgstr "Kon applicatie image bestand %s niet vinden"
 msgid "Could not find application pixmap file: %s"
 msgstr "Kon niet vinden applicatie pixmap bestand: %s"
 
-#: libanjuta/resources.c:263 libanjuta/resources.c:271
-msgid "Cannot execute Devhelp. Make sure it is installed"
-msgstr "Kan Devhelp niet uitvoeren. Zorg ervoor dat het geinstalleerd is"
+#: libanjuta/resources.c:263 libanjuta/resources.c:272
+#, c-format
+msgid "Cannot execute command: \"%s\""
+msgstr "Kan de opdracht: \"%s\" niet uitvoeren"
 
-#: libegg/egg-accel-dialog.c:114 libegg/egg-accel-dialog.c:115
-msgid "Menu Merge"
-msgstr "Menu samenvoegen"
-
-#: libegg/egg-action.c:114 libegg/egg-dock-layout.c:737
-#: libegg/egg-dock-object.c:121 plugins/build/compiler_options.c:798
-msgid "Name"
-msgstr "Naam"
-
-#: libegg/egg-action.c:115
-msgid "A unique name for the action."
-msgstr "Een unieke naam voor de actie."
-
-#: libegg/egg-action.c:122 libegg/eggtoolbutton.c:137
-msgid "Label"
-msgstr "Label"
-
-#: libegg/egg-action.c:123
-msgid "The label used for menu items and buttons that activate this action."
-msgstr "Het label dat gebruikt wordt voor menu-items en knoppen die deze acite activeren."
-
-#: libegg/egg-action.c:129
-msgid "Short label"
-msgstr "Kort label"
-
-#: libegg/egg-action.c:130
-msgid "A shorter label that may be used on toolbar buttons."
-msgstr "Een korter label dat op de werkbalk-knoppen kan worden gebruikt."
-
-#: libegg/egg-action.c:136
-msgid "Tooltip"
-msgstr "Tooltip"
-
-#: libegg/egg-action.c:137
-msgid "A tooltip for this action."
-msgstr "Een tooltip voor deze actie."
-
-#: libegg/egg-action.c:143
-msgid "Stock Icon"
-msgstr "Standaard pictogram"
-
-#: libegg/egg-action.c:144
-msgid "The stock icon displayed in widgets representing this action."
-msgstr "Het standaardpictogram getoond in de widgets voor deze actie."
-
-#: libegg/egg-action.c:151
-msgid "Whether the action is enabled."
-msgstr "Of de actie is ingeschakeld."
-
-#: libegg/egg-action.c:159
-msgid "Whether the action is visible."
-msgstr "Of de actie zichtbaar is."
-
-#: libegg/egg-dock-item.c:243 libegg/eggtoolbar.c:364
+#: libegg/egg-dock-item.c:243
 msgid "Orientation"
 msgstr "Oriëntatie"
 
@@ -2087,7 +1197,9 @@ msgstr "Gewenste hoogte van het aangekoppelde item"
 msgid ""
 "You can't add a dock object (%p of type %s) inside a %s. Use a EggDock or "
 "some other compound dock object."
-msgstr " U kunt een aangekoppeld object (%p van type %s) niet toevoegen binnnen een %s. Gebruik een EggDock of een ander samengesteld aangekoppeld object."
+msgstr ""
+" U kunt een aangekoppeld object (%p van type %s) niet toevoegen binnnen een %"
+"s. Gebruik een EggDock of een ander samengesteld aangekoppeld object."
 
 #: libegg/egg-dock-item.c:554
 #, c-format
@@ -2152,6 +1264,11 @@ msgstr ""
 #: libegg/egg-dock-layout.c:687
 msgid "Item"
 msgstr "Item"
+
+#: libegg/egg-dock-layout.c:737 libegg/egg-dock-object.c:121
+#: plugins/build/compiler_options.c:798
+msgid "Name"
+msgstr "Naam"
 
 #: libegg/egg-dock-layout.c:776
 msgid "Dock items"
@@ -2243,7 +1360,9 @@ msgstr "Meester aan welke dit object is gebonden"
 msgid ""
 "Call to egg_dock_object_dock in a dock object %p (object type is %s) which "
 "hasn't implemented this method"
-msgstr "Aanroep naar egg_dock_object_dock in een dok-object %p (object-type is %s) welke deze methode niet heeft geïmplementeerd"
+msgstr ""
+"Aanroep naar egg_dock_object_dock in een dok-object %p (object-type is %s) "
+"welke deze methode niet heeft geïmplementeerd"
 
 #: libegg/egg-dock-object.c:535
 #, c-format
@@ -2348,7 +1467,7 @@ msgstr "Of het dok in zijn eigen venster zweeft"
 msgid "Default title for the newly created floating docks"
 msgstr "Standaard titel voor de nieuw aangemaakte zwevende dokken"
 
-#: libegg/egg-dock.c:189 libegg/egg-entry-action.c:117
+#: libegg/egg-dock.c:189 libegg/egg-entry-action.c:118
 msgid "Width"
 msgstr "Breedte"
 
@@ -2385,23 +1504,13 @@ msgstr "Y-coördinaat van een zwevend dok"
 msgid "Dock #%d"
 msgstr "Dok #%d"
 
-#: libegg/egg-entry-action.c:110
+#: libegg/egg-entry-action.c:111
 msgid "Text in the entry"
 msgstr "Tekst in het invoerveld"
 
-#: libegg/egg-entry-action.c:118
+#: libegg/egg-entry-action.c:119
 msgid "Width of the entry."
 msgstr "Breedte van het invoerveld."
-
-#: libegg/egg-markup.c:268 libegg/egg-menu-merge.c:599
-#, c-format
-msgid "Unknown attribute '%s' on line %d char %d"
-msgstr "Onbekend attribuut '%s' op regel %d teken %d"
-
-#: libegg/egg-markup.c:275 libegg/egg-menu-merge.c:606
-#, c-format
-msgid "Unknown tag '%s' on line %d char %d"
-msgstr "Onbekende tag '%s' op regel %d teken %d"
 
 #: libegg/eggcellrendererkeys.c:160 libegg/eggcellrendererkeys.c:161
 msgid "Accelerator key"
@@ -2430,172 +1539,6 @@ msgstr "Typ een nieuwe sneltoets of toets op Backspace om te wissen"
 #: libegg/eggcellrendererkeys.c:567
 msgid "Type a new accelerator"
 msgstr "Typ een nieuwe sneltoets"
-
-#: libegg/eggtoolbar.c:365
-msgid "The orientation of the toolbar"
-msgstr "Oriëntatie van de werkbalk"
-
-#: libegg/eggtoolbar.c:373
-msgid "Toolbar Style"
-msgstr "Werkbalkstijl"
-
-#: libegg/eggtoolbar.c:374
-msgid "How to draw the toolbar"
-msgstr "Hoe de werkbalk moet worden weergegeven"
-
-#: libegg/eggtoolbar.c:381
-msgid "Show Arrow"
-msgstr "Pijl tonen"
-
-#: libegg/eggtoolbar.c:382
-msgid "If an arrow should be shown if the toolbar doesn't fit"
-msgstr "Of een pijl wordt getoond als de werkbalk niet past"
-
-#: libegg/eggtoolbar.c:390
-msgid "Expand"
-msgstr "Verbreden"
-
-#: libegg/eggtoolbar.c:391
-msgid "Whether the item should receive extra space when the toolbar grows"
-msgstr "Of een item extra ruimte krijgt als de werkbalk groter wordt"
-
-#: libegg/eggtoolbar.c:398
-msgid "Homogeneous"
-msgstr "Homogeen"
-
-#: libegg/eggtoolbar.c:399
-msgid "Whether the item should be the same size as other homogeneous items"
-msgstr "Of het item dezelfde afmeting moet hebben als andere homogene items"
-
-#: libegg/eggtoolbar.c:406
-msgid "Pack End"
-msgstr "Zet op einde"
-
-#: libegg/eggtoolbar.c:407
-msgid "Whether the item is positioned at the end of the toolbar"
-msgstr "Of het item aan het einde van de werkbalk wordt gezet"
-
-#: libegg/eggtoolbar.c:414
-msgid "Spacer size"
-msgstr "'Spacer' grootte"
-
-#: libegg/eggtoolbar.c:415
-msgid "Size of spacers"
-msgstr "De afmetingen van 'spacers'"
-
-#: libegg/eggtoolbar.c:423
-msgid "Internal padding"
-msgstr "Interne opvulling"
-
-#: libegg/eggtoolbar.c:424
-msgid "Amount of border space between the toolbar shadow and the buttons"
-msgstr "Hoeveelheid ruimte langs de rand tussen de werkbalkschaduw en de knoppen"
-
-#: libegg/eggtoolbar.c:432
-msgid "Space style"
-msgstr "'Spacer' stijl"
-
-#: libegg/eggtoolbar.c:433
-msgid "Whether spacers are vertical lines or just blank"
-msgstr "Of 'spacers' verticale lijnen zijn of gewoon blanco"
-
-#: libegg/eggtoolbar.c:440
-msgid "Button relief"
-msgstr "Knopreliëf"
-
-#: libegg/eggtoolbar.c:441
-msgid "Type of bevel around toolbar buttons"
-msgstr "Soort rand rondom werkbalkknoppen"
-
-#: libegg/eggtoolbar.c:447
-msgid "Shadow type"
-msgstr "Schaduwtype"
-
-#: libegg/eggtoolbar.c:448
-msgid "Style of bevel around the toolbar"
-msgstr "Stijl van de rand rond de werkbalk"
-
-#: libegg/eggtoolbar.c:454
-msgid "Toolbar style"
-msgstr "Werkbalkstijl"
-
-#: libegg/eggtoolbar.c:455
-msgid ""
-"Whether default toolbars have text only, text and icons, icons only, etc."
-msgstr "Of standaard werkbalken alleen tekst tonen, tekst en pictogrammen, alleen pictogrammen, enz."
-
-#: libegg/eggtoolbar.c:461
-msgid "Toolbar icon size"
-msgstr "Grootte van werkbalkpictogram"
-
-#: libegg/eggtoolbar.c:462
-msgid "Size of icons in default toolbars"
-msgstr "Grootte van pictogrammen in standaard werkbalken"
-
-#: libegg/eggtoolbutton.c:138
-msgid "Text to show in the item."
-msgstr "Tekst voor in het item."
-
-#: libegg/eggtoolbutton.c:144
-msgid "Use underline"
-msgstr "Onderstreept gebruiken"
-
-#: libegg/eggtoolbutton.c:145
-msgid "Interpret underlines in the item label"
-msgstr "Onderstrepingen in het itemlabel interpreteren"
-
-#: libegg/eggtoolbutton.c:151
-msgid "Label widget"
-msgstr "Label widget"
-
-#: libegg/eggtoolbutton.c:152
-msgid "Widget to use as the item label"
-msgstr "Te gebruiken widget als itemlabel"
-
-#: libegg/eggtoolbutton.c:158
-msgid "Stock Id"
-msgstr "Standaard Id"
-
-#: libegg/eggtoolbutton.c:159
-msgid "The stock icon displayed on the item"
-msgstr "Het standaard pictogram dat op het item wordt getoond"
-
-#: libegg/eggtoolbutton.c:165
-msgid "Icon set"
-msgstr "Pictogramverzameling"
-
-#: libegg/eggtoolbutton.c:166
-msgid "Icon set to use to draw the item's icon"
-msgstr "Te gebruiken pictogramverzameling voor het pictogram van het item"
-
-#: libegg/eggtoolbutton.c:172
-msgid "Icon widget"
-msgstr "Pictogram widget"
-
-#: libegg/eggtoolbutton.c:173
-msgid "Icon widget to display in the item"
-msgstr "Te tonen pictogramwidget in het item "
-
-# wanneer horizontaal
-#: libegg/eggtoolitem.c:151
-msgid "Visible when horizontal"
-msgstr "Zichtbaar indien horizontaal"
-
-#: libegg/eggtoolitem.c:152
-msgid ""
-"Whether the toolbar item is visible when the toolbar is in a horizontal "
-"orientation."
-msgstr "Of werkbalk-item zichtbaar is wanneer de werkbalk zich in horizontale positie bevind."
-
-#: libegg/eggtoolitem.c:158
-msgid "Visible when vertical"
-msgstr "Zichtbaar indien verticaal"
-
-#: libegg/eggtoolitem.c:159
-msgid ""
-"Whether the toolbar item is visible when the toolbar is in a vertical "
-"orientation."
-msgstr "Of werkbalk-item zichtbaar is wanneer de werkbalk zich in verticale positie bevind"
 
 #: libegg/eggtreemodelfilter.c:267
 msgid "The child model"
@@ -2709,167 +1652,14 @@ msgstr "Pictogramafmeting"
 msgid "Icon zoom"
 msgstr "Pictogram-zoom"
 
-#: libegg/test-actions.c:52
-msgid "Disable Cut and paste ops"
-msgstr "Knippen en plakken uitschakelen"
-
-#: libegg/test-actions.c:54
-msgid "Enable Cut and paste ops"
-msgstr "Knippen en plakken inschakelen"
-
-#: libegg/test-actions.c:91
-msgid "Menu _1"
-msgstr "Menu _1"
-
-#: libegg/test-actions.c:92
-msgid "Menu _2"
-msgstr "Menu _2"
-
-#: libegg/test-actions.c:93 plugins/editor/plugin.c:261
-msgid "C_ut"
-msgstr "K_nippen"
-
-#: libegg/test-actions.c:94
-msgid "Cut the selected text to the clipboard"
-msgstr "De geselecteerde tekst naar het klembord wegknippen"
-
-#: libegg/test-actions.c:96 plugins/editor/plugin.c:264
-msgid "_Copy"
-msgstr "_Kopiëren"
-
-#: libegg/test-actions.c:97 plugins/editor/plugin.c:265
-msgid "Copy the selected text to the clipboard"
-msgstr "De geselecteerde tekst naar het klembord kopiÃ«ren"
-
-# Marc says: I did not translate because it would change the wellthought hotkeys. The dutch word is Plakken
-#: libegg/test-actions.c:99 plugins/editor/plugin.c:267
-msgid "_Paste"
-msgstr "_Plakken"
-
-#: libegg/test-actions.c:100
-msgid "Paste the text from the clipboard"
-msgstr "De tekst plakken vanuit klembord"
-
-#: libegg/test-actions.c:102
-msgid "_Bold"
-msgstr "_Vet"
-
-#: libegg/test-actions.c:103
-msgid "Change to bold face"
-msgstr "Omzetten naar vet lettertype"
-
-#: libegg/test-actions.c:106
-msgid "_Left"
-msgstr "_Links"
-
-#: libegg/test-actions.c:107 libegg/test-merge.c:101
-msgid "Left justify the text"
-msgstr "De tekst links uitlijnen"
-
-#: libegg/test-actions.c:109
-msgid "C_enter"
-msgstr "_Centreren"
-
-#: libegg/test-actions.c:110 libegg/test-merge.c:104
-msgid "Center justify the text"
-msgstr "De tekst centreren"
-
-#: libegg/test-actions.c:112
-msgid "_Right"
-msgstr "_Rechts"
-
-#: libegg/test-actions.c:113 libegg/test-merge.c:107
-msgid "Right justify the text"
-msgstr "De tekst rechts uitlijnen"
-
-#: libegg/test-actions.c:115
-msgid "_Fill"
-msgstr "_Vullen"
-
-#: libegg/test-actions.c:116 libegg/test-merge.c:110
-msgid "Fill justify the text"
-msgstr "De tekst uitvullen"
-
-#: libegg/test-actions.c:119
-msgid "Quit the application"
-msgstr "De toepassing sluiten"
-
-#: libegg/test-actions.c:121
-msgid "Enable Cut/Copy/Paste"
-msgstr "Knippen/Kopiëren/Plakken mogelijk maken"
-
-#: libegg/test-actions.c:122
-msgid "Change the sensitivity of the cut, copy and paste actions"
-msgstr "De gevoeligheid van de acities knippen, kopiëren en plakken aanpassen"
-
-#: libegg/test-actions.c:124
-msgid "Customise _Accels"
-msgstr "S_neltoetsen aanpassen"
-
-#: libegg/test-actions.c:125
-msgid "Customise keyboard shortcuts"
-msgstr "Snelkoppelingen aanpassen"
-
-#: libegg/test-actions.c:127
-msgid "Icons"
-msgstr "Pictogrammen"
-
-#: libegg/test-actions.c:133
-msgid "Both"
-msgstr "Beide"
-
-#: libegg/test-actions.c:136
-msgid "Both Horizontal"
-msgstr "Beide horizontaal"
-
-#: libegg/test-actions.c:139
-msgid "Small Icons"
-msgstr "Kleine pictogrammen"
-
-#: libegg/test-actions.c:142
-msgid "Large Icons"
-msgstr "Grote pictogrammen"
-
-#: libegg/test-merge.c:81 src/anjuta-actions.h:23
-msgid "_File"
-msgstr "_Bestand"
-
-#: libegg/test-merge.c:83 src/anjuta-actions.h:63
-msgid "_Help"
-msgstr "_Hulp"
-
-#: libegg/test-merge.c:84
-msgid "Test"
-msgstr "Test"
-
-#: libegg/test-merge.c:112 src/anjuta-actions.h:104
-msgid "_About"
-msgstr "In_fo"
-
-#: libegg/test-merge.c:437
-msgid "line entry"
-msgstr "regel invoer"
-
-# voer het regelnummer in
-#: libegg/test-merge.c:438
-msgid "Enter the line number"
-msgstr "Het regelnummer invoeren"
-
-#: libegg/test-merge.c:450
-msgid "combo"
-msgstr "combo"
-
-#: libegg/test-merge.c:451
-msgid "line number"
-msgstr "regelnummer"
-
 #: plugins/build/build_file.c:48
 msgid "This file has not been saved. Save it first and then build."
 msgstr "Dit bestand is niet opgeslagen. Sla het eerst op en bouw daarna."
 
 #: plugins/build/build_file.c:73
 msgid "The executable is up-to-date, there is no need to build it again."
-msgstr "Het uitvoerbare bestand is up-to-date, er is geen reden om opnieuw te bouwen."
+msgstr ""
+"Het uitvoerbare bestand is up-to-date, er is geen reden om opnieuw te bouwen."
 
 #: plugins/build/build_file.c:88
 msgid "No build command has been specified for this type of file."
@@ -2925,7 +1715,8 @@ msgstr "Het hele project bouwen: "
 
 #: plugins/build/build_project.c:196
 msgid "Unable to build tarball. Check Settings->Commands."
-msgstr "Niet in staat om een tarball te bouwen. Controleer Instellingen->Opdrachten."
+msgstr ""
+"Niet in staat om een tarball te bouwen. Controleer Instellingen->Opdrachten."
 
 #: plugins/build/build_project.c:211
 msgid "Build Distribution"
@@ -2953,7 +1744,8 @@ msgstr "Automatische generatie van project: "
 
 #: plugins/build/build_project.c:324 plugins/build/build_project.c:362
 msgid "Unable to install Project. Check Settings->Commands."
-msgstr "Kan het project niet installeren. Controleer Instellingen->Opdrachten. "
+msgstr ""
+"Kan het project niet installeren. Controleer Instellingen->Opdrachten. "
 
 #: plugins/build/build_project.c:339 plugins/build/build_project.c:374
 msgid "Install Project"
@@ -2980,7 +1772,9 @@ msgstr "De bronmap van het project opruimen: "
 
 #: plugins/build/clean_project.c:115
 msgid "Unable to Clean All for the Project. Check Settings->Commands."
-msgstr "Kon  'Alles opruimen' niet uitvoeren voor het project. Controleer Instellingen->Opdrachten."
+msgstr ""
+"Kon  'Alles opruimen' niet uitvoeren voor het project. Controleer "
+"Instellingen->Opdrachten."
 
 #: plugins/build/clean_project.c:124
 msgid "Clean All"
@@ -2996,7 +1790,8 @@ msgstr "Dit bestand is niet opgeslagen. Sla het eerst op compileer daarna."
 
 #: plugins/build/compile.c:128
 msgid "The object file is up-to-date, there is no need to compile it again."
-msgstr "Het objectbestand is al up-to-date. Geen reden om opnieuw te compileren."
+msgstr ""
+"Het objectbestand is al up-to-date. Geen reden om opnieuw te compileren."
 
 #: plugins/build/compile.c:140
 msgid "No compile command has been specified for this type of file."
@@ -3109,6 +1904,122 @@ msgstr "Dit bestand is niet opgeslagen. Sla het eerst op."
 msgid "Unable to execute file. Check Settings->Commands."
 msgstr "Kan bestand niet uitvoeren. Controleer Instellingen->Commando. "
 
+#: plugins/build-basic-autotools/build-basic-autotools.c:86
+#: plugins/build-basic-autotools/build-basic-autotools.c:174
+#: plugins/build-basic-autotools/build-basic-autotools.c:184
+msgid "_Build"
+msgstr "_Bouwen"
+
+#: plugins/build-basic-autotools/build-basic-autotools.c:90
+msgid "_Build project"
+msgstr "Project _bouwen"
+
+#: plugins/build-basic-autotools/build-basic-autotools.c:91
+msgid "Build whole project"
+msgstr "Het gehele project bouwen"
+
+#: plugins/build-basic-autotools/build-basic-autotools.c:96
+msgid "_Install project"
+msgstr "Project _installeren"
+
+#: plugins/build-basic-autotools/build-basic-autotools.c:97
+msgid "Install whole project"
+msgstr "Hele project installeren"
+
+#: plugins/build-basic-autotools/build-basic-autotools.c:102
+msgid "_Clean project"
+msgstr "Project _schoonmaken"
+
+#: plugins/build-basic-autotools/build-basic-autotools.c:103
+msgid "Clean whole project"
+msgstr "Het gehele project schoonmaken (make clean)"
+
+#: plugins/build-basic-autotools/build-basic-autotools.c:108
+msgid "C_onfigure ..."
+msgstr "_Configureren ..."
+
+#: plugins/build-basic-autotools/build-basic-autotools.c:109
+msgid "Configure project"
+msgstr "Project configureren (make configure)"
+
+#: plugins/build-basic-autotools/build-basic-autotools.c:114
+msgid "_Auto generate ..."
+msgstr "_Autogenereren..."
+
+#: plugins/build-basic-autotools/build-basic-autotools.c:115
+msgid "Autogenrate project files"
+msgstr "Projectbestanden autogenereren (autogen.sh)"
+
+# distributie?
+# waar is project gebleven?
+#: plugins/build-basic-autotools/build-basic-autotools.c:120
+msgid "Build _distribution"
+msgstr "_Distributie bouwen"
+
+#: plugins/build-basic-autotools/build-basic-autotools.c:121
+msgid "Build project distribution"
+msgstr "Projectdistributie bouwen"
+
+#: plugins/build-basic-autotools/build-basic-autotools.c:126
+msgid "_Build module"
+msgstr "_Module bouwen"
+
+#: plugins/build-basic-autotools/build-basic-autotools.c:127
+#: plugins/build-basic-autotools/build-basic-autotools.c:185
+msgid "Build module"
+msgstr "Module bouwen"
+
+#: plugins/build-basic-autotools/build-basic-autotools.c:132
+msgid "_Install module"
+msgstr "M_odule installeren"
+
+#: plugins/build-basic-autotools/build-basic-autotools.c:133
+#: plugins/build-basic-autotools/build-basic-autotools.c:191
+msgid "Install module"
+msgstr "Module installeren"
+
+#: plugins/build-basic-autotools/build-basic-autotools.c:138
+msgid "_Clean module"
+msgstr "Module _schoonmaken"
+
+#: plugins/build-basic-autotools/build-basic-autotools.c:139
+#: plugins/build-basic-autotools/build-basic-autotools.c:197
+msgid "Clean module"
+msgstr "Module schoonmaken"
+
+#: plugins/build-basic-autotools/build-basic-autotools.c:144
+msgid "Co_mpile file"
+msgstr "Bestand _compileren"
+
+#: plugins/build-basic-autotools/build-basic-autotools.c:145
+msgid "Compile current editor file"
+msgstr "Huidige broncodebestand compileren"
+
+#: plugins/build-basic-autotools/build-basic-autotools.c:178
+msgid "_Compile"
+msgstr "_Compileren"
+
+#: plugins/build-basic-autotools/build-basic-autotools.c:179
+msgid "Complie file"
+msgstr "Bestand compileren"
+
+#: plugins/build-basic-autotools/build-basic-autotools.c:190
+msgid "_Install"
+msgstr "_Installeer"
+
+# schonen
+#: plugins/build-basic-autotools/build-basic-autotools.c:196
+msgid "_Clean"
+msgstr "_Schoonmaken"
+
+#: plugins/build-basic-autotools/build-basic-autotools.c:382
+msgid "Popup build commands"
+msgstr "Bouwopdrachten tonen"
+
+#: plugins/build-basic-autotools/build-basic-autotools.c:389
+msgid "Build commands"
+msgstr "Bouwopdrachten"
+
 #: plugins/class-gen/clsGen.c:449
 msgid "Class name not valid"
 msgstr "Klassenaam ongeldig"
@@ -3138,7 +2049,8 @@ msgstr "Klasse-bouwer"
 #: plugins/class-gen/clsGen.c:1343 plugins/debugger/registers_gui.c:56
 #: plugins/debugger/sharedlib_gui.c:49 plugins/debugger/signals_gui.c:63
 #: plugins/debugger/stack_trace.c:381 plugins/debugger/watch_gui.c:74
-#: plugins/project-manager/project_dbase_gui.c:343 src/anjuta-app.c:291
+#: plugins/devhelp/plugin.c:174
+#: plugins/project-manager/project_dbase_gui.c:343 src/anjuta-app.c:354
 #: src/anjuta_gui.c:123
 msgid "Help"
 msgstr "Hulp"
@@ -3451,7 +2363,7 @@ msgstr "Bestand _selecteren"
 msgid "CVS: Diff file"
 msgstr "CVS: Verschillen van bestand opzoeken"
 
-#: plugins/cvs-plugin/cvs_gui.c:229 plugins/editor/plugin.c:364
+#: plugins/cvs-plugin/cvs_gui.c:229 plugins/editor/plugin.c:368
 msgid "Diff"
 msgstr "Diff"
 
@@ -3723,7 +2635,10 @@ msgid ""
 "\n"
 "Well, did you find the BUG? Debugging session completed.\n"
 "\n"
-msgstr "\nEn, heb je de BUG gevonden?  Debugsessie voltooid.\n\n"
+msgstr ""
+"\n"
+"En, heb je de BUG gevonden?  Debugsessie voltooid.\n"
+"\n"
 
 #: plugins/debugger/debugger.c:1202
 msgid "Cannot execute gnome-terminal"
@@ -3819,10 +2734,6 @@ msgstr "Adres niet bereikbaar!"
 msgid "Modify"
 msgstr "Wijzigen"
 
-#: plugins/debugger/registers_gui.c:89
-msgid "CPU Registers"
-msgstr "CPU Registers"
-
 #: plugins/debugger/registers_gui.c:108
 msgid "Register"
 msgstr "Register"
@@ -3850,17 +2761,6 @@ msgstr "Aan"
 #: plugins/debugger/sharedlib_gui.c:113
 msgid "Sysm Read"
 msgstr "Sysm Read"
-
-#. For the time being
-#: plugins/debugger/signals_cbs.c:114 plugins/debugger/signals_cbs.c:127
-#: plugins/debugger/signals_cbs.c:140
-#: plugins/project-manager/project_dbase.c:1466
-#: plugins/project-manager/project_dbase.c:1472
-#: plugins/project-manager/project_dbase.c:1475
-#: plugins/project-manager/project_import_cbs.c:227
-#: plugins/project-wizard/appwizard_cbs.c:282
-msgid "Yes"
-msgstr "Ja"
 
 #: plugins/debugger/signals_cbs.c:116 plugins/debugger/signals_cbs.c:129
 #: plugins/debugger/signals_cbs.c:142
@@ -3891,13 +2791,9 @@ msgstr "Signaal"
 msgid "Stop"
 msgstr "Stoppen"
 
-#: plugins/debugger/signals_gui.c:124 plugins/editor/print.c:1003
+#: plugins/debugger/signals_gui.c:124 plugins/editor/print.c:1035
 msgid "Print"
 msgstr "Afdrukken"
-
-#: plugins/debugger/signals_gui.c:210
-msgid "Set Signal Property"
-msgstr "Zet signaaleigenschap"
 
 #: plugins/debugger/signals_gui.c:253
 msgid " Stop: "
@@ -3906,10 +2802,6 @@ msgstr "Stop"
 #: plugins/debugger/signals_gui.c:257
 msgid " Print: "
 msgstr "Print"
-
-#: plugins/debugger/signals_gui.c:261
-msgid "Pass:"
-msgstr "Passeer:"
 
 #: plugins/debugger/stack_trace.c:317
 msgid "Error getting selection\n"
@@ -4000,7 +2892,26 @@ msgstr "Expressie inspecteren/evalueren"
 msgid "Add To Watch"
 msgstr "Toevoegen aan Watch"
 
-#: plugins/editor/action-callbacks.c:125
+#: plugins/devhelp/plugin.c:167
+msgid "Devhelp navigation operations"
+msgstr "Devhelp navigatiebewerkingen"
+
+#: plugins/devhelp/plugin.c:177
+msgid "Help display"
+msgstr "Hulpweergave"
+
+#: plugins/devhelp/plugin.c:257
+msgid "Contents"
+msgstr "Inhoud"
+
+#: plugins/devhelp/plugin.c:268 plugins/editor/plugin.c:638
+#: plugins/editor/search-replace.c:717 plugins/editor/search-replace.c:1343
+#: plugins/editor/search-replace.c:1350 plugins/editor/search-replace.c:1362
+#: plugins/editor/search-replace.c:1650
+msgid "Search"
+msgstr "Zoeken"
+
+#: plugins/editor/action-callbacks.c:123
 msgid ""
 "The editor is being used as output buffer for an operation.\n"
 "Closing it will result in stopping the process.\n"
@@ -4010,7 +2921,7 @@ msgstr ""
 "Als u deze sluit, zal het proces ook stoppen.\n"
 "Weet u zeker dat u de editor wilt sluiten?"
 
-#: plugins/editor/action-callbacks.c:139
+#: plugins/editor/action-callbacks.c:137
 #, c-format
 msgid ""
 "The file '%s' is not saved.\n"
@@ -4019,12 +2930,12 @@ msgstr ""
 "Het bestand \"%s\" is niet bewaard.\n"
 "Wilt u het bewaren voordat gesloten wordt?"
 
-#: plugins/editor/action-callbacks.c:149
+#: plugins/editor/action-callbacks.c:147
 #: plugins/project-manager/project_dbase_gui.c:1066
 msgid "Do_n't save"
 msgstr "_Niet opslaan"
 
-#: plugins/editor/action-callbacks.c:215
+#: plugins/editor/action-callbacks.c:213
 #, c-format
 msgid ""
 "Are you sure you want to reload '%s'?\n"
@@ -4033,20 +2944,20 @@ msgstr ""
 "Weet u zeker dat u '%s' wilt herladen? \n"
 "Aanpassingen die niet bewaard zijn, zullen verloren gaan."
 
-#: plugins/editor/action-callbacks.c:226 plugins/editor/text_editor.c:1311
+#: plugins/editor/action-callbacks.c:224 plugins/editor/text_editor.c:1330
 msgid "_Reload"
 msgstr "He_rladen"
 
-#: plugins/editor/action-callbacks.c:814
+#: plugins/editor/action-callbacks.c:945
 #, c-format
 msgid "There is no line number %d in \"%s\"."
 msgstr "Er is geen regelnummer %d in \"%s\"."
 
-#: plugins/editor/action-callbacks.c:1363
+#: plugins/editor/action-callbacks.c:1626
 msgid "No matches. Wrap search around the document?"
 msgstr "Geen overeenkomsten. Zoeken van het het begin van het document?"
 
-#: plugins/editor/anjuta-docman.c:323 src/anjuta_cbs.c:426
+#: plugins/editor/anjuta-docman.c:300 src/anjuta_cbs.c:426
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -4055,22 +2966,16 @@ msgstr ""
 "Het bestand '%s' bestaat al.\n"
 "Wilt u het vervangen door de versie die u nu aan het opslaan bent?"
 
-#: plugins/editor/anjuta-docman.c:330 src/anjuta-callbacks.c:258
+#: plugins/editor/anjuta-docman.c:307 src/anjuta-callbacks.c:258
 #: src/anjuta_cbs.c:433 src/anjuta_cbs.c:497
 msgid "_Replace"
 msgstr "_Vervangen"
 
-#. Must declare static, because it will be used forever
-#: plugins/editor/anjuta-docman.c:361
-msgid "Open File"
-msgstr "Bestand openen"
+#: plugins/editor/anjuta-docman.c:348
+msgid "Save file as"
+msgstr "Bestand opslaan als"
 
-#. Must declare static, because it will be used forever
-#: plugins/editor/anjuta-docman.c:367
-msgid "Save File As"
-msgstr "Bewaar bestand als"
-
-#: plugins/editor/anjuta-docman.c:512
+#: plugins/editor/anjuta-docman.c:509
 msgid "Recent Files "
 msgstr "Recente bestanden "
 
@@ -4131,1065 +3036,1126 @@ msgstr "%Y-%m-%d"
 msgid " Goto Line number "
 msgstr " Ga naar regel "
 
-#: plugins/editor/plugin.c:41
+#: plugins/editor/plugin.c:46
 msgid "_New"
 msgstr "_Nieuw"
 
-#: plugins/editor/plugin.c:44
+#: plugins/editor/plugin.c:48
 msgid "_Open ..."
 msgstr "_Openen ..."
 
-#: plugins/editor/plugin.c:47
+#: plugins/editor/plugin.c:50
 msgid "_Save"
 msgstr "Op_slaan"
 
-#: plugins/editor/plugin.c:48 src/toolbar.c:84
+#: plugins/editor/plugin.c:51 src/toolbar.c:84
 msgid "Save current file"
 msgstr "Bewaar huidig bestand"
 
-#: plugins/editor/plugin.c:50
+#: plugins/editor/plugin.c:52
 msgid "Save _As ..."
 msgstr "Opslaan _als ..."
 
-#: plugins/editor/plugin.c:51
+#: plugins/editor/plugin.c:53
 msgid "Save the current file with a different name"
 msgstr "Het huidige bestand opslaan onder een andere naam"
 
-#: plugins/editor/plugin.c:53
+#: plugins/editor/plugin.c:55
 msgid "Save A_ll"
 msgstr "A_lles opslaan"
 
-#: plugins/editor/plugin.c:54
+#: plugins/editor/plugin.c:56
 msgid "Save all currently open files, except new files"
 msgstr "Alle huidige open bestanden opslaan, behalve nieuwe bestanden"
 
-#: plugins/editor/plugin.c:56
+#: plugins/editor/plugin.c:58
 msgid "_Close File"
 msgstr "Bestand _sluiten"
 
-#: plugins/editor/plugin.c:57 src/toolbar.c:92
+#: plugins/editor/plugin.c:59 src/toolbar.c:92
 msgid "Close current file"
 msgstr "Huidige bestand sluiten"
 
-#: plugins/editor/plugin.c:59
+#: plugins/editor/plugin.c:61
 msgid "Close All Files"
 msgstr "Alle bestanden sluiten"
 
-#: plugins/editor/plugin.c:60
+#: plugins/editor/plugin.c:62
 msgid "Close all files"
 msgstr "Alle bestanden sluiten"
 
-#: plugins/editor/plugin.c:62
+#: plugins/editor/plugin.c:64
 msgid "Reload F_ile"
 msgstr "Bestand _herladen"
 
-#: plugins/editor/plugin.c:63 src/toolbar.c:88
+#: plugins/editor/plugin.c:65 src/toolbar.c:88
 msgid "Reload current file"
 msgstr "Huidig bestand herladen"
 
-#: plugins/editor/plugin.c:65
+#: plugins/editor/plugin.c:67
 msgid "Recent _Files"
 msgstr "_Recente Bestanden"
 
-#: plugins/editor/plugin.c:69
+#: plugins/editor/plugin.c:71
 msgid "_Print"
 msgstr "Af_drukken"
 
-#: plugins/editor/plugin.c:70 src/toolbar.c:110
+#: plugins/editor/plugin.c:72 src/toolbar.c:110
 msgid "Print the current file"
 msgstr "Het huidige bestand afdrukken"
 
-#: plugins/editor/plugin.c:72
+#: plugins/editor/plugin.c:73
 msgid "_Print Preview"
 msgstr "Afdruk_voorbeeld"
 
-#: plugins/editor/plugin.c:73
+#: plugins/editor/plugin.c:74
 msgid "Print preview of the current file"
 msgstr "Een voorbeeld van het huidige bestand afdrukken"
 
-#: plugins/editor/plugin.c:78
+#: plugins/editor/plugin.c:79
 msgid "_Transform"
 msgstr "_Transformeren"
 
-#: plugins/editor/plugin.c:79
+#: plugins/editor/plugin.c:80
 msgid "_Make Selection Uppercase"
 msgstr "_Maak selectie Hoofdletters"
 
-#: plugins/editor/plugin.c:80
+#: plugins/editor/plugin.c:81
 msgid "Make the selected text uppercase"
 msgstr "Maak de geselecteerde tekst hoofdletters"
 
-#: plugins/editor/plugin.c:82
+#: plugins/editor/plugin.c:83
 msgid "Make Selection Lowercase"
 msgstr "Maak selectie kleine letters"
 
-#: plugins/editor/plugin.c:83
+#: plugins/editor/plugin.c:84
 msgid "Make the selected text lowercase"
 msgstr "Maak de gesecteerde tekst kleine letters"
 
-#: plugins/editor/plugin.c:85
+#: plugins/editor/plugin.c:86
 msgid "Convert EOL chars to CRLF"
 msgstr "EOL tekens omzetten naar CRLF"
 
-#: plugins/editor/plugin.c:86
+#: plugins/editor/plugin.c:87
 msgid "Convert End Of Line characters to DOS EOL (CRLF)"
 msgstr "End of Line tekens omzetten naar DOS EOL (CRLF)"
 
-#: plugins/editor/plugin.c:88
+#: plugins/editor/plugin.c:89
 msgid "Convert EOL chars to LF"
 msgstr "EOL tekens omzetten naar LF"
 
-#: plugins/editor/plugin.c:89
+#: plugins/editor/plugin.c:90
 msgid "Convert End Of Line characters to Unix EOL (LF)"
 msgstr "End of Line tekens omzetten naar Unix EOL (LF)"
 
-#: plugins/editor/plugin.c:91
+#: plugins/editor/plugin.c:92
 msgid "Convert EOL chars to CR"
 msgstr "EOL tekens omzetten naar CR"
 
-#: plugins/editor/plugin.c:92
+#: plugins/editor/plugin.c:93
 msgid "Convert End Of Line characters to Mac OS EOL (CR)"
 msgstr "End of Line tekens omzetten naar Mac OS EOL (CR)"
 
-#: plugins/editor/plugin.c:94
+#: plugins/editor/plugin.c:95
 msgid "Convert EOL chars to majority EOL"
 msgstr "EOL tekens omzetten naar meerderheid EOL"
 
-#: plugins/editor/plugin.c:95
+#: plugins/editor/plugin.c:96
 msgid "Convert End Of Line characters to majority of the EOL found in the file"
 msgstr ""
 "End of Line tekens omzetten naar de meerderheid van de EOL tekens aanwezig "
 "in het bestand"
 
-#: plugins/editor/plugin.c:100
+#: plugins/editor/plugin.c:101
 msgid "_Select"
 msgstr "_Selecteren"
 
-#: plugins/editor/plugin.c:101
+#: plugins/editor/plugin.c:102
 msgid "Select _All"
 msgstr "_Alles selecteren"
 
-#: plugins/editor/plugin.c:102
+#: plugins/editor/plugin.c:103
 msgid "Select all text in the editor"
 msgstr "Volledige tekst in de editor selecteren"
 
-#: plugins/editor/plugin.c:104
+#: plugins/editor/plugin.c:105
 msgid "Select to _Brace"
 msgstr "Tot aan _Haakje selecteren"
 
-#: plugins/editor/plugin.c:105
+#: plugins/editor/plugin.c:106
 msgid "Select the text in the matching braces"
 msgstr "De tekst in de overeenkomstige haakjes selecteren"
 
-#: plugins/editor/plugin.c:107
+#: plugins/editor/plugin.c:108
 msgid "Select _Code Block"
 msgstr "_Codeblok selecteren"
 
-#: plugins/editor/plugin.c:109
+#: plugins/editor/plugin.c:110
 msgid "Select the current code block"
 msgstr "Het huidige codeblok selecteren"
 
-#: plugins/editor/plugin.c:114
+#: plugins/editor/plugin.c:115
 msgid "_Insert text"
 msgstr "Tekst _invoeren"
 
-#: plugins/editor/plugin.c:115
+#: plugins/editor/plugin.c:116
 msgid "C _template"
 msgstr "C-s_jabloon"
 
-#: plugins/editor/plugin.c:116
+#: plugins/editor/plugin.c:117
 msgid "_CVS keyword"
 msgstr "_CVS sleutelwoord"
 
-#: plugins/editor/plugin.c:117
+#: plugins/editor/plugin.c:118
 msgid "_General"
 msgstr "Al_gemeen"
 
-#: plugins/editor/plugin.c:118 plugins/editor/plugin.c:160
+#: plugins/editor/plugin.c:119 plugins/editor/plugin.c:161
 msgid "_Header"
 msgstr "_Header"
 
-#: plugins/editor/plugin.c:119
+#: plugins/editor/plugin.c:120
 msgid "Insert a file header"
 msgstr "Bestandsheader invoegen"
 
-#: plugins/editor/plugin.c:121
+#: plugins/editor/plugin.c:122
 msgid "/_* GPL Notice */"
 msgstr "/_* GPL mededeling */"
 
-#: plugins/editor/plugin.c:122
+#: plugins/editor/plugin.c:123
 msgid "Insert GPL notice with C style comments"
 msgstr "GPL mededeling met C-stijl commentaar invoegen"
 
-#: plugins/editor/plugin.c:124
+#: plugins/editor/plugin.c:125
 msgid "/_/ GPL Notice"
 msgstr "/_/ GPL mededeling"
 
-#: plugins/editor/plugin.c:125
+#: plugins/editor/plugin.c:126
 msgid "Insert GPL notice with C++ style comments"
 msgstr "GPL mededeling met C++-stijl commentaar invoegen"
 
-#: plugins/editor/plugin.c:127
+#: plugins/editor/plugin.c:128
 msgid "_# GPL Notice"
 msgstr "_# GPL mededeling"
 
-#: plugins/editor/plugin.c:128
+#: plugins/editor/plugin.c:129
 msgid "Insert GPL notice with Python style comments"
 msgstr "GPL mededeling met Python-stijl commentaar invoegen"
 
-#: plugins/editor/plugin.c:130
+#: plugins/editor/plugin.c:131
 msgid "Current _Username"
 msgstr "Huidige _gebruikersnaam"
 
-#: plugins/editor/plugin.c:131
+#: plugins/editor/plugin.c:132
 msgid "Insert name of current user"
 msgstr "Naam van huidige gebruiker invoegen"
 
-#: plugins/editor/plugin.c:133
+#: plugins/editor/plugin.c:134
 msgid "Current _Date & Time"
 msgstr "Huidige _Datum & Tijd"
 
-#: plugins/editor/plugin.c:134
+#: plugins/editor/plugin.c:135
 msgid "Insert current date & time"
 msgstr "Huidige datum & tijd invoegen"
 
-#: plugins/editor/plugin.c:136
+#: plugins/editor/plugin.c:137
 msgid "Header File _Template"
 msgstr "Headerbestand _sjabloon"
 
-#: plugins/editor/plugin.c:137
+#: plugins/editor/plugin.c:138
 msgid "Insert a standard header file template"
 msgstr "Een standaardsjabloon voor een headerbestand invoegen"
 
-#: plugins/editor/plugin.c:139
+#: plugins/editor/plugin.c:140
 msgid "ChangeLog entry"
 msgstr "ChangeLog onderdeel"
 
-#: plugins/editor/plugin.c:140
+#: plugins/editor/plugin.c:141
 msgid "Insert a ChangeLog entry"
 msgstr "Een ChangeLog onderdeel invoeren"
 
 # dit is een programmeerterm, moet niet vertaald worden
-#: plugins/editor/plugin.c:142
+#: plugins/editor/plugin.c:143
 msgid "_switch"
 msgstr "_switch"
 
-#: plugins/editor/plugin.c:143
+#: plugins/editor/plugin.c:144
 msgid "Insert a switch template"
 msgstr "Een switch-sjabloon invoegen"
 
-#: plugins/editor/plugin.c:145
+#: plugins/editor/plugin.c:146
 msgid "_for"
 msgstr "_for"
 
-#: plugins/editor/plugin.c:146
+#: plugins/editor/plugin.c:147
 msgid "Insert a for template"
 msgstr "Een for-sjabloon invoegen"
 
-#: plugins/editor/plugin.c:148
+#: plugins/editor/plugin.c:149
 msgid "_while"
 msgstr "_while"
 
-#: plugins/editor/plugin.c:149
+#: plugins/editor/plugin.c:150
 msgid "Insert a while template"
 msgstr "Een while-sjabloon invoegen"
 
-#: plugins/editor/plugin.c:151
+#: plugins/editor/plugin.c:152
 msgid "_if...else"
 msgstr "_if...else"
 
-#: plugins/editor/plugin.c:152
+#: plugins/editor/plugin.c:153
 msgid "Insert an if...else template"
 msgstr "Een if...else-sjabloon invoegen"
 
-#: plugins/editor/plugin.c:154
+#: plugins/editor/plugin.c:155
 msgid "_Author"
 msgstr "_Auteur"
 
-#: plugins/editor/plugin.c:155
+#: plugins/editor/plugin.c:156
 msgid "Insert the CVS Author keyword (author of the change)"
 msgstr "CVS-auteur invoegen (auteur van de verandering)"
 
-#: plugins/editor/plugin.c:157
+#: plugins/editor/plugin.c:158
 msgid "_Date"
 msgstr "_Datum"
 
-#: plugins/editor/plugin.c:158
+#: plugins/editor/plugin.c:159
 msgid "Insert the CVS Date keyword (date and time of the change)"
 msgstr "CVS-datum invoegen (datum en tijd van de verandering)"
 
-#: plugins/editor/plugin.c:161
+#: plugins/editor/plugin.c:162
 msgid "Insert the CVS Header keyword (full path revision, date, author, state)"
-msgstr "CVS-header sleutelwoord invoegen (volledig pad revisie, datum, auteur, toestand)"
+msgstr ""
+"CVS-header sleutelwoord invoegen (volledig pad revisie, datum, auteur, "
+"toestand)"
 
-#: plugins/editor/plugin.c:163
+#: plugins/editor/plugin.c:164
 msgid "_Id"
 msgstr "_Id"
 
-#: plugins/editor/plugin.c:164
+#: plugins/editor/plugin.c:165
 msgid "Insert the CVS Id keyword (file revision, date, author)"
 msgstr "Het CVS-Id sleutelwoord invoegen (bestandsrevisie, datum, auteur)"
 
-#: plugins/editor/plugin.c:166
+#: plugins/editor/plugin.c:167
 msgid "_Log"
 msgstr "_Loggen"
 
-#: plugins/editor/plugin.c:167
+#: plugins/editor/plugin.c:168
 msgid "Insert the CVS Log keyword (log message)"
 msgstr "CVS-log invoegen (logboekbericht)"
 
-#: plugins/editor/plugin.c:169
+#: plugins/editor/plugin.c:170
 msgid "_Name"
 msgstr "_Naam"
 
-#: plugins/editor/plugin.c:170
+#: plugins/editor/plugin.c:171
 msgid "Insert the CVS Name keyword (name of the sticky tag)"
 msgstr "CVS-naam invoegen (naam van de sticky-tag)"
 
-#: plugins/editor/plugin.c:172
+#: plugins/editor/plugin.c:173
 msgid "_Revision"
 msgstr "_Revisie"
 
-#: plugins/editor/plugin.c:173
+#: plugins/editor/plugin.c:174
 msgid "Insert the CVS Revision keyword (revision number)"
 msgstr "CVS-revisie invoegen (revisienummer)"
 
-#: plugins/editor/plugin.c:175
+#: plugins/editor/plugin.c:176
 msgid "_Source"
 msgstr "_Bron"
 
-#: plugins/editor/plugin.c:176
+#: plugins/editor/plugin.c:177
 msgid "Insert the CVS Source keyword (full path)"
 msgstr "CVS-broncode invoegen (volledig pad)"
 
-#: plugins/editor/plugin.c:181
+#: plugins/editor/plugin.c:182
 msgid "_Search"
 msgstr "_Zoeken"
 
-#: plugins/editor/plugin.c:182
+#: plugins/editor/plugin.c:183
 msgid "_Find ..."
 msgstr "_Zoeken ..."
 
-#: plugins/editor/plugin.c:183
+#: plugins/editor/plugin.c:184
 msgid "Search for a string or regular expression in the editor"
 msgstr "Naar een tekenreeks of reguliere expressie zoeken in de editor"
 
-#: plugins/editor/plugin.c:185
+#: plugins/editor/plugin.c:186
 msgid "Find _Next"
 msgstr "Vo_lgende zoeken"
 
-#: plugins/editor/plugin.c:186 plugins/editor/plugin.c:190
+#: plugins/editor/plugin.c:187 plugins/editor/plugin.c:191
 msgid "Repeat the last Find command"
 msgstr "De vorige zoekopdracht herhalen"
 
-#: plugins/editor/plugin.c:188
+#: plugins/editor/plugin.c:189
 msgid "Find _Previous"
 msgstr "Vo_rige zoeken"
 
-#: plugins/editor/plugin.c:192
+#: plugins/editor/plugin.c:193
 msgid "Find and R_eplace ..."
 msgstr "Zoeken en V_ervangen ..."
 
-#: plugins/editor/plugin.c:194
+#: plugins/editor/plugin.c:195
 #, fuzzy
 msgid ""
 "Search for and replace a string or regular expression with another string"
 msgstr ""
 "Zoek naar en vervang een tekst of reguliere expressie met een andere tekst"
 
-#: plugins/editor/plugin.c:196
+#: plugins/editor/plugin.c:197
 #, fuzzy
 msgid "Advanced Search And Replace"
 msgstr "Zoek en vervang de opgegeven tekst"
 
-#: plugins/editor/plugin.c:198
+#: plugins/editor/plugin.c:199
 #, fuzzy
 msgid "New advance search And replace stuff"
 msgstr "Zoek en vervang de opgegeven tekst"
 
-#: plugins/editor/plugin.c:200
+#: plugins/editor/plugin.c:201
 #, fuzzy
 msgid "_Enter Selection/I-Search"
 msgstr "_Maak selectie Hoofdletters"
 
-#: plugins/editor/plugin.c:202
+#: plugins/editor/plugin.c:203
 #, fuzzy
 msgid "Enter the selected text as the search target"
 msgstr "Verwijder de geselecteerde tekst van de editor"
 
-#: plugins/editor/plugin.c:204
+#: plugins/editor/plugin.c:205
 msgid "Fin_d in Files ..."
 msgstr "Zoeken in _bestanden ..."
 
-#: plugins/editor/plugin.c:205
+#: plugins/editor/plugin.c:206
 msgid "Search for a string in multiple files or directories"
 msgstr "Zoek naar een tekst in meerdere bestanden of directories"
 
-#: plugins/editor/plugin.c:210
+#: plugins/editor/plugin.c:211
 msgid "Co_mment code"
 msgstr "Co_mmentaarcode"
 
-#: plugins/editor/plugin.c:211
+#: plugins/editor/plugin.c:212
 msgid "_Block Comment/Uncomment"
 msgstr "_Blok commentaar zetten/verwijderen"
 
-#: plugins/editor/plugin.c:212
+#: plugins/editor/plugin.c:213
 msgid "Block comment the selected text"
 msgstr "Blok commentaar voor de geselecteerde tekst"
 
-#: plugins/editor/plugin.c:214
+#: plugins/editor/plugin.c:215
 msgid "Bo_x Comment/Uncomment"
 msgstr "_Kader commentaar zetten/verwijderen"
 
-#: plugins/editor/plugin.c:215
+#: plugins/editor/plugin.c:216
 msgid "Box comment the selected text"
 msgstr "Kader commentaar voor de geselecteerde tekst"
 
-#: plugins/editor/plugin.c:217
+#: plugins/editor/plugin.c:218
 msgid "_Stream Comment/Uncomment"
 msgstr "_Stroom commentaar zetten/verwijderen"
 
-#: plugins/editor/plugin.c:218
+#: plugins/editor/plugin.c:219
 msgid "Stream comment the selected text"
 msgstr "Stroom commentaar voor de geselecteerde tekst"
 
-#: plugins/editor/plugin.c:223
+#: plugins/editor/plugin.c:224
 msgid "_Goto Line number"
 msgstr "_Ga naar regel"
 
-#: plugins/editor/plugin.c:225 plugins/editor/plugin.c:229
+#: plugins/editor/plugin.c:226 plugins/editor/plugin.c:230
 msgid "Go to a particular line in the editor"
 msgstr "Ga naar een specifieke regel in de editor"
 
-#: plugins/editor/plugin.c:227
+#: plugins/editor/plugin.c:228
 msgid "_Line number ..."
 msgstr "_Regelnummer ..."
 
-#: plugins/editor/plugin.c:231
+#: plugins/editor/plugin.c:232
 msgid "Matching _Brace"
 msgstr "Overeenkomstig _Haakje"
 
-#: plugins/editor/plugin.c:233
+#: plugins/editor/plugin.c:234
 msgid "Go to the matching brace in the editor"
 msgstr "Ga naar naar het bijpassende haakje in de editor"
 
-#: plugins/editor/plugin.c:235
+#: plugins/editor/plugin.c:236
 msgid "_Start of block"
 msgstr "_Begin van blok"
 
-#: plugins/editor/plugin.c:237
+#: plugins/editor/plugin.c:238
 msgid "Go to the start of the current block"
 msgstr "Ga naar het begin van het huidige blok"
 
-#: plugins/editor/plugin.c:239
+#: plugins/editor/plugin.c:240
 msgid "_End of block"
 msgstr "_Eind van blok"
 
-#: plugins/editor/plugin.c:241
+#: plugins/editor/plugin.c:242
 msgid "Go to the end of the current block"
 msgstr "Ga naar het einde van het huidige blok"
 
-#: plugins/editor/plugin.c:243
+#: plugins/editor/plugin.c:244
 msgid "Ne_xt occurrence"
 msgstr "Vo_lgende overeenkomst"
 
-#: plugins/editor/plugin.c:245
+#: plugins/editor/plugin.c:246
 msgid "Find the next occurrence of current word"
 msgstr "De volgende overeenkomende tekenreeks opzoeken"
 
-#: plugins/editor/plugin.c:247
+#: plugins/editor/plugin.c:248
 msgid "Pre_vious occurrence"
 msgstr "Vo_rige overeenkomst"
 
-#: plugins/editor/plugin.c:249
+#: plugins/editor/plugin.c:250
 msgid "Find the previous occurrence of current word"
 msgstr "De vorige overeenkomende tekenreeks opzoeken"
 
-#. { "ActionMenuEdit", N_("_Edit"), NULL, NULL, NULL, NULL, NULL },
-#: plugins/editor/plugin.c:255
-msgid "U_ndo"
-msgstr "_Ongedaan maken"
-
-#: plugins/editor/plugin.c:256 src/toolbar.c:97
-msgid "Undo the last action"
-msgstr "Laatste bewerking ongedaan maken"
-
-#: plugins/editor/plugin.c:258
-msgid "_Redo"
-msgstr "O_pnieuw"
-
-#: plugins/editor/plugin.c:259 src/toolbar.c:101
-msgid "Redo the last undone action"
-msgstr "Doe de laatste ongedane aktie opnieuw"
-
-#: plugins/editor/plugin.c:262
-msgid "Cut the selected text from the editor to the clipboard"
-msgstr "Knipt de geselecteerde tekst van de editor naar het klembord"
-
-#: plugins/editor/plugin.c:268
-msgid "Paste the content of clipboard at the current position"
-msgstr "Plakt de inhoud van het klembord op de huidige positie"
-
-#: plugins/editor/plugin.c:270
-msgid "_Clear"
-msgstr "_Wissen"
-
-#: plugins/editor/plugin.c:271
-msgid "Delete the selected text from the editor"
-msgstr "Verwijder de geselecteerde tekst van de editor"
-
-#: plugins/editor/plugin.c:273
-msgid "_AutoComplete"
-msgstr "_AutoCompleet"
-
-#: plugins/editor/plugin.c:275
-msgid "AutoComplete the current word"
-msgstr "Maakt het huidige woord automatisch af"
-
-#: plugins/editor/plugin.c:277
-msgid "S_how calltip"
-msgstr "T_oon aanroeptip"
-
-#: plugins/editor/plugin.c:278
-msgid "Show calltip for the function"
-msgstr "Toont de tip om de functie aan te roepen"
-
-#: plugins/editor/plugin.c:283
+#: plugins/editor/plugin.c:256
 msgid "_Editor"
 msgstr "_Editor"
 
-#: plugins/editor/plugin.c:284
+#: plugins/editor/plugin.c:257
+msgid "U_ndo"
+msgstr "_Ongedaan maken"
+
+#: plugins/editor/plugin.c:258 src/toolbar.c:97
+msgid "Undo the last action"
+msgstr "Laatste bewerking ongedaan maken"
+
+#: plugins/editor/plugin.c:260
+msgid "_Redo"
+msgstr "O_pnieuw"
+
+#: plugins/editor/plugin.c:261 src/toolbar.c:101
+msgid "Redo the last undone action"
+msgstr "Doe de laatste ongedane aktie opnieuw"
+
+#: plugins/editor/plugin.c:263
+msgid "C_ut"
+msgstr "K_nippen"
+
+#: plugins/editor/plugin.c:264
+msgid "Cut the selected text from the editor to the clipboard"
+msgstr "Knipt de geselecteerde tekst van de editor naar het klembord"
+
+#: plugins/editor/plugin.c:266
+msgid "_Copy"
+msgstr "_Kopiëren"
+
+#: plugins/editor/plugin.c:267
+msgid "Copy the selected text to the clipboard"
+msgstr "De geselecteerde tekst naar het klembord kopiÃ«ren"
+
+# Marc says: I did not translate because it would change the wellthought hotkeys. The dutch word is Plakken
+#: plugins/editor/plugin.c:269
+msgid "_Paste"
+msgstr "_Plakken"
+
+#: plugins/editor/plugin.c:270
+msgid "Paste the content of clipboard at the current position"
+msgstr "Plakt de inhoud van het klembord op de huidige positie"
+
+#: plugins/editor/plugin.c:272
+msgid "_Clear"
+msgstr "_Wissen"
+
+#: plugins/editor/plugin.c:273
+msgid "Delete the selected text from the editor"
+msgstr "Verwijder de geselecteerde tekst van de editor"
+
+#: plugins/editor/plugin.c:275
+msgid "_AutoComplete"
+msgstr "_AutoCompleet"
+
+#: plugins/editor/plugin.c:277
+msgid "AutoComplete the current word"
+msgstr "Maakt het huidige woord automatisch af"
+
+#: plugins/editor/plugin.c:279
+msgid "S_how calltip"
+msgstr "T_oon aanroeptip"
+
+#: plugins/editor/plugin.c:280
+msgid "Show calltip for the function"
+msgstr "Toont de tip om de functie aan te roepen"
+
+#: plugins/editor/plugin.c:285
 msgid "_Line numbers margin"
 msgstr "Marge Rege_lnummers"
 
-#: plugins/editor/plugin.c:285
+#: plugins/editor/plugin.c:286
 msgid "Show/Hide line numbers"
 msgstr "Verberg/Toon regelnummers"
 
-#: plugins/editor/plugin.c:287
+#: plugins/editor/plugin.c:288
 msgid "_Markers Margin"
 msgstr "Marges _Markeerders"
 
-#: plugins/editor/plugin.c:288
+#: plugins/editor/plugin.c:289
 msgid "Show/Hide markers margin"
 msgstr "Verberg/Toon markeerders marge"
 
-#: plugins/editor/plugin.c:290
+#: plugins/editor/plugin.c:291
 msgid "_Code fold margin"
 msgstr "_Code omloop marge"
 
-#: plugins/editor/plugin.c:291
+#: plugins/editor/plugin.c:292
 msgid "Show/Hide code fold margin"
 msgstr "Toon/Verberg code omloop marge"
 
-#: plugins/editor/plugin.c:293
+#: plugins/editor/plugin.c:294
 msgid "_Indentation guides"
 msgstr "_Inspringregels"
 
-#: plugins/editor/plugin.c:294
+#: plugins/editor/plugin.c:295
 msgid "Show/Hide indentation guides"
 msgstr "Inspringregels tonen/verbergen"
 
-#: plugins/editor/plugin.c:296
+#: plugins/editor/plugin.c:297
 msgid "_White spaces"
 msgstr "_Spatiëring"
 
-#: plugins/editor/plugin.c:297
+#: plugins/editor/plugin.c:298
 msgid "Show/Hide white spaces"
 msgstr "Spatiëring tonen/verbergen"
 
-#: plugins/editor/plugin.c:299
+#: plugins/editor/plugin.c:300
 msgid "_Line end characters"
 msgstr "_Regeleinde tekens"
 
-#: plugins/editor/plugin.c:300
+#: plugins/editor/plugin.c:301
 msgid "Show/Hide line end characters"
 msgstr "Regeleindetekens tonen/verbergen"
 
-#: plugins/editor/plugin.c:302
+#: plugins/editor/plugin.c:303
 msgid "Line _wrapping"
 msgstr "Regel_afbreking"
 
-#: plugins/editor/plugin.c:303
+#: plugins/editor/plugin.c:304
 msgid "Enable/disable line wrapping"
 msgstr "Regelafbreking in-/uitschakelen"
 
-#: plugins/editor/plugin.c:305
+#: plugins/editor/plugin.c:309
 msgid "Zoom in"
 msgstr "Inzoomen"
 
-#: plugins/editor/plugin.c:306
+#: plugins/editor/plugin.c:310
 msgid "Zoom in: Increase font size"
 msgstr "Inzoomen: Groter lettertype"
 
-#: plugins/editor/plugin.c:308
+#: plugins/editor/plugin.c:312
 msgid "Zoom out"
 msgstr "Uitzoomen"
 
-#: plugins/editor/plugin.c:309
+#: plugins/editor/plugin.c:313
 msgid "Zoom out: Decrease font size"
 msgstr "Uitzoomen: Kleiner lettertype"
 
-#: plugins/editor/plugin.c:314
+#: plugins/editor/plugin.c:318
 msgid "Force _Highlight Style"
 msgstr "Forceer _Belichtingsstijl"
 
-#: plugins/editor/plugin.c:316
+#: plugins/editor/plugin.c:320
 msgid "Automatic"
 msgstr "Automatisch"
 
-#: plugins/editor/plugin.c:317
+#: plugins/editor/plugin.c:321
 msgid "Automatically determine the highlight style"
 msgstr "Bepaal de belichtingsstijl automatisch"
 
-#: plugins/editor/plugin.c:319
+#: plugins/editor/plugin.c:323
 msgid "No Highlight style"
 msgstr "Geen belichtingsstijl"
 
-#: plugins/editor/plugin.c:320
+#: plugins/editor/plugin.c:324
 msgid "Remove the current highlight style"
 msgstr "De huidige belichtingsstijl verwijderen"
 
-#: plugins/editor/plugin.c:322
+#: plugins/editor/plugin.c:326
 msgid "C and C++"
 msgstr "C en C++"
 
-#: plugins/editor/plugin.c:323
+#: plugins/editor/plugin.c:327
 msgid "Force the highlight style to C and C++"
 msgstr "Forceer de belichtingsstijl naar C en C++"
 
-#: plugins/editor/plugin.c:325
+#: plugins/editor/plugin.c:329
 msgid "HTML"
 msgstr "HTML"
 
-#: plugins/editor/plugin.c:326
+#: plugins/editor/plugin.c:330
 msgid "Force the highlight style to HTML"
 msgstr "Forceer de belichtingsstijl naar HTML"
 
-#: plugins/editor/plugin.c:328
+#: plugins/editor/plugin.c:332
 msgid "XML"
 msgstr "XML"
 
-#: plugins/editor/plugin.c:329
+#: plugins/editor/plugin.c:333
 msgid "Force the highlight style to XML"
 msgstr "Forceer de belichtingsstijl naar XML"
 
-#: plugins/editor/plugin.c:331
+#: plugins/editor/plugin.c:335
 msgid "Javascript"
 msgstr "Javascript"
 
-#: plugins/editor/plugin.c:332
+#: plugins/editor/plugin.c:336
 msgid "Force the highlight style to Javascript"
 msgstr "Forceer de belichtingsstijl naar Javascript"
 
-#: plugins/editor/plugin.c:334
+#: plugins/editor/plugin.c:338
 msgid "WScript"
 msgstr "WScript"
 
-#: plugins/editor/plugin.c:335
+#: plugins/editor/plugin.c:339
 msgid "Force the highlight style to WScript"
 msgstr "Forceer de belichtingsstijl naar WScript"
 
-#: plugins/editor/plugin.c:337
+#: plugins/editor/plugin.c:341
 msgid "Makefile"
 msgstr "Makefile"
 
-#: plugins/editor/plugin.c:338
+#: plugins/editor/plugin.c:342
 msgid "Force the highlight style to Makefile"
 msgstr "Forceer de belichtingsstijl naar Makefile"
 
-#: plugins/editor/plugin.c:340
+#: plugins/editor/plugin.c:344
 msgid "Java"
 msgstr "Java"
 
-#: plugins/editor/plugin.c:341
+#: plugins/editor/plugin.c:345
 msgid "Force the highlight type to Java"
 msgstr "Forceer de belichtingsstijl naar Java"
 
-#: plugins/editor/plugin.c:343
+#: plugins/editor/plugin.c:347
 msgid "LUA"
 msgstr "LUA"
 
-#: plugins/editor/plugin.c:344
+#: plugins/editor/plugin.c:348
 msgid "Force the highlight style to LUA"
 msgstr "Forceer de belichtingsstijl naar LUA"
 
-#: plugins/editor/plugin.c:346
+#: plugins/editor/plugin.c:350
 msgid "Python"
 msgstr "Python"
 
-#: plugins/editor/plugin.c:347
+#: plugins/editor/plugin.c:351
 msgid "Force the highlight style to Python"
 msgstr "Forceer de belichtingsstijl naar Python"
 
-#: plugins/editor/plugin.c:349
+#: plugins/editor/plugin.c:353
 msgid "Perl"
 msgstr "Perl"
 
-#: plugins/editor/plugin.c:350
+#: plugins/editor/plugin.c:354
 msgid "Force the highlight style to Perl"
 msgstr "Forceer de belichtingsstijl naar Perl"
 
-#: plugins/editor/plugin.c:352
+#: plugins/editor/plugin.c:356
 msgid "SQL"
 msgstr "SQL"
 
-#: plugins/editor/plugin.c:353
+#: plugins/editor/plugin.c:357
 msgid "Force the highlight style to SQL"
 msgstr "Forceer de belichtingsstijl naar SQL"
 
-#: plugins/editor/plugin.c:355
+#: plugins/editor/plugin.c:359
 msgid "PL/SQL"
 msgstr "PL/SQL"
 
-#: plugins/editor/plugin.c:356
+#: plugins/editor/plugin.c:360
 msgid "Force the highlight style to PL/SQL"
 msgstr "Forceer de belichtingsstijl naar PL/SQL"
 
-#: plugins/editor/plugin.c:358
+#: plugins/editor/plugin.c:362
 msgid "PHP"
 msgstr "PHP"
 
-#: plugins/editor/plugin.c:359
+#: plugins/editor/plugin.c:363
 msgid "Force the highlight style to PHP"
 msgstr "Forceer de belichtingsstijl naar PHP"
 
-#: plugins/editor/plugin.c:361
+#: plugins/editor/plugin.c:365
 msgid "LaTex"
 msgstr "LaTex"
 
-#: plugins/editor/plugin.c:362
+#: plugins/editor/plugin.c:366
 msgid "Force the highlight style to LaTex"
 msgstr "Forceer de belichtingsstijl naar LaTex"
 
-#: plugins/editor/plugin.c:365
+#: plugins/editor/plugin.c:369
 msgid "Force the highlight style to Diff"
 msgstr "Forceer de belichtingsstijl naar Diff"
 
-#: plugins/editor/plugin.c:367
+#: plugins/editor/plugin.c:371
 msgid "Pascal"
 msgstr "Pascal"
 
-#: plugins/editor/plugin.c:368
+#: plugins/editor/plugin.c:372
 msgid "Force the highlight style to Pascal"
 msgstr "Forceer de belichtingsstijl naar Pascal"
 
-#: plugins/editor/plugin.c:370
+#: plugins/editor/plugin.c:374
 msgid "Xcode"
 msgstr "Xcode"
 
-#: plugins/editor/plugin.c:371
+#: plugins/editor/plugin.c:375
 msgid "Force the highlight style to Xcode"
 msgstr "Forceer de belichtingsstijl naar Xcode"
 
-#: plugins/editor/plugin.c:373
+#: plugins/editor/plugin.c:377
 msgid "Prj/Properties"
 msgstr "Prj/Eigenschappen"
 
-#: plugins/editor/plugin.c:374
+#: plugins/editor/plugin.c:378
 msgid "Force the highlight style to project/properties files"
 msgstr "Forceer de belichtingsstijl naar Project/Eigenschappen bestanden"
 
-#: plugins/editor/plugin.c:376
+#: plugins/editor/plugin.c:380
 msgid "Conf"
 msgstr "Conf"
 
-#: plugins/editor/plugin.c:377
+#: plugins/editor/plugin.c:381
 msgid "Force the highlight style to UNIX conf files"
 msgstr "Forceer de belichtingsstijl naar UNIX conf bestanden"
 
-#: plugins/editor/plugin.c:379
+#: plugins/editor/plugin.c:383
 msgid "Ada"
 msgstr "Ada"
 
-#: plugins/editor/plugin.c:380
+#: plugins/editor/plugin.c:384
 msgid "Force the highlight style to Ada"
 msgstr "Forceer de belichtingsstijl naar Ada"
 
-#: plugins/editor/plugin.c:382
+#: plugins/editor/plugin.c:386
 msgid "Baan"
 msgstr "Baan"
 
-#: plugins/editor/plugin.c:383
+#: plugins/editor/plugin.c:387
 msgid "Force the highlight style to Baan"
 msgstr "Forceer de belichtingsstijl naar Baan"
 
-#: plugins/editor/plugin.c:385
+#: plugins/editor/plugin.c:389
 msgid "Lisp"
 msgstr "Lisp"
 
-#: plugins/editor/plugin.c:386
+#: plugins/editor/plugin.c:390
 msgid "Force the highlight style to Lisp"
 msgstr "Forceer de belichtingsstijl naar Lisp"
 
-#: plugins/editor/plugin.c:388
+#: plugins/editor/plugin.c:392
 msgid "Ruby"
 msgstr "Robijn"
 
-#: plugins/editor/plugin.c:389
+#: plugins/editor/plugin.c:393
 msgid "Force the highlight style to Ruby"
 msgstr "Forceer de belichtingsstijl naar Ruby"
 
-#: plugins/editor/plugin.c:391
+#: plugins/editor/plugin.c:395
 msgid "Matlab"
 msgstr "Matlab"
 
-#: plugins/editor/plugin.c:392
+#: plugins/editor/plugin.c:396
 msgid "Force the highlight style to Matlab"
 msgstr "Forceer de belichtingsstijl naar Matlab"
 
-#: plugins/editor/plugin.c:397
+#: plugins/editor/plugin.c:401
 msgid "For_mat"
 msgstr "For_maat"
 
-#: plugins/editor/plugin.c:398
+#: plugins/editor/plugin.c:402
 msgid "Auto _Format"
 msgstr "Auto _Formaat"
 
-#: plugins/editor/plugin.c:400
+#: plugins/editor/plugin.c:404
 msgid "Autoformat the current source file"
 msgstr "Het huidige broncodebestand autmatisch opmaken"
 
-#: plugins/editor/plugin.c:402
+#: plugins/editor/plugin.c:406
 msgid "Autoformat _settings"
 msgstr "Autoformaat in_stellingen"
 
-#: plugins/editor/plugin.c:404
+#: plugins/editor/plugin.c:408
 msgid "Autoformat settings"
 msgstr "Autoformaat instellingen"
 
-#: plugins/editor/plugin.c:406
+#: plugins/editor/plugin.c:410
 msgid "_Increase Indent"
 msgstr "_Meer inspringen"
 
-#: plugins/editor/plugin.c:408
+#: plugins/editor/plugin.c:412
 msgid "Increase indentation of line/selection"
 msgstr "Inspringen van regel/selectie vergroten"
 
-#: plugins/editor/plugin.c:410
+#: plugins/editor/plugin.c:414
 msgid "_Decrease Indent"
 msgstr "Mi_nder Inspringen"
 
-#: plugins/editor/plugin.c:412
+#: plugins/editor/plugin.c:416
 msgid "Decrease indentation of line/selection"
 msgstr "Inspringen van regel/selectie verkleinen"
 
-#: plugins/editor/plugin.c:414
+#: plugins/editor/plugin.c:418
 msgid "_Close All Folds"
 msgstr "_Sluit alle omlopers"
 
-#: plugins/editor/plugin.c:416
+#: plugins/editor/plugin.c:420
 msgid "Close all code folds in the editor"
 msgstr "Sluit alle code omlopers in de editor"
 
-#: plugins/editor/plugin.c:418
+#: plugins/editor/plugin.c:422
 msgid "_Open All Folds"
 msgstr "_Open alle omlopers"
 
-#: plugins/editor/plugin.c:420
+#: plugins/editor/plugin.c:424
 msgid "Open all code folds in the editor"
 msgstr "Open alle code omloop in de editor"
 
-#: plugins/editor/plugin.c:422
+#: plugins/editor/plugin.c:426
 msgid "_Toggle Current Fold"
 msgstr "_Toggle huidige omloop"
 
-#: plugins/editor/plugin.c:424
+#: plugins/editor/plugin.c:428
 msgid "Toggle current code fold in the editor"
 msgstr "Toggle huidig code omloop in de editor"
 
-#: plugins/editor/plugin.c:433
+#: plugins/editor/plugin.c:430
+msgid "D_etach Current Document"
+msgstr "V_erwijder huidig document"
+
+#: plugins/editor/plugin.c:432
+msgid "Detach the current document into a separate editor window"
+msgstr "Splits het huidige bestand af in een apart venster"
+
+#: plugins/editor/plugin.c:437
 msgid "Bookmar_k"
 msgstr "BookMar_k"
 
-#: plugins/editor/plugin.c:434
+#: plugins/editor/plugin.c:438
 msgid "_Toggle bookmark"
 msgstr "_Toggle bladwijzer"
 
-#: plugins/editor/plugin.c:436
+#: plugins/editor/plugin.c:440
 msgid "Toggle a bookmark at the current line position"
 msgstr "Toggle bladwijzer op huidige regel"
 
-#: plugins/editor/plugin.c:438
+#: plugins/editor/plugin.c:442
 msgid "_First bookmark"
 msgstr "_Eerst bladwijzer"
 
-#: plugins/editor/plugin.c:440
+#: plugins/editor/plugin.c:444
 msgid "Jump to the first bookmark in the file"
 msgstr "Ga naar eerste bladwijzer in het bestand"
 
-#: plugins/editor/plugin.c:442
+#: plugins/editor/plugin.c:446
 msgid "_Previous bookmark"
 msgstr "_Vorige bladwijzer"
 
-#: plugins/editor/plugin.c:444
+#: plugins/editor/plugin.c:448
 msgid "Jump to the previous bookmark in the file"
 msgstr "Ga naar vorige bladwijzer in het bestand"
 
-#: plugins/editor/plugin.c:446
+#: plugins/editor/plugin.c:450
 msgid "_Next bookmark"
 msgstr "_Volgende bladwijzer"
 
-#: plugins/editor/plugin.c:448
+#: plugins/editor/plugin.c:452
 msgid "Jump to the next bookmark in the file"
 msgstr "Ga naar volgende bladwijzer in het bestand"
 
-#: plugins/editor/plugin.c:450
+#: plugins/editor/plugin.c:454
 msgid "_Last bookmark"
 msgstr "_Laatste bladwijzer"
 
-#: plugins/editor/plugin.c:452
+#: plugins/editor/plugin.c:456
 msgid "Jump to the last bookmark in the file"
 msgstr "Ga naar laatste bladwijzer in het bestand"
 
-#: plugins/editor/plugin.c:454
+#: plugins/editor/plugin.c:458
 msgid "_Clear all bookmarks"
 msgstr "_Opruimen alle bladwijzers"
 
-#: plugins/editor/plugin.c:456
+#: plugins/editor/plugin.c:460
 msgid "Clear bookmarks"
 msgstr "_Opruimen bladwijzers"
 
-#: plugins/editor/plugin.c:468
+#: plugins/editor/plugin.c:479
 msgid "Editor file operations"
 msgstr "Editor bestandsbewerkingen"
 
-#: plugins/editor/plugin.c:469
+#: plugins/editor/plugin.c:480
 msgid "Editor print operations"
 msgstr "Editr afdrukbewerkingen"
 
-#: plugins/editor/plugin.c:470
+#: plugins/editor/plugin.c:481
 msgid "Editor text transformation"
 msgstr "Editor teksttransformaties"
 
-#: plugins/editor/plugin.c:471
+#: plugins/editor/plugin.c:482
 msgid "Editor text selection"
 msgstr "Editor tekstselectie"
 
-#: plugins/editor/plugin.c:472
+#: plugins/editor/plugin.c:483
 msgid "Editor text insertions"
 msgstr "Editor tekstinvoeging"
 
-#: plugins/editor/plugin.c:473
+#: plugins/editor/plugin.c:484
 msgid "Editor text searching"
 msgstr "Editor tekst zoeken"
 
-#: plugins/editor/plugin.c:474
+#: plugins/editor/plugin.c:485
 msgid "Editor code commenting"
 msgstr "Editor code becommentariëren"
 
-#: plugins/editor/plugin.c:475
+#: plugins/editor/plugin.c:486
 msgid "Editor navigations"
 msgstr "Editor navigeren"
 
-#: plugins/editor/plugin.c:476
+#: plugins/editor/plugin.c:487
 msgid "Editor edit operations"
 msgstr "Editor bewerkingen"
 
-#: plugins/editor/plugin.c:477
-msgid "Editor view settings"
-msgstr "Editor beeldinstelingen"
+#: plugins/editor/plugin.c:488
+#, fuzzy
+msgid "Editor zoom operations"
+msgstr "Editor bestandsbewerkingen"
 
-#: plugins/editor/plugin.c:478
+#: plugins/editor/plugin.c:489
 msgid "Editor syntax highlighting styles"
 msgstr "Editor syntax oplichtstijlen"
 
-#: plugins/editor/plugin.c:479
+#: plugins/editor/plugin.c:490
 msgid "Editor text formating"
 msgstr "Editor tekstopmaak"
 
-#: plugins/editor/plugin.c:480
+#: plugins/editor/plugin.c:491
 msgid "Editor bookmarks"
 msgstr "Editor favorieten"
 
-#: plugins/editor/plugin.c:532
+#: plugins/editor/plugin.c:495
+msgid "Editor view settings"
+msgstr "Editor beeldinstelingen"
+
+#: plugins/editor/plugin.c:627
 msgid "Goto line"
 msgstr "Ga naar regel"
 
-#: plugins/editor/plugin.c:533
+#: plugins/editor/plugin.c:628
 #, fuzzy
 msgid "Enter the line number to jump and press enter"
 msgstr "Voer het regelnummer in waar naar toegegaan moet worden"
 
-#: plugins/editor/plugin.c:544
+#: plugins/editor/plugin.c:639
 msgid "Incremental search"
 msgstr "Opbouwend doorzoeken"
 
-#: plugins/editor/plugin.c:560
+#: plugins/editor/plugin.c:655
 msgid "Editor quick navigations"
 msgstr "Editor snel navigeren"
 
-#: plugins/editor/plugin.c:564
+#: plugins/editor/plugin.c:659
 msgid "Documents"
 msgstr "Documenten"
 
-#: plugins/editor/print.c:484
+#: plugins/editor/print.c:486
 msgid "No file to print!"
 msgstr "Geen bestand om af te drukken!"
 
-#: plugins/editor/print.c:518
+#: plugins/editor/print.c:509
 #, fuzzy
 msgid "Unable to get text buffer for printing"
 msgstr "Pagina instellingen voor afdrukken"
 
-#: plugins/editor/print.c:732
+#: plugins/editor/print.c:763
 #, c-format
 msgid "File: %s"
 msgstr "Bestand: %s"
 
-#: plugins/editor/print.c:733
+#: plugins/editor/print.c:764
 #, c-format
 msgid "%d"
 msgstr "%d"
 
-#: plugins/editor/print.c:845
+#: plugins/editor/print.c:876
 msgid "Printing .."
 msgstr "Afdrukken ..."
 
-#: plugins/editor/print.c:857
+#: plugins/editor/print.c:888
 msgid "Printing ..."
 msgstr "Afdrukken ..."
 
-#: plugins/editor/print.c:1039
+#: plugins/editor/print.c:1044 src/anjuta_info.c:127
+msgid "Lines"
+msgstr "Regels"
+
+#: plugins/editor/print.c:1071
 msgid "Print Preview"
 msgstr "Afdrukvoorbeeld"
 
-#: plugins/editor/search-replace.c:430
+#: plugins/editor/search_preferences.c:474
+msgid "The maximum number of settings has been reached."
+msgstr "Het maximum aantal instellingen is bereikt."
+
+#: plugins/editor/search_preferences.c:483
+msgid "This name is already used."
+msgstr "Deze naam is al in gebruik"
+
+#: plugins/editor/search-replace.c:277
+msgid "Find: "
+msgstr "Zoeken:"
+
+#: plugins/editor/search-replace.c:373
 msgid "Replace"
 msgstr "Vervangen"
 
-#: plugins/editor/search-replace.c:718 plugins/editor/search-replace.c:1352
+#: plugins/editor/search-replace.c:720 plugins/editor/search-replace.c:1357
 msgid "Replace All"
 msgstr "Alles vervangen"
 
-#: plugins/editor/search-replace.c:754
+#: plugins/editor/search-replace.c:756
 #, c-format
 msgid "The match \"%s\" was not found. Wrap search around the document?"
-msgstr "De tekst \"%s\" is niet gevonden. Doorgaan met zoeken vanaf het het begin van het document?"
+msgstr ""
+"De tekst \"%s\" is niet gevonden. Doorgaan met zoeken vanaf het het begin "
+"van het document?"
 
-#: plugins/editor/search-replace.c:777
+#: plugins/editor/search-replace.c:779
 #, c-format
 msgid "The match \"%s\" was not found."
 msgstr "De tekst \"%s\" is niet aangetroffen."
 
-#: plugins/editor/search-replace.c:795
+#: plugins/editor/search-replace.c:797
 msgid "The maximum number of results has been reached."
 msgstr "Het maximum aantal resultaten is behaald."
 
-#: plugins/editor/search-replace.c:808
+#: plugins/editor/search-replace.c:810
 #, c-format
 msgid "%d matches have been replaced."
 msgstr "%d overeenkomsten vervangen."
 
-#: plugins/editor/search-replace.c:971
+#: plugins/editor/search-replace.c:967
 msgid "Unable to build user interface for Search And Replace"
 msgstr "Kon geen gebruikersinterface maken voor Zoeken en vervangen"
 
-#: plugins/editor/text_editor.c:882
+#: plugins/editor/text_editor.c:897
+msgid "Could not get file info"
+msgstr "Kon bestandsinfo niet verkrijgen"
+
+#: plugins/editor/text_editor.c:905
 msgid "This file is too big. Unable to allocate memory."
 msgstr "Dit bestand is te groot. Kon niet voldoende geheugenruimte alloceren."
 
-#: plugins/editor/text_editor.c:928
+#: plugins/editor/text_editor.c:912
+msgid "Could not open file"
+msgstr "Kon bestand niet openen"
+
+#: plugins/editor/text_editor.c:920
+msgid "Error while reading from file"
+msgstr "Fout tijdens het lezen van bestand"
+
+#: plugins/editor/text_editor.c:957
 msgid ""
 "The file does not look like a text file or the file encoding is not "
 "supported. Please check if the encoding of file is in the supported "
@@ -5199,7 +4165,7 @@ msgstr ""
 "ondersteund. Controleer of de tekenset voorkomt in de lijst met ondersteunde "
 "tekensets of voeg het anders toe in de voorkeuren."
 
-#: plugins/editor/text_editor.c:1110
+#: plugins/editor/text_editor.c:1129
 #, c-format
 msgid ""
 "Could not load file: %s\n"
@@ -5210,12 +4176,12 @@ msgstr ""
 "\n"
 "Details: %s"
 
-#: plugins/editor/text_editor.c:1154
+#: plugins/editor/text_editor.c:1173
 #, c-format
 msgid "Could not save file: %s."
 msgstr "Kon bestand niet opslaan: %s."
 
-#: plugins/editor/text_editor.c:1297
+#: plugins/editor/text_editor.c:1316
 #, c-format
 msgid ""
 "The file '%s' on the disk is more recent than\n"
@@ -5226,27 +4192,23 @@ msgstr ""
 "de huidige buffer.\n"
 "Wilt u het opnieuw laden?"
 
-#: plugins/editor/text_editor.c:1471
-msgid "Auto format is currently disabled. Change the setting in Preferences."
-msgstr "Autoformaat is momenteel uitgeschakeld. U kunt het aanzetten in Voorkeuren."
-
 #: plugins/editor/text_editor.c:1490
+msgid "Auto format is currently disabled. Change the setting in Preferences."
+msgstr ""
+"Autoformaat is momenteel uitgeschakeld. U kunt het aanzetten in Voorkeuren."
+
+#: plugins/editor/text_editor.c:1509
 msgid "Error in auto formatting ..."
 msgstr "Fout bij automatisch opmaken ..."
 
 # Anjuta kent geen %s
 #. FIXME: anjuta_set_active ();
-#: plugins/editor/text_editor.c:1506
+#: plugins/editor/text_editor.c:1525
 #, c-format
 msgid "Anjuta does not know %s!"
 msgstr "Anjuta kent %s niet!"
 
-#: plugins/editor/text_editor.c:1524 plugins/launcher/launcher.c:854
-#: src/launcher.c:853
-msgid "Cannot execute command shell"
-msgstr "Kan commando schil niet uitvoeren"
-
-#: plugins/editor/text_editor.c:1538
+#: plugins/editor/text_editor.c:1550
 #, c-format
 msgid ""
 "Error in auto formatting ...\n"
@@ -5405,124 +4367,133 @@ msgid "Close"
 msgstr "Sluiten"
 
 #. 19
+#. 4
+#. 5
 #: plugins/editor/text_editor_menu.c:357
+#: plugins/file-manager/an_file_view.c:387
 msgid "Docked"
 msgstr "Aangemeerd"
 
-#: plugins/file-manager/an_file_view.c:64
-#, c-format
-msgid "Unable to open %s in %s"
-msgstr "Kan %s niet in %s openen"
-
-#: plugins/file-manager/an_file_view.c:74
-#, c-format
-msgid ""
-"No default viewer specified for the mime type %s.\n"
-"Please set it in GNOME control center"
-msgstr ""
-"Geen standaardweergave gegeven voor mimetype %s.\n"
-"U moet dit instellen in het GNOME Configuratiecentrum"
-
-#: plugins/file-manager/an_file_view.c:274
-msgid "Unable to build user interface for file filter"
-msgstr "Kan gebruikersinterface voor bestandsfilter niet opbouwen"
-
 #. 0
-#: plugins/file-manager/an_file_view.c:355
+#: plugins/file-manager/an_file_view.c:306
 msgid "Update file"
 msgstr "Bestand bijwerken"
 
-#: plugins/file-manager/an_file_view.c:356
+#: plugins/file-manager/an_file_view.c:307
 msgid "Update current working copy"
 msgstr "Huidige werkversie bijwerken"
 
 #. 1
-#: plugins/file-manager/an_file_view.c:362
+#: plugins/file-manager/an_file_view.c:313
 msgid "Commit file"
 msgstr "Bestand 'committen'"
 
-#: plugins/file-manager/an_file_view.c:363
+#: plugins/file-manager/an_file_view.c:314
 msgid "Commit changes to the repository"
 msgstr "Veranderingen opsturen naar de repository"
 
 #. 2
-#: plugins/file-manager/an_file_view.c:369
+#: plugins/file-manager/an_file_view.c:320
 msgid "Status of file"
 msgstr "Status van bestand"
 
-#: plugins/file-manager/an_file_view.c:370
+#: plugins/file-manager/an_file_view.c:321
 msgid "Print the status of the current file"
 msgstr "De status van het huidige bestand afdrukken"
 
 #. 3
-#: plugins/file-manager/an_file_view.c:376
+#: plugins/file-manager/an_file_view.c:327
 msgid "Get file log"
 msgstr "Logboek ophalen"
 
-#: plugins/file-manager/an_file_view.c:377
+#: plugins/file-manager/an_file_view.c:328
 msgid "Print the CVS log for the current file"
 msgstr "Het CVS logboek voor het huidige bestand afdrukken"
 
 #. 4
-#: plugins/file-manager/an_file_view.c:383
+#: plugins/file-manager/an_file_view.c:334
 msgid "Add file"
 msgstr "Bestand toevoegen"
 
-#: plugins/file-manager/an_file_view.c:384
+#: plugins/file-manager/an_file_view.c:335
 msgid "Add the current file to the repository"
 msgstr "Het huidige bestand aan de repository toevoegen"
 
 #. 5
-#: plugins/file-manager/an_file_view.c:390
+#: plugins/file-manager/an_file_view.c:341
 msgid "Remove file"
 msgstr "Bestand verwijderen"
 
-#: plugins/file-manager/an_file_view.c:391
+#: plugins/file-manager/an_file_view.c:342
 msgid "Remove the current file from the repository"
 msgstr "Het huidige bestand uit het repository verwijderen"
 
 #. 6
-#: plugins/file-manager/an_file_view.c:397
+#: plugins/file-manager/an_file_view.c:348
 msgid "Diff file"
 msgstr "Diff-bestand"
 
-#: plugins/file-manager/an_file_view.c:398
+#: plugins/file-manager/an_file_view.c:349
 msgid "Create a diff between the working copy and the repository"
 msgstr ""
 "Een diff maken van de verschillen tussen de werkversie en de repository"
 
 #. 0
 #. 2
-#: plugins/file-manager/an_file_view.c:407
+#: plugins/file-manager/an_file_view.c:358
 #: plugins/project-manager/project_dbase_gui.c:317
 msgid "Open in Anjuta"
 msgstr "Openen in Anjuta"
 
 #. 1
-#: plugins/file-manager/an_file_view.c:414
+#: plugins/file-manager/an_file_view.c:365
 #: plugins/project-manager/project_dbase_gui.c:311
 msgid "Open in default viewer"
 msgstr "Openen met de standaard viewer"
 
 #. 3
-#: plugins/file-manager/an_file_view.c:428
+#: plugins/file-manager/an_file_view.c:379
 #: plugins/symbol-browser/an_symbol_view.c:303
 msgid "Refresh"
 msgstr "Verversen"
 
-#. 4
-#. 5
-#: plugins/file-manager/an_file_view.c:436
+#: plugins/file-manager/an_file_view.c:388
+#, fuzzy
+msgid "Dock/Undock the Project Window"
+msgstr "Toon/Verberg het project venster"
+
+#. 6
+#: plugins/file-manager/an_file_view.c:394
 msgid "Customize"
 msgstr "Aanpassen"
 
-#: plugins/file-manager/an_file_view.c:437
+#: plugins/file-manager/an_file_view.c:395
 msgid "Customize the file browser"
 msgstr "Bestandsbeheer aanpassen"
 
+# bezig met laden, kan...
 #: plugins/file-manager/an_file_view.c:675
+#: plugins/file-manager/an_file_view.c:787
+#: plugins/file-manager/an_file_view.c:1008
+msgid "Loading ..."
+msgstr "Laden..."
+
+#: plugins/file-manager/an_file_view.c:868
 msgid "Rev"
 msgstr "Rev"
+
+#: plugins/file-manager/plugin.c:45
+msgid "_Refresh"
+msgstr "_Verversen"
+
+#: plugins/file-manager/plugin.c:45
+msgid "Refresh file manager tree"
+msgstr "Bestandsbeheer-boom verversen"
+
+#: plugins/file-manager/plugin.c:79
+#, fuzzy
+msgid "File manager popup actions"
+msgstr "Compiler en Linker instellingen"
 
 #: plugins/launcher/launcher.c:583 src/launcher.c:582
 msgid "launcher.c: Error while reading child stdout\n"
@@ -5552,14 +4523,42 @@ msgstr "launcher.c: PTY pipe fout!"
 msgid "launcher.c: Failed to set channel encoding!"
 msgstr "launcher.c: Kanaal-codering instellen mislukt!"
 
-#: plugins/message-view/message-view.c:349
+#: plugins/launcher/launcher.c:854 src/launcher.c:853
+msgid "Cannot execute command shell"
+msgstr "Kan commando schil niet uitvoeren"
+
+#: plugins/message-view/message-view.c:273
 msgid "error:"
 msgstr "fout:"
 
 # let op
-#: plugins/message-view/message-view.c:351
+#: plugins/message-view/message-view.c:275
 msgid "warning:"
 msgstr "waarschuwing:"
+
+#: plugins/message-view/plugin.c:45
+msgid "_Next message"
+msgstr "_Volgend bericht"
+
+#: plugins/message-view/plugin.c:46
+msgid "Next message"
+msgstr "Volgend bericht"
+
+#: plugins/message-view/plugin.c:49
+msgid "_Previous message"
+msgstr "V_orig bericht"
+
+#: plugins/message-view/plugin.c:50
+msgid "Previous message"
+msgstr "Vorig bericht"
+
+#: plugins/message-view/plugin.c:74
+msgid "Next/Prev Message"
+msgstr "Volgend/Vorig bericht"
+
+#: plugins/message-view/plugin.c:86 src/toolbar.c:154
+msgid "Messages"
+msgstr "Berichten"
 
 #: plugins/patch/patch-plugin.c:64
 msgid "Interface to patch Projects or individual files"
@@ -5641,6 +4640,17 @@ msgstr "Toevoegen aan project"
 msgid "Anjuta project files"
 msgstr "Anjuta projectbestanden"
 
+#: plugins/project-manager/project_dbase.c:363
+#: plugins/project-manager/project_dbase_gui.c:153
+#: plugins/project-manager/project_dbase_gui.c:170
+#: plugins/project-manager/project_dbase_gui.c:182
+#: plugins/project-manager/project_dbase_gui.c:190
+#: plugins/project-manager/project_dbase_gui.c:202
+#: plugins/project-manager/project_dbase_gui.c:211
+#: plugins/project-manager/project_dbase_gui.c:220
+msgid "All files"
+msgstr "Alle bestanden"
+
 #: plugins/project-manager/project_dbase.c:444
 #: plugins/project-manager/project_dbase.c:462
 #, c-format
@@ -5649,14 +4659,13 @@ msgstr "Kan project %s niet laden"
 
 #: plugins/project-manager/project_dbase.c:455
 #: plugins/project-manager/project_dbase.c:2461
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Anjuta version %s or later is required to open this Project.\n"
 "Please upgrade to the latest version of Anjuta (Help for more information)."
 msgstr ""
 "U heeft Anjuta versie %s of later nodig om dit project te openen.\n"
-"Upgrade Anjuta naar de laatste versie (Help voor meer informatie). \n"
-"Op dit moment ben ik te oud om het project te laden :-("
+"Upgrade Anjuta naar de laatste versie (Help voor meer informatie). \\"
 
 #: plugins/project-manager/project_dbase.c:836
 msgid "Project saved successfully"
@@ -5672,7 +4681,10 @@ msgid ""
 "A .glade file does not exist in the top level Project directory. If you do "
 "not use glade for GUI editing,  please specify a custom command for it in "
 "[Project]->[Project Configuration]->[GUI editor command]"
-msgstr "Er is geen .glade bestand in het bovenste niveau van de projectmap. Indien u geen glade gebruikt voor GUI editing geef er dan een aangepaste opdracht voor in [Project]->[Projectconfiguratie]->[GUI editor opdracht]"
+msgstr ""
+"Er is geen .glade bestand in het bovenste niveau van de projectmap. Indien u "
+"geen glade gebruikt voor GUI editing geef er dan een aangepaste opdracht "
+"voor in [Project]->[Projectconfiguratie]->[GUI editor opdracht]"
 
 #: plugins/project-manager/project_dbase.c:1605
 #, fuzzy
@@ -5728,7 +4740,6 @@ msgstr ""
 "van de projectdatabase?"
 
 #: plugins/project-manager/project_dbase_gui.c:118
-#, fuzzy
 msgid "There is already a Project open.Do you want to close it first?"
 msgstr "Er is al een project geopend. Wilt u deze eerst sluiten?"
 
@@ -5736,9 +4747,41 @@ msgstr "Er is al een project geopend. Wilt u deze eerst sluiten?"
 msgid "Help files"
 msgstr "Hulpbestanden"
 
+#: plugins/project-manager/project_dbase_gui.c:161
+msgid "C/C++ source files"
+msgstr "C/C++ bronbestanden"
+
 #: plugins/project-manager/project_dbase_gui.c:162
 msgid "Java source files"
 msgstr "Java bronbestanden"
+
+#: plugins/project-manager/project_dbase_gui.c:163
+msgid "Pascal files"
+msgstr "Pascal bestanden"
+
+#: plugins/project-manager/project_dbase_gui.c:164
+msgid "PHP files"
+msgstr "PHP bestanden"
+
+#: plugins/project-manager/project_dbase_gui.c:165
+msgid "Perl files"
+msgstr "Perl bestanden"
+
+#: plugins/project-manager/project_dbase_gui.c:166
+msgid "Python files"
+msgstr "Python bestanden"
+
+#: plugins/project-manager/project_dbase_gui.c:167
+msgid "Shell Script files"
+msgstr "Shell script bestanden"
+
+#: plugins/project-manager/project_dbase_gui.c:168
+msgid "Visual Basic files"
+msgstr "Visual Basic bestanden"
+
+#: plugins/project-manager/project_dbase_gui.c:169
+msgid ".lua files"
+msgstr ".lua bestanden"
 
 #: plugins/project-manager/project_dbase_gui.c:178
 msgid "PNG files"
@@ -5821,9 +4864,8 @@ msgstr "Doc bestand"
 
 #. 0
 #: plugins/project-manager/project_dbase_gui.c:305
-#, fuzzy
 msgid "Add File"
-msgstr "Nieuw toevoegen"
+msgstr "Bestand toevoegen"
 
 #. 4
 #. 5
@@ -6151,7 +5193,8 @@ msgid ""
 "Click Cancel to skip the customisation stage, or Next to continue."
 msgstr ""
 "Het importeren is reeds begonnen.\n"
-"Klik op Annuleren om het instellen over te slaan, of Volgende om door te gaan."
+"Klik op Annuleren om het instellen over te slaan, of Volgende om door te "
+"gaan."
 
 #: plugins/project-manager/project_import_gui.c:46
 msgid ""
@@ -6303,28 +5346,26 @@ msgstr "App Wizard"
 msgid "Auto generation completed...............Unsuccessful\n"
 msgstr "Automatische generatie compleet ........ Niet succesvol\n"
 
+# autogenereren
 #: plugins/project-wizard/gnome_project.c:275
-#, fuzzy
 msgid ""
 "The Project was not successfully auto generated.\n"
 "Please run autogen.sh manually."
 msgstr ""
-"Het project is niet succesvol gegenereerd. \n"
-"Ik denk dat u het handmatig moet doen."
+"Het project automatisch genereren is niet geslaagd.\n"
+"U moet autogen.sh handmatig uitvoeren."
 
 #: plugins/project-wizard/gnome_project.c:281
-#, fuzzy
 msgid ""
 "Auto generation completed...............Successful\n"
 "Now Build the Project to have a LOOK at it\n"
 msgstr ""
-"Automatische generatie compleet........succesvol\n"
+"Automatische generatie voltooid........geslaagd\n"
 "Bouw het project nu om er eens naar te kijken\n"
 
 #: plugins/project-wizard/gnome_project.c:284
-#, fuzzy
 msgid "Project was successfully auto generated."
-msgstr "Project is succesvol automatisch gegenereerd."
+msgstr "Project automatisch genereren is geslaagd."
 
 #: plugins/project-wizard/wizard_gui.c:98
 msgid "Project Type"
@@ -6474,23 +5515,24 @@ msgstr "Console nodig"
 msgid "Summary"
 msgstr "Samenvatting"
 
-#: plugins/sample1/plugin.c:54
-#, fuzzy
-msgid "_Sample action"
-msgstr "Voorbeeld-plugin"
-
+#. Action name
+#. Stock icon, if any
 #: plugins/sample1/plugin.c:55
-#, fuzzy
-msgid "Sample action"
-msgstr "Voorbeeld-plugin"
+msgid "_Sample action"
+msgstr "_Voorbeeld-actie"
 
-#: plugins/sample1/plugin.c:83
+#. Display label
+#. short-cut
+#: plugins/sample1/plugin.c:57
+msgid "Sample action"
+msgstr "Voorbeeld-actie"
+
+#: plugins/sample1/plugin.c:78
 #, fuzzy
 msgid "Sample file operations"
 msgstr "Compiler en Linker instellingen"
 
-#: plugins/sample1/plugin.c:88
-#, fuzzy
+#: plugins/sample1/plugin.c:84
 msgid "SamplePlugin"
 msgstr "Voorbeeld-plugin"
 
@@ -6522,12 +5564,17 @@ msgstr "Ga naar declaratie"
 
 #: plugins/symbol-browser/an_symbol_view.c:561
 msgid "Symbol"
-msgstr "Symbolen"
+msgstr "Symbool"
 
+#: plugins/terminal/terminal.c:444
+msgid "Terminal"
+msgstr "Terminal"
+
+# hulpmiddel
+# programma
 #: plugins/tools/anjuta-tools.c:1005
-#, fuzzy
 msgid "Tool"
-msgstr "Aan"
+msgstr "Werktuig"
 
 #: plugins/tools/anjuta-tools.c:1189
 msgid "Unable to build user interface for tool editor"
@@ -6564,19 +5611,19 @@ msgid "Unable to build user interface for tool parameters"
 msgstr "Kan de gebruikersinterface voor gereedschapsparameters niet opbouwen"
 
 #: plugins/tools/anjuta-tools.c:1886
-#, fuzzy, c-format
+#, c-format
 msgid "%s: Command line parameters"
-msgstr "Commando argumenten"
+msgstr "%s: Opdrachtregel parameters"
 
 #: src/about.c:95
 msgid "Copyright (c) Naba Kumar"
 msgstr "Copyright © Naba Kumar"
 
-#: src/action-callbacks.c:84
+#: src/action-callbacks.c:74 src/action-callbacks.c:95
 msgid "Anjuta Plugins"
 msgstr "Anjuta plugins"
 
-#: src/action-callbacks.c:98 src/mainmenu_callbacks.c:836
+#: src/action-callbacks.c:109 src/mainmenu_callbacks.c:836
 msgid ""
 "Unable to display help. Please make sure Anjuta documentation package is "
 "install. It can be downloaded from http://anjuta.org"
@@ -6584,15 +5631,26 @@ msgstr ""
 "Kon de hulp niet tonen. Controleer of het Anjuta documentatiepakket "
 "geïnstalleerd is. Het kan worden gedownload van http://anjuta.org"
 
+#: src/anjuta.c:76 src/anjuta_cbs.c:93
+msgid ""
+"One or more files are not saved.\n"
+"Do you still want to exit?"
+msgstr ""
+"Een of meerdere bestanden zijn niet opgeslagen.\n"
+"Wilt u nog steeds afsluiten?"
+
+#: src/anjuta-actions.h:23
+msgid "_File"
+msgstr "_Bestand"
+
 # Marc says: I did not translate because it would change the wellthought hotkeys. The dutch word is Knip
 #: src/anjuta-actions.h:24
 msgid "_Quit"
 msgstr "A_fsluiten"
 
 #: src/anjuta-actions.h:25
-#, fuzzy
 msgid "Quit Anjuta IDE"
-msgstr "Anjuta IDE"
+msgstr "Anjuta IDE afsluiten"
 
 #: src/anjuta-actions.h:31
 msgid "G_oto"
@@ -6602,161 +5660,173 @@ msgstr "_Ga naar"
 msgid "_View"
 msgstr "Beel_d"
 
-#: src/anjuta-actions.h:39
+#: src/anjuta-actions.h:36
+msgid "_Toolbars"
+msgstr "We_rkbalken"
+
+#: src/anjuta-actions.h:40
 msgid "_Settings"
 msgstr "_Instellingen"
 
-#: src/anjuta-actions.h:40
-msgid "_Preferences ..."
-msgstr "_Instellingen ..."
-
 #: src/anjuta-actions.h:42
+msgid "_Preferences ..."
+msgstr "_Voorkeuren ..."
+
+#: src/anjuta-actions.h:43
 msgid "Do you prefer coffee to tea? Check it out."
 msgstr "Geeft u de voorkeur voor koffie boven thee? Kijk er even naar."
 
-#: src/anjuta-actions.h:44
+#: src/anjuta-actions.h:46
 msgid "Set _Default Preferences"
-msgstr "Zet _Default Instellingen"
+msgstr "_Standaard voorkeuren instellen"
 
 # Marc says: How did you guys know I don't drink coffee ???
-#: src/anjuta-actions.h:46
+#: src/anjuta-actions.h:47
 msgid "But I prefer tea."
 msgstr "Maar ik geef de voorkeur aan thee."
 
-#: src/anjuta-actions.h:48
+#: src/anjuta-actions.h:50
 msgid "C_ustomize shortcuts"
 msgstr "Snelkoppelingen _aanpassen"
 
-#: src/anjuta-actions.h:50
+#: src/anjuta-actions.h:51
 msgid "Customize shortcuts associated with menu items"
 msgstr "Aan menu-opties gekoppelde sneltoetsen bewerken"
 
-#: src/anjuta-actions.h:52
+#: src/anjuta-actions.h:54
 #, fuzzy
 msgid "Layout manager"
 msgstr "Opmaakbeheer"
 
 # layout: indeling?opmaak?layout
-#: src/anjuta-actions.h:54
+#: src/anjuta-actions.h:55
 msgid "Manipulate layout manager items"
 msgstr "Opmaakbeheer-items manipuleren"
 
-#: src/anjuta-actions.h:56
+#: src/anjuta-actions.h:58
 msgid "Plugins manager"
 msgstr "Plugins beheer"
 
-#: src/anjuta-actions.h:58
+#: src/anjuta-actions.h:59
 msgid "Manipulate plugins manager items"
 msgstr "Pluginbeheer-items manipuleren"
 
 #: src/anjuta-actions.h:64
+msgid "_Help"
+msgstr "_Hulp"
+
+#: src/anjuta-actions.h:66
 msgid "The GNOME API pages"
 msgstr "De GNOME API pagina's"
 
-#: src/anjuta-actions.h:66
+#: src/anjuta-actions.h:67
 msgid "Browse GNOME _API Pages"
 msgstr "Blader door de Gnome _API pagina's"
 
-#: src/anjuta-actions.h:68
+#: src/anjuta-actions.h:70
 msgid "Browse _Man Pages"
 msgstr "Blader door de _Man pagina's"
 
-#: src/anjuta-actions.h:70
+#: src/anjuta-actions.h:71
 msgid "The good old manual pages"
 msgstr "De Gouwe Ouwe manual Pagina's"
 
-#: src/anjuta-actions.h:72
+#: src/anjuta-actions.h:74
 msgid "Browse _Info Pages"
 msgstr "Blader door de _Info pagina's"
 
-#: src/anjuta-actions.h:74
+#: src/anjuta-actions.h:75
 #, fuzzy
 msgid "The good info pages"
 msgstr "De Gouwe Ouwe manual Pagina's"
 
-#: src/anjuta-actions.h:76
+#: src/anjuta-actions.h:78
 msgid "_Context Help"
 msgstr "_Context Hulp"
 
-#: src/anjuta-actions.h:78
+#: src/anjuta-actions.h:79
 msgid "Search help for the current word in the editor"
 msgstr "Zoek help voor het huidige woord in de editor"
 
-#: src/anjuta-actions.h:80
+#: src/anjuta-actions.h:82
 msgid "_Search a topic"
 msgstr "_Zoek een onderwerp"
 
-#: src/anjuta-actions.h:81
+#: src/anjuta-actions.h:83
 msgid "May I help you?"
 msgstr "Hoe kan ik u  helpen?"
 
-#: src/anjuta-actions.h:83
+#: src/anjuta-actions.h:86
 msgid "Anjuta _Home Page"
 msgstr "Anjuta _startpagina"
 
-#: src/anjuta-actions.h:84
+#: src/anjuta-actions.h:87
 msgid "Online documentation and resources"
 msgstr "Online documentatie en hulpbronnen"
 
-#: src/anjuta-actions.h:86
+#: src/anjuta-actions.h:90
 msgid "_Libraries API references"
 msgstr "_Biobliotheek API referenties"
 
-#: src/anjuta-actions.h:87
+#: src/anjuta-actions.h:91
 msgid "Online reference library for GDK, GLib, GNOME etc.."
 msgstr "Online referenctiebibliotheek voor GDK, GLib, GNOME etc"
 
-#: src/anjuta-actions.h:89
+#: src/anjuta-actions.h:94
 msgid "Report _Bugs"
 msgstr "Rapporteer _bugs"
 
-#: src/anjuta-actions.h:90
+#: src/anjuta-actions.h:95
 msgid "Submit a bug report for Anjuta"
 msgstr "Stuur een Anjuta bugrapport"
 
-#: src/anjuta-actions.h:92
+#: src/anjuta-actions.h:98
 msgid "Request _Features"
 msgstr "Verzoek _feature"
 
-#: src/anjuta-actions.h:94
+#: src/anjuta-actions.h:99
 msgid "Submit a feature request for Anjuta"
 msgstr "Verstuur een feature verzoek voor Anjuta"
 
-#: src/anjuta-actions.h:96
+#: src/anjuta-actions.h:102
 msgid "Submit _patches"
 msgstr "Verstuur _patches"
 
-#: src/anjuta-actions.h:98
+#: src/anjuta-actions.h:103
 msgid "Submit patches for Anjuta"
 msgstr "Verstuur patches voor Anjuta"
 
-#: src/anjuta-actions.h:100
+#: src/anjuta-actions.h:106
 msgid "Ask a _question"
 msgstr "Stel een _vraag"
 
-#: src/anjuta-actions.h:102
+#: src/anjuta-actions.h:107
 msgid "Submit a question for FAQs"
 msgstr "Stuur een vraag voor FAQs"
 
-#: src/anjuta-actions.h:106
+#: src/anjuta-actions.h:110
+msgid "_About"
+msgstr "In_fo"
+
+#: src/anjuta-actions.h:111
 msgid "About Anjuta"
 msgstr "Over Anjuta"
 
-#: src/anjuta-app.c:366
+#: src/anjuta-app.c:447
 msgid "Value doesn't exist"
 msgstr "Waarde bestaat niet"
 
-#: src/anjuta-app.c:687
+#: src/anjuta-app.c:734
 #, c-format
 msgid "# * DO NOT EDIT OR RENAME THIS FILE ** Generated by Anjuta **\n"
 msgstr ""
 "# * DIT BESTAND NIET AANPASSEN OF HERNOEMEN ** Gegenereerd door Anjuta **\n"
 
-#: src/anjuta-app.c:970
+#: src/anjuta-app.c:1017
 msgid "Looking up symbol"
 msgstr "Opzoeken van symbool"
 
-#: src/anjuta-app.c:972
+#: src/anjuta-app.c:1019
 msgid "Finding in Files ....\n"
 msgstr "Zoeken in bestanden ....\n"
 
@@ -6773,15 +5843,6 @@ msgid ""
 msgstr ""
 "Het bestand \"%s\" bestaat al.\n"
 "Wilt u het overschrijven?."
-
-#: src/anjuta_cbs.c:93
-#, fuzzy
-msgid ""
-"One or more files are not saved.\n"
-"Do you still want to exit?"
-msgstr ""
-"Sommige bestanden (of het project) zijn niet bewaard.\n"
-"Wilt u nog steeds afsluiten?"
 
 #: src/anjuta_dirs.c:53
 msgid "Unable to create settings directory.\n"
@@ -6822,7 +5883,8 @@ msgid ""
 "Warning: Your generated project will still be fine, though.\n"
 msgstr ""
 "Waarschuwing: Kan geen c/c++ broncode genereren.\n"
-"Waarschuwing: Dit komt omdat glade (voor gtk/gnome projecten) of glademm (voor gtkmm/gnomemm projecten) niet is geïnstalleerd.\n"
+"Waarschuwing: Dit komt omdat glade (voor gtk/gnome projecten) of glademm "
+"(voor gtkmm/gnomemm projecten) niet is geïnstalleerd.\n"
 "Waarschuwing: Uw gegenereerde project zal desondanks toch in orde zijn.\n"
 
 #: src/glade_iface.c:108
@@ -6837,22 +5899,21 @@ msgstr "Kan glade-- niet forken"
 msgid "Cannot fork glade-2."
 msgstr "Kan glade-2 niet forken"
 
-#: src/main.c:50
+#: src/main.c:50 src/main.cpp:50
 msgid "Specify the size and location of the main window"
 msgstr "Specificeer de afmeting en lokatie van het hoofdvenster"
 
-#: src/main.c:51
+#: src/main.c:51 src/main.cpp:51
 msgid "WIDTHxHEIGHT+XOFF+YOFF"
 msgstr "WIDTHxHEIGHT+XOFF+YOFF"
 
-#: src/main.c:56 src/main.cpp:51
+#: src/main.c:56 src/main.cpp:56
 msgid "Do not show the splashscreen"
 msgstr "Het opstartscherm niet tonen"
 
 #: src/mainmenu_callbacks.c:545
-#, fuzzy
 msgid "The executable is not up-to-date."
-msgstr "Uitvoerbaar bestand is niet up-to-date."
+msgstr "Het uitvoerbare bestand is niet up-to-date."
 
 #: src/mainmenu_callbacks.c:570
 msgid "Debugger is not running. Start it first."
@@ -6890,10 +5951,6 @@ msgstr "Voer het regelnummer in waar naar toegegaan moet worden"
 #: src/toolbar.c:151
 msgid "Show/Hide the Project window"
 msgstr "Toon/Verberg het project venster"
-
-#: src/toolbar.c:154
-msgid "Messages"
-msgstr "Berichten"
 
 #: src/toolbar.c:155
 msgid "Show/Hide the Message window"
@@ -7145,6 +6202,10 @@ msgstr "Auto opmaak"
 msgid "Automatically format the code"
 msgstr "Maak de code automatisch op"
 
+#: src/toolbar.c:856
+msgid "Format style"
+msgstr "Opmaakstijl"
+
 #: src/toolbar.c:857
 msgid "Configure style to use for auto format"
 msgstr "Configureer de te gebruiken stijl voor auto opmaak"
@@ -7164,6 +6225,931 @@ msgstr "Automatisch aanvullen"
 #: src/toolbar.c:884
 msgid "Autocomplete word"
 msgstr "Autoafmaken woord"
+
+#~ msgid "$(module.source.files) $(module.include.files)"
+#~ msgstr "$(module.source.files) $(module.include.files)"
+
+#~ msgid "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp"
+#~ msgstr "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp"
+
+#~ msgid ""
+#~ "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp Makefile.am configure.* "
+#~ "README AUTHORS ChangeLog *.m4"
+#~ msgstr ""
+#~ "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp Makefile.am configure.* "
+#~ "README AUTHORS ChangeLog *.m4"
+
+#~ msgid "*.so *.o *.a *.la"
+#~ msgstr "*.so *.o *.a *.la"
+
+#~ msgid "*\\.*"
+#~ msgstr "*\\.*"
+
+#~ msgid "Add line number every:"
+#~ msgstr "Regelnummering toevoegen op iedere:"
+
+#~ msgid "Add page header"
+#~ msgstr "Paginakop toevoegen"
+
+#~ msgid "Always save in UTF-8 encoding (faster)"
+#~ msgstr "Altijd opslaan in UTF-8 (sneller)"
+
+#~ msgid "Arrows"
+#~ msgstr "Pijlen"
+
+#~ msgid "Attributes:"
+#~ msgstr "Attributen:"
+
+#~ msgid "Autocomplete XML/HTML closing tags"
+#~ msgstr "XML/HTML sluit-tags AutoAfmaken"
+
+#~ msgid "Autocompletion"
+#~ msgstr "Auto-aanvullen"
+
+#~ msgid "Autocompletion pop up choices"
+#~ msgstr "Auto-aanvullen pup-up keuzes"
+
+#~ msgid "Autosave"
+#~ msgstr "Automatisch opslaan"
+
+#~ msgid "Back color:"
+#~ msgstr "Achtergrondkleur:"
+
+#~ msgid "Bold"
+#~ msgstr "Vet"
+
+# onderkant
+#~ msgid "Bottom"
+#~ msgstr "Onder"
+
+#~ msgid "CVS intl po"
+#~ msgstr "CVS intl po"
+
+#~ msgid "Calltip background:"
+#~ msgstr "Achtergrondkleur voor hulpballon:"
+
+#~ msgid "Caret (cursor) color:"
+#~ msgstr "Cursorkleur:"
+
+#~ msgid "Caret blink period in milli-seconds"
+#~ msgstr "Knippersnelheid van cursor in miiliseconden"
+
+#~ msgid "Case insensitive"
+#~ msgstr "Hoofdletterongevoelig"
+
+#~ msgid "Choose Directories:"
+#~ msgstr "Mappen kiezen:"
+
+#~ msgid "Choose Files:"
+#~ msgstr "Bestanden kiezen:"
+
+#~ msgid "Choose autocomplete for single match"
+#~ msgstr "AutoAfmaken voor enkele overeenkomst kiezen"
+
+#~ msgid "Choose directories"
+#~ msgstr "Mappen kiezen"
+
+#~ msgid "Choose files"
+#~ msgstr "Bestanden kiezen"
+
+#~ msgid "Circular"
+#~ msgstr "Circulair"
+
+#~ msgid "Code folding"
+#~ msgstr "Code opvouwen"
+
+#~ msgid "Collapse all code folds on file open"
+#~ msgstr "Bij bestand openen code opvouwen "
+
+#~ msgid "Colour"
+#~ msgstr "Kleur"
+
+#~ msgid "Column at edge indicator"
+#~ msgstr "Kolom aan rand indicator"
+
+#~ msgid "Compact folding"
+#~ msgstr "Compact vouwen"
+
+#~ msgid "Costom style"
+#~ msgstr "Aangepaste stijl"
+
+#~ msgid "Crazy boy style"
+#~ msgstr "Crazy boy stijl"
+
+#~ msgid "Custom style"
+#~ msgstr "Aangepaste stijl "
+
+#~ msgid "Customize File Browser"
+#~ msgstr "Bestandsbeheer aanpassen"
+
+#~ msgid "Customize what is to be shown in the file tree"
+#~ msgstr "Aanpassen wat in de mappenboom weergegeven wordt"
+
+#~ msgid "Default"
+#~ msgstr "Standaard"
+
+#~ msgid "Delete Theme"
+#~ msgstr "Thema verwijderen"
+
+#~ msgid "Diagonal"
+#~ msgstr "Diagonaal"
+
+#~ msgid "Directory filter"
+#~ msgstr "Mappenfilter"
+
+#~ msgid "Disable auto-format"
+#~ msgstr "Automatisch formaat uitschakelen"
+
+#~ msgid "Disable syntax highlighting"
+#~ msgstr "Uitschakelen belichtingsstijl"
+
+#~ msgid "Do not show hidden directories"
+#~ msgstr "Verborgen mappen niet weergeven"
+
+#~ msgid "Do not show hidden files"
+#~ msgstr "Verborgen bestanden niet tonen"
+
+#~ msgid "Do not show tabs"
+#~ msgstr "Geen tabs tonen"
+
+#~ msgid "Draw line below folded lines"
+#~ msgstr "Lijn onder opgevouwen lijnen tekenen"
+
+#~ msgid "Editor caret (cursor) width in pixels"
+#~ msgstr "Editor-dakje (cursor) breedte in pixels"
+
+#~ msgid "Editor tabs"
+#~ msgstr "Editor tabs"
+
+#~ msgid "Enable HTML tags folding"
+#~ msgstr "Aanzetten HTML-omloop"
+
+#~ msgid "Enable automatic indentation"
+#~ msgstr "Automatisch inspringen inschakelen"
+
+#~ msgid "Enable automatic messages indicators"
+#~ msgstr "Automatische berichtindicatoren inschakelen"
+
+#~ msgid "Enable braces check"
+#~ msgstr "Haakjescontrole inschakelen"
+
+#~ msgid "Enable code folding"
+#~ msgstr "codetekst omloop aanzetten"
+
+#~ msgid "Enable comments folding"
+#~ msgstr "Commentaar-omloop aanzetten"
+
+#~ msgid "Enable files autosave"
+#~ msgstr "Automatisch bewaren inschakelen"
+
+#~ msgid "Enable line wrap"
+#~ msgstr "Regeldoorloop aanzetten"
+
+#~ msgid "Enable python comments folding"
+#~ msgstr "Python commentaarvouwen inschakelen"
+
+#~ msgid "Enable python quoted strings folding"
+#~ msgstr "Python citaat-tekenreeksen vouwen inschakelen"
+
+#~ msgid "Encoding to use when saving files"
+#~ msgstr "Te gebruiken codering bij opslaan van bestanden"
+
+#~ msgid ""
+#~ "Enter the File name.\n"
+#~ "The extension will be added according to the type."
+#~ msgstr ""
+#~ "Geef de bestandsnaam.\n"
+#~ "De extensie zal worden toegevoegd volgens het type."
+
+#~ msgid ""
+#~ "Enter the command line arguments for the 'indent' program. Read the info "
+#~ "page for 'indent' for more details"
+#~ msgstr ""
+#~ "Geef de opdrachtregel-argumenten voor het programma 'indent'. Lees de "
+#~ "infopagina voor 'indent' voor meer details."
+
+#~ msgid "Error message indicator style:"
+#~ msgstr "Foutmelding indicatorstijl:"
+
+#~ msgid "Errors messages:"
+#~ msgstr "Foutmeldingen:"
+
+#~ msgid "Expand regex back references"
+#~ msgstr "'Regexp back references' uitklappen"
+
+#~ msgid "File Filter"
+#~ msgstr "Bestandsfilter"
+
+#~ msgid "File filter"
+#~ msgstr "Bestandsfilter"
+
+#~ msgid "File name:"
+#~ msgstr "Bestandsnaam:"
+
+#~ msgid "File type:"
+#~ msgstr "Bestandstype:"
+
+#~ msgid "Filter extraneous characters in DOS mode"
+#~ msgstr "Extra tekens filteren in DOS-stand"
+
+#~ msgid "Find & Replace"
+#~ msgstr "Zoeken & vervangen"
+
+#~ msgid "Fold style:"
+#~ msgstr "Opvouwen-stijl"
+
+#~ msgid "Font:"
+#~ msgstr "Lettertype:"
+
+#~ msgid "Fore color:"
+#~ msgstr "Voorgrondkleur:"
+
+#~ msgid "GNU coding style"
+#~ msgstr "GNU coding stijl"
+
+#~ msgid "GPL Notice"
+#~ msgstr "GPL mededeling"
+
+#~ msgid "Greedy matching"
+#~ msgstr "Greedy matchen"
+
+#~ msgid "Header"
+#~ msgstr "Header"
+
+#~ msgid "Header File Template"
+#~ msgstr "Sjabloon headerbestand"
+
+#~ msgid "Hello World style"
+#~ msgstr "'Hallo wereld' stijl"
+
+#~ msgid "Highlight style"
+#~ msgstr "Belichtingsstijl"
+
+#~ msgid "Ignore Binary Files"
+#~ msgstr "Binaire bestanden negeren"
+
+#~ msgid "Ignore Directories:"
+#~ msgstr "Mappen negeren:"
+
+#~ msgid "Ignore Files:"
+#~ msgstr "Bestanden negeren:"
+
+#~ msgid "Ignore Hidden Directories"
+#~ msgstr "Verborgen mappen negeren"
+
+#~ msgid "Ignore Hidden Files"
+#~ msgstr "Verborgen bestanden negeren"
+
+#~ msgid "Ignore directories"
+#~ msgstr "Mappen negeren"
+
+#~ msgid "Ignore files"
+#~ msgstr "Bestanden negeren"
+
+#~ msgid "Indent closing braces"
+#~ msgstr "Afluitende haakjes inspringen"
+
+#~ msgid "Indent opening braces"
+#~ msgstr "Openingshaakjes inspringen"
+
+#~ msgid "Indentation and auto-format options"
+#~ msgstr "Insping- en Automatische-opmaak opties"
+
+#~ msgid "Indentation size in spaces:"
+#~ msgstr "Inspringafstand in spaties:"
+
+# aanwijzers
+#~ msgid "Indicators"
+#~ msgstr "Indicators"
+
+#~ msgid "Italic"
+#~ msgstr "Cursief"
+
+#~ msgid "Kernighan and Ritchie style"
+#~ msgstr "Kernighan and Ritchie stijl"
+
+#~ msgid "Left"
+#~ msgstr "Links"
+
+#~ msgid "Line numbers margin width in pixels"
+#~ msgstr "Marge voor regelnummers in pixels"
+
+#~ msgid "Match at start of word"
+#~ msgstr "Matchen op begin van woord"
+
+#~ msgid "Match complete lines"
+#~ msgstr "Hele regels matchen"
+
+#~ msgid "Match complete words"
+#~ msgstr "Complete woorden matchen"
+
+#~ msgid "Max. Actions"
+#~ msgstr "Max acties"
+
+#~ msgid "Message colors"
+#~ msgstr "Berichtkleuren"
+
+#~ msgid "Messages options"
+#~ msgstr "Berichtopties"
+
+#~ msgid "Misc options"
+#~ msgstr "Overige opties"
+
+#~ msgid "Mode:"
+#~ msgstr "Stand:"
+
+#~ msgid "Monochrome"
+#~ msgstr "Monochroom"
+
+#~ msgid "New File"
+#~ msgstr "Nieuw bestand"
+
+#~ msgid "No Limit"
+#~ msgstr "Geen limiet"
+
+#~ msgid "Normal message indicator style:"
+#~ msgstr "Normaal bericht indicatorstijl:"
+
+#~ msgid "Normal messages:"
+#~ msgstr "Normale berichten:"
+
+#~ msgid "Number of first characters to show:"
+#~ msgstr "Aantal eerste tekens dat getoond wordt:"
+
+#~ msgid "Number of last characters to show:"
+#~ msgstr "Aantal laatste tekens dat getoond wordt:"
+
+#~ msgid "Original Berkeley style"
+#~ msgstr "Originele Berkeley stijl"
+
+#~ msgid "Other colors"
+#~ msgstr "Overige kleuren"
+
+#~ msgid "Other messages:"
+#~ msgstr "Overige berichten:"
+
+#~ msgid "Pick a color"
+#~ msgstr "Kies een kleur"
+
+#~ msgid "Plus/Minus"
+#~ msgstr "Plus/Minus"
+
+#~ msgid "Position:"
+#~ msgstr "Positie:"
+
+#~ msgid "Press this button to dismiss the dialog"
+#~ msgstr "Druk op deze knop om het dialoogvenster te sluiten"
+
+#~ msgid "Pressing backspace un-indents"
+#~ msgstr "Backspace verwijdert inspinging"
+
+#~ msgid "Pressing tab indents"
+#~ msgstr "Tab springt in"
+
+#~ msgid "Print options"
+#~ msgstr "Afdrukopties"
+
+# vertalen of niet?
+#~ msgid "Read me"
+#~ msgstr "Lees mij"
+
+#~ msgid "Regular Expression"
+#~ msgstr "Reguliere expressie"
+
+#~ msgid "Reload Session Defaults"
+#~ msgstr "Sessie-instellingen herladen"
+
+#~ msgid "Reload System Defaults"
+#~ msgstr "Systeem-standaarden herladen"
+
+#~ msgid "Replace With:"
+#~ msgstr "Vervangen door:"
+
+#~ msgid "Right"
+#~ msgstr "Rechts"
+
+#~ msgid "Save files interval in minutes"
+#~ msgstr "Autosave tijdsinterval in minuten"
+
+#~ msgid "Save session interval in minutes"
+#~ msgstr "Sessie opslaginterval in minuten"
+
+#~ msgid "Search Action:"
+#~ msgstr "Zoekactie:"
+
+#~ msgid "Search Direction:"
+#~ msgstr "Zoekrichting:"
+
+#~ msgid "Search Expression"
+#~ msgstr "Zoekexpressie"
+
+#~ msgid "Search Expression:"
+#~ msgstr "Zoekexpressie:"
+
+#~ msgid "Search In:"
+#~ msgstr "Zoeken in:"
+
+#~ msgid "Search Recursively"
+#~ msgstr "Recursief zoeken"
+
+#~ msgid "Search Target"
+#~ msgstr "Zoekdoel"
+
+#~ msgid "Search Variable"
+#~ msgstr "Zoekvariabele"
+
+#~ msgid "Select highlight style to edit:"
+#~ msgstr "Selecteer een belichtingsstijl om te bewerken:"
+
+#~ msgid "Select theme:"
+#~ msgstr "Selecteer thema:"
+
+#~ msgid "Selection background:"
+#~ msgstr "Selectie achtergrond:"
+
+#~ msgid "Selection foreground:"
+#~ msgstr "Selectie voorgrond:"
+
+#~ msgid "Sorted by most recent use"
+#~ msgstr "Sorteren op recent gebruik"
+
+#~ msgid "Sorted in alphabetical order"
+#~ msgstr "Alfabetisch gesorteerd"
+
+#~ msgid "Sorted in the order you open them"
+#~ msgstr "Sorteren op openvolgorde"
+
+#~ msgid "Space-seperated list of directory name patterns to ignore"
+#~ msgstr "Door spaties gescheiden lijst van te negeren mapnaampatronen"
+
+#~ msgid "Space-seperated list of directory name patterns to match"
+#~ msgstr "Door spaties gescheiden lijst van mappatronen om te matchen"
+
+#~ msgid "Space-seperated list of file name patterns to ignore"
+#~ msgstr "Door spaties gescheiden lijst van te negeren bestandsnaampatronen"
+
+#~ msgid "Space-seperated list of file name patterns to match"
+#~ msgstr ""
+#~ "Door spaties gescheiden lijst van bestandsnaampatronen om te matchen"
+
+#~ msgid "Squares"
+#~ msgstr "Vierkanten"
+
+#~ msgid "Strike-Out"
+#~ msgstr "Doorstrepen"
+
+#~ msgid "Strip trailling spaces on file save"
+#~ msgstr "Verwijder beginspaties bij opslaan bestand"
+
+#~ msgid "Style of Kangleipak"
+#~ msgstr "Kangleipak stijl"
+
+#~ msgid "Syntax highlight editor"
+#~ msgstr "Belichtingsstijl bewerken"
+
+#~ msgid "Tab size in spaces:"
+#~ msgstr "Tabgrootte in spaties:"
+
+#~ msgid "Tabs position:"
+#~ msgstr "Tabpositie:"
+
+#~ msgid "Terminal options"
+#~ msgstr "Terminalopties"
+
+#~ msgid "Theme"
+#~ msgstr "Thema"
+
+#~ msgid "Top"
+#~ msgstr "Boven"
+
+#~ msgid "Truncate long messages"
+#~ msgstr "Lange berichten afbreken"
+
+#~ msgid "Try to save in current locale's encoding"
+#~ msgstr "In codering van huidge omgeving proberen op te slaan"
+
+#~ msgid "Try to save in original encoding"
+#~ msgstr "Probeer op te slaan in originele codering"
+
+#~ msgid "Underline Plain"
+#~ msgstr "Onderstrepen normaal"
+
+#~ msgid "Underline Squiggle"
+#~ msgstr "Onderstrepen gegolfd"
+
+# wat betekent TT?
+#~ msgid "Underline-TT"
+#~ msgstr "Onderstrepen TT"
+
+#~ msgid "Underlined"
+#~ msgstr "Onderstreept"
+
+#~ msgid "Use GNOME terminal profile:"
+#~ msgstr "GNOME terminalprofiel gebruiken:"
+
+#~ msgid "Use currently selected profile in GNOME terminal"
+#~ msgstr "Gebruik huidig geselecteerd GNOME-terminal profiel"
+
+#~ msgid "Use default"
+#~ msgstr "Standaard gebruiken"
+
+#~ msgid "Use tabs for indentation"
+#~ msgstr "Gebruik tabs voor inspringen"
+
+#~ msgid "Variable list"
+#~ msgstr "Variabelenlijst"
+
+#~ msgid "Warning message indicator style:"
+#~ msgstr "Waarschuwingsbericht indicatorstijl:"
+
+#~ msgid "Warnings messages:"
+#~ msgstr "Waarschuwingsberichten:"
+
+#~ msgid "Wrap bookmarks search around"
+#~ msgstr "Bladwijzerzoekopdracht doorgaan na documenteinde"
+
+#~ msgid "_Save Theme As"
+#~ msgstr "_Thema opslaan als"
+
+# gebruikersinterface
+# grafische bediening
+#~ msgid "Anjuta UI"
+#~ msgstr "Anjuta UI"
+
+#~ msgid "Anjuta UI that will contain Menus and toolbars"
+#~ msgstr "Anjuta UI dat de menus en werkbalken zal bevatten"
+
+#~ msgid "Anjuta preferences that will contain preferences"
+#~ msgstr "Anjuta voorkeuren die de voorkeuren zal bevatten"
+
+# gebruikers interface
+# bediening
+#~ msgid "Anjuta User Interface"
+#~ msgstr "Anjuta gebruikersinterface"
+
+#~ msgid "Go to the previous directory"
+#~ msgstr "Ga naar de vorige map"
+
+#~ msgid "Go to the next directory"
+#~ msgstr "Ga naar volgende map"
+
+#~ msgid "Go to parent directory"
+#~ msgstr "Ga naar bovenliggende map"
+
+#~ msgid "Go to home directory"
+#~ msgstr "Ga naar persoonlijke map"
+
+# listing?
+#~ msgid "Refresh listing"
+#~ msgstr "Opsomming verversen"
+
+#~ msgid "Delete file"
+#~ msgstr "Bestand verwijderen"
+
+#~ msgid "Rename file"
+#~ msgstr "Bestand hernoemen"
+
+#~ msgid "Create new folder"
+#~ msgstr "Nieuwe map aanmaken"
+
+#~ msgid "Show Hidden"
+#~ msgstr "Verborgen tonen"
+
+#~ msgid "Show hidden files"
+#~ msgstr "Verborgen bestanden tonen"
+
+#~ msgid "Directory: "
+#~ msgstr "Map: "
+
+#~ msgid "Files"
+#~ msgstr "Bestanden"
+
+#~ msgid "Selection: "
+#~ msgstr "Selectie: "
+
+#~ msgid "File type: "
+#~ msgstr "Bestandstype: "
+
+#~ msgid "Java files"
+#~ msgstr "Java bestanden"
+
+#~ msgid "Hyper Text Markup files"
+#~ msgstr "Hyper Text Markup bestanden"
+
+#~ msgid "Config files"
+#~ msgstr "Configuratiebestanden"
+
+#~ msgid "Properties files"
+#~ msgstr "Eigenschap bestanden"
+
+#~ msgid ".mak files"
+#~ msgstr ".mak bestanden"
+
+#~ msgid "Diff files"
+#~ msgstr "Diff bestanden"
+
+#~ msgid "Really delete %s?"
+#~ msgstr "%s echt verwijderen?"
+
+#~ msgid "Rename file to:"
+#~ msgstr "Bestand hernoemen naar:"
+
+#~ msgid "Renaming file failed '%s': %s"
+#~ msgstr "Bestand hernoemen mislukt '%s': %s"
+
+#~ msgid "Creating folder failed '%s': %s"
+#~ msgstr "Aanmaken map '%s' mislukt: %s"
+
+#~ msgid "Folder name:"
+#~ msgstr "Mapnaam:"
+
+#~ msgid "Cannot execute Devhelp. Make sure it is installed"
+#~ msgstr "Kan Devhelp niet uitvoeren. Zorg ervoor dat het geinstalleerd is"
+
+#~ msgid "Menu Merge"
+#~ msgstr "Menu samenvoegen"
+
+#~ msgid "A unique name for the action."
+#~ msgstr "Een unieke naam voor de actie."
+
+#~ msgid "Label"
+#~ msgstr "Label"
+
+#~ msgid "The label used for menu items and buttons that activate this action."
+#~ msgstr ""
+#~ "Het label dat gebruikt wordt voor menu-items en knoppen die deze acite "
+#~ "activeren."
+
+#~ msgid "Short label"
+#~ msgstr "Kort label"
+
+#~ msgid "A shorter label that may be used on toolbar buttons."
+#~ msgstr "Een korter label dat op de werkbalk-knoppen kan worden gebruikt."
+
+#~ msgid "Tooltip"
+#~ msgstr "Tooltip"
+
+#~ msgid "A tooltip for this action."
+#~ msgstr "Een tooltip voor deze actie."
+
+#~ msgid "Stock Icon"
+#~ msgstr "Standaard pictogram"
+
+#~ msgid "The stock icon displayed in widgets representing this action."
+#~ msgstr "Het standaardpictogram getoond in de widgets voor deze actie."
+
+#~ msgid "Whether the action is enabled."
+#~ msgstr "Of de actie is ingeschakeld."
+
+#~ msgid "Whether the action is visible."
+#~ msgstr "Of de actie zichtbaar is."
+
+#~ msgid "Unknown attribute '%s' on line %d char %d"
+#~ msgstr "Onbekend attribuut '%s' op regel %d teken %d"
+
+#~ msgid "Unknown tag '%s' on line %d char %d"
+#~ msgstr "Onbekende tag '%s' op regel %d teken %d"
+
+#~ msgid "The orientation of the toolbar"
+#~ msgstr "Oriëntatie van de werkbalk"
+
+#~ msgid "Toolbar Style"
+#~ msgstr "Werkbalkstijl"
+
+#~ msgid "How to draw the toolbar"
+#~ msgstr "Hoe de werkbalk moet worden weergegeven"
+
+#~ msgid "Show Arrow"
+#~ msgstr "Pijl tonen"
+
+#~ msgid "If an arrow should be shown if the toolbar doesn't fit"
+#~ msgstr "Of een pijl wordt getoond als de werkbalk niet past"
+
+#~ msgid "Expand"
+#~ msgstr "Verbreden"
+
+#~ msgid "Whether the item should receive extra space when the toolbar grows"
+#~ msgstr "Of een item extra ruimte krijgt als de werkbalk groter wordt"
+
+#~ msgid "Homogeneous"
+#~ msgstr "Homogeen"
+
+#~ msgid "Whether the item should be the same size as other homogeneous items"
+#~ msgstr "Of het item dezelfde afmeting moet hebben als andere homogene items"
+
+#~ msgid "Pack End"
+#~ msgstr "Zet op einde"
+
+#~ msgid "Whether the item is positioned at the end of the toolbar"
+#~ msgstr "Of het item aan het einde van de werkbalk wordt gezet"
+
+#~ msgid "Spacer size"
+#~ msgstr "'Spacer' grootte"
+
+#~ msgid "Size of spacers"
+#~ msgstr "De afmetingen van 'spacers'"
+
+#~ msgid "Internal padding"
+#~ msgstr "Interne opvulling"
+
+#~ msgid "Amount of border space between the toolbar shadow and the buttons"
+#~ msgstr ""
+#~ "Hoeveelheid ruimte langs de rand tussen de werkbalkschaduw en de knoppen"
+
+#~ msgid "Space style"
+#~ msgstr "'Spacer' stijl"
+
+#~ msgid "Whether spacers are vertical lines or just blank"
+#~ msgstr "Of 'spacers' verticale lijnen zijn of gewoon blanco"
+
+#~ msgid "Button relief"
+#~ msgstr "Knopreliëf"
+
+#~ msgid "Type of bevel around toolbar buttons"
+#~ msgstr "Soort rand rondom werkbalkknoppen"
+
+#~ msgid "Shadow type"
+#~ msgstr "Schaduwtype"
+
+#~ msgid "Style of bevel around the toolbar"
+#~ msgstr "Stijl van de rand rond de werkbalk"
+
+#~ msgid ""
+#~ "Whether default toolbars have text only, text and icons, icons only, etc."
+#~ msgstr ""
+#~ "Of standaard werkbalken alleen tekst tonen, tekst en pictogrammen, alleen "
+#~ "pictogrammen, enz."
+
+#~ msgid "Toolbar icon size"
+#~ msgstr "Grootte van werkbalkpictogram"
+
+#~ msgid "Size of icons in default toolbars"
+#~ msgstr "Grootte van pictogrammen in standaard werkbalken"
+
+#~ msgid "Text to show in the item."
+#~ msgstr "Tekst voor in het item."
+
+#~ msgid "Use underline"
+#~ msgstr "Onderstreept gebruiken"
+
+#~ msgid "Interpret underlines in the item label"
+#~ msgstr "Onderstrepingen in het itemlabel interpreteren"
+
+#~ msgid "Label widget"
+#~ msgstr "Label widget"
+
+#~ msgid "Widget to use as the item label"
+#~ msgstr "Te gebruiken widget als itemlabel"
+
+#~ msgid "Stock Id"
+#~ msgstr "Standaard Id"
+
+#~ msgid "The stock icon displayed on the item"
+#~ msgstr "Het standaard pictogram dat op het item wordt getoond"
+
+#~ msgid "Icon set"
+#~ msgstr "Pictogramverzameling"
+
+#~ msgid "Icon set to use to draw the item's icon"
+#~ msgstr "Te gebruiken pictogramverzameling voor het pictogram van het item"
+
+#~ msgid "Icon widget"
+#~ msgstr "Pictogram widget"
+
+#~ msgid "Icon widget to display in the item"
+#~ msgstr "Te tonen pictogramwidget in het item "
+
+# wanneer horizontaal
+#~ msgid "Visible when horizontal"
+#~ msgstr "Zichtbaar indien horizontaal"
+
+#~ msgid ""
+#~ "Whether the toolbar item is visible when the toolbar is in a horizontal "
+#~ "orientation."
+#~ msgstr ""
+#~ "Of werkbalk-item zichtbaar is wanneer de werkbalk zich in horizontale "
+#~ "positie bevind."
+
+#~ msgid "Visible when vertical"
+#~ msgstr "Zichtbaar indien verticaal"
+
+#~ msgid ""
+#~ "Whether the toolbar item is visible when the toolbar is in a vertical "
+#~ "orientation."
+#~ msgstr ""
+#~ "Of werkbalk-item zichtbaar is wanneer de werkbalk zich in verticale "
+#~ "positie bevind"
+
+#~ msgid "Disable Cut and paste ops"
+#~ msgstr "Knippen en plakken uitschakelen"
+
+#~ msgid "Enable Cut and paste ops"
+#~ msgstr "Knippen en plakken inschakelen"
+
+#~ msgid "Menu _1"
+#~ msgstr "Menu _1"
+
+#~ msgid "Menu _2"
+#~ msgstr "Menu _2"
+
+#~ msgid "Cut the selected text to the clipboard"
+#~ msgstr "De geselecteerde tekst naar het klembord wegknippen"
+
+#~ msgid "Paste the text from the clipboard"
+#~ msgstr "De tekst plakken vanuit klembord"
+
+#~ msgid "_Bold"
+#~ msgstr "_Vet"
+
+#~ msgid "Change to bold face"
+#~ msgstr "Omzetten naar vet lettertype"
+
+#~ msgid "_Left"
+#~ msgstr "_Links"
+
+#~ msgid "Left justify the text"
+#~ msgstr "De tekst links uitlijnen"
+
+#~ msgid "C_enter"
+#~ msgstr "_Centreren"
+
+#~ msgid "Center justify the text"
+#~ msgstr "De tekst centreren"
+
+#~ msgid "_Right"
+#~ msgstr "_Rechts"
+
+#~ msgid "Right justify the text"
+#~ msgstr "De tekst rechts uitlijnen"
+
+#~ msgid "_Fill"
+#~ msgstr "_Vullen"
+
+#~ msgid "Fill justify the text"
+#~ msgstr "De tekst uitvullen"
+
+#~ msgid "Quit the application"
+#~ msgstr "De toepassing sluiten"
+
+#~ msgid "Enable Cut/Copy/Paste"
+#~ msgstr "Knippen/Kopiëren/Plakken mogelijk maken"
+
+#~ msgid "Change the sensitivity of the cut, copy and paste actions"
+#~ msgstr ""
+#~ "De gevoeligheid van de acities knippen, kopiëren en plakken aanpassen"
+
+#~ msgid "Customise _Accels"
+#~ msgstr "S_neltoetsen aanpassen"
+
+#~ msgid "Customise keyboard shortcuts"
+#~ msgstr "Snelkoppelingen aanpassen"
+
+#~ msgid "Icons"
+#~ msgstr "Pictogrammen"
+
+#~ msgid "Both"
+#~ msgstr "Beide"
+
+#~ msgid "Both Horizontal"
+#~ msgstr "Beide horizontaal"
+
+#~ msgid "Small Icons"
+#~ msgstr "Kleine pictogrammen"
+
+#~ msgid "Large Icons"
+#~ msgstr "Grote pictogrammen"
+
+#~ msgid "Test"
+#~ msgstr "Test"
+
+#~ msgid "line entry"
+#~ msgstr "regel invoer"
+
+# voer het regelnummer in
+#~ msgid "Enter the line number"
+#~ msgstr "Het regelnummer invoeren"
+
+#~ msgid "combo"
+#~ msgstr "combo"
+
+#~ msgid "line number"
+#~ msgstr "regelnummer"
+
+#~ msgid "Open File"
+#~ msgstr "Bestand openen"
+
+#~ msgid "Unable to open %s in %s"
+#~ msgstr "Kan %s niet in %s openen"
+
+#~ msgid ""
+#~ "No default viewer specified for the mime type %s.\n"
+#~ "Please set it in GNOME control center"
+#~ msgstr ""
+#~ "Geen standaardweergave gegeven voor mimetype %s.\n"
+#~ "U moet dit instellen in het GNOME Configuratiecentrum"
+
+#~ msgid "Unable to build user interface for file filter"
+#~ msgstr "Kan gebruikersinterface voor bestandsfilter niet opbouwen"
 
 #~ msgid "Append messages"
 #~ msgstr "Boodschappen toevoegen"
@@ -7245,10 +7231,6 @@ msgstr "Autoafmaken woord"
 
 #~ msgid "This is a sample plugin"
 #~ msgstr "Dit is een voorbeeldplugin"
-
-#, fuzzy
-#~ msgid "Dock/Undock the Project Window"
-#~ msgstr "Toon/Verberg het project venster"
 
 #, fuzzy
 #~ msgid "Unable to load plugin %s. Error: %s"
@@ -7443,9 +7425,6 @@ msgstr "Autoafmaken woord"
 #~ msgid "_Goto previous mesg"
 #~ msgstr "_Ga vorige boodschap"
 
-#~ msgid "Go to previous message"
-#~ msgstr "Ga naar de vorige boodschap"
-
 #~ msgid "_Goto next mesg"
 #~ msgstr "_Ga volgende boodschap"
 
@@ -7599,9 +7578,6 @@ msgstr "Autoafmaken woord"
 #~ msgid "Show shared libraries loaded by the program"
 #~ msgstr "Toon gedeelde bibliotheken door het programma geladen"
 
-#~ msgid "_Kernel Signals"
-#~ msgstr "_Kernel signalen"
-
 #~ msgid "Show the kernel signals editor window"
 #~ msgstr "Toont het kernel signalen editor venster"
 
@@ -7650,26 +7626,11 @@ msgstr "Autoafmaken woord"
 #~ msgid "Force the highlight style to C and C++ with GNOME"
 #~ msgstr "Forceer de belichtingsstijl naar C en C++ met GNOME"
 
-#~ msgid "D_etach Current Document"
-#~ msgstr "V_erwijder huidig document"
-
-#~ msgid "Detach the current document into a separate editor window"
-#~ msgstr "Splits het huidige bestand af in een apart venster"
-
-#~ msgid "_Compile"
-#~ msgstr "_Compileer"
-
-#~ msgid "Compile the current source file"
-#~ msgstr "Compileer het huidige broncodebestand"
-
 #~ msgid "Compile With _Make"
 #~ msgstr "Compileer met _Make"
 
 #~ msgid "Compile the current source file using Make"
 #~ msgstr "Compileer het huidige broncodebestand met behulp van Make"
-
-#~ msgid "_Build"
-#~ msgstr "B_ouw"
 
 #~ msgid "Build the source directory of the Project or the current source file"
 #~ msgstr "De bronmap van het project of het huidige bronbestand bouwen"
@@ -7677,35 +7638,20 @@ msgstr "Autoafmaken woord"
 #~ msgid "Build _All"
 #~ msgstr "Bouw _Alles"
 
-#~ msgid "Build the whole Project"
-#~ msgstr "Bouw het gehele project"
-
 #~ msgid "Save Build Messages"
 #~ msgstr "Bewaar bouwmeldingen"
 
 #~ msgid "Save build messages to a file"
 #~ msgstr "Sla Bouwmeldingen op in een bestand"
 
-#~ msgid "_Install"
-#~ msgstr "_Installeer"
-
 #~ msgid "Install the Project on your system"
 #~ msgstr "Installeer het project op uw systeem"
-
-#~ msgid "Build _Distribution"
-#~ msgstr "Bouw _Distributie"
 
 #~ msgid "Build the distribution tarball of the Project"
 #~ msgstr "Bouw de distributie-tarball van het project"
 
-#~ msgid "Con_figure ..."
-#~ msgstr "Con_figureer ..."
-
 #~ msgid "Configure the Project"
 #~ msgstr "Configureer het project"
-
-#~ msgid "Auto _generate ..."
-#~ msgstr "Auto _genereer ..."
 
 #~ msgid "Auto generate all the build files for the Project"
 #~ msgstr "Automatisch generatie van de bouwbestanden voor het project"
@@ -8076,12 +8022,6 @@ msgstr "Autoafmaken woord"
 #~ msgid "_CVS"
 #~ msgstr "_CVS"
 
-#~ msgid "Find"
-#~ msgstr "Zoeken"
-
-#~ msgid "Terminal"
-#~ msgstr "Terminal"
-
 #~ msgid "Stdout"
 #~ msgstr "Stdout"
 
@@ -8111,9 +8051,6 @@ msgstr "Autoafmaken woord"
 
 #~ msgid "No matches."
 #~ msgstr "Geen overeenkomsten."
-
-#~ msgid "Loading file ..."
-#~ msgstr "Bestand laden..."
 
 #~ msgid "File loaded successfully"
 #~ msgstr "Bestand geladen"
