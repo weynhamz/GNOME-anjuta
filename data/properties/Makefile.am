@@ -28,6 +28,7 @@ properties_data_DATA = \
 	xml.properties \
 	others.properties \
 	lisp.properties \
-	matlab.properties
+	matlab.properties \
+	tcltk.properties
 
 EXTRA_DIST = $(properties_data_DATA)
