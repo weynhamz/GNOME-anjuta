@@ -13,7 +13,7 @@
 
 #if PLAT_WIN
 #ifdef STATIC_BUILD
-void Scintilla_RegisterClasses(HINSTANCE hInstance);
+void Scintilla_RegisterClasses(void *hInstance);
 #endif
 #endif
 
@@ -99,6 +99,7 @@ typedef sptr_t (*SciFnDirect)(sptr_t ptr, unsigned int iMessage, uptr_t wParam, 
 #define SC_MARK_CIRCLEPLUSCONNECTED 19
 #define SC_MARK_CIRCLEMINUS 20
 #define SC_MARK_CIRCLEMINUSCONNECTED 21
+#define SC_MARK_BACKGROUND 22
 #define SC_MARK_CHARACTER 10000
 #define SC_MARKNUM_FOLDEREND 25
 #define SC_MARKNUM_FOLDEROPENMID 26
@@ -441,6 +442,8 @@ typedef sptr_t (*SciFnDirect)(sptr_t ptr, unsigned int iMessage, uptr_t wParam, 
 #define SCI_SETVISIBLEPOLICY 2394
 #define SCI_DELLINELEFT 2395
 #define SCI_DELLINERIGHT 2396
+#define SCI_SETXOFFSET 2397
+#define SCI_GETXOFFSET 2398
 #define SCI_GRABFOCUS 2400
 #define SCI_STARTRECORD 3001
 #define SCI_STOPRECORD 3002
@@ -493,12 +496,10 @@ typedef sptr_t (*SciFnDirect)(sptr_t ptr, unsigned int iMessage, uptr_t wParam, 
 #define SCN_KEY 2005
 #define SCN_DOUBLECLICK 2006
 #define SCN_UPDATEUI 2007
-#define SCN_CHECKBRACE 2007
 #define SCN_MODIFIED 2008
 #define SCN_MACRORECORD 2009
 #define SCN_MARGINCLICK 2010
 #define SCN_NEEDSHOWN 2011
-#define SCN_POSCHANGED 2012
 #define SCN_PAINTED 2013
 #define SCN_USERLISTSELECTION 2014
 #define SCN_URIDROPPED 2015
@@ -571,19 +572,17 @@ struct SCNotification {
 	int y;		// SCN_DWELLSTART, SCN_DWELLEND
 };
 
-#define SC_MASK_FOLDERS ((1<<SC_MARKNUM_FOLDER) | \
-	(1<<SC_MARKNUM_FOLDEROPEN) | \
-	(1<<SC_MARKNUM_FOLDERSUB) | \
-	(1<<SC_MARKNUM_FOLDERTAIL) | \
-	(1<<SC_MARKNUM_FOLDERMIDTAIL) | \
-	(1<<SC_MARKNUM_FOLDEROPENMID) | \
-	(1<<SC_MARKNUM_FOLDEREND))
+// This long line is caused by problems with continuation lines with some compilers so leave as is
+#define SC_MASK_FOLDERS ((1<<SC_MARKNUM_FOLDER) | (1<<SC_MARKNUM_FOLDEROPEN) | (1<<SC_MARKNUM_FOLDERSUB) | (1<<SC_MARKNUM_FOLDERTAIL) | (1<<SC_MARKNUM_FOLDERMIDTAIL) | (1<<SC_MARKNUM_FOLDEROPENMID) | (1<<SC_MARKNUM_FOLDEREND))
 
 // Deprecation section listing all API features that are deprecated and will
 // will be removed completely in a future version.
 // To enable these features define INCLUDE_DEPRECATED_FEATURES
 
 #ifdef INCLUDE_DEPRECATED_FEATURES
+
+#define SCN_POSCHANGED 2012
+#define SCN_CHECKBRACE 2007
 
 #endif
 

@@ -30,14 +30,8 @@
  * Modification history:
  *
  * $Log$
- * Revision 1.4  2001/10/16 09:24:28  naba
- * 	* Upgraded scintilla to 1.4 version.
- * 	* Added 6 files:  LexCrontab.cxx LexEiffel.cxx LexRuby.cxx
- * 		LexLisp.cxx StyleContext.cxx StyleContext.h
- * 	* src/Makefile.am: Added 4 lexers and separated lexer objects
- * 		from the main link variable.
- *
- * ----------------------------------------------------------------------
+ * Revision 1.5  2001/11/07 11:45:17  andyp
+ * Updated to Scintilla 1.41
  *
  * Revision 1.6  2001/04/29 13:32:10  nyamatongwe
  * Addition of new target methods - versions of ReplaceTarget that take counted
