@@ -87,13 +87,24 @@
       <term>Michele Campeott<email>micampe@f2s.com</email></term>
       <listitem><para>Italian Translation</para></listitem>
      </varlistentry>
-    </variablelist>
-   </para>
 
-      <varlistentry>
-       <term>Christian Rose<email>menthos@menthos.com</email></term>
-	   <listitem><para>Swedish Translation</para></listitem>
-      </varlistentry>
+    <varlistentry>
+     <term>Christian Rose<email>menthos@menthos.com</email></term>
+     <listitem><para>Swedish Translation</para></listitem>
+    </varlistentry>
+   
+    <varlistentry>
+     <term>uriy Syrota<email>rasta@renome.rovno.ua</email></term>
+     <listitem><para>Ukrainian Translation</para></listitem>
+    </varlistentry>
+    
+	<varlistentry>
+     <term>Valek Filippov<email>frob@df.ru</email></term>
+	 <listitem><para>Russian Translation</para></listitem>
+    </varlistentry>
+    
+	</variablelist>
+   </para>
   </sect1>
 
   <!-- ============ Information: Contacts ======== -->

@@ -3,7 +3,10 @@
 	* help.c, help.h: Added support for DevHelp context sensitive help
 		and gnome api browsing.
 	* Fixed toolbars and editor views "not save" bug.
-	
+	* Updated sgmldocs.make and configure.in to handle rh 7.1 crap.
+	  (patch from Andy Piper <squiggle@ukgateway.net>)
+	* Updated THANKS and chapter15.sgml for uk and ru translators.
+
 2001-08-05  Naba Kumar <kh_naba@users.sourceforge.net>
 
 	* Transfered ru.po, uk.po and update.sh from gnome-i18n/extra-po/anjuta
