@@ -162,6 +162,25 @@ gboolean tm_workspace_load_global_tags(const char *tags_file)
 	}
 }
 
+static guint tm_file_inode_hash(gconstpointer key)
+{
+	struct stat file_stat;
+	const char *filename = (const char*)key;
+
+	stat(filename, &file_stat);
+	return file_stat.st_ino;
+}
+
+static void tm_move_entries_to_g_list(gpointer key, gpointer value, gpointer user_data)
+{
+	if (user_data == NULL)
+		return;
+
+	GList **pp_list = (GList**)user_data;
+
+	*pp_list = g_list_append(*pp_list, value);
+}
+
 gboolean tm_workspace_create_global_tags(const char *pre_process, const char **includes
   , int includes_count, const char *tags_file)
 {
@@ -173,6 +192,7 @@ gboolean tm_workspace_create_global_tags(const char *pre_process, const char **i
 	FILE *fp;
 	TMWorkObject *source_file;
 	GPtrArray *tags_array;
+	GHashTable *includes_files_hash;
 	GList *includes_files = NULL;
 	int list_len;
 	int idx_main;
@@ -186,6 +206,8 @@ gboolean tm_workspace_create_global_tags(const char *pre_process, const char **i
 		return FALSE;
 	
 	globbuf.gl_offs = 0;
+	includes_files_hash = g_hash_table_new(tm_file_inode_hash, g_int_equal);
+
 	for(idx_inc = 0; idx_inc < includes_count; idx_inc++)
 	{
  		int dirty_len = strlen(includes[idx_inc]);
@@ -198,8 +220,12 @@ gboolean tm_workspace_create_global_tags(const char *pre_process, const char **i
 		//printf("matches: %d\n", globbuf.gl_pathc);
 		for(idx_glob = 0; idx_glob < globbuf.gl_pathc; idx_glob++)
 		{
-			includes_files = g_list_append(includes_files, strdup(globbuf.gl_pathv[idx_glob]));
 			//printf(">>> %s\n", globbuf.gl_pathv[idx_glob]);
+			gpointer existing_value = g_hash_table_lookup(includes_files_hash, globbuf.gl_pathv[idx_glob]);
+			if (existing_value == NULL) {
+				char* file_name_copy = strdup(globbuf.gl_pathv[idx_glob]);
+				g_hash_table_insert(includes_files_hash, file_name_copy, file_name_copy);
+			}
 		}
 		globfree(&globbuf);
 		free(clean_path);
@@ -208,52 +234,10 @@ gboolean tm_workspace_create_global_tags(const char *pre_process, const char **i
 
 	/* Checks for duplicate file entries which would case trouble */
 	{
-		struct stat main_stat;
-		struct stat sub_stat;
-
-		remove_count = 0;
-		
-		list_len = g_list_length(includes_files);
-
-		/* We look for files with the same inode */
-		for(idx_main = 0; idx_main < list_len; idx_main++)
-		{
-//			printf("%d / %d\n", idx_main, list_len - 1);
-			stat(g_list_nth_data(includes_files, idx_main), &main_stat);
-			for(idx_sub = idx_main + 1; idx_sub < list_len; idx_sub++)
-			{
-				GList *element = NULL;
-				
-				stat(g_list_nth_data(includes_files, idx_sub), &sub_stat);
-				
-				
-				if(main_stat.st_ino != sub_stat.st_ino)
-					continue;
-			
-				/* Inodes match */
-				
-				element = g_list_nth(includes_files, idx_sub);
-					
-/*				printf("%s == %s\n", g_list_nth_data(includes_files, idx_main), 
-										 g_list_nth_data(includes_files, idx_sub)); */
-					
-				/* We delete the duplicate entry from the list */
-				includes_files = g_list_remove_link(includes_files, element);
-				remove_count++;
-
-				/* Don't forget to free the mallocs (we duplicated every string earlier!) */
-				free(element->data);
-
-				idx_sub--; /* Cause the inner loop not to move; good since we removed 
-							   an element at the current position; we don't have to worry
-							   about the outer loop because the inner loop always starts
-							   after the outer loop's index */
-
-				list_len = g_list_length(includes_files);
-			}
-		}
+		g_hash_table_foreach(includes_files_hash, tm_move_entries_to_g_list, &includes_files);
+		g_hash_table_destroy(includes_files_hash);
+		includes_files_hash = NULL;
 	}
-
 
 	printf("writing out files to %s\n", temp_file);
 	for(idx_main = 0; idx_main < g_list_length(includes_files); idx_main++)

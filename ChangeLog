@@ -1,3 +1,8 @@
+2005-02-13  Naba Kumar  <naba@gnome.org>
+
+	Patch from Igor Kovalenko  <garrison@mail.ru>:
+	* tagmanager/tm_workspace.c: Improved performance.
+
 2005-02-13  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
 
 	*plugins/project-wizard/templates/*.wiz,
