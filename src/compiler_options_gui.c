@@ -63,7 +63,7 @@ create_compiler_options_gui (CompilerOptions * co)
 	GtkWidget *label111;
 
 	dialog1 = gnome_dialog_new (_("Compiler Options"), NULL);
-	gtk_window_set_policy (GTK_WINDOW (dialog1), FALSE, FALSE, FALSE);
+	gtk_window_set_policy (GTK_WINDOW (dialog1), FALSE, TRUE, FALSE);
 	gtk_window_set_wmclass (GTK_WINDOW (dialog1), "comp_opt", "Anjuta");
 	gnome_dialog_close_hides (GNOME_DIALOG (dialog1), TRUE);
 

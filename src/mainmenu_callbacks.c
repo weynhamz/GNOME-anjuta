@@ -55,6 +55,8 @@
 #include "Scintilla.h"
 #include "ScintillaWidget.h"
 
+#include "tm_tagmanager.h"
+
 void on_toolbar_find_clicked (GtkButton * button, gpointer user_data);
 
 gboolean closing_state;		/* Do not temper with this variable  */
@@ -1908,6 +1910,40 @@ on_context_help_activate (GtkMenuItem * menuitem, gpointer user_data)
 	ret = aneditor_command (te->editor_id, ANE_GETCURRENTWORD, (long)buffer, (long)sizeof(buffer));
 	if (ret == FALSE) return;
 	anjuta_help_search(app->help_system, buffer);
+}
+
+void
+on_goto_tag_activate (GtkMenuItem * menuitem, gpointer user_data)
+{
+	TextEditor* te;
+	gboolean ret;
+	gchar buffer[1000];
+	
+	te = anjuta_get_current_text_editor();
+	if(!te) return;
+	ret = aneditor_command (te->editor_id, ANE_GETCURRENTWORD, (long)buffer, (long)sizeof(buffer));
+	if (!ret)
+		return;
+	else
+	{
+		int flags = tm_tag_function_t | tm_tag_struct_t | tm_tag_class_t
+		  | tm_tag_macro_t | tm_tag_macro_with_arg_t | tm_tag_enum_t
+		  | tm_tag_externvar_t | tm_tag_enumerator_t | tm_tag_typedef_t;
+		const GPtrArray *tags = tm_workspace_find(buffer, flags, NULL, FALSE);
+		if (tags && (tags->len > 0))
+		{
+			TMTag *tag;
+			int i;
+			for (i=0; i < tags->len; ++i)
+			{
+				tag = TM_TAG(tags->pdata[i]);
+				if (tag->atts.entry.file)
+					anjuta_goto_file_line(
+					  tag->atts.entry.file->work_object.file_name
+					, tag->atts.entry.line);
+			}
+		}
+	}
 }
 
 void

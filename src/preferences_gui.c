@@ -49,6 +49,8 @@ gchar *hilite_style[] = {
 	"Comments", "style.default.comment",
 	"Numbers", "style.default.number",
 	"Keywords", "style.default.keyword",
+	"System Keywords", "style.default.syskeyword",
+	"Local Keywords", "style.default.localkeyword",
 	"Double Quoted Strings", "style.default.doublequote",
 	"Single Quoted Strings", "style.default.singlequote",
 	"Unclosed Strings", "style.default.unclosedstring",
@@ -143,7 +145,7 @@ create_preferences_gui (Preferences * pr)
 	GtkWidget *preferences_cancel;
 
 	dialog1 = gnome_dialog_new (_("Preferences"), NULL);
-	gtk_window_set_policy (GTK_WINDOW (dialog1), FALSE, FALSE, FALSE);
+	gtk_window_set_policy (GTK_WINDOW (dialog1), FALSE, FALSE, TRUE);
 	gnome_dialog_close_hides (GNOME_DIALOG (dialog1), TRUE);
 	window2 = dialog1;
 	gtk_window_set_wmclass (GTK_WINDOW (window2), "preferences", "Anjuta");

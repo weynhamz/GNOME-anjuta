@@ -628,6 +628,9 @@ void
 on_context_help_activate (GtkMenuItem * menuitem, gpointer user_data);
 
 void
+on_goto_tag_activate (GtkMenuItem * menuitem, gpointer user_data);
+
+void
 on_search_a_topic1_activate            (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
 

@@ -1,3 +1,11 @@
+2001-12-17	Andy Piper	<andy.piper@freeuk.com>
+
+	* data/anjuta.properties, data/internal.properties: cleanup
+	* src/compiler_options_gui.c, src/mainmenu_callbacks.*, 
+	  src/preferences_gui.c, src/text_editor_menu.c: patches from Biswa
+	  to edit styles colors for keywords and add Goto Tag menu option
+	  in the editor
+
 2001-12-14 Naba Kumar <kh_naba@users.sourceforge.net>
 
 	* src/anjuta.c, anjuta.h, text_editor.c, text_editor.h:
@@ -41,7 +49,7 @@
 	d) On creation of generic project, the glade 'file not found' error no
 		longer occurs.
 	e) First terminal window is created 'on demand', so it should always to
-		the Right Thing (TM) as far as starting WD is concerned. Also, teh
+		the Right Thing (TM) as far as starting WD is concerned. Also, the
 		environment is now passed to the terminal.
 	f) Solaris compilation should be fixed (replaced get_current_dir_name()
 		with getcwd()).

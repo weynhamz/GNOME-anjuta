@@ -227,6 +227,13 @@ GnomeUIInfo text_editor_menu_uiinfo[] = {
 	 GNOME_APP_PIXMAP_NONE, NULL,
  	 0, 0, NULL}
 	 ,
+	{
+	 GNOME_APP_UI_ITEM, N_("Goto Tag"),
+	 NULL,
+	 on_goto_tag_activate, NULL, NULL,
+	 GNOME_APP_PIXMAP_NONE, NULL,
+ 	 0, 0, NULL}
+	 ,
 	GNOMEUIINFO_SEPARATOR,
 	{
 	 GNOME_APP_UI_ITEM, N_("Toggle Bookmark"),
