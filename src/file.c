@@ -100,7 +100,7 @@ typedef struct _NewfileType
 NewfileType new_file_type[] = {
 	{N_("C Source File"), ".c", TRUE, TRUE, FALSE, CMT_C},
 	{N_("C -C++ Header File"), ".h", TRUE, TRUE, TRUE, CMT_C},
-	{N_("C++ Source File"), ".cc", TRUE, TRUE, FALSE, CMT_C},
+	{N_("C++ Source File"), ".cpp", TRUE, TRUE, FALSE, CMT_C},
 	{N_("C# Source File"), ".c#", FALSE, TRUE, FALSE, CMT_CPP},
 	{N_("Java Source File"), ".java", FALSE, TRUE, FALSE, CMT_CPP},
 	{N_("Perl Source File"), ".pl", FALSE, TRUE, FALSE, CMT_PY},

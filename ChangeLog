@@ -1,8 +1,12 @@
+2004-02-25  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
+	* src/file.c
+	Fixed bug #902047 C++ extension: cpp
+
 2004-02-23  Naba Kumar  <naba@gnome.or>
 
 	* manuals/C/anjuta-tutorial/anjuta-tutorial.xml: Fixed a typo
 	(bug #866143).
-	
+
 2004-02-24  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
 	* src/search_incremental.c
 	Fixed bug #900903
