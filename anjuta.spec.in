@@ -51,7 +51,13 @@ make prefix=$RPM_BUILD_ROOT%{prefix} install
 
 %files
 %doc AUTHORS COPYING ChangeLog INSTALL NEWS README THANKS TODO
-%{prefix}/share/gnome/help/anjuta/C/*
+%{prefix}/share/gnome/help/anjuta/C
+%{prefix}/share/gnome/help/anjuta/C/anjuta-faqs
+%{prefix}/share/gnome/help/anjuta/C/anjuta-faqs/figures
+%{prefix}/share/gnome/help/anjuta/C/anjuta-faqs/stylesheet-images
+%{prefix}/share/gnome/help/anjuta/C/anjuta-manual
+%{prefix}/share/gnome/help/anjuta/C/anjuta-manual/figures
+%{prefix}/share/gnome/help/anjuta/C/anjuta-manual/stylesheet-images
 
 %defattr(-,root,root)
 %{prefix}/bin/anjuta
