@@ -1,5 +1,7 @@
 2003-03-21  Naba Kumar  <naba@gnome.org>
 
+	* src/anjuta-tools.c: Fixed compiler errors.
+
 	* src/anjuta-tools.c, src/attach_process.c: Fixed more window
 	show bugs.
 	
