@@ -1,3 +1,10 @@
+2005-02-20  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
+
+	* plugins/file-wizard/plugin.c, plugins/macro/macro-dialog.c
+	plugins/macro/macro-util.c, plugins/macro/macros.xml :
+	Added C Custom_Indent line macro.
+	Cleaned macros.xml
+
 2005-03-09  Naba Kumar  <naba@gnome.org>
 
 	* TODO.tasks: Added new message-manager tasks.

@@ -113,6 +113,42 @@ get_email(MacroPlugin * plugin)
 	return g_strdup(email);
 }
 	
+static gchar *
+get_tab_size(MacroPlugin * plugin)
+{
+	AnjutaPreferences *prefs;
+	gchar *ts;
+	
+	prefs = anjuta_shell_get_preferences ((ANJUTA_PLUGIN(plugin))->shell, NULL);
+	ts = g_strdup_printf("tab-width: %d", anjuta_preferences_get_int (prefs, "tabsize"));
+	return ts;
+}
+
+static gchar *
+get_indent_size(MacroPlugin * plugin)
+{
+	AnjutaPreferences *prefs;
+	gchar *is;
+	
+	prefs = anjuta_shell_get_preferences ((ANJUTA_PLUGIN(plugin))->shell, NULL);
+	is = g_strdup_printf("c-basic-offset: %d", anjuta_preferences_get_int (prefs, "indent.size"));
+	return is;
+}
+
+static gchar *
+get_use_tabs(MacroPlugin * plugin)
+{
+	AnjutaPreferences *prefs;
+	gchar *ut;
+	
+	prefs = anjuta_shell_get_preferences ((ANJUTA_PLUGIN(plugin))->shell, NULL);
+	if (anjuta_preferences_get_int (prefs, "use.tabs"))
+		ut = g_strdup("indent-tabs: t");
+	else
+		ut = g_strdup("");
+	return ut;
+}
+
 static IAnjutaEditor*
 get_current_editor (AnjutaPlugin *plugin)
 {
@@ -168,10 +204,12 @@ static gboolean
 expand_keyword(MacroPlugin * plugin, gchar *keyword, gchar **expand)
 {
 	enum {_DATETIME = 0, _DATE_YMD, _DATE_Y, _USER_NAME , _FILE_NAME,  _FILE_NAME_UP, 
-			_FILE_NAME_UP_PREFIX, _EMAIL, _ENDKEYW };		
+			_FILE_NAME_UP_PREFIX, _EMAIL, _TABSIZE, _INDENTSIZE,
+		    _USETABS, _ENDKEYW };		
 	gchar *tabkey[_ENDKEYW] =
 		{"@DATE_TIME@", "@DATE_YMD@", "@DATE_Y@", "@USER_NAME@", "@FILE_NAME@",
-		 "@FILE_NAME_UP@", "@FILE_NAME_UP_PREFIX@", "@EMAIL@" };
+		 "@FILE_NAME_UP@", "@FILE_NAME_UP_PREFIX@", "@EMAIL@" , "@TABSIZE@",
+		 "@INDENTSIZE@", "@USETABS@"};
 	gint key;
 		
 	for (key=0; key<_ENDKEYW; key++)
@@ -203,6 +241,15 @@ expand_keyword(MacroPlugin * plugin, gchar *keyword, gchar **expand)
 			break;
 		case _EMAIL :
 			*expand = get_email(plugin);
+			break;
+		case _TABSIZE :
+			*expand = get_tab_size(plugin);
+			break;
+		case _INDENTSIZE :
+			*expand = get_indent_size(plugin);
+			break;
+		case _USETABS :
+			*expand = get_use_tabs(plugin);
 			break;
 		default:
 			return FALSE;
@@ -262,15 +309,16 @@ expand_macro(MacroPlugin * plugin, gchar *txt, gint *offset)
 		{
 			found_curs = TRUE;
 			buf = g_strndup(ptr, c - ptr);
-			*offset = c - ptr;
+
 			buffer = g_strconcat(buffer, buf, NULL);
+			*offset = strlen(buffer);
 			ptr = c + 1;	
 		}    
 		c++;
 	}
-
     buf = g_strndup(ptr, c - ptr);
     buffer = g_strconcat(buffer, buf, NULL);
+	
     g_free(buf);
     return buffer;
 }

@@ -67,7 +67,6 @@ on_ok_clicked (MacroPlugin * plugin)
 			ianjuta_editor_insert (IANJUTA_EDITOR(plugin->current_editor),
 								   CURRENT_POS, text, -1,
 								   NULL);
-g_print("POS: %d  OFFSET: %d", pos, offset);
 			ianjuta_editor_goto_position (IANJUTA_EDITOR(plugin->current_editor), 
 			                              pos + offset, 
 			                              NULL);

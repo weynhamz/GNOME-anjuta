@@ -1,4 +1,4 @@
-# Anjuta Version 1.2.2 
+# Anjuta Version 1.2.3 
 Compatibility Level: 1 
 
 <PROJECT_DESCRIPTION_START>
@@ -24,7 +24,7 @@ a number of advanced programming facilities.<PROJECT_DESCRIPTION_END>
 
 props.file.type=project
 
-anjuta.version=1.2.2
+anjuta.version=1.2.3
 anjuta.compatibility.level=1
 
 project.name=anjuta

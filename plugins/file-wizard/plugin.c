@@ -70,7 +70,7 @@ static GtkActionEntry actions_insert[] = {
     G_CALLBACK (on_insert_date_time)},
   { "ActionEditInsertHeaderTemplate", N_("Header File _Template"), NULL, NULL,
 	N_("Insert a standard header file template"),
-    G_CALLBACK (on_insert_header_template)},
+    G_CALLBACK (on_insert_header_template)},	
   { "ActionEditInsertChangelog", N_("ChangeLog entry"), NULL, NULL,
 	N_("Insert a ChangeLog entry"),
     G_CALLBACK (on_insert_changelog_entry)},
