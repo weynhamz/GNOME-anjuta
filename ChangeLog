@@ -1,5 +1,12 @@
 2004-03-09  Naba Kumar  <naba@gnome.org>
 
+	* src/print.c: Fixed buffer styling bug when printing with
+	selection.
+
+	* data/properties/anjuta.properties: Defined only one base font and
+	used courier instead of lucidatypewriter, because most newer systems are
+	unlikely to have it (bug #885023, #925956, #890473).
+	
 	* configure.in, src/getline.c, src/compiler_options.c: Fixed compiler
 	warning.
 	

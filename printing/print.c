@@ -276,7 +276,7 @@ anjuta_print_job_info_style_new (PropsID prop, gchar* lang,
 	g_return_val_if_fail (prop > 0, NULL);
 	g_return_val_if_fail (style < 256, NULL);
 	
-	pis = g_new (PrintJobInfoStyle, 1);
+	pis = g_new0 (PrintJobInfoStyle, 1);
 
 	pis->font = NULL;
 	pis->font_name = g_strdup(AN_PRINT_FONT_BODY_DEFAULT);
@@ -504,6 +504,12 @@ anjuta_print_job_info_new (void)
 	/* Load Buffer to be printed. The buffer loaded is the text/style combination.*/
 	pji->buffer_size = scintilla_send_message(SCINTILLA(pji->te->widgets.editor), SCI_GETLENGTH, 0, 0);
 	buffer = (gchar *) aneditor_command(pji->te->editor_id, ANE_GETSTYLEDTEXT, 0, pji->buffer_size);
+	if (NULL == buffer)
+	{
+		anjuta_error(_("Unable to get text buffer for printing"));
+		anjuta_print_job_info_destroy(pji);
+		return NULL;
+	}
 	pji->buffer = g_new(char, pji->buffer_size + 1);
 	pji->styles = g_new(char, pji->buffer_size + 1);
 	pji->buffer[pji->buffer_size] = '\0';
@@ -514,12 +520,6 @@ anjuta_print_job_info_new (void)
 		pji->styles[i] = buffer[(i << 1) + 1];
 	}
 	g_free (buffer);
-	if (NULL == pji->buffer)
-	{
-		anjuta_error(_("Unable to get text buffer for printing"));
-		anjuta_print_job_info_destroy(pji);
-		return NULL;
-	}
 	
 	/* Zoom factor */
 	pji->zoom_factor =
@@ -675,6 +675,8 @@ anjuta_print_set_buffer_as_selection (PrintJobInfo *pji)
 {
 	gint from, to;
 	gint proper_from, proper_to;
+	gchar *buffer;
+	gint i;
 	
 	pji->range_start_line = 1;
 	pji->range_end_line = text_editor_get_total_lines (pji->te);
@@ -688,12 +690,26 @@ anjuta_print_set_buffer_as_selection (PrintJobInfo *pji)
 	proper_to   = MAX(from, to);
 	
 	if (pji->buffer) g_free(pji->buffer);
+	pji->buffer = NULL;
+	if (pji->styles) g_free (pji->styles);
+	pji->styles = NULL;
 	
 	/* Print Buffers */
-	pji->buffer = (gchar *) aneditor_command(pji->te->editor_id,
-				ANE_GETSTYLEDTEXT, proper_from, proper_to);
-	g_return_if_fail(pji->buffer!=NULL);
+	/* Load Buffer to be printed. The buffer loaded is the text/style combination.*/
 	pji->buffer_size = proper_to - proper_from;
+	buffer = (gchar *) aneditor_command(pji->te->editor_id, ANE_GETSTYLEDTEXT, proper_from, proper_to);
+	g_return_if_fail(buffer!=NULL);
+	pji->buffer = g_new(char, pji->buffer_size + 1);
+	pji->styles = g_new(char, pji->buffer_size + 1);
+	pji->buffer[pji->buffer_size] = '\0';
+	pji->styles[pji->buffer_size] = '\0';
+	for (i = 0; i < pji->buffer_size; i++)
+	{
+		pji->buffer[i] = buffer[i << 1];
+		pji->styles[i] = buffer[(i << 1) + 1];
+	}
+	g_free (buffer);
+
 	pji->range_start_line = scintilla_send_message (SCINTILLA (pji->te->widgets.editor),
 				SCI_LINEFROMPOSITION, proper_from, 0);
 	pji->range_end_line = scintilla_send_message (SCINTILLA (pji->te->widgets.editor),
@@ -706,8 +722,9 @@ anjuta_print_set_buffer_as_selection (PrintJobInfo *pji)
 static void
 anjuta_print_set_buffer_as_range (PrintJobInfo *pji)
 {
-	gint from, to;
+	gint from, to, i;
 	gint proper_from, proper_to;
+	gchar *buffer;
 	
 	from = scintilla_send_message (SCINTILLA (pji->te->widgets.editor),
 				SCI_POSITIONFROMLINE, pji->range_start_line - 1, 0);
@@ -719,12 +736,25 @@ anjuta_print_set_buffer_as_range (PrintJobInfo *pji)
 	proper_to   = MAX(from, to);
 	
 	if (pji->buffer) g_free(pji->buffer);
+	pji->buffer = NULL;
+	if (pji->styles) g_free (pji->styles);
+	pji->styles = NULL;
 	
 	/* Print Buffers */
-	pji->buffer = (gchar *) aneditor_command(pji->te->editor_id,
-				ANE_GETSTYLEDTEXT, proper_from, proper_to);
-	g_return_if_fail(pji->buffer!=NULL);
+	/* Load Buffer to be printed. The buffer loaded is the text/style combination.*/
 	pji->buffer_size = proper_to - proper_from;
+	buffer = (gchar *) aneditor_command(pji->te->editor_id, ANE_GETSTYLEDTEXT, proper_from, proper_to);
+	g_return_if_fail(buffer!=NULL);
+	pji->buffer = g_new(char, pji->buffer_size + 1);
+	pji->styles = g_new(char, pji->buffer_size + 1);
+	pji->buffer[pji->buffer_size] = '\0';
+	pji->styles[pji->buffer_size] = '\0';
+	for (i = 0; i < pji->buffer_size; i++)
+	{
+		pji->buffer[i] = buffer[i << 1];
+		pji->styles[i] = buffer[(i << 1) + 1];
+	}
+	g_free (buffer);
 }
 
 static void
