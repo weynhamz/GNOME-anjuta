@@ -37,4 +37,7 @@ gchar* anjuta_res_get_help_file (const gchar* helpfile);
 gchar* anjuta_res_get_help_file_locale (const gchar* helpfile, const gchar* locale);
 gchar* anjuta_res_get_doc_file (const gchar* docfile);
 
+/* System Help */
+gchar* anjuta_res_help_search (const gchar * word);
+
 #endif /* _RESOURCES_H_ */

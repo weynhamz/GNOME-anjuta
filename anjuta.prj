@@ -162,6 +162,8 @@ module.source.files=\
 	gnome_project.h\
 	goto_line.c\
 	goto_line.h\
+	help.c\
+	help.h\
 	launcher.c\
 	launcher.h\
 	lexer.h\
@@ -417,7 +419,10 @@ module.po.files=\
 	tr.po\
 	es.po\
 	fr.po\
-	it.po
+	it.po\
+	ru.po\
+	sv.po\
+	uk.po
 
 compiler.options.supports=GNOME 
 

@@ -44,7 +44,8 @@ extern "C" {
 
 #define   ANE_GETBLOCKSTARTLINE         ANE_COMMAND_BASE+9
 #define   ANE_GETBLOCKENDLINE         ANE_COMMAND_BASE+10
-/* 11, 12 => Reserved */
+#define   ANE_GETCURRENTWORD		ANE_COMMAND_BASE+11
+/* 12 => Reserved */
 #define   ANE_MATCHBRACE         ANE_COMMAND_BASE+13
 #define   ANE_SELECTTOBRACE         ANE_COMMAND_BASE+14
 #define   ANE_SHOWCALLTIP         ANE_COMMAND_BASE+15

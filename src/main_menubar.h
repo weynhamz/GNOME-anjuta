@@ -239,10 +239,10 @@ struct _SettingsSubMenu
 
 struct _HelpSubMenu
 {
-	GtkWidget *contents;
-	GtkWidget *index;
+	GtkWidget *gnome;
 	GtkWidget *man;
 	GtkWidget *info;
+	GtkWidget *context_help;
 	GtkWidget *search;
 	GtkWidget *about;
 };

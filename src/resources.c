@@ -255,7 +255,7 @@ anjuta_res_get_help_file (const gchar * helpfile)
 	g_free (path);
 	return NULL;
 }
-
+	
 gchar *
 anjuta_res_get_help_file_locale (const gchar * helpfile, const gchar * locale)
 {
@@ -282,4 +282,25 @@ anjuta_res_get_doc_file (const gchar * docfile)
 		return path;
 	g_free (path);
 	return NULL;
+}
+
+gchar *
+anjuta_res_help_search (const gchar * word)
+{
+	if(word)
+	{
+		if(fork()==0)
+		{
+			execlp("devhelp", "devhelp", "-f", "-s", word, NULL);
+			g_error ("Cannot execute Devhelp. Make sure it is installed");
+		}
+	}
+	else
+	{
+		if(fork()==0)
+		{
+			execlp("devhelp", "devhelp", NULL);
+			g_error ("Cannot execute Devhelp. Make sure it is installed");
+		}
+	}
 }

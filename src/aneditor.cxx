@@ -179,6 +179,7 @@ protected:
 	void GetRange(Window &win, int start, int end, char *text);
 	bool FindMatchingBracePosition(int &braceAtCaret, int &braceOpposite, bool sloppy);
 	void BraceMatch();
+	bool GetCurrentWord(char* buffer, int maxlength);
 
 	void IndentationIncrease();
 	void IndentationDecrease();
@@ -749,7 +750,26 @@ bool AnEditor::StartAutoComplete() {
 	return true;
 }
 
-#if 0
+bool AnEditor::GetCurrentWord(char* buffer, int lenght){
+	char linebuf[1000];
+	int current = GetLine(linebuf, sizeof(linebuf));
+
+	int startword = current;
+	while (startword> 0 && !nonFuncChar(linebuf[startword - 1]))
+		startword--;
+	int endword = current;
+	while (linebuf[endword] && !nonFuncChar(linebuf[endword]))
+		endword++;
+	if(startword == endword)
+		return false;
+	
+	linebuf[endword] = '\0';
+	int cplen = (lenght < (endword-startword+1))?lenght:(endword-startword+1);
+	strncpy (buffer, &linebuf[startword], cplen);
+	return true;
+}
+
+#if 0 // Already defined in glib
 const char *strcasestr(const char *str, const char *pattn) {
 	int i;
 	int pattn0 = tolower (pattn[0]);
@@ -1179,6 +1199,9 @@ long AnEditor::Command(int cmdID, long wParam, long lParam) {
 
 	case ANE_GETBLOCKENDLINE:
 		return GetBlockEndLine();
+	
+	case ANE_GETCURRENTWORD:
+		return GetCurrentWord((char*)wParam, (int)lParam);
 
 	case ANE_SHOWCALLTIP:
 		StartCallTip();
@@ -1979,13 +2002,13 @@ void AnEditor::ReadPropertiesInitial() {
 	if (foldMarginWidth == 0)
 		foldMarginWidth = foldMarginWidthDefault;
 
-	lineNumbers = props->GetInt("margin.linenumber.view", 0);
+	lineNumbers = props->GetInt("margin.linenumber.visible", 0);
 	SendEditor(SCI_SETMARGINWIDTHN, 0, lineNumbers ? lineNumbersWidth : 0);
 
-	margin = props->GetInt("margin.marker.view", 0);
+	margin = props->GetInt("margin.marker.visible", 0);
 	SendEditor(SCI_SETMARGINWIDTHN, 1, margin ? marginWidth : 0);
 
-	foldMargin = props->GetInt("margin.fold.view", 1);
+	foldMargin = props->GetInt("margin.fold.visible", 1);
 	SendEditor(SCI_SETMARGINWIDTHN, 2, foldMargin ? foldMarginWidth : 0);
 }
 

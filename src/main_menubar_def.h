@@ -194,31 +194,31 @@ static GnomeUIInfo goto1_submenu_uiinfo[] = {
 	 N_("Go to the matching brace in the editor"),
 	 on_goto_matchbrace1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
-	 GDK_B, GDK_CONTROL_MASK, NULL},
+	 GDK_M, GDK_CONTROL_MASK, NULL},
 	{
 	 GNOME_APP_UI_ITEM, N_("_Goto start of block"),
 	 N_("Go to the start of the current block"),
 	 on_goto_block_start1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
-	 GDK_G, GDK_CONTROL_MASK, NULL},
+	 GDK_S, GDK_CONTROL_MASK | GDK_MOD1_MASK, NULL},
 	{
 	 GNOME_APP_UI_ITEM, N_("_Goto end of block"),
 	 N_("Go to the end of the current block"),
 	 on_goto_block_end1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
-	 GDK_G, GDK_CONTROL_MASK, NULL},
+	 GDK_E, GDK_CONTROL_MASK | GDK_MOD1_MASK, NULL},
 	{
 	 GNOME_APP_UI_ITEM, N_("_Goto previous mesg"),
 	 N_("Go to previous message"),
 	 on_goto_prev_mesg1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
-	 GDK_G, GDK_CONTROL_MASK, NULL},
+	 GDK_P, GDK_CONTROL_MASK | GDK_MOD1_MASK, NULL},
 	{
 	 GNOME_APP_UI_ITEM, N_("_Goto next mesg"),
 	 N_("Go to next message"),
 	 on_goto_next_mesg1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
-	 GDK_G, GDK_CONTROL_MASK, NULL},
+	 GDK_N, GDK_CONTROL_MASK | GDK_MOD1_MASK, NULL},
 	GNOMEUIINFO_END
 };
 
@@ -306,7 +306,7 @@ static GnomeUIInfo edit1_menu_uiinfo[] = {
 	 N_("Search for a string or regexp in the editor"),
 	 on_find1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_SEARCH,
-	 GDK_F, GDK_MOD1_MASK, NULL},
+	 GDK_F, GDK_CONTROL_MASK, NULL},
 	
 	{
 	 GNOME_APP_UI_ITEM, N_("Fin_d in files ..."),
@@ -320,7 +320,7 @@ static GnomeUIInfo edit1_menu_uiinfo[] = {
 	N_("Search for and replace a string or regexp with another string"),
 	on_find_and_replace1_activate, NULL, NULL,
 	GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_SRCHRPL,
-	GDK_R, GDK_MOD1_MASK, NULL},
+	GDK_R, GDK_CONTROL_MASK, NULL},
 	
 	GNOMEUIINFO_SEPARATOR,
 	
@@ -1194,7 +1194,7 @@ static GnomeUIInfo debug1_menu_uiinfo[] = {
 	 N_("Interrupt execution of the program"),
 	 on_debugger_interrupt_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
-	 GDK_F1, 0, NULL},
+	 GDK_I, GDK_CONTROL_MASK, NULL},
 	{
 	 GNOME_APP_UI_ITEM, N_("Si_gnal to Process"),
 	 N_("Send a kernel signal to the process being debugged"),
@@ -1227,13 +1227,13 @@ static GnomeUIInfo debug1_menu_uiinfo[] = {
 	 N_("Inspect or evaluate an expression or variable"),
 	 on_debugger_inspect_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_BOOK_OPEN,
-	 GDK_F2, 0, NULL},
+	 GDK_P, GDK_CONTROL_MASK, NULL},
 	{
 	 GNOME_APP_UI_ITEM, N_("Add Expression in _Watch ..."),
 	 N_("Add expression or variable to the watch"),
 	 on_debugger_add_watch_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
-	 GDK_F2, 0, NULL},
+	 GDK_W, GDK_CONTROL_MASK, NULL},
 	GNOMEUIINFO_SEPARATOR,
 	{
 	 GNOME_APP_UI_ITEM, N_("St_op Debugger"),
@@ -1363,6 +1363,12 @@ static GnomeUIInfo help1_menu_uiinfo[] = {
 	GNOMEUIINFO_HELP ("anjuta"),
 	GNOMEUIINFO_SEPARATOR,
 	{
+	 GNOME_APP_UI_ITEM, N_("Browse Gnome API Pages"),
+	 N_("The gnome API pages"),
+	 on_gnome_pages1_activate, NULL, NULL,
+	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_BOOK_RED,
+	 GDK_F1, 0, NULL},
+	{
 	 GNOME_APP_UI_ITEM, N_("Browse Man Pages"),
 	 N_("The good old manual pages"),
 	 on_man_pages1_activate, NULL, NULL,
@@ -1374,6 +1380,13 @@ static GnomeUIInfo help1_menu_uiinfo[] = {
 	 on_info_pages1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_BOOK_RED,
 	 0, 0, NULL},
+	GNOMEUIINFO_SEPARATOR,
+	{
+	 GNOME_APP_UI_ITEM, N_("Context Help"),
+	 N_("Search help for the current word in the editor"),
+	 on_context_help_activate, NULL, NULL,
+	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_SEARCH,
+ 	 GDK_H, GDK_CONTROL_MASK, NULL},
 	{
 	 GNOME_APP_UI_ITEM, N_("Search a topic"),
 	 N_("May I help you?"),

@@ -50,6 +50,7 @@
 #include "controls.h"
 #include "signals_cbs.h"
 #include "watch_cbs.h"
+#include "help.h"
 #include "Scintilla.h"
 #include "ScintillaWidget.h"
 
@@ -596,7 +597,7 @@ on_editor_linenos1_activate (GtkMenuItem * menuitem, gpointer user_data)
 	GList *node;
 	TextEditor *te;
 	state = GTK_CHECK_MENU_ITEM (menuitem)->active;
-	preferences_set_int (app->preferences, "margin.linenumber.view",
+	preferences_set_int (app->preferences, "margin.linenumber.visible",
 			     state);
 	node = app->text_editor_list;
 	while (node)
@@ -615,7 +616,7 @@ on_editor_markers1_activate (GtkMenuItem * menuitem, gpointer user_data)
 	GList *node;
 	TextEditor *te;
 	state = GTK_CHECK_MENU_ITEM (menuitem)->active;
-	preferences_set_int (app->preferences, "margin.marker.view", state);
+	preferences_set_int (app->preferences, "margin.marker.visible", state);
 	node = app->text_editor_list;
 	while (node)
 	{
@@ -632,7 +633,7 @@ on_editor_codefold1_activate (GtkMenuItem * menuitem, gpointer user_data)
 	GList *node;
 	TextEditor *te;
 	state = GTK_CHECK_MENU_ITEM (menuitem)->active;
-	preferences_set_int (app->preferences, "margin.fold.view", state);
+	preferences_set_int (app->preferences, "margin.fold.visible", state);
 	node = app->text_editor_list;
 	while (node)
 	{
@@ -1725,6 +1726,15 @@ on_index1_activate (GtkMenuItem * menuitem, gpointer user_data)
 		anjuta_register_child_process (pid, NULL, NULL);
 }
 
+void
+on_gnome_pages1_activate            (GtkMenuItem     *menuitem,
+                                        gpointer         user_data)
+{
+	if (anjuta_is_installed ("devhelp", TRUE))
+	{
+		anjuta_res_help_search (NULL);
+	}
+}
 
 void
 on_man_pages1_activate (GtkMenuItem * menuitem, gpointer user_data)
@@ -1763,9 +1773,23 @@ on_info_pages1_activate (GtkMenuItem * menuitem, gpointer user_data)
 }
 
 void
+on_context_help_activate (GtkMenuItem * menuitem, gpointer user_data)
+{
+	TextEditor* te;
+	gboolean ret;
+	gchar buffer[1000];
+	
+	te = anjuta_get_current_text_editor();
+	if(!te) return;
+	ret = aneditor_command (te->editor_id, ANE_GETCURRENTWORD, (long)buffer, (long)sizeof(buffer));
+	if (ret == FALSE) return;
+	anjuta_help_search(app->help_system, buffer);
+}
+
+void
 on_search_a_topic1_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
-	anjuta_not_implemented (__FILE__, __LINE__);
+	anjuta_help_show(app->help_system);
 }
 
 void

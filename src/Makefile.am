@@ -85,6 +85,8 @@ anjuta_SOURCES = \
 	gnome_project.h\
 	goto_line.c\
 	goto_line.h\
+	help.c\
+	help.h\
 	launcher.c\
 	launcher.h\
 	lexer.h\

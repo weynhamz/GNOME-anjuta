@@ -70,6 +70,8 @@ src/gnome_project.c
 src/gnome_project.h
 src/goto_line.c
 src/goto_line.h
+src/help.c
+src/help.h
 src/launcher.c
 src/launcher.h
 src/lexer.h

@@ -207,7 +207,7 @@ void
 on_toolbar_help_clicked (GtkButton * button, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
-				 (app->widgets.menubar.help.contents),
+				 (app->widgets.menubar.help.context_help),
 				 "activate");
 }
 

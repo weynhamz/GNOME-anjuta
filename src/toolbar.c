@@ -298,9 +298,8 @@ create_main_toolbar (GtkWidget * anjuta_gui, MainToolbar * toolbar)
 	gtk_widget_ref (toolbar_messages);
 	gtk_widget_show (toolbar_messages);
 
-	/* unimplemented */
-	/* gtk_toolbar_append_space (GTK_TOOLBAR (toolbar1));*/
-
+	gtk_toolbar_append_space (GTK_TOOLBAR (toolbar1));
+	
 	tmp_toolbar_icon =
 		anjuta_res_get_pixmap_widget (anjuta_gui, ANJUTA_PIXMAP_HELP, FALSE);
 	toolbar_help =
@@ -310,10 +309,8 @@ create_main_toolbar (GtkWidget * anjuta_gui, MainToolbar * toolbar)
 					    _("Context sensitive help"), NULL,
 					    tmp_toolbar_icon, NULL, NULL);
 	gtk_widget_ref (toolbar_help);
+	gtk_widget_show (toolbar_help);
 	
-	/* unimplemented */
-	gtk_widget_hide (toolbar_help);
-
 	gtk_signal_connect (GTK_OBJECT (toolbar_new), "clicked",
 			    GTK_SIGNAL_FUNC (on_toolbar_new_clicked), NULL);
 	gtk_signal_connect (GTK_OBJECT (toolbar_open), "clicked",

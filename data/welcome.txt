@@ -3,7 +3,7 @@
                    ||   WELCOME   ||
                    =================
      ********************************************
-     *      Anjuta C/C++ IDE Version 0.1.5      *
+     *      Anjuta C/C++ IDE Version 0.1.6      *
      * Copyright (C) 2000 Kh. Naba Kumar Singh. *
      ********************************************
 

@@ -141,6 +141,7 @@ anjuta_new ()
 		app->command_editor = command_editor_new (app->preferences->props_global,
 					app->preferences->props_local, app->project_dbase->props);
 		app->tags_manager = tags_manager_new ();
+		app->help_system = anjuta_help_new();
 
 		app->widgets.the_client = app->widgets.vpaned;
 		app->widgets.hpaned_client = app->widgets.hpaned;
@@ -516,17 +517,17 @@ anjuta_show ()
 	gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM
 					(app->widgets.menubar.view.
 					 editor_linenos), prop_get_int (pr,
-									"margin.linenumber.view",
+									"margin.linenumber.visible",
 									0));
 	gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM
 					(app->widgets.menubar.view.
 					 editor_markers), prop_get_int (pr,
-									"margin.marker.view",
+									"margin.marker.visible",
 									0));
 	gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM
 					(app->widgets.menubar.view.
 					 editor_folds), prop_get_int (pr,
-								      "margin.fold.view",
+								      "margin.fold.visible",
 								      0));
 	gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM
 					(app->widgets.menubar.view.
@@ -558,37 +559,37 @@ anjuta_show ()
 
 	/* Now we are synced with the menu items */
 	/* Show/Hide the necessary toolbars */
-	key = g_strconcat (ANJUTA_MAIN_TOOLBAR, ".view", NULL);
+	key = g_strconcat (ANJUTA_MAIN_TOOLBAR, ".visible", NULL);
 	gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM
 			(app->widgets.menubar. view.main_toolbar),
 			prop_get_int (pr, key, 1));
 	g_free (key);
 
-	key = g_strconcat (ANJUTA_EXTENDED_TOOLBAR, ".view", NULL);
+	key = g_strconcat (ANJUTA_EXTENDED_TOOLBAR, ".visible", NULL);
 	gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM
 			(app->widgets.menubar. view.extended_toolbar),
 			prop_get_int (pr, key, 1));
 	g_free (key);
 
-	key = g_strconcat (ANJUTA_TAGS_TOOLBAR, ".view", NULL);
+	key = g_strconcat (ANJUTA_TAGS_TOOLBAR, ".visible", NULL);
 	gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM
 			(app->widgets.menubar. view.tags_toolbar),
 			prop_get_int (pr, key, 1));
 	g_free (key);
 
-	key = g_strconcat (ANJUTA_DEBUG_TOOLBAR, ".view", NULL);
+	key = g_strconcat (ANJUTA_DEBUG_TOOLBAR, ".visible", NULL);
 	gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM
 			(app->widgets.menubar. view.debug_toolbar),
 			prop_get_int (pr, key, 1));
 	g_free (key);
 
-	key = g_strconcat (ANJUTA_BROWSER_TOOLBAR, ".view", NULL);
+	key = g_strconcat (ANJUTA_BROWSER_TOOLBAR, ".visible", NULL);
 	gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM
 			(app->widgets.menubar. view.browser_toolbar),
 			prop_get_int (pr, key, 1));
 	g_free (key);
 
-	key = g_strconcat (ANJUTA_FORMAT_TOOLBAR, ".view", NULL);
+	key = g_strconcat (ANJUTA_FORMAT_TOOLBAR, ".visible", NULL);
 	gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM
 			(app->widgets.menubar. view.format_toolbar),
 			prop_get_int (pr, key, 1));
@@ -652,27 +653,27 @@ gboolean anjuta_save_yourself (FILE * stream)
 	fprintf (stream, "anjuta.hpaned.size=%d\n",
 		 GTK_PANED (app->widgets.hpaned)->child1_size);
 
-	key = g_strconcat (ANJUTA_MAIN_TOOLBAR, ".view", NULL);
+	key = g_strconcat (ANJUTA_MAIN_TOOLBAR, ".visible", NULL);
 	fprintf (stream, "%s=%d\n", key, prop_get_int (app->preferences->props, key, 1));
 	g_free (key);
 
-	key = g_strconcat (ANJUTA_EXTENDED_TOOLBAR, ".view", NULL);
+	key = g_strconcat (ANJUTA_EXTENDED_TOOLBAR, ".visible", NULL);
 	fprintf (stream, "%s=%d\n", key, prop_get_int (app->preferences->props, key, 1));
 	g_free (key);
 
-	key = g_strconcat (ANJUTA_FORMAT_TOOLBAR, ".view", NULL);
+	key = g_strconcat (ANJUTA_FORMAT_TOOLBAR, ".visible", NULL);
 	fprintf (stream, "%s=%d\n", key, prop_get_int (app->preferences->props, key, 1));
 	g_free (key);
 
-	key = g_strconcat (ANJUTA_DEBUG_TOOLBAR, ".view", NULL);
+	key = g_strconcat (ANJUTA_DEBUG_TOOLBAR, ".visible", NULL);
 	fprintf (stream, "%s=%d\n", key, prop_get_int (app->preferences->props, key, 1));
 	g_free (key);
 
-	key = g_strconcat (ANJUTA_TAGS_TOOLBAR, ".view", NULL);
+	key = g_strconcat (ANJUTA_TAGS_TOOLBAR, ".visible", NULL);
 	fprintf (stream, "%s=%d\n", key, prop_get_int (app->preferences->props, key, 1));
 	g_free (key);
 
-	key = g_strconcat (ANJUTA_BROWSER_TOOLBAR, ".view", NULL);
+	key = g_strconcat (ANJUTA_BROWSER_TOOLBAR, ".visible", NULL);
 	fprintf (stream, "%s=%d\n", key, prop_get_int (app->preferences->props, key, 1));
 	g_free (key);
 
@@ -683,12 +684,12 @@ gboolean anjuta_save_yourself (FILE * stream)
 		 prop_get_int (pr, "view.whitespace", 0));
 	fprintf (stream, "view.indentation.whitespace=%d\n",
 		 prop_get_int (pr, "view.indentation.whitespace", 0));
-	fprintf (stream, "margin.linenumber.view=%d\n",
-		 prop_get_int (pr, "margin.linenumber.view", 0));
-	fprintf (stream, "margin.marker.view=%d\n",
-		 prop_get_int (pr, "margin.marker.view", 0));
-	fprintf (stream, "margin.fold.view=%d\n",
-		 prop_get_int (pr, "margin.fold.view", 0));
+	fprintf (stream, "margin.linenumber.visible=%d\n",
+		 prop_get_int (pr, "margin.linenumber.visible", 0));
+	fprintf (stream, "margin.marker.visible=%d\n",
+		 prop_get_int (pr, "margin.marker.visible", 0));
+	fprintf (stream, "margin.fold.visible=%d\n",
+		 prop_get_int (pr, "margin.fold.visible", 0));
 
 	fprintf (stream, "anjuta.recent.files=");
 	node = app->recent_files;
@@ -1606,7 +1607,7 @@ anjuta_toolbar_set_view (gchar* toolbar_name, gboolean view, gboolean resize, gb
 
 	if (set_in_props)
 	{
-		key = g_strconcat (toolbar_name, ".view", NULL);
+		key = g_strconcat (toolbar_name, ".visible", NULL);
 		preferences_set_int (app->preferences, key, view);
 		g_free (key);
 	}

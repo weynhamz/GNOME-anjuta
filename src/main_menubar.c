@@ -263,13 +263,13 @@ create_main_menubar (GtkWidget * ap, MainMenuBar * mb)
 	for (i = 0; i < 6; i++)
 		gtk_widget_ref (settings1_menu_uiinfo[i].widget);
 
-	mb->help.contents = help1_menu_uiinfo[0].widget;
-	mb->help.index = help1_menu_uiinfo[1].widget;
+	mb->help.gnome = help1_menu_uiinfo[2].widget;
 	mb->help.man = help1_menu_uiinfo[3].widget;
 	mb->help.info = help1_menu_uiinfo[4].widget;
-	mb->help.search = help1_menu_uiinfo[5].widget;
-	mb->help.about = help1_menu_uiinfo[7].widget;
-	for (i = 1; i < 8; i++)
+	mb->help.context_help = help1_menu_uiinfo[6].widget;
+	mb->help.search = help1_menu_uiinfo[7].widget;
+	mb->help.about = help1_menu_uiinfo[17].widget;
+	for (i = 1; i < 18; i++)
 		gtk_widget_ref (help1_menu_uiinfo[i].widget);
 
 	/* unimplemented */
@@ -330,7 +330,7 @@ main_menu_unref ()
 		gtk_widget_unref (windows1_menu_uiinfo[i].widget);
 	for (i = 0; i < 6; i++)
 		gtk_widget_unref (settings1_menu_uiinfo[i].widget);
-	for (i = 1; i < 8; i++)
+	for (i = 1; i < 18; i++)
 		gtk_widget_unref (help1_menu_uiinfo[i].widget);
 }
 

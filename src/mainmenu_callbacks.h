@@ -610,12 +610,17 @@ on_index1_activate                     (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
 
 void
+on_gnome_pages1_activate            (GtkMenuItem     *menuitem,
+                                        gpointer         user_data);
+void
 on_man_pages1_activate            (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
 
 void
 on_info_pages1_activate            (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
+void
+on_context_help_activate (GtkMenuItem * menuitem, gpointer user_data);
 
 void
 on_search_a_topic1_activate            (GtkMenuItem     *menuitem,

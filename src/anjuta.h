@@ -37,6 +37,7 @@
 #include "utilities.h"
 #include "main_menubar.h"
 #include "properties.h"
+#include "help.h"
 
 typedef struct _AnjutaAppGui AnjutaAppGui;
 typedef struct _AnjutaApp AnjutaApp;
@@ -80,6 +81,7 @@ struct _AnjutaApp
 	Configurer *configurer;
 	FindInFiles *find_in_files;
 	TagsManager *tags_manager;
+	AnjutaHelp* help_system;
 
 	GList *registered_windows;
 	GList *registered_child_processes;

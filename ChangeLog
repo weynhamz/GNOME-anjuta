@@ -1,3 +1,14 @@
+2001-08-06  Naba Kumar <kh_naba@users.sourceforge.net>
+	
+	* help.c, help.h: Added support for DevHelp context sensitive help
+		and gnome api browsing.
+	* Fixed toolbars and editor views "not save" bug.
+	
+2001-08-05  Naba Kumar <kh_naba@users.sourceforge.net>
+
+	* Transfered ru.po, uk.po and update.sh from gnome-i18n/extra-po/anjuta
+	* Updated configure.in to include these changes
+	
 2001-08-03  Stephane Demurget <demurgets@free.fr>
 
 	* src/project_dbase_gui.c: fixed bug #446963
