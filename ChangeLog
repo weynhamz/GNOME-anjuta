@@ -1,5 +1,9 @@
 2005-01-29  Naba Kumar  <naba@gnome.org>
 
+	* plugins/cvs-plugin/anjuta-cvs-plugin.glade: Disabled "Remove sticky"
+	option in update dialog as default. Improved import dialog. Sized
+	log dialog.
+
 	* configure.in: Fixed underquoted warning from autoconf.
 	
 	* plugins/editor/action-callbacks.c,
