@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-01-21 02:59+0100\n"
-"PO-Revision-Date: 2004-01-21 16:49+0100\n"
+"POT-Creation-Date: 2004-01-24 03:09+0100\n"
+"PO-Revision-Date: 2004-01-27 21:08+0100\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -608,7 +608,7 @@ msgstr "Filtrovat přebytečné znaky v režimu DOS"
 
 #: anjuta.glade.h:147
 msgid "Find & Replace"
-msgstr "Hledat & nahradit"
+msgstr "Hledat a nahradit"
 
 #: anjuta.glade.h:148
 msgid "Fold style:"
@@ -981,11 +981,11 @@ msgstr ""
 
 #: anjuta.glade.h:233
 msgid "Number of first characters to show:"
-msgstr "Počet prvních znaků, které zobrazit:"
+msgstr "Počet prvních znaků, které zobrazovat:"
 
 #: anjuta.glade.h:234
 msgid "Number of last characters to show:"
-msgstr "Počet posledních znaků, které zobrazit:"
+msgstr "Počet posledních znaků, které zobrazovat:"
 
 #. Must declare static, because it will be used forever
 #: anjuta.glade.h:235 src/project_dbase.c:196 src/toolbar.c:214
@@ -1241,7 +1241,7 @@ msgstr "Zkratka:"
 
 #: anjuta.glade.h:297
 msgid "Show tooltips"
-msgstr "Zobrazovat nástrojové tipy"
+msgstr "Zobrazovat tipy"
 
 #: anjuta.glade.h:298
 msgid "Silent. That is, do not echo shell commads during make"
@@ -1249,15 +1249,15 @@ msgstr "Tiché. Tj. nevypisovat příkazy shellu při make"
 
 #: anjuta.glade.h:299
 msgid "Sorted by most recent use"
-msgstr "Setřízeno podle posledního použití"
+msgstr "Setřízeny podle posledního použití"
 
 #: anjuta.glade.h:300
 msgid "Sorted in alphabetical order"
-msgstr "Setřízeno v abecedním pořadí"
+msgstr "Setřízeny v abecedním pořadí"
 
 #: anjuta.glade.h:301
 msgid "Sorted in the order you open them"
-msgstr "Setřízeno v pořadí, ve kterém je otvíráte"
+msgstr "Setřízeny v pořadí, ve kterém je otvíráte"
 
 #: anjuta.glade.h:302
 msgid "Source Directories"
@@ -1338,7 +1338,7 @@ msgstr "Velikost tabelátoru v mezerách:"
 
 #: anjuta.glade.h:320
 msgid "Tabs position:"
-msgstr "Pozice tabelátorů:"
+msgstr "Pozice záložek:"
 
 #: anjuta.glade.h:321
 msgid "Target:"
@@ -1403,15 +1403,15 @@ msgstr "Automaticky aktualizovat obraz tags"
 
 #: anjuta.glade.h:336
 msgid "Use GNOME terminal profile:"
-msgstr "Použít profil GNOME terminálu:"
+msgstr "Používat profil GNOME terminálu:"
 
 #: anjuta.glade.h:337
 msgid "Use currently selected profile in GNOME terminal"
-msgstr "Použít aktuální zvolený profil v GNOME terminálu"
+msgstr "Používat aktuální zvolený profil v GNOME terminálu"
 
 #: anjuta.glade.h:338
 msgid "Use default"
-msgstr "Použít implicitní"
+msgstr "Používat implicitní"
 
 #: anjuta.glade.h:339
 msgid "Use tabs for indentation"
@@ -2235,7 +2235,7 @@ msgstr "Náhled před tiskem"
 
 #: src/about.c:95
 msgid "Copyright (c) Naba Kumar"
-msgstr "Copyright (c) Naba Kumar"
+msgstr "Copyright © Naba Kumar"
 
 #: src/an_file_view.c:63
 #, c-format
@@ -2844,7 +2844,7 @@ msgstr "Jazyk:           "
 
 #: src/appwizard_cbs.c:294 src/project_import_cbs.c:242
 msgid "Gettext Support: "
-msgstr "Podpora gettext: "
+msgstr "Podpora gettextu: "
 
 #: src/appwizard_gui.c:40
 msgid ""
@@ -3325,7 +3325,7 @@ msgstr "CVS Přihlášení"
 
 #: src/cvs_gui.c:337
 msgid "Login"
-msgstr "Přihlášení"
+msgstr "Přihlásit"
 
 #: src/cvs_gui.c:347 src/cvs_gui.c:440
 msgid "Server type: "
@@ -4124,11 +4124,11 @@ msgstr "Vložit jméno aktuálního uživatele"
 #. 4
 #: src/main_menubar_def.h:263
 msgid "Current Date & Time"
-msgstr "Aktuální datum & čas"
+msgstr "Aktuální datum a čas"
 
 #: src/main_menubar_def.h:264
 msgid "Insert current date & time"
-msgstr "Vložit aktuální datum & čas"
+msgstr "Vložit aktuální datum a čas"
 
 #: src/main_menubar_def.h:270
 msgid "Insert a standard header file template"
@@ -4433,7 +4433,7 @@ msgstr "Zopakovat poslední akci vrácenou zpět"
 #. 3
 #: src/main_menubar_def.h:568
 msgid "C_ut"
-msgstr "Vy_jmout"
+msgstr "_Vyjmout"
 
 #: src/main_menubar_def.h:569
 msgid "Cut the selected text from the editor to the clipboard"
@@ -4451,7 +4451,7 @@ msgstr "Kopírovat vybraný text do schránky"
 #. 5
 #: src/main_menubar_def.h:582
 msgid "_Paste"
-msgstr "_Vložit"
+msgstr "V_ložit"
 
 #: src/main_menubar_def.h:583
 msgid "Paste the content of clipboard at the current position"
@@ -4766,7 +4766,7 @@ msgstr "_Zvětšení textu"
 #. 14
 #: src/main_menubar_def.h:851 src/main_menubar_def.h:1563
 msgid "_Breakpoints"
-msgstr "_Záložky"
+msgstr "_Breakpointy"
 
 #: src/main_menubar_def.h:852
 msgid "Show breakpoints editor window"
@@ -6778,6 +6778,14 @@ msgstr "Nemohu sestavit uživatelské rozhraní pro Hledat a nahradit"
 msgid "No matches. Wrap search around the document?"
 msgstr "Žádný výsledek. Hledat od druhého konce dokumentu?"
 
+#: src/search_preferences.c:474
+msgid "The maximum number of settings has been reached."
+msgstr "Byl dosažen maximální počet nastavení."
+
+#: src/search_preferences.c:483
+msgid "This name is alredady used."
+msgstr "Tento název se již používá."
+
 #: src/sharedlib_gui.c:44
 msgid "Shared Object"
 msgstr "Sdílený objekt"
@@ -7607,7 +7615,7 @@ msgstr "Zahrnout do hlaviček prohlášení o copyrightu GNU"
 
 #: src/wizard_gui.c:631
 msgid "Enable Gettext Support"
-msgstr "Povolit podporu Gettextu"
+msgstr "Povolit podporu gettextu"
 
 #: src/wizard_gui.c:639
 msgid "Generate source code using glade or glademm"
@@ -7615,7 +7623,7 @@ msgstr "Vygenerovat zdrojový kód pomocí glade nebo glademm"
 
 #: src/wizard_gui.c:646
 msgid "GNOME Menu Entry"
-msgstr "Položka GNOME menu:"
+msgstr "Položka menu GNOME:"
 
 #: src/wizard_gui.c:656
 msgid "Entry name:"
@@ -7781,12 +7789,6 @@ msgstr "Název složky"
 
 #~ msgid "Ignore binary files"
 #~ msgstr "Ignorovat binární soubory"
-
-#~ msgid "Ignore case"
-#~ msgstr "Ignorovat velikost písmen"
-
-#~ msgid "Prompt before replace"
-#~ msgstr "Zeptat se před nahrazením"
 
 #~ msgid "Regexp/String to find"
 #~ msgstr "Regexp/řetězec, který hledat"
