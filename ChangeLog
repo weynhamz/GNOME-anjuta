@@ -1,3 +1,11 @@
+2002-01-28  Andy Piper <andy.piper@freeuk.com>
+
+	* src/main_menubar_def.h, tagmanager/tm_project.c: more
+	  string cleanups
+	  
+	* manuals/C/anjuta_manual/*: started rewrite of the 
+	  manual, updated some screenshots
+
 2002-01-28  Naba Kumar <kh_naba@users.sourceforge.net>
 
 	* src/gnomefilelist.h, src/gnomefilelist.c:

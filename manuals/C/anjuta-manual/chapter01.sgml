@@ -3,9 +3,9 @@
   <title>Introduction</title>
   <para>
   <application>Anjuta</application> is a versatile Integrated Development Environment 
-  (IDE) for C and C++ on GNU/Linux. It has been written for GTK/GNOME, and features 
-  a number of advanced programming features. It is basically a GUI interface for the 
-  collection of command line programming utilities and tools available for Linux. 
+  (IDE) for C and C++. It has been written for GTK/GNOME, and features 
+  a number of advanced programming features. It is a graphical interface to the 
+  collection of command line programming utilities and tools available for Linux and UNIX systems. 
   These are usually run via a text console, and can be unfriendly to use.
   </para>
 
@@ -26,8 +26,7 @@
   </para>
 
   <para>
-  At present, <application>Anjuta</application> is only a beta release, and a lot of 
-  work needs to be done to improve it. Please report any problems - this will help to 
+  Please report any problems with <application>Anjuta</application> - this will help to 
   improve the software, as well as helping the Open Source community.
   </para>
  </chapter>

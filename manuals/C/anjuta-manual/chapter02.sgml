@@ -24,11 +24,11 @@
   <sect1 id="menu">
    <title>Menus</title>
    <para>
-   At the top of the <application>Anjuta</application> IDE is the menubar. 
+   At the top of the <application>Anjuta</application> main window is the menubar. 
    Almost all of the functions are available by activating the appropriate 
    menu item. The functions have been grouped according to their type. For 
-   instance, most of the file and project operations have been grouped in 
-   the <guisubmenu>File</guisubmenu> menu, and so on.
+   example, the file operations have been grouped into 
+   the <guisubmenu>File</guisubmenu> menu.
    </para>
     
     <figure id="menubar">
@@ -40,8 +40,8 @@
     </figure>
         
     <para>
-     Each menu is detachable. Drag them from the main window using the handle 
-	 at the extreme right. Once detached, it will become a floating window.
+     The menubar can be detached. Drag it from the main window using the handle 
+	 at the left. Once detached, it will become a floating window.
     </para>
     
     <figure id="file-menu-detach">
@@ -53,9 +53,9 @@
     </figure>
     
     <para>
-     All of the submenus in the main menu are detachable. You can detach them by 
-	 clicking on the detach bar on the submenu (just above the first menu item). 
-	 Once the submenu is detached, it will be shown as an independent window.
+     Most of the menus and submenus can be detached. Click on the detach bar 
+	 (the dashed line just above the first menu item). Once the menu is 
+	 detached, it will become an independent window.
     </para>
   </sect1>
 

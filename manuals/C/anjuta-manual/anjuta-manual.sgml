@@ -22,7 +22,7 @@
 <book id="index">
  <bookinfo>
   <title>Anjuta IDE Manual</title>
-  <edition>v0.0.3</edition>
+  <edition>v0.0.4</edition>
 
 <!--  other GNOME docs do not have this
 <authorgroup>
@@ -41,8 +41,8 @@
 -->  
 
   <copyright>
-   <year>2001</year>
-   <holder>Naba Kumar</holder>
+   <year>2001-2002</year>
+   <holder>Naba Kumar, Andy Piper</holder>
   </copyright>
 
 <!-- translators: uncomment this:
@@ -76,7 +76,7 @@
 
   <!-- this is the version of manual, not application --> 
   <releaseinfo>
-   This is version 0.0.3 of the Anjuta IDE Manual
+   This is version 0.0.4 of the Anjuta IDE Manual
   </releaseinfo>
  </bookinfo>
  <!-- Document Body -->
