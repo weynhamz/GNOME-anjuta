@@ -1,4 +1,4 @@
-                         Anjuta Version 1.0 Release
+                         Anjuta Version 1.0.0 Release
 
                        Copyright (C) 2000-2002 Naba Kumar
                        Home site => http://anjuta.org/
@@ -26,8 +26,8 @@ details.
 
 Any sort of suggestions or patches for Anjuta are also most welcome. 
 
-Copyright (C) 2000-2002 Kh. Naba Kumar Singh
---------------------------------------------
+Copyright (C) 2000-2002 Naba Kumar <naba@gnome.org>
+---------------------------------------------------
 
 This program is free software; you can redistribute it and/or modify it under
 the terms of the GNU General Public License as published by the Free Software
@@ -63,15 +63,18 @@ Presently available features in Anjuta:
 	3. Highly interactive source level debugger (built over gdb).
 		o Interactive execution.
 		o Breakpoints/watches/signal/stack manipulation.
+		o Local Variables view.
+		o Variables tips.
 		o ... and much more.
 	
 	4. Inbuilt application wizards to create terminal/GTK/GNOME
 	applications on-the-fly. 
 	
 	5. Dynamic Tags browsing.
-		o Function definition, structure, classes etc. can be reached
-		  with just two mouse clicks.
+		o Function definition, structure, classes etc.
 		o Full tags management for project.
+		o Symbol Browser.
+		o File Brwoser.
 	
 	6. Full project and build files management. 
 	
@@ -85,17 +88,18 @@ Presently available features in Anjuta:
 
 	10. Interactive messaging system.
 
-	11. Above all, she is beautiful. 
+	11. GNOME2 platform compliant.
 	
 	
 Contact Email addresses for Anjuta:
 -----------------------------------
 
 For personal contacts, reach us at:
-	o 1.x series Maintainer => Andy Piper <andy.piper@freeuk.com>
-	o Main programmer => Naba Kumar <kh_naba@users.sourceforge.net>
+    o Maintainer => Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
+    o Main programmer and founder => Naba Kumar <naba@gnome.org>
+    o Retired Maintainer => Andy Piper <andy.piper@freeuk.com>
 
-Anjuta Home site:	http://anjuta.sourceforge.net.
+Anjuta Home site:	http://anjuta.org.
 Anjuta Project site: 	http://www.sourceforge.net/projects/anjuta
 
 For general discussions and queries use the discussion forums (two forums) 
@@ -206,20 +210,37 @@ INSTALLATION:
 	and '#' is the shell prompt. You must be logged in as root to
 	install Anjuta.
 
-	1) Get the RPM package anjuta-1.0-1.i386.rpm (visit www.sourceforge.net).
+	1) Get the RPM package anjuta-1.0.0-1.i386.rpm
+	   (visit http://anjuta.org for latest release).
 	2) Change to the directory containing the rpm package.
-	3) Type: rpm -ivh anjuta-1.0-1.i386.rpm.
+	3) Type: rpm -Uvh anjuta-1.0.0-1.i386.rpm.
 
 	That's all. If everything went smoothly, congratulations.
 	Otherwise, some dependency error will come up. You will have
 	to install the required components first. Then repeat the above.
 
+	Because anjuta was becoming too big, it was decided that the rpm 
+	be splitted into various pieces. The following are all the rpms
+	available for a perticular release:
+
+		anjuta-1.0.0-1.i386.rpm         [Base anjuta]
+		anjuta-i18n-1.0.0-1.i386.rpm    [localization support]
+		anjuta-docs-en-1.0.0.i386.rmp   [English documentaion]
+		anjuta-docs-ja-1.0.0.i386.rmp   [Japanese documentaion]
+
+	If base package is all you have for woring in English locale and
+	without any documentation (except README and other basic docs).
+
+	If you want to work in different locale other than install the
+	anjuta-i18-* package. And if you want anjuta manual, tutorial
+	and faq, install the anjuta-docs-* package of the language you
+	want.
 
 KNOWN ISSUES:
 -------------
 	* Printing is unstable with older versions of gnome-print and FreeType.
-	If you experience crashes while printing, please upgrade gnome-print and
-	FreeType to the latest stable versions (currently 0.36 and 2.1.2
+	If you experience crashes while printing, please upgrade gnome-print
+	and FreeType to the latest stable versions (currently 0.36 and 2.1.2
 	respectively).
 	
 	* Debugger stepping may not work correctly if executables are compiled
@@ -227,20 +248,21 @@ KNOWN ISSUES:
 	debug your application from Anjuta, please turn off optimization for
 	debug builds.
 
-	* Building anjuta on Debian (sid) may find a couple of issues related to zvt
-	library. If you encounter such problem, temporarily move out any libzvt2 
-	libraries that you can find. Build/install anjuta and restore the libzvt2 libs.
+	* Building anjuta on Debian (sid) may find a couple of issues related
+	to zvt library. If you encounter such problem, temporarily move out
+	any libzvt2 libraries that you can find. Build/install anjuta and
+	restore the libzvt2 libs.
 	
 	* Building anjuta n Debian (sid) may also find gnome-terminal to be
-	interfering. Uninstall it temporarily and restore it after installing anjuta.
-	The above two debian (sid) problems may not apprear if anjuta rpms are
-	installed.
+	interfering. Uninstall it temporarily and restore it after installing
+	anjuta. The above two debian (sid) problems may not apprear if anjuta
+	rpms are installed.
 	
-	* Some versions of gettext (0.11.x) prompts to press Enter in the middle
-	of project build (in anjuta). This will be a problem, as there is no known
-	way to provide user feedback in anjuta message manager. Upgrade your gettext
-	to higher version which does not exhibit this problem. gettext 0.11.40 and
-	above should be just fine.
+	* Some versions of gettext (0.11.x) prompts to press Enter in the
+	middle of project build (in anjuta). This will be a problem, as there
+	is no known way to provide user feedback in anjuta message manager.
+	Upgrade your gettext to higher version which does not exhibit this
+	problem. gettext 0.11.40 and above should be just fine.
 	
 	* Calltips flicker when the cursor touches them if you have your window
 	manager set to follow-mouse-cursor for focus. Change it to focus-follow

@@ -64,7 +64,9 @@ static gchar *
 term_commands[] = {
 	"gnome-terminal -e \"$(anjuta.current.command)\"",
 	"gnome-terminal -x sh -c \"$(anjuta.current.command)\"",
+	"gnome-terminal --command=\"sh -c \\\"$(anjuta.current.command); read x\\\"\"",
 	"xterm -e sh -c \"$(anjuta.current.command)\"",
+
 	NULL
 };
 

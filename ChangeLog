@@ -1,3 +1,30 @@
+2002-11-04  Naba Kumar <naba@gnome.org>
+
+	* src/commands.c: Added command with shell redirection capability.
+	* data/properties/anjuta.properties: Changed default execution
+	command.
+	* src/project_dbase.c: Set project top dir in properties.
+	* Makefile.am: Recurse scripts/ before data/ to fix a distcheck error.
+	* data/Makefile.am: More diskcheck error fixes.
+	
+	* README, anjuta.spec.in, THANKS, AUTHORS,
+	manuals/C/anjuta-faqs/anjuta-faqs.sgml,
+	manuals/C/anjuta-manual/authers,sgml,
+	manuals/C/anjuta-manual/anjuta-manual.sgml,
+	manuals/C/anjuta-manual/anjuta-manual-C.omf,
+	manuals/C/anjuta-manual/anjuta-manual-ja_JP.eucJP.omf
+	: Changed anjuta home to
+	new URL and my email address.
+	
+	* manuals/C/anjuta-manual/interfaces.sgml,
+	manuals/C/anjuta-manual/prefereces.sgml,
+	manuals/C/anjuta-faqs/anjuta-faqs.sgml: Fixed typos and updated.
+	
+	* src/main_menubar.[c,h], src/controls, src/toolbar_callbacks.c
+	: removed reference to the help menu as the menu is modified
+	when no help is found (which is very likely when we are
+	shiping the documents separately).
+	
 2002-11-03  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
 	* anjuta.spec.in: Update specfile to make multiple RPMs.
 	* data/Makefile.am: make dist fix.

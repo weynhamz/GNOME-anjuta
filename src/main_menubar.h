@@ -272,6 +272,10 @@ struct _SettingsSubMenu
 	GtkWidget *shortcuts;
 };
 
+/* Help menu should not be touched as it
+is often modifed by gnome when the help
+TOC (table of contents) is not found, resulting a screw-up */
+/*
 struct _HelpSubMenu
 {
 	GtkWidget *gnome;
@@ -281,7 +285,7 @@ struct _HelpSubMenu
 	GtkWidget *search;
 	GtkWidget *about;
 };
-
+*/
 struct _MainMenuBar
 {
 	FileSubMenu file;
@@ -294,7 +298,7 @@ struct _MainMenuBar
 	DebugSubMenu debug;
 	CVSSubMenu cvs;
 	SettingsSubMenu settings;
-	HelpSubMenu help;
+	/* HelpSubMenu help; */
 };
 
 void create_main_menubar (GtkWidget * app, MainMenuBar * mb);

@@ -132,7 +132,7 @@
      That is because <application>Anjuta</application> is a GNOME application, and is 
 	 in <ulink type="http" url="http://cvs.gnome.org">GNOME CVS</ulink>. You can find 
 	 out more about how to obtain the CVS sources at the GNOME site, or at the 
-     <ulink type="http" url="http://anjuta.sourceforge.net">project home page</ulink>.
+     <ulink type="http" url="http://anjuta.org/">project home page</ulink>.
      </para>
     </answer>
    </qandaentry> 
@@ -146,7 +146,7 @@
     <answer>
      <para>
 	Latest nightly tarballs of Anjuta are available 
-	<ulink type="http" url="http://anjuta.sf.net/cvs/">here</ulink>.
+	<ulink type="http" url="http://anjuta.org/cvs/">here</ulink>.
 	You should download the ANJUTA_1_0_0 branch sources since HEAD is currently
 	unstable and will probably not build.
      </para>
@@ -535,13 +535,62 @@
 	<qandaentry>
     <question>
      <para>
-		How do I specify multiple build targets ?
+		How do I add multiple files at once to my project or open multiple
+		files at once? Adding/opening single file repeatedly is very tedious.
      </para>
     </question>
     <answer>
      <para>
-		You cannot do that with the current project manager. This feature is expected to
-		be there in Anjuta2.
+	 Press <emphasis>CTRL</emphasis> in the fileselector and it will enter
+	 multiple select mode. You can then select all the files to add and
+	 press OK. Ditto for opening files.
+	</para>
+    </answer>
+   </qandaentry>
+   
+	<qandaentry>
+    <question>
+     <para>
+		How do I define another projects directory other than the default
+		"~/Projects"?
+     </para>
+    </question>
+    <answer>
+     <para>
+	 In <menuchoice><guimenu>Settings</guimenu><guisubmenu>Preferences</guisubmenu>
+	 <guimenuitem>General</guimenuitem></menuchoice>, you should be able to change the
+	 default projects directory.
+	</para>
+    </answer>
+   </qandaentry> 
+   
+	<qandaentry>
+    <question>
+     <para>
+		How do I add multiple build targets/modules/subdirectories?
+     </para>
+    </question>
+    <answer>
+     <para>
+		 First create the new sub-directory and and fill it with your own
+		 Makefile.am and other source files. Decide if you want to build
+		 this directory before the src/ module or after it. If the targets in
+		 your sub-directory depend on the target in src/ directory, you should build
+		 your directory before the src/ directory, otherwise you can build it after the src/
+		 directory.
+		 </para>
+		 <para>
+		 Then go to
+		 <menuchoice><guimenu>Project</guimenu><guisubmenu>Project Configuration
+		 </guisubmenu><guimenuitem>Modules</guimenuitem></menuchoice> and add the
+		 directory in the appropriate entry box. All the directory names should
+		 be space separated in these entries. Also, add your module in only of
+		 the two entry boxes. lastly, save the project and run autogeneration from 
+		 the Build menu.
+		</para>
+		<para>
+		Remember, you are responsible for maintaining the files in these
+		 extra sub-directories.
 	</para>
     </answer>
    </qandaentry> 
@@ -738,7 +787,7 @@
    Please send all comments and suggestions regarding the FAQ to the authors.
     For more information on <application>Anjuta</application> or the
     <application>Anjuta</application> mailing lists, please visit the
-    <ulink url="http://anjuta.sourceforge.net" type="http">Anjuta Home Page</ulink>.
+    <ulink url="http://anjuta.org/" type="http">Anjuta Home Page</ulink>.
    </para>
 
    <!-- For translations: uncomment this:

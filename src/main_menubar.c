@@ -248,13 +248,14 @@ create_main_menubar (GtkWidget * ap, MainMenuBar * mb)
 	mb->settings.shortcuts = settings1_menu_uiinfo[7].widget;
 
 	/* Help submenu */
+	/* Read the comment in main_menubar.h.
 	mb->help.gnome = help1_menu_uiinfo[2].widget;
 	mb->help.man = help1_menu_uiinfo[3].widget;
 	mb->help.info = help1_menu_uiinfo[4].widget;
 	mb->help.context_help = help1_menu_uiinfo[6].widget;
 	mb->help.search = help1_menu_uiinfo[7].widget;
 	mb->help.about = help1_menu_uiinfo[17].widget;
-
+	*/
 	/* Unimplemented */
 	gtk_widget_hide (file1_menu_uiinfo[15].widget);
 	gtk_widget_hide (file1_menu_uiinfo[16].widget);

@@ -2,12 +2,11 @@
  <chapter id="preferences">
   <title>Preferences</title>
   <para>
-   Preferences are a way to customize <application>anjuta</application> to suit
+   Preferences are ways to customize <application>anjuta</application> to suit
    your tastes. Activate <menuchoice><guimenu>Settings</guimenu><guimenuitem>Preferences</guimenuitem>
    </menuchoice> to bring up the preferences dialog. If you want to reset the preferences to their
    default values, it can be done from <menuchoice><guimenu>Settings</guimenu><guimenuitem>
-   Set Default Preferences</guimenuitem></menuchoice>. All the preferences groups are explained
-   below.
+   Set Default Preferences</guimenuitem></menuchoice>. Some are explained below.
   </para>
   <sect1 id="prefs-general"><title>General</title>
     <orderedlist>
@@ -41,7 +40,7 @@
       <listitem><para>
        <emphasis>Build File Browser Automatically</emphasis>, if checked, will make the file browser to
        automatically update it's database whenever necessary (for example, file saves). This option
-       and the previous option could be disable to improve the performace a bit at the expense of 
+       and the previous option could be disabled to improve the performace a bit at the expense of 
        some mis-synchronization. In any case, you should be able to update these database from
        <menuchoice><guimenu>Project</guimenu><guimenuitem>Update tags image</guimenuitem></menuchoice>.
        <menuchoice><guimenu>Project</guimenu><guimenuitem>Rebuild tags image</guimenuitem></menuchoice>
@@ -77,7 +76,8 @@
      <orderedlist>
       <listitem><para>
        <emphasis>Keep going when some targets cannot be build</emphasis>, if checked, will invoke the
-       <application>make</application> with the -k or --keep-going option. This makes make to continue
+       <application>make</application> with the -k or --keep-going option. This makes <application>make
+	   </application> to continue
        the make process even if there are errors found in some rules. Without this option, make
        terminates when it encounters the fist error. Read the <ulink type="info" url="info:indent">
        <application>make</application> info page</ulink> for more details.</para>

@@ -76,7 +76,7 @@
     <itemizedlist>
      <listitem>
       <para>
-       <emphasis>Switch Editor page:</emphasis> ALT-TAB (forward) and ALT-SHIFT-TAB (backward) -- The pages could
+       <emphasis>Switch Editor page:</emphasis> CTRL-TAB (forward) and CTRL-SHIFT-TAB (backward) -- The pages could
 	   also be switched by right clicking on the notebook tabs and selecting an editor tab
 	   (useful when all the tabs in the editor are not visible at once). Some desktop configuration
 	   may already have these shortcut keys assigned. In that case, you will need to reconfigure them

@@ -237,7 +237,7 @@ update_main_menubar ()
 	BuildSubMenu *bm;
 	BookmarkSubMenu *mm;
 	DebugSubMenu *dm;
-	HelpSubMenu *hm;
+	/* HelpSubMenu *hm; */
 	CVSSubMenu* cvs;
 	gboolean F, P, SF, L, G, A, R, Pr, UD, RD, Ld, C, I, FLD, UT, PCVS, notebook_has_editors;
 	TextEditor *te;
@@ -252,7 +252,7 @@ update_main_menubar ()
 	bm = &(app->widgets.menubar.build);
 	mm = &(app->widgets.menubar.bookmark);
 	dm = &(app->widgets.menubar.debug);
-	hm = &(app->widgets.menubar.help);
+	/* hm = &(app->widgets.menubar.help); */
 	cvs = &(app->widgets.menubar.cvs);
 	P = app->project_dbase->project_is_open;
 	PCVS = P && app->project_dbase->has_cvs;
@@ -457,9 +457,11 @@ update_main_menubar ()
 	gtk_widget_set_sensitive (cvs->diff_project, PCVS && !L);
 	gtk_widget_set_sensitive (cvs->login, !L);
 
+	/* Read the comments in main_menubar.h */
+	/*
 	gtk_widget_set_sensitive(hm->gnome, app->has_devhelp);
 	gtk_widget_set_sensitive(hm->context_help, app->has_devhelp);
-
+	*/
 	update_led_animator ();
 }
 

@@ -2332,6 +2332,7 @@ done:
 	p->is_saved = TRUE;
 	p->top_proj_dir = tm_get_real_path(p->proj_filename);
 	*(strrchr(p->top_proj_dir, '/')) = '\0';
+	prop_set_with_key (p->props, "top.proj.dir", p->top_proj_dir);
 	p->has_cvs = is_cvs_active_for_dir(p->top_proj_dir);
 	/* Load excluded modules */
 	if (p->excluded_modules) {

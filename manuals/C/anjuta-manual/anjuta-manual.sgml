@@ -16,7 +16,7 @@
 <book id="index">
  <bookinfo>
   <title>Anjuta IDE Manual</title>
-  <edition>v0.0.4</edition>
+  <edition>v1.0.0</edition>
 
 <!--  other GNOME docs do not have this
 <authorgroup>
@@ -26,7 +26,7 @@
     <authorblurb>
      <para>
       <email>
-       kh_naba@users.sourceforge.net
+       naba@gnome.org
       </email>
      </para>
     </authorblurb>
