@@ -35,9 +35,19 @@ noinst_HEADERS = \
 noinst_PROGRAMS = test-actions test-merge
 
 test_actions_SOURCES = test-actions.c
-test_actions_LDFLAGS = libegg-menu.a $(ANJUTA_LIBS)
-test_actions_DEPENDENCIES = libegg-menu.a
+test_actions_LDFLAGS = libegg-menu.a \
+	$(top_builddir)/libegg/toolbar/libegg-toolbar.a \
+	$(top_builddir)/libegg/util/libeggutil.a \
+	$(ANJUTA_LIBS)
+test_actions_DEPENDENCIES = libegg-menu.a \
+	$(top_builddir)/libegg/toolbar/libegg-toolbar.a \
+	$(top_builddir)/libegg/util/libeggutil.a
 
 test_merge_SOURCES = test-merge.c
-test_merge_LDFLAGS = libegg-menu.a $(ANJUTA_LIBS)
-test_merge_DEPENDENCIES = libegg-menu.a
+test_merge_LDFLAGS = libegg-menu.a \
+	$(top_builddir)/libegg/toolbar/libegg-toolbar.a \
+	$(top_builddir)/libegg/util/libeggutil.a \
+	$(ANJUTA_LIBS)
+test_merge_DEPENDENCIES = libegg-menu.a \
+	$(top_builddir)/libegg/toolbar/libegg-toolbar.a \
+	$(top_builddir)/libegg/util/libeggutil.a

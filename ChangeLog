@@ -1,7 +1,9 @@
 2003-12-11  Naba Kumar  <naba@gnome.org>
 
 	* configure.in: Removed libegg flags from ANJUTA_FLAGS.
-	
+	* libegg/toolbar/Makefile.am, libegg/menu/Makefile.am: Fixed linking
+	errors.
+
 2003-12-11  Naba Kumar  <naba@gnome.org>
 
 	Patch from: Jean-Noel Guiheneuf   <jnoel@saudionline.com.sa>

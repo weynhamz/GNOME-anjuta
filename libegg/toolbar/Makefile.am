@@ -35,14 +35,18 @@ noinst_PROGRAMS = test-toolbar gtkexample test-drag
 gtkexample_SOURCES = gtkexample.c
 
 gtkexample_LDADD = $(ANJUTA_LIBS) \
-  $(top_builddir)/libegg/toolbar/libegg-toolbar.a
+  $(top_builddir)/libegg/toolbar/libegg-toolbar.a \
+  $(top_builddir)/libegg/util/libeggutil.a
 
 test_toolbar_SOURCES = test-toolbar.c prop-editor.c
 
 test_toolbar_LDADD = $(ANJUTA_LIBS) \
-  $(top_builddir)/libegg/toolbar/libegg-toolbar.a
+  $(top_builddir)/libegg/toolbar/libegg-toolbar.a \
+  $(top_builddir)/libegg/util/libeggutil.a
 
 test_drag_SOURCES = test-drag.c
 
 test_drag_LDADD = $(ANJUTA_LIBS) \
-  $(top_builddir)/libegg/toolbar/libegg-toolbar.a
+  $(top_builddir)/libegg/toolbar/libegg-toolbar.a \
+  $(top_builddir)/libegg/util/libeggutil.a
+
