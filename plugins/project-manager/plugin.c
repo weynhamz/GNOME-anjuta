@@ -1283,18 +1283,21 @@ iproject_manager_get_selected (IAnjutaProjectManager *project_manager,
 		return uri;
 	}
 	
-	gbf_tree_data_free (data);
+	if (data)
+		gbf_tree_data_free (data);
+
 	data = gbf_project_view_find_selected (GBF_PROJECT_VIEW (plugin->view),
 										   GBF_TREE_NODE_TARGET);
 	if (data && data->type == GBF_TREE_NODE_TARGET)
 	{
-		gbf_tree_data_free (data);
 		uri = get_element_uri_from_id (plugin, data->id);
 		gbf_tree_data_free (data);
 		return uri;
 	}
 	
-	gbf_tree_data_free (data);
+	if (data)
+		gbf_tree_data_free (data);
+
 	data = gbf_project_view_find_selected (GBF_PROJECT_VIEW (plugin->view),
 										   GBF_TREE_NODE_GROUP);
 	if (data && data->type == GBF_TREE_NODE_GROUP)
@@ -1303,6 +1306,9 @@ iproject_manager_get_selected (IAnjutaProjectManager *project_manager,
 		gbf_tree_data_free (data);
 		return uri;;
 	}
+
+	if (data)
+		gbf_tree_data_free (data);
 	
 	return NULL;
 }

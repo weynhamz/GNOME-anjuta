@@ -1,5 +1,7 @@
 2005-02-03  Naba Kumar  <naba@gnome.org>
 
+	* plugins/project-manager/plugin.c: Fixed memory corruption.
+
 	* plugins/build-basic-autotools/build-basic-autotools.c: Fixed
 	build error.
 	
