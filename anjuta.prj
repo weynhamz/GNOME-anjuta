@@ -44,8 +44,9 @@ AC_CHECK_LIB(db1,main)
 <CONFIG_ADDITIONAL_END>
 <CONFIG_FILES_START>
 scintilla/include/Makefile
-manuals/anjuta-manual/Makefile
-manuals/anjuta-manual/C/Makefile
+manuals/C/Makefile
+manuals/C/anjuta-manual/Makefile
+manuals/C/anjuta-faqs/Makefile
 anjuta.spec
 <CONFIG_FILES_END>
 <MAKEFILE_AM_START>
