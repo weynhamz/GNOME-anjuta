@@ -1,5 +1,17 @@
 2002-01-08  Naba Kumar <kh_naba@users.sourceforge.net>
 
+	* ccview/
+		cccmd.cc, ccview_main.h, func_dialog.cc, struct.xpm,
+		cccmd.h, cfolder.xpm, func_dialog.h, ofolder.xpm, support.c,
+		cccproj.cc, ChangeLog, gtk_help.cc, panes.cc, support.h,
+		cccproj.hh, class.xpm, gtk_help.h, private.xpm, tree_coll.h,
+		ccview.cc, cregex.hh, hash_str.h, protected.xpm,
+		ccview.h, public.xpm, ccview_main.cc, file.xpm, Makefile.am, scanner.xpm:
+	
+	Removed ccview module because it is no longer needed.
+
+2002-01-08  Naba Kumar <kh_naba@users.sourceforge.net>
+
 	* src/project_dbase.c:
 	  Shifted structure initialization in project_dbase_new()
 	  before anything else, otherwise it was crashing due to
