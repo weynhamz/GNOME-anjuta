@@ -93,7 +93,6 @@ create_anjuta_gui (AnjutaApp * appl)
 				     &(appl->widgets.toolbar.main_toolbar));
 	gnome_app_add_toolbar (GNOME_APP (anjuta_gui), GTK_TOOLBAR (toolbar1),
 			       ANJUTA_MAIN_TOOLBAR,
-			       GNOME_DOCK_ITEM_BEH_EXCLUSIVE |
 			       GNOME_DOCK_ITEM_BEH_NEVER_VERTICAL,
 			       GNOME_DOCK_TOP, 1, 0, 0);
 	gtk_toolbar_set_space_size (GTK_TOOLBAR (toolbar1), 5);
@@ -108,7 +107,6 @@ create_anjuta_gui (AnjutaApp * appl)
 					  browser_toolbar));
 	gnome_app_add_toolbar (GNOME_APP (anjuta_gui), GTK_TOOLBAR (toolbar2),
 			       ANJUTA_BROWSER_TOOLBAR,
-			       GNOME_DOCK_ITEM_BEH_EXCLUSIVE |
 			       GNOME_DOCK_ITEM_BEH_NEVER_VERTICAL,
 			       GNOME_DOCK_TOP, 2, 0, 0);
 	gtk_toolbar_set_space_size (GTK_TOOLBAR (toolbar2), 5);

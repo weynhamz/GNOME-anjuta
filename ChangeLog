@@ -1,5 +1,10 @@
 2002-08-01	Andy Piper	<andy.piper@freeuk.com>
 
+	* src/anjuta_gui.c: implemented feature request to stop main and browser
+	  toolbars having exclusive use of space
+
+2002-08-01	Andy Piper	<andy.piper@freeuk.com>
+
 	* NEWS: updated for 1.0-beta release
 	* widgets/e-shell-about-box.c, manuals/C/anjuta-manual/authors.sgml, 
 	  THANKS: credited new contributors
@@ -19,7 +24,7 @@
 2002-07-15	Naba Kumar	<kh_naba@users.sourceforge.net>
 	
 	* NEWS: Updated.
-	* scintilla/KeyWords.cxx: Fixed a complie bug.
+	* scintilla/KeyWords.cxx: Fixed a compile bug.
 
 2002-07-02	Naba Kumar	<kh_naba@users.sourceforge.net>
 
