@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: anjuta VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2003-06-26 19:59+0200\n"
-"PO-Revision-Date: 2003-06-27 13:05+0200\n"
+"PO-Revision-Date: 2003-07-26 02:16+0200\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -114,7 +114,7 @@ msgstr "Další knihovny (LDADD):"
 
 #: anjuta.glade.h:13 anjuta_dialogs_strings.c:77 src/wizard_gui.c:573
 msgid "Additional Options"
-msgstr "Další přepínače"
+msgstr "Další volby"
 
 #: anjuta.glade.h:14 anjuta_dialogs_strings.c:355
 msgid "Additional build options:"
@@ -284,7 +284,7 @@ msgstr "Perioda blikání kurzoru v milisekundách"
 
 #: anjuta.glade.h:53 anjuta_dialogs_strings.c:133
 msgid "Case insensitive"
-msgstr "Ignorovat velikost písmen"
+msgstr "Nerozlišovat velikost písmen"
 
 #: anjuta.glade.h:54 anjuta_dialogs_strings.c:86
 msgid "Case sensitive"
@@ -601,15 +601,15 @@ msgstr "Filtrovat přebytečné znaky v režimu DOS"
 
 #: anjuta.glade.h:130 anjuta_dialogs_strings.c:129
 msgid "Find & Replace"
-msgstr "Nalézt & nahradit"
+msgstr "Hledat & nahradit"
 
 #: anjuta.glade.h:131 anjuta_dialogs_strings.c:98 anjuta_dialogs_strings.c:115
 msgid "Find and replace"
-msgstr "Nalézt a nahradit"
+msgstr "Hledat a nahradit"
 
 #: anjuta.glade.h:132 anjuta_dialogs_strings.c:85 src/find_in_files.c:301
 msgid "Find in Files"
-msgstr "Nalézt v souborech"
+msgstr "Hledat v souborech"
 
 #: anjuta.glade.h:133 anjuta_dialogs_strings.c:378
 msgid "Fold style:"
@@ -680,7 +680,7 @@ msgstr "Gnome API"
 
 #: anjuta.glade.h:146 anjuta_dialogs_strings.c:132
 msgid "Greedy matching"
-msgstr "Lakomé hledání"
+msgstr "Hladové hledání"
 
 #: anjuta.glade.h:147 anjuta_dialogs_strings.c:27
 msgid "HTML _viewer:"
@@ -1100,7 +1100,7 @@ msgstr "Regexp"
 #: anjuta.glade.h:244 anjuta_dialogs_strings.c:100
 #: anjuta_dialogs_strings.c:117
 msgid "Regexp/String to find"
-msgstr "Regexp/řetězec, který nalézt"
+msgstr "Regexp/řetězec, který hledat"
 
 #: anjuta.glade.h:245 anjuta_dialogs_strings.c:131
 msgid "Regular Expression"
@@ -1202,7 +1202,7 @@ msgstr "Cíl hledání"
 
 #: anjuta.glade.h:269 anjuta_dialogs_strings.c:146
 msgid "Search Variable"
-msgstr "Nalézt proměnnou"
+msgstr "Hledat proměnnou"
 
 #: anjuta.glade.h:270 anjuta_dialogs_strings.c:111
 #: anjuta_dialogs_strings.c:126
@@ -2384,7 +2384,7 @@ msgstr "Jít na deklaraci"
 #. 2
 #: src/an_symbol_view.c:295 src/text_editor_menu.c:339
 msgid "Find Usage"
-msgstr "Nalézt použití"
+msgstr "Hledat použití"
 
 #: src/an_symbol_view.c:569
 msgid "Symbol"
@@ -4501,7 +4501,7 @@ msgstr "Další výskyt"
 
 #: src/main_menubar_def.h:536
 msgid "Find the next occurrence of current word"
-msgstr "Nalézt další výskyt aktuálního slova"
+msgstr "Hledat další výskyt aktuálního slova"
 
 #. 11
 #: src/main_menubar_def.h:541
@@ -4510,7 +4510,7 @@ msgstr "Předchozí výskyt"
 
 #: src/main_menubar_def.h:542
 msgid "Find the previous occurrence of current word"
-msgstr "Nalézt předchozí výskyt aktuálního slova"
+msgstr "Hledat předchozí výskyt aktuálního slova"
 
 #. 0
 #: src/main_menubar_def.h:553
