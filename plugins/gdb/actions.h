@@ -76,6 +76,10 @@ void on_debugger_signal_activate (GtkAction * action, gpointer user_data);
 void on_debugger_inspect_activate (GtkAction * action, gpointer user_data);
 void on_debugger_add_watch_activate (GtkAction * action,
 									 gpointer user_data);
+void on_debugger_registers_activate (GtkAction * action, gpointer user_data);
+void on_debugger_signals_activate (GtkAction * action, gpointer user_data);
+void on_debugger_sharedlibs_activate (GtkAction * action, gpointer user_data);
+
 void on_debugger_custom_command_activate (GtkAction * action,
 										  gpointer user_data);
 #endif

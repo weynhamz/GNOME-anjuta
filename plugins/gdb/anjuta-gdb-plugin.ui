@@ -3,12 +3,20 @@
 	<menubar name="MenuMain">
 		<placeholder name="PlaceHolderDebugMenus">
 			<menu name="MenuDebug" action="ActionMenuDebug">
-				<menu name="Breakpoints" action="ActionMenuBreakpoints">
+				<menu name="Execution" action="ActionMenuExecution">
+					<separator name="separator10"/>
+					<menuitem name="RestartProgram" action="ActionGdbRestartProgram" />
+					<menuitem name="StopProgram" action="ActionGdbStopProgram" />
+					<menuitem name="DetachProgram" action="ActionGdbDetachProgram" />
+					<menuitem name="PauseProgram" action="ActionGdbPauseProgram" />
+				</menu>
+				<menu name="Breakpoints" action="ActionMenuGdbBreakpoints">
+					<menuitem name="ToggleBreakpoint" action="ActionGdbToggleBreakpoint" />
 					<menuitem name="SetBreakpoint" action="ActionGdbSetBreakpoint" />
 					<menuitem name="DisableAllBreakpoints" action="ActionGdbDisableAllBreakpoints" />
 					<menuitem name="ClearAllBreakpoints" action="ActionGdbClearAllBreakpoints" />
-					<separator name="separator2"/>
-					<menuitem name="Breakpoints" action="ActionGdbBreakpoints" />
+					<separator name="separator10"/>
+					<menuitem name="ShowBreakpoints" action="ActionGdbBreakpoints" />
 				</menu>
 				<menu name="Info" action="ActionMenuGdbInformation">
 					<menuitem name="TargetFiles" action="ActionGdbInfoTargetFiles"/>
@@ -18,20 +26,17 @@
 					<menuitem name="GlobalVariables" action="ActionGdbInfoGlobalVariables" />
 					<menuitem name="LocalVariables" action="ActionGdbInfoLocalVariables" />
 					<menuitem name="CurrentFrame" action="ActionGdbInfoCurrentFrame" />
-					<menuitem name="FunctionArgs" action="ActionGdbFunctionArgs" />
-					<menuitem name="Memory" action="ActionGdbInfoMemory" />
+					<menuitem name="FunctionArgs" action="ActionGdbInfoFunctionArgs" />
 				</menu>
 				<separator name="separator3"/>
-				<menuitem name="RestartProgram" action="ActionGdbRestartProgram" />
-				<menuitem name="StopProgram" action="ActionGdbStopProgram" />
-				<menuitem name="DetachProgram" action="ActionGdbDetachProgram" />
-				<menuitem name="PauseProgram" action="ActionGdbPauseProgram" />
+				<menuitem name="Registers" action="ActionGdbViewRegisters" />
+				<menuitem name="Sharedlibs" action="ActionGdbViewSharedlibs" />
+				<menuitem name="Signals" action="ActionGdbViewSignals" />
 				<menuitem name="SignalProgram" action="ActionGdbSignalProgram" />
-				<separator name="separator4"/>
+				<separator name="separator10"/>
+				<menuitem name="Memory" action="ActionGdbExamineMemory" />
 				<menuitem name="Inspect" action="ActionGdbInspect" />
 				<menuitem name="AddWatch" action="ActionGdbAddWatch" />
-				<separator name="separator5"/>
-				<menuitem name="Stop" action="ActionGdbStop" />
 			</menu>
 		</placeholder>
 	</menubar>

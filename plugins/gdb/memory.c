@@ -25,14 +25,11 @@
 #include "config.h"
 #endif
 
-
 #include <gnome.h>
 #include <glade/glade.h>
 
-/* TODO #include "anjuta.h" */
 #include "debugger.h"
 #include "memory.h"
-
 
 #define ADR_ENTRY                "adr_entry"
 #define BUTTON_INSPECT           "button_inspect"
@@ -90,7 +87,7 @@ static char *glade_names[] =
 };
 
 #define MEMORY_DIALOG "dialog_memory"
-#define GLADE_FILE "glade/anjuta.glade"
+#define GLADE_FILE PACKAGE_DATA_DIR"/glade/anjuta-gdb.glade"
 
 gboolean timeout = TRUE;
 
@@ -103,11 +100,12 @@ memory_info_new (guchar *ptr)
 	memapp = g_new0 (MemApp, 1);
 	memapp->adr = ptr;
 	
-/* TODO 	if (NULL == (memapp->xml = glade_xml_new (GLADE_FILE_ANJUTA, MEMORY_DIALOG, NULL))) */
+	if (NULL == (memapp->xml = glade_xml_new (GLADE_FILE, MEMORY_DIALOG, NULL)))
 	{
-/* TODO
-		anjuta_error (_("Unable to build user interface for Memory\n"));
-*/
+		GtkWindow *parent;
+		
+		parent = GTK_WINDOW (ANJUTA_PLUGIN(debugger.plugin)->shell);
+		anjuta_util_dialog_error (NULL, _("Unable to build user interface for Memory\n"));
 		g_free (memapp);
 		memapp = NULL;
 		return NULL;

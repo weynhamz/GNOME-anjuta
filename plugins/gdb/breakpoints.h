@@ -65,7 +65,8 @@ void breakpoints_dbase_destroy (BreakpointsDBase * bd);
 
 void breakpoints_dbase_add (BreakpointsDBase *bd);
 
-gboolean breakpoints_dbase_toggle_breakpoint (BreakpointsDBase* bd, guint l);
+gboolean breakpoints_dbase_toggle_breakpoint (BreakpointsDBase* bd,
+											  const gchar *file, guint l);
 
 gboolean breakpoints_dbase_toggle_doubleclick (guint line);
 

@@ -115,7 +115,7 @@ void debugger_dialog_message (GList * lines, gpointer data);
 void debugger_dialog_error (GList * lines, gpointer data);
 
 /* Public */
-void debugger_attach_process (gint pid);
+void debugger_attach_process (pid_t pid);
 void debugger_restart_program (void);
 void debugger_start_program (void);
 void debugger_stop_program (void);
@@ -128,7 +128,7 @@ void debugger_step_over (void);
 void debugger_step_out (void);
 void debugger_run_to_location (const gchar * loc);
 
-void debugger_toggle_breakpoint (guint l);
+void debugger_toggle_breakpoint (const char *file, guint l);
 /* TODO: can remove ?
 void debugger_toggle_tmp_breakpoint (void);
 */

@@ -37,7 +37,8 @@ void
 on_sharedlibs_update_activate            (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-  debugger_put_cmd_in_queqe("info sharedlibrary", DB_CMD_NONE, sharedlibs_update, debugger.sharedlibs);
+  debugger_put_cmd_in_queqe("info sharedlibrary", DB_CMD_NONE,
+							sharedlibs_update, debugger.sharedlibs);
   debugger_execute_cmd_in_queqe();
 }
 

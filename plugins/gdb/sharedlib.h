@@ -21,7 +21,6 @@
 #define _SHAREDLIBS_H_
 
 #include <gnome.h>
-/* TODO #include "properties.h" */
 
 typedef struct _SharedlibsGui SharedlibsGui;
 typedef struct _Sharedlibs Sharedlibs;

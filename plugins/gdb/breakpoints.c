@@ -1702,7 +1702,8 @@ on_delete_matching_foreach (GtkTreeModel *model, GtkTreePath *path,
 /*  if l == 0  :  line = current line */
 /*  return FALSE if debugger not active */
 gboolean
-breakpoints_dbase_toggle_breakpoint (BreakpointsDBase *bd, guint l)
+breakpoints_dbase_toggle_breakpoint (BreakpointsDBase *bd,
+									 const gchar *file, guint l)
 {
 	guint line;
 	BreakpointItem *bid;
@@ -1719,10 +1720,14 @@ breakpoints_dbase_toggle_breakpoint (BreakpointsDBase *bd, guint l)
 
 	docman = get_document_manager (bd->priv->plugin);
 	g_return_val_if_fail (docman != NULL, FALSE);
+	
+	if (file)
+		ianjuta_document_manager_goto_file_line (docman, file, l, NULL);
+	
 	te = ianjuta_document_manager_get_current_editor (docman, NULL /* TODO */);
 	g_return_val_if_fail (te != NULL, FALSE);
-	
-	if (l == 0)
+		
+	if (l <= 0)
 		line = ianjuta_editor_get_lineno (te, NULL /* TODO */);
 	else
 	{
@@ -1765,12 +1770,12 @@ breakpoints_dbase_toggle_breakpoint (BreakpointsDBase *bd, guint l)
 	return TRUE;
 }
 
-
 /*  return FALSE if debugger not active */
 gboolean
 breakpoints_dbase_toggle_doubleclick (guint line)
 {
-	return breakpoints_dbase_toggle_breakpoint(debugger.breakpoints_dbase, line);
+	return breakpoints_dbase_toggle_breakpoint(debugger.breakpoints_dbase,
+											   NULL, line);
 }
 
 static void

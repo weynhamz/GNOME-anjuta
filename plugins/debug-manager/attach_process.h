@@ -36,6 +36,6 @@ struct _AttachProcess
 
 AttachProcess* attach_process_new (void);
 void attach_process_destroy (AttachProcess *ap);
-void attach_process_show (AttachProcess *ap);
+pid_t attach_process_show (AttachProcess *ap, GtkWindow *parent);
 
 #endif

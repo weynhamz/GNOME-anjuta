@@ -1,3 +1,31 @@
+2005-02-21  Naba Kumar  <naba@gnome.org>
+
+	* libanjuta/interfaces/libanjuta.idl: Fixed IAnjutaDebugManager and
+	IAnjutaDebugger interface.
+	
+	* plugins/debug-manager/anjuta-debug-manager.ui,
+	plugins/debug-manager/attach_process.c,
+	plugins/debug-manager/attach_process.h,
+	plugins/debug-manager/plugin.c,
+	plugins/debug-manager/plugin.h,
+	plugins/gdb/actions.c,
+	plugins/gdb/actions.h,
+	plugins/gdb/anjuta-gdb-plugin.ui,
+	plugins/gdb/breakpoints.c,
+	plugins/gdb/breakpoints.h,
+	plugins/gdb/debugger.c,
+	plugins/gdb/debugger.h,
+	plugins/gdb/memory.c,
+	plugins/gdb/plugin.c,
+	plugins/gdb/plugin.h,
+	plugins/gdb/sharedlib.h,
+	plugins/gdb/sharedlib_cbs.c,
+	plugins/gdb/watch.c: Fixed debugger plugin. Split debug operations
+	correctly between debug-manager and debugger. Implemented debugger
+	interface in gdb plugin. Fixed action names. Added UI updating.
+	Start and stop debugger (does not work yet). Fixed UI merging.
+	Fixed debugger plugin handling in debug-manager.
+
 2005-02-20  Johannes Schmid <jhs@cvs.gnome.org>
 
 	* plugins/editor/aneditor-autocomplete.cxx:

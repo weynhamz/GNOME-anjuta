@@ -26,7 +26,7 @@
 void
 on_toggle_breakpoint1_activate (GtkAction * action, gpointer user_data)
 {
-	breakpoints_dbase_toggle_breakpoint(debugger.breakpoints_dbase, 0);
+	breakpoints_dbase_toggle_breakpoint(debugger.breakpoints_dbase, NULL, 0);
 }
 
 void
@@ -307,6 +307,24 @@ void
 on_debugger_add_watch_activate (GtkAction * action, gpointer user_data)
 {
 	on_watch_add_activate (NULL, debugger.watch);
+}
+
+void
+on_debugger_registers_activate (GtkAction * action, gpointer user_data)
+{
+	cpu_registers_show (debugger.cpu_registers);
+}
+
+void
+on_debugger_sharedlibs_activate (GtkAction * action, gpointer user_data)
+{
+	sharedlibs_show (debugger.sharedlibs);
+}
+
+void
+on_debugger_signals_activate (GtkAction * action, gpointer user_data)
+{
+	signals_show (debugger.signals);
 }
 
 void

@@ -538,29 +538,31 @@ interface IAnjutaWizard
 
 interface IAnjutaDebuggerManager
 {
-	gboolean is_debugger_active ();
-
-	void toggle_breakpoint (gint line);
+	gboolean is_active ();
+	gboolean is_busy ();
+	
+	void start (const gchar *prog_uri);
+	gboolean stop ();
 }
 
 interface IAnjutaDebugger
 {
-	gboolean is_active ();
+	// Sinals
+	void ::busy (gboolean busy_state);
+	
+	gboolean is_busy ();
 
-	void start (const gchar *prog);
-	void load_executable (const gchar *prog);
-	void load_core (const gchar *core);
+	void load (const gchar *prog_uri);
 
 	void run_continue ();
 	void step_in ();
 	void step_over ();
 	void step_out ();
-	void run_to_cursor ();
-
-	void toggle_breakpoint1 (gint line);
-
-	/* TODO: remove this function after moving UI to debug-manager */
-	void toggle_breakpoint ();
+	void run_to_position (const gchar *uri, gint line);
+	
+	void breakpoint_toggle (const gchar *uri, gint line);
+	void breakpoint_set (const gchar *uri, gint line);
+	void breakpoint_delete (const gchar *uri, gint line);
 }
 
 interface IAnjutaCvs

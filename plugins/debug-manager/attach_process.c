@@ -389,10 +389,9 @@ attach_process_update (AttachProcess * ap)
 	store = GTK_TREE_STORE (gtk_tree_view_get_model
 							(GTK_TREE_VIEW (ap->treeview)));
 	g_return_if_fail (store);
-/* TODO
-	if (anjuta_is_installed ("ps", TRUE) == FALSE)
+	
+	if (anjuta_util_prog_is_installed ("ps", TRUE) == FALSE)
 		return;
-*/
 
 	tmp = get_a_tmp_file ();
 	cmd = g_strconcat ("ps axw -H -o pid,user,start_time,args > ", tmp, NULL);
@@ -404,9 +403,8 @@ attach_process_update (AttachProcess * ap)
 	}
 	if (ch_pid < 0)
 	{
-/* TODO
-		anjuta_system_error (errno, _("Unable to execute: %s."), cmd);
-*/
+		anjuta_util_dialog_error_system (NULL, errno,
+										 _("Unable to execute: %s."), cmd);
 		g_free (tmp);
 		g_free (cmd);
 		return;
@@ -419,9 +417,9 @@ attach_process_update (AttachProcess * ap)
 	g_free (tmp);
 	if (! result)
 	{
-/* TODO
-		anjuta_system_error (errno, _("Unable to open the file: %s\n"), tmp);
-*/
+		anjuta_util_dialog_error_system (NULL, errno,
+										 _("Unable to open the file: %s\n"),
+										 tmp);
 		return;
 	}
 
@@ -454,26 +452,6 @@ on_selection_changed (GtkTreeSelection *selection, AttachProcess *ap)
 		gtk_dialog_set_response_sensitive (GTK_DIALOG (ap->dialog), 
 										   GTK_RESPONSE_OK, FALSE);
 		ap->pid = -1L;
-	}
-}
-
-static void
-on_response (GtkWidget* dialog, gint res, gpointer data)
-{
-	AttachProcess* ap = data;
-
-	g_return_if_fail (ap);
-	switch (res)
-	{
-		case GTK_RESPONSE_APPLY:
-			attach_process_update (ap);
-			break;
-		case GTK_RESPONSE_OK:
-/* TODO
-			if (ap->pid > 0) debugger_attach_process (ap->pid);
-*/
-		case GTK_RESPONSE_CLOSE:
-			attach_process_clear (ap, CLEAR_FINAL);
 	}
 }
 
@@ -525,8 +503,8 @@ on_toggle_process_tree (GtkToggleButton *togglebutton, AttachProcess * ap)
 	attach_process_review (ap);
 }
 
-void
-attach_process_show (AttachProcess * ap)
+pid_t
+attach_process_show (AttachProcess * ap, GtkWindow *parent)
 {
 	GladeXML *gxml;
 	GtkTreeView *view;
@@ -536,78 +514,90 @@ attach_process_show (AttachProcess * ap)
 	GtkCheckButton *checkb_hide_paths;
 	GtkCheckButton *checkb_hide_params;
 	GtkCheckButton *checkb_process_tree;
-	gint i;
+	gint i, res;
+	pid_t selected_pid = -1;
 	
-	g_return_if_fail (ap);
+	g_return_val_if_fail (ap != NULL, -1);
 
-	if (ap->dialog) return;
-	gxml = glade_xml_new (PREFS_GLADE, "attach_process_dialog", NULL);
-	ap->dialog = glade_xml_get_widget (gxml, "attach_process_dialog");
-	ap->treeview = glade_xml_get_widget (gxml, "attach_process_tv");
-	checkb_hide_paths = GTK_CHECK_BUTTON (
-							glade_xml_get_widget (gxml, "checkb_hide_paths"));
-	checkb_hide_params = GTK_CHECK_BUTTON (
-							glade_xml_get_widget (gxml, "checkb_hide_params"));
-	checkb_process_tree = GTK_CHECK_BUTTON (
-							glade_xml_get_widget (gxml, "checkb_process_tree"));
-	g_object_unref (gxml);
-
-	view = GTK_TREE_VIEW (ap->treeview);
-	store = gtk_tree_store_new (COLUMNS_NB,
-								G_TYPE_STRING,
-								G_TYPE_STRING,
-								G_TYPE_STRING,
-								G_TYPE_STRING);
-	gtk_tree_view_set_model (view, GTK_TREE_MODEL (store));
-	gtk_tree_selection_set_mode (gtk_tree_view_get_selection (view),
-					 GTK_SELECTION_SINGLE);
-	g_object_unref (G_OBJECT (store));
-
-	renderer = gtk_cell_renderer_text_new ();
-
-	for (i = PID_COLUMN; i < COLUMNS_NB; i++) {
-		GtkTreeViewColumn *column;
-
-		column = gtk_tree_view_column_new_with_attributes (column_names[i],
-													renderer, "text", i, NULL);
-		gtk_tree_view_column_set_sort_column_id(column, i);
-		gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
-		gtk_tree_view_append_column (view, column);
-		if (i == COMMAND_COLUMN)
-			gtk_tree_view_set_expander_column(view, column);
+	if (!ap->dialog)
+	{
+		gxml = glade_xml_new (PREFS_GLADE, "attach_process_dialog", NULL);
+		ap->dialog = glade_xml_get_widget (gxml, "attach_process_dialog");
+		ap->treeview = glade_xml_get_widget (gxml, "attach_process_tv");
+		checkb_hide_paths = GTK_CHECK_BUTTON (
+								glade_xml_get_widget (gxml, "checkb_hide_paths"));
+		checkb_hide_params = GTK_CHECK_BUTTON (
+								glade_xml_get_widget (gxml, "checkb_hide_params"));
+		checkb_process_tree = GTK_CHECK_BUTTON (
+								glade_xml_get_widget (gxml, "checkb_process_tree"));
+		g_object_unref (gxml);
+	
+		view = GTK_TREE_VIEW (ap->treeview);
+		store = gtk_tree_store_new (COLUMNS_NB,
+									G_TYPE_STRING,
+									G_TYPE_STRING,
+									G_TYPE_STRING,
+									G_TYPE_STRING);
+		gtk_tree_view_set_model (view, GTK_TREE_MODEL (store));
+		gtk_tree_selection_set_mode (gtk_tree_view_get_selection (view),
+						 GTK_SELECTION_SINGLE);
+		g_object_unref (G_OBJECT (store));
+	
+		renderer = gtk_cell_renderer_text_new ();
+	
+		for (i = PID_COLUMN; i < COLUMNS_NB; i++) {
+			GtkTreeViewColumn *column;
+	
+			column = gtk_tree_view_column_new_with_attributes (column_names[i],
+														renderer, "text", i, NULL);
+			gtk_tree_view_column_set_sort_column_id(column, i);
+			gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
+			gtk_tree_view_append_column (view, column);
+			if (i == COMMAND_COLUMN)
+				gtk_tree_view_set_expander_column(view, column);
+		}
+		gtk_tree_sortable_set_sort_func (GTK_TREE_SORTABLE (store), PID_COLUMN,
+						sort_pid, NULL, NULL);
+		gtk_tree_sortable_set_sort_column_id (GTK_TREE_SORTABLE (store),
+						START_COLUMN, GTK_SORT_DESCENDING);
+	
+		ap->priv->hide_paths = gtk_toggle_button_get_active (
+							GTK_TOGGLE_BUTTON (checkb_hide_paths));
+		ap->priv->hide_params = gtk_toggle_button_get_active (
+							GTK_TOGGLE_BUTTON (checkb_hide_params));
+		ap->priv->process_tree = gtk_toggle_button_get_active (
+							GTK_TOGGLE_BUTTON (checkb_process_tree));
+	
+		attach_process_update (ap);
+	
+		selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (ap->treeview));
+		g_signal_connect (G_OBJECT (selection), "changed",
+						  G_CALLBACK (on_selection_changed), ap);
+		g_signal_connect (G_OBJECT (ap->dialog), "delete_event",
+						  G_CALLBACK (on_delete_event), ap);
+		g_signal_connect (GTK_OBJECT (checkb_hide_paths), "toggled",
+							G_CALLBACK (on_toggle_hide_paths), ap);
+		g_signal_connect (GTK_OBJECT (checkb_hide_params), "toggled",
+							G_CALLBACK (on_toggle_hide_params), ap);
+		g_signal_connect (GTK_OBJECT (checkb_process_tree), "toggled",
+							G_CALLBACK (on_toggle_process_tree), ap);
 	}
-	gtk_tree_sortable_set_sort_func (GTK_TREE_SORTABLE (store), PID_COLUMN,
-					sort_pid, NULL, NULL);
-	gtk_tree_sortable_set_sort_column_id (GTK_TREE_SORTABLE (store),
-					START_COLUMN, GTK_SORT_DESCENDING);
-
-	ap->priv->hide_paths = gtk_toggle_button_get_active (
-						GTK_TOGGLE_BUTTON (checkb_hide_paths));
-	ap->priv->hide_params = gtk_toggle_button_get_active (
-						GTK_TOGGLE_BUTTON (checkb_hide_params));
-	ap->priv->process_tree = gtk_toggle_button_get_active (
-						GTK_TOGGLE_BUTTON (checkb_process_tree));
-
-	attach_process_update (ap);
-
-	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (ap->treeview));
-	g_signal_connect (G_OBJECT (selection), "changed",
-					  G_CALLBACK (on_selection_changed), ap);
-	g_signal_connect (G_OBJECT (ap->dialog), "response",
-					  G_CALLBACK (on_response), ap);
-	g_signal_connect (G_OBJECT (ap->dialog), "delete_event",
-					  G_CALLBACK (on_delete_event), ap);
-	g_signal_connect (GTK_OBJECT (checkb_hide_paths), "toggled",
-						G_CALLBACK (on_toggle_hide_paths), ap);
-	g_signal_connect (GTK_OBJECT (checkb_hide_params), "toggled",
-						G_CALLBACK (on_toggle_hide_params), ap);
-	g_signal_connect (GTK_OBJECT (checkb_process_tree), "toggled",
-						G_CALLBACK (on_toggle_process_tree), ap);
-/* TODO
+	
 	gtk_window_set_transient_for (GTK_WINDOW (ap->dialog),
-								  GTK_WINDOW (app));
-*/
-	gtk_widget_show (ap->dialog);
+								  GTK_WINDOW (parent));
+	/* gtk_widget_show (ap->dialog); */
+	res = gtk_dialog_run (GTK_DIALOG (ap->dialog));
+	while (res == GTK_RESPONSE_APPLY)
+	{
+		attach_process_update (ap);
+		res = gtk_dialog_run (GTK_DIALOG (ap->dialog));
+	}
+	if (res == GTK_RESPONSE_OK)
+	{
+		selected_pid = ap->pid;
+	}
+	attach_process_clear (ap, CLEAR_FINAL);
+	return selected_pid;
 }
 
 void

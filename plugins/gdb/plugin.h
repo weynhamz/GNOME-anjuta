@@ -30,4 +30,6 @@ struct _GdbPluginClass
 	AnjutaPluginClass parent_class;
 };
 
+void gdb_plugin_update_ui (GdbPlugin *plugin);
+
 #endif
