@@ -1,18 +1,16 @@
-# translation of anjuta.ANJUTA_1_2_0.ml.po to 
-# translation of anjuta.ANJUTA_1_2_0.ml.po to Malayalam
+# translation of anjuta.HEAD.ml.po to Malayalam
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # FSF-India <locale@gnu.org.in>, 2003.
 # Suresh VP <mvpsuresh@yahoo.com>, 2003
-# Suresh Valiya Parambil <mvpsuresh@yahoo.com>, 2003
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: anjuta.ANJUTA_1_2_0.ml\n"
-"POT-Creation-Date: 2003-06-06 03:38+0200\n"
-"PO-Revision-Date: 2003-07-02 18:33-0600\n"
-"Last-Translator: Suresh Valiya Parambil <mvpsuresh@yahoo.com>\n"
-"Language-Team:  <ml@li.org>\n"
+"Project-Id-Version: anjuta.HEAD.ml\n"
+"POT-Creation-Date: 2003-05-20 11:55+0200\n"
+"PO-Revision-Date: 2003-06-13 20:34-0600\n"
+"Last-Translator: Suresh VP <mvpsuresh@yahoo.com>\n"
+"Language-Team: Malayalam <locale@gnu.org.in>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -27,6 +25,7 @@ msgid "Integrated Development Environment"
 msgstr ""
 
 #: anjuta.glade.h:1 anjuta_dialogs_strings.c:521
+#, fuzzy
 msgid ""
 "\n"
 "Anjuta Dev Studio\n"
@@ -50,10 +49,10 @@ msgstr ""
 "Anjuta Dev Studio\n"
 "Copyright (C) Naba Kumar\n"
 "\n"
-"This program is free software; you can redistribute it and/or modify it "
-"under the terms of the GNU General Public License as published by the Free "
-"Software Foundation; either version 2 of the License, or (at your option) "
-"any later version. \n"
+"ഇതൊരു free software ആകുന്നു;Free Software  Foundation ന്റെ "
+"GNU General Public License ലക്കം 2/നിങ്ങള്ക്ക ഇഷ്ടമുളള മറ്റൊരു "
+"ലക്കത്തിലെ ഉപാധികള്ക്കനുസൃതമായി നിങ്ങള്ക്ക് ഈ SOFTWARE "
+"വിതരണം/മാറ്റം നടത്താവുന്നതാണ്്   "
 "\n"
 "This program is distributed in the hope that it will be useful, but WITHOUT "
 "ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
@@ -70,7 +69,7 @@ msgstr "   "
 
 #: anjuta.glade.h:12 anjuta_dialogs_strings.c:145
 msgid "$(module.source.files) $(module.include.files)"
-msgstr "$(module.source.files) $(module.include.files)"
+msgstr ""
 
 #: anjuta.glade.h:13 anjuta_dialogs_strings.c:19 anjuta_dialogs_strings.c:20
 #: anjuta_dialogs_strings.c:21 anjuta_dialogs_strings.c:29
@@ -109,7 +108,7 @@ msgstr "$(module.source.files) $(module.include.files)"
 #: anjuta_dialogs_strings.c:426 anjuta_dialogs_strings.c:444
 #: anjuta_dialogs_strings.c:454 anjuta_dialogs_strings.c:460
 #: anjuta_dialogs_strings.c:466 anjuta_dialogs_strings.c:490
-#: anjuta_dialogs_strings.c:533 gdl/layout.glade.h:1
+#: gdl/layout.glade.h:1
 msgid "*"
 msgstr "*"
 
@@ -146,9 +145,8 @@ msgid "Add page header"
 msgstr "താള് തലക്കെട്ട് ചേര്ക്കുക"
 
 #: anjuta.glade.h:21 anjuta_dialogs_strings.c:217
-#, fuzzy
 msgid "Additional"
-msgstr "കൂടുതല്"
+msgstr ""
 
 #: anjuta.glade.h:22 anjuta_dialogs_strings.c:72
 #, fuzzy
@@ -163,58 +161,49 @@ msgstr "കൂടുതല് ബദലുകള്"
 msgid "Additional build options:"
 msgstr "കൂടുതല് നിര്മ്മിതിബദലുകള്"
 
-#: anjuta.glade.h:25 anjuta_dialogs_strings.c:536
+#: anjuta.glade.h:25 anjuta_dialogs_strings.c:508
 #, fuzzy
-msgid "Always save in UTF-8 encoding (faster)"
-msgstr "എല്ലായ്പ്പേഴും യു.ടി.എഫ്-8 ല് സംരക്ഷിക്കുക"
-
-#: anjuta.glade.h:26 anjuta_dialogs_strings.c:508
 msgid "Anjuta Setup Wizard"
 msgstr "അന്ജുത സജ്ജീകരണ മാന്ത്രികന്"
 
-#: anjuta.glade.h:27 anjuta_dialogs_strings.c:179
-#, fuzzy
+#: anjuta.glade.h:26 anjuta_dialogs_strings.c:179
 msgid "Anjuta help search"
-msgstr "അന്ജുത സഹായത്തില് തെരയുക"
+msgstr ""
 
-#: anjuta.glade.h:28 anjuta_dialogs_strings.c:507
+#: anjuta.glade.h:27 anjuta_dialogs_strings.c:507
+#, fuzzy
 msgid "Anjuta setup wizard"
 msgstr "അന്ജുത സജ്ജീകരണ മാന്ത്രികന്"
 
-#: anjuta.glade.h:29 anjuta_dialogs_strings.c:509
-#, fuzzy
+#: anjuta.glade.h:28 anjuta_dialogs_strings.c:509
 msgid ""
 "Anjuta setup wizard will guide with the initial setup of Anjuta. These setup "
 "could be changed later from Anjuta settings menu (Main menu->Settings). "
 msgstr ""
-"അന്ജുത പ്രാധമിക സജ്ജീകരണത്തില് അന്ജുത സജ്ജീകരണ മാന്ത്രികന് സഹായിക്കും. "
-"ഈ സജ്ജീകരണങ്ങള് പിന്നീട് സജ്ജീകരണ പട്ടികയിലൂടെ(പ്രധാന പട്ടിക->സജ്ജീകരണങ്ങള്) "
-" മാററാവുന്നതാണ്."
 
-#: anjuta.glade.h:30 anjuta_dialogs_strings.c:495
+#: anjuta.glade.h:29 anjuta_dialogs_strings.c:495
 msgid "Anjuta start with dialog"
-msgstr "സംവാദചതുരവുമായി തുടങ്ങുക"
+msgstr ""
 
-#: anjuta.glade.h:31 anjuta_dialogs_strings.c:494
+#: anjuta.glade.h:30 anjuta_dialogs_strings.c:494
 msgid "Anjuta windows"
 msgstr "അന്ജുത ജാലകങ്ങള്"
 
-#: anjuta.glade.h:32 anjuta_dialogs_strings.c:89
+#: anjuta.glade.h:31 anjuta_dialogs_strings.c:89
 #, fuzzy
 msgid "Append messages"
 msgstr "സന്ദേശങ്ങള് അനുബന്ധിക്കുക"
 
-#: anjuta.glade.h:33 anjuta_dialogs_strings.c:497 src/appwizard_gui.c:76
+#: anjuta.glade.h:32 anjuta_dialogs_strings.c:497 src/appwizard_gui.c:76
 #: src/appwizard_gui.c:90
-#, fuzzy
 msgid "Application Wizard"
 msgstr "പ്രയോഗ മാന്ത്രികന്"
 
-#: anjuta.glade.h:34 anjuta_dialogs_strings.c:380
+#: anjuta.glade.h:33 anjuta_dialogs_strings.c:380
 msgid "Arrows"
 msgstr "ശരങ്ങള്"
 
-#: anjuta.glade.h:35 anjuta_dialogs_strings.c:248
+#: anjuta.glade.h:34 anjuta_dialogs_strings.c:248
 msgid "Ask for parameters at run-time"
 msgstr ""
 
@@ -223,341 +212,341 @@ msgstr ""
 #. * Add this file to your project's POTFILES.in.
 #. * DO NOT compile it as part of your application.
 #.
-#: anjuta.glade.h:36 anjuta_dialogs_strings.c:7
+#: anjuta.glade.h:35 anjuta_dialogs_strings.c:7
 #, fuzzy
 msgid "Attach to process"
 msgstr "ജോലിയോടു ചേര്ക്കുക"
 
-#: anjuta.glade.h:37 anjuta_dialogs_strings.c:303
+#: anjuta.glade.h:36 anjuta_dialogs_strings.c:303
 msgid "Attributes:"
-msgstr "സ്വഭാവങ്ങള്:"
+msgstr ""
 
-#: anjuta.glade.h:38 anjuta_dialogs_strings.c:367
+#: anjuta.glade.h:37 anjuta_dialogs_strings.c:367
 msgid "Autocomplete XML/HTML closing tags"
 msgstr ""
 
-#: anjuta.glade.h:39 anjuta_dialogs_strings.c:369
+#: anjuta.glade.h:38 anjuta_dialogs_strings.c:369
 msgid "Autocompletion"
 msgstr "സ്വയംപൂരകം"
 
-#: anjuta.glade.h:40 anjuta_dialogs_strings.c:368
+#: anjuta.glade.h:39 anjuta_dialogs_strings.c:368
 msgid "Autocompletion pop up choices"
 msgstr ""
 
-#: anjuta.glade.h:41 anjuta_dialogs_strings.c:335
+#: anjuta.glade.h:40 anjuta_dialogs_strings.c:335
 msgid "Automatically load last Project"
-msgstr "അവസാനത്തെ പ്രോജക്ട് സ്വയം തുറക്കുക"
+msgstr ""
 
-#: anjuta.glade.h:42 anjuta_dialogs_strings.c:365
+#: anjuta.glade.h:41 anjuta_dialogs_strings.c:365
 msgid "Autosave"
-msgstr "സ്വയം സംക്ഷിക്കുക"
+msgstr "സ്വയം സംരംക്ഷിക്കുക"
 
-#: anjuta.glade.h:43 anjuta_dialogs_strings.c:358
+#: anjuta.glade.h:42 anjuta_dialogs_strings.c:358
 msgid "Autosave editor files before build starts"
 msgstr ""
 
-#: anjuta.glade.h:44 anjuta_dialogs_strings.c:305
+#: anjuta.glade.h:43 anjuta_dialogs_strings.c:305
 msgid "Back color:"
-msgstr "പശ്ചാത്തല നിറം:"
+msgstr ""
 
-#: anjuta.glade.h:45 anjuta_dialogs_strings.c:107 anjuta_dialogs_strings.c:122
+#: anjuta.glade.h:44 anjuta_dialogs_strings.c:107 anjuta_dialogs_strings.c:122
 msgid "Backwards"
-msgstr "പിന്നോട്ട്"
+msgstr ""
 
-#: anjuta.glade.h:46 anjuta_dialogs_strings.c:339
+#: anjuta.glade.h:45 anjuta_dialogs_strings.c:339
 msgid "Beep on job complete"
-msgstr "ജോലി തീര്ന്നാല് ശബ്ദം പുറപ്പെടുവിക്കുക"
+msgstr ""
 
-#: anjuta.glade.h:47 anjuta_dialogs_strings.c:310
+#: anjuta.glade.h:46 anjuta_dialogs_strings.c:310
 msgid "Bold"
 msgstr "സ്ഥൂലം"
 
-#: anjuta.glade.h:48 anjuta_dialogs_strings.c:237
+#: anjuta.glade.h:47 anjuta_dialogs_strings.c:237
 msgid "Bookmark"
 msgstr "അടയാളം"
 
-#: anjuta.glade.h:49 anjuta_dialogs_strings.c:402 anjuta_dialogs_strings.c:446
+#: anjuta.glade.h:48 anjuta_dialogs_strings.c:402 anjuta_dialogs_strings.c:446
 msgid "Bottom"
 msgstr "താഴെ"
 
-#: anjuta.glade.h:50 anjuta_dialogs_strings.c:15
+#: anjuta.glade.h:49 anjuta_dialogs_strings.c:15
 msgid "Breakpoint properties"
 msgstr ""
 
-#: anjuta.glade.h:51 anjuta_dialogs_strings.c:11
+#: anjuta.glade.h:50 anjuta_dialogs_strings.c:11
 msgid "Breakpoints"
 msgstr ""
 
-#: anjuta.glade.h:52 anjuta_dialogs_strings.c:236 src/build_file.c:107
-#: src/message-manager.cc:42 src/text_editor_gui.c:172 src/toolbar.c:273
+#: anjuta.glade.h:51 anjuta_dialogs_strings.c:236 src/build_file.c:107
+#: src/message-manager.cc:42 src/text_editor_gui.c:172 src/toolbar.c:272
 msgid "Build"
 msgstr "നിര്മ്മിതി"
 
-#: anjuta.glade.h:53 anjuta_dialogs_strings.c:349
+#: anjuta.glade.h:52 anjuta_dialogs_strings.c:349
 msgid "Build command:"
 msgstr "നിര്മ്മിതിക്കുപയോഗിക്കേണ്ട ആജ്ഞ:"
 
-#: anjuta.glade.h:54 anjuta_dialogs_strings.c:337
+#: anjuta.glade.h:53 anjuta_dialogs_strings.c:337
 msgid "Build file browser automatically"
 msgstr ""
 
-#: anjuta.glade.h:55 anjuta_dialogs_strings.c:211
+#: anjuta.glade.h:54 anjuta_dialogs_strings.c:211
 msgid "Build files"
-msgstr "നിര്മ്മിതി രചനകള്"
+msgstr ""
 
-#: anjuta.glade.h:56 anjuta_dialogs_strings.c:357
+#: anjuta.glade.h:55 anjuta_dialogs_strings.c:357
 msgid "Build options"
-msgstr "നിര്മ്മിതി ബദലുകള"
+msgstr "നിര്മ്മിതി ബദലുകള്"
 
-#: anjuta.glade.h:57 anjuta_dialogs_strings.c:336
+#: anjuta.glade.h:56 anjuta_dialogs_strings.c:336
 msgid "Build symbol browser automatically"
 msgstr ""
 
 #. 2
-#: anjuta.glade.h:58 anjuta_dialogs_strings.c:164 anjuta_dialogs_strings.c:239
+#: anjuta.glade.h:57 anjuta_dialogs_strings.c:164 anjuta_dialogs_strings.c:239
 #: anjuta_dialogs_strings.c:288 src/an_file_view.c:414
 #: src/message-manager.cc:42
 msgid "CVS"
 msgstr "CVS"
 
-#: anjuta.glade.h:59 anjuta_dialogs_strings.c:487
+#: anjuta.glade.h:58 anjuta_dialogs_strings.c:487
 msgid "CVS command options"
-msgstr "CVS നിര് ദ്ദേശ ബദലുകള്"
+msgstr ""
 
-#: anjuta.glade.h:60 anjuta_dialogs_strings.c:483
+#: anjuta.glade.h:59 anjuta_dialogs_strings.c:483
 msgid "CVS compression level:"
 msgstr ""
 
-#: anjuta.glade.h:61 anjuta_dialogs_strings.c:485
+#: anjuta.glade.h:60 anjuta_dialogs_strings.c:485
 msgid "CVS context diff format"
 msgstr ""
 
-#: anjuta.glade.h:62 anjuta_dialogs_strings.c:484
+#: anjuta.glade.h:61 anjuta_dialogs_strings.c:484
 msgid "CVS forced update [-dP -A]"
 msgstr ""
 
-#: anjuta.glade.h:63 anjuta_dialogs_strings.c:165 anjuta_dialogs_strings.c:289
+#: anjuta.glade.h:62 anjuta_dialogs_strings.c:165 anjuta_dialogs_strings.c:289
 msgid "CVS intl po"
 msgstr ""
 
-#: anjuta.glade.h:64 anjuta_dialogs_strings.c:486
+#: anjuta.glade.h:63 anjuta_dialogs_strings.c:486
 msgid "CVS unified diff format"
 msgstr ""
 
-#: anjuta.glade.h:65 anjuta_dialogs_strings.c:35
+#: anjuta.glade.h:64 anjuta_dialogs_strings.c:35
 msgid "C_ompile:"
 msgstr ""
 
-#: anjuta.glade.h:66 anjuta_dialogs_strings.c:320
+#: anjuta.glade.h:65 anjuta_dialogs_strings.c:320
 msgid "Calltip background:"
 msgstr ""
 
-#: anjuta.glade.h:67 anjuta_dialogs_strings.c:321
+#: anjuta.glade.h:66 anjuta_dialogs_strings.c:321
 msgid "Caret (cursor) color:"
 msgstr ""
 
-#: anjuta.glade.h:68 anjuta_dialogs_strings.c:392
+#: anjuta.glade.h:67 anjuta_dialogs_strings.c:392
 msgid "Caret blink period in milli-seconds"
 msgstr ""
 
-#: anjuta.glade.h:69 anjuta_dialogs_strings.c:133
+#: anjuta.glade.h:68 anjuta_dialogs_strings.c:133
 msgid "Case insensitive"
 msgstr ""
 
-#: anjuta.glade.h:70 anjuta_dialogs_strings.c:86
+#: anjuta.glade.h:69 anjuta_dialogs_strings.c:86
 msgid "Case sensitive"
 msgstr "ലിപി ഗ്രാഹകം"
 
-#: anjuta.glade.h:71 anjuta_dialogs_strings.c:158
+#: anjuta.glade.h:70 anjuta_dialogs_strings.c:158
 msgid "Choose Directories:"
-msgstr "കൂടുകള് തെരഞ്ഞെടുക്കുക:"
+msgstr ""
 
-#: anjuta.glade.h:72 anjuta_dialogs_strings.c:147
+#: anjuta.glade.h:71 anjuta_dialogs_strings.c:147
 msgid "Choose Files:"
-msgstr "രചനകള് തെരഞ്ഞെടുക്കുക:"
+msgstr ""
 
-#: anjuta.glade.h:73 anjuta_dialogs_strings.c:366
+#: anjuta.glade.h:72 anjuta_dialogs_strings.c:366
 msgid "Choose autocomplete for single match"
 msgstr ""
 
-#: anjuta.glade.h:74 anjuta_dialogs_strings.c:282
+#: anjuta.glade.h:73 anjuta_dialogs_strings.c:282
 msgid "Choose directories"
-msgstr "കൂടുകള് തെരഞ്ഞെടുക്കുക:"
+msgstr ""
 
-#: anjuta.glade.h:75 anjuta_dialogs_strings.c:270
+#: anjuta.glade.h:74 anjuta_dialogs_strings.c:270
 msgid "Choose files"
-msgstr "രചനകള് തെരഞ്ഞെടുക്കുക:"
+msgstr ""
 
-#: anjuta.glade.h:76 anjuta_dialogs_strings.c:382
+#: anjuta.glade.h:75 anjuta_dialogs_strings.c:382
 msgid "Circular"
 msgstr ""
 
-#: anjuta.glade.h:77 anjuta_dialogs_strings.c:384
+#: anjuta.glade.h:76 anjuta_dialogs_strings.c:384
 msgid "Code folding"
 msgstr ""
 
-#: anjuta.glade.h:78 anjuta_dialogs_strings.c:377
+#: anjuta.glade.h:77 anjuta_dialogs_strings.c:377
 msgid "Collapse all code folds on file open"
 msgstr ""
 
-#: anjuta.glade.h:79 anjuta_dialogs_strings.c:432
+#: anjuta.glade.h:78 anjuta_dialogs_strings.c:432
 msgid "Colour"
 msgstr "നിറം"
 
-#: anjuta.glade.h:80 anjuta_dialogs_strings.c:393
+#: anjuta.glade.h:79 anjuta_dialogs_strings.c:393
 msgid "Column at edge indicator"
 msgstr ""
 
-#: anjuta.glade.h:81 anjuta_dialogs_strings.c:333
+#: anjuta.glade.h:80 anjuta_dialogs_strings.c:333
 msgid "Combo Popdown:"
 msgstr ""
 
-#: anjuta.glade.h:82 anjuta_dialogs_strings.c:96
+#: anjuta.glade.h:81 anjuta_dialogs_strings.c:96
 msgid "Command Line Parameters"
 msgstr ""
 
-#: anjuta.glade.h:83 anjuta_dialogs_strings.c:266
+#: anjuta.glade.h:82 anjuta_dialogs_strings.c:266
 msgid "Command line parameters"
 msgstr ""
 
-#: anjuta.glade.h:84 anjuta_dialogs_strings.c:229
+#: anjuta.glade.h:83 anjuta_dialogs_strings.c:229
 msgid "Command:"
-msgstr "നിര്ദ്ദേശം:"
+msgstr "ആജ്ഞ:"
 
-#: anjuta.glade.h:85 anjuta_dialogs_strings.c:22
+#: anjuta.glade.h:84 anjuta_dialogs_strings.c:22
 msgid "Commands"
-msgstr "നിര്ദ്ദേശങ്ങള്്"
+msgstr "ആജ്ഞകള്"
 
-#: anjuta.glade.h:86 anjuta_dialogs_strings.c:23
+#: anjuta.glade.h:85 anjuta_dialogs_strings.c:23
 msgid "Common commands:"
-msgstr "പൊതുവായ നിര്ദ്ദേശങ്ങള്"
+msgstr "പൊതുവായ ആജ്ഞകള്"
 
-#: anjuta.glade.h:87 anjuta_dialogs_strings.c:375
+#: anjuta.glade.h:86 anjuta_dialogs_strings.c:375
 msgid "Compact folding"
 msgstr ""
 
-#: anjuta.glade.h:88 anjuta_dialogs_strings.c:215
+#: anjuta.glade.h:87 anjuta_dialogs_strings.c:215
 msgid "Compiler"
 msgstr ""
 
-#: anjuta.glade.h:89 anjuta_dialogs_strings.c:71
+#: anjuta.glade.h:88 anjuta_dialogs_strings.c:71
 msgid "Compiler Flags (CFLAGS):"
 msgstr ""
 
-#: anjuta.glade.h:90 anjuta_dialogs_strings.c:46
+#: anjuta.glade.h:89 anjuta_dialogs_strings.c:46
 msgid "Compiler and linker options"
 msgstr ""
 
-#: anjuta.glade.h:91 anjuta_dialogs_strings.c:220
+#: anjuta.glade.h:90 anjuta_dialogs_strings.c:220
 msgid "Configuration"
 msgstr "അനുരൂപമാക്കല്‍"
 
-#: anjuta.glade.h:92 anjuta_dialogs_strings.c:219
+#: anjuta.glade.h:91 anjuta_dialogs_strings.c:219
 msgid "Configuration script segments"
 msgstr ""
 
-#: anjuta.glade.h:93 anjuta_dialogs_strings.c:84
+#: anjuta.glade.h:92 anjuta_dialogs_strings.c:84
 msgid "Configure Parameters"
 msgstr ""
 
-#: anjuta.glade.h:94 anjuta_dialogs_strings.c:423
+#: anjuta.glade.h:93 anjuta_dialogs_strings.c:423
 msgid "Crazy boy style"
 msgstr ""
 
-#: anjuta.glade.h:95 anjuta_dialogs_strings.c:417 anjuta_dialogs_strings.c:427
+#: anjuta.glade.h:94 anjuta_dialogs_strings.c:417 anjuta_dialogs_strings.c:427
 msgid "Custom style"
 msgstr ""
 
-#: anjuta.glade.h:96 anjuta_dialogs_strings.c:269
+#: anjuta.glade.h:95 anjuta_dialogs_strings.c:269
 msgid "Customize File Browser"
 msgstr ""
 
-#: anjuta.glade.h:97 anjuta_dialogs_strings.c:268
+#: anjuta.glade.h:96 anjuta_dialogs_strings.c:268
 msgid "Customize what is to be shown in the file tree"
 msgstr ""
 
-#: anjuta.glade.h:98 anjuta_dialogs_strings.c:207
+#: anjuta.glade.h:97 anjuta_dialogs_strings.c:207
 msgid "Data module Makefile.am"
 msgstr ""
 
 #. 13
-#: anjuta.glade.h:99 anjuta_dialogs_strings.c:238 src/message-manager.cc:42
-#: src/text_editor_menu.c:319 src/toolbar.c:307
+#: anjuta.glade.h:98 anjuta_dialogs_strings.c:238 src/message-manager.cc:42
+#: src/text_editor_menu.c:319 src/toolbar.c:306
 msgid "Debug"
 msgstr "തിരുത്ത്"
 
-#: anjuta.glade.h:100 anjuta_dialogs_strings.c:70
+#: anjuta.glade.h:99 anjuta_dialogs_strings.c:70
 msgid "Debugging and Profiling"
 msgstr ""
 
-#: anjuta.glade.h:101 anjuta_dialogs_strings.c:491
+#: anjuta.glade.h:100 anjuta_dialogs_strings.c:491
 msgid "Default"
 msgstr "സ്വതേ"
 
-#: anjuta.glade.h:102 anjuta_dialogs_strings.c:61
+#: anjuta.glade.h:101 anjuta_dialogs_strings.c:61
 msgid "Defines"
 msgstr ""
 
-#: anjuta.glade.h:103 anjuta_dialogs_strings.c:298
+#: anjuta.glade.h:102 anjuta_dialogs_strings.c:298
 msgid "Delete Theme"
 msgstr ""
 
-#: anjuta.glade.h:104 anjuta_dialogs_strings.c:458
+#: anjuta.glade.h:103 anjuta_dialogs_strings.c:458
 #: anjuta_dialogs_strings.c:464 anjuta_dialogs_strings.c:470
 msgid "Diagonal"
 msgstr "വികര്ണം"
 
-#: anjuta.glade.h:105 anjuta_dialogs_strings.c:340
+#: anjuta.glade.h:104 anjuta_dialogs_strings.c:340
 msgid "Dialog on job complete"
 msgstr ""
 
-#: anjuta.glade.h:106 anjuta_dialogs_strings.c:108
+#: anjuta.glade.h:105 anjuta_dialogs_strings.c:108
 #: anjuta_dialogs_strings.c:123
 msgid "Direction"
 msgstr "ദിശ"
 
-#: anjuta.glade.h:107 anjuta_dialogs_strings.c:330 widgets/gnomefilelist.c:342
+#: anjuta.glade.h:106 anjuta_dialogs_strings.c:330 widgets/gnomefilelist.c:338
 msgid "Directories"
 msgstr "കൂടുകള്"
 
-#: anjuta.glade.h:108 anjuta_dialogs_strings.c:291
+#: anjuta.glade.h:107 anjuta_dialogs_strings.c:291
 msgid "Directory filter"
 msgstr ""
 
-#: anjuta.glade.h:109 anjuta_dialogs_strings.c:415
+#: anjuta.glade.h:108 anjuta_dialogs_strings.c:415
 msgid "Disable auto-format"
 msgstr ""
 
-#: anjuta.glade.h:110 anjuta_dialogs_strings.c:210
+#: anjuta.glade.h:109 anjuta_dialogs_strings.c:210
 msgid "Disable overwriting files"
 msgstr ""
 
-#: anjuta.glade.h:111 anjuta_dialogs_strings.c:294
+#: anjuta.glade.h:110 anjuta_dialogs_strings.c:294
 #: anjuta_dialogs_strings.c:385
 msgid "Disable syntax highlighting"
 msgstr ""
 
-#: anjuta.glade.h:112 anjuta_dialogs_strings.c:290
+#: anjuta.glade.h:111 anjuta_dialogs_strings.c:290
 msgid "Do not show hidden directories"
 msgstr ""
 
-#: anjuta.glade.h:113 anjuta_dialogs_strings.c:280
+#: anjuta.glade.h:112 anjuta_dialogs_strings.c:280
 msgid "Do not show hidden files"
 msgstr ""
 
-#: anjuta.glade.h:114 anjuta_dialogs_strings.c:506
+#: anjuta.glade.h:113 anjuta_dialogs_strings.c:506
 msgid "Do not show start with dialog again."
 msgstr ""
 
-#: anjuta.glade.h:115 anjuta_dialogs_strings.c:398
+#: anjuta.glade.h:114 anjuta_dialogs_strings.c:398
 msgid "Do not show tabs"
 msgstr ""
 
-#: anjuta.glade.h:116 anjuta_dialogs_strings.c:518
+#: anjuta.glade.h:115 anjuta_dialogs_strings.c:518
 msgid "Docked style"
 msgstr ""
 
-#: anjuta.glade.h:117 anjuta_dialogs_strings.c:514
+#: anjuta.glade.h:116 anjuta_dialogs_strings.c:514
 msgid ""
 "Docked style presents Anjuta \n"
 "in the classic IDE form with all\n"
@@ -565,494 +554,475 @@ msgid ""
 "main window."
 msgstr ""
 
-#: anjuta.glade.h:121 anjuta_dialogs_strings.c:208
+#: anjuta.glade.h:120 anjuta_dialogs_strings.c:208
 msgid "Document module Makefile.am"
 msgstr ""
 
-#: anjuta.glade.h:122 anjuta_dialogs_strings.c:376
+#: anjuta.glade.h:121 anjuta_dialogs_strings.c:376
 msgid "Draw line below folded lines"
 msgstr ""
 
-#: anjuta.glade.h:123 anjuta_dialogs_strings.c:232
+#: anjuta.glade.h:122 anjuta_dialogs_strings.c:232
 msgid "Edit"
 msgstr "സംവിധാനം"
 
-#: anjuta.glade.h:124 anjuta_dialogs_strings.c:391
+#: anjuta.glade.h:123 anjuta_dialogs_strings.c:391
 msgid "Editor caret (cursor) width in pixels"
 msgstr ""
 
-#: anjuta.glade.h:125 anjuta_dialogs_strings.c:405
+#: anjuta.glade.h:124 anjuta_dialogs_strings.c:405
 msgid "Editor tabs"
 msgstr ""
 
-#: anjuta.glade.h:126 anjuta_dialogs_strings.c:68
+#: anjuta.glade.h:125 anjuta_dialogs_strings.c:68
 msgid "Enable Debugging"
 msgstr ""
 
-#: anjuta.glade.h:127 anjuta_dialogs_strings.c:374
+#: anjuta.glade.h:126 anjuta_dialogs_strings.c:374
 msgid "Enable HTML tags folding"
 msgstr ""
 
-#: anjuta.glade.h:128 anjuta_dialogs_strings.c:69
+#: anjuta.glade.h:127 anjuta_dialogs_strings.c:69
 msgid "Enable Profiling"
 msgstr ""
 
-#: anjuta.glade.h:129 anjuta_dialogs_strings.c:12
+#: anjuta.glade.h:128 anjuta_dialogs_strings.c:12
 msgid "Enable _all"
-msgstr "എല്ലാം പ്രാപയ്മാക്കുക"
+msgstr ""
 
-#: anjuta.glade.h:130 anjuta_dialogs_strings.c:409
+#: anjuta.glade.h:129 anjuta_dialogs_strings.c:409
 msgid "Enable automatic indentation"
 msgstr ""
 
-#: anjuta.glade.h:131 anjuta_dialogs_strings.c:450
+#: anjuta.glade.h:130 anjuta_dialogs_strings.c:450
 msgid "Enable automatic messages indicators"
 msgstr ""
 
-#: anjuta.glade.h:132 anjuta_dialogs_strings.c:386
+#: anjuta.glade.h:131 anjuta_dialogs_strings.c:386
 msgid "Enable braces check"
 msgstr ""
 
-#: anjuta.glade.h:133 anjuta_dialogs_strings.c:370
+#: anjuta.glade.h:132 anjuta_dialogs_strings.c:370
 msgid "Enable code folding"
 msgstr ""
 
-#: anjuta.glade.h:134 anjuta_dialogs_strings.c:371
+#: anjuta.glade.h:133 anjuta_dialogs_strings.c:371
 msgid "Enable comments folding"
 msgstr ""
 
-#: anjuta.glade.h:135 anjuta_dialogs_strings.c:362
+#: anjuta.glade.h:134 anjuta_dialogs_strings.c:362
 msgid "Enable files autosave"
 msgstr ""
 
-#: anjuta.glade.h:136 anjuta_dialogs_strings.c:435
+#: anjuta.glade.h:135 anjuta_dialogs_strings.c:435
 msgid "Enable line wrap"
 msgstr ""
 
-#: anjuta.glade.h:137 anjuta_dialogs_strings.c:372
+#: anjuta.glade.h:136 anjuta_dialogs_strings.c:372
 msgid "Enable python comments folding"
 msgstr ""
 
-#: anjuta.glade.h:138 anjuta_dialogs_strings.c:373
+#: anjuta.glade.h:137 anjuta_dialogs_strings.c:373
 msgid "Enable python quoted strings folding"
 msgstr ""
 
-#: anjuta.glade.h:139 anjuta_dialogs_strings.c:261 src/breakpoints.c:111
+#: anjuta.glade.h:138 anjuta_dialogs_strings.c:261 src/breakpoints.c:102
 msgid "Enabled"
 msgstr "പ്രാപ്യം"
 
-#: anjuta.glade.h:140 anjuta_dialogs_strings.c:539
-msgid "Encoding to use when saving files"
-msgstr ""
-
-#: anjuta.glade.h:141 anjuta_dialogs_strings.c:534
-msgid "Enter a Hexa adress or select one in the data"
-msgstr ""
-
-#: anjuta.glade.h:142 anjuta_dialogs_strings.c:425
+#: anjuta.glade.h:139 anjuta_dialogs_strings.c:425
 msgid ""
 "Enter the command line arguments for the 'indent' program. Read the info "
 "page for 'indent' for more details"
 msgstr ""
 
-#: anjuta.glade.h:143 anjuta_dialogs_strings.c:453
+#: anjuta.glade.h:140 anjuta_dialogs_strings.c:453
 msgid "Error message indicator style:"
 msgstr ""
 
-#: anjuta.glade.h:144 anjuta_dialogs_strings.c:473
+#: anjuta.glade.h:141 anjuta_dialogs_strings.c:473
 msgid "Errors messages:"
 msgstr ""
 
-#: anjuta.glade.h:145 anjuta_dialogs_strings.c:94
+#: anjuta.glade.h:142 anjuta_dialogs_strings.c:94
 msgid "Execute Program"
 msgstr ""
 
-#: anjuta.glade.h:146 anjuta_dialogs_strings.c:176
+#: anjuta.glade.h:143 anjuta_dialogs_strings.c:176
 msgid "Expand regex back references"
 msgstr ""
 
-#: anjuta.glade.h:147 anjuta_dialogs_strings.c:231 src/an_file_view.c:665
-#: src/breakpoints.c:111
+#: anjuta.glade.h:144 anjuta_dialogs_strings.c:231 src/an_file_view.c:665
+#: src/breakpoints.c:102
 #, fuzzy
 msgid "File"
 msgstr "ശേഖരം"
 
-#: anjuta.glade.h:148 anjuta_dialogs_strings.c:169
+#: anjuta.glade.h:145 anjuta_dialogs_strings.c:169
 msgid "File Filter"
 msgstr ""
 
-#: anjuta.glade.h:149 anjuta_dialogs_strings.c:281
+#: anjuta.glade.h:146 anjuta_dialogs_strings.c:281
 msgid "File filter"
 msgstr ""
 
-#: anjuta.glade.h:150 anjuta_dialogs_strings.c:246
+#: anjuta.glade.h:147 anjuta_dialogs_strings.c:246
 msgid "File level"
 msgstr ""
 
-#: anjuta.glade.h:151 anjuta_dialogs_strings.c:90
+#: anjuta.glade.h:148 anjuta_dialogs_strings.c:90
 msgid "File/Directory to add:"
-msgstr "ചേര്ക്കേണ്ട രചന/കൂട്:"
+msgstr ""
 
-#: anjuta.glade.h:152 anjuta_dialogs_strings.c:388
+#: anjuta.glade.h:149 anjuta_dialogs_strings.c:388
 msgid "Filter extraneous characters in DOS mode"
 msgstr ""
 
-#: anjuta.glade.h:153 anjuta_dialogs_strings.c:129
-#, fuzzy
+#: anjuta.glade.h:150 anjuta_dialogs_strings.c:129
 msgid "Find & Replace"
-msgstr "കണ്ടെത്തുക & മാറ്റുക"
+msgstr ""
 
-#: anjuta.glade.h:154 anjuta_dialogs_strings.c:98 anjuta_dialogs_strings.c:115
-#, fuzzy
+#: anjuta.glade.h:151 anjuta_dialogs_strings.c:98 anjuta_dialogs_strings.c:115
 msgid "Find and replace"
-msgstr "കണ്ടെത്തുക & മാറ്റുക"
+msgstr ""
 
-#: anjuta.glade.h:155 anjuta_dialogs_strings.c:85 src/find_in_files.c:301
+#: anjuta.glade.h:152 anjuta_dialogs_strings.c:85 src/find_in_files.c:301
 msgid "Find in Files"
-msgstr "രചനകളില് കണ്ടെത്തുക"
+msgstr ""
 
-#: anjuta.glade.h:156 anjuta_dialogs_strings.c:378
+#: anjuta.glade.h:153 anjuta_dialogs_strings.c:378
 msgid "Fold style:"
 msgstr ""
 
-#: anjuta.glade.h:157 anjuta_dialogs_strings.c:302
+#: anjuta.glade.h:154 anjuta_dialogs_strings.c:302
 msgid "Font:"
 msgstr "അക്ഷരരൂപം:"
 
-#: anjuta.glade.h:158 anjuta_dialogs_strings.c:304
+#: anjuta.glade.h:155 anjuta_dialogs_strings.c:304
 msgid "Fore color:"
 msgstr ""
 
-#: anjuta.glade.h:159 anjuta_dialogs_strings.c:235
+#: anjuta.glade.h:156 anjuta_dialogs_strings.c:235
 msgid "Format"
 msgstr ""
 
-#: anjuta.glade.h:160 anjuta_dialogs_strings.c:424 src/toolbar.c:864
+#: anjuta.glade.h:157 anjuta_dialogs_strings.c:424 src/toolbar.c:863
 msgid "Format style"
 msgstr ""
 
-#: anjuta.glade.h:161 anjuta_dialogs_strings.c:106
+#: anjuta.glade.h:158 anjuta_dialogs_strings.c:106
 #: anjuta_dialogs_strings.c:121
 msgid "Forwards"
 msgstr ""
 
-#: anjuta.glade.h:162 anjuta_dialogs_strings.c:104
+#: anjuta.glade.h:159 anjuta_dialogs_strings.c:104
 #: anjuta_dialogs_strings.c:119
 msgid "From cursor"
 msgstr ""
 
-#: anjuta.glade.h:163 anjuta_dialogs_strings.c:216 src/an_symbol_view.c:54
+#: anjuta.glade.h:160 anjuta_dialogs_strings.c:216 src/an_symbol_view.c:54
 msgid "Functions"
 msgstr ""
 
-#: anjuta.glade.h:164 anjuta_dialogs_strings.c:418
+#: anjuta.glade.h:161 anjuta_dialogs_strings.c:418
 msgid "GNU coding style"
 msgstr ""
 
-#: anjuta.glade.h:165 anjuta_dialogs_strings.c:190
+#: anjuta.glade.h:162 anjuta_dialogs_strings.c:190
 msgid "GUI editor command:"
 msgstr ""
 
 #. 3
-#: anjuta.glade.h:166 anjuta_dialogs_strings.c:195 src/main_menubar_def.h:380
+#: anjuta.glade.h:163 anjuta_dialogs_strings.c:195 src/main_menubar_def.h:380
 msgid "General"
-msgstr "പൊതുവായ"
+msgstr "സാര്‍വത്രികമായ"
 
-#: anjuta.glade.h:167 anjuta_dialogs_strings.c:198
+#: anjuta.glade.h:164 anjuta_dialogs_strings.c:198
 msgid ""
 "Give a space separated list of directories to be built after source module. "
 "This will be set in configure and Makefiles will be generated for them. They "
 "will be built after the source (src/) directory during \"make\"."
 msgstr ""
 
-#: anjuta.glade.h:168 anjuta_dialogs_strings.c:196
+#: anjuta.glade.h:165 anjuta_dialogs_strings.c:196
 msgid ""
 "Give a space separated list of directories to be built before source module. "
 "This will be set in configure.in and Makefiles will be generated for them. "
 "They will be built before the source (src/) directory during \"make\"."
 msgstr ""
 
-#: anjuta.glade.h:169 anjuta_dialogs_strings.c:181
+#: anjuta.glade.h:166 anjuta_dialogs_strings.c:181
 msgid "Gnome API"
 msgstr ""
 
-#: anjuta.glade.h:170 anjuta_dialogs_strings.c:132
+#: anjuta.glade.h:167 anjuta_dialogs_strings.c:132
 msgid "Greedy matching"
 msgstr ""
 
-#: anjuta.glade.h:171 anjuta_dialogs_strings.c:27
+#: anjuta.glade.h:168 anjuta_dialogs_strings.c:27
 msgid "HTML _viewer:"
 msgstr ""
 
-#: anjuta.glade.h:172 anjuta_dialogs_strings.c:214
+#: anjuta.glade.h:169 anjuta_dialogs_strings.c:214
 msgid "Headers"
-msgstr "തലക്കെട്ടുകള്"
+msgstr ""
 
-#: anjuta.glade.h:173 anjuta_dialogs_strings.c:422
+#: anjuta.glade.h:170 anjuta_dialogs_strings.c:422
 msgid "Hello World style"
 msgstr ""
 
-#: anjuta.glade.h:174 anjuta_dialogs_strings.c:205
+#: anjuta.glade.h:171 anjuta_dialogs_strings.c:205
 msgid "Help module Makefile.am"
 msgstr ""
 
-#: anjuta.glade.h:175 anjuta_dialogs_strings.c:66
+#: anjuta.glade.h:172 anjuta_dialogs_strings.c:66
 msgid "High-Level Optimization (Functions inlined wherever possible)"
 msgstr ""
 
-#: anjuta.glade.h:176 anjuta_dialogs_strings.c:317
+#: anjuta.glade.h:173 anjuta_dialogs_strings.c:317
 msgid "Highlight style"
 msgstr ""
 
-#: anjuta.glade.h:177 anjuta_dialogs_strings.c:334
+#: anjuta.glade.h:174 anjuta_dialogs_strings.c:334
 msgid "History sizes"
 msgstr ""
 
-#: anjuta.glade.h:178 anjuta_dialogs_strings.c:194
+#: anjuta.glade.h:175 anjuta_dialogs_strings.c:194
 msgid "Ignome files and directories"
 msgstr ""
 
-#: anjuta.glade.h:179 anjuta_dialogs_strings.c:167
+#: anjuta.glade.h:176 anjuta_dialogs_strings.c:167
 msgid "Ignore Binary Files"
 msgstr ""
 
-#: anjuta.glade.h:180 anjuta_dialogs_strings.c:88
+#: anjuta.glade.h:177 anjuta_dialogs_strings.c:88
 msgid "Ignore CVS directory"
 msgstr ""
 
-#: anjuta.glade.h:181 anjuta_dialogs_strings.c:161
+#: anjuta.glade.h:178 anjuta_dialogs_strings.c:161
 msgid "Ignore Directories:"
 msgstr ""
 
-#: anjuta.glade.h:182 anjuta_dialogs_strings.c:153
+#: anjuta.glade.h:179 anjuta_dialogs_strings.c:153
 msgid "Ignore Files:"
 msgstr ""
 
-#: anjuta.glade.h:183 anjuta_dialogs_strings.c:166
+#: anjuta.glade.h:180 anjuta_dialogs_strings.c:166
 msgid "Ignore Hidden Directories"
 msgstr ""
 
-#: anjuta.glade.h:184 anjuta_dialogs_strings.c:157
+#: anjuta.glade.h:181 anjuta_dialogs_strings.c:157
 msgid "Ignore Hidden Files"
 msgstr ""
 
-#: anjuta.glade.h:185 anjuta_dialogs_strings.c:87
+#: anjuta.glade.h:182 anjuta_dialogs_strings.c:87
 msgid "Ignore binary files"
 msgstr ""
 
-#: anjuta.glade.h:186 anjuta_dialogs_strings.c:114
+#: anjuta.glade.h:183 anjuta_dialogs_strings.c:114
 #: anjuta_dialogs_strings.c:128
 msgid "Ignore case"
 msgstr ""
 
-#: anjuta.glade.h:187 anjuta_dialogs_strings.c:283
+#: anjuta.glade.h:184 anjuta_dialogs_strings.c:283
 msgid "Ignore directories"
 msgstr ""
 
-#: anjuta.glade.h:188 anjuta_dialogs_strings.c:276
+#: anjuta.glade.h:185 anjuta_dialogs_strings.c:276
 msgid "Ignore files"
 msgstr ""
 
-#: anjuta.glade.h:189 anjuta_dialogs_strings.c:499
+#: anjuta.glade.h:186 anjuta_dialogs_strings.c:499
 msgid "Import Wizard"
 msgstr ""
 
-#: anjuta.glade.h:190 anjuta_dialogs_strings.c:498
+#: anjuta.glade.h:187 anjuta_dialogs_strings.c:498
 msgid ""
 "Import existing project. The Import Wizard will guide you to import an "
 "existing Project into Anjuta and convert it into Anjuta Project. There will "
 "be no data lose or modification done to the project."
 msgstr ""
 
-#: anjuta.glade.h:191 anjuta_dialogs_strings.c:50
+#: anjuta.glade.h:188 anjuta_dialogs_strings.c:50
 msgid "Include Paths"
-msgstr "പാതകള് ഉള്പ്പെടുത്തുക"
+msgstr ""
 
-#: anjuta.glade.h:192 anjuta_dialogs_strings.c:204
+#: anjuta.glade.h:189 anjuta_dialogs_strings.c:204
 msgid "Include module Makefile.am"
 msgstr ""
 
-#: anjuta.glade.h:193 anjuta_dialogs_strings.c:412
+#: anjuta.glade.h:190 anjuta_dialogs_strings.c:412
 msgid "Indent closing braces"
 msgstr ""
 
-#: anjuta.glade.h:194 anjuta_dialogs_strings.c:411
+#: anjuta.glade.h:191 anjuta_dialogs_strings.c:411
 msgid "Indent opening braces"
 msgstr ""
 
-#: anjuta.glade.h:195 anjuta_dialogs_strings.c:429
+#: anjuta.glade.h:192 anjuta_dialogs_strings.c:429
 msgid "Indentation and auto-format options"
 msgstr ""
 
-#: anjuta.glade.h:196 anjuta_dialogs_strings.c:408
+#: anjuta.glade.h:193 anjuta_dialogs_strings.c:408
 msgid "Indentation size in spaces:"
 msgstr ""
 
-#: anjuta.glade.h:197 anjuta_dialogs_strings.c:472
+#: anjuta.glade.h:194 anjuta_dialogs_strings.c:472
 msgid "Indicators"
-msgstr "സൂചകങ്ങള്"
+msgstr ""
 
-#: anjuta.glade.h:198 anjuta_dialogs_strings.c:183
+#: anjuta.glade.h:195 anjuta_dialogs_strings.c:183
 msgid "Info Pages"
 msgstr "വിവര താളുകള്‌‌"
 
-#: anjuta.glade.h:199 anjuta_dialogs_strings.c:251
+#: anjuta.glade.h:196 anjuta_dialogs_strings.c:251
 msgid "Input string:"
 msgstr ""
 
-#: anjuta.glade.h:200 anjuta_dialogs_strings.c:532 src/text_editor_menu.c:174
-#: src/toolbar.c:606
-msgid "Inspect"
-msgstr "പരിശോധിക്കുക"
-
-#: anjuta.glade.h:201 anjuta_dialogs_strings.c:311
+#: anjuta.glade.h:197 anjuta_dialogs_strings.c:311
 msgid "Italic"
 msgstr "ചരിഞ്ഞ"
 
-#: anjuta.glade.h:202 anjuta_dialogs_strings.c:351
+#: anjuta.glade.h:198 anjuta_dialogs_strings.c:351
 msgid "Keep going when some targets can not be made"
 msgstr ""
 
-#: anjuta.glade.h:203 anjuta_dialogs_strings.c:419
+#: anjuta.glade.h:199 anjuta_dialogs_strings.c:419
 msgid "Kernighan & Ritchie style"
 msgstr ""
 
-#: anjuta.glade.h:204 anjuta_dialogs_strings.c:33
+#: anjuta.glade.h:200 anjuta_dialogs_strings.c:33
 msgid "Language-specific commands:"
 msgstr ""
 
-#: anjuta.glade.h:205 anjuta_dialogs_strings.c:403
+#: anjuta.glade.h:201 anjuta_dialogs_strings.c:403
 #: anjuta_dialogs_strings.c:447
 msgid "Left"
 msgstr "ഇടത്"
 
-#: anjuta.glade.h:206 anjuta_dialogs_strings.c:57 anjuta_dialogs_strings.c:213
+#: anjuta.glade.h:202 anjuta_dialogs_strings.c:57 anjuta_dialogs_strings.c:213
 msgid "Libraries"
 msgstr "ലൈബ്രറീസ്"
 
-#: anjuta.glade.h:207 anjuta_dialogs_strings.c:53
+#: anjuta.glade.h:203 anjuta_dialogs_strings.c:53
 msgid "Library Paths"
 msgstr ""
 
-#: anjuta.glade.h:208 anjuta_dialogs_strings.c:390
+#: anjuta.glade.h:204 anjuta_dialogs_strings.c:390
 msgid "Line numbers margin width in pixels"
 msgstr ""
 
-#: anjuta.glade.h:209 anjuta_dialogs_strings.c:437 printing/print.c:1055
+#: anjuta.glade.h:205 anjuta_dialogs_strings.c:437 printing/print.c:1055
 #: src/anjuta_info.c:126
 msgid "Lines"
 msgstr "വരികള്‌"
 
-#: anjuta.glade.h:210 anjuta_dialogs_strings.c:73
+#: anjuta.glade.h:206 anjuta_dialogs_strings.c:73
 msgid "Linker Flags (LDFLAGS):"
 msgstr ""
 
-#: anjuta.glade.h:211 anjuta_dialogs_strings.c:44
+#: anjuta.glade.h:207 anjuta_dialogs_strings.c:44
 msgid "Load _global defaults"
 msgstr ""
 
-#: anjuta.glade.h:212 anjuta_dialogs_strings.c:45
+#: anjuta.glade.h:208 anjuta_dialogs_strings.c:45
 msgid "Load _user defaults"
 msgstr ""
 
-#: anjuta.glade.h:213 anjuta_dialogs_strings.c:64
+#: anjuta.glade.h:209 anjuta_dialogs_strings.c:64
 msgid "Low-Level Optimization (Machine dependent optimization)"
 msgstr ""
 
-#: anjuta.glade.h:214 anjuta_dialogs_strings.c:222
+#: anjuta.glade.h:210 anjuta_dialogs_strings.c:222
 msgid "Makefile.am"
 msgstr ""
 
-#: anjuta.glade.h:215 anjuta_dialogs_strings.c:182
+#: anjuta.glade.h:211 anjuta_dialogs_strings.c:182
 msgid "Man pages"
 msgstr ""
 
-#: anjuta.glade.h:216 anjuta_dialogs_strings.c:135
+#: anjuta.glade.h:212 anjuta_dialogs_strings.c:135
 msgid "Match at start of word"
 msgstr ""
 
-#: anjuta.glade.h:217 anjuta_dialogs_strings.c:136
+#: anjuta.glade.h:213 anjuta_dialogs_strings.c:136
 msgid "Match complete lines"
 msgstr ""
 
-#: anjuta.glade.h:218 anjuta_dialogs_strings.c:137
+#: anjuta.glade.h:214 anjuta_dialogs_strings.c:137
 msgid "Match complete words"
 msgstr ""
 
-#: anjuta.glade.h:219 anjuta_dialogs_strings.c:170
+#: anjuta.glade.h:215 anjuta_dialogs_strings.c:170
 msgid "Max. Actions"
 msgstr ""
 
-#: anjuta.glade.h:220 anjuta_dialogs_strings.c:354
+#: anjuta.glade.h:216 anjuta_dialogs_strings.c:354
 msgid "Maximum number of independent jobs (0 == no limit)"
 msgstr ""
 
-#: anjuta.glade.h:221 anjuta_dialogs_strings.c:65
+#: anjuta.glade.h:217 anjuta_dialogs_strings.c:65
 msgid "Medium-Level Optimization (Without space-speed trade-off)"
 msgstr ""
 
-#: anjuta.glade.h:222 anjuta_dialogs_strings.c:531
-msgid "Memory"
-msgstr "ഓര്മ്മ"
-
-#: anjuta.glade.h:223 anjuta_dialogs_strings.c:259
+#: anjuta.glade.h:218 anjuta_dialogs_strings.c:259
 msgid "Menu icon:"
-msgstr "പട്ടിക ചിഹ്നംഃ"
+msgstr ""
 
-#: anjuta.glade.h:224 anjuta_dialogs_strings.c:228
+#: anjuta.glade.h:219 anjuta_dialogs_strings.c:228
 msgid "Menu location:"
-msgstr "പട്ടിക സ്ഥലം:"
+msgstr ""
 
-#: anjuta.glade.h:225 anjuta_dialogs_strings.c:481
+#: anjuta.glade.h:220 anjuta_dialogs_strings.c:481
 msgid "Message colors"
-msgstr "സന്ദേശ നിറങ്ങള്"
+msgstr ""
 
-#: anjuta.glade.h:226 anjuta_dialogs_strings.c:449
+#: anjuta.glade.h:221 anjuta_dialogs_strings.c:449
 msgid "Messages options"
-msgstr "സന്ദേശ  ബദലുകള്"
+msgstr ""
 
-#: anjuta.glade.h:227 anjuta_dialogs_strings.c:394
+#: anjuta.glade.h:222 anjuta_dialogs_strings.c:394
 msgid "Misc options"
 msgstr ""
 
-#: anjuta.glade.h:228 anjuta_dialogs_strings.c:431
+#: anjuta.glade.h:223 anjuta_dialogs_strings.c:431
 msgid "Mode:"
-msgstr "തരം:"
+msgstr ""
 
-#: anjuta.glade.h:229 anjuta_dialogs_strings.c:200
+#: anjuta.glade.h:224 anjuta_dialogs_strings.c:200
 msgid "Modules"
 msgstr ""
 
-#: anjuta.glade.h:230 anjuta_dialogs_strings.c:433
+#: anjuta.glade.h:225 anjuta_dialogs_strings.c:433
 msgid "Monochrome"
 msgstr ""
 
-#: anjuta.glade.h:231 anjuta_dialogs_strings.c:226
+#: anjuta.glade.h:226 anjuta_dialogs_strings.c:226
 msgid "Name:"
 msgstr "നാമം:"
 
-#: anjuta.glade.h:232 anjuta_dialogs_strings.c:504 src/main_menubar_def.h:30
-#: src/text_editor_gui.c:97 src/toolbar.c:76
+#: anjuta.glade.h:227 anjuta_dialogs_strings.c:504 src/main_menubar_def.h:30
+#: src/text_editor_gui.c:97 src/toolbar.c:75
 msgid "New file"
-msgstr "പുതിയ രചന"
+msgstr ""
 
-#: anjuta.glade.h:233 anjuta_dialogs_strings.c:171
+#: anjuta.glade.h:228 anjuta_dialogs_strings.c:171
 msgid "No Limit"
-msgstr "പരിധിയില്ലാത്ത"
+msgstr ""
 
-#: anjuta.glade.h:234 anjuta_dialogs_strings.c:63
+#: anjuta.glade.h:229 anjuta_dialogs_strings.c:63
 msgid "No Optimization"
 msgstr ""
 
-#: anjuta.glade.h:235 anjuta_dialogs_strings.c:451
+#: anjuta.glade.h:230 anjuta_dialogs_strings.c:451
 msgid "Normal message indicator style:"
 msgstr ""
 
-#: anjuta.glade.h:236 anjuta_dialogs_strings.c:475
+#: anjuta.glade.h:231 anjuta_dialogs_strings.c:475
 msgid "Normal messages:"
-msgstr "സാധാരണ സന്ദേശള:്"
+msgstr ""
 
-#: anjuta.glade.h:237 anjuta_dialogs_strings.c:360
+#: anjuta.glade.h:232 anjuta_dialogs_strings.c:360
 #: anjuta_dialogs_strings.c:428
 msgid ""
 "Note: If there is a project open, the preferences in this page are project "
@@ -1060,68 +1030,68 @@ msgid ""
 "no project open, they will be global preferences."
 msgstr ""
 
-#: anjuta.glade.h:238 anjuta_dialogs_strings.c:441
+#: anjuta.glade.h:233 anjuta_dialogs_strings.c:441
 msgid "Number of first characters to show:"
 msgstr ""
 
-#: anjuta.glade.h:239 anjuta_dialogs_strings.c:442
+#: anjuta.glade.h:234 anjuta_dialogs_strings.c:442
 msgid "Number of last characters to show:"
 msgstr ""
 
 #. Must declare static, because it will be used forever
-#: anjuta.glade.h:240 anjuta_dialogs_strings.c:502 src/project_dbase.c:223
-#: src/toolbar.c:213
+#: anjuta.glade.h:235 anjuta_dialogs_strings.c:502 src/project_dbase.c:223
+#: src/toolbar.c:212
 msgid "Open Project"
 msgstr ""
 
-#: anjuta.glade.h:241 anjuta_dialogs_strings.c:500
+#: anjuta.glade.h:236 anjuta_dialogs_strings.c:500
 msgid "Open existing Project."
 msgstr ""
 
-#: anjuta.glade.h:242 anjuta_dialogs_strings.c:503
+#: anjuta.glade.h:237 anjuta_dialogs_strings.c:503
 msgid "Open existing file or create a new file."
 msgstr ""
 
-#: anjuta.glade.h:243 anjuta_dialogs_strings.c:505 src/main_menubar_def.h:36
-#: src/text_editor_gui.c:101 src/toolbar.c:80
+#: anjuta.glade.h:238 anjuta_dialogs_strings.c:505 src/main_menubar_def.h:36
+#: src/text_editor_gui.c:101 src/toolbar.c:79
 msgid "Open file"
-msgstr "രചന തുറക്കുക"
+msgstr ""
 
-#: anjuta.glade.h:244 anjuta_dialogs_strings.c:501
+#: anjuta.glade.h:239 anjuta_dialogs_strings.c:501
 msgid "Open last working Project"
 msgstr ""
 
-#: anjuta.glade.h:245 anjuta_dialogs_strings.c:67
+#: anjuta.glade.h:240 anjuta_dialogs_strings.c:67
 msgid "Optimization"
 msgstr ""
 
 #. 15
-#: anjuta.glade.h:246 anjuta_dialogs_strings.c:78 anjuta_dialogs_strings.c:342
+#: anjuta.glade.h:241 anjuta_dialogs_strings.c:78 anjuta_dialogs_strings.c:342
 #: src/text_editor_menu.c:329
 msgid "Options"
 msgstr "ബദലുകള്‌"
 
-#: anjuta.glade.h:247 anjuta_dialogs_strings.c:420
+#: anjuta.glade.h:242 anjuta_dialogs_strings.c:420
 msgid "Original Berkeley style"
 msgstr ""
 
-#: anjuta.glade.h:248 anjuta_dialogs_strings.c:326
+#: anjuta.glade.h:243 anjuta_dialogs_strings.c:326
 msgid "Other colors"
-msgstr "മറ്റു നിറങ്ങള്"
+msgstr ""
 
-#: anjuta.glade.h:249 anjuta_dialogs_strings.c:476
+#: anjuta.glade.h:244 anjuta_dialogs_strings.c:476
 msgid "Other messages:"
-msgstr "മറ്റു സന്ദേശള്:"
+msgstr ""
 
-#: anjuta.glade.h:250 anjuta_dialogs_strings.c:359 src/an_symbol_view.c:54
+#: anjuta.glade.h:245 anjuta_dialogs_strings.c:359 src/an_symbol_view.c:54
 msgid "Others"
-msgstr "മറ്റുള്ളവ"
+msgstr ""
 
-#: anjuta.glade.h:251 anjuta_dialogs_strings.c:218
+#: anjuta.glade.h:246 anjuta_dialogs_strings.c:218
 msgid "Output files"
-msgstr "ഫല രചനകള്"
+msgstr ""
 
-#: anjuta.glade.h:252 anjuta_dialogs_strings.c:313
+#: anjuta.glade.h:247 anjuta_dialogs_strings.c:313
 #: anjuta_dialogs_strings.c:314 anjuta_dialogs_strings.c:322
 #: anjuta_dialogs_strings.c:323 anjuta_dialogs_strings.c:324
 #: anjuta_dialogs_strings.c:325 anjuta_dialogs_strings.c:477
@@ -1130,606 +1100,593 @@ msgstr "ഫല രചനകള്"
 msgid "Pick a color"
 msgstr "ഒരു നിറം തിരഞ്ഞെടുക്കുക"
 
-#: anjuta.glade.h:253 anjuta_dialogs_strings.c:206
+#: anjuta.glade.h:248 anjuta_dialogs_strings.c:206
 msgid "Pixmap module Makefile.am"
 msgstr ""
 
-#: anjuta.glade.h:254 anjuta_dialogs_strings.c:381
-#, fuzzy
+#: anjuta.glade.h:249 anjuta_dialogs_strings.c:381
 msgid "Plus/Minus"
-msgstr "+/-"
+msgstr ""
 
-#: anjuta.glade.h:255 anjuta_dialogs_strings.c:209
+#: anjuta.glade.h:250 anjuta_dialogs_strings.c:209
 msgid "Po module (translation) Makefile.am"
 msgstr ""
 
-#: anjuta.glade.h:256 anjuta_dialogs_strings.c:399
+#: anjuta.glade.h:251 anjuta_dialogs_strings.c:399
 msgid "Position:"
 msgstr "സ്ഥാനം:"
 
-#: anjuta.glade.h:257 anjuta_dialogs_strings.c:292
+#: anjuta.glade.h:252 anjuta_dialogs_strings.c:292
 msgid "Press this button to dismiss the dialog"
 msgstr ""
 
-#: anjuta.glade.h:258 anjuta_dialogs_strings.c:414
+#: anjuta.glade.h:253 anjuta_dialogs_strings.c:414
 msgid "Pressing backspace un-indents"
 msgstr ""
 
-#: anjuta.glade.h:259 anjuta_dialogs_strings.c:413
+#: anjuta.glade.h:254 anjuta_dialogs_strings.c:413
 msgid "Pressing tab indents"
 msgstr ""
 
-#: anjuta.glade.h:260 anjuta_dialogs_strings.c:438
+#: anjuta.glade.h:255 anjuta_dialogs_strings.c:438
 msgid "Print options"
-msgstr "അച്ചടി ബദലുകള്"
+msgstr ""
 
-#: anjuta.glade.h:261 anjuta_dialogs_strings.c:212
+#: anjuta.glade.h:256 anjuta_dialogs_strings.c:212
 msgid "Programs"
-msgstr "നിര്‍ദ്ദേശ-സംഹിതകള്"
+msgstr "നിര്‍ദ്ദേശ-സംഹിത"
 
-#: anjuta.glade.h:262 anjuta_dialogs_strings.c:234 src/project_dbase_gui.c:610
-#: src/project_dbase_gui.c:627 src/toolbar.c:149
+#: anjuta.glade.h:257 anjuta_dialogs_strings.c:234 src/project_dbase_gui.c:599
+#: src/project_dbase_gui.c:616 src/toolbar.c:148
 msgid "Project"
 msgstr ""
 
-#: anjuta.glade.h:263 anjuta_dialogs_strings.c:184
+#: anjuta.glade.h:258 anjuta_dialogs_strings.c:184
 msgid "Project Configuration"
 msgstr ""
 
-#: anjuta.glade.h:264 anjuta_dialogs_strings.c:192 src/wizard_gui.c:506
+#: anjuta.glade.h:259 anjuta_dialogs_strings.c:192 src/wizard_gui.c:506
 msgid "Project Description"
 msgstr ""
 
-#: anjuta.glade.h:265 anjuta_dialogs_strings.c:191
+#: anjuta.glade.h:260 anjuta_dialogs_strings.c:191
 msgid "Project Version"
 msgstr ""
 
-#: anjuta.glade.h:266 anjuta_dialogs_strings.c:201
+#: anjuta.glade.h:261 anjuta_dialogs_strings.c:201
 msgid "Project configure.in"
 msgstr ""
 
-#: anjuta.glade.h:267 anjuta_dialogs_strings.c:247
+#: anjuta.glade.h:262 anjuta_dialogs_strings.c:247
 msgid "Project level"
 msgstr ""
 
-#: anjuta.glade.h:268 anjuta_dialogs_strings.c:328
+#: anjuta.glade.h:263 anjuta_dialogs_strings.c:328
 msgid "Projects:"
 msgstr ""
 
-#: anjuta.glade.h:269 anjuta_dialogs_strings.c:113
+#: anjuta.glade.h:264 anjuta_dialogs_strings.c:113
 msgid "Prompt before replace"
-msgstr "മാറ്റുന്നതിനു മുന്പ്് പറയുക"
+msgstr ""
 
-#: anjuta.glade.h:270 anjuta_dialogs_strings.c:332
+#: anjuta.glade.h:265 anjuta_dialogs_strings.c:332
 msgid "Recent Files:"
 msgstr ""
 
-#: anjuta.glade.h:271 anjuta_dialogs_strings.c:331
+#: anjuta.glade.h:266 anjuta_dialogs_strings.c:331
 msgid "Recent Projects:"
 msgstr ""
 
-#: anjuta.glade.h:272 anjuta_dialogs_strings.c:109
+#: anjuta.glade.h:267 anjuta_dialogs_strings.c:109
 #: anjuta_dialogs_strings.c:124
 msgid "Regexp"
 msgstr ""
 
-#: anjuta.glade.h:273 anjuta_dialogs_strings.c:100
+#: anjuta.glade.h:268 anjuta_dialogs_strings.c:100
 #: anjuta_dialogs_strings.c:117
 msgid "Regexp/String to find"
 msgstr ""
 
-#: anjuta.glade.h:274 anjuta_dialogs_strings.c:131
+#: anjuta.glade.h:269 anjuta_dialogs_strings.c:131
 msgid "Regular Expression"
 msgstr "സാധാരണ ആവിഷ്കരണം"
 
-#: anjuta.glade.h:275 anjuta_dialogs_strings.c:296
+#: anjuta.glade.h:270 anjuta_dialogs_strings.c:296
 msgid "Reload Session Defaults"
 msgstr ""
 
-#: anjuta.glade.h:276 anjuta_dialogs_strings.c:295
+#: anjuta.glade.h:271 anjuta_dialogs_strings.c:295
 msgid "Reload System Defaults"
 msgstr ""
 
-#: anjuta.glade.h:277 anjuta_dialogs_strings.c:177
+#: anjuta.glade.h:272 anjuta_dialogs_strings.c:177
 msgid "Replace Expression"
 msgstr ""
 
-#: anjuta.glade.h:278 anjuta_dialogs_strings.c:174
+#: anjuta.glade.h:273 anjuta_dialogs_strings.c:174
 msgid "Replace With:"
 msgstr ""
 
-#: anjuta.glade.h:279 anjuta_dialogs_strings.c:404
+#: anjuta.glade.h:274 anjuta_dialogs_strings.c:404
 #: anjuta_dialogs_strings.c:448
 msgid "Right"
 msgstr "വലത്"
 
-#: anjuta.glade.h:280 anjuta_dialogs_strings.c:82
+#: anjuta.glade.h:275 anjuta_dialogs_strings.c:82
 msgid "Run Configure Script"
 msgstr ""
 
-#: anjuta.glade.h:281 anjuta_dialogs_strings.c:244
+#: anjuta.glade.h:276 anjuta_dialogs_strings.c:244
 msgid "Run detached"
 msgstr ""
 
-#: anjuta.glade.h:282 anjuta_dialogs_strings.c:97
+#: anjuta.glade.h:277 anjuta_dialogs_strings.c:97
 msgid "Run in Terminal"
 msgstr "കല്പ്പനാസ്ഥാനത്ത് പ്രവ‍ര്ത്തിക്കുക"
 
-#: anjuta.glade.h:283 anjuta_dialogs_strings.c:245
+#: anjuta.glade.h:278 anjuta_dialogs_strings.c:245
 msgid "Run in terminal"
 msgstr ""
 
-#: anjuta.glade.h:284 anjuta_dialogs_strings.c:262
+#: anjuta.glade.h:279 anjuta_dialogs_strings.c:262
 msgid "Save all files"
-msgstr "എല്ലാ രചനകളും സംരക്ഷിക്കുക"
+msgstr ""
 
-#: anjuta.glade.h:285 anjuta_dialogs_strings.c:363
+#: anjuta.glade.h:280 anjuta_dialogs_strings.c:363
 msgid "Save files interval in minutes"
-msgstr "രചനകള് നിമിഷ ഇടവേളകളില് സംരക്ഷിക്കുക"
+msgstr ""
 
-#: anjuta.glade.h:286 anjuta_dialogs_strings.c:364
+#: anjuta.glade.h:281 anjuta_dialogs_strings.c:364
 msgid "Save session interval in minutes"
 msgstr ""
 
-#: anjuta.glade.h:287 anjuta_dialogs_strings.c:105
+#: anjuta.glade.h:282 anjuta_dialogs_strings.c:105
 #: anjuta_dialogs_strings.c:120
 msgid "Scope"
 msgstr "നേട്ടം"
 
-#: anjuta.glade.h:288 anjuta_dialogs_strings.c:221
+#: anjuta.glade.h:283 anjuta_dialogs_strings.c:221
 msgid "Scripts at the end of top level Makefile.am"
 msgstr ""
 
-#: anjuta.glade.h:289 anjuta_dialogs_strings.c:178 src/search-replace.c:1332
+#: anjuta.glade.h:284 anjuta_dialogs_strings.c:178 src/search-replace.c:1332
 #: src/search-replace.c:1495 src/search-replace.c:1501
 msgid "Search"
 msgstr "തെരയുക"
 
-#: anjuta.glade.h:290 anjuta_dialogs_strings.c:172
+#: anjuta.glade.h:285 anjuta_dialogs_strings.c:172
 msgid "Search Action:"
 msgstr ""
 
-#: anjuta.glade.h:291 anjuta_dialogs_strings.c:141
+#: anjuta.glade.h:286 anjuta_dialogs_strings.c:141
 msgid "Search Direction:"
-msgstr "തെരയച്ചില് ദിശ:"
+msgstr ""
 
-#: anjuta.glade.h:292 anjuta_dialogs_strings.c:138
+#: anjuta.glade.h:287 anjuta_dialogs_strings.c:138
 msgid "Search Expression"
 msgstr ""
 
-#: anjuta.glade.h:293 anjuta_dialogs_strings.c:130
+#: anjuta.glade.h:288 anjuta_dialogs_strings.c:130
 msgid "Search Expression:"
 msgstr ""
 
-#: anjuta.glade.h:294 anjuta_dialogs_strings.c:139
+#: anjuta.glade.h:289 anjuta_dialogs_strings.c:139
 msgid "Search In:"
 msgstr ""
 
-#: anjuta.glade.h:295 anjuta_dialogs_strings.c:168
+#: anjuta.glade.h:290 anjuta_dialogs_strings.c:168
 msgid "Search Recursively"
 msgstr ""
 
-#: anjuta.glade.h:296 anjuta_dialogs_strings.c:93
+#: anjuta.glade.h:291 anjuta_dialogs_strings.c:93
 msgid "Search String"
 msgstr ""
 
-#: anjuta.glade.h:297 anjuta_dialogs_strings.c:173
+#: anjuta.glade.h:292 anjuta_dialogs_strings.c:173
 msgid "Search Target"
 msgstr ""
 
-#: anjuta.glade.h:298 anjuta_dialogs_strings.c:146
+#: anjuta.glade.h:293 anjuta_dialogs_strings.c:146
 msgid "Search Variable"
 msgstr ""
 
-#: anjuta.glade.h:299 anjuta_dialogs_strings.c:111
+#: anjuta.glade.h:294 anjuta_dialogs_strings.c:111
 #: anjuta_dialogs_strings.c:126
 msgid "Search type"
-msgstr ""
+msgstr "ഇനം തെരയുക"
 
-#: anjuta.glade.h:300 anjuta_dialogs_strings.c:315
+#: anjuta.glade.h:295 anjuta_dialogs_strings.c:315
 msgid "Select highlight style to edit:"
 msgstr ""
 
-#: anjuta.glade.h:301 anjuta_dialogs_strings.c:299
+#: anjuta.glade.h:296 anjuta_dialogs_strings.c:299
 msgid "Select theme:"
-msgstr "പ്രമേയം തെരഞ്ഞെടുക്കുക:"
+msgstr ""
 
-#: anjuta.glade.h:302 anjuta_dialogs_strings.c:319
+#: anjuta.glade.h:297 anjuta_dialogs_strings.c:319
 msgid "Selection background:"
-msgstr "പശ്ചാത്തലം തെരഞ്ഞെടുക്കുക:"
+msgstr ""
 
-#: anjuta.glade.h:303 anjuta_dialogs_strings.c:318
+#: anjuta.glade.h:298 anjuta_dialogs_strings.c:318
 msgid "Selection foreground:"
 msgstr ""
 
-#: anjuta.glade.h:304 anjuta_dialogs_strings.c:240
+#: anjuta.glade.h:299 anjuta_dialogs_strings.c:240
 msgid "Settings"
-msgstr "സജ്ജീകരണങ്ങള്"
+msgstr "സജ്ജീകരണം"
 
-#: anjuta.glade.h:305 anjuta_dialogs_strings.c:256
+#: anjuta.glade.h:300 anjuta_dialogs_strings.c:256
 msgid "Short cut:"
-msgstr "കുറുക്കു വഴി"
+msgstr ""
 
-#: anjuta.glade.h:306 anjuta_dialogs_strings.c:341
+#: anjuta.glade.h:301 anjuta_dialogs_strings.c:341
 msgid "Show tooltips"
 msgstr ""
 
-#: anjuta.glade.h:307 anjuta_dialogs_strings.c:352
+#: anjuta.glade.h:302 anjuta_dialogs_strings.c:352
 msgid "Silent. That is, do not echo shell commads during make"
 msgstr ""
 
-#: anjuta.glade.h:308 anjuta_dialogs_strings.c:396
+#: anjuta.glade.h:303 anjuta_dialogs_strings.c:396
 msgid "Sorted by most recent use"
 msgstr ""
 
-#: anjuta.glade.h:309 anjuta_dialogs_strings.c:397
+#: anjuta.glade.h:304 anjuta_dialogs_strings.c:397
 msgid "Sorted in alphabetical order"
 msgstr ""
 
-#: anjuta.glade.h:310 anjuta_dialogs_strings.c:395
+#: anjuta.glade.h:305 anjuta_dialogs_strings.c:395
 msgid "Sorted in the order you open them"
 msgstr ""
 
-#: anjuta.glade.h:311 anjuta_dialogs_strings.c:79
+#: anjuta.glade.h:306 anjuta_dialogs_strings.c:79
 msgid "Source Directories"
 msgstr ""
 
-#: anjuta.glade.h:312 anjuta_dialogs_strings.c:203
+#: anjuta.glade.h:307 anjuta_dialogs_strings.c:203
 msgid "Source module Makefile.am"
 msgstr ""
 
-#: anjuta.glade.h:313 anjuta_dialogs_strings.c:162
+#: anjuta.glade.h:308 anjuta_dialogs_strings.c:162
 #: anjuta_dialogs_strings.c:286
 msgid "Space-seperated list of directory name patterns to ignore"
 msgstr ""
 
-#: anjuta.glade.h:314 anjuta_dialogs_strings.c:159
+#: anjuta.glade.h:309 anjuta_dialogs_strings.c:159
 #: anjuta_dialogs_strings.c:284
 msgid "Space-seperated list of directory name patterns to match"
 msgstr ""
 
-#: anjuta.glade.h:315 anjuta_dialogs_strings.c:154
+#: anjuta.glade.h:310 anjuta_dialogs_strings.c:154
 #: anjuta_dialogs_strings.c:277
 msgid "Space-seperated list of file name patterns to ignore"
 msgstr ""
 
-#: anjuta.glade.h:316 anjuta_dialogs_strings.c:148
+#: anjuta.glade.h:311 anjuta_dialogs_strings.c:148
 #: anjuta_dialogs_strings.c:271
 msgid "Space-seperated list of file name patterns to match"
 msgstr ""
 
-#: anjuta.glade.h:317 anjuta_dialogs_strings.c:383
+#: anjuta.glade.h:312 anjuta_dialogs_strings.c:383
 msgid "Squares"
 msgstr ""
 
-#: anjuta.glade.h:318 anjuta_dialogs_strings.c:255
+#: anjuta.glade.h:313 anjuta_dialogs_strings.c:255
 msgid "Standard error:"
 msgstr ""
 
-#: anjuta.glade.h:319 anjuta_dialogs_strings.c:249
+#: anjuta.glade.h:314 anjuta_dialogs_strings.c:249
 msgid "Standard input:"
 msgstr ""
 
-#: anjuta.glade.h:320 anjuta_dialogs_strings.c:252
+#: anjuta.glade.h:315 anjuta_dialogs_strings.c:252
 msgid "Standard output:"
 msgstr ""
 
-#: anjuta.glade.h:321 anjuta_dialogs_strings.c:496
+#: anjuta.glade.h:316 anjuta_dialogs_strings.c:496
 msgid ""
 "Start with a new Project. Application wizard will guide you with Project "
 "creation. With the Application Wizard, you will be able to create the "
 "skelleton of various types of Project."
 msgstr ""
 
-#: anjuta.glade.h:322 anjuta_dialogs_strings.c:459
+#: anjuta.glade.h:317 anjuta_dialogs_strings.c:459
 #: anjuta_dialogs_strings.c:465 anjuta_dialogs_strings.c:471
 msgid "Strike-Out"
 msgstr ""
 
-#: anjuta.glade.h:323 anjuta_dialogs_strings.c:110
+#: anjuta.glade.h:318 anjuta_dialogs_strings.c:110
 #: anjuta_dialogs_strings.c:125
 msgid "String"
-msgstr "വാകയ്ം"
+msgstr "വാക്യം"
 
-#: anjuta.glade.h:324 anjuta_dialogs_strings.c:102
+#: anjuta.glade.h:319 anjuta_dialogs_strings.c:102
 msgid "String to replace"
-msgstr "മാറ്റേണ്ട വാകയ്ം"
+msgstr ""
 
-#: anjuta.glade.h:325 anjuta_dialogs_strings.c:387
+#: anjuta.glade.h:320 anjuta_dialogs_strings.c:387
 msgid "Strip trailling spaces on file save"
 msgstr ""
 
-#: anjuta.glade.h:326 anjuta_dialogs_strings.c:421
+#: anjuta.glade.h:321 anjuta_dialogs_strings.c:421
 msgid "Style of Kangleipak"
 msgstr ""
 
-#: anjuta.glade.h:327 anjuta_dialogs_strings.c:520 src/wizard_gui.c:780
+#: anjuta.glade.h:322 anjuta_dialogs_strings.c:520 src/wizard_gui.c:780
 msgid "Summary"
 msgstr "രത്നച്ചുരുക്കം"
 
-#: anjuta.glade.h:328 anjuta_dialogs_strings.c:540
-msgid "Supported Encodings"
-msgstr ""
-
-#: anjuta.glade.h:329 anjuta_dialogs_strings.c:47
+#: anjuta.glade.h:323 anjuta_dialogs_strings.c:47
 msgid "Supports"
 msgstr ""
 
-#: anjuta.glade.h:330 anjuta_dialogs_strings.c:293
+#: anjuta.glade.h:324 anjuta_dialogs_strings.c:293
 msgid "Syntax highlight editor"
 msgstr ""
 
-#: anjuta.glade.h:331 anjuta_dialogs_strings.c:407
+#: anjuta.glade.h:325 anjuta_dialogs_strings.c:407
 msgid "Tab size in spaces:"
 msgstr ""
 
-#: anjuta.glade.h:332 anjuta_dialogs_strings.c:443
+#: anjuta.glade.h:326 anjuta_dialogs_strings.c:443
 msgid "Tabs position:"
 msgstr ""
 
-#: anjuta.glade.h:333 anjuta_dialogs_strings.c:188
+#: anjuta.glade.h:327 anjuta_dialogs_strings.c:188
 msgid "Target:"
 msgstr ""
 
-#: anjuta.glade.h:334 anjuta_dialogs_strings.c:493
+#: anjuta.glade.h:328 anjuta_dialogs_strings.c:493
 msgid "Terminal options"
 msgstr ""
 
-#: anjuta.glade.h:335 anjuta_dialogs_strings.c:301
+#: anjuta.glade.h:329 anjuta_dialogs_strings.c:301
 msgid "Theme"
 msgstr "രംഗവിധാനം"
 
-#: anjuta.glade.h:336 anjuta_dialogs_strings.c:225
+#: anjuta.glade.h:330 anjuta_dialogs_strings.c:225
 #: anjuta_dialogs_strings.c:263
 msgid "Tool Editor"
 msgstr ""
 
-#: anjuta.glade.h:337 anjuta_dialogs_strings.c:401
+#: anjuta.glade.h:331 anjuta_dialogs_strings.c:401
 #: anjuta_dialogs_strings.c:445
 msgid "Top"
 msgstr "മുകളില്"
 
-#: anjuta.glade.h:338 anjuta_dialogs_strings.c:202
+#: anjuta.glade.h:332 anjuta_dialogs_strings.c:202
 msgid "Top level Makefile.am"
 msgstr ""
 
-#: anjuta.glade.h:339 anjuta_dialogs_strings.c:440
+#: anjuta.glade.h:333 anjuta_dialogs_strings.c:440
 msgid "Truncate long messages"
 msgstr ""
 
-#: anjuta.glade.h:340 anjuta_dialogs_strings.c:538
-msgid "Try to save in current locale's encoding"
-msgstr ""
-
-#: anjuta.glade.h:341 anjuta_dialogs_strings.c:537
-msgid "Try to save in original encoding"
-msgstr ""
-
-#: anjuta.glade.h:342 anjuta_dialogs_strings.c:455
+#: anjuta.glade.h:334 anjuta_dialogs_strings.c:455
 #: anjuta_dialogs_strings.c:461 anjuta_dialogs_strings.c:467
 msgid "Underline-Plain"
 msgstr ""
 
-#: anjuta.glade.h:343 anjuta_dialogs_strings.c:456
+#: anjuta.glade.h:335 anjuta_dialogs_strings.c:456
 #: anjuta_dialogs_strings.c:462 anjuta_dialogs_strings.c:468
 msgid "Underline-Squiggle"
 msgstr ""
 
-#: anjuta.glade.h:344 anjuta_dialogs_strings.c:457
+#: anjuta.glade.h:336 anjuta_dialogs_strings.c:457
 #: anjuta_dialogs_strings.c:463 anjuta_dialogs_strings.c:469
 msgid "Underline-TT"
 msgstr ""
 
-#: anjuta.glade.h:345 anjuta_dialogs_strings.c:312
+#: anjuta.glade.h:337 anjuta_dialogs_strings.c:312
 msgid "Underlined"
 msgstr ""
 
-#: anjuta.glade.h:346 anjuta_dialogs_strings.c:519
+#: anjuta.glade.h:338 anjuta_dialogs_strings.c:519
 msgid "Undocked style"
 msgstr ""
 
-#: anjuta.glade.h:347 anjuta_dialogs_strings.c:511
+#: anjuta.glade.h:339 anjuta_dialogs_strings.c:511
 msgid ""
 "Undocked style presents Anjuta\n"
 "in with all sub-windows undocked\n"
 "from the main window."
 msgstr ""
 
-#: anjuta.glade.h:350 anjuta_dialogs_strings.c:48 anjuta_dialogs_strings.c:51
+#: anjuta.glade.h:342 anjuta_dialogs_strings.c:48 anjuta_dialogs_strings.c:51
 #: anjuta_dialogs_strings.c:54 anjuta_dialogs_strings.c:58 src/cvs_gui.c:72
 #: src/registers_gui.c:47 src/sharedlib_gui.c:40 src/signals_gui.c:54
 #: src/stack_trace_gui.c:60
 msgid "Update"
 msgstr "പരിഷ്ക്കരിക്കുക"
 
-#: anjuta.glade.h:351 anjuta_dialogs_strings.c:338
+#: anjuta.glade.h:343 anjuta_dialogs_strings.c:338
 msgid "Update tags image automatically"
 msgstr ""
 
-#: anjuta.glade.h:352 anjuta_dialogs_strings.c:489
+#: anjuta.glade.h:344 anjuta_dialogs_strings.c:489
 msgid "Use GNOME terminal profile:"
 msgstr ""
 
-#: anjuta.glade.h:353 anjuta_dialogs_strings.c:492
+#: anjuta.glade.h:345 anjuta_dialogs_strings.c:492
 msgid "Use currently selected profile in GNOME terminal"
 msgstr ""
 
-#: anjuta.glade.h:354 anjuta_dialogs_strings.c:306
+#: anjuta.glade.h:346 anjuta_dialogs_strings.c:306
 #: anjuta_dialogs_strings.c:307 anjuta_dialogs_strings.c:308
 #: anjuta_dialogs_strings.c:309
 msgid "Use default"
 msgstr ""
 
-#: anjuta.glade.h:355 anjuta_dialogs_strings.c:410
+#: anjuta.glade.h:347 anjuta_dialogs_strings.c:410
 msgid "Use tabs for indentation"
 msgstr ""
 
-#: anjuta.glade.h:356 anjuta_dialogs_strings.c:223
+#: anjuta.glade.h:348 anjuta_dialogs_strings.c:223
 msgid "User Tools"
 msgstr ""
 
-#: anjuta.glade.h:357 anjuta_dialogs_strings.c:344
+#: anjuta.glade.h:349 anjuta_dialogs_strings.c:344
 msgid "User email address:"
 msgstr ""
 
-#: anjuta.glade.h:358 anjuta_dialogs_strings.c:347
+#: anjuta.glade.h:350 anjuta_dialogs_strings.c:347
 msgid "User information"
 msgstr ""
 
-#: anjuta.glade.h:359 anjuta_dialogs_strings.c:343
+#: anjuta.glade.h:351 anjuta_dialogs_strings.c:343
 msgid "User name:"
 msgstr ""
 
-#: anjuta.glade.h:360 anjuta_dialogs_strings.c:264
+#: anjuta.glade.h:352 anjuta_dialogs_strings.c:264
 #: anjuta_dialogs_strings.c:265
 msgid "Variable list"
 msgstr ""
 
-#: anjuta.glade.h:361 anjuta_dialogs_strings.c:186 src/project_dbase_gui.c:932
+#: anjuta.glade.h:353 anjuta_dialogs_strings.c:186 src/project_dbase_gui.c:921
 msgid "Version:"
 msgstr ""
 
-#: anjuta.glade.h:362 anjuta_dialogs_strings.c:233
+#: anjuta.glade.h:354 anjuta_dialogs_strings.c:233
 msgid "View"
 msgstr "കാഴ്ച"
 
-#: anjuta.glade.h:363 anjuta_dialogs_strings.c:353
+#: anjuta.glade.h:355 anjuta_dialogs_strings.c:353
 msgid "Warn when an undefined variable is referenced in the Makefile"
 msgstr ""
 
-#: anjuta.glade.h:364 anjuta_dialogs_strings.c:452
+#: anjuta.glade.h:356 anjuta_dialogs_strings.c:452
 msgid "Warning message indicator style:"
 msgstr ""
 
-#: anjuta.glade.h:365 anjuta_dialogs_strings.c:62
+#: anjuta.glade.h:357 anjuta_dialogs_strings.c:62
 msgid "Warnings"
 msgstr "മുന്നറിയിപ്പ്"
 
-#: anjuta.glade.h:366 anjuta_dialogs_strings.c:474
+#: anjuta.glade.h:358 anjuta_dialogs_strings.c:474
 msgid "Warnings messages:"
 msgstr ""
 
-#: anjuta.glade.h:367 anjuta_dialogs_strings.c:103
+#: anjuta.glade.h:359 anjuta_dialogs_strings.c:103
 #: anjuta_dialogs_strings.c:118
 msgid "Whole document"
 msgstr ""
 
-#: anjuta.glade.h:368 anjuta_dialogs_strings.c:112
+#: anjuta.glade.h:360 anjuta_dialogs_strings.c:112
 #: anjuta_dialogs_strings.c:127
 msgid "Whole word"
 msgstr ""
 
-#: anjuta.glade.h:369 anjuta_dialogs_strings.c:510
+#: anjuta.glade.h:361 anjuta_dialogs_strings.c:510
 msgid "Windows style"
 msgstr ""
 
-#: anjuta.glade.h:370 anjuta_dialogs_strings.c:242
+#: anjuta.glade.h:362 anjuta_dialogs_strings.c:242
 msgid "Working directory:"
 msgstr ""
 
-#: anjuta.glade.h:371 anjuta_dialogs_strings.c:389
+#: anjuta.glade.h:363 anjuta_dialogs_strings.c:389
 msgid "Wrap bookmarks search around"
 msgstr ""
 
-#: anjuta.glade.h:372 anjuta_dialogs_strings.c:9
+#: anjuta.glade.h:364 anjuta_dialogs_strings.c:9
 msgid "_Attach"
 msgstr ""
 
-#: anjuta.glade.h:373 anjuta_dialogs_strings.c:36
+#: anjuta.glade.h:365 anjuta_dialogs_strings.c:36
 msgid "_Build a file:"
 msgstr ""
 
-#: anjuta.glade.h:374 anjuta_dialogs_strings.c:17
+#: anjuta.glade.h:366 anjuta_dialogs_strings.c:17
 msgid "_Condition:"
 msgstr "അവസ്ഥ‍:"
 
-#: anjuta.glade.h:375 anjuta_dialogs_strings.c:13
+#: anjuta.glade.h:367 anjuta_dialogs_strings.c:13
 msgid "_Disable all"
 msgstr ""
 
-#: anjuta.glade.h:376 anjuta_dialogs_strings.c:224
+#: anjuta.glade.h:368 anjuta_dialogs_strings.c:224
 msgid "_Edit"
 msgstr "ചിട്ട"
 
-#: anjuta.glade.h:377 anjuta_dialogs_strings.c:37
+#: anjuta.glade.h:369 anjuta_dialogs_strings.c:37
 msgid "_Execute:"
 msgstr ""
 
-#: anjuta.glade.h:378 anjuta_dialogs_strings.c:26
+#: anjuta.glade.h:370 anjuta_dialogs_strings.c:26
 msgid "_Image editor:"
 msgstr ""
 
-#: anjuta.glade.h:379 anjuta_dialogs_strings.c:42
+#: anjuta.glade.h:371 anjuta_dialogs_strings.c:42
 msgid "_Language:"
 msgstr ""
 
-#: anjuta.glade.h:380 anjuta_dialogs_strings.c:16
+#: anjuta.glade.h:372 anjuta_dialogs_strings.c:16
 msgid "_Location:"
 msgstr "സ്ഥാനം:"
 
-#: anjuta.glade.h:381 anjuta_dialogs_strings.c:38
+#: anjuta.glade.h:373 anjuta_dialogs_strings.c:38
 msgid "_Make a file:"
 msgstr ""
 
-#: anjuta.glade.h:382 anjuta_dialogs_strings.c:18
+#: anjuta.glade.h:374 anjuta_dialogs_strings.c:18
 msgid "_Pass:"
 msgstr ""
 
-#: anjuta.glade.h:383 anjuta_dialogs_strings.c:25
+#: anjuta.glade.h:375 anjuta_dialogs_strings.c:25
 msgid "_Pixmap editor:"
 msgstr ""
 
-#: anjuta.glade.h:384 anjuta_dialogs_strings.c:10
+#: anjuta.glade.h:376 anjuta_dialogs_strings.c:10
 msgid "_Process to attach to:"
 msgstr ""
 
-#: anjuta.glade.h:385 anjuta_dialogs_strings.c:14
+#: anjuta.glade.h:377 anjuta_dialogs_strings.c:14
 msgid "_Remove all"
 msgstr ""
 
-#: anjuta.glade.h:386 anjuta_dialogs_strings.c:297
+#: anjuta.glade.h:378 anjuta_dialogs_strings.c:297
 msgid "_Save Theme As"
 msgstr ""
 
-#: anjuta.glade.h:387 anjuta_dialogs_strings.c:28
+#: anjuta.glade.h:379 anjuta_dialogs_strings.c:28
 msgid "_Terminal:"
 msgstr ""
 
-#: anjuta.glade.h:388 anjuta_dialogs_strings.c:8 anjuta_dialogs_strings.c:80
+#: anjuta.glade.h:380 anjuta_dialogs_strings.c:8 anjuta_dialogs_strings.c:80
 msgid "_Update"
 msgstr "പരിഷ്ക്കരിക്കുക"
 
-#: anjuta_dialogs_strings.c:327 anjuta_dialogs_strings.c:535
+#: anjuta_dialogs_strings.c:327
 msgid "window1"
-msgstr ""
+msgstr "ജാലകം1"
 
 #: anjuta_dialogs_strings.c:348
 msgid "window2"
-msgstr ""
+msgstr "ജാലകം2"
 
 #: anjuta_dialogs_strings.c:361
 msgid "window3"
-msgstr ""
+msgstr "ജാലകം3"
 
 #: anjuta_dialogs_strings.c:406
 msgid "window4"
-msgstr ""
+msgstr "ജാലകം4"
 
 #: anjuta_dialogs_strings.c:430
 msgid "window5"
-msgstr ""
+msgstr "ജാലകം5"
 
 #: anjuta_dialogs_strings.c:439
 msgid "window6"
-msgstr ""
+msgstr "ജാലകം6"
 
 #: anjuta_dialogs_strings.c:482
 msgid "window7"
-msgstr ""
+msgstr "ജാലകം7"
 
 #: anjuta_dialogs_strings.c:488
 msgid "window8"
-msgstr ""
+msgstr "ജാലകം8"
 
 #: gdl/gdl-dock-item-grip.c:244
 #, fuzzy
@@ -1871,7 +1828,7 @@ msgid "Item"
 msgstr ""
 
 #: gdl/gdl-dock-layout.c:737 gdl/gdl-dock-object.c:120
-#: src/compiler_options.c:816 src/windows-dialog.c:294
+#: src/compiler_options.c:741 src/windows-dialog.c:294
 msgid "Name"
 msgstr "പേര‍്"
 
@@ -2130,8 +2087,8 @@ msgstr ""
 #. 13
 #. 14
 #: plugins/class-gen/clsGen.c:1343 src/main_menubar_def.h:1002
-#: src/project_dbase_gui.c:367 src/registers_gui.c:55 src/sharedlib_gui.c:48
-#: src/signals_gui.c:62 src/stack_trace_gui.c:75 src/toolbar.c:159
+#: src/project_dbase_gui.c:358 src/registers_gui.c:55 src/sharedlib_gui.c:48
+#: src/signals_gui.c:62 src/stack_trace_gui.c:75 src/toolbar.c:158
 #: src/watch_gui.c:76
 msgid "Help"
 msgstr "സഹായം"
@@ -2384,7 +2341,7 @@ msgid "Printing ..."
 msgstr ""
 
 #: printing/print.c:1046 src/signals_gui.c:123 src/text_editor_gui.c:178
-#: src/toolbar.c:109
+#: src/toolbar.c:108
 msgid "Print"
 msgstr "അച്ചടി"
 
@@ -2477,13 +2434,13 @@ msgstr ""
 
 #. 0
 #: src/an_file_view.c:400 src/main_menubar_def.h:950
-#: src/project_dbase_gui.c:335
+#: src/project_dbase_gui.c:326
 msgid "Open in Anjuta"
 msgstr ""
 
 #. 1
 #: src/an_file_view.c:407 src/main_menubar_def.h:944
-#: src/project_dbase_gui.c:329
+#: src/project_dbase_gui.c:320
 msgid "Open in default viewer"
 msgstr ""
 
@@ -2495,7 +2452,7 @@ msgstr "പുതുക്കുക"
 #. 4
 #. 5
 #: src/an_file_view.c:429 src/an_symbol_view.c:309 src/main_menubar_def.h:976
-#: src/message-manager.cc:134 src/project_dbase_gui.c:361
+#: src/message-manager.cc:134 src/project_dbase_gui.c:352
 #: src/text_editor_menu.c:355
 msgid "Docked"
 msgstr ""
@@ -2552,118 +2509,6 @@ msgstr ""
 msgid "Symbol"
 msgstr "അടയാളം"
 
-#: src/anjuta-encodings.c:127 src/anjuta-encodings.c:153
-#: src/anjuta-encodings.c:194 src/anjuta-encodings.c:235
-msgid "Western"
-msgstr "പടിഞ്ഞാറന്‌"
-
-#: src/anjuta-encodings.c:129 src/anjuta-encodings.c:196
-#: src/anjuta-encodings.c:231
-msgid "Central European"
-msgstr "മധ്യ യൂറോപ്യന്"
-
-#: src/anjuta-encodings.c:131
-msgid "South European"
-msgstr "ദക്ഷിണ യൂറോപ്യന്‌"
-
-#: src/anjuta-encodings.c:133 src/anjuta-encodings.c:149
-#: src/anjuta-encodings.c:245
-msgid "Baltic"
-msgstr "ബാള്ട്ടിക്"
-
-#: src/anjuta-encodings.c:135 src/anjuta-encodings.c:198
-#: src/anjuta-encodings.c:211 src/anjuta-encodings.c:215
-#: src/anjuta-encodings.c:233
-msgid "Cyrillic"
-msgstr "സിറിലിക്"
-
-#: src/anjuta-encodings.c:137 src/anjuta-encodings.c:204
-#: src/anjuta-encodings.c:243
-msgid "Arabic"
-msgstr "അറബിക്"
-
-#: src/anjuta-encodings.c:139 src/anjuta-encodings.c:237
-#: src/project_dbase_gui.c:1142
-msgid "Greek"
-msgstr "ഗ്രീക്ക്"
-
-#: src/anjuta-encodings.c:141
-msgid "Hebrew Visual"
-msgstr "ഹീബ്ര‍ു വിഷ്വല്"
-
-#: src/anjuta-encodings.c:143 src/anjuta-encodings.c:202
-#: src/anjuta-encodings.c:241
-msgid "Hebrew"
-msgstr "ഹീബ്ര‍ു"
-
-#: src/anjuta-encodings.c:145 src/anjuta-encodings.c:200
-#: src/anjuta-encodings.c:239 src/project_dbase_gui.c:1162
-msgid "Turkish"
-msgstr "തുര്ക്കിഷ്"
-
-#: src/anjuta-encodings.c:147
-msgid "Nordic"
-msgstr "നോര്ഡിക്"
-
-#: src/anjuta-encodings.c:151
-msgid "Celtic"
-msgstr "സെല്റ്റിക്"
-
-#: src/anjuta-encodings.c:155 src/project_dbase_gui.c:1159
-msgid "Romanian"
-msgstr "റൊമേനിയന്"
-
-#: src/anjuta-encodings.c:158 src/anjuta-encodings.c:160
-#: src/anjuta-encodings.c:162 src/anjuta-encodings.c:164
-msgid "Unicode"
-msgstr "യുണികോഡ്"
-
-#: src/anjuta-encodings.c:167
-msgid "Armenian"
-msgstr "അര്‍മേനിയന്"
-
-#: src/anjuta-encodings.c:169 src/anjuta-encodings.c:171
-#: src/anjuta-encodings.c:180
-msgid "Chinese Traditional"
-msgstr "ചൈനീസ് പരമ്പരാഗതം"
-
-#: src/anjuta-encodings.c:173
-msgid "Cyrillic/Russian"
-msgstr "സിറിലിക്/റഷ്യന്"
-
-#: src/anjuta-encodings.c:176 src/anjuta-encodings.c:207
-#: src/anjuta-encodings.c:220
-msgid "Japanese"
-msgstr "ജാപ്പനിസ്"
-
-#: src/anjuta-encodings.c:178 src/anjuta-encodings.c:209
-#: src/anjuta-encodings.c:213 src/anjuta-encodings.c:226
-#: src/project_dbase_gui.c:1153
-msgid "Korean"
-msgstr "കൊറിയന്"
-
-#: src/anjuta-encodings.c:183 src/anjuta-encodings.c:185
-#: src/anjuta-encodings.c:187 src/anjuta-encodings.c:191
-msgid "Chinese Simplified"
-msgstr "ചൈനീസ് ലളിതം"
-
-#: src/anjuta-encodings.c:189
-msgid "Georgian"
-msgstr "ജോര്‍ജ്ജിയന്"
-
-#: src/anjuta-encodings.c:217
-msgid "Cyrillic/Ukrainian"
-msgstr "സിറിലിക്/ഉക്രേനിയന്"
-
-#: src/anjuta-encodings.c:222 src/anjuta-encodings.c:228
-#: src/anjuta-encodings.c:247
-msgid "Vietnamese"
-msgstr "വിയറ്ര്നാമിസ്"
-
-#: src/anjuta-encodings.c:224
-msgid "Thai"
-msgstr "തായ്"
-
 #: src/anjuta-plugins.c:115 src/anjuta-plugins.c:118
 #, c-format
 msgid "Unable to load plugin %s. Error: %s"
@@ -2705,45 +2550,45 @@ msgstr ""
 
 #: src/anjuta-tools.c:1359
 #, c-format
-msgid "Are you sure you want to delete the '%s' tool?"
+msgid "Are you sure you want to delete tool '%s'"
 msgstr ""
 
-#: src/anjuta-tools.c:1461
+#: src/anjuta-tools.c:1457
 msgid "You must provide a tool name!"
 msgstr ""
 
-#: src/anjuta-tools.c:1467
+#: src/anjuta-tools.c:1463
 msgid "You must provide a tool command!"
 msgstr ""
 
-#: src/anjuta-tools.c:1482
+#: src/anjuta-tools.c:1478
 #, c-format
 msgid "A tool with the name '%s' already exists!"
 msgstr ""
 
-#: src/anjuta-tools.c:1766
+#: src/anjuta-tools.c:1762
 msgid "Unable to build user interface for tool help"
 msgstr ""
 
-#: src/anjuta-tools.c:1781 src/debug_tree.c:1458 src/debug_tree.c:1478
+#: src/anjuta-tools.c:1777 src/debug_tree.c:1463 src/debug_tree.c:1483
 #: src/watch_gui.c:130
 msgid "Variable"
 msgstr "മാറിവരുന്ന"
 
-#: src/anjuta-tools.c:1787
+#: src/anjuta-tools.c:1783
 msgid "Meaning"
 msgstr ""
 
-#: src/anjuta-tools.c:1793 src/debug_tree.c:1458 src/debug_tree.c:1487
+#: src/anjuta-tools.c:1789 src/debug_tree.c:1463 src/debug_tree.c:1492
 #: src/watch_gui.c:139
 msgid "Value"
 msgstr "മൂല്യം"
 
-#: src/anjuta-tools.c:1856
+#: src/anjuta-tools.c:1852
 msgid "Unable to build user interface for tool parameters"
 msgstr ""
 
-#: src/anjuta-tools.c:1860
+#: src/anjuta-tools.c:1856
 #, c-format
 msgid "%s: Command line parameters"
 msgstr ""
@@ -2763,98 +2608,98 @@ msgstr "രചന തുറക്കുക"
 msgid "Save File As"
 msgstr ""
 
-#: src/anjuta.c:255
+#: src/anjuta.c:253
 msgid "Cannot create application... exiting\n"
 msgstr ""
 
-#: src/anjuta.c:305 src/anjuta.c:309 src/anjuta.c:1130 src/anjuta.c:1146
+#: src/anjuta.c:303 src/anjuta.c:307 src/anjuta.c:1123 src/anjuta.c:1139
 #, c-format
 msgid "Anjuta: %s"
 msgstr ""
 
-#: src/anjuta.c:366
+#: src/anjuta.c:364
 msgid "Recent Files "
 msgstr ""
 
-#: src/anjuta.c:919
+#: src/anjuta.c:917
 msgid "# * DO NOT EDIT OR RENAME THIS FILE ** Generated by Anjuta **\n"
 msgstr ""
 
-#: src/anjuta.c:1095
+#: src/anjuta.c:1088
 msgid "All files saved ..."
 msgstr ""
 
-#: src/anjuta.c:1123
+#: src/anjuta.c:1116
 #, c-format
 msgid "Anjuta: %s (Saved)"
 msgstr ""
 
-#: src/anjuta.c:1138
+#: src/anjuta.c:1131
 #, c-format
 msgid "Anjuta: %s (Unsaved)"
 msgstr ""
 
-#: src/anjuta.c:1163
+#: src/anjuta.c:1156
 msgid "Anjuta: No file"
 msgstr ""
 
-#: src/anjuta.c:1484 src/anjuta.c:1586
+#: src/anjuta.c:1476 src/anjuta.c:1552
 msgid "ERROR: "
 msgstr "തെറ്റ്:"
 
-#: src/anjuta.c:1505 src/anjuta.c:1605
+#: src/anjuta.c:1497 src/anjuta.c:1570
 msgid ""
 "\n"
 "System: "
 msgstr ""
 
-#: src/anjuta.c:2078
+#: src/anjuta.c:2042
 #, c-format
 msgid ""
 "The \"%s\" utility is not installed.\n"
 "Install it and then restart Anjuta."
 msgstr ""
 
-#: src/anjuta.c:2104 src/anjuta.c:2160
+#: src/anjuta.c:2068 src/anjuta.c:2124
 msgid "None"
 msgstr "ഒന്നുമില്ല"
 
-#: src/anjuta.c:2115
+#: src/anjuta.c:2079
 msgid "DOS (CRLF)"
 msgstr ""
 
-#: src/anjuta.c:2118 src/anjuta.c:2152
+#: src/anjuta.c:2082 src/anjuta.c:2116
 msgid "Unix (LF)"
 msgstr ""
 
-#: src/anjuta.c:2121
+#: src/anjuta.c:2085
 msgid "Mac (CR)"
 msgstr ""
 
-#: src/anjuta.c:2124
+#: src/anjuta.c:2088
 msgid "Unknown"
 msgstr "അറിയപ്പെടാത്ത"
 
-#: src/anjuta.c:2141
+#: src/anjuta.c:2105
 msgid "OVR"
 msgstr ""
 
-#: src/anjuta.c:2145 src/anjuta.c:2151
+#: src/anjuta.c:2109 src/anjuta.c:2115
 msgid "INS"
 msgstr ""
 
-#: src/anjuta.c:2163
+#: src/anjuta.c:2127
 #, c-format
 msgid ""
 "  Project: %s       Zoom: %d       Line: %04d       Col: %03d       %s       "
 "Job: %s       Mode: %s"
 msgstr ""
 
-#: src/anjuta.c:2400
+#: src/anjuta.c:2364
 msgid "Looking up symbol"
 msgstr ""
 
-#: src/anjuta.c:2402 src/find_in_files.c:306
+#: src/anjuta.c:2366 src/find_in_files.c:306
 msgid "Finding in Files ....\n"
 msgstr ""
 
@@ -2864,26 +2709,25 @@ msgid ""
 "Do you still want to exit?"
 msgstr ""
 
-#: src/anjuta_cbs.c:504
+#: src/anjuta_cbs.c:405 src/project_dbase_gui.c:1348
 #, c-format
-msgid ""
-"The file '%s' already exists.\n"
-"Do you want to replace it with the one you are saving?"
+msgid "Not a regular file: %s."
 msgstr ""
 
-#: src/anjuta_cbs.c:511 src/anjuta_cbs.c:575 src/find_replace.c:342
-msgid "_Replace"
-msgstr "മാറ്റി എഴുതുക"
-
-#: src/anjuta_cbs.c:544
-msgid "Could not open file for writing"
+#: src/anjuta_cbs.c:411
+#, c-format
+msgid "No read permission for: %s."
 msgstr ""
 
-#: src/anjuta_cbs.c:568
+#: src/anjuta_cbs.c:523 src/anjuta_cbs.c:580
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
 "Do you want to overwrite it?."
+msgstr ""
+
+#: src/anjuta_cbs.c:556
+msgid "Could not open file for writing"
 msgstr ""
 
 #: src/anjuta_dirs.c:52
@@ -2922,14 +2766,14 @@ msgid ""
 msgstr ""
 
 #. For the time being
-#: src/appwizard_cbs.c:277 src/project_dbase.c:1524 src/project_dbase.c:1530
-#: src/project_dbase.c:1533 src/project_import_cbs.c:221 src/signals_cbs.c:115
+#: src/appwizard_cbs.c:277 src/project_dbase.c:1517 src/project_dbase.c:1523
+#: src/project_dbase.c:1526 src/project_import_cbs.c:221 src/signals_cbs.c:115
 #: src/signals_cbs.c:128 src/signals_cbs.c:141
 #, fuzzy
 msgid "Yes"
 msgstr "അതെ"
 
-#: src/appwizard_cbs.c:279 src/project_dbase.c:1526 src/project_dbase.c:1535
+#: src/appwizard_cbs.c:279 src/project_dbase.c:1519 src/project_dbase.c:1528
 #: src/project_import_cbs.c:223 src/signals_cbs.c:117 src/signals_cbs.c:130
 #: src/signals_cbs.c:143
 #, fuzzy
@@ -3012,54 +2856,36 @@ msgstr ""
 msgid "Unable to open the file: %s\n"
 msgstr ""
 
-#: src/breakpoints.c:111
+#: src/breakpoints.c:102
 msgid "Line"
 msgstr "വരി‌"
 
-#: src/breakpoints.c:112
+#: src/breakpoints.c:103
 msgid "Function"
 msgstr "ധ‌ര്മ്മം"
 
-#: src/breakpoints.c:112 src/signals_gui.c:127
+#: src/breakpoints.c:103 src/signals_gui.c:127
 msgid "Pass"
 msgstr ""
 
-#: src/breakpoints.c:112
+#: src/breakpoints.c:103
 msgid "Condition"
 msgstr "ഉപാധി"
 
-#.
-#. debugger_put_cmd_in_queqe ("info breakpoints", DB_CMD_NONE,
-#. breakpoints_dbase_update,
-#. debugger.breakpoints_dbase);
-#.
-#: src/breakpoints.c:166 src/debugger.c:1818
-msgid "All breakpoints enabled:\n"
-msgstr ""
-
-#.
-#. debugger_put_cmd_in_queqe ("info breakpoints", DB_CMD_NONE,
-#. breakpoints_dbase_update,
-#. debugger.breakpoints_dbase);
-#.
-#: src/breakpoints.c:184 src/debugger.c:1864
-msgid "All breakpoints disabled:\n"
-msgstr ""
-
-#: src/breakpoints.c:649
+#: src/breakpoints.c:485
 msgid "You must give a valid location to set the breakpoint."
 msgstr ""
 
-#: src/breakpoints.c:755
+#: src/breakpoints.c:588
 msgid "Are you sure you want to delete all the breakpoints?"
 msgstr ""
 
-#: src/breakpoints.c:1286
+#: src/breakpoints.c:1119
 msgid "Old breakpoints disabled."
 msgstr ""
 
 #. 5
-#: src/breakpoints.c:1428 src/main_menubar_def.h:758 src/text_editor_gui.c:161
+#: src/breakpoints.c:1261 src/main_menubar_def.h:758 src/text_editor_gui.c:161
 msgid "0"
 msgstr "0"
 
@@ -3080,10 +2906,10 @@ msgstr ""
 msgid "Building file: %s ...\n"
 msgstr ""
 
-#: src/build_file.c:130 src/build_project.c:347 src/build_project.c:384
-#: src/build_project.c:422 src/build_project.c:456 src/build_project.c:490
-#: src/clean_project.c:179 src/clean_project.c:220 src/compile.c:198
-#: src/configurer.c:223 src/cvs.c:746 src/find_in_files.c:341
+#: src/build_file.c:130 src/build_project.c:332 src/build_project.c:369
+#: src/build_project.c:407 src/build_project.c:441 src/build_project.c:475
+#: src/clean_project.c:118 src/clean_project.c:201 src/compile.c:198
+#: src/configurer.c:220 src/cvs.c:746 src/find_in_files.c:341
 #: src/project_import.c:179
 #, c-format
 msgid "Total time taken: %d secs\n"
@@ -3105,205 +2931,205 @@ msgstr ""
 msgid "Build completed ... successful"
 msgstr ""
 
-#: src/build_project.c:71 src/compile.c:60
+#: src/build_project.c:63 src/compile.c:60
 msgid "Unable to build module. Check Settings->Commands."
 msgstr ""
 
-#: src/build_project.c:92 src/build_project.c:155 src/compile.c:75
+#: src/build_project.c:84 src/build_project.c:140 src/compile.c:75
 msgid "Build Project"
 msgstr ""
 
-#: src/build_project.c:94 src/compile.c:77
+#: src/build_project.c:86 src/compile.c:77
 msgid "Building source directory of the Project: "
 msgstr ""
 
-#: src/build_project.c:138
+#: src/build_project.c:123
 msgid "Unable to build Project. Check Settings->Commands."
 msgstr ""
 
-#: src/build_project.c:158
+#: src/build_project.c:143
 msgid "Building the whole Project: "
 msgstr ""
 
-#: src/build_project.c:191
+#: src/build_project.c:176
 msgid "Unable to build tarball. Check Settings->Commands."
 msgstr ""
 
-#: src/build_project.c:208
+#: src/build_project.c:193
 msgid "Build Distribution"
 msgstr ""
 
-#: src/build_project.c:212
+#: src/build_project.c:197
 msgid "Building the distribution package of the Project: "
 msgstr ""
 
-#: src/build_project.c:244
+#: src/build_project.c:229
 msgid "Do you prefer installing as root ?"
 msgstr ""
 
-#: src/build_project.c:283
+#: src/build_project.c:268
 msgid "Unable to auto generate. Check Settings->Commands."
 msgstr ""
 
-#: src/build_project.c:299
+#: src/build_project.c:284
 msgid "Auto generate Project"
 msgstr ""
 
-#: src/build_project.c:302
+#: src/build_project.c:287
 msgid "Auto generating the Project: "
 msgstr ""
 
-#: src/build_project.c:330
+#: src/build_project.c:315
 msgid "Build completed...............Unsuccessful\n"
 msgstr ""
 
-#: src/build_project.c:334
+#: src/build_project.c:319
 msgid "Build terminated with error(s)."
 msgstr ""
 
-#: src/build_project.c:340
+#: src/build_project.c:325
 msgid "Build completed...............Successful\n"
 msgstr ""
 
-#: src/build_project.c:344
+#: src/build_project.c:329
 msgid "Build completed ... successful."
 msgstr ""
 
-#: src/build_project.c:368
+#: src/build_project.c:353
 msgid "Build All completed...............Unsuccessful\n"
 msgstr ""
 
-#: src/build_project.c:372
+#: src/build_project.c:357
 msgid "Build All completed...............Unsuccessful"
 msgstr ""
 
-#: src/build_project.c:377
+#: src/build_project.c:362
 msgid "Build All completed...............Successful\n"
 msgstr ""
 
-#: src/build_project.c:381
+#: src/build_project.c:366
 msgid "Build All completed ... successful"
 msgstr ""
 
-#: src/build_project.c:403
+#: src/build_project.c:388
 msgid "Build Distribution completed...............Unsuccessful\n"
 msgstr ""
 
-#: src/build_project.c:407
+#: src/build_project.c:392
 msgid "Build Distribution completed ... unsuccessful"
 msgstr ""
 
-#: src/build_project.c:412
+#: src/build_project.c:397
 msgid "Build Distribution completed...............Successful\n"
 msgstr ""
 
-#: src/build_project.c:415
+#: src/build_project.c:400
 msgid "The source tarball can be found in the top level directory of the Project.\n"
 msgstr ""
 
-#: src/build_project.c:419
+#: src/build_project.c:404
 msgid "Build Distribution completed ... successful"
 msgstr ""
 
-#: src/build_project.c:440
+#: src/build_project.c:425
 msgid "Install completed...............Unsuccessful\n"
 msgstr ""
 
-#: src/build_project.c:444
+#: src/build_project.c:429
 msgid "Install completed...............Unsuccessful"
 msgstr ""
 
-#: src/build_project.c:449
+#: src/build_project.c:434
 msgid "Install completed...............Successful\n"
 msgstr ""
 
-#: src/build_project.c:453
+#: src/build_project.c:438
 msgid "Install completed ... successful"
 msgstr ""
 
-#: src/build_project.c:474 src/gnome_project.c:259
+#: src/build_project.c:459 src/gnome_project.c:259
 msgid "Auto generation completed...............Unsuccessful\n"
 msgstr ""
 
-#: src/build_project.c:478
+#: src/build_project.c:463
 msgid "Auto generation completed ... unsuccessful"
 msgstr ""
 
-#: src/build_project.c:483
+#: src/build_project.c:468
 msgid ""
 "Auto generation completed...............Successful\n"
 "Now Configure the Project.\n"
 msgstr ""
 
-#: src/build_project.c:487
+#: src/build_project.c:472
 msgid "Auto generation completed ... successful"
 msgstr ""
 
-#: src/build_project.c:508 src/build_project.c:553
+#: src/build_project.c:493 src/build_project.c:538
 msgid "Unable to install Project. Check Settings->Commands."
 msgstr ""
 
-#: src/build_project.c:530 src/build_project.c:572
+#: src/build_project.c:515 src/build_project.c:557
 msgid "Install Project"
 msgstr ""
 
-#: src/build_project.c:532 src/build_project.c:574
+#: src/build_project.c:517 src/build_project.c:559
 msgid "Installing the Project: "
 msgstr ""
 
-#: src/clean_project.c:66
+#: src/clean_project.c:61
 msgid "Unable to clean Project. Check Settings->Commands."
 msgstr ""
 
-#: src/clean_project.c:82
+#: src/clean_project.c:72
 msgid "Clean"
 msgstr ""
 
-#: src/clean_project.c:85
+#: src/clean_project.c:75
 msgid "Cleaning the source directory of the Project: "
 msgstr ""
 
-#: src/clean_project.c:121
-msgid "Unable to Clean All for the Project. Check Settings->Commands."
-msgstr ""
-
-#: src/clean_project.c:132
-msgid "Clean All"
-msgstr ""
-
-#: src/clean_project.c:135
-msgid "Cleaning whole of the Project: "
-msgstr ""
-
-#: src/clean_project.c:163
+#: src/clean_project.c:102
 msgid "Cleaning completed...............Unsuccessful\n"
 msgstr ""
 
-#: src/clean_project.c:166
+#: src/clean_project.c:106
 msgid "Cleaning completed ... unsuccessful"
 msgstr ""
 
-#: src/clean_project.c:173
+#: src/clean_project.c:111
 msgid "Cleaning completed...............Successful\n"
 msgstr ""
 
-#: src/clean_project.c:176
+#: src/clean_project.c:115
 msgid "Cleaning completed ... successful"
 msgstr ""
 
-#: src/clean_project.c:206
+#: src/clean_project.c:150
+msgid "Unable to Clean All for the Project. Check Settings->Commands."
+msgstr ""
+
+#: src/clean_project.c:161
+msgid "Clean All"
+msgstr ""
+
+#: src/clean_project.c:164
+msgid "Cleaning whole of the Project: "
+msgstr ""
+
+#: src/clean_project.c:185
 msgid "Clean All completed...............Unsuccessful\n"
 msgstr ""
 
-#: src/clean_project.c:210
+#: src/clean_project.c:189
 msgid "Clean All completed ... unsuccessful"
 msgstr ""
 
-#: src/clean_project.c:215
+#: src/clean_project.c:194
 msgid "Clean All completed...............Successful\n"
 msgstr ""
 
-#: src/clean_project.c:218
+#: src/clean_project.c:198
 msgid "Clean All completed ... successful"
 msgstr ""
 
@@ -3319,7 +3145,7 @@ msgstr ""
 msgid "No compile command has been specified for this type of file."
 msgstr ""
 
-#: src/compile.c:155 src/text_editor_gui.c:168 src/toolbar.c:250
+#: src/compile.c:155 src/text_editor_gui.c:168 src/toolbar.c:249
 msgid "Compile"
 msgstr ""
 
@@ -3336,73 +3162,66 @@ msgstr ""
 msgid "Compile completed ... successful"
 msgstr ""
 
-#: src/compiler_options.c:521
-msgid ""
-"You have changed some of the compiler options of the project,\n"
-"would you like the next build action to perform a complete\n"
-"rebuild of the project?"
-msgstr ""
-
-#: src/compiler_options.c:743 src/src_paths.c:218
+#: src/compiler_options.c:676 src/src_paths.c:218
 msgid "Do you want to clear the list?"
 msgstr ""
 
-#: src/compiler_options.c:823 src/compiler_options.c:899
-#: src/compiler_options.c:922 src/compiler_options.c:967 src/signals_gui.c:131
+#: src/compiler_options.c:748 src/compiler_options.c:824
+#: src/compiler_options.c:847 src/compiler_options.c:892 src/signals_gui.c:131
 msgid "Description"
 msgstr "വിവരണം"
 
-#: src/compiler_options.c:838
+#: src/compiler_options.c:763
 msgid "Include paths"
 msgstr ""
 
-#: src/compiler_options.c:853
+#: src/compiler_options.c:778
 msgid "Libraries paths"
 msgstr ""
 
-#: src/compiler_options.c:876
+#: src/compiler_options.c:801
 msgid "Libraries and modules"
 msgstr ""
 
-#: src/compiler_options.c:892
+#: src/compiler_options.c:817
 msgid "Stock"
 msgstr ""
 
-#: src/compiler_options.c:937
+#: src/compiler_options.c:862
 msgid "Stock Defines"
 msgstr ""
 
-#: src/compiler_options.c:960
+#: src/compiler_options.c:885
 msgid "Warning"
 msgstr "മുന്നറിയിപ്പ്"
 
-#: src/configurer.c:155
+#: src/configurer.c:152
 msgid ""
 "Project does not have an executable configure script.\n"
 "Auto generate the Project first."
 msgstr ""
 
-#: src/configurer.c:187 src/toolbar.c:262
+#: src/configurer.c:184 src/toolbar.c:261
 msgid "Configure"
 msgstr "സജ്ജീകരിക്കുക"
 
-#: src/configurer.c:189
+#: src/configurer.c:186
 msgid "Configuring the Project ....\n"
 msgstr ""
 
-#: src/configurer.c:210
+#: src/configurer.c:207
 msgid "Configure completed...............Unsuccessful\n"
 msgstr ""
 
-#: src/configurer.c:212
+#: src/configurer.c:209
 msgid "Configure completed ... unsuccessful"
 msgstr ""
 
-#: src/configurer.c:218
+#: src/configurer.c:215
 msgid "Configure completed...............Successful\n"
 msgstr ""
 
-#: src/configurer.c:220
+#: src/configurer.c:217
 msgid "Configure completed ... successful"
 msgstr ""
 
@@ -3535,7 +3354,7 @@ msgid "CVS: Remove file"
 msgstr ""
 
 #. 3
-#: src/cvs_gui.c:92 src/project_dbase_gui.c:341 src/watch_gui.c:45
+#: src/cvs_gui.c:92 src/project_dbase_gui.c:332 src/watch_gui.c:45
 msgid "Remove"
 msgstr "നീക്കം ചെയ്യ‍ുക"
 
@@ -3635,69 +3454,65 @@ msgstr ""
 msgid "Import settings"
 msgstr ""
 
-#: src/debug_tree.c:1512
+#: src/debug_tree.c:1517
 msgid "Default format"
 msgstr ""
 
-#: src/debug_tree.c:1516
+#: src/debug_tree.c:1521
 msgid "Binary"
 msgstr "ദ്വയാങ്കം"
 
-#: src/debug_tree.c:1519
+#: src/debug_tree.c:1524
 msgid "Octal"
 msgstr ""
 
-#: src/debug_tree.c:1522
+#: src/debug_tree.c:1527
 msgid "Signed decimal"
 msgstr ""
 
-#: src/debug_tree.c:1525
+#: src/debug_tree.c:1530
 msgid "Unsigned decimal"
 msgstr ""
 
-#: src/debug_tree.c:1528 src/registers_gui.c:111
+#: src/debug_tree.c:1533 src/registers_gui.c:111
 msgid "Hex"
 msgstr "ഷഡ്ജകം"
 
-#: src/debug_tree.c:1531
+#: src/debug_tree.c:1536
 msgid "Char"
 msgstr "Char"
 
-#: src/debug_tree.c:1536
-msgid "Inspect memory"
-msgstr ""
-
 #. Must declare static, because it will be used forever
-#: src/debugger.c:81
+#: src/debugger.c:75
 msgid "Load Executable File"
 msgstr ""
 
 #. Must declare static, because it will be used forever
-#: src/debugger.c:87
+#: src/debugger.c:81
 msgid "Load Core File"
 msgstr ""
 
-#: src/debugger.c:190 src/debugger.c:638
+#: src/debugger.c:184 src/debugger.c:633
 msgid "Loading Executable: "
 msgstr ""
 
-#: src/debugger.c:241
+#: src/debugger.c:235
 msgid "Loading Core: "
 msgstr ""
 
-#: src/debugger.c:286 src/debugger.c:314
+#: src/debugger.c:280 src/debugger.c:308
 msgid ""
 "You have a process ATTACHED under the debugger.\n"
 "Please detach it first and then load the executable file."
 msgstr ""
 
-#: src/debugger.c:289 src/debugger.c:317
+#: src/debugger.c:283 src/debugger.c:311
 msgid ""
 "You have a process RUNNING under the debugger.\n"
 "Please stop it first and then load the executable file."
 msgstr ""
 
-#: src/debugger.c:564
+#: src/debugger.c:559
 #, c-format
 msgid ""
 "Unable to find: %s.\n"
@@ -3705,88 +3520,88 @@ msgid ""
 "Make sure Anjuta is installed correctly."
 msgstr ""
 
-#: src/debugger.c:633
+#: src/debugger.c:628
 msgid "Debugger"
 msgstr ""
 
-#: src/debugger.c:636
+#: src/debugger.c:631
 msgid "Getting ready to start debugging session ...\n"
 msgstr ""
 
-#: src/debugger.c:650
+#: src/debugger.c:643
 msgid "No executable specified\n"
 msgstr ""
 
-#: src/debugger.c:654
+#: src/debugger.c:647
 msgid "Open an executable or attach to a process to start debugging.\n"
 msgstr ""
 
-#: src/debugger.c:662
+#: src/debugger.c:655
 msgid "There was an error whilst launching the debugger.\n"
 msgstr ""
 
-#: src/debugger.c:666
+#: src/debugger.c:659
 msgid "Make sure 'gdb' is installed on the system.\n"
 msgstr ""
 
-#: src/debugger.c:805
+#: src/debugger.c:797
 msgid "Error: "
 msgstr "പിശക്:"
 
-#: src/debugger.c:834
+#: src/debugger.c:822
 msgid "Debugger is ready.\n"
 msgstr ""
 
-#. Good Bye message
-#: src/debugger.c:940
+#: src/debugger.c:929
 msgid ""
-"Debug session completed.\n"
+"\n"
+"Well, did you find the BUG? Debugging session completed.\n"
 "\n"
 msgstr ""
 
-#: src/debugger.c:1176
+#: src/debugger.c:1161
 msgid "Cannot execute gnome-terminal"
 msgstr ""
 
-#: src/debugger.c:1211
+#: src/debugger.c:1196
 msgid "Cannot start terminal for debugging."
 msgstr ""
 
-#: src/debugger.c:1277
+#: src/debugger.c:1261
 msgid "Warning: No debug terminal. Redirecting stdio to /dev/null.\n"
 msgstr ""
 
-#: src/debugger.c:1300
+#: src/debugger.c:1279
 msgid "Running program ... \n"
 msgstr ""
 
-#: src/debugger.c:1430
+#: src/debugger.c:1409
 #, c-format
 msgid "Attaching to process: %d\n"
 msgstr ""
 
-#: src/debugger.c:1460
+#: src/debugger.c:1438
 msgid ""
 "A process is already running.\n"
 "Would you like to terminate it and attach the new process?"
 msgstr ""
 
-#: src/debugger.c:1472
+#: src/debugger.c:1450
 msgid "Anjuta is unable to attach to itself."
 msgstr ""
 
-#: src/debugger.c:1558
+#: src/debugger.c:1536
 #, c-format
 msgid "Detaching the process: %d\n"
 msgstr ""
 
-#: src/debugger.c:1618
+#: src/debugger.c:1592
 msgid ""
 "Program is ATTACHED.\n"
 "Do you still want to stop Debugger?"
 msgstr ""
 
-#: src/debugger.c:1621
+#: src/debugger.c:1595
 msgid ""
 "Program is RUNNING.\n"
 "Do you still want to stop Debugger?"
@@ -3797,33 +3612,51 @@ msgstr ""
 #. breakpoints_dbase_update,
 #. debugger.breakpoints_dbase);
 #.
-#: src/debugger.c:1910
+#: src/debugger.c:1775
+msgid "All breakpoints enabled:\n"
+msgstr ""
+
+#.
+#. debugger_put_cmd_in_queqe ("info breakpoints", DB_CMD_NONE,
+#. breakpoints_dbase_update,
+#. debugger.breakpoints_dbase);
+#.
+#: src/debugger.c:1821
+msgid "All breakpoints disabled:\n"
+msgstr ""
+
+#.
+#. debugger_put_cmd_in_queqe ("info breakpoints", DB_CMD_NONE,
+#. breakpoints_dbase_update,
+#. debugger.breakpoints_dbase);
+#.
+#: src/debugger.c:1867
 msgid "All breakpoints deleted:\n"
 msgstr ""
 
-#: src/debugger.c:1943
+#: src/debugger.c:1900
 #, c-format
 msgid "Interrupting the process: %d\n"
 msgstr ""
 
-#: src/debugger.c:1972
+#: src/debugger.c:1929
 #, c-format
 msgid "Sending signal %s to the process: %d\n"
 msgstr ""
 
-#: src/debugger.c:1993
+#: src/debugger.c:1950
 msgid "Error whilst signalling the process."
 msgstr ""
 
-#: src/executer.c:53 src/mainmenu_callbacks.c:2142
+#: src/executer.c:53 src/mainmenu_callbacks.c:1702
 msgid "The target executable of this Project is unknown"
 msgstr ""
 
-#: src/executer.c:58 src/mainmenu_callbacks.c:2144
+#: src/executer.c:58 src/mainmenu_callbacks.c:1704
 msgid "The target executable of this Project is not executable"
 msgstr ""
 
-#: src/executer.c:63 src/mainmenu_callbacks.c:2148
+#: src/executer.c:63 src/mainmenu_callbacks.c:1708
 msgid "The target executable does not exist for this Project"
 msgstr ""
 
@@ -3831,8 +3664,8 @@ msgstr ""
 msgid "No file or Project opened."
 msgstr ""
 
-#: src/executer.c:81 src/executer.c:100 src/mainmenu_callbacks.c:2168
-#: src/mainmenu_callbacks.c:2179
+#: src/executer.c:81 src/executer.c:100 src/mainmenu_callbacks.c:1728
+#: src/mainmenu_callbacks.c:1739
 msgid "No executable for this file."
 msgstr ""
 
@@ -3880,12 +3713,12 @@ msgstr ""
 msgid "Do you want to replace this?"
 msgstr ""
 
-#: src/find_replace.c:398
+#: src/find_replace.c:395
 #, c-format
 msgid "The string \"%s\" was not found in the selected text"
 msgstr ""
 
-#: src/find_replace.c:403
+#: src/find_replace.c:400
 #, c-format
 msgid "The string \"%s\" was not found from the current location"
 msgstr ""
@@ -3905,8 +3738,8 @@ msgstr ""
 msgid "The match \"%s\" was not found from the current location"
 msgstr ""
 
-#: src/find_text.c:197
-msgid "No matches found. Wrap search around the document?"
+#: src/find_text.c:196 src/toolbar_callbacks.c:234
+msgid "No matches. Wrap search around the document?"
 msgstr ""
 
 #: src/glade_iface.c:96 src/glade_iface.c:171
@@ -3999,7 +3832,7 @@ msgstr ""
 msgid "launcher.c: error while reading child stderr - %s\n"
 msgstr ""
 
-#: src/launcher.c:370 src/text_editor.c:1466
+#: src/launcher.c:370 src/text_editor.c:1225
 msgid "Cannot execute command shell"
 msgstr ""
 
@@ -4011,7 +3844,7 @@ msgstr ""
 msgid "Recent Files    "
 msgstr ""
 
-#: src/main_menubar.c:394 src/project_dbase.c:2074
+#: src/main_menubar.c:394 src/project_dbase.c:2062
 msgid "Recent Projects "
 msgstr ""
 
@@ -4030,7 +3863,7 @@ msgstr ""
 msgid "_Save"
 msgstr "സംരംക്ഷിക്കുക"
 
-#: src/main_menubar_def.h:42 src/text_editor_gui.c:107 src/toolbar.c:84
+#: src/main_menubar_def.h:42 src/text_editor_gui.c:107 src/toolbar.c:83
 msgid "Save current file"
 msgstr ""
 
@@ -4057,7 +3890,7 @@ msgstr ""
 msgid "_Close File"
 msgstr ""
 
-#: src/main_menubar_def.h:60 src/toolbar.c:92
+#: src/main_menubar_def.h:60 src/toolbar.c:91
 msgid "Close current file"
 msgstr ""
 
@@ -4075,7 +3908,7 @@ msgstr ""
 msgid "Reload F_ile"
 msgstr ""
 
-#: src/main_menubar_def.h:72 src/text_editor_gui.c:112 src/toolbar.c:88
+#: src/main_menubar_def.h:72 src/text_editor_gui.c:112 src/toolbar.c:87
 msgid "Reload current file"
 msgstr ""
 
@@ -4103,7 +3936,7 @@ msgstr ""
 msgid "Open P_roject ..."
 msgstr ""
 
-#: src/main_menubar_def.h:91 src/toolbar.c:214
+#: src/main_menubar_def.h:91 src/toolbar.c:213
 msgid "Open a Project"
 msgstr ""
 
@@ -4112,7 +3945,7 @@ msgstr ""
 msgid "Sa_ve Project"
 msgstr ""
 
-#: src/main_menubar_def.h:97 src/toolbar.c:225
+#: src/main_menubar_def.h:97 src/toolbar.c:224
 msgid "Save the current Project"
 msgstr ""
 
@@ -4121,7 +3954,7 @@ msgstr ""
 msgid "Close Pro_ject"
 msgstr ""
 
-#: src/main_menubar_def.h:103 src/toolbar.c:237
+#: src/main_menubar_def.h:103 src/toolbar.c:236
 msgid "Close the current Project"
 msgstr ""
 
@@ -4150,7 +3983,7 @@ msgstr ""
 msgid "_Print"
 msgstr "അച്ചടി"
 
-#: src/main_menubar_def.h:123 src/text_editor_gui.c:179 src/toolbar.c:110
+#: src/main_menubar_def.h:123 src/text_editor_gui.c:179 src/toolbar.c:109
 msgid "Print the current file"
 msgstr "ഇപ്പോഴത്തെ രചന അച്ചടിക്കുക"
 
@@ -4584,7 +4417,7 @@ msgstr ""
 msgid "U_ndo"
 msgstr ""
 
-#: src/main_menubar_def.h:533 src/toolbar.c:97
+#: src/main_menubar_def.h:533 src/toolbar.c:96
 msgid "Undo the last action"
 msgstr "അവസാന പ്രവ‍ര്ത്തി ഒഴിവാക്കുക"
 
@@ -4593,7 +4426,7 @@ msgstr "അവസാന പ്രവ‍ര്ത്തി ഒഴിവാക്�
 msgid "_Redo"
 msgstr "പിന്"
 
-#: src/main_menubar_def.h:540 src/toolbar.c:101
+#: src/main_menubar_def.h:540 src/toolbar.c:100
 msgid "Redo the last undone action"
 msgstr ""
 
@@ -4657,8 +4490,8 @@ msgstr ""
 
 #. 12
 #: src/main_menubar_def.h:605
-msgid "S_earch"
-msgstr ""
+msgid "_Search"
+msgstr "തെരച്ചില്"
 
 #. 13
 #: src/main_menubar_def.h:611
@@ -4686,7 +4519,7 @@ msgstr ""
 
 #. 17
 #: src/main_menubar_def.h:634
-msgid "Search And Re_place"
+msgid "Search And Replace"
 msgstr ""
 
 #: src/main_menubar_def.h:635
@@ -4900,7 +4733,7 @@ msgstr ""
 msgid "_Message window"
 msgstr ""
 
-#: src/main_menubar_def.h:800 src/toolbar.c:154
+#: src/main_menubar_def.h:800 src/toolbar.c:153
 msgid "Show/Hide the Message window"
 msgstr ""
 
@@ -4909,7 +4742,7 @@ msgstr ""
 msgid "_Project window"
 msgstr ""
 
-#: src/main_menubar_def.h:806 src/toolbar.c:150
+#: src/main_menubar_def.h:806 src/toolbar.c:149
 msgid "Show/Hide the Project window"
 msgstr ""
 
@@ -4963,7 +4796,7 @@ msgstr ""
 #. on_program_stack1_activate, NULL, NULL,
 #. GNOME_APP_PIXMAP_NONE, NULL,
 #. GDK_F7, GDK_CONTROL_MASK, NULL},
-#. 10
+#. 11
 #: src/main_menubar_def.h:855
 msgid "Shared _Libraries"
 msgstr ""
@@ -4972,7 +4805,7 @@ msgstr ""
 msgid "Show shared libraries loaded by the program"
 msgstr ""
 
-#. 11
+#. 12
 #: src/main_menubar_def.h:861
 msgid "_Kernel Signals"
 msgstr ""
@@ -4981,7 +4814,7 @@ msgstr ""
 msgid "Show the kernel signals editor window"
 msgstr ""
 
-#. 12
+#. 13
 #: src/main_menubar_def.h:867
 msgid "_Dump Window"
 msgstr ""
@@ -4990,8 +4823,8 @@ msgstr ""
 msgid "Show memory dump window"
 msgstr ""
 
-#. 13
 #. 14
+#. 15
 #: src/main_menubar_def.h:874
 msgid "_Console"
 msgstr ""
@@ -5000,7 +4833,7 @@ msgstr ""
 msgid "Show the console where the program runs"
 msgstr ""
 
-#. 15
+#. 16
 #: src/main_menubar_def.h:880
 msgid "Show _Locals"
 msgstr ""
@@ -5010,42 +4843,42 @@ msgid "Show/Hide Local variables in Message window"
 msgstr ""
 
 #. 0
-#: src/main_menubar_def.h:891 src/project_dbase_gui.c:277
+#: src/main_menubar_def.h:891 src/project_dbase_gui.c:268
 msgid "Include file"
 msgstr "രചന ഉള്‍ക്കൊള്ളിക്കുക"
 
 #. 1
-#: src/main_menubar_def.h:897 src/project_dbase_gui.c:283
+#: src/main_menubar_def.h:897 src/project_dbase_gui.c:274
 msgid "Source file"
 msgstr ""
 
 #. 2
-#: src/main_menubar_def.h:903 src/project_dbase_gui.c:289
+#: src/main_menubar_def.h:903 src/project_dbase_gui.c:280
 msgid "Help file"
 msgstr ""
 
 #. 3
-#: src/main_menubar_def.h:909 src/project_dbase_gui.c:295
+#: src/main_menubar_def.h:909 src/project_dbase_gui.c:286
 msgid "Data file"
 msgstr ""
 
 #. 4
-#: src/main_menubar_def.h:915 src/project_dbase_gui.c:301
+#: src/main_menubar_def.h:915 src/project_dbase_gui.c:292
 msgid "Pixmap file"
 msgstr ""
 
 #. 5
-#: src/main_menubar_def.h:921 src/project_dbase_gui.c:307
+#: src/main_menubar_def.h:921 src/project_dbase_gui.c:298
 msgid "Translation file"
 msgstr ""
 
 #. 6
-#: src/main_menubar_def.h:927 src/project_dbase_gui.c:313
+#: src/main_menubar_def.h:927 src/project_dbase_gui.c:304
 msgid "Doc file"
 msgstr ""
 
 #. 0
-#: src/main_menubar_def.h:938 src/project_dbase_gui.c:323
+#: src/main_menubar_def.h:938 src/project_dbase_gui.c:314
 msgid "Add File"
 msgstr ""
 
@@ -5056,7 +4889,7 @@ msgstr ""
 
 #. 4
 #. 5
-#: src/main_menubar_def.h:963 src/project_dbase_gui.c:348
+#: src/main_menubar_def.h:963 src/project_dbase_gui.c:339
 msgid "Configure Project"
 msgstr ""
 
@@ -5065,7 +4898,7 @@ msgid "Configure options for the current Project"
 msgstr ""
 
 #. 6
-#: src/main_menubar_def.h:969 src/project_dbase_gui.c:354
+#: src/main_menubar_def.h:969 src/project_dbase_gui.c:345
 msgid "Project Info"
 msgstr ""
 
@@ -5529,7 +5362,7 @@ msgstr ""
 msgid "_Execute"
 msgstr "നിര്‍വ്വഹിക്കുക"
 
-#: src/main_menubar_def.h:1315 src/toolbar.c:297
+#: src/main_menubar_def.h:1315 src/toolbar.c:296
 msgid "Execute the program"
 msgstr ""
 
@@ -5841,7 +5674,7 @@ msgstr ""
 msgid "I_nterrupt Program"
 msgstr ""
 
-#: src/main_menubar_def.h:1550 src/toolbar.c:582
+#: src/main_menubar_def.h:1550 src/toolbar.c:581
 msgid "Interrupt execution of the program"
 msgstr ""
 
@@ -6245,61 +6078,61 @@ msgid ""
 "Do you want to save it before closing?"
 msgstr ""
 
-#: src/mainmenu_callbacks.c:180 src/project_dbase_gui.c:1127
-msgid "Do_n't save"
-msgstr "സംരക്ഷിക്കേണ്ട"
-
-#: src/mainmenu_callbacks.c:237
+#: src/mainmenu_callbacks.c:235
 #, c-format
 msgid ""
 "Are you sure you want to reload '%s'?\n"
 "Any unsaved changes will be lost."
 msgstr ""
 
-#: src/mainmenu_callbacks.c:248 src/text_editor.c:1306
-msgid "_Reload"
-msgstr "പുതുക്കുക"
-
-#: src/mainmenu_callbacks.c:539
+#: src/mainmenu_callbacks.c:533
 msgid "%Y"
 msgstr ""
 
-#: src/mainmenu_callbacks.c:558
+#: src/mainmenu_callbacks.c:552
 msgid "%Y-%m-%d"
 msgstr ""
 
-#: src/mainmenu_callbacks.c:633
+#: src/mainmenu_callbacks.c:627
 #, c-format
 msgid "The file \"%s\" is not a header file."
 msgstr ""
 
-#: src/mainmenu_callbacks.c:1730
+#: src/mainmenu_callbacks.c:1734
+msgid "The executable is not up-to-date."
+msgstr ""
+
+#: src/mainmenu_callbacks.c:1759
 msgid "Debugger is not running. Start it first."
 msgstr ""
 
-#: src/mainmenu_callbacks.c:2119
+#: src/mainmenu_callbacks.c:2148
 msgid ""
 "Hover the mouse pointer over any menu item and press\n"
 " the shortcut key to associate with it."
 msgstr ""
 
-#: src/mainmenu_callbacks.c:2174
-msgid "The executable is not up-to-date."
+#: src/memory.c:132
+msgid "Memory"
+msgstr "ഓര്മ്മ"
+
+#: src/memory.c:208
+msgid "Inspect "
 msgstr ""
 
-#: src/memory.c:111
-msgid "Unable to build user interface for Memory\n"
+#: src/memory.c:213
+msgid "Hexa address "
 msgstr ""
 
-#: src/memory.c:414
-msgid "Enter a Hexa address or Select one in the data"
-msgstr ""
+#: src/memory.c:224
+msgid "Quit"
+msgstr "പുറത്ത് കടക്കുക"
 
-#: src/memory.c:421
+#: src/memory.c:465
 msgid "Non accessible address !"
 msgstr ""
 
-#: src/message-manager.cc:42 src/text_editor_gui.c:135 src/toolbar.c:114
+#: src/message-manager.cc:42 src/text_editor_gui.c:135 src/toolbar.c:113
 msgid "Find"
 msgstr "കണ്ടെത്തുക"
 
@@ -6311,7 +6144,7 @@ msgstr ""
 msgid "Watches"
 msgstr ""
 
-#: src/message-manager.cc:42 src/toolbar.c:647
+#: src/message-manager.cc:42 src/toolbar.c:646
 msgid "Stack"
 msgstr ""
 
@@ -6332,7 +6165,7 @@ msgstr ""
 msgid "Could not find message type %s!\n"
 msgstr ""
 
-#: src/message-manager.cc:542 src/toolbar.c:153
+#: src/message-manager.cc:540 src/toolbar.c:152
 msgid "Messages"
 msgstr ""
 
@@ -6344,17 +6177,13 @@ msgstr "വിഭാഗങ്ങള്"
 msgid "Anjuta Preferences Dialog"
 msgstr ""
 
-#: src/preferences.c:563
+#: src/preferences.c:553
 msgid ""
 "Are you sure you want to reset the preferences to\n"
 "their default settings?"
 msgstr ""
 
-#: src/preferences.c:566
-msgid "_Reset"
-msgstr ""
-
-#: src/preferences.c:946
+#: src/preferences.c:940
 #, c-format
 msgid ""
 "Cannot load Global defaults and configuration files:\n"
@@ -6363,7 +6192,7 @@ msgid ""
 "Anjuta will fall back to built in (limited) settings"
 msgstr ""
 
-#: src/preferences.c:1078
+#: src/preferences.c:1072
 msgid "Anjuta Preferences"
 msgstr ""
 
@@ -6372,81 +6201,81 @@ msgstr ""
 msgid "Add to Project"
 msgstr ""
 
-#: src/project_dbase.c:260 src/project_dbase.c:331 src/project_dbase_gui.c:586
+#: src/project_dbase.c:259 src/project_dbase.c:330 src/project_dbase_gui.c:575
 msgid "Project: None"
 msgstr ""
 
-#: src/project_dbase.c:401
+#: src/project_dbase.c:400
 msgid "Anjuta project files"
 msgstr ""
 
-#: src/project_dbase.c:402 src/project_dbase_gui.c:170
-#: src/project_dbase_gui.c:188 src/project_dbase_gui.c:200
-#: src/project_dbase_gui.c:208 src/project_dbase_gui.c:220
-#: src/project_dbase_gui.c:229 src/project_dbase_gui.c:238
-#: widgets/gnomefilelist.c:711
+#: src/project_dbase.c:401 src/project_dbase_gui.c:162
+#: src/project_dbase_gui.c:179 src/project_dbase_gui.c:191
+#: src/project_dbase_gui.c:199 src/project_dbase_gui.c:211
+#: src/project_dbase_gui.c:220 src/project_dbase_gui.c:229
+#: widgets/gnomefilelist.c:709
 msgid "All files"
 msgstr ""
 
-#: src/project_dbase.c:483 src/project_dbase.c:501
+#: src/project_dbase.c:482 src/project_dbase.c:500
 #, c-format
 msgid "Unable to load Project: %s"
 msgstr ""
 
-#: src/project_dbase.c:494 src/project_dbase.c:2523
+#: src/project_dbase.c:493 src/project_dbase.c:2511
 #, c-format
 msgid ""
 "Anjuta version %s or later is required to open this Project.\n"
 "Please upgrade to the latest version of Anjuta (Help for more information)."
 msgstr ""
 
-#: src/project_dbase.c:886
+#: src/project_dbase.c:885
 msgid "Project saved successfully"
 msgstr ""
 
-#: src/project_dbase.c:892 src/project_dbase.c:894
+#: src/project_dbase.c:891 src/project_dbase.c:893
 msgid "Unable to save the Project."
 msgstr ""
 
-#: src/project_dbase.c:1601
+#: src/project_dbase.c:1594
 msgid ""
 "A .glade file does not exist in the top level Project directory. If you do "
 "not use glade for GUI editing,  please specify a custom command for it in "
 "[Project]->[Project Configuration]->[GUI editor command]"
 msgstr ""
 
-#: src/project_dbase.c:1663
+#: src/project_dbase.c:1656
 msgid ""
 "A .glade file does not\n"
 "exist in the top level Project directory."
 msgstr ""
 
 #. Set project title
-#: src/project_dbase.c:2111
+#: src/project_dbase.c:2099
 msgid "Project: "
 msgstr ""
 
-#: src/project_dbase.c:2228
+#: src/project_dbase.c:2216
 #, c-format
 msgid ""
 "Unable to get relative file name for %s\n"
 " in %s"
 msgstr ""
 
-#: src/project_dbase.c:2293
+#: src/project_dbase.c:2281
 msgid " already exists in the project"
 msgstr ""
 
-#: src/project_dbase.c:2326
+#: src/project_dbase.c:2314
 msgid "Error while copying the file inside the module."
 msgstr ""
 
-#: src/project_dbase.c:2599 src/project_dbase.c:2602
+#: src/project_dbase.c:2587 src/project_dbase.c:2590
 #, c-format
 msgid "Error in loading Project: %s"
 msgstr ""
 
-#: src/project_dbase.c:2623
+#: src/project_dbase.c:2611
 msgid "Project loaded successfully."
 msgstr ""
 
@@ -6457,278 +6286,294 @@ msgid ""
 "'%s' from the Project?"
 msgstr ""
 
-#: src/project_dbase_gui.c:135
+#: src/project_dbase_gui.c:131
 msgid "There is already a Project open.Do you want to close it first?"
 msgstr ""
 
-#: src/project_dbase_gui.c:169
+#: src/project_dbase_gui.c:161
 msgid "Help files"
 msgstr ""
 
-#: src/project_dbase_gui.c:178 src/project_dbase_gui.c:237
-msgid "C/C++ Headers"
-msgstr ""
-
-#: src/project_dbase_gui.c:179 widgets/gnomefilelist.c:714
+#: src/project_dbase_gui.c:170 widgets/gnomefilelist.c:712
 msgid "C/C++ source files"
 msgstr ""
 
-#: src/project_dbase_gui.c:180
+#: src/project_dbase_gui.c:171
 msgid "Java source files"
 msgstr ""
 
-#: src/project_dbase_gui.c:181 widgets/gnomefilelist.c:721
+#: src/project_dbase_gui.c:172 widgets/gnomefilelist.c:719
 msgid "Pascal files"
 msgstr ""
 
-#: src/project_dbase_gui.c:182 widgets/gnomefilelist.c:723
+#: src/project_dbase_gui.c:173 widgets/gnomefilelist.c:721
 msgid "PHP files"
 msgstr ""
 
-#: src/project_dbase_gui.c:183 widgets/gnomefilelist.c:726
+#: src/project_dbase_gui.c:174 widgets/gnomefilelist.c:724
 msgid "Perl files"
 msgstr ""
 
-#: src/project_dbase_gui.c:184 widgets/gnomefilelist.c:728
+#: src/project_dbase_gui.c:175 widgets/gnomefilelist.c:726
 msgid "Python files"
 msgstr ""
 
-#: src/project_dbase_gui.c:185 widgets/gnomefilelist.c:733
+#: src/project_dbase_gui.c:176 widgets/gnomefilelist.c:731
 msgid "Shell Script files"
 msgstr ""
 
-#: src/project_dbase_gui.c:186 widgets/gnomefilelist.c:738
+#: src/project_dbase_gui.c:177 widgets/gnomefilelist.c:736
 msgid "Visual Basic files"
 msgstr ""
 
-#: src/project_dbase_gui.c:187 widgets/gnomefilelist.c:746
+#: src/project_dbase_gui.c:178 widgets/gnomefilelist.c:744
 msgid ".lua files"
 msgstr ""
 
-#: src/project_dbase_gui.c:196
+#: src/project_dbase_gui.c:187
 msgid "PNG files"
 msgstr ""
 
-#: src/project_dbase_gui.c:197
+#: src/project_dbase_gui.c:188
 msgid "JPG files"
 msgstr ""
 
-#: src/project_dbase_gui.c:198
+#: src/project_dbase_gui.c:189
 msgid "BMP files"
 msgstr ""
 
-#: src/project_dbase_gui.c:199
+#: src/project_dbase_gui.c:190
 msgid "GIF files"
 msgstr ""
 
-#: src/project_dbase_gui.c:216
+#: src/project_dbase_gui.c:207
 msgid "Text files"
 msgstr ""
 
-#: src/project_dbase_gui.c:217
+#: src/project_dbase_gui.c:208
 msgid "XML files"
 msgstr ""
 
-#: src/project_dbase_gui.c:218
+#: src/project_dbase_gui.c:209
 msgid "HTML files"
 msgstr ""
 
-#: src/project_dbase_gui.c:219
+#: src/project_dbase_gui.c:210
 msgid "DOC files"
 msgstr ""
 
-#: src/project_dbase_gui.c:228
+#: src/project_dbase_gui.c:219
 msgid "PO files"
 msgstr ""
 
-#: src/project_dbase_gui.c:268
+#: src/project_dbase_gui.c:228
+msgid "C/C++ Headers"
+msgstr ""
+
+#: src/project_dbase_gui.c:259
 msgid "Add file to module: "
 msgstr ""
 
-#: src/project_dbase_gui.c:598 widgets/gnomefilelist.c:400
+#: src/project_dbase_gui.c:587 widgets/gnomefilelist.c:396
 msgid "Files"
 msgstr "രചനകള്"
 
-#: src/project_dbase_gui.c:602
+#: src/project_dbase_gui.c:591
 msgid "Symbols"
 msgstr ""
 
-#: src/project_dbase_gui.c:738
+#: src/project_dbase_gui.c:727
 msgid "Project Information"
 msgstr ""
 
-#: src/project_dbase_gui.c:746
+#: src/project_dbase_gui.c:735
 msgid " Project Information "
 msgstr ""
 
-#: src/project_dbase_gui.c:782
+#: src/project_dbase_gui.c:771
 msgid "Author:"
 msgstr "ക‌ര്‌ത്താവ്:"
 
-#: src/project_dbase_gui.c:790 src/wizard_gui.c:335
+#: src/project_dbase_gui.c:779 src/wizard_gui.c:335
 msgid "Project Name:"
 msgstr ""
 
-#: src/project_dbase_gui.c:869
+#: src/project_dbase_gui.c:858
 msgid "Program Name:"
 msgstr ""
 
-#: src/project_dbase_gui.c:876
+#: src/project_dbase_gui.c:865
 msgid "Source files:"
 msgstr ""
 
-#: src/project_dbase_gui.c:883
+#: src/project_dbase_gui.c:872
 msgid "Help files:"
 msgstr ""
 
-#: src/project_dbase_gui.c:890
+#: src/project_dbase_gui.c:879
 msgid "Data files:"
 msgstr ""
 
-#: src/project_dbase_gui.c:897
+#: src/project_dbase_gui.c:886
 msgid "Pixmap files:"
 msgstr ""
 
-#: src/project_dbase_gui.c:904
+#: src/project_dbase_gui.c:893
 msgid "Doc files:"
 msgstr ""
 
-#: src/project_dbase_gui.c:925
+#: src/project_dbase_gui.c:914
 msgid "Po files:"
 msgstr ""
 
-#: src/project_dbase_gui.c:955
+#: src/project_dbase_gui.c:944
 msgid "GUI editable by Glade:"
 msgstr ""
 
-#: src/project_dbase_gui.c:977
+#: src/project_dbase_gui.c:966
 msgid "Makefiles managed:"
 msgstr ""
 
-#: src/project_dbase_gui.c:1019
+#: src/project_dbase_gui.c:1008
 msgid "Gettext support:"
 msgstr ""
 
-#: src/project_dbase_gui.c:1077
+#: src/project_dbase_gui.c:1066
 msgid "Project Type:"
 msgstr ""
 
-#: src/project_dbase_gui.c:1122
+#: src/project_dbase_gui.c:1111
 msgid ""
 "Project is not saved.\n"
 "Do you want to save it before closing?"
 msgstr ""
 
-#: src/project_dbase_gui.c:1137 src/project_dbase_gui.c:1257
+#: src/project_dbase_gui.c:1123 src/project_dbase_gui.c:1243
 msgid "Breton"
 msgstr "ബ്രിട്ടണ്"
 
-#: src/project_dbase_gui.c:1138
+#: src/project_dbase_gui.c:1124
 msgid "Catalan"
 msgstr "ക്യാറ്റലന്"
 
-#: src/project_dbase_gui.c:1139
+#: src/project_dbase_gui.c:1125
 msgid "Czech"
 msgstr "സ്വിഷ്"
 
-#: src/project_dbase_gui.c:1140
+#: src/project_dbase_gui.c:1126
 msgid "Danish"
 msgstr "ഡാനിഷ്"
 
-#: src/project_dbase_gui.c:1141
+#: src/project_dbase_gui.c:1127
 msgid "German"
 msgstr "ജര്‌മ്മന്"
 
-#: src/project_dbase_gui.c:1143
+#: src/project_dbase_gui.c:1128
+msgid "Greek"
+msgstr "ഗ്രീക്ക്"
+
+#: src/project_dbase_gui.c:1129
 msgid "Esperanto"
 msgstr "സ്പരാന്റോ"
 
-#: src/project_dbase_gui.c:1144
+#: src/project_dbase_gui.c:1130
 msgid "Spanish"
 msgstr "സ്പാനിഷ്"
 
-#: src/project_dbase_gui.c:1145
+#: src/project_dbase_gui.c:1131
 msgid "Finnish"
 msgstr "ഫിന്നിഷ്"
 
-#: src/project_dbase_gui.c:1146
+#: src/project_dbase_gui.c:1132
 msgid "French"
 msgstr "ഫര്ഞ്ച്"
 
-#: src/project_dbase_gui.c:1147
+#: src/project_dbase_gui.c:1133
 msgid "Herbrew"
 msgstr ""
 
-#: src/project_dbase_gui.c:1148 src/project_dbase_gui.c:1152
+#: src/project_dbase_gui.c:1134 src/project_dbase_gui.c:1138
 msgid "Croatian"
 msgstr "ക്രൊയോഷ്യന്"
 
-#: src/project_dbase_gui.c:1149
+#: src/project_dbase_gui.c:1135
 msgid "Hungarian"
 msgstr "ഹംഗേറിയന്"
 
-#: src/project_dbase_gui.c:1150
+#: src/project_dbase_gui.c:1136
 msgid "Islandic"
 msgstr ""
 
-#: src/project_dbase_gui.c:1151
+#: src/project_dbase_gui.c:1137
 msgid "Italian"
 msgstr "ഇറ്റാലിയന്‌"
 
-#: src/project_dbase_gui.c:1154
+#: src/project_dbase_gui.c:1139
+msgid "Korean"
+msgstr "കൊറിയന്"
+
+#: src/project_dbase_gui.c:1140
 msgid "Macedonian"
 msgstr "മാസിഡോണിയന്"
 
-#: src/project_dbase_gui.c:1155
+#: src/project_dbase_gui.c:1141
 msgid "Dutch"
 msgstr "ഡച്ച്"
 
-#: src/project_dbase_gui.c:1156
+#: src/project_dbase_gui.c:1142
 msgid "Norwegian"
 msgstr "നോറ്വിജിയന്"
 
-#: src/project_dbase_gui.c:1157
+#: src/project_dbase_gui.c:1143
 msgid "Polish"
 msgstr "പോളിഷ്"
 
-#: src/project_dbase_gui.c:1158
+#: src/project_dbase_gui.c:1144
 msgid "Portuguese"
 msgstr "പോറ്ട്ടുഗിസ്(പോറ്ട്ടുഗല്)"
 
-#: src/project_dbase_gui.c:1160
+#: src/project_dbase_gui.c:1145
+msgid "Romanian"
+msgstr "റൊമേനിയന്"
+
+#: src/project_dbase_gui.c:1146
 msgid "Russian"
 msgstr "റഷ്യന്‌"
 
-#: src/project_dbase_gui.c:1161
+#: src/project_dbase_gui.c:1147
 msgid "Slovak"
 msgstr "സ്ലോവാക്"
 
-#: src/project_dbase_gui.c:1163
+#: src/project_dbase_gui.c:1148
+msgid "Turkish"
+msgstr "തുര്ക്കിഷ്"
+
+#: src/project_dbase_gui.c:1149
 msgid "Simplified Chinese"
 msgstr ""
 
-#: src/project_dbase_gui.c:1164
+#: src/project_dbase_gui.c:1150
 msgid "Chinese"
 msgstr "ചൈനീസ്‌"
 
-#: src/project_dbase_gui.c:1165
+#: src/project_dbase_gui.c:1151
 msgid "Estonian"
 msgstr "ഇസ്റ്റോനിയന്"
 
-#: src/project_dbase_gui.c:1209
+#: src/project_dbase_gui.c:1195
 msgid "Select regional language"
 msgstr ""
 
-#: src/project_dbase_gui.c:1225
+#: src/project_dbase_gui.c:1211
 msgid "Select regional language:"
 msgstr ""
 
-#: src/project_dbase_gui.c:1265
+#: src/project_dbase_gui.c:1251
 #, c-format
 msgid "Unable to find pixmap file: %s"
 msgstr ""
 
-#: src/project_dbase_gui.c:1344
+#: src/project_dbase_gui.c:1330
 #, c-format
 msgid ""
 "\"%s\"\n"
@@ -6736,12 +6581,7 @@ msgid ""
 "Do you want to create it now ?"
 msgstr ""
 
-#: src/project_dbase_gui.c:1362
-#, c-format
-msgid "Not a regular file: %s."
-msgstr ""
-
-#: src/project_dbase_gui.c:1372
+#: src/project_dbase_gui.c:1358
 #, c-format
 msgid ""
 "\"%s\"\n"
@@ -6860,12 +6700,12 @@ msgstr ""
 msgid "Could not find application image file: %s"
 msgstr ""
 
-#: src/resources.c:101
+#: src/resources.c:104
 #, c-format
 msgid "Could not find application pixmap file: %s"
 msgstr ""
 
-#: src/resources.c:263 src/resources.c:271
+#: src/resources.c:266 src/resources.c:274
 msgid "Cannot execute Devhelp. Make sure it is installed"
 msgstr ""
 
@@ -6930,7 +6770,7 @@ msgstr ""
 msgid "Signal"
 msgstr ""
 
-#: src/signals_gui.c:119 src/toolbar.c:315 src/toolbar.c:674
+#: src/signals_gui.c:119 src/toolbar.c:314 src/toolbar.c:673
 msgid "Stop"
 msgstr "നിര്‌ത്തുക"
 
@@ -6975,7 +6815,7 @@ msgstr ""
 msgid "Error writing to: %s."
 msgstr ""
 
-#: src/src_paths.c:264
+#: src/src_paths.c:260
 msgid "Source Paths"
 msgstr ""
 
@@ -7011,7 +6851,7 @@ msgstr "സജീവം"
 msgid "Count"
 msgstr "എണ്ണുക"
 
-#: src/stack_trace_gui.c:129 src/toolbar.c:619
+#: src/stack_trace_gui.c:129 src/toolbar.c:618
 msgid "Frame"
 msgstr "ചട്ടക്കൂട്"
 
@@ -7020,47 +6860,33 @@ msgstr "ചട്ടക്കൂട്"
 msgid "Couldn't find pixmap file: %s"
 msgstr ""
 
-#: src/text_editor.c:887
-msgid "This file is too big. Unable to allocate memory."
-msgstr ""
-
-#: src/text_editor.c:933
-msgid ""
-"The file does not look like a text file or the file encoding is not "
-"supported.Please check if the encoding of file is in the supported encodings "
-"list. If not, add it from the preferences."
-msgstr ""
-
-#: src/text_editor.c:1104
+#: src/text_editor.c:876
 msgid "Loading file ..."
 msgstr ""
 
-#: src/text_editor.c:1110
+#: src/text_editor.c:882
 #, c-format
-msgid ""
-"Could not load file: %s\n"
-"\n"
-"Details: %s"
+msgid "Could not load file: %s"
 msgstr ""
 
-#: src/text_editor.c:1131
+#: src/text_editor.c:901
 msgid "File loaded successfully"
 msgstr ""
 
-#: src/text_editor.c:1146
+#: src/text_editor.c:916
 msgid "Saving file ..."
 msgstr ""
 
-#: src/text_editor.c:1151
+#: src/text_editor.c:921
 #, c-format
 msgid "Could not save file: %s."
 msgstr ""
 
-#: src/text_editor.c:1191
+#: src/text_editor.c:958
 msgid "File saved successfully"
 msgstr ""
 
-#: src/text_editor.c:1289
+#: src/text_editor.c:1056
 #, c-format
 msgid ""
 "The file '%s' on the disk is more recent than\n"
@@ -7068,26 +6894,19 @@ msgid ""
 "Do you want to reload it?"
 msgstr ""
 
-#: src/text_editor.c:1434
+#: src/text_editor.c:1193
 msgid "Auto format is currently disabled. Change the setting in Preferences."
 msgstr ""
 
-#: src/text_editor.c:1440
+#: src/text_editor.c:1199
 msgid "Auto formatting ..."
 msgstr ""
 
-#: src/text_editor.c:1450
+#: src/text_editor.c:1209 src/text_editor.c:1236
 msgid "Error in auto formatting ..."
 msgstr ""
 
-#: src/text_editor.c:1477
-#, c-format
-msgid ""
-"Error in auto formatting ...\n"
-"Details: %s"
-msgstr ""
-
-#: src/text_editor.c:1484
+#: src/text_editor.c:1242
 msgid "Auto formatting completed"
 msgstr ""
 
@@ -7101,19 +6920,19 @@ msgstr ""
 msgid "Autosave \"%s\" -- Failed"
 msgstr ""
 
-#: src/text_editor_gui.c:96 src/toolbar.c:75
+#: src/text_editor_gui.c:96 src/toolbar.c:74
 msgid "New"
 msgstr "പുതിയ"
 
-#: src/text_editor_gui.c:100 src/toolbar.c:79
+#: src/text_editor_gui.c:100 src/toolbar.c:78
 msgid "Open"
 msgstr "തുറക്കുക"
 
-#: src/text_editor_gui.c:106 src/toolbar.c:83
+#: src/text_editor_gui.c:106 src/toolbar.c:82
 msgid "Save"
 msgstr "സംരംക്ഷിക്കുക"
 
-#: src/text_editor_gui.c:111 src/toolbar.c:87
+#: src/text_editor_gui.c:111 src/toolbar.c:86
 msgid "Reload"
 msgstr "പുതുക്കുക"
 
@@ -7156,7 +6975,7 @@ msgstr ""
 msgid "line: "
 msgstr ""
 
-#: src/text_editor_gui.c:169 src/toolbar.c:251
+#: src/text_editor_gui.c:169 src/toolbar.c:250
 msgid "Compile the current file"
 msgstr ""
 
@@ -7196,7 +7015,7 @@ msgstr ""
 msgid "Next bookmark"
 msgstr ""
 
-#: src/text_editor_menu.c:143 src/toolbar.c:543
+#: src/text_editor_menu.c:143 src/toolbar.c:542
 msgid "Step in"
 msgstr ""
 
@@ -7208,7 +7027,7 @@ msgstr ""
 msgid "Step out"
 msgstr ""
 
-#: src/text_editor_menu.c:161 src/toolbar.c:532
+#: src/text_editor_menu.c:161 src/toolbar.c:531
 msgid "Run to cursor"
 msgstr ""
 
@@ -7216,7 +7035,11 @@ msgstr ""
 msgid "Run/Continue"
 msgstr ""
 
-#: src/text_editor_menu.c:181 src/toolbar.c:580
+#: src/text_editor_menu.c:174 src/toolbar.c:605
+msgid "Inspect"
+msgstr ""
+
+#: src/text_editor_menu.c:181 src/toolbar.c:579
 msgid "Interrupt"
 msgstr ""
 
@@ -7265,7 +7088,7 @@ msgid "Swap .h/.c"
 msgstr ""
 
 #. 10
-#: src/text_editor_menu.c:301 src/toolbar.c:519
+#: src/text_editor_menu.c:301 src/toolbar.c:518
 msgid "Go"
 msgstr "പോകുക"
 
@@ -7275,303 +7098,299 @@ msgid "Tags"
 msgstr "അനുബന്ധങ്ങള്"
 
 #. 18
-#: src/text_editor_menu.c:347 src/toolbar.c:91
+#: src/text_editor_menu.c:347 src/toolbar.c:90
 msgid "Close"
 msgstr "അടയ്‍ക്കുക"
 
-#: src/toolbar.c:96
+#: src/toolbar.c:95
 msgid "Undo"
 msgstr "മുന്"
 
-#: src/toolbar.c:100
+#: src/toolbar.c:99
 msgid "Redo"
 msgstr "പിന്"
 
-#: src/toolbar.c:105
+#: src/toolbar.c:104
 msgid "Detach"
 msgstr ""
 
-#: src/toolbar.c:106
+#: src/toolbar.c:105
 msgid "Detach the current page"
 msgstr ""
 
-#: src/toolbar.c:115
+#: src/toolbar.c:114
 msgid "Search for the given string in the current file"
 msgstr ""
 
-#: src/toolbar.c:130
+#: src/toolbar.c:129
 msgid "Enter the string to search for"
 msgstr ""
 
-#: src/toolbar.c:135
+#: src/toolbar.c:134
 msgid "Go To"
 msgstr ""
 
-#: src/toolbar.c:136
+#: src/toolbar.c:135
 msgid "Go to the given line number in the current file"
 msgstr ""
 
-#: src/toolbar.c:143
+#: src/toolbar.c:142
 msgid "Enter the line number to go to"
 msgstr ""
 
-#: src/toolbar.c:160
+#: src/toolbar.c:159
 msgid "Context sensitive help"
 msgstr ""
 
-#: src/toolbar.c:224
+#: src/toolbar.c:223
 msgid "Save Project"
 msgstr ""
 
-#: src/toolbar.c:236
+#: src/toolbar.c:235
 msgid "Close Project"
 msgstr ""
 
-#: src/toolbar.c:263
+#: src/toolbar.c:262
 msgid "Run configure"
 msgstr ""
 
-#: src/toolbar.c:275
+#: src/toolbar.c:274
 msgid "Build current file, or build the source directory of the Project"
 msgstr ""
 
-#: src/toolbar.c:286
+#: src/toolbar.c:285
 msgid "Build_all"
 msgstr ""
 
-#: src/toolbar.c:288
+#: src/toolbar.c:287
 msgid "Build from the top directory of the Project"
 msgstr ""
 
-#: src/toolbar.c:296
+#: src/toolbar.c:295
 msgid "Execute"
 msgstr "നിര്‍വ്വഹിക്കുക"
 
-#: src/toolbar.c:308
+#: src/toolbar.c:307
 msgid "Start the Debugger"
 msgstr ""
 
-#: src/toolbar.c:316
+#: src/toolbar.c:315
 msgid "Stop/interrupt compile or build"
 msgstr ""
 
-#: src/toolbar.c:385 src/toolbar.c:770
+#: src/toolbar.c:384 src/toolbar.c:769
 msgid "Toggle"
 msgstr ""
 
-#: src/toolbar.c:386
+#: src/toolbar.c:385
 msgid "Toggle bookmark at current location"
 msgstr ""
 
-#: src/toolbar.c:392
+#: src/toolbar.c:391
 msgid "First"
 msgstr "ആദ്യം"
 
-#: src/toolbar.c:393
+#: src/toolbar.c:392
 msgid "Goto first bookmark in this document"
 msgstr ""
 
-#: src/toolbar.c:399 src/toolbar.c:421
+#: src/toolbar.c:398 src/toolbar.c:420
 msgid "Prev"
 msgstr "മുന്പ്"
 
-#: src/toolbar.c:400
+#: src/toolbar.c:399
 msgid "Goto previous bookmark in this document"
 msgstr ""
 
-#: src/toolbar.c:405 src/toolbar.c:428
+#: src/toolbar.c:404 src/toolbar.c:427
 msgid "Next"
 msgstr "അടുത്തത്"
 
-#: src/toolbar.c:406
+#: src/toolbar.c:405
 msgid "Goto next bookmark in this document"
 msgstr ""
 
-#: src/toolbar.c:411
+#: src/toolbar.c:410
 msgid "Last"
 msgstr "അവസാനം"
 
-#: src/toolbar.c:412
+#: src/toolbar.c:411
 msgid "Goto last bookmark in this document"
 msgstr ""
 
-#: src/toolbar.c:422
+#: src/toolbar.c:421
 msgid "Goto previous message in this document"
 msgstr ""
 
-#: src/toolbar.c:429
+#: src/toolbar.c:428
 msgid "Goto next message in this document"
 msgstr ""
 
-#: src/toolbar.c:437
+#: src/toolbar.c:436
 msgid "Start"
 msgstr "തുടങ്ങുക"
 
-#: src/toolbar.c:438
+#: src/toolbar.c:437
 msgid "Goto start of current code block"
 msgstr ""
 
-#: src/toolbar.c:444
+#: src/toolbar.c:443
 msgid "End"
 msgstr ""
 
-#: src/toolbar.c:445
+#: src/toolbar.c:444
 msgid "Goto end of current code block"
 msgstr ""
 
-#: src/toolbar.c:452
+#: src/toolbar.c:451
 msgid "Tags:"
 msgstr ""
 
-#: src/toolbar.c:461
+#: src/toolbar.c:460
 msgid "Goto Tag"
 msgstr ""
 
-#: src/toolbar.c:462
+#: src/toolbar.c:461
 msgid "Search for the given tag in the current file"
 msgstr ""
 
-#: src/toolbar.c:477
+#: src/toolbar.c:476
 msgid "Enter the tag to jump to"
 msgstr ""
 
-#: src/toolbar.c:520
+#: src/toolbar.c:519
 msgid "Go or continue execution"
 msgstr ""
 
-#: src/toolbar.c:531
+#: src/toolbar.c:530
 msgid "Run"
 msgstr "പ്രവ‍ര്ത്തിപ്പിക്കുക"
 
-#: src/toolbar.c:544
+#: src/toolbar.c:543
 msgid "Single step in execution"
 msgstr ""
 
-#: src/toolbar.c:555
+#: src/toolbar.c:554
 msgid "Step Over"
 msgstr ""
 
-#: src/toolbar.c:556
+#: src/toolbar.c:555
 msgid "Step over the function"
 msgstr ""
 
-#: src/toolbar.c:566
+#: src/toolbar.c:565
 msgid "Step Out"
 msgstr ""
 
-#: src/toolbar.c:567
+#: src/toolbar.c:566
 msgid "Step out of the function"
 msgstr ""
 
-#: src/toolbar.c:595
+#: src/toolbar.c:594
 msgid "Breakpoint"
 msgstr ""
 
-#: src/toolbar.c:596
+#: src/toolbar.c:595
 msgid "Toggle breakpoint at cursor"
 msgstr ""
 
-#: src/toolbar.c:608
+#: src/toolbar.c:607
 msgid "Inspect or evaluate an expression"
 msgstr ""
 
-#: src/toolbar.c:621
+#: src/toolbar.c:620
 msgid "Display the current frame information"
 msgstr ""
 
-#: src/toolbar.c:648
+#: src/toolbar.c:647
 msgid "Stack trace of the program"
 msgstr ""
 
-#: src/toolbar.c:659
+#: src/toolbar.c:658
 msgid "Registers"
 msgstr ""
 
-#: src/toolbar.c:661
+#: src/toolbar.c:660
 msgid "CPU registers and their contents"
 msgstr ""
 
-#: src/toolbar.c:675
+#: src/toolbar.c:674
 msgid "End the debugging session"
 msgstr ""
 
-#: src/toolbar.c:772
+#: src/toolbar.c:771
 msgid "Toggle current code fold hide/show"
 msgstr ""
 
-#: src/toolbar.c:783
+#: src/toolbar.c:782
 msgid "Close all"
 msgstr ""
 
-#: src/toolbar.c:785
+#: src/toolbar.c:784
 msgid "Close all code folds in this document"
 msgstr ""
 
-#: src/toolbar.c:796
+#: src/toolbar.c:795
 msgid "Open all"
 msgstr ""
 
-#: src/toolbar.c:798
+#: src/toolbar.c:797
 msgid "Open all code folds in this document"
 msgstr ""
 
-#: src/toolbar.c:811
+#: src/toolbar.c:810
 msgid "Select"
 msgstr "തെരഞ്ഞെടുക്കുക"
 
-#: src/toolbar.c:812
+#: src/toolbar.c:811
 msgid "Select current code block"
 msgstr ""
 
-#: src/toolbar.c:823
+#: src/toolbar.c:822
 msgid "Indent inc"
 msgstr ""
 
-#: src/toolbar.c:825
+#: src/toolbar.c:824
 msgid "Increase indentation of block/line"
 msgstr ""
 
-#: src/toolbar.c:836
+#: src/toolbar.c:835
 msgid "Indent dcr"
 msgstr ""
 
-#: src/toolbar.c:838
+#: src/toolbar.c:837
 msgid "Decrease indentation of block/line"
 msgstr ""
 
-#: src/toolbar.c:851
+#: src/toolbar.c:850
 msgid "Autoformat"
 msgstr "സ്വയം ക്രമീകരണം"
 
-#: src/toolbar.c:853
+#: src/toolbar.c:852
 msgid "Automatically format the code"
 msgstr ""
 
-#: src/toolbar.c:865
+#: src/toolbar.c:864
 msgid "Configure style to use for auto format"
 msgstr ""
 
-#: src/toolbar.c:878
+#: src/toolbar.c:877
 msgid "Calltip"
 msgstr ""
 
-#: src/toolbar.c:878
+#: src/toolbar.c:877
 msgid "Show Calltip"
 msgstr ""
 
-#: src/toolbar.c:891
+#: src/toolbar.c:890
 msgid "Autocomplete"
 msgstr ""
 
-#: src/toolbar.c:892
+#: src/toolbar.c:891
 msgid "Autocomplete word"
 msgstr ""
 
-#: src/toolbar_callbacks.c:235
-msgid "No matches. Wrap search around the document?"
-msgstr ""
-
-#: src/toolbar_callbacks.c:279
+#: src/toolbar_callbacks.c:278
 #, c-format
 msgid "There is line number %d in \"%s\"."
 msgstr ""
@@ -7829,102 +7648,102 @@ msgstr ""
 msgid "The pixbuf to render."
 msgstr ""
 
-#: widgets/gnomefilelist.c:224
+#: widgets/gnomefilelist.c:220
 msgid "Go to the previous directory"
 msgstr ""
 
-#: widgets/gnomefilelist.c:228
+#: widgets/gnomefilelist.c:224
 msgid "Go to the next directory"
 msgstr ""
 
-#: widgets/gnomefilelist.c:232
+#: widgets/gnomefilelist.c:228
 msgid "Go to parent directory"
 msgstr ""
 
-#: widgets/gnomefilelist.c:237
+#: widgets/gnomefilelist.c:233
 msgid "Go to home directory"
 msgstr ""
 
-#: widgets/gnomefilelist.c:243
+#: widgets/gnomefilelist.c:239
 msgid "Refresh listing"
 msgstr ""
 
-#: widgets/gnomefilelist.c:249
+#: widgets/gnomefilelist.c:245
 msgid "Delete file"
 msgstr ""
 
-#: widgets/gnomefilelist.c:253 widgets/gnomefilelist.c:1873
+#: widgets/gnomefilelist.c:249 widgets/gnomefilelist.c:1865
 msgid "Rename file"
 msgstr ""
 
-#: widgets/gnomefilelist.c:257 widgets/gnomefilelist.c:1972
+#: widgets/gnomefilelist.c:253 widgets/gnomefilelist.c:1964
 msgid "Create new folder"
 msgstr ""
 
-#: widgets/gnomefilelist.c:262
+#: widgets/gnomefilelist.c:258
 msgid "Show Hidden"
 msgstr ""
 
-#: widgets/gnomefilelist.c:266
+#: widgets/gnomefilelist.c:262
 msgid "Show hidden files"
 msgstr ""
 
-#: widgets/gnomefilelist.c:274
+#: widgets/gnomefilelist.c:270
 msgid "Directory: "
 msgstr ""
 
-#: widgets/gnomefilelist.c:427
+#: widgets/gnomefilelist.c:423
 msgid "Selection: "
 msgstr ""
 
-#: widgets/gnomefilelist.c:455
+#: widgets/gnomefilelist.c:451
 msgid "File type: "
 msgstr ""
 
-#: widgets/gnomefilelist.c:718
+#: widgets/gnomefilelist.c:716
 msgid "Java files"
 msgstr ""
 
-#: widgets/gnomefilelist.c:730
+#: widgets/gnomefilelist.c:728
 msgid "Hyper Text Markup files"
 msgstr ""
 
-#: widgets/gnomefilelist.c:736
+#: widgets/gnomefilelist.c:734
 msgid "Config files"
 msgstr ""
 
-#: widgets/gnomefilelist.c:741
+#: widgets/gnomefilelist.c:739
 msgid "Properties files"
 msgstr ""
 
-#: widgets/gnomefilelist.c:744
+#: widgets/gnomefilelist.c:742
 msgid ".mak files"
 msgstr ""
 
-#: widgets/gnomefilelist.c:748
+#: widgets/gnomefilelist.c:746
 msgid "Diff files"
 msgstr ""
 
-#: widgets/gnomefilelist.c:1838
+#: widgets/gnomefilelist.c:1830
 #, c-format
 msgid "Really delete %s?"
 msgstr ""
 
-#: widgets/gnomefilelist.c:1885
+#: widgets/gnomefilelist.c:1877
 msgid "Rename file to:"
 msgstr ""
 
-#: widgets/gnomefilelist.c:1911
+#: widgets/gnomefilelist.c:1903
 #, c-format
 msgid "Renaming file failed '%s': %s"
 msgstr ""
 
-#: widgets/gnomefilelist.c:1944
+#: widgets/gnomefilelist.c:1936
 #, c-format
 msgid "Creating folder failed '%s': %s"
 msgstr ""
 
-#: widgets/gnomefilelist.c:1984
+#: widgets/gnomefilelist.c:1976
 msgid "Folder name:"
 msgstr ""
 
