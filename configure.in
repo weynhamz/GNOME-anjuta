@@ -176,8 +176,8 @@ else
 fi
 
 dnl Checks for libraries.
-EXTRA_GNOME_LIBS=`gnome-config --libs zvt vfs print gdk_pixbuf libglade`
-EXTRA_GNOME_CFLAGS=`gnome-config --cflags zvt vfs print gdk_pixbuf libglade`
+EXTRA_GNOME_LIBS=`gnome-config --libs gnomeui zvt vfs print gdk_pixbuf libglade xml`
+EXTRA_GNOME_CFLAGS=`gnome-config --cflags gnomeui zvt vfs print gdk_pixbuf libglade xml`
 
 AC_SUBST(EXTRA_GNOME_LIBS)
 AC_SUBST(EXTRA_GNOME_CFLAGS)

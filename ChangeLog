@@ -1,4 +1,7 @@
 2003-03-12  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
+	* configure.in: Added missing libs gnomeui and xml
+
+2003-03-12  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
 	* anjuta.spec.in, global-tags/Makefile.am, src/launcher.c:
 	Minor bugfixes.
 
