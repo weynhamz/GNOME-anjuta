@@ -21,6 +21,7 @@
 #define _TEXT_EDITOR_H_
 
 #include <libanjuta/anjuta-preferences.h>
+#include <libgnomevfs/gnome-vfs-monitor.h>
 
 // #include "global.h"
 #include "text_editor_menu.h"
@@ -47,7 +48,7 @@ struct _TextEditor
 	
 	gchar *filename;
 	gchar *uri;
-	time_t modified_time;
+	GnomeVFSMonitorHandle *monitor;
 	
 	/* File extension that will be used to force hilite type */
 	gchar *force_hilite;
@@ -168,7 +169,6 @@ gboolean text_editor_save_file (TextEditor * te, gboolean update);
 void text_editor_update_controls (TextEditor * te);
 gboolean text_editor_save_yourself (TextEditor * te, FILE * stream);
 gboolean text_editor_recover_yourself (TextEditor * te, FILE * stream);
-gboolean text_editor_check_disk_status (TextEditor * te, const gboolean bForce );
 
 /* Autoformats code using 'indent' program */
 void text_editor_autoformat (TextEditor * te);

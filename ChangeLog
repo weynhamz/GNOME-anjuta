@@ -1,3 +1,13 @@
+2005-02-13  Naba Kumar  <naba@gnome.org>
+
+	* TODO.tasks: Updated.
+	
+	* plugins/editor/anjuta-docman.c,
+	plugins/editor/text_editor.c,
+	plugins/editor/text_editor.h,
+	plugins/editor/text_editor_cbs.c: Added gnome-vfs monitor
+	for file modification, but it is still not functioning.
+
 2005-02-13  Sebastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/project-wizard/values.c,

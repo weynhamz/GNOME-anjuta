@@ -54,18 +54,17 @@ on_text_editor_scintilla_focus_in (GtkWidget* scintilla, GdkEvent *event,
 
 gboolean
 on_text_editor_text_buttonpress_event (GtkWidget * widget,
-				       GdkEventButton * event,
-				       gpointer user_data)
+									   GdkEventButton * event,
+									   gpointer user_data)
 {
 	TextEditor *te = user_data;
-	text_editor_check_disk_status (te, FALSE);
 	gtk_widget_grab_focus (GTK_WIDGET (te->scintilla));
 	return FALSE;
 }
 
 gboolean
 on_text_editor_text_event (GtkWidget * widget,
-			   GdkEvent * event, gpointer user_data)
+						   GdkEvent * event, gpointer user_data)
 {
 	GdkEventButton *bevent;
 	if (event->type != GDK_BUTTON_PRESS)

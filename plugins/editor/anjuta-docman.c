@@ -782,7 +782,6 @@ anjuta_docman_goto_file_line_mark (AnjutaDocman *docman, const gchar *fname,
 		}
 		if (strcmp (uri, te->uri) == 0)
 		{
-			text_editor_check_disk_status (te, TRUE);
 			if (lineno >= 0)
 				text_editor_goto_line (te, lineno, mark, TRUE);
 			anjuta_docman_show_editor (docman, GTK_WIDGET (te));
@@ -1054,7 +1053,6 @@ anjuta_docman_reload_file (AnjutaDocman *docman, const gchar *szFullPath)
 	if( NULL != te )
 	{
 		glong	nNowPos = te->current_line ;
-		/*text_editor_check_disk_status ( te, TRUE );asd sdf*/
 		text_editor_load_file (te);
 		text_editor_goto_line (te,  nNowPos, FALSE, FALSE);
 	}

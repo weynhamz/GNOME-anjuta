@@ -76,7 +76,7 @@ text_editor_instance_init (TextEditor *te)
 	te->views = NULL;
 	te->popup_menu = NULL;
 	
-	te->modified_time = time (NULL);
+	te->monitor = NULL;
 	te->preferences = NULL;
 	te->force_hilite = NULL;
 	te->freeze_count = 0;
@@ -271,6 +271,71 @@ text_editor_remove_view (TextEditor *te)
 	}
 }
 
+static void
+on_text_editor_uri_changed (GnomeVFSMonitorHandle *handle,
+							const gchar *monitor_uri,
+							const gchar *info_uri,
+							GnomeVFSMonitorEventType event_type,
+							gpointer user_data)
+{
+	GtkWidget *dlg;
+	GtkWidget *parent;
+	gchar *buff;
+	TextEditor *te = TEXT_EDITOR (user_data);
+	
+	if (event_type != GNOME_VFS_MONITOR_EVENT_CHANGED ||
+		event_type != GNOME_VFS_MONITOR_EVENT_CREATED)
+		return;
+	
+	buff =
+		g_strdup_printf (_
+						 ("The file '%s' on the disk is more recent than\n"
+						  "the current buffer.\nDo you want to reload it?"),
+						 te->filename);
+	
+	parent = gtk_widget_get_toplevel (GTK_WIDGET (te));
+	
+	dlg = gtk_message_dialog_new (GTK_WINDOW (parent),
+								  GTK_DIALOG_DESTROY_WITH_PARENT,
+								  GTK_MESSAGE_WARNING,
+								  GTK_BUTTONS_NONE, buff);
+	gtk_dialog_add_button (GTK_DIALOG (dlg),
+						   GTK_STOCK_NO,
+						   GTK_RESPONSE_NO);
+	anjuta_util_dialog_add_button (GTK_DIALOG (dlg),
+								   _("_Reload"),
+								   GTK_STOCK_REFRESH,
+								   GTK_RESPONSE_YES);
+	g_free (buff);
+	if (gtk_dialog_run (GTK_DIALOG (dlg)) == GTK_RESPONSE_YES)
+		text_editor_load_file (te);
+	gtk_widget_destroy (dlg);
+}
+
+static void
+text_editor_update_monitor (TextEditor *te, gboolean disable_it)
+{
+	if (te->monitor)
+	{
+		/* Shutdown existing monitor */
+		gnome_vfs_monitor_cancel (te->monitor);
+		te->monitor = NULL;
+	}
+	if (te->uri && !disable_it)
+	{
+		GnomeVFSResult res;
+		DEBUG_PRINT ("Setting up Monitor for %s", te->uri);
+		res = gnome_vfs_monitor_add (&te->monitor, te->uri,
+									 GNOME_VFS_MONITOR_FILE,
+									 on_text_editor_uri_changed, te);
+		if (res != GNOME_VFS_OK)
+		{
+			g_warning ("Error while setting up file monitor: %s",
+					   gnome_vfs_result_to_string (res));
+		}
+	}
+}
+
 GtkWidget *
 text_editor_new (AnjutaPreferences *eo, const gchar *uri, const gchar *name)
 {
@@ -325,6 +390,11 @@ void
 text_editor_dispose (GObject *obj)
 {
 	TextEditor *te = TEXT_EDITOR (obj);
+	if (te->monitor)
+	{
+		text_editor_update_monitor (te, TRUE);
+		te->monitor = NULL;
+	}
 	if (te->autosave_on)
 	{
 		gtk_timeout_remove (te->autosave_id);
@@ -1314,7 +1384,8 @@ text_editor_load_file (TextEditor * te)
 		return FALSE;
 	// FIXME: anjuta_status (_("Loading file ..."));
 	text_editor_freeze (te);
-	te->modified_time = time (NULL);
+	// te->modified_time = time (NULL);
+	text_editor_update_monitor (te, FALSE);
 	if (load_from_file (te, te->uri, &err) == FALSE)
 	{
 		anjuta_util_dialog_error (NULL,
@@ -1345,13 +1416,20 @@ text_editor_load_file (TextEditor * te)
 gboolean
 text_editor_save_file (TextEditor * te, gboolean update)
 {
+	gboolean ret = FALSE;
+	
 	if (te == NULL)
 		return FALSE;
 	if (IS_SCINTILLA (te->scintilla) == FALSE)
 		return FALSE;
+	
 	text_editor_freeze (te);
 	text_editor_set_line_number_width(te);
+	
 	// FIXME: anjuta_status (_("Saving file ..."));
+	
+	text_editor_update_monitor (te, TRUE);
+	
 	if (save_to_file (te, te->uri) == FALSE)
 	{
 		GtkWindow *parent;
@@ -1360,19 +1438,20 @@ text_editor_save_file (TextEditor * te, gboolean update)
 		anjuta_util_dialog_error_system (parent, errno,
 										 _("Could not save file: %s."),
 										 te->uri);
-		return FALSE;
 	}
 	else
 	{
-		te->modified_time = time (NULL);
+		/* te->modified_time = time (NULL); */
 		/* we need to update UI with the call to scintilla */
 		text_editor_thaw (te);
 		scintilla_send_message (SCINTILLA (te->scintilla),
 					SCI_SETSAVEPOINT, 0, 0);
 		g_signal_emit_by_name (G_OBJECT (te), "saved", te->uri);
 		//FIXME: anjuta_status (_("File saved successfully"));
-		return TRUE;
+		ret = TRUE;
 	}
+	text_editor_update_monitor (te, FALSE);
+	return ret;
 }
 
 gboolean
@@ -1384,69 +1463,6 @@ text_editor_save_yourself (TextEditor * te, FILE * stream)
 gboolean
 text_editor_recover_yourself (TextEditor * te, FILE * stream)
 {
-	return TRUE;
-}
-
-gboolean
-text_editor_check_disk_status (TextEditor * te, const gboolean bForce )
-{
-	struct stat status;
-	time_t t;
-	
-	gchar *buff;
-	if (!te)
-		return FALSE;
-	if (stat (te->uri, &status))
-		return TRUE;
-	t = time(NULL);
-	if (te->modified_time > t || status.st_mtime > t)
-	{
-		/*
-		 * Something is worng with the time stamp. They are refering to the
-		 * future or the system clock is wrong.
-		 * FIXME: Prompt the user about this inconsistency.
-		 */
-		return TRUE;
-	}
-	if (te->modified_time < status.st_mtime)
-	{
-		if( bForce )
-		{
-			text_editor_load_file (te);
-		}
-		else
-		{
-			GtkWidget *dlg;
-			GtkWidget *parent;
-			
-			buff =
-				g_strdup_printf (_
-						 ("The file '%s' on the disk is more recent than\n"
-						  "the current buffer.\nDo you want to reload it?"),
-				te->filename);
-			
-			parent = gtk_widget_get_toplevel (GTK_WIDGET (te));
-			
-			dlg = gtk_message_dialog_new (GTK_WINDOW (parent),
-										  GTK_DIALOG_DESTROY_WITH_PARENT,
-										  GTK_MESSAGE_WARNING,
-										  GTK_BUTTONS_NONE, buff);
-			gtk_dialog_add_button (GTK_DIALOG (dlg),
-								   GTK_STOCK_NO,
-								   GTK_RESPONSE_NO);
-			anjuta_util_dialog_add_button (GTK_DIALOG (dlg),
-										   _("_Reload"),
-										   GTK_STOCK_REFRESH,
-										   GTK_RESPONSE_YES);
-			g_free (buff);
-			if (gtk_dialog_run (GTK_DIALOG (dlg)) == GTK_RESPONSE_YES)
-					text_editor_load_file (te);
-			else
-					te->modified_time = time (NULL);
-			gtk_widget_destroy (dlg);
-			return FALSE;
-		}
-	}
 	return TRUE;
 }
 
