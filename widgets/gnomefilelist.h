@@ -24,13 +24,6 @@
 #include <fnmatch.h>
 #include <stdarg.h>
 
-
-
-#include "src/pixmaps.h"
-#include "src/resources.h"
-
-
- 
 #ifndef GTK_FILELIST_H__
 #define GTK_FILELIST_H__
 #ifdef __cplusplus

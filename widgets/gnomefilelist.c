@@ -1,5 +1,8 @@
 #include "gnomefilelist.h"
 
+#include "../src/resources.h"
+#include "../src/pixmaps.h"
+
 #include "../pixmaps/bfoldc.xpm"
 #include "../pixmaps/file_file.xpm"
 

@@ -4,6 +4,8 @@
 	  the directory creation button as we cannot rely on the dialog
 	  titlebar.
 
+	* widgets/gnomefilelist.[ch]: fixed includes.
+
 	* pixmaps/new_folder.xpm: resized, added a + sign.
 
 2002-02-17  Stephane Demurget  <demurgets@free.fr>
