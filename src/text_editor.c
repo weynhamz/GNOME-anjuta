@@ -931,7 +931,7 @@ load_from_file (TextEditor *te, gchar *fn, gchar **err)
 				/* bail out */
 				g_free (buffer);
 				*err = g_strdup (_("The file does not look like a text file or the file encoding is not supported."
-								   "Please check if the encoding of file is in the supported encodings list."
+								   " Please check if the encoding of file is in the supported encodings list."
 								   " If not, add it from the preferences."));
 				fclose (fp);
 				return FALSE;
