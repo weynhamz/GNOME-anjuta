@@ -1,924 +1,966 @@
-# 
+# translation of hu.po to Hungarian
+# Köszönet Kelemen Gábornak a hibajavításokért!
+# Tóth, András <toth_bandi@users.sourceforge.net>, 2004.
+# Gabor Kelemen <kg0021@stud.unideb.hu>, 2004.
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: Anjuta 1.2.2\n"
+"Project-Id-Version: hu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-12-08 12:20+0530\n"
-"PO-Revision-Date: 2004-04-23 18:03+0200\n"
-"Last-Translator: Tóth, András <toth_bandi@users.sourceforge.net>\n"
-"Language-Team: Hungarian <hu@gnome.hu>\n"
+"POT-Creation-Date: 2004-04-24 15:05+0200\n"
+"PO-Revision-Date: 2004-05-30 21:17+0200\n"
+"Last-Translator: Gabor Kelemen <kg0021@stud.unideb.hu>\n"
+"Language-Team: Hungarian <gnome@gnome.hu>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.3.1\n"
+"Plural-Forms:  nplurals=1; plural=0;\n"
 
 #: anjuta.desktop.in.in.h:1
 msgid "Anjuta IDE"
 msgstr "Anjuta IDE"
 
-#: anjuta.desktop.in.in.h:2 src/about.c:96 src/main.c:171
+#: anjuta.desktop.in.in.h:2 src/about.c:156 src/main.c:167
 msgid "Integrated Development Environment"
 msgstr "Integrált fejlesztő környezet"
 
 #: anjuta.glade.h:1
 msgid "    "
-msgstr "    "
+msgstr ""
 
 #: anjuta.glade.h:2
+msgid ""
+"\"Search & Replace\" has to be tested completely !\n"
+"Many search-replacement possibilities are possible\n"
+"and need a lot of time to be verified.\n"
+"\n"
+"Limits : Regular expressions can only be found in\n"
+"forward direction"
+msgstr ""
+
+#: anjuta.glade.h:8
 msgid "$(module.source.files) $(module.include.files)"
 msgstr "$(module.source.files) $(module.include.files)"
 
-#: anjuta.glade.h:3 gdl/layout.glade.h:1
+#: anjuta.glade.h:9 gdl/layout.glade.h:1
 msgid "*"
-msgstr "*"
+msgstr ""
 
-#: anjuta.glade.h:4
+#: anjuta.glade.h:10
 msgid "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp"
 msgstr "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp"
 
-#: anjuta.glade.h:5
+#: anjuta.glade.h:11
 msgid ""
 "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp Makefile.am configure.* "
 "README AUTHORS ChangeLog *.m4"
 msgstr ""
-"*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp Makefile.am configure."
-"* README AUTHORS ChangeLog *.m4"
+"*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp Makefile.am configure.* "
+"README AUTHORS ChangeLog *.m4"
 
-#: anjuta.glade.h:6
+#: anjuta.glade.h:12
 msgid "*.so *.o *.a *.la"
 msgstr "*.so *.o *.a *.la"
 
-#: anjuta.glade.h:7
+#: anjuta.glade.h:13
 msgid "*\\.*"
 msgstr "*\\.*"
 
-#: anjuta.glade.h:8
+#: anjuta.glade.h:14
 msgid "<: Enter Here"
-msgstr "<: Bevitel itt"
+msgstr "<: Bevitel"
 
-#: anjuta.glade.h:9
+#: anjuta.glade.h:15
+msgid "Activate"
+msgstr "Aktív"
+
+#: anjuta.glade.h:16
 msgid "Add line number every:"
-msgstr "Sorszám hozzáadása minden:"
+msgstr "Sorszám hozzáadása:"
 
-#: anjuta.glade.h:10
+#: anjuta.glade.h:17
 msgid "Add page header"
-msgstr "Lap fejléc hozzáadása"
+msgstr "Fejléc hozzáadása"
 
-#: anjuta.glade.h:11
+#: anjuta.glade.h:18
 msgid "Additional"
 msgstr "További"
 
-#: anjuta.glade.h:12
+#: anjuta.glade.h:19
 msgid "Additional Libraries (LDADD):"
 msgstr "További könyvtárak (LDADD):"
 
-#: anjuta.glade.h:13 src/wizard_gui.c:575
+#: anjuta.glade.h:20 src/wizard_gui.c:575
 msgid "Additional Options"
 msgstr "További opciók"
 
-#: anjuta.glade.h:14
+#: anjuta.glade.h:21
 msgid "Additional build options:"
 msgstr "További készítési opciók:"
 
-#: anjuta.glade.h:15
+#: anjuta.glade.h:22
 msgid "Always save in UTF-8 encoding (faster)"
-msgstr "Mindig ments UTF-8 formátumban (gyorsabb)"
+msgstr "Mindig mentsen UTF-8 formátumban (gyorsabb)"
 
-#: anjuta.glade.h:16
+#: anjuta.glade.h:23
 msgid "Anjuta help search"
-msgstr "Anjuta segítség keresés"
+msgstr "Anjuta segítség keresése"
 
-#: anjuta.glade.h:17
+#: anjuta.glade.h:24
 msgid "Anjuta start with dialog"
-msgstr "Anjuta indítása dialógussal"
+msgstr "Anjuta indítási párbeszédablak"
 
-#: anjuta.glade.h:18
-msgid "Append messages"
-msgstr ""
-
-#: anjuta.glade.h:19 src/appwizard_gui.c:76 src/appwizard_gui.c:90
+#: anjuta.glade.h:25 src/appwizard_gui.c:76 src/appwizard_gui.c:90
 msgid "Application Wizard"
 msgstr "Alkalmazásvarázsló"
 
-#: anjuta.glade.h:20
+#: anjuta.glade.h:26
 msgid "Arrows"
-msgstr "Nyilak"
+msgstr "Nyíl"
 
-#: anjuta.glade.h:21
+#: anjuta.glade.h:27
 msgid "Ask for parameters at run-time"
 msgstr "Paraméterek kérése futási időben"
 
-#: anjuta.glade.h:22
+#: anjuta.glade.h:28
 msgid "Attach to process"
 msgstr "Kapcsolódás a processzhez"
 
-#: anjuta.glade.h:23
+#: anjuta.glade.h:29
 msgid "Attributes:"
 msgstr "Attribútumok:"
 
-#: anjuta.glade.h:24
+#: anjuta.glade.h:30
 msgid "Autocomplete XML/HTML closing tags"
 msgstr ""
 
-#: anjuta.glade.h:25
+#: anjuta.glade.h:31
 msgid "Autocompletion"
-msgstr ""
+msgstr "Automatikus kiegészítés"
 
-#: anjuta.glade.h:26
+#: anjuta.glade.h:32
 msgid "Autocompletion pop up choices"
-msgstr ""
+msgstr "Megjelenő választék"
 
-#: anjuta.glade.h:27
+#: anjuta.glade.h:33
 msgid "Automatically load last Project"
-msgstr "Automatikusan olvasd az utolsó Projektet"
+msgstr "Automatikusan töltse be az utolsó Projektet"
 
-#: anjuta.glade.h:28
+#: anjuta.glade.h:34
 msgid "Autosave"
-msgstr "Automentés"
+msgstr "Automatikus mentés"
 
-#: anjuta.glade.h:29
+#: anjuta.glade.h:35
 msgid "Autosave editor files before build starts"
-msgstr "A fájlok automentése az elkészítés előtt"
+msgstr "A fájlok automatikus mentése az elkészítés előtt"
 
-#: anjuta.glade.h:30
+#: anjuta.glade.h:36
 msgid "Back color:"
 msgstr "Háttérszín:"
 
-#: anjuta.glade.h:31
-msgid "Backwards"
+#: anjuta.glade.h:37
+msgid "Backward"
 msgstr "Vissza"
 
-#: anjuta.glade.h:32
-msgid "Beep on job complete"
-msgstr "Hang a feladat végrehajtásakor"
+#: anjuta.glade.h:38
+msgid "Basic Search & Replace"
+msgstr "Egyszerű keresés és csere"
 
-#: anjuta.glade.h:33
+#: anjuta.glade.h:39
+msgid "Beep on job complete"
+msgstr "Hangjelzés a feladat végrehajtásakor"
+
+#: anjuta.glade.h:40
 msgid "Bold"
 msgstr "Félkövér"
 
-#: anjuta.glade.h:34
+#: anjuta.glade.h:41
 msgid "Bookmark"
 msgstr "Könyvjelző"
 
-#: anjuta.glade.h:35
+#: anjuta.glade.h:42
 msgid "Bottom"
-msgstr ""
+msgstr "Alul"
 
-#: anjuta.glade.h:36
+#: anjuta.glade.h:43
 msgid "Breakpoint properties"
 msgstr "Töréspont tulajdonságok"
 
-#: anjuta.glade.h:37
+#: anjuta.glade.h:44
 msgid "Breakpoints"
 msgstr "Töréspontok"
 
-#: anjuta.glade.h:38 src/build_file.c:102 src/message-manager.cc:43
-#: src/toolbar.c:273
+#: anjuta.glade.h:45 src/build_file.c:102 src/message-manager.cc:43
+#: src/toolbar.c:274
 msgid "Build"
 msgstr "Elkészítés"
 
-#: anjuta.glade.h:39
+#: anjuta.glade.h:46
 msgid "Build command:"
 msgstr "Elkészítés parancsa:"
 
-#: anjuta.glade.h:40
+#: anjuta.glade.h:47
 msgid "Build file browser automatically"
 msgstr "Fájlböngésző automatikus elkészítése"
 
-#: anjuta.glade.h:41
+#: anjuta.glade.h:48
 msgid "Build files"
 msgstr "Fájlok elkészítése"
 
-#: anjuta.glade.h:42
+#: anjuta.glade.h:49
 msgid "Build options"
 msgstr "Elkészítés opciói"
 
-#: anjuta.glade.h:43
+#: anjuta.glade.h:50
 msgid "Build symbol browser automatically"
 msgstr "Szimbólum böngésző automatikus elkészítése"
 
+#: anjuta.glade.h:51 src/registers_gui.c:107
+msgid "CPU Registers"
+msgstr "CPU regiszterek"
+
 #. 2
-#: anjuta.glade.h:44 src/an_file_view.c:420 src/message-manager.cc:45
+#: anjuta.glade.h:52 src/an_file_view.c:430 src/message-manager.cc:45
 msgid "CVS"
 msgstr "CVS"
 
-#: anjuta.glade.h:45
+#: anjuta.glade.h:53
 msgid "CVS command options"
-msgstr "CVS parancs opciók"
+msgstr "CVS parancs opciói"
 
-#: anjuta.glade.h:46
+#: anjuta.glade.h:54
 msgid "CVS compression level:"
 msgstr "CVS tömörítési szint:"
 
-#: anjuta.glade.h:47
+#: anjuta.glade.h:55
 msgid "CVS context diff format"
 msgstr ""
 
-#: anjuta.glade.h:48
+#: anjuta.glade.h:56
 msgid "CVS intl po"
 msgstr ""
 
-#: anjuta.glade.h:49
+#: anjuta.glade.h:57
 msgid "CVS unified diff format"
 msgstr ""
 
-#: anjuta.glade.h:50
+#: anjuta.glade.h:58
 msgid "CVS update and prune directories [-dP]"
 msgstr ""
 
-#: anjuta.glade.h:51
+#: anjuta.glade.h:59
 msgid "C_ompile:"
 msgstr "F_ordítás:"
 
-#: anjuta.glade.h:52
+#: anjuta.glade.h:60
 msgid "Calltip background:"
-msgstr "Gyorstipp hárttérszíne:"
+msgstr "Gyorstipp háttérszíne:"
 
-#: anjuta.glade.h:53
+#: anjuta.glade.h:61
 msgid "Caret (cursor) color:"
 msgstr "Kurzor színe:"
 
-#: anjuta.glade.h:54
+#: anjuta.glade.h:62
 msgid "Caret blink period in milli-seconds"
-msgstr "Kurzor villogás periódusa ezredmásodpercben"
+msgstr "Kurzorvillogás periódusa ezredmásodpercben"
 
-#: anjuta.glade.h:55
+#: anjuta.glade.h:63
 msgid "Case insensitive"
-msgstr "Nem érzékeny a kis- és nagybetűre"
+msgstr "Nem érzékeny a kis- és nagybetűkre"
 
-#: anjuta.glade.h:56
-msgid "Case sensitive"
-msgstr "Kis- és nagybetű érzékeny"
-
-#: anjuta.glade.h:57
+#: anjuta.glade.h:64
 msgid "Choose Directories:"
-msgstr "Válassz könyvtárakat:"
+msgstr "Könyvtárak megadása:"
 
-#: anjuta.glade.h:58
+#: anjuta.glade.h:65
 msgid "Choose Files:"
-msgstr "Válassz fájlokat:"
+msgstr "Fájlok megadása:"
 
-#: anjuta.glade.h:59
+#: anjuta.glade.h:66
 msgid "Choose autocomplete for single match"
-msgstr ""
+msgstr "Illessze be az egyedi találatot"
 
-#: anjuta.glade.h:60
+#: anjuta.glade.h:67
 msgid "Choose directories"
-msgstr ""
+msgstr "Könyvtárak megadása"
 
-#: anjuta.glade.h:61
+#: anjuta.glade.h:68
 msgid "Choose files"
 msgstr "Fájlok megadása"
 
-#: anjuta.glade.h:62
+#: anjuta.glade.h:69
 msgid "Circular"
-msgstr ""
+msgstr "Kör"
 
-#: anjuta.glade.h:63
+#: anjuta.glade.h:70
 msgid "Code folding"
 msgstr "Kódblokkok összecsukása"
 
-#: anjuta.glade.h:64
+#: anjuta.glade.h:71
 msgid "Collapse all code folds on file open"
 msgstr "Kódblokkok összecsukása a fájl megnyitásakor"
 
-#: anjuta.glade.h:65
+#: anjuta.glade.h:72
 msgid "Colour"
 msgstr "Színes"
 
-#: anjuta.glade.h:66
+#: anjuta.glade.h:73
 msgid "Column at edge indicator"
-msgstr ""
+msgstr "Jobb oldali margó helye"
 
-#: anjuta.glade.h:67
+#: anjuta.glade.h:74
 msgid "Combo Popdown:"
 msgstr ""
 
-#: anjuta.glade.h:68
+#: anjuta.glade.h:75
 msgid "Command Line Parameters"
 msgstr "Parancssori paraméterek"
 
-#: anjuta.glade.h:69
+#: anjuta.glade.h:76
 msgid "Command line parameters"
 msgstr "Parancssori paraméterek"
 
-#: anjuta.glade.h:70
+#: anjuta.glade.h:77
 msgid "Command:"
 msgstr "Parancs:"
 
-#: anjuta.glade.h:71
+#: anjuta.glade.h:78
 msgid "Commands"
 msgstr "Parancsok:"
 
-#: anjuta.glade.h:72
+#: anjuta.glade.h:79
 msgid "Common commands:"
 msgstr "Közös parancsok:"
 
-#: anjuta.glade.h:73
+#: anjuta.glade.h:80
 msgid "Compact folding"
 msgstr ""
 
-#: anjuta.glade.h:74
+#: anjuta.glade.h:81
 msgid "Compiler"
-msgstr ""
+msgstr "Fordító"
 
-#: anjuta.glade.h:75
+#: anjuta.glade.h:82
 msgid "Compiler Flags (CFLAGS):"
-msgstr "Fordító paraméterek (CFLAGS):"
+msgstr "Fordítási paraméterek (CFLAGS):"
 
-#: anjuta.glade.h:76
+#: anjuta.glade.h:83
 msgid "Compiler and linker options"
-msgstr "Fordító és linker opciók"
+msgstr "Fordító és szerkesztő opciók"
 
-#: anjuta.glade.h:77
+#: anjuta.glade.h:84
 msgid "Configuration"
 msgstr "Beállítás"
 
-#: anjuta.glade.h:78
+#: anjuta.glade.h:85
 msgid "Configuration script segments"
 msgstr ""
 
-#: anjuta.glade.h:79
+#: anjuta.glade.h:86
 msgid "Configure Parameters"
-msgstr "configure paraméterei"
+msgstr "A 'configure' paraméterei"
 
-#: anjuta.glade.h:80
-msgid "Costom style"
-msgstr ""
-
-#: anjuta.glade.h:81
+#: anjuta.glade.h:87
 msgid "Crazy boy style"
 msgstr ""
 
-#: anjuta.glade.h:82
+#: anjuta.glade.h:88
 msgid "Custom style"
-msgstr ""
+msgstr "Saját stílus"
 
-#: anjuta.glade.h:83
-msgid "Customize File Browser"
-msgstr "Fájl böngésző beállítása"
-
-#: anjuta.glade.h:84
-msgid "Customize what is to be shown in the file tree"
-msgstr ""
-
-#: anjuta.glade.h:85
+#: anjuta.glade.h:89
 msgid "Data module Makefile.am"
-msgstr "Adat modul Makefile.am"
+msgstr "Adatmodul Makefile.am"
 
 #. 13
-#: anjuta.glade.h:86 src/message-manager.cc:49 src/text_editor_menu.c:319
-#: src/toolbar.c:306
+#: anjuta.glade.h:90 src/message-manager.cc:49 src/text_editor_menu.c:319
+#: src/toolbar.c:307
 msgid "Debug"
 msgstr "Hibakereső"
 
-#: anjuta.glade.h:87
+#: anjuta.glade.h:91
 msgid "Debugging and Profiling"
 msgstr "Hibakeresés és Profiling"
 
-#: anjuta.glade.h:88
+#: anjuta.glade.h:92
+msgid "Default"
+msgstr "Alapértelmezett cím"
+
+#: anjuta.glade.h:93
 msgid "Defines"
 msgstr "Definíciók"
 
-#: anjuta.glade.h:89
+#: anjuta.glade.h:94
 msgid "Delete Theme"
 msgstr "Téma törlése"
 
-#: anjuta.glade.h:90
+#: anjuta.glade.h:95
+msgid "Description:"
+msgstr "Leírás:"
+
+#: anjuta.glade.h:96
 msgid "Diagonal"
-msgstr ""
+msgstr "Átlós"
 
-#: anjuta.glade.h:91
+#: anjuta.glade.h:97
 msgid "Dialog on job complete"
-msgstr "Dialógus a feladat befejezésekor"
+msgstr "Párbeszédablak a feladat befejezésekor"
 
-#: anjuta.glade.h:92
-msgid "Direction"
-msgstr "Irány"
-
-#: anjuta.glade.h:93 widgets/gnomefilelist.c:342
+#: anjuta.glade.h:98 widgets/gnomefilelist.c:343
 msgid "Directories"
 msgstr "Könyvtárak"
 
-#: anjuta.glade.h:94
+#: anjuta.glade.h:99
 msgid "Directory filter"
 msgstr "Könyvtárszűrő"
 
-#: anjuta.glade.h:95
+#: anjuta.glade.h:100
 msgid "Disable auto-format"
-msgstr "auto formátum kikapcsolása"
+msgstr "Automatikus formázás kikapcsolása"
 
-#: anjuta.glade.h:96
+#: anjuta.glade.h:101
 msgid "Disable overwriting files"
 msgstr "Fájl-felülírás kikapcsolása"
 
-#: anjuta.glade.h:97
+#: anjuta.glade.h:102
 msgid "Disable syntax highlighting"
 msgstr "Nyelvtani kiemelések tiltása"
 
-#: anjuta.glade.h:98
-msgid "Do not show hidden directories"
-msgstr "Ne mutassa a rejtett könyvtárakat"
-
-#: anjuta.glade.h:99
-msgid "Do not show hidden files"
-msgstr "Ne mutassa a rejtett fájlokat"
-
-#: anjuta.glade.h:100
-msgid "Do not show start with dialog again."
-msgstr "Ne mutassa az indítási dialógust ismét"
-
-#: anjuta.glade.h:101
-msgid "Do not show tabs"
-msgstr "Ne mutassa a füleket"
-
-#: anjuta.glade.h:102
-msgid "Document module Makefile.am"
-msgstr "Dokumentum modul Makfile.am"
-
 #: anjuta.glade.h:103
-msgid "Draw line below folded lines"
+msgid "Display process _tree"
 msgstr ""
 
 #: anjuta.glade.h:104
+msgid "Do not show hidden directories"
+msgstr "Ne mutassa a rejtett könyvtárakat"
+
+#: anjuta.glade.h:105
+msgid "Do not show hidden files"
+msgstr "Ne mutassa a rejtett fájlokat"
+
+#: anjuta.glade.h:106
+msgid "Do not show start with dialog again."
+msgstr "Ne mutassa az indítási párbeszédablakot legközelebb"
+
+#: anjuta.glade.h:107
+msgid "Do not show tabs"
+msgstr "Ne mutassa a lapokat"
+
+#: anjuta.glade.h:108
+msgid "Document module Makefile.am"
+msgstr "Dokumentum modul Makfile.am"
+
+#: anjuta.glade.h:109
+msgid "Draw line below folded lines"
+msgstr "Vonal rajzolása a bezárt kódblokk helyére"
+
+#: anjuta.glade.h:110
 msgid "Edit"
 msgstr "Szerkesztés"
 
-#: anjuta.glade.h:105
+#: anjuta.glade.h:111
 msgid "Editor caret (cursor) width in pixels"
 msgstr "Kurzor szélessége pixelben"
 
-#: anjuta.glade.h:106
+#: anjuta.glade.h:112
 msgid "Editor tabs"
-msgstr "Szerkesztő fülek"
+msgstr "Szerkesztőlapok"
 
-#: anjuta.glade.h:107
+#: anjuta.glade.h:113
 msgid "Enable Debugging"
 msgstr "Hibakeresés engedélyezése"
 
-#: anjuta.glade.h:108
+#: anjuta.glade.h:114
 msgid "Enable HTML tags folding"
 msgstr "HTML elemek összecsukása"
 
-#: anjuta.glade.h:109
+#: anjuta.glade.h:115
 msgid "Enable Profiling"
 msgstr ""
 
-#: anjuta.glade.h:110
+#: anjuta.glade.h:116
 msgid "Enable _all"
 msgstr "M_indent engedélyez"
 
-#: anjuta.glade.h:111
+#: anjuta.glade.h:117
 msgid "Enable automatic indentation"
-msgstr "Automatikus azonosítás engedélyezése"
+msgstr "Automatikus behúzás engedélyezése"
 
-#: anjuta.glade.h:112
+#: anjuta.glade.h:118
 msgid "Enable automatic messages indicators"
-msgstr "Automata üzenet indikátor engedélyezése"
+msgstr "Üzenetek automatikus kiemelése"
 
-#: anjuta.glade.h:113
+#: anjuta.glade.h:119
 msgid "Enable braces check"
 msgstr "Kapcsos zárójel ellenőrzése"
 
-#: anjuta.glade.h:114
+#: anjuta.glade.h:120
 msgid "Enable code folding"
 msgstr "Kódblokk összecsukása"
 
-#: anjuta.glade.h:115
+#: anjuta.glade.h:121
 msgid "Enable comments folding"
 msgstr "Megjegyzés összecsukása"
 
-#: anjuta.glade.h:116
+#: anjuta.glade.h:122
 msgid "Enable files autosave"
-msgstr "Fájlok automentése"
+msgstr "Fájlok automatikus mentése"
 
-#: anjuta.glade.h:117
+#: anjuta.glade.h:123
 msgid "Enable line wrap"
 msgstr "Sortörés engedélyezése"
 
-#: anjuta.glade.h:118
+#: anjuta.glade.h:124
 msgid "Enable python comments folding"
 msgstr "Python megjegyzés összecsukása"
 
-#: anjuta.glade.h:119
+#: anjuta.glade.h:125
 msgid "Enable python quoted strings folding"
 msgstr ""
 
-#: anjuta.glade.h:120 src/breakpoints.c:111
+#: anjuta.glade.h:126 src/breakpoints.c:115
 msgid "Enabled"
 msgstr "Engedélyezett"
 
-#: anjuta.glade.h:121
+#: anjuta.glade.h:127
 msgid "Encoding to use when saving files"
 msgstr ""
 
-#: anjuta.glade.h:122
+#: anjuta.glade.h:128
 msgid "Enter a Hexa adress or select one in the data"
-msgstr "Adj meg egy Hexa címet vagy válassz az adatok közül"
+msgstr "Adjon meg egy Hexa címet vagy válasszon az adatok közül"
 
-#: anjuta.glade.h:123
+#: anjuta.glade.h:129
+msgid ""
+"Enter the File name.\n"
+"The extension will be added according to the type."
+msgstr ""
+"Adja meg a fájlnevet.\n"
+"A kiterjesztés a fájltípusnak megfelelően lesz hozzáadva."
+
+#: anjuta.glade.h:131
 msgid ""
 "Enter the command line arguments for the 'indent' program. Read the info "
 "page for 'indent' for more details"
 msgstr ""
-"Add meg a parancssori adatokat az 'indent' programnak. A részletekhez olvasd "
+"Adja meg a parancssori adatokat az 'indent' programnak. A részletekhez olvassa "
 "el az 'indent' info oldalát."
 
-#: anjuta.glade.h:124
+#: anjuta.glade.h:132
 msgid "Error message indicator style:"
-msgstr "Hibaüzenetindikáror stílus:"
+msgstr "Hibaüzenetek megjelenítési stílusa:"
 
-#: anjuta.glade.h:125
+#: anjuta.glade.h:133
 msgid "Errors messages:"
 msgstr "Hibaüzenetek:"
 
-#: anjuta.glade.h:126
+#: anjuta.glade.h:134
 msgid "Execute Program"
 msgstr "Program futtatása"
 
-#: anjuta.glade.h:127
+#: anjuta.glade.h:135
 msgid "Expand regex back references"
 msgstr ""
 
-#: anjuta.glade.h:128 src/an_file_view.c:671 src/breakpoints.c:111
+#: anjuta.glade.h:136 src/an_file_view.c:681 src/breakpoints.c:115
 msgid "File"
 msgstr "Fájl"
 
-#: anjuta.glade.h:129
+#: anjuta.glade.h:137
 msgid "File Filter"
-msgstr "Fájl szűrő"
+msgstr "Fájlszűrő"
 
-#: anjuta.glade.h:130
+#: anjuta.glade.h:138
 msgid "File filter"
-msgstr "Fájl szűrő"
+msgstr "Fájlszűrő"
 
-#: anjuta.glade.h:131
+#: anjuta.glade.h:139
 msgid "File level"
 msgstr "Fájlszint"
 
-#: anjuta.glade.h:132
-msgid "File/Directory to add:"
-msgstr "Fájl/könyvtár hozzáadása:"
+#: anjuta.glade.h:140
+msgid "File name:"
+msgstr "Fájlnév:"
 
-#: anjuta.glade.h:133
+#: anjuta.glade.h:141
+msgid "File type:"
+msgstr "Fájltípus:"
+
+#: anjuta.glade.h:142
 msgid "Filter extraneous characters in DOS mode"
 msgstr "Extra karakterek szűrése DOS módban"
 
-#: anjuta.glade.h:134
+#: anjuta.glade.h:143
 msgid "Find & Replace"
 msgstr "Keres és cserél"
 
-#: anjuta.glade.h:135
-msgid "Find and replace"
-msgstr "Keres és cserél"
-
-#: anjuta.glade.h:136 src/find_in_files.c:316
-msgid "Find in Files"
-msgstr "Fájlban található"
-
-#: anjuta.glade.h:137
+#: anjuta.glade.h:144
 msgid "Fold style:"
 msgstr ""
 
-#: anjuta.glade.h:138
+#: anjuta.glade.h:145
 msgid "Font:"
 msgstr "Betűtípus:"
 
-#: anjuta.glade.h:139
+#: anjuta.glade.h:146
 msgid "Fore color:"
 msgstr "Szövegszín:"
 
-#: anjuta.glade.h:140
+#: anjuta.glade.h:147
 msgid "Format"
 msgstr "Formátum"
 
-#: anjuta.glade.h:141 src/toolbar.c:856
+#: anjuta.glade.h:148 src/toolbar.c:857
 msgid "Format style"
 msgstr "Formátumstílus"
 
-#: anjuta.glade.h:142
-msgid "Forwards"
+#: anjuta.glade.h:149 src/text_editor_menu.c:84
+msgid "Forward"
 msgstr "Előre"
 
-#: anjuta.glade.h:143
-msgid "From cursor"
-msgstr "A kurzortól"
+#: anjuta.glade.h:150
+msgid "Full Buffer"
+msgstr ""
 
-#: anjuta.glade.h:144 src/an_symbol_view.c:54
+#: anjuta.glade.h:151 src/an_symbol_view.c:54
 msgid "Functions"
 msgstr "Függvények"
 
-#: anjuta.glade.h:145
+#: anjuta.glade.h:152
 msgid "GNU coding style"
 msgstr "GNU kódolási stílus"
 
-#: anjuta.glade.h:146
+#: anjuta.glade.h:153
+msgid "GPL Notice"
+msgstr "GPL közlemény"
+
+#: anjuta.glade.h:154
 msgid "GUI editor command:"
 msgstr "GUI szerkesztő parancs:"
 
 #. 3
-#: anjuta.glade.h:147 src/main_menubar_def.h:386
+#: anjuta.glade.h:155 src/main_menubar_def.h:386
 msgid "General"
 msgstr "Általános"
 
-#: anjuta.glade.h:148
+#: anjuta.glade.h:156
 msgid ""
 "Give a space separated list of directories to be built after source module. "
 "This will be set in configure and Makefiles will be generated for them. They "
 "will be built after the source (src/) directory during \"make\"."
 msgstr ""
-"Add meg azoknak a könyvtáraknak a szóközzel elválasztott listáját, melyek a "
-"forrásmodul (src könyvtár) után legyenek elkészítve a \"make\" végrehajtása "
-"során. Ezek a könyvtárak bekerülnek a configure és a Makefiles fájlokba."
+"Adja meg azoknak a könyvtáraknak a szóközzel elválasztott listáját, melyek a "
+"forrásmodul (src könyvtár) után legyenek elkészítve a 'make' végrehajtása "
+"során. Ezek a könyvtárak bekerülnek a 'configure' és a 'Makefile' fájlokba."
 
-#: anjuta.glade.h:149
+#: anjuta.glade.h:157
 msgid ""
 "Give a space separated list of directories to be built before source module. "
 "This will be set in configure.in and Makefiles will be generated for them. "
 "They will be built before the source (src/) directory during \"make\"."
 msgstr ""
-"Add meg azoknak a könyvtáraknak a szóközzel elválasztott listáját, melyek a "
-"forrásmodul (src könyvtár) előtt legyenek elkészítve a \"make\" végrehajtása "
-"során. Ezek a könyvtárak bekerülnek a configure és a Makefiles fájlokba."
+"Adja meg azoknak a könyvtáraknak a szóközzel elválasztott listáját, melyek a "
+"forrásmodul (src könyvtár) előtt legyenek elkészítve a 'make' végrehajtása "
+"során. Ezek a könyvtárak bekerülnek a 'configure' és a 'Makefile' fájlokba."
 
-#: anjuta.glade.h:150
+#: anjuta.glade.h:158
 msgid "Gnome API"
 msgstr "Gnome API"
 
-#: anjuta.glade.h:151
+#: anjuta.glade.h:159
 msgid "Greedy matching"
 msgstr ""
 
-#: anjuta.glade.h:152
+#: anjuta.glade.h:160
 msgid "HTML _viewer:"
 msgstr "HTML _nézegető:"
 
-#: anjuta.glade.h:153
-msgid "Headers"
-msgstr ""
+#. 0
+#: anjuta.glade.h:161 src/main_menubar_def.h:368
+msgid "Header"
+msgstr "Fejléc"
 
-#: anjuta.glade.h:154
+#. 5
+#: anjuta.glade.h:162 src/main_menubar_def.h:269
+msgid "Header File Template"
+msgstr "Fejléc fájl sablon"
+
+#: anjuta.glade.h:163
+msgid "Headers"
+msgstr "Fejlécek"
+
+#: anjuta.glade.h:164
 msgid "Hello World style"
 msgstr "Hello Világ stílus"
 
-#: anjuta.glade.h:155
+#: anjuta.glade.h:165
 msgid "Help module Makefile.am"
 msgstr "Segítség modul Makefile.am"
 
-#: anjuta.glade.h:156
-msgid "High-Level Optimization (Functions inlined wherever possible)"
-msgstr "Magas szintű optimalizálás (inline függvények használata, ahol lehet)"
-
-#: anjuta.glade.h:157
-msgid "Highlight style"
-msgstr "Kiemelés stílusa"
-
-#: anjuta.glade.h:158
-msgid "History sizes"
-msgstr ""
-
-#: anjuta.glade.h:159
-msgid "Ignore Binary Files"
-msgstr "Bináris fájlok mellőzése"
-
-#: anjuta.glade.h:160
-msgid "Ignore CVS directory"
-msgstr "CVS könyvtár mellőzése"
-
-#: anjuta.glade.h:161
-msgid "Ignore Directories:"
-msgstr "Könyvtárak mellőzése:"
-
-#: anjuta.glade.h:162
-msgid "Ignore Files:"
-msgstr "Fájlok mellőzése"
-
-#: anjuta.glade.h:163
-msgid "Ignore Hidden Directories"
-msgstr "Rejtett könyvtárak mellőzése"
-
-#: anjuta.glade.h:164
-msgid "Ignore Hidden Files"
-msgstr "Rejtett fájlok mellőzése"
-
-#: anjuta.glade.h:165
-msgid "Ignore binary files"
-msgstr "Bináris fájlok mellőzése"
-
 #: anjuta.glade.h:166
-msgid "Ignore case"
+msgid "Hide process para_meters"
 msgstr ""
 
 #: anjuta.glade.h:167
+msgid "High-Level Optimization (Functions inlined wherever possible)"
+msgstr "Magas szintű optimalizálás (inline függvények használata, ahol lehet)"
+
+#: anjuta.glade.h:168
+msgid "Highlight style"
+msgstr "Kiemelés stílusa"
+
+#: anjuta.glade.h:169
+msgid "History sizes"
+msgstr ""
+
+#: anjuta.glade.h:170
+msgid "Ignore Binary Files"
+msgstr "Bináris fájlok mellőzése"
+
+#: anjuta.glade.h:171
+msgid "Ignore Directories:"
+msgstr "Könyvtárak mellőzése:"
+
+#: anjuta.glade.h:172
+msgid "Ignore Files:"
+msgstr "Fájlok mellőzése"
+
+#: anjuta.glade.h:173
+msgid "Ignore Hidden Directories"
+msgstr "Rejtett könyvtárak mellőzése"
+
+#: anjuta.glade.h:174
+msgid "Ignore Hidden Files"
+msgstr "Rejtett fájlok mellőzése"
+
+#: anjuta.glade.h:175
 msgid "Ignore directories"
 msgstr "Könyvtárak mellőzése"
 
-#: anjuta.glade.h:168
+#: anjuta.glade.h:176
 msgid "Ignore files"
 msgstr "Fájlok mellőzése"
 
-#: anjuta.glade.h:169
+#: anjuta.glade.h:177
 msgid "Ignore files and directories"
 msgstr "Fájlok és könyvtárak mellőzése"
 
-#: anjuta.glade.h:170
+#: anjuta.glade.h:178
 msgid "Import Wizard"
 msgstr "Importáló varázsló"
 
-#: anjuta.glade.h:171
+#: anjuta.glade.h:179
 msgid ""
 "Import existing project. The Import Wizard will guide you to import an "
 "existing Project into Anjuta and convert it into Anjuta Project. There will "
 "be no data loss or modification done to the project."
 msgstr ""
 "Létező projekt importálása. Az importáló varázsló segít beilleszteni a "
-"projektedet az Anjuta-ba. A folyamat során adatvesztés nem lép fel."
+"projektet az Anjuta-ba. A folyamat során adatvesztés nem lép fel."
 
-#: anjuta.glade.h:172
+#: anjuta.glade.h:180
 msgid "Include Paths"
 msgstr "Include útvonalak"
 
-#: anjuta.glade.h:173
+#: anjuta.glade.h:181
 msgid "Include module Makefile.am"
 msgstr "Include modul Makefile.am"
 
-#: anjuta.glade.h:174
+#: anjuta.glade.h:182
 msgid "Indent closing braces"
 msgstr ""
 
-#: anjuta.glade.h:175
+#: anjuta.glade.h:183
 msgid "Indent opening braces"
 msgstr ""
 
-#: anjuta.glade.h:176
+#: anjuta.glade.h:184
 msgid "Indentation and auto-format options"
 msgstr ""
 
-#: anjuta.glade.h:177
+#: anjuta.glade.h:185
 msgid "Indentation size in spaces:"
 msgstr ""
 
-#: anjuta.glade.h:178
+#: anjuta.glade.h:186
 msgid "Indicators"
-msgstr "Indikátorok"
+msgstr "Jelzések"
 
-#: anjuta.glade.h:179
+#: anjuta.glade.h:187
 msgid "Info Pages"
 msgstr "Info lapok"
 
-#: anjuta.glade.h:180
+#: anjuta.glade.h:188
 msgid "Input string:"
 msgstr "Bemeneti szöveg:"
 
-#: anjuta.glade.h:181 src/text_editor_menu.c:174 src/toolbar.c:599
+#: anjuta.glade.h:189 src/text_editor_menu.c:174 src/toolbar.c:600
 msgid "Inspect"
 msgstr ""
 
-#: anjuta.glade.h:182
+#: anjuta.glade.h:190
 msgid "Italic"
 msgstr ""
 
-#: anjuta.glade.h:183
+#: anjuta.glade.h:191
 msgid "Keep going when some targets can not be made"
-msgstr "Folytassa akkor is, ha néhány nem kész"
+msgstr "Folytassa akkor is, ha néhány cél nem készíthető el"
 
-#: anjuta.glade.h:184
+#: anjuta.glade.h:192
+msgid "Kernel Signals"
+msgstr "K_ernel jelzések"
+
+#: anjuta.glade.h:193
 msgid "Kernighan and Ritchie style"
 msgstr "Kernighan és Ritchie stílus"
 
-#: anjuta.glade.h:185
+#: anjuta.glade.h:194
 msgid "Language-specific commands:"
 msgstr "Nyelvfüggő parancsok:"
 
-#: anjuta.glade.h:186
+#: anjuta.glade.h:195
 msgid "Left"
-msgstr ""
+msgstr "Balra"
 
-#: anjuta.glade.h:187
+#: anjuta.glade.h:196
 msgid "Libraries"
 msgstr "Könyvtárak"
 
-#: anjuta.glade.h:188
+#: anjuta.glade.h:197
 msgid "Library Paths"
 msgstr "Könyvtár útvonalak"
 
-#: anjuta.glade.h:189
+#: anjuta.glade.h:198
 msgid "Line numbers margin width in pixels"
-msgstr ""
+msgstr "Sorszámszegély szélessége"
 
-#: anjuta.glade.h:190 printing/print.c:1011 src/anjuta_info.c:126
+#: anjuta.glade.h:199 printing/print.c:1044 src/anjuta_info.c:132
 msgid "Lines"
-msgstr "Sorok"
+msgstr "Sor"
 
-#: anjuta.glade.h:191
+#: anjuta.glade.h:200
 msgid "Linker Flags (LDFLAGS):"
-msgstr "Linker paraméterek (LDFLAGS):"
+msgstr "Szerkesztő paraméterei (LDFLAGS):"
 
-#: anjuta.glade.h:192
+#: anjuta.glade.h:201
 msgid "Load _global defaults"
-msgstr "_globális alapértékek betöltése"
+msgstr "_Globális alapértékek betöltése"
 
-#: anjuta.glade.h:193
+#: anjuta.glade.h:202
 msgid "Load _user defaults"
-msgstr "_felhasználói alapértékek betöltése"
+msgstr "_Felhasználói alapértékek betöltése"
 
-#: anjuta.glade.h:194
+#: anjuta.glade.h:203
 msgid "Low-Level Optimization (Machine dependent optimization)"
 msgstr "Alacsonyszintű optimalizáció (gépfüggő optimalizáció)"
 
-#: anjuta.glade.h:195
+#: anjuta.glade.h:204
 msgid "Makefile.am"
 msgstr "Makefile.am"
 
-#: anjuta.glade.h:196
+#: anjuta.glade.h:205
 msgid "Man pages"
 msgstr "Man lapok"
 
-#: anjuta.glade.h:197
+#: anjuta.glade.h:206
 msgid "Match at start of word"
 msgstr "Szóeleji egyezés"
 
-#: anjuta.glade.h:198
+#: anjuta.glade.h:207
 msgid "Match complete lines"
 msgstr "Egyezés a teljes sorban"
 
-#: anjuta.glade.h:199
+#: anjuta.glade.h:208
 msgid "Match complete words"
 msgstr "Egyezés a teljes szóban"
 
-#: anjuta.glade.h:200
+#: anjuta.glade.h:209
 msgid "Max. Actions"
 msgstr "Max. művelet"
 
-#: anjuta.glade.h:201
+#: anjuta.glade.h:210
 msgid "Maximum number of independent jobs (0 == no limit)"
 msgstr "A független folyamatok maximális száma (0 == nincs korlátozva)"
 
-#: anjuta.glade.h:202
+#: anjuta.glade.h:211
 msgid "Medium-Level Optimization (Without space-speed trade-off)"
 msgstr "Közepes szintű optimalizáció"
 
-#: anjuta.glade.h:203
+#: anjuta.glade.h:212
 msgid "Memory"
 msgstr "Memória"
 
-#: anjuta.glade.h:204
+#: anjuta.glade.h:213
 msgid "Menu icon:"
 msgstr "Menü ikon:"
 
-#: anjuta.glade.h:205
+#: anjuta.glade.h:214
 msgid "Menu location:"
 msgstr "Menühely:"
 
-#: anjuta.glade.h:206
+#: anjuta.glade.h:215
 msgid "Message colors"
 msgstr "Üzenetszínek"
 
-#: anjuta.glade.h:207
+#: anjuta.glade.h:216
 msgid "Messages options"
 msgstr "Üzenetek beállítása"
 
-#: anjuta.glade.h:208
+#: anjuta.glade.h:217
 msgid "Misc options"
 msgstr "Egyéb opciók"
 
-#: anjuta.glade.h:209
+#: anjuta.glade.h:218
 msgid "Mode:"
 msgstr "Mód:"
 
-#: anjuta.glade.h:210
+#: anjuta.glade.h:219 src/registers_gui.c:51
+msgid "Modify"
+msgstr "Módosítás"
+
+#: anjuta.glade.h:220
 msgid "Modules"
 msgstr "Modulok"
 
-#: anjuta.glade.h:211
+#: anjuta.glade.h:221
 msgid "Monochrome"
-msgstr ""
+msgstr "Fekete-fehér"
 
-#: anjuta.glade.h:212
+#: anjuta.glade.h:222
 msgid "Name:"
 msgstr "Név:"
 
-#: anjuta.glade.h:213 src/main_menubar_def.h:30 src/text_editor_gui.c:97
-#: src/toolbar.c:76
+#: anjuta.glade.h:223
+msgid "New File"
+msgstr "Új fájl"
+
+#: anjuta.glade.h:224
+msgid "New Name"
+msgstr "Új név"
+
+#: anjuta.glade.h:225 src/main_menubar_def.h:30 src/text_editor_gui.c:97
+#: src/toolbar.c:77
 msgid "New file"
 msgstr "Új fájl"
 
-#: anjuta.glade.h:214
+#: anjuta.glade.h:226
 msgid "No Limit"
 msgstr "Nincs korlátozva"
 
-#: anjuta.glade.h:215
+#: anjuta.glade.h:227
 msgid "No Optimization"
 msgstr "Nincs optimalizáció"
 
-#: anjuta.glade.h:216
+#: anjuta.glade.h:228
 msgid "Normal message indicator style:"
-msgstr "Normál üzenet indikátor stílus:"
+msgstr "Normál üzenetek megjelenítési stílusa:"
 
-#: anjuta.glade.h:217
+#: anjuta.glade.h:229
 msgid "Normal messages:"
 msgstr "Normál üzenetek:"
 
-#: anjuta.glade.h:218
+#: anjuta.glade.h:230
 msgid ""
 "Note: If there is a project open, the preferences in this page are project "
 "preferences and will be loaded from and saved with the project. If there is "
@@ -928,601 +970,608 @@ msgstr ""
 "projekt tulajdonságai és csak erre a projektre vonatkoznak. Ha nincs nyitva "
 "projekt, akkor ezek globális tulajdonságok."
 
-#: anjuta.glade.h:219
+#: anjuta.glade.h:231
 msgid "Number of first characters to show:"
 msgstr "A megjeleníthető kezdő karakterek száma:"
 
-#: anjuta.glade.h:220
+#: anjuta.glade.h:232
 msgid "Number of last characters to show:"
 msgstr "A megjeleníthető befejező karakterek száma:"
 
 #. Must declare static, because it will be used forever
-#: anjuta.glade.h:221 src/project_dbase.c:197 src/toolbar.c:213
+#: anjuta.glade.h:233 src/project_dbase.c:195 src/toolbar.c:214
 msgid "Open Project"
 msgstr "Projekt megnyitása"
 
-#: anjuta.glade.h:222
+#: anjuta.glade.h:234
 msgid "Open existing Project."
 msgstr "Létező projekt megnyitása"
 
-#: anjuta.glade.h:223
+#: anjuta.glade.h:235
 msgid "Open existing file or create a new file."
 msgstr "Létező fájl megnyitása vagy új fájl létrehozása"
 
-#: anjuta.glade.h:224 src/main_menubar_def.h:36 src/text_editor_gui.c:101
-#: src/toolbar.c:80
+#: anjuta.glade.h:236 src/main_menubar_def.h:36 src/text_editor_gui.c:101
+#: src/toolbar.c:81
 msgid "Open file"
 msgstr "Fájl megnyitása"
 
-#: anjuta.glade.h:225
+#: anjuta.glade.h:237
 msgid "Open last working Project"
 msgstr "Az utolsó projekt megnyitása"
 
-#: anjuta.glade.h:226
+#: anjuta.glade.h:238
 msgid "Optimization"
 msgstr "Optimalizáció"
 
 #. 15
-#: anjuta.glade.h:227 src/text_editor_menu.c:329
+#: anjuta.glade.h:239 src/text_editor_menu.c:329
 msgid "Options"
 msgstr "Beállítások"
 
-#: anjuta.glade.h:228
+#: anjuta.glade.h:240
 msgid "Original Berkeley style"
 msgstr ""
 
-#: anjuta.glade.h:229
+#: anjuta.glade.h:241
 msgid "Other colors"
 msgstr "Más színek"
 
-#: anjuta.glade.h:230
+#: anjuta.glade.h:242
 msgid "Other messages:"
 msgstr "Egyéb üzenetek:"
 
-#: anjuta.glade.h:231 src/an_symbol_view.c:54
+#: anjuta.glade.h:243 src/an_symbol_view.c:54
 msgid "Others"
-msgstr ""
+msgstr "Egyebek"
 
-#: anjuta.glade.h:232
+#: anjuta.glade.h:244
 msgid "Output files"
 msgstr "Kimeneti fájlok"
 
-#: anjuta.glade.h:233
-msgid "Pick a color"
-msgstr "Válassz egy színt"
+#: anjuta.glade.h:245
+msgid "Pass:"
+msgstr ""
 
-#: anjuta.glade.h:234
+#: anjuta.glade.h:246
+msgid "Pick a color"
+msgstr "Válasszon egy színt"
+
+#: anjuta.glade.h:247
 msgid "Pixmap module Makefile.am"
 msgstr "Pixmap modul Makefile.am"
 
-#: anjuta.glade.h:235
+#: anjuta.glade.h:248
 msgid "Plus/Minus"
-msgstr ""
+msgstr "Plusz/mínusz"
 
-#: anjuta.glade.h:236
+#: anjuta.glade.h:249
 msgid "Po module (translation) Makefile.am"
 msgstr "Po modul (fordítások) Makefile.am"
 
-#: anjuta.glade.h:237
+#: anjuta.glade.h:250
 msgid "Position:"
 msgstr "Pozíció:"
 
-#: anjuta.glade.h:238
-msgid "Press this button to dismiss the dialog"
-msgstr "Nyomd meg ezt a gombot a dialóg megszüntetéséhez"
-
-#: anjuta.glade.h:239
+#: anjuta.glade.h:251
 msgid "Pressing backspace un-indents"
 msgstr ""
 
-#: anjuta.glade.h:240
+#: anjuta.glade.h:252
 msgid "Pressing tab indents"
 msgstr ""
 
-#: anjuta.glade.h:241
+#: anjuta.glade.h:253
 msgid "Print options"
 msgstr "Nyomtatási beállítások"
 
-#: anjuta.glade.h:242
+#: anjuta.glade.h:254
+msgid "Print:"
+msgstr "Nyomtatás:"
+
+#: anjuta.glade.h:255
+msgid "Program Interrupt"
+msgstr "Megszakítás"
+
+#: anjuta.glade.h:256
 msgid "Programs"
 msgstr "Programok"
 
-#: anjuta.glade.h:243 src/project_dbase_gui.c:609 src/project_dbase_gui.c:626
-#: src/toolbar.c:150
+#: anjuta.glade.h:257 src/project_dbase_gui.c:609 src/project_dbase_gui.c:626
+#: src/toolbar.c:151
 msgid "Project"
 msgstr "Projekt"
 
-#: anjuta.glade.h:244
+#: anjuta.glade.h:258
 msgid "Project Configuration"
 msgstr "Projektbeállítás"
 
-#: anjuta.glade.h:245 src/wizard_gui.c:469
+#: anjuta.glade.h:259 src/wizard_gui.c:469
 msgid "Project Description"
 msgstr "Projekt megjegyzések"
 
-#: anjuta.glade.h:246
+#: anjuta.glade.h:260
 msgid "Project Version"
 msgstr "Projektverzió"
 
-#: anjuta.glade.h:247
+#: anjuta.glade.h:261
 msgid "Project configure.in"
 msgstr "Projekt configure.in"
 
-#: anjuta.glade.h:248
+#: anjuta.glade.h:262
 msgid "Project level"
 msgstr "Projektszint"
 
-#: anjuta.glade.h:249
+#: anjuta.glade.h:263
 msgid "Projects:"
 msgstr "Projektek:"
 
-#: anjuta.glade.h:250
-msgid "Prompt before replace"
-msgstr "Kérdés a csere előtt"
+#: anjuta.glade.h:264
+msgid "Read me"
+msgstr "Olvass el"
 
-#: anjuta.glade.h:251
+#: anjuta.glade.h:265
 msgid "Recent Files:"
-msgstr "Gyakori fájlok:"
+msgstr "Legutóbbi fájlok:"
 
-#: anjuta.glade.h:252
+#: anjuta.glade.h:266
 msgid "Recent Projects:"
-msgstr "Gyakori projektek:"
+msgstr "Legutóbbi projektek:"
 
-#: anjuta.glade.h:253
-msgid "Regexp"
-msgstr "Kifejezés"
-
-#: anjuta.glade.h:254
-msgid "Regexp/String to find"
-msgstr "Cserélendő szöveg"
-
-#: anjuta.glade.h:255
+#: anjuta.glade.h:267
 msgid "Regular Expression"
 msgstr "Teljes kifejezés"
 
-#: anjuta.glade.h:256
+#: anjuta.glade.h:268
 msgid "Reload Session Defaults"
-msgstr "Szezon alapértelmezések újratöltése"
+msgstr "Munkamenet alapértelmezéseinek újratöltése"
 
-#: anjuta.glade.h:257
+#: anjuta.glade.h:269
 msgid "Reload System Defaults"
-msgstr "Rendszer alapértelmezések újratöltése"
+msgstr "Rendszer alapértelmezéseinek újratöltése"
 
-#: anjuta.glade.h:258
-msgid "Replace Expression"
-msgstr ""
-
-#: anjuta.glade.h:259
+#: anjuta.glade.h:270
 msgid "Replace With:"
 msgstr ""
 
-#: anjuta.glade.h:260
+#: anjuta.glade.h:271
 msgid "Reset all sticky tags during update (looses branch) [-A]"
 msgstr ""
 
-#: anjuta.glade.h:261
+#: anjuta.glade.h:272
 msgid "Right"
-msgstr ""
+msgstr "Jobbra"
 
-#: anjuta.glade.h:262
+#: anjuta.glade.h:273
 msgid "Run Configure Script"
 msgstr "Configure script futtatása"
 
-#: anjuta.glade.h:263
+#: anjuta.glade.h:274
 msgid "Run detached"
 msgstr ""
 
-#: anjuta.glade.h:264
+#: anjuta.glade.h:275
 msgid "Run in Terminal"
 msgstr "Futtatás terminálban"
 
-#: anjuta.glade.h:265
+#: anjuta.glade.h:276
 msgid "Run in terminal"
 msgstr "Futtatás terminálban"
 
-#: anjuta.glade.h:266
+#: anjuta.glade.h:277
+msgid "SIGINT"
+msgstr ""
+
+#: anjuta.glade.h:278
 msgid "Save all files"
 msgstr "Minden fájl mentése"
 
-#: anjuta.glade.h:267
+#: anjuta.glade.h:279
 msgid "Save files interval in minutes"
 msgstr "Fájlmentés gyakorisága percben"
 
-#: anjuta.glade.h:268
+#: anjuta.glade.h:280
 msgid "Save session interval in minutes"
-msgstr "Mentési periódus percben"
+msgstr "Munkamenet mentésének gyakorisága"
 
-#: anjuta.glade.h:269
-msgid "Scope"
-msgstr "Hatókör"
-
-#: anjuta.glade.h:270
+#: anjuta.glade.h:281
 msgid "Scripts at the end of top level Makefile.am"
-msgstr "Szkriptek a legfelsőbb szintű Makefile.am végére"
+msgstr "Szkriptek a legfelsőbb szintű 'Makefile.am' végére"
 
-#: anjuta.glade.h:271 src/search-replace.c:1362 src/search-replace.c:1528
-#: src/search-replace.c:1534
-msgid "Search"
-msgstr "Keresés"
-
-#: anjuta.glade.h:272
+#: anjuta.glade.h:282
 msgid "Search Action:"
 msgstr "Keresési eljárás:"
 
-#: anjuta.glade.h:273
+#: anjuta.glade.h:283
 msgid "Search Direction:"
 msgstr "Keresési irány:"
 
-#: anjuta.glade.h:274
+#: anjuta.glade.h:284
 msgid "Search Expression"
 msgstr "Kifejezés keresése"
 
-#: anjuta.glade.h:275
+#: anjuta.glade.h:285
 msgid "Search Expression:"
 msgstr "Kifejezés keresése:"
 
-#: anjuta.glade.h:276
+#: anjuta.glade.h:286
 msgid "Search In:"
 msgstr "Keresés:"
 
-#: anjuta.glade.h:277
+#: anjuta.glade.h:287
 msgid "Search Recursively"
 msgstr "Keresés rekurzívan"
 
-#: anjuta.glade.h:278
-msgid "Search String"
-msgstr "Keresendő szöveg"
-
-#: anjuta.glade.h:279
+#: anjuta.glade.h:288
 msgid "Search Target"
 msgstr "Keresés eredménye"
 
-#: anjuta.glade.h:280
+#: anjuta.glade.h:289
 msgid "Search Variable"
 msgstr "Változó keresése"
 
-#: anjuta.glade.h:281
-msgid "Search type"
-msgstr "Keresés típusa"
-
-#: anjuta.glade.h:282
+#: anjuta.glade.h:290
 msgid "Select highlight style to edit:"
 msgstr "Színstílus kiválasztása szerkesztéshez:"
 
-#: anjuta.glade.h:283
+#: anjuta.glade.h:291
 msgid "Select theme:"
 msgstr "Téma választása:"
 
-#: anjuta.glade.h:284
+#: anjuta.glade.h:292
 msgid "Selection background:"
 msgstr "Kijelölés háttérszíne:"
 
-#: anjuta.glade.h:285
+#: anjuta.glade.h:293
 msgid "Selection foreground:"
 msgstr "Kijelölés szövegszíne:"
 
-#: anjuta.glade.h:286
+#: anjuta.glade.h:294
+msgid "Set Signal Property"
+msgstr "Jelzés tulajdonságainak a beállítása"
+
+#: anjuta.glade.h:295
+msgid "Setting"
+msgstr "Beállítás"
+
+#: anjuta.glade.h:296
 msgid "Settings"
 msgstr "Beállítások"
 
-#: anjuta.glade.h:287
+#: anjuta.glade.h:297
 msgid "Short cut:"
 msgstr ""
 
-#: anjuta.glade.h:288
+#: anjuta.glade.h:298
 msgid "Show tooltips"
 msgstr "Tippek megjelenítése"
 
-#: anjuta.glade.h:289
+#: anjuta.glade.h:299
+msgid "Signal:"
+msgstr "Jelzés:"
+
+#: anjuta.glade.h:300
 msgid "Silent. That is, do not echo shell commads during make"
 msgstr "Csendes mód. Ne jelenítse meg a shell parancsokat az elkészítés közben"
 
-#: anjuta.glade.h:290
+#: anjuta.glade.h:301
 msgid "Sorted by most recent use"
 msgstr "Rendezés a használati gyakoriság alapján"
 
-#: anjuta.glade.h:291
+#: anjuta.glade.h:302
 msgid "Sorted in alphabetical order"
 msgstr "Rendezés abc sorrendben"
 
-#: anjuta.glade.h:292
+#: anjuta.glade.h:303
 msgid "Sorted in the order you open them"
 msgstr "Rendezés a megnyitás sorrendjében"
 
-#: anjuta.glade.h:293
+#: anjuta.glade.h:304
 msgid "Source Directories"
-msgstr "Forráskönyvtárak"
+msgstr "Forrás könyvtárak"
 
-#: anjuta.glade.h:294
+#: anjuta.glade.h:305
 msgid "Source module Makefile.am"
 msgstr "Forrás modul Makefile.am"
 
-#: anjuta.glade.h:295
+#: anjuta.glade.h:306
 msgid "Space-seperated list of directory name patterns to ignore"
 msgstr "A kihagyandó könyvtárnevek (-minták) szóközzel elválasztott listája"
 
-#: anjuta.glade.h:296
+#: anjuta.glade.h:307
 msgid "Space-seperated list of directory name patterns to match"
 msgstr "A vizsgálandó könyvtárnevek (-minták) szóközzel elválasztott listája"
 
-#: anjuta.glade.h:297
+#: anjuta.glade.h:308
 msgid "Space-seperated list of file name patterns to ignore"
 msgstr "A kihagyandó fájlnevek (-minták) szóközzel elválasztott listája"
 
-#: anjuta.glade.h:298
+#: anjuta.glade.h:309
 msgid "Space-seperated list of file name patterns to match"
 msgstr "A vizsgálandó fájlnevek (-minták) szóközzel elválasztott listája"
 
-#: anjuta.glade.h:299
+#: anjuta.glade.h:310
 msgid "Squares"
-msgstr "Négyzetek"
+msgstr "Négyzet"
 
-#: anjuta.glade.h:300
+#: anjuta.glade.h:311
 msgid "Standard error:"
 msgstr "Szabvány hibajelentés:"
 
-#: anjuta.glade.h:301
+#: anjuta.glade.h:312
 msgid "Standard input:"
 msgstr "Szabvány bemenet:"
 
-#: anjuta.glade.h:302
+#: anjuta.glade.h:313
 msgid "Standard output:"
 msgstr "Szabvány kimenet:"
 
-#: anjuta.glade.h:303
+#: anjuta.glade.h:314
 msgid ""
 "Start with a new Project. Application wizard will guide you with Project "
 "creation. With the Application Wizard, you will be able to create the "
 "skeleton of various Project types."
 msgstr ""
 "Indítás egy új projekttel. Az alkalmazásvarázsló segít létrehozni egy új "
-"projektet. Az alkalmazásvarázslóval létrehozhatod különböző tipusú projektek "
-"vázát."
+"projektet. Az alkalmazásvarázslóval létrehozhatja különböző típusú projektek "
+"alapját."
 
-#: anjuta.glade.h:304
+#: anjuta.glade.h:315
+msgid "Stop:"
+msgstr "Állj:"
+
+#: anjuta.glade.h:316
 msgid "Strike-Out"
 msgstr ""
 
-#: anjuta.glade.h:305
-msgid "String"
-msgstr "Szöveg"
-
-#: anjuta.glade.h:306
-msgid "String to replace"
-msgstr "Új szöveg"
-
-#: anjuta.glade.h:307
+#: anjuta.glade.h:317
 msgid "Strip trailling spaces on file save"
 msgstr ""
 
-#: anjuta.glade.h:308
+#: anjuta.glade.h:318
 msgid "Style of Kangleipak"
 msgstr ""
 
-#: anjuta.glade.h:309 src/anjuta-encodings.c:721
+#: anjuta.glade.h:319 src/anjuta-encodings.c:721
 msgid "Supported Encodings"
 msgstr "Támogatott kódolások"
 
-#: anjuta.glade.h:310
+#: anjuta.glade.h:320
 msgid "Supports"
 msgstr "Támogatások"
 
-#: anjuta.glade.h:311
+#: anjuta.glade.h:321
+msgid "Supports are only available to File mode compilation and build."
+msgstr ""
+
+#: anjuta.glade.h:322
 msgid "Syntax highlight editor"
 msgstr "Nyelvtani kiemelések szerkesztése"
 
-#: anjuta.glade.h:312
+#: anjuta.glade.h:323
 msgid "Tab size in spaces:"
 msgstr ""
 
-#: anjuta.glade.h:313
+#: anjuta.glade.h:324
 msgid "Tabs position:"
-msgstr "Fülek pozíciói:"
+msgstr "Lapok pozíciói:"
 
-#: anjuta.glade.h:314
+#: anjuta.glade.h:325
 msgid "Target:"
 msgstr "Cél:"
 
-#: anjuta.glade.h:315
+#: anjuta.glade.h:326
 msgid "Terminal options"
 msgstr "Terminál beállítások"
 
-#: anjuta.glade.h:316
+#: anjuta.glade.h:327
 msgid "Theme"
 msgstr "Téma"
 
-#: anjuta.glade.h:317
+#: anjuta.glade.h:328
 msgid "Tool Editor"
 msgstr "Segédeszköz szerkesztő"
 
-#: anjuta.glade.h:318
+#: anjuta.glade.h:329
 msgid "Top"
-msgstr ""
+msgstr "Felül"
 
-#: anjuta.glade.h:319
+#: anjuta.glade.h:330
 msgid "Top level Makefile.am"
-msgstr "Legfelsőbb szintű Makefile.am"
+msgstr "Legfelsőbb szintű 'Makefile.am'"
 
-#: anjuta.glade.h:320
+#: anjuta.glade.h:331
 msgid "Truncate long messages"
 msgstr "Csonkítsa a hosszú üzeneteket"
 
-#: anjuta.glade.h:321
+#: anjuta.glade.h:332
 msgid "Try to save in current locale's encoding"
 msgstr "Próbálja menteni a jelenlegi kódolás szerint"
 
-#: anjuta.glade.h:322
+#: anjuta.glade.h:333
 msgid "Try to save in original encoding"
 msgstr "Próbálja menteni a fájl eredeti kódolása szerint"
 
-#: anjuta.glade.h:323
+#: anjuta.glade.h:334
 msgid "Underline Plain"
 msgstr "Aláhúzott egyszerű"
 
-#: anjuta.glade.h:324
+#: anjuta.glade.h:335
 msgid "Underline Squiggle"
 msgstr ""
 
-#: anjuta.glade.h:325
+#: anjuta.glade.h:336
 msgid "Underline-TT"
 msgstr "Aláhúzott TT"
 
-#: anjuta.glade.h:326
+#: anjuta.glade.h:337
 msgid "Underlined"
 msgstr "Aláhúzott"
 
-#: anjuta.glade.h:327 src/cvs_gui.c:73 src/registers_gui.c:47
-#: src/sharedlib_gui.c:40 src/signals_gui.c:54 src/stack_trace.c:364
+#: anjuta.glade.h:338 src/cvs_gui.c:73 src/registers_gui.c:58
+#: src/sharedlib_gui.c:52 src/signals.c:434 src/stack_trace.c:364
 msgid "Update"
-msgstr "Korszerűsít"
+msgstr "Frissít"
 
-#: anjuta.glade.h:328
+#: anjuta.glade.h:339
 msgid "Update tags image automatically"
 msgstr ""
 
-#: anjuta.glade.h:329
+#: anjuta.glade.h:340
 msgid "Use GNOME terminal profile:"
 msgstr "GNOME terminál profil használata:"
 
-#: anjuta.glade.h:330
+#: anjuta.glade.h:341
 msgid "Use currently selected profile in GNOME terminal"
-msgstr "Az aktuális profil használata a GNOME terminálon"
+msgstr "A jelenlegi profil használata a GNOME terminállal"
 
-#: anjuta.glade.h:331
+#: anjuta.glade.h:342
 msgid "Use default"
 msgstr "Alapértelmezés használata"
 
-#: anjuta.glade.h:332
+#: anjuta.glade.h:343
 msgid "Use tabs for indentation"
 msgstr "Használjon TAB-ot a bekezdéshez"
 
-#: anjuta.glade.h:333
+#: anjuta.glade.h:344
 msgid "User Tools"
 msgstr "Felhasználó segédeszközei"
 
-#: anjuta.glade.h:334
+#: anjuta.glade.h:345
 msgid "User email address:"
 msgstr "Felhasználó e-mail címe:"
 
-#: anjuta.glade.h:335
+#: anjuta.glade.h:346
 msgid "User information"
-msgstr "Felhasználó információ"
+msgstr "Felhasználói információ"
 
-#: anjuta.glade.h:336
+#: anjuta.glade.h:347
 msgid "User name:"
 msgstr "Felhasználó neve:"
 
-#: anjuta.glade.h:337
-msgid "Variable list"
-msgstr "Változólista"
-
-#: anjuta.glade.h:338 src/project_dbase_gui.c:931
+#: anjuta.glade.h:348 src/project_dbase_gui.c:937
 msgid "Version:"
 msgstr "Verzió:"
 
-#: anjuta.glade.h:339
+#: anjuta.glade.h:349
 msgid "View"
 msgstr "Nézet"
 
-#: anjuta.glade.h:340
+#: anjuta.glade.h:350
 msgid "Warn when an undefined variable is referenced in the Makefile"
-msgstr "Figyelmeztet amikor definiálatlan változó van a Makefile-ban"
+msgstr "Figyelmeztet amikor definiálatlan változó van a 'Makefile'-ban"
 
-#: anjuta.glade.h:341
+#: anjuta.glade.h:351
 msgid "Warning message indicator style:"
-msgstr "Figyelmeztető üzenetek megjelenési stílusa:"
+msgstr "Figyelmeztető üzenetek megjelenítési stílusa:"
 
-#: anjuta.glade.h:342
+#: anjuta.glade.h:352
 msgid "Warnings"
 msgstr "Figyelmeztetések"
 
-#: anjuta.glade.h:343
+#: anjuta.glade.h:353
 msgid "Warnings messages:"
 msgstr "Figyelmeztető üzenetek:"
 
-#: anjuta.glade.h:344
-msgid "Whole document"
-msgstr "Teljes dokumentum"
-
-#: anjuta.glade.h:345
-msgid "Whole word"
-msgstr "Teljes szóra"
-
-#: anjuta.glade.h:346
+#: anjuta.glade.h:354
 msgid "Working directory:"
 msgstr "Munka könyvtár:"
 
-#: anjuta.glade.h:347
+#: anjuta.glade.h:355
 msgid "Wrap bookmarks search around"
 msgstr ""
 
-#: anjuta.glade.h:348
+#. For the time being
+#: anjuta.glade.h:356 src/appwizard_cbs.c:282 src/project_dbase.c:1508
+#: src/project_dbase.c:1514 src/project_dbase.c:1517
+#: src/project_import_cbs.c:234 src/signals.c:322 src/signals.c:335
+#: src/signals.c:347
+msgid "Yes"
+msgstr "Igen"
+
+#: anjuta.glade.h:357
 msgid "_Attach"
 msgstr "_Kapcsol"
 
-#: anjuta.glade.h:349
+#: anjuta.glade.h:358
 msgid "_Build a file:"
 msgstr "_Egy fájl elkészítése:"
 
-#: anjuta.glade.h:350
+#: anjuta.glade.h:359
 msgid "_Condition:"
 msgstr "_Feltétel:"
 
-#: anjuta.glade.h:351
+#: anjuta.glade.h:360
 msgid "_Disable all"
-msgstr "Mindet _tilt"
+msgstr "Mindent _tilt"
 
-#: anjuta.glade.h:352
+#: anjuta.glade.h:361
 msgid "_Edit"
 msgstr "_Szerkesztés"
 
-#: anjuta.glade.h:353
+#: anjuta.glade.h:362
 msgid "_Execute:"
 msgstr "_Futtatás:"
 
-#: anjuta.glade.h:354
+#: anjuta.glade.h:363
+msgid "_Hide paths"
+msgstr "_Rejtett útvonalak"
+
+#: anjuta.glade.h:364
 msgid "_Image editor:"
 msgstr "_Képszerkesztő:"
 
-#: anjuta.glade.h:355
+#: anjuta.glade.h:365
 msgid "_Language:"
 msgstr "_Nyelv:"
 
-#: anjuta.glade.h:356
+#: anjuta.glade.h:366
 msgid "_Location:"
 msgstr "_Hely:"
 
-#: anjuta.glade.h:357
+#: anjuta.glade.h:367
 msgid "_Make a file:"
 msgstr "_Egy fájlt elkészít:"
 
-#: anjuta.glade.h:358
+#: anjuta.glade.h:368
 msgid "_Pass:"
 msgstr ""
 
-#: anjuta.glade.h:359
+#: anjuta.glade.h:369
 msgid "_Pixmap editor:"
 msgstr "_Pixmap szerkesztő:"
 
-#: anjuta.glade.h:360
+#: anjuta.glade.h:370
 msgid "_Process to attach to:"
 msgstr ""
 
-#: anjuta.glade.h:361
+#: anjuta.glade.h:371
 msgid "_Remove all"
 msgstr "_Mindent eltávolít"
 
-#: anjuta.glade.h:362
+#: anjuta.glade.h:372
 msgid "_Save Theme As"
-msgstr "Tém_a mentése, mint"
+msgstr "Tém_a mentése másként"
 
-#: anjuta.glade.h:363
+#: anjuta.glade.h:373
 msgid "_Terminal:"
 msgstr "_Terminál:"
 
-#: anjuta.glade.h:364
+#: anjuta.glade.h:374
 msgid "_Update"
 msgstr "_Frissítés"
+
+#: anjuta.glade.h:375
+msgid "dialog2"
+msgstr ""
+
+#: anjuta.glade.h:376
+msgid "dialog3"
+msgstr ""
+
+#: anjuta.glade.h:377
+msgid "dialog4"
+msgstr ""
 
 #: gdl/gdl-dock-item-grip.c:244
 msgid "Dock the toolbar"
@@ -1538,7 +1587,7 @@ msgstr "Orientáció"
 
 #: gdl/gdl-dock-item.c:243
 msgid "Orientation of the docking item"
-msgstr ""
+msgstr "A dokkolt elem igazítása"
 
 #: gdl/gdl-dock-item.c:258
 msgid "Resizable"
@@ -1546,7 +1595,7 @@ msgstr "Átméretezhető"
 
 #: gdl/gdl-dock-item.c:259
 msgid "If set, the dock item can be resized when docked in a paned"
-msgstr ""
+msgstr "Ha engedélyezi, akkor az elem átméretezhető dokkoláskor"
 
 #: gdl/gdl-dock-item.c:266
 msgid "Item behavior"
@@ -1571,8 +1620,7 @@ msgid "Locked"
 msgstr "Zárolt"
 
 #: gdl/gdl-dock-item.c:283
-msgid ""
-"If set, the dock item cannot be dragged around and it doesn't show a grip"
+msgid "If set, the dock item cannot be dragged around and it doesn't show a grip"
 msgstr ""
 
 #: gdl/gdl-dock-item.c:291
@@ -1597,7 +1645,8 @@ msgid ""
 "You can't add a dock object (%p of type %s) inside a %s. Use a GdlDock or "
 "some other compound dock object."
 msgstr ""
-"Nem lehet hozzáadni dokkobjektumot (%p típusa %s) egy %s-en belül. Használj egy GdlDock-ot vagy dokkobjektumok együttesét!"
+"Nem lehet hozzáadni dokkobjektumot (%p típusa %s) egy %s-en belül. Használjon "
+"egy GdlDock-ot vagy dokkobjektumok együttesét."
 
 #: gdl/gdl-dock-item.c:553
 #, c-format
@@ -1644,13 +1693,13 @@ msgstr ""
 
 #: gdl/gdl-dock-layout.c:447
 msgid "You must provide a name for the layout"
-msgstr "Meg kell adnod egy nevet a réteg számára"
+msgstr "Meg kell adnia egy nevet a réteg számára"
 
 #. FIXME: pop up an error dialog
 #: gdl/gdl-dock-layout.c:625
 #, c-format
 msgid "Could not load layout user interface file '%s'"
-msgstr ""
+msgstr "Nem lehet betölteni '%s' felhasználói felület-elrendezésfájlt."
 
 #: gdl/gdl-dock-layout.c:680
 msgid "Visible"
@@ -1661,17 +1710,17 @@ msgid "Item"
 msgstr "Elem"
 
 #: gdl/gdl-dock-layout.c:737 gdl/gdl-dock-object.c:120
-#: src/compiler_options.c:796
+#: src/compiler_options.c:805
 msgid "Name"
 msgstr "Név"
 
 #: gdl/gdl-dock-layout.c:776 gdl/layout.glade.h:2
 msgid "Dock items"
-msgstr ""
+msgstr "Elemek dokkolása"
 
 #: gdl/gdl-dock-layout.c:782 gdl/layout.glade.h:4
 msgid "Saved layouts"
-msgstr ""
+msgstr "Mentett elrendezések"
 
 #: gdl/gdl-dock-layout.c:824
 #, c-format
@@ -1679,6 +1728,8 @@ msgid ""
 "While loading layout: don't know how to create a dock object whose nick is '%"
 "s'"
 msgstr ""
+"Elrendezés betöltése közben: nem tudom, hogy lehet %s nevű dokkobjektumot "
+"készíteni."
 
 #: gdl/gdl-dock-layout.c:1303
 msgid "Layout managment"
@@ -1686,11 +1737,11 @@ msgstr "Rétegkezelés"
 
 #: gdl/gdl-dock-master.c:136 gdl/gdl-dock.c:185
 msgid "Default title"
-msgstr "Alapértelmezésű cím"
+msgstr "Alapértelmezett cím"
 
 #: gdl/gdl-dock-master.c:137
 msgid "Default title for newly created floating docks"
-msgstr "Alapértelmezésű cím az újonnan létrehozott lebegő dokkoknak"
+msgstr "Alapértelmezett cím az újonnan létrehozott lebegő dokkoknak"
 
 #: gdl/gdl-dock-master.c:144
 msgid ""
@@ -1761,8 +1812,7 @@ msgstr ""
 
 #: gdl/gdl-dock-object.c:583
 #, c-format
-msgid ""
-"Attempt to bind to %p an already bound dock object %p (current master: %p)"
+msgid "Attempt to bind to %p an already bound dock object %p (current master: %p)"
 msgstr ""
 
 #: gdl/gdl-dock-paned.c:134
@@ -1785,7 +1835,7 @@ msgstr ""
 
 #: gdl/gdl-dock-placeholder.c:135
 msgid "Host"
-msgstr "Hoszt"
+msgstr "Kiszolgáló"
 
 #: gdl/gdl-dock-placeholder.c:136
 msgid "The dock object this placeholder is attached to"
@@ -1920,9 +1970,9 @@ msgstr ""
 
 #. 13
 #. 14
-#: plugins/class-gen/clsGen.c:1343 src/main_menubar_def.h:1006
-#: src/project_dbase_gui.c:366 src/registers_gui.c:55 src/sharedlib_gui.c:48
-#: src/signals_gui.c:62 src/stack_trace.c:379 src/watch_gui.c:74
+#: plugins/class-gen/clsGen.c:1343 src/main_menubar_def.h:997
+#: src/project_dbase_gui.c:366 src/registers_gui.c:66 src/sharedlib_gui.c:60
+#: src/signals.c:442 src/stack_trace.c:379 src/watch_gui.c:75
 msgid "Help"
 msgstr "Segítség"
 
@@ -1967,8 +2017,8 @@ msgid ""
 "This plugin will create a class of the type you specify and add it to your "
 "project. "
 msgstr ""
-"Ez a plugin létrehoz egy osztályt a beállításaid alapján és beilleszti azt a "
-"projektedbe. "
+"Ez a bővítmény létrehoz egy osztályt a beállítások alapján és beilleszti azt a "
+"projektbe. "
 
 #. gtk_widget_set_usize (self->label_description, 400, 16);
 #: plugins/class-gen/clsGen.c:1462
@@ -2001,8 +2051,8 @@ msgid ""
 "If checked, the plugin will generate both the declaration and implementation "
 "in the header file and will not create a source file."
 msgstr ""
-"Ha kijelölöd, a plugin a deklarációt és a definíciót is a header fájlban "
-"hozzalétre és nem készít forrásfájl."
+"Ha kijelöli, a bővítmény a deklarációt és a definíciót is a fejlécfájlban "
+"hozza létre és nem készít forrásfájl."
 
 #: plugins/class-gen/clsGen.c:1548
 msgid "By:  Dave Huseby <huseby@linuxprogrammer.org>"
@@ -2013,8 +2063,7 @@ msgid "V 0.0.2 (June 11, 2002)"
 msgstr ""
 
 #: plugins/class-gen/clsGen.c:1570
-msgid ""
-"TODO: add the ability to declare member functions and their parameters here."
+msgid "TODO: add the ability to declare member functions and their parameters here."
 msgstr ""
 
 #: plugins/class-gen/clsGen.c:1580
@@ -2118,7 +2167,7 @@ msgstr "Foltozás...\n"
 
 #: plugins/patch/patch-plugin.c:195
 msgid "There are unfinished jobs, please wait until they are finished"
-msgstr "Vannak befejezetlen feladatok, várj míg befejeződnek"
+msgstr "Vannak végrehajtás alatt lévő feladatok, várjon míg befejeződnek"
 
 #: plugins/patch/patch-plugin.c:226
 msgid ""
@@ -2151,166 +2200,170 @@ msgstr ""
 msgid "This is a sample plugin"
 msgstr ""
 
-#: printing/print.c:484
+#: printing/print.c:486
 msgid "No file to print!"
 msgstr "Nincs fájl a nyomtatáshoz!"
 
-#: printing/print.c:517
+#: printing/print.c:509
 msgid "Unable to get text buffer for printing"
 msgstr ""
 
-#: printing/print.c:731
+#: printing/print.c:763
 #, c-format
 msgid "File: %s"
 msgstr "Fájl: %s"
 
-#: printing/print.c:732
+#: printing/print.c:764
 #, c-format
 msgid "%d"
 msgstr "%d"
 
-#: printing/print.c:844
+#: printing/print.c:876
 msgid "Printing .."
-msgstr "Nyomtatás .."
-
-#: printing/print.c:856
-msgid "Printing ..."
 msgstr "Nyomtatás ..."
 
-#: printing/print.c:1002 src/signals_gui.c:123
+#: printing/print.c:888
+msgid "Printing ..."
+msgstr "Nyomtatás..."
+
+#: printing/print.c:1035 src/signals.c:48
 msgid "Print"
 msgstr "Nyomtatás"
 
-#: printing/print.c:1038
+#: printing/print.c:1071
 msgid "Print Preview"
 msgstr "Nyomtatási kép"
 
-#: src/about.c:95
+#: src/about.c:155
 msgid "Copyright (c) Naba Kumar"
 msgstr ""
 
-#: src/an_file_view.c:63
+#: src/an_file_view.c:65
 #, c-format
 msgid "Unable to open %s in %s"
 msgstr ""
 
-#: src/an_file_view.c:73
+#: src/an_file_view.c:75
 #, c-format
 msgid ""
 "No default viewer specified for the mime type %s.\n"
 "Please set it in GNOME control center"
 msgstr ""
 "Nincs alapértelmezésű nézegető ehhez a mime típushoz %s \n"
-"Kérlek add meg azt a GNOME vezelőközpontban"
+"Kérem adja meg azt a GNOME vezérlőpultban"
 
-#: src/an_file_view.c:273
+#: src/an_file_view.c:284
 msgid "Unable to build user interface for file filter"
 msgstr ""
 
 #. 0
-#: src/an_file_view.c:354
+#: src/an_file_view.c:364
 msgid "Update file"
 msgstr "Fájl frissítése"
 
-#: src/an_file_view.c:355 src/main_menubar_def.h:1612
+#: src/an_file_view.c:365 src/main_menubar_def.h:1603
 msgid "Update current working copy"
 msgstr ""
 
 #. 1
-#: src/an_file_view.c:361
+#: src/an_file_view.c:371
 msgid "Commit file"
 msgstr ""
 
-#: src/an_file_view.c:362 src/main_menubar_def.h:1619
+#: src/an_file_view.c:372 src/main_menubar_def.h:1610
 msgid "Commit changes to the repository"
 msgstr ""
 
 #. 2
-#: src/an_file_view.c:368
+#: src/an_file_view.c:378
 msgid "Status of file"
 msgstr ""
 
-#: src/an_file_view.c:369 src/main_menubar_def.h:1626
+#: src/an_file_view.c:379 src/main_menubar_def.h:1617
 msgid "Print the status of the current file"
 msgstr ""
 
 #. 3
-#: src/an_file_view.c:375
+#: src/an_file_view.c:385
 msgid "Get file log"
 msgstr ""
 
-#: src/an_file_view.c:376 src/main_menubar_def.h:1633
+#: src/an_file_view.c:386 src/main_menubar_def.h:1624
 msgid "Print the CVS log for the current file"
 msgstr ""
 
 #. 4
-#: src/an_file_view.c:382
+#: src/an_file_view.c:392
 msgid "Add file"
 msgstr "Fájl hozzáadása"
 
-#: src/an_file_view.c:383 src/main_menubar_def.h:1640
+#: src/an_file_view.c:393 src/main_menubar_def.h:1631
 msgid "Add the current file to the repository"
 msgstr ""
 
 #. 5
-#: src/an_file_view.c:389
+#: src/an_file_view.c:399
 msgid "Remove file"
 msgstr "Fájl eltávolítása"
 
-#: src/an_file_view.c:390 src/main_menubar_def.h:1647
+#: src/an_file_view.c:400 src/main_menubar_def.h:1638
 msgid "Remove the current file from the repository"
 msgstr ""
 
 #. 6
-#: src/an_file_view.c:396
+#: src/an_file_view.c:406
 msgid "Diff file"
-msgstr ""
+msgstr "Diff-fájl"
 
-#: src/an_file_view.c:397 src/main_menubar_def.h:1654
+#: src/an_file_view.c:407 src/main_menubar_def.h:1645
 msgid "Create a diff between the working copy and the repository"
 msgstr ""
 
 #. 0
-#: src/an_file_view.c:406 src/main_menubar_def.h:954
+#: src/an_file_view.c:416 src/main_menubar_def.h:945
 #: src/project_dbase_gui.c:334
 msgid "Open in Anjuta"
 msgstr "Megnyitás az Anjuta-ban"
 
 #. 1
-#: src/an_file_view.c:413 src/main_menubar_def.h:948
+#: src/an_file_view.c:423 src/main_menubar_def.h:939
 #: src/project_dbase_gui.c:328
 msgid "Open in default viewer"
 msgstr "Megnyitás az alap nézegetőben"
 
 #. 3
-#: src/an_file_view.c:427 src/an_symbol_view.c:302
+#: src/an_file_view.c:437 src/an_symbol_view.c:303
 msgid "Refresh"
 msgstr "Frissítés"
 
 #. 4
 #. 5
-#: src/an_file_view.c:435 src/an_symbol_view.c:309 src/main_menubar_def.h:980
+#: src/an_file_view.c:445 src/an_symbol_view.c:310 src/main_menubar_def.h:971
 #: src/message-manager.cc:143 src/project_dbase_gui.c:360
 #: src/text_editor_menu.c:355
 msgid "Docked"
 msgstr ""
 
-#: src/an_file_view.c:436 src/an_symbol_view.c:310 src/main_menubar_def.h:981
+#: src/an_file_view.c:446 src/an_symbol_view.c:311 src/main_menubar_def.h:972
 msgid "Dock/Undock the Project Window"
 msgstr "A projekt ablak dokkolása/leválasztása"
 
 #. 6
-#: src/an_file_view.c:442
+#: src/an_file_view.c:452
 msgid "Customize"
 msgstr "Testreszabás"
 
-#: src/an_file_view.c:443
+#: src/an_file_view.c:453
 msgid "Customize the file browser"
 msgstr ""
 
-#: src/an_file_view.c:684
+#: src/an_file_view.c:695
 msgid "Rev"
 msgstr ""
+
+#: src/an_file_view.c:822
+msgid "Refreshing file view ..."
+msgstr "Fájl megjelenítés frissítése..."
 
 #: src/an_symbol_view.c:54
 msgid "Classes"
@@ -2329,23 +2382,27 @@ msgid "Macros"
 msgstr "Makrók"
 
 #. 0
-#: src/an_symbol_view.c:281
+#: src/an_symbol_view.c:282
 msgid "Goto Definition"
 msgstr "Ugrás a definícióra"
 
 #. 1
-#: src/an_symbol_view.c:288
+#: src/an_symbol_view.c:289
 msgid "Goto Declaration"
 msgstr "Ugrás a deklarációra"
 
 #. 2
-#: src/an_symbol_view.c:295 src/text_editor_menu.c:339
+#: src/an_symbol_view.c:296 src/text_editor_menu.c:339
 msgid "Find Usage"
 msgstr ""
 
-#: src/an_symbol_view.c:569
+#: src/an_symbol_view.c:570
 msgid "Symbol"
 msgstr "Szimbólum"
+
+#: src/an_symbol_view.c:690
+msgid "Refreshing symbol view ..."
+msgstr ""
 
 #: src/anjuta-encodings.c:131 src/anjuta-encodings.c:157
 #: src/anjuta-encodings.c:198 src/anjuta-encodings.c:239
@@ -2378,7 +2435,7 @@ msgid "Arabic"
 msgstr ""
 
 #: src/anjuta-encodings.c:143 src/anjuta-encodings.c:241
-#: src/project_dbase_gui.c:1141
+#: src/project_dbase_gui.c:1135
 msgid "Greek"
 msgstr ""
 
@@ -2392,7 +2449,7 @@ msgid "Hebrew"
 msgstr ""
 
 #: src/anjuta-encodings.c:149 src/anjuta-encodings.c:204
-#: src/anjuta-encodings.c:243 src/project_dbase_gui.c:1161
+#: src/anjuta-encodings.c:243 src/project_dbase_gui.c:1155
 msgid "Turkish"
 msgstr ""
 
@@ -2404,7 +2461,7 @@ msgstr ""
 msgid "Celtic"
 msgstr ""
 
-#: src/anjuta-encodings.c:159 src/project_dbase_gui.c:1158
+#: src/anjuta-encodings.c:159 src/project_dbase_gui.c:1152
 msgid "Romanian"
 msgstr ""
 
@@ -2433,7 +2490,7 @@ msgstr ""
 
 #: src/anjuta-encodings.c:182 src/anjuta-encodings.c:213
 #: src/anjuta-encodings.c:217 src/anjuta-encodings.c:230
-#: src/project_dbase_gui.c:1152
+#: src/project_dbase_gui.c:1146
 msgid "Korean"
 msgstr ""
 
@@ -2463,100 +2520,100 @@ msgstr ""
 msgid "Stock Encodings"
 msgstr ""
 
-#: src/anjuta-plugins.c:115 src/anjuta-plugins.c:118
+#: src/anjuta-plugins.c:116 src/anjuta-plugins.c:119
 #, c-format
 msgid "Unable to load plugin %s. Error: %s"
-msgstr "Nem tölthető be a(z) %s plugin. Hiba: %s"
+msgstr "Nem tölthető be a(z) %s bővítmény. Hiba: %s"
 
-#: src/anjuta-plugins.c:121
+#: src/anjuta-plugins.c:122
 #, c-format
 msgid "Plugin protocol %s unknown Error:%s"
 msgstr ""
 
-#: src/anjuta-plugins.c:124
+#: src/anjuta-plugins.c:125
 #, c-format
 msgid "Unable to start plugin %s"
 msgstr ""
 
-#: src/anjuta-plugins.c:127
+#: src/anjuta-plugins.c:128
 #, c-format
 msgid "Bad parameters to plugin %s. Error: %s"
 msgstr ""
 
-#: src/anjuta-plugins.c:134
+#: src/anjuta-plugins.c:135
 #, c-format
 msgid ""
 "Unable to load plugin %s.\n"
 "Error: %s"
 msgstr ""
 
-#: src/anjuta-plugins.c:203
+#: src/anjuta-plugins.c:204
 msgid "Out of memory scanning for plugins."
-msgstr ""
+msgstr "Betelt a memória a bővítmények keresése közben."
 
-#: src/anjuta-tools.c:1005
+#: src/anjuta-tools.c:1000
 msgid "Tool"
 msgstr "Segédeszköz"
 
-#: src/anjuta-tools.c:1189
+#: src/anjuta-tools.c:1184
 msgid "Unable to build user interface for tool editor"
 msgstr ""
 
-#: src/anjuta-tools.c:1385
+#: src/anjuta-tools.c:1396
 #, c-format
 msgid "Are you sure you want to delete the '%s' tool?"
-msgstr ""
+msgstr "Valóban törölni akarja a segédeszközt ('%s')?"
 
-#: src/anjuta-tools.c:1487
+#: src/anjuta-tools.c:1498
 msgid "You must provide a tool name!"
-msgstr ""
+msgstr "Meg kell adnia egy segédeszköz nevet!"
 
-#: src/anjuta-tools.c:1493
+#: src/anjuta-tools.c:1504
 msgid "You must provide a tool command!"
 msgstr ""
 
-#: src/anjuta-tools.c:1508
+#: src/anjuta-tools.c:1519
 #, c-format
 msgid "A tool with the name '%s' already exists!"
 msgstr ""
 
-#: src/anjuta-tools.c:1792
+#: src/anjuta-tools.c:1809
 msgid "Unable to build user interface for tool help"
 msgstr ""
 
-#: src/anjuta-tools.c:1807 src/debug_tree.c:106 src/watch_gui.c:125
+#: src/anjuta-tools.c:1826 src/debug_tree.c:106 src/watch_gui.c:126
 msgid "Variable"
 msgstr "Változó"
 
-#: src/anjuta-tools.c:1813
+#: src/anjuta-tools.c:1832
 msgid "Meaning"
 msgstr ""
 
-#: src/anjuta-tools.c:1819 src/debug_tree.c:106 src/watch_gui.c:134
+#: src/anjuta-tools.c:1838 src/debug_tree.c:106 src/watch_gui.c:135
 msgid "Value"
 msgstr "Érték"
 
-#: src/anjuta-tools.c:1882
+#: src/anjuta-tools.c:1901
 msgid "Unable to build user interface for tool parameters"
 msgstr ""
 
-#: src/anjuta-tools.c:1886
+#: src/anjuta-tools.c:1905
 #, c-format
 msgid "%s: Command line parameters"
 msgstr "%s: parancssori paraméterek"
 
-#: src/anjuta.c:71 src/anjuta.c:78
+#: src/anjuta.c:73 src/anjuta.c:80
 #, c-format
 msgid "Anjuta: Caught signal %d (%s) !"
-msgstr "Anjuta: elkaptam egy jelzést %d (%s) !"
+msgstr "Anjuta: elkaptam egy jelzést %d (%s)!"
 
 #. Must declare static, because it will be used forever
-#: src/anjuta.c:130
+#: src/anjuta.c:132
 msgid "Open File"
 msgstr "Fájl megnyitása"
 
 #. Must declare static, because it will be used forever
-#: src/anjuta.c:136 src/anjuta.c:141
+#: src/anjuta.c:138 src/anjuta.c:143
 msgid "Save File As"
 msgstr "Fájl mentése másként"
 
@@ -2564,42 +2621,42 @@ msgstr "Fájl mentése másként"
 msgid "Cannot create application... exiting\n"
 msgstr "Nem lehet létrehozni az alkalmazást... kilépek\n"
 
-#: src/anjuta.c:320 src/anjuta.c:324 src/anjuta.c:1147 src/anjuta.c:1163
+#: src/anjuta.c:320 src/anjuta.c:324 src/anjuta.c:1160 src/anjuta.c:1176
 #, c-format
 msgid "Anjuta: %s"
 msgstr "Anjuta: %s"
 
 #: src/anjuta.c:381
 msgid "Recent Files "
-msgstr "Gyakori fájlok "
+msgstr "Legutóbbi fájlok "
 
-#: src/anjuta.c:936
+#: src/anjuta.c:940
 msgid "# * DO NOT EDIT OR RENAME THIS FILE ** Generated by Anjuta **\n"
 msgstr ""
 
-#: src/anjuta.c:1112
+#: src/anjuta.c:1125
 msgid "All files saved ..."
-msgstr "Minden fájl mentve ..."
+msgstr "Összes fájl mentve..."
 
-#: src/anjuta.c:1140
+#: src/anjuta.c:1153
 #, c-format
 msgid "Anjuta: %s (Saved)"
 msgstr "Anjuta: %s (Mentve)"
 
-#: src/anjuta.c:1155
+#: src/anjuta.c:1168
 #, c-format
 msgid "Anjuta: %s (Unsaved)"
 msgstr "Anjuta: %s (Módosítva)"
 
-#: src/anjuta.c:1180
+#: src/anjuta.c:1193
 msgid "Anjuta: No file"
 msgstr "Anjuta: nincs fájl"
 
-#: src/anjuta.c:1485 src/anjuta.c:1587
+#: src/anjuta.c:1499 src/anjuta.c:1624
 msgid "ERROR: "
 msgstr "HIBA:"
 
-#: src/anjuta.c:1506 src/anjuta.c:1606
+#: src/anjuta.c:1528 src/anjuta.c:1651
 msgid ""
 "\n"
 "System: "
@@ -2607,93 +2664,93 @@ msgstr ""
 "\n"
 "Rendszer: "
 
-#: src/anjuta.c:2086
+#: src/anjuta.c:2137
 #, c-format
 msgid ""
 "The \"%s\" utility is not installed.\n"
 "Install it and then restart Anjuta."
 msgstr ""
-"A \"%s\" segédeszköz nincs telepítve !\n"
-"Telepítsd majd indítsd újra az Anjuta-t."
+"A(z) \"%s\" segédeszköz nincs telepítve.\n"
+"Telepítse azt, majd indítsa újra az Anjuta-t."
 
-#: src/anjuta.c:2112 src/anjuta.c:2168
+#: src/anjuta.c:2163 src/anjuta.c:2219
 msgid "None"
 msgstr "Nincs"
 
-#: src/anjuta.c:2123
+#: src/anjuta.c:2174
 msgid "DOS (CRLF)"
 msgstr ""
 
-#: src/anjuta.c:2126 src/anjuta.c:2160
+#: src/anjuta.c:2177 src/anjuta.c:2211
 msgid "Unix (LF)"
 msgstr ""
 
-#: src/anjuta.c:2129
+#: src/anjuta.c:2180
 msgid "Mac (CR)"
 msgstr ""
 
-#: src/anjuta.c:2132
+#: src/anjuta.c:2183
 msgid "Unknown"
 msgstr "Ismeretlen"
 
-#: src/anjuta.c:2149
+#: src/anjuta.c:2200
 msgid "OVR"
 msgstr ""
 
-#: src/anjuta.c:2153 src/anjuta.c:2159
+#: src/anjuta.c:2204 src/anjuta.c:2210
 msgid "INS"
 msgstr ""
 
-#: src/anjuta.c:2171
+#: src/anjuta.c:2222
 #, c-format
 msgid ""
 "  Project: %s       Zoom: %d       Line: %04d       Col: %03d       %s       "
 "Job: %s       Mode: %s"
 msgstr ""
-"  Projekt: %s       Zoom: %d        Sor: %04d     Oszlop: %03d       %s     "
+"  Projekt: %s       Nagyítás: %d        Sor: %04d     Oszlop: %03d       %s     "
 "Munka: %s       Mód: %s"
 
-#: src/anjuta.c:2414
+#: src/anjuta.c:2452
 msgid "Looking up symbol"
 msgstr "Szimbólum kikeresése"
 
-#: src/anjuta.c:2416 src/find_in_files.c:322
+#: src/anjuta.c:2454
 msgid "Finding in Files ....\n"
 msgstr ""
 
-#: src/anjuta_cbs.c:145
+#: src/anjuta_cbs.c:173
 msgid ""
 "One or more files are not saved.\n"
 "Do you still want to exit?"
 msgstr ""
 "Egy vagy több fájl nincs mentve.\n"
-"Valóban ki akarsz lépni?"
+"Valóban ki akar lépni?"
 
-#: src/anjuta_cbs.c:505
+#: src/anjuta_cbs.c:533
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
 "Do you want to replace it with the one you are saving?"
 msgstr ""
-"A fájl '%s' már létezik!\n"
-"Le akarod cserélni vagy mented más néven?"
+"A fájl '%s' már létezik.\n"
+"Le akarja cserélni erre?"
 
-#: src/anjuta_cbs.c:512 src/anjuta_cbs.c:576 src/find_replace.c:344
+#: src/anjuta_cbs.c:540 src/anjuta_cbs.c:604
 msgid "_Replace"
 msgstr "_Csere"
 
-#: src/anjuta_cbs.c:545
+#: src/anjuta_cbs.c:573
 msgid "Could not open file for writing"
 msgstr "Nem nyitható meg a fájl írásra"
 
-#: src/anjuta_cbs.c:569
+#: src/anjuta_cbs.c:597
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
 "Do you want to replace it with the one you are saving?."
 msgstr ""
-"A fájl (%s) már létezik!\n"
-"Le akarod cserélni vagy mented más néven?"
+"A(z) %s fájl már létezik.\n"
+"Le akarja cserélni erre?"
 
 #: src/anjuta_dirs.c:51
 msgid "Unable to create settings directory.\n"
@@ -2701,13 +2758,13 @@ msgstr ""
 
 #: src/anjuta_gui.c:191 src/anjuta_gui.c:280
 msgid "Click here to undock this window"
-msgstr "Klikkelj ide az ablak leválasztásához"
+msgstr "Klikkeljen ide az ablak leválasztásához"
 
 #: src/anjuta_gui.c:225 src/anjuta_gui.c:247
 msgid "Click here to hide this window"
-msgstr "Klikkelj ide az ablak elrejtéséhez"
+msgstr "Klikkeljen ide az ablak elrejtéséhez"
 
-#: src/anjuta_info.c:50 src/anjuta_info.c:100
+#: src/anjuta_info.c:56 src/anjuta_info.c:106
 msgid "Information"
 msgstr "Információ"
 
@@ -2730,56 +2787,49 @@ msgid ""
 "You must supply a valid %s field to proceed further."
 msgstr ""
 
-#. For the time being
-#: src/appwizard_cbs.c:282 src/project_dbase.c:1489 src/project_dbase.c:1495
-#: src/project_dbase.c:1498 src/project_import_cbs.c:227 src/signals_cbs.c:114
-#: src/signals_cbs.c:127 src/signals_cbs.c:140
-msgid "Yes"
-msgstr "Igen"
-
-#: src/appwizard_cbs.c:284 src/project_dbase.c:1491 src/project_dbase.c:1500
-#: src/project_import_cbs.c:229 src/signals_cbs.c:116 src/signals_cbs.c:129
-#: src/signals_cbs.c:142
+#: src/appwizard_cbs.c:284 src/project_dbase.c:1510 src/project_dbase.c:1519
+#: src/project_import_cbs.c:236 src/signals.c:324 src/signals.c:337
+#: src/signals.c:349
 msgid "No"
 msgstr "Nem"
 
-#: src/appwizard_cbs.c:286 src/project_import_cbs.c:230
+#: src/appwizard_cbs.c:286 src/project_import_cbs.c:237
 msgid ""
 "Confirm the following information:\n"
 "\n"
 msgstr ""
-"A következő információkat adtad meg:\n"
+"A következő információkat adta meg:\n"
 "\n"
 
-#: src/appwizard_cbs.c:287 src/project_import_cbs.c:231
+#: src/appwizard_cbs.c:287 src/project_import_cbs.c:238
 msgid "Project Name:    "
 msgstr "Projektnév:    "
 
-#: src/appwizard_cbs.c:288 src/project_import_cbs.c:232
+#: src/appwizard_cbs.c:288 src/project_import_cbs.c:239
 msgid "Project Type:    "
 msgstr "Projekttípus:    "
 
-#: src/appwizard_cbs.c:289 src/project_import_cbs.c:234
+#: src/appwizard_cbs.c:289 src/project_import_cbs.c:241
 msgid "Target Type:     "
 msgstr "Céltípus:     "
 
-#: src/appwizard_cbs.c:290 src/project_import_cbs.c:237
+#: src/appwizard_cbs.c:290 src/project_import_cbs.c:244
 msgid "Source Target:   "
-msgstr "Forráscél:   "
+msgstr "Forrás cél:   "
 
-#: src/appwizard_cbs.c:291 src/project_import_cbs.c:238
+#: src/appwizard_cbs.c:291 src/project_import_cbs.c:245
 msgid "Version:         "
 msgstr "Verzió:         "
 
-#: src/appwizard_cbs.c:292 src/project_import_cbs.c:239
+#: src/appwizard_cbs.c:292 src/project_import_cbs.c:246
 msgid "Author:          "
 msgstr "Szerző:          "
 
-#: src/appwizard_cbs.c:293 src/project_import_cbs.c:240
+#: src/appwizard_cbs.c:293 src/project_import_cbs.c:247
 msgid "Language:        "
 msgstr "Nyelv:            "
 
-#: src/appwizard_cbs.c:294 src/project_import_cbs.c:242
+#: src/appwizard_cbs.c:294 src/project_import_cbs.c:249
 msgid "Gettext Support: "
 msgstr "Gettext támogatása: "
 
@@ -2796,51 +2846,59 @@ msgid ""
 msgstr ""
 "Az Alkalmazásvarázsló létrehoz egy egyszerű vázat\n"
 "a projekt számára minden alapvető fájllal együtt.\n"
-"Néhány információt meg kell adnod az alkalmazás\n"
+"Néhány információt meg kell adnia az alkalmazás\n"
 "létrehozásához.\n"
 "\n"
-"Az adatokat körültekintően add meg mivel néhány\n"
+"Az adatokat körültekintően adja meg, mivel néhány\n"
 "beállítás a későbbiekben nem módosítható."
 
-#: src/attach_process.c:47
+#: src/attach_process.c:68
 msgid "Pid"
-msgstr ""
+msgstr "Pid"
 
-#: src/attach_process.c:47
+#: src/attach_process.c:68
 msgid "User"
 msgstr "Felhasználó"
 
-#: src/attach_process.c:47
+#: src/attach_process.c:68
 msgid "Time"
 msgstr "Idő"
 
-#: src/attach_process.c:47
+#: src/attach_process.c:68
 msgid "Command"
 msgstr "Parancs"
 
-#: src/attach_process.c:131
+#: src/attach_process.c:400 src/debugger.c:1213 src/glade_iface.c:105
+#: src/glade_iface.c:146 src/glade_iface.c:188 src/glade_iface.c:229
+#: src/glade_iface.c:282 src/glade_iface.c:287 src/launcher.c:873
+#: src/resources.c:263 src/resources.c:272
+#, c-format
+msgid "Cannot execute command: \"%s\""
+msgstr "Nem futtatható a parancs: \"%s\""
+
+#: src/attach_process.c:405
 #, c-format
 msgid "Unable to execute: %s."
 msgstr "Nem futtatható: %s."
 
-#: src/attach_process.c:141
+#: src/attach_process.c:418
 #, c-format
 msgid "Unable to open the file: %s\n"
 msgstr "A fájl nem nyitható meg: %s\n"
 
-#: src/breakpoints.c:111
+#: src/breakpoints.c:115
 msgid "Line"
 msgstr "Sor"
 
-#: src/breakpoints.c:112
+#: src/breakpoints.c:116
 msgid "Function"
 msgstr "Függvény"
 
-#: src/breakpoints.c:112 src/signals_gui.c:127
+#: src/breakpoints.c:116 src/signals.c:48
 msgid "Pass"
 msgstr ""
 
-#: src/breakpoints.c:112
+#: src/breakpoints.c:116
 msgid "Condition"
 msgstr "Feltétel"
 
@@ -2849,7 +2907,7 @@ msgstr "Feltétel"
 #. breakpoints_dbase_update,
 #. debugger.breakpoints_dbase);
 #.
-#: src/breakpoints.c:169 src/debugger.c:1825
+#: src/breakpoints.c:169 src/debugger.c:1841
 msgid "All breakpoints enabled:\n"
 msgstr ""
 
@@ -2858,46 +2916,40 @@ msgstr ""
 #. breakpoints_dbase_update,
 #. debugger.breakpoints_dbase);
 #.
-#: src/breakpoints.c:187 src/debugger.c:1871
+#: src/breakpoints.c:187 src/debugger.c:1887
 msgid "All breakpoints disabled:\n"
 msgstr ""
 
-#: src/breakpoints.c:651
+#: src/breakpoints.c:639
 msgid "You must give a valid location to set the breakpoint."
 msgstr ""
 
-#: src/breakpoints.c:773
+#: src/breakpoints.c:760
 msgid "Are you sure you want to delete all the breakpoints?"
-msgstr ""
+msgstr "Valóban törölni akarja az összes töréspontot?"
 
 #: src/breakpoints.c:1296
 msgid "Old breakpoints disabled."
 msgstr ""
 
-#. 5
-#: src/breakpoints.c:1436 src/main_menubar_def.h:781 src/text_editor_gui.c:159
-msgid "0"
-msgstr ""
-
 #: src/build_file.c:48
 msgid "This file has not been saved. Save it first and then build."
-msgstr "A fájl nincs mentve. Először mentsd el majd elkészítheted."
+msgstr "A fájl nincs mentve. Először mentse el majd utána elkészítheti."
 
 #: src/build_file.c:73
 msgid "The executable is up-to-date, there is no need to build it again."
-msgstr "A végrehajtható állomány frissített, nem szükséges ismét elkészíteni!"
+msgstr "A végrehajtható állomány a legfrissebb, nem szükséges ismét elkészíteni."
 
 #: src/build_file.c:88
 msgid "No build command has been specified for this type of file."
-msgstr "Nincs elkészítési parancs meghatározva ehhez a fájltípushoz!"
+msgstr "Nincs elkészítési parancs meghatározva ehhez a fájltípushoz."
 
 #: src/build_file.c:104
 #, c-format
 msgid "Building file: %s ...\n"
 msgstr "Fájl készítése: %s ...\n"
 
-#: src/build_file.c:132 src/cvs.c:776 src/find_in_files.c:360
-#: src/project_import.c:192
+#: src/build_file.c:132 src/cvs.c:777 src/project_import.c:192
 #, c-format
 msgid "Total time taken: %lu secs\n"
 msgstr ""
@@ -2918,65 +2970,65 @@ msgstr "Végrehajtva ... sikeresen\n"
 msgid "Completed ... successful"
 msgstr "Végrehajtva ... sikeresen"
 
-#: src/build_project.c:76 src/compile.c:61
+#: src/build_project.c:77 src/compile.c:61
 msgid "Unable to build module. Check Settings->Commands."
-msgstr "Nem készíthető el a modul. Ellenőrizd: Beállítások->Parancsok."
+msgstr "Nem készíthető el a modul. Ellenőrizze: Beállítások->Parancsok."
 
-#: src/build_project.c:95 src/build_project.c:160 src/compile.c:74
+#: src/build_project.c:92 src/build_project.c:155 src/compile.c:74
 msgid "Build Project"
 msgstr "Projekt elkészítése"
 
-#: src/build_project.c:97 src/compile.c:76
+#: src/build_project.c:94 src/compile.c:76
 msgid "Building source directory of the Project: "
 msgstr "A projekt forrás könyvtárának elkészítése: "
 
-#: src/build_project.c:145
+#: src/build_project.c:142
 msgid "Unable to build Project. Check Settings->Commands."
-msgstr "Nem készíthető el a projekt. Ellenőrizd: Beállítások->Parancsok."
+msgstr "Nem készíthető el a projekt. Ellenőrizze: Beállítások->Parancsok."
 
-#: src/build_project.c:163
+#: src/build_project.c:158
 msgid "Building the whole Project: "
 msgstr "A teljes projekt elkészítése: "
 
-#: src/build_project.c:196
+#: src/build_project.c:191
 msgid "Unable to build tarball. Check Settings->Commands."
-msgstr "Nem készíthető el a tarball. Ellenőrizd: Beállítások->Parancsok."
+msgstr "Nem készíthető el a tarball. Ellenőrizze: Beállítások->Parancsok."
 
-#: src/build_project.c:211
+#: src/build_project.c:204
 msgid "Build Distribution"
 msgstr "Disztribúció elkészítése"
 
-#: src/build_project.c:215
+#: src/build_project.c:208
 msgid "Building the distribution package of the Project: "
 msgstr "A projekt disztribúció csomagjának elkészítése: "
 
-#: src/build_project.c:247
+#: src/build_project.c:240
 msgid "Do you prefer installing as root ?"
-msgstr "Engedélyezed a telepítést root-ként ?"
+msgstr "Engedélyezi a telepítést root-ként?"
 
-#: src/build_project.c:285
+#: src/build_project.c:278
 msgid "Unable to auto generate. Check Settings->Commands."
 msgstr ""
 
-#: src/build_project.c:299
+#: src/build_project.c:294
 msgid "Auto generate Project"
 msgstr ""
 
-#: src/build_project.c:302
+#: src/build_project.c:297
 msgid "Auto generating the Project: "
 msgstr ""
 
-#: src/build_project.c:324 src/build_project.c:362
+#: src/build_project.c:319 src/build_project.c:354
 msgid "Unable to install Project. Check Settings->Commands."
 msgstr ""
 
-#: src/build_project.c:339 src/build_project.c:374
+#: src/build_project.c:331 src/build_project.c:362
 msgid "Install Project"
 msgstr "Projekt telepítése"
 
-#: src/build_project.c:341 src/build_project.c:376
+#: src/build_project.c:333 src/build_project.c:364
 msgid "Installing the Project: "
-msgstr ""
+msgstr "Projekt telepítése:"
 
 #: src/clean_project.c:61
 msgid "Unable to clean Project. Check Settings->Commands."
@@ -3004,7 +3056,7 @@ msgstr ""
 
 #: src/compile.c:107
 msgid "This file has not been saved. Save it first and then compile."
-msgstr "Ez a fájl nincs mentve. Mentsd el és akkor fordítsd le!"
+msgstr "Ez a fájl nincs mentve. Először mentse el és azután fordítsa le."
 
 #: src/compile.c:128
 msgid "The object file is up-to-date, there is no need to compile it again."
@@ -3014,7 +3066,7 @@ msgstr ""
 msgid "No compile command has been specified for this type of file."
 msgstr "Nincs fordítási parancs meghatározva ehhez a fájltípushoz."
 
-#: src/compile.c:153 src/toolbar.c:250
+#: src/compile.c:153 src/toolbar.c:251
 msgid "Compile"
 msgstr "Fordítás"
 
@@ -3029,40 +3081,40 @@ msgid ""
 "would you like the next build action to perform a complete\n"
 "rebuild of the project?"
 msgstr ""
-"A projekt néhány fordítási opcióját megváltoztattad.\n"
-"Szeretnéd, hogy a következő elkészítési folyamat során a teljes\n"
+"A projekt néhány fordítási opcióját megváltoztatta.\n"
+"Szeretné, hogy a következő elkészítési folyamat során a teljes\n"
 "projekt feldolgozásra kerüljön?"
 
-#: src/compiler_options.c:724 src/src_paths.c:217
+#: src/compiler_options.c:733 src/src_paths.c:222
 msgid "Do you want to clear the list?"
-msgstr "Valóban törölni akarod a listát?"
+msgstr "Valóban törölni akarja a listát?"
 
-#: src/compiler_options.c:803 src/compiler_options.c:879
-#: src/compiler_options.c:902 src/compiler_options.c:947 src/signals_gui.c:131
+#: src/compiler_options.c:812 src/compiler_options.c:888
+#: src/compiler_options.c:911 src/compiler_options.c:956 src/signals.c:48
 msgid "Description"
 msgstr "Leírás"
 
-#: src/compiler_options.c:818
+#: src/compiler_options.c:827
 msgid "Include paths"
 msgstr ""
 
-#: src/compiler_options.c:833
+#: src/compiler_options.c:842
 msgid "Libraries paths"
 msgstr "Könyvtárak útvonalai"
 
-#: src/compiler_options.c:856
+#: src/compiler_options.c:865
 msgid "Libraries and modules"
 msgstr "Könyvtárak és modulok"
 
-#: src/compiler_options.c:872
+#: src/compiler_options.c:881
 msgid "Stock"
 msgstr ""
 
-#: src/compiler_options.c:917
+#: src/compiler_options.c:926
 msgid "Stock Defines"
 msgstr ""
 
-#: src/compiler_options.c:940
+#: src/compiler_options.c:949
 msgid "Warning"
 msgstr "Figyelmeztetés"
 
@@ -3072,7 +3124,7 @@ msgid ""
 "Auto generate the Project first."
 msgstr ""
 
-#: src/configurer.c:188 src/toolbar.c:262
+#: src/configurer.c:188 src/toolbar.c:263
 msgid "Configure"
 msgstr "Konfigurálás"
 
@@ -3084,71 +3136,71 @@ msgstr ""
 msgid "No tags"
 msgstr ""
 
-#: src/cvs.c:262
+#: src/cvs.c:263
 msgid "CVS Updating "
 msgstr ""
 
-#: src/cvs.c:312
+#: src/cvs.c:313
 msgid "CVS Committing "
 msgstr ""
 
-#: src/cvs.c:373
+#: src/cvs.c:374
 msgid "CVS Importing...\n"
 msgstr ""
 
-#: src/cvs.c:413
+#: src/cvs.c:414
 msgid "CVS Adding "
 msgstr ""
 
-#: src/cvs.c:445
+#: src/cvs.c:446
 msgid "CVS Removing "
 msgstr ""
 
-#: src/cvs.c:486
+#: src/cvs.c:487
 msgid "Getting CVS status "
 msgstr ""
 
-#: src/cvs.c:501 src/cvs.c:556 src/cvs.c:635 src/cvs.c:891
+#: src/cvs.c:502 src/cvs.c:557 src/cvs.c:636 src/cvs.c:892
 msgid "There are jobs running, please wait until they are finished"
 msgstr ""
 
-#: src/cvs.c:541
+#: src/cvs.c:542
 msgid "Getting CVS log "
 msgstr ""
 
-#: src/cvs.c:620
+#: src/cvs.c:621
 msgid "CVS diffing "
 msgstr ""
 
-#: src/cvs.c:667
+#: src/cvs.c:668
 msgid "CVS login "
 msgstr ""
 
-#: src/cvs.c:765 src/project_import.c:181
+#: src/cvs.c:766 src/project_import.c:181
 msgid "Project import completed...unsuccessful\n"
 msgstr ""
 
-#: src/cvs.c:767 src/project_import.c:183
+#: src/cvs.c:768 src/project_import.c:183
 msgid "Project import completed...unsuccessful"
 msgstr ""
 
-#: src/cvs.c:772
+#: src/cvs.c:773
 msgid "CVS completed...successful\n"
 msgstr ""
 
-#: src/cvs.c:774
+#: src/cvs.c:775
 msgid "CVS completed...successful"
 msgstr ""
 
-#: src/cvs.c:782
+#: src/cvs.c:783
 msgid "Updating versions in file tree..."
 msgstr ""
 
-#: src/cvs.c:784
+#: src/cvs.c:785
 msgid "done\n"
 msgstr ""
 
-#: src/cvs_cbs.c:41
+#: src/cvs_cbs.c:46
 msgid "You do not need to login to a local server"
 msgstr ""
 
@@ -3209,7 +3261,7 @@ msgid "CVS: Remove file"
 msgstr ""
 
 #. 3
-#: src/cvs_gui.c:93 src/project_dbase_gui.c:340 src/watch_gui.c:43
+#: src/cvs_gui.c:93 src/project_dbase_gui.c:340 src/watch_gui.c:44
 msgid "Remove"
 msgstr "Eltávolítás"
 
@@ -3222,7 +3274,7 @@ msgstr ""
 
 #: src/cvs_gui.c:120 src/cvs_gui.c:238
 msgid "File: "
-msgstr "Fájl:"
+msgstr "Fájl: "
 
 #: src/cvs_gui.c:122
 msgid "Branch: "
@@ -3245,9 +3297,9 @@ msgid "CVS: Diff file"
 msgstr ""
 
 #. 17
-#: src/cvs_gui.c:229 src/main_menubar_def.h:1119
+#: src/cvs_gui.c:229 src/main_menubar_def.h:1110
 msgid "Diff"
-msgstr ""
+msgstr "Diff"
 
 #: src/cvs_gui.c:265
 msgid "Date: "
@@ -3323,7 +3375,7 @@ msgstr ""
 
 #: src/debug_tree.c:1511
 msgid "Octal"
-msgstr ""
+msgstr "Oktális"
 
 #: src/debug_tree.c:1514
 msgid "Signed decimal"
@@ -3333,13 +3385,13 @@ msgstr ""
 msgid "Unsigned decimal"
 msgstr ""
 
-#: src/debug_tree.c:1520 src/registers_gui.c:111
+#: src/debug_tree.c:1520 src/registers_gui.c:43
 msgid "Hex"
 msgstr ""
 
 #: src/debug_tree.c:1523
 msgid "Char"
-msgstr ""
+msgstr "Kar."
 
 #: src/debug_tree.c:1528
 msgid "Inspect memory"
@@ -3355,7 +3407,7 @@ msgstr ""
 msgid "Load Core File"
 msgstr ""
 
-#: src/debugger.c:202 src/debugger.c:654
+#: src/debugger.c:202 src/debugger.c:659
 msgid "Loading Executable: "
 msgstr ""
 
@@ -3368,16 +3420,16 @@ msgid ""
 "You have a process ATTACHED under the debugger.\n"
 "Please detach it first and then load the executable file."
 msgstr ""
-"Van egy folyamatod CSATLAKOZTATVA a hibakereső alatt!\n"
-"Először válaszd le és akkor töltsd be a futtatható fájlt!"
+"Van egy AKTÍV folyamata a hibakereső alatt.\n"
+"Először állítsa le és akkor töltse be a futtatható fájlt."
 
 #: src/debugger.c:299 src/debugger.c:327
 msgid ""
 "You have a process RUNNING under the debugger.\n"
 "Please stop it first and then load the executable file."
 msgstr ""
-"FUT egy folyamatod a hibakereső alatt!\n"
-"Először állítsd le és utána töltsd be a futtatható fájlt!"
+"FUT egy folyamat a hibakereső alatt.\n"
+"Először állítsa le és utána töltse be a futtatható fájlt."
 
 #: src/debugger.c:574
 #, c-format
@@ -3387,139 +3439,139 @@ msgid ""
 "Make sure Anjuta is installed correctly."
 msgstr ""
 
-#: src/debugger.c:650
+#: src/debugger.c:655
 msgid "Debugger"
 msgstr "Hibakereső"
 
-#: src/debugger.c:652
+#: src/debugger.c:657
 msgid "Getting ready to start debugging session ...\n"
 msgstr ""
 
-#: src/debugger.c:665
+#: src/debugger.c:670
 msgid "No executable specified\n"
-msgstr "Nincs megadva végrehajtható állomány!\n"
+msgstr "Nincs megadva végrehajtható állomány\n"
 
-#: src/debugger.c:668
+#: src/debugger.c:673
 msgid "Open an executable or attach to a process to start debugging.\n"
 msgstr ""
 
-#: src/debugger.c:675
+#: src/debugger.c:680
 msgid "There was an error whilst launching the debugger.\n"
 msgstr ""
 
-#: src/debugger.c:678
+#: src/debugger.c:683
 msgid "Make sure 'gdb' is installed on the system.\n"
 msgstr ""
 
-#: src/debugger.c:835
+#: src/debugger.c:827
 msgid "Error: "
-msgstr ""
+msgstr "Hiba: "
 
-#: src/debugger.c:856
+#: src/debugger.c:867
 msgid "Debugger is ready.\n"
 msgstr ""
 
-#: src/debugger.c:964
+#: src/debugger.c:975
 msgid ""
 "\n"
 "Well, did you find the BUG? Debugging session completed.\n"
 "\n"
 msgstr ""
 
-#: src/debugger.c:1202
-msgid "Cannot execute gnome-terminal"
-msgstr "Nem futtatható a gnome terminál"
-
-#: src/debugger.c:1237
+#: src/debugger.c:1249
 msgid "Cannot start terminal for debugging."
 msgstr "Nem indítható terminál a hibakereső számára"
 
-#: src/debugger.c:1301
-msgid "Warning: No debug terminal. Redirecting stdio to /dev/null.\n"
+#: src/debugger.c:1309
+msgid "Starting program in debugger ..."
 msgstr ""
 
-#: src/debugger.c:1320
+#: src/debugger.c:1317
+msgid "Warning: No debug terminal. Redirecting stdio to /dev/null.\n"
+msgstr "Figyelem: nincs hibakereső terminál. stdio átirányítása a /dev/null eszközre.\n"
+
+#: src/debugger.c:1336
 msgid "Running program ... \n"
 msgstr "Program futtatása ... \n"
 
-#: src/debugger.c:1450
+#: src/debugger.c:1466
 #, c-format
 msgid "Attaching to process: %d\n"
 msgstr ""
 
-#: src/debugger.c:1480
+#: src/debugger.c:1496
 msgid ""
 "A process is already running.\n"
 "Would you like to terminate it and attach the new process?"
 msgstr ""
 "Egy folyamat már fut.\n"
-"Le akarod azt állítani és újat indítani?"
+"Le akarja azt állítani és újat indítani?"
 
-#: src/debugger.c:1493
+#: src/debugger.c:1509
 msgid "Anjuta is unable to attach to itself."
 msgstr ""
 
-#: src/debugger.c:1579
+#: src/debugger.c:1595
 #, c-format
 msgid "Detaching the process: %d\n"
 msgstr ""
 
-#: src/debugger.c:1635
+#: src/debugger.c:1651
 msgid ""
 "Program is ATTACHED.\n"
 "Do you still want to stop Debugger?"
 msgstr ""
 
-#: src/debugger.c:1638
+#: src/debugger.c:1654
 msgid ""
 "Program is RUNNING.\n"
 "Do you still want to stop Debugger?"
 msgstr ""
 "Program jelenleg FUT.\n"
-"Mégis leállítod a hibakeresőt?"
+"Mégis leállítja a hibakeresőt?"
 
 #.
 #. debugger_put_cmd_in_queqe ("info breakpoints", DB_CMD_NONE,
 #. breakpoints_dbase_update,
 #. debugger.breakpoints_dbase);
 #.
-#: src/debugger.c:1917
+#: src/debugger.c:1933
 msgid "All breakpoints deleted:\n"
 msgstr ""
 
-#: src/debugger.c:1950
+#: src/debugger.c:1966
 #, c-format
 msgid "Interrupting the process: %d\n"
 msgstr "A folyamat megszakadt: %d\n"
 
-#: src/debugger.c:1982
+#: src/debugger.c:1998
 #, c-format
 msgid "Sending signal %s to the process: %d\n"
 msgstr ""
 
-#: src/debugger.c:2003
+#: src/debugger.c:2019
 msgid "Error whilst signalling the process."
 msgstr ""
 
 #: src/dnd.c:104
 #, c-format
 msgid "File %s is not local."
-msgstr "A fájl (%s) nem helyi."
+msgstr "Nem helyi fájl: %s."
 
 #: src/dnd.c:112
 #, c-format
 msgid "Invalid filename %s."
 msgstr "Hibás fájlnév: %s."
 
-#: src/executer.c:53 src/mainmenu_callbacks.c:1709
+#: src/executer.c:53 src/mainmenu_callbacks.c:1239
 msgid "The target executable of this Project is unknown"
 msgstr "A projektnek nincs futtatható állománya"
 
-#: src/executer.c:58 src/mainmenu_callbacks.c:1711
+#: src/executer.c:58 src/mainmenu_callbacks.c:1241
 msgid "The target executable of this Project is not executable"
 msgstr "A projekt futtathatónak megadott állománya nem hajtható végre"
 
-#: src/executer.c:63 src/mainmenu_callbacks.c:1715
+#: src/executer.c:63 src/mainmenu_callbacks.c:1245
 msgid "The target executable does not exist for this Project"
 msgstr ""
 
@@ -3527,14 +3579,14 @@ msgstr ""
 msgid "No file or Project opened."
 msgstr "Nincs fájl vagy projekt nyitva."
 
-#: src/executer.c:81 src/executer.c:100 src/mainmenu_callbacks.c:1735
-#: src/mainmenu_callbacks.c:1746
+#: src/executer.c:81 src/executer.c:100 src/mainmenu_callbacks.c:1265
+#: src/mainmenu_callbacks.c:1276
 msgid "No executable for this file."
-msgstr "Nem futtatható ez a fájl!"
+msgstr "Nincs futtatható állomány ehhez a fájlhoz."
 
 #: src/executer.c:105
 msgid "Executable is not up-to-date."
-msgstr "A végrehajtható állomány nem lett frissítve!"
+msgstr "A végrehajtható állomány nem lett frissítve."
 
 #: src/executer.c:117
 msgid "Unable to execute Project. Check Settings->Commands."
@@ -3542,86 +3594,86 @@ msgstr ""
 
 #: src/executer.c:131
 msgid "This file has not been saved. Save it first."
-msgstr "A fájl nem lett elmentve. Először mentsd el!"
+msgstr "A fájl nem lett elmentve. Először mentse el."
 
 #: src/executer.c:139
 msgid "Unable to execute file. Check Settings->Commands."
 msgstr ""
 
-#: src/find_in_files.c:349
-msgid "Find in Files completed...............Unsuccessful\n"
-msgstr "Keresés a fájlban befejezve...............Sikertelen\n"
+#: src/file.c:99
+msgid "C Source File"
+msgstr "C forrás fájl"
 
-#: src/find_in_files.c:351
-msgid "Find in Files completed ... unsuccessful"
-msgstr "Keresés a fájlban ... sikertelen"
-
-#: src/find_in_files.c:356
-msgid "Find in Files completed...............Successful\n"
-msgstr "Keresés a fájlban...............Sikeres\n"
-
-#: src/find_in_files.c:358
-msgid "Find in Files completed ... successful"
-msgstr "Keresés a fájlban ... sikeres"
-
-#: src/find_in_files_cbs.c:103
-msgid "No input files supplied."
-msgstr "Nincs bemeneti fájl megadva."
-
-#: src/find_in_files_cbs.c:110
-msgid "No search string supplied."
+#: src/file.c:100
+msgid "C -C++ Header File"
 msgstr ""
 
-#: src/find_replace.c:338
-msgid "Do you want to replace this occurence?"
+#: src/file.c:101
+msgid "C++ Source File"
+msgstr "C++ forrás fájl"
+
+#: src/file.c:102
+msgid "C# Source File"
+msgstr "C# forrás fájl"
+
+#: src/file.c:103
+msgid "Java Source File"
+msgstr "Java forrás fájl"
+
+#: src/file.c:104
+msgid "Perl Source File"
+msgstr "Perl forrás fájl"
+
+#: src/file.c:105
+msgid "Python Source File"
+msgstr "Python forrás fájl"
+
+#: src/file.c:106
+msgid "Shell Script File"
 msgstr ""
 
-#: src/find_replace.c:400
+#: src/file.c:107
+msgid "Other"
+msgstr ""
+
+#: src/file.c:143
+msgid "Unable to build user interface for New File"
+msgstr ""
+
+#: src/file.c:437
 #, c-format
-msgid "The string \"%s\" was not found in the selected text"
-msgstr "\"%s\" nincs a kiválasztott szövegben"
+msgid "The file \"%s\" is not a header file."
+msgstr "A fájl nem fejléc fájl: %s."
 
-#: src/find_replace.c:405
-#, c-format
-msgid "The string \"%s\" was not found from the current location"
-msgstr "\"%s\" nincs az aktuális helyen"
-
-#: src/find_text.c:155
-#, c-format
-msgid "The match \"%s\" was not found in the whole document"
+#: src/file.c:546
+msgid "%Y"
 msgstr ""
 
-#: src/find_text.c:160
-#, c-format
-msgid "The match \"%s\" was not found in the selected text"
-msgstr ""
+#: src/file.c:565
+msgid "%Y-%m-%d"
+msgstr "%Y-%m-%d"
 
-#: src/find_text.c:165
-#, c-format
-msgid "The match \"%s\" was not found from the current location"
-msgstr ""
-
-#: src/find_text.c:189
-msgid "No matches found. Wrap search around the document?"
-msgstr ""
-
-#: src/glade_iface.c:69
+#: src/glade_iface.c:70
 msgid ""
 "Warning: Can not generate c/c++ source code.\n"
 "Warning: It is because either glade (for gtk/gnome projects) or glademm (for "
 "gtkmm/gnomemm projects) is not installed.\n"
 "Warning: Your generated project will still be fine, though.\n"
 msgstr ""
+"Figyelem: nem hozható létre a c/c++ forráskód, mivel\n"
+"vagy a glade (gtk/gnome projektekhez)\n"
+"vagy a glademm (gtkmm/gnomemm projektekhez) nincs telepítve.\n"
+"Ezek a programok szükségesek a projekt létrehozásához.\n"
 
-#: src/glade_iface.c:108
+#: src/glade_iface.c:110
 msgid "Cannot fork glade."
 msgstr ""
 
-#: src/glade_iface.c:148 src/glade_iface.c:229
+#: src/glade_iface.c:151 src/glade_iface.c:234
 msgid "Cannot fork glade--."
 msgstr ""
 
-#: src/glade_iface.c:189
+#: src/glade_iface.c:193
 msgid "Cannot fork glade-2."
 msgstr ""
 
@@ -3635,7 +3687,7 @@ msgstr ""
 
 #: src/gnome_project.c:81
 msgid "Generating Project ...\n"
-msgstr ""
+msgstr "Projekt létrehozása ...\n"
 
 #: src/gnome_project.c:88
 #, c-format
@@ -3652,7 +3704,7 @@ msgstr "Projekt mentése ...\n"
 
 #: src/gnome_project.c:178
 msgid "Generating source codes ...\n"
-msgstr ""
+msgstr "Forráskódok létrehozása ...\n"
 
 #. Creating icon pixmap file for gnome projects
 #: src/gnome_project.c:185
@@ -3688,8 +3740,8 @@ msgid ""
 "The Project was not successfully auto generated.\n"
 "Please run autogen.sh manually."
 msgstr ""
-"A projekt automatikus létrehozása nem teljes.\n"
-"Futtasd az autogen.sh-t kézzel !"
+"A projektet nem sikerült automatikusan létrehozni.\n"
+"Futtassa az 'autogen.sh'-t kézzel."
 
 #: src/gnome_project.c:281
 msgid ""
@@ -3703,38 +3755,34 @@ msgstr ""
 
 #: src/goto_line.c:105
 msgid " Goto Line number "
-msgstr " Ugrás a sorszámra"
+msgstr " Ugrás sorszámra "
 
-#: src/launcher.c:582
+#: src/launcher.c:596
 msgid "launcher.c: Error while reading child stdout\n"
 msgstr ""
 
-#: src/launcher.c:594
+#: src/launcher.c:608
 msgid "launcher.c: STDOUT pipe closed"
 msgstr ""
 
-#: src/launcher.c:630
+#: src/launcher.c:644
 msgid "launcher.c: Error while reading child stderr"
 msgstr ""
 
-#: src/launcher.c:642
+#: src/launcher.c:656
 msgid "launcher.c: STDERR pipe closed"
 msgstr ""
 
-#: src/launcher.c:683
+#: src/launcher.c:697
 msgid "launcher.c: Error while reading child pty\n"
 msgstr ""
 
-#: src/launcher.c:701
+#: src/launcher.c:715
 msgid "launcher.c: PTY pipe error!"
 msgstr ""
 
-#: src/launcher.c:803
+#: src/launcher.c:823
 msgid "launcher.c: Failed to set channel encoding!"
-msgstr ""
-
-#: src/launcher.c:853 src/text_editor.c:1556
-msgid "Cannot execute command shell"
 msgstr ""
 
 #: src/main.c:50
@@ -3743,11 +3791,11 @@ msgstr ""
 
 #: src/main_menubar.c:382
 msgid "Recent Files    "
-msgstr "Gyakori fájlok ..."
+msgstr "Legutóbbi fájlok     "
 
-#: src/main_menubar.c:393 src/project_dbase.c:2039
+#: src/main_menubar.c:393 src/project_dbase.c:2058
 msgid "Recent Projects "
-msgstr "Gyakori projektek "
+msgstr "Legutóbbi projektek "
 
 #. 0
 #: src/main_menubar_def.h:29
@@ -3764,23 +3812,23 @@ msgstr "M_egnyitás ..."
 msgid "_Save"
 msgstr "Me_ntés"
 
-#: src/main_menubar_def.h:42 src/text_editor_gui.c:107 src/toolbar.c:84
+#: src/main_menubar_def.h:42 src/text_editor_gui.c:107 src/toolbar.c:85
 msgid "Save current file"
-msgstr "Aktuális fájl mentése"
+msgstr "Jelenlegi fájl mentése"
 
 #. 3
 #: src/main_menubar_def.h:47
 msgid "Save _As ..."
-msgstr "Menté_s mint ..."
+msgstr "Menté_s másként ..."
 
 #: src/main_menubar_def.h:48
 msgid "Save the current file with a different name"
-msgstr "Az aktuális fájl mentése más néven"
+msgstr "A jelenlegi fájl mentése más néven"
 
 #. 4
 #: src/main_menubar_def.h:53
 msgid "Save A_ll"
-msgstr "M_ind mentése"
+msgstr "Összes men_tése"
 
 #: src/main_menubar_def.h:54
 msgid "Save all currently open files, except new files"
@@ -3791,27 +3839,27 @@ msgstr "Minden nyitott fájl mentése, kivéve az új fájlokat"
 msgid "_Close File"
 msgstr "Fájl be_zárása"
 
-#: src/main_menubar_def.h:60 src/toolbar.c:92
+#: src/main_menubar_def.h:60 src/toolbar.c:93
 msgid "Close current file"
-msgstr "Aktuális fájl bezárása"
+msgstr "Jelenlegi fájl bezárása"
 
 #. 6
 #: src/main_menubar_def.h:65
 msgid "Close All Files"
-msgstr "Minden fájl bezárása"
+msgstr "Összes fájl bezárása"
 
 #: src/main_menubar_def.h:66
 msgid "Close all files"
-msgstr "Minden fájl bezárása"
+msgstr "Összes fájl bezárása"
 
 #. 7
 #: src/main_menubar_def.h:71
 msgid "Reload F_ile"
 msgstr "Fájl ú_jratöltése"
 
-#: src/main_menubar_def.h:72 src/text_editor_gui.c:111 src/toolbar.c:88
+#: src/main_menubar_def.h:72 src/text_editor_gui.c:111 src/toolbar.c:89
 msgid "Reload current file"
-msgstr "Aktuális fájl újratöltése"
+msgstr "Jelenlegi fájl újratöltése"
 
 #. 8
 #. 9
@@ -3821,7 +3869,7 @@ msgstr "Új _projekt"
 
 #: src/main_menubar_def.h:79
 msgid "Create a Project using the Application Wizard"
-msgstr ""
+msgstr "Projekt létrehozása az Alkalmazásvarázslóval"
 
 #. 10
 #: src/main_menubar_def.h:84
@@ -3837,7 +3885,7 @@ msgstr "Egy létező projekt importálása a Projekt importáló varázslóval"
 msgid "Open P_roject ..."
 msgstr "P_rojekt megnyitása ..."
 
-#: src/main_menubar_def.h:91 src/toolbar.c:214
+#: src/main_menubar_def.h:91 src/toolbar.c:215
 msgid "Open a Project"
 msgstr "Egy projekt megnyitása"
 
@@ -3846,18 +3894,18 @@ msgstr "Egy projekt megnyitása"
 msgid "Sa_ve Project"
 msgstr "Projekt _mentése"
 
-#: src/main_menubar_def.h:97 src/toolbar.c:225
+#: src/main_menubar_def.h:97 src/toolbar.c:226
 msgid "Save the current Project"
-msgstr "Aktuális projekt mentése"
+msgstr "Jelenlegi projekt mentése"
 
 #. 13
 #: src/main_menubar_def.h:102
 msgid "Close Pro_ject"
 msgstr "Projekt be_zárása"
 
-#: src/main_menubar_def.h:103 src/toolbar.c:237
+#: src/main_menubar_def.h:103 src/toolbar.c:238
 msgid "Close the current Project"
-msgstr ""
+msgstr "A jelenlegi projekt bezárása"
 
 #. 14
 #. 15
@@ -3875,7 +3923,7 @@ msgstr ""
 msgid "_Print"
 msgstr "_Nyomtatás"
 
-#: src/main_menubar_def.h:117 src/text_editor_gui.c:177 src/toolbar.c:110
+#: src/main_menubar_def.h:117 src/text_editor_gui.c:177 src/toolbar.c:111
 msgid "Print the current file"
 msgstr ""
 
@@ -3892,12 +3940,12 @@ msgstr ""
 #. 20
 #: src/main_menubar_def.h:129
 msgid "Recent _Files"
-msgstr "_Gyakori fájlok"
+msgstr "_Legutóbbi fájlok"
 
 #. 21
 #: src/main_menubar_def.h:135
 msgid "Recent Projec_ts"
-msgstr "G_yakori projektek"
+msgstr "Legu_tóbbi projektek"
 
 #. 0
 #: src/main_menubar_def.h:149
@@ -3978,34 +4026,34 @@ msgstr "Kódblokk kijelölése"
 
 #: src/main_menubar_def.h:211
 msgid "Select the current code block"
-msgstr "Az aktuális kódblokk kijelölése"
+msgstr "A jelenlegi kódblokk kijelölése"
 
 #. 3
 #: src/main_menubar_def.h:216
 msgid "Current Function"
-msgstr "Aktuális függvény"
+msgstr "Jelenlegi függvény"
 
 #: src/main_menubar_def.h:217
 msgid "Select the current function"
-msgstr "Az aktuális függvény kijelölése"
+msgstr "A jelenlegi függvény kijelölése"
 
 #. 4
 #: src/main_menubar_def.h:222
 msgid "Current Line"
-msgstr "Aktuális sor"
+msgstr "Jelenlegi sor"
 
 #: src/main_menubar_def.h:223
 msgid "Select the current line"
-msgstr "Az aktuális sor kijelölése"
+msgstr "A jelenlegi sor kijelölése"
 
 #. 5
 #: src/main_menubar_def.h:228
 msgid "Current Word"
-msgstr "Aktuális szó"
+msgstr "Jelenlegi szó"
 
 #: src/main_menubar_def.h:229
 msgid "Select the current word"
-msgstr "Az aktuális szó kijelölése"
+msgstr "A jelenlegi szó kijelölése"
 
 #. 0
 #: src/main_menubar_def.h:239
@@ -4037,7 +4085,7 @@ msgstr ""
 #. 3
 #: src/main_menubar_def.h:257
 msgid "Current Username"
-msgstr "Aktuális felhasználói név"
+msgstr "Jelenlegi felhasználói név"
 
 #: src/main_menubar_def.h:258
 msgid "Insert name of current user"
@@ -4046,16 +4094,11 @@ msgstr ""
 #. 4
 #: src/main_menubar_def.h:263
 msgid "Current Date & Time"
-msgstr "Aktuális dátum és időpont"
+msgstr "Jelenlegi dátum és időpont"
 
 #: src/main_menubar_def.h:264
 msgid "Insert current date & time"
 msgstr ""
-
-#. 5
-#: src/main_menubar_def.h:269
-msgid "Header File Template"
-msgstr "Header fájl sablon"
 
 #: src/main_menubar_def.h:270
 msgid "Insert a standard header file template"
@@ -4095,8 +4138,7 @@ msgid "Insert the CVS Date keyword (date and time of the change)"
 msgstr ""
 
 #: src/main_menubar_def.h:328
-msgid ""
-"Insert the CVS Header keyword (full path, revision, date, author, state)"
+msgid "Insert the CVS Header keyword (full path, revision, date, author, state)"
 msgstr ""
 
 #: src/main_menubar_def.h:334
@@ -4118,11 +4160,6 @@ msgstr ""
 #: src/main_menubar_def.h:358
 msgid "Insert the CVS Source keyword (full path)"
 msgstr ""
-
-#. 0
-#: src/main_menubar_def.h:368
-msgid "Header"
-msgstr "Fejléc"
 
 #: src/main_menubar_def.h:369
 msgid "Insert a file header"
@@ -4173,7 +4210,7 @@ msgstr ""
 #. 2
 #: src/main_menubar_def.h:416
 msgid "Stream Comment/Uncomment"
-msgstr "Szöveg megjegyzése be/ki"
+msgstr "Szöveg megjegyzés be/ki"
 
 #: src/main_menubar_def.h:417
 msgid "Stream comment/uncomment the selected text"
@@ -4212,8 +4249,7 @@ msgid "Find and R_eplace ..."
 msgstr "Keresés és _csere ..."
 
 #: src/main_menubar_def.h:449
-msgid ""
-"Search for and replace a string or regular expression with another string"
+msgid "Search for and replace a string or regular expression with another string"
 msgstr ""
 
 #. 4
@@ -4234,1852 +4270,1848 @@ msgstr "Kijelölés me_gadása/Keresés"
 msgid "Enter the selected text as the search target"
 msgstr ""
 
-#. 6
-#. 7
-#: src/main_menubar_def.h:471
-msgid "Advanced search and re_place"
-msgstr "Kiterjesztett keresés és c_sere"
-
-#: src/main_menubar_def.h:472
-msgid "Advanced Search And Replace"
-msgstr "Kiterjesztett keresés és csere"
-
 #. 0
-#: src/main_menubar_def.h:483
+#: src/main_menubar_def.h:474
 msgid "_Goto Line number ..."
-msgstr "Ugrás _sorszámra"
+msgstr "Ugrás _sorszámra ..."
 
-#: src/main_menubar_def.h:484
+#: src/main_menubar_def.h:475
 msgid "Go to a particular line in the editor"
 msgstr ""
 
 #. 1
-#: src/main_menubar_def.h:489
+#: src/main_menubar_def.h:480
 msgid "Goto Matching _Brace"
 msgstr "Ugrás _kapcsos zárójelre"
 
-#: src/main_menubar_def.h:490
+#: src/main_menubar_def.h:481
 msgid "Go to the matching brace in the editor"
 msgstr ""
 
 #. 2
-#: src/main_menubar_def.h:495
+#: src/main_menubar_def.h:486
 msgid "_Goto start of block"
 msgstr "Ugrás a blokk _elejére"
 
-#: src/main_menubar_def.h:496
+#: src/main_menubar_def.h:487
 msgid "Go to the start of the current block"
 msgstr ""
 
 #. 3
-#: src/main_menubar_def.h:501
+#: src/main_menubar_def.h:492
 msgid "_Goto end of block"
 msgstr "Ugrás a blokk _végére"
 
-#: src/main_menubar_def.h:502
+#: src/main_menubar_def.h:493
 msgid "Go to the end of the current block"
 msgstr ""
 
 #. 4
-#: src/main_menubar_def.h:507
+#: src/main_menubar_def.h:498
 msgid "_Goto previous mesg"
 msgstr "Ugrás az elő_ző üzenetre"
 
-#: src/main_menubar_def.h:508
+#: src/main_menubar_def.h:499
 msgid "Go to previous message"
 msgstr ""
 
 #. 5
-#: src/main_menubar_def.h:513
+#: src/main_menubar_def.h:504
 msgid "_Goto next mesg"
 msgstr "Ugrás a _következő üzenetre"
 
-#: src/main_menubar_def.h:514
+#: src/main_menubar_def.h:505
 msgid "Go to next message"
 msgstr ""
 
 #. 6
-#: src/main_menubar_def.h:519
+#: src/main_menubar_def.h:510
 msgid "_Go Back"
 msgstr "Ugrás _vissza"
 
-#: src/main_menubar_def.h:520
+#: src/main_menubar_def.h:511
 msgid "Go back"
 msgstr ""
 
 #. 7
-#: src/main_menubar_def.h:525
+#: src/main_menubar_def.h:516
 msgid "_Go Forward"
 msgstr "Ugrás e_lőre"
 
-#: src/main_menubar_def.h:526
+#: src/main_menubar_def.h:517
 msgid "Go forward"
 msgstr ""
 
 #. 8
-#: src/main_menubar_def.h:531 src/text_editor_menu.c:93
+#: src/main_menubar_def.h:522 src/text_editor_menu.c:93
 msgid "Tag Definition"
 msgstr "Címke definíció"
 
-#: src/main_menubar_def.h:532
+#: src/main_menubar_def.h:523
 msgid "Goto tag definition"
 msgstr ""
 
 #. 9
-#: src/main_menubar_def.h:537 src/text_editor_menu.c:100
+#: src/main_menubar_def.h:528 src/text_editor_menu.c:100
 msgid "Tag Declaration"
 msgstr "Címke deklaráció"
 
-#: src/main_menubar_def.h:538
+#: src/main_menubar_def.h:529
 msgid "Goto tag declaration"
 msgstr ""
 
 #. 10
-#: src/main_menubar_def.h:543
+#: src/main_menubar_def.h:534
 msgid "Next occurrence"
 msgstr "Következő előfordulás"
 
-#: src/main_menubar_def.h:544
+#: src/main_menubar_def.h:535
 msgid "Find the next occurrence of current word"
-msgstr ""
+msgstr "Keresse a jelenlegi kifejezés következő előfordulását"
 
 #. 11
-#: src/main_menubar_def.h:549
+#: src/main_menubar_def.h:540
 msgid "Previous occurrence"
 msgstr "Előző előfordulás"
 
-#: src/main_menubar_def.h:550
+#: src/main_menubar_def.h:541
 msgid "Find the previous occurrence of current word"
-msgstr ""
+msgstr "Keresse a jelenlegi kifejezés előző előfordulását"
 
 #. 0
-#: src/main_menubar_def.h:561
+#: src/main_menubar_def.h:552
 msgid "U_ndo"
 msgstr "Visszavo_n"
 
-#: src/main_menubar_def.h:562 src/toolbar.c:97
+#: src/main_menubar_def.h:553 src/toolbar.c:98
 msgid "Undo the last action"
-msgstr ""
+msgstr "Az utolsó művelet visszavonása"
 
 #. 1
-#: src/main_menubar_def.h:568
+#: src/main_menubar_def.h:559
 msgid "_Redo"
 msgstr "_Újra"
 
-#: src/main_menubar_def.h:569 src/toolbar.c:101
+#: src/main_menubar_def.h:560 src/toolbar.c:102
 msgid "Redo the last undone action"
-msgstr ""
+msgstr "A visszavont művelet ismételt végrehajtása"
 
 #. 2
 #. 3
-#: src/main_menubar_def.h:577
+#: src/main_menubar_def.h:568
 msgid "C_ut"
 msgstr "Ki_vágás"
 
-#: src/main_menubar_def.h:578
+#: src/main_menubar_def.h:569
 msgid "Cut the selected text from the editor to the clipboard"
 msgstr ""
 
 #. 4
-#: src/main_menubar_def.h:584
+#: src/main_menubar_def.h:575
 msgid "_Copy"
 msgstr "Má_solás"
 
-#: src/main_menubar_def.h:585
+#: src/main_menubar_def.h:576
 msgid "Copy the selected text to the clipboard"
 msgstr ""
 
 #. 5
-#: src/main_menubar_def.h:591
+#: src/main_menubar_def.h:582
 msgid "_Paste"
 msgstr "_Beillesztés"
 
-#: src/main_menubar_def.h:592
+#: src/main_menubar_def.h:583
 msgid "Paste the content of clipboard at the current position"
 msgstr ""
 
 #. 6
-#: src/main_menubar_def.h:598
+#: src/main_menubar_def.h:589
 msgid "C_lear"
-msgstr "Törlés"
+msgstr "Tö_rlés"
 
-#: src/main_menubar_def.h:599
+#: src/main_menubar_def.h:590
 msgid "Delete the selected text from the editor"
 msgstr ""
 
 #. 7
 #. 8
-#: src/main_menubar_def.h:607
+#: src/main_menubar_def.h:598
 msgid "_Transform"
 msgstr "Á_talakítás"
 
 #. 9
-#: src/main_menubar_def.h:614
+#: src/main_menubar_def.h:605
 msgid "_Select"
 msgstr "K_ijelölés"
 
 #. 10
-#: src/main_menubar_def.h:621
+#: src/main_menubar_def.h:612
 msgid "_Insert text"
 msgstr "S_zöveg beillesztése"
 
 #. 11
-#: src/main_menubar_def.h:628
+#: src/main_menubar_def.h:619
 msgid "Co_mment code"
 msgstr "A kód meg_jegyzés"
 
 #. 12
-#: src/main_menubar_def.h:634
+#: src/main_menubar_def.h:625
 msgid "S_earch"
 msgstr "K_eresés"
 
 #. 13
-#: src/main_menubar_def.h:640
+#: src/main_menubar_def.h:631
 msgid "G_o to"
 msgstr "U_grás"
 
 #. 14
 #. 15
-#: src/main_menubar_def.h:649
+#: src/main_menubar_def.h:640
 msgid "_AutoComplete"
 msgstr "Kiegészítési _javaslatok"
 
-#: src/main_menubar_def.h:650
+#: src/main_menubar_def.h:641
 msgid "AutoComplete the current word"
 msgstr ""
 
 #. 16
-#: src/main_menubar_def.h:656
+#: src/main_menubar_def.h:647
 msgid "S_how calltip"
 msgstr "_Gyorstipp megjelenítése"
 
-#: src/main_menubar_def.h:657
+#: src/main_menubar_def.h:648
 msgid "Show calltip for the function"
 msgstr ""
 
 #. 0
-#: src/main_menubar_def.h:669
+#: src/main_menubar_def.h:660
 msgid "_Main Toolbar"
-msgstr "_Főeszköztár"
+msgstr "_Fő eszköztár"
 
-#: src/main_menubar_def.h:670
+#: src/main_menubar_def.h:661
 msgid "Hide/Unhide Main toolbar"
 msgstr ""
 
 #. 1
-#: src/main_menubar_def.h:675
+#: src/main_menubar_def.h:666
 msgid "_Extended Toolbar"
 msgstr "_Kiterjesztett eszköztár"
 
-#: src/main_menubar_def.h:676
+#: src/main_menubar_def.h:667
 msgid "Hide/Unhide Extended toolbar"
 msgstr ""
 
 #. 2
-#: src/main_menubar_def.h:681
+#: src/main_menubar_def.h:672
 msgid "_Debug Toolbar"
 msgstr "_Hibakereső eszköztár"
 
-#: src/main_menubar_def.h:682
+#: src/main_menubar_def.h:673
 msgid "Hide/Unhide Debug toolbar"
 msgstr ""
 
 #. 3
-#: src/main_menubar_def.h:687
+#: src/main_menubar_def.h:678
 msgid "_Browser Toolbar"
 msgstr "_Böngésző eszköztár"
 
-#: src/main_menubar_def.h:688
+#: src/main_menubar_def.h:679
 msgid "Hide/Unhide Browser toolbar"
 msgstr ""
 
 #. 4
-#: src/main_menubar_def.h:693
+#: src/main_menubar_def.h:684
 msgid "_Format Toolbar"
 msgstr "_Formázó eszköztár"
 
-#: src/main_menubar_def.h:694
+#: src/main_menubar_def.h:685
 msgid "Hide/Unhide Format toolbar"
 msgstr ""
 
 #. 0
-#: src/main_menubar_def.h:704
+#: src/main_menubar_def.h:695
 msgid "_Line numbers margin"
 msgstr "_Sorszámszegély"
 
-#: src/main_menubar_def.h:705
+#: src/main_menubar_def.h:696
 msgid "Show/Hide line numbers"
 msgstr "Sorszám megjelenítése/elrejtése"
 
 #. 1
-#: src/main_menubar_def.h:710
+#: src/main_menubar_def.h:701
 msgid "_Markers Margin"
 msgstr "_Könyvjelzőszegély"
 
-#: src/main_menubar_def.h:711
+#: src/main_menubar_def.h:702
 msgid "Show/Hide markers margin"
 msgstr "Könyvjelzők megjelenítése/elrejtése"
 
 #. 2
-#: src/main_menubar_def.h:716
+#: src/main_menubar_def.h:707
 msgid "_Code fold margin"
 msgstr "Kódblokkszegély"
 
-#: src/main_menubar_def.h:717
+#: src/main_menubar_def.h:708
 msgid "Show/Hide code fold margin"
 msgstr "Kódblokkszegély megjelenítése/elrejtése"
 
 #. 3
-#: src/main_menubar_def.h:722
+#: src/main_menubar_def.h:713
 msgid "_Indentation guides"
 msgstr "_Bekezdésmutató"
 
-#: src/main_menubar_def.h:723
+#: src/main_menubar_def.h:714
 msgid "Show/Hide indentation guides"
 msgstr "Bekezdésmutató megjelenítése/elrejtése"
 
 #. 4
-#: src/main_menubar_def.h:728
+#: src/main_menubar_def.h:719
 msgid "_White spaces"
-msgstr "_Szóközök"
+msgstr "Ü_reshely-karakterek"
 
-#: src/main_menubar_def.h:729
+#: src/main_menubar_def.h:720
 msgid "Show/Hide white spaces"
-msgstr "Szóközök megjelenítése/elrejtése"
+msgstr "Üreshely-karakterek megjelenítése/elrejtése"
 
 #. 5
-#: src/main_menubar_def.h:734
+#: src/main_menubar_def.h:725
 msgid "_Line end characters"
 msgstr "Sor_vége karakterek"
 
-#: src/main_menubar_def.h:735
+#: src/main_menubar_def.h:726
 msgid "Show/Hide line end characters"
 msgstr "Sorvége karakterek megjelenítése/elrejtése"
 
 #. 6
-#: src/main_menubar_def.h:740
+#: src/main_menubar_def.h:731
 msgid "Line _wrapping"
 msgstr "Sor_törés"
 
-#: src/main_menubar_def.h:741
+#: src/main_menubar_def.h:732
 msgid "Enable/disable line wrapping"
 msgstr "Sortörés engedélyezése/tiltása"
 
 #. 0
-#: src/main_menubar_def.h:751
+#: src/main_menubar_def.h:742
 msgid "++ Zoom"
 msgstr "Nagyítás"
 
-#: src/main_menubar_def.h:752
+#: src/main_menubar_def.h:743
 msgid "Increase text zoom by 1 unit"
 msgstr ""
 
 #. 1
-#: src/main_menubar_def.h:757
+#: src/main_menubar_def.h:748
 msgid "+8"
-msgstr ""
+msgstr "+8"
 
-#: src/main_menubar_def.h:758
+#: src/main_menubar_def.h:749
 msgid "Zoom factor +8"
 msgstr ""
 
 #. 2
-#: src/main_menubar_def.h:763
+#: src/main_menubar_def.h:754
 msgid "+6"
-msgstr ""
+msgstr "+6"
 
-#: src/main_menubar_def.h:764
+#: src/main_menubar_def.h:755
 msgid "Zoom factor +6"
 msgstr ""
 
 #. 3
-#: src/main_menubar_def.h:769
+#: src/main_menubar_def.h:760
 msgid "+4"
-msgstr ""
+msgstr "+4"
 
-#: src/main_menubar_def.h:770
+#: src/main_menubar_def.h:761
 msgid "Zoom factor +4"
 msgstr ""
 
 #. 4
-#: src/main_menubar_def.h:775
+#: src/main_menubar_def.h:766
 msgid "+2"
-msgstr ""
+msgstr "+2"
 
-#: src/main_menubar_def.h:776
+#: src/main_menubar_def.h:767
 msgid "Zoom factor +2"
 msgstr ""
 
-#: src/main_menubar_def.h:782
+#. 5
+#: src/main_menubar_def.h:772 src/text_editor_gui.c:159
+msgid "0"
+msgstr "0"
+
+#: src/main_menubar_def.h:773
 msgid "Zoom factor 0"
 msgstr ""
 
 #. 6
-#: src/main_menubar_def.h:787
+#: src/main_menubar_def.h:778
 msgid "-2"
-msgstr ""
+msgstr "-2"
 
-#: src/main_menubar_def.h:788
+#: src/main_menubar_def.h:779
 msgid "Zoom factor -2"
 msgstr ""
 
 #. 7
-#: src/main_menubar_def.h:793
+#: src/main_menubar_def.h:784
 msgid "-4"
-msgstr ""
+msgstr "-4"
 
-#: src/main_menubar_def.h:794
+#: src/main_menubar_def.h:785
 msgid "Zoom factor -4"
 msgstr ""
 
 #. 8
-#: src/main_menubar_def.h:799
+#: src/main_menubar_def.h:790
 msgid "-6"
-msgstr ""
+msgstr "-6"
 
-#: src/main_menubar_def.h:800
+#: src/main_menubar_def.h:791
 msgid "Zoom factor -6"
 msgstr ""
 
 #. 9
-#: src/main_menubar_def.h:805
+#: src/main_menubar_def.h:796
 msgid "-8"
-msgstr ""
+msgstr "-8"
 
-#: src/main_menubar_def.h:806
+#: src/main_menubar_def.h:797
 msgid "Zoom factor -8"
 msgstr ""
 
 #. 10
-#: src/main_menubar_def.h:811
+#: src/main_menubar_def.h:802
 msgid "-- Zoom"
 msgstr "Kicsinyítés"
 
-#: src/main_menubar_def.h:812
+#: src/main_menubar_def.h:803
 msgid "Reduce text zoom by 1 unit"
 msgstr ""
 
 #. 0
-#: src/main_menubar_def.h:822
+#: src/main_menubar_def.h:813
 msgid "_Message window"
 msgstr "Ü_zenetablak"
 
-#: src/main_menubar_def.h:823 src/toolbar.c:155
+#: src/main_menubar_def.h:814 src/toolbar.c:156
 msgid "Show/Hide the Message window"
 msgstr ""
 
 #. 1
-#: src/main_menubar_def.h:828
+#: src/main_menubar_def.h:819
 msgid "_Project window"
 msgstr "_Projektablak"
 
-#: src/main_menubar_def.h:829 src/toolbar.c:151
+#: src/main_menubar_def.h:820 src/toolbar.c:152
 msgid "Show/Hide the Project window"
 msgstr ""
 
 #. 2
-#: src/main_menubar_def.h:834
+#: src/main_menubar_def.h:825
 msgid "B_ookmarks"
 msgstr "_Könyvjelzők"
 
-#: src/main_menubar_def.h:835
+#: src/main_menubar_def.h:826
 msgid "Show the Bookmark window"
 msgstr ""
 
 #. 3
 #. 4
-#: src/main_menubar_def.h:841
+#: src/main_menubar_def.h:832
 msgid "_Toolbars"
 msgstr "_Eszköztárak"
 
 #. 5
-#: src/main_menubar_def.h:847
+#: src/main_menubar_def.h:838
 msgid "_Editor"
 msgstr "_Szerkesztő"
 
 #. 6
-#: src/main_menubar_def.h:853
+#: src/main_menubar_def.h:844
 msgid "_Zoom text"
 msgstr "_Nagyítás"
 
 #. 7
 #. 8
-#: src/main_menubar_def.h:860 src/main_menubar_def.h:1572
+#: src/main_menubar_def.h:851 src/main_menubar_def.h:1563
 msgid "_Breakpoints"
 msgstr "_Töréspontok"
 
-#: src/main_menubar_def.h:861
+#: src/main_menubar_def.h:852
 msgid "Show breakpoints editor window"
 msgstr ""
 
 #. 9
-#: src/main_menubar_def.h:866
+#: src/main_menubar_def.h:857
 msgid "_Registers"
 msgstr "_Regiszterek"
 
-#: src/main_menubar_def.h:867
+#: src/main_menubar_def.h:858
 msgid "Show CPU registers and their contents"
 msgstr ""
 
 #. 10
-#: src/main_menubar_def.h:872
+#: src/main_menubar_def.h:863
 msgid "Shared _Libraries"
 msgstr "Megosztott _könyvtárak"
 
-#: src/main_menubar_def.h:873
+#: src/main_menubar_def.h:864
 msgid "Show shared libraries loaded by the program"
 msgstr ""
 
 #. 11
-#: src/main_menubar_def.h:878
+#: src/main_menubar_def.h:869
 msgid "_Kernel Signals"
 msgstr "K_ernel jelzések"
 
-#: src/main_menubar_def.h:879
+#: src/main_menubar_def.h:870
 msgid "Show the kernel signals editor window"
 msgstr ""
 
 #. 12
-#: src/main_menubar_def.h:884
+#: src/main_menubar_def.h:875
 msgid "Memory _Dump"
 msgstr "Memória _halom"
 
-#: src/main_menubar_def.h:885
+#: src/main_menubar_def.h:876
 msgid "Show memory dump window"
 msgstr ""
 
 #. 0
-#: src/main_menubar_def.h:895 src/project_dbase_gui.c:276
+#: src/main_menubar_def.h:886 src/project_dbase_gui.c:276
 msgid "Include file"
 msgstr "Include fájl"
 
 #. 1
-#: src/main_menubar_def.h:901 src/project_dbase_gui.c:282
+#: src/main_menubar_def.h:892 src/project_dbase_gui.c:282
 msgid "Source file"
 msgstr "Forrás fájl"
 
 #. 2
-#: src/main_menubar_def.h:907 src/project_dbase_gui.c:288
+#: src/main_menubar_def.h:898 src/project_dbase_gui.c:288
 msgid "Help file"
 msgstr "Súgó fájl"
 
 #. 3
-#: src/main_menubar_def.h:913 src/project_dbase_gui.c:294
+#: src/main_menubar_def.h:904 src/project_dbase_gui.c:294
 msgid "Data file"
-msgstr "Adat fájl"
+msgstr "Adatfájl"
 
 #. 4
-#: src/main_menubar_def.h:919 src/project_dbase_gui.c:300
+#: src/main_menubar_def.h:910 src/project_dbase_gui.c:300
 msgid "Pixmap file"
 msgstr "Pixmap fájl"
 
 #. 5
-#: src/main_menubar_def.h:925 src/project_dbase_gui.c:306
+#: src/main_menubar_def.h:916 src/project_dbase_gui.c:306
 msgid "Translation file"
 msgstr "Fordítás fájl"
 
 #. 6
-#: src/main_menubar_def.h:931 src/project_dbase_gui.c:312
+#: src/main_menubar_def.h:922 src/project_dbase_gui.c:312
 msgid "Doc file"
 msgstr "Doc fájl"
 
 #. 0
-#: src/main_menubar_def.h:942 src/project_dbase_gui.c:322
+#: src/main_menubar_def.h:933 src/project_dbase_gui.c:322
 msgid "Add File"
 msgstr "Fájl hozzáadása"
 
 #. 3
-#: src/main_menubar_def.h:960
+#: src/main_menubar_def.h:951
 msgid "Remove File"
 msgstr "Fájl eltávolítása"
 
 #. 4
 #. 5
-#: src/main_menubar_def.h:967 src/project_dbase_gui.c:347
+#: src/main_menubar_def.h:958 src/project_dbase_gui.c:347
 msgid "Configure Project"
 msgstr "Projekt beállítása"
 
-#: src/main_menubar_def.h:968
+#: src/main_menubar_def.h:959
 msgid "Configure options for the current Project"
-msgstr "Configure opciók az aktuális projekt számára"
+msgstr "Configure opciók a jelenlegi projekt számára"
 
 #. 6
-#: src/main_menubar_def.h:973 src/project_dbase_gui.c:353
+#: src/main_menubar_def.h:964 src/project_dbase_gui.c:353
 msgid "Project Info"
 msgstr "Projekt információ"
 
-#: src/main_menubar_def.h:974
+#: src/main_menubar_def.h:965
 msgid "Display the Project information"
 msgstr ""
 
 #. 9
 #. 10
-#: src/main_menubar_def.h:987
+#: src/main_menubar_def.h:978
 msgid "_Update tags image"
 msgstr ""
 
-#: src/main_menubar_def.h:988
+#: src/main_menubar_def.h:979
 msgid "Update the tags image of the Project/opened files"
 msgstr ""
 
 #. 11
-#: src/main_menubar_def.h:993
+#: src/main_menubar_def.h:984
 msgid "Rebuild tags image"
 msgstr ""
 
-#: src/main_menubar_def.h:994
+#: src/main_menubar_def.h:985
 msgid "Rebuild the tags image of the Project"
 msgstr ""
 
 #. 12
-#: src/main_menubar_def.h:999
+#: src/main_menubar_def.h:990
 msgid "Ed_it Application GUI ..."
-msgstr "GUI szerkesztése ..."
+msgstr "G_UI szerkesztése ..."
 
-#: src/main_menubar_def.h:1000
+#: src/main_menubar_def.h:991
 msgid "Edit application GUI with the Glade GUI editor"
 msgstr "A grafikus felület szerkesztése a GLADE szerkesztővel"
 
 #. 0
-#: src/main_menubar_def.h:1017
+#: src/main_menubar_def.h:1008
 msgid "Automatic"
 msgstr "Automatikus"
 
-#: src/main_menubar_def.h:1018
+#: src/main_menubar_def.h:1009
 msgid "Automatically determine the highlight style"
 msgstr ""
 
 #. 1
-#: src/main_menubar_def.h:1023
+#: src/main_menubar_def.h:1014
 msgid "No Highlight style"
 msgstr "Nincs kiemelés"
 
-#: src/main_menubar_def.h:1024
+#: src/main_menubar_def.h:1015
 msgid "Remove the current highlight style"
 msgstr ""
 
 #. 2
-#: src/main_menubar_def.h:1029
+#: src/main_menubar_def.h:1020
 msgid "C and C++"
-msgstr ""
+msgstr "C és C++"
 
-#: src/main_menubar_def.h:1030
+#: src/main_menubar_def.h:1021
 msgid "Force the highlight style to C and C++"
 msgstr ""
 
 #. 3
-#: src/main_menubar_def.h:1035
+#: src/main_menubar_def.h:1026
 msgid "C and C++ with GNOME"
-msgstr ""
+msgstr "C és C++ GNOME-mal"
 
-#: src/main_menubar_def.h:1036
+#: src/main_menubar_def.h:1027
 msgid "Force the highlight style to C and C++ with GNOME"
 msgstr ""
 
 #. 4
-#: src/main_menubar_def.h:1041
+#: src/main_menubar_def.h:1032
 msgid "HTML"
-msgstr ""
+msgstr "HTML"
 
-#: src/main_menubar_def.h:1042
+#: src/main_menubar_def.h:1033
 msgid "Force the highlight style to HTML"
 msgstr ""
 
 #. 5
-#: src/main_menubar_def.h:1047
+#: src/main_menubar_def.h:1038
 msgid "XML"
-msgstr ""
+msgstr "XML"
 
-#: src/main_menubar_def.h:1048
+#: src/main_menubar_def.h:1039
 msgid "Force the highlight style to XML"
 msgstr ""
 
 #. 6
-#: src/main_menubar_def.h:1053
+#: src/main_menubar_def.h:1044
 msgid "Javascript"
-msgstr ""
+msgstr "Javascript"
 
-#: src/main_menubar_def.h:1054
+#: src/main_menubar_def.h:1045
 msgid "Force the highlight style to Javascript"
 msgstr ""
 
 #. 7
-#: src/main_menubar_def.h:1059
+#: src/main_menubar_def.h:1050
 msgid "WScript"
-msgstr ""
+msgstr "WScript"
 
-#: src/main_menubar_def.h:1060
+#: src/main_menubar_def.h:1051
 msgid "Force the highlight style to WScript"
 msgstr ""
 
 #. 8
-#: src/main_menubar_def.h:1065
+#: src/main_menubar_def.h:1056
 msgid "Makefile"
-msgstr ""
+msgstr "Makefile"
 
-#: src/main_menubar_def.h:1066
+#: src/main_menubar_def.h:1057
 msgid "Force the highlight style to Makefile"
 msgstr ""
 
 #. 9
-#: src/main_menubar_def.h:1071
+#: src/main_menubar_def.h:1062
 msgid "Java"
-msgstr ""
+msgstr "Java"
 
-#: src/main_menubar_def.h:1072
+#: src/main_menubar_def.h:1063
 msgid "Force the highlight type to Java"
 msgstr ""
 
 #. 10
-#: src/main_menubar_def.h:1077
+#: src/main_menubar_def.h:1068
 msgid "LUA"
-msgstr ""
+msgstr "LUA"
 
-#: src/main_menubar_def.h:1078
+#: src/main_menubar_def.h:1069
 msgid "Force the highlight style to LUA"
 msgstr ""
 
 #. 11
-#: src/main_menubar_def.h:1083
+#: src/main_menubar_def.h:1074
 msgid "Python"
-msgstr ""
+msgstr "Python"
 
-#: src/main_menubar_def.h:1084
+#: src/main_menubar_def.h:1075
 msgid "Force the highlight style to Python"
 msgstr ""
 
 #. 12
-#: src/main_menubar_def.h:1089
+#: src/main_menubar_def.h:1080
 msgid "Perl"
-msgstr ""
+msgstr "Perl"
 
-#: src/main_menubar_def.h:1090
+#: src/main_menubar_def.h:1081
 msgid "Force the highlight style to Perl"
 msgstr ""
 
 #. 13
-#: src/main_menubar_def.h:1095
+#: src/main_menubar_def.h:1086
 msgid "SQL"
-msgstr ""
+msgstr "SQL"
 
-#: src/main_menubar_def.h:1096
+#: src/main_menubar_def.h:1087
 msgid "Force the highlight style to SQL"
 msgstr ""
 
 #. 14
-#: src/main_menubar_def.h:1101
+#: src/main_menubar_def.h:1092
 msgid "PL/SQL"
-msgstr ""
+msgstr "PL/SQL"
 
-#: src/main_menubar_def.h:1102
+#: src/main_menubar_def.h:1093
 msgid "Force the highlight style to PL/SQL"
 msgstr ""
 
 #. 15
-#: src/main_menubar_def.h:1107
+#: src/main_menubar_def.h:1098
 msgid "PHP"
-msgstr ""
+msgstr "PHP"
 
-#: src/main_menubar_def.h:1108
+#: src/main_menubar_def.h:1099
 msgid "Force the highlight style to PHP"
 msgstr ""
 
 #. 16
-#: src/main_menubar_def.h:1113
+#: src/main_menubar_def.h:1104
 msgid "LaTex"
-msgstr ""
+msgstr "LaTex"
 
-#: src/main_menubar_def.h:1114
+#: src/main_menubar_def.h:1105
 msgid "Force the highlight style to LaTex"
 msgstr ""
 
-#: src/main_menubar_def.h:1120
+#: src/main_menubar_def.h:1111
 msgid "Force the highlight style to Diff"
 msgstr ""
 
 #. 18
-#: src/main_menubar_def.h:1125
+#: src/main_menubar_def.h:1116
 msgid "Pascal"
-msgstr ""
+msgstr "Pascal"
 
-#: src/main_menubar_def.h:1126
+#: src/main_menubar_def.h:1117
 msgid "Force the highlight style to Pascal"
 msgstr ""
 
 #. 19
-#: src/main_menubar_def.h:1131
+#: src/main_menubar_def.h:1122
 msgid "Xcode"
-msgstr ""
+msgstr "Xcode"
 
-#: src/main_menubar_def.h:1132
+#: src/main_menubar_def.h:1123
 msgid "Force the highlight style to Xcode"
 msgstr ""
 
 #. 20
-#: src/main_menubar_def.h:1137
+#: src/main_menubar_def.h:1128
 msgid "Prj/Properties"
-msgstr ""
+msgstr "Prj/Properties"
 
-#: src/main_menubar_def.h:1138
+#: src/main_menubar_def.h:1129
 msgid "Force the highlight style to project/properties files"
 msgstr ""
 
 #. 21
-#: src/main_menubar_def.h:1143
+#: src/main_menubar_def.h:1134
 msgid "Conf"
-msgstr ""
+msgstr "Conf"
 
-#: src/main_menubar_def.h:1144
+#: src/main_menubar_def.h:1135
 msgid "Force the highlight style to UNIX conf files"
 msgstr ""
 
 #. 22
-#: src/main_menubar_def.h:1149
+#: src/main_menubar_def.h:1140
 msgid "Ada"
-msgstr ""
+msgstr "Ada"
 
-#: src/main_menubar_def.h:1150
+#: src/main_menubar_def.h:1141
 msgid "Force the highlight style to Ada"
 msgstr ""
 
 #. 23
-#: src/main_menubar_def.h:1155
+#: src/main_menubar_def.h:1146
 msgid "Baan"
-msgstr ""
+msgstr "Baan"
 
-#: src/main_menubar_def.h:1156
+#: src/main_menubar_def.h:1147
 msgid "Force the highlight style to Baan"
 msgstr ""
 
 #. 24
-#: src/main_menubar_def.h:1161
+#: src/main_menubar_def.h:1152
 msgid "Lisp"
-msgstr ""
+msgstr "Lisp"
 
-#: src/main_menubar_def.h:1162
+#: src/main_menubar_def.h:1153
 msgid "Force the highlight style to Lisp"
 msgstr ""
 
 #. 25
-#: src/main_menubar_def.h:1167
+#: src/main_menubar_def.h:1158
 msgid "Ruby"
-msgstr ""
+msgstr "Ruby"
 
-#: src/main_menubar_def.h:1168
+#: src/main_menubar_def.h:1159
 msgid "Force the highlight style to Ruby"
 msgstr ""
 
 #. 26
-#: src/main_menubar_def.h:1173
+#: src/main_menubar_def.h:1164
 msgid "Matlab"
-msgstr ""
+msgstr "Matlab"
 
-#: src/main_menubar_def.h:1174
+#: src/main_menubar_def.h:1165
 msgid "Force the highlight style to Matlab"
 msgstr ""
 
 #. 0
-#: src/main_menubar_def.h:1184
+#: src/main_menubar_def.h:1175
 msgid "Auto _Format"
-msgstr "Auto _formázás"
+msgstr "Automatikus _formázás"
 
-#: src/main_menubar_def.h:1185
+#: src/main_menubar_def.h:1176
 msgid "Autoformat the current source file"
 msgstr ""
 
 #. 1
-#: src/main_menubar_def.h:1190
+#: src/main_menubar_def.h:1181
 msgid "_Increase Indent"
 msgstr "Behúzás _növelése"
 
-#: src/main_menubar_def.h:1191
+#: src/main_menubar_def.h:1182
 msgid "Increase indentation of line/selection"
 msgstr ""
 
 #. 2
-#: src/main_menubar_def.h:1196
+#: src/main_menubar_def.h:1187
 msgid "_Decrease Indent"
 msgstr "Behúzás _csökkentése"
 
-#: src/main_menubar_def.h:1197
+#: src/main_menubar_def.h:1188
 msgid "Decrease indentation of line/selection"
 msgstr ""
 
 #. 3
 #. 4
-#: src/main_menubar_def.h:1203
+#: src/main_menubar_def.h:1194
 msgid "Force _Highlight Style"
-msgstr "Engedélyezett ki_emelési stílus"
+msgstr "Ki_emelési stílus"
 
 #. 5
 #. 6
-#: src/main_menubar_def.h:1210
+#: src/main_menubar_def.h:1201
 msgid "_Close All Folds"
 msgstr "Összes kódblokk be_zárása"
 
-#: src/main_menubar_def.h:1211
+#: src/main_menubar_def.h:1202
 msgid "Close all code folds in the editor"
 msgstr ""
 
 #. 7
-#: src/main_menubar_def.h:1216
+#: src/main_menubar_def.h:1207
 msgid "_Open All Folds"
 msgstr "Összes kódblokk ki_nyitása"
 
-#: src/main_menubar_def.h:1217
+#: src/main_menubar_def.h:1208
 msgid "Open all code folds in the editor"
 msgstr ""
 
 #. 8
-#: src/main_menubar_def.h:1222
+#: src/main_menubar_def.h:1213
 msgid "_Toggle Current Fold"
-msgstr "Aktuális blokk _kapcsolása"
+msgstr "Jelenlegi blokk _ki/be"
 
-#: src/main_menubar_def.h:1223
+#: src/main_menubar_def.h:1214
 msgid "Toggle current code fold in the editor"
 msgstr ""
 
 #. 9
 #. 10
-#: src/main_menubar_def.h:1229
+#: src/main_menubar_def.h:1220
 msgid "D_etach Current Document"
-msgstr "Aktuális dokumentum le_választása"
+msgstr "Jelenlegi dokumentum le_választása"
 
-#: src/main_menubar_def.h:1230
+#: src/main_menubar_def.h:1221
 msgid "Detach the current document into a separate editor window"
 msgstr ""
 
 #. 0
-#: src/main_menubar_def.h:1240
+#: src/main_menubar_def.h:1231
 msgid "_Compile"
 msgstr "_Fordítás"
 
-#: src/main_menubar_def.h:1241
+#: src/main_menubar_def.h:1232
 msgid "Compile the current source file"
 msgstr ""
 
 #. 1
-#: src/main_menubar_def.h:1246
+#: src/main_menubar_def.h:1237
 msgid "Compile With _Make"
-msgstr "Fordítás a _make-kel"
+msgstr "Fordítás a '_make'-kel"
 
-#: src/main_menubar_def.h:1247
+#: src/main_menubar_def.h:1238
 msgid "Compile the current source file using Make"
 msgstr ""
 
 #. 2
-#: src/main_menubar_def.h:1252 src/main_menubar_def.h:1905
+#: src/main_menubar_def.h:1243 src/main_menubar_def.h:1902
 msgid "_Build"
 msgstr "El_készítés"
 
-#: src/main_menubar_def.h:1253
+#: src/main_menubar_def.h:1244
 msgid "Build the source directory of the Project or the current source file"
 msgstr ""
 
 #. 3
-#: src/main_menubar_def.h:1258
+#: src/main_menubar_def.h:1249
 msgid "Build _All"
 msgstr "_Mind elkészítése"
 
-#: src/main_menubar_def.h:1259
+#: src/main_menubar_def.h:1250
 msgid "Build the whole Project"
 msgstr ""
 
 #. 4
 #. 5
-#: src/main_menubar_def.h:1265
+#: src/main_menubar_def.h:1256
 msgid "Save Build Messages"
 msgstr "Az elkészítési üzenetek mentése"
 
-#: src/main_menubar_def.h:1266
+#: src/main_menubar_def.h:1257
 msgid "Save build messages to a file"
 msgstr ""
 
 #. 6
 #. 7
-#: src/main_menubar_def.h:1272
+#: src/main_menubar_def.h:1263
 msgid "_Install"
 msgstr "_Telepítés"
 
-#: src/main_menubar_def.h:1273
+#: src/main_menubar_def.h:1264
 msgid "Install the Project on your system"
-msgstr ""
+msgstr "A projekt telepítése a saját rendszerre"
 
 #. 8
-#: src/main_menubar_def.h:1278
+#: src/main_menubar_def.h:1269
 msgid "Build _Distribution"
 msgstr "_Disztribúció készítése"
 
-#: src/main_menubar_def.h:1279
+#: src/main_menubar_def.h:1270
 msgid "Build the distribution tarball of the Project"
 msgstr ""
 
 #. 9
 #. 10
-#: src/main_menubar_def.h:1285
+#: src/main_menubar_def.h:1276
 msgid "Con_figure ..."
 msgstr "_Konfigurálás ..."
 
-#: src/main_menubar_def.h:1286
+#: src/main_menubar_def.h:1277
 msgid "Configure the Project"
-msgstr "A projekt konfigurálása"
+msgstr "A projekt beállítása"
 
 #. 11
-#: src/main_menubar_def.h:1291
+#: src/main_menubar_def.h:1282
 msgid "Auto _generate ..."
 msgstr ""
 
-#: src/main_menubar_def.h:1292
+#: src/main_menubar_def.h:1283
 msgid "Auto generate all the build files for the Project"
 msgstr ""
 
 #. 12
 #. 13
-#: src/main_menubar_def.h:1298
+#: src/main_menubar_def.h:1289
 msgid "Clea_n"
 msgstr ""
 
-#: src/main_menubar_def.h:1299
+#: src/main_menubar_def.h:1290
 msgid "Clean the source directory"
 msgstr ""
 
 #. 14
-#: src/main_menubar_def.h:1304
+#: src/main_menubar_def.h:1295
 msgid "Clean A_ll"
 msgstr ""
 
-#: src/main_menubar_def.h:1305
+#: src/main_menubar_def.h:1296
 msgid "Clean the whole Project directory"
 msgstr ""
 
 #. 15
 #. 16
-#: src/main_menubar_def.h:1311
+#: src/main_menubar_def.h:1302
 msgid "_Stop Build"
 msgstr "Elkészítés _leállítása"
 
-#: src/main_menubar_def.h:1312
+#: src/main_menubar_def.h:1303
 msgid "Stop the current compile or build process"
 msgstr ""
 
 #. 17
 #. 18
-#: src/main_menubar_def.h:1318
+#: src/main_menubar_def.h:1309
 msgid "_Execute"
 msgstr "F_uttatás"
 
-#: src/main_menubar_def.h:1319 src/toolbar.c:296
+#: src/main_menubar_def.h:1310 src/toolbar.c:297
 msgid "Execute the program"
-msgstr "Program végrehajtása"
+msgstr "A program futtatása"
 
 #. 19
-#: src/main_menubar_def.h:1324
+#: src/main_menubar_def.h:1315
 msgid "Set _Program params ..."
 msgstr "_Programparaméterek megadása ..."
 
-#: src/main_menubar_def.h:1325
+#: src/main_menubar_def.h:1316
 msgid "Set the execution parameters of the program"
-msgstr ""
+msgstr "A program futtatási paramétereinek a megadása"
 
 #. 0
-#: src/main_menubar_def.h:1335
+#: src/main_menubar_def.h:1326
 msgid "_Toggle bookmark"
-msgstr "Könyvjelzőt vál_t"
+msgstr "Könyvjelző ki/_be"
 
-#: src/main_menubar_def.h:1336
+#: src/main_menubar_def.h:1327
 msgid "Toggle a bookmark at the current line position"
 msgstr ""
 
 #. 1
 #. 2
-#: src/main_menubar_def.h:1342
+#: src/main_menubar_def.h:1333
 msgid "_First bookmark"
 msgstr "El_ső könyvjelző"
 
-#: src/main_menubar_def.h:1343
+#: src/main_menubar_def.h:1334
 msgid "Jump to the first bookmark in the file"
 msgstr ""
 
 #. 3
-#: src/main_menubar_def.h:1348
+#: src/main_menubar_def.h:1339
 msgid "_Previous bookmark"
 msgstr "Elő_ző könyvjelző"
 
-#: src/main_menubar_def.h:1349
+#: src/main_menubar_def.h:1340
 msgid "Jump to the previous bookmark in the file"
 msgstr ""
 
 #. 4
-#: src/main_menubar_def.h:1354
+#: src/main_menubar_def.h:1345
 msgid "_Next bookmark"
 msgstr "Kö_vetkező könyvjelző"
 
-#: src/main_menubar_def.h:1355
+#: src/main_menubar_def.h:1346
 msgid "Jump to the next bookmark in the file"
 msgstr ""
 
 #. 5
-#: src/main_menubar_def.h:1360
+#: src/main_menubar_def.h:1351
 msgid "_Last bookmark"
 msgstr "_Utolsó könyvjelző"
 
-#: src/main_menubar_def.h:1361
+#: src/main_menubar_def.h:1352
 msgid "Jump to the last bookmark in the file"
 msgstr ""
 
 #. 6
 #. 7
-#: src/main_menubar_def.h:1367
+#: src/main_menubar_def.h:1358
 msgid "_Clear all bookmarks"
 msgstr "Összes könyvjelző _törlése"
 
-#: src/main_menubar_def.h:1368
+#: src/main_menubar_def.h:1359
 msgid "Clear bookmarks"
 msgstr "Könyvjelzők törlése"
 
 #. 0
-#: src/main_menubar_def.h:1378
+#: src/main_menubar_def.h:1369
 msgid "Run/_Continue"
 msgstr "Futtatás/_Folytatás"
 
-#: src/main_menubar_def.h:1379
+#: src/main_menubar_def.h:1370
 msgid "Continue the execution of the program"
 msgstr ""
 
 #. 1
-#: src/main_menubar_def.h:1384
+#: src/main_menubar_def.h:1375
 msgid "Step _In"
 msgstr "_Belépés"
 
-#: src/main_menubar_def.h:1385
+#: src/main_menubar_def.h:1376
 msgid "Single step into function"
 msgstr "Belépés a függvénybe"
 
 #. 2
-#: src/main_menubar_def.h:1390
+#: src/main_menubar_def.h:1381
 msgid "Step O_ver"
 msgstr "_Léptetés"
 
-#: src/main_menubar_def.h:1391
+#: src/main_menubar_def.h:1382
 msgid "Single step over function"
 msgstr "Léptetés a függvényen"
 
 #. 3
-#: src/main_menubar_def.h:1396
+#: src/main_menubar_def.h:1387
 msgid "Step _Out"
 msgstr "_Kilépés"
 
-#: src/main_menubar_def.h:1397
+#: src/main_menubar_def.h:1388
 msgid "Single step out of the function"
 msgstr "Kilépés a függvényből"
 
 #. 4
-#: src/main_menubar_def.h:1402
+#: src/main_menubar_def.h:1393
 msgid "_Run to cursor"
 msgstr "Futtatás a kur_zorig"
 
-#: src/main_menubar_def.h:1403
+#: src/main_menubar_def.h:1394
 msgid "Run to the cursor"
 msgstr ""
 
 #. 0
-#: src/main_menubar_def.h:1413 src/text_editor_menu.c:136
+#: src/main_menubar_def.h:1404 src/text_editor_menu.c:136
 msgid "Toggle breakpoint"
 msgstr "Váltás a töréspontok közt"
 
-#: src/main_menubar_def.h:1414
+#: src/main_menubar_def.h:1405
 msgid "Toggle breakpoint at the current location"
 msgstr ""
 
 #. 1
-#: src/main_menubar_def.h:1419
+#: src/main_menubar_def.h:1410
 msgid "Set Breakpoint ..."
 msgstr "Töréspont megadása ..."
 
-#: src/main_menubar_def.h:1420
+#: src/main_menubar_def.h:1411
 msgid "Set a breakpoint"
 msgstr ""
 
 #. 2
 #. 3
-#: src/main_menubar_def.h:1426
+#: src/main_menubar_def.h:1417
 msgid "_Breakpoints ..."
 msgstr "_Töréspontok ..."
 
-#: src/main_menubar_def.h:1427
+#: src/main_menubar_def.h:1418
 msgid "Edit breakpoints"
-msgstr "Töréspontok szerksztése"
+msgstr "Töréspontok szerkesztése"
 
 #. 4
-#: src/main_menubar_def.h:1432
+#: src/main_menubar_def.h:1423
 msgid "Disable all Breakpoints"
 msgstr "Összes töréspont kikapcsolása"
 
-#: src/main_menubar_def.h:1433
+#: src/main_menubar_def.h:1424
 msgid "Deactivate all breakpoints"
 msgstr ""
 
 #. 5
-#: src/main_menubar_def.h:1438
+#: src/main_menubar_def.h:1429
 msgid "C_lear all Breakpoints"
 msgstr "Összes töréspont törlése"
 
-#: src/main_menubar_def.h:1439
+#: src/main_menubar_def.h:1430
 msgid "Delete all breakpoints"
 msgstr ""
 
 #. 0
-#: src/main_menubar_def.h:1449
+#: src/main_menubar_def.h:1440
 msgid "Info _Target Files"
 msgstr "_Célfájlok"
 
-#: src/main_menubar_def.h:1450
+#: src/main_menubar_def.h:1441
 msgid "Display information on the files the debugger is active with"
 msgstr ""
 
 #. 1
-#: src/main_menubar_def.h:1455
+#: src/main_menubar_def.h:1446
 msgid "Info _Program"
 msgstr "_Program"
 
-#: src/main_menubar_def.h:1456
+#: src/main_menubar_def.h:1447
 msgid "Display information on the execution status of the program"
 msgstr ""
 
 #. 2
-#: src/main_menubar_def.h:1461
+#: src/main_menubar_def.h:1452
 msgid "Info _Kernel User Struct"
-msgstr "_Kernel 'struct user'"
+msgstr "Információ a felhasználói kernel struktúrákról"
 
-#: src/main_menubar_def.h:1462
+#: src/main_menubar_def.h:1453
 msgid "Display the contents of kernel 'struct user' for current child"
 msgstr ""
 
 #. 3
-#: src/main_menubar_def.h:1467
+#: src/main_menubar_def.h:1458
 msgid "Info _Threads"
 msgstr ""
 
-#: src/main_menubar_def.h:1468
+#: src/main_menubar_def.h:1459
 msgid "Display the IDs of currently known threads"
 msgstr ""
 
 #. 4
-#: src/main_menubar_def.h:1473
+#: src/main_menubar_def.h:1464
 msgid "Info _Global variables"
 msgstr "_Globális változók"
 
-#: src/main_menubar_def.h:1474
+#: src/main_menubar_def.h:1465
 msgid "Display all global and static variables of the program"
 msgstr ""
 
 #. 5
-#: src/main_menubar_def.h:1479
+#: src/main_menubar_def.h:1470
 msgid "Info _Local variables"
-msgstr "_Lokális változók"
+msgstr "_Helyi változók"
 
-#: src/main_menubar_def.h:1480
+#: src/main_menubar_def.h:1471
 msgid "Display local variables of the current frame"
 msgstr ""
 
 #. 6
-#: src/main_menubar_def.h:1485
+#: src/main_menubar_def.h:1476
 msgid "Info _Current Frame"
-msgstr "_Aktuális keret"
+msgstr "_Jelenlegi keret"
 
-#: src/main_menubar_def.h:1486
+#: src/main_menubar_def.h:1477
 msgid "Display information about the current frame of execution"
 msgstr ""
 
 #. 7
-#: src/main_menubar_def.h:1491
+#: src/main_menubar_def.h:1482
 msgid "Info Function _Arguments"
 msgstr "_Függvényparaméterek"
 
-#: src/main_menubar_def.h:1492
+#: src/main_menubar_def.h:1483
 msgid "Display function arguments of the current frame"
 msgstr ""
 
 #. 8
-#: src/main_menubar_def.h:1497
+#: src/main_menubar_def.h:1488
 msgid "Info _Memory"
 msgstr "_Memória"
 
-#: src/main_menubar_def.h:1498
+#: src/main_menubar_def.h:1489
 msgid "Display accessible memory"
 msgstr ""
 
 #. 0
-#: src/main_menubar_def.h:1508
+#: src/main_menubar_def.h:1499
 msgid "_Start Debugger"
 msgstr "_Hibakereső indítása"
 
-#: src/main_menubar_def.h:1509
+#: src/main_menubar_def.h:1500
 msgid "Start the debugging session"
 msgstr ""
 
 #. 1
 #. 2
-#: src/main_menubar_def.h:1515
+#: src/main_menubar_def.h:1506
 msgid "Load E_xecutable ..."
 msgstr "_Futtatható állomány betöltése"
 
-#: src/main_menubar_def.h:1516
+#: src/main_menubar_def.h:1507
 msgid "Open the executable for debugging"
 msgstr ""
 
 #. 3
-#: src/main_menubar_def.h:1521
+#: src/main_menubar_def.h:1512
 msgid "Load _Core file ..."
 msgstr "_Core fájl betöltése"
 
-#: src/main_menubar_def.h:1522
+#: src/main_menubar_def.h:1513
 msgid "Load a core file to dissect"
 msgstr ""
 
 #. 4
-#: src/main_menubar_def.h:1527
+#: src/main_menubar_def.h:1518
 msgid "_Attach to Process ..."
 msgstr "_Kapcsolódás a processzhez ..."
 
-#: src/main_menubar_def.h:1528
+#: src/main_menubar_def.h:1519
 msgid "Attach to a running program"
 msgstr ""
 
 #. 5
 #. 6
-#: src/main_menubar_def.h:1534
+#: src/main_menubar_def.h:1525
 msgid "_Restart Program"
 msgstr "Program újra_indítása"
 
-#: src/main_menubar_def.h:1535
+#: src/main_menubar_def.h:1526
 msgid "Stop and restart the program"
 msgstr "Program leállítása és ú_jraindítása"
 
 #. 7
-#: src/main_menubar_def.h:1540
+#: src/main_menubar_def.h:1531
 msgid "S_top Program"
 msgstr "Program _leállítása"
 
-#: src/main_menubar_def.h:1541
+#: src/main_menubar_def.h:1532
 msgid "Stop the program being debugged"
 msgstr ""
 
 #. 8
-#: src/main_menubar_def.h:1546
+#: src/main_menubar_def.h:1537
 msgid "_Detach Debugger"
 msgstr "_Lekapcsolódás a hibakeresőről"
 
-#: src/main_menubar_def.h:1547
+#: src/main_menubar_def.h:1538
 msgid "Detach from an attached program"
 msgstr ""
 
 #. 9
 #. 10
-#: src/main_menubar_def.h:1553
+#: src/main_menubar_def.h:1544
 msgid "Pa_use Program"
 msgstr "Programfutás _szüneteltetése"
 
-#: src/main_menubar_def.h:1554
+#: src/main_menubar_def.h:1545
 msgid "Pauses the execution of the program"
 msgstr ""
 
 #. 11
-#: src/main_menubar_def.h:1559
+#: src/main_menubar_def.h:1550
 msgid "Si_gnal to Process"
-msgstr "Szignál küldése a processznek"
+msgstr "Jelzés küldése a processznek"
 
-#: src/main_menubar_def.h:1560
+#: src/main_menubar_def.h:1551
 msgid "Send a kernel signal to the process being debugged"
 msgstr ""
 
 #. 12
 #. 13
-#: src/main_menubar_def.h:1566
+#: src/main_menubar_def.h:1557
 msgid "_Execution"
 msgstr "_Futtatás"
 
 #. 15
 #. 16
-#: src/main_menubar_def.h:1579
+#: src/main_menubar_def.h:1570
 msgid "_Information"
 msgstr "_Információ"
 
 #. 17
 #. 18
-#: src/main_menubar_def.h:1586
+#: src/main_menubar_def.h:1577
 msgid "Ins_pect/Evaluate ..."
 msgstr "_Vizsgálat/Értékelés"
 
-#: src/main_menubar_def.h:1587
+#: src/main_menubar_def.h:1578
 msgid "Inspect or evaluate an expression or variable"
 msgstr ""
 
 #. 19
-#: src/main_menubar_def.h:1592
+#: src/main_menubar_def.h:1583
 msgid "Add Expression in _Watch ..."
 msgstr "Kifejezés megadása a Felügyeletben ..."
 
-#: src/main_menubar_def.h:1593
+#: src/main_menubar_def.h:1584
 msgid "Add expression or variable to the watch"
 msgstr ""
 
 #. 20
 #. 21
-#: src/main_menubar_def.h:1599
+#: src/main_menubar_def.h:1590
 msgid "St_op Debugger"
 msgstr "Hibakereső _megállítása"
 
-#: src/main_menubar_def.h:1600
+#: src/main_menubar_def.h:1591
 msgid "Say goodbye to the debugger"
 msgstr ""
 
 #. 0
-#: src/main_menubar_def.h:1611
+#: src/main_menubar_def.h:1602
 msgid "U_pdate file"
 msgstr "Fájl f_rissítése"
 
 #. 1
-#: src/main_menubar_def.h:1618
+#: src/main_menubar_def.h:1609
 msgid "C_ommit file"
 msgstr ""
 
 #. 2
-#: src/main_menubar_def.h:1625
+#: src/main_menubar_def.h:1616
 msgid "S_tatus of file"
 msgstr "Fájl s_tátusza"
 
 #. 3
-#: src/main_menubar_def.h:1632
+#: src/main_menubar_def.h:1623
 msgid "G_et file log"
 msgstr "Fájl_napló"
 
 #. 4
-#: src/main_menubar_def.h:1639
+#: src/main_menubar_def.h:1630
 msgid "_Add file"
 msgstr "Fájl hozzá_adása"
 
 #. 5
-#: src/main_menubar_def.h:1646
+#: src/main_menubar_def.h:1637
 msgid "_Remove file"
 msgstr "Fájl _törlése"
 
 #. 6
-#: src/main_menubar_def.h:1653
+#: src/main_menubar_def.h:1644
 msgid "D_iff file"
 msgstr "D_iff fájl"
 
 #. 8
-#: src/main_menubar_def.h:1661
+#: src/main_menubar_def.h:1652
 msgid "_Update Project"
 msgstr "Projekt F_rissítése"
 
-#: src/main_menubar_def.h:1662
+#: src/main_menubar_def.h:1653
 msgid "Update the working copy of a Project"
 msgstr ""
 
 #. 9
-#: src/main_menubar_def.h:1668
+#: src/main_menubar_def.h:1659
 msgid "_Commit Project"
 msgstr ""
 
-#: src/main_menubar_def.h:1669
+#: src/main_menubar_def.h:1660
 msgid "Commit local changes to the repository"
 msgstr ""
 
 #. 10
-#: src/main_menubar_def.h:1675
+#: src/main_menubar_def.h:1666
 msgid "_Import Project"
 msgstr "Projekt _importálása"
 
-#: src/main_menubar_def.h:1676
+#: src/main_menubar_def.h:1667
 msgid "Import Project as a new module in the repository"
-msgstr "Projekt importálása mint új modul a jelenlegi helyen"
+msgstr "Projekt importálása új modulként a jelenlegi helyen"
 
 #. 11
-#: src/main_menubar_def.h:1682
+#: src/main_menubar_def.h:1673
 msgid "_Status of Project"
 msgstr "Projekt _státusza"
 
-#: src/main_menubar_def.h:1683
+#: src/main_menubar_def.h:1674
 msgid "Print the status of the Project"
 msgstr ""
 
 #. 12
-#: src/main_menubar_def.h:1689
+#: src/main_menubar_def.h:1680
 msgid "Get Project _log"
 msgstr "Projektna_pló"
 
-#: src/main_menubar_def.h:1690
+#: src/main_menubar_def.h:1681
 msgid "Print the CVS log of the Project"
 msgstr "A projekt CVS naplójának nyomtatása"
 
 #. 13
-#: src/main_menubar_def.h:1696
+#: src/main_menubar_def.h:1687
 msgid "_Diff Project"
 msgstr "_Diff projekt"
 
-#: src/main_menubar_def.h:1697
-msgid ""
-"Create a diff between the working copy of the Project and the repository"
+#: src/main_menubar_def.h:1688
+msgid "Create a diff between the working copy of the Project and the repository"
 msgstr ""
 
 #. 15
-#: src/main_menubar_def.h:1704
+#: src/main_menubar_def.h:1695
 msgid "_Login"
 msgstr "_Belépés"
 
-#: src/main_menubar_def.h:1705
+#: src/main_menubar_def.h:1696
 msgid "Login to a CVS server"
 msgstr "Belépés egy CVS szerverre"
 
 #. 0
-#: src/main_menubar_def.h:1716
+#: src/main_menubar_def.h:1707
 msgid "_Compiler and Linker Settings ..."
-msgstr "_Fordítás és linkelés beállításai ..."
+msgstr "_Fordító és szerkesztő beállításai ..."
 
-#: src/main_menubar_def.h:1717
+#: src/main_menubar_def.h:1708
 msgid "Settings for the compiler and linker"
-msgstr "Fordító és linkelő beállításai"
+msgstr "A fordító és a kapcsolatszerkesztő beállításai"
 
 #. 1
-#: src/main_menubar_def.h:1722
+#: src/main_menubar_def.h:1713
 msgid "_Source Paths ..."
-msgstr "F_orrás könyvtárak ..."
+msgstr "F_orrás útvonalak ..."
 
-#: src/main_menubar_def.h:1723
+#: src/main_menubar_def.h:1714
 msgid "Specify the source paths for Anjuta to search"
 msgstr ""
 
 #. 2
-#: src/main_menubar_def.h:1728
+#: src/main_menubar_def.h:1719
 msgid "Co_mmands ..."
 msgstr "_Parancsok ..."
 
-#: src/main_menubar_def.h:1729
+#: src/main_menubar_def.h:1720
 msgid "Specify the various commands for use"
 msgstr ""
 
 #. 3
 #. 4
-#: src/main_menubar_def.h:1735
+#: src/main_menubar_def.h:1726
 msgid "_Preferences ..."
 msgstr "_Beállítások ..."
 
-#: src/main_menubar_def.h:1736
+#: src/main_menubar_def.h:1727
 msgid "Do you prefer coffee to tea? Check it out."
 msgstr ""
 
 #. 5
-#: src/main_menubar_def.h:1741
+#: src/main_menubar_def.h:1732
 msgid "_Editor colors and fonts ..."
 msgstr "_Szerkesztő színei és betűtípusai ..."
 
-#: src/main_menubar_def.h:1742
+#: src/main_menubar_def.h:1733
 msgid "Syntax highlighting settings"
 msgstr "Nyelvtani kiemelések beállításai"
 
 #. 6
-#: src/main_menubar_def.h:1747
+#: src/main_menubar_def.h:1738
 msgid "File view filters ..."
 msgstr "Fájllista szűrői ..."
 
-#: src/main_menubar_def.h:1748
+#: src/main_menubar_def.h:1739
 msgid "Edit file view filters"
 msgstr "Fájllista szűrőinek szerkesztése"
 
 #. 7
-#: src/main_menubar_def.h:1753
+#: src/main_menubar_def.h:1744
 msgid "_Edit user.properties file ..."
 msgstr "Felhasználói tulajdonságfájl szerkesztése ..."
 
-#: src/main_menubar_def.h:1754
+#: src/main_menubar_def.h:1745
 msgid "Edit user properties file"
 msgstr ""
 
 #. 8
-#: src/main_menubar_def.h:1759
+#: src/main_menubar_def.h:1750
 msgid "Set _Default Preferences"
-msgstr "_Alapértelmezésű beállítások"
+msgstr "_Alapértelmezett beállítások"
 
-#: src/main_menubar_def.h:1760
+#: src/main_menubar_def.h:1751
 msgid "But I prefer tea."
 msgstr ""
 
 #. 9
-#: src/main_menubar_def.h:1765
+#: src/main_menubar_def.h:1756
 msgid "C_ustomize shortcuts"
-msgstr ""
+msgstr "_Gyorsbillentyűk megadása"
 
-#: src/main_menubar_def.h:1766
+#: src/main_menubar_def.h:1757
 msgid "Customize shortcuts associated with menu items"
 msgstr ""
 
 #. 10
-#: src/main_menubar_def.h:1771
+#: src/main_menubar_def.h:1762
 msgid "_Tools Editor"
 msgstr "_Segédeszköz szerkesztő"
 
-#: src/main_menubar_def.h:1772
+#: src/main_menubar_def.h:1763
 msgid "Customize user-defined tools"
 msgstr ""
 
 #. 11
 #. 12
-#: src/main_menubar_def.h:1778
+#: src/main_menubar_def.h:1769
 msgid "St_art-with dialog"
-msgstr "Indítás _dialógussal"
+msgstr "Indítási _párbeszédablak"
 
-#: src/main_menubar_def.h:1779
+#: src/main_menubar_def.h:1770
 msgid "Show start-with dialog"
 msgstr ""
 
 #. 13
-#: src/main_menubar_def.h:1784
+#: src/main_menubar_def.h:1775
 msgid "An_juta setup wizard"
 msgstr ""
 
-#: src/main_menubar_def.h:1785
+#: src/main_menubar_def.h:1776
 msgid "Setup wizard for first time run"
 msgstr ""
 
 #. 0
-#: src/main_menubar_def.h:1795
+#: src/main_menubar_def.h:1786
 msgid "Anjuta Manual"
 msgstr "Anjuta kézikönyv"
 
-#: src/main_menubar_def.h:1796
+#: src/main_menubar_def.h:1787
 msgid "Anjuta IDE Manual"
 msgstr "Anjuta IDE kézikönyv"
 
 #. 1
-#: src/main_menubar_def.h:1801
+#: src/main_menubar_def.h:1792
 msgid "Anjuta Tutorial"
-msgstr "Anjuta konzultáció"
+msgstr "Anjuta gyakorlat"
 
-#: src/main_menubar_def.h:1802
+#: src/main_menubar_def.h:1793
 msgid "Anjuta IDE Tutorial"
-msgstr "Anjuta IDE konzultáció"
+msgstr "Anjuta IDE gyakorlat"
 
 #. 2
-#: src/main_menubar_def.h:1807
+#: src/main_menubar_def.h:1798
+msgid "Anjuta Advanced Tutorial"
+msgstr "Anjuta gyakorlat"
+
+#: src/main_menubar_def.h:1799
+msgid "Anjuta IDE Advanced Tutorial"
+msgstr "Anjuta IDE gyakorlat (haladó)"
+
+#. 3
+#: src/main_menubar_def.h:1804
 msgid "Anjuta Faqs"
 msgstr "Anjuta gyakori kérdések"
 
-#: src/main_menubar_def.h:1808
+#: src/main_menubar_def.h:1805
 msgid "Anjuta IDE Faqs"
 msgstr "Anjuta IDE gyakori kérdések"
 
-#. 3
 #. 4
-#: src/main_menubar_def.h:1814
+#. 5
+#: src/main_menubar_def.h:1811
 msgid "Browse GNOME _API Pages"
 msgstr "GNOME API _lapok böngészése"
 
-#: src/main_menubar_def.h:1815
+#: src/main_menubar_def.h:1812
 msgid "The GNOME API pages"
 msgstr ""
 
-#. 5
-#: src/main_menubar_def.h:1820
+#. 6
+#: src/main_menubar_def.h:1817
 msgid "Browse _Man Pages"
 msgstr "Kézi_könyvek böngészése"
 
-#: src/main_menubar_def.h:1821
+#: src/main_menubar_def.h:1818
 msgid "The good old manual pages"
 msgstr ""
 
-#. 6
-#: src/main_menubar_def.h:1826
+#. 7
+#: src/main_menubar_def.h:1823
 msgid "Browse _Info Pages"
 msgstr "_Info lapok böngészése"
 
-#: src/main_menubar_def.h:1827
+#: src/main_menubar_def.h:1824
 msgid "Browse Info pages"
 msgstr ""
 
-#. 7
 #. 8
-#: src/main_menubar_def.h:1833
+#. 9
+#: src/main_menubar_def.h:1830
 msgid "_Context Help"
 msgstr "_Gyors segítség"
 
-#: src/main_menubar_def.h:1834
+#: src/main_menubar_def.h:1831
 msgid "Search help for the current word in the editor"
 msgstr ""
 
-#. 9
-#: src/main_menubar_def.h:1839
+#. 10
+#: src/main_menubar_def.h:1836
 msgid "_Search a topic"
 msgstr "Egy téma _keresése"
 
-#: src/main_menubar_def.h:1840
+#: src/main_menubar_def.h:1837
 msgid "May I help you?"
 msgstr ""
 
-#. 10
 #. 11
-#: src/main_menubar_def.h:1846
+#. 12
+#: src/main_menubar_def.h:1843
 msgid "Anjuta _Home Page"
 msgstr "Anjuta WEB oldal"
 
-#: src/main_menubar_def.h:1847
+#: src/main_menubar_def.h:1844
 msgid "Online documentation and resources"
 msgstr "Online dokumentáció és erőforrások"
 
-#. 12
 #. 13
-#: src/main_menubar_def.h:1853
+#. 14
+#: src/main_menubar_def.h:1850
 msgid "_Libraries API references"
 msgstr "Köny_vtárak API referenciái"
 
-#: src/main_menubar_def.h:1854
+#: src/main_menubar_def.h:1851
 msgid "Online reference library for GDK, GLib, GNOME etc.."
 msgstr ""
 
-#. 14
-#: src/main_menubar_def.h:1859
+#. 15
+#: src/main_menubar_def.h:1856
 msgid "Report _Bugs"
 msgstr "_Hibajelzés"
 
-#: src/main_menubar_def.h:1860
+#: src/main_menubar_def.h:1857
 msgid "Submit a bug report for Anjuta"
 msgstr ""
 
-#. 15
-#: src/main_menubar_def.h:1865
+#. 16
+#: src/main_menubar_def.h:1862
 msgid "Request _Features"
 msgstr "Ké_rés küldése"
 
-#: src/main_menubar_def.h:1866
+#: src/main_menubar_def.h:1863
 msgid "Submit a feature request for Anjuta"
 msgstr ""
 
-#. 16
-#: src/main_menubar_def.h:1871
+#. 17
+#: src/main_menubar_def.h:1868
 msgid "Submit _patches"
 msgstr "_Folt küldése"
 
-#: src/main_menubar_def.h:1872
+#: src/main_menubar_def.h:1869
 msgid "Submit patches for Anjuta"
 msgstr ""
 
-#. 17
-#: src/main_menubar_def.h:1877
+#. 18
+#: src/main_menubar_def.h:1874
 msgid "Ask a _question"
 msgstr "Kér_dés küldése"
 
-#: src/main_menubar_def.h:1878
+#: src/main_menubar_def.h:1875
 msgid "Submit a question for FAQs"
 msgstr ""
 
-#: src/main_menubar_def.h:1893
+#: src/main_menubar_def.h:1890
 msgid "_Project"
 msgstr "_Projekt"
 
-#: src/main_menubar_def.h:1899
+#: src/main_menubar_def.h:1896
 msgid "For_mat"
 msgstr "For_mátum"
 
-#: src/main_menubar_def.h:1911
+#: src/main_menubar_def.h:1908
 msgid "Bookmar_k"
 msgstr "Könyvje_lző"
 
-#: src/main_menubar_def.h:1917
+#: src/main_menubar_def.h:1914
 msgid "_Debug"
 msgstr "_Hibakeresés"
 
-#: src/main_menubar_def.h:1923
+#: src/main_menubar_def.h:1920
 msgid "_CVS"
 msgstr ""
 
-#: src/main_menubar_def.h:1929
+#: src/main_menubar_def.h:1926
 msgid "_Settings"
 msgstr ""
 
-#: src/mainmenu_callbacks.c:159
+#: src/mainmenu_callbacks.c:163
 msgid ""
 "The editor is being used as output buffer for an operation.\n"
 "Closing it will result in stopping the process.\n"
 "Do you still want close the editor?"
 msgstr ""
 
-#: src/mainmenu_callbacks.c:173
+#: src/mainmenu_callbacks.c:177
 #, c-format
 msgid ""
 "The file '%s' is not saved.\n"
 "Do you want to save it before closing?"
 msgstr ""
-"A fájl (%s) nem lett mentve.\n"
-"Akarod menteni bezárás előtt?"
+"A fájl (%s) még nincs mentve.\n"
+"Akarja menteni bezárás előtt?"
 
-#: src/mainmenu_callbacks.c:183 src/project_dbase_gui.c:1126
+#: src/mainmenu_callbacks.c:187 src/project_dbase_gui.c:1120
 msgid "Do_n't save"
 msgstr ""
 
-#: src/mainmenu_callbacks.c:240
+#: src/mainmenu_callbacks.c:245
+msgid "A new file can not be reloaded."
+msgstr ""
+
+#: src/mainmenu_callbacks.c:250
 #, c-format
 msgid ""
 "Are you sure you want to reload '%s'?\n"
 "Any unsaved changes will be lost."
-msgstr "Valóban újratöltöd (%s) ?A nem mentett változtatások elvesznek!"
+msgstr ""
+"Valóban újratölti ezt: %s ?\n"
+"A nem mentett változtatások elvesznek."
 
-#: src/mainmenu_callbacks.c:250 src/text_editor.c:1352
+#: src/mainmenu_callbacks.c:260 src/text_editor.c:1355
 msgid "_Reload"
 msgstr "_Újratöltés"
 
-#: src/mainmenu_callbacks.c:551
-msgid "%Y"
-msgstr ""
-
-#: src/mainmenu_callbacks.c:570
-msgid "%Y-%m-%d"
-msgstr ""
-
-#: src/mainmenu_callbacks.c:645
-#, c-format
-msgid "The file \"%s\" is not a header file."
-msgstr "A fájl (%s) nem header fájl."
-
-#: src/mainmenu_callbacks.c:1741
+#: src/mainmenu_callbacks.c:1271
 msgid "The executable is not up-to-date."
 msgstr ""
 
-#: src/mainmenu_callbacks.c:1766
+#: src/mainmenu_callbacks.c:1296
 msgid "Debugger is not running. Start it first."
-msgstr "A hibakereső nem fut. Indítsd el először."
+msgstr "A hibakereső nem fut. Indítsa el először."
 
-#: src/mainmenu_callbacks.c:2032
+#: src/mainmenu_callbacks.c:1562
 msgid ""
 "Unable to display help. Please make sure Anjuta documentation package is "
 "install. It can be downloaded from http://anjuta.org"
 msgstr ""
 
-#: src/mainmenu_callbacks.c:2165
+#: src/mainmenu_callbacks.c:1688
 msgid ""
 "You need to run gconf-editor, look for the key 'desktop/gnome/interface/"
 "can_change_accels' and set this toggle button ON. Then you can hover the "
 "mouse pointer over any menu item and press the shortcut key to associate "
 "with it."
 msgstr ""
-"Futtasd a gconf-editor (Konfigurációszerkesztő) programot, keresd meg a "
-"'desktop/gnome/interface/can_change_accels' kulcsot és állítsd ON értékre."
+"Futtassa a gconf-editor (Konfigurációszerkesztő) programot, keresse meg a "
+"'desktop/gnome/interface/can_change_accels' kulcsot és állítsa ON értékre."
 "Ezután a lebegőmenüben az egérmutató alatti elem gyorsbillentyűje "
-"módosítható a kivánt billentyűkombináció megnyomásával."
+"módosítható a kívánt billentyűkombináció megnyomásával."
 
-#: src/memory.c:111
+#: src/memory.c:109
 msgid "Unable to build user interface for Memory\n"
 msgstr ""
 
-#: src/memory.c:413
+#: src/memory.c:411
 msgid "Enter a Hexa address or Select one in the data"
 msgstr ""
 
-#: src/memory.c:420
+#: src/memory.c:418
 msgid "Non accessible address !"
-msgstr "Nem elérhető cím !"
+msgstr "Nem érhető el a cím!"
 
-#: src/message-manager-private.cc:322
+#: src/message-manager-private.cc:333
 msgid " warning: "
 msgstr " figyelem: "
 
@@ -6117,7 +6149,7 @@ msgstr "Verem"
 msgid "Could not find message type %s!\n"
 msgstr ""
 
-#: src/message-manager.cc:592 src/toolbar.c:154
+#: src/message-manager.cc:593 src/toolbar.c:155
 msgid "Messages"
 msgstr "Üzenetek"
 
@@ -6127,21 +6159,21 @@ msgstr "Kategória"
 
 #: src/preferences-dialog.c:225
 msgid "Anjuta Preferences Dialog"
-msgstr "Anjuta beállítások dialógus"
+msgstr "Anjuta tulajdonságok párbeszédablak"
 
-#: src/preferences.c:698
+#: src/preferences.c:694
 msgid ""
 "Are you sure you want to reset the preferences to\n"
 "their default settings?"
 msgstr ""
-"Valóban vissza akarod állítani a tulajdonságokat az\n"
-"alapértelmezésre?"
+"Valóban vissza szeretné állítani a tulajdonságokat\n"
+"az alapértelmezésre?"
 
-#: src/preferences.c:701
+#: src/preferences.c:697
 msgid "_Reset"
 msgstr ""
 
-#: src/preferences.c:1076
+#: src/preferences.c:1072
 #, c-format
 msgid ""
 "Cannot load Global defaults and configuration files:\n"
@@ -6154,115 +6186,135 @@ msgstr ""
 "Ez lehet helytelen beállítás vagy instabilitás eredménye.\n"
 "Az Anjuta visszatér a beépített (korlátozott) beállításokhoz"
 
-#: src/preferences.c:1208
+#: src/preferences.c:1204
 msgid "Anjuta Preferences"
-msgstr "Anjuta beállításai"
+msgstr "Anjuta tulajdonságok"
 
 #. Must declare static, because it will be used forever
-#: src/project_dbase.c:204
+#: src/project_dbase.c:202
 msgid "Add to Project"
 msgstr "Hozzáadás a projekthez"
 
-#: src/project_dbase.c:233 src/project_dbase.c:303 src/project_dbase_gui.c:585
+#: src/project_dbase.c:231 src/project_dbase.c:301 src/project_dbase_gui.c:585
 msgid "Project: None"
 msgstr "Projekt: nincs"
 
-#: src/project_dbase.c:373
+#: src/project_dbase.c:371
 msgid "Anjuta project files"
 msgstr "Anjuta projekt fájlok"
 
-#: src/project_dbase.c:374 src/project_dbase_gui.c:170
+#: src/project_dbase.c:372 src/project_dbase_gui.c:170
 #: src/project_dbase_gui.c:187 src/project_dbase_gui.c:199
 #: src/project_dbase_gui.c:207 src/project_dbase_gui.c:219
 #: src/project_dbase_gui.c:228 src/project_dbase_gui.c:237
-#: widgets/gnomefilelist.c:714
+#: widgets/gnomefilelist.c:722
 msgid "All files"
-msgstr "Minden fájl"
+msgstr "Összes fájl"
 
-#: src/project_dbase.c:455 src/project_dbase.c:473
+#: src/project_dbase.c:453 src/project_dbase.c:471
 #, c-format
 msgid "Unable to load Project: %s"
 msgstr ""
 
-#: src/project_dbase.c:466 src/project_dbase.c:2478
+#: src/project_dbase.c:464 src/project_dbase.c:2532
 #, c-format
 msgid ""
 "Anjuta version %s or later is required to open this Project.\n"
 "Please upgrade to the latest version of Anjuta (Help for more information)."
 msgstr ""
+"Az Anjuta %s vagy újabb verziója szükséges ennek a projektnek a megnyitásához.\n"
+"Frissítse az Anjuta-t (Használja a Segítséget a további információkhoz)."
+
+#: src/project_dbase.c:583
+#, c-format
+msgid "Loading project: %s"
+msgstr "Projekt betöltése: %s"
 
 #: src/project_dbase.c:849
 msgid "Project saved successfully"
-msgstr ""
+msgstr "A projekt mentése kész"
 
 #: src/project_dbase.c:855 src/project_dbase.c:858
 msgid "Unable to save the Project."
 msgstr ""
 
-#: src/project_dbase.c:1566
+#: src/project_dbase.c:940
+msgid "Rebulding tags image ..."
+msgstr ""
+
+#: src/project_dbase.c:1019
+msgid "Updating tags image ..."
+msgstr ""
+
+#: src/project_dbase.c:1360
+#, c-format
+msgid "Closing project: %s"
+msgstr "Projekt bezárása: %s"
+
+#: src/project_dbase.c:1585
 msgid ""
 "A .glade file does not exist in the top level Project directory. If you do "
 "not use glade for GUI editing,  please specify a custom command for it in "
 "[Project]->[Project Configuration]->[GUI editor command]"
 msgstr ""
 "A .glade fájl nem található meg a projekt kiinduló könyvtárában. Ha nem a "
-"'glade' programot használod a GUI szerkesztéséhez, akkor add meg a "
-"megfelelő parancsot a projekt beállításaiban:\n"
+"'glade' programot használja a GUI szerkesztéséhez, akkor adja meg a megfelelő "
+"parancsot a projekt beállításaiban:\n"
 "[Projekt]->[Projekt beállítása]->[GUI szerkesztő parancs]"
 
-#: src/project_dbase.c:1628
+#: src/project_dbase.c:1647
 msgid ""
 "A .glade file does not\n"
 "exist in the top level Project directory."
 msgstr ""
 "Nem található .glade fájl\n"
-"a projekt kiinduló könyvtárában!"
+"a projekt kiinduló könyvtárában."
 
 #. Set project title
-#: src/project_dbase.c:2076
+#: src/project_dbase.c:2095
 msgid "Project: "
 msgstr ""
 
-#: src/project_dbase.c:2193
+#: src/project_dbase.c:2212
 #, c-format
 msgid ""
 "Unable to get relative file name for %s\n"
 " in %s"
 msgstr ""
 
-#: src/project_dbase.c:2258
+#: src/project_dbase.c:2277
 msgid " already exists in the project"
 msgstr " már létezik a projektben"
 
-#: src/project_dbase.c:2291
+#: src/project_dbase.c:2310
 msgid "Error while copying the file inside the module."
 msgstr ""
 
-#: src/project_dbase.c:2554 src/project_dbase.c:2557
+#: src/project_dbase.c:2608 src/project_dbase.c:2611
 #, c-format
 msgid "Error in loading Project: %s"
-msgstr "Hiba a projekt betöltésében: %s"
+msgstr "Hiba a projekt betöltésekor: %s"
 
-#: src/project_dbase.c:2578
+#: src/project_dbase.c:2632
 msgid "Project loaded successfully."
-msgstr ""
+msgstr "A projekt betöltése kész."
 
 #: src/project_dbase_gui.c:74
 #, c-format
 msgid ""
 "Are you sure you want to remove the item\n"
 "'%s' from the Project?"
-msgstr ""
+msgstr "Valóban törölni akarja ezt az elemet ('%s') a projektből?"
 
 #: src/project_dbase_gui.c:135
 msgid "There is already a Project open.Do you want to close it first?"
-msgstr ""
+msgstr "Már nyitva van egy projekt. Bezárja azt először?"
 
 #: src/project_dbase_gui.c:169
 msgid "Help files"
 msgstr ""
 
-#: src/project_dbase_gui.c:178 widgets/gnomefilelist.c:717
+#: src/project_dbase_gui.c:178 widgets/gnomefilelist.c:725
 msgid "C/C++ source files"
 msgstr ""
 
@@ -6270,31 +6322,31 @@ msgstr ""
 msgid "Java source files"
 msgstr ""
 
-#: src/project_dbase_gui.c:180 widgets/gnomefilelist.c:724
+#: src/project_dbase_gui.c:180 widgets/gnomefilelist.c:732
 msgid "Pascal files"
 msgstr ""
 
-#: src/project_dbase_gui.c:181 widgets/gnomefilelist.c:726
-msgid "PHP files"
-msgstr ""
-
-#: src/project_dbase_gui.c:182 widgets/gnomefilelist.c:729
+#: src/project_dbase_gui.c:181 widgets/gnomefilelist.c:737
 msgid "Perl files"
 msgstr ""
 
-#: src/project_dbase_gui.c:183 widgets/gnomefilelist.c:731
+#: src/project_dbase_gui.c:182 widgets/gnomefilelist.c:734
+msgid "PHP files"
+msgstr ""
+
+#: src/project_dbase_gui.c:183 widgets/gnomefilelist.c:739
 msgid "Python files"
 msgstr ""
 
-#: src/project_dbase_gui.c:184 widgets/gnomefilelist.c:736
+#: src/project_dbase_gui.c:184 widgets/gnomefilelist.c:744
 msgid "Shell Script files"
 msgstr ""
 
-#: src/project_dbase_gui.c:185 widgets/gnomefilelist.c:741
+#: src/project_dbase_gui.c:185 widgets/gnomefilelist.c:749
 msgid "Visual Basic files"
 msgstr ""
 
-#: src/project_dbase_gui.c:186 widgets/gnomefilelist.c:749
+#: src/project_dbase_gui.c:186 widgets/gnomefilelist.c:757
 msgid ".lua files"
 msgstr ""
 
@@ -6316,11 +6368,11 @@ msgstr ""
 
 #: src/project_dbase_gui.c:215
 msgid "Text files"
-msgstr ""
+msgstr "Szövegfájlok"
 
 #: src/project_dbase_gui.c:216
 msgid "XML files"
-msgstr ""
+msgstr "XML fájlok"
 
 #: src/project_dbase_gui.c:217
 msgid "HTML files"
@@ -6342,7 +6394,7 @@ msgstr ""
 msgid "Add file to module: "
 msgstr "Fájl hozzáadása a modulhoz: "
 
-#: src/project_dbase_gui.c:597 widgets/gnomefilelist.c:403
+#: src/project_dbase_gui.c:597 widgets/gnomefilelist.c:404
 msgid "Files"
 msgstr "Fájlok"
 
@@ -6350,202 +6402,216 @@ msgstr "Fájlok"
 msgid "Symbols"
 msgstr "Szimbólum"
 
-#: src/project_dbase_gui.c:737
+#: src/project_dbase_gui.c:735
 msgid "Project Information"
 msgstr "Projekt információ"
 
-#: src/project_dbase_gui.c:745
+#: src/project_dbase_gui.c:751
 msgid " Project Information "
 msgstr " Projekt információ "
 
-#: src/project_dbase_gui.c:781
+#: src/project_dbase_gui.c:787
 msgid "Author:"
 msgstr "Szerző:"
 
-#: src/project_dbase_gui.c:789 src/wizard_gui.c:298
+#: src/project_dbase_gui.c:795 src/wizard_gui.c:298
 msgid "Project Name:"
 msgstr "Projektnév:"
 
-#: src/project_dbase_gui.c:868
+#: src/project_dbase_gui.c:874
 msgid "Program Name:"
 msgstr "Programnév:"
 
-#: src/project_dbase_gui.c:875
+#: src/project_dbase_gui.c:881
 msgid "Source files:"
 msgstr ""
 
-#: src/project_dbase_gui.c:882
+#: src/project_dbase_gui.c:888
 msgid "Help files:"
 msgstr ""
 
-#: src/project_dbase_gui.c:889
+#: src/project_dbase_gui.c:895
 msgid "Data files:"
 msgstr ""
 
-#: src/project_dbase_gui.c:896
+#: src/project_dbase_gui.c:902
 msgid "Pixmap files:"
 msgstr ""
 
-#: src/project_dbase_gui.c:903
+#: src/project_dbase_gui.c:909
 msgid "Doc files:"
 msgstr ""
 
-#: src/project_dbase_gui.c:924
+#: src/project_dbase_gui.c:930
 msgid "Po files:"
 msgstr ""
 
-#: src/project_dbase_gui.c:954
+#: src/project_dbase_gui.c:960
 msgid "GUI editable by Glade:"
 msgstr "GUI szerkeszthető a Glade-del:"
 
-#: src/project_dbase_gui.c:976
+#: src/project_dbase_gui.c:982
 msgid "Makefiles managed:"
-msgstr "Makefile-ok menedzselése:"
+msgstr "'Makefile'-ok kezelése:"
 
-#: src/project_dbase_gui.c:1018
+#: src/project_dbase_gui.c:1024
 msgid "Gettext support:"
-msgstr "Gettext támogatás:"
+msgstr "Gettext támogatása:"
 
-#: src/project_dbase_gui.c:1076
+#: src/project_dbase_gui.c:1082
 msgid "Project Type:"
 msgstr "Projekt típusa:"
 
-#: src/project_dbase_gui.c:1121
+#: src/project_dbase_gui.c:1115
 msgid ""
 "Project is not saved.\n"
 "Do you want to save it before closing?"
 msgstr ""
 "A projekt nincs mentve.\n"
-"Akarod menteni bezárás előtt?"
+"Akarja menteni bezárás előtt?"
 
-#: src/project_dbase_gui.c:1136 src/project_dbase_gui.c:1256
+#: src/project_dbase_gui.c:1130 src/project_dbase_gui.c:1250
 msgid "Breton"
 msgstr ""
 
-#: src/project_dbase_gui.c:1137
+#: src/project_dbase_gui.c:1131
 msgid "Catalan"
 msgstr ""
 
-#: src/project_dbase_gui.c:1138
+#: src/project_dbase_gui.c:1132
 msgid "Czech"
 msgstr ""
 
-#: src/project_dbase_gui.c:1139
+#: src/project_dbase_gui.c:1133
 msgid "Danish"
 msgstr ""
 
-#: src/project_dbase_gui.c:1140
+#: src/project_dbase_gui.c:1134
 msgid "German"
 msgstr ""
 
-#: src/project_dbase_gui.c:1142
+#: src/project_dbase_gui.c:1136
 msgid "Esperanto"
 msgstr ""
 
-#: src/project_dbase_gui.c:1143
+#: src/project_dbase_gui.c:1137
 msgid "Spanish"
 msgstr ""
 
-#: src/project_dbase_gui.c:1144
+#: src/project_dbase_gui.c:1138
 msgid "Finnish"
 msgstr ""
 
-#: src/project_dbase_gui.c:1145
+#: src/project_dbase_gui.c:1139
 msgid "French"
 msgstr ""
 
-#: src/project_dbase_gui.c:1146
+#: src/project_dbase_gui.c:1140
 msgid "Herbrew"
 msgstr ""
 
-#: src/project_dbase_gui.c:1147 src/project_dbase_gui.c:1151
+#: src/project_dbase_gui.c:1141 src/project_dbase_gui.c:1145
 msgid "Croatian"
 msgstr ""
 
-#: src/project_dbase_gui.c:1148
+#: src/project_dbase_gui.c:1142
 msgid "Hungarian"
 msgstr ""
 
-#: src/project_dbase_gui.c:1149
+#: src/project_dbase_gui.c:1143
 msgid "Islandic"
 msgstr ""
 
-#: src/project_dbase_gui.c:1150
+#: src/project_dbase_gui.c:1144
 msgid "Italian"
 msgstr ""
 
-#: src/project_dbase_gui.c:1153
+#: src/project_dbase_gui.c:1147
 msgid "Macedonian"
 msgstr ""
 
-#: src/project_dbase_gui.c:1154
+#: src/project_dbase_gui.c:1148
 msgid "Dutch"
 msgstr ""
 
-#: src/project_dbase_gui.c:1155
+#: src/project_dbase_gui.c:1149
 msgid "Norwegian"
 msgstr ""
 
-#: src/project_dbase_gui.c:1156
+#: src/project_dbase_gui.c:1150
 msgid "Polish"
 msgstr ""
 
-#: src/project_dbase_gui.c:1157
+#: src/project_dbase_gui.c:1151
 msgid "Portuguese"
 msgstr ""
 
-#: src/project_dbase_gui.c:1159
+#: src/project_dbase_gui.c:1153
 msgid "Russian"
 msgstr ""
 
-#: src/project_dbase_gui.c:1160
+#: src/project_dbase_gui.c:1154
 msgid "Slovak"
 msgstr ""
 
-#: src/project_dbase_gui.c:1162
+#: src/project_dbase_gui.c:1156
 msgid "Simplified Chinese"
 msgstr ""
 
-#: src/project_dbase_gui.c:1163
+#: src/project_dbase_gui.c:1157
 msgid "Chinese"
 msgstr ""
 
-#: src/project_dbase_gui.c:1164
+#: src/project_dbase_gui.c:1158
 msgid "Estonian"
 msgstr ""
 
-#: src/project_dbase_gui.c:1208
+#: src/project_dbase_gui.c:1202
 msgid "Select regional language"
-msgstr ""
+msgstr "A helyi nyelv kiválasztása"
 
-#: src/project_dbase_gui.c:1224
+#: src/project_dbase_gui.c:1218
 msgid "Select regional language:"
-msgstr ""
+msgstr "A helyi nyelv kiválasztása:"
 
-#: src/project_dbase_gui.c:1264
+#: src/project_dbase_gui.c:1258
 #, c-format
 msgid "Unable to find pixmap file: %s"
 msgstr ""
 
-#: src/project_dbase_gui.c:1341
+#: src/project_dbase_gui.c:1336
 #, c-format
 msgid ""
 "\"%s\"\n"
 "does not exist.\n"
 "Do you want to create it now ?"
 msgstr ""
+"\"%s\"\n"
+"nem található.\n"
+"Létre akarja hozni most?"
 
-#: src/project_dbase_gui.c:1359
+#: src/project_dbase_gui.c:1339
+msgid "Create File confirm"
+msgstr "Fájllétrehozás megerősítése"
+
+#: src/project_dbase_gui.c:1356
 #, c-format
 msgid "Not a regular file: %s."
 msgstr ""
 
-#: src/project_dbase_gui.c:1369
+#: src/project_dbase_gui.c:1368
 #, c-format
 msgid ""
 "\"%s\"\n"
 "does not exist in the current module directory.\n"
 "Do you want to IMPORT (copy) it into the module?"
+msgstr ""
+"\"%s\"\n"
+"nem található a jelenlegi modul könyvtárában.\n"
+"IMPORTÁLNI (másolni) akarja a modulba?"
+
+#: src/project_dbase_gui.c:1371
+msgid "Import File confirm"
 msgstr ""
 
 #: src/project_import.c:89
@@ -6569,15 +6635,15 @@ msgstr ""
 
 #: src/project_import.c:130
 msgid "Importing Project...please wait"
-msgstr "Projekt importálása...Kérlek várj!"
+msgstr "Projekt importálása...kérem várjon"
 
 #: src/project_import.c:188
 msgid "Project import completed...successful\n"
-msgstr "Projektimportálás elkészült ... sikeres\n"
+msgstr "Projektimportálás elkészült ... sikeresen\n"
 
 #: src/project_import.c:190
 msgid "Project import completed...successful"
-msgstr "Projektimportálás elkészült ... sikeres"
+msgstr "Projektimportálás elkészült ... sikeresen"
 
 #: src/project_import.c:206
 msgid "Could not import Project: no project file found!"
@@ -6585,22 +6651,25 @@ msgstr ""
 
 #: src/project_import.c:213
 msgid "Opening Project...please wait"
-msgstr "Projekt megnyitása ... Kérlek várj!"
+msgstr "Projekt megnyitása...kérem várjon"
 
 #: src/project_import.c:216
 msgid "Could not open generated Project file"
 msgstr ""
 
-#: src/project_import_cbs.c:126
+#: src/project_import_cbs.c:131
 msgid "Please complete all of the required fields"
-msgstr "Kérlek add meg az összes szükséges adatot"
+msgstr "Kérem adja meg az összes szükséges adatot"
 
 #. We should never come here because this button is disabled
-#: src/project_import_cbs.c:285
+#: src/project_import_cbs.c:292
 msgid ""
 "The import operation has already begun.\n"
 "Click Cancel to skip the customisation stage, or Next to continue."
 msgstr ""
+"Az importálási művelet már elkezdődött.\n"
+"Kattintson a Mégse gombra a szakasz átlépéséhez\n"
+"vagy az Előre gombra a folytatáshoz."
 
 #: src/project_import_gui.c:45
 msgid ""
@@ -6636,28 +6705,20 @@ msgstr "Létező projektkönyvtár kiválasztása"
 
 #: src/project_import_gui.c:224
 msgid "Click Forward to begin the import"
-msgstr "Kattints az előre gombra az importálás megkezdéséhez"
+msgstr "Kattintson az előre gombra az importálás megkezdéséhez"
 
-#: src/registers_gui.c:40
-msgid "Modify"
-msgstr "Módosítás"
-
-#: src/registers_gui.c:88
-msgid "CPU Registers"
-msgstr "CPU regiszterek"
-
-#: src/registers_gui.c:107
+#: src/registers_gui.c:43
 msgid "Register"
 msgstr "Regiszter"
 
-#: src/registers_gui.c:115
+#: src/registers_gui.c:43
 msgid "Decimal"
 msgstr ""
 
 #: src/resources.c:51
 #, c-format
 msgid "Widget not found: %s"
-msgstr ""
+msgstr "Widget nem található: %s"
 
 #: src/resources.c:75
 #, c-format
@@ -6669,119 +6730,123 @@ msgstr ""
 msgid "Could not find application pixmap file: %s"
 msgstr ""
 
-#: src/resources.c:263 src/resources.c:271
-msgid "Cannot execute Devhelp. Make sure it is installed"
-msgstr "Nem futtatható a Devhelp. Telepíteni kell."
-
-#: src/search-replace.c:1088
+#: src/search-replace.c:349
 msgid "Replace"
 msgstr "Cserél"
 
-#: src/search-replace.c:1364 src/search-replace.c:1530
+#: src/search-replace.c:692 src/search-replace.c:1315
+#: src/search-replace.c:1322 src/search-replace.c:1334
+#: src/search-replace.c:1620
+msgid "Search"
+msgstr "Keresés"
+
+#: src/search-replace.c:695 src/search-replace.c:1329
 msgid "Replace All"
-msgstr "Mindet cserél"
+msgstr "Mindent cserél"
 
-#: src/search-replace.c:1372
-msgid "No matches."
-msgstr "Nincs találat."
+#: src/search-replace.c:731
+#, c-format
+msgid "The match \"%s\" was not found. Wrap search around the document?"
+msgstr "Nem található meg: \"%s\". Folytassam a dokumentum elejétől?"
 
-#: src/search-replace.c:1382
+#: src/search-replace.c:754
+#, c-format
+msgid "The match \"%s\" was not found."
+msgstr "Nem található: \"%s\""
+
+#: src/search-replace.c:772
 msgid "The maximum number of results has been reached."
 msgstr ""
 
-#: src/search-replace.c:1392
+#: src/search-replace.c:785
 #, c-format
 msgid "%d matches have been replaced."
 msgstr ""
 
-#: src/search-replace.c:1749
+#: src/search-replace.c:941
 msgid "Unable to build user interface for Search And Replace"
 msgstr ""
 
-#: src/sharedlib_gui.c:79
-msgid "Shared libraries"
-msgstr "Megosztott könyvtárak"
+#: src/search_incremental.c:243
+msgid "No matches. Wrap search around the document?"
+msgstr "Nincs találat. Folytassam a dokumentum elejétől?"
 
-#: src/sharedlib_gui.c:100
-msgid "  Shared Object  "
-msgstr "  Megosztott objektum  "
+#: src/search_preferences.c:475
+msgid "The maximum number of settings has been reached."
+msgstr ""
 
-#: src/sharedlib_gui.c:104
+#: src/search_preferences.c:484
+msgid "This name is already used."
+msgstr ""
+
+#: src/sharedlib_gui.c:44
+msgid "Shared Object"
+msgstr "Megosztott objektum"
+
+#: src/sharedlib_gui.c:44
 msgid "From"
 msgstr ""
 
-#: src/sharedlib_gui.c:108
+#: src/sharedlib_gui.c:44
 msgid "To"
 msgstr ""
 
-#: src/sharedlib_gui.c:112
+#: src/sharedlib_gui.c:44
 msgid "Sysm Read"
 msgstr ""
 
-#: src/signals_gui.c:40
-msgid "Modify Signal"
-msgstr "Szignál módosítása"
+#: src/sharedlib_gui.c:103
+msgid "Shared libraries"
+msgstr "Megosztott könyvtárak"
 
-#: src/signals_gui.c:47
-msgid "Send to process"
-msgstr ""
-
-#: src/signals_gui.c:93
-msgid "Kernel signals"
-msgstr "Kernel szignálok"
-
-#: src/signals_gui.c:115
+#: src/signals.c:48
 msgid "Signal"
-msgstr "Szignál"
+msgstr "Jelzés"
 
-#: src/signals_gui.c:119 src/toolbar.c:666
+#: src/signals.c:48 src/toolbar.c:667
 msgid "Stop"
 msgstr "Állj"
 
-#: src/signals_gui.c:209
-msgid "Set Signal Property"
-msgstr "Szignál tulajdonságok beállítása"
+#: src/signals.c:420
+msgid "Modify Signal"
+msgstr "Jelzés módosítása"
 
-#: src/signals_gui.c:252
-msgid " Stop: "
-msgstr " Leáll: "
-
-#: src/signals_gui.c:256
-msgid " Print: "
-msgstr " Nyomtatás:"
-
-#: src/signals_gui.c:260
-msgid "Pass:"
+#: src/signals.c:427
+msgid "Send to process"
 msgstr ""
 
-#: src/source.c:112
+#: src/signals.c:479
+msgid "Kernel signals"
+msgstr "Kernel jelzések"
+
+#: src/source.c:113
 #, c-format
 msgid "Error writing to file: %s."
 msgstr ""
 
-#: src/source.c:120 src/source.c:167 src/source.c:205 src/source.c:455
-#: src/source.c:480 src/source.c:575 src/source.c:673 src/source.c:713
-#: src/source.c:728 src/source.c:762 src/source.c:818 src/source.c:854
-#: src/source.c:909 src/source.c:945 src/source.c:1001 src/source.c:1057
-#: src/source.c:1076 src/source.c:1109 src/source.c:1128 src/source.c:1161
-#: src/source.c:1180 src/source.c:1211 src/source.c:1229 src/source.c:1259
-#: src/source.c:1277 src/source.c:1306 src/source.c:1355 src/source.c:1392
-#: src/source.c:1436 src/source.c:1517 src/source.c:1649 src/source.c:1689
-#: src/source.c:1779 src/source.c:1852 src/source.c:1946 src/source.c:2027
-#: src/source.c:2085 src/source.c:2199 src/source.c:2262 src/source.c:2568
-#: src/source.c:2703 src/utilities.c:744
+#: src/source.c:121 src/source.c:168 src/source.c:206 src/source.c:456
+#: src/source.c:481 src/source.c:583 src/source.c:681 src/source.c:721
+#: src/source.c:736 src/source.c:770 src/source.c:827 src/source.c:864
+#: src/source.c:920 src/source.c:958 src/source.c:1015 src/source.c:1072
+#: src/source.c:1092 src/source.c:1125 src/source.c:1145 src/source.c:1178
+#: src/source.c:1198 src/source.c:1229 src/source.c:1248 src/source.c:1278
+#: src/source.c:1297 src/source.c:1326 src/source.c:1375 src/source.c:1412
+#: src/source.c:1455 src/source.c:1535 src/source.c:1667 src/source.c:1707
+#: src/source.c:1796 src/source.c:1853 src/source.c:1939 src/source.c:2012
+#: src/source.c:2070 src/source.c:2184 src/source.c:2247 src/source.c:2553
+#: src/source.c:2688 src/utilities.c:745
 #, c-format
 msgid "Unable to create file: %s."
 msgstr ""
 
-#: src/source.c:1614 src/source.c:1734
+#: src/source.c:1632 src/source.c:1751
 #, c-format
 msgid "Error writing to: %s."
 msgstr ""
 
-#: src/src_paths.c:262
+#: src/src_paths.c:267
 msgid "Source Paths"
-msgstr "Forrásútvonalak"
+msgstr "Forrás útvonalak"
 
 #: src/stack_trace.c:315
 msgid "Error getting selection\n"
@@ -6815,7 +6880,7 @@ msgstr "Aktív"
 msgid "Count"
 msgstr "Számláló"
 
-#: src/stack_trace.c:464 src/toolbar.c:612
+#: src/stack_trace.c:464 src/toolbar.c:613
 msgid "Frame"
 msgstr "Keret"
 
@@ -6824,25 +6889,25 @@ msgstr "Keret"
 msgid "Couldn't find pixmap file: %s"
 msgstr ""
 
-#: src/text_editor.c:932
+#: src/text_editor.c:935
 msgid "This file is too big. Unable to allocate memory."
 msgstr "Ez a fájl túl nagy. Nincs elég memória."
 
-#: src/text_editor.c:977
+#: src/text_editor.c:980
 msgid ""
 "The file does not look like a text file or the file encoding is not "
 "supported. Please check if the encoding of file is in the supported "
 "encodings list. If not, add it from the preferences."
 msgstr ""
-"A fájl nem szöveges fájl vagy a formátuma nem támogatott. Ellenőrizd a "
-"támogatott formátumok listáját. Ha nincs köztük, akkor add hozzá a "
+"A fájl nem szöveges fájl vagy a formátuma nem támogatott. Ellenőrizze a "
+"támogatott formátumok listáját. Ha nincs köztük, akkor adja hozzá a "
 "tulajdonságoknál."
 
-#: src/text_editor.c:1150
+#: src/text_editor.c:1153
 msgid "Loading file ..."
 msgstr "Fájl betöltése ..."
 
-#: src/text_editor.c:1156
+#: src/text_editor.c:1159
 #, c-format
 msgid ""
 "Could not load file: %s\n"
@@ -6853,58 +6918,58 @@ msgstr ""
 "\n"
 "Részletek: %s"
 
-#: src/text_editor.c:1177
+#: src/text_editor.c:1180
 msgid "File loaded successfully"
 msgstr "Fájlbetöltés eredményes"
 
-#: src/text_editor.c:1192
+#: src/text_editor.c:1195
 msgid "Saving file ..."
 msgstr "Fájl mentése ..."
 
-#: src/text_editor.c:1197
+#: src/text_editor.c:1200
 #, c-format
 msgid "Could not save file: %s."
 msgstr "Nem lehet menteni a fájlt: %s."
 
-#: src/text_editor.c:1237
+#: src/text_editor.c:1240
 msgid "File saved successfully"
 msgstr "Fájlmentés kész"
 
-#: src/text_editor.c:1335
+#: src/text_editor.c:1338
 #, c-format
 msgid ""
 "The file '%s' on the disk is more recent than\n"
 "the current buffer.\n"
 "Do you want to reload it?"
 msgstr ""
-"A fájl (%s) a lemezen nagyobb, mint az aktuális buffer.\n"
+"A fájl (%s) a lemezen nagyobb, mint a jelenlegi buffer.\n"
 "Újratöltsem?"
 
-#: src/text_editor.c:1508
+#: src/text_editor.c:1511
 msgid "Auto format is currently disabled. Change the setting in Preferences."
 msgstr ""
 
-#: src/text_editor.c:1514
+#: src/text_editor.c:1517
 msgid "Auto formatting ..."
 msgstr ""
 
-#: src/text_editor.c:1524
+#: src/text_editor.c:1527
 msgid "Error in auto formatting ..."
 msgstr ""
 
-#: src/text_editor.c:1539
+#: src/text_editor.c:1542
 #, c-format
 msgid "Anjuta does not know %s!"
 msgstr ""
 
-#: src/text_editor.c:1567
+#: src/text_editor.c:1561
 #, c-format
 msgid ""
 "Error in auto formatting ...\n"
 "Details: %s"
 msgstr ""
 
-#: src/text_editor.c:1574
+#: src/text_editor.c:1568
 msgid "Auto formatting completed"
 msgstr ""
 
@@ -6942,13 +7007,13 @@ msgstr ""
 msgid "line: "
 msgstr "sor: "
 
-#: src/text_editor_gui.c:167 src/toolbar.c:251
+#: src/text_editor_gui.c:167 src/toolbar.c:252
 msgid "Compile the current file"
-msgstr "Az aktuális fájl fordítása"
+msgstr "A jelenlegi fájl fordítása"
 
 #: src/text_editor_gui.c:171
 msgid "Build current file or the source directory of the Project"
-msgstr "Az aktuális fájl vagy az aktuális könyvtár fordítása"
+msgstr "A jelenlegi fájl vagy a forrás könyvtár fordítása"
 
 #: src/text_editor_gui.c:180
 msgid "Attach"
@@ -6956,15 +7021,11 @@ msgstr "Kapcsol"
 
 #: src/text_editor_gui.c:181
 msgid "Attach the current page"
-msgstr "Aktuális lap csatolása"
+msgstr "Jelenlegi lap csatolása"
 
 #: src/text_editor_menu.c:77
 msgid "Back"
 msgstr "Vissza"
-
-#: src/text_editor_menu.c:84
-msgid "Forward"
-msgstr "Előre"
 
 #: src/text_editor_menu.c:108
 msgid "Prev mesg"
@@ -6982,19 +7043,19 @@ msgstr "Előző könyvjelző"
 msgid "Next bookmark"
 msgstr "Következő könyvjelző"
 
-#: src/text_editor_menu.c:143 src/toolbar.c:536
+#: src/text_editor_menu.c:143 src/toolbar.c:537
 msgid "Step in"
 msgstr "Belép"
 
 #: src/text_editor_menu.c:149
 msgid "Step over"
-msgstr "Átlép"
+msgstr "Léptet"
 
 #: src/text_editor_menu.c:155
 msgid "Step out"
 msgstr "Kilép"
 
-#: src/text_editor_menu.c:161 src/toolbar.c:525
+#: src/text_editor_menu.c:161 src/toolbar.c:526
 msgid "Run to cursor"
 msgstr "Futtatás a kurzortól"
 
@@ -7002,7 +7063,7 @@ msgstr "Futtatás a kurzortól"
 msgid "Run/Continue"
 msgstr "Futtatás/Folytatás"
 
-#: src/text_editor_menu.c:181 src/toolbar.c:573
+#: src/text_editor_menu.c:181 src/toolbar.c:574
 msgid "Interrupt"
 msgstr "Megszakítás"
 
@@ -7024,26 +7085,26 @@ msgstr ""
 
 #: src/text_editor_menu.c:220
 msgid "++Zoom"
-msgstr ""
+msgstr "Nagyítás"
 
 #: src/text_editor_menu.c:227
 msgid "--Zoom"
-msgstr ""
+msgstr "Kicsinyítés"
 
 #. 0
 #: src/text_editor_menu.c:239
 msgid "Cut"
-msgstr "Kivág"
+msgstr "Kivágás"
 
 #. 1
 #: src/text_editor_menu.c:247
 msgid "Copy"
-msgstr "Másol"
+msgstr "Másolás"
 
 #. 2
 #: src/text_editor_menu.c:255
 msgid "Paste"
-msgstr "Beilleszt"
+msgstr "Beillesztés"
 
 #. 4
 #: src/text_editor_menu.c:265
@@ -7066,7 +7127,7 @@ msgid "Swap .h/.c"
 msgstr ""
 
 #. 10
-#: src/text_editor_menu.c:301 src/toolbar.c:512
+#: src/text_editor_menu.c:301 src/toolbar.c:513
 msgid "Go"
 msgstr ""
 
@@ -7080,341 +7141,357 @@ msgstr ""
 msgid "Close"
 msgstr "Bezár"
 
-#: src/toolbar.c:105
+#: src/toolbar.c:106
 msgid "Detach"
 msgstr "Lekapcsol"
 
-#: src/toolbar.c:106
+#: src/toolbar.c:107
 msgid "Detach the current page"
 msgstr ""
 
-#: src/toolbar.c:115
+#: src/toolbar.c:116
 msgid "Search for the given string in the current file"
-msgstr ""
+msgstr "A megadott szöveg keresése a jelenlegi fájlban"
 
-#: src/toolbar.c:131
+#: src/toolbar.c:132
 msgid "Enter the string to search for"
 msgstr "A keresendő szöveg"
 
-#: src/toolbar.c:137
+#: src/toolbar.c:138
 msgid "Go to the given line number in the current file"
-msgstr ""
+msgstr "Ugrás a megadott sorra a jelenlegi fájlban"
 
-#: src/toolbar.c:144
+#: src/toolbar.c:145
 msgid "Enter the line number to go to"
 msgstr ""
 
-#: src/toolbar.c:160
+#: src/toolbar.c:161
 msgid "Context sensitive help"
 msgstr "Helyzetérzékeny segítség"
 
-#: src/toolbar.c:224
+#: src/toolbar.c:225
 msgid "Save Project"
 msgstr "Projekt mentése"
 
-#: src/toolbar.c:236
+#: src/toolbar.c:237
 msgid "Close Project"
 msgstr "Projekt bezárása"
 
-#: src/toolbar.c:263
+#: src/toolbar.c:264
 msgid "Run configure"
-msgstr "configure script futtatása"
+msgstr "'configure' futtatása"
 
-#: src/toolbar.c:275
+#: src/toolbar.c:276
 msgid "Build current file, or build the source directory of the Project"
-msgstr "Az aktuális fájl, vagy a projekt forrás könyvtárának elkészítése"
+msgstr "A jelenlegi fájl, vagy a projekt forrás könyvtárának elkészítése"
 
-#: src/toolbar.c:286
+#: src/toolbar.c:287
 msgid "Build_all"
 msgstr ""
 
-#: src/toolbar.c:288
+#: src/toolbar.c:289
 msgid "Build from the top directory of the Project"
 msgstr ""
 
-#: src/toolbar.c:307
+#: src/toolbar.c:308
 msgid "Start the Debugger"
 msgstr "Hibakeresés kezdése"
 
-#: src/toolbar.c:314
+#: src/toolbar.c:315
 msgid "Stop/interrupt compile or build"
 msgstr ""
 
-#: src/toolbar.c:383 src/toolbar.c:762
+#: src/toolbar.c:384 src/toolbar.c:763
 msgid "Toggle"
-msgstr ""
+msgstr "Átvált"
 
-#: src/toolbar.c:384
+#: src/toolbar.c:385
 msgid "Toggle bookmark at current location"
-msgstr ""
+msgstr "Kapcsolás a könyvjelzők között a jelenlegi helyen"
 
-#: src/toolbar.c:390
+#: src/toolbar.c:391
 msgid "Goto first bookmark in this document"
 msgstr "Ugrás az első könyvjelzőre ebben a dokumentumban"
 
-#: src/toolbar.c:396
+#: src/toolbar.c:397
 msgid "Goto previous bookmark in this document"
 msgstr "Ugrás az előző könyvjelzőre ebben a dokumentumban"
 
-#: src/toolbar.c:401
+#: src/toolbar.c:402
 msgid "Goto next bookmark in this document"
 msgstr "Ugrás a következő könyvjelzőre ebben a dokumentumban"
 
-#: src/toolbar.c:406
+#: src/toolbar.c:407
 msgid "Goto last bookmark in this document"
 msgstr "Ugrás az utolsó könyvjelzőre ebben a dokumentumban"
 
-#: src/toolbar.c:415
+#: src/toolbar.c:416
 msgid "Prev"
 msgstr "Előző"
 
-#: src/toolbar.c:416
+#: src/toolbar.c:417
 msgid "Goto previous message in this document"
 msgstr "Ugrás az előző üzenetre ebben a dokumentumban"
 
-#: src/toolbar.c:422
+#: src/toolbar.c:423
 msgid "Next"
 msgstr "Következő"
 
-#: src/toolbar.c:423
+#: src/toolbar.c:424
 msgid "Goto next message in this document"
 msgstr "Ugrás a következő üzenetre ebben a dokumentumban"
 
-#: src/toolbar.c:431
+#: src/toolbar.c:432
 msgid "Start"
 msgstr "Kezdés"
 
-#: src/toolbar.c:432
+#: src/toolbar.c:433
 msgid "Goto start of current code block"
-msgstr "Ugrás az aktuális kódblokk elejére"
+msgstr "Ugrás a jelenlegi kódblokk elejére"
 
-#: src/toolbar.c:438
+#: src/toolbar.c:439
 msgid "End"
 msgstr "Vége"
 
-#: src/toolbar.c:439
+#: src/toolbar.c:440
 msgid "Goto end of current code block"
-msgstr "Ugrás az aktuális kódblokk végére"
+msgstr "Ugrás a jelenlegi kódblokk végére"
 
-#: src/toolbar.c:446
+#: src/toolbar.c:447
 msgid "Tags:"
 msgstr ""
 
-#: src/toolbar.c:455
+#: src/toolbar.c:456
 msgid "Search for the given tag in the current file"
 msgstr ""
 
-#: src/toolbar.c:470
+#: src/toolbar.c:471
 msgid "Enter the tag to jump to"
 msgstr ""
 
-#: src/toolbar.c:513
+#: src/toolbar.c:514
 msgid "Go or continue execution"
 msgstr ""
 
-#: src/toolbar.c:524
+#: src/toolbar.c:525
 msgid "Run"
 msgstr "Futtat"
 
-#: src/toolbar.c:537
+#: src/toolbar.c:538
 msgid "Single step in execution"
 msgstr ""
 
-#: src/toolbar.c:548
-msgid "Step Over"
-msgstr "Átlép"
-
 #: src/toolbar.c:549
+msgid "Step Over"
+msgstr "Léptetés"
+
+#: src/toolbar.c:550
 msgid "Step over the function"
 msgstr ""
 
-#: src/toolbar.c:559
-msgid "Step Out"
-msgstr "Kilép"
-
 #: src/toolbar.c:560
+msgid "Step Out"
+msgstr "Kilépés"
+
+#: src/toolbar.c:561
 msgid "Step out of the function"
 msgstr ""
 
-#: src/toolbar.c:575
+#: src/toolbar.c:576
 msgid "Interrupt execution of the program"
 msgstr ""
 
-#: src/toolbar.c:588
+#: src/toolbar.c:589
 msgid "Breakpoint"
 msgstr ""
 
-#: src/toolbar.c:589
+#: src/toolbar.c:590
 msgid "Toggle breakpoint at cursor"
 msgstr ""
 
-#: src/toolbar.c:601
+#: src/toolbar.c:602
 msgid "Inspect or evaluate an expression"
 msgstr ""
 
-#: src/toolbar.c:614
+#: src/toolbar.c:615
 msgid "Display the current frame information"
 msgstr ""
 
-#: src/toolbar.c:640
-msgid "Signals"
-msgstr "Szignálok"
-
 #: src/toolbar.c:641
-msgid "kernel signals of the program"
-msgstr "A program kernel szignáljai"
+msgid "Signals"
+msgstr "Jelzések"
 
-#: src/toolbar.c:652
+#: src/toolbar.c:642
+msgid "kernel signals of the program"
+msgstr "A program kernel jelzései"
+
+#: src/toolbar.c:653
 msgid "Registers"
 msgstr "Regiszterek"
 
-#: src/toolbar.c:653
+#: src/toolbar.c:654
 msgid "CPU registers and their contents"
 msgstr "CPU regiszterek és tartalmuk"
 
-#: src/toolbar.c:667
+#: src/toolbar.c:668
 msgid "End the debugging session"
 msgstr ""
 
-#: src/toolbar.c:764
+#: src/toolbar.c:765
 msgid "Toggle current code fold hide/show"
 msgstr ""
 
-#: src/toolbar.c:775
+#: src/toolbar.c:776
 msgid "Close all"
-msgstr "Mindet bezár"
+msgstr "Mindent bezár"
 
-#: src/toolbar.c:777
+#: src/toolbar.c:778
 msgid "Close all code folds in this document"
 msgstr ""
 
-#: src/toolbar.c:788
+#: src/toolbar.c:789
 msgid "Open all"
 msgstr "Mindet megnyit"
 
-#: src/toolbar.c:790
+#: src/toolbar.c:791
 msgid "Open all code folds in this document"
 msgstr ""
 
-#: src/toolbar.c:803
+#: src/toolbar.c:804
 msgid "Select"
 msgstr "Kiválaszt"
 
-#: src/toolbar.c:804
+#: src/toolbar.c:805
 msgid "Select current code block"
-msgstr "Az aktuális kódblokk kiválasztása"
+msgstr "A jelenlegi kódblokk kiválasztása"
 
-#: src/toolbar.c:815
+#: src/toolbar.c:816
 msgid "Indent inc"
 msgstr ""
 
-#: src/toolbar.c:817
+#: src/toolbar.c:818
 msgid "Increase indentation of block/line"
 msgstr ""
 
-#: src/toolbar.c:828
+#: src/toolbar.c:829
 msgid "Indent dcr"
 msgstr ""
 
-#: src/toolbar.c:830
+#: src/toolbar.c:831
 msgid "Decrease indentation of block/line"
 msgstr ""
 
-#: src/toolbar.c:843
+#: src/toolbar.c:844
 msgid "Autoformat"
-msgstr "Auto formázás"
+msgstr "Automatikus formázás"
 
-#: src/toolbar.c:845
+#: src/toolbar.c:846
 msgid "Automatically format the code"
 msgstr "Automatikus kódformázás"
 
-#: src/toolbar.c:857
+#: src/toolbar.c:858
 msgid "Configure style to use for auto format"
 msgstr ""
 
-#: src/toolbar.c:870
+#: src/toolbar.c:871
 msgid "Calltip"
-msgstr "Gyors tipp"
+msgstr "Gyorstipp"
 
-#: src/toolbar.c:870
+#: src/toolbar.c:871
 msgid "Show Calltip"
-msgstr "Gyors tipp megjelenítése"
-
-#: src/toolbar.c:883
-msgid "Autocomplete"
-msgstr ""
+msgstr "Gyorstipp megjelenítése"
 
 #: src/toolbar.c:884
+msgid "Autocomplete"
+msgstr "Automatikus kiegészítés"
+
+#: src/toolbar.c:885
 msgid "Autocomplete word"
 msgstr ""
 
-#: src/toolbar_callbacks.c:261
-msgid "No matches. Wrap search around the document?"
-msgstr "Nincs találat. Folytassam a dokumentum elejétől?"
-
-#: src/toolbar_callbacks.c:305
+#: src/toolbar_callbacks.c:167
 #, c-format
 msgid "There is line number %d in \"%s\"."
 msgstr ""
 
-#: src/utilities.c:736
+#: src/utilities.c:737 src/utilities.c:1242 src/utilities.c:1250
 #, c-format
 msgid "Unable to read file: %s."
-msgstr "Fájlolvasás nem lehetséges: %s."
+msgstr "A fájl olvasása nem lehetséges: %s."
 
-#: src/utilities.c:778
+#: src/utilities.c:779
 msgid "Unable to complete file copy"
-msgstr "A teljes fájlmásolás nem lehetséges"
+msgstr "A fájl másolásának befejezése nem lehetséges"
 
-#: src/watch_cbs.c:236
+#: src/utilities.c:1263
+#, c-format
+msgid "Read-error while comparing %s with %s"
+msgstr ""
+
+#: src/utilities.c:1620
+#, c-format
+msgid "Can not execute command: \"%s\""
+msgstr "Nem futtatható a parancs \"%s\""
+
+#: src/utilities.c:1959
+#, c-format
+msgid "Cannot execute command: %s (using shell %s)\n"
+msgstr ""
+
+#: src/utilities.c:1963
+#, c-format
+msgid "Cannot execute command %s (using shell %s)\n"
+msgstr ""
+
+#: src/watch_cbs.c:194
 msgid "< Not defined in current context >"
-msgstr "< Nincs meghatározva az aktuális helyen >"
+msgstr "< Nincs meghatározva a jelenlegi helyen >"
 
-#: src/watch_gui.c:37
+#: src/watch_gui.c:38
 msgid "Add expression"
 msgstr ""
 
-#: src/watch_gui.c:49
+#: src/watch_gui.c:50
 msgid "Update all"
-msgstr "Mind frissítése"
+msgstr "Összes frissítése"
 
-#: src/watch_gui.c:55
+#: src/watch_gui.c:56
 msgid "Clear"
 msgstr "Törlés"
 
-#: src/watch_gui.c:61
+#: src/watch_gui.c:62
 msgid "Toggle enable"
 msgstr ""
 
-#: src/watch_gui.c:67
+#: src/watch_gui.c:68
 msgid "Change item"
 msgstr "Elem módosítása"
 
-#: src/watch_gui.c:172
+#: src/watch_gui.c:169
 msgid "Add Watch Expression"
 msgstr ""
 
-#: src/watch_gui.c:182
+#: src/watch_gui.c:183
 msgid "Add expression to watch"
 msgstr ""
 
-#: src/watch_gui.c:238
+#: src/watch_gui.c:211
 msgid "Modify Watch Expression"
 msgstr ""
 
-#: src/watch_gui.c:248
+#: src/watch_gui.c:225
 msgid "Modify watched expression"
 msgstr ""
 
-#: src/watch_gui.c:305
+#: src/watch_gui.c:254
 msgid "Inspect/Evaluate"
 msgstr ""
 
-#: src/watch_gui.c:315
+#: src/watch_gui.c:269
 msgid "Inspect/Evaluate Expression"
 msgstr ""
 
-#: src/watch_gui.c:325
+#: src/watch_gui.c:282
 msgid "Add To Watch"
 msgstr ""
 
@@ -7424,7 +7501,7 @@ msgstr "Projekttípus"
 
 #: src/wizard_gui.c:119
 msgid "Select the type of application to be developed"
-msgstr "Válaszd ki a projekted típusát"
+msgstr "Válassza ki a projekt típusát"
 
 #: src/wizard_gui.c:160
 msgid "Generic/Terminal project"
@@ -7472,7 +7549,7 @@ msgstr "Alapinformáció"
 
 #: src/wizard_gui.c:282
 msgid "Enter the basic Project information"
-msgstr "Add meg a projekt alapinformációt"
+msgstr "Adja meg a projekt alapinformációt"
 
 #: src/wizard_gui.c:305
 msgid "Project Version:"
@@ -7492,11 +7569,11 @@ msgstr "Programnyelv"
 
 #: src/wizard_gui.c:361
 msgid "C"
-msgstr "C"
+msgstr ""
 
 #: src/wizard_gui.c:369
 msgid "C++"
-msgstr "C++"
+msgstr ""
 
 #: src/wizard_gui.c:378
 msgid "Both C and C++"
@@ -7520,11 +7597,11 @@ msgstr "Dinamikus könyvtár"
 
 #: src/wizard_gui.c:490
 msgid "Enter a short description of the Project"
-msgstr "Add meg a projekt rövid leírását"
+msgstr "Adja meg a projekt rövid leírását"
 
 #: src/wizard_gui.c:596
 msgid "Enter any additional Project options"
-msgstr "Add meg a kiegészítő projektopciókat"
+msgstr "Adja meg a kiegészítő projektjellemzőket"
 
 #: src/wizard_gui.c:613
 msgid " Project Options "
@@ -7548,7 +7625,7 @@ msgstr "GNOME menü elem"
 
 #: src/wizard_gui.c:656
 msgid "Entry name:"
-msgstr "Elem név:"
+msgstr "Elemnév:"
 
 #: src/wizard_gui.c:663
 msgid "Comment:"
@@ -7582,101 +7659,102 @@ msgstr ""
 msgid "The pixbuf to render."
 msgstr ""
 
-#: widgets/gnomefilelist.c:224
+#: widgets/gnomefilelist.c:225
 msgid "Go to the previous directory"
 msgstr "Ugrás az előző könyvtárba"
 
-#: widgets/gnomefilelist.c:228
+#: widgets/gnomefilelist.c:229
 msgid "Go to the next directory"
 msgstr "Ugrás a következő könyvtárba"
 
-#: widgets/gnomefilelist.c:232
+#: widgets/gnomefilelist.c:233
 msgid "Go to parent directory"
 msgstr "Ugrás a szülőkönyvtárba"
 
-#: widgets/gnomefilelist.c:237
+#: widgets/gnomefilelist.c:238
 msgid "Go to home directory"
 msgstr "Ugrás a kiinduló könyvtárba"
 
-#: widgets/gnomefilelist.c:243
+#: widgets/gnomefilelist.c:244
 msgid "Refresh listing"
 msgstr "Lista frissítése"
 
-#: widgets/gnomefilelist.c:249
+#: widgets/gnomefilelist.c:250
 msgid "Delete file"
 msgstr "Fájl törlése"
 
-#: widgets/gnomefilelist.c:253 widgets/gnomefilelist.c:1889
+#: widgets/gnomefilelist.c:254 widgets/gnomefilelist.c:1916
 msgid "Rename file"
 msgstr "Fájl átnevezése"
 
-#: widgets/gnomefilelist.c:257 widgets/gnomefilelist.c:1988
+#: widgets/gnomefilelist.c:258 widgets/gnomefilelist.c:2015
 msgid "Create new folder"
 msgstr "Új mappa létrehozása"
 
-#: widgets/gnomefilelist.c:262
+#: widgets/gnomefilelist.c:263
 msgid "Show Hidden"
 msgstr "Rejtettek megjelenítése"
 
-#: widgets/gnomefilelist.c:266
+#: widgets/gnomefilelist.c:267
 msgid "Show hidden files"
 msgstr "Rejtett fájlok megjelenítése"
 
-#: widgets/gnomefilelist.c:274
+#: widgets/gnomefilelist.c:275
 msgid "Directory: "
 msgstr "Könyvtár: "
 
-#: widgets/gnomefilelist.c:430
+#: widgets/gnomefilelist.c:431
 msgid "Selection: "
 msgstr "Kijelölés"
 
-#: widgets/gnomefilelist.c:458
+#: widgets/gnomefilelist.c:459
 msgid "File type: "
 msgstr "Fájltípus: "
 
-#: widgets/gnomefilelist.c:721
+#: widgets/gnomefilelist.c:729
 msgid "Java files"
 msgstr "Java fájlok"
 
-#: widgets/gnomefilelist.c:733
+#: widgets/gnomefilelist.c:741
 msgid "Hyper Text Markup files"
 msgstr ""
 
-#: widgets/gnomefilelist.c:739
+#: widgets/gnomefilelist.c:747
 msgid "Config files"
 msgstr "Konfigurációs fájlok"
 
-#: widgets/gnomefilelist.c:744
+#: widgets/gnomefilelist.c:752
 msgid "Properties files"
 msgstr "Tulajdonság fájlok"
 
-#: widgets/gnomefilelist.c:747
+#: widgets/gnomefilelist.c:755
 msgid ".mak files"
 msgstr ".mak fájlok"
 
-#: widgets/gnomefilelist.c:751
+#: widgets/gnomefilelist.c:759
 msgid "Diff files"
 msgstr "Diff fájlok"
 
-#: widgets/gnomefilelist.c:1854
+#: widgets/gnomefilelist.c:1881
 #, c-format
 msgid "Really delete %s?"
-msgstr "Valóban törlöd (%s)?"
+msgstr "Valóban törli (%s)?"
 
-#: widgets/gnomefilelist.c:1901
+#: widgets/gnomefilelist.c:1928
 msgid "Rename file to:"
 msgstr "Fájl átnevezése:"
 
-#: widgets/gnomefilelist.c:1927
+#: widgets/gnomefilelist.c:1954
 #, c-format
 msgid "Renaming file failed '%s': %s"
 msgstr "Hiba a fájl átnevezése során '%s': %s"
 
-#: widgets/gnomefilelist.c:1960
+#: widgets/gnomefilelist.c:1987
 #, c-format
 msgid "Creating folder failed '%s': %s"
 msgstr "Hiba a mappa létrehozása során '%s': %s"
 
-#: widgets/gnomefilelist.c:2000
+#: widgets/gnomefilelist.c:2027
 msgid "Folder name:"
 msgstr "Mappanév:"
+
