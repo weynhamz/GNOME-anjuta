@@ -130,6 +130,7 @@ typedef struct _AnUserTool
 	gboolean project_level;
 	gboolean detached;
 	gboolean run_in_terminal;
+	gboolean user_params;
 	gchar *location;
 	gchar *icon;
 	gchar *shortcut;
@@ -232,6 +233,7 @@ static AnUserTool *an_user_tool_new(char **buf)
 		else NUMMATCH(project_level)
 		else NUMMATCH(detached)
 		else NUMMATCH(run_in_terminal)
+		else NUMMATCH(user_params)
 		else STRMATCH(location)
 		else STRMATCH(icon)
 		else STRMATCH(shortcut)
@@ -303,6 +305,7 @@ static gboolean an_user_tool_save(AnUserTool *tool, FILE *f)
 	NUMWRITE(project_level)
 	NUMWRITE(detached)
 	NUMWRITE(run_in_terminal)
+	NUMWRITE(user_params)
 	STRWRITE(location)
 	STRWRITE(icon)
 	STRWRITE(shortcut)
@@ -440,6 +443,9 @@ static void tool_terminate_handler(gint status, time_t time)
 	}
 }
 
+/* Popup a dialog to ask for user parameters */
+static char *get_user_params(AnUserTool *tool);
+
 /* Menu activate handler which executes the tool. It should do command
 ** substitution, input, output and error redirection, setting the
 ** working directory, etc. Currently, itjust executes the tool and
@@ -449,11 +455,17 @@ static void tool_terminate_handler(gint status, time_t time)
 static void execute_tool(GtkMenuItem *item, gpointer data)
 {
 	AnUserTool *tool = (AnUserTool *) data;
+	char *params = NULL;
 	gchar *command;
 
 #ifdef TOOL_DEBUG
 	g_message("Tool: %s (%s)\n", tool->name, tool->command);
 #endif
+	/* Ask for user parameters if required */
+	if (tool->user_params)
+	{
+		params = get_user_params(tool);
+	}
 	/* Expand variables to get the full command */
 	if (app->current_text_editor)
 	{
@@ -466,7 +478,14 @@ static void execute_tool(GtkMenuItem *item, gpointer data)
 		if (word)
 			g_free(word);
 	}
-	command = prop_expand(app->project_dbase->props, tool->command);
+	if (params)
+	{
+		gchar *cmd = g_strconcat(tool->command, " ", params, NULL);
+		command = prop_expand(app->project_dbase->props, cmd);
+		g_free(cmd);
+	}
+	else
+		command = prop_expand(app->project_dbase->props, tool->command);
 	if (NULL == command)
 		return;
 #ifdef TOOL_DEBUG
@@ -740,6 +759,7 @@ typedef struct _AnToolEditor
 	GtkToggleButton *terminal_tb;
 	GtkToggleButton *file_tb;
 	GtkToggleButton *project_tb;
+	GtkToggleButton *params_tb;
 	GtkEditable *input_type_en;
 	GtkCombo *input_type_com;
 	GtkEditable *input_en;
@@ -764,14 +784,24 @@ typedef struct _AnToolHelp
 	gboolean busy;
 } AnToolHelp;
 
+typedef struct _AnToolParams
+{
+	GladeXML *xml;
+	GtkWidget *dialog;
+	GtkEditable *params_en;
+	GtkCombo *params_com;
+} AnToolParams;
+
 static AnToolList *tl = NULL;
 static AnToolEditor *ted = NULL;
 static AnToolHelp *th = NULL;
+static AnToolParams *tp = NULL;
 
 #define GLADE_FILE "anjuta.glade"
 #define TOOL_LIST "dialog.tool.list"
 #define TOOL_EDITOR "dialog.tool.edit"
 #define TOOL_HELP "dialog.tool.help"
+#define TOOL_PARAMS "dialog.tool.params"
 #define TOOL_CLIST "tools.clist"
 #define TOOL_HELP_CLIST "tools.help.clist"
 #define OK_BUTTON "button.ok"
@@ -786,6 +816,7 @@ static AnToolHelp *th = NULL;
 #define TOOL_ENABLED "tool.enabled"
 #define TOOL_DETACHED "tool.detached"
 #define TOOL_TERMINAL "tool.run_in_terminal"
+#define TOOL_USER_PARAMS "tool.user_params"
 #define TOOL_FILE_LEVEL "tool.file_level"
 #define TOOL_PROJECT_LEVEL "tool.project_level"
 #define TOOL_INPUT_TYPE "tool.input.type"
@@ -797,6 +828,8 @@ static AnToolHelp *th = NULL;
 #define TOOL_ERROR_COMBO "tool.error.combo"
 #define TOOL_SHORTCUT "tool.shortcut"
 #define TOOL_ICON "tool.icon"
+#define TOOL_PARAMS_EN "tool.params"
+#define TOOL_PARAMS_EN_COMBO "tool.params.combo"
 
 /* Start the tool lister and editor */
 gboolean anjuta_tools_edit(void)
@@ -930,6 +963,7 @@ static void clear_tool_editor()
 		gtk_toggle_button_set_active(ted->enabled_tb, TRUE);
 		gtk_toggle_button_set_active(ted->detached_tb, FALSE);
 		gtk_toggle_button_set_active(ted->terminal_tb, FALSE);
+		gtk_toggle_button_set_active(ted->params_tb, FALSE);
 		gtk_toggle_button_set_active(ted->file_tb, FALSE);
 		gtk_toggle_button_set_active(ted->project_tb, FALSE);
 		gtk_editable_delete_text(ted->input_type_en, 0, -1);
@@ -967,6 +1001,7 @@ static void populate_tool_editor(void)
 		gtk_toggle_button_set_active(ted->enabled_tb, ted->tool->enabled);
 		gtk_toggle_button_set_active(ted->detached_tb, ted->tool->detached);
 		gtk_toggle_button_set_active(ted->terminal_tb, ted->tool->run_in_terminal);
+		gtk_toggle_button_set_active(ted->params_tb, ted->tool->user_params);
 		gtk_toggle_button_set_active(ted->file_tb, ted->tool->file_level);
 		gtk_toggle_button_set_active(ted->project_tb, ted->tool->project_level);
 		if (ted->tool->input_type)
@@ -1054,6 +1089,8 @@ static gboolean show_tool_editor(AnUserTool *tool, gboolean editing)
 		gtk_widget_ref((GtkWidget *) ted->detached_tb);
 		ted->terminal_tb = (GtkToggleButton *) glade_xml_get_widget(ted->xml, TOOL_TERMINAL);
 		gtk_widget_ref((GtkWidget *) ted->terminal_tb);
+		ted->params_tb = (GtkToggleButton *) glade_xml_get_widget(ted->xml, TOOL_USER_PARAMS);
+		gtk_widget_ref((GtkWidget *) ted->params_tb);
 		ted->file_tb = (GtkToggleButton *) glade_xml_get_widget(ted->xml, TOOL_FILE_LEVEL);
 		gtk_widget_ref((GtkWidget *) ted->file_tb);
 		ted->project_tb = (GtkToggleButton *) glade_xml_get_widget(ted->xml, TOOL_PROJECT_LEVEL);
@@ -1199,6 +1236,7 @@ static AnUserTool *an_user_tool_from_gui(void)
 	tool->enabled = gtk_toggle_button_get_active(ted->enabled_tb);
 	tool->detached = gtk_toggle_button_get_active(ted->detached_tb);
 	tool->run_in_terminal = gtk_toggle_button_get_active(ted->terminal_tb);
+	tool->user_params = gtk_toggle_button_get_active(ted->params_tb);
 	tool->file_level = gtk_toggle_button_get_active(ted->file_tb);
 	tool->project_level = gtk_toggle_button_get_active(ted->project_tb);
 	s = gtk_editable_get_chars(ted->input_type_en, 0, -1);
@@ -1611,4 +1649,34 @@ on_user_tool_help_ok_clicked(GtkButton *button, gpointer user_data)
 {
 	th->busy = FALSE;
 	gtk_widget_hide(th->dialog);
+}
+
+/* Popup a dialog to ask for user parameters */
+static char *get_user_params(AnUserTool *tool)
+{
+	if (NULL == tp)
+	{
+		char glade_file[PATH_MAX];
+
+		tp = g_new0(AnToolParams, 1);
+		snprintf(glade_file, PATH_MAX, "%s/%s", PACKAGE_DATA_DIR, GLADE_FILE);
+		if (NULL == (tp->xml = glade_xml_new(glade_file, TOOL_PARAMS)))
+		{
+			anjuta_error("Unable to build user interface for tool parameters");
+			g_free(tp);
+			tp = NULL;
+			return FALSE;
+		}
+		tp->dialog = glade_xml_get_widget(tp->xml, TOOL_PARAMS);
+		gtk_window_set_transient_for (GTK_WINDOW(tp->dialog)
+		  , GTK_WINDOW(app->widgets.window));
+		gtk_widget_ref(tp->dialog);
+		tp->params_en = (GtkEditable *) glade_xml_get_widget(tp->xml, TOOL_PARAMS_EN);
+		gtk_widget_ref((GtkWidget *) tp->params_en);
+		tp->params_com = (GtkCombo *) glade_xml_get_widget(tp->xml, TOOL_PARAMS_EN_COMBO);
+		gtk_widget_ref((GtkWidget *) tp->params_com);
+		glade_xml_signal_autoconnect(tp->xml);
+	}
+	gnome_dialog_run_and_close((GnomeDialog *) tp->dialog);
+	return gtk_editable_get_chars(tp->params_en, 0, -1);
 }
