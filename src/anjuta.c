@@ -1802,7 +1802,7 @@ anjuta_not_implemented (char *file, guint line)
 									 GTK_BUTTONS_YES_NO,
 									 ("Not yet implemented.\n"
 									 "Insert code at '%s:%u'"),
-									 file, line, NULL);
+									 file, line);
 	gtk_dialog_run (GTK_DIALOG (dialog));
 	gtk_widget_destroy (dialog);
 }
@@ -2000,7 +2000,7 @@ anjuta_delete_all_marker (gint marker)
 }
 
 void 
-anjuta_delete_all_indicators ()
+anjuta_delete_all_indicators (void)
 {
 	GList *node;
 	TextEditor *te;

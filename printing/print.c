@@ -892,7 +892,7 @@ anjuta_print_progress_delete_event (GtkWidget *dialog,
 	PrintJobInfo *pji = (PrintJobInfo *) data;
 
 	if (pji->progress_dialog == NULL)
-		return;
+		return FALSE;
 	pji->progress_dialog = NULL;
 	pji->canceled = TRUE;
 	return FALSE;
