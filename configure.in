@@ -56,8 +56,8 @@ AM_INIT_AUTOMAKE(anjuta, $ANJUTA_VERSION)
 AM_CONFIG_HEADER(config.h)
 
 # Environment
-GNOME_COMMON_INIT
-GNOME_COMPILE_WARNINGS(maximum)
+dnl GNOME_COMMON_INIT
+dnl GNOME_COMPILE_WARNINGS(maximum)
 
 dnl Define convenience macros
 dnl -------------------------
@@ -730,6 +730,11 @@ plugins/project-manager/Makefile
 plugins/symbol-browser/Makefile
 plugins/cvs-plugin/Makefile
 plugins/project-wizard/Makefile
+plugins/project-wizard/templates/Makefile
+plugins/project-wizard/templates/terminal/Makefile
+plugins/project-wizard/templates/terminal/src/Makefile
+plugins/project-wizard/templates/anjuta-plugin/Makefile
+plugins/project-wizard/templates/anjuta-plugin/src/Makefile
 anjuta.desktop.in
 manuals/Makefile
 manuals/C/Makefile

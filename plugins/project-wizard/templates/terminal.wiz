@@ -9,25 +9,23 @@
 	<string name="Author" _label="Author:" _description="" default="unknown"/>
 	<string name="Version" _label="Version:" default="0.1"/>
 	<directory name="Destination" _label="Destination:" _description="" default="[+AnjutaProjectDirectory+]"/>
+	<boolean name="IncludeGNUHeader" _label="Include GNU Header" _description="Include GPL header in source files as comments" default="1"/>
 </page>
 <content>
 	<directory source="." destination="[+Destination+]">
 		<directory source="terminal" destination="[+Name+]">
 			<file source="AUTHORS"/>
 			<file source="ChangeLog"/>
-			<file source="Makefile.am"/>
+			<file source="Makefile.am.tpl" destination"Makefile.am"/>
 			<file source="NEWS"/>
 			<file source="README"/>
-			<file source="TODO"/>
-			<file source="acconfig.h"/>
 			<script source="autogen.sh"/>
 			<file source="configure.in"/>
 			<file destination="[+Name+].anjuta" source="project.anjuta"/>
-			<file source="stamp-h.in"/>
 			<directory source="src">
-				<file source="Makefile.am"/>
+				<file source="Makefile.am.tpl" destination="Makefile.am/>
 				<file source="main.c"/>
 			</directory>
 		</directory>
-	</directory>	
+	</directory>
 </content>

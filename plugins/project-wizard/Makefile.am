@@ -1,4 +1,6 @@
 
+SUBDIRS = templates
+
 # Plugin glade file
 wizard_gladedir = $(anjuta_glade_dir)
 wizard_glade_DATA = anjuta-project-wizard.glade \

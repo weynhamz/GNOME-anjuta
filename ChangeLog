@@ -1,5 +1,14 @@
 2005-01-06  Naba Kumar  <naba@gnome.org>
 
+	* configure.in: Added project templates.
+	* plugins/project-wizard/templates/*: Added to project and renamed
+	Makefile.am and configure.in to Makefile.am and configure.ac respectively
+	for the project templates (so that they do not conflict with autotools
+	build. Created proper configure.ac.tpl and autogen.sh for project
+	templates.
+	
+2005-01-06  Naba Kumar  <naba@gnome.org>
+
 	* plugins/project-wizard/anjuta-project-wizard.glade,
 	plugins/project-wizard/druid.c, plugins/project-wizard/parser.c:
 	Fixed file list parsing and to take absolute file paths (for example,

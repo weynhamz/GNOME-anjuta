@@ -16,9 +16,9 @@
 <page name="options" _label="Additional options" _description="Additional options">
 	<string name="PluginDependencies" _label="Plugin Dependencies:" _description="Comma separated, other plugins that this plugin depends on. It could be either primary interface name or plugin location (library:class)" default="" summary="yes" mandatory="no"/>
 	<file name="IconFile" _label="Icon File:" _description="Icon file for the plugin" summary="yes" mandatory="yes"/>
-	<boolean name="IncludeGNUHeader" _label="Include GNU Header" _description="Include GPL header in source files as comments" default="1"/>
 	<boolean name="HasGladeFile" _label="Create glade interface file" _description="Create a template glade interface file" default="1"/>
 	<boolean name="HasUI" _label="Plugin has menus or/and toolbars" _description="Whether the plugin has menus or toolbars" default="1"/>
+	<boolean name="IncludeGNUHeader" _label="Include GNU Header" _description="Include GPL header in source files as comments" default="1"/>
 </page>
 <page name="watches" _label="Values to watch" _description="Shell values to watch">
 	<string name="value1" _label="Value Name:" _description="Name of the value to watch" default="" summary="yes" mandatory="no"/>
