@@ -25,7 +25,6 @@
 #include "anjuta-docman.h"
 #include "action-callbacks.h"
 #include "text_editor.h"
-#include "file.h"
 #include "search-replace.h"
 #include "search-replace_backend.h"
 #include "plugin.h"

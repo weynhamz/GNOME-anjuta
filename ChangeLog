@@ -1,5 +1,9 @@
 2004-08-15  Naba Kumar  <naba@gnome.org>
 
+	* plugins/editor/action-callbacks.c: Fixed compile error.
+	
+2004-08-15  Naba Kumar  <naba@gnome.org>
+
 	* plugins/devhelp/plugin.[c,h]: Fixed a start-up warning.
 	
 	* libanjuta/e-splash.c, plugins/profile-default/plugin.c:
