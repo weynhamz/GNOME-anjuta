@@ -260,7 +260,7 @@ on_druidpagestandard4_next (GnomeDruidPage *
 			_("Version:         "), aw->version,"\n",
 			_("Author:          "), aw->author, "\n", 
 			_("Language:        "), programming_language_map[aw->language], "\n", 
-			_("Gettext support: "), gt_support,"\n",
+			_("Gettext Support: "), gt_support,"\n",
 			NULL);
 	gnome_druid_page_finish_set_text (GNOME_DRUID_PAGE_FINISH
 					  (aw->widgets.page[5]), text);

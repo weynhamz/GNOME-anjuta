@@ -1,3 +1,15 @@
+2001-12-18	Andy Piper	<andy.piper@freeuk.com>
+
+	* pixmaps/applogo.png, pixmaps/appwizard.png: added new wizard
+	  graphics from Misha
+	* pixmaps/interface.xpm, pixmaps/app_wizard.jpg: removed
+	  redundant graphics, no longer used
+	* src/appwiz*: revamped application wizard by Andy and Misha for
+	  a more usable and professional look-and-feel
+	* HACKING: updates to cover patching, graphics, and some additions
+	  post-0.1.8
+	* TODO: removed some implemented features
+
 2001-12-17	Andy Piper	<andy.piper@freeuk.com>
 
 	* data/anjuta.properties, data/internal.properties: cleanup

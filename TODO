@@ -20,12 +20,9 @@ Todo List:
 	o Use GtkHTML if available to browse online documentation/manuals
 	o easy (S)RPMS & Debian packages build
 	  (assistant and/or edit the spec or debian dir)
-	o embedding a zvt term
 	o use PHP vars like C ones (with the tags bar); easy since they all
 	  begin with $
-	o add an insert-GPL-statement (depending on the selected language) menu
-	  entry
-	  
+
 
 	o > When the windows are docked, and we resize the main window of Anjuta, 
 	  > the docked window doesn't move with the resize.  As an example, I had 
@@ -80,14 +77,12 @@ Todo List:
 
 BUGS:
 -----
-1) Core dumps on three file imports in a sequence.
+- In a C++ projects, checking for the gtkmm and gnomemm packages
 
-2) In a C++ projects, checking for the gtkmm and gnomemm packages
-
-3) For whatever reason db1-devel_1.85-4mdk was not installed by default and
+- For whatever reason db1-devel_1.85-4mdk was not installed by default and
 ld gave me errors (can't find -ldb1). Checking for db1 dependency (both rpm and configure).
 
-4) Tooltips that pop up for a function (eg. "printf(") persist
+- Tooltips that pop up for a function (eg. "printf(") persist
 onscreen when changing source files. If you edit file 2 and
 return they disappear. Tooltips need to be tied to the present
 editing panel.

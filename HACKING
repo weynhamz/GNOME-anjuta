@@ -15,6 +15,17 @@ as it may break lots of things while developing.
 Anjuta is written using a mixture of C and C++.
 
 
+Submitting patches
+------------------
+
+Small, self-contained patches are preferred - larger patches which
+touch on a large number of areas of the source tree are more complex
+to apply and test. Patches may be submitted to the project website, 
+to the mailing lists, or directly to the project maintainer.
+
+Unified diffs (diff -u) are preferred.
+
+
 General source structure
 ------------------------
 
@@ -31,6 +42,7 @@ Key elements:
 * widgets/ - additional widgets used
 * ccview/ - the C++ class viewer
 * launcher/ - launcher wrapper used by the debugger
+* tagmanager/ - the tagmanager library
 
 
 Scintilla
@@ -72,6 +84,12 @@ Translations of application messages are stored in the standard po/
 directory structure at the top level of the source tree.
 
 
+Graphics
+--------
+
+PNG format is preferred for application graphics.
+
+
 ARCHITECTURE:
 -------------
 
@@ -80,12 +98,12 @@ FIXME.
 1) Event Driven:
 ----------------
 
-When anjuta was first designed, the primary goal was to enable the use of 
+When Anjuta was first designed, the primary goal was to enable the use of 
 external unix commnads in a more productive and intutive way. Therefore,
 anjuta follows non-blocking input/output operations aggresively. This means
 that anjuta UI will not freeze while it performs a lengthy task. All such
 jobs are event-driven (I am not refering to the gtk-events here) and works
-on asynchronous basis. The example Jobs are compilation, debugging, file search,
+on asynchronous basis. The example jobs are compilation, debugging, file search,
 class updates etc. While aynchronous event-driven implementation is more
 complex than it's synchronous counter part, it gives a smooth and non-frustrative
 operation. :-)
@@ -151,7 +169,7 @@ void child_terminated_callback (int status, gpointer user_data);
 For further information, refer to the file anjuta.c.
 
 WARNING: Do not hook up the signal SIGCHLD, for the similar purpose. Just use
-the above method to perform the same thing. SIGCHLD is used by anjuta 
+the above method to perform the same thing. SIGCHLD is used by Anjuta 
 internally to manage the children.
 
 2) How to add new menu items in the Main Menu:
@@ -173,6 +191,6 @@ them right now. In future, things may change, though.
 
 FIXME.
 
-When anjuta was started, there were not many application support libraries.
+When Anjuta was started, there were not many application support libraries.
 To cope up with the requirements, anjuta had to implement the supports within
 itself. And it is still going.

@@ -92,7 +92,7 @@ create_app_wizard_page1 (AppWizard * aw)
   gtk_frame_set_shadow_type (GTK_FRAME (frame2), GTK_SHADOW_IN);
 
   label2 =
-    gtk_label_new (_("Select the type of application you want to develop"));
+    gtk_label_new (_("Select the type of application to be developed"));
   gtk_misc_set_padding (GTK_MISC (label2), 5, 5);
   gtk_widget_show (label2);
   gtk_container_add (GTK_CONTAINER (frame2), label2);

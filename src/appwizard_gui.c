@@ -33,15 +33,13 @@
 static gchar*
 greetings_text ()
 {
-	return _("The Application Wizard will generate a basic\n\
-skeleton for your application, including all\n\
-the build files. It will ask you for the basic\n\
-initial structure for the application you want\n\
-to develop.\n\n\
+return _("The Application Wizard will generate a basic\n\
+skeleton for a project, including all of the\n\
+build files. It will ask for details of the initial\n\
+structure for the application.\n\n\
 Please answer the questions carefully, as it\n\
 may not be possible to change some of the\n\
-settings later.\n\n\
-Click Next to proceed ...");
+settings later.");
 }
 
 void create_new_project (AppWizard * aw);
@@ -58,43 +56,44 @@ create_app_wizard_gui (AppWizard * aw)
 	GtkWidget *window1;
 	GtkWidget *druid1;
 
+	/* here we set up the colours to be used on each of the pages */
 	GtkWidget *druidpagestart1;
-	GdkColor druidpagestart1_bg_color = { 0, 65280, 65535, 65535 };
-	GdkColor druidpagestart1_textbox_color = { 0, 63488, 64768, 47616 };
-	GdkColor druidpagestart1_title_color = { 0, 0, 0, 65535 };
+	GdkColor druidpagestart1_bg_color = { 0, 15616, 33280, 46848 };
+	GdkColor druidpagestart1_logo_bg_color = { 0, 15616, 33280, 46848 };
+	GdkColor druidpagestart1_textbox_color = { 0, 65535, 65535, 65535 };
+	GdkColor druidpagestart1_title_color = { 0, 65535, 65535, 65535 };
+
 	GtkWidget *druidpagestandard1;
-	GdkColor druidpagestandard1_bg_color = { 0, 65280, 65535, 65535 };
-	GdkColor druidpagestandard1_logo_bg_color =
-		{ 0, 65280, 65535, 65535 };
-	GdkColor druidpagestandard1_title_color = { 0, 0, 0, 65535 };
+	GdkColor druidpagestandard1_bg_color = { 0, 15616, 33280, 46848 };
+	GdkColor druidpagestandard1_logo_bg_color = { 0, 15616, 33280, 46848 };
+	GdkColor druidpagestandard1_title_color = { 0, 65535, 65535, 65535 };
 	GtkWidget *druid_vbox1;
 
 	GtkWidget *druidpagestandard2;
-	GdkColor druidpagestandard2_bg_color = { 0, 65280, 65535, 65535 };
-	GdkColor druidpagestandard2_logo_bg_color =
-		{ 0, 65280, 65535, 65535 };
-	GdkColor druidpagestandard2_title_color = { 0, 0, 0, 65535 };
+	GdkColor druidpagestandard2_bg_color = { 0, 15616, 33280, 46848 };
+	GdkColor druidpagestandard2_logo_bg_color = { 0, 15616, 33280, 46848 };
+	GdkColor druidpagestandard2_title_color = { 0, 65535, 65535, 65535 };
 	GtkWidget *druid_vbox2;
 
 	GtkWidget *druidpagestandard3;
-	GdkColor druidpagestandard3_bg_color = { 0, 65280, 65535, 65535 };
-	GdkColor druidpagestandard3_logo_bg_color =
-		{ 0, 65280, 65535, 65535 };
-	GdkColor druidpagestandard3_title_color = { 0, 0, 0, 65535 };
+	GdkColor druidpagestandard3_bg_color = { 0, 15616, 33280, 46848 };
+	GdkColor druidpagestandard3_logo_bg_color = { 0, 15616, 33280, 46848 };
+	GdkColor druidpagestandard3_title_color = { 0, 65535, 65535, 65535 };
 	GtkWidget *druid_vbox3;
 
 	GtkWidget *druidpagestandard4;
-	GdkColor druidpagestandard4_bg_color = { 0, 65280, 65535, 65535 };
-	GdkColor druidpagestandard4_logo_bg_color =
-		{ 0, 65280, 65535, 65535 };
-	GdkColor druidpagestandard4_title_color = { 0, 0, 0, 65535 };
+	GdkColor druidpagestandard4_bg_color = { 0, 15616, 33280, 46848 };
+	GdkColor druidpagestandard4_logo_bg_color = { 0, 15616, 33280, 46848 };
+	GdkColor druidpagestandard4_title_color = { 0, 65535, 65535, 65535 };
 	GtkWidget *druid_vbox4;
 
 	GtkWidget *druidpagefinish1;
-	GdkColor druidpagefinish1_bg_color = { 0, 65280, 65535, 65535 };
-	GdkColor druidpagefinish1_textbox_color = { 0, 63488, 64768, 47616 };
-	GdkColor druidpagefinish1_title_color = { 0, 0, 0, 65535 };
+	GdkColor druidpagefinish1_bg_color = { 0, 15616, 33280, 46848 };
+	GdkColor druidpagefinish1_logo_bg_color = { 0, 15616, 33280, 46848 };
+	GdkColor druidpagefinish1_textbox_color = { 0, 65535, 65535, 65535 };
+	GdkColor druidpagefinish1_title_color = { 0, 65535, 65535, 65535 };
 
+	/* Now set up the wizard window */
 	window1 = gtk_window_new (GTK_WINDOW_TOPLEVEL);
 	gtk_window_set_title (GTK_WINDOW (window1),
 			      _("Application Wizard"));
@@ -105,6 +104,9 @@ create_app_wizard_gui (AppWizard * aw)
 	gtk_widget_show (druid1);
 	gtk_container_add (GTK_CONTAINER (window1), druid1);
 
+	/* first page - the introduction */
+	/* this is just a placeholder, the real pages start after this */
+	/* start and finish pages are special since they have the "watermark" image */
 	druidpagestart1 = gnome_druid_page_start_new ();
 	gtk_widget_show (druidpagestart1);
 	gnome_druid_append_page (GNOME_DRUID (druid1),
@@ -114,6 +116,9 @@ create_app_wizard_gui (AppWizard * aw)
 	gnome_druid_page_start_set_bg_color (GNOME_DRUID_PAGE_START
 					     (druidpagestart1),
 					     &druidpagestart1_bg_color);
+	gnome_druid_page_start_set_logo_bg_color (GNOME_DRUID_PAGE_START
+						     (druidpagestart1),
+						     &druidpagestart1_logo_bg_color);
 	gnome_druid_page_start_set_textbox_color (GNOME_DRUID_PAGE_START
 						  (druidpagestart1),
 						  &druidpagestart1_textbox_color);
@@ -123,18 +128,19 @@ create_app_wizard_gui (AppWizard * aw)
 	gnome_druid_page_start_set_title (GNOME_DRUID_PAGE_START
 					  (druidpagestart1),
 					  _
-					  ("Application Wizard:     Page 1 of 6"));
+					  ("Application Wizard"));
 	gnome_druid_page_start_set_text (GNOME_DRUID_PAGE_START
 					 (druidpagestart1),
 					 greetings_text());
 
 	gnome_druid_page_start_set_logo (GNOME_DRUID_PAGE_START
 					 (druidpagestart1),
-					 anjuta_res_get_image ("interface.xpm"));
+					 anjuta_res_get_image ("applogo.png"));
 	gnome_druid_page_start_set_watermark (GNOME_DRUID_PAGE_START
 					      (druidpagestart1),
-					      anjuta_res_get_image ("app_wizard.jpg"));
+					      anjuta_res_get_image ("appwizard.png"));
 
+	/* second page (really "page1") */
 	druidpagestandard1 =
 		gnome_druid_page_standard_new_with_vals ("", NULL);
 	gtk_widget_show_all (druidpagestandard1);
@@ -152,14 +158,15 @@ create_app_wizard_gui (AppWizard * aw)
 	gnome_druid_page_standard_set_title (GNOME_DRUID_PAGE_STANDARD
 					     (druidpagestandard1),
 					     _
-					     ("Application Wizard:     Page 2 of 6"));
+					     ("Project Type"));
 	gnome_druid_page_standard_set_logo (GNOME_DRUID_PAGE_STANDARD
 					    (druidpagestandard1),
-					    anjuta_res_get_image  ("interface.xpm"));
+					    anjuta_res_get_image  ("applogo.png"));
 
 	druid_vbox1 = GNOME_DRUID_PAGE_STANDARD (druidpagestandard1)->vbox;
 	gtk_widget_show (druid_vbox1);
 
+	/* third page (really "page2") */
 	druidpagestandard2 =
 		gnome_druid_page_standard_new_with_vals ("", NULL);
 	gtk_widget_show_all (druidpagestandard2);
@@ -176,14 +183,15 @@ create_app_wizard_gui (AppWizard * aw)
 						   &druidpagestandard2_title_color);
 	gnome_druid_page_standard_set_title (GNOME_DRUID_PAGE_STANDARD
 					     (druidpagestandard2),
-					     _("Application Wizard:     Page 3 of 6"));
+					     _("Basic Information"));
 	gnome_druid_page_standard_set_logo (GNOME_DRUID_PAGE_STANDARD
 					    (druidpagestandard2),
-					    anjuta_res_get_image  ("interface.xpm"));
+					    anjuta_res_get_image  ("applogo.png"));
 
 	druid_vbox2 = GNOME_DRUID_PAGE_STANDARD (druidpagestandard2)->vbox;
 	gtk_widget_show (druid_vbox2);
 
+	/* fourth page (really "page3") */
 	druidpagestandard3 =
 		gnome_druid_page_standard_new_with_vals ("", NULL);
 	gtk_widget_show_all (druidpagestandard3);
@@ -201,13 +209,14 @@ create_app_wizard_gui (AppWizard * aw)
 	gnome_druid_page_standard_set_title (GNOME_DRUID_PAGE_STANDARD
 					     (druidpagestandard3),
 					     _
-					     ("Application Wizard:     Page 4 of 6"));
+					     ("Project Description"));
 	gnome_druid_page_standard_set_logo (GNOME_DRUID_PAGE_STANDARD
 					    (druidpagestandard3),
-					    anjuta_res_get_image  ("interface.xpm"));
+					    anjuta_res_get_image  ("applogo.png"));
 	druid_vbox3 = GNOME_DRUID_PAGE_STANDARD (druidpagestandard3)->vbox;
 	gtk_widget_show (druid_vbox3);
 
+	/* fifth page (really "page4") */
 	druidpagestandard4 =
 		gnome_druid_page_standard_new_with_vals ("", NULL);
 	gtk_widget_show_all (druidpagestandard4);
@@ -225,14 +234,16 @@ create_app_wizard_gui (AppWizard * aw)
 	gnome_druid_page_standard_set_title (GNOME_DRUID_PAGE_STANDARD
 					     (druidpagestandard4),
 					     _
-					     ("Application Wizard:     Page 5 of 6"));
+					     ("Additional Options"));
 	gnome_druid_page_standard_set_logo (GNOME_DRUID_PAGE_STANDARD
 					    (druidpagestandard4),
-					    anjuta_res_get_image  ("interface.xpm"));
+					    anjuta_res_get_image  ("applogo.png"));
 
 	druid_vbox4 = GNOME_DRUID_PAGE_STANDARD (druidpagestandard4)->vbox;
 	gtk_widget_show (druid_vbox4);
 
+	/* final page - the summary */
+	/* start and finish pages are special since they have the "watermark" image */
 	druidpagefinish1 = gnome_druid_page_finish_new ();
 	gtk_widget_show (druidpagefinish1);
 	gnome_druid_append_page (GNOME_DRUID (druid1),
@@ -240,6 +251,9 @@ create_app_wizard_gui (AppWizard * aw)
 	gnome_druid_page_finish_set_bg_color (GNOME_DRUID_PAGE_FINISH
 					      (druidpagefinish1),
 					      &druidpagefinish1_bg_color);
+	gnome_druid_page_finish_set_logo_bg_color (GNOME_DRUID_PAGE_FINISH
+						     (druidpagefinish1),
+						     &druidpagefinish1_logo_bg_color);
 	gnome_druid_page_finish_set_textbox_color (GNOME_DRUID_PAGE_FINISH
 						   (druidpagefinish1),
 						   &druidpagefinish1_textbox_color);
@@ -248,14 +262,15 @@ create_app_wizard_gui (AppWizard * aw)
 						 &druidpagefinish1_title_color);
 	gnome_druid_page_finish_set_title (GNOME_DRUID_PAGE_FINISH
 					   (druidpagefinish1),
-					   _("Application Wizard:     Page 6 of 6"));
+					   _("Summary"));
 	gnome_druid_page_finish_set_logo (GNOME_DRUID_PAGE_FINISH
 					  (druidpagefinish1),
-					    anjuta_res_get_image  ("interface.xpm"));
+					    anjuta_res_get_image  ("applogo.png"));
 	gnome_druid_page_finish_set_watermark (GNOME_DRUID_PAGE_FINISH
 					       (druidpagefinish1),
-					       anjuta_res_get_image ("app_wizard.jpg"));
+					       anjuta_res_get_image ("appwizard.png"));
 
+	/* buttons, callbacks etc. */
 	gtk_accel_group_attach (app->accel_group, GTK_OBJECT (window1));
 
 	gtk_signal_connect (GTK_OBJECT (druid1), "cancel",

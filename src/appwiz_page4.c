@@ -32,7 +32,7 @@
 
 static gchar *app_group[] = {
 	"Applications", "Games", "Graphics", "Internet", "Multimedia",
-	"System", "Settings", "Utilities", "Development", "Networking",
+	"System", "Settings", "Utilities", "Development", "Finance",
 	NULL
 };
 
@@ -106,7 +106,7 @@ create_app_wizard_page4 (AppWizard * aw)
 	gtk_frame_set_shadow_type (GTK_FRAME (frame1), GTK_SHADOW_IN);
 	gtk_container_set_border_width (GTK_CONTAINER (frame1), 5);
 
-	label = gtk_label_new (_("Enter the basic Project information"));
+	label = gtk_label_new (_("Enter any additional Project options"));
 	gtk_widget_show (label);
 	gtk_container_add (GTK_CONTAINER (frame1), label);
 	gtk_label_set_justify (GTK_LABEL (label), GTK_JUSTIFY_FILL);

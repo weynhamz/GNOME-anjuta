@@ -11,7 +11,6 @@ anjuta_pixmaps_DATA = \
 	anjuta_icon.png\
 	anjuta_logo.png\
 	anjuta_splash.png\
-	app_wizard.jpg\
 	appwid_blank.xpm\
 	appwid_book.xpm\
 	appwid_cd.xpm\
@@ -84,7 +83,6 @@ anjuta_pixmaps_DATA = \
 	indent_inc.xpm\
 	indent_set.xpm\
 	inspect.xpm\
-	interface.xpm\
 	interrupt.xpm\
 	ledgreen.xpm\
 	ledred.xpm\
@@ -132,6 +130,8 @@ anjuta_pixmaps_DATA = \
 	file_icon.xpm\
 	file_html.xpm\
 	run_to_cursor.xpm\
-	file_i18n.xpm
+	file_i18n.xpm\
+	appwizard.png\
+	applogo.png
 
 EXTRA_DIST = $(anjuta_pixmaps_DATA)
