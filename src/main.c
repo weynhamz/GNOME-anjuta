@@ -101,7 +101,8 @@ get_command_line_args (GnomeProgram *program)
 	GList *command_args = NULL;
 
 	g_value_init (&value, G_TYPE_POINTER);
-	g_object_get_property (G_OBJECT (program), GNOME_PARAM_POPT_CONTEXT, &value);
+	g_object_get_property (G_OBJECT (program),
+						   GNOME_PARAM_POPT_CONTEXT, &value);
 	ctx = g_value_get_pointer (&value);
 	g_value_unset (&value);
 
@@ -134,12 +135,12 @@ main (int argc, char *argv[])
 	
 	/* Initialize gnome program */
 	program = gnome_program_init (PACKAGE, VERSION,
-			    LIBGNOMEUI_MODULE, argc, argv,
-			    GNOME_PARAM_POPT_TABLE, anjuta_options,
-			    GNOME_PARAM_HUMAN_READABLE_NAME,
-		            _("Integrated Development Environment"),
-			    GNOME_PARAM_APP_DATADIR, data_dir,
-			    NULL);
+								  LIBGNOMEUI_MODULE, argc, argv,
+								  GNOME_PARAM_POPT_TABLE, anjuta_options,
+								  GNOME_PARAM_HUMAN_READABLE_NAME,
+								  _("Integrated Development Environment"),
+								  GNOME_PARAM_APP_DATADIR, data_dir,
+								  NULL);
 	g_free (data_dir);
 	
 	gtk_window_set_default_icon_from_file (PACKAGE_PIXMAPS_DIR"/anjuta_icon.png", NULL);

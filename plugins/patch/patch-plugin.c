@@ -126,7 +126,7 @@ on_ok_clicked (GtkButton *button, PatchPluginGUI* gui)
 	patch_file = gtk_entry_get_text(GTK_ENTRY(
 		gnome_file_entry_gtk_entry(GNOME_FILE_ENTRY(gui->entry_patch_file))));
 
-	if (!file_is_directory (directory))
+	if (!g_file_test (directory, G_FILE_TEST_IS_DIR))
 	{
 		g_string_free (command, TRUE);
 		gnome_ok_dialog (_("Please select the directory where the patch should be applied"));

@@ -1,4 +1,10 @@
 2005-02-24  Naba Kumar  <naba@gnome.org>
+	
+	* plugins/patch/patch-plugin.c: Fixed a function call.
+	
+	* src/anjuta.c, src/main.c: Save and load default session.
+	
+2005-02-24  Naba Kumar  <naba@gnome.org>
 
 	* libanjuta/interfaces/libanjuta.idl,
 	plugins/message-view/anjuta-msgman.c,

@@ -27,9 +27,14 @@
 #include "anjuta.h"
 
 static void
-anjuta_save_window_geometry (GtkWidget * w)
+anjuta_save_default_session (GtkWidget * w)
 {
+	GQueue *args;
 	gint width, height, posx, posy;
+	gint args_len, i;
+	GString *pref_val;
+	gchar *pref_val_str;
+	gboolean first_entry;
 	AnjutaPreferences *prefs;
 	
 	/* Save window geometry */
@@ -44,7 +49,33 @@ anjuta_save_window_geometry (GtkWidget * w)
 	anjuta_preferences_set_int (prefs, "anjuta_window_height", height);
 	anjuta_preferences_set_int (prefs, "anjuta_window_posx", posx);
 	anjuta_preferences_set_int (prefs, "anjuta_window_posy", posy);
-}	
+	
+	/* Save session args */
+	args = g_queue_new ();
+	g_signal_emit_by_name (G_OBJECT (w), "save_session", args);
+	args_len = g_queue_get_length(args);
+	
+	pref_val = g_string_new("");
+	first_entry = TRUE;
+	for (i = 0; i < args_len; i++)
+	{
+		gchar *arg;
+		arg = g_queue_peek_nth (args, i);
+		if (arg && strlen(arg) > 0)
+		{
+			if (first_entry)
+				first_entry = FALSE;
+			else
+				pref_val = g_string_append (pref_val, "%%%");
+			pref_val = g_string_append (pref_val, arg);
+		}
+		g_free (arg);
+	}
+	pref_val_str = g_string_free (pref_val, FALSE);
+	anjuta_preferences_set (prefs, "anjuta_last_opened_files", pref_val_str);
+	g_queue_free (args);
+	g_free (pref_val_str);
+}
 
 static gboolean
 on_anjuta_delete_event (GtkWidget *w, GdkEvent *event, gpointer data)
@@ -53,7 +84,7 @@ on_anjuta_delete_event (GtkWidget *w, GdkEvent *event, gpointer data)
 	
 	DEBUG_PRINT ("AnjutaApp delete event");
 
-	anjuta_save_window_geometry (w);
+	anjuta_save_default_session (w);
 	proper_shutdown = g_object_get_data (G_OBJECT (w), "__proper_shutdown");
 	
 	if (proper_shutdown)
@@ -171,9 +202,9 @@ on_anjuta_load_session_on_idle (gpointer data)
 /* Saves the current anjuta session */
 static gint
 on_anjuta_session_save_yourself (GnomeClient * client, gint phase,
-									  GnomeSaveStyle s_style, gint shutdown,
-									  GnomeInteractStyle i_style, gint fast,
-									  gpointer app)
+								 GnomeSaveStyle s_style, gint shutdown,
+								 GnomeInteractStyle i_style, gint fast,
+								 gpointer app)
 {
 	gchar *argv[] = { "rm",	"-rf", NULL};
 	gchar geometry[256];
@@ -190,8 +221,9 @@ on_anjuta_session_save_yourself (GnomeClient * client, gint phase,
 	gnome_client_set_discard_command (client, 3, argv);
 	gnome_client_set_restart_style  (client, GNOME_RESTART_IF_RUNNING);
 	
-	/* We want to be somewhere at last to start, otherwise bonobo-activation and
-	   gnome-vfs gets screwed up at start up */
+	/* We want to be somewhere at last to start, otherwise bonobo-activation
+	 * and gnome-vfs gets screwed up at start up
+	 */
 	gnome_client_set_priority (client, 80);
 	
 	commandline_args = g_queue_new ();
@@ -218,7 +250,6 @@ on_anjuta_session_save_yourself (GnomeClient * client, gint phase,
 	}
 	gnome_client_set_restart_command(client, res_argc, res_argv);
 	g_free (res_argv);
-	// anjuta_save_settings ();	
 	return TRUE;
 }
 
@@ -269,15 +300,40 @@ anjuta_new (gchar *prog_name, GList *prog_args, ESplash *splash,
 
 	flags = gnome_client_get_flags(client);
 
-	if (!prog_args)
-	{
-		/* Restore from last state */
-	}
 	if (prog_args)
 	{
 		/* Restore session */
-		g_object_set_data (G_OBJECT (app), "command-args", prog_args); 
+		g_object_set_data (G_OBJECT (app), "command-args", prog_args);
 		gtk_idle_add (on_anjuta_load_session_on_idle, app);
+	}
+	else
+	{
+		/* Restore from last default session */
+		gchar *saved_args;
+		gchar **argv, **arg;
+		GList *args_list;
+		
+		args_list = NULL;
+		saved_args = anjuta_preferences_get (app->preferences,
+											 "anjuta_last_opened_files");
+		if (saved_args && strlen (saved_args) > 0)
+		{
+			argv = g_strsplit (saved_args, "%%%", -1);
+			arg = argv;
+			while (*arg)
+			{
+				if (*arg && strlen (*arg) > 0)
+					args_list = g_list_prepend (args_list, g_strdup (*arg));
+				arg++;
+			}
+			g_strfreev (argv);
+			args_list = g_list_reverse (args_list);
+		}
+		if (args_list)
+		{
+			g_object_set_data (G_OBJECT (app), "command-args", args_list);
+			gtk_idle_add (on_anjuta_load_session_on_idle, app);
+		}
 	}
 	/* Set layout */
 	anjuta_app_load_layout (app, NULL);
