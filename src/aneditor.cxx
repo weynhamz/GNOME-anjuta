@@ -1794,6 +1794,14 @@ void AnEditor::HandleDwellStart(int mousePos) {
 
 	char expr[256];
 
+	if (!debugger_is_active() || !debugger_is_ready())
+	{
+		// Do not show expression tip if it can't be shown.
+		// string s = string(expr) + ": " + _("debugger not active");
+		// SendEditorString(SCI_CALLTIPSHOW, mousePos, s.c_str());
+		return;
+	}
+
 	CharacterRange crange = GetSelection();
 	if (crange.cpMin == crange.cpMax
 			|| mousePos < crange.cpMin
@@ -1820,13 +1828,6 @@ void AnEditor::HandleDwellStart(int mousePos) {
 				return;
 		if (i < end - crange.cpMin)
 		    return;
-	}
-
-	if (!debugger_is_active() || !debugger_is_ready())
-	{
-		string s = string(expr) + ": " + _("debugger not active");
-		SendEditorString(SCI_CALLTIPSHOW, mousePos, s.c_str());
-		return;
 	}
 
 	// Imitation of on_eval_ok_clicked():

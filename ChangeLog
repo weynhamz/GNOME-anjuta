@@ -1,3 +1,10 @@
+2002-07-02	Naba Kumar	<kh_naba@users.sourceforge.net>
+
+	* src/aneditor.cxx: Expression tip not shown when
+	debugger not active or ready.
+	
+	* data/Makefile.am: Install anjuta.mime in $(prefix)/share/mime-info
+	
 2002-07-01	Naba Kumar	<kh_naba@users.sourceforge.net>
 
 	* pixmaps/anjuta_splash.png: New splash from Misha.

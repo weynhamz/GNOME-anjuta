@@ -23,6 +23,10 @@ anjuta_data_DATA = \
 
 EXTRA_DIST = $(anjuta_data_DATA)
 
+anjuta_mimedir = $(prefix)/share/mime-info
+
+anjuta_mime_DATA = anjuta.mime
+
 MACROS = \
 	ChangeLog \
 	Makefile.am \
