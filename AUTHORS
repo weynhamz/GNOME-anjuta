@@ -1,21 +1,26 @@
-Founder and Lead developer:
----------------------------
+Founder and Lead Developer:
+-----------------------------------------------------
 	Naba kumar  <naba@gnome.org> (Manipur, India)
 	
 Present Developers:
-------------------
+-----------------------------------
 	Biswapesh Chattopadhyay  <biswapesh_chatterjee@tcscal.co.in> (Kolkata, India)
 	Jean-Noel Guiheneuf  <guiheneuf.jean-noel@wanadoo.fr> (France)
 	Johannes Schmid  <clubfan@users.sourceforge.net> (Germany)
 	Sebastien Granjoux  <seb.sfo@free.fr> (France)
 	
-Past developers:
-----------------
+Past Developers:
+------------------------------
 	Andy Piper  <andy.piper@freeuk.com> (United Kingdom)
 	Stéphane Démurget  <demurgets@free.fr> (France)
 	
-Patches, bugfixes, documentation, website and beta-testing Contributors:
-------------------------------------------------------------------------
+Website:
+--------------
+	Naba kumar  <naba@gnome.org> (Manipur, India)
+	
+	
+Patches, bugfixes and beta-testing Contributors:
+--------------------------------------------------------------------------------------
 	Archit Baweja  <bighead@crosswinds.net> (India)
 	Benke Lázló  <decike@freemail.hu>
 	Chris Woodruff  <cwoodruff@openpenguin.com> (US)
@@ -28,7 +33,7 @@ Patches, bugfixes, documentation, website and beta-testing Contributors:
 	Fatih Demir  <kabalak@gtranslator.org>
 	Franco Catrin L.  <fcatrin@tuxpan.cl>
 	Frederic RUAUDEL <grumz@users.sourceforge.net>
-	Giovanni Corriga  <valkadesh@libero.it> (Itally)
+	Giovanni Corriga  <valkadesh@libero.it> (Italy)
 	Gregory Schmitt  <gregory.schmitt@free.fr> (France)
 	Hector Rivera Falu  <misha@phreaker.net>
 	Ishan Chattopadhyaya  <ichattopadhyaya@yahoo.com>
@@ -62,66 +67,67 @@ Patches, bugfixes, documentation, website and beta-testing Contributors:
 	Venugopal Gummuluru  <vgummuluru@yahoo.com>
 	Willy-Francois Poulet - Byssus Software Solutions  <wfp@byssus.com> (England)
 	Yannick Koehler  <yannick.koehler@colubris.com>
+
+Documenters:
+-------------------------
+	Naba Kumar <naba@gnome.org> (Manipur, India)
+	Andy Piper <andy.piper@freeuk.com> (England)
+	Biswapesh Chattopadhyay <Biswapesh Chattopadhyay>	
 	
-Translators:
-------------
-	Abel Cheung <maddog@linux.org.hk>
-	Alastair McKinstry <mckinstry@computer.org>
-	Alexandre Folle de Menezes <afmenez@terra.com.br>
-	Andy Piper <andy.piper@freeuk.com>
-	Automatski Prijevod
-	Blagoja Gjakovski <agitator@bagra.net.mk>
-	Christian Meyer <chrisime@gnome.org>
-	Christian Rose <menthos@menthos.com>
-	Christophe Merlet (RedFox) <redfox@redfoxcenter.org>
-	Conner Mo <connermo@hotmail.com>
-	Daniel van Eeden <daniel_e@dds.nl>
-	Danijel Studen <dstuden@vuka.hr>
-	Denis Dementiev <denm@asplinux.ru>
-	Denis Lackovic <delacko@fly.srk.fer.hr>
-	Duarte Loreto <happyguy_pt@hotmail.com>
-	Francisco Javier F. Serrador <serrador@cvs.gnome.org>
-	FSF-India <locale@gnu.org.in>
-	Gitte Wange <gitte@babytux.dk>
-	Göran Weinholt <weinholt@linux.nu>
-	Hrvoje Spoljar <spole@x.pbf.hr>
-	Ime Prezime <email@adresa.com>
-	Ivan Jankovic <rbrrneck@gmx.net>
-	Javier Conde Rueda <f3285740@est.fib.upc.es>
-	Jens Georg <mail@jensgeorg>
-	Jeroen van der Vegt <jeroen at dirck.mine.nu>
-	Joe Man <trmetal@yahoo.com.hk>
-	Keld Simonsen <keld@dkuug.dk>
-	Kjartan Maraas <kmaraas@gnome.org>
-	Maintainer: Adam Weinberger <adamw@FreeBSD.org>
-	M.Ali Vardar <ali@linuxprogramlama.com>
-	Marcelo Elias Del Valle <marceloelias@iname.com>
-	Martin Lacko <lacko@host.sk>
-	Michele Campeotto <micampe@f2s.com>
-	Miloslav Trmac <mitr@volny.cz>
-	Miloslav Trmac <mitr@volny.cz>
-	MIMOS Open Source Development Group <opensource@mimos.my>
-	Mətin Əmirov <metin@karegen.com>
-	Nikola Planinac
-	Robert Sedak <robert.sedak@sk.tel.hr>
-	Sebastien Bacher <seb128@debian.org>
-	Simos Xenitellis <simos@hellug.gr>
-	Stefan Martinski <stefanandrej@hotmail.com>
-	Stéphane Démurget <demurgets@free.fr>
-	Stojcev Darko <atom1c@linux.net.mk>
-	Takeshi Aihana <aihana@gnome.gr.jp>
-	Tino Meinen <a.t.meinen@chello.nl>
-	Valek Filippov <frob@df.ru>
-	Vasif İsmayıloğlu MD <azerb_linux@hotmail.com>
-	Vedran Vyroubal <vedran.vyroubal@inet.hr>
-	Velonis Petros <velonis@freemail.gr>
-	Vincent van Adrighem <V.vanAdrighem@dirck.mine.nu>
-	Vital Khilko <dojlid@mova.org>
-	Vlado Dojcinovski <dr_wulfi@dr.com>
-	Xavier A. Conde Rueda <xaviconde@eresmas.com>
-	Yuriy Syrota <rasta@renome.rovno.ua>
-	Васко Митанов <vasko@accent.com.mk>
+Main Translators:
+---------------
+	zh_TW 	Abel Cheung <maddog@linux.org.hk>
+	en_CA 	Adam Weinberger <adamw@gnome.org>
+	ga 		Alastair McKinstry <mckinstry@computer.org>
+	pt_BR 	Alexandre Folle de Menezes <afmenez@terra.com.br>
+	pa      Amanpreet Singh Alam <aalam@redhat.com>	
+	de 		Christian Meyer <chrisime@gnome.org>
+	sv 		Christian Rose <menthos@menthos.com>
+	fr 		Christophe Merlet (RedFox) <redfox@redfoxcenter.org>
+	fr_FR 	Christophe Merlet (RedFox) <redfox@redfoxcenter.org>
+	hr 		Danijel Studen <dstuden@vuka.hr>
+	ru 		Denis Dementiev <denm@asplinux.ru>
+	pt 		Duarte Loreto <happyguy_pt@hotmail.com>
+	es 		Francisco Javier F. Serrador <serrador@cvs.gnome.org>
+	ml 		FSF-India <locale@gnu.org.in>
+	hu 		Gabor Kelemen <kelemen@gnome.hu>
+	en_GB 	Gareh Owen <gowen72@yahoo.com>
+	da 		Keld Simonsen <keld@dkuug.dk>
+	nb 		Kjartan Maraas <kmaraas@gnome.org>
+	no 		Kjartan Maraas <kmaraas@gnome.org>
+	sq 		Laurent Dhima <laurent@alblinux.net>
+	sk 		Martin Lacko <lacko@host.sk>
+	it 		Michele Campeotto <micampe@f2s.com>
+	cs 		Miloslav Trmac <mitr@volny.cz>		
+	az 		Mətin Əmirov <metin@karegen.com>	
+	zh_CN 	Noah Bentusi <blue_atlantis400@hotmail.com>
+	ms 		Projek Gabai <gabai-penyumbang@lists.sf.net>	
+	ko 		Seongchong Park <lostinu@kaist.ac.kr>
+	tr 		Serkan Kenar <serkan@ieee.metu.edu.tr>
+	sr@Latn Slobodan Sredojevic <ssl@uns.ns.ac.yu>
+	el 		Socrates Vavilis <s_vavilis@yahoo.fr>	
+	mk 		Stojcev Darko <atom1c@linux.net.mk>
+	ja 		Takeshi Aihana <aihana@gnome.gr.jp>
+	nl 		Tino Meinen <a.t.meinen@chello.nl>
+	be 		Vital Khilko <dojlid@mova.org>
+	ca 		Xavier A. Conde Rueda <xaviconde@eresmas.com>
+	uk 		Yuriy Syrota <rasta@renome.rovno.ua>
 	
-Note: If you have contributed something significant to Anjuta and your name
-is missing here, please email naba@gnome.org with your Full name,
-email address, country and a brief reminder of what you have done.
+Note: 
+---------
+If you have contributed something significant to Anjuta 
+and your name is missing here, please email naba@gnome.org 
+with your Full name, email address, country and a brief 
+reminder of what you have done.
+
+Format :
+------
+In order to parse AUTHORS files some rules must be followed :
+
+1 - Each first chapter line must end by ':'
+The recognized chapter names are :
+"Developer:", "Developers:", "Contributors:", Note:", "Website:", "Documenters:"
+and "Translators:".
+
+2 - Each item of the "Translators" chapter must begin by the locale keyword.
+This keyword must be followed by a space.

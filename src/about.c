@@ -25,65 +25,140 @@
 #include <gnome.h>
 #include "about.h"
 
-#define ANJUTA_PIXMAP_LOGO                "anjuta_logo2.png"
+#define ANJUTA_PIXMAP_LOGO			"anjuta_logo2.png"
+#define ABOUT_AUTHORS				"AUTHORS"	
+#define MAX_CAR 256
+#define MAX_CREDIT 500
 
-static const char *authors[] = {
-	"Founder and lead developer:",
-	"Naba Kumar <naba@gnome.org>",
-	"",
-	"Developers:",
-	"Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>",
-	"Johannes Schmid <johannes.schmid@gmx.de>",
-	"Stephane Demurget <demurgets@free.fr>",
-	"Hector Rivera Falu <misha@phreaker.net> [Website]", 
-	"Andy Piper <andy.piper@freeuk.com> [Retired]",
-	"",
-	"Contributors:",
-	"Jean-Noel Guiheneuf <jnoel@saudionline.com.sa>",
-	"Timothee Besset <timo@qeradiant.com>",
-	"Etay Meiri <etay-m@bezeqint.net>",
-	"Dan Elphick <dre00r@ecs.soton.ac.uk>",
-	"Michael Tindal <etherscape@paradoxpoint.com>",
-	"Jakub Steiner <jimmac * ximian * com>",
-	"Luca Bellonda <lbell@tsc4.com>",
-	"Rick Patel <rikul@bellsouth.net>", 
-	"Max Blagai <maximblagai@yahoo.com>", 
-	"Venugopal Gummuluru <vgummuluru@yahoo.com>",
-	"Archit Baweja <bighead@crosswinds.net>", 
-	"Fatih Demir <kabalak@gtranslator.org>",
-	"Martyn Bone <mbone@brightstar.u-net.com>",
-	"Denis Boehme <boehme@synci.de>",
-	"Gregory Schmitt <gregory.schmitt@free.fr>",
-	"Yannick Koehler <yannick.koehler@colubris.com>", 
-	"Giovanni Corriga <valkadesh@libero.it>",
-	"Jens Georg <mail@jensgeorg.de>",
-	"Dick Knol <dknol@gmx.net>",
-	"Jason Williams <jason_williams@suth.com>",
-	"Philip Van Hoof <freax@pandora.be>",
-	"Vadim Berezniker <vadim@berezniker.com>",
-	"Rob Bradford <robster@debian.org>",
-	"Roel Vanhout <roel@stack.be>",
-	"Roy Wood <roy.wood@filogix.com>",
-	"Tina Hirsch <cevina@users.sourceforge.net>",
-	"Jeroen van der Vegt <A.J.vanderVegt@ITS.TUDelft.nl>",
-	"Todd Goyen <goyen@mbi-berlin.de>",
-	"Nick Dowell <nixx@nixx.org.uk>",
-	"Benke Laszlo <decike@freemail.hu>",
-	"Pierre Sarrazin <sarrazip@sympatico.ca>",
-	"Kelly Bergougnoux <three3@users.sourceforge.net>",
-	"Dave Huseby <huseby@shockfusion.com>",
-	"Sebastien Cote <cots01@gel.usherb.ca>",
-	"Stephen Knight <steven.knight@unh.edu>",
-	NULL
-};
+const gchar *authors[MAX_CREDIT];
+const gchar *documenters[MAX_CREDIT];
+gchar *translators;
 
-static const char *documentors[] = {
-	"Naba Kumar <naba@gnome.org>",
-	"Andy Piper <andy.piper@freeuk.com> [Retired]",
-	"Ishan Chattopadhyaya <ichattopadhyaya@yahoo.com>",
-	"Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>",
-	NULL
-};
+
+gchar *about_read_line(FILE *fp)
+{
+	static gchar tpn[MAX_CAR];
+	char *pt;
+	char c;
+	
+	pt = tpn;
+	while( ((c=getc(fp))!='\n') && (c!=EOF) && ((pt-tpn)<MAX_CAR) )
+		*(pt++)=c;
+	*pt = '\0';
+	if ( c!=EOF)
+		return tpn;
+	else
+		return NULL;	
+}
+
+static gchar*
+about_read_developers(FILE *fp, gchar *line, gint *index, const gchar **tab)
+{
+	do
+	{
+		tab[(*index)++] = g_strdup_printf("%s", line);
+		if ( !(line = about_read_line(fp)))
+			return NULL;
+		line = g_strchomp(line);
+	}
+	while (!g_str_has_suffix(line, ":") );
+	
+	return line;	
+}
+
+static gchar*
+read_documenters(FILE *fp, gchar *line, gint *index, const gchar **tab)
+{
+	do
+	{
+		tab[(*index)++] = g_strdup_printf("%s", line);
+		if ( !(line = about_read_line(fp)))
+			return NULL;
+		line = g_strchomp(line);
+	}
+	while ( !g_str_has_suffix(line, ":") );
+	
+	return line;	
+}
+
+static gchar*
+read_translators(FILE *fp, gchar *line)
+{
+	gboolean found = FALSE;
+	gchar *env_lang = getenv("LANG");
+	
+	do
+	{
+		if ( !(line = about_read_line(fp)))
+			return NULL;
+		
+		line = g_strchug(line);
+		if (!found && g_str_has_prefix(line, env_lang) )
+		{
+			found = TRUE;
+			gchar *tmp = g_strdup(line + strlen(env_lang));
+			tmp = g_strchug(tmp);
+			translators = g_strconcat("\n\n", tmp, NULL);
+			g_free(tmp);
+		}
+		line = g_strchomp(line);
+	}
+	while ( !g_str_has_suffix(line, ":") );
+	
+	return line;	
+}
+
+static void 
+about_read_file(void)
+{
+	FILE *fp;
+	gchar *line;
+	gint i_auth = 0;
+	gint i_doc = 0;
+// A modifier	
+	if ( (fp = fopen(PACKAGE_DOC_DIR"/"ABOUT_AUTHORS, "r")) )
+	{
+		line = about_read_line(fp);
+		do
+		{
+			line = g_strchomp(line);
+			if (g_str_has_suffix(line, "Developer:") || g_str_has_suffix(line, "Developers:") ||
+				g_str_has_suffix(line, "Contributors:") || g_str_has_suffix(line, "Note:"))
+			{
+				line = about_read_developers(fp, line, &i_auth, authors);
+			}
+			else if (g_str_has_suffix(line, "Website:") || g_str_has_suffix(line, "Documenters:") )
+			{
+				line = read_documenters(fp, line, &i_doc, documenters);
+			}
+			else if (g_str_has_suffix(line, "Translators:")  )
+			{
+				line = read_translators(fp, line);
+			}
+			else
+				line = about_read_line(fp);
+		}
+		while (line);
+		fclose(fp);
+	}
+}
+
+static void
+about_free_credit(void)
+{
+	gint i = 0;
+	
+	gchar** ptr = (gchar**) authors;
+	for(i=0; ptr[i]; i++)
+		g_free (ptr[i]);
+	ptr = (gchar**) documenters;
+	for(i=0; ptr[i]; i++)
+		g_free (ptr[i]);
+
+	g_free(translators);
+}
+
+
 
 GtkWidget *
 about_box_new ()
@@ -91,11 +166,14 @@ about_box_new ()
 	GtkWidget *dialog;
 	GdkPixbuf *pix;
 	
+	/*  Parse AUTHOR.xml file  */
+	about_read_file();
+	
 	pix = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"ANJUTA_PIXMAP_LOGO, NULL);
 	dialog = gnome_about_new ("Anjuta", VERSION, 
 							  _("Copyright (c) Naba Kumar"),
 							  _("Integrated Development Environment"),
-							  authors, documentors, NULL, pix);
+							  authors, documenters, translators, pix);
 	g_object_unref (pix);
 #if 0
 	/* GTK provides a new about dialog now, please activate
@@ -118,6 +196,7 @@ about_box_new ()
 	gtk_about_dialog_set_translator_credits(GTK_ABOUT_DIALOG(dialog), ???);
 	gtk_about_dialog_set_artists(GTK_ABOUT_DIALOG(dialog), ???);*/
 #endif
-	
+	/* Free authors, documenters, translators */
+	about_free_credit();
 	return dialog;
 }
