@@ -1,3 +1,4 @@
+# translation of es.po to Spanish
 # translation of anjuta.ANJUTA_1_2_0.po to Spanish
 # translation of anjuta.ANJUTA_1_2_0.es.po to Spanish
 # Spanish translation of Anjuta.
@@ -6,14 +7,15 @@
 # Javier Conde Rueda <f3285740@est.fib.upc.es>, 2003.
 # Francisco Javier F. Serrador <serrador@arrakis.es>, 2003.
 # Francisco Javier F. Serrador <franciscojavier.fernandez.serrador@hispalinux.es>, 2003.
+# Francisco Javier F. Serrador <serrador@cvs.gnome.org>, 2003.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: anjuta.ANJUTA_1_2_0\n"
+"Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2003-11-28 19:02+0100\n"
-"PO-Revision-Date: 2003-11-29 03:03+0100\n"
-"Last-Translator: Francisco Javier F. Serrador <franciscojavier.fernandez.serrador@hispalinux.es>\n"
+"PO-Revision-Date: 2003-12-22 19:13+0100\n"
+"Last-Translator: Francisco Javier F. Serrador <serrador@cvs.gnome.org>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -170,7 +172,7 @@ msgstr "Marcador"
 
 #: anjuta.glade.h:35
 msgid "Bottom"
-msgstr "Debajo"
+msgstr "Inferior"
 
 #: anjuta.glade.h:36
 msgid "Breakpoint properties"
@@ -248,7 +250,7 @@ msgstr "Color del símbolo del cursor:"
 
 #: anjuta.glade.h:54
 msgid "Caret blink period in milli-seconds"
-msgstr "Período de parpadeo en milisegundo del símbolo del cursor"
+msgstr "Período de parpadeo en milisegundos del símbolo del cursor"
 
 #: anjuta.glade.h:55
 msgid "Case insensitive"
@@ -661,7 +663,7 @@ msgstr "Coincidencia voraz"
 
 #: anjuta.glade.h:152
 msgid "HTML _viewer:"
-msgstr "_Visualizador HTML:"
+msgstr "_Visor HTML:"
 
 #: anjuta.glade.h:153
 msgid "Headers"
@@ -733,7 +735,7 @@ msgstr "Ignorar archivos y directorios"
 
 #: anjuta.glade.h:170
 msgid "Import Wizard"
-msgstr "Asistente de Importación"
+msgstr "Asistente de importación"
 
 #: anjuta.glade.h:171
 msgid ""
@@ -741,7 +743,7 @@ msgid ""
 "existing Project into Anjuta and convert it into Anjuta Project. There will "
 "be no data loss or modification done to the project."
 msgstr ""
-"Importar un proyecto existente. El Asistente de Importación le guiará a"
+"Importar un proyecto existente. El Asistente de importación le guiará a "
 "través de la importación de un proyecto existente a Anjuta y lo convertirá "
 "en un proyecto Anjuta. No habrá pérdida de datos o modificaciones hechas al "
 "proyecto."
@@ -752,7 +754,7 @@ msgstr "Rutas «include»"
 
 #: anjuta.glade.h:173
 msgid "Include module Makefile.am"
-msgstr "Módulo «include» Makefile.am "
+msgstr "Incluir módulo Makefile.am"
 
 #: anjuta.glade.h:174
 msgid "Indent closing braces"
@@ -1002,11 +1004,11 @@ msgstr "Archivos de salida"
 
 #: anjuta.glade.h:233
 msgid "Pick a color"
-msgstr "Escoja un color:"
+msgstr "Escoja un color"
 
 #: anjuta.glade.h:234
 msgid "Pixmap module Makefile.am"
-msgstr "Módulo de pixmaps Makefile.am·"
+msgstr "Módulo de pixmaps Makefile.am"
 
 #: anjuta.glade.h:235
 msgid "Plus/Minus"
@@ -1055,7 +1057,7 @@ msgstr "Descripción del proyecto"
 
 #: anjuta.glade.h:246
 msgid "Project Version"
-msgstr "Versión del proyecto:"
+msgstr "Versión del proyecto"
 
 #: anjuta.glade.h:247
 msgid "Project configure.in"
@@ -1107,12 +1109,12 @@ msgstr "Expresión de reemplazo"
 
 #: anjuta.glade.h:259
 msgid "Replace With:"
-msgstr "Reemplazar con:"
+msgstr "Reemplazar por:"
 
 #: anjuta.glade.h:260
 msgid "Reset all sticky tags during update (looses branch) [-A]"
 msgstr ""
-"Reestablecer todas las etiquetas adhesivas al actualizar (pierde la rama) [-"
+"Restablecer todas las etiquetas adhesivas al actualizar (pierde la rama) [-"
 "A]"
 
 #: anjuta.glade.h:261
@@ -1174,7 +1176,7 @@ msgstr "Expresión de búsqueda"
 
 #: anjuta.glade.h:275
 msgid "Search Expression:"
-msgstr "Expresión de búsqueda"
+msgstr "Expresión de búsqueda:"
 
 #: anjuta.glade.h:276
 msgid "Search In:"
@@ -1222,7 +1224,7 @@ msgstr "Opciones"
 
 #: anjuta.glade.h:287
 msgid "Short cut:"
-msgstr "Tecla rápida:"
+msgstr "Combinación de teclas:"
 
 #: anjuta.glade.h:288
 msgid "Show tooltips"
@@ -1336,7 +1338,7 @@ msgstr "Posición de las solapas:"
 
 #: anjuta.glade.h:314
 msgid "Target:"
-msgstr "Objetivo:"
+msgstr "Destino:"
 
 #: anjuta.glade.h:315
 msgid "Terminal options"
@@ -1541,11 +1543,11 @@ msgstr "_Actualizar"
 
 #: gdl/gdl-dock-item-grip.c:244
 msgid "Dock the toolbar"
-msgstr "Empotrar la barra de herramientas"
+msgstr "Acoplar la barra de herramientas"
 
 #: gdl/gdl-dock-item-grip.c:245
 msgid "Un dock the toolbar"
-msgstr "Desempotrar la barra de herramientas"
+msgstr "Desacoplar la barra de herramientas"
 
 #: gdl/gdl-dock-item.c:242
 msgid "Orientation"
@@ -1553,7 +1555,7 @@ msgstr "Orientación"
 
 #: gdl/gdl-dock-item.c:243
 msgid "Orientation of the docking item"
-msgstr "Orientación del elemento empotrable"
+msgstr "Orientación del elemento acoplable"
 
 #: gdl/gdl-dock-item.c:258
 msgid "Resizable"
@@ -1562,8 +1564,8 @@ msgstr "Redimensionable"
 #: gdl/gdl-dock-item.c:259
 msgid "If set, the dock item can be resized when docked in a paned"
 msgstr ""
-"Si se establece, el elemento empotrable puede ser redimensionado cuando está "
-"empotrado en un panel"
+"Si se establece, el elemento acoplable puede ser redimensionado cuando está "
+"acoplado en un panel"
 
 #: gdl/gdl-dock-item.c:266
 msgid "Item behavior"
@@ -1574,7 +1576,7 @@ msgid ""
 "General behavior for the dock item (i.e. whether it can float, if it's "
 "locked, etc.)"
 msgstr ""
-"Comportamiento general para el elemento empotrable ( si puede flotar, si "
+"Comportamiento general para el elemento acoplable ( si puede flotar, si "
 "está bloqueado, etc)"
 
 #: gdl/gdl-dock-item.c:275
@@ -1583,7 +1585,7 @@ msgstr "Tamaño de rejilla"
 
 #: gdl/gdl-dock-item.c:276
 msgid "Size in pixels of the grip to drag the dock item"
-msgstr "Tamaño en píxeles de la rejilla para arrastrar el elemento empotrable"
+msgstr "Tamaño en píxeles de la rejilla para arrastrar el elemento acoplable"
 
 #: gdl/gdl-dock-item.c:282 gdl/gdl-dock-master.c:143
 msgid "Locked"
@@ -1592,7 +1594,7 @@ msgstr "Bloqueado"
 #: gdl/gdl-dock-item.c:283
 msgid "If set, the dock item cannot be dragged around and it doesn't show a grip"
 msgstr ""
-" Si se establece, el elemento empotrable no puede arrastrarse y no muestra "
+" Si se establece, el elemento acoplable no puede arrastrarse y no muestra "
 "un tirador"
 
 #: gdl/gdl-dock-item.c:291
@@ -1601,7 +1603,7 @@ msgstr "Anchura preferida"
 
 #: gdl/gdl-dock-item.c:292
 msgid "Preferred width for the dock item"
-msgstr "Anchura preferida para el elemento empotrable"
+msgstr "Anchura preferida para el elemento acoplable"
 
 #: gdl/gdl-dock-item.c:298
 msgid "Preferred height"
@@ -1609,7 +1611,7 @@ msgstr "Altura preferida"
 
 #: gdl/gdl-dock-item.c:299
 msgid "Preferred height for the dock item"
-msgstr "Altura preferida del elemento empotrable"
+msgstr "Altura preferida del elemento acoplable"
 
 #: gdl/gdl-dock-item.c:546
 #, c-format
@@ -1617,8 +1619,8 @@ msgid ""
 "You can't add a dock object (%p of type %s) inside a %s. Use a GdlDock or "
 "some other compound dock object."
 msgstr ""
-"No puede añadir un objeto empotrable (%p de tipo %s) dentro de un %s. Use un "
-"GdlDock o algún otro objeto empotrable compuesto."
+"No puede añadir un objeto acoplable (%p de tipo %s) dentro de un %s. Use un "
+"GdlDock o algún otro objeto acoplable compuesto."
 
 #: gdl/gdl-dock-item.c:553
 #, c-format
@@ -1632,7 +1634,7 @@ msgstr ""
 #: gdl/gdl-dock-item.c:1149
 #, c-format
 msgid "Unsupported docking strategy %s in dock object of type %s"
-msgstr "Estrategia de empotrado no soportada %s en objeto empotrable de tipo %s"
+msgstr "Estrategia de acoplado no soportada %s en objeto acoplable de tipo %s"
 
 #. Hide menuitem.
 #: gdl/gdl-dock-item.c:1231
@@ -1692,7 +1694,7 @@ msgstr "Nombre"
 
 #: gdl/gdl-dock-layout.c:776 gdl/layout.glade.h:2
 msgid "Dock items"
-msgstr "Elementos empotrables"
+msgstr "Elementos acoplables"
 
 #: gdl/gdl-dock-layout.c:782 gdl/layout.glade.h:4
 msgid "Saved layouts"
@@ -1704,7 +1706,7 @@ msgid ""
 "While loading layout: don't know how to create a dock object whose nick is '%"
 "s'"
 msgstr ""
-"Al cargar una disposición: no se sabe cómo crear un objeto empotrable cuyo "
+"Al cargar una disposición: no se sabe cómo crear un objeto acoplable cuyo "
 "apodo es '%s'"
 
 #: gdl/gdl-dock-layout.c:1303
@@ -1717,14 +1719,14 @@ msgstr "Título predeterminado"
 
 #: gdl/gdl-dock-master.c:137
 msgid "Default title for newly created floating docks"
-msgstr "Título predeterminado para los empotrables flotantes recientemente creados"
+msgstr "Título predeterminado para los acoplables flotantes recientemente creados"
 
 #: gdl/gdl-dock-master.c:144
 msgid ""
 "If is set to 1, all the dock items bound to the master are locked; if it's "
 "0, all are unlocked; -1 indicates inconsistency among the items"
 msgstr ""
-"Si se establece a 1, todos los elementos empotrables vinculados al dueño se "
+"Si se establece a 1, todos los elementos acoplables vinculados al dueño se "
 "bloquean; si se establece a 0, se desbloquean; -1 indica inconsistencia "
 "entre los elementos"
 
@@ -1743,8 +1745,8 @@ msgid ""
 "The new dock controller %p is automatic.  Only manual dock objects should be "
 "named controller."
 msgstr ""
-"El controlador de empotrado nuevo %p es automático. Sólo los objetos "
-"empotrables manualmente deberían tener controlador."
+"El controlador de acoplado nuevo %p es automático. Sólo los objetos "
+"acoplables manualmente deberían tener controlador."
 
 #: gdl/gdl-dock-notebook.c:134
 msgid "Page"
@@ -1756,7 +1758,7 @@ msgstr "El índice de la página actual"
 
 #: gdl/gdl-dock-object.c:121
 msgid "Unique name for identifying the dock object"
-msgstr "Nombre único por el que identificar el objeto empotrable"
+msgstr "Nombre único por el que identificar el objeto acoplable"
 
 #: gdl/gdl-dock-object.c:128
 msgid "Long name"
@@ -1764,11 +1766,11 @@ msgstr "Nombre largo"
 
 #: gdl/gdl-dock-object.c:129
 msgid "Human readable name for the dock object"
-msgstr "Nombre humano para el objeto empotrable"
+msgstr "Nombre humano para el objeto acoplable"
 
 #: gdl/gdl-dock-object.c:135
 msgid "Dock master"
-msgstr "Dueño del empotrado"
+msgstr "Dueño del acoplado"
 
 #: gdl/gdl-dock-object.c:136
 msgid "Dock master this dock object is bound to"
@@ -1780,7 +1782,7 @@ msgid ""
 "Call to gdl_dock_object_dock in a dock object %p (object type is %s) which "
 "hasn't implemented this method"
 msgstr ""
-"La llamada a gdl_dock_object_doc en un objeto empotrado %p (tipo de objeto %"
+"La llamada a gdl_dock_object_doc en un objeto acoplado %p (tipo de objeto %"
 "s) que no tiene este método implementado"
 
 #: gdl/gdl-dock-object.c:534
@@ -1789,19 +1791,19 @@ msgid ""
 "Dock operation requested in a non-bound object %p. The application might "
 "crash"
 msgstr ""
-"Operación de empotrado solicitada en un objeto no vinculado %p. La "
+"Operación de acoplado solicitada en un objeto no vinculado %p. La "
 "aplicación quizá falle"
 
 #: gdl/gdl-dock-object.c:541
 #, c-format
 msgid "Cannot dock %p to %p because they belong to different masters"
-msgstr "No se puede empotrar %p a %p porque pertenecen a diferentes dueños"
+msgstr "No se puede acoplar %p a %p porque pertenecen a diferentes dueños"
 
 #: gdl/gdl-dock-object.c:583
 #, c-format
 msgid "Attempt to bind to %p an already bound dock object %p (current master: %p)"
 msgstr ""
-"Se intentó vincular a %p un objeto empotrable ya vinculado %p (dueño "
+"Se intentó vincular a %p un objeto acoplable ya vinculado %p (dueño "
 "actual : %p)"
 
 #: gdl/gdl-dock-paned.c:134
@@ -1822,7 +1824,7 @@ msgid ""
 "the host is redocked"
 msgstr ""
 "Indica si el contenedor se ceñirá a su anfitrión o subirá por la jerarquía "
-"cuando el anfitrión sea reempotrado"
+"cuando el anfitrión sea reacoplado"
 
 #: gdl/gdl-dock-placeholder.c:135
 msgid "Host"
@@ -1830,7 +1832,7 @@ msgstr "Anfitrión"
 
 #: gdl/gdl-dock-placeholder.c:136
 msgid "The dock object this placeholder is attached to"
-msgstr "El objeto empotrable al que este contenedor está vinculado"
+msgstr "El objeto acoplable al que este contenedor está vinculado"
 
 #: gdl/gdl-dock-placeholder.c:143
 msgid "Next placement"
@@ -1841,12 +1843,12 @@ msgid ""
 "The position an item will be docked to our host if a request is made to dock "
 "to us"
 msgstr ""
-"La posición en que un elemento será empotrado en nuestro anfitrión si se "
-"realiza una petición para empotrarse con nosotros"
+"La posición en que un elemento será acoplado en nuestro anfitrión si se "
+"realiza una petición para acoplarse con nosotros"
 
 #: gdl/gdl-dock-placeholder.c:305
 msgid "Attempt to dock a dock object to an unbound placeholder"
-msgstr "Se intentó empotrar un objeto empotrable en un contenedor no vinculado"
+msgstr "Se intentó acoplar un objeto acoplable en un contenedor no vinculado"
 
 #: gdl/gdl-dock-placeholder.c:419
 #, c-format
@@ -1866,11 +1868,11 @@ msgstr ""
 
 #: gdl/gdl-dock-tablabel.c:130
 msgid "Controlling dock item"
-msgstr "Elemento de control de empotrado"
+msgstr "Elemento de control de acoplado"
 
 #: gdl/gdl-dock-tablabel.c:131
 msgid "Dockitem which 'owns' this tablabel"
-msgstr "Elemento empotrado que 'es dueño' de esta tablabel"
+msgstr "Elemento acoplado que 'es dueño' de esta tablabel"
 
 #: gdl/gdl-dock.c:177
 msgid "Floating"
@@ -1878,11 +1880,11 @@ msgstr "Flotante"
 
 #: gdl/gdl-dock.c:178
 msgid "Whether the dock is floating in its own window"
-msgstr "Indica si el empotrable está flotando en su propia ventana"
+msgstr "Indica si el acoplable está flotando en su propia ventana"
 
 #: gdl/gdl-dock.c:186
 msgid "Default title for the newly created floating docks"
-msgstr "Título preestablecido para los empotrables flotantes nuevamente creados"
+msgstr "Título preestablecido para los acoplables flotantes nuevamente creados"
 
 #: gdl/gdl-dock.c:192
 msgid "Width"
@@ -1890,7 +1892,7 @@ msgstr "Anchura"
 
 #: gdl/gdl-dock.c:193
 msgid "Width for the dock when it's of floating type"
-msgstr "Anchura del empotrable cuando es de tipo flotante"
+msgstr "Anchura del acoplable cuando es de tipo flotante"
 
 #: gdl/gdl-dock.c:200
 msgid "Height"
@@ -1898,7 +1900,7 @@ msgstr "Altura"
 
 #: gdl/gdl-dock.c:201
 msgid "Height for the dock when it's of floating type"
-msgstr "Altura del empotrable cuando es de tipo flotante"
+msgstr "Altura del acoplable cuando es de tipo flotante"
 
 #: gdl/gdl-dock.c:208
 msgid "Float X"
@@ -1906,7 +1908,7 @@ msgstr "Flotante X"
 
 #: gdl/gdl-dock.c:209
 msgid "X coordinate for a floating dock"
-msgstr "Coordenada X para un empotrable flotante"
+msgstr "Coordenada X para un acoplable flotante"
 
 #: gdl/gdl-dock.c:216
 msgid "Float Y"
@@ -1914,7 +1916,7 @@ msgstr "Flotante Y"
 
 #: gdl/gdl-dock.c:217
 msgid "Y coordinate for a floating dock"
-msgstr "Coordenada Y para un empotrable flotante"
+msgstr "Coordenada Y para un acoplable flotante"
 
 #: gdl/gdl-dock.c:494
 #, c-format
@@ -1939,7 +1941,7 @@ msgstr "_Carga"
 
 #: gdl/layout.glade.h:6
 msgid "_Lock dock items"
-msgstr "_Bloquear elementos empotrados"
+msgstr "_Bloquear elementos acoplados"
 
 #: plugins/class-gen/clsGen.c:449
 msgid "Class name not valid"
@@ -2348,7 +2350,7 @@ msgstr "Empotrado"
 
 #: src/an_file_view.c:436 src/an_symbol_view.c:310 src/main_menubar_def.h:981
 msgid "Dock/Undock the Project Window"
-msgstr "Empotrar/Desempotrar la ventana del proyecto"
+msgstr "Empotrar/Desacoplar la ventana del proyecto"
 
 #. 6
 #: src/an_file_view.c:442
@@ -2756,7 +2758,7 @@ msgstr "No se puede crear el directorio de configuración.\n"
 
 #: src/anjuta_gui.c:191 src/anjuta_gui.c:280
 msgid "Click here to undock this window"
-msgstr "Pulse aquí para desempotrar esta ventana"
+msgstr "Pulse aquí para desacoplar esta ventana"
 
 #: src/anjuta_gui.c:225 src/anjuta_gui.c:247
 msgid "Click here to hide this window"
@@ -3088,7 +3090,7 @@ msgid ""
 "rebuild of the project?"
 msgstr ""
 "Ha cambiado algunas de las opciones del compilador del proyecto,\n"
-"¿quiere que la próxima acción de contrucción efectúe una reconstrucción "
+"¿quiere que la próxima acción de construcción efectúe una reconstrucción "
 "completa\n"
 "de todo el proyecto?"
 
@@ -3131,7 +3133,7 @@ msgid ""
 "Auto generate the Project first."
 msgstr ""
 "El proyecto no tiene un script configure ejecutable.\n"
-"Debe autogenerar el proyecto primero."
+"Debe auto-generar el proyecto primero."
 
 #: src/configurer.c:188 src/toolbar.c:262
 msgid "Configure"
@@ -3167,7 +3169,7 @@ msgstr "Eliminando del CVS"
 
 #: src/cvs.c:486
 msgid "Getting CVS status "
-msgstr "Obteniendo el estatus de CVS "
+msgstr "Obteniendo el estado de CVS "
 
 #: src/cvs.c:501 src/cvs.c:556 src/cvs.c:635 src/cvs.c:891
 msgid "There are jobs running, please wait until they are finished"
@@ -3671,7 +3673,7 @@ msgstr "No se ha encontrado coincidencia con «%s» en la selección"
 #: src/find_text.c:165
 #, c-format
 msgid "The match \"%s\" was not found from the current location"
-msgstr "No se ha encontrado corrincidencia con «%s» desde la posición actual"
+msgstr "No se ha encontrado coincidencia con «%s» desde la posición actual"
 
 #: src/find_text.c:189
 msgid "No matches found. Wrap search around the document?"
@@ -3988,7 +3990,7 @@ msgstr "Convertir en _mayúsculas"
 
 #: src/main_menubar_def.h:150
 msgid "Make the selected text uppercase"
-msgstr "Convierte el texto selecionado en mayúsculas"
+msgstr "Convierte el texto seleccionado en mayúsculas"
 
 #. 1
 #: src/main_menubar_def.h:156
@@ -4047,7 +4049,7 @@ msgstr "Selecciona todo el texto en el editor"
 #. 1
 #: src/main_menubar_def.h:204
 msgid "Select to _Brace"
-msgstr "Selecionar hasta la _llave"
+msgstr "Seleccionar hasta la _llave"
 
 #: src/main_menubar_def.h:205
 msgid "Select the text in the matching braces"
@@ -4609,7 +4611,7 @@ msgstr "Margen de _código"
 
 #: src/main_menubar_def.h:717
 msgid "Show/Hide code fold margin"
-msgstr "Mostrar/Ocultar margen de persiana de código"
+msgstr "Mostrar/Ocultar margen de plegado de código"
 
 #. 3
 #: src/main_menubar_def.h:722
@@ -4979,11 +4981,11 @@ msgstr "Forzar el estilo a XML"
 #. 6
 #: src/main_menubar_def.h:1053
 msgid "Javascript"
-msgstr "Javascript"
+msgstr "JavaScript"
 
 #: src/main_menubar_def.h:1054
 msgid "Force the highlight style to Javascript"
-msgstr "Forzar el estilo a Javascript"
+msgstr "Forzar el estilo a JavaScript"
 
 #. 7
 #: src/main_menubar_def.h:1059
@@ -5765,7 +5767,7 @@ msgstr "Actualizar la copia de trabajo de un proyecto"
 #. 9
 #: src/main_menubar_def.h:1668
 msgid "_Commit Project"
-msgstr "_Efectuarr cambios del proyecto"
+msgstr "_Efectuar cambios del proyecto"
 
 #: src/main_menubar_def.h:1669
 msgid "Commit local changes to the repository"
@@ -6142,7 +6144,7 @@ msgid ""
 "Unable to display help. Please make sure Anjuta documentation package is "
 "install. It can be downloaded from http://anjuta.org"
 msgstr ""
-"No se puede mostrar la ayuda. Aseguese de que el paquete de documentación de Anjuta "
+"No se puede mostrar la ayuda. Asegúrese de que el paquete de documentación de Anjuta "
 "está instalado. Puede ser descargado desde http://anjuta.org"
 
 #: src/mainmenu_callbacks.c:2165
@@ -6229,7 +6231,7 @@ msgstr ""
 
 #: src/preferences.c:698
 msgid "_Reset"
-msgstr "_Reestablecer"
+msgstr "_Restablecer"
 
 #: src/preferences.c:1073
 #, c-format
@@ -7121,11 +7123,11 @@ msgstr "Marcadores de margen"
 
 #: src/text_editor_menu.c:205
 msgid "Toggle Fold Margin"
-msgstr "Margen de persiana"
+msgstr "Alternar margen de plegado"
 
 #: src/text_editor_menu.c:212
 msgid "Toggle Guides"
-msgstr "Alternar Guías"
+msgstr "Alternar guías"
 
 #: src/text_editor_menu.c:220
 msgid "++Zoom"
@@ -7153,7 +7155,7 @@ msgstr "Pegar"
 #. 4
 #: src/text_editor_menu.c:265
 msgid "Context Help"
-msgstr "Ayuda del contexto"
+msgstr "Ayuda contextual"
 
 #. 6
 #: src/text_editor_menu.c:275
@@ -7168,7 +7170,7 @@ msgstr "Autoformato"
 #. 8
 #: src/text_editor_menu.c:291
 msgid "Swap .h/.c"
-msgstr "Alternar .h/.c"
+msgstr "Intercambiar .h/.c"
 
 #. 10
 #: src/text_editor_menu.c:301 src/toolbar.c:512
@@ -7187,11 +7189,11 @@ msgstr "Cerrar"
 
 #: src/toolbar.c:105
 msgid "Detach"
-msgstr "Separar"
+msgstr "Desprender"
 
 #: src/toolbar.c:106
 msgid "Detach the current page"
-msgstr "Separar la página actual"
+msgstr "Desprender la página actual"
 
 #: src/toolbar.c:115
 msgid "Search for the given string in the current file"
@@ -7231,11 +7233,11 @@ msgstr "Compilar archivo actual o el directorio fuente del proyecto"
 
 #: src/toolbar.c:286
 msgid "Build_all"
-msgstr "Compilar _todo"
+msgstr "Construir _todo"
 
 #: src/toolbar.c:288
 msgid "Build from the top directory of the Project"
-msgstr "Compilar desde el directorio superior del proyecto"
+msgstr "Construir desde el directorio superior del proyecto"
 
 #: src/toolbar.c:307
 msgid "Start the Debugger"
@@ -7243,7 +7245,7 @@ msgstr "Iniciar el depurador"
 
 #: src/toolbar.c:314
 msgid "Stop/interrupt compile or build"
-msgstr "Detener/interrumpir compilación"
+msgstr "Detener/interrumpir compilación o construcción"
 
 #: src/toolbar.c:383 src/toolbar.c:762
 msgid "Toggle"
@@ -7291,7 +7293,7 @@ msgstr "Inicio"
 
 #: src/toolbar.c:432
 msgid "Goto start of current code block"
-msgstr "Ir al inicio del bloque de código"
+msgstr "Ir al inicio del bloque de código actual"
 
 #: src/toolbar.c:438
 msgid "End"
@@ -7299,7 +7301,7 @@ msgstr "Fin"
 
 #: src/toolbar.c:439
 msgid "Goto end of current code block"
-msgstr "Ir al final del bloque de código"
+msgstr "Ir al final del bloque de código actual"
 
 #: src/toolbar.c:446
 msgid "Tags:"
@@ -7327,7 +7329,7 @@ msgstr "Avanzar un solo paso en la ejecución"
 
 #: src/toolbar.c:548
 msgid "Step Over"
-msgstr "Avanzar Sobre"
+msgstr "Avanzar sobre"
 
 #: src/toolbar.c:549
 msgid "Step over the function"
@@ -7335,15 +7337,15 @@ msgstr "Avanzar un paso, sin pasar por ninguna función"
 
 #: src/toolbar.c:559
 msgid "Step Out"
-msgstr "Avanzar Final"
+msgstr "Avanzar fuera"
 
 #: src/toolbar.c:560
 msgid "Step out of the function"
-msgstr "Avanzar hasta final de la función"
+msgstr "Avanzar hasta el final de la función"
 
 #: src/toolbar.c:575
 msgid "Interrupt execution of the program"
-msgstr "interrumpir la ejecución del programa"
+msgstr "Interrumpir la ejecución del programa"
 
 #: src/toolbar.c:588
 msgid "Breakpoint"
@@ -7375,7 +7377,7 @@ msgstr "Registros"
 
 #: src/toolbar.c:653
 msgid "CPU registers and their contents"
-msgstr "Registros de la CPU y sus contenidos"
+msgstr "Registros de la CPU y su contenido"
 
 #: src/toolbar.c:667
 msgid "End the debugging session"
@@ -7435,7 +7437,7 @@ msgstr "Formatear automáticamente el código"
 
 #: src/toolbar.c:857
 msgid "Configure style to use for auto format"
-msgstr "Configurar el estilo que se usara en auto formato"
+msgstr "Configurar el estilo que se usará para el autoformato"
 
 #: src/toolbar.c:870
 msgid "Calltip"
@@ -7481,7 +7483,7 @@ msgstr "Añadir expresión"
 
 #: src/watch_gui.c:49
 msgid "Update all"
-msgstr "Actualizar todos"
+msgstr "Actualizar todo"
 
 #: src/watch_gui.c:55
 msgid "Clear"
@@ -7497,7 +7499,7 @@ msgstr "Cambiar elemento"
 
 #: src/watch_gui.c:172
 msgid "Add Watch Expression"
-msgstr "Añadir Expresión a Vigilar"
+msgstr "Añadir expresión a vigilar"
 
 #: src/watch_gui.c:182
 msgid "Add expression to watch"
@@ -7521,7 +7523,7 @@ msgstr "Inspeccionar/Evaluar expresión"
 
 #: src/watch_gui.c:325
 msgid "Add To Watch"
-msgstr "Añadir a Vigilancia"
+msgstr "Añadir a vigilancia"
 
 #: src/wizard_gui.c:97
 msgid "Project Type"
@@ -7609,7 +7611,7 @@ msgstr "C y C++"
 
 #: src/wizard_gui.c:385
 msgid "Target type"
-msgstr "Tipo de objetivo:"
+msgstr "Tipo de objetivo"
 
 #: src/wizard_gui.c:401
 msgid "Executable target"
@@ -7681,7 +7683,7 @@ msgstr "Texto a renderizar"
 
 #: widgets/cell-renderer-captioned-image.c:214
 msgid "Pixbuf Object"
-msgstr "Objeto Pixbuf"
+msgstr "Objeto pixbuf"
 
 #: widgets/cell-renderer-captioned-image.c:215
 msgid "The pixbuf to render."
@@ -7709,7 +7711,7 @@ msgstr "Refrescar lista"
 
 #: widgets/gnomefilelist.c:249
 msgid "Delete file"
-msgstr "Borrar archivos"
+msgstr "Borrar archivo"
 
 #: widgets/gnomefilelist.c:253 widgets/gnomefilelist.c:1889
 msgid "Rename file"
