@@ -29,7 +29,9 @@ ltmain.sh
 stamp-h
 stamp-h.in
 tags.cache
+.tm_project.cache
 xml-i18n-extract*
 xml-i18n-merge*
 xml-i18n-update*
 anjuta.prj
+anjuta.pws

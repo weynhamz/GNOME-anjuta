@@ -11,3 +11,4 @@ Makefile.in
 Makefile.in.in
 .nautilus-metafile.xml
 *.autosave
+translations.xml

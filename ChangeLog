@@ -2,7 +2,10 @@
 
 	* scripts/anjuta_import.sh.in: Added file.
 	* scripts/anjuta_import.sh: Removed file.
-	  
+
+	* .cvsignore, po/.cvsignore, scripts/.cvsignore:
+	  Updated files.
+
 2002-01-28	Andy Piper	<andy.piper@freeuk.com>
 
 	* HACKING: added information on best practices for writing

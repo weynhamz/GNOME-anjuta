@@ -197,7 +197,7 @@ module.include.files=\
 
 module.source.name=.
 module.source.type=
-module.source.expanded=0
+module.source.expanded=1
 module.source.files=\
 	data/header.c\
 	global-tags/tm_global_tags.c\
