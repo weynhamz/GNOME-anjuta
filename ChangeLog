@@ -7,6 +7,7 @@
 	* manuals/C/anjuta-manual/*: Updated manual to include tool editor.
 	* scintilla/LexCPP.cxx: Disable doxygen comment highliting.
 	* anjuta.prj: Added tools.sgml
+	* data/properties/cpp.properties: Bug # 646974
 
 2002-12-16  Naba Kumar <naba@gnome.org>
 
