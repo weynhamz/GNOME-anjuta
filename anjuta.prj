@@ -34,11 +34,11 @@ project.version=1.2.0
 project.author=naba
 project.source.target=src/anjuta
 project.has.gettext=1
-project.gui.command=
+project.gui.command=glade-2
 project.programming.language=C_C++
-project.excluded.modules=intl
+project.excluded.modules=intl po CVS
 
-project.config.extra.modules.before=
+project.config.extra.modules.before=po tagmanager global-tags scintilla gdl widgets printing pixmaps scripts data doc launcher plugins
 project.config.extra.modules.after=
 project.config.blocked=1
 project.config.disable.overwriting=1 1 1 1 1 1 1 1 1 
@@ -51,122 +51,27 @@ project.menu.need.terminal=0
 
 project.configure.options=
 anjuta.program.arguments=
-preferences.build.option.jobs=0
-preferences.autoformat.custom.style=-bad -bap -bbb -sob -nbbo -nbc -bl -fca -fc1 -lc80 -d0 -c50 -cd33 -cp10 -sc -ncdb -bl -bli0 -ncdw -cli0 -cbi4 -ss -pcs -cs -bs -saf -sai -saw -di0 -nbfda -psl -brs -i4 -ci4 -lp -ts4 -l80 -nhnl -pmt 
-preferences.autoformat.style=Custom style
-preferences.indent.opening=0
-preferences.build.option.silent=0
-preferences.autoformat.disable=0
-preferences.build.option.autosave=1
-preferences.indent.automatic=1
-preferences.anjuta.make.options=-k
-preferences.use.tabs=1
-preferences.indent.size=4
-preferences.tabsize=4
-preferences.make=make
-preferences.build.option.keep.going=0
-preferences.indent.closing=0
-preferences.build.option.warn.undef=0
-preferences.build.option.jobs=0
-preferences.autoformat.custom.style=-bad -bap -bbb -sob -nbbo -nbc -bl -fca -fc1 -lc80 -d0 -c50 -cd33 -cp10 -sc -ncdb -bl -bli0 -ncdw -cli0 -cbi4 -ss -pcs -cs -bs -saf -sai -saw -di0 -nbfda -psl -brs -i4 -ci4 -lp -ts4 -l80 -nhnl -pmt 
-preferences.autoformat.style=Custom style
-preferences.indent.opening=0
-preferences.build.option.silent=0
-preferences.autoformat.disable=0
-preferences.build.option.autosave=1
-preferences.indent.automatic=1
-preferences.anjuta.make.options=-k
-preferences.use.tabs=1
-preferences.indent.size=4
-preferences.tabsize=4
-preferences.make=make
-preferences.build.option.keep.going=0
-preferences.indent.closing=0
-preferences.build.option.warn.undef=0
-preferences.build.option.jobs=0
-preferences.autoformat.custom.style=-bad -bap -bbb -sob -nbbo -nbc -bl -fca -fc1 -lc80 -d0 -c50 -cd33 -cp10 -sc -ncdb -bl -bli0 -ncdw -cli0 -cbi4 -ss -pcs -cs -bs -saf -sai -saw -di0 -nbfda -psl -brs -i4 -ci4 -lp -ts4 -l80 -nhnl -pmt 
-preferences.autoformat.style=Custom style
-preferences.indent.opening=0
-preferences.build.option.silent=0
-preferences.autoformat.disable=0
-preferences.build.option.autosave=1
-preferences.indent.automatic=1
-preferences.anjuta.make.options=-k
-preferences.use.tabs=1
-preferences.indent.size=4
-preferences.tabsize=4
-preferences.make=make
-preferences.build.option.keep.going=0
-preferences.indent.closing=0
-preferences.build.option.warn.undef=0
-preferences.build.option.jobs=0
-preferences.autoformat.custom.style=-bad -bap -bbb -sob -nbbo -nbc -bl -fca -fc1 -lc80 -d0 -c50 -cd33 -cp10 -sc -ncdb -bl -bli0 -ncdw -cli0 -cbi4 -ss -pcs -cs -bs -saf -sai -saw -di0 -nbfda -psl -brs -i4 -ci4 -lp -ts4 -l80 -nhnl -pmt 
-preferences.autoformat.style=Custom style
-preferences.indent.opening=0
-preferences.build.option.silent=0
-preferences.autoformat.disable=0
-preferences.build.option.autosave=1
-preferences.indent.automatic=1
-preferences.anjuta.make.options=-k
-preferences.use.tabs=1
-preferences.indent.size=4
-preferences.tabsize=4
-preferences.make=make
-preferences.build.option.keep.going=0
-preferences.indent.closing=0
-preferences.build.option.warn.undef=0
-preferences.build.option.jobs=0
-preferences.autoformat.custom.style=-bad -bap -bbb -sob -nbbo -nbc -bl -fca -fc1 -lc80 -d0 -c50 -cd33 -cp10 -sc -ncdb -bl -bli0 -ncdw -cli0 -cbi4 -ss -pcs -cs -bs -saf -sai -saw -di0 -nbfda -psl -brs -i4 -ci4 -lp -ts4 -l80 -nhnl -pmt 
-preferences.autoformat.style=Custom style
-preferences.indent.opening=0
-preferences.build.option.silent=0
-preferences.autoformat.disable=0
-preferences.build.option.autosave=1
-preferences.indent.automatic=1
-preferences.anjuta.make.options=-k
-preferences.use.tabs=1
-preferences.indent.size=4
-preferences.tabsize=4
-preferences.make=make
-preferences.build.option.keep.going=0
-preferences.indent.closing=0
-preferences.build.option.warn.undef=0
-preferences.build.option.jobs=0
-preferences.autoformat.custom.style=-bad -bap -bbb -sob -nbbo -nbc -bl -fca -fc1 -lc80 -d0 -c50 -cd33 -cp10 -sc -ncdb -bl -bli0 -ncdw -cli0 -cbi4 -ss -pcs -cs -bs -saf -sai -saw -di0 -nbfda -psl -brs -i4 -ci4 -lp -ts4 -l80 -nhnl -pmt 
-preferences.autoformat.style=Custom style
-preferences.indent.opening=0
-preferences.build.option.silent=0
-preferences.autoformat.disable=0
-preferences.build.option.autosave=1
-preferences.indent.automatic=1
-preferences.anjuta.make.options=-k
-preferences.use.tabs=1
-preferences.indent.size=4
-preferences.tabsize=4
-preferences.make=make
-preferences.build.option.keep.going=0
-preferences.indent.closing=0
-preferences.build.option.warn.undef=0
-preferences.build.option.jobs=0
-preferences.autoformat.custom.style=-bad -bap -bbb -sob -nbbo -nbc -bl -fca -fc1 -lc80 -d0 -c50 -cd33 -cp10 -sc -ncdb -bl -bli0 -ncdw -cli0 -cbi4 -ss -pcs -cs -bs -saf -sai -saw -di0 -nbfda -psl -brs -i4 -ci4 -lp -ts4 -l80 -nhnl -pmt 
-preferences.autoformat.style=Custom style
-preferences.indent.opening=0
-preferences.build.option.silent=0
-preferences.autoformat.disable=0
-preferences.build.option.autosave=1
-preferences.indent.automatic=1
-preferences.anjuta.make.options=-k
-preferences.use.tabs=1
-preferences.indent.size=4
-preferences.tabsize=4
-preferences.make=make
-preferences.build.option.keep.going=0
-preferences.indent.closing=0
-preferences.build.option.warn.undef=0
 
 module.include.name=.
 module.include.type=
 module.include.files=\
+	config.h\
+	gdl/gdl-dock.h\
+	gdl/gdl-dock-item-grip.h\
+	gdl/gdl-dock-item.h\
+	gdl/gdl-dock-layout.h\
+	gdl/gdl-dock-master.h\
+	gdl/gdl-dock-notebook.h\
+	gdl/gdl-dock-object.h\
+	gdl/gdl-dock-paned.h\
+	gdl/gdl-dock-placeholder.h\
+	gdl/gdl-dock-tablabel.h\
+	gdl/gdl.h\
+	gdl/gdl-i18n.h\
+	gdl/gdl-icons.h\
+	gdl/gdl-tools.h\
+	gdl/libgdlmarshal.h\
+	gdl/libgdltypebuiltins.h\
 	printing/print.h\
 	scintilla/include/Accessor.h\
 	scintilla/include/KeyWords.h\
@@ -194,12 +99,13 @@ module.include.files=\
 	scintilla/StyleContext.h\
 	scintilla/UniConversion.h\
 	scintilla/ViewStyle.h\
-	src/CORBA-Server.h\
-	src/Gladen.h\
-	src/Prj.h\
+	scintilla/XPM.h\
+	src/about.h\
 	src/an_file_view.h\
 	src/an_symbol_view.h\
 	src/aneditor.h\
+	src/anjuta-plugins.h\
+	src/anjuta-tools.h\
 	src/anjuta.h\
 	src/anjuta_dirs.h\
 	src/anjuta_info.h\
@@ -218,8 +124,9 @@ module.include.files=\
 	src/configurer.h\
 	src/controls.h\
 	src/cvs.h\
-	src/cvs_gui.h\
 	src/cvs_cbs.h\
+	src/cvs_gui.h\
+	src/debug_tree.h\
 	src/debugger.h\
 	src/defaults.h\
 	src/dnd.h\
@@ -231,7 +138,6 @@ module.include.files=\
 	src/find_replace.h\
 	src/find_text.h\
 	src/glade_iface.h\
-	src/glades.h\
 	src/global.h\
 	src/gnome_project.h\
 	src/goto_line.h\
@@ -241,11 +147,12 @@ module.include.files=\
 	src/main_menubar.h\
 	src/main_menubar_def.h\
 	src/mainmenu_callbacks.h\
+	src/memory.h\
 	src/message-manager-dock.h\
 	src/message-manager-private.h\
 	src/message-manager.h\
-	src/messagebox.h\
 	src/pixmaps.h\
+	src/preferences-dialog.h\
 	src/preferences.h\
 	src/project_config.h\
 	src/project_dbase.h\
@@ -263,9 +170,9 @@ module.include.files=\
 	src/signals_cbs.h\
 	src/source.h\
 	src/src_paths.h\
-	src/src_paths_cbs.h\
 	src/stack_trace.h\
 	src/stack_trace_cbs.h\
+	src/style-editor.h\
 	src/support.h\
 	src/text_editor.h\
 	src/text_editor_cbs.h\
@@ -276,6 +183,11 @@ module.include.files=\
 	src/utilities.h\
 	src/watch.h\
 	src/watch_cbs.h\
+	src/widget-registry.h\
+	src/wizard_gui.h\
+	src/search-replace.h\
+	src/windows-dialog.h\
+	src/start-with.h\
 	tagmanager/include/tm_file_entry.h\
 	tagmanager/include/tm_project.h\
 	tagmanager/include/tm_source_file.h\
@@ -299,30 +211,31 @@ module.include.files=\
 	tagmanager/sort.h\
 	tagmanager/strlist.h\
 	tagmanager/vstring.h\
-	widgets/gnomefilelist.h\
-	src/anjuta-tools.h\
-	src/widget-registry.h\
-	src/anjuta-plugins.h\
-	widgets/e-splash.h\
 	widgets/cell-renderer-captioned-image.h\
-	widgets/gdl.h\
-	widgets/gdl-tools.h\
-	widgets/gdl-icons.h\
-	widgets/gdl-i18n.h\
-	widgets/gdl-dock.h\
-	widgets/gdl-dock-tablabel.h\
-	widgets/gdl-dock-placeholder.h\
-	widgets/gdl-dock-paned.h\
-	widgets/gdl-dock-object.h\
-	widgets/gdl-dock-notebook.h\
-	widgets/gdl-dock-master.h\
-	widgets/gdl-dock-layout.h\
-	widgets/gdl-dock-item.h\
-	widgets/gdl-dock-item-grip.h
+	widgets/gnomefilelist.h\
+	widgets/e-splash.h
 
 module.source.name=.
 module.source.type=
 module.source.files=\
+	anjuta_dialogs_strings.c\
+	data/header.c\
+	gdl/gdl-dock.c\
+	gdl/gdl-dock-item.c\
+	gdl/gdl-dock-item-grip.c\
+	gdl/gdl-dock-layout.c\
+	gdl/gdl-dock-master.c\
+	gdl/gdl-dock-notebook.c\
+	gdl/gdl-dock-object.c\
+	gdl/gdl-dock-paned.c\
+	gdl/gdl-dock-placeholder.c\
+	gdl/gdl-dock-tablabel.c\
+	gdl/gdl-i18n.c\
+	gdl/gdl-icons.c\
+	gdl/gdl-tools.c\
+	gdl/test-dock.c\
+	gdl/libgdlmarshal.c\
+	gdl/libgdltypebuiltins.c\
 	global-tags/tm_global_tags.c\
 	launcher/anjuta_launcher.c\
 	plugins/class-gen/clsGen.c\
@@ -341,12 +254,15 @@ module.source.files=\
 	scintilla/KeyWords.cxx\
 	scintilla/LexAVE.cxx\
 	scintilla/LexAda.cxx\
+	scintilla/LexAsm.cxx\
 	scintilla/LexBaan.cxx\
 	scintilla/LexBullant.cxx\
 	scintilla/LexCPP.cxx\
+	scintilla/LexCSS.cxx\
 	scintilla/LexConf.cxx\
 	scintilla/LexCrontab.cxx\
 	scintilla/LexEiffel.cxx\
+	scintilla/LexFortran.cxx\
 	scintilla/LexHTML.cxx\
 	scintilla/LexLisp.cxx\
 	scintilla/LexLua.cxx\
@@ -369,9 +285,13 @@ module.source.files=\
 	scintilla/UniConversion.cxx\
 	scintilla/ViewStyle.cxx\
 	scintilla/WindowAccessor.cxx\
+	scintilla/XPM.cxx\
+	src/about.c\
 	src/an_file_view.c\
 	src/an_symbol_view.c\
 	src/aneditor.cxx\
+	src/anjuta-plugins.c\
+	src/anjuta-tools.c\
 	src/anjuta.c\
 	src/anjuta_cbs.c\
 	src/anjuta_dirs.c\
@@ -386,10 +306,7 @@ module.source.files=\
 	src/appwizard_gui.c\
 	src/attach_process.c\
 	src/attach_process_cbs.c\
-	src/attach_process_gui.c\
 	src/breakpoints.c\
-	src/breakpoints_cbs.c\
-	src/breakpoints_gui.c\
 	src/build_file.c\
 	src/build_project.c\
 	src/clean_project.c\
@@ -400,8 +317,9 @@ module.source.files=\
 	src/configurer.c\
 	src/controls.c\
 	src/cvs.c\
-	src/cvs_gui.c\
 	src/cvs_cbs.c\
+	src/cvs_gui.c\
+	src/debug_tree.c\
 	src/debugger.c\
 	src/defaults.c\
 	src/dnd.c\
@@ -410,11 +328,9 @@ module.source.files=\
 	src/fileselection.c\
 	src/find_in_files.c\
 	src/find_in_files_cbs.c\
-	src/find_in_files_gui.c\
 	src/find_replace.c\
 	src/find_text.c\
 	src/glade_iface.c\
-	src/glades.c\
 	src/gnome_project.c\
 	src/goto_line.c\
 	src/help.c\
@@ -422,12 +338,12 @@ module.source.files=\
 	src/main.c\
 	src/main_menubar.c\
 	src/mainmenu_callbacks.c\
+	src/memory.c\
 	src/message-manager-dock.c\
 	src/message-manager-private.cc\
 	src/message-manager.cc\
-	src/messagebox.c\
+	src/preferences-dialog.c\
 	src/preferences.c\
-	src/preferences_gui.c\
 	src/project_config.c\
 	src/project_dbase.c\
 	src/project_dbase_gui.c\
@@ -449,11 +365,10 @@ module.source.files=\
 	src/signals_gui.c\
 	src/source.c\
 	src/src_paths.c\
-	src/src_paths_cbs.c\
-	src/src_paths_gui.c\
 	src/stack_trace.c\
 	src/stack_trace_cbs.c\
 	src/stack_trace_gui.c\
+	src/style-editor.c\
 	src/support.c\
 	src/text_editor.c\
 	src/text_editor_cbs.c\
@@ -465,7 +380,12 @@ module.source.files=\
 	src/watch.c\
 	src/watch_cbs.c\
 	src/watch_gui.c\
+	src/widget-registry.c\
 	src/wizard_gui.c\
+	src/search-replace.c\
+	src/windows-dialog.c\
+	src/getline.c\
+	src/start-with.c\
 	tagmanager/args.c\
 	tagmanager/asm.c\
 	tagmanager/asp.c\
@@ -510,97 +430,27 @@ module.source.files=\
 	tagmanager/vim.c\
 	tagmanager/vstring.c\
 	tagmanager/yacc.c\
-	widgets/gnomefilelist.c\
-	src/debug_tree.c\
-	src/anjuta-tools.c\
-	src/widget-registry.c\
-	src/anjuta-plugins.c\
-	widgets/e-splash.c\
 	widgets/cell-renderer-captioned-image.c\
-	widgets/gdl-dock-item-grip.c\
-	widgets/gdl-tools.c\
-	widgets/gdl-icons.c\
-	widgets/gdl-i18n.c\
-	widgets/gdl-dock.c\
-	widgets/gdl-dock-tablabel.c\
-	widgets/gdl-dock-placeholder.c\
-	widgets/gdl-dock-paned.c\
-	widgets/gdl-dock-object.c\
-	widgets/gdl-dock-notebook.c\
-	widgets/gdl-dock-master.c\
-	widgets/gdl-dock-layout.c\
-	widgets/gdl-dock-item.c\
-	widgets/test-dock.c
+	widgets/gnomefilelist.c\
+	widgets/e-splash.c
 
 module.pixmap.name=.
 module.pixmap.type=
 module.pixmap.files=\
-	manuals/C/anjuta-manual/figures/arguments.png\
-	manuals/C/anjuta-manual/figures/attach.png\
-	manuals/C/anjuta-manual/figures/brk_add.png\
-	manuals/C/anjuta-manual/figures/brk_dlg.png\
-	manuals/C/anjuta-manual/figures/brk_edit.png\
-	manuals/C/anjuta-manual/figures/ccview.png\
-	manuals/C/anjuta-manual/figures/ccview_class.png\
-	manuals/C/anjuta-manual/figures/ccview_struct.png\
-	manuals/C/anjuta-manual/figures/configure_dlg.png\
-	manuals/C/anjuta-manual/figures/defines.png\
-	manuals/C/anjuta-manual/figures/devt_menu.png\
-	manuals/C/anjuta-manual/figures/evaluate.png\
-	manuals/C/anjuta-manual/figures/fileview.png\
-	manuals/C/anjuta-manual/figures/find_files.png\
-	manuals/C/anjuta-manual/figures/find_replace.png\
-	manuals/C/anjuta-manual/figures/find_text.png\
-	manuals/C/anjuta-manual/figures/frame.png\
-	manuals/C/anjuta-manual/figures/includes.png\
-	manuals/C/anjuta-manual/figures/inspect.png\
-	manuals/C/anjuta-manual/figures/lib_paths.png\
-	manuals/C/anjuta-manual/figures/libraries.png\
-	manuals/C/anjuta-manual/figures/mainwin.png\
-	manuals/C/anjuta-manual/figures/menu_detached.png\
-	manuals/C/anjuta-manual/figures/menu_main.png\
-	manuals/C/anjuta-manual/figures/message_win.png\
-	manuals/C/anjuta-manual/figures/open_file.png\
-	manuals/C/anjuta-manual/figures/optimizations.png\
-	manuals/C/anjuta-manual/figures/other_opts.png\
-	manuals/C/anjuta-manual/figures/project_info.png\
-	manuals/C/anjuta-manual/figures/project_win.png\
-	manuals/C/anjuta-manual/figures/registers.png\
-	manuals/C/anjuta-manual/figures/scrshot.png\
-	manuals/C/anjuta-manual/figures/sharedlibs.png\
-	manuals/C/anjuta-manual/figures/signal_mod.png\
-	manuals/C/anjuta-manual/figures/signals.png\
-	manuals/C/anjuta-manual/figures/stack.png\
-	manuals/C/anjuta-manual/figures/supports.png\
-	manuals/C/anjuta-manual/figures/toolbar_browser.png\
-	manuals/C/anjuta-manual/figures/toolbar_debug.png\
-	manuals/C/anjuta-manual/figures/toolbar_ext.png\
-	manuals/C/anjuta-manual/figures/toolbar_format.png\
-	manuals/C/anjuta-manual/figures/toolbar_main.png\
-	manuals/C/anjuta-manual/figures/toolbar_tags.png\
-	manuals/C/anjuta-manual/figures/warnings.png\
-	manuals/C/anjuta-manual/figures/watch.png\
-	manuals/C/anjuta-manual/figures/watch_add.png\
-	manuals/C/anjuta-tutorial/figures/divided.png\
-	manuals/C/anjuta-tutorial/figures/glade-l.png\
-	manuals/C/anjuta-tutorial/figures/icons.png\
-	manuals/C/anjuta-tutorial/figures/interface.png\
-	pixmaps/add.xpm\
 	pixmaps/anjuta_icon.png\
 	pixmaps/anjuta_logo.png\
+	pixmaps/anjuta_logo1.png\
 	pixmaps/anjuta_splash.png\
-	pixmaps/an_tag.xpm\
 	pixmaps/applogo.png\
-	pixmaps/appwizard.png\
 	pixmaps/appwiz_bonobo.png\
 	pixmaps/appwiz_bonobo2.png\
 	pixmaps/appwiz_gnome.png\
-	pixmaps/appwiz_gnomemm.png\
 	pixmaps/appwiz_gnome2.png\
+	pixmaps/appwiz_gnomemm.png\
 	pixmaps/appwiz_gnomemm2.png\
 	pixmaps/appwiz_gtk.png\
-	pixmaps/appwiz_gtkmm.png\
 	pixmaps/appwiz_gtk2.png\
+	pixmaps/appwiz_gtkmm.png\
 	pixmaps/appwiz_gtkmm2.png\
 	pixmaps/appwiz_libglade.png\
 	pixmaps/appwiz_libglade2.png\
@@ -609,61 +459,72 @@ module.pixmap.files=\
 	pixmaps/appwiz_terminal.png\
 	pixmaps/appwiz_wxwin.png\
 	pixmaps/appwiz_xlib.png\
-	pixmaps/autocomplete.xpm\
+	pixmaps/appwizard.png\
+	pixmaps/autocomplete-16.png\
+	pixmaps/autocomplete.png\
 	pixmaps/bfoldc.xpm\
 	pixmaps/bfoldo.xpm\
 	pixmaps/blank.xpm\
-	pixmaps/block_end.xpm\
+	pixmaps/block-end-16.png\
+	pixmaps/block-end.png\
+	pixmaps/block-start-16.png\
+	pixmaps/block-start.png\
 	pixmaps/block_select.xpm\
-	pixmaps/block_start.xpm\
-	pixmaps/bookmark_first.xpm\
-	pixmaps/bookmark_last.xpm\
-	pixmaps/bookmark_next.xpm\
-	pixmaps/bookmark_prev.xpm\
+	pixmaps/bookmark-first-16.png\
+	pixmaps/bookmark-first.png\
+	pixmaps/bookmark-last-16.png\
+	pixmaps/bookmark-last.png\
+	pixmaps/bookmark-next-16.png\
+	pixmaps/bookmark-next.png\
+	pixmaps/bookmark-prev-16.png\
+	pixmaps/bookmark-prev.png\
 	pixmaps/bookmark_toggle.xpm\
 	pixmaps/breakpoint.xpm\
 	pixmaps/build.xpm\
 	pixmaps/build_all.xpm\
-	pixmaps/build_stop.xpm\
 	pixmaps/calltip.xpm\
 	pixmaps/cfolder.xpm\
-	pixmaps/close_file.xpm\
 	pixmaps/close_file_small.xpm\
-	pixmaps/close_project.xpm\
+	pixmaps/close_project.png\
 	pixmaps/compile.xpm\
 	pixmaps/configure.xpm\
 	pixmaps/console.xpm\
 	pixmaps/continue.xpm\
-	pixmaps/copy.xpm\
-	pixmaps/cut.xpm\
 	pixmaps/debug.xpm\
 	pixmaps/debug_stop.xpm\
 	pixmaps/dock.xpm\
-	pixmaps/error_next.xpm\
-	pixmaps/error_prev.xpm\
-	pixmaps/exec.xpm\
-	pixmaps/execute.xpm\
+	pixmaps/error-next-16.png\
+	pixmaps/error-next.png\
+	pixmaps/error-prev-16.png\
+	pixmaps/error-prev.png\
+	pixmaps/file_c.png\
 	pixmaps/file_c.xpm\
+	pixmaps/file_core.png\
+	pixmaps/file_core.xpm\
+	pixmaps/file_cpp.png\
 	pixmaps/file_cpp.xpm\
+	pixmaps/file_exec.png\
+	pixmaps/file_exec.xpm\
+	pixmaps/file_file.png\
 	pixmaps/file_file.xpm\
+	pixmaps/file_h.png\
 	pixmaps/file_h.xpm\
+	pixmaps/file_html.png\
 	pixmaps/file_html.xpm\
+	pixmaps/file_i18n.png\
 	pixmaps/file_i18n.xpm\
+	pixmaps/file_icon.png\
 	pixmaps/file_icon.xpm\
+	pixmaps/file_pix.png\
 	pixmaps/file_pix.xpm\
-	pixmaps/find.xpm\
-	pixmaps/find_replace.xpm\
+	pixmaps/file_text.png\
+	pixmaps/file_text.xpm\
+	pixmaps/file_unknown.png\
+	pixmaps/file_unknown.xpm\
 	pixmaps/fold_close.xpm\
 	pixmaps/fold_open.xpm\
 	pixmaps/fold_toggle.xpm\
 	pixmaps/frame.xpm\
-	pixmaps/fv_core.xpm\
-	pixmaps/fv_exec.xpm\
-	pixmaps/fv_image.xpm\
-	pixmaps/fv_text.xpm\
-	pixmaps/fv_unknown.xpm\
-	pixmaps/goto.xpm\
-	pixmaps/graph.xpm\
 	pixmaps/handle_hide.xpm\
 	pixmaps/handle_undock.xpm\
 	pixmaps/help.xpm\
@@ -676,10 +537,6 @@ module.pixmap.files=\
 	pixmaps/interrupt.xpm\
 	pixmaps/ledgreen.xpm\
 	pixmaps/ledred.xpm\
-	pixmaps/list_select.xpm\
-	pixmaps/list_unselect.xpm\
-	pixmaps/macro.xpm\
-	pixmaps/madeinanjuta.xcf\
 	pixmaps/messages.xpm\
 	pixmaps/mini-modules.xpm\
 	pixmaps/mini_build.xpm\
@@ -689,45 +546,32 @@ module.pixmap.files=\
 	pixmaps/mini_find.xpm\
 	pixmaps/mini_locals.xpm\
 	pixmaps/mini_term.xpm\
-	pixmaps/new_file.xpm\
 	pixmaps/new_folder.xpm\
 	pixmaps/ofolder.xpm\
-	pixmaps/open_file.xpm\
-	pixmaps/open_project.xpm\
-	pixmaps/paste.xpm\
+	pixmaps/open_project.png\
+	pixmaps/password.png\
 	pixmaps/pointer.xpm\
-	pixmaps/preferences.xpm\
-	prefs_autoformat.xpm\
-	prefs_build.xpm\
-	prefs_cvs.xpm\
-	prefs_editor.xpm\
-	prefs_general.xpm\
-	prefs_messages.xpm\
-	prefs_print.xpm\
-	prefs_styles.xpm\
-	pixmaps/print.xpm\
+	pixmaps/preferences-build.png\
+	pixmaps/preferences-cvs.png\
+	pixmaps/preferences-editor.png\
+	pixmaps/preferences-general.png\
+	pixmaps/preferences-indentation.png\
+	pixmaps/preferences-messages.png\
+	pixmaps/preferences-print.png\
+	pixmaps/preferences-terminal.png\
 	pixmaps/print_color.xpm\
-	pixmaps/print_nocolor.xpm\
 	pixmaps/print_landscape.xpm\
 	pixmaps/print_layout.xpm\
+	pixmaps/print_nocolor.xpm\
 	pixmaps/print_portrait.xpm\
 	pixmaps/project.xpm\
-	pixmaps/redo.xpm\
 	pixmaps/registers.xpm\
-	pixmaps/reload.xpm\
-	pixmaps/reload_file.xpm\
-	pixmaps/remove.xpm\
 	pixmaps/run_to_cursor.xpm\
-	pixmaps/save.xpm\
-	pixmaps/save_all.xpm\
-	pixmaps/save_file.xpm\
-	pixmaps/save_project.xpm\
-	pixmaps/search.xpm\
+	pixmaps/save_project.png\
 	pixmaps/stack.xpm\
 	pixmaps/step_in.xpm\
 	pixmaps/step_out.xpm\
 	pixmaps/step_over.xpm\
-	pixmaps/stop.xpm\
 	pixmaps/sv_class.xpm\
 	pixmaps/sv_function.xpm\
 	pixmaps/sv_macro.xpm\
@@ -737,7 +581,18 @@ module.pixmap.files=\
 	pixmaps/sv_protected_var.xpm\
 	pixmaps/sv_public_fun.xpm\
 	pixmaps/sv_public_var.xpm\
-	pixmaps/sv_static_fun.xpm\doc
+	pixmaps/sv_static_fun.xpm\
+	pixmaps/sv_static_var.xpm\
+	pixmaps/sv_struct.xpm\
+	pixmaps/sv_unknown.xpm\
+	pixmaps/sv_variable.xpm\
+	pixmaps/syntax.xpm\
+	pixmaps/undock.png\
+	pixmaps/watch.xpm\
+	pixmaps/wizard.xpm\
+	pixmaps/start-with-import.png\
+	pixmaps/start-with-open.png\
+	pixmaps/start-with-wizard.png
 
 module.data.name=.
 module.data.type=
@@ -785,19 +640,22 @@ module.doc.files=\
 
 module.po.files=\
 	az.po\
+	be.po\
+	cs.po\
 	da.po\
 	de.po\
 	el.po\
 	en_GB.po\
 	es.po\
 	fr.po\
+	hi.po\
 	it.po\
 	ja.po\
 	nl.po\
 	no.po\
 	pl.po\
-	pt.po\
 	pt_BR.po\
+	pt.po\
 	ru.po\
 	sk.po\
 	sv.po\
@@ -805,7 +663,20 @@ module.po.files=\
 	tr.po\
 	uk.po\
 	zh_CN.po\
-	zh_TW.po\
-	hi.po
+	zh_TW.po
 
-project.src.paths=
+project.src.paths=tagmanager \
+tagmanager/include \
+global-tags \
+scintilla \
+gdl \
+widgets \
+printing \
+scintilla/include \
+src \
+launcher \
+plugins \
+plugins/sample1 \
+plugins/class-gen \
+plugins/patch
+

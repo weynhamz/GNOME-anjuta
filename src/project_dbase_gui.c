@@ -394,7 +394,11 @@ on_tree_model_row_deleted (GtkTreeModel *model, GtkTreePath  *path)
 		gtk_tree_model_get (model, &iter,
 							PROJECT_DATA_COLUMN, &pfd,
 							-1);
+		/* This leads to memory corruption ! - Biswa
+		if (pfd == app->project_dbase->current_file_data)
+			app->project_dbase->current_file_data = NULL;
 		project_file_data_destroy (pfd);
+		*/
 	}
 }
 
@@ -467,7 +471,7 @@ on_tree_selection_changed (GtkTreeSelection *selection, ProjectDBase *p)
 	}
 	gtk_tree_model_get (model, &iter, PROJECT_DATA_COLUMN, &info, -1);
 #ifdef DEBUG
-	g_message ("Project tree selection changed to %X", info);
+	g_message ("Project tree selection changed to %s", info->full_filename);
 #endif
 	p->current_file_data = info;
 }
@@ -557,7 +561,6 @@ create_project_dbase_gui (ProjectDBase * p)
 	GtkWidget *notebook1;
 	GtkWidget *scrolledwindow1;
 	GtkWidget *ctree1;
-	GtkCList *clist1;
 	AnSymbolView *sv;
 	AnFileView *fv;
 	AnjutaPreferences *pr = ANJUTA_PREFERENCES (app->preferences);
@@ -1100,7 +1103,6 @@ GtkWidget *
 create_project_confirm_dlg (GtkWidget *parent)
 {
 	GtkWidget *mesgbox;
-	GtkWidget *dialog_vbox9;
 
 	mesgbox = gtk_message_dialog_new (GTK_WINDOW (parent),
 									  GTK_DIALOG_DESTROY_WITH_PARENT,

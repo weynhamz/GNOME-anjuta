@@ -651,7 +651,7 @@ fv_create ()
 					  G_CALLBACK (on_file_view_row_expanded), NULL);
 	g_signal_connect (fv->tree, "row_collapsed",
 					  G_CALLBACK (on_file_view_row_collapsed), NULL);
-	g_signal_connect (fv->tree, "event",
+	g_signal_connect (fv->tree, "event-after",
 					  G_CALLBACK (on_tree_view_event), NULL);
 	g_signal_connect (fv->tree, "row_activated",
 					  G_CALLBACK (on_treeview_row_activated), NULL);

@@ -19,7 +19,8 @@ config.log
 config.status
 configure
 conftest*
-intl
+config.sub
+config.guess
 intl
 libtool
 ltconfig
