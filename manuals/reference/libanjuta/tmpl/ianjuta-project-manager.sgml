@@ -33,11 +33,15 @@ ianjuta-project-manager
 </para>
 
 @g_iface: 
-@added: 
-@removed: 
-@selected: 
-@configure: 
-@get_sources: 
+@element_added: 
+@element_removed: 
+@element_selected: 
+@get_children: 
+@get_element_type: 
+@get_elements: 
+@get_parent: 
+@get_selected: 
+@get_target_type: 
 @get_targets: 
 
 <!-- ##### FUNCTION ianjuta_project_manager_error_quark ##### -->
@@ -46,14 +50,5 @@ ianjuta-project-manager
 </para>
 
 @Returns: 
-
-
-<!-- ##### FUNCTION ianjuta_project_manager_configure ##### -->
-<para>
-
-</para>
-
-@obj: 
-@err: 
 
 

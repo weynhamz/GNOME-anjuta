@@ -1,5 +1,13 @@
 2005-02-03  Naba Kumar  <naba@gnome.org>
 
+	* plugins/build-basic-autotools/build-basic-autotools.c: Fixed
+	build error.
+	
+	* manuals/reference/libanjuta/tmpl/ianjuta-buildable.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-editor.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-project-manager.sgml,
+	manuals/reference/libanjuta/tmpl/libanjuta-unused.sgml: Updated.
+
 	* libanjuta/interfaces/libanjuta.idl,
 	plugins/project-manager/plugin.c: Implemented IAnjutaProjectManager
 	interface.

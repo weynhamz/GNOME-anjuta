@@ -1601,6 +1601,15 @@ Properties
 @filetypes: 
 @Returns: 
 
+<!-- ##### FUNCTION ianjuta_buildable_compile ##### -->
+<para>
+
+</para>
+
+@obj: 
+@filename: 
+@err: 
+
 <!-- ##### FUNCTION ianjuta_file_get_filename ##### -->
 <para>
 
@@ -1650,6 +1659,14 @@ Properties
 @Returns: 
 @message_view: 
 @e: 
+
+<!-- ##### FUNCTION ianjuta_project_manager_configure ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
 
 <!-- ##### FUNCTION prop_clear ##### -->
 <para>

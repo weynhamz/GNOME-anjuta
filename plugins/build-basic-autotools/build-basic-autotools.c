@@ -1364,6 +1364,7 @@ basic_autotools_plugin_class_init (GObjectClass *klass)
 	klass->finalize = finalize;
 }
 
+#if 0
 static void
 ibuildable_compile (IAnjutaBuildable *manager, const gchar * filename,
 					GError **err)
@@ -1371,6 +1372,7 @@ ibuildable_compile (IAnjutaBuildable *manager, const gchar * filename,
 	BasicAutotoolsPlugin *plugin = (BasicAutotoolsPlugin*)ANJUTA_PLUGIN (manager);
 	build_compile_file_real (plugin, filename);
 }
+#endif
 
 static void
 ibuildable_build (IAnjutaBuildable *manager, const gchar *directory,
@@ -1415,7 +1417,7 @@ ibuildable_generate (IAnjutaBuildable *manager, const gchar *directory,
 static void
 ibuildable_iface_init (IAnjutaBuildableIface *iface)
 {
-	iface->compile = ibuildable_compile;
+	/* iface->compile = ibuildable_compile; */
 	iface->build = ibuildable_build;
 	iface->clean = ibuildable_clean;
 	iface->install = ibuildable_install;

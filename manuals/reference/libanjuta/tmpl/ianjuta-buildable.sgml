@@ -35,7 +35,6 @@ ianjuta-buildable
 @g_iface: 
 @build: 
 @clean: 
-@compile: 
 @configure: 
 @generate: 
 @install: 
@@ -54,8 +53,10 @@ ianjuta-buildable
 </para>
 
 @obj: 
-@directory: 
+@uri: 
 @err: 
+<!-- # Unused Parameters # -->
+@directory: 
 
 
 <!-- ##### FUNCTION ianjuta_buildable_clean ##### -->
@@ -64,18 +65,10 @@ ianjuta-buildable
 </para>
 
 @obj: 
+@uri: 
+@err: 
+<!-- # Unused Parameters # -->
 @directory: 
-@err: 
-
-
-<!-- ##### FUNCTION ianjuta_buildable_compile ##### -->
-<para>
-
-</para>
-
-@obj: 
-@filename: 
-@err: 
 
 
 <!-- ##### FUNCTION ianjuta_buildable_configure ##### -->
@@ -84,8 +77,10 @@ ianjuta-buildable
 </para>
 
 @obj: 
-@directory: 
+@uri: 
 @err: 
+<!-- # Unused Parameters # -->
+@directory: 
 
 
 <!-- ##### FUNCTION ianjuta_buildable_generate ##### -->
@@ -94,8 +89,10 @@ ianjuta-buildable
 </para>
 
 @obj: 
-@directory: 
+@uri: 
 @err: 
+<!-- # Unused Parameters # -->
+@directory: 
 
 
 <!-- ##### FUNCTION ianjuta_buildable_install ##### -->
@@ -104,7 +101,9 @@ ianjuta-buildable
 </para>
 
 @obj: 
-@directory: 
+@uri: 
 @err: 
+<!-- # Unused Parameters # -->
+@directory: 
 
 
