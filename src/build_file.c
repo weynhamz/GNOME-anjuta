@@ -128,7 +128,7 @@ on_build_terminated (AnjutaLauncher *launcher,
 
 	g_signal_handlers_disconnect_by_func (launcher,
 										  G_CALLBACK (on_build_terminated),
-										  NULL);
+										  data);
 	buff1 = g_strdup_printf (_("Total time taken: %lu secs\n"), time_taken);
 	if (status)
 	{

@@ -948,7 +948,7 @@ on_gdb_terminated (AnjutaLauncher *launcher,
 {
 	g_signal_handlers_disconnect_by_func (G_OBJECT (launcher),
 										  G_CALLBACK (on_gdb_terminated),
-										  NULL);
+										  data);
 	
 #ifdef ANJUTA_DEBUG_DEBUGGER
 	g_message ("In function: gdb_terminated()");

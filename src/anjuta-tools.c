@@ -489,7 +489,7 @@ static void tool_terminate_handler (AnjutaLauncher *launcher,
 {
 	g_signal_handlers_disconnect_by_func (G_OBJECT (launcher),
 										  G_CALLBACK (tool_terminate_handler),
-										  NULL);
+										  data);
 	if (current_tool)
 	{
 		if (current_tool->error <= MESSAGE_MAX  && current_tool->error >= 0)

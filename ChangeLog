@@ -1,3 +1,13 @@
+2003-11-18  Naba Kumar  <naba@gnome.org>
+
+	* src/anjuta-tools.c, src/build_file.c, src/cvs.c, src/debugger.c,
+	src/find_in_files.c, src/gnome_project.c, src/launcher.c,
+	src/project_import.c, plugins/patch/patch-plugin.c:
+	Fixed g_signal_diconnect calls to pass correct data.
+	(Fixed possible crash in project imports).
+	
+	* NEWS: Updated.
+	
 2003-11-18  Pavol Bosik  <Pavol.Bosik@siemens.com>
 
 	Reviewed by Naba Kumar  <naba@gnome.org>

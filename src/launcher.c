@@ -148,6 +148,7 @@ anjuta_launcher_initialize (AnjutaLauncher *obj)
 	
 	/* Output callback */
 	obj->priv->output_callback = NULL;
+	obj->priv->callback_data = NULL;
 }
 
 guint

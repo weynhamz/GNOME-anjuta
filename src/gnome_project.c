@@ -261,11 +261,8 @@ new_prj_terminated (AnjutaLauncher *launcher, gint child_pid,
 					gint status, time_t t, gpointer data)
 {
 	g_signal_handlers_disconnect_by_func (launcher,
-										  G_CALLBACK (new_prj_mesg_arrived),
-										  NULL);
-	g_signal_handlers_disconnect_by_func (launcher,
 										  G_CALLBACK (new_prj_terminated),
-										  NULL);
+										  data);
 	if (status)
 	{
 		an_message_manager_append (app->messages,

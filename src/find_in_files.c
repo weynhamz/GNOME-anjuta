@@ -342,7 +342,7 @@ find_in_files_terminated (AnjutaLauncher *launcher,
 
 	g_signal_handlers_disconnect_by_func (G_OBJECT (launcher),
 										  G_CALLBACK (find_in_files_terminated),
-										  NULL);
+										  data);
 	if (status)
 	{
 		an_message_manager_append (app->messages,

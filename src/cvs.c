@@ -803,7 +803,7 @@ on_cvs_terminated (AnjutaLauncher *launcher, gint child_pid,
 {
 	g_signal_handlers_disconnect_by_func (G_OBJECT (app->launcher),
 										  G_CALLBACK (on_cvs_terminated),
-										  NULL);
+										  data);
 	on_cvs_terminated_real (status, time_taken);
 }
 
@@ -813,7 +813,7 @@ on_cvs_buffer_terminated (AnjutaLauncher *launcher, gint child_pid,
 {
 	g_signal_handlers_disconnect_by_func (G_OBJECT (app->launcher),
 										  G_CALLBACK (on_cvs_buffer_terminated),
-										  NULL);
+										  data);
 	on_cvs_terminated_real (status, time_taken);
 }
 

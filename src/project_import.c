@@ -171,7 +171,7 @@ on_import_terminated (AnjutaLauncher *launcher,
 	
 	g_signal_handlers_disconnect_by_func (launcher,
 										  G_CALLBACK (on_import_terminated),
-										  NULL);
+										  data);
 
 	anjuta_update_app_status (TRUE, NULL);
 
