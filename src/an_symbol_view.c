@@ -267,7 +267,7 @@ static GnomeUIInfo an_symbol_view_menu_uiinfo[] = {
 	 0, 0, NULL}
 	,	GNOMEUIINFO_SEPARATOR, /*4*/
 	{/* 5 */
-	 GNOME_APP_UI_ITEM, N_("Dock/Undock"),
+	 GNOME_APP_UI_TOGGLEITEM, N_("Docked"),
 	 N_("Dock/Undock the Project Window"),
 	 on_project_dock_undock1_activate, NULL, NULL,
 	 PIX_FILE(DOCK),
@@ -297,8 +297,10 @@ sv_on_event(GtkWidget *widget, GdkEvent *event, gpointer user_data)
 	if (event->type == GDK_BUTTON_PRESS) {
 		if (((GdkEventButton *) event)->button != 3)
 			return FALSE;
-		
+
 		/* Popup project menu */
+		GTK_CHECK_MENU_ITEM(an_symbol_view_menu_uiinfo[5].widget)->active =
+		  app->project_dbase->is_docked;
 		gtk_menu_popup(GTK_MENU(sv->menu), NULL, NULL, NULL, NULL
 		  , ((GdkEventButton *) event)->button, ((GdkEventButton *) event)->time);
 		

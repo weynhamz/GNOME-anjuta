@@ -1310,7 +1310,6 @@ on_debugger_update_prog_status (GList * lines, gpointer data)
 		debugger.stack->current_frame = 0;
 		debugger.child_pid = pid;
 	}
-	update_main_menubar ();
 	debug_toolbar_update ();
 	debugger_info_prg();
 	return;

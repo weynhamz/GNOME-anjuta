@@ -1,3 +1,19 @@
+2002-06-10	Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
+
+	* anjuta.spec.in, configure.in: Fixed gdk-pixbuf and gnome-print
+	requirements.
+	* src/an_file_view.c, src/an_symbol_view.c, src/debugger.c, 
+	src/main_menubar_def.h, src/message-manager-private.h, 
+	src/message-manager.cc, src/project_dbase.[ch], 
+	src/project_dbase_gui.c, src/text_editor.c, 
+	src/text_editor_menu.[ch]: Consistent dock/undock check menu items 
+	for project, messages and editor windows.
+	* data/stock_libs.anj: more library descriptions
+	* src/controls.c: disable Format->Detach if notebook has no 
+	children
+	
+	Patches reviewed by Andy Piper <andy.piper@freeuk.com>
+
 2002-06-09	Andy Piper	<andy.piper@freeuk.com>
 
 	* data/stock_libs.anj: added more library descriptions

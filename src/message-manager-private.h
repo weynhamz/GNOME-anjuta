@@ -42,6 +42,7 @@ struct _AnjutaMessageManagerPrivate
 	GtkWidget* box;
 	GtkWidget* notebook;
 	GtkWidget* popupmenu;
+	GtkWidget *dock_item;
 	
 	// Only if undocked!
 	GtkWidget* window;

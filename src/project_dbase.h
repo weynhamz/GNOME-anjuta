@@ -111,6 +111,7 @@ struct _ProjectDBaseGui
 	GtkWidget *menu_remove;
 	GtkWidget *menu_configure;
 	GtkWidget *menu_info;
+	GtkWidget *menu_docked;
 
 	/* Ctree nodes and info */
 	GtkCTreeNode *root_node;
@@ -328,6 +329,8 @@ project_dbase_get_dir (ProjectDBase * p);
 /* copy of string */
 gchar*
 project_dbase_get_name (ProjectDBase * p);
+
+void project_dbase_update_docked_status(void);
 
 /* Callback signals */
 

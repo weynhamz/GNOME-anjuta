@@ -917,7 +917,7 @@ static GnomeUIInfo project1_menu_uiinfo[NUM_PROJECT_SUBMENUS+1] = {
 	 0, 0, NULL},
 	GNOMEUIINFO_SEPARATOR, /*7*/
 	{/*8*/
-	 GNOME_APP_UI_ITEM, N_("Dock/Undock"),
+	 GNOME_APP_UI_TOGGLEITEM, N_("Docked"),
 	 N_("Dock/Undock the Project Window"),
 	 on_project_dock_undock1_activate, NULL, NULL,
 	 PIX_FILE(DOCK),

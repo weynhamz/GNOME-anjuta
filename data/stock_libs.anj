@@ -7,22 +7,22 @@ Festival Multi-lingual speech synthesis
 FlagShip Database porting system for xBase-based languages
 Fn
 IDL Create trees of CORBA Interface Definition Language files
-IIOP
+IIOP CORBA IIOP
 Im
 ORBit High-performance CORBA Object Request Broker
 ORBitCosNaming
-ORBitutil
+ORBitutil ORBit utilities
 PropList GNUstep-compatible preferences maintenance
 apm Advanced Power Management utilities
-art_lgpl
+art_lgpl LibArt library (LGPL version)
 audiofile Access to audio file formats such as WAVE and AIFF
 balsasrv
-bfd
-bsd-compat
-bsd
+bfd Library for manipulating binary object files
+bsd-compat BSD compatibility library
+bsd BSD style function calls
 bz2 bzip2 data compression
-c
-c_nonshared
+c The standard C library (LInked by default)
+c_nonshared Statically linked libC
 c_p
 c_stubs
 capi20 ISDN CAPI2.0 functions
@@ -31,17 +31,17 @@ cfont
 com_err Common error display handling
 compface
 console
-crypt
+crypt Encryption/decryption library
 crypt_p
 ctgeneric
 ctutils
 customs
-db
-db1
+db Berkeley DB library
+db1 Berkeley DB verison 1.x
 db1_p
 db_p
 deflt
-dl
+dl Library for dynamic loading/unloading of shared libraries
 dl_p
 e2p
 ecpg
@@ -58,28 +58,28 @@ form
 g
 gck
 gdbm GNU database indexing library
-gdk
-gdk_im
+gdk The GIMP Drawing Kit (Library used by GTK)
+gdk_im The Iblim image library (GDK version)
 gdkcardimage
 ghttp GNOME library for making HTTP 1.1 requests
-gif
+gif Library for manipulating GIF images
 gimp
 gimpui
 gkb_applet
-glade-gnome
-glade-gnomemm
+glade-gnome GNOME additions to Glade
+glade-gnomemm Generate C++ GNOME code from Glade
 glade Dynamic creation of widgets from *.glade files
 g
-gmodule
+gmodule GNOME shared module library
 gmp Arbitrary precision arithmetic functions
-gnome
-gnomecanvaspixbuf
-gnomemm
-gnomeole2
+gnome Gnome library (non-UI)
+gnomecanvaspixbuf Gnome Canvas Pixbuf
+gnomemm Gnome C++ wrapper
+gnomeole2 OLE2 implementation for GNOME
 gnomeprint GNOME print library
 gnomesupport
 gnomeui GNOME user interface library
-gnomevfs
+gnomevfs Gnome VFS
 gnomevfs-pthread
 gnorba
 gnorbagtk
@@ -100,15 +100,15 @@ guile Implementation of the Scheme programming language
 history Functions for editing command lines (readlines)
 iberty
 icq GAIM GTK Instant Messenger functions 
-ieee
-im-bmp
-im-gif
-im-jpeg
-im-png
-im-ppm
-im-ps
-im-tiff
-im-xpm
+ieee IEEE compliance library
+im-bmp Imlib library for handling BMP
+im-gif Imlib library for handling GIF
+im-jpeg Imlib library for handling JPEG
+im-png Imlib library for handling PNG
+im-ppm Imlib library for handling PPM
+im-ps Imlib library for handling PS
+im-tiff Imlib library for handling TIFF
+im-xpm Imlib library for handling XPM
 inn
 isapnp
 jpeg Functions for manipulating JPEG images
@@ -121,10 +121,10 @@ lber Lightweight Directory Access Protocol functions (openldap)
 ldap Lightweight Directory Access Protocol functions
 linuxconf
 ltdl
-m
+m Math routines
 m_p
 mcheck
-md5
+md5 MD5 utility functions
 megawidget
 mej
 memintercept Functions for profiling memory usage and detecting memory leaks
@@ -134,7 +134,7 @@ modules
 name-server
 ncur194
 ncurses Screen handling and optimization routines
-ndbm
+ndbm New DBM library
 newt Library for color text mode, widget-based user interfaces
 nsl
 nsl_p
@@ -144,7 +144,7 @@ opcodes
 orbit-c-backend
 ostyle OpenJade DSSSL library functions
 p2c
-panel
+panel GNOME panel functions
 panel_applet
 pbm Support functions for handling portable bitmap (.pbm) files
 pcap Portable framework for low-level network monitoring
@@ -162,7 +162,7 @@ ppm Support functions for handling portable pixmap (.ppm) files
 pq++
 pq
 psqlodbc
-pthread
+pthread POSIX threads
 pthread_p
 puke
 readline Functions for editing command lines
@@ -187,7 +187,7 @@ storage
 style
 tclx8.0.4
 termcap
-tiff
+tiff TIFF image manipulation functions
 tkx8.0.4
 ttf Portable TrueType font rendering engine
 ucdagent
@@ -219,9 +219,9 @@ wwwtrans
 wwwutils
 wwwxml
 wwwzip
-xml
-xmlparse
-xmltok
+xml GNOME XML (libxml)
+xmlparse Expat (parser)
+xmltok Expat (tokenizer)
 xmms
 z General-purpose lossless data compression
 zvt Embeddable terminal widget (Zed's Virtual Terminal)

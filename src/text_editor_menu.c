@@ -38,6 +38,9 @@
 #include "global.h"
 
 static void
+on_tem_dock_undock_activate (GtkWidget* menuitem, gpointer data);
+
+static void
 on_tem_toggle_linenum_activate (GtkWidget* menuitem, gpointer data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
@@ -349,23 +352,29 @@ GnomeUIInfo text_editor_menu_uiinfo[] = {
 	,
 	{
 	 /* 19 */
-	 GNOME_APP_UI_ITEM, N_("Detach"),
+	 GNOME_APP_UI_TOGGLEITEM, N_("Docked"),
 	 NULL,
-	 on_detach1_activate, NULL, NULL,
-	 PIX_FILE(DETACH),
+	 on_tem_dock_undock_activate, NULL, NULL,
+	 PIX_FILE(DOCK),
 	 0, 0, NULL}
 	,
-	{
 	 /* 20 */
-	 GNOME_APP_UI_ITEM, N_("Attach"),
-	 NULL,
-	 on_text_editor_dock_activate, NULL, NULL,
-	 PIX_FILE(ATTACH),
-	 0, 0, NULL}
-	,
-	 /* 21 */
 	GNOMEUIINFO_END
 };
+
+static void
+on_tem_dock_undock_activate (GtkWidget* menuitem, gpointer data)
+{
+	TextEditor *te = anjuta_get_current_text_editor();
+
+	if (NULL == te)
+		return;
+	if (TEXT_EDITOR_WINDOWED == te->mode)
+		on_text_editor_dock_activate(NULL, NULL);
+	else
+		on_detach1_activate(NULL, NULL);
+}
+
 
 TextEditorMenu *
 text_editor_menu_new ()
@@ -390,6 +399,7 @@ text_editor_menu_destroy (TextEditorMenu * tm)
 		gtk_widget_unref (tm->swap);
 		gtk_widget_unref (tm->functions);
 		gtk_widget_unref (tm->debug);
+		gtk_widget_unref (tm->docked);
 		if (tm->GUI)
 			gtk_widget_destroy (tm->GUI);
 		free (tm);
@@ -438,8 +448,7 @@ text_editor_menu_popup (TextEditorMenu * menu, GdkEventButton * bevent)
 	}
 	gtk_widget_set_sensitive (menu->debug, A);
 	gtk_widget_set_sensitive(menu->context_help, app->has_devhelp);
-	gtk_widget_set_sensitive(menu->attach, B);
-	gtk_widget_set_sensitive(menu->detach, !B);
+	GTK_CHECK_MENU_ITEM(menu->docked)->active = !B;
 	gtk_menu_popup (GTK_MENU (menu->GUI), NULL, NULL, NULL, NULL,
 			bevent->button, bevent->time);
 }
@@ -464,8 +473,7 @@ create_text_editor_menu_gui (TextEditorMenu * menu)
 		menu->swap = text_editor_menu_uiinfo[8].widget;
 		menu->functions = text_editor_menu_uiinfo[11].widget;
 		menu->debug = text_editor_menu_uiinfo[13].widget;
-		menu->detach = text_editor_menu_uiinfo[19].widget;
-		menu->attach = text_editor_menu_uiinfo[20].widget;
+		menu->docked = text_editor_menu_uiinfo[19].widget;
 
 		gtk_widget_ref (menu->GUI);
 		gtk_widget_ref (menu->cut);
@@ -476,8 +484,7 @@ create_text_editor_menu_gui (TextEditorMenu * menu)
 		gtk_widget_ref (menu->swap);
 		gtk_widget_ref (menu->functions);
 		gtk_widget_ref (menu->debug);
-		gtk_widget_ref (menu->detach);
-		gtk_widget_ref (menu->attach);
+		gtk_widget_ref (menu->docked);
 	}
 }
 

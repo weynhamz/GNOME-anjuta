@@ -144,7 +144,7 @@ anjuta_message_manager_init (GtkObject * obj)
 	static GtkItemFactoryEntry menu_items[] = {
 		{"/separator", NULL, NULL, 0, "<Separator>"}
 	};
-	GtkWidget* dock_item = gtk_menu_item_new_with_label(_("Dock/Undock"));
+	GtkWidget* dock_item = gtk_check_menu_item_new_with_label(_("Docked"));
 	gtk_signal_connect(GTK_OBJECT(dock_item), "activate", GTK_SIGNAL_FUNC(on_dock_activate), amm);
 	gtk_widget_show(dock_item);
 	
@@ -155,7 +155,8 @@ anjuta_message_manager_init (GtkObject * obj)
 	amm->intern->popupmenu =
 		gtk_item_factory_get_widget (factory, "<none>");
 	gtk_menu_prepend(GTK_MENU(amm->intern->popupmenu), dock_item);
-	
+	amm->intern->dock_item = dock_item;
+	gtk_widget_ref(amm->intern->dock_item);
 	gtk_signal_connect (GTK_OBJECT (amm), "button_press_event",
 			    GTK_SIGNAL_FUNC (on_popup_clicked), amm);
 
@@ -771,6 +772,7 @@ on_popup_clicked (AnjutaMessageManager * amm, GdkEvent * event)
 	if (event->type == GDK_BUTTON_PRESS
 	    && ((GdkEventButton *) event)->button == 3)
 	{
+		GTK_CHECK_MENU_ITEM(amm->intern->dock_item)->active = amm->intern->is_docked;
 		gtk_menu_popup (GTK_MENU (amm->intern->popupmenu), NULL, NULL,
 				NULL, NULL,
 				((GdkEventButton *) event)->button,

@@ -109,22 +109,22 @@ AC_SUBST(HAVE_JW)
 dnl ******************************
 dnl GnomePrint checking
 dnl ******************************
-AC_MSG_CHECKING(for GnomePrint libraries >= 0.28)
+AC_MSG_CHECKING(for GnomePrint libraries >= 0.35)
 if gnome-config --libs print > /dev/null 2>&1; then 
     vers=`gnome-config --modversion print | sed -e "s/gnome-print-//" | \
         awk 'BEGIN { FS = "."; } { print $1 * 1000 + $2;}'`
-    if test "$vers" -ge 28; then
+    if test "$vers" -ge 35; then
         AC_MSG_RESULT(found)
     else
-        AC_MSG_ERROR(You need at least GNOME print 0.28 for this version of Anjuta)
+        AC_MSG_ERROR(You need at least GNOME print 0.35 for this version of Anjuta)
     fi
 else
     AC_MSG_ERROR(Did not find GnomePrint installed)
 fi
 
 dnl Checks for libraries.
-EXTRA_GNOME_LIBS=`gnome-config --libs gnorba zvt vfs bonobo print`
-EXTRA_GNOME_CFLAGS=`gnome-config --cflags gnorba zvt vfs bonobo print`
+EXTRA_GNOME_LIBS=`gnome-config --libs gnorba zvt vfs bonobo print gdk_pixbuf`
+EXTRA_GNOME_CFLAGS=`gnome-config --cflags gnorba zvt vfs bonobo print gdk_pixbuf`
 
 AC_SUBST(EXTRA_GNOME_LIBS)
 AC_SUBST(EXTRA_GNOME_CFLAGS)

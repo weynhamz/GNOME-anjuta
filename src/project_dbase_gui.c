@@ -448,7 +448,7 @@ static GnomeUIInfo menu1_uiinfo[] = {
 	 0, 0, NULL},
 	GNOMEUIINFO_SEPARATOR, /*7*/
 	{/*8*/
-	 GNOME_APP_UI_ITEM, N_("Dock/Undock"),
+	 GNOME_APP_UI_TOGGLEITEM, N_("Docked"),
 	 NULL,
 	 on_project_dock_undock1_activate, NULL, NULL,
 	 PIX_FILE(DOCK),
@@ -477,6 +477,7 @@ create_project_menus (ProjectDBase * p)
 	p->widgets.menu_remove = menu1_uiinfo[3].widget;
 	p->widgets.menu_configure = menu1_uiinfo[5].widget;
 	p->widgets.menu_info = menu1_uiinfo[6].widget;
+	p->widgets.menu_docked = menu1_uiinfo[8].widget;
 	gtk_widget_ref (menu);
 }
 

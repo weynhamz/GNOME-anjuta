@@ -239,7 +239,7 @@ update_main_menubar ()
 	DebugSubMenu *dm;
 	HelpSubMenu *hm;
 	CVSSubMenu* cvs;
-	gboolean F, P, SF, L, G, A, R, Pr, UD, RD, Ld, C, I, FLD, UT, PCVS;
+	gboolean F, P, SF, L, G, A, R, Pr, UD, RD, Ld, C, I, FLD, UT, PCVS, notebook_has_editors;
 	TextEditor *te;
 
 	if (app->shutdown_in_progress)
@@ -256,6 +256,7 @@ update_main_menubar ()
 	cvs = &(app->widgets.menubar.cvs);
 	P = app->project_dbase->project_is_open;
 	PCVS = P && app->project_dbase->has_cvs;
+	notebook_has_editors = (GTK_NOTEBOOK (app->widgets.notebook)->children != NULL);
 	if (P)
 		G = TRUE;
 	else
@@ -378,7 +379,7 @@ update_main_menubar ()
 	gtk_widget_set_sensitive (ftm->close_folds, FLD);
 	gtk_widget_set_sensitive (ftm->open_folds, FLD);
 	gtk_widget_set_sensitive (ftm->toggle_fold, FLD);
-	gtk_widget_set_sensitive (ftm->detach, F);
+	gtk_widget_set_sensitive (ftm->detach, F && notebook_has_editors);
 	gtk_widget_set_sensitive (ftm->indent_inc, F);
 	gtk_widget_set_sensitive (ftm->indent_dcr, F);
 

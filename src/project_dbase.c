@@ -435,6 +435,7 @@ project_dbase_destroy (ProjectDBase * p)
 	gtk_widget_unref (p->widgets.menu_remove);
 	gtk_widget_unref (p->widgets.menu_configure);
 	gtk_widget_unref (p->widgets.menu_info);
+	gtk_widget_unref (p->widgets.menu_docked);
 	if (p->widgets.window)
 		gtk_widget_destroy (p->widgets.window);
 
@@ -1237,6 +1238,14 @@ project_dbase_close_project (ProjectDBase * p)
 }
 
 void
+project_dbase_update_docked_status(void)
+{
+	gboolean status = app->project_dbase->project_is_open & app->project_dbase->is_docked;
+	GTK_CHECK_MENU_ITEM(app->widgets.menubar.project.dock_undock)->active = status;
+	GTK_CHECK_MENU_ITEM(app->project_dbase->widgets.menu_docked)->active = status;
+}
+
+void
 project_dbase_dock (ProjectDBase * p)
 {
 	if (p)
@@ -1248,15 +1257,13 @@ project_dbase_dock (ProjectDBase * p)
 			project_dbase_hide (p);
 			p->is_docked = TRUE;
 			project_dbase_show (p);
-			return;
 		}
 		else
-		{
 			p->is_docked = TRUE;
-			return;
-		}
+		project_dbase_update_docked_status();
 	}
 }
+
 void
 project_dbase_undock (ProjectDBase * p)
 {
@@ -1269,16 +1276,12 @@ project_dbase_undock (ProjectDBase * p)
 			project_dbase_hide (p);
 			p->is_docked = FALSE;
 			project_dbase_show (p);
-			return;
 		}
 		else
-		{
 			p->is_docked = FALSE;
-			return;
-		}
+		project_dbase_update_docked_status();
 	}
 }
-
 
 gboolean
 project_dbase_is_file_in_module (ProjectDBase * p, PrjModule module,
@@ -2346,6 +2349,7 @@ project_dbase_load_project_finish (ProjectDBase * p, gboolean show_project)
 	anjuta_update_app_status(FALSE, NULL);
 	anjuta_status (_("Project loaded successfully."));
 	anjuta_set_active ();
+	project_dbase_update_docked_status();
 	if (show_project)
 		project_dbase_show (p);
 	project_dbase_reload_session(p);

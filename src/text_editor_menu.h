@@ -33,8 +33,7 @@ struct _TextEditorMenu
 	GtkWidget *swap;
 	GtkWidget *functions;
 	GtkWidget *debug;
-	GtkWidget *detach;
-	GtkWidget *attach;
+	GtkWidget *docked;
 };
 
 void create_text_editor_menu_gui (TextEditorMenu *);
