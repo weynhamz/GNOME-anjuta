@@ -1,5 +1,10 @@
 2004-09-19  Naba Kumar  <naba@gnome.org>
 
+	* plugins/project-manager/plugin.c: Added URI activation.
+	* plugins/editor/goto-line.c, plugin/editor/action_callbacks.c:
+	Fixed dialog and closed it on ok. Fixed a crash bug.
+	* plugins/editor/anjuta-docman.c: Set notebook scrollable.
+
 	* (added) libegg/egg-recent-*.c, (added) libegg/recent-files/*,
 	configure.in, libegg/Makefile.am, plugins/file-loader/Makefile.am,
 	plugins/file-loader/anjuta-loader-plugin.ui,

@@ -108,6 +108,7 @@ gotoline_init (GotoLine * obj)
   GtkWidget *frame;
   GtkWidget *numberentry;
   GtkWidget *vbox;
+  GtkWidget *label;
 	
   assert (obj != NULL);
 
@@ -121,7 +122,13 @@ gotoline_init (GotoLine * obj)
   dialog_vbox = GTK_DIALOG (obj)->vbox;
   gtk_widget_show (dialog_vbox);
 
-  frame = gtk_frame_new (_(" Goto Line number "));
+  label = gtk_label_new(NULL);
+  gtk_label_set_markup (GTK_LABEL (label), _("<b>Goto Line number:</b>"));
+  gtk_widget_show (label);
+  frame = gtk_frame_new (NULL);
+  gtk_frame_set_label_widget (GTK_FRAME (frame), label);
+  gtk_frame_set_shadow_type (GTK_FRAME (frame), GTK_SHADOW_NONE);
+  gtk_container_set_border_width (GTK_CONTAINER (frame), 10);
   gtk_widget_show (frame);
   gtk_box_pack_start (GTK_BOX (dialog_vbox), frame, FALSE, FALSE, 0);
 
@@ -155,7 +162,6 @@ gotoline_new (TextEditor *te)
   return GTK_WIDGET (gotoline);
 }
 
-
 static void
 on_go_to_line_response (GtkDialog* dialog, gint response, gpointer user_data)
 {
@@ -172,6 +178,5 @@ on_go_to_line_response (GtkDialog* dialog, gint response, gpointer user_data)
 	if (te)
 		text_editor_goto_line (te, num, TRUE, TRUE);
   }
-  else 
-  	gtk_widget_hide (GTK_WIDGET(dialog));
+  gtk_widget_hide (GTK_WIDGET(dialog));
 }

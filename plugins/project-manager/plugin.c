@@ -20,6 +20,7 @@
 
 #include <config.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
+#include <libanjuta/interfaces/ianjuta-file-loader.h>
 #include <libanjuta/interfaces/ianjuta-project-manager.h>
 #include <gbf/gbf-project-util.h>
 #include <gbf/gbf-backend.h>
@@ -61,9 +62,14 @@ on_add_source (GtkAction *action, ProjectManagerPlugin *plugin)
 }
 
 static void
-on_uri_activated (GtkAction *action, ProjectManagerPlugin *plugin)
+on_uri_activated (GtkWidget *widget, gchar *uri, ProjectManagerPlugin *plugin)
 {
-	// TODO:
+	IAnjutaFileLoader *loader;
+	
+	loader = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
+										 IAnjutaFileLoader, NULL);
+	if (loader)
+		ianjuta_file_loader_load (loader, uri, FALSE, NULL);
 }
 
 static void
@@ -179,7 +185,7 @@ activate_plugin (AnjutaPlugin *plugin)
 							 GTK_TREE_MODEL (model));
 	g_object_unref (model);
 	g_signal_connect (view, "uri-activated",
-					  G_CALLBACK (on_uri_activated), NULL);
+					  G_CALLBACK (on_uri_activated), plugin);
 	
 	scrolled_window = gtk_scrolled_window_new (NULL, NULL);
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),

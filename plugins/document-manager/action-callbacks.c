@@ -938,8 +938,11 @@ on_goto_line_no1_activate (GtkAction * action, gpointer user_data)
 	docman = ANJUTA_DOCMAN (plugin->docman);
 	te = anjuta_docman_get_current_editor (docman);
 	
-	gt = gotoline_new (te);
-	gtk_widget_show (gt);
+	if (te)
+	{
+		gt = gotoline_new (te);
+		gtk_widget_show (gt);
+	}
 }
 
 void

@@ -379,6 +379,8 @@ anjuta_docman_instance_init (AnjutaDocman *docman)
 	docman->priv->save_as_fileselection =
 		create_file_save_dialog_gui (GTK_WINDOW (parent), docman);
 	gtk_window_set_modal ((GtkWindow *) docman->priv->save_as_fileselection, TRUE);
+	
+	gtk_notebook_set_scrollable (GTK_NOTEBOOK (docman), TRUE);
 	g_signal_connect (G_OBJECT(docman), "switch_page",
 					  G_CALLBACK (on_notebook_switch_page), docman);
 }
