@@ -53,7 +53,7 @@ static GnomeUIInfo file1_menu_uiinfo[NUM_FILE_SUBMENUS+1] = {
 	 N_("Save all currently open files, except new files"),
 	 on_save_all1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_SAVE,
-	 NULL, NULL, NULL},
+	 0, 0, NULL},
 	{/*5*/
 	 GNOME_APP_UI_ITEM, N_("_Close File"),
 	 N_("Close current file"),
