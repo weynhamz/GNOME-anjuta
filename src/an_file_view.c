@@ -165,7 +165,7 @@ static void fv_prefs_apply(void)
 	gtk_toggle_button_set_active(ff->var ## _tb, \
 								 prop_get_int (p->props, P, 0)); \
 
-static fv_prefs_load (void)
+static void fv_prefs_load (void)
 {
 	gchar *value;
 	gint pos;

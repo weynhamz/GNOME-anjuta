@@ -675,7 +675,11 @@ void TerminalWindow::term_init_cb (GtkWidget *widget,
 	}
 	
 	env = get_child_environment (widget);
+#ifdef OLD_VTE
 	tw->m_child_pid = vte_terminal_fork_command (term, shell, NULL, env);
+#else
+	tw->m_child_pid = vte_terminal_for_command (term, shell , NULL, env, dir, 0, 0, 0);
+#endif
 	g_strfreev (env);
 	tw->preferences_update ();
 }
