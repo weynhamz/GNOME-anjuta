@@ -36,6 +36,8 @@
 #include "SciLexer.h"
 #include "ScintillaWidget.h"
 
+#include "toolbar_callbacks.h"
+
 #include "search-replace_backend.h"
 #include "search-replace.h"
 #include "search_preferences.h"
@@ -957,8 +959,18 @@ search_update_combos(void)
 					MAX_ITEMS_SEARCH_COMBO);
 				gtk_combo_set_popdown_strings((GtkCombo *) search_list,
 					sr->search.expr_history);
+				
+				gtk_signal_disconnect_by_func(
+					GTK_OBJECT(app->widgets.toolbar.main_toolbar.find_entry), 
+					(GtkSignalFunc)on_toolbar_find_incremental, 
+					NULL);
 				entry_set_text_n_select (app->widgets.toolbar.main_toolbar.find_entry,
-								 search_word, FALSE);
+								search_word, FALSE);
+				gtk_signal_connect (
+					GTK_OBJECT(app->widgets.toolbar.main_toolbar.find_entry),
+					"changed",
+					GTK_SIGNAL_FUNC (on_toolbar_find_incremental),
+					NULL);
 			}
 		}
 	}

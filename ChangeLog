@@ -1,3 +1,7 @@
+2004-02-18  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
+	* src/search-replace.c : Fixed a crash bug 
+	Crash on Find & Replace (#887833)
+	
 2004-02-18  Naba Kumar  <naba@gnome.org>
 
 	* src/executer.c: Fixed a crash bug.
