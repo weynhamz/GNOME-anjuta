@@ -685,7 +685,7 @@ TerminalWindow::TerminalWindow(AnMessageManager* p_amm, int p_type_id,
 	m_child_pid = 0;
 	
 	/* Create the terminal preferences page */
-	gxml = glade_xml_new (PACKAGE_DATA_DIR"/glade/an.glade",
+	gxml = glade_xml_new (PACKAGE_DATA_DIR"/glade/anjuta.glade",
 						  "preferences_dialog_terminal",
 						  NULL);
 	anjuta_preferences_add_page (get_preferences(), gxml,
