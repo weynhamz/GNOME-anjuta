@@ -1068,11 +1068,14 @@ create_compiler_options_page7 (CompilerOptions * co)
 {
 	GtkWidget *frame;
 	GtkWidget *frame1;
-	GtkWidget *event_box1;
-	GtkWidget *event_box2;
 	GtkWidget *vbox1;
+	GtkWidget *table1;
+	GtkWidget *label1;
+	GtkWidget *label2;
+	GtkWidget *label3;
 	GtkWidget *entry1;
 	GtkWidget *entry2;
+	GtkWidget *entry3;
 	GtkWidget *checkbutton[2];
 	GtkWidget *hseparator2;
 	gint i;
@@ -1103,37 +1106,52 @@ create_compiler_options_page7 (CompilerOptions * co)
 	gtk_widget_show (hseparator2);
 	gtk_box_pack_start (GTK_BOX (vbox1), hseparator2, TRUE, TRUE, 0);
 
-	frame1 =
-		gtk_frame_new (_
-			       ("Additional compiler options (command line options)"));
+	frame1 = gtk_frame_new (_("Additional Options"));
 	gtk_widget_show (frame1);
 	gtk_box_pack_start (GTK_BOX (vbox1), frame1, TRUE, TRUE, 0);
 	gtk_container_set_border_width (GTK_CONTAINER (frame1), 5);
 
-	event_box1 = gtk_event_box_new ();
-	gtk_widget_show (event_box1);
-	gtk_container_add (GTK_CONTAINER (frame1), event_box1);
-	gtk_container_set_border_width (GTK_CONTAINER (event_box1), 5);
-
+	table1 = gtk_table_new(3, 2, FALSE);
+	gtk_widget_show (table1);
+	gtk_table_set_row_spacings (GTK_TABLE (table1), 5);
+	gtk_table_set_col_spacings (GTK_TABLE (table1), 6);
+	gtk_container_add (GTK_CONTAINER (frame1), table1);
+	
+	label1 = gtk_label_new("Compiler flags:");
+	gtk_widget_show (label1);
+	gtk_table_attach (GTK_TABLE (table1), label1, 0, 1, 0, 1,
+			  (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
+			  (GtkAttachOptions) (GTK_EXPAND | GTK_FILL), 0, 0);
+	
 	entry1 = gtk_entry_new ();
 	gtk_widget_show (entry1);
-	gtk_container_add (GTK_CONTAINER (event_box1), entry1);
-
-	frame1 =
-		gtk_frame_new (_
-			       ("Additional linker options (command line options)"));
-	gtk_widget_show (frame1);
-	gtk_box_pack_start (GTK_BOX (vbox1), frame1, TRUE, TRUE, 0);
-	gtk_container_set_border_width (GTK_CONTAINER (frame1), 5);
-
-	event_box2 = gtk_event_box_new ();
-	gtk_widget_show (event_box2);
-	gtk_container_add (GTK_CONTAINER (frame1), event_box2);
-	gtk_container_set_border_width (GTK_CONTAINER (event_box2), 5);
-
+	gtk_table_attach (GTK_TABLE (table1), entry1, 1, 2, 0, 1,
+			  (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
+			  (GtkAttachOptions) (GTK_EXPAND | GTK_FILL), 0, 0);
+	
+	label2 = gtk_label_new("Linker flags:");
+	gtk_widget_show (label2);
+	gtk_table_attach (GTK_TABLE (table1), label2, 0, 1, 1, 2,
+			  (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
+			  (GtkAttachOptions) (GTK_EXPAND | GTK_FILL), 0, 0);
+	
 	entry2 = gtk_entry_new ();
 	gtk_widget_show (entry2);
-	gtk_container_add (GTK_CONTAINER (event_box2), entry2);
+	gtk_table_attach (GTK_TABLE (table1), entry2, 1, 2, 1, 2,
+			  (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
+			  (GtkAttachOptions) (GTK_EXPAND | GTK_FILL), 0, 0);
+
+	label3 = gtk_label_new("Additional libraries:");
+	gtk_widget_show (label3);
+	gtk_table_attach (GTK_TABLE (table1), label3, 0, 1, 2, 3,
+			  (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
+			  (GtkAttachOptions) (GTK_EXPAND | GTK_FILL), 0, 0);
+	
+	entry3 = gtk_entry_new ();
+	gtk_widget_show (entry3);
+	gtk_table_attach (GTK_TABLE (table1), entry3, 1, 2, 2, 3,
+			  (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
+			  (GtkAttachOptions) (GTK_EXPAND | GTK_FILL), 0, 0);
 
 	for (i = 0; i < 2; i++)
 	{
@@ -1141,10 +1159,12 @@ create_compiler_options_page7 (CompilerOptions * co)
 		gtk_widget_ref (co->widgets.other_button[i]);
 	}
 
-	co->widgets.other_c_options_entry = entry1;
+	co->widgets.other_c_flags_entry = entry1;
 	gtk_widget_ref (entry1);
-	co->widgets.other_l_options_entry = entry2;
+	co->widgets.other_l_flags_entry = entry2;
 	gtk_widget_ref (entry2);
+	co->widgets.other_l_libs_entry = entry3;
+	gtk_widget_ref (entry3);
 
 	return frame;
 }

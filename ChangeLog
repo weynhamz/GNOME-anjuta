@@ -1,3 +1,13 @@
+2001-10-29  Naba Kumar <kh_naba@users.sourceforge.net>
+
+	* src/compiler_options.h, compiler_options.c, compiler_options_cbs.c
+	  compiler_options_gui.c:
+	  Added a new entry for linker flags and renamed c_options to c_flags
+	  and l_options to l_libs. Also, added a new function:
+	  compiler_options_set_prjlflags_in_file();
+	
+	* src/source.c: projects/src/Makefile.am now have LDFLAGS set.
+	  
 2001-10-26	Andy Piper	<andy.piper@freeuk.com>
 
 	* THANKS, src/about.c: corrections and additions following 

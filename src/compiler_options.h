@@ -81,8 +81,9 @@ struct _CompilerOptionsGui
 	GtkWidget *optimize_button[4];
 	GtkWidget *other_button[2];
 
-	GtkWidget *other_c_options_entry;
-	GtkWidget *other_l_options_entry;
+	GtkWidget *other_c_flags_entry;
+	GtkWidget *other_l_flags_entry;
+	GtkWidget *other_l_libs_entry;
 };
 
 struct _CompilerOptions
@@ -98,8 +99,9 @@ struct _CompilerOptions
 	gboolean optimize_button_state[16];
 	gboolean other_button_state[16];
 
-	gchar *other_c_options;
-	gchar *other_l_options;
+	gchar *other_c_flags;
+	gchar *other_l_flags;
+	gchar *other_l_libs;
 
 	gboolean is_showing;
 	gint win_pos_x, win_pos_y;
@@ -136,6 +138,7 @@ gboolean compiler_options_save_yourself (CompilerOptions * co, FILE * s);
 gboolean compiler_options_load_yourself (CompilerOptions * co, PropsID props);
 void compiler_options_update_controls (CompilerOptions *);
 void compiler_options_set_prjcflags_in_file (CompilerOptions * co, FILE* fp);
+void compiler_options_set_prjlflags_in_file (CompilerOptions * co, FILE* fp);
 void compiler_options_set_prjlibs_in_file (CompilerOptions * co, FILE* fp);
 void compiler_options_set_prjmacros_in_file (CompilerOptions * co, FILE* fp);
 

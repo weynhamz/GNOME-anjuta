@@ -85,16 +85,24 @@ on_comopt_apply_clicked (GtkButton * button, gpointer user_data)
 						       other_button[i]));
 	}
 
-	if (co->other_c_options)
-		g_free (co->other_c_options);
-	co->other_c_options =
+	if (co->other_c_flags)
+		g_free (co->other_c_flags);
+	co->other_c_flags =
 		g_strdup (gtk_entry_get_text
-			  (GTK_ENTRY (co->widgets.other_c_options_entry)));
-	if (co->other_l_options)
-		g_free (co->other_l_options);
-	co->other_l_options =
+			  (GTK_ENTRY (co->widgets.other_c_flags_entry)));
+	
+	if (co->other_l_flags)
+		g_free (co->other_l_flags);
+	co->other_l_flags =
 		g_strdup (gtk_entry_get_text
-			  (GTK_ENTRY (co->widgets.other_l_options_entry)));
+			  (GTK_ENTRY (co->widgets.other_l_flags_entry)));
+	
+	if (co->other_l_libs)
+		g_free (co->other_l_libs);
+	co->other_l_libs =
+		g_strdup (gtk_entry_get_text
+			  (GTK_ENTRY (co->widgets.other_l_libs_entry)));
+	
 	compiler_options_set_in_properties (co, co->props);
 
 	if (app->project_dbase->project_is_open)

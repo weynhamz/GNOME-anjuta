@@ -725,13 +725,21 @@ source_write_executable_source_files (ProjectDBase * data)
 	fprintf (fp, "%s_SOURCES = \\\n", target);
 	source_write_module_file_list (data, fp, TRUE, NULL, MODULE_SOURCE);
 
+	fprintf (fp, "%s_LDFLAGS = ", target);
+	/* If any equivalent for this could be done in type->... */
+	/* fprintf (fp, type->ldadd); */
+	compiler_options_set_prjlflags_in_file (app->compiler_options, fp);
+	fprintf (fp, "\n\n");
+	
 	fprintf (fp, "%s_LDADD = ", target);
 	fprintf (fp, type->ldadd);
 	compiler_options_set_prjlibs_in_file (app->compiler_options, fp);
 	fprintf (fp, "\n\n");
 	fclose (fp);
+	
 	if (move_file_if_not_same(filename, actual_file) == FALSE)
 		anjuta_system_error (errno, _("Couldn't create file: %s."), actual_file);
+	
 	g_free (actual_file);
 	g_free (target);
 	free_project_type(type);
@@ -1257,7 +1265,7 @@ source_write_glade_file (ProjectDBase * data)
 	free_project_type(type);
 	fflush( fp );
 	if( ferror( fp ) )
-	{		anjuta_system_error (errno, _("Error writing to : %s."), filename);
+	{		anjuta_system_error (errno, _("Error writing to : %s."), filename);
 		bOK = FALSE ;
 	}
 	fclose (fp);

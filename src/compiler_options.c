@@ -239,8 +239,9 @@ compiler_options_new (PropsID props)
 	CompilerOptions *co = g_malloc (sizeof (CompilerOptions));
 	if (co)
 	{
-		co->other_c_options = g_strdup ("");
-		co->other_l_options = g_strdup ("");
+		co->other_c_flags = g_strdup ("");
+		co->other_l_flags = g_strdup ("");
+		co->other_l_libs = g_strdup ("");
 
 		for (i = 0; i < 16; i++)
 			co->warning_button_state[i] = FALSE;
@@ -387,18 +388,25 @@ compiler_options_destroy (CompilerOptions * co)
 		gtk_widget_unref (co->widgets.def_update_b);
 		gtk_widget_unref (co->widgets.def_remove_b);
 		gtk_widget_unref (co->widgets.def_clear_b);
-		gtk_widget_unref (co->widgets.other_c_options_entry);
-		gtk_widget_unref (co->widgets.other_l_options_entry);
+		gtk_widget_unref (co->widgets.other_c_flags_entry);
+		gtk_widget_unref (co->widgets.other_l_flags_entry);
+		gtk_widget_unref (co->widgets.other_l_libs_entry);
 
 		gtk_widget_unref (co->widgets.supp_clist);
 		gtk_widget_unref (co->widgets.supp_info_b);
 
 		if (co->widgets.window)
 			gtk_widget_destroy (co->widgets.window);
-		if (co->other_c_options)
-			g_free (co->other_c_options);
-		if (co->other_l_options)
-			g_free (co->other_c_options);
+		
+		if (co->other_c_flags)
+			g_free (co->other_c_flags);
+		
+		if (co->other_l_flags)
+			g_free (co->other_l_flags);
+		
+		if (co->other_l_libs)
+			g_free (co->other_l_libs);
+		
 		g_free (co);
 		co = NULL;
 	}
@@ -517,11 +525,16 @@ gint compiler_options_save (CompilerOptions * co, FILE * s)
 		fprintf (s, "%d ", (int) co->other_button_state[i]);
 	fprintf (s, "\n\n");
 
-	fprintf (s, "compiler.options.other.c.options=%s",
-		 co->other_c_options);
+	fprintf (s, "compiler.options.other.c.flags=%s",
+		 co->other_c_flags);
+	
 	fprintf (s, "\n\n");
-	fprintf (s, "compiler.options.other.l.options=%s",
-		 co->other_l_options);
+	fprintf (s, "compiler.options.other.l.flags=%s",
+		 co->other_l_flags);
+	fprintf (s, "\n\n");
+	
+	fprintf (s, "compiler.options.other.l.libs=%s",
+		 co->other_l_libs);
 	fprintf (s, "\n\n");
 
 	return TRUE;
@@ -579,8 +592,9 @@ compiler_options_clear(CompilerOptions *co)
 	co->optimize_button_state[0] = TRUE;
 	co->other_button_state[0] = TRUE;
 
-	string_assign (&co->other_c_options, "");
-	string_assign (&co->other_l_options, "");
+	string_assign (&co->other_c_flags, "");
+	string_assign (&co->other_l_flags, "");
+	string_assign (&co->other_l_libs, "");
 	compiler_options_sync (co);
 }
 
@@ -739,17 +753,24 @@ compiler_options_load (CompilerOptions * co, PropsID props)
 	}
 	glist_strings_free (list);
 
-	str = prop_get (props, "compiler.options.other.c.options");
+	str = prop_get (props, "compiler.options.other.c.flags");
 	if (str)
 	{
-		string_assign (&co->other_c_options, str);
+		string_assign (&co->other_c_flags, str);
+		g_free (str);
+	}
+	
+	str = prop_get (props, "compiler.options.other.l.flags");
+	if (str)
+	{
+		string_assign (&co->other_l_flags, str);
 		g_free (str);
 	}
 
-	str = prop_get (props, "compiler.options.other.l.options");
+	str = prop_get (props, "compiler.options.other.l.libs");
 	if (str)
 	{
-		string_assign (&co->other_l_options, str);
+		string_assign (&co->other_l_libs, str);
 		g_free (str);
 	}
 	compiler_options_sync (co);
@@ -782,14 +803,21 @@ compiler_options_sync (CompilerOptions * co)
 					      co->other_button_state[i]);
 	}
 
-	if (co->other_c_options)
+	if (co->other_c_flags)
 		gtk_entry_set_text (GTK_ENTRY
-				    (co->widgets.other_c_options_entry),
-				    co->other_c_options);
-	if (co->other_l_options)
+				    (co->widgets.other_c_flags_entry),
+				    co->other_c_flags);
+	
+	if (co->other_l_flags)
 		gtk_entry_set_text (GTK_ENTRY
-				    (co->widgets.other_l_options_entry),
-				    co->other_l_options);
+				    (co->widgets.other_l_flags_entry),
+				    co->other_l_flags);
+	
+	if (co->other_l_libs)
+		gtk_entry_set_text (GTK_ENTRY
+				    (co->widgets.other_l_libs_entry),
+				    co->other_l_libs);
+	
 	compiler_options_set_in_properties (co, co->props);
 	compiler_options_update_controls (co);
 	
@@ -1080,8 +1108,9 @@ compiler_options_set_in_properties (CompilerOptions * co, PropsID props)
 	prop_set_with_key (props, "anjuta.compiler.other.flags", str);
 	g_free (str);
 	
-	prop_set_with_key (props, "anjuta.compiler.additional.flags", co->other_c_options);
-	prop_set_with_key (props, "anjuta.linker.additional.flags", co->other_l_options);
+	prop_set_with_key (props, "anjuta.compiler.additional.flags", co->other_c_flags);
+	prop_set_with_key (props, "anjuta.linker.additional.flags", co->other_l_flags);
+	prop_set_with_key (props, "anjuta.linker.additional.libs", co->other_l_libs);
 
 	prop_set_with_key (props, "anjuta.compiler.flags",
 			   "$(anjuta.compiler.includes) $(anjuta.compiler.defines) "
@@ -1092,7 +1121,7 @@ compiler_options_set_in_properties (CompilerOptions * co, PropsID props)
 
 	prop_set_with_key (props, "anjuta.linker.flags",
 			   "$(anjuta.linker.library.paths) $(anjuta.linker.libraries) "
-			   "$(anjuta.linker.additional.flags)");
+			   "$(anjuta.linker.additional.flags) $(anjuta.linker.additional.libs)");
 }
 
 void
@@ -1131,11 +1160,11 @@ compiler_options_set_prjcflags_in_file (CompilerOptions * co, FILE* fp)
 		g_free (buff);
 	}
 
-	if (co->other_c_options)
+	if (co->other_c_flags)
 	{
-		if (strlen (co->other_c_options))
+		if (strlen (co->other_c_flags))
 		{
-			fprintf (fp, "\\\n\t%s", co->other_c_options);
+			fprintf (fp, "\\\n\t%s", co->other_c_flags);
 		}
 	}
 
@@ -1199,8 +1228,41 @@ void
 compiler_options_set_prjlibs_in_file (CompilerOptions * co, FILE* fp)
 {
 	gchar *buff;
+	
+	buff = get_libraries (co, FALSE);
+	
+	if (buff)
+	{
+		if (strlen (buff))
+		{
+			fprintf (fp, "\\\n\t%s", buff);
+		}
+		g_free (buff);
+	}
+	
+	if (co->other_l_libs)
+	{
+		if (strlen (co->other_l_libs))
+		{
+			fprintf (fp, "\\\n\t%s", co->other_l_libs);
+		}
+	}
+}
+
+void
+compiler_options_set_prjlflags_in_file (CompilerOptions * co, FILE* fp)
+{
+	gchar *buff;
 /*	gint i; */
 
+	if (co->other_l_flags)
+	{
+		if (strlen (co->other_l_flags))
+		{
+			fprintf (fp, "\\\n\t%s", co->other_l_flags);
+		}
+	}
+	
 	buff = get_library_paths (co);
 	if (buff)
 	{
@@ -1211,15 +1273,6 @@ compiler_options_set_prjlibs_in_file (CompilerOptions * co, FILE* fp)
 		g_free (buff);
 	}
 
-	buff = get_libraries (co, FALSE);
-	if (buff)
-	{
-		if (strlen (buff))
-		{
-			fprintf (fp, "\\\n\t%s", buff);
-		}
-		g_free (buff);
-	}
 /*
 	for (i = 0; i < g_list_length (GTK_CLIST (co->widgets.supp_clist)->row_list); i++)
 	{
@@ -1229,13 +1282,6 @@ compiler_options_set_prjlibs_in_file (CompilerOptions * co, FILE* fp)
 		fprintf (fp, "\\\n\t%s", buff);
 	}
 */
-	if (co->other_l_options)
-	{
-		if (strlen (co->other_l_options))
-		{
-			fprintf (fp, "\\\n\t%s", co->other_l_options);
-		}
-	}
 }
 
 void
