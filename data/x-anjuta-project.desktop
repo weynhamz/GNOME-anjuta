@@ -1,0 +1,7 @@
+[Desktop Entry]
+Comment=Anjuta Project File
+DefaultApp=anjuta
+Icon=anjuta/anjuta_icon.png
+Type=MimeType
+MimeType=application/x-anjuta-project
+Patterns=*.prj;

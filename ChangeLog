@@ -1,6 +1,7 @@
 2002-10-25  Naba Kumar <naba@gnome.org>
 
 	* manuals/sgmldocs.make: Fixed a couple of bugs.
+	* data/x-anjuta-project.desktop. data/Makefile.am: Mime handling link.
 
 2002-10-24  Naba Kumar <naba@gnome.org>
 

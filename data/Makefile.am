@@ -24,8 +24,10 @@ anjuta_data_DATA = \
 
 
 anjuta_mimedir = $(prefix)/share/mime-info
-
 anjuta_mime_DATA = anjuta.mime
+
+anjuta_mimelnkdir = $(prefix)/share/mimelnk/application
+anjuta_mimelnk_DATA = x-anjuta-project.desktop
 
 MACROS = \
 	ChangeLog \
