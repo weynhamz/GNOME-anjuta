@@ -1,6 +1,5 @@
-Notes for Developers on contributing to Anjuta
+Notes for Developers on contributing to Anjuta:
 ----------------------------------------------
-
 (TO BE EXPANDED OVER TIME - please post submissions to the Anjuta 
 Development mailing list or the project maintainer)
 
@@ -61,7 +60,7 @@ points and try to implement it.
 
 Resources:
 ----------
-
+<pre>
 Homepage: http://www.anjuta.org/
 Project details page: http://sourceforge.net/projects/anjuta/
 CVS snapshots: http://www.anjuta.org/cvs/
@@ -71,10 +70,10 @@ Bug database: http://sourceforge.net/tracker/?atid=114222&group_id=14222&func=br
 Feature Requests: http://sourceforge.net/tracker/?atid=364222&group_id=14222&func=browse
 Forums: http://sourceforge.net/forum/?group_id=14222
 IRC: irc.gnome.org (Channel: #anjuta and #devel-apps)
+</pre>
 
-Tools
+Tools:
 -----
-
 IMPORTANT: please be careful about using Anjuta to develop Anjuta.
 Any instabilities in the development version may cause problems.
 
@@ -83,9 +82,8 @@ the standard GNU tool chain and current stable GNOME libraries to
 build and work with the Anjuta sources.
 
 
-Submitting patches
+Submitting patches:
 ------------------
-
 Patches are good, and patches are always welcome! Small, self-contained 
 patches are preferred - larger patches which touch on a large number 
 of areas of the source tree are more complex to apply and test. 
@@ -94,7 +92,7 @@ Patches may be submitted to the project website, to the mailing lists,
 or directly to the project maintainer.
 
 The six-step plan to patching happiness is as follows:
-
+------------------------------------------------------
 1) All patches should be submitted in *unified* form, i.e. created 
 with the command "diff -u" or "cvs diff -u"). 
 
@@ -105,17 +103,17 @@ file will contain patches for all of the files together.
 Remember to run the cvs diff for the *top* project directory. It will
 automatically recurse into the subdirectories and generate the patches.
 
-We ask for patches in this format because:
+We ask for patches in this format because:<br>
 - more often then not, patches are out of sync with current CVS. This 
 can happen because someone is submitting a patch taken against an old 
 version of Anjuta, or against anonymous CVS (which is usually out of 
 sync for 24 hours). Therefore, the maintainers have to review patches 
-manually.
+manually.<br>
 - if a patch file is opened in Anjuta (or editors such as Nedit) in 
 "Diff" mode, *unified* formats are more readable and errors and 
-mis-syncs are easily detected. Non-unified formats are hard to read.
+mis-syncs are easily detected. Non-unified formats are hard to read.<br>
 - unified patches are more intelligent in recognizing changed lines
-(because by default there is a 3-line context buffer).
+(because by default there is a 3-line context buffer).<br>
 
 2) Diffs taken against CVS should be preceded by "cvs -z3 up" in 
 *all* cases.
@@ -147,15 +145,15 @@ bug-544912.diff as the names are more meaningful. Include the bug number
 or your name and the date in the name of the file. Thanks!
 
 
-General source structure
+General source structure:
 ------------------------
-
 When editing the code, adding new classes or methods, etc. please 
 conform with the style already followed in the source files.
 
 If a section of code will require further work, please add helpful
 comments of the form /* FIXME: ... */
 
+<pre>
 Conventions:
 * _cbs suffix - callbacks
 * _gui suffix - UI definitions for windows, dialogs etc.
@@ -169,20 +167,21 @@ Key elements:
 * printing/ - gnome-print support
 * tagmanager/ - the tagmanager library
 * plugins/ - plugin components (see the sample for more information)
+</pre>
 
-
-Scintilla
+Scintilla:
 ---------
-
 The editing component in Anjuta is Scintilla (www.scintilla.org). 
 The Scintilla sources are imported to the scintilla/ directory in the
 Anjuta source tree - some reorganization is required:
 
+<pre>
 Scintilla		Anjuta
 ---------		------
 src/		->	scintilla/
 gtk/		->	scintilla/
 include/	->	scintilla/include
+</pre>
 
 These are used to compile libscintilla.a, the library which provides
 the bulk of Anjuta's editing functions.
@@ -194,20 +193,18 @@ quite flexible in the ways that they are used. Also, note that lexer
 objects from Scintilla must be referenced in src/Makefile.am in order 
 to get linked into Anjuta.
 
-
-Messages and translations
+Messages and translations:
 -------------------------
-
 There are a few rules we ask contributors to follow when adding new
 message strings and labels to Anjuta.
 
-1. BE CONSISTENT!! 
+1. BE CONSISTENT!! <br>
 a) refer to the standard GNOME Word List in the GNOME Style Guide 
 (http://developer.gnome.org/documents/style-guide/) when referencing 
 different user interface features, and then use the same terminology 
 throughout. Try to ensure that your use of words matches the rest of
-the code.
-b) make sure that mixed case is only used where it makes sense to do so.
+the code.<br>
+b) make sure that mixed case is only used where it makes sense to do so.<br>
 
 Example: "Unable to Start Plug in Module %s".
 This message is not ideal since the standard terminology is "plugin" (so 
@@ -215,9 +212,9 @@ please do not use "Plug in", "plug-in", etc.). Also, in this case there
 is no reason for the words "start" and "module" to start with an uppercase 
 letter.
 
-There are a few standard terms we use - in particular:
-- plugin
-- Project (always with an uppercase P)
+There are a few standard terms we use - in particular:<br>
+- plugin<br>
+- Project (always with an uppercase P)<br>
 
 2. Do not use contractions (don't, can't, etc.). These can make a message 
 difficult to translate.
@@ -237,9 +234,8 @@ technical writing. If you need to refer to Anjuta itself, please use the word
 "Anjuta"! :-)
 
 
-Documentation
+Documentation:
 -------------
-
 The documentation is stored in the manuals/ directory, and consists 
 of a set of SGML sources conforming to the GNOME Documentation Project's
 Style Guide. Please ensure that all additions also follow these guidelines.
@@ -251,28 +247,21 @@ and menus are converted to RGB and the Script-Fu Drop Shadow effect applied
 Translations of application messages are stored in the standard po/ 
 directory structure at the top level of the source tree.
 
-
-
-Graphics
+Graphics:
 --------
-
 PNG format is preferred for application graphics.
 
 The image filenames are mapped in the file src/pixmaps.h, with helper functions
 for manipulating them in src/resources.c. Please use this method for including
 graphics and do not use the filenames directly.
 
-
-
 ARCHITECTURE:
 -------------
-
 The current architecture is rather monolithic and inflexible. There is a drive
 undergoing to change this. Please have a look at the ROADMAP file for details.
 
 1) Event Driven:
 ----------------
-
 When Anjuta was first designed, the primary goal was to enable the use of 
 external unix commands in a more productive and intuitive way. Therefore,
 anjuta follows non-blocking input/output operations aggressively. This means
@@ -292,6 +281,7 @@ to be executed, second is the stdout callback, stderr callback and the child
 terminated callback. They are called when there is chars available in the
 stdout and stderr and when the child terminates respectively.
 
+<pre>
 /* Start a job. */
 /* command_str is the command to be executed */
 /* stdout_func is the callback to be called when chars are received in STDOUT from the process */
@@ -308,14 +298,13 @@ The three callbacks stated above should be of the following prototype:
 void stdout_func (gchar * chars);
 void stderr_func (gchar * chars);
 void command_terminated (int return_status, time_t total_time);
+</pre>
 
-Refer to the file launcher.h for further information.
-
+Refer to the file launcher.h for further information and
 Remember to use this launcher instead of gtk/glib non-blocking IO interface.
 
 1b) Process synchronization:
 ----------------------------
-
 The rest of the processes, which are quick (less that 1/10 sec) in execution
 or whose IO interfaces are not necessary, can safely be forked just like a
 normal fork. For shorter execution wait() system call would suffice it's
@@ -328,6 +317,7 @@ with the call to anjuta_register_child(). It takes two arguments, first the
 child pid and second, the callback to be called when the process with that
 pid terminates. The call to the callback is shipped with the child exit status.
 
+<pre>
 /* Registers the child for asynchronous notification */
 void anjuta_register_child_process (pid_t pid,
 			       void (*callback) (int status, gpointer user_data),
@@ -340,6 +330,7 @@ The callback should be of the following prototype:
 
 /* function name choosen arbitarily */
 void child_terminated_callback (int status, gpointer user_data);
+</pre>
 
 For further information, refer to the file anjuta.c.
 
@@ -358,15 +349,14 @@ There are 6 files which need to be updated.
 
 * main_menubar_def.h - update insert_submenu_uiinfo (and others 
 e.g. inserttext1_submenu_uiinfo) to add the item, help text and name of the 
-callback function.
-* main_menubar.h - update struct _EditSubMenu with the name of the menu widget
-* main_menubar.c - update the array of items referenced around mb->edit.insert_*
+callback function.<br>
+* main_menubar.h - update struct _EditSubMenu with the name of the menu widget<br>
+* main_menubar.c - update the array of items referenced around mb->edit.insert_*<br>
 * mainmenu_callbacks.h, mainmenu_callbacks.c - declare the name of the new callback 
 function in the header file, and add the new function itself based on the
-existing on_insert_*() functions
+existing on_insert_*() functions<br>
 * controls.c - update the list of gtk_widget_set_sensitive calls with a new entry for 
-the menu widget em->insert_* (as specified in main_menubar.h)
-
+the menu widget em->insert_* (as specified in main_menubar.h)<br>
 
 3) How to add new toolbar items in the Toolbars:
 ------------------------------------------------
@@ -377,16 +367,16 @@ Have a look at toolbar.[ch] and controls.[ch].
 -----------------------
 When adding new dialogs or windows, please ensure...
 
-- the WMCLASS attribute is set to a unique value
-
-- a default icon is defined
+- the WMCLASS attribute is set to a unique value<br>
+- a default icon is defined<br>
 Dialogs will take the Anjuta app icon by default, but windows (GtkWindow) will 
 need the following lines added to their creation code:
 
+<pre>
 #include <libgnomeui/gnome-window-icon.h>
 ...
     gnome_window_icon_set_from_default(GTK_WINDOW(window1));
-
+</pre>
 
 
 5) Property/Config management:
@@ -406,13 +396,14 @@ itself. And it is still going.
 
 6) Global shortcut keys:
 ------------------------
-
+<pre>
 The following callback (located in anjuta.c) :
 
 gint
 on_anjuta_window_key_press_event (GtkWidget   *widget,
 				  GdkEventKey *event,
 				  gpointer     user_data)
+</pre>
 
 is called when some key is pressed in the whole environement, because the
 event is triggered off by the main GtkWindow. It has been created for navigating
@@ -426,13 +417,13 @@ and we'll have a central place for those shortcuts.
 
 6a) How to add a global shortcut:
 ---------------------------------
-
 It's pretty self-explanatory, but here's the "how to" :
 
 Just before the callback, you have some GDK modifiers "shortcuts", just because
 it's a pain to write this each time, and the 'm_' stuff makes you see in an instant
 which modifiers are used (Shift or Control) :
 
+<pre>
 enum {
 	m__ = 0,
 	mS_ = GDK_SHIFT_MASK,
@@ -480,26 +471,23 @@ on_anjuta_window_key_press_event (GtkWidget   *widget,
 
 	...
 	
+</pre>
 
 7) How to add a new project type:
 ---------------------------------
-
 It is currently a bit difficult - the code is spread around and not
 very consistent. 
 
 Things to do as a start:
 
 - in project_type.c and add an array for your project type (this 
-is well-commented). Add it to the load_project_type function.
-
-- in project_dbase.h: Add your project type to the enum PROJECT_TYPE_*
-
+is well-commented). Add it to the load_project_type function.<br>
+- in project_dbase.h: Add your project type to the enum PROJECT_TYPE_*<br>
 - in wizard_gui.c: create_project_type_selection_page():
 Add an icon to the list for the project type and define it in pixmaps.h
 (If you are a bad artist, it might be good to ask for help with this on 
-the mailing list)
-
-- appwiz_page1.c: Add your type in on_wizard_app_icon_select()
+the mailing list)<br>
+- appwiz_page1.c: Add your type in on_wizard_app_icon_select()<br>
 
 So that was the easy part ;-)
 
@@ -515,9 +503,11 @@ Good luck!
 New contributors must always be credited. There are three files which 
 must be updated:
 
+<pre>
 	* THANKS
 	* widgets/e-shell-about-box.c
 	* manuals/C/anjuta-manual/authors.sgml
+</pre>
 
 You should also ensure that you submit headed ChangeLog entries with a 
 name and e-mail address when you submit a patch.
