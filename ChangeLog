@@ -1,3 +1,14 @@
+2004-13-05  Johannes Schmid <jhs@cvs.gnome.org>
+	
+	* plugins/cvs-plugin/anjuta-cvs-plugin.glade,
+	* plugins/cvs-plugin/plugin.[ch], plugins/cvs-plugin/cvs-action.[ch],
+	plugins/cvs-plugin/cvs-execute.[ch]:
+	Implemented cvs status and cvs diff
+	Known bugs:
+	- rdiff command is not correct
+	- Must find a way to allow selection of directies AND files 
+	in GtkFileChooser
+
 2004-12-03  Naba Kumar  <naba@gnome.org>
 
 	* plugins/editor/anjuta-docman.c, plugins/editor/style-editor.c,

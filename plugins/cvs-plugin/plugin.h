@@ -25,6 +25,7 @@
 #include <libanjuta/anjuta-plugin.h>
 #include <libanjuta/anjuta-launcher.h>
 #include <libanjuta/interfaces/ianjuta-message-manager.h>
+#include <libanjuta/interfaces/ianjuta-editor.h>
 
 #define GLADE_FILE PACKAGE_DATA_DIR"/glade/anjuta-cvs-plugin.glade"
 
@@ -36,6 +37,7 @@ struct _CVSPlugin{
 	gint uiid;
 	
 	IAnjutaMessageView* mesg_view;
+	IAnjutaEditor* diff_editor;
 	AnjutaLauncher* launcher;
 	gboolean executing_command;
 };

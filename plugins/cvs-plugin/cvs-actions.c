@@ -34,6 +34,12 @@
 
 /* cvs /command independant options/ /command/ /command options/ /command_arguments/ */
 
+enum
+{
+	DIFF_STANDARD = 0,
+	DIFF_PATCH = 1
+};
+
 static gchar* create_cvs_command(AnjutaPreferences* prefs,
 								const gchar* action, 
 								const gchar* command_options,
@@ -98,6 +104,20 @@ static gboolean is_directory(const gchar* filename)
 	}
 	else
 		return FALSE;
+}
+
+static void diff_type_changed(GtkComboBox* combo, GtkWidget* unified_check)
+{
+	if (gtk_combo_box_get_active(combo) == DIFF_STANDARD)
+	{
+		gtk_widget_set_sensitive(unified_check, FALSE);
+	}
+	else if (gtk_combo_box_get_active(combo) == DIFF_PATCH)
+	{
+		gtk_widget_set_sensitive(unified_check, TRUE);
+	}
+	else
+		gtk_combo_box_set_active(combo, DIFF_STANDARD);
 }
 
 void on_cvs_add_activate (GtkAction* action, CVSPlugin* plugin)
@@ -250,7 +270,7 @@ void on_cvs_commit_activate (GtkAction* action, CVSPlugin* plugin)
 		if (!is_directory(filename))
 		{
 			command = create_cvs_command(anjuta_shell_get_preferences (ANJUTA_PLUGIN(plugin)->shell,
-									 NULL), "commit", options->str, filename);
+									 NULL), "commit", options->str, basename(filename));
 			cvs_execute(plugin, command, dirname(filename));
 		}
 		else
@@ -315,7 +335,7 @@ void on_cvs_update_activate (GtkAction* action, CVSPlugin* plugin)
 		if (!is_directory(filename))
 		{
 			command = create_cvs_command(anjuta_shell_get_preferences (ANJUTA_PLUGIN(plugin)->shell,
-									 NULL), "update", options->str, filename);
+									 NULL), "update", options->str, basename(filename));
 			cvs_execute(plugin, command, dirname(filename));
 		}
 		else
@@ -337,12 +357,142 @@ void on_cvs_update_activate (GtkAction* action, CVSPlugin* plugin)
 
 void on_cvs_diff_activate (GtkAction* action, CVSPlugin* plugin)
 {
+	GladeXML* gxml;
+	GtkWidget* dialog; 
+	GtkWidget* fileentry;
+	GtkWidget* diff_type;
+	GtkWidget* unified_diff;
+	
+	gint result;
+	gxml = glade_xml_new(GLADE_FILE, "cvs_diff", NULL);
+	
+	dialog = glade_xml_get_widget(gxml, "cvs_diff");
+	fileentry = glade_xml_get_widget(gxml, "cvs_filename");
+	diff_type = glade_xml_get_widget(gxml, "cvs_diff_type");
+	unified_diff = glade_xml_get_widget(gxml, "cvs_unified");
+	gtk_combo_box_set_active(GTK_COMBO_BOX(diff_type), DIFF_PATCH);
+	g_signal_connect(G_OBJECT(diff_type), "changed", 
+		G_CALLBACK(diff_type_changed), unified_diff);
+	
+	
+	result = gtk_dialog_run (GTK_DIALOG (dialog));
+	switch (result)
+	{
+	case GTK_RESPONSE_OK:
+	{
+		gchar* filename;
+		gchar* diff;
+		gchar* command;
+		gchar* rev;
+		int diff_type_nr;
+		GtkWidget* norecurse;
+		GtkWidget* revisionentry;
+		GString* options;
 
+		revisionentry = glade_xml_get_widget(gxml, "cvs_revision");
+		rev = g_strdup(gtk_entry_get_text(GTK_ENTRY(revisionentry)));
+		if (strlen(rev))
+		{
+			g_string_append_printf(options, " -r %s", rev);
+		}
+		g_free(rev);
+		
+		options = g_string_new("");
+		norecurse = glade_xml_get_widget(gxml, "cvs_norecurse");
+		add_option(norecurse, options, "-l");
+		
+		diff_type_nr = gtk_combo_box_get_active(GTK_COMBO_BOX(diff_type));
+		if (diff_type_nr == DIFF_PATCH)
+		{
+			add_option(unified_diff, options, "-u");
+			diff = "rdiff";
+		}
+		else
+			diff = "diff";
+		
+		filename = g_strdup(gtk_entry_get_text(GTK_ENTRY(fileentry)));
+		if (!strlen(filename))
+			break;	
+		
+		if (!is_directory(filename))
+		{
+			command = create_cvs_command(anjuta_shell_get_preferences (ANJUTA_PLUGIN(plugin)->shell,
+									 NULL), diff, options->str, basename(filename));
+			cvs_execute_diff(plugin, command, dirname(filename));
+		}
+		else
+		{
+			command = create_cvs_command(anjuta_shell_get_preferences (ANJUTA_PLUGIN(plugin)->shell,
+									 NULL), diff, options->str, "");
+			cvs_execute_diff(plugin, command, filename);
+		}
+		g_free(command);
+		g_free(filename);
+		g_string_free(options, TRUE);
+		break;
+		}
+	default:
+		break;
+	}
+	gtk_widget_destroy (dialog);
 }
 
 void on_cvs_status_activate (GtkAction* action, CVSPlugin* plugin)
 {
+	GladeXML* gxml;
+	GtkWidget* dialog; 
+	GtkWidget* fileentry;
+	
+	gint result;
+	gxml = glade_xml_new(GLADE_FILE, "cvs_status", NULL);
+	
+	dialog = glade_xml_get_widget(gxml, "cvs_status");
+	fileentry = glade_xml_get_widget(gxml, "cvs_filename");
+	
+	result = gtk_dialog_run (GTK_DIALOG (dialog));
+	switch (result)
+	{
+	case GTK_RESPONSE_OK:
+	{
+		gchar* filename;
+		gchar* command;
+		GtkWidget* norecurse;
+		GtkWidget* verbose;
+		
+		GString* options;
+		options = g_string_new("");
 
+		norecurse = glade_xml_get_widget(gxml, "cvs_norecurse");
+		add_option(norecurse, options, "-l");
+	
+		verbose = glade_xml_get_widget(gxml, "cvs_verbose");
+		add_option(verbose, options, "-v");
+
+		filename = g_strdup(gtk_entry_get_text(GTK_ENTRY(fileentry)));
+		if (!strlen(filename))
+			break;	
+		
+		if (!is_directory(filename))
+		{
+			command = create_cvs_command(anjuta_shell_get_preferences (ANJUTA_PLUGIN(plugin)->shell,
+									 NULL), "status", options->str, basename(filename));
+			cvs_execute_status(plugin, command, dirname(filename));
+		}
+		else
+		{
+			command = create_cvs_command(anjuta_shell_get_preferences (ANJUTA_PLUGIN(plugin)->shell,
+									 NULL), "status", options->str, "");
+			cvs_execute_status(plugin, command, filename);
+		}
+		g_free(command);
+		g_free(filename);
+		g_string_free(options, TRUE);
+		break;
+		}
+	default:
+		break;
+	}
+	gtk_widget_destroy (dialog);
 }
 
 void on_cvs_import_activate (GtkAction* action, CVSPlugin* plugin)

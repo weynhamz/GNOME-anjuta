@@ -19,11 +19,18 @@
 */
 
 #include "cvs-execute.h"
+#include "plugin.h"
 
 #include <libanjuta/interfaces/ianjuta-message-manager.h>
+#include <libanjuta/interfaces/ianjuta-document-manager.h>
+#include <libanjuta/interfaces/ianjuta-editor.h>
 #include <libanjuta/anjuta-launcher.h>
 
+#include <glade/glade.h>
+
 #define CVS_ICON ""
+
+static GtkWidget* status_text;
 
 static void
 on_cvs_terminated (AnjutaLauncher *launcher,
@@ -49,12 +56,80 @@ on_cvs_message (AnjutaLauncher *launcher,
 					   const gchar * mesg, gpointer user_data)
 {
 	CVSPlugin* plugin = (CVSPlugin*)user_data;
-	ianjuta_message_view_append (plugin->mesg_view, IANJUTA_MESSAGE_VIEW_TYPE_INFO,
-		mesg, "", NULL);
+	switch(output_type)
+	{
+		case ANJUTA_LAUNCHER_OUTPUT_STDERR:
+			ianjuta_message_view_append (plugin->mesg_view, 
+				IANJUTA_MESSAGE_VIEW_TYPE_ERROR,
+				mesg, "", NULL);
+			break;
+		default:
+			ianjuta_message_view_append (plugin->mesg_view, 
+				IANJUTA_MESSAGE_VIEW_TYPE_INFO,
+				mesg, "", NULL);
+	}
 }
 
-void 
-cvs_execute(CVSPlugin* plugin, const gchar* command, const gchar* dir)
+static void 
+on_cvs_status(AnjutaLauncher *launcher,
+					   AnjutaLauncherOutputType output_type,
+					   const gchar * mesg, gpointer user_data)
+{
+	CVSPlugin* plugin = (CVSPlugin*)user_data;
+	switch(output_type)
+	{
+		case ANJUTA_LAUNCHER_OUTPUT_STDERR:
+			ianjuta_message_view_append (plugin->mesg_view, 
+				IANJUTA_MESSAGE_VIEW_TYPE_ERROR,
+				mesg, "", NULL);
+			break;
+		default:
+			{
+				GtkTextBuffer* textbuf;
+				GtkTextIter end;
+				
+				if (status_text)
+				{
+					textbuf = gtk_text_view_get_buffer(GTK_TEXT_VIEW(status_text));
+					gtk_text_buffer_get_end_iter(textbuf, &end);
+					
+					gtk_text_buffer_insert(textbuf, &end, mesg, -1);
+				}
+			}
+	}	
+}
+
+static void
+on_cvs_diff(AnjutaLauncher *launcher,
+					   AnjutaLauncherOutputType output_type,
+					   const gchar * mesg, gpointer user_data)
+{
+	g_return_if_fail (user_data != NULL);
+	CVSPlugin* plugin = (CVSPlugin*)user_data;
+	
+	switch(output_type)
+	{
+		case ANJUTA_LAUNCHER_OUTPUT_STDERR:
+			ianjuta_message_view_append (plugin->mesg_view, 
+				IANJUTA_MESSAGE_VIEW_TYPE_ERROR,
+				mesg, "", NULL);
+			break;
+		default:
+			ianjuta_editor_insert(plugin->diff_editor, -1, mesg, -1, NULL);
+	}	
+}
+
+static gboolean
+on_cvs_status_destroy(GtkWidget* window, GdkEvent* event, gpointer data)
+{
+	status_text = NULL;
+	
+	return FALSE; /* Do not block the event */
+}
+
+static void 
+cvs_execute_common (CVSPlugin* plugin, const gchar* command, const gchar* dir,
+					AnjutaLauncherOutputCallback output)
 {
 	IAnjutaMessageManager *mesg_manager;
 	
@@ -81,7 +156,45 @@ cvs_execute(CVSPlugin* plugin, const gchar* command, const gchar* dir)
 					  G_CALLBACK (on_cvs_terminated), plugin);
 	chdir (dir);
 	plugin->executing_command = TRUE;
-	g_message("Executing: %s", command);	
+#ifdef DEBUG
+	g_message("CVS Executing: %s", command);
+#endif	
 	anjuta_launcher_execute (plugin->launcher, command,
-							 on_cvs_message, plugin);
+							 output, plugin);
+}
+
+void 
+cvs_execute(CVSPlugin* plugin, const gchar* command, const gchar* dir)
+{
+	cvs_execute_common(plugin, command, dir, on_cvs_message);	
+}
+
+void
+cvs_execute_status(CVSPlugin* plugin, const gchar* command, const gchar* dir)
+{
+	GladeXML* gxml;
+	GtkWidget* window;
+	
+	gxml = glade_xml_new(GLADE_FILE, "cvs_status_output", NULL);
+	window = glade_xml_get_widget(gxml, "cvs_status_output");
+	status_text = glade_xml_get_widget(gxml, "cvs_status_text");
+	
+	g_signal_connect(G_OBJECT(window), "destroy-event", 
+		G_CALLBACK(on_cvs_status_destroy), status_text);
+	
+	gtk_widget_show(window);
+	cvs_execute_common(plugin, command, dir, on_cvs_status);		
+}
+
+void
+cvs_execute_diff(CVSPlugin* plugin, const gchar* command, const gchar* dir)
+{
+	IAnjutaDocumentManager *docman;
+	
+	docman = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
+	                                     IAnjutaDocumentManager, NULL);
+	plugin->diff_editor = ianjuta_document_manager_add_buffer(docman, _("CVS diff"), "", NULL);
+
+
+	cvs_execute_common(plugin, command, dir, on_cvs_diff);
 }
