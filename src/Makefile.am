@@ -4,6 +4,7 @@ INCLUDES = \
 	$(ANJUTA_CFLAGS)\
 	$(PCRE_CFLAGS)\
 	$(FREEBSD_BUILD)\
+	-I$(top_srcdir)\
 	-I$(srcdir)/../scintilla/include \
 	-I$(srcdir)/../tagmanager/include \
 	-I$(srcdir)/../widgets \
