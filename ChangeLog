@@ -1,3 +1,8 @@
+2002-05-01  Andy Piper <andy.piper@freeuk.com>
+
+	* src/main_menubar_def.h, src/cvs_gui.c: updates to strings
+	* TODO: added task to be completed before next release (update all credits)
+
 2002-05-01  Stephane Demurget  <demurgets@free.fr>
 
 	* THANKS, src/about.c, manuals/anjuta-manual/C/authors.sgml: added

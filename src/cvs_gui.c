@@ -77,7 +77,7 @@ create_cvs_gui (CVS * cvs, int dialog_type, gchar* filename, gboolean bypass_dia
 		button_label = _("Show status");
 		break;
 	case CVS_ACTION_LOG:
-		title = _("CVS: Get Log");
+		title = _("CVS: Log");
 		button_label = _("Show log");
 		break;
 	case CVS_ACTION_ADD:

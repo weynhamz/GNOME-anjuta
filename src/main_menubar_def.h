@@ -1365,29 +1365,29 @@ static GnomeUIInfo plugins_menu_uiinfo[NUM_PLUGINS_SUBMENUS+1] = {
 static GnomeUIInfo cvs_menu_uiinfo[NUM_CVS_SUBMENUS+1] = {
 	{
 	 /* 0 */
-	 GNOME_APP_UI_ITEM, N_("Update"),
+	 GNOME_APP_UI_ITEM, N_("Update file"),
 	 N_("Update current working copy"),
 	 on_cvs_update_file_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{
 	 /* 1 */
-	 GNOME_APP_UI_ITEM, N_("Commit"),
+	 GNOME_APP_UI_ITEM, N_("Commit file"),
 	 N_("Commit changes to the repository"),
 	 on_cvs_commit_file_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{
 	 /* 2 */
-	 GNOME_APP_UI_ITEM, N_("Status"),
+	 GNOME_APP_UI_ITEM, N_("Status of file"),
 	 N_("Print the status of the current file"),
 	 on_cvs_status_file_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{
 	 /* 3 */
-	 GNOME_APP_UI_ITEM, N_("Get Log"),
-	 N_("Print the CVS log"),
+	 GNOME_APP_UI_ITEM, N_("Get file log"),
+	 N_("Print the CVS log for the current file"),
 	 on_cvs_log_file_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
@@ -1407,7 +1407,7 @@ static GnomeUIInfo cvs_menu_uiinfo[NUM_CVS_SUBMENUS+1] = {
 	 0, 0, NULL},
 	{
 	 /* 6 */
-	 GNOME_APP_UI_ITEM, N_("Diff"),
+	 GNOME_APP_UI_ITEM, N_("Diff file"),
 	 N_("Create a diff between the working copy and the repository"),
 	 on_cvs_diff_file_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
@@ -1436,7 +1436,7 @@ static GnomeUIInfo cvs_menu_uiinfo[NUM_CVS_SUBMENUS+1] = {
 	 0, 0, NULL},
 	 {
 	 /* 11 */
-	 GNOME_APP_UI_ITEM, N_("Status Project"),
+	 GNOME_APP_UI_ITEM, N_("Status of Project"),
 	 N_("Print the status of the Project"),
 	 on_cvs_project_status_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
