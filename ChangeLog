@@ -1,3 +1,7 @@
+2002-07-01	Naba Kumar	<kh_naba@users.sourceforge.net>
+
+	* pixmaps/anjuta_splash.png: New splash from Misha.
+	
 2002-06-28  patch from Jens Georg <mail@jensgeorg.de>
 
 	* doc/Makefile.am, configure.in: Updated for new launcher manpage.
