@@ -92,11 +92,11 @@ gboolean tm_source_file_parse(TMSourceFile *source_file)
 	current_source_file = source_file;
 	if (LANG_AUTO == source_file->lang)
 		source_file->lang = getFileLanguage (file_name);
-	if (source_file->lang == LANG_IGNORE)
-		g_warning("ignoring %s (unknown language)\n", file_name);
-	else if (! LanguageTable [source_file->lang]->enabled)
-		g_warning("ignoring %s (language disabled)\n", file_name);
-	else
+	if (source_file->lang == LANG_IGNORE) {
+		/* g_warning("ignoring %s (unknown language)\n", file_name); */
+	} else if (! LanguageTable [source_file->lang]->enabled) {
+		/* g_warning("ignoring %s (language disabled)\n", file_name); */
+	} else
 	{
 		int passCount = 0;
 		if (LanguageTable[source_file->lang]->initialize != NULL)

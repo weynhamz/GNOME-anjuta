@@ -322,7 +322,7 @@ AnSymbolView *sv_populate(TMProject *tm_proj)
 	{
 		sv_connect();
 		sv_thaw();
-		g_warning("No project. Returning..");
+		/* g_warning("No project. Returning.."); */
 		return sv;
 	}
 
@@ -334,7 +334,7 @@ AnSymbolView *sv_populate(TMProject *tm_proj)
 		{
 			sv_connect();
 			sv_thaw();
-			g_warning("No symbol tree. Returning..");
+			/* g_warning("No symbol tree. Returning.."); */
 			return sv;
 		}
 	}

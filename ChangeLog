@@ -1,5 +1,15 @@
 2002-01-21  Naba Kumar <kh_naba@users.sourceforge.net>
 
+	* tagmanager/tm_source_file.c,
+	  tagmanager/parse.c,
+	  tagmanager/tm_project.c,
+	  src/an_symbol_view.c,
+	  src/anjuta.c:
+	  
+	  Disabled debug warnings.
+
+2002-01-21  Naba Kumar <kh_naba@users.sourceforge.net>
+
 	* src/appwiz_page1.c
 	  src/compiler_options.c
 	  src/project_dbase.c

@@ -366,7 +366,9 @@ gboolean tm_project_autoscan(TMProject *project)
 	char *dir_name;
 	gboolean status = FALSE;
 
-	g_return_val_if_fail(project && project->dir, FALSE);
+	g_return_val_if_fail(project, FALSE);
+	g_return_val_if_fail(project->dir, FALSE);
+	
 	dir_name = project->dir;
 	for (i = 0; i < sizeof(makefile)/sizeof(char *); ++i)
 	{
@@ -379,7 +381,7 @@ gboolean tm_project_autoscan(TMProject *project)
 	}
 	if (!status)
 	{
-		g_warning("%s if not a top level project directory", dir_name);
+		/* g_warning("%s if not a top level project directory", dir_name); */
 		return FALSE;
 	}
 	for (i=0; i < sizeof(extn)/sizeof(char *); ++i)

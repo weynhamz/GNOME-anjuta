@@ -790,8 +790,11 @@ anjuta_show ()
 	g_free (key);
 	
 	update_gtk ();
+	
+	/*
 	anjuta_message_manager_append (app->messages,
 			 _("CVS is not yet implemented. :-(\n"), MESSAGE_CVS);
+	*/
 	
 	if (app->dirs->first_time)
 	{
