@@ -3,7 +3,7 @@
 ## If you don't want it to overwrite it,
 ## 	Please disable it in the Anjtua Project configuration
 
-SUBDIRS = intl po macros scintilla widgets manuals src pixmaps data help doc launcher
+SUBDIRS = intl po macros scintilla widgets manuals omf-install src pixmaps data help doc launcher
 
 anjutadocdir = ${prefix}/doc/anjuta
 anjutadoc_DATA = \

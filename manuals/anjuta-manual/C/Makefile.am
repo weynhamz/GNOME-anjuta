@@ -39,5 +39,5 @@ docname = anjuta-manual
 lang = C
 omffile = anjuta-manual-C.omf
 sgml_ents =
-include $(top_srcdir)/docs/sgmldocs.make
+include $(top_srcdir)/manuals/sgmldocs.make
 dist-hook: app-dist-hook

@@ -120,7 +120,14 @@
     <figure>
       <title>Anjuta menu (detached)</title>
       <screenshot>
-       <graphic fileref="anjuta-manual/menu_detached" format="png" srccredit="mkv"/>
+       <graphic fileref="figures/menu_main" format="png" srccredit="mkv"/>
+      </screenshot>
+    </figure>
+    </para>
+    <figure>
+      <title>Anjuta menu (detached)</title>
+      <screenshot>
+       <graphic fileref="figures/menu_detached" format="png" srccredit="mkv"/>
       </screenshot>
     </figure>
     </para>
@@ -143,6 +150,12 @@
   <sect1 id="toolbars">
    <title>Toolbars</title>
    <para>
+    <figure>
+      <title>Anjuta Toolbar (detached)</title>
+      <screenshot>
+       <graphic fileref="figures/toolbar_main" format="png" srccredit="mkv"/>
+      </screenshot>
+    </figure>
     To make the life easier, all those operations which are performed very
     often are made available from the tool-bars. There are basically four
     tool-bars on the main window.
@@ -208,15 +221,16 @@
 <!-- ============= Getting Familier: Main window  ============-->
   <sect1 id="main-win">
    <title>Main Window</title>
+<!--
    <para>
     <figure>
      <title>Main Window</title>
      <screenshot>
-      <graphic fileref="anjuta-manual/scrshot" format="png" srccredit="mkv"/>
+      <graphic fileref="figures/scrshot" format="png" srccredit="mkv"/>
      </screenshot>
     </figure>
    </para>
-   
+-->
    <para>
     In the main window, there are three frames that you must be familiar with,
     before you start doing anything (All of them may not be visible when you start
@@ -261,16 +275,16 @@
     <orderedlist>
      <listitem>
       <para>
-      <citetitle>Editor window</citetitle> is the part of the main window, so you can
-      either detach nor hide it. But, you can always detach the individual
-      documents, which are shown as pages in the editor window. Editor window
-      will have one document active at a time (if there is any file opened). All
-      the file commands are meant for this active document. You can switch to
-      any page by clicking on the page tag. You can do the same by right
-      clicking on the page tags and selecting the document from the pop up menu
-      that will appear. This is especially useful when you have many files
-      opened and all the files not visible in the page tag area.
-     </para>
+       <citetitle>Editor window</citetitle> is the part of the main window, so you can
+       either detach nor hide it. But, you can always detach the individual
+       documents, which are shown as pages in the editor window. Editor window
+       will have one document active at a time (if there is any file opened). All
+       the file commands are meant for this active document. You can switch to
+       any page by clicking on the page tag. You can do the same by right
+       clicking on the page tags and selecting the document from the pop up menu
+       that will appear. This is especially useful when you have many files
+       opened and all the files not visible in the page tag area.
+      </para>
      </listitem>
      <para>
      </para>
@@ -359,6 +373,13 @@
        To open an already existing file, activate the menu item File/Open or click
        the open button in the main tool-bar or press Ctrl+O. This will display the
        open file dialog box.
+       <figure>
+       <title>Anjuta menu (detached)</title>
+       <screenshot>
+        <graphic fileref="figures/open_file" format="png" srccredit="mkv"/>
+       </screenshot>
+       </figure>
+
       </para>
       <simplelist>
        <member>Select or enter the file you want to open then click OK.</member>
@@ -432,7 +453,84 @@
   <sect1 id="browsing-files">
    <title>Browsing Files with Tags Browser</title>
    <para>
-    FIXME. 
+    All C and C++ source and header  files can be browsed using the tags in the files. 
+    All the currently opened C and C++ source and header files are scanned for the 
+    available tags (Tags are nothing but the function definitions, structures, defines etc). 
+    Select the type of the tag you want to view in the tag pull down menu in the browser 
+    tool-bar. If the tag type is function or class, you will have to further select the file for 
+    which you want to view the tag. Then select the tag (function, class member or the 
+    other tags) from the tag combo box. Then the editor will take you to that particular file 
+    and line and hi-lite the line that contains the tag.
+   </para>
+   <para>
+    <itemizedlist>
+     <title>Following tags are recorded:</title>
+     <listitem>
+      <para>Functions
+      </para>
+     </listitem>
+     <listitem>
+      <para>Classes
+      </para>
+     </listitem>
+     <listitem>
+      <para>Structures
+      </para>
+     </listitem>
+     <listitem>
+      <para>Unions
+      </para>
+     </listitem>
+     <listitem>
+      <para>Enumerations
+      </para>
+     </listitem>
+     <listitem>
+      <para>Variables [global]
+      </para>
+     </listitem>
+     <listitem>
+      <para>Macros
+      </para>
+     </listitem>
+    </itemizedlist>
+    
+    <orderedlist>
+     <listitem>
+      <para><citetitle>File mode operation: </citetitle>
+       If there is no project opened, then Anjuta is in
+       <citetitle>File mode</citetitle>. In this mode, Anjuta keeps 
+       account of the opened file(s) only. Anjuta will know all the
+       tags availably in these opened file(s).
+      </para>
+     </listitem>
+     <para>
+     </para>
+     <listitem>
+      <para><citetitle>Project mode operation: </citetitle>
+       If there is a project opened, then instead of scanning for tags only in the currently 
+       opened  files, anjuta will scan all the source and header files of the project. This way 
+       it is possible to go to any function definition, structure definition, class definition etc. 
+       without even opening the file. You don't even have to know in which file that tag is 
+       located (except in function definitions).
+      </para>
+     </listitem>
+    </orderedlist>
+   </para>
+   <para>
+    <figure>
+     <title>Tags Toolbar</title>
+      <screenshot>
+       <graphic fileref="figures/toolbar_tags" format="png" srccredit="mkv"/>
+      </screenshot>
+    </figure>
+   </para>
+   <tip>
+   <title>Don't worry</title>
+   <para>
+    You don't have to worry about the synchronization and update of the tag 
+    database. Anjuta will take care of everything. You just have to tell where you want to go, 
+    and loo... you are there.
    </para>
   </sect1>
   

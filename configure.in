@@ -115,10 +115,10 @@ macros/Makefile
 scintilla/Makefile
 widgets/Makefile
 manuals/Makefile
+omf-install/Makefile
 scintilla/include/Makefile
 manuals/anjuta-manual/Makefile
 manuals/anjuta-manual/C/Makefile
-omf-install/Makefile
 anjuta.spec
 src/Makefile
 pixmaps/Makefile

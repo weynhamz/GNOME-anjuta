@@ -2,6 +2,8 @@
 
 	* manuals/: dir tree added.
 	  Sgml documentation started in this dir.
+	  
+	* omf-install/: dir tree added.
 	
 	* manuals/anjuta-manual/C/anjuta-manual.sgml:
 	  Created initial document structure.

@@ -36,7 +36,6 @@ AC_SUBST(SCROLLKEEPER_REQUIRED)
 scintilla/include/Makefile
 manuals/anjuta-manual/Makefile
 manuals/anjuta-manual/C/Makefile
-omf-install/Makefile
 anjuta.spec
 <CONFIG_FILES_END>
 <MAKEFILE_AM_START>
@@ -75,7 +74,7 @@ project.configure.options=--prefix=/usr
 anjuta.program.arguments=
 
 project.config.disable.overwriting=1 1 1 1 1 1 1 1 1 
-project.config.extra.modules.before=scintilla widgets manuals
+project.config.extra.modules.before=scintilla widgets manuals omf-install
 project.config.extra.modules.after=launcher
 
 module.incude.name=include
