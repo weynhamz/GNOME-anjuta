@@ -1,5 +1,10 @@
 2005-03-06	Johannes Schmid <jhs@cvs.gnome.org>
 
+	* plugins/class-gen/plugin.c:
+	Removed "return" to activate project_root_uri watching.
+
+2005-03-06	Johannes Schmid <jhs@cvs.gnome.org>
+
 	* plugins/Makefile.am
 	plugins/subversion/*:
 	Added subversion plugin. Add, Remove, Commit and Update work
