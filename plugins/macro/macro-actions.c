@@ -60,41 +60,131 @@ on_menu_insert_macro (GtkAction * action, MacroPlugin * plugin)
 	gtk_widget_show_all(window);
 }
 
-static gboolean
-match_special_key(gchar *keyword)
+static char *
+get_date_time(void)
 {
-	enum {DATE = 0, USER , HEADER, ENDKEYW };		
-	gchar *tabkey[ENDKEYW] =
-		{"@DATE@", "@USER@", "@HEADER@"};
+	time_t cur_time = time(NULL);
+	gchar *DateTime;
+
+	DateTime = g_new(gchar, 100);
+	sprintf(DateTime,ctime(&cur_time));
+	return DateTime;
+}
+
+static gchar *
+get_date_Ymd(void)
+{
+	gchar *datetime;
+	struct tm *lt;
+		
+	time_t cur_time = time(NULL);
+    datetime = g_new(gchar, 20);
+	lt = localtime(&cur_time);
+	//strftime (datetime, 20, N_("%Y-%m-%d"), lt);
+	strftime (datetime, 20, "%Y-%m-%d", lt);
+	return datetime;
+}
+  	
+	
+
+static gboolean
+expand_keyword(gchar *keyword, gchar **expand)
+{
+	enum {_DATETIME = 0, _DATE_YMD, _USER_NAME , _FILE_NAME, _EMAIL, 
+		  _ENDKEYW };		
+	gchar *tabkey[_ENDKEYW] =
+		{"@DATE_TIME@", "@DATE_YMD@", "@USER_NAME@", "@FILE_NAME@", "@EMAIL@" };
 	gint key;
 		
-	for (key=0; key<ENDKEYW; key++)
+	for (key=0; key<_ENDKEYW; key++)
 		if ( strcmp(keyword, tabkey[key]) == 0)
 			break;
 		
 	switch (key)
 	{
-		case DATE :
-			g_print("Found DATE\n");
-		break;
-		case USER :
-			g_print("Found USER\n");
+		case _DATETIME :
+		    *expand = get_date_time();
+		    break;
+		case _DATE_YMD :
+		    *expand = get_date_Ymd();
+		    break;
+		case _USER_NAME :
+			//*expand = 
 			break;
-		case HEADER :
-			g_print("Found HEADER\n");
+		case _FILE_NAME :
+			//*expand = 
+			break;
+		case _EMAIL :
+			//*expand = 
 			break;
 		default:
-			g_print("Not Found\n");
+			//*expand = 
 			return FALSE;
 	}
 	
 	return TRUE;
 }
 
+
+
+
+gchar*
+expand_macro(gchar *txt)
+{
+	gchar *ptr = txt;
+	gchar *c = txt;
+	gchar *buffer = "";
+	gchar *begin;
+	gchar *keyword;
+	gchar *buf = NULL;
+	gchar *expand = NULL;
+	
+	while ( *(c) )
+	{
+		if ( *c =='@' )
+		{
+			begin = c++;
+			while ( *(c) )
+			{
+				if ( *c==' ')
+				   break;
+				if ( *c=='@' )
+				{
+					keyword = g_strndup(begin, c-begin+1);
+				
+					if (expand_keyword(keyword, &expand))
+					{
+						buf = g_strndup(ptr, begin - ptr);
+						buffer = g_strconcat(buffer, buf, expand, NULL);
+						g_free(expand);
+					}
+					else
+					{
+						buf = g_strndup(ptr, c - ptr + 1);
+						buffer = g_strconcat(buffer, buf, NULL);
+					}
+					g_free(buf);
+			        ptr = c + 1;
+			       break;
+				}
+			    c++;
+			}
+		}
+	    c++;
+	}
+    buf = g_strndup(ptr, c - ptr);
+    buffer = g_strconcat(buffer, buf, NULL);
+    g_free(buf);
+    return buffer;
+}
+
+
 static gboolean
 match_keyword (MacroPlugin * plugin, GtkTreeIter * iter, const gchar *keyword)
 {
 	gchar *name;
+	gchar *buffer;
+	
 	gtk_tree_model_get(macro_db_get_model(plugin->macro_db), iter,
 		MACRO_NAME, &name, -1);
 	if ( name && strcmp(keyword, name) == 0)
@@ -105,8 +195,10 @@ match_keyword (MacroPlugin * plugin, GtkTreeIter * iter, const gchar *keyword)
 			MACRO_TEXT, &text, -1);
 		if (plugin->current_editor != NULL)
 		{
+			buffer = expand_macro(text);
 			ianjuta_editor_insert (IANJUTA_EDITOR (plugin->current_editor),
-					       CURRENT_POS, text, -1, NULL);
+					       CURRENT_POS, buffer, -1, NULL);
+			g_free(buffer);
 		}
 		return TRUE;
 	}
@@ -174,17 +266,16 @@ insert_macro (const gchar *keyword, MacroPlugin * plugin)
 
 void on_menu_add_macro (GtkAction * action, MacroPlugin * plugin)
 {
-	match_special_key("@USEhR@");
-	//~ MacroEdit* add = MACRO_EDIT(macro_edit_new(MACRO_ADD, plugin->macro_db));
-	//~ gchar* selection = NULL;
-	//~ if (plugin->current_editor != NULL)
-	//~ {
-		//~ selection = 
-			//~ ianjuta_editor_get_selection(IANJUTA_EDITOR(plugin->current_editor), NULL);
-	//~ }
-	//~ if (selection != NULL && strlen(selection))
-		//~ macro_edit_set_macro(add, selection);
-	//~ gtk_widget_show(GTK_WIDGET(add));
+	MacroEdit* add = MACRO_EDIT(macro_edit_new(MACRO_ADD, plugin->macro_db));
+	gchar* selection = NULL;
+	if (plugin->current_editor != NULL)
+	{
+		selection = 
+			ianjuta_editor_get_selection(IANJUTA_EDITOR(plugin->current_editor), NULL);
+	}
+	if (selection != NULL && strlen(selection))
+		macro_edit_set_macro(add, selection);
+	gtk_widget_show(GTK_WIDGET(add));
 }
 
 void on_menu_manage_macro (GtkAction * action, MacroPlugin * plugin)
@@ -261,18 +352,22 @@ match_shortcut (MacroPlugin * plugin, GtkTreeIter * iter,
 		gchar key)
 {
 	gchar shortcut;
+
 	gtk_tree_model_get(macro_db_get_model(plugin->macro_db), iter,
 		MACRO_SHORTCUT, &shortcut, -1);
 	if (key == shortcut)
 	{
 		const int CURRENT_POS = -1;
 		gchar* text;
+		gchar *buffer;
 		gtk_tree_model_get(macro_db_get_model(plugin->macro_db), iter,
 			MACRO_TEXT, &text, -1);
 		if (plugin->current_editor != NULL)
 		{
+			buffer = expand_macro(text);
 			ianjuta_editor_insert (IANJUTA_EDITOR (plugin->current_editor),
 					       CURRENT_POS, text, -1, NULL);
+			g_free(buffer);
 		}
 		return TRUE;
 	}

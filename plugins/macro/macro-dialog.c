@@ -17,6 +17,7 @@
 
 #include "macro-dialog.h"
 #include "macro-edit.h"
+#include "macro-actions.h"
 #include <libanjuta/interfaces/ianjuta-editor.h>
 
 static void on_ok_clicked (MacroPlugin * plugin);
@@ -264,11 +265,14 @@ on_ok_clicked (MacroPlugin * plugin)
 			const int CURRENT_POS = -1;
 			if (plugin->current_editor != NULL)
 			{
+				gchar *buffer;
+				buffer = expand_macro(text);
 				ianjuta_editor_insert (IANJUTA_EDITOR
 						       (plugin->
 							current_editor),
-						       CURRENT_POS, text, -1,
+						       CURRENT_POS, buffer, -1,
 						       NULL);
+				g_free(buffer);
 			}
 			gtk_widget_hide (plugin->macro_dialog);
 		}

@@ -1,5 +1,12 @@
 2005-02-22  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
 
+	* plugins/macro/macro-actions.c, plugins/macro/macro-actions.h
+	plugins/macro/macro-dialog.c, plugins/macro/macros.xml :
+	
+	Expansion keywords in macros. 
+
+2005-02-22  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
+
 	* plugins/file-wizard/action-callbacks.c,
 	plugins/file-wizard/file.[ch], plugins/macro/macro-actions.c,
 	plugins/macro/macros.xml :

@@ -21,6 +21,7 @@
 #include "plugin.h"
 #include <glade/glade.h>
 
+gchar *expand_macro(gchar *txt);
 gboolean insert_macro (const gchar *keyword, MacroPlugin * plugin);
 void on_menu_insert_macro (GtkAction * action, MacroPlugin * plugin);
 void on_menu_add_macro (GtkAction * action, MacroPlugin * plugin);
