@@ -299,6 +299,9 @@ dnl Set PACKAGE DIRs in config.h.
 packagepixmapsdir=share/pixmaps/${PACKAGE}
 packagehelpdir=share/gnome/help/${PACKAGE}
 packagemenudir=share/gnome/apps
+packageplugindir=lib/${PACKAGE}
+dnl packageplugindir could be anjuta-1 or something like that but anjuta 2 will
+dnl be the new reference and so we'll use ${prefix} with it.
 
 dnl Subst PACKAGE_DATA_DIR.
 NO_PREFIX_PACKAGE_DATA_DIR="${packagedatadir}"

@@ -169,6 +169,4 @@ src/defaults.h
 src/about.h
 src/resources.c
 src/resources.h
-src/notebook.c
-src/notebook.h
 plugins/sample1/plugin-sample1.c

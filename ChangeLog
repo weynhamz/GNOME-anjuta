@@ -1,5 +1,10 @@
 2001-12-29  Stephane Demurget  <demurgets@free.fr>
 
+	* configure.in: added the packageplugindir variable to avoid
+	  installing the plugins in $(prefix). It's not the same path as
+	  anjuta 2 to allow parallel installation.
+
+2001-12-29  Stephane Demurget  <demurgets@free.fr>
 	Fix a reopened part of bug #440676: keyboard navigation between the
 	different text buffers.	Changed to a more global approch. 
 
