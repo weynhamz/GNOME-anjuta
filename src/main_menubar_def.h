@@ -976,7 +976,14 @@ static GnomeUIInfo format1_menu_uiinfo[NUM_FORMAT_SUBMENUS+1] = {
 	 on_detach1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
-	GNOMEUIINFO_END/*13*/
+	{/*13*/
+	 GNOME_APP_UI_TOGGLEITEM, N_("Automatic tab ordering"),
+	 N_("Ordering tabs ascending by name when new file opened"),
+	 on_ordertab1_activate, NULL, NULL,
+	 GNOME_APP_PIXMAP_NONE, NULL,
+	 0, 0, NULL	 
+	 },
+	GNOMEUIINFO_END/*14*/
 };
 
 #define NUM_BUILD_SUBMENUS 20

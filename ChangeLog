@@ -1,3 +1,18 @@
+2002-05-01  Stephane Demurget  <demurgets@free.fr>
+
+	* THANKS, src/about.c, manuals/anjuta-manual/C/authors.sgml: added
+	Benke László.
+
+2002-05-01  Benke László  <decike@freemail.hu>
+
+	Patch reviewed by Stephane Demurget <demurgets@free.fr>.
+
+ 	* src/anjuta.[ch], src/anjuta_cbs.c, src/main_menubar.[ch],
+	  src/main_menubar_def.h, src/mainmenu_callback.[ch],
+	  src/text_editor_cbs.c: added an "automatic tab ordering" checkmenuitem
+	  to the format menu in order to reorder the notebook tabs in
+	  alphabetical order everytime a file is created/opened/saved.
+
 2002-05-01  Philip Van Hoof <freax@pandora.be>
 
 	* widgets/gnomefilelist.[ch] (history_combo_go),

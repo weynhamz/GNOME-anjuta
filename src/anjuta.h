@@ -402,6 +402,9 @@ void anjuta_search_sources_for_symbol(const gchar *s);
 
 #define ANJUTA_LAST_OPEN_PROJECT "anjuta.last.open.project"
 
+void
+anjuta_order_tabs(void);
+
 
 #include "session.h"
 

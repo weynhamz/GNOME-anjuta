@@ -284,6 +284,8 @@ anjuta_append_text_editor (gchar * filename)
 		g_free (buff);
 		gtk_notebook_set_page (GTK_NOTEBOOK (app->widgets.notebook),
 		       0);
+		if (GTK_CHECK_MENU_ITEM(app->widgets.menubar.format.autoorder_tabs)->active)
+			anjuta_order_tabs();
 		break;
 
 	case TEXT_EDITOR_WINDOWED:
@@ -2310,6 +2312,54 @@ anjuta_load_last_project()
 #endif
 		anjuta_load_this_project( app->last_open_project );
 	}
+}
+typedef struct _order_struct order_struct;
+struct _order_struct
+{
+	gchar *m_label;
+	GtkWidget *m_widget;
+};
+
+static int do_ordertab1(const void *a,const void *b)
+{
+	order_struct aos,bos;
+	aos = *(order_struct*)a;
+	bos = *(order_struct*)b;
+	return(g_strcasecmp(aos.m_label,bos.m_label));
+}
+void anjuta_order_tabs()
+{
+	gint i,j;
+	GList *children;
+	GtkWidget *widget,*label;
+	order_struct *tab_labels;
+	children = gtk_container_children(GTK_CONTAINER(app->widgets.notebook));
+	
+	j = g_list_length(children);
+	if (j<2)
+		return;
+	tab_labels = g_new0(order_struct,j);
+	for (i=0;i<j;i++)
+	{
+		widget = gtk_notebook_get_nth_page(GTK_NOTEBOOK(app->widgets.notebook),i);
+		if (widget)
+		{
+			label = gtk_notebook_get_tab_label(GTK_NOTEBOOK(app->widgets.notebook),widget);
+			children = gtk_container_children(GTK_CONTAINER(label));
+			for (;children;children = g_list_next(children))
+			{
+				if (GTK_IS_LABEL(children->data))
+				{
+					tab_labels[i].m_label=GTK_LABEL(children->data)->label;
+					tab_labels[i].m_widget = widget;
+				}
+			}
+		}
+	}
+	qsort(tab_labels,j,sizeof(order_struct),do_ordertab1);
+	for (i=0;i<j;i++)
+		gtk_notebook_reorder_child(GTK_NOTEBOOK(app->widgets.notebook),tab_labels[i].m_widget,i);
+	g_free(tab_labels);
 }
 
 void anjuta_search_sources_for_symbol(const gchar *s)

@@ -138,6 +138,9 @@ on_text_editor_dock_activate (GtkButton * button, gpointer user_data)
 					te->filename);
 	gtk_notebook_set_page (GTK_NOTEBOOK (app->widgets.notebook), 0);
 	anjuta_update_page_label(te);
+	if (GTK_CHECK_MENU_ITEM(app->widgets.menubar.format.autoorder_tabs)->active)
+		anjuta_order_tabs();
+
 }
 
 void

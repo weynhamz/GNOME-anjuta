@@ -4,7 +4,10 @@ I would like to give my heartiest thanks to the following for their
 invaluable supports and contributions in making the Anjuta project a
 grand success. Without them the project wouldn't have stood where it
 is now.
-	
+
+	- Benke László <decike@freemail.hu>, for his tabs reordering option
+	  patch,
+
 	- Dick Knol <dknol@gmx.net>, for his libglade project type patch, 
 	
 	- Jason Williams <jason_williams@suth.com>, for his save files on build 

@@ -342,6 +342,10 @@ void
 on_detach1_activate              (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
 
+void
+on_ordertab1_activate              (GtkMenuItem     *menuitem,
+                                        gpointer         user_data);
+
 /***********************************************************/
 
 void

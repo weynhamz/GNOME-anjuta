@@ -59,6 +59,7 @@ create_about_gui ()
 		"Philip Van Hoof <freax@pandora.be>",
 		"Vadim Berezniker <vadim@berezniker.com>",
 		"Rob Bradford <robster@debian.org>",
+		"Benke László <decike@freemail.hu>",
 		NULL
 	};
 	GtkWidget *about_gui;

@@ -1205,7 +1205,12 @@ on_detach1_activate (GtkMenuItem * menuitem, gpointer user_data)
 	
 	on_anjuta_window_focus_in_event (NULL, NULL, NULL);
 }
-
+void
+on_ordertab1_activate (GtkMenuItem * menuitem, gpointer user_data)
+{
+	if (GTK_CHECK_MENU_ITEM(menuitem)->active)
+		anjuta_order_tabs();
+}
 /*************************************************************************/
 void
 on_compile1_activate (GtkMenuItem * menuitem, gpointer user_data)
