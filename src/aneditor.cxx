@@ -247,7 +247,8 @@ protected:
 	void EnsureRangeVisible(int posStart, int posEnd);
 	void SetAccelGroup(GtkAccelGroup* acl);
 	int GetBookmarkLine( const int nLineStart );
-
+	void DefineMarker(int marker, int makerType, Colour fore, Colour back);
+	
 public:
 
 	AnEditor(PropSetFile* p);
@@ -1779,10 +1780,27 @@ void AnEditor::ReadProperties(const char *fileForExt) {
 	SendEditorString(SCI_SETPROPERTY, reinterpret_cast<unsigned long>("fold"),
 	                 fold.c_str());
 
+	SString fold_compact = props->Get("fold.compact");
+	SendEditorString(SCI_SETPROPERTY, reinterpret_cast<unsigned long>("fold.compact"),
+	                 fold_compact.c_str());
+
 	SString fold_comment = props->Get("fold.comment");
 	SendEditorString(SCI_SETPROPERTY, reinterpret_cast<unsigned long>("fold.comment"),
 					fold_comment.c_str());
 	
+	SString fold_comment_python = props->Get("fold.comment.python");
+	SendEditorString(SCI_SETPROPERTY, reinterpret_cast<unsigned long>("fold.comment.python"),
+					fold_comment_python.c_str());
+					
+	SString fold_quotes_python = props->Get("fold.quotes.python");
+	SendEditorString(SCI_SETPROPERTY, reinterpret_cast<unsigned long>("fold.quotes.python"),
+					fold_quotes_python.c_str());
+					
+	SString fold_html = props->Get("fold.html");
+	SendEditorString(SCI_SETPROPERTY, reinterpret_cast<unsigned long>("fold.html"),
+					fold_html.c_str());
+
+
 	SString stylingWithinPreprocessor = props->Get("styling.within.preprocessor");
 	SendEditorString(SCI_SETPROPERTY, reinterpret_cast<unsigned long>("styling.within.preprocessor"),
 	                 stylingWithinPreprocessor.c_str());
@@ -1972,21 +1990,50 @@ void AnEditor::ReadProperties(const char *fileForExt) {
 
 	SendEditor(SCI_SETMARGINMASKN, 2, SC_MASK_FOLDERS);
 	SendEditor(SCI_SETMARGINSENSITIVEN, 2, 1);
-
-	if (props->GetInt("fold.use.plus")) {
-		SendEditor(SCI_MARKERDEFINE, SC_MARKNUM_FOLDEROPEN, SC_MARK_MINUS);
-		SendEditor(SCI_MARKERSETFORE, SC_MARKNUM_FOLDEROPEN, Colour(0xff, 0xff, 0xff).AsLong());
-		SendEditor(SCI_MARKERSETBACK, SC_MARKNUM_FOLDEROPEN, Colour(0, 0, 0).AsLong());
-		SendEditor(SCI_MARKERDEFINE, SC_MARKNUM_FOLDER, SC_MARK_PLUS);
-		SendEditor(SCI_MARKERSETFORE, SC_MARKNUM_FOLDER, Colour(0xff, 0xff, 0xff).AsLong());
-		SendEditor(SCI_MARKERSETBACK, SC_MARKNUM_FOLDER, Colour(0, 0, 0).AsLong());
-	} else {
-		SendEditor(SCI_MARKERDEFINE, SC_MARKNUM_FOLDEROPEN, SC_MARK_ARROWDOWN);
-		SendEditor(SCI_MARKERSETFORE, SC_MARKNUM_FOLDEROPEN, Colour(0, 0, 0).AsLong());
-		SendEditor(SCI_MARKERSETBACK, SC_MARKNUM_FOLDEROPEN, Colour(0, 0, 0).AsLong());
-		SendEditor(SCI_MARKERDEFINE, SC_MARKNUM_FOLDER, SC_MARK_ARROW);
-		SendEditor(SCI_MARKERSETFORE, SC_MARKNUM_FOLDER, Colour(0, 0, 0).AsLong());
-		SendEditor(SCI_MARKERSETBACK, SC_MARKNUM_FOLDER, Colour(0, 0, 0).AsLong());
+	
+	int fold_symbols = props->GetInt("fold.symbols");
+	switch(fold_symbols)
+	{
+		case 0:
+			// Arrow pointing right for contracted folders, arrow pointing down for expanded
+			DefineMarker(SC_MARKNUM_FOLDEROPEN, SC_MARK_ARROWDOWN, Colour(0, 0, 0), Colour(0, 0, 0));
+			DefineMarker(SC_MARKNUM_FOLDER, SC_MARK_ARROW, Colour(0, 0, 0), Colour(0, 0, 0));
+			DefineMarker(SC_MARKNUM_FOLDERSUB, SC_MARK_EMPTY, Colour(0, 0, 0), Colour(0, 0, 0));
+			DefineMarker(SC_MARKNUM_FOLDERTAIL, SC_MARK_EMPTY, Colour(0, 0, 0), Colour(0, 0, 0));
+			DefineMarker(SC_MARKNUM_FOLDEREND, SC_MARK_EMPTY, Colour(0xff, 0xff, 0xff), Colour(0, 0, 0));
+			DefineMarker(SC_MARKNUM_FOLDEROPENMID, SC_MARK_EMPTY, Colour(0xff, 0xff, 0xff), Colour(0, 0, 0));
+			DefineMarker(SC_MARKNUM_FOLDERMIDTAIL, SC_MARK_EMPTY, Colour(0xff, 0xff, 0xff), Colour(0, 0, 0));
+			break;
+		case 1:
+			// Plus for contracted folders, minus for expanded
+			DefineMarker(SC_MARKNUM_FOLDEROPEN, SC_MARK_MINUS, Colour(0xff, 0xff, 0xff), Colour(0, 0, 0));
+			DefineMarker(SC_MARKNUM_FOLDER, SC_MARK_PLUS, Colour(0xff, 0xff, 0xff), Colour(0, 0, 0));
+			DefineMarker(SC_MARKNUM_FOLDERSUB, SC_MARK_EMPTY, Colour(0xff, 0xff, 0xff), Colour(0, 0, 0));
+			DefineMarker(SC_MARKNUM_FOLDERTAIL, SC_MARK_EMPTY, Colour(0xff, 0xff, 0xff), Colour(0, 0, 0));
+			DefineMarker(SC_MARKNUM_FOLDEREND, SC_MARK_EMPTY, Colour(0xff, 0xff, 0xff), Colour(0, 0, 0));
+			DefineMarker(SC_MARKNUM_FOLDEROPENMID, SC_MARK_EMPTY, Colour(0xff, 0xff, 0xff), Colour(0, 0, 0));
+			DefineMarker(SC_MARKNUM_FOLDERMIDTAIL, SC_MARK_EMPTY, Colour(0xff, 0xff, 0xff), Colour(0, 0, 0));
+			break;
+		case 2:
+			// Like a flattened tree control using circular headers and curved joins
+			DefineMarker(SC_MARKNUM_FOLDEROPEN, SC_MARK_CIRCLEMINUS, Colour(0xff, 0xff, 0xff), Colour(0x40, 0x40, 0x40));
+			DefineMarker(SC_MARKNUM_FOLDER, SC_MARK_CIRCLEPLUS, Colour(0xff, 0xff, 0xff), Colour(0x40, 0x40, 0x40));
+			DefineMarker(SC_MARKNUM_FOLDERSUB, SC_MARK_VLINE, Colour(0xff, 0xff, 0xff), Colour(0x40, 0x40, 0x40));
+			DefineMarker(SC_MARKNUM_FOLDERTAIL, SC_MARK_LCORNERCURVE, Colour(0xff, 0xff, 0xff), Colour(0x40, 0x40, 0x40));
+			DefineMarker(SC_MARKNUM_FOLDEREND, SC_MARK_CIRCLEPLUSCONNECTED, Colour(0xff, 0xff, 0xff), Colour(0x40, 0x40, 0x40));
+			DefineMarker(SC_MARKNUM_FOLDEROPENMID, SC_MARK_CIRCLEMINUSCONNECTED, Colour(0xff, 0xff, 0xff), Colour(0x40, 0x40, 0x40));
+			DefineMarker(SC_MARKNUM_FOLDERMIDTAIL, SC_MARK_TCORNERCURVE, Colour(0xff, 0xff, 0xff), Colour(0x40, 0x40, 0x40));
+			break;
+		case 3:
+			// Like a flattened tree control using square headers
+			DefineMarker(SC_MARKNUM_FOLDEROPEN, SC_MARK_BOXMINUS, Colour(0xff, 0xff, 0xff), Colour(0x80, 0x80, 0x80));
+			DefineMarker(SC_MARKNUM_FOLDER, SC_MARK_BOXPLUS, Colour(0xff, 0xff, 0xff), Colour(0x80, 0x80, 0x80));
+			DefineMarker(SC_MARKNUM_FOLDERSUB, SC_MARK_VLINE, Colour(0xff, 0xff, 0xff), Colour(0x80, 0x80, 0x80));
+			DefineMarker(SC_MARKNUM_FOLDERTAIL, SC_MARK_LCORNER, Colour(0xff, 0xff, 0xff), Colour(0x80, 0x80, 0x80));
+			DefineMarker(SC_MARKNUM_FOLDEREND, SC_MARK_BOXPLUSCONNECTED, Colour(0xff, 0xff, 0xff), Colour(0x80, 0x80, 0x80));
+			DefineMarker(SC_MARKNUM_FOLDEROPENMID, SC_MARK_BOXMINUSCONNECTED, Colour(0xff, 0xff, 0xff), Colour(0x80, 0x80, 0x80));
+			DefineMarker(SC_MARKNUM_FOLDERMIDTAIL, SC_MARK_TCORNER, Colour(0xff, 0xff, 0xff), Colour(0x80, 0x80, 0x80));
+			break;
 	}
 
 	// Well, unlike scite, we want it everytime.
@@ -2030,6 +2077,16 @@ void AnEditor::ReadPropertiesInitial() {
 	foldMargin = props->GetInt("margin.fold.visible", 1);
 	SendEditor(SCI_SETMARGINWIDTHN, 2, foldMargin ? foldMarginWidth : 0);
 }
+
+
+
+void AnEditor::DefineMarker(int marker, int markerType, Colour fore, Colour back)
+{
+	SendEditor(SCI_MARKERDEFINE, marker, markerType);
+	SendEditor(SCI_MARKERSETFORE, marker, fore.AsLong());
+	SendEditor(SCI_MARKERSETBACK, marker, back.AsLong());
+}
+
 
 int AnEditor::GetBookmarkLine( const int nLineStart )
 {

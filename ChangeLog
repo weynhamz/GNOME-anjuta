@@ -1,3 +1,10 @@
+2001-09-20  Stephane Demurget <demurgets@free.fr>
+
+	Patch from rikul <null@acm.org> :
+
+	* data/internal.properties, src/aneditor.cxx: fixed the fold margin
+	  problem and added folding support for php/hmtl.
+
 2001-09-19  Naba Kumar <kh_naba@users.sourceforge.net>
 
 	* Fixed dnd of files within scintilla.
