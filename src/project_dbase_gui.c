@@ -1213,25 +1213,17 @@ on_prj_import_confirm_yes (GtkButton * button, gpointer user_data)
 void
 on_add_prjfilesel_ok_clicked (GtkButton * button, gpointer user_data)
 {
-	gchar *filename;
-	gchar *comp_dir;
 	ProjectDBase *p = (ProjectDBase *) user_data;
-	GList * list;
-	int i;
-	struct stat s;
-	int num_elements;
+	GList *list, *node;
 
-	list = fileselection_get_nodelist(p->fileselection_add_file);
-	num_elements = g_list_length(list);
-
-	for(i=0;i<num_elements;i++)
+	list = fileselection_get_filelist(p->fileselection_add_file);
+	node = list;
+	while (node)
 	{
-		gpointer list_data;
+		struct stat s;
+		gchar *comp_dir;
+		gchar *filename = node->data;
 		
-		filename = fileselection_get_lastfilename (p->fileselection_add_file,list);
-		list_data = g_list_nth_data(list, 0);
-		list = g_list_remove(list, list_data);
-	
 		if (!filename)
 			return;
 		if (0 != stat(filename, &s))
@@ -1279,6 +1271,7 @@ on_add_prjfilesel_ok_clicked (GtkButton * button, gpointer user_data)
 				on_prj_import_confirm_yes (NULL, p);
 		}
 		g_free (comp_dir);
-		g_free (filename);
+		node = g_list_next (node);
 	}
+	glist_strings_free (list);
 }

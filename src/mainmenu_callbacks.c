@@ -45,7 +45,7 @@
 #include "appwizard.h"
 #include "project_dbase.h"
 #include "debugger.h"
-#include "breakpoints_cbs.h"
+#include "breakpoints.h"
 #include "goto_line.h"
 #include "resources.h"
 #include "executer.h"
@@ -1447,14 +1447,14 @@ on_toggle_breakpoint1_activate (GtkMenuItem * menuitem, gpointer user_data)
 void
 on_set_breakpoint1_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
-	on_bk_add_clicked (NULL, debugger.breakpoints_dbase);
+	breakpoints_dbase_add (debugger.breakpoints_dbase);
 }
 
 void
 on_disable_all_breakpoints1_activate (GtkMenuItem * menuitem,
 				      gpointer user_data)
 {
-	on_bk_disableall_clicked (NULL, debugger.breakpoints_dbase);
+	breakpoints_dbase_disable_all (debugger.breakpoints_dbase);
 }
 
 void
@@ -1466,7 +1466,7 @@ on_show_breakpoints1_activate (GtkMenuItem * menuitem, gpointer user_data)
 void
 on_clear_breakpoints1_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
-	on_bk_removeall_clicked (NULL, debugger.breakpoints_dbase);
+	breakpoints_dbase_remove_all (debugger.breakpoints_dbase);
 }
 
 /*******************************************************************************/
@@ -1951,7 +1951,7 @@ on_set_compiler1_activate (GtkMenuItem * menuitem, gpointer user_data)
 void
 on_set_src_paths1_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
-	src_paths_get (app->src_paths);
+	src_paths_show (app->src_paths);
 }
 
 void

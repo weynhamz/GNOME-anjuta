@@ -68,8 +68,6 @@ anjuta_SOURCES = \
 	attach_process.h\
 	breakpoints.c\
 	breakpoints.h\
-	breakpoints_cbs.c\
-	breakpoints_cbs.h\
 	build_file.c\
 	build_file.h\
 	build_project.c\
@@ -82,8 +80,6 @@ anjuta_SOURCES = \
 	compile.h\
 	compiler_options.c\
 	compiler_options.h\
-	compiler_options_cbs.c\
-	compiler_options_cbs.h\
 	configurer.c\
 	configurer.h\
 	controls.c\
@@ -177,9 +173,6 @@ anjuta_SOURCES = \
 	splash.h\
 	src_paths.c\
 	src_paths.h\
-	src_paths_cbs.c\
-	src_paths_cbs.h\
-	src_paths_gui.c\
 	stack_trace.c\
 	stack_trace.h\
 	stack_trace_cbs.c\

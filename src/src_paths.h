@@ -1,6 +1,6 @@
 /*
     src_paths.h
-    Copyright (C) 2000  Kh. Naba Kumar Singh
+    Copyright (C) 2000  Naba Kumar <naba@gnome.org>
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -19,46 +19,21 @@
 #ifndef _SRC_PATHS_H_
 #define _SRC_PATHS_H_
 
-#include <glade/glade.h>
-#include "properties.h"
-
 typedef struct _SrcPaths SrcPaths;
-typedef struct _SrcPathsGui SrcPathsGui;
-
-struct _SrcPathsGui
-{
-	GtkWidget *window;
-
-	GtkWidget *src_clist;
-	GtkWidget *src_entry;
-	GtkWidget *src_add_b;
-	GtkWidget *src_update_b;
-	GtkWidget *src_remove_b;
-	GtkWidget *src_clear_b;
-};
-
+typedef struct _SrcPathsPriv SrcPathsPriv;
+	
 struct _SrcPaths
 {
-	GladeXML *gxml;
-	SrcPathsGui widgets;
-	gint src_index;
-
-	gboolean is_showing;
-	gint win_pos_x, win_pos_y;
+	SrcPathsPriv *priv;
 };
 
-void create_src_paths_gui (SrcPaths *);
 SrcPaths *src_paths_new (void);
 void src_paths_destroy (SrcPaths *);
-void src_paths_get (SrcPaths *);
 void src_paths_show (SrcPaths *);
 void src_paths_hide (SrcPaths *);
 GList *src_paths_get_paths (SrcPaths *);
 
 gboolean src_paths_save (SrcPaths * co, FILE * s);
 gboolean src_paths_load (SrcPaths * co, PropsID props);
-gboolean src_paths_save_yourself (SrcPaths * co, FILE * s);
-gboolean src_paths_load_yourself (SrcPaths * co, PropsID props);
-void src_paths_update_controls (SrcPaths *);
 
 #endif

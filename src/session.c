@@ -184,7 +184,8 @@ session_save_long_n( ProjectDBase * p, const gchar *szSection, const gint nItem,
 }
 
 void
-session_save_string_n( ProjectDBase * p, const gchar *szSection, const gint nItem, const gchar *szValue )
+session_save_string_n(ProjectDBase * p, const gchar *szSection,
+					  const gint nItem, const gchar *szValue )
 {
 	gchar *szFile = GetSessionFile( p );
 	gchar *szSect = NULL ;

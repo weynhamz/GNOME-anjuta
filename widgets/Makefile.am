@@ -9,11 +9,11 @@ INCLUDES = \
 noinst_LIBRARIES = libwidgets.a
 
 libwidgets_a_SOURCES = \
-	gnomedirlist.c \
-	gnomedirlist.h \
 	gnomefilelist.c \
 	gnomefilelist.h \
 	e-shell-about-box.c \
 	e-shell-about-box.h
 #	scroll-menu.c \
 #	scroll-menu.h \
+#	gnomedirlist.c \
+#	gnomedirlist.h \

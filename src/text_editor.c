@@ -236,12 +236,16 @@ text_editor_destroy (TextEditor * te)
 		if (te->autosave_on)
 			gtk_timeout_remove (te->autosave_id);
 
+		if (te->widgets.window)
+			gtk_widget_destroy (te->widgets.window);
+		
 		gtk_widget_unref (te->widgets.window);
 		gtk_widget_unref (te->widgets.client_area);
 		gtk_widget_unref (te->widgets.client);
+#warning "G2: Scintilla has a bug becaue of which ref/unref doesn't work"
+		// gtk_widget_unref (te->widgets.editor);
 		gtk_widget_unref (te->widgets.line_label);
-		gtk_widget_unref (te->widgets.editor);
-		gtk_widget_unref (te->buttons.novus);
+		
 		gtk_widget_unref (te->buttons.novus);
 		gtk_widget_unref (te->buttons.open);
 		gtk_widget_unref (te->buttons.save);
@@ -255,9 +259,6 @@ text_editor_destroy (TextEditor * te)
 		gtk_widget_unref (te->buttons.build);
 		gtk_widget_unref (te->buttons.print);
 		gtk_widget_unref (te->buttons.attach);
-		
-		if (te->widgets.window)
-			gtk_widget_destroy (te->widgets.window);
 		
 		if (te->buttons.close)
 			text_editor_tab_widget_destroy(te);
@@ -1010,8 +1011,8 @@ text_editor_check_disk_status (TextEditor * te, const gboolean bForce )
 			
 			buff =
 				g_strdup_printf (_
-						 ("The file \"%s\" on the disk is more recent "
-						  "than\nthe current buffer.\nDo you want to reload it?"),
+						 ("The file '%s' on the disk is more recent than\n"
+						  "the current buffer.\nDo you want to reload it?"),
 				te->filename);
 			
 			if (te->mode == TEXT_EDITOR_PAGED)

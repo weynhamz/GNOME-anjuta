@@ -1,6 +1,6 @@
 /*
     breakpoints.c
-    Copyright (C) 2000  Kh. Naba Kumar Singh
+    Copyright (C) 2000  Naba Kumar <naba@gnome.org>
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -29,7 +29,6 @@
 #include <gnome.h>
 #include "anjuta.h"
 #include "breakpoints.h"
-#include "breakpoints_cbs.h"
 #include "utilities.h"
 #include "fileselection.h"
 #include "resources.h"
@@ -39,6 +38,55 @@
 
 #define	BKPT_FIELDS	(13)
 
+typedef enum _BreakpointType BreakpointType;
+typedef struct _BreakpointItem BreakpointItem;
+
+enum _BreakpointType
+{
+	breakpoint,
+	watchpoint,
+	catchpoint
+};
+
+struct _BreakpointItem
+{
+	BreakpointsDBase *bd;
+	gboolean is_editing;
+	gint id;
+	gchar *disp;
+	gboolean enable;
+	gulong addr;
+	gint pass;
+	gchar *condition;
+	gchar *file;
+	guint line;
+	gint handle;
+	gboolean handle_invalid;
+	gchar *function;
+	gchar *info;
+	time_t time;
+};
+
+struct _BreakpointsDBasePriv
+{
+	GladeXML *gxml;
+	gchar *cond_history, *loc_history, *pass_history;
+	
+	gboolean is_showing;
+	gint win_pos_x, win_pos_y, win_width, win_height;
+
+	/* Widgets */	
+	GtkWidget *window;
+	GtkWidget *treeview;
+	GtkWidget *add_button;
+	GtkWidget *remove_button;
+	GtkWidget *jumpto_button;
+	GtkWidget *properties_button;
+	GtkWidget *removeall_button;
+	GtkWidget *enableall_button;
+	GtkWidget *disableall_button;
+};
+
 enum {
 	ENABLED_COLUMN,
 	FILENAME_COLUMN,
@@ -46,43 +94,48 @@ enum {
 	FUNCTION_COLUMN,
 	PASS_COLUMN,
 	CONDITION_COLUMN,
+	DATA_COLUMN,
 	COLUMNS_NB
 };
 
 static char *column_names[COLUMNS_NB] = {
-	        N_("Enabled"), N_("File"), N_("Line"), N_("Function"), N_("Pass"), N_("Condition")
+	N_("Enabled"), N_("File"), N_("Line"),
+	N_("Function"), N_("Pass"), N_("Condition")
 };
 
-static void breakpoint_item_save ( BreakpointItem * bi, ProjectDBase * pdb, const gint nBreak );
+static void breakpoint_item_save (BreakpointItem *bi, ProjectDBase *pdb,
+								  const gint nBreak );
 static void breakpoints_dbase_delete_all_breakpoints (BreakpointsDBase * bd);
 static gboolean breakpoint_item_load ( BreakpointItem * bi, gchar* szStr );
-static void treeview_enabled_toggled (GtkCellRendererToggle *cell, gchar *path_str, gpointer data);
+static void treeview_enabled_toggled (GtkCellRendererToggle *cell,
+									  gchar *path_str, gpointer data);
 
 #define BREAKPOINTS_MARKER 1
 
-BreakpointItem *
+static BreakpointItem *
 breakpoint_item_new ()
 {
 	BreakpointItem *bi;
 	bi = g_malloc (sizeof (BreakpointItem));
-	if (bi)
-	{
-		bi->id = 0;
-		bi->enable = FALSE;
-		bi->pass = 0;
-		bi->condition = NULL;
-		bi->file = NULL;
-		bi->line = 0;
-		bi->function = NULL;
-		bi->handle = 0;
-		bi->handle_invalid = TRUE;
-		bi->info = NULL;
-		bi->disp = NULL;
-	}
+	
+	bi->bd = NULL;
+	bi->is_editing = FALSE;
+	
+	bi->id = 0;
+	bi->enable = FALSE;
+	bi->pass = 0;
+	bi->condition = NULL;
+	bi->file = NULL;
+	bi->line = 0;
+	bi->function = NULL;
+	bi->handle = 0;
+	bi->handle_invalid = TRUE;
+	bi->info = NULL;
+	bi->disp = NULL;
 	return bi;
 }
 
-void
+static void
 breakpoint_item_destroy (BreakpointItem * bi)
 {
 	if (!bi)
@@ -194,19 +247,386 @@ fine:
 };
 
 static void
+on_bk_remove_clicked (GtkWidget *button,
+		      gpointer   data)
+{
+	BreakpointsDBase *bd;
+	BreakpointItem *bi;
+	GtkTreeModel *model;
+	GtkTreeSelection *selection;
+	GtkTreeIter iter;
+	gboolean valid;
+
+	bd = (BreakpointsDBase *) data;
+
+	selection =
+		gtk_tree_view_get_selection (GTK_TREE_VIEW (bd->priv->treeview));
+	valid = gtk_tree_selection_get_selected (selection, &model, &iter);
+	if (valid)
+	{
+		debugger_delete_breakpoint (bi->id);
+		gtk_tree_store_remove (GTK_TREE_STORE (model), &iter);
+	}
+}
+
+static void
+on_bk_jumpto_clicked (GtkWidget *button,
+		      gpointer   data)
+{
+	BreakpointsDBase *bd;
+	GtkTreeModel *model;
+	GtkTreeSelection *selection;
+	GtkTreeIter iter;
+	gboolean valid;
+
+	bd = (BreakpointsDBase *) data;
+
+	selection =
+		gtk_tree_view_get_selection (GTK_TREE_VIEW (bd->priv->treeview));
+	valid = gtk_tree_selection_get_selected (selection, &model, &iter);
+	if (valid)
+	{
+		BreakpointItem *bi;
+		gtk_tree_model_get (model, &iter, DATA_COLUMN, &bi, -1);
+		breakpoints_dbase_hide (bd);
+		anjuta_goto_file_line (bi->file, bi->line);
+	}
+}
+
+/*************************************************************************************/
+
+static void
+pass_item_add_mesg_arrived (GList * lines, gpointer data)
+{
+	GList *outputs;
+
+	outputs = remove_blank_lines (lines);
+
+	if (outputs == NULL)
+		return;
+
+	if (g_list_length (outputs) != 1)
+	{
+		GtkWidget *dialog;
+		gchar *msg, *tmp;
+		gint i;
+
+		msg = g_strdup ((gchar *) g_list_nth_data (outputs, 0));
+
+		for (i = 1; i < g_list_length (outputs); i++)
+		{
+			tmp = msg;
+			msg =
+				g_strconcat (tmp, "\n",
+					     (gchar *)
+					     g_list_nth_data (outputs, i),
+					     NULL);
+			g_free (tmp);
+		}
+
+		dialog = gtk_message_dialog_new (GTK_WINDOW (app->widgets.window),
+										 GTK_DIALOG_MODAL |
+											GTK_DIALOG_DESTROY_WITH_PARENT,
+										 GTK_MESSAGE_INFO,
+										 GTK_BUTTONS_CLOSE,
+										 msg,
+										 NULL);
+		gtk_dialog_run (GTK_DIALOG (dialog));
+		g_free (msg);
+		g_list_free (outputs);
+		return;
+	}
+
+	if (strstr ((gchar *) outputs->data, "Will ignore next") == NULL) 
+	{
+		GtkWidget *dialog;
+		dialog = gtk_message_dialog_new (GTK_WINDOW (app->widgets.window),
+										 GTK_DIALOG_MODAL |
+											GTK_DIALOG_DESTROY_WITH_PARENT,
+										 GTK_MESSAGE_INFO,
+										 GTK_BUTTONS_CLOSE,
+										 (gchar *) g_list_nth_data (outputs, 0),
+										 NULL);
+
+		gtk_dialog_run (GTK_DIALOG (dialog));
+		g_list_free (outputs);
+
+		return;
+	}
+}
+
+static void
+bk_item_add_mesg_arrived (GList * lines, gpointer data)
+{
+	BreakpointsDBase *bd;
+	BreakpointItem *bid;
+	GList *outputs;
+
+	bid = (BreakpointItem*) data;
+	outputs = remove_blank_lines (lines);
+	if (outputs == NULL)
+		goto down_label;
+	if (g_list_length (outputs) == 1)
+	{
+		gint id, count, line;
+		gchar file[256];
+		gchar *buff;
+		
+		count =	sscanf ((char *) g_list_nth_data (outputs, 0),
+			"Breakpoint %d at %*s file %s line %d", &id, file, &line);
+		if (count != 3)
+		{
+			debugger_dialog_message (outputs, data);
+			goto down_label;
+		}
+		/* Removing the extra comma at the end of the filename */
+		if (strlen(file))
+			file[strlen(file)-1] = '\0';
+
+		anjuta_goto_file_line_mark (file, line, FALSE);
+		
+		if (bid == NULL)
+			goto down_label;
+		
+		if (bid->pass > 0)
+		{
+			buff =
+				g_strdup_printf ("ignore %d %d", id,
+						 bid->pass);
+			debugger_put_cmd_in_queqe (buff, DB_CMD_ALL,
+						   pass_item_add_mesg_arrived,
+						   NULL);
+			g_free (buff);
+		}
+		bd = bid->bd;
+		if (bid->is_editing)
+		{
+			GtkTreeModel *model;
+			GtkTreeIter iter;
+			gboolean valid;
+			gboolean found = FALSE;
+			
+			model = gtk_tree_view_get_model (GTK_TREE_VIEW (bd->priv->treeview));
+			valid = gtk_tree_model_get_iter_first (model, &iter);
+			while (valid)
+			{
+				BreakpointItem *bi;
+				gtk_tree_model_get (model, &iter, DATA_COLUMN, &bi, -1);
+				if (bid == bi)
+				{
+					found = TRUE;
+					break;
+				}
+				valid = gtk_tree_model_iter_next (model, &iter);
+			}
+			if (found)
+			{
+				debugger_delete_breakpoint (bid->id);
+				gtk_tree_store_remove (GTK_TREE_STORE (model), &iter);
+				/* Do not destroy bid or bi. It will go away with the
+				row remove */
+			}
+			else
+			{
+				debugger_put_cmd_in_queqe ("info breakpoints",
+										   DB_CMD_NONE,
+										   breakpoints_dbase_update,
+										   bd);
+				breakpoint_item_destroy (bid);
+			}
+		}
+		else
+		{
+			debugger_put_cmd_in_queqe ("info breakpoints",
+									   DB_CMD_NONE,
+									   breakpoints_dbase_update,
+									   bd);
+			breakpoint_item_destroy (bid);
+		}
+		debugger_execute_cmd_in_queqe ();
+	}
+	else
+	{
+		debugger_dialog_message (outputs, data);
+	}
+
+down_label:
+
+	if (outputs)
+		g_list_free (outputs);
+
+	return;
+}
+
+static gboolean
+bk_item_add (BreakpointsDBase *bd, GladeXML *gxml, BreakpointItem *bid)
+{
+	GtkWidget *dialog;
+	GtkWidget *location_entry;
+	GtkWidget *condition_entry;
+	GtkWidget *pass_entry;
+	gchar *buff;
+
+	dialog = glade_xml_get_widget (gxml, "breakpoints_properties_dialog");
+	location_entry = glade_xml_get_widget (gxml, "breakpoint_location_entry");
+	condition_entry = glade_xml_get_widget (gxml, "breakpoint_condition_entry");
+	pass_entry = glade_xml_get_widget (gxml, "breakpoint_pass_entry");
+
+	if (strlen (gtk_entry_get_text (GTK_ENTRY (location_entry))) > 0)
+	{
+		const gchar *loc_text;
+		const gchar *cond_text;
+		const gchar *pass_text;
+		
+		loc_text = gtk_entry_get_text (GTK_ENTRY (location_entry));
+		cond_text = gtk_entry_get_text (GTK_ENTRY (condition_entry));
+		pass_text = gtk_entry_get_text (GTK_ENTRY (pass_entry));
+		
+		bid->pass = atoi (pass_text);
+		bid->condition = g_strdup (cond_text);
+		bid->bd = bd;
+		bid->is_editing = FALSE;
+		if (strlen (cond_text) != 0)
+			buff = g_strdup_printf ("break %s if %s", loc_text, cond_text);
+		else
+			buff = g_strdup_printf ("break %s", loc_text);
+		
+		debugger_put_cmd_in_queqe (buff,
+					   DB_CMD_ALL,
+					   bk_item_add_mesg_arrived,
+					   bid);
+		g_free (buff);
+		debugger_execute_cmd_in_queqe ();
+		return TRUE;
+	}
+	else
+	{
+		anjuta_error_parented (dialog, 
+				_("You must give a valid location to set the breakpoint."));
+		return TRUE;
+	}
+}
+
+static void
+on_bk_properties_clicked (GtkWidget *button, gpointer   data)
+{
+	GladeXML *gxml;
+	BreakpointsDBase *bd;
+	BreakpointItem *bid;
+	GtkWidget *dialog;
+	GtkTreeSelection *selection;
+	GtkTreeModel *model;
+	GtkTreeIter iter;
+	gboolean valid;
+	
+	bd = (BreakpointsDBase *) data;
+	selection =
+		gtk_tree_view_get_selection (GTK_TREE_VIEW (bd->priv->treeview));
+	valid = gtk_tree_selection_get_selected (selection, &model, &iter);
+	if (!valid)
+	{
+		g_object_unref (gxml);
+		return;
+	}
+	gtk_tree_model_get (model, &iter, DATA_COLUMN, &bid, -1);
+	bid->bd = bd;
+	bid->is_editing = TRUE;
+	
+	gxml = glade_xml_new (GLADE_FILE_ANJUTA,
+						  "breakpoint_properties_dialog", NULL);
+	dialog = glade_xml_get_widget (gxml, "breakpoint_properties_dialog");
+
+	if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_OK)
+	{
+		if (bk_item_add (bd, gxml, bid) == TRUE)
+			gtk_widget_destroy (dialog);
+	}
+	else
+	{
+		gtk_widget_destroy (dialog);
+	}
+	g_object_unref (gxml);
+}
+
+static void
+on_bk_add_clicked (GtkWidget *button, gpointer   data)
+{
+	GladeXML *gxml;
+	BreakpointsDBase *bd;
+	GtkWidget *dialog;
+
+	bd = (BreakpointsDBase *) data;
+	gxml = glade_xml_new (GLADE_FILE_ANJUTA,
+						  "breakpoint_properties_dialog", NULL);
+	dialog = glade_xml_get_widget (gxml, "breakpoint_properties_dialog");
+	
+	BreakpointItem *bid = breakpoint_item_new ();
+	bid->bd = bd;
+	if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_OK)
+	{
+		if (bk_item_add (bd, gxml, bid) == TRUE)
+			gtk_widget_destroy (dialog);
+	}
+	else
+	{
+		gtk_widget_destroy (dialog);
+	}
+	g_object_unref (gxml);
+}
+
+static void
+on_bk_removeall_clicked (GtkWidget *button, BreakpointsDBase *bd)
+{
+	GtkWidget *dialog;
+	GtkTreeModel *model;
+	GtkTreeIter iter;
+	
+	dialog = gtk_message_dialog_new (GTK_WINDOW (bd->priv->window),
+					 GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+					 GTK_MESSAGE_QUESTION,
+					 GTK_BUTTONS_YES_NO,
+					 _("Are you sure you want to delete all the breakpoints?"),
+					 NULL);
+
+	if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_YES) {
+		debugger_delete_all_breakpoints ();
+		breakpoints_dbase_clear (bd);
+	} else
+		breakpoints_dbase_hide (bd);
+	gtk_widget_destroy (dialog);
+}
+
+static void
+on_bk_enableall_clicked (GtkWidget *button, gpointer   data)
+{
+#warning "G2 port: change the active state of the enabled column"
+	debugger_enable_all_breakpoints ();
+}
+
+static void
+on_bk_disableall_clicked (GtkWidget *button, gpointer   data)
+{
+#warning "G2 port: change the active state of the enabled column"
+	debugger_disable_all_breakpoints ();
+}
+
+static void
 treeview_enabled_toggled (GtkCellRendererToggle *cell,
 			  gchar			*path_str,
 			  gpointer		 data)
 {
 	BreakpointsDBase *bd;
 	BreakpointItem *bi;
-	GtkTreeModel *model = GTK_TREE_MODEL (data);
+	GtkTreeModel *model;
 	GtkTreePath *path = gtk_tree_path_new_from_string (path_str);
 	GtkTreeIter iter;
 	gboolean state;
 
 	bd = (BreakpointsDBase *) data;
-	bi = g_list_nth_data (bd->breakpoints, bd->current_index);
+	model = gtk_tree_view_get_model (GTK_TREE_VIEW (bd->priv->treeview));
+	gtk_tree_model_get_iter (model, &iter, path);
+	gtk_tree_model_get (model, &iter, ENABLED_COLUMN, &state,
+						DATA_COLUMN, &bi, -1);
 	bi->enable ^= 1;
 
 	if (!bi->enable)
@@ -214,13 +634,33 @@ treeview_enabled_toggled (GtkCellRendererToggle *cell,
 	else
 		debugger_enable_breakpoint (bi->id);
 
-	gtk_tree_model_get_iter (model, &iter, path);
-	gtk_tree_model_get (model, &iter, ENABLED_COLUMN, &state, -1);
-
 	state ^= 1;
 
-	gtk_tree_store_set (GTK_TREE_STORE (model), &iter, ENABLED_COLUMN, state, -1);
-}			  
+	gtk_tree_store_set (GTK_TREE_STORE (model), &iter, ENABLED_COLUMN,
+						state, -1);
+}
+
+static void
+on_bk_treeview_row_deleted (GtkTreeModel *model, GtkTreePath  *path)
+{
+	GtkTreeIter iter;
+	BreakpointItem *item;
+
+	if (gtk_tree_model_get_iter (model, &iter, path))
+	{
+		gtk_tree_model_get (model, &iter,
+							DATA_COLUMN, &item,
+							-1);
+		breakpoint_item_destroy (item);
+	}
+}
+
+static gboolean
+on_bk_window_delete_event (GtkWindow *win, GdkEvent *event, BreakpointsDBase *bd)
+{
+	breakpoints_dbase_hide (bd);
+	return TRUE;
+}
 
 BreakpointsDBase *
 breakpoints_dbase_new ()
@@ -228,7 +668,7 @@ breakpoints_dbase_new ()
 	BreakpointsDBase *bd;
 
 	bd = g_new0 (BreakpointsDBase, 1);
-
+	bd->priv = g_new0 (BreakpointsDBasePriv, 1);
 	if (bd) {
 		GtkTreeView *view;
 		GtkTreeStore *store;
@@ -238,96 +678,87 @@ breakpoints_dbase_new ()
 		int i;
 
 		/* breakpoints dialog */
-		bd->gxml_prop = glade_xml_new (GLADE_FILE_ANJUTA, "beakpoints_properties_dialog", NULL);
-		glade_xml_signal_autoconnect (bd->gxml_prop);
-		gtk_widget_hide (glade_xml_get_widget (bd->gxml_prop, "breakpoints_properties_dialog"));
+		bd->priv->gxml = glade_xml_new (GLADE_FILE_ANJUTA, "breakpoints_dialog", NULL);
+		glade_xml_signal_autoconnect (bd->priv->gxml);
 		
-		bd->gxml = glade_xml_new (GLADE_FILE_ANJUTA, "beakpoints_dialog", NULL);
-		glade_xml_signal_autoconnect (bd->gxml);
-		
-		bd->widgets.window = glade_xml_get_widget (bd->gxml, "breakpoints_dialog");
-		gtk_widget_hide (bd->widgets.window);
-		bd->widgets.treeview = glade_xml_get_widget (bd->gxml, "breakpoints_tv");
-		bd->widgets.remove_button = glade_xml_get_widget (bd->gxml, "breakpoints_remove_button");
-		bd->widgets.jumpto_button = glade_xml_get_widget (bd->gxml, "breakpoints_jumpto_button");
-		bd->widgets.properties_button = glade_xml_get_widget (bd->gxml, "breakpoints_properties_button");
-		bd->widgets.add_button = glade_xml_get_widget (bd->gxml, "breakpoints_add_button");
-		bd->widgets.removeall_button = glade_xml_get_widget (bd->gxml, "breakpoints_removeall_button");
-		bd->widgets.enableall_button = glade_xml_get_widget (bd->gxml, "breakpoints_enableall_button");
-		bd->widgets.disableall_button = glade_xml_get_widget (bd->gxml, "breakpoints_disableall_button");
+		bd->priv->window = glade_xml_get_widget (bd->priv->gxml, "breakpoints_dialog");
+		gtk_widget_hide (bd->priv->window);
+		gtk_window_set_transient_for (GTK_WINDOW (bd->priv->window),
+									  GTK_WINDOW (app->widgets.window));
+		bd->priv->treeview = glade_xml_get_widget (bd->priv->gxml, "breakpoints_tv");
+		bd->priv->remove_button = glade_xml_get_widget (bd->priv->gxml, "breakpoints_remove_button");
+		bd->priv->jumpto_button = glade_xml_get_widget (bd->priv->gxml, "breakpoints_jumpto_button");
+		bd->priv->properties_button = glade_xml_get_widget (bd->priv->gxml, "breakpoints_properties_button");
+		bd->priv->add_button = glade_xml_get_widget (bd->priv->gxml, "breakpoints_add_button");
+		bd->priv->removeall_button = glade_xml_get_widget (bd->priv->gxml, "breakpoints_removeall_button");
+		bd->priv->enableall_button = glade_xml_get_widget (bd->priv->gxml, "breakpoints_enableall_button");
+		bd->priv->disableall_button = glade_xml_get_widget (bd->priv->gxml, "breakpoints_disableall_button");
 
- 		gtk_widget_ref (bd->widgets.window);
-		gtk_widget_ref (bd->widgets.treeview);
-		gtk_widget_ref (bd->widgets.remove_button);
-		gtk_widget_ref (bd->widgets.jumpto_button);
-		gtk_widget_ref (bd->widgets.properties_button);
-		gtk_widget_ref (bd->widgets.add_button);
-		gtk_widget_ref (bd->widgets.removeall_button);
-		gtk_widget_ref (bd->widgets.enableall_button);
-		gtk_widget_ref (bd->widgets.disableall_button);
-
-		view = GTK_TREE_VIEW (bd->widgets.treeview);
+		view = GTK_TREE_VIEW (bd->priv->treeview);
 		store = gtk_tree_store_new (COLUMNS_NB,
-					    G_TYPE_BOOLEAN,
-					    G_TYPE_STRING,
-					    G_TYPE_STRING,
-					    G_TYPE_STRING,
-					    G_TYPE_STRING,
-					    G_TYPE_STRING);
+									G_TYPE_BOOLEAN,
+									G_TYPE_STRING,
+									G_TYPE_STRING,
+									G_TYPE_STRING,
+									G_TYPE_STRING,
+									G_TYPE_STRING,
+									G_TYPE_POINTER);
 		gtk_tree_view_set_model (view, GTK_TREE_MODEL (store));
 		gtk_tree_selection_set_mode (gtk_tree_view_get_selection (view),
 					     GTK_SELECTION_SINGLE);
 		g_object_unref (G_OBJECT (store));
 
 		renderer = gtk_cell_renderer_toggle_new ();
-		column = gtk_tree_view_column_new_with_attributes (column_names[0], renderer,
-								   "active", ENABLED_COLUMN,
-								   NULL);
-		g_signal_connect (renderer, "toggled", G_CALLBACK (treeview_enabled_toggled), bd);
+		column = gtk_tree_view_column_new_with_attributes (column_names[0],
+														   renderer,
+								   						   "active",
+														   ENABLED_COLUMN,
+														   NULL);
+		g_signal_connect (renderer, "toggled",
+						  G_CALLBACK (treeview_enabled_toggled), bd);
 		gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
 		gtk_tree_view_append_column (view, column);
 
 		renderer = gtk_cell_renderer_text_new ();
 
-		for (i = FILENAME_COLUMN; i < COLUMNS_NB; i++) {
-			column = gtk_tree_view_column_new_with_attributes (column_names[i], renderer, "text", i, NULL);
-			gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
+		for (i = FILENAME_COLUMN; i < (COLUMNS_NB - 1); i++) {
+			column =
+				gtk_tree_view_column_new_with_attributes (column_names[i],
+													renderer, "text", i, NULL);
+			gtk_tree_view_column_set_sizing (column,
+											 GTK_TREE_VIEW_COLUMN_AUTOSIZE);
 			gtk_tree_view_append_column (view, column);
 		}
 
-		g_signal_connect (G_OBJECT (bd->widgets.remove_button), "clicked",
+		g_signal_connect (G_OBJECT (bd->priv->remove_button), "clicked",
 				  G_CALLBACK (on_bk_remove_clicked), bd);
-		g_signal_connect (G_OBJECT (bd->widgets.jumpto_button), "clicked",
+		g_signal_connect (G_OBJECT (bd->priv->jumpto_button), "clicked",
 				  G_CALLBACK (on_bk_jumpto_clicked), bd);
-		g_signal_connect (G_OBJECT (bd->widgets.properties_button), "clicked",
+		g_signal_connect (G_OBJECT (bd->priv->properties_button), "clicked",
 				  G_CALLBACK (on_bk_properties_clicked), bd);
-		g_signal_connect (G_OBJECT (bd->widgets.add_button), "clicked",
+		g_signal_connect (G_OBJECT (bd->priv->add_button), "clicked",
 				  G_CALLBACK (on_bk_add_clicked), bd);
-		g_signal_connect (G_OBJECT (bd->widgets.removeall_button), "clicked",
+		g_signal_connect (G_OBJECT (bd->priv->removeall_button), "clicked",
 				  G_CALLBACK (on_bk_removeall_clicked), bd);
-		g_signal_connect (G_OBJECT (bd->widgets.enableall_button), "clicked",
+		g_signal_connect (G_OBJECT (bd->priv->enableall_button), "clicked",
 				  G_CALLBACK (on_bk_enableall_clicked), bd);
-		g_signal_connect (G_OBJECT (bd->widgets.disableall_button), "clicked",
+		g_signal_connect (G_OBJECT (bd->priv->disableall_button), "clicked",
 				  G_CALLBACK (on_bk_disableall_clicked), bd);
 
-		g_signal_connect (G_OBJECT (bd->widgets.treeview), "event",
-				  G_CALLBACK (on_bk_treeview_event), NULL);
+		g_signal_connect (G_OBJECT (gtk_tree_view_get_model
+					(GTK_TREE_VIEW (bd->priv->treeview))), "row_deleted",
+						  G_CALLBACK (on_bk_treeview_row_deleted), bd);
+		g_signal_connect (G_OBJECT (bd->priv->window), "delete_event",
+				  G_CALLBACK (on_bk_window_delete_event), bd);
 
-		g_signal_connect (G_OBJECT (bd->widgets.window), "close",
-				  G_CALLBACK (breakpoints_dbase_hide), bd);
-
-		bd->breakpoints = NULL;
-		bd->cond_history = NULL;
-		bd->pass_history = NULL;
-		bd->loc_history = NULL;
-		bd->current_index = -1;
-		bd->edit_index = -1;
-		bd->is_showing = FALSE;
-		bd->is_docked = FALSE;
-		bd->win_pos_x = 50;
-		bd->win_pos_y = 50;
-		bd->win_width = 500;
-		bd->win_height = 300;
+		bd->priv->cond_history = NULL;
+		bd->priv->pass_history = NULL;
+		bd->priv->loc_history = NULL;
+		bd->priv->is_showing = FALSE;
+		bd->priv->win_pos_x = 50;
+		bd->priv->win_pos_y = 50;
+		bd->priv->win_width = 500;
+		bd->priv->win_height = 300;
 	}
 
 	return bd;
@@ -340,63 +771,56 @@ breakpoints_dbase_destroy (BreakpointsDBase * bd)
 	gint i;
 
 	if (bd) {
-		for (i = 0; i < g_list_length (bd->breakpoints); i++) {
-			bi = g_list_nth_data (bd->breakpoints, i);
-			breakpoint_item_destroy (bi);
-		}
+		if (bd->priv->cond_history)
+			g_free (bd->priv->cond_history);
+		if (bd->priv->pass_history)
+			g_free (bd->priv->pass_history);
+		if (bd->priv->loc_history)
+			g_free (bd->priv->loc_history);
 
-		g_list_free (bd->breakpoints);
-
-		if (bd->cond_history)
-			g_free (bd->cond_history);
-		if (bd->pass_history)
-			g_free (bd->pass_history);
-		if (bd->loc_history)
-			g_free (bd->loc_history);
-
-		gtk_widget_unref (bd->widgets.window);
-		gtk_widget_unref (bd->widgets.treeview);
-		gtk_widget_unref (bd->widgets.remove_button);
-		gtk_widget_unref (bd->widgets.jumpto_button);
-		gtk_widget_unref (bd->widgets.properties_button);
-		gtk_widget_unref (bd->widgets.add_button);
-		gtk_widget_unref (bd->widgets.removeall_button);
-		gtk_widget_unref (bd->widgets.enableall_button);
-		gtk_widget_unref (bd->widgets.disableall_button);
-
-		gtk_widget_destroy (bd->widgets.window);
-		g_object_unref (bd->gxml);
-		g_object_unref (bd->gxml_prop);
+		gtk_widget_destroy (bd->priv->window);
+		g_object_unref (bd->priv->gxml);
+		g_free (bd->priv);
 		g_free (bd);
 	}
+}
+
+/* FIXME: Dont' make it static */
+static int count;
+
+static gboolean
+on_treeview_foreach (GtkTreeModel *model, GtkTreePath *path,
+					 GtkTreeIter *iter, gpointer data)
+{
+	BreakpointItem *bi;
+	ProjectDBase *pdb = data;
+	
+	gtk_tree_model_get (GTK_TREE_MODEL (model), iter, DATA_COLUMN, &bi, -1);
+	breakpoint_item_save (bi, pdb, count);
+	count++;
+	return FALSE;
 }
 
 void
 breakpoints_dbase_save (BreakpointsDBase * bd, ProjectDBase * pdb )
 {
-	gint	i;
-	gint	nLen ;
+	GtkTreeModel *model;
 
 	g_return_if_fail (bd != NULL);
 	g_return_if_fail (pdb != NULL);
 	
 	session_clear_section( pdb, SECSTR(SECTION_BREAKPOINTS) );
-
-	nLen = g_list_length (bd->breakpoints) ;
-	for (i = 0; i < nLen ; i++)
-	{
-		breakpoint_item_save ((BreakpointItem *)
-						g_list_nth_data (bd->breakpoints, i),
-						pdb, i );
-	}
+	model = gtk_tree_view_get_model (GTK_TREE_VIEW (bd->priv->treeview));
+	count = 0;
+	gtk_tree_model_foreach (model, on_treeview_foreach, bd);
 }
-
 
 void
 breakpoints_dbase_load (BreakpointsDBase * bd, ProjectDBase *p )
 {
 	gpointer	config_iterator;
 	guint		loaded = 0;
+	GList *breakpoints = NULL;
 
 	g_return_if_fail( p != NULL );
 	breakpoints_dbase_clear(bd);
@@ -417,7 +841,7 @@ breakpoints_dbase_load (BreakpointsDBase * bd, ProjectDBase *p )
 				{
 					if( breakpoint_item_load ( bi, szData ) )
 					{
-						g_list_append (bd->breakpoints, (gpointer) bi);
+						breakpoints_dbase_set_from_item (bi);
 						bToDel = FALSE ;
 					}
 				}
@@ -473,19 +897,11 @@ breakpoints_dbase_clear (BreakpointsDBase * bd)
 	g_return_if_fail (bd != NULL);
 
 	breakpoints_dbase_delete_all_breakpoints (bd);
-
-	if (bd->breakpoints)
-		g_list_free (bd->breakpoints);
-
-	bd->breakpoints = NULL;
-
-	if (bd->widgets.treeview) {
-		GtkTreeModel *model = gtk_tree_view_get_model (GTK_TREE_VIEW (bd->widgets.treeview));
-	        gtk_tree_store_clear (GTK_TREE_STORE (model));
+	if (bd->priv->treeview) {
+		GtkTreeModel *model =
+			gtk_tree_view_get_model (GTK_TREE_VIEW (bd->priv->treeview));
+		gtk_tree_store_clear (GTK_TREE_STORE (model));
 	}
-
-	bd->current_index = -1;
-
 	anjuta_delete_all_marker (BREAKPOINTS_MARKER);
 }
 
@@ -494,59 +910,41 @@ breakpoints_dbase_delete_all_breakpoints (BreakpointsDBase * bd)
 {
 	gint i;
 	g_return_if_fail (bd != NULL);
-	for (i = 0; i < g_list_length (bd->breakpoints); i++)
-		breakpoint_item_destroy ((BreakpointItem *)
-					 g_list_nth_data (bd->breakpoints,
-							  i));
 }
 
 void
 breakpoints_dbase_show (BreakpointsDBase * bd)
 {
 	g_return_if_fail (bd != NULL);
-	if (bd->is_showing)
+	if (bd->priv->is_showing)
 	{
-		if (bd->is_docked == FALSE)
-			gdk_window_raise (bd->widgets.window->window);
+		gdk_window_raise (bd->priv->window->window);
 		return;
 	}
-	if (bd->is_docked)
-	{
-		breakpoints_dbase_attach (bd);
-	}
-	else		/* Is not docked */
-	{
-		gtk_widget_set_uposition (bd->widgets.window,
-					  bd->win_pos_x,
-					  bd->win_pos_y);
-		gtk_window_set_default_size (GTK_WINDOW
-					     (bd->widgets.window),
-					     bd->win_width,
-					     bd->win_height);
-		gtk_widget_show (bd->widgets.window);
-	}
-	bd->is_showing = TRUE;
+	gtk_widget_set_uposition (bd->priv->window,
+							  bd->priv->win_pos_x,
+							  bd->priv->win_pos_y);
+	gtk_window_set_default_size (GTK_WINDOW
+								 (bd->priv->window),
+								 bd->priv->win_width,
+								 bd->priv->win_height);
+	gtk_widget_show (bd->priv->window);
+	bd->priv->is_showing = TRUE;
 }
 
 void
 breakpoints_dbase_hide (BreakpointsDBase * bd)
 {
 	g_return_if_fail (bd != NULL);
-	if (bd->is_showing == FALSE)
+	if (bd->priv->is_showing == FALSE)
 		return;
-	if (bd->is_docked == TRUE)
-	{
-		breakpoints_dbase_detach (bd);
-	}
-	else		/* Is not docked */
-	{
-		gdk_window_get_root_origin (bd->widgets.window->
-					    window, &bd->win_pos_x,
-					    &bd->win_pos_y);
-		gdk_window_get_size (bd->widgets.window->window,
-				     &bd->win_width, &bd->win_height);
-	}
-	bd->is_showing = FALSE;
+	gdk_window_get_root_origin (bd->priv->window->
+					window, &bd->priv->win_pos_x,
+					&bd->priv->win_pos_y);
+	gdk_window_get_size (bd->priv->window->window,
+				 &bd->priv->win_width, &bd->priv->win_height);
+	gtk_widget_hide (bd->priv->window);
+	bd->priv->is_showing = FALSE;
 }
 
 void
@@ -601,98 +999,92 @@ breakpoints_dbase_update (GList * outputs, gpointer data)
 	g_list_free (list);
 }
 
+gboolean
+breakpoints_dbase_set_from_item (BreakpointsDBase *bd, BreakpointItem *bi,
+								 gboolean add_to_treeview)
+{
+	struct stat st;
+	gchar *fn, *buff;
+	gboolean disable, old;
+	gint ret;
+	
+	old = disable = FALSE;
+	fn = anjuta_get_full_filename (bi->file);
+	ret = stat (fn, &st);
+	g_free (fn);
+	if (ret != 0)
+	{
+		old = TRUE;
+		disable = TRUE;
+	}
+	if (bi->time < st.st_mtime)
+	{
+		old = TRUE;
+		disable = TRUE;
+	}
+	if (bi->condition)
+	{
+		buff =
+			g_strdup_printf ("break %s:%u if %s",
+					 bi->file, bi->line,
+					 bi->condition);
+		debugger_put_cmd_in_queqe (buff, DB_CMD_NONE, NULL,
+					   NULL);
+		g_free (buff);
+	}
+	else
+	{
+		buff =
+			g_strdup_printf ("break %s:%u", bi->file,
+					 bi->line);
+		debugger_put_cmd_in_queqe (buff, DB_CMD_NONE, NULL,
+					   NULL);
+		g_free (buff);
+	}
+	if (bi->pass > 0)
+	{
+		buff = g_strdup_printf ("ignore $bpnum %d", bi->pass);
+		debugger_put_cmd_in_queqe (buff, DB_CMD_NONE, NULL,
+					   NULL);
+		g_free (buff);
+	}
+	if (disable)
+	{
+		buff = g_strdup_printf ("disable $bpnum");
+		debugger_put_cmd_in_queqe (buff, DB_CMD_NONE, NULL,
+					   NULL);
+		g_free (buff);
+		disable = FALSE;
+	}
+	return old;
+}
+
+static gboolean
+on_set_breakpoint_foreach (GtkTreeModel *model, GtkTreePath *path,
+						   GtkTreeIter *iter, gpointer data)
+{
+	BreakpointItem *bi;
+	BreakpointsDBase *bd = data;
+	
+	gtk_tree_model_get (GTK_TREE_MODEL (model), iter, DATA_COLUMN, &bi, -1);
+	breakpoints_dbase_set_from_item (bd, bi, FALSE);
+	return FALSE;
+}
+
 void
 breakpoints_dbase_set_all (BreakpointsDBase * bd)
 {
-	gint i, ret;
-	struct stat st;
-	BreakpointItem *bi;
-	gchar *fn, *buff;
 	gboolean old = FALSE;
-	if (g_list_length (bd->breakpoints) < 1)
-		return;
-	for (i = 0; i < g_list_length (bd->breakpoints); i++)
-	{
-		gboolean disable;
-		disable = FALSE;
-		bi = g_list_nth_data (bd->breakpoints, i);
-		fn = anjuta_get_full_filename (bi->file);
-		ret = stat (fn, &st);
-		g_free (fn);
-		if (ret != 0)
-		{
-			old = TRUE;
-			disable = TRUE;
-		}
-		if (bi->time < st.st_mtime)
-		{
-			old = TRUE;
-			disable = TRUE;
-		}
-		if (bi->condition)
-		{
-			buff =
-				g_strdup_printf ("break %s:%u if %s",
-						 bi->file, bi->line,
-						 bi->condition);
-			debugger_put_cmd_in_queqe (buff, DB_CMD_NONE, NULL,
-						   NULL);
-			g_free (buff);
-		}
-		else
-		{
-			buff =
-				g_strdup_printf ("break %s:%u", bi->file,
-						 bi->line);
-			debugger_put_cmd_in_queqe (buff, DB_CMD_NONE, NULL,
-						   NULL);
-			g_free (buff);
-		}
-		if (bi->pass > 0)
-		{
-			buff = g_strdup_printf ("ignore $bpnum %d", bi->pass);
-			debugger_put_cmd_in_queqe (buff, DB_CMD_NONE, NULL,
-						   NULL);
-			g_free (buff);
-		}
-		if (disable)
-		{
-			buff = g_strdup_printf ("disable $bpnum");
-			debugger_put_cmd_in_queqe (buff, DB_CMD_NONE, NULL,
-						   NULL);
-			g_free (buff);
-			disable = FALSE;
-		}
-	}
+	GtkTreeModel *model;
+	
+	model = gtk_tree_view_get_model (GTK_TREE_VIEW (bd->priv->treeview));
+	gtk_tree_model_foreach (model, on_set_breakpoint_foreach, bd);
+
 	if (old)
 		anjuta_warning (_("Old breakpoints disabled."));
 	debugger_put_cmd_in_queqe ("info breakpoints", DB_CMD_NONE,
-				   breakpoints_dbase_update,
-				   debugger.breakpoints_dbase);
-}
-
-void
-breakpoints_dbase_attach (BreakpointsDBase * bd)
-{
-/* TODO ?? */
-}
-
-void
-breakpoints_dbase_detach (BreakpointsDBase * bd)
-{
-/* TODO ?? */
-}
-
-void
-breakpoints_dbase_dock (BreakpointsDBase * bd)
-{
-/* TODO ?? */
-}
-
-void
-breakpoints_dbase_undock (BreakpointsDBase * bd)
-{
-	/* TODO ?? */
+							   breakpoints_dbase_update,
+							   debugger.breakpoints_dbase);
 }
 
 gboolean
@@ -700,36 +1092,28 @@ breakpoints_dbase_save_yourself (BreakpointsDBase * bd, FILE * stream)
 {
 	g_return_val_if_fail (bd != NULL, FALSE);
 
-	fprintf (stream, "breakpoints.is.docked=%d\n", bd->is_docked);
-	if (bd->is_showing && !bd->is_docked)
+	if (bd->priv->is_showing)
 	{
-		gdk_window_get_root_origin (bd->widgets.window->window,
-					    &bd->win_pos_x, &bd->win_pos_y);
-		gdk_window_get_size (bd->widgets.window->window,
-				     &bd->win_width, &bd->win_height);
+		gdk_window_get_root_origin (bd->priv->window->window,
+					    &bd->priv->win_pos_x, &bd->priv->win_pos_y);
+		gdk_window_get_size (bd->priv->window->window,
+				     &bd->priv->win_width, &bd->priv->win_height);
 	}
-	fprintf (stream, "breakpoints.win.pos.x=%d\n", bd->win_pos_x);
-	fprintf (stream, "breakpoints.win.pos.y=%d\n", bd->win_pos_y);
-	fprintf (stream, "breakpoints.win.width=%d\n", bd->win_width);
-	fprintf (stream, "breakpoints.win.height=%d\n", bd->win_height);
+	fprintf (stream, "breakpoints.win.pos.x=%d\n", bd->priv->win_pos_x);
+	fprintf (stream, "breakpoints.win.pos.y=%d\n", bd->priv->win_pos_y);
+	fprintf (stream, "breakpoints.win.width=%d\n", bd->priv->win_width);
+	fprintf (stream, "breakpoints.win.height=%d\n", bd->priv->win_height);
 	return TRUE;
 }
 
 gboolean
 breakpoints_dbase_load_yourself (BreakpointsDBase * bd, PropsID props)
 {
-	gboolean dock_flag;
-
 	g_return_val_if_fail (bd != NULL, FALSE);
-	dock_flag = prop_get_int (props, "breakpoints.is.docked", 0);
-	bd->win_pos_x = prop_get_int (props, "breakpoints.win.pos.x", 50);
-	bd->win_pos_y = prop_get_int (props, "breakpoints.win.pos.y", 50);
-	bd->win_width = prop_get_int (props, "breakpoints.win.width", 500);
-	bd->win_height = prop_get_int (props, "breakpoints.win.height", 300);
-	if (dock_flag)
-		breakpoints_dbase_dock (bd);
-	else
-		breakpoints_dbase_undock (bd);
+	bd->priv->win_pos_x = prop_get_int (props, "breakpoints.win.pos.x", 50);
+	bd->priv->win_pos_y = prop_get_int (props, "breakpoints.win.pos.y", 50);
+	bd->priv->win_width = prop_get_int (props, "breakpoints.win.width", 500);
+	bd->priv->win_height = prop_get_int (props, "breakpoints.win.height", 300);
 	return TRUE;
 }
 
@@ -741,20 +1125,26 @@ void
 breakpoints_dbase_update_controls (BreakpointsDBase * bd)
 {
 	gboolean A, R, C, S;
-
+	GtkTreeModel *model;
+	GtkTreeIter iter;
+	GtkTreeSelection *selection;
+	
 	A = debugger_is_active ();
 	R = debugger_is_ready ();
-	C = (g_list_length (bd->breakpoints) > 0);
-	S = (bd->current_index >= 0);
 
-	gtk_widget_set_sensitive (bd->widgets.remove_button, A && R && C && S);
-	gtk_widget_set_sensitive (bd->widgets.jumpto_button, C && S);
-	gtk_widget_set_sensitive (bd->widgets.properties_button, A && R && C && S);
+	selection =
+		gtk_tree_view_get_selection (GTK_TREE_VIEW (bd->priv->treeview));
+	S = gtk_tree_selection_get_selected (selection, &model, &iter);
+	C = gtk_tree_model_get_iter_first(model, &iter);
+	
+	gtk_widget_set_sensitive (bd->priv->remove_button, A && R && C && S);
+	gtk_widget_set_sensitive (bd->priv->jumpto_button, C && S);
+	gtk_widget_set_sensitive (bd->priv->properties_button, A && R && C && S);
 
-	gtk_widget_set_sensitive (bd->widgets.add_button, A && R);
-	gtk_widget_set_sensitive (bd->widgets.removeall_button, A && R);
-	gtk_widget_set_sensitive (bd->widgets.enableall_button, A && R);
-	gtk_widget_set_sensitive (bd->widgets.disableall_button, A && R);
+	gtk_widget_set_sensitive (bd->priv->add_button, A && R);
+	gtk_widget_set_sensitive (bd->priv->removeall_button, A && R);
+	gtk_widget_set_sensitive (bd->priv->enableall_button, A && R);
+	gtk_widget_set_sensitive (bd->priv->disableall_button, A && R);
 }
 
 void
@@ -784,7 +1174,8 @@ breakpoints_dbase_add_brkpnt (BreakpointsDBase * bd, gchar * brkpnt)
 	if (strstr (brkpnt, "watchpoint"))
 		return;
 
-	count = sscanf (brkpnt, "%s %*s %*s %s %*s in %s at %s", brkno, enb, function, fileln);
+	count = sscanf (brkpnt, "%s %*s %*s %s %*s in %s at %s",
+					brkno, enb, function, fileln);
 
 	if (count == 4 || count == 2) {
 		GtkTreeStore *store;
@@ -866,7 +1257,8 @@ breakpoints_dbase_add_brkpnt (BreakpointsDBase * bd, gchar * brkpnt)
 			}
 
 			if (strcmp (te->filename, bi->file) == 0) {
-				bi->handle = text_editor_set_marker (te, bi->line, BREAKPOINTS_MARKER);
+				bi->handle = text_editor_set_marker (te, bi->line,
+													 BREAKPOINTS_MARKER);
 				bi->handle_invalid = FALSE;
 				break;
 			}
@@ -877,9 +1269,10 @@ breakpoints_dbase_add_brkpnt (BreakpointsDBase * bd, gchar * brkpnt)
 
 		bi->time = time (NULL);
 
-		bd->breakpoints = g_list_append (bd->breakpoints, (gpointer) bi);
+		// bd->priv->breakpoints = g_list_append (bd->priv->breakpoints, (gpointer) bi);
 
-		store = GTK_TREE_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (bd->widgets.treeview)));
+		store = GTK_TREE_STORE (gtk_tree_view_get_model
+							(GTK_TREE_VIEW (bd->priv->treeview)));
 		gtk_tree_store_append (store, &iter, NULL);
 		gtk_tree_store_set (store, &iter,
 				    ENABLED_COLUMN, bi->enable,
@@ -888,136 +1281,153 @@ breakpoints_dbase_add_brkpnt (BreakpointsDBase * bd, gchar * brkpnt)
 				    FUNCTION_COLUMN, function,
 				    PASS_COLUMN, ignore,
 				    CONDITION_COLUMN, cond,
+					DATA_COLUMN, bi,
 				    -1);
 	}
+}
+
+static gboolean
+on_set_breakpoint_te_foreach (GtkTreeModel *model, GtkTreePath *path,
+							  GtkTreeIter *iter, gpointer data)
+{
+	BreakpointItem *bi;
+	TextEditor *te = data;
+	
+	gtk_tree_model_get (GTK_TREE_MODEL (model), iter, DATA_COLUMN, &bi, -1);
+	if (bi->line < 0 || bi->handle_invalid == FALSE)
+		return FALSE;
+	
+	if (strcmp (te->filename, bi->file) == 0)
+	{
+		bi->handle = text_editor_set_marker (te, bi->line,
+											 BREAKPOINTS_MARKER);
+		bi->handle_invalid = FALSE;
+	}
+	return FALSE;
 }
 
 void
 breakpoints_dbase_set_all_in_editor (BreakpointsDBase* bd, TextEditor* te)
 {
-	GList *node;
-	
+	GtkTreeModel *model;
 	g_return_if_fail ( te != NULL);
 	g_return_if_fail ( bd != NULL);
 	if (te->full_filename == NULL)
 		return;
 	
-	node = bd->breakpoints;
-	while (node)
+	model = gtk_tree_view_get_model (GTK_TREE_VIEW (bd->priv->treeview));
+	gtk_tree_model_foreach (model, on_set_breakpoint_te_foreach, te);
+}
+
+static gboolean
+on_clear_breakpoint_te_foreach (GtkTreeModel *model, GtkTreePath *path,
+							  GtkTreeIter *iter, gpointer data)
+{
+	gchar* full_fname;
+	BreakpointItem *bi;
+	TextEditor *te = data;
+	
+	gtk_tree_model_get (GTK_TREE_MODEL (model), iter, DATA_COLUMN, &bi, -1);
+	if (bi->handle_invalid == TRUE)
+		return FALSE;
+	
+	full_fname = anjuta_get_full_filename (bi->file);
+	if (strcmp (te->full_filename, full_fname) == 0)
 	{
-		BreakpointItem* bi;
-		gchar* full_fname = NULL;
-		
-		bi = node->data;
-		if (bi->line < 0 || bi->handle_invalid == FALSE)
-			break;
-/*
-		full_fname = anjuta_get_full_filename (bi->file);
-		if (strcmp (te->full_filename, full_fname) == 0)
-*/
-		if (strcmp (te->filename, bi->file) == 0)
-		{
-			bi->handle = text_editor_set_marker (te, bi->line, BREAKPOINTS_MARKER);
-			bi->handle_invalid = FALSE;
-		}
-		if (full_fname) g_free (full_fname);
-		node = g_list_next (node);
+		bi->handle_invalid = TRUE;
 	}
+	if (full_fname) g_free (full_fname);
+	return FALSE;
 }
 
 void
 breakpoints_dbase_clear_all_in_editor (BreakpointsDBase* bd, TextEditor* te)
 {
-	GList *node;
-	
+	GtkTreeModel *model;
 	g_return_if_fail ( te != NULL);
 	g_return_if_fail ( bd != NULL);
 	if (te->full_filename == NULL)
 		return;
-	node = bd->breakpoints;
-	while (node)
-	{
-		BreakpointItem* bi;
-		gchar* full_fname;
+	
+	model = gtk_tree_view_get_model (GTK_TREE_VIEW (bd->priv->treeview));
+	gtk_tree_model_foreach (model, on_clear_breakpoint_te_foreach, te);
+}
+
+static gboolean
+on_delete_matching_foreach (GtkTreeModel *model, GtkTreePath *path,
+							GtkTreeIter *iter, gpointer data)
+{
+	gchar* full_fname;
+	BreakpointItem *item;
+	TextEditor *te = data;
+	gint moved_line, line;
 		
-		bi = node->data;
-		if (bi->handle_invalid == TRUE)
-			break;
-		full_fname = anjuta_get_full_filename (bi->file);
-		if (strcmp (te->full_filename, full_fname) == 0)
-		{
-			bi->handle_invalid = TRUE;
-		}
-		if (full_fname) g_free (full_fname);
-		node = g_list_next (node);
+	gtk_tree_model_get (GTK_TREE_MODEL (model), iter, DATA_COLUMN, &item, -1);
+	if (item->handle_invalid)
+		return FALSE;
+	if (strcmp (te->filename, item->file) != 0)
+		return FALSE;
+	line = text_editor_get_current_lineno (te);
+	moved_line = text_editor_line_from_handle(te, item->handle);
+	if (moved_line == line && moved_line >= 0)
+	{
+		text_editor_delete_marker (te, line, BREAKPOINTS_MARKER);
+		debugger_delete_breakpoint (item->id);
+		return TRUE;
 	}
+	return FALSE;
 }
 
 void
-breakpoints_dbase_toggle_breakpoint (BreakpointsDBase* b)
+breakpoints_dbase_toggle_breakpoint (BreakpointsDBase* bd)
 {
 	guint line;
-	struct BkItemData *bid;
+	BreakpointItem *bid;
 	gchar *buff;
 	TextEditor* te;
 
-	g_return_if_fail (b != NULL);
+	g_return_if_fail (bd != NULL);
 	te = anjuta_get_current_text_editor();
 	g_return_if_fail (te != NULL);
 	
 	if (debugger_is_active()==FALSE) return;
 	if (debugger_is_ready()==FALSE) return;
 
-	line = text_editor_get_current_lineno (te);
 	/* Is breakpoint set? */
 	if (text_editor_is_marker_set (te, line, BREAKPOINTS_MARKER))
 	{
 		/* Breakpoint is set. So, delete it. */
-		GList *node;
-		
-		node = b->breakpoints;
-		while (node)
-		{
-			
-			BreakpointItem* item;
-			gint moved_line;
-			
-			item = node->data;
-			if (item->handle_invalid)
-			{
-				node = g_list_next (node);
-				continue;
-			}
-			if (strcmp (te->filename, item->file) != 0)
-			{
-				node = g_list_next (node);
-				continue;
-			}
-			moved_line = text_editor_line_from_handle(te, item->handle);
-			if (moved_line == line && moved_line >= 0)
-			{
-				text_editor_delete_marker (te, line, BREAKPOINTS_MARKER);
-				debugger_delete_breakpoint (item->id);
-				return;
-			}
-			node = g_list_next (node);
-		}
-		g_warning (_("Breakpoint is set, but the ID could not be found."));
+		GtkTreeModel *model;
+		model = gtk_tree_view_get_model (GTK_TREE_VIEW (bd->priv->treeview));
+		gtk_tree_model_foreach (model, on_delete_matching_foreach, te);
 		return;
 	}
 	
 	/* Brakpoint is not set. So, set it. */
-	bid = g_malloc (sizeof(struct BkItemData));
-	if (bid == NULL) return;
-	bid->loc_text = g_strdup_printf ("%s:%d", te->filename, line);
-	bid->cond_text = g_strdup("");
-	bid->pass_text = g_strdup("");
-	bid->bd = b;
+	bid = breakpoint_item_new ();
+	bid->pass = 0;
+	bid->bd = bd;
 
-	buff = g_strdup_printf ("break %s", bid->loc_text);
+	buff = g_strdup_printf ("break %s:%d", te->filename, line);
 	debugger_put_cmd_in_queqe (buff, DB_CMD_ALL,
 				   bk_item_add_mesg_arrived,
 				   bid);
 	g_free (buff);
 	debugger_execute_cmd_in_queqe ();
 }
+
+void breakpoints_dbase_add (BreakpointsDBase *bd)
+{
+	on_bk_add_clicked (NULL, bd);
+}
+
+void breakpoints_dbase_disable_all (BreakpointsDBase *bd)
+{
+	on_bk_disableall_clicked (NULL, bd);
+}
+
+void breakpoints_dbase_remove_all (BreakpointsDBase *bd)
+{
+	on_bk_remove_clicked (NULL, bd);
+}
+

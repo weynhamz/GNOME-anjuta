@@ -46,8 +46,15 @@
 #include "tm_tagmanager.h"
 #include "file_history.h"
 
-#define g_strdup_printfs2(_FORMAT_, _STR_) { assert(_STR_); g_strdup_printf(_FORMAT_, _STR_); }
-#define g_strdup_printfs3(_FORMAT_, _STR1_, _STR2_) { assert(_STR1_); assert(_STR2_); g_strdup_printf(_FORMAT_, _STR1_, _STR2_); }
+#define g_strdup_printfs2(_FORMAT_, _STR_) \
+	{ \
+		assert(_STR_); g_strdup_printf(_FORMAT_, _STR_); \
+	}
+#define g_strdup_printfs3(_FORMAT_, _STR1_, _STR2_) \
+	{ \
+		assert(_STR1_); assert(_STR2_); \
+		g_strdup_printf(_FORMAT_, _STR1_, _STR2_); \
+	}
 
 typedef struct _AnjutaAppGui AnjutaAppGui;
 typedef struct _AnjutaApp AnjutaApp;
@@ -130,10 +137,10 @@ struct _AnjutaApp
 	 * is no garrantee that the object to be accessed is still alive.
 	 */
 	gboolean shutdown_in_progress;
-	gboolean	bUseComponentUI;	/* use glade or the CORBA objects ? */
-	GList	*addIns_list;
-	gboolean	b_reload_last_project;	/* To be set in preferences */
-	gchar	*last_open_project;	/* Last session open project file name if any */
+	gboolean bUseComponentUI;	/* use glade or the CORBA objects ? */
+	GList *addIns_list;
+	gboolean b_reload_last_project;	/* To be set in preferences */
+	gchar *last_open_project;	/* Last session open project file name if any */
 };
 
 struct _FileLineInfo
@@ -171,9 +178,11 @@ GtkWidget *anjuta_get_current_text (void);
 gchar *anjuta_get_current_selection (void);
 
 TextEditor*  anjuta_goto_file_line (gchar * fname, glong lineno);
-TextEditor*  anjuta_goto_file_line_mark (gchar * fname, glong lineno, gboolean mark);
+TextEditor*  anjuta_goto_file_line_mark (gchar * fname,
+										 glong lineno, gboolean mark);
 gboolean anjuta_goto_local_tag(TextEditor *te, const char *qual_name);
-void anjuta_goto_tag(const char *symbol, TextEditor *te, gboolean prefer_definition);
+void anjuta_goto_tag(const char *symbol, TextEditor *te,
+					 gboolean prefer_definition);
 void anjuta_set_zoom_factor(gint zoom);
 void anjuta_apply_preferences (void);
 void anjuta_load_cmdline_files (void);
@@ -204,7 +213,8 @@ void anjuta_system_error (gint errornum, gchar * mesg, ...);
 
 void anjuta_warning_parented (GtkWidget* parent, gchar * mesg, ...);
 void anjuta_error_parented (GtkWidget* parent, gchar * mesg, ...);
-void anjuta_system_error_parented (GtkWidget* parent, gint errornum, gchar * mesg, ...);
+void anjuta_system_error_parented (GtkWidget* parent, gint errornum,
+								   gchar * mesg, ...);
 
 void anjuta_set_busy (void);
 void anjuta_set_active (void);
@@ -217,8 +227,8 @@ void anjuta_done_progress (gchar * titile);
 
 gboolean
 anjuta_init_progress (gchar * description, gdouble full_value,
-		      GnomeAppProgressCancelFunc progress_cancel_cb,
-		      gpointer data);
+					  GnomeAppProgressCancelFunc progress_cancel_cb,
+					  gpointer data);
 
 void anjuta_set_progress (gdouble value);
 
@@ -235,8 +245,8 @@ void anjuta_foreach_windows (GFunc cb_func, gpointer data);
 
 void
 anjuta_register_child_process (pid_t pid,
-			       void (*callback) (int status, gpointer d),
-			       gpointer data);
+							   void (*callback) (int status, gpointer d),
+							   gpointer data);
 void anjuta_unregister_child_process (pid_t pid);
 
 void anjuta_foreach_child_processes (GFunc cb_func, gpointer data);
@@ -253,8 +263,9 @@ void anjuta_update_app_status (gboolean set_job, gchar * job_name);
 
 gint on_anjuta_session_die(GnomeClient * client, gpointer data);
 gint on_anjuta_session_save_yourself (GnomeClient * client, gint phase,
-		       GnomeSaveStyle s_style, gint shutdown,
-		       GnomeInteractStyle i_style, gint fast, gpointer data);
+									  GnomeSaveStyle s_style, gint shutdown,
+									  GnomeInteractStyle i_style,
+									  gint fast, gpointer data);
 
 void on_anjuta_destroy (GtkWidget * w, gpointer data);
 
@@ -264,8 +275,8 @@ void on_anjuta_exit_yes_clicked (GtkButton * b, gpointer data);
 
 void
 on_anjuta_notebook_switch_page (GtkNotebook * notebook,
-				GtkNotebookPage * page,
-				gint page_num, gpointer user_data);
+								GtkNotebookPage * page,
+								gint page_num, gpointer user_data);
 
 void
 on_anjuta_dnd_drop (gchar* filename, gpointer data);
@@ -273,49 +284,32 @@ on_anjuta_dnd_drop (gchar* filename, gpointer data);
 void anjuta_refresh_breakpoints (TextEditor* te);
 
 gboolean
-on_anjuta_window_focus_in_event (GtkWidget * w, GdkEventFocus * e,
-				 gpointer d);
+on_anjuta_window_focus_in_event (GtkWidget * w, GdkEventFocus * e, gpointer d);
 
 gint on_anjuta_window_key_press_event (GtkWidget   *widget,
-				       GdkEventKey *event,
-				       gpointer     user_data);
+									   GdkEventKey *event,
+									   gpointer     user_data);
 
 gint on_anjuta_window_key_release_event (GtkWidget   *widget,
-				       GdkEventKey *event,
-				       gpointer     user_data);
+										 GdkEventKey *event,
+										 gpointer     user_data);
                
 void on_open_filesel_ok_clicked (GtkButton * button, gpointer data);
-
 void on_open_filesel_cancel_clicked (GtkButton * button, gpointer data);
 
 void on_save_as_filesel_ok_clicked (GtkButton * button, gpointer data);
-
 void on_save_as_filesel_cancel_clicked (GtkButton * button, gpointer data);
 
-void
-on_save_as_overwrite_yes_clicked (GtkButton * button, gpointer user_data);
+void on_build_msg_save_ok_clicked (GtkButton * button, gpointer user_data);
+void on_build_msg_save_cancel_clicked (GtkButton * button, gpointer user_data);
 
-void
-on_build_msg_save_ok_clicked(GtkButton * button, gpointer user_data);
-
-void
-on_build_msg_save_cancel_clicked(GtkButton * button, gpointer user_data);
-
-void 
-on_build_msg_save_overwrite(GtkButton * button, gpointer user_data);
-
-void
-on_prj_list_undock_button_clicked (GtkButton * button, gpointer user_data);
-
+void on_prj_list_undock_button_clicked (GtkButton * button, gpointer user_data);
 void on_prj_list_hide_button_clicked (GtkButton * button, gpointer user_data);
 
 void on_mesg_win_hide_button_clicked (GtkButton * button, gpointer user_data);
-
-void
-on_mesg_win_undock_button_clicked (GtkButton * button, gpointer user_data);
+void on_mesg_win_undock_button_clicked (GtkButton * button, gpointer user_data);
 
 void on_recent_files_menu_item_activate (GtkMenuItem * item, gchar * data);
-
 void on_recent_projects_menu_item_activate (GtkMenuItem * item, gchar * data);
 
 gdouble on_anjuta_progress_cb (gpointer data);
@@ -323,10 +317,9 @@ gdouble on_anjuta_progress_cb (gpointer data);
 void on_anjuta_progress_cancel (gpointer data);
 
 void anjuta_toolbar_set_view (gchar* toolbar_name, gboolean view,
-	gboolean resize, gboolean set_in_props);
+							  gboolean resize, gboolean set_in_props);
 
-gint
-anjuta_get_file_property (gchar* key, gchar* filename, gint default_value);
+gint anjuta_get_file_property (gchar* key, gchar* filename, gint default_value);
 
 TextEditor *
 anjuta_get_te_from_path( const gchar *szFullPath );
@@ -348,8 +341,8 @@ show_hide_tooltips(gboolean show);
 /* Search for the occurence of the string in all source files */
 void anjuta_search_sources_for_symbol(const gchar *s);
 
-#define anjuta_set_execution_dir(d)     string_assign(&app->execution_dir, (d))
-#define anjuta_clear_execution_dir()     string_assign(&app->execution_dir, NULL)
+#define anjuta_set_execution_dir(d)  string_assign(&app->execution_dir, (d))
+#define anjuta_clear_execution_dir() string_assign(&app->execution_dir, NULL)
 
 /* Glade file */
 #define GLADE_FILE_ANJUTA   PACKAGE_DATA_DIR"/glade/anjuta.glade"

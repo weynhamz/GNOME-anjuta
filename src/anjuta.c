@@ -965,7 +965,6 @@ gboolean anjuta_save_yourself (FILE * stream)
 
 	command_editor_save (app->command_editor, stream);
 
-	src_paths_save_yourself (app->src_paths, stream);
 	if (app->project_dbase->project_is_open == FALSE)
 		src_paths_save (app->src_paths, stream);
 
@@ -1008,7 +1007,6 @@ gboolean anjuta_load_yourself (PropsID pr)
 	project_dbase_load_yourself (app->project_dbase, pr);
 	compiler_options_load_yourself (app->compiler_options, pr);
 	compiler_options_load (app->compiler_options, pr);
-	src_paths_load_yourself (app->src_paths, pr);
 	src_paths_load (app->src_paths, pr);
 	find_replace_load_yourself (app->find_replace, pr);
     find_in_files_load_yourself(app->find_in_files, pr);
@@ -1507,7 +1505,7 @@ anjuta_get_full_filename (gchar * fn)
 	GList *te_list;
 	gchar *real_path;
 	const gchar *fname;
-	GList *list;
+	GList *list, *node;
 	gchar *text;
 	gint i;
 
@@ -1606,12 +1604,11 @@ anjuta_get_full_filename (gchar * fn)
 		g_free (real_path);
 	}
 
-	list = GTK_CLIST (app->src_paths->widgets.src_clist)->row_list;
-	for (i = 0; i < g_list_length (list); i++)
+	list = src_paths_get_paths (app->src_paths);
+	node = list;
+	while (node)
 	{
-		gtk_clist_get_text (GTK_CLIST
-				    (app->src_paths->widgets.src_clist), i, 0,
-				    &text);
+		gchar *text = node->data;
 		if (app->project_dbase->project_is_open)
 			dummy =
 				g_strconcat (app->project_dbase->top_proj_dir,
@@ -1626,10 +1623,13 @@ anjuta_get_full_filename (gchar * fn)
 		if (file_is_regular (real_path) == TRUE)
 		{
 			g_free (cur_dir);
+			glist_strings_free (list);
 			return real_path;
 		}
 		g_free (real_path);
+		node = g_list_next (node);
 	}
+	glist_strings_free (list);
 	dummy = g_strconcat (cur_dir, "/", fn, NULL);
 	real_path = tm_get_real_path(dummy);
 	g_free(dummy);
@@ -1682,12 +1682,16 @@ anjuta_done_progress (gchar * end_mesg)
 void
 anjuta_not_implemented (char *file, guint line)
 {
-	gchar *mesg =
-		g_strdup_printf (N_
-				 ("Not yet implemented.\nInsert code at \"%s:%u\""),
-				 file, line);
-	messagebox (GTK_MESSAGE_INFO, _(mesg));
-	g_free (mesg);
+	GtkWidget *dialog;
+	dialog = gtk_message_dialog_new (GTK_WINDOW (app->widgets.window),
+									 GTK_DIALOG_DESTROY_WITH_PARENT,
+									 GTK_MESSAGE_QUESTION,
+									 GTK_BUTTONS_YES_NO,
+									 ("Not yet implemented.\n"
+									 "Insert code at '%s:%u'"),
+									 file, line, NULL);
+	gtk_dialog_run (GTK_DIALOG (dialog));
+	gtk_widget_destroy (dialog);
 }
 
 void

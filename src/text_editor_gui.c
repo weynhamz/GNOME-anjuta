@@ -243,7 +243,6 @@ create_text_editor_gui (TextEditor * te)
 	te->widgets.close_pixmap = NULL;	/* Created later */
 
 	gtk_widget_ref (te->buttons.novus);
-	gtk_widget_ref (te->buttons.novus);
 	gtk_widget_ref (te->buttons.open);
 	gtk_widget_ref (te->buttons.save);
 	gtk_widget_ref (te->buttons.reload);
@@ -260,6 +259,7 @@ create_text_editor_gui (TextEditor * te)
 	gtk_widget_ref (te->widgets.window);
 	gtk_widget_ref (te->widgets.client_area);
 	gtk_widget_ref (te->widgets.client);
-	gtk_widget_ref (te->widgets.editor);
+#warning "G2: Scintilla has a bug becaue of which ref/unref doesn't work"
+	// gtk_widget_ref (te->widgets.editor);
 	gtk_widget_ref (te->widgets.line_label);
 }

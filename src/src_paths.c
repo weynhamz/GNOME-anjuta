@@ -1,6 +1,6 @@
 /*
     src_paths.c
-    Copyright (C) 2000  Kh. Naba Kumar Singh
+    Copyright (C) 2000  Naba Kumar <naba@gnome.org>
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -25,187 +25,335 @@
 #include <string.h>
 
 #include <gnome.h>
+#include <glade/glade.h>
+
 #include "anjuta.h"
 #include "resources.h"
+#include "properties.h"
 #include "src_paths.h"
+
+struct _SrcPathsPriv
+{
+	PropsID props;
+	GtkWidget *dialog;
+	GtkWidget *clist;
+	GtkWidget *entry;
+};
+
+enum
+{
+	PATHS_COLUMN,
+	N_COLUMNS
+};
+
+static gchar *
+get_from_treeview_as_string (GtkTreeView *view, const gchar *separator)
+{
+	GtkTreeModel *model;
+	GtkTreeIter iter;
+	gboolean valid;
+	gchar* tmp;
+	gchar* str = g_strdup ("");
+	
+	model = gtk_tree_view_get_model (GTK_TREE_VIEW(view));
+	g_assert(model);
+	valid = gtk_tree_model_get_iter_first(model, &iter);
+	while (valid)
+	{
+		gchar *text;
+		gtk_tree_model_get (model, &iter, PATHS_COLUMN, &text, -1);
+		tmp = g_strconcat (str, separator, text, NULL);
+		g_free (str);
+		str = tmp;
+		valid = gtk_tree_model_iter_next (model, &iter);
+	}
+	return str;
+}
+
+static void
+sync_to_props (SrcPaths *co)
+{
+	gchar *str =
+		get_from_treeview_as_string (GTK_TREE_VIEW (co->priv->clist), " ");
+	prop_set_with_key (co->priv->props, "project.src.paths", str);
+	g_free (str);
+}
+
+static gboolean
+verify_new_entry (GtkTreeModel *model, const gchar *str, gint col)
+{
+	GtkTreeIter iter;
+	gboolean valid;
+	
+	valid = gtk_tree_model_get_iter_first (model, &iter);
+	while (valid)
+	{
+		gchar *text;
+		gtk_tree_model_get (model, &iter, col, &text, -1);
+		if (strcmp(str, text) == 0)
+			return FALSE;
+		valid = gtk_tree_model_iter_next (model, &iter);
+	}
+	return TRUE;
+}
+
+static gboolean
+on_delete_event (GtkWidget *widget, GdkEvent *event, SrcPaths *co)
+{
+	sync_to_props (co);
+	co->priv->dialog = NULL;
+	return FALSE;
+}
+
+static void
+on_selection_changed (GtkTreeSelection *sel, SrcPaths * co)
+{
+	GtkTreeIter iter;
+	GtkTreeModel *model;
+	const gchar *text;
+	GtkEntry *entry = GTK_ENTRY (co->priv->entry);
+	
+	if (gtk_tree_selection_get_selected (sel, &model, &iter))
+	{
+		gtk_tree_model_get (model, &iter, PATHS_COLUMN, &text, -1);
+		gtk_entry_set_text (entry, text);
+		gtk_dialog_set_response_sensitive (GTK_DIALOG (co->priv->dialog),
+										   GTK_RESPONSE_CANCEL, TRUE);
+		gtk_dialog_set_response_sensitive (GTK_DIALOG (co->priv->dialog),
+										   GTK_RESPONSE_APPLY, TRUE);
+	}
+	else
+	{
+		gtk_dialog_set_response_sensitive (GTK_DIALOG (co->priv->dialog),
+										   GTK_RESPONSE_CANCEL, FALSE);
+		gtk_dialog_set_response_sensitive (GTK_DIALOG (co->priv->dialog),
+										   GTK_RESPONSE_APPLY, FALSE);
+	}
+}
+
+static void
+on_response (GtkDialog *dlg, gint res, SrcPaths *co)
+{
+	GtkTreeModel *model;
+	GtkTreeStore *store;
+	GtkTreeSelection *selection;
+	GtkTreeIter iter;
+	GtkTreeView *view;
+	GtkEntry *entry;
+	GtkWidget *win;
+	gint valid;
+	gchar *text, *str;
+	
+	g_return_if_fail (co);
+	g_return_if_fail (co->priv->dialog);
+	
+	entry = GTK_ENTRY (co->priv->entry);
+	view = GTK_TREE_VIEW (co->priv->clist);
+	selection = gtk_tree_view_get_selection (view);
+	valid = gtk_tree_selection_get_selected (selection, &model, &iter);
+	
+	switch (res)
+	{
+	case GTK_RESPONSE_OK: /* Add */
+		str = g_strdup (gtk_entry_get_text (entry));
+		text = g_strstrip(str);
+		if (strlen (text) == 0)
+		{
+			g_free (str);
+			return;
+		}
+		if (verify_new_entry (GTK_TREE_MODEL (model),
+							  text, PATHS_COLUMN) == FALSE)
+		{
+			gtk_entry_set_text (entry, "");
+			g_free (str);
+			return;
+		}
+		gtk_list_store_append (GTK_LIST_STORE (model), &iter);
+		gtk_list_store_set (GTK_LIST_STORE (model), &iter,
+							PATHS_COLUMN, text, -1);
+		gtk_entry_set_text (entry, "");
+		g_free (str);
+		break;
+
+	case GTK_RESPONSE_APPLY: /* Update */
+		str = g_strdup (gtk_entry_get_text (entry));
+		text = g_strstrip(str);
+		if (strlen (text) == 0)
+		{
+			g_free (str);
+			return;
+		}
+		if (verify_new_entry (GTK_TREE_MODEL (model),
+							  text, PATHS_COLUMN) == FALSE)
+		{
+			gtk_entry_set_text (entry, "");
+			g_free (str);
+			return;
+		}
+		if (valid)
+		{
+			gtk_list_store_set (GTK_LIST_STORE (model),
+								&iter, PATHS_COLUMN, text, -1);
+			gtk_entry_set_text (entry, "");
+		}
+		g_free (str);
+		break;
+
+	case GTK_RESPONSE_CANCEL: /* Remove */
+		if (valid)
+		{
+			gtk_list_store_remove (GTK_LIST_STORE(model), &iter);
+			gtk_entry_set_text (GTK_ENTRY (entry), "");
+		}
+		break;
+		
+	case GTK_RESPONSE_REJECT: /* Clear */
+		win = gtk_message_dialog_new (GTK_WINDOW (co->priv->dialog),
+									  GTK_DIALOG_DESTROY_WITH_PARENT,
+									  GTK_MESSAGE_QUESTION,
+									  GTK_BUTTONS_YES_NO,
+									  _("Do you want to clear the list?"),
+									  NULL);
+		if (gtk_dialog_run (GTK_DIALOG (win)) == GTK_RESPONSE_YES)
+			gtk_list_store_clear (GTK_LIST_STORE (model));
+		gtk_widget_destroy (win);
+		break;
+	}
+	sync_to_props (co);
+}
+
+create_src_paths_gui (SrcPaths *co)
+{
+	GladeXML *gxml;
+	GtkTreeView *clist;
+	GtkTreeViewColumn *column;
+	GtkTreeSelection *selection;
+	GtkListStore *store, *list;
+	GtkCellRenderer *renderer;
+	
+	if (co->priv->dialog)
+		return;
+	gxml = glade_xml_new (GLADE_FILE_ANJUTA, "source_paths_dialog", NULL);
+	co->priv->dialog = glade_xml_get_widget (gxml, "source_paths_dialog");
+	co->priv->clist = glade_xml_get_widget (gxml, "src_clist");
+	co->priv->entry = glade_xml_get_widget (gxml, "src_entry");
+	
+	gtk_window_set_transient_for (GTK_WINDOW (co->priv->dialog),
+								  GTK_WINDOW (app->widgets.window));
+	
+	gtk_dialog_set_response_sensitive (GTK_DIALOG (co->priv->dialog),
+									   GTK_RESPONSE_CANCEL, FALSE);
+	gtk_dialog_set_response_sensitive (GTK_DIALOG (co->priv->dialog),
+									   GTK_RESPONSE_APPLY, FALSE);
+	
+	/* Add tree model */
+	store = gtk_list_store_new (N_COLUMNS, G_TYPE_STRING);
+	gtk_tree_view_set_model (GTK_TREE_VIEW (co->priv->clist),
+							 GTK_TREE_MODEL(store));
+	
+	/* Add column */	
+	renderer = gtk_cell_renderer_text_new ();
+	column = gtk_tree_view_column_new_with_attributes (_("Source Paths"),
+													   renderer,
+													   "text",
+													   PATHS_COLUMN,
+													   NULL);
+	gtk_tree_view_append_column (GTK_TREE_VIEW (co->priv->clist), column);
+	g_object_unref (G_OBJECT(store));
+	
+	/* Connect signals */
+	g_signal_connect (G_OBJECT (co->priv->dialog), "delete_event",
+					  G_CALLBACK (on_delete_event), co);
+	g_signal_connect (G_OBJECT (co->priv->dialog), "response",
+					  G_CALLBACK (on_response), co);
+	
+	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (co->priv->clist));
+	g_signal_connect (G_OBJECT (selection), "changed",
+					  G_CALLBACK (on_selection_changed), co);
+
+	g_object_unref (gxml);
+}
 
 SrcPaths *
 src_paths_new (void)
 {
-	SrcPaths *co = g_malloc (sizeof (SrcPaths));
-	if (co)
-	{
-		co->src_index = 0;
-		co->is_showing = FALSE;
-		co->win_pos_x = 100;
-		co->win_pos_y = 100;
-		create_src_paths_gui (co);
-	}
+	SrcPaths *co = g_new0 (SrcPaths, 1);
+	co->priv = g_new0 (SrcPathsPriv, 1);
+	co->priv->props = 0;
+	co->priv->dialog = NULL;
 	return co;
 }
 
 void
 src_paths_destroy (SrcPaths * co)
 {
-	if (co)
-	{
-		gtk_widget_unref (co->widgets.window);
-
-		gtk_widget_unref (co->widgets.src_clist);
-		gtk_widget_unref (co->widgets.src_entry);
-		gtk_widget_unref (co->widgets.src_add_b);
-		gtk_widget_unref (co->widgets.src_update_b);
-		gtk_widget_unref (co->widgets.src_remove_b);
-		gtk_widget_unref (co->widgets.src_clear_b);
-
-		if (co->widgets.window)
-			gtk_widget_destroy (co->widgets.window);
-		g_object_unref (co->gxml);
-		g_free (co);
-	}
+	g_return_if_fail (co);
+	g_free (co->priv);
+	g_free (co);
 }
 
-gboolean src_paths_save_yourself (SrcPaths * sp, FILE * stream)
+gboolean
+src_paths_save (SrcPaths * co, FILE * f)
 {
-	if (stream == NULL || sp == NULL)
-		return FALSE;
-	fprintf (stream, "source.paths.win.pos.x=%d\n", sp->win_pos_x);
-	fprintf (stream, "source.paths.win.pos.y=%d\n", sp->win_pos_y);
-	return TRUE;
-}
-
-gboolean src_paths_save (SrcPaths * co, FILE * f)
-{
-	gint length, i;
+	GList *list, *node;
 	gchar *text;
 
 	g_return_val_if_fail (co != NULL, FALSE);
 	g_return_val_if_fail (f != NULL, FALSE);
-
+	
 	fprintf (f, "project.source.paths=");
-	length = g_list_length (GTK_CLIST (co->widgets.src_clist)->row_list);
-	for (i = 0; i < length; i++)
+	list = glist_from_data (co->priv->props, "project.source.paths");
+	node = list;
+	while (node)
 	{
-		gtk_clist_get_text (GTK_CLIST (co->widgets.src_clist), i, 0,
-				    &text);
-		fprintf (f, "\\\n\t%s", text);
-		if (ferror (f))
-			return FALSE;
+		text = node->data;
+		fprintf (f, "%s \\\n", text);
+		node = g_list_next (node);
 	}
-	fprintf (f, "\n\n");
-	return TRUE;
-}
-
-gboolean src_paths_load_yourself (SrcPaths * sp, PropsID props)
-{
-	if (sp == NULL)
-		return FALSE;
-	sp->win_pos_x = prop_get_int (props, "source.paths.win.pos.x", 50);
-	sp->win_pos_y = prop_get_int (props, "source.paths.win.pos.y", 50);
+	fprintf (f, "\n");
+	glist_strings_free (list);
 	return TRUE;
 }
 
 gboolean
-src_paths_load (SrcPaths * co, PropsID props)
+src_paths_load (SrcPaths *co, PropsID props)
 {
-	GList *list, *node;
-	gchar *dummy[1];
-
 	g_return_val_if_fail (co != NULL, FALSE);
-
-	gtk_clist_clear (GTK_CLIST (co->widgets.src_clist));
-	list = glist_from_data (props, "project.source.paths");
-	if (list == NULL)
-		return TRUE;
-
-	node = list;
-	while (node)
-	{
-		if (node->data)
-		{
-			dummy[0] = node->data;
-			gtk_clist_append (GTK_CLIST (co->widgets.src_clist),
-					  dummy);
-		}
-		node = g_list_next (node);
-	}
-	gtk_entry_set_text (GTK_ENTRY (co->widgets.src_entry), "");
+	co->priv->props = props;
 	return TRUE;
 }
 
 GList *
 src_paths_get_paths (SrcPaths * co)
 {
-	gint length, i;
-	gchar *text;
-	GList *paths;
-
-	g_return_val_if_fail (co != NULL, FALSE);
-
-	length = g_list_length (GTK_CLIST (co->widgets.src_clist)->row_list);
-	for (i = 0; i < length; i++)
-	{
-		gtk_clist_get_text (GTK_CLIST (co->widgets.src_clist), i, 0,
-				    &text);
-		paths = g_list_append (paths, g_strdup (text));
-	}
-	return paths;
-}
-
-void
-src_paths_get (SrcPaths * co)
-{
-	src_paths_show (co);
+	return glist_from_data (co->priv->props, "project.source.paths");
 }
 
 void
 src_paths_show (SrcPaths * co)
 {
-	if (!co)
-		return;
-	src_paths_update_controls (co);
+	GList *list, *node;
+	gchar *dummy[1];
+	
+	g_return_if_fail (co != NULL);
+	create_src_paths_gui (co);
 
-	if (co->is_showing)
+	list = glist_from_data (co->priv->props, "project.source.paths");
+	node = list;
+	while (node)
 	{
-		gdk_window_raise (co->widgets.window->window);
-		return;
+		if (node->data)
+		{
+			GtkTreeIter iter;
+			GtkTreeModel *model;
+			gchar *path = node->data;
+			model = gtk_tree_view_get_model (GTK_TREE_VIEW (co->priv->clist));
+			gtk_list_store_append (GTK_LIST_STORE (model), &iter);
+			gtk_list_store_set (GTK_LIST_STORE (model), &iter,
+								PATHS_COLUMN, path, -1);
+		}
+		node = g_list_next (node);
 	}
-	gtk_widget_set_uposition (co->widgets.window, co->win_pos_x,
-				  co->win_pos_y);
-	gtk_widget_show (co->widgets.window);
-	co->is_showing = TRUE;
-}
-
-void
-src_paths_hide (SrcPaths * co)
-{
-	if (!co)
-		return;
-	if (co->is_showing == FALSE)
-		return;
-	gdk_window_get_root_origin (co->widgets.window->window,
-				    &co->win_pos_x, &co->win_pos_y);
-	co->is_showing = FALSE;
-}
-
-void
-src_paths_update_controls (SrcPaths * co)
-{
-	gint length;
-
-	length = g_list_length (GTK_CLIST (co->widgets.src_clist)->row_list);
-	if (length < 2)
-		gtk_widget_set_sensitive (co->widgets.src_clear_b, FALSE);
-	else
-		gtk_widget_set_sensitive (co->widgets.src_clear_b, TRUE);
-	if (length < 1)
-	{
-		gtk_widget_set_sensitive (co->widgets.src_remove_b, FALSE);
-		gtk_widget_set_sensitive (co->widgets.src_update_b, FALSE);
-	}
-	else
-	{
-		gtk_widget_set_sensitive (co->widgets.src_remove_b, TRUE);
-		gtk_widget_set_sensitive (co->widgets.src_update_b, TRUE);
-	}
+	gtk_entry_set_text (GTK_ENTRY (co->priv->entry), "");
 }

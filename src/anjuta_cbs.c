@@ -1,6 +1,6 @@
 /*
     anjuta_cbs.c
-    Copyright (C) 2000  Kh. Naba Kumar Singh
+    Copyright (C) 2000  Naba Kumar <naba@gnome.org>
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -126,27 +126,21 @@ gint on_anjuta_delete (GtkWidget * w, GdkEvent * event, gpointer data)
 	close project call later. */
 	if (file_not_saved)
 	{
-		messagebox2 (GTK_MESSAGE_QUESTION,
-			     _("One or more files are not saved.\n"
-				"Do you still want to exit?"),
-			     GTK_STOCK_YES,
-			     GTK_STOCK_NO,
-			     GTK_SIGNAL_FUNC
-			     (on_anjuta_exit_yes_clicked), NULL,
-			     NULL);
+		GtkWidget *dialog;
+		dialog = gtk_message_dialog_new (GTK_WINDOW (app->widgets.window),
+										 GTK_DIALOG_DESTROY_WITH_PARENT,
+										 GTK_MESSAGE_QUESTION,
+										 GTK_BUTTONS_YES_NO,
+										 _("One or more files are not saved.\n"
+										 "Do you still want to exit?"));
+		if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_YES)
+			anjuta_clean_exit ();
+		gtk_widget_destroy (dialog);
 		return TRUE;
 	}
 	else
-	{
-		on_anjuta_exit_yes_clicked (NULL, NULL);
-	}
+		anjuta_clean_exit ();
 	return TRUE;
-}
-
-void
-on_anjuta_exit_yes_clicked (GtkButton * b, gpointer data)
-{
-	anjuta_clean_exit ();
 }
 
 void
@@ -169,174 +163,6 @@ void
 on_anjuta_dnd_drop (gchar* filename, gpointer data)
 {
 	anjuta_goto_file_line (filename, 0);
-}
-
-void
-on_open_filesel_ok_clicked (GtkButton * button, gpointer user_data)
-{
-	gchar *full_filename;
-	gchar *entry_filename = NULL;
-	int i;
-	GList * list;
-	int elements;
-	
-	list = fileselection_get_filelist(app->fileselection);
-	elements = g_list_length(list);
-	/* If filename is only only written in entry but not selected (Bug #506441) */
-	if (elements == 0)
-	{
-		entry_filename = fileselection_get_filename(app->fileselection);
-		if (entry_filename)
-		{
-			list = g_list_append(list, entry_filename);
-			elements++;
-		}
-	}
-	for(i=0;i<elements;i++)
-	{
-		/*  full_filename = fileselection_get_filename (app->fileselection); */
-		/*	full_filename = (gchar *)g_list_nth_data(list,i); */
-		full_filename = g_strdup(g_list_nth_data(list,i));
-		/*printf("Filename retrived = %s\n",full_filename);*/
-		if (!full_filename)
-			return;
-		if (strlen (extract_filename (full_filename)) == 0)
-		{
-			g_free (full_filename);
-			return;
-		}
-		if (file_is_regular (full_filename) == FALSE)
-		{
-			anjuta_error (_("Not a regular file: %s."), full_filename);
-			g_free (full_filename);
-			return;
-		}
-		if (file_is_readable (full_filename) == FALSE)
-		{
-			anjuta_error (_("No read permission for: %s."), full_filename);
-			g_free (full_filename);
-			return;
-		}
-		/*printf("I have reached this point\n");*/
-		anjuta_goto_file_line (full_filename, -1);
-		/*printf("I have reached this point goto line\n");*/
-		//gtk_widget_hide (app->fileselection);
-		g_free (full_filename);
-	}
-
-	if (entry_filename)
-	{
-		g_list_remove(list, entry_filename);
-		g_free(entry_filename);
-	}
-	/* g_free(list); */
-}
-
-void
-on_save_as_filesel_ok_clicked (GtkButton * button, gpointer user_data)
-{
-	gchar *filename, *buff;
-
-	filename = fileselection_get_filename (app->save_as_fileselection);
-	if (file_is_regular (filename))
-	{
-		buff =
-			g_strdup_printf (_
-					 ("The file \"%s\" already exists.\nDo you want to overwrite it?."),
-					 filename);
-		messagebox2 (GTK_MESSAGE_QUESTION, buff,
-			     GTK_STOCK_YES, GTK_STOCK_NO,
-			     GTK_SIGNAL_FUNC
-			     (on_save_as_overwrite_yes_clicked), NULL,
-			     user_data);
-		g_free (buff);
-	}
-	else
-		on_save_as_overwrite_yes_clicked (NULL, user_data);
-	g_free (filename);
-
-	if (preferences_get_int (app->preferences, EDITOR_TABS_ORDERING))
-		anjuta_order_tabs ();
-}
-
-void
-on_save_as_overwrite_yes_clicked (GtkButton * button, gpointer user_data)
-{
-	TextEditor *te;
-	gchar *full_filename, *saved_filename, *saved_full_filename;
-	gint page_num;
-	GtkWidget *child;
-	gint status;
-
-	full_filename = fileselection_get_filename (app->save_as_fileselection);
-	if (!full_filename)
-		return;
-
-	te = anjuta_get_current_text_editor ();
-	g_return_if_fail (te != NULL);
-	g_return_if_fail (strlen (extract_filename (full_filename)) != 0);
-
-	saved_filename = te->filename;
-	saved_full_filename = te->full_filename;
-	
-	te->full_filename = g_strdup (full_filename);
-	te->filename = g_strdup (extract_filename (full_filename));
-	status = text_editor_save_file (te);
-	gtk_widget_hide (app->save_as_fileselection);
-	if (status == FALSE)
-	{
-		g_free (te->filename);
-		te->filename = saved_filename;
-		g_free (te->full_filename);
-		te->full_filename = saved_full_filename;
-		if (closing_state) closing_state = FALSE;
-		g_free (full_filename);
-		return;
-	} else {
-		if (saved_filename)
-			g_free (saved_filename);
-		if (saved_full_filename)
-		{
-			g_free (saved_full_filename);
-		}
-		if (closing_state)
-		{
-			anjuta_remove_current_text_editor ();
-			closing_state = FALSE;
-		}
-		else
-		{
-			text_editor_set_hilite_type(te);
-			if (te->mode == TEXT_EDITOR_PAGED)
-			{
-				GtkLabel* label;
-				
-				page_num =
-					gtk_notebook_get_current_page (GTK_NOTEBOOK
-									   (app->widgets.notebook));
-				g_return_if_fail (page_num >= 0);
-				child =
-					gtk_notebook_get_nth_page (GTK_NOTEBOOK
-								   (app->widgets.notebook), page_num);
-				/* This crashes */
-				/* gtk_notebook_set_tab_label_text (GTK_NOTEBOOK (app->widgets.notebook),
-								 child,
-								 anjuta_get_notebook_text_editor
-								 (page_num)->filename);
-				*/
-				label = GTK_LABEL(te->widgets.tab_label);
-				gtk_label_set_text(GTK_LABEL(label), anjuta_get_notebook_text_editor
-								 (page_num)->filename);
-	
-				gtk_notebook_set_menu_label_text(GTK_NOTEBOOK(app->widgets.notebook),
-								child,
-								anjuta_get_notebook_text_editor
-								(page_num)->filename);
-			}
-		}
-		anjuta_update_title ();
-		g_free (full_filename);
-	}
 }
 
 gboolean
@@ -492,46 +318,183 @@ on_anjuta_window_key_release_event (GtkWidget   *widget,
 }
 
 void
+on_open_filesel_ok_clicked (GtkButton * button, gpointer user_data)
+{
+	gchar *full_filename;
+	gchar *entry_filename = NULL;
+	int i;
+	GList * list;
+	int elements;
+	
+	list = fileselection_get_filelist(app->fileselection);
+	elements = g_list_length(list);
+	/* If filename is only only written in entry but not selected (Bug #506441) */
+	if (elements == 0)
+	{
+		entry_filename = fileselection_get_filename(app->fileselection);
+		if (entry_filename)
+		{
+			list = g_list_append(list, entry_filename);
+			elements++;
+		}
+	}
+	for(i=0;i<elements;i++)
+	{
+		/*  full_filename = fileselection_get_filename (app->fileselection); */
+		/*	full_filename = (gchar *)g_list_nth_data(list,i); */
+		full_filename = g_strdup(g_list_nth_data(list,i));
+		/*printf("Filename retrived = %s\n",full_filename);*/
+		if (!full_filename)
+			return;
+		if (strlen (extract_filename (full_filename)) == 0)
+		{
+			g_free (full_filename);
+			return;
+		}
+		if (file_is_regular (full_filename) == FALSE)
+		{
+			anjuta_error (_("Not a regular file: %s."), full_filename);
+			g_free (full_filename);
+			return;
+		}
+		if (file_is_readable (full_filename) == FALSE)
+		{
+			anjuta_error (_("No read permission for: %s."), full_filename);
+			g_free (full_filename);
+			return;
+		}
+		/*printf("I have reached this point\n");*/
+		anjuta_goto_file_line (full_filename, -1);
+		/*printf("I have reached this point goto line\n");*/
+		//gtk_widget_hide (app->fileselection);
+		g_free (full_filename);
+	}
+
+	if (entry_filename)
+	{
+		g_list_remove(list, entry_filename);
+		g_free(entry_filename);
+	}
+	/* g_free(list); */
+}
+
+static void
+save_as_real (void)
+{
+	TextEditor *te;
+	gchar *full_filename, *saved_filename, *saved_full_filename;
+	gint page_num;
+	GtkWidget *child;
+	gint status;
+
+	full_filename = fileselection_get_filename (app->save_as_fileselection);
+	if (!full_filename)
+		return;
+
+	te = anjuta_get_current_text_editor ();
+	g_return_if_fail (te != NULL);
+	g_return_if_fail (strlen (extract_filename (full_filename)) != 0);
+
+	saved_filename = te->filename;
+	saved_full_filename = te->full_filename;
+	
+	te->full_filename = g_strdup (full_filename);
+	te->filename = g_strdup (extract_filename (full_filename));
+	status = text_editor_save_file (te);
+	gtk_widget_hide (app->save_as_fileselection);
+	if (status == FALSE)
+	{
+		g_free (te->filename);
+		te->filename = saved_filename;
+		g_free (te->full_filename);
+		te->full_filename = saved_full_filename;
+		if (closing_state) closing_state = FALSE;
+		g_free (full_filename);
+		return;
+	} else {
+		if (saved_filename)
+			g_free (saved_filename);
+		if (saved_full_filename)
+		{
+			g_free (saved_full_filename);
+		}
+		if (closing_state)
+		{
+			anjuta_remove_current_text_editor ();
+			closing_state = FALSE;
+		}
+		else
+		{
+			text_editor_set_hilite_type(te);
+			if (te->mode == TEXT_EDITOR_PAGED)
+			{
+				GtkLabel* label;
+				
+				page_num =
+					gtk_notebook_get_current_page (GTK_NOTEBOOK
+									   (app->widgets.notebook));
+				g_return_if_fail (page_num >= 0);
+				child =
+					gtk_notebook_get_nth_page (GTK_NOTEBOOK
+								   (app->widgets.notebook), page_num);
+				/* This crashes */
+				/* gtk_notebook_set_tab_label_text (GTK_NOTEBOOK (app->widgets.notebook),
+								 child,
+								 anjuta_get_notebook_text_editor
+								 (page_num)->filename);
+				*/
+				label = GTK_LABEL(te->widgets.tab_label);
+				gtk_label_set_text(GTK_LABEL(label), anjuta_get_notebook_text_editor
+								 (page_num)->filename);
+	
+				gtk_notebook_set_menu_label_text(GTK_NOTEBOOK(app->widgets.notebook),
+								child,
+								anjuta_get_notebook_text_editor
+								(page_num)->filename);
+			}
+		}
+		anjuta_update_title ();
+		g_free (full_filename);
+	}
+}
+
+void
+on_save_as_filesel_ok_clicked (GtkButton * button, gpointer user_data)
+{
+	gchar *filename, *buff;
+
+	filename = fileselection_get_filename (app->save_as_fileselection);
+	if (file_is_regular (filename))
+	{
+		GtkWidget *dialog;
+		dialog = gtk_message_dialog_new (GTK_WINDOW (app->widgets.window),
+										 GTK_DIALOG_DESTROY_WITH_PARENT,
+										 GTK_MESSAGE_QUESTION,
+										 GTK_BUTTONS_YES_NO,
+										 _("The file '%s' already exists.\n"
+										 "Do you want to overwrite it?."),
+										 filename);
+		if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_YES)
+			save_as_real ();
+		gtk_widget_destroy (dialog);
+	}
+	else
+		save_as_real ();
+	g_free (filename);
+
+	if (preferences_get_int (app->preferences, EDITOR_TABS_ORDERING))
+		anjuta_order_tabs ();
+}
+
+void
 on_save_as_filesel_cancel_clicked (GtkButton * button, gpointer user_data)
 {
 	gtk_widget_hide (app->save_as_fileselection);
 	closing_state = FALSE;
 }
 
-void
-on_build_msg_save_ok_clicked(GtkButton * button, gpointer user_data)
-{
-	gchar *filename, *buff;
-
-	filename = fileselection_get_filename (app->save_as_build_msg_sel);
-	if (file_is_regular (filename))
-	{
-		buff =
-			g_strdup_printf (_
-					 ("The file \"%s\" already exists.\nDo you want to overwrite it?."),
-					 filename);
-		messagebox2 (GTK_MESSAGE_QUESTION, buff,
-			     GTK_STOCK_YES, GTK_STOCK_NO,
-			     GTK_SIGNAL_FUNC
-			     (on_build_msg_save_overwrite), NULL,
-			     user_data);
-		g_free (buff);
-	}
-	else
-		on_build_msg_save_overwrite(NULL, user_data);
-	g_free (filename);
-}
-
-void
-on_build_msg_save_cancel_clicked(GtkButton * button, gpointer user_data)
-{
-	gtk_widget_hide (app->save_as_build_msg_sel);
-	closing_state = FALSE;
-}
-
-
-void 
-on_build_msg_save_overwrite(GtkButton * button, gpointer user_data)
+static void
+build_msg_save_real (void)
 {
 	gchar *filename;
 	FILE *msgfile; 
@@ -540,7 +503,7 @@ on_build_msg_save_overwrite(GtkButton * button, gpointer user_data)
 	msgfile = fopen(filename, "w");
 	if (! msgfile)
 	{
-		anjuta_error("Could not open file for writing");
+		anjuta_error (_("Could not open file for writing"));
 		return;
 	}
 	
@@ -551,6 +514,37 @@ on_build_msg_save_overwrite(GtkButton * button, gpointer user_data)
 	return;
 }
 
+void
+on_build_msg_save_ok_clicked(GtkButton * button, gpointer user_data)
+{
+	gchar *filename;
+
+	filename = fileselection_get_filename (app->save_as_build_msg_sel);
+	if (file_is_regular (filename))
+	{
+		GtkWidget *dialog;
+		dialog = gtk_message_dialog_new (GTK_WINDOW (app->widgets.window),
+										 GTK_DIALOG_DESTROY_WITH_PARENT,
+										 GTK_MESSAGE_QUESTION,
+										 GTK_BUTTONS_YES_NO,
+										 _("The file '%s' already exists.\n"
+										 "Do you want to overwrite it?."),
+										 filename);
+		if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_YES)
+			build_msg_save_real ();
+		gtk_widget_destroy (dialog);
+	}
+	else
+		build_msg_save_real ();
+	g_free (filename);
+}
+
+void
+on_build_msg_save_cancel_clicked(GtkButton * button, gpointer user_data)
+{
+	gtk_widget_hide (app->save_as_build_msg_sel);
+	closing_state = FALSE;
+}
 
 void
 on_prj_list_undock_button_clicked (GtkButton * button, gpointer user_data)

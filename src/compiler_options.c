@@ -31,6 +31,53 @@
 #include "../pixmaps/list_unselect.xpm"
 #include "../pixmaps/list_select.xpm"
 
+typedef struct
+{
+	gint ref_count;
+
+	GtkWidget *window;
+
+	GtkWidget *supp_clist;
+	GtkWidget *inc_clist;
+	GtkWidget *inc_entry;
+
+	GtkWidget *lib_paths_clist;
+	GtkWidget *lib_paths_entry;
+
+	GtkWidget *lib_clist;
+	GtkWidget *lib_stock_clist;
+	GtkWidget *lib_entry;
+
+	GtkWidget *def_clist;
+	GtkWidget *def_stock_clist;
+	GtkWidget *def_entry;
+
+	GtkWidget *warnings_clist;
+	GtkWidget *optimize_button[4];
+	GtkWidget *other_button[2];
+
+	GtkWidget *other_c_flags_entry;
+	GtkWidget *other_l_flags_entry;
+	GtkWidget *other_l_libs_entry;
+} CompilerOptionsGui;
+
+struct _CompilerOptionsPriv
+{
+	GladeXML *gxml;
+	CompilerOptionsGui widgets;
+
+	gboolean is_showing;
+	gint win_pos_x, win_pos_y;
+
+	/* This property database is not the one
+	 * from which compiler options will be loaded
+	 * or saved, but the one in which option
+	 * variables will be set for the commands
+	 * to use
+	 */
+	PropsID props;
+};
+
 #define ANJUTA_SUPPORTS_END_STRING "SUPPORTS_END"
 #define ANJUTA_SUPPORTS_END \
   { \
@@ -225,6 +272,10 @@ enum {
 	N_WARNINGS_COLUMNS
 };
 
+/* private */
+static void compiler_options_set_in_properties (CompilerOptions* co,
+												PropsID props);
+
 static void co_cid_set (GtkListStore* store, GtkTreeIter *iter, gboolean state)
 {
 	// cid->state = state;
@@ -355,43 +406,337 @@ populate_warnings (GtkListStore *tmodel)
 	}
 }
 
+typedef struct {
+	GtkTreeView *tree;
+	GtkEntry *entry;
+	gint col;
+} EntrySignalInfo;
+
+static EntrySignalInfo *
+entry_signal_info_new (GtkWidget *tree, GtkWidget *entry, gint col)
+{
+	EntrySignalInfo *info;
+	g_return_val_if_fail ((GTK_IS_TREE_VIEW (tree) && GTK_IS_ENTRY (entry)),
+						  NULL);
+	info = g_new0 (EntrySignalInfo, 1);
+	info->tree = GTK_TREE_VIEW (tree);
+	info->entry = GTK_ENTRY (entry);
+	info->col = col;
+	return info;
+}
+
+static void
+entry_signal_info_destroy (EntrySignalInfo *info)
+{
+	g_return_if_fail (info);
+	g_free (info);
+}
+
+static gboolean
+on_compt_delete_event (GtkWidget *widget, GdkEvent *event, gpointer data)
+{
+	CompilerOptions *co = data;
+	compiler_options_set_in_properties(co, co->priv->props);
+	compiler_options_hide(co);
+	return TRUE;
+}
+
+static void
+on_compt_response (GtkWidget *widget, gint response, gpointer data)
+{
+	CompilerOptions *co = data;
+	g_return_if_fail (co);	
+	switch (response)
+	{
+	case GTK_RESPONSE_HELP:
+		/* FIXME: Add help for compiler options here */
+		return;
+	case GTK_RESPONSE_CLOSE:
+		compiler_options_hide (co);
+		return;		
+	}
+}
+
+static void
+on_toggle_clist_row_activated          (GtkTreeView     *treeview,
+                                        GtkTreePath     *arg1,
+                                        GtkTreeViewColumn *arg2,
+                                        gint            col)
+{
+	GtkTreeModel *model;
+	GtkTreeIter iter;
+	gboolean value;
+	
+	model = gtk_tree_view_get_model (treeview);
+	if (gtk_tree_model_get_iter (model, &iter, arg1))
+	{
+		gtk_tree_model_get (model, &iter, col, &value, -1);
+		value = value? FALSE : TRUE;
+		gtk_list_store_set (GTK_LIST_STORE (model), &iter, col, value, -1);
+	}
+}
+
+static void
+on_update_selection_changed            (GtkTreeSelection    *sel,
+                                        EntrySignalInfo     *info)
+{
+	GtkTreeIter iter;
+	GtkTreeModel *model;
+	const gchar *text;
+	GtkEntry *entry = info->entry;
+	gint col = info->col;
+	
+	if (gtk_tree_selection_get_selected (sel, &model, &iter))
+	{
+		gtk_tree_model_get (model, &iter, col, &text, -1);
+		gtk_entry_set_text (entry, text);
+	}
+}
+
+static void
+on_supp_info_clicked (GtkButton * button, gpointer data)
+{
+	CompilerOptions *co;
+	gchar *tmp_file, *str;
+	FILE *tmp;
+	gint index;
+
+	co = data;
+	
+#warning "G2: Get the correct selection index"
+	/* Get the correct selection index */
+	index = 0;
+	
+	tmp_file = get_a_tmp_file ();
+	tmp = fopen (tmp_file, "w");
+	if (!tmp)
+	{
+		anjuta_error (_("Cannot create: %s."), tmp_file);
+		return;
+	}
+	fprintf (tmp, _("Support ID: %s\n\n"),
+			 anjuta_supports[index][ANJUTA_SUPPORT_ID]);
+	fprintf (tmp, _("Description:\n"));
+	fprintf (tmp, "%s\n\n", anjuta_supports[index][ANJUTA_SUPPORT_DESCRIPTION]);
+	fprintf (tmp, _("Dependencies: %s\n\n"),
+			 anjuta_supports[index][ANJUTA_SUPPORT_DEPENDENCY]);
+	fprintf (tmp, _("Macros in configure.in file:\n"));
+	fprintf (tmp, "%s\n", anjuta_supports[index][ANJUTA_SUPPORT_MACROS]);
+	fprintf (tmp, _("Variables for cflags: %s\n\n"),
+			 anjuta_supports[index][ANJUTA_SUPPORT_PRJ_CFLAGS]);
+	fprintf (tmp, _("Variables for libraries: %s\n\n"),
+			 anjuta_supports[index][ANJUTA_SUPPORT_PRJ_LIBS]);
+	fprintf (tmp, _("Compile time cflags: %s\n\n"),
+			 anjuta_supports[index][ANJUTA_SUPPORT_FILE_CFLAGS]);
+	fprintf (tmp, _("Compile time libraries: %s\n\n"),
+			 anjuta_supports[index][ANJUTA_SUPPORT_FILE_LIBS]);
+	fprintf (tmp, _("Entries in acconfig.h file:\n"));
+	fprintf (tmp, "%s\n", anjuta_supports[index][ANJUTA_SUPPORT_ACCONFIG_H]);
+	fprintf (tmp, _("Installation status:\n"));
+	str = anjuta_supports[index][ANJUTA_SUPPORT_INSTALL_STATUS];
+	if (str)
+	{
+		gchar *cmd, *count;
+		const gchar *path;
+		
+		cmd = g_strdup (str);
+		count = cmd;
+		while (isspace(*count) == FALSE)
+		{
+			if (*count == '\0')
+				break;
+			count++;
+		}
+		*count = '\0';
+		path = g_find_program_in_path ( cmd );
+		if (path)
+			fprintf (tmp, _("    Installed => %s\n"), path);
+		else
+			fprintf (tmp, _("    Not Installed\n"), path);
+			
+		g_free (cmd);
+	}
+	else
+		fprintf (tmp, _("    Not Installed.\n"));
+	fclose (tmp);
+	anjuta_info_show_file (tmp_file, 300, 500);
+	remove (tmp_file);
+}
+
+static gboolean
+verify_new_entry (GtkTreeView *tree, const gchar *str, gint col)
+{
+	GtkTreeModel *model;
+	GtkTreeIter iter;
+	gboolean valid;
+	
+	model = gtk_tree_view_get_model (GTK_TREE_VIEW(tree));
+	g_assert (model);
+	valid = gtk_tree_model_get_iter_first (model, &iter);
+	while (valid)
+	{
+		gchar *text;
+		gtk_tree_model_get (model, &iter, col, &text, -1);
+		if (strcmp(str, text) == 0)
+			return FALSE;
+		valid = gtk_tree_model_iter_next (model, &iter);
+	}
+	return TRUE;
+}
+
+static void
+on_add_to_clist_clicked (GtkButton * button, gpointer data)
+{
+	GtkTreeModel *model;
+	GtkTreeIter iter;
+	gboolean valid;
+	gchar *text;
+	gchar *str;
+	EntrySignalInfo *info = data;
+	GtkTreeView *tree = info->tree;
+	GtkEntry *entry = info->entry;
+	gint col = info->col;
+	
+	str = g_strdup (gtk_entry_get_text (GTK_ENTRY (entry)));
+	text = g_strstrip (str);
+	if (strlen (text) == 0)
+	{
+		g_free (str);
+		return;
+	}
+	if (verify_new_entry (tree, text, col) == FALSE)
+	{
+		gtk_entry_set_text (GTK_ENTRY (entry), "");
+		g_free (str);
+		return;
+	}
+	model = gtk_tree_view_get_model (GTK_TREE_VIEW(tree));
+	g_assert (model);
+	gtk_list_store_append (GTK_LIST_STORE (model), &iter);
+	gtk_list_store_set (GTK_LIST_STORE(model), &iter, col, text, -1);
+	gtk_entry_set_text (GTK_ENTRY (entry), "");
+	g_free (str);
+}
+
+static void
+on_update_in_clist_clicked (GtkButton * button, gpointer data)
+{
+	GtkTreeModel *model;
+	GtkTreeSelection *sel;
+	GtkTreeIter iter;
+	gboolean valid;
+	gchar *text, *str;
+	EntrySignalInfo *info = data;
+	GtkTreeView *tree = info->tree;
+	GtkEntry *entry = info->entry;
+	gint col = info->col;
+	
+	str = g_strdup (gtk_entry_get_text (GTK_ENTRY (entry)));
+	text = g_strstrip(str);
+	if (strlen (text) == 0)
+	{
+		g_free (str);
+		return;
+	}
+	if (verify_new_entry (tree, text, col) == FALSE)
+	{
+		gtk_entry_set_text (GTK_ENTRY (entry), "");
+		g_free (str);
+		return;
+	}
+	sel = gtk_tree_view_get_selection (GTK_TREE_VIEW(tree));
+	if (gtk_tree_selection_get_selected (sel, &model, &iter))
+	{
+		gtk_list_store_set (GTK_LIST_STORE(model), &iter, col, text, -1);
+		gtk_entry_set_text (GTK_ENTRY (entry), "");
+	}
+	g_free (str);
+}
+
+void
+on_remove_from_clist_clicked (GtkButton * button, gpointer data)
+{
+	GtkTreeModel *model;
+	GtkTreeIter iter;
+	GtkTreeSelection *sel;
+	gboolean valid;
+	EntrySignalInfo *info = data;
+	GtkTreeView *tree = info->tree;
+	GtkEntry *entry = info->entry;
+	gint col = info->col;
+	
+	sel = gtk_tree_view_get_selection (GTK_TREE_VIEW(tree));
+	if (gtk_tree_selection_get_selected (sel, &model, &iter))
+	{
+		gtk_list_store_remove (GTK_LIST_STORE(model), &iter);
+		gtk_entry_set_text (GTK_ENTRY (entry), "");
+	}
+}
+
+static void
+on_clear_clist_clicked (GtkButton * button, gpointer data)
+{
+	GtkWidget *win;
+	GtkWidget *top_level;
+	EntrySignalInfo *info = data;
+	GtkTreeView *tree = info->tree;
+	GtkListStore *model = GTK_LIST_STORE (gtk_tree_view_get_model (tree));
+	top_level = gtk_widget_get_toplevel (GTK_WIDGET (tree));
+	win = gtk_message_dialog_new (GTK_WINDOW (top_level),
+								  GTK_DIALOG_DESTROY_WITH_PARENT,
+								  GTK_MESSAGE_QUESTION,
+								  GTK_BUTTONS_YES_NO,
+								  _("Do you want to clear the list?"),
+								  NULL);
+	if (gtk_dialog_run (GTK_DIALOG (win)) == GTK_RESPONSE_YES)
+		gtk_list_store_clear (GTK_LIST_STORE (model));
+	gtk_widget_destroy (win);
+}
+
+#define BUTTON_SIGNAL_CONNECT(w, f, d) \
+	g_signal_connect (G_OBJECT (w), "clicked", G_CALLBACK (f), d);
+
 void create_compiler_options_gui (CompilerOptions *co)
 {
 	GtkTreeView *clist;
+	GtkTreeViewColumn *column;
+	GtkTreeSelection *selection;
 	GtkListStore *store, *list;
 	GtkCellRenderer *renderer;
-	GtkTreeViewColumn *column;
+	GtkWidget *button;
 	int i;
 	
 	/* Compiler Options Dialog */
-	co->gxml = glade_xml_new (GLADE_FILE_ANJUTA, "compiler_options_dialog", NULL);
-	glade_xml_signal_autoconnect (co->gxml);
-	co->widgets.window = glade_xml_get_widget (co->gxml, "compiler_options_dialog");
-	gtk_widget_hide (co->widgets.window);
-	co->widgets.supp_clist = glade_xml_get_widget (co->gxml, "supp_clist");
-	co->widgets.inc_clist = glade_xml_get_widget (co->gxml, "inc_clist");
-	co->widgets.inc_entry = glade_xml_get_widget (co->gxml, "inc_entry");
-	co->widgets.lib_paths_clist = glade_xml_get_widget (co->gxml, "lib_paths_clist");
-	co->widgets.lib_paths_entry = glade_xml_get_widget (co->gxml, "lib_paths_entry");
-	co->widgets.lib_clist = glade_xml_get_widget (co->gxml, "lib_clist");
-	co->widgets.lib_stock_clist = glade_xml_get_widget (co->gxml, "lib_stock_clist");
-	co->widgets.lib_entry = glade_xml_get_widget (co->gxml, "lib_entry");
-	co->widgets.def_clist = glade_xml_get_widget (co->gxml, "def_clist");
-	co->widgets.def_stock_clist = glade_xml_get_widget (co->gxml, "def_stock_clist");
-	co->widgets.def_entry = glade_xml_get_widget (co->gxml, "def_entry");
-	co->widgets.warnings_clist = glade_xml_get_widget (co->gxml, "warnings_clist");
-	co->widgets.optimize_button[0] = glade_xml_get_widget (co->gxml, "optimization_b_1");
-	co->widgets.optimize_button[1] = glade_xml_get_widget (co->gxml, "optimization_b_2");
-	co->widgets.optimize_button[2] = glade_xml_get_widget (co->gxml, "optimization_b_3");
-	co->widgets.optimize_button[3] = glade_xml_get_widget (co->gxml, "optimization_b_4");
-	co->widgets.other_button[0] = glade_xml_get_widget (co->gxml, "debugging_b");
-	co->widgets.other_button[1] = glade_xml_get_widget (co->gxml, "profiling_b");
-	co->widgets.other_c_flags_entry = glade_xml_get_widget (co->gxml, "other_c_flags_entry");
-	co->widgets.other_l_flags_entry = glade_xml_get_widget (co->gxml, "other_l_flags_entry");
-	co->widgets.other_l_libs_entry = glade_xml_get_widget (co->gxml, "other_l_libs_entry");
+	co->priv->gxml = glade_xml_new (GLADE_FILE_ANJUTA, "compiler_options_dialog", NULL);
+	glade_xml_signal_autoconnect (co->priv->gxml);
+	co->priv->widgets.window = glade_xml_get_widget (co->priv->gxml, "compiler_options_dialog");
+	gtk_widget_hide (co->priv->widgets.window);
+	gtk_window_set_transient_for (GTK_WINDOW (co->priv->widgets.window),
+								  GTK_WINDOW (app->widgets.window));
+	co->priv->widgets.supp_clist = glade_xml_get_widget (co->priv->gxml, "supp_clist");
+	co->priv->widgets.inc_clist = glade_xml_get_widget (co->priv->gxml, "inc_clist");
+	co->priv->widgets.inc_entry = glade_xml_get_widget (co->priv->gxml, "inc_entry");
+	co->priv->widgets.lib_paths_clist = glade_xml_get_widget (co->priv->gxml, "lib_paths_clist");
+	co->priv->widgets.lib_paths_entry = glade_xml_get_widget (co->priv->gxml, "lib_paths_entry");
+	co->priv->widgets.lib_clist = glade_xml_get_widget (co->priv->gxml, "lib_clist");
+	co->priv->widgets.lib_stock_clist = glade_xml_get_widget (co->priv->gxml, "lib_stock_clist");
+	co->priv->widgets.lib_entry = glade_xml_get_widget (co->priv->gxml, "lib_entry");
+	co->priv->widgets.def_clist = glade_xml_get_widget (co->priv->gxml, "def_clist");
+	co->priv->widgets.def_stock_clist = glade_xml_get_widget (co->priv->gxml, "def_stock_clist");
+	co->priv->widgets.def_entry = glade_xml_get_widget (co->priv->gxml, "def_entry");
+	co->priv->widgets.warnings_clist = glade_xml_get_widget (co->priv->gxml, "warnings_clist");
+	co->priv->widgets.optimize_button[0] = glade_xml_get_widget (co->priv->gxml, "optimization_b_1");
+	co->priv->widgets.optimize_button[1] = glade_xml_get_widget (co->priv->gxml, "optimization_b_2");
+	co->priv->widgets.optimize_button[2] = glade_xml_get_widget (co->priv->gxml, "optimization_b_3");
+	co->priv->widgets.optimize_button[3] = glade_xml_get_widget (co->priv->gxml, "optimization_b_4");
+	co->priv->widgets.other_button[0] = glade_xml_get_widget (co->priv->gxml, "debugging_b");
+	co->priv->widgets.other_button[1] = glade_xml_get_widget (co->priv->gxml, "profiling_b");
+	co->priv->widgets.other_c_flags_entry = glade_xml_get_widget (co->priv->gxml, "other_c_flags_entry");
+	co->priv->widgets.other_l_flags_entry = glade_xml_get_widget (co->priv->gxml, "other_l_flags_entry");
+	co->priv->widgets.other_l_libs_entry = glade_xml_get_widget (co->priv->gxml, "other_l_libs_entry");
 
 	/* Add supports tree model */
-	clist = GTK_TREE_VIEW (co->widgets.supp_clist);
+	clist = GTK_TREE_VIEW (co->priv->widgets.supp_clist);
 	store = gtk_list_store_new (N_SUPP_COLUMNS, G_TYPE_BOOLEAN,
 								G_TYPE_STRING);
 	gtk_tree_view_set_model (clist,	GTK_TREE_MODEL(store));
@@ -399,7 +744,7 @@ void create_compiler_options_gui (CompilerOptions *co)
 	/* Add supports columns */	
 	renderer = gtk_cell_renderer_toggle_new ();
 	column = gtk_tree_view_column_new_with_attributes ("", renderer,
-													   "boolean",
+													   "active",
 													   SUPP_TOGGLE_COLUMN,
 													   NULL);
 	gtk_tree_view_append_column (clist, column);
@@ -414,7 +759,7 @@ void create_compiler_options_gui (CompilerOptions *co)
 	g_object_unref (G_OBJECT(store));
 	
 	/* Add "includes" tree model */
-	clist = GTK_TREE_VIEW (co->widgets.inc_clist);
+	clist = GTK_TREE_VIEW (co->priv->widgets.inc_clist);
 	store = gtk_list_store_new (N_INC_COLUMNS, G_TYPE_STRING);
 	gtk_tree_view_set_model (clist, GTK_TREE_MODEL(store));
 	
@@ -428,7 +773,7 @@ void create_compiler_options_gui (CompilerOptions *co)
 	g_object_unref (G_OBJECT(store));
 	
 	/* Add "libraries paths" model */
-	clist = GTK_TREE_VIEW (co->widgets.lib_paths_clist);
+	clist = GTK_TREE_VIEW (co->priv->widgets.lib_paths_clist);
 	store = gtk_list_store_new (N_LIB_PATHS_COLUMN, G_TYPE_STRING);
 	gtk_tree_view_set_model (clist,	GTK_TREE_MODEL(store));
 	
@@ -443,7 +788,7 @@ void create_compiler_options_gui (CompilerOptions *co)
 	g_object_unref (G_OBJECT(store));
 	
 	/* Add "includes" tree model */
-	clist = GTK_TREE_VIEW (co->widgets.lib_clist);
+	clist = GTK_TREE_VIEW (co->priv->widgets.lib_clist);
 	store = gtk_list_store_new (N_LIB_COLUMNS, G_TYPE_BOOLEAN,
 								G_TYPE_STRING);
 	gtk_tree_view_set_model (clist,	GTK_TREE_MODEL(store));
@@ -451,7 +796,7 @@ void create_compiler_options_gui (CompilerOptions *co)
 	/* Add "libraries paths" columns */
 	renderer = gtk_cell_renderer_toggle_new ();
 	column = gtk_tree_view_column_new_with_attributes ("", renderer,
-													   "boolean",
+													   "active",
 													   LIB_TOGGLE_COLUMN,
 													   NULL);
 	gtk_tree_view_append_column (clist, column);
@@ -466,7 +811,7 @@ void create_compiler_options_gui (CompilerOptions *co)
 	g_object_unref (G_OBJECT(store));
 		
 	/* Add "Libraries stock" model */
-	clist = GTK_TREE_VIEW (co->widgets.lib_stock_clist);
+	clist = GTK_TREE_VIEW (co->priv->widgets.lib_stock_clist);
 	store = gtk_list_store_new (N_LIB_STOCK_COLUMNS, G_TYPE_STRING,
 								G_TYPE_STRING);
 	gtk_tree_view_set_model (clist,	GTK_TREE_MODEL(store));
@@ -490,7 +835,7 @@ void create_compiler_options_gui (CompilerOptions *co)
 	g_object_unref (G_OBJECT(store));
 	
 	/* Add "Defines" model */
-	clist = GTK_TREE_VIEW (co->widgets.def_clist);
+	clist = GTK_TREE_VIEW (co->priv->widgets.def_clist);
 	store = gtk_list_store_new (N_DEF_COLUMNS, G_TYPE_BOOLEAN,
 								G_TYPE_STRING);
 	gtk_tree_view_set_model (clist,	GTK_TREE_MODEL(store));
@@ -498,7 +843,7 @@ void create_compiler_options_gui (CompilerOptions *co)
 	/* Add defines columns */	
 	renderer = gtk_cell_renderer_toggle_new ();
 	column = gtk_tree_view_column_new_with_attributes ("", renderer,
-													   "boolean",
+													   "active",
 													   DEF_TOGGLE_COLUMN,
 													   NULL);
 	gtk_tree_view_append_column (clist, column);
@@ -512,7 +857,7 @@ void create_compiler_options_gui (CompilerOptions *co)
 	g_object_unref (G_OBJECT(store));
 
 	/* Add "Defines stock" model */
-	clist = GTK_TREE_VIEW (co->widgets.def_stock_clist);
+	clist = GTK_TREE_VIEW (co->priv->widgets.def_stock_clist);
 	store = gtk_list_store_new (N_DEF_STOCK_COLUMNS, G_TYPE_STRING);
 	gtk_tree_view_set_model (clist,	GTK_TREE_MODEL(store));
 	
@@ -528,15 +873,15 @@ void create_compiler_options_gui (CompilerOptions *co)
 	g_object_unref (G_OBJECT(store));
 	
 	/* Add "warnings" model */
-	clist = GTK_TREE_VIEW (co->widgets.warnings_clist);
+	clist = GTK_TREE_VIEW (co->priv->widgets.warnings_clist);
 	store = gtk_list_store_new (N_WARNINGS_COLUMNS, G_TYPE_BOOLEAN,
 								G_TYPE_STRING, G_TYPE_STRING);
 	gtk_tree_view_set_model (clist, GTK_TREE_MODEL(store));
 	
-	/* Add defines columns */	
+	/* Add "warnings" columns */	
 	renderer = gtk_cell_renderer_toggle_new ();
 	column = gtk_tree_view_column_new_with_attributes ("", renderer,
-													"boolean",
+													"active",
 													WARNINGS_TOGGLE_COLUMN,
 													NULL);
 	gtk_tree_view_append_column (clist, column);
@@ -557,27 +902,178 @@ void create_compiler_options_gui (CompilerOptions *co)
 	populate_warnings (store);
 	g_object_unref (G_OBJECT(store));
 	
-	gtk_widget_ref (co->widgets.window);
-	gtk_widget_ref (co->widgets.warnings_clist);
-	for (i = 0; i < 4; i++)
-		gtk_widget_ref (co->widgets.optimize_button[i]);
-	for (i = 0; i < 2; i++)
-		gtk_widget_ref (co->widgets.other_button[i]);
+	/* Connect window signals */
+	g_signal_connect (G_OBJECT (co->priv->widgets.window), "delete_event",
+					  G_CALLBACK (on_compt_delete_event), co);
+	g_signal_connect (G_OBJECT (co->priv->widgets.window), "response",
+					  G_CALLBACK (on_compt_response), co);
 	
-	gtk_widget_ref (co->widgets.inc_clist);
-	gtk_widget_ref (co->widgets.inc_entry);
-	gtk_widget_ref (co->widgets.lib_paths_clist);
-	gtk_widget_ref (co->widgets.lib_paths_entry);
-	gtk_widget_ref (co->widgets.lib_clist);
-	gtk_widget_ref (co->widgets.lib_stock_clist);
-	gtk_widget_ref (co->widgets.lib_entry);
-	gtk_widget_ref (co->widgets.def_clist);
-	gtk_widget_ref (co->widgets.def_stock_clist);
-	gtk_widget_ref (co->widgets.def_entry);
-	gtk_widget_ref (co->widgets.other_c_flags_entry);
-	gtk_widget_ref (co->widgets.other_l_flags_entry);
-	gtk_widget_ref (co->widgets.other_l_libs_entry);
-	gtk_widget_ref (co->widgets.supp_clist);
+	/* Connect toggle signals */
+	g_signal_connect (G_OBJECT (co->priv->widgets.supp_clist), "row_activated",
+					  G_CALLBACK (on_toggle_clist_row_activated),
+					  SUPP_TOGGLE_COLUMN);
+	g_signal_connect (G_OBJECT (co->priv->widgets.lib_clist), "row_activated",
+					  G_CALLBACK (on_toggle_clist_row_activated),
+					  LIB_TOGGLE_COLUMN);
+	g_signal_connect (G_OBJECT (co->priv->widgets.def_clist), "row_activated",
+					  G_CALLBACK (on_toggle_clist_row_activated),
+					  DEF_TOGGLE_COLUMN);
+	g_signal_connect (G_OBJECT (co->priv->widgets.warnings_clist), "row_activated",
+					  G_CALLBACK (on_toggle_clist_row_activated),
+					  WARNINGS_TOGGLE_COLUMN);
+
+	/* Connect Entry update signals */
+	clist = GTK_TREE_VIEW (co->priv->widgets.inc_clist);
+	selection = gtk_tree_view_get_selection (clist);
+	g_signal_connect (G_OBJECT (selection), "changed",
+					  G_CALLBACK (on_update_selection_changed),
+					  entry_signal_info_new (co->priv->widgets.inc_clist,
+					   						 co->priv->widgets.inc_entry,
+											 INC_PATHS_COLUMN));
+	clist = GTK_TREE_VIEW (co->priv->widgets.lib_clist);
+	selection = gtk_tree_view_get_selection (clist);
+	g_signal_connect (G_OBJECT (selection), "changed",
+					  G_CALLBACK (on_update_selection_changed),
+					  entry_signal_info_new (co->priv->widgets.lib_clist,
+					   						 co->priv->widgets.lib_entry,
+											 LIB_COLUMN));
+	clist = GTK_TREE_VIEW (co->priv->widgets.lib_stock_clist);
+	selection = gtk_tree_view_get_selection (clist);
+	g_signal_connect (G_OBJECT (selection), "changed",
+					  G_CALLBACK (on_update_selection_changed),
+					  entry_signal_info_new (co->priv->widgets.lib_stock_clist,
+					   						 co->priv->widgets.lib_entry,
+											 LIB_STOCK_COLUMN));
+	clist = GTK_TREE_VIEW (co->priv->widgets.lib_paths_clist);
+	selection = gtk_tree_view_get_selection (clist);
+	g_signal_connect (G_OBJECT (selection), "changed",
+					  G_CALLBACK (on_update_selection_changed),
+					  entry_signal_info_new (co->priv->widgets.lib_paths_clist,
+					   						 co->priv->widgets.lib_paths_entry,
+											 LIB_PATHS_COLUMN));
+	clist = GTK_TREE_VIEW (co->priv->widgets.def_clist);
+	selection = gtk_tree_view_get_selection (clist);
+	g_signal_connect (G_OBJECT (selection), "changed",
+					  G_CALLBACK (on_update_selection_changed),
+					  entry_signal_info_new (co->priv->widgets.def_clist,
+					   						 co->priv->widgets.def_entry,
+											 DEF_DEFINE_COLUMN));
+	clist = GTK_TREE_VIEW (co->priv->widgets.def_stock_clist);
+	selection = gtk_tree_view_get_selection (clist);
+	g_signal_connect (G_OBJECT (selection), "changed",
+					  G_CALLBACK (on_update_selection_changed),
+					  entry_signal_info_new (co->priv->widgets.def_stock_clist,
+					   						 co->priv->widgets.def_entry,
+											 DEF_STOCK_COLUMN));
+	
+	/* Connect editiong button signals */
+	button = glade_xml_get_widget (co->priv->gxml, "supp_info_b");
+	BUTTON_SIGNAL_CONNECT (button, on_supp_info_clicked, co);
+
+	button = glade_xml_get_widget (co->priv->gxml, "inc_add_b");
+	BUTTON_SIGNAL_CONNECT (button, on_add_to_clist_clicked,
+						   entry_signal_info_new (co->priv->widgets.inc_clist,
+						   						  co->priv->widgets.inc_entry,
+												  INC_PATHS_COLUMN));
+	button = glade_xml_get_widget (co->priv->gxml, "inc_update_b");
+	BUTTON_SIGNAL_CONNECT (button, on_update_in_clist_clicked,
+						   entry_signal_info_new (co->priv->widgets.inc_clist,
+						   						  co->priv->widgets.inc_entry,
+												  INC_PATHS_COLUMN));
+	button = glade_xml_get_widget (co->priv->gxml, "inc_remove_b");
+	BUTTON_SIGNAL_CONNECT (button, on_remove_from_clist_clicked,
+						   entry_signal_info_new (co->priv->widgets.inc_clist,
+						   						  co->priv->widgets.inc_entry,
+												  INC_PATHS_COLUMN));
+	button = glade_xml_get_widget (co->priv->gxml, "inc_clear_b");
+	BUTTON_SIGNAL_CONNECT (button, on_clear_clist_clicked,
+						   entry_signal_info_new (co->priv->widgets.inc_clist,
+						   						  co->priv->widgets.inc_entry,
+												  INC_PATHS_COLUMN));
+	
+	button = glade_xml_get_widget (co->priv->gxml, "lib_add_b");
+	BUTTON_SIGNAL_CONNECT (button, on_add_to_clist_clicked,
+						   entry_signal_info_new (co->priv->widgets.lib_clist,
+						   						  co->priv->widgets.lib_entry,
+												  LIB_COLUMN));
+	button = glade_xml_get_widget (co->priv->gxml, "lib_update_b");
+	BUTTON_SIGNAL_CONNECT (button, on_update_in_clist_clicked,
+						   entry_signal_info_new (co->priv->widgets.lib_clist,
+						   						  co->priv->widgets.lib_entry,
+												  LIB_COLUMN));
+	button = glade_xml_get_widget (co->priv->gxml, "lib_remove_b");
+	BUTTON_SIGNAL_CONNECT (button, on_remove_from_clist_clicked,
+						   entry_signal_info_new (co->priv->widgets.lib_clist,
+						   						  co->priv->widgets.lib_entry,
+												  LIB_COLUMN));
+	button = glade_xml_get_widget (co->priv->gxml, "lib_clear_b");
+	BUTTON_SIGNAL_CONNECT (button, on_clear_clist_clicked,
+						   entry_signal_info_new (co->priv->widgets.lib_clist,
+						   						  co->priv->widgets.lib_entry,
+												  LIB_COLUMN));
+	
+	button = glade_xml_get_widget (co->priv->gxml, "lib_paths_add_b");
+	BUTTON_SIGNAL_CONNECT (button, on_add_to_clist_clicked,
+						   entry_signal_info_new (co->priv->widgets.lib_paths_clist,
+						   						  co->priv->widgets.lib_paths_entry,
+												  LIB_PATHS_COLUMN));
+	button = glade_xml_get_widget (co->priv->gxml, "lib_paths_update_b");
+	BUTTON_SIGNAL_CONNECT (button, on_update_in_clist_clicked,
+						   entry_signal_info_new (co->priv->widgets.lib_paths_clist,
+						   						  co->priv->widgets.lib_paths_entry,
+												  LIB_PATHS_COLUMN));
+	button = glade_xml_get_widget (co->priv->gxml, "lib_paths_remove_b");
+	BUTTON_SIGNAL_CONNECT (button, on_remove_from_clist_clicked,
+						   entry_signal_info_new (co->priv->widgets.lib_paths_clist,
+						   						  co->priv->widgets.lib_paths_entry,
+												  LIB_PATHS_COLUMN));
+	button = glade_xml_get_widget (co->priv->gxml, "lib_paths_clear_b");
+	BUTTON_SIGNAL_CONNECT (button, on_clear_clist_clicked,
+						   entry_signal_info_new (co->priv->widgets.lib_paths_clist,
+						   						  co->priv->widgets.lib_paths_entry,
+												  LIB_PATHS_COLUMN));
+	
+	button = glade_xml_get_widget (co->priv->gxml, "def_add_b");
+	BUTTON_SIGNAL_CONNECT (button, on_add_to_clist_clicked,
+						   entry_signal_info_new (co->priv->widgets.def_clist,
+						   						  co->priv->widgets.def_entry,
+												  DEF_DEFINE_COLUMN));
+	button = glade_xml_get_widget (co->priv->gxml, "def_update_b");
+	BUTTON_SIGNAL_CONNECT (button, on_update_in_clist_clicked,
+						   entry_signal_info_new (co->priv->widgets.def_clist,
+						   						  co->priv->widgets.def_entry,
+												  DEF_DEFINE_COLUMN));
+	button = glade_xml_get_widget (co->priv->gxml, "lib_paths_remove_b");
+	BUTTON_SIGNAL_CONNECT (button, on_remove_from_clist_clicked,
+						   entry_signal_info_new (co->priv->widgets.def_clist,
+						   						  co->priv->widgets.def_entry,
+												  DEF_DEFINE_COLUMN));
+	button = glade_xml_get_widget (co->priv->gxml, "lib_paths_clear_b");
+	BUTTON_SIGNAL_CONNECT (button, on_clear_clist_clicked,
+						   entry_signal_info_new (co->priv->widgets.def_clist,
+						   						  co->priv->widgets.def_entry,
+												  DEF_DEFINE_COLUMN));
+	gtk_widget_ref (co->priv->widgets.window);
+	gtk_widget_ref (co->priv->widgets.warnings_clist);
+	for (i = 0; i < 4; i++)
+		gtk_widget_ref (co->priv->widgets.optimize_button[i]);
+	for (i = 0; i < 2; i++)
+		gtk_widget_ref (co->priv->widgets.other_button[i]);
+	
+	gtk_widget_ref (co->priv->widgets.inc_clist);
+	gtk_widget_ref (co->priv->widgets.inc_entry);
+	gtk_widget_ref (co->priv->widgets.lib_paths_clist);
+	gtk_widget_ref (co->priv->widgets.lib_paths_entry);
+	gtk_widget_ref (co->priv->widgets.lib_clist);
+	gtk_widget_ref (co->priv->widgets.lib_stock_clist);
+	gtk_widget_ref (co->priv->widgets.lib_entry);
+	gtk_widget_ref (co->priv->widgets.def_clist);
+	gtk_widget_ref (co->priv->widgets.def_stock_clist);
+	gtk_widget_ref (co->priv->widgets.def_entry);
+	gtk_widget_ref (co->priv->widgets.other_c_flags_entry);
+	gtk_widget_ref (co->priv->widgets.other_l_flags_entry);
+	gtk_widget_ref (co->priv->widgets.other_l_libs_entry);
+	gtk_widget_ref (co->priv->widgets.supp_clist);
 }
 
 CompilerOptions *
@@ -585,20 +1081,14 @@ compiler_options_new (PropsID props)
 {
 	int i;
 	CompilerOptions *co = g_new0 (CompilerOptions, 1);
-
-	if (co)
-	{
-		co->supp_index = 0;
-		co->inc_index = 0;
-		co->lib_index = 0;
-		co->lib_paths_index = 0;
-		co->def_index = 0;
-		co->is_showing = FALSE;
-		co->win_pos_x = 100;
-		co->win_pos_y = 100;
-		co->props = props;
-		create_compiler_options_gui (co);
-	}
+	
+	co->priv = g_new0 (CompilerOptionsPriv, 1);
+	co->priv->is_showing = FALSE;
+	co->priv->win_pos_x = 100;
+	co->priv->win_pos_y = 100;
+	co->priv->props = props;
+	create_compiler_options_gui (co);
+	
 	return co;
 }
 
@@ -606,44 +1096,44 @@ void
 compiler_options_destroy (CompilerOptions * co)
 {
 	gint i;
-	if (co)
-	{
-		gtk_widget_unref (co->widgets.window);
-		gtk_widget_unref (co->widgets.warnings_clist);
-		for (i = 0; i < 4; i++)
-			gtk_widget_unref (co->widgets.optimize_button[i]);
-		for (i = 0; i < 2; i++)
-			gtk_widget_unref (co->widgets.other_button[i]);
+	g_return_if_fail (co);
 
-		gtk_widget_unref (co->widgets.inc_clist);
-		gtk_widget_unref (co->widgets.inc_entry);
-		gtk_widget_unref (co->widgets.lib_paths_clist);
-		gtk_widget_unref (co->widgets.lib_paths_entry);
-		gtk_widget_unref (co->widgets.lib_clist);
-		gtk_widget_unref (co->widgets.lib_stock_clist);
-		gtk_widget_unref (co->widgets.lib_entry);
-		gtk_widget_unref (co->widgets.def_clist);
-		gtk_widget_unref (co->widgets.def_stock_clist);
-		gtk_widget_unref (co->widgets.def_entry);
-		gtk_widget_unref (co->widgets.other_c_flags_entry);
-		gtk_widget_unref (co->widgets.other_l_flags_entry);
-		gtk_widget_unref (co->widgets.other_l_libs_entry);
-		gtk_widget_unref (co->widgets.supp_clist);
+	gtk_widget_unref (co->priv->widgets.window);
+	gtk_widget_unref (co->priv->widgets.warnings_clist);
+	for (i = 0; i < 4; i++)
+		gtk_widget_unref (co->priv->widgets.optimize_button[i]);
+	for (i = 0; i < 2; i++)
+		gtk_widget_unref (co->priv->widgets.other_button[i]);
 
-		if (co->widgets.window)
-			gtk_widget_destroy (co->widgets.window);
-		g_object_unref (co->gxml);
-		g_free (co);
-		co = NULL;
-	}
+	gtk_widget_unref (co->priv->widgets.inc_clist);
+	gtk_widget_unref (co->priv->widgets.inc_entry);
+	gtk_widget_unref (co->priv->widgets.lib_paths_clist);
+	gtk_widget_unref (co->priv->widgets.lib_paths_entry);
+	gtk_widget_unref (co->priv->widgets.lib_clist);
+	gtk_widget_unref (co->priv->widgets.lib_stock_clist);
+	gtk_widget_unref (co->priv->widgets.lib_entry);
+	gtk_widget_unref (co->priv->widgets.def_clist);
+	gtk_widget_unref (co->priv->widgets.def_stock_clist);
+	gtk_widget_unref (co->priv->widgets.def_entry);
+	gtk_widget_unref (co->priv->widgets.other_c_flags_entry);
+	gtk_widget_unref (co->priv->widgets.other_l_flags_entry);
+	gtk_widget_unref (co->priv->widgets.other_l_libs_entry);
+	gtk_widget_unref (co->priv->widgets.supp_clist);
+
+	if (co->priv->widgets.window)
+		gtk_widget_destroy (co->priv->widgets.window);
+	g_object_unref (co->priv->gxml);
+	
+	g_free (co->priv);
+	g_free (co);
 }
 
 gboolean compiler_options_save_yourself (CompilerOptions * co, FILE * stream)
 {
 	if (stream == NULL || co == NULL)
 		return FALSE;
-	fprintf (stream, "compiler.options.win.pos.x=%d\n", co->win_pos_x);
-	fprintf (stream, "compiler.options.win.pos.y=%d\n", co->win_pos_y);
+	fprintf (stream, "compiler.options.win.pos.x=%d\n", co->priv->win_pos_x);
+	fprintf (stream, "compiler.options.win.pos.y=%d\n", co->priv->win_pos_y);
 	return TRUE;
 }
 
@@ -656,12 +1146,13 @@ gint compiler_options_save (CompilerOptions * co, FILE * s)
 	g_return_val_if_fail (co != NULL, FALSE);
 	g_return_val_if_fail (s != NULL, FALSE);
 
-	length = g_list_length (GTK_CLIST (co->widgets.supp_clist)->row_list);
+	length = g_list_length (GTK_CLIST (co->priv->widgets.supp_clist)->row_list);
 	fprintf (s, "compiler.options.supports=");
 	for (i = 0; i < length; i++)
 	{
 		gboolean state;
-		state = co_clist_row_data_get_state (GTK_CLIST (co->widgets.supp_clist), i);
+		state = 
+			co_clist_row_data_get_state (GTK_CLIST (co->priv->widgets.supp_clist), i);
 		if(state)
 		{
 			if (fprintf (s, "%s ", anjuta_supports[i][ANJUTA_SUPPORT_ID]) <1)
@@ -672,11 +1163,11 @@ gint compiler_options_save (CompilerOptions * co, FILE * s)
 	}
 	fprintf (s, "\n");
 	
-	length = g_list_length (GTK_CLIST (co->widgets.inc_clist)->row_list);
+	length = g_list_length (GTK_CLIST (co->priv->widgets.inc_clist)->row_list);
 	fprintf (s, "compiler.options.include.paths=");
 	for (i = 0; i < length; i++)
 	{
-		gtk_clist_get_text (GTK_CLIST (co->widgets.inc_clist), i, 0, &text);
+		gtk_clist_get_text (GTK_CLIST (co->priv->widgets.inc_clist), i, 0, &text);
 		if (fprintf (s, "\\\n\t%s", text) <1)
 		{
 			return FALSE;
@@ -685,12 +1176,12 @@ gint compiler_options_save (CompilerOptions * co, FILE * s)
 	fprintf (s, "\n");
 
 	length =
-		g_list_length (GTK_CLIST (co->widgets.lib_paths_clist)->
+		g_list_length (GTK_CLIST (co->priv->widgets.lib_paths_clist)->
 			       row_list);
 	fprintf (s, "compiler.options.library.paths=");
 	for (i = 0; i < length; i++)
 	{
-		gtk_clist_get_text (GTK_CLIST (co->widgets.lib_paths_clist),
+		gtk_clist_get_text (GTK_CLIST (co->priv->widgets.lib_paths_clist),
 				    i, 0, &text);
 		if (fprintf (s, "\\\n\t%s", text) <1)
 		{
@@ -699,11 +1190,11 @@ gint compiler_options_save (CompilerOptions * co, FILE * s)
 	}
 	fprintf (s, "\n");
 
-	length = g_list_length (GTK_CLIST (co->widgets.lib_clist)->row_list);
+	length = g_list_length (GTK_CLIST (co->priv->widgets.lib_clist)->row_list);
 	fprintf (s, "compiler.options.libraries=");
 	for (i = 0; i < length; i++)
 	{
-		gtk_clist_get_text (GTK_CLIST (co->widgets.lib_clist), i, 1, &text);
+		gtk_clist_get_text (GTK_CLIST (co->priv->widgets.lib_clist), i, 1, &text);
 		if (fprintf (s, "\\\n\t%s", text) <1)
 		{
 			return FALSE;
@@ -711,12 +1202,13 @@ gint compiler_options_save (CompilerOptions * co, FILE * s)
 	}
 	fprintf (s, "\n");
 
-	length = g_list_length (GTK_CLIST (co->widgets.lib_clist)->row_list);
+	length = g_list_length (GTK_CLIST (co->priv->widgets.lib_clist)->row_list);
 	fprintf (s, "compiler.options.libraries.selected=");
 	for (i = 0; i < length; i++)
 	{
 		gboolean state;
-		state = co_clist_row_data_get_state (GTK_CLIST (co->widgets.lib_clist), i);
+		state =
+			co_clist_row_data_get_state (GTK_CLIST (co->priv->widgets.lib_clist), i);
 		if (fprintf (s, "%d ", state) <1)
 		{
 			return FALSE;
@@ -724,11 +1216,11 @@ gint compiler_options_save (CompilerOptions * co, FILE * s)
 	}
 	fprintf (s, "\n");
 
-	length = g_list_length (GTK_CLIST (co->widgets.def_clist)->row_list);
+	length = g_list_length (GTK_CLIST (co->priv->widgets.def_clist)->row_list);
 	fprintf (s, "compiler.options.defines=");
 	for (i = 0; i < length; i++)
 	{
-		gtk_clist_get_text (GTK_CLIST (co->widgets.def_clist), i, 0,
+		gtk_clist_get_text (GTK_CLIST (co->priv->widgets.def_clist), i, 0,
 				    &text);
 		if (fprintf (s, "\\\n\t%s", text) <1)
 		{
@@ -739,27 +1231,27 @@ gint compiler_options_save (CompilerOptions * co, FILE * s)
 
 	fprintf (s, "compiler.options.warning.buttons=");
 	for (i = 0; i < 16; i++)
-		fprintf (s, "%d ", (int) co->warning_button_state[i]);
+		fprintf (s, "%d ", (int) co->priv->warning_button_state[i]);
 	fprintf (s, "\n");
 
 	fprintf (s, "compiler.options.optimize.buttons=");
 	for (i = 0; i < 4; i++)
-		fprintf (s, "%d ", (int) co->optimize_button_state[i]);
+		fprintf (s, "%d ", (int) co->priv->optimize_button_state[i]);
 	fprintf (s, "\n");
 
 	fprintf (s, "compiler.options.other.buttons=");
 	for (i = 0; i < 2; i++)
-		fprintf (s, "%d ", (int) co->other_button_state[i]);
+		fprintf (s, "%d ", (int) co->priv->other_button_state[i]);
 	fprintf (s, "\n");
 
 	fprintf (s, "compiler.options.other.c.flags=%s\n",
-		 co->other_c_flags);
+		 co->priv->other_c_flags);
 	
 	fprintf (s, "compiler.options.other.l.flags=%s\n",
-		 co->other_l_flags);
+		 co->priv->other_l_flags);
 	
 	fprintf (s, "compiler.options.other.l.libs=%s\n",
-		 co->other_l_libs);
+		 co->priv->other_l_libs);
 
 	return TRUE;
 #endif
@@ -769,9 +1261,9 @@ gboolean compiler_options_load_yourself (CompilerOptions * co, PropsID props)
 {
 	if (co == NULL)
 		return FALSE;
-	co->win_pos_x =
+	co->priv->win_pos_x =
 		prop_get_int (props, "compiler.options.win.pos.x", 100);
-	co->win_pos_y =
+	co->priv->win_pos_y =
 		prop_get_int (props, "compiler.options.win.pos.y", 100);
 	return TRUE;
 }
@@ -789,7 +1281,8 @@ gboolean compiler_options_load_yourself (CompilerOptions * co, PropsID props)
 	while (node) \
 	{ \
 		gtk_list_store_append (GTK_LIST_STORE(model), &iter); \
-		gtk_list_store_set (GTK_LIST_STORE(model), &iter, col, node->data, -1); \
+		gtk_list_store_set (GTK_LIST_STORE(model), \
+							&iter, col, node->data, -1); \
 		node = g_list_next (node); \
 	} \
 	glist_strings_free (list);
@@ -819,9 +1312,9 @@ compiler_options_clear(CompilerOptions *co)
 
 	g_return_if_fail (co != NULL);
 
-	gtk_widget_set_sensitive (co->widgets.supp_clist, TRUE);
+	gtk_widget_set_sensitive (co->priv->widgets.supp_clist, TRUE);
 
-	model = gtk_tree_view_get_model (GTK_TREE_VIEW(co->widgets.supp_clist));
+	model = gtk_tree_view_get_model (GTK_TREE_VIEW(co->priv->widgets.supp_clist));
 	g_assert (model);
 	
 	/* Clear all supports */
@@ -832,28 +1325,22 @@ compiler_options_clear(CompilerOptions *co)
 		valid = gtk_tree_model_iter_next (model, &iter);
 	}
 
-	CLIST_CLEAR_ALL(co->widgets.inc_clist);
-	CLIST_CLEAR_ALL(co->widgets.lib_paths_clist);
-	CLIST_CLEAR_ALL(co->widgets.lib_clist);
-	CLIST_CLEAR_ALL(co->widgets.def_clist);
+	CLIST_CLEAR_ALL(co->priv->widgets.inc_clist);
+	CLIST_CLEAR_ALL(co->priv->widgets.lib_paths_clist);
+	CLIST_CLEAR_ALL(co->priv->widgets.lib_clist);
+	CLIST_CLEAR_ALL(co->priv->widgets.def_clist);
 	
-	gtk_entry_set_text (GTK_ENTRY (co->widgets.inc_entry), "");
-	gtk_entry_set_text (GTK_ENTRY (co->widgets.lib_paths_entry), "");
-	gtk_entry_set_text (GTK_ENTRY (co->widgets.lib_entry), "");
-	gtk_entry_set_text (GTK_ENTRY (co->widgets.def_entry), "");
+	gtk_entry_set_text (GTK_ENTRY (co->priv->widgets.inc_entry), "");
+	gtk_entry_set_text (GTK_ENTRY (co->priv->widgets.lib_paths_entry), "");
+	gtk_entry_set_text (GTK_ENTRY (co->priv->widgets.lib_entry), "");
+	gtk_entry_set_text (GTK_ENTRY (co->priv->widgets.def_entry), "");
 	
 	for (i = 0; i < 4; i++)
-		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(co->widgets.optimize_button[i]), FALSE);
+		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(co->priv->widgets.optimize_button[i]), FALSE);
 	for (i = 0; i < 2; i++)
-		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(co->widgets.other_button[i]), FALSE);
+		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(co->priv->widgets.other_button[i]), FALSE);
 
-	co->supp_index = 0;
-	co->inc_index = 0;
-	co->lib_index = 0;
-	co->lib_paths_index = 0;
-	co->def_index = 0;
-
-	model = gtk_tree_view_get_model (GTK_TREE_VIEW(co->widgets.warnings_clist));
+	model = gtk_tree_view_get_model (GTK_TREE_VIEW(co->priv->widgets.warnings_clist));
 	g_assert (model);
 	valid = gtk_tree_model_get_iter_first (model, &iter);
 	while (valid)
@@ -862,10 +1349,10 @@ compiler_options_clear(CompilerOptions *co)
 		valid = gtk_tree_model_iter_next (model, &iter);
 	}
 
-	gtk_entry_set_text (GTK_ENTRY(co->widgets.other_c_flags_entry), "");
-	gtk_entry_set_text (GTK_ENTRY(co->widgets.other_l_flags_entry), "");
-	gtk_entry_set_text (GTK_ENTRY(co->widgets.other_l_libs_entry), "");
-	compiler_options_set_in_properties(co, co->props);
+	gtk_entry_set_text (GTK_ENTRY(co->priv->widgets.other_c_flags_entry), "");
+	gtk_entry_set_text (GTK_ENTRY(co->priv->widgets.other_l_flags_entry), "");
+	gtk_entry_set_text (GTK_ENTRY(co->priv->widgets.other_l_libs_entry), "");
+	compiler_options_set_in_properties(co, co->priv->props);
 }
 
 #define ASSIGN_PROPERTY_VALUE_TO_ENTRY(props, key, entry) \
@@ -900,15 +1387,20 @@ compiler_options_load (CompilerOptions * co, PropsID props)
 	{
 		if (node->data)
 		{
-			model = gtk_tree_view_get_model (GTK_TREE_VIEW(co->widgets.supp_clist));
+			GtkTreeView *clist;
+			
+			clist = GTK_TREE_VIEW(co->priv->widgets.supp_clist);
+			model = gtk_tree_view_get_model (clist);
 			g_assert (model);
 			valid = gtk_tree_model_get_iter_first (model, &iter);
 			while (strcmp (anjuta_supports[i][ANJUTA_SUPPORT_ID],
 					ANJUTA_SUPPORTS_END_STRING) != 0 && valid)
 			{
-				if (strcmp (anjuta_supports[i][ANJUTA_SUPPORT_ID], node->data)==0)
+				if (strcmp (anjuta_supports[i][ANJUTA_SUPPORT_ID],
+							node->data)==0)
 				{
-					gtk_list_store_set (GTK_LIST_STORE(model), &iter, 0, TRUE, -1);
+					gtk_list_store_set (GTK_LIST_STORE(model), &iter,
+										SUPP_TOGGLE_COLUMN, TRUE, -1);
 					break;
 				}
 				valid = gtk_tree_model_get_iter_first (model, &iter);
@@ -922,22 +1414,22 @@ compiler_options_load (CompilerOptions * co, PropsID props)
 	/* For now, disable supports for projects. */
 	if (app->project_dbase->project_is_open == TRUE)
 	{
-		gtk_widget_set_sensitive (co->widgets.supp_clist, FALSE);
+		gtk_widget_set_sensitive (co->priv->widgets.supp_clist, FALSE);
 	}
 
-	CLIST_APPEND_STRING_ALL ("compiler.options.include.paths", co->widgets.inc_clist, 0);
-	CLIST_APPEND_STRING_ALL ("compiler.options.library.paths", co->widgets.lib_paths_clist, 0);
-	CLIST_APPEND_STRING_ALL ("compiler.options.libraries", co->widgets.lib_clist, 1);
-	CLIST_UPDATE_BOOLEAN_ALL ("compiler.options.libraries.selected", co->widgets.lib_clist, 0);
-	CLIST_APPEND_STRING_ALL ("compiler.options.defines", co->widgets.def_clist, 0);
-	CLIST_UPDATE_BOOLEAN_ALL ("compiler.options.warning.buttons", co->widgets.warnings_clist, 0);
+	CLIST_APPEND_STRING_ALL ("compiler.options.include.paths", co->priv->widgets.inc_clist, 0);
+	CLIST_APPEND_STRING_ALL ("compiler.options.library.paths", co->priv->widgets.lib_paths_clist, 0);
+	CLIST_APPEND_STRING_ALL ("compiler.options.libraries", co->priv->widgets.lib_clist, 1);
+	CLIST_UPDATE_BOOLEAN_ALL ("compiler.options.libraries.selected", co->priv->widgets.lib_clist, 0);
+	CLIST_APPEND_STRING_ALL ("compiler.options.defines", co->priv->widgets.def_clist, 0);
+	CLIST_UPDATE_BOOLEAN_ALL ("compiler.options.warning.buttons", co->priv->widgets.warnings_clist, 0);
 	
 	list = glist_from_data (props, "compiler.options.optimize.buttons");
 	node = list;
 	i = 0;
 	while (node)
 	{
-		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(co->widgets.optimize_button[i]),
+		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(co->priv->widgets.optimize_button[i]),
 			atoi(node->data));
 		node = g_list_next (node);
 		i++;
@@ -948,32 +1440,32 @@ compiler_options_load (CompilerOptions * co, PropsID props)
 	node = list;
 	i = 0;
 	while (node) {
-		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(co->widgets.other_button[i]),
+		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(co->priv->widgets.other_button[i]),
 			atoi(node->data));
 		node = g_list_next (node);
 		i++;
 	}
 	glist_strings_free (list);
 
-	ASSIGN_PROPERTY_VALUE_TO_ENTRY(props, "compiler.options.other.c.flags", co->widgets.other_c_flags_entry);
-	ASSIGN_PROPERTY_VALUE_TO_ENTRY(props, "compiler.options.other.l.flags",	co->widgets.other_l_flags_entry);
-	ASSIGN_PROPERTY_VALUE_TO_ENTRY(props, "compiler.options.other.l.libs", co->widgets.other_l_libs_entry);
+	ASSIGN_PROPERTY_VALUE_TO_ENTRY(props, "compiler.options.other.c.flags", co->priv->widgets.other_c_flags_entry);
+	ASSIGN_PROPERTY_VALUE_TO_ENTRY(props, "compiler.options.other.l.flags",	co->priv->widgets.other_l_flags_entry);
+	ASSIGN_PROPERTY_VALUE_TO_ENTRY(props, "compiler.options.other.l.libs", co->priv->widgets.other_l_libs_entry);
 	
-	compiler_options_set_in_properties (co, co->props);
+	compiler_options_set_in_properties (co, co->priv->props);
 }
 
 void
 compiler_options_show (CompilerOptions * co)
 {
-	if (co->is_showing)
+	if (co->priv->is_showing)
 	{
-		gdk_window_raise (co->widgets.window->window);
+		gdk_window_raise (co->priv->widgets.window->window);
 		return;
 	}
-	gtk_widget_set_uposition (co->widgets.window, co->win_pos_x,
-				  co->win_pos_y);
-	gtk_widget_show (co->widgets.window);
-	co->is_showing = TRUE;
+	gtk_widget_set_uposition (co->priv->widgets.window, co->priv->win_pos_x,
+							  co->priv->win_pos_y);
+	gtk_widget_show (co->priv->widgets.window);
+	co->priv->is_showing = TRUE;
 }
 
 void
@@ -981,11 +1473,12 @@ compiler_options_hide (CompilerOptions * co)
 {
 	if (!co)
 		return;
-	if (co->is_showing == FALSE)
+	if (co->priv->is_showing == FALSE)
 		return;
-	gdk_window_get_root_origin (co->widgets.window->window,
-				    &co->win_pos_x, &co->win_pos_y);
-	co->is_showing = FALSE;
+	gdk_window_get_root_origin (co->priv->widgets.window->window,
+				    &co->priv->win_pos_x, &co->priv->win_pos_y);
+	gtk_widget_hide (co->priv->widgets.window);
+	co->priv->is_showing = FALSE;
 }
 
 #define GET_ALL_STRING_DATA(widget, str, separator, col) \
@@ -1018,7 +1511,7 @@ get_supports (CompilerOptions *co, gint item, gchar *separator)
 	gint i;
 	
 	str = g_strdup ("");
-	model = gtk_tree_view_get_model (GTK_TREE_VIEW(co->widgets.supp_clist));
+	model = gtk_tree_view_get_model (GTK_TREE_VIEW(co->priv->widgets.supp_clist));
 	g_assert(model);
 	valid = gtk_tree_model_get_iter_first(model, &iter);
 	i = 0;
@@ -1049,7 +1542,7 @@ get_include_paths (CompilerOptions * co, gboolean with_support)
 	gchar *str;
 
 	str = g_strdup ("");
-	GET_ALL_STRING_DATA (co->widgets.inc_clist, str, " -I", 0);
+	GET_ALL_STRING_DATA (co->priv->widgets.inc_clist, str, " -I", 0);
 	
 	if (with_support)
 	{
@@ -1068,7 +1561,7 @@ get_library_paths (CompilerOptions * co)
 	gchar *str;
 
 	str = g_strdup ("");
-	GET_ALL_STRING_DATA (co->widgets.lib_paths_clist, str, " -L", 0);
+	GET_ALL_STRING_DATA (co->priv->widgets.lib_paths_clist, str, " -L", 0);
 	return str;
 }
 
@@ -1082,7 +1575,7 @@ get_libraries (CompilerOptions * co, gboolean with_support)
 	gchar *text;
 
 	str = g_strdup ("");
-	model = gtk_tree_view_get_model (GTK_TREE_VIEW(co->widgets.lib_clist));
+	model = gtk_tree_view_get_model (GTK_TREE_VIEW(co->priv->widgets.lib_clist));
 	g_assert(model);
 	valid = gtk_tree_model_get_iter_first (model, &iter);
 	while (valid)
@@ -1119,7 +1612,7 @@ get_defines (CompilerOptions * co)
 {
 	gchar *str;
 	str = g_strdup ("");
-	GET_ALL_STRING_DATA (co->widgets.def_clist, str, " -D", 0);
+	GET_ALL_STRING_DATA (co->priv->widgets.def_clist, str, " -D", 0);
 	return str;
 }
 
@@ -1133,7 +1626,7 @@ get_warnings(CompilerOptions *co)
 	gint i;
 	
 	str = g_strdup ("");
-	model = gtk_tree_view_get_model (GTK_TREE_VIEW(co->widgets.warnings_clist));
+	model = gtk_tree_view_get_model (GTK_TREE_VIEW(co->priv->widgets.warnings_clist));
 	g_assert(model);
 	valid = gtk_tree_model_get_iter_first (model, &iter);
 	i = 0;
@@ -1168,7 +1661,7 @@ get_optimization (CompilerOptions *co)
 		gchar *tmp;
 		GtkToggleButton *b;
 
-		b= GTK_TOGGLE_BUTTON (co->widgets.optimize_button[i]);
+		b= GTK_TOGGLE_BUTTON (co->priv->widgets.optimize_button[i]);
 		state = gtk_toggle_button_get_active (b);
 		if (state)
 		{
@@ -1187,13 +1680,13 @@ get_others (CompilerOptions *co)
 	gint i;
 	
 	str = g_strdup ("");
-	for (i = 0; i < 4; i++)
+	for (i = 0; i < 2; i++)
 	{
 		gboolean state;
 		gchar *tmp;
 		GtkToggleButton *b;
 		
-		b = GTK_TOGGLE_BUTTON (co->widgets.other_button[i]);
+		b = GTK_TOGGLE_BUTTON (co->priv->widgets.other_button[i]);
 		state = gtk_toggle_button_get_active (b);
 		if (state)
 		{
@@ -1240,11 +1733,11 @@ compiler_options_set_in_properties (CompilerOptions * co, PropsID props)
 	g_free (buff);
 	
 	prop_set_with_key (props, "anjuta.compiler.additional.flags",
-		gtk_entry_get_text (GTK_ENTRY (co->widgets.other_c_flags_entry)));
+		gtk_entry_get_text (GTK_ENTRY (co->priv->widgets.other_c_flags_entry)));
 	prop_set_with_key (props, "anjuta.linker.additional.flags",
-		gtk_entry_get_text (GTK_ENTRY (co->widgets.other_l_flags_entry)));
+		gtk_entry_get_text (GTK_ENTRY (co->priv->widgets.other_l_flags_entry)));
 	prop_set_with_key (props, "anjuta.linker.additional.libs",
-		gtk_entry_get_text (GTK_ENTRY (co->widgets.other_l_libs_entry)));
+		gtk_entry_get_text (GTK_ENTRY (co->priv->widgets.other_l_libs_entry)));
 
 	prop_set_with_key (props, "anjuta.compiler.flags",
 			   "$(anjuta.compiler.includes) $(anjuta.compiler.defines) "
@@ -1296,7 +1789,7 @@ compiler_options_set_prjcflags_in_file (CompilerOptions * co, FILE* fp)
 	buff = get_defines (co);
 	PRINT_TO_STREAM_AND_FREE (fp, "\\\n\t%s", buff);
 	
-	buff = (gchar*)gtk_entry_get_text (GTK_ENTRY(co->widgets.other_c_flags_entry));
+	buff = (gchar*)gtk_entry_get_text (GTK_ENTRY(co->priv->widgets.other_c_flags_entry));
 	PRINT_TO_STREAM (fp, "\\\n\t%s", buff);
 
 	buff = get_warnings(co);
@@ -1317,7 +1810,7 @@ compiler_options_set_prjlibs_in_file (CompilerOptions * co, FILE* fp)
 	buff = get_libraries (co, FALSE);
 	PRINT_TO_STREAM_AND_FREE(fp, "\\\n\t%s", buff);
 	
-	buff = (gchar*)gtk_entry_get_text (GTK_ENTRY(co->widgets.other_l_libs_entry));
+	buff = (gchar*)gtk_entry_get_text (GTK_ENTRY(co->priv->widgets.other_l_libs_entry));
 	PRINT_TO_STREAM (fp, "\\\n\t%s", buff);
 }
 
@@ -1326,7 +1819,7 @@ compiler_options_set_prjlflags_in_file (CompilerOptions * co, FILE* fp)
 {
 	gchar *buff;
 
-	buff = (gchar*)gtk_entry_get_text (GTK_ENTRY(co->widgets.other_l_flags_entry));
+	buff = (gchar*)gtk_entry_get_text (GTK_ENTRY(co->priv->widgets.other_l_flags_entry));
 	PRINT_TO_STREAM (fp, "\\\n\t%s", buff);
 	
 	buff = get_library_paths (co);

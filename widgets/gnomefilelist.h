@@ -74,8 +74,6 @@ struct _GnomeFileList {
    GtkWidget *cancel_button;
    GtkWidget *filetype_combo;
    GtkWidget *createdir_button;
-   GtkWidget *createdir_window;
-   GtkWidget *createdir_entry;
    GtkWidget *scrolled_window_dir;
    GtkWidget *scrolled_window_file;
 
@@ -90,20 +88,11 @@ struct _GnomeFileList {
    gboolean show_hidden;
    gchar *path;
    gchar *selected;
-//	GtkList *list;
    gint history_position;
    GList *history;
-      
    GList *filetypes;
-   
-   gint selected_row;
-   
-   GdkPixmap *folder_pixmap;
-   GdkBitmap *folder_bitmap;
-   GdkPixmap *file_pixmap;
-   GdkBitmap *file_bitmap;
-   
-   gboolean multiple_selection;
+   GdkPixbuf *folder_pixbuf;
+   GdkPixbuf *file_pixbuf;
    gboolean changedironcombo;
    gchar *entry_text;
 };
@@ -124,9 +113,6 @@ GtkWidget *gnome_filelist_new_with_path(const gchar *path);
 gchar *gnome_filelist_get_filename(GnomeFileList *file_list);
 gchar *gnome_filelist_get_path(GnomeFileList *file_list);
 GList * gnome_filelist_get_filelist(GnomeFileList * file_list);
-GList * gnome_filelist_get_nodelist(GnomeFileList * file_list);
-gchar * gnome_filelist_get_lastfilename(GnomeFileList * file_list, GList * list);
-
 void gnome_filelist_set_title(GnomeFileList *file_list, const gchar *title);
 gboolean gnome_filelist_set_dir(GnomeFileList *file_list, const gchar *path);
 gboolean gnome_filelist_set_filename (GnomeFileList *file_list, const gchar *fname);
@@ -141,7 +127,6 @@ GList * gnome_filelisttype_clearfiletypes(GnomeFileList *file_list);
 GList * gnome_filelisttype_addtype_f(GList *filetypes, const gchar *description, ...);
 GnomeFileListType * gnome_filelisttype_getfiletype(GnomeFileList *file_list, const gchar *description);
 void gnome_filelist_set_combolist(GnomeFileList *file_list, GList *combolist);
-void gnome_filelist_set_multiple_selection (GnomeFileList *file_list, gboolean mode);
 #ifdef __cplusplus /* cpp compatibility */
 }
 #endif

@@ -41,22 +41,21 @@ static void on_file_selection_cancel_clicked (GtkButton *button, gpointer data);
 void fileselection_hide_widget(GtkWidget *widget)
 {
 	GnomeFileList *file_list;
+	GtkTreeSelection *selection;
 
 	g_return_if_fail (widget != NULL);
 	g_return_if_fail (GNOME_IS_FILELIST (widget));
 
 	file_list = GNOME_FILELIST (widget);
-	gtk_clist_unselect_all (GTK_CLIST (file_list->file_list));
-
-	gnome_filelist_set_multiple_selection (file_list, FALSE);
-
+	selection =
+		gtk_tree_view_get_selection (GTK_TREE_VIEW (file_list->file_list));
+	gtk_tree_selection_unselect_all (selection);
 	gtk_widget_hide (widget);
 }
 
 static gboolean
 on_file_selection_delete_event (GtkWidget * w, GdkEvent * event, gpointer data)
 {
-	//gtk_widget_hide (w);
 	fileselection_hide_widget(w);
 	return TRUE;
 }
@@ -137,7 +136,6 @@ create_fileselection_gui (FileSelData * fsd)
 		gtk_widget_show(GNOME_FILELIST (fileselection_gui)->createdir_button);
 	*/
 
-	gtk_container_set_border_width (GTK_CONTAINER (fileselection_gui), 10);
 	gtk_window_set_position (GTK_WINDOW (fileselection_gui), GTK_WIN_POS_CENTER);
 	gtk_window_set_wmclass (GTK_WINDOW (fileselection_gui), "filesel", "Anjuta");
 	
@@ -165,7 +163,8 @@ create_fileselection_gui (FileSelData * fsd)
 
 	fsd->filesel = fileselection_gui;
 	gtk_widget_ref (fileselection_gui);
-	gtk_window_set_transient_for(GTK_WINDOW(fileselection_gui), GTK_WINDOW(app->widgets.window));
+	gtk_window_set_transient_for(GTK_WINDOW(fileselection_gui),
+								 GTK_WINDOW(app->widgets.window));
 	return fileselection_gui;
 }
 
@@ -182,22 +181,11 @@ fileselection_get_filelist(GtkWidget * filesel)
 	 return gnome_filelist_get_filelist (GNOME_FILELIST(filesel));
 }
 
-GList * fileselection_get_nodelist(GtkWidget * filesel)
-{
-	return gnome_filelist_get_nodelist (GNOME_FILELIST(filesel));
-}
-
 /* Free the return */
 gchar*
 fileselection_get_path (GtkWidget* filesel)
 {
 	return gnome_filelist_get_path (GNOME_FILELIST(filesel));
-}
-
-gchar *
-fileselection_get_lastfilename(GtkWidget * filesel, GList * list)
-{
-	 return gnome_filelist_get_lastfilename (GNOME_FILELIST(filesel), list);
 }
 
 void

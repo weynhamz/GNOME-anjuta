@@ -24,7 +24,8 @@
 #include "properties.h"
 
 typedef struct _CompilerOptions CompilerOptions;
-typedef struct _CompilerOptionsGui CompilerOptionsGui;
+typedef struct _CompilerOptionsPriv CompilerOptionsPriv;
+
 enum
 {
 	ANJUTA_SUPPORT_ID,
@@ -40,56 +41,9 @@ enum
 	ANJUTA_SUPPORT_END_MARK
 };
 	
-struct _CompilerOptionsGui
-{
-	gint ref_count;
-
-	GtkWidget *window;
-
-	GtkWidget *supp_clist;
-	GtkWidget *inc_clist;
-	GtkWidget *inc_entry;
-
-	GtkWidget *lib_paths_clist;
-	GtkWidget *lib_paths_entry;
-
-	GtkWidget *lib_clist;
-	GtkWidget *lib_stock_clist;
-	GtkWidget *lib_entry;
-
-	GtkWidget *def_clist;
-	GtkWidget *def_stock_clist;
-	GtkWidget *def_entry;
-
-	GtkWidget *warnings_clist;
-	GtkWidget *optimize_button[4];
-	GtkWidget *other_button[2];
-
-	GtkWidget *other_c_flags_entry;
-	GtkWidget *other_l_flags_entry;
-	GtkWidget *other_l_libs_entry;
-};
-
 struct _CompilerOptions
 {
-	GladeXML *gxml;
-	CompilerOptionsGui widgets;
-	gint supp_index;
-	gint inc_index;
-	gint lib_index;
-	gint lib_paths_index;
-	gint def_index;
-
-	gboolean is_showing;
-	gint win_pos_x, win_pos_y;
-
-	/* This property database is not the one
-	 * from which compiler options will be loaded
-	 * or saved, but the one in which option
-	 * variables will be set for the commands
-	 * to use
-	 */
-	PropsID props;
+	CompilerOptionsPriv *priv;
 };
 
 extern gchar *anjuta_supports[][ANJUTA_SUPPORT_END_MARK];
@@ -111,8 +65,5 @@ void compiler_options_set_prjcflags_in_file (CompilerOptions * co, FILE* fp);
 void compiler_options_set_prjlflags_in_file (CompilerOptions * co, FILE* fp);
 void compiler_options_set_prjlibs_in_file (CompilerOptions * co, FILE* fp);
 void compiler_options_set_prjmacros_in_file (CompilerOptions * co, FILE* fp);
-
-/* private */
-void compiler_options_set_in_properties (CompilerOptions* co, PropsID props);
 
 #endif
