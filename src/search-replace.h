@@ -6,9 +6,18 @@ extern "C"
 {
 #endif
 
-void anjuta_search_replace_activate (void);
-void function_select (TextEditor *te);
+#include <pcre.h>
 
+
+void search_and_replace (void);
+	
+void search_replace_next(void);
+	
+void search_replace_previous(void);
+	
+void 
+anjuta_search_replace_activate (gboolean replace, gboolean project);
+	
 #ifdef __cplusplus
 }
 #endif

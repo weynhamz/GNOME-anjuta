@@ -506,23 +506,30 @@ on_calltip1_activate (EggAction * action, gpointer user_data)
 }
 
 void
+on_search1_activate (EggAction * action, gpointer user_data)
+{
+	anjuta_search_replace_activate(FALSE, FALSE);
+}
+
+void
 on_find1_activate (EggAction * action, gpointer user_data)
 {
-	find_text_show (app->find_replace->find_text);
+	anjuta_search_replace_activate(FALSE, FALSE);
 }
 
 
 void
 on_find_in_files1_activate (EggAction * action, gpointer user_data)
 {
-	find_in_files_show (app->find_in_files);
+//	find_in_files_show (app->find_in_files);
+	anjuta_search_replace_activate(FALSE, TRUE);
 }
 
 
 void
 on_find_and_replace1_activate (EggAction * action, gpointer user_data)
 {
-	find_replace_show (app->find_replace);
+	anjuta_search_replace_activate(TRUE, FALSE);
 }
 
 
@@ -1654,17 +1661,22 @@ on_about1_activate (EggAction * action, gpointer user_data)
 	gtk_widget_show (about_dlg);
 }
 
-/*  *user_data : TRUE=Forward  False=Backward  */
 void
 on_findnext1_activate (EggAction * action, gpointer user_data)
 {
-	on_toolbar_find_clicked (action, user_data);
+	search_replace_next();
+}
+
+void
+on_findprevious1_activate (EggAction * action, gpointer user_data)
+{
+	search_replace_previous();
 }
 
 void
 on_enterselection (EggAction * action, gpointer user_data)
 {
-    enter_selection_as_search_target();
+//    enter_selection_as_search_target();
 	gtk_widget_grab_focus (app->widgets.toolbar.main_toolbar.find_entry);
 }
 

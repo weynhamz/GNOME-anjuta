@@ -122,14 +122,6 @@ anjuta_SOURCES = \
 	file_history.h\
 	fileselection.c\
 	fileselection.h\
-	find_in_files.c\
-	find_in_files.h\
-	find_in_files_cbs.c\
-	find_in_files_cbs.h\
-	find_replace.c\
-	find_replace.h\
-	find_text.c\
-	find_text.h\
 	getline.c\
 	global.h\
 	gnome_project.c\
@@ -181,6 +173,8 @@ anjuta_SOURCES = \
 	registers_gui.c\
 	search-replace.h\
 	search-replace.c\
+	search-replace_backend.h\
+	search-replace_backend.c\
 	sharedlib.c\
 	sharedlib.h\
 	sharedlib_cbs.c\

@@ -29,8 +29,8 @@
 #include "preferences.h"
 #include "compiler_options.h"
 #include "src_paths.h"
-#include "find_replace.h"
-#include "find_in_files.h"
+//#include "find_replace.h"
+//#include "find_in_files.h"
 #include "message-manager.h"
 #include "project_dbase.h"
 #include "commands.h"
@@ -95,7 +95,7 @@ struct _AnjutaApp
 
 	GtkAccelGroup *accel_group;
 	AnjutaUI *ui;
-	FindAndReplace *find_replace;
+//	FindAndReplace *find_replace;
 	AnMessageManager *messages;
 	ProjectDBase *project_dbase;
 	CommandEditor *command_editor;
@@ -106,7 +106,7 @@ struct _AnjutaApp
 	AnjutaDirs *dirs;
 	Executer *executer;
 	Configurer *configurer;
-	FindInFiles *find_in_files;
+//	FindInFiles *find_in_files;
 	const TMWorkspace *tm_workspace;
 	AnjutaHelp* help_system;
 	CVS* cvs;

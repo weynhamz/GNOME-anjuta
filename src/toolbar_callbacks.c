@@ -134,27 +134,27 @@ on_toolbar_find_incremental_start (EggAction *action, gpointer user_data)
 	if (string1 && strlen (string1) > 0)
 	{
 		string = g_strdup (string1);
-		app->find_replace->find_text->find_history =
-			update_string_list (app->find_replace->find_text->
-						find_history, string, COMBO_LIST_LENGTH);
-		gtk_combo_set_popdown_strings (GTK_COMBO
-						   (app->widgets.toolbar.main_toolbar.
-						find_combo),
-						   app->find_replace->find_text->
-						   find_history);
+//		app->find_replace->find_text->find_history =
+//			update_string_list (app->find_replace->find_text->
+//						find_history, string, COMBO_LIST_LENGTH);
+//		gtk_combo_set_popdown_strings (GTK_COMBO
+//						   (app->widgets.toolbar.main_toolbar.
+//						find_combo),
+//						   app->find_replace->find_text->
+//						   find_history);
 		g_free (string);
 	}
 	/* Prepare to begin incremental search */	
-	app->find_replace->find_text->incremental_pos =
-		text_editor_get_current_position(te);
-	app->find_replace->find_text->incremental_wrap = FALSE;
+//	app->find_replace->find_text->incremental_pos =
+//		text_editor_get_current_position(te);
+//	app->find_replace->find_text->incremental_wrap = FALSE;
 	return FALSE;
 }
 
 gboolean
 on_toolbar_find_incremental_end (EggAction *action, gpointer user_data)
 {
-	app->find_replace->find_text->incremental_pos = -1;
+//	app->find_replace->find_text->incremental_pos = -1;
 #if 0 /* Ambiguity during merge */
 	if (EGG_IS_ENTRY_ACTION (action))
 	{
@@ -195,10 +195,10 @@ on_toolbar_find_incremental (EggAction *action, gpointer user_data)
 	TextEditor *te = anjuta_get_current_text_editor();
 	if (!te)
 		return;
-	if (app->find_replace->find_text->incremental_pos < 0)
-		return;
+//	if (app->find_replace->find_text->incremental_pos < 0)
+//		return;
 	
-	text_editor_goto_point (te, app->find_replace->find_text->incremental_pos);
+//	text_editor_goto_point (te, app->find_replace->find_text->incremental_pos);
 
 	if (EGG_IS_ENTRY_ACTION (action))
 	{
@@ -270,66 +270,66 @@ on_toolbar_find_clicked (EggAction * action, gpointer user_data)
 	
 	/* The 2 below is checked to make sure the wrapping is only done when
 	  it is called by 'activate' (and not 'changed') signal */ 
-	if (app->find_replace->find_text->incremental_pos >= 0 &&
-		(app->find_replace->find_text->incremental_wrap == 2 ||
-		 (app->find_replace->find_text->incremental_wrap == 1 &&
-		  GPOINTER_TO_INT (user_data) < 2)))
+//	if (app->find_replace->find_text->incremental_pos >= 0 &&
+//		(app->find_replace->find_text->incremental_wrap == 2 ||
+//		 (app->find_replace->find_text->incremental_wrap == 1 &&
+//		  GPOINTER_TO_INT (user_data) < 2)))
 	{
 		/* If incremental search wrap requested, so wrap it. */
 		search_wrap = TRUE;
-		app->find_replace->find_text->incremental_wrap = 2;
+//		app->find_replace->find_text->incremental_wrap = 2;
 	}
-	if (app->find_replace->find_text->incremental_pos >= 0)
-	{
-		/* If incremental search */
-		ret = text_editor_find (te, string,
-					TEXT_EDITOR_FIND_SCOPE_CURRENT,
-					GPOINTER_TO_INT(user_data), /* Forward - Backward */
-					FALSE, TRUE, FALSE, search_wrap);
-	}
-	else
-	{
-		/* Normal search */
-		ret = text_editor_find (te, string,
-					TEXT_EDITOR_FIND_SCOPE_CURRENT,
-					GPOINTER_TO_INT(user_data), /* Forward - Backward */
-					app->find_replace->find_text->regexp,
-					app->find_replace->find_text->ignore_case,
-					app->find_replace->find_text->whole_word,
-					FALSE);
-	}
-	if (ret < 0) {
-		if (app->find_replace->find_text->incremental_pos < 0)
-		{
-			GtkWidget *dialog;
-			// Dialog to be made HIG compliant.
-			dialog = gtk_message_dialog_new (GTK_WINDOW (app->widgets.window),
-											 GTK_DIALOG_DESTROY_WITH_PARENT,
-											 GTK_MESSAGE_QUESTION,
-											 GTK_BUTTONS_YES_NO,
-					_("No matches. Wrap search around the document?"));
-			if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_YES)
-				on_toolbar_find_start_over (action, user_data);
-			gtk_widget_destroy (dialog);
-		}
-		else
-		{
-			if (search_wrap == FALSE)
-			{
-				anjuta_status(
-				"Failling I-Search: '%s'. Press Enter or click Find to overwrap.",
-				string);
-				app->find_replace->find_text->incremental_wrap = TRUE;
-				if (anjuta_preferences_get (ANJUTA_PREFERENCES (app->preferences),
-											BEEP_ON_BUILD_COMPLETE))
-					gdk_beep();
-			}
-			else
-			{
-				anjuta_status ("Failling Overwrapped I-Search: %s.", string);
-			}
-		}
-	}
+	//~ if (app->find_replace->find_text->incremental_pos >= 0)
+	//~ {
+		//~ /* If incremental search */
+		//~ ret = text_editor_find (te, string,
+					//~ TEXT_EDITOR_FIND_SCOPE_CURRENT,
+					//~ GPOINTER_TO_INT(user_data), /* Forward - Backward */
+					//~ FALSE, TRUE, FALSE, search_wrap);
+	//~ }
+	//~ else
+	//~ {
+		//~ /* Normal search */
+		//~ ret = text_editor_find (te, string,
+					//~ TEXT_EDITOR_FIND_SCOPE_CURRENT,
+					//~ GPOINTER_TO_INT(user_data), /* Forward - Backward */
+					//~ app->find_replace->find_text->regexp,
+					//~ app->find_replace->find_text->ignore_case,
+					//~ app->find_replace->find_text->whole_word,
+					//~ FALSE);
+	//~ }
+	//~ if (ret < 0) {
+		//~ if (app->find_replace->find_text->incremental_pos < 0)
+		//~ {
+			//~ GtkWidget *dialog;
+			//~ // Dialog to be made HIG compliant.
+			//~ dialog = gtk_message_dialog_new (GTK_WINDOW (app->widgets.window),
+											 //~ GTK_DIALOG_DESTROY_WITH_PARENT,
+											 //~ GTK_MESSAGE_QUESTION,
+											 //~ GTK_BUTTONS_YES_NO,
+					//~ _("No matches. Wrap search around the document?"));
+			//~ if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_YES)
+				//~ on_toolbar_find_start_over (action, user_data);
+			//~ gtk_widget_destroy (dialog);
+		//~ }
+		//~ else
+		//~ {
+			//~ if (search_wrap == FALSE)
+			//~ {
+				//~ anjuta_status(
+				//~ "Failling I-Search: '%s'. Press Enter or click Find to overwrap.",
+				//~ string);
+				//~ app->find_replace->find_text->incremental_wrap = TRUE;
+				//~ if (anjuta_preferences_get (ANJUTA_PREFERENCES (app->preferences),
+											//~ BEEP_ON_BUILD_COMPLETE))
+					//~ gdk_beep();
+			//~ }
+			//~ else
+			//~ {
+				//~ anjuta_status ("Failling Overwrapped I-Search: %s.", string);
+			//~ }
+		//~ }
+	//}
 }
 
 void

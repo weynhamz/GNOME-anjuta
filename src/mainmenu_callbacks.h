@@ -43,8 +43,8 @@ void on_editor_command_activate (EggAction * action, gpointer user_data);
 void on_editor_select_function  (EggAction * action, gpointer user_data);
 void on_editor_select_word (EggAction *action, gpointer user_data);
 void on_editor_select_line (EggAction *action, gpointer user_data);
-void on_transform_eolchars1_activate (EggAction * action,
-									  gpointer user_data);
+void on_transform_eolchars1_activate (EggAction * action, gpointer user_data);
+void on_search1_activate (EggAction * action, gpointer user_data);
 void on_find1_activate (EggAction * action, gpointer user_data);
 void on_autocomplete1_activate (EggAction * action, gpointer user_data);
 void on_calltip1_activate (EggAction * action, gpointer user_data);
@@ -246,6 +246,7 @@ void on_save_build_messages_activate (EggAction * action,
 									  gpointer user_data);
 
 void on_findnext1_activate (EggAction * action, gpointer user_data);
+void on_findprevious1_activate (EggAction * action, gpointer user_data);
 void on_enterselection (EggAction * action, gpointer user_data);
 void on_customize_shortcuts_activate (EggAction * action,
 									  gpointer user_data);
