@@ -49,7 +49,6 @@
 #include "pixmaps.h"
 
 static void project_reload_session_files(ProjectDBase * p);
-static void project_dbase_save_session (ProjectDBase * p);
 static void project_dbase_reload_session (ProjectDBase * p);
 static void project_dbase_save_session_files (ProjectDBase * p);
 static void project_dbase_save_markers( ProjectDBase * p, TextEditor *te, const gint nItem );
@@ -1303,7 +1302,7 @@ session_load_node_expansion_states (ProjectDBase *p)
 	expansion_states = NULL;
 }
 
-static void
+void
 project_dbase_save_session (ProjectDBase * p)
 {
 	debugger_save_session_breakpoints (p);

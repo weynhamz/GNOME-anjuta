@@ -1318,19 +1318,6 @@ anjuta_refresh_breakpoints (TextEditor* te)
 }
 
 void
-anjuta_application_exit(void)
-{
-	g_return_if_fail(app != NULL );
-	if(		( NULL != app->project_dbase )
-		&&	(app->project_dbase->project_is_open ) )
-	{
-		project_dbase_close_project(app->project_dbase) ;
-	}
-	anjuta_plugins_unload();
-	app->addIns_list	= NULL ;
-}
-
-void
 anjuta_clean_exit ()
 {
 	anjuta_kernel_signals_disconnect ();
@@ -1342,12 +1329,16 @@ anjuta_clean_exit ()
 				  app->dirs->tmp, (long) getpid ());
 		system (cmd);
 	}
+	anjuta_save_settings ();
+	write_config();
+	gtk_exit (0);
 
 /* Is it necessary to free up all the memos on exit? */
 /* Assuming that it is not, I am disabling the following */
 /* Basically, because it is faster */
 #if 0				/* From here */
 
+	anjuta_plugins_unload ();
 	if (app->project_dbase->project_is_open)
 		project_dbase_close_project (app->project_dbase);
 	debugger_stop ();
@@ -1429,9 +1420,8 @@ anjuta_clean_exit ()
 	main_menu_unref ();
 
 	app = NULL;
-#endif /* To here */
-	
 	gtk_main_quit ();
+#endif /* To here */
 }
 
 void

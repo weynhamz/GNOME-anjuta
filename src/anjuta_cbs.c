@@ -98,12 +98,15 @@ gint on_anjuta_session_save_yourself (GnomeClient * client, gint phase,
 gint on_anjuta_delete (GtkWidget * w, GdkEvent * event, gpointer data)
 {
 	TextEditor *te;
+	ProjectDBase *p;
 	GList *list;
 	gboolean file_not_saved;
 	gint max_recent_files, max_recent_prjs;
 	
 	if (!app) return TRUE;
 	file_not_saved = FALSE;
+	p = app->project_dbase;
+	
 	max_recent_files = 
 		anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
 									MAXIMUM_RECENT_FILES);
@@ -130,10 +133,35 @@ gint on_anjuta_delete (GtkWidget * w, GdkEvent * event, gpointer data)
 												app->project_dbase->proj_filename,
 													 max_recent_files));
 	}
-	anjuta_save_settings ();
+	// Check for project save status.
+	if (p->project_is_open)
+	{
+		if (p->is_saved == FALSE)
+		{
+			GtkWidget *dialog;
+			gint but;
+			
+			dialog = create_project_confirm_dlg (p->widgets.window);
+			but = gtk_dialog_run (GTK_DIALOG (dialog));
+			switch (but)
+			{
+				case GTK_RESPONSE_YES:
+					project_dbase_save_project (p);
+					break;
+				case GTK_RESPONSE_NO:
+					p->is_saved = TRUE;
+					break;
+				default:
+					gtk_widget_destroy (dialog);
+					return TRUE;
+			}
+			gtk_widget_destroy (dialog);
+		}
+		/* Save session.... */
+		project_dbase_save_session(p);
+	}
 
-	/* No need to check for saved project, as it is done in 
-	close project call later. */
+	// Check for file save status.	
 	if (file_not_saved)
 	{
 		GtkWidget *dialog;

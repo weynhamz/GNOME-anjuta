@@ -216,8 +216,5 @@ main (int argc, char *argv[])
 	anjuta_kernel_signals_connect ();
 
 	gtk_main();
-	
-	anjuta_application_exit();
-	write_config();
 	return 0;
 }

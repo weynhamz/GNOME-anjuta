@@ -188,6 +188,7 @@ gboolean project_dbase_load_project_finish (ProjectDBase * p,
 											gboolean show_project);
 void project_dbase_close_project (ProjectDBase * p);
 gboolean project_dbase_save_project (ProjectDBase * p);
+void project_dbase_save_session (ProjectDBase * p);
 
 void project_dbase_update_tags_image (ProjectDBase* p, gboolean rebuild);
 void project_dbase_sync_tags_image (ProjectDBase* p);

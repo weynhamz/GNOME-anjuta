@@ -156,7 +156,9 @@ on_build_terminated (AnjutaLauncher *launcher,
 	anjuta_update_app_status (TRUE, NULL);
 	
 	/* Goto the first error if it exists */
-	an_message_manager_next(app->messages);
+	if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
+									"build.option.gotofirst"))
+		an_message_manager_next(app->messages);
 }
 
 gboolean

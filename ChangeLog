@@ -1,3 +1,13 @@
+2004-03-31  Naba Kumar  <naba@gnome.org>
+
+	* src/anjuta.[c,h], src/project_dbase.[h,c], src/main.c,
+	src/anjuta_cbs.c:
+	Improved shutdown time delay by bypassing project closing
+	and unloading plugins.
+
+	* src/build_file.c, data/properties/anjuta.properties: Added a property
+	to toggle on/off for going to first error automatically.
+
 2004-03-31  Pavol Bosik <Pavol.Bosik@siemens.com>
 
 	* src/debugger.c: fixed core file loading
@@ -5,6 +15,7 @@
 	for long lines (bugs #700968 and #911376)
 	* scintilla/ScintillaGTK.cxx, scintilla/PlatGTK.cxx: partially fixed bug
 	#917982.
+	* src/anjuta.c: Focuses current AnEditor correctly.
 
 2004-03-30  Naba Kumar  <naba@gnome.org>
 
