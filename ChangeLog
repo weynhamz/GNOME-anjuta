@@ -1,3 +1,7 @@
+2001-08-12  Zbigniew Chyla  <cyba@gnome.pl>
+
+	* configure.in (ALL_LINGUAS): Added pl.
+
 2001-08-09  Stephane Demurget <demurgets@free.fr>
 
 	* anjuta.spec.in: fixed the doc files list.
