@@ -14,6 +14,10 @@
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
+#ifdef HAVE_CONFIG_H
+#  include <config.h>
+#endif
+
 #include <gnome.h>
 #include <time.h>
 
@@ -23,7 +27,7 @@
 
 /* Lables for server types */
 gchar *server_types[4] =
-	{ _("Local"), _("Password"), _("Extern(rsh)"), _("Server") };
+	{ N_("Local"), N_("Password"), N_("Extern(rsh)"), N_("Server") };
 
 /* Utility:
 	Get the filename of the current open file from aneditor.
