@@ -1,3 +1,21 @@
+2005-01-29  Naba Kumar  <naba@gnome.org>
+
+	* configure.in: Fixed underquoted warning from autoconf.
+	
+	* plugins/editor/action-callbacks.c,
+	plugins/editor/aneditor.cxx,
+	plugins/editor/aneditor.h,
+	plugins/editor/anjuta-document-manager.glade,
+	plugins/editor/plugin.c,
+	plugins/editor/plugin.h,
+	plugins/editor/text_editor.c,
+	plugins/editor/text_editor.h,
+	plugins/editor/text_editor_prefs.c: Implemented prefernces commands
+	for Editor and fixed all preferences syncronization and notifys for
+	visible prefs (in editor preferences page).
+	
+	* plugins/file-loader/plugin.c: Load recent files on idle.
+
 2005-01-28  Naba Kumar  <naba@gnome.org>
 
 	* plugins/editor/text_editor.c,	plugins/editor/text_editor.h,

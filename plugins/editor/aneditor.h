@@ -108,6 +108,19 @@ extern "C" {
 #define   ANE_GETCURRENTPOS             (ANE_COMMAND_BASE+72)
 #define   ANE_GOTOPOS                   (ANE_COMMAND_BASE+73)
 
+#define   ANE_SETWRAPBOOKMARKS          (ANE_COMMAND_BASE+74)
+#define   ANE_SETAUTOINDENTATION        (ANE_COMMAND_BASE+75)
+#define   ANE_SETUSETABFORINDENT        (ANE_COMMAND_BASE+76)
+#define   ANE_SETINDENTSIZE             (ANE_COMMAND_BASE+77)
+#define   ANE_SETINDENTBRACESCHECK      (ANE_COMMAND_BASE+78)
+#define   ANE_SETINDENTOPENING          (ANE_COMMAND_BASE+79)
+#define   ANE_SETINDENTCLOSING          (ANE_COMMAND_BASE+80)
+#define   ANE_SETINDENTMAINTAIN         (ANE_COMMAND_BASE+81)
+#define   ANE_SETTABINDENTS             (ANE_COMMAND_BASE+82)
+#define   ANE_SETBACKSPACEUNINDENTS     (ANE_COMMAND_BASE+83)
+#define   ANE_SETFOLDSYMBOLS            (ANE_COMMAND_BASE+84)
+#define   ANE_SETFOLDUNDERLINE          (ANE_COMMAND_BASE+85)
+
 typedef guint AnEditorID;
 extern const AnEditorID ANE_ID_INVALID;
 
@@ -116,7 +129,8 @@ typedef struct _FindParameters FindParameters;
 AnEditorID    aneditor_new(gpointer p);
 void          aneditor_destroy(AnEditorID id);
 GtkWidget*    aneditor_get_widget(AnEditorID id);
-glong         aneditor_command(AnEditorID id, gint command, glong wparam, glong wlaram);
+glong         aneditor_command(AnEditorID id, gint command,
+							   glong wparam, glong wlaram);
 void          aneditor_set_focused_ed_ID(AnEditorID id);
 void          aneditor_set_parent(AnEditorID id, AnEditorID parent_id);
 

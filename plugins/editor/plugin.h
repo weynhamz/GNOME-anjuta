@@ -20,6 +20,8 @@ struct _EditorPlugin{
 	gboolean g_tabbing;
 	
 	StyleEditor *style_editor;
+	
+	GList *gconf_notify_ids;
 };
 
 struct _EditorPluginClass{

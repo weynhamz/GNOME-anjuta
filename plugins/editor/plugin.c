@@ -933,6 +933,73 @@ on_session_save (AnjutaShell *shell, GQueue *commandline_args,
 	g_list_free (editors);
 }
 
+static void
+editor_plugin_set_tab_pos (EditorPlugin *ep)
+{
+	if (anjuta_preferences_get_int_with_default (ep->prefs, EDITOR_TABS_HIDE,
+												 1))
+	{
+		gtk_notebook_set_show_tabs (GTK_NOTEBOOK (ep->docman), FALSE);
+	}
+	else
+	{
+		gchar *tab_pos;
+		GtkPositionType pos;
+		
+		gtk_notebook_set_show_tabs (GTK_NOTEBOOK (ep->docman), TRUE);
+		tab_pos = anjuta_preferences_get (ep->prefs, EDITOR_TABS_POS);
+		
+		pos = GTK_POS_TOP;
+		if (tab_pos)
+		{
+			if (strcasecmp (tab_pos, "left") == 0)
+				pos = GTK_POS_LEFT;
+			else if (strcasecmp (tab_pos, "right") == 0)
+				pos = GTK_POS_RIGHT;
+			else if (strcasecmp (tab_pos, "bottom") == 0)
+				pos = GTK_POS_BOTTOM;
+		}
+		gtk_notebook_set_tab_pos (GTK_NOTEBOOK (ep->docman), pos);
+		g_free (tab_pos);
+	}
+}
+
+static void
+on_gconf_notify_prefs (GConfClient *gclient, guint cnxn_id,
+					   GConfEntry *entry, gpointer user_data)
+{
+	EditorPlugin *ep = (EditorPlugin*)user_data;
+	editor_plugin_set_tab_pos (ep);
+}
+
+#define REGISTER_NOTIFY(key, func) \
+	notify_id = anjuta_preferences_notify_add (ep->prefs, \
+											   key, func, ep, NULL); \
+	ep->gconf_notify_ids = g_list_prepend (ep->gconf_notify_ids, \
+										   (gpointer)(notify_id));
+static void
+prefs_init (EditorPlugin *ep)
+{
+	guint notify_id;
+	editor_plugin_set_tab_pos (ep);
+	REGISTER_NOTIFY (EDITOR_TABS_HIDE, on_gconf_notify_prefs);
+	REGISTER_NOTIFY (EDITOR_TABS_POS, on_gconf_notify_prefs);
+}
+
+static void
+prefs_finalize (EditorPlugin *ep)
+{
+	GList *node;
+	node = ep->gconf_notify_ids;
+	while (node)
+	{
+		anjuta_preferences_notify_remove (ep->prefs, (guint)node->data);
+		node = g_list_next (node);
+	}
+	g_list_free (ep->gconf_notify_ids);
+	ep->gconf_notify_ids = NULL;
+}
+
 static gboolean
 activate_plugin (AnjutaPlugin *plugin)
 {
@@ -984,7 +1051,7 @@ activate_plugin (AnjutaPlugin *plugin)
 		anjuta_encodings_init (editor_plugin->prefs, gxml);
 		g_object_unref (G_OBJECT (gxml));
 	}
-	
+	prefs_init (editor_plugin);
 	editor_plugin->action_groups = NULL;
 	/* Add all our editor actions */
 	for (i = 0; i < G_N_ELEMENTS (action_groups); i++)
@@ -1104,11 +1171,12 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	
 	DEBUG_PRINT ("EditorPlugin: Dectivating Editor plugin ...");
 	
+	eplugin = (EditorPlugin*)plugin;
+
+	prefs_finalize (eplugin);
 	g_signal_handlers_disconnect_by_func (G_OBJECT (plugin->shell),
 										  G_CALLBACK (on_session_save), plugin);
 	
-	eplugin = (EditorPlugin*)plugin;
-
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	status = anjuta_shell_get_status (plugin->shell, NULL);
 	
@@ -1169,6 +1237,7 @@ editor_plugin_instance_init (GObject *obj)
 	plugin->uiid = 0;
 	plugin->style_editor = NULL;
 	plugin->g_tabbing = FALSE;
+	plugin->gconf_notify_ids = NULL;
 }
 
 static void

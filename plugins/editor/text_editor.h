@@ -1,3 +1,4 @@
+/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
  * text_editor.h
  * Copyright (C) 2000  Kh. Naba Kumar Singh
@@ -195,14 +196,19 @@ void text_editor_scintilla_command (TextEditor *te, gint command,
 #define INDENT_SIZE                "indent.size"
 #define INDENT_OPENING             "indent.opening"
 #define INDENT_CLOSING             "indent.closing"
+#define INDENT_MAINTAIN            "indent.maintain"
+#define TAB_INDENTS                "tab.indents"
+#define BACKSPACE_UNINDENTS        "backspace.unindents"
+
 #define AUTOSAVE_TIMER             "autosave.timer"
-#define MARGIN_LINENUMBER_WIDTH    "margin.linenumber.width"
 #define SAVE_SESSION_TIMER         "save.session.timer"
 
 #define AUTOFORMAT_DISABLE         "autoformat.disable"
 #define AUTOFORMAT_CUSTOM_STYLE    "autoformat.custom.style"
 #define AUTOFORMAT_STYLE           "autoformat.style"
 
+#define FOLD_SYMBOLS               "fold.symbols"
+#define FOLD_UNDERLINE             "fold.underline"
 #define EDITOR_TABS_POS            "editor.tabs.pos"
 #define EDITOR_TABS_HIDE           "editor.tabs.hide"
 #define EDITOR_TABS_ORDERING       "editor.tabs.ordering"

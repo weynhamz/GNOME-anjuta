@@ -1,3 +1,4 @@
+/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
  * text_editor.c
  * Copyright (C) 2000 - 2004  Naba Kumar
@@ -38,12 +39,8 @@
 #include <libanjuta/interfaces/ianjuta-file-savable.h>
 #include <libanjuta/interfaces/ianjuta-markable.h>
 
-// #include "global.h"
-// #include "anjuta.h"
-
 #include "properties.h"
 #include "text_editor.h"
-// #include "text_editor_gui.h"
 #include "text_editor_cbs.h"
 #include "text_editor_menu.h"
 #include "src/launcher.h"
@@ -55,23 +52,15 @@
 #include "SciLexer.h"
 #include "ScintillaWidget.h"
 
-// #include "properties.h"
 #include "lexer.h"
 #include "aneditor.h"
 #include "text_editor_prefs.h"
-
-// #include "controls.h"
-
-/* Debug flag */
-// #define DEBUG
 
 /* Marker 0 is defined for bookmarks */
 #define TEXT_EDITOR_LINEMARKER	2
 
 #define MARKER_PROP_END 0xaaaaaa /* Do not define any color with this value */
 
-// static void text_editor_update_preferences (TextEditor *te,
-//											AnjutaPreferences *pr);
 static void text_editor_finalize (GObject *obj);
 static void text_editor_dispose (GObject *obj);
 static void text_editor_set_hilite_type_one (TextEditor * te, AnEditorID editor);
@@ -180,18 +169,30 @@ text_editor_add_view (TextEditor *te)
 {
 	AnEditorID editor_id;
 	GtkWidget *scintilla;
+	gint current_line;
+	gint current_point;
 	
+	if (te->views)
+	{
+		current_line = text_editor_get_current_lineno (te);
+		current_point = text_editor_get_current_position (te);
+	}
+	else
+	{
+		current_line = 0;
+		current_point = 0;
+	}
 	editor_id = aneditor_new (prop_get_pointer (te->props_base));
 	scintilla = aneditor_get_widget (editor_id);
-	te->editor_id = editor_id;
-	te->scintilla = scintilla;
 	
 	/* Set parent, if it is not primary view */
 	if (te->views)
 	{
-		aneditor_set_parent (editor_id, GPOINTER_TO_INT(te->views->data));
+		aneditor_set_parent (editor_id, GPOINTER_TO_INT(te->editor_id));
 	}
 	te->views = g_list_prepend (te->views, GINT_TO_POINTER (editor_id));
+	te->editor_id = editor_id;
+	te->scintilla = scintilla;
 	
 	/*
 	aneditor_command (te->editor_id, ANE_SETACCELGROUP,
@@ -200,11 +201,11 @@ text_editor_add_view (TextEditor *te)
 	
 	gtk_widget_set_usize (scintilla, 50, 50);
 	gtk_widget_show (scintilla);
-	gtk_widget_grab_focus (scintilla);
 	
 	gtk_box_set_homogeneous (GTK_BOX (te), TRUE);
 	gtk_box_set_spacing (GTK_BOX (te), 3);
 	gtk_box_pack_start (GTK_BOX (te), scintilla, TRUE, TRUE, 0);
+	gtk_widget_grab_focus (scintilla);
 
 	g_signal_connect (G_OBJECT (scintilla), "event",
 			    G_CALLBACK (on_text_editor_text_event), te);
@@ -220,6 +221,11 @@ text_editor_add_view (TextEditor *te)
 	initialize_markers (te, scintilla);
 	text_editor_set_hilite_type_one (te, editor_id);
 	text_editor_set_line_number_width (te);
+	
+	if (current_line)
+		text_editor_goto_line (te, current_line, FALSE, TRUE);
+	if (current_point)
+		text_editor_goto_point (te, current_point);
 	
 #ifdef DEBUG
 	g_object_weak_ref (G_OBJECT (scintilla), on_scintila_already_destroyed, te);

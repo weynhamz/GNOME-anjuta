@@ -57,25 +57,6 @@ AC_SUBST(LIBGLADEUI_REQUIRED)
 AM_INIT_AUTOMAKE(anjuta, $ANJUTA_VERSION)
 AM_CONFIG_HEADER(config.h)
 
-dnl Define convenience macros
-dnl -------------------------
-dnl CHECK_HEADER_DEFINE(LABEL, HEADER [,ACTION-IF-FOUND [, ACTION-IF-NOT-FOUND ] ])
-AC_DEFUN(CHECK_HEADER_DEFINE,
-[
-	AC_MSG_CHECKING("if $1 is defined in $2")
-	AC_EGREP_CPP(yes,
-[#include <$2>
-#ifdef $1
-  yes
-#endif
-], [
-	AC_MSG_RESULT(yes)
-	$3
-], [
-	AC_MSG_RESULT(no)
-	$4
-]) ])
-
 CFLAGS_WARNINGS="-Wall -Wmissing-prototypes -Wparentheses -Wpointer-arith"
 CFLAGS_DISABLE_CHECKS="-DG_DISABLE_CHECKS -DG_DISABLE_CAST_CHECKS"
 CFLAGS_OPTIMIZE="-Os -s"
@@ -308,12 +289,12 @@ AC_SUBST(GETTEXT_PACKAGE)
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE", [GETTEXT package name])
 AM_GLIB_GNU_GETTEXT
 
-# gtk-doc
-# GTK_DOC_CHECK([1.0])
+dnl gtk-doc
+dnl GTK_DOC_CHECK([1.0])
 
-##################################################
-# Check for gtk-doc.
-##################################################
+dnl ***************************************************************************
+dnl Check for gtk-doc.
+dnl ***************************************************************************
 AC_ARG_WITH(html-dir, [  --with-html-dir=PATH path to installed docs ])
 if test "x$with_html_dir" = "x" ; then
   HTML_DIR='${datadir}/gtk-doc/html'
@@ -409,7 +390,7 @@ dnl ***************************************************************************
 dnl Define convenience macros
 dnl -------------------------
 dnl CHECK_HEADER_DEFINE(LABEL, HEADER [,ACTION-IF-FOUND [, ACTION-IF-NOT-FOUND ] ])
-AC_DEFUN(CHECK_HEADER_DEFINE,
+AC_DEFUN([CHECK_HEADER_DEFINE],
 [
 	AC_MSG_CHECKING("if $1 is defined in $2")
 	AC_EGREP_CPP(yes,
@@ -583,7 +564,7 @@ dnl Checks for missing prototypes
 dnl -----------------------------
 AC_CHECKING("for missing prototypes")
 
-AC_DEFUN(CHECK_PROTO, [AC_EGREP_HEADER([[^A-Za-z0-9_]$1([   ]+[A-Za-z0-9_]*)?\(], $2,, AC_DEFINE(patsubst([NEED_PROTO_NAME], [NAME], translit($1, [a-z], [A-Z])),,[Do not know]) AC_MSG_RESULT(adding prototype for $1))])
+AC_DEFUN([CHECK_PROTO], [AC_EGREP_HEADER([[^A-Za-z0-9_]$1([   ]+[A-Za-z0-9_]*)?\(], $2,, AC_DEFINE(patsubst([NEED_PROTO_NAME], [NAME], translit($1, [a-z], [A-Z])),,[Do not know]) AC_MSG_RESULT(adding prototype for $1))])
 
 if test "$have_remove" = yes ; then
     CHECK_PROTO(remove, stdio.h)

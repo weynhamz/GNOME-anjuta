@@ -298,16 +298,37 @@ open_file (AnjutaFileLoaderPlugin *plugin, const gchar *uri)
 							  uri, FALSE, NULL);
 }
 
+typedef struct
+{
+	AnjutaFileLoaderPlugin *plugin;
+	const gchar *uri;
+} RecentIdelOpenData;
+
+static gboolean
+on_open_recent_file_idle (gpointer data)
+{
+	RecentIdelOpenData *rdata;
+	
+	rdata = (RecentIdelOpenData*)data;
+	open_file (rdata->plugin, rdata->uri);
+	g_free (rdata);
+	return FALSE;
+}
+
 static gboolean
 on_open_recent_file (EggRecentAction *action, AnjutaFileLoaderPlugin *plugin)
 {
 	const gchar *uri;
 	GnomeVFSURI *vfs_uri;
 	gboolean ret = TRUE;
+	RecentIdelOpenData *rdata;
 	
 	uri = egg_recent_action_get_selected_uri (action);
 	vfs_uri = gnome_vfs_uri_new (uri);
-	open_file (plugin, uri);
+	rdata = g_new0 (RecentIdelOpenData, 1);
+	rdata->plugin = plugin;
+	rdata->uri = uri;
+	g_idle_add (on_open_recent_file_idle, rdata);
 	gnome_vfs_uri_unref (vfs_uri);
 
 	return ret;

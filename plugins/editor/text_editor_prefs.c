@@ -85,6 +85,17 @@ set_n_get_prop_int (TextEditor *te, const gchar *key)
 	return val;
 }
 
+static gchar *
+set_n_get_prop_string (TextEditor *te, const gchar *key)
+{
+	gchar *val;
+	AnjutaPreferences *pr;
+	pr = te->preferences;
+	val = anjuta_preferences_get (pr, key);
+	prop_set_with_key (text_editor_get_props (), key, val);
+	return val;
+}
+
 static void
 on_gconf_notify_timer (GConfClient *gclient, guint cnxn_id,
 					   GConfEntry *entry, gpointer user_data)
@@ -173,7 +184,8 @@ on_gconf_notify_use_tab_for_indentation (GConfClient *gclient, guint cnxn_id,
 	
 	te = TEXT_EDITOR (user_data);
 	use_tabs = set_n_get_prop_int (te, USE_TABS);
-	text_editor_scintilla_command (te, SCI_SETTABWIDTH,	use_tabs, 0);
+	text_editor_command (te, ANE_SETUSETABFORINDENT, use_tabs, 0);
+	// text_editor_scintilla_command (te, SCI_SETTABWIDTH,	use_tabs, 0);
 }
 
 static void
@@ -185,6 +197,7 @@ on_gconf_notify_automatic_indentation (GConfClient *gclient, guint cnxn_id,
 	
 	te = TEXT_EDITOR (user_data);
 	indent_automatic = set_n_get_prop_int (te, INDENT_AUTOMATIC);
+	text_editor_command (te, ANE_SETAUTOINDENTATION, indent_automatic, 0);
 }
 
 static void
@@ -196,7 +209,7 @@ on_gconf_notify_indent_size (GConfClient *gclient, guint cnxn_id,
 	
 	te = TEXT_EDITOR (user_data);
 	indent_size = set_n_get_prop_int (te, INDENT_SIZE);
-	text_editor_scintilla_command (te, SCI_SETINDENT, indent_size, 0);
+	text_editor_command (te, ANE_SETINDENTSIZE, indent_size, 0);
 }
 
 static void
@@ -204,9 +217,11 @@ on_gconf_notify_wrap_bookmarks (GConfClient *gclient, guint cnxn_id,
 								GConfEntry *entry, gpointer user_data)
 {
 	TextEditor *te;
+	gboolean state;
 	
 	te = TEXT_EDITOR (user_data);
-	set_n_get_prop_int (te, WRAP_BOOKMARKS);
+	state = set_n_get_prop_int (te, WRAP_BOOKMARKS);
+	text_editor_command (te, ANE_SETWRAPBOOKMARKS, state, 0);
 }
 
 static void
@@ -214,9 +229,11 @@ on_gconf_notify_braces_check (GConfClient *gclient, guint cnxn_id,
 							  GConfEntry *entry, gpointer user_data)
 {
 	TextEditor *te;
+	gboolean state;
 	
 	te = TEXT_EDITOR (user_data);
-	set_n_get_prop_int (te, BRACES_CHECK);
+	state = set_n_get_prop_int (te, BRACES_CHECK);
+	text_editor_command (te, ANE_SETINDENTBRACESCHECK, state, 0);
 }
 
 static void
@@ -224,9 +241,11 @@ on_gconf_notify_indent_opening (GConfClient *gclient, guint cnxn_id,
 								GConfEntry *entry, gpointer user_data)
 {
 	TextEditor *te;
+	gboolean state;
 	
 	te = TEXT_EDITOR (user_data);
-	set_n_get_prop_int (te, INDENT_OPENING);
+	state = set_n_get_prop_int (te, INDENT_OPENING);
+	text_editor_command (te, ANE_SETINDENTOPENING, state, 0);
 }
 
 static void
@@ -234,23 +253,47 @@ on_gconf_notify_indent_closing (GConfClient *gclient, guint cnxn_id,
 								GConfEntry *entry, gpointer user_data)
 {
 	TextEditor *te;
+	gboolean state;
 	
 	te = TEXT_EDITOR (user_data);
-	set_n_get_prop_int (te, INDENT_CLOSING);
+	state = set_n_get_prop_int (te, INDENT_CLOSING);
+	text_editor_command (te, ANE_SETINDENTCLOSING, state, 0);
 }
 
 static void
-on_gconf_notify_margin_linenum_width (GConfClient *gclient, guint cnxn_id,
-									  GConfEntry *entry, gpointer user_data)
+on_gconf_notify_indent_maintain (GConfClient *gclient, guint cnxn_id,
+								 GConfEntry *entry, gpointer user_data)
 {
-#if 0
 	TextEditor *te;
-	gint width;
+	gboolean state;
 	
 	te = TEXT_EDITOR (user_data);
-	width = set_n_get_prop_int (te, MARGIN_LINENUMBER_WIDTH);
-	text_editor_scintilla_command (te, SCI_SETMARGINWIDTHN,	0, width);
-#endif
+	state = set_n_get_prop_int (te, INDENT_MAINTAIN);
+	text_editor_command (te, ANE_SETINDENTMAINTAIN, state, 0);
+}
+
+static void
+on_gconf_notify_tab_indents (GConfClient *gclient, guint cnxn_id,
+							 GConfEntry *entry, gpointer user_data)
+{
+	TextEditor *te;
+	gboolean state;
+	
+	te = TEXT_EDITOR (user_data);
+	state = set_n_get_prop_int (te, TAB_INDENTS);
+	text_editor_command (te, ANE_SETTABINDENTS, state, 0);
+}
+
+static void
+on_gconf_notify_backspace_unindents (GConfClient *gclient, guint cnxn_id,
+									 GConfEntry *entry, gpointer user_data)
+{
+	TextEditor *te;
+	gboolean state;
+	
+	te = TEXT_EDITOR (user_data);
+	state = set_n_get_prop_int (te, BACKSPACE_UNINDENTS);
+	text_editor_command (te, ANE_SETBACKSPACEUNINDENTS, state, 0);
 }
 
 static void
@@ -338,6 +381,31 @@ on_gconf_notify_view_linenums (GConfClient *gclient, guint cnxn_id,
 	text_editor_set_line_number_width (te);
 }
 
+static void
+on_gconf_notify_fold_symbols (GConfClient *gclient, guint cnxn_id,
+							  GConfEntry *entry, gpointer user_data)
+{
+	TextEditor *te;
+	gchar *symbols;
+	
+	te = TEXT_EDITOR (user_data);
+	symbols = set_n_get_prop_string (te, FOLD_SYMBOLS);
+	text_editor_command (te, ANE_SETFOLDSYMBOLS, (long)symbols, 0);
+	g_free (symbols);
+}
+
+static void
+on_gconf_notify_fold_underline (GConfClient *gclient, guint cnxn_id,
+								GConfEntry *entry, gpointer user_data)
+{
+	TextEditor *te;
+	gboolean state;
+	
+	te = TEXT_EDITOR (user_data);
+	state = set_n_get_prop_int (te, FOLD_UNDERLINE);
+	text_editor_command (te, ANE_SETFOLDUNDERLINE, state, 0);
+}
+
 #define REGISTER_NOTIFY(key, func) \
 	notify_id = anjuta_preferences_notify_add (te->preferences, \
 											   key, func, te, NULL); \
@@ -347,6 +415,7 @@ on_gconf_notify_view_linenums (GConfClient *gclient, guint cnxn_id,
 void
 text_editor_prefs_init (TextEditor *te)
 {
+	gint val;
 	guint notify_id;
 	
 	/* Sync prefs from gconf to props */
@@ -362,7 +431,16 @@ text_editor_prefs_init (TextEditor *te)
 	set_n_get_prop_int (te, BRACES_CHECK);
 	set_n_get_prop_int (te, INDENT_OPENING);
 	set_n_get_prop_int (te, INDENT_CLOSING);
-	set_n_get_prop_int (te, MARGIN_LINENUMBER_WIDTH);
+	
+	/* This one is special */
+	val = set_n_get_prop_int (te, INDENT_MAINTAIN);
+	if (val)
+		prop_set_int_with_key (te->props_base, INDENT_MAINTAIN".*", 1);
+	else
+		prop_set_with_key (te->props_base, INDENT_MAINTAIN".*", "");
+	
+	set_n_get_prop_int (te, TAB_INDENTS);
+	set_n_get_prop_int (te, BACKSPACE_UNINDENTS);
 	set_n_get_prop_int (te, VIEW_EOL);
 	set_n_get_prop_int (te, VIEW_LINE_WRAP);
 	set_n_get_prop_int (te, VIEW_WHITE_SPACES);
@@ -370,6 +448,8 @@ text_editor_prefs_init (TextEditor *te)
 	set_n_get_prop_int (te, VIEW_FOLD_MARGIN);
 	set_n_get_prop_int (te, VIEW_MARKER_MARGIN);
 	set_n_get_prop_int (te, VIEW_LINENUMBERS_MARGIN);
+	g_free (set_n_get_prop_string (te, FOLD_SYMBOLS));
+	set_n_get_prop_int (te, FOLD_UNDERLINE);
 	
 	/* Register gconf notifications */
 	REGISTER_NOTIFY (TAB_SIZE, on_gconf_notify_tab_size);
@@ -384,7 +464,9 @@ text_editor_prefs_init (TextEditor *te)
 	REGISTER_NOTIFY (BRACES_CHECK, on_gconf_notify_braces_check);
 	REGISTER_NOTIFY (INDENT_OPENING, on_gconf_notify_indent_opening);
 	REGISTER_NOTIFY (INDENT_CLOSING, on_gconf_notify_indent_closing);
-	REGISTER_NOTIFY (MARGIN_LINENUMBER_WIDTH, on_gconf_notify_margin_linenum_width);
+	REGISTER_NOTIFY (INDENT_MAINTAIN, on_gconf_notify_indent_maintain);
+	REGISTER_NOTIFY (TAB_INDENTS, on_gconf_notify_tab_indents);
+	REGISTER_NOTIFY (BACKSPACE_UNINDENTS, on_gconf_notify_backspace_unindents);
 	REGISTER_NOTIFY (VIEW_EOL, on_gconf_notify_view_eols);
 	REGISTER_NOTIFY (VIEW_LINE_WRAP, on_gconf_notify_view_linewrap);
 	REGISTER_NOTIFY (VIEW_WHITE_SPACES, on_gconf_notify_view_whitespaces);
@@ -392,12 +474,8 @@ text_editor_prefs_init (TextEditor *te)
 	REGISTER_NOTIFY (VIEW_FOLD_MARGIN, on_gconf_notify_view_folds);
 	REGISTER_NOTIFY (VIEW_MARKER_MARGIN, on_gconf_notify_view_markers);
 	REGISTER_NOTIFY (VIEW_LINENUMBERS_MARGIN, on_gconf_notify_view_linenums);
-	
-	/* templates..
-	REGISTER_NOTIFY ();
-	REGISTER_NOTIFY ();
-	REGISTER_NOTIFY ();
-	*/
+	REGISTER_NOTIFY (FOLD_SYMBOLS, on_gconf_notify_fold_symbols);
+	REGISTER_NOTIFY (FOLD_UNDERLINE, on_gconf_notify_fold_underline);
 }
 
 void
