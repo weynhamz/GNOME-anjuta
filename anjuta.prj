@@ -59,6 +59,7 @@ preferences.build.option.silent=0
 preferences.autoformat.disable=0
 preferences.build.option.autosave=1
 preferences.indent.automatic=1
+preferences.anjuta.make.options=-k
 preferences.use.tabs=1
 preferences.indent.size=4
 preferences.tabsize=4
@@ -74,6 +75,7 @@ preferences.build.option.silent=0
 preferences.autoformat.disable=0
 preferences.build.option.autosave=1
 preferences.indent.automatic=1
+preferences.anjuta.make.options=-k
 preferences.use.tabs=1
 preferences.indent.size=4
 preferences.tabsize=4
@@ -89,6 +91,7 @@ preferences.build.option.silent=0
 preferences.autoformat.disable=0
 preferences.build.option.autosave=1
 preferences.indent.automatic=1
+preferences.anjuta.make.options=-k
 preferences.use.tabs=1
 preferences.indent.size=4
 preferences.tabsize=4
@@ -104,6 +107,7 @@ preferences.build.option.silent=0
 preferences.autoformat.disable=0
 preferences.build.option.autosave=1
 preferences.indent.automatic=1
+preferences.anjuta.make.options=-k
 preferences.use.tabs=1
 preferences.indent.size=4
 preferences.tabsize=4
@@ -119,6 +123,7 @@ preferences.build.option.silent=0
 preferences.autoformat.disable=0
 preferences.build.option.autosave=1
 preferences.indent.automatic=1
+preferences.anjuta.make.options=-k
 preferences.use.tabs=1
 preferences.indent.size=4
 preferences.tabsize=4
@@ -134,6 +139,7 @@ preferences.build.option.silent=0
 preferences.autoformat.disable=0
 preferences.build.option.autosave=1
 preferences.indent.automatic=1
+preferences.anjuta.make.options=-k
 preferences.use.tabs=1
 preferences.indent.size=4
 preferences.tabsize=4
@@ -149,6 +155,7 @@ preferences.build.option.silent=0
 preferences.autoformat.disable=0
 preferences.build.option.autosave=1
 preferences.indent.automatic=1
+preferences.anjuta.make.options=-k
 preferences.use.tabs=1
 preferences.indent.size=4
 preferences.tabsize=4
@@ -362,13 +369,6 @@ module.source.files=\
 	scintilla/UniConversion.cxx\
 	scintilla/ViewStyle.cxx\
 	scintilla/WindowAccessor.cxx\
-	src/CORBA-Server.c\
-	src/Gladen-common.c\
-	src/Gladen-stubs.c\
-	src/Prj-common.c\
-	src/Prj-skelimpl.c\
-	src/Prj-skels.c\
-	src/Prj-stubs.c\
 	src/an_file_view.c\
 	src/an_symbol_view.c\
 	src/aneditor.cxx\
@@ -397,8 +397,6 @@ module.source.files=\
 	src/compatibility_0.c\
 	src/compile.c\
 	src/compiler_options.c\
-	src/compiler_options_cbs.c\
-	src/compiler_options_gui.c\
 	src/configurer.c\
 	src/controls.c\
 	src/cvs.c\

@@ -1,3 +1,11 @@
+2003-04-14  Biswapesh Chattopadhyay  <biswapesh_chatterjee@tcscal.co.in>
+	* src/project_dbase_gui.c: Memory corruption fix.
+
+2003-04-14  Dan Elphick <dre00r@ecs.soton.ac.uk>
+	* an_file_view.c: Connect to event-after signal rather than event so that
+	selection is updated first and thus context menu is for the right file.
+	Reviewed and applied by Biswa.
+
 2003-04-14  Naba Kumar  <naba@gnome.org>
 
 	* anjuta.glade, anjuta_dialogs_strings.c: Updated setup dialog.
