@@ -1,9 +1,8 @@
 /*
- * Sample plugin demostration
+ * Class creator plugin for anjuta
  *
  * Authors:
- *   Tom Dyas (tdyas@romulus.rutgers.edu)
- *   JP Rosevear (jpr@arcavia.com)
+ *   lb
  */
 
 #include "../../src/anjuta.h"
@@ -63,6 +62,7 @@ BrowseDecl                             (GtkButton       *button,
 typedef struct ClsGen_CreateClass {
 	gboolean m_bOK;
 	gboolean m_bUserEdited;
+	gboolean m_cpp;
 	gchar	*m_szClassName;
 	gchar	*m_szDeclFile;
 	gchar	*m_szImplFile;
@@ -83,6 +83,7 @@ typedef struct ClsGen_CreateClass {
   GtkWidget *button1;
   GtkWidget *button2;
   GtkWidget *button3;
+  GtkWidget *CheckC;
 	
 } CG_Creator;
 
@@ -105,10 +106,19 @@ static struct tm *GetNowTime( void );
 static void GeneraH( CG_Creator *self, FILE* fpOut );
 static void GeneraC( CG_Creator *self, FILE* fpOut );
 
+gchar	*GetDescr(void);
+glong	GetVersion(void);
+gboolean Init( GModule *self, void **pUserData, AnjutaApp* p );
+void CleanUp( GModule *self, void *pUserData, AnjutaApp* p );
+void Activate( GModule *self, void *pUserData, AnjutaApp* p);
+gchar *GetMenuTitle( GModule *self, void *pUserData );
+gchar *GetTooltipText( GModule *self, void *pUserData ) ;
+
+
 /* Get module description */
 gchar	*GetDescr()
 {
-	return g_strdup("Class Creator");
+	return g_strdup(_("Class Creator"));
 }
 	/* GetModule Version hi/low word 1.02 0x10002 */
 glong	GetVersion()
@@ -133,12 +143,12 @@ void Activate( GModule *self, void *pUserData, AnjutaApp* p)
 
 gchar *GetMenuTitle( GModule *self, void *pUserData )
 {
-	return g_strdup("Class Creator");
+	return g_strdup(_("Class Creator C/C++ 1.0"));
 }
 
 gchar *GetTooltipText( GModule *self, void *pUserData ) 
 {
-   return g_strdup("Class Creator");
+   return g_strdup(_("Class Creator"));
 }
 
 static gboolean IsLegalClassName( const char *szClassName ); 
@@ -193,6 +203,7 @@ static void CG_GetStrings( CG_Creator	*self )
 	self->m_szClassName	= gtk_editable_get_chars(GTK_EDITABLE(self->m_clsname),0, -1 );
 	self->m_szDeclFile	= gtk_editable_get_chars(GTK_EDITABLE(self->m_declFile),0, -1 );
 	self->m_szImplFile	= gtk_editable_get_chars(GTK_EDITABLE(self->m_ImplFile),0, -1 );
+	self->m_cpp	= gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON(self->CheckC) );
 }
 
 void
@@ -283,76 +294,6 @@ void CreateCodeClass( ProjectDBase *self )
 	CG_Del(&l_server);
 }
 
-/*
-gboolean 
-InsertTemplateInFile( const gchar *szTemplateFileName, FILE* fpOut, const gchar *szFileNameOut )
-{
-	gboolean	bOK = FALSE ;
-	FILE*		fpIn ;
-	gchar		*gName ;
-	if( NULL == fpOut )
-		return TRUE ;
-	gName = g_strdup_printf( "%s/%s", DIR_TEMPLATES, szTemplateFileName );
-	if( NULL == gName  )
-		return FALSE ;
-	fpIn = fopen( gName, "rt" );
-	if( NULL != fpIn )
-	{
-		while( ! feof( fpIn ) )
-		{
-			char	chIn;
-			if( fread( &chIn, 1, 1, fpIn ) )
-			{
-				if( '%' == chIn )
-				{
-					char	chIn2 ;
-					if( fread( &chIn2, 1, 1, fpIn ) )
-					{
-						if( '%' == chIn2 )
-							fwrite( &chIn2, 1, 1, fpOut ) ;
-						else
-						{
-							switch( chIn2 )
-							{
-								case 'u':
-									{
-										gchar* username;
-										username = getenv ("USERNAME");
-										if (!username)
-											username = getenv ("USER");
-										fprintf( fpOut, "%s", username );
-									}
-									break;
-								case 'd':
-									{
-										struct tm *t = GetNowTime();
-										fprintf( fpOut, "%s", asctime(t) );
-									}
-									break;
-								case 'f':
-									fprintf( fpOut, "%s", szFileNameOut );
-									break;
-								default:
-									fwrite( &chIn, 1, 1, fpOut ) ;
-									break;
-							}
-						}
-					}
-				} else
-				{
-					fwrite( &chIn, 1, 1, fpOut ) ;
-				}
-			}
-		}
-		fflush( fpOut );
-		bOK = !ferror( fpOut );
-		fclose( fpIn );
-	}
-	g_free( gName );
-	return bOK ;
-}
-*/
-
 static struct tm *GetNowTime( void )
 {
 	time_t l_time;
@@ -364,7 +305,6 @@ static struct tm *GetNowTime( void )
 
 static void GeneraH( CG_Creator *self, FILE* fpOut )
 {
-	//InsertTemplateInFile( "HeaderH", fpOut, szMainFileName );
 	fprintf( fpOut, "/*\n FILE:%s\n", self->m_szDeclFile );
 	{
 		gchar* username;
@@ -409,10 +349,57 @@ static void GeneraH( CG_Creator *self, FILE* fpOut )
 		self->m_szClassName, self->m_szClassName, self->m_szClassName );
 	
 }
+
+static void GeneraHH( CG_Creator *self, FILE* fpOut )
+{
+	fprintf( fpOut, "/*\n FILE:%s\n", self->m_szDeclFile );
+	{
+		gchar* username;
+		username = getenv ("USERNAME");
+		if (!username)
+			username = getenv ("USER");
+		fprintf( fpOut, "%s", username );
+	}
+	{
+		struct tm *t = GetNowTime();
+		fprintf( fpOut, " \ton:%s\n*/\n\n", asctime(t) );
+	}
 	
+	fprintf( fpOut, 
+		"#ifndef	H_include_%s\n"
+		"#define	H_include_%s\n", self->m_szClassName, self->m_szClassName );
+	fprintf( fpOut, 	
+		"#ifdef HAVE_CONFIG_H\n"
+		"#  include <config.h>\n"
+		"#endif\n"
+		"\n"
+		"#include <sys/types.h>\n"
+		"#include <sys/stat.h>\n"
+		"#include <unistd.h>\n"
+		"#include <string.h>\n"
+		"\n"
+		"#include <gnome.h>\n"
+		"\n"
+		"class %s {\n", self->m_szClassName );
+	fprintf( fpOut, 
+		"  /* TODO: Put your data here */\n"
+		"  /* Constructor */\n"
+		" public:\n"
+		" %s();\n"
+		" ~%s();\n"
+		" }  ;\n\n"
+		"typedef class %s *%sPtr;\n"
+		"#endif	/*H_include_%s*/\n"
+		"\n\n",
+		self->m_szClassName, self->m_szClassName, 
+		self->m_szClassName, self->m_szClassName, 
+		self->m_szClassName );
+
+}
+
+
 static void GeneraC( CG_Creator *self, FILE* fpOut )
 {
-	//InsertTemplateInFile( "HeaderH", fpOut, szMainFileName );
 	fprintf( fpOut, "/*\n FILE:%s\n", self->m_szDeclFile );
 	{
 		gchar* username;
@@ -474,7 +461,41 @@ static void GeneraC( CG_Creator *self, FILE* fpOut )
 		self->m_szClassName, self->m_szClassName, 
 		self->m_szClassName, self->m_szClassName);
 }
+
+static void GeneraCC( CG_Creator *self, FILE* fpOut )
+{
+	fprintf( fpOut, "/*\n FILE:%s\n", self->m_szDeclFile );
+	{
+		gchar* username;
+		username = getenv ("USERNAME");
+		if (!username)
+			username = getenv ("USER");
+		fprintf( fpOut, "%s", username );
+	}
+	{
+		struct tm *t = GetNowTime();
+		fprintf( fpOut, " \ton:%s\n*/\n\n", asctime(t) );
+	}
 	
+	fprintf( fpOut, 
+		"#include	\"%s\"\n"
+		"\n"
+		"\n"
+		"%s::%s()\n"
+		"{\n"
+		" /* TODO: put init code here */\n"
+		"}\n"
+		"\n", self->m_szDeclFile, self->m_szClassName, self->m_szClassName );
+
+	fprintf( fpOut, 
+		"%s::~%s()\n"
+		"{\n"
+		" /*TO-DO: put here end code*/\n"
+		"}\n\n",
+		self->m_szClassName, self->m_szClassName );
+		
+}
+
 	
 void CG_Show(CG_Creator *self, ProjectDBase *p )
 {
@@ -497,7 +518,10 @@ void CG_Show(CG_Creator *self, ProjectDBase *p )
 			FILE* fpC;
 			if( NULL != fpH )
 			{
-				GeneraH( self, fpH );
+				if(self->m_cpp)
+					GeneraHH( self, fpH );
+				else
+					GeneraH( self, fpH );
 				fflush( fpH );
 				bOK = !ferror( fpH );
 				fclose( fpH );
@@ -506,7 +530,10 @@ void CG_Show(CG_Creator *self, ProjectDBase *p )
 			fpC = fopen( szfNameC, "at" );
 			if( NULL != fpC )
 			{
-				GeneraC( self, fpC );
+				if(self->m_cpp)
+					GeneraCC( self, fpC );
+				else
+					GeneraC( self, fpC );
 				fflush( fpC );
 				if( bOK )
 					bOK = !ferror( fpC );
@@ -518,14 +545,14 @@ void CG_Show(CG_Creator *self, ProjectDBase *p )
 			{
 				if( ! ImportFileInProject ( "SOURCE", szfNameC ) )
 				{
-					MessageBox( _("Error in importing source file"));
+					MessageBox( _("Error importing source file"));
 				}
 				if( ! ImportFileInProject ( "SOURCE", szfNameH ) )
 				{
-					MessageBox( _("Error in importing include file"));
+					MessageBox( _("Error importing include file"));
 				}
 			} else
-				MessageBox( _("Error in importing files"));
+				MessageBox( _("Error importing files"));
 			g_free( szfNameC );
 			g_free( szfNameH );
 		}
@@ -537,6 +564,7 @@ void CG_Init(CG_Creator *self)
 {
 	self->m_bOK = FALSE ;
 	self->m_bUserEdited = FALSE ;
+	self->m_cpp	= FALSE ;
 	self->m_szClassName = NULL ;
 	self->m_szDeclFile= NULL ;
 	self->m_szImplFile= NULL ;
@@ -561,14 +589,14 @@ create_dlgClass ( CG_Creator *self )
   gtk_object_set_data (GTK_OBJECT (self->dlgClass), "dialog_vbox1", self->dialog_vbox1);
   gtk_widget_show (self->dialog_vbox1);
 
-  self->frame1 = gtk_frame_new (_("New Class "));
+  self->frame1 = gtk_frame_new (_("New Class :"));
   gtk_widget_ref (self->frame1);
   gtk_object_set_data_full (GTK_OBJECT (self->dlgClass), "frame1", self->frame1,
                             (GtkDestroyNotify) gtk_widget_unref);
   gtk_widget_show (self->frame1);
   gtk_box_pack_start (GTK_BOX (self->dialog_vbox1), self->frame1, TRUE, TRUE, 0);
 
-  self->table1 = gtk_table_new (3, 3, FALSE);
+  self->table1 = gtk_table_new ( 4, 3, FALSE);
   gtk_widget_ref (self->table1);
   gtk_object_set_data_full (GTK_OBJECT (self->dlgClass), "table1", self->table1,
                             (GtkDestroyNotify) gtk_widget_unref);
@@ -644,6 +672,15 @@ create_dlgClass ( CG_Creator *self )
                             (GtkDestroyNotify) gtk_widget_unref);
   gtk_widget_show (self->m_ImplFile);
   gtk_table_attach (GTK_TABLE (self->table1), self->m_ImplFile, 1, 2, 2, 3,
+                    (GtkAttachOptions) 0,/*(GTK_EXPAND | GTK_FILL),*/
+                    (GtkAttachOptions) (0), 0, 0);
+
+	self->CheckC = gtk_check_button_new_with_label( "C++" );
+	gtk_widget_ref (self->CheckC);	
+	gtk_object_set_data_full (GTK_OBJECT (self->dlgClass), "CheckC", self->CheckC,
+                            (GtkDestroyNotify) gtk_widget_unref);
+	gtk_widget_show (self->CheckC);
+	gtk_table_attach (GTK_TABLE (self->table1), self->CheckC, 0, 1, 3, 4,
                     (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
                     (GtkAttachOptions) (0), 0, 0);
 
@@ -698,4 +735,3 @@ create_dlgClass ( CG_Creator *self )
 	gtk_widget_grab_focus(self->m_clsname);
   return self->dlgClass;
 }
-

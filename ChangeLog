@@ -1,3 +1,10 @@
+2002-02-19  Naba Kumar <kh_naba@users.sourceforge.net>
+
+	* plugins/class-gen/clsGen.c:
+	Added c++ support.
+	
+	Patch from: lbell <lbell@tsc4.com>
+	
 2002-02-18  Naba Kumar <kh_naba@users.sourceforge.net>
 
 	* src/anjuta.c, main.c:
