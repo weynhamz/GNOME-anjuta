@@ -4,9 +4,9 @@
 # This file is distributed under the same license as the anjuta package.
 # based on the GNOME 2.2 translation to Portuguese (pt) by
 # Marcelo Elias Del Valle <marceloelias@iname.com>, 2002.
+# Duarte Loreto <happyguy_pt@hotmail.com>, 2001, 2002, 2003.
 # Alexandre Folle de Menezes <afmenez@terra.com.br>, 2003.
 # Alexandre Folle de Menezes <afmenez@terra.com.br>, 2004.
-# Duarte Loreto <happyguy_pt@hotmail.com>, 2001, 2002, 2003.
 # Afonso Celso Medina <medina@maua.br> 2004.
 # 
 # 
@@ -14,10 +14,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta_ANJUTA_1_2_0_pt_BR\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-07-20 14:10-0400\n"
-"PO-Revision-Date: 2004-07-17 03:34-0300\n"
+"POT-Creation-Date: 2004-07-27 14:53-0400\n"
+"PO-Revision-Date: 2004-07-26 18:32-0300\n"
 "Last-Translator: Afonso Celso Medina <medina@maua.br>\n"
-"Language-Team: Portuguese/Brazil <gnome-l10n-br@listas.cipsga.org.br>\n"
+"Language-Team: Portuguese/Brazil\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -64,7 +64,7 @@ msgstr "Procura de ajuda do Anjuta"
 
 #: anjuta.glade.h:9
 msgid "Anjuta start with dialog"
-msgstr "Iniciar o Anjuta com diálogo de opções"
+msgstr "Iniciar o Anjuta com uma caixa de diálogo de opções"
 
 #: anjuta.glade.h:10 plugins/project-wizard/appwizard_gui.c:77
 #: plugins/project-wizard/appwizard_gui.c:91
@@ -73,7 +73,7 @@ msgstr "Assistente de Aplicação"
 
 #: anjuta.glade.h:11
 msgid "Ask for parameters at run-time"
-msgstr "Pedir por parâmetros durante a execução"
+msgstr "Solicitar parâmetros durante a execução"
 
 #: anjuta.glade.h:12
 msgid "Attach to process"
@@ -102,36 +102,36 @@ msgstr "Propriedades dos pontos de interrupção"
 
 #: anjuta.glade.h:18
 msgid "Breakpoints"
-msgstr "Pontos de interrupção"
+msgstr "Pontos de Interrupção"
 
 #: anjuta.glade.h:19 plugins/build/build_file.c:102 src/anjuta_gui.c:117
 #: src/toolbar.c:273
 msgid "Build"
-msgstr "Compilar"
+msgstr "Build"
 
 #: anjuta.glade.h:20
 msgid "Build command:"
-msgstr "Comando de compilação:"
+msgstr "Comando de Build:"
 
 #: anjuta.glade.h:21
 msgid "Build file browser automatically"
-msgstr "Compilar o navegador de arquivos automaticamente"
+msgstr "Monta o navegador de arquivos automaticamente"
 
 #: anjuta.glade.h:22
 msgid "Build files"
-msgstr "Compilar arquivos"
+msgstr "Arquivos de Build (compilar e linkar)"
 
 #: anjuta.glade.h:23
 msgid "Build options"
-msgstr "Opções de compilação"
+msgstr "Opções do comando Build (Compilação e Linkagem)"
 
 #: anjuta.glade.h:24
 msgid "Build symbol browser automatically"
-msgstr "Compilar o navegador de símbolos automaticamente"
+msgstr "Monta o navegador de símbolos automaticamente"
 
 #: anjuta.glade.h:25 plugins/debugger/registers_gui.c:89
 msgid "CPU Registers"
-msgstr "Registradores da CPU"
+msgstr "Registradores de CPU"
 
 #. 2
 #: anjuta.glade.h:26 plugins/file-manager/an_file_view.c:372
@@ -164,15 +164,15 @@ msgstr "C_ompilar:"
 
 #: anjuta.glade.h:33
 msgid "Combo Popdown:"
-msgstr "Caixa de combinação:"
+msgstr "Caixa de Combinação:"
 
 #: anjuta.glade.h:34
 msgid "Command Line Parameters"
-msgstr "Parâmetros de Linha de Comando"
+msgstr "Parâmetros da Linha de Comando"
 
 #: anjuta.glade.h:35
 msgid "Command line parameters"
-msgstr "Parâmetros de linha de comando"
+msgstr "Parâmetros da linha de comando"
 
 #: anjuta.glade.h:36
 msgid "Command:"
@@ -400,7 +400,7 @@ msgstr "Inspecionar"
 
 #: anjuta.glade.h:86
 msgid "Keep going when some targets can not be made"
-msgstr "Continuar quando alguns alvos não puderem ser feitos"
+msgstr "Continuar mesmo quando alguns alvos não puderem ser construídos"
 
 #: anjuta.glade.h:87
 msgid "Kernel Signals"
@@ -472,7 +472,7 @@ msgstr "Nome:"
 
 #: anjuta.glade.h:104 plugins/editor/plugin.c:47 src/toolbar.c:76
 msgid "New file"
-msgstr "Criar um novo arquivo"
+msgstr "Novo arquivo"
 
 #: anjuta.glade.h:105
 msgid "No Optimization"
@@ -485,14 +485,14 @@ msgid ""
 "no project open, they will be global preferences."
 msgstr ""
 "Nota: Se existir um projeto aberto, as preferências nesta página são "
-"preferências de projeto e serão carregadas e salvas com o projeto. Se nenhum "
-"projeto estiver aberto, elas serão definidas como preferências globais."
+"preferências deste projeto e serão carregadas e salvas com ele. Se nenhum "
+"projeto estiver aberto, elas serão consideradas preferências globais."
 
 #. Must declare static, because it will be used forever
 #: anjuta.glade.h:107 plugins/project-manager/project_dbase.c:198
 #: src/toolbar.c:213
 msgid "Open Project"
-msgstr "Abrir um Projeto"
+msgstr "Abre um Projeto"
 
 #: anjuta.glade.h:108
 msgid "Open existing Project."
@@ -505,7 +505,7 @@ msgstr "Abre um arquivo existente ou cria um novo arquivo."
 #: anjuta.glade.h:110 plugins/editor/anjuta-docman.c:327
 #: plugins/editor/plugin.c:49 src/toolbar.c:80
 msgid "Open file"
-msgstr "Abrir um arquivo"
+msgstr "Abre um arquivo"
 
 #: anjuta.glade.h:111
 msgid "Open last working Project"
@@ -605,11 +605,11 @@ msgstr "Executar separadamente"
 
 #: anjuta.glade.h:134
 msgid "Run in Terminal"
-msgstr "Executar em umTerminal"
+msgstr "Executar em um Terminal"
 
 #: anjuta.glade.h:135
 msgid "Run in terminal"
-msgstr "Executa em um terminal"
+msgstr "Executar em um terminal"
 
 #: anjuta.glade.h:136
 msgid "SIGINT"
@@ -765,7 +765,7 @@ msgstr "_Anexar"
 
 #: anjuta.glade.h:170
 msgid "_Build a file:"
-msgstr "_Compilar um arquivo:"
+msgstr "_Construir um arquivo executável (Build):"
 
 #: anjuta.glade.h:171
 msgid "_Condition:"
@@ -995,8 +995,8 @@ msgid ""
 msgstr ""
 "Impossível carregar padrões Globais e arquivos de configuração:\n"
 "%s.\n"
-"Isto pode resultar em comportamento inapropriado ou instabilidades.\n"
-"O Anjuta vai reverter para definições padrão (limitadas)"
+"Isto pode resultar em um comportamento inapropriado ou instabilidades.\n"
+"O Anjuta vai reverter para as definições (limitadas) padrões"
 
 #: libanjuta/anjuta-preferences.c:1439
 msgid "Anjuta Preferences"
@@ -1110,8 +1110,8 @@ msgid ""
 "This dialog displays all the available plugins for Anjuta.  You can select "
 "which plugins you want to use by clicking on the plugin in the list."
 msgstr ""
-"O dálogo apresenta todos os plugins disponíveis para o Anjuta.  Você pode "
-"selecionar qual plugin você deseja utilizar, clicando no plugin da lista."
+"Este dálogo apresenta todos os plugins disponíveis para o Anjuta.  Você pode "
+"selecionar qual plugin deseja utilizar, clicando no plugin da lista."
 
 #: libanjuta/resources.c:50
 #, c-format
@@ -1121,12 +1121,12 @@ msgstr "Widget (componente) não encontrado: %s"
 #: libanjuta/resources.c:74
 #, c-format
 msgid "Could not find application image file: %s"
-msgstr "Impossível encontrar arquivo de imagem da aplicação: %s"
+msgstr "Impossível encontrar o arquivo de imagem da aplicação: %s"
 
 #: libanjuta/resources.c:100
 #, c-format
 msgid "Could not find application pixmap file: %s"
-msgstr "Impossível encontrar arquivo pixmap da aplicação: %s"
+msgstr "Impossível encontrar o arquivo pixmap da aplicação: %s"
 
 #: libanjuta/resources.c:263 libanjuta/resources.c:272
 #, c-format
@@ -1351,7 +1351,7 @@ msgstr "Doca mestre"
 
 #: libegg/egg-dock-object.c:137
 msgid "Dock master this dock object is bound to"
-msgstr "Doca o mestre para o qual este objeto de docagem está limitado"
+msgstr "Doca mestre para o qual este objeto de docagem está limitado"
 
 #: libegg/egg-dock-object.c:406
 #, c-format
@@ -1650,7 +1650,8 @@ msgstr "Ícone de zoom"
 
 #: plugins/build/build_file.c:48
 msgid "This file has not been saved. Save it first and then build."
-msgstr "Este arquivo não foi salvo. Salve-o primeiro e então compile."
+msgstr ""
+"Este arquivo não foi salvo. Salve-o primeiro e então utilize o comando build."
 
 #: plugins/build/build_file.c:73
 msgid "The executable is up-to-date, there is no need to build it again."
@@ -1659,12 +1660,13 @@ msgstr "O executável está atualizado, não é necessário compilá-lo novament
 #: plugins/build/build_file.c:88
 msgid "No build command has been specified for this type of file."
 msgstr ""
-"Não foi especificado nenhum comando de compilação para este tipo de arquivo."
+"Não foi especificado nenhum comando de compilação e linkagem para este tipo "
+"de arquivo."
 
 #: plugins/build/build_file.c:104
 #, c-format
 msgid "Building file: %s ...\n"
-msgstr "Compilando o arquivo: %s ...\n"
+msgstr "Construindo o arquivo executável: %s ...\n"
 
 #: plugins/build/build_file.c:132 plugins/cvs-plugin/cvs.c:776
 #: plugins/project-manager/project_import.c:192
@@ -1674,56 +1676,60 @@ msgstr "Tempo total utilizado: %lu segundos\n"
 
 #: plugins/build/build_file.c:136
 msgid "Completed ... unsuccessful\n"
-msgstr "Compilação concluída... sem sucesso\n"
+msgstr "Concluído... sem sucesso\n"
 
 #: plugins/build/build_file.c:140
 msgid "Completed ... unsuccessful"
-msgstr "Compilação concluída... sem sucesso"
+msgstr "Concluído... sem sucesso"
 
 #: plugins/build/build_file.c:145
 msgid "Completed ... successful\n"
-msgstr "Compilação concluída... com sucesso\n"
+msgstr "Concluído... com sucesso\n"
 
 #: plugins/build/build_file.c:149
 msgid "Completed ... successful"
-msgstr "Compilação concluída... com sucesso"
+msgstr "Concluído... com sucesso"
 
 #: plugins/build/build_project.c:76 plugins/build/compile.c:61
 msgid "Unable to build module. Check Settings->Commands."
-msgstr "Impossível compilar o módulo. Verifique Definições->Comandos."
+msgstr ""
+"Impossível compilar e linkar (build) o módulo. Verifique Definições-"
+">Comandos."
 
 #: plugins/build/build_project.c:95 plugins/build/build_project.c:160
 #: plugins/build/compile.c:74
 msgid "Build Project"
-msgstr "Compilar Projeto"
+msgstr "Compilar e Linkar o Projeto (Build)"
 
 #: plugins/build/build_project.c:97 plugins/build/compile.c:76
 msgid "Building source directory of the Project: "
-msgstr "Compilando o diretório fonte do projeto: "
+msgstr "Compilando e linkando o diretório fonte do Projeto: "
 
 #: plugins/build/build_project.c:145
 msgid "Unable to build Project. Check Settings->Commands."
-msgstr "Impossível compilar o Projeto. Verifique Definições->Comandos."
+msgstr ""
+"Impossível compilar e linkar (build) o Projeto. Verifique Definições-"
+">Comandos."
 
 #: plugins/build/build_project.c:163
 msgid "Building the whole Project: "
-msgstr "Compilando todo o Projeto: "
+msgstr "Compilando e linkando (build) todo o Projeto: "
 
 #: plugins/build/build_project.c:196
 msgid "Unable to build tarball. Check Settings->Commands."
-msgstr "Impossível compilar arquivo tar. Verifique Definições->Comandos."
+msgstr "Impossível construir o arquivo tar. Verifique Definições->Comandos."
 
 #: plugins/build/build_project.c:211
 msgid "Build Distribution"
-msgstr "Compilar Distribuição"
+msgstr "Compilar e Gerar um Executável para Distribuição"
 
 #: plugins/build/build_project.c:215
 msgid "Building the distribution package of the Project: "
-msgstr "Compilando o pacote de distribuição para o Projeto: "
+msgstr "Construindo o pacote de distribuição para o Projeto: "
 
 #: plugins/build/build_project.c:247
 msgid "Do you prefer installing as root ?"
-msgstr "Prefere instalar como root?"
+msgstr "Você refere instalar como root?"
 
 #: plugins/build/build_project.c:285
 msgid "Unable to auto generate. Check Settings->Commands."
@@ -1794,7 +1800,7 @@ msgstr "Compilar"
 #: plugins/build/compile.c:155
 #, c-format
 msgid "Compiling file: %s ...\n"
-msgstr "Compilando arquivo: %s ...\n"
+msgstr "Compilando o arquivo: %s ...\n"
 
 #: plugins/build/compiler_options.c:503
 msgid ""
@@ -1802,9 +1808,9 @@ msgid ""
 "would you like the next build action to perform a complete\n"
 "rebuild of the project?"
 msgstr ""
-"Você alterou algumas das opções de compilação do projeto,\n"
-"você gostaria que a primeira ação de compilação provocasse\n"
-"uma compilação completa do projeto?"
+"Você alterou algumas das opções de compilação do projeto, você\n"
+"gostaria que a primeira ação de compilação e geração do executável\n"
+"(build) provocasse um compilação completa do projeto?"
 
 #: plugins/build/compiler_options.c:726
 #: plugins/project-manager/src_paths.c:218
@@ -1846,8 +1852,8 @@ msgid ""
 "Project does not have an executable configure script.\n"
 "Auto generate the Project first."
 msgstr ""
-"O projeto não tem um script executável 'configure'.\n"
-"Você deve autogerá o Projeto primeiro."
+"O Projeto não tem um script executável 'configure'.\n"
+"Você deve autogerar o Projeto primeiro."
 
 #: plugins/build/configurer.c:189 src/toolbar.c:262
 msgid "Configure"
@@ -1855,7 +1861,7 @@ msgstr "Configurar"
 
 #: plugins/build/configurer.c:191
 msgid "Configuring the Project ....\n"
-msgstr "Configurando o Projeto ....\n"
+msgstr "Configurando o Projeto....\n"
 
 #: plugins/build/executer.c:54 src/mainmenu_callbacks.c:513
 msgid "The target executable of this Project is unknown"
@@ -1898,11 +1904,11 @@ msgstr "Impossível executar o arquivo. Verifique Definições->Comandos."
 #: plugins/build-basic-autotools/build-basic-autotools.c:174
 #: plugins/build-basic-autotools/build-basic-autotools.c:184
 msgid "_Build"
-msgstr "C_ompilar"
+msgstr "_Build"
 
 #: plugins/build-basic-autotools/build-basic-autotools.c:90
 msgid "_Build project"
-msgstr "_Compilar o projeto"
+msgstr "_Build project"
 
 #: plugins/build-basic-autotools/build-basic-autotools.c:91
 msgid "Build whole project"
@@ -1914,7 +1920,7 @@ msgstr "_Instalar projeto"
 
 #: plugins/build-basic-autotools/build-basic-autotools.c:97
 msgid "Install whole project"
-msgstr "Instala do o projeto"
+msgstr "Instala todo o projeto"
 
 #: plugins/build-basic-autotools/build-basic-autotools.c:102
 msgid "_Clean project"
@@ -1942,20 +1948,20 @@ msgstr "Gera automaticamente os arquivos de projeto"
 
 #: plugins/build-basic-autotools/build-basic-autotools.c:120
 msgid "Build _distribution"
-msgstr "Compilar _distribuição"
+msgstr "Gerar uma _distribuição"
 
 #: plugins/build-basic-autotools/build-basic-autotools.c:121
 msgid "Build project distribution"
-msgstr "Compila a distribuição do projeto"
+msgstr "Gera um arquivo .tar para distribuição do projeto"
 
 #: plugins/build-basic-autotools/build-basic-autotools.c:126
 msgid "_Build module"
-msgstr "_Compilar um módulo"
+msgstr "_Build module"
 
 #: plugins/build-basic-autotools/build-basic-autotools.c:127
 #: plugins/build-basic-autotools/build-basic-autotools.c:185
 msgid "Build module"
-msgstr "Compila um módulo"
+msgstr "Compila e linka um módulo"
 
 #: plugins/build-basic-autotools/build-basic-autotools.c:132
 msgid "_Install module"
@@ -1964,7 +1970,7 @@ msgstr "_Instalar módulo"
 #: plugins/build-basic-autotools/build-basic-autotools.c:133
 #: plugins/build-basic-autotools/build-basic-autotools.c:191
 msgid "Install module"
-msgstr "Instalar módulo"
+msgstr "Instala o módulo"
 
 #: plugins/build-basic-autotools/build-basic-autotools.c:138
 msgid "_Clean module"
@@ -1977,11 +1983,11 @@ msgstr "Limpa o módulo"
 
 #: plugins/build-basic-autotools/build-basic-autotools.c:144
 msgid "Co_mpile file"
-msgstr "Co_mpila o arquivo"
+msgstr "Co_mpilar arquivo"
 
 #: plugins/build-basic-autotools/build-basic-autotools.c:145
 msgid "Compile current editor file"
-msgstr "Compila o arquivo de código atual"
+msgstr "Compila o arquivo de código atualmente no editor"
 
 #: plugins/build-basic-autotools/build-basic-autotools.c:178
 msgid "_Compile"
@@ -2001,11 +2007,11 @@ msgstr "_Limpar"
 
 #: plugins/build-basic-autotools/build-basic-autotools.c:382
 msgid "Popup build commands"
-msgstr "Comandos de compilação \"popup\""
+msgstr "Comandos de compilação popup"
 
 #: plugins/build-basic-autotools/build-basic-autotools.c:389
 msgid "Build commands"
-msgstr "Comandos de compilação"
+msgstr "Comandos de construção do arquivo executável"
 
 #: plugins/class-gen/clsGen.c:449
 msgid "Class name not valid"
@@ -2029,7 +2035,7 @@ msgstr "Erro ao importar arquivos"
 
 #: plugins/class-gen/clsGen.c:1332
 msgid "Class Builder"
-msgstr "Compilador de Classes"
+msgstr "Construtor de Classes"
 
 #. 7
 #. 9
@@ -2132,7 +2138,7 @@ msgstr "V 0.0.2 (11 de Junho de 2002)"
 msgid ""
 "TODO: add the ability to declare member functions and their parameters here."
 msgstr ""
-"A FAZER: adicionar a capacidade de declarar aqui funções e seus parâmetros."
+"TODO: adicionar aqui a capacidade de declarar funções e seus parâmetros."
 
 #: plugins/class-gen/clsGen.c:1580
 msgid "Welcome to the Anjuta Class Builder. "
@@ -3040,7 +3046,7 @@ msgstr "Salva o arquivo atual com um nome diferente"
 
 #: plugins/editor/plugin.c:55
 msgid "Save A_ll"
-msgstr "Salvar _Todos"
+msgstr "Salvar _Tudo"
 
 #: plugins/editor/plugin.c:56
 msgid "Save all currently open files, except new files"
@@ -3076,7 +3082,7 @@ msgstr "_Arquivos Recentes"
 
 #: plugins/editor/plugin.c:71
 msgid "_Print"
-msgstr "_Imprimir"
+msgstr "I_mprimir"
 
 #: plugins/editor/plugin.c:72 src/toolbar.c:110
 msgid "Print the current file"
@@ -3096,19 +3102,19 @@ msgstr "_Transformar"
 
 #: plugins/editor/plugin.c:80
 msgid "_Make Selection Uppercase"
-msgstr "Converter Para _Maiúsculas"
+msgstr "Converter a Seleção para _Maiúsculas"
 
 #: plugins/editor/plugin.c:81
 msgid "Make the selected text uppercase"
-msgstr "Converte a seleção para maiúsculas"
+msgstr "Converte o texto selecionado para maiúsculas"
 
 #: plugins/editor/plugin.c:83
 msgid "Make Selection Lowercase"
-msgstr "Converter a Seleção Para Minúsculas"
+msgstr "Converter a Seleção para Mi_núsculas"
 
 #: plugins/editor/plugin.c:84
 msgid "Make the selected text lowercase"
-msgstr "Converte a seleção para minúsculas"
+msgstr "Converte o texto selecionado para minúsculas"
 
 #: plugins/editor/plugin.c:86
 msgid "Convert EOL chars to CRLF"
@@ -3150,11 +3156,11 @@ msgstr "_Selecionar"
 
 #: plugins/editor/plugin.c:102
 msgid "Select _All"
-msgstr "_Selecionar Tudo"
+msgstr "Selecionar _Tudo"
 
 #: plugins/editor/plugin.c:103
 msgid "Select all text in the editor"
-msgstr "Seleciona todo o texto do editor"
+msgstr "Seleciona todo o texto no editor"
 
 #: plugins/editor/plugin.c:105
 msgid "Select to _Brace"
@@ -3222,7 +3228,7 @@ msgstr "Insere um aviso GPL com comentário no estilo Python"
 
 #: plugins/editor/plugin.c:131
 msgid "Current _Username"
-msgstr "Nome do _Usuário atual"
+msgstr "Nome do _Usuário Atual"
 
 #: plugins/editor/plugin.c:132
 msgid "Insert name of current user"
@@ -3390,11 +3396,11 @@ msgstr "Novo procedimento de procura e substituição avançado"
 
 #: plugins/editor/plugin.c:201
 msgid "_Enter Selection/I-Search"
-msgstr "Introduzir S_eleção/I-Procura"
+msgstr "Utilizar S_eleção/I-Procura"
 
 #: plugins/editor/plugin.c:203
 msgid "Enter the selected text as the search target"
-msgstr "Introduz o texto selecionado como alvo da pesquisa"
+msgstr "Utiliza o texto selecionado como alvo da pesquisa"
 
 #: plugins/editor/plugin.c:205
 msgid "Fin_d in Files ..."
@@ -3554,7 +3560,7 @@ msgstr "Mostra uma dica para a função"
 
 #: plugins/editor/plugin.c:285
 msgid "_Line numbers margin"
-msgstr "Números de _Linha na margem"
+msgstr "Números das _Linhas na margem"
 
 #: plugins/editor/plugin.c:286
 msgid "Show/Hide line numbers"
@@ -3886,11 +3892,11 @@ msgstr "Abre todos os folds de código no editor"
 
 #: plugins/editor/plugin.c:426
 msgid "_Toggle Current Fold"
-msgstr "Al_ternar o Fold Atual"
+msgstr "Al_ternar o Estado do Fold Atual"
 
 #: plugins/editor/plugin.c:428
 msgid "Toggle current code fold in the editor"
-msgstr "Alterna o fold atual de código no editor"
+msgstr "Alterna o estado atual aberto/fechado do fold do código no editor"
 
 #: plugins/editor/plugin.c:430
 msgid "D_etach Current Document"
@@ -4060,7 +4066,7 @@ msgstr "Linhas"
 
 #: plugins/editor/print.c:1071
 msgid "Print Preview"
-msgstr "Visualiza a Impressão"
+msgstr "Visualizar a Impressão"
 
 #: plugins/editor/search_preferences.c:474
 msgid "The maximum number of settings has been reached."
@@ -4158,7 +4164,7 @@ msgid ""
 "Do you want to reload it?"
 msgstr ""
 "O arquivo '%s' no disco é mais recente que o\n"
-"buffer atual.\n"
+"disponível no buffer atualmente.\n"
 "Deseja recarregá-lo?"
 
 #: plugins/editor/text_editor.c:1490
@@ -5062,7 +5068,7 @@ msgstr "Importando o Projeto de %s ...\n"
 
 #: plugins/project-manager/project_import.c:119
 msgid "Could not launch script!\n"
-msgstr "Impossível lançar o script!\n"
+msgstr "Impossível executar o script!\n"
 
 #: plugins/project-manager/project_import.c:130
 msgid "Importing Project...please wait"
@@ -5235,14 +5241,14 @@ msgid ""
 "may not be possible to change some of the\n"
 "settings later."
 msgstr ""
-"O Assistente de Aplicação irá gerar uma estrutura\n"
-"básica de um projeto, incluindo todos os\n"
-"arquivos de compilação. Ele irá pedir detalhes\n"
-"sobre a estrutura inicial da aplicação.\n"
+"O Assistente de Aplicação irá gerar a estrutura\n"
+"básica de um projeto, incluindo todos os arquivos\n"
+"de compilação. Ele solicitará alguns detalhes sobre\n"
+"a estrutura inicial da aplicação.\n"
 "\n"
-"Responda atentamente às questões, já que\n"
-"poderá não ser possível modificar algumas\n"
-"destas definições mais tarde."
+"Responda atentamente às questões, já que poderá\n"
+"não ser possível modificar algumas destas definições\n"
+"posteriormente."
 
 #: plugins/project-wizard/gnome_project.c:65
 msgid ""
@@ -5317,11 +5323,11 @@ msgid ""
 "Now Build the Project to have a LOOK at it\n"
 msgstr ""
 "Auto-geração terminada...................Com Sucesso\n"
-"Agora compile (através do Build) o Projeto para VER como ele é\n"
+"Agora Compile e Link o Projeto para VER como ele é\n"
 
 #: plugins/project-wizard/gnome_project.c:284
 msgid "Project was successfully auto generated."
-msgstr "Projeto foi autogerado com sucesso."
+msgstr "O Projeto foi autogerado com sucesso."
 
 #: plugins/project-wizard/wizard_gui.c:98
 msgid "Project Type"
@@ -5735,7 +5741,7 @@ msgstr "Solicitar _Funcionalidades"
 
 #: src/anjuta-actions.h:99
 msgid "Submit a feature request for Anjuta"
-msgstr "Envia uma solicitação de funcionalidades para o Anjuta"
+msgstr "Envia uma solicitação de funcionalidade para o Anjuta"
 
 #: src/anjuta-actions.h:102
 msgid "Submit _patches"
@@ -5776,7 +5782,7 @@ msgstr "Procurando o símbolo"
 
 #: src/anjuta-app.c:1019
 msgid "Finding in Files ....\n"
-msgstr "Buscando nos Arquivos ....\n"
+msgstr "Buscando nos Arquivos....\n"
 
 #: src/anjuta-callbacks.c:227 src/anjuta_cbs.c:466
 msgid "Could not open file for writing"
@@ -5793,7 +5799,7 @@ msgstr ""
 
 #: src/anjuta_dirs.c:53
 msgid "Unable to create settings directory.\n"
-msgstr "Impossível criar diretório de definições.\n"
+msgstr "Impossível criar o diretório de definições.\n"
 
 #: src/anjuta_gui.c:108
 msgid "Navigate"
@@ -5835,15 +5841,15 @@ msgstr ""
 
 #: src/glade_iface.c:108
 msgid "Cannot fork glade."
-msgstr "Impossível fazer a ramificar o glade."
+msgstr "Impossível executar o glade."
 
 #: src/glade_iface.c:148 src/glade_iface.c:229
 msgid "Cannot fork glade--."
-msgstr "Impossível fazer a ramificação do glade--."
+msgstr "Impossível executar o glade--."
 
 #: src/glade_iface.c:189
 msgid "Cannot fork glade-2."
-msgstr "Impossível fazer a ramificação do glade-2."
+msgstr "Impossível executar o glade-2."
 
 #: src/main.c:50 src/main.cpp:50
 msgid "Specify the size and location of the main window"
@@ -5851,7 +5857,7 @@ msgstr "Especifica o tamanho e a localização da janela principal"
 
 #: src/main.c:51 src/main.cpp:51
 msgid "WIDTHxHEIGHT+XOFF+YOFF"
-msgstr "WIDTHxHEIGHT+XOFF+YOFF"
+msgstr "LARGURAxALTURA+XOFF+YOFF"
 
 #: src/main.c:56 src/main.cpp:56
 msgid "Do not show the splashscreen"
@@ -5863,12 +5869,12 @@ msgstr "O executável não está atualizado."
 
 #: src/mainmenu_callbacks.c:570
 msgid "Debugger is not running. Start it first."
-msgstr "O depurador não está rodando. Inicie-o primeiro."
+msgstr "O depurador não está rodando. Você deve iniciá-lo antes."
 
 #: src/support.c:60 src/support.c:85
 #, c-format
 msgid "Couldn't find pixmap file: %s"
-msgstr "Impossível encontrar o arquivo pixmap: %s"
+msgstr "Impossível encontrar o arquivo de pixmap: %s"
 
 #: src/toolbar.c:105
 msgid "Detach"
@@ -5884,7 +5890,7 @@ msgstr "Procura a expressão indicada no arquivo atual"
 
 #: src/toolbar.c:131
 msgid "Enter the string to search for"
-msgstr "Informe a expressão a procurar"
+msgstr "Informe a expressão a ser procurada"
 
 #: src/toolbar.c:137
 msgid "Go to the given line number in the current file"
@@ -5892,7 +5898,7 @@ msgstr "Vai para o número de linha indicado no arquivo atual"
 
 #: src/toolbar.c:144
 msgid "Enter the line number to go to"
-msgstr "Informe o número de linha para onde ir"
+msgstr "Informe o número da linha para onde ir"
 
 #: src/toolbar.c:151
 msgid "Show/Hide the Project window"
@@ -5936,11 +5942,13 @@ msgstr "Executa o configurador"
 
 #: src/toolbar.c:275
 msgid "Build current file, or build the source directory of the Project"
-msgstr "Compila o arquivo atual, ou compila todo o diretório fonte do projeto"
+msgstr ""
+"Compila e linka o arquivo atual, ou compila e linka todo o diretório fonte "
+"do projeto"
 
 #: src/toolbar.c:286
 msgid "Build_all"
-msgstr "Compil_ar todo o projeto"
+msgstr "Compil_ar e linkar todo o projeto"
 
 #: src/toolbar.c:288
 msgid "Build from the top directory of the Project"
@@ -5964,7 +5972,7 @@ msgstr "Alternar"
 
 #: src/toolbar.c:384
 msgid "Toggle bookmark at current location"
-msgstr "Alterna o marcador na posição atual"
+msgstr "Alterna o marcador da posição atual"
 
 #: src/toolbar.c:390
 msgid "Goto first bookmark in this document"
@@ -5996,7 +6004,7 @@ msgstr "Próximo"
 
 #: src/toolbar.c:423
 msgid "Goto next message in this document"
-msgstr "Vai para a mensagem seguinte neste documento"
+msgstr "Vai para a próxima mensagem neste documento"
 
 #: src/toolbar.c:431
 msgid "Start"
@@ -6096,7 +6104,7 @@ msgstr "Finaliza a sessão de depuração"
 
 #: src/toolbar.c:764
 msgid "Toggle current code fold hide/show"
-msgstr "Alterna a condição de ocultal/exibir da pasta de código atual"
+msgstr "Alterna a condição de ocultar/exibir do fold do código atual"
 
 #: src/toolbar.c:775
 msgid "Close all"
@@ -6104,7 +6112,7 @@ msgstr "Fecha tudo"
 
 #: src/toolbar.c:777
 msgid "Close all code folds in this document"
-msgstr "Fecha todas as pastas de código neste documento"
+msgstr "Fecha todos os folds de código neste documento"
 
 #: src/toolbar.c:788
 msgid "Open all"
@@ -6112,7 +6120,7 @@ msgstr "Abre tudo"
 
 #: src/toolbar.c:790
 msgid "Open all code folds in this document"
-msgstr "Abre todas as pastas de código neste documento"
+msgstr "Abre todos os folds de código neste documento"
 
 #: src/toolbar.c:803
 msgid "Select"
@@ -6124,7 +6132,7 @@ msgstr "Seleciona o bloco de código atual"
 
 #: src/toolbar.c:815
 msgid "Indent inc"
-msgstr "Inc Indentação"
+msgstr "Aumenta a indentação"
 
 #: src/toolbar.c:817
 msgid "Increase indentation of block/line"
@@ -6132,7 +6140,7 @@ msgstr "Aumenta a indentação do bloco/linha"
 
 #: src/toolbar.c:828
 msgid "Indent dcr"
-msgstr "Dec Indentação"
+msgstr "Diminui a indentação"
 
 #: src/toolbar.c:830
 msgid "Decrease indentation of block/line"
