@@ -1,12 +1,18 @@
-2002-05-03  Andy Piper <andy.piper@freeuk.com>
+2002-05-06  Andy Piper <andy.piper@freeuk.com>
+
+	* anjuta.prj: added another missing file
+	* ChangeLog: fixed some incorrect change dates I caused by 
+	sloppy cut-and-pasting :-/
+
+2002-05-06  Andy Piper <andy.piper@freeuk.com>
 	
 	* src/mainmenu_callbacks.c: fixed title of new About box
 
-2002-05-03  Andy Piper <andy.piper@freeuk.com>
+2002-05-05  Andy Piper <andy.piper@freeuk.com>
 
 	* src/pixmaps.h: added macros for OpenGL and SDL project icons
 
-2002-05-03  Andy Piper <andy.piper@freeuk.com>
+2002-05-05  Andy Piper <andy.piper@freeuk.com>
 
 	* pixmaps/appwiz_opengl.png, pixmaps/appwiz_sdl.png: added new files
 	* anjuta.prj: updated for new files
