@@ -9,6 +9,9 @@
 	passing it to cvs command line to avoid ambiguties
 	with quotes in the message.
 	
+	* pixmaps/anjuta_icon.png: Changed to the new icon.
+	from Todd Goyen <goyen@mbi-berlin.de>
+	
 2002-04-11 Naba Kumar <kh_naba@users.sourceforge.net>
 
 	Patch from: Tina Hirsch <tehirsch@arcor.de>
