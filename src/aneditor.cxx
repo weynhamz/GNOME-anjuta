@@ -36,6 +36,9 @@
 #include <time.h>
 #include <unistd.h>
 
+/* Use Gtk+ */
+#include <gtk/gtk.h>
+
 #define GTK
 #include "Platform.h"
 #include "PropSet.h"
@@ -53,6 +56,10 @@
 #define MAX_PATH 260
 #define MAXIMUM(x, y)	((x>y)?x:y)
 #define MINIMUM(x,y)	((x<y)?x:y)
+
+/* Colour has mysteriously vanished from scintilla */
+/* Using the substitute */
+typedef class ColourDesired Colour;
 
 template<int sz>
 class EntryMemory {
@@ -2156,7 +2163,9 @@ aneditor_get_widget(AnEditorID handle)
    AnEditor *ed;
    ed = aneditor_get(handle);
    if(!ed) return NULL;
-   return ed->GetID();
+
+   // Forced conversion is safe here, so do it.
+   return (GtkWidget*)ed->GetID();
 }
 
 glong
