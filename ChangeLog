@@ -13,6 +13,7 @@
 	  the time being till GUI/usability issues with the new Search/Replace
 	  stuff is sorted out.
 	* src/search-replace.c: More fixes from Jean-Noel
+	* anjuta.spec.in: Fixed specfile for RH 8
 
 2003-03-21  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
 	* This is the first release candidate for 1.0.2
