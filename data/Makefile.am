@@ -17,8 +17,6 @@ anjuta_data_DATA = \
 	autogen.sh.gnome\
 	autogen.sh.gtk\
 	autogen.sh.generic\
-	linux-gnome-c.api\
-	tags2api.py\
 	autogen.sh.gtkmm\
 	autogen.sh.gnomemm\
 	system.tags
