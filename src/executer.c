@@ -33,7 +33,7 @@
 #include "executer.h"
 #include "resources.h"
 
-#define DEBUG
+/* #define DEBUG */
 
 static GtkWidget* create_executer_dialog(Executer*);
 

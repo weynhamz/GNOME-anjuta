@@ -11,6 +11,8 @@
 	  Escaped quotes in the cammand and it's arguments before executing
 	  so that args with spaces can also work.
 	  
+	  Commented #DEBUG switch.
+	  
 2002-01-25  Naba Kumar <kh_naba@users.sourceforge.net>
 
 	* scripts/*: Added files which I forgot previously.
