@@ -393,7 +393,7 @@ gboolean tm_project_autoscan(TMProject *project)
 	}
 	if (!status)
 	{
-		g_warning("%s if not a top level project directory", project->dir);
+		g_warning("%s is not a top level project directory", project->dir);
 		return FALSE;
 	}
 	if (!(root_dir = tm_file_entry_new(project->dir, NULL, TRUE

@@ -387,13 +387,13 @@ static GnomeUIInfo edit1_menu_uiinfo[NUM_EDIT_MENUS+1] = {
 	
 	{/*15*/
 	 GNOME_APP_UI_ITEM, N_("_Find ..."),
-	 N_("Search for a string or regexp in the editor"),
+	 N_("Search for a string or regular expression in the editor"),
 	 on_find1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_SEARCH,
 	 GDK_F, GDK_CONTROL_MASK, NULL},
 	
 	{/*16*/
-	 GNOME_APP_UI_ITEM, N_("Fin_d in files ..."),
+	 GNOME_APP_UI_ITEM, N_("Fin_d in Files ..."),
 	 N_("Search for a string in multiple files or directories"),
 	 on_find_in_files1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
@@ -401,7 +401,7 @@ static GnomeUIInfo edit1_menu_uiinfo[NUM_EDIT_MENUS+1] = {
 	
 	{/*17*/
 	GNOME_APP_UI_ITEM, N_("Find and R_eplace ..."),
-	N_("Search for and replace a string or regexp with another string"),
+	N_("Search for and replace a string or regular expression with another string"),
 	on_find_and_replace1_activate, NULL, NULL,
 	GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_SRCHRPL,
 	GDK_F, GDK_CONTROL_MASK | GDK_SHIFT_MASK, NULL},
