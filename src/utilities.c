@@ -1226,28 +1226,6 @@ gchar* GetStrCod( const gchar *szIn )
 	return szRet ;
 }
 
-gchar*
-anjuta_util_escape_quotes(const gchar* str)
-{
-	gchar buffer[2048];
-	gint idx;
-	const gchar *s = str;
-	
-	g_return_val_if_fail(str, NULL);
-	idx = 0;
-	
-	while(*s) {
-		if (idx > 2040)
-			break;
-		if (*s == '\"' || *s == '\'' || *s == '\\')
-			buffer[idx++] = '\\';
-		buffer[idx++] = *s;
-		s++;
-	}
-	buffer[idx] = '\0';
-	return g_strdup(buffer);
-}
-
 gchar *get_relative_file_name(gchar *dir, gchar *file)
 {
 	gchar *real_dir = tm_get_real_path(dir);

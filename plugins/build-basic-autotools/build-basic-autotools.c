@@ -367,8 +367,9 @@ on_build_mesg_format (IAnjutaMessageView *view, const gchar *one_line,
 	g_return_if_fail (line != NULL);
 	
 	/* FIXME: What about translations in the following sscanf strings */
-	if ((sscanf (one_line, "make[%d]: Entering directory `%s'", &dummy_int, dir) == 2) ||
-		(sscanf (one_line, "make: Entering directory `%s'", dir) == 1))
+	/* The translations should match that of 'make' program */
+	if ((sscanf (one_line, _("make[%d]: Entering directory `%s'"), &dummy_int, dir) == 2) ||
+		(sscanf (one_line, _("make: Entering directory `%s'"), dir) == 1))
 	{
 		/* FIXME: Hack to remove the last ' */
 		gchar *idx = strchr (dir, '\'');
@@ -376,12 +377,13 @@ on_build_mesg_format (IAnjutaMessageView *view, const gchar *one_line,
 		{
 			*idx = '\0';
 		}
-		DEBUG_PRINT ("Entering: %s", dir);
+		// DEBUG_PRINT ("Entering: %s", dir);
 		build_context_push_dir (context, "default", dir);
 		return;
 	}
-	if ((sscanf (one_line, "make[%d]: Leaving directory `%s'", &dummy_int, dir) == 2) ||
-		(sscanf (one_line, "make: Leaving directory `%s'", dir) == 1))
+	/* Traslation for the following should match that of 'make' program */
+	if ((sscanf (one_line, _("make[%d]: Leaving directory `%s'"), &dummy_int, dir) == 2) ||
+		(sscanf (one_line, _("make: Leaving directory `%s'"), dir) == 1))
 	{
 		/* FIXME: Hack to remove the last ' */
 		gchar *idx = strchr (dir, '\'');
@@ -389,7 +391,7 @@ on_build_mesg_format (IAnjutaMessageView *view, const gchar *one_line,
 		{
 			*idx = '\0';
 		}
-		DEBUG_PRINT ("Leaving: %s", dir);
+		// DEBUG_PRINT ("Leaving: %s", dir);
 		build_context_pop_dir (context, "default", dir);
 		return;
 	}

@@ -1,3 +1,17 @@
+2004-12-08  Naba Kumar  <naba@gnome.org>
+
+	* libanjuta/anjuta-launcher.c, libanjuta/anjuta-utils.c, src/utilities.c,
+	libanjuta/anjuta-utils.h: Added a function to escape quotes in a string.
+	
+	* plugins/cvs-plugin/cvs-actions.c,
+	plugins/cvs-plugin/cvs-execute.c: Escaped commit message. Corrected
+	cvs diff command.
+	
+
+	* plugins/build-basic-autotools/build-basic-autotools.c,
+	plugins/build-basic-autotools/automake-c.filters: Fixed bugs with
+	filters.
+	
 2004-12-07  Naba Kumar  <naba@gnome.org>
 
 	* plugins/build-basic-autotools/build-basic-autotools.c,

@@ -30,7 +30,8 @@
 #include <libgnomevfs/gnome-vfs.h>
 #include "libgen.h"
 
-#include "libanjuta/anjuta-preferences.h"
+#include <libanjuta/anjuta-preferences.h>
+#include <libanjuta/anjuta-utils.h>
 
 /* cvs /command independant options/ /command/ /command options/ /command_arguments/ */
 
@@ -234,6 +235,7 @@ void on_cvs_commit_activate (GtkAction* action, CVSPlugin* plugin)
 		gchar* command;
 		gchar* log;
 		gchar* rev;
+		gchar* escaped_log;
 		GString* options;
 		GtkWidget* logtext;
 		GtkWidget* revisionentry;
@@ -249,9 +251,12 @@ void on_cvs_commit_activate (GtkAction* action, CVSPlugin* plugin)
 		gtk_text_buffer_get_start_iter(textbuf, &iterbegin);
 		gtk_text_buffer_get_end_iter(textbuf, &iterend) ;
 		log = gtk_text_buffer_get_text(textbuf, &iterbegin, &iterend, FALSE);
-#warning FIXME: Check for escape chars in log
-		g_string_append_printf(options, "-m \"%s\"", log);
-		
+/* #warning FIXME: Check for escape chars in log */
+		/* Fixed. -naba*/
+		escaped_log = anjuta_util_escape_quotes (log);
+		g_string_append_printf(options, "-m '%s'", escaped_log);
+		g_free (escaped_log);
+
 		revisionentry = glade_xml_get_widget(gxml, "cvs_revision");
 		rev = g_strdup(gtk_entry_get_text(GTK_ENTRY(revisionentry)));
 		if (strlen(rev))
@@ -405,7 +410,9 @@ void on_cvs_diff_activate (GtkAction* action, CVSPlugin* plugin)
 		if (diff_type_nr == DIFF_PATCH)
 		{
 			add_option(unified_diff, options, "-u");
-			diff = "rdiff";
+			/* FIXME: rdiff do not take -u in my cvs */
+			/* diff = "rdiff"; */
+			diff = "diff";
 		}
 		else
 			diff = "diff";

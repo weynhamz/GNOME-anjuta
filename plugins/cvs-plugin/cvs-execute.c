@@ -253,7 +253,7 @@ cvs_execute_diff(CVSPlugin* plugin, const gchar* command, const gchar* dir)
 	
 	docman = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
 	                                     IAnjutaDocumentManager, NULL);
-	plugin->diff_editor = ianjuta_document_manager_add_buffer(docman, _("CVS diff"), "", NULL);
+	plugin->diff_editor = ianjuta_document_manager_add_buffer(docman, _("cvs.diff"), "", NULL);
 
 
 	cvs_execute_common(plugin, command, dir, on_cvs_diff);

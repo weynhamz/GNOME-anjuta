@@ -37,7 +37,7 @@
 #include "pixmaps.h"
 #include "resources.h"
 #include "anjuta-launcher.h"
-// #include "anjuta.h"
+#include "anjuta-debug.h"
 
 #define FILE_BUFFER_SIZE 1024
 /*
@@ -234,7 +234,7 @@ anjuta_launcher_class_init (AnjutaLauncherClass * klass)
 	g_return_if_fail (klass != NULL);
 	object_class = (GObjectClass *) klass;
 	
-	g_message ("Initializing launcher class");
+	// DEBUG_PRINT ("Initializing launcher class");
 	
 	parent_class = g_type_class_peek_parent (klass);
 	/*
@@ -436,9 +436,8 @@ anjuta_launcher_check_password_real (AnjutaLauncher *launcher,
 	if (anjuta_launcher_is_busy (launcher) == FALSE) return;
 	
 	if (last_line) {
-#ifdef DEBUG
-		// g_message ("(In password) Last line = %s", last_line);
-#endif
+
+		// DEBUG_PRINT ("(In password) Last line = %s", last_line);
 		if (strlen (last_line) < strlen (prompt))
 			return;
 		prompt_index = &last_line[strlen (last_line) - strlen (prompt)];
@@ -480,9 +479,8 @@ anjuta_launcher_check_password (AnjutaLauncher *launcher, const gchar *chars)
 
 	if (!chars || strlen(chars) <= 0)
 		return;
-#ifdef DEBUG
-	// g_message("Chars buffer = %s", chars);
-#endif
+	
+	// DEBUG_PRINT ("Chars buffer = %s", chars);
 	start = end = strlen (chars);
 	while (start > 0 && chars[start-1] != '\n') start--;
 
@@ -490,9 +488,7 @@ anjuta_launcher_check_password (AnjutaLauncher *launcher, const gchar *chars)
 	{
 		last_line = g_strndup (&chars[start], end - start + 1);
 
-#ifdef DEBUG
-		// g_message ("Last line = %s", last_line);
-#endif
+		// DEBUG_PRINT ("Last line = %s", last_line);
 		/* Checks for password, again */
 		anjuta_launcher_check_password_real (launcher, last_line);
 		g_free (last_line);
@@ -552,9 +548,7 @@ anjuta_launcher_buffered_output (AnjutaLauncher *launcher,
 	if (strlen(incomplete_line))
 	{
 		*buffer = g_strdup (incomplete_line);
-#ifdef DEBUG
-		// g_message ("Line buffer for %d: %s", output_type, incomplete_line);
-#endif
+		// DEBUG_PRINT ("Line buffer for %d: %s", output_type, incomplete_line);
 	}
 	/* Check for password prompt */
 	if (launcher->priv->check_for_passwd_prompt)
@@ -594,9 +588,7 @@ anjuta_launcher_scan_output (GIOChannel *channel, GIOCondition condition,
 		/* if not related to non blocking read or interrupted syscall */
 		else if (err && errno != EAGAIN && errno != EINTR)
 		{
-#ifdef DEBUG
-			g_message(_("launcher.c: Error while reading child stdout\n"));
-#endif
+			// DEBUG_PRINT (_("launcher.c: Error while reading child stdout\n"));
 			launcher->priv->stdout_is_done = TRUE;
 			anjuta_launcher_synchronize (launcher);
 			ret = FALSE;
@@ -606,9 +598,7 @@ anjuta_launcher_scan_output (GIOChannel *channel, GIOCondition condition,
 	}
 	if ((condition & G_IO_ERR) || (condition & G_IO_HUP))
 	{
-#ifdef DEBUG
-		g_message(_("launcher.c: STDOUT pipe closed"));
-#endif
+		// DEBUG_PRINT (_("launcher.c: STDOUT pipe closed"));
 		launcher->priv->stdout_is_done = TRUE;
 		anjuta_launcher_synchronize (launcher);
 		ret = FALSE;
@@ -642,9 +632,7 @@ anjuta_launcher_scan_error (GIOChannel *channel, GIOCondition condition,
 		/* if not related to non blocking read or interrupted syscall */
 		else if (err && errno != EAGAIN && errno != EINTR)
 		{
-#ifdef DEBUG
-			g_message(_("launcher.c: Error while reading child stderr"));
-#endif
+			// DEBUG_PRINT (_("launcher.c: Error while reading child stderr"));
 			launcher->priv->stderr_is_done = TRUE;
 			anjuta_launcher_synchronize (launcher);
 			ret = FALSE;
@@ -654,9 +642,7 @@ anjuta_launcher_scan_error (GIOChannel *channel, GIOCondition condition,
 	}
 	if ((condition & G_IO_ERR) || (condition & G_IO_HUP))
 	{
-#ifdef DEBUG
-		g_message (_("launcher.c: STDERR pipe closed"));
-#endif
+		// DEBUG_PRINT (_("launcher.c: STDERR pipe closed"));
 		launcher->priv->stderr_is_done = TRUE;
 		anjuta_launcher_synchronize (launcher);
 		ret = FALSE;
@@ -713,9 +699,7 @@ anjuta_launcher_scan_pty (GIOChannel *channel, GIOCondition condition,
 	/* Do not hook up for G_IO_HUP */
 	if (condition & G_IO_ERR)
 	{
-#ifdef DEBUG
-		g_message(_("launcher.c: PTY pipe error!"));
-#endif
+		// DEBUG_PRINT (_("launcher.c: PTY pipe error!"));
 		ret = FALSE;
 	}
 	return ret;
@@ -755,9 +739,7 @@ anjuta_launcher_execution_done_cleanup (AnjutaLauncher *launcher)
 	   launch a new child from the terminate function.
 	   (by clubfan 2002-04-07)
 	*/
-#ifdef DEBUG
-	g_message ("Exit status: %d", child_status);
-#endif
+	// DEBUG_PRINT ("Exit status: %d", child_status);
 	g_signal_emit_by_name (launcher, "child-exited", child_pid, child_status,
 						   time (NULL) - start_time);
 }
@@ -768,20 +750,17 @@ anjuta_launcher_check_for_execution_done (gpointer data)
 {
 	AnjutaLauncher *launcher = data;
 	
-#ifdef DEBUG	
-	g_message ("launcher_execution_done STDOUT:%d, STDERR:%d",
-			   launcher->priv->stdout_is_done ? 1 : 0,
-			   launcher->priv->stderr_is_done ? 1 : 0);
-#endif
-
+/*
+	DEBUG_PRINT ("launcher_execution_done STDOUT:%d, STDERR:%d",
+				 launcher->priv->stdout_is_done ? 1 : 0,
+				 launcher->priv->stderr_is_done ? 1 : 0);
+*/
 	if (launcher->priv->stdout_is_done == FALSE ||
 	    launcher->priv->stderr_is_done == FALSE)
 		return TRUE;
 	if (launcher->priv->child_has_terminated == FALSE)
 	{
-#ifdef DEBUG
-		g_warning ("launcher: We missed the exit of the child");
-#endif
+		// DEBUG_PRINT ("launcher: We missed the exit of the child");
 		anjuta_children_init();
 	}
 	
@@ -794,9 +773,7 @@ anjuta_launcher_child_terminated (int status, gpointer data)
 {
 	AnjutaLauncher *launcher = data;
 	
-#ifdef DEBUG	
-	g_message ("Terminal child terminated called .. status = %d", status);
-#endif
+	// DEBUG_PRINT ("Terminal child terminated called .. status = %d", status);
 	
 	/* Save child exit code */
 	launcher->priv->child_status = status;
@@ -944,9 +921,8 @@ anjuta_launcher_fork (AnjutaLauncher *launcher, gchar *const args[])
 		g_io_add_watch (launcher->priv->pty_channel,
 						G_IO_IN | G_IO_ERR, /* Do not hook up for G_IO_HUP */
 						(GIOFunc)anjuta_launcher_scan_pty, launcher);
-#ifdef DEBUG
-	g_message ("Terminal child forked: %d", launcher->priv->child_pid);
-#endif
+	
+	// DEBUG_PRINT ("Terminal child forked: %d", launcher->priv->child_pid);
 	anjuta_children_register (launcher->priv->child_pid,
 							  anjuta_launcher_child_terminated,
 							  launcher);

@@ -803,3 +803,30 @@ anjuta_util_parse_args_from_string (const gchar* string)
 	}
 	return args;
 }
+
+gchar*
+anjuta_util_escape_quotes(const gchar* str)
+{
+	gchar *buffer;
+	gint idx, max_size;
+	const gchar *s = str;
+	
+	g_return_val_if_fail(str, NULL);
+	idx = 0;
+	
+	/* We are assuming there will be less than 2048 chars to escape */
+	max_size = strlen(str) + 2048;
+	buffer = g_new (gchar, max_size);
+	max_size -= 2;
+	
+	while(*s) {
+		if (idx > max_size)
+			break;
+		if (*s == '\"' || *s == '\'' || *s == '\\')
+			buffer[idx++] = '\\';
+		buffer[idx++] = *s;
+		s++;
+	}
+	buffer[idx] = '\0';
+	return buffer;
+}
