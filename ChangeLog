@@ -1,3 +1,8 @@
+2003-11-18  Naba Kumar  <naba@gnome.org>
+
+	* src/anjuta-encodings.c, src/preferences.c: Renamed all variable
+	names of 'index' to 'idx'.
+	
 2003-11-17  Naba Kumar  <naba@gnome.org>
 
 	Patch from: arief_mulya  <arief_m_utama@telkomsel.co.id>

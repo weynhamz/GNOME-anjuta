@@ -164,9 +164,9 @@ get_property_value_as_string (AnjutaProperty *prop)
 		break;
 	case ANJUTA_PROPERTY_OBJECT_TYPE_MENU:
 		values = g_object_get_data(G_OBJECT(prop->object), "untranslated");
-		int index = gtk_option_menu_get_history(GTK_OPTION_MENU(prop->object));
-		if (values[index] != NULL)
-			text_value = g_strdup(values[index]);
+		int idx = gtk_option_menu_get_history(GTK_OPTION_MENU(prop->object));
+		if (values[idx] != NULL)
+			text_value = g_strdup(values[idx]);
 		break;
 	case ANJUTA_PROPERTY_OBJECT_TYPE_TEXT:
 		{
@@ -906,15 +906,15 @@ info:
 */
 static gchar*
 glade_get_from_toplevel_child_name_nth(GladeInterface *gi,
-									   gchar *toplevel_name, gint index)
+									   gchar *toplevel_name, gint idx)
 {
 	GladeWidgetInfo *wi;
-	gint dd = index + 1;
+	gint dd = idx + 1;
     
 	wi = glade_get_toplevel_by_name (gi, toplevel_name);
 	if (wi == NULL)
 		return NULL;
-	if (index>wi->children->child->n_children)
+	if (idx > wi->children->child->n_children)
 		return NULL;
 	while (dd--)
 	{

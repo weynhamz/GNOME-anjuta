@@ -41,7 +41,7 @@
 
 struct _AnjutaEncoding
 {
-  gint   index;
+  gint   idx;
   gchar *charset;
   gchar *name;
 };
@@ -266,7 +266,7 @@ anjuta_encoding_lazy_init (void)
 	i = 0;
 	while (i < ANJUTA_ENCODING_LAST)
 	{
-		g_return_if_fail (encodings[i].index == i);
+		g_return_if_fail (encodings[i].idx == i);
 
 		/* Translate the names */
 		encodings[i].name = _(encodings[i].name);
@@ -297,16 +297,16 @@ anjuta_encoding_get_from_charset (const gchar *charset)
 }
 
 const AnjutaEncoding *
-anjuta_encoding_get_from_index (gint index)
+anjuta_encoding_get_from_index (gint idx)
 {
-	g_return_val_if_fail (index >= 0, NULL);
+	g_return_val_if_fail (idx >= 0, NULL);
 
-	if (index >= ANJUTA_ENCODING_LAST)
+	if (idx >= ANJUTA_ENCODING_LAST)
 		return NULL;
 
 	anjuta_encoding_lazy_init ();
 
-	return &encodings [index];
+	return &encodings [idx];
 }
 
 gchar *
