@@ -1,3 +1,8 @@
+2002-07-15	Naba Kumar	<kh_naba@users.sourceforge.net>
+	
+	* NEWS: Updated.
+	* scintilla/KeyWords.cxx: Fixed a complie bug.
+
 2002-07-02	Naba Kumar	<kh_naba@users.sourceforge.net>
 
 	* src/aneditor.cxx: Expression tip not shown when
