@@ -135,6 +135,7 @@ on_cvs_remove_response(GtkDialog* dialog, gint response, CVSData* data)
 		}
 	
 		anjuta_cvs_remove(ANJUTA_PLUGIN(data->plugin), filename, NULL);
+		gtk_widget_destroy (GTK_WIDGET(dialog));
 		cvs_data_free(data);
 		break;
 		}

@@ -38,6 +38,12 @@
 static GtkWidget* status_text;
 
 static void
+on_mesg_view_destroy(CVSPlugin* plugin, gpointer destroyed_view)
+{
+	plugin->mesg_view = NULL;
+}
+
+static void
 on_cvs_mesg_format (IAnjutaMessageView *view, const gchar *line,
 					  AnjutaPlugin *plugin)
 {
@@ -152,7 +158,8 @@ on_cvs_message (AnjutaLauncher *launcher,
 					   const gchar * mesg, gpointer user_data)
 {
 	CVSPlugin* plugin = (CVSPlugin*)user_data;
-	ianjuta_message_view_buffer_append (plugin->mesg_view, mesg, NULL);
+	if (plugin->mesg_view)
+		ianjuta_message_view_buffer_append (plugin->mesg_view, mesg, NULL);
 }
 
 static void 
@@ -226,13 +233,21 @@ cvs_execute_common (CVSPlugin* plugin, const gchar* command, const gchar* dir,
 		
 	mesg_manager = anjuta_shell_get_interface 
 		(ANJUTA_PLUGIN (plugin)->shell,	IAnjutaMessageManager, NULL);
-	plugin->mesg_view =
-		ianjuta_message_manager_add_view (mesg_manager, _("CVS"), 
-		CVS_ICON, NULL);
-	g_signal_connect (G_OBJECT (plugin->mesg_view), "buffer-flushed",
-					  G_CALLBACK (on_cvs_mesg_format), plugin);
-	g_signal_connect (G_OBJECT (plugin->mesg_view), "message-clicked",
-					  G_CALLBACK (on_cvs_mesg_parse), plugin);
+	plugin->mesg_view = 
+	    ianjuta_message_manager_get_view_by_name(mesg_manager, _("CVS"), NULL);
+	if (!plugin->mesg_view)
+	{
+		plugin->mesg_view =
+		     ianjuta_message_manager_add_view (mesg_manager, _("CVS"), 
+											   CVS_ICON, NULL);
+		g_object_weak_ref (G_OBJECT (plugin->mesg_view), 
+						  (GWeakNotify)on_mesg_view_destroy, plugin);
+		g_signal_connect (G_OBJECT (plugin->mesg_view), "buffer-flushed",
+						  G_CALLBACK (on_cvs_mesg_format), plugin);
+		g_signal_connect (G_OBJECT (plugin->mesg_view), "message-clicked",
+						  G_CALLBACK (on_cvs_mesg_parse), plugin);
+	}
+	ianjuta_message_view_clear(plugin->mesg_view, NULL);
 
 	if (plugin->launcher == NULL)
 	{

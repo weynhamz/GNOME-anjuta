@@ -5,21 +5,13 @@ Development mailing list or the project maintainer)
 
 Getting Started:
 ---------------
-The first thing to do is to decide whether you want to work on Anjuta or
-Anjuta2. Briefly, Anjuta2 has a much cleaner architecture, so if you are
-a component/OOP freak, or are hear to teach yourself good GNOME
-programming, anjuta2 might be the right place. OTOH, Anjuta has many
-more features and is (arguably) more actively developed and maintained.
-So, if you want to contribute to an IDE that works now and use it
-yourself, IMO you're better off contributing to Anjuta. There are plans
-for a merge of some sort in the future.
 
-Second thing to do is to get a build working. Both anjuta and anjuta2 can be
+First thing to do is to get a build working. Both anjuta and anjuta2 can be
 built using jhbuild, which is the recommended way to build GNOME
-2.2. and Anjuta(2). It is advisable to use '--enable-warnings
+2.x and Anjuta2. It is advisable to use '--enable-warnings
 --enable-debug' with configure while building anjuta if you want to hack
-on it. Anjuta can be used to hack on Anjuta, and there is a anjuta.prj
-file in CVS for this purpose.
+on it. Anjuta can be used to hack on Anjuta, and there is a anjuta.anjuta
+project file in CVS for this purpose.
 
 Once you have got anjuta built and loaded in itself, the most important
 thing is to decide what to work on (the TODO, as you say). There are
@@ -47,16 +39,10 @@ and RFE database at the sourceforge page (http://sf.net/projects/anjuta). You
 can also have a look at the reasonably up-to-date TODO file we maintain
 in the source code.
 
-4. Working on the porting anjuta features to anjuta2. This is a noble
+4. Working on the porting anjuta 1.2 features to anjuta2. This is a noble
 undertaking but likely to be hard work, and probably not suitable for
-newbie developers.
-
-5. Working on porting anjuta2 architecture to anjuta. This is probably
-the most difficult one. However, if you are an experienced developer,
-you'll find this enormously rewarding and very challenging. Read the
-ROADMAP file that comes with the source code to understand where we are
-and where we want to be in the long term. Then pick up one of the action
-points and try to implement it.
+newbie developers. Note that this is most code and plugins are ported but 
+they might not yet be as good as in anjuta 1.2.
 
 Resources:
 ----------
@@ -65,20 +51,20 @@ Resources:
 - CVS snapshots: http://www.anjuta.org/cvs/
 - Anonymous CVS Access: cvs -z3 -d:pserver:anonymous@anoncvs.gnome.org:/cvs/gnome co anjuta
 - Mailing Lists: http://sourceforge.net/mail/?group_id=14222
-- Bug database: http://sourceforge.net/tracker/?atid=114222&group_id=14222&func=browse
-- Feature Requests: http://sourceforge.net/tracker/?atid=364222&group_id=14222&func=browse
+- Bug database: http://bugzilla.gnome.org (the module is called anjuta)
+- Feature Requests: See Bug database above
 - Forums: http://sourceforge.net/forum/?group_id=14222
 - IRC: irc.gnome.org (Channel: #anjuta and #devel-apps)
 
 Tools:
 -----
-IMPORTANT: please be careful about using Anjuta to develop Anjuta.
-Any instabilities in the development version may cause problems.
 
 Anjuta is written using a mixture of C and C++. You will require
 the standard GNU tool chain and current stable GNOME libraries to 
 build and work with the Anjuta sources.
-
+New code should be in C as long as it does not touch the scintilla
+editing component. C++ code is only allowed in the editor or if you 
+need a library which is only availible in C++.
 
 Submitting patches:
 ------------------
@@ -126,6 +112,8 @@ cvs -d:pserver:annocvs[123].gnome.org:/cvs/gnome/anjuta
 Details about the anonymous CVS servers can be obtained by issuing the 
 command "host annocvs.gnome.org"
 
+(Note: You can of course use the cvs plugin for all this stuff)
+
 4) If the patch is big or is not high priority (i.e. things other than 
 stability patches), then either send it to the lead developers directly 
 (cc-ing them together is a nice idea), or post it on the sourceforge page. 
@@ -143,6 +131,34 @@ bug-544912.diff as the names are more meaningful. Include the bug number
 or your name and the date in the name of the file. Thanks!
 
 
+Coding style:
+--------------
+
+Anjuta coding style differs from file to file but usually following example
+show some kind of standard:
+
+int
+function ()
+{
+	if (x == y)
+	{
+
+	}
+}
+
+Well, both void* pointer and void *pointer are used...
+(to be extended)
+
+- Please try to write Oo-code using GObject as baseclass. This will lead to
+better design and clear module separation.
+- If possible gnome-vfs is preferred to standard UNIX IO functions.
+- Try to avoid forward declaration of static functions, try to keep them in 
+order instead
+- Use descriptive variable names like filename instead of f and cur_item instead
+of i.
+- If you use a "hack" please add a comment and say why this could not be done
+cleaner.
+
 General source structure:
 ------------------------
 When editing the code, adding new classes or methods, etc. please 
@@ -151,9 +167,9 @@ conform with the style already followed in the source files.
 If a section of code will require further work, please add helpful
 comments of the form /* FIXME: ... */
 
-Conventions:
-* _cbs suffix - callbacks
-* _gui suffix - UI definitions for windows, dialogs etc.
+Separator in filename:
+You should always use - instead of _, meaning anjuta-plugin.h
+insted of anjuta_plugin.h
 
 Key elements:
 * src/ - the main Anjuta sources
@@ -182,7 +198,7 @@ include/	->	scintilla/include
 These are used to compile libscintilla.a, the library which provides
 the bulk of Anjuta's editing functions.
 
-The interface into Scintilla is in src/aneditor.cxx. This is based on
+The interface into Scintilla is in src/aneditor-*.cxx. This is based on
 SciTE and a lot of care needs to be taken when merging code, since it
 combines several different files from the SciTE source tree and is
 quite flexible in the ways that they are used. Also, note that lexer
@@ -253,8 +269,9 @@ graphics and do not use the filenames directly.
 
 ARCHITECTURE:
 -------------
-The current architecture is rather monolithic and inflexible. There is a drive
-undergoing to change this. Please have a look at the ROADMAP file for details.
+
+You can find the API documentation of anjuta in the 
+"Anjuta Developers Reference Manual" devhelp book!
 
 1) Event Driven:
 ----------------
@@ -268,230 +285,40 @@ class updates etc. While asynchronous event-driven implementation is more
 complex than it's synchronous counter part, it gives a smooth and non frustrative
 operation. :-)
 
-1a) Executing external commands in non-blocking mode:
------------------------------------------------------
-
-launcher (launcher.[c,h]) is the class responsible for executing external commands in
-non-blocking mode. launcher_execute takes 4 arguments, first is the command
-to be executed, second is the stdout callback, stderr callback and the child
-terminated callback. They are called when there is chars available in the
-stdout and stderr and when the child terminates respectively.
-
-<pre>
-/* Start a job. */
-/* command_str is the command to be executed */
-/* stdout_func is the callback to be called when chars are received in STDOUT from the process */
-/* stderr_func is the callback to be called when chars are received in STDERR from the process */
-/* commnad_terminated is the callback to be called when the job is completed or terminated */
-gboolean launcher_execute(gchar* command_str,
-                               void (*stdout_func)(gchar*),
-                               void (*stderr_func)(gchar*),
-                               void (*command_terminated)(gint status, time_t time));
-
-The three callbacks stated above should be of the following prototype:
-
-/* The function names are arbitary */
-void stdout_func (gchar * chars);
-void stderr_func (gchar * chars);
-void command_terminated (int return_status, time_t total_time);
-</pre>
-
-Refer to the file launcher.h for further information and
-Remember to use this launcher instead of gtk/glib non-blocking IO interface.
-
-1b) Process synchronization:
-----------------------------
-The rest of the processes, which are quick (less that 1/10 sec) in execution
-or whose IO interfaces are not necessary, can safely be forked just like a
-normal fork. For shorter execution wait() system call would suffice it's
-synchronization when the process ends, but for longer jobs, asynchronous
-notification is suggested.
-
-For asynchronous notification of child termination, a few additional steps
-are needed to be done just after the fork() call. Register the child pid
-with the call to anjuta_register_child(). It takes two arguments, first the
-child pid and second, the callback to be called when the process with that
-pid terminates. The call to the callback is shipped with the child exit status.
-
-<pre>
-/* Registers the child for asynchronous notification */
-void anjuta_register_child_process (pid_t pid,
-			       void (*callback) (int status, gpointer user_data),
-			       gpointer user_data);
-
-/* Unregisters the child. No notification will be emited thereafter. */
-void anjuta_unregister_child_process (pid_t pid);
-
-The callback should be of the following prototype:
-
-/* function name choosen arbitarily */
-void child_terminated_callback (int status, gpointer user_data);
-</pre>
-
-For further information, refer to the file anjuta.c.
-
-WARNING: Do not hook up the signal SIGCHLD, for the similar purpose. Just use
-the above method to perform the same thing. SIGCHLD is used by Anjuta 
-internally to manage the children.
+For details how to use the anjuta-launcher interface consult the 
+IAnjutaLauncher reference.
 
 2) How to add new menu items in the Main Menu:
 ----------------------------------------------
-The files to look for are main_menubar_def.h, mainmenu_callbacks.[ch] and
-main_menubar.[ch]. You might also need to have a peek at controls.[ch].
 
-2a) How to add new menu items in the Edit->Insert menu:
--------------------------------------------------------
-There are 6 files which need to be updated.
+Anjuta is using GtkUIManager for creating it's menus. Libanjuta does provide
+some wrapper functions in anjuta-ui.h. Take a look at the *.ui files in the 
+plugins, the Plugin docs in the reference and read the GtkUIManager docs for
+details.
 
-* main_menubar_def.h - update insert_submenu_uiinfo (and others 
-e.g. inserttext1_submenu_uiinfo) to add the item, help text and name of the 
-callback function.
-* main_menubar.h - update struct _EditSubMenu with the name of the menu widget
-* main_menubar.c - update the array of items referenced around mb->edit.insert_*
-* mainmenu_callbacks.h, mainmenu_callbacks.c - declare the name of the new callback 
-function in the header file, and add the new function itself based on the
-existing on_insert_*() functions
-* controls.c - update the list of gtk_widget_set_sensitive calls with a new entry for 
-the menu widget em->insert_* (as specified in main_menubar.h)
 
 3) How to add new toolbar items in the Toolbars:
 ------------------------------------------------
-Have a look at toolbar.[ch] and controls.[ch].
+This is alos done by with ui files, see above.
 
 
 4) Dialogs and Windows:
 -----------------------
-When adding new dialogs or windows, please ensure...
 
-- the WMCLASS attribute is set to a unique value
-- a default icon is defined
-Dialogs will take the Anjuta app icon by default, but windows (GtkWindow) will 
-need the following lines added to their creation code:
-
-<pre>
-#include <libgnomeui/gnome-window-icon.h>
-...
-    gnome_window_icon_set_from_default(GTK_WINDOW(window1));
-</pre>
-
+Dialogs and Windows should be build using libglade. They should be HIG compliant
+(http://developer.gnome.org/projects/gup/hig/)
 
 5) Property/Config management:
 ------------------------------
-Anjuta does not use gconf (at least, not now), and instead has its own config 
-manager/properties manager. The source for this is in src/properties.cxx.
-There are some advantages in using this over gconf, including the ability to
-do variable substitution. Anjuta needs these advantages to operate properly.
-Even though gconf have additional advantages, we are not really concerned about
-them right now. In future, things may change, though.
 
-FIXME.
-
-When Anjuta was started, there were not many application support libraries.
-To cope up with the requirements, anjuta had to implement the supports within
-itself. And it is still going.
-
-6) Global shortcut keys:
-------------------------
-<pre>
-The following callback (located in anjuta.c) :
-
-gint
-on_anjuta_window_key_press_event (GtkWidget   *widget,
-				  GdkEventKey *event,
-				  gpointer     user_data)
-</pre>
-
-is called when some key is pressed in the whole environement, because the
-event is triggered off by the main GtkWindow. It has been created for navigating
-between the different buffers (Ctrl-[Shift]-Tab).
-
-It's aim is to implement global shortcut keys. For now on, it only works in the main window.
-
-Note : It's possible to install such an handler in the other windows if it's
-really needed, so the new callback can propagate the event to app (the GnomeApp)
-and we'll have a central place for those shortcuts.
-
-6a) How to add a global shortcut:
----------------------------------
-It's pretty self-explanatory, but here's the "how to" :
-
-Just before the callback, you have some GDK modifiers "shortcuts", just because
-it's a pain to write this each time, and the 'm_' stuff makes you see in an instant
-which modifiers are used (Shift or Control) :
-
-<pre>
-enum {
-	m__ = 0,
-	mS_ = GDK_SHIFT_MASK,
-	m_C = GDK_CONTROL_MASK,
-	mSC = GDK_SHIFT_MASK | GDK_SHIFT_MASK
-};
-
-These are to ease filling the structure (1) : 
-
-You add an id for your shortcut in the enum : 
-
-enum {
-	ID_NEXTBUFFER = 0,
-	ID_PREVBUFFER = 1
-	...
-};
-
-Then, you add a line with the modifiers used, the GDK corresponding key, and the
-shortcut id.
-
-(1):
-
-static ShortcutMapping global_keymap[] = {
-	{ m_C, GDK_Tab,		 ID_NEXTBUFFER },
-	{ mSC, GDK_ISO_Left_Tab, ID_PREVBUFFER },
-	...
-	{ 0,   0		 0 }
-};
-
-Finally, you add a case in the callback's switch :
-
-gint
-on_anjuta_window_key_press_event (GtkWidget   *widget,
-	...
-
-	switch (global_keymap[i].id) {
-	case ID_xxx:
-		<statements>
-
-		break;
-	}
-	default:
-		return FALSE;
-	}
-
-	...
-	
-</pre>
+Anjuta has a very powerful project management. You can read the docs of
+AnjutaPreferences in the reference.
 
 7) How to add a new project type:
 ---------------------------------
-It is currently a bit difficult - the code is spread around and not
-very consistent. 
 
-Things to do as a start:
-
-- in project_type.c and add an array for your project type (this 
-is well-commented). Add it to the load_project_type function.
-- in project_dbase.h: Add your project type to the enum PROJECT_TYPE_*
-- in wizard_gui.c: create_project_type_selection_page():
-Add an icon to the list for the project type and define it in pixmaps.h
-(If you are a bad artist, it might be good to ask for help with this on 
-the mailing list)
-- appwiz_page1.c: Add your type in on_wizard_app_icon_select()
-
-So that was the easy part ;-)
-
-Now search for every occurrence of PROJECT_TYPE_* and project_type_* in 
-the code, and decide if you have anything to add (there are about 
-10 places where it occurs).
-
-Good luck!
+FIXME: For no take a look at the project types in 
+plugins/project-wizard/templates
 
 8) How to correctly credit people:
 ----------------------------------
