@@ -845,7 +845,7 @@ done:
 	extended_toolbar_update ();
 	tags_manager_load (app->tags_manager);
 	project_dbase_update_tags_image(p);
-
+	anjuta_update_app_status(FALSE, NULL);
 	anjuta_status (_("Project loaded successfully."));
 	anjuta_set_active ();
 	if (show_project)
