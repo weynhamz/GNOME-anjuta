@@ -1,5 +1,7 @@
 2005-03-07  Naba Kumar  <naba@gnome.org>
 
+	* plugins/subversion/Makefile.am: Fixed build error.
+
 	* plugins/editor/anjuta-document-manager-plugin.in: Added some mime
 	types (perl, python, shellscript).
 	

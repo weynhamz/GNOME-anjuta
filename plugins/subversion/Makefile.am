@@ -33,19 +33,19 @@ plugin_LTLIBRARIES = libanjuta-subversion.la
 libanjuta_subversion_la_LIBADD = \
 	$(LIBANJUTA_LIBS) $(PCRE_LIBS) $(SVN_LIB)
 libanjuta_subversion_la_SOURCES = \
-	svn-backend.c            \
-	svn-backend.h            \
-	svn-notify.c            \
-	svn-notify.h            \
-	plugin.c            \
-	plugin.h            \
-	subversion-actions.c            \
-	subversion-actions.h            \
-	subversion-callbacks.c            \
-	subversion-callbacks.h            \
-	svn-thread.c            \
-	svn-thread.h            \
-	svn-backend-priv.h 
+	svn-backend.c \
+	svn-backend.h \
+	svn-notify.c \
+	svn-notify.h \
+	plugin.c \
+	plugin.h \
+	subversion-actions.c \
+	subversion-actions.h \
+	subversion-callbacks.c \
+	subversion-callbacks.h \
+	svn-thread.c \
+	svn-thread.h \
+	svn-backend-priv.h \
 	svn-backend.h
 
 endif
