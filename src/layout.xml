@@ -25,6 +25,9 @@
 						<placeholder name="ph_bottom" next-placement="bottom"/>
 						<placeholder name="ph_top" next-placement="bottom"/>
 					</item>
+					<item name="AnjutaDebuggerStack" orientation="horizontal" locked="no"/>
+					<item name="AnjutaDebuggerLocals" orientation="horizontal" locked="no"/>
+					<item name="AnjutaDebuggerWatch" orientation="horizontal" locked="no"/>
 				</notebook>
 			</paned>
 		</dock>

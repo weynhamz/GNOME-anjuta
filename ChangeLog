@@ -13,6 +13,11 @@
 	later when we figure out runtime docking.
 
 	* plugins/sample1/*: Restored to last working state.
+
+	* plugins/gdb/debugger.c, src/layout.xml: Added debugger
+	windows in lower pane. Named the windows appropriately.
+
+	* ChangeLog: Fixed format.
 	
 2004-11-07  Pavol Bosik <pavol.bosik@radiantsystems.com>
 
@@ -28,17 +33,18 @@
 	plugins/gdb/plugin.h: fixed "Toggle breakpoint" feature
 
 2004-11-06  Jean-NoelGuiheneuf <guiheneuf.jean-noel@wanadoo.fr>
-	* plugins/editor/anjuta-docman.h plugins/editor/plugin.c 
-	* plugins/editor/search-replace.c
-	* plugins/message-view/anjuta-msgman.c plugins/message-view/plugin.c
-	 Search and Replace : Show result in find pane
+	* plugins/editor/anjuta-docman.h plugins/editor/plugin.c,
+	plugins/editor/search-replace.c,
+	plugins/message-view/anjuta-msgman.c plugins/message-view/plugin.c:
+	Search and Replace; Show result in find pane
 	  
 2004-11-03  Johannes Schmid <jhs@cvs.gnome.org>
 	
 	* plugins/gdb, plugins/debug-manager: Applied debugger patch
 	from Bosik, Pavol <pavol.bosik@radiantsystems.com>
 	(added features: starting debugger and loading of core/executable,
-	StepIn, StepOut, StepOver and Execute, toggling breakpoint partially works)
+	StepIn, StepOut, StepOver and Execute, toggling breakpoint
+	partially works)
 
 2004-11-03  Johannes Schmid <jhs@cvs.gnome.org>
 	
@@ -51,47 +57,45 @@
 
 2004-10-22  Johannes Schmid <jhs@cvs.gnome.org>
 	
-	* plugins/cvs-plugin/cvs-execute.[ch]: Add basic command execute infrastructure
-	* plugins/cvs-plugin/plugin.c, /plugins/cvs-plugin/anjuta-cvs-plugin.glade:
+	* plugins/cvs-plugin/cvs-execute.[ch]: Add basic command execute
+	infrastructure
+	* plugins/cvs-plugin/plugin.c,
+	/plugins/cvs-plugin/anjuta-cvs-plugin.glade:
 	Added preferences dialog (not yet complete)
 
 2004-10-22  Johannes Schmid <jhs@cvs.gnome.org>
 	
-	* global-tags/Makefile.am
-	mime/Makefile.am
-	
+	* global-tags/Makefile.am, mime/Makefile.am:
 	Some fixes in build process from Alexey Rusakov <ktirf@users.sf.net>
 	
-	* template/xmltemplate.[ch]
-	template/xmlstrings.[ch]
-	template/autotools.[ch] removed
-	template/prj_template.[ch] removed
-	template/lang_template.[ch] removed
-	template/lib_template.[ch] removed
-	template/Makefile.am adjusted
-	template/dtds/lang.dtd removed	
-	template/dtds/lib.dtd removed
-	template/dtds/prj.dtd removed
-	template/dtds/autotools.dtd removed
-	data/template/lib/* removed
-	data/template/language/* removed
-	data/template/library/* removed
-	data/template/project/* removed	
-	date/template/Makefile.am adjusted
-	
+	* template/xmltemplate.[ch],
+	template/xmlstrings.[ch],
+	template/autotools.[ch] removed,
+	template/prj_template.[ch] removed,
+	template/lang_template.[ch] removed,
+	template/lib_template.[ch] removed,
+	template/Makefile.am adjusted,
+	template/dtds/lang.dtd removed,	
+	template/dtds/lib.dtd removed,
+	template/dtds/prj.dtd removed,
+	template/dtds/autotools.dtd removed,
+	data/template/lib/* removed,
+	data/template/language/* removed,
+	data/template/library/* removed,
+	data/template/project/* removed,
+	date/template/Makefile.am adjusted:
 	Remove everything except text-templates to replace hardcoded 
 	Edit->Insert texts with dynamic loaded.
 
-	* plugins/cvs-plugin/plugin.[ch]
-	plugins/cvs-actions.[ch]
-	plugins/Makefile.am
-	plugins/cvs-plugin/Makefile.am
-	plugins/cvs-plugin/anjuta-cvs-plugin.ui
-	plugins/cvs-plugin/anjuta-cvs-plugin.glade
-	plugins/cvs-plugin/anjuta-cvs.plugin.in
-	
+	* plugins/cvs-plugin/plugin.[ch],
+	plugins/cvs-actions.[ch],
+	plugins/Makefile.am,
+	plugins/cvs-plugin/Makefile.am,
+	plugins/cvs-plugin/anjuta-cvs-plugin.ui,
+	plugins/cvs-plugin/anjuta-cvs-plugin.glade,
+	plugins/cvs-plugin/anjuta-cvs.plugin.in:
 	Added initial cvs-plugin code
-		
+
 2004-10-21  Naba Kumar  <naba@gnome.org>
 	
 	* libanjuta/anjuta-plugin.c,

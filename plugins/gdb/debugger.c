@@ -112,13 +112,13 @@ debugger_init ()
 
 	debugger.breakpoints_dbase = breakpoints_dbase_new ();
 	debugger.stack = stack_trace_new ();
-	gdb_add_widget (stack_trace_get_treeview (debugger.stack), "AnjutaStack",
+	gdb_add_widget (stack_trace_get_treeview (debugger.stack), "AnjutaDebuggerStack",
 		_("Stack"), STACK_ICON_FILE);
 	debugger.locals = locals_create ();
-	gdb_add_widget (locals_get_main_widget (debugger.locals), "AnjutaLocals",
+	gdb_add_widget (locals_get_main_widget (debugger.locals), "AnjutaDebuggerLocals",
 		_("Locals"), LOCALS_ICON_FILE);
 	debugger.watch = expr_watch_new ();
-	gdb_add_widget (debugger.watch->widgets.clist, "AnjutaWatch",
+	gdb_add_widget (debugger.watch->widgets.clist, "AnjutaDebuggerWatch",
 		_("Watches"), WATCH_ICON_FILE);
 	debugger.cpu_registers = cpu_registers_new ();
 	debugger.signals = signals_new ();
