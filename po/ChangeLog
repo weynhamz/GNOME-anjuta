@@ -7,8 +7,8 @@
 
 	* ChangeLog: gettextize spew cleanup.
 
-	* POTFILES.in: Added missing ccview/* files to the list of
-		translatable files.
+	* POTFILES.in: Added missing files (in ccview/ and the desktop file)	
+		to the list of translatable files.
 
 2001-06-27  Yukihiro Nakai <nakai@gnome.gr.jp>
 
