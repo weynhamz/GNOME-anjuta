@@ -26,6 +26,7 @@
 #include "mainmenu_callbacks.h"
 #include "main_menubar_def.h"
 #include "fileselection.h"
+#include "widgets/scroll-menu.h"
 
 static void on_file_menu_realize (GtkWidget * widget, gpointer data);
 static void on_project_menu_realize (GtkWidget * widget, gpointer data);
@@ -79,7 +80,8 @@ create_main_menubar (GtkWidget * ap, MainMenuBar * mb)
 	mb->edit.insert_c_gpl = inserttext1_submenu_uiinfo[0].widget;
 	mb->edit.insert_cpp_gpl = inserttext1_submenu_uiinfo[1].widget;
 	mb->edit.insert_datetime = inserttext1_submenu_uiinfo[2].widget;
-	for (i = 0; i < 3; i++)
+	mb->edit.insert_header_template = inserttext1_submenu_uiinfo[3].widget;
+	for (i = 0; i < 4; i++)
 	{
 		gtk_widget_ref (inserttext1_submenu_uiinfo[i].widget);
 		gtk_accel_group_attach(GNOME_APP(ap)->accel_group, GTK_OBJECT(inserttext1_submenu_uiinfo[i].widget));
@@ -212,6 +214,7 @@ create_main_menubar (GtkWidget * ap, MainMenuBar * mb)
 	}
 	
 	mb->build.compile = build1_menu_uiinfo[0].widget;
+	mb->build.make = build1_menu_uiinfo[1].widget;
 	mb->build.build = build1_menu_uiinfo[2].widget;
 	mb->build.build_all = build1_menu_uiinfo[3].widget;
 	mb->build.install = build1_menu_uiinfo[5].widget;
@@ -421,7 +424,7 @@ create_submenu (gchar * title, GList * strings, GtkSignalFunc callback_func)
 	GtkWidget *submenu;
 	GtkWidget *item;
 	gint i;
-	submenu = gtk_menu_new ();
+	submenu = scroll_menu_new ();
 
 	/* FIXME: what about the user opinion on tearoff menuitems ?
 	          perhaps (s)he has desactivated the option. */
@@ -459,7 +462,7 @@ create_submenu_plugin (GList * pList, GtkSignalFunc callback_func)
 	GtkWidget *item;
 	gint i;
 
-	submenu = gtk_menu_new ();
+	submenu = scroll_menu_new ();
 
 	/* FIXME: what about the user opinion on tearoff menuitems ?
 	          perhaps (s)he has desactivated the option. */

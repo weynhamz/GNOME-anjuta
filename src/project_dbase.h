@@ -94,7 +94,7 @@ struct _ProjectDBaseGui
 	GtkWidget *window;
 	GtkWidget *client_area;
 	GtkWidget *client;
-	GtkWidget *ccview; 
+	GtkWidget *notebook; 
 	GtkWidget *scrolledwindow;
 	GtkWidget *ctree;
 	GtkWidget *menu;

@@ -500,24 +500,9 @@ on_member_combo_entry_changed (GtkEditable * editable, gpointer user_data)
 static gint
 on_member_combo_entry_sel_idle (gpointer data)
 {
-	gchar *file;
-	guint line;
-	gchar *label = data;
-
 	anjuta_set_busy ();
-
-/*	update_gtk ();*/
-	tags_manager_block_draw (app->tags_manager);
-	tags_manager_get_tag_info (app->tags_manager, label, &file, &line);
-	if (file)
-	{
-		anjuta_goto_file_line (file, line);
-		anjuta_grab_text_focus ();
-		g_free (file);
-	}
-	g_free (label);
+	anjuta_goto_symbol_definition((const char *) data, NULL);
 	anjuta_set_active ();
-	tags_manager_unblock_draw (app->tags_manager);
 	return FALSE;
 }
 

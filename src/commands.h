@@ -31,6 +31,7 @@ struct _CommandData
 	gchar* key;
 
 	gchar* compile;
+	gchar* make;
 	gchar* build;
 	gchar* execute;
 };
@@ -44,6 +45,7 @@ struct _CommandEditorWidgets
 	GtkWidget *image_editor_entry;
 	GtkWidget *html_editor_entry;
 	GtkWidget *compile_entry;
+	GtkWidget *make_entry;
 	GtkWidget *build_entry;
 	GtkWidget *execute_entry;
 };
@@ -119,6 +121,7 @@ gboolean command_editor_load (CommandEditor *p, PropsID pr);
 #define COMMAND_VIEW_FILE "command.view.file."
 
 #define COMMAND_COMPILE_FILE "command.compile.file."
+#define COMMAND_MAKE_FILE "command.make.file."
 #define COMMAND_BUILD_FILE "command.build.file."
 #define COMMAND_EXECUTE_FILE "command.execute.file."
 

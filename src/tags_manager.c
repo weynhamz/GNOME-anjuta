@@ -28,11 +28,13 @@
 #include <string.h>
 
 #include <gnome.h>
-#include <ccview.h>
 #include "resources.h"
 #include "anjuta.h"
 #include "tags_manager.h"
 #include "toolbar_callbacks.h"
+
+#include "an_symbol_view.h"
+#include "an_file_view.h"
 
 TagsManager *
 tags_manager_new (void)
@@ -765,8 +767,10 @@ tags_manager_update_image (TagsManager * tm, GList * files)
 	else
 	{
 		tags_manager_thaw(tm);
-		ccview_project_update(
-			CCVIEW_PROJECT(app->project_dbase->widgets.ccview));
+		tm_project_update(app->project_dbase->tm_project, FALSE
+		  , TRUE, TRUE);
+		sv_populate(TM_PROJECT(app->project_dbase->tm_project));
+		fv_populate(TM_PROJECT(app->project_dbase->tm_project));
 	}
 	return TRUE;
 }
@@ -789,8 +793,10 @@ on_tags_manager_on_idle (gpointer data)
 		tm->update_in_progress = FALSE;
 		tm->update_file_list = NULL;
 		tags_manager_save(tm);
-		ccview_project_update(
-			CCVIEW_PROJECT(app->project_dbase->widgets.ccview));
+		tm_project_update(app->project_dbase->tm_project, FALSE
+		  , TRUE, TRUE);
+		sv_populate(TM_PROJECT(app->project_dbase->tm_project));
+		fv_populate(TM_PROJECT(app->project_dbase->tm_project));
 		return FALSE;
 	}
 	if (app->project_dbase->project_is_open == FALSE)
@@ -1056,6 +1062,7 @@ tags_manager_set_filename (TagsManager * tm, gchar * fn)
 
 	if (tm && fn)
 	{
+		g_message("Files are %s and %s", tm->cur_file, fn);
 		if (tm->cur_file)
 			if (strcmp (tm->cur_file, extract_filename (fn)) == 0)
 				return;

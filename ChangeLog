@@ -1,3 +1,85 @@
+2002-01-08  Naba Kumar <kh_naba@users.sourceforge.net>
+
+	* src/project_dbase.c:
+	  Shifted structure initialization in project_dbase_new()
+	  before anything else, otherwise it was crashing due to
+	  uninitialized values.
+	
+	* src/an_symbol_view.c:
+	  Disabled high volume debug output.
+
+2002-01-08  Naba Kumar <kh_naba@users.sourceforge.net>
+	
+	Applied a very heavy patch from:
+	Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
+
+	* Makefile.am
+	configure.in
+	pixmaps/Makefile.am
+	src/Makefile.am
+	src/aneditor.cxx
+	src/aneditor.h
+	src/anjuta.c
+	src/anjuta.h
+	src/commands.c
+	src/commands.h
+	src/compile.c
+	src/compile.h
+	src/controls.c
+	src/defaults.c
+	src/fileselection.c
+	src/main_menubar.c
+	src/main_menubar.h
+	src/main_menubar_def.h
+	src/mainmenu_callbacks.c
+	src/mainmenu_callbacks.h
+	src/project_dbase.c
+	src/project_dbase.h
+	src/project_dbase_gui.c
+	src/tags_manager.c
+	src/text_editor_menu.c
+	src/toolbar_callbacks.c
+	tagmanager/Makefile.am
+	tagmanager/ctags.c
+	tagmanager/include/Makefile.am
+	tagmanager/include/tm_project.h
+	tagmanager/include/tm_symbol.h
+	tagmanager/include/tm_tag.h
+	tagmanager/include/tm_tagmanager.h
+	tagmanager/include/tm_workspace.h
+	tagmanager/tm_project.c
+	tagmanager/tm_source_file.c
+	tagmanager/tm_symbol.c
+	tagmanager/tm_tag.c
+	tagmanager/tm_workspace.c
+	widgets/Makefile.am: Modified.
+	
+	* src/an_file_view.[c,h],
+	  src/an_symbol_view.[c,h],
+	  src/file_history.[c,h],
+	  src/support.[c,h],
+	  widgets/scroll-menu.[c,h],
+	  tagmanager/tm_file_entry.c
+	  tagmanager/include/tm_file_entry.h: Added new files.
+	  
+	* pixmaps/cfolder.xpm, fv_doc.xpm, fv_source.xpm,
+	private_func.xpm, public_func.xpm,
+	class.xpm, fv_exec.xpm, fv_unknown.xpm,
+	private_var.xpm, public_var.xpm,
+	function.xpm, fv_i18n.xpm, macro.xpm,
+	protected_func.xpm, struct.xpm,
+	fv_autofile.xpm, fv_image.xpm,
+	ofolder.xpm, protected_var.xpm, variable.xpm:
+	  Updated and Added pixmap files.
+
+	Features:
+	---------
+	a) Removes CCView dependency.
+	b) Improves the terminal.
+	c) Adds tag navigation context menus.
+	d) Upgrades tagmanager to latest version.
+	e) Miscellaneous small additions.
+
 2002-01-07  Naba Kumar <kh_naba@users.sourceforge.net>
 
 	* src/project_dbase_gui.c: Fixed crash of anjuta

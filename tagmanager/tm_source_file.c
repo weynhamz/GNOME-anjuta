@@ -69,7 +69,7 @@ void tm_source_file_free(gpointer source_file)
 
 gboolean tm_source_file_parse(TMSourceFile *source_file)
 {
-	const char *file_name = source_file->work_object.file_name;
+	const char *file_name;
 	gboolean status = TRUE;
 
 	if ((NULL == source_file) || (NULL == source_file->work_object.file_name))
@@ -81,7 +81,7 @@ gboolean tm_source_file_parse(TMSourceFile *source_file)
 #ifdef TM_DEBUG
 	g_message("Parsing %s", source_file->work_object.file_name);
 #endif
-
+	file_name = source_file->work_object.file_name;
 	if (NULL == LanguageTable)
 	{
 		initializeParsing();

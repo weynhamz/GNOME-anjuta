@@ -32,6 +32,7 @@
 enum
 {
 	COMPILE_INDEX,
+	MAKE_INDEX,
 	BUILD_INDEX,
 	EXECUTE_INDEX,
 	VIEW_INDEX,
@@ -64,6 +65,7 @@ command_data_new(void)
 	if (!cd) return NULL;
 	cd->key = NULL;
 	cd->compile = NULL;
+	cd->make = NULL;
 	cd->build = NULL;
 	cd->execute = NULL;
 	return cd;
@@ -75,6 +77,7 @@ command_data_destroy (CommandData *cdata)
 	g_return_if_fail (cdata != NULL);
 	string_assign (&cdata->key, NULL);
 	string_assign (&cdata->compile, NULL);
+	string_assign (&cdata->make, NULL);
 	string_assign (&cdata->build, NULL);
 	string_assign (&cdata->execute, NULL);
 	g_free (cdata);
@@ -115,6 +118,7 @@ command_editor_destroy (CommandEditor* ce)
 	gtk_widget_unref (ce->widgets.window);
 	gtk_widget_unref (ce->widgets.language_combo);
 	gtk_widget_unref (ce->widgets.compile_entry);
+	gtk_widget_unref (ce->widgets.make_entry);
 	gtk_widget_unref (ce->widgets.build_entry);
 	gtk_widget_unref (ce->widgets.execute_entry);
 	gtk_widget_unref (ce->widgets.pix_editor_entry);
@@ -134,6 +138,9 @@ get_key_for_file_command (gint cmd_type, gchar* filetype)
 	{
 		case COMPILE_INDEX:
 			head = COMMAND_COMPILE_FILE;
+			break;
+		case MAKE_INDEX:
+			head = COMMAND_MAKE_FILE;
 			break;
 		case BUILD_INDEX:
 			head = COMMAND_BUILD_FILE;
@@ -173,6 +180,12 @@ sync_from_props (CommandEditor *ce, PropsID pr)
 		string_assign (&cdata->compile, str);
 		string_free (str);
 		
+		key = get_key_for_file_command (MAKE_INDEX, prog_language_map[i+1]);
+		str = prop_get (pr, key);
+		g_free (key);
+		string_assign (&cdata->make, str);
+		string_free (str);
+
 		key = get_key_for_file_command (BUILD_INDEX, prog_language_map[i+1]);
 		str = prop_get (pr, key);
 		g_free (key);
@@ -268,7 +281,20 @@ command_editor_save (CommandEditor *ce, FILE* s)
 			if (fprintf (s, "%s=\n", key) < 1) return FALSE;
 		}
 		g_free (key);
-		
+
+		key = get_key_for_file_command (MAKE_INDEX, prog_language_map[i+1]);
+		str = prop_get (pr, key);
+		if (str)
+		{
+			if (fprintf (s, "%s=%s\n", key, str) < 2) return FALSE;
+			string_free (str);
+		}
+		else
+		{
+			if (fprintf (s, "%s=\n", key) < 1) return FALSE;
+		}
+		g_free (key);
+
 		key = get_key_for_file_command (BUILD_INDEX, prog_language_map[i+1]);
 		str = prop_get (pr, key);
 		if (str)
@@ -369,10 +395,13 @@ on_language_entry_changed (GtkEditable     *editable, gpointer         user_data
 	{
 		str = gtk_entry_get_text (GTK_ENTRY (ce->widgets.compile_entry));
 		string_assign (&ce->current_command_data->compile, str);
-		
+
+		str = gtk_entry_get_text (GTK_ENTRY (ce->widgets.make_entry));
+		string_assign (&ce->current_command_data->make, str);
+
 		str = gtk_entry_get_text (GTK_ENTRY (ce->widgets.build_entry));
 		string_assign (&ce->current_command_data->build, str);
-		
+
 		str = gtk_entry_get_text (GTK_ENTRY (ce->widgets.execute_entry));
 		string_assign (&ce->current_command_data->execute, str);
 	}
@@ -383,6 +412,11 @@ on_language_entry_changed (GtkEditable     *editable, gpointer         user_data
 		gtk_entry_set_text (GTK_ENTRY (ce->widgets.compile_entry), cdata->compile);
 	else
 		gtk_entry_set_text (GTK_ENTRY (ce->widgets.compile_entry), "");
+
+	if (cdata->make)
+		gtk_entry_set_text (GTK_ENTRY (ce->widgets.make_entry), cdata->make);
+	else
+		gtk_entry_set_text (GTK_ENTRY (ce->widgets.make_entry), "");
 
 	if (cdata->build)
 		gtk_entry_set_text (GTK_ENTRY (ce->widgets.build_entry), cdata->build);
@@ -452,6 +486,10 @@ on_apply_clicked        (GtkButton       *button,
 		prop_set_with_key (ce->props, key, cdata->compile);
 		g_free (key);
 
+		key = get_key_for_file_command (MAKE_INDEX, prog_language_map[i+1]);
+		prop_set_with_key (ce->props, key, cdata->make);
+		g_free (key);
+
 		key = get_key_for_file_command (BUILD_INDEX, prog_language_map[i+1]);
 		prop_set_with_key (ce->props, key, cdata->build);
 		g_free (key);
@@ -516,9 +554,11 @@ create_command_editor_gui (CommandEditor *ce)
 	GtkWidget *frame2;
 	GtkWidget *table3;
 	GtkWidget *label2;
+	GtkWidget *label2a;
 	GtkWidget *label3;
 	GtkWidget *label4;
 	GtkWidget *entry1;
+	GtkWidget *entry1a;
 	GtkWidget *entry2;
 	GtkWidget *entry3;
 	GtkWidget *frame3;
@@ -590,7 +630,7 @@ create_command_editor_gui (CommandEditor *ce)
 		    (GtkAttachOptions) (GTK_FILL), 0, 0);
 	gtk_container_set_border_width (GTK_CONTAINER (frame2), 5);
 	
-	table3 = gtk_table_new (3, 2, FALSE);
+	table3 = gtk_table_new (4, 2, FALSE);
 	gtk_widget_show (table3);
 	gtk_container_add (GTK_CONTAINER (frame2), table3);
 	gtk_container_set_border_width (GTK_CONTAINER (table3), 5);
@@ -604,7 +644,15 @@ create_command_editor_gui (CommandEditor *ce)
 		    (GtkAttachOptions) (0), 0, 0);
 	gtk_widget_set_usize (label2, 120, -2);
 	gtk_misc_set_alignment (GTK_MISC (label2), 0, -1);
-	
+
+	label2a = gtk_label_new (_("Make File:"));
+	gtk_widget_show (label2a);
+	gtk_table_attach (GTK_TABLE (table3), label2a, 0, 1, 3, 4,
+		    (GtkAttachOptions) (0),
+		    (GtkAttachOptions) (0), 0, 0);
+	gtk_widget_set_usize (label2a, 120, -2);
+	gtk_misc_set_alignment (GTK_MISC (label2a), 0, -1);
+
 	label3 = gtk_label_new (_("Build File:"));
 	gtk_widget_show (label3);
 	gtk_table_attach (GTK_TABLE (table3), label3, 0, 1, 1, 2,
@@ -624,6 +672,12 @@ create_command_editor_gui (CommandEditor *ce)
 	entry1 = gtk_entry_new ();
 	gtk_widget_show (entry1);
 	gtk_table_attach (GTK_TABLE (table3), entry1, 1, 2, 0, 1,
+		    (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
+		    (GtkAttachOptions) (0), 0, 0);
+	
+	entry1a = gtk_entry_new ();
+	gtk_widget_show (entry1a);
+	gtk_table_attach (GTK_TABLE (table3), entry1a, 1, 2, 3, 4,
 		    (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
 		    (GtkAttachOptions) (0), 0, 0);
 	
@@ -762,6 +816,7 @@ create_command_editor_gui (CommandEditor *ce)
 	ce->widgets.window = dialog1;
 	ce->widgets.language_combo = combo1;
 	ce->widgets.compile_entry = entry1;
+	ce->widgets.make_entry = entry1a;
 	ce->widgets.build_entry = entry2;
 	ce->widgets.execute_entry = entry3;
 	ce->widgets.pix_editor_entry = entry4;
@@ -771,6 +826,7 @@ create_command_editor_gui (CommandEditor *ce)
 	gtk_widget_ref (dialog1);
 	gtk_widget_ref (combo1);
 	gtk_widget_ref (entry1);
+	gtk_widget_ref (entry1a);
 	gtk_widget_ref (entry2);
 	gtk_widget_ref (entry3);
 	gtk_widget_ref (entry4);

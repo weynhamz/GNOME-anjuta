@@ -1392,6 +1392,9 @@ long AnEditor::Command(int cmdID, long wParam, long lParam) {
 	case ANE_GETLENGTH:
 		return SendEditor(SCI_GETLENGTH);
 
+	case ANE_GET_LINENO:
+		return GetCurrentLineNumber();
+
 	default:
 		break;
 	}

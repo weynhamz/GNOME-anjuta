@@ -25,80 +25,19 @@
 #include <string.h>
 
 #include <gnome.h>
-#include <ccview.h>
 #include "anjuta.h"
 #include "project_dbase.h"
 #include "utilities.h"
 #include "resources.h"
 #include "fileselection.h"
+#include "an_symbol_view.h"
+#include "an_file_view.h"
 
 extern gchar *module_map[];
-static gboolean close_file_state = FALSE;
-static gboolean close_prj_state = FALSE;
 
 static void on_project_dbase_remove_confirm_yes_clicked (GtkButton * button,
 							 gpointer user_data);
-static void on_project_dbase_ccview_update_start (CcviewProject *cprj, 
-						  ProjectDBase  *p);
-static void on_project_dbase_ccview_update_end (CcviewProject *cprj, 
-						ProjectDBase  *p);
 static void add_file (ProjectDBase * p);
-
-
-static 
-void on_project_dbase_ccview_go_to (CcviewProject* cprj, gchar* file,
-			gint line, ProjectDBase* p)
-{
-	anjuta_goto_file_line (file, line);
-}
-
-static 
-void on_project_dbase_ccview_update_start (CcviewProject *cprj, 
-				           ProjectDBase  *p)
-{
-	MainToolbar *mt;
-	ExtendedToolbar *et;
-	FileSubMenu *file_submenu;
-
-	anjuta_set_busy ();
-	
-	mt = (MainToolbar *) &(app->widgets.toolbar.main_toolbar);
-	close_file_state = GTK_WIDGET_IS_SENSITIVE (mt->close);
-
-	et = (ExtendedToolbar *) &(app->widgets.toolbar.extended_toolbar);
-	close_prj_state = GTK_WIDGET_IS_SENSITIVE (et->close_project);
-
-	file_submenu = &(app->widgets.menubar.file);
-
-	gtk_widget_set_sensitive (mt->close, FALSE);
-	gtk_widget_set_sensitive (et->close_project, FALSE);
-	gtk_widget_set_sensitive (file_submenu->close_file, FALSE);
-	gtk_widget_set_sensitive (file_submenu->close_project, FALSE);
-}
-
-static 
-void on_project_dbase_ccview_update_end (CcviewProject *cprj, 
-				         ProjectDBase  *p)
-{	
-	MainToolbar *mt;
-	ExtendedToolbar *et;
-	FileSubMenu *file_submenu;
-
-	mt = (MainToolbar *) &(app->widgets.toolbar.main_toolbar);
-	close_file_state = GTK_WIDGET_IS_SENSITIVE (mt->close);
-
-	et = (ExtendedToolbar *) &(app->widgets.toolbar.extended_toolbar);
-	close_prj_state = GTK_WIDGET_IS_SENSITIVE (et->close_project);
-
-	file_submenu = &(app->widgets.menubar.file);
-
-	gtk_widget_set_sensitive (mt->close, close_file_state);
-	gtk_widget_set_sensitive (et->close_project, close_prj_state);
-	gtk_widget_set_sensitive (file_submenu->close_file, close_file_state);
-	gtk_widget_set_sensitive (file_submenu->close_project, close_prj_state);
-
-	anjuta_set_active ();
-}
 
 void
 on_project_add_new1_activate (GtkMenuItem * menuitem, gpointer user_data)
@@ -527,9 +466,10 @@ create_project_dbase_gui (ProjectDBase * p)
 	GtkWidget *eventbox1;
 	GtkWidget *notebook1;
 	GtkWidget *scrolledwindow1;
-	GtkWidget *ccview_prj;
 	GtkWidget *ctree1;
 	GtkCList *clist1;
+	AnSymbolView *sv;
+	AnFileView *fv;
 
 	window1 = gtk_window_new (GTK_WINDOW_TOPLEVEL);
 	gtk_window_set_title (GTK_WINDOW (window1), _("Project: None"));
@@ -538,19 +478,22 @@ create_project_dbase_gui (ProjectDBase * p)
 	eventbox1 = gtk_event_box_new ();
 	gtk_widget_show (eventbox1);
 	gtk_container_add (GTK_CONTAINER (window1), eventbox1);
-	
-	ccview_prj = ccview_project_new();
-	gtk_widget_show (ccview_prj);
-	notebook1 = CCVIEW_PROJECT (ccview_prj)->notebook;
-	ccview_project_set_recursive (CCVIEW_PROJECT(ccview_prj), TRUE);
-	ccview_project_set_use_automake (CCVIEW_PROJECT(ccview_prj), FALSE);
-	ccview_project_set_follow_includes (CCVIEW_PROJECT(ccview_prj), FALSE);
+
+	notebook1 = gtk_notebook_new();
+	gtk_widget_show(notebook1);
+	gtk_notebook_set_tab_pos(GTK_NOTEBOOK(notebook1), GTK_POS_BOTTOM);
+	fv = fv_populate(TM_PROJECT(p->tm_project));
+	gtk_notebook_prepend_page(GTK_NOTEBOOK(notebook1), fv->win
+	  , gtk_label_new(_("Files")));
+	sv = sv_populate(TM_PROJECT(p->tm_project));
+	gtk_notebook_prepend_page(GTK_NOTEBOOK(notebook1), sv->win
+	  , gtk_label_new(_("Symbols")));
 
 	scrolledwindow1 = gtk_scrolled_window_new (NULL, NULL);
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolledwindow1),
 					GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 	gtk_widget_show (scrolledwindow1);
-    gtk_notebook_prepend_page(GTK_NOTEBOOK(notebook1),scrolledwindow1,
+	gtk_notebook_prepend_page(GTK_NOTEBOOK(notebook1),scrolledwindow1,
                              gtk_label_new(_("Project")));
 	gtk_notebook_set_page(GTK_NOTEBOOK(notebook1), 0);
 
@@ -573,26 +516,17 @@ create_project_dbase_gui (ProjectDBase * p)
 	gtk_signal_connect (GTK_OBJECT (ctree1), "event",
 			    GTK_SIGNAL_FUNC (on_project_dbase_event), p);
 
-	gtk_signal_connect (GTK_OBJECT (ccview_prj), "go_to",
-			    GTK_SIGNAL_FUNC (on_project_dbase_ccview_go_to), p);
-
-	gtk_signal_connect (GTK_OBJECT (ccview_prj), "update_start",
-			    GTK_SIGNAL_FUNC (on_project_dbase_ccview_update_start), p);
-
-	gtk_signal_connect (GTK_OBJECT (ccview_prj), "update_end",
-			    GTK_SIGNAL_FUNC (on_project_dbase_ccview_update_end), p);
-
 	p->widgets.window = window1;
-	p->widgets.ccview = ccview_prj;
+	p->widgets.notebook = notebook1;
 	p->widgets.client_area = eventbox1;
-	p->widgets.client = ccview_prj;
+	p->widgets.client = notebook1;
 	p->widgets.ctree = ctree1;
 	p->widgets.scrolledwindow = scrolledwindow1;
 
 	create_project_menus (p);
 
 	gtk_widget_ref (p->widgets.window);
-	gtk_widget_ref (p->widgets.ccview);
+	gtk_widget_ref(p->widgets.notebook);
 	gtk_widget_ref (p->widgets.client_area);
 	gtk_widget_ref (p->widgets.client);
 	gtk_widget_ref (p->widgets.scrolledwindow);
@@ -1289,6 +1223,10 @@ on_prj_import_confirm_yes (GtkButton * button, gpointer user_data)
 				    _("Error while copying the file inside the module."));
 			return;
 		}
+		tm_project_update(app->project_dbase->tm_project, FALSE
+		  , TRUE, TRUE);
+		sv_populate(TM_PROJECT(app->project_dbase->tm_project));
+		fv_populate(TM_PROJECT(app->project_dbase->tm_project));
 		g_free(fn);
 	}
 	project_dbase_add_file_to_module (p, p->sel_module, filename);

@@ -356,6 +356,9 @@ on_compile1_activate                   (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
 
 void
+on_make1_activate (GtkMenuItem * menuitem, gpointer user_data);
+
+void
 on_build_project1_activate             (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
 
@@ -631,6 +634,15 @@ void
 on_goto_tag_activate (GtkMenuItem * menuitem, gpointer user_data);
 
 void
+on_go_back_activate (GtkMenuItem * menuitem, gpointer user_data);
+
+void
+on_go_forward_activate (GtkMenuItem * menuitem, gpointer user_data);
+
+void
+on_history_activate (GtkMenuItem * menuitem, gpointer user_data);
+
+void
 on_search_a_topic1_activate            (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
 
@@ -657,12 +669,14 @@ on_reload_yes_clicked                  (GtkButton       *button,
 void
 on_insert_c_gpl_notice(GtkMenuItem * menuitem, gpointer user_data);
 
-
 void
 on_insert_cpp_gpl_notice(GtkMenuItem * menuitem, gpointer user_data);
 
 void
 on_insert_date_time(GtkMenuItem * menuitem, gpointer user_data);
+
+void
+on_insert_header_template(GtkMenuItem * menuitem, gpointer user_data);
 
 void
 on_save_build_messages_activate (GtkMenuItem * menuitem, gpointer user_data);

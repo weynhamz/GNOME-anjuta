@@ -293,6 +293,7 @@ update_main_menubar ()
 	gtk_widget_set_sensitive (em->insert_c_gpl, F);
 	gtk_widget_set_sensitive (em->insert_cpp_gpl, F);
 	gtk_widget_set_sensitive (em->insert_datetime, F);
+	gtk_widget_set_sensitive (em->insert_header_template, F);
 	gtk_widget_set_sensitive (em->select_all, F);
 	gtk_widget_set_sensitive (em->select_brace, F);
 	gtk_widget_set_sensitive (em->select_block, FLD);
@@ -335,6 +336,7 @@ update_main_menubar ()
 	gtk_widget_set_sensitive (ftm->indent_dcr, F);
 
 	gtk_widget_set_sensitive (bm->compile, C && !L);
+	gtk_widget_set_sensitive (bm->make, C && !L);
 	gtk_widget_set_sensitive (bm->build, (C || P) && !L);
 	gtk_widget_set_sensitive (bm->build_all, P && !L);
 	gtk_widget_set_sensitive (bm->install, P && !L);

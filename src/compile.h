@@ -19,7 +19,7 @@
 #ifndef _COMPILE_H_
 #define _COMPILE_H_
 
-void compile_file(void);
+void compile_file(gboolean use_make);
 void compile_mesg_arrived(gchar* mesg);
 void compile_terminated(int status, time_t time);
 

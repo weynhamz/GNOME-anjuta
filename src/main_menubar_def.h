@@ -207,6 +207,12 @@ static GnomeUIInfo inserttext1_submenu_uiinfo[] = {
         on_insert_date_time, NULL, NULL,
         GNOME_APP_PIXMAP_NONE, NULL,
         0, 0, NULL},
+       { 
+        GNOME_APP_UI_ITEM, N_("Header File Template"),
+        N_("Insert a standard header file template"),
+        on_insert_header_template, NULL, NULL,
+        GNOME_APP_PIXMAP_NONE, NULL,
+        0, 0, NULL},
        GNOMEUIINFO_END
 };
 
@@ -977,7 +983,12 @@ static GnomeUIInfo build1_menu_uiinfo[] = {
 	 on_compile1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_CONVERT,
 	 GDK_F9, 0, NULL},
-	GNOMEUIINFO_SEPARATOR,
+	{
+	 GNOME_APP_UI_ITEM, N_("Compile With _Make"),
+	 N_("Compile the current source file using Make"),
+	 on_make1_activate, NULL, NULL,
+	 GNOME_APP_PIXMAP_NONE, NULL,
+	 GDK_F9, GDK_SHIFT_MASK, NULL},
 	{
 	 GNOME_APP_UI_ITEM, N_("_Build"),
 	 N_("Build the source directory of the project/current source file"),

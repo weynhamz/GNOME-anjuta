@@ -19,7 +19,7 @@ libctags_a_SOURCES = \
 	tm_project.c\
 	tm_symbol.c\
 	tm_tag.c\
-	tm_tagmanager.c\
+	tm_file_entry.c\
 	args.c\
 	args.h\
 	c.c\

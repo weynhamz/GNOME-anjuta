@@ -42,12 +42,14 @@
 #include "glade_iface.h"
 #include "compatibility_0.h"
 #include "defaults.h"
-#include "ccview.h"
 #include "glades.h"
 #include "CORBA-Server.h"
 #include "debugger.h"
 #include "find_replace.h"
 #include "executer.h"
+
+#include "an_file_view.h"
+#include "an_symbol_view.h"
 
 /* Including small pixmaps at compile time */
 /* So that these at least work when gnome pixmaps are not found */
@@ -320,17 +322,13 @@ project_dbase_new (PropsID pr_props)
 	p = g_malloc (sizeof (ProjectDBase));
 	if (!p) return NULL;
 	p->size = sizeof(ProjectDBase);
+	
+	/* Initialization */
 	/* Cannot assign p to static fsd.data, so doing it now */
 	fsd1.data = p;
 	fsd2.data = p;
-	create_project_dbase_gui (p);
-	gtk_window_set_title (GTK_WINDOW (p->widgets.window),
-			      _("Project: None"));
-	p->fileselection_open = create_fileselection_gui (&fsd1);
-	p->fileselection_add_file = create_fileselection_gui (&fsd2);
-	p->project_config = project_config_new ();
+	
 	p->tm_project = NULL;
-
 	p->widgets.root_node = NULL;
 	p->widgets.current_node = NULL;
 	for(i=0; i<MODULE_END_MARK; i++)
@@ -347,6 +345,13 @@ project_dbase_new (PropsID pr_props)
 	p->win_height = 400;
 	p->top_proj_dir = NULL;
 	p->current_file_data = NULL;
+	
+	create_project_dbase_gui (p);
+	gtk_window_set_title (GTK_WINDOW (p->widgets.window),
+			      _("Project: None"));
+	p->fileselection_open = create_fileselection_gui (&fsd1);
+	p->fileselection_add_file = create_fileselection_gui (&fsd2);
+	p->project_config = project_config_new ();
 	p->sel_module = MODULE_SOURCE;
 	p->props = prop_set_new ();
 	prop_set_parent (p->props, pr_props);
@@ -403,7 +408,8 @@ project_dbase_destroy (ProjectDBase * p)
 	project_config_destroy (p->project_config);
 	
 	gtk_widget_unref (p->widgets.window);
-	gtk_widget_unref (p->widgets.ccview);
+	sv_clear();
+	fv_clear();
 	gtk_widget_unref (p->widgets.client_area);
 	gtk_widget_unref (p->widgets.client);
 	gtk_widget_unref (p->widgets.scrolledwindow);
@@ -822,8 +828,6 @@ done:
 	p->top_proj_dir = g_dirname (p->proj_filename);
 	compiler_options_load (app->compiler_options, p->props);
 	src_paths_load (app->src_paths, p->props);
-	ccview_project_set_directory (CCVIEW_PROJECT(p->widgets.ccview),
-		p->top_proj_dir);
 	/* Project loading completed */
 
 	/* Now Project setup */
@@ -1078,7 +1082,6 @@ project_dbase_save_project (ProjectDBase * p)
 	tags_manager_save (app->tags_manager);
 	if (p->tm_project)
 		tm_project_save(TM_PROJECT(p->tm_project));
-	ccview_project_save(CCVIEW_PROJECT(app->project_dbase->widgets.ccview));
 	p->is_saved = TRUE;
 	fclose (fp);
 	source_write_build_files (p);
@@ -1154,12 +1157,14 @@ project_dbase_update_tags_image(ProjectDBase* p)
 		if (((NULL == TM_PROJECT(p->tm_project)->file_list) ||
 			(0 == TM_PROJECT(p->tm_project)->file_list->len))
 			&& (p->top_proj_dir))
-			tm_project_autoscan(TM_PROJECT(p->tm_project), p->top_proj_dir);
+			tm_project_autoscan(TM_PROJECT(p->tm_project));
 		else
 			tm_project_update(p->tm_project, FALSE, TRUE, TRUE);
 	}
 	else if (p->top_proj_dir)
-		p->tm_project = tm_project_new(p->top_proj_dir, NULL);
+		p->tm_project = tm_project_new(p->top_proj_dir, NULL, NULL, TRUE, TRUE);
+	sv_populate(TM_PROJECT(p->tm_project));
+	fv_populate(TM_PROJECT(p->tm_project));
 	src_dir = project_dbase_get_module_dir (p, MODULE_SOURCE);
 	if (src_dir)
 	{
@@ -1306,7 +1311,8 @@ project_dbase_close_project (ProjectDBase * p)
 	project_dbase_hide (p);
 	project_dbase_update_menu (p);	
 	project_dbase_clean_left (p);
-	ccview_project_clear(CCVIEW_PROJECT(p->widgets.ccview));
+	sv_clear();
+	fv_clear();
 	p->project_is_open = FALSE;
 }
 

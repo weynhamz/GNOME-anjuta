@@ -47,7 +47,7 @@ typedef struct _TMWorkspace
  a workspace is created. Subsequent calls to the function will return the
  created workspace.
 */
-const TMWorkspace *tm_get_workspace();
+const TMWorkspace *tm_get_workspace(void);
 
 /*! Adds a work object (source file or project) to the workspace.
  \param work_object The work object to add to the project.
@@ -97,7 +97,7 @@ gboolean tm_workspace_create_global_tags(const char *pre_process, const char *in
  all member work objects. You shouldn't have to call this directly since
  this is called automatically by tm_workspace_update().
 */
-void tm_workspace_recreate_tags_array();
+void tm_workspace_recreate_tags_array(void);
 
 /*! Calls tm_work_object_update() for all workspace member work objects.
  Use if you want to globally refresh the workspace.

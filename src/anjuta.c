@@ -40,6 +40,8 @@
 #include "project_dbase.h"
 #include "anjuta_info.h"
 
+#include "file_history.h"
+
 #define GTK
 #undef PLAT_GTK
 #define PLAT_GTK 1
@@ -500,15 +502,148 @@ anjuta_goto_file_line_mark (gchar * fname, glong lineno, gboolean mark)
 			anjuta_show_text_editor (te);
 			anjuta_grab_text_focus ();
 			g_free (fn);
+			an_file_history_push(te->full_filename, lineno);
 			return te ;
 		}
 		node = g_list_next (node);
 	}
 	te = anjuta_append_text_editor (fn);
-	if (lineno >= 0 && te)
-		text_editor_goto_line (te, lineno, mark);
+	if (te)
+	{
+		an_file_history_push(te->full_filename, lineno);
+		if (lineno >= 0)
+			text_editor_goto_line (te, lineno, mark);
+	}
 	g_free (fn);
 	return te ;
+}
+
+GList *anjuta_get_function_list(TextEditor *te)
+{
+	static GList *funcs = NULL;
+
+	if (!te)
+		te = anjuta_get_current_text_editor();
+	if (te && (te->tm_file) && (te->tm_file->tags_array) &&
+		(te->tm_file->tags_array->len > 0))
+	{
+		TMTag *tag;
+		int i;
+
+		if (funcs)
+		{
+			g_list_free(funcs);
+			funcs = NULL;
+		}
+
+		for (i=0; i < te->tm_file->tags_array->len; ++i)
+		{
+			tag = TM_TAG(te->tm_file->tags_array->pdata[i]);
+			if (tm_tag_function_t == tag->type)
+				funcs = g_list_append(funcs, tag->name);
+		}
+		return funcs;
+	}
+	else
+		return NULL;
+}
+
+GList *anjuta_get_file_list(void)
+{
+	const TMWorkspace *ws = tm_get_workspace();
+	TMWorkObject *wo;
+	static GList *files = NULL;
+	int i, j;
+
+	g_return_val_if_fail(ws && ws->work_objects, NULL);
+
+	if (files)
+	{
+		g_list_free(files);
+		files = NULL;
+	}
+
+	for (i=0; i < ws->work_objects->len; ++i)
+	{
+		wo = TM_WORK_OBJECT(ws->work_objects->pdata[i]);
+		if (IS_TM_SOURCE_FILE(wo))
+			files = g_list_append(files, wo->file_name);
+		else if (IS_TM_PROJECT(wo) && (TM_PROJECT(wo)->file_list))
+		{
+			for (j = 0; j < TM_PROJECT(wo)->file_list->len; ++j)
+				files = g_list_append(files
+				  , TM_WORK_OBJECT(TM_PROJECT(wo)->file_list->pdata[j])->file_name);
+		}
+	}
+	return files;
+}
+
+void anjuta_goto_symbol_definition(const char *symbol, TextEditor *te)
+{
+	GPtrArray *tags;
+	TMTag *tag = NULL, *local_tag = NULL, *global_tag = NULL;
+	TMTag *local_proto = NULL, *global_proto = NULL;
+	int i;
+
+	g_return_if_fail(symbol);
+
+	if (!te)
+		te = anjuta_get_current_text_editor();
+
+	if (te && (te->tm_file) && (te->tm_file->tags_array) &&
+		(te->tm_file->tags_array->len > 0))
+	{
+		for (i=0; i < te->tm_file->tags_array->len; ++i)
+		{
+			tag = TM_TAG(te->tm_file->tags_array->pdata[i]);
+			if (0 == strcmp(symbol, tag->name))
+			{
+				if ((tm_tag_prototype_t == tag->type) || (tm_tag_externvar_t == tag->type))
+					local_proto = tag;
+				else
+				{
+					local_tag = tag;
+					break;
+				}
+			}
+		}
+	}
+
+	if (!local_tag)
+	{
+		tags =  TM_WORK_OBJECT(tm_get_workspace())->tags_array;
+		if (tags && (tags->len > 0))
+		{
+			for (i=0; i < tags->len; ++i)
+			{
+				tag = TM_TAG(tags->pdata[i]);
+				if ((tag->atts.entry.file) && (0 == strcmp(symbol, tag->name)))
+				{
+					if ((tm_tag_prototype_t == tag->type) || (tm_tag_externvar_t == tag->type))
+						global_proto = tag;
+					else
+					{
+						global_tag = tag;
+						break;
+					}
+				}
+			}
+		}
+	}
+	if (local_tag)
+		tag = local_tag;
+	else if (global_tag)
+		tag = global_tag;
+	else if (local_proto)
+		tag = local_proto;
+	else if (global_proto)
+		tag = global_proto;
+	else
+		return;
+	an_file_history_push(te->full_filename
+	  , aneditor_command(te->editor_id, ANE_GET_LINENO, (long) NULL, (long) NULL));
+	anjuta_goto_file_line_mark(tag->atts.entry.file->work_object.file_name
+		, tag->atts.entry.line, TRUE);
 }
 
 static void
@@ -1004,7 +1139,6 @@ anjuta_application_exit(void)
 	{
 		project_dbase_close_project(app->project_dbase) ;
 	}
-	tm_workspace_free((gpointer) tm_get_workspace());
 	free_plug_ins( app->addIns_list );
 	app->addIns_list	= NULL ;
 }

@@ -82,8 +82,20 @@ typedef enum
 	tm_tag_attr_local_t = 256, /*!< If it has local scope */
 	tm_tag_attr_time_t = 512, /*!< Modification time (File tag only) */
 	tm_tag_attr_vartype_t = 1024, /*!< Variable Type */
+	tm_tag_attr_access_t = 2048, /*!< Access type (public/protected/private) */
+	tm_tag_attr_impl_t = 4096, /*!< Implementation (e.g. virtual) */
 	tm_tag_attr_max_t = 2047 /*!< Maximum value */
 } TMTagAttrType;
+
+/*! Tag access type for C++/Java member functions and variables */
+#define TAG_ACCESS_PUBLIC 'p' /*!< Public member */
+#define TAG_ACCESS_PROTECTED 'r' /*!< Protected member */
+#define TAG_ACCESS_PRIVATE 'v' /*!< Private member */
+#define TAG_ACCESS_UNKNOWN 'x' /*!< Unknown access type */
+
+/*! Tag implementation type for functions */
+#define TAG_IMPL_VIRTUAL 'v' /*!< Virtual implementation */
+#define TAG_IMPL_UNKNOWN 'x' /*!< Unknown implementation */
 
 /*!
  This structure holds all information about a tag, including the file
@@ -109,6 +121,8 @@ typedef struct _TMTag
 			char *scope; /*!< Scope of tag */
 			char *inheritance; /*!< Parent classes */
 			char *var_type; /*!< Variable type (maps to struct for typedefs) */
+			char access; /*!< Access type (public/protected/private) */
+			char impl; /*!< Implementation (e.g. virtual) */
 		} entry;
 		/*! These are pseudo tag attributes representing a file */
 		struct
@@ -272,6 +286,18 @@ void tm_tag_destroy(TMTag *tag);
  \param tag Pointer to a TMTag structure
 */
 void tm_tag_free(gpointer tag);
+
+/*!
+  Prints information about a tag to the given file pointer.
+  \param tag The tag whose info is required.
+  \fp The file pointer of teh file to print the info to.
+*/
+void tm_tag_print(TMTag *tag, FILE *fp);
+
+/*!
+  Prints info about all tags in the array to the given file pointer.
+*/
+void tm_tags_array_print(GPtrArray *tags, FILE *fp);
 
 #ifdef __cplusplus
 }

@@ -10,7 +10,6 @@ INCLUDES = \
 	-I$(srcdir)/../scintilla/include \
 	-I$(srcdir)/../tagmanager/include \
 	-I$(srcdir)/../widgets \
-	-I$(srcdir)/../ccview \
 	-I$(srcdir)/../pixmaps \
 	-I.. -I. \
 	-Wall -Wimplicit -Wreturn-type -Wunused -Wswitch -Wcomment\
@@ -43,6 +42,10 @@ SCILEXERS =\
 bin_PROGRAMS = anjuta
 
 anjuta_SOURCES = \
+	an_file_view.c\
+	an_file_view.h\
+	an_symbol_view.c\
+	an_symbol_view.h\
 	aneditor.cxx\
 	aneditor.h\
 	anjuta.h\
@@ -94,6 +97,8 @@ anjuta_SOURCES = \
 	dnd.h\
 	executer.c\
 	executer.h\
+	file_history.c\
+	file_history.h\
 	fileselection.c\
 	fileselection.h\
 	find_in_files.c\
@@ -169,6 +174,8 @@ anjuta_SOURCES = \
 	stack_trace_cbs.c\
 	stack_trace_cbs.h\
 	stack_trace_gui.c\
+	support.c\
+	support.h\
 	tags_manager.c\
 	tags_manager.h\
 	text_editor.c\
@@ -222,7 +229,7 @@ anjuta_LDADD =  \
 	$(GNOMEUI_LIBS)\
 	$(EXTRA_GNOME_LIBS)\
 	$(EXTRA_ORBIT_LIBS)\
-	-L../scintilla -L../tagmanager -L../widgets -L../ccview\
-	-lwidgets -lccview -lxml\
+	-L../scintilla -L../tagmanager -L../widgets\
+	-lwidgets -lxml\
 	-lscintilla -lctags\
 	$(SCILEXERS)

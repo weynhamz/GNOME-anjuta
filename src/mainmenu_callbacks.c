@@ -56,6 +56,7 @@
 #include "ScintillaWidget.h"
 
 #include "tm_tagmanager.h"
+#include "file_history.h"
 
 void on_toolbar_find_clicked (GtkButton * button, gpointer user_data);
 
@@ -487,6 +488,31 @@ on_insert_date_time(GtkMenuItem * menuitem, gpointer user_data)
        if (te == NULL)
                return;
        aneditor_command (te->editor_id, ANE_INSERTTEXT, -1, (long)DateTime);
+}
+
+void
+on_insert_header_template(GtkMenuItem * menuitem, gpointer user_data)
+{
+       TextEditor *te;
+       char *header_template =
+	"#ifndef _HEADER_H\n"
+	"#define _HEADER_H\n"
+	"\n"
+	"#ifdef __cplusplus\n"
+	"extern \"C\"\n"
+	"{\n"
+	"#endif\n"
+	"\n"
+	"#ifdef __cplusplus\n"
+	"}\n"
+	"#endif\n"
+	"\n"
+	"#endif /* _HEADER_H */\n";
+
+       te = anjuta_get_current_text_editor ();
+       if (te == NULL)
+               return;
+       aneditor_command (te->editor_id, ANE_INSERTTEXT, -1, (long)header_template);
 }
 
 void
@@ -1196,9 +1222,14 @@ on_detach1_activate (GtkMenuItem * menuitem, gpointer user_data)
 void
 on_compile1_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
-	compile_file ();
+	compile_file (FALSE);
 }
 
+void
+on_make1_activate (GtkMenuItem * menuitem, gpointer user_data)
+{
+	compile_file (TRUE);
+}
 
 void
 on_build_project1_activate (GtkMenuItem * menuitem, gpointer user_data)
@@ -1919,32 +1950,32 @@ on_goto_tag_activate (GtkMenuItem * menuitem, gpointer user_data)
 	TextEditor* te;
 	gboolean ret;
 	gchar buffer[1000];
-	
+
 	te = anjuta_get_current_text_editor();
 	if(!te) return;
 	ret = aneditor_command (te->editor_id, ANE_GETCURRENTWORD, (long)buffer, (long)sizeof(buffer));
 	if (!ret)
 		return;
 	else
-	{
-		int flags = tm_tag_function_t | tm_tag_struct_t | tm_tag_class_t
-		  | tm_tag_macro_t | tm_tag_macro_with_arg_t | tm_tag_enum_t
-		  | tm_tag_externvar_t | tm_tag_enumerator_t | tm_tag_typedef_t;
-		const GPtrArray *tags = tm_workspace_find(buffer, flags, NULL, FALSE);
-		if (tags && (tags->len > 0))
-		{
-			TMTag *tag;
-			int i;
-			for (i=0; i < tags->len; ++i)
-			{
-				tag = TM_TAG(tags->pdata[i]);
-				if (tag->atts.entry.file)
-					anjuta_goto_file_line(
-					  tag->atts.entry.file->work_object.file_name
-					, tag->atts.entry.line);
-			}
-		}
-	}
+		anjuta_goto_symbol_definition(buffer, te);
+}
+
+void
+on_go_back_activate (GtkMenuItem * menuitem, gpointer user_data)
+{
+	an_file_history_back();
+}
+
+void
+on_go_forward_activate (GtkMenuItem * menuitem, gpointer user_data)
+{
+	an_file_history_forward();
+}
+
+void
+on_history_activate (GtkMenuItem * menuitem, gpointer user_data)
+{
+	an_file_history_dump();
 }
 
 void

@@ -42,6 +42,7 @@
 #include "help.h"
 
 #include "tm_tagmanager.h"
+#include "file_history.h"
 
 #define g_strdup_printfs2(_FORMAT_, _STR_) { assert(_STR_); g_strdup_printf(_FORMAT_, _STR_); }
 #define g_strdup_printfs3(_FORMAT_, _STR1_, _STR2_) { assert(_STR1_); assert(_STR2_); g_strdup_printf(_FORMAT_, _STR1_, _STR2_); }
@@ -185,6 +186,9 @@ void anjuta_new (void);
 void anjuta_show (void);
 void anjuta_session_restore (GnomeClient* client);
 
+GList *anjuta_get_file_list(void);
+GList *anjuta_get_function_list(TextEditor *te);
+
 TextEditor *anjuta_append_text_editor (gchar * filename);
 
 void anjuta_remove_text_editor (TextEditor* te);
@@ -200,6 +204,7 @@ gchar *anjuta_get_current_selection (void);
 
 TextEditor*  anjuta_goto_file_line (gchar * fname, glong lineno);
 TextEditor*  anjuta_goto_file_line_mark (gchar * fname, glong lineno, gboolean mark);
+void anjuta_goto_symbol_definition(const char *symbol, TextEditor *te);
 
 void anjuta_apply_preferences (void);
 void anjuta_load_cmdline_files (void);

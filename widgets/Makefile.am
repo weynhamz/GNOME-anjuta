@@ -10,4 +10,7 @@ libwidgets_a_SOURCES = \
 	gnomedirlist.c \
 	gnomedirlist.h \
 	gnomefilelist.c \
-	gnomefilelist.h
+	gnomefilelist.h \
+	scroll-menu.c \
+	scroll-menu.h
+

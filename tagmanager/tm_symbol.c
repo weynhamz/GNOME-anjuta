@@ -42,8 +42,10 @@ TMSymbol *tm_symbol_tree_new(GPtrArray *tags_array)
 		return NULL;
 
 	SYM_NEW(root);
-	/* Extract classes and structs and push them as children of root */
-	tags = tm_tags_extract(tags_array, tm_tag_class_t | tm_tag_struct_t);
+	/* Extract top level elements (classes/structs/macros) and push them
+	as children of root */
+	tags = tm_tags_extract(tags_array, tm_tag_class_t | tm_tag_struct_t
+	  | tm_tag_macro_t | tm_tag_macro_with_arg_t);
 	if (tags && (tags->len > 0))
 	{
 		tm_tags_sort(tags, NULL, TRUE);
@@ -55,7 +57,7 @@ TMSymbol *tm_symbol_tree_new(GPtrArray *tags_array)
 			root->children = g_slist_append(root->children, sym);
 		}
 #ifdef TM_DEBUG
-		fprintf(stderr, "Classes & structs\n");
+		fprintf(stderr, "Classes/Structs/Macros\n");
 		tm_symbol_print(root, 0);
 #endif
 		g_ptr_array_free(tags, TRUE);

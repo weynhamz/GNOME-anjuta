@@ -95,7 +95,7 @@ compile_file_with_make ()
 #endif
 
 void
-compile_file ()
+compile_file (gboolean use_make)
 {
 	gchar *dirname, *cmd, *buff;
 	TextEditor *te;
@@ -134,10 +134,8 @@ compile_file ()
 #endif
 
 	anjuta_set_file_properties (te->full_filename);
-	cmd =
-		command_editor_get_command_file (app->command_editor,
-						 COMMAND_COMPILE_FILE,
-						 te->filename);
+	cmd = command_editor_get_command_file (app->command_editor,
+		use_make?COMMAND_MAKE_FILE:COMMAND_COMPILE_FILE, te->filename);
 	if (cmd == NULL)
 	{
 		anjuta_warning (_("I do not really know how to compile this file."));

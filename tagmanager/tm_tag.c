@@ -18,6 +18,8 @@ static GMemChunk *tag_mem_chunk = NULL;
 
 #define TAG_FREE(T) g_mem_chunk_free(tag_mem_chunk, (T))
 
+/* Note: To preserve binary compatibility, it is very important
+	that you only *append* to this list ! */
 enum
 {
 	TA_NAME = 200,
@@ -29,7 +31,9 @@ enum
 	TA_SCOPE,
 	TA_VARTYPE,
 	TA_INHERITS,
-	TA_TIME
+	TA_TIME,
+	TA_ACCESS,
+	TA_IMPL
 };
 
 static guint *s_sort_attrs = NULL;
@@ -82,8 +86,34 @@ gboolean tm_tag_init(TMTag *tag, TMSourceFile *file, const tagEntryInfo *tag_ent
 			tag->atts.entry.inheritance = g_strdup(tag_entry->extensionFields.inheritance);
 		if (tag_entry->extensionFields.varType != NULL)
 			tag->atts.entry.var_type = g_strdup(tag_entry->extensionFields.varType);
+		if (tag_entry->extensionFields.access != NULL)
+		{
+			if (0 == strcmp("public", tag_entry->extensionFields.access))
+				tag->atts.entry.access = TAG_ACCESS_PUBLIC;
+			else if (0 == strcmp("protected", tag_entry->extensionFields.access))
+				tag->atts.entry.access = TAG_ACCESS_PROTECTED;
+			else if (0 == strcmp("private", tag_entry->extensionFields.access))
+				tag->atts.entry.access = TAG_ACCESS_PRIVATE;
+			else
+			{
+				g_warning("Unknown access type %s", tag_entry->extensionFields.access);
+				tag->atts.entry.access = TAG_ACCESS_UNKNOWN;
+			}
+		}
+		if (tag_entry->extensionFields.implementation != NULL)
+		{
+			if ((0 == strcmp("virtual", tag_entry->extensionFields.implementation))
+			  || (0 == strcmp("pure virtual", tag_entry->extensionFields.implementation)))
+				tag->atts.entry.impl = TAG_IMPL_VIRTUAL;
+			else
+			{
+				g_warning("Unknown implementation %s", tag_entry->extensionFields.implementation);
+				tag->atts.entry.impl = TAG_IMPL_UNKNOWN;
+			}
+		}
 		if ((tm_tag_macro_t == tag->type) && (NULL != tag->atts.entry.arglist))
 			tag->type = tm_tag_macro_with_arg_t;
+		tag->atts.entry.file = file;
 		return TRUE;
 	}
 }
@@ -162,6 +192,12 @@ gboolean tm_tag_init_from_file(TMTag *tag, TMSourceFile *file, FILE *fp)
 					else
 						tag->atts.file.timestamp = atol(start + 1);
 					break;
+				case TA_ACCESS:
+					tag->atts.entry.access = *(start + 1);
+					break;
+				case TA_IMPL:
+					tag->atts.entry.access = *(start + 1);
+					break;
 				default:
 					g_warning("Unknown attribute %s", start + 1);
 					break;
@@ -211,10 +247,14 @@ gboolean tm_tag_write(TMTag *tag, FILE *fp, guint attrs)
 			fprintf(fp, "%c%ld", TA_POS, tag->atts.entry.pos);
 		if ((attrs & tm_tag_attr_scope_t) && (NULL != tag->atts.entry.scope))
 			fprintf(fp, "%c%s", TA_SCOPE, tag->atts.entry.scope);
-		if ((attrs & tm_tag_attr_vartype_t) && (NULL != tag->atts.entry.var_type))
-			fprintf(fp, "%c%s", TA_VARTYPE, tag->atts.entry.var_type);
 		if ((attrs & tm_tag_attr_inheritance_t) && (NULL != tag->atts.entry.inheritance))
 			fprintf(fp, "%c%s", TA_INHERITS, tag->atts.entry.inheritance);
+		if ((attrs & tm_tag_attr_vartype_t) && (NULL != tag->atts.entry.var_type))
+			fprintf(fp, "%c%s", TA_VARTYPE, tag->atts.entry.var_type);
+		if ((attrs & tm_tag_attr_access_t) && (TAG_ACCESS_UNKNOWN != tag->atts.entry.access))
+			fprintf(fp, "%c%c", TA_ACCESS, tag->atts.entry.access);
+		if ((attrs & tm_tag_attr_impl_t) && (TAG_IMPL_UNKNOWN != tag->atts.entry.impl))
+			fprintf(fp, "%c%c", TA_IMPL, tag->atts.entry.impl);
 	}
 	if (fprintf(fp, "\n"))
 		return TRUE;
@@ -423,4 +463,100 @@ TMTag **tm_tags_find(GPtrArray *sorted_tags_array, const char *name, gboolean pa
 	}
 	s_partial = FALSE;
 	return (TMTag **) result;
+}
+
+const char *tm_tag_type_name(TMTag *tag)
+{
+	g_return_val_if_fail(tag, NULL);
+	switch(tag->type)
+	{
+		case tm_tag_class_t: return "class";
+		case tm_tag_enum_t: return "enum";
+		case tm_tag_enumerator_t: return "enumval";
+		case tm_tag_field_t: return "field";
+		case tm_tag_function_t: return "function";
+		case tm_tag_interface_t: return "interface";
+		case tm_tag_member_t: return "member";
+		case tm_tag_method_t: return "method";
+		case tm_tag_namespace_t: return "namespace";
+		case tm_tag_package_t: return "package";
+		case tm_tag_prototype_t: return "prototype";
+		case tm_tag_struct_t: return "struct";
+		case tm_tag_typedef_t: return "typedef";
+		case tm_tag_union_t: return "union";
+		case tm_tag_variable_t: return "variable";
+		case tm_tag_externvar_t: return "extern";
+		case tm_tag_macro_t: return "define";
+		case tm_tag_macro_with_arg_t: return "macro";
+		case tm_tag_file_t: return "file";
+		default: return NULL;
+	}
+	return NULL;
+}
+
+const char *tm_tag_impl_name(TMTag *tag)
+{
+	g_return_val_if_fail(tag && (tm_tag_file_t != tag->type), NULL);
+	if (TAG_IMPL_VIRTUAL == tag->atts.entry.impl)
+		return "virtual";
+	else
+		return NULL;
+}
+
+const char *tm_tag_access_name(TMTag *tag)
+{
+	g_return_val_if_fail(tag && (tm_tag_file_t != tag->type), NULL);
+	if (TAG_ACCESS_PUBLIC == tag->atts.entry.access)
+		return "public";
+	else if (TAG_ACCESS_PROTECTED == tag->atts.entry.access)
+		return "protected";
+	else if (TAG_ACCESS_PRIVATE == tag->atts.entry.access)
+		return "private";
+	else
+		return NULL;
+}
+
+void tm_tag_print(TMTag *tag, FILE *fp)
+{
+	const char *access, *impl, *type;
+	g_return_if_fail(tag && fp);
+	if (tm_tag_file_t == tag->type)
+	{
+		fprintf(fp, "%s\n", tag->name);
+		return;
+	}
+	access = tm_tag_access_name(tag);
+	impl = tm_tag_impl_name(tag);
+	type = tm_tag_type_name(tag);
+	if (access)
+		fprintf(fp, "%s ", access);
+	if (impl)
+		fprintf(fp, "%s ", impl);
+	if (type)
+		fprintf(fp, "%s ", type);
+	if (tag->atts.entry.var_type)
+		fprintf(fp, "%s ", tag->atts.entry.var_type);
+	if (tag->atts.entry.scope)
+		fprintf(fp, "%s::", tag->atts.entry.scope);
+	fprintf(fp, "%s", tag->name);
+	if (tag->atts.entry.arglist)
+		fprintf(fp, "%s", tag->atts.entry.arglist);
+	if (tag->atts.entry.inheritance)
+		fprintf(fp, " : public %s", tag->atts.entry.inheritance);
+	if ((tag->atts.entry.file) && (tag->atts.entry.line > 0))
+		fprintf(fp, "[%s:%ld]", tag->atts.entry.file->work_object.file_name
+		  , tag->atts.entry.line);
+	fprintf(fp, "\n");
+}
+
+void tm_tags_array_print(GPtrArray *tags, FILE *fp)
+{
+	int i;
+	TMTag *tag;
+	g_return_if_fail(tags && (tags->len > 0) && fp);
+	for (i = 0; i < tags->len; ++i)
+	{
+		tag = TM_TAG(tags->pdata[i]);
+		tm_tag_print(tag, fp);
+	}
 }

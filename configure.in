@@ -356,7 +356,6 @@ tagmanager/Makefile
 tagmanager/include/Makefile
 global-tags/Makefile
 scintilla/Makefile
-ccview/Makefile
 widgets/Makefile
 manuals/Makefile
 omf-install/Makefile

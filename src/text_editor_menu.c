@@ -69,6 +69,37 @@ on_tem_toggle_guides_activate (GtkWidget* menuitem, gpointer data)
 
 GnomeUIInfo text_editor_menu_goto_submenu_uiinfo[] = {
 	{
+	 GNOME_APP_UI_ITEM, N_("Back"),
+	 NULL,
+	 on_go_back_activate, NULL, NULL,
+	 GNOME_APP_PIXMAP_NONE, NULL,
+ 	 0, 0, NULL}
+	 ,
+	{
+	 GNOME_APP_UI_ITEM, N_("Forward"),
+	 NULL,
+	 on_go_forward_activate, NULL, NULL,
+	 GNOME_APP_PIXMAP_NONE, NULL,
+ 	 0, 0, NULL}
+	 ,
+	{
+	 GNOME_APP_UI_ITEM, N_("History"),
+	 NULL,
+	 on_history_activate, NULL, NULL,
+	 GNOME_APP_PIXMAP_NONE, NULL,
+ 	 0, 0, NULL}
+	 ,
+	 GNOMEUIINFO_SEPARATOR
+	 ,
+	{
+	 GNOME_APP_UI_ITEM, N_("Symbol Definition"),
+	 NULL,
+	 on_goto_tag_activate, NULL, NULL,
+	 GNOME_APP_PIXMAP_NONE, NULL,
+ 	 0, 0, NULL}
+	 ,
+	GNOMEUIINFO_SEPARATOR,
+	{
 	 GNOME_APP_UI_ITEM, N_("Prev mesg"),
 	 NULL,
 	 on_goto_prev_mesg1_activate, NULL, NULL,
@@ -232,18 +263,10 @@ GnomeUIInfo text_editor_menu_uiinfo[] = {
 	 GNOME_APP_PIXMAP_NONE, NULL,
  	 0, 0, NULL}
 	 ,
-	{
-	 /* 5 */
-	 GNOME_APP_UI_ITEM, N_("Goto Tag"),
-	 NULL,
-	 on_goto_tag_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
- 	 0, 0, NULL}
-	 ,
-	/* 6 */
+	/* 5 */
 	GNOMEUIINFO_SEPARATOR,
 	{
-	 /* 7 */
+	 /* 6 */
 	 GNOME_APP_UI_ITEM, N_("Toggle Bookmark"),
 	 NULL,
 	 on_book_toggle1_activate, NULL, NULL,
@@ -251,7 +274,7 @@ GnomeUIInfo text_editor_menu_uiinfo[] = {
 	 0, 0, NULL}
 	,
 	{
-	 /* 8 */
+	 /* 7 */
 	 GNOME_APP_UI_ITEM, N_("Auto format"),
 	 NULL,
 	 on_indent1_activate, NULL, NULL,
@@ -259,62 +282,62 @@ GnomeUIInfo text_editor_menu_uiinfo[] = {
 	 0, 0, NULL}
 	,
 	{
-	 /* 9 */
+	 /* 8 */
 	 GNOME_APP_UI_ITEM, N_("Swap .h/.c"),
 	 NULL,
 	 on_text_editor_menu_swap_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL}
 	,
-	 /* 10 */
+	 /* 9 */
 	GNOMEUIINFO_SEPARATOR,
 	{
-	 /* 11 */
-	 GNOME_APP_UI_SUBTREE, N_("Goto"),
+	 /* 10 */
+	 GNOME_APP_UI_SUBTREE, N_("Go"),
 	 NULL,
 	 text_editor_menu_goto_submenu_uiinfo, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL}
 	,
 	{
-	 /* 12 */
+	 /* 11 */
 	 GNOME_APP_UI_ITEM, N_("Function"),
 	 NULL,
 	 NULL, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL}
 	,
-	 /* 13 */
+	 /* 12 */
 	GNOMEUIINFO_SEPARATOR,
 	{
-	 /* 14 */
+	 /* 13 */
 	 GNOME_APP_UI_SUBTREE, N_("Debug"),
 	 NULL,
 	 text_editor_menu_debug_submenu_uiinfo, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL}
 	,
-	 /* 15 */
+	 /* 14 */
 	GNOMEUIINFO_SEPARATOR,
 	{
-	 /* 16 */
+	 /* 15 */
 	 GNOME_APP_UI_SUBTREE, N_("Options"),
 	 NULL,
 	 text_editor_menu_options_submenu_uiinfo, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL}
 	,
-	 /* 17 */
+	 /* 16 */
 	GNOMEUIINFO_SEPARATOR,
 	{
-	 /* 18 */
+	 /* 17 */
 	 GNOME_APP_UI_ITEM, N_("Close"),
 	 NULL,
 	 on_close_file1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL}
 	,
-	 /* 19 */
+	 /* 18 */
 	GNOMEUIINFO_END
 };
 
@@ -354,7 +377,6 @@ text_editor_menu_popup (TextEditorMenu * menu, GdkEventButton * bevent)
 	GList *funcs;
 	GtkWidget *submenu;
 	TextEditor *te;
-	gchar *tmp;
 	gboolean A;
 	
 	g_return_if_fail (menu != NULL);
@@ -365,10 +387,8 @@ text_editor_menu_popup (TextEditorMenu * menu, GdkEventButton * bevent)
 
 	A = debugger_is_active ();
 
-	funcs = tags_manager_get_function_list (app->tags_manager,
-						te->filename);
-	tmp = g_list_nth_data (funcs, 0);
-	if (strlen (tmp) > 0)
+	funcs = anjuta_get_function_list(te);
+	if (funcs)
 	{
 		submenu =
 			create_submenu (_("Functions "), funcs,
@@ -409,10 +429,10 @@ create_text_editor_menu_gui (TextEditorMenu * menu)
 		menu->GUI = text_editor_menu;
 		menu->copy = text_editor_menu_uiinfo[0].widget;
 		menu->cut = text_editor_menu_uiinfo[1].widget;
-		menu->autoformat = text_editor_menu_uiinfo[8].widget;
+		menu->autoformat = text_editor_menu_uiinfo[7].widget;
 		menu->swap = text_editor_menu_uiinfo[9].widget;
-		menu->functions = text_editor_menu_uiinfo[12].widget;
-		menu->debug = text_editor_menu_uiinfo[14].widget;
+		menu->functions = text_editor_menu_uiinfo[11].widget;
+		menu->debug = text_editor_menu_uiinfo[13].widget;
 
 		gtk_widget_ref (menu->GUI);
 		gtk_widget_ref (menu->copy);
@@ -449,14 +469,6 @@ void
 on_text_editor_menu_function_activate (GtkMenuItem * menuitem,
 				       gpointer user_data)
 {
-	gchar *func = user_data;
-	gchar *file;
-	guint line;
-	tags_manager_get_tag_info (app->tags_manager, func, &file, &line);
-	if (file)
-	{
-		anjuta_goto_file_line (file, line);
-		g_free (file);
-	}
+	anjuta_goto_symbol_definition((const char *) user_data, NULL);
 }
 

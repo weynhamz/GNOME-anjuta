@@ -10,7 +10,7 @@
 static TMWorkspace *theWorkspace = NULL;
 guint workspace_class_id = 0;
 
-static gboolean tm_create_workspace()
+static gboolean tm_create_workspace(void)
 {
 	char *file_name = g_strdup_printf("%s/%d", P_tmpdir, getpid());
 #ifdef TM_DEBUG
@@ -68,7 +68,7 @@ void tm_workspace_free(gpointer workspace)
 	}
 }
 
-const TMWorkspace *tm_get_workspace()
+const TMWorkspace *tm_get_workspace(void)
 {
 	if (NULL == theWorkspace)
 		tm_create_workspace();
@@ -220,7 +220,7 @@ TMWorkObject *tm_workspace_find_object(TMWorkObject *work_object, const char *fi
 	return NULL;
 }
 
-void tm_workspace_recreate_tags_array()
+void tm_workspace_recreate_tags_array(void)
 {
 	int i, j;
 	TMWorkObject *w;
@@ -320,8 +320,6 @@ const GPtrArray *tm_workspace_find(const char *name, int type, TMTagAttrType *at
 				if (type & (*match)->type)
 					g_ptr_array_add(tags, *match);
 				++ match;
-				if ((!*match) || (!(*match)->name))
-					break;
 				if (partial)
 				{
 					if (0 != strncmp((*match)->name, name, len))

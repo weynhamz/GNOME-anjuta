@@ -120,6 +120,27 @@ anjuta_pixmaps_DATA = \
 	file_icon.xpm\
 	file_html.xpm\
 	run_to_cursor.xpm\
-	file_i18n.xpm
-	
+	file_i18n.xpm\
+	fv_unknown.xpm\
+	fv_source.xpm\
+	fv_image.xpm\
+	fv_i18n.xpm\
+	fv_exec.xpm\
+	fv_doc.xpm\
+	fv_autofile.xpm\
+	variable.xpm\
+	struct.xpm\
+	public_var.xpm\
+	public_func.xpm\
+	protected_var.xpm\
+	protected_func.xpm\
+	private_var.xpm\
+	private_func.xpm\
+	ofolder.xpm\
+	macro.xpm\
+	function.xpm\
+	class.xpm\
+	cfolder.xpm
+
 EXTRA_DIST = $(anjuta_pixmaps_DATA)
+

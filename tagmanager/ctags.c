@@ -245,7 +245,9 @@ extern int stat (const char *, struct stat *);
 extern int lstat (const char *, struct stat *);
 #endif
 
+#if 0
 static boolean createTagsForEntry (const char *const entryName);
+#endif
 
 /*
 *   FUNCTION DEFINITIONS
@@ -256,6 +258,7 @@ extern const char *getExecutableName (void)
     return ExecutableName;
 }
 
+#if 0
 static void setCurrentDirectory (void)
 {
 #ifdef AMIGA
@@ -270,6 +273,7 @@ static void setCurrentDirectory (void)
 	sprintf (CurrentDirectory, "%s%c", cwd, OUTPUT_PATH_SEPARATOR);
     free (cwd);
 }
+#endif
 
 extern void error (const errorSelection selection,
 		   const char *const format, ...)
@@ -430,6 +434,7 @@ extern long unsigned int getFileSize (const char *const name)
     return size;
 }
 
+#if 0
 static boolean isSymbolicLink (const char *const name)
 {
 #if defined (MSDOS) || defined (WIN32) || defined (VMS) || defined (__EMX__) || defined (AMIGA)
@@ -455,6 +460,7 @@ static boolean isNormalFile (const char *const name)
 
     return result;
 }
+#endif
 
 extern boolean isExecutable (const char *const name)
 {
@@ -498,6 +504,7 @@ static boolean isSetUID (const char *const name)
 
 #endif
 
+#if 0
 static boolean isDirectory (const char *const name)
 {
     boolean result = FALSE;
@@ -524,6 +531,7 @@ static boolean isDirectory (const char *const name)
 #endif
     return result;
 }
+#endif
 
 extern boolean doesFileExist (const char *const fileName)
 {
@@ -906,6 +914,7 @@ extern void processExcludeOption (const char *const __unused__ option,
     }
 }
 
+#if 0
 static boolean excludedFile (const char* const name)
 {
     const char* base = baseFilename (name);
@@ -1381,5 +1390,6 @@ extern int ctags_main (int __unused__ argc, char **argv)
     exit (0);
     return 0;
 }
+#endif
 
 /* vi:set tabstop=8 shiftwidth=4: */

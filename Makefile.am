@@ -3,7 +3,7 @@
 ## If you don't want it to overwrite it,
 ## 	Please disable it in the Anjuta project configuration
 
-SUBDIRS = intl po macros tagmanager global-tags scintilla ccview \
+SUBDIRS = intl po macros tagmanager global-tags scintilla \
 	widgets manuals omf-install src pixmaps data \
 	doc launcher plugins
 

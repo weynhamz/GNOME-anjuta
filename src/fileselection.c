@@ -171,11 +171,27 @@ fileselection_set_title (GtkWidget* filesel, gchar* title)
 gboolean
 fileselection_set_dir (GtkWidget* filesel, gchar* dir)
 {
+	if (!last_dir)
+		last_dir = g_new(char, PATH_MAX);
+	if (dir)
+		g_snprintf(last_dir, PATH_MAX, dir);
+
 	return gnome_filelist_set_dir (GNOME_FILELIST(filesel), dir);
 }
 
 gboolean
 fileselection_set_filename (GtkWidget* filesel, gchar* fname)
 {
+	if (!last_dir)
+		last_dir = g_new(char, PATH_MAX);
+	if (fname)
+	{
+		char *slash_pos;
+		g_snprintf(last_dir, PATH_MAX, fname);
+		slash_pos = strrchr(last_dir, '/');
+		if (slash_pos)
+			*slash_pos = '\0';
+	}
+
 	return gnome_filelist_set_filename (GNOME_FILELIST(filesel), fname);
 }
