@@ -19,6 +19,7 @@
 #endif
 
 #include <gnome.h>
+#include "anjuta.h"
 #include "debugger.h"
 #include "watch_cbs.h"
 #include "watch_gui.h"
