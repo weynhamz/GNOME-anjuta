@@ -4,6 +4,8 @@ AC_INIT(src/Makefile.am)
 ANJUTA_VERSION=1.2.0
 
 GLIB_REQUIRED=2.0.6
+GOBJECT_REQUIRED=2.0.6
+GMODULE_REQUIRED=2.0.6
 GDK_PIXBUF_REQUIRED=2.0.0
 GTK_REQUIRED=2.0.8
 ORBIT_REQUIRED=2.4.0
@@ -22,6 +24,8 @@ PANGO_REQUIRED=1.1.1
 PCRE_REQUIRED=3.9
 
 AC_SUBST(GLIB_REQUIRED)
+AC_SUBST(GOBJECT_REQUIRED)
+AC_SUBST(GMODULE_REQUIRED)
 AC_SUBST(GDK_PIXBUF_REQUIRED)
 AC_SUBST(GTK_REQUIRED)
 AC_SUBST(ORBIT_REQUIRED)
@@ -143,12 +147,19 @@ PKG_CHECK_MODULES(ANJUTA, \
 	libxml-2.0 >= $LIBXML_REQUIRED \
 	pango >= $PANGO_REQUIRED)
 
-LIBEGG_PREFIX=/home/gnome/gnome2/cvs/libegg
-ANJUTA_CFLAGS="${ANJUTA_CFLAGS} -I${LIBEGG_PREFIX}"
-ANJUTA_LIBS="$ANJUTA_LIBS ${LIBEGG_PREFIX}/libegg/menu/libegg-menu.la ${LIBEGG_PREFIX}/libegg/treeviewutils/libegg-treeview.la"
-
 AC_SUBST(ANJUTA_CFLAGS)
 AC_SUBST(ANJUTA_LIBS)
+
+PKG_CHECK_MODULES(LIBANJUTA, \
+	gmodule-2.0 >= $GMODULE_REQUIRED \
+	gobject-2.0 >= $GOBJECT_REQUIRED \
+	glib-2.0 >= $GLIB_REQUIRED \
+	gtk+-2.0 >= $GTK_REQUIRED \
+	libglade-2.0 >= $LIBGLADE_REQUIRED \
+	libgnomeui-2.0 >= $GNOME_UI_REQUIRED)
+
+AC_SUBST(LIBANJUTA_CFLAGS)
+AC_SUBST(LIBANJUTA_LIBS)
 
 dnl ***************************************************************************
 dnl Check for old vte version
@@ -537,6 +548,7 @@ widgets/Makefile
 printing/Makefile
 scintilla/include/Makefile
 anjuta.spec
+libanjuta/Makefile
 src/Makefile
 pixmaps/Makefile
 data/Makefile
