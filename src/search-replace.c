@@ -700,7 +700,7 @@ static GList *create_search_entries(Search *s)
 		case SR_FUNCTION: /* FIXME */
 			se = g_new0(SearchEntry, 1);
 			se->type = SE_BUFFER;
-			if (se->te == app->current_text_editor)
+			if ((se->te = app->current_text_editor) != NULL)
 			{
 				se->direction = s->range.direction;
 				if (SD_BEGINNING == se->direction)
@@ -725,7 +725,7 @@ static GList *create_search_entries(Search *s)
 		case SR_SELECTION:
 			se = g_new0(SearchEntry, 1);
 			se->type = SE_BUFFER;
-			if (se->te == app->current_text_editor)
+			if ((se->te = app->current_text_editor) != NULL)
 			{
 				se->direction = s->range.direction;
 				if (SD_BEGINNING == se->direction)
