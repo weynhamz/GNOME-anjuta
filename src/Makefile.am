@@ -14,7 +14,6 @@ INCLUDES = \
 	-I$(top_srcdir)/libegg\
 	-I$(srcdir)/../scintilla/include \
 	-I$(srcdir)/../tagmanager/include \
-	-I$(srcdir)/../widgets \
 	-I$(srcdir)/../pixmaps \
 	-I$(srcdir)/../printing \
 	-I.. -I. -DPACKAGE_BIN_DIR=\"$(bindir)\"
@@ -200,7 +199,6 @@ anjuta_LDADD =  \
 	$(ANJUTA_LIBS) -lutil\
 	$(PCRE_LIBS)\
 	$(top_builddir)/tagmanager/libanjuta-ctags.la\
-	$(top_builddir)/widgets/libwidgets.a\
 	$(top_builddir)/libanjuta/libanjuta.la\
 	$(top_builddir)/scintilla/libanjuta-scintilla.la
 

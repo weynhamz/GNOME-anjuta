@@ -1,7 +1,7 @@
 #ifndef TOOLS_H
 #define TOOLS_H
 
-#include <e-splash.h>
+#include <libanjuta/e-splash.h>
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-ui.h>
 #include <libanjuta/anjuta-preferences.h>

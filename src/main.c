@@ -32,7 +32,7 @@
 #include "anjuta-app.h"
 // #include "utilities.h"
 // #include "fileselection.h"
-#include "e-splash.h"
+#include <libanjuta/e-splash.h>
 
 /* One and only one instance of AnjutaApp. */
 // AnjutaApp *app;			

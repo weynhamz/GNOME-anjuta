@@ -10,13 +10,13 @@ lib_LTLIBRARIES=libanjuta.la
 
 libanjuta_la_LIADD = $(LIBANJUTA_LIBS)
 libanjuta_la_LIBADD = \
-	$(top_builddir)/widgets/libwidgets.a\
-	$(top_builddir)/libegg/treeviewutils/libanjuta-egg-treeview.la\
-	$(top_builddir)/libegg/toolbar/libanjuta-egg-toolbar.la\
-	$(top_builddir)/libegg/menu/libanjuta-egg-menu.la\
-	$(top_builddir)/libegg/util/libanjuta-eggutil.la
+	$(top_builddir)/libegg/libanjuta-egg.la
 
 libanjuta_la_SOURCES= \
+	cell-renderer-captioned-image.c	\
+	cell-renderer-captioned-image.h \
+	e-splash.h \
+	e-splash.c \
 	anjuta-shell.c \
 	anjuta-marshal.c \
 	anjuta-encodings.c \

@@ -4,4 +4,14 @@
 *.la
 Makefile
 Makefile.in
-
+eggmarshalers.c
+gtkexample
+merge-1.ui
+merge-2.ui
+merge-3.ui
+test-actions
+test-drag
+test-merge
+test-multi-drag
+test-tree-utils
+test-union

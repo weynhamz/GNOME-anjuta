@@ -590,7 +590,6 @@ libegg/util/Makefile
 libegg/treeviewutils/Makefile
 libegg/toolbar/Makefile
 libegg/menu/Makefile
-widgets/Makefile
 scintilla/include/Makefile
 anjuta.spec
 libanjuta/Makefile

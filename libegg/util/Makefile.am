@@ -1,29 +1,13 @@
-INCLUDES = \
-	$(ANJUTA_CFLAGS)
 
-lib_LTLIBRARIES = libanjuta-eggutil.la
+BUILT_SOURCES = eggmarshalers.h
 
-eggmarshalers.h: eggmarshalers.list
+eggmarshalers.h: $(srcdir)/../eggmarshalers.list
 	cd $(srcdir) \
-	&& $(GLIB_GENMARSHAL) --prefix=_egg_marshal eggmarshalers.list --header > xgen-emh \
+	&& $(GLIB_GENMARSHAL) --prefix=_egg_marshal $(srcdir)/../eggmarshalers.list --header > xgen-emh \
 	&& cp xgen-emh eggmarshalers.h \
 	&& rm -f xgen-emh xgen-emh~
 
-eggmarshalers.c: eggmarshalers.list
-	cd $(srcdir) \
-	&& $(GLIB_GENMARSHAL) --prefix=_egg_marshal eggmarshalers.list --body > xgen-emc \
-	&& cp xgen-emc eggmarshalers.c \
-	&& rm -f xgen-emc xgen-emc~
-
-egg-marshal.c: eggmarshalers.h eggmarshalers.c
-
-libanjuta_eggutil_la_SOURCES =	\
-	egg-marshal.c
-
 noinst_HEADERS = \
-	eggmarshalers.h	\
+	eggmarshalers.h \
 	eggintl.h \
 	egg-macros.h
-
-EXTRA_DIST=			\
-	eggmarshalers.list
