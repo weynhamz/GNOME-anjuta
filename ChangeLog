@@ -1,3 +1,10 @@
+2005-02-25  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
+
+	* plugins/file-wizard/anjuta-file-wizard.glade
+	plugins/file-wizard/file.[ch], plugins/macro/macros.xml :
+	
+	Integrated License macros, cleaned file.c.
+	
 2005-02-24	Johannes Schmid <jhs@cvs.gnome.org>
 	
 	* plugins/macor/macro-util.c: Fixed crash bugs if email or

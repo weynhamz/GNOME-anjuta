@@ -42,26 +42,27 @@ void display_new_file(IAnjutaDocumentManager *docman);
 AnjutaPreferences *get_preferences (AnjutaPlugin *plugin);
 	
 void file_insert_text(IAnjutaEditor *te, gchar *txt, gint offset);
-
-void insert_notice(IAnjutaEditor *te, gint comment_type, gint license_type);
-
-void insert_header_template(IAnjutaEditor *te);
-void insert_date_time(IAnjutaEditor *te);
-void insert_username(IAnjutaEditor *te, AnjutaPreferences *prefs);
-void insert_changelog_entry(IAnjutaEditor *te, AnjutaPreferences *prefs);
+void insert_notice(IAnjutaMacro* macro, gint license_type, gint comment_type);
 void insert_header(IAnjutaMacro* macro, gint source_type);
 void on_new_file_license_toggled(GtkToggleButton *button, gpointer user_data);
+
+typedef enum _Lge
+{
+	LGE_C,
+	LGE_HC,
+	LGE_CPLUS,
+	LGE_CSHARP,
+	LGE_JAVA,
+	LGE_PERL,
+	LGE_PYTHON,
+	LGE_SHELL
+} Lge;
 
 typedef enum _Cmt
 {
 	CMT_C,
-	CMT_HC,
-	CMT_CPLUS,
-	CMT_CSHARP,
-	CMT_JAVA,
-	CMT_PERL,
-	CMT_PYTHON,
-	CMT_SHELL
+	CMT_CPP,
+	CMT_P
 } Cmt;
 
 #ifdef __cplusplus

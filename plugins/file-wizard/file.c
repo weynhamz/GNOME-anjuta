@@ -53,9 +53,6 @@
 #define IDENT_NAME                 "ident.name"
 #define IDENT_EMAIL                "ident.email"
 
-static gboolean create_new_file_dialog(IAnjutaDocumentManager *docman);
-
-static gchar *insert_header_templ(IAnjutaEditor *te);
 
 typedef struct _NewFileGUI
 {
@@ -72,23 +69,24 @@ typedef struct _NewfileType
 	gboolean header;
 	gboolean gpl;
 	gboolean template;
-	gchar *start_comment;
-	gchar *mid_comment;
-	gchar *end_comment;
-	Cmt type;
+	Cmt comment;
+	Lge type;
 } NewfileType;
 
+
+
 NewfileType new_file_type[] = {
-	{N_("C Source File"), ".c", TRUE, TRUE, FALSE, "/*\n", " * ", " */\n\n", CMT_C},
-	{N_("C -C++ Header File"), ".h", TRUE, TRUE, TRUE, "/*\n", " * ", " */\n\n", CMT_HC},
-	{N_("C++ Source File"), ".cxx", TRUE, TRUE, FALSE, "\n", "// ", "\n", CMT_CPLUS},
-	{N_("C# Source File"), ".c#", TRUE, FALSE, FALSE, "\n", "// ", "\n", CMT_CSHARP},
-	{N_("Java Source File"), ".java", TRUE, TRUE, FALSE, "\n", "// ", "\n", CMT_JAVA},
-	{N_("Perl Source File"), ".pl", TRUE, TRUE, FALSE, "\n", "# ", " *\n", CMT_PERL},
-	{N_("Python Source File"), ".py", FALSE, TRUE, FALSE, "\n", "# ", "\n", CMT_PYTHON},
-	{N_("Shell Script File"), ".sh", TRUE, TRUE, FALSE, "\n", "#  ", "\n", CMT_SHELL},
-	{N_("Other"), NULL, FALSE, FALSE, FALSE, "/*\n", " * ", " */\n\n", CMT_C}
+	{N_("C Source File"), ".c", TRUE, TRUE, FALSE, CMT_C, LGE_C},
+	{N_("C -C++ Header File"), ".h", TRUE, TRUE, TRUE, CMT_C, LGE_HC},
+	{N_("C++ Source File"), ".cxx", TRUE, TRUE, FALSE, CMT_CPP, LGE_CPLUS},
+	{N_("C# Source File"), ".c#", TRUE, FALSE, FALSE, CMT_CPP, LGE_CSHARP},
+	{N_("Java Source File"), ".java", TRUE, TRUE, FALSE, CMT_CPP, LGE_JAVA},
+	{N_("Perl Source File"), ".pl", TRUE, TRUE, FALSE, CMT_P, LGE_PERL},
+	{N_("Python Source File"), ".py", FALSE, TRUE, FALSE, CMT_P, LGE_PYTHON},
+	{N_("Shell Script File"), ".sh", TRUE, TRUE, FALSE, CMT_P, LGE_SHELL},
+	{N_("Other"), NULL, FALSE, FALSE, FALSE, CMT_C, LGE_C}
 };
+
 
 typedef enum _Lsc
 {
@@ -109,6 +107,17 @@ NewlicenseType new_license_type[] = {
 
 static NewFileGUI *nfg = NULL;
 
+
+static gboolean create_new_file_dialog(IAnjutaDocumentManager *docman);
+gboolean on_new_file_cancelbutton_clicked(GtkWidget *window, GdkEvent *event,
+										  gboolean user_data);
+gboolean on_new_file_okbutton_clicked(GtkWidget *window, GdkEvent *event,
+									  gboolean user_data);
+void on_new_file_entry_changed (GtkEditable *entry, gpointer user_data);
+void on_new_file_type_changed (GtkOptionMenu   *optionmenu, gpointer user_data);
+void insert_notice(IAnjutaMacro* macro, gint license_type, gint comment_type);
+
+
 void
 display_new_file(IAnjutaDocumentManager *docman)
 {	
@@ -122,14 +131,6 @@ display_new_file(IAnjutaDocumentManager *docman)
 	}
 }
 
-
-/* Callback declarations */
-gboolean on_new_file_cancelbutton_clicked(GtkWidget *window, GdkEvent *event,
-										  gboolean user_data);
-gboolean on_new_file_okbutton_clicked(GtkWidget *window, GdkEvent *event,
-									  gboolean user_data);
-void on_new_file_entry_changed (GtkEditable *entry, gpointer user_data);
-void on_new_file_type_changed (GtkOptionMenu   *optionmenu, gpointer user_data);
 
 static gboolean
 create_new_file_dialog(IAnjutaDocumentManager *docman)
@@ -170,9 +171,6 @@ create_new_file_dialog(IAnjutaDocumentManager *docman)
 	}
 	gtk_option_menu_set_menu(GTK_OPTION_MENU(optionmenu), menu);
 	
-	//gtk_window_set_transient_for (GTK_WINDOW(nfg->dialog),
-	//	                          GTK_WINDOW(app)); 
-
 	g_object_set_data (G_OBJECT (nfg->dialog), "IAnjutaDocumentManager", docman);
 	glade_xml_signal_autoconnect(nfg->xml);
 	gtk_signal_emit_by_name(GTK_OBJECT (optionmenu), "changed");
@@ -192,27 +190,6 @@ on_new_file_cancelbutton_clicked(GtkWidget *window, GdkEvent *event,
 	return TRUE;
 }
 
-//~ Offset<0 	:	Move cursor to the end of txt
-//~ Offset >=0 	:	Move cursor + offset
-void 
-file_insert_text(IAnjutaEditor *te, gchar *txt, gint offset)
-{
-	gint caret;
-	g_return_if_fail (IANJUTA_IS_EDITOR (te));
-
-	caret = ianjuta_editor_get_position (te, NULL);
-	ianjuta_editor_insert (te, -1, txt, -1, NULL);
-	if (offset < 0)
-		ianjuta_editor_goto_position (te, caret + strlen(txt), NULL);
-	else
-		ianjuta_editor_goto_position (te, caret + offset, NULL);
-}
-
-AnjutaPreferences *
-get_preferences (AnjutaPlugin *plugin)
-{
-	return anjuta_shell_get_preferences (plugin->shell, NULL);
-}
 
 gboolean
 on_new_file_okbutton_clicked(GtkWidget *window, GdkEvent *event,
@@ -224,6 +201,7 @@ on_new_file_okbutton_clicked(GtkWidget *window, GdkEvent *event,
 	gchar *name;
 	gint sel;
 	gint license_type;
+	gint comment_type;
 	gint source_type;
 	IAnjutaEditor *te;
 	IAnjutaDocumentManager *docman;
@@ -249,24 +227,25 @@ on_new_file_okbutton_clicked(GtkWidget *window, GdkEvent *event,
 
 	optionmenu = glade_xml_get_widget(nfg->xml, NEW_FILE_TYPE);
 	source_type = gtk_option_menu_get_history(GTK_OPTION_MENU(optionmenu));
-	
-	checkbutton = glade_xml_get_widget(nfg->xml, NEW_FILE_LICENSE);
-	if (GTK_WIDGET_SENSITIVE(checkbutton) && 
-			gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(checkbutton)))
-	{
-		optionmenu = glade_xml_get_widget(nfg->xml, NEW_FILE_MENU_LICENSE);
-		sel = gtk_option_menu_get_history(GTK_OPTION_MENU(optionmenu));
-		license_type =new_license_type[sel].type;
-				
-		insert_notice (te, source_type, license_type);
-	}
-	
+		
 	checkbutton = glade_xml_get_widget(nfg->xml, NEW_FILE_TEMPLATE);
 	if (GTK_WIDGET_SENSITIVE(checkbutton) && 
 			gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(checkbutton)))
 	{
 		ianjuta_macro_insert(macro, "Header_h", NULL);
 	}		
+
+	checkbutton = glade_xml_get_widget(nfg->xml, NEW_FILE_LICENSE);
+	if (GTK_WIDGET_SENSITIVE(checkbutton) && 
+			gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(checkbutton)))
+	{
+		optionmenu = glade_xml_get_widget(nfg->xml, NEW_FILE_MENU_LICENSE);
+		sel = gtk_option_menu_get_history(GTK_OPTION_MENU(optionmenu));
+		license_type = new_license_type[sel].type;
+		comment_type = new_file_type[source_type].comment;
+		                                  
+		insert_notice(macro, license_type, comment_type);		
+	}
 	
 	checkbutton = glade_xml_get_widget(nfg->xml, NEW_FILE_HEADER);
 	if (GTK_WIDGET_SENSITIVE(checkbutton) && 
@@ -344,149 +323,60 @@ on_new_file_license_toggled(GtkToggleButton *button, gpointer user_data)
 	gtk_widget_set_sensitive(widget, gtk_toggle_button_get_active(button));
 }
  
-
-void
-insert_notice(IAnjutaEditor *te, gint comment_type, gint license_type)
+static void
+insert_notice_gpl (IAnjutaMacro* macro, gint comment_type)
 {
-	gchar *gpl_notice = 
-		"This program is free software; you can redistribute it and/or modify\n"
-		"it under the terms of the GNU General Public License as published by\n"
-		"the Free Software Foundation; either version 2 of the License, or\n"
-		"(at your option) any later version.\n\n"
-		"This program is distributed in the hope that it will be useful,\n"
-		"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
-		"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
-		"GNU Library General Public License for more details.\n\n"
-		"You should have received a copy of the GNU General Public License\n"
-		"along with this program; if not, write to the Free Software\n"
-		"Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.\n";
-	char *lgpl_notice = 
-		"This program is free software; you can redistribute it and/or modify\n"
-		"it under the terms of the GNU Lesser General Public License as published\n"
-		"by the Free Software Foundation; either version 2.1 of the License, or\n"
-		"(at your option) any later version.\n\n"
-		"This program is distributed in the hope that it will be useful,\n"
-		"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
-		"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU\n"
-		"Lesser General Public License for more details.\n\n"
-		"You should have received a copy of the GNU Lesser General Public\n"
-		"License along with this program; if not, write to the Free Software\n"
-		"Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA.\n";
-			
-	gchar *notice;
-	gchar *tmp;
-	gchar *start;
-	gchar *buffer;
+	switch (comment_type)
+	{
+		case CMT_C:
+			ianjuta_macro_insert(macro, "/* GPL */", NULL);
+			break;
+		case CMT_CPP:
+			ianjuta_macro_insert(macro, "// GPL", NULL);;
+			break;
+		case CMT_P:
+			ianjuta_macro_insert(macro, "# GPL", NULL);;
+			break;
+		default:
+			ianjuta_macro_insert(macro, "/* GPL */", NULL);;
+			break;
+	}
+}
 
+static void
+insert_notice_lgpl (IAnjutaMacro* macro, gint comment_type)
+{
+	switch (comment_type)
+	{
+		case CMT_C:
+			ianjuta_macro_insert(macro, "/* LGPL */", NULL);
+			break;
+		case CMT_CPP:
+			ianjuta_macro_insert(macro, "// LGPL", NULL);;
+			break;
+		case CMT_P:
+			ianjuta_macro_insert(macro, "# LGPL", NULL);;
+			break;
+		default:
+			ianjuta_macro_insert(macro, "/* LGPL */", NULL);;
+			break;
+	}
+}
+void
+insert_notice(IAnjutaMacro* macro, gint license_type, gint comment_type)
+{
 	switch (license_type)
-		{
-			case GPL: 
-				notice = gpl_notice;
-				break;
-			case LGPL:
-				notice = lgpl_notice;
-				break;
-			default:
-				g_warning ("License not known\n");
-		}
-	
-	buffer = g_strdup(new_file_type[comment_type].start_comment);
-
-	start = notice;
-	while(*notice++)
 	{
-		if (*notice == '\n')
-		{
-			tmp = g_strndup(start, notice - start +1);
-			buffer = g_strconcat(buffer, new_file_type[comment_type].mid_comment, tmp, NULL);
-			g_free(tmp);
-			start = notice + 1;
-		}	
-	}
-	buffer = g_strconcat(buffer, new_file_type[comment_type].end_comment, NULL);
-
-	file_insert_text(te, buffer, -1);
-	g_free(buffer);
-}
-
-
-static gchar *
-insert_header_templ(IAnjutaEditor *te)
-{
-	GtkWidget *parent;
-	gchar *header_template =
-	"_H\n"
-	"\n"
-	"#ifdef __cplusplus\n"
-	"extern \"C\"\n"
-	"{\n"
-	"#endif\n"
-	"\n\n\n"
-	"#ifdef __cplusplus\n"
-	"}\n"
-	"#endif\n"
-	"\n"
-	"#endif /* _";
-	gchar *buffer;
-	gchar *name = NULL;
-	gchar mesg[256];
-	gint i;
-	const gchar *filename;
-	
-	filename = ianjuta_editor_get_filename (IANJUTA_EDITOR (te), NULL);	
-	i = strlen(filename);
-	if ( g_strcasecmp((filename) + i - 2, ".h") == 0)
-		name = g_strndup(filename, i - 2);
-	else
-	{
-		parent = gtk_widget_get_toplevel (GTK_WIDGET (te));
-		sprintf(mesg, _("The file \"%s\" is not a header file."),
-				filename);
-// FIXME	anjuta_util_dialog_warning (GTK_WINDOW (te), mesg);
-		g_warning("%s\n", mesg);
-		return NULL;
-	}
-	name = g_ascii_strup(name, -1);
-	buffer = g_strconcat("#ifndef _", name, "_H\n#define _", name,
-						header_template, name, "_H */\n", NULL);
-
-	g_free (name);
-	return buffer;
-}
-
-void
-insert_header_template(IAnjutaEditor *te)
-{
-	gchar *header;
-
-	header =  insert_header_templ(te);
-	if (header == NULL)
-		return;
-	file_insert_text(te, header, 0);
-
-	g_free(header);
-}
-
-
-static char *
-insert_d_t(void)
-{
-	time_t cur_time = time(NULL);
-	gchar *DateTime;
-
-	DateTime = g_new(gchar, 100);
-	sprintf(DateTime,ctime(&cur_time));
-	return DateTime;
-}                                                            ;
-
-void
-insert_date_time(IAnjutaEditor *te)
-{
-	gchar *DateTime;
-	DateTime = insert_d_t();
-	file_insert_text(te, DateTime, -1);
-
-	g_free(DateTime);
+		case GPL:
+			insert_notice_gpl(macro, comment_type);
+			break;
+		case LGPL :
+			insert_notice_lgpl(macro, comment_type);
+			break;
+		default:
+			;
+			break;
+	}	
 }
 
 void
@@ -494,19 +384,19 @@ insert_header(IAnjutaMacro* macro, gint source_type)
 {
 	switch (source_type)
 	{
-		case  CMT_C: case CMT_HC:
+		case  LGE_C: case LGE_HC:
 			ianjuta_macro_insert(macro, "Header_c", NULL);
 			break;
-		case  CMT_CPLUS: case CMT_JAVA:
+		case  LGE_CPLUS: case LGE_JAVA:
 			ianjuta_macro_insert(macro, "Header_cpp", NULL);
 			break;
-		case  CMT_CSHARP:
+		case  LGE_CSHARP:
 			ianjuta_macro_insert(macro, "Header_csharp", NULL);
 			break;
-		case CMT_PERL:
+		case LGE_PERL:
 			ianjuta_macro_insert(macro, "Header_perl", NULL);
 			break;
-		case CMT_SHELL:
+		case LGE_SHELL:
 			ianjuta_macro_insert(macro, "Header_shell", NULL);
 			break;
 		default:
