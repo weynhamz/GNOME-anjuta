@@ -100,6 +100,7 @@ anjuta_pixmaps_DATA = \
 	mini_dock.xpm\
 	mini_find.xpm\
 	mini_locals.xpm\
+	mini_term.xpm\
 	new_file.xpm\
 	open_file.xpm\
 	open_project.xpm\

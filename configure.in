@@ -50,7 +50,7 @@ AC_SUBST(GLIB_LIBS)
 AC_SUBST(GLIB_CFLAGS)
 
 dnl we need to check the lib first
-EXTRA_GNOME_LIBS=`gnome-config --libs gnorba`
+EXTRA_GNOME_LIBS=`gnome-config --libs gnorba zvt`
 EXTRA_GNOME_CFLAGS=`gnome-config --cflags gnorba`
 
 AC_SUBST(EXTRA_GNOME_LIBS)

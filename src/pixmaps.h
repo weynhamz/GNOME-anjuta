@@ -99,6 +99,7 @@
 # define ANJUTA_PIXMAP_MINI_FIND "mini_find.xpm"
 # define ANJUTA_PIXMAP_MINI_CVS "mini_cvs.xpm"
 # define ANJUTA_PIXMAP_MINI_LOCALS "mini_locals.xpm"
+# define ANJUTA_PIXMAP_MINI_TERMINAL "mini_term.xpm"
 # define ANJUTA_PIXMAP_MINI_DOCK "mini_dock.xpm"
 # define ANJUTA_PIXMAP_MINI_MODULES "mini_modules.xpm"
 

@@ -1009,6 +1009,11 @@ anjuta_clean_exit ()
 		g_strdup_printf ("rm -f %s/anjuta_*.%ld",
 				 app->dirs->tmp, (long) getpid ());
 	pid = gnome_execute_shell (app->dirs->home, tmp);
+	if (-1 == pid)
+	{
+		perror("Cleanup failed");
+		exit(1);
+	}
 	waitpid (pid, NULL, 0);
 
 /* Is it necessary to free up all the memos on exit? */

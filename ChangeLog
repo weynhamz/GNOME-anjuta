@@ -1,3 +1,11 @@
+2001-12-10	Andy Piper	<andy.piper@freeuk.com>
+
+	* configure.in, src/anjuta.c, src/messages.c, src/messages.h,
+	  src/pixmaps.h: applied terminal and warnings patch (Biswa)
+	* src/*: cleanups (me)
+	* pixmaps/mini_term.xpm: added new file for terminal button
+	  (me, based on existing artwork)
+
 2001-12-07	Andy Piper	<andy.piper@freeuk.com>
 
 	* configure.in: bumped version to 0.1.9-pre

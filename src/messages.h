@@ -29,7 +29,9 @@ enum _MessageType
 	MESSAGE_FIND = 2,
 	MESSAGE_CVS = 3,
 	MESSAGE_LOCALS = 4,
-	MESSAGE_TYPE_END = 5
+	MESSAGE_TYPE_END = 5,
+	MESSAGE_TERMINAL = 5,
+	MESSAGE_BUTTONS_END = 6
 };
 
 struct _Messages
@@ -39,10 +41,11 @@ struct _Messages
   GtkWidget *client;
   GtkWidget *extra_toolbar;
   GtkWidget *scrolledwindow[MESSAGE_TYPE_END];
+  GtkWidget *terminal;
   GtkCList *clist[MESSAGE_TYPE_END];
   gint current_pos[MESSAGE_TYPE_END];
 
-  GtkToggleButton *but[MESSAGE_TYPE_END];
+  GtkToggleButton *but[MESSAGE_BUTTONS_END];
 
   GList *data[MESSAGE_TYPE_END];
   gchar *line_buffer[MESSAGE_TYPE_END];

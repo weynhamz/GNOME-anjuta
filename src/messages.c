@@ -23,8 +23,12 @@
 #include <sys/stat.h>
 #include <unistd.h>
 #include <string.h>
+#include <pwd.h>
+#include <sys/types.h>
 
 #include <gnome.h>
+#include <zvt/zvtterm.h>
+
 #include "anjuta.h"
 #include "messages.h"
 #include "utilities.h"
@@ -48,9 +52,11 @@ static void on_mesg_win_find_but_clicked (GtkButton * but, gpointer data);
 
 static void on_mesg_win_cvs_but_clicked (GtkButton * but, gpointer data);
 
-static void on_mesg_win_locals_but_clicked (GtkButton * but, gpointer data);
-static void
-messages_internal_click(Messages *m, const MessageType type );
+static void on_mesg_win_locals_but_clicked (GtkButton * but, gpointer data);\
+
+static void on_mesg_win_terminal_but_clicked (GtkButton * but, gpointer data);
+
+static void messages_internal_click(Messages *m, const MessageType type );
 
 static void
 on_mesg_win_orien_changed (GtkToolbar * t, GtkOrientation or, gpointer data);
@@ -63,9 +69,17 @@ static GtkWidget *
 msg_create_buttons(GtkWidget *mesg_gui, GtkWidget *toolbar1, 
 		const gint nIndex, const gboolean bActive );
 
+void zvterm_reinit_child(ZvtTerm *term);
+void zvterm_terminate(ZvtTerm *term);
 
 static GdkColor *GetColorError(Messages * m)
-{	return & m->color_red ;
+{
+  return & m->color_red;
+}
+
+static GdkColor *GetColorWarning(Messages * m)
+{
+  return & m->color_green;
 }
 
 Messages *
@@ -112,7 +126,7 @@ messages_new ()
 			m->color_red.blue = 0;
 			m->color_green.pixel = 16;
 			m->color_green.red = 0;
-			m->color_green.green = (guint16) - 1;
+			m->color_green.green = ((guint16) -1)/2;
 			m->color_green.blue = 0;
 			m->color_blue.pixel = 16;
 			m->color_blue.red = 0;
@@ -159,8 +173,9 @@ messages_destroy (Messages * m)
 			gtk_widget_unref (GTK_WIDGET (m->scrolledwindow[i]));
 		for (i = 0; i < MESSAGE_TYPE_END; i++)
 			gtk_widget_unref (GTK_WIDGET (m->clist[i]));
-		for (i = 0; i < MESSAGE_TYPE_END; i++)
+		for (i = 0; i < MESSAGE_BUTTONS_END; i++)
 			gtk_widget_unref (GTK_WIDGET (m->but[i]));
+		gtk_widget_unref(m->terminal);
 
 		if (m->GUI)
 			gtk_widget_destroy (m->GUI);
@@ -174,7 +189,7 @@ messages_show (Messages * m, MessageType type)
 {
 	if (m)
 	{
-		if (type < MESSAGE_TYPE_END)
+		if (type < MESSAGE_BUTTONS_END)
 		{
 			gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON
 						      (m->but[type]), TRUE);
@@ -334,7 +349,12 @@ messages_add_line (Messages * m, MessageType type)
 	}
 	if (parse_error_line (item, &dummy_fn, &dummy_int))
 	{
-		gtk_clist_set_foreground (m->clist[type],
+		if (strstr(item, " warning: "))
+			gtk_clist_set_foreground (m->clist[type],
+					  g_list_length (m->data[type]) - 1,
+					  GetColorWarning(m) );
+		else
+			gtk_clist_set_foreground (m->clist[type],
 					  g_list_length (m->data[type]) - 1,
 					  GetColorError(m) );
 		g_free (dummy_fn);
@@ -506,6 +526,7 @@ static char *MGetCaption( const MessageType type )
 	case MESSAGE_FIND: return _("Find messages"); break;
 	case MESSAGE_CVS: return _("CVS messages"); break;
 	case MESSAGE_LOCALS: return _("Debug Locals Listing"); break;
+	case MESSAGE_TERMINAL: return _("Embedded Terminal"); break;
 	}
 }
 
@@ -519,10 +540,11 @@ static char *MGetStr( const MessageType type )
 	case MESSAGE_FIND: return _("Find"); break;
 	case MESSAGE_CVS: return _("CVS"); break;
 	case MESSAGE_LOCALS: return _("Locals"); break;
+	case MESSAGE_TERMINAL: return _("Term"); break;
 	}
 }
 
-static BuildButtns aBts [MESSAGE_TYPE_END] = {
+static BuildButtns aBts [MESSAGE_BUTTONS_END] = {
 	
 	{ ANJUTA_PIXMAP_MINI_BUILD,TRUE, 
 				on_mesg_win_build_but_clicked },
@@ -534,6 +556,8 @@ static BuildButtns aBts [MESSAGE_TYPE_END] = {
 				on_mesg_win_cvs_but_clicked },
 	{ ANJUTA_PIXMAP_MINI_LOCALS, TRUE,
 				on_mesg_win_locals_but_clicked },
+	{ ANJUTA_PIXMAP_MINI_TERMINAL, TRUE,
+				on_mesg_win_terminal_but_clicked },
 } ;
 
 static GtkWidget *
@@ -568,6 +592,80 @@ msg_create_buttons(GtkWidget *mesg_gui, GtkWidget *toolbar1,
 	return button ;
 }
 
+void zvterm_reinit_child (ZvtTerm *term)
+{
+	struct passwd *pw;
+	GString *shell, *name;
+
+	g_message("Re-creating terminal shell..");
+	zvt_term_reset(term, TRUE);
+	switch (zvt_term_forkpty(term, ZVT_TERM_DO_UTMP_LOG |  ZVT_TERM_DO_WTMP_LOG))
+	{
+		case -1:
+			break;
+		case 0:
+			pw = getpwuid(getuid());
+			if (pw)
+			{
+				shell = g_string_new(pw->pw_shell);
+				name = g_string_new("-");
+			}
+			else
+			{
+				shell = g_string_new("/bin/sh");
+				name = g_string_new("-sh");
+			}
+			execle (shell->str, name->str, NULL, NULL);
+		default:
+			break;
+	}
+}
+
+void zvterm_terminate (ZvtTerm *term)
+{
+	g_message("Terminating terminal..");
+	gtk_signal_disconnect_by_func(GTK_OBJECT(term), zvterm_reinit_child, NULL);
+	zvt_term_closepty(term);
+}
+
+#undef ZVT_FONT
+#define ZVT_FONT "-misc-fixed-medium-r-normal--12-200-75-75-c-100-iso8859-1"
+#undef ZVT_SCROLLSIZE
+#define ZVT_SCROLLSIZE 200
+
+static void create_mesg_terminal(Messages *m, GtkWidget *hbox)
+{
+	GtkWidget *scrollbar;
+
+	g_message("Create the embedded terminal..");
+
+	m->terminal = zvt_term_new();
+	zvt_term_set_font_name(ZVT_TERM(m->terminal), ZVT_FONT);
+	zvt_term_set_blink(ZVT_TERM(m->terminal), TRUE);
+	zvt_term_set_bell(ZVT_TERM(m->terminal), TRUE);
+	zvt_term_set_scrollback(ZVT_TERM(m->terminal), ZVT_SCROLLSIZE);
+	zvt_term_set_scroll_on_keystroke(ZVT_TERM(m->terminal), TRUE);
+	zvt_term_set_scroll_on_output(ZVT_TERM(m->terminal), FALSE);
+	zvt_term_set_background(ZVT_TERM(m->terminal), NULL, 0, 0);
+	zvt_term_set_wordclass(ZVT_TERM(m->terminal), "-A-Za-z0-9/_:.,?+%=");
+	gtk_widget_show(m->terminal);
+	gtk_widget_ref(m->terminal);
+
+	scrollbar = gtk_vscrollbar_new(GTK_ADJUSTMENT(
+	  ZVT_TERM(m->terminal)->adjustment));
+	GTK_WIDGET_UNSET_FLAGS(scrollbar, GTK_CAN_FOCUS);
+	gtk_box_pack_start(GTK_BOX(hbox), m->terminal, TRUE, TRUE, 0);
+	gtk_box_pack_start(GTK_BOX(hbox), scrollbar, FALSE, TRUE, 0);
+	gtk_widget_show (scrollbar);
+	gtk_widget_ref(scrollbar);
+
+	zvterm_reinit_child(ZVT_TERM(m->terminal));
+	gtk_signal_connect (GTK_OBJECT(m->terminal), "child_died"
+	  , GTK_SIGNAL_FUNC (zvterm_reinit_child), NULL);
+	gtk_signal_connect (GTK_OBJECT (m->terminal),"destroy"
+	  , GTK_SIGNAL_FUNC (zvterm_terminate), NULL);
+}
+
 void
 create_mesg_gui (Messages * m)
 {
@@ -581,7 +679,7 @@ create_mesg_gui (Messages * m)
 	GtkWidget *hbox3;
 	GtkWidget *scrolledwindow[MESSAGE_TYPE_END];
 	GtkWidget *mesg_clist[MESSAGE_TYPE_END];
-	GtkWidget *button[MESSAGE_TYPE_END+1];
+	GtkWidget *button[MESSAGE_BUTTONS_END];
 	GtkWidget *pix_lab;
 	gint	nIndex;
 	gint i;
@@ -619,7 +717,7 @@ create_mesg_gui (Messages * m)
 	gtk_toolbar_set_space_style (GTK_TOOLBAR (toolbar1),
 				     GTK_TOOLBAR_SPACE_LINE);
 
-	for( i =0 ; i < MESSAGE_TYPE_END; i ++ )
+	for( i =0 ; i < MESSAGE_BUTTONS_END; i ++ )
 		button[i] = msg_create_buttons( mesg_gui, toolbar1, i, (MESSAGE_BUILD==i)?TRUE:FALSE );
 
 	frame2 = gtk_frame_new (NULL);
@@ -648,15 +746,17 @@ create_mesg_gui (Messages * m)
 		gtk_widget_show (scrolledwindow[nIndex]);
 		gtk_box_pack_start (GTK_BOX (hbox3), scrolledwindow[nIndex], TRUE, TRUE, 0);
 		gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolledwindow[nIndex]),
-						GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+		  GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 		mesg_clist[nIndex] = gtk_clist_new (1);
 		gtk_widget_show (mesg_clist[nIndex]);
 		gtk_container_add (GTK_CONTAINER (scrolledwindow[nIndex]), mesg_clist[nIndex]);
 		gtk_clist_column_titles_hide (GTK_CLIST (mesg_clist[nIndex]));
 		gtk_clist_set_column_auto_resize (GTK_CLIST (mesg_clist[nIndex]), 0, TRUE);
 		gtk_signal_connect (GTK_OBJECT (mesg_clist[nIndex]), "select_row",
-			    GTK_SIGNAL_FUNC (on_mesg_clist_select_row), m );
-	}		
+		  GTK_SIGNAL_FUNC (on_mesg_clist_select_row), m );
+	}
+
+	create_mesg_terminal(m, hbox3);
 
 	gtk_signal_connect (GTK_OBJECT (mesg_gui), "delete_event",
 			    GTK_SIGNAL_FUNC (on_mesg_win_delete_event), m);
@@ -667,7 +767,7 @@ create_mesg_gui (Messages * m)
 	gtk_signal_connect (GTK_OBJECT (button1), "clicked",
 			    GTK_SIGNAL_FUNC (on_mesg_win_dock_clicked), m);
 
-	for( i = 0 ; i < MESSAGE_TYPE_END ; i ++ )
+	for( i = 0 ; i < MESSAGE_BUTTONS_END ; i ++ )
 	{
 		gtk_signal_connect (GTK_OBJECT (button[i]), "clicked",
 			    GTK_SIGNAL_FUNC (aBts[i].pfn), m);
@@ -695,7 +795,7 @@ create_mesg_gui (Messages * m)
 		gtk_widget_ref (GTK_WIDGET (m->clist[i]));
 	}
 
-	for (i = 0; i < MESSAGE_TYPE_END; i++)
+	for (i = 0; i < MESSAGE_BUTTONS_END; i++)
 	{
 		m->but[i] = GTK_TOGGLE_BUTTON (button[i]);
 		gtk_widget_ref (GTK_WIDGET (m->but[i]));
@@ -852,6 +952,8 @@ on_mesg_clist_select_row (GtkCList * clist,
 	Messages *m = user_data;
 
 
+	if (m->cur_type >= MESSAGE_TYPE_END)
+		return;
 	m->current_pos[m->cur_type] = row;
 
 	if (event == NULL)
@@ -993,12 +1095,17 @@ on_mesg_win_find_but_clicked (GtkButton * but, gpointer data)
 {
 	messages_internal_click( (Messages *) data, MESSAGE_FIND ) ;
 }
+static void
+on_mesg_win_terminal_but_clicked (GtkButton * but, gpointer data)
+{
+	messages_internal_click( (Messages *) data, MESSAGE_TERMINAL ) ;
+}
 
 static void
 messages_internal_click(Messages *m, const MessageType type )
 {
 	gint i;
-	for( i = 0 ; i < MESSAGE_TYPE_END ; i ++ )
+	for( i = 0 ; i < MESSAGE_BUTTONS_END ; i ++ )
 	{
 		if( i != type )
 		{
@@ -1006,19 +1113,18 @@ messages_internal_click(Messages *m, const MessageType type )
 						       GTK_SIGNAL_FUNC(aBts[i].pfn), m);
 		}
 	}
-	for (i = 0; i < MESSAGE_TYPE_END; i++)
+	for (i = 0; i < MESSAGE_BUTTONS_END; i++)
 	{
 		gboolean	bSel = (i == type) ? TRUE : FALSE ;
 		gtk_toggle_button_set_active (
 					GTK_TOGGLE_BUTTON(m->but[i]), bSel );
-		
 		if (bSel)
-			gtk_widget_show (m->scrolledwindow[i]);
+			gtk_widget_show ((i == MESSAGE_TERMINAL)?m->terminal:m->scrolledwindow[i]);
 		else
-			gtk_widget_hide (m->scrolledwindow[i]);
+			gtk_widget_hide ((i == MESSAGE_TERMINAL)?m->terminal:m->scrolledwindow[i]);
 	}
-	m->cur_type = type ;	
-	for( i = 0 ; i < MESSAGE_TYPE_END ; i ++ )
+	m->cur_type = type ;
+	for( i = 0 ; i < MESSAGE_BUTTONS_END ; i ++ )
 	{
 		if( i != type )
 		{
