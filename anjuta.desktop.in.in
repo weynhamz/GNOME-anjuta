@@ -9,4 +9,3 @@ Type=Application
 Categories=Application;Development;
 Encoding=UTF-8
 StartupNotify=true
-MimeType=text/x-java;text/x-javascript;

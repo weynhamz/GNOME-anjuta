@@ -1,5 +1,7 @@
 2004-08-17  Naba Kumar  <naba@gnome.org>
 
+	* mime/anjuta.xml, mime/Makefile.am: Added mime definition xml.
+
 	* TODO: Updated.
 	
 	* data/Makefile.am: Disabled installing old mime info.
