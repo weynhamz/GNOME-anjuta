@@ -31,6 +31,7 @@ interface IAnjutaFile
 	{
 		// Signals
 		void ::save_point (gboolean entered);
+		void ::saved (const gchar *uri);
 		
 		void save ();
 		void save_as (const gchar *uri);

@@ -49,6 +49,7 @@ GtkWidget *anjuta_symbol_view_new (void);
 void   anjuta_symbol_view_open (AnjutaSymbolView *sv, const gchar *dir);
 void   anjuta_symbol_view_clear (AnjutaSymbolView *sv);
 void   anjuta_symbol_view_update (AnjutaSymbolView *sv);
+void   anjuta_symbol_view_save (AnjutaSymbolView *sv);
 
 GList* anjuta_symbol_view_get_node_expansion_states (AnjutaSymbolView *sv);
 void   anjuta_symbol_view_set_node_expansion_states (AnjutaSymbolView *sv,
@@ -64,10 +65,15 @@ gboolean anjuta_symbol_view_get_current_symbol_decl (AnjutaSymbolView *sv,
 													 const gchar** const file,
 													 gint *line);
 GtkTreeModel *anjuta_symbol_view_get_file_symbol_model (AnjutaSymbolView *sv);
+
 void anjuta_symbol_view_workspace_add_file (AnjutaSymbolView *sv,
 											const gchar *uri);
 void anjuta_symbol_view_workspace_remove_file (AnjutaSymbolView *sv,
 											   const gchar *uri);
+void anjuta_symbol_view_workspace_update_file (AnjutaSymbolView *sv,
+											   const gchar *old_file_uri,
+											   const gchar *new_file_uri);
+
 gint anjuta_symbol_view_workspace_get_line (AnjutaSymbolView *sv,
 											GtkTreeIter *iter);
 gboolean anjuta_symbol_view_get_file_symbol (AnjutaSymbolView *sv,

@@ -462,7 +462,7 @@ anjuta_symbol_view_clear (AnjutaSymbolView *sv)
 
 	if (sv->priv->tm_project)
 	{
-		tm_project_save (sv->priv->tm_project);
+		tm_project_save (TM_PROJECT (sv->priv->tm_project));
 	}
 	model = gtk_tree_view_get_model (GTK_TREE_VIEW (sv));
 	if (model)
@@ -837,12 +837,18 @@ anjuta_symbol_view_update (AnjutaSymbolView *sv)
 			tm_project_autoscan (TM_PROJECT(sv->priv->tm_project));
 		else
 			tm_project_update (sv->priv->tm_project, FALSE, TRUE, TRUE);
-		tm_project_save (sv->priv->tm_project);
+		tm_project_save (TM_PROJECT (sv->priv->tm_project));
 	}
 	/*
 	else if (p->top_proj_dir)
 		p->tm_project = tm_project_new (p->top_proj_dir, NULL, NULL, TRUE);
 	*/
+}
+
+void
+anjuta_symbol_view_save (AnjutaSymbolView *sv)
+{
+	tm_project_save (TM_PROJECT (sv->priv->tm_project));
 }
 
 GList *
@@ -1050,6 +1056,10 @@ anjuta_symbol_view_workspace_add_file (AnjutaSymbolView *sv,
 			if (tm_file)
 				tm_workspace_add_object (tm_file);
 		}
+		else
+		{
+			tm_source_file_update (TM_WORK_OBJECT(tm_file), TRUE, FALSE, TRUE);
+		}
 		if (tm_file)
 		{
 			store = create_file_symbols_model (sv, tm_file, tm_tag_max_t);
@@ -1066,7 +1076,6 @@ anjuta_symbol_view_workspace_remove_file (AnjutaSymbolView *sv,
 										  const gchar *file_uri)
 {
 	const gchar *uri;
-	TMWorkObject *tm_file;
 	
 	g_return_if_fail (ANJUTA_IS_SYMBOL_VIEW (sv));
 	g_return_if_fail (file_uri != NULL);
@@ -1075,9 +1084,70 @@ anjuta_symbol_view_workspace_remove_file (AnjutaSymbolView *sv,
 	if (strncmp (file_uri, "file://", 7) == 0)
 		uri = &file_uri[7];
 	
-	tm_file = g_hash_table_lookup (sv->priv->tm_files, uri);
-	if (tm_file)
+	if (g_hash_table_lookup (sv->priv->tm_files, uri))
 		g_hash_table_remove (sv->priv->tm_files, uri);
+}
+
+void
+anjuta_symbol_view_workspace_update_file (AnjutaSymbolView *sv,
+										  const gchar *old_file_uri,
+										  const gchar *new_file_uri)
+{
+	g_return_if_fail (ANJUTA_IS_SYMBOL_VIEW (sv));
+	g_return_if_fail (new_file_uri != NULL);
+	if (old_file_uri)
+		anjuta_symbol_view_workspace_remove_file (sv, old_file_uri);
+	anjuta_symbol_view_workspace_add_file (sv, old_file_uri);
+#if 0
+	const gchar *uri;
+	TMWorkObject *tm_file;
+	GtkTreeModel *store = NULL;
+	
+	g_return_if_fail (ANJUTA_IS_SYMBOL_VIEW (sv));
+	g_return_if_fail (new_file_uri != NULL);
+	g_return_if_fail (strncmp (new_file_uri, "file://", 7) == 0);
+	
+	if (old_file_uri)
+	{
+		/* Rename old uri to new one */
+		gchar *orig_key;
+		gboolean success;
+		
+		g_return_if_fail (strncmp (old_file_uri, "file://", 7) == 0);
+		
+		uri = &old_file_uri[7];
+		success = g_hash_table_lookup_extended (sv->priv->tm_files, uri,
+												(gpointer*)&orig_key,
+												(gpointer*)&store);
+		if (success)
+		{
+			if (strcmp (old_file_uri, new_file_uri) != 0)
+			{
+				DEBUG_PRINT ("Renaming Symbol URI: %s to %s",
+							 old_file_uri, new_file_uri);
+				g_hash_table_steal (sv->priv->tm_files, uri);
+				g_free (orig_key);
+				uri = &new_file_uri[7];
+				g_hash_table_insert (sv->priv->tm_files, g_strdup (uri),
+									 store);
+			}
+			/* Update tm_file */
+			tm_file = g_object_get_data (G_OBJECT (store), "tm_file");
+			g_assert (tm_file != NULL);
+			tm_source_file_update (TM_WORK_OBJECT(tm_file), TRUE, FALSE, TRUE);
+		}
+		else
+		{
+			/* Old uri not found. Just add the new one. */
+			anjuta_symbol_view_workspace_add_file (sv, new_file_uri);
+		}
+	}
+	else
+	{
+		/* No old uri to rename. Just add the new one. */
+		anjuta_symbol_view_workspace_add_file (sv, new_file_uri);
+	}
+#endif
 }
 
 gint
@@ -1105,15 +1175,15 @@ anjuta_symbol_view_get_file_symbol (AnjutaSymbolView *sv, const gchar *symbol,
 {
 	TMWorkObject *tm_file;
 	GPtrArray *tags;
-	TMTag *tag = NULL, *local_tag = NULL, *global_tag = NULL;
-	TMTag *local_proto = NULL, *global_proto = NULL;
 	guint i;
 	int cmp;
+	TMTag *tag = NULL, *local_tag = NULL, *global_tag = NULL;
+	TMTag *local_proto = NULL, *global_proto = NULL;
 
 	g_return_val_if_fail (symbol != NULL, FALSE);
 
 	/* Get the matching definition and declaration in the local file */
-	if (sv->priv->file_symbol_model == NULL)
+	if (sv->priv->file_symbol_model != NULL)
 	{
 		tm_file = g_object_get_data (G_OBJECT (sv->priv->file_symbol_model),
 									 "tm_file");

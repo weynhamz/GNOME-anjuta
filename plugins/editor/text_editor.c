@@ -1205,43 +1205,11 @@ text_editor_save_file (TextEditor * te, gboolean update)
 	else
 	{
 		te->modified_time = time (NULL);
-		// FIXME:
-		// tags_update =
-			// anjuta_preferences_get_int (te->preferences, AUTOMATIC_TAGS_UPDATE);
-		tags_update = TRUE;
-		if (tags_update)
-		{
-// FIXME:
-#if 0
-			if ((app->project_dbase->project_is_open == FALSE)
-			  || (project_dbase_is_file_in_module
-			    (app->project_dbase, MODULE_SOURCE, te->uri))
-			  || (project_dbase_is_file_in_module
-			    (app->project_dbase, MODULE_INCLUDE, te->uri)))
-			{
-				check_tm_file(te);
-				if (te->tm_file)
-				{
-					GList *tmp;
-					TextEditor *te1;
-					tm_source_file_update(TM_WORK_OBJECT(te->tm_file)
-					  , FALSE, FALSE, TRUE);
-					if(update)
-					{
-						for (tmp = app->text_editor_list; tmp; tmp = g_list_next(tmp))
-						{
-							te1 = (TextEditor *) tmp->data;
-							text_editor_set_hilite_type(te1);
-						}
-					}
-				}
-			}
-#endif
-		}
 		/* we need to update UI with the call to scintilla */
 		text_editor_thaw (te);
 		scintilla_send_message (SCINTILLA (te->scintilla),
 					SCI_SETSAVEPOINT, 0, 0);
+		g_signal_emit_by_name (G_OBJECT (te), "saved", te->uri);
 		//FIXME: anjuta_set_active ();
 		//FIXME: anjuta_status (_("File saved successfully"));
 		return TRUE;

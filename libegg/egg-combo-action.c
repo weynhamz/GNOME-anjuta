@@ -415,9 +415,15 @@ egg_combo_action_set_model (EggComboAction *action, GtkTreeModel *model)
 		  combo = gtk_bin_get_child (GTK_BIN (proxy));
 		  if (GTK_IS_COMBO_BOX (combo))
 			{
+			  g_signal_handlers_block_by_func (combo,
+											   G_CALLBACK (on_change),
+											   action);
 			  gtk_combo_box_set_active (GTK_COMBO_BOX (combo), -1);
 			  gtk_combo_box_set_model (GTK_COMBO_BOX (combo), model);
 			  gtk_combo_box_set_active (GTK_COMBO_BOX (combo), 0);
+			  g_signal_handlers_unblock_by_func (combo,
+												 G_CALLBACK (on_change),
+												 action);
 			}
 		  else
 			{

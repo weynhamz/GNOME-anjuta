@@ -186,7 +186,7 @@ static GtkActionEntry popup_actions[] =
 	{
 		"ActionPopupSymbolBrowserGotoDef",
 		NULL,
-		N_("Tag _Definition"),
+		N_("Goto _Definition"),
 		NULL,
 		N_("Goto symbol definition"),
 		G_CALLBACK (on_goto_def_activate)
@@ -376,19 +376,74 @@ on_editor_destroy (IAnjutaEditor *editor, SymbolBrowserPlugin *sv_plugin)
 	
 	if (!editor_connected)
 		return;
-	uri = ianjuta_file_get_uri (IANJUTA_FILE (editor), NULL);
+	uri = g_object_get_data (G_OBJECT (editor), "LastSavedUri");
 	if (uri)
 	{
-		gchar *filename;
-		
-		filename = gnome_vfs_get_local_path_from_uri (uri);
-		g_return_if_fail (filename != NULL);
-		
+		DEBUG_PRINT ("Removing file tags of %s", uri);
 		anjuta_symbol_view_workspace_remove_file (ANJUTA_SYMBOL_VIEW (sv_plugin->sv),
 											   uri);
-		DEBUG_PRINT ("Removing file tags of %s", uri);
 	}
 	g_hash_table_remove (editor_connected, G_OBJECT (editor));
+}
+
+static void
+on_editor_saved (IAnjutaEditor *editor, const gchar *saved_uri,
+				 SymbolBrowserPlugin *sv_plugin)
+{
+	const gchar *old_uri;
+	gboolean tags_update;
+	GtkTreeModel *file_symbol_model;
+	GtkAction *action;
+	AnjutaUI *ui;
+	
+	/* FIXME: Do this only if automatic tags update is enabled */
+	/* tags_update =
+		anjuta_preferences_get_int (te->preferences, AUTOMATIC_TAGS_UPDATE);
+	*/
+	tags_update = TRUE;
+	if (tags_update)
+	{
+		gchar *local_filename;
+		
+		/* Verify that it's local file */
+		local_filename = gnome_vfs_get_local_path_from_uri (saved_uri);
+		g_return_if_fail (local_filename != NULL);
+		g_free (local_filename);
+		
+		if (!editor_connected)
+			return;
+	
+		old_uri = g_object_get_data (G_OBJECT (editor), "LastSavedUri");
+		
+		anjuta_symbol_view_workspace_update_file (ANJUTA_SYMBOL_VIEW (sv_plugin->sv),
+												  old_uri, saved_uri);
+		g_object_set_data_full (G_OBJECT (editor), "LastSavedUri",
+								g_strdup (saved_uri), g_free);
+		
+		/* Update File symbol view */
+		ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (sv_plugin)->shell, NULL);
+		action = anjuta_ui_get_action (ui, "ActionGroupSymbolNavigation",
+									   "ActionGotoSymbol");
+		file_symbol_model =
+			anjuta_symbol_view_get_file_symbol_model (ANJUTA_SYMBOL_VIEW (sv_plugin->sv));
+		egg_combo_action_set_model (EGG_COMBO_ACTION (action), file_symbol_model);
+		if (gtk_tree_model_iter_n_children (file_symbol_model, NULL) > 0)
+			g_object_set (G_OBJECT (action), "sensitive", TRUE, NULL);
+		else
+			g_object_set (G_OBJECT (action), "sensitive", FALSE, NULL);
+
+#if 0
+		/* FIXME: Re-hilite all editors on tags update */
+		if(update)
+		{
+			for (tmp = app->text_editor_list; tmp; tmp = g_list_next(tmp))
+			{
+				te1 = (TextEditor *) tmp->data;
+				text_editor_set_hilite_type(te1);
+			}
+		}
+#endif
+	}
 }
 
 static void
@@ -416,12 +471,14 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 	uri = ianjuta_file_get_uri (IANJUTA_FILE (editor), NULL);
 	if (uri)
 	{
-		gchar *filename;
+		gchar *local_filename;
 		GtkTreeModel *file_symbol_model;
 		GtkAction *action;
 		
-		filename = gnome_vfs_get_local_path_from_uri (uri);
-		g_return_if_fail (filename != NULL);
+		/* Verify that it's local file */
+		local_filename = gnome_vfs_get_local_path_from_uri (uri);
+		g_return_if_fail (local_filename != NULL);
+		g_free (local_filename);
 		
 		anjuta_symbol_view_workspace_add_file (ANJUTA_SYMBOL_VIEW (sv_plugin->sv),
 											   uri);
@@ -430,7 +487,6 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 		file_symbol_model =
 			anjuta_symbol_view_get_file_symbol_model (ANJUTA_SYMBOL_VIEW (sv_plugin->sv));
 		egg_combo_action_set_model (EGG_COMBO_ACTION (action), file_symbol_model);
-		g_free (uri);
 		if (gtk_tree_model_iter_n_children (file_symbol_model, NULL) > 0)
 			g_object_set (G_OBJECT (action), "sensitive", TRUE, NULL);
 		else
@@ -442,7 +498,17 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 									G_CALLBACK (on_editor_destroy),
 									sv_plugin);
 		g_hash_table_insert (editor_connected, editor, (gpointer)id);
+		if (uri)
+		{
+			g_object_set_data_full (G_OBJECT (editor), "LastSavedUri",
+									g_strdup (uri), g_free);
+		}
+		g_signal_connect (G_OBJECT (editor), "saved",
+						  G_CALLBACK (on_editor_saved),
+						  sv_plugin);
 	}
+	if (uri)
+		g_free (uri);
 }
 
 static void
