@@ -1383,7 +1383,7 @@ static GnomeUIInfo breakpoints1_submenu_uiinfo[NUM_BREAKPOINTS_SUBMENUS+1] = {
 	GNOMEUIINFO_END/*6*/
 };
 
-#define NUM_INFO_SUBMENUS 8
+#define NUM_INFO_SUBMENUS 9
 static GnomeUIInfo info1_submenu_uiinfo[NUM_INFO_SUBMENUS+1] = {
 	{/*0*/
 	 GNOME_APP_UI_ITEM, N_("Info _Target Files"),
@@ -1433,7 +1433,13 @@ static GnomeUIInfo info1_submenu_uiinfo[NUM_INFO_SUBMENUS+1] = {
 	 on_info_args_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
-	GNOMEUIINFO_END/*8*/
+	{/*8*/
+	 GNOME_APP_UI_ITEM, N_("Info _Memory"),
+	 N_("Display accessible memory"),
+	 on_info_memory_activate, NULL, NULL,
+	 GNOME_APP_PIXMAP_NONE, NULL,
+	 0, 0, NULL},
+	GNOMEUIINFO_END/*9*/
 };
 
 #define NUM_DEBUG_SUBMENUS 22

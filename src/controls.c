@@ -440,6 +440,7 @@ update_main_menubar ()
 	gtk_widget_set_sensitive (dm->info_locals, A && R);
 	gtk_widget_set_sensitive (dm->info_frame, A && R);
 	gtk_widget_set_sensitive (dm->info_args, A && R);
+	gtk_widget_set_sensitive (dm->info_memory, A && R);
 	
 	gtk_widget_set_sensitive (cvs->update_file, !L && F);
 	gtk_widget_set_sensitive (cvs->commit_file, !L && F);

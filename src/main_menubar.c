@@ -207,6 +207,8 @@ create_main_menubar (GtkWidget * ap, MainMenuBar * mb)
 	mb->debug.info_locals = info1_submenu_uiinfo[5].widget;
 	mb->debug.info_frame = info1_submenu_uiinfo[6].widget;
 	mb->debug.info_args = info1_submenu_uiinfo[7].widget;
+	mb->debug.info_memory = info1_submenu_uiinfo[8].widget;
+
 	mb->debug.start_debug = debug1_menu_uiinfo[0].widget;
 	mb->debug.open_exec = debug1_menu_uiinfo[2].widget;
 	mb->debug.load_core = debug1_menu_uiinfo[3].widget;

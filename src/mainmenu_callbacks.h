@@ -485,6 +485,9 @@ on_info_frame_activate                     (GtkMenuItem     *menuitem,
 void
 on_info_args_activate                     (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
+void
+on_info_memory_activate                     (GtkMenuItem     *menuitem,
+                                        gpointer         user_data);
 
 /********************************************************************************/
 void

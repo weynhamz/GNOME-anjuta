@@ -40,7 +40,9 @@ app_wizard_new (void)
 	{
 		gchar* username;
 		
-		username = getenv ("USERNAME");
+		username = preferences_get(app->preferences, IDENT_NAME);
+		if (!username)
+			username = getenv ("USERNAME");
 		if (!username)
 			username = getenv ("USER");
 		

@@ -59,7 +59,7 @@
 
 #include "tm_tagmanager.h"
 #include "file_history.h"
-
+#include "memory.h"
 void on_toolbar_find_clicked (GtkButton * button, gpointer user_data);
 
 gboolean closing_state;		/* Do not tamper with this variable  */
@@ -1913,6 +1913,14 @@ on_info_args_activate (GtkMenuItem * menuitem, gpointer user_data)
 	debugger_execute_cmd_in_queqe ();
 }
 
+void
+on_info_memory_activate (GtkMenuItem * menuitem, gpointer user_data)
+{
+	GtkWidget *win_memory;
+
+	win_memory = create_info_memory(NULL);
+	gtk_widget_show(win_memory);
+}
 
 /********************************************************************************/
 

@@ -240,6 +240,7 @@ struct _DebugSubMenu
 	GtkWidget *info_locals;
 	GtkWidget *info_frame;
 	GtkWidget *info_args;
+	GtkWidget *info_memory;
 };
 
 struct _CVSSubMenu

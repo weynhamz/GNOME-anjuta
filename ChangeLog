@@ -1,3 +1,16 @@
+2002-08-09	Naba Kumar	<kh_naba@users.sourceforge.net>
+
+	Patch from Jean-Noel Guiheneuf <jnoel@saudionline.com.sa>
+	
+	* src/memory.c, src/memory.h: New files.
+	
+	* src/Makefile.am, src/appwizard.c, src/controls.c,
+	src/main_menubar.c, src/main_menubar.h, src/main_menubar_def.h,
+	src/mainmenu_callbacks.c, src/mainmenu_callbacks.h:
+	
+	Memory view implemetation that would enable viewing raw memory
+	during debugging.
+
 2002-08-08  Stephane Demurget  <demurgets@free.fr>
 
 	* AUTHORS: added Biswa, because I wonder why noone already have
