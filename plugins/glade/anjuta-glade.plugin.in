@@ -4,6 +4,7 @@ _Description=Glade Plugin for Anjuta.
 Location=anjuta-glade:GladePlugin
 Icon=anjuta-glade-plugin.png
 Interfaces=IAnjutaFile,IAnjutaWizard
+UserActivatable=no
 
 [File Loader]
 SupportedMimeTypes=application/x-glade

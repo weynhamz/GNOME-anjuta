@@ -4,3 +4,4 @@ _Description=Manages messages from external apps
 Location=anjuta-message-view:MessageViewPlugin
 Icon=anjuta-message-view.png
 Interfaces=IAnjutaMessageManager
+UserActivatable=no

@@ -75,8 +75,8 @@ npw_plugin_activate (AnjutaPlugin *plugin)
 
 	/* Create the messages preferences page */
 	this->pref = anjuta_shell_get_preferences (plugin->shell, NULL);
-	gxml = glade_xml_new (GLADE_FILE, "New Project Wizard", NULL);
-	anjuta_preferences_add_page (this->pref, gxml, "New Project Wizard", ICON_FILE);
+	gxml = glade_xml_new (GLADE_FILE, "Project Wizard", NULL);
+	anjuta_preferences_add_page (this->pref, gxml, "Project Wizard", ICON_FILE);
 	g_object_unref (gxml);
 	
 	return TRUE;

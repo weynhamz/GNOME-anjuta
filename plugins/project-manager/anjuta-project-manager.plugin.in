@@ -3,7 +3,8 @@ _Name=Project Manager
 _Description=Project Manager Plugin for Anjuta.
 Location=anjuta-project-manager:ProjectManagerPlugin
 Icon=anjuta-project-manager-plugin.png
-Interfaces=IAnjutaFile,IAnjutaProjectManager
+Interfaces=IAnjutaProjectManager
+UserActivatable=no
 
-[File Loader]
-SupportedMimeTypes=application/x-anjuta
+[Project]
+Supported-Project-Types=automake

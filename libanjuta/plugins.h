@@ -28,10 +28,15 @@ GSList* anjuta_plugins_query (AnjutaShell *shell,
 							 const gchar *attribute_value,
 							 ...);
 
+/* Returns the plugin description that has been selected from the list */
+AnjutaPluginDescription* anjuta_plugins_select (AnjutaShell *shell, gchar *title,
+												gchar *description,
+												GSList *plugin_descriptions);
+												
 /* Returns the plugin that has been selected and activated */
-GObject* anjuta_plugins_select (AnjutaShell *shell, gchar *title,
-								gchar *description,
-								GSList *plugin_descriptions);
+GObject* anjuta_plugins_select_and_activate (AnjutaShell *shell, gchar *title,
+											 gchar *description,
+											 GSList *plugin_descriptions);
 
 /* Plugin activation, deactivation and retrival */
 

@@ -3,4 +3,8 @@ _Name=Default Profile
 _Description=Anjuta default profile
 Location=anjuta-default-profile:DefaultProfilePlugin
 Icon=anjuta-default-profile-plugin.png
-Interfaces=IAnjutaProfile
+Interfaces=IAnjutaFile,IAnjutaProfile
+UserActivatable=no
+
+[File Loader]
+SupportedMimeTypes=application/x-anjuta

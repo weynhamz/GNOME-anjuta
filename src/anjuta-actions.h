@@ -69,7 +69,7 @@ static GtkActionEntry menu_entries_settings[] = {
 static GtkActionEntry menu_entries_help[] = {
   { "ActionMenuHelp", NULL, N_("_Help")},
   { "ActionHelpUserManual", GTK_STOCK_HELP,
-    N_("_Users manual"), "f1",
+    N_("_Users manual"), "F1",
 	N_("Anjuta users manual"),
     G_CALLBACK (on_help_manual_activate)},
   { "ActionHelpTutorial", NULL,

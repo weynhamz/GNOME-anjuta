@@ -1,6 +1,7 @@
 [Anjuta Plugin]
-_Name=New Project Wizard
-_Description=New Project Wizard Plugin
+_Name=Project Wizard
+_Description=Project Wizard
 Location=anjuta-project-wizard:NPWPlugin
 Icon=anjuta-project-wizard-plugin.png
 Interfaces=IAnjutaWizard
+UserActivatable=no

@@ -46,6 +46,7 @@
 @get_view_by_name: 
 @remove_view: 
 @set_current_view: 
+@set_view_title: 
 
 <!-- ##### FUNCTION ianjuta_message_manager_error_quark ##### -->
 <para>

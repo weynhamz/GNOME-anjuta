@@ -19,7 +19,7 @@
   <property name="gravity">GDK_GRAVITY_NORTH_WEST</property>
 
   <child>
-    <widget class="GtkFrame" id="New Project Wizard">
+    <widget class="GtkFrame" id="Project Wizard">
       <property name="border_width">10</property>
       <property name="visible">True</property>
       <property name="label_xalign">0</property>

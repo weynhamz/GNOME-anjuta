@@ -4,3 +4,6 @@ _Description=A version control system plugin
 Location=anjuta-cvs-plugin:CVSPlugin
 Icon=anjuta-cvs-plugin.png
 Interfaces=IAnjutaVcs
+
+[Version Control]
+Supported-Vcs-Types=cvs

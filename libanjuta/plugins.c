@@ -27,6 +27,7 @@ typedef struct {
 	char *name;
 	char *about;
 	char *icon_path;
+	gboolean user_activatable;
 	
 	AnjutaPluginDescription *description;
 
@@ -53,6 +54,7 @@ typedef struct {
 } AvailableTool;
 
 enum {
+	COL_ACTIVABLE,
 	COL_ENABLED,
 	COL_ICON,
 	COL_NAME,
@@ -356,6 +358,7 @@ tool_from_description (AnjutaPluginDescription *desc)
 	gboolean success = TRUE;
 	
 	tool->description = desc;
+	tool->user_activatable = TRUE;
 	
 	if (anjuta_plugin_description_get_string (desc, "Anjuta Plugin",
 											  "Location", &str)) {
@@ -364,7 +367,7 @@ tool_from_description (AnjutaPluginDescription *desc)
 		g_warning ("Couldn't find 'Location'");
 		success = FALSE;
 	}
-	    
+	
 	if (anjuta_plugin_description_get_string (desc, "Anjuta Plugin",
 											  "Name", &str)) {
 		tool->name = str;
@@ -399,6 +402,17 @@ tool_from_description (AnjutaPluginDescription *desc)
 											  "Interfaces",
 											  &str)) {
 		tool->interfaces = property_to_slist (str);
+		g_free (str);
+	}
+	
+	if (anjuta_plugin_description_get_string (desc, "Anjuta Plugin",
+											  "UserActivatable", &str)) {
+		if (str && strcasecmp (str, "no") == 0)
+		{
+			tool->user_activatable = FALSE;
+			DEBUG_PRINT ("Plugin '%s' is not user activatable",
+						 tool->name? tool->name : "Unknown");
+		}
 		g_free (str);
 	}
 
@@ -920,6 +934,7 @@ create_plugin_tree (void)
 
 	store = gtk_list_store_new (N_COLS,
 								G_TYPE_BOOLEAN,
+								G_TYPE_BOOLEAN,
 								GDK_TYPE_PIXBUF,
 								G_TYPE_STRING,
 								G_TYPE_POINTER);
@@ -931,7 +946,10 @@ create_plugin_tree (void)
 	column = gtk_tree_view_column_new_with_attributes (_("Load"),
 													   renderer,
 													   "active", 
-													   COL_ENABLED, NULL);
+													   COL_ENABLED,
+													   "activatable",
+													   COL_ACTIVABLE,
+													   NULL);
 	gtk_tree_view_append_column (GTK_TREE_VIEW (tree), column);
 	gtk_tree_view_column_set_sizing (column,
 									 GTK_TREE_VIEW_COLUMN_AUTOSIZE);
@@ -955,12 +973,19 @@ create_plugin_tree (void)
 	return tree;
 }
 
+/* If show_all == FALSE, show only user activatable plugins
+ * If show_all == TRUE, show all plugins
+ */
 static void
 populate_plugin_model (GtkListStore *store,
 					   GHashTable *tools_to_show,
-					   GHashTable *installed_tools)
+					   GHashTable *installed_tools,
+					   gboolean show_all)
 {
 	GSList *l;
+	
+	gtk_list_store_clear (store);
+	
 	for (l = available_tools; l != NULL; l = l->next) {
 		AvailableTool *tool = l->data;
 		
@@ -972,7 +997,8 @@ populate_plugin_model (GtkListStore *store,
 			if (g_hash_table_lookup (installed_tools, tool))
 				enable = TRUE;
 			
-			if (tool->name && tool->description)
+			if (tool->name && tool->description &&
+				(tool->user_activatable || show_all))
 			{
 				GtkTreeIter iter;
 				gchar *text;
@@ -981,8 +1007,8 @@ populate_plugin_model (GtkListStore *store,
 
 				gtk_list_store_append (store, &iter);
 				gtk_list_store_set (store, &iter,
-									COL_ENABLED, 
-									enable,
+									COL_ACTIVABLE, tool->user_activatable,
+									COL_ENABLED, enable,
 									COL_NAME, text,
 									COL_TOOL, tool,
 									-1);
@@ -1002,10 +1028,31 @@ populate_plugin_model (GtkListStore *store,
 	}
 }
 
+static void
+on_show_all_plugins_toggled (GtkToggleButton *button, GtkListStore *store)
+{
+	AnjutaShell *shell;
+	GHashTable *installed_tools;
+	
+	shell = g_object_get_data (G_OBJECT (button), "__shell");
+	installed_tools = g_object_get_data (G_OBJECT(shell), "InstalledTools");
+	
+	/* FIXME: This should be moved to a proper location */
+	if (!installed_tools)
+	{
+		installed_tools = g_hash_table_new (g_direct_hash, g_direct_equal);
+		g_object_set_data (G_OBJECT (shell), "InstalledTools",
+						   installed_tools);
+	}
+	populate_plugin_model (store, NULL, installed_tools,
+						   !gtk_toggle_button_get_active (button));
+}
+
 static GtkWidget *
 create_plugin_page (AnjutaShell *shell)
 {
 	GtkWidget *vbox;
+	GtkWidget *checkbutton;
 	GtkWidget *tree;
 	GtkWidget *scrolled;
 	GtkListStore *store;
@@ -1013,6 +1060,12 @@ create_plugin_page (AnjutaShell *shell)
 	AnjutaStatus *status;
 
 	vbox = gtk_vbox_new (FALSE, 0);
+	
+	checkbutton = gtk_check_button_new_with_label (_("Only show user activatable plugins"));
+	gtk_container_set_border_width (GTK_CONTAINER (checkbutton), 10);
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (checkbutton), TRUE);
+	gtk_widget_show (checkbutton);
+	gtk_box_pack_start (GTK_BOX (vbox), checkbutton, FALSE, FALSE, 0);
 	
 	scrolled = gtk_scrolled_window_new (NULL, NULL);
 	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolled),
@@ -1036,7 +1089,7 @@ create_plugin_page (AnjutaShell *shell)
 	}
 
 	populate_plugin_model (GTK_LIST_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (tree))),
-						   NULL, installed_tools);
+						   NULL, installed_tools, FALSE);
 	
 	gtk_container_add (GTK_CONTAINER (scrolled), tree);
 	g_object_set_data (G_OBJECT (store), "Shell", shell);
@@ -1045,6 +1098,11 @@ create_plugin_page (AnjutaShell *shell)
 	
 	status = anjuta_shell_get_status (shell, NULL);
 	anjuta_status_add_widget (status, vbox);
+	
+	g_object_set_data (G_OBJECT (checkbutton), "__shell", shell);
+	g_signal_connect (G_OBJECT (checkbutton), "toggled",
+					  G_CALLBACK (on_show_all_plugins_toggled),
+					  store);
 	
 	return vbox;
 }
@@ -1136,10 +1194,10 @@ anjuta_plugins_get_plugin (AnjutaShell *shell,
 			node = g_slist_next (node);
 		}
 		descs = g_slist_reverse (descs);
-		obj = anjuta_plugins_select (shell,
-									 "Select a plugin",
-									 "Please select a plugin to activate",
-									 descs);
+		obj = anjuta_plugins_select_and_activate (shell,
+												  "Select a plugin",
+												  "Please select a plugin to activate",
+												  descs);
 		g_slist_free (descs);
 		return obj;
 	}
@@ -1415,7 +1473,7 @@ enum {
 	N_COLUMNS
 };
 
-GObject*
+AnjutaPluginDescription *
 anjuta_plugins_select (AnjutaShell *shell, gchar *title, gchar *description,
 					   GSList *plugin_descriptions)
 {
@@ -1568,23 +1626,38 @@ anjuta_plugins_select (AnjutaShell *shell, gchar *title, gchar *description,
 										PLUGIN_DESCRIPTION_COLUMN, &d, -1);
 					if (d)
 					{
-						GObject *plugin = NULL;	
-						gchar *location = NULL;
-						
-						anjuta_plugin_description_get_string (d,
-															  "Anjuta Plugin",
-															  "Location",
-															  &location);
-						g_return_val_if_fail (location != NULL, NULL);
-						plugin =
-							anjuta_plugins_get_plugin_by_id (shell, location);
 						gtk_widget_destroy (dlg);
-						return plugin;
+						return d;
 					}
 				}
 			}
 		}
 		gtk_widget_destroy (dlg);
+	}
+	return NULL;
+}
+
+GObject*
+anjuta_plugins_select_and_activate (AnjutaShell *shell, gchar *title,
+									gchar *description,
+									GSList *plugin_descriptions)
+{
+	AnjutaPluginDescription *d;
+	
+	d = anjuta_plugins_select (shell, title, description, plugin_descriptions);
+	if (d)
+	{
+		GObject *plugin = NULL;	
+		gchar *location = NULL;
+		
+		anjuta_plugin_description_get_string (d,
+											  "Anjuta Plugin",
+											  "Location",
+											  &location);
+		g_return_val_if_fail (location != NULL, NULL);
+		plugin =
+			anjuta_plugins_get_plugin_by_id (shell, location);
+		return plugin;
 	}
 	return NULL;
 }

@@ -9,8 +9,6 @@
 				<separator name="separator1"/>
 				<menuitem name="Properties" action="ActionProjectProperties"/>
 				<menuitem name="Refresh" action="ActionProjectRefresh"/>
-				<separator name="separator2"/>
-				<menuitem name="CloseProject" action="ActionProjectCloseProject" />
 		</menu>
 	</placeholder>
 	</menubar>

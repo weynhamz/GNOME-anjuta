@@ -4,3 +4,4 @@ _Description=File loader to load different files
 Location=anjuta-loader:AnjutaFileLoaderPlugin
 Icon=anjuta-loader-plugin.png
 Interfaces=IAnjutaFileLoader
+UserActivatable=no

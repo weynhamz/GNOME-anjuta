@@ -1,3 +1,67 @@
+2005-02-26  Naba Kumar  <naba@gnome.org>
+	
+	* libanjuta/plugins.c, libanjuta/plugins.h: Implemented
+	"UserActivatable" attribute for plugins. This attribute if set to
+	"no" will prevent users from activating/deactivating it from
+	plugins dialog. Added a toggle button in plugins dialog to toggle
+	the plugins list between list of activatable plugins (default) to
+	list of all plugins. anjuta_plugin_select() now only selects the
+	plugin. Added anjuta_plugins_select_and_activate() method that will
+	select and activate it.
+	
+	* plugins/profile-default/Makefile.am,
+	plugins/profile-default/anjuta-default-profile.ui,
+	plugins/profile-default/plugin.c,
+	plugins/profile-default/plugin.h,
+	plugins/project-manager/anjuta-project-manager.ui,
+	plugins/project-manager/plugin.c,
+	plugins/project-manager/plugin.h:
+	
+	Anjuta projects (*.anjuta) files define the profile of respective
+	projects. Profile is a set of related plugins required for the
+	project to open. Moved "close project" action from Project Manager
+	to Profile Manager plugin. Implemented loading and unloading of
+	project profiles in DefaultProfilePlugin. DefaultProfilePlugin
+	(instead of Project Manager) now handles opening of *.anjuta files.
+	Close Project menuitem is now moved to File submenu (being
+	consistent with Anjuta 1.x versions and avoiding creating Project
+	submenu when project manager is not loaded).
+	
+	* src/anjuta-actions.h: Fixed short-cut key for Help content.
+	
+	* src/anjuta.ui: Fixed place holder for projects.
+	
+	* (new) plugins/profile-default/default.anjuta: default startup
+	profile. Removed the hardcoded plugins loading in
+	DefaultProfilePlugin.
+
+	* anjuta.anjuta,
+	plugins/project-wizard/templates/terminal/project.anjuta:
+	Implemented project format in newly created projects.
+
+	* plugins/build-basic-autotools/anjuta-build-basic-autotools.plugin.in:
+	plugins/class-gen/anjuta-class-gen.plugin.in,
+	plugins/cvs-plugin/anjuta-cvs.plugin.in,
+	plugins/editor/anjuta-document-manager.plugin.in,
+	plugins/file-loader/anjuta-loader.plugin.in,
+	plugins/file-wizard/anjuta-file-wizard.plugin.in,
+	plugins/gdb/anjuta-gdb.plugin.in,
+	plugins/glade/anjuta-glade.plugin.in,
+	plugins/message-view/anjuta-message-manager.plugin.in,
+	plugins/profile-default/anjuta-default-profile.plugin.in,
+	plugins/project-manager/anjuta-project-manager.plugin.in,
+	plugins/project-wizard/anjuta-project-wizard.plugin.in:
+	Defined UserActivatable attributes. Added supported types attribute.
+
+	* plugins/project-wizard/anjuta-project-wizard.glade
+	plugins/project-wizard/plugin.c: Changed "New Project Wizard" to
+	"Project Wizard" in preferences title.
+
+	* TODO.tasks: Updated.
+	
+	* manuals/reference/libanjuta/tmpl/ianjuta-message-manager.sgml:
+	Updated.
+	
 2005-02-25  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
 
 	* plugins/file-wizard/anjuta-file-wizard.glade

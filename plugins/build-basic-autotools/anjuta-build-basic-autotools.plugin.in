@@ -4,3 +4,6 @@ _Description=Basic autotools build plugin.
 Location=anjuta-build-basic-autotools:BasicAutotoolsPlugin
 Icon=anjuta-build-basic-autotools-plugin.png
 Interfaces=IAnjutaBuildable
+
+[Build]
+Supported-Build-Types=make

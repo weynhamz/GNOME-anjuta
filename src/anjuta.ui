@@ -3,8 +3,8 @@
 	<menubar name="MenuMain">
 		<menu name="MenuFile" action="ActionMenuFile">
 			<placeholder name="PlaceholderFileMenus"/>
+			<placeholder name="PlaceholderProjectMenus"/>
 			<placeholder name="PlaceholderPrintMenus"/>
-			<placeholder name="PlaceholderRecentMenus"/>
 			<menuitem name="Quit" action="ActionExit" />
 		</menu>
 		<menu name="MenuEdit" action="ActionMenuEdit">
