@@ -21,6 +21,8 @@
 
 #include <gmodule.h>
 
+#include <glade/glade.h>
+
 #include "toolbar.h"
 #include "text_editor.h"
 #include "messagebox.h"
@@ -170,6 +172,8 @@ struct _AnjutaApp
 	GList	*addIns_list;
 	gboolean	b_reload_last_project;	/* To be set in preferences */
 	gchar	*last_open_project;	/* Last session open project file name if any */
+
+	GladeXML *gxml;
 };
 
 struct _FileLineInfo

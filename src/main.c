@@ -22,7 +22,9 @@
 #endif
 
 #include <sys/stat.h>
+
 #include <gnome.h>
+
 #include "splash.h"
 #include "anjuta.h"
 #include "utilities.h"
@@ -124,9 +126,8 @@ main (int argc, char *argv[])
 	poptContext context;
 	const char** args;
 	CORBA_Environment ev;
-	CORBA_ORB corb ;
-	int retCode ;
-
+	CORBA_ORB corb;
+	int retCode;
 
 	/* Before anything starts */
 	delete_old_config_file();
@@ -169,7 +170,7 @@ main (int argc, char *argv[])
 	
 	anjuta_new ();
 	anjuta_show ();
-	
+
 	flags = gnome_client_get_flags(client);
 	if (flags & GNOME_CLIENT_RESTORED) {
 		/* Restore session */

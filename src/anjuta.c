@@ -26,7 +26,9 @@
 #include <syslog.h>
 #include <ctype.h>
 #include <sys/wait.h>
+
 #include <gnome.h>
+#include <glade/glade.h>
 
 #include "text_editor.h"
 #include "anjuta.h"
@@ -153,7 +155,10 @@ anjuta_new ()
 		app->last_open_project	= NULL ;
 
 		create_anjuta_gui (app);
-		
+
+		app->gxml = glade_xml_new (ANJUTA_DATA_DIR "anjuta.glade", NULL, NULL);
+		glade_xml_signal_autoconnect (app->gxml);
+
 		app->dirs = anjuta_dirs_new ();
 		app->fileselection = create_fileselection_gui (&fsd1);
 		

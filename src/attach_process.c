@@ -28,21 +28,68 @@
 #include <string.h>
 
 #include <gnome.h>
+
 #include "resources.h"
 #include "attach_process.h"
 #include "global.h"
 #include "anjuta.h"
 
-/* #include "messagebox.h"*/
+enum {
+	PID_COLUMN,
+	USER_COLUMN,
+	START_COLUMN,
+	COMMAND_COLUMN,
+	COLUMNS_NB
+};
+
+static char *column_names[COLUMNS_NB] = {
+	N_("Pid"), N_("User"), N_("Time"), N_("Command")
+};
 
 AttachProcess *
 attach_process_new ()
 {
 	AttachProcess *ap;
-	ap = g_malloc (sizeof (AttachProcess));
-	if (ap)
-	{
-		create_attach_process_gui (ap);
+
+	ap = g_new0 (AttachProcess, 1);
+
+	if (ap) {
+		GtkTreeView *view;
+		GtkTreeStore *store;
+		GtkCellRenderer *renderer;
+		int i;
+
+		ap->widgets.window = glade_xml_get_widget (app->gxml, "attach_process_dialog");
+		ap->widgets.treeview = glade_xml_get_widget (app->gxml, "attach_process_tv");
+		ap->widgets.update_button = glade_xml_get_widget (app->gxml, "attach_process_update_button");
+		ap->widgets.attach_button = glade_xml_get_widget (app->gxml, "attach_process_attach_button");
+
+		gtk_widget_ref (ap->widgets.window);
+		gtk_widget_ref (ap->widgets.treeview);
+		gtk_widget_ref (ap->widgets.update_button);
+		gtk_widget_ref (ap->widgets.attach_button);
+
+		view = GTK_TREE_VIEW (ap->widgets.treeview);
+		store = gtk_tree_store_new (COLUMNS_NB,
+					    G_TYPE_STRING,
+					    G_TYPE_STRING,
+					    G_TYPE_STRING,
+					    G_TYPE_STRING);
+		gtk_tree_view_set_model (view, GTK_TREE_MODEL (store));
+		gtk_tree_selection_set_mode (gtk_tree_view_get_selection (view),
+					     GTK_SELECTION_SINGLE);
+		g_object_unref (G_OBJECT (store));
+
+		renderer = gtk_cell_renderer_text_new ();
+
+		for (i = PID_COLUMN; i < COLUMNS_NB; i++) {
+			GtkTreeViewColumn *column;
+
+			column = gtk_tree_view_column_new_with_attributes (column_names[i], renderer, "text", i, NULL);
+			gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
+			gtk_tree_view_append_column (view, column);
+		}
+		
 		ap->pid = -1L;
 		ap->is_showing = FALSE;
 		ap->win_pos_x = 20;
@@ -50,26 +97,30 @@ attach_process_new ()
 		ap->win_width = 400;
 		ap->win_height = 150;
 	}
+
 	return ap;
 }
 
 void
 attach_process_clear (AttachProcess * ap)
 {
-	gtk_clist_clear (GTK_CLIST (ap->widgets.clist));
+	GtkTreeModel *model;
+
+	model = gtk_tree_view_get_model (GTK_TREE_VIEW (ap->widgets.treeview));
+	gtk_tree_store_clear (GTK_TREE_STORE (model));
+
 	ap->pid = -1;
 }
 
 void
 attach_process_add_pid (AttachProcess * ap, gchar * line)
 {
-	gchar *row[4];
 	gchar pid[10];
 	gchar user[512];
 	gchar start[512];
 	gchar time_s[512];
-	gchar *command;
 	gint count;
+
 	if (!ap)
 		return;
 
@@ -77,20 +128,29 @@ attach_process_add_pid (AttachProcess * ap, gchar * line)
 	if (isspace (line[0]))
 		return;
 
-	count =
-		sscanf (line, "%s %s %*s %*s %*s %*s %*s %*s %s %s", user,
-			pid, start, time_s);
-	if (count == 4)
-	{
-		row[0] = pid;
-		row[1] = user;
+	count = sscanf (line, "%s %s %*s %*s %*s %*s %*s %*s %s %s",
+			user, pid, start, time_s);
+
+	if (count == 4) {
+		GtkTreeIter iter;
+		GtkTreeStore *store;
+		gchar *command;
+
 		command = strstr (line, time_s);
 		command += strlen (time_s);
-		if (command == NULL)
+
+		if (!command)
 			return;	/* Should not happen */
-		row[2] = start;
-		row[3] = command;
-		gtk_clist_append (GTK_CLIST (ap->widgets.clist), row);
+
+
+		store = GTK_TREE_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (ap->widgets.treeview)));
+		gtk_tree_store_append (store, &iter, NULL);
+		gtk_tree_store_set (store, &iter,
+				    PID_COLUMN, pid,
+				    USER_COLUMN, user,
+				    START_COLUMN, start,
+				    COMMAND_COLUMN, command,
+				    -1);
 	}
 }
 
@@ -115,7 +175,8 @@ attach_process_update (AttachProcess * ap)
 	}
 	if (ch_pid < 0)
 	{
-		anjuta_system_error (errno, _("Unable to execute: %s."), cmd);		g_free (tmp);
+		anjuta_system_error (errno, _("Unable to execute: %s."), cmd);
+		g_free (tmp);
 		g_free (cmd);
 		return;
 	}
@@ -130,7 +191,6 @@ attach_process_update (AttachProcess * ap)
 		g_free (cmd);
 		return;
 	}
-	gtk_clist_freeze (GTK_CLIST (ap->widgets.clist));
 	attach_process_clear (ap);
 	i = 0;
 	first_flag = 0;
@@ -144,7 +204,6 @@ attach_process_update (AttachProcess * ap)
 			fclose (file);
 			remove (tmp);
 			g_free (tmp);
-			gtk_clist_thaw (GTK_CLIST (ap->widgets.clist));
 			return;
 		}
 		if (buffer[i] == '\n')
@@ -161,7 +220,6 @@ attach_process_update (AttachProcess * ap)
 	fclose (file);
 	remove (tmp);
 	g_free (tmp);
-	gtk_clist_thaw (GTK_CLIST (ap->widgets.clist));
 }
 
 void
@@ -237,14 +295,15 @@ attach_process_destroy (AttachProcess * ap)
 	if (ap)
 	{
 		attach_process_clear (ap);
+
 		gtk_widget_unref (ap->widgets.window);
-		gtk_widget_unref (ap->widgets.clist);
+		gtk_widget_unref (ap->widgets.treeview);
 		gtk_widget_unref (ap->widgets.update_button);
 		gtk_widget_unref (ap->widgets.attach_button);
-		gtk_widget_unref (ap->widgets.cancel_button);
 
 		if (GTK_IS_WIDGET (ap->widgets.window))
 			gtk_widget_destroy (ap->widgets.window);
+
 		g_free (ap);
 	}
 }

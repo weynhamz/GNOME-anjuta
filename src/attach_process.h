@@ -29,10 +29,9 @@ typedef struct _AttachProcess AttachProcess;
 struct _AttachProcessGui
 {
     GtkWidget*   window;
-    GtkWidget*   clist;
+    GtkWidget*   treeview;
     GtkWidget*   update_button;
     GtkWidget*   attach_button;
-    GtkWidget*   cancel_button;
 };
 
 struct _AttachProcess

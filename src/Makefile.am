@@ -60,7 +60,6 @@ anjuta_SOURCES = \
 	attach_process.h\
 	attach_process_cbs.c\
 	attach_process_cbs.h\
-	attach_process_gui.c\
 	breakpoints.c\
 	breakpoints.h\
 	breakpoints_cbs.c\
