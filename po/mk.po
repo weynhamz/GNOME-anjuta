@@ -1,25 +1,26 @@
 # translation of anjuta.ANJUTA_1_2_0.po to Macedonian
 # translation of anjuta.ANJUTA_1_2_0.po to
 # This file is distributed under the same license as the PACKAGE package.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER, 2003
-# Blagoja Gjakovski <agitator@bagra.net.mk>, 2003
-# Stefan Martinski <stefanandrej@hotmail.com>, 2003
-# Васко Митанов <vasko@accent.com.mk>, 2003
-# Ime Prezime <email@adresa.com>, 2003
-# Vlado Dojcinovski <dr_wulfi@dr.com>, 2003
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER, 2003.
+# Blagoja Gjakovski <agitator@bagra.net.mk>, 2003.
+# Stefan Martinski <stefanandrej@hotmail.com>, 2003.
+# Васко Митанов <vasko@accent.com.mk>, 2003.
+# Ime Prezime <email@adresa.com>, 2003.
+# Vlado Dojcinovski <dr_wulfi@dr.com>, 2003.
+# Stojcev Darko <atom1c@linux.net.mk>, 2003.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.ANJUTA_1_2_0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2003-06-13 19:42+0200\n"
-"PO-Revision-Date: 2003-06-16 00:45+0000\n"
-"Last-Translator: Blagoja Gjakovski <agitator@bagra.net.mk>\n"
+"PO-Revision-Date: 2003-08-24 04:39+0200\n"
+"Last-Translator: Stojcev Darko <atom1c@linux.net.mk>\n"
 "Language-Team: Macedonian <lug@lists.linux.net.mk>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.0.1\n"
+"X-Generator: KBabel 1.0.2\n"
 
 #: anjuta.desktop.in.in.h:1
 msgid "Anjuta IDE"
@@ -27,7 +28,7 @@ msgstr "Anjuta IDE"
 
 #: anjuta.desktop.in.in.h:2 src/about.c:96 src/main.c:173
 msgid "Integrated Development Environment"
-msgstr "Интегрирана развојна околина"
+msgstr "Интегрирана развојна околина "
 
 #: anjuta.glade.h:1 anjuta_dialogs_strings.c:522
 msgid ""
@@ -328,7 +329,7 @@ msgstr "CVS содржински diff формат"
 
 #: anjuta.glade.h:62 anjuta_dialogs_strings.c:165 anjuta_dialogs_strings.c:289
 msgid "CVS intl po"
-msgstr ""
+msgstr "CVS intl po"
 
 #: anjuta.glade.h:63 anjuta_dialogs_strings.c:487
 msgid "CVS unified diff format"
@@ -347,12 +348,10 @@ msgid "Calltip background:"
 msgstr "Calltip позадина:"
 
 #: anjuta.glade.h:67 anjuta_dialogs_strings.c:321
-#, fuzzy
 msgid "Caret (cursor) color:"
 msgstr "Боја на покажувачот:"
 
 #: anjuta.glade.h:68 anjuta_dialogs_strings.c:392
-#, fuzzy
 msgid "Caret blink period in milli-seconds"
 msgstr "Период на трепкање на покажувачот во милисекунди"
 
@@ -393,7 +392,6 @@ msgid "Code folding"
 msgstr "Пакување на кодот"
 
 #: anjuta.glade.h:78 anjuta_dialogs_strings.c:377
-#, fuzzy
 msgid "Collapse all code folds on file open"
 msgstr "Собери ги сите папки при отварање датотека"
 
@@ -591,7 +589,6 @@ msgid "Enable Debugging"
 msgstr "Овозможи дебагирање"
 
 #: anjuta.glade.h:127 anjuta_dialogs_strings.c:374
-#, fuzzy
 msgid "Enable HTML tags folding"
 msgstr "Овозможи виткање на HTML тагови"
 
@@ -3019,11 +3016,12 @@ msgid "No"
 msgstr "Не"
 
 #: src/appwizard_cbs.c:281 src/project_import_cbs.c:224
-#, fuzzy
 msgid ""
 "Confirm the following information:\n"
 "\n"
-msgstr "Потврди н"
+msgstr ""
+"Потврди ги следниве информации:\n"
+"\n"
 
 #: src/appwizard_cbs.c:282 src/project_import_cbs.c:225
 msgid "Project Name:    "
@@ -3058,7 +3056,6 @@ msgid "Gettext Support: "
 msgstr "Gettext Поддршка: "
 
 #: src/appwizard_gui.c:40
-#, fuzzy
 msgid ""
 "The Application Wizard will generate a basic\n"
 "skeleton for a project, including all of the\n"
@@ -3068,7 +3065,15 @@ msgid ""
 "Please answer the questions carefully, as it\n"
 "may not be possible to change some of the\n"
 "settings later."
-msgstr "Апликација Волшебник а за а од за од за н до од."
+msgstr ""
+"Волшебникот за апликации ќе генерира\n"
+"основен костур за проектот, вклучувајки ги сите\n"
+"датотеки за изградување. Ќе ги побара деталите на иницијалната\n"
+"структура за апликацијата\n"
+"\n"
+"Ве молам одговорете на прашањата внимателно, \n"
+"бидејки подоцна не е можно да се изменат одредени\n"
+"подесувања."
 
 #: src/attach_process.c:46
 msgid "Pid"
@@ -3088,15 +3093,13 @@ msgstr "Команда"
 
 #: src/attach_process.c:130
 #, c-format
-#, fuzzy
 msgid "Unable to execute: %s."
-msgstr "до s."
+msgstr "Неможе да се изврши%s"
 
 #: src/attach_process.c:140
 #, c-format
-#, fuzzy
 msgid "Unable to open the file: %s\n"
-msgstr "до s"
+msgstr "Неможе да се отвори датотеката%s\n"
 
 #: src/breakpoints.c:111
 msgid "Line"
@@ -3120,9 +3123,8 @@ msgstr "Услов"
 #. debugger.breakpoints_dbase);
 #.
 #: src/breakpoints.c:166 src/debugger.c:1818
-#, fuzzy
 msgid "All breakpoints enabled:\n"
-msgstr "Сите овозможено"
+msgstr "Сите точки на прекинување се овозможени\n"
 
 #.
 #. debugger_put_cmd_in_queqe ("info breakpoints", DB_CMD_NONE,
@@ -3130,24 +3132,20 @@ msgstr "Сите овозможено"
 #. debugger.breakpoints_dbase);
 #.
 #: src/breakpoints.c:184 src/debugger.c:1864
-#, fuzzy
 msgid "All breakpoints disabled:\n"
-msgstr "Сите неовозможено"
+msgstr "Сите точки на прекинување се оневозможени\n"
 
 #: src/breakpoints.c:649
-#, fuzzy
 msgid "You must give a valid location to set the breakpoint."
-msgstr "Вие а до."
+msgstr "Мора да зададете валидна локација за да се намести точката на прекинување."
 
 #: src/breakpoints.c:773
-#, fuzzy
 msgid "Are you sure you want to delete all the breakpoints?"
-msgstr "до избриши?"
+msgstr "Дали сте сигурни дека сакате да ги избришете сите точки на прекинување?"
 
 #: src/breakpoints.c:1304
-#, fuzzy
 msgid "Old breakpoints disabled."
-msgstr "неовозможено."
+msgstr "Старите точки на прекинување се оневозможени."
 
 #. 5
 #: src/breakpoints.c:1446 src/main_menubar_def.h:773 src/text_editor_gui.c:161
@@ -3155,25 +3153,21 @@ msgid "0"
 msgstr "0"
 
 #: src/build_file.c:51
-#, fuzzy
 msgid "This file has not been saved. Save it first and then build."
-msgstr "Зачувај и."
+msgstr "Оваа датотека не е зачувана. Прво зачувајте ја па потоа изградете."
 
 #: src/build_file.c:76
-#, fuzzy
 msgid "The executable is up-to-date, there is no need to build it again."
-msgstr "горе до не до."
+msgstr "Извршната датотека е скорешна, нема потреба повторно да ја изградите повторно."
 
 #: src/build_file.c:91
-#, fuzzy
 msgid "No build command has been specified for this type of file."
-msgstr "Не за вид од."
+msgstr "Не се зададени извршни команди за овој тип на датотека"
 
 #: src/build_file.c:109
 #, c-format
-#, fuzzy
 msgid "Building file: %s ...\n"
-msgstr "s"
+msgstr "Датотеката се изградува:%s ...\n"
 
 #: src/build_file.c:130 src/build_project.c:347 src/build_project.c:384
 #: src/build_project.c:422 src/build_project.c:456 src/build_project.c:490
@@ -3181,13 +3175,12 @@ msgstr "s"
 #: src/configurer.c:223 src/cvs.c:765 src/find_in_files.c:341
 #: src/project_import.c:179
 #, c-format
-#, fuzzy
 msgid "Total time taken: %d secs\n"
-msgstr "Вкупно време"
+msgstr "Вкупно одземено време: %d секунди\n"
 
 #: src/build_file.c:135
 msgid "Build completed ... unsuccessful\n"
-msgstr "Градењето завршени ... неуспешно\n"
+msgstr "Градењето заврши ... неуспешно\n"
 
 #: src/build_file.c:139
 msgid "Build completed ... unsuccessful"
@@ -3202,61 +3195,52 @@ msgid "Build completed ... successful"
 msgstr "Build completed ... successful"
 
 #: src/build_project.c:71 src/compile.c:60
-#, fuzzy
 msgid "Unable to build module. Check Settings->Commands."
-msgstr "до Проверка Подесувања Команди."
+msgstr "Не е можно да се изгради модулот. Проверете во Подесувања > Команди"
 
 #: src/build_project.c:92 src/build_project.c:155 src/compile.c:75
 msgid "Build Project"
-msgstr "Гради Проект"
+msgstr "Градење на проект"
 
 #: src/build_project.c:94 src/compile.c:77
-#, fuzzy
 msgid "Building source directory of the Project: "
-msgstr "од Проект "
+msgstr "Градење на изворен директориум на проектот"
 
 #: src/build_project.c:138
-#, fuzzy
 msgid "Unable to build Project. Check Settings->Commands."
-msgstr "до Проект Проверка Подесувања Команди."
+msgstr "Не е можно да се изгради проектот. Проверете во Подесувања > Команди"
 
 #: src/build_project.c:158
-#, fuzzy
 msgid "Building the whole Project: "
-msgstr "Проект "
+msgstr "Градење на целиот проект"
 
 #: src/build_project.c:191
-#, fuzzy
 msgid "Unable to build tarball. Check Settings->Commands."
-msgstr "до Проверка Подесувања Команди."
+msgstr "Не е можно да се изгради tarball. Проверете во Подесувања > Команди."
 
 #: src/build_project.c:208
 msgid "Build Distribution"
 msgstr "Гради дистрибуција"
 
 #: src/build_project.c:212
-#, fuzzy
 msgid "Building the distribution package of the Project: "
-msgstr "од Проект "
+msgstr "Се изградува дистрибуциониот пакет од проектот"
 
 #: src/build_project.c:244
 msgid "Do you prefer installing as root ?"
 msgstr "Дали преферирате да инсталирате како root ?"
 
 #: src/build_project.c:283
-#, fuzzy
 msgid "Unable to auto generate. Check Settings->Commands."
-msgstr "до Проверка Подесувања Команди."
+msgstr "Не е можно автогенерирање. Проверете во Подесувања > Команди"
 
 #: src/build_project.c:299
-#, fuzzy
 msgid "Auto generate Project"
-msgstr "Автоматски"
+msgstr "Автогенерирање на проект"
 
 #: src/build_project.c:302
-#, fuzzy
 msgid "Auto generating the Project: "
-msgstr "Автоматски Проект "
+msgstr "Проектот се автогенерира"
 
 #: src/build_project.c:330
 msgid "Build completed...............Unsuccessful\n"
@@ -3275,133 +3259,112 @@ msgid "Build completed ... successful."
 msgstr "Градењето комплетирано ... успешно."
 
 #: src/build_project.c:368
-#, fuzzy
 msgid "Build All completed...............Unsuccessful\n"
-msgstr "Сите"
+msgstr "Градењето е завршено............Неуспешно\n"
 
 #: src/build_project.c:372
-#, fuzzy
 msgid "Build All completed...............Unsuccessful"
-msgstr "Сите"
+msgstr "Градењето е завршено............Неуспешно"
 
 #: src/build_project.c:377
-#, fuzzy
 msgid "Build All completed...............Successful\n"
-msgstr "Сите"
+msgstr "Градењето е завршено............Успешно\n"
 
 #: src/build_project.c:381
-#, fuzzy
 msgid "Build All completed ... successful"
-msgstr "Сите"
+msgstr "Градењето е завршено ... успешно"
 
 #: src/build_project.c:403
-#, fuzzy
 msgid "Build Distribution completed...............Unsuccessful\n"
-msgstr "Дистрибуција"
+msgstr "Градењето на дистрибуцијата е завршено...............Неуспешно\n"
 
 #: src/build_project.c:407
-#, fuzzy
 msgid "Build Distribution completed ... unsuccessful"
-msgstr "Дистрибуција"
+msgstr "Градењето на дистрибуцијата е завршено ... неуспешно"
 
 #: src/build_project.c:412
-#, fuzzy
 msgid "Build Distribution completed...............Successful\n"
-msgstr "Дистрибуција"
+msgstr "Градењето на дистрибуцијата е завршено...............Успешно\n"
 
 #: src/build_project.c:415
-#, fuzzy
 msgid "The source tarball can be found in the top level directory of the Project.\n"
-msgstr "во од Проект"
+msgstr "Изворниот tarball може да се најде на најгорниот директориум од Проектот.\n"
 
 #: src/build_project.c:419
-#, fuzzy
 msgid "Build Distribution completed ... successful"
-msgstr "Дистрибуција"
+msgstr "Градењето на дистрибуцијата е завршено ... успешно"
 
 #: src/build_project.c:440
-#, fuzzy
 msgid "Install completed...............Unsuccessful\n"
-msgstr "Инсталирај"
+msgstr "Инсталацијата е завршена................Неуспешно\n"
 
 #: src/build_project.c:444
-#, fuzzy
 msgid "Install completed...............Unsuccessful"
-msgstr "Инсталирај"
+msgstr "Инсталацијата е завршена................Неуспешно"
 
 #: src/build_project.c:449
-#, fuzzy
 msgid "Install completed...............Successful\n"
-msgstr "Инсталирај"
+msgstr "Инсталацијата е завршена................Успешно\n"
 
 #: src/build_project.c:453
-#, fuzzy
 msgid "Install completed ... successful"
-msgstr "Инсталирај"
+msgstr "Инсталацијата е завршена ... Успешно"
 
 #: src/build_project.c:474 src/gnome_project.c:259
-#, fuzzy
 msgid "Auto generation completed...............Unsuccessful\n"
-msgstr "Автоматски"
+msgstr "Автогенерирањето е завршено...............Неуспешно\n"
 
 #: src/build_project.c:478
-#, fuzzy
 msgid "Auto generation completed ... unsuccessful"
-msgstr "Автоматски"
+msgstr "Автогенерирањето е завршено ... Неуспешнo"
 
 #: src/build_project.c:483
-#, fuzzy
 msgid ""
 "Auto generation completed...............Successful\n"
 "Now Configure the Project.\n"
-msgstr "Автоматски Конфигурирај Проект"
+msgstr ""
+"Автогенерирањето е завршено...............Успешно\n"
+"Сега конфигурирајте го проектот.\n"
 
 #: src/build_project.c:487
-#, fuzzy
 msgid "Auto generation completed ... successful"
-msgstr "Автоматски"
+msgstr "Автогенерирањето е завршено ... успешно"
 
 #: src/build_project.c:508 src/build_project.c:553
-#, fuzzy
 msgid "Unable to install Project. Check Settings->Commands."
-msgstr "до Инсталирај Проект Проверка Подесувања Команди."
+msgstr "Не е можно да се инсталира проектот. Проверете во Подесувања > Команди."
 
 #: src/build_project.c:530 src/build_project.c:572
 msgid "Install Project"
 msgstr "Инсталирај Проект"
 
 #: src/build_project.c:532 src/build_project.c:574
-#, fuzzy
 msgid "Installing the Project: "
-msgstr "Проект "
+msgstr "Проектот се инсталира"
 
 #: src/clean_project.c:66
-#, fuzzy
 msgid "Unable to clean Project. Check Settings->Commands."
-msgstr "до Проект Проверка Подесувања Команди."
+msgstr "Не е возможно да се исчисти проектот. Проверете во Подесувања > Команди."
 
 #: src/clean_project.c:82
 msgid "Clean"
 msgstr "Исчисти"
 
 #: src/clean_project.c:85
-#, fuzzy
 msgid "Cleaning the source directory of the Project: "
-msgstr "од Проект "
+msgstr "Се чисти изворниот директориум на проектот. "
 
 #: src/clean_project.c:121
-#, fuzzy
 msgid "Unable to Clean All for the Project. Check Settings->Commands."
-msgstr "до Сите за Проект Проверка Подесувања Команди."
+msgstr "Не е возможно да се исчисти се за проектот. Проверете во Подесувања > Команди."
 
 #: src/clean_project.c:132
 msgid "Clean All"
 msgstr "Исчисти Се"
 
 #: src/clean_project.c:135
-#, fuzzy
 msgid "Cleaning whole of the Project: "
-msgstr "од Проект "
+msgstr "Се чисти се од проектот."
 
 #: src/clean_project.c:163
 msgid "Cleaning completed...............Unsuccessful\n"
@@ -3420,39 +3383,32 @@ msgid "Cleaning completed ... successful"
 msgstr "Чистењето завршено ... успешно"
 
 #: src/clean_project.c:206
-#, fuzzy
 msgid "Clean All completed...............Unsuccessful\n"
-msgstr "Сите"
+msgstr "Чистењето е завршено...............Неуспешно\n"
 
 #: src/clean_project.c:210
-#, fuzzy
 msgid "Clean All completed ... unsuccessful"
-msgstr "Сите"
+msgstr "Чистењето е завршено ... неуспешно"
 
 #: src/clean_project.c:215
-#, fuzzy
 msgid "Clean All completed...............Successful\n"
-msgstr "Сите"
+msgstr "Чистењето е завршено...............Успешно\n"
 
 #: src/clean_project.c:218
-#, fuzzy
 msgid "Clean All completed ... successful"
-msgstr "Сите"
+msgstr "Чистењето е завршено ... успешно"
 
 #: src/compile.c:108
-#, fuzzy
 msgid "This file has not been saved. Save it first and then compile."
-msgstr "Зачувај и."
+msgstr "Оваа датотека не е зачувана. Прво зачувајте ја па потоа компајлирајте."
 
 #: src/compile.c:129
-#, fuzzy
 msgid "The object file is up-to-date, there is no need to compile it again."
-msgstr "горе до не до."
+msgstr "Објектот е скорешен, нема потреба повторно да се компајлира"
 
 #: src/compile.c:141
-#, fuzzy
 msgid "No compile command has been specified for this type of file."
-msgstr "Не за вид од."
+msgstr "Не е зададена команда за компајлирање за овој тип на датотека"
 
 #: src/compile.c:155 src/text_editor_gui.c:168 src/toolbar.c:250
 msgid "Compile"
@@ -3460,32 +3416,30 @@ msgstr "Компајлирај"
 
 #: src/compile.c:157
 #, c-format
-#, fuzzy
 msgid "Compiling file: %s ...\n"
-msgstr "s"
+msgstr "Датотеката се компајлир: %s ...\n"
 
 #: src/compile.c:180 src/compile.c:185
-#, fuzzy
 msgid "Compile completed ... unsuccessful"
-msgstr "Компајлирај"
+msgstr "Компајлирањето е завршено ... неуспешно"
 
 #: src/compile.c:190 src/compile.c:195
-#, fuzzy
 msgid "Compile completed ... successful"
-msgstr "Компајлирај"
+msgstr "Компајлирањето е завршено ... успешно"
 
 #: src/compiler_options.c:521
-#, fuzzy
 msgid ""
 "You have changed some of the compiler options of the project,\n"
 "would you like the next build action to perform a complete\n"
 "rebuild of the project?"
-msgstr "Вие променто од од како до а од?"
+msgstr ""
+"Ги изменивте некои од опциите за компајлирање на проектот, \n"
+"дали би сакале следната градежна акција да изврши комплетно\n"
+"реизградување на проектот?"
 
 #: src/compiler_options.c:743 src/src_paths.c:218
-#, fuzzy
 msgid "Do you want to clear the list?"
-msgstr "до?"
+msgstr "Дали сакате да ја исчистите листата?"
 
 #: src/compiler_options.c:823 src/compiler_options.c:899
 #: src/compiler_options.c:922 src/compiler_options.c:967 src/signals_gui.c:131
@@ -3497,14 +3451,12 @@ msgid "Include paths"
 msgstr "Вклучи патишта"
 
 #: src/compiler_options.c:853
-#, fuzzy
 msgid "Libraries paths"
-msgstr "Библиотеки"
+msgstr "Патеки до библиотеките"
 
 #: src/compiler_options.c:876
-#, fuzzy
 msgid "Libraries and modules"
-msgstr "Библиотеки и"
+msgstr "Библиотеки и модули"
 
 #: src/compiler_options.c:892
 msgid "Stock"
@@ -3519,45 +3471,40 @@ msgid "Warning"
 msgstr "Предупредување"
 
 #: src/configurer.c:155
-#, fuzzy
 msgid ""
 "Project does not have an executable configure script.\n"
 "Auto generate the Project first."
-msgstr "Проект Проект."
+msgstr ""
+"Проектот нема извршна конфигурациска скрипта.\n"
+"Извршете автогенерирање на проектот прво."
 
 #: src/configurer.c:187 src/toolbar.c:262
 msgid "Configure"
 msgstr "Конфигурирај"
 
 #: src/configurer.c:189
-#, fuzzy
 msgid "Configuring the Project ....\n"
-msgstr "Проект"
+msgstr "Проектот се конфигурира ....\n"
 
 #: src/configurer.c:210
-#, fuzzy
 msgid "Configure completed...............Unsuccessful\n"
-msgstr "Конфигурирај"
+msgstr "Конфигурирањето е завршено...............Неуспешно\n"
 
 #: src/configurer.c:212
-#, fuzzy
 msgid "Configure completed ... unsuccessful"
-msgstr "Конфигурирај"
+msgstr "Конфигурирањето е завршено ... неуспешно"
 
 #: src/configurer.c:218
-#, fuzzy
 msgid "Configure completed...............Successful\n"
-msgstr "Конфигурирај"
+msgstr "Конфигурирањето е завршено...............Успешно"
 
 #: src/configurer.c:220
-#, fuzzy
 msgid "Configure completed ... successful"
-msgstr "Конфигурирај"
+msgstr "Конфигурирањето е завршено ... успешно"
 
 #: src/controls.c:208
-#, fuzzy
 msgid "No tags"
-msgstr "Не"
+msgstr "Без тагови"
 
 #: src/cvs.c:254
 msgid "CVS Updating "
@@ -3568,9 +3515,8 @@ msgid "CVS Committing "
 msgstr "CVS Извршување "
 
 #: src/cvs.c:365
-#, fuzzy
 msgid "CVS Importing...\n"
-msgstr "Увезувам"
+msgstr "CVS увезување ...\n"
 
 #: src/cvs.c:405
 msgid "CVS Adding "
@@ -3601,14 +3547,12 @@ msgid "CVS login "
 msgstr "CVS логирање "
 
 #: src/cvs.c:753 src/project_import.c:167
-#, fuzzy
 msgid "Project import completed...unsuccessful\n"
-msgstr "Проект"
+msgstr "Увезувањето на документот е завршено...неуспешно\n"
 
 #: src/cvs.c:755 src/project_import.c:169
-#, fuzzy
 msgid "Project import completed...unsuccessful"
-msgstr "Проект"
+msgstr "Увезувањето на документот е завршено...неуспешно"
 
 #: src/cvs.c:761
 msgid "CVS completed...successful\n"
@@ -3619,18 +3563,16 @@ msgid "CVS completed...successful"
 msgstr "CVS комплетирано...успешно"
 
 #: src/cvs.c:771
-#, fuzzy
 msgid "Updating versions in file tree..."
-msgstr "Надградување во."
+msgstr "Се обновуваат верзиите во датотечниот распоред..."
 
 #: src/cvs.c:773
 msgid "done\n"
 msgstr "готово\n"
 
 #: src/cvs_cbs.c:40
-#, fuzzy
 msgid "You do not need to login to a local server"
-msgstr "Вие до до а"
+msgstr "Немора да се логирате на локален сервер"
 
 #: src/cvs_gui.c:30
 msgid "Local"
@@ -3665,32 +3607,28 @@ msgid "CVS: Status"
 msgstr "CVS: Статус"
 
 #: src/cvs_gui.c:80
-#, fuzzy
 msgid "Show status"
-msgstr "Прикажи"
+msgstr "Прикажи го статусот"
 
 #: src/cvs_gui.c:83
 msgid "CVS: Log"
 msgstr "CVS: Дневник"
 
 #: src/cvs_gui.c:84
-#, fuzzy
 msgid "Show log"
-msgstr "Прикажи"
+msgstr "Прикажи го логот"
 
 #: src/cvs_gui.c:87
-#, fuzzy
 msgid "CVS: Add file"
-msgstr "Додај"
+msgstr "CVS: Додади датотека"
 
 #: src/cvs_gui.c:88
 msgid "Add"
 msgstr "Додај"
 
 #: src/cvs_gui.c:91
-#, fuzzy
 msgid "CVS: Remove file"
-msgstr "Отстрани"
+msgstr "CVS: Отстрани датотека"
 
 #. 3
 #: src/cvs_gui.c:92 src/project_dbase_gui.c:341 src/watch_gui.c:45
@@ -3698,12 +3636,13 @@ msgid "Remove"
 msgstr "Отстрани"
 
 #: src/cvs_gui.c:94
-#, fuzzy
 msgid ""
 "WARNING: The file will be removed on disc. Use \"cvs commit\" .\n"
 "to apply to the repository. It will still be possible to retrieve older "
 "revisions of the file."
-msgstr "Вклучено Употреба до до од."
+msgstr ""
+"ВНИМАНИЕ: Датотеката ќе биде преместена на дискот. Користете  \"cvs commit\" .\n"
+"да ја примените на репозитарот. Сеуште ќе биде возможно да добиете постари ревизии на датотеката"
 
 #: src/cvs_gui.c:118 src/cvs_gui.c:231
 msgid "File: "
@@ -3718,9 +3657,8 @@ msgid "Revision: "
 msgstr "Ревизија: "
 
 #: src/cvs_gui.c:123 src/cvs_gui.c:465
-#, fuzzy
 msgid "Log message: "
-msgstr "Запис "
+msgstr "Лог порака: "
 
 #: src/cvs_gui.c:126 src/cvs_gui.c:234
 msgid "Select file"
@@ -3764,18 +3702,16 @@ msgid "Directory on the server: "
 msgstr "Директориум Вклучено сервер "
 
 #: src/cvs_gui.c:423
-#, fuzzy
 msgid "CVS: Import Project"
-msgstr "Увези"
+msgstr "CVS: Увезување на проект"
 
 #: src/cvs_gui.c:427
 msgid "Import"
 msgstr "Увези"
 
 #: src/cvs_gui.c:437
-#, fuzzy
 msgid "Dir on the server: "
-msgstr "Вклучено сервер "
+msgstr "Директориум на серверот"
 
 #: src/cvs_gui.c:462
 msgid "Module name: "
@@ -3794,9 +3730,8 @@ msgid "Server settings"
 msgstr "Сервер подесувања"
 
 #: src/cvs_gui.c:524
-#, fuzzy
 msgid "Import settings"
-msgstr "Увези"
+msgstr "Увези подесувања"
 
 #: src/debug_tree.c:1512
 msgid "Default format"
@@ -3832,76 +3767,72 @@ msgstr "Увид меморија"
 
 #. Must declare static, because it will be used forever
 #: src/debugger.c:81
-#, fuzzy
 msgid "Load Executable File"
-msgstr "Вчитај"
+msgstr "Вчитај извршна датотека"
 
 #. Must declare static, because it will be used forever
 #: src/debugger.c:87
-#, fuzzy
 msgid "Load Core File"
-msgstr "Вчитај"
+msgstr "Вчитај јадрена датотека"
 
 #: src/debugger.c:190 src/debugger.c:638
-#, fuzzy
 msgid "Loading Executable: "
-msgstr "Вчитувам "
+msgstr "Вчитувам извршна датотека: "
 
 #: src/debugger.c:241
-#, fuzzy
 msgid "Loading Core: "
-msgstr "Вчитувам "
+msgstr "Вчитувам јадро: "
 
 #: src/debugger.c:286 src/debugger.c:314
-#, fuzzy
 msgid ""
 "You have a process ATTACHED under the debugger.\n"
 "Please detach it first and then load the executable file."
-msgstr "Вие а и."
+msgstr ""
+"Имате ЗАКАЧЕН процес под дебагерот.\n"
+"Прво откачете го и потоа вчитајте ја извршната датотека"
 
 #: src/debugger.c:289 src/debugger.c:317
-#, fuzzy
 msgid ""
 "You have a process RUNNING under the debugger.\n"
 "Please stop it first and then load the executable file."
-msgstr "Вие а и."
+msgstr ""
+"Имате процес кој е АКТИВЕН под дебагерот.\n"
+"Прво прекинете го па потоа вчитајте ја извршната датотека."
 
 #: src/debugger.c:564
 #, c-format
-#, fuzzy
 msgid ""
 "Unable to find: %s.\n"
 "Unable to initialize debugger.\n"
 "Make sure Anjuta is installed correctly."
-msgstr "до s до."
+msgstr ""
+"Не може да се пронајде%s.\n"
+"Неможе да се иницијализира дебагерот\n"
+"Проверете дали Anjuta е инсталиран коректно."
 
 #: src/debugger.c:633
 msgid "Debugger"
 msgstr "Дебагер"
 
 #: src/debugger.c:636
-#, fuzzy
 msgid "Getting ready to start debugging session ...\n"
-msgstr "до старт"
+msgstr "Се подготвувам да започнам дебагирачка сесија ...\n"
 
 #: src/debugger.c:650
-#, fuzzy
 msgid "No executable specified\n"
-msgstr "Не"
+msgstr "Не е специфирана извршна датотека\n"
 
 #: src/debugger.c:654
-#, fuzzy
 msgid "Open an executable or attach to a process to start debugging.\n"
-msgstr "Отвори or до а до старт"
+msgstr "Отворете извршна датотека или прикачете за процес за да се започне дебагирање\n"
 
 #: src/debugger.c:662
 msgid "There was an error whilst launching the debugger.\n"
 msgstr "Имаше грешка при стартување на дебагерот. \n"
 
 #: src/debugger.c:666
-#, fuzzy
 msgid "Make sure 'gdb' is installed on the system.\n"
-msgstr "Направи gdb Вклучено"
+msgstr "Проверете дали е 'gdb' инсталиран на системот.\n"
 
 #: src/debugger.c:805
 msgid "Error: "
@@ -3913,25 +3844,24 @@ msgstr "Дебагерот е спремен.\n"
 
 #. Good Bye message
 #: src/debugger.c:940
-#, fuzzy
 msgid ""
 "Debug session completed.\n"
 "\n"
-msgstr "Дебагирање н"
+msgstr ""
+"Дебагирачката сесија е завршена. \n"
+"\n"
 
 #: src/debugger.c:1176
 msgid "Cannot execute gnome-terminal"
 msgstr "Неможам да го извршам гном-терминалот"
 
 #: src/debugger.c:1211
-#, fuzzy
 msgid "Cannot start terminal for debugging."
-msgstr "старт за."
+msgstr "Неможам да го стартувам терминалот за дебагирање"
 
 #: src/debugger.c:1277
-#, fuzzy
 msgid "Warning: No debug terminal. Redirecting stdio to /dev/null.\n"
-msgstr "Предупредување Не до"
+msgstr "Внимание: Нема терминал за дебагирање. Го пренасочувам stdio на /dev/null.\n"
 
 #: src/debugger.c:1300
 msgid "Running program ... \n"
@@ -3939,21 +3869,20 @@ msgstr "Работи програма ... \n"
 
 #: src/debugger.c:1430
 #, c-format
-#, fuzzy
 msgid "Attaching to process: %d\n"
-msgstr "до"
+msgstr "Прикачувам на процес: %d\n"
 
 #: src/debugger.c:1460
-#, fuzzy
 msgid ""
 "A process is already running.\n"
 "Would you like to terminate it and attach the new process?"
-msgstr "A како до и?"
+msgstr ""
+"Веќе постои процес.\n"
+"Дали би сакале да го терминирате и да го прикачите новиот процес?"
 
 #: src/debugger.c:1472
-#, fuzzy
 msgid "Anjuta is unable to attach to itself."
-msgstr "до до самиот."
+msgstr "Anjuta неможе да се закачи за себе."
 
 #: src/debugger.c:1558
 #, c-format
@@ -3961,18 +3890,20 @@ msgid "Detaching the process: %d\n"
 msgstr "Го откачувам процесот: %d\n"
 
 #: src/debugger.c:1618
-#, fuzzy
 msgid ""
 "Program is ATTACHED.\n"
 "Do you still want to stop Debugger?"
-msgstr "Програм до?"
+msgstr ""
+"Програмата е ЗАКАЧЕНА\n"
+"Дали сеуште сакате да го прекинете дебагерот?"
 
 #: src/debugger.c:1621
-#, fuzzy
 msgid ""
 "Program is RUNNING.\n"
 "Do you still want to stop Debugger?"
-msgstr "Програм до?"
+msgstr ""
+"Програмата РАБОТИ.\n"
+"Дали сеуште сакате да го прекинете дебагерот?"
 
 #.
 #. debugger_put_cmd_in_queqe ("info breakpoints", DB_CMD_NONE,
@@ -3980,9 +3911,8 @@ msgstr "Програм до?"
 #. debugger.breakpoints_dbase);
 #.
 #: src/debugger.c:1910
-#, fuzzy
 msgid "All breakpoints deleted:\n"
-msgstr "Сите избришано"
+msgstr "Сите точки на прекинување се избришани:\n"
 
 #: src/debugger.c:1943
 #, c-format
@@ -3991,130 +3921,106 @@ msgstr "Го прекинувам процесот: %d\n"
 
 #: src/debugger.c:1972
 #, c-format
-#, fuzzy
 msgid "Sending signal %s to the process: %d\n"
-msgstr "s до"
+msgstr "Се испраќа сигнал %s  до процесот: %d\n"
 
 #: src/debugger.c:1993
-#, fuzzy
 msgid "Error whilst signalling the process."
-msgstr "Грешка."
+msgstr "Се јави грешка при сигнализирање на процесите."
 
 #: src/executer.c:53 src/mainmenu_callbacks.c:2162
-#, fuzzy
 msgid "The target executable of this Project is unknown"
-msgstr "од Проект"
+msgstr "Целната извршна на овој проект е непозната"
 
 #: src/executer.c:58 src/mainmenu_callbacks.c:2164
-#, fuzzy
 msgid "The target executable of this Project is not executable"
-msgstr "од Проект"
+msgstr "Целната извршна датотека на овој проект не е извршна"
 
 #: src/executer.c:63 src/mainmenu_callbacks.c:2168
-#, fuzzy
 msgid "The target executable does not exist for this Project"
-msgstr "за"
+msgstr "Целната извршна датотека не постои за овој проект"
 
 #: src/executer.c:76
-#, fuzzy
 msgid "No file or Project opened."
-msgstr "Не or Проект."
+msgstr "Не е отворена датотека или проект"
 
 #: src/executer.c:81 src/executer.c:100 src/mainmenu_callbacks.c:2188
 #: src/mainmenu_callbacks.c:2199
-#, fuzzy
 msgid "No executable for this file."
-msgstr "Не за."
+msgstr "Не постои извршна за оваа датотека"
 
 #: src/executer.c:105
-#, fuzzy
 msgid "Executable is not up-to-date."
-msgstr "горе до."
+msgstr "Извршната датотека не е скорешна."
 
 #: src/executer.c:117
-#, fuzzy
 msgid "Unable to execute Project. Check Settings->Commands."
-msgstr "до Проект Проверка Подесувања Команди."
+msgstr "Не може да се изврши проектот. Проверете во Подесувања > Команди."
 
 #: src/executer.c:131
-#, fuzzy
 msgid "This file has not been saved. Save it first."
-msgstr "Зачувај."
+msgstr "Оваа датотека не е зачувана. Прво зачувајте ја."
 
 #: src/executer.c:139
-#, fuzzy
 msgid "Unable to execute file. Check Settings->Commands."
-msgstr "до Проверка Подесувања Команди."
+msgstr "Не е можно да се изврши датотеката. Проверете во Подесувања > Команди."
 
 #: src/find_in_files.c:327
-#, fuzzy
 msgid "Find in Files completed...............Unsuccessful\n"
-msgstr "Пронајди во Датотеки"
+msgstr "Пребарувањето во датотеки е завршено.................Неуспешно\n"
 
 #: src/find_in_files.c:330
-#, fuzzy
 msgid "Find in Files completed ... unsuccessful"
-msgstr "Пронајди во Датотеки"
+msgstr "Пребарувањето во датотеки е завршено ... неуспешно"
 
 #: src/find_in_files.c:336
-#, fuzzy
 msgid "Find in Files completed...............Successful\n"
-msgstr "Пронајди во Датотеки"
+msgstr "Пребарувањето во датотеки е завршено...............Успешно\n"
 
 #: src/find_in_files.c:338
-#, fuzzy
 msgid "Find in Files completed ... successful"
-msgstr "Пронајди во Датотеки"
+msgstr "Пребарувањето во датотеки е завршено. .. успешно"
 
 #: src/find_in_files_cbs.c:103
-#, fuzzy
 msgid "No input files supplied."
-msgstr "Не."
+msgstr "Не се принесеени влезни датотеки"
 
 #: src/find_in_files_cbs.c:110
-#, fuzzy
 msgid "No search string supplied."
-msgstr "Не."
+msgstr "Не е принесен критериум на пребарување"
 
 #: src/find_replace.c:337
-#, fuzzy
 msgid "Do you want to replace this?"
-msgstr "до?"
+msgstr "Дали сакате да го замените ова?"
 
 #: src/find_replace.c:398
 #, c-format
-#, fuzzy
 msgid "The string \"%s\" was not found in the selected text"
-msgstr "s во"
+msgstr "Зборот \"%s\" не е пронајден во избраниот текст"
 
 #: src/find_replace.c:403
 #, c-format
-#, fuzzy
 msgid "The string \"%s\" was not found from the current location"
-msgstr "s од"
+msgstr "Зборот \"%s\" не е пронајден во тековната локација"
 
 #: src/find_text.c:163
 #, c-format
-#, fuzzy
 msgid "The match \"%s\" was not found in the whole document"
-msgstr "s во"
+msgstr "Резултатот \"%s\" не е пронајден во целиот документ"
 
 #: src/find_text.c:168
 #, c-format
-#, fuzzy
 msgid "The match \"%s\" was not found in the selected text"
-msgstr "s во"
+msgstr "Резултатот \"%s\" не е пронајден во избраниот текст"
 
 #: src/find_text.c:173
 #, c-format
-#, fuzzy
 msgid "The match \"%s\" was not found from the current location"
-msgstr "s од"
+msgstr "Резултатот \"%s\" не е пронајден во тековната локација"
 
 #: src/find_text.c:197
-#, fuzzy
 msgid "No matches found. Wrap search around the document?"
-msgstr "Не Пореди?"
+msgstr "Не е пронајден резултат. Да се повтори пребарувањето околу документот?"
 
 #: src/glade_iface.c:96 src/glade_iface.c:171
 msgid "Cannot fork glade."
@@ -4125,16 +4031,16 @@ msgid "Cannot fork glade--."
 msgstr "Неможам да го форкувам glade-- "
 
 #: src/gnome_project.c:62
-#, fuzzy
 msgid ""
 "A project or file with the same name.already exists.\n"
 "Project creation aborted."
-msgstr "A or име."
+msgstr ""
+"Проект или датотека со тоа име веќе постои.\n"
+"Создавањето на проектот е прекинато."
 
 #: src/gnome_project.c:78
-#, fuzzy
 msgid "Generating Project ...\n"
-msgstr "Проект"
+msgstr "Проектот се генерира ...\n"
 
 #: src/gnome_project.c:85
 #, c-format
@@ -4171,53 +4077,50 @@ msgid "Updating Project ...\n"
 msgstr "Надградување Проект ... \n"
 
 #: src/gnome_project.c:232
-#, fuzzy
 msgid "Running autogen.sh ...\n"
-msgstr "Работи"
+msgstr "autogen.sh е во прогрес ...\n"
 
 #: src/gnome_project.c:243
 msgid "App Wizard"
 msgstr "Волшебник за апликации"
 
 #: src/gnome_project.c:262
-#, fuzzy
 msgid ""
 "The Project was not successfully auto generated.\n"
 "Please run autogen.sh manually."
-msgstr "Проект."
+msgstr ""
+"Проектот не беше успешно автогенериран.\n"
+"Извршете ја autogen.sh рачно."
 
 #: src/gnome_project.c:268
-#, fuzzy
 msgid ""
 "Auto generation completed...............Successful\n"
 "Now Build the Project to have a LOOK at it\n"
-msgstr "Автоматски Проект до а"
+msgstr ""
+"Автоматското генерирање на проектот заврши...............Успешно\n"
+"Сега изградете го проектот и погледнете го\n"
 
 #: src/gnome_project.c:271
-#, fuzzy
 msgid "Project was successfully auto generated."
-msgstr "Проект."
+msgstr "Проектот е успешно автогенериран"
 
 #: src/goto_line.c:106
-#, fuzzy
 msgid " Goto Line number "
-msgstr "Линија "
+msgstr "Оди до број на линија"
 
 #: src/launcher.c:151
 #, c-format
-#, fuzzy
 msgid "launcher.c: error while reading child stdout - %s\n"
-msgstr "s"
+msgstr "launcher.c: се јави грешка при вчитување на stdout - %s\n"
 
 #: src/launcher.c:178
 #, c-format
-#, fuzzy
 msgid "launcher.c: error while reading child stderr - %s\n"
-msgstr "s"
+msgstr "launcher.c: се јави грешка при вчитување на stderr - %s\n"
 
 #: src/launcher.c:370 src/text_editor.c:1466
 msgid "Cannot execute command shell"
-msgstr "Неможам да го извршам команда во школката"
+msgstr "Неможе да се изврши командната школка"
 
 #: src/main.c:50
 msgid "Do not show the splashscreen"
@@ -4247,31 +4150,26 @@ msgid "_Save"
 msgstr "_Сними"
 
 #: src/main_menubar_def.h:42 src/text_editor_gui.c:107 src/toolbar.c:84
-#, fuzzy
 msgid "Save current file"
-msgstr "Зачувај"
+msgstr "Зачувај ја тековната датотека"
 
 #. 3
 #: src/main_menubar_def.h:47
-#, fuzzy
 msgid "Save _As ..."
-msgstr "Зачувај."
+msgstr "Зачувај _како ..."
 
 #: src/main_menubar_def.h:48
-#, fuzzy
 msgid "Save the current file with a different name"
-msgstr "Зачувај ја тековната датотека под друго име"
+msgstr "Зачувај ја тековната датотека под друго име "
 
 #. 4
 #: src/main_menubar_def.h:53
-#, fuzzy
 msgid "Save A_ll"
-msgstr "Зачувај A"
+msgstr "Зачувај A_II"
 
 #: src/main_menubar_def.h:54
-#, fuzzy
 msgid "Save all currently open files, except new files"
-msgstr "Зачувај"
+msgstr "Зачувај ги сите тековно отворени датотеки, освен новите датотеки"
 
 #. 5
 #: src/main_menubar_def.h:59
@@ -4279,20 +4177,17 @@ msgid "_Close File"
 msgstr "_Затвори Датотека"
 
 #: src/main_menubar_def.h:60 src/toolbar.c:92
-#, fuzzy
 msgid "Close current file"
-msgstr "Затвори"
+msgstr "Затвори ја тековната датотека"
 
 #. 6
 #: src/main_menubar_def.h:65
-#, fuzzy
 msgid "Close All Files"
 msgstr "Затвори ги сите датотеки"
 
 #: src/main_menubar_def.h:66
-#, fuzzy
 msgid "Close all files"
-msgstr "Затвори"
+msgstr "Затвори ги сите датотеки"
 
 #. 7
 #: src/main_menubar_def.h:71
@@ -4310,9 +4205,8 @@ msgid "N_ew Project ..."
 msgstr "N_ов Проект..."
 
 #: src/main_menubar_def.h:79
-#, fuzzy
 msgid "Create a Project using the Application Wizard"
-msgstr "Создади а Проект Апликација"
+msgstr "Создади проект користејки го волшебникот за апликации"
 
 #. 10
 #: src/main_menubar_def.h:84
@@ -4320,9 +4214,8 @@ msgid "_Import Project ..."
 msgstr "_Увези Проект ..."
 
 #: src/main_menubar_def.h:85
-#, fuzzy
 msgid "Import an existing code project using the Project Import Wizard"
-msgstr "Увези Проект Увези"
+msgstr "Увези постоечки проект користејки го волшебникот за увезување на проекти"
 
 #. 11
 #: src/main_menubar_def.h:90
@@ -4330,9 +4223,8 @@ msgid "Open P_roject ..."
 msgstr "Отвори P_роект ..."
 
 #: src/main_menubar_def.h:91 src/toolbar.c:214
-#, fuzzy
 msgid "Open a Project"
-msgstr "Отвори а"
+msgstr "Отвори проект"
 
 #. 12
 #: src/main_menubar_def.h:96
@@ -4340,9 +4232,8 @@ msgid "Sa_ve Project"
 msgstr "Сни_ми Проект"
 
 #: src/main_menubar_def.h:97 src/toolbar.c:225
-#, fuzzy
 msgid "Save the current Project"
-msgstr "Зачувај"
+msgstr "Зачувај го тековниот проект"
 
 #. 13
 #: src/main_menubar_def.h:102
@@ -4360,21 +4251,18 @@ msgid "Rena_me ..."
 msgstr "Преи_менувај ..."
 
 #: src/main_menubar_def.h:110
-#, fuzzy
 msgid "Rename the current file"
-msgstr "Преименувај"
+msgstr "Преименувај ја тековната датотека"
 
 #. 16
 #. 17
 #: src/main_menubar_def.h:116
-#, fuzzy
 msgid "Page Set_up ..."
-msgstr "Страница Постави горе."
+msgstr "Подесување на Стра_ницата ..."
 
 #: src/main_menubar_def.h:117
-#, fuzzy
 msgid "Page setup for printing"
-msgstr "Страница за"
+msgstr "Подесување на страницата за печатење"
 
 #. 18
 #: src/main_menubar_def.h:122
@@ -4382,20 +4270,17 @@ msgid "_Print"
 msgstr "_Печати"
 
 #: src/main_menubar_def.h:123 src/text_editor_gui.c:179 src/toolbar.c:110
-#, fuzzy
 msgid "Print the current file"
 msgstr "Испечати ја тековната датотека"
 
 #. 19
 #: src/main_menubar_def.h:128
-#, fuzzy
 msgid "_Print Preview"
-msgstr "Печати"
+msgstr "_Преглед на документот за печатење"
 
 #: src/main_menubar_def.h:129
-#, fuzzy
 msgid "Print preview of the current file"
-msgstr "Печати од"
+msgstr "Преглед на тековниот документ за печатање"
 
 #. 20
 #. 21
@@ -4410,69 +4295,57 @@ msgstr "Скорешни Проек_ти"
 
 #. 0
 #: src/main_menubar_def.h:155
-#, fuzzy
 msgid "_Make Selection Uppercase"
-msgstr "Направи Избор"
+msgstr "_Направи Избор по критериум на големи букви"
 
 #: src/main_menubar_def.h:156
-#, fuzzy
 msgid "Make the selected text uppercase"
-msgstr "Направи текст"
+msgstr "Направи го избраниот текст со големи букви"
 
 #. 1
 #: src/main_menubar_def.h:162
-#, fuzzy
 msgid "Make Selection Lowercase"
-msgstr "Направи Избор"
+msgstr "Направи го изборот со мали букви"
 
 #: src/main_menubar_def.h:163
-#, fuzzy
 msgid "Make the selected text lowercase"
-msgstr "Направи текст"
+msgstr "Направи го избраниот текст со мали букви"
 
 #. 3
 #: src/main_menubar_def.h:171
-#, fuzzy
 msgid "Convert EOL chars to CRLF"
-msgstr "Конвертирај до"
+msgstr "Конвертирај ги EOL карактерите во CRLF"
 
 #: src/main_menubar_def.h:172
-#, fuzzy
 msgid "Convert End Of Line characters to DOS EOL (CRLF)"
-msgstr "Конвертирај Крај Линија до DOS"
+msgstr "Конвертирај ги End-Of-Line карактерите во DOS EOL (CRLF)"
 
 #. 4
 #: src/main_menubar_def.h:178
-#, fuzzy
 msgid "Convert EOL chars to LF"
-msgstr "Конвертирај до"
+msgstr "Конвертирај ги EOL карактерите во LF"
 
 #: src/main_menubar_def.h:179
-#, fuzzy
 msgid "Convert End Of Line characters to Unix EOL (LF)"
-msgstr "Конвертирај Крај Линија до"
+msgstr "Конвертирај ги End-Of-Line карактерите во Unix EOL (LF)"
 
 #. 5
 #: src/main_menubar_def.h:185
-#, fuzzy
 msgid "Convert EOL chars to CR"
-msgstr "Конвертирај до"
+msgstr "Конвертирај ги EOL карактерите во  CR"
 
 #: src/main_menubar_def.h:186
-#, fuzzy
 msgid "Convert End Of Line characters to Mac OS EOL (CR)"
-msgstr "Конвертирај Крај Линија до Mac"
+msgstr "Конвертирај ги End-Of-Line карактерите во Mac OS EOL (CR)"
 
 #. 6
 #: src/main_menubar_def.h:192
-#, fuzzy
 msgid "Convert EOL chars to majority EOL"
-msgstr "Конвертирај до"
+msgstr "Конвертирај ги EOL карактерите во мнозинство EOL карактери"
 
 #: src/main_menubar_def.h:193
-#, fuzzy
 msgid "Convert End Of Line characters to majority of the EOL found in the file"
-msgstr "Конвертирај Крај Линија до од во"
+msgstr "Конвертирај ги End-Of-Line карактерите во мнозинството од EOL карактерите пронајдени во датотеката"
 
 #. 0
 #: src/main_menubar_def.h:204
@@ -4480,64 +4353,53 @@ msgid "_Select All"
 msgstr "_Селектирај Се"
 
 #: src/main_menubar_def.h:205
-#, fuzzy
 msgid "Select all text in the editor"
-msgstr "Избор текст во"
+msgstr "Избери го целиот текст во уредувачот"
 
 #. 1
 #: src/main_menubar_def.h:210
-#, fuzzy
 msgid "Select to _Brace"
-msgstr "Избор до"
+msgstr "Избери до _заграда"
 
 #: src/main_menubar_def.h:211
-#, fuzzy
 msgid "Select the text in the matching braces"
-msgstr "Избор текст во"
+msgstr "Селектирај го текстот во соодветните загради"
 
 #. 2
 #: src/main_menubar_def.h:216
-#, fuzzy
 msgid "Select Code Block"
-msgstr "Избор"
+msgstr "Избери го блокот со код"
 
 #: src/main_menubar_def.h:217
-#, fuzzy
 msgid "Select the current code block"
-msgstr "Избор"
+msgstr "Избери го тековниот блок со код"
 
 #. 3
 #: src/main_menubar_def.h:222
-#, fuzzy
 msgid "Current Function"
-msgstr "Сегашно"
+msgstr "Тековна функција"
 
 #: src/main_menubar_def.h:223
-#, fuzzy
 msgid "Select the current function"
-msgstr "Избор"
+msgstr "Избери ја тековната функција"
 
 #. 4
 #: src/main_menubar_def.h:228
-#, fuzzy
 msgid "Current Line"
-msgstr "Сегашно"
+msgstr "Тековна линија"
 
 #: src/main_menubar_def.h:229
-#, fuzzy
 msgid "Select the current line"
-msgstr "Избор"
+msgstr "Избери ја тековната линија"
 
 #. 5
 #: src/main_menubar_def.h:234
-#, fuzzy
 msgid "Current Word"
-msgstr "Сегашно"
+msgstr "Тековен збор"
 
 #: src/main_menubar_def.h:235
-#, fuzzy
 msgid "Select the current word"
-msgstr "Избор"
+msgstr "Избери го тековниот збор"
 
 #. 0
 #: src/main_menubar_def.h:245
@@ -4545,9 +4407,8 @@ msgid "/* GPL Notice */"
 msgstr "/* GPL Забелешка */"
 
 #: src/main_menubar_def.h:246
-#, fuzzy
 msgid "Insert GPL notice with C style comments"
-msgstr "Внеси C"
+msgstr "Внеси GPL забешека со C стил на коментари"
 
 #. 1
 #: src/main_menubar_def.h:251
@@ -4555,9 +4416,8 @@ msgid "// GPL Notice"
 msgstr "// GPL Забелешка"
 
 #: src/main_menubar_def.h:252
-#, fuzzy
 msgid "Insert GPL notice with C++ style comments"
-msgstr "Внеси C"
+msgstr "Внеси GPL забешека со C++ стил на коментари"
 
 #. 2
 #: src/main_menubar_def.h:257
@@ -4565,42 +4425,35 @@ msgid "# GPL Notice"
 msgstr "# GPL Забелешка"
 
 #: src/main_menubar_def.h:258
-#, fuzzy
 msgid "Insert GPL notice with Python style comments"
-msgstr "Внеси"
+msgstr "Внеси GPL забешека со Python стил на коментари"
 
 #. 3
 #: src/main_menubar_def.h:263
-#, fuzzy
 msgid "Current Username"
-msgstr "Сегашно"
+msgstr "Тековно корисничко име"
 
 #: src/main_menubar_def.h:264
-#, fuzzy
 msgid "Insert name of current user"
-msgstr "Внеси име од"
+msgstr "Внеси име од тековен корисник"
 
 #. 4
 #: src/main_menubar_def.h:269
-#, fuzzy
 msgid "Current Date & Time"
-msgstr "Сегашно Датум"
+msgstr "Тековен датум и време"
 
 #: src/main_menubar_def.h:270
-#, fuzzy
 msgid "Insert current date & time"
-msgstr "Внеси"
+msgstr "Внеси тековен датум и време"
 
 #. 5
 #: src/main_menubar_def.h:275
-#, fuzzy
 msgid "Header File Template"
-msgstr "Заглавие Датотека"
+msgstr "Шаблон за заглавие "
 
 #: src/main_menubar_def.h:276
-#, fuzzy
 msgid "Insert a standard header file template"
-msgstr "Внеси а"
+msgstr "Внеси стандарден шаблон за заглавие"
 
 #. 6
 #: src/main_menubar_def.h:281
@@ -4608,69 +4461,56 @@ msgid "ChangeLog entry"
 msgstr "ChangeLog влез"
 
 #: src/main_menubar_def.h:282
-#, fuzzy
 msgid "Insert a ChangeLog entry"
-msgstr "Внеси а"
+msgstr "Вметни ChangeLog влез"
 
 #: src/main_menubar_def.h:293
-#, fuzzy
 msgid "Insert a switch template"
-msgstr "Внеси а"
+msgstr "Вметни switch шаблон"
 
 #: src/main_menubar_def.h:299
-#, fuzzy
 msgid "Insert a for template"
-msgstr "Внеси а за"
+msgstr "Вметни for шаблон"
 
 #: src/main_menubar_def.h:305
-#, fuzzy
 msgid "Insert a while template"
-msgstr "Внеси а"
+msgstr "Вметни while шаблон"
 
 #: src/main_menubar_def.h:311
-#, fuzzy
 msgid "Insert an if...else template"
-msgstr "Внеси"
+msgstr "Вметни if...else шаблон"
 
 #: src/main_menubar_def.h:322
-#, fuzzy
 msgid "Insert the CVS Author keyword (author of the change)"
-msgstr "Внеси Автор автор од"
+msgstr "Вметни го CVS авторскиот клучен збор (авторот на промената)"
 
 #: src/main_menubar_def.h:328
-#, fuzzy
 msgid "Insert the CVS Date keyword (date and time of the change)"
-msgstr "Внеси Датум и време од"
+msgstr "Вметни го CVS датумскиот клучен збор (датум и време на промената)"
 
 #: src/main_menubar_def.h:334
-#, fuzzy
 msgid "Insert the CVS Header keyword (full path, revision, date, author, state)"
-msgstr "Внеси Заглавие автор"
+msgstr "Вметни го CVS клучниот збор за заглавје (полна патеика, ревизија, датум, автор, држава)"
 
 #: src/main_menubar_def.h:340
-#, fuzzy
 msgid "Insert the CVS Id keyword (file, revision, date, author)"
-msgstr "Внеси автор"
+msgstr "Вметни го CVS ID клучниот збор (датутека, ревизија, датум, автор)"
 
 #: src/main_menubar_def.h:346
-#, fuzzy
 msgid "Insert the CVS Log keyword (log message)"
-msgstr "Внеси Запис"
+msgstr "Вметни го CVS клучниот збор за лог (лог порака)"
 
 #: src/main_menubar_def.h:352
-#, fuzzy
 msgid "Insert the CVS Name keyword (name of the sticky tag)"
-msgstr "Внеси Име име од"
+msgstr "Вметни го CVS клучниот збор за име (име на лепливиот таг)"
 
 #: src/main_menubar_def.h:358
-#, fuzzy
 msgid "Insert the CVS Revision keyword (revision number)"
-msgstr "Внеси број"
+msgstr "Вметни го CVS клучниот збор за ревизија (број на ревизија)"
 
 #: src/main_menubar_def.h:364
-#, fuzzy
 msgid "Insert the CVS Source keyword (full path)"
-msgstr "Внеси Извор"
+msgstr "Внеси го CVS изворниот клучен збор (полна патека)"
 
 #. 0
 #: src/main_menubar_def.h:374
@@ -4678,31 +4518,27 @@ msgid "Header"
 msgstr "Заглавие"
 
 #: src/main_menubar_def.h:375
-#, fuzzy
 msgid "Insert a file header"
-msgstr "Внеси а"
+msgstr "Вметни датотечно заглавје"
 
 #. 1
 #: src/main_menubar_def.h:380
-#, fuzzy
 msgid "C template"
-msgstr "C"
+msgstr "C шаблон"
 
 #: src/main_menubar_def.h:381
-#, fuzzy
 msgid "Insert a C template"
-msgstr "Внеси а C"
+msgstr "Внеси C шаблон"
 
 #. 2
 #: src/main_menubar_def.h:386
 msgid "CVS keyword"
-msgstr "CVS збор"
+msgstr "CVS клучен збор"
 
 #. 0
 #: src/main_menubar_def.h:403
-#, fuzzy
 msgid "Block Comment/Uncomment"
-msgstr "Коментар"
+msgstr "Блок коментирање/одкоментирање"
 
 #: src/main_menubar_def.h:404
 msgid "Block comment/uncomment the selected text"
@@ -4710,19 +4546,17 @@ msgstr "Блок коментирај/откоментирај го селект
 
 #. 1
 #: src/main_menubar_def.h:409
-#, fuzzy
 msgid "Box Comment/Uncomment"
-msgstr "Коментар"
+msgstr "Бокс Коментирање/Одкоментирање"
 
 #: src/main_menubar_def.h:410
 msgid "Box comment/uncomment the selected text"
-msgstr "Кутија коментирај/откоментирај го селектираниот текст"
+msgstr "Бокс коментирај/откоментирај го селектираниот текст"
 
 #. 2
 #: src/main_menubar_def.h:415
-#, fuzzy
 msgid "Stream Comment/Uncomment"
-msgstr "Коментар"
+msgstr "Stream Коментирај/Одкоментирај"
 
 #: src/main_menubar_def.h:416
 msgid "Stream comment/uncomment the selected text"
@@ -4734,9 +4568,8 @@ msgid "_Find ..."
 msgstr "_Пронајди ..."
 
 #: src/main_menubar_def.h:427
-#, fuzzy
 msgid "Search for a string or regular expression in the editor"
-msgstr "Барај за а or регуларен во"
+msgstr "Пребарај збор или чест израз во уредувач"
 
 #. 1
 #: src/main_menubar_def.h:433
@@ -4744,65 +4577,54 @@ msgid "Find _Next"
 msgstr "Пронајди _Следно"
 
 #: src/main_menubar_def.h:434
-#, fuzzy
 msgid "Repeat the last Find command"
-msgstr "Повтори Пронајди"
+msgstr "Повтори ја последната команда за пребарување"
 
 #. 2
 #: src/main_menubar_def.h:440
-#, fuzzy
 msgid "Find and R_eplace ..."
-msgstr "Пронајди и R."
+msgstr "Пронајди и З_амени ..."
 
 #: src/main_menubar_def.h:441
-#, fuzzy
 msgid "Search for and replace a string or regular expression with another string"
-msgstr "Барај за и а or регуларен"
+msgstr "Пребарај за и замени збор или чест израз со некој друг збор"
 
 #. 3
 #: src/main_menubar_def.h:447
-#, fuzzy
 msgid "Fin_d in Files ..."
-msgstr "во Датотеки."
+msgstr "Преба_рај во Датотеки ..."
 
 #: src/main_menubar_def.h:448
-#, fuzzy
 msgid "Search for a string in multiple files or directories"
-msgstr "Барај за а во or"
+msgstr "Барај за збор во повеќе датотеки и директориуми"
 
 #. 4
 #: src/main_menubar_def.h:454
-#, fuzzy
 msgid "_Enter Selection/I-Search"
-msgstr "Избор I"
+msgstr "_Внеси Избор/I-Пребарување"
 
 #: src/main_menubar_def.h:455
-#, fuzzy
 msgid "Enter the selected text as the search target"
-msgstr "текст"
+msgstr "Внеси го избраниот текст како цел на пребарување"
 
 #. 5
 #. 6
 #: src/main_menubar_def.h:463
-#, fuzzy
 msgid "Advanced search and re_place"
-msgstr "Напредно и"
+msgstr "Напредно пребарување и за_менување"
 
 #: src/main_menubar_def.h:464
-#, fuzzy
 msgid "Advanced Search And Replace"
-msgstr "Напредно Барај И"
+msgstr "Напредно пребарување и заменување"
 
 #. 0
 #: src/main_menubar_def.h:475
-#, fuzzy
 msgid "_Goto Line number ..."
-msgstr "Линија број."
+msgstr "_Оди до Линија број ..."
 
 #: src/main_menubar_def.h:476
-#, fuzzy
 msgid "Go to a particular line in the editor"
-msgstr "Оди до а во"
+msgstr "Оди до одредена линија во уредувачот"
 
 #. 1
 #: src/main_menubar_def.h:481
@@ -4810,31 +4632,26 @@ msgid "Goto Matching _Brace"
 msgstr "Оди на Совпаднувачката _Заграда"
 
 #: src/main_menubar_def.h:482
-#, fuzzy
 msgid "Go to the matching brace in the editor"
-msgstr "Оди до во"
+msgstr "Оди до соодветната заграда во изменувачот"
 
 #. 2
 #: src/main_menubar_def.h:487
-#, fuzzy
 msgid "_Goto start of block"
-msgstr "старт од"
+msgstr "_Оди до почетокот на блокот"
 
 #: src/main_menubar_def.h:488
-#, fuzzy
 msgid "Go to the start of the current block"
-msgstr "Оди до старт од"
+msgstr "Оди до почетокот на тековниот блок"
 
 #. 3
 #: src/main_menubar_def.h:493
-#, fuzzy
 msgid "_Goto end of block"
-msgstr "крај од"
+msgstr "Оди до крајот на блокот"
 
 #: src/main_menubar_def.h:494
-#, fuzzy
 msgid "Go to the end of the current block"
-msgstr "Оди до крај од"
+msgstr "Оди до крајот на тековниот блок"
 
 #. 4
 #: src/main_menubar_def.h:499
@@ -4842,9 +4659,8 @@ msgid "_Goto previous mesg"
 msgstr "_Оди на предходната порака"
 
 #: src/main_menubar_def.h:500
-#, fuzzy
 msgid "Go to previous message"
-msgstr "Оди до"
+msgstr "Оди до претходната порака"
 
 #. 5
 #: src/main_menubar_def.h:505
@@ -4852,9 +4668,8 @@ msgid "_Goto next mesg"
 msgstr "_Оди на следната порака"
 
 #: src/main_menubar_def.h:506
-#, fuzzy
 msgid "Go to next message"
-msgstr "Оди до"
+msgstr "Оди до следната порака"
 
 #. 6
 #: src/main_menubar_def.h:511
@@ -4898,9 +4713,8 @@ msgid "Next occurrence"
 msgstr "_Следно совпаѓање"
 
 #: src/main_menubar_def.h:536
-#, fuzzy
 msgid "Find the next occurrence of current word"
-msgstr "Пронајди случувања од"
+msgstr "Пронајди го следното совпагање од тековниот збор"
 
 #. 11
 #: src/main_menubar_def.h:541
@@ -4908,9 +4722,8 @@ msgid "Previous occurrence"
 msgstr "Претходно совпаѓање"
 
 #: src/main_menubar_def.h:542
-#, fuzzy
 msgid "Find the previous occurrence of current word"
-msgstr "Пронајди случувања од"
+msgstr "Пронајди го претходното совпагање од тековниот збор"
 
 #. 0
 #: src/main_menubar_def.h:553
@@ -4918,7 +4731,6 @@ msgid "U_ndo"
 msgstr "Вр_ати"
 
 #: src/main_menubar_def.h:554 src/toolbar.c:97
-#, fuzzy
 msgid "Undo the last action"
 msgstr "Врати ја последната акција"
 
@@ -4928,9 +4740,8 @@ msgid "_Redo"
 msgstr "_Повтори"
 
 #: src/main_menubar_def.h:561 src/toolbar.c:101
-#, fuzzy
 msgid "Redo the last undone action"
-msgstr "Повтори"
+msgstr "Повтори ја последната преправена акција"
 
 #. 2
 #. 3
@@ -4939,9 +4750,8 @@ msgid "C_ut"
 msgstr "Исе_чи"
 
 #: src/main_menubar_def.h:570
-#, fuzzy
 msgid "Cut the selected text from the editor to the clipboard"
-msgstr "Исечи текст од до"
+msgstr "Пренеси го избраниот текст од уредувачот до клипбордот"
 
 #. 4
 #: src/main_menubar_def.h:576
@@ -4949,9 +4759,8 @@ msgid "_Copy"
 msgstr "_Копирај"
 
 #: src/main_menubar_def.h:577
-#, fuzzy
 msgid "Copy the selected text to the clipboard"
-msgstr "Копирај го избраниот текст на клипборд"
+msgstr "Копирај го избраниот текст на клипборд "
 
 #. 5
 #: src/main_menubar_def.h:583
@@ -4959,9 +4768,8 @@ msgid "_Paste"
 msgstr "_Вметни"
 
 #: src/main_menubar_def.h:584
-#, fuzzy
 msgid "Paste the content of clipboard at the current position"
-msgstr "Вметни од"
+msgstr "Вметни ја содржината од клипбордот на тековната позиција"
 
 #. 6
 #: src/main_menubar_def.h:590
@@ -4969,9 +4777,8 @@ msgid "C_lear"
 msgstr "_Исчисти"
 
 #: src/main_menubar_def.h:591
-#, fuzzy
 msgid "Delete the selected text from the editor"
-msgstr "Избриши текст од"
+msgstr "Избриши го избраниот текст од уредувачот"
 
 #. 7
 #. 8
@@ -5016,14 +4823,12 @@ msgstr "Автоматско комплетирање на постоечкио�
 
 #. 16
 #: src/main_menubar_def.h:648
-#, fuzzy
 msgid "S_how calltip"
-msgstr "S"
+msgstr "Прикажи calltip"
 
 #: src/main_menubar_def.h:649
-#, fuzzy
 msgid "Show calltip for the function"
-msgstr "Прикажи за"
+msgstr "Прикажи calltip за функцијата"
 
 #. 0
 #: src/main_menubar_def.h:661
@@ -5031,9 +4836,8 @@ msgid "_Main Toolbar"
 msgstr "_Главна Лента со алатки"
 
 #: src/main_menubar_def.h:662
-#, fuzzy
 msgid "Hide/Unhide Main toolbar"
-msgstr "Скриј"
+msgstr "Скриј ја/Прикажи ја главната лента со алатки"
 
 #. 1
 #: src/main_menubar_def.h:667
@@ -5041,20 +4845,17 @@ msgid "_Extended Toolbar"
 msgstr "_Проширена Лента со алатки"
 
 #: src/main_menubar_def.h:668
-#, fuzzy
 msgid "Hide/Unhide Extended toolbar"
-msgstr "Скриј"
+msgstr "Скриј ја/Покажи ја проширената лента со алатки"
 
 #. 2
 #: src/main_menubar_def.h:673
-#, fuzzy
 msgid "_Debug Toolbar"
-msgstr "Дебагирање"
+msgstr "_Лента со алатки за дебагирање"
 
 #: src/main_menubar_def.h:674
-#, fuzzy
 msgid "Hide/Unhide Debug toolbar"
-msgstr "Скриј Дебагирање"
+msgstr "Скри ја/Покажи ја лентата со алатки за дебагирање"
 
 #. 3
 #: src/main_menubar_def.h:679
@@ -5062,31 +4863,26 @@ msgid "_Browser Toolbar"
 msgstr "_Прелистувач Лента со алатки"
 
 #: src/main_menubar_def.h:680
-#, fuzzy
 msgid "Hide/Unhide Browser toolbar"
-msgstr "Скриј"
+msgstr "Скриј ја/Прикажи ја лентата со алатки за прегледување"
 
 #. 4
 #: src/main_menubar_def.h:685
-#, fuzzy
 msgid "_Format Toolbar"
-msgstr "Формат"
+msgstr "_Формат Лента со алатки"
 
 #: src/main_menubar_def.h:686
-#, fuzzy
 msgid "Hide/Unhide Format toolbar"
-msgstr "Скриј Формат"
+msgstr "Скриј ја/Прикажи ја лентата со алатки за форматирање"
 
 #. 0
 #: src/main_menubar_def.h:696
-#, fuzzy
 msgid "_Line numbers margin"
-msgstr "Линија"
+msgstr "_Број на линии маргини"
 
 #: src/main_menubar_def.h:697
-#, fuzzy
 msgid "Show/Hide line numbers"
-msgstr "Прикажи Скриј"
+msgstr "Скриј ги/Прикажи ги броевите на линиите"
 
 #. 1
 #: src/main_menubar_def.h:702
@@ -5094,9 +4890,8 @@ msgid "_Markers Margin"
 msgstr "_Маркери Маргина"
 
 #: src/main_menubar_def.h:703
-#, fuzzy
 msgid "Show/Hide markers margin"
-msgstr "Прикажи Скриј"
+msgstr "Скриј ги/Прикажи ги маркерите на маргините"
 
 #. 2
 #: src/main_menubar_def.h:708
@@ -5104,53 +4899,44 @@ msgid "_Code fold margin"
 msgstr "_Код запакувај маргини"
 
 #: src/main_menubar_def.h:709
-#, fuzzy
 msgid "Show/Hide code fold margin"
-msgstr "Прикажи Скриј"
+msgstr "Скриј ги/Прикажи ги код витканите маргини"
 
 #. 3
 #: src/main_menubar_def.h:714
-#, fuzzy
 msgid "_Indentation guides"
-msgstr "Порамнување"
+msgstr "_Водачи за Порамнување"
 
 #: src/main_menubar_def.h:715
-#, fuzzy
 msgid "Show/Hide indentation guides"
-msgstr "Прикажи Скриј"
+msgstr "Скриј ги/Прикажи ги водичите за порамнување"
 
 #. 4
 #: src/main_menubar_def.h:720
-#, fuzzy
 msgid "_White spaces"
-msgstr "Бело"
+msgstr "_Празни места"
 
 #: src/main_menubar_def.h:721
-#, fuzzy
 msgid "Show/Hide white spaces"
-msgstr "Прикажи Скриј"
+msgstr "Прикажи ги/Скриј ги празните места"
 
 #. 5
 #: src/main_menubar_def.h:726
-#, fuzzy
 msgid "_Line end characters"
-msgstr "Линија крај"
+msgstr "_Карактери од крајните линии"
 
 #: src/main_menubar_def.h:727
-#, fuzzy
 msgid "Show/Hide line end characters"
-msgstr "Прикажи Скриј крај"
+msgstr "Прикажи ги/Скриј ги карактерите од крајните линии"
 
 #. 6
 #: src/main_menubar_def.h:732
-#, fuzzy
 msgid "Line _wrapping"
-msgstr "Линија"
+msgstr "_Порамнување на линиите"
 
 #: src/main_menubar_def.h:733
-#, fuzzy
 msgid "Enable/disable line wrapping"
-msgstr "Овозможи"
+msgstr "Овозможи/Оневозможи го порамнувањето на линиите"
 
 #. 0
 #: src/main_menubar_def.h:743
@@ -5158,9 +4944,8 @@ msgid "++ Zoom"
 msgstr "++ Зум"
 
 #: src/main_menubar_def.h:744
-#, fuzzy
 msgid "Increase text zoom by 1 unit"
-msgstr "текст од"
+msgstr "Наголеми го зумирањето на текст за една единица"
 
 #. 1
 #: src/main_menubar_def.h:749
@@ -5168,9 +4953,8 @@ msgid "+8"
 msgstr "+8"
 
 #: src/main_menubar_def.h:750
-#, fuzzy
 msgid "Zoom factor +8"
-msgstr "Зум"
+msgstr "Фактор на зумирање +8"
 
 #. 2
 #: src/main_menubar_def.h:755
@@ -5178,9 +4962,8 @@ msgid "+6"
 msgstr "+6"
 
 #: src/main_menubar_def.h:756
-#, fuzzy
 msgid "Zoom factor +6"
-msgstr "Зум"
+msgstr "Фактор на зумирање +6"
 
 #. 3
 #: src/main_menubar_def.h:761
@@ -5188,9 +4971,8 @@ msgid "+4"
 msgstr "+4"
 
 #: src/main_menubar_def.h:762
-#, fuzzy
 msgid "Zoom factor +4"
-msgstr "Зум"
+msgstr "Фактор на зумирање +4"
 
 #. 4
 #: src/main_menubar_def.h:767
@@ -5198,14 +4980,12 @@ msgid "+2"
 msgstr "+2"
 
 #: src/main_menubar_def.h:768
-#, fuzzy
 msgid "Zoom factor +2"
-msgstr "Зум"
+msgstr "Фактор на зумирање +2"
 
 #: src/main_menubar_def.h:774
-#, fuzzy
 msgid "Zoom factor 0"
-msgstr "Зум"
+msgstr "Фактор на зумирање 0"
 
 #. 6
 #: src/main_menubar_def.h:779
@@ -5214,7 +4994,7 @@ msgstr "-2"
 
 #: src/main_menubar_def.h:780
 msgid "Zoom factor -2"
-msgstr "Зум фактор -2"
+msgstr "Фактор на зумирање -2"
 
 #. 7
 #: src/main_menubar_def.h:785
@@ -5223,7 +5003,7 @@ msgstr "-4"
 
 #: src/main_menubar_def.h:786
 msgid "Zoom factor -4"
-msgstr "Зум фактор -4"
+msgstr "Фактор на зумирање -4"
 
 #. 8
 #: src/main_menubar_def.h:791
@@ -5231,9 +5011,8 @@ msgid "-6"
 msgstr "-6"
 
 #: src/main_menubar_def.h:792
-#, fuzzy
 msgid "Zoom factor -6"
-msgstr "Зум"
+msgstr "Фактор на зумирање -6"
 
 #. 9
 #: src/main_menubar_def.h:797
@@ -5241,9 +5020,8 @@ msgid "-8"
 msgstr "--8"
 
 #: src/main_menubar_def.h:798
-#, fuzzy
 msgid "Zoom factor -8"
-msgstr "Зум"
+msgstr "Фактор на зумирање -8"
 
 #. 10
 #: src/main_menubar_def.h:803
@@ -5251,48 +5029,41 @@ msgid "-- Zoom"
 msgstr "-- Зум"
 
 #: src/main_menubar_def.h:804
-#, fuzzy
 msgid "Reduce text zoom by 1 unit"
-msgstr "текст од"
+msgstr "Редуцирај го текстуалното зумирање за една единица"
 
 #. 0
 #: src/main_menubar_def.h:814
-#, fuzzy
 msgid "_Message window"
-msgstr "Порака"
+msgstr "_Прозорец со порака"
 
 #: src/main_menubar_def.h:815 src/toolbar.c:154
-#, fuzzy
 msgid "Show/Hide the Message window"
-msgstr "Прикажи Скриј Порака"
+msgstr "Прикажи го/Скриј го прозорецот со порака"
 
 #. 1
 #: src/main_menubar_def.h:820
-#, fuzzy
 msgid "_Project window"
-msgstr "Проект"
+msgstr "_Прозорец за проект"
 
 #: src/main_menubar_def.h:821 src/toolbar.c:150
-#, fuzzy
 msgid "Show/Hide the Project window"
-msgstr "Прикажи Скриј Проект"
+msgstr "Прикажи го/Скриј го прозорецот за проект"
 
 #. 2
 #: src/main_menubar_def.h:826
-#, fuzzy
 msgid "B_ookmarks"
-msgstr "B"
+msgstr "О_бележувач"
 
 #: src/main_menubar_def.h:827
-#, fuzzy
 msgid "Show the Bookmark window"
-msgstr "Прикажи Обележувач"
+msgstr "Прикажи го прозорецот со обележувачи"
 
 #. 3
 #. 4
 #: src/main_menubar_def.h:833
 msgid "_Toolbars"
-msgstr "_Лента со алатки"
+msgstr "_Ленти со алатки"
 
 #. 5
 #: src/main_menubar_def.h:839
@@ -5301,9 +5072,8 @@ msgstr "_Уредувач"
 
 #. 6
 #: src/main_menubar_def.h:845
-#, fuzzy
 msgid "_Zoom text"
-msgstr "Зум"
+msgstr "_Зумирај го текстот"
 
 #. 7
 #. 8
@@ -5312,9 +5082,8 @@ msgid "_Breakpoints"
 msgstr "_Точки на прекин"
 
 #: src/main_menubar_def.h:853
-#, fuzzy
 msgid "Show breakpoints editor window"
-msgstr "Прикажи"
+msgstr "Прикажи го прозорецот за точки на прекин"
 
 #. 9
 #: src/main_menubar_def.h:858
@@ -5322,9 +5091,8 @@ msgid "_Registers"
 msgstr "_Регистри"
 
 #: src/main_menubar_def.h:859
-#, fuzzy
 msgid "Show CPU registers and their contents"
-msgstr "Прикажи и"
+msgstr "Прикажи ги процесорските регистри и нивната содржина"
 
 #. {/*10*/
 #. GNOME_APP_UI_ITEM, N_("Program _Stack"),
@@ -5334,14 +5102,12 @@ msgstr "Прикажи и"
 #. GDK_F7, GDK_CONTROL_MASK, NULL},
 #. 10
 #: src/main_menubar_def.h:870
-#, fuzzy
 msgid "Shared _Libraries"
-msgstr "Делено"
+msgstr "Делени _Библиотеки"
 
 #: src/main_menubar_def.h:871
-#, fuzzy
 msgid "Show shared libraries loaded by the program"
-msgstr "Прикажи од"
+msgstr "Прикажи ги делените библиотеки кои се вчитани од програмата"
 
 #. 11
 #: src/main_menubar_def.h:876
@@ -5349,9 +5115,8 @@ msgid "_Kernel Signals"
 msgstr "_Кернел Сигнали"
 
 #: src/main_menubar_def.h:877
-#, fuzzy
 msgid "Show the kernel signals editor window"
-msgstr "Прикажи"
+msgstr "Прикажи го прозорецот со кернел сигнали"
 
 #. 12
 #: src/main_menubar_def.h:882
@@ -5359,9 +5124,8 @@ msgid "_Dump Window"
 msgstr "_Дамп Прозор"
 
 #: src/main_menubar_def.h:883
-#, fuzzy
 msgid "Show memory dump window"
-msgstr "Прикажи"
+msgstr "Прикажи го прозорецот за мемориски dump"
 
 #. 13
 #. 14
@@ -5370,25 +5134,22 @@ msgid "_Console"
 msgstr "_Конзола"
 
 #: src/main_menubar_def.h:890
-#, fuzzy
 msgid "Show the console where the program runs"
-msgstr "Прикажи програма"
+msgstr "Прикажи ја конзолата кога програмата ќе се изврши"
 
 #. 15
 #: src/main_menubar_def.h:895
-#, fuzzy
 msgid "Show _Locals"
-msgstr "Прикажи"
+msgstr "Прикажи ги _локалите"
 
 #: src/main_menubar_def.h:896
-#, fuzzy
 msgid "Show/Hide Local variables in Message window"
-msgstr "Прикажи Скриј Локален во Порака"
+msgstr "Прикажи ги/Скриј ги локалните променливи во прозорецот за пораки"
 
 #. 0
 #: src/main_menubar_def.h:906 src/project_dbase_gui.c:277
 msgid "Include file"
-msgstr "Вклучи датотека"
+msgstr "Вклучи ја датотеката"
 
 #. 1
 #: src/main_menubar_def.h:912 src/project_dbase_gui.c:283
@@ -5437,9 +5198,8 @@ msgid "Configure Project"
 msgstr "Конфигурирај Проект"
 
 #: src/main_menubar_def.h:979
-#, fuzzy
 msgid "Configure options for the current Project"
-msgstr "Конфигурирај за"
+msgstr "Конфигурирај ги опциите за тековниот проект"
 
 #. 6
 #: src/main_menubar_def.h:984 src/project_dbase_gui.c:354
@@ -5448,41 +5208,35 @@ msgstr "Проект Инфо"
 
 #: src/main_menubar_def.h:985
 msgid "Display the Project information"
-msgstr "Прикажи Информации за проектот"
+msgstr "Прикажи ги информациите за проектот"
 
 #. 9
 #. 10
 #: src/main_menubar_def.h:998
-#, fuzzy
 msgid "_Update tags image"
-msgstr "Надградба"
+msgstr "_Надгради ги сликите за таговите"
 
 #: src/main_menubar_def.h:999
-#, fuzzy
 msgid "Update the tags image of the Project/opened files"
-msgstr "Надградба од Проект"
+msgstr "Обнови ги сликите за тагови од проектот/отворените датотеки"
 
 #. 11
 #: src/main_menubar_def.h:1004
-#, fuzzy
 msgid "Rebuild tags image"
-msgstr "Регенерирај"
+msgstr "Реизгради ги сликите за тагови"
 
 #: src/main_menubar_def.h:1005
-#, fuzzy
 msgid "Rebuild the tags image of the Project"
-msgstr "Регенерирај од"
+msgstr "Реизгради ги сликите за тагови од проектот"
 
 #. 12
 #: src/main_menubar_def.h:1010
-#, fuzzy
 msgid "Ed_it Application GUI ..."
-msgstr "Апликација."
+msgstr "Изме_ни го графичкиот изглед на апликацијата ..."
 
 #: src/main_menubar_def.h:1011
-#, fuzzy
 msgid "Edit application GUI with the Glade GUI editor"
-msgstr "Уреди"
+msgstr "Измени го графичкиот изглед на апликацијата со Glade уредувачот за графички изглед"
 
 #. 0
 #: src/main_menubar_def.h:1028
@@ -5490,20 +5244,17 @@ msgid "Automatic"
 msgstr "Автоматски"
 
 #: src/main_menubar_def.h:1029
-#, fuzzy
 msgid "Automatically determine the highlight style"
-msgstr "Автоматски"
+msgstr "Автоматски одреди го стилот на подвлекување"
 
 #. 1
 #: src/main_menubar_def.h:1034
-#, fuzzy
 msgid "No Highlight style"
-msgstr "Не"
+msgstr "Без стил на подвлекување"
 
 #: src/main_menubar_def.h:1035
-#, fuzzy
 msgid "Remove the current highlight style"
-msgstr "Отстрани"
+msgstr "Одстрани го тековниот стил на подвлекување"
 
 #. 2
 #: src/main_menubar_def.h:1040
@@ -5511,9 +5262,8 @@ msgid "C and C++"
 msgstr "C и C++"
 
 #: src/main_menubar_def.h:1041
-#, fuzzy
 msgid "Force the highlight style to C and C++"
-msgstr "до C и C"
+msgstr "Форсирај го стилот на подвлекување по критериум на C и C++"
 
 #. 3
 #: src/main_menubar_def.h:1046
@@ -5521,9 +5271,8 @@ msgid "C and C++ with GNOME"
 msgstr "C и C++ со GNOME"
 
 #: src/main_menubar_def.h:1047
-#, fuzzy
 msgid "Force the highlight style to C and C++ with GNOME"
-msgstr "до C и C"
+msgstr "Форсирај го стилот на подвлекување по критериум на C и C++ со GNOME"
 
 #. 4
 #: src/main_menubar_def.h:1052
@@ -5531,9 +5280,8 @@ msgid "HTML"
 msgstr "HTML"
 
 #: src/main_menubar_def.h:1053
-#, fuzzy
 msgid "Force the highlight style to HTML"
-msgstr "до"
+msgstr "Форсирај го стилот на подвлекување по HTML критериум "
 
 #. 5
 #: src/main_menubar_def.h:1058
@@ -5541,9 +5289,8 @@ msgid "XML"
 msgstr "XML"
 
 #: src/main_menubar_def.h:1059
-#, fuzzy
 msgid "Force the highlight style to XML"
-msgstr "до"
+msgstr "Форсирај го стилот на подвлекување по XML критериум "
 
 #. 6
 #: src/main_menubar_def.h:1064
@@ -5551,9 +5298,8 @@ msgid "Javascript"
 msgstr "Javascript"
 
 #: src/main_menubar_def.h:1065
-#, fuzzy
 msgid "Force the highlight style to Javascript"
-msgstr "до"
+msgstr "Форсирај го стилот на подвлекување по Javascript критериум "
 
 #. 7
 #: src/main_menubar_def.h:1070
@@ -5561,9 +5307,8 @@ msgid "WScript"
 msgstr "WScript"
 
 #: src/main_menubar_def.h:1071
-#, fuzzy
 msgid "Force the highlight style to WScript"
-msgstr "до"
+msgstr "Форсирај го стилот на подвлекување по WScript критериум "
 
 #. 8
 #: src/main_menubar_def.h:1076
@@ -5571,9 +5316,8 @@ msgid "Makefile"
 msgstr "Makefile"
 
 #: src/main_menubar_def.h:1077
-#, fuzzy
 msgid "Force the highlight style to Makefile"
-msgstr "до"
+msgstr "Форсирај го стилот на подвлекување по Makefile критериум "
 
 #. 9
 #: src/main_menubar_def.h:1082
@@ -5581,9 +5325,8 @@ msgid "Java"
 msgstr "Java"
 
 #: src/main_menubar_def.h:1083
-#, fuzzy
 msgid "Force the highlight type to Java"
-msgstr "вид до"
+msgstr "Форсирај го стилот на подвлекување по Java критериум "
 
 #. 10
 #: src/main_menubar_def.h:1088
@@ -5591,9 +5334,8 @@ msgid "LUA"
 msgstr "LUA"
 
 #: src/main_menubar_def.h:1089
-#, fuzzy
 msgid "Force the highlight style to LUA"
-msgstr "до"
+msgstr "Форсирај го стилот на подвлекување по LUA критериум "
 
 #. 11
 #: src/main_menubar_def.h:1094
@@ -5601,9 +5343,8 @@ msgid "Python"
 msgstr "Python"
 
 #: src/main_menubar_def.h:1095
-#, fuzzy
 msgid "Force the highlight style to Python"
-msgstr "до"
+msgstr "Форсирај го стилот на подвлекување по Python критериум "
 
 #. 12
 #: src/main_menubar_def.h:1100
@@ -5611,9 +5352,8 @@ msgid "Perl"
 msgstr "Perl"
 
 #: src/main_menubar_def.h:1101
-#, fuzzy
 msgid "Force the highlight style to Perl"
-msgstr "до"
+msgstr "Форсирај го стилот на подвлекување по Perl критериум "
 
 #. 13
 #: src/main_menubar_def.h:1106
@@ -5621,9 +5361,8 @@ msgid "SQL"
 msgstr "SQL"
 
 #: src/main_menubar_def.h:1107
-#, fuzzy
 msgid "Force the highlight style to SQL"
-msgstr "до"
+msgstr "Форсирај го стилот на подвлекување по SQL критериум "
 
 #. 14
 #: src/main_menubar_def.h:1112
@@ -5631,9 +5370,8 @@ msgid "PL/SQL"
 msgstr "PL/SQL"
 
 #: src/main_menubar_def.h:1113
-#, fuzzy
 msgid "Force the highlight style to PL/SQL"
-msgstr "до"
+msgstr "Форсирај го стилот на подвлекување по PL/SQL критериум "
 
 #. 15
 #: src/main_menubar_def.h:1118
@@ -5641,9 +5379,8 @@ msgid "PHP"
 msgstr "PHP"
 
 #: src/main_menubar_def.h:1119
-#, fuzzy
 msgid "Force the highlight style to PHP"
-msgstr "до"
+msgstr "Форсирај го стилот на подвлекување по PHP критериум "
 
 #. 16
 #: src/main_menubar_def.h:1124
@@ -5651,14 +5388,12 @@ msgid "LaTex"
 msgstr "LaTex"
 
 #: src/main_menubar_def.h:1125
-#, fuzzy
 msgid "Force the highlight style to LaTex"
-msgstr "до"
+msgstr "Форсирај го стилот на подвлекување по LaTeX критериум "
 
 #: src/main_menubar_def.h:1131
-#, fuzzy
 msgid "Force the highlight style to Diff"
-msgstr "до"
+msgstr "Форсирај го стилот на подвлекување по Diff критериум "
 
 #. 18
 #: src/main_menubar_def.h:1136
@@ -5666,9 +5401,8 @@ msgid "Pascal"
 msgstr "Pascal"
 
 #: src/main_menubar_def.h:1137
-#, fuzzy
 msgid "Force the highlight style to Pascal"
-msgstr "до"
+msgstr "Форсирај го стилот на подвлекување по Pascal критериум "
 
 #. 19
 #: src/main_menubar_def.h:1142
@@ -5676,9 +5410,8 @@ msgid "Xcode"
 msgstr "Xcode"
 
 #: src/main_menubar_def.h:1143
-#, fuzzy
 msgid "Force the highlight style to Xcode"
-msgstr "до"
+msgstr "Форсирај го стилот на подвлекување по Xcode критериум "
 
 #. 20
 #: src/main_menubar_def.h:1148
@@ -5686,9 +5419,8 @@ msgid "Prj/Properties"
 msgstr "Prj/Атрибути"
 
 #: src/main_menubar_def.h:1149
-#, fuzzy
 msgid "Force the highlight style to project/properties files"
-msgstr "до"
+msgstr "Форсирај го стилот на подвлекување по проект/својства критериум "
 
 #. 21
 #: src/main_menubar_def.h:1154
@@ -5697,7 +5429,7 @@ msgstr "Conf"
 
 #: src/main_menubar_def.h:1155
 msgid "Force the highlight style to UNIX conf files"
-msgstr "Постави го стилот на осветлување како во UNIX conf датотеки"
+msgstr "Форсирај го стилот на подвлекување по критериум на UNIX конфигурациски датотеки "
 
 #. 22
 #: src/main_menubar_def.h:1160
@@ -5706,7 +5438,7 @@ msgstr "Ada"
 
 #: src/main_menubar_def.h:1161
 msgid "Force the highlight style to Ada"
-msgstr "Постави го стилот на осветлување како во Ada"
+msgstr "Форсирај го стилот на подвлекување по Ada критериум "
 
 #. 23
 #: src/main_menubar_def.h:1166
@@ -5715,7 +5447,7 @@ msgstr "Baan"
 
 #: src/main_menubar_def.h:1167
 msgid "Force the highlight style to Baan"
-msgstr "Постави го стилот на осветлување како во Baan"
+msgstr "Форсирај го стилот на подвлекување по Baan критериум "
 
 #. 24
 #: src/main_menubar_def.h:1172
@@ -5724,7 +5456,7 @@ msgstr "Lisp"
 
 #: src/main_menubar_def.h:1173
 msgid "Force the highlight style to Lisp"
-msgstr "Постави го стилот на осветлување како во Lisp"
+msgstr "Форсирај го стилот на подвлекување по Lisp критериум "
 
 #. 25
 #: src/main_menubar_def.h:1178
@@ -5733,7 +5465,7 @@ msgstr "Ruby"
 
 #: src/main_menubar_def.h:1179
 msgid "Force the highlight style to Ruby"
-msgstr "Постави го стилот на осветлување како во Ruby"
+msgstr "Форсирај го стилот на подвлекување по Ruby критериум "
 
 #. 26
 #: src/main_menubar_def.h:1184
@@ -5742,7 +5474,7 @@ msgstr "Matlab"
 
 #: src/main_menubar_def.h:1185
 msgid "Force the highlight style to Matlab"
-msgstr "Постави го стилот на осветлување како во Matlab"
+msgstr "Форсирај го стилот на подвлекување по Matlab критериум "
 
 #. 0
 #: src/main_menubar_def.h:1195
