@@ -5,6 +5,8 @@
 	build patch.
 	
 	* anjuta.desktop.in.in: Added commandline options.
+	* src/cvs.[c,h], anjuta.glade, anjuta_dialogs_strings.c: Separated
+	-dP and -A flags of CVS update into different options.
 	
 2003-06-04  Abel Cheung  <maddog@linux.org.hk>
 

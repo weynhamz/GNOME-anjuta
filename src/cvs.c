@@ -38,7 +38,8 @@
 /* struct is private, use functions to access members */
 struct _CVS
 {
-	gboolean force_update;
+	gboolean update_directories;
+	gboolean reset_sticky_tags;
 	gboolean unified_diff;
 	gboolean context_diff;
 	gboolean use_date_diff;
@@ -92,7 +93,8 @@ void
 cvs_apply_preferences(CVS *cvs, PropsID p)
 {
 	g_return_if_fail (cvs != NULL);
-	cvs->force_update = prop_get_int (p, "cvs.update.force", 1);
+	cvs->update_directories = prop_get_int (p, "cvs.update.directories", 1);
+	cvs->reset_sticky_tags = prop_get_int (p, "cvs.update.reset", 0);
 	cvs->unified_diff = prop_get_int (p, "cvs.diff.unified", 1);
 	cvs->context_diff = prop_get_int (p, "cvs.diff.context", 0);
 	cvs->use_date_diff = prop_get_int (p, "cvs.diff.usedate", 0);
@@ -113,10 +115,17 @@ void cvs_set_editor_destroyed (CVS* cvs)
 */
 
 void
-cvs_set_force_update (CVS * cvs, gboolean force_update)
+cvs_set_update_directories (CVS * cvs, gboolean update_directories)
 {
 	g_return_if_fail (cvs != NULL);
-	cvs->force_update = force_update;
+	cvs->update_directories = update_directories;
+}
+
+void
+cvs_set_update_reset_sticky_tags (CVS * cvs, gboolean reset_sticky_tags)
+{
+	g_return_if_fail (cvs != NULL);
+	cvs->reset_sticky_tags = reset_sticky_tags;
 }
 
 void
@@ -152,10 +161,17 @@ cvs_set_diff_use_date(CVS* cvs, gboolean state)
 */
 
 gboolean
-cvs_get_force_update(CVS * cvs)
+cvs_get_update_directories(CVS * cvs)
 {
 	g_return_val_if_fail (cvs != NULL, 0);
-	return cvs->force_update;
+	return cvs->update_directories;
+}
+
+gboolean
+cvs_get_update_reset_sticky_tags(CVS * cvs)
+{
+	g_return_val_if_fail (cvs != NULL, 0);
+	return cvs->reset_sticky_tags;
 }
 
 gboolean 
@@ -224,8 +240,10 @@ cvs_update (CVS *cvs, const gchar *filename,
 
 	compression = add_compression (cvs);
 	command = g_strconcat ("cvs ", compression, " update ", NULL);
-	if (cvs->force_update)
-		command = g_strconcat (command, " -P -d -A ", NULL);
+	if (cvs->update_directories)
+		command = g_strconcat (command, " -dP ", NULL);
+	if (cvs->reset_sticky_tags)
+		command = g_strconcat (command, " -A ", NULL);
 	
 	if (branch != NULL && strlen (branch) > 0)
 		command = g_strconcat (command, "-j ", branch, " ", NULL);
@@ -662,7 +680,8 @@ cvs_save_yourself (CVS * cvs, FILE * stream)
 	if (!cvs)
 		return FALSE;
 
-	fprintf (stream, "cvs.update.force=%d\n", cvs->force_update);
+	fprintf (stream, "cvs.update.directories=%d\n", cvs->update_directories);
+	fprintf (stream, "cvs.update.reset=%d\n", cvs->reset_sticky_tags);
 	fprintf (stream, "cvs.diff.unified=%d\n", cvs->unified_diff);
 	fprintf (stream, "cvs.diff.context=%d\n", cvs->context_diff);
 	fprintf (stream, "cvs.diff.usedate=%d\n", cvs->use_date_diff);

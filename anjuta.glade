@@ -14872,10 +14872,28 @@
 	  </child>
 
 	  <child>
-	    <widget class="GtkCheckButton" id="preferences_toggle:bool:0:0:cvs.update.force">
+	    <widget class="GtkCheckButton" id="preferences_toggle:bool:1:0:cvs.update.directories">
 	      <property name="visible">True</property>
 	      <property name="can_focus">True</property>
-	      <property name="label" translatable="yes">CVS forced update [-dP -A]</property>
+	      <property name="label" translatable="yes">CVS update and prune directories [-dP]</property>
+	      <property name="use_underline">True</property>
+	      <property name="relief">GTK_RELIEF_NORMAL</property>
+	      <property name="active">False</property>
+	      <property name="inconsistent">False</property>
+	      <property name="draw_indicator">True</property>
+	    </widget>
+	    <packing>
+	      <property name="padding">0</property>
+	      <property name="expand">False</property>
+	      <property name="fill">False</property>
+	    </packing>
+	  </child>
+
+	  <child>
+	    <widget class="GtkCheckButton" id="preferences_toggle:bool:0:0:cvs.update.reset">
+	      <property name="visible">True</property>
+	      <property name="can_focus">True</property>
+	      <property name="label" translatable="yes">Reset all sticky tags during update (looses branch) [-A]</property>
 	      <property name="use_underline">True</property>
 	      <property name="relief">GTK_RELIEF_NORMAL</property>
 	      <property name="active">False</property>
@@ -15864,7 +15882,7 @@
 	<widget class="GnomeDruidPageStandard" id="druidpagestandard1">
 	  <property name="visible">True</property>
 	  <property name="title" translatable="yes">Windows style</property>
-	  <property name="logo_background">#e160081c488c</property>
+	  <property name="logo_background">#dd40081c588c</property>
 	  <property name="logo">applogo.png</property>
 
 	  <child internal-child="vbox">
