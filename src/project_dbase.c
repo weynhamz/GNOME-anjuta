@@ -2358,7 +2358,12 @@ project_dbase_remove_file (ProjectDBase * p)
 		while (node)
 		{
 			if (files_str)
-				g_strconcat (files_str, " ", (gchar*)node->data, NULL);
+			{
+				gchar *temp_str;
+				temp_str = g_strconcat (files_str, " ", (gchar*)node->data, NULL);
+				g_free (files_str);
+				files_str = temp_str;
+			}
 			else
 				files_str = g_strdup ((gchar*)node->data);
 			node = g_list_next (node);
