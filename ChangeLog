@@ -1,6 +1,9 @@
 2004-11-18  Naba Kumar  <naba@gnome.org>
 
 	* TODO.tasks: Updated.
+	* plugins/editor/anjuta-docman.c, plugins/message-view/anjuta-msgman.c,
+	plugins/message-view/message-view.c: Fixed finalize and dispose
+	methods.
 
 2004-11-17  Pavol Bosik  <pavol.bosik@radiantsystems.com>
 

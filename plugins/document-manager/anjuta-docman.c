@@ -369,24 +369,15 @@ static void
 anjuta_docman_finalize (GObject *obj)
 {
 	AnjutaDocman *docman;
+	GList *node;
+	
 	docman = ANJUTA_DOCMAN (obj);
 	if (docman->priv->popup_menu)
 	{
 		g_object_unref (docman->priv->popup_menu);
 		docman->priv->popup_menu = NULL;
 	}
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (G_OBJECT(obj)));
-}
-
-static void
-anjuta_docman_dispose (GObject *obj)
-{
-	AnjutaDocman *docman;
-	GList *node;
-	
-	DEBUG_PRINT ("Disposing AnjutaDocman object");
-	docman = ANJUTA_DOCMAN (obj);
-	if (docman->priv)
+	if (docman->priv->editors)
 	{
 		node = docman->priv->editors;
 		while (node)
@@ -397,6 +388,20 @@ anjuta_docman_dispose (GObject *obj)
 			node = g_list_next (node);
 		}
 		g_list_free (docman->priv->editors);
+		docman->priv->editors = NULL;
+	}
+	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (G_OBJECT(obj)));
+}
+
+static void
+anjuta_docman_dispose (GObject *obj)
+{
+	AnjutaDocman *docman;
+	
+	DEBUG_PRINT ("Disposing AnjutaDocman object");
+	docman = ANJUTA_DOCMAN (obj);
+	if (docman->priv)
+	{
 		gtk_widget_destroy (docman->priv->fileselection);
 		gtk_widget_destroy (docman->priv->save_as_fileselection);
 		g_free (docman->priv);
