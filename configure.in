@@ -22,7 +22,7 @@ VTE_NEW_REQUIRED=0.9.0
 LIBXML_REQUIRED=2.4.23
 PANGO_REQUIRED=1.1.1
 PCRE_REQUIRED=3.9
-LIBDEVHELP_REQUIRED=0.9.0
+LIBDEVHELP_REQUIRED=0.9
 
 AC_SUBST(GLIB_REQUIRED)
 AC_SUBST(GOBJECT_REQUIRED)
@@ -637,6 +637,7 @@ plugins/editor/Makefile
 plugins/message-view/Makefile
 plugins/devhelp/Makefile
 plugins/file-manager/Makefile
+plugins/file-loader/Makefile
 plugins/terminal/Makefile
 plugins/build-basic-autotools/Makefile
 plugins/profile-default/Makefile

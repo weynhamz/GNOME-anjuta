@@ -1,3 +1,8 @@
+2004-07-29  Naba Kumar  <naba@gnome.org>
+
+	* configure.in: Added file-loader plugin Makefile path and
+	fixed devhelp version requirement.
+
 2004-07-28  Naba Kumar  <naba@gnome.org>
 
 	* src/anjuta-app.c, libanjuta/pixmaps.h, libanjuta/anjuta-stock.h,
