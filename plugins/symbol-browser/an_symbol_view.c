@@ -36,7 +36,6 @@
 
 #define MAX_STRING_LENGTH 256
 
-
 /* Pixmaps for symbol browsers */
 #define ANJUTA_PIXMAP_SV_UNKNOWN          "sv_unknown.xpm"
 #define ANJUTA_PIXMAP_SV_CLASS            "sv_class.xpm"
@@ -365,33 +364,20 @@ anjuta_symbol_view_clear (AnjutaSymbolView * sv)
 	model = gtk_tree_view_get_model (GTK_TREE_VIEW (sv));
 	if (model)
 	{
-		GList *node;
-		int i;
-
 		/* clean out gtk_tree_store. We won't need it anymore */
 		gtk_tree_store_clear (GTK_TREE_STORE (model));
 		
 		/* run through the g_list and free each element */
-		if ( priv->keyword_symbols != NULL ) {
-			for (i=0; i < g_list_length(priv->keyword_symbols); i++) {
-				AnjutaSymbolInfo *sym = NULL;
-			
-				node = g_list_nth (priv->keyword_symbols, i);
-				
-				sym = node->data;
-				anjuta_symbol_info_destroy( sym );
-			}
-		}
-
-		/* release g_list pointer */
-		if ( priv->keyword_symbols ) {
-			g_list_free( priv->keyword_symbols );
+		if (priv->keyword_symbols != NULL ) {
+			g_list_foreach (priv->keyword_symbols,
+							(GFunc)anjuta_symbol_info_destroy, NULL);
+			g_list_free (priv->keyword_symbols);
 			priv->keyword_symbols  = NULL;
 		}
 	}
 	if (sv->priv->file_symbol_model) {
 		/* clearing file_symbol_model */
-		gtk_tree_store_clear( GTK_TREE_STORE(sv->priv->file_symbol_model));
+		gtk_tree_store_clear (GTK_TREE_STORE(sv->priv->file_symbol_model));
 	}
 	
 	if (sv->priv->tm_project)
@@ -502,7 +488,6 @@ sv_remove_source (AnjutaSymbolView * sv, const gchar * filename)
 }
 #endif
 
-
 /*------------------------------------------------------------------------------
  * this function will add the symbol_tag entries on the GtkTreeStore
  */
@@ -528,7 +513,7 @@ anjuta_symbol_view_open (AnjutaSymbolView * sv, const gchar * root_dir)
 
 	DEBUG_PRINT ("Populating symbol view..");
 
-	gtk_widget_set_sensitive( GTK_TREE_VIEW(sv), FALSE );
+	gtk_widget_set_sensitive (GTK_WIDGET (sv), FALSE);
 	
 	if (busy)
 		return;
@@ -633,9 +618,11 @@ anjuta_symbol_view_open (AnjutaSymbolView * sv, const gchar * root_dir)
 				    NAME_COLUMN, s->str,
 				    SVFILE_ENTRY_COLUMN, sfile, -1);
 
+		/*
 		while (gtk_events_pending ())
 			gtk_main_iteration ();
-
+		*/
+		
 		/* we should parse children too */
 		if (has_children)
 		{
@@ -676,8 +663,10 @@ anjuta_symbol_view_open (AnjutaSymbolView * sv, const gchar * root_dir)
 						    NAME_COLUMN, s->str,
 						    SVFILE_ENTRY_COLUMN,
 						    sfile, -1);
+				/*
 				while (gtk_events_pending ())
 					gtk_main_iteration ();
+				*/
 			}
 		}
 	}
@@ -692,7 +681,7 @@ anjuta_symbol_view_open (AnjutaSymbolView * sv, const gchar * root_dir)
 		anjuta_util_glist_strings_free (selected_items);
 	busy = FALSE;
 	
-	gtk_widget_set_sensitive( GTK_TREE_VIEW(sv), TRUE );
+	gtk_widget_set_sensitive (GTK_WIDGET (sv), TRUE );
 }
 
 static void

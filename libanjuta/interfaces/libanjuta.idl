@@ -23,20 +23,92 @@
 // Implemented by all plugins that can open files
 interface IAnjutaFile
 {
+	/**
+	 * ianjuta_file_open:
+	 * @obj: Self
+	 * @uri: URI to open.
+	 * @err: Error propagation and reporting
+	 *
+	 * The implementor opens the given URI.
+	 */
 	void open (const gchar *uri);
+	
+	/**
+	 * ianjuta_file_get_uri:
+	 * @obj: Self
+	 * @err: Error propagation and reporting
+	 *
+	 * Returns the URI that was opened with ianjuta_file_open().
+	 *
+	 * Return value: The last URI opened.
+	 */
 	gchar* get_uri ();
 	
 	// Implemented by plugins which can also edit the files
 	interface IAnjutaFileSavable
 	{
 		// Signals
+		/**
+		 * IAnjutaFileSavable::save_point:
+		 * @obj: Self
+		 * @entered: TRUE if save point is entered, FALSE otherwise.
+		 * 
+		 * This signal is emitted when the editor enters or leave the save
+		 * point. Save point is the point where the contents were saved to
+		 * non-volatile memory (e.g. disk). For example, performing undo/redo
+		 * will enter or leave the save point in an editor.
+		 */
 		void ::save_point (gboolean entered);
+		
+		/**
+		 * IAnjutaFileSavable::saved:
+		 * @obj: Self
+		 * @uri: URI where the content is saved.
+		 * 
+		 * This signal is emitted when the content is saved.
+		 */
 		void ::saved (const gchar *uri);
 		
+		/**
+		 * ianjuta_file_savable_save:
+		 * @obj: Self
+		 * @err: Error propagation and reporting
+		 * 
+		 * Saves the content to the original URI from which it was loaded.
+		 */
 		void save ();
+		
+		/**
+		 * ianjuta_file_savable_save_as:
+		 * @obj: Self
+		 * @uri: URI to save the content.
+		 * @err: Error propagation and reporting
+		 * 
+		 * Saves the content to a different URI.
+		 */
 		void save_as (const gchar *uri);
 		
+		/**
+		 * ianjuta_file_savable_set_dirty:
+		 * @obj: Self
+		 * @dirty: 
+		 * @err: Error propagation and reporting
+		 * 
+		 * if @dirty is TRUE, sets dirty for the content. Save point will be
+		 * left and the content will be considered not saved. Otherwise,
+		 * content will considered saved and save-point will be entered.
+		 */
 		void set_dirty (gboolean dirty);
+		
+		/**
+		 * ianjuta_file_savable_is_dirty:
+		 * @obj: Self
+		 * @err: Error propagation and reporting
+		 * 
+		 * Returns the dirty status of the content.
+		 *
+		 * Return value: TRUE if dirty, FALSE otherwise.
+		 */
 		gboolean is_dirty ();
 	}
 }
@@ -46,11 +118,27 @@ interface IAnjutaStream
 {
 	#include <stdio.h>
 	
-	void open (FILE *stream);
+	/**
+	 * ianjuta_stream_open:
+	 * @obj: Self
+	 * @stream: Stream to open from.
+	 * @err: Error propagation and reporting
+	 *
+	 * The implementor opens the given stream.
+	 */
+	void open (FILE* stream);
 	
 	interface IAnjutaStreamSavable
 	{
-		void save (FILE *stream);
+		/**
+		 * ianjuta_stream_save:
+		 * @obj: Self
+		 * @stream: Stream to save to.
+		 * @err: Error propagation and reporting
+		 *
+		 * The implementor saves the content to the given stream.
+		 */
+		void save (FILE* stream);
 	}
 }
 
@@ -111,181 +199,6 @@ interface IAnjutaMarkable
 	void delete_all_markers (Marker marker);
 }
 
-// Sandbox gives restricted and localized access to the implementation
-interface IAnjutaSandBox
-{
-	enum Error
-	{
-		ACCESS_VIOLATION
-	}
-	
-	// Invokers wishing to pass the box down to others, should lock
-	// their current box. lock_signature is just a unique key to
-	// protect invoker's box and only a matching lock_signature with the last
-	// push lock can pop open a lock, otherwise ACCESS_VIOLATION error will
-	// be thrown.
-	void push_lock (gpointer lock_signature);
-	void pop_lock (gpointer lock_signature);
-	
-	// Contexts are, well, contexts. Interesting things happen in contexts.
-	interface IAnjutaContext
-	{
-		// Contexts can only be begun or ended while the lock stack is
-		// empty. It basically means only the owner of this context can call
-		// these, presumably to initialize or finalize the context. Any other
-		// invoker trying to call them (that is, lock stack is not empty),
-		// will result in ACCESS_VIOLATION error.
-		void begin();
-		void end();
-		
-		// Clears current level. That is, anything done since last push_lock
-		// is cleared and context state restored to just after the push.
-		void clear();
-		
-		// Text context represents a hierarchially indented
-		// text. Each call to push_lock starts a level and automatically
-		// indents subsequent render texts to that level.
-		interface IAnjutaContextText
-		{
-			// Sets indentation level. Indentations should be stacked for
-			// each level, because they might have different indentation sizes.
-			void set_indentation (gint spaces);
-			
-			// Returns current level's indentation in space. Presumably to 
-			// do some calculations before rendering a text.
-			gint get_indentation ();
-			
-			// renders the text.
-			void render (const gchar *text);
-		}
-
-		// Tree context represents a hierarchial tree. Each render() renders
-		// a tree node. down() takes it down one level and up() takes it to the
-		// parent node. Note that tree depths are not equivalent to context
-		// levels. A context level might consist of many tree depths.
-		interface IAnjutaContextList
-		{
-			#include <gdk/gdkpixbuf.h>
-			
-			enum Size
-			{
-				MINI,
-				SMALL,
-				LARGE
-			}
-			
-			// Sets the size of the context.
-			void set_size (Size size);
-			
-			// Gets the size of the context.
-			Size get_size ();
-			
-			// Renders a mini view.
-			void render (GdkPixbuf *image, const gchar *text, GValue* data);
-			
-			// Tree context represents a hierarchial tree. Each render() renders
-			// a tree node. down() takes it down one level and up() takes it to the
-			// parent node. Note that tree depths are not equivalent to context
-			// levels. A context level might consist of many tree depths.
-			interface IAnjutaContextTree
-			{
-				void down ();
-				void up ();
-			}
-		}
-	}
-}
-
-// Implemented by plugins which can render itself
-interface IAnjutaRenderable
-{
-	#include "ianjuta-context.h"
-	
-	enum Error
-	{
-		NOT_SUPPORTED
-	}
-	// Render itself in the given context. Note that the renderable should
-	// automatically determine the type of context and render accordingly.
-	// It also means the context implementor should really not implement
-	// more than one context type, avoiding ambiguity in renderable.
-	void render (IAnjutaContext *context);
-}
-
-interface IAnjutaIterable
-{
-	enum Error
-	{
-		INVALID_ITER,
-		UNSETTABLE,
-	}
-	
-	// Implementation dependent data to store iter info. Should
-	// not be used by the invoker.
-	struct Iter
-	{
-		gpointer a;
-		gpointer b;
-		gpointer c;
-		gpointer d;
-		gpointer e;
-	}
-	
-	// Iter at begining
-	Iter* begin ();
-	
-	// iter at end
-	Iter* end ();
-	
-	// Copy iter
-	Iter* copy (Iter *iter);
-	
-	// iters returned by begin(), end() and copy must be freeed with this
-	void free_iter (Iter *iter);
-	
-	// Resets the iter to the begining
-	void reset (Iter *iter);
-	
-	// If the iter value is settable
-	gboolean get_settable ();
-	
-	// Forwards the iter. In recursable, it will desent into first node
-	// if current iter has children.
-	void next (Iter* iter);
-	
-	// Reverse the iter. In recursable, it will come up the parent node
-	// if current iter is first child.
-	void previous (Iter* iter);
-	
-	// Call callback for each iter starting from given iter.
-	// Give NULL iter to call for all nodes
-	void foreach (Iter* start_iter, GCallback *callback, gpointer user_dat);
-	
-	// Interpretation of 'data' really depends on implementation
-	gpointer get (Iter *iter);
-	void set (Iter *iter, gpointer data);
-	
-	// Checks if the iter is valid
-	gboolean valid (Iter* iter);
-	
-	interface IAnjutaIterableTree
-	{
-		// Set iter to parent
-		void parent (Iter *iter);
-		
-		// Get first child
-		Iter* get_children (Iter *ter);
-		
-		gboolean has_children (Iter *iter);
-	}
-}
-
-// Implemented by plugins which can transform it's data into some output.
-interface IAnjutaTransformable
-{
-	void transform();
-}
-
 // Implemented by plugins which can build (e.g module manager plugins).
 interface IAnjutaBuildable
 {
@@ -297,7 +210,7 @@ interface IAnjutaBuildable
 	void generate(const gchar *directory);
 }
 
-// Studio profile. Like c++ profile, java profiler etc.
+// Studio profile. Like c++ profile, java profile etc.
 interface IAnjutaProfile
 {
 	#include <libanjuta/e-splash.h>
@@ -568,28 +481,6 @@ interface IAnjutaFileManager
 	void set_selected (const gchar *uri);
 }
 
-/* interface IAnjutaLauncher
- * {
- * 	#include <sys/types.h>
- * 	
- * 	void ::child_exited (pid_t child_pid, int exit_status, gulong time_taken_in_secs);
- * 	void ::busy_signal (gboolean busy_flag);
- * 
- * 	gboolean is_busy ();
- * 	gboolean execute (const gchar *command, GCallback callback_func, gpointer user_data);
- * 	gboolean execute_v (gchar *const argv[], GCallback callback_func, gpointer user_data);
- * 	void set_encoding (const gchar *charset);
- * 	void send_stdin (const gchar *input_data);
- * 	void send_ptyin (const gchar *input_data);
- * 	pid_t get_child_pid ();
- * 	void reset ();
- * 	void signal (int sig);
- * 	void set_buffered_output (gboolean buffered);
- * 	void set_check_passwd_prompt (gboolean buffered);
- * 	gboolean set_terminal_echo (gboolean echo_on);
- * }
- * 
- */
 interface IAnjutaTerminal
 {
 	#include <sys/types.h>
@@ -598,6 +489,12 @@ interface IAnjutaTerminal
 
 interface IAnjutaProjectManager
 {
+	void ::added (const gchar *uri);
+	void ::removed (const gchar *uri);
+	void ::selected (const gchar *uri);
+	
+	GList *get_sources();
+	GList *get_targets();
 	void configure();
 }
 
@@ -610,55 +507,6 @@ interface IAnjutaWizard
 {
 	void activate();
 }
-
-/* interface IAnjutaModule
- * {
- * }
- * 
- * // Implemented by plugins which can manage something
- * interface IAnjutaManager
- * {
- * 	GValue* get (const gchar *key);
- * 	void set (const gchar *key, GValue *value);
- * 	
- * 	// Implemented by plugins which can manage metafiles
- * 	interface IAnjutaMataManager
- * 	{
- * 		gchar* get_name ();
- * 	
- * 		interface IAnjutaProjectManager
- * 		{
- * 			void configure();
- * 		}
- * 		
- * 		interface IAnjutaModuleManager
- * 		{
- * 			void ::file_added (const gchar *filename);
- * 			void ::module_added (const gchar *module_name);
- * 			
- * 			void add_file (const gchar *filename);
- * 			void remove_file (const gchar *filename);
- * 			
- * 			gchar* get_path (const gchar *filename);
- * 			
- * 			interface IAnjutaModuleSource
- * 			{
- * 				void ::target_added (const gchar *target);
- * 				
- * 				enum TargetType
- * 				{
- * 					SLIB,
- * 					DLIB,
- * 					BIN,
- * 					EXTRA
- * 				}
- * 				void add_target (const gchar *target_name);
- * 				void remove_target (const gchar *target_name);
- * 			}
- * 		}
- * 	}
- * }
- */
 
 interface IAnjutaDebuggerManager
 {
@@ -696,9 +544,7 @@ interface IAnjutaCvs
 	 * @err: Error propagation and reporting
 	 *
 	 * Add filename to the cvs repositry.
-	 *
 	 */
-	
 	void add(const gchar* filename, gboolean binary);
 	
 	/**
@@ -710,9 +556,7 @@ interface IAnjutaCvs
 	 * Remove filename to the cvs repositry. Note that the file
 	 * is not removed physicly. This function will fail if the file
 	 * still exists on disc.
-	 *
 	 */
-	 
 	void remove(const gchar* filename);
 	
 	/**
@@ -727,9 +571,7 @@ interface IAnjutaCvs
 	 * @err: Error propagation and reporting
 	 *
 	 * Update filename with the cvs repositry.
-	 *
 	 */
-	
 	void update(const gchar* filename, gboolean recurse, gboolean prune, gboolean reset_sticky, gboolean create, const gchar* revision);
 	
 	/**
@@ -742,9 +584,7 @@ interface IAnjutaCvs
 	 * @err: Error propagation and reporting
 	 *
 	 * Commit changes in filename to the cvs repositry.
-	 *
 	 */
-	 
 	void commit(const gchar* filename, const gchar* log, const gchar* rev, gboolean recurse);
 	
 	/**
@@ -757,9 +597,7 @@ interface IAnjutaCvs
 	 * @err: Error propagation and reporting
 	 *
 	 * Diff filename with the cvs repositry.
-	 *
 	 */
-	
 	void diff(const gchar* filename, const gchar* rev, gboolean recurse, gboolean patch_style, gboolean unified);
 	
 	/**
@@ -771,9 +609,7 @@ interface IAnjutaCvs
 	 * @err: Error propagation and reporting
 	 *
 	 * Show the status of filename
-	 *
 	 */
-	
 	void status(const gchar* filename, gboolean recurse, gboolean verbose);
 	
 	/**
@@ -785,9 +621,7 @@ interface IAnjutaCvs
 	 * @err: Error propagation and reporting
 	 *
 	 * Show the log of filename
-	 *
 	 */
-	
 	void log(const gchar* filename, gboolean recurse, gboolean verbose);
 	
 	/**
@@ -804,8 +638,6 @@ interface IAnjutaCvs
 	 * @err: Error propagation and reporting
 	 *
 	 * Import dir as module to cvsroot
-	 *
 	 */
-	
 	void import(const gchar* dir, const gchar* cvsroot, const gchar* module, const gchar* vendor, const gchar* release, const gchar* log, gint server_type, const gchar* username, const gchar* password);
 }

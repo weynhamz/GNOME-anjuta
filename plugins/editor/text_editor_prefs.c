@@ -378,7 +378,7 @@ on_gconf_notify_view_linenums (GConfClient *gclient, guint cnxn_id,
 	te = TEXT_EDITOR (user_data);
 	state = set_n_get_prop_int (te, VIEW_LINENUMBERS_MARGIN);
 	text_editor_command (te, ANE_LINENUMBERMARGIN, state, 0);
-	text_editor_set_line_number_width (te);
+	/* text_editor_set_line_number_width (te); */
 }
 
 static void

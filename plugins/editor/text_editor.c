@@ -73,7 +73,6 @@ text_editor_instance_init (TextEditor *te)
 	te->filename = NULL;
 	te->uri = NULL;
 	te->views = NULL;
-	// te->tm_file = NULL;
 	te->popup_menu = NULL;
 	
 	te->modified_time = time (NULL);
@@ -93,7 +92,6 @@ text_editor_instance_init (TextEditor *te)
 static void
 text_editor_class_init (TextEditorClass *klass)
 {
-	// GType paramter[1] = { G_TYPE_BOOLEAN };
 	GObjectClass *object_class = G_OBJECT_CLASS (klass);
 	
 	parent_class = g_type_class_peek_parent (klass);
@@ -298,8 +296,6 @@ text_editor_new (AnjutaPreferences *eo, const gchar *uri, const gchar *name)
 		result = gnome_vfs_get_file_info_uri(vfs_uri, &info, GNOME_VFS_SET_FILE_INFO_NONE);
 		gnome_vfs_uri_unref(vfs_uri); 
 		te->filename = g_strdup(info.name);
-#warning TODO: Might be a bug		
-		/* te->uri = tm_get_real_path(filename);*/
 		te->uri = g_strdup(uri);
 	}
 	
@@ -317,7 +313,6 @@ text_editor_new (AnjutaPreferences *eo, const gchar *uri, const gchar *name)
 			return NULL;
 		}
 	}
-	// te->menu = text_editor_menu_new ();
 	text_editor_update_controls (te);
 #ifdef DEBUG
 	g_object_weak_ref (G_OBJECT (te), on_te_already_destroyed, te);
@@ -475,42 +470,55 @@ text_editor_find (TextEditor * te, const gchar * str, gint scope,
 		case TEXT_EDITOR_FIND_SCOPE_WHOLE:
 				if (forward)
 				{
-					scintilla_send_message (SCINTILLA (editor), SCI_SETANCHOR, 0, 0);
-					scintilla_send_message (SCINTILLA (editor), SCI_SETCURRENTPOS, 0, 0);
+					scintilla_send_message (SCINTILLA (editor), SCI_SETANCHOR,
+											0, 0);
+					scintilla_send_message (SCINTILLA (editor),
+											SCI_SETCURRENTPOS, 0, 0);
 				}
 				else
 				{
 					glong length;
-					length = scintilla_send_message (SCINTILLA (editor), SCI_GETTEXTLENGTH, 0, 0);
-					scintilla_send_message (SCINTILLA (editor), SCI_SETCURRENTPOS, length-1, 0);
-					scintilla_send_message (SCINTILLA (editor), SCI_SETANCHOR, length-1, 0);
+					length = scintilla_send_message (SCINTILLA (editor),
+													 SCI_GETTEXTLENGTH, 0, 0);
+					scintilla_send_message (SCINTILLA (editor),
+											SCI_SETCURRENTPOS, length-1, 0);
+					scintilla_send_message (SCINTILLA (editor),
+											SCI_SETANCHOR, length-1, 0);
 				}
 			break;
 		default:
 			break;
 	}
-	current_pos = scintilla_send_message (SCINTILLA (editor), SCI_GETCURRENTPOS, 0, 0);
-	current_anchor = scintilla_send_message (SCINTILLA (editor), SCI_GETANCHOR, 0, 0);
+	current_pos = scintilla_send_message (SCINTILLA (editor),
+										  SCI_GETCURRENTPOS, 0, 0);
+	current_anchor = scintilla_send_message (SCINTILLA (editor),
+											 SCI_GETANCHOR, 0, 0);
 	ret = aneditor_command (te->editor_id, ANE_FIND, flags, (long)str);
 	if (scope == TEXT_EDITOR_FIND_SCOPE_CURRENT && wrap && ret < 0) {
 		/* If wrap is requested, wrap it. */
 		if (forward)
 		{
 			scintilla_send_message (SCINTILLA (editor), SCI_SETANCHOR, 0, 0);
-			scintilla_send_message (SCINTILLA (editor), SCI_SETCURRENTPOS, 0, 0);
+			scintilla_send_message (SCINTILLA (editor), SCI_SETCURRENTPOS,
+									0, 0);
 		}
 		else
 		{
 			glong length;
-			length = scintilla_send_message (SCINTILLA (editor), SCI_GETTEXTLENGTH, 0, 0);
-			scintilla_send_message (SCINTILLA (editor), SCI_SETCURRENTPOS, length-1, 0);
-			scintilla_send_message (SCINTILLA (editor), SCI_SETANCHOR, length-1, 0);
+			length = scintilla_send_message (SCINTILLA (editor),
+											 SCI_GETTEXTLENGTH, 0, 0);
+			scintilla_send_message (SCINTILLA (editor), SCI_SETCURRENTPOS,
+									length-1, 0);
+			scintilla_send_message (SCINTILLA (editor), SCI_SETANCHOR,
+									length-1, 0);
 		}
 		ret = aneditor_command (te->editor_id, ANE_FIND, flags, (long)str);
 		/* If the text is still not found, restore current pos and anchor */
 		if (ret < 0) {
-			scintilla_send_message (SCINTILLA (editor), SCI_SETANCHOR, current_anchor, 0);
-			scintilla_send_message (SCINTILLA (editor), SCI_SETCURRENTPOS, current_pos, 0);
+			scintilla_send_message (SCINTILLA (editor), SCI_SETANCHOR,
+									current_anchor, 0);
+			scintilla_send_message (SCINTILLA (editor), SCI_SETCURRENTPOS,
+									current_pos, 0);
 		}
 	}
 	return ret;
@@ -520,7 +528,8 @@ void
 text_editor_replace_selection (TextEditor * te, const gchar* r_str)
 {
 	if (!te) return;
-	scintilla_send_message (SCINTILLA(te->scintilla), SCI_REPLACESEL, 0, (long)r_str);
+	scintilla_send_message (SCINTILLA(te->scintilla), SCI_REPLACESEL, 0,
+							(long)r_str);
 }
 
 guint
@@ -838,7 +847,8 @@ filter_chars_in_dos_mode(gchar *data_, size_t size )
  * save buffer. filter chars and set dos-like CR/LF if dos_text is set.
  */
 static size_t
-save_filtered_in_dos_mode(GnomeVFSHandle* vfs_write, gchar *data_, GnomeVFSFileSize size)
+save_filtered_in_dos_mode(GnomeVFSHandle* vfs_write, gchar *data_,
+						  GnomeVFSFileSize size)
 {
 	size_t i, j;
 	unsigned char *data;
@@ -883,8 +893,6 @@ save_filtered_in_dos_mode(GnomeVFSHandle* vfs_write, gchar *data_, GnomeVFSFileS
 
 	if ( tr_map )
 		free(tr_map);
-
-//	printf( "size: %d, written: %d\n", size, j );
 	return size;
 }
 
@@ -954,9 +962,8 @@ convert_to_utf8_from_charset (const gchar *content,
 
 	g_return_val_if_fail (content != NULL, NULL);
 
-#ifdef DEBUG
-	g_message ("Trying to convert from %s to UTF-8", charset);
-#endif
+	DEBUG_PRINT ("Trying to convert from %s to UTF-8", charset);
+
 	converted_contents = g_convert (content, len, "UTF-8",
 									charset, NULL, &bytes_written,
 									&conv_error); 
@@ -964,9 +971,8 @@ convert_to_utf8_from_charset (const gchar *content,
 	if ((conv_error != NULL) || 
 	    !g_utf8_validate (converted_contents, bytes_written, NULL))		
 	{
-#ifdef DEBUG
-		g_message ("Couldn't convert from %s to UTF-8.", charset);
-#endif
+		DEBUG_PRINT ("Couldn't convert from %s to UTF-8.", charset);
+		
 		if (converted_contents != NULL)
 			g_free (converted_contents);
 
@@ -978,9 +984,7 @@ convert_to_utf8_from_charset (const gchar *content,
 
 		utf8_content = NULL;
 	} else {
-#ifdef DEBUG
-		g_message ("Converted from %s to UTF-8.", charset);
-#endif
+		DEBUG_PRINT ("Converted from %s to UTF-8.", charset);
 		utf8_content = converted_contents;
 	}
 	return utf8_content;
@@ -1013,10 +1017,7 @@ convert_to_utf8 (PropsID props, const gchar *content, gsize len,
 			locale_encoding = anjuta_encoding_get_from_charset (locale_charset);
 			encodings = g_list_prepend (encodings,
 						(gpointer) locale_encoding);
-#ifdef DEBUG
-			g_message ("Current charset = %s", locale_charset);
-			/* g_message ("Current encoding = %s", locale_encoding); */
-#endif
+			DEBUG_PRINT ("Current charset = %s", locale_charset);
 		}
 	}
 
@@ -1031,9 +1032,9 @@ convert_to_utf8 (PropsID props, const gchar *content, gsize len,
 		enc = (AnjutaEncoding *) encodings->data;
 
 		charset = anjuta_encoding_get_charset (enc);
-#ifdef DEBUG
-		g_message ("Trying to convert %d bytes of data into UTF-8.", len);
-#endif
+
+		DEBUG_PRINT ("Trying to convert %d bytes of data into UTF-8.", len);
+		
 		fflush (stdout);
 		utf8_content = convert_to_utf8_from_charset (content, len, charset);
 
@@ -1081,7 +1082,6 @@ load_from_file (TextEditor *te, gchar *uri, gchar **err)
 	buffer = g_malloc (info.size);
 	if (buffer == NULL && info.size != 0)
 	{
-		/* This is funny in linux, but never hurts */
 		g_warning ("This file is too big. Unable to allocate memory.");
 		*err = g_strdup (_("This file is too big. Unable to allocate memory."));
 		return FALSE;
@@ -1111,9 +1111,8 @@ load_from_file (TextEditor *te, gchar *uri, gchar **err)
 	editor_mode =  determine_editor_mode (buffer, nchars);
 	scintilla_send_message (SCINTILLA (te->scintilla),
 							SCI_SETEOLMODE, editor_mode, 0);
-#ifdef DEBUG
-	g_message("Loaded in editor mode [%d]", editor_mode);
-#endif
+
+	DEBUG_PRINT ("Loaded in editor mode [%d]", editor_mode);
 
 	/* Determine character encoding and convert to utf-8*/
 	if (nchars > 0)
@@ -1147,9 +1146,7 @@ load_from_file (TextEditor *te, gchar *uri, gchar **err)
 		}
 	}
 	if (dos_filter && editor_mode == SC_EOL_CRLF){
-#ifdef DEBUG
-		g_message("Filtering Extrageneous DOS characters in dos mode [Dos => Unix]");
-#endif
+		DEBUG_PRINT ("Filtering Extrageneous DOS characters in dos mode [Dos => Unix]");
 		nchars = filter_chars_in_dos_mode( buffer, nchars );
 	}
 	scintilla_send_message (SCINTILLA (te->scintilla), SCI_ADDTEXT,
@@ -1190,9 +1187,9 @@ save_to_file (TextEditor *te, gchar * uri)
 			/* Save in current locate */
 			GError *conv_error = NULL;
 			gchar* converted_file_contents = NULL;
-#ifdef DEBUG
-			g_message ("Using current locale's encoding");
-#endif
+
+			DEBUG_PRINT ("Using current locale's encoding");
+
 			converted_file_contents = g_locale_from_utf8 (data, -1, NULL,
 														  NULL, &conv_error);
 	
@@ -1218,9 +1215,8 @@ save_to_file (TextEditor *te, gchar * uri)
 				GError *conv_error = NULL;
 				gchar* converted_file_contents = NULL;
 	
-#ifdef DEBUG
-				g_message ("Using encoding %s", te->encoding);
-#endif	
+				DEBUG_PRINT ("Using encoding %s", te->encoding);
+
 				/* Try to convert it from UTF-8 to original encoding */
 				converted_file_contents = g_convert (data, -1, 
 													 te->encoding,
@@ -1242,9 +1238,7 @@ save_to_file (TextEditor *te, gchar * uri)
 			else
 			{
 				/* Save in utf-8 */
-#ifdef DEBUG
-				g_message ("Using utf-8 encoding");
-#endif
+				DEBUG_PRINT ("Using utf-8 encoding");
 			}				
 		}
 		
@@ -1265,15 +1259,11 @@ save_to_file (TextEditor *te, gchar * uri)
 												 DOS_EOL_CHECK);
 		editor_mode =  scintilla_send_message (SCINTILLA (te->scintilla),
 											   SCI_GETEOLMODE, 0, 0);
-#ifdef DEBUG
-		g_message("Saving in editor mode [%d]", editor_mode);
-#endif
+		DEBUG_PRINT ("Saving in editor mode [%d]", editor_mode);
 		nchars = size;
 		if (editor_mode == SC_EOL_CRLF && dos_filter)
 		{
-#ifdef DEBUG
-			g_message("Filtering Extrageneous DOS characters in dos mode [Unix => Dos]");
-#endif
+			DEBUG_PRINT ("Filtering Extrageneous DOS characters in dos mode [Unix => Dos]");
 			size = save_filtered_in_dos_mode(vfs_write, data, size);
 		}
 		else
@@ -1304,7 +1294,6 @@ text_editor_load_file (TextEditor * te)
 		return FALSE;
 	// FIXME: anjuta_status (_("Loading file ..."));
 	text_editor_freeze (te);
-	// FIXME: anjuta_set_busy ();
 	te->modified_time = time (NULL);
 	if (load_from_file (te, te->uri, &err) == FALSE)
 	{
@@ -1312,14 +1301,12 @@ text_editor_load_file (TextEditor * te)
 								  _("Could not load file: %s\n\nDetails: %s"),
 								  te->filename, err);
 		g_free (err);
-		// FIXME: anjuta_set_active ();
 		text_editor_thaw (te);
 		return FALSE;
 	}
 	scintilla_send_message (SCINTILLA (te->scintilla), SCI_GOTOPOS,
 							0, 0);
 	// check_tm_file(te);
-	// FIXME: anjuta_set_active ();
 	text_editor_thaw (te);
 	scintilla_send_message (SCINTILLA (te->scintilla),
 							SCI_SETSAVEPOINT, 0, 0);
@@ -1342,7 +1329,6 @@ text_editor_save_file (TextEditor * te, gboolean update)
 		return FALSE;
 	if (IS_SCINTILLA (te->scintilla) == FALSE)
 		return FALSE;
-	// FIXME: anjuta_set_busy ();
 	text_editor_freeze (te);
 	text_editor_set_line_number_width(te);
 	// FIXME: anjuta_status (_("Saving file ..."));
@@ -1351,7 +1337,6 @@ text_editor_save_file (TextEditor * te, gboolean update)
 		GtkWindow *parent;
 		parent = GTK_WINDOW (gtk_widget_get_toplevel (GTK_WIDGET (te)));
 		text_editor_thaw (te);
-		//FIXME: anjuta_set_active ();
 		anjuta_util_dialog_error_system (parent, errno,
 										 _("Could not save file: %s."),
 										 te->uri);
@@ -1365,7 +1350,6 @@ text_editor_save_file (TextEditor * te, gboolean update)
 		scintilla_send_message (SCINTILLA (te->scintilla),
 					SCI_SETSAVEPOINT, 0, 0);
 		g_signal_emit_by_name (G_OBJECT (te), "saved", te->uri);
-		//FIXME: anjuta_set_active ();
 		//FIXME: anjuta_status (_("File saved successfully"));
 		return TRUE;
 	}
@@ -1561,6 +1545,7 @@ get_indent_style(AnjutaPreferences *pr, const gchar *name_style)
 		{"GNU coding style", " -gnu"},
 		{"Kernighan and Ritchie style", " -kr"},
 		{"Original Berkeley style", " -orig"},
+		{"Anjuta coding style", " -l80 -lc80 -t4 -i4 -sc -bli0 -bl0 -cbi0 -ss"},
 		{"Style of Kangleipak", " -i8 -sc -bli0 -bl0 -cbi0 -ss"},
 		{"Hello World style", " -gnu -i0 -bli0 -cbi0 -cdb -sc -bl0 -ss"},
 		{"Crazy boy style", " "}
@@ -1946,8 +1931,7 @@ text_editor_set_line_number_width (TextEditor* te)
 										  SCI_TEXTWIDTH,
 										  STYLE_LINENUMBER,
 										  (long) line_number_dummy);
-		text_editor_scintilla_command (te, SCI_SETMARGINWIDTHN,
-									   0, line_number_width);
+		text_editor_command (te, ANE_SETLINENUMWIDTH, line_number_width, 0);
 		g_free(line_number_dummy);
 		g_free(line_number);
 	}
@@ -2056,8 +2040,20 @@ static void
 itext_editor_insert (IAnjutaEditor *editor, gint pos, const gchar *txt,
 					 gint length, GError **e)
 {
-	aneditor_command (TEXT_EDITOR(editor)->editor_id, ANE_INSERTTEXT,
-					  length, (long)txt);
+	gchar *text_to_insert;
+	if (length >= 0)
+		text_to_insert = g_strndup (txt, length);
+	else
+		text_to_insert = g_strdup (txt);
+	
+	if (pos >= 0)
+		aneditor_command (TEXT_EDITOR(editor)->editor_id, ANE_INSERTTEXT,
+						  pos, (long)text_to_insert);
+	else
+		scintilla_send_message (SCINTILLA (TEXT_EDITOR (editor)->scintilla),
+								SCI_APPENDTEXT, strlen(text_to_insert),
+								(long)text_to_insert);
+	g_free (text_to_insert);
 }
 
 static const gchar *

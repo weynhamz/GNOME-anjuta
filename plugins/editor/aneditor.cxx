@@ -1,3 +1,4 @@
+/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
     aneditor.cxx
     Copyright (C) 2003 Naba Kumar
@@ -312,6 +313,7 @@ protected:
 	int GetLineIndentation(int line);
 	int GetLineIndentPosition(int line);
 	IndentationStatus GetIndentState(int line);
+	int IndentOfBlockProper(int line);
 	int IndentOfBlock(int line);
 	void MaintainIndentation(char ch);
 	void AutomaticIndentation(char ch);
@@ -319,7 +321,7 @@ protected:
 	void FoldChanged(int line, int levelNow, int levelPrev);
 	void FoldChanged(int position);
 	void Expand(int &line, bool doExpand, bool force=false, 
-		int visLevels=0, int level=-1);
+				int visLevels=0, int level=-1);
 	bool MarginClick(int position,int modifiers);
 	void HandleDwellStart(int mousePos);
 	void Notify(SCNotification *notification);
@@ -789,7 +791,7 @@ bool AnEditor::FindMatchingBracePosition(bool editor, int &braceAtCaret, int &br
 	}
 	// Priority goes to character before caret
 	if (charBefore && strchr("[](){}", charBefore) &&
-	        ((styleBefore == bracesStyleCheck) || (!bracesStyle))) {
+			((styleBefore == bracesStyleCheck) || (!bracesStyle))) {
 		braceAtCaret = caretPos - 1;
 	}
 	bool colonMode = false;
@@ -2315,7 +2317,7 @@ IndentationStatus AnEditor::GetIndentState(int line) {
 	return indentState;
 }
 
-int AnEditor::IndentOfBlock(int line) {
+int AnEditor::IndentOfBlockProper(int line) {
 	if (line < 0)
 		return 0;
 	int indentSize = SendEditor(SCI_GETINDENT);
@@ -2350,6 +2352,78 @@ int AnEditor::IndentOfBlock(int line) {
 	return indentBlock;
 }
 
+int AnEditor::IndentOfBlock(int line) {
+
+	int backLine = line;
+
+	/* Find mismatched parenthesis */
+	if (lexLanguage == SCLEX_CPP) {
+		WindowAccessor acc(wEditor.GetID(), *props);
+		int currentPos = SendEditor(SCI_POSITIONFROMLINE, backLine + 1);
+		
+		while (backLine > 0) {
+			int thisLineStart = SendEditor(SCI_POSITIONFROMLINE, backLine);
+			int nextLineStart = currentPos;
+			// printf("Scanning at line: %d (%d)\n", backLine, currentPos);
+	
+			int foundTerminator = false;
+			int pos;
+			for (pos = nextLineStart - 1; pos >= thisLineStart; pos--) {
+	
+				// printf ("Style at %d = %d\n", pos, acc.StyleAt(pos));
+	
+				if ((acc.StyleAt(pos) == 10)) {
+					char c[2];
+					c[0] = acc[pos];
+					c[1] = '\0';
+					// printf ("Looking at: \"%s\"\n", c);
+					if (includes(blockEnd, c) ||
+						includes(blockStart, c) ||
+						includes(statementEnd, c))
+					{
+						// printf ("Found block start/block end/statement end. Breaking\n");
+						foundTerminator = true;
+						break;
+					}
+					if (c[0] == '(' || c[0] == '[') {
+						int indentBlock = SendEditor(SCI_GETCOLUMN, pos) + 1;// - thisLineStart;
+						// printf ("Found Unmatched '(' at col: %d. Returning\n", indentBlock);
+						return indentBlock;
+					}
+					if (c[0] == ')' || c[0] == ']') {
+						int braceOpp;
+						int lineOpp;
+						braceOpp = SendEditor(SCI_BRACEMATCH, pos, 0);
+						// printf ("Brace opp. at %d\n", braceOpp);
+						if (braceOpp >= 0) {
+							currentPos = braceOpp - 1;
+							lineOpp = SendEditor (SCI_LINEFROMPOSITION,
+												  braceOpp);
+							if (backLine != lineOpp) {
+								backLine = lineOpp;
+								// printf ("Jumping to line %d (%d)\n", backLine, currentPos);
+								break;
+							} else {
+								pos = currentPos;
+							}
+						} else {
+							foundTerminator = true;
+							break;
+						}
+					}
+				}
+			}
+			if (foundTerminator)
+				break;
+			if (pos < thisLineStart) {
+				backLine--;
+				currentPos = pos;
+			}
+		}
+	}
+	return IndentOfBlockProper(backLine);
+}
+
 void AnEditor::MaintainIndentation(char ch) {
 	int eolMode = SendEditor(SCI_GETEOLMODE);
 	int curLine = GetCurrentLineNumber();
@@ -2377,46 +2451,58 @@ void AnEditor::AutomaticIndentation(char ch) {
 	int curLine = GetCurrentLineNumber();
 	int thisLineStart = SendEditor(SCI_POSITIONFROMLINE, curLine);
 	int indentSize = SendEditor(SCI_GETINDENT);
-	int indentBlock = IndentOfBlock(curLine - 1);
 
 	if (blockEnd.IsSingleChar() && ch == blockEnd.words[0]) {	// Dedent maybe
 		if (!indentClosing) {
 			if (RangeIsAllWhitespace(thisLineStart, selStart - 1)) {
+				int indentBlock = IndentOfBlockProper(curLine - 1);
 				SetLineIndentation(curLine, indentBlock - indentSize);
 			}
 		}
 	} else if (!blockEnd.IsSingleChar() && (ch == ' ')) {	// Dedent maybe
 		if (!indentClosing && (GetIndentState(curLine) == isBlockEnd)) {}
-	}
-	else if (ch == blockStart.words[0]) {	// Dedent maybe if first on line and previous line was starting keyword
+	} else if (ch == blockStart.words[0]) {	// Dedent maybe if first on line and previous line was starting keyword
 		if (!indentOpening && (GetIndentState(curLine - 1) == isKeyWordStart)) {
 			if (RangeIsAllWhitespace(thisLineStart, selStart - 1)) {
+				int indentBlock = IndentOfBlockProper(curLine - 1);
 				SetLineIndentation(curLine, indentBlock - indentSize);
 			}
 		}
 	} else if ((ch == '\r' || ch == '\n') && (selStart == thisLineStart)) {
-		printf("New line block\n");
+		// printf("New line block\n");
+		int indentBlock = IndentOfBlock(curLine - 1);
 		if (!indentClosing && !blockEnd.IsSingleChar()) {	// Dedent previous line maybe
 			SString controlWords[1];
-			printf ("First if\n");
+			// printf ("First if\n");
 			
 			if (GetLinePartsInStyle(curLine-1, blockEnd.styleNumber,
 				-1, controlWords, ELEMENTS(controlWords))) {
-				printf ("Second if\n");
+				// printf ("Second if\n");
 				if (includes(blockEnd, controlWords[0])) {
-					printf ("Third if\n");
+					// printf ("Third if\n");
 					// Check if first keyword on line is an ender
-					SetLineIndentation(curLine-1, IndentOfBlock(curLine-2) - indentSize);
+					SetLineIndentation(curLine-1, IndentOfBlockProper(curLine-2) - indentSize);
 					// Recalculate as may have changed previous line
 					indentBlock = IndentOfBlock(curLine - 1);
 				}
 			}
-			SetLineIndentation(curLine, indentBlock);
 		}
-		if (GetIndentState(curLine - 1) == isNone) {
-			MaintainIndentation(ch);
-		} else {
+		SetLineIndentation(curLine, indentBlock);
+		
+		// Home cursor.
+		if (SendEditor (SCI_GETCOLUMN, SendEditor(SCI_GETCURRENTPOS)) < indentBlock)
+			SendEditor (SCI_VCHOME);
+		
+	} else if (lexLanguage == SCLEX_CPP) {
+		if ((ch == '\t') ||
+			(statementEnd.IsSingleChar() && ch == statementEnd.words[0])) {
+		
+			int indentBlock = IndentOfBlock(curLine - 1);
 			SetLineIndentation(curLine, indentBlock);
+			
+			// Home cursor.
+			if (SendEditor (SCI_GETCOLUMN, SendEditor(SCI_GETCURRENTPOS)) < indentBlock)
+				SendEditor (SCI_VCHOME);
 		}
 	}
 }
@@ -2981,7 +3067,10 @@ long AnEditor::Command(int cmdID, long wParam, long lParam) {
 		else
 			SendEditor(SCI_SETFOLDFLAGS, 0);
 		break;
-	
+	case ANE_SETLINENUMWIDTH:
+		lineNumbersWidth = wParam;
+		SendEditor(SCI_SETMARGINWIDTHN, 0, lineNumbers ? lineNumbersWidth : 0);
+		break;
 	default:
 		break;
 	}
@@ -3303,7 +3392,6 @@ void AnEditor::HandleDwellStart(int mousePos) {
 #endif
 	debugTipOn = true;
 }
-
 
 void AnEditor::Notify(SCNotification *notification) {
 	switch (notification->nmhdr.code) {
@@ -3984,12 +4072,12 @@ void AnEditor::ReadPropertiesInitial() {
 	SetReadOnly(props->GetInt("file.readonly", 0));
 	SetLineWrap(props->GetInt("view.line.wrap", 1));
 
-	lineNumbersWidth = 0;
+	//lineNumbersWidth = 0;
 	/* FIXME: This is nowhere configureable
 	SString linenums = props->Get("margin.linenumber.width");
 	if (linenums.length())
 		lineNumbersWidth = linenums.value(); */
-	lineNumbers = lineNumbersWidth;
+	//lineNumbers = lineNumbersWidth;
 	/* We do this dynamicly in text_editor_load_file now */
 	/* if (lineNumbersWidth == 0)
 		lineNumbersWidth = lineNumbersWidthDefault;*/

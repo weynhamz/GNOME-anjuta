@@ -120,6 +120,7 @@ extern "C" {
 #define   ANE_SETBACKSPACEUNINDENTS     (ANE_COMMAND_BASE+83)
 #define   ANE_SETFOLDSYMBOLS            (ANE_COMMAND_BASE+84)
 #define   ANE_SETFOLDUNDERLINE          (ANE_COMMAND_BASE+85)
+#define   ANE_SETLINENUMWIDTH            (ANE_COMMAND_BASE+86)
 
 typedef guint AnEditorID;
 extern const AnEditorID ANE_ID_INVALID;

@@ -1,3 +1,18 @@
+2005-01-30  Naba Kumar  <naba@gnome.org>
+
+	* libanjuta/interfaces/libanjuta.idl: Added documentations and removed
+	unused definitions.
+	
+	* plugins/cvs-plugin/anjuta-cvs-plugin.glade: Fixed typo.
+	
+	* plugins/editor/aneditor.cxx, plugins/editor/aneditor.h,
+	plugins/editor/text_editor.c,
+	plugins/editor/text_editor_prefs.c: Added new aneditor commands,
+	fixed linuwidth preference setting, fixed insert text interface
+	implementation. Improved automatice-indentation for cpp lexer.
+	
+	* plugins/symbol-browser/an_symbol_view.c: Code cleanup.
+
 2005-01-29  Naba Kumar  <naba@gnome.org>
 
 	* plugins/cvs-plugin/anjuta-cvs-plugin.glade: Disabled "Remove sticky"
