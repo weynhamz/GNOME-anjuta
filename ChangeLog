@@ -1,3 +1,9 @@
+2004-02-16  Naba Kumar  <naba@gnome.org>
+
+	Patch from: Dennis Moehlmann  <darksaidin@users.sourceforge.net>
+	* src/utilities.[c,h]: Removed 'cmp' dependency and used
+	internal function to compare files.
+	
 2004-02-14  Franco Catrin  <fcatrin@tuxpan.com>
         * src/message-manager-private.cc
         Set bold color as foreground color in terminal

@@ -1205,43 +1205,85 @@ get_swapped_filename(gchar* filename)
 	g_free(newfname);	
 	return NULL;
 }
+
+pid_t
+anjuta_fork_command()
+{
+}
+
 gboolean
 move_file_if_not_same (gchar* src, gchar* dest)
 {
-	gboolean same;
-
 	g_return_val_if_fail (src != NULL, FALSE);
 	g_return_val_if_fail (dest != NULL, FALSE);
 
-	if (anjuta_is_installed ("cmp", FALSE) == TRUE)
-	{
-		pid_t pid;
-		gint status;
-		if ((pid=fork())==0)
-		{
-			execlp ("cmp", "cmp", "-s", src, dest, NULL);
-			g_error ("Cannot execute cmp");
-		}
-		waitpid (pid, &status, 0);
-		if (WEXITSTATUS(status)==0)
-			same = TRUE;
-		else
-			same = FALSE;
-	}
-	else
-	{
-		same = FALSE;
-	}
 	/* rename () can't work with 2 different filesystems, so we need
 	 to use the couple {copy, remove}. Meanwhile, the files to copy
 	 are supposed to be small, so it would spend more time to try 
 	 rename () to know if a copy/deletion is needed */
-	
-	if (!same && !copy_file (src, dest, FALSE))
+
+	if (!compare_files(src, dest, FALSE) && !copy_file (src, dest, FALSE))
 		return FALSE;
-	
+
 	remove (src);
 	return TRUE;
+}
+
+gboolean
+compare_files (gchar* file1, gchar* file2, gboolean show_error)
+{
+	FILE *file_fp1, *file_fp2;
+	gchar buffer1[FILE_BUFFER_SIZE], buffer2[FILE_BUFFER_SIZE];
+	gint bytes_read1, bytes_read2;
+	gboolean same;
+
+	same = TRUE;	
+	
+	file_fp1 = fopen (file1, "rb");
+	if (file_fp1 == NULL)
+	{
+		if (show_error)
+			anjuta_system_error (errno, _("Unable to read file: %s."), file1);
+		return FALSE;
+	}
+	
+	file_fp2 = fopen (file2, "rb");
+	if (file_fp2 == NULL)
+	{
+		if (show_error)
+			anjuta_system_error(errno, _("Unable to read file: %s."), file2);
+		fclose(file_fp1);  // file1 was opened successfully, close it.
+		return FALSE;
+	}
+	
+	do
+	{
+		bytes_read1 = fread(buffer1, 1, FILE_BUFFER_SIZE, file_fp1);
+		bytes_read2 = fread(buffer2, 1, FILE_BUFFER_SIZE, file_fp2);
+		if ((ferror(file_fp1) != 0) || (ferror(file_fp2) != 0))
+		{
+			if (show_error)
+				anjuta_system_error(errno, 
+									_("Read-error while comparing %s with %s"),
+  							file1, file2);
+			fclose(file_fp2);
+			fclose(file_fp1);
+			return FALSE;
+		}
+		
+		// min-check neccessary because buffers uninited: filesize < buffersize => fail
+		if (memcmp(buffer1, buffer2, (bytes_read1 < bytes_read2) ? bytes_read1 : bytes_read2) != 0)
+		{                             
+			same = FALSE;
+			break;
+		}			
+	}
+	while ((bytes_read1 == bytes_read2) && (bytes_read1 == FILE_BUFFER_SIZE));
+	
+	fclose(file_fp2);
+	fclose(file_fp1);
+
+	return (bytes_read1 == bytes_read2) && same;
 }
 
 gboolean is_file_same(gchar *a, gchar *b)

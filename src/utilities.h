@@ -163,6 +163,11 @@ gboolean file_is_sticky(const gchar * fn);
 /* if (show_error) is true, then a dialog box will be shown for the error */
 gboolean copy_file(gchar* src, gchar* dest, gboolean show_error);
 
+/* bytewise compares two files and returns true for same or false for
+/* different or error */
+/* if (show_error) is true, then a dialog box will be shown for the error */
+gboolean compare_files(gchar* file1, gchar* file2, gboolean show_error);
+
 /* (src) will be renamed, ie moved, to (dest) if they are not same */
 /* Used to avoid unnecessary change in modified time of the dest file */
 /* Which may result in recompilation, etc */
