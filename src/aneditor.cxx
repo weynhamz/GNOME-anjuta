@@ -1778,6 +1778,11 @@ void AnEditor::ReadProperties(const char *fileForExt) {
 	SString fold = props->Get("fold");
 	SendEditorString(SCI_SETPROPERTY, reinterpret_cast<unsigned long>("fold"),
 	                 fold.c_str());
+
+	SString fold_comment = props->Get("fold.comment");
+	SendEditorString(SCI_SETPROPERTY, reinterpret_cast<unsigned long>("fold.comment"),
+					fold_comment.c_str());
+	
 	SString stylingWithinPreprocessor = props->Get("styling.within.preprocessor");
 	SendEditorString(SCI_SETPROPERTY, reinterpret_cast<unsigned long>("styling.within.preprocessor"),
 	                 stylingWithinPreprocessor.c_str());
