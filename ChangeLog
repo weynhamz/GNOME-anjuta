@@ -17,7 +17,8 @@
 	* src/anjuta.c: Fixed bug #600221 -- anjuta crashes on exit
 	if there is a project open and all the files are un-docked.
 
-	
+	* src/dnd.c: Possible fix for bug #512873 Drag And Drop problems.
+
 2002-08-27	Andy Piper	<andy.piper@freeuk.com>
 
 	* src/main_menubar_def.h: implement feature request #595356, patch #597161
