@@ -137,6 +137,8 @@ extern void readOptionConfiguration (void);
 extern void initOptions (void);
 extern void freeOptionResources (void);
 
+void addIgnoreListFromFile (const char *const fileName);
+
 #endif	/* _OPTIONS_H */
 
 /* vi:set tabstop=8 shiftwidth=4: */
