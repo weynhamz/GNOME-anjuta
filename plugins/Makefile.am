@@ -13,7 +13,8 @@ SUBDIRS = . \
 	file-loader \
 	profile-default \
 	file-wizard \
-	project-manager
+	project-manager \
+	symbol-browser
 
 ## This a temporary measure to insure anjuta does not crash due to old plugin.
 ## Make sure there are no old plugins left

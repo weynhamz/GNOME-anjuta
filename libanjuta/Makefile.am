@@ -1,22 +1,20 @@
 
 SUBDIRS = interfaces
 
-##	-I$(top_builddir)/scintilla/include \
-
 INCLUDES = \
 	$(WARN_CFLAGS) \
-	-I$(top_builddir)/widgets \
 	-I$(top_builddir) \
 	$(DEPRECATED_FLAGS) \
-	$(LIBANJUTA_CFLAGS)
+	$(GNOME_UI_CFLAGS) \
+	$(GLADE_CFLAGS)
 
 lib_LTLIBRARIES=libanjuta.la
 
-libanjuta_la_LIADD = $(LIBANJUTA_LIBS)
 libanjuta_la_LIBADD = \
-	$(top_builddir)/libegg/libanjuta-egg.la\
+	$(GNOME_UI_LIBS) \
+	$(GLADE_LIBS) \
+	$(top_builddir)/libegg/libanjuta-egg.la \
 	$(top_builddir)/libanjuta/interfaces/libanjuta-interfaces.la
-##	$(top_builddir)/scintilla/libanjuta-scintilla.la
 
 libanjuta_la_SOURCES= \
 	cell-renderer-captioned-image.c	\
@@ -41,7 +39,7 @@ libanjuta_la_SOURCES= \
 	glue-plugin.c \
 	glue-factory.c \
 	plugins.c \
-	plugins.h 
+	plugins.h
 
 ##	properties.cxx \
 ##	properties.h \
@@ -63,7 +61,7 @@ libanjutainclude_HEADERS = \
 	anjuta-children.h \
 	glue-plugin.h \
 	resources.h
-	
+
 ##	properties.h \
 
 BUILT_SOURCES=anjuta-marshal.c anjuta-marshal.h
@@ -82,6 +80,9 @@ anjuta-marshal.c: anjuta-marshal.h
 	&& rm -f xgen-gmc
 
 pkgconfigdir = $(libdir)/pkgconfig
-pkgconfig_DATA=libanjuta.pc
+pkgconfig_DATA = libanjuta-1.0.pc
 
-EXTRA_DIST=$(libanjutainclude_HEADERS) libanjuta.pc.in anjuta-marshal.list
+EXTRA_DIST = \
+	$(libanjutainclude_HEADERS) \
+	libanjuta-1.0.pc.in \
+	anjuta-marshal.list

@@ -1,19 +1,19 @@
 # Sample Makefile for a anjuta plugin.
 
 # Plugin UI file
-anjuta_uidir = $(prefix)/@NO_PREFIX_PACKAGE_DATA_DIR@/ui
-anjuta_ui_DATA =  anjuta-sample.ui
+sample_uidir = $(anjuta_ui_dir)
+sample_ui_DATA =  anjuta-sample.ui
 
 # Plugin Icon file
-plugin_icondir = $(prefix)/@NO_PREFIX_PACKAGE_PIXMAPS_DIR@
-plugin_icon_DATA = anjuta-sample-plugin.png
+sample_pixmapsdir = $(anjuta_image_dir)
+sample_pixmaps_DATA = anjuta-sample-plugin.png
 
 # Plugin description file
 plugin_in_files = anjuta-sample.plugin.in
 %.plugin: %.plugin.in $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*po) ; $(INTLTOOL_MERGE) $(top_srcdir)/po $< $@ -d -u -c $(top_builddir)/po/.intltool-merge-cache
 
-anjuta_plugindir = $(prefix)/@NO_PREFIX_PACKAGE_PLUGIN_DIR@
-anjuta_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
+sample_plugindir = $(anjuta_plugin_dir)
+sample_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
 
 # NOTE :
 # The naming convention is very intentional
@@ -30,7 +30,7 @@ INCLUDES = \
 	$(LIBANJUTA_CFLAGS)
 
 # Where to install the plugin
-plugindir = $(prefix)/@NO_PREFIX_PACKAGE_PLUGIN_DIR@
+plugindir = $(anjuta_plugin_dir)
 
 # The plugin
 plugin_LTLIBRARIES = libanjuta-sample.la
@@ -39,8 +39,11 @@ plugin_LTLIBRARIES = libanjuta-sample.la
 libanjuta_sample_la_SOURCES = plugin.c
 
 # Plugin dependencies
+libanjuta_sample_la_LIBADD = \
+	$(LIBANJUTA_LIBS)
 
 EXTRA_DIST = \
         $(plugin_in_files) \
-        $(anjuta_plugin_DATA) \
-	$(anjuta_ui_DATA)
+        $(sample_plugin_DATA) \
+	$(sample_ui_DATA) \
+	$(sample_pixmaps_DATA)

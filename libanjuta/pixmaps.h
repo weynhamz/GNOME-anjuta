@@ -97,23 +97,6 @@
 #define ANJUTA_PIXMAP_APP_XWINDOCKAPP     "appwiz_xlib.png"
 #define ANJUTA_PIXMAP_APP_QT              "appwiz_terminal.png"
 
-/* Pixmaps for file and symbol browsers */
-/* Symbol browser */
-#define ANJUTA_PIXMAP_SV_UNKNOWN          "sv_unknown.xpm"
-#define ANJUTA_PIXMAP_SV_CLASS            "sv_class.xpm"
-#define ANJUTA_PIXMAP_SV_FUNCTION         "sv_function.xpm"
-#define ANJUTA_PIXMAP_SV_MACRO            "sv_macro.xpm"
-#define ANJUTA_PIXMAP_SV_PRIVATE_FUN      "sv_private_fun.xpm"
-#define ANJUTA_PIXMAP_SV_PRIVATE_VAR      "sv_private_var.xpm"
-#define ANJUTA_PIXMAP_SV_PROTECTED_FUN    "sv_protected_fun.xpm"
-#define ANJUTA_PIXMAP_SV_PROTECTED_VAR    "sv_protected_var.xpm"
-#define ANJUTA_PIXMAP_SV_PUBLIC_FUN       "sv_public_fun.xpm"
-#define ANJUTA_PIXMAP_SV_PUBLIC_VAR       "sv_public_var.xpm"
-#define ANJUTA_PIXMAP_SV_STATIC_FUN       "sv_static_fun.xpm"
-#define ANJUTA_PIXMAP_SV_STATIC_VAR       "sv_static_var.xpm"
-#define ANJUTA_PIXMAP_SV_STRUCT           "sv_struct.xpm"
-#define ANJUTA_PIXMAP_SV_VARIABLE         "sv_variable.xpm"
-
 /* Common */
 #define ANJUTA_PIXMAP_CLOSED_FOLDER       "directory.png"
 #define ANJUTA_PIXMAP_OPEN_FOLDER         "directory-accept.png"

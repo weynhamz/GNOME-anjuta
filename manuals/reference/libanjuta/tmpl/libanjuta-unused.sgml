@@ -184,6 +184,90 @@ GnomeFileList
 </para>
 
 
+<!-- ##### MACRO ANJUTA_PIXMAP_SV_CLASS ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_SV_FUNCTION ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_SV_MACRO ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_SV_PRIVATE_FUN ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_SV_PRIVATE_VAR ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_SV_PROTECTED_FUN ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_SV_PROTECTED_VAR ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_SV_PUBLIC_FUN ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_SV_PUBLIC_VAR ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_SV_STATIC_FUN ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_SV_STATIC_VAR ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_SV_STRUCT ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_SV_UNKNOWN ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_SV_VARIABLE ##### -->
+<para>
+
+</para>
+
+
 <!-- ##### MACRO ANJUTA_PIXMAP_SYNTAX ##### -->
 <para>
 

@@ -1,13 +1,13 @@
 INCLUDES = \
 	$(WARN_CFLAGS) \
-	$(LIBANJUTA_CFLAGS) \
+	$(GTK_CFLAGS) \
 	$(DEPRECATED_FLAGS)
 
 AM_CFLAGS = -Werror
 MODULE_NAME = libanjuta
 MODULE_VESION = 0.1
 MODULE_INCLUDEDIR = $(includedir)/libanjuta-1.0/libanjuta/interfaces
-MODULE_LIBS = $(LIBANJUTA_LIBS)
+MODULE_LIBS = $(GTK_LIBS)
 
 @@IFACE_RULES@@
 

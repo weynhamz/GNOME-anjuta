@@ -52,7 +52,7 @@
 static gboolean anjuta_app_save_layout_to_file (AnjutaApp *app);
 static void on_toggle_widget_view (GtkCheckMenuItem *menuitem, GtkWidget *dockitem);
 
-gpointer parent_class;
+static gpointer parent_class = NULL;
 
 #define REGISTER_ICON(icon, stock_id) \
 	pixbuf = anjuta_res_get_pixbuf (icon); \
@@ -676,6 +676,7 @@ anjuta_app_dispose (GObject *widget)
 		g_object_unref (window->layout_manager);
 		window->layout_manager = NULL;
 	};
+	GNOME_CALL_PARENT(G_OBJECT_CLASS, dispose, (widget));
 }
 
 static void

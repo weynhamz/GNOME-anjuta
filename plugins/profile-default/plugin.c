@@ -80,6 +80,7 @@ iprofile_load (IAnjutaProfile *profile, ESplash *splash, GError **err)
 		"IAnjutaMessageManager",
 		"IAnjutaFileManager",
 		"IAnjutaProjectManager",
+		"anjuta-symbol-browser:SymbolBrowserPlugin",
 		"IAnjutaTerminal",
 		"IAnjutaBuildable",
 		"IAnjutaTodo",
@@ -94,10 +95,20 @@ iprofile_load (IAnjutaProfile *profile, ESplash *splash, GError **err)
 			gchar *icon_filename;
 			gchar *icon_path = NULL;
 			
-			plugin_descs = anjuta_plugins_query (ANJUTA_PLUGIN(profile)->shell,
-												 "Anjuta Plugin",
-												 "Interfaces", interfaces[i],
-												 NULL);
+			if (strchr (interfaces[i], ':') != NULL)
+			{	
+				plugin_descs = anjuta_plugins_query (ANJUTA_PLUGIN(profile)->shell,
+													 "Anjuta Plugin",
+													 "Location", interfaces[i],
+													 NULL);
+			}
+			else
+			{
+				plugin_descs = anjuta_plugins_query (ANJUTA_PLUGIN(profile)->shell,
+													 "Anjuta Plugin",
+													 "Interfaces", interfaces[i],
+													 NULL);
+			}
 			if (plugin_descs) {
 				GdkPixbuf *icon_pixbuf;
 				AnjutaPluginDescription *desc =
@@ -148,8 +159,17 @@ iprofile_load (IAnjutaProfile *profile, ESplash *splash, GError **err)
 			e_splash_set_icon_highlight (splash, i, TRUE);
 		while (gtk_events_pending ())
 			gtk_main_iteration ();
-		anjuta_shell_get_object (ANJUTA_PLUGIN (profile)->shell,
-								 interfaces[i], NULL);
+		
+		if (strchr (interfaces[i], ':') != NULL)
+		{	
+			anjuta_plugins_get_plugin_by_location (ANJUTA_PLUGIN (profile)->shell,
+									 interfaces[i]);
+		}
+		else
+		{	
+			anjuta_shell_get_object (ANJUTA_PLUGIN (profile)->shell,
+									 interfaces[i], NULL);
+		}
 		i++;
 		max_icons--;
 	}

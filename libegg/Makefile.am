@@ -5,7 +5,9 @@ gladefiledir = $(prefix)/@NO_PREFIX_PACKAGE_DATA_DIR@/glade
 gladefile_DATA = layout.glade
 
 INCLUDES = \
-	$(ANJUTA_CFLAGS) \
+	$(GNOME_VFS_MODULE_CFLAGS) \
+	$(GNOME_UI_CFLAGS) \
+	$(GCONF_CFLAGS) \
 	-DEGG_COMPILATION \
 	-DGDK_DISABLE_DEPRECATED \
 	-DG_DISABLE_DEPRECATED \
@@ -47,6 +49,11 @@ libanjuta_egg_la_SOURCES = \
 	egg-recent-util.c \
 	egg-recent-view.c
 
+libanjuta_egg_la_LIBADD = \
+	$(GNOME_VFS_MODULE_LIBS) \
+	$(GNOME_UI_LIBS) \
+	$(GCONF_LIBS)
+
 noinst_PROGRAMS = \
 	test-tree-utils \
 	test-multi-drag \
@@ -54,15 +61,15 @@ noinst_PROGRAMS = \
 	test-actions
 
 test_tree_utils_SOURCES = test-tree-utils.c
-test_tree_utils_LDADD = libanjuta-egg.la $(ANJUTA_LIBS)
+test_tree_utils_LDADD = libanjuta-egg.la
 test_tree_utils_DEPENDENCIES = libanjuta-egg.la
 
 test_multi_drag_SOURCES = test-multi-drag.c
-test_multi_drag_LDADD = libanjuta-egg.la $(ANJUTA_LIBS)
+test_multi_drag_LDADD = libanjuta-egg.la
 test_multi_drag_DEPENDENCIES = libanjuta-egg.la
 
 test_union_SOURCES = test-union.c
-test_union_LDADD = libanjuta-egg.la $(ANJUTA_LIBS)
+test_union_LDADD = libanjuta-egg.la
 test_union_DEPENDENCIES = libanjuta-egg.la
 
 test_actions_SOURCES = test-actions.c

@@ -1130,8 +1130,8 @@ sub write_makefile
     }
     
     my $iface_rules = "lib_LTLIBRARIES = $module_name-interfaces.la\n";
-    $iface_rules .= "${module_name}_interfaces_la_LIADD = \$(MODULE_LIBS)\n";
-    $iface_rules .= "${module_name}_interfaces_la_LIBADD = \n";
+    $iface_rules .= "${module_name}_interfaces_la_LIBADD = \$(MODULE_LIBS)\n";
+##    $iface_rules .= "${module_name}_interfaces_la_LIBADD = \n";
     $iface_rules .= "${module_name}_interfaces_la_SOURCES = $iface_sources\n";
     $iface_rules .= "${module_name}_interfaces_includedir = \$(MODULE_INCLUDEDIR)\n";
     $iface_rules .= "${module_name}_interfaces_include_HEADERS = $iface_headers\n";

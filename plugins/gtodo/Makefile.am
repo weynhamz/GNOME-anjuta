@@ -1,13 +1,13 @@
 # Plugin UI file
-anjuta_uidir = $(prefix)/@NO_PREFIX_PACKAGE_DATA_DIR@/ui
-anjuta_ui_DATA =  anjuta-gtodo.ui
+gtodo_uidir = $(anjuta_ui_dir)
+gtodo_ui_DATA = anjuta-gtodo.ui
 
-tododir = $(prefix)/@NO_PREFIX_PACKAGE_DATA_DIR@/gtodo
-todoDATA = gtodo.css gtodo.xsl
+gtodo_datadir = $(anjuta_data_dir)/gtodo
+gtodo_data_DATA = gtodo.css gtodo.xsl
 
 # Plugin pixmaps
-plugin_pixmapsdir = $(prefix)/@NO_PREFIX_PACKAGE_PIXMAPS_DIR@
-plugin_pixmaps_DATA = \
+gtodo_pixmapsdir = $(anjuta_image_dir)
+gtodo_pixmaps_DATA = \
 	anjuta-gtodo-plugin.png\
 	gtodo.png\
 	gtodo_tray.png\
@@ -18,29 +18,27 @@ plugin_pixmaps_DATA = \
 plugin_in_files = anjuta-gtodo.plugin.in
 %.plugin: %.plugin.in $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*po) ; $(INTLTOOL_MERGE) $(top_srcdir)/po $< $@ -d -u -c $(top_builddir)/po/.intltool-merge-cache
 
-anjuta_plugindir = $(prefix)/@NO_PREFIX_PACKAGE_PLUGIN_DIR@
-anjuta_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
+gtodo_plugindir = $(anjuta_plugin_dir)
+gtodo_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
 
-plugindir = $(prefix)/@NO_PREFIX_PACKAGE_PLUGIN_DIR@
+plugindir = $(anjuta_plugin_dir)
 plugin_LTLIBRARIES = libanjuta-gtodo.la
 
 INCLUDES = \
 	$(WARN_CFLAGS) \
 	$(DEPRECATED_FLAGS) \
+	$(GTK_CFLAGS) \
+	$(GNOME_VFS_CFLAGS) \
+	$(LIBXSLT_CFLAGS) \
 	$(LIBANJUTA_CFLAGS) \
-	$(LIBXSLT_CFLAGS)\
-	-DDATADIR="\"$(PACKAGE_DATA_DIR)\"" \
-	-DPIXMAP_PATH="\"$(PACKAGE_PIXMAPS_DIR)\""
-
-##	$(PLUGIN_GTODO_CFLAGS)
+	-DDATADIR="\"$(anjuta_data_dir)\"" \
+	-DPIXMAP_PATH="\"$(anjuta_image_dir)\""
 
 libanjuta_gtodo_la_LIBADD = \
-	$(LIBANJUTA_LIBS) \
-	$(LIBXSLT_LIBS)\
-	$(top_builddir)/libanjuta/libanjuta.la \
-	$(top_builddir)/libanjuta/interfaces/libanjuta-interfaces.la
-
-##	$(PLUGIN_GTODO_LIBS)
+	$(GTK_LIBS) \
+	$(GNOME_VFS_LIBS) \
+	$(LIBXSLT_LIBS) \
+	$(LIBANJUTA_LIBS)
 
 libanjuta_gtodo_la_SOURCES=\
 	plugin.c\
@@ -71,7 +69,8 @@ libanjuta_gtodo_la_SOURCES=\
 #	gtodo.c
 
 EXTRA_DIST = \
-	$(plugin_pixmaps_DATA) \
+	$(gtodo_pixmaps_DATA) \
 	$(plugin_in_files) \
-	$(anjuta_plugin_DATA) \
-	$(anjuta_ui_DATA)
+	$(gtodo_plugin_DATA) \
+	$(gtodo_ui_DATA) \
+	$(gtodo_data_DATA)

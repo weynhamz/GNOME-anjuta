@@ -7,20 +7,10 @@ anjuta_layoutdir = $(prefix)/@NO_PREFIX_PACKAGE_DATA_DIR@
 anjuta_layout_DATA = layout.xml
 
 INCLUDES = \
-	$(ANJUTA_CFLAGS)\
+	$(GNOME_UI_CFLAGS)\
 	$(GDL_CFLAGS)\
-	$(PCRE_CFLAGS)\
-	$(FREEBSD_BUILD)\
 	-I$(top_srcdir)\
-	-I$(top_srcdir)/libegg\
-	-I$(srcdir)/../scintilla/include \
-	-I$(srcdir)/../tagmanager/include \
-	-I$(srcdir)/../pixmaps \
-	-I$(srcdir)/../printing \
 	-I.. -I. -DPACKAGE_BIN_DIR=\"$(bindir)\"
-#	-DG_DISABLE_DEPRECATED -DGDK_DISABLE_DEPRECATED \
-#	-DGDK_PIXBUF_DEPRECATED \
-#	-DGTK_DISABLE_DEPRECATED -DGNOME_DISABLE_DEPRECATED
 
 include $(top_srcdir)/scintilla/lexers.make
 
@@ -43,20 +33,10 @@ anjuta_SOURCES = \
 	main.c
 
 anjuta_LDADD =  \
-	$(ANJUTA_LIBS) $(GDL_LIBS) -lutil\
-	$(PCRE_LIBS)\
+	-lutil \
+	$(GNOME_UI_LIBS) \
+	$(GDL_LIBS) \
 	$(top_builddir)/libanjuta/libanjuta.la
-#	$(top_builddir)/libanjuta/anjuta-preferences.o
-#	$(top_builddir)/tagmanager/libanjuta-ctags.la\
-#	$(top_builddir)/scintilla/libanjuta-scintilla.la
-
-#	$(top_builddir)/libegg/treeviewutils/libegg-treeview.a\
-#	$(top_builddir)/libegg/menu/libegg-menu.a\
-#	$(top_builddir)/libegg/toolbar/libegg-toolbar.a\
-#	$(top_builddir)/libegg/util/libeggutil.a\
-#	$(top_builddir)/printing/libanjutaprint.a\
-#	$(LEXER_OBJS) \
-#	$(top_builddir)/gdl/libgdl.a
 
 #anjuta_DEPENDENCIES = \
 #	$(top_builddir)/libanjuta/libanjuta.la

@@ -64,12 +64,16 @@ using namespace std;
 
 // #include "debugger.h"
 
+#if 0
+
 #include "sv_unknown.xpm"
 #include "sv_class.xpm"
 #include "sv_function.xpm"
 #include "sv_macro.xpm"
 #include "sv_struct.xpm"
 #include "sv_variable.xpm"
+
+#endif
 
 // #define DEBUG
 
@@ -466,6 +470,7 @@ AnEditor::AnEditor(PropSetFile* p) {
 	/* Set default editor mode */
 	SendEditor(SCI_SETEOLMODE, SC_EOL_LF);
 
+#if 0
 	/* Register images to be used for autocomplete */
 	typedef struct {
 		int type;
@@ -492,6 +497,7 @@ AnEditor::AnEditor(PropSetFile* p) {
 		SendEditor(SCI_REGISTERIMAGE, (long) pix_list[i].type
 		  , reinterpret_cast<long>(pix_list[i].xpm_data));
 	}
+#endif
 }
 
 void

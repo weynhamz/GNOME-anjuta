@@ -104,6 +104,8 @@ on_close_project (GtkAction *action, ProjectManagerPlugin *plugin)
 		plugin->project = NULL;
 		g_object_set (G_OBJECT (plugin->model), "project", NULL, NULL);
 		update_ui (plugin);
+		anjuta_shell_remove_value (ANJUTA_PLUGIN (plugin)->shell,
+								   "project_root_uri", NULL);
 	}
 }
 

@@ -1,14 +1,14 @@
 # Plugin glade file
-anjuta_gladedir = $(prefix)/@NO_PREFIX_PACKAGE_DATA_DIR@/glade
-anjuta_glade_DATA =  anjuta-document-manager.glade
+editor_gladedir = $(anjuta_glade_dir)
+editor_glade_DATA = anjuta-document-manager.glade
 
 # Plugin UI file
-anjuta_uidir = $(prefix)/@NO_PREFIX_PACKAGE_DATA_DIR@/ui
-anjuta_ui_DATA =  anjuta-document-manager.ui
+editor_uidir = $(anjuta_ui_dir)
+editor_ui_DATA = anjuta-document-manager.ui
 
 # Plugin pixmaps
-plugin_pixmapsdir = $(prefix)/@NO_PREFIX_PACKAGE_PIXMAPS_DIR@
-plugin_pixmaps_DATA = \
+editor_pixmapsdir = $(anjuta_image_dir)
+editor_pixmaps_DATA = \
 	anjuta-document-manager.png \
 	preferences-editor.png \
 	undock.png \
@@ -31,7 +31,7 @@ plugin_pixmaps_DATA = \
 	bookmark-first.png \
 	bookmark-prev-16.png \
 	bookmark-prev.png \
-    bookmark-next-16.png \
+	bookmark-next-16.png \
 	bookmark-next.png \
 	bookmark-last-16.png \
 	bookmark-last.png \
@@ -41,27 +41,29 @@ plugin_pixmaps_DATA = \
 plugin_in_files = anjuta-document-manager.plugin.in
 %.plugin: %.plugin.in $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*po) ; $(INTLTOOL_MERGE) $(top_srcdir)/po $< $@ -d -u -c $(top_builddir)/po/.intltool-merge-cache
 
-anjuta_plugindir = $(prefix)/@NO_PREFIX_PACKAGE_PLUGIN_DIR@
-anjuta_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
+editor_plugindir = $(anjuta_plugin_dir)
+editor_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
 
-plugindir = $(prefix)/@NO_PREFIX_PACKAGE_PLUGIN_DIR@
+plugindir = $(anjuta_plugin_dir)
 plugin_LTLIBRARIES = libanjuta-editor.la
 
 INCLUDES = \
 	$(WARN_CFLAGS) \
-	$(PCRE_CFLAGS)\
 	$(DEPRECATED_FLAGS) \
+	$(PCRE_CFLAGS) \
+	$(GNOME_PRINT_UI_CFLAGS) \
 	$(LIBANJUTA_CFLAGS) \
 	-I$(top_builddir)/scintilla/include \
-	-I$(top_builddir)/tagmanager/include \
-	-I$(top_builddir)/pixmaps
+	-I$(top_builddir)/tagmanager/include
+
+#	-I$(top_builddir)/pixmaps
 
 libanjuta_editor_la_LIBADD = \
+	$(PCRE_LIBS) \
+	$(GNOME_PRINT_UI_LIBS) \
 	$(LIBANJUTA_LIBS) \
-	$(top_builddir)/libanjuta/libanjuta.la \
-	$(top_builddir)/libanjuta/interfaces/libanjuta-interfaces.la \
 	$(top_builddir)/scintilla/libanjuta-scintilla.la \
-        $(top_builddir)/tagmanager/libanjuta-ctags.la
+	$(top_builddir)/tagmanager/libanjuta-ctags.la
 
 libanjuta_editor_la_SOURCES= \
 	properties.cxx \
@@ -97,7 +99,8 @@ libanjuta_editor_la_SOURCES= \
 	print.h
 
 EXTRA_DIST = \
-	$(plugin_pixmaps_DATA) \
+	$(editor_pixmaps_DATA) \
 	$(plugin_in_files) \
-	$(anjuta_plugin_DATA) \
-	$(anjuta_ui_DATA)
+	$(editor_plugin_DATA) \
+	$(editor_ui_DATA) \
+	$(editor_glade_DATA)

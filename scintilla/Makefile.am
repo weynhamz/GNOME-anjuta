@@ -4,7 +4,9 @@ SUBDIRS = include
 
 lib_LTLIBRARIES = libanjuta-scintilla.la
 
-INCLUDES = -I$(srcdir)/include $(GTK_CFLAGS)
+INCLUDES = \
+	$(GTK_CFLAGS) \
+	-I$(srcdir)/include
 
 AM_CXXFLAGS = -DGTK -DSCI_LEXER -DUSE_XIM
 
@@ -57,11 +59,14 @@ libanjuta_scintilla_la_SOURCES =\
 	scintilla-marshal.c\
 	$(LEXER_SRCS)
 
+libanjuta_scintilla_la_LIBADD = \
+	$(GTHREAD_LIBS) \
+	$(GTK_LIBS)
+
 noinst_PROGRAMS = test-scintilla
 test_scintilla_CXXFLAGS = -DGTK
 test_scintilla_SOURCES = test-scintilla.cxx
 test_scintilla_LDADD = \
-	$(ANJUTA_LIBS) \
 	$(top_builddir)/scintilla/libanjuta-scintilla.la \
 	@LIBICONV@
 test_scintilla_DEPENDENCIES = $(top_builddir)/scintilla/libanjuta-scintilla.la

@@ -1,27 +1,17 @@
-# Sample Makefile for a anjuta plugin.
-
 # Plugin UI file
-anjuta_uidir = $(prefix)/@NO_PREFIX_PACKAGE_DATA_DIR@/ui
-anjuta_ui_DATA =  anjuta-loader-plugin.ui
+loader_uidir = $(anjuta_ui_dir)
+loader_ui_DATA =  anjuta-loader-plugin.ui
 
 # Plugin Icon file
-plugin_icondir = $(prefix)/@NO_PREFIX_PACKAGE_PIXMAPS_DIR@
-plugin_icon_DATA = anjuta-loader-plugin.png
+loader_pixmapsdir = $(anjuta_image_dir)
+loader_pixmaps_DATA = anjuta-loader-plugin.png
 
 # Plugin description file
 plugin_in_files = anjuta-loader.plugin.in
 %.plugin: %.plugin.in $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*po) ; $(INTLTOOL_MERGE) $(top_srcdir)/po $< $@ -d -u -c $(top_builddir)/po/.intltool-merge-cache
 
-anjuta_plugindir = $(prefix)/@NO_PREFIX_PACKAGE_PLUGIN_DIR@
-anjuta_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
-
-# NOTE :
-# The naming convention is very intentional
-# We are forced to use the prefix 'lib' by automake and libtool
-#    There is probably a way to avoid it but it is not worth to effort
-#    to find out.
-# The 'anjuta_' prfix is a safety measure to avoid conflicts where the
-#    plugin 'libpython.so' needs to link with the real 'libpython.so'
+loader_plugindir = $(anjuta_plugin_dir)
+loader_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
 
 # Include paths
 INCLUDES = \
@@ -30,7 +20,7 @@ INCLUDES = \
 	$(LIBANJUTA_CFLAGS)
 
 # Where to install the plugin
-plugindir = $(prefix)/@NO_PREFIX_PACKAGE_PLUGIN_DIR@
+plugindir = $(anjuta_plugin_dir)
 
 # The plugin
 plugin_LTLIBRARIES = libanjuta-loader.la
@@ -38,14 +28,16 @@ plugin_LTLIBRARIES = libanjuta-loader.la
 # Plugin sources
 libanjuta_loader_la_SOURCES = plugin.c
 
+libanjuta_loader_la_LDFLAGS = -module
+
 libanjuta_loader_la_LIBADD = \
-	$(top_builddir)/libanjuta/libanjuta.la \
-	$(top_builddir)/libanjuta/interfaces/libanjuta-interfaces.la \
+	$(LIBANJUTA_LIBS)\
 	$(top_builddir)/libegg/libanjuta-egg.la
 
 # Plugin dependencies
 
 EXTRA_DIST = \
-	(plugin_in_files) \
-	$(anjuta_plugin_DATA) \
-	$(anjuta_ui_DATA)
+	$(plugin_in_files) \
+	$(loader_plugin_DATA) \
+	$(loader_ui_DATA) \
+	$(loader_pixmaps_DATA)

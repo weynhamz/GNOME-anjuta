@@ -283,7 +283,7 @@ void tray_init(GtkWidget *window)
 	 * the icon is a fixed size, I have no idea (yet) how to get the size of the tray widget, 
 	 * Withouth doing the drawing myself.
 	 */
-	pixbuf = gdk_pixbuf_new_from_file_at_size(PIXMAP_PATH"gtodo_tray.png", 20,20,NULL); 
+	pixbuf = gdk_pixbuf_new_from_file_at_size(PIXMAP_PATH"/gtodo_tray.png", 20,20,NULL); 
 	image = gtk_image_new_from_pixbuf(pixbuf);
 	g_object_unref(pixbuf);
 

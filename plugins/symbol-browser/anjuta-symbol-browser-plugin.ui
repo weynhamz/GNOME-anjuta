@@ -1,0 +1,9 @@
+<!--*- xml -*-->
+<ui>
+	<popup name="PopupSymbolBrowser">
+		<menuitem name="GotoDef" action="ActionPopupSymbolBrowserGotoDef"/>
+		<menuitem name="GotoDecl" action="ActionPopupSymbolBrowserGotoDecl"/>
+		<separator/>
+		<menuitem name="Refresh" action="ActionPopupSymbolBrowserRefresh"/>
+	</popup>
+</ui>

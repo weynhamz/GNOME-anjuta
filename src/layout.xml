@@ -9,6 +9,7 @@
 					<notebook orientation="vertical" locked="no" page="0">
 						<item name="AnjutaFileManager" orientation="horizontal" locked="no"/>
 						<item name="AnjutaProjectManager" orientation="horizontal" locked="no"/>
+						<item name="AnjutaSymbolBrowser" orientation="horizontal" locked="no"/>
 						<item name="AnjutaDevhelpIndex" orientation="horizontal" locked="no"/>
 					</notebook>
 					<notebook orientation="vertical" locked="no" page="0">
