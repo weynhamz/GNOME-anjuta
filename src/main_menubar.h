@@ -122,6 +122,7 @@ struct _ViewSubMenu
 	GtkWidget *editor_indentguides;
 	GtkWidget *editor_whitespaces;
 	GtkWidget *editor_eolchars;
+	GtkWidget *editor_linewrap;
 
 	GtkWidget *messages;
 	GtkWidget *project_listing;

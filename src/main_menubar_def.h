@@ -504,7 +504,7 @@ static GnomeUIInfo toolbar1_submenu_uiinfo[NUM_TOOLBAR_SUBMENUS+1] = {
 	GNOMEUIINFO_END/*5*/
 };
 
-#define NUM_EDITOR_SUBMENUS 6
+#define NUM_EDITOR_SUBMENUS 7
 static GnomeUIInfo editor1_submenu_uiinfo[NUM_EDITOR_SUBMENUS+1] = {
 	{/*0*/
 	 GNOME_APP_UI_TOGGLEITEM, N_("_Line numbers margin"),
@@ -542,7 +542,13 @@ static GnomeUIInfo editor1_submenu_uiinfo[NUM_EDITOR_SUBMENUS+1] = {
 	 on_editor_eolchars1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
-	GNOMEUIINFO_END/*6*/
+	{/*6*/
+	 GNOME_APP_UI_TOGGLEITEM, N_("Line _wrapping"),
+	 N_("Enable/disable line wrapping"),
+	 on_editor_linewrap1_activate, NULL, NULL,
+	 GNOME_APP_PIXMAP_NONE, NULL,
+	 0, 0, NULL},
+	GNOMEUIINFO_END/*7*/
 };
 
 #define NUM_ZOOMTEXT_SUBMENUS 11

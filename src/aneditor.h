@@ -44,7 +44,7 @@ extern "C" {
 
 #define   ANE_GETBLOCKSTARTLINE         ANE_COMMAND_BASE+9
 #define   ANE_GETBLOCKENDLINE           ANE_COMMAND_BASE+10
-#define   ANE_GETCURRENTWORD		ANE_COMMAND_BASE+11
+#define   ANE_GETCURRENTWORD            ANE_COMMAND_BASE+11
           /* 12 => Reserved */
 #define   ANE_MATCHBRACE                ANE_COMMAND_BASE+13
 #define   ANE_SELECTTOBRACE             ANE_COMMAND_BASE+14
@@ -94,6 +94,8 @@ extern "C" {
 #define   ANE_BOOKMARK_TOGGLE_LINE      ANE_COMMAND_BASE+58
 #define   ANE_GETLENGTH                 ANE_COMMAND_BASE+59
 #define   ANE_GET_LINENO                ANE_COMMAND_BASE+60
+#define   ANE_LINEWRAP                  ANE_COMMAND_BASE+61
+#define   ANE_READONLY                  ANE_COMMAND_BASE+62
 
 typedef guint AnEditorID;
 typedef struct _FindParameters FindParameters;

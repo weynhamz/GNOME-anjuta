@@ -160,7 +160,8 @@ protected:
 	int bracesStyle;
 	int braceCount;
 	SString sbValue;
-
+	bool wrapLine;
+	bool isReadOnly;
 
 	bool indentationWSVisible;
 
@@ -262,6 +263,8 @@ protected:
 	void SetAccelGroup(GtkAccelGroup* acl);
 	int GetBookmarkLine( const int nLineStart );
 	void DefineMarker(int marker, int makerType, Colour fore, Colour back);
+	void SetLineWrap(bool wrap);
+	void SetReadOnly(bool readonly);
 	
 public:
 
@@ -296,6 +299,8 @@ AnEditor::AnEditor(PropSetFile* p) {
 	indentClosing = true;
 	statementLookback = 10;
 
+	wrapLine = true;
+	isReadOnly = false;
 	fnEditor = 0;
 	ptrEditor = 0;
 	fnOutput = 0;
@@ -1461,7 +1466,15 @@ long AnEditor::Command(int cmdID, long wParam, long lParam) {
 
 	case ANE_GET_LINENO:
 		return GetCurrentLineNumber();
-
+	
+	case ANE_LINEWRAP:
+		SetLineWrap((bool)wParam);
+		break;
+	
+	case ANE_READONLY:
+		SetReadOnly((bool)wParam);
+		break;
+	
 	default:
 		break;
 	}
@@ -1613,6 +1626,17 @@ void AnEditor::EnsureRangeVisible(int posStart, int posEnd) {
 	for (int line = lineStart; line <= lineEnd; line++) {
 		SendEditor(SCI_ENSUREVISIBLE, line);
 	}
+}
+
+void AnEditor::SetLineWrap(bool wrap) {
+	wrapLine = wrap;
+	SendEditor(SCI_SETWRAPMODE, wrapLine ? SC_WRAP_WORD : SC_WRAP_NONE);
+	SendEditor(SCI_SETHSCROLLBAR, !wrapLine);
+}
+
+void AnEditor::SetReadOnly(bool readonly) {
+	isReadOnly = readonly;
+	SendEditor(SCI_SETREADONLY, isReadOnly);
 }
 
 bool AnEditor::MarginClick(int position, int modifiers) {
@@ -2108,8 +2132,6 @@ void AnEditor::ReadProperties(const char *fileForExt) {
 		AssignKey(SCK_HOME, 0, SCI_HOME);
 		AssignKey(SCK_HOME, SCMOD_SHIFT, SCI_HOMEEXTEND);
 	}
-	SendEditor(SCI_SETHSCROLLBAR, props->GetInt("horizontal.scrollbar", 1));
-
 	SendEditor(SCI_SETFOLDFLAGS, props->GetInt("fold.flags"));
 
 	// To put the folder markers in the line number region
@@ -2180,6 +2202,9 @@ void AnEditor::ReadPropertiesInitial() {
 	ViewWhitespace(props->GetInt("view.whitespace"));
 	SendEditor(SCI_SETINDENTATIONGUIDES, props->GetInt("view.indentation.guides"));
 	SendEditor(SCI_SETVIEWEOL, props->GetInt("view.eol"));
+
+	SetReadOnly(props->GetInt("file.readonly", 0));
+	SetLineWrap(props->GetInt("view.line.wrap", 1));
 
 	lineNumbersWidth = 0;
 	SString linenums = props->Get("margin.linenumber.width");

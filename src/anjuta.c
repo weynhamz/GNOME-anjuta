@@ -788,7 +788,11 @@ anjuta_show ()
 					 editor_eolchars), prop_get_int (pr,
 									 "view.eol",
 									 0));
-
+	gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM
+					(app->widgets.menubar.view.
+					 editor_linewrap), prop_get_int (pr,
+									 "view.line.wrap",
+									 1));
 
 	/* Hide all toolbars, since corresponding toggle menu items */
 	/* (in the View submenu) are all initially off */
@@ -916,6 +920,8 @@ gboolean anjuta_save_yourself (FILE * stream)
 		 prop_get_int (pr, "view.whitespace", 0));
 	fprintf (stream, "view.indentation.whitespace=%d\n",
 		 prop_get_int (pr, "view.indentation.whitespace", 0));
+	fprintf (stream, "view.line.wrap=%d\n",
+		 prop_get_int (pr, "view.line.wrap", 1));
 	fprintf (stream, "margin.linenumber.visible=%d\n",
 		 prop_get_int (pr, "margin.linenumber.visible", 0));
 	fprintf (stream, "margin.marker.visible=%d\n",

@@ -257,6 +257,8 @@ void
 on_editor_whitespaces1_activate (GtkMenuItem * menuitem, gpointer user_data);
 void
 on_editor_eolchars1_activate (GtkMenuItem * menuitem, gpointer user_data);
+void
+on_editor_linewrap1_activate (GtkMenuItem * menuitem, gpointer user_data);
 
 /***********************************************************/
 void

@@ -926,6 +926,23 @@ on_editor_eolchars1_activate (GtkMenuItem * menuitem, gpointer user_data)
 	}
 }
 
+void
+on_editor_linewrap1_activate (GtkMenuItem * menuitem, gpointer user_data)
+{
+	gboolean state;
+	GList *node;
+	TextEditor *te;
+	state = GTK_CHECK_MENU_ITEM (menuitem)->active;
+	preferences_set_int (app->preferences, "view.line.wrap", state);
+	node = app->text_editor_list;
+	while (node)
+	{
+		te = (TextEditor *) (node->data);
+		aneditor_command (te->editor_id, ANE_LINEWRAP, state, 0);
+		node = g_list_next (node);
+	}
+}
+
 /************************************************************************/
 void
 on_zoom_text_plus_activate (GtkMenuItem * menuitem, gpointer user_data)

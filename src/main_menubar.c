@@ -114,6 +114,7 @@ create_main_menubar (GtkWidget * ap, MainMenuBar * mb)
 	mb->view.editor_indentguides = editor1_submenu_uiinfo[3].widget;
 	mb->view.editor_whitespaces = editor1_submenu_uiinfo[4].widget;
 	mb->view.editor_eolchars = editor1_submenu_uiinfo[5].widget;
+	mb->view.editor_linewrap = editor1_submenu_uiinfo[6].widget;
 	mb->view.messages = view1_menu_uiinfo[0].widget;
 	mb->view.project_listing = view1_menu_uiinfo[1].widget;
 	mb->view.bookmarks = view1_menu_uiinfo[2].widget;

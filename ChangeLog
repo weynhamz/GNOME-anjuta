@@ -3,6 +3,13 @@
 	* scintilla/*, scintilla/include/*: Upgraded to the vanilla
 	scintilla 1.46
 	
+	* src/aneditor.cxx, src/aneditor.h, src/main_menubar.h, src/main_menubar.h,
+	src/mainmenu_callbacks.c, src/mainmenu_callbacks.h, main_menubar_def.h,
+	src/anjuta.c, data/properties/anjuta.properties:
+	Implemented line wrapping.
+	
+	* src/aneditor.cxx, src/aneditor.h:	Implemented Readonly file mode.
+	
 2002-05-27	Jean-Noel Guiheneuf	<jnoel@saudionline.com.sa>
 
 	* src/project_import_gui.c: disallow allow the selection of files in
