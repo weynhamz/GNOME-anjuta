@@ -1,10 +1,12 @@
 *.gmo
+*.mo
+*.pot
 .*swp
 *~
 cat-id-tbl.c
 stamp-cat-id
-anjuta.pot
 messages
+missing
 POTFILES
 Makefile
 Makefile.in
