@@ -1,5 +1,11 @@
 2001-12-20	Andy Piper	<andy.piper@freeuk.com>
 
+	* pixmaps/Makefile.am, pixmaps/appwiz_*.png: new images from Misha
+	* src/pixmaps.h: switch appwizard project icons to new designs
+	* pixmaps/appwid*xpm, pixmaps/gear.xpm: removed unused graphics
+
+2001-12-20	Andy Piper	<andy.piper@freeuk.com>
+
 	* pixmaps/Makefile.am: stop redundant images from being installed.
 	  The next step will be to remove them completely.
 	* src/appwiz*: further updates (more to come)

@@ -2,7 +2,7 @@
 
 ## Created by Anjuta - will be overwritten
 ## If you don't want it to overwrite it,
-## 	Please disable it in the Anjuta project configuration
+## Please disable it in the Anjuta project configuration
 
 anjuta_pixmapsdir = $(prefix)/@NO_PREFIX_PACKAGE_PIXMAPS_DIR@
 
@@ -12,15 +12,13 @@ anjuta_pixmaps_DATA = \
 	anjuta_logo.png\
 	anjuta_splash.png\
 	applogo.png\
-	appwid_blank.xpm\
-	appwid_cd.xpm\
-	appwid_console.xpm\
-	appwid_data.xpm\
-	appwid_draw.xpm\
-	appwid_gear.xpm\
-	appwid_wid.xpm\
 	appwizard.png\
 	appwiz_bonobo.png\
+	appwiz_gnome.png\
+	appwiz_gnomemm.png\
+	appwiz_gtk.png\
+	appwiz_gtkmm.png\
+	appwiz_terminal.png\
 	autocomplete.xpm\
 	bfoldc.xpm\
 	bfoldo.xpm\
