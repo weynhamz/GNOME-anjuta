@@ -481,6 +481,7 @@ project_dbase_clear (ProjectDBase * p)
 	p->is_saved = TRUE;
 	p->m_prj_ShowLocal	= SHOW_LOCALS_DEFAULT ;
 	extended_toolbar_update ();
+	anjuta_update_app_status (FALSE, NULL);
 }
 
 void
