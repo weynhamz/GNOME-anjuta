@@ -175,7 +175,7 @@ anjuta_launcher_get_type ()
 			(GClassInitFunc) anjuta_launcher_class_init,
 			(GClassFinalizeFunc) NULL,
 			NULL,           /* class_data */
-			sizeof (AnjutaLauncherClass),
+			sizeof (AnjutaLauncher),
 			0,              /* n_preallocs */
 			(GInstanceInitFunc) anjuta_launcher_init,
 			NULL            /* value_table */
