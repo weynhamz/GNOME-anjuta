@@ -289,6 +289,8 @@ on_save_as_overwrite_yes_clicked (GtkButton * button, gpointer user_data)
 		text_editor_set_hilite_type(te);
 		if (te->mode == TEXT_EDITOR_PAGED)
 		{
+			GtkLabel* label;
+			
 			page_num =
 				gtk_notebook_get_current_page (GTK_NOTEBOOK
 								   (app->widgets.notebook));
@@ -296,9 +298,13 @@ on_save_as_overwrite_yes_clicked (GtkButton * button, gpointer user_data)
 			child =
 				gtk_notebook_get_nth_page (GTK_NOTEBOOK
 							   (app->widgets.notebook), page_num);
-			gtk_notebook_set_tab_label_text (GTK_NOTEBOOK (app->widgets.notebook),
+			/* gtk_notebook_set_tab_label_text (GTK_NOTEBOOK (app->widgets.notebook),
 							 child,
 							 anjuta_get_notebook_text_editor
+							 (page_num)->filename);
+			*/
+			label = gtk_object_get_data (GTK_OBJECT(child), "NotebookLabel");
+			gtk_label_set_text(GTK_LABEL(label), anjuta_get_notebook_text_editor
 							 (page_num)->filename);
 		}
 	}

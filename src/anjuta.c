@@ -252,6 +252,7 @@ anjuta_append_text_editor (gchar * filename)
 	{
 	case TEXT_EDITOR_PAGED:
 		label = gtk_label_new (te->filename);
+		gtk_object_ref (GTK_OBJECT(label));
 		te->widgets.tab_label = label;
 		gtk_widget_show (label);
 		
@@ -273,6 +274,10 @@ anjuta_append_text_editor (gchar * filename)
 		/* For your kind info, this same data is also set in */
 		/* the function on_text_editor_dock_activated() */
 		gtk_object_set_data (GTK_OBJECT (eventbox), "TextEditor", te);
+		
+		/* This label data is used to update the page tab later */
+		gtk_object_set_data_full (GTK_OBJECT (eventbox),
+				"NotebookLabel", label, gtk_object_unref);
 
 		if (te->full_filename)
 			buff =

@@ -1,5 +1,12 @@
 2002-01-03  Naba Kumar <kh_naba@users.sourceforge.net>
 
+	* src/anjuta.c
+	  src/anjuta_cbs.c:
+	  Fixed Crashing of anjuta when a new file is saved as
+	  different file.
+	  
+2002-01-03  Naba Kumar <kh_naba@users.sourceforge.net>
+
 	* src/aneditor.c: Some debug codes around.
 	
 	* data/internal.properties, data/anjuta.properties: Removed.
@@ -36,6 +43,8 @@
 
 	* src/preferences.c: preferences_new(): Updated to reflect the
 	  new properties files organization.
+	  
+	* src/Makefile.am: Added Baan Lexer.
 
 2002-01-01  Stephane Demurget  <demurgets@free.fr>
 
