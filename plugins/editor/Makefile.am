@@ -69,8 +69,12 @@ libanjuta_editor_la_SOURCES= \
 	properties.cxx \
 	properties.h \
 	properties_cxx.h \
-	aneditor.cxx \
 	aneditor.h \
+	aneditor-priv.h \
+	aneditor.cxx \
+	aneditor-autocomplete.cxx \
+	aneditor-calltip.cxx \
+	aneditor-indent.cxx \
 	text_editor_prefs.c \
 	text_editor_prefs.h \
 	text_editor.c \

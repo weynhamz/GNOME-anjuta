@@ -1,3 +1,13 @@
+2005-02-16  Naba Kumar  <naba@gnome.org>
+
+	* plugins/editor/Makefile.am,
+	(added) plugins/editor/aneditor-autocomplete.cxx,
+	(added) plugins/editor/aneditor-calltip.cxx,
+	(added) plugins/editor/aneditor-indent.cxx,
+	(added) plugins/editor/aneditor-priv.h,
+	plugins/editor/aneditor.cxx: Split aneditor.cxx file into
+	different smaller chunks to make it easy to maintain.
+
 2005-02-16  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
 
 	* plugins/project-wizard/druid.c :
