@@ -551,6 +551,8 @@ manuals/C/Makefile
 manuals/C/anjuta-tutorial/Makefile
 manuals/C/anjuta-faqs/Makefile
 manuals/C/anjuta-manual/Makefile
+manuals/de/Makefile
+manuals/de/anjuta-tutorial/Makefile
 manuals/ja/Makefile
 manuals/ja/anjuta-faqs/Makefile
 manuals/ja/anjuta-manual/Makefile

@@ -1,3 +1,28 @@
+2003-11-10  Naba Kumar  <naba@gnome.org>
+
+	* anjuta.glade, anjuta_dialogs_strings.c: Fixed typos in
+	'Start with dialog'.
+
+	* configure.in, manuals/Makefile.in, manuals/de/* (new): Added
+	German translation of anjuta-tutorial.
+
+2003-11-10  Jean-Noel Guiheneuf   <jnoel@saudionline.com.sa>
+
+	* src/breakpoints.c, src/project_dbase.c, src/text_editor.c:
+	Fixes the Bug #823249, Fixes the Bug #713229 When the user enables
+	the syntax highlighting in Preferences, the automatic syntax
+	highlighting is now selected. When the debugger is stopped and the
+	breakpoints window not closed, the gtk_tree_view in this window is
+	now made unsensitive.
+
+2003-11-07  Johannes Schmid  <clubfan@users.sourceforge.net>
+
+	* src/preferences.h, src/preferences.c, anjuta.glade:
+	Fixed translation bug in preferences by using GtkOptionMenu
+	* anjuta.prj: Project version 1.1.98
+
+---------------- Released version 1.1.98 ----------------
+
 2003-11-07  Naba Kumar  <naba@gnome.org>
 
 	* anjuta.spec.in: Revived docs package and combined all docs into

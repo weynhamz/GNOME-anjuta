@@ -853,7 +853,8 @@ project_dbase_save_project (ProjectDBase * p)
 error_show:
 	if (str) g_free (str);
 	anjuta_system_error (errno, _("Unable to save the Project."));
-	fclose (fp);
+	if (fp)
+		fclose (fp);
 	anjuta_status (_("Unable to save the Project."));
 	anjuta_set_active ();
 	p->is_saved = FALSE;

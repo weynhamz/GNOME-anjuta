@@ -12439,39 +12439,56 @@
 		      </child>
 
 		      <child>
-			<widget class="GtkCombo" id="preferences_combo:list:Arrows,Plus/Minus,Circular,Squares:0:combo1">
+			<widget class="GtkOptionMenu" id="preferences_menu:text:Plus/Minus,Arrows,Circular,Squares:0:fold.symbols.style">
 			  <property name="visible">True</property>
-			  <property name="value_in_list">True</property>
-			  <property name="allow_empty">False</property>
-			  <property name="case_sensitive">False</property>
-			  <property name="enable_arrow_keys">True</property>
-			  <property name="enable_arrows_always">False</property>
+			  <property name="can_focus">True</property>
+			  <property name="history">0</property>
 
-			  <child internal-child="entry">
-			    <widget class="GtkEntry" id="preferences_entry:text:Plus/Minus:0:fold.symbols.style">
-			      <property name="visible">True</property>
-			      <property name="can_focus">True</property>
-			      <property name="editable">False</property>
-			      <property name="visibility">True</property>
-			      <property name="max_length">0</property>
-			      <property name="text" translatable="yes"></property>
-			      <property name="has_frame">True</property>
-			      <property name="invisible_char" translatable="yes">*</property>
-			      <property name="activates_default">False</property>
-			    </widget>
-			  </child>
+			  <child>
+			    <widget class="GtkMenu" id="menu3">
 
-			  <child internal-child="list">
-			    <widget class="GtkList" id="combo-list26">
-			      <property name="visible">True</property>
-			      <property name="selection_mode">GTK_SELECTION_BROWSE</property>
+			      <child>
+				<widget class="GtkMenuItem" id="plus/minus1">
+				  <property name="visible">True</property>
+				  <property name="label" translatable="yes">Plus/Minus</property>
+				  <property name="use_underline">True</property>
+				  <signal name="activate" handler="on_plus/minus1_activate" last_modification_time="Fri, 07 Nov 2003 14:47:46 GMT"/>
+				</widget>
+			      </child>
+
+			      <child>
+				<widget class="GtkMenuItem" id="arrows1">
+				  <property name="visible">True</property>
+				  <property name="label" translatable="yes">Arrows</property>
+				  <property name="use_underline">True</property>
+				  <signal name="activate" handler="on_arrows1_activate" last_modification_time="Fri, 07 Nov 2003 14:47:46 GMT"/>
+				</widget>
+			      </child>
+
+			      <child>
+				<widget class="GtkMenuItem" id="circular1">
+				  <property name="visible">True</property>
+				  <property name="label" translatable="yes">Circular</property>
+				  <property name="use_underline">True</property>
+				  <signal name="activate" handler="on_circular1_activate" last_modification_time="Fri, 07 Nov 2003 14:47:46 GMT"/>
+				</widget>
+			      </child>
+
+			      <child>
+				<widget class="GtkMenuItem" id="squares1">
+				  <property name="visible">True</property>
+				  <property name="label" translatable="yes">Squares</property>
+				  <property name="use_underline">True</property>
+				  <signal name="activate" handler="on_squares1_activate" last_modification_time="Fri, 07 Nov 2003 14:47:46 GMT"/>
+				</widget>
+			      </child>
 			    </widget>
 			  </child>
 			</widget>
 			<packing>
 			  <property name="padding">0</property>
-			  <property name="expand">True</property>
-			  <property name="fill">True</property>
+			  <property name="expand">False</property>
+			  <property name="fill">False</property>
 			</packing>
 		      </child>
 		    </widget>
@@ -12973,39 +12990,56 @@
 		      </child>
 
 		      <child>
-			<widget class="GtkCombo" id="preferences_combo:list:Top,Bottom,Left,Right:0:combo2">
+			<widget class="GtkOptionMenu" id="preferences_menu:text:Top,Bottom,Left,Right:0:editor.tabs.pos">
 			  <property name="visible">True</property>
-			  <property name="value_in_list">True</property>
-			  <property name="allow_empty">False</property>
-			  <property name="case_sensitive">False</property>
-			  <property name="enable_arrow_keys">True</property>
-			  <property name="enable_arrows_always">False</property>
+			  <property name="can_focus">True</property>
+			  <property name="history">0</property>
 
-			  <child internal-child="entry">
-			    <widget class="GtkEntry" id="preferences_entry:text:Top:0:editor.tabs.pos">
-			      <property name="visible">True</property>
-			      <property name="can_focus">True</property>
-			      <property name="editable">False</property>
-			      <property name="visibility">True</property>
-			      <property name="max_length">0</property>
-			      <property name="text" translatable="yes"></property>
-			      <property name="has_frame">True</property>
-			      <property name="invisible_char" translatable="yes">*</property>
-			      <property name="activates_default">False</property>
-			    </widget>
-			  </child>
+			  <child>
+			    <widget class="GtkMenu" id="menu2">
 
-			  <child internal-child="list">
-			    <widget class="GtkList" id="combo-list18">
-			      <property name="visible">True</property>
-			      <property name="selection_mode">GTK_SELECTION_BROWSE</property>
+			      <child>
+				<widget class="GtkMenuItem" id="top1">
+				  <property name="visible">True</property>
+				  <property name="label" translatable="yes">Top</property>
+				  <property name="use_underline">True</property>
+				  <signal name="activate" handler="on_top1_activate" last_modification_time="Fri, 07 Nov 2003 14:46:00 GMT"/>
+				</widget>
+			      </child>
+
+			      <child>
+				<widget class="GtkMenuItem" id="bottom1">
+				  <property name="visible">True</property>
+				  <property name="label" translatable="yes">Bottom</property>
+				  <property name="use_underline">True</property>
+				  <signal name="activate" handler="on_bottom1_activate" last_modification_time="Fri, 07 Nov 2003 14:46:00 GMT"/>
+				</widget>
+			      </child>
+
+			      <child>
+				<widget class="GtkMenuItem" id="left1">
+				  <property name="visible">True</property>
+				  <property name="label" translatable="yes">Left</property>
+				  <property name="use_underline">True</property>
+				  <signal name="activate" handler="on_left1_activate" last_modification_time="Fri, 07 Nov 2003 14:46:00 GMT"/>
+				</widget>
+			      </child>
+
+			      <child>
+				<widget class="GtkMenuItem" id="right1">
+				  <property name="visible">True</property>
+				  <property name="label" translatable="yes">Right</property>
+				  <property name="use_underline">True</property>
+				  <signal name="activate" handler="on_right1_activate" last_modification_time="Fri, 07 Nov 2003 14:46:00 GMT"/>
+				</widget>
+			      </child>
 			    </widget>
 			  </child>
 			</widget>
 			<packing>
 			  <property name="padding">0</property>
-			  <property name="expand">True</property>
-			  <property name="fill">True</property>
+			  <property name="expand">False</property>
+			  <property name="fill">False</property>
 			</packing>
 		      </child>
 		    </widget>
@@ -13355,33 +13389,76 @@
 	      <property name="shadow_type">GTK_SHADOW_ETCHED_IN</property>
 
 	      <child>
-		<widget class="GtkCombo" id="preferences_combo:list:Custom style,GNU coding style,Kernighan and Ritchie style,Original Berkeley style,Style of Kangleipak,Hello World style,Crazy boy style:0:combo2">
-		  <property name="border_width">5</property>
+		<widget class="GtkOptionMenu" id="preferences_menu:text:Style of Kangleipak,Costom style,GNU coding style,Kernighan and Ritchie style,Original Berkeley style,Hello World stlye,Crazy boy style:1:autoformat.style">
 		  <property name="visible">True</property>
-		  <property name="value_in_list">True</property>
-		  <property name="allow_empty">True</property>
-		  <property name="case_sensitive">True</property>
-		  <property name="enable_arrow_keys">True</property>
-		  <property name="enable_arrows_always">False</property>
+		  <property name="can_focus">True</property>
+		  <property name="history">0</property>
 
-		  <child internal-child="entry">
-		    <widget class="GtkEntry" id="preferences_entry:text:Style of Kangleipak:1:autoformat.style">
-		      <property name="visible">True</property>
-		      <property name="can_focus">True</property>
-		      <property name="editable">False</property>
-		      <property name="visibility">True</property>
-		      <property name="max_length">0</property>
-		      <property name="text" translatable="yes">Custom style,GNU coding style,Kernighan and Ritchie style,Original Berkeley style,Style of Kangleipak,Hello World style,Crazy boy style</property>
-		      <property name="has_frame">True</property>
-		      <property name="invisible_char" translatable="yes">*</property>
-		      <property name="activates_default">False</property>
-		    </widget>
-		  </child>
+		  <child>
+		    <widget class="GtkMenu" id="menu4">
 
-		  <child internal-child="list">
-		    <widget class="GtkList" id="combo-list19">
-		      <property name="visible">True</property>
-		      <property name="selection_mode">GTK_SELECTION_BROWSE</property>
+		      <child>
+			<widget class="GtkMenuItem" id="style_of_kangleipak1">
+			  <property name="visible">True</property>
+			  <property name="label" translatable="yes">Style of Kangleipak</property>
+			  <property name="use_underline">True</property>
+			  <signal name="activate" handler="on_style_of_kangleipak1_activate" last_modification_time="Fri, 07 Nov 2003 14:53:05 GMT"/>
+			</widget>
+		      </child>
+
+		      <child>
+			<widget class="GtkMenuItem" id="costom_style1">
+			  <property name="visible">True</property>
+			  <property name="label" translatable="yes">Costom style</property>
+			  <property name="use_underline">True</property>
+			  <signal name="activate" handler="on_costom_style1_activate" last_modification_time="Fri, 07 Nov 2003 14:53:05 GMT"/>
+			</widget>
+		      </child>
+
+		      <child>
+			<widget class="GtkMenuItem" id="gnu_coding_style1">
+			  <property name="visible">True</property>
+			  <property name="label" translatable="yes">GNU coding style</property>
+			  <property name="use_underline">True</property>
+			  <signal name="activate" handler="on_gnu_coding_style1_activate" last_modification_time="Fri, 07 Nov 2003 14:53:05 GMT"/>
+			</widget>
+		      </child>
+
+		      <child>
+			<widget class="GtkMenuItem" id="kernighan_and_ritchie_style1">
+			  <property name="visible">True</property>
+			  <property name="label" translatable="yes">Kernighan and Ritchie style</property>
+			  <property name="use_underline">True</property>
+			  <signal name="activate" handler="on_kernighan_and_ritchie_style1_activate" last_modification_time="Fri, 07 Nov 2003 14:53:05 GMT"/>
+			</widget>
+		      </child>
+
+		      <child>
+			<widget class="GtkMenuItem" id="original_berkeley_style1">
+			  <property name="visible">True</property>
+			  <property name="label" translatable="yes">Original Berkeley style</property>
+			  <property name="use_underline">True</property>
+			  <signal name="activate" handler="on_original_berkeley_style1_activate" last_modification_time="Fri, 07 Nov 2003 14:53:05 GMT"/>
+			</widget>
+		      </child>
+
+		      <child>
+			<widget class="GtkMenuItem" id="hello_world_style1">
+			  <property name="visible">True</property>
+			  <property name="label" translatable="yes">Hello World style</property>
+			  <property name="use_underline">True</property>
+			  <signal name="activate" handler="on_hello_world_style1_activate" last_modification_time="Fri, 07 Nov 2003 14:53:05 GMT"/>
+			</widget>
+		      </child>
+
+		      <child>
+			<widget class="GtkMenuItem" id="crazy_boy_style1">
+			  <property name="visible">True</property>
+			  <property name="label" translatable="yes">Crazy boy style</property>
+			  <property name="use_underline">True</property>
+			  <signal name="activate" handler="on_crazy_boy_style1_activate" last_modification_time="Fri, 07 Nov 2003 14:53:05 GMT"/>
+			</widget>
+		      </child>
 		    </widget>
 		  </child>
 		</widget>
@@ -13984,32 +14061,49 @@
 	      </child>
 
 	      <child>
-		<widget class="GtkCombo" id="preferences_combo:list:Top,Bottom,Left,Right:0:combo9">
+		<widget class="GtkOptionMenu" id="preferences_menu:text:Top,Bottom,Left,Right:0:messages.tag.position">
 		  <property name="visible">True</property>
-		  <property name="value_in_list">True</property>
-		  <property name="allow_empty">False</property>
-		  <property name="case_sensitive">False</property>
-		  <property name="enable_arrow_keys">True</property>
-		  <property name="enable_arrows_always">False</property>
+		  <property name="can_focus">True</property>
+		  <property name="history">0</property>
 
-		  <child internal-child="entry">
-		    <widget class="GtkEntry" id="preferences_entry:text:Bottom:0:messages.tag.position">
-		      <property name="visible">True</property>
-		      <property name="can_focus">True</property>
-		      <property name="editable">False</property>
-		      <property name="visibility">True</property>
-		      <property name="max_length">0</property>
-		      <property name="text" translatable="yes"></property>
-		      <property name="has_frame">True</property>
-		      <property name="invisible_char" translatable="yes">*</property>
-		      <property name="activates_default">False</property>
-		    </widget>
-		  </child>
+		  <child>
+		    <widget class="GtkMenu" id="menu5">
 
-		  <child internal-child="list">
-		    <widget class="GtkList" id="combo-list21">
-		      <property name="visible">True</property>
-		      <property name="selection_mode">GTK_SELECTION_BROWSE</property>
+		      <child>
+			<widget class="GtkMenuItem" id="top2">
+			  <property name="visible">True</property>
+			  <property name="label" translatable="yes">Top</property>
+			  <property name="use_underline">True</property>
+			  <signal name="activate" handler="on_top2_activate" last_modification_time="Fri, 07 Nov 2003 14:54:30 GMT"/>
+			</widget>
+		      </child>
+
+		      <child>
+			<widget class="GtkMenuItem" id="bottom2">
+			  <property name="visible">True</property>
+			  <property name="label" translatable="yes">Bottom</property>
+			  <property name="use_underline">True</property>
+			  <signal name="activate" handler="on_bottom2_activate" last_modification_time="Fri, 07 Nov 2003 14:54:30 GMT"/>
+			</widget>
+		      </child>
+
+		      <child>
+			<widget class="GtkMenuItem" id="left2">
+			  <property name="visible">True</property>
+			  <property name="label" translatable="yes">Left</property>
+			  <property name="use_underline">True</property>
+			  <signal name="activate" handler="on_left2_activate" last_modification_time="Fri, 07 Nov 2003 14:54:30 GMT"/>
+			</widget>
+		      </child>
+
+		      <child>
+			<widget class="GtkMenuItem" id="right2">
+			  <property name="visible">True</property>
+			  <property name="label" translatable="yes">Right</property>
+			  <property name="use_underline">True</property>
+			  <signal name="activate" handler="on_right2_activate" last_modification_time="Fri, 07 Nov 2003 14:54:30 GMT"/>
+			</widget>
+		      </child>
 		    </widget>
 		  </child>
 		</widget>
@@ -14163,32 +14257,58 @@
 	      </child>
 
 	      <child>
-		<widget class="GtkCombo" id="preferences_combo:list:Underline-Plain,Underline-Squiggle,Underline-TT,Diagonal,Strike-Out:0:combo21">
+		<widget class="GtkOptionMenu" id="preferences_menu:text:Underline-Plain,Underline-Squiggle,Underline-TT,Diagonal,Strike-Out:0:indicators.style.normal">
 		  <property name="visible">True</property>
-		  <property name="value_in_list">True</property>
-		  <property name="allow_empty">False</property>
-		  <property name="case_sensitive">False</property>
-		  <property name="enable_arrow_keys">True</property>
-		  <property name="enable_arrows_always">False</property>
+		  <property name="can_focus">True</property>
+		  <property name="history">0</property>
 
-		  <child internal-child="entry">
-		    <widget class="GtkEntry" id="preferences_entry:text:Underline-Plain:0:indicators.style.normal">
-		      <property name="visible">True</property>
-		      <property name="can_focus">True</property>
-		      <property name="editable">False</property>
-		      <property name="visibility">True</property>
-		      <property name="max_length">0</property>
-		      <property name="text" translatable="yes"></property>
-		      <property name="has_frame">True</property>
-		      <property name="invisible_char" translatable="yes">*</property>
-		      <property name="activates_default">False</property>
-		    </widget>
-		  </child>
+		  <child>
+		    <widget class="GtkMenu" id="menu6">
 
-		  <child internal-child="list">
-		    <widget class="GtkList" id="list21">
-		      <property name="visible">True</property>
-		      <property name="selection_mode">GTK_SELECTION_BROWSE</property>
+		      <child>
+			<widget class="GtkMenuItem" id="underline_plain1">
+			  <property name="visible">True</property>
+			  <property name="label" translatable="yes">Underline Plain</property>
+			  <property name="use_underline">True</property>
+			  <signal name="activate" handler="on_underline_plain1_activate" last_modification_time="Fri, 07 Nov 2003 15:00:33 GMT"/>
+			</widget>
+		      </child>
+
+		      <child>
+			<widget class="GtkMenuItem" id="underline_squiggle1">
+			  <property name="visible">True</property>
+			  <property name="label" translatable="yes">Underline Squiggle</property>
+			  <property name="use_underline">True</property>
+			  <signal name="activate" handler="on_underline_squiggle1_activate" last_modification_time="Fri, 07 Nov 2003 15:00:33 GMT"/>
+			</widget>
+		      </child>
+
+		      <child>
+			<widget class="GtkMenuItem" id="underline-tt1">
+			  <property name="visible">True</property>
+			  <property name="label" translatable="yes">Underline-TT</property>
+			  <property name="use_underline">True</property>
+			  <signal name="activate" handler="on_underline-tt1_activate" last_modification_time="Fri, 07 Nov 2003 15:00:33 GMT"/>
+			</widget>
+		      </child>
+
+		      <child>
+			<widget class="GtkMenuItem" id="diagonal1">
+			  <property name="visible">True</property>
+			  <property name="label" translatable="yes">Diagonal</property>
+			  <property name="use_underline">True</property>
+			  <signal name="activate" handler="on_diagonal1_activate" last_modification_time="Fri, 07 Nov 2003 15:00:33 GMT"/>
+			</widget>
+		      </child>
+
+		      <child>
+			<widget class="GtkMenuItem" id="strike_out1">
+			  <property name="visible">True</property>
+			  <property name="label" translatable="yes">Strike-Out</property>
+			  <property name="use_underline">True</property>
+			  <signal name="activate" handler="on_strike_out1_activate" last_modification_time="Fri, 07 Nov 2003 15:00:33 GMT"/>
+			</widget>
+		      </child>
 		    </widget>
 		  </child>
 		</widget>
@@ -14203,32 +14323,58 @@
 	      </child>
 
 	      <child>
-		<widget class="GtkCombo" id="preferences_combo:list:Underline-Plain,Underline-Squiggle,Underline-TT,Diagonal,Strike-Out:0:combo22">
+		<widget class="GtkOptionMenu" id="preferences_menu:text:Underline-Squiggle,Underline-Plain,Underline-TT,Diagonal,Strike-Out:0:indicators.style.warning">
 		  <property name="visible">True</property>
-		  <property name="value_in_list">True</property>
-		  <property name="allow_empty">False</property>
-		  <property name="case_sensitive">False</property>
-		  <property name="enable_arrow_keys">True</property>
-		  <property name="enable_arrows_always">False</property>
+		  <property name="can_focus">True</property>
+		  <property name="history">0</property>
 
-		  <child internal-child="entry">
-		    <widget class="GtkEntry" id="preferences_entry:text:Underline-Squiggle:0:indicators.style.warning">
-		      <property name="visible">True</property>
-		      <property name="can_focus">True</property>
-		      <property name="editable">False</property>
-		      <property name="visibility">True</property>
-		      <property name="max_length">0</property>
-		      <property name="text" translatable="yes"></property>
-		      <property name="has_frame">True</property>
-		      <property name="invisible_char" translatable="yes">*</property>
-		      <property name="activates_default">False</property>
-		    </widget>
-		  </child>
+		  <child>
+		    <widget class="GtkMenu" id="menu7">
 
-		  <child internal-child="list">
-		    <widget class="GtkList" id="list22">
-		      <property name="visible">True</property>
-		      <property name="selection_mode">GTK_SELECTION_BROWSE</property>
+		      <child>
+			<widget class="GtkMenuItem" id="menuitem2">
+			  <property name="visible">True</property>
+			  <property name="label" translatable="yes">Underline Squiggle</property>
+			  <property name="use_underline">True</property>
+			  <signal name="activate" handler="on_underline_squiggle1_activate" last_modification_time="Fri, 07 Nov 2003 15:00:33 GMT"/>
+			</widget>
+		      </child>
+
+		      <child>
+			<widget class="GtkMenuItem" id="menuitem1">
+			  <property name="visible">True</property>
+			  <property name="label" translatable="yes">Underline Plain</property>
+			  <property name="use_underline">True</property>
+			  <signal name="activate" handler="on_underline_plain1_activate" last_modification_time="Fri, 07 Nov 2003 15:00:33 GMT"/>
+			</widget>
+		      </child>
+
+		      <child>
+			<widget class="GtkMenuItem" id="menuitem3">
+			  <property name="visible">True</property>
+			  <property name="label" translatable="yes">Underline-TT</property>
+			  <property name="use_underline">True</property>
+			  <signal name="activate" handler="on_underline-tt1_activate" last_modification_time="Fri, 07 Nov 2003 15:00:33 GMT"/>
+			</widget>
+		      </child>
+
+		      <child>
+			<widget class="GtkMenuItem" id="menuitem4">
+			  <property name="visible">True</property>
+			  <property name="label" translatable="yes">Diagonal</property>
+			  <property name="use_underline">True</property>
+			  <signal name="activate" handler="on_diagonal1_activate" last_modification_time="Fri, 07 Nov 2003 15:00:33 GMT"/>
+			</widget>
+		      </child>
+
+		      <child>
+			<widget class="GtkMenuItem" id="menuitem5">
+			  <property name="visible">True</property>
+			  <property name="label" translatable="yes">Strike-Out</property>
+			  <property name="use_underline">True</property>
+			  <signal name="activate" handler="on_strike_out1_activate" last_modification_time="Fri, 07 Nov 2003 15:00:33 GMT"/>
+			</widget>
+		      </child>
 		    </widget>
 		  </child>
 		</widget>
@@ -14243,32 +14389,58 @@
 	      </child>
 
 	      <child>
-		<widget class="GtkCombo" id="preferences_combo:list:Underline-Plain,Underline-Squiggle,Underline-TT,Diagonal,Strike-Out:0:combo23">
+		<widget class="GtkOptionMenu" id="preferences_menu:text:Strike-Out,Underline-Plain,Underline-Squiggle,Underline-TT,Diagonal:0:indicators.style.error">
 		  <property name="visible">True</property>
-		  <property name="value_in_list">True</property>
-		  <property name="allow_empty">False</property>
-		  <property name="case_sensitive">False</property>
-		  <property name="enable_arrow_keys">True</property>
-		  <property name="enable_arrows_always">False</property>
+		  <property name="can_focus">True</property>
+		  <property name="history">0</property>
 
-		  <child internal-child="entry">
-		    <widget class="GtkEntry" id="preferences_entry:text:Strike-Out:0:indicators.style.error">
-		      <property name="visible">True</property>
-		      <property name="can_focus">True</property>
-		      <property name="editable">False</property>
-		      <property name="visibility">True</property>
-		      <property name="max_length">0</property>
-		      <property name="text" translatable="yes"></property>
-		      <property name="has_frame">True</property>
-		      <property name="invisible_char" translatable="yes">*</property>
-		      <property name="activates_default">False</property>
-		    </widget>
-		  </child>
+		  <child>
+		    <widget class="GtkMenu" id="menu8">
 
-		  <child internal-child="list">
-		    <widget class="GtkList" id="list23">
-		      <property name="visible">True</property>
-		      <property name="selection_mode">GTK_SELECTION_BROWSE</property>
+		      <child>
+			<widget class="GtkMenuItem" id="menuitem10">
+			  <property name="visible">True</property>
+			  <property name="label" translatable="yes">Strike-Out</property>
+			  <property name="use_underline">True</property>
+			  <signal name="activate" handler="on_strike_out1_activate" last_modification_time="Fri, 07 Nov 2003 15:00:33 GMT"/>
+			</widget>
+		      </child>
+
+		      <child>
+			<widget class="GtkMenuItem" id="menuitem6">
+			  <property name="visible">True</property>
+			  <property name="label" translatable="yes">Underline Plain</property>
+			  <property name="use_underline">True</property>
+			  <signal name="activate" handler="on_underline_plain1_activate" last_modification_time="Fri, 07 Nov 2003 15:00:33 GMT"/>
+			</widget>
+		      </child>
+
+		      <child>
+			<widget class="GtkMenuItem" id="menuitem7">
+			  <property name="visible">True</property>
+			  <property name="label" translatable="yes">Underline Squiggle</property>
+			  <property name="use_underline">True</property>
+			  <signal name="activate" handler="on_underline_squiggle1_activate" last_modification_time="Fri, 07 Nov 2003 15:00:33 GMT"/>
+			</widget>
+		      </child>
+
+		      <child>
+			<widget class="GtkMenuItem" id="menuitem8">
+			  <property name="visible">True</property>
+			  <property name="label" translatable="yes">Underline-TT</property>
+			  <property name="use_underline">True</property>
+			  <signal name="activate" handler="on_underline-tt1_activate" last_modification_time="Fri, 07 Nov 2003 15:00:33 GMT"/>
+			</widget>
+		      </child>
+
+		      <child>
+			<widget class="GtkMenuItem" id="menuitem9">
+			  <property name="visible">True</property>
+			  <property name="label" translatable="yes">Diagonal</property>
+			  <property name="use_underline">True</property>
+			  <signal name="activate" handler="on_diagonal1_activate" last_modification_time="Fri, 07 Nov 2003 15:00:33 GMT"/>
+			</widget>
+		      </child>
 		    </widget>
 		  </child>
 		</widget>
@@ -14791,7 +14963,7 @@
 		    <widget class="GtkListItem" id="listitem2855">
 		      <property name="visible">True</property>
 		      <property name="can_focus">True</property>
-		      <property name="label" translatable="yes">Default</property>
+		      <property name="label" translatable="no">Default</property>
 		    </widget>
 		  </child>
 		</widget>
@@ -14954,7 +15126,7 @@
 	      <child>
 		<widget class="GtkLabel" id="label12326">
 		  <property name="visible">True</property>
-		  <property name="label" translatable="yes">Start with a new Project. Application wizard will guide you with Project creation. With the Application Wizard, you will be able to create the skelleton of various types of Project.</property>
+		  <property name="label" translatable="yes">Start with a new Project. Application wizard will guide you with Project creation. With the Application Wizard, you will be able to create the skeleton of various Project types.</property>
 		  <property name="use_underline">False</property>
 		  <property name="use_markup">False</property>
 		  <property name="justify">GTK_JUSTIFY_FILL</property>
@@ -15021,7 +15193,7 @@
 	      <child>
 		<widget class="GtkLabel" id="label12327">
 		  <property name="visible">True</property>
-		  <property name="label" translatable="yes">Import existing project. The Import Wizard will guide you to import an existing Project into Anjuta and convert it into Anjuta Project. There will be no data lose or modification done to the project.</property>
+		  <property name="label" translatable="yes">Import existing project. The Import Wizard will guide you to import an existing Project into Anjuta and convert it into Anjuta Project. There will be no data loss or modification done to the project.</property>
 		  <property name="use_underline">False</property>
 		  <property name="use_markup">False</property>
 		  <property name="justify">GTK_JUSTIFY_FILL</property>

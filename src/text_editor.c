@@ -222,6 +222,8 @@ text_editor_set_hilite_type (TextEditor * te)
 	if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (te->preferences),
 									DISABLE_SYNTAX_HILIGHTING))
 		te->force_hilite = TE_LEXER_NONE;
+	else if (te->force_hilite == TE_LEXER_NONE)
+		te->force_hilite = TE_LEXER_AUTOMATIC;
 	aneditor_command (te->editor_id, ANE_SETLANGUAGE, te->force_hilite,
 			  0);
 	aneditor_command (te->editor_id, ANE_SETHILITE,

@@ -1357,6 +1357,7 @@ breakpoints_dbase_update_controls (BreakpointsDBase * bd)
 	gtk_widget_set_sensitive (bd->priv->removeall_button, A && R);
 	gtk_widget_set_sensitive (bd->priv->enableall_button, A && R);
 	gtk_widget_set_sensitive (bd->priv->disableall_button, A && R);
+	gtk_widget_set_sensitive (GTK_TREE_VIEW (bd->priv->treeview), A && R);
 }
 
 static void

@@ -93,8 +93,8 @@ get_object_type_from_string (const gchar* object_type)
 {
 	if (strcmp (object_type, "entry") == 0)
 		return ANJUTA_PROPERTY_OBJECT_TYPE_ENTRY;
-	else if (strcmp (object_type, "combo") == 0)
-		return ANJUTA_PROPERTY_OBJECT_TYPE_COMBO;
+	else if (strcmp (object_type, "menu") == 0)
+		return ANJUTA_PROPERTY_OBJECT_TYPE_MENU;
 	else if (strcmp (object_type, "spin") == 0)
 		return ANJUTA_PROPERTY_OBJECT_TYPE_SPIN;
 	else if (strcmp (object_type, "toggle") == 0)
@@ -118,8 +118,6 @@ get_data_type_from_string (const gchar* data_type)
 		return ANJUTA_PROPERTY_DATA_TYPE_INT;
 	else if (strcmp (data_type, "text") == 0)
 		return ANJUTA_PROPERTY_DATA_TYPE_TEXT;
-	else if (strcmp (data_type, "list") == 0)
-		return ANJUTA_PROPERTY_DATA_TYPE_LIST;
 	else if (strcmp (data_type, "color") == 0)
 		return ANJUTA_PROPERTY_DATA_TYPE_COLOR;
 	else if (strcmp (data_type, "font") == 0)
@@ -133,6 +131,7 @@ get_property_value_as_string (AnjutaProperty *prop)
 {
 	gint  int_value;
 	gchar *text_value;
+	gchar** values;
 	
 	if (prop->custom)
 	{
@@ -162,6 +161,12 @@ get_property_value_as_string (AnjutaProperty *prop)
 	case ANJUTA_PROPERTY_OBJECT_TYPE_ENTRY:
 		text_value =
 			gtk_editable_get_chars (GTK_EDITABLE (prop->object), 0, -1);
+		break;
+	case ANJUTA_PROPERTY_OBJECT_TYPE_MENU:
+		values = g_object_get_data(G_OBJECT(prop->object), "untranslated");
+		int index = gtk_option_menu_get_history(GTK_OPTION_MENU(prop->object));
+		if (values[index] != NULL)
+			text_value = g_strdup(values[index]);
 		break;
 	case ANJUTA_PROPERTY_OBJECT_TYPE_TEXT:
 		{
@@ -216,6 +221,8 @@ static void
 set_property_value_as_string (AnjutaProperty *prop, const gchar *value)
 {
 	gint  int_value;
+	char** values;
+	gint i; 
 	
 	if (prop->custom)
 	{
@@ -258,7 +265,20 @@ set_property_value_as_string (AnjutaProperty *prop, const gchar *value)
 		else
 			gtk_entry_set_text (GTK_ENTRY (prop->object), "");
 		break;
-		
+	case ANJUTA_PROPERTY_OBJECT_TYPE_MENU:
+		values = g_object_get_data(G_OBJECT(prop->object), "untranslated");
+		if (value != NULL)
+		{
+			for (i=0; values[i] != NULL; i++)
+			{
+				if (strcmp(value, values[i]) == 0)
+				{
+					gtk_option_menu_set_history(GTK_OPTION_MENU(prop->object), i);
+					break;
+				}
+			}
+		}			
+		break;		
 	case ANJUTA_PROPERTY_OBJECT_TYPE_TEXT:
 		{
 			GtkTextBuffer *buffer;
@@ -345,10 +365,7 @@ save_property (AnjutaPreferences *pr, AnjutaProperty *prop,
 
 	return_value = 0;
 	
-	/* Can not save the following property type */
-	if (prop->data_type == ANJUTA_PROPERTY_DATA_TYPE_LIST)
-		return TRUE;
-	if (prop->object_type == ANJUTA_PROPERTY_OBJECT_TYPE_COMBO)
+	if (prop->object_type == ANJUTA_PROPERTY_OBJECT_TYPE_MENU)
 		return TRUE;
 	
 	if ((filter != ANJUTA_PREFERENCES_FILTER_NONE) && (prop->flags & filter))
@@ -401,25 +418,15 @@ anjuta_preferences_register_property_raw (AnjutaPreferences *pr,
 		p->default_value = g_strdup (default_value);
 		if (strlen (default_value) > 0)
 		{
-			/* For combo list, initialize the pop-down strings */
-			if (object_type == ANJUTA_PROPERTY_OBJECT_TYPE_COMBO &&
-				data_type == ANJUTA_PROPERTY_DATA_TYPE_LIST) 
+			/* For menu, initialize the untranslated strings */
+			if (object_type == ANJUTA_PROPERTY_OBJECT_TYPE_MENU) 
 			{
-				gchar **vstr, **node;
-				GList *list = NULL;
+				gchar **vstr;
 				vstr = g_strsplit (default_value, ",", 100);
-				node = vstr;
-				while (*node)
-				{
-					list = g_list_append (list, *node);
-					node++;
-				}
-				gtk_combo_set_popdown_strings (GTK_COMBO (object), list);
-				g_list_free (list);
-				g_strfreev (vstr);
+				g_object_set_data(G_OBJECT(p->object), "untranslated",
+									vstr);
 			} /* For others */
-			else if (object_type != ANJUTA_PROPERTY_OBJECT_TYPE_COMBO &&
-					 data_type != ANJUTA_PROPERTY_DATA_TYPE_LIST) 
+			else if (object_type != ANJUTA_PROPERTY_OBJECT_TYPE_MENU) 
 				prop_set_with_key (pr->props_built_in, key, default_value);
 		}
 	}
@@ -643,13 +650,9 @@ preferences_objects_to_prop (AnjutaPreferences *pr)
 	{
 		gchar *value;
 		p = node->data;
-		if (p->object_type != ANJUTA_PROPERTY_OBJECT_TYPE_COMBO &&
-			p->data_type != ANJUTA_PROPERTY_DATA_TYPE_LIST)
-		{
-			value = get_property_value_as_string (p);
-			anjuta_preferences_set (pr, p->key, value);
-			g_free (value);
-		}
+		value = get_property_value_as_string (p);
+		anjuta_preferences_set (pr, p->key, value);
+		g_free (value);
 		node = g_list_next (node);
 	}
 	return TRUE;
@@ -719,8 +722,7 @@ anjuta_preferences_foreach (AnjutaPreferences * pr,
 	while (node && go_on)
 	{
 		p = node->data;
-		if (p->object_type != ANJUTA_PROPERTY_OBJECT_TYPE_COMBO &&
-			p->data_type != ANJUTA_PROPERTY_DATA_TYPE_LIST)
+		if (p->object_type != ANJUTA_PROPERTY_OBJECT_TYPE_MENU)
 		{
 			if (filter == ANJUTA_PREFERENCES_FILTER_NONE)
 				go_on = callback (pr, p->key, data);
@@ -747,12 +749,8 @@ anjuta_preferences_save_filtered (AnjutaPreferences * pr, FILE * fp,
 	while (node)
 	{
 		p = node->data;
-		if (p->object_type != ANJUTA_PROPERTY_OBJECT_TYPE_COMBO &&
-			p->data_type != ANJUTA_PROPERTY_DATA_TYPE_LIST)
-		{
-			if (save_property (pr, p, fp, filter) == FALSE)
-				ret_val = FALSE;
-		}
+		if (save_property (pr, p, fp, filter) == FALSE)
+			ret_val = FALSE;
 		node = g_list_next (node);
 	}
 	if (ret_val == FALSE)
@@ -809,13 +807,9 @@ preferences_prop_to_objects (AnjutaPreferences *pr)
 	{
 		gchar *value;
 		p = node->data;
-		if (p->object_type != ANJUTA_PROPERTY_OBJECT_TYPE_COMBO &&
-			p->data_type != ANJUTA_PROPERTY_DATA_TYPE_LIST)
-		{
 			value = anjuta_preferences_get (pr, p->key);
 			set_property_value_as_string (p, value);
 			g_free (value);
-		}
 		node = g_list_next (node);
 	}
 	return TRUE;
