@@ -38,6 +38,7 @@ struct _Project_Type
 	gchar* autogen_file;
 	
 	gboolean gnome_support;
+	gboolean gnome_macro_support;
 	gboolean glade_support;
 };
 

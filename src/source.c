@@ -379,7 +379,7 @@ source_write_configure_in (ProjectDBase * data)
 			 "intl/Makefile\n"
 			 "po/Makefile.in\n");
 	}
-	if (type->gnome_support)
+	if (type->gnome_support && type->gnome_macro_support)
 	{
 		fprintf (fp, "macros/Makefile\n");
 	}
@@ -480,7 +480,7 @@ source_write_toplevel_makefile_am (ProjectDBase * data)
 
 	if (prop_get_int (data->props, "project.has.gettext", 1))
 		fprintf (fp, " intl po");
-	if (type->gnome_support)
+	if (type->gnome_support && type->gnome_macro_support)
 		fprintf (fp, " macros");
 
 	if (data->project_config->extra_modules_before)
@@ -2468,34 +2468,18 @@ source_write_build_files (ProjectDBase * data)
 	type = project_dbase_get_project_type (data);
 	if (type->glade_support)
 	{
-		switch (type->id)
-		{
-			case PROJECT_TYPE_GTK:
-			case PROJECT_TYPE_GTKMM:
-			case PROJECT_TYPE_GTK2:
-			case PROJECT_TYPE_GTKMM2:
-				ret = source_write_glade_file (data);
-				if (!ret) return FALSE;
-				break;
-			case PROJECT_TYPE_GNOME:
-			case PROJECT_TYPE_GNOME2:
-			case PROJECT_TYPE_BONOBO:
-			case PROJECT_TYPE_LIBGLADE:
-			case PROJECT_TYPE_LIBGLADE2:
-			case PROJECT_TYPE_GNOMEMM:
-			case PROJECT_TYPE_GNOMEMM2:
-				ret = source_write_desktop_entry (data);
-				if (!ret) return FALSE;
-				ret = source_write_glade_file (data);
-				if (!ret) return FALSE;
-				ret = source_write_macros_files (data);
-				if (!ret) return FALSE;
-				break;
-			default:
-				anjuta_error (_("The Project type you have chosen does not support the use of Glade."));
-				free_project_type(type);
-				return FALSE;
-		}
+		ret = source_write_desktop_entry (data);
+		if (!ret) return FALSE;
+	}
+	if (type->gnome_support)
+	{
+		ret = source_write_desktop_entry (data);
+		if (!ret) return FALSE;
+	}
+	if (type->gnome_support && type->gnome_macro_support)
+	{
+		ret = source_write_macros_files (data);
+		if (!ret) return FALSE;
 	}
 	free_project_type(type);
 

@@ -15,6 +15,7 @@ anjuta_data_DATA = \
 	stock_libs.anj\
 	welcome.txt\
 	autogen.sh.gnome\
+	autogen.sh.gnome2\
 	autogen.sh.gtk\
 	autogen.sh.generic\
 	autogen.sh.gtkmm\

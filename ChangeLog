@@ -1,3 +1,12 @@
+2002-08-28	Naba Kumar	<kh_naba@users.sourceforge.net>
+
+	* src/project_type.[c,h], src/source.c, data/Makefile.am:
+	Fixed a fatal bug which doesn't let building gnome2 related
+	projects. They use different autogen.sh script.	Defined new
+	type field "gnome_macro_support".
+	
+	* data/autogen.sh.gnome2: New file.
+	
 2002-08-27	Andy Piper	<andy.piper@freeuk.com>
 
 	* src/main_menubar_def.h: implement feature request #595356, patch #597161

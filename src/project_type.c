@@ -35,6 +35,7 @@ gchar* project_type_generic[] = {
 	"/autogen.sh.generic", // autogen file
 	
 	"0", // gnome support
+	"0", // gnome macro support
 	"0" // glade support
 };
 
@@ -52,6 +53,7 @@ gchar* project_type_gtk[] =
 	"/autogen.sh.gtk",
 	
 	"0",
+	"0",
 	"1",
 };
 
@@ -68,6 +70,7 @@ gchar* project_type_gtk2[] =
 	
 	"/autogen.sh.gtk",
 	
+	"0",
 	"0",
 	"0",
 };
@@ -92,6 +95,7 @@ gchar* project_type_libglade[] =
 	
 	"1",
 	"1",
+	"1",
 };
 
 gchar* project_type_gnome[] =
@@ -113,6 +117,7 @@ gchar* project_type_gnome[] =
 	
 	"1",
 	"1",
+	"1",
 };
 
 gchar* project_type_gnome2[] =
@@ -126,9 +131,10 @@ gchar* project_type_gnome2[] =
 	"AC_SUBST(GNOME_LIBS)\n"
 	"AC_SUBST(GNOME_CFLAGS)",
 	
-	"/autogen.sh.gnome",
+	"/autogen.sh.gnome2",
 	
 	"1",
+	"0",
 	"0",
 };
 
@@ -143,9 +149,10 @@ gchar* project_type_libglade2[] =
 	"AC_SUBST(GNOME_LIBS)\n"
 	"AC_SUBST(GNOME_CFLAGS)",
 	
-	"/autogen.sh.gnome",
+	"/autogen.sh.gnome2",
 	
 	"1",
+	"0",
 	"0",
 };
 
@@ -163,6 +170,7 @@ gchar* project_type_gtkmm[] =
 	"/autogen.sh.gtkmm",
 	
 	"0",
+	"0",
 	"1",
 };
 
@@ -179,6 +187,7 @@ gchar* project_type_gtkmm2[] =
 	
 	"/autogen.sh.gtkmm",
 	
+	"0",
 	"0",
 	"0",
 };
@@ -206,6 +215,7 @@ gchar* project_type_gnomemm[] =
 	
 	"1",
 	"1",
+	"1",
 };
 
 gchar* project_type_gnomemm2[] =
@@ -219,9 +229,10 @@ gchar* project_type_gnomemm2[] =
 	"AC_SUBST(GNOMEMM_LIBS)\n"
 	"AC_SUBST(GNOMEMM_CFLAGS)",
 	
-	"/autogen.sh.gnomemm",
+	"/autogen.sh.gnome2",
 	
 	"1",
+	"0",
 	"0",
 };
 
@@ -244,6 +255,7 @@ gchar* project_type_bonobo[] =
 	
 	"/autogen.sh.gnome",
 	
+	"1",
 	"1",
 	"1",
 };
@@ -292,6 +304,7 @@ gchar* project_type_wxwin[] =
 
 	"0",
 	"0",
+	"0",
 };
 
 gchar* project_type_xwin[] = 
@@ -312,6 +325,7 @@ gchar* project_type_xwin[] =
 	
 	"/autogen.sh.generic",
 
+	"0",
 	"0",
 	"0",
 };
@@ -335,6 +349,7 @@ gchar* project_type_xwindockapp[] =
 	"/autogen.sh.generic",
 
 	"0",
+	"0",
 	"0",	  
 };
 
@@ -345,6 +360,7 @@ gchar* project_type_qt[] = {
 	"", // configure macros
 	"", // autogen file
 	"0", // gnome support
+	"0", // gnome macro support
 	"0" // glade support
 
 };
@@ -466,7 +482,8 @@ Project_Type* load_type_from_data(char* type_data[], gint id)
 	type->autogen_file = type_data[4];
 			
 	type->gnome_support = atoi(type_data[5]);
-	type->glade_support = atoi(type_data[6]);
+	type->gnome_macro_support = atoi(type_data[6]);
+	type->glade_support = atoi(type_data[7]);
 	
 	return type;
 }
