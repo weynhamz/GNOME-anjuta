@@ -135,15 +135,13 @@ REQUIREMENTS:
 
 1) Installation
 	# From Tarball:
-		< RedHat 6.1 or upwards >
-		* GNOME
-		* Automake
-		* GNU C compiler
-		* xml-i18n-tools
+		* GNOME libs
+		* gnome-xml (aka libxml1)
+		* scrollkeeper
 
 	# From Src RPM:
 		< RedHat 6.1 or upwards >
-		* GNOME
+		* GNOME libs
 		* Automake
 		* GNU C compiler
 		* RPM
