@@ -1,5 +1,13 @@
 2002-01-26  Naba Kumar <kh_naba@users.sourceforge.net>
 
+	* scripts/Makefile.am:
+	  anjuta_import.sh goes with distribution.
+	  
+	* po/*.po: They seem to have updated (merged with
+	  anjuta.pot) automatically when I did "make dist".
+	  
+2002-01-26  Naba Kumar <kh_naba@users.sourceforge.net>
+
 	* src/compiler_options_cbs.c, compiler_options.h, compiler_options_gui.c,
 	  Fixed Bug #499807, ie crash on removing libs, includes, defines from
 	  the compiler options dialog.

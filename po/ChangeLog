@@ -1,3 +1,11 @@
+2002-01-26  Naba Kumar <kh_naba@users.sourceforge.net>
+
+	* po/*.po: They seem to have updated (merged with
+	  anjuta.pot) automatically when I did "make dist".
+	  
+	  Do you guys think it's normal? Or have I done
+	  something wrong?
+	  
 2002-01-23  Duarte Loreto <happyguy_pt@hotmail.com>
 
         * pt.po: Updated Portuguese translation.
