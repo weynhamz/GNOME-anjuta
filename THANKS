@@ -7,6 +7,8 @@ is now.
 
 	- Timothee Besset <timo@qeradiant.com>, for his patches,
 
+	- Sébastien Côté, for his print patch,
+	
 	- Roel Vanhout <roel@stack.be>, for his find and bookmarks patches,
 
 	- Pierre Sarrazin <sarrazip@sympatico.ca>, for his bug reports and 
@@ -14,6 +16,9 @@ is now.
 	
 	- Roy Wood <roy.wood@filogix.com>, for fixing the clipboard problem
 	  and code cleanups,
+	  
+	- Dave Huseby <huseby@shockfusion.com>, for his class generator
+	  plugin,
 
 	- Tina Hirsch <cevina@users.sourceforge.net>, for her wxWindows 
 	  project type patch,
@@ -29,7 +34,7 @@ is now.
 	- Kelly Bergougnoux <three3@users.sourceforge.net>, for the libglade2
 	  project type patch,
 	  
-	- Sébastien Côté <cots01@gel.usherb.ca>, for a printing patch,
+	- Sébastien Côté <cots01@gel.usherb.ca>, for his print patch,
 	
 	- Dave Huseby <huseby@shockfusion.com>, for the class generator plugin,
 
