@@ -1,3 +1,20 @@
+2004-12-30  Naba Kumar  <naba@gnome.org>
+
+	* plugins/symbol-browser/plugin.c,
+	libanjuta/interfaces/libanjuta.idl,
+	plugins/editor/text_editor.c: Fixed editor markers and added a new
+	marker (BASIC) to indicate line numbers. Fixed symbol browser to
+	mark the line visited.
+	
+	* libegg/menu/eggcomboselect.h, libegg/menu/Makefile.am,
+	libegg/Makefile.am, libegg/eggcomboselect.c,
+	libegg/gtkcellview.h, libegg/egg-combo-action.c: Created a new combo
+	widget for use with symbol view in toolbar.
+	
+	* plugins/cvs-plugin/anjuta-cvs.ui,
+	plugins/file-manager/anjuta-file-manager.ui: Added appropriate
+	placeholder for cvs plugin context menu in filemanager.
+	
 2004-12-28  Johannes Schmid <jhs@cvs.gnome.org>
 	
 	* plugins/cvs-plugin/plugin.c:
@@ -15,6 +32,18 @@
 	Patch from Mark R. Pariente <markpariente@cmu.edu>:
 	Added right-click-menu for file-manager
 
+2004-12-26  Naba Kumar  <naba@gnome.org>
+
+	* src/action-callbacks.c, src/action-callbacks.h,
+	src/anjuta-actions.h, src/anjuta-app.c,
+	src/anjuta.ui: Added fullscreen action.
+
+	* plugins/cvs-plugin/cvs-actions.c,
+	plugins/cvs-plugin/plugin.c,
+	plugins/cvs-plugin/plugin.h: Watches current editor,
+	project and file manager selection in plugin
+	implementation.
+	
 2004-12-26  Naba Kumar  <naba@gnome.org>
 
 	* src/anjuta-app.c, src/anjuta.c, src/main.c,

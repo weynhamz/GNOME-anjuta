@@ -1973,7 +1973,25 @@ static gint
 imarkable_mark (IAnjutaMarkable* editor, gint location,
 		IAnjutaMarkableMarker marker, GError** e)
 {
-	return text_editor_set_marker (TEXT_EDITOR (editor), location, marker);
+	gint mark;
+	switch (marker)
+	{
+		case IANJUTA_MARKABLE_BASIC:
+			mark = TEXT_EDITOR_LINEMARKER;
+			break;
+		case IANJUTA_MARKABLE_LIGHT:
+			mark = 0;
+			break;
+		case IANJUTA_MARKABLE_ATTENTIVE:
+			mark = 1;
+			break;
+		case IANJUTA_MARKABLE_INTENSE:
+			mark = 3;
+			break;
+		default:
+			mark = TEXT_EDITOR_LINEMARKER;
+	}
+	return text_editor_set_marker (TEXT_EDITOR (editor), location, mark);
 }
 
 static gint

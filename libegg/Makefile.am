@@ -47,7 +47,9 @@ libanjuta_egg_la_SOURCES = \
 	egg-recent-view-gtk.c \
 	egg-recent-item.c \
 	egg-recent-util.c \
-	egg-recent-view.c
+	egg-recent-view.c \
+	eggcomboselect.c \
+	gtkcellview.h
 
 libanjuta_egg_la_LIBADD = \
 	$(GNOME_VFS_MODULE_LIBS) \

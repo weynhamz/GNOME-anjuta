@@ -20,6 +20,7 @@
  * Boston, MA 02111-1307, USA.
  */
 #include <gtk/gtkwidget.h>
+#include <libegg/menu/eggcomboselect.h>
 #include "egg-combo-action.h"
 
 #ifndef _
@@ -59,7 +60,7 @@ static void egg_combo_action_get_property  (GObject *object,
 											guint prop_id,
 											GValue *value,
 											GParamSpec *pspec);
-static void on_change (GtkComboBox *combo, EggComboAction *action);
+static void on_change (EggComboSelect *combo, EggComboAction *action);
 
 static GObjectClass *parent_class = NULL;
 
@@ -201,12 +202,12 @@ egg_combo_action_update (EggComboAction *action)
 		{
 			GtkWidget *combo;
 			combo = gtk_bin_get_child (GTK_BIN (proxy));
-			if (GTK_IS_COMBO_BOX (combo))
+			if (EGG_IS_COMBO_SELECT (combo))
 			{
 				g_signal_handlers_block_by_func (combo,
 												 G_CALLBACK (on_change),
 												 action);
-				gtk_combo_box_set_active (GTK_COMBO_BOX (combo),
+				egg_combo_select_set_active (EGG_COMBO_SELECT (combo),
 										  action->priv->active_index);
 				g_signal_handlers_unblock_by_func (combo,
 												   G_CALLBACK (on_change),
@@ -251,14 +252,14 @@ egg_combo_action_dispose (GObject *object)
 }
 
 static void
-on_change (GtkComboBox *combo, EggComboAction *action)
+on_change (EggComboSelect *combo, EggComboAction *action)
 {
 	GtkTreeIter iter;
 	if (action->priv->active_iter)
 		gtk_tree_iter_free (action->priv->active_iter);
-	gtk_combo_box_get_active_iter (combo, &iter);
+	egg_combo_select_get_active_iter (combo, &iter);
 	action->priv->active_iter = gtk_tree_iter_copy (&iter);
-	action->priv->active_index = gtk_combo_box_get_active (combo);
+	action->priv->active_index = egg_combo_select_get_active (combo);
 	egg_combo_action_update (action);
 	gtk_action_activate (GTK_ACTION (action));
 }
@@ -285,24 +286,26 @@ create_tool_item (GtkAction *action)
   GtkToolItem *item;
   GtkWidget *combo;
   GtkCellRenderer *renderer;
-
+	
   g_return_val_if_fail (EGG_IS_COMBO_ACTION (action), NULL);
   g_message ("Creating combo toolitem");
   item = gtk_tool_item_new ();
-  combo = gtk_combo_box_new ();
+  combo = egg_combo_select_new ();
+  egg_combo_select_set_title (EGG_COMBO_SELECT (combo), _("Symbol"));
+  gtk_widget_set_name (combo, "egg-combo-action-toolitem");
   gtk_widget_show (combo);
   if (EGG_COMBO_ACTION (action)->priv->model)
   {
-	  gtk_combo_box_set_model (GTK_COMBO_BOX (combo),
+	  egg_combo_select_set_model (EGG_COMBO_SELECT (combo),
 							   EGG_COMBO_ACTION (action)->priv->model);
-	  gtk_combo_box_set_active (GTK_COMBO_BOX (combo), 0);
+	  egg_combo_select_set_active (EGG_COMBO_SELECT (combo), 0);
   }
   else
   {
 	  /* Create a dummy model */
 	  GtkTreeModel *dummy_model;
 	  dummy_model = create_dummy_model ();
-	  gtk_combo_box_set_model (GTK_COMBO_BOX (combo), dummy_model);
+	  egg_combo_select_set_model (EGG_COMBO_SELECT (combo), dummy_model);
 	  g_object_unref (dummy_model);
   }
   renderer = gtk_cell_renderer_pixbuf_new ();
@@ -341,14 +344,14 @@ connect_proxy (GtkAction *action, GtkWidget *proxy)
     {
       GtkWidget *combo;
       combo = gtk_bin_get_child (GTK_BIN (proxy));
-      if (GTK_IS_COMBO_BOX (combo))
+      if (EGG_IS_COMBO_SELECT (combo))
 		{
 		  if (EGG_COMBO_ACTION (action)->priv->model)
 		  {
-			  gtk_combo_box_set_active (GTK_COMBO_BOX (combo), -1);
-			  gtk_combo_box_set_model (GTK_COMBO_BOX (combo),
+			  egg_combo_select_set_active (EGG_COMBO_SELECT (combo), -1);
+			  egg_combo_select_set_model (EGG_COMBO_SELECT (combo),
 									   EGG_COMBO_ACTION (action)->priv->model);
-			  gtk_combo_box_set_active (GTK_COMBO_BOX (combo), 0);
+			  egg_combo_select_set_active (EGG_COMBO_SELECT (combo), 0);
 		  }
 		  g_signal_connect (G_OBJECT (combo), "changed",
 								G_CALLBACK (on_change), action);
@@ -392,10 +395,10 @@ egg_combo_action_set_model (EggComboAction *action, GtkTreeModel *model)
   g_return_if_fail (EGG_IS_COMBO_ACTION (action));
   g_return_if_fail (GTK_IS_TREE_MODEL (model));
 
+  g_object_ref (model);
   if (action->priv->model) {
 	  g_object_unref (action->priv->model);
   }
-  g_object_ref (model);
   action->priv->model = model;
 
   for (slist = gtk_action_get_proxies (GTK_ACTION(action));
@@ -413,14 +416,14 @@ egg_combo_action_set_model (EggComboAction *action, GtkTreeModel *model)
 	  {
 		  GtkWidget *combo;
 		  combo = gtk_bin_get_child (GTK_BIN (proxy));
-		  if (GTK_IS_COMBO_BOX (combo))
+		  if (EGG_IS_COMBO_SELECT (combo))
 			{
 			  g_signal_handlers_block_by_func (combo,
 											   G_CALLBACK (on_change),
 											   action);
-			  gtk_combo_box_set_active (GTK_COMBO_BOX (combo), -1);
-			  gtk_combo_box_set_model (GTK_COMBO_BOX (combo), model);
-			  gtk_combo_box_set_active (GTK_COMBO_BOX (combo), 0);
+			  egg_combo_select_set_active (EGG_COMBO_SELECT (combo), -1);
+			  egg_combo_select_set_model (EGG_COMBO_SELECT (combo), model);
+			  egg_combo_select_set_active (EGG_COMBO_SELECT (combo), 0);
 			  g_signal_handlers_unblock_by_func (combo,
 												 G_CALLBACK (on_change),
 												 action);

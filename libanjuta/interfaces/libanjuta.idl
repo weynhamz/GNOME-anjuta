@@ -66,6 +66,7 @@ interface IAnjutaMarkable
 	enum Marker
 	{
 		NONE,
+		BASIC,
 		LIGHT,
 		ATTENTIVE,
 		INTENSE

@@ -29,6 +29,7 @@
 #include <libanjuta/interfaces/ianjuta-file.h>
 #include <libanjuta/interfaces/ianjuta-file-loader.h>
 #include <libanjuta/interfaces/ianjuta-editor.h>
+#include <libanjuta/interfaces/ianjuta-markable.h>
 
 #include <libanjuta/plugins.h>
 #include <libegg/menu/egg-combo-action.h>
@@ -363,6 +364,13 @@ on_symbol_selected (GtkAction *action, SymbolBrowserPlugin *sv_plugin)
 			/* Goto line number */
 			ianjuta_editor_goto_line (IANJUTA_EDITOR (sv_plugin->current_editor),
 									  line, NULL);
+			if (IANJUTA_IS_MARKABLE (sv_plugin->current_editor))
+			{
+				ianjuta_markable_delete_all_markers (IANJUTA_MARKABLE (sv_plugin->current_editor),
+								IANJUTA_MARKABLE_BASIC, NULL);
+				ianjuta_markable_mark (IANJUTA_MARKABLE (sv_plugin->current_editor),
+								line, IANJUTA_MARKABLE_BASIC, NULL);
+			}
 		}
 	}
 }
@@ -669,8 +677,8 @@ deactivate_plugin (AnjutaPlugin *plugin)
 static void
 dispose (GObject *obj)
 {
-	SymbolBrowserPlugin *plugin = (SymbolBrowserPlugin*) obj;
 	/*
+	SymbolBrowserPlugin *plugin = (SymbolBrowserPlugin*) obj;
 	if (plugin->sw)
 	{
 		g_object_unref (G_OBJECT (plugin->sw));

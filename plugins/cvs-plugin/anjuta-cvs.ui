@@ -20,7 +20,7 @@
 		</placeholder>
 	</menubar>
 	<popup name="PopupFileManager">
-		<placeholder name="PlaceholderPopupFileCVS">
+		<placeholder name="PlaceholderPopupFileVCS">
 			<menu name="PopupFileCVS" action="ActionPopupCVS">
 				<menuitem name="PopupCVSCommit" action="ActionPopupCVSCommit"/>
 				<menuitem name="PopupCVSUpdate" action="ActionPopupCVSUpdate"/>
