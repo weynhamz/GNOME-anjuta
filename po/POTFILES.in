@@ -146,6 +146,7 @@ src/resources.c
 src/resources.h
 src/search-replace.c
 src/search_incremental.c
+src/search_preferences.c
 src/session.c
 src/session.h
 src/sharedlib.c
