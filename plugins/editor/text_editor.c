@@ -159,12 +159,6 @@ initialize_markers (TextEditor* te)
 	}
 }
 
-static void
-on_preferences_changed (AnjutaPreferences *pr, TextEditor *te)
-{
-	// text_editor_update_preferences (te, pr);
-}
-
 GtkWidget *
 text_editor_new (AnjutaPreferences *eo, const gchar *uri, const gchar *name)
 {
@@ -420,6 +414,23 @@ text_editor_get_current_lineno (TextEditor * te)
 	count =	scintilla_send_message (SCINTILLA (te->scintilla),
 					SCI_LINEFROMPOSITION, count, 0);
 	return linenum_scintilla_to_text_editor(count);
+}
+
+guint
+text_editor_get_current_column (TextEditor * te)
+{
+	g_return_val_if_fail (te != NULL, 0);
+	return scintilla_send_message (SCINTILLA (te->scintilla),
+								   SCI_GETCOLUMN,
+								   text_editor_get_current_position (te), 0);
+}
+
+gboolean
+text_editor_get_overwrite (TextEditor * te)
+{
+	g_return_val_if_fail (te != NULL, 0);
+	return scintilla_send_message (SCINTILLA (te->scintilla),
+								   SCI_GETOVERTYPE, 0, 0);
 }
 
 guint
@@ -1183,8 +1194,6 @@ text_editor_load_file (TextEditor * te)
 gboolean
 text_editor_save_file (TextEditor * te, gboolean update)
 {
-	gint tags_update;
-
 	if (te == NULL)
 		return FALSE;
 	if (IS_SCINTILLA (te->scintilla) == FALSE)

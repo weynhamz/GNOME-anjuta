@@ -759,176 +759,77 @@ void
 on_editor_linenos1_activate (GtkAction * action, gpointer user_data)
 {
 	gboolean state;
-	GList *node, *editors;
-	TextEditor *te;
-	AnjutaDocman *docman;
 	EditorPlugin *plugin;
-	
 	plugin = (EditorPlugin *) user_data;
-	docman = ANJUTA_DOCMAN (plugin->docman);
-	editors = anjuta_docman_get_all_editors (docman);
-	
 	state = gtk_toggle_action_get_active (GTK_TOGGLE_ACTION (action));
 	anjuta_preferences_set_int (plugin->prefs,
-								"margin.linenumber.visible", state);
-	node = editors;
-	while (node)
-	{
-		te = (TextEditor *) (node->data);
-		aneditor_command (te->editor_id, ANE_LINENUMBERMARGIN, state, 0);
-		node = g_list_next (node);
-	}
+								VIEW_LINENUMBERS_MARGIN, state);
 }
 
 void
 on_editor_markers1_activate (GtkAction * action, gpointer user_data)
 {
 	gboolean state;
-	GList *node, *editors;
-	TextEditor *te;
-	AnjutaDocman *docman;
 	EditorPlugin *plugin;
-	
 	plugin = (EditorPlugin *) user_data;
-	docman = ANJUTA_DOCMAN (plugin->docman);
-	editors = anjuta_docman_get_all_editors (docman);
-	
 	state = gtk_toggle_action_get_active (GTK_TOGGLE_ACTION (action));
-
 	anjuta_preferences_set_int (plugin->prefs,
-								"margin.marker.visible", state);
-	node = editors;
-	while (node)
-	{
-		te = (TextEditor *) (node->data);
-		aneditor_command (te->editor_id, ANE_SELMARGIN, state, 0);
-		node = g_list_next (node);
-	}
+								VIEW_MARKER_MARGIN, state);
 }
 
 void
 on_editor_codefold1_activate (GtkAction * action, gpointer user_data)
 {
 	gboolean state;
-	GList *node, *editors;
-	TextEditor *te;
-	AnjutaDocman *docman;
 	EditorPlugin *plugin;
-	
 	plugin = (EditorPlugin *) user_data;
-	docman = ANJUTA_DOCMAN (plugin->docman);
-	editors = anjuta_docman_get_all_editors (docman);
-	
 	state = gtk_toggle_action_get_active (GTK_TOGGLE_ACTION (action));
 	anjuta_preferences_set_int (plugin->prefs,
-								"margin.fold.visible", state);
-	node = editors;
-	while (node)
-	{
-		te = (TextEditor *) (node->data);
-		aneditor_command (te->editor_id, ANE_FOLDMARGIN, state, 0);
-		node = g_list_next (node);
-	}
+								VIEW_FOLD_MARGIN, state);
 }
 
 void
 on_editor_indentguides1_activate (GtkAction * action, gpointer user_data)
 {
 	gboolean state;
-	GList *node, *editors;
-	TextEditor *te;
-	AnjutaDocman *docman;
 	EditorPlugin *plugin;
-	
 	plugin = (EditorPlugin *) user_data;
-	docman = ANJUTA_DOCMAN (plugin->docman);
-	editors = anjuta_docman_get_all_editors (docman);
-	
 	state = gtk_toggle_action_get_active (GTK_TOGGLE_ACTION (action));
 	anjuta_preferences_set_int (plugin->prefs,
-								"view.indentation.guides", state);
-	node = editors;
-	while (node)
-	{
-		te = (TextEditor *) (node->data);
-		aneditor_command (te->editor_id, ANE_VIEWGUIDES, state, 0);
-		node = g_list_next (node);
-	}
+								VIEW_INDENTATION_GUIDES, state);
 }
 
 void
 on_editor_whitespaces1_activate (GtkAction * action, gpointer user_data)
 {
 	gboolean state;
-	GList *node, *editors;
-	TextEditor *te;
-	AnjutaDocman *docman;
 	EditorPlugin *plugin;
-	
 	plugin = (EditorPlugin *) user_data;
-	docman = ANJUTA_DOCMAN (plugin->docman);
-	editors = anjuta_docman_get_all_editors (docman);
-	
 	state = gtk_toggle_action_get_active (GTK_TOGGLE_ACTION (action));
 	anjuta_preferences_set_int (plugin->prefs,
-								"view.whitespace", state);
-	node = editors;
-	while (node)
-	{
-		te = (TextEditor *) (node->data);
-		aneditor_command (te->editor_id, ANE_VIEWSPACE, state, 0);
-		node = g_list_next (node);
-	}
+								VIEW_WHITE_SPACES, state);
 }
 
 void
 on_editor_eolchars1_activate (GtkAction * action, gpointer user_data)
 {
 	gboolean state;
-	GList *node, *editors;
-	TextEditor *te;
-	AnjutaDocman *docman;
 	EditorPlugin *plugin;
-	
 	plugin = (EditorPlugin *) user_data;
-	docman = ANJUTA_DOCMAN (plugin->docman);
-	editors = anjuta_docman_get_all_editors (docman);
-	
 	state = gtk_toggle_action_get_active (GTK_TOGGLE_ACTION (action));
 	anjuta_preferences_set_int (plugin->prefs,
-								"view.eol", state);
-	node = editors;
-	while (node)
-	{
-		te = (TextEditor *) (node->data);
-		aneditor_command (te->editor_id, ANE_VIEWEOL, state, 0);
-		node = g_list_next (node);
-	}
+								VIEW_EOL, state);
 }
 
 void
 on_editor_linewrap1_activate (GtkAction * action, gpointer user_data)
 {
 	gboolean state;
-	GList *node, *editors;
-	TextEditor *te;
-	AnjutaDocman *docman;
 	EditorPlugin *plugin;
-	
 	plugin = (EditorPlugin *) user_data;
-	docman = ANJUTA_DOCMAN (plugin->docman);
-	editors = anjuta_docman_get_all_editors (docman);
-	
 	state = gtk_toggle_action_get_active (GTK_TOGGLE_ACTION (action));
 	anjuta_preferences_set_int (plugin->prefs,
-								"view.line.wrap", state);
-	node = editors;
-	while (node)
-	{
-		te = (TextEditor *) (node->data);
-		aneditor_command (te->editor_id, ANE_LINEWRAP, state, 0);
-		node = g_list_next (node);
-	}
+								VIEW_LINE_WRAP, state);
 }
 
 #define MAX_ZOOM_FACTOR 8

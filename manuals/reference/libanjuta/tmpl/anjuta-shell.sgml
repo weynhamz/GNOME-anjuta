@@ -73,6 +73,7 @@ Application shell interface
 @g_iface: 
 @value_added: 
 @value_removed: 
+@get_status: 
 @get_ui: 
 @get_preferences: 
 @add_widget: 

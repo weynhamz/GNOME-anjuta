@@ -4,6 +4,7 @@
 #include <glib-object.h>
 #include <gtk/gtkwidget.h>
 
+#include <libanjuta/anjuta-status.h>
 #include <libanjuta/anjuta-ui.h>
 #include <libanjuta/anjuta-preferences.h>
 
@@ -43,6 +44,7 @@ struct _AnjutaShellIface {
 	void (*value_removed) (AnjutaShell *shell, char *name);
 
 	/* Virtual Table */
+	AnjutaStatus* (*get_status) (AnjutaShell  *shell, GError **err);
 	AnjutaUI* (*get_ui) (AnjutaShell  *shell, GError **err);
 	AnjutaPreferences* (*get_preferences) (AnjutaShell *shell, GError **err);
 	
@@ -77,6 +79,8 @@ struct _AnjutaShellIface {
 
 GQuark anjuta_shell_error_quark     (void);
 GType  anjuta_shell_get_type        (void);
+
+AnjutaStatus* anjuta_shell_get_status (AnjutaShell *shell, GError **err);
 
 AnjutaUI* anjuta_shell_get_ui (AnjutaShell *shell, GError **err);
 

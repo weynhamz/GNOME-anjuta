@@ -312,6 +312,12 @@ anjuta_app_instance_init (AnjutaApp *app)
 							  GDL_DOCK_LEFT, FALSE);
 	gdl_dock_placeholder_new ("ph_right", GDL_DOCK_OBJECT (app->dock),
 							  GDL_DOCK_RIGHT, FALSE);
+							  
+	/* Status bar */
+	app->status = ANJUTA_STATUS (anjuta_status_new ());
+	gtk_widget_show (GTK_WIDGET (app->status));
+	g_object_ref (G_OBJECT (app->status));
+	gnome_app_set_statusbar (GNOME_APP (app), GTK_WIDGET (app->status));
 
 	//gtk_widget_realize (GTK_WIDGET(app));
 	
@@ -376,7 +382,7 @@ anjuta_app_instance_init (AnjutaApp *app)
 	// gtk_window_add_accel_group (GTK_WINDOW (app->preferences),
 	//							app->accel_group);
 
-	app->shutdown_in_progress = FALSE;
+	// app->shutdown_in_progress = FALSE;
 	app->win_pos_x = 10;
 	app->win_pos_y = 10;
 	app->win_width = gdk_screen_width () - 10;
@@ -384,8 +390,8 @@ anjuta_app_instance_init (AnjutaApp *app)
 	app->win_width = (app->win_width < 790)? app->win_width : 790;
 	app->win_height = (app->win_height < 575)? app->win_width : 575;
 		
-	app->in_progress = FALSE;
-	app->busy_count = 0;
+	// app->in_progress = FALSE;
+	// app->busy_count = 0;
 
 	// app->icon_set = gdl_icons_new(24, 16.0);
 
@@ -570,6 +576,12 @@ anjuta_app_get_object  (AnjutaShell *shell, const char *iface_name,
 	return anjuta_plugins_get_plugin (shell, iface_name);
 }
 
+static AnjutaStatus*
+anjuta_app_get_status (AnjutaShell *shell, GError **error)
+{
+	return ANJUTA_APP (shell)->status;
+}
+
 static AnjutaUI *
 anjuta_app_get_ui  (AnjutaShell *shell, GError **error)
 {
@@ -672,7 +684,11 @@ anjuta_app_finalize (GObject *widget)
 	if (window->layout_manager) {
 		g_object_unref (window->layout_manager);
 		window->layout_manager = NULL;
-	};
+	}
+	if (window->status) {
+		g_object_unref (G_OBJECT (window->status));
+		window->status = NULL;
+	}
 	GNOME_CALL_PARENT(G_OBJECT_CLASS, finalize, (widget));
 }
 
@@ -727,6 +743,7 @@ anjuta_shell_iface_init (AnjutaShellIface *iface)
 	iface->get_value = anjuta_app_get_value;
 	iface->remove_value = anjuta_app_remove_value;
 	iface->get_object = anjuta_app_get_object;
+	iface->get_status = anjuta_app_get_status;
 	iface->get_ui = anjuta_app_get_ui;
 	iface->get_preferences = anjuta_app_get_preferences;
 }
@@ -918,33 +935,6 @@ anjuta_app_progress_done (AnjutaApp *app, gchar * end_mesg)
 		gnome_app_progress_done (app->progress_key);
 	anjuta_status (end_mesg);
 	app->in_progress = FALSE;
-}
-
-void
-anjuta_app_set_busy (AnjutaApp *app)
-{
-	app->busy_count++;
-	if (app->busy_count > 1)
-		return;
-	if (app_cursor)
-		gdk_cursor_destroy (app_cursor);
-	app_cursor = gdk_cursor_new (GDK_WATCH);
-	if (GTK_WIDGET (app)->window)
-		gdk_window_set_cursor (GTK_WIDGET (app)->window, app_cursor);
-	gdk_flush ();
-}
-
-void
-anjuta_app_set_active (AnjutaApp *app)
-{
-	app->busy_count--;
-	if (app->busy_count > 0)
-		return;
-	app->busy_count = 0;
-	if (app_cursor)
-		gdk_cursor_destroy (app_cursor);
-	app_cursor = gdk_cursor_new (GDK_TOP_LEFT_ARROW);
-	gdk_window_set_cursor (GTK_WIDGET (app)->window, app_cursor);
 }
 
 void

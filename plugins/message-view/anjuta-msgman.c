@@ -44,7 +44,9 @@ static void
 on_text_msgman_close_page (GtkButton* button, 
 									AnjutaMsgman *msgman)
 {
-	anjuta_msgman_remove_view (msgman, NULL);
+	MessageView *view = MESSAGE_VIEW (g_object_get_data (G_OBJECT (button),
+														 "message_view"));
+	anjuta_msgman_remove_view (msgman, view);
 }
 
 static AnjutaMsgmanPage *
@@ -78,7 +80,8 @@ anjuta_msgman_page_new (GtkWidget * view, const gchar * name,
 	gtk_button_set_relief(GTK_BUTTON(page->button), GTK_RELIEF_NONE);
 	gtk_widget_set_size_request (page->button, 16, 16);
 	gtk_box_pack_start_defaults (GTK_BOX (page->box), page->button);	
-		
+	
+	g_object_set_data (G_OBJECT (page->button), "message_view", page->widget);
 	gtk_signal_connect (GTK_OBJECT (page->button), "clicked",
 						GTK_SIGNAL_FUNC(on_text_msgman_close_page),
 						msgman);

@@ -56,6 +56,10 @@ my $type_map = {
 		"assert" => "__arg__ != NULL",
 		"fail_return" => "NULL"
 	},
+	"gchar" => {
+		"gtype" => "G_TYPE_CHAR",
+		"fail_return" => "0"
+	},
 	"gint" => {
 		"gtype" => "G_TYPE_INT",
 		"fail_return" => "-1"
@@ -1108,7 +1112,7 @@ sub write_marshallers
 	{
 		system "echo \"#include \\\"${module_name}-iface-marshallers.h\\\"\" ".
 		"> xgen-gmc && glib-genmarshal --prefix=${module_name}_iface_cclosure_marshal ".
-		"./${module_name}-iface-marshallers.list --body > xgen-gmc && cp xgen-gmc ".
+		"./${module_name}-iface-marshallers.list --body >> xgen-gmc && cp xgen-gmc ".
 		"$module_name-iface-marshallers.c && rm -f xgen-gmc";
 		system "glib-genmarshal --prefix=${module_name}_iface_cclosure_marshal ".
 		"./${module_name}-iface-marshallers.list --header > xgen-gmc && cp xgen-gmc ".

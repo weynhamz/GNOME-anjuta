@@ -134,7 +134,7 @@ on_text_editor_scintilla_notify (GtkWidget * sci,
 {
 	TextEditor *te;
 	struct SCNotification *nt;
-	gint line;
+	gint line, position;
 	
 	te = data;
 	if (te->freeze_count != 0)
@@ -159,14 +159,17 @@ on_text_editor_scintilla_notify (GtkWidget * sci,
 	case SCN_UPDATEUI:
 		//FIXME: anjuta_update_app_status (FALSE, NULL);
 		te->current_line = text_editor_get_current_lineno (te);
+		g_signal_emit_by_name(G_OBJECT (te), "update_ui");
 		return;
 		
 	case SCN_CHARADDED:
 		te->current_line = text_editor_get_current_lineno (te);
 		text_editor_set_indicator (te, te->current_line, -1);
+		position = text_editor_get_current_position (te);
+		g_signal_emit_by_name(G_OBJECT (te), "char_added", position, wParam);
 		return;
 
-	case SCN_MARGINCLICK:	
+	case SCN_MARGINCLICK:
 	line =	text_editor_get_line_from_position (te, nt->position);
 	if (nt->margin == 1)  /*  Bookmarks and Breakpoints  margin */
 	{

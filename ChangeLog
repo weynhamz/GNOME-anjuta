@@ -1,3 +1,41 @@
+2004-11-21  Naba Kumar  <naba@gnome.org>
+
+	* libanjuta/Makefile.am, libanjuta/anjuta-shell.c,
+	libanjuta/anjuta-shell.h, src/anjuta-app.c, src/anjuta-app.h:
+	Added AnjutaStatus class to libanjuta.
+	Added anjuta_shell_get_status() method.
+	
+	* libanjuta/interfaces/anjuta-idl-compiler.pl: Added gchar type and fixed
+	marshaller generation.
+	
+	* libanjuta/interfaces/libanjuta.idl: Added "char_added" and "updade_ui"
+	signals to IAnjutaEditor interface.
+	
+	
+	* manuals/reference/libanjuta/tmpl/anjuta-shell.sgml: Updated.
+	
+	* plugins/build-basic-autotools/automake-c.filters: Fixed filter regexes.
+	
+	* plugins/class-gen/clsGen.c: Intial port.
+	
+	* plugins/debug-manager/anjuta-debug-manager.plugin.in: Fixed attribute
+	name.
+	
+	* plugins/editor/action-callbacks.c, plugins/editor/plugin.c,
+	plugins/editor/text_editor.c, plugins/editor/text_editor.h,
+	plugins/editor/text_editor_cbs.c, plugins/editor/text_editor_prefs.c:
+	Implemented status update. Emits "update_ui" and "char_added" signals.
+	Added view preferences.
+	
+	* plugins/file-loader/plugin.c: Added open with plugins in open with
+	menus.
+	
+	* plugins/gdb/plugin.c: Do not add widgets to shell as floating.
+	
+	* plugins/message-view/anjuta-msgman.c,
+	plugins/message-view/message-view.c: Fixed finalize and dispose. Fixed
+	to close correct message view rather than current view.
+
 2004-11-20  Johannes Schmid <jhs@cvs.gnome.org>
 	
 	* plugins/cvs-plugin/cvs-actions.c

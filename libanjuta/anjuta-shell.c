@@ -368,6 +368,15 @@ anjuta_shell_get_object (AnjutaShell *shell, const gchar *iface_name,
 	return ANJUTA_SHELL_GET_IFACE (shell)->get_object (shell, iface_name, error);
 }
 
+AnjutaStatus*
+anjuta_shell_get_status (AnjutaShell *shell, GError **error)
+{
+	g_return_val_if_fail (shell != NULL, NULL);
+	g_return_val_if_fail (ANJUTA_IS_SHELL (shell), NULL);
+
+	return ANJUTA_SHELL_GET_IFACE (shell)->get_status (shell, error);
+}
+
 AnjutaUI*
 anjuta_shell_get_ui (AnjutaShell *shell, GError **error)
 {

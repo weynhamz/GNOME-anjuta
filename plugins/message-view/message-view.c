@@ -539,11 +539,13 @@ message_view_finalize (GObject *obj)
 		g_object_unref (mview->privat->tooltip_layout);
 		mview->privat->tooltip_window = NULL;
 	}
+	/*
 	if (mview->privat->tree_view)
 	{
 		g_object_unref (mview->privat->tree_view);
 		mview->privat->tree_view = NULL;
 	}
+	*/
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (G_OBJECT(obj)));
 }
 
@@ -630,7 +632,7 @@ message_view_instance_init (MessageView * self)
 					  G_CALLBACK (tooltip_motion_cb), self);
 	g_signal_connect (G_OBJECT (self->privat->tree_view), "leave-notify-event",
 					  G_CALLBACK (tooltip_leave_cb), self);
-	g_object_ref (self->privat->tree_view);
+	// g_object_ref (self->privat->tree_view);
 	g_object_unref (model);
 }
 

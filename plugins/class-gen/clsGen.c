@@ -49,10 +49,27 @@
 
 #include <gnome.h>
 #include <libgnomeui/gnome-window-icon.h>
+#include <libanjuta/anjuta-plugin.h>
 
 #define	INIT(x)	CG_Creator* self = (CG_Creator*)x
 #define SAFE_FREE(x) { if(x != NULL) g_free(x); }
 
+/*
+ * Plugin class structure.
+ */
+
+typedef struct _ClsGenPlugin ClsGenPlugin;
+typedef struct _ClsGenPluginClass ClsGenPluginClass;
+
+struct _ClsGenPlugin {
+	AnjutaPlugin parent;
+	GtkWidget *widget;
+	// gint uiid;
+};
+
+struct _ClsGenPluginClass{
+	AnjutaPluginClass parent_class;
+};
 
 /*
  * Dialog Class Struct
@@ -1684,3 +1701,52 @@ CreateDialogClass(CG_Creator *self)
   gtk_widget_grab_focus(self->entry_class_name);
   return self->dlgClass;
 }
+
+/* Plugin class definition */
+static gpointer parent_class;
+
+static gboolean
+activate_plugin (AnjutaPlugin *plugin)
+{
+	DEBUG_PRINT ("ClsGenPlugin: Activating Class generator plugin ...");
+	return TRUE;
+}
+
+static gboolean
+deactivate_plugin (AnjutaPlugin *plugin)
+{
+	DEBUG_PRINT ("ClsGenPlugin: Dectivating Class generator plugin ...");
+	return TRUE;
+}
+
+static void
+dispose (GObject *obj)
+{
+}
+
+static void
+finalize (GObject *obj)
+{
+}
+
+static void
+clsgen_plugin_instance_init (GObject *obj)
+{
+	Init();
+}
+
+static void
+clsgen_plugin_class_init (GObjectClass *klass) 
+{
+	AnjutaPluginClass *plugin_class = ANJUTA_PLUGIN_CLASS (klass);
+
+	parent_class = g_type_class_peek_parent (klass);
+
+	plugin_class->activate = activate_plugin;
+	plugin_class->deactivate = deactivate_plugin;
+	klass->dispose = dispose;
+	klass->finalize = finalize;
+}
+
+ANJUTA_PLUGIN_BOILERPLATE (ClsGenPlugin, clsgen_plugin);
+ANJUTA_SIMPLE_PLUGIN (ClsGenPlugin, clsgen_plugin);

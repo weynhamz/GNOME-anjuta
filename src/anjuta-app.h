@@ -1,3 +1,4 @@
+/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
  * anjuta-app.h Copyright (C) 2003 Naba Kumar  <naba@gnome.org>
  * 
@@ -23,6 +24,7 @@
 
 #include <glade/glade.h>
 #include <gdl/gdl-dock-layout.h>
+#include <libanjuta/anjuta-status.h>
 #include <libanjuta/anjuta-ui.h>
 
 #include "toolbar.h"
@@ -62,15 +64,16 @@ struct _AnjutaApp
 	GHashTable *values;
 	GHashTable *widgets;
 
-	GtkWidget *appbar;
-	
 	GtkAccelGroup *accel_group;
+	
+	AnjutaStatus *status;
 	AnjutaUI *ui;
 	AnjutaPreferences *preferences;
 	
 	/* Window state */
 	gint win_pos_x, win_pos_y, win_width, win_height;
 
+#if 0
 	/* Application progress bar */
 	GnomeAppProgressKey progress_key;
 	gdouble progress_value;
@@ -80,6 +83,7 @@ struct _AnjutaApp
 	gint busy_count;
 	gboolean first_time_expose;
 	gboolean shutdown_in_progress;
+#endif
 };
 
 struct _AnjutaAppClass {

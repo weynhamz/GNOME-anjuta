@@ -127,7 +127,7 @@ gdb_add_widget (GtkWidget *w, const gchar *name, const gchar * title,
 		const gchar *icon)
 {
 	anjuta_shell_add_widget (ANJUTA_PLUGIN (gdb_plugin)->shell, w, name, title,
-			icon, ANJUTA_SHELL_PLACEMENT_FLOATING, NULL);
+			icon, ANJUTA_SHELL_PLACEMENT_BOTTOM, NULL);
 }
 
 

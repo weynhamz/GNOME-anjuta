@@ -118,8 +118,10 @@ void text_editor_replace_selection (TextEditor * te, const gchar * r_str);
 guint text_editor_get_total_lines (TextEditor * te);
 glong text_editor_get_current_position (TextEditor * te);
 guint text_editor_get_current_lineno (TextEditor * te);
+guint text_editor_get_current_column (TextEditor * te);
 guint text_editor_get_line_from_position (TextEditor * te, glong pos);
 gchar* text_editor_get_selection (TextEditor * te);
+gboolean text_editor_get_overwrite (TextEditor * te);
 
 gboolean text_editor_goto_point (TextEditor * te, glong num);
 gboolean text_editor_goto_line (TextEditor * te, glong num,
@@ -199,12 +201,12 @@ gint text_editor_get_props (TextEditor *te);
 #define SELECTION_BACK_COLOR       "selection.back"
 #define TEXT_ZOOM_FACTOR           "text.zoom.factor"
 
-#define VIEW_LINENUMBERS_MARGIN    "margin.linenumber.visible",
-#define VIEW_MARKER_MARGIN         "margin.marker.visible",
-#define VIEW_FOLD_MARGIN           "margin.fold.visible",
-#define VIEW_INDENTATION_GUIDES    "view.indentation.guides",
-#define VIEW_WHITE_SPACES          "view.whitespace",
-#define VIEW_EOL                   "view.eol",
+#define VIEW_LINENUMBERS_MARGIN    "margin.linenumber.visible"
+#define VIEW_MARKER_MARGIN         "margin.marker.visible"
+#define VIEW_FOLD_MARGIN           "margin.fold.visible"
+#define VIEW_INDENTATION_GUIDES    "view.indentation.guides"
+#define VIEW_WHITE_SPACES          "view.whitespace"
+#define VIEW_EOL                   "view.eol"
 #define VIEW_LINE_WRAP             "view.line.wrap"
 
 #endif

@@ -34,6 +34,46 @@
 
 /* Editor preferences notifications */
 
+#if 0
+
+typedef {
+	TextEditor *te;
+	gchar *key;
+	GCallback proxy;
+	gpointer proxy_data;
+	gboolean is_string;
+} PrefPassedData;
+
+static PrefPassedData*
+pref_passed_data_new (TextEditor *te, const gchar *key, gboolean is_string,
+					  GCallback *proxy, gponter proxy_data)
+{
+	PrefPassedData *pd = g_new0(PrefPassedData, 1);
+	pd->te = te;
+	pd->key = g_strdup (key);
+	pd->proxy = proxy;
+	pd->is_string = is_string;
+	pd->data1 = data1;
+	pd->data2 = data2;
+	pd->data3 = data3;
+	pd->data4 = data4;
+}
+
+static void
+pref_gconf_notify (GConfClient *gclient, guint cnxn_id,
+				   GConfEntry *entry, gpointer user_data)
+{
+	PrefPassedData *pd = (PrefPassedData*)user_data;
+	if (!is_string)
+		set_n_get_prop_int (pd->te, pd->key);
+	else
+		set_n_get_prop_string (pd->te, pd->key);
+	if (pd->proxy)
+		(pd->proxy)(data1, data2, data3, data4);
+}
+
+#endif
+
 static gint
 set_n_get_prop_int (TextEditor *te, const gchar *key)
 {
@@ -121,8 +161,7 @@ on_gconf_notify_tab_size (GConfClient *gclient, guint cnxn_id,
 	
 	te = TEXT_EDITOR (user_data);
 	tab_size = set_n_get_prop_int (te, TAB_SIZE);
-	scintilla_send_message (SCINTILLA (te->scintilla), SCI_SETTABWIDTH,
-							tab_size, 0);
+	aneditor_command (te->editor_id, ANE_SETTABSIZE, tab_size, 0);
 }
 
 static void
@@ -215,6 +254,90 @@ on_gconf_notify_margin_linenum_width (GConfClient *gclient, guint cnxn_id,
 							0, width);
 }
 
+static void
+on_gconf_notify_view_eols (GConfClient *gclient, guint cnxn_id,
+							   GConfEntry *entry, gpointer user_data)
+{
+	TextEditor *te;
+	gboolean state;
+	
+	te = TEXT_EDITOR (user_data);
+	state = set_n_get_prop_int (te, VIEW_EOL);
+	aneditor_command (te->editor_id, ANE_VIEWEOL, state, 0);
+}
+
+static void
+on_gconf_notify_view_whitespaces (GConfClient *gclient, guint cnxn_id,
+								  GConfEntry *entry, gpointer user_data)
+{
+	TextEditor *te;
+	gboolean state;
+	
+	te = TEXT_EDITOR (user_data);
+	state = set_n_get_prop_int (te, VIEW_WHITE_SPACES);
+	aneditor_command (te->editor_id, ANE_VIEWSPACE, state, 0);
+}
+
+static void
+on_gconf_notify_view_linewrap (GConfClient *gclient, guint cnxn_id,
+						  GConfEntry *entry, gpointer user_data)
+{
+	TextEditor *te;
+	gboolean state;
+	
+	te = TEXT_EDITOR (user_data);
+	state = set_n_get_prop_int (te, VIEW_LINE_WRAP);
+	aneditor_command (te->editor_id, ANE_LINEWRAP, state, 0);
+}
+
+static void
+on_gconf_notify_view_indentation_guides (GConfClient *gclient, guint cnxn_id,
+										 GConfEntry *entry, gpointer user_data)
+{
+	TextEditor *te;
+	gboolean state;
+	
+	te = TEXT_EDITOR (user_data);
+	state = set_n_get_prop_int (te, VIEW_INDENTATION_GUIDES);
+	aneditor_command (te->editor_id, ANE_VIEWGUIDES, state, 0);
+}
+
+static void
+on_gconf_notify_view_folds (GConfClient *gclient, guint cnxn_id,
+							GConfEntry *entry, gpointer user_data)
+{
+	TextEditor *te;
+	gboolean state;
+	
+	te = TEXT_EDITOR (user_data);
+	state = set_n_get_prop_int (te, VIEW_FOLD_MARGIN);
+	aneditor_command (te->editor_id, ANE_FOLDMARGIN, state, 0);
+}
+
+static void
+on_gconf_notify_view_markers (GConfClient *gclient, guint cnxn_id,
+							  GConfEntry *entry, gpointer user_data)
+{
+	TextEditor *te;
+	gboolean state;
+	
+	te = TEXT_EDITOR (user_data);
+	state = set_n_get_prop_int (te, VIEW_MARKER_MARGIN);
+	aneditor_command (te->editor_id, ANE_SELMARGIN, state, 0);
+}
+
+static void
+on_gconf_notify_view_linenums (GConfClient *gclient, guint cnxn_id,
+							   GConfEntry *entry, gpointer user_data)
+{
+	TextEditor *te;
+	gboolean state;
+	
+	te = TEXT_EDITOR (user_data);
+	state = set_n_get_prop_int (te, VIEW_LINENUMBERS_MARGIN);
+	aneditor_command (te->editor_id, ANE_LINENUMBERMARGIN, state, 0);
+}
+
 #define REGISTER_NOTIFY(key, func) \
 	notify_id = anjuta_preferences_notify_add (te->preferences, \
 											   key, func, te, NULL); \
@@ -240,6 +363,13 @@ text_editor_prefs_init (TextEditor *te)
 	set_n_get_prop_int (te, INDENT_OPENING);
 	set_n_get_prop_int (te, INDENT_CLOSING);
 	set_n_get_prop_int (te, MARGIN_LINENUMBER_WIDTH);
+	set_n_get_prop_int (te, VIEW_EOL);
+	set_n_get_prop_int (te, VIEW_LINE_WRAP);
+	set_n_get_prop_int (te, VIEW_WHITE_SPACES);
+	set_n_get_prop_int (te, VIEW_INDENTATION_GUIDES);
+	set_n_get_prop_int (te, VIEW_FOLD_MARGIN);
+	set_n_get_prop_int (te, VIEW_MARKER_MARGIN);
+	set_n_get_prop_int (te, VIEW_LINENUMBERS_MARGIN);
 	
 	/* Register gconf notifications */
 	REGISTER_NOTIFY (TAB_SIZE, on_gconf_notify_tab_size);
@@ -255,6 +385,13 @@ text_editor_prefs_init (TextEditor *te)
 	REGISTER_NOTIFY (INDENT_OPENING, on_gconf_notify_indent_opening);
 	REGISTER_NOTIFY (INDENT_CLOSING, on_gconf_notify_indent_closing);
 	REGISTER_NOTIFY (MARGIN_LINENUMBER_WIDTH, on_gconf_notify_margin_linenum_width);
+	REGISTER_NOTIFY (VIEW_EOL, on_gconf_notify_view_eols);
+	REGISTER_NOTIFY (VIEW_LINE_WRAP, on_gconf_notify_view_linewrap);
+	REGISTER_NOTIFY (VIEW_WHITE_SPACES, on_gconf_notify_view_whitespaces);
+	REGISTER_NOTIFY (VIEW_INDENTATION_GUIDES, on_gconf_notify_view_indentation_guides);
+	REGISTER_NOTIFY (VIEW_FOLD_MARGIN, on_gconf_notify_view_folds);
+	REGISTER_NOTIFY (VIEW_MARKER_MARGIN, on_gconf_notify_view_markers);
+	REGISTER_NOTIFY (VIEW_LINENUMBERS_MARGIN, on_gconf_notify_view_linenums);
 	
 	/* templates..
 	REGISTER_NOTIFY ();

@@ -22,6 +22,7 @@ libanjuta_la_SOURCES= \
 	e-splash.h \
 	e-splash.c \
 	anjuta-shell.c \
+	anjuta-status.c \
 	anjuta-marshal.c \
 	anjuta-encodings.c \
 	anjuta-preferences-dialog.c \
@@ -49,6 +50,7 @@ libanjutaincludedir=$(includedir)/libanjuta-1.0/libanjuta
 libanjutainclude_HEADERS = \
 	anjuta-debug.h \
 	anjuta-shell.h \
+	anjuta-status.h \
 	anjuta-encodings.h \
 	anjuta-plugin.h \
 	anjuta-plugin-description.h \
@@ -72,7 +74,7 @@ anjuta-marshal.h: anjuta-marshal.list
 	&& cp xgen-gmc $(@F) \
 	&& rm -f xgen-gmc
 
-anjuta-marshal.c: anjuta-marshal.h
+anjuta-marshal.c: anjuta-marshal.h anjuta-marshal.list
 	echo "#include \"anjuta-marshal.h\"" > xgen-gmc \
 	&& @GLIB_GENMARSHAL@ \
 	        --prefix=anjuta_cclosure_marshal $(srcdir)/anjuta-marshal.list --body >> xgen-gmc \

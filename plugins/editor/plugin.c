@@ -514,13 +514,13 @@ ui_states_init (AnjutaPlugin *plugin)
 	gint i;
 	EditorPlugin *eplugin;
 	static const gchar *prefs[] = {
-		"margin.linenumber.visible",
-		"margin.marker.visible",
-		"margin.fold.visible",
-		"view.indentation.guides",
-		"view.whitespace",
-		"view.eol",
-		"view.line.wrap"
+		VIEW_LINENUMBERS_MARGIN,
+		VIEW_MARKER_MARGIN,
+		VIEW_FOLD_MARGIN,
+		VIEW_INDENTATION_GUIDES,
+		VIEW_WHITE_SPACES,
+		VIEW_EOL,
+		VIEW_LINE_WRAP
 	};
 	
 	eplugin = (EditorPlugin*)plugin;
@@ -667,9 +667,81 @@ register_stock_icons (AnjutaPlugin *plugin)
 }
 
 static void
+update_status (EditorPlugin *plugin, TextEditor *te)
+{
+	AnjutaStatus *status;
+	
+	status = anjuta_shell_get_status (ANJUTA_PLUGIN (plugin)->shell, NULL);
+	if (te)
+	{
+		gchar *edit /*, *mode*/;
+		guint line, col, zoom;
+		
+		/*
+		gint editor_mode;
+		editor_mode =  scintilla_send_message (SCINTILLA (te->widgets.editor),
+											   SCI_GETEOLMODE, 0, 0);
+		switch (editor_mode) {
+			case SC_EOL_CRLF:
+				mode = g_strdup(_("DOS (CRLF)"));
+				break;
+			case SC_EOL_LF:
+				mode = g_strdup(_("Unix (LF)"));
+				break;
+			case SC_EOL_CR:
+				mode = g_strdup(_("Mac (CR)"));
+				break;
+			default:
+				mode = g_strdup(_("Unknown"));
+				break;
+		}
+		*/
+		zoom = anjuta_preferences_get_int (plugin->prefs, TEXT_ZOOM_FACTOR);
+		line = text_editor_get_current_lineno (te);
+		col = text_editor_get_current_column (te);
+			
+		if (text_editor_get_overwrite (te))
+		{
+			edit = g_strdup (_("OVR"));
+		}
+		else
+		{
+			edit = g_strdup (_("INS"));
+		}
+		anjuta_status_set_default (status, _("Zoom"), "%d", zoom);
+		anjuta_status_set_default (status, _("Line"), "%04d", line);
+		anjuta_status_set_default (status, _("Col"), "%04d", col);
+		anjuta_status_set_default (status, _("Mode"), edit);
+		/* anjuta_status_set_default (status, _("EOL"), mode); */
+		
+		g_free (edit);
+		/* g_free (mode); */
+	}
+	else
+	{
+		anjuta_status_set_default (status, _("Zoom"), NULL);
+		anjuta_status_set_default (status, _("Line"), NULL);
+		anjuta_status_set_default (status, _("Col"), NULL);
+		anjuta_status_set_default (status, _("Mode"), NULL);
+		/* anjuta_status_set_default (status, _("EOL"), NULL); */
+	}
+}
+
+static void
+on_editor_update_ui (IAnjutaEditor *editor, EditorPlugin *plugin)
+{
+	TextEditor *te;
+	
+	te = anjuta_docman_get_current_editor (ANJUTA_DOCMAN (plugin->docman));
+	if (te == TEXT_EDITOR (editor))
+		update_status (plugin, te);
+}
+
+static void
 on_editor_changed (AnjutaDocman *docman, TextEditor *te,
 				   AnjutaPlugin *plugin)
 {
+	update_status ((EditorPlugin *)plugin, te);
 	update_editor_ui (plugin, te);
 	if (te)
 	{
@@ -982,8 +1054,16 @@ static void
 ifile_open (IAnjutaFile* plugin, const gchar* uri, GError** e)
 {
 	AnjutaDocman *docman;
+	TextEditor *te;
+	
 	docman = ANJUTA_DOCMAN ((((EditorPlugin*)plugin)->docman));
-	anjuta_docman_goto_file_line (docman, uri, -1);
+	te = anjuta_docman_goto_file_line (docman, uri, -1);
+	if (te)
+	{
+		g_signal_connect (G_OBJECT (te), "update_ui",
+						  G_CALLBACK (on_editor_update_ui),
+						  ANJUTA_PLUGIN (plugin));
+	}
 	anjuta_shell_present_widget (ANJUTA_PLUGIN (plugin)->shell,
 								 GTK_WIDGET (docman), NULL);
 }
