@@ -1,3 +1,25 @@
+2003-01-23  Naba Kumar <naba@gnome.org>
+
+	* pixmaps/{add.xpm, an_tag.xpm, autocomplete.xpm, block_end.xpm,
+	block_start.xpm, bookmark_first.xpm, bookmark_last.xpm,
+	bookmark_next.xpm, bookmark_prev.xpm, build_stop.xpm,
+	close_file.xpm, copy.xpm, cut.xpm, error_next.xpm,
+	error_prev.xpm, execute.xpm, find_replace.xpm, find.xpm,
+	fv_image.xpm, goto.xpm, graph.xpm, line-arrow.xbm, line-wrap.xbm,
+	list_select.xpm, list_unselect.xpm, macro.xpm, new_file.xpm,
+	open_file.xpm, paste.xpm, preferences.xpm, prefs_autoformat.xpm,
+	prefs_build.xpm, prefs_cvs.xpm, prefs_editor.xpm,
+	prefs_general.xpm, prefs_messages.xpm, prefs_print.xpm,
+	prefs_styles.xpm, print.xpm, redo.xpm, reload_file.xpm, reload.xpm,
+	remove.xpm, save_all.xpm, save_file.xpm, save.xpm, search.xpm,
+	stop.xpm, undo.xpm}: Removed because no longer used.
+
+	* pixmaps/{file_core.xpm, file_exec.xpm, file_text.xpm,
+	file_unknown.xpm}: Files renamed from fv_*, as it would
+	be the right name.
+
+	* pixmaps/Makefile.am: Updated for the above changes.
+
 2003-01-23  Jakub Steiner <jimmac * ximian * com>
 
 	* pixmaps/autocomplete-16.png,

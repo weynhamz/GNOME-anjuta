@@ -151,22 +151,22 @@
 #define ANJUTA_PIXMAP_RED_LED "ledred.xpm"
 #define ANJUTA_PIXMAP_GREEN_LED "ledgreen.xpm"
 
-#define ANJUTA_PIXMAP_BOOKMARK_TOGGLE "bookmark_toggle.xpm"
-#define ANJUTA_PIXMAP_BOOKMARK_FIRST "bookmark_first.xpm"
-#define ANJUTA_PIXMAP_BOOKMARK_PREV "bookmark_prev.xpm"
-#define ANJUTA_PIXMAP_BOOKMARK_NEXT "bookmark_next.xpm"
-#define ANJUTA_PIXMAP_BOOKMARK_LAST "bookmark_last.xpm"
+#define ANJUTA_PIXMAP_BOOKMARK_TOGGLE      "bookmark_toggle.xpm"
+#define ANJUTA_PIXMAP_BOOKMARK_FIRST       "bookmark-first.png"
+#define ANJUTA_PIXMAP_BOOKMARK_PREV        "bookmark-prev.png"
+#define ANJUTA_PIXMAP_BOOKMARK_NEXT        "bookmark-next.png"
+#define ANJUTA_PIXMAP_BOOKMARK_LAST        "bookmark-last.png"
 
-#define ANJUTA_PIXMAP_ERROR_PREV "error_prev.xpm"
-#define ANJUTA_PIXMAP_ERROR_NEXT "error_next.xpm"
+#define ANJUTA_PIXMAP_ERROR_PREV "error-prev.png"
+#define ANJUTA_PIXMAP_ERROR_NEXT "error-next.png"
 
 #define ANJUTA_PIXMAP_FOLD_TOGGLE "fold_toggle.xpm"
 #define ANJUTA_PIXMAP_FOLD_CLOSE "fold_close.xpm"
 #define ANJUTA_PIXMAP_FOLD_OPEN "fold_open.xpm"
 
 #define ANJUTA_PIXMAP_BLOCK_SELECT "block_select.xpm"
-#define ANJUTA_PIXMAP_BLOCK_START "block_start.xpm"
-#define ANJUTA_PIXMAP_BLOCK_END "block_end.xpm"
+#define ANJUTA_PIXMAP_BLOCK_START "block-start.png"
+#define ANJUTA_PIXMAP_BLOCK_END "block-end.png"
 
 #define ANJUTA_PIXMAP_INDENT_INC "indent_inc.xpm"
 #define ANJUTA_PIXMAP_INDENT_DCR "indent_dcr.xpm"
@@ -174,7 +174,7 @@
 #define ANJUTA_PIXMAP_AUTOFORMAT_SETTING "indent_set.xpm"
 
 #define ANJUTA_PIXMAP_CALLTIP "calltip.xpm"
-#define ANJUTA_PIXMAP_AUTOCOMPLETE "autocomplete.xpm"
+#define ANJUTA_PIXMAP_AUTOCOMPLETE "autocomplete.png"
 
 /* Pixmaps for file and symbol browsers */
 /* Symbol browser */

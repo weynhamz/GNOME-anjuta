@@ -7,167 +7,138 @@
 anjuta_pixmapsdir = $(prefix)/@NO_PREFIX_PACKAGE_PIXMAPS_DIR@
 
 anjuta_pixmaps_DATA = \
-	add.xpm\
-	anjuta_icon.png\
-	anjuta_logo.png\
-	anjuta_splash.png\
-	an_tag.xpm\
-	applogo.png\
-	appwizard.png\
-	appwiz_bonobo.png\
-	appwiz_libglade.png\
-	appwiz_gnome.png\
-	appwiz_gnomemm.png\
-	appwiz_gtk.png\
-	appwiz_gtkmm.png\
-	appwiz_terminal.png\
-	appwiz_wxwin.png\
-	appwiz_bonobo2.png\
-	appwiz_libglade2.png\
-	appwiz_gnome2.png\
-	appwiz_gnomemm2.png\
-	appwiz_gtk2.png\
-	appwiz_gtkmm2.png\
-	appwiz_xlib.png\
-	autocomplete.xpm\
-	bfoldc.xpm\
-	bfoldo.xpm\
-	blank.xpm\
-	block_end.xpm\
-	block_select.xpm\
-	block_start.xpm\
-	bookmark_first.xpm\
-	bookmark_last.xpm\
-	bookmark_next.xpm\
-	bookmark_prev.xpm\
-	bookmark_toggle.xpm\
-	breakpoint.xpm\
-	build.xpm\
-	build_all.xpm\
-	build_stop.xpm\
-	calltip.xpm\
-	close_file.xpm\
-	close_file_small.xpm\
-	close_project.xpm\
-	compile.xpm\
-	configure.xpm\
-	console.xpm\
-	continue.xpm\
-	copy.xpm\
-	debug.xpm\
-	debug_stop.xpm\
-	dock.xpm\
-	error_next.xpm\
-	error_prev.xpm\
-	exec.xpm\
-	execute.xpm\
-	file_c.xpm\
-	file_cpp.xpm\
-	file_file.xpm\
-	file_h.xpm\
-	file_pix.xpm\
-	find.xpm\
-	find_replace.xpm\
-	fold_close.xpm\
-	fold_open.xpm\
-	fold_toggle.xpm\
-	frame.xpm\
-	goto.xpm\
-	graph.xpm\
-	handle_hide.xpm\
-	handle_undock.xpm\
-	help.xpm\
-	indent.xpm\
-	indent_auto.xpm\
-	indent_dcr.xpm\
-	indent_inc.xpm\
-	indent_set.xpm\
-	inspect.xpm\
-	interrupt.xpm\
-	ledgreen.xpm\
-	ledred.xpm\
-	line-arrow.xbm\
-	line-wrap.xbm\
-	list_select.xpm\
-	list_unselect.xpm\
-	messages.xpm\
-	mini-modules.xpm\
-	mini_build.xpm\
-	mini_cvs.xpm\
-	mini_debug.xpm\
-	mini_dock.xpm\
-	mini_find.xpm\
-	mini_locals.xpm\
-	mini_term.xpm\
-	new_file.xpm\
-	new_folder.xpm\
-	open_file.xpm\
-	open_project.xpm\
-	password.png\
-	paste.xpm\
-	pointer.xpm\
-	preferences.xpm\
-	print.xpm\
-	project.xpm\
-	redo.xpm\
-	registers.xpm\
-	reload.xpm\
-	reload_file.xpm\
-	remove.xpm\
-	save.xpm\
-	save_all.xpm\
-	save_file.xpm\
-	save_project.xpm\
-	search.xpm\
-	stack.xpm\
-	step_in.xpm\
-	step_out.xpm\
-	step_over.xpm\
-	stop.xpm\
-	syntax.xpm\
-	undo.xpm\
-	undock.xpm\
-	watch.xpm\
-	wizard.xpm\
-	file_icon.xpm\
-	file_html.xpm\
-	run_to_cursor.xpm\
-	file_i18n.xpm\
-	fv_core.xpm\
-	fv_exec.xpm\
-	fv_unknown.xpm\
-	fv_image.xpm\
-	fv_text.xpm\
-	sv_private_fun.xpm\
-	sv_public_fun.xpm\
-	sv_struct.xpm\
-	sv_class.xpm\
-	sv_private_var.xpm\
-	sv_public_var.xpm\
-	sv_unknown.xpm\
-	sv_function.xpm\
-	sv_protected_fun.xpm\
-	sv_static_fun.xpm\
-	sv_variable.xpm\
-	sv_macro.xpm\
-	sv_protected_var.xpm\
-	sv_static_var.xpm\
-	cfolder.xpm\
-	ofolder.xpm\
-	print_layout.xpm\
-	print_portrait.xpm\
-	print_landscape.xpm\
-	print_color.xpm\
-	print_nocolor.xpm\
+	anjuta_icon.png \
+	anjuta_logo.png \
+	anjuta_splash.png \
+	applogo.png \
+	appwizard.png \
+	appwiz_bonobo2.png \
+	appwiz_bonobo.png \
+	appwiz_gnome2.png \
+	appwiz_gnomemm2.png \
+	appwiz_gnomemm.png \
+	appwiz_gnome.png \
+	appwiz_gtk2.png \
+	appwiz_gtkmm2.png \
+	appwiz_gtkmm.png \
+	appwiz_gtk.png \
+	appwiz_libglade2.png \
+	appwiz_libglade.png \
+	appwiz_opengl.png \
+	appwiz_sdl.png \
+	appwiz_terminal.png \
+	appwiz_wxwin.png \
+	appwiz_xlib.png \
+	autocomplete-16.png \
+	autocomplete.png \
+	bfoldc.xpm \
+	bfoldo.xpm \
+	blank.xpm \
+	block-end-16.png \
+	block-end.png \
+	block_select.xpm \
+	block-start-16.png \
+	block-start.png \
+	bookmark-first-16.png \
+	bookmark-first.png \
+	bookmark-last-16.png \
+	bookmark-last.png \
+	bookmark-next-16.png \
+	bookmark-next.png \
+	bookmark-prev-16.png \
+	bookmark-prev.png \
+	bookmark_toggle.xpm \
+	breakpoint.xpm \
+	build_all.xpm \
+	build.xpm \
+	calltip.xpm \
+	cfolder.xpm \
+	close_file_small.xpm \
+	close_project.xpm \
+	compile.xpm \
+	configure.xpm \
+	console.xpm \
+	continue.xpm \
+	debug_stop.xpm \
+	debug.xpm \
+	dock.xpm \
+	error-next-16.png \
+	error-next.png \
+	error-prev-16.png \
+	error-prev.png \
+	file_core.xpm \
+	file_cpp.xpm \
+	file_c.xpm \
+	file_exec.xpm \
+	file_file.xpm \
+	file_html.xpm \
+	file_h.xpm \
+	file_i18n.xpm \
+	file_icon.xpm \
+	file_pix.xpm \
+	file_text.xpm \
+	file_unknown.xpm \
+	fold_close.xpm \
+	fold_open.xpm \
+	fold_toggle.xpm \
+	frame.xpm \
+	handle_hide.xpm \
+	handle_undock.xpm \
+	help.xpm \
+	indent_auto.xpm \
+	indent_dcr.xpm \
+	indent_inc.xpm \
+	indent_set.xpm \
+	indent.xpm \
+	inspect.xpm \
+	interrupt.xpm \
+	ledgreen.xpm \
+	ledred.xpm \
 	madeinanjuta.xcf\
-	prefs_general.xpm\
-	prefs_build.xpm\
-	prefs_styles.xpm\
-	prefs_editor.xpm\
-	prefs_print.xpm\
-	prefs_autoformat.xpm\
-	prefs_messages.xpm\
-	prefs_cvs.xpm
+	messages.xpm \
+	mini_build.xpm \
+	mini_cvs.xpm \
+	mini_debug.xpm \
+	mini_dock.xpm \
+	mini_find.xpm \
+	mini_locals.xpm \
+	mini-modules.xpm \
+	mini_term.xpm \
+	new_folder.xpm \
+	ofolder.xpm \
+	open_project.xpm \
+	password.png \
+	pointer.xpm \
+	print_color.xpm \
+	print_landscape.xpm \
+	print_layout.xpm \
+	print_nocolor.xpm \
+	print_portrait.xpm \
+	project.xpm \
+	registers.xpm \
+	run_to_cursor.xpm \
+	save_project.xpm \
+	stack.xpm \
+	step_in.xpm \
+	step_out.xpm \
+	step_over.xpm \
+	sv_class.xpm \
+	sv_function.xpm \
+	sv_macro.xpm \
+	sv_private_fun.xpm \
+	sv_private_var.xpm \
+	sv_protected_fun.xpm \
+	sv_protected_var.xpm \
+	sv_public_fun.xpm \
+	sv_public_var.xpm \
+	sv_static_fun.xpm \
+	sv_static_var.xpm \
+	sv_struct.xpm \
+	sv_unknown.xpm \
+	sv_variable.xpm \
+	syntax.xpm \
+	undock.xpm \
+	watch.xpm \
+	wizard.xpm
 
 EXTRA_DIST = $(anjuta_pixmaps_DATA)
-
