@@ -1098,6 +1098,7 @@ text_editor_autoformat (TextEditor * te)
 				SCI_ENDUNDOACTION, 0, 0);
 	main_toolbar_update ();
 	update_main_menubar ();
+	anjuta_update_page_label(te);
 	anjuta_refresh_breakpoints(te);
 }
 
