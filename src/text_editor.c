@@ -51,6 +51,7 @@
 #include "lexer.h"
 #include "aneditor.h"
 #include "controls.h"
+#include "anjuta-encodings.h"
 
 /* Debug flag */
 // #define DEBUG
@@ -136,7 +137,8 @@ text_editor_new (gchar * filename, TextEditor * parent, AnjutaPreferences * eo)
 	te->props_base = eo->props;
 	te->first_time_expose = TRUE;
 	te->used_by_cvs = FALSE;
-
+	te->encoding = NULL;
+	
 	/* geom must be set before create_widget */
 	if (parent)
 	{
@@ -168,7 +170,7 @@ text_editor_new (gchar * filename, TextEditor * parent, AnjutaPreferences * eo)
 	if (te->mode == TEXT_EDITOR_WINDOWED)
 	{
 		gtk_container_add (GTK_CONTAINER (te->widgets.client_area),
-				      te->widgets.client);
+						   te->widgets.client);
 	}
 	buff = g_strdup_printf ("Anjuta: %s", te->filename);
 	gtk_window_set_title (GTK_WINDOW (te->widgets.window), buff);
@@ -285,6 +287,8 @@ text_editor_destroy (TextEditor * te)
 		if (te->changed_id)
 			g_signal_handler_disconnect (G_OBJECT (te->preferences), 
 										 te->changed_id);
+		if (te->encoding)
+			g_free (te->encoding);
 		g_free (te);
 		te = NULL;
 	}
@@ -741,8 +745,124 @@ determine_editor_mode(gchar* buffer, glong size)
 	return mode;
 }
 
+static gchar *
+convert_to_utf8_from_charset (const gchar *content,
+							  gsize len,
+							  const gchar *charset)
+{
+	gchar *utf8_content = NULL;
+	GError *conv_error = NULL;
+	gchar* converted_contents = NULL;
+	gsize bytes_written;
+
+	g_return_val_if_fail (content != NULL, NULL);
+
+#ifdef DEBUG
+	g_message ("Trying to convert from %s to UTF-8", charset);
+#endif
+	converted_contents = g_convert (content, len, "UTF-8",
+									charset, NULL, &bytes_written,
+									&conv_error); 
+						
+	if ((conv_error != NULL) || 
+	    !g_utf8_validate (converted_contents, bytes_written, NULL))		
+	{
+#ifdef DEBUG
+		g_message ("Couldn't convert from %s to UTF-8.", charset);
+#endif
+		if (converted_contents != NULL)
+			g_free (converted_contents);
+
+		if (conv_error != NULL)
+		{
+			g_error_free (conv_error);
+			conv_error = NULL;
+		}
+
+		utf8_content = NULL;
+	} else {
+#ifdef DEBUG
+		g_message ("Converted from %s to UTF-8.", charset);
+#endif
+		utf8_content = converted_contents;
+	}
+	return utf8_content;
+}
+
+static gchar *
+convert_to_utf8 (const gchar *content, gsize len,
+			     gchar **encoding_used)
+{
+	GList *encodings = NULL;
+	GList *start;
+	const gchar *locale_charset;
+	GList *encoding_strings;
+	
+	g_return_val_if_fail (!g_utf8_validate (content, len, NULL), 
+			g_strndup (content, len < 0 ? strlen (content) : len));
+
+	encoding_strings = glist_from_data (app->preferences->props,
+										SUPPORTED_ENCODINGS);
+	encodings = anjuta_encoding_get_encodings (encoding_strings);
+	glist_strings_free (encoding_strings);
+	
+	if (g_get_charset (&locale_charset) == FALSE) 
+	{
+		const AnjutaEncoding *locale_encoding;
+
+		/* not using a UTF-8 locale, so try converting
+		 * from that first */
+		if (locale_charset != NULL)
+		{
+			locale_encoding = anjuta_encoding_get_from_charset (locale_charset);
+			encodings = g_list_prepend (encodings,
+						(gpointer) locale_encoding);
+#ifdef DEBUG
+			g_message ("Current charset = %s", locale_charset);
+			g_message ("Current encoding = %s", locale_encoding);
+#endif
+		}
+	}
+
+	start = encodings;
+
+	while (encodings != NULL) 
+	{
+		AnjutaEncoding *enc;
+		const gchar *charset;
+		gchar *utf8_content;
+
+		enc = (AnjutaEncoding *) encodings->data;
+
+		charset = anjuta_encoding_get_charset (enc);
+#ifdef DEBUG
+		g_message ("Trying to convert %ld bytes of data into UTF-8.", len);
+#endif
+		fflush (stdout);
+		utf8_content = convert_to_utf8_from_charset (content, len, charset);
+
+		if (utf8_content != NULL) {
+			if (encoding_used != NULL)
+			{
+				if (*encoding_used != NULL)
+					g_free (*encoding_used);
+				
+				*encoding_used = g_strdup (charset);
+			}
+
+			return utf8_content;
+		}
+
+		encodings = encodings->next;
+	}
+
+	g_list_free (start);
+	
+	return NULL;
+}
+
 static gboolean
-load_from_file (TextEditor * te, gchar * fn)
+load_from_file (TextEditor *te, gchar *fn)
 {
 	FILE *fp;
 	gchar *buffer;
@@ -757,11 +877,11 @@ load_from_file (TextEditor * te, gchar * fn)
 	}
 	size = st.st_size;
 	scintilla_send_message (SCINTILLA (te->widgets.editor), SCI_CLEARALL,
-				0, 0);
+							0, 0);
 	buffer = g_malloc (size);
 	if (buffer == NULL && size != 0)
 	{
-		/* This is funny in unix, but never hurts */
+		/* This is funny in linux, but never hurts */
 		g_warning ("This file is too big. Unable to allocate memory.");
 		return FALSE;
 	}
@@ -780,13 +900,41 @@ load_from_file (TextEditor * te, gchar * fn)
 									DOS_EOL_CHECK);
 	
 	/* Set editor mode */
-	editor_mode =  determine_editor_mode(buffer, nchars);
+	editor_mode =  determine_editor_mode (buffer, nchars);
 	scintilla_send_message (SCINTILLA (te->widgets.editor),
-			SCI_SETEOLMODE, editor_mode, 0);
+							SCI_SETEOLMODE, editor_mode, 0);
 #ifdef DEBUG
 	g_message("Loaded in editor mode [%d]", editor_mode);
 #endif
 
+	/* Determine character encoding and convert to utf-8*/
+	if (nchars > 0)
+	{
+		if (g_utf8_validate (buffer, nchars, NULL))
+		{
+			if (te->encoding)
+				g_free (te->encoding);
+			te->encoding = NULL;
+		}
+		else
+		{
+			gchar *converted_text;
+			gint len = -1;
+	
+			converted_text = convert_to_utf8 (buffer, nchars, &te->encoding);
+
+			if (converted_text == NULL)
+			{
+				/* bail out */
+				g_free (buffer);
+				fclose (fp);
+				return FALSE;
+			}
+			g_free (buffer);
+			buffer = converted_text;
+			nchars = strlen (converted_text);
+		}
+	}
 	if (dos_filter && editor_mode == SC_EOL_CRLF){
 #ifdef DEBUG
 		g_message("Filtering Extrageneous DOS characters in dos mode [Dos => Unix]");
@@ -794,7 +942,7 @@ load_from_file (TextEditor * te, gchar * fn)
 		nchars = filter_chars_in_dos_mode( buffer, nchars );
 	}
 	scintilla_send_message (SCINTILLA (te->widgets.editor), SCI_ADDTEXT,
-				nchars, (long) buffer);
+							nchars, (long) buffer);
 	
 	g_free (buffer);
 	if (ferror (fp))
@@ -817,18 +965,84 @@ save_to_file (TextEditor * te, gchar * fn)
 	fp = fopen (fn, "wb");
 	if (!fp)
 		return FALSE;
-	strip = prop_get_int (te->props_base, STRIP_TRAILING_SPACES, 0);
 	nchars = scintilla_send_message (SCINTILLA (te->widgets.editor),
-					SCI_GETLENGTH, 0, 0);
-	data =	(gchar *) aneditor_command (te->editor_id, ANE_GETTEXTRANGE,
-					    0, nchars);
+									 SCI_GETLENGTH, 0, 0);
+	data =	(gchar *) aneditor_command (te->editor_id,
+										ANE_GETTEXTRANGE, 0, nchars);
 	if (data)
 	{
 		size_t size;
 		gint dos_filter, editor_mode;
 		
 		size = strlen (data);
+		
+		/* Save according to the correct encoding */
+		if (anjuta_preferences_get_int (app->preferences,
+										SAVE_ENCODING_CURRENT_LOCALE))
+		{
+			/* Save in current locate */
+			GError *conv_error = NULL;
+			gchar* converted_file_contents = NULL;
+#ifdef DEBUG
+			g_message ("Using current locale's encoding");
+#endif
+			converted_file_contents = g_locale_from_utf8 (data, -1, NULL,
+														  NULL, &conv_error);
+	
+			if (conv_error != NULL)
+			{
+				/* Conversion error */
+				g_error_free (conv_error);
+			}
+			else
+			{
+				g_free (data);
+				data = converted_file_contents;
+				size = strlen (converted_file_contents);
+			}
+		}
+		else
+		{
+			/* Save in original encoding */
+			if ((te->encoding != NULL) &&
+				anjuta_preferences_get_int (te->preferences,
+											 SAVE_ENCODING_ORIGINAL))
+			{
+				GError *conv_error = NULL;
+				gchar* converted_file_contents = NULL;
+	
+#ifdef DEBUG
+				g_message ("Using encoding %s", te->encoding);
+#endif	
+				/* Try to convert it from UTF-8 to original encoding */
+				converted_file_contents = g_convert (data, -1, 
+													 te->encoding,
+													 "UTF-8", NULL, NULL,
+													 &conv_error); 
+	
+				if (conv_error != NULL)
+				{
+					/* Conversion error */
+					g_error_free (conv_error);
+				}
+				else
+				{
+					g_free (data);
+					data = converted_file_contents;
+					size = strlen (converted_file_contents);
+				}
+			}
+			else
+			{
+				/* Save in utf-8 */
+#ifdef DEBUG
+				g_message ("Using utf-8 encoding");
+#endif
+			}				
+		}
+		
 		/* Strip trailing spaces */
+		strip = prop_get_int (te->props_base, STRIP_TRAILING_SPACES, 0);
 		if (strip)
 		{
 			while (size > 0 && isspace(data[size - 1]))
@@ -839,23 +1053,28 @@ save_to_file (TextEditor * te, gchar * fn)
 			data[size] = '\n';
 			++ size;
 		}
-		dos_filter = anjuta_preferences_get_int( te->preferences, DOS_EOL_CHECK );
+		dos_filter = anjuta_preferences_get_int (te->preferences,
+												 DOS_EOL_CHECK);
 		editor_mode =  scintilla_send_message (SCINTILLA (te->widgets.editor),
-					SCI_GETEOLMODE, 0, 0);
+											   SCI_GETEOLMODE, 0, 0);
 #ifdef DEBUG
 		g_message("Saving in editor mode [%d]", editor_mode);
 #endif
-		if (size != nchars)
-			g_warning("Text length and number of bytes saved is not equal");
-		if (editor_mode == SC_EOL_CRLF && dos_filter) {
+		nchars = size;
+		if (editor_mode == SC_EOL_CRLF && dos_filter)
+		{
 #ifdef DEBUG
 			g_message("Filtering Extrageneous DOS characters in dos mode [Unix => Dos]");
 #endif
 			size = save_filtered_in_dos_mode( fp, data, size);
-		} else {
+		}
+		else
+		{
 			size = fwrite (data, size, 1, fp);
 		}
 		g_free (data);
+		if (size != nchars)
+			g_warning("Text length and number of bytes saved is not equal");
 	}
 	if (ferror (fp))
 	{
@@ -879,20 +1098,21 @@ text_editor_load_file (TextEditor * te)
 	te->modified_time = time (NULL);
 	if (load_from_file (te, te->full_filename) == FALSE)
 	{
-		anjuta_system_error (errno, _("Could not load file: %s"), te->full_filename);
+		anjuta_system_error (errno, _("Could not load file: %s"),
+							 te->full_filename);
 		anjuta_set_active ();
 		text_editor_thaw (te);
 		return FALSE;
 	}
 	scintilla_send_message (SCINTILLA (te->widgets.editor), SCI_GOTOPOS,
-				0, 0);
+							0, 0);
 	check_tm_file(te);
 	anjuta_set_active ();
 	text_editor_thaw (te);
 	scintilla_send_message (SCINTILLA (te->widgets.editor),
-				SCI_SETSAVEPOINT, 0, 0);
+							SCI_SETSAVEPOINT, 0, 0);
 	scintilla_send_message (SCINTILLA (te->widgets.editor),
-				SCI_EMPTYUNDOBUFFER, 0, 0);
+							SCI_EMPTYUNDOBUFFER, 0, 0);
 	text_editor_set_hilite_type (te);
 	if (anjuta_preferences_get_int (te->preferences, FOLD_ON_OPEN))
 	{

@@ -59,6 +59,8 @@ anjuta_SOURCES = \
 	anjuta_cbs.c\
 	anjuta_dirs.c\
 	anjuta_dirs.h\
+	anjuta-encodings.c\
+	anjuta-encodings.h\
 	anjuta_info.c\
 	anjuta_info.h\
 	appwiz_page1.c\

@@ -261,6 +261,11 @@ gint anjuta_preferences_default_get_int (AnjutaPreferences * p, gchar * key);
 #define EDITOR_TABS_ORDERING       "editor.tabs.ordering"
 #define EDITOR_TABS_RECENT_FIRST   "editor.tabs.recent.first"
 
+/* Character encodings */
+#define SAVE_ENCODING_ORIGINAL            "save.encoding.original"
+#define SAVE_ENCODING_CURRENT_LOCALE      "save.encoding.current.locale"
+#define SUPPORTED_ENCODINGS               "supported.encodings"
+
 #define STRIP_TRAILING_SPACES      "strip.trailing.spaces"
 #define FOLD_ON_OPEN               "fold.on.open"
 #define CARET_FORE_COLOR           "caret.fore"

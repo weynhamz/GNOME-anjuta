@@ -1573,7 +1573,7 @@ project_dbase_edit_gui (ProjectDBase *p)
 	
 	edit_command = prop_get_expanded (p->props, "project.gui.command");
 
-	if (edit_command)
+	if (edit_command  && strlen (edit_command) > 0)
 	{
 #ifdef DEBUG
 		g_message ("GUI editing command: %s", edit_command);

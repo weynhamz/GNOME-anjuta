@@ -122,6 +122,9 @@ struct _TextEditor
 /* Handler for changed signal. Need to disconnect the signal when we destroy
    the object */
 	gulong changed_id;
+	
+/* File encoding */
+	gchar *encoding;
 };
 
 void create_text_editor_gui (TextEditor * te);

@@ -244,7 +244,7 @@ set_property_value_as_string (AnjutaProperty *prop, const gchar *value)
 				font_name = g_strconcat (tmp, " 12", NULL);
 				g_free (tmp);
 #ifdef DEBUG
-				g_message ("Terminal font set as: %s", font_name);
+				g_message ("Font set as: %s", font_name);
 #endif
 				gnome_font_picker_set_font_name (GNOME_FONT_PICKER
 												 (prop->object), font_name);
@@ -796,9 +796,6 @@ add_all_default_pages (AnjutaPreferences *pr)
 	
 	node = glade_xml_get_widget_prefix (gxml,"preferences_dialog");
 
-#ifdef DEBUG
-	g_message ("Number of preferences page found: %d", g_list_length (node));
-#endif
 	while (node)
 	{
 		const gchar *name;
@@ -813,9 +810,6 @@ add_all_default_pages (AnjutaPreferences *pr)
 															(gchar*) name, 0);
 				anjuta_preferences_add_page (pr, gxml, MainFrame,
 							get_preferences_icon_name ((gchar*) MainFrame));
-#ifdef DEBUG
-				g_message ("Added preferences page : %s", MainFrame);
-#endif	
 			}
 		node = g_list_next (node);
 	}

@@ -1,3 +1,20 @@
+2003-05-26  Naba Kumar  <naba@gnome.org>
+	
+	* src/project_dbase.c: Fixed a bug with GUI editor command
+	where empty string is returned.
+	
+	* src/Makefile.am, src/preferences.h, src/text_editor.c
+	src/text_editor.h, (new) src/anjuta-encodings.h,
+	(new) src/anjuta-encodings.c, data/properties/anjuta.properties:
+	Added encoding support and to handle characters encoding correctly
+	by auto detecting it during load. Added preferences for selecting
+	the encoding during save.
+
+	* src/preferences.c, src/resources.c: Removed debug messages.
+
+	Patch from: Alexander Nedotsukov <bland@mail.ru>
+	* src/getline.c: Fixed many fatal bugs for FreeBSD.
+
 2003-05-26  Biswapesh Chattopadhyay  <biswapesh_chatterjee@tcscal.co.in>
 	* src/anjuta.c: Try to sow the splash image more often.
 
