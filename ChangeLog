@@ -1,7 +1,9 @@
-2001-08-09  Naba Kumar <kh_naba@users.sourceforge.net>
+2001-08-15  Naba Kumar <kh_naba@users.sourceforge.net>
 
 	src/source.c: Fixed a bug that fails new gnome projects to get created.
 	src/project_manager.c: Fixed a bug that disables storing recent project history.
+	Makefile.am: Added stuffs to install the macro files in the anjuta share file.
+	  (This fixes  the project generation faitures).
 
 2001-08-14  Stephane Demurget <demurgets@free.fr>
 

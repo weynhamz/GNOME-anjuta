@@ -40,3 +40,11 @@ dist-hook:
 		fi \
 	done
 
+# This will copy the macro files.
+install-data-local:
+	install -d -m 0755 $(pkgdatadir)
+	install -d -m 0755 $(pkgdatadir)/gnome
+	install -m 0644 macros/Makefile.am $(pkgdatadir)/gnome
+	install -m 0644 macros/autogen.sh $(pkgdatadir)/gnome
+	install -m 0644 macros/*.m4 $(pkgdatadir)/gnome
+	install -m 0644 macros/ChangeLog $(pkgdatadir)/gnome
