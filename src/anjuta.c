@@ -381,6 +381,7 @@ anjuta_remove_text_editor (TextEditor* te)
 	case TEXT_EDITOR_WINDOWED:
 		app->text_editor_list =
 			g_list_remove (app->text_editor_list, te);
+		on_anjuta_window_focus_in_event (NULL, NULL, NULL);
 		break;
 	}
 	text_editor_destroy (te);
