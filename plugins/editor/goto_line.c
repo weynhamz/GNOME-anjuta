@@ -117,13 +117,13 @@ gotoline_init (GotoLine * obj)
 
   gtk_window_set_position (GTK_WINDOW (obj), GTK_WIN_POS_CENTER);
   gtk_window_set_resizable (GTK_WINDOW (obj), FALSE);
-  gtk_window_set_title (GTK_WINDOW (obj), "Goto Line ...");
+  gtk_window_set_title (GTK_WINDOW (obj), "Go to Line ...");
 
   dialog_vbox = GTK_DIALOG (obj)->vbox;
   gtk_widget_show (dialog_vbox);
 
   label = gtk_label_new(NULL);
-  gtk_label_set_markup (GTK_LABEL (label), _("<b>Goto Line number:</b>"));
+  gtk_label_set_markup (GTK_LABEL (label), _("<b>Go to Line number:</b>"));
   gtk_widget_show (label);
   frame = gtk_frame_new (NULL);
   gtk_frame_set_label_widget (GTK_FRAME (frame), label);

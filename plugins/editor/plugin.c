@@ -289,7 +289,7 @@ static GtkActionEntry actions_edit[] = {
   { "ActionMenuEdit", N_("_Edit"), NULL, NULL, NULL, NULL},
   { "ActionMenuViewEditor", N_("_Editor"), NULL, NULL, NULL, NULL},
   { "ActionViewEditorAddView", N_("_Add Editor View"), NULL, NULL,
-	N_("Add one more view of currect document"),
+	N_("Add one more view of current document"),
     G_CALLBACK (on_editor_add_view_activate)},
   { "ActionViewEditorRemoveView", N_("_Remove Editor View"), NULL, NULL,
 	N_("Remove current view of the document"),

@@ -167,7 +167,16 @@ open_with_dialog (AnjutaFileLoaderPlugin *plugin, const gchar *uri,
 	GtkWidget *options;
 	gchar *message;
 	
-	message = g_strdup_printf (_("<b>Can not open \"%s\"</b>.\n\nThere is no suitable plugin capabale of handling this file. Nor any default action or application for this file has been configured in your desktop.\n\nMime type: %s.\n\nYou may choose to try opening it with following plugins or applications."), g_basename(uri), mime_type);
+	message = g_strdup_printf (_("<b>Can not open \"%s\"</b>.\n\n"
+								 "There is no suitable plugin capable of handling"
+								 "this file. Neither has a default action or application"
+								 "been configured for this file.\n"
+								 "\n"
+								 "Mime type: %s.\n"
+								 "\n"
+								 "You may choose to try opening it with the following"
+								 "plugins or applications."),
+							   g_basename(uri), mime_type);
 	parent =
 		gtk_widget_get_toplevel (GTK_WIDGET(ANJUTA_PLUGIN (plugin)->shell));
 	dialog = gtk_message_dialog_new_with_markup (GTK_WINDOW (parent),

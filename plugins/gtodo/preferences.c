@@ -176,7 +176,7 @@ GtkWidget *preferences_widget()
 	gtk_container_add(GTK_CONTAINER(frame), vbox);
 
 	gtk_box_pack_start(GTK_BOX(vbox2), frame, FALSE, FALSE, 0);
-	tmp = g_strdup_printf(_("Allow todo items to notifiy me when there due in %i minutes"), gconf_client_get_int(client, "/apps/gtodo/prefs/notify_in_minutes",NULL));
+	tmp = g_strdup_printf(_("Allow to do items to notifiy me when they are due in %i minutes"), gconf_client_get_int(client, "/apps/gtodo/prefs/notify_in_minutes",NULL));
 	cb = gtk_check_button_new_with_label(tmp);
 	g_free(tmp);
 	gtk_box_pack_start(GTK_BOX(vbox),cb, FALSE, TRUE, 0); 	

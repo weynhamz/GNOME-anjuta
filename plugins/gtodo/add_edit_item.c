@@ -79,7 +79,7 @@ void gui_add_todo_item(GtkWidget *useless, gpointer data, guint32 openid){
 	if(edit > 0){
 		if(!gtk_tree_selection_get_selected(selection, &model, &iter))
 		{
-			message_box( _("You need to select a todo item before you can edit it"),"",GTK_MESSAGE_INFO);
+			message_box( _("You need to select a to do item before you can edit it"),"",GTK_MESSAGE_INFO);
 			return;
 		}
 		gtk_tree_model_get(model, &iter, ID, &idvalue, -1);

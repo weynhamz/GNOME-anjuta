@@ -1,3 +1,20 @@
+2005-03-03  Johannes Schmid <jhs@cvs.gnome.org>
+
+	* plugins/project-wizard/property.c
+	plugins/project-wizard/install.c
+	plugins/project-wizard/druid.c
+	plugins/editor/goto_line.c
+	plugins/editor/plugin.c
+	plugins/gtodo/add_edit_item.c
+	plugins/gtodo/ligtodo.c
+	plugins/gtodo/main.c
+	plugins/gtodo/preferences.c:
+	Fixed #167559, #167534, #167266, #167357
+	(Bad English in strings...)
+	
+	Thanks to Adam Weinberger and Thierry Moisan for
+	reporting!
+
 2005-03-03  Naba Kumar  <naba@gnome.org>
 
 	* libegg/Makefile.am, libegg/menu/Makefile.am,

@@ -424,7 +424,7 @@ npw_install_install_file (NPWInstall* this)
 	/* Check if file already exist */
 	if (g_file_test (destination, G_FILE_TEST_EXISTS))
 	{
-		msg = g_strdup_printf (_("Skipping %s, file already exist"), destination);
+		msg = g_strdup_printf (_("Skipping %s: file already exists"), destination);
 		npw_plugin_print_view (this->plugin, IANJUTA_MESSAGE_VIEW_TYPE_WARNING, msg, "");
 		g_free (msg);
 		on_install_end_install_file (this->gen, this);

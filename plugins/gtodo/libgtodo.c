@@ -651,7 +651,7 @@ int gtodo_client_check_file(GTodoClient *cl, GError **error)
 		/* check if the name of the root file is ok.. just to make sure :) */
 		if(!xmlStrEqual(cl->root->name, (const xmlChar *)"gtodo"))
 		{
-			g_set_error(&tmp_error,LIBGTODO_ERROR,LIBGTODO_ERROR_XML,_("File is no valid gtodo file"));
+			g_set_error(&tmp_error,LIBGTODO_ERROR,LIBGTODO_ERROR_XML,_("File is not a valid gtodo file"));
 			g_propagate_error(error, tmp_error);
 			return TRUE;
 		}
