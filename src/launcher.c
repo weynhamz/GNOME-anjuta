@@ -878,9 +878,9 @@ anjuta_launcher_fork (AnjutaLauncher *launcher, gchar *const args[])
 	// launcher->priv->stdin_channel = g_io_channel_unix_new (stdin_pipe[1]);
 	launcher->priv->pty_channel = g_io_channel_unix_new (pty_master_fd);
 	
-	g_io_channel_set_encoding (launcher->priv->stderr_channerl, NULL, NULL);
-	g_io_channel_set_encoding (launcher->priv->stdout_channerl, NULL, NULL);
-	g_io_channel_set_encoding (launcher->priv->pty_channerl, NULL, NULL);
+	g_io_channel_set_encoding (launcher->priv->stderr_channel, NULL, NULL);
+	g_io_channel_set_encoding (launcher->priv->stdout_channel, NULL, NULL);
+	g_io_channel_set_encoding (launcher->priv->pty_channel, NULL, NULL);
 
 	tcgetattr(pty_master_fd, &termios_flags);
 	termios_flags.c_lflag &= ~ECHO;
