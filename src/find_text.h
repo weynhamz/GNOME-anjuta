@@ -29,74 +29,51 @@ typedef struct _FindText FindText;
 
 struct _FindTextGui
 {
-  GtkWidget *GUI;
-  GtkWidget *combo;
-  GtkWidget *entry;
-  GtkWidget *from_cur_loc_radio;
-  GtkWidget *from_begin_radio;
-  GtkWidget *forward_radio;
-  GtkWidget *backward_radio;
-  GtkWidget *regexp_radio;
-  GtkWidget *string_radio;
-  GtkWidget *whole_word_check;
-  GtkWidget *ignore_case_check;
+	GtkWidget *GUI;
+	GtkWidget *combo;
+	GtkWidget *entry;
+	GtkWidget *from_cur_loc_radio;
+	GtkWidget *from_begin_radio;
+	GtkWidget *forward_radio;
+	GtkWidget *backward_radio;
+	GtkWidget *regexp_radio;
+	GtkWidget *string_radio;
+	GtkWidget *whole_word_check;
+	GtkWidget *ignore_case_check;
 };
 
 struct _FindText
 {
-  GladeXML *gxml;
-  FindTextGui f_gui;
-  GList *find_history;
-
-/*
- * area = TEXT_EDITOR_FIND_SCOPE_WHOLE		for whole document
- * area = TEXT_EDITOR_FIND_SCOPE_CURRENT	for current location.
- * area = TEXT_EDITOR_FIND_SCOPE_SELECTION	for selected text.
- */
-  gint area;
-
-  gboolean forward;
-  gboolean regexp;
-  gboolean whole_word;
-  gboolean ignore_case;
-  gboolean is_showing;
-  glong incremental_pos;
-  gboolean incremental_wrap;
-  gint pos_x;
-  gint pos_y;
+	GladeXML *gxml;
+	FindTextGui f_gui;
+	GList *find_history;
+	
+	/*
+	* area = TEXT_EDITOR_FIND_SCOPE_WHOLE		for whole document
+	* area = TEXT_EDITOR_FIND_SCOPE_CURRENT	for current location.
+	* area = TEXT_EDITOR_FIND_SCOPE_SELECTION	for selected text.
+	*/
+	gint area;
+	
+	gboolean forward;
+	gboolean regexp;
+	gboolean whole_word;
+	gboolean ignore_case;
+	gboolean is_showing;
+	glong incremental_pos;
+	gboolean incremental_wrap;
+	gint pos_x;
+	gint pos_y;
 };
 
 FindText *find_text_new (void);
-
 void find_text_save_settings (FindText * ft);
-
-void create_find_text_gui (FindText * ft);
-
 void find_text_show (FindText * ft);
-
 void find_text_hide (FindText * ft);
-
 void find_text_destroy (FindText * ft);
 
-void on_find_text_help_clicked (GtkButton * button, gpointer user_data);
-
-void on_find_text_ok_clicked (GtkButton * button, gpointer user_data);
-
-void on_find_text_cancel_clicked (GtkButton * button, gpointer user_data);
-void on_find_text_start_over (GtkButton * button, gpointer user_data);
-
-gboolean
-on_find_text_delete_event (GtkWidget * widget,
-			   GdkEvent * event, gpointer user_data);
-void
-on_find_ignore_case_toggled (GtkToggleButton * togglebutton,
-			     gpointer user_data);
-gboolean 
-find_text_save_session ( FindText * ft, ProjectDBase *p );
-void
-find_text_load_session( FindText * ft, ProjectDBase *p );
-
-void
-enter_selection_as_search_target(void);
+gboolean find_text_save_session ( FindText * ft, ProjectDBase *p );
+void find_text_load_session( FindText * ft, ProjectDBase *p );
+void enter_selection_as_search_target(void);
 
 #endif

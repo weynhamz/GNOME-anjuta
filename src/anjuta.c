@@ -167,8 +167,17 @@ anjuta_new ()
 		app->src_paths = src_paths_new ();
 		app->messages = ANJUTA_MESSAGE_MANAGER(anjuta_message_manager_new ());
 		create_default_types(app->messages);
-		gtk_signal_connect(GTK_OBJECT(app->messages), "message_clicked", GTK_SIGNAL_FUNC(on_message_clicked), NULL);
-		gtk_signal_connect(GTK_OBJECT(app->messages), "message_indicate", GTK_SIGNAL_FUNC(on_message_indicate), NULL);
+		gtk_signal_connect(GTK_OBJECT(app->messages),
+						   "message_clicked",
+						   GTK_SIGNAL_FUNC(on_message_clicked),
+						   NULL);
+#warning "G2: Connect indicator signal here"
+		/*
+		gtk_signal_connect(GTK_OBJECT(app->messages),
+						   "message_indicate",
+						   GTK_SIGNAL_FUNC(on_message_indicate),
+						   NULL);
+		*/
 		app->project_dbase = project_dbase_new (app->preferences->props);
 		app->configurer = configurer_new (app->project_dbase->props);
 		app->executer = executer_new (app->project_dbase->props);

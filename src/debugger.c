@@ -1741,9 +1741,11 @@ debugger_enable_breakpoint (gint id)
 		return;
 	sprintf (buff, "enable %d", id);
 	debugger_put_cmd_in_queqe (buff, DB_CMD_ALL, NULL, NULL);
+	/*
 	debugger_put_cmd_in_queqe ("info breakpoints", DB_CMD_NONE,
 				   breakpoints_dbase_update,
 				   debugger.breakpoints_dbase);
+	*/
 	debugger_execute_cmd_in_queqe ();
 }
 
@@ -1761,9 +1763,11 @@ debugger_enable_all_breakpoints ()
 		return;
 	debugger_put_cmd_in_queqe ("enable breakpoints", DB_CMD_ALL, NULL,
 				   NULL);
+	/*
 	debugger_put_cmd_in_queqe ("info breakpoints", DB_CMD_NONE,
 				   breakpoints_dbase_update,
 				   debugger.breakpoints_dbase);
+	*/
 	anjuta_message_manager_append (app->messages, _("All breakpoints enabled:\n"),
 			 MESSAGE_DEBUG); debugger_execute_cmd_in_queqe ();
 }
@@ -1783,9 +1787,11 @@ debugger_disable_breakpoint (gint id)
 		return;
 	sprintf (buff, "disable %d", id);
 	debugger_put_cmd_in_queqe (buff, DB_CMD_ALL, NULL, NULL);
+	/*
 	debugger_put_cmd_in_queqe ("info breakpoints", DB_CMD_NONE,
 				   breakpoints_dbase_update,
 				   debugger.breakpoints_dbase);
+	*/
 	debugger_execute_cmd_in_queqe ();
 }
 
@@ -1803,9 +1809,11 @@ debugger_disable_all_breakpoints ()
 		return;
 	debugger_put_cmd_in_queqe ("disable breakpoints", DB_CMD_ALL, NULL,
 				   NULL);
+	/*
 	debugger_put_cmd_in_queqe ("info breakpoints", DB_CMD_NONE,
 				   breakpoints_dbase_update,
 				   debugger.breakpoints_dbase);
+	*/
 	anjuta_message_manager_append (app->messages, _("All breakpoints disabled:\n"),
 			 MESSAGE_DEBUG); debugger_execute_cmd_in_queqe ();
 }
@@ -1825,9 +1833,11 @@ debugger_delete_breakpoint (gint id)
 		return;
 	sprintf (buff, "delete %d", id);
 	debugger_put_cmd_in_queqe (buff, DB_CMD_ALL, NULL, NULL);
+	/*
 	debugger_put_cmd_in_queqe ("info breakpoints", DB_CMD_NONE,
 				   breakpoints_dbase_update,
 				   debugger.breakpoints_dbase);
+	*/
 	debugger_execute_cmd_in_queqe ();
 }
 
@@ -1845,9 +1855,11 @@ debugger_delete_all_breakpoints ()
 		return;
 	debugger_put_cmd_in_queqe ("delete breakpoints", DB_CMD_ALL, NULL,
 				   NULL);
+	/*
 	debugger_put_cmd_in_queqe ("info breakpoints", DB_CMD_NONE,
 				   breakpoints_dbase_update,
 				   debugger.breakpoints_dbase);
+	*/
 	anjuta_message_manager_append (app->messages, _("All breakpoints deleted:\n"),
 			 MESSAGE_DEBUG); debugger_execute_cmd_in_queqe ();
 }

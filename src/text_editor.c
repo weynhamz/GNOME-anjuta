@@ -1006,7 +1006,7 @@ text_editor_check_disk_status (TextEditor * te, const gboolean bForce )
 		}
 		else
 		{
-			GtkDialog *dlg;
+			GtkWidget *dlg;
 			GtkWidget *parent;
 			
 			buff =
@@ -1029,6 +1029,7 @@ text_editor_check_disk_status (TextEditor * te, const gboolean bForce )
 					text_editor_load_file (te);
 			else
 					te->modified_time = time (NULL);
+			gtk_widget_destroy (dlg);
 			return FALSE;
 		}
 	}

@@ -115,15 +115,8 @@ gotoline_init (GotoLine * obj)
   gtk_dialog_add_button (GTK_DIALOG (obj), GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL);
   gtk_dialog_add_button (GTK_DIALOG (obj), GTK_STOCK_OK, GTK_RESPONSE_OK);
   
-  /** Default to the OK button */
   gtk_dialog_set_default_response (GTK_DIALOG (obj), GTK_RESPONSE_OK);
-  //gtk_dialog_has_focus (GNOME_DIALOG (obj), 1);
-
-#warning "G2: Activate dialog on pressing Enter in the entry box"
-  /** If press enter in line number enter, act as if default button was pressed */
-  //gtk_dialog_editable_enters (GNOME_DIALOG (obj),
-  //				GTK_EDITABLE (numberentry));
-
+  gtk_entry_set_activates_default (GTK_ENTRY (numberentry), TRUE);
   gtk_widget_grab_focus (numberentry);
   g_signal_connect (G_OBJECT (obj), "response",
 		      G_CALLBACK (on_go_to_line_response),

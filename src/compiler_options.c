@@ -1139,6 +1139,7 @@ gboolean compiler_options_save_yourself (CompilerOptions * co, FILE * stream)
 
 gint compiler_options_save (CompilerOptions * co, FILE * s)
 {
+#warning "G2: Save compiler options here"
 #if 0
 	gchar *text;
 	gint length, i;
@@ -1493,7 +1494,7 @@ compiler_options_hide (CompilerOptions * co)
 	while (valid) \
 	{ \
 		gchar *text; \
-		gtk_tree_model_get (model, col, &text, -1); \
+		gtk_tree_model_get (model, &iter, col, &text, -1); \
 		tmp = g_strconcat (str, separator, text, NULL); \
 		g_free (str); \
 		str = tmp; \

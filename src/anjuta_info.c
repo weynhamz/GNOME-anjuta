@@ -34,14 +34,12 @@
 #include "anjuta_info.h"
 
 static GtkWidget *
-create_anjuta_info_dialog_with_textview (gint width,
+create_dialog_with_textview (GtkWindow *parent, gint width,
 					 gint height)
 {
 	GtkWidget *dialog;
-	GtkWidget *vbox;
-	GtkWidget *action_area;
 	GtkWidget *textview;
-	GtkWidget *close_button;
+	GtkWidget *scrolledwindow;
 
 	if (height < 250)
 		height = 250;
@@ -49,49 +47,42 @@ create_anjuta_info_dialog_with_textview (gint width,
 	if (width < 400)
 		width = 400;
 
-	dialog = gtk_dialog_new ();
-	gtk_window_set_title (GTK_WINDOW (dialog), _("Information"));
-
-	vbox = GTK_DIALOG (dialog)->vbox;
-	gtk_widget_show (vbox);
-
-	action_area = GTK_DIALOG (dialog)->action_area;
-	gtk_container_set_border_width (GTK_CONTAINER (action_area), 5);
-	gtk_button_box_set_layout (GTK_BUTTON_BOX (action_area), GTK_BUTTONBOX_END);
-	gtk_widget_show (action_area);
-
-	textview = gtk_text_view_new ();
-	gtk_box_pack_start (GTK_BOX (vbox), textview, TRUE, TRUE, 0);
-	gtk_widget_show (textview);
-
-	close_button = gtk_button_new_from_stock ("gtk-close");
-	gtk_dialog_add_action_widget (GTK_DIALOG (dialog), close_button, GTK_RESPONSE_CLOSE);
-	GTK_WIDGET_SET_FLAGS (close_button, GTK_CAN_DEFAULT);
-	gtk_widget_show (close_button);
-
+	dialog = gtk_dialog_new_with_buttons (_("Information"), parent,
+										  GTK_DIALOG_DESTROY_WITH_PARENT,
+										  GTK_STOCK_CLOSE, GTK_RESPONSE_NONE,
+										  NULL);
 	gtk_window_set_policy (GTK_WINDOW (dialog), FALSE, TRUE, FALSE);
 	gtk_window_set_default_size (GTK_WINDOW (dialog), 400, 250);
 	gtk_window_set_wmclass (GTK_WINDOW (dialog), "infoless", "Anjuta");
-
-	g_signal_connect (dialog, "delete_event", G_CALLBACK (gtk_widget_hide), NULL);
 	gtk_widget_show (dialog);
 
-	gtk_widget_ref (textview);
+	scrolledwindow = gtk_scrolled_window_new (NULL, NULL);
+	gtk_container_add (GTK_CONTAINER (GTK_DIALOG (dialog)->vbox),
+					   scrolledwindow);
+	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolledwindow),
+					GTK_POLICY_AUTOMATIC,
+					GTK_POLICY_AUTOMATIC);
+	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolledwindow),
+										 GTK_SHADOW_IN);
+	gtk_widget_show (scrolledwindow);
+	
+	textview = gtk_text_view_new ();
+	gtk_container_add (GTK_CONTAINER (scrolledwindow), textview);
+	gtk_widget_show (textview);
+
+	gtk_widget_show (dialog);
 
 	return textview;
 }
 
 static GtkWidget *
-create_anjuta_info_dialog_with_treeview (gint width,
-					 gint height)
+create_dialog_with_treeview (GtkWindow *parent, gint width,
+							 gint height)
 {
 	GtkWidget *dialog;
-	GtkWidget *vbox;
-	GtkWidget *action_area;
 	GtkWidget *scrolledwindow;
 	GtkTreeModel *model;
 	GtkWidget *treeview;
-	GtkWidget *close_button;
 
 	if (height < 250)
 		height = 250;
@@ -99,45 +90,31 @@ create_anjuta_info_dialog_with_treeview (gint width,
 	if (width < 400)
 		width = 400;
 
-	dialog = gtk_dialog_new ();
-	gtk_window_set_title (GTK_WINDOW (dialog), _("Information"));
-
-	vbox = GTK_DIALOG (dialog)->vbox;
-	gtk_widget_show (vbox);
-
-	action_area = GTK_DIALOG (dialog)->action_area;
-	gtk_container_set_border_width (GTK_CONTAINER (action_area), 5);
-	gtk_button_box_set_layout (GTK_BUTTON_BOX (action_area), GTK_BUTTONBOX_END);
-	gtk_widget_show (action_area);
+	dialog = gtk_dialog_new_with_buttons (_("Information"), parent,
+										  GTK_DIALOG_DESTROY_WITH_PARENT,
+										  GTK_STOCK_CLOSE, GTK_RESPONSE_NONE,
+										  NULL);
+	gtk_window_set_policy (GTK_WINDOW (dialog), FALSE, TRUE, FALSE);
+	gtk_window_set_default_size (GTK_WINDOW (dialog), 400, 250);
+	gtk_window_set_wmclass (GTK_WINDOW (dialog), "infoless", "Anjuta");
+	gtk_widget_show (dialog);
 
 	scrolledwindow = gtk_scrolled_window_new (NULL, NULL);
-	gtk_box_pack_start (GTK_BOX (vbox), scrolledwindow, TRUE, TRUE, 0);
+	gtk_container_add (GTK_CONTAINER (GTK_DIALOG (dialog)->vbox),
+					   scrolledwindow);
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolledwindow),
 					GTK_POLICY_AUTOMATIC,
 					GTK_POLICY_AUTOMATIC);
 	gtk_widget_show (scrolledwindow);
+	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolledwindow),
+										 GTK_SHADOW_IN);
 
 	model = GTK_TREE_MODEL (gtk_list_store_new (1, G_TYPE_STRING));
 
 	treeview = gtk_tree_view_new_with_model (model);
 	gtk_container_add (GTK_CONTAINER (scrolledwindow), treeview);
 	gtk_widget_show (treeview);
-
 	g_object_unref (G_OBJECT (model));
-
-	close_button = gtk_button_new_from_stock ("gtk-close");
-	gtk_dialog_add_action_widget (GTK_DIALOG (dialog), close_button, GTK_RESPONSE_CLOSE);
-	GTK_WIDGET_SET_FLAGS (close_button, GTK_CAN_DEFAULT);
-	gtk_widget_show (close_button);
-
-	gtk_window_set_policy (GTK_WINDOW (dialog), FALSE, TRUE, FALSE);
-	gtk_window_set_default_size (GTK_WINDOW (dialog), 400, 250);
-	gtk_window_set_wmclass (GTK_WINDOW (dialog), "infoless", "Anjuta");
-
-	g_signal_connect (dialog, "delete_event", G_CALLBACK (gtk_widget_hide), NULL);
-	gtk_widget_show (dialog);
-
-	gtk_widget_ref (treeview);
 
 	return treeview;
 }
@@ -192,7 +169,8 @@ anjuta_info_show_command (const gchar *command_line,
 	}
 
 	if (!g_utf8_validate (std_output, strlen (std_output), NULL))
-		g_warning ("Invalid UTF-8 data encountered reading output of command '%s'", command_line);
+		g_warning ("Invalid UTF-8 data encountered reading output of command '%s'",
+				   command_line);
 
 	ret = anjuta_info_show_string (std_output, width, height);
 
@@ -202,20 +180,17 @@ anjuta_info_show_command (const gchar *command_line,
 }
 
 gboolean
-anjuta_info_show_string (const gchar *s,
-			 gint         width,
-			 gint         height)
+anjuta_info_show_string (const gchar *s, gint width, gint height)
 {
 	GtkWidget *textview;
 	GtkTextBuffer *buffer;
 
 	g_return_val_if_fail (s != NULL, FALSE);
 
-	textview = create_anjuta_info_dialog_with_textview (width, height);
+	textview = create_dialog_with_textview (GTK_WINDOW (app->widgets.window),
+											width, height);
 	buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (textview));
 	gtk_text_buffer_set_text (buffer, s, strlen (s));
-
-	gtk_widget_unref (textview);
 
 	return TRUE;
 }
@@ -234,7 +209,8 @@ anjuta_info_show_filestream (FILE *f,
 
 	g_return_val_if_fail (f != NULL, FALSE);
 
-	textview = create_anjuta_info_dialog_with_textview (width, height);
+	textview = create_dialog_with_textview (GTK_WINDOW (app->widgets.window),
+											width, height);
 	buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (textview));
 
         errno = 0; /* Reset it to detect errors */
@@ -249,9 +225,6 @@ anjuta_info_show_filestream (FILE *f,
 		gtk_text_buffer_get_end_iter (buffer, &iter);
 		gtk_text_buffer_insert (buffer, &iter, buf, strlen (buf));
 	}
-
-	gtk_widget_unref (textview);
-
 	return errno ? FALSE : TRUE;
 }
 
@@ -289,7 +262,8 @@ anjuta_info_show_list (GList* list,
 
 	g_return_if_fail (list != NULL);
 
-	treeview = create_anjuta_info_dialog_with_treeview (width, height);
+	treeview = create_dialog_with_treeview (GTK_WINDOW (app->widgets.window),
+											width, height);
 	model = gtk_tree_view_get_model (GTK_TREE_VIEW (treeview));
 
 	for (; list; list = g_list_next (list)) {
@@ -303,6 +277,4 @@ anjuta_info_show_list (GList* list,
 
 		g_free (tmp);
 	}
-	
-	gtk_widget_unref (treeview);
 }

@@ -29,9 +29,187 @@
 static const gchar SecFT [] = {"FindText"};
 /*static const gchar SECTION_SEARCH [] =  {"search_text"};*/
 
-void
+static void
 on_find_text_dialog_response (GtkDialog *dialog, gint response,
-                              gpointer user_data);
+							  gpointer user_data);
+
+static gboolean
+on_find_text_delete_event (GtkDialog *dialog, GdkEvent *event,
+						   FindText *ft)
+{
+	find_text_hide (ft);
+	return TRUE;
+}
+
+static void
+on_find_text_start_over (void)
+{
+	TextEditor *te = anjuta_get_current_text_editor();
+	long length;
+
+	length = aneditor_command(te->editor_id, ANE_GETLENGTH, 0, 0);
+	
+	if (app->find_replace->find_text->forward == TRUE)
+		// search from doc start
+		aneditor_command (te->editor_id, ANE_GOTOLINE, 0, 0);
+	else
+		// search from doc end
+		aneditor_command (te->editor_id, ANE_GOTOLINE, length, 0);
+	on_find_text_dialog_response (NULL, GTK_RESPONSE_OK,
+								  app->find_replace->find_text);
+}
+
+static void
+on_find_text_dialog_response (GtkDialog *dialog, gint response,
+                              gpointer user_data)
+{
+	TextEditor *te;
+	gchar *string;
+	const gchar *str;
+	gchar buff[512];
+	gint ret;
+	FindText *ft = user_data;
+	gboolean radio0, radio1, state;
+
+	if (response == GTK_RESPONSE_HELP)
+		return;
+	if (response == GTK_RESPONSE_CLOSE)
+	{
+		find_text_hide (ft);
+		return;
+	}
+
+	state =
+		gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
+					      (ft->f_gui.ignore_case_check));
+	if (state == TRUE)
+		ft->ignore_case = TRUE;
+	else
+		ft->ignore_case = FALSE;
+
+	state =
+		gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
+					      (ft->f_gui.whole_word_check));
+	if (state == TRUE)
+		ft->whole_word = TRUE;
+	else
+		ft->whole_word = FALSE;
+
+
+	radio0 =
+		gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
+					      (ft->f_gui.from_begin_radio));
+	radio1 =
+		gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
+					      (ft->f_gui.from_cur_loc_radio));
+
+	if (radio0)
+		ft->area = TEXT_EDITOR_FIND_SCOPE_WHOLE;
+	else
+		ft->area = TEXT_EDITOR_FIND_SCOPE_CURRENT;
+
+	state =
+		gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
+					      (ft->f_gui.forward_radio));
+	if (state == TRUE)
+		ft->forward = TRUE;
+	else
+		ft->forward = FALSE;
+
+	state =
+		gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
+					      (ft->f_gui.regexp_radio));
+	if (state == TRUE)
+		ft->regexp = TRUE;
+	else
+		ft->regexp = FALSE;
+
+
+	te = anjuta_get_current_text_editor ();
+	if (!te) return;
+	str = gtk_entry_get_text (GTK_ENTRY (ft->f_gui.entry));
+	if (!str || strlen (str) < 1)
+		return;
+	/* Object is going to be destroyed. so, strdup */
+	string = g_strdup (str);
+	switch (ft->area)
+	{
+	case TEXT_EDITOR_FIND_SCOPE_WHOLE:
+		sprintf (buff,
+				 _("The match \"%s\" was not found in the whole document"),
+				 string);
+		break;
+	case TEXT_EDITOR_FIND_SCOPE_SELECTION:
+		sprintf (buff,
+				 _("The match \"%s\" was not found in the selected text"),
+				 string);
+		break;
+	default:
+		sprintf (buff,
+				 _("The match \"%s\" was not found from the current location"),
+				 string);
+		break;
+	}
+	ret = text_editor_find (te, string, ft->area,
+							ft->forward, ft->regexp,
+							ft->ignore_case,
+							ft->whole_word);
+
+	gtk_entry_set_text(GTK_ENTRY(app->widgets.toolbar.main_toolbar.find_entry),
+					   string);
+
+	g_free (string);
+	if (ret < 0)
+	{
+		if (ft->area == TEXT_EDITOR_FIND_SCOPE_CURRENT)
+		{
+			GtkWidget *dialog;
+			// Ask if user wants to wrap around the doc
+			dialog = gtk_message_dialog_new (GTK_WINDOW (ft->f_gui.GUI),											 GTK_DIALOG_DESTROY_WITH_PARENT,
+											 GTK_MESSAGE_QUESTION,
+											 GTK_BUTTONS_YES_NO,
+						 _("No matches. Wrap search around the document?"));
+			if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_YES)
+			{
+				on_find_text_start_over ();
+			}
+			gtk_widget_destroy (dialog);
+		}
+		else
+			anjuta_error (buff);
+	}
+}
+
+static void
+create_find_text_gui (FindText * ft)
+{
+	ft->gxml = glade_xml_new (GLADE_FILE_ANJUTA, "find_text_dialog", NULL);
+	glade_xml_signal_autoconnect (ft->gxml);
+	ft->f_gui.GUI = glade_xml_get_widget (ft->gxml, "find_text_dialog");
+	gtk_widget_hide (ft->f_gui.GUI);
+	gtk_window_set_transient_for (GTK_WINDOW(ft->f_gui.GUI),
+                                  GTK_WINDOW(app->widgets.window));
+	
+	ft->f_gui.combo = glade_xml_get_widget (ft->gxml, "find_text_combo");
+	ft->f_gui.entry = glade_xml_get_widget (ft->gxml, "find_text_entry");
+	ft->f_gui.from_begin_radio = glade_xml_get_widget (ft->gxml, "find_text_whole_document");
+	ft->f_gui.from_cur_loc_radio = glade_xml_get_widget (ft->gxml, "find_text_from_cursor");
+	ft->f_gui.forward_radio = glade_xml_get_widget (ft->gxml, "find_text_forwards");
+	ft->f_gui.backward_radio = glade_xml_get_widget (ft->gxml, "find_text_backwards");
+	ft->f_gui.regexp_radio = glade_xml_get_widget (ft->gxml, "find_text_regexp");
+	ft->f_gui.string_radio = glade_xml_get_widget (ft->gxml, "find_text_string");
+	ft->f_gui.ignore_case_check = glade_xml_get_widget (ft->gxml, "find_text_ignore_case");
+	ft->f_gui.whole_word_check = glade_xml_get_widget (ft->gxml, "find_text_whole_word");
+	
+	gtk_combo_disable_activate (GTK_COMBO (ft->f_gui.combo));
+	
+	g_signal_connect (G_OBJECT (ft->f_gui.GUI), "delete_event",
+	                  G_CALLBACK (on_find_text_delete_event), ft);
+	g_signal_connect (G_OBJECT (ft->f_gui.GUI), "response",
+	                  G_CALLBACK (on_find_text_dialog_response), ft);
+
+	gtk_widget_grab_focus (ft->f_gui.entry);
+}
 
 FindText *
 find_text_new ()
@@ -117,7 +295,9 @@ find_text_load_session( FindText * ft, ProjectDBase *p )
 	g_return_if_fail( NULL != p );
 	g_return_if_fail( NULL != ft );
 
-	ft->find_history = session_load_strings( p, SECSTR(SECTION_FINDTEXT), ft->find_history );
+	ft->find_history = session_load_strings(p,
+											SECSTR(SECTION_FINDTEXT),
+											ft->find_history );
 }
 
 void
@@ -162,7 +342,8 @@ find_text_show (FindText * ft)
 				      ft->whole_word);
 
 	gtk_widget_grab_focus (ft->f_gui.entry);
-	gnome_dialog_set_default (GNOME_DIALOG (ft->f_gui.GUI), 3);
+	gtk_dialog_set_default_response (GTK_DIALOG (ft->f_gui.GUI),
+									 GTK_RESPONSE_OK);
 	entry_set_text_n_select (ft->f_gui.entry, NULL, TRUE);
 	if (ft->is_showing)
 	{
@@ -184,6 +365,7 @@ find_text_hide (FindText * ft)
 		return;
 	gdk_window_get_root_origin (ft->f_gui.GUI->window, &ft->pos_x,
 				    &ft->pos_y);
+	gtk_widget_hide (ft->f_gui.GUI);
 	ft->is_showing = FALSE;
 
 
@@ -223,178 +405,22 @@ find_text_save_session ( FindText * ft, ProjectDBase *p )
 }
 
 void
-create_find_text_gui (FindText * ft)
-{
-	ft->gxml = glade_xml_new (GLADE_FILE_ANJUTA, "find_text_dialog", NULL);
-	glade_xml_signal_autoconnect (ft->gxml);
-	ft->f_gui.GUI = glade_xml_get_widget (ft->gxml, "find_text_dialog");
-	gtk_widget_hide (ft->f_gui.GUI);
-	gtk_window_set_transient_for (GTK_WINDOW(ft->f_gui.GUI),
-                                  GTK_WINDOW(app->widgets.window));
-	
-	ft->f_gui.combo = glade_xml_get_widget (ft->gxml, "find_text_find_combo");
-	ft->f_gui.entry = glade_xml_get_widget (ft->gxml, "find_text_find_entry");
-	ft->f_gui.from_begin_radio = glade_xml_get_widget (ft->gxml, "find_text_whole_document");
-	ft->f_gui.from_cur_loc_radio = glade_xml_get_widget (ft->gxml, "find_text_from_cursor");
-	ft->f_gui.forward_radio = glade_xml_get_widget (ft->gxml, "find_text_forwards");
-	ft->f_gui.backward_radio = glade_xml_get_widget (ft->gxml, "find_text_backwards");
-	ft->f_gui.regexp_radio = glade_xml_get_widget (ft->gxml, "find_text_regexp");
-	ft->f_gui.string_radio = glade_xml_get_widget (ft->gxml, "find_text_string");
-	ft->f_gui.ignore_case_check = glade_xml_get_widget (ft->gxml, "find_text_ignore_case");
-	ft->f_gui.whole_word_check = glade_xml_get_widget (ft->gxml, "find_text_whole_word");
-	
-	g_signal_connect (G_OBJECT (ft->f_gui.GUI), "response",
-	                  G_CALLBACK (on_find_text_dialog_response), ft);
-
-	gtk_widget_grab_focus (ft->f_gui.entry);
-}
-
-void
-on_find_text_dialog_response (GtkDialog *dialog, gint response,
-                              gpointer user_data)
-{
-	TextEditor *te;
-	gchar *string;
-	const gchar *str;
-	gchar buff[512];
-	gint ret;
-	FindText *ft = user_data;
-	gboolean radio0, radio1, state;
-
-	if (response == GTK_RESPONSE_HELP)
-		return;
-	if (response != GTK_RESPONSE_OK)
-	{
-		find_text_hide (ft);
-		return;
-	}
-
-	state =
-		gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
-					      (ft->f_gui.ignore_case_check));
-	if (state == TRUE)
-		ft->ignore_case = TRUE;
-	else
-		ft->ignore_case = FALSE;
-
-	state =
-		gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
-					      (ft->f_gui.whole_word_check));
-	if (state == TRUE)
-		ft->whole_word = TRUE;
-	else
-		ft->whole_word = FALSE;
-
-
-	radio0 =
-		gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
-					      (ft->f_gui.from_begin_radio));
-	radio1 =
-		gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
-					      (ft->f_gui.from_cur_loc_radio));
-
-	if (radio0)
-		ft->area = TEXT_EDITOR_FIND_SCOPE_WHOLE;
-	else
-		ft->area = TEXT_EDITOR_FIND_SCOPE_CURRENT;
-
-	state =
-		gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
-					      (ft->f_gui.forward_radio));
-	if (state == TRUE)
-		ft->forward = TRUE;
-	else
-		ft->forward = FALSE;
-
-	state =
-		gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
-					      (ft->f_gui.regexp_radio));
-	if (state == TRUE)
-		ft->regexp = TRUE;
-	else
-		ft->regexp = FALSE;
-
-
-	te = anjuta_get_current_text_editor ();
-	if (!te) return;
-	str = gtk_entry_get_text (GTK_ENTRY (ft->f_gui.entry));
-	if (!str || strlen (str) < 1)
-		return;
-	/* Object is going to be destroyed. so, strdup */
-	string = g_strdup (str);
-	switch (ft->area)
-	{
-	case TEXT_EDITOR_FIND_SCOPE_WHOLE:
-		sprintf (buff, _("The match \"%s\" was not found in the whole document"), string);
-		break;
-	case TEXT_EDITOR_FIND_SCOPE_SELECTION:
-		sprintf (buff, _("The match \"%s\" was not found in the selected text"), string);
-		break;
-	default:
-		sprintf (buff, _("The match \"%s\" was not found from the current location"), string);
-		break;
-	}
-	ret = text_editor_find (te, string, ft->area, ft->forward, ft->regexp, ft->ignore_case, ft->whole_word);
-
-	gtk_entry_set_text(GTK_ENTRY(app->widgets.toolbar.main_toolbar.find_entry), string);
-
-	g_free (string);
-	if (ret < 0)
-	{
-		if (ft->area == TEXT_EDITOR_FIND_SCOPE_CURRENT)
-		{
-			// Ask if user wants to wrap around the doc
-			messagebox2 (GTK_MESSAGE_QUESTION,
-					_("No matches. Wrap search around the document?"),
-					GTK_STOCK_NO,
-					GTK_STOCK_YES,
-					G_CALLBACK (on_find_text_dialog_response),
-					G_CALLBACK (on_find_text_dialog_response), 
-					user_data);
-		}
-		else
-			anjuta_error (buff);
-	}
-}
-
-void
-on_find_text_start_over (GtkButton * button, gpointer user_data)
-{
-	TextEditor *te = anjuta_get_current_text_editor();
-	long length;
-
-	length = aneditor_command(te->editor_id, ANE_GETLENGTH, 0, 0);
-	
-	if (app->find_replace->find_text->forward == TRUE)		
-		aneditor_command (te->editor_id, ANE_GOTOLINE, 0, 0); // search from doc start
-	else
-		aneditor_command (te->editor_id, ANE_GOTOLINE, length, 0); // search from doc end
-
-	on_find_text_dialog_response (NULL, GTK_RESPONSE_OK, app->find_replace->find_text);
-}
-
-void
 enter_selection_as_search_target(void)
 {
-gchar *selectionText = NULL;
-
-       selectionText = anjuta_get_current_selection ();
-       
-       if (selectionText != NULL && selectionText[0] != '\0')
-       {
-       GList   *updatedHistory;
-               
-               updatedHistory = update_string_list (app->find_replace->find_text->find_history, selectionText, COMBO_LIST_LENGTH);
-               
-               app->find_replace->find_text->find_history = updatedHistory;
-               
-               
-               entry_set_text_n_select (app->widgets.toolbar.main_toolbar.find_entry, selectionText, FALSE);
-       }
-       
-       
-       if (selectionText != NULL)
-       {
-               g_free (selectionText);
-       }       
+	gchar *selectionText = NULL;
+	
+	selectionText = anjuta_get_current_selection ();
+	if (selectionText != NULL && selectionText[0] != '\0')
+	{
+		GList   *updatedHistory;
+		updatedHistory =
+			update_string_list (app->find_replace->find_text->find_history,
+								selectionText, COMBO_LIST_LENGTH);
+		app->find_replace->find_text->find_history = updatedHistory;
+		entry_set_text_n_select (app->widgets.toolbar.main_toolbar.find_entry,
+								 selectionText, FALSE);
+	}
+	
+	if (selectionText != NULL)
+		g_free (selectionText);
 }

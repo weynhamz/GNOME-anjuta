@@ -525,11 +525,11 @@ create_password_dialog (gchar* prompt)
 	                        GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
 	                        GTK_STOCK_OK, GTK_RESPONSE_OK, NULL);
 	gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_OK);
-	//gtk_dialog_grab_focus (GTK_DIALOG (dialog), 0);
 
 	gtk_window_set_wmclass (GTK_WINDOW (dialog), "launcher-password-prompt",
 				"anjuta");
-	gtk_window_set_transient_for (GTK_WINDOW(dialog), GTK_WINDOW(app->widgets.window));
+	gtk_window_set_transient_for (GTK_WINDOW(dialog),
+								  GTK_WINDOW(app->widgets.window));
 	
 	hbox = gtk_hbox_new(FALSE, 10);
 	gtk_widget_show(hbox);
@@ -549,7 +549,6 @@ create_password_dialog (gchar* prompt)
 	
 	label = gtk_label_new (_(prompt));
 	gtk_widget_show(label);
-	/* gtk_misc_set_alignment(GTK_MISC(label), -1, 0); */
 	gtk_box_pack_start(GTK_BOX(box), label, FALSE, FALSE, 0);
 	
 	entry = gtk_entry_new ();
@@ -561,9 +560,7 @@ create_password_dialog (gchar* prompt)
 	gtk_object_set_data_full(GTK_OBJECT(dialog), "password_entry",
 				entry, (GtkDestroyNotify)gtk_widget_unref);
 	gtk_widget_grab_focus(entry);
+	gtk_entry_set_activates_default (GTK_ENTRY (entry), TRUE);
 	
-#warning "G2: Activate dialog on Enter in the entry box"
-	//gtk_dialog_editable_enters (GTK_DIALOG (dialog), GTK_EDITABLE (entry));
-
 	return dialog;
 }

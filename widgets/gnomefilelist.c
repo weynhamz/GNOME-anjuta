@@ -24,6 +24,10 @@
  *     Dan Elphick <dre00r@ecs.soton.ac.uk>
  *     Stephane Demurget  <demurgets@free.fr>
  */
+#ifdef HAVE_CONFIG_H
+#  include <config.h>
+#endif
+
 #include "gnomefilelist.h"
 
 #include <pwd.h>
@@ -44,9 +48,8 @@ enum
 	N_DIRECTORY_COLUMNS
 };
 
-#warning "G2: Use installed pixmaps here!"
-#define FILE_PIXMAP_FOLDER "/home/naba/Projects/anjuta-2/pixmaps/bfoldc.xpm"
-#define FILE_PIXMAP_FILE "/home/naba/Projects/anjuta-2/pixmaps/file_file.xpm"
+#define FILE_PIXMAP_FOLDER PACKAGE_PIXMAPS_DIR"/bfoldc.xpm"
+#define FILE_PIXMAP_FILE   PACKAGE_PIXMAPS_DIR"/file_file.xpm"
 
 /* function declarations */
 static void gnome_filelist_class_init (GnomeFileListClass * klass);

@@ -746,6 +746,36 @@ typedef struct _AnToolList
 	GtkWidget *clist;
 } AnToolList;
 
+/* Forward declarations */
+static void
+on_user_tool_row_activated (GtkTreePath     *arg1,
+                            GtkTreeViewColumn *arg2,
+                            gpointer         user_data);
+
+static void
+on_user_tool_selection_changed (GtkTreeSelection *sel, AnToolList *tl);
+
+static gint
+on_user_tool_delete_event (GtkWindow *window, GdkEvent* event,
+						   gpointer user_data);
+
+static void
+on_user_tool_response (GtkDialog *dialog, gint res, gpointer user_data);
+
+static void
+on_user_tool_edit_detached_toggled(GtkToggleButton *tb, gpointer user_data);
+
+static void
+on_user_tool_edit_input_type_changed(GtkEditable *editable, gboolean user_data);
+
+static void
+on_user_tool_edit_response (GtkDialog *dialog, gint response,
+							gpointer data);
+
+static gint
+on_user_tool_edit_delete_event (GtkWindow *button, GdkEvent* event,
+								gpointer user_data);
+
 /* Structure containing the required properties of the tool editor GUI */
 typedef struct _AnToolEditor
 {
@@ -855,17 +885,24 @@ gboolean anjuta_tools_edit(void)
 													   "text",
 													   AN_TOOLS_ENABLED_COLUMN,
 													   NULL);
-	gtk_tree_view_append_column (GTK_TREE_VIEW(tl->clist), column);
-	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW(tl->clist));
-	g_signal_connect (G_OBJECT (selection), "changed",
-					  G_CALLBACK (on_user_tool_selection_changed), tl);
-	
-	// tl->row = NULL;
 	gtk_dialog_set_response_sensitive (GTK_DIALOG (tl->dialog),
 										 GTK_RESPONSE_APPLY, FALSE);
 	gtk_dialog_set_response_sensitive (GTK_DIALOG (tl->dialog),
 										 GTK_RESPONSE_NO, FALSE);
-	glade_xml_signal_autoconnect(xml);
+	
+	
+	gtk_tree_view_append_column (GTK_TREE_VIEW(tl->clist), column);
+	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW(tl->clist));
+	
+	g_signal_connect (G_OBJECT (selection), "changed",
+					  G_CALLBACK (on_user_tool_selection_changed), tl);
+	g_signal_connect (G_OBJECT (tl->clist), "row_activated",
+					  G_CALLBACK (on_user_tool_row_activated), NULL);
+	g_signal_connect (G_OBJECT (tl->dialog), "delete_event",
+					  G_CALLBACK (on_user_tool_delete_event), NULL);
+	g_signal_connect (G_OBJECT (tl->dialog), "response",
+					  G_CALLBACK (on_user_tool_response), NULL);
+
 	g_object_unref (xml);
 	
 	gtk_list_store_clear (GTK_LIST_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(tl->clist))));
@@ -1067,7 +1104,7 @@ static gboolean show_tool_editor(AnUserTool *tool, gboolean editing)
 	GladeXML *xml;
 	
 	if (ted)
-		return FALSE;
+		return TRUE;
 
 	ted = g_new0(AnToolEditor, 1);
 	if (NULL == (xml = glade_xml_new(GLADE_FILE_ANJUTA, TOOL_EDITOR, NULL)))
@@ -1106,9 +1143,7 @@ static gboolean show_tool_editor(AnUserTool *tool, gboolean editing)
 	gtk_combo_set_popdown_strings(ted->output_com, strlist);
 	gtk_combo_set_popdown_strings(ted->error_com, strlist);
 	g_list_free(strlist);
-	glade_xml_signal_autoconnect(xml);
-	g_object_unref (xml);
-
+	
 	clear_tool_editor();
 	ted->editing = editing;
 	if (tool)
@@ -1120,9 +1155,21 @@ static gboolean show_tool_editor(AnUserTool *tool, gboolean editing)
 	}
 	else
 		ted->tool = NULL;
+	
+	g_signal_connect (G_OBJECT (ted->dialog), "delete_event",
+					  G_CALLBACK (on_user_tool_edit_delete_event), NULL);
+	g_signal_connect (G_OBJECT (ted->dialog), "response",
+					  G_CALLBACK (on_user_tool_edit_response), NULL);
+	g_signal_connect (G_OBJECT (ted->detached_tb), "toggled",
+					  G_CALLBACK (on_user_tool_edit_detached_toggled), NULL);
+	g_signal_connect (G_OBJECT (ted->input_type_en), "changed",
+					  G_CALLBACK (on_user_tool_edit_input_type_changed), NULL);
+	g_object_unref (xml);
+
 	return TRUE;
 }
 
+/* Callbacks for tool list GUI */
 void
 on_user_tool_row_activated (GtkTreePath     *arg1,
                             GtkTreeViewColumn *arg2,
@@ -1137,8 +1184,8 @@ on_user_tool_row_activated (GtkTreePath     *arg1,
 		gtk_dialog_response (GTK_DIALOG (tl->dialog), GTK_RESPONSE_APPLY);
 }
 
-/* Callbacks for tool list GUI */
-void on_user_tool_selection_changed (GtkTreeSelection *sel, AnToolList *tl)
+void
+on_user_tool_selection_changed (GtkTreeSelection *sel, AnToolList *tl)
 {
 	GtkTreeModel *model;
 	GtkTreeIter iter;
@@ -1159,8 +1206,9 @@ void on_user_tool_selection_changed (GtkTreeSelection *sel, AnToolList *tl)
 	}
 }
 
-gint on_user_tool_delete_event (GtkWindow *window, GdkEvent* event,
-								gpointer user_data)
+gboolean
+on_user_tool_delete_event (GtkWindow *window, GdkEvent* event,
+						   gpointer user_data)
 {
 	g_message ("Tools: Delete event called");
 	g_free (tl);
@@ -1186,7 +1234,8 @@ static void really_delete_tool ()
 	}
 }
 
-void on_user_tool_response (GtkDialog *dialog, gint res, gpointer user_data)
+void
+on_user_tool_response (GtkDialog *dialog, gint res, gpointer user_data)
 {
 	GtkTreeSelection *selection;
 	GtkTreeModel *model;
@@ -1303,7 +1352,8 @@ static AnUserTool *an_user_tool_from_gui(void)
 
 /* Callbacks for the tool editor GUI */
 
-void on_user_tool_edit_detached_toggled(GtkToggleButton *tb, gpointer user_data)
+void
+on_user_tool_edit_detached_toggled(GtkToggleButton *tb, gpointer user_data)
 {
 	int input_type = AN_TINP_NONE;
 	char *s = gtk_editable_get_chars(ted->input_type_en, 0, -1);
@@ -1319,7 +1369,8 @@ void on_user_tool_edit_detached_toggled(GtkToggleButton *tb, gpointer user_data)
 	set_tool_editor_widget_sensitivity(state, (AN_TINP_STRING == input_type));
 }
 
-void on_user_tool_edit_input_type_changed(GtkEditable *editable, gboolean user_data)
+void
+on_user_tool_edit_input_type_changed(GtkEditable *editable, gboolean user_data)
 {
 	int input_type = AN_TINP_NONE;
 	char *s = gtk_editable_get_chars(editable, 0, -1);
@@ -1332,8 +1383,9 @@ void on_user_tool_edit_input_type_changed(GtkEditable *editable, gboolean user_d
 	  , (AN_TINP_STRING == input_type));
 }
 
-void on_user_tool_edit_response (GtkDialog *dialog, gint response,
-								 gpointer data)
+void
+on_user_tool_edit_response (GtkDialog *dialog, gint response,
+							gpointer data)
 {
 	GtkTreeModel *model;
 	AnUserTool *tool, *tool1 = NULL;
@@ -1413,15 +1465,15 @@ void on_user_tool_edit_response (GtkDialog *dialog, gint response,
 		}
 	}
 	gtk_widget_destroy (ted->dialog);
-	ted->dialog = NULL;
+	g_free (ted);
+	ted = NULL;
 }
 
-gint on_user_tool_edit_delete_event (GtkWindow *button, GdkEvent* event,
-									 gpointer user_data)
+static gboolean
+on_user_tool_edit_delete_event (GtkWindow *window, GdkEvent* event,
+								gpointer user_data)
 {
-//#ifdef DEBUG
 	g_message ("Tools editor: Destroy event called");
-//#endif
 	g_free (ted);
 	ted = NULL;
 	return FALSE;
@@ -1702,7 +1754,6 @@ void anjuta_tools_show_variables()
 													   NULL);
 	gtk_tree_view_append_column (GTK_TREE_VIEW(clist), column);
 	
-	glade_xml_signal_autoconnect(xml);
 	g_object_unref (xml);
 	
 	gtk_list_store_clear (GTK_LIST_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(clist))));

@@ -50,7 +50,6 @@ struct  _FindAndReplaceGui
 struct _FindAndReplace
 {
   GladeXML *gxml;
-  GladeXML *gxml_prompt;
   FindAndReplaceGui    r_gui;
   FindText                          *find_text;
   GList                                 *replace_history;

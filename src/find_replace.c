@@ -45,6 +45,14 @@ on_replace_text_close (GtkWidget * widget,
 				  gpointer user_data);
 */
 
+static gboolean
+on_find_replace_delete_event (GtkDialog *dialog, GdkEvent *event,
+							  FindAndReplace *ft)
+{
+	find_replace_hide (ft);
+	return TRUE;
+}
+
 FindAndReplace *
 find_replace_new ()
 {
@@ -79,7 +87,6 @@ find_replace_destroy (FindAndReplace * fr)
 		if (fr->replace_history)
 			g_list_free (fr->replace_history);
 		g_object_unref (fr->gxml);
-		g_object_unref (fr->gxml_prompt);
 		g_free (fr);
 	}
 }
@@ -105,7 +112,9 @@ find_replace_load_session ( FindAndReplace * fr, ProjectDBase *p )
 {
 	g_return_if_fail( NULL != p );
 	g_return_if_fail( NULL != fr );
-	fr->replace_history	= session_load_strings( p, SECSTR(SECTION_REPLACETEXT), fr->replace_history );
+	fr->replace_history	= session_load_strings(p,
+											   SECSTR(SECTION_REPLACETEXT),
+											   fr->replace_history );
 	if( fr->find_text )
 		find_text_load_session ( fr->find_text, p );
 }
@@ -214,7 +223,7 @@ find_replace_hide (FindAndReplace * fr)
 	
 	gdk_window_get_root_origin (fr->r_gui.GUI->window, &fr->pos_x,
 				    &fr->pos_y);
-	gnome_dialog_close(GNOME_DIALOG(fr->r_gui.GUI));
+	gtk_widget_hide (fr->r_gui.GUI);
 	fr->is_showing = FALSE;
 
 	fr->find_text->ignore_case =
@@ -278,12 +287,7 @@ find_replace_hide (FindAndReplace * fr)
 static void
 create_find_replace_gui (FindAndReplace * fr)
 {
-	fr->gxml_prompt = glade_xml_new (GLADE_FILE_ANJUTA, "find_replace_prompt_dialog", NULL);
-	glade_xml_signal_autoconnect (fr->gxml_prompt);
-	gtk_widget_hide (glade_xml_get_widget (fr->gxml_prompt, "find_replace_prompt_dialog"));
-
 	fr->gxml = glade_xml_new (GLADE_FILE_ANJUTA, "find_replace_dialog", NULL);
-	glade_xml_signal_autoconnect (fr->gxml);
 	fr->r_gui.GUI = glade_xml_get_widget (fr->gxml, "find_replace_dialog");
 	gtk_widget_hide (fr->r_gui.GUI);
 
@@ -304,7 +308,12 @@ create_find_replace_gui (FindAndReplace * fr)
 	fr->r_gui.replace_prompt_check = glade_xml_get_widget (fr->gxml, "find_replace_prompt_replace");
 	fr->r_gui.whole_word_check = glade_xml_get_widget (fr->gxml, "find_replace_whole_word");
 	
+	gtk_combo_disable_activate (GTK_COMBO (fr->r_gui.find_combo));
+	gtk_combo_disable_activate (GTK_COMBO (fr->r_gui.replace_combo));
+	
 	g_signal_connect (G_OBJECT (fr->r_gui.GUI), "response",
+	                  G_CALLBACK (on_replace_dialog_response), fr);
+	g_signal_connect (G_OBJECT (fr->r_gui.GUI), "delete_event",
 	                  G_CALLBACK (on_replace_dialog_response), fr);
 
 	gtk_widget_grab_focus (fr->r_gui.find_entry);
@@ -313,7 +322,18 @@ create_find_replace_gui (FindAndReplace * fr)
 static GtkWidget*
 create_replace_messagebox (FindAndReplace *fr)
 {
-	return glade_xml_get_widget (fr->gxml_prompt, "find_replace_prompt_dialog");
+	GtkWidget *dialog;
+	dialog = gtk_message_dialog_new (GTK_WINDOW (fr->r_gui.GUI), 
+									 GTK_DIALOG_DESTROY_WITH_PARENT,
+									 GTK_MESSAGE_QUESTION,
+									 GTK_BUTTONS_NONE,
+									 _("Do you want to replace this?"));
+	gtk_dialog_add_buttons (GTK_DIALOG (dialog),
+							GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+							GTK_STOCK_NO, GTK_RESPONSE_NO,
+							GTK_STOCK_YES, GTK_RESPONSE_YES, NULL);
+	gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_OK);
+	return dialog;
 }
 
 static void
@@ -329,7 +349,7 @@ on_replace_dialog_response (GtkDialog *dialog, gint response,
 	if (response == GTK_RESPONSE_HELP)
 		return;
 	find_replace_hide(fr);
-	if (response != GTK_RESPONSE_OK)
+	if (response == GTK_RESPONSE_CLOSE)
 		return;
 
 	te = anjuta_get_current_text_editor ();
@@ -343,13 +363,19 @@ on_replace_dialog_response (GtkDialog *dialog, gint response,
 	switch (fr->find_text->area)
 	{
 	case TEXT_EDITOR_FIND_SCOPE_WHOLE:
-		sprintf (buff, "The string \"%s\" was not found in the current file", f_string);
+		sprintf (buff,
+				 "The string \"%s\" was not found in the current file",
+				 f_string);
 		break;
 	case TEXT_EDITOR_FIND_SCOPE_SELECTION:
-		sprintf (buff, _("The string \"%s\" was not found in the selected text"), f_string);
+		sprintf (buff,
+				 _("The string \"%s\" was not found in the selected text"),
+				 f_string);
 		break;
 	default:
-		sprintf (buff, _("The string \"%s\" was not found from the current location"), f_string);
+		sprintf (buff,
+				 _("The string \"%s\" was not found from the current location"),
+				 f_string);
 		break;
 	}
 	count = 0;
@@ -358,14 +384,21 @@ on_replace_dialog_response (GtkDialog *dialog, gint response,
 		/* Only the first search */
 		if (count == 0)
 		{
-			ret = text_editor_find (te, f_string, fr->find_text->area, fr->find_text->forward,
-				fr->find_text->regexp, fr->find_text->ignore_case, fr->find_text->whole_word);
+			ret = text_editor_find (te, f_string,
+									fr->find_text->area,
+									fr->find_text->forward,
+									fr->find_text->regexp,
+									fr->find_text->ignore_case,
+									fr->find_text->whole_word);
 		}
 		else
 		{
-			ret = text_editor_find (te, f_string, TEXT_EDITOR_FIND_SCOPE_CURRENT,
-				fr->find_text->forward,
-				fr->find_text->regexp, fr->find_text->ignore_case, fr->find_text->whole_word);
+			ret = text_editor_find (te, f_string,
+									TEXT_EDITOR_FIND_SCOPE_CURRENT,
+									fr->find_text->forward,
+									fr->find_text->regexp,
+									fr->find_text->ignore_case,
+									fr->find_text->whole_word);
 		}
 		if (ret < 0)
 		{
@@ -375,22 +408,29 @@ on_replace_dialog_response (GtkDialog *dialog, gint response,
 		}
 		else
 		{
+			GtkWidget *dialog;
 			glong sel_start;
 			gint but;
 			
+			dialog = create_replace_messagebox (fr);
 			if (fr->replace_prompt)
-				but = gtk_dialog_run (GTK_DIALOG (create_replace_messagebox (fr)));
+				but = gtk_dialog_run (GTK_DIALOG (dialog));
 			else
 				but = 1;
+			gtk_widget_destroy (dialog);
+			
 			switch (but)
 			{
-			case 1:
-				sel_start = scintilla_send_message (SCINTILLA(te->widgets.editor), SCI_GETSELECTIONSTART, 0, 0);
+			case GTK_RESPONSE_YES:
+				sel_start =
+					scintilla_send_message (SCINTILLA (te->widgets.editor),
+											SCI_GETSELECTIONSTART, 0, 0);
 				text_editor_replace_selection (te, r_string);
 				if (!fr->find_text->forward)
-					scintilla_send_message (SCINTILLA(te->widgets.editor), SCI_SETCURRENTPOS, sel_start, 0);
+					scintilla_send_message (SCINTILLA(te->widgets.editor),
+											SCI_SETCURRENTPOS, sel_start, 0);
 				break;
-			case 0:
+			case GTK_RESPONSE_NO:
 				break;
 			default:
 				return;
@@ -399,14 +439,3 @@ on_replace_dialog_response (GtkDialog *dialog, gint response,
 		count++;
 	}
 }
-
-/*
-static gboolean
-on_replace_text_close (GtkWidget * widget,
-			      gpointer user_data)
-{
-	FindAndReplace *fr = (FindAndReplace *) user_data;
-	find_replace_hide (fr);
-	return FALSE;
-}
-*/

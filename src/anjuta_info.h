@@ -20,27 +20,17 @@
 #ifndef _ANJUTA_INFO_H_
 #define _ANJUTA_INFO_H_
 
-gboolean
-anjuta_info_show_file (const gchar * path,
-	gint height, gint width);
+gboolean anjuta_info_show_file (const gchar * path,	gint height, gint width);
 
-gboolean
-anjuta_info_show_command (const gchar * command_line,
-	gint height, gint width);
+gboolean anjuta_info_show_command (const gchar * command_line,
+								   gint height, gint width);
 
-gboolean
-anjuta_info_show_string (const gchar * s,
-	gint height, gint width);
+gboolean anjuta_info_show_string (const gchar * s, gint height, gint width);
 
-gboolean
-anjuta_info_show_filestream ( FILE * f,
-	gint height, gint width);
+gboolean anjuta_info_show_filestream (FILE * f, gint height, gint width);
 
-gboolean
-anjuta_info_show_fd         (int file_descriptor,
-	gint height, gint width);
+gboolean anjuta_info_show_fd (int file_descriptor, gint height, gint width);
 
-void
-anjuta_info_show_list (GList* list, gint height, gint width);
+void anjuta_info_show_list (GList* list, gint height, gint width);
 
 #endif

@@ -1,3 +1,23 @@
+2002-01-21  Naba Kumar <naba@gnome.org>
+
+	* src/anjuta-tools.c,
+	src/anjuta.c,
+	src/anjuta.glade,
+	src/anjuta_dialogs_strings.c,
+	src/anjuta_info.c,
+	src/anjuta_info.h,
+	src/breakpoints.c,
+	src/compiler_options.c,
+	src/debugger.c,
+	src/find_replace.c,
+	src/find_replace.h,
+	src/find_text.c,
+	src/find_text.h,
+	src/goto_line.c,
+	src/launcher.c,
+	src/text_editor.c,
+	widgets/gnomefilelist.c: GNOME2 porting.
+
 2002-01-20  Naba Kumar <naba@gnome.org>
 
 	* global-tags/create_global_tags.sh: Uses pkg-config to
