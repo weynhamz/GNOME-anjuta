@@ -588,12 +588,46 @@ update_editor_ui_disable_all (AnjutaPlugin *plugin)
 }
 
 static void
+update_editor_save_ui (AnjutaPlugin *plugin, TextEditor *editor)
+{
+	AnjutaUI *ui;
+	GtkAction *action;
+	
+	ui = anjuta_shell_get_ui (plugin->shell, NULL);
+
+	action = anjuta_ui_get_action (ui, "ActionGroupEditorEdit",
+								   "ActionEditUndo");
+	g_object_set (G_OBJECT (action), "sensitive",
+				  text_editor_can_undo (editor), NULL);
+	
+	action = anjuta_ui_get_action (ui, "ActionGroupEditorEdit",
+								   "ActionEditRedo");
+	g_object_set (G_OBJECT (action), "sensitive",
+				  text_editor_can_redo (editor), NULL);
+	
+	action = anjuta_ui_get_action (ui, "ActionGroupEditorFile",
+								   "ActionFileSave");
+	g_object_set (G_OBJECT (action), "sensitive",
+				  !text_editor_is_saved (editor), NULL);
+}
+
+static void
 update_editor_ui (AnjutaPlugin *plugin, TextEditor *editor)
 {
-	if (editor)
-		update_editor_ui_enable_all (plugin);
-	else
+	if (editor == NULL)
+	{
 		update_editor_ui_disable_all (plugin);
+		return;
+	}
+	update_editor_ui_enable_all (plugin);
+	update_editor_save_ui (plugin, TEXT_EDITOR (editor));
+}
+
+static void
+on_editor_update_save_ui (IAnjutaEditor *editor, gboolean entered,
+						  AnjutaPlugin *plugin)
+{
+	update_editor_save_ui (plugin, TEXT_EDITOR (editor));
 }
 
 #define REGISTER_ICON(icon, stock_id) \
@@ -1342,6 +1376,9 @@ ianjuta_docman_add_buffer (IAnjutaDocumentManager *plugin,
 	g_signal_connect (G_OBJECT (te), "update_ui",
 					  G_CALLBACK (on_editor_update_ui),
 					  ANJUTA_PLUGIN (plugin));
+	g_signal_connect (G_OBJECT (te), "save_point",
+					  G_CALLBACK (on_editor_update_save_ui),
+					  ANJUTA_PLUGIN (plugin));
 	
 	if (content && strlen (content) > 0)
 		aneditor_command (te->editor_id, ANE_INSERTTEXT, -1, (long)content);
@@ -1374,6 +1411,9 @@ ifile_open (IAnjutaFile* plugin, const gchar* uri, GError** e)
 	{
 		g_signal_connect (G_OBJECT (te), "update_ui",
 						  G_CALLBACK (on_editor_update_ui),
+						  ANJUTA_PLUGIN (plugin));
+		g_signal_connect (G_OBJECT (te), "save_point",
+						  G_CALLBACK (on_editor_update_save_ui),
 						  ANJUTA_PLUGIN (plugin));
 	}
 	anjuta_shell_present_widget (ANJUTA_PLUGIN (plugin)->shell,

@@ -98,7 +98,8 @@ bool AnEditor::RangeIsAllWhitespace(int start, int end) {
 	return true;
 }
 
-unsigned int AnEditor::GetLinePartsInStyle(int line, int style1, int style2, SString sv[], int len) {
+unsigned int AnEditor::GetLinePartsInStyle(int line, int style1, int style2,
+										   SString sv[], int len) {
 	for (int i = 0; i < len; i++)
 		sv[i] = "";
 	WindowAccessor acc(wEditor.GetID(), *props);
@@ -335,17 +336,21 @@ void AnEditor::AutomaticIndentation(char ch) {
 	int thisLineStart = SendEditor(SCI_POSITIONFROMLINE, curLine);
 	int indentSize = SendEditor(SCI_GETINDENT);
 
-	if (blockEnd.IsSingleChar() && ch == blockEnd.words[0]) {	// Dedent maybe
+	if (blockEnd.IsSingleChar() && ch == blockEnd.words[0]) {
+		// Dedent maybe
 		if (!indentClosing) {
 			if (RangeIsAllWhitespace(thisLineStart, selStart - 1)) {
 				int indentBlock = IndentOfBlockProper(curLine - 1);
 				SetLineIndentation(curLine, indentBlock - indentSize);
 			}
 		}
-	} else if (!blockEnd.IsSingleChar() && (ch == ' ')) {	// Dedent maybe
+	} else if (!blockEnd.IsSingleChar() && (ch == ' ')) {
+		// Dedent maybe
 		if (!indentClosing && (GetIndentState(curLine) == isBlockEnd)) {}
-	} else if (ch == blockStart.words[0]) {	// Dedent maybe if first on line and previous line was starting keyword
-		if (!indentOpening && (GetIndentState(curLine - 1) == isKeyWordStart)) {
+	} else if (ch == blockStart.words[0]) {
+		// Dedent maybe if first on line and previous line was starting keyword
+		if (!indentOpening &&
+			(GetIndentState(curLine - 1) == isKeyWordStart)) {
 			if (RangeIsAllWhitespace(thisLineStart, selStart - 1)) {
 				int indentBlock = IndentOfBlockProper(curLine - 1);
 				SetLineIndentation(curLine, indentBlock - indentSize);
@@ -354,7 +359,9 @@ void AnEditor::AutomaticIndentation(char ch) {
 	} else if ((ch == '\r' || ch == '\n') && (selStart == thisLineStart)) {
 		// printf("New line block\n");
 		int indentBlock = IndentOfBlock(curLine - 1);
-		if (!indentClosing && !blockEnd.IsSingleChar()) {	// Dedent previous line maybe
+		if (!indentClosing && !blockEnd.IsSingleChar()) {
+			// Dedent previous line maybe
+			
 			SString controlWords[1];
 			// printf ("First if\n");
 			
@@ -364,7 +371,9 @@ void AnEditor::AutomaticIndentation(char ch) {
 				if (includes(blockEnd, controlWords[0])) {
 					// printf ("Third if\n");
 					// Check if first keyword on line is an ender
-					SetLineIndentation(curLine-1, IndentOfBlockProper(curLine-2) - indentSize);
+					SetLineIndentation(curLine-1,
+									   IndentOfBlockProper(curLine-2)
+									   - indentSize);
 					// Recalculate as may have changed previous line
 					indentBlock = IndentOfBlock(curLine - 1);
 				}
@@ -373,7 +382,8 @@ void AnEditor::AutomaticIndentation(char ch) {
 		SetLineIndentation(curLine, indentBlock);
 		
 		// Home cursor.
-		if (SendEditor (SCI_GETCOLUMN, SendEditor(SCI_GETCURRENTPOS)) < indentBlock)
+		if (SendEditor (SCI_GETCOLUMN,
+						SendEditor(SCI_GETCURRENTPOS)) < indentBlock)
 			SendEditor (SCI_VCHOME);
 		
 	} else if (lexLanguage == SCLEX_CPP) {
@@ -401,7 +411,8 @@ void AnEditor::AutomaticIndentation(char ch) {
 			}
 			
 			// Home cursor.
-			if (SendEditor (SCI_GETCOLUMN, SendEditor(SCI_GETCURRENTPOS)) < indentBlock)
+			if (SendEditor (SCI_GETCOLUMN,
+							SendEditor(SCI_GETCURRENTPOS)) < indentBlock)
 				SendEditor (SCI_VCHOME);
 		}
 	}

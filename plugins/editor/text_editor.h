@@ -183,6 +183,8 @@ gint     text_editor_line_from_handle (TextEditor* te, gint marker_handle);
 gint     text_editor_get_bookmark_line (TextEditor* te, const glong nLineStart);
 gint     text_editor_get_num_bookmarks (TextEditor* te);
 gint     text_editor_set_indicator (TextEditor *te, glong line, gint indicator);
+gboolean text_editor_can_undo (TextEditor *te);
+gboolean text_editor_can_redo (TextEditor *te);
 
 /* Get currect word near by cursor location */
 gchar* text_editor_get_current_word (TextEditor *te);

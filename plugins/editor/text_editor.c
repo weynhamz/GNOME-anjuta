@@ -1977,6 +1977,22 @@ text_editor_set_line_number_width (TextEditor* te)
 	}
 }
 
+gboolean
+text_editor_can_undo (TextEditor *te)
+{
+	g_return_val_if_fail (IS_TEXT_EDITOR (te), FALSE);
+	return scintilla_send_message (SCINTILLA (te->scintilla),
+								   SCI_CANUNDO, 0, 0);
+}
+
+gboolean
+text_editor_can_redo (TextEditor *te)
+{
+	g_return_val_if_fail (IS_TEXT_EDITOR (te), FALSE);
+	return scintilla_send_message (SCINTILLA (te->scintilla),
+								   SCI_CANREDO, 0, 0);
+}
+
 void
 text_editor_command (TextEditor *te, gint command, glong wparam, glong lparam)
 {

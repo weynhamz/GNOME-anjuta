@@ -1,3 +1,13 @@
+2005-03-03  Naba Kumar  <naba@gnome.org>
+
+	* HACKING: Fixed typos.
+	
+	* plugins/editor/aneditor-indent.cxx: Clean up.
+	
+	* plugins/editor/plugin.c, plugins/editor/text_editor.[h]:
+	Enable/disable save, undo and redo actions depending on state
+	of the editor.
+	
 2005-03-02  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
 
 	* libanjuta/anjuta-status.h plugins/editor/Makefile.am
