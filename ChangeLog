@@ -3,6 +3,9 @@
 	* pixmaps/anjuta_splash.png: New splash.
 	from Jean Schurger  <yshartk@schurger.org>
 	
+	* src/controls.c: De-sensitize run-to-cursor when debugger
+	is not running.
+	
 2003-06-20  Naba Kumar  <naba@gnome.org>
 
 	* src/message-manager.cc, mainmenu_callbacks.c: Code cleanup.

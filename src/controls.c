@@ -420,7 +420,7 @@ update_main_menubar ()
 	gtk_widget_set_sensitive (dm->detach, A && R && Pr
 				  && debugger.prog_is_attached);
 	gtk_widget_set_sensitive (dm->cont, !A || (A && R));
-	gtk_widget_set_sensitive (dm->run_to_cursor, R && Ld);
+	gtk_widget_set_sensitive (dm->run_to_cursor, A && R && Ld);
 	gtk_widget_set_sensitive (dm->step_in, A && R && Ld);
 	gtk_widget_set_sensitive (dm->step_over, A && R && Pr);
 	gtk_widget_set_sensitive (dm->step_out, A && R && Pr);
