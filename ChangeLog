@@ -1,5 +1,7 @@
 2002-10-24  Naba Kumar <naba@gnome.org>
 
+	* src/debug_tree.c: Fixed a crash bug from Etay.
+
 	* global_tags/create_global_tags: Added messages.
 	Fixed infinite looping within files.
 	

@@ -938,7 +938,7 @@ void set_item (GtkCTree * ctree, GtkCTreeNode * parent, const gchar * var_name,
 
   g_return_if_fail (ctree);
   
-  if (!var_name && !*var_name)
+  if (!var_name || !*var_name)
 	  return;
 
   item = GTK_CTREE_ROW(parent)->children;
