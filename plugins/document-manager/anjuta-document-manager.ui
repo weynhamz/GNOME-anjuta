@@ -66,22 +66,27 @@
 			<menuitem name="Autocomplete" action="ActionEditAutocomplete" />
 		</menu>
 		<menu name="MenuView" action="ActionMenuView">
-			<placeholder name="PlaceholderViewMenus">
-				<menu name="MenuViewEditor" action="ActionMenuViewEditor">
-					<menuitem name="LineNumbersMargin" action="ActionViewEditorLinenumbers" />
-					<menuitem name="MarkersMargin" action="ActionViewEditorMarkers" />
-					<menuitem name="CodeFoldMargin" action="ActionViewEditorFolds" />
-					<menuitem name="IndentationGuides" action="ActionViewEditorGuides" />
-					<menuitem name="WhiteSpaces" action="ActionViewEditorSpaces" />
-					<menuitem name="LineEndCharacters" action="ActionViewEditorEOL" />
-					<menuitem name="LineWrapping" action="ActionViewEditorWrapping" />
-				</menu>
+			<menu name="MenuViewEditor" action="ActionMenuViewEditor">
+				<menuitem name="LineNumbersMargin" action="ActionViewEditorLinenumbers" />
+				<menuitem name="MarkersMargin" action="ActionViewEditorMarkers" />
+				<menuitem name="CodeFoldMargin" action="ActionViewEditorFolds" />
+				<menuitem name="IndentationGuides" action="ActionViewEditorGuides" />
+				<menuitem name="WhiteSpaces" action="ActionViewEditorSpaces" />
+				<menuitem name="LineEndCharacters" action="ActionViewEditorEOL" />
+				<menuitem name="LineWrapping" action="ActionViewEditorWrapping" />
 				<separator name="separator2"/>
+				<menuitem name="MenuFormatStyle" action="ActionMenuFormatStyle"/>
 				<menuitem name="AddView" action="ActionViewEditorAddView" />
 				<menuitem name="RemoveView" action="ActionViewEditorRemoveView" />
+				<menuitem name="ZoomIn" action="ActionViewEditorZoomIn" />
 				<menuitem name="ZoomOut" action="ActionViewEditorZoomOut" />
 				<separator name="separator3"/>
-			</placeholder>
+				<menuitem name="FoldCloseAll" action="ActionFormatFoldCloseAll" />
+				<menuitem name="FoldOpenAll" action="ActionFormatFoldOpenAll" />
+				<menuitem name="FoldToggle" action="ActionFormatFoldToggle" />
+				<separator name="separator4" />
+				<menuitem name="Autoformat" action="ActionFormatAutoformat" />
+			</menu>
 		</menu>
 		<placeholder name="PlaceholderGotoMenus">
 			<menu name="Goto" action="ActionMenuGoto">
@@ -110,20 +115,7 @@
 				<separator name="separator3"/>
 			</menu>
 		</placeholder>
-		<placeholder name="PlaceHolderFormatMenus">
-			<menu name="MenuFormat" action="ActionMenuFormat">
-				<menuitem name="Autoformat" action="ActionFormatAutoformat" />
-				<menuitem name="IndentationIncrease" action="ActionFormatIndentationIncrease" />
-				<menuitem name="IndentationDecrease" action="ActionFormatIndentationDecrease" />
-				<menuitem name="AutoformatSettings" action="ActionFormatSettings" />
-				<separator name="separator1" />
-				<menuitem name="MenuFormatStyle" action="ActionMenuFormatStyle"/>
-				<separator name="separator2" />
-				<menuitem name="FoldCloseAll" action="ActionFormatFoldCloseAll" />
-				<menuitem name="FoldOpenAll" action="ActionFormatFoldOpenAll" />
-				<menuitem name="FoldToggle" action="ActionFormatFoldToggle" />
-			</menu>
-		</placeholder>
+		<placeholder name="PlaceHolderFormatMenus"/>
 	</menubar>
 	<toolbar name="ToolbarMain">
 		<placeholder name="PlaceholderFileToolbar">
@@ -156,20 +148,6 @@
 			<toolitem name="BlockEnd" action="ActionEditGotoBlockEnd"/>
 			<separator name="separator2" />
 		</placeholder>
-	</toolbar>
-	<toolbar name="ToolbarFormat">
-		<toolitem name="FoldToggle" action="ActionFormatFoldToggle" />
-		<toolitem name="FoldCloseAll" action="ActionFormatFoldCloseAll" />
-		<toolitem name="FoldOpenAll" action="ActionFormatFoldOpenAll" />
-		<separator name="separator1" />
-		<toolitem name="BlockSelect" action="ActionEditSelectBlock" />
-		<toolitem name="IndentationIncrease" action="ActionFormatIndentationIncrease" />
-		<toolitem name="IndentationDecrease" action="ActionFormatIndentationDecrease" />
-		<separator name="separator2" />
-		<toolitem name="Autoformat" action="ActionFormatAutoformat" />
-		<toolitem name="AutoformatSettings" action="ActionFormatSettings" />
-		<separator name="separator3" />
-		<toolitem name="Autocomplete" action="ActionEditAutocomplete" />
 	</toolbar>
 	<popup name="PopupDocumentManager">
 		<menuitem name="Cut" action="ActionEditCut" />

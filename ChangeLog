@@ -1,5 +1,19 @@
 2005-03-13  Naba Kumar  <naba@gnome.org>
 	
+	* plugins/editor/action-callbacks.c,
+	plugins/editor/action-callbacks.h,
+	plugins/editor/anjuta-document-manager.ui,
+	plugins/editor/plugin.c: Cleaned up editor UI and get rid of 'Format'
+	submenu. Moved menuitems from Format to View->Editor.
+	
+	* src/action-callbacks.c, src/action-callbacks.h,
+	src/anjuta-actions.h, src/anjuta-app.c, src/anjuta.ui: Created Reset
+	layout and lock layout menus in View submenu. Get rid of
+	Settings->Layout Manager menu.
+	
+	* plugins/project-import/anjuta-project-import.plugin.in:
+	Fixed icon name
+
 	* global-tags/Makefile.am,
 	global-tags/create_global_tags.sh,
 	plugins/editor/aneditor-autocomplete.cxx,

@@ -373,6 +373,7 @@ void on_editor_command_complete_word_activate (GtkAction * action, gpointer data
 	on_editor_command_activate (action, ANE_COMPLETEWORD, data);
 }
 
+#if 0
 void on_editor_command_indent_increase_activate (GtkAction * action, gpointer data)
 {
 	on_editor_command_activate (action, ANE_INDENT_INCREASE, data);
@@ -382,6 +383,7 @@ void on_editor_command_indent_decrease_activate (GtkAction * action, gpointer da
 {
 	on_editor_command_activate (action, ANE_INDENT_DECREASE, data);
 }
+#endif
 
 void on_editor_command_close_folds_all_activate (GtkAction * action, gpointer data)
 {
@@ -960,7 +962,7 @@ on_enterselection (GtkAction * action, gpointer user_data)
 	}
 	g_free (selectionText);
 }
-
+#if 0
 void
 on_format_indent_style_clicked (GtkAction * action, gpointer user_data)
 {
@@ -969,6 +971,7 @@ on_format_indent_style_clicked (GtkAction * action, gpointer user_data)
 	gtk_signal_emit_by_name (GTK_OBJECT (plugin->prefs),
 										 "activate");
 }
+#endif
 
 /* Incremental search */
 

@@ -105,6 +105,24 @@ on_layout_dirty_notify (GObject *object, GParamSpec *pspec, gpointer user_data)
 }
 
 static void
+on_layout_locked_notify (GdlDockMaster *master,
+                         GParamSpec    *pspec,
+                         AnjutaApp     *app)
+{
+	AnjutaUI *ui;
+	GtkAction *action;
+	gint locked;
+	
+	ui = app->ui;
+	action = anjuta_ui_get_action (ui, "ActionGroupToggleView",
+								   "ActionViewLockLayout");
+	
+	g_object_get (master, "locked", &locked, NULL);
+	gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action),
+								  (locked == 1));
+}
+
+static void
 on_toolbar_view_toggled (GtkCheckMenuItem *menuitem, GtkWidget *widget)
 {
 	AnjutaApp *app;
@@ -379,6 +397,8 @@ anjuta_app_instance_init (AnjutaApp *app)
 	app->layout_manager = gdl_dock_layout_new (GDL_DOCK (app->dock));
 	g_signal_connect (app->layout_manager, "notify::dirty",
 					  G_CALLBACK (on_layout_dirty_notify), app);
+	g_signal_connect (app->layout_manager->master, "notify::locked",
+					  G_CALLBACK (on_layout_locked_notify), app);
 	
 	/* Create placeholders for default widget positions */
 	gdl_dock_placeholder_new ("ph_top", GDL_DOCK_OBJECT (app->dock),
@@ -593,6 +613,12 @@ anjuta_app_layout_load (AnjutaApp *app, const gchar *layout_filename,
 	
 	if (!gdl_dock_layout_load_layout (app->layout_manager, name))
 		g_warning ("Loading layout failed!!");
+}
+
+void
+anjuta_app_layout_reset (AnjutaApp *app)
+{
+	anjuta_app_layout_load (app, NULL, NULL);
 }
 
 /* AnjutaShell Implementation */

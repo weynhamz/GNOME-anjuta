@@ -15,6 +15,9 @@
 		</menu>
 		<menu name="MenuView" action="ActionMenuView">
 			<menuitem name="Fullscreen" action="ActionViewFullscreen"/>
+			<menuitem name="LockLayout" action="ActionViewLockLayout"/>
+			<menuitem name="ResetLayout" action="ActionViewResetLayout"/>
+			<separator name="separate1"/>
 			<menuitem name="Toolbars" action="ActionViewToolbars"/>
 		</menu>
 		<placeholder name="PlaceholderGotoMenus"/>
@@ -29,7 +32,6 @@
 			<menuitem name="Preferences" action="ActionSettingsPreferences" />
 			<menuitem name="Defaults" action="ActionSettingsDefaults" />
 			<menuitem name="Shortcuts" action="ActionSettingsShortcuts" />
-			<menuitem name="Layout Manager" action="ActionSettingsLayout" />
 			<menuitem name="Plugins Manager" action="ActionSettingsPlugins" />
 		</menu>
 		<placeholder name="PlaceHolderHelpMenus" >

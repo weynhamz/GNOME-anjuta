@@ -44,8 +44,10 @@ void on_editor_command_copy_activate (GtkAction * action, gpointer data);
 void on_editor_command_paste_activate (GtkAction * action, gpointer data);
 void on_editor_command_clear_activate (GtkAction * action, gpointer data);
 void on_editor_command_complete_word_activate (GtkAction * action, gpointer data);
+/*
 void on_editor_command_indent_increase_activate (GtkAction * action, gpointer data);
 void on_editor_command_indent_decrease_activate (GtkAction * action, gpointer data);
+*/
 void on_editor_command_close_folds_all_activate (GtkAction * action, gpointer data);
 void on_editor_command_open_folds_all_activate (GtkAction * action, gpointer data);
 void on_editor_command_toggle_fold_activate (GtkAction * action, gpointer data);
@@ -106,7 +108,7 @@ void on_force_hilite_activate (GtkWidget *menuitem, gpointer user_data);
 
 void on_indent1_activate (GtkAction * action, gpointer user_data);
 
-void on_format_indent_style_clicked (GtkAction * action, gpointer user_data);
+/* void on_format_indent_style_clicked (GtkAction * action, gpointer user_data); */
 void on_swap_activate (GtkAction *action, gpointer user_data);
 
 void on_editor_add_view_activate (GtkAction *action, gpointer user_data);

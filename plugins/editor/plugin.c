@@ -355,7 +355,7 @@ static GtkActionEntry actions_zoom[] = {
 };
 
 static GtkActionEntry actions_style[] = {
-  { "ActionMenuFormatStyle", N_("Force _Highlight Style"), NULL, NULL, NULL, NULL}
+  { "ActionMenuFormatStyle", N_("_Highlight Mode"), NULL, NULL, NULL, NULL}
 };
 
 static GtkActionEntry actions_format[] = {
@@ -364,6 +364,7 @@ static GtkActionEntry actions_format[] = {
 	ANJUTA_STOCK_INDENT_AUTO, NULL,
 	N_("Autoformat the current source file"),
     G_CALLBACK (on_indent1_activate)},
+/*
   { "ActionFormatSettings", N_("Autoformat _settings"),
 	ANJUTA_STOCK_AUTOFORMAT_SETTINGS, NULL,
 	N_("Autoformat settings"),
@@ -376,6 +377,7 @@ static GtkActionEntry actions_format[] = {
 	ANJUTA_STOCK_INDENT_DCR, NULL,
 	N_("Decrease indentation of line/selection"),
     G_CALLBACK (on_editor_command_indent_decrease_activate)},
+*/
   { "ActionFormatFoldCloseAll", N_("_Close All Folds"),
 	ANJUTA_STOCK_FOLD_CLOSE, NULL,
 	N_("Close all code folds in the editor"),
@@ -1185,7 +1187,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	highlight_submenu = 
 		create_highlight_submenu (editor_plugin);
 	highlight_menu = gtk_ui_manager_get_widget (GTK_UI_MANAGER (ui),
-				"/MenuMain/PlaceHolderFormatMenus/MenuFormat/MenuFormatStyle");
+				"/MenuMain/MenuView/MenuViewEditor/MenuFormatStyle");
 	gtk_menu_item_set_submenu (GTK_MENU_ITEM (highlight_menu),
 							   highlight_submenu);
 	ui_states_init(plugin);

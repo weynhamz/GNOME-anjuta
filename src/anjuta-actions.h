@@ -32,6 +32,10 @@ static GtkActionEntry menu_entries_edit[] = {
 
 static GtkActionEntry menu_entries_view[] = {
   { "ActionMenuView", NULL, N_("_View")},
+  { "ActionViewResetLayout", NULL, 
+	N_("_Reset Dock Layout"), NULL,
+	N_("Reset the widgets docking layout to default"),
+    G_CALLBACK (on_reset_layout_activate)},
   { "ActionViewToolbars", NULL, N_("_Toolbars")}
 };
 
@@ -39,7 +43,11 @@ static GtkToggleActionEntry menu_entries_toggle_view[] = {
   { "ActionViewFullscreen", NULL,
     N_("_Full Screen"), NULL,
     N_("Toggle fullscreen mode"),
-	G_CALLBACK (on_fullscreen_toggle)}
+	G_CALLBACK (on_fullscreen_toggle)},
+  { "ActionViewLockLayout", NULL,
+    N_("_Lock Dock Layout"), NULL,
+    N_("Lock the current dock layout so that widgets can not moved"),
+	G_CALLBACK (on_layout_lock_toggle)}
 };
 
 static GtkActionEntry menu_entries_settings[] = {
@@ -56,10 +64,6 @@ static GtkActionEntry menu_entries_settings[] = {
     N_("C_ustomize shortcuts"), NULL,
 	N_("Customize shortcuts associated with menu items"),
     G_CALLBACK (on_customize_shortcuts_activate)},
-  { "ActionSettingsLayout", NULL,
-    N_("Layout manager"), NULL,
-	N_("Manipulate layout manager items"),
-    G_CALLBACK (on_layout_manager_activate)},
   { "ActionSettingsPlugins", NULL,
     N_("Plugins manager"), NULL,
 	N_("Manipulate plugins manager items"),

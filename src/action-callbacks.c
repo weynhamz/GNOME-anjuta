@@ -65,6 +65,21 @@ on_fullscreen_toggle (GtkAction *action, AnjutaApp *app)
 }
 
 void
+on_layout_lock_toggle (GtkAction *action, AnjutaApp *app)
+{
+	if (app->layout_manager)
+		g_object_set (app->layout_manager->master, "locked",
+					  gtk_toggle_action_get_active (GTK_TOGGLE_ACTION (action)),
+					  NULL);
+}
+
+void
+on_reset_layout_activate(GtkAction *action, AnjutaApp *app)
+{
+	anjuta_app_layout_reset (app);
+}
+
+void
 on_set_preferences1_activate (GtkAction * action, AnjutaApp *app)
 {
 	gtk_widget_show (GTK_WIDGET (app->preferences));
@@ -90,12 +105,6 @@ on_customize_shortcuts_activate(GtkAction *action, AnjutaApp *app)
 	gtk_window_set_default_size (GTK_WINDOW (win), 500, 400);
 	gtk_dialog_run (GTK_DIALOG (win));
 	gtk_widget_destroy (win);
-}
-
-void
-on_layout_manager_activate(GtkAction *action, AnjutaApp *app)
-{
-	gdl_dock_layout_run_manager (app->layout_manager);
 }
 
 void
