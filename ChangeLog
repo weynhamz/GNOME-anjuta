@@ -1,3 +1,26 @@
+2001-08-18  Andy Piper <andy.piper@freeuk.com>
+
+	* Fixed bugs #450280 and #448845
+
+	* src/about.c: corrected Naba's e-mail address (.net, not .com)
+	
+	* src/goto_line.c, src/attach_process_gui.c, src/find_replace.c:
+	  named dialogs
+	
+	* src/breakpoints_gui.c, src/commands.c, src/find_text.c,
+	  src/find_in_files_gui.c, src/project_dbase_gui.c, src/help.c, 
+	  src/watch_gui.c, src/stack_trace_gui.c: edited window and dialog 
+	  names to remove "Anjuta: " prefix
+	  
+	* src/main_menubar_def.c: altered a message
+	
+	* launcher/anjuta_launcher.c: cleaned up some messages
+
+	* src/debugger.c: edited messages to improve clarity
+	
+	* src/app_wiz*.c: tidied wizard interface
+
+
 2001-08-15  Stephane Demurget <demurgets@free.fr>
 
 	Synced Naba's fix and mine about the wizards not working and removed

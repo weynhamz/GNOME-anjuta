@@ -12,7 +12,7 @@ Serial:		%{serial}
 Copyright:	GPL2
 Group:		Development/Tools
 URL:		http://anjuta.sourceforge.net/
-Vendor:		Naba kumar <kh_naba@users.sourceforge.net>
+Vendor:		Naba Kumar <kh_naba@users.sourceforge.net>
 Source:		%{name}-%{version}.tar.gz
 BuildRoot:	/var/tmp/%{name}-%{version}
 Docdir:		%{_docdir}

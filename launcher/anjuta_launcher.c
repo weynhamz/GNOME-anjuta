@@ -85,12 +85,12 @@ main (int argc, char **argv)
 			if (fp == NULL)
 			{
 				g_warning
-					("Fatal Error: Shit !  Cannot write to redirection file\n");
+					("Fatal Error: Cannot write to redirection file\n");
 			}
 			fprintf (fp, "__ERROR__\n");
 			fclose (fp);
 			g_warning
-				("Fatal Error: Shit !  Some unexpected error\n");
+				("Fatal Error: Some unexpected error\n");
 			getchar ();
 		}
 		else
