@@ -191,7 +191,7 @@ fileselection_get_path (GtkWidget* filesel)
 void
 fileselection_set_title (GtkWidget* filesel, gchar* title)
 {
-	return gnome_filelist_set_title (GNOME_FILELIST(filesel), title);
+	gnome_filelist_set_title (GNOME_FILELIST(filesel), title);
 }
 
 gboolean

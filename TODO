@@ -1,6 +1,6 @@
 TODO List:
 ----------
-
+	o Apply branch patches to HEAD - esp. Jean-Noel's patches to comment/S&R
 	o Configure dialog is broken.
 	o Save compiler options settings.
 	o s/zvt/vte/ terminal.
