@@ -1,0 +1,680 @@
+# Anjuta Version 0.1.9-pre 
+Compatibility Level: 1 
+
+<PROJECT_DESCRIPTION_START>
+Some description<PROJECT_DESCRIPTION_END>
+<CONFIG_PROGS_START>
+<CONFIG_PROGS_END>
+<CONFIG_LIBS_START>
+<CONFIG_LIBS_END>
+<CONFIG_HEADERS_START>
+<CONFIG_HEADERS_END>
+<CONFIG_CHARACTERISTICS_START>
+<CONFIG_CHARACTERISTICS_END>
+<CONFIG_LIB_FUNCS_START>
+<CONFIG_LIB_FUNCS_END>
+<CONFIG_ADDITIONAL_START>
+<CONFIG_ADDITIONAL_END>
+<CONFIG_FILES_START>
+<CONFIG_FILES_END>
+<MAKEFILE_AM_START>
+<MAKEFILE_AM_END>
+
+props.file.type=project
+
+anjuta.version=0.1.9-pre
+anjuta.compatibility.level=1
+
+project.name=anjuta
+project.type=GENERIC
+project.target.type=EXECUTABLE
+project.version=0.1.9-pre
+project.author=naba
+project.source.target=src/anjuta
+
+project.excluded.modules=\
+	intl
+
+project.has.gettext=0
+
+project.programming.language=C
+
+project.menu.entry=Anjuta
+project.menu.group=Application
+project.menu.comment=Anjuta IDE
+project.menu.icon=pixmaps/anjuta_icon.xpm
+project.menu.need.terminal=0
+
+project.configure.options=
+
+anjuta.program.arguments=
+
+project.config.blocked=1
+
+project.config.disable.overwriting=1 1 1 1 1 1 1 1 1 
+project.config.extra.modules.before=
+project.config.extra.modules.after=
+
+module.include.name=.
+module.include.type=
+module.include.expanded=0
+module.include.files=\
+	acconfig.h\
+	scintilla/include/Accessor.h\
+	scintilla/include/KeyWords.h\
+	scintilla/include/Platform.h\
+	scintilla/include/PropSet.h\
+	scintilla/include/SString.h\
+	scintilla/include/SciLexer.h\
+	scintilla/include/Scintilla.h\
+	scintilla/include/ScintillaWidget.h\
+	scintilla/include/WindowAccessor.h\
+	scintilla/AutoComplete.h\
+	scintilla/CallTip.h\
+	scintilla/CellBuffer.h\
+	scintilla/ContractionState.h\
+	scintilla/Document.h\
+	scintilla/DocumentAccessor.h\
+	scintilla/Editor.h\
+	scintilla/Indicator.h\
+	scintilla/KeyMap.h\
+	scintilla/LineMarker.h\
+	scintilla/RESearch.h\
+	scintilla/SVector.h\
+	scintilla/ScintillaBase.h\
+	scintilla/Style.h\
+	scintilla/StyleContext.h\
+	scintilla/UniConversion.h\
+	scintilla/ViewStyle.h\
+	src/CORBA-Server.h\
+	src/Gladen.h\
+	src/Prj.h\
+	src/about.h\
+	src/an_file_view.h\
+	src/an_symbol_view.h\
+	src/aneditor.h\
+	src/anjuta.h\
+	src/anjuta_dirs.h\
+	src/anjuta_info.h\
+	src/appwizard.h\
+	src/appwizard_cbs.h\
+	src/attach_process.h\
+	src/attach_process_cbs.h\
+	src/breakpoints.h\
+	src/breakpoints_cbs.h\
+	src/build_file.h\
+	src/build_project.h\
+	src/clean_project.h\
+	src/commands.h\
+	src/compatibility_0.h\
+	src/compile.h\
+	src/compiler_options.h\
+	src/compiler_options_cbs.h\
+	src/configurer.h\
+	src/controls.h\
+	src/debugger.h\
+	src/defaults.h\
+	src/dnd.h\
+	src/executer.h\
+	src/file_history.h\
+	src/fileselection.h\
+	src/find_in_files.h\
+	src/find_in_files_cbs.h\
+	src/find_replace.h\
+	src/find_text.h\
+	src/glade_iface.h\
+	src/glades.h\
+	src/global.h\
+	src/gnome_project.h\
+	src/goto_line.h\
+	src/help.h\
+	src/launcher.h\
+	src/lexer.h\
+	src/main_menubar.h\
+	src/main_menubar_def.h\
+	src/mainmenu_callbacks.h\
+	src/message-manager-dock.h\
+	src/message-manager-private.h\
+	src/message-manager.h\
+	src/messagebox.h\
+	src/pixmaps.h\
+	src/preferences.h\
+	src/project_config.h\
+	src/project_dbase.h\
+	src/project_type.h\
+	src/properties.h\
+	src/registers.h\
+	src/registers_cbs.h\
+	src/resources.h\
+	src/session.h\
+	src/sharedlib.h\
+	src/sharedlib_cbs.h\
+	src/signals.h\
+	src/signals_cbs.h\
+	src/source.h\
+	src/splash.h\
+	src/src_paths.h\
+	src/src_paths_cbs.h\
+	src/stack_trace.h\
+	src/stack_trace_cbs.h\
+	src/support.h\
+	src/tags_manager.h\
+	src/text_editor.h\
+	src/text_editor_cbs.h\
+	src/text_editor_gui.h\
+	src/text_editor_menu.h\
+	src/toolbar.h\
+	src/toolbar_callbacks.h\
+	src/utilities.h\
+	src/watch.h\
+	src/watch_cbs.h\
+	tagmanager/include/tm_file_entry.h\
+	tagmanager/include/tm_project.h\
+	tagmanager/include/tm_source_file.h\
+	tagmanager/include/tm_symbol.h\
+	tagmanager/include/tm_tag.h\
+	tagmanager/include/tm_tagmanager.h\
+	tagmanager/include/tm_work_object.h\
+	tagmanager/include/tm_workspace.h\
+	tagmanager/args.h\
+	tagmanager/ctags.h\
+	tagmanager/debug.h\
+	tagmanager/entry.h\
+	tagmanager/general.h\
+	tagmanager/get.h\
+	tagmanager/keyword.h\
+	tagmanager/main.h\
+	tagmanager/options.h\
+	tagmanager/parse.h\
+	tagmanager/parsers.h\
+	tagmanager/read.h\
+	tagmanager/sort.h\
+	tagmanager/strlist.h\
+	tagmanager/vstring.h\
+	widgets/gnomedirlist.h\
+	widgets/gnomefilelist.h\
+	widgets/scroll-menu.h
+
+module.source.name=.
+module.source.type=
+module.source.expanded=0
+module.source.files=\
+	data/header.c\
+	global-tags/tm_global_tags.c\
+	launcher/anjuta_launcher.c\
+	plugins/class-gen/clsGen.c\
+	plugins/sample1/plugin-sample1.c\
+	scintilla/AutoComplete.cxx\
+	scintilla/CallTip.cxx\
+	scintilla/CellBuffer.cxx\
+	scintilla/ContractionState.cxx\
+	scintilla/Document.cxx\
+	scintilla/DocumentAccessor.cxx\
+	scintilla/Editor.cxx\
+	scintilla/Indicator.cxx\
+	scintilla/KeyMap.cxx\
+	scintilla/KeyWords.cxx\
+	scintilla/LexAVE.cxx\
+	scintilla/LexAda.cxx\
+	scintilla/LexBaan.cxx\
+	scintilla/LexBullant.cxx\
+	scintilla/LexCPP.cxx\
+	scintilla/LexConf.cxx\
+	scintilla/LexCrontab.cxx\
+	scintilla/LexEiffel.cxx\
+	scintilla/LexHTML.cxx\
+	scintilla/LexLisp.cxx\
+	scintilla/LexLua.cxx\
+	scintilla/LexOthers.cxx\
+	scintilla/LexPascal.cxx\
+	scintilla/LexPerl.cxx\
+	scintilla/LexPython.cxx\
+	scintilla/LexRuby.cxx\
+	scintilla/LexSQL.cxx\
+	scintilla/LexVB.cxx\
+	scintilla/LineMarker.cxx\
+	scintilla/PlatGTK.cxx\
+	scintilla/PropSet.cxx\
+	scintilla/RESearch.cxx\
+	scintilla/ScintillaBase.cxx\
+	scintilla/ScintillaGTK.cxx\
+	scintilla/Style.cxx\
+	scintilla/StyleContext.cxx\
+	scintilla/UniConversion.cxx\
+	scintilla/ViewStyle.cxx\
+	scintilla/WindowAccessor.cxx\
+	src/CORBA-Server.c\
+	src/Gladen-common.c\
+	src/Gladen-stubs.c\
+	src/Prj-common.c\
+	src/Prj-skelimpl.c\
+	src/Prj-skels.c\
+	src/Prj-stubs.c\
+	src/about.c\
+	src/an_file_view.c\
+	src/an_symbol_view.c\
+	src/aneditor.cxx\
+	src/anjuta.c\
+	src/anjuta_cbs.c\
+	src/anjuta_dirs.c\
+	src/anjuta_gui.c\
+	src/anjuta_info.c\
+	src/appwiz_page1.c\
+	src/appwiz_page2.c\
+	src/appwiz_page3.c\
+	src/appwiz_page4.c\
+	src/appwizard.c\
+	src/appwizard_cbs.c\
+	src/appwizard_gui.c\
+	src/attach_process.c\
+	src/attach_process_cbs.c\
+	src/attach_process_gui.c\
+	src/breakpoints.c\
+	src/breakpoints_cbs.c\
+	src/breakpoints_gui.c\
+	src/build_file.c\
+	src/build_project.c\
+	src/clean_project.c\
+	src/commands.c\
+	src/compatibility_0.c\
+	src/compile.c\
+	src/compiler_options.c\
+	src/compiler_options_cbs.c\
+	src/compiler_options_gui.c\
+	src/configurer.c\
+	src/controls.c\
+	src/debugger.c\
+	src/defaults.c\
+	src/dnd.c\
+	src/executer.c\
+	src/file_history.c\
+	src/fileselection.c\
+	src/find_in_files.c\
+	src/find_in_files_cbs.c\
+	src/find_in_files_gui.c\
+	src/find_replace.c\
+	src/find_text.c\
+	src/glade_iface.c\
+	src/glades.c\
+	src/gnome_project.c\
+	src/goto_line.c\
+	src/help.c\
+	src/launcher.c\
+	src/main.c\
+	src/main_menubar.c\
+	src/mainmenu_callbacks.c\
+	src/message-manager-dock.c\
+	src/message-manager-private.cc\
+	src/message-manager.cc\
+	src/messagebox.c\
+	src/preferences.c\
+	src/preferences_gui.c\
+	src/project_config.c\
+	src/project_dbase.c\
+	src/project_dbase_gui.c\
+	src/project_type.c\
+	src/properties.cxx\
+	src/registers.c\
+	src/registers_cbs.c\
+	src/registers_gui.c\
+	src/resources.c\
+	src/session.c\
+	src/sharedlib.c\
+	src/sharedlib_cbs.c\
+	src/sharedlib_gui.c\
+	src/signals.c\
+	src/signals_cbs.c\
+	src/signals_gui.c\
+	src/source.c\
+	src/splash.c\
+	src/src_paths.c\
+	src/src_paths_cbs.c\
+	src/src_paths_gui.c\
+	src/stack_trace.c\
+	src/stack_trace_cbs.c\
+	src/stack_trace_gui.c\
+	src/support.c\
+	src/tags_manager.c\
+	src/text_editor.c\
+	src/text_editor_cbs.c\
+	src/text_editor_gui.c\
+	src/text_editor_menu.c\
+	src/toolbar.c\
+	src/toolbar_callbacks.c\
+	src/utilities.c\
+	src/watch.c\
+	src/watch_cbs.c\
+	src/watch_gui.c\
+	tagmanager/args.c\
+	tagmanager/asm.c\
+	tagmanager/asp.c\
+	tagmanager/awk.c\
+	tagmanager/beta.c\
+	tagmanager/c.c\
+	tagmanager/cobol.c\
+	tagmanager/ctags.c\
+	tagmanager/debug.c\
+	tagmanager/eiffel.c\
+	tagmanager/entry.c\
+	tagmanager/fortran.c\
+	tagmanager/get.c\
+	tagmanager/keyword.c\
+	tagmanager/lisp.c\
+	tagmanager/lua.c\
+	tagmanager/make.c\
+	tagmanager/options.c\
+	tagmanager/parse.c\
+	tagmanager/pascal.c\
+	tagmanager/perl.c\
+	tagmanager/php.c\
+	tagmanager/python.c\
+	tagmanager/read.c\
+	tagmanager/regex.c\
+	tagmanager/rexx.c\
+	tagmanager/ruby.c\
+	tagmanager/scheme.c\
+	tagmanager/sh.c\
+	tagmanager/slang.c\
+	tagmanager/sort.c\
+	tagmanager/strlist.c\
+	tagmanager/tcl.c\
+	tagmanager/tm_file_entry.c\
+	tagmanager/tm_project.c\
+	tagmanager/tm_source_file.c\
+	tagmanager/tm_symbol.c\
+	tagmanager/tm_tag.c\
+	tagmanager/tm_tagmanager.c\
+	tagmanager/tm_work_object.c\
+	tagmanager/tm_workspace.c\
+	tagmanager/vim.c\
+	tagmanager/vstring.c\
+	tagmanager/yacc.c\
+	widgets/gnomedirlist.c\
+	widgets/gnomefilelist.c\
+	widgets/scroll-menu.c
+
+module.pixmap.name=.
+module.pixmap.type=
+module.pixmap.expanded=0
+module.pixmap.files=\
+	manuals/C/anjuta-manual/figures/arguments.png\
+	manuals/C/anjuta-manual/figures/attach.png\
+	manuals/C/anjuta-manual/figures/brk_add.png\
+	manuals/C/anjuta-manual/figures/brk_dlg.png\
+	manuals/C/anjuta-manual/figures/brk_edit.png\
+	manuals/C/anjuta-manual/figures/ccview.png\
+	manuals/C/anjuta-manual/figures/ccview_class.png\
+	manuals/C/anjuta-manual/figures/ccview_struct.png\
+	manuals/C/anjuta-manual/figures/configure_dlg.png\
+	manuals/C/anjuta-manual/figures/defines.png\
+	manuals/C/anjuta-manual/figures/devt_menu.png\
+	manuals/C/anjuta-manual/figures/evaluate.png\
+	manuals/C/anjuta-manual/figures/fileview.png\
+	manuals/C/anjuta-manual/figures/find_files.png\
+	manuals/C/anjuta-manual/figures/find_replace.png\
+	manuals/C/anjuta-manual/figures/find_text.png\
+	manuals/C/anjuta-manual/figures/frame.png\
+	manuals/C/anjuta-manual/figures/includes.png\
+	manuals/C/anjuta-manual/figures/inspect.png\
+	manuals/C/anjuta-manual/figures/lib_paths.png\
+	manuals/C/anjuta-manual/figures/libraries.png\
+	manuals/C/anjuta-manual/figures/menu_detached.png\
+	manuals/C/anjuta-manual/figures/menu_main.png\
+	manuals/C/anjuta-manual/figures/message_win.png\
+	manuals/C/anjuta-manual/figures/open_file.png\
+	manuals/C/anjuta-manual/figures/optimizations.png\
+	manuals/C/anjuta-manual/figures/other_opts.png\
+	manuals/C/anjuta-manual/figures/project_info.png\
+	manuals/C/anjuta-manual/figures/project_win.png\
+	manuals/C/anjuta-manual/figures/registers.png\
+	manuals/C/anjuta-manual/figures/scrshot.png\
+	manuals/C/anjuta-manual/figures/sharedlibs.png\
+	manuals/C/anjuta-manual/figures/signal_mod.png\
+	manuals/C/anjuta-manual/figures/signals.png\
+	manuals/C/anjuta-manual/figures/stack.png\
+	manuals/C/anjuta-manual/figures/supports.png\
+	manuals/C/anjuta-manual/figures/toolbar_browser.png\
+	manuals/C/anjuta-manual/figures/toolbar_debug.png\
+	manuals/C/anjuta-manual/figures/toolbar_ext.png\
+	manuals/C/anjuta-manual/figures/toolbar_format.png\
+	manuals/C/anjuta-manual/figures/toolbar_main.png\
+	manuals/C/anjuta-manual/figures/toolbar_tags.png\
+	manuals/C/anjuta-manual/figures/warnings.png\
+	manuals/C/anjuta-manual/figures/watch.png\
+	manuals/C/anjuta-manual/figures/watch_add.png\
+	pixmaps/add.xpm\
+	pixmaps/anjuta_icon.png\
+	pixmaps/anjuta_logo.png\
+	pixmaps/anjuta_splash.png\
+	pixmaps/applogo.png\
+	pixmaps/appwiz_bonobo.png\
+	pixmaps/appwiz_gnome.png\
+	pixmaps/appwiz_gnomemm.png\
+	pixmaps/appwiz_gtk.png\
+	pixmaps/appwiz_gtkmm.png\
+	pixmaps/appwiz_libglade.png\
+	pixmaps/appwiz_terminal.png\
+	pixmaps/appwizard.png\
+	pixmaps/autocomplete.xpm\
+	pixmaps/bfoldc.xpm\
+	pixmaps/bfoldo.xpm\
+	pixmaps/blank.xpm\
+	pixmaps/block_end.xpm\
+	pixmaps/block_select.xpm\
+	pixmaps/block_start.xpm\
+	pixmaps/bookmark_first.xpm\
+	pixmaps/bookmark_last.xpm\
+	pixmaps/bookmark_next.xpm\
+	pixmaps/bookmark_prev.xpm\
+	pixmaps/bookmark_toggle.xpm\
+	pixmaps/breakpoint.xpm\
+	pixmaps/build.xpm\
+	pixmaps/build_all.xpm\
+	pixmaps/build_stop.xpm\
+	pixmaps/calltip.xpm\
+	pixmaps/cfolder.xpm\
+	pixmaps/close_file.xpm\
+	pixmaps/close_file_small.xpm\
+	pixmaps/close_project.xpm\
+	pixmaps/compile.xpm\
+	pixmaps/configure.xpm\
+	pixmaps/console.xpm\
+	pixmaps/continue.xpm\
+	pixmaps/copy.xpm\
+	pixmaps/cut.xpm\
+	pixmaps/debug.xpm\
+	pixmaps/debug_stop.xpm\
+	pixmaps/dock.xpm\
+	pixmaps/error_next.xpm\
+	pixmaps/error_prev.xpm\
+	pixmaps/exec.xpm\
+	pixmaps/execute.xpm\
+	pixmaps/file_c.xpm\
+	pixmaps/file_cpp.xpm\
+	pixmaps/file_file.xpm\
+	pixmaps/file_h.xpm\
+	pixmaps/file_html.xpm\
+	pixmaps/file_i18n.xpm\
+	pixmaps/file_icon.xpm\
+	pixmaps/file_pix.xpm\
+	pixmaps/find.xpm\
+	pixmaps/find_replace.xpm\
+	pixmaps/fold_close.xpm\
+	pixmaps/fold_open.xpm\
+	pixmaps/fold_toggle.xpm\
+	pixmaps/frame.xpm\
+	pixmaps/fv_core.xpm\
+	pixmaps/fv_exec.xpm\
+	pixmaps/fv_image.xpm\
+	pixmaps/fv_text.xpm\
+	pixmaps/fv_unknown.xpm\
+	pixmaps/goto.xpm\
+	pixmaps/graph.xpm\
+	pixmaps/handle_hide.xpm\
+	pixmaps/handle_undock.xpm\
+	pixmaps/help.xpm\
+	pixmaps/indent.xpm\
+	pixmaps/indent_auto.xpm\
+	pixmaps/indent_dcr.xpm\
+	pixmaps/indent_inc.xpm\
+	pixmaps/indent_set.xpm\
+	pixmaps/inspect.xpm\
+	pixmaps/interrupt.xpm\
+	pixmaps/ledgreen.xpm\
+	pixmaps/ledred.xpm\
+	pixmaps/list_select.xpm\
+	pixmaps/list_unselect.xpm\
+	pixmaps/macro.xpm\
+	pixmaps/messages.xpm\
+	pixmaps/mini-modules.xpm\
+	pixmaps/mini_build.xpm\
+	pixmaps/mini_cvs.xpm\
+	pixmaps/mini_debug.xpm\
+	pixmaps/mini_dock.xpm\
+	pixmaps/mini_find.xpm\
+	pixmaps/mini_locals.xpm\
+	pixmaps/mini_term.xpm\
+	pixmaps/new_file.xpm\
+	pixmaps/ofolder.xpm\
+	pixmaps/open_file.xpm\
+	pixmaps/open_project.xpm\
+	pixmaps/paste.xpm\
+	pixmaps/pointer.xpm\
+	pixmaps/preferences.xpm\
+	pixmaps/print.xpm\
+	pixmaps/project.xpm\
+	pixmaps/redo.xpm\
+	pixmaps/registers.xpm\
+	pixmaps/reload.xpm\
+	pixmaps/reload_file.xpm\
+	pixmaps/remove.xpm\
+	pixmaps/run_to_cursor.xpm\
+	pixmaps/save.xpm\
+	pixmaps/save_all.xpm\
+	pixmaps/save_file.xpm\
+	pixmaps/save_project.xpm\
+	pixmaps/search.xpm\
+	pixmaps/stack.xpm\
+	pixmaps/step_in.xpm\
+	pixmaps/step_out.xpm\
+	pixmaps/step_over.xpm\
+	pixmaps/stop.xpm\
+	pixmaps/sv_class.xpm\
+	pixmaps/sv_function.xpm\
+	pixmaps/sv_macro.xpm\
+	pixmaps/sv_private_fun.xpm\
+	pixmaps/sv_private_var.xpm\
+	pixmaps/sv_protected_fun.xpm\
+	pixmaps/sv_protected_var.xpm\
+	pixmaps/sv_public_fun.xpm\
+	pixmaps/sv_public_var.xpm\
+	pixmaps/sv_static_fun.xpm\
+	pixmaps/sv_static_var.xpm\
+	pixmaps/sv_struct.xpm\
+	pixmaps/sv_unknown.xpm\
+	pixmaps/sv_variable.xpm\
+	pixmaps/syntax.xpm\
+	pixmaps/undo.xpm\
+	pixmaps/undock.xpm\
+	pixmaps/watch.xpm\
+	pixmaps/wizard.xpm
+
+module.data.name=.
+module.data.type=
+module.data.expanded=0
+module.data.files=
+
+module.help.name=.
+module.help.type=
+module.help.expanded=0
+module.help.files=
+
+module.doc.name=.
+module.doc.type=
+module.doc.expanded=0
+module.doc.files=\
+	AUTHORS\
+	BUGS\
+	COPYING\
+	ChangeLog\
+	FUTURE\
+	HACKING\
+	INSTALL\
+	NEWS\
+	README\
+	TODO\
+	doc/ScintillaDoc.html\
+	manuals/C/anjuta-faqs/anjuta-faqs.sgml\
+	manuals/C/ChangeLog\
+	manuals/C/anjuta-manual/anjuta-manual.sgml\
+	manuals/C/anjuta-manual/authors.sgml\
+	manuals/C/anjuta-manual/chapter01.sgml\
+	manuals/C/anjuta-manual/chapter02.sgml\
+	manuals/C/anjuta-manual/chapter03.sgml\
+	manuals/C/anjuta-manual/chapter04.sgml\
+	manuals/C/anjuta-manual/chapter05.sgml\
+	manuals/C/anjuta-manual/chapter06.sgml\
+	manuals/C/anjuta-manual/chapter07.sgml\
+	manuals/C/anjuta-manual/chapter08.sgml\
+	manuals/C/anjuta-manual/chapter09.sgml\
+	manuals/C/anjuta-manual/chapter10.sgml\
+	manuals/C/anjuta-manual/chapter11.sgml\
+	manuals/C/anjuta-manual/chapter12.sgml\
+	manuals/C/anjuta-manual/chapter13.sgml\
+	manuals/C/anjuta-manual/chapter14.sgml\
+	manuals/C/anjuta-manual/chapter15.sgml\
+	manuals/C/anjuta-manual/license.sgml\
+	po/ChangeLog\
+	macros/ChangeLog
+
+module.po.expanded=0
+module.po.files=\
+	az.po\
+	da.po\
+	de.po\
+	el.po\
+	es.po\
+	fr.po\
+	it.po\
+	ja.po\
+	nl.po\
+	no.po\
+	pl.po\
+	pt.po\
+	pt_BR.po\
+	ru.po\
+	sv.po\
+	ta.po\
+	tr.po\
+	uk.po\
+	zh_CN.po\
+	zh_TW.po
+
+compiler.options.supports=
+
+compiler.options.include.paths=\
+	.\
+	..
+
+compiler.options.library.paths=
+
+compiler.options.libraries=
+compiler.options.libraries.selected=
+
+compiler.options.defines=\
+	HAVE_CONFIG_H
+
+compiler.options.warning.buttons=0 0 1 1 0 1 0 0 0 0 0 0 0 1 0 0 
+
+compiler.options.optimize.buttons=0 0 1 0 
+
+compiler.options.other.buttons=1 0 
+
+compiler.options.other.c.flags=
+
+compiler.options.other.l.flags=
+
+compiler.options.other.l.libs=
+
+project.source.paths=
+
