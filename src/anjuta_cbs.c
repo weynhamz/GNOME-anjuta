@@ -122,10 +122,12 @@ gint on_anjuta_delete (GtkWidget * w, GdkEvent * event, gpointer data)
 	}
 	anjuta_save_settings ();
 
-	if (file_not_saved || (!app->project_dbase->is_saved && app->project_dbase->project_is_open))
+	/* No need to check for saved project, as it is done in 
+	close project call later. */
+	if (file_not_saved)
 	{
 		messagebox2 (GNOME_MESSAGE_BOX_QUESTION,
-			     _("Some files (or the project) are not saved.\n"
+			     _("One or more files are not saved.\n"
 				"Do you still want to exit?"),
 			     GNOME_STOCK_BUTTON_YES,
 			     GNOME_STOCK_BUTTON_NO,
