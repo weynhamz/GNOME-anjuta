@@ -77,7 +77,8 @@ create_project_type_selection_page (GnomeDruid * druid, GtkWidget ** iconlist)
 	GtkWidget *druid_vbox1;
 
 	gchar *icon1_file, *icon2_file, *icon3_file, *icon4_file, *icon5_file,
-		*icon6_file, *icon7_file, *icon8_file;
+		*icon6_file, *icon7_file, *icon8_file, *icon9_file, *icon10_file,
+		*icon11_file, *icon12_file;
 
 	GdkColor page_bg_color = { 0, 15616, 33280, 46848 };
 	GdkColor page_logo_bg_color = { 0, 15616, 33280, 46848 };
@@ -154,6 +155,11 @@ create_project_type_selection_page (GnomeDruid * druid, GtkWidget ** iconlist)
 	icon6_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_APP_COMPONENT);
 	icon7_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_APP_LIBGLADE);
 	icon8_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_APP_WXWIN);
+	icon9_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_APP_GTK2);
+	icon10_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_APP_GNOME2);
+	icon11_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_APP_GTKMM2);
+	icon12_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_APP_GNOMEMM2);
+	
 	if (icon1_file)
 		gnome_icon_list_append (GNOME_ICON_LIST (iconlist1),
 					icon1_file,
@@ -185,6 +191,18 @@ create_project_type_selection_page (GnomeDruid * druid, GtkWidget ** iconlist)
 	if (icon8_file)
 		gnome_icon_list_append (GNOME_ICON_LIST (iconlist1),
 					icon8_file, _("wxWindows project"));
+	if (icon9_file)
+		gnome_icon_list_append (GNOME_ICON_LIST (iconlist1),
+					icon9_file, _("GTK 2.0 project"));
+	if (icon10_file)
+		gnome_icon_list_append (GNOME_ICON_LIST (iconlist1),
+					icon10_file, _("GNOME 2.0 project"));
+	if (icon11_file)
+		gnome_icon_list_append (GNOME_ICON_LIST (iconlist1),
+					icon11_file, _("GTKmm 2.0 project"));
+	if (icon12_file)
+		gnome_icon_list_append (GNOME_ICON_LIST (iconlist1),
+					icon12_file, _("GNOMEmm 2.0 project"));
 
 	g_free (icon1_file);
 	g_free (icon2_file);
@@ -194,6 +212,11 @@ create_project_type_selection_page (GnomeDruid * druid, GtkWidget ** iconlist)
 	g_free (icon6_file);
 	g_free (icon7_file);
 	g_free (icon8_file);
+	g_free (icon9_file);
+	g_free (icon10_file);
+	g_free (icon11_file);
+	g_free (icon12_file);
+	
 
 	*iconlist = iconlist1;
 	return page;

@@ -1418,11 +1418,22 @@ source_write_glade_file (ProjectDBase * data)
 	g_free (pix);
 	
 	lang = project_dbase_get_language (data);
-	if (lang == PROJECT_PROGRAMMING_LANGUAGE_C)
+	if (type->id == PROJECT_TYPE_GTK || 
+		type->id == PROJECT_TYPE_GNOME ||
+		type->id == PROJECT_TYPE_GTK2 ||
+		type->id == PROJECT_TYPE_GNOME2)
+	{
 		fprintf(fp, "  <language>C</language>\n");
-	else 
+	}
+	else if (type->id == PROJECT_TYPE_GTKMM ||
+			type->id == PROJECT_TYPE_GNOMEMM ||
+			type->id == PROJECT_TYPE_GTKMM2 ||
+			type->id == PROJECT_TYPE_GNOMEMM2)
+	{	
 		fprintf(fp, "  <language>CPP</language>\n");
-	
+	}
+	else
+		fprintf(fp, "  <language>C</language>\n");
 	if (!type->gnome_support)
 		fprintf(fp, "  <gnome_support>False</gnome_support>\n");
 	else
@@ -1729,13 +1740,17 @@ source_write_build_files (ProjectDBase * data)
 		{
 			case PROJECT_TYPE_GTK:
 			case PROJECT_TYPE_GTKMM:
+			case PROJECT_TYPE_GTK2:
+			case PROJECT_TYPE_GTKMM2:
 				ret = source_write_glade_file (data);
 				if (!ret) return FALSE;
 				break;
 			case PROJECT_TYPE_GNOME:
+			case PROJECT_TYPE_GNOME2:
 			case PROJECT_TYPE_BONOBO:
 			case PROJECT_TYPE_LIBGLADE:
 			case PROJECT_TYPE_GNOMEMM:
+			case PROJECT_TYPE_GNOMEMM2:
 				ret = source_write_desktop_entry (data);
 				if (!ret) return FALSE;
 				ret = source_write_glade_file (data);

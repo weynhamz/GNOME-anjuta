@@ -42,7 +42,7 @@ gchar* project_type_gtk[] =
 {
 	"GTK",
 	
-	" \\\n\t`gtk-config --cflags`",
+	" \\\n\t$(GTK_CFLAGS)",
 	" \\\n\t$(GTK_LIBS)",
 	
 	"\n"
@@ -53,6 +53,23 @@ gchar* project_type_gtk[] =
 	
 	"0",
 	"1",
+};
+
+gchar* project_type_gtk2[] =
+{
+	"GTK2",
+	
+	" \\\n\t$(GTK_CFLAGS)",
+	" \\\n\t$(GTK_LIBS)",
+	
+	"PKG_CHECK_MODULES(GTK, gtk+-2.0 gdk-2.0,,exit)\n"
+	"AC_SUBST(GTK_LIBS)\n"
+	"AC_SUBST(GTK_CFLAGS)",
+	
+	"/autogen.sh.gtk",
+	
+	"0",
+	"0",
 };
 
 gchar* project_type_libglade[] =
@@ -98,6 +115,23 @@ gchar* project_type_gnome[] =
 	"1",
 };
 
+gchar* project_type_gnome2[] =
+{
+	"GNOME2",
+	
+	" \\\n\t$(GNOME_CFLAGS)",
+	" \\\n\t$(GNOME_LIBS)",
+	
+	"PKG_CHECK_MODULES(GNOME, libgnomeui-2.0 gtk+-2.0,,exit)\n"
+	"AC_SUBST(GNOME_LIBS)\n"
+	"AC_SUBST(GNOME_CFLAGS)",
+	
+	"/autogen.sh.gnome",
+	
+	"1",
+	"0",
+};
+
 gchar* project_type_gtkmm[] =
 {
 	"GTKMM",
@@ -113,6 +147,23 @@ gchar* project_type_gtkmm[] =
 	
 	"0",
 	"1",
+};
+
+gchar* project_type_gtkmm2[] =
+{
+	"GTKMM2",
+	
+	"\\\n\t$(GTKMM_CFLAGS)",
+	"\\\n\t$(GTKMM_LIBS)",
+	
+	"PKG_CHECK_MODULES(GTKMM, gtkmm-2.0,,exit)\n"
+	"AC_SUBST(GTKMM_LIBS)\n"
+	"AC_SUBST(GTKMM_CFLAGS)",
+	
+	"/autogen.sh.gtkmm",
+	
+	"0",
+	"0",
 };
 
 gchar* project_type_gnomemm[] =
@@ -138,6 +189,23 @@ gchar* project_type_gnomemm[] =
 	
 	"1",
 	"1",
+};
+
+gchar* project_type_gnomemm2[] =
+{
+	"GNOMEMM2",
+	
+	"\\\n\t$(GNOMEMM_CFLAGS)",
+	"\\\n\t$(GNOMEMM_LIBS)",
+	
+	"PKG_CHECK_MODULES(GNOME, libgnomeuimm-2.0,,exit)\n"
+	"AC_SUBST(GNOMEMM_LIBS)\n"
+	"AC_SUBST(GNOMEMM_CFLAGS)",
+	
+	"/autogen.sh.gnomemm",
+	
+	"1",
+	"0",
 };
 
 gchar* project_type_bonobo[] =
@@ -229,9 +297,19 @@ Project_Type* load_project_type(gint id)
 			type = load_type_from_data(project_type_gtk, id);
 			break;
 		}
+		case PROJECT_TYPE_GTK2:
+		{
+			type = load_type_from_data(project_type_gtk2, id);
+			break;
+		}
 		case PROJECT_TYPE_GTKMM:
 		{
 			type = load_type_from_data(project_type_gtkmm, id);
+			break;
+		}
+		case PROJECT_TYPE_GTKMM2:
+		{
+			type = load_type_from_data(project_type_gtkmm2, id);
 			break;
 		}
 		case PROJECT_TYPE_GNOME:
@@ -239,9 +317,19 @@ Project_Type* load_project_type(gint id)
 			type = load_type_from_data(project_type_gnome, id);
 			break;
 		}
+		case PROJECT_TYPE_GNOME2:
+		{
+			type = load_type_from_data(project_type_gnome2, id);
+			break;
+		}
 		case PROJECT_TYPE_GNOMEMM:
 		{
 			type = load_type_from_data(project_type_gnomemm, id);
+			break;
+		}
+		case PROJECT_TYPE_GNOMEMM2:
+		{
+			type = load_type_from_data(project_type_gnomemm2, id);
 			break;
 		}
 		case PROJECT_TYPE_BONOBO:

@@ -164,8 +164,10 @@ on_page5_next (GnomeDruidPage * page, gpointer arg1, gpointer data)
 					      piw->prj_menu_need_terminal);
 
 	// Deacticate Menu entries for none Gnome projects
-	if (piw->prj_type == PROJECT_TYPE_GNOME || 
-		piw->prj_type == PROJECT_TYPE_GNOMEMM)
+	if (piw->prj_type == PROJECT_TYPE_GNOME ||
+		piw->prj_type == PROJECT_TYPE_GNOME2 || 
+		piw->prj_type == PROJECT_TYPE_GNOMEMM ||
+		piw->prj_type == PROJECT_TYPE_GNOMEMM2)
 	{
 		gtk_widget_set_sensitive(piw->widgets.menu_frame,
 				TRUE);
@@ -356,6 +358,19 @@ on_wizard_import_icon_select (GnomeIconList * gil,
 	case 7:
 		piw->prj_type = PROJECT_TYPE_WXWIN;
 		break;
+	case 8:
+		piw->prj_type = PROJECT_TYPE_GTK2;
+		break;
+	case 9:
+		piw->prj_type = PROJECT_TYPE_GNOME2;
+		break;
+	case 10:
+		piw->prj_type = PROJECT_TYPE_GTKMM2;
+		break;
+	case 11:
+		piw->prj_type = PROJECT_TYPE_GNOMEMM2;
+		break;
+	
 	default:		/* Invalid project type */
 		piw->prj_type = PROJECT_TYPE_END_MARK;
 		break;

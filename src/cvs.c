@@ -456,7 +456,13 @@ cvs_status (CVS * cvs, gchar * filename, gboolean is_dir)
 	text_editor_set_hilite_type (diff_editor);
 
 	chdir (dir);
-	launcher_execute (command, on_cvs_buffer_in, on_cvs_stderr,
+	if (launcher_is_busy ())
+	{
+		anjuta_error (_
+			      ("There are jobs running, please wait until they are finished"));
+	}
+	else
+		launcher_execute (command, on_cvs_buffer_in, on_cvs_stderr,
 			  on_cvs_terminate);
 
 	g_free (compression);
@@ -501,7 +507,13 @@ cvs_log (CVS * cvs, gchar * filename, gboolean is_dir)
 	text_editor_set_hilite_type (diff_editor);
 
 	chdir (dir);
-	launcher_execute (command, on_cvs_buffer_in, on_cvs_stderr,
+	if (launcher_is_busy ())
+	{
+		anjuta_error (_
+			      ("There are jobs running, please wait until they are finished"));
+	}
+	else
+		launcher_execute (command, on_cvs_buffer_in, on_cvs_stderr,
 			  on_cvs_terminate);
 
 	g_free (compression);
@@ -571,7 +583,13 @@ cvs_diff (CVS * cvs, gchar * filename, gchar * revision,
 	text_editor_set_hilite_type (diff_editor);
 
 	chdir (dir);
-	launcher_execute (command, on_cvs_buffer_in, on_cvs_stderr,
+	if (launcher_is_busy ())
+	{
+		anjuta_error (_
+			      ("There are jobs running, please wait until they are finished"));
+	}
+	else
+		launcher_execute (command, on_cvs_buffer_in, on_cvs_stderr,
 			  on_cvs_terminate);
 
 	g_free (command);

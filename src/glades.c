@@ -164,7 +164,8 @@ gladen_add_main_components(void)
 	gladen = GetCorbaManager()->m_gladen ;
 
 	CInitEx( &ev );
-	if (project_dbase_get_project_type (app->project_dbase)->id == PROJECT_TYPE_GTK)
+	if (project_dbase_get_project_type (app->project_dbase)->id == PROJECT_TYPE_GTK ||
+		project_dbase_get_project_type (app->project_dbase)->id == PROJECT_TYPE_GTK2)
 	{
 		Gladen_GladeRef_AddComponent( gladen, "GtkWindow", "MainWnd", &ev );
 	}else
@@ -243,7 +244,7 @@ gladen_write_glade_file ( ProjectDBase * data )
 	else 
 		fprintf(fp, "  <language>CPP</language>\n");
 	
-	if (type == PROJECT_TYPE_GTK)
+	if (type == PROJECT_TYPE_GTK || type == PROJECT_TYPE_GTK2)
 		fprintf(fp, "  <gnome_support>False</gnome_support>\n");
 	else
 		fprintf(fp, "  <gnome_support>True</gnome_support>\n");
@@ -292,7 +293,7 @@ gladen_write_glade_file ( ProjectDBase * data )
 	return TRUE;
 }
 
-	if (type == PROJECT_TYPE_GTK)
+	if (type == PROJECT_TYPE_GTK || type == PROJECT_TYPE_GTK2)
 	{
 		Gladen_GladeRef_AddComponent( gladen, "GtkWindow", "MainWnd", &ev );
 		CHK_EV(&ev);

@@ -1,3 +1,22 @@
+2002-04-24 Johannes Schmid <clubfan@users.sourceforge.net>
+
+	Reviewed by Naba Kumar <kh_naba@users.sourceforge.net>
+	
+	* src/appwiz_page1.c, src/appwizard_cbs.c, src/glades.c, 
+	  src/pixmaps.h, src/project_dbase.[c,h], src/project_import_cbs.c, 
+	  src/project_type.c, source.c, wizard_gui.c:
+	  Added new GNOME 2 project types and changed glade behaviour to
+	  produce GTK code if project type GTK was selected and GTKmm code
+	  if project type GTKmm was selected (and not depending on the 
+	  selected language. Disabled glade for GNOME 2 projects because
+	  we will need glade2 there.
+	  
+	* src/project_dbase.c: Fixed a memory lack.
+	
+	* pixmaps/appwiz_*2.png: Added GNOME 2 icons from Misha
+	
+	* src/cvs.c: Added an error message if jobs are running
+
 2002-04-23 Naba Kumar <kh_naba@users.sourceforge.net>
 
 	* tagmanager/tm_work_object.c: Fixed a chrash

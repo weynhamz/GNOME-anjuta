@@ -70,7 +70,9 @@ on_druidpagestandard1_next (GnomeDruidPage * gnomedruidpage,
 	aw = user_data;
 	if ( !(aw->prj_type == PROJECT_TYPE_GENERIC
  		|| aw->prj_type == PROJECT_TYPE_GTK
+		|| aw->prj_type == PROJECT_TYPE_GTK2
  		|| aw->prj_type == PROJECT_TYPE_GTKMM
+		|| aw->prj_type == PROJECT_TYPE_GTKMM2
 		|| aw->prj_type == PROJECT_TYPE_WXWIN))
 	{
 		gtk_widget_set_sensitive (aw->widgets.menu_frame, TRUE);
@@ -80,7 +82,9 @@ on_druidpagestandard1_next (GnomeDruidPage * gnomedruidpage,
 		gtk_widget_set_sensitive (aw->widgets.menu_frame, FALSE);
 	}
 	if (aw->prj_type == PROJECT_TYPE_GTKMM
+		|| aw->prj_type == PROJECT_TYPE_GTKMM2
 		|| aw->prj_type == PROJECT_TYPE_GNOMEMM
+		|| aw->prj_type == PROJECT_TYPE_GNOMEMM2
 		|| aw->prj_type == PROJECT_TYPE_WXWIN)
 	{
 		   gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(aw->widgets.language_cpp_radio), TRUE);

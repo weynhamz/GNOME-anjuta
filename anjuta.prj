@@ -466,6 +466,12 @@ module.pixmap.files=\
 	pixmaps/appwiz_gtk.png\
 	pixmaps/appwiz_gtkmm.png\
 	pixmaps/appwiz_libglade.png\
+	pixmaps/appwiz_bonobo2.png\
+	pixmaps/appwiz_gnome2.png\
+	pixmaps/appwiz_gnomemm2.png\
+	pixmaps/appwiz_gtk2.png\
+	pixmaps/appwiz_gtkmm2.png\
+	pixmaps/appwiz_libglade2.png\
 	pixmaps/appwiz_terminal.png\
 	pixmaps/appwizard.png\
 	pixmaps/autocomplete.xpm\

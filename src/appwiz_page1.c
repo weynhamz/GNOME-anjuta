@@ -62,6 +62,19 @@ on_wizard_app_icon_select (GnomeIconList * gil, gint num,
   case 7:
     aw->prj_type = PROJECT_TYPE_WXWIN;
     break;
+  case 8:
+    aw->prj_type = PROJECT_TYPE_GTK2;
+    break;
+  case 9:
+    aw->prj_type = PROJECT_TYPE_GNOME2;
+    break;
+  case 10:
+    aw->prj_type = PROJECT_TYPE_GTKMM2;
+    break;
+  case 11:
+    aw->prj_type = PROJECT_TYPE_GNOMEMM2;
+    break;
+  
  default: /* Invalid project type */
     aw->prj_type = PROJECT_TYPE_END_MARK;
     break;

@@ -98,6 +98,10 @@ gchar *project_type_map[]=
 	"GNOMEmm",
 	"LIBGLADE",
 	"wxWINDOWS",
+	"GTK 2.0",
+	"GTKmm 2.0",
+	"GNOME 2.0",
+	"GNOMEmm 2.0",
 	NULL
 };
 
@@ -1329,6 +1333,7 @@ project_dbase_show_info (ProjectDBase * p)
 	gchar *str[14];
 	gint i;
 	GList *list;
+	Project_Type* type;
 	
 	g_return_if_fail (p != NULL);
 	g_return_if_fail (p->project_is_open == TRUE);
@@ -1336,12 +1341,13 @@ project_dbase_show_info (ProjectDBase * p)
 	str[0] = project_dbase_get_proj_name(p);
 	str[1] = prop_get (p->props, "project.version");
 	str[2] = prop_get (p->props, "project.author");
-	if (project_dbase_get_project_type(p)->id != PROJECT_TYPE_GENERIC
-		&& project_dbase_get_project_type(p)->id != PROJECT_TYPE_WXWIN)
+	type = project_dbase_get_project_type(p); 
+	if (type->glade_support)
 		str[3] = g_strdup (_("Yes"));
 	else
 		str[3] = g_strdup (_("No"));
 	
+	free_project_type (type);
 	/* For the time being */
 	str[4] = g_strdup (_("Yes"));
 
@@ -1418,21 +1424,26 @@ project_dbase_generate_source_code (ProjectDBase *p)
 {
 	gchar *filename, *prj_name;
 	gboolean ret;
+	Project_Type* type;
 	
 	if (p->project_is_open == FALSE)
 		return FALSE;
 
+	type = project_dbase_get_project_type(p);
+	
 	/* wxWindows has a special 'main program' equivalent,
 	 * so use an extra function for writing its main.cc */
-	if(project_dbase_get_project_type(p)->id == PROJECT_TYPE_WXWIN)
+	if(type->id == PROJECT_TYPE_WXWIN)
 	{
+		free_project_type (type);
 		return source_write_wxwin_main_c(p);
 	}
 
 	
-	if (project_dbase_get_project_type (p)->id == PROJECT_TYPE_GENERIC
+	if (!type->glade_support
 		|| project_dbase_get_target_type(p) != PROJECT_TARGET_TYPE_EXECUTABLE)
 	{
+		free_project_type(type);
 		return source_write_generic_main_c (p);
 	}
 
@@ -1451,7 +1462,7 @@ project_dbase_generate_source_code (ProjectDBase *p)
 	}
 	else
 	{
-		if (project_dbase_get_project_type (p)->id == PROJECT_TYPE_LIBGLADE)
+		if (type->id == PROJECT_TYPE_LIBGLADE)
 		{
 			ret = source_write_libglade_main_c (p);
 		} else
@@ -1459,6 +1470,7 @@ project_dbase_generate_source_code (ProjectDBase *p)
 			ret = source_write_generic_main_c (p);
 	}
 	g_free (filename);
+	free_project_type (type);
 	return ret;
 }
 
@@ -1516,7 +1528,7 @@ project_dbase_get_version (ProjectDBase * p)
 	return prop_get (p->props, "project.version");
 }
 
-/* project type. */
+/* project type. Must be freed after use!!!*/
 Project_Type*
 project_dbase_get_project_type (ProjectDBase* p)
 {
