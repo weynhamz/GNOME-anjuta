@@ -1,3 +1,7 @@
+2004-02-13  Naba Kumar  <naba@gnome.org>
+
+	* configure.in: Requires devhelp 0.8.1 (0.8 is broken).
+	
 2004-02-13  Johannes Schmid <jhs@cvs.gnome.org>
 	
 	* data/template/*/.cvsignore:
