@@ -1,4 +1,4 @@
-2004-02-23  Naba Kumar  <naba@gnome.or>
+2004-02-26  Naba Kumar  <naba@gnome.or>
 
 	* src/source.c: Fixed to pass cflags correctly
 	and suppress the automake's default cflags.
