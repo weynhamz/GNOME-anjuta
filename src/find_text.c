@@ -30,6 +30,9 @@ static const gchar SecFT [] = {"FindText"};
 /*static const gchar SECTION_SEARCH [] =  {"search_text"};*/
 
 static void
+find_text_read_state(FindText *ft );
+
+static void
 on_find_text_dialog_response (GtkDialog *dialog, gint response,
 							  gpointer user_data);
 
@@ -79,9 +82,43 @@ on_find_text_dialog_key_press (GtkWidget *widget, GdkEventKey *event,
 	}
 	else
 	{
+		if ( (event->state & GDK_CONTROL_MASK) &&
+				((event->keyval & 0x5F) == GDK_G))
+		{
+			find_text_read_state((FindText *) user_data);
+			
+			if (event->state & GDK_SHIFT_MASK)
+				on_toolbar_find_clicked ( NULL, GINT_TO_POINTER(FALSE));				
+			else
+				on_toolbar_find_clicked ( NULL, GINT_TO_POINTER(TRUE));	
+		}
 		return FALSE;
 	}
 }
+
+
+static void
+find_text_read_state(FindText *ft )
+{
+	ft->ignore_case = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
+					      (ft->f_gui.ignore_case_check));
+
+	ft->whole_word  = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
+					      (ft->f_gui.whole_word_check));
+
+	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
+					      (ft->f_gui.from_begin_radio)) )
+		ft->area = TEXT_EDITOR_FIND_SCOPE_WHOLE;
+	else
+		ft->area = TEXT_EDITOR_FIND_SCOPE_CURRENT;
+
+	ft->forward  = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
+					      (ft->f_gui.forward_radio));
+
+	ft->regexp = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
+					      (ft->f_gui.regexp_radio));
+}
+
 
 static void
 on_find_text_dialog_response (GtkDialog *dialog, gint response,
@@ -103,52 +140,8 @@ on_find_text_dialog_response (GtkDialog *dialog, gint response,
 		return;
 	}
 
-	state =
-		gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
-					      (ft->f_gui.ignore_case_check));
-	if (state == TRUE)
-		ft->ignore_case = TRUE;
-	else
-		ft->ignore_case = FALSE;
-
-	state =
-		gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
-					      (ft->f_gui.whole_word_check));
-	if (state == TRUE)
-		ft->whole_word = TRUE;
-	else
-		ft->whole_word = FALSE;
-
-
-	radio0 =
-		gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
-					      (ft->f_gui.from_begin_radio));
-	radio1 =
-		gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
-					      (ft->f_gui.from_cur_loc_radio));
-
-	if (radio0)
-		ft->area = TEXT_EDITOR_FIND_SCOPE_WHOLE;
-	else
-		ft->area = TEXT_EDITOR_FIND_SCOPE_CURRENT;
-
-	state =
-		gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
-					      (ft->f_gui.forward_radio));
-	if (state == TRUE)
-		ft->forward = TRUE;
-	else
-		ft->forward = FALSE;
-
-	state =
-		gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
-					      (ft->f_gui.regexp_radio));
-	if (state == TRUE)
-		ft->regexp = TRUE;
-	else
-		ft->regexp = FALSE;
-
-
+	find_text_read_state(ft );
+	
 	te = anjuta_get_current_text_editor ();
 	if (!te) return;
 	str = gtk_entry_get_text (GTK_ENTRY (ft->f_gui.entry));
@@ -207,6 +200,12 @@ on_find_text_dialog_response (GtkDialog *dialog, gint response,
 		}
 		else
 			anjuta_error (buff);
+	}
+	else
+	{
+		if (ft->area == TEXT_EDITOR_FIND_SCOPE_WHOLE)
+			gtk_toggle_button_set_active   (GTK_TOGGLE_BUTTON
+					      (ft->f_gui.from_cur_loc_radio), TRUE);
 	}
 }
 

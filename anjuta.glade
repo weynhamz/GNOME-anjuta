@@ -12448,7 +12448,7 @@
 			  <property name="enable_arrows_always">False</property>
 
 			  <child internal-child="entry">
-			    <widget class="GtkEntry" id="preferences_entry:text:plus/minus:0:fold.symbols.style">
+			    <widget class="GtkEntry" id="preferences_entry:text:Plus/Minus:0:fold.symbols.style">
 			      <property name="visible">True</property>
 			      <property name="can_focus">True</property>
 			      <property name="editable">False</property>
@@ -12876,7 +12876,7 @@
 		      <property name="label" translatable="yes">Sorted in the order you open them</property>
 		      <property name="use_underline">True</property>
 		      <property name="relief">GTK_RELIEF_NORMAL</property>
-		      <property name="active">False</property>
+		      <property name="active">True</property>
 		      <property name="inconsistent">False</property>
 		      <property name="draw_indicator">True</property>
 		    </widget>
@@ -12888,7 +12888,7 @@
 		  </child>
 
 		  <child>
-		    <widget class="GtkRadioButton" id="preferences_toggle:bool:1:0:editor.tabs.recent.first">
+		    <widget class="GtkRadioButton" id="preferences_toggle:bool:0:0:editor.tabs.recent.first">
 		      <property name="visible">True</property>
 		      <property name="can_focus">True</property>
 		      <property name="label" translatable="yes">Sorted by most recent use</property>
@@ -13355,7 +13355,7 @@
 	      <property name="shadow_type">GTK_SHADOW_ETCHED_IN</property>
 
 	      <child>
-		<widget class="GtkCombo" id="preferences_combo:list:Custom style,GNU coding style,Kernighan &amp;amp; Ritchie style,Original Berkeley style,Style of Kangleipak,Hello World style,Crazy boy style:0:combo2">
+		<widget class="GtkCombo" id="preferences_combo:list:Custom style,GNU coding style,Kernighan and Ritchie style,Original Berkeley style,Style of Kangleipak,Hello World style,Crazy boy style:0:combo2">
 		  <property name="border_width">5</property>
 		  <property name="visible">True</property>
 		  <property name="value_in_list">True</property>
@@ -13371,7 +13371,7 @@
 		      <property name="editable">False</property>
 		      <property name="visibility">True</property>
 		      <property name="max_length">0</property>
-		      <property name="text" translatable="yes">Custom style,GNU coding style,Kernighan &amp; Ritchie style,Original Berkeley style,Style of Kangleipak,Hello World style,Crazy boy style</property>
+		      <property name="text" translatable="yes">Custom style,GNU coding style,Kernighan and Ritchie style,Original Berkeley style,Style of Kangleipak,Hello World style,Crazy boy style</property>
 		      <property name="has_frame">True</property>
 		      <property name="invisible_char" translatable="yes">*</property>
 		      <property name="activates_default">False</property>
@@ -14163,7 +14163,7 @@
 	      </child>
 
 	      <child>
-		<widget class="GtkCombo" id="preferences_combo:list:Underline-Plain,Underline-Squiggle,Underline-TT,Diagonal,Strike-Out:0:combo2">
+		<widget class="GtkCombo" id="preferences_combo:list:Underline-Plain,Underline-Squiggle,Underline-TT,Diagonal,Strike-Out:0:combo21">
 		  <property name="visible">True</property>
 		  <property name="value_in_list">True</property>
 		  <property name="allow_empty">False</property>
@@ -14186,7 +14186,7 @@
 		  </child>
 
 		  <child internal-child="list">
-		    <widget class="GtkList" id="combo-list22">
+		    <widget class="GtkList" id="list21">
 		      <property name="visible">True</property>
 		      <property name="selection_mode">GTK_SELECTION_BROWSE</property>
 		    </widget>
@@ -14203,7 +14203,7 @@
 	      </child>
 
 	      <child>
-		<widget class="GtkCombo" id="preferences_combo:list:Underline-Plain,Underline-Squiggle,Underline-TT,Diagonal,Strike-Out:0:combo2">
+		<widget class="GtkCombo" id="preferences_combo:list:Underline-Plain,Underline-Squiggle,Underline-TT,Diagonal,Strike-Out:0:combo22">
 		  <property name="visible">True</property>
 		  <property name="value_in_list">True</property>
 		  <property name="allow_empty">False</property>
@@ -14226,7 +14226,7 @@
 		  </child>
 
 		  <child internal-child="list">
-		    <widget class="GtkList" id="list2">
+		    <widget class="GtkList" id="list22">
 		      <property name="visible">True</property>
 		      <property name="selection_mode">GTK_SELECTION_BROWSE</property>
 		    </widget>
@@ -14243,7 +14243,7 @@
 	      </child>
 
 	      <child>
-		<widget class="GtkCombo" id="preferences_combo:list:Underline-Plain,Underline-Squiggle,Underline-TT,Diagonal,Strike-Out:0:combo2">
+		<widget class="GtkCombo" id="preferences_combo:list:Underline-Plain,Underline-Squiggle,Underline-TT,Diagonal,Strike-Out:0:combo23">
 		  <property name="visible">True</property>
 		  <property name="value_in_list">True</property>
 		  <property name="allow_empty">False</property>
@@ -14266,7 +14266,7 @@
 		  </child>
 
 		  <child internal-child="list">
-		    <widget class="GtkList" id="list3">
+		    <widget class="GtkList" id="list23">
 		      <property name="visible">True</property>
 		      <property name="selection_mode">GTK_SELECTION_BROWSE</property>
 		    </widget>

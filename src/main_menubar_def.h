@@ -211,7 +211,7 @@ static GnomeUIInfo select1_submenu_uiinfo[NUM_SELECT_SUBMENUS+1] = {
 	 N_("Select the current code block"),
 	 on_editor_command_activate, (gpointer) ANE_SELECTBLOCK, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
-	 GDK_B, GDK_MOD1_MASK, NULL},
+	 GDK_L, GDK_MOD1_MASK, NULL},
 	{/*3*/
 	 GNOME_APP_UI_ITEM, N_("Current Function"),
 	 N_("Select the current function"),

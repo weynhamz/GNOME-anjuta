@@ -527,10 +527,11 @@ void tm_tags_array_free(GPtrArray *tags_array, gboolean free_all)
 	}
 }
 
-TMTag **tm_tags_find(GPtrArray *sorted_tags_array, const char *name, gboolean partial)
+TMTag **tm_tags_find(GPtrArray *sorted_tags_array, const char *name, gboolean partial, int * tagCount)
 {
 	static TMTag *tag = NULL;
 	TMTag **result;
+	int tagMatches=0;
 	
 	if ((!sorted_tags_array) || (!sorted_tags_array->len))
 		return NULL;
@@ -544,9 +545,12 @@ TMTag **tm_tags_find(GPtrArray *sorted_tags_array, const char *name, gboolean pa
 	  , sizeof(gpointer), tm_tag_compare);
 	if (result)
 	{
-		for (; result >= (TMTag **) sorted_tags_array->pdata; -- result)
+		for (; result >= (TMTag **) sorted_tags_array->pdata; -- result) {
 			if (0 != tm_tag_compare(&tag, (TMTag **) result))
 				break;
+			++tagMatches;
+		}
+		*tagCount=tagMatches;
 		++ result;
 	}
 	s_partial = FALSE;

@@ -417,8 +417,8 @@ const GPtrArray *tm_workspace_find(const char *name, int type, TMTagAttrType *at
 {
 	static GPtrArray *tags = NULL;
 	TMTag **matches[2], **match;
-	int i, len;
-
+	int i, len, tagCount[2]={0,0}, tagIter;
+	
 	if ((!theWorkspace) || (!name))
 		return NULL;
 	len = strlen(name);
@@ -429,20 +429,17 @@ const GPtrArray *tm_workspace_find(const char *name, int type, TMTagAttrType *at
 	else
 		tags = g_ptr_array_new();
 
-	matches[0] = tm_tags_find(theWorkspace->work_object.tags_array, name, partial);
-	matches[1] = tm_tags_find(theWorkspace->global_tags, name, partial);
+	matches[0] = tm_tags_find(theWorkspace->work_object.tags_array, name, partial, &tagCount[0]);
+	matches[1] = tm_tags_find(theWorkspace->global_tags, name, partial, &tagCount[1]);
 	for (i = 0; i < 2; ++i)
 	{
 		match = matches[i];
 		if (match && *match)
 		{
-			while (TRUE)
+			for (tagIter=0;tagIter<tagCount[i];++tagIter)
 			{
 				if (type & (*match)->type)
 					g_ptr_array_add(tags, *match);
-				++ match;
-				if (NULL == *match)
-					break;
 				if (partial)
 				{
 					if (0 != strncmp((*match)->name, name, len))
@@ -453,6 +450,7 @@ const GPtrArray *tm_workspace_find(const char *name, int type, TMTagAttrType *at
 					if (0 != strcmp((*match)->name, name))
 						break;
 				}
+				++ match;
 			}
 		}
 	}

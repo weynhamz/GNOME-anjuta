@@ -261,7 +261,7 @@ source_write_configure_in (ProjectDBase * data)
 		GList *files, *node;
 		fprintf (fp, "GETTEXT_PACKAGE=%s\n"
 				 "AC_SUBST(GETTEXT_PACKAGE)\n"
-				 "AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, \"$GETTTEXT_PACKAGE\","
+				 "AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, \"$GETTEXT_PACKAGE\","
 				 " [Package name for gettext])\n\n", prj_name);
 		fprintf (fp,
 			 "\n"
