@@ -232,10 +232,10 @@ cvs_update (CVS *cvs, const gchar *filename,
 	if (file) 
 		command = g_strconcat (command, file, NULL);
 
-	anjuta_message_manager_clear (app->messages, MESSAGE_CVS);
-	anjuta_message_manager_append (app->messages, _("CVS Updating "), MESSAGE_CVS);
-	anjuta_message_manager_append (app->messages, filename, MESSAGE_CVS);
-	anjuta_message_manager_append (app->messages, " ...\n", MESSAGE_CVS);
+	an_message_manager_clear (app->messages, MESSAGE_CVS);
+	an_message_manager_append (app->messages, _("CVS Updating "), MESSAGE_CVS);
+	an_message_manager_append (app->messages, filename, MESSAGE_CVS);
+	an_message_manager_append (app->messages, " ...\n", MESSAGE_CVS);
 	
 	update_fileview = TRUE;
 	launch_cvs_command (command, dir);
@@ -282,10 +282,10 @@ cvs_commit (CVS *cvs, const gchar *filename, const gchar *revision,
 	if (file) 
 		command = g_strconcat (command, file, NULL);
 
-	anjuta_message_manager_clear (app->messages, MESSAGE_CVS);
-	anjuta_message_manager_append (app->messages, _("CVS Committing "), MESSAGE_CVS);
-	anjuta_message_manager_append (app->messages, filename, MESSAGE_CVS);
-	anjuta_message_manager_append (app->messages, " ...\n", MESSAGE_CVS);
+	an_message_manager_clear (app->messages, MESSAGE_CVS);
+	an_message_manager_append (app->messages, _("CVS Committing "), MESSAGE_CVS);
+	an_message_manager_append (app->messages, filename, MESSAGE_CVS);
+	an_message_manager_append (app->messages, " ...\n", MESSAGE_CVS);
 
 	update_fileview = TRUE;
 	launch_cvs_command (command, dir);
@@ -343,8 +343,8 @@ void cvs_import_project (CVS *cvs, ServerType type, const gchar *server,
 	}
 	command = g_strconcat (command, module, " ", vendor, " ", release, NULL);
 	
-	anjuta_message_manager_clear (app->messages, MESSAGE_CVS);
-	anjuta_message_manager_append (app->messages, _("CVS Importing...\n"), MESSAGE_CVS);
+	an_message_manager_clear (app->messages, MESSAGE_CVS);
+	an_message_manager_append (app->messages, _("CVS Importing...\n"), MESSAGE_CVS);
 	
 	prj_dir = project_dbase_get_dir(app->project_dbase);
 	launch_cvs_command (command, prj_dir);
@@ -383,10 +383,10 @@ cvs_add_file (CVS *cvs, const gchar *filename, const gchar *message)
 	}
 	command = g_strconcat (command, file, NULL);
 
-	anjuta_message_manager_clear (app->messages, MESSAGE_CVS);
-	anjuta_message_manager_append (app->messages, _("CVS Adding "), MESSAGE_CVS);
-	anjuta_message_manager_append (app->messages, filename, MESSAGE_CVS);
-	anjuta_message_manager_append (app->messages, " ...\n", MESSAGE_CVS);
+	an_message_manager_clear (app->messages, MESSAGE_CVS);
+	an_message_manager_append (app->messages, _("CVS Adding "), MESSAGE_CVS);
+	an_message_manager_append (app->messages, filename, MESSAGE_CVS);
+	an_message_manager_append (app->messages, " ...\n", MESSAGE_CVS);
 
 	launch_cvs_command (command, dir);
 
@@ -415,10 +415,10 @@ cvs_remove_file (CVS *cvs, const gchar *filename)
 	compression = add_compression (cvs);
 	command = g_strconcat ("cvs ", compression, " remove -f ", file, NULL);
 
-	anjuta_message_manager_clear (app->messages, MESSAGE_CVS);
-	anjuta_message_manager_append (app->messages, _("CVS Removing "), MESSAGE_CVS);
-	anjuta_message_manager_append (app->messages, filename, MESSAGE_CVS);
-	anjuta_message_manager_append (app->messages, " ...\n", MESSAGE_CVS);
+	an_message_manager_clear (app->messages, MESSAGE_CVS);
+	an_message_manager_append (app->messages, _("CVS Removing "), MESSAGE_CVS);
+	an_message_manager_append (app->messages, filename, MESSAGE_CVS);
+	an_message_manager_append (app->messages, " ...\n", MESSAGE_CVS);
 
 	launch_cvs_command (command, dir);
 
@@ -456,11 +456,11 @@ cvs_status (CVS *cvs, const gchar *filename, gboolean is_dir)
 	if (file) 
 		command = g_strconcat (command, file, NULL);
 
-	anjuta_message_manager_clear (app->messages, MESSAGE_CVS);
-	anjuta_message_manager_append (app->messages, _("Getting CVS status "), MESSAGE_CVS);
-	anjuta_message_manager_append (app->messages, filename, MESSAGE_CVS);
-	anjuta_message_manager_append (app->messages, " ...\n", MESSAGE_CVS);
-	anjuta_message_manager_show (app->messages, MESSAGE_CVS);
+	an_message_manager_clear (app->messages, MESSAGE_CVS);
+	an_message_manager_append (app->messages, _("Getting CVS status "), MESSAGE_CVS);
+	an_message_manager_append (app->messages, filename, MESSAGE_CVS);
+	an_message_manager_append (app->messages, " ...\n", MESSAGE_CVS);
+	an_message_manager_show (app->messages, MESSAGE_CVS);
 	
 	// Create Text Editor for diff
 	diff_editor = anjuta_append_text_editor(NULL);
@@ -507,11 +507,11 @@ cvs_log (CVS *cvs, const gchar *filename, gboolean is_dir)
 	if (file) 
 		command = g_strconcat (command, file, NULL);
 
-	anjuta_message_manager_clear (app->messages, MESSAGE_CVS);
-	anjuta_message_manager_append (app->messages, _("Getting CVS log "), MESSAGE_CVS);
-	anjuta_message_manager_append (app->messages, filename, MESSAGE_CVS);
-	anjuta_message_manager_append (app->messages, " ...\n", MESSAGE_CVS);
-	anjuta_message_manager_show (app->messages, MESSAGE_CVS);
+	an_message_manager_clear (app->messages, MESSAGE_CVS);
+	an_message_manager_append (app->messages, _("Getting CVS log "), MESSAGE_CVS);
+	an_message_manager_append (app->messages, filename, MESSAGE_CVS);
+	an_message_manager_append (app->messages, " ...\n", MESSAGE_CVS);
+	an_message_manager_show (app->messages, MESSAGE_CVS);
 
 	// Create Text Editor for diff
 	diff_editor = anjuta_append_text_editor(NULL);
@@ -583,11 +583,11 @@ cvs_diff (CVS *cvs, const gchar *filename, const gchar *revision,
 	if (file)
 		command = g_strconcat (command, " ", file, NULL);
 	
-	anjuta_message_manager_clear (app->messages, MESSAGE_CVS);
-	anjuta_message_manager_append (app->messages, _("CVS diffing "), MESSAGE_CVS);
-	anjuta_message_manager_append (app->messages, filename, MESSAGE_CVS);
-	anjuta_message_manager_append (app->messages, " ...\n", MESSAGE_CVS);
-	anjuta_message_manager_show (app->messages, MESSAGE_CVS);
+	an_message_manager_clear (app->messages, MESSAGE_CVS);
+	an_message_manager_append (app->messages, _("CVS diffing "), MESSAGE_CVS);
+	an_message_manager_append (app->messages, filename, MESSAGE_CVS);
+	an_message_manager_append (app->messages, " ...\n", MESSAGE_CVS);
+	an_message_manager_show (app->messages, MESSAGE_CVS);
 
 	// Create Text Editor for diff
 	diff_editor = anjuta_append_text_editor(NULL);
@@ -627,10 +627,10 @@ cvs_login (CVS *cvs, ServerType type, const gchar *server,
 	command = g_strconcat ("cvs -d ", cvsroot, " login", NULL);
 
 	/* Insert login code here */
-	anjuta_message_manager_clear (app->messages, MESSAGE_CVS);
-	anjuta_message_manager_append (app->messages, _("CVS login "), MESSAGE_CVS);
-	anjuta_message_manager_append (app->messages, cvsroot, MESSAGE_CVS);
-	anjuta_message_manager_append (app->messages, " ...\n", MESSAGE_CVS);
+	an_message_manager_clear (app->messages, MESSAGE_CVS);
+	an_message_manager_append (app->messages, _("CVS login "), MESSAGE_CVS);
+	an_message_manager_append (app->messages, cvsroot, MESSAGE_CVS);
+	an_message_manager_append (app->messages, " ...\n", MESSAGE_CVS);
 
 	launch_cvs_command (command, NULL);
 
@@ -680,7 +680,7 @@ cvs_save_yourself (CVS * cvs, FILE * stream)
 static void
 on_cvs_stdout (gchar * line)
 {
-	anjuta_message_manager_append (app->messages, line, MESSAGE_CVS);
+	an_message_manager_append (app->messages, line, MESSAGE_CVS);
 }
 
 /*
@@ -690,7 +690,7 @@ on_cvs_stdout (gchar * line)
 static void
 on_cvs_stderr (gchar * line)
 {
-	anjuta_message_manager_append (app->messages, line, MESSAGE_CVS);
+	an_message_manager_append (app->messages, line, MESSAGE_CVS);
 }
 
 /*
@@ -729,7 +729,7 @@ on_cvs_terminate (int status, time_t time)
 	gchar *buff;
 	if (status)
 	{
-		anjuta_message_manager_append (app->messages,
+		an_message_manager_append (app->messages,
 					       _
 					       ("Project import completed...unsuccessful\n"),
 					       MESSAGE_BUILD);
@@ -737,7 +737,7 @@ on_cvs_terminate (int status, time_t time)
 	}
 	else
 	{
-		anjuta_message_manager_append (app->messages,
+		an_message_manager_append (app->messages,
 					       _
 					       ("CVS completed...successful\n"),
 					       MESSAGE_CVS);
@@ -745,13 +745,13 @@ on_cvs_terminate (int status, time_t time)
 	}
 	buff = g_strdup_printf (_("Total time taken: %d secs\n"),
 				(gint) time);
-	anjuta_message_manager_append (app->messages, buff, MESSAGE_CVS);
+	an_message_manager_append (app->messages, buff, MESSAGE_CVS);
 	
 	if (update_fileview && app->project_dbase->project_is_open)
 	{
-		anjuta_message_manager_append (app->messages, _("Updating versions in file tree..."), MESSAGE_CVS);
+		an_message_manager_append (app->messages, _("Updating versions in file tree..."), MESSAGE_CVS);
 		fv_populate(TRUE);
-		anjuta_message_manager_append (app->messages, _("done\n"), MESSAGE_CVS);
+		an_message_manager_append (app->messages, _("done\n"), MESSAGE_CVS);
 	}
 	update_fileview = FALSE;
 		
@@ -843,7 +843,7 @@ launch_cvs_command (gchar * command, gchar * dir)
 
 	if (dir) chdir (dir);
 
-	anjuta_message_manager_show (app->messages, MESSAGE_CVS);
+	an_message_manager_show (app->messages, MESSAGE_CVS);
 
 	launcher_execute (command, on_cvs_stdout, on_cvs_stderr,
 			  on_cvs_terminate);

@@ -127,7 +127,7 @@ gchar *s = N_("Search type");
 gchar *s = N_("Whole word");
 gchar *s = N_("Ignore case");
 gchar *s = N_("Find & Replace");
-gchar *s = N_("Search Expression");
+gchar *s = N_("Search Expression:");
 gchar *s = N_("Regular Expression");
 gchar *s = N_("Greedy matching");
 gchar *s = N_("Case insensitive");
@@ -136,48 +136,46 @@ gchar *s = N_("Match at start of word");
 gchar *s = N_("Match complete lines");
 gchar *s = N_("Match complete words");
 gchar *s = N_("Search Expression");
-gchar *s = N_("Search In");
-gchar *s = N_("Search Action");
+gchar *s = N_("Search In:");
 gchar *s = N_("*");
-gchar *s = N_("Search Direction");
+gchar *s = N_("Search Direction:");
 gchar *s = N_("*");
 gchar *s = N_("*");
 gchar *s = N_("*");
 gchar *s = N_("$(module.source.files) $(module.include.files)");
 gchar *s = N_("Search Variable");
-gchar *s = N_("Choose Files");
+gchar *s = N_("Choose Files:");
 gchar *s = N_("Space-seperated list of file name patterns to match");
 gchar *s = N_("*");
 gchar *s = N_("*\\.*");
 gchar *s = N_("*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp");
 gchar *s = N_("*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp Makefile.am configure.* README AUTHORS ChangeLog *.m4");
-gchar *s = N_("Ignore Files");
+gchar *s = N_("Ignore Files:");
 gchar *s = N_("Space-seperated list of file name patterns to ignore");
 gchar *s = N_("*");
 gchar *s = N_("*.so *.o *.a *.la");
 gchar *s = N_("Ignore Hidden Files");
-gchar *s = N_("Ignore Binary Files");
-gchar *s = N_("Choose Directories");
+gchar *s = N_("Choose Directories:");
 gchar *s = N_("Space-seperated list of directory name patterns to match");
 gchar *s = N_("*");
-gchar *s = N_("Ignore Directories");
+gchar *s = N_("Ignore Directories:");
 gchar *s = N_("Space-seperated list of directory name patterns to ignore");
 gchar *s = N_("*");
 gchar *s = N_("CVS");
 gchar *s = N_("CVS intl po");
 gchar *s = N_("Ignore Hidden Directories");
+gchar *s = N_("Ignore Binary Files");
 gchar *s = N_("Search Recursively");
 gchar *s = N_("File Filter");
 gchar *s = N_("Max. Actions");
 gchar *s = N_("No Limit");
+gchar *s = N_("Search Action:");
 gchar *s = N_("Search Target");
-gchar *s = N_("Replace With");
+gchar *s = N_("Replace With:");
 gchar *s = N_("*");
 gchar *s = N_("Expand regex back references");
-gchar *s = N_("Replace");
 gchar *s = N_("Replace Expression");
 gchar *s = N_("Search");
-gchar *s = N_("Next");
 gchar *s = N_("Anjuta help search");
 gchar *s = N_("*");
 gchar *s = N_("Gnome API");
@@ -520,3 +518,13 @@ gchar *s = N_("Undocked style");
 gchar *s = N_("Syntax highlighting style");
 gchar *s = N_("Helper applications");
 gchar *s = N_("Summary");
+gchar *s = N_("Anjuta Dev Studio\n"
+              "Copyright (C) Naba Kumar\n"
+              "\n"
+              "This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version. \n"
+              "\n"
+              "This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. \n"
+              "\n"
+              "You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA \n"
+              "\n"
+              "If you do not agree, click 'Cancel'.");

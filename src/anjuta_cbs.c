@@ -557,7 +557,7 @@ build_msg_save_real (void)
 		return;
 	}
 	
-	anjuta_message_manager_save_build(app->messages, msgfile);
+	an_message_manager_save_build(app->messages, msgfile);
 			
 	fclose(msgfile);
 
@@ -620,7 +620,7 @@ on_mesg_win_hide_button_clicked (GtkButton * button, gpointer user_data)
 void
 on_mesg_win_undock_button_clicked (GtkButton * button, gpointer user_data)
 {
-	anjuta_message_manager_undock (app->messages);
+	an_message_manager_undock (app->messages);
 }
 
 void

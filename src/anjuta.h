@@ -91,7 +91,7 @@ struct _AnjutaApp
 
 	GtkAccelGroup *accel_group;
 	FindAndReplace *find_replace;
-	AnjutaMessageManager *messages;
+	AnMessageManager *messages;
 	ProjectDBase *project_dbase;
 	CommandEditor *command_editor;
 	AnjutaPreferences *preferences;
@@ -381,7 +381,6 @@ anjuta_order_tabs(void);
 
 gboolean anjuta_get_user_params(const gchar *prompt, const char **val);
 gboolean anjuta_set_editor_properties(void);
-
 
 #include "session.h"
 

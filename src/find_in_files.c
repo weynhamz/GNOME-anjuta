@@ -301,18 +301,18 @@ find_in_files_process (FindInFiles * ff)
 	anjuta_update_app_status (TRUE, _("Find in Files"));
 	if(!gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(ff->widgets.append_messages)))
 	{
-		anjuta_message_manager_clear (app->messages, MESSAGE_FIND);
+		an_message_manager_clear (app->messages, MESSAGE_FIND);
 	}
-	anjuta_message_manager_append (app->messages, _("Finding in Files ....\n"),
+	an_message_manager_append (app->messages, _("Finding in Files ....\n"),
 			 MESSAGE_FIND);
-	anjuta_message_manager_show (app->messages, MESSAGE_FIND);
+	an_message_manager_show (app->messages, MESSAGE_FIND);
 	g_free (command);
 }
 
 void
 find_in_files_mesg_arrived (gchar * mesg)
 {
-	anjuta_message_manager_append (app->messages, mesg, MESSAGE_FIND);
+	an_message_manager_append (app->messages, mesg, MESSAGE_FIND);
 }
 
 void
@@ -322,7 +322,7 @@ find_in_files_terminated (int status, time_t time)
 
 	if (status)
 	{
-		anjuta_message_manager_append (app->messages,
+		an_message_manager_append (app->messages,
 				 _
 				 ("Find in Files completed...............Unsuccessful\n"),
 				 MESSAGE_FIND);
@@ -331,7 +331,7 @@ find_in_files_terminated (int status, time_t time)
 	}
 	else
 	{
-		anjuta_message_manager_append (app->messages,
+		an_message_manager_append (app->messages,
 				 _
 				 ("Find in Files completed...............Successful\n"),
 				 MESSAGE_FIND);
@@ -340,7 +340,7 @@ find_in_files_terminated (int status, time_t time)
 	buff1 =
 		g_strdup_printf (_("Total time taken: %d secs\n"),
 				 (gint) time);
-	anjuta_message_manager_append (app->messages, buff1, MESSAGE_FIND);
+	an_message_manager_append (app->messages, buff1, MESSAGE_FIND);
 	if (anjuta_preferences_get_int (app->preferences, BEEP_ON_BUILD_COMPLETE))
 		gdk_beep ();
 	g_free (buff1);

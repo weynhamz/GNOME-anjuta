@@ -58,8 +58,6 @@ extern gboolean closing_state;
 static GdkCursor *app_cursor;
 /*-------------------------------------------------------------------*/
 void anjuta_child_terminated (int t);
-static void on_message_clicked(GtkObject* obj, char* message);	
-static void on_message_indicate(GtkObject* obj, MessageIndicatorInfo *info);
 static void anjuta_show_text_editor (TextEditor * te);
 static void anjuta_apply_preferences (AnjutaPreferences *pr, AnjutaApp *app);
 
@@ -193,16 +191,8 @@ anjuta_new ()
 		app->compiler_options =
 			compiler_options_new (ANJUTA_PREFERENCES (app->preferences)->props);
 		app->src_paths = src_paths_new ();
-		app->messages = ANJUTA_MESSAGE_MANAGER (anjuta_message_manager_new ());
+		app->messages = AN_MESSAGE_MANAGER (an_message_manager_new ());
 		create_default_types (app->messages);
-		gtk_signal_connect(GTK_OBJECT(app->messages),
-						   "message_clicked",
-						   GTK_SIGNAL_FUNC (on_message_clicked),
-						   NULL);
-		gtk_signal_connect(GTK_OBJECT (app->messages),
-						   "message_indicate",
-						   GTK_SIGNAL_FUNC (on_message_indicate),
-						   NULL);
 		app->project_dbase =
 			project_dbase_new (app->preferences->props);
 		app->configurer = configurer_new (app->project_dbase->props);
@@ -1016,7 +1006,7 @@ anjuta_save_yourself (FILE * stream)
 	
 	start_with_dialog_save_yourself(app->preferences, stream);
 	
-	anjuta_message_manager_save_yourself (app->messages, stream);
+	an_message_manager_save_yourself (app->messages, stream);
 	project_dbase_save_yourself (app->project_dbase, stream);
 
 	compiler_options_save_yourself (app->compiler_options, stream);
@@ -1073,7 +1063,7 @@ gboolean anjuta_load_yourself (PropsID pr)
 #endif
 	app->last_open_project = prop_get( pr, ANJUTA_LAST_OPEN_PROJECT );
 
-	anjuta_message_manager_load_yourself (app->messages, pr);
+	an_message_manager_load_yourself (app->messages, pr);
 	project_dbase_load_yourself (app->project_dbase, pr);
 	compiler_options_load_yourself (app->compiler_options, pr);
 	compiler_options_load (app->compiler_options, pr);
@@ -1280,7 +1270,7 @@ anjuta_apply_preferences (AnjutaPreferences *pr, AnjutaApp *app)
 			anjuta_order_tabs ();
 	}
 
-	anjuta_message_manager_update(app->messages);
+	an_message_manager_update(app->messages);
 
 	for (i = 0; i < g_list_length (app->text_editor_list); i++)
 	{
@@ -2262,54 +2252,6 @@ anjuta_reload_file( const gchar *szFullPath )
 	return;
 }
 
-static void on_message_clicked(GtkObject* obj, char* message)
-{
-	char* fn;
-	int ln;
-	if (parse_error_line (message, &fn, &ln))
-	{
-		anjuta_goto_file_line (fn, ln);
-		g_free (fn);
-	}
-}
-
-static void on_message_indicate (GtkObject* obj, MessageIndicatorInfo *info)
-{
-	gchar *fn;
-	GList *node;
-
-	TextEditor *te;
-	if (!anjuta_preferences_get_int_with_default(ANJUTA_PREFERENCES
-												 (app->preferences),
-											MESSAGES_INDICATORS_AUTOMATIC, 1)) {
-		return;
-	}
-	g_return_if_fail (info);
-	g_return_if_fail (info->filename);
-	fn = anjuta_get_full_filename (info->filename);
-	g_return_if_fail (fn);
-	
-	node = app->text_editor_list;
-	while (node)
-	{
-		te = (TextEditor *) node->data;
-		if (te->full_filename == NULL)
-		{
-			node = g_list_next (node);
-			continue;
-		}
-		if (strcmp (fn, te->full_filename) == 0)
-		{
-			if (info->line >= 0)
-				text_editor_set_indicator (te, info->line, info->message_type);
-			g_free (fn);
-			return;
-		}
-		node = g_list_next (node);
-	}
-	g_free (fn);
-}
-
 void
 anjuta_load_this_project( const gchar * szProjectPath )
 {
@@ -2419,10 +2361,10 @@ void anjuta_search_sources_for_symbol(const gchar *s)
 	  , find_in_files_mesg_arrived, find_in_files_terminated) == FALSE)
 		return;
 	anjuta_update_app_status (TRUE, _("Looking up symbol"));
-	anjuta_message_manager_clear (app->messages, MESSAGE_FIND);
-	anjuta_message_manager_append (app->messages, _("Finding in Files ....\n"),
+	an_message_manager_clear (app->messages, MESSAGE_FIND);
+	an_message_manager_append (app->messages, _("Finding in Files ....\n"),
 	  MESSAGE_FIND);
-	anjuta_message_manager_show (app->messages, MESSAGE_FIND);
+	an_message_manager_show (app->messages, MESSAGE_FIND);
 }
 
 /* Popup a dialog to ask for user parameters */

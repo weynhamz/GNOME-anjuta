@@ -1,3 +1,23 @@
+2003-04-14  Naba Kumar  <naba@gnome.org>
+
+	* anjuta.glade, anjuta_dialogs_strings.c: Updated setup dialog.
+
+2003-04-14  Johannes Schmid <clubfan@users.sourceforge.net>
+	
+	Reviewed by Naba Kumar  <naba@gnome.org>
+	
+	* src/message-manager.[c/h], src/message-manager-private[c/h],
+		anjuta.[c/h]: Ported message-manager to Gtk2
+	
+	* plugins/patch/patch-plugin.c, src/anjuta-tools.c,
+	src/anjuta_cbs.c, src/build_file.c, src/build_project.c,
+	src/clean_project.c, src/compile.c, src/configurer.c,
+	src/controls.c, src/cvs.c, src/debugger.c,
+	src/find_in_files.c, src/gnome_project.c, src/mainmenu_callbacks.c,
+	src/project_import.c, src/search-replace.c: Changed name from
+	AnjutaMessageManager to	AnMessageManager to avoid too long type
+	and funtion names.
+
 2003-04-11  Biswapesh Chattopadhyay  <biswapesh_chatterjee@tcscal.co.in>
 	* src/launcher.c: Fix build won't stop problem - TTimo
 	* TODO: Updated

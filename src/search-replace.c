@@ -979,8 +979,8 @@ static void search_and_replace(void)
 	
 	if (SA_FIND_PANE == s->action)
 	{
-		anjuta_message_manager_clear(app->messages, MESSAGE_FIND);
-		anjuta_message_manager_show(app->messages, MESSAGE_FIND);
+		an_message_manager_clear(app->messages, MESSAGE_FIND);
+		an_message_manager_show(app->messages, MESSAGE_FIND);
 	}
 	nb_results = 0;
 	for (tmp = entries; tmp && (nb_results <= s->expr.actions_max); 
@@ -1042,7 +1042,7 @@ static void search_and_replace(void)
 						snprintf(buf, BUFSIZ, "%s:%ld:%s\n", fb->path
 						  , mi->line + 1, match_line);
 						g_free(match_line);
-						anjuta_message_manager_append(app->messages, buf
+						an_message_manager_append(app->messages, buf
 						  , MESSAGE_FIND);
 						break;
 					case SA_REPLACE:

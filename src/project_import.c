@@ -100,25 +100,25 @@ project_import_start (gchar * topleveldir, ProjectImportWizard * piw)
 				project_import_stderr_line_arrived,
 				project_import_terminated);
 	g_free(command);
-	anjuta_message_manager_clear (app->messages, MESSAGE_BUILD);
+	an_message_manager_clear (app->messages, MESSAGE_BUILD);
 	if (ret)
 	{
 		tmp = g_strdup_printf (_("Importing Project from %s ...\n"),
 				       topleveldir);
-		anjuta_message_manager_append (app->messages, tmp,
+		an_message_manager_append (app->messages, tmp,
 					       MESSAGE_BUILD);
 		g_free (tmp);
 	}
 	else
 	{
-		anjuta_message_manager_append (app->messages,
+		an_message_manager_append (app->messages,
 					       _
 					       ("Could not launch script!\n"),
 					       MESSAGE_BUILD);
-		anjuta_message_manager_show (app->messages, MESSAGE_BUILD);
+		an_message_manager_show (app->messages, MESSAGE_BUILD);
 		return ret;
 	}
-	anjuta_message_manager_show (app->messages, MESSAGE_BUILD);
+	an_message_manager_show (app->messages, MESSAGE_BUILD);
 
 	gtk_widget_show (piw->widgets.progressbar);
 	gtk_progress_set_activity_mode (GTK_PROGRESS
@@ -137,7 +137,7 @@ project_import_stdout_line_arrived (gchar * line)
 	gchar *pos;
 	if (!line)
 		return;
-	anjuta_message_manager_append (app->messages, line, MESSAGE_BUILD);
+	an_message_manager_append (app->messages, line, MESSAGE_BUILD);
 	if (NULL != (pos = strstr(line, "Created project file ")))
 	{
 		if (sscanf (pos, "Created project file %s successfully.", filename) == 1)
@@ -148,7 +148,7 @@ project_import_stdout_line_arrived (gchar * line)
 static void
 project_import_stderr_line_arrived (gchar * line)
 {
-	anjuta_message_manager_append (app->messages, line, MESSAGE_BUILD);
+	an_message_manager_append (app->messages, line, MESSAGE_BUILD);
 }
 
 static void
@@ -162,7 +162,7 @@ project_import_terminated (int status, time_t time)
 
 	if (status)
 	{
-		anjuta_message_manager_append (app->messages,
+		an_message_manager_append (app->messages,
 					       _
 					       ("Project import completed...unsuccessful\n"),
 					       MESSAGE_BUILD);
@@ -170,7 +170,7 @@ project_import_terminated (int status, time_t time)
 	}
 	else
 	{
-		anjuta_message_manager_append (app->messages,
+		an_message_manager_append (app->messages,
 					       _
 					       ("Project import completed...successful\n"),
 					       MESSAGE_BUILD);
@@ -178,7 +178,7 @@ project_import_terminated (int status, time_t time)
 	}
 	buff = g_strdup_printf (_("Total time taken: %d secs\n"),
 				(gint) time);
-	anjuta_message_manager_append (app->messages, buff, MESSAGE_BUILD);
+	an_message_manager_append (app->messages, buff, MESSAGE_BUILD);
 	if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
 									BEEP_ON_BUILD_COMPLETE))
 		gdk_beep ();
@@ -328,4 +328,3 @@ project_import_save_values (ProjectImportWizard * piw)
 	// Do not allow anjuta to change Makefiles
 	prop_set_with_key (p->props, "project.config.blocked", "1");
 }
-

@@ -73,15 +73,15 @@ compile_file_with_make ()
 			return;
 		}
 		anjuta_update_app_status (TRUE, _("Build Project"));
-		anjuta_message_manager_clear (app->messages, MESSAGE_BUILD);
-		anjuta_message_manager_append (app->messages, _("Building source directory of the Project: "),
+		an_message_manager_clear (app->messages, MESSAGE_BUILD);
+		an_message_manager_append (app->messages, _("Building source directory of the Project: "),
 				 MESSAGE_BUILD);
 		prj_name = project_dbase_get_proj_name (app->project_dbase);
-		anjuta_message_manager_append (app->messages, prj_name, MESSAGE_BUILD);
-		anjuta_message_manager_append (app->messages, " ...\n", MESSAGE_BUILD);
-		anjuta_message_manager_append (app->messages, cmd, MESSAGE_BUILD);
-		anjuta_message_manager_append (app->messages, "\n", MESSAGE_BUILD);
-		anjuta_message_manager_show (app->messages, MESSAGE_BUILD);
+		an_message_manager_append (app->messages, prj_name, MESSAGE_BUILD);
+		an_message_manager_append (app->messages, " ...\n", MESSAGE_BUILD);
+		an_message_manager_append (app->messages, cmd, MESSAGE_BUILD);
+		an_message_manager_append (app->messages, "\n", MESSAGE_BUILD);
+		an_message_manager_show (app->messages, MESSAGE_BUILD);
 		g_free (cmd);
 		g_free (prj_name);
 	}
@@ -153,12 +153,12 @@ compile_file (gboolean use_make)
 		return;
 	}
 	anjuta_update_app_status (TRUE, _("Compile"));
-	anjuta_message_manager_clear (app->messages, MESSAGE_BUILD);
+	an_message_manager_clear (app->messages, MESSAGE_BUILD);
 	buff = g_strdup_printf (_("Compiling file: %s ...\n"), te->filename);
-	anjuta_message_manager_append (app->messages, buff, MESSAGE_BUILD);
-	anjuta_message_manager_append (app->messages, cmd, MESSAGE_BUILD);
-	anjuta_message_manager_append (app->messages, "\n", MESSAGE_BUILD);
-	anjuta_message_manager_show (app->messages, MESSAGE_BUILD);
+	an_message_manager_append (app->messages, buff, MESSAGE_BUILD);
+	an_message_manager_append (app->messages, cmd, MESSAGE_BUILD);
+	an_message_manager_append (app->messages, "\n", MESSAGE_BUILD);
+	an_message_manager_show (app->messages, MESSAGE_BUILD);
 	g_free (buff);
 	g_free (cmd);
 }
@@ -166,7 +166,7 @@ compile_file (gboolean use_make)
 void
 compile_mesg_arrived (gchar * mesg)
 {
-	anjuta_message_manager_append (app->messages, mesg, MESSAGE_BUILD);
+	an_message_manager_append (app->messages, mesg, MESSAGE_BUILD);
 }
 
 void
@@ -176,20 +176,20 @@ compile_terminated (int status, time_t time)
 
 	if (status)
 	{
-		anjuta_message_manager_append (app->messages,
+		an_message_manager_append (app->messages,
 				 _("Compile completed ... unsuccessful"),
 				 MESSAGE_BUILD);
-		anjuta_message_manager_append (app->messages, "\n", MESSAGE_BUILD);
+		an_message_manager_append (app->messages, "\n", MESSAGE_BUILD);
 		if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
 										DIALOG_ON_BUILD_COMPLETE))
 			anjuta_warning (_("Compile completed ... unsuccessful"));
 	}
 	else
 	{
-		anjuta_message_manager_append (app->messages,
+		an_message_manager_append (app->messages,
 				 _("Compile completed ... successful"),
 				 MESSAGE_BUILD);
-		anjuta_message_manager_append (app->messages, "\n", MESSAGE_BUILD);
+		an_message_manager_append (app->messages, "\n", MESSAGE_BUILD);
 		if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
 										DIALOG_ON_BUILD_COMPLETE))
 			anjuta_status (_("Compile completed ... successful"));
@@ -197,7 +197,7 @@ compile_terminated (int status, time_t time)
 	buff1 =
 		g_strdup_printf (_("Total time taken: %d secs\n"),
 				 (int) time);
-	anjuta_message_manager_append (app->messages, buff1, MESSAGE_BUILD);
+	an_message_manager_append (app->messages, buff1, MESSAGE_BUILD);
 	if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
 									BEEP_ON_BUILD_COMPLETE))
 		gdk_beep ();

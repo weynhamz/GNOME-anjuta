@@ -34,7 +34,7 @@ using std::string;
 
 class MessageSubwindow;
 
-struct _AnjutaMessageManagerPrivate
+struct _AnMessageManagerPrivate
 {
 	vector<MessageSubwindow*> msg_windows;
 	MessageSubwindow* cur_msg_win;
@@ -65,17 +65,17 @@ struct _AnjutaMessageManagerPrivate
 class MessageSubwindow
 {
 	public:
-		MessageSubwindow(AnjutaMessageManager* p_amm, int p_type_id,
+		MessageSubwindow(AnMessageManager* p_amm, int p_type_id,
 						 string p_type, string p_pixmap);
 		virtual ~MessageSubwindow() { };
 	
-		AnjutaMessageManager* get_parent() const;
+		AnMessageManager* get_parent() const;
 		
 		GtkWidget* create_scrolled_window(GtkWidget* widget_in_window);
 		
 		virtual void show() = 0;
 		virtual void hide() = 0;
-		virtual void clear() = 0;
+		virtual void clear() {};
 		
 		void activate();
 	
@@ -89,7 +89,7 @@ class MessageSubwindow
 		void set_check_item(bool p_state);
 	
 	protected:
-		AnjutaMessageManager* m_parent;
+		AnMessageManager* m_parent;
 		
 		GtkWidget* m_menuitem;
 		
@@ -106,47 +106,54 @@ class MessageSubwindow
 };
 	
 
-class AnjutaMessageWindow : public MessageSubwindow
+class AnMessageWindow : public MessageSubwindow
 {
 	public:
-		AnjutaMessageWindow(AnjutaMessageManager* p_amm, int p_type_id,
+		AnMessageWindow(AnMessageManager* p_amm, int p_type_id,
 							string p_type, string p_pixmap); 
-		virtual ~AnjutaMessageWindow() { };
+		virtual ~AnMessageWindow() { };
 		
 		const vector<string>& get_messages() const;
 	
 		void add_to_buffer(char c);
 		void append_buffer();
 		
-		void set_cur_line(int line);
-		unsigned int get_cur_line() const;
+		// Only for callbacks!
+		void set_cur_line(int line) {m_line = line;};
+		
+		int get_cur_line();
+		string get_cur_msg();
+		
+		bool select_next();
+		bool select_prev();
 		
 		void clear();
-		void freeze();
-		void thaw();
 		void show();
 		void hide();
 		
 		GtkWidget* get_msg_list();
+		GtkWidget* get_scrolled_win();
 	private:
-		GtkWidget* m_msg_list;
+		GtkWidget* m_tree;
 		GtkWidget* m_scrolled_win;
 		
+		int m_line;
 		vector<string> m_messages;
 		string m_line_buffer;
-		unsigned int m_cur_line;
+		
+		static gboolean on_mesg_event (GtkTreeView* list, GdkEvent * event, gpointer data);
+		static void on_selection_changed(GtkTreeSelection* select, gpointer data);
 };
 
 class TerminalWindow : public MessageSubwindow
 {
 	public:
-		TerminalWindow (AnjutaMessageManager* p_amm, int p_type_id,
+		TerminalWindow (AnMessageManager* p_amm, int p_type_id,
 					   string p_type, string p_pixmap);
 		virtual ~TerminalWindow() { };
 	
 		void show();
 		void hide();
-		void clear() { }
 		
 	private:
 		GtkWidget* m_frame;
@@ -175,7 +182,7 @@ class LocalsWindow : public MessageSubwindow
 {
 	public:
 	
-		LocalsWindow(AnjutaMessageManager* p_amm,
+		LocalsWindow(AnMessageManager* p_amm,
 					 int p_type_id,
 					 string p_type,
 					 string p_pixmap);
@@ -200,7 +207,7 @@ class WidgetWindow : public MessageSubwindow
 {
 	public:
 	
-		WidgetWindow(AnjutaMessageManager* p_amm,
+		WidgetWindow(AnMessageManager* p_amm,
 					 int p_type_id,
 					 string p_type,
 					 string p_pixmap);
@@ -209,7 +216,6 @@ class WidgetWindow : public MessageSubwindow
 		
 		void show();
 		void hide();
-		void clear();
 		void set_widget(GtkWidget* w);
 	
 	private:

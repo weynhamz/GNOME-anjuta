@@ -34,14 +34,14 @@ extern "C"
 #define MESSAGE_INDICATOR_WARNING 1
 #define MESSAGE_INDICATOR_OTHERS  0
 
-typedef struct _AnjutaMessageManager AnjutaMessageManager;
-typedef struct _AnjutaMessageManagerClass AnjutaMessageManagerClass;
+typedef struct _AnMessageManager AnMessageManager;
+typedef struct _AnMessageManagerClass AnMessageManagerClass;
 	
-#define ANJUTA_MESSAGE_MANAGER_TYPE        (anjuta_message_manager_get_type ())
-#define ANJUTA_MESSAGE_MANAGER(o)          (GTK_CHECK_CAST ((o), ANJUTA_MESSAGE_MANAGER_TYPE, AnjutaMessageManager))
-#define ANJUTA_MESSAGE_MANAGER_CLASS(k)    (GTK_CHECK_CLASS_CAST((k), ANJUTA_MESSAGE_MANAGER_TYPE, AnjutaMessageManagerClass))
-#define ANJUTA_IS_MESSAGE_MANAGER(o)       (GTK_CHECK_TYPE ((o), ANJUTA_MESSAGE_MANAGER_TYPE))
-#define ANJUTA_IS_MESSAGE_MANAGER_CLASS(k) (GTK_CHECK_CLASS_TYPE ((k), ANJUTA_MESSAGE_MANAGER_TYPE))
+#define AN_MESSAGE_MANAGER_TYPE        (an_message_manager_get_type ())
+#define AN_MESSAGE_MANAGER(o)          (GTK_CHECK_CAST ((o), AN_MESSAGE_MANAGER_TYPE, AnMessageManager))
+#define AN_MESSAGE_MANAGER_CLASS(k)    (GTK_CHECK_CLASS_CAST((k), AN_MESSAGE_MANAGER_TYPE, AnMessageManagerClass))
+#define AN_IS_MESSAGE_MANAGER(o)       (GTK_CHECK_TYPE ((o), AN_MESSAGE_MANAGER_TYPE))
+#define AN_IS_MESSAGE_MANAGER_CLASS(k) (GTK_CHECK_CLASS_TYPE ((k), AN_MESSAGE_MANAGER_TYPE))
 
 /* Message info passed to indicate signal */
 typedef struct
@@ -53,57 +53,53 @@ typedef struct
 
 } MessageIndicatorInfo;
 
-typedef struct _AnjutaMessageManagerPrivate AnjutaMessageManagerPrivate;
+typedef struct _AnMessageManagerPrivate AnMessageManagerPrivate;
 
-struct _AnjutaMessageManager
+struct _AnMessageManager
 {
 	GtkFrame parent;
 	
-	AnjutaMessageManagerPrivate* intern;
+	AnMessageManagerPrivate* intern;
 };
 
-struct _AnjutaMessageManagerClass
+struct _AnMessageManagerClass
 {
 	GtkFrameClass parent_class;
-	
-	// Signals
-	void (*message_clicked) (AnjutaMessageManager *amm, gchar *message);
-	void (*message_indicate) (AnjutaMessageManager *amm, MessageIndicatorInfo *info);
 };
 
 // Public functions
-GtkWidget* anjuta_message_manager_new();
-guint anjuta_message_manager_get_type();
+GtkWidget* an_message_manager_new();
+guint an_message_manager_get_type();
 
-gboolean anjuta_message_manager_add_type(AnjutaMessageManager* amm, const gint type_name, const gchar* pixmap);
-gboolean anjuta_message_manager_append(AnjutaMessageManager* amm, const gchar* msg_string, gint type_name);
+gboolean an_message_manager_add_type(AnMessageManager* amm, const gint type_name, const gchar* pixmap);
+gboolean an_message_manager_append(AnMessageManager* amm, const gchar* msg_string, gint type_name);
 
-void anjuta_message_manager_clear(AnjutaMessageManager* amm, gint type_name);
-void anjuta_message_manager_show(AnjutaMessageManager* amm, gint type_name);
+void an_message_manager_clear(AnMessageManager* amm, gint type_name);
+void an_message_manager_show(AnMessageManager* amm, gint type_name);
 
-void anjuta_message_manager_next(AnjutaMessageManager* amm);
-void anjuta_message_manager_previous(AnjutaMessageManager* amm);
+void an_message_manager_next(AnMessageManager* amm);
+void an_message_manager_previous(AnMessageManager* amm);
 
-void anjuta_message_manager_info_locals (AnjutaMessageManager* amm, GList * lines, gpointer data);
-void anjuta_message_manager_update(AnjutaMessageManager* amm);
+void an_message_manager_info_locals (AnMessageManager* amm, GList * lines, gpointer data);
+void an_message_manager_update(AnMessageManager* amm);
 
-void anjuta_message_manager_dock(AnjutaMessageManager* amm);
-void anjuta_message_manager_undock(AnjutaMessageManager* amm);
+void an_message_manager_dock(AnMessageManager* amm);
+void an_message_manager_undock(AnMessageManager* amm);
 
-gboolean anjuta_message_manager_save_yourself (AnjutaMessageManager * amm, FILE * stream);
-gboolean anjuta_message_manager_load_yourself (AnjutaMessageManager * amm, PropsID props);
+gboolean an_message_manager_save_yourself (AnMessageManager * amm, FILE * stream);
+gboolean an_message_manager_load_yourself (AnMessageManager * amm, PropsID props);
 
-gboolean anjuta_message_manager_save_build (AnjutaMessageManager* amm, FILE * stream);
+gboolean an_message_manager_save_build (AnMessageManager* amm, FILE * stream);
 
-gboolean anjuta_message_manager_is_shown(AnjutaMessageManager* amm);
-gboolean anjuta_message_manager_build_is_empty(AnjutaMessageManager* amm);
+gboolean an_message_manager_is_shown(AnMessageManager* amm);
+gboolean an_message_manager_build_is_empty(AnMessageManager* amm);
 
-void anjuta_message_manager_indicate_error (AnjutaMessageManager * amm, gint type_name, gchar* file, glong line);
-void anjuta_message_manager_indicate_warning (AnjutaMessageManager * amm, gint type_name, gchar* file, glong line);
-void anjuta_message_manager_indicate_others (AnjutaMessageManager * amm, gint type_name, gchar* file, glong line);
+void an_message_manager_indicate_error (AnMessageManager * amm, gint type_name, gchar* file, glong line);
+void an_message_manager_indicate_warning (AnMessageManager * amm, gint type_name, gchar* file, glong line);
+void an_message_manager_indicate_others (AnMessageManager * amm, gint type_name, gchar* file, glong line);
 
-void create_default_types(AnjutaMessageManager* amm);
-void anjuta_message_manager_set_widget(AnjutaMessageManager* amm, gint type_name, GtkWidget* widget);
+void create_default_types(AnMessageManager* amm);
+void an_message_manager_set_widget(AnMessageManager* amm, gint type_name, GtkWidget* widget);
 
 #ifdef __cplusplus
 };
@@ -124,5 +120,9 @@ typedef enum _AnMessageType
 	MESSAGE_MAX = MESSAGE_STDERR,
 	MESSAGE_NONE = -1,
 } AnMessageType;
+
+/* Defined in anjuta.h */
+void on_message_indicate(AnMessageManager* amm, MessageIndicatorInfo *info);
+void on_message_clicked(AnMessageManager* amm, const char* message);	
 
 #endif

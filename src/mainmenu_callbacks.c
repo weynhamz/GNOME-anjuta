@@ -1042,13 +1042,13 @@ on_goto_block_end1_activate (GtkMenuItem * menuitem, gpointer user_data)
 void
 on_goto_prev_mesg1_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
-	anjuta_message_manager_previous (app->messages);
+	an_message_manager_previous (app->messages);
 }
 
 void
 on_goto_next_mesg1_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
-	anjuta_message_manager_next (app->messages);
+	an_message_manager_next (app->messages);
 }
 
 void
@@ -1061,7 +1061,7 @@ on_edit_app_gui1_activate (GtkMenuItem * menuitem, gpointer user_data)
 void
 on_save_build_messages_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
-	if (!anjuta_message_manager_build_is_empty(app->messages))
+	if (!an_message_manager_build_is_empty(app->messages))
 		gtk_widget_show (app->save_as_build_msg_sel);
 	else
 		anjuta_error("There are no build messages.");
@@ -1076,11 +1076,11 @@ void
 on_messages1_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
 	gboolean state;
-	state = anjuta_message_manager_is_shown(app->messages);
+	state = an_message_manager_is_shown(app->messages);
 	if(state) {
 		gtk_widget_hide(GTK_WIDGET(app->messages));
 	} else {
-		anjuta_message_manager_show (app->messages, MESSAGE_NONE);
+		an_message_manager_show (app->messages, MESSAGE_NONE);
 	}
 }
 

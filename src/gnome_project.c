@@ -74,10 +74,10 @@ create_new_project (AppWizard * aw)
 	
 	fileselection_set_filename (app->project_dbase->fileselection_open,
 								prj_file);
-	anjuta_message_manager_clear (app->messages, MESSAGE_BUILD);
-	anjuta_message_manager_append (app->messages, _("Generating Project ...\n"),
+	an_message_manager_clear (app->messages, MESSAGE_BUILD);
+	an_message_manager_append (app->messages, _("Generating Project ...\n"),
 								   MESSAGE_BUILD);
-	anjuta_message_manager_show (app->messages, MESSAGE_BUILD);
+	an_message_manager_show (app->messages, MESSAGE_BUILD);
 
 	fp = fopen (prj_file, "w");
 	if (!fp)
@@ -151,7 +151,7 @@ create_new_project (AppWizard * aw)
 		//type = NULL ;
 	}
 	fclose(fp);
-	anjuta_message_manager_append (app->messages, _("Loading Project ...\n"),
+	an_message_manager_append (app->messages, _("Loading Project ...\n"),
 								   MESSAGE_BUILD);
 	
 	if (project_dbase_load_project (app->project_dbase, prj_file,
@@ -162,21 +162,21 @@ create_new_project (AppWizard * aw)
 	}
 	g_free (prj_file);
 
-	anjuta_message_manager_append (app->messages, _("Saving Project ...\n"),
+	an_message_manager_append (app->messages, _("Saving Project ...\n"),
 								   MESSAGE_BUILD);
 	app->project_dbase->is_saved = FALSE;
 	if (project_dbase_save_project (app->project_dbase) == FALSE)
 		return FALSE;
 
 	/*  Source codes are generated */
-	anjuta_message_manager_append (app->messages,
+	an_message_manager_append (app->messages,
 								   _("Generating source codes ...\n"),
 								   MESSAGE_BUILD);
 	if (project_dbase_generate_source_code (app->project_dbase)==FALSE)
 		return FALSE;
 	
 	/* Creating icon pixmap file for gnome projects */
-	anjuta_message_manager_append (app->messages, _("Copying icon file ...\n"),
+	an_message_manager_append (app->messages, _("Copying icon file ...\n"),
 								   MESSAGE_BUILD);
 	if (type->gnome_support && aw->icon_file)
 	{
@@ -189,7 +189,7 @@ create_new_project (AppWizard * aw)
 		force_create_dir (dir);
 		if (copy_file (aw->icon_file, dest, FALSE) == FALSE)
 		{
-			anjuta_message_manager_append (app->messages,
+			an_message_manager_append (app->messages,
 										  _("Could not create icon file ...\n"),
 										   MESSAGE_BUILD);
 		}
@@ -204,7 +204,7 @@ create_new_project (AppWizard * aw)
 		type = NULL;
 	}
 
-	anjuta_message_manager_append (app->messages, _("Locating files ...\n"),
+	an_message_manager_append (app->messages, _("Locating files ...\n"),
 								   MESSAGE_BUILD);
 	for(i=0; i<MODULE_END_MARK; i++)
 	{
@@ -222,14 +222,14 @@ create_new_project (AppWizard * aw)
 			g_free (key);
 		}
 	}
-	anjuta_message_manager_append (app->messages, _("Saving Project ...\n"),
+	an_message_manager_append (app->messages, _("Saving Project ...\n"),
 								   MESSAGE_BUILD);
 	if (project_dbase_save_project(app->project_dbase)==FALSE)
 		return FALSE;
-	anjuta_message_manager_append (app->messages, _("Updating Project ...\n"),
+	an_message_manager_append (app->messages, _("Updating Project ...\n"),
 								   MESSAGE_BUILD);
 	project_dbase_update_tree (app->project_dbase);
-	anjuta_message_manager_append (app->messages, _("Running autogen.sh ...\n"),
+	an_message_manager_append (app->messages, _("Running autogen.sh ...\n"),
 								   MESSAGE_BUILD);
 	chdir (app->project_dbase->top_proj_dir);
 	if (launcher_execute ("./autogen.sh",
@@ -247,7 +247,7 @@ create_new_project (AppWizard * aw)
 static void
 new_prj_mesg_arrived (gchar * mesg)
 {
-	anjuta_message_manager_append (app->messages, mesg, MESSAGE_BUILD);
+	an_message_manager_append (app->messages, mesg, MESSAGE_BUILD);
 }
 
 static void
@@ -255,7 +255,7 @@ new_prj_terminated (int status, time_t t)
 {
 	if (status)
 	{
-		anjuta_message_manager_append (app->messages,
+		an_message_manager_append (app->messages,
 			_("Auto generation completed...............Unsuccessful\n"),
 			MESSAGE_BUILD);
 		anjuta_error (
@@ -264,7 +264,7 @@ new_prj_terminated (int status, time_t t)
 	}
 	else
 	{
-		anjuta_message_manager_append (app->messages,
+		an_message_manager_append (app->messages,
 				 _("Auto generation completed...............Successful\n"
 				  "Now Build the Project to have a LOOK at it\n"),
 				 MESSAGE_BUILD);

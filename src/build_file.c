@@ -105,12 +105,12 @@ build_file ()
 		return;
 	}
 	anjuta_update_app_status (TRUE, _("Build"));
-	anjuta_message_manager_clear (app->messages, MESSAGE_BUILD);
+	an_message_manager_clear (app->messages, MESSAGE_BUILD);
 	buff = g_strdup_printf (_("Building file: %s ...\n"), te->filename);
-	anjuta_message_manager_append (app->messages, buff, MESSAGE_BUILD);
-	anjuta_message_manager_append (app->messages, cmd, MESSAGE_BUILD);
-	anjuta_message_manager_append (app->messages, "\n", MESSAGE_BUILD);
-	anjuta_message_manager_show (app->messages, MESSAGE_BUILD);
+	an_message_manager_append (app->messages, buff, MESSAGE_BUILD);
+	an_message_manager_append (app->messages, cmd, MESSAGE_BUILD);
+	an_message_manager_append (app->messages, "\n", MESSAGE_BUILD);
+	an_message_manager_show (app->messages, MESSAGE_BUILD);
 	g_free (cmd);
 	g_free (buff);
 }
@@ -118,7 +118,7 @@ build_file ()
 static void
 build_file_mesg_arrived (gchar * mesg)
 {
-	anjuta_message_manager_append (app->messages, mesg, MESSAGE_BUILD);
+	an_message_manager_append (app->messages, mesg, MESSAGE_BUILD);
 }
 
 static void
@@ -131,7 +131,7 @@ build_file_terminated (int status, time_t time)
 				 (int) time);
 	if (status)
 	{
-		anjuta_message_manager_append (app->messages,
+		an_message_manager_append (app->messages,
 				 _("Build completed ... unsuccessful\n"),
 				 MESSAGE_BUILD);
 		if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
@@ -140,14 +140,14 @@ build_file_terminated (int status, time_t time)
 	}
 	else
 	{
-		anjuta_message_manager_append (app->messages,
+		an_message_manager_append (app->messages,
 				 _("Build completed ... successful\n"),
 				 MESSAGE_BUILD);
 		if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
 										DIALOG_ON_BUILD_COMPLETE))
 			anjuta_status (_("Build completed ... successful"));
 	}
-	anjuta_message_manager_append (app->messages, buff1, MESSAGE_BUILD);
+	an_message_manager_append (app->messages, buff1, MESSAGE_BUILD);
 	if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
 									BEEP_ON_BUILD_COMPLETE))
 		gdk_beep ();

@@ -379,7 +379,7 @@ static void tool_stdout_handler(gchar *line)
 		if (current_tool->output <= MESSAGE_MAX  && current_tool->output >= 0)
 		{
 			/* Send the message to the proper message pane */
-			anjuta_message_manager_append (app->messages, line
+			an_message_manager_append (app->messages, line
 			  ,current_tool->output);
 		}
 		else
@@ -402,7 +402,7 @@ static void tool_stderr_handler(gchar *line)
 		if (current_tool->error <= MESSAGE_MAX  && current_tool->error >= 0)
 		{
 			/* Simply send the message to the proper message pane */
-			anjuta_message_manager_append (app->messages, line
+			an_message_manager_append (app->messages, line
 			  , current_tool->error);
 		}
 		else
@@ -477,7 +477,7 @@ static void tool_terminate_handler(gint status, time_t time)
 		{
 			char line[BUFSIZ];
 			snprintf(line, BUFSIZ, "Tool terminated with status %d\n", status);
-			anjuta_message_manager_append(app->messages, line
+			an_message_manager_append(app->messages, line
 			  , current_tool->error);
 		}
 		else if (current_tool_error && (0 < current_tool_error->len)  && current_tool->error >= 0)
@@ -590,7 +590,7 @@ static void execute_tool(GtkMenuItem *item, gpointer data)
 		if (current_tool_error)
 			g_string_truncate(current_tool_error, 0);		
 		if (tool->error <= MESSAGE_MAX  && tool->error >= 0)
-			anjuta_message_manager_clear(app->messages, tool->error);
+			an_message_manager_clear(app->messages, tool->error);
 		if (tool->input_type == AN_TINP_BUFFER && app->current_text_editor)
 		{
 			long len = scintilla_send_message(
@@ -634,8 +634,8 @@ static void execute_tool(GtkMenuItem *item, gpointer data)
 		}
 		if (tool->output <= MESSAGE_MAX  && tool->output >= 0)
 		{
-			anjuta_message_manager_clear(app->messages, tool->output);
-			anjuta_message_manager_show(app->messages, tool->output);
+			an_message_manager_clear(app->messages, tool->output);
+			an_message_manager_show(app->messages, tool->output);
 		}
 #ifdef TOOL_DEBUG
 	g_message("Final command: '%s'\n", command);

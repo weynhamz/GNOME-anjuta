@@ -82,15 +82,15 @@ build_project ()
 			return;
 		}
 		anjuta_update_app_status (TRUE, _("Build Project"));
-		anjuta_message_manager_clear (app->messages, MESSAGE_BUILD);
-		anjuta_message_manager_append (app->messages, _("Building source directory of the Project: "),
+		an_message_manager_clear (app->messages, MESSAGE_BUILD);
+		an_message_manager_append (app->messages, _("Building source directory of the Project: "),
 				 MESSAGE_BUILD);
 		prj_name = project_dbase_get_proj_name (app->project_dbase);
-		anjuta_message_manager_append (app->messages, prj_name, MESSAGE_BUILD);
-		anjuta_message_manager_append (app->messages, " ...\n", MESSAGE_BUILD);
-		anjuta_message_manager_append (app->messages, cmd, MESSAGE_BUILD);
-		anjuta_message_manager_append (app->messages, "\n", MESSAGE_BUILD);
-		anjuta_message_manager_show (app->messages, MESSAGE_BUILD);
+		an_message_manager_append (app->messages, prj_name, MESSAGE_BUILD);
+		an_message_manager_append (app->messages, " ...\n", MESSAGE_BUILD);
+		an_message_manager_append (app->messages, cmd, MESSAGE_BUILD);
+		an_message_manager_append (app->messages, "\n", MESSAGE_BUILD);
+		an_message_manager_show (app->messages, MESSAGE_BUILD);
 		g_free (cmd);
 		g_free (prj_name);
 	}
@@ -138,16 +138,16 @@ build_all_project ()
 			return;
 		}
 		anjuta_update_app_status (TRUE, _("Build Project"));
-		anjuta_message_manager_clear (app->messages, MESSAGE_BUILD);
-		anjuta_message_manager_append (app->messages,
+		an_message_manager_clear (app->messages, MESSAGE_BUILD);
+		an_message_manager_append (app->messages,
 				 _("Building the whole Project: "),
 				 MESSAGE_BUILD);
 		prj_name = project_dbase_get_proj_name (app->project_dbase);
-		anjuta_message_manager_append (app->messages, prj_name, MESSAGE_BUILD);
-		anjuta_message_manager_append (app->messages, " ...\n", MESSAGE_BUILD);
-		anjuta_message_manager_append (app->messages, cmd, MESSAGE_BUILD);
-		anjuta_message_manager_append (app->messages, "\n", MESSAGE_BUILD);
-		anjuta_message_manager_show (app->messages, MESSAGE_BUILD);
+		an_message_manager_append (app->messages, prj_name, MESSAGE_BUILD);
+		an_message_manager_append (app->messages, " ...\n", MESSAGE_BUILD);
+		an_message_manager_append (app->messages, cmd, MESSAGE_BUILD);
+		an_message_manager_append (app->messages, "\n", MESSAGE_BUILD);
+		an_message_manager_show (app->messages, MESSAGE_BUILD);
 		g_free (cmd);
 		g_free (prj_name);
 	}
@@ -191,17 +191,17 @@ build_dist_project ()
 			return;
 		}
 		anjuta_update_app_status (TRUE, _("Build Distribution"));
-		anjuta_message_manager_clear (app->messages, MESSAGE_BUILD);
-		anjuta_message_manager_append (app->messages,
+		an_message_manager_clear (app->messages, MESSAGE_BUILD);
+		an_message_manager_append (app->messages,
 				 _
 				 ("Building the distribution package of the Project: "),
 				 MESSAGE_BUILD);
 		prj_name = project_dbase_get_proj_name (app->project_dbase);
-		anjuta_message_manager_append (app->messages, prj_name, MESSAGE_BUILD);
-		anjuta_message_manager_append (app->messages, " ...\n", MESSAGE_BUILD);
-		anjuta_message_manager_append (app->messages, cmd, MESSAGE_BUILD);
-		anjuta_message_manager_append (app->messages, "\n", MESSAGE_BUILD);
-		anjuta_message_manager_show (app->messages, MESSAGE_BUILD);
+		an_message_manager_append (app->messages, prj_name, MESSAGE_BUILD);
+		an_message_manager_append (app->messages, " ...\n", MESSAGE_BUILD);
+		an_message_manager_append (app->messages, cmd, MESSAGE_BUILD);
+		an_message_manager_append (app->messages, "\n", MESSAGE_BUILD);
+		an_message_manager_show (app->messages, MESSAGE_BUILD);
 		g_free (cmd);
 		g_free (prj_name);
 	}
@@ -281,16 +281,16 @@ build_autogen_project ()
 			return;
 		}
 		anjuta_update_app_status (TRUE, _("Auto generate Project"));
-		anjuta_message_manager_clear (app->messages, MESSAGE_BUILD);
-		anjuta_message_manager_append (app->messages,
+		an_message_manager_clear (app->messages, MESSAGE_BUILD);
+		an_message_manager_append (app->messages,
 				 _("Auto generating the Project: "),
 				 MESSAGE_BUILD);
 		prj_name = project_dbase_get_proj_name (app->project_dbase);
-		anjuta_message_manager_append (app->messages, prj_name, MESSAGE_BUILD);
-		anjuta_message_manager_append (app->messages, " ...\n", MESSAGE_BUILD);
-		anjuta_message_manager_append (app->messages, cmd, MESSAGE_BUILD);
-		anjuta_message_manager_append (app->messages, "\n", MESSAGE_BUILD);
-		anjuta_message_manager_show (app->messages, MESSAGE_BUILD);
+		an_message_manager_append (app->messages, prj_name, MESSAGE_BUILD);
+		an_message_manager_append (app->messages, " ...\n", MESSAGE_BUILD);
+		an_message_manager_append (app->messages, cmd, MESSAGE_BUILD);
+		an_message_manager_append (app->messages, "\n", MESSAGE_BUILD);
+		an_message_manager_show (app->messages, MESSAGE_BUILD);
 		g_free (cmd);
 		g_free (prj_name);
 	}
@@ -299,7 +299,7 @@ build_autogen_project ()
 void
 build_mesg_arrived (gchar * mesg)
 {
-	anjuta_message_manager_append (app->messages, mesg, MESSAGE_BUILD);
+	an_message_manager_append (app->messages, mesg, MESSAGE_BUILD);
 }
 
 void
@@ -309,7 +309,7 @@ build_terminated (int status, time_t time)
 
 	if (status)
 	{
-		anjuta_message_manager_append (app->messages,
+		an_message_manager_append (app->messages,
 				 _
 				 ("Build completed...............Unsuccessful\n"),
 				 MESSAGE_BUILD);
@@ -319,7 +319,7 @@ build_terminated (int status, time_t time)
 	}
 	else
 	{
-		anjuta_message_manager_append (app->messages,
+		an_message_manager_append (app->messages,
 				 _
 				 ("Build completed...............Successful\n"),
 				 MESSAGE_BUILD);
@@ -330,7 +330,7 @@ build_terminated (int status, time_t time)
 	buff1 =
 		g_strdup_printf (_("Total time taken: %d secs\n"),
 				 (gint) time);
-	anjuta_message_manager_append (app->messages, buff1, MESSAGE_BUILD);
+	an_message_manager_append (app->messages, buff1, MESSAGE_BUILD);
 	g_free(buff1);
 	
 	if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
@@ -347,7 +347,7 @@ build_all_terminated (int status, time_t time)
 
 	if (status)
 	{
-		anjuta_message_manager_append (app->messages,
+		an_message_manager_append (app->messages,
 				 _
 				 ("Build All completed...............Unsuccessful\n"),
 				 MESSAGE_BUILD);
@@ -357,7 +357,7 @@ build_all_terminated (int status, time_t time)
 	}
 	else
 	{
-		anjuta_message_manager_append (app->messages,
+		an_message_manager_append (app->messages,
 				 _("Build All completed...............Successful\n"),
 				 MESSAGE_BUILD);
 		if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
@@ -367,7 +367,7 @@ build_all_terminated (int status, time_t time)
 	buff1 =
 		g_strdup_printf (_("Total time taken: %d secs\n"),
 				 (gint) time);
-	anjuta_message_manager_append (app->messages, buff1, MESSAGE_BUILD);
+	an_message_manager_append (app->messages, buff1, MESSAGE_BUILD);
 
 	if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
 									BEEP_ON_BUILD_COMPLETE))
@@ -383,7 +383,7 @@ build_dist_terminated (int status, time_t time)
 
 	if (status)
 	{
-		anjuta_message_manager_append (app->messages,
+		an_message_manager_append (app->messages,
 				 _("Build Distribution completed...............Unsuccessful\n"),
 				 MESSAGE_BUILD);
 		if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
@@ -392,10 +392,10 @@ build_dist_terminated (int status, time_t time)
 	}
 	else
 	{
-		anjuta_message_manager_append (app->messages,
+		an_message_manager_append (app->messages,
 				 _("Build Distribution completed...............Successful\n"),
 				 MESSAGE_BUILD);
-		anjuta_message_manager_append (app->messages,
+		an_message_manager_append (app->messages,
 				 _("The source tarball can be found in the top level directory of the Project.\n"),
 				 MESSAGE_BUILD);
 		if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
@@ -405,7 +405,7 @@ build_dist_terminated (int status, time_t time)
 	buff1 =
 		g_strdup_printf (_("Total time taken: %d secs\n"),
 				 (gint) time);
-	anjuta_message_manager_append (app->messages, buff1, MESSAGE_BUILD);
+	an_message_manager_append (app->messages, buff1, MESSAGE_BUILD);
 	if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
 									BEEP_ON_BUILD_COMPLETE))
 		gdk_beep ();
@@ -420,7 +420,7 @@ build_install_terminated (int status, time_t time)
 
 	if (status)
 	{
-		anjuta_message_manager_append (app->messages,
+		an_message_manager_append (app->messages,
 				 _("Install completed...............Unsuccessful\n"),
 				 MESSAGE_BUILD);
 		if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
@@ -429,7 +429,7 @@ build_install_terminated (int status, time_t time)
 	}
 	else
 	{
-		anjuta_message_manager_append (app->messages,
+		an_message_manager_append (app->messages,
 				 _("Install completed...............Successful\n"),
 				 MESSAGE_BUILD);
 		if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
@@ -439,7 +439,7 @@ build_install_terminated (int status, time_t time)
 	buff1 =
 		g_strdup_printf (_("Total time taken: %d secs\n"),
 				 (gint) time);
-	anjuta_message_manager_append (app->messages, buff1, MESSAGE_BUILD);
+	an_message_manager_append (app->messages, buff1, MESSAGE_BUILD);
 	if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
 									BEEP_ON_BUILD_COMPLETE))
 		gdk_beep ();
@@ -454,7 +454,7 @@ build_autogen_terminated (int status, time_t time)
 
 	if (status)
 	{
-		anjuta_message_manager_append (app->messages,
+		an_message_manager_append (app->messages,
 				 _("Auto generation completed...............Unsuccessful\n"),
 				 MESSAGE_BUILD);
 		if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
@@ -463,7 +463,7 @@ build_autogen_terminated (int status, time_t time)
 	}
 	else
 	{
-		anjuta_message_manager_append (app->messages,
+		an_message_manager_append (app->messages,
 				 _("Auto generation completed...............Successful\nNow Configure the Project.\n"),
 				 MESSAGE_BUILD);
 		if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
@@ -473,7 +473,7 @@ build_autogen_terminated (int status, time_t time)
 	buff1 =
 		g_strdup_printf (_("Total time taken: %d secs\n"),
 				 (gint) time);
-	anjuta_message_manager_append (app->messages, buff1, MESSAGE_BUILD);
+	an_message_manager_append (app->messages, buff1, MESSAGE_BUILD);
 	if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
 									BEEP_ON_BUILD_COMPLETE))
 		gdk_beep ();
@@ -512,15 +512,15 @@ install_as_root (GtkWidget* button, gpointer data)
 		return;
 	}
 	anjuta_update_app_status (TRUE, _("Install Project"));
-	anjuta_message_manager_clear (app->messages, MESSAGE_BUILD);
-	anjuta_message_manager_append (app->messages, _("Installing the Project: "),
+	an_message_manager_clear (app->messages, MESSAGE_BUILD);
+	an_message_manager_append (app->messages, _("Installing the Project: "),
 			 MESSAGE_BUILD);
 	prj_name = project_dbase_get_proj_name (app->project_dbase);
-	anjuta_message_manager_append (app->messages, prj_name, MESSAGE_BUILD);
-	anjuta_message_manager_append (app->messages, " ...\n", MESSAGE_BUILD);
-	anjuta_message_manager_append (app->messages, cmd, MESSAGE_BUILD);
-	anjuta_message_manager_append (app->messages, "\n", MESSAGE_BUILD);
-	anjuta_message_manager_show (app->messages, MESSAGE_BUILD);
+	an_message_manager_append (app->messages, prj_name, MESSAGE_BUILD);
+	an_message_manager_append (app->messages, " ...\n", MESSAGE_BUILD);
+	an_message_manager_append (app->messages, cmd, MESSAGE_BUILD);
+	an_message_manager_append (app->messages, "\n", MESSAGE_BUILD);
+	an_message_manager_show (app->messages, MESSAGE_BUILD);
 	g_free (cmd);
 	g_free (prj_name);
 
@@ -554,15 +554,15 @@ install_as_user (GtkWidget* button, gpointer data)
 		return;
 	}
 	anjuta_update_app_status (TRUE, _("Install Project"));
-	anjuta_message_manager_clear (app->messages, MESSAGE_BUILD);
-	anjuta_message_manager_append (app->messages, _("Installing the Project: "),
+	an_message_manager_clear (app->messages, MESSAGE_BUILD);
+	an_message_manager_append (app->messages, _("Installing the Project: "),
 			 MESSAGE_BUILD);
 	prj_name = project_dbase_get_proj_name (app->project_dbase);
-	anjuta_message_manager_append (app->messages, prj_name, MESSAGE_BUILD);
-	anjuta_message_manager_append (app->messages, " ...\n", MESSAGE_BUILD);
-	anjuta_message_manager_append (app->messages, cmd, MESSAGE_BUILD);
-	anjuta_message_manager_append (app->messages, "\n", MESSAGE_BUILD);
-	anjuta_message_manager_show (app->messages, MESSAGE_BUILD);
+	an_message_manager_append (app->messages, prj_name, MESSAGE_BUILD);
+	an_message_manager_append (app->messages, " ...\n", MESSAGE_BUILD);
+	an_message_manager_append (app->messages, cmd, MESSAGE_BUILD);
+	an_message_manager_append (app->messages, "\n", MESSAGE_BUILD);
+	an_message_manager_show (app->messages, MESSAGE_BUILD);
 	g_free (cmd);
 	g_free (prj_name);
 }

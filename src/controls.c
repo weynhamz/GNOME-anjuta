@@ -383,7 +383,7 @@ update_main_menubar ()
 	gtk_widget_set_sensitive (bm->build, (C || P) && !L);
 	gtk_widget_set_sensitive (bm->build_all, P && !L);
 	gtk_widget_set_sensitive (bm->save_build_messages, 
-				  !anjuta_message_manager_build_is_empty(app->messages));
+				  !an_message_manager_build_is_empty(app->messages));
 	gtk_widget_set_sensitive (bm->install, P && !L);
 	gtk_widget_set_sensitive (bm->build_dist, P && !L);
 	gtk_widget_set_sensitive (bm->configure, P && !L);

@@ -55,6 +55,7 @@ extern "C"
 #include <gconf/gconf-client.h>
 #include <vte/vte.h>
 #include <pwd.h>
+#include <gtk/gtk.h>
 
 #ifdef DEBUG
   #define DEBUG_PRINT g_message
@@ -62,9 +63,17 @@ extern "C"
   #define DEBUG_PRINT(ARGS...)
 #endif
 
-// MessageSubwindow (base class for AnjutaMessageWindow and TerminalWindow:
+enum
+{
+	COLUMN_LINE,
+	COLUMN_COLOR,
+	COLUMN_MESSAGES,
+	N_COLUMNS
+};
 
-MessageSubwindow::MessageSubwindow(AnjutaMessageManager* p_amm,
+// MessageSubwindow (base class for AnMessageWindow and TerminalWindow:
+
+MessageSubwindow::MessageSubwindow(AnMessageManager* p_amm,
 								   int p_type_id, string p_type,
 								   string p_pixmap)
 {	
@@ -75,7 +84,7 @@ MessageSubwindow::MessageSubwindow(AnjutaMessageManager* p_amm,
 	gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(m_menuitem), true);
 	connect_menuitem_signal(m_menuitem, this);
 	gtk_widget_show(m_menuitem);
-	gtk_menu_append(GTK_MENU(p_amm->intern->popupmenu), m_menuitem);
+	gtk_menu_shell_append(GTK_MENU_SHELL(p_amm->intern->popupmenu), m_menuitem);
 	
 	m_parent = p_amm;
 	
@@ -130,7 +139,7 @@ MessageSubwindow::showWidget(GtkWidget* widget)
 								  widget, label);
 		gtk_widget_unref(widget);
 		
-		GList* children = gtk_container_children
+		GList* children = gtk_container_get_children
 								(GTK_CONTAINER (m_parent->intern->notebook));
 		for (uint i = 0; i < g_list_length(children); i++)
 		{
@@ -144,7 +153,7 @@ MessageSubwindow::showWidget(GtkWidget* widget)
 	}
 }
 
-AnjutaMessageManager* 
+AnMessageManager* 
 MessageSubwindow::get_parent() const
 {
 	return m_parent;
@@ -194,7 +203,7 @@ void MessageSubwindow::activate()
 				m_parent->intern->msg_windows[i]->show();
 		}
 	}	
-	gtk_notebook_set_page(GTK_NOTEBOOK(m_parent->intern->notebook), m_page_num);
+	gtk_notebook_set_current_page(GTK_NOTEBOOK(m_parent->intern->notebook), m_page_num);
 	m_parent->intern->cur_msg_win = this;
 }
 
@@ -218,43 +227,66 @@ void MessageSubwindow::set_check_item(bool p_state)
 
 // MessageWindow:
 
-AnjutaMessageWindow::AnjutaMessageWindow(AnjutaMessageManager* p_amm,
+AnMessageWindow::AnMessageWindow(AnMessageManager* p_amm,
 										 int p_type_id, string p_type,
 										 string p_pixmap)
 	: MessageSubwindow(p_amm, p_type_id, p_type, p_pixmap)
 {
 	g_return_if_fail(p_amm != NULL);
 
-	m_msg_list = gtk_clist_new(1);
-	gtk_clist_columns_autosize (GTK_CLIST(m_msg_list));
-	gtk_clist_set_selection_mode(GTK_CLIST(m_msg_list), GTK_SELECTION_BROWSE);
+	m_line = 0;		
 	
-	m_scrolled_win = create_scrolled_window(m_msg_list);
+	m_scrolled_win = gtk_scrolled_window_new(NULL, NULL);
+	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW(m_scrolled_win),
+					GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 	
-	set_cur_line(0);
+	GtkWidget* label = create_label();
+	
+	// Create Tree
+	m_tree = gtk_tree_view_new_with_model(GTK_TREE_MODEL(
+		gtk_list_store_new(N_COLUMNS, G_TYPE_INT, GDK_TYPE_COLOR, G_TYPE_STRING)));
+	g_object_ref(m_tree);
+	GtkCellRenderer* renderer = gtk_cell_renderer_text_new();
+	GtkTreeViewColumn* column = gtk_tree_view_column_new();
+	gtk_tree_view_column_pack_start(column, renderer, TRUE);
+	gtk_tree_view_column_set_title(column, p_type.c_str());
+	gtk_tree_view_column_add_attribute
+		(column, renderer, "foreground-gdk", COLUMN_COLOR);
+	gtk_tree_view_column_add_attribute
+		(column, renderer, "text", COLUMN_MESSAGES);
+	gtk_tree_view_append_column(GTK_TREE_VIEW(m_tree), column);
+	GtkTreeSelection* select = gtk_tree_view_get_selection (GTK_TREE_VIEW (m_tree));
+	gtk_tree_selection_set_mode (select, GTK_SELECTION_BROWSE);	
+
+	gtk_container_add(GTK_CONTAINER(m_scrolled_win), m_tree);
+	gtk_notebook_append_page (GTK_NOTEBOOK(p_amm->intern->notebook),
+							  m_scrolled_win, create_label());
+	gtk_widget_show_all(m_scrolled_win);
+	
+	g_signal_connect(G_OBJECT(m_tree), "event", 
+		G_CALLBACK(AnMessageWindow::on_mesg_event), this);
+	g_signal_connect(G_OBJECT(select), "changed",
+		G_CALLBACK(AnMessageWindow::on_selection_changed), this);
 }
 
 const vector<string>& 
-AnjutaMessageWindow::get_messages() const
+AnMessageWindow::get_messages() const
 {
 	return m_messages;
 }
 	
 void
-AnjutaMessageWindow::add_to_buffer(char c)
+AnMessageWindow::add_to_buffer(char c)
 {
 	m_line_buffer += c;
 }
 
 void
-AnjutaMessageWindow::append_buffer()
+AnMessageWindow::append_buffer()
 {
-	gtk_clist_freeze (GTK_CLIST(m_msg_list));
-
 	GtkAdjustment* adj =
 			gtk_scrolled_window_get_vadjustment (GTK_SCROLLED_WINDOW
 												     (m_scrolled_win));
-
 	/* If the scrollbar is almost at the end, */
 	/* then only we scroll to the end */
 	bool update_adj = false;
@@ -270,117 +302,218 @@ AnjutaMessageWindow::append_buffer()
 	int mesg_first = anjuta_preferences_get_int (get_preferences(), TRUNCAT_MESG_FIRST);
 	int mesg_last = anjuta_preferences_get_int (get_preferences(), TRUNCAT_MESG_LAST);
 
+	string c_message;
 	if (truncat_mesg == FALSE
 	    || message.length() <= uint(mesg_first + mesg_last))
 	{
-		char * msg = new char[message.length() + 1];
-		strcpy(msg, message.c_str());
-		gtk_clist_append(GTK_CLIST(m_msg_list), &msg);
-		delete []msg;
+		c_message = message;
 	}
 	else
 	{
 		string part1(message.begin(), message.begin() + mesg_first);
 		string part2(message.end() - mesg_last, message.end());
 		string m1 = part1 + " ................... " + part2;
-		char* msg = new char[m1.length() + 1];
-		strcpy(msg, m1.c_str());
-		gtk_clist_append (GTK_CLIST (m_msg_list), &msg);
-		delete []msg;	
+		c_message = m1;
 	}
-
+	
 	// Highlite messages:
 	int dummy_int;
 	char* dummy_fn;
-	if (parse_error_line((char*) message.c_str(), &dummy_fn, &dummy_int))
+	GdkColor color; 
+	if (parse_error_line(message.c_str(), &dummy_fn, &dummy_int))
 	{
 		if (message.find(" warning: ") != message.npos)
 		{
-			gtk_clist_set_foreground (GTK_CLIST (m_msg_list),
-									 m_messages.size() - 1,
-									 &m_parent->intern->color_warning);
-			anjuta_message_manager_indicate_warning (m_parent, m_type_id,
-													 dummy_fn, dummy_int);
+			color =	m_parent->intern->color_warning;
+			an_message_manager_indicate_warning (m_parent, m_type_id, dummy_fn, dummy_int);
 		}
 		else
 		{
-			gtk_clist_set_foreground (GTK_CLIST (m_msg_list),
-									 m_messages.size() - 1,
-									 &m_parent->intern->color_error);
-			anjuta_message_manager_indicate_error (m_parent, m_type_id,
-												   dummy_fn, dummy_int);
+			color =	m_parent->intern->color_error;
+			an_message_manager_indicate_error (m_parent, m_type_id, dummy_fn, dummy_int);
 		}
 	}
 	else
 	{
 		if (message.find(':') != message.npos)
 		{
-			gtk_clist_set_foreground (GTK_CLIST (m_msg_list),
-									  m_messages.size() - 1,
-									  &m_parent->intern->color_message1);
+			color =	m_parent->intern->color_message1;
 		}
 		else
 		{
-			gtk_clist_set_foreground (GTK_CLIST (m_msg_list),
-									  m_messages.size() - 1,
-									  &m_parent->intern->color_message2);
+			color =	m_parent->intern->color_message2;
 		}
+		an_message_manager_indicate_others (m_parent, m_type_id, dummy_fn, dummy_int);
 	}
 	g_free(dummy_fn);
-
-	gtk_clist_thaw(GTK_CLIST(m_msg_list));
-	gtk_clist_columns_autosize (GTK_CLIST(m_msg_list));
+	
+	GtkTreeIter iter;	
+	GtkListStore* store = GTK_LIST_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(m_tree)));
+	gtk_list_store_append(store, &iter);
+	gchar* utf8_msg = g_utf8_normalize(c_message.c_str(), -1, 
+		G_NORMALIZE_DEFAULT);
+	gtk_list_store_set (store, &iter,
+		COLUMN_MESSAGES, utf8_msg,
+		COLUMN_COLOR, &color,
+		COLUMN_LINE, m_line, -1);
+	m_line++;
+	g_free(utf8_msg);
 	if (update_adj) 
 		gtk_adjustment_set_value (adj, adj->upper - adj->page_size);
 }
 
-void
-AnjutaMessageWindow::set_cur_line(int line)
+int
+AnMessageWindow::get_cur_line()
 {
-	m_cur_line = line;
+	return m_line;
 }
 
-unsigned int
-AnjutaMessageWindow::get_cur_line() const
+string
+AnMessageWindow::get_cur_msg()
 {
-	return m_cur_line;
+	return m_messages[m_line];
 }
 
 void
-AnjutaMessageWindow::clear()
+AnMessageWindow::clear()
 {
 	m_messages.clear();
-	gtk_clist_clear(GTK_CLIST(m_msg_list));
-	set_cur_line(0);
-}
-
-void
-AnjutaMessageWindow::freeze()
-{
-	gtk_clist_freeze(GTK_CLIST(m_msg_list));
-}
-
-void
-AnjutaMessageWindow::thaw()
-{
-	gtk_clist_thaw(GTK_CLIST(m_msg_list));
+	GtkListStore* store = GTK_LIST_STORE(
+		gtk_tree_view_get_model(GTK_TREE_VIEW(m_tree)));
+	gtk_list_store_clear(store);
+	m_line = 0;
 }
 
 void 
-AnjutaMessageWindow::show()
+AnMessageWindow::show()
 {
 	showWidget(m_scrolled_win);
 }
 
 void 
-AnjutaMessageWindow::hide()
+AnMessageWindow::hide()
 {
 	hideWidget(m_scrolled_win);
 }
 
-GtkWidget* AnjutaMessageWindow::get_msg_list()
+GtkWidget* AnMessageWindow::get_msg_list()
 {
-	return m_msg_list;
+	return m_tree;
+}
+
+GtkWidget* AnMessageWindow::get_scrolled_win()
+{
+	return m_scrolled_win;	
+}
+
+bool AnMessageWindow::select_next()
+{
+	GtkTreeIter iter;
+	GtkTreeModel* model = gtk_tree_view_get_model(GTK_TREE_VIEW(m_tree));
+	GtkTreeSelection* select = gtk_tree_view_get_selection(GTK_TREE_VIEW(m_tree));	
+	if (!gtk_tree_selection_get_selected(select, &model, &iter))
+	{
+		if (!gtk_tree_model_get_iter_first(model, &iter))
+			return false;
+		gtk_tree_selection_select_iter(select, &iter);
+		return true;
+	}
+	if (gtk_tree_model_iter_next(model, &iter))
+	{
+		gtk_tree_selection_select_iter(select, &iter);
+		return true;
+	}
+	return false;
+}
+
+bool AnMessageWindow::select_prev()
+{
+	GtkTreeIter iter;
+	GtkTreeModel* model = gtk_tree_view_get_model(GTK_TREE_VIEW(m_tree));
+	GtkTreeSelection* select = gtk_tree_view_get_selection(GTK_TREE_VIEW(m_tree));	
+	if (!gtk_tree_selection_get_selected(select, &model, &iter))
+	{
+		if (!gtk_tree_model_get_iter_first(model, &iter))
+			return false;
+		gtk_tree_selection_select_iter(select, &iter);
+		return true;
+	}
+	GtkTreePath* path = gtk_tree_model_get_path(model, &iter);
+	if (gtk_tree_path_prev(path))
+	{
+		gtk_tree_selection_select_path(select, path);
+		gtk_tree_path_free(path);
+		return true;
+	}
+	else
+	{
+		gtk_tree_path_free(path);
+		return false;
+	}
+}
+
+void AnMessageWindow::on_selection_changed(GtkTreeSelection* select, gpointer data)
+{
+	AnMessageWindow* win = reinterpret_cast< AnMessageWindow* >(data);
+	GtkTreeIter iter;
+	GtkTreeModel* model = 
+		gtk_tree_view_get_model(GTK_TREE_VIEW(win->get_msg_list()));
+	if (!gtk_tree_selection_get_selected(select, &model, &iter))
+		return;
+	int line;
+	gtk_tree_model_get(model, &iter, COLUMN_LINE, &line, -1);
+	win->set_cur_line(line);
+}
+
+
+gboolean AnMessageWindow::on_mesg_event (GtkTreeView* list, GdkEvent * event, gpointer data)
+{
+	g_return_val_if_fail(data != NULL, FALSE);
+	AnMessageWindow *win =
+			reinterpret_cast < AnMessageWindow * >(data);
+	
+	if (event == NULL)
+		return FALSE;
+		
+	if (event->type == GDK_KEY_PRESS)
+	{
+		switch(((GdkEventKey *)event)->keyval)
+		{
+			case GDK_space:
+			case GDK_Return:
+			{
+				gchar* message = NULL;
+				if (!win->get_messages().empty() && win->get_cur_line() > 0)
+				{
+					message = new gchar[win->get_cur_msg().size() + 1];	
+					strcpy(message, win->get_cur_msg().c_str());
+					on_message_clicked(win->get_parent(), message);
+					g_free(message);	
+					return TRUE;
+				}
+				break;
+			}
+			default:
+				return FALSE;
+		}
+	}
+	else if (event->type == GDK_2BUTTON_PRESS) 
+	{
+		if (((GdkEventButton *) event)->button == 1)
+		{
+			gchar* message = NULL;
+			if (!win->get_messages().empty() && win->get_cur_line() > 0)
+			{
+				message = new gchar[win->get_cur_msg().size() + 1];	
+				strcpy(message, win->get_cur_msg().c_str());
+				on_message_clicked(win->get_parent(), message);
+				g_free(message);	
+				return TRUE;
+			}	
+			return FALSE;
+		}
+	}		
+	return FALSE;
 }
 
 static const gchar * get_profile_key (const gchar *profile, const gchar *key)
@@ -540,7 +673,7 @@ void TerminalWindow::use_default_profile_cb (GtkToggleButton *button,
 		gtk_widget_set_sensitive (tw->m_profile_combo, TRUE);
 }
 
-TerminalWindow::TerminalWindow(AnjutaMessageManager* p_amm, int p_type_id,
+TerminalWindow::TerminalWindow(AnMessageManager* p_amm, int p_type_id,
 							   string p_type, string p_pixmap)
 	: MessageSubwindow(p_amm, p_type_id, p_type, p_pixmap)
 {
@@ -552,7 +685,7 @@ TerminalWindow::TerminalWindow(AnjutaMessageManager* p_amm, int p_type_id,
 	m_child_pid = 0;
 	
 	/* Create the terminal preferences page */
-	gxml = glade_xml_new (PACKAGE_DATA_DIR"/glade/anjuta.glade",
+	gxml = glade_xml_new (PACKAGE_DATA_DIR"/glade/an.glade",
 						  "preferences_dialog_terminal",
 						  NULL);
 	anjuta_preferences_add_page (get_preferences(), gxml,
@@ -610,7 +743,7 @@ void TerminalWindow::hide()
 	hideWidget(m_frame);
 }
 
-extern "C" void anjuta_goto_file_line (gchar * fname, glong lineno);
+extern "C" void an_goto_file_line (gchar * fname, glong lineno);
 
 extern char **environ;
 
@@ -706,7 +839,7 @@ void TerminalWindow::term_destroy_cb (GtkWidget *widget,
 // locals window
 
 
-LocalsWindow::LocalsWindow (AnjutaMessageManager * p_amm, int p_type_id,
+LocalsWindow::LocalsWindow (AnMessageManager * p_amm, int p_type_id,
 							string p_type, string p_pixmap):
 							MessageSubwindow (p_amm, p_type_id,
 							p_type, p_pixmap)
@@ -752,7 +885,7 @@ LocalsWindow::update_view (GList * list)
 
 // widget window
 
-WidgetWindow::WidgetWindow (AnjutaMessageManager * p_amm, int p_type_id,
+WidgetWindow::WidgetWindow (AnMessageManager * p_amm, int p_type_id,
 							string p_type, string p_pixmap):
 							MessageSubwindow (p_amm, p_type_id,
 							p_type, p_pixmap)
@@ -780,10 +913,4 @@ void
 WidgetWindow::hide ()
 {
 	hideWidget(m_scrollbar);
-}
-
-void
-WidgetWindow::clear ()
-{
-
 }

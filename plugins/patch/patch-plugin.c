@@ -175,9 +175,9 @@ static void on_ok_clicked (GtkButton *button, PatchPluginGUI* gui)
 	message = g_strdup_printf (_("Patching %s using %s\n"), 
 			  directory, patch_file);
 	
-	anjuta_message_manager_show (app->messages, MESSAGE_BUILD);
-	anjuta_message_manager_append (app->messages, message, MESSAGE_BUILD);
-	anjuta_message_manager_append (app->messages,
+	an_message_manager_show (app->messages, MESSAGE_BUILD);
+	an_message_manager_append (app->messages, message, MESSAGE_BUILD);
+	an_message_manager_append (app->messages,
 			_("Patching...\n"), MESSAGE_BUILD);
 	
 	if (!launcher_is_busy())
@@ -201,21 +201,20 @@ static void on_cancel_clicked (GtkButton *button, PatchPluginGUI* gui)
 static void on_msg_arrived (gchar* line)
 {
 	g_return_if_fail (line != NULL);
-	anjuta_message_manager_append (app->messages, line, MESSAGE_BUILD);
+	an_message_manager_append (app->messages, line, MESSAGE_BUILD);
 }
 
 static void on_patch_terminate (int status, time_t time)
 {
 	if (status)
 	{
-		anjuta_message_manager_append (app->messages,
+		an_message_manager_append (app->messages,
 			_("Patch failed.\nPlease review the failure messages.\n"
 			"Examine and remove any rejected files.\n"),
 			MESSAGE_BUILD);
 	}
 	else
 	{
-		anjuta_message_manager_append (app->messages,
+		an_message_manager_append (app->messages,
 			_("Patch successful.\n"), MESSAGE_BUILD);	}
 }
-
