@@ -1,0 +1,5982 @@
+# translation of pa.po to Punjabi
+# translation of anjuta.HEAD.po to Punjabi
+# This file is distributed under the same license as the PACKAGE package.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
+# Amanpreet Singh Alam <aalam@redhat.com>, 2004.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: pa\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-07-14 03:12+0200\n"
+"PO-Revision-Date: 2004-09-01 17:07+0530\n"
+"Last-Translator: Amanpreet Singh Alam <aalam@redhat.com>\n"
+"Language-Team: Punjabi <fedora-trans-pa@redhat.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.3.1\n"
+"Plural-Forms: Plural-Forms: Plural-Forms: nplurals=2; plural=(n != 1);\n\n"
+
+#: anjuta.desktop.in.in.h:1
+msgid "Anjuta IDE"
+msgstr "ਆਂਜੂਤਾ IDE"
+
+#: anjuta.desktop.in.in.h:2 src/about.c:96 src/main.c:121 src/main.cpp:121
+msgid "Integrated Development Environment"
+msgstr ""
+
+#: anjuta.glade.h:1
+msgid "    "
+msgstr "    "
+
+#: anjuta.glade.h:2
+msgid "*"
+msgstr "*"
+
+#: anjuta.glade.h:3
+msgid "<: Enter Here"
+msgstr "<: ਇੱਥੇ ਦਾਖਲ ਹੋਵੋ"
+
+#: anjuta.glade.h:4
+msgid "Additional"
+msgstr "ਵਾਧੂ"
+
+#: anjuta.glade.h:5
+msgid "Additional Libraries (LDADD):"
+msgstr "ਵਾਧੂ ਲਾਇਬ੍ਰੇਰੀਆਂ (LDADD):"
+
+#: anjuta.glade.h:6 plugins/project-wizard/wizard_gui.c:576
+msgid "Additional Options"
+msgstr "ਵਾਧੂ ਚੋਣ"
+
+#: anjuta.glade.h:7
+msgid "Additional build options:"
+msgstr "ਵਾਧੂ ਬਲਿਡ(build) ਚੋਣ:"
+
+#: anjuta.glade.h:8
+msgid "Anjuta help search"
+msgstr "ਆਂਜੂਤਾ ਸਹਾਇਤਾ ਖੋਜ"
+
+#: anjuta.glade.h:9
+msgid "Anjuta start with dialog"
+msgstr "ਆਂਜੂਤਾ ਪੁੱਛਗਿਛ ਤਖਤੀ ਨਾਲ ਸ਼ੁਰੂ"
+
+#: anjuta.glade.h:10 plugins/project-wizard/appwizard_gui.c:77
+#: plugins/project-wizard/appwizard_gui.c:91
+msgid "Application Wizard"
+msgstr "ਕਾਰਜ ਸਹਾਇਕ"
+
+#: anjuta.glade.h:11
+msgid "Ask for parameters at run-time"
+msgstr "ਚੱਲਣ ਸਮੇਂ(run-time) ਪੈਰਾਮੀਟਰਾਂ ਲਈ ਪੁੱਛੋ"
+
+#: anjuta.glade.h:12
+msgid "Attach to process"
+msgstr "ਕਾਰਜ ਨਾਲ ਸ਼ਾਮਿਲ"
+
+#: anjuta.glade.h:13
+msgid "Automatically load last Project"
+msgstr "ਆਖਰੀ ਪ੍ਰੋਜੈਕਟ ਸਵੈ-ਚਾਲਿਤ ਹੀ ਲੋਡ ਕਰੋ"
+
+#: anjuta.glade.h:14
+msgid "Autosave editor files before build starts"
+msgstr "ਬਲਿਡ(build) ਕਰਨ ਤੋਂ ਪਹਿਲਾਂ ਸੰਪਾਦਕ ਫਾਇਲ ਸਵੈ-ਚਾਲਿਤ ਸੰਭਾਲੋ"
+
+#: anjuta.glade.h:15
+msgid "Beep on job complete"
+msgstr "ਕੰਮ ਪੂਰਾ ਹੋਣ ਤੇ ਆਵਾਜ ਦਿਓ"
+
+#: anjuta.glade.h:16
+msgid "Bookmark"
+msgstr "ਬੁੱਕਮਾਰਕ"
+
+#: anjuta.glade.h:17
+msgid "Breakpoint properties"
+msgstr "ਸਥਿਰ-ਬਿੰਦੂ ਵਿਸ਼ੇਸਤਾ"
+
+#: anjuta.glade.h:18
+msgid "Breakpoints"
+msgstr "ਸਥਿਰ-ਬਿੰਦੂ"
+
+#: anjuta.glade.h:19 plugins/build/build_file.c:102 src/anjuta_gui.c:117
+#: src/toolbar.c:273
+msgid "Build"
+msgstr "ਬਲਿਡ(build)"
+
+#: anjuta.glade.h:20
+msgid "Build command:"
+msgstr "ਬਲਿਡ(build) ਕਮਾਂਡ:"
+
+#: anjuta.glade.h:21
+msgid "Build file browser automatically"
+msgstr "ਫਾਇਲ ਝਲਕਾਰਾ ਸਵੈ-ਚਾਲਿਤ ਬਲਿਡ(build) ਕਰੋ"
+
+#: anjuta.glade.h:22
+msgid "Build files"
+msgstr "ਫਾਇਲ਼ ਬਲਿਡ(build) ਕਰੋ"
+
+#: anjuta.glade.h:23
+msgid "Build options"
+msgstr "ਬਲਿਡ(build) ਚੋਣ"
+
+#: anjuta.glade.h:24
+msgid "Build symbol browser automatically"
+msgstr "ਸੰਕੇਤ ਝਲਕਾਰਾ ਸਵੈ-ਚਾਲਿਤ ਬਲਿਡ(build) ਕਰੋ"
+
+#: anjuta.glade.h:25 plugins/debugger/registers_gui.c:89
+msgid "CPU Registers"
+msgstr "CPU ਰਜਿਸਟਰ"
+
+#. 2
+#: anjuta.glade.h:26 plugins/file-manager/an_file_view.c:372
+msgid "CVS"
+msgstr "CVS"
+
+#: anjuta.glade.h:27
+msgid "CVS command options"
+msgstr "CVS ਕਮਾਂਡ ਚੋਣ"
+
+#: anjuta.glade.h:28
+msgid "CVS compression level:"
+msgstr "CVS ਸੰਘੁੜਨ ਪੱਧਰ:"
+
+#: anjuta.glade.h:29
+msgid "CVS context diff format"
+msgstr "CVS ਪ੍ਰਸੰਗ ਅੰਤਰ(diff) ਪ੍ਰਤੀਰੂਪ"
+
+#: anjuta.glade.h:30
+msgid "CVS unified diff format"
+msgstr ""
+
+#: anjuta.glade.h:31
+msgid "CVS update and prune directories [-dP]"
+msgstr ""
+
+#: anjuta.glade.h:32
+msgid "C_ompile:"
+msgstr "ਕੰ_ਪਾਇਲ:"
+
+#: anjuta.glade.h:33
+msgid "Combo Popdown:"
+msgstr "ਲਟਕਟਾ ਬਕਸਾ:"
+
+#: anjuta.glade.h:34
+msgid "Command Line Parameters"
+msgstr "ਕਮਾਂਡ ਲਾਇਨ ਪੈਰਾਮੀਟਰ"
+
+#: anjuta.glade.h:35
+msgid "Command line parameters"
+msgstr "ਕਮਾਂਡ ਲਾਇਨ ਪੈਰਾਮੀਟਰ"
+
+#: anjuta.glade.h:36
+msgid "Command:"
+msgstr "ਕਮਾਂਡ:"
+
+#: anjuta.glade.h:37
+msgid "Commands"
+msgstr "ਕਮਾਂਡਾ"
+
+#: anjuta.glade.h:38
+msgid "Common commands:"
+msgstr "ਆਮ ਕਮਾਂਡਾਂ:"
+
+#: anjuta.glade.h:39
+msgid "Compiler"
+msgstr "ਕੰਪਾਇਲਰ"
+
+#: anjuta.glade.h:40
+msgid "Compiler Flags (CFLAGS):"
+msgstr "ਕੰਪਾਇਲਰ ਨਿਸ਼ਾਨ (CFLAGS):"
+
+#: anjuta.glade.h:41
+msgid "Compiler and linker options"
+msgstr "ਕੰਪਾਇਲਰ ਤੇ ਲਿੰਕਰ ਚੋਣ"
+
+#: anjuta.glade.h:42
+msgid "Configuration"
+msgstr "ਸੰਰਚਨਾ"
+
+#: anjuta.glade.h:43
+msgid "Configuration script segments"
+msgstr "ਸੰਰਚਨਾ ਸਕ੍ਰਿਪਟ ਭਾਗ"
+
+#: anjuta.glade.h:44
+msgid "Configure Parameters"
+msgstr "ਸੰਰਚਨਾ ਪੈਰਾਮੀਟਰ"
+
+#: anjuta.glade.h:45
+msgid "Data module Makefile.am"
+msgstr "ਡਾਟਾ ਮੈਡੀਊਲ Makefile.am"
+
+#. 13
+#: anjuta.glade.h:46 plugins/editor/text_editor_menu.c:321 src/toolbar.c:306
+msgid "Debug"
+msgstr "ਡੀਬੱਗ"
+
+#: anjuta.glade.h:47
+msgid "Debugging and Profiling"
+msgstr "ਡੀਬੱਗਿੰਗ ਤੇ ਪ੍ਰੋਫਾਇਲੰਗ"
+
+#: anjuta.glade.h:48
+msgid "Defines"
+msgstr "ਪ੍ਰਭਾਸ਼ਿਤ"
+
+#: anjuta.glade.h:49
+msgid "Description:"
+msgstr "ਵੇਰਵਾ:"
+
+#: anjuta.glade.h:50
+msgid "Dialog on job complete"
+msgstr "ਕੰਮ ਮੁਕੰਮਲ ਹੋਣ ਤੇ ਜਾਣਕਾਰੀ"
+
+#: anjuta.glade.h:51
+msgid "Directories"
+msgstr "ਡਾਇਰੈਕਟਰੀਆਂ"
+
+#: anjuta.glade.h:52
+msgid "Disable overwriting files"
+msgstr "ਫਾਇਲਾਂ ਉੱਪਰ ਲਿਖਣਾ ਆਯੋਗ"
+
+#: anjuta.glade.h:53
+msgid "Display process _tree"
+msgstr "ਕਾਰਜ-ਲੜੀ ਵੇਖਾਓ"
+
+#: anjuta.glade.h:54
+msgid "Do not show start with dialog again."
+msgstr "ਪੁੱਛਗਿੱਛ ਨਾਲ ਮੁੜ ਸ਼ੁਰੂ ਨਾ ਕਰੋ"
+
+#: anjuta.glade.h:55
+msgid "Document module Makefile.am"
+msgstr "ਦਸਤਾਵੇਜ਼ ਮੈਡੀਊਲ Makefile.am"
+
+#: anjuta.glade.h:56 src/anjuta-app.c:345 src/anjuta_gui.c:105
+msgid "Edit"
+msgstr "ਸੋਧ"
+
+#: anjuta.glade.h:57
+msgid "Enable Debugging"
+msgstr "ਡੀਬੱਗਿੰਗ ਯੋਗ"
+
+#: anjuta.glade.h:58
+msgid "Enable Profiling"
+msgstr "ਪ੍ਰੋਫਾਇਲ ਯੋਗ"
+
+#: anjuta.glade.h:59
+msgid "Enable _all"
+msgstr "_ਸਭ ਯੋਗ"
+
+#: anjuta.glade.h:60 plugins/debugger/breakpoints.c:113
+msgid "Enabled"
+msgstr "ਯੋਗ"
+
+#: anjuta.glade.h:61
+msgid "Enter a Hexa adress or select one in the data"
+msgstr ""
+
+#: anjuta.glade.h:62
+msgid "Execute Program"
+msgstr "ਕਾਰਜ ਚਲਾਉ"
+
+#. Register actions
+#: anjuta.glade.h:63 plugins/debugger/breakpoints.c:113
+#: plugins/file-manager/an_file_view.c:854 plugins/file-manager/plugin.c:87
+#: src/anjuta-app.c:342 src/anjuta_gui.c:102
+msgid "File"
+msgstr "ਫਾਇਲ਼"
+
+#: anjuta.glade.h:64
+msgid "File level"
+msgstr "ਫਾਇਲ ਪੱਧਰ"
+
+#: anjuta.glade.h:65
+msgid "Format"
+msgstr "ਪ੍ਰਤੀਰੂਪ"
+
+#: anjuta.glade.h:66 plugins/symbol-browser/an_symbol_view.c:55
+msgid "Functions"
+msgstr "ਕਾਰਜ"
+
+#: anjuta.glade.h:67
+msgid "GUI editor command:"
+msgstr "GUI ਸੰਪਾਦਕ ਕਮਾਂਡ:"
+
+#: anjuta.glade.h:68
+msgid "General"
+msgstr "ਸਧਾਰਨ"
+
+#: anjuta.glade.h:69
+msgid ""
+"Give a space separated list of directories to be built after source module. "
+"This will be set in configure and Makefiles will be generated for them. They "
+"will be built after the source (src/) directory during \"make\"."
+msgstr ""
+
+#: anjuta.glade.h:70
+msgid ""
+"Give a space separated list of directories to be built before source module. "
+"This will be set in configure.in and Makefiles will be generated for them. "
+"They will be built before the source (src/) directory during \"make\"."
+msgstr ""
+
+#: anjuta.glade.h:71
+msgid "Gnome API"
+msgstr "ਗਨੋਮ API"
+
+#: anjuta.glade.h:72
+msgid "HTML _viewer:"
+msgstr "HTML _ਦਰਸ਼ਕ:"
+
+#: anjuta.glade.h:73
+msgid "Headers"
+msgstr "ਸਿਰਲੇਖ"
+
+#: anjuta.glade.h:74
+msgid "Help module Makefile.am"
+msgstr "ਸਹਾਇਤਾ ਮੈਡੀਊਲ Makefile.am"
+
+#: anjuta.glade.h:75
+msgid "Hide process para_meters"
+msgstr "ਕਾਰਜ ਪੈ_ਰਾਮੀਟਰ ਓਹਲੇ ਕਰੋ"
+
+#: anjuta.glade.h:76
+msgid "High-Level Optimization (Functions inlined wherever possible)"
+msgstr ""
+
+#: anjuta.glade.h:77
+msgid "History sizes"
+msgstr "ਅਤੀਤ ਆਕਾਰ"
+
+#: anjuta.glade.h:78
+msgid "Ignore files and directories"
+msgstr "ਫਾਇਲਾਂ ਤੇ ਡਾਇਰੈਕਟਰੀਆਂ ਅਣਡਿੱਠੀਆਂ"
+
+#: anjuta.glade.h:79
+msgid "Import Wizard"
+msgstr "ਆਯਾਤ ਸਹਾਇਕ"
+
+#: anjuta.glade.h:80
+msgid ""
+"Import existing project. The Import Wizard will guide you to import an "
+"existing Project into Anjuta and convert it into Anjuta Project. There will "
+"be no data loss or modification done to the project."
+msgstr ""
+
+#: anjuta.glade.h:81
+msgid "Include Paths"
+msgstr "ਸ਼ਾਮਿਲ ਰਸਤਾ"
+
+#: anjuta.glade.h:82
+msgid "Include module Makefile.am"
+msgstr "ਸ਼ਾਮਿਲ ਮੈਡੀਊਲ Makefile.am"
+
+#: anjuta.glade.h:83
+msgid "Info Pages"
+msgstr "ਜਾਣਕਾਰੀ ਸਫੇ"
+
+#: anjuta.glade.h:84
+msgid "Input string:"
+msgstr "ਇੰਪੁੱਟ ਸਤਰ:"
+
+#: anjuta.glade.h:85 plugins/editor/text_editor_menu.c:176 src/toolbar.c:599
+msgid "Inspect"
+msgstr "ਜਾਂਚ"
+
+#: anjuta.glade.h:86
+msgid "Keep going when some targets can not be made"
+msgstr ""
+
+#: anjuta.glade.h:87
+msgid "Kernel Signals"
+msgstr "ਕਰਨਲ ਸੰਕੇਤ"
+
+#: anjuta.glade.h:88
+msgid "Language-specific commands:"
+msgstr "ਭਾਸ਼ਾ-ਨਿਰਭਰ ਕਮਾਂਡ:"
+
+#: anjuta.glade.h:89
+msgid "Libraries"
+msgstr "ਲਾਇਬ੍ਰੇਰੀਆਂ"
+
+#: anjuta.glade.h:90
+msgid "Library Paths"
+msgstr "ਲਾਇਬ੍ਰੇਰੀ ਰਸਤਾ"
+
+#: anjuta.glade.h:91
+msgid "Linker Flags (LDFLAGS):"
+msgstr ""
+
+#: anjuta.glade.h:92
+msgid "Load _global defaults"
+msgstr "_ਵਿਆਪਕ ਮੂਲ ਲੋਡ"
+
+#: anjuta.glade.h:93
+msgid "Load _user defaults"
+msgstr "_ਉਪਭੋਗਤਾ ਮੂਲ ਲੋਡ"
+
+#: anjuta.glade.h:94
+msgid "Low-Level Optimization (Machine dependent optimization)"
+msgstr ""
+
+#: anjuta.glade.h:95
+msgid "Makefile.am"
+msgstr "Makefile.am"
+
+#: anjuta.glade.h:96
+msgid "Man pages"
+msgstr "Man ਸਫੇ"
+
+#: anjuta.glade.h:97
+msgid "Maximum number of independent jobs (0 == no limit)"
+msgstr ""
+
+#: anjuta.glade.h:98
+msgid "Medium-Level Optimization (Without space-speed trade-off)"
+msgstr ""
+
+#: anjuta.glade.h:99
+msgid "Memory"
+msgstr "ਮੈਮੋਰੀ"
+
+#: anjuta.glade.h:100
+msgid "Menu icon:"
+msgstr "ਮੇਨੂ ਆਈਕਾਨ:"
+
+#: anjuta.glade.h:101
+msgid "Menu location:"
+msgstr "ਮੇਨੂ ਸਥਿਤੀ:"
+
+#: anjuta.glade.h:102
+msgid "Modules"
+msgstr "ਮੈਡੀਊਲ"
+
+#: anjuta.glade.h:103
+msgid "Name:"
+msgstr "ਨਾਂ:"
+
+#: anjuta.glade.h:104 plugins/editor/plugin.c:47 src/toolbar.c:76
+msgid "New file"
+msgstr "ਨਵੀਂ ਫਾਇਲ"
+
+#: anjuta.glade.h:105
+msgid "No Optimization"
+msgstr "ਕੋਈ ਅਨੁਕੂਲਤਾ ਨਹੀਂ"
+
+#: anjuta.glade.h:106
+msgid ""
+"Note: If there is a project open, the preferences in this page are project "
+"preferences and will be loaded from and saved with the project. If there is "
+"no project open, they will be global preferences."
+msgstr ""
+
+#. Must declare static, because it will be used forever
+#: anjuta.glade.h:107 plugins/project-manager/project_dbase.c:198
+#: src/toolbar.c:213
+msgid "Open Project"
+msgstr "ਪ੍ਰੋਜੈਕਟ ਖੋਲੋ"
+
+#: anjuta.glade.h:108
+msgid "Open existing Project."
+msgstr "ਮੌਜੂਦਾ ਪ੍ਰੋਜੈਕਟ ਖੋਲੋ"
+
+#: anjuta.glade.h:109
+msgid "Open existing file or create a new file."
+msgstr "ਮੌਜੂਦਾ ਫਾਇਲ ਖੋਲੋ ਜਾਂ ਨਵੀਂ ਫਾਇਲ ਬਣਾਓ।"
+
+#: anjuta.glade.h:110 plugins/editor/anjuta-docman.c:327
+#: plugins/editor/plugin.c:49 src/toolbar.c:80
+msgid "Open file"
+msgstr "ਫਾਇਲ ਖੋਲੋ"
+
+#: anjuta.glade.h:111
+msgid "Open last working Project"
+msgstr "ਆਖਰੀ ਕਾਰਜਕਾਰੀ ਪ੍ਰੋਜੈਕਟ ਖੋਲੋ"
+
+#: anjuta.glade.h:112
+msgid "Optimization"
+msgstr "ਅਨੁਕੂਲਤਾ"
+
+#. 15
+#: anjuta.glade.h:113 plugins/editor/text_editor_menu.c:331
+msgid "Options"
+msgstr "ਚੋਣ"
+
+#: anjuta.glade.h:114 plugins/symbol-browser/an_symbol_view.c:55
+msgid "Others"
+msgstr "ਹੋਰ"
+
+#: anjuta.glade.h:115
+msgid "Output files"
+msgstr "ਆਉਟਪੁੱਟ ਫਾਇਲਾਂ"
+
+#: anjuta.glade.h:116 plugins/debugger/signals_gui.c:261
+msgid "Pass:"
+msgstr "ਪਾਸ:"
+
+#: anjuta.glade.h:117
+msgid "Pixmap module Makefile.am"
+msgstr ""
+
+#: anjuta.glade.h:118
+msgid "Po module (translation) Makefile.am"
+msgstr "Po ਮੈਡੀਊਲ (ਅਨੁਵਾਦ) Makefile.am"
+
+#: anjuta.glade.h:119
+msgid "Print:"
+msgstr "ਛਾਪੋ:"
+
+#: anjuta.glade.h:120
+msgid "Program Interrupt"
+msgstr "ਕਾਰਜ ਵਿਘਨ"
+
+#: anjuta.glade.h:121
+msgid "Programs"
+msgstr "ਕਾਰਜ"
+
+#: anjuta.glade.h:122 plugins/project-manager/project_dbase_gui.c:581
+#: src/anjuta_gui.c:114 src/toolbar.c:150
+msgid "Project"
+msgstr "ਪ੍ਰੋਜੈਕਟ"
+
+#: anjuta.glade.h:123
+msgid "Project Configuration"
+msgstr "ਪ੍ਰੋਜੈਕਟ ਸੰਰਚਨਾ"
+
+#: anjuta.glade.h:124 plugins/project-wizard/wizard_gui.c:470
+msgid "Project Description"
+msgstr "ਪ੍ਰੋਜੈਕਟ ਵੇਰਵਾ"
+
+#: anjuta.glade.h:125
+msgid "Project Version"
+msgstr "ਪ੍ਰੋਜੈਕਟ ਵਰਜਨ"
+
+#: anjuta.glade.h:126
+msgid "Project configure.in"
+msgstr "ਪ੍ਰੋਜੈਕਟ configure.in"
+
+#: anjuta.glade.h:127
+msgid "Project level"
+msgstr "ਪ੍ਰੋਜੈਕਟ ਪੱਧ"
+
+#: anjuta.glade.h:128
+msgid "Projects:"
+msgstr "ਪ੍ਰੋਜੈਕਟ:"
+
+#: anjuta.glade.h:129
+msgid "Recent Files:"
+msgstr "ਤਾਜ਼ੀਆਂ ਫਾਇਲਾਂ:"
+
+#: anjuta.glade.h:130
+msgid "Recent Projects:"
+msgstr "ਤਾਜ਼ੇ ਪ੍ਰੋਜੈਕਟ:"
+
+#: anjuta.glade.h:131
+msgid "Reset all sticky tags during update (looses branch) [-A]"
+msgstr ""
+
+#: anjuta.glade.h:132
+msgid "Run Configure Script"
+msgstr "ਸੰਰਚਨਾ ਸਕ੍ਰਿਪਟ ਚਲਾਓ"
+
+#: anjuta.glade.h:133
+msgid "Run detached"
+msgstr ""
+
+#: anjuta.glade.h:134
+msgid "Run in Terminal"
+msgstr "ਟਰਮੀਨਲ ਵਿੱਚ ਚਲਾਓ"
+
+#: anjuta.glade.h:135
+msgid "Run in terminal"
+msgstr "ਟਰਮੀਨਲ ਵਿੱਚ ਚਲਾਓ"
+
+#: anjuta.glade.h:136
+msgid "SIGINT"
+msgstr "SIGINT"
+
+#: anjuta.glade.h:137
+msgid "Save all files"
+msgstr "ਸਭ ਫਾਇਲਾਂ ਸੰਭਾਲੋ"
+
+#: anjuta.glade.h:138
+msgid "Scripts at the end of top level Makefile.am"
+msgstr ""
+
+#: anjuta.glade.h:139 plugins/debugger/signals_gui.c:210
+msgid "Set Signal Property"
+msgstr "ਸੰਕੇਤ ਵਿਸ਼ੇਸਤਾ ਨਿਰਧਾਰਿਤ ਕਰੋ"
+
+#: anjuta.glade.h:140 src/anjuta-app.c:351 src/anjuta_gui.c:120
+msgid "Settings"
+msgstr "ਵਿਵਸਥਾ"
+
+#: anjuta.glade.h:141
+msgid "Short cut:"
+msgstr "ਸ਼ਾਰਟਕੱਟ:"
+
+#: anjuta.glade.h:142
+msgid "Show tooltips"
+msgstr "ਸੰਦ-ਸੰਕੇਤ ਵੇਖਾਓ:"
+
+#: anjuta.glade.h:143
+msgid "Signal:"
+msgstr "ਸੰਕੇਤ:"
+
+#: anjuta.glade.h:144
+msgid "Silent. That is, do not echo shell commads during make"
+msgstr ""
+
+#: anjuta.glade.h:145
+msgid "Source Directories"
+msgstr "ਸਰੋਤ ਡਾਇਰੈਕਟਰੀਆਂ"
+
+#: anjuta.glade.h:146
+msgid "Source module Makefile.am"
+msgstr "ਸਰੋਤ ਮੈਡੀਊਲ Makefile.am"
+
+#: anjuta.glade.h:147
+msgid "Standard error:"
+msgstr "ਮਿਆਰੀ ਗਲਤੀ:"
+
+#: anjuta.glade.h:148
+msgid "Standard input:"
+msgstr "ਮਿਆਰੀ ਇੰਪੁੱਟ:"
+
+#: anjuta.glade.h:149
+msgid "Standard output:"
+msgstr "ਮਿਆਰੀ ਇੰਪੁੱਟ:"
+
+#: anjuta.glade.h:150
+msgid ""
+"Start with a new Project. Application wizard will guide you with Project "
+"creation. With the Application Wizard, you will be able to create the "
+"skeleton of various Project types."
+msgstr ""
+
+#: anjuta.glade.h:151
+msgid "Stop:"
+msgstr "ਰੋਕੋ:"
+
+#: anjuta.glade.h:152
+msgid "Supports"
+msgstr "ਸਹਿਯੋਗ"
+
+#: anjuta.glade.h:153
+msgid "Supports are only available to File mode compilation and build."
+msgstr ""
+
+#: anjuta.glade.h:154
+msgid "Target:"
+msgstr "ਨਿਯਤ:"
+
+#: anjuta.glade.h:155
+msgid "Tool Editor"
+msgstr "ਸੰਦ ਸੰਪਾਦਕ"
+
+#: anjuta.glade.h:156
+msgid "Top level Makefile.am"
+msgstr ""
+
+#: anjuta.glade.h:157 plugins/cvs-plugin/cvs_gui.c:73
+#: plugins/debugger/registers_gui.c:48 plugins/debugger/sharedlib_gui.c:41
+#: plugins/debugger/signals_gui.c:55 plugins/debugger/stack_trace.c:366
+msgid "Update"
+msgstr "ਨਵੀਨੀਕਰਨ"
+
+#: anjuta.glade.h:158
+msgid "Update tags image automatically"
+msgstr ""
+
+#: anjuta.glade.h:159
+msgid "User Tools"
+msgstr "ਉਪਭੋਗਤਾ ਸੰਦ"
+
+#: anjuta.glade.h:160
+msgid "User email address:"
+msgstr "ਉਪਭੋਗਤਾ ਈ-ਪੱਤਰ ਸਿਰਨਾਵਾਂ:"
+
+#: anjuta.glade.h:161
+msgid "User information"
+msgstr "ਉਪਭੋਗਤਾ ਜਾਣਕਾਰੀ"
+
+#: anjuta.glade.h:162
+msgid "User name:"
+msgstr "ਉਪਭੋਗਤਾ ਨਾਂ:"
+
+#: anjuta.glade.h:163 plugins/project-manager/project_dbase_gui.c:871
+msgid "Version:"
+msgstr "ਵਰਜਨ:"
+
+#: anjuta.glade.h:164 src/anjuta-app.c:348 src/anjuta_gui.c:111
+msgid "View"
+msgstr "ਦਰਿਸ਼"
+
+#: anjuta.glade.h:165
+msgid "Warn when an undefined variable is referenced in the Makefile"
+msgstr ""
+
+#: anjuta.glade.h:166
+msgid "Warnings"
+msgstr "ਚੇਤਾਵਨੀ"
+
+#: anjuta.glade.h:167
+msgid "Working directory:"
+msgstr "ਕਾਰਜਕਾਰੀ ਡਾਇਰੈਕਟਰੀ:"
+
+#. For the time being
+#: anjuta.glade.h:168 plugins/debugger/signals_cbs.c:114
+#: plugins/debugger/signals_cbs.c:127 plugins/debugger/signals_cbs.c:140
+#: plugins/project-manager/project_dbase.c:1466
+#: plugins/project-manager/project_dbase.c:1472
+#: plugins/project-manager/project_dbase.c:1475
+#: plugins/project-manager/project_import_cbs.c:227
+#: plugins/project-wizard/appwizard_cbs.c:282
+msgid "Yes"
+msgstr "ਹਾਂ"
+
+#: anjuta.glade.h:169
+msgid "_Attach"
+msgstr "_ਨੱਥੀ"
+
+#: anjuta.glade.h:170
+msgid "_Build a file:"
+msgstr "ਇੱਕ ਫਾਇਲ _ਬਣਾਉ:"
+
+#: anjuta.glade.h:171
+msgid "_Condition:"
+msgstr "_ਹਾਲਾਤ:"
+
+#: anjuta.glade.h:172
+msgid "_Disable all"
+msgstr "ਸਭ _ਅਯੋਗ"
+
+#: anjuta.glade.h:173 plugins/editor/plugin.c:255 src/anjuta-actions.h:30
+msgid "_Edit"
+msgstr "_ਸੋਧ"
+
+#: anjuta.glade.h:174
+msgid "_Execute:"
+msgstr "_ਚਲਾਓ:"
+
+#: anjuta.glade.h:175
+msgid "_Hide paths"
+msgstr "ਰਸਤਾ _ਓਹਲੇ"
+
+#: anjuta.glade.h:176
+msgid "_Image editor:"
+msgstr "_ਚਿੱਤਰ ਸੰਪਾਦਕ:"
+
+#: anjuta.glade.h:177
+msgid "_Language:"
+msgstr "_ਭਾਸ਼ਾ:"
+
+#: anjuta.glade.h:178
+msgid "_Location:"
+msgstr "_ਸਥਿਤੀ"
+
+#: anjuta.glade.h:179
+msgid "_Make a file:"
+msgstr "ਇੱਕ ਫਾਇਲ਼ ਬਣਾਓ(Make):"
+
+#: anjuta.glade.h:180
+msgid "_Pass:"
+msgstr "_ਪਾਸ:"
+
+#: anjuta.glade.h:181
+msgid "_Pixmap editor:"
+msgstr ""
+
+#: anjuta.glade.h:182
+msgid "_Process to attach to:"
+msgstr ""
+
+#: anjuta.glade.h:183
+msgid "_Remove all"
+msgstr "ਸਭ _ਹਟਾਓ"
+
+#: anjuta.glade.h:184
+msgid "_Terminal:"
+msgstr "_ਟਰਮੀਨਲ:"
+
+#: anjuta.glade.h:185
+msgid "_Update"
+msgstr "_ਨਵੀਨੀਕਰਨ"
+
+#: anjuta.glade.h:186
+msgid "dialog2"
+msgstr "dialog2"
+
+#: anjuta.glade.h:187
+msgid "dialog4"
+msgstr "dialog4"
+
+#: libanjuta/anjuta-encodings.c:131 libanjuta/anjuta-encodings.c:157
+#: libanjuta/anjuta-encodings.c:198 libanjuta/anjuta-encodings.c:239
+msgid "Western"
+msgstr "ਪੱਛਮੀ"
+
+#: libanjuta/anjuta-encodings.c:133 libanjuta/anjuta-encodings.c:200
+#: libanjuta/anjuta-encodings.c:235
+msgid "Central European"
+msgstr "ਕੇਂਦਰੀ ਯੂਰਪ"
+
+#: libanjuta/anjuta-encodings.c:135
+msgid "South European"
+msgstr "ਦੱਖਣੀ ਯੂਰਪ"
+
+#: libanjuta/anjuta-encodings.c:137 libanjuta/anjuta-encodings.c:153
+#: libanjuta/anjuta-encodings.c:249
+msgid "Baltic"
+msgstr "ਬਾਲਟਿਕ"
+
+#: libanjuta/anjuta-encodings.c:139 libanjuta/anjuta-encodings.c:202
+#: libanjuta/anjuta-encodings.c:215 libanjuta/anjuta-encodings.c:219
+#: libanjuta/anjuta-encodings.c:237
+msgid "Cyrillic"
+msgstr "ਕਰਾਲਿਕ"
+
+#: libanjuta/anjuta-encodings.c:141 libanjuta/anjuta-encodings.c:208
+#: libanjuta/anjuta-encodings.c:247
+msgid "Arabic"
+msgstr "ਅਰਬੀ"
+
+#: libanjuta/anjuta-encodings.c:143 libanjuta/anjuta-encodings.c:241
+#: plugins/project-manager/project_dbase_gui.c:1081
+msgid "Greek"
+msgstr "ਗਰੀਕ"
+
+#: libanjuta/anjuta-encodings.c:145
+msgid "Hebrew Visual"
+msgstr "ਹੈਬਰਿਉ ਦਿੱਖ"
+
+#: libanjuta/anjuta-encodings.c:147 libanjuta/anjuta-encodings.c:206
+#: libanjuta/anjuta-encodings.c:245
+msgid "Hebrew"
+msgstr "ਹੈਬਰਿਊ"
+
+#: libanjuta/anjuta-encodings.c:149 libanjuta/anjuta-encodings.c:204
+#: libanjuta/anjuta-encodings.c:243
+#: plugins/project-manager/project_dbase_gui.c:1101
+msgid "Turkish"
+msgstr "ਤੁਰਕਿਸ਼"
+
+#: libanjuta/anjuta-encodings.c:151
+msgid "Nordic"
+msgstr "ਨੋਰਡਿਕ"
+
+#: libanjuta/anjuta-encodings.c:155
+msgid "Celtic"
+msgstr "ਕੀਲਟੀਕ"
+
+#: libanjuta/anjuta-encodings.c:159
+#: plugins/project-manager/project_dbase_gui.c:1098
+msgid "Romanian"
+msgstr "ਰੋਮਾਨੀਅਨ"
+
+#: libanjuta/anjuta-encodings.c:162 libanjuta/anjuta-encodings.c:164
+#: libanjuta/anjuta-encodings.c:166 libanjuta/anjuta-encodings.c:168
+msgid "Unicode"
+msgstr "ਯੂਨੀਕੋਡ"
+
+#: libanjuta/anjuta-encodings.c:171
+msgid "Armenian"
+msgstr "ਅਮਰੀਕਨ"
+
+#: libanjuta/anjuta-encodings.c:173 libanjuta/anjuta-encodings.c:175
+#: libanjuta/anjuta-encodings.c:184
+msgid "Chinese Traditional"
+msgstr "ਚੀਨੀ ਮੂਲ"
+
+#: libanjuta/anjuta-encodings.c:177
+msgid "Cyrillic/Russian"
+msgstr "ਕਰੀਲਿਕ/ਰੂਸੀ"
+
+#: libanjuta/anjuta-encodings.c:180 libanjuta/anjuta-encodings.c:211
+#: libanjuta/anjuta-encodings.c:224
+msgid "Japanese"
+msgstr "ਜਾਪਾਨੀ"
+
+#: libanjuta/anjuta-encodings.c:182 libanjuta/anjuta-encodings.c:213
+#: libanjuta/anjuta-encodings.c:217 libanjuta/anjuta-encodings.c:230
+#: plugins/project-manager/project_dbase_gui.c:1092
+msgid "Korean"
+msgstr "ਕੋਰੀਅਨ"
+
+#: libanjuta/anjuta-encodings.c:187 libanjuta/anjuta-encodings.c:189
+#: libanjuta/anjuta-encodings.c:191 libanjuta/anjuta-encodings.c:195
+msgid "Chinese Simplified"
+msgstr "ਚੀਨੀ ਸਧਾਰਨ"
+
+#: libanjuta/anjuta-encodings.c:193
+msgid "Georgian"
+msgstr "ਜਾਰਜੀਅਨ"
+
+#: libanjuta/anjuta-encodings.c:221
+msgid "Cyrillic/Ukrainian"
+msgstr "ਕਰੀਲਿਕ/ਯੂਕਰੇਨ"
+
+#: libanjuta/anjuta-encodings.c:226 libanjuta/anjuta-encodings.c:232
+#: libanjuta/anjuta-encodings.c:251
+msgid "Vietnamese"
+msgstr "ਵੀਅਤਨਾਮ"
+
+#: libanjuta/anjuta-encodings.c:228
+msgid "Thai"
+msgstr "ਥਾਈ"
+
+#: libanjuta/anjuta-encodings.c:702
+msgid "Stock Encodings"
+msgstr "ਸਟਾਕ ਇੰਕੋਡਿੰਗ"
+
+#: libanjuta/anjuta-encodings.c:721
+msgid "Supported Encodings"
+msgstr "ਸਹਾਇਕ ਇੰਕੋਡਿੰਗ"
+
+#: libanjuta/anjuta-plugin.c:175
+msgid "Anjuta Shell"
+msgstr "ਆਂਜੂਤਾ ਸ਼ੈੱਲ"
+
+#: libanjuta/anjuta-plugin.c:176
+msgid "Anjuta shell that will contain the plugin"
+msgstr ""
+
+#: libanjuta/anjuta-preferences-dialog.c:127
+msgid "Category"
+msgstr "ਵਰਗ"
+
+#: libanjuta/anjuta-preferences-dialog.c:234
+msgid "Anjuta Preferences Dialog"
+msgstr "ਆਂਜੂਤਾ ਮੇਰੀ-ਪਸੰਦ ਸਹਾਇਕ"
+
+#: libanjuta/anjuta-preferences.c:878
+msgid ""
+"Are you sure you want to reset the preferences to\n"
+"their default settings?"
+msgstr ""
+
+#: libanjuta/anjuta-preferences.c:882
+msgid "_Reset"
+msgstr "_ਮੁੜ-ਨਿਰਧਾਰਨ"
+
+#: libanjuta/anjuta-preferences.c:1301
+#, c-format
+msgid ""
+"Cannot load Global defaults and configuration files:\n"
+"%s.\n"
+"This may result in improper behaviour or instabilities.\n"
+"Anjuta will fall back to built in (limited) settings"
+msgstr ""
+
+#: libanjuta/anjuta-preferences.c:1439
+msgid "Anjuta Preferences"
+msgstr "ਆਂਜੂਤਾ ਮੇਰੀ-ਪਸੰਦ"
+
+#. gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
+#: libanjuta/anjuta-ui.c:813
+msgid "Action"
+msgstr "ਕਾਰਵਾਈ"
+
+#: libanjuta/anjuta-ui.c:831 libegg/egg-dock-layout.c:680
+msgid "Visible"
+msgstr "ਦਿੱਖ"
+
+#: libanjuta/anjuta-ui.c:842
+msgid "Sensitive"
+msgstr "ਸੰਵੇਦਨਸ਼ੀਲ"
+
+#: libanjuta/anjuta-ui.c:851
+msgid "Shortcut"
+msgstr "ਸ਼ਾਰਟਕੱਟ"
+
+#: libanjuta/anjuta-utils.c:54 src/utilities.c:697
+#, c-format
+msgid "Unable to read file: %s."
+msgstr "ਫਾਇਲ਼ ਪੜਨ ਵਿੱਚ ਅਸਫਲ:%s"
+
+#: libanjuta/anjuta-utils.c:64 plugins/project-manager/source.c:120
+#: plugins/project-manager/source.c:167 plugins/project-manager/source.c:205
+#: plugins/project-manager/source.c:455 plugins/project-manager/source.c:480
+#: plugins/project-manager/source.c:575 plugins/project-manager/source.c:673
+#: plugins/project-manager/source.c:713 plugins/project-manager/source.c:728
+#: plugins/project-manager/source.c:762 plugins/project-manager/source.c:818
+#: plugins/project-manager/source.c:854 plugins/project-manager/source.c:909
+#: plugins/project-manager/source.c:945 plugins/project-manager/source.c:1001
+#: plugins/project-manager/source.c:1057 plugins/project-manager/source.c:1076
+#: plugins/project-manager/source.c:1109 plugins/project-manager/source.c:1128
+#: plugins/project-manager/source.c:1161 plugins/project-manager/source.c:1180
+#: plugins/project-manager/source.c:1211 plugins/project-manager/source.c:1229
+#: plugins/project-manager/source.c:1259 plugins/project-manager/source.c:1277
+#: plugins/project-manager/source.c:1306 plugins/project-manager/source.c:1355
+#: plugins/project-manager/source.c:1392 plugins/project-manager/source.c:1436
+#: plugins/project-manager/source.c:1517 plugins/project-manager/source.c:1649
+#: plugins/project-manager/source.c:1689 plugins/project-manager/source.c:1779
+#: plugins/project-manager/source.c:1852 plugins/project-manager/source.c:1946
+#: plugins/project-manager/source.c:2027 plugins/project-manager/source.c:2085
+#: plugins/project-manager/source.c:2199 plugins/project-manager/source.c:2262
+#: plugins/project-manager/source.c:2568 plugins/project-manager/source.c:2703
+#: src/utilities.c:705
+#, c-format
+msgid "Unable to create file: %s."
+msgstr "ਫਾਇਲ ਬਣਾਉਣ ਵਿੱਚ ਅਸਫਲ: %s"
+
+#: libanjuta/anjuta-utils.c:100 src/utilities.c:739
+msgid "Unable to complete file copy"
+msgstr "ਪੂਰੀ ਫਾਇਲ ਦੀ ਨਕਲ ਕਰਨ ਤੋਂ ਅਸਫਲ"
+
+#: libanjuta/anjuta-utils.c:291
+msgid ""
+"\n"
+"System: "
+msgstr ""
+"\n"
+"ਸਿਸਟਮ: "
+
+#: libanjuta/anjuta-utils.c:341
+#, c-format
+msgid ""
+"The \"%s\" utility is not installed.\n"
+"Please install it."
+msgstr ""
+
+#: libanjuta/anjuta-utils.c:655
+#, c-format
+msgid "Cannot execute command: %s (using shell %s)\n"
+msgstr ""
+
+#: libanjuta/anjuta-utils.c:659
+#, c-format
+msgid "Cannot execute command %s (using shell %s)\n"
+msgstr ""
+
+#: libanjuta/cell-renderer-captioned-image.c:207 libegg/egg-entry-action.c:110
+msgid "Text"
+msgstr "ਪਾਠ"
+
+#: libanjuta/cell-renderer-captioned-image.c:208
+msgid "Text to render"
+msgstr "ਪੇਸ਼ ਕਰਨ ਲਈ ਪਾਠ"
+
+#: libanjuta/cell-renderer-captioned-image.c:214
+msgid "Pixbuf Object"
+msgstr "Pixbuf ਇਕਾਈ"
+
+#: libanjuta/cell-renderer-captioned-image.c:215
+msgid "The pixbuf to render."
+msgstr ""
+
+#: libanjuta/plugins.c:817
+msgid "Load"
+msgstr "ਲੋਡ"
+
+#: libanjuta/plugins.c:825
+msgid "Plugin"
+msgstr "ਪਲੱਗਇਨ"
+
+#: libanjuta/plugins.c:885
+msgid ""
+"This dialog displays all the available plugins for Anjuta.  You can select "
+"which plugins you want to use by clicking on the plugin in the list."
+msgstr ""
+
+#: libanjuta/resources.c:50
+#, c-format
+msgid "Widget not found: %s"
+msgstr ""
+
+#: libanjuta/resources.c:74
+#, c-format
+msgid "Could not find application image file: %s"
+msgstr ""
+
+#: libanjuta/resources.c:100
+#, c-format
+msgid "Could not find application pixmap file: %s"
+msgstr ""
+
+#: libanjuta/resources.c:263 libanjuta/resources.c:272
+#, c-format
+msgid "Cannot execute command: \"%s\""
+msgstr ""
+
+#: libegg/egg-dock-item.c:243
+msgid "Orientation"
+msgstr "ਸਥਿਤੀ"
+
+#: libegg/egg-dock-item.c:244
+msgid "Orientation of the docking item"
+msgstr ""
+
+#: libegg/egg-dock-item.c:259
+msgid "Resizable"
+msgstr "ਮੁੜ-ਆਕਾਰ ਯੋਗ"
+
+#: libegg/egg-dock-item.c:260
+msgid "If set, the dock item can be resized when docked in a paned"
+msgstr ""
+
+#: libegg/egg-dock-item.c:267
+msgid "Item behavior"
+msgstr "ਇਕਾਈ ਵਿਵਹਾਰ"
+
+#: libegg/egg-dock-item.c:268
+msgid ""
+"General behavior for the dock item (i.e. whether it can float, if it's "
+"locked, etc.)"
+msgstr ""
+
+#: libegg/egg-dock-item.c:276
+msgid "Grip size"
+msgstr ""
+
+#: libegg/egg-dock-item.c:277
+msgid "Size in pixels of the grip to drag the dock item"
+msgstr ""
+
+#: libegg/egg-dock-item.c:283 libegg/egg-dock-master.c:140
+msgid "Locked"
+msgstr "ਲਾੱਕਿਡ"
+
+#: libegg/egg-dock-item.c:284
+msgid "If set, the dock item cannot be dragged around and it doesn't show a grip"
+msgstr ""
+
+#: libegg/egg-dock-item.c:292
+msgid "Preferred width"
+msgstr "ਪਸੰਦੀਦਾ ਚੌੜਾਈ"
+
+#: libegg/egg-dock-item.c:293
+msgid "Preferred width for the dock item"
+msgstr ""
+
+#: libegg/egg-dock-item.c:299
+msgid "Preferred height"
+msgstr "ਪਸੰਦੀਦਾ ਉਚਾਈ"
+
+#: libegg/egg-dock-item.c:300
+msgid "Preferred height for the dock item"
+msgstr ""
+
+#: libegg/egg-dock-item.c:547
+#, c-format
+msgid ""
+"You can't add a dock object (%p of type %s) inside a %s. Use a EggDock or "
+"some other compound dock object."
+msgstr ""
+
+#: libegg/egg-dock-item.c:554
+#, c-format
+msgid ""
+"Attempting to add a widget with type %s to a %s, but it can only contain one "
+"widget at a time; it already contains a widget of type %s"
+msgstr ""
+
+#: libegg/egg-dock-item.c:1156
+#, c-format
+msgid "Unsupported docking strategy %s in dock object of type %s"
+msgstr ""
+
+#. Hide menuitem.
+#: libegg/egg-dock-item.c:1238
+msgid "Hide"
+msgstr "ਓਹਲੇ"
+
+#. Lock menuitem
+#: libegg/egg-dock-item.c:1244
+msgid "Lock"
+msgstr "ਲਾੱਕ"
+
+#: libegg/egg-dock-item.c:1411
+#, c-format
+msgid "Attempt to bind an unbound item %p"
+msgstr ""
+
+#: libegg/egg-dock-layout.c:125
+msgid "Master"
+msgstr "ਮਾਸਟਰ"
+
+#: libegg/egg-dock-layout.c:126
+msgid "EggDockMaster object which the layout object is attached to"
+msgstr ""
+
+#: libegg/egg-dock-layout.c:133
+msgid "Dirty"
+msgstr "ਭੱਦਾ"
+
+#: libegg/egg-dock-layout.c:134
+msgid "True if the layouts have changed and need to be saved to a file"
+msgstr ""
+
+#: libegg/egg-dock-layout.c:447
+msgid "You must provide a name for the layout"
+msgstr ""
+
+#. FIXME: pop up an error dialog
+#: libegg/egg-dock-layout.c:625
+#, c-format
+msgid "Could not load layout user interface file '%s'"
+msgstr ""
+
+#: libegg/egg-dock-layout.c:687
+msgid "Item"
+msgstr "ਇਕਾਈ"
+
+#: libegg/egg-dock-layout.c:737 libegg/egg-dock-object.c:121
+#: plugins/build/compiler_options.c:798
+msgid "Name"
+msgstr "ਨਾਂ"
+
+#: libegg/egg-dock-layout.c:776
+msgid "Dock items"
+msgstr ""
+
+#: libegg/egg-dock-layout.c:782
+msgid "Saved layouts"
+msgstr ""
+
+#: libegg/egg-dock-layout.c:824
+#, c-format
+msgid ""
+"While loading layout: don't know how to create a dock object whose nick is '%"
+"s'"
+msgstr ""
+
+#: libegg/egg-dock-layout.c:1303
+msgid "Layout managment"
+msgstr "ਖਾਕਾ ਪ੍ਰਬੰਧਨ"
+
+#: libegg/egg-dock-master.c:133 libegg/egg-dock.c:182
+msgid "Default title"
+msgstr "ਮੂਲ ਸਿਰਲੇਖ"
+
+#: libegg/egg-dock-master.c:134
+msgid "Default title for newly created floating docks"
+msgstr ""
+
+#: libegg/egg-dock-master.c:141
+msgid ""
+"If is set to 1, all the dock items bound to the master are locked; if it's "
+"0, all are unlocked; -1 indicates inconsistency among the items"
+msgstr ""
+
+#: libegg/egg-dock-master.c:728
+#, c-format
+msgid ""
+"master %p: unable to add object %p[%s] to the hash.  There already is an "
+"item with that name (%p)."
+msgstr ""
+
+#: libegg/egg-dock-master.c:893
+#, c-format
+msgid ""
+"The new dock controller %p is automatic.  Only manual dock objects should be "
+"named controller."
+msgstr ""
+
+#: libegg/egg-dock-notebook.c:135
+msgid "Page"
+msgstr "ਸਫਾ"
+
+#: libegg/egg-dock-notebook.c:136
+msgid "The index of the current page"
+msgstr "ਮੌਜੂਦਾ ਸਫੇ ਦਾ ਤਤਕਰਾ"
+
+#: libegg/egg-dock-object.c:122
+msgid "Unique name for identifying the dock object"
+msgstr ""
+
+#: libegg/egg-dock-object.c:129
+msgid "Long name"
+msgstr "ਲੰਮਾ ਨਾਂ"
+
+#: libegg/egg-dock-object.c:130
+msgid "Human readable name for the dock object"
+msgstr ""
+
+#: libegg/egg-dock-object.c:136
+msgid "Dock master"
+msgstr ""
+
+#: libegg/egg-dock-object.c:137
+msgid "Dock master this dock object is bound to"
+msgstr ""
+
+#: libegg/egg-dock-object.c:406
+#, c-format
+msgid ""
+"Call to egg_dock_object_dock in a dock object %p (object type is %s) which "
+"hasn't implemented this method"
+msgstr ""
+
+#: libegg/egg-dock-object.c:535
+#, c-format
+msgid ""
+"Dock operation requested in a non-bound object %p. The application might "
+"crash"
+msgstr ""
+
+#: libegg/egg-dock-object.c:542
+#, c-format
+msgid "Cannot dock %p to %p because they belong to different masters"
+msgstr ""
+
+#: libegg/egg-dock-object.c:584
+#, c-format
+msgid "Attempt to bind to %p an already bound dock object %p (current master: %p)"
+msgstr ""
+
+#: libegg/egg-dock-paned.c:134
+msgid "Position"
+msgstr "ਸਥਿਤੀ"
+
+#: libegg/egg-dock-paned.c:135
+msgid "Position of the divider in pixels"
+msgstr ""
+
+#: libegg/egg-dock-placeholder.c:125
+msgid "Sticky"
+msgstr ""
+
+#: libegg/egg-dock-placeholder.c:126
+msgid ""
+"Whether the placeholder will stick to its host or move up the hierarchy when "
+"the host is redocked"
+msgstr ""
+
+#: libegg/egg-dock-placeholder.c:133
+msgid "Host"
+msgstr "ਮੇਜ਼ਬਾਨ"
+
+#: libegg/egg-dock-placeholder.c:134
+msgid "The dock object this placeholder is attached to"
+msgstr ""
+
+#: libegg/egg-dock-placeholder.c:141
+msgid "Next placement"
+msgstr "ਅਗਲੀ ਸਥਿਤੀ"
+
+#: libegg/egg-dock-placeholder.c:142
+msgid ""
+"The position an item will be docked to our host if a request is made to dock "
+"to us"
+msgstr ""
+
+#: libegg/egg-dock-placeholder.c:303
+msgid "Attempt to dock a dock object to an unbound placeholder"
+msgstr ""
+
+#: libegg/egg-dock-placeholder.c:417
+#, c-format
+msgid "Got a detach signal from an object (%p) who is not our host %p"
+msgstr ""
+
+#: libegg/egg-dock-placeholder.c:438
+#, c-format
+msgid ""
+"Something weird happened while getting the child placement for %p from "
+"parent %p"
+msgstr ""
+
+#: libegg/egg-dock-tablabel.c:131
+msgid "Controlling dock item"
+msgstr ""
+
+#: libegg/egg-dock-tablabel.c:132
+msgid "Dockitem which 'owns' this tablabel"
+msgstr ""
+
+#: libegg/egg-dock.c:174
+msgid "Floating"
+msgstr "ਤਰਦਾ"
+
+#: libegg/egg-dock.c:175
+msgid "Whether the dock is floating in its own window"
+msgstr ""
+
+#: libegg/egg-dock.c:183
+msgid "Default title for the newly created floating docks"
+msgstr ""
+
+#: libegg/egg-dock.c:189 libegg/egg-entry-action.c:118
+msgid "Width"
+msgstr "ਚੌੜਾਈ"
+
+#: libegg/egg-dock.c:190
+msgid "Width for the dock when it's of floating type"
+msgstr ""
+
+#: libegg/egg-dock.c:197
+msgid "Height"
+msgstr "ਉਚਾਈ"
+
+#: libegg/egg-dock.c:198
+msgid "Height for the dock when it's of floating type"
+msgstr ""
+
+#: libegg/egg-dock.c:205
+msgid "Float X"
+msgstr "ਤਰਦਾ X"
+
+#: libegg/egg-dock.c:206
+msgid "X coordinate for a floating dock"
+msgstr ""
+
+#: libegg/egg-dock.c:213
+msgid "Float Y"
+msgstr ""
+
+#: libegg/egg-dock.c:214
+msgid "Y coordinate for a floating dock"
+msgstr ""
+
+#: libegg/egg-dock.c:491
+#, c-format
+msgid "Dock #%d"
+msgstr ""
+
+#: libegg/egg-entry-action.c:111
+msgid "Text in the entry"
+msgstr "ਇੰਦਰਾਜ਼ ਵਿੱਚ ਪਾਠ"
+
+#: libegg/egg-entry-action.c:119
+msgid "Width of the entry."
+msgstr "ਇੰਦਰਾਜ਼ ਦੀ ਚੌੜਾਈ"
+
+#: libegg/eggcellrendererkeys.c:160 libegg/eggcellrendererkeys.c:161
+msgid "Accelerator key"
+msgstr "ਪ੍ਰਵੇਸ਼ਕ ਕੀ"
+
+#: libegg/eggcellrendererkeys.c:170 libegg/eggcellrendererkeys.c:171
+msgid "Accelerator modifiers"
+msgstr "ਪ੍ਰਵੇਸ਼ਕ ਸੋਧ"
+
+#: libegg/eggcellrendererkeys.c:180
+msgid "Accelerator Mode"
+msgstr "ਪ੍ਰਵੇਸ਼ਕ ਢੰਗ"
+
+#: libegg/eggcellrendererkeys.c:181
+msgid "The type of accelerator."
+msgstr "ਪ੍ਰਵੇਸ਼ਕ ਦੀ ਕਿਸਮ।"
+
+#: libegg/eggcellrendererkeys.c:219
+msgid "Disabled"
+msgstr "ਅਯੋਗ"
+
+#: libegg/eggcellrendererkeys.c:330 libegg/eggcellrendererkeys.c:564
+msgid "Type a new accelerator, or press Backspace to clear"
+msgstr ""
+
+#: libegg/eggcellrendererkeys.c:567
+msgid "Type a new accelerator"
+msgstr ""
+
+#: libegg/eggtreemodelfilter.c:267
+msgid "The child model"
+msgstr ""
+
+#: libegg/eggtreemodelfilter.c:268
+msgid "The model for the filtermodel to filter"
+msgstr ""
+
+#: libegg/eggtreemodelfilter.c:275
+msgid "The virtual root"
+msgstr ""
+
+#: libegg/eggtreemodelfilter.c:276
+msgid "The virtual root (relative to the child model) for this filtermodel"
+msgstr ""
+
+#: libegg/eggtreeviewstate.c:54
+#, c-format
+msgid "Line %d character %d: %s"
+msgstr "ਸਤਰ %d ਅੱਖਰ %d: %s"
+
+#: libegg/eggtreeviewstate.c:109
+#, c-format
+msgid "Could not parse \"%s\" as an integer"
+msgstr ""
+
+#: libegg/eggtreeviewstate.c:118
+#, c-format
+msgid "Did not understand trailing characters \"%s\" in string \"%s\""
+msgstr ""
+
+#: libegg/eggtreeviewstate.c:127
+#, c-format
+msgid "Integer %ld must be positive"
+msgstr ""
+
+#: libegg/eggtreeviewstate.c:135
+#, c-format
+msgid "Integer %ld is too large, current max is %d"
+msgstr ""
+
+#: libegg/eggtreeviewstate.c:181
+#, c-format
+msgid "Boolean values must be \"true\" or \"false\" not \"%s\""
+msgstr ""
+
+#: libegg/eggtreeviewstate.c:204
+#, c-format
+msgid "The value \"%s\" is not part of the enum \"%s\""
+msgstr ""
+
+#: libegg/eggtreeviewstate.c:234
+#, c-format
+msgid "The type \"%s\" can't be parsed from a string"
+msgstr ""
+
+#: libegg/eggtreeviewstate.c:255
+#, c-format
+msgid "The property \"%s\" does not exist"
+msgstr ""
+
+#: libegg/eggtreeviewstate.c:310
+msgid "The type attribute can only be specified once."
+msgstr ""
+
+#: libegg/eggtreeviewstate.c:319
+#, c-format
+msgid "The type \"%s\" is not a valid type."
+msgstr ""
+
+#: libegg/eggtreeviewstate.c:327
+#, c-format
+msgid "The type \"%s\" is not a cell renderer type."
+msgstr ""
+
+#: libegg/eggtreeviewstate.c:339
+msgid "No type attribute specified."
+msgstr ""
+
+#: libegg/eggtreeviewstate.c:457
+#, c-format
+msgid "Outermost element in theme must be <treeview_state> not <%s>"
+msgstr ""
+
+#: libegg/eggtreeviewstate.c:467
+#, c-format
+msgid "Element inside of <treeview_state> must be <treeview> not <%s>"
+msgstr ""
+
+#: libegg/eggtreeviewstate.c:477
+#, c-format
+msgid "Element inside of <treeview> must be <column> not <%s>"
+msgstr ""
+
+#: libegg/eggtreeviewstate.c:488
+#, c-format
+msgid "Element inside of <column> must be <cell> not <%s>"
+msgstr ""
+
+#: libegg/eggtreeviewstate.c:494
+msgid "The <cell> element must not have any children."
+msgstr ""
+
+#: libegg/gdl-icons.c:141 libegg/gdl-icons.c:142
+msgid "Icon size"
+msgstr "ਆਈਕਾਨ ਆਕਾਰ"
+
+#: libegg/gdl-icons.c:147 libegg/gdl-icons.c:148
+msgid "Icon zoom"
+msgstr "ਆਈਕਾਨ ਵੱਡਦਰਸ਼ਨ"
+
+#: plugins/build/build_file.c:48
+msgid "This file has not been saved. Save it first and then build."
+msgstr ""
+
+#: plugins/build/build_file.c:73
+msgid "The executable is up-to-date, there is no need to build it again."
+msgstr ""
+
+#: plugins/build/build_file.c:88
+msgid "No build command has been specified for this type of file."
+msgstr ""
+
+#: plugins/build/build_file.c:104
+#, c-format
+msgid "Building file: %s ...\n"
+msgstr "ਫਾਇਲ਼ ਬਣਾਈ ਜਾ ਰਹੀ ਹੈ: %s ...\n"
+
+#: plugins/build/build_file.c:132 plugins/cvs-plugin/cvs.c:776
+#: plugins/project-manager/project_import.c:192
+#, c-format
+msgid "Total time taken: %lu secs\n"
+msgstr "ਕੁੱਲ ਲੱਗਾ ਸਮਾਂ: %lu ਸਕਿੰਟ\n"
+
+#: plugins/build/build_file.c:136
+msgid "Completed ... unsuccessful\n"
+msgstr "ਮੁਕੰਮਲ.... ਅਸਫਲਤਾਪੂਰਕ\n"
+
+#: plugins/build/build_file.c:140
+msgid "Completed ... unsuccessful"
+msgstr "ਮੁਕੰਮਲ.... ਅਸਫਲਤਾਪੂਰਕ"
+
+#: plugins/build/build_file.c:145
+msgid "Completed ... successful\n"
+msgstr "ਮੁਕੰਮਲ.... ਸਫਲਤਾਪੂਰਕ\n"
+
+#: plugins/build/build_file.c:149
+msgid "Completed ... successful"
+msgstr "ਮੁਕੰਮਲ.... ਸਫਲਤਾਪੂਰਕ"
+
+#: plugins/build/build_project.c:76 plugins/build/compile.c:61
+msgid "Unable to build module. Check Settings->Commands."
+msgstr ""
+
+#: plugins/build/build_project.c:95 plugins/build/build_project.c:160
+#: plugins/build/compile.c:74
+msgid "Build Project"
+msgstr "ਪ੍ਰੋਜੈਕਟ ਬਣਾਓ(Build)"
+
+#: plugins/build/build_project.c:97 plugins/build/compile.c:76
+msgid "Building source directory of the Project: "
+msgstr ""
+
+#: plugins/build/build_project.c:145
+msgid "Unable to build Project. Check Settings->Commands."
+msgstr ""
+
+#: plugins/build/build_project.c:163
+msgid "Building the whole Project: "
+msgstr "ਸਾਰਾ ਪ੍ਰੋਜੈਕਟ ਬਣਾਓ:"
+
+#: plugins/build/build_project.c:196
+msgid "Unable to build tarball. Check Settings->Commands."
+msgstr ""
+
+#: plugins/build/build_project.c:211
+msgid "Build Distribution"
+msgstr ""
+
+#: plugins/build/build_project.c:215
+msgid "Building the distribution package of the Project: "
+msgstr ""
+
+#: plugins/build/build_project.c:247
+msgid "Do you prefer installing as root ?"
+msgstr ""
+
+#: plugins/build/build_project.c:285
+msgid "Unable to auto generate. Check Settings->Commands."
+msgstr ""
+
+#: plugins/build/build_project.c:299
+msgid "Auto generate Project"
+msgstr ""
+
+#: plugins/build/build_project.c:302
+msgid "Auto generating the Project: "
+msgstr ""
+
+#: plugins/build/build_project.c:324 plugins/build/build_project.c:362
+msgid "Unable to install Project. Check Settings->Commands."
+msgstr ""
+
+#: plugins/build/build_project.c:339 plugins/build/build_project.c:374
+msgid "Install Project"
+msgstr "ਪ੍ਰੋਜੈਕਟ ਇੰਸਟਾਲ"
+
+#: plugins/build/build_project.c:341 plugins/build/build_project.c:376
+msgid "Installing the Project: "
+msgstr "ਪ੍ਰੋਜੈਕਟ ਇੰਸਟਾਲ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ:"
+
+#: plugins/build/clean_project.c:61
+msgid "Unable to clean Project. Check Settings->Commands."
+msgstr ""
+
+#: plugins/build/clean_project.c:76
+msgid "Clean"
+msgstr "ਸਾਫ਼"
+
+#: plugins/build/clean_project.c:79
+msgid "Cleaning the source directory of the Project: "
+msgstr ""
+
+#: plugins/build/clean_project.c:115
+msgid "Unable to Clean All for the Project. Check Settings->Commands."
+msgstr ""
+
+#: plugins/build/clean_project.c:124
+msgid "Clean All"
+msgstr "ਸਭ ਸਾਫ਼"
+
+#: plugins/build/clean_project.c:127
+msgid "Cleaning whole of the Project: "
+msgstr ""
+
+#: plugins/build/compile.c:107
+msgid "This file has not been saved. Save it first and then compile."
+msgstr ""
+
+#: plugins/build/compile.c:128
+msgid "The object file is up-to-date, there is no need to compile it again."
+msgstr ""
+
+#: plugins/build/compile.c:140
+msgid "No compile command has been specified for this type of file."
+msgstr ""
+
+#: plugins/build/compile.c:153 src/toolbar.c:250
+msgid "Compile"
+msgstr "ਕੰਪਾਇਲ"
+
+#: plugins/build/compile.c:155
+#, c-format
+msgid "Compiling file: %s ...\n"
+msgstr "ਫਾਇਲ਼ ਕੰਪਾਇਲ ਕੀਤੀ ਜਾ ਰਹੀ ਹੈ:%s...\n"
+
+#: plugins/build/compiler_options.c:503
+msgid ""
+"You have changed some of the compiler options of the project,\n"
+"would you like the next build action to perform a complete\n"
+"rebuild of the project?"
+msgstr ""
+
+#: plugins/build/compiler_options.c:726
+#: plugins/project-manager/src_paths.c:218
+msgid "Do you want to clear the list?"
+msgstr ""
+
+#: plugins/build/compiler_options.c:805 plugins/build/compiler_options.c:881
+#: plugins/build/compiler_options.c:904 plugins/build/compiler_options.c:949
+#: plugins/debugger/signals_gui.c:132
+msgid "Description"
+msgstr "ਵੇਰਵਾ"
+
+#: plugins/build/compiler_options.c:820
+msgid "Include paths"
+msgstr "ਸ਼ਾਮਿਲ ਰਸਤਾ"
+
+#: plugins/build/compiler_options.c:835
+msgid "Libraries paths"
+msgstr "ਲਾਇਬ੍ਰੇਰੀ ਰਸਤਾ"
+
+#: plugins/build/compiler_options.c:858
+msgid "Libraries and modules"
+msgstr "ਲਾਇਬ੍ਰੇਰੀ ਅਤੇ ਮੈਡੀਊਲ"
+
+#: plugins/build/compiler_options.c:874
+msgid "Stock"
+msgstr "ਸਟਾਕ"
+
+#: plugins/build/compiler_options.c:919
+msgid "Stock Defines"
+msgstr "ਸਟਾਕ ਪ੍ਰੀਭਾਸ਼ਾ"
+
+#: plugins/build/compiler_options.c:942
+msgid "Warning"
+msgstr "ਚੇਤਾਵਨੀ"
+
+#: plugins/build/configurer.c:158
+msgid ""
+"Project does not have an executable configure script.\n"
+"Auto generate the Project first."
+msgstr ""
+
+#: plugins/build/configurer.c:189 src/toolbar.c:262
+msgid "Configure"
+msgstr "ਸੰਰਚਨਾ"
+
+#: plugins/build/configurer.c:191
+msgid "Configuring the Project ....\n"
+msgstr "ਪ੍ਰੋਜੈਕਟ ਦੀ ਸੰਰਚਨਾ ਕੀਤੀ ਜਾ ਰਹੀ ਹੈ....\n"
+
+#: plugins/build/executer.c:54 src/mainmenu_callbacks.c:513
+msgid "The target executable of this Project is unknown"
+msgstr ""
+
+#: plugins/build/executer.c:59 src/mainmenu_callbacks.c:515
+msgid "The target executable of this Project is not executable"
+msgstr ""
+
+#: plugins/build/executer.c:64 src/mainmenu_callbacks.c:519
+msgid "The target executable does not exist for this Project"
+msgstr ""
+
+#: plugins/build/executer.c:77
+msgid "No file or Project opened."
+msgstr "ਕੋਈ ਫਾਇਲ ਜਾਂ ਪ੍ਰੋਜੈਕਟ ਖੁੱਲਾ ਨਹੀਂ ਹੈ"
+
+#: plugins/build/executer.c:82 plugins/build/executer.c:101
+#: src/mainmenu_callbacks.c:539 src/mainmenu_callbacks.c:550
+msgid "No executable for this file."
+msgstr "ਇਸ ਫਾਇਲ ਲਈ ਕੋਈ ਚੱਲਣਯੋਗ ਨਹੀਂ ਹੈ।"
+
+#: plugins/build/executer.c:106
+msgid "Executable is not up-to-date."
+msgstr ""
+
+#: plugins/build/executer.c:118
+msgid "Unable to execute Project. Check Settings->Commands."
+msgstr ""
+
+#: plugins/build/executer.c:132
+msgid "This file has not been saved. Save it first."
+msgstr "ਇਹ ਫਾਇਲ਼ ਸੰਭਾਲੀ ਨਹੀਂ ਗਈ ਹੈ। ਇਸ ਨੂੰ ਪਹਿਲਾਂ ਸੰਭਾਲੋ।"
+
+#: plugins/build/executer.c:140
+msgid "Unable to execute file. Check Settings->Commands."
+msgstr ""
+
+#: plugins/build-basic-autotools/build-basic-autotools.c:86
+#: plugins/build-basic-autotools/build-basic-autotools.c:174
+#: plugins/build-basic-autotools/build-basic-autotools.c:184
+msgid "_Build"
+msgstr "_ਬਣਾਓ(Build)"
+
+#: plugins/build-basic-autotools/build-basic-autotools.c:90
+msgid "_Build project"
+msgstr "ਪ੍ਰੋਜੈਕਟ ਬਣਾਓ"
+
+#: plugins/build-basic-autotools/build-basic-autotools.c:91
+msgid "Build whole project"
+msgstr "ਸਾਰਾ ਪ੍ਰੋਜੈਕਟ ਬਣਾਓ"
+
+#: plugins/build-basic-autotools/build-basic-autotools.c:96
+msgid "_Install project"
+msgstr "ਪ੍ਰੋਜੈਕਟ _ਇੰਸਟਾਲ"
+
+#: plugins/build-basic-autotools/build-basic-autotools.c:97
+msgid "Install whole project"
+msgstr "ਸਾਰਾ ਪ੍ਰੋਜੈਕਟ ਇੰਸਟਾਲ"
+
+#: plugins/build-basic-autotools/build-basic-autotools.c:102
+msgid "_Clean project"
+msgstr "ਪ੍ਰੋਜੈਕਟ _ਸਾਫ਼"
+
+#: plugins/build-basic-autotools/build-basic-autotools.c:103
+msgid "Clean whole project"
+msgstr "ਸਾਰਾ ਪ੍ਰੋਜੈਕਟ ਸਾਫ਼"
+
+#: plugins/build-basic-autotools/build-basic-autotools.c:108
+msgid "C_onfigure ..."
+msgstr "ਸੰ_ਰਚਨਾ..."
+
+#: plugins/build-basic-autotools/build-basic-autotools.c:109
+msgid "Configure project"
+msgstr "ਪ੍ਰੋਜੈਕਟ ਸੰਰਚਨਾ"
+
+#: plugins/build-basic-autotools/build-basic-autotools.c:114
+msgid "_Auto generate ..."
+msgstr "_ਸਵੈ-ਚਾਲਿਤ ਪੈਦਾ..."
+
+#: plugins/build-basic-autotools/build-basic-autotools.c:115
+msgid "Autogenrate project files"
+msgstr "ਸਵੈ-ਚਾਲਿਤ ਬਣੀਆਂ ਪ੍ਰੋਜੈਕਟ ਫਾਇਲਾਂ"
+
+#: plugins/build-basic-autotools/build-basic-autotools.c:120
+msgid "Build _distribution"
+msgstr ""
+
+#: plugins/build-basic-autotools/build-basic-autotools.c:121
+msgid "Build project distribution"
+msgstr ""
+
+#: plugins/build-basic-autotools/build-basic-autotools.c:126
+msgid "_Build module"
+msgstr "ਮੈਡੀਊਲ _ਬਣਾਓ"
+
+#: plugins/build-basic-autotools/build-basic-autotools.c:127
+#: plugins/build-basic-autotools/build-basic-autotools.c:185
+msgid "Build module"
+msgstr "ਮੈਡੀਊਲ ਬਣਾਓ"
+
+#: plugins/build-basic-autotools/build-basic-autotools.c:132
+msgid "_Install module"
+msgstr "ਮੈਡੀਊਲ _ਇੰਸਟਾਲ"
+
+#: plugins/build-basic-autotools/build-basic-autotools.c:133
+#: plugins/build-basic-autotools/build-basic-autotools.c:191
+msgid "Install module"
+msgstr "ਮੈਡੀਊਲ ਇੰਸਟਾਲ"
+
+#: plugins/build-basic-autotools/build-basic-autotools.c:138
+msgid "_Clean module"
+msgstr "ਮੈਡੀਊਲ _ਸਾਫ਼"
+
+#: plugins/build-basic-autotools/build-basic-autotools.c:139
+#: plugins/build-basic-autotools/build-basic-autotools.c:197
+msgid "Clean module"
+msgstr "ਮੈਡੀਊਲ ਸਾਫ਼"
+
+#: plugins/build-basic-autotools/build-basic-autotools.c:144
+msgid "Co_mpile file"
+msgstr "ਫਾਇਲ ਕੰਪਾ_ਇਲ"
+
+#: plugins/build-basic-autotools/build-basic-autotools.c:145
+msgid "Compile current editor file"
+msgstr "ਮੌਜੂਦਾ ਸੰਪਾਦਿਤ ਫਾਇਲ ਕੰਪਾਇਲ"
+
+#: plugins/build-basic-autotools/build-basic-autotools.c:178
+msgid "_Compile"
+msgstr "_ਕੰਪਾਇਲ"
+
+#: plugins/build-basic-autotools/build-basic-autotools.c:179
+msgid "Complie file"
+msgstr "ਫਾਇਲ ਕੰਪਾਇਲ"
+
+#: plugins/build-basic-autotools/build-basic-autotools.c:190
+msgid "_Install"
+msgstr "_ਇੰਸਟਾਲ"
+
+#: plugins/build-basic-autotools/build-basic-autotools.c:196
+msgid "_Clean"
+msgstr "_ਸਾਫ਼"
+
+#: plugins/build-basic-autotools/build-basic-autotools.c:382
+msgid "Popup build commands"
+msgstr ""
+
+#: plugins/build-basic-autotools/build-basic-autotools.c:389
+msgid "Build commands"
+msgstr "ਕਮਾਂਡਾਂ ਬਣਾਓ"
+
+#: plugins/class-gen/clsGen.c:449
+msgid "Class name not valid"
+msgstr "ਕਲਾਸ ਨਾਂ ਸਹੀ ਨਹੀਂ ਹੈ"
+
+#: plugins/class-gen/clsGen.c:456
+msgid "Base class name not valid"
+msgstr "ਮੂਲ ਕਲਾਸ ਨਾਂ ਸਹੀਂ ਨਹੀਂ ਹੈ"
+
+#: plugins/class-gen/clsGen.c:462
+msgid "Declaration file name not valid"
+msgstr ""
+
+#: plugins/class-gen/clsGen.c:467
+msgid "Implementation file name not valid"
+msgstr ""
+
+#: plugins/class-gen/clsGen.c:726
+msgid "Error in importing files"
+msgstr "ਫਾਇਲ ਆਯਾਤ ਕਰਨ ਵਿੱਚ ਗਲਤੀਆਂ"
+
+#: plugins/class-gen/clsGen.c:1332
+msgid "Class Builder"
+msgstr "ਕਲਾਸ ਨਿਰਮਾਤਾ"
+
+#. 7
+#. 9
+#: plugins/class-gen/clsGen.c:1343 plugins/debugger/registers_gui.c:56
+#: plugins/debugger/sharedlib_gui.c:49 plugins/debugger/signals_gui.c:63
+#: plugins/debugger/stack_trace.c:381 plugins/debugger/watch_gui.c:74
+#: plugins/devhelp/plugin.c:174
+#: plugins/project-manager/project_dbase_gui.c:343 src/anjuta-app.c:354
+#: src/anjuta_gui.c:123
+msgid "Help"
+msgstr "ਸਹਾਇਤਾ"
+
+#: plugins/class-gen/clsGen.c:1352 plugins/patch/patch-plugin.c:107
+msgid "Cancel"
+msgstr "ਰੱਦ"
+
+#: plugins/class-gen/clsGen.c:1361
+msgid "Finish"
+msgstr "ਸਮਾਪਤ"
+
+#: plugins/class-gen/clsGen.c:1378
+msgid "Enter the name for the class you want to add."
+msgstr ""
+
+#: plugins/class-gen/clsGen.c:1388
+msgid "Enter the declaration file name."
+msgstr ""
+
+#: plugins/class-gen/clsGen.c:1398
+msgid "Enter the implementation file name."
+msgstr ""
+
+#: plugins/class-gen/clsGen.c:1400 plugins/class-gen/clsGen.c:1410
+msgid "..."
+msgstr "..."
+
+#: plugins/class-gen/clsGen.c:1408
+msgid "Browse for the declaration file name."
+msgstr ""
+
+#: plugins/class-gen/clsGen.c:1418
+msgid "Browse for the implementation file name."
+msgstr ""
+
+#: plugins/class-gen/clsGen.c:1428
+msgid "Enter the name of the class your new class will inherit from."
+msgstr ""
+
+#: plugins/class-gen/clsGen.c:1453
+msgid ""
+"This plugin will create a class of the type you specify and add it to your "
+"project. "
+msgstr ""
+
+#. gtk_widget_set_usize (self->label_description, 400, 16);
+#: plugins/class-gen/clsGen.c:1462
+msgid "Class name: "
+msgstr "ਕਲਾਸ ਨਾਂ:"
+
+#: plugins/class-gen/clsGen.c:1472
+msgid "Header file:  "
+msgstr "ਸਿਰਲੇਖ ਫਾਇਲ਼:"
+
+#: plugins/class-gen/clsGen.c:1482
+msgid "Source file:  "
+msgstr "ਸਰੋਤ ਫਾਇਲ:"
+
+#: plugins/class-gen/clsGen.c:1492
+msgid "Base class:   "
+msgstr "ਮੂਲ ਕਲਾਸ:"
+
+#: plugins/class-gen/clsGen.c:1502
+msgid "Base class inheritance: "
+msgstr ""
+
+#: plugins/class-gen/clsGen.c:1538
+msgid "Inline the declaration and implementation"
+msgstr ""
+
+#. gtk_widget_set_usize (self->checkbutton_inline, 224, 24);
+#: plugins/class-gen/clsGen.c:1546
+msgid ""
+"If checked, the plugin will generate both the declaration and implementation "
+"in the header file and will not create a source file."
+msgstr ""
+
+#: plugins/class-gen/clsGen.c:1548
+msgid "By:  Dave Huseby <huseby@linuxprogrammer.org>"
+msgstr "ਡੇਵੀ ਹੰਸੀਬੇ <huseby@linuxprogrammer.org> ਨੇ"
+
+#: plugins/class-gen/clsGen.c:1559
+msgid "V 0.0.2 (June 11, 2002)"
+msgstr "V 0.0.੨ (ਜੂਨ ੧੧, ੨੦੦੨)"
+
+#: plugins/class-gen/clsGen.c:1570
+msgid "TODO: add the ability to declare member functions and their parameters here."
+msgstr ""
+
+#: plugins/class-gen/clsGen.c:1580
+msgid "Welcome to the Anjuta Class Builder. "
+msgstr "ਆਂਜੂਤਾ ਕਲਾਸ ਨਿਰਮਾਤਾ ਤੇ ਜੀ ਆਇਆ ਨੂੰ:"
+
+#. gtk_widget_set_usize (self->label_welcome, 184, 16);
+#: plugins/class-gen/clsGen.c:1589
+msgid "Class type:   "
+msgstr "ਕਲਾਸ ਕਿਸਮ:"
+
+#: plugins/class-gen/clsGen.c:1607 plugins/class-gen/clsGen.c:1620
+msgid "public"
+msgstr "public"
+
+#: plugins/class-gen/clsGen.c:1608
+msgid "protected"
+msgstr "protected"
+
+#: plugins/class-gen/clsGen.c:1609
+msgid "private"
+msgstr "private"
+
+#: plugins/class-gen/clsGen.c:1618
+msgid "Choose the type of inheritence from the base class."
+msgstr ""
+
+#: plugins/class-gen/clsGen.c:1622
+msgid "Virtual destructor"
+msgstr ""
+
+#. gtk_widget_set_usize (self->checkbutton_virtual_destructor, 112, 24);
+#: plugins/class-gen/clsGen.c:1630
+msgid "If checked, the destructor of your class will be declared virtual."
+msgstr ""
+
+#: plugins/class-gen/clsGen.c:1640 plugins/class-gen/clsGen.c:1652
+msgid "Generic C++ Class"
+msgstr "ਸਧਾਰਨ C++ ਕਲਾਸ"
+
+#: plugins/class-gen/clsGen.c:1641
+msgid "GTK+ Class"
+msgstr "GTK+ ਕਲਾਸ"
+
+#: plugins/class-gen/clsGen.c:1650
+msgid "Select the type of class you would like to create."
+msgstr ""
+
+#: plugins/cvs-plugin/cvs.c:262
+msgid "CVS Updating "
+msgstr "CVS ਨਵੀਨੀਕਰਨ"
+
+#: plugins/cvs-plugin/cvs.c:312
+msgid "CVS Committing "
+msgstr ""
+
+#: plugins/cvs-plugin/cvs.c:373
+msgid "CVS Importing...\n"
+msgstr ""
+
+#: plugins/cvs-plugin/cvs.c:413
+msgid "CVS Adding "
+msgstr "CVS ਸ਼ਾਮਿਲ "
+
+#: plugins/cvs-plugin/cvs.c:445
+msgid "CVS Removing "
+msgstr "CVS ਹਟਾਇਆ ਜਾ ਰਿਹਾ ਹੈ"
+
+#: plugins/cvs-plugin/cvs.c:486
+msgid "Getting CVS status "
+msgstr ""
+
+#: plugins/cvs-plugin/cvs.c:501 plugins/cvs-plugin/cvs.c:556
+#: plugins/cvs-plugin/cvs.c:635 plugins/cvs-plugin/cvs.c:891
+msgid "There are jobs running, please wait until they are finished"
+msgstr ""
+
+#: plugins/cvs-plugin/cvs.c:541
+msgid "Getting CVS log "
+msgstr ""
+
+#: plugins/cvs-plugin/cvs.c:620
+msgid "CVS diffing "
+msgstr ""
+
+#: plugins/cvs-plugin/cvs.c:667
+msgid "CVS login "
+msgstr "CVS login "
+
+#: plugins/cvs-plugin/cvs.c:765 plugins/project-manager/project_import.c:181
+msgid "Project import completed...unsuccessful\n"
+msgstr ""
+
+#: plugins/cvs-plugin/cvs.c:767 plugins/project-manager/project_import.c:183
+msgid "Project import completed...unsuccessful"
+msgstr ""
+
+#: plugins/cvs-plugin/cvs.c:772
+msgid "CVS completed...successful\n"
+msgstr ""
+
+#: plugins/cvs-plugin/cvs.c:774
+msgid "CVS completed...successful"
+msgstr ""
+
+#: plugins/cvs-plugin/cvs.c:782
+msgid "Updating versions in file tree..."
+msgstr ""
+
+#: plugins/cvs-plugin/cvs.c:784
+msgid "done\n"
+msgstr "ਸਮਾਪਤ\n"
+
+#: plugins/cvs-plugin/cvs_cbs.c:41
+msgid "You do not need to login to a local server"
+msgstr ""
+
+#: plugins/cvs-plugin/cvs_gui.c:30
+msgid "Local"
+msgstr "ਸਥਾਨਿਕ"
+
+#: plugins/cvs-plugin/cvs_gui.c:30
+msgid "Password"
+msgstr "ਗੁਪਤ-ਕੋਡ"
+
+#: plugins/cvs-plugin/cvs_gui.c:30
+msgid "Extern(rsh)"
+msgstr ""
+
+#: plugins/cvs-plugin/cvs_gui.c:30
+msgid "Server"
+msgstr "ਸਰਵਰ"
+
+#: plugins/cvs-plugin/cvs_gui.c:72
+msgid "CVS: Update"
+msgstr "CVS: ਨਵੀਨੀਕਰਨ"
+
+#: plugins/cvs-plugin/cvs_gui.c:76
+msgid "CVS: Commit"
+msgstr ""
+
+#: plugins/cvs-plugin/cvs_gui.c:77
+msgid "Commit"
+msgstr "Commit"
+
+#: plugins/cvs-plugin/cvs_gui.c:80
+msgid "CVS: Status"
+msgstr "CVS: ਸਥਿਤੀ"
+
+#: plugins/cvs-plugin/cvs_gui.c:81
+msgid "Show status"
+msgstr "ਸਥਿਤੀ ਵੇਖਾਓ"
+
+#: plugins/cvs-plugin/cvs_gui.c:84
+msgid "CVS: Log"
+msgstr "CVS: ਲਾਗ"
+
+#: plugins/cvs-plugin/cvs_gui.c:85
+msgid "Show log"
+msgstr "ਲਾਗ ਵੇਖਾਓ"
+
+#: plugins/cvs-plugin/cvs_gui.c:88
+msgid "CVS: Add file"
+msgstr "CVS: ਫਾਇਲ਼ ਸ਼ਾਮਿਲ"
+
+#: plugins/cvs-plugin/cvs_gui.c:89
+msgid "Add"
+msgstr "ਸ਼ਾਮਿਲ"
+
+#: plugins/cvs-plugin/cvs_gui.c:92
+msgid "CVS: Remove file"
+msgstr "CVS: ਫਾਇਲ ਹਟਾਓ"
+
+#. 3
+#: plugins/cvs-plugin/cvs_gui.c:93 plugins/debugger/watch_gui.c:43
+#: plugins/project-manager/project_dbase_gui.c:323
+msgid "Remove"
+msgstr "ਹਟਾਓ"
+
+#: plugins/cvs-plugin/cvs_gui.c:95
+msgid ""
+"WARNING: The file will be removed on disc. Use \"cvs commit\" .\n"
+"to apply to the repository. It will still be possible to retrieve older "
+"revisions of the file."
+msgstr ""
+
+#: plugins/cvs-plugin/cvs_gui.c:120 plugins/cvs-plugin/cvs_gui.c:238
+msgid "File: "
+msgstr "ਫਾਇਲ਼:"
+
+#: plugins/cvs-plugin/cvs_gui.c:122
+msgid "Branch: "
+msgstr "ਬਰਾਂਚ:"
+
+#: plugins/cvs-plugin/cvs_gui.c:124 plugins/cvs-plugin/cvs_gui.c:291
+msgid "Revision: "
+msgstr "ਦੁਹਰਾਓ:"
+
+#: plugins/cvs-plugin/cvs_gui.c:125 plugins/cvs-plugin/cvs_gui.c:470
+msgid "Log message: "
+msgstr "ਲਾਗ ਸੁਨੇਹਾ:"
+
+#: plugins/cvs-plugin/cvs_gui.c:128 plugins/cvs-plugin/cvs_gui.c:241
+msgid "Select file"
+msgstr "ਫਾਇਲ ਚੁਣੋ"
+
+#: plugins/cvs-plugin/cvs_gui.c:225
+msgid "CVS: Diff file"
+msgstr ""
+
+#: plugins/cvs-plugin/cvs_gui.c:229 plugins/editor/plugin.c:368
+msgid "Diff"
+msgstr "Diff"
+
+#: plugins/cvs-plugin/cvs_gui.c:265
+msgid "Date: "
+msgstr "ਮਿਤੀ:"
+
+#: plugins/cvs-plugin/cvs_gui.c:333
+msgid "CVS Login"
+msgstr "CVS Login"
+
+#: plugins/cvs-plugin/cvs_gui.c:337
+msgid "Login"
+msgstr "ਲਾੱਗਆਨ"
+
+#: plugins/cvs-plugin/cvs_gui.c:347 plugins/cvs-plugin/cvs_gui.c:440
+msgid "Server type: "
+msgstr "ਸਰਵਰ ਕਿਸਮ:"
+
+#: plugins/cvs-plugin/cvs_gui.c:348 plugins/cvs-plugin/cvs_gui.c:443
+msgid "Username: "
+msgstr "ਉਪਭੋਗਤਾ ਨਾਂ:"
+
+#: plugins/cvs-plugin/cvs_gui.c:349 plugins/cvs-plugin/cvs_gui.c:441
+msgid "Server: "
+msgstr "ਸਰਵਰ :"
+
+#: plugins/cvs-plugin/cvs_gui.c:350
+msgid "Directory on the server: "
+msgstr "ਸਰਵਰ ਤੇ ਡਾਇਰੈਕਟਰੀ:"
+
+#: plugins/cvs-plugin/cvs_gui.c:427
+msgid "CVS: Import Project"
+msgstr "CVS: ਪ੍ਰੋਜੈਕਟ ਆਯਾਤਕਾਰ"
+
+#: plugins/cvs-plugin/cvs_gui.c:431
+msgid "Import"
+msgstr "ਆਯਾਤ"
+
+#: plugins/cvs-plugin/cvs_gui.c:442
+msgid "Dir on the server: "
+msgstr "ਸਰਵਰ ਤੇ ਡਾਇ:"
+
+#: plugins/cvs-plugin/cvs_gui.c:467
+msgid "Module name: "
+msgstr "ਮੈਡੀਊਲ ਨਾਂ:"
+
+#: plugins/cvs-plugin/cvs_gui.c:468
+msgid "Release name: "
+msgstr "ਜਾਰੀ ਨਾਂ:"
+
+#: plugins/cvs-plugin/cvs_gui.c:469
+msgid "Vendor tag: "
+msgstr "ਵਿਕਰੇਤਾ ਟੈਗ:"
+
+#: plugins/cvs-plugin/cvs_gui.c:525
+msgid "Server settings"
+msgstr "ਸਰਵਰ ਵਿਵਸਥਾ"
+
+#: plugins/cvs-plugin/cvs_gui.c:529
+msgid "Import settings"
+msgstr "ਆਯਾਤ ਵਿਵਸਥਾ"
+
+#: plugins/debugger/attach_process.c:70
+msgid "Pid"
+msgstr "Pid"
+
+#: plugins/debugger/attach_process.c:70
+msgid "User"
+msgstr "ਉਪਭੋਗਤਾ"
+
+#: plugins/debugger/attach_process.c:70
+msgid "Time"
+msgstr "ਸਮਾਂ"
+
+#: plugins/debugger/attach_process.c:70
+msgid "Command"
+msgstr "ਕਮਾਂਡ"
+
+#: plugins/debugger/attach_process.c:403
+#, c-format
+msgid "Unable to execute: %s."
+msgstr "ਚਲਾਉ ਦੌਰਾ ਅਸਫਲ:%s"
+
+#: plugins/debugger/attach_process.c:416
+#, c-format
+msgid "Unable to open the file: %s\n"
+msgstr ""
+
+#: plugins/debugger/breakpoints.c:113
+msgid "Line"
+msgstr "ਸਤਰ"
+
+#: plugins/debugger/breakpoints.c:114
+msgid "Function"
+msgstr "ਫੰਕਸ਼ਨ"
+
+#: plugins/debugger/breakpoints.c:114 plugins/debugger/signals_gui.c:128
+msgid "Pass"
+msgstr "ਪਾਸ"
+
+#: plugins/debugger/breakpoints.c:114
+msgid "Condition"
+msgstr ""
+
+#.
+#. debugger_put_cmd_in_queqe ("info breakpoints", DB_CMD_NONE,
+#. breakpoints_dbase_update,
+#. debugger.breakpoints_dbase);
+#.
+#: plugins/debugger/breakpoints.c:171 plugins/debugger/debugger.c:1825
+msgid "All breakpoints enabled:\n"
+msgstr ""
+
+#.
+#. debugger_put_cmd_in_queqe ("info breakpoints", DB_CMD_NONE,
+#. breakpoints_dbase_update,
+#. debugger.breakpoints_dbase);
+#.
+#: plugins/debugger/breakpoints.c:189 plugins/debugger/debugger.c:1871
+msgid "All breakpoints disabled:\n"
+msgstr ""
+
+#: plugins/debugger/breakpoints.c:653
+msgid "You must give a valid location to set the breakpoint."
+msgstr ""
+
+#: plugins/debugger/breakpoints.c:775
+msgid "Are you sure you want to delete all the breakpoints?"
+msgstr ""
+
+#: plugins/debugger/breakpoints.c:1298
+msgid "Old breakpoints disabled."
+msgstr ""
+
+#: plugins/debugger/breakpoints.c:1438
+msgid "0"
+msgstr "0"
+
+#: plugins/debugger/debug_tree.c:106 plugins/debugger/watch_gui.c:125
+#: plugins/tools/anjuta-tools.c:1807
+msgid "Variable"
+msgstr "ਅਸਥਿਰ"
+
+#: plugins/debugger/debug_tree.c:106 plugins/debugger/watch_gui.c:134
+#: plugins/tools/anjuta-tools.c:1819
+msgid "Value"
+msgstr "ਮੁੱਲ"
+
+#: plugins/debugger/debug_tree.c:1190
+msgid "Local Variables"
+msgstr "ਸਥਾਨਿਕ ਅਸਥਿਰ"
+
+#: plugins/debugger/debug_tree.c:1504
+msgid "Default format"
+msgstr "ਮੂਲ ਪ੍ਰਤੀਰੂਪ"
+
+#: plugins/debugger/debug_tree.c:1508
+msgid "Binary"
+msgstr "ਬਾਈਨਰੀ"
+
+#: plugins/debugger/debug_tree.c:1511
+msgid "Octal"
+msgstr "ਅੱਠਵਾਂ"
+
+#: plugins/debugger/debug_tree.c:1514
+msgid "Signed decimal"
+msgstr ""
+
+#: plugins/debugger/debug_tree.c:1517
+msgid "Unsigned decimal"
+msgstr ""
+
+#: plugins/debugger/debug_tree.c:1520 plugins/debugger/registers_gui.c:112
+msgid "Hex"
+msgstr "ਸੋਲਾਵਾਂ"
+
+#: plugins/debugger/debug_tree.c:1523
+msgid "Char"
+msgstr ""
+
+#: plugins/debugger/debug_tree.c:1528
+msgid "Inspect memory"
+msgstr ""
+
+#. Must declare static, because it will be used forever
+#: plugins/debugger/debugger.c:90
+msgid "Load Executable File"
+msgstr "ਚੱਲਣਯੋਗ ਫਾਇਲ਼ ਲੋਡ"
+
+#. Must declare static, because it will be used forever
+#: plugins/debugger/debugger.c:96
+msgid "Load Core File"
+msgstr "ਮੂਲ ਫਾਇਲ ਲੋਡ"
+
+#: plugins/debugger/debugger.c:202 plugins/debugger/debugger.c:654
+msgid "Loading Executable: "
+msgstr ""
+
+#: plugins/debugger/debugger.c:251
+msgid "Loading Core: "
+msgstr ""
+
+#: plugins/debugger/debugger.c:296 plugins/debugger/debugger.c:324
+msgid ""
+"You have a process ATTACHED under the debugger.\n"
+"Please detach it first and then load the executable file."
+msgstr ""
+
+#: plugins/debugger/debugger.c:299 plugins/debugger/debugger.c:327
+msgid ""
+"You have a process RUNNING under the debugger.\n"
+"Please stop it first and then load the executable file."
+msgstr ""
+
+#: plugins/debugger/debugger.c:574
+#, c-format
+msgid ""
+"Unable to find: %s.\n"
+"Unable to initialize debugger.\n"
+"Make sure Anjuta is installed correctly."
+msgstr ""
+
+#: plugins/debugger/debugger.c:650
+msgid "Debugger"
+msgstr "ਡੀਬੱਗਰ"
+
+#: plugins/debugger/debugger.c:652
+msgid "Getting ready to start debugging session ...\n"
+msgstr ""
+
+#: plugins/debugger/debugger.c:665
+msgid "No executable specified\n"
+msgstr "ਕੋਈ ਚੱਲਣਯੋਗ ਨਿਰਧਾਰਿਤ ਨਹੀਂ ਹੈ\n"
+
+#: plugins/debugger/debugger.c:668
+msgid "Open an executable or attach to a process to start debugging.\n"
+msgstr ""
+
+#: plugins/debugger/debugger.c:675
+msgid "There was an error whilst launching the debugger.\n"
+msgstr ""
+
+#: plugins/debugger/debugger.c:678
+msgid "Make sure 'gdb' is installed on the system.\n"
+msgstr ""
+
+#: plugins/debugger/debugger.c:835
+msgid "Error: "
+msgstr "ਗਲਤੀ:"
+
+#: plugins/debugger/debugger.c:856
+msgid "Debugger is ready.\n"
+msgstr "ਡੀਬੱਗਕ ਤਿਆਰ ਹੈ।\n"
+
+#: plugins/debugger/debugger.c:964
+msgid ""
+"\n"
+"Well, did you find the BUG? Debugging session completed.\n"
+"\n"
+msgstr ""
+
+#: plugins/debugger/debugger.c:1202
+msgid "Cannot execute gnome-terminal"
+msgstr "gnome-terminal ਚਲਾਇਆ ਨਹੀਂ ਜਾ ਸਕਦਾ ਹੈ"
+
+#: plugins/debugger/debugger.c:1237
+msgid "Cannot start terminal for debugging."
+msgstr ""
+
+#: plugins/debugger/debugger.c:1301
+msgid "Warning: No debug terminal. Redirecting stdio to /dev/null.\n"
+msgstr ""
+
+#: plugins/debugger/debugger.c:1320
+msgid "Running program ... \n"
+msgstr "ਕਾਰਜ ਚਲਾਇਆ ਜਾ ਰਿਹਾ ਹੈ...\n"
+
+#: plugins/debugger/debugger.c:1450
+#, c-format
+msgid "Attaching to process: %d\n"
+msgstr ""
+
+#: plugins/debugger/debugger.c:1480
+msgid ""
+"A process is already running.\n"
+"Would you like to terminate it and attach the new process?"
+msgstr ""
+
+#: plugins/debugger/debugger.c:1493
+msgid "Anjuta is unable to attach to itself."
+msgstr ""
+
+#: plugins/debugger/debugger.c:1579
+#, c-format
+msgid "Detaching the process: %d\n"
+msgstr ""
+
+#: plugins/debugger/debugger.c:1635
+msgid ""
+"Program is ATTACHED.\n"
+"Do you still want to stop Debugger?"
+msgstr ""
+
+#: plugins/debugger/debugger.c:1638
+msgid ""
+"Program is RUNNING.\n"
+"Do you still want to stop Debugger?"
+msgstr ""
+
+#.
+#. debugger_put_cmd_in_queqe ("info breakpoints", DB_CMD_NONE,
+#. breakpoints_dbase_update,
+#. debugger.breakpoints_dbase);
+#.
+#: plugins/debugger/debugger.c:1917
+msgid "All breakpoints deleted:\n"
+msgstr ""
+
+#: plugins/debugger/debugger.c:1950
+#, c-format
+msgid "Interrupting the process: %d\n"
+msgstr ""
+
+#: plugins/debugger/debugger.c:1982
+#, c-format
+msgid "Sending signal %s to the process: %d\n"
+msgstr ""
+
+#: plugins/debugger/debugger.c:2003
+msgid "Error whilst signalling the process."
+msgstr ""
+
+#: plugins/debugger/memory.c:108
+msgid "Unable to build user interface for Memory\n"
+msgstr ""
+
+#: plugins/debugger/memory.c:410
+msgid "Enter a Hexa address or Select one in the data"
+msgstr ""
+
+#: plugins/debugger/memory.c:417
+msgid "Non accessible address !"
+msgstr ""
+
+#: plugins/debugger/registers_gui.c:41
+msgid "Modify"
+msgstr "ਸੋਧਿਆ"
+
+#: plugins/debugger/registers_gui.c:108
+msgid "Register"
+msgstr "ਰਜਿਸਟਰ"
+
+#: plugins/debugger/registers_gui.c:116
+msgid "Decimal"
+msgstr "ਦਸ਼ਮਲਵ"
+
+#: plugins/debugger/sharedlib_gui.c:80
+msgid "Shared libraries"
+msgstr "ਸਾਂਝੀਆਂ ਲਾਇਬ੍ਰੇਰੀਆਂ"
+
+#: plugins/debugger/sharedlib_gui.c:101
+msgid "  Shared Object  "
+msgstr "  ਸਾਂਝੀ ਇਕਾਈ   "
+
+#: plugins/debugger/sharedlib_gui.c:105
+msgid "From"
+msgstr "ਵਲੋਂ"
+
+#: plugins/debugger/sharedlib_gui.c:109
+msgid "To"
+msgstr "ਵੱਲ"
+
+#: plugins/debugger/sharedlib_gui.c:113
+msgid "Sysm Read"
+msgstr ""
+
+#: plugins/debugger/signals_cbs.c:116 plugins/debugger/signals_cbs.c:129
+#: plugins/debugger/signals_cbs.c:142
+#: plugins/project-manager/project_dbase.c:1468
+#: plugins/project-manager/project_dbase.c:1477
+#: plugins/project-manager/project_import_cbs.c:229
+#: plugins/project-wizard/appwizard_cbs.c:284
+msgid "No"
+msgstr "ਨਹੀਂ"
+
+#: plugins/debugger/signals_gui.c:41
+msgid "Modify Signal"
+msgstr "ਸੋਧਿਆ ਸੰਕੇਤ"
+
+#: plugins/debugger/signals_gui.c:48
+msgid "Send to process"
+msgstr "ਕਾਰਜ ਨੂੰ ਭੇਜੋ"
+
+#: plugins/debugger/signals_gui.c:94
+msgid "Kernel signals"
+msgstr "ਕਰਨਲ ਸੰਕੇਤ"
+
+#: plugins/debugger/signals_gui.c:116
+msgid "Signal"
+msgstr "ਸੰਕੇਤ"
+
+#: plugins/debugger/signals_gui.c:120 src/toolbar.c:666
+msgid "Stop"
+msgstr "ਰੋਕੋ"
+
+#: plugins/debugger/signals_gui.c:124 plugins/editor/print.c:1035
+msgid "Print"
+msgstr "ਛਾਪੋ"
+
+#: plugins/debugger/signals_gui.c:253
+msgid " Stop: "
+msgstr "ਰੋਕੋ।"
+
+#: plugins/debugger/signals_gui.c:257
+msgid " Print: "
+msgstr " ਛਾਪੋ:"
+
+#: plugins/debugger/stack_trace.c:317
+msgid "Error getting selection\n"
+msgstr ""
+
+#: plugins/debugger/stack_trace.c:328
+msgid "Error getting source location from stack frame"
+msgstr ""
+
+#: plugins/debugger/stack_trace.c:345
+msgid "Frame set"
+msgstr "ਫਰੇਮ ਨਿਰਧਾਰਨ"
+
+#: plugins/debugger/stack_trace.c:352
+msgid "Frame info"
+msgstr "ਫਰੇਮ ਜਾਣਕਾਰੀ"
+
+#: plugins/debugger/stack_trace.c:359
+msgid "Frame args"
+msgstr ""
+
+#: plugins/debugger/stack_trace.c:373
+msgid "View Source"
+msgstr "ਸਰੋਤ ਵੇਖੋ"
+
+#: plugins/debugger/stack_trace.c:440
+msgid "Active"
+msgstr "ਸਰਗਰਮ"
+
+#: plugins/debugger/stack_trace.c:451
+msgid "Count"
+msgstr "ਗਿਣਤੀ"
+
+#: plugins/debugger/stack_trace.c:466 src/toolbar.c:612
+msgid "Frame"
+msgstr "ਫਰੇਮ"
+
+#: plugins/debugger/watch_cbs.c:228
+msgid "< Not defined in current context >"
+msgstr ""
+
+#: plugins/debugger/watch_gui.c:37
+msgid "Add expression"
+msgstr "ਸਮੀਕਰਨ ਸ਼ਾਮਿਲ"
+
+#: plugins/debugger/watch_gui.c:49
+msgid "Update all"
+msgstr "ਸਭ ਨਵੀਨੀਕਰਨ"
+
+#: plugins/debugger/watch_gui.c:55
+msgid "Clear"
+msgstr "ਸਾਫ਼"
+
+#: plugins/debugger/watch_gui.c:61
+msgid "Toggle enable"
+msgstr "ਤਬਦੀਲ ਯੋਗ"
+
+#: plugins/debugger/watch_gui.c:67
+msgid "Change item"
+msgstr "ਇਕਾਈ ਤਬਦੀਲ"
+
+#: plugins/debugger/watch_gui.c:172
+msgid "Add Watch Expression"
+msgstr ""
+
+#: plugins/debugger/watch_gui.c:182
+msgid "Add expression to watch"
+msgstr ""
+
+#: plugins/debugger/watch_gui.c:238
+msgid "Modify Watch Expression"
+msgstr ""
+
+#: plugins/debugger/watch_gui.c:248
+msgid "Modify watched expression"
+msgstr ""
+
+#: plugins/debugger/watch_gui.c:305
+msgid "Inspect/Evaluate"
+msgstr ""
+
+#: plugins/debugger/watch_gui.c:315
+msgid "Inspect/Evaluate Expression"
+msgstr ""
+
+#: plugins/debugger/watch_gui.c:325
+msgid "Add To Watch"
+msgstr ""
+
+#: plugins/devhelp/plugin.c:167
+msgid "Devhelp navigation operations"
+msgstr ""
+
+#: plugins/devhelp/plugin.c:177
+msgid "Help display"
+msgstr "ਸਹਾਇਤਾ ਵੇਖਾਓ"
+
+#: plugins/devhelp/plugin.c:257
+msgid "Contents"
+msgstr "ਸੰਖੇਪ"
+
+#: plugins/devhelp/plugin.c:268 plugins/editor/plugin.c:638
+#: plugins/editor/search-replace.c:717 plugins/editor/search-replace.c:1343
+#: plugins/editor/search-replace.c:1350 plugins/editor/search-replace.c:1362
+#: plugins/editor/search-replace.c:1650
+msgid "Search"
+msgstr "ਖੋਜ"
+
+#: plugins/editor/action-callbacks.c:123
+msgid ""
+"The editor is being used as output buffer for an operation.\n"
+"Closing it will result in stopping the process.\n"
+"Do you still want close the editor?"
+msgstr ""
+
+#: plugins/editor/action-callbacks.c:137
+#, c-format
+msgid ""
+"The file '%s' is not saved.\n"
+"Do you want to save it before closing?"
+msgstr ""
+
+#: plugins/editor/action-callbacks.c:147
+#: plugins/project-manager/project_dbase_gui.c:1066
+msgid "Do_n't save"
+msgstr "_ਨਾ ਸੰਭਾਲੋ"
+
+#: plugins/editor/action-callbacks.c:213
+#, c-format
+msgid ""
+"Are you sure you want to reload '%s'?\n"
+"Any unsaved changes will be lost."
+msgstr ""
+
+#: plugins/editor/action-callbacks.c:224 plugins/editor/text_editor.c:1330
+msgid "_Reload"
+msgstr "_ਮੁੜ ਲੋਡ ਕਰੋ"
+
+#: plugins/editor/action-callbacks.c:945
+#, c-format
+msgid "There is no line number %d in \"%s\"."
+msgstr ""
+
+#: plugins/editor/action-callbacks.c:1626
+msgid "No matches. Wrap search around the document?"
+msgstr ""
+
+#: plugins/editor/anjuta-docman.c:300 src/anjuta_cbs.c:426
+#, c-format
+msgid ""
+"The file '%s' already exists.\n"
+"Do you want to replace it with the one you are saving?"
+msgstr ""
+
+#: plugins/editor/anjuta-docman.c:307 src/anjuta-callbacks.c:258
+#: src/anjuta_cbs.c:433 src/anjuta_cbs.c:497
+msgid "_Replace"
+msgstr "_ਤਬਦੀਲ"
+
+#: plugins/editor/anjuta-docman.c:348
+msgid "Save file as"
+msgstr "ਫਾਇਲ ਇਸ ਤਰਾਂ ਸੰਭਾਲੋ"
+
+#: plugins/editor/anjuta-docman.c:509
+msgid "Recent Files "
+msgstr "ਤਾਜ਼ੀਆਂ ਫਾਇਲਾਂ"
+
+#: plugins/editor/file.c:84
+msgid "C Source File"
+msgstr "C ਸਰੋਤ ਫਾਇਲ"
+
+#: plugins/editor/file.c:85
+msgid "C -C++ Header File"
+msgstr "C -C++ ਹੈਂਡਰ ਫਾਇਲ਼"
+
+#: plugins/editor/file.c:86
+msgid "C++ Source File"
+msgstr "C++ ਸਰੋਤ ਫਾਇਲ"
+
+#: plugins/editor/file.c:87
+msgid "C# Source File"
+msgstr "C# ਸਰੋਤ ਫਾਇਲ"
+
+#: plugins/editor/file.c:88
+msgid "Java Source File"
+msgstr "ਜਾਵਾ ਸਰੋਤ ਫਾਇਲ਼"
+
+#: plugins/editor/file.c:89
+msgid "Perl Source File"
+msgstr "ਪਰਲ ਸਰੋਤ ਫਾਇਲ"
+
+#: plugins/editor/file.c:90
+msgid "Python Source File"
+msgstr "ਪਾਈਥਨ ਸਰੋਤ ਫਾਇਲ਼"
+
+#: plugins/editor/file.c:91
+msgid "Shell Script File"
+msgstr "ਸੈੱਲ ਸਕ੍ਰਿਪਟ ਫਾਇਲ਼"
+
+#: plugins/editor/file.c:92
+msgid "Other"
+msgstr "ਹੋਰ"
+
+#: plugins/editor/file.c:135
+msgid "Unable to build user interface for New File"
+msgstr ""
+
+#: plugins/editor/file.c:426
+#, c-format
+msgid "The file \"%s\" is not a header file."
+msgstr ""
+
+#: plugins/editor/file.c:521
+msgid "%Y"
+msgstr "%Y"
+
+#: plugins/editor/file.c:540
+msgid "%Y-%m-%d"
+msgstr "%Y-%m-%d"
+
+#: plugins/editor/goto_line.c:124
+msgid " Goto Line number "
+msgstr " ਸਤਰ ਨੰਬਰ ਤੇ ਜਾਓ"
+
+#: plugins/editor/plugin.c:46
+msgid "_New"
+msgstr "_ਨਵਾਂ"
+
+#: plugins/editor/plugin.c:48
+msgid "_Open ..."
+msgstr "_ਖੋਲੋ ..."
+
+#: plugins/editor/plugin.c:50
+msgid "_Save"
+msgstr "_ਸੰਭਾਲੋ"
+
+#: plugins/editor/plugin.c:51 src/toolbar.c:84
+msgid "Save current file"
+msgstr "ਮੌਜੂਦਾ ਫਾਇਲ ਸੰਭਾਲੋ"
+
+#: plugins/editor/plugin.c:52
+msgid "Save _As ..."
+msgstr "_ਇਸ ਤਰਾਂ ਸੰਭਾਲੋ ..."
+
+#: plugins/editor/plugin.c:53
+msgid "Save the current file with a different name"
+msgstr ""
+
+#: plugins/editor/plugin.c:55
+msgid "Save A_ll"
+msgstr "_ਸਭ ਸੰਭਾਲੋ"
+
+#: plugins/editor/plugin.c:56
+msgid "Save all currently open files, except new files"
+msgstr ""
+
+#: plugins/editor/plugin.c:58
+msgid "_Close File"
+msgstr "ਫਾਇਲ਼ _ਬੰਦ"
+
+#: plugins/editor/plugin.c:59 src/toolbar.c:92
+msgid "Close current file"
+msgstr "ਮੌਜੂਦਾ ਫਾਇਲ ਬੰਦ"
+
+#: plugins/editor/plugin.c:61
+msgid "Close All Files"
+msgstr "ਸਭ ਫਾਇਲ ਬੰਦ"
+
+#: plugins/editor/plugin.c:62
+msgid "Close all files"
+msgstr "ਸਭ ਫਾਇਲ ਬੰਦ"
+
+#: plugins/editor/plugin.c:64
+msgid "Reload F_ile"
+msgstr "ਫਾ_ਇਲ ਮੁੜ ਲੋਡ ਕਰੋ"
+
+#: plugins/editor/plugin.c:65 src/toolbar.c:88
+msgid "Reload current file"
+msgstr "ਮੌਜੂਦਾ ਫਾਇਲ ਮੁੜ ਲੋਡ ਕਰੋ"
+
+#: plugins/editor/plugin.c:67
+msgid "Recent _Files"
+msgstr "ਤਾਜ਼ੀਆਂ ਫਾਇ_ਲਾਂ"
+
+#: plugins/editor/plugin.c:71
+msgid "_Print"
+msgstr "_ਛਾਪੋ"
+
+#: plugins/editor/plugin.c:72 src/toolbar.c:110
+msgid "Print the current file"
+msgstr "ਮੌਜੂਦਾ ਫਾਇਲ ਛਾਪੋ"
+
+#: plugins/editor/plugin.c:73
+msgid "_Print Preview"
+msgstr "ਛਾਪਣ _ਦਰਿਸ਼"
+
+#: plugins/editor/plugin.c:74
+msgid "Print preview of the current file"
+msgstr ""
+
+#: plugins/editor/plugin.c:79
+msgid "_Transform"
+msgstr "_ਤਬਦੀਲ"
+
+#: plugins/editor/plugin.c:80
+msgid "_Make Selection Uppercase"
+msgstr ""
+
+#: plugins/editor/plugin.c:81
+msgid "Make the selected text uppercase"
+msgstr ""
+
+#: plugins/editor/plugin.c:83
+msgid "Make Selection Lowercase"
+msgstr ""
+
+#: plugins/editor/plugin.c:84
+msgid "Make the selected text lowercase"
+msgstr ""
+
+#: plugins/editor/plugin.c:86
+msgid "Convert EOL chars to CRLF"
+msgstr ""
+
+#: plugins/editor/plugin.c:87
+msgid "Convert End Of Line characters to DOS EOL (CRLF)"
+msgstr ""
+
+#: plugins/editor/plugin.c:89
+msgid "Convert EOL chars to LF"
+msgstr ""
+
+#: plugins/editor/plugin.c:90
+msgid "Convert End Of Line characters to Unix EOL (LF)"
+msgstr ""
+
+#: plugins/editor/plugin.c:92
+msgid "Convert EOL chars to CR"
+msgstr ""
+
+#: plugins/editor/plugin.c:93
+msgid "Convert End Of Line characters to Mac OS EOL (CR)"
+msgstr ""
+
+#: plugins/editor/plugin.c:95
+msgid "Convert EOL chars to majority EOL"
+msgstr ""
+
+#: plugins/editor/plugin.c:96
+msgid "Convert End Of Line characters to majority of the EOL found in the file"
+msgstr ""
+
+#: plugins/editor/plugin.c:101
+msgid "_Select"
+msgstr "_ਚੁਣੋ"
+
+#: plugins/editor/plugin.c:102
+msgid "Select _All"
+msgstr "_ਸਭ ਚੁਣੋ"
+
+#: plugins/editor/plugin.c:103
+msgid "Select all text in the editor"
+msgstr ""
+
+#: plugins/editor/plugin.c:105
+msgid "Select to _Brace"
+msgstr ""
+
+#: plugins/editor/plugin.c:106
+msgid "Select the text in the matching braces"
+msgstr ""
+
+#: plugins/editor/plugin.c:108
+msgid "Select _Code Block"
+msgstr "_ਕੋਡ ਬਲਾਕ ਚੁਣੋ"
+
+#: plugins/editor/plugin.c:110
+msgid "Select the current code block"
+msgstr "ਮੌਜੂਦਾ ਕੋਡ ਹਿੱਸਾ ਚੁਣੋ"
+
+#: plugins/editor/plugin.c:115
+msgid "_Insert text"
+msgstr "_ਪਾਠ ਸ਼ਾਮਿਲ"
+
+#: plugins/editor/plugin.c:116
+msgid "C _template"
+msgstr "C _ਨਮੂਨਾ"
+
+#: plugins/editor/plugin.c:117
+msgid "_CVS keyword"
+msgstr "_CVS ਕੀਵਰਡ"
+
+#: plugins/editor/plugin.c:118
+msgid "_General"
+msgstr "_ਸਧਾਰਨ"
+
+#: plugins/editor/plugin.c:119 plugins/editor/plugin.c:161
+msgid "_Header"
+msgstr "_ਸਿਰਲ਼ੇਖ"
+
+#: plugins/editor/plugin.c:120
+msgid "Insert a file header"
+msgstr "ਫਾਇਲ ਸਿਰਲੇਖ ਸ਼ਾਮਿਲ ਕਰੋ"
+
+#: plugins/editor/plugin.c:122
+msgid "/_* GPL Notice */"
+msgstr "/_* GPL ਸੂਚਨਾ */"
+
+#: plugins/editor/plugin.c:123
+msgid "Insert GPL notice with C style comments"
+msgstr ""
+
+#: plugins/editor/plugin.c:125
+msgid "/_/ GPL Notice"
+msgstr "/_/ GPL ਸੂਚਨਾ"
+
+#: plugins/editor/plugin.c:126
+msgid "Insert GPL notice with C++ style comments"
+msgstr ""
+
+#: plugins/editor/plugin.c:128
+msgid "_# GPL Notice"
+msgstr "_# GPL ਸੂਚਨਾ"
+
+#: plugins/editor/plugin.c:129
+msgid "Insert GPL notice with Python style comments"
+msgstr ""
+
+#: plugins/editor/plugin.c:131
+msgid "Current _Username"
+msgstr "ਮੌਜੂਦਾ _ਉਪਭੋਗਤਾ ਨਾਂ"
+
+#: plugins/editor/plugin.c:132
+msgid "Insert name of current user"
+msgstr "ਮੌਜੂਦਾ ਉਪਭੋਗਤਾ ਨਾਂ ਸ਼ਾਮਿਲ ਕਰੋ"
+
+#: plugins/editor/plugin.c:134
+msgid "Current _Date & Time"
+msgstr "ਮੌਜੂਦਾ _ਮਿਤੀ ਤੇ ਸਮਾਂ"
+
+#: plugins/editor/plugin.c:135
+msgid "Insert current date & time"
+msgstr "ਮੌਜੂਦਾ _ਮਿਤੀ ਤੇ ਸਮਾਂ ਸ਼ਾਮਿਲ ਕਰੋ"
+
+#: plugins/editor/plugin.c:137
+msgid "Header File _Template"
+msgstr ""
+
+#: plugins/editor/plugin.c:138
+msgid "Insert a standard header file template"
+msgstr ""
+
+#: plugins/editor/plugin.c:140
+msgid "ChangeLog entry"
+msgstr "ChangeLog ਇੰਦਰਾਜ਼"
+
+#: plugins/editor/plugin.c:141
+msgid "Insert a ChangeLog entry"
+msgstr "ChangeLog ਇੰਦਰਾਜ਼ ਸ਼ਾਮਿਲ ਕਰੋ"
+
+#: plugins/editor/plugin.c:143
+msgid "_switch"
+msgstr "_switch"
+
+#: plugins/editor/plugin.c:144
+msgid "Insert a switch template"
+msgstr "_switch ਨਮੂਨਾ ਸ਼ਾਮਿਲ ਕਰੋ"
+
+#: plugins/editor/plugin.c:146
+msgid "_for"
+msgstr "_for"
+
+#: plugins/editor/plugin.c:147
+msgid "Insert a for template"
+msgstr "_for ਨਮੂਨਾ ਸ਼ਾਮਿਲ ਕਰੋ"
+
+#: plugins/editor/plugin.c:149
+msgid "_while"
+msgstr "_while"
+
+#: plugins/editor/plugin.c:150
+msgid "Insert a while template"
+msgstr "while ਨਮੂਨਾ ਸ਼ਾਮਿਲ ਕਰੋ"
+
+#: plugins/editor/plugin.c:152
+msgid "_if...else"
+msgstr "_if...else"
+
+#: plugins/editor/plugin.c:153
+msgid "Insert an if...else template"
+msgstr "_if...else ਨਮੂਨਾ ਸ਼ਾਮਿਲ ਕਰੋ"
+
+#: plugins/editor/plugin.c:155
+msgid "_Author"
+msgstr "_ਲੇਖਕ"
+
+#: plugins/editor/plugin.c:156
+msgid "Insert the CVS Author keyword (author of the change)"
+msgstr ""
+
+#: plugins/editor/plugin.c:158
+msgid "_Date"
+msgstr "_ਮਿਤੀ"
+
+#: plugins/editor/plugin.c:159
+msgid "Insert the CVS Date keyword (date and time of the change)"
+msgstr ""
+
+#: plugins/editor/plugin.c:162
+msgid "Insert the CVS Header keyword (full path revision, date, author, state)"
+msgstr ""
+
+#: plugins/editor/plugin.c:164
+msgid "_Id"
+msgstr "_Id"
+
+#: plugins/editor/plugin.c:165
+msgid "Insert the CVS Id keyword (file revision, date, author)"
+msgstr ""
+
+#: plugins/editor/plugin.c:167
+msgid "_Log"
+msgstr "_Log"
+
+#: plugins/editor/plugin.c:168
+msgid "Insert the CVS Log keyword (log message)"
+msgstr ""
+
+#: plugins/editor/plugin.c:170
+msgid "_Name"
+msgstr "_ਨਾਂ"
+
+#: plugins/editor/plugin.c:171
+msgid "Insert the CVS Name keyword (name of the sticky tag)"
+msgstr ""
+
+#: plugins/editor/plugin.c:173
+msgid "_Revision"
+msgstr ""
+
+#: plugins/editor/plugin.c:174
+msgid "Insert the CVS Revision keyword (revision number)"
+msgstr ""
+
+#: plugins/editor/plugin.c:176
+msgid "_Source"
+msgstr "_ਸਰੋਤ"
+
+#: plugins/editor/plugin.c:177
+msgid "Insert the CVS Source keyword (full path)"
+msgstr ""
+
+#: plugins/editor/plugin.c:182
+msgid "_Search"
+msgstr "_ਖੋਜ"
+
+#: plugins/editor/plugin.c:183
+msgid "_Find ..."
+msgstr "_ਖੋਜ ..."
+
+#: plugins/editor/plugin.c:184
+msgid "Search for a string or regular expression in the editor"
+msgstr ""
+
+#: plugins/editor/plugin.c:186
+msgid "Find _Next"
+msgstr "_ਅੱਗੇ ਖੋਜ"
+
+#: plugins/editor/plugin.c:187 plugins/editor/plugin.c:191
+msgid "Repeat the last Find command"
+msgstr ""
+
+#: plugins/editor/plugin.c:189
+msgid "Find _Previous"
+msgstr "ਪਿੱਛੇ ਖੋਜ"
+
+#: plugins/editor/plugin.c:193
+msgid "Find and R_eplace ..."
+msgstr "ਖੋਜ ਤੇ _ਤਬਦੀਲ ..."
+
+#: plugins/editor/plugin.c:195
+msgid "Search for and replace a string or regular expression with another string"
+msgstr ""
+
+#: plugins/editor/plugin.c:197
+msgid "Advanced Search And Replace"
+msgstr "ਤਕਨੀਕੀ ਖੋਜ ਅਤੇ ਤਬਦੀਲ"
+
+#: plugins/editor/plugin.c:199
+msgid "New advance search And replace stuff"
+msgstr ""
+
+#: plugins/editor/plugin.c:201
+msgid "_Enter Selection/I-Search"
+msgstr ""
+
+#: plugins/editor/plugin.c:203
+msgid "Enter the selected text as the search target"
+msgstr ""
+
+#: plugins/editor/plugin.c:205
+msgid "Fin_d in Files ..."
+msgstr "ਫਾਇਲਾਂ ਵਿੱਚ ਖੋ_ਜ ..."
+
+#: plugins/editor/plugin.c:206
+msgid "Search for a string in multiple files or directories"
+msgstr ""
+
+#: plugins/editor/plugin.c:211
+msgid "Co_mment code"
+msgstr ""
+
+#: plugins/editor/plugin.c:212
+msgid "_Block Comment/Uncomment"
+msgstr ""
+
+#: plugins/editor/plugin.c:213
+msgid "Block comment the selected text"
+msgstr ""
+
+#: plugins/editor/plugin.c:215
+msgid "Bo_x Comment/Uncomment"
+msgstr ""
+
+#: plugins/editor/plugin.c:216
+msgid "Box comment the selected text"
+msgstr ""
+
+#: plugins/editor/plugin.c:218
+msgid "_Stream Comment/Uncomment"
+msgstr ""
+
+#: plugins/editor/plugin.c:219
+msgid "Stream comment the selected text"
+msgstr ""
+
+#: plugins/editor/plugin.c:224
+msgid "_Goto Line number"
+msgstr "ਸਤ_ਰ ਤੇ ਜਾਓ"
+
+#: plugins/editor/plugin.c:226 plugins/editor/plugin.c:230
+msgid "Go to a particular line in the editor"
+msgstr ""
+
+#: plugins/editor/plugin.c:228
+msgid "_Line number ..."
+msgstr "_ਸਤਰ ਨੰਬਰ ..."
+
+#: plugins/editor/plugin.c:232
+msgid "Matching _Brace"
+msgstr ""
+
+#: plugins/editor/plugin.c:234
+msgid "Go to the matching brace in the editor"
+msgstr ""
+
+#: plugins/editor/plugin.c:236
+msgid "_Start of block"
+msgstr ""
+
+#: plugins/editor/plugin.c:238
+msgid "Go to the start of the current block"
+msgstr ""
+
+#: plugins/editor/plugin.c:240
+msgid "_End of block"
+msgstr ""
+
+#: plugins/editor/plugin.c:242
+msgid "Go to the end of the current block"
+msgstr ""
+
+#: plugins/editor/plugin.c:244
+msgid "Ne_xt occurrence"
+msgstr "ਅੱ_ਗੇ ਮੌਜੂਦਗੀ"
+
+#: plugins/editor/plugin.c:246
+msgid "Find the next occurrence of current word"
+msgstr ""
+
+#: plugins/editor/plugin.c:248
+msgid "Pre_vious occurrence"
+msgstr "ਪਿੱ_ਛੇ ਮੌਜੂਦਗੀ"
+
+#: plugins/editor/plugin.c:250
+msgid "Find the previous occurrence of current word"
+msgstr ""
+
+#: plugins/editor/plugin.c:256
+msgid "_Editor"
+msgstr "_ਸੰਪਾਦਕ"
+
+#: plugins/editor/plugin.c:257
+msgid "U_ndo"
+msgstr "_ਵਾਪਿਸ"
+
+#: plugins/editor/plugin.c:258 src/toolbar.c:97
+msgid "Undo the last action"
+msgstr ""
+
+#: plugins/editor/plugin.c:260
+msgid "_Redo"
+msgstr "_ਮੁੜ ਪਹਿਲਾਂ"
+
+#: plugins/editor/plugin.c:261 src/toolbar.c:101
+msgid "Redo the last undone action"
+msgstr ""
+
+#: plugins/editor/plugin.c:263
+msgid "C_ut"
+msgstr "ਕੱ_ਟੋ"
+
+#: plugins/editor/plugin.c:264
+msgid "Cut the selected text from the editor to the clipboard"
+msgstr ""
+
+#: plugins/editor/plugin.c:266
+msgid "_Copy"
+msgstr "_ਨਕਲ"
+
+#: plugins/editor/plugin.c:267
+msgid "Copy the selected text to the clipboard"
+msgstr ""
+
+#: plugins/editor/plugin.c:269
+msgid "_Paste"
+msgstr "_ਚਿਪਕਾਓ"
+
+#: plugins/editor/plugin.c:270
+msgid "Paste the content of clipboard at the current position"
+msgstr ""
+
+#: plugins/editor/plugin.c:272
+msgid "_Clear"
+msgstr "_ਸਾਫ਼"
+
+#: plugins/editor/plugin.c:273
+msgid "Delete the selected text from the editor"
+msgstr ""
+
+#: plugins/editor/plugin.c:275
+msgid "_AutoComplete"
+msgstr "ਸਵੈ-ਚਾਲਿਤ ਪੂਰਨ"
+
+#: plugins/editor/plugin.c:277
+msgid "AutoComplete the current word"
+msgstr ""
+
+#: plugins/editor/plugin.c:279
+msgid "S_how calltip"
+msgstr ""
+
+#: plugins/editor/plugin.c:280
+msgid "Show calltip for the function"
+msgstr ""
+
+#: plugins/editor/plugin.c:285
+msgid "_Line numbers margin"
+msgstr ""
+
+#: plugins/editor/plugin.c:286
+msgid "Show/Hide line numbers"
+msgstr ""
+
+#: plugins/editor/plugin.c:288
+msgid "_Markers Margin"
+msgstr ""
+
+#: plugins/editor/plugin.c:289
+msgid "Show/Hide markers margin"
+msgstr ""
+
+#: plugins/editor/plugin.c:291
+msgid "_Code fold margin"
+msgstr ""
+
+#: plugins/editor/plugin.c:292
+msgid "Show/Hide code fold margin"
+msgstr ""
+
+#: plugins/editor/plugin.c:294
+msgid "_Indentation guides"
+msgstr ""
+
+#: plugins/editor/plugin.c:295
+msgid "Show/Hide indentation guides"
+msgstr ""
+
+#: plugins/editor/plugin.c:297
+msgid "_White spaces"
+msgstr ""
+
+#: plugins/editor/plugin.c:298
+msgid "Show/Hide white spaces"
+msgstr ""
+
+#: plugins/editor/plugin.c:300
+msgid "_Line end characters"
+msgstr ""
+
+#: plugins/editor/plugin.c:301
+msgid "Show/Hide line end characters"
+msgstr ""
+
+#: plugins/editor/plugin.c:303
+msgid "Line _wrapping"
+msgstr ""
+
+#: plugins/editor/plugin.c:304
+msgid "Enable/disable line wrapping"
+msgstr ""
+
+#: plugins/editor/plugin.c:309
+msgid "Zoom in"
+msgstr ""
+
+#: plugins/editor/plugin.c:310
+msgid "Zoom in: Increase font size"
+msgstr ""
+
+#: plugins/editor/plugin.c:312
+msgid "Zoom out"
+msgstr ""
+
+#: plugins/editor/plugin.c:313
+msgid "Zoom out: Decrease font size"
+msgstr ""
+
+#: plugins/editor/plugin.c:318
+msgid "Force _Highlight Style"
+msgstr ""
+
+#: plugins/editor/plugin.c:320
+msgid "Automatic"
+msgstr "ਸਵੈ-ਚਾਲਿਤ"
+
+#: plugins/editor/plugin.c:321
+msgid "Automatically determine the highlight style"
+msgstr ""
+
+#: plugins/editor/plugin.c:323
+msgid "No Highlight style"
+msgstr ""
+
+#: plugins/editor/plugin.c:324
+msgid "Remove the current highlight style"
+msgstr ""
+
+#: plugins/editor/plugin.c:326
+msgid "C and C++"
+msgstr "C ਅਤੇ C++"
+
+#: plugins/editor/plugin.c:327
+msgid "Force the highlight style to C and C++"
+msgstr ""
+
+#: plugins/editor/plugin.c:329
+msgid "HTML"
+msgstr "HTML"
+
+#: plugins/editor/plugin.c:330
+msgid "Force the highlight style to HTML"
+msgstr ""
+
+#: plugins/editor/plugin.c:332
+msgid "XML"
+msgstr "XML"
+
+#: plugins/editor/plugin.c:333
+msgid "Force the highlight style to XML"
+msgstr ""
+
+#: plugins/editor/plugin.c:335
+msgid "Javascript"
+msgstr "Javascript"
+
+#: plugins/editor/plugin.c:336
+msgid "Force the highlight style to Javascript"
+msgstr ""
+
+#: plugins/editor/plugin.c:338
+msgid "WScript"
+msgstr "WScript"
+
+#: plugins/editor/plugin.c:339
+msgid "Force the highlight style to WScript"
+msgstr ""
+
+#: plugins/editor/plugin.c:341
+msgid "Makefile"
+msgstr "Makefile"
+
+#: plugins/editor/plugin.c:342
+msgid "Force the highlight style to Makefile"
+msgstr ""
+
+#: plugins/editor/plugin.c:344
+msgid "Java"
+msgstr "Java"
+
+#: plugins/editor/plugin.c:345
+msgid "Force the highlight type to Java"
+msgstr ""
+
+#: plugins/editor/plugin.c:347
+msgid "LUA"
+msgstr "LUA"
+
+#: plugins/editor/plugin.c:348
+msgid "Force the highlight style to LUA"
+msgstr ""
+
+#: plugins/editor/plugin.c:350
+msgid "Python"
+msgstr "ਪਾਈਥਾਨ"
+
+#: plugins/editor/plugin.c:351
+msgid "Force the highlight style to Python"
+msgstr ""
+
+#: plugins/editor/plugin.c:353
+msgid "Perl"
+msgstr "ਪਰਲ"
+
+#: plugins/editor/plugin.c:354
+msgid "Force the highlight style to Perl"
+msgstr ""
+
+#: plugins/editor/plugin.c:356
+msgid "SQL"
+msgstr "SQL"
+
+#: plugins/editor/plugin.c:357
+msgid "Force the highlight style to SQL"
+msgstr ""
+
+#: plugins/editor/plugin.c:359
+msgid "PL/SQL"
+msgstr "PL/SQL"
+
+#: plugins/editor/plugin.c:360
+msgid "Force the highlight style to PL/SQL"
+msgstr ""
+
+#: plugins/editor/plugin.c:362
+msgid "PHP"
+msgstr "PHP"
+
+#: plugins/editor/plugin.c:363
+msgid "Force the highlight style to PHP"
+msgstr ""
+
+#: plugins/editor/plugin.c:365
+msgid "LaTex"
+msgstr "LaTex"
+
+#: plugins/editor/plugin.c:366
+msgid "Force the highlight style to LaTex"
+msgstr ""
+
+#: plugins/editor/plugin.c:369
+msgid "Force the highlight style to Diff"
+msgstr ""
+
+#: plugins/editor/plugin.c:371
+msgid "Pascal"
+msgstr "ਪਾਸਕਲ"
+
+#: plugins/editor/plugin.c:372
+msgid "Force the highlight style to Pascal"
+msgstr ""
+
+#: plugins/editor/plugin.c:374
+msgid "Xcode"
+msgstr "Xcode"
+
+#: plugins/editor/plugin.c:375
+msgid "Force the highlight style to Xcode"
+msgstr ""
+
+#: plugins/editor/plugin.c:377
+msgid "Prj/Properties"
+msgstr ""
+
+#: plugins/editor/plugin.c:378
+msgid "Force the highlight style to project/properties files"
+msgstr ""
+
+#: plugins/editor/plugin.c:380
+msgid "Conf"
+msgstr "Conf"
+
+#: plugins/editor/plugin.c:381
+msgid "Force the highlight style to UNIX conf files"
+msgstr ""
+
+#: plugins/editor/plugin.c:383
+msgid "Ada"
+msgstr "Ada"
+
+#: plugins/editor/plugin.c:384
+msgid "Force the highlight style to Ada"
+msgstr ""
+
+#: plugins/editor/plugin.c:386
+msgid "Baan"
+msgstr ""
+
+#: plugins/editor/plugin.c:387
+msgid "Force the highlight style to Baan"
+msgstr ""
+
+#: plugins/editor/plugin.c:389
+msgid "Lisp"
+msgstr "Lisp"
+
+#: plugins/editor/plugin.c:390
+msgid "Force the highlight style to Lisp"
+msgstr ""
+
+#: plugins/editor/plugin.c:392
+msgid "Ruby"
+msgstr "Ruby"
+
+#: plugins/editor/plugin.c:393
+msgid "Force the highlight style to Ruby"
+msgstr ""
+
+#: plugins/editor/plugin.c:395
+msgid "Matlab"
+msgstr "Matlab"
+
+#: plugins/editor/plugin.c:396
+msgid "Force the highlight style to Matlab"
+msgstr ""
+
+#: plugins/editor/plugin.c:401
+msgid "For_mat"
+msgstr "ਪ੍ਰਤੀ_ਰੂਪ"
+
+#: plugins/editor/plugin.c:402
+msgid "Auto _Format"
+msgstr ""
+
+#: plugins/editor/plugin.c:404
+msgid "Autoformat the current source file"
+msgstr ""
+
+#: plugins/editor/plugin.c:406
+msgid "Autoformat _settings"
+msgstr ""
+
+#: plugins/editor/plugin.c:408
+msgid "Autoformat settings"
+msgstr ""
+
+#: plugins/editor/plugin.c:410
+msgid "_Increase Indent"
+msgstr ""
+
+#: plugins/editor/plugin.c:412
+msgid "Increase indentation of line/selection"
+msgstr ""
+
+#: plugins/editor/plugin.c:414
+msgid "_Decrease Indent"
+msgstr ""
+
+#: plugins/editor/plugin.c:416
+msgid "Decrease indentation of line/selection"
+msgstr ""
+
+#: plugins/editor/plugin.c:418
+msgid "_Close All Folds"
+msgstr "ਸਭ ਫੋਲਡਰ ਬੰਦ _ਕਰੋ"
+
+#: plugins/editor/plugin.c:420
+msgid "Close all code folds in the editor"
+msgstr ""
+
+#: plugins/editor/plugin.c:422
+msgid "_Open All Folds"
+msgstr "ਸਭ ਫੋਲਡ_ਰ ਖੋਲੋ"
+
+#: plugins/editor/plugin.c:424
+msgid "Open all code folds in the editor"
+msgstr ""
+
+#: plugins/editor/plugin.c:426
+msgid "_Toggle Current Fold"
+msgstr ""
+
+#: plugins/editor/plugin.c:428
+msgid "Toggle current code fold in the editor"
+msgstr ""
+
+#: plugins/editor/plugin.c:430
+msgid "D_etach Current Document"
+msgstr ""
+
+#: plugins/editor/plugin.c:432
+msgid "Detach the current document into a separate editor window"
+msgstr ""
+
+#: plugins/editor/plugin.c:437
+msgid "Bookmar_k"
+msgstr ""
+
+#: plugins/editor/plugin.c:438
+msgid "_Toggle bookmark"
+msgstr ""
+
+#: plugins/editor/plugin.c:440
+msgid "Toggle a bookmark at the current line position"
+msgstr ""
+
+#: plugins/editor/plugin.c:442
+msgid "_First bookmark"
+msgstr ""
+
+#: plugins/editor/plugin.c:444
+msgid "Jump to the first bookmark in the file"
+msgstr ""
+
+#: plugins/editor/plugin.c:446
+msgid "_Previous bookmark"
+msgstr ""
+
+#: plugins/editor/plugin.c:448
+msgid "Jump to the previous bookmark in the file"
+msgstr ""
+
+#: plugins/editor/plugin.c:450
+msgid "_Next bookmark"
+msgstr ""
+
+#: plugins/editor/plugin.c:452
+msgid "Jump to the next bookmark in the file"
+msgstr ""
+
+#: plugins/editor/plugin.c:454
+msgid "_Last bookmark"
+msgstr ""
+
+#: plugins/editor/plugin.c:456
+msgid "Jump to the last bookmark in the file"
+msgstr ""
+
+#: plugins/editor/plugin.c:458
+msgid "_Clear all bookmarks"
+msgstr ""
+
+#: plugins/editor/plugin.c:460
+msgid "Clear bookmarks"
+msgstr ""
+
+#: plugins/editor/plugin.c:479
+msgid "Editor file operations"
+msgstr ""
+
+#: plugins/editor/plugin.c:480
+msgid "Editor print operations"
+msgstr ""
+
+#: plugins/editor/plugin.c:481
+msgid "Editor text transformation"
+msgstr ""
+
+#: plugins/editor/plugin.c:482
+msgid "Editor text selection"
+msgstr ""
+
+#: plugins/editor/plugin.c:483
+msgid "Editor text insertions"
+msgstr ""
+
+#: plugins/editor/plugin.c:484
+msgid "Editor text searching"
+msgstr ""
+
+#: plugins/editor/plugin.c:485
+msgid "Editor code commenting"
+msgstr ""
+
+#: plugins/editor/plugin.c:486
+msgid "Editor navigations"
+msgstr ""
+
+#: plugins/editor/plugin.c:487
+msgid "Editor edit operations"
+msgstr ""
+
+#: plugins/editor/plugin.c:488
+msgid "Editor zoom operations"
+msgstr ""
+
+#: plugins/editor/plugin.c:489
+msgid "Editor syntax highlighting styles"
+msgstr ""
+
+#: plugins/editor/plugin.c:490
+msgid "Editor text formating"
+msgstr ""
+
+#: plugins/editor/plugin.c:491
+msgid "Editor bookmarks"
+msgstr ""
+
+#: plugins/editor/plugin.c:495
+msgid "Editor view settings"
+msgstr ""
+
+#: plugins/editor/plugin.c:627
+msgid "Goto line"
+msgstr "ਸਤਰ ਤੇ ਜਾਓ"
+
+#: plugins/editor/plugin.c:628
+msgid "Enter the line number to jump and press enter"
+msgstr ""
+
+#: plugins/editor/plugin.c:639
+msgid "Incremental search"
+msgstr ""
+
+#: plugins/editor/plugin.c:655
+msgid "Editor quick navigations"
+msgstr ""
+
+#: plugins/editor/plugin.c:659
+msgid "Documents"
+msgstr "ਦਸਤਾਵੇਜ਼"
+
+#: plugins/editor/print.c:486
+msgid "No file to print!"
+msgstr "ਛਾਪਣ ਲਈ ਕੋਈ ਫਾਇਲ ਨਹੀਂ ਹੈ!"
+
+#: plugins/editor/print.c:509
+msgid "Unable to get text buffer for printing"
+msgstr ""
+
+#: plugins/editor/print.c:763
+#, c-format
+msgid "File: %s"
+msgstr "ਫਾਇਲ਼: %s"
+
+#: plugins/editor/print.c:764
+#, c-format
+msgid "%d"
+msgstr "%d"
+
+#: plugins/editor/print.c:876
+msgid "Printing .."
+msgstr "ਛਾਪਿਆ ਜਾ ਰਿਹਾ ਹੈ .."
+
+#: plugins/editor/print.c:888
+msgid "Printing ..."
+msgstr "ਛਾਪਿਆ ਜਾ ਰਿਹਾ ਹੈ ..."
+
+#: plugins/editor/print.c:1044 src/anjuta_info.c:127
+msgid "Lines"
+msgstr "ਸਤਰਾਂ"
+
+#: plugins/editor/print.c:1071
+msgid "Print Preview"
+msgstr "ਛਾਪਣ ਨਮੂਨਾ"
+
+#: plugins/editor/search_preferences.c:474
+msgid "The maximum number of settings has been reached."
+msgstr ""
+
+#: plugins/editor/search_preferences.c:483
+msgid "This name is already used."
+msgstr ""
+
+#: plugins/editor/search-replace.c:277
+msgid "Find: "
+msgstr "ਖੋਜ:"
+
+#: plugins/editor/search-replace.c:373
+msgid "Replace"
+msgstr "ਤਬਦੀਲ"
+
+#: plugins/editor/search-replace.c:720 plugins/editor/search-replace.c:1357
+msgid "Replace All"
+msgstr "ਸਭ ਤਬਦੀਲ"
+
+#: plugins/editor/search-replace.c:756
+#, c-format
+msgid "The match \"%s\" was not found. Wrap search around the document?"
+msgstr ""
+
+#: plugins/editor/search-replace.c:779
+#, c-format
+msgid "The match \"%s\" was not found."
+msgstr ""
+
+#: plugins/editor/search-replace.c:797
+msgid "The maximum number of results has been reached."
+msgstr ""
+
+#: plugins/editor/search-replace.c:810
+#, c-format
+msgid "%d matches have been replaced."
+msgstr ""
+
+#: plugins/editor/search-replace.c:967
+msgid "Unable to build user interface for Search And Replace"
+msgstr ""
+
+#: plugins/editor/text_editor.c:897
+msgid "Could not get file info"
+msgstr "ਫਾਇਲ਼ ਜਾਣਕਾਰੀ ਪ੍ਰਾਪਤ ਨਹੀਂ ਕੀਤੀ ਜਾ ਸਕਦੀ"
+
+#: plugins/editor/text_editor.c:905
+msgid "This file is too big. Unable to allocate memory."
+msgstr "ਇਹ ਫਾਇਲ ਵੱਡੀ ਹੈ। ਮੈਮੋਰੀ ਦੇਣ ਤੋਂ ਅਸਫਲ।"
+
+#: plugins/editor/text_editor.c:912
+msgid "Could not open file"
+msgstr "ਫਾਇਲ਼ ਨੂੰ ਖੋਲਿਆ ਨਹੀਂ ਜਾ ਸਕਦਾ ਹੈ"
+
+#: plugins/editor/text_editor.c:920
+msgid "Error while reading from file"
+msgstr ""
+
+#: plugins/editor/text_editor.c:957
+msgid ""
+"The file does not look like a text file or the file encoding is not "
+"supported. Please check if the encoding of file is in the supported "
+"encodings list. If not, add it from the preferences."
+msgstr ""
+
+#: plugins/editor/text_editor.c:1129
+#, c-format
+msgid ""
+"Could not load file: %s\n"
+"\n"
+"Details: %s"
+msgstr ""
+"ਫਾਇਲ ਨੂੰ ਲੋਡ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ ਹੈ: %s\n"
+"\n"
+"ਵੇਰਵਾ: %s"
+
+#: plugins/editor/text_editor.c:1173
+#, c-format
+msgid "Could not save file: %s."
+msgstr "ਫਾਇਲ ਨੂੰ ਸੰਭਾਲਿਆ ਨਹੀਂ ਜਾ ਸਕਦਾ ਹੈ: %s।"
+
+#: plugins/editor/text_editor.c:1316
+#, c-format
+msgid ""
+"The file '%s' on the disk is more recent than\n"
+"the current buffer.\n"
+"Do you want to reload it?"
+msgstr ""
+
+#: plugins/editor/text_editor.c:1490
+msgid "Auto format is currently disabled. Change the setting in Preferences."
+msgstr ""
+
+#: plugins/editor/text_editor.c:1509
+msgid "Error in auto formatting ..."
+msgstr ""
+
+#. FIXME: anjuta_set_active ();
+#: plugins/editor/text_editor.c:1525
+#, c-format
+msgid "Anjuta does not know %s!"
+msgstr ""
+
+#: plugins/editor/text_editor.c:1550
+#, c-format
+msgid ""
+"Error in auto formatting ...\n"
+"Details: %s"
+msgstr ""
+
+#: plugins/editor/text_editor_cbs.c:108
+#, c-format
+msgid "Autosave \"%s\" -- Failed"
+msgstr ""
+
+#: plugins/editor/text_editor_menu.c:79
+msgid "Back"
+msgstr "ਪਿੱਛੇ"
+
+#: plugins/editor/text_editor_menu.c:86
+msgid "Forward"
+msgstr "ਅੱਗੇ"
+
+#: plugins/editor/text_editor_menu.c:95
+msgid "Tag Definition"
+msgstr ""
+
+#: plugins/editor/text_editor_menu.c:102
+msgid "Tag Declaration"
+msgstr ""
+
+#: plugins/editor/text_editor_menu.c:110
+msgid "Prev mesg"
+msgstr "ਪਿੱਛੇ ਸੁਨੇਹਾ"
+
+#: plugins/editor/text_editor_menu.c:116
+msgid "Next mesg"
+msgstr "ਅੱਗੇ ਸੁਨੇਹਾ"
+
+#: plugins/editor/text_editor_menu.c:122
+msgid "Prev bookmark"
+msgstr ""
+
+#: plugins/editor/text_editor_menu.c:128
+msgid "Next bookmark"
+msgstr ""
+
+#: plugins/editor/text_editor_menu.c:138
+msgid "Toggle breakpoint"
+msgstr ""
+
+#: plugins/editor/text_editor_menu.c:145 src/toolbar.c:536
+msgid "Step in"
+msgstr ""
+
+#: plugins/editor/text_editor_menu.c:151
+msgid "Step over"
+msgstr ""
+
+#: plugins/editor/text_editor_menu.c:157
+msgid "Step out"
+msgstr ""
+
+#: plugins/editor/text_editor_menu.c:163 src/toolbar.c:525
+msgid "Run to cursor"
+msgstr ""
+
+#: plugins/editor/text_editor_menu.c:169
+msgid "Run/Continue"
+msgstr "ਚਲਾਓ/ਜਾਰੀ ਰੱਖੋ"
+
+#: plugins/editor/text_editor_menu.c:183 src/toolbar.c:573
+msgid "Interrupt"
+msgstr ""
+
+#: plugins/editor/text_editor_menu.c:193
+msgid "Toggle Line numbers"
+msgstr ""
+
+#: plugins/editor/text_editor_menu.c:200
+msgid "Toggle Marker Margin"
+msgstr ""
+
+#: plugins/editor/text_editor_menu.c:207
+msgid "Toggle Fold Margin"
+msgstr ""
+
+#: plugins/editor/text_editor_menu.c:214
+msgid "Toggle Guides"
+msgstr ""
+
+#: plugins/editor/text_editor_menu.c:222
+msgid "++Zoom"
+msgstr ""
+
+#: plugins/editor/text_editor_menu.c:229
+msgid "--Zoom"
+msgstr ""
+
+#. 0
+#: plugins/editor/text_editor_menu.c:241
+msgid "Cut"
+msgstr "ਕੱਟ"
+
+#. 1
+#: plugins/editor/text_editor_menu.c:249
+msgid "Copy"
+msgstr "ਨਕਲ"
+
+#. 2
+#: plugins/editor/text_editor_menu.c:257
+msgid "Paste"
+msgstr "ਚਿਪਕਾਓ"
+
+#. 4
+#: plugins/editor/text_editor_menu.c:267
+msgid "Context Help"
+msgstr ""
+
+#. 6
+#: plugins/editor/text_editor_menu.c:277
+msgid "Toggle Bookmark"
+msgstr ""
+
+#. 7
+#: plugins/editor/text_editor_menu.c:285
+msgid "Auto format"
+msgstr ""
+
+#. 8
+#: plugins/editor/text_editor_menu.c:293
+msgid "Swap .h/.c"
+msgstr ""
+
+#. 10
+#: plugins/editor/text_editor_menu.c:303 src/toolbar.c:512
+msgid "Go"
+msgstr "ਜਾਓ"
+
+#. 11
+#: plugins/editor/text_editor_menu.c:311 plugins/editor/text_editor_menu.c:433
+msgid "Tags"
+msgstr "ਟੈਗ"
+
+#. 17
+#. 2
+#: plugins/editor/text_editor_menu.c:341
+#: plugins/symbol-browser/an_symbol_view.c:296
+msgid "Find Usage"
+msgstr ""
+
+#. 18
+#: plugins/editor/text_editor_menu.c:349
+msgid "Close"
+msgstr "ਬੰਦ"
+
+#. 19
+#. 4
+#. 5
+#: plugins/editor/text_editor_menu.c:357
+#: plugins/file-manager/an_file_view.c:387
+msgid "Docked"
+msgstr ""
+
+#. 0
+#: plugins/file-manager/an_file_view.c:306
+msgid "Update file"
+msgstr "ਫਾਇਲ ਨਵੀਨੀਕਰਨ"
+
+#: plugins/file-manager/an_file_view.c:307
+msgid "Update current working copy"
+msgstr ""
+
+#. 1
+#: plugins/file-manager/an_file_view.c:313
+msgid "Commit file"
+msgstr ""
+
+#: plugins/file-manager/an_file_view.c:314
+msgid "Commit changes to the repository"
+msgstr ""
+
+#. 2
+#: plugins/file-manager/an_file_view.c:320
+msgid "Status of file"
+msgstr "ਫਾਇਲ਼ ਸਥਿਤੀ"
+
+#: plugins/file-manager/an_file_view.c:321
+msgid "Print the status of the current file"
+msgstr ""
+
+#. 3
+#: plugins/file-manager/an_file_view.c:327
+msgid "Get file log"
+msgstr "ਫਾਇਲ਼ ਲਾਗ ਪ੍ਰਾਪਤ"
+
+#: plugins/file-manager/an_file_view.c:328
+msgid "Print the CVS log for the current file"
+msgstr ""
+
+#. 4
+#: plugins/file-manager/an_file_view.c:334
+msgid "Add file"
+msgstr "ਫਾਇਲ਼ ਸ਼ਾਮਿਲ"
+
+#: plugins/file-manager/an_file_view.c:335
+msgid "Add the current file to the repository"
+msgstr ""
+
+#. 5
+#: plugins/file-manager/an_file_view.c:341
+msgid "Remove file"
+msgstr "ਫਾਇਲ਼ ਹਟਾਓ"
+
+#: plugins/file-manager/an_file_view.c:342
+msgid "Remove the current file from the repository"
+msgstr ""
+
+#. 6
+#: plugins/file-manager/an_file_view.c:348
+msgid "Diff file"
+msgstr "ਅੰਤਰ(Diff) ਫਾਇਲ਼ "
+
+#: plugins/file-manager/an_file_view.c:349
+msgid "Create a diff between the working copy and the repository"
+msgstr ""
+
+#. 0
+#. 2
+#: plugins/file-manager/an_file_view.c:358
+#: plugins/project-manager/project_dbase_gui.c:317
+msgid "Open in Anjuta"
+msgstr "ਆਂਜੂਤਾ ਵਿੱਚ ਖੋਲੋ"
+
+#. 1
+#: plugins/file-manager/an_file_view.c:365
+#: plugins/project-manager/project_dbase_gui.c:311
+msgid "Open in default viewer"
+msgstr ""
+
+#. 3
+#: plugins/file-manager/an_file_view.c:379
+#: plugins/symbol-browser/an_symbol_view.c:303
+msgid "Refresh"
+msgstr "ਤਾਜ਼ਾ"
+
+#: plugins/file-manager/an_file_view.c:388
+msgid "Dock/Undock the Project Window"
+msgstr ""
+
+#. 6
+#: plugins/file-manager/an_file_view.c:394
+msgid "Customize"
+msgstr "ਪ੍ਰਚਲਣ"
+
+#: plugins/file-manager/an_file_view.c:395
+msgid "Customize the file browser"
+msgstr ""
+
+#: plugins/file-manager/an_file_view.c:675
+#: plugins/file-manager/an_file_view.c:787
+#: plugins/file-manager/an_file_view.c:1008
+msgid "Loading ..."
+msgstr "ਲੋਡ ਹੋ ਰਿਹਾ ਹੈ...."
+
+#: plugins/file-manager/an_file_view.c:868
+msgid "Rev"
+msgstr ""
+
+#: plugins/file-manager/plugin.c:45
+msgid "_Refresh"
+msgstr "_ਤਾਜ਼ਾ"
+
+#: plugins/file-manager/plugin.c:45
+msgid "Refresh file manager tree"
+msgstr ""
+
+#: plugins/file-manager/plugin.c:79
+msgid "File manager popup actions"
+msgstr ""
+
+#: plugins/launcher/launcher.c:583 src/launcher.c:582
+msgid "launcher.c: Error while reading child stdout\n"
+msgstr ""
+
+#: plugins/launcher/launcher.c:595 src/launcher.c:594
+msgid "launcher.c: STDOUT pipe closed"
+msgstr ""
+
+#: plugins/launcher/launcher.c:631 src/launcher.c:630
+msgid "launcher.c: Error while reading child stderr"
+msgstr ""
+
+#: plugins/launcher/launcher.c:643 src/launcher.c:642
+msgid "launcher.c: STDERR pipe closed"
+msgstr ""
+
+#: plugins/launcher/launcher.c:684 src/launcher.c:683
+msgid "launcher.c: Error while reading child pty\n"
+msgstr ""
+
+#: plugins/launcher/launcher.c:702 src/launcher.c:701
+msgid "launcher.c: PTY pipe error!"
+msgstr ""
+
+#: plugins/launcher/launcher.c:804 src/launcher.c:803
+msgid "launcher.c: Failed to set channel encoding!"
+msgstr ""
+
+#: plugins/launcher/launcher.c:854 src/launcher.c:853
+msgid "Cannot execute command shell"
+msgstr ""
+
+#: plugins/message-view/message-view.c:273
+msgid "error:"
+msgstr "ਗਲਤੀ:"
+
+#: plugins/message-view/message-view.c:275
+msgid "warning:"
+msgstr "ਚੇਤਾਵਨੀ:"
+
+#: plugins/message-view/plugin.c:45
+msgid "_Next message"
+msgstr "_ਅੱਗੇ ਸੁਨੇਹਾ"
+
+#: plugins/message-view/plugin.c:46
+msgid "Next message"
+msgstr "ਅੱਗੇ ਸੁਨੇਹਾ"
+
+#: plugins/message-view/plugin.c:49
+msgid "_Previous message"
+msgstr "_ਪਿੱਛੇ ਸੁਨੇਹਾ"
+
+#: plugins/message-view/plugin.c:50
+msgid "Previous message"
+msgstr "ਪਿੱਛੇ ਸੁਨੇਹਾ"
+
+#: plugins/message-view/plugin.c:74
+msgid "Next/Prev Message"
+msgstr "ਅੱਗੇ/ਪਿੱਛੇ ਸੁਨੇਹਾ"
+
+#: plugins/message-view/plugin.c:86 src/toolbar.c:154
+msgid "Messages"
+msgstr "ਸੁਨੇਹੇ"
+
+#: plugins/patch/patch-plugin.c:64
+msgid "Interface to patch Projects or individual files"
+msgstr ""
+
+#: plugins/patch/patch-plugin.c:100
+msgid "File/Dir to patch"
+msgstr ""
+
+#: plugins/patch/patch-plugin.c:101
+msgid "Patch file"
+msgstr ""
+
+#: plugins/patch/patch-plugin.c:102
+msgid "Patch level (-p)"
+msgstr ""
+
+#: plugins/patch/patch-plugin.c:107
+msgid "Patch Plugin"
+msgstr ""
+
+#: plugins/patch/patch-plugin.c:107
+msgid "Patch"
+msgstr ""
+
+#: plugins/patch/patch-plugin.c:110
+msgid "Selected directory to patch"
+msgstr ""
+
+#: plugins/patch/patch-plugin.c:112
+msgid "Selected patch file"
+msgstr ""
+
+#: plugins/patch/patch-plugin.c:148
+msgid "Patch plugin"
+msgstr ""
+
+#: plugins/patch/patch-plugin.c:154
+msgid "The patch plugin"
+msgstr ""
+
+#: plugins/patch/patch-plugin.c:172
+msgid "Please select the directory where the patch should be applied"
+msgstr ""
+
+#: plugins/patch/patch-plugin.c:179
+#, c-format
+msgid "Patching %s using %s\n"
+msgstr ""
+
+#: plugins/patch/patch-plugin.c:185
+msgid "Patching...\n"
+msgstr ""
+
+#: plugins/patch/patch-plugin.c:195
+msgid "There are unfinished jobs, please wait until they are finished"
+msgstr ""
+
+#: plugins/patch/patch-plugin.c:226
+msgid ""
+"Patch failed.\n"
+"Please review the failure messages.\n"
+"Examine and remove any rejected files.\n"
+msgstr ""
+
+#: plugins/patch/patch-plugin.c:233
+msgid "Patch successful.\n"
+msgstr ""
+
+#. Must declare static, because it will be used forever
+#: plugins/project-manager/project_dbase.c:205
+msgid "Add to Project"
+msgstr ""
+
+#: plugins/project-manager/project_dbase.c:362
+msgid "Anjuta project files"
+msgstr ""
+
+#: plugins/project-manager/project_dbase.c:363
+#: plugins/project-manager/project_dbase_gui.c:153
+#: plugins/project-manager/project_dbase_gui.c:170
+#: plugins/project-manager/project_dbase_gui.c:182
+#: plugins/project-manager/project_dbase_gui.c:190
+#: plugins/project-manager/project_dbase_gui.c:202
+#: plugins/project-manager/project_dbase_gui.c:211
+#: plugins/project-manager/project_dbase_gui.c:220
+msgid "All files"
+msgstr "ਸਭ ਫਾਇਲਾਂ"
+
+#: plugins/project-manager/project_dbase.c:444
+#: plugins/project-manager/project_dbase.c:462
+#, c-format
+msgid "Unable to load Project: %s"
+msgstr ""
+
+#: plugins/project-manager/project_dbase.c:455
+#: plugins/project-manager/project_dbase.c:2461
+#, c-format
+msgid ""
+"Anjuta version %s or later is required to open this Project.\n"
+"Please upgrade to the latest version of Anjuta (Help for more information)."
+msgstr ""
+
+#: plugins/project-manager/project_dbase.c:836
+msgid "Project saved successfully"
+msgstr ""
+
+#: plugins/project-manager/project_dbase.c:842
+#: plugins/project-manager/project_dbase.c:845
+msgid "Unable to save the Project."
+msgstr ""
+
+#: plugins/project-manager/project_dbase.c:1543
+msgid ""
+"A .glade file does not exist in the top level Project directory. If you do "
+"not use glade for GUI editing,  please specify a custom command for it in "
+"[Project]->[Project Configuration]->[GUI editor command]"
+msgstr ""
+
+#: plugins/project-manager/project_dbase.c:1605
+msgid ""
+"A .glade file does not\n"
+"exist in the top level Project directory."
+msgstr ""
+
+#: plugins/project-manager/project_dbase.c:2021 src/anjuta_gui.c:146
+#: src/main_menubar.c:394
+msgid "Recent Projects "
+msgstr "ਤਾਜ਼ੇ ਪ੍ਰੋਜੈਕਟ"
+
+#. Set project title
+#: plugins/project-manager/project_dbase.c:2059
+msgid "Project: "
+msgstr "ਪ੍ਰੋਜੈਕਟ:"
+
+#: plugins/project-manager/project_dbase.c:2176
+#, c-format
+msgid ""
+"Unable to get relative file name for %s\n"
+" in %s"
+msgstr ""
+
+#: plugins/project-manager/project_dbase.c:2241
+msgid " already exists in the project"
+msgstr " ਪ੍ਰੋਜੈਕਟ ਵਿੱਚ ਪਹਿਲਾਂ ਹੀ ਮੌਜੂਦ ਹੈ"
+
+#: plugins/project-manager/project_dbase.c:2274
+msgid "Error while copying the file inside the module."
+msgstr ""
+
+#: plugins/project-manager/project_dbase.c:2537
+#: plugins/project-manager/project_dbase.c:2540
+#, c-format
+msgid "Error in loading Project: %s"
+msgstr ""
+
+#: plugins/project-manager/project_dbase.c:2561
+msgid "Project loaded successfully."
+msgstr "ਪ੍ਰੋਜੈਕਟ ਸਫਲਤਾਪੂਰਕ ਲੋਡ ਹੋ ਗਿਆ"
+
+#: plugins/project-manager/project_dbase_gui.c:76
+#, c-format
+msgid ""
+"Are you sure you want to remove the item\n"
+"'%s' from the Project?"
+msgstr ""
+
+#: plugins/project-manager/project_dbase_gui.c:118
+msgid "There is already a Project open.Do you want to close it first?"
+msgstr ""
+
+#: plugins/project-manager/project_dbase_gui.c:152
+msgid "Help files"
+msgstr "ਸਹਾਇਤਾ ਫਾਇਲ਼ਾਂ"
+
+#: plugins/project-manager/project_dbase_gui.c:161
+msgid "C/C++ source files"
+msgstr "C/C++ ਸਰੋਤ ਫਾਇਲ਼ਾਂ"
+
+#: plugins/project-manager/project_dbase_gui.c:162
+msgid "Java source files"
+msgstr "Java ਸਰੋਤ ਫਾਇਲ਼ਾਂ"
+
+#: plugins/project-manager/project_dbase_gui.c:163
+msgid "Pascal files"
+msgstr "ਪਾਸਕਲ ਫਾਇਲਾਂ"
+
+#: plugins/project-manager/project_dbase_gui.c:164
+msgid "PHP files"
+msgstr "PHP ਫਾਇਲ਼ਾਂ"
+
+#: plugins/project-manager/project_dbase_gui.c:165
+msgid "Perl files"
+msgstr "ਪਰਲ ਫਾਇਲਾਂ"
+
+#: plugins/project-manager/project_dbase_gui.c:166
+msgid "Python files"
+msgstr "ਪਾਈਥਨ ਫਾਇਲਾਂ"
+
+#: plugins/project-manager/project_dbase_gui.c:167
+msgid "Shell Script files"
+msgstr "ਸ਼ੈੱਲ ਸਕ੍ਰਿਪਟ ਫਾਇਲਾਂ"
+
+#: plugins/project-manager/project_dbase_gui.c:168
+msgid "Visual Basic files"
+msgstr "Visual Basic ਫਾਇਲਾਂ"
+
+#: plugins/project-manager/project_dbase_gui.c:169
+msgid ".lua files"
+msgstr ".lua ਫਾਇਲਾਂ"
+
+#: plugins/project-manager/project_dbase_gui.c:178
+msgid "PNG files"
+msgstr "PNG ਫਾਇਲਾਂ"
+
+#: plugins/project-manager/project_dbase_gui.c:179
+msgid "JPG files"
+msgstr "JPG ਫਾਇਲਾਂ"
+
+#: plugins/project-manager/project_dbase_gui.c:180
+msgid "BMP files"
+msgstr "BMP ਫਾਇਲਾਂ"
+
+#: plugins/project-manager/project_dbase_gui.c:181
+msgid "GIF files"
+msgstr "GIF ਫਾਇਲਾਂ"
+
+#: plugins/project-manager/project_dbase_gui.c:198
+msgid "Text files"
+msgstr "ਪਾਠ ਫਾਇਲਾਂ"
+
+#: plugins/project-manager/project_dbase_gui.c:199
+msgid "XML files"
+msgstr "XML ਫਾਇਲਾਂ"
+
+#: plugins/project-manager/project_dbase_gui.c:200
+msgid "HTML files"
+msgstr "HTML ਫਾਇਲਾਂ"
+
+#: plugins/project-manager/project_dbase_gui.c:201
+msgid "DOC files"
+msgstr "DOC ਫਾਇਲਾਂ"
+
+#: plugins/project-manager/project_dbase_gui.c:210
+msgid "PO files"
+msgstr "PO ਫਾਇਲਾਂ"
+
+#: plugins/project-manager/project_dbase_gui.c:219
+msgid "C/C++ Headers"
+msgstr "C/C++ Headers"
+
+#: plugins/project-manager/project_dbase_gui.c:250
+msgid "Add file to module: "
+msgstr ""
+
+#. 0
+#: plugins/project-manager/project_dbase_gui.c:259
+msgid "Include file"
+msgstr "ਸ਼ਾਮਿਲ ਫਾਇਲ"
+
+#. 1
+#: plugins/project-manager/project_dbase_gui.c:265
+msgid "Source file"
+msgstr "ਸਰੋਤ ਫਾਇਲ"
+
+#. 2
+#: plugins/project-manager/project_dbase_gui.c:271
+msgid "Help file"
+msgstr "ਸਹਾਇਤਾ ਫਾਇਲ"
+
+#. 3
+#: plugins/project-manager/project_dbase_gui.c:277
+msgid "Data file"
+msgstr "ਡਾਟਾ ਫਾਇਲ"
+
+#. 4
+#: plugins/project-manager/project_dbase_gui.c:283
+msgid "Pixmap file"
+msgstr "ਪਿਕਮੈਪ ਫਾਇਲ"
+
+#. 5
+#: plugins/project-manager/project_dbase_gui.c:289
+msgid "Translation file"
+msgstr "ਅਨੁਵਾਦ ਫਾਇਲ"
+
+#. 6
+#: plugins/project-manager/project_dbase_gui.c:295
+msgid "Doc file"
+msgstr "Doc ਫਾਇਲ"
+
+#. 0
+#: plugins/project-manager/project_dbase_gui.c:305
+msgid "Add File"
+msgstr "ਸ਼ਾਮਿਲ ਫਾਇਲ਼"
+
+#. 4
+#. 5
+#: plugins/project-manager/project_dbase_gui.c:330
+msgid "Configure Project"
+msgstr "ਪ੍ਰੋਜੈਕਟ ਸੰਰਚਨਾ"
+
+#. 6
+#: plugins/project-manager/project_dbase_gui.c:336
+msgid "Project Info"
+msgstr "ਪ੍ਰੋਜੈਕਟ ਜਾਣਕਾਰੀ"
+
+#: plugins/project-manager/project_dbase_gui.c:677
+msgid "Project Information"
+msgstr "ਪ੍ਰੋਜੈਕਟ ਜਾਣਕਾਰੀ"
+
+#: plugins/project-manager/project_dbase_gui.c:685
+msgid " Project Information "
+msgstr " ਪ੍ਰੋਜੈਕਟ ਜਾਣਕਾਰੀ"
+
+#: plugins/project-manager/project_dbase_gui.c:721
+msgid "Author:"
+msgstr "ਲੇਖਕ:"
+
+#: plugins/project-manager/project_dbase_gui.c:729
+#: plugins/project-wizard/wizard_gui.c:299
+msgid "Project Name:"
+msgstr "ਪ੍ਰੋਜੈਕਟ ਨਾਂ:"
+
+#: plugins/project-manager/project_dbase_gui.c:808
+msgid "Program Name:"
+msgstr "ਕਾਰਜ ਨਾਂ:"
+
+#: plugins/project-manager/project_dbase_gui.c:815
+msgid "Source files:"
+msgstr "ਸਰੋਤ ਫਾਇਲ਼ਾਂ:"
+
+#: plugins/project-manager/project_dbase_gui.c:822
+msgid "Help files:"
+msgstr "ਸਹਾਇਤਾ ਫਾਇਲਾਂ:"
+
+#: plugins/project-manager/project_dbase_gui.c:829
+msgid "Data files:"
+msgstr "ਡਾਟਾ ਫਾਇਲਾਂ:"
+
+#: plugins/project-manager/project_dbase_gui.c:836
+msgid "Pixmap files:"
+msgstr ""
+
+#: plugins/project-manager/project_dbase_gui.c:843
+msgid "Doc files:"
+msgstr "Doc ਡਾਟਾ:"
+
+#: plugins/project-manager/project_dbase_gui.c:864
+msgid "Po files:"
+msgstr "Po ਫਾਇਲਾਂ:"
+
+#: plugins/project-manager/project_dbase_gui.c:894
+msgid "GUI editable by Glade:"
+msgstr ""
+
+#: plugins/project-manager/project_dbase_gui.c:916
+msgid "Makefiles managed:"
+msgstr ""
+
+#: plugins/project-manager/project_dbase_gui.c:958
+msgid "Gettext support:"
+msgstr ""
+
+#: plugins/project-manager/project_dbase_gui.c:1016
+msgid "Project Type:"
+msgstr "ਪ੍ਰੋਜੈਕਟ ਕਿਸਮ:"
+
+#: plugins/project-manager/project_dbase_gui.c:1061
+msgid ""
+"Project is not saved.\n"
+"Do you want to save it before closing?"
+msgstr ""
+
+#: plugins/project-manager/project_dbase_gui.c:1076
+#: plugins/project-manager/project_dbase_gui.c:1196
+msgid "Breton"
+msgstr "ਬਰੀਟੋਨ"
+
+#: plugins/project-manager/project_dbase_gui.c:1077
+msgid "Catalan"
+msgstr "ਕਾਟਾਲਾਨ"
+
+#: plugins/project-manager/project_dbase_gui.c:1078
+msgid "Czech"
+msgstr "ਚੈੱਕ"
+
+#: plugins/project-manager/project_dbase_gui.c:1079
+msgid "Danish"
+msgstr "ਡੈਨਿਸ਼"
+
+#: plugins/project-manager/project_dbase_gui.c:1080
+msgid "German"
+msgstr "ਜਰਮਨ"
+
+#: plugins/project-manager/project_dbase_gui.c:1082
+msgid "Esperanto"
+msgstr "ਈਸਪੀਰੋਂਟੋ"
+
+#: plugins/project-manager/project_dbase_gui.c:1083
+msgid "Spanish"
+msgstr "ਸਪੇਨੀ"
+
+#: plugins/project-manager/project_dbase_gui.c:1084
+msgid "Finnish"
+msgstr "ਫੈਨਿਸ਼"
+
+#: plugins/project-manager/project_dbase_gui.c:1085
+msgid "French"
+msgstr "ਫਰੈਂਚ"
+
+#: plugins/project-manager/project_dbase_gui.c:1086
+msgid "Herbrew"
+msgstr "ਹੈਬਰਿਓ"
+
+#: plugins/project-manager/project_dbase_gui.c:1087
+#: plugins/project-manager/project_dbase_gui.c:1091
+msgid "Croatian"
+msgstr "ਕਰੋਟਾਨ"
+
+#: plugins/project-manager/project_dbase_gui.c:1088
+msgid "Hungarian"
+msgstr "ਹੰਗਰੀਅਨ"
+
+#: plugins/project-manager/project_dbase_gui.c:1089
+msgid "Islandic"
+msgstr "ਆਈਸਲੈਂਡਿਕ"
+
+#: plugins/project-manager/project_dbase_gui.c:1090
+msgid "Italian"
+msgstr "ਇਤਾਲਵੀ"
+
+#: plugins/project-manager/project_dbase_gui.c:1093
+msgid "Macedonian"
+msgstr "ਮੈਕਡੋਨੀਅਨ"
+
+#: plugins/project-manager/project_dbase_gui.c:1094
+msgid "Dutch"
+msgstr "ਡੱਚ"
+
+#: plugins/project-manager/project_dbase_gui.c:1095
+msgid "Norwegian"
+msgstr "ਨਾਰਵੀਅਨ"
+
+#: plugins/project-manager/project_dbase_gui.c:1096
+msgid "Polish"
+msgstr "ਪੋਲਿਸ਼"
+
+#: plugins/project-manager/project_dbase_gui.c:1097
+msgid "Portuguese"
+msgstr "ਪੁਰਤਗਾਲੀ"
+
+#: plugins/project-manager/project_dbase_gui.c:1099
+msgid "Russian"
+msgstr "ਰੂਸੀ"
+
+#: plugins/project-manager/project_dbase_gui.c:1100
+msgid "Slovak"
+msgstr "ਸਲੋਵਾਕ"
+
+#: plugins/project-manager/project_dbase_gui.c:1102
+msgid "Simplified Chinese"
+msgstr "ਸਧਾਰਨ ਚੀਨੀ"
+
+#: plugins/project-manager/project_dbase_gui.c:1103
+msgid "Chinese"
+msgstr "ਚੀਨੀ"
+
+#: plugins/project-manager/project_dbase_gui.c:1104
+msgid "Estonian"
+msgstr "ਈਸਟੋਨੀਅਨ"
+
+#: plugins/project-manager/project_dbase_gui.c:1148
+msgid "Select regional language"
+msgstr "ਖੇਤਰੀ ਭਾਸ਼ਾ ਚੁਣੋ"
+
+#: plugins/project-manager/project_dbase_gui.c:1164
+msgid "Select regional language:"
+msgstr "ਖੇਤਰੀ ਭਾਸ਼ਾ ਚੁਣੋ:"
+
+#: plugins/project-manager/project_dbase_gui.c:1204
+#, c-format
+msgid "Unable to find pixmap file: %s"
+msgstr ""
+
+#: plugins/project-manager/project_dbase_gui.c:1281
+#, c-format
+msgid ""
+"\"%s\"\n"
+"does not exist.\n"
+"Do you want to create it now ?"
+msgstr ""
+
+#: plugins/project-manager/project_dbase_gui.c:1299
+#, c-format
+msgid "Not a regular file: %s."
+msgstr ""
+
+#: plugins/project-manager/project_dbase_gui.c:1309
+#, c-format
+msgid ""
+"\"%s\"\n"
+"does not exist in the current module directory.\n"
+"Do you want to IMPORT (copy) it into the module?"
+msgstr ""
+
+#: plugins/project-manager/project_import.c:89
+#, c-format
+msgid "Unable to find import script %s"
+msgstr ""
+
+#: plugins/project-manager/project_import.c:94
+#, c-format
+msgid "%s: Not a regular file"
+msgstr ""
+
+#: plugins/project-manager/project_import.c:109
+#, c-format
+msgid "Importing Project from %s ...\n"
+msgstr ""
+
+#: plugins/project-manager/project_import.c:119
+msgid "Could not launch script!\n"
+msgstr ""
+
+#: plugins/project-manager/project_import.c:130
+msgid "Importing Project...please wait"
+msgstr ""
+
+#: plugins/project-manager/project_import.c:188
+msgid "Project import completed...successful\n"
+msgstr ""
+
+#: plugins/project-manager/project_import.c:190
+msgid "Project import completed...successful"
+msgstr ""
+
+#: plugins/project-manager/project_import.c:206
+msgid "Could not import Project: no project file found!"
+msgstr ""
+
+#: plugins/project-manager/project_import.c:213
+msgid "Opening Project...please wait"
+msgstr ""
+
+#: plugins/project-manager/project_import.c:216
+msgid "Could not open generated Project file"
+msgstr ""
+
+#: plugins/project-manager/project_import_cbs.c:126
+msgid "Please complete all of the required fields"
+msgstr ""
+
+#: plugins/project-manager/project_import_cbs.c:230
+#: plugins/project-wizard/appwizard_cbs.c:286
+msgid ""
+"Confirm the following information:\n"
+"\n"
+msgstr ""
+
+#: plugins/project-manager/project_import_cbs.c:231
+#: plugins/project-wizard/appwizard_cbs.c:287
+msgid "Project Name:    "
+msgstr "ਪ੍ਰੋਜੈਕਟ ਨਾਂ:   "
+
+#: plugins/project-manager/project_import_cbs.c:232
+#: plugins/project-wizard/appwizard_cbs.c:288
+msgid "Project Type:    "
+msgstr "ਪ੍ਰੋਜੈਕਟ ਕਿਸਮ:     "
+
+#: plugins/project-manager/project_import_cbs.c:234
+#: plugins/project-wizard/appwizard_cbs.c:289
+msgid "Target Type:     "
+msgstr "ਨਿਯਤ ਕਿਸਮ:    "
+
+#: plugins/project-manager/project_import_cbs.c:237
+#: plugins/project-wizard/appwizard_cbs.c:290
+msgid "Source Target:   "
+msgstr "ਸਰੋਤ ਨਿਯਤ:     "
+
+#: plugins/project-manager/project_import_cbs.c:238
+#: plugins/project-wizard/appwizard_cbs.c:291
+msgid "Version:         "
+msgstr "ਵਰਜਨ:     "
+
+#: plugins/project-manager/project_import_cbs.c:239
+#: plugins/project-wizard/appwizard_cbs.c:292
+msgid "Author:          "
+msgstr "ਲੇਖਕ:    "
+
+#: plugins/project-manager/project_import_cbs.c:240
+#: plugins/project-wizard/appwizard_cbs.c:293
+msgid "Language:        "
+msgstr "ਭਾਸ਼ਾ:     "
+
+#: plugins/project-manager/project_import_cbs.c:242
+#: plugins/project-wizard/appwizard_cbs.c:294
+msgid "Gettext Support: "
+msgstr ""
+
+#. We should never come here because this button is disabled
+#: plugins/project-manager/project_import_cbs.c:285
+msgid ""
+"The import operation has already begun.\n"
+"Click Cancel to skip the customisation stage, or Next to continue."
+msgstr ""
+
+#: plugins/project-manager/project_import_gui.c:46
+msgid ""
+"The Project Import Wizard scans the directory of an\n"
+"existing code project, and attempts to import the structure\n"
+"into an Anjuta Project. There will be a chance to update\n"
+"any autodetected values during the import process.\n"
+"\n"
+"THIS IS AN EXPERIMENTAL FEATURE\n"
+msgstr ""
+
+#: plugins/project-manager/project_import_gui.c:74
+#: plugins/project-manager/project_import_gui.c:159
+msgid "Project Import Wizard"
+msgstr "ਪ੍ਰੋਜੈਕਟ ਆਯਾਤ ਸਹਾਇਕ"
+
+#: plugins/project-manager/project_import_gui.c:190
+msgid "Select directory"
+msgstr "ਡਾਇਰੈਕਟਰੀ ਚੁਣੋ"
+
+#: plugins/project-manager/project_import_gui.c:207
+msgid "Select top level directory of an existing project"
+msgstr ""
+
+#: plugins/project-manager/project_import_gui.c:211
+msgid "Select existing project directory"
+msgstr ""
+
+#: plugins/project-manager/project_import_gui.c:225
+msgid "Click Forward to begin the import"
+msgstr ""
+
+#: plugins/project-manager/source.c:112
+#, c-format
+msgid "Error writing to file: %s."
+msgstr ""
+
+#: plugins/project-manager/source.c:1614 plugins/project-manager/source.c:1734
+#, c-format
+msgid "Error writing to: %s."
+msgstr ""
+
+#: plugins/project-manager/src_paths.c:263
+msgid "Source Paths"
+msgstr ""
+
+#: plugins/project-wizard/appwizard_cbs.c:126
+msgid "Project name"
+msgstr "ਪ੍ਰੋਜੈਕਟ ਨਾਂ"
+
+#: plugins/project-wizard/appwizard_cbs.c:127
+msgid "Source target name"
+msgstr "ਸਰੋਤ ਨਿਯਤ ਨਾਂ"
+
+#: plugins/project-wizard/appwizard_cbs.c:128
+msgid "Project version"
+msgstr "ਪ੍ਰੋਜੈਕਟ ਵਰਜਨ"
+
+#: plugins/project-wizard/appwizard_cbs.c:224
+#, c-format
+msgid ""
+"Invalid %s field:\n"
+"You must supply a valid %s field to proceed further."
+msgstr ""
+
+#: plugins/project-wizard/appwizard_gui.c:41
+msgid ""
+"The Application Wizard will generate a basic\n"
+"skeleton for a project, including all of the\n"
+"build files. It will ask for details of the initial\n"
+"structure for the application.\n"
+"\n"
+"Please answer the questions carefully, as it\n"
+"may not be possible to change some of the\n"
+"settings later."
+msgstr ""
+
+#: plugins/project-wizard/gnome_project.c:65
+msgid ""
+"A project or file with the same name.already exists.\n"
+"Project creation aborted."
+msgstr ""
+
+#: plugins/project-wizard/gnome_project.c:81
+msgid "Generating Project ...\n"
+msgstr ""
+
+#: plugins/project-wizard/gnome_project.c:88
+#, c-format
+msgid "Cannot create file: %s"
+msgstr ""
+
+#: plugins/project-wizard/gnome_project.c:159
+msgid "Loading Project ...\n"
+msgstr "ਪ੍ਰੋਜੈਕਟ ਲੋਡ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ ...\n"
+
+#: plugins/project-wizard/gnome_project.c:170
+#: plugins/project-wizard/gnome_project.c:231
+msgid "Saving Project ...\n"
+msgstr "ਪ੍ਰੋਜੈਕਟ ਸੰਭਾਲਿਆ ਜਾ ਰਿਹਾ ਹੈ ...\n"
+
+#: plugins/project-wizard/gnome_project.c:178
+msgid "Generating source codes ...\n"
+msgstr ""
+
+#. Creating icon pixmap file for gnome projects
+#: plugins/project-wizard/gnome_project.c:185
+msgid "Copying icon file ...\n"
+msgstr "ਆਈਕਾਨ ਫਾਇਲ ਨਕਲ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ ...\n"
+
+#: plugins/project-wizard/gnome_project.c:199
+msgid "Could not create icon file ...\n"
+msgstr ""
+
+#: plugins/project-wizard/gnome_project.c:213
+msgid "Locating files ...\n"
+msgstr "ਫਾਇਲਾਂ ਸਥਾਪਿਤ ਕੀਤੀਆਂ ਜਾ ਰਹੀਆਂ ਹਨ ...\n"
+
+#: plugins/project-wizard/gnome_project.c:235
+msgid "Updating Project ...\n"
+msgstr ""
+
+#: plugins/project-wizard/gnome_project.c:238
+msgid "Running autogen.sh ...\n"
+msgstr ""
+
+#: plugins/project-wizard/gnome_project.c:250
+msgid "App Wizard"
+msgstr "App ਸਹਾਇਕ"
+
+#: plugins/project-wizard/gnome_project.c:272
+msgid "Auto generation completed...............Unsuccessful\n"
+msgstr ""
+
+#: plugins/project-wizard/gnome_project.c:275
+msgid ""
+"The Project was not successfully auto generated.\n"
+"Please run autogen.sh manually."
+msgstr ""
+
+#: plugins/project-wizard/gnome_project.c:281
+msgid ""
+"Auto generation completed...............Successful\n"
+"Now Build the Project to have a LOOK at it\n"
+msgstr ""
+
+#: plugins/project-wizard/gnome_project.c:284
+msgid "Project was successfully auto generated."
+msgstr ""
+
+#: plugins/project-wizard/wizard_gui.c:98
+msgid "Project Type"
+msgstr "ਪ੍ਰੋਜੈਕਟ ਕਿਸਮ"
+
+#: plugins/project-wizard/wizard_gui.c:120
+msgid "Select the type of application to be developed"
+msgstr ""
+
+#: plugins/project-wizard/wizard_gui.c:161
+msgid "Generic/Terminal project"
+msgstr ""
+
+#: plugins/project-wizard/wizard_gui.c:164
+msgid "GTK 2.0 project"
+msgstr "GTK 2.0 ਪ੍ਰੋਜੈਕਟ"
+
+#: plugins/project-wizard/wizard_gui.c:167
+msgid "GNOME 2.0 project"
+msgstr "ਗਨੋਮ ੨.੦ ਪ੍ਰੋਜੈਕਟ"
+
+#: plugins/project-wizard/wizard_gui.c:170
+msgid "LibGlade 2.0 project"
+msgstr "LibGlade ੨.੦ ਪ੍ਰੋਜੈਕਟ"
+
+#: plugins/project-wizard/wizard_gui.c:173
+msgid "gtkmm 2.0 project"
+msgstr "gtkmm ੨.੦ ਪ੍ਰੋਜੈਕਟ"
+
+#: plugins/project-wizard/wizard_gui.c:176
+msgid "gnomemm 2.0 project"
+msgstr "gnomemm ੨.੦ ਪ੍ਰੋਜੈਕਟ"
+
+#: plugins/project-wizard/wizard_gui.c:179
+msgid "GNOME 2.0 Bonobo component"
+msgstr "ਗਨੋਮ ੨.੦ ਬੋਨਬੋ ਭਾਗੇ"
+
+#: plugins/project-wizard/wizard_gui.c:182
+msgid "wxWindows project"
+msgstr "wxWindows ਪ੍ਰੋਜੈਕਟ"
+
+#: plugins/project-wizard/wizard_gui.c:185
+msgid "Xlib project"
+msgstr "Xlib ਪ੍ਰੋਜੈਕਟ"
+
+#: plugins/project-wizard/wizard_gui.c:188
+msgid "X Dock App project"
+msgstr "X Dock App ਪ੍ਰੋਜੈਕਟ"
+
+#: plugins/project-wizard/wizard_gui.c:262
+msgid "Basic Information"
+msgstr "ਮੂਲ ਜਾਣਕਾਰੀ"
+
+#: plugins/project-wizard/wizard_gui.c:283
+msgid "Enter the basic Project information"
+msgstr ""
+
+#: plugins/project-wizard/wizard_gui.c:306
+msgid "Project Version:"
+msgstr "ਪ੍ਰੋਜੈਕਟ ਵਰਜਨ:"
+
+#: plugins/project-wizard/wizard_gui.c:313
+msgid "Project Author:"
+msgstr "ਪ੍ਰੋਜੈਕਟ ਲੇਖਕ:"
+
+#: plugins/project-wizard/wizard_gui.c:320
+msgid "Project Target:"
+msgstr "ਪ੍ਰੋਜੈਕਟ ਨਿਯਤ:"
+
+#: plugins/project-wizard/wizard_gui.c:351
+msgid "Programming language"
+msgstr "ਪ੍ਰੋਗਰਾਮਿੰਗ ਭਾਸ਼ਾ"
+
+#: plugins/project-wizard/wizard_gui.c:362
+msgid "C"
+msgstr "C"
+
+#: plugins/project-wizard/wizard_gui.c:370
+msgid "C++"
+msgstr "C++"
+
+#: plugins/project-wizard/wizard_gui.c:379
+msgid "Both C and C++"
+msgstr "C ਅਤੇ C++ ਦੋਵੇਂ"
+
+#: plugins/project-wizard/wizard_gui.c:386
+msgid "Target type"
+msgstr "ਨਿਯਤ ਕਿਸਮ"
+
+#: plugins/project-wizard/wizard_gui.c:402
+msgid "Executable target"
+msgstr ""
+
+#: plugins/project-wizard/wizard_gui.c:409
+msgid "Static library target"
+msgstr ""
+
+#: plugins/project-wizard/wizard_gui.c:415
+msgid "Dynamic library target"
+msgstr ""
+
+#: plugins/project-wizard/wizard_gui.c:491
+msgid "Enter a short description of the Project"
+msgstr ""
+
+#: plugins/project-wizard/wizard_gui.c:597
+msgid "Enter any additional Project options"
+msgstr ""
+
+#: plugins/project-wizard/wizard_gui.c:614
+msgid " Project Options "
+msgstr " ਪ੍ਰੋਜੈਕਟ ਚੋਣ"
+
+#: plugins/project-wizard/wizard_gui.c:625
+msgid "Include GNU Copyright statement in file headings"
+msgstr ""
+
+#: plugins/project-wizard/wizard_gui.c:632
+msgid "Enable Gettext Support"
+msgstr ""
+
+#: plugins/project-wizard/wizard_gui.c:640
+msgid "Generate source code using glade or glademm"
+msgstr ""
+
+#: plugins/project-wizard/wizard_gui.c:647
+msgid "GNOME Menu Entry"
+msgstr "ਗਨੋਮ ਮੇਨੂ ਇੰਦਰਾਜ਼"
+
+#: plugins/project-wizard/wizard_gui.c:657
+msgid "Entry name:"
+msgstr "ਇੰਦਰਾਜ਼ ਨਾਂ:"
+
+#: plugins/project-wizard/wizard_gui.c:664
+msgid "Comment:"
+msgstr "ਟਿੱਪਣੀ:"
+
+#: plugins/project-wizard/wizard_gui.c:671
+msgid "Group:"
+msgstr "ਸਮੂਹ:"
+
+#: plugins/project-wizard/wizard_gui.c:713
+msgid "Needs terminal"
+msgstr "ਟਰਮੀਨਲ ਲੋੜੀਦਾ ਹੈ"
+
+#: plugins/project-wizard/wizard_gui.c:755
+msgid "Summary"
+msgstr "ਸੰਖੇਪ"
+
+#. Action name
+#. Stock icon, if any
+#: plugins/sample1/plugin.c:55
+msgid "_Sample action"
+msgstr "_ਸਧਾਰਨ ਕਾਰਵਾਈ"
+
+#. Display label
+#. short-cut
+#: plugins/sample1/plugin.c:57
+msgid "Sample action"
+msgstr "ਸਧਾਰਨ ਕਾਰਵਾਈ"
+
+#: plugins/sample1/plugin.c:78
+msgid "Sample file operations"
+msgstr "ਸਧਾਰਨ ਫਾਇਲ ਕਾਰਵਾਈ"
+
+#: plugins/sample1/plugin.c:84
+msgid "SamplePlugin"
+msgstr ""
+
+#: plugins/symbol-browser/an_symbol_view.c:55
+msgid "Classes"
+msgstr "ਕਲਾਸਾਂ"
+
+#: plugins/symbol-browser/an_symbol_view.c:55
+msgid "Structs"
+msgstr "Structs"
+
+#: plugins/symbol-browser/an_symbol_view.c:56
+msgid "Variables"
+msgstr "Variables"
+
+#: plugins/symbol-browser/an_symbol_view.c:56
+msgid "Macros"
+msgstr "Macros"
+
+#. 0
+#: plugins/symbol-browser/an_symbol_view.c:282
+msgid "Goto Definition"
+msgstr ""
+
+#. 1
+#: plugins/symbol-browser/an_symbol_view.c:289
+msgid "Goto Declaration"
+msgstr ""
+
+#: plugins/symbol-browser/an_symbol_view.c:561
+msgid "Symbol"
+msgstr "Symbol"
+
+#: plugins/terminal/terminal.c:444
+msgid "Terminal"
+msgstr "ਟਰਮੀਨਲ"
+
+#: plugins/tools/anjuta-tools.c:1005
+msgid "Tool"
+msgstr "ਸੰਦ"
+
+#: plugins/tools/anjuta-tools.c:1189
+msgid "Unable to build user interface for tool editor"
+msgstr ""
+
+#: plugins/tools/anjuta-tools.c:1385
+#, c-format
+msgid "Are you sure you want to delete the '%s' tool?"
+msgstr ""
+
+#: plugins/tools/anjuta-tools.c:1487
+msgid "You must provide a tool name!"
+msgstr "ਤੁਹਾਨੂੰ ਸੰਦ ਦਾ ਨਾਂ ਦੇਣਾ ਚਾਹੀਦਾ ਹੈ!"
+
+#: plugins/tools/anjuta-tools.c:1493
+msgid "You must provide a tool command!"
+msgstr ""
+
+#: plugins/tools/anjuta-tools.c:1508
+#, c-format
+msgid "A tool with the name '%s' already exists!"
+msgstr ""
+
+#: plugins/tools/anjuta-tools.c:1792
+msgid "Unable to build user interface for tool help"
+msgstr ""
+
+#: plugins/tools/anjuta-tools.c:1813
+msgid "Meaning"
+msgstr "ਅਰਥ"
+
+#: plugins/tools/anjuta-tools.c:1882
+msgid "Unable to build user interface for tool parameters"
+msgstr ""
+
+#: plugins/tools/anjuta-tools.c:1886
+#, c-format
+msgid "%s: Command line parameters"
+msgstr ""
+
+#: src/about.c:95
+msgid "Copyright (c) Naba Kumar"
+msgstr "ਹੱਕ ਰਾਖਵੇਂ ਹਨ ਨਬਾ ਕੁਮਾਰ"
+
+#: src/action-callbacks.c:74 src/action-callbacks.c:95
+msgid "Anjuta Plugins"
+msgstr "ਆਂਜੂਤਾ ਪਲੱਗਇਨ"
+
+#: src/action-callbacks.c:109 src/mainmenu_callbacks.c:836
+msgid ""
+"Unable to display help. Please make sure Anjuta documentation package is "
+"install. It can be downloaded from http://anjuta.org"
+msgstr ""
+
+#: src/anjuta.c:76 src/anjuta_cbs.c:93
+msgid ""
+"One or more files are not saved.\n"
+"Do you still want to exit?"
+msgstr ""
+
+#: src/anjuta-actions.h:23
+msgid "_File"
+msgstr "ਫਾ_ਇਲ"
+
+#: src/anjuta-actions.h:24
+msgid "_Quit"
+msgstr "_ਬੰਦ"
+
+#: src/anjuta-actions.h:25
+msgid "Quit Anjuta IDE"
+msgstr ""
+
+#: src/anjuta-actions.h:31
+msgid "G_oto"
+msgstr "_ਜਾਓ"
+
+#: src/anjuta-actions.h:35
+msgid "_View"
+msgstr "_ਵੇਖੋ"
+
+#: src/anjuta-actions.h:36
+msgid "_Toolbars"
+msgstr "_ਸੰਦਪੱਟੀ"
+
+#: src/anjuta-actions.h:40
+msgid "_Settings"
+msgstr "_ਵਿਵਸਥਾ"
+
+#: src/anjuta-actions.h:42
+msgid "_Preferences ..."
+msgstr "_ਮੇਰੀ-ਪਸੰਦ...."
+
+#: src/anjuta-actions.h:43
+msgid "Do you prefer coffee to tea? Check it out."
+msgstr ""
+
+#: src/anjuta-actions.h:46
+msgid "Set _Default Preferences"
+msgstr "_ਮੂਲ ਮੇਰੀ ਪਸੰਦ ਨਿਰਧਾਰਿਤ ਕਰੋ"
+
+#: src/anjuta-actions.h:47
+msgid "But I prefer tea."
+msgstr ""
+
+#: src/anjuta-actions.h:50
+msgid "C_ustomize shortcuts"
+msgstr ""
+
+#: src/anjuta-actions.h:51
+msgid "Customize shortcuts associated with menu items"
+msgstr ""
+
+#: src/anjuta-actions.h:54
+msgid "Layout manager"
+msgstr "ਖਾਕਾ ਪ੍ਰਬੰਧਕ"
+
+#: src/anjuta-actions.h:55
+msgid "Manipulate layout manager items"
+msgstr ""
+
+#: src/anjuta-actions.h:58
+msgid "Plugins manager"
+msgstr "ਪਲੱਗਇਨ ਪ੍ਰਬੰਧਕ"
+
+#: src/anjuta-actions.h:59
+msgid "Manipulate plugins manager items"
+msgstr ""
+
+#: src/anjuta-actions.h:64
+msgid "_Help"
+msgstr "_ਸਹਾਇਤਾ"
+
+#: src/anjuta-actions.h:66
+msgid "The GNOME API pages"
+msgstr ""
+
+#: src/anjuta-actions.h:67
+msgid "Browse GNOME _API Pages"
+msgstr ""
+
+#: src/anjuta-actions.h:70
+msgid "Browse _Man Pages"
+msgstr ""
+
+#: src/anjuta-actions.h:71
+msgid "The good old manual pages"
+msgstr ""
+
+#: src/anjuta-actions.h:74
+msgid "Browse _Info Pages"
+msgstr ""
+
+#: src/anjuta-actions.h:75
+msgid "The good info pages"
+msgstr ""
+
+#: src/anjuta-actions.h:78
+msgid "_Context Help"
+msgstr "-ਪ੍ਰਸੰਗ ਸਹਾਇਤਾ"
+
+#: src/anjuta-actions.h:79
+msgid "Search help for the current word in the editor"
+msgstr ""
+
+#: src/anjuta-actions.h:82
+msgid "_Search a topic"
+msgstr "ਵਿਸ਼ਾ _ਖੋਜ"
+
+#: src/anjuta-actions.h:83
+msgid "May I help you?"
+msgstr "ਕੀ ਮੈਂ ਤੁਹਾਡੀ ਸਹਾਇਤਾ ਕਰ ਸਕਦਾ ਹਾਂ?"
+
+#: src/anjuta-actions.h:86
+msgid "Anjuta _Home Page"
+msgstr "ਆਂਜੂਤਾ ਮੁੱਖ ਸਫਾ"
+
+#: src/anjuta-actions.h:87
+msgid "Online documentation and resources"
+msgstr ""
+
+#: src/anjuta-actions.h:90
+msgid "_Libraries API references"
+msgstr "_ਲਾਇਬ੍ਰੇਰੀ API ਹਵਾਲਾ"
+
+#: src/anjuta-actions.h:91
+msgid "Online reference library for GDK, GLib, GNOME etc.."
+msgstr ""
+
+#: src/anjuta-actions.h:94
+msgid "Report _Bugs"
+msgstr "ਬੱਗ ਜਾਣਕਾਰੀ"
+
+#: src/anjuta-actions.h:95
+msgid "Submit a bug report for Anjuta"
+msgstr ""
+
+#: src/anjuta-actions.h:98
+msgid "Request _Features"
+msgstr "ਲੋੜੀਦੇ ਫੀਚਰ"
+
+#: src/anjuta-actions.h:99
+msgid "Submit a feature request for Anjuta"
+msgstr ""
+
+#: src/anjuta-actions.h:102
+msgid "Submit _patches"
+msgstr ""
+
+#: src/anjuta-actions.h:103
+msgid "Submit patches for Anjuta"
+msgstr ""
+
+#: src/anjuta-actions.h:106
+msgid "Ask a _question"
+msgstr "ਸਵਾਲ ਪੁੱਛੋ"
+
+#: src/anjuta-actions.h:107
+msgid "Submit a question for FAQs"
+msgstr ""
+
+#: src/anjuta-actions.h:110
+msgid "_About"
+msgstr "ਇਸ _ਬਾਰੇ"
+
+#: src/anjuta-actions.h:111
+msgid "About Anjuta"
+msgstr "ਆਂਜੂਤਾ ਬਾਰੇ"
+
+#: src/anjuta-app.c:447
+msgid "Value doesn't exist"
+msgstr "ਮੁੱਲ ਮੌਜੂਦ ਨਹੀਂ ਹੈ"
+
+#: src/anjuta-app.c:734
+#, c-format
+msgid "# * DO NOT EDIT OR RENAME THIS FILE ** Generated by Anjuta **\n"
+msgstr "# * ਇਸ ਫਾਇਲ ਨੂੰ ਹਟਾਓ ਨਾ ਜਾਂ ਨਾਂ ਨਾ-ਤਬਦੀਲ ਕਰੋ ** ਆਂਜੂਤਾ ਨੇ ਬਣਾਈ ਹੈ **\n"
+
+#: src/anjuta-app.c:1017
+msgid "Looking up symbol"
+msgstr "ਨਿਸ਼ਾਨਾਂ ਦੀ ਖੋਜ"
+
+#: src/anjuta-app.c:1019
+msgid "Finding in Files ....\n"
+msgstr "ਫਾਇਲਾਂ ਵਿੱਚ ਖੋਜੋ ...\n"
+
+#: src/anjuta-callbacks.c:227 src/anjuta_cbs.c:466
+msgid "Could not open file for writing"
+msgstr ""
+
+#: src/anjuta-callbacks.c:251 src/anjuta_cbs.c:490
+#, c-format
+msgid ""
+"The file '%s' already exists.\n"
+"Do you want to replace it with the one you are saving?."
+msgstr ""
+
+#: src/anjuta_dirs.c:53
+msgid "Unable to create settings directory.\n"
+msgstr ""
+
+#: src/anjuta_gui.c:108
+msgid "Navigate"
+msgstr "ਏਧਰ-ਓਧਰ"
+
+#: src/anjuta_gui.c:137 src/main_menubar.c:383
+msgid "Recent Files    "
+msgstr "ਤਾਜ਼ੀਆਂ ਫਾਇਲਾਂ"
+
+#: src/anjuta_info.c:51 src/anjuta_info.c:101
+msgid "Information"
+msgstr "ਜਾਣਕਾਰੀ"
+
+#: src/controls.c:210
+msgid "No tags"
+msgstr "ਕੋਈ ਟੈਗ ਨਹੀਂ"
+
+#: src/dnd.c:104
+#, c-format
+msgid "File %s is not local."
+msgstr "ਫਾਇਲ %s ਸਥਾਨਿਕ ਨਹੀਂ ਹੈ"
+
+#: src/dnd.c:112
+#, c-format
+msgid "Invalid filename %s."
+msgstr "ਗਲਤ ਫਾਇਲ ਨਾਂ %s।"
+
+#: src/glade_iface.c:69
+msgid ""
+"Warning: Can not generate c/c++ source code.\n"
+"Warning: It is because either glade (for gtk/gnome projects) or glademm (for "
+"gtkmm/gnomemm projects) is not installed.\n"
+"Warning: Your generated project will still be fine, though.\n"
+msgstr ""
+
+#: src/glade_iface.c:108
+msgid "Cannot fork glade."
+msgstr ""
+
+#: src/glade_iface.c:148 src/glade_iface.c:229
+msgid "Cannot fork glade--."
+msgstr ""
+
+#: src/glade_iface.c:189
+msgid "Cannot fork glade-2."
+msgstr ""
+
+#: src/main.c:50 src/main.cpp:50
+msgid "Specify the size and location of the main window"
+msgstr ""
+
+#: src/main.c:51 src/main.cpp:51
+msgid "WIDTHxHEIGHT+XOFF+YOFF"
+msgstr "WIDTHxHEIGHT+XOFF+YOFF"
+
+#: src/main.c:56 src/main.cpp:56
+msgid "Do not show the splashscreen"
+msgstr ""
+
+#: src/mainmenu_callbacks.c:545
+msgid "The executable is not up-to-date."
+msgstr ""
+
+#: src/mainmenu_callbacks.c:570
+msgid "Debugger is not running. Start it first."
+msgstr ""
+
+#: src/support.c:60 src/support.c:85
+#, c-format
+msgid "Couldn't find pixmap file: %s"
+msgstr ""
+
+#: src/toolbar.c:105
+msgid "Detach"
+msgstr ""
+
+#: src/toolbar.c:106
+msgid "Detach the current page"
+msgstr ""
+
+#: src/toolbar.c:115
+msgid "Search for the given string in the current file"
+msgstr ""
+
+#: src/toolbar.c:131
+msgid "Enter the string to search for"
+msgstr ""
+
+#: src/toolbar.c:137
+msgid "Go to the given line number in the current file"
+msgstr ""
+
+#: src/toolbar.c:144
+msgid "Enter the line number to go to"
+msgstr ""
+
+#: src/toolbar.c:151
+msgid "Show/Hide the Project window"
+msgstr ""
+
+#: src/toolbar.c:155
+msgid "Show/Hide the Message window"
+msgstr ""
+
+#: src/toolbar.c:160
+msgid "Context sensitive help"
+msgstr ""
+
+#: src/toolbar.c:214
+msgid "Open a Project"
+msgstr "ਪ੍ਰੋਜੈਕਟ ਖੋਲੋ"
+
+#: src/toolbar.c:224
+msgid "Save Project"
+msgstr "ਪ੍ਰੋਜੈਕਟ ਸੰਭਾਲੋ"
+
+#: src/toolbar.c:225
+msgid "Save the current Project"
+msgstr "ਮੌਜੂਦਾ ਪ੍ਰੋਜੈਕਟ ਸੰਭਾਲੋ"
+
+#: src/toolbar.c:236
+msgid "Close Project"
+msgstr "ਪ੍ਰੋਜੈਕਟ ਬੰਦ ਕਰੋ"
+
+#: src/toolbar.c:237
+msgid "Close the current Project"
+msgstr "ਮੌਜੂਦਾ ਪ੍ਰੋਜੈਕਟ ਬੰਦ ਕਰੋ"
+
+#: src/toolbar.c:251
+msgid "Compile the current file"
+msgstr "ਮੌਜੂਦਾ ਫਾਇਲ ਕੰਪਾਇਲ"
+
+#: src/toolbar.c:263
+msgid "Run configure"
+msgstr "ਸੰਰਚਨਾ ਚਲਾਓ"
+
+#: src/toolbar.c:275
+msgid "Build current file, or build the source directory of the Project"
+msgstr ""
+
+#: src/toolbar.c:286
+msgid "Build_all"
+msgstr "_ਸਭ ਬਣਾਓ"
+
+#: src/toolbar.c:288
+msgid "Build from the top directory of the Project"
+msgstr ""
+
+#: src/toolbar.c:296
+msgid "Execute the program"
+msgstr "ਕਾਰਜ ਚਲਾਓ"
+
+#: src/toolbar.c:307
+msgid "Start the Debugger"
+msgstr "ਡੀਬੱਗਰ ਸ਼ੁਰੂ ਕਰੋ"
+
+#: src/toolbar.c:314
+msgid "Stop/interrupt compile or build"
+msgstr ""
+
+#: src/toolbar.c:383 src/toolbar.c:762
+msgid "Toggle"
+msgstr "ਤਬਦੀਲ"
+
+#: src/toolbar.c:384
+msgid "Toggle bookmark at current location"
+msgstr ""
+
+#: src/toolbar.c:390
+msgid "Goto first bookmark in this document"
+msgstr ""
+
+#: src/toolbar.c:396
+msgid "Goto previous bookmark in this document"
+msgstr ""
+
+#: src/toolbar.c:401
+msgid "Goto next bookmark in this document"
+msgstr ""
+
+#: src/toolbar.c:406
+msgid "Goto last bookmark in this document"
+msgstr ""
+
+#: src/toolbar.c:415
+msgid "Prev"
+msgstr "ਪਿੱਛੇ"
+
+#: src/toolbar.c:416
+msgid "Goto previous message in this document"
+msgstr ""
+
+#: src/toolbar.c:422
+msgid "Next"
+msgstr "ਅੱਗੇ"
+
+#: src/toolbar.c:423
+msgid "Goto next message in this document"
+msgstr ""
+
+#: src/toolbar.c:431
+msgid "Start"
+msgstr "ਸ਼ੁਰੂ"
+
+#: src/toolbar.c:432
+msgid "Goto start of current code block"
+msgstr ""
+
+#: src/toolbar.c:438
+msgid "End"
+msgstr "ਅੰਤ"
+
+#: src/toolbar.c:439
+msgid "Goto end of current code block"
+msgstr ""
+
+#: src/toolbar.c:446
+msgid "Tags:"
+msgstr "ਟੈਗ:"
+
+#: src/toolbar.c:455
+msgid "Search for the given tag in the current file"
+msgstr ""
+
+#: src/toolbar.c:470
+msgid "Enter the tag to jump to"
+msgstr ""
+
+#: src/toolbar.c:513
+msgid "Go or continue execution"
+msgstr ""
+
+#: src/toolbar.c:524
+msgid "Run"
+msgstr "ਚਲਾਓ"
+
+#: src/toolbar.c:537
+msgid "Single step in execution"
+msgstr "ਚਲਾਉ ਲ਼ਈ ਇੱਕ ਪਗ਼"
+
+#: src/toolbar.c:548
+msgid "Step Over"
+msgstr ""
+
+#: src/toolbar.c:549
+msgid "Step over the function"
+msgstr ""
+
+#: src/toolbar.c:559
+msgid "Step Out"
+msgstr ""
+
+#: src/toolbar.c:560
+msgid "Step out of the function"
+msgstr ""
+
+#: src/toolbar.c:575
+msgid "Interrupt execution of the program"
+msgstr ""
+
+#: src/toolbar.c:588
+msgid "Breakpoint"
+msgstr ""
+
+#: src/toolbar.c:589
+msgid "Toggle breakpoint at cursor"
+msgstr ""
+
+#: src/toolbar.c:601
+msgid "Inspect or evaluate an expression"
+msgstr ""
+
+#: src/toolbar.c:614
+msgid "Display the current frame information"
+msgstr ""
+
+#: src/toolbar.c:640
+msgid "Signals"
+msgstr "ਸੰਕੇਤ"
+
+#: src/toolbar.c:641
+msgid "kernel signals of the program"
+msgstr "ਕਾਰਜ ਦੇ ਕਰਨਲ ਸੰਕੇਤ"
+
+#: src/toolbar.c:652
+msgid "Registers"
+msgstr "ਰਜਿਸਟਰ"
+
+#: src/toolbar.c:653
+msgid "CPU registers and their contents"
+msgstr "CPU ਰਜਿਸਟਰ ਤੇ ਉਹਨਾਂ ਵਿੱਚ"
+
+#: src/toolbar.c:667
+msgid "End the debugging session"
+msgstr ""
+
+#: src/toolbar.c:764
+msgid "Toggle current code fold hide/show"
+msgstr ""
+
+#: src/toolbar.c:775
+msgid "Close all"
+msgstr "ਸਭ ਬੰਦ"
+
+#: src/toolbar.c:777
+msgid "Close all code folds in this document"
+msgstr ""
+
+#: src/toolbar.c:788
+msgid "Open all"
+msgstr "ਸਭ ਖੋਲੋ"
+
+#: src/toolbar.c:790
+msgid "Open all code folds in this document"
+msgstr ""
+
+#: src/toolbar.c:803
+msgid "Select"
+msgstr "ਚੁਣੋ"
+
+#: src/toolbar.c:804
+msgid "Select current code block"
+msgstr ""
+
+#: src/toolbar.c:815
+msgid "Indent inc"
+msgstr ""
+
+#: src/toolbar.c:817
+msgid "Increase indentation of block/line"
+msgstr ""
+
+#: src/toolbar.c:828
+msgid "Indent dcr"
+msgstr ""
+
+#: src/toolbar.c:830
+msgid "Decrease indentation of block/line"
+msgstr ""
+
+#: src/toolbar.c:843
+msgid "Autoformat"
+msgstr ""
+
+#: src/toolbar.c:845
+msgid "Automatically format the code"
+msgstr ""
+
+#: src/toolbar.c:856
+msgid "Format style"
+msgstr "ਪ੍ਰਤੀਰੂਪ ਸ਼ੈਲੀ"
+
+#: src/toolbar.c:857
+msgid "Configure style to use for auto format"
+msgstr ""
+
+#: src/toolbar.c:870
+msgid "Calltip"
+msgstr ""
+
+#: src/toolbar.c:870
+msgid "Show Calltip"
+msgstr ""
+
+#: src/toolbar.c:883
+msgid "Autocomplete"
+msgstr ""
+
+#: src/toolbar.c:884
+msgid "Autocomplete word"
+msgstr ""
+
