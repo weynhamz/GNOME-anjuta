@@ -114,7 +114,7 @@ create_main_toolbar (GtkWidget * anjuta_gui, MainToolbar * toolbar)
 	toolbar->find =
 		anjuta_util_toolbar_append_stock (toolbar1, GTK_STOCK_FIND, 
 						   _("Search for the given string in the current file"),
-						   G_CALLBACK (on_toolbar_find_clicked_cb),
+						   G_CALLBACK (on_toolbar_find_clicked),
 						   NULL);
 
 	toolbar->find_combo = gtk_combo_new ();
@@ -162,7 +162,7 @@ create_main_toolbar (GtkWidget * anjuta_gui, MainToolbar * toolbar)
 						   G_CALLBACK (on_toolbar_help_clicked), NULL);
 	
 	gtk_signal_connect (GTK_OBJECT (toolbar->find_entry), "activate",
-						GTK_SIGNAL_FUNC (on_toolbar_find_clicked_cb),
+						GTK_SIGNAL_FUNC (on_toolbar_find_clicked),
 						NULL);
 	gtk_signal_connect (GTK_OBJECT (toolbar->find_entry), "changed",
 						GTK_SIGNAL_FUNC (on_toolbar_find_incremental),

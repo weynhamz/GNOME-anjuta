@@ -118,6 +118,32 @@ on_toolbar_detach_clicked (GtkButton * button, gpointer user_data)
 				 "activate");
 }
 
+gboolean
+on_toolbar_find_incremental_start (GtkEntry *entry, GdkEvent *e, gpointer user_data)
+{
+	toolbar_search_incremental_start ();
+	return FALSE;
+}
+
+gboolean
+on_toolbar_find_incremental_end (GtkEntry *entry,
+	GdkEvent *e, gpointer user_data)
+{
+	toolbar_search_incremental_end ();
+	return FALSE;
+}
+
+void
+on_toolbar_find_incremental (GtkEntry *entry, gpointer user_data)
+{
+	toolbar_search_incremental ();
+}
+
+void
+on_toolbar_find_clicked (GtkButton * button, gpointer user_data)
+{
+	toolbar_search_clicked_cb ();
+}
 
 void
 on_toolbar_goto_clicked (GtkButton * button, gpointer user_data)

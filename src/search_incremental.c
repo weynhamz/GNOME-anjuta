@@ -46,13 +46,10 @@
 
 
 static void
-toolbar_find_start_over (SearchDirection direction);
+toolbar_search_start_over (SearchDirection direction);
 
 static void
-toolbar_find_clicked (SearchDirection direction);
-
-void
-on_toolbar_find_clicked (GtkButton * button, gpointer user_data);
+toolbar_search_clicked (SearchDirection direction);
 
 static gint
 incremental_search(TextEditor *te, gchar *string, SearchDirection direction);
@@ -140,18 +137,18 @@ enter_selection_as_search_target(void)
 }
 
 
-gboolean
-on_toolbar_find_incremental_start (GtkEntry *entry, GdkEvent *e, gpointer user_data)
+void
+toolbar_search_incremental_start (void)
 {
 	gchar *string;
 	const gchar *string1;
-	TextEditor *te = anjuta_get_current_text_editor();
+	TextEditor *te;
 	
+	if (!(te = anjuta_get_current_text_editor()))
+		return;
 	if (sr == NULL)
 		sr = create_search_replace_instance();
 		
-	if (!te) return FALSE;
-
 	/* Updated find combo history */
 	string1 = gtk_entry_get_text (GTK_ENTRY
 				    (app->widgets.toolbar.main_toolbar.find_entry));
@@ -169,28 +166,24 @@ on_toolbar_find_incremental_start (GtkEntry *entry, GdkEvent *e, gpointer user_d
 	/* Prepare to begin incremental search */	
 	sr->search.incremental_pos = text_editor_get_current_position(te);
 	sr->search.incremental_wrap = FALSE;
-	return FALSE;
 }
-
-gboolean
-on_toolbar_find_incremental_end (GtkEntry *entry,
-	GdkEvent *e, gpointer user_data)
+void
+toolbar_search_incremental_end (void)
 {
 	sr->search.incremental_pos = -1;
-	return FALSE;
 }
 
 void
-on_toolbar_find_incremental (GtkEntry *entry, gpointer user_data)
+toolbar_search_incremental (void)
 {
 	const gchar *entry_text;
 	TextEditor *te;
 	
+	if (!(te = anjuta_get_current_text_editor()))
+		return;
 	if (sr == NULL)
 		sr = create_search_replace_instance();
 	
-	if (!(te = anjuta_get_current_text_editor()))
-		return;
 	if (sr->search.incremental_pos < 0)
 		return;
 	
@@ -200,24 +193,22 @@ on_toolbar_find_incremental (GtkEntry *entry, gpointer user_data)
 				    (app->widgets.toolbar.main_toolbar.find_entry));
 	if (!entry_text || strlen(entry_text) < 1) return;
 	
-	toolbar_find_clicked (SD_FORWARD);
+	toolbar_search_clicked (SD_FORWARD);
 }
 
 
 static void
-toolbar_find_clicked (SearchDirection direction)
+toolbar_search_clicked (SearchDirection direction)
 {
 	TextEditor *te;
 	const gchar *string;
 	gint ret;
 	gboolean search_wrap = FALSE;
 	
+	if (!(te = anjuta_get_current_text_editor()))
+		return;
 	if (sr == NULL)
 		sr = create_search_replace_instance();
-	
-	te = anjuta_get_current_text_editor ();
-	if (!te)
-		return;
 
 	string = gtk_entry_get_text (GTK_ENTRY
 								 (app->widgets.toolbar.main_toolbar.
@@ -264,7 +255,7 @@ toolbar_find_clicked (SearchDirection direction)
 											 GTK_BUTTONS_YES_NO,
 					_("No matches. Wrap search around the document?"));
 			if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_YES)
-				toolbar_find_start_over (direction);
+				toolbar_search_start_over (direction);
 			gtk_widget_destroy (dialog);
 		}
 		else
@@ -289,18 +280,20 @@ toolbar_find_clicked (SearchDirection direction)
 
 
 void
-on_toolbar_find_clicked_cb (GtkButton * button, gpointer user_data)
+toolbar_search_clicked_cb (void)
 {
-	toolbar_find_clicked (SD_FORWARD);
+	toolbar_search_clicked (SD_FORWARD);
 }
 
 
 static void
-toolbar_find_start_over (SearchDirection direction)
+toolbar_search_start_over (SearchDirection direction)
 {
-	TextEditor *te = anjuta_get_current_text_editor();
+	TextEditor *te;
 	long length;
 	
+	if (!(te = anjuta_get_current_text_editor()))
+		return;
 	length = aneditor_command(te->editor_id, ANE_GETLENGTH, 0, 0);
 
 	if (direction != SD_BACKWARD)
@@ -310,5 +303,5 @@ toolbar_find_start_over (SearchDirection direction)
 		/* search from doc end */
 		text_editor_goto_point (te, length);
 
-	toolbar_find_clicked (direction);
+	toolbar_search_clicked (direction);
 }

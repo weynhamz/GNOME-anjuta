@@ -15,20 +15,15 @@ extern "C"
 #endif
 
 	
-gboolean
-on_toolbar_find_incremental_start (GtkEntry *entry, GdkEvent* e, 
-	                               gpointer user_data);
-gboolean
-on_toolbar_find_incremental_end (GtkEntry *entry, GdkEvent*e, 
-	                             gpointer user_data);
-void
-on_toolbar_find_incremental (GtkEntry *entry, gpointer user_data);
-
-void
-on_toolbar_find_clicked_cb (GtkButton *button, gpointer user_data);
+void toolbar_search_incremental_start (void);
 	
-void
-enter_selection_as_search_target(void);	
+void toolbar_search_incremental_end (void);
+	
+void toolbar_search_incremental (void);
+
+void toolbar_search_clicked (void);
+	
+void enter_selection_as_search_target(void);	
 	
 	
 #ifdef __cplusplus

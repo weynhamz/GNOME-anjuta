@@ -1,3 +1,11 @@
+2004-01-09  Jean-Noel Guiheneuf <jnoel@lotuscompounds.com>
+
+* src/toolbar.c, src/toolbar_callbacks.c, src/toolbar_callbacks.h,
+src/search_incremental.c, src/search_incremental.h
+
+Search_incremental: code cleanup
+
+
 2004-01-08  Jean-Noel Guiheneuf <jnoel@lotuscompounds.com>
 
 * scintilla/*/*: Updated scintilla to CVS
