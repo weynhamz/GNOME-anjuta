@@ -36,8 +36,7 @@
 #include <time.h>
 #include <unistd.h>
 
-/* Use Gtk+ */
-#include <gtk/gtk.h>
+#include <gnome.h>
 
 #define GTK
 #include "Platform.h"
@@ -50,6 +49,7 @@
 #include "SciLexer.h"
 #include "lexer.h"
 #include "properties.h"
+#include "resources.h"
 #include "aneditor.h"
 
 #include "tm_tagmanager.h"
@@ -60,6 +60,13 @@
 using namespace std;
 
 #include "debugger.h"
+
+#include "sv_unknown.xpm"
+#include "sv_class.xpm"
+#include "sv_function.xpm"
+#include "sv_macro.xpm"
+#include "sv_struct.xpm"
+#include "sv_variable.xpm"
 
 // #define DEBUG
 
@@ -395,6 +402,32 @@ AnEditor::AnEditor(PropSetFile* p) {
 	/* Set default editor mode */
 	SendEditor(SCI_SETEOLMODE, SC_EOL_LF);
 
+	/* Register images to be used for autocomplete */
+	typedef struct {
+		int type;
+		char **xpm_data;
+	} PixAndType;
+	PixAndType pix_list[] = {
+	{ tm_tag_undef_t, sv_unknown_xpm }
+	, { tm_tag_class_t, sv_class_xpm }
+	, { tm_tag_function_t, sv_function_xpm }
+	, { tm_tag_prototype_t, sv_function_xpm }
+	, { tm_tag_interface_t, sv_function_xpm }
+	, { tm_tag_method_t, sv_function_xpm }
+	, { tm_tag_macro_t, sv_macro_xpm }
+	, { tm_tag_macro_with_arg_t, sv_macro_xpm }
+	, { tm_tag_variable_t, sv_variable_xpm }
+	, { tm_tag_externvar_t, sv_variable_xpm }
+	, { tm_tag_member_t, sv_variable_xpm }
+	, { tm_tag_field_t, sv_variable_xpm }
+	, { tm_tag_struct_t, sv_struct_xpm }
+	, { tm_tag_typedef_t, sv_struct_xpm }
+	};
+	for (guint i = 0; i < (sizeof(pix_list)/sizeof(pix_list[0])); ++i)
+	{
+		SendEditor(SCI_REGISTERIMAGE, (long) pix_list[i].type
+		  , reinterpret_cast<long>(pix_list[i].xpm_data));
+	}
 
 	/* Ask for SCN_DWELLSTART and SCN_DWELLEND events: */
 	SendEditor(SCI_SETMOUSEDWELLTIME, 750 /*milliseconds*/);
@@ -907,10 +940,20 @@ const char *strcasestr(const char *str, const char *pattn) {
 }
 #endif
 
+#define TYPESEP '?'
+
+static void free_word(gpointer key, gpointer value, gpointer user_data)
+{
+	g_free(key);
+}
+
 bool AnEditor::StartAutoCompleteWord() {
 	char linebuf[1000];
-	int current = GetLine(linebuf, sizeof(linebuf));
+	GHashTable *wordhash = g_hash_table_new(g_str_hash, g_str_equal);
+	GString *words = g_string_sized_new(256);
 
+	/* Get the word to match against */
+	int current = GetLine(linebuf, sizeof(linebuf));
 	int startword = current;
 	while (startword > 0 && !nonFuncChar(linebuf[startword - 1]))
 		startword--;
@@ -920,7 +963,30 @@ bool AnEditor::StartAutoCompleteWord() {
 	const char *root = linebuf + startword;
 	int rootlen = current - startword;
 
-	/* Added word-completion feature back - Biswa */
+	/* TagManager autocompletion - only for C/C++/Java */
+	if (SCLEX_CPP == lexLanguage)
+	{
+		const GPtrArray *tags = tm_workspace_find(root, tm_tag_max_t, NULL, TRUE);
+		if ((tags) && (tags->len > 0))
+		{
+			TMTag *tag;
+			for (guint i=0; ((i < tags->len) && (i < MAX_AUTOCOMPLETE_WORDS)); ++i)
+			{
+				tag = (TMTag *) tags->pdata[i];
+				if (NULL == g_hash_table_lookup(wordhash
+				  , (gconstpointer)	tag->name))
+				{
+					g_hash_table_insert(wordhash, g_strdup(tag->name), (gpointer) 1);
+					if (words->len > 0)
+						g_string_append_c(words, ' ');
+					g_string_append(words, tag->name);
+					g_string_append_c(words, TYPESEP);
+					g_string_sprintfa(words, "%d", tag->type);
+				}
+			}
+		}
+	}
+	/* Word completion based on words in current buffer */
 	int doclen = LengthDocument();
 	TextToFind ft = {{0, 0}, 0, {0, 0}};
 	ft.lpstrText = const_cast<char*>(root);
@@ -929,9 +995,8 @@ bool AnEditor::StartAutoCompleteWord() {
 	ft.chrgText.cpMax = 0;
 	int flags = SCFIND_WORDSTART | (autoCompleteIgnoreCase ? 0 : SCFIND_MATCHCASE);
 	int posCurrentWord = SendEditor (SCI_GETCURRENTPOS) - rootlen;
-	GString *words = g_string_sized_new(100);
 	char wordstart[100];
-	char *wordend, *wordbreak, *wordpos;
+	char *wordend;
 	int wordlen;
 	for (;;)
 	{
@@ -952,61 +1017,22 @@ bool AnEditor::StartAutoCompleteWord() {
 			wordend++;
 		*wordend = '\0';
 		wordlen = wordend - wordstart;
-		wordbreak = words->str;
-		for (;;)
+		/* Check if the word is already there - if not, insert it */
+		if (NULL == g_hash_table_lookup(wordhash, wordstart))
 		{
-			wordpos = strstr (wordbreak, wordstart);
-			if (!wordpos)
-				break;
-			if (wordpos > words->str && wordpos[ -1] != ' ' ||
-			  wordpos[wordlen] && wordpos[wordlen] != ' ')
-				wordbreak = wordpos + wordlen;
-			else
-				break;
-		}
-		if (!wordpos)
-		{
-			if (words->len > 0)
+			g_hash_table_insert(wordhash, g_strdup(wordstart), (gpointer) 1);
+			if (0 < words->len)
 				g_string_append_c(words, ' ');
 			g_string_append(words, wordstart);
+			
 		}
 		ft.chrg.cpMin = posFind + wordlen;
-	}
-	/* Now for the TM based autocompletion - only for C/C++/Java */
-	if (SCLEX_CPP == lexLanguage)
-	{
-		const GPtrArray *tags = tm_workspace_find(root, tm_tag_max_t, NULL, TRUE);
-		if ((tags) && (tags->len > 0))
-		{
-			TMTag *tag;
-			for (guint i=0; ((i < tags->len) && (i < MAX_AUTOCOMPLETE_WORDS)); ++i)
-			{
-				tag = (TMTag *) tags->pdata[i];
-				wordlen = strlen(tag->name);
-				wordbreak = words->str;
-				for (;;)
-				{
-					wordpos = strstr(wordbreak, tag->name);
-					if (NULL == wordpos)
-						break;
-					if (wordpos > words->str && wordpos[-1] != ' ' ||
-					  wordpos[wordlen] && wordpos[wordlen] != ' ')
-						wordbreak = wordpos + wordlen;
-					else
-						break;
-				}
-				if (NULL == wordpos)
-				{
-					if (words->len > 0)
-						g_string_append_c(words, ' ');
-					g_string_append(words, tag->name);
-				}
-			}
-		}
 	}
 	if (words->len > 0)
 		SendEditorString(SCI_AUTOCSHOW, rootlen, words->str);
 	g_string_free(words, TRUE);
+	g_hash_table_foreach(wordhash, free_word, NULL);
+	g_hash_table_destroy(wordhash);
 	return true;
 }
 

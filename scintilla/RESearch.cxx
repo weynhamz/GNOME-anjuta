@@ -29,6 +29,21 @@
  *
  * Modification history:
  *
+ * $Log$
+ * Revision 1.11.2.3  2002/11/22 08:34:12  naba
+ *        * Editor.cxx, Editor.h, include/SciLexer.h, include/Scintilla.h,
+ *         include/Scintilla.iface, KeyMap.cxx, KeyWords.cxx, LexCPP.cxx,
+ *         LexFortran.cxx, LexHTML.cxx, LexMatlab.cxx, LexOthers.cxx,
+ *         LineMarker.h, PropSet.cxx, RESearch.cxx, ScintillaBase.cxx:
+ *         Updated to the CVS version.
+ *
+ *         * scintilla/AutoComplete.[cxx,h], scintilla/PlatGTK.cxx
+ *           , scintilla/include/Platform.h, scintilla/ScintillaBase.cxx
+ *           , scintilla/include/Scintilla.h, src/aneditor.cxx: Implement
+ *           images in completion lists.
+ *         * src/resources.h: Make C++ friendly.
+ *         * scintilla/PropSet.cxx: Fix memory leak.
+ *
  * Revision 1.7  2002/09/28 00:33:28  nyamatongwe
  * Fixed problem with character ranges caused by expansion to 8 bits.
  *

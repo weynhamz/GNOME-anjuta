@@ -317,6 +317,7 @@ void ScintillaBase::AutoCompleteCompleted() {
 		scn.nmhdr.code = SCN_USERLISTSELECTION;
 		scn.message = 0;
 		scn.wParam = listType;
+		scn.listType = listType;
 		scn.lParam = 0;
 		scn.text = userListSelected.c_str();
 		NotifyParent(scn);
@@ -507,6 +508,10 @@ sptr_t ScintillaBase::WndProc(unsigned int iMessage, uptr_t wParam, sptr_t lPara
 
 	case SCI_AUTOCGETDROPRESTOFWORD:
 		return ac.dropRestOfWord;
+
+	case SCI_REGISTERIMAGE:
+		ac.lb.SetTypeXpm(wParam, reinterpret_cast<const char **>(lParam));
+		break;
 
 	case SCI_CALLTIPSHOW: {
 			AutoCompleteCancel();

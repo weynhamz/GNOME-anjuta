@@ -264,7 +264,7 @@ static void ColouriseMakeLine(
     Accessor &styler) {
 
 	unsigned int i = 0;
-        unsigned int lastNonSpace = 0;
+	int lastNonSpace = -1;
 	unsigned int state = SCE_MAKE_DEFAULT;
 	bool bSpecial = false;
 	// Skip initial spaces
@@ -291,12 +291,14 @@ static void ColouriseMakeLine(
 			if (lineBuffer[i] == ':') {
 				// We should check that no colouring was made since the beginning of the line,
 				// to avoid colouring stuff like /OUT:file
+				if (lastNonSpace >= 0)
 				styler.ColourTo(startLine + lastNonSpace, SCE_MAKE_TARGET);
 				styler.ColourTo(startLine + i - 1, SCE_MAKE_DEFAULT);
 				styler.ColourTo(startLine + i, SCE_MAKE_OPERATOR);
 				bSpecial = true;	// Only react to the first ':' of the line
 				state = SCE_MAKE_DEFAULT;
 			} else if (lineBuffer[i] == '=') {
+				if (lastNonSpace >= 0)
 				styler.ColourTo(startLine + lastNonSpace, SCE_MAKE_IDENTIFIER);
 				styler.ColourTo(startLine + i - 1, SCE_MAKE_DEFAULT);
 				styler.ColourTo(startLine + i, SCE_MAKE_OPERATOR);

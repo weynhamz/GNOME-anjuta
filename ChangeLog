@@ -1,3 +1,20 @@
+2002-11-21  Naba Kumar <naba@gnome.org>
+
+	* Editor.cxx, Editor.h, include/SciLexer.h, include/Scintilla.h,
+	include/Scintilla.iface, KeyMap.cxx, KeyWords.cxx, LexCPP.cxx,
+	LexFortran.cxx, LexHTML.cxx, LexMatlab.cxx, LexOthers.cxx,
+	LineMarker.h, PropSet.cxx, RESearch.cxx, ScintillaBase.cxx:
+	Updated to the CVS version.
+
+2002-11-20  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
+
+	* scintilla/AutoComplete.[cxx,h], scintilla/PlatGTK.cxx
+	  , scintilla/include/Platform.h, scintilla/ScintillaBase.cxx
+	  , scintilla/include/Scintilla.h, src/aneditor.cxx: Implement
+	  images in completion lists. 
+	* src/resources.h: Make C++ friendly.
+	* scintilla/PropSet.cxx: Fix memory leak.
+
 2002-11-20  Naba Kumar <naba@gnome.org>
 
 	* scintilla/*/*: Synced to latest scintilla 1.49

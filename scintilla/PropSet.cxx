@@ -104,7 +104,7 @@ void PropSet::Set(const char *key, const char *val, int lenKey, int lenVal) {
 			// Replace current value
 			delete [](p->val);
 			p->val = StringDup(val, lenVal);
-			return ;
+			return;
 		}
 	}
 	// Not found
@@ -257,7 +257,7 @@ SString PropSet::GetWild(const char *keybase, const char *filename) {
 				if (keyfile == NULL)
 					keyfile = orgkeyfile;
 
-				for (; ; ) {
+				for (;;) {
 					char *del = strchr(keyfile, ';');
 					if (del == NULL)
 						del = keyfile + strlen(keyfile);
@@ -328,9 +328,9 @@ void PropSet::Clear() {
 		while (p) {
 			Property *pNext = p->next;
 			p->hash = 0;
-			delete p->key;
+			delete []p->key;
 			p->key = 0;
-			delete p->val;
+			delete []p->val;
 			p->val = 0;
 			delete p;
 			p = pNext;
