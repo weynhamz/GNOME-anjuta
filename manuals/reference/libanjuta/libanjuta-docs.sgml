@@ -4,6 +4,7 @@
 <!ENTITY AnjutaArchitecture SYSTEM "anjuta-architecture.sgml">
 <!ENTITY WritingPlugins SYSTEM "writing-plugins.sgml">
 <!ENTITY PluginDescriptionFile SYSTEM "plugin-description-file.sgml">
+<!ENTITY ProjectWizardFormat SYSTEM "project-wizard-format.sgml">
 ]>
 <book id="index" xmlns:xi="http://www.w3.org/2003/XInclude">
   <bookinfo>
@@ -43,7 +44,8 @@
   &AnjutaArchitecture;
   &WritingPlugins;
   &PluginDescriptionFile;
-  
+  &ProjectWizardFormat;
+
   <chapter id="libanjuta-api">
     <title>libanjuta API</title>
     <xi:include href="xml/anjuta-shell.xml"/>

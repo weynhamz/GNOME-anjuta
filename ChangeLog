@@ -1,3 +1,14 @@
+2005-02-21  Naba Kumar  <naba@gnome.org>
+
+	* TODO.tasks: Updated.
+	
+	Patch from Sebastien Granjoux <seb.sfo@free.fr>:
+	
+	* manuals/reference/libanjuta/Makefile.am,
+	manuals/reference/libanjuta/libanjuta-docs.sgml,
+	(new) manuals/reference/libanjuta/project-wizard-format.sgml: Added
+	documentation for writing project templates.
+
 2005-02-22  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
 
 	* plugins/macro/macro-actions.c, plugins/macro/macro-actions.h

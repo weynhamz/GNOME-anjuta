@@ -293,22 +293,22 @@ It can be done either during save or load. Without this fix, the save xml is dis
   </category>
   <category title="Plugin: Project Wizard" place="9">
     <item>
-      <attribute id="1107241611" priority="1" done="0" start_date="731978" enddate="99999999" notify="0" endtime="-60" last_edited="1107241611"/>
-      <summary>Proper message output</summary>
-      <comment>Produce a proper message output when files are created from
-templates. For example, 'Creating project-name/file-path/file-name.c'
-instead of full path names.</comment>
-    </item>
-    <item>
       <attribute id="1107241649" priority="1" done="0" start_date="731978" enddate="99999999" notify="0" endtime="-60" last_edited="1107241649"/>
       <summary>More templates</summary>
       <comment>Create more project templates, such as gnome, sdl, x11 etc..</comment>
     </item>
     <item>
-      <attribute id="1107241699" priority="1" done="0" start_date="731978" enddate="99999999" notify="0" endtime="-60" last_edited="1107241699"/>
+      <attribute id="1107241699" priority="1" done="1" start_date="731978" completed_date="731999" notify="0" last_edited="1109054075"/>
       <summary>Prompt error when autogen could not be found</summary>
       <comment>Prompt user with an error when 'autogen' could not be found and
 abort the process.</comment>
+    </item>
+    <item>
+      <attribute id="1107241611" priority="1" done="1" start_date="731978" completed_date="731999" notify="0" last_edited="1109054089"/>
+      <summary>Proper message output</summary>
+      <comment>Produce a proper message output when files are created from
+templates. For example, 'Creating project-name/file-path/file-name.c'
+instead of full path names.</comment>
     </item>
   </category>
   <category title="anjuta" place="1">

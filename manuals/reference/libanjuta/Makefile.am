@@ -36,7 +36,8 @@ content_files = \
 	version.xml \
 	anjuta-architecture.sgml\
 	writing-plugins.sgml\
-	plugin-description-file.sgml
+	plugin-description-file.sgml\
+	project-wizard-format.sgml
 
 # Other files to distribute
 extra_files = version.xml.in
