@@ -1,3 +1,6 @@
+2003-01-29  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
+	* scintilla/XPM.[cxx|h]: Added missing files
+
 2003-01-29  Naba Kumar <naba@gnome.org>
 	
 	* TODO, po/POTFILES.in: Updated.
