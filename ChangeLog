@@ -1,3 +1,8 @@
+2005-01-26  Naba Kumar  <naba@gnome.org>
+
+	* mime/Makefile.am, (new)gnome-mime-application-x-anjuta.png:
+	Added mime icon for anjuta projects.
+
 2005-01-26  Johannes Schmid <jhs@cvs.gnome.org>
 	
 	* src/action-callback.[ch], src/anjuta-actions.h:
