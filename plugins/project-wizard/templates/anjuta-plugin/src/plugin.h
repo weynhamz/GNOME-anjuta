@@ -1,7 +1,6 @@
 [+ autogen5 template +]
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
-[+IF (=(get "IncludeGNUHeader") "yes") +]
-/*
+[+IF (=(get "IncludeGNUHeader") "1") +]/*
     plugin.h
     Copyright (C) [+Author+]
 
@@ -18,11 +17,10 @@
     You should have received a copy of the GNU General Public License
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/
-[+ENDIF]
+*/[+ENDIF+]
 
-#ifndef _[+(string-upcase (get "PluginName"))+]_H_
-#define _[+(string-upcase (get "PluginName"))+]_H_
+#ifndef _[+(string->c-name! (string-upcase (get "PluginName")))+]_H_
+#define _[+(string->c-name! (string-upcase (get "PluginName")))+]_H_
 
 #include <libanjuta/anjuta-plugin.h>
 
@@ -31,12 +29,8 @@ typedef struct _[+PluginClass+]Class [+PluginClass+]Class;
 
 struct _[+PluginClass+]{
 	AnjutaPlugin parent;
-[+IF (=(get "HasGladeFile") "yes") +]
-	GtkWidget *widget;
-[+ENDIF+]
-[+IF (=(get "HasUI") "yes") +]
-	gint uiid;
-[+ENDIF+]
+	[+IF (=(get "HasGladeFile") "1") +]GtkWidget *widget;[+ENDIF+]
+	[+IF (=(get "HasUI") "1") +]gint uiid;[+ENDIF+]
 };
 
 struct _[+PluginClass+]Class{

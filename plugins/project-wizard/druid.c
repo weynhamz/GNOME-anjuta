@@ -69,6 +69,7 @@ struct _NPWDruid
 	GtkLabel* property_label;
 	GtkTable* property_table;
 	GnomeDruidPage* finish_page;
+	GtkTooltips *tooltips;
 	NPWPlugin* plugin;
 	
 	guint page;
@@ -144,6 +145,7 @@ typedef struct _NPWPropertyContext
 	NPWPage* page;
 	guint row;
 	GString* text;
+	gboolean mandatories_filled;
 } NPWPropertyContext;
 
 static void
@@ -194,18 +196,32 @@ cb_druid_destroy_widget(GtkWidget* widget, gpointer data)
 }
 
 static void
+cb_boolean_button_toggled (GtkButton *button, gpointer data)
+{
+	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (button)))
+		gtk_button_set_label (button, _("Yes"));
+	else
+		gtk_button_set_label (button, _("No"));
+}
+
+static void
 cb_druid_add_property(NPWProperty* property, gpointer data)
 {
 	GtkWidget* label;
 	GtkWidget* entry;
 	NPWPropertyContext* ctx = (NPWPropertyContext *)data;
 	const gchar* value;
+	const gchar* description;
 
 	value = npw_property_get_value(property);
+	description = npw_property_get_description (property);
+	
 	switch(npw_property_get_type(property))
 	{
 	case NPW_BOOLEAN_PROPERTY:
-		entry = gtk_check_button_new();
+		entry = gtk_toggle_button_new_with_label (_("No"));
+		g_signal_connect (G_OBJECT (entry), "toggled",
+						  G_CALLBACK (cb_boolean_button_toggled), NULL);
 		if (value)
 		{
 			gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (entry),
@@ -234,7 +250,24 @@ cb_druid_add_property(NPWProperty* property, gpointer data)
 		if (value) gnome_file_entry_set_filename(GNOME_FILE_ENTRY(entry), value);
 		break;
 	default:
+		g_warning ("Invalid property type: Don't know what widget to create");
 		return;
+	}
+	
+	// Set description tooltip
+	if (description && strlen (description) > 0)
+	{
+		GtkTooltips *tooltips;
+		
+		tooltips = ctx->druid->tooltips;
+		if (!tooltips)
+		{
+			tooltips = ctx->druid->tooltips = gtk_tooltips_new ();
+			ctx->druid->tooltips = tooltips;
+			g_object_ref (tooltips);
+			gtk_object_sink (GTK_OBJECT (tooltips));
+		}
+		gtk_tooltips_set_tip (tooltips, entry, description, NULL);
 	}
 
 	// Add label and entry
@@ -323,7 +356,8 @@ npw_druid_fill_property_page(NPWDruid* this, NPWPage* page)
 static void
 cb_save_property(NPWProperty* property, gpointer data)
 {
-	const gchar* value;
+	const gchar* value = NULL;
+	NPWPropertyContext *ctx = (NPWPropertyContext *)data;
 
 	switch(npw_property_get_type(property))
 	{
@@ -357,11 +391,17 @@ cb_save_property(NPWProperty* property, gpointer data)
 	default:
 		return;
 	}
-
+	
+	if (value == NULL &&
+		(npw_property_get_options (property) | NPW_MANDATORY_OPTION))
+	{
+		// Mandatory field not filled.
+		ctx->mandatories_filled = FALSE;
+	}
 	npw_property_set_value(property, value);
 };
 
-static void
+static gboolean
 npw_druid_save_all_values(NPWDruid* this)
 {
 	NPWPropertyContext ctx;
@@ -370,8 +410,13 @@ npw_druid_save_all_values(NPWDruid* this)
 	page = g_queue_peek_nth(this->page_list, this->page - 2);
 	ctx.druid = this;
 	ctx.page = page;
-	
+	ctx.mandatories_filled = TRUE;
 	npw_page_foreach_property(page, cb_save_property, &ctx);
+	if (ctx.mandatories_filled == FALSE)
+	{
+		return FALSE;
+	}
+	return TRUE;
 }
 
 // Clear page in cache up to downto (0 = all pages)
@@ -395,7 +440,11 @@ npw_destroy_druid(NPWDruid* this)
 {
 	g_return_if_fail(this != NULL);
 
-
+	if (this->tooltips)
+	{
+		g_object_unref (this->tooltips);
+		this->tooltips = NULL;
+	}
 	if (this->page_list != NULL)
 	{
 		NPWPage* page;
@@ -496,7 +545,17 @@ on_druid_next(GnomeDruidPage* page, GtkWidget* widget, NPWDruid* this)
 	else
 	{
 		// Current is one of the property page
-		npw_druid_save_all_values(this);
+		gboolean mandories_filled;
+		
+		mandories_filled = npw_druid_save_all_values(this);
+		if (!mandories_filled)
+		{
+			// this->busy = FALSE;
+			// Show error message.
+			anjuta_util_dialog_error (GTK_WINDOW (this->dialog), "All mandatory fields are not given");
+			this->page--;
+			return TRUE;
+		}
 		npw_autogen_add_definition(this->gen, g_queue_peek_nth(this->page_list, this->page - 2));
 	}
 

@@ -2,5 +2,5 @@
 [Anjuta Plugin]
 Location=[+PluginName+]:[+PluginClass+]
 Icon=[+PluginName+].png
-_Name=[+PluginName+] Plugin
-_Description=[+PluginName+] Plugin for Anjuta.
+_Name=[+PluginTitle+]
+_Description=[+PluginDescription+]

@@ -1,4 +1,28 @@
-2005-01-07  Naba Kumar  <naba@gnome.org>
+2005-01-06  Naba Kumar  <naba@gnome.org>
+
+	* plugins/project-wizard/anjuta-project-wizard.glade,
+	plugins/project-wizard/druid.c, plugins/project-wizard/parser.c:
+	Fixed file list parsing and to take absolute file paths (for example,
+	from an icon selected previously). Used toggle buttons for boolean
+	properties. Check if all mandatory fields are given before going
+	forward in the wizard. Use scrollable viewport for listing property
+	widgets incase the list goes out of wizard's size. And other fixes.
+
+	* (Removed) plugins/project-wizard/templates/anjuta-plugin/plugin.c,
+	(Removed) plugins/project-wizard/templates/anjuta-plugin/plugin.glade,
+	(Removed) plugins/project-wizard/templates/anjuta-plugin/plugin.h,
+	(Removed) plugins/project-wizard/templates/anjuta-plugin/plugin.plugin.in,
+	(Removed) plugins/project-wizard/templates/anjuta-plugin/plugin.ui,
+	(Added) plugins/project-wizard/templates/anjuta-plugin/configure.in,
+	(Added) plugins/project-wizard/templates/anjuta-plugin/src/Makefile.am,
+	(Added)plugins/project-wizard/templates/anjuta-plugin/src/plugin.c,
+	(Added) plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade,
+	(Added) plugins/project-wizard/templates/anjuta-plugin/src/plugin.h,
+	(Added) plugins/project-wizard/templates/anjuta-plugin/src/plugin.plugin.in,
+	(Added) plugins/project-wizard/templates/anjuta-plugin/src/plugin.ui:
+	Restructured template files.
+
+2005-01-06  Naba Kumar  <naba@gnome.org>
 
 	* configure.in: Added check for autogen.
 	

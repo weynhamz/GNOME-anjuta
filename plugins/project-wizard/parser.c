@@ -662,7 +662,7 @@ file_parse_start_element (GMarkupParseContext* context,
 	NPWFileListParser* parser = (NPWFileListParser*)data;
 	NPWTag tag;
 
-	if (parser->unknown != 0)
+	if (parser->unknown > 0)
 	{
 		// Parsing unknown tags
 		parser->unknown++;
@@ -730,7 +730,7 @@ file_parse_start_element (GMarkupParseContext* context,
 			file = npw_file_new(parser->list);
 			npw_file_set_type(file, tag == NPW_SCRIPT_TAG ? NPW_SCRIPT : NPW_FILE);
 			path = g_queue_peek_nth(parser->src_path,0);
-			if (path == NULL)
+			if (g_path_is_absolute (source) || path == NULL)
 			{
 				npw_file_set_source(file, source);
 			}
@@ -741,7 +741,7 @@ file_parse_start_element (GMarkupParseContext* context,
 				g_free(fullname);
 			}
 			path = g_queue_peek_nth(parser->dst_path, 0);
-			if (path == NULL)
+			if (g_path_is_absolute(destination) || path == NULL)
 			{
 				npw_file_set_destination(file, destination);
 			}
@@ -801,6 +801,7 @@ file_parse_start_element (GMarkupParseContext* context,
 			g_queue_push_head(parser->dst_path, path);
 			break;
 		default:
+			g_warning ("Unknow content tag \"%s\"", name);
 			parser->unknown++;
 			break;
 		}
@@ -814,11 +815,27 @@ file_parse_end_element (GMarkupParseContext* context,
 	GError** error)
 {
 	NPWFileListParser* parser = (NPWFileListParser*)data;
+	NPWTag tag;
 
-	if (parser->unknown)
+	tag = parse_tag(name);
+	if (parser->unknown > 0)
 	{
 		parser->unknown--;
 	}
+	else if (tag != NPW_CONTENT_TAG && parser->parent == NPW_CONTENT_TAG)
+	{
+		if (tag == NPW_DIRECTORY_TAG)
+		{
+			g_queue_pop_head(parser->src_path);
+			g_queue_pop_head(parser->dst_path);
+			// String stay allocated in the pool
+		}
+	}
+	else if (tag == NPW_CONTENT_TAG)
+	{
+		parser->parent = NPW_NO_TAG;
+	}
+	/*
 	else if (parser->tag != NPW_NO_TAG)
 	{
 		if (parser->tag == NPW_DIRECTORY_TAG)
@@ -826,15 +843,17 @@ file_parse_end_element (GMarkupParseContext* context,
 			g_queue_pop_head(parser->src_path);
 			g_queue_pop_head(parser->dst_path);
 			// String stay allocated in the pool
-		}	
+		}
 		parser->tag = NPW_NO_TAG;
 	}
 	else if (parser->parent != NPW_NO_TAG)
 	{
 		parser->parent = NPW_NO_TAG;
 	}
+	*/
 	else
 	{
+		g_warning ("Parse error, Possible malformed .wiz file");
 		// error
 	}
 }
