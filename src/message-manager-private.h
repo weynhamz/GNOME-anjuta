@@ -72,6 +72,7 @@ class MessageSubwindow
 		
 		virtual void show() = 0;
 		virtual void hide() = 0;
+		virtual void clear() = 0;
 		
 		void activate();
 	
@@ -138,6 +139,8 @@ class TerminalWindow : public MessageSubwindow
 	
 		void show();
 		void hide();
+		void clear() { }
+		
 	private:
 		GtkWidget* m_frame;
 		GtkWidget* m_hbox;
@@ -159,11 +162,12 @@ class LocalsWindow : public MessageSubwindow
 					 string p_type,
 					 string p_pixmap);
 	
-		virtual ~LocalsWindow() { }
+		~LocalsWindow();
 		
 		void show();
 		void hide();
 		void update_view(GList* list);
+		void clear();
 	
 	private:
 	

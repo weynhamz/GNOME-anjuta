@@ -35,6 +35,8 @@
 #include "../pixmaps/pointer.xpm"
 #include "../pixmaps/blank.xpm"
 
+static void add_frame (StackTrace * st, gchar *);
+
 GdkPixmap *pointer_pix;
 GdkBitmap *pointer_pix_mask;
 
@@ -131,7 +133,7 @@ stack_trace_update (GList * outputs, gpointer data)
 	g_list_free (list);
 }
 
-void
+static void
 add_frame (StackTrace * st, gchar * line)
 {
 	gchar frame[10], *dummy_fn;

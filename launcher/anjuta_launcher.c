@@ -57,54 +57,40 @@ main (int argc, char **argv)
 		gchar *cmd;
 		gboolean error;
 		FILE *fp;
+		
 		if (argc != 3)
 		{
 			printf ("\nUsage:\n");
-			printf
-				("anjuta-launcher program_name [program_parameter ... ]\n\n");
+			printf ("anjuta-launcher program_name [program_parameter ... ]\n\n");
 			exit (-1);
 		}
-
-		printf ("Debug Terminal for the process:\n");
-		printf ("-------------------------------\n");
-
-		cmd = g_strconcat ("tty >", argv[2], NULL);
-		if ((pid = fork ()) == 0)
+		fp = fopen (argv[2], "w");
+		if (fp == NULL)
 		{
-			execlp ("sh", "sh", "-c", cmd, NULL);
-			g_error ("Unable to execute sh");
-		}
-		g_free (cmd);
-		if (pid < 0)
-		{
-			error = TRUE;
-		}
+			g_warning ("Fatal Error: Cannot write to redirection file\n");
+		} 
 		else
 		{
-			waitpid (pid, &status, 0);
-
-			error = WIFSIGNALED (status) || !WIFEXITED (status) ||
-				WEXITSTATUS (status) < 0;
-		}
-		if (error)
-		{
-			fp = fopen (argv[2], "w");
-			if (fp == NULL)
+			char* tty_name;
+			tty_name = ttyname(0);
+			if (tty_name)
 			{
-				g_warning
-					("Fatal Error: Cannot write to redirection file\n");
+				fprintf (fp, "%s\n", tty_name);
+				fclose (fp);
+				printf ("Debug Terminal for the process:\n");
+				printf ("-------------------------------\n");
+				while (1) pause ();
+				exit (0);
 			}
-			fprintf (fp, "__ERROR__\n");
-			fclose (fp);
-			g_warning
-				("Fatal Error: Some unexpected error\n");
-			getchar ();
+			else
+			{
+				fprintf (fp, "__ERROR__\n");
+				fclose (fp);
+				g_warning ("Fatal Error: Unexpected error -- Unknowm tty\n");
+			}
 		}
-		else
-		{
-			while (1)
-				pause ();
-		}
+		getchar ();
+		exit (-1);
 	}
 
 	arg_v = g_malloc ((argc) * sizeof (char *));

@@ -572,6 +572,7 @@ debugger_start (gchar * prog)
 	debugger_set_active (TRUE);
 	debugger_set_ready (FALSE);
 	debugger_clear_cmd_queqe ();
+	anjuta_message_manager_clear(app->messages, MESSAGE_LOCALS);
 	debugger.child_pid = -1;
 	debugger.term_is_running = FALSE;
 	debugger.term_pid = -1;
@@ -1070,6 +1071,7 @@ debugger_start_terminal ()
 	GList *args, *node;
 
 #ifdef ANJUTA_DEBUG_DEBUGGER
+	gint i; /* Used later */
 	printf("In function: debugger_start_terminal()\n");
 #endif
 	
@@ -1909,6 +1911,17 @@ debugger_is_engaged(void)
 				&& debugger.prog_is_attached ) ? TRUE : FALSE ;
 }
 */
+
+const gchar* debugger_get_last_frame(void)
+{
+	int ret;
+	gchar* text = NULL;
+	ret = gtk_clist_get_text(GTK_CLIST(debugger.stack->widgets.clist),0,2,&text);
+	if (ret == 0)
+		return NULL;
+	return text;
+}
+
 static void
 locals_update_controls(void)
 {
@@ -1918,7 +1931,7 @@ locals_update_controls(void)
 		return ;
 	if( !app->project_dbase->m_prj_ShowLocal )
 		return ;
-	anjuta_message_manager_clear(app->messages, MESSAGE_LOCALS);
+
 	debugger_put_cmd_in_queqe ("set print pretty on", DB_CMD_NONE, NULL,
 				   NULL);
 	debugger_put_cmd_in_queqe ("set verbos off", DB_CMD_NONE, NULL, NULL);

@@ -158,6 +158,7 @@ void on_debugger_update_prog_status (GList * lines, gpointer data);
 void debugger_reload_session_breakpoints( ProjectDBase *p);
 void debugger_save_session_breakpoints( ProjectDBase *p );
 gboolean debugger_is_engaged(void);
+const gchar* debugger_get_last_frame(void);
 
 
 #ifdef __cplusplus

@@ -476,13 +476,13 @@ anjuta_message_manager_info_locals (AnjutaMessageManager * amm, GList * lines,
 	MessageSubwindow* window = anjuta_message_manager_get_window(amm,MESSAGE_LOCALS);
 	if (!window) 
 	{
-		// printf("anjuta_message_manager_get_window error\n");
+		// g_print ("anjuta_message_manager_get_window error\n");
 		return;
 	}
 	LocalsWindow* locals_window = dynamic_cast<LocalsWindow*>(window);
 	if (!locals_window)
 	{
-		// printf("dynamic cast to locals window error\n");
+		// g_print ("dynamic cast to locals window error\n");
 		return;
 	}
 	locals_window->update_view(lines);
@@ -499,9 +499,11 @@ anjuta_message_manager_clear (AnjutaMessageManager * amm, gint type_name)
 	{
 		if ((*cur_win)->get_type () == string (labels[type_name]))
 		{
-			AnjutaMessageWindow *win = dynamic_cast < AnjutaMessageWindow * >(*cur_win);
+			(*cur_win)->clear();
+			/*AnjutaMessageWindow *win = dynamic_cast < AnjutaMessageWindow * >(*cur_win);
 			if (win != 0)
 				win->clear ();
+				win->clear ();*/
 			break;
 		}
 	}
