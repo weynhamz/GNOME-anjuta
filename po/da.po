@@ -1,0 +1,5188 @@
+# Danish messages for Anjuta.
+# Copyright (C) 2001 Free Software Foundation, Inc.
+# Gitte Wange <gitte@babytux.dk>, 2001-2002.
+# Christian Rose <menthos@menthos.com>, 2001.
+# Göran Weinholt <weinholt@linux.nu>, 2001.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: anjuta\n"
+"POT-Creation-Date: 2001-10-19 06:15-0400\n"
+"PO-Revision-Date: 2001-10-23 09:26GMT\n"
+"Last-Translator: Gitte Wange <gitte@babytux.dk>\n"
+"Language-Team: <dansk@klid.dk>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 0.9.5\n"
+
+#: anjuta.desktop.in.in.h:1
+msgid "Anjuta C/C++ IDE"
+msgstr "Anjuta C/C++ Udviklingsmiljø"
+
+#: anjuta.desktop.in.in.h:2
+msgid "Integrated Development Environment"
+msgstr "Integreret udviklingsmiljø (IDE)"
+
+#: ccview/cccmd.cc:27
+msgid "/_Class Definition"
+msgstr "/_Klassedefinition"
+
+#: ccview/cccmd.cc:28
+msgid "/_Function Definition"
+msgstr "/_Funktionsdefinition"
+
+#: ccview/cccmd.cc:29
+msgid "/Function _Declaration"
+msgstr "/Funktions_deklaration"
+
+#: ccview/cccmd.cc:36, fuzzy
+msgid "/_Shell here"
+msgstr "/_Skal her"
+
+#: ccview/cccmd.cc:37
+msgid "/_Open"
+msgstr "/_Åbn"
+
+#: ccview/cccproj.cc:1187 src/tags_manager.c:639
+msgid "Cannot execute ctags"
+msgstr "Kan ikke køre ctags"
+
+#: ccview/cccproj.cc:1193 src/tags_manager.c:644
+#, c-format, fuzzy
+msgid ""
+"Cannot fork to execute ctags. I donno why!!\n"
+"In %s:%d"
+msgstr ""
+"Kan ikke grene for at køre ctags, jeg ved ikke hvorfor !!\n"
+"I %s:%d"
+
+#: ccview/cccproj.cc:1453
+msgid "Scanning and Updating files. Please Wait ..."
+msgstr "Gennemser og opdaterer filer. Vent venligst ..."
+
+#: ccview/cccproj.cc:1471
+msgid "Updating file:"
+msgstr "Opdaterer fil:"
+
+#: ccview/cccproj.cc:1532 ccview/cccproj.cc:1558
+msgid "Updating file: "
+msgstr "Opdaterer fil: "
+
+#: ccview/ccview_main.cc:49 src/toolbar.c:1371
+msgid "Classes"
+msgstr "Klasser"
+
+#: ccview/ccview_main.cc:51
+msgid "Files"
+msgstr "Filer"
+
+#: ccview/func_dialog.cc:28
+msgid "Add Function"
+msgstr "Tilføj funktion"
+
+#: ccview/func_dialog.cc:31
+msgid "Function declaration:"
+msgstr "Funktionsdeklaration:"
+
+#: ccview/support.c:100 ccview/support.c:138 src/appwiz_page3.c:147
+#: src/project_dbase_gui.c:1185
+#, c-format
+msgid "Couldn't find pixmap file: %s"
+msgstr "Kunne ikke finde billedfilen: %s"
+
+#: ccview/support.c:116
+#, c-format
+msgid "Couldn't create pixmap from file: %s"
+msgstr "Kunne ikke lave billede fra fil: %s"
+
+#: src/anjuta_cbs.c:128
+msgid ""
+"Some files (or the project) are not saved.\n"
+"Do you still want to exit?"
+msgstr ""
+"En del filer (eller projektet) er ikke gemt.\n"
+"Vil du stadig afslutte?"
+
+#: src/anjuta_cbs.c:197 src/project_dbase_gui.c:1331
+#, c-format
+msgid "Not a regular file: %s."
+msgstr "Ikke en almindelig fil: %s."
+
+#: src/anjuta_cbs.c:203
+#, c-format
+msgid "No read permission for: %s."
+msgstr "Ingen læserettigheder til: %s."
+
+#: src/anjuta_cbs.c:235 src/anjuta_cbs.c:365
+#, c-format
+msgid ""
+"The file \"%s\" already exists.\n"
+"Do you want to overwrite it?."
+msgstr ""
+"Filen \"%s\" findes allerede.\n"
+"Vil du overskrive den?"
+
+#: src/anjuta_dirs.c:52, fuzzy
+msgid "Unable to create settings directory.\n"
+msgstr "Kunne ikke lave katalog over indstillinger.\n"
+
+#: src/anjuta_info.c:43 src/anjuta_info.c:89
+msgid "Information"
+msgstr "Information"
+
+#: src/appwiz_page1.c:95
+msgid "Select the type of application you want to develop"
+msgstr "Angiv hvilken type program du vil udvikle"
+
+#: src/appwiz_page1.c:130, fuzzy
+msgid "Generic/Terminal project"
+msgstr "Generisk/Terminal projekt"
+
+#: src/appwiz_page1.c:134
+msgid "GTK project"
+msgstr "GTK-projekt"
+
+#: src/appwiz_page1.c:138
+msgid "GNOME project"
+msgstr "GNOME-projekt"
+
+#: src/appwiz_page1.c:142
+msgid "GTK-- project"
+msgstr "GTK-- projekt"
+
+#: src/appwiz_page1.c:146
+msgid "GNOME-- project"
+msgstr "GNOME-- projekt"
+
+#: src/appwiz_page1.c:150
+msgid "Bonobo component"
+msgstr "Bonobo-komponent"
+
+#: src/appwiz_page2.c:154 src/appwiz_page4.c:109
+msgid "Enter the basic Project information"
+msgstr "Angiv projektets grundlæggende information"
+
+#: src/appwiz_page2.c:170 src/project_dbase_gui.c:710
+msgid "Project Name:"
+msgstr "Projektnavn:"
+
+#: src/appwiz_page2.c:177
+msgid "Project Version:"
+msgstr "Projektversion:"
+
+#: src/appwiz_page2.c:184
+msgid "Project Author:"
+msgstr "Projektforfatter:"
+
+#: src/appwiz_page2.c:191
+msgid "Project Target:"
+msgstr "Projektformål:"
+
+#: src/appwiz_page2.c:222
+msgid "Programming language"
+msgstr "Programmeringssprog"
+
+#: src/appwiz_page2.c:233
+msgid "C"
+msgstr "C"
+
+#: src/appwiz_page2.c:239
+msgid "C++"
+msgstr "C++"
+
+#: src/appwiz_page2.c:245
+msgid "Both C and C++"
+msgstr "Både C og C++"
+
+#: src/appwiz_page3.c:112
+msgid "Enter a short project description"
+msgstr "Angiv en kort projektbeskrivelse"
+
+#: src/appwiz_page3.c:160, fuzzy
+msgid "Executable target"
+msgstr "Mål der skal køres"
+
+#: src/appwiz_page3.c:167, fuzzy
+msgid "Static library target"
+msgstr "Statisk biblioteksmål"
+
+#: src/appwiz_page3.c:173, fuzzy
+msgid "Dynamic library target"
+msgstr "Dynamisk biblioteksmål"
+
+#: src/appwizard_cbs.c:106
+msgid "Project name"
+msgstr "Projektnavn"
+
+#: src/appwizard_cbs.c:107, fuzzy
+msgid "Source target name"
+msgstr "Kildemålsnavn"
+
+#: src/appwizard_cbs.c:108
+msgid "Project version"
+msgstr "Projektversion"
+
+#: src/appwizard_cbs.c:203
+#, c-format
+msgid ""
+"Invalid %s field:\n"
+"You must supply a valid %s field to proceed further."
+msgstr ""
+"Ugyldigt %s-felt:\n"
+"Du skal angive et gyldigt %s-felt for at kunne fortsætte."
+
+#. For the time being
+#: src/appwizard_cbs.c:251 src/project_dbase.c:1400 src/project_dbase.c:1405
+#: src/project_dbase.c:1408 src/signals_cbs.c:140 src/signals_cbs.c:153
+#: src/signals_cbs.c:166
+msgid "Yes"
+msgstr "Ja"
+
+#: src/appwizard_cbs.c:253 src/project_dbase.c:1402 src/project_dbase.c:1410
+#: src/signals_cbs.c:142 src/signals_cbs.c:155 src/signals_cbs.c:168
+msgid "No"
+msgstr "Nej"
+
+#: src/appwizard_cbs.c:255
+msgid ""
+"Confirm the following information:\n"
+"\n"
+msgstr ""
+"Bekræft den følgende information:\n"
+"\n"
+
+#: src/appwizard_cbs.c:256
+msgid "Project Name:    "
+msgstr "Projektnavn:     "
+
+#: src/appwizard_cbs.c:257
+msgid "Project Type:    "
+msgstr "Projekttype:      "
+
+#: src/appwizard_cbs.c:258
+msgid "Target Type:     "
+msgstr "Måltype:          "
+
+#: src/appwizard_cbs.c:259
+msgid "Source Target:   "
+msgstr "Kildemål:         "
+
+#: src/appwizard_cbs.c:260
+msgid "Version:         "
+msgstr "Version:         "
+
+#: src/appwizard_cbs.c:261
+msgid "Author:          "
+msgstr "Forfatter:      "
+
+#: src/appwizard_cbs.c:262
+msgid "Language:        "
+msgstr "Sprog:           "
+
+#: src/appwizard_cbs.c:263
+msgid "Gettext support: "
+msgstr "Gettext-understøttelse:    "
+
+#: src/appwizard_gui.c:36
+msgid ""
+"The Application Wizard will generate a basic\n"
+"skeleton for your application, including all\n"
+"the build files. It will ask you for the basic\n"
+"initial structure for the application you want\n"
+"to develop.\n"
+"\n"
+"Please answer the questions carefully, as it\n"
+"may not be possible to change some of the\n"
+"settings later.\n"
+"\n"
+"Click Next to proceed ..."
+msgstr ""
+"Programguiden vil generere et simpelt skelet til\n"
+"dit program, inklusiv alle bygge filer. Den vil\n"
+"spørge dig om den grundlæggende struktur for\n"
+"det program du vil udvikle.\n"
+"\n"
+"Svar venligst forsigtigt på spørgsmålene, da\n"
+"det måske ikke er muligt at ændre nogle af\n"
+"indstillingerne senere.\n"
+"\n"
+"Klik på Næste for at fortsætte ..."
+
+#: src/appwizard_gui.c:100
+msgid "Application Wizard"
+msgstr "Programguide"
+
+#: src/appwizard_gui.c:126
+msgid "Application Wizard:     Page 1 of 6"
+msgstr "Programguide:     Side 1 af 6"
+
+#: src/appwizard_gui.c:155
+msgid "Application Wizard:     Page 2 of 6"
+msgstr "Programguide:     Side 2 af 6"
+
+#: src/appwizard_gui.c:179
+msgid "Application Wizard:     Page 3 of 6"
+msgstr "Programguide:     Side 3 af 6"
+
+#: src/appwizard_gui.c:204
+msgid "Application Wizard:     Page 4 of 6"
+msgstr "Programguide:     Side 4 af 6"
+
+#: src/appwizard_gui.c:228
+msgid "Application Wizard:     Page 5 of 6"
+msgstr "Programguide:     Side 5 af 6"
+
+#: src/appwizard_gui.c:251
+msgid "Application Wizard:     Page 6 of 6"
+msgstr "Programguide:     Side 6 af 6"
+
+#: src/attach_process.c:118
+#, c-format
+msgid "Unable to execute: %s."
+msgstr "Kan ikke køre: %s."
+
+#: src/attach_process.c:127
+#, c-format
+msgid "Unable to open the file: %s\n"
+msgstr "Kan ikke åbne filen: %s\n"
+
+#: src/attach_process_gui.c:52
+msgid "Attach to process"
+msgstr "Vedhæft til proces"
+
+#: src/attach_process_gui.c:61
+msgid "Select the process to attach:"
+msgstr "Vælg hvilken proces der skal vedhæftes:"
+
+#: src/attach_process_gui.c:81
+msgid "Pid"
+msgstr "Pid"
+
+#: src/attach_process_gui.c:85
+msgid "Owner"
+msgstr "Ejer"
+
+#: src/attach_process_gui.c:89
+msgid "Time"
+msgstr "Tid"
+
+#: src/attach_process_gui.c:93
+msgid "Command"
+msgstr "Kommando"
+
+#: src/attach_process_gui.c:103 src/compiler_options_gui.c:359
+#: src/compiler_options_gui.c:479 src/compiler_options_gui.c:636
+#: src/compiler_options_gui.c:764 src/registers_gui.c:45
+#: src/sharedlib_gui.c:38 src/signals_gui.c:51 src/src_paths_gui.c:172
+#: src/stack_trace_gui.c:50
+msgid "Update"
+msgstr "Opdatér"
+
+#: src/attach_process_gui.c:109 src/text_editor_gui.c:271
+msgid "Attach"
+msgstr "Vedhæft"
+
+#: src/breakpoints.c:530
+msgid "Old breakpoints disabled."
+msgstr "Gamle breakpoints er slået fra."
+
+#: src/breakpoints.c:684 src/breakpoints_cbs.c:131
+msgid "YES"
+msgstr "JA"
+
+#: src/breakpoints.c:690 src/breakpoints_cbs.c:124
+msgid "NO"
+msgstr "NEJ"
+
+#: src/breakpoints.c:700 src/main_menubar_def.h:534 src/text_editor_gui.c:224
+msgid "0"
+msgstr "0"
+
+#: src/breakpoints.c:866
+msgid "Funny, Breakpoint is set in the doc, but couldn't find the ID"
+msgstr "Mærkeligt, breakpoint er sat i dokumentationen, men kunne ikke finde ID'et"
+
+#: src/breakpoints_cbs.c:96
+msgid "Are you sure you want to delete all breakpoints?"
+msgstr "Er du sikker på, at du vil slette alle breakpoints?"
+
+#: src/breakpoints_cbs.c:276
+msgid "You must give a valid location to set the breakpoint."
+msgstr "Du skal have et gyldigt sted at sætte breakpointet."
+
+#: src/breakpoints_gui.c:62
+msgid "Breakpoints"
+msgstr "Breakpoints"
+
+#: src/breakpoints_gui.c:93
+msgid "Enabled"
+msgstr "Slået til"
+
+#: src/breakpoints_gui.c:97
+msgid "File"
+msgstr "Fil"
+
+#: src/breakpoints_gui.c:101
+msgid "Line"
+msgstr "Linie"
+
+#: src/breakpoints_gui.c:105 src/text_editor_menu.c:262
+msgid "Function"
+msgstr "Funktion"
+
+#: src/breakpoints_gui.c:109 src/signals_gui.c:129
+msgid "Pass"
+msgstr ""
+
+#: src/breakpoints_gui.c:113
+msgid "Condition"
+msgstr "Vilkår"
+
+#: src/breakpoints_gui.c:125 src/compiler_options_gui.c:354
+#: src/compiler_options_gui.c:474 src/compiler_options_gui.c:631
+#: src/compiler_options_gui.c:759 src/find_in_files_gui.c:132
+#: src/src_paths_gui.c:167
+msgid "Add"
+msgstr "Tilføj"
+
+#: src/breakpoints_gui.c:132 src/project_dbase_gui.c:457
+msgid "Edit"
+msgstr "Redigér"
+
+#: src/breakpoints_gui.c:139
+msgid "Toggle Enable"
+msgstr ""
+
+#: src/breakpoints_gui.c:146 src/stack_trace_gui.c:57
+msgid "View Source"
+msgstr "Vis kilde"
+
+#: src/breakpoints_gui.c:153
+msgid "Disable All"
+msgstr "Slå alle fra"
+
+#: src/breakpoints_gui.c:160
+msgid "Enable All"
+msgstr "Slå alle til"
+
+#: src/breakpoints_gui.c:167
+msgid "Delete All"
+msgstr "Slet alle"
+
+#: src/breakpoints_gui.c:174
+msgid "Delete"
+msgstr "Slet"
+
+#: src/breakpoints_gui.c:269 src/breakpoints_gui.c:398
+msgid "Add Breakpoint"
+msgstr "Tilføj breakpoint"
+
+#: src/breakpoints_gui.c:304 src/breakpoints_gui.c:441
+msgid "Location:"
+msgstr "Placering:"
+
+#: src/breakpoints_gui.c:311 src/breakpoints_gui.c:448
+msgid "Condition:"
+msgstr "Vilkår:"
+
+#: src/breakpoints_gui.c:318 src/breakpoints_gui.c:455 src/signals_gui.c:261
+msgid "Pass:"
+msgstr ""
+
+#: src/build_file.c:51
+msgid "File is not saved. Save it and build."
+msgstr "Filen er ikke gemt. Gem den og byg."
+
+#: src/build_file.c:76
+msgid "The executable is up-to-date. No need to build again."
+msgstr "Den kørbare fil er up-to-date. Ingen grund til at bygge igen."
+
+#: src/build_file.c:92
+msgid "I do not really know how to build this file."
+msgstr "Jeg ved egentligt ikke hvordan denne fil skal bygges."
+
+#: src/build_file.c:107 src/messages.c:517 src/preferences_gui.c:174
+#: src/text_editor_gui.c:246 src/toolbar.c:474
+msgid "Build"
+msgstr "Bygge"
+
+#: src/build_file.c:109
+#, c-format
+msgid "Building file: %s ...\n"
+msgstr "Bygger fil: %s...\n"
+
+#: src/build_file.c:130 src/build_project.c:321 src/build_project.c:352
+#: src/build_project.c:389 src/build_project.c:421 src/build_project.c:453
+#: src/clean_project.c:116 src/clean_project.c:196 src/compile.c:195
+#: src/configurer.c:237 src/find_in_files.c:215
+#, c-format
+msgid "Total time taken: %d secs\n"
+msgstr "Total tid: %d sekunder\n"
+
+#: src/build_file.c:135
+msgid "Build completed ... unsuccessful\n"
+msgstr "Bygning færdig ... mislykkedes\n"
+
+#: src/build_file.c:137
+msgid "Build completed ... unsuccessful"
+msgstr "Bygning færdig... mislykkedes"
+
+#: src/build_file.c:142
+msgid "Build completed ... successful\n"
+msgstr "Bygning færdig... lykkedes\n"
+
+#: src/build_file.c:144
+msgid "Build completed ... successful"
+msgstr "Bygning færdig... lykkedes"
+
+#: src/build_project.c:60 src/compile.c:60
+msgid "Unable to build module. Check Preferences->Commands."
+msgstr "Kan ikke bygge modul. Kontrollér Indstillinger -> Kommandoer."
+
+#: src/build_project.c:75 src/build_project.c:126 src/compile.c:75
+msgid "Build Project"
+msgstr "Byg projekt"
+
+#: src/build_project.c:77
+msgid "Building source directory of the Project: "
+msgstr "Bygger projektets kildekatalog: "
+
+#: src/build_project.c:114
+msgid "Unable to build Project. Check Preferences->Commands."
+msgstr "Kan ikke bygge projekt. Kontrollér Indstillinger->Kommandoer."
+
+#: src/build_project.c:129
+msgid "Building the whole Project: "
+msgstr "Bygger hele projektet: "
+
+#: src/build_project.c:162
+msgid "Unable to build tarball. Check Preferences->Commands."
+msgstr "Kan ikke bygge tarball. Kontrollér Indstillinger->Kommandoer."
+
+#: src/build_project.c:174
+msgid "Build Distribution"
+msgstr "Byg distribution"
+
+#: src/build_project.c:178
+msgid "Building the distribution package of the Project: "
+msgstr "Bygger distributionspakken for projektet: "
+
+#: src/build_project.c:211
+msgid "Unable to Install Project. Check Preferences->Commands."
+msgstr "Kan ikke installere projekt. Kontrollér Indstillinger->Kommandoer."
+
+#: src/build_project.c:223
+msgid "Install Project"
+msgstr "Installerer projekt"
+
+#: src/build_project.c:225
+msgid "Installing the Project: "
+msgstr "Installerer projektet: "
+
+#: src/build_project.c:266
+msgid "Unable to auto generate. Check Preferences->Commands."
+msgstr "Kan ikke autogenerere. Kontrollér Indstillinger->Kommandoer."
+
+#: src/build_project.c:277
+msgid "Autogen Project"
+msgstr "Autogenerere projekt"
+
+#: src/build_project.c:280
+msgid "Auto generating the Project: "
+msgstr "Autogenererer projektet: "
+
+#: src/build_project.c:308
+msgid "Build completed...............Unsuccessful\n"
+msgstr "Færdigbygget.................mislykkedes\n"
+
+#: src/build_project.c:310
+msgid "Build terminated with error(s)."
+msgstr "Bygning afsluttedes med fejl."
+
+#: src/build_project.c:316
+msgid "Build completed...............Successful\n"
+msgstr "Færdigbygget.................lykkedes\n"
+
+#: src/build_project.c:318
+msgid "Build completed ... successful."
+msgstr "Færdigbygget... lykkedes."
+
+#: src/build_project.c:338
+msgid "Build All completed...............Unsuccessful\n"
+msgstr "Alt færdigbygget.............mislykkedes\n"
+
+#: src/build_project.c:341
+msgid "Build All completed...............Unsuccessful"
+msgstr "Alt færdigbygget.............mislykkedes"
+
+#: src/build_project.c:347
+msgid "Build All completed...............Successful\n"
+msgstr "Alt færdigbygget.............lykkedes\n"
+
+#: src/build_project.c:349
+msgid "Build All completed ... successful"
+msgstr "Alt færdigbygget... lykkedes"
+
+#: src/build_project.c:370
+msgid "Build-Distribution completed...............Unsuccessful\n"
+msgstr "Bygning af distribution færdigt..............mislykkedes\n"
+
+#: src/build_project.c:373
+msgid "Build-Distribution completed ... unsuccessful"
+msgstr "Bygning af distribution færdig... mislykkedes"
+
+#: src/build_project.c:379
+msgid "Build-Distribution completed...............Successful\n"
+msgstr "Bygning af distribution færdig..............lykkedes\n"
+
+#: src/build_project.c:383
+msgid "You will find the source tarball in the top level directory of the project\n"
+msgstr "Du vil finde kilde tarball'en i projektets øverste katalog\n"
+
+#: src/build_project.c:386
+msgid "Build-Distribution completed ... successful"
+msgstr "Bygning af distribution færdigt... lykkedes"
+
+#: src/build_project.c:407
+msgid "Install completed...............Unsuccessful\n"
+msgstr "Installation færdig.............mislykkedes\n"
+
+#: src/build_project.c:410
+msgid "Install completed...............Unsuccessful"
+msgstr "Installation færdig.............mislykkedes"
+
+#: src/build_project.c:416
+msgid "Install completed...............Successful\n"
+msgstr "Installation færdig.............lykkedes\n"
+
+#: src/build_project.c:418
+msgid "Install completed ... successful"
+msgstr "Installation færdig... lykkedes"
+
+#: src/build_project.c:439
+msgid "Auto generation completed...............Unsuccessful\n"
+msgstr "Autogenerering færdig...................mislykkedes\n"
+
+#: src/build_project.c:442
+msgid "Auto generation completed ... unsuccessful"
+msgstr "Autogenerering færdig... mislykkedes"
+
+#: src/build_project.c:448
+msgid ""
+"Auto generation completed...............Successful\n"
+"Now Configure the Project.\n"
+msgstr ""
+"Autogenerering færdig....................lykkedes\n"
+"Konfigurerer projektet nu.\n"
+
+#: src/build_project.c:450
+msgid "Auto generation completed ... successful"
+msgstr "Autogenerering færdig... lykkedes"
+
+#: src/clean_project.c:61
+msgid "Unable to clean project. Check Preferences->Commands."
+msgstr "Kan ikke rense projekt. Kontrollér Indstillinger->Kommandoer."
+
+#: src/clean_project.c:72
+msgid "Clean"
+msgstr "Rens"
+
+#: src/clean_project.c:75
+msgid "Cleaning the source directory of the project: "
+msgstr "Renser projektets kildekodekatalog: "
+
+#: src/clean_project.c:103
+msgid "Cleaning completed...............Unsuccessful\n"
+msgstr "Rensning færdig..................mislykkedes\n"
+
+#: src/clean_project.c:105
+msgid "Cleaning completed ... unsuccessful"
+msgstr "Rensning færdig... mislykkedes"
+
+#: src/clean_project.c:111
+msgid "Cleaning completed...............Successful\n"
+msgstr "Rensning færdig..................mislykkedes\n"
+
+#: src/clean_project.c:113
+msgid "Cleaning completed ... successful"
+msgstr "Rensning færdig... lykkedes"
+
+#: src/clean_project.c:147
+msgid "Unable to clean all project. Check Preferences->Commands."
+msgstr "Kan ikke rense hele projektet. Kontrollér Indstillinger->Kommandoer."
+
+#: src/clean_project.c:158
+msgid "Clean All"
+msgstr "Rens alt"
+
+#: src/clean_project.c:161
+msgid "Cleaning whole of the project: "
+msgstr "Renser hele projektet: "
+
+#: src/clean_project.c:183
+msgid "Clean all completed...............Unsuccessful\n"
+msgstr "Rensning af alt færdig...........mislykkedes\n"
+
+#: src/clean_project.c:185
+msgid "Clean all completed ... unsuccessful"
+msgstr "Rensning af alt færdigt... mislykkedes"
+
+#: src/clean_project.c:191
+msgid "Clean all completed...............Successful\n"
+msgstr "Rensning af alt færdigt..........lykkedes\n"
+
+#: src/clean_project.c:193
+msgid "Clean all completed ... successful"
+msgstr "Rensning af alt færdigt... lykkedes"
+
+#: src/commands.c:542
+msgid "Commands"
+msgstr "Kommandoer"
+
+#: src/commands.c:560
+msgid "Select programming language:"
+msgstr "Vælg programmeringssprog:"
+
+#: src/commands.c:586
+msgid " Language specific commands "
+msgstr " Sprogspecifikke kommandoer "
+
+#: src/commands.c:600
+msgid "Compile File:"
+msgstr "Kompilerer fil:"
+
+#: src/commands.c:608
+msgid "Build File:"
+msgstr "Bygger fil:"
+
+#: src/commands.c:616
+msgid "Execute File:"
+msgstr "Kør fil:"
+
+#: src/commands.c:642
+msgid " General commands "
+msgstr " Genereller kommandoer "
+
+#: src/commands.c:656
+msgid "Pixmap editor:"
+msgstr "Billed editor:"
+
+#: src/commands.c:664
+msgid "Image editor:"
+msgstr "Billed editor:"
+
+#: src/commands.c:672
+msgid "HTML viewer:"
+msgstr "HTML-viser:"
+
+#: src/commands.c:698
+msgid "Load global defaults"
+msgstr "Indlæs globale standard indstillinger"
+
+#: src/commands.c:705
+msgid "Load user defaults"
+msgstr "Indlæs bruger standard indstillinger"
+
+#: src/compile.c:77
+msgid "Building source directory of the project: "
+msgstr "Bygger projektets kildekode katalog: "
+
+#: src/compile.c:108
+msgid "This file is not saved. Save it first and then compile."
+msgstr "Denne fil er ikke gemt. Gem den først og kompilér så."
+
+#: src/compile.c:129
+msgid "The object file is up to date. No need to compile again."
+msgstr "Objektfilen er up-to-date. Rekompilering er ikke nødvendig."
+
+#: src/compile.c:143
+msgid "I do not really know how to compile this file."
+msgstr "Jen ved egentlig ikke hvordan jeg skal kompilerer denne fil."
+
+#: src/compile.c:156 src/text_editor_gui.c:235 src/toolbar.c:451
+msgid "Compile"
+msgstr "Kompilerer"
+
+#: src/compile.c:158
+#, c-format
+msgid "Compiling file: %s ...\n"
+msgstr "Kompilerer fil: %s...\n"
+
+#: src/compile.c:181 src/compile.c:184
+msgid "Compile completed ... unsuccessful"
+msgstr "Kompilering færdig... mislykkedes"
+
+#: src/compile.c:189 src/compile.c:192
+msgid "Compile completed ... successful"
+msgstr "Kompilering færdig... lykkedes"
+
+#: src/compiler_options_cbs.c:232
+#, c-format
+msgid "Cannot create: %s."
+msgstr "Kan ikke lave: %s."
+
+#: src/compiler_options_cbs.c:235
+#, c-format
+msgid ""
+"Support ID: %s\n"
+"\n"
+msgstr ""
+
+#: src/compiler_options_cbs.c:236
+msgid "Description:\n"
+msgstr "Beskrivelse:\n"
+
+#: src/compiler_options_cbs.c:238
+#, c-format
+msgid ""
+"Dependencies: %s\n"
+"\n"
+msgstr ""
+
+#: src/compiler_options_cbs.c:239
+msgid "Macros in configure.in fie:\n"
+msgstr "Makroer i filen configure.in:\n"
+
+#: src/compiler_options_cbs.c:241
+#, c-format
+msgid ""
+"Variable(s) for cflags: %s\n"
+"\n"
+msgstr ""
+"Variabler for cflags: %s\n"
+"\n"
+
+#: src/compiler_options_cbs.c:243
+#, c-format
+msgid ""
+"Variable(s) for Libs: %s\n"
+"\n"
+msgstr ""
+"Variabler for Libs: %s\n"
+"\n"
+
+#: src/compiler_options_cbs.c:245
+#, c-format
+msgid ""
+"Compile time Cflags: %s\n"
+"\n"
+msgstr ""
+"Cflags ved kompilering: %s\n"
+"\n"
+
+#: src/compiler_options_cbs.c:247
+#, c-format
+msgid ""
+"Compile time Libs: %s\n"
+"\n"
+msgstr ""
+"Libs ved kompilering: %s\n"
+"\n"
+
+#: src/compiler_options_cbs.c:249
+msgid "Entries in acconfig.h file:\n"
+msgstr "Poster i filen acconfig.h:\n"
+
+#: src/compiler_options_cbs.c:251
+msgid "Installed status:\n"
+msgstr "Installationsstatus:\n"
+
+#: src/compiler_options_cbs.c:266
+#, c-format
+msgid "    Installed => %s\n"
+msgstr "    Installeret => %s\n"
+
+#: src/compiler_options_cbs.c:270
+msgid "    Not Installed.\n"
+msgstr "    Ikke installeret.\n"
+
+#: src/compiler_options_cbs.c:359 src/compiler_options_cbs.c:452
+#: src/compiler_options_cbs.c:546 src/compiler_options_cbs.c:635
+#: src/src_paths_cbs.c:135
+msgid "Are you sure you want to clear the list?"
+msgstr "Er du sikker på at du vil rense listen?"
+
+#: src/compiler_options_gui.c:65
+msgid "Compiler Options"
+msgstr "Kompilator tilvalg"
+
+#: src/compiler_options_gui.c:82
+msgid "Supports"
+msgstr ""
+
+#: src/compiler_options_gui.c:92 src/compiler_options_gui.c:332
+msgid "Include Paths"
+msgstr ""
+
+#: src/compiler_options_gui.c:102 src/compiler_options_gui.c:453
+msgid "Library Paths"
+msgstr ""
+
+#: src/compiler_options_gui.c:112
+msgid "Libraries"
+msgstr "Biblioteker"
+
+#: src/compiler_options_gui.c:122 src/compiler_options_gui.c:737
+msgid "Defines"
+msgstr "Definitioner"
+
+#: src/compiler_options_gui.c:132
+msgid "Warnings"
+msgstr "Advarsler"
+
+#: src/compiler_options_gui.c:142
+msgid "Optimization"
+msgstr "Optimering"
+
+#: src/compiler_options_gui.c:152
+msgid "Others"
+msgstr "Andre"
+
+#: src/compiler_options_gui.c:249
+msgid "Select the Supports to add"
+msgstr ""
+
+#: src/compiler_options_gui.c:258
+msgid "Info"
+msgstr "Information"
+
+#: src/compiler_options_gui.c:342 src/compiler_options_gui.c:463
+#: src/compiler_options_gui.c:620 src/compiler_options_gui.c:747
+#: src/src_paths_gui.c:155
+msgid "<: Enter here"
+msgstr "<: Angiv her"
+
+#: src/compiler_options_gui.c:364 src/compiler_options_gui.c:484
+#: src/compiler_options_gui.c:641 src/compiler_options_gui.c:769
+#: src/find_in_files_gui.c:136 src/main_menubar_def.h:734
+#: src/project_dbase_gui.c:464 src/src_paths_gui.c:177 src/watch_gui.c:42
+msgid "Remove"
+msgstr "Fjern"
+
+#: src/compiler_options_gui.c:369 src/compiler_options_gui.c:489
+#: src/compiler_options_gui.c:646 src/compiler_options_gui.c:774
+#: src/find_in_files_gui.c:140 src/src_paths_gui.c:182 src/watch_gui.c:54
+msgid "Clear"
+msgstr "Tøm"
+
+#: src/compiler_options_gui.c:602
+msgid "Added Libraries"
+msgstr "Tilføjede biblioteker"
+
+#: src/compiler_options_gui.c:606
+msgid "Stock"
+msgstr ""
+
+#: src/compiler_options_gui.c:610 src/signals_gui.c:133
+msgid "Description"
+msgstr "Beskrivelse"
+
+#: src/compiler_options_gui.c:835
+msgid "Treat warnings as errors."
+msgstr "Behandl advarsler som fejl"
+
+#: src/compiler_options_gui.c:854
+msgid "No Warnings"
+msgstr "Ingen advarsler"
+
+#: src/compiler_options_gui.c:860
+msgid "All Warnings"
+msgstr "Alle advarsler"
+
+#: src/compiler_options_gui.c:870
+msgid "Warning for Implicit declarations"
+msgstr "Advarsel for implicitte deklarationer"
+
+#: src/compiler_options_gui.c:878
+msgid "Warning for mismached Return types"
+msgstr "Advarsel om mis matchende returnerede typer"
+
+#: src/compiler_options_gui.c:886
+msgid "Warning for Unused Variables"
+msgstr "Advarsel om ubenyttede variabler"
+
+#: src/compiler_options_gui.c:894
+msgid "Warning for unhandled Switch case with enums"
+msgstr ""
+
+#: src/compiler_options_gui.c:902
+msgid "Warning for nested Comment"
+msgstr ""
+
+#: src/compiler_options_gui.c:910
+msgid "Warning for Uninitialized variable use"
+msgstr "Advarsel om brug af u-initialiseret variabel"
+
+#: src/compiler_options_gui.c:918
+msgid "Warning for missing Parentheses"
+msgstr "Advarsel om manglende paranteser"
+
+#: src/compiler_options_gui.c:926
+msgid "Warning for Un-Traditional syntax"
+msgstr "Advarsel om utraditionel syntaks"
+
+#: src/compiler_options_gui.c:934
+msgid "Warning for Variable Shadowing"
+msgstr ""
+
+#: src/compiler_options_gui.c:942
+msgid "Warning for suspected Pointer-arith"
+msgstr ""
+
+#: src/compiler_options_gui.c:950
+msgid "Warning for Missing-prototypes"
+msgstr ""
+
+#: src/compiler_options_gui.c:958
+msgid "Warning for Un-Inline-able declarations"
+msgstr ""
+
+#: src/compiler_options_gui.c:966
+msgid "Warning for Overloaded-virtuals"
+msgstr ""
+
+#: src/compiler_options_gui.c:1002
+msgid "No optimization"
+msgstr "Ingen optimering"
+
+#: src/compiler_options_gui.c:1012
+msgid "Low level optimization (Machine dependent)"
+msgstr "Lav niveausoptimering (Maskin afhængigt)"
+
+#: src/compiler_options_gui.c:1022
+msgid "Higher level optimization (without space-speed tradeoff)"
+msgstr ""
+
+#: src/compiler_options_gui.c:1032
+msgid "Fastest code optimization (Function inlined where ever possible"
+msgstr "Hurtigste kode optimering (Funktion indlejret hvor det er muligt"
+
+#: src/compiler_options_gui.c:1043
+msgid "Note"
+msgstr ""
+
+#: src/compiler_options_gui.c:1049
+msgid ""
+"With optimization enabled, you might have some difficulty\n"
+"debugging your program. So it is not a good idea to enable\n"
+"both debug and optimization options, unless what you want\n"
+"is to debug the optimized code."
+msgstr ""
+"Med optimering slået til, får du måske nogle problemer med\n"
+"at fejlsøge dit program. Så det er altså ikke nogen god idé\n"
+"at slå både fejlsøgning og optimering til, med mindre du vil\n"
+"fejlsøge den optimerede kode."
+
+#: src/compiler_options_gui.c:1089
+msgid "Enable Debugging"
+msgstr "Aktivér fejlsøgning"
+
+#: src/compiler_options_gui.c:1097
+msgid "Enable Profiling"
+msgstr "Aktivér profilering"
+
+#: src/compiler_options_gui.c:1108
+msgid "Additional compiler options (command line options)"
+msgstr "Tilvalgte kompiler muligheder (kommandolinie muligheder)"
+
+#: src/compiler_options_gui.c:1124
+msgid "Additional linker options (command line options)"
+msgstr ""
+
+#: src/configurer.c:87 src/configurer.c:203 src/toolbar.c:463
+msgid "Configure"
+msgstr "Konfigurér"
+
+#: src/configurer.c:106
+msgid "Configure Options (if any)"
+msgstr "Konfigurations tilvalg (hvis der er nogen)"
+
+#: src/configurer.c:182
+msgid ""
+"Project does not have executable configure script.\n"
+"You need to autogen the project first."
+msgstr ""
+"Projektet har ikke noget kørbart konfigurerings script.\n"
+"Du skal autogenerere projektet først."
+
+#: src/configurer.c:205
+msgid "Configuring the project ....\n"
+msgstr "Konfigurerer projektet...\n"
+
+#: src/configurer.c:224
+msgid "Configure completed...............Unsuccessful\n"
+msgstr "Konfiguration færdig..............mislykkedes\n"
+
+#: src/configurer.c:226
+msgid "Configure completed ... unsuccessful"
+msgstr "Konfiguration færdig... mislykkedes"
+
+#: src/configurer.c:232
+msgid "Configure completed...............Successful\n"
+msgstr "Konfiguration færdig..............lykkedes\n"
+
+#: src/configurer.c:234
+msgid "Configure completed ... successful"
+msgstr "Konfiguration færdig... lykkedes"
+
+#. Must declare static, because it will be used forever
+#: src/debugger.c:62
+msgid "Load Executable File"
+msgstr "Indlæs kørbar fil"
+
+#. Must declare static, because it will be used forever
+#: src/debugger.c:68
+msgid "Load Core File"
+msgstr "Indlæs kerne fil"
+
+#: src/debugger.c:175 src/debugger.c:645
+msgid "Loading Executable: "
+msgstr "Indlæs kørbar fil: "
+
+#: src/debugger.c:226
+msgid "Loading Core: "
+msgstr "Indlæs kerne fil: "
+
+#: src/debugger.c:272
+msgid ""
+"You have a process ATTACHED under the debugger.\n"
+"Please detach it first and then load the executable file."
+msgstr ""
+"Du har en proces VEDHÆFTET under fejlsøgeren.\n"
+"Vær venlig at afhæfte den first og indlæs den kørbare fil."
+
+#: src/debugger.c:280
+msgid ""
+"You have a process RUNNING under the debugger.\n"
+"Please stop it first and then load the executable file."
+msgstr ""
+"Du har en proces KØRENDE under fejlsøgeren.\n"
+"Vær venlig at stop den først og indlæs så den kørbare fil."
+
+#: src/debugger.c:308
+msgid ""
+"You have a process ATTACHED under the debugger.\n"
+"Please detach it first and then load the core file."
+msgstr ""
+"Du har en proces VEDHÆFTET under fejlsøgeren.\n"
+"Vær venlig at afhæfte den først og indlæs kerne filen."
+
+#: src/debugger.c:316
+msgid ""
+"You have a process RUNNING under the debugger.\n"
+"Please stop it first and then load the core file."
+msgstr ""
+"Du har en proces KØRENDE under fejlsøgeren.\n"
+"Stop den først og indlæs så kerne filen."
+
+#: src/debugger.c:573
+#, c-format
+msgid ""
+"I can not find: %s.\n"
+"Unable to initialize Debugger. :-(\n"
+"Make sure Anjuta is installed correctly."
+msgstr ""
+"Jeg kan ikke finde %s.\n"
+"Kan ikke initialisere fejlsøgeren. :-(\n"
+"Vær sikker på at Anjuta er installeret korrekt."
+
+#: src/debugger.c:640
+msgid "Debugger"
+msgstr "Fejlsøger"
+
+#: src/debugger.c:643
+msgid "Getting ready to start debugging session ...\n"
+msgstr "Gør klar til ar starte fejlsøgnings session ...\n"
+
+#: src/debugger.c:655
+msgid "No executable specified\n"
+msgstr "Ingen kørbar fil specificeret\n"
+
+#: src/debugger.c:659
+msgid "Open an executable or attach to a process to start debugging.\n"
+msgstr "Åben en kørbar fil eller vedhæft til en proces for at starte fejlsøgningen.\n"
+
+#: src/debugger.c:667
+msgid "There was an error whilst launching the debugger!!\n"
+msgstr "En fejl opstod ved start af fejlsøgeren!!\n"
+
+#: src/debugger.c:671
+msgid "Make sure 'gdb' is installed on the system.\n"
+msgstr "Vær sikker på at 'gdb' er installeret på systemet.\n"
+
+#: src/debugger.c:811
+msgid "Error: "
+msgstr "Fejl: "
+
+#: src/debugger.c:836
+msgid "Debugger is ready.\n"
+msgstr "Fejlsøgeren er klar.\n"
+
+#: src/debugger.c:943
+msgid ""
+"\n"
+"Well, did you find the BUG? :: Debugging session completed.\n"
+"\n"
+msgstr ""
+"\n"
+"Nå, fandt du fejlen? :: Fejlsøgningssession er færdig.\n"
+"\n"
+
+#: src/debugger.c:1098
+msgid "Cannot execute gnome-terminal"
+msgstr "Kan ikke køre Gnome-terminal"
+
+#: src/debugger.c:1133
+msgid "Error: Cannot start terminal for debugging."
+msgstr "Fejl: Kan ikke starte terminal for fejlsøgning."
+
+#: src/debugger.c:1180
+msgid "Warning: No debug terminal. Redirecting stdio to /dev/null.\n"
+msgstr "Advarsel: Ingen fejlsøgningsterminal. Omdirigerer stdio til /dev/null.\n"
+
+#: src/debugger.c:1198
+msgid "Running program ... \n"
+msgstr "Kører program... \n"
+
+#: src/debugger.c:1304
+#, c-format
+msgid "Attaching to process: %d\n"
+msgstr "Vedhæfter til proces: %d\n"
+
+#: src/debugger.c:1332
+msgid ""
+"A process is already running.\n"
+"Would you like to terminate it and attach the new process?"
+msgstr ""
+"En proces kører allerede.\n"
+"Vil du afslutte den og vedhæfte den nye proces?"
+
+#: src/debugger.c:1340
+msgid "You FOOL! I can not attach to myself."
+msgstr "FJOLS! Jeg kan ikke vedhæfte til mig selv."
+
+#: src/debugger.c:1423
+#, c-format
+msgid "Detaching the process: %d\n"
+msgstr "Afhæfter processen: %d\n"
+
+#: src/debugger.c:1628
+msgid "All breakpoints enabled:\n"
+msgstr "Alle breakpoints slået til:\n"
+
+#: src/debugger.c:1670
+msgid "All breakpoints disabled:\n"
+msgstr "Alle breakpoints er slået fra:\n"
+
+#: src/debugger.c:1712
+msgid "All breakpoints deleted:\n"
+msgstr "Alle breakpoints er slettet:\n"
+
+#: src/debugger.c:1745
+#, c-format
+msgid "Interrupting the process: %d\n"
+msgstr "Afbryder processen: %d\n"
+
+#: src/debugger.c:1774
+#, c-format
+msgid "Sending signal %s to the process: %d\n"
+msgstr "Sender signal %s til processen: %d\n"
+
+#: src/debugger.c:1804
+msgid "There was an error whilst signaling the process."
+msgstr "En fejl opstod ved signalering til processen."
+
+#: src/executer.c:119
+msgid "Execute with arguments"
+msgstr "Kør med argumenter"
+
+#: src/executer.c:133
+msgid "Command arguments"
+msgstr "Kommandoargumenter"
+
+#: src/executer.c:147
+msgid "Run in Terminal"
+msgstr "Kør i terminal"
+
+#. FIXME: fix this mess of braces, maybe overriding gnome_dialog_append_dialog
+#: src/executer.c:187 src/toolbar.c:500
+msgid "Execute"
+msgstr "Kør"
+
+#: src/executer.c:234 src/mainmenu_callbacks.c:1547
+msgid "Target of this project is unknown"
+msgstr "Målet for dette projekt er ukendt"
+
+#: src/executer.c:239 src/mainmenu_callbacks.c:1549
+msgid "Target of this project is not executable"
+msgstr "Målet for dette projekt er ikke kørbart"
+
+#: src/executer.c:244
+msgid "Executable does not exsits for this project."
+msgstr "Kørbar fil findes ikke for dette projekt."
+
+#: src/executer.c:257
+msgid "No file or project opened."
+msgstr "Ingen fil eller projekt er åbnet."
+
+#: src/executer.c:262 src/executer.c:281 src/mainmenu_callbacks.c:1573
+#: src/mainmenu_callbacks.c:1584
+msgid "No executable for this file."
+msgstr "Ingen kørbar fil for denne fil."
+
+#: src/executer.c:286 src/mainmenu_callbacks.c:1579
+msgid "Executable is not up-to-date."
+msgstr "Kørbar fil er ikke up-to-date."
+
+#: src/executer.c:298
+msgid "Unable to execute project. Check Settings->Commands."
+msgstr "Kan ikke køre projekt. Kontrollér Indstillinger->Kommandoer."
+
+#: src/executer.c:312
+msgid "This file is not saved. Save it first."
+msgstr "Den fil er ikke gemt. Gem den først."
+
+#: src/executer.c:320
+msgid "Unable to execute file. Check Settings->Commands."
+msgstr "Kan ikke køre filen. Kontrollér Indstillinger->Kommandoer."
+
+#: src/find_in_files.c:178
+msgid "Find in files"
+msgstr "Søg i filer"
+
+#: src/find_in_files.c:181
+msgid "Finding in Files ....\n"
+msgstr "Søger i filer...\n"
+
+#: src/find_in_files.c:201
+msgid "Find in Files completed...............Unsuccessful\n"
+msgstr "Søgning i filer færdig................mislykkedes\n"
+
+#: src/find_in_files.c:204
+msgid "Find in Files completed ... unsuccessful"
+msgstr "Søgning i filer færdig... mislykkedes"
+
+#: src/find_in_files.c:210
+msgid "Find in Files completed...............Successful\n"
+msgstr "Søgning i filer færdig................lykkedes\n"
+
+#: src/find_in_files.c:212
+msgid "Find in Files completed ... successful"
+msgstr "Søgning i filer færdig... lykkedes"
+
+#: src/find_in_files_cbs.c:87
+msgid ""
+"ERROR: No input files supplied.\n"
+"I am wondering where will I search."
+msgstr ""
+"FEJL: Ingen input filer blev givet.\n"
+"Jeg undrer mig over hvor jeg skal søge."
+
+#: src/find_in_files_cbs.c:95
+msgid ""
+"ERROR: No search string supplied.\n"
+"I am wondering what to search."
+msgstr ""
+"FEJL: Ingen søgestreng blev angivet.\n"
+"Jeg undrer mig over hvad der skal søges efter."
+
+#: src/find_in_files_gui.c:65
+msgid "Find in Files"
+msgstr "Søg i filer"
+
+#: src/find_in_files_gui.c:88
+msgid "File/Directory to add:"
+msgstr "Fil/Katalog at tilføje:"
+
+#: src/find_in_files_gui.c:119
+msgid "List of Files/Directories to be searched"
+msgstr "Liste af filer/kataloger som skal gennemsøges"
+
+#: src/find_in_files_gui.c:148
+msgid "Case Sensitive"
+msgstr ""
+
+#: src/find_in_files_gui.c:153
+msgid " Search String"
+msgstr " Søgestreng"
+
+#: src/find_replace.c:332
+msgid "Find and Replace"
+msgstr "Søg og erstat"
+
+#: src/find_replace.c:340 src/find_text.c:259
+msgid " RegExp/String to search "
+msgstr " Regulært udtryk/Streng at søge efter"
+
+#: src/find_replace.c:354
+msgid " String to replace "
+msgstr " Streng at erstatte "
+
+#: src/find_replace.c:377 src/find_text.c:280
+msgid " Scope "
+msgstr ""
+
+#: src/find_replace.c:390
+msgid "Whole Document"
+msgstr "Hele dokumentet"
+
+#: src/find_replace.c:398
+msgid "From Cursor"
+msgstr "Fra markør"
+
+#: src/find_replace.c:404 src/find_text.c:307
+msgid " Direction "
+msgstr " Retning "
+
+#: src/find_replace.c:416 src/find_text.c:319
+msgid "Forward"
+msgstr "Fremad"
+
+#: src/find_replace.c:423 src/find_text.c:326
+msgid "Backward"
+msgstr "Tilbage"
+
+#: src/find_replace.c:429 src/find_text.c:332
+msgid "Type"
+msgstr "Type"
+
+#: src/find_replace.c:441 src/find_text.c:344
+msgid "RegExp"
+msgstr "Regulært udtryk"
+
+#: src/find_replace.c:448 src/find_text.c:351
+msgid "String"
+msgstr "Streng"
+
+#: src/find_replace.c:462 src/find_text.c:359
+msgid "Ignore case while searching"
+msgstr ""
+
+#: src/find_replace.c:469
+msgid "Prompt before Replace"
+msgstr "Spørg inden erstatning"
+
+#: src/find_replace.c:476 src/find_text.c:366
+msgid "Whole word"
+msgstr "Helt ord"
+
+#: src/find_replace.c:571
+msgid "Do you want to replace this?"
+msgstr "Vil du erstatte dette?"
+
+#: src/find_replace.c:629
+#, c-format
+msgid "The string \"%s\" was not found in the selected text"
+msgstr "Strengen \"%s\" blev ikke fundet i den markerede tekst"
+
+#: src/find_replace.c:632
+#, c-format
+msgid "The string \"%s\" was not found from the current location"
+msgstr "Strengen \"%s\" blev ikke fundet fra dette sted"
+
+#: src/find_text.c:251 src/messages.c:519 src/text_editor_gui.c:187
+#: src/toolbar.c:231
+msgid "Find"
+msgstr "Søg"
+
+#: src/find_text.c:293
+msgid "Whole document"
+msgstr "Helt dokument"
+
+#: src/find_text.c:300
+msgid "From cursor"
+msgstr "Fra markør"
+
+#: src/find_text.c:504
+#, c-format
+msgid "The match \"%s\" was not found in the whole document"
+msgstr "Matchen \"%s\" blev ikke fundet i hele dokumentet"
+
+#: src/find_text.c:507
+#, c-format
+msgid "The match \"%s\" was not found in the selected text"
+msgstr "Matchen \"%s\" blev ikke fundet i den markerede tekst"
+
+#: src/find_text.c:510 src/toolbar_callbacks.c:158
+#, c-format
+msgid "The match \"%s\" was not found from the current location"
+msgstr "Matchen \"%s\" bleg ikke fundet fra dette sted"
+
+#: src/find_text.c:521
+msgid "No matches. Wrap search around the document?"
+msgstr ""
+
+#: src/gnome_project.c:60
+msgid ""
+"The Project already exist.\n"
+"Project creation aborted."
+msgstr ""
+"Projektet findes allerede.\n"
+"Oprettelsen af projektet blev afbrudt."
+
+#: src/gnome_project.c:75
+msgid "Generating  project ...\n"
+msgstr "Genererer projekt...\n"
+
+#: src/gnome_project.c:81
+#, c-format
+msgid "Cannot create file: %s"
+msgstr "Kan ikke lave fil: %s"
+
+#: src/gnome_project.c:139
+msgid "Loading  project ...\n"
+msgstr "Indlæser projekt...\n"
+
+#: src/gnome_project.c:143
+msgid "Saving  project ...\n"
+msgstr "Gemmer projekt...\n"
+
+#. Source codes are generated
+#: src/gnome_project.c:149
+msgid "Generating  source codes ...\n"
+msgstr "Genererer kildekoder...\n"
+
+#. Creating icon pixmap file for gnome projects
+#: src/gnome_project.c:154
+msgid "Copying icon file ...\n"
+msgstr "Kopierer ikonfil...\n"
+
+#: src/gnome_project.c:165
+msgid "Could not create icon file ...\n"
+msgstr "Kunne ikke lave ikonfil...\n"
+
+#: src/gnome_project.c:178
+msgid "Locating files ...\n"
+msgstr "Lokaliserer filer...\n"
+
+#: src/gnome_project.c:194
+msgid "Again saving  project ...\n"
+msgstr "Gemmer projektet igen...\n"
+
+#: src/gnome_project.c:197
+msgid "Updating  project ...\n"
+msgstr "Opdaterer projekt ...\n"
+
+#: src/gnome_project.c:199
+msgid "Running  autogen.sh ...\n"
+msgstr "Kører autogen.sh...\n"
+
+#: src/gnome_project.c:208
+msgid "App Wizard"
+msgstr "Programguide"
+
+#: src/gnome_project.c:224
+msgid "Autogeneration completed...............Unsuccessful\n"
+msgstr "Autogenerering færdig..................mislykkedes\n"
+
+#: src/gnome_project.c:227
+msgid ""
+"The Project was not successfully autogenerated.\n"
+"I think you have to do it manually."
+msgstr ""
+"Projektet blev ikke succesfyldt autogenereret.\n"
+"Jeg tror du må gøre det manuelt."
+
+#: src/gnome_project.c:233
+msgid ""
+"Autogeneration completed...............Successful\n"
+"Now Build the project to have a LOOK at it\n"
+msgstr ""
+"Autogenerering færdig..................lykkedes\n"
+"Bygger nu projektet for at kunne tage et KIG på det\n"
+
+#: src/gnome_project.c:236
+msgid "Project was successfully autogenerated."
+msgstr "Projektet blev autogenereret uden problemer."
+
+#: src/goto_line.c:109
+msgid " Goto Line No. "
+msgstr " Gå til linien. "
+
+#: src/help.c:127
+msgid "Search Help"
+msgstr "Søg i hjælp"
+
+#: src/help.c:147
+msgid "Gnome API"
+msgstr "Gnome-API"
+
+#: src/help.c:152
+msgid "Man pages"
+msgstr "Manual sider"
+
+#: src/help.c:157
+msgid "Info pages"
+msgstr "Info sider"
+
+#: src/launcher.c:220 src/text_editor.c:1077
+msgid "Cannot execute command shell"
+msgstr "Kan ikke køre kommandoskal"
+
+#: src/main.c:46
+msgid "Don't show the splashscreen"
+msgstr "Vis ikke startbilledet"
+
+#: src/main_menubar.c:458
+msgid "Recent Files    "
+msgstr "Seneste filer   "
+
+#: src/main_menubar.c:469
+msgid "Plug Ins"
+msgstr ""
+
+#: src/main_menubar.c:486 src/project_dbase.c:1873
+msgid "Recent Projects "
+msgstr "Seneste projekt "
+
+#: src/main_menubar.c:505
+msgid "You have a project opened. Close it first."
+msgstr "Du har et projekt åbent. Luk det først."
+
+#: src/main_menubar_def.h:27
+msgid "project1"
+msgstr "projekt1"
+
+#: src/main_menubar_def.h:37
+msgid "plugins"
+msgstr ""
+
+#: src/main_menubar_def.h:47
+msgid "_New"
+msgstr "_Ny"
+
+#: src/main_menubar_def.h:48 src/text_editor_gui.c:112 src/toolbar.c:109
+msgid "New Text File"
+msgstr "Ny tekstfil"
+
+#: src/main_menubar_def.h:53
+msgid "_Open ..."
+msgstr "_Åbn..."
+
+#: src/main_menubar_def.h:54 src/toolbar.c:120
+msgid "Open file"
+msgstr "Åben fil"
+
+#: src/main_menubar_def.h:59
+msgid "_Save"
+msgstr "_Gem"
+
+#: src/main_menubar_def.h:60 src/toolbar.c:133
+msgid "Save current file"
+msgstr "Gem aktuel fil"
+
+#: src/main_menubar_def.h:65
+msgid "Save _As ..."
+msgstr "Gem so_m..."
+
+#: src/main_menubar_def.h:66
+msgid "Save the current file with a different name"
+msgstr "Gem den aktuelle fil med et andet navn"
+
+#: src/main_menubar_def.h:71
+msgid "Save A_ll"
+msgstr "Gem A_lle"
+
+#: src/main_menubar_def.h:72 src/toolbar.c:146
+msgid "Save all currently open files, except new files"
+msgstr "Gem alle aktuelle åbne filer, undtagen nye filer"
+
+#: src/main_menubar_def.h:77
+msgid "_Close File"
+msgstr "_Luk fil"
+
+#: src/main_menubar_def.h:78 src/toolbar.c:158
+msgid "Close current file"
+msgstr "Luk aktuel fil"
+
+#: src/main_menubar_def.h:83
+msgid "Close All Files"
+msgstr "Luk alle filer"
+
+#: src/main_menubar_def.h:84
+msgid "Close all files"
+msgstr "Luk alle filer"
+
+#: src/main_menubar_def.h:89
+msgid "Reload F_ile"
+msgstr "Indlæg fil _igen"
+
+#: src/main_menubar_def.h:90 src/toolbar.c:169
+msgid "Reload current file"
+msgstr "Indlæs aktuel fil igen"
+
+#: src/main_menubar_def.h:96
+msgid "N_ew Project ..."
+msgstr "N_yt projekt..."
+
+#: src/main_menubar_def.h:97
+msgid "Create a Project using application wizard"
+msgstr "Lav et projekt ved at bruge program guiden"
+
+#: src/main_menubar_def.h:102
+msgid "Open P_roject ..."
+msgstr "Åben p_rojekt..."
+
+#: src/main_menubar_def.h:103 src/toolbar.c:414
+msgid "Open a Project"
+msgstr "Åben et projekt"
+
+#: src/main_menubar_def.h:108
+msgid "Sa_ve Project"
+msgstr "Gem pr_ojekt"
+
+#: src/main_menubar_def.h:109 src/toolbar.c:425
+msgid "Save the current Project"
+msgstr "Gem det aktuelle projekt"
+
+#: src/main_menubar_def.h:114
+msgid "Close Pro_ject"
+msgstr "Luk pro_jekt"
+
+#: src/main_menubar_def.h:115 src/toolbar.c:438
+msgid "Close the current Project"
+msgstr "Luk det aktuelle projekt"
+
+#: src/main_menubar_def.h:121
+msgid "Rena_me ..."
+msgstr "O_mdøb ..."
+
+#: src/main_menubar_def.h:122
+msgid "Rename the current file"
+msgstr "Omdøb den aktuelle fil"
+
+#: src/main_menubar_def.h:128
+msgid "Page Set_up ..."
+msgstr "Side ops_ætning ..."
+
+#: src/main_menubar_def.h:129
+msgid "Page setup for printing"
+msgstr "Side opsætning for udskrivning"
+
+#: src/main_menubar_def.h:134
+msgid "_Print ..."
+msgstr "_Udskriv ..."
+
+#: src/main_menubar_def.h:135 src/toolbar.c:219
+msgid "Print the current file"
+msgstr "Udskriv den aktuelle fil"
+
+#: src/main_menubar_def.h:141
+msgid "Recent _Files"
+msgstr "Seneste _filer"
+
+#: src/main_menubar_def.h:147
+msgid "Recent Projec_ts"
+msgstr "Seneste projek_ter"
+
+#: src/main_menubar_def.h:159
+msgid "_Make Selection Uppercase"
+msgstr ""
+
+#: src/main_menubar_def.h:160
+msgid "Make the selected text uppercase"
+msgstr ""
+
+#: src/main_menubar_def.h:165
+msgid "Make Selection Lowercase"
+msgstr ""
+
+#: src/main_menubar_def.h:166
+msgid "Make the selected text lowercase"
+msgstr ""
+
+#: src/main_menubar_def.h:171
+msgid "Convert EOL chars to LF"
+msgstr ""
+
+#: src/main_menubar_def.h:172
+msgid "Convert End Of Line characters to UNIX EOL (line feed: LF)"
+msgstr ""
+
+#: src/main_menubar_def.h:181
+msgid "_Select All"
+msgstr "_Markér alt"
+
+#: src/main_menubar_def.h:182
+msgid "Select all text in the editor"
+msgstr "Markér al tekst i editoren"
+
+#: src/main_menubar_def.h:187
+msgid "Select to _Brace"
+msgstr ""
+
+#: src/main_menubar_def.h:188
+msgid "Select the text in the matching braces"
+msgstr ""
+
+#: src/main_menubar_def.h:193
+msgid "Select Code Block"
+msgstr "Markér kodeblok"
+
+#: src/main_menubar_def.h:194
+msgid "Select the current code block"
+msgstr "Markér den aktuelle kode blok"
+
+#: src/main_menubar_def.h:203
+msgid "/* GPL Notice */"
+msgstr "/* GPL-information */"
+
+#: src/main_menubar_def.h:204
+msgid "Insert GPL notice with C style comments"
+msgstr "Indsæt GPL information med kommertarer i C-stil"
+
+#: src/main_menubar_def.h:209
+msgid "// GPL Notice"
+msgstr "// GPL-information"
+
+#: src/main_menubar_def.h:210
+msgid "Insert GPL notice with C++ style comments"
+msgstr "Indsæt GPL information med kommentarer i C++ stil"
+
+#: src/main_menubar_def.h:215
+msgid "Current Date & Time"
+msgstr "Aktuel dato & tid"
+
+#: src/main_menubar_def.h:216
+msgid "Insert current date & time"
+msgstr "Indsæt aktuel dato & tid"
+
+#: src/main_menubar_def.h:226
+msgid "_Goto Line no ..."
+msgstr "_Gå til linie nummer..."
+
+#: src/main_menubar_def.h:227
+msgid "Go to a particular line in the editor"
+msgstr "Gå til en bestemt linie i editoren"
+
+#: src/main_menubar_def.h:232
+msgid "Goto Matching _Brace"
+msgstr ""
+
+#: src/main_menubar_def.h:233
+msgid "Go to the matching brace in the editor"
+msgstr ""
+
+#: src/main_menubar_def.h:238
+msgid "_Goto start of block"
+msgstr "_Gå til begyndelsen af blokken"
+
+#: src/main_menubar_def.h:239
+msgid "Go to the start of the current block"
+msgstr "Gå til begyndelsen af den aktuelle blok"
+
+#: src/main_menubar_def.h:244
+msgid "_Goto end of block"
+msgstr "_Gå til slutningen af blokken"
+
+#: src/main_menubar_def.h:245
+msgid "Go to the end of the current block"
+msgstr "Gå til slutningen af den aktuelle blok"
+
+#: src/main_menubar_def.h:250
+msgid "_Goto previous mesg"
+msgstr "_Gå til foregående meddelse"
+
+#: src/main_menubar_def.h:251
+msgid "Go to previous message"
+msgstr "Gå til foregående meddelse"
+
+#: src/main_menubar_def.h:256
+msgid "_Goto next mesg"
+msgstr "_Gå til næste meddelse"
+
+#: src/main_menubar_def.h:257
+msgid "Go to next message"
+msgstr "Gå til næste meddelse"
+
+#. 0
+#: src/main_menubar_def.h:269
+msgid "U_ndo"
+msgstr ""
+
+#: src/main_menubar_def.h:270 src/toolbar.c:182
+msgid "Undo the last action"
+msgstr ""
+
+#. 1
+#: src/main_menubar_def.h:276
+msgid "_Redo"
+msgstr "Gør o_m"
+
+#: src/main_menubar_def.h:277 src/toolbar.c:193
+msgid "Redo the last undone action"
+msgstr ""
+
+#. 2
+#. 3
+#: src/main_menubar_def.h:285
+msgid "C_ut"
+msgstr "Kli_p"
+
+#: src/main_menubar_def.h:286
+msgid "Cut the selected text from the editor to the clipboard"
+msgstr "Klip den markerede tekst fra editoren til udklipsholderen"
+
+#. 4
+#: src/main_menubar_def.h:292
+msgid "_Copy"
+msgstr "_Kopiér"
+
+#: src/main_menubar_def.h:293
+msgid "Copy the selected text to the clipboard"
+msgstr "Kopiér den markerede tekst til udklipsholderen"
+
+#. 5
+#: src/main_menubar_def.h:299
+msgid "_Paste"
+msgstr "Inds_æt"
+
+#: src/main_menubar_def.h:300
+msgid "Paste the content of clipboard at the current position"
+msgstr "Indsæt indholdet af udklipsholderen på den aktuelle position"
+
+#. 6
+#: src/main_menubar_def.h:306
+msgid "C_lear"
+msgstr "_Tøm"
+
+#: src/main_menubar_def.h:307
+msgid "Delete the selected text from the editor"
+msgstr "Slet den markerede tekst fra editoren"
+
+#. 7
+#. 8
+#: src/main_menubar_def.h:315
+msgid "_Transform"
+msgstr "_Transformér"
+
+#. 9
+#: src/main_menubar_def.h:322
+msgid "_Select"
+msgstr "_Marker"
+
+#. 10
+#: src/main_menubar_def.h:329
+msgid "_Insert text"
+msgstr "_Indsæt tekst"
+
+#. 11
+#. 12
+#: src/main_menubar_def.h:338
+msgid "_AutoComplete"
+msgstr ""
+
+#: src/main_menubar_def.h:339
+msgid "AutoComplete the current word"
+msgstr ""
+
+#. 13
+#: src/main_menubar_def.h:345
+msgid "S_how calltip"
+msgstr ""
+
+#: src/main_menubar_def.h:346
+msgid "Show calltip for the function"
+msgstr ""
+
+#. 14
+#. 15
+#: src/main_menubar_def.h:354
+msgid "_Find ..."
+msgstr "_Søg ..."
+
+#: src/main_menubar_def.h:355
+msgid "Search for a string or regexp in the editor"
+msgstr "Søg efter en streng eller et regulært udtryk i editoren"
+
+#. 16
+#: src/main_menubar_def.h:361
+msgid "Fin_d in files ..."
+msgstr "Sø_g i filer..."
+
+#: src/main_menubar_def.h:362
+msgid "Search for a string in multiple files or directories"
+msgstr "Søg efter en streng i flere filer eller kataloger"
+
+#. 17
+#: src/main_menubar_def.h:368
+msgid "Find and R_eplace ..."
+msgstr "Søg og _erstat ..."
+
+#: src/main_menubar_def.h:369
+msgid "Search for and replace a string or regexp with another string"
+msgstr "Søg efter og erstat en streng eller et regulært udtryk med en anden streng"
+
+#. 18
+#: src/main_menubar_def.h:375
+msgid "Find _Next"
+msgstr "Find _næste"
+
+#: src/main_menubar_def.h:376
+msgid "Repeat the Last Find command"
+msgstr "Gentag den sidste søgekommando"
+
+#. 19
+#: src/main_menubar_def.h:382
+msgid "G_o to"
+msgstr "G_å til"
+
+#. 20
+#. 21
+#: src/main_menubar_def.h:391
+msgid "Ed_it Application GUI ..."
+msgstr "Red_igér program GUI ..."
+
+#: src/main_menubar_def.h:392
+msgid "Edit application GUI with the Glade GUI editor"
+msgstr "Redigér program GUI med Glade GUI editor"
+
+#. 22
+#. 23
+#: src/main_menubar_def.h:400
+msgid "Save Build Messages"
+msgstr "Gem bygge meddelser"
+
+#: src/main_menubar_def.h:401
+msgid "Save build messages to file"
+msgstr "Gem byggemeddelser i fil"
+
+#. 24
+#: src/main_menubar_def.h:407
+msgid "_Plug Ins"
+msgstr ""
+
+#: src/main_menubar_def.h:419
+msgid "_Main Toolbar"
+msgstr "_Hovedværktøjslinie"
+
+#: src/main_menubar_def.h:420
+msgid "Hide/Unhide Main toolbar"
+msgstr "Gem/Vis hovedværktøjslinie"
+
+#: src/main_menubar_def.h:426
+msgid "_Extended Toolbar"
+msgstr ""
+
+#: src/main_menubar_def.h:427
+msgid "Hide/Unhide Extended toolbar"
+msgstr ""
+
+#: src/main_menubar_def.h:433
+msgid "_Tags Toolbar"
+msgstr ""
+
+#: src/main_menubar_def.h:434
+msgid "Hide/Unhide Tags toolbar"
+msgstr ""
+
+#: src/main_menubar_def.h:440
+msgid "_Debug Toolbar"
+msgstr "_Fejlsøgningværktøjslinie"
+
+#: src/main_menubar_def.h:441
+msgid "Hide/Unhide Debug toolbar"
+msgstr "Gem/Vis fejlsøgningsværktøjslinie"
+
+#: src/main_menubar_def.h:447
+msgid "_Browser Toolbar"
+msgstr "_Browserværktøjslinie"
+
+#: src/main_menubar_def.h:448
+msgid "Hide/Unhide Browser toolbar"
+msgstr "Gem/Vis browserværktøjslinie"
+
+#: src/main_menubar_def.h:454
+msgid "_Format Toolbar"
+msgstr "_Formateringsværktøjslinie"
+
+#: src/main_menubar_def.h:455
+msgid "Hide/Unhide Format toolbar"
+msgstr "Gem/Vis formateringsværktøjslinie"
+
+#: src/main_menubar_def.h:464
+msgid "_Line numbers margin"
+msgstr "_Linienummer margen"
+
+#: src/main_menubar_def.h:465
+msgid "Show/Hide line numbers"
+msgstr "Gem/Vis linienummer"
+
+#: src/main_menubar_def.h:470
+msgid "_Markers Margin"
+msgstr "_Markørmargen"
+
+#: src/main_menubar_def.h:471
+msgid "Show/Hide markers margin"
+msgstr "Gem/Vis markørens margen"
+
+#: src/main_menubar_def.h:476
+msgid "_Code fold margin"
+msgstr ""
+
+#: src/main_menubar_def.h:477
+msgid "Show/Hide code fold margin"
+msgstr ""
+
+#: src/main_menubar_def.h:482
+msgid "_Indentation guides"
+msgstr "_Indenteringsguider"
+
+#: src/main_menubar_def.h:483
+msgid "Show/Hide undentation guides"
+msgstr "Gem/Vis indenteringsguider"
+
+#: src/main_menubar_def.h:488
+msgid "_White spaces"
+msgstr "_Mellemrum"
+
+#: src/main_menubar_def.h:489
+msgid "Show/Hide white spaces"
+msgstr "Gem/Vis mellemrum"
+
+#: src/main_menubar_def.h:494
+msgid "_Line end characters"
+msgstr ""
+
+#: src/main_menubar_def.h:495
+msgid "Show/Hide line end characters"
+msgstr ""
+
+#: src/main_menubar_def.h:504
+msgid "++ Zoom"
+msgstr "++ Zoom"
+
+#: src/main_menubar_def.h:505
+msgid "Increase text zoom by 1 unit"
+msgstr "Øg tekstindzoomning med 1 enhed"
+
+#: src/main_menubar_def.h:510
+msgid "+8"
+msgstr "+8"
+
+#: src/main_menubar_def.h:511
+msgid "Zoom factor +8"
+msgstr "Zoomfaktor +8"
+
+#: src/main_menubar_def.h:516
+msgid "+6"
+msgstr "+6"
+
+#: src/main_menubar_def.h:517
+msgid "Zoom factor +6"
+msgstr "Zoomfaktor +6"
+
+#: src/main_menubar_def.h:522
+msgid "+4"
+msgstr "+4"
+
+#: src/main_menubar_def.h:523
+msgid "Zoom factor +4"
+msgstr "Zoomfaktor +4"
+
+#: src/main_menubar_def.h:528
+msgid "+2"
+msgstr "+2"
+
+#: src/main_menubar_def.h:529
+msgid "Zoom factor +2"
+msgstr "Zoomfaktor +2"
+
+#: src/main_menubar_def.h:535
+msgid "Zoom factor 0"
+msgstr "Zoomfaktor 0"
+
+#: src/main_menubar_def.h:540
+msgid "-2"
+msgstr "-2"
+
+#: src/main_menubar_def.h:541
+msgid "Zoom factor -2"
+msgstr "Zoomfaktor -2"
+
+#: src/main_menubar_def.h:546
+msgid "-4"
+msgstr "-4"
+
+#: src/main_menubar_def.h:547
+msgid "Zoom factor -4"
+msgstr "Zoomfaktor -4"
+
+#: src/main_menubar_def.h:552
+msgid "-6"
+msgstr "-6"
+
+#: src/main_menubar_def.h:553
+msgid "Zoom factor -6"
+msgstr "Zoomfaktor -6"
+
+#: src/main_menubar_def.h:558
+msgid "-8"
+msgstr "-8"
+
+#: src/main_menubar_def.h:559
+msgid "Zoom factor -8"
+msgstr "Zoomfaktor -8"
+
+#: src/main_menubar_def.h:564
+msgid "-- Zoom"
+msgstr "-- Zoom"
+
+#: src/main_menubar_def.h:565
+msgid "Reduce text zoom by 1 unit"
+msgstr "Formindsk tekstindzoomning med 1 enhed"
+
+#. 0
+#: src/main_menubar_def.h:575
+msgid "_Messages"
+msgstr "_Meddelser"
+
+#: src/main_menubar_def.h:576
+msgid "Show/Hide the Message window"
+msgstr "Gem/Vis meddelsesvindue"
+
+#. 1
+#: src/main_menubar_def.h:581
+msgid "_Project Listing"
+msgstr "_Projektlistning"
+
+#: src/main_menubar_def.h:582 src/toolbar.c:284
+msgid "Show/Hide the Project window"
+msgstr "Gem/Vis projektvindue"
+
+#. 2
+#: src/main_menubar_def.h:587
+msgid "B_ookmarks"
+msgstr "B_ogmærker"
+
+#: src/main_menubar_def.h:588
+msgid "Show the Bookmark window"
+msgstr "Vis bogmærkevindue"
+
+#. 3
+#. 4
+#: src/main_menubar_def.h:594
+msgid "_Toolbars"
+msgstr "Værk_tøjslinier"
+
+#. 5
+#. 6
+#: src/main_menubar_def.h:601
+msgid "_Editor"
+msgstr "_Editor"
+
+#. 7
+#. 8
+#: src/main_menubar_def.h:608
+msgid "_Zoom text"
+msgstr "_Zoom tekst"
+
+#. 9
+#. 10
+#: src/main_menubar_def.h:615 src/main_menubar_def.h:1290
+msgid "_Breakpoints"
+msgstr "_Breakpoints"
+
+#: src/main_menubar_def.h:616
+msgid "Show breakpoints editor window"
+msgstr "Vis breakpoints editor vindue"
+
+#. 11
+#. 12
+#: src/main_menubar_def.h:622
+msgid "_Watch Window"
+msgstr ""
+
+#: src/main_menubar_def.h:623
+msgid "Show expression watch window"
+msgstr ""
+
+#. 13
+#: src/main_menubar_def.h:628
+msgid "_Registers"
+msgstr "_Registre"
+
+#: src/main_menubar_def.h:629
+msgid "Show CPU registers and their contents"
+msgstr "Vis processorregistre og deres indhold"
+
+#. 14
+#: src/main_menubar_def.h:634
+msgid "Program _Stack"
+msgstr "Program_stak"
+
+#: src/main_menubar_def.h:635
+msgid "Show stack trace of the program"
+msgstr "Vis stakken for programmet"
+
+#. 15
+#: src/main_menubar_def.h:640
+msgid "Shared _Libraries"
+msgstr "Delte bib_lioteker"
+
+#: src/main_menubar_def.h:641
+msgid "Show shared libraries loaded by the program"
+msgstr "Vis delte biblioteker som er indlæst af programmet"
+
+#. 16
+#: src/main_menubar_def.h:646
+msgid "_Kernel Signals"
+msgstr "_Kerne signaler"
+
+#: src/main_menubar_def.h:647
+msgid "Show the kernel signals editor window"
+msgstr "Vis editor vindue for kerne signaler"
+
+#. 17
+#: src/main_menubar_def.h:652
+msgid "_Dump Window"
+msgstr ""
+
+#: src/main_menubar_def.h:653
+msgid "Show memory dump window"
+msgstr ""
+
+#. 18
+#. 19
+#: src/main_menubar_def.h:659
+msgid "_Console"
+msgstr "_Konsol"
+
+#: src/main_menubar_def.h:660
+msgid "Show the console where the program runs"
+msgstr "Vis konsollen hvor programmet kører"
+
+#. 20
+#: src/main_menubar_def.h:665
+msgid "Show _Locals"
+msgstr "Vis mi_ljøvariabler"
+
+#: src/main_menubar_def.h:666
+msgid "Show/Hide Local Variables in MessagePane"
+msgstr "Gem/Vis miljøvariabler i meddelsespanel"
+
+#: src/main_menubar_def.h:675 src/project_dbase_gui.c:392
+msgid "Include file"
+msgstr "Inkludér fil"
+
+#: src/main_menubar_def.h:681 src/project_dbase_gui.c:398
+msgid "Source file"
+msgstr "Kilde fil"
+
+#: src/main_menubar_def.h:687 src/project_dbase_gui.c:404
+msgid "Help file"
+msgstr "Hjælpe fil"
+
+#: src/main_menubar_def.h:693 src/project_dbase_gui.c:410
+msgid "Data file"
+msgstr "Data fil"
+
+#: src/main_menubar_def.h:699 src/project_dbase_gui.c:416
+msgid "Pixmap file"
+msgstr "Billed fil"
+
+#: src/main_menubar_def.h:705 src/project_dbase_gui.c:422
+msgid "Translation file"
+msgstr "Oversættelses fil"
+
+#: src/main_menubar_def.h:711
+msgid "Documentation file"
+msgstr "Dokumentations fil"
+
+#: src/main_menubar_def.h:721 src/project_dbase_gui.c:438
+msgid "Add New"
+msgstr "Tilføj ny"
+
+#: src/main_menubar_def.h:727 src/project_dbase_gui.c:444
+msgid "Import File"
+msgstr "Importér fil"
+
+#: src/main_menubar_def.h:735
+msgid "Remove the current file from the project"
+msgstr "Fjern den aktuelle fil fra projektet"
+
+#: src/main_menubar_def.h:742
+msgid "Open the README file of the project"
+msgstr "Åben projektets README-fil"
+
+#: src/main_menubar_def.h:748
+msgid "Open the TODO file of the project"
+msgstr "Åben projektets TODO-fil"
+
+#: src/main_menubar_def.h:754
+msgid "Open the ChangeLog file of the project"
+msgstr "Åben projektets ChangeLog fil"
+
+#: src/main_menubar_def.h:760
+msgid "Open the NEWS file of the project"
+msgstr "Åben projektets NEWS-fil"
+
+#: src/main_menubar_def.h:766
+msgid "Project _Configuration ..."
+msgstr "Projekt_konfiguration ..."
+
+#: src/main_menubar_def.h:767
+msgid "Edit the configuration of the project"
+msgstr "Redigér projektets opsætning"
+
+#: src/main_menubar_def.h:772
+msgid "Project _Information"
+msgstr "Projekt _Information"
+
+#: src/main_menubar_def.h:773
+msgid "Detailed information about the project"
+msgstr "Detaljeret information om projektet"
+
+#: src/main_menubar_def.h:782
+msgid "Automatic"
+msgstr "Automatisk"
+
+#: src/main_menubar_def.h:783
+msgid "Automatically determine the highlight style"
+msgstr "Automatisk bestem markerings stilen"
+
+#: src/main_menubar_def.h:788
+msgid "No Highlight style"
+msgstr "Ingen markerings stil"
+
+#: src/main_menubar_def.h:789
+msgid "Force the highlight style to None"
+msgstr "Tving markeringsstilen til at være None"
+
+#: src/main_menubar_def.h:794
+msgid "C and C++"
+msgstr "C og C++"
+
+#: src/main_menubar_def.h:795
+msgid "Force the highlight style to C and C++"
+msgstr "Tving markerings stilen til C og C++"
+
+#: src/main_menubar_def.h:800
+msgid "C and C++ with GNOME"
+msgstr "C og C++ med GNOME"
+
+#: src/main_menubar_def.h:801
+msgid "Force the highlight style to C and C++ with GNOME"
+msgstr "Tving markeringsstilen til C og C++ med Gnome"
+
+#: src/main_menubar_def.h:806
+msgid "HTML"
+msgstr "HTML"
+
+#: src/main_menubar_def.h:807
+msgid "Force the highlight style to HTML"
+msgstr "Tving markeringsstilen til HTML"
+
+#: src/main_menubar_def.h:812
+msgid "XML"
+msgstr "XML"
+
+#: src/main_menubar_def.h:813
+msgid "Force the highlight style to XML"
+msgstr "Tving markeringsstilen til XML"
+
+#: src/main_menubar_def.h:818
+msgid "Javascript"
+msgstr "Javascript"
+
+#: src/main_menubar_def.h:819
+msgid "Force the highlight style to Javascript"
+msgstr "Tving markeringsstilen til Javascript"
+
+#: src/main_menubar_def.h:824
+msgid "WScript"
+msgstr "WScript"
+
+#: src/main_menubar_def.h:825
+msgid "Force the highlight style to WScript"
+msgstr "Tving markeringsstilen til WScript"
+
+#: src/main_menubar_def.h:830
+msgid "Makefile"
+msgstr "Makefil"
+
+#: src/main_menubar_def.h:831
+msgid "Force the highlight style to Makefile"
+msgstr "Tving markeringsstilen til Makefil"
+
+#: src/main_menubar_def.h:836
+msgid "Java"
+msgstr "Java"
+
+#: src/main_menubar_def.h:837
+msgid "Force the highlight type to Java"
+msgstr "Tving markeringsstilen til Java"
+
+#: src/main_menubar_def.h:842
+msgid "LUA"
+msgstr "LUA"
+
+#: src/main_menubar_def.h:843
+msgid "Force the highlight style to LUA"
+msgstr "Tving markeringsstilen til LUA"
+
+#: src/main_menubar_def.h:848
+msgid "Python"
+msgstr "Python"
+
+#: src/main_menubar_def.h:849
+msgid "Force the highlight style to Python"
+msgstr "Tving markeringsstilen til Python"
+
+#: src/main_menubar_def.h:854
+msgid "Perl"
+msgstr "Perl"
+
+#: src/main_menubar_def.h:855
+msgid "Force the highlight style to Perl"
+msgstr "Tving markeringsstilen til Perl"
+
+#: src/main_menubar_def.h:860
+msgid "SQL"
+msgstr "SQL"
+
+#: src/main_menubar_def.h:861
+msgid "Force the highlight style to SQL"
+msgstr "Tving markeringsstilen til SQL"
+
+#: src/main_menubar_def.h:866
+msgid "PL/SQL"
+msgstr "PL/SQL"
+
+#: src/main_menubar_def.h:867
+msgid "Force the highlight style to PL/SQL"
+msgstr "Tving markeringsstilen til PL/SQL"
+
+#: src/main_menubar_def.h:872
+msgid "PHP"
+msgstr "PHP"
+
+#: src/main_menubar_def.h:873
+msgid "Force the highlight style to PHP"
+msgstr "Tving markeringsstilen til PHP"
+
+#: src/main_menubar_def.h:878
+msgid "LaTex"
+msgstr "LaTeX"
+
+#: src/main_menubar_def.h:879
+msgid "Force the highlight style to LaTex"
+msgstr "Tving markeringsstilen til LaTeX"
+
+#: src/main_menubar_def.h:884
+msgid "Diff"
+msgstr "Diff"
+
+#: src/main_menubar_def.h:885
+msgid "Force the highlight style to Diff"
+msgstr "Tving markeringsstilen til Diff"
+
+#: src/main_menubar_def.h:890
+msgid "Pascal"
+msgstr "Pascal"
+
+#: src/main_menubar_def.h:891
+msgid "Force the highlight style to Pascal"
+msgstr "Tving markeringsstilen til Pascal"
+
+#: src/main_menubar_def.h:896
+msgid "Xcode"
+msgstr "Xcode"
+
+#: src/main_menubar_def.h:897
+msgid "Force the highlight style to Xcode"
+msgstr "Tving markeringsstilen til Xcode"
+
+#: src/main_menubar_def.h:902
+msgid "Prj/Properties"
+msgstr "Prj/Egenskaber"
+
+#: src/main_menubar_def.h:903
+msgid "Force the highlight style to project/properties files"
+msgstr "Tving markeringsstilen til projekt-/egenskabsfiler"
+
+#: src/main_menubar_def.h:908
+msgid "Conf"
+msgstr "Conf"
+
+#: src/main_menubar_def.h:909
+msgid "Force the highlight style to UNIX conf files"
+msgstr "Tving markeringsstilen til UNIX conf-filer"
+
+#: src/main_menubar_def.h:918
+msgid "Auto _Format"
+msgstr "Auto_formatér"
+
+#: src/main_menubar_def.h:919
+msgid "Autoformat C and C++ source files"
+msgstr "Autoformatér C- og C++-kildekode filer"
+
+#: src/main_menubar_def.h:924
+msgid "_Increase Indent"
+msgstr "Øg _indentering"
+
+#: src/main_menubar_def.h:925
+msgid "Increase indentation of line/selection"
+msgstr "Øg indenteringen på linie/markering"
+
+#: src/main_menubar_def.h:930
+msgid "_Decrease Indent"
+msgstr "_Formindsk indentering"
+
+#: src/main_menubar_def.h:931
+msgid "Decrease indentation of line/selection"
+msgstr "Formindsk indenteringen af linie/markering"
+
+#: src/main_menubar_def.h:937
+msgid "_Update tags image"
+msgstr "_Opdatér tag billede"
+
+#: src/main_menubar_def.h:938
+msgid "Update the tags image of the project/opened files"
+msgstr "Opdatér tags billede af projektet/åbne filer"
+
+#: src/main_menubar_def.h:944
+msgid "Force _Highlight Style"
+msgstr "Tving _markeringsstil"
+
+#: src/main_menubar_def.h:951
+msgid "_Close All Folds"
+msgstr ""
+
+#: src/main_menubar_def.h:952
+msgid "Close all code folds in the editor"
+msgstr ""
+
+#: src/main_menubar_def.h:957
+msgid "_Open All Folds"
+msgstr ""
+
+#: src/main_menubar_def.h:958
+msgid "Open all code folds of the editor"
+msgstr ""
+
+#: src/main_menubar_def.h:963
+msgid "_Toggle Current Fold"
+msgstr ""
+
+#: src/main_menubar_def.h:964
+msgid "Toggle current code fold of the editor"
+msgstr ""
+
+#: src/main_menubar_def.h:970
+msgid "D_etach Current Document"
+msgstr "_Afhæft det aktuelle dokument"
+
+#: src/main_menubar_def.h:971
+msgid "Detach the current editor into a separate window"
+msgstr "Afhæft den aktuelle editor i et seperat vindue"
+
+#: src/main_menubar_def.h:981
+msgid "_Compile"
+msgstr "_Kompilér"
+
+#: src/main_menubar_def.h:982
+msgid "Compile the current source file"
+msgstr "Kompilér den aktuelle kilde fil"
+
+#: src/main_menubar_def.h:988 src/main_menubar_def.h:1534
+msgid "_Build"
+msgstr "_Byg"
+
+#: src/main_menubar_def.h:989
+msgid "Build the source directory of the project/current source file"
+msgstr "Byg projektets kilde folder/aktuel kilde fil"
+
+#: src/main_menubar_def.h:994
+msgid "Build _All"
+msgstr "Byg _alt"
+
+#: src/main_menubar_def.h:995
+msgid "Build the whole project"
+msgstr "Byg hele projektet"
+
+#: src/main_menubar_def.h:1001
+msgid "_Install"
+msgstr "_Installér"
+
+#: src/main_menubar_def.h:1002
+msgid "Install the project on your system"
+msgstr "Installér projektet på dit system"
+
+#: src/main_menubar_def.h:1007
+msgid "Build _Distribution"
+msgstr "Byg _distribution"
+
+#: src/main_menubar_def.h:1008
+msgid "Build the distribution tarball of the project"
+msgstr "Byg projektets distributions tarball"
+
+#: src/main_menubar_def.h:1014
+msgid "Con_figure ..."
+msgstr "Kon_figurér ..."
+
+#: src/main_menubar_def.h:1015
+msgid "Configure the project"
+msgstr "Konfigurér projektet"
+
+#: src/main_menubar_def.h:1020
+msgid "Auto _generate ..."
+msgstr "Auto_generér..."
+
+#: src/main_menubar_def.h:1021
+msgid "Auto generate all the build files"
+msgstr "Autogenerér alle byggefiler"
+
+#: src/main_menubar_def.h:1027
+msgid "Clea_n"
+msgstr "Re_ns"
+
+#: src/main_menubar_def.h:1028
+msgid "Clean the source directory"
+msgstr "Rens kilde biblioteket"
+
+#: src/main_menubar_def.h:1033
+msgid "Clean A_ll"
+msgstr "Rens A_lt"
+
+#: src/main_menubar_def.h:1034
+msgid "Clean the whole project directory"
+msgstr "Rens hele projektets bibliotek"
+
+#: src/main_menubar_def.h:1040
+msgid "_Stop Build"
+msgstr "_Stop bygningen"
+
+#: src/main_menubar_def.h:1041
+msgid "Stop the current compile or build process"
+msgstr "Stop den aktuelle kompilering eller bygge processen"
+
+#: src/main_menubar_def.h:1047
+msgid "_Execute"
+msgstr "_Kør"
+
+#: src/main_menubar_def.h:1048 src/toolbar.c:501
+msgid "Execute the program"
+msgstr "Kør programmet"
+
+#: src/main_menubar_def.h:1053
+msgid "Set _Program params ..."
+msgstr "Sæt _programmets parametre ..."
+
+#: src/main_menubar_def.h:1054
+msgid "Set the execution parameters of the program"
+msgstr "Sæt programmets køre parametre"
+
+#: src/main_menubar_def.h:1063
+msgid "_Toggle bookmark"
+msgstr ""
+
+#: src/main_menubar_def.h:1070
+msgid "_First bookmark"
+msgstr "_Første bogmærke"
+
+#: src/main_menubar_def.h:1076
+msgid "_Previous bookmark"
+msgstr "_Foregående bogmærke"
+
+#: src/main_menubar_def.h:1082
+msgid "_Next bookmark"
+msgstr "_Næste bogmærke"
+
+#: src/main_menubar_def.h:1088
+msgid "_Last bookmark"
+msgstr "_Sidste bogmærke"
+
+#: src/main_menubar_def.h:1095
+msgid "_Clear all bookmarks"
+msgstr "_Tøm alle bogmærker"
+
+#: src/main_menubar_def.h:1105
+msgid "Run/_Continue"
+msgstr "Kør/_Fortsæt"
+
+#: src/main_menubar_def.h:1106
+msgid "Continue the execution of the program"
+msgstr "Fortsæt kørslen af programmet"
+
+#: src/main_menubar_def.h:1111
+msgid "Step _In"
+msgstr "Step _Ind"
+
+#: src/main_menubar_def.h:1112
+msgid "Single step into function"
+msgstr "Enkelt step ind i funktion"
+
+#: src/main_menubar_def.h:1117
+msgid "Step O_ver"
+msgstr "Step O_ver"
+
+#: src/main_menubar_def.h:1118
+msgid "Single step over function"
+msgstr "Enkelt step over funktion"
+
+#: src/main_menubar_def.h:1123
+msgid "Step _Out"
+msgstr "Step _Ud"
+
+#: src/main_menubar_def.h:1124
+msgid "Single step out of the function"
+msgstr "Enkelt step ud af funktion"
+
+#: src/main_menubar_def.h:1129
+msgid "_Run to cursor"
+msgstr "_Kør til markør"
+
+#: src/main_menubar_def.h:1130
+msgid "Run to the cursor"
+msgstr "Kør til markøren"
+
+#: src/main_menubar_def.h:1139 src/text_editor_menu.c:100
+msgid "Toggle breakpoint"
+msgstr ""
+
+#: src/main_menubar_def.h:1140
+msgid "Toggle breakpoint at the current location"
+msgstr ""
+
+#: src/main_menubar_def.h:1145
+msgid "Set Breakpoint ..."
+msgstr "Sæt breakpoint ..."
+
+#: src/main_menubar_def.h:1146
+msgid "Set a breakpoint"
+msgstr "Sæt et breakpoint"
+
+#: src/main_menubar_def.h:1152
+msgid "_Breakpoints ..."
+msgstr "_Breakpoints ..."
+
+#: src/main_menubar_def.h:1153
+msgid "Edit breakpoints"
+msgstr "Redigér breakpoints"
+
+#: src/main_menubar_def.h:1158
+msgid "Disable all Breakpoints"
+msgstr "Slå alle breakpoints fra"
+
+#: src/main_menubar_def.h:1159
+msgid "Deactivate all breakpoints"
+msgstr "Deaktivér alle breakpoints"
+
+#: src/main_menubar_def.h:1164
+msgid "C_lear all Breakpoints"
+msgstr "T_øm alle breakpoints"
+
+#: src/main_menubar_def.h:1165
+msgid "Delete all breakpoints"
+msgstr "Slet alle breakpoints"
+
+#: src/main_menubar_def.h:1174
+msgid "Info _Target Files"
+msgstr "Info _mål filer"
+
+#: src/main_menubar_def.h:1175
+msgid "Display information on the files the debugger is active with"
+msgstr "Vis information om de filer fejlsøgeren er aktive med"
+
+#: src/main_menubar_def.h:1180
+msgid "Info _Program"
+msgstr "_Programinformation"
+
+#: src/main_menubar_def.h:1181
+msgid "Display information on the execution status of the program"
+msgstr "Vis information om kørselsstatus af programmet"
+
+#: src/main_menubar_def.h:1186
+msgid "Info _Kernel User Struct"
+msgstr "Information om _kernens \"User Struct\""
+
+#: src/main_menubar_def.h:1187
+msgid "Display the contents of kernel 'struct user' for current child"
+msgstr "Vis indholdet af kernens \"struct-user\" for aktuelle barn"
+
+#: src/main_menubar_def.h:1192
+msgid "Info _Threads"
+msgstr "_Trådinformation"
+
+#: src/main_menubar_def.h:1193
+msgid "Display the IDs of currently known threads"
+msgstr "Vis ID for aktuelle kendte tråde"
+
+#: src/main_menubar_def.h:1198
+msgid "Info _Global variables"
+msgstr "Information om _globale variabler"
+
+#: src/main_menubar_def.h:1199
+msgid "Display all global and static variables of the program"
+msgstr "Vis alle globale og statiske variabler for programmet"
+
+#: src/main_menubar_def.h:1204
+msgid "Info _Local variables"
+msgstr "Information om mi_ljø variabler"
+
+#: src/main_menubar_def.h:1205
+msgid "Display local variables of the current frame"
+msgstr "Vis miljø variabler for den nuværende ramme"
+
+#: src/main_menubar_def.h:1210
+msgid "Info _Current Frame"
+msgstr "Information om _aktuel ramme"
+
+#: src/main_menubar_def.h:1211
+msgid "Display information about the current frame of execution"
+msgstr "Vis information om den aktuelle kørselsramme"
+
+#: src/main_menubar_def.h:1216
+msgid "Info Function _Arguments"
+msgstr "Information om funktions_argumenter"
+
+#: src/main_menubar_def.h:1217
+msgid "Display function arguments of the current frame"
+msgstr "Vis funktionsargumenter for den aktuelle rammes"
+
+#: src/main_menubar_def.h:1226
+msgid "_Start Debugger"
+msgstr "_Start fejlsøger"
+
+#: src/main_menubar_def.h:1227
+msgid "Start the debugging session"
+msgstr "Start fejlsøgningssessionen"
+
+#: src/main_menubar_def.h:1233
+msgid "Load E_xecutable ..."
+msgstr "Indlæs _kørbar fil..."
+
+#: src/main_menubar_def.h:1234
+msgid "Open the executable for debugging"
+msgstr "Åben den kørbare filen for fejlsøgning"
+
+#: src/main_menubar_def.h:1239
+msgid "Load _Core file ..."
+msgstr "Indlæs _kerne-fil..."
+
+#: src/main_menubar_def.h:1240
+msgid "Load a core file to dissect"
+msgstr "Indlæs en kerne-fil at dissekere"
+
+#: src/main_menubar_def.h:1245
+msgid "_Attach to Process ..."
+msgstr "_Vedhæft til proces ..."
+
+#: src/main_menubar_def.h:1246
+msgid "Attach to a running program"
+msgstr "vedhæft til et kørende program"
+
+#: src/main_menubar_def.h:1252
+msgid "_Restart Program"
+msgstr "_Genstart program"
+
+#: src/main_menubar_def.h:1253
+msgid "Stop and restart the program"
+msgstr "Stop og genstart programmet"
+
+#: src/main_menubar_def.h:1258
+msgid "S_top Program"
+msgstr "S_top program"
+
+#: src/main_menubar_def.h:1259
+msgid "Stop the program being debugged"
+msgstr "Stop programmet der bliver fejlsøgt"
+
+#: src/main_menubar_def.h:1264
+msgid "_Detach Debugger"
+msgstr "_Afhæft fejlsøger"
+
+#: src/main_menubar_def.h:1265
+msgid "Detach from an attached program"
+msgstr "Afhæft fra et vedhæftet program"
+
+#: src/main_menubar_def.h:1271
+msgid "I_nterrupt Program"
+msgstr "A_fbryd program"
+
+#: src/main_menubar_def.h:1272 src/toolbar.c:996
+msgid "Interrupt execution of the program"
+msgstr "Afbryd kørsel af programmet"
+
+#: src/main_menubar_def.h:1277
+msgid "Si_gnal to Process"
+msgstr "Si_gnalér til proces"
+
+#: src/main_menubar_def.h:1278
+msgid "Send a kernel signal to the process being debugged"
+msgstr "Send et kerne signal til processen der bliver fejlsøgt"
+
+#: src/main_menubar_def.h:1284
+msgid "_Execution"
+msgstr "_Kørsel"
+
+#: src/main_menubar_def.h:1297
+msgid "_Information"
+msgstr "_Information"
+
+#: src/main_menubar_def.h:1304
+msgid "Ins_pect/Evaluate ..."
+msgstr "Gennem_se/Evaluér ..."
+
+#: src/main_menubar_def.h:1305
+msgid "Inspect or evaluate an expression or variable"
+msgstr "Gennemse eller evaluér et udtryk eller en variabel"
+
+#: src/main_menubar_def.h:1310
+msgid "Add Expression in _Watch ..."
+msgstr ""
+
+#: src/main_menubar_def.h:1311
+msgid "Add expression or variable to the watch"
+msgstr ""
+
+#: src/main_menubar_def.h:1317
+msgid "St_op Debugger"
+msgstr "St_op fejlsøgeren"
+
+#: src/main_menubar_def.h:1318
+msgid "Say goodbye to the debugger"
+msgstr "Sig farvel til fejlsøgeren"
+
+#: src/main_menubar_def.h:1327
+msgid "Grep Utility"
+msgstr "Grep-værktøj"
+
+#: src/main_menubar_def.h:1333
+msgid "Compare two files"
+msgstr "Sammenlign to filer"
+
+#: src/main_menubar_def.h:1339
+msgid "Diff Utility"
+msgstr "Diff-værktøj"
+
+#: src/main_menubar_def.h:1345
+msgid "File View (Char/Octal/Hex)"
+msgstr "Fil kig (tegn/oktalt/hexadecimalt)"
+
+#: src/main_menubar_def.h:1352
+msgid "Declarations"
+msgstr "Deklarationer"
+
+#: src/main_menubar_def.h:1358
+msgid "C Flow"
+msgstr "C-flow"
+
+#: src/main_menubar_def.h:1364
+msgid "C Cross-reference"
+msgstr "C-kryds-reference"
+
+#: src/main_menubar_def.h:1370
+msgid "C Trace"
+msgstr "C-spor"
+
+#: src/main_menubar_def.h:1377
+msgid "Backup Manager"
+msgstr "Sikkerhedskopierings-manager"
+
+#: src/main_menubar_def.h:1387
+msgid "_Create New Window"
+msgstr "_Lav nyt vindue"
+
+#: src/main_menubar_def.h:1388
+msgid "Open a new file window"
+msgstr "Åben et nyt fil vindue"
+
+#: src/main_menubar_def.h:1398
+msgid "Close current document window"
+msgstr "Luk det aktuelle dokument vindue"
+
+#: src/main_menubar_def.h:1407
+msgid "_Compiler and Linker Settings ..."
+msgstr ""
+
+#: src/main_menubar_def.h:1408
+msgid "Settings for the compiler and linker"
+msgstr ""
+
+#: src/main_menubar_def.h:1413
+msgid "_Source Paths ..."
+msgstr ""
+
+#: src/main_menubar_def.h:1414
+msgid "Specify the source paths for the Anjuta to search"
+msgstr ""
+
+#: src/main_menubar_def.h:1419
+msgid "_Commands ..."
+msgstr "_Kommandoer ..."
+
+#: src/main_menubar_def.h:1420
+msgid "Specify the various commands for use"
+msgstr "Angiv de kommandoer der skal anvendes"
+
+#: src/main_menubar_def.h:1426
+msgid "_Preferences ..."
+msgstr "_Indstillinger ..."
+
+#: src/main_menubar_def.h:1427
+msgid "Do your prefer coffee to tea? Check it out."
+msgstr "Foretrækker du kaffe eller the? Test dette."
+
+#: src/main_menubar_def.h:1432
+msgid "Set _Default Preferences"
+msgstr "Sæt _standard indstillinger"
+
+#: src/main_menubar_def.h:1433
+msgid "But I prefer tea."
+msgstr "Men jeg foretrækker the."
+
+#: src/main_menubar_def.h:1444
+msgid "Browse Gnome API Pages"
+msgstr ""
+
+#: src/main_menubar_def.h:1445
+msgid "The gnome API pages"
+msgstr "Gnome API-sider"
+
+#: src/main_menubar_def.h:1450
+msgid "Browse Man Pages"
+msgstr ""
+
+#: src/main_menubar_def.h:1451
+msgid "The good old manual pages"
+msgstr "De gode gamle manual sider"
+
+#: src/main_menubar_def.h:1456
+msgid "Browse Info Pages"
+msgstr ""
+
+#: src/main_menubar_def.h:1457
+msgid "Info pages, where you cannot find what you are looking for"
+msgstr "Info sider, hvor du ikke kan finde det du leder efter"
+
+#: src/main_menubar_def.h:1463 src/text_editor_menu.c:224
+msgid "Context Help"
+msgstr "Sammenhængs hjælp"
+
+#: src/main_menubar_def.h:1464
+msgid "Search help for the current word in the editor"
+msgstr "Søg hjælp for det aktuelle ord i editoren"
+
+#: src/main_menubar_def.h:1469
+msgid "Search a topic"
+msgstr "Søg et emne"
+
+#: src/main_menubar_def.h:1470
+msgid "May I help you?"
+msgstr "Kan jeg hjælpe dig?"
+
+#: src/main_menubar_def.h:1476
+msgid "Anjuta Home site"
+msgstr "Anjuta's hjemmeside"
+
+#: src/main_menubar_def.h:1477
+msgid "Online documentation and resources"
+msgstr "Online-dokumentation og resourcer"
+
+#: src/main_menubar_def.h:1483
+msgid "Libraries API references"
+msgstr "Referencer til API-biblioteker"
+
+#: src/main_menubar_def.h:1484
+msgid "Online reference library for GDK, GLib, GNOME etc.."
+msgstr "Online-referencebibliotek for GDK, GLib, GNOME osv..."
+
+#: src/main_menubar_def.h:1489
+msgid "Report Bugs"
+msgstr "Rapportér en fejl"
+
+#: src/main_menubar_def.h:1490
+msgid "Submit a bug report for Anjuta"
+msgstr "Indsend en fejl rapport for Anjuta"
+
+#: src/main_menubar_def.h:1495
+msgid "Request Features"
+msgstr "Ansøg om features"
+
+#: src/main_menubar_def.h:1496
+msgid "Submit a feature request for Anjtua"
+msgstr "Indsend en feature ansøgning for Anjuta"
+
+#: src/main_menubar_def.h:1501
+msgid "Submit patches"
+msgstr ""
+
+#: src/main_menubar_def.h:1502
+msgid "Submit patches for Anjuta"
+msgstr ""
+
+#: src/main_menubar_def.h:1507
+msgid "Ask a question"
+msgstr "Stil et spørgsmål"
+
+#: src/main_menubar_def.h:1508
+msgid "Submit a question for FAQs"
+msgstr "Stil et spørgsmål til FAQs"
+
+#: src/main_menubar_def.h:1522
+msgid "_Project"
+msgstr "_Projekt"
+
+#: src/main_menubar_def.h:1528
+msgid "For_mat"
+msgstr "For_matering"
+
+#: src/main_menubar_def.h:1540
+msgid "Bookmar_k"
+msgstr "Bogmær_ke"
+
+#: src/main_menubar_def.h:1546
+msgid "_Debug"
+msgstr "Fejl_søg"
+
+#: src/main_menubar_def.h:1552
+msgid "_Utilities"
+msgstr "_Værktøj"
+
+#: src/main_menubar_def.h:1568
+msgid "_Settings"
+msgstr "_Indstillinger"
+
+#: src/mainmenu_callbacks.c:120
+msgid "All files saved ..."
+msgstr "Alle filer gemt ..."
+
+#: src/mainmenu_callbacks.c:137
+#, c-format
+msgid ""
+"The file \"%s\" is not saved.\n"
+"Do you want to save it before closing?"
+msgstr ""
+"Filen \"%s\" er ikke gemt.\n"
+"Vil du gemme den inden du afslutter?"
+
+#: src/mainmenu_callbacks.c:188
+#, c-format
+msgid ""
+"Are you sure you want to reload %s.\n"
+"You will lose any unsaved modification."
+msgstr ""
+"Er du sikker på at du vil genindlæse %s.\n"
+"Du vil tabe alle ændringer der ikke er gemt."
+
+#: src/mainmenu_callbacks.c:258
+#, c-format
+msgid "Could not execute cmd: %s"
+msgstr "Kunne ikke køre kommando: %s"
+
+#: src/mainmenu_callbacks.c:265
+#, c-format
+msgid ""
+"There was an error while printing.\n"
+"The cmd is: %s"
+msgstr ""
+"Der opstod en fejl under udskrift.\n"
+"Kommandoen er: %s"
+
+#: src/mainmenu_callbacks.c:271
+msgid "The file has been sent for printing."
+msgstr "Filen er blevet sendt til udskrift."
+
+#: src/mainmenu_callbacks.c:287
+msgid "You must save the file first and then print"
+msgstr "Du skal gemme filen først og så udskrive"
+
+#: src/mainmenu_callbacks.c:291
+msgid "Are you sure you want to print the current file?"
+msgstr "Er du sikker på at du vil udskrive den aktuelle fil?"
+
+#: src/mainmenu_callbacks.c:1140
+msgid "Tags image update successfully."
+msgstr "Opdatering af tag billede lykkedes."
+
+#: src/mainmenu_callbacks.c:1553
+msgid "Executable does not exsits this project."
+msgstr "Kørbar fil findes ikke for dette projekt."
+
+#: src/mainmenu_callbacks.c:1604
+msgid "Debugger is not running. Start it first."
+msgstr "Fejlsøgeren kører ikke. Start den først."
+
+#: src/mainmenu_callbacks.c:1640
+msgid ""
+"Program is ATTACHED.\n"
+"Do you still want to stop Debugger?"
+msgstr ""
+"Programmet er VEDHÆFTET.\n"
+"Vil du stoppe fejlsøgeren?"
+
+#: src/mainmenu_callbacks.c:1650
+msgid ""
+"Program is running.\n"
+"Do you still want to stop Debugger?"
+msgstr ""
+"Programmet kører.\n"
+"Vil du stadig stoppe fejlsøgeren?"
+
+#: src/mainmenu_callbacks.c:1829 src/mainmenu_callbacks.c:1847
+#: src/mainmenu_callbacks.c:1875 src/mainmenu_callbacks.c:1893
+msgid "Cannot launch gnome-help-browser"
+msgstr "Kan ikke starte Gnome-hjælpe-browser"
+
+#: src/messages.c:253
+msgid "Unknown type in Message window\n"
+msgstr "Ukendt type i meddelse vindue\n"
+
+#: src/messages.c:504
+msgid "Build messages"
+msgstr "Bygge meddelser"
+
+#: src/messages.c:505
+msgid "Debug messages"
+msgstr "Fejlsøgningsmeddelser"
+
+#: src/messages.c:506
+msgid "Find messages"
+msgstr "Søgningsmeddelser"
+
+#: src/messages.c:507
+msgid "CVS messages"
+msgstr "CVS-meddelser"
+
+#: src/messages.c:508
+msgid "Debug Locals Listing"
+msgstr "Fejlsøg lokaliseringsliste"
+
+#: src/messages.c:518 src/text_editor_menu.c:270 src/toolbar.c:511
+msgid "Debug"
+msgstr "Fejlsøg"
+
+#: src/messages.c:520
+msgid "CVS"
+msgstr "CVS"
+
+#: src/messages.c:521
+msgid "Locals"
+msgstr "Miljø variabler"
+
+#: src/messages.c:592 src/toolbar.c:294
+msgid "Messages"
+msgstr "Meddelser"
+
+#: src/messages.c:628
+msgid "Dock window"
+msgstr ""
+
+#: src/messages.c:637
+msgid "Dock"
+msgstr ""
+
+#: src/preferences.c:546
+msgid ""
+"Are you sure you want to reset the preferences to\n"
+"their default settings?"
+msgstr ""
+"Er du sikker på at du vil nulstille indstillerne til\n"
+"deres standard indstillinger?"
+
+#: src/preferences_gui.c:145
+msgid "Preferences"
+msgstr "Indstillinger"
+
+#: src/preferences_gui.c:164 src/project_config.c:769
+msgid "General"
+msgstr "Generelt"
+
+#: src/preferences_gui.c:184
+msgid "Styles"
+msgstr "Stil"
+
+#: src/preferences_gui.c:194
+msgid "Editor"
+msgstr "Editor"
+
+#: src/preferences_gui.c:204
+msgid "Print Setup"
+msgstr "Udskrivningsindstillinger"
+
+#: src/preferences_gui.c:214
+msgid "Auto Format"
+msgstr "Auto formatering"
+
+#: src/preferences_gui.c:224
+msgid "misc"
+msgstr "diverse"
+
+#: src/preferences_gui.c:233
+msgid "Components"
+msgstr "Komponenter:"
+
+#: src/preferences_gui.c:318
+msgid " Directories "
+msgstr " Kataloger "
+
+#: src/preferences_gui.c:354
+msgid "Projects:"
+msgstr "Projekter:"
+
+#: src/preferences_gui.c:361
+msgid "Tarballs:"
+msgstr "Tarballs:"
+
+#: src/preferences_gui.c:368
+msgid "Rpms:"
+msgstr "Rpm'er:"
+
+#: src/preferences_gui.c:375
+msgid "Srpms:"
+msgstr "Srpm'er:"
+
+#: src/preferences_gui.c:382
+msgid " History size "
+msgstr " Historik størrelse "
+
+#: src/preferences_gui.c:391
+msgid "Recent Projects:"
+msgstr "Seneste projekter:"
+
+#: src/preferences_gui.c:398
+msgid "Recent Files:"
+msgstr "Seneste filer:"
+
+#: src/preferences_gui.c:405
+msgid "Combo Popdown:"
+msgstr "Kombinationsmenu:"
+
+#: src/preferences_gui.c:463
+msgid " Job Options "
+msgstr " Job alternativer "
+
+#: src/preferences_gui.c:473
+msgid "Beep on job complete"
+msgstr "Bib når jobbet er klart"
+
+#: src/preferences_gui.c:482
+msgid "Dialog on job complete"
+msgstr "Dialogvindue når jobbet er klart"
+
+#: src/preferences_gui.c:537
+msgid "Keep going when some targets cannot be made"
+msgstr "Fortsæt når nogle mål ikke kan laves"
+
+#: src/preferences_gui.c:544
+msgid "Silent: Don't echo commands"
+msgstr "Stille: Udskriv ikke kommandoer"
+
+#: src/preferences_gui.c:551
+msgid "Produce debugging outputs"
+msgstr "Lav fejlsøgningsudskrift"
+
+#: src/preferences_gui.c:558
+msgid "Warn when an undefined variable is referenced"
+msgstr "Advar når en udefineret variabel refereres"
+
+#: src/preferences_gui.c:572
+msgid "Max no of jobs:"
+msgstr "Største antal job:"
+
+#: src/preferences_gui.c:653
+msgid "Select Highlight item to edit:"
+msgstr "Vælg markeret item der skal editeres:"
+
+#: src/preferences_gui.c:677
+msgid " Highlight Style "
+msgstr " Markeringsstil "
+
+#: src/preferences_gui.c:708 src/preferences_gui.c:733
+#: src/preferences_gui.c:780 src/preferences_gui.c:787
+msgid "Use default"
+msgstr "Anvend standard"
+
+#: src/preferences_gui.c:721
+msgid "Bold"
+msgstr "Fed"
+
+#: src/preferences_gui.c:725
+msgid "Italic"
+msgstr "Kursiv"
+
+#: src/preferences_gui.c:729
+msgid "Underlined"
+msgstr "Understreget"
+
+#: src/preferences_gui.c:740
+msgid "Font:"
+msgstr "Skrifttype:"
+
+#: src/preferences_gui.c:747
+msgid "Attribute:"
+msgstr "Attribut:"
+
+#: src/preferences_gui.c:754
+msgid "Fore color:"
+msgstr "Forgrundsfarve:"
+
+#: src/preferences_gui.c:761
+msgid "Back color:"
+msgstr "Baggrundsfarve:"
+
+#: src/preferences_gui.c:801
+msgid "Caret color:"
+msgstr ""
+
+#: src/preferences_gui.c:814
+msgid "Calltip color:"
+msgstr ""
+
+#: src/preferences_gui.c:827
+msgid "Selection Foreground:"
+msgstr "Markeret forgrundsfarve:"
+
+#: src/preferences_gui.c:840
+msgid "Selection Background:"
+msgstr "Markeret baggrundsfarve:"
+
+#: src/preferences_gui.c:949
+msgid "Disable syntax highlighting"
+msgstr "Slå syntaks markering fra"
+
+#: src/preferences_gui.c:956
+msgid "Enable Auto save"
+msgstr "Aktivér automatisk gemning"
+
+#: src/preferences_gui.c:963
+msgid "Enable Auto indent"
+msgstr "Aktivér autoindentering"
+
+#: src/preferences_gui.c:971
+msgid "Use tabs for indentation"
+msgstr "Anvend tabulatorer for indentering"
+
+#: src/preferences_gui.c:978
+msgid "Enable braces check"
+msgstr ""
+
+#: src/preferences_gui.c:985
+msgid "Save in DOS format"
+msgstr "Gem i DOS format"
+
+#: src/preferences_gui.c:1037
+msgid "Tab size in spaces"
+msgstr "Tabulatorstørrelse i mellemrum"
+
+#: src/preferences_gui.c:1044
+msgid "Auto save timer interval in minutes"
+msgstr "Tidsinterval i minutter for automatisk gemning"
+
+#: src/preferences_gui.c:1051
+msgid "Auto indent size in spaces"
+msgstr "Automatisk indenteringsstørrelse i mellemrum"
+
+#: src/preferences_gui.c:1058
+msgid "Line number margin width in pixels"
+msgstr "Bredde på linienummer margen i pixels"
+
+#: src/preferences_gui.c:1065
+msgid "Save session time interval"
+msgstr "Tidsinterval for gemningssession"
+
+#: src/preferences_gui.c:1074
+msgid "Strip trailing spaces on file save"
+msgstr ""
+
+#: src/preferences_gui.c:1082
+msgid "Collapse all folds on file open"
+msgstr ""
+
+#: src/preferences_gui.c:1137
+msgid " Paper Size"
+msgstr " Papir størrelse"
+
+#: src/preferences_gui.c:1147
+msgid " Print Command "
+msgstr " Udskriftskommando "
+
+#: src/preferences_gui.c:1209
+msgid "Disable Auto format"
+msgstr "Slå automatisk formatering fra"
+
+#: src/preferences_gui.c:1213
+msgid " Format Style "
+msgstr " Formateringsstil "
+
+#: src/preferences_gui.c:1236
+msgid " Custom Style "
+msgstr ""
+
+#: src/preferences_gui.c:1247
+msgid ""
+"Enter the command line arguments for the 'indent' program.\n"
+"Read the info page for 'indent' for more details."
+msgstr ""
+"Angiv kommandolinieargumenterne for \"indent\"-programmet.\n"
+"Læs \"indent\"s info side for mere information."
+
+#: src/preferences_gui.c:1316
+msgid " Messages"
+msgstr " Meddelser"
+
+#: src/preferences_gui.c:1328
+msgid "Truncate long messages"
+msgstr ""
+
+#: src/preferences_gui.c:1355
+msgid "Number of first characters to show"
+msgstr "Antal første tegn at vise"
+
+#: src/preferences_gui.c:1362
+msgid "Number of last characters to show"
+msgstr "Antal sidste tegn at vise"
+
+#: src/preferences_gui.c:1369
+msgid " Notebook tags position "
+msgstr ""
+
+#: src/preferences_gui.c:1380
+msgid "Do not show notebook title tags"
+msgstr ""
+
+#: src/preferences_gui.c:1394
+msgid "Top"
+msgstr "Øverst"
+
+#: src/preferences_gui.c:1403
+msgid "Bottom"
+msgstr "Nederst"
+
+#: src/preferences_gui.c:1412
+msgid "Left"
+msgstr "Venstre"
+
+#: src/preferences_gui.c:1421
+msgid "Right"
+msgstr "Højre"
+
+#: src/preferences_gui.c:1429
+msgid " Tags Browser "
+msgstr ""
+
+#: src/preferences_gui.c:1436
+msgid "Update tags image automatically"
+msgstr "Opdatér tags billede automatisk"
+
+#: src/preferences_gui.c:1505
+msgid " Components"
+msgstr " Komponenter"
+
+#: src/preferences_gui.c:1517
+msgid "Use Components"
+msgstr "Brug komponenter"
+
+#. Must declare static, because it will be used forever
+#: src/project_dbase.c:307 src/toolbar.c:413
+msgid "Open Project"
+msgstr "Åben projekt"
+
+#. Must declare static, because it will be used forever
+#: src/project_dbase.c:314
+msgid "Add To Project"
+msgstr "Tilføj til projekt"
+
+#: src/project_dbase.c:328 src/project_dbase.c:472 src/project_dbase_gui.c:533
+msgid "Project: None"
+msgstr "Projekt: Intet"
+
+#: src/project_dbase.c:607 src/project_dbase.c:626
+#, c-format
+msgid "Couldn't load project: %s"
+msgstr "Kunne ikke indlæse projekt: %s"
+
+#: src/project_dbase.c:618
+#, c-format
+msgid ""
+"Error: You need Anjuta version %s or later to open this project.\n"
+"Please upgrede Anjuta to the latest version (Help for more information).\n"
+"For the time being, I am too old to load it.:-("
+msgstr ""
+"Fejl: Du skal bruge Anjuta version %s eller senere for at åbne dette projekt.\n"
+"Opgradér Anjuta til den nyeste version (Hjælp for mere information).\n"
+"Lige nu er jeg for gammel til at indlæse det :-("
+
+#: src/project_dbase.c:773
+#, c-format
+msgid ""
+"You need Anjuta version %s or later to open this project.\n"
+"Please upgrede Anjuta to the latest version (Help for more information).\n"
+"For the time being, I am too old to load it. :-("
+msgstr ""
+"DU behøver Anjuta version %s eller senare for at åbne dette projekt.\n"
+"Uppgradera Anjuta til den seneste versionen (Hjælp for mer information).\n"
+"Før tillfællet er jag for gammel for at læse in det. :-("
+
+#: src/project_dbase.c:833
+msgid "Project loaded successfully."
+msgstr "Projektet indlæst uden problem."
+
+#: src/project_dbase.c:848 src/project_dbase.c:852
+#, c-format
+msgid "Error in loading Project: %s"
+msgstr "Fejl ved indlæsning af projekt: %s"
+
+#: src/project_dbase.c:1082
+msgid "Project Saved Successfully"
+msgstr "Projektet blev gemt uden problemer"
+
+#: src/project_dbase.c:1088 src/project_dbase.c:1090
+msgid "Unable to save the project."
+msgstr "Kunne ikke gemme projektet."
+
+#: src/project_dbase.c:1464 src/project_dbase.c:1497
+msgid ""
+"The Project glade file does not\n"
+"exist in the top level project directory."
+msgstr ""
+"Projektets glade-fil findes ikke i\n"
+"projektets øverste katalog."
+
+#. Set project title
+#: src/project_dbase.c:1912
+msgid "Project: "
+msgstr "Projekt: "
+
+#: src/project_config.c:737
+msgid "Project configuration"
+msgstr "Projektkonfiguration"
+
+#: src/project_config.c:748
+msgid "Project Description"
+msgstr "Projektbeskrivelse"
+
+#: src/project_config.c:776
+msgid "Disable Overwriting project files"
+msgstr "Deaktivér: Overskriv projekt filer"
+
+#: src/project_config.c:786
+msgid "Project's configure.in"
+msgstr "Projektets configure.in"
+
+#: src/project_config.c:792
+msgid "Top level Makefile.am"
+msgstr "Topniveau Makefile.am"
+
+#: src/project_config.c:798
+msgid "Source module Makefile.am"
+msgstr "Kildekodesmodul Makefile.am"
+
+#: src/project_config.c:804
+msgid "Include module Makefile.am"
+msgstr "Inkludér modulet Makefile.am"
+
+#: src/project_config.c:810
+msgid "Help module Makefile.am"
+msgstr "Hjælpemodul Makefile.am"
+
+#: src/project_config.c:816
+msgid "Pixmap module Makefile.am"
+msgstr "Pixmapmodul Makefile.am"
+
+#: src/project_config.c:821
+msgid "Data module Makefile.am"
+msgstr "Datamodul Makefile.am"
+
+#: src/project_config.c:826
+msgid "Doc module Makefile.am"
+msgstr "Dokumentationsmodul Makefile.am"
+
+#: src/project_config.c:831
+msgid "Po module (translation) Makefile.am"
+msgstr "Po-modul (oversættelse) Makefile.am"
+
+#: src/project_config.c:836
+msgid "Build files"
+msgstr "Bygge filer"
+
+#: src/project_config.c:854
+msgid "Check for programs in config.in"
+msgstr "Check for programmer i config.in"
+
+#: src/project_config.c:871
+msgid "Program checks"
+msgstr "Programkontroller"
+
+#: src/project_config.c:878
+msgid "Check for libs in config.in"
+msgstr "Check for biblioteker i config.in"
+
+#: src/project_config.c:895
+msgid "Library checks"
+msgstr "Bibliotekskontroller"
+
+#: src/project_config.c:904
+msgid "Check for header files in config.in"
+msgstr "Check for hoved filer i config.in"
+
+#: src/project_config.c:921
+msgid "Header checks"
+msgstr "Hovedkontroller"
+
+#: src/project_config.c:930
+msgid "Checks for typedefs, structures, and compiler characteristics"
+msgstr "Check for typedefinitioner, strukturer og kompilatorkarateristiks"
+
+#: src/project_config.c:947
+msgid "Characteristics check"
+msgstr "Karateristiks kontrol"
+
+#: src/project_config.c:956
+msgid "Check for lib functions in config.in"
+msgstr "Check for biblioteksfunktioner i config.in"
+
+#: src/project_config.c:973
+msgid "Lib functions checks"
+msgstr "Kontroller af biblioteksfunktioner"
+
+#: src/project_config.c:980
+msgid "Additional scripts in config.in"
+msgstr "Yderligere scripts i config.in"
+
+#: src/project_config.c:997
+msgid "Additional script"
+msgstr "Yderligere scripts"
+
+#: src/project_config.c:1004 src/project_config.c:1021
+msgid "Files to configure"
+msgstr "Filer der skal konfigureres"
+
+#: src/project_config.c:1036
+msgid "Auto scan the project"
+msgstr "Skan projektet automatisk"
+
+#: src/project_config.c:1041
+msgid "Configuration scripts"
+msgstr "Konfigurations scripts"
+
+#: src/project_config.c:1055
+msgid "Extra modules to be built before source module:"
+msgstr "Ekstra moduler der skal bygges før kilde modulet:"
+
+#: src/project_config.c:1075
+msgid "Extra modules to be built after source module:"
+msgstr "Ekstra moduler der skal bygges efter kilde modulet:"
+
+#: src/project_config.c:1089
+msgid "Modules"
+msgstr "Moduler"
+
+#: src/project_config.c:1095
+msgid "Extra scripts at the end of Top Makefile.am"
+msgstr "Ekstra scripts i slutningen af To Makefile.am"
+
+#: src/project_config.c:1112
+msgid "Makefile.am"
+msgstr "Makefile.am"
+
+#: src/project_dbase_gui.c:142
+#, c-format
+msgid ""
+"Are you sure you want to remove the item\n"
+"\"%s\" from the Project Data Base?"
+msgstr ""
+"Er du sikker på at du vil fjerne objektet\n"
+"\"%s\" fra projektdatabasen?"
+
+#: src/project_dbase_gui.c:309
+msgid "There is already a project opened.Do you want to close it first?"
+msgstr "Der er allerede et projekt der er åbent. Vil du lukke det først ?"
+
+#: src/project_dbase_gui.c:428
+msgid "Doc file"
+msgstr "Dokumentationsfil"
+
+#: src/project_dbase_gui.c:451
+msgid "View"
+msgstr "Visning"
+
+#: src/project_dbase_gui.c:471
+msgid "Configure Project"
+msgstr "Konfigurér projekt"
+
+#: src/project_dbase_gui.c:477
+msgid "Project Info"
+msgstr "Projektinformation"
+
+#: src/project_dbase_gui.c:484 src/registers_gui.c:53 src/sharedlib_gui.c:46
+#: src/signals_gui.c:59 src/stack_trace_gui.c:65 src/watch_gui.c:67
+msgid "Dock/Undock"
+msgstr ""
+
+#: src/project_dbase_gui.c:490 src/registers_gui.c:60 src/sharedlib_gui.c:53
+#: src/signals_gui.c:66 src/stack_trace_gui.c:72 src/toolbar.c:308
+#: src/watch_gui.c:73
+msgid "Help"
+msgstr "Hjælp"
+
+#: src/project_dbase_gui.c:552 src/toolbar.c:283
+msgid "Project"
+msgstr "Projekt"
+
+#: src/project_dbase_gui.c:659
+msgid "Project Information"
+msgstr "Projektinformation"
+
+#: src/project_dbase_gui.c:666
+msgid " Project Information "
+msgstr " Projektinformation "
+
+#: src/project_dbase_gui.c:702
+msgid "Author:"
+msgstr "Forfatter:"
+
+#: src/project_dbase_gui.c:789
+msgid "Program Name:"
+msgstr "Programnavn:"
+
+#: src/project_dbase_gui.c:796
+msgid "No of src files:"
+msgstr "Antal kildekodesfiler:"
+
+#: src/project_dbase_gui.c:803
+msgid "No of help files:"
+msgstr "Antal hjælpefiler:"
+
+#: src/project_dbase_gui.c:810
+msgid "No of data files:"
+msgstr "Antal datafiler:"
+
+#: src/project_dbase_gui.c:817
+msgid "No of pix files:"
+msgstr "Antal billedfiler:"
+
+#: src/project_dbase_gui.c:824
+msgid "No of doc files:"
+msgstr "Antal dokumentationsfiler:"
+
+#: src/project_dbase_gui.c:845
+msgid "No of po files:"
+msgstr "Antal po-filer:"
+
+#: src/project_dbase_gui.c:852
+msgid "Version:"
+msgstr "Version:"
+
+#: src/project_dbase_gui.c:875
+msgid "GUI editable by Glade:"
+msgstr "GUI redigérbar af Glade:"
+
+#: src/project_dbase_gui.c:897
+msgid "Makefiles managed:"
+msgstr "Makefiler håndteret:"
+
+#: src/project_dbase_gui.c:939
+msgid "Gettext support:"
+msgstr "Gettext-understøttelse:"
+
+#: src/project_dbase_gui.c:997
+msgid "Project Type:"
+msgstr "Projekttype:"
+
+#: src/project_dbase_gui.c:1040
+msgid ""
+"Project is not saved.\n"
+"Do you want to save it before closing?"
+msgstr ""
+"Projektet er ikke gemt.\n"
+"Vil du gemme det inden du afslutter?"
+
+#: src/project_dbase_gui.c:1057 src/project_dbase_gui.c:1177
+msgid "Breton"
+msgstr "Bretonsk"
+
+#: src/project_dbase_gui.c:1058
+msgid "Catalan"
+msgstr "Katalansk"
+
+#: src/project_dbase_gui.c:1059
+msgid "Czech"
+msgstr "Tjekkisk"
+
+#: src/project_dbase_gui.c:1060
+msgid "Danish"
+msgstr "Dansk"
+
+#: src/project_dbase_gui.c:1061
+msgid "German"
+msgstr "Tysk"
+
+#: src/project_dbase_gui.c:1062
+msgid "Greek"
+msgstr "Græsk"
+
+#: src/project_dbase_gui.c:1063
+msgid "Esperanto"
+msgstr "Esperanto"
+
+#: src/project_dbase_gui.c:1064
+msgid "Spanish"
+msgstr "Spansk"
+
+#: src/project_dbase_gui.c:1065
+msgid "Finnish"
+msgstr "Finsk"
+
+#: src/project_dbase_gui.c:1066
+msgid "French"
+msgstr "Fransk"
+
+#: src/project_dbase_gui.c:1067
+msgid "Herbrew"
+msgstr "Hebraisk"
+
+#: src/project_dbase_gui.c:1068 src/project_dbase_gui.c:1072
+msgid "Croatian"
+msgstr "Kroatisk"
+
+#: src/project_dbase_gui.c:1069
+msgid "Hungarian"
+msgstr "Ungarsk"
+
+#: src/project_dbase_gui.c:1070
+msgid "Islandic"
+msgstr "Islandsk"
+
+#: src/project_dbase_gui.c:1071
+msgid "Italian"
+msgstr "Italiensk"
+
+#: src/project_dbase_gui.c:1073
+msgid "Korean"
+msgstr "Koreansk"
+
+#: src/project_dbase_gui.c:1074
+msgid "Macedonian"
+msgstr "Makedonsk"
+
+#: src/project_dbase_gui.c:1075
+msgid "Dutch"
+msgstr "Hollandsk"
+
+#: src/project_dbase_gui.c:1076
+msgid "Norwegian"
+msgstr "Norsk"
+
+#: src/project_dbase_gui.c:1077
+msgid "Polish"
+msgstr "Polsk"
+
+#: src/project_dbase_gui.c:1078
+msgid "Portuguese"
+msgstr "Portugisisk"
+
+#: src/project_dbase_gui.c:1079
+msgid "Romanian"
+msgstr "Rumænsk"
+
+#: src/project_dbase_gui.c:1080
+msgid "Russian"
+msgstr "Russisk"
+
+#: src/project_dbase_gui.c:1081
+msgid "Slovak"
+msgstr "Slovensk"
+
+#: src/project_dbase_gui.c:1082
+msgid "Turkish"
+msgstr "Tyrkisk"
+
+#: src/project_dbase_gui.c:1083
+msgid "Simplified Chinese"
+msgstr "Simpel kinesisk"
+
+#: src/project_dbase_gui.c:1084
+msgid "Chinese"
+msgstr "Kinesisk"
+
+#: src/project_dbase_gui.c:1085
+msgid "Estonian"
+msgstr "Estisk"
+
+#: src/project_dbase_gui.c:1129
+msgid "Select regional language"
+msgstr "Vælg regionalsprog"
+
+#: src/project_dbase_gui.c:1145
+msgid "Select Regional Language:"
+msgstr "Vælg regionalsprog:"
+
+#: src/project_dbase_gui.c:1257
+msgid "This file has already been added to the project."
+msgstr "Denne fil er allerede blevet tilføjet til projektet."
+
+#: src/project_dbase_gui.c:1287
+msgid "Error while copying the file inside the module."
+msgstr "Fejl ved kopiering af filen indeni modulet."
+
+#: src/project_dbase_gui.c:1339
+#, c-format
+msgid ""
+"\"%s\"\n"
+"does not exist in the current module directory.\n"
+"Do you want to IMPORT (copy) into the module?"
+msgstr ""
+"\"%s\"\n"
+"findes ikke i det aktuelle modulkatalog.\n"
+"Vil du IMPORTERE (kopiere) ind i modulet?"
+
+#: src/registers_gui.c:38
+msgid "Modify"
+msgstr "Modificér"
+
+#: src/registers_gui.c:92
+msgid "CPU Registers"
+msgstr "Processorregister"
+
+#: src/registers_gui.c:110
+msgid "Register"
+msgstr "Register"
+
+#: src/registers_gui.c:114
+msgid "Hex"
+msgstr "Hexadecimalt"
+
+#: src/registers_gui.c:118
+msgid "Decimal"
+msgstr "Decimalt"
+
+#: src/sharedlib_gui.c:83
+msgid "Shared libraries"
+msgstr "Delte biblioteker"
+
+#: src/sharedlib_gui.c:103
+msgid "  Shared Object  "
+msgstr "  Delt objekt  "
+
+#: src/sharedlib_gui.c:107
+msgid "From"
+msgstr "Fra"
+
+#: src/sharedlib_gui.c:111
+msgid "To"
+msgstr "Til"
+
+#: src/sharedlib_gui.c:115
+msgid "Sysm Read"
+msgstr "Sysm læst"
+
+#: src/signals_gui.c:37
+msgid "Modify Signal"
+msgstr "Modificér signal"
+
+#: src/signals_gui.c:44
+msgid "Send to process"
+msgstr "Send til proces"
+
+#: src/signals_gui.c:96
+msgid "Kernel signals"
+msgstr "Kerne signaler"
+
+#: src/signals_gui.c:117
+msgid "Signal"
+msgstr "Signal"
+
+#: src/signals_gui.c:121 src/toolbar.c:522 src/toolbar.c:1088
+msgid "Stop"
+msgstr "Stop"
+
+#: src/signals_gui.c:125 src/text_editor_gui.c:260 src/toolbar.c:218
+msgid "Print"
+msgstr "Udskriv"
+
+#: src/signals_gui.c:211
+msgid "Set Signal Property"
+msgstr "Sæt signal egenskaber"
+
+#: src/signals_gui.c:253
+msgid " Stop: "
+msgstr " Stop: "
+
+#: src/signals_gui.c:257
+msgid " Print: "
+msgstr " Udskriv: "
+
+#. set the size to that of our splash image.
+#: src/splash.c:92
+msgid "Anjuta"
+msgstr "Anjuta"
+
+#: src/src_paths_gui.c:49
+msgid "Source files paths"
+msgstr ""
+
+#: src/src_paths_gui.c:145
+msgid "Search Paths"
+msgstr ""
+
+#: src/stack_trace_gui.c:36
+msgid "Frame set"
+msgstr "Rammesæt"
+
+#: src/stack_trace_gui.c:43
+msgid "Frame info"
+msgstr "Rammeinformation"
+
+#: src/stack_trace_gui.c:105
+msgid "Stack Trace"
+msgstr ""
+
+#: src/stack_trace_gui.c:126 src/toolbar.c:1033
+msgid "Frame"
+msgstr "Ramme"
+
+#: src/stack_trace_gui.c:130 src/toolbar.c:1061
+msgid "Stack"
+msgstr ""
+
+#: src/tags_manager.c:185
+msgid "# *********** DO NOT EDIT OR RENAME THIS FILE *****************\n"
+msgstr "# ********* REDIGER IKKE ELLER OMDØB DENNE FIL *********\n"
+
+#: src/tags_manager.c:188
+msgid "# ******************* Created by  Anjuta ********************************\n"
+msgstr "# *************************** Lavet af Anjuta ***************************\n"
+
+#: src/tags_manager.c:191, fuzzy
+msgid "# ***************** Anjuta Tags cache file ********************\n"
+msgstr "# ******************** Anjuta taggcachefil ********************\n"
+
+#: src/tags_manager.c:501 src/toolbar.c:610
+msgid "File:"
+msgstr "Fil:"
+
+#: src/tags_manager.c:504 src/toolbar.c:633
+msgid "Function:"
+msgstr "Funktion:"
+
+#: src/tags_manager.c:541
+msgid "Class:"
+msgstr "Klasse:"
+
+#: src/tags_manager.c:544
+msgid "Mem Func:"
+msgstr "Hukommelse funktion:"
+
+#: src/tags_manager.c:585
+msgid "Tag:"
+msgstr "Tag:"
+
+#: src/tags_manager.c:760
+msgid "Synchronizing and updating Tags Image ... hold on"
+msgstr "Synkroniserer og opdaterer tagbilled... vent"
+
+#: src/tags_manager.c:787
+msgid "Updating Tags image completed"
+msgstr "Opdatering af tagbilled færdig"
+
+#: src/tags_manager.c:816
+msgid "Syncdronization of Tags image failed"
+msgstr "Synkronisering af tagbilled mislykkedes"
+
+#: src/text_editor.c:756
+msgid "Loading File ..."
+msgstr "Indlæser fil ..."
+
+#: src/text_editor.c:762
+#, c-format
+msgid "Could not load file: %s"
+msgstr "Kunne ikke indlæse fil: %s"
+
+#: src/text_editor.c:790
+msgid "File Loaded Successfully"
+msgstr "Filen blev indlæst uden problemer"
+
+#: src/text_editor.c:805
+msgid "Saving File ..."
+msgstr "Gemmer fil ..."
+
+#: src/text_editor.c:810
+#, c-format
+msgid "Couldn't save file: %s."
+msgstr "Kunne ikke gemme fil: %s."
+
+#: src/text_editor.c:834
+msgid "File Saved successfully"
+msgstr "Filen blev gemt uden problemer"
+
+#: src/text_editor.c:929
+#, c-format
+msgid ""
+"WARNING: The file \"%s\" in the disk is more recent than\n"
+"the current buffer.\n"
+"Do you want to reload it."
+msgstr ""
+"ADVARSEL: Filen \"%s\" på disken er nyere end den som findes i\n"
+"den aktuelle buffer.\n"
+"Vil du genindlæse den?"
+
+#: src/text_editor.c:1045
+msgid "Autoformat is disablde. If you want, enable in Preferences."
+msgstr "Autoformatering er slået fra. Hvis du vil, kan du slå det til i Indstillinger."
+
+#: src/text_editor.c:1051
+msgid "Auto formating ..."
+msgstr "Autoformatering ..."
+
+#: src/text_editor.c:1061 src/text_editor.c:1088
+msgid "Error in auto formating ..."
+msgstr "Fejl i autoformatering ..."
+
+#: src/text_editor.c:1094
+msgid "Auto formating completed"
+msgstr "Autoformatering færdig"
+
+#: src/text_editor_cbs.c:176
+#, c-format
+msgid "Autosaved \"%s\""
+msgstr "Autogemte \"%s\""
+
+#: src/text_editor_cbs.c:180
+#, c-format
+msgid "Autosave \"%s\" -- Failed"
+msgstr "Autogemte af \"%s\" -- Mislykkedes"
+
+#: src/text_editor_gui.c:112 src/toolbar.c:109
+msgid "New"
+msgstr "Ny"
+
+#: src/text_editor_gui.c:122 src/toolbar.c:120
+msgid "Open"
+msgstr "Åbn"
+
+#: src/text_editor_gui.c:122
+msgid "Open Text File"
+msgstr "Åbn tekstfil"
+
+#: src/text_editor_gui.c:134 src/toolbar.c:133
+msgid "Save"
+msgstr "Gem"
+
+#: src/text_editor_gui.c:134
+msgid "Save Current File"
+msgstr "Gem aktuel fil"
+
+#: src/text_editor_gui.c:144 src/toolbar.c:168
+msgid "Reload"
+msgstr "Genindlæs"
+
+#: src/text_editor_gui.c:145
+msgid "Reload Current File"
+msgstr "Genindlæs aktuel fil"
+
+#: src/text_editor_gui.c:156 src/text_editor_menu.c:202
+msgid "Cut"
+msgstr "Klip"
+
+#: src/text_editor_gui.c:156
+msgid "Cut to clipboard"
+msgstr "Klip til udklipsholder"
+
+#: src/text_editor_gui.c:165 src/text_editor_menu.c:209
+msgid "Copy"
+msgstr "Kopiér"
+
+#: src/text_editor_gui.c:166
+msgid "Copy to clipboard"
+msgstr "Kopiér til udklipsholder"
+
+#: src/text_editor_gui.c:175 src/text_editor_menu.c:216
+msgid "Paste"
+msgstr "Indsæt"
+
+#: src/text_editor_gui.c:176
+msgid "Paste from clipboard"
+msgstr "Indsæt fra udklipsholder"
+
+#: src/text_editor_gui.c:188
+msgid "Search the given string"
+msgstr "Søg den givne streng"
+
+#: src/text_editor_gui.c:198
+msgid "Replace"
+msgstr "Erstat"
+
+#: src/text_editor_gui.c:200
+msgid "Search and replace the given string"
+msgstr "Søg og erstat de navngivne streng"
+
+#: src/text_editor_gui.c:220
+msgid "line: "
+msgstr "linie: "
+
+#: src/text_editor_gui.c:236 src/toolbar.c:452
+msgid "Compile the current file"
+msgstr "Kompilér den aktuelle fil"
+
+#: src/text_editor_gui.c:248
+msgid "Build current File or Build the source directory of the Project"
+msgstr "Byg den aktuelle fil eller byg kildekodekataloget for projektet"
+
+#: src/text_editor_gui.c:261
+msgid "Print the current File"
+msgstr "Udskriv den aktuelle fil"
+
+#: src/text_editor_gui.c:273
+msgid "Attach the editor window as paged editor"
+msgstr "Vedhæft redigeringsvinduet som sideredigering"
+
+#: src/text_editor_menu.c:72
+msgid "Prev mesg"
+msgstr "Foregående medd."
+
+#: src/text_editor_menu.c:78
+msgid "Next mesg"
+msgstr "Næste medd."
+
+#: src/text_editor_menu.c:84
+msgid "Prev bookmark"
+msgstr "Forg. bogmærke"
+
+#: src/text_editor_menu.c:90
+msgid "Next bookmark"
+msgstr "Næste bogmærke"
+
+#: src/text_editor_menu.c:107 src/toolbar.c:957
+msgid "Step in"
+msgstr "Gå ind"
+
+#: src/text_editor_menu.c:113
+msgid "Step over"
+msgstr "Gå over"
+
+#: src/text_editor_menu.c:119
+msgid "Step out"
+msgstr "Gå ud"
+
+#: src/text_editor_menu.c:125 src/toolbar.c:946
+msgid "Run to cursor"
+msgstr "Kør til markør"
+
+#: src/text_editor_menu.c:131
+msgid "Run/Continue"
+msgstr "Kør/Fortsæt"
+
+#: src/text_editor_menu.c:138 src/toolbar.c:1020, fuzzy
+msgid "Inspect"
+msgstr "Gennemse"
+
+#: src/text_editor_menu.c:145 src/toolbar.c:994
+msgid "Interrupt"
+msgstr "Afbryd"
+
+#: src/text_editor_menu.c:155
+msgid "Toggle Linenums"
+msgstr ""
+
+#: src/text_editor_menu.c:162
+msgid "Toggle Marker Margin"
+msgstr ""
+
+#: src/text_editor_menu.c:169
+msgid "Toggle Fold Margin"
+msgstr ""
+
+#: src/text_editor_menu.c:176
+msgid "Toggle Guides"
+msgstr ""
+
+#: src/text_editor_menu.c:184
+msgid "++Zoom"
+msgstr "++Zoom"
+
+#: src/text_editor_menu.c:191
+msgid "--Zoom"
+msgstr "--Zoom"
+
+#: src/text_editor_menu.c:232
+msgid "Toggle Bookmark"
+msgstr ""
+
+#: src/text_editor_menu.c:239
+msgid "Auto format"
+msgstr "Autoformatering"
+
+#: src/text_editor_menu.c:246
+msgid "Swap .h/.c"
+msgstr "Byt .h/.c"
+
+#: src/text_editor_menu.c:254
+msgid "Goto"
+msgstr "Gå til"
+
+#: src/text_editor_menu.c:278
+msgid "Options"
+msgstr "Alternativer"
+
+#: src/text_editor_menu.c:286 src/toolbar.c:157
+msgid "Close"
+msgstr "Luk"
+
+#: src/text_editor_menu.c:348
+msgid "Functions "
+msgstr "Funktioner "
+
+#: src/toolbar.c:98
+msgid ""
+"Status LED: \n"
+"1) Red is busy.2)Green is ready.\n"
+"3) Blinking is ready, but busy in background."
+msgstr ""
+"Status LEO:\n"
+"1) Rød er optaget. 2) Grøn er klar.\n"
+"3) Blinkende er klar, men optaget i baggrunden."
+
+#: src/toolbar.c:144
+msgid "Save All"
+msgstr "Gem alle"
+
+#: src/toolbar.c:181
+msgid "Undo"
+msgstr "Fortryd"
+
+#: src/toolbar.c:192
+msgid "Redo"
+msgstr ""
+
+#: src/toolbar.c:206
+msgid "Detach"
+msgstr "Afhæft"
+
+#: src/toolbar.c:207
+msgid "Detach the current page"
+msgstr "Afhæft den aktuelle side"
+
+#: src/toolbar.c:232
+msgid "Search for the given string in the current file"
+msgstr "Søg efter den angivne streng i den aktuelle fil"
+
+#: src/toolbar.c:250
+msgid "Enter the string to search for"
+msgstr "Angiv den streng der skal søges efter"
+
+#: src/toolbar.c:260
+msgid "Go To"
+msgstr "Gå til"
+
+#: src/toolbar.c:261
+msgid "Go to the given line number in the current file"
+msgstr "Gå til det angivne linienummer i den aktuelle fil"
+
+#: src/toolbar.c:272
+msgid "Enter the line number to go to"
+msgstr "Angiv linienummeret at gå til"
+
+#: src/toolbar.c:295
+msgid "Compile/Build/Debug Messages"
+msgstr "Kompilerings-/Bygeg-/Fejlsøgningsmeddelser"
+
+#: src/toolbar.c:309
+msgid "Context sensitive help"
+msgstr ""
+
+#: src/toolbar.c:424
+msgid "Save Project"
+msgstr "Gem projekt"
+
+#: src/toolbar.c:437
+msgid "Close Project"
+msgstr "Luk projekt"
+
+#: src/toolbar.c:464
+msgid "Run configure"
+msgstr "Kør configure"
+
+#: src/toolbar.c:476
+msgid "Build current file, or build the source directory of the Project"
+msgstr "Byg aktuel fil, eller byg kildekodeskataloget for projektet"
+
+#: src/toolbar.c:487
+msgid "Build_all"
+msgstr "Byg_alt"
+
+#: src/toolbar.c:489
+msgid "Build from the top directory of the Project"
+msgstr "Byg fra det øverste katalog af projektet"
+
+#: src/toolbar.c:512
+msgid "Start the Debugger"
+msgstr "Start fejlsøgeren"
+
+#: src/toolbar.c:523
+msgid "Stop/interrupt compile or build"
+msgstr "Stop/afbryd kompilering eller bygning"
+
+#: src/toolbar.c:604
+msgid "Select the type of tag"
+msgstr "Vælg typen af tag"
+
+#: src/toolbar.c:628
+msgid "Source File"
+msgstr "Kildekodesfil"
+
+#: src/toolbar.c:651
+msgid "Tag in the file"
+msgstr "Tag i filen"
+
+#: src/toolbar.c:662
+msgid "wizard"
+msgstr "guide"
+
+#: src/toolbar.c:662
+msgid "The Wizard"
+msgstr "Guiden"
+
+#: src/toolbar.c:740 src/toolbar.c:1185
+msgid "Toggle"
+msgstr ""
+
+#: src/toolbar.c:742
+msgid "Toggle bookmark at current location"
+msgstr ""
+
+#: src/toolbar.c:754
+msgid "First"
+msgstr "Første"
+
+#: src/toolbar.c:756
+msgid "Goto first bookmark in this document"
+msgstr "Gå til første bogmærke i dette dokument"
+
+#: src/toolbar.c:768 src/toolbar.c:811
+msgid "Prev"
+msgstr "Foreg"
+
+#: src/toolbar.c:770
+msgid "Goto previous bookmark in this document"
+msgstr "Gå til foregående bogmærke i dette dokument"
+
+#: src/toolbar.c:782 src/toolbar.c:824
+msgid "Next"
+msgstr "Næste"
+
+#: src/toolbar.c:784
+msgid "Goto next bookmark in this document"
+msgstr "Gå til næste bogmærke i dette dokument"
+
+#: src/toolbar.c:796
+msgid "Last"
+msgstr "Sidste"
+
+#: src/toolbar.c:798
+msgid "Goto last bookmark in this document"
+msgstr "Gå til sidste bogmærke i dette dokument"
+
+#: src/toolbar.c:813
+msgid "Goto previous message in this document"
+msgstr "Gå til foregående meddelse i dette dokument"
+
+#: src/toolbar.c:826
+msgid "Goto next message in this document"
+msgstr "Gå til næste meddelse i dette dokument"
+
+#: src/toolbar.c:840
+msgid "Start"
+msgstr "Start"
+
+#: src/toolbar.c:842
+msgid "Goto start of current code block"
+msgstr "Gå til begyndelsen på den aktuelle kodeblok"
+
+#: src/toolbar.c:853
+msgid "End"
+msgstr "Slut"
+
+#: src/toolbar.c:855
+msgid "Goto end of current code block"
+msgstr "Gå til slutningen på den aktuelle kodeblok"
+
+#: src/toolbar.c:933
+msgid "Go"
+msgstr "Gå"
+
+#: src/toolbar.c:934
+msgid "Go or continue execution"
+msgstr "Gå eller fortsæt eksekvering"
+
+#: src/toolbar.c:945
+msgid "Run"
+msgstr "Kør"
+
+#: src/toolbar.c:958
+msgid "Single step in execution"
+msgstr "Enkelt skridt under kørsel"
+
+#: src/toolbar.c:969
+msgid "Step Over"
+msgstr "Gå over"
+
+#: src/toolbar.c:970
+msgid "Step over the function"
+msgstr "Gå over funktionen"
+
+#: src/toolbar.c:980
+msgid "Step Out"
+msgstr "Gå ud"
+
+#: src/toolbar.c:981
+msgid "Step out of the function"
+msgstr "Gå ud af funktionen"
+
+#: src/toolbar.c:1009
+msgid "Breakpoint"
+msgstr "Breakpoint"
+
+#: src/toolbar.c:1010
+msgid "Toggle breakpoint at cursor"
+msgstr ""
+
+#: src/toolbar.c:1022
+msgid "Inspect or evaluate an expression"
+msgstr ""
+
+#: src/toolbar.c:1035
+msgid "Display the current frame information"
+msgstr "Vis den aktuelle rammeinformation"
+
+#: src/toolbar.c:1048
+msgid "Watch"
+msgstr ""
+
+#: src/toolbar.c:1050
+msgid "Watch expressions during execution"
+msgstr ""
+
+#: src/toolbar.c:1062
+msgid "Stack trace of the program"
+msgstr ""
+
+#: src/toolbar.c:1073
+msgid "Registers"
+msgstr "Registre"
+
+#: src/toolbar.c:1075
+msgid "CPU registers and their contents"
+msgstr "Processorregister og deres indhold"
+
+#: src/toolbar.c:1089
+msgid "End the debugging session"
+msgstr "Afslut felsøgningssessionen"
+
+#: src/toolbar.c:1187
+msgid "Toggle current code fold hide/show"
+msgstr "Aktivér/av aktuel kodinhægnad gøm/visa"
+
+#: src/toolbar.c:1198
+msgid "Close all"
+msgstr "Stæng alle"
+
+#: src/toolbar.c:1200
+msgid "Close all code folds in this document"
+msgstr "Stæng alle kodinhægnader i dette dokument"
+
+#: src/toolbar.c:1211
+msgid "Open all"
+msgstr "Åbn alle"
+
+#: src/toolbar.c:1213
+msgid "Open all code folds in this document"
+msgstr "Åbn alle kodinhægnader i dette dokument"
+
+#: src/toolbar.c:1227
+msgid "Select"
+msgstr "Marker"
+
+#: src/toolbar.c:1228
+msgid "Select current code block"
+msgstr "Marker det aktuelle kodblocket"
+
+#: src/toolbar.c:1239
+msgid "Indent inc"
+msgstr "Øg indentering"
+
+#: src/toolbar.c:1241
+msgid "Increase indentation of block/line"
+msgstr "Øg indentering af block/rad"
+
+#: src/toolbar.c:1252
+msgid "Indent dcr"
+msgstr "Minsk indentering"
+
+#: src/toolbar.c:1254
+msgid "Decrease indentation of block/line"
+msgstr "Minsk indentering af block/rad"
+
+#: src/toolbar.c:1268
+msgid "Autoformat"
+msgstr "Autoformatering"
+
+#: src/toolbar.c:1270
+msgid "Automatically format the code"
+msgstr "Formater koden automatisk"
+
+#: src/toolbar.c:1282
+msgid "Format style"
+msgstr "Formateringsstil"
+
+#: src/toolbar.c:1283
+msgid "Configure style to use for auto format"
+msgstr "Konfigurer stil at anvenda for autoformatering"
+
+#: src/toolbar.c:1296
+msgid "Calltip"
+msgstr "Anropstips"
+
+#: src/toolbar.c:1296
+msgid "Show Calltip"
+msgstr "Vis anropstips"
+
+#: src/toolbar.c:1310
+msgid "Autocomplete"
+msgstr "Autokomplettera"
+
+#: src/toolbar.c:1311
+msgid "Autocomplete word"
+msgstr "Autokomplettera ord"
+
+#: src/toolbar.c:1364
+msgid "Functions"
+msgstr "Funktioner"
+
+#: src/toolbar.c:1378
+msgid "Structs"
+msgstr "Strukter"
+
+#: src/toolbar.c:1385
+msgid "Unions"
+msgstr "Unioner"
+
+#: src/toolbar.c:1392
+msgid "Enums"
+msgstr "Enumar"
+
+#: src/toolbar.c:1399
+msgid "Variables"
+msgstr "Variabler"
+
+#: src/toolbar.c:1406
+msgid "Macros"
+msgstr "Makron"
+
+#: src/toolbar_callbacks.c:183
+#, c-format
+msgid "There is line no. %d in \"%s\"."
+msgstr "Det findes radnummer %d i \"%s\"."
+
+#: src/utilities.c:689
+#, c-format
+msgid "Couldn't read file: %s."
+msgstr "Kunde ikke læse fil: %s."
+
+#: src/source.c:121 src/source.c:168 src/source.c:206 src/source.c:442
+#: src/source.c:466 src/source.c:551 src/source.c:617 src/source.c:657
+#: src/source.c:672 src/source.c:705 src/source.c:734 src/source.c:805
+#: src/source.c:824 src/source.c:857 src/source.c:877 src/source.c:910
+#: src/source.c:930 src/source.c:961 src/source.c:979 src/source.c:1009
+#: src/source.c:1027 src/source.c:1054 src/source.c:1106 src/source.c:1177
+#: src/source.c:1309 src/utilities.c:697
+#, c-format
+msgid "Couldn't create file: %s."
+msgstr "Kunde ikke skabe fil: %s."
+
+#: src/utilities.c:731
+msgid "Couldn't complete file copy"
+msgstr "Kunde ikke færdigstælla filkopiering"
+
+#: src/watch.c:91
+msgid "< Not defined in current context >"
+msgstr "< Inte definierad i aktuelt sammanhang >"
+
+#: src/watch_gui.c:36
+msgid "Add expression"
+msgstr "Tilføj udtryk"
+
+#: src/watch_gui.c:48
+msgid "Update all"
+msgstr "Uppdatera alla"
+
+#: src/watch_gui.c:60
+msgid "Toggle enable"
+msgstr "Aktivér/av aktivering"
+
+#: src/watch_gui.c:104
+msgid "Expression Watch"
+msgstr "Udtryksbevakning"
+
+#: src/watch_gui.c:124
+msgid "Expression"
+msgstr "Udtryk"
+
+#: src/watch_gui.c:130
+msgid "Value"
+msgstr "Værde"
+
+#: src/watch_gui.c:178
+msgid "Add Watch Expression"
+msgstr "Tilføj bevakningsudtryk"
+
+#: src/watch_gui.c:187
+msgid "Add expression to watch"
+msgstr "Tilføj udtryk til bevakning"
+
+#: src/watch_gui.c:243
+msgid "Inspect/Evaluate"
+msgstr "Inspektera/Evaluer"
+
+#: src/watch_gui.c:252
+msgid "Inspect/Evaluate Expression"
+msgstr "Inspektera/Evaluer udtryk"
+
+#: src/watch_gui.c:274
+msgid "Add To Watch"
+msgstr "Tilføj i bevakare"
+
+#: src/about.c:47
+msgid "Copyright (c) 1999-2001 Naba Kumar"
+msgstr "Copyright © 1999-2001 Naba Kumar"
+
+#: src/about.c:58
+msgid "Anjuta Home Site"
+msgstr "Hemsida for Anjuta"
+
+#: src/appwiz_page4.c:126
+msgid " Project Options "
+msgstr " Projektalternativ "
+
+#: src/appwiz_page4.c:137
+msgid "Include GNU Copyright statement in file headings"
+msgstr "Inkluder GNU:s copyrighttext i filhoveden"
+
+#: src/appwiz_page4.c:144
+msgid "Enable Gettext Support"
+msgstr "Aktiver Gettext-stød"
+
+#: src/appwiz_page4.c:151
+msgid "GNOME Menu Entry"
+msgstr "GNOME-menupost"
+
+#: src/appwiz_page4.c:161
+msgid "Entry name:"
+msgstr "Postnavn:"
+
+#: src/appwiz_page4.c:168
+msgid "Comment:"
+msgstr "Kommentar:"
+
+#: src/appwiz_page4.c:175
+msgid "Group:"
+msgstr "Gruppe:"
+
+#: src/appwiz_page4.c:216
+msgid "Needs terminal"
+msgstr "Behøver terminal"
+
+#: src/source.c:113
+#, c-format
+msgid "Error writing to file: %s."
+msgstr "Fejl ved skrivning til fil: %s."
+
+#: src/source.c:1260
+#, c-format
+msgid "Error writing to : %s."
+msgstr "Fejl ved skrivning til: %s."
+
+#: src/source.c:1376
+msgid "Project type does not support glade."
+msgstr "Projekttypen støder ikke glade."
+
+#: src/anjuta.c:72 src/anjuta.c:79
+#, c-format
+msgid "Anjuta: Caught signal %d (%s) !"
+msgstr "Anjuta: Tog emot signal %d (%s)!"
+
+#. Must declare static, because it will be used forever
+#: src/anjuta.c:106
+msgid "Open File"
+msgstr "Åbn fil"
+
+#. Must declare static, because it will be used forever
+#: src/anjuta.c:112 src/anjuta.c:117
+msgid "Save File As"
+msgstr "gem fil som"
+
+#: src/anjuta.c:219
+msgid "Cannot create application...exiting\n"
+msgstr "Kan ikke skabe program...avslutar\n"
+
+#: src/anjuta.c:267 src/anjuta.c:271 src/anjuta.c:850 src/anjuta.c:866
+#, c-format
+msgid "Anjuta: %s"
+msgstr "Anjuta: %s"
+
+#: src/anjuta.c:333
+msgid "Recent Files "
+msgstr "Seneste filer "
+
+#: src/anjuta.c:636
+msgid "CVS is not yet implemented. :-(\n"
+msgstr "CVS er ænnu ikke implementerat. :-(\n"
+
+#: src/anjuta.c:683
+msgid "# * DO NOT EDIT OR RENAME THIS FILE ** Generated by Anjuta **\n"
+msgstr ""
+"# * REDIGER INTE ELLER BYT INTE NAMN PÅ DENNA FIL ** Genererad af Anjuta "
+"**\n"
+
+#: src/anjuta.c:843
+#, c-format
+msgid "Anjuta: %s(Saved)"
+msgstr "Anjuta: %s(gemd)"
+
+#: src/anjuta.c:858
+#, c-format
+msgid "Anjuta: %s(Unsaved)"
+msgstr "Anjuta: %s(Osparad)"
+
+#: src/anjuta.c:885
+msgid "Anjuta: No file"
+msgstr "Anjuta: Ingen fil"
+
+#: src/anjuta.c:1138
+msgid "ERROR: "
+msgstr "FEJL: "
+
+#: src/anjuta.c:1155
+msgid ""
+"\n"
+"System: "
+msgstr ""
+"\n"
+"System: "
+
+#: src/anjuta.c:1389
+#, c-format
+msgid ""
+"Not yet implemented.\n"
+"Insert code at \"%s:%u\""
+msgstr ""
+"Inte implementerad æn.\n"
+"Infoga kod ved \"%s:%u\""
+
+#: src/anjuta.c:1605
+msgid "Activate this to select this window"
+msgstr "Aktiver dette for at vælja dette vindue"
+
+#: src/anjuta.c:1652
+#, c-format
+msgid ""
+"You do not have \"%s\" installed in your box.\n"
+"Install it and then restart Anjuta."
+msgstr ""
+"Du har ikke \"%s\" installeret på din maskin.\n"
+"Installer det og start sedan om Anjuta."
+
+#: src/anjuta.c:1678 src/anjuta.c:1713
+msgid "None"
+msgstr "Ingen"
+
+#: src/anjuta.c:1695
+msgid "OVR"
+msgstr "OVR"
+
+#: src/anjuta.c:1699 src/anjuta.c:1705
+msgid "INS"
+msgstr "INS"
+
+#: src/anjuta.c:1716
+#, c-format
+msgid ""
+"  Project: %s       Zoom: %d       Line: %04d       Col: %03d       %s       "
+"Job: %s"
+msgstr ""
+"  Projekt: %s       Zoom: %d       Rad: %04d       Kolumn: %03d      %s      "
+"Job: %s"
+
+#: src/anjuta.c:1928 src/anjuta.c:1931
+#, c-format
+msgid "Unable to Load Plug in Module %s. Err: %s"
+msgstr ""
+
+#: src/anjuta.c:1934
+#, c-format
+msgid "Plug in Module protocol unknown %s Err:%s"
+msgstr ""
+
+#: src/anjuta.c:1937
+#, c-format
+msgid "Unable to Start Plug in Module %s"
+msgstr ""
+
+#: src/anjuta.c:1940
+#, c-format
+msgid "Bad Parameters to Plug in %s. Err: %s"
+msgstr ""
+
+#: src/anjuta.c:1948
+#, c-format
+msgid ""
+"Unable to load plugin %s.\n"
+"Error %s"
+msgstr ""
+
+#: src/anjuta.c:2018
+msgid "Out of Memory scanning for plugins."
+msgstr ""
+
+#: src/anjuta_gui.c:208 src/anjuta_gui.c:297
+msgid "Click here to undock this window"
+msgstr "Klicka hær for at koppla fra dette vindue"
+
+#: src/anjuta_gui.c:242 src/anjuta_gui.c:264
+msgid "Click here to hide this window"
+msgstr "Klicka hær for at gømma dette vindue"
+
+#: src/glade_iface.c:72
+msgid "Cannot fork glade."
+msgstr "Kan ikke grena glade."
+
+#: src/glade_iface.c:109
+msgid "Cannot fork glade--."
+msgstr "Kan ikke grena glade--."
+
+#: src/resources.c:58
+msgid "Could not create replacement pixmap."
+msgstr "Kunde ikke skaba ersættningspixmap."
+
+#: src/resources.c:86
+#, c-format
+msgid "Widget not found: %s"
+msgstr "Widget kunne ikke hittas: %s"
+
+#: src/resources.c:99
+#, c-format
+msgid "Could not find application image file: %s"
+msgstr "Kunde ikke finde programbildfil: %s"
+
+#: src/resources.c:121
+#, c-format
+msgid "Could not find application pixmap file: %s"
+msgstr "Kunde ikke finde programbildfil: %s"
+
+#: src/resources.c:132
+#, c-format
+msgid "Could not find gnome pixmap file: %s"
+msgstr "Kunde ikke finde gnome pixmap-fil: %s"
+
+#: src/resources.c:149
+#, c-format
+msgid "Could not create pixmap from file: %s"
+msgstr "Kunde ikke skabe pixmap fra fil: %s"
+
+#: src/resources.c:295 src/resources.c:303
+msgid "Cannot execute Devhelp. Make sure it is installed"
+msgstr "Kan ikke køre Devhelp. Førsækra dig om at det er installeret"
+
