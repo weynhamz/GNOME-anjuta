@@ -1,0 +1,73 @@
+/* anjuta-preferences.h
+ * 
+ * Copyright (C) 2004 Johannes Schmid
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Library General Public
+ * License as published by the Free Software Foundation; either
+ * version 2 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Library General Public License for more details.
+ *
+ * You should have received a copy of the GNU Library General Public
+ * License along with this library; if not, write to the Free
+ * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ */
+
+#include <libanjuta/properties.h>
+#include <libanjuta/anjuta-preferences-dialog.h>
+
+namespace Anjuta
+{
+
+class Preferences
+{
+  _CLASS_GTKOBJECT(Preferences, AnjutaPreferences, ANJUTA_PREFERENCES, Anjuta::PreferencesDialog, 
+							AnjutaPreferencesDialog)
+public:
+	_CTOR_DEFAULT
+	
+	_WRAP_METHOD(void register_all_properties_from_glade_xml (GladeXML *gxml,
+								Gtk::Widget *parent),
+		anjuta_preferences_register_all_properties_from_glade_xml)
+	_WRAP_METHOD(bool register_property_from_string(Gtk::Widget* object,
+													const string& property_desc),
+										anjuta_preferences_register_property_from_string)
+	_WRAP_METHOD(bool register_propery_raw(Gtk::Widget* object, const string& key,
+											const string& default_value, guint flags,
+											AnjutaPropertyObjectType object_type,
+											AnjutaPropertyDataType data_type),
+										anjuta_preferences_register_property_raw)
+
+	_WRAP_METHOD(bool register_propery_raw(Gtk::Widget* object, const string& key,
+											const string& default_value, guint flags,
+											void    (*set_property) (AnjutaProperty *prop, const gchar *value),
+											gchar * (*get_property) (AnjutaProperty *)),
+										anjuta_preferences_register_property_custom)
+
+	_WRAP_METHOD(void reset_defaults(), anjuta_preferences_reset_defaults)
+	_WRAP_METHOD(bool save(FILE* stream), anjuta_preferences_save)
+	_WRAP_METHOD(bool save_filtered(FILE *stream, AnjutaPreferencesFilterType filter),
+					anjuta_preferences_save_filtered)
+	
+	_WRAP_METHOD(void foreach(AnjutaPreferencesFilterType filter,
+   							  AnjutaPreferencesCallback callback,
+							  gpointer data), anjuta_preferences_foreach)
+	_WRAP_METHOD(void sync_to_session(), anjuta_preferences_sync_to_session)
+	_WRAP_METHOD(void set(const string& key, const string& value), anjuta_preferences_set)
+	_WRAP_METHOD(void set(const string& key, const gint& value), anjuta_preferences_set_int)
+	_WRAP_METHOD(const string& get(const string& key), anjuta_preferences_get)
+	_WRAP_METHOD(gint get_int(const string& key), anjuta_preferences_get_int)
+	_WRAP_METHOD(gint get_int_with_default(const string& key, const gint& default), 
+		anjuta_preferences_get_int_with_default)
+	_WRAP_METHOD(const string& default_get(const string& key), anjuta_preferences_default_get)
+	_WRAP_METHOD(gint default_get_int(const string& key), anjuta_preferences_default_get_int)
+}
+} // namespace Anjuta
+
+		
+
+	

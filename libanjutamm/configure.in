@@ -1,0 +1,81 @@
+AC_PREREQ(2.50)
+AC_INIT(src/Makefile.am)
+
+#########################################################################
+#  Version and initialization
+#########################################################################
+LIBANJUTAMM_MAJOR_VERSION=0
+LIBANJUTAMM_MINOR_VERSION=0
+LIBANJUTAMM_MICRO_VERSION=1
+LIBANJUTAMM_VERSION=$LIBANJUTAMM_MAJOR_VERSION.$LIBANJUTAMM_MINOR_VERSION.$LIBANJUTAMM_MICRO_VERSION
+LIBANJUTAMM_RELEASE=$LIBANJUTAMM_MAJOR_VERSION.$LIBANJUTAMM_MINOR_VERSION
+AC_DEFINE_UNQUOTED(LIBANJUTAMM_MAJOR_VERSION, $LIBANJUTAMM_MAJOR_VERSION, [Major version of LIBANJUTAMM])
+AC_DEFINE_UNQUOTED(LIBANJUTAMM_MINOR_VERSION, $LIBANJUTAMM_MINOR_VERSION, [Minor version of LIBANJUTAMM])
+AC_DEFINE_UNQUOTED(LIBANJUTAMM_MICRO_VERSION, $LIBANJUTAMM_MICRO_VERSION, [Micro version of LIBANJUTAMM])
+AC_SUBST(LIBANJUTAMM_VERSION)
+AC_SUBST(LIBANJUTAMM_RELEASE)
+
+dnl For automake.
+VERSION=$LIBANJUTAMM_VERSION
+PACKAGE=libanjutamm
+
+dnl Initialize automake stuff
+AM_INIT_AUTOMAKE($PACKAGE, $VERSION)
+
+AM_MAINTAINER_MODE
+
+
+#########################################################################
+#  Configure arguments 
+#########################################################################
+
+#########################################################################
+#  Environment Checks
+#########################################################################
+AC_PROG_CC
+AC_PROG_CPP
+AC_PROG_MAKE_SET
+AC_CANONICAL_BUILD
+AC_CANONICAL_HOST
+
+AC_DISABLE_STATIC
+AC_PROG_LIBTOOL
+
+# This macro is installed by glibmm
+# Doxygen needs the path to the installed perl.
+# GLIBMM_CHECK_PERL([5.6.0])
+
+#########################################################################
+#  Function checks
+#########################################################################
+
+#########################################################################
+#  Dependancy checks
+#########################################################################
+libanjutamm_min_glibmm_version=2.4.0
+libanjutamm_min_gtk_version=2.4.0
+libanjutamm_min_gtkmm_version=2.4.0
+
+GLIBMM_PREFIX=`pkg-config --variable=prefix glibmm-2.4`
+GMMPROC_DIR=$GLIBMM_PREFIX/lib/glibmm-2.4/proc
+AC_SUBST(GMMPROC_DIR)
+GMMPROC=$GMMPROC_DIR/gmmproc
+AC_SUBST(GMMPROC)
+
+PKG_CHECK_MODULES(LIBANJUTAMM, 	glibmm-2.4 >= ${libanjutamm_min_glibmm_version}
+				gtk+-2.0 >= ${libanjutamm_min_gtk_version}
+				gtkmm-2.4 >= ${libanjutamm_min_gtkmm_version})
+AC_SUBST(LIBANJUTAMM_CFLAGS)
+AC_SUBST(LIBANJUTAMM_LIBS)
+
+#########################################################################
+#  C++ checks
+#########################################################################
+AC_PROG_CXX
+AC_LANG_CPLUSPLUS
+
+AC_OUTPUT(
+Makefile
+src/Makefile
+)
+
