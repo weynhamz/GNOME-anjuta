@@ -1,3 +1,7 @@
+2001-07-17  Naba Kumar <kh_naba@123india.com>
+	*GUI fixes and spell corrections
+	(patch from Andy Piper <squiggle@ukgateway.net>)
+
 2001-07-15  Naba Kumar <kh_naba@123india.com>
 	*Fixed double error message for file not found.
 	*Put white backgrounds for png images.
