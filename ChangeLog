@@ -1,3 +1,12 @@
+2002-06-12  Naba Kumar <kh_naba@users.sourceforge.net>
+
+	* data/properties/anjuta.properties: Added anjuta.terminal property
+	for older session file to work properly.
+	
+	* src/preferences_gui.c: Hidden unused option to make the
+	preferences/general page less crowded. Shifted user info
+	down in the vbox.
+	
 2002-06-12	Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
 
 	* src/an_file_view.[ch], src/cvs_gui.h: CVS integration.

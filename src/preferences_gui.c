@@ -303,7 +303,6 @@ create_preferences_page0 (Preferences * pr)
 	GtkWidget *vseparator1;
 	GtkWidget *label5;
 	GtkWidget *label6;
-	GtkWidget *vseparator3;
 	GtkWidget *boxLastPrj;
 	GtkWidget *checkbutton1;
 	GtkWidget *checkbutton2;
@@ -349,21 +348,21 @@ create_preferences_page0 (Preferences * pr)
 
 	entry2 = gnome_file_entry_new(NULL, NULL);
 	gnome_file_entry_set_directory(GNOME_FILE_ENTRY(entry2), TRUE);
-	gtk_widget_show (entry2);
+	// gtk_widget_show (entry2);
 	gtk_table_attach (GTK_TABLE (table1), entry2, 1, 2, 1, 2,
 			  (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
 			  (GtkAttachOptions) (0), 0, 0);
 
 	entry3 = gnome_file_entry_new(NULL, NULL);
 	gnome_file_entry_set_directory(GNOME_FILE_ENTRY(entry3), TRUE);
-	gtk_widget_show (entry3);
+	// gtk_widget_show (entry3);
 	gtk_table_attach (GTK_TABLE (table1), entry3, 1, 2, 2, 3,
 			  (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
 			  (GtkAttachOptions) (0), 0, 0);
 
 	entry4 = gnome_file_entry_new(NULL, NULL);
 	gnome_file_entry_set_directory(GNOME_FILE_ENTRY(entry1), TRUE);
-	gtk_widget_show (entry4);
+	// gtk_widget_show (entry4);
 	gtk_table_attach (GTK_TABLE (table1), entry4, 1, 2, 3, 4,
 			  (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
 			  (GtkAttachOptions) (0), 0, 0);
@@ -376,21 +375,21 @@ create_preferences_page0 (Preferences * pr)
 			  (GtkAttachOptions) (0), 0, 0);
 
 	label2 = gtk_label_new (_("Tarballs:"));
-	gtk_widget_show (label2);
+	// gtk_widget_show (label2);
 	gtk_misc_set_alignment (GTK_MISC (label2), 0, -1);
 	gtk_table_attach (GTK_TABLE (table1), label2, 0, 1, 1, 2,
 			  (GtkAttachOptions) (0),
 			  (GtkAttachOptions) (0), 0, 0);
 
 	label3 = gtk_label_new (_("RPMs:"));
-	gtk_widget_show (label3);
+	// gtk_widget_show (label3);
 	gtk_misc_set_alignment (GTK_MISC (label3), 0, -1);
 	gtk_table_attach (GTK_TABLE (table1), label3, 0, 1, 2, 3,
 			  (GtkAttachOptions) (0),
 			  (GtkAttachOptions) (0), 0, 0);
 
 	label4 = gtk_label_new (_("SRPMs:"));
-	gtk_widget_show (label4);
+	// gtk_widget_show (label4);
 	gtk_misc_set_alignment (GTK_MISC (label4), 0, -1);
 	gtk_table_attach (GTK_TABLE (table1), label4, 0, 1, 3, 4,
 			  (GtkAttachOptions) (0),
@@ -401,7 +400,7 @@ create_preferences_page0 (Preferences * pr)
 	gtk_box_pack_start (GTK_BOX (vbox1), frame1, FALSE, FALSE, 0);
 	gtk_container_set_border_width (GTK_CONTAINER (frame1), 5);
 
-	table1 = gtk_table_new (2, 7, FALSE);
+	table1 = gtk_table_new (2, 5, FALSE);
 	gtk_widget_show (table1);
 	gtk_container_add (GTK_CONTAINER (frame1), table1);
 
@@ -426,42 +425,6 @@ create_preferences_page0 (Preferences * pr)
 			  (GtkAttachOptions) (0), 5, 0);
 	gtk_misc_set_padding (GTK_MISC (label6), 0, 5);
 
-	/* User Info */
-	table11 = gtk_table_new (2, 2, FALSE);
-	gtk_widget_show (table11);
-	gtk_container_set_border_width(GTK_CONTAINER(table11), 0);
-	gtk_table_attach (GTK_TABLE (table1), table11, 6, 7, 0, 2,
-			  (GtkAttachOptions) (0),
-			  (GtkAttachOptions) (0), 5, 0);
-	gtk_table_set_row_spacings (GTK_TABLE (table1), 3);
-	gtk_table_set_col_spacings (GTK_TABLE (table1), 3);
-
-	label11 = gtk_label_new(_("User Name: "));
-	gtk_widget_show (label11);
-	gtk_misc_set_alignment(GTK_MISC(label11), -1, 0);
-	gtk_table_attach (GTK_TABLE (table11), label11, 0, 1, 0, 1,
-			  (GtkAttachOptions) (GTK_FILL),
-			  (GtkAttachOptions) (0), 0, 0);
-
-	label12 = gtk_label_new(_("User Email: "));
-	gtk_widget_show (label12);
-	gtk_misc_set_alignment(GTK_MISC(label12), -1, 0);
-	gtk_table_attach (GTK_TABLE (table11), label12, 0, 1, 1, 2,
-			  (GtkAttachOptions) (GTK_FILL),
-			  (GtkAttachOptions) (0), 0, 0);
-
-	entry11 = gtk_entry_new ();
-	gtk_widget_show (entry11);
-	gtk_table_attach (GTK_TABLE (table11), entry11, 1, 2, 0, 1,
-			  (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
-			  (GtkAttachOptions) (0), 0, 0);
-
-	entry12 = gtk_entry_new ();
-	gtk_widget_show (entry12);
-	gtk_table_attach (GTK_TABLE (table11), entry12, 1, 2, 1, 2,
-			  (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
-			  (GtkAttachOptions) (0), 0, 0);
-	
 	eventbox3 = gtk_event_box_new ();
 	gtk_widget_show (eventbox3);
 	gtk_table_attach (GTK_TABLE (table1), eventbox3, 0, 1, 1, 2,
@@ -500,12 +463,6 @@ create_preferences_page0 (Preferences * pr)
 		gtk_spin_button_new (GTK_ADJUSTMENT (spinbutton4_adj), 1, 0);
 	gtk_widget_show (spinbutton4);
 	gtk_container_add (GTK_CONTAINER (eventbox5), spinbutton4);
-
-	vseparator3 = gtk_vseparator_new ();
-	gtk_widget_show (vseparator3);
-	gtk_table_attach (GTK_TABLE (table1), vseparator3, 5, 6, 0, 2,
-			  (GtkAttachOptions) (GTK_FILL),
-			  (GtkAttachOptions) (GTK_FILL), 0, 0);
 
 	vseparator2 = gtk_vseparator_new ();
 	gtk_widget_show (vseparator2);
@@ -598,6 +555,45 @@ create_preferences_page0 (Preferences * pr)
 	/*gtk_signal_connect (GTK_OBJECT (checkbutton1), "clicked",
 			    GTK_SIGNAL_FUNC (on_use_components), p);*/
 
+	/* User Info */
+	frame1 = gtk_frame_new (_(" User Info "));
+	gtk_widget_show (frame1);
+	gtk_box_pack_start (GTK_BOX (vbox1), frame1, FALSE, FALSE, 0);
+	gtk_container_set_border_width (GTK_CONTAINER (frame1), 5);
+
+	table11 = gtk_table_new (2, 2, FALSE);
+	gtk_widget_show (table11);
+	gtk_container_set_border_width(GTK_CONTAINER(table11), 5);
+	gtk_container_add (GTK_CONTAINER(frame1), table11);
+	gtk_table_set_row_spacings (GTK_TABLE (table1), 3);
+	gtk_table_set_col_spacings (GTK_TABLE (table1), 3);
+
+	label11 = gtk_label_new(_("User Name: "));
+	gtk_widget_show (label11);
+	gtk_misc_set_alignment(GTK_MISC(label11), -1, 0);
+	gtk_table_attach (GTK_TABLE (table11), label11, 0, 1, 0, 1,
+			  (GtkAttachOptions) (GTK_FILL),
+			  (GtkAttachOptions) (0), 0, 0);
+
+	label12 = gtk_label_new(_("User Email: "));
+	gtk_widget_show (label12);
+	gtk_misc_set_alignment(GTK_MISC(label12), -1, 0);
+	gtk_table_attach (GTK_TABLE (table11), label12, 0, 1, 1, 2,
+			  (GtkAttachOptions) (GTK_FILL),
+			  (GtkAttachOptions) (0), 0, 0);
+
+	entry11 = gtk_entry_new ();
+	gtk_widget_show (entry11);
+	gtk_table_attach (GTK_TABLE (table11), entry11, 1, 2, 0, 1,
+			  (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
+			  (GtkAttachOptions) (0), 0, 0);
+
+	entry12 = gtk_entry_new ();
+	gtk_widget_show (entry12);
+	gtk_table_attach (GTK_TABLE (table11), entry12, 1, 2, 1, 2,
+			  (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
+			  (GtkAttachOptions) (0), 0, 0);
+	
 	pr->widgets.prj_dir_entry = gnome_file_entry_gtk_entry(GNOME_FILE_ENTRY (entry1));
 	pr->widgets.tarballs_dir_entry = gnome_file_entry_gtk_entry(GNOME_FILE_ENTRY (entry2));
 	pr->widgets.rpms_dir_entry = gnome_file_entry_gtk_entry(GNOME_FILE_ENTRY (entry3));	
