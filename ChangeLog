@@ -1,3 +1,16 @@
+2002-02-16  Philip Van Hoof  <freax@pandora.be>
+
+	Patch reviewed by Stephane Demurget <demurgets@free.fr>.
+
+	* THANKS: added Philip.
+
+	* pixmaps/Makefile.am, pixmaps/new_folder.xpm: added.
+
+	* src/project_dbase.c: (project_dbase_make_default_filetype_list),
+	* src/file_selection.[ch],
+	* widgets/gnomefilelist.[ch]: added a filetype
+	  combobox to the Anjuta file dialog widget.
+
 2002-02-14  Andy Piper  <andy.piper@freeuk.com>
 
 	* anjuta.spec.in: eep! the import script was not being installed by

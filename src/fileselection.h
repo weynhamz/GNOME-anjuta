@@ -62,4 +62,22 @@ fileselection_get_lastfilename(GtkWidget * widget, GList * list);
 void 
 fileselection_hide_widget(GtkWidget * widget);
 
+GtkWidget * 
+fileselection_storetypes(GtkWidget *filesel, GList *filetypes);
+
+GList * 
+fileselection_addtype_f(GList *filetypes, gchar *description, gint amount, ...);
+
+GList * 
+fileselection_addtype(GList *filetypes, gchar *description, GList *extentions);
+
+GList * 
+fileselection_getcombolist(GtkWidget * filesel, GList *filetypes);
+
+void 
+fileselection_set_combolist(GtkWidget* filesel, GList *combolist);
+
+GtkWidget*
+fileselection_clearfiletypes(GtkWidget* filesel);
+
 #endif

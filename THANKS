@@ -47,6 +47,9 @@ is now.
 
 	- Johannes Schmid <johannes.schmid@gmx.de>, for the GTK--/GNOME-- integration, 
 	  patches and great debugging work,
+
+	- Philip Van Roof <freax@pandora.be>, for his filetypes combobox
+	  in the file selection dialog patch.
 	
 	- Hector Rivera Falu <misha@phreaker.net>, for the whole Anjuta website
 	  design & content management, and his overall artwork on the Anjuta project,

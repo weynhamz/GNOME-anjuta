@@ -174,6 +174,9 @@ project_dbase_show (ProjectDBase * p);
 void
 project_dbase_hide (ProjectDBase * p);
 
+void 
+project_dbase_make_default_filetype_list(ProjectDBase * p);
+
 void
 project_dbase_open_project (ProjectDBase * p);
 

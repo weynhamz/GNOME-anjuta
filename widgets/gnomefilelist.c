@@ -7,6 +7,8 @@
 static void gnome_filelist_class_init(GnomeFileListClass *klass);
 static void gnome_filelist_init(GnomeFileList *file_list);
 static void gnome_filelist_destroy(GtkObject *object);
+static void gnome_filelist_show(GtkWidget *widget, GnomeFileList *file_list);
+static void gnome_filelist_hide(GtkWidget *widget, GnomeFileList *file_list);
 static void file_select_event(GtkCTree *tree, gint row, gint col, GdkEvent *event, GnomeFileList *file_list);
 static void file_unselect_event(GtkCTree *tree, gint row, gint col, GdkEvent *event, GnomeFileList *file_list);
 static void gnome_filelist_get_dirs(GnomeFileList *file_list);
@@ -27,10 +29,16 @@ gchar *build_full_path(const gchar *path, const gchar *selection);
 static void check_goto(GtkWidget *widget, GnomeFileList *file_list);
 static void delete_file(GtkWidget *widget, GnomeFileList *file_list);
 static void rename_file(GtkWidget *widget, GnomeFileList *file_list);
+static void create_dir(GtkWidget *widget, GnomeFileList *file_list);
+static void create_dir_okbutton_cb(GtkWidget *button, GnomeFileList *file_list);
+static void create_dir_cancelbutton_cb(GtkWidget *button, GnomeFileList *file_list);
 static void home_directory_cb (GtkButton * button, GnomeFileList *file_list);
 static gboolean check_if_file_exists(gchar *filename);
 static gboolean check_can_modify(gchar *filename);
 static void show_hidden_toggled(GtkToggleButton* b, gpointer data);
+static void filetype_combo_go(GtkWidget *widget, GnomeFileList *file_list);
+static void file_scrollbar_value_changed(GtkAdjustment *adjustment, GnomeFileList *file_list);
+static void dir_scrollbar_value_changed(GtkAdjustment *adjustment, GnomeFileList *file_list);
 /* end function declarations */
 
 static GtkWindowClass *parent_class = NULL;
@@ -94,20 +102,24 @@ GtkWidget *gnome_filelist_new_with_path(gchar *path)
    GtkWidget *util_box;
    GtkWidget *toolbar;
    GtkWidget *pixmapwid;
-   GtkWidget *scrolled_window;
    GtkWidget *paned;
    GtkWidget *label;
+   GtkWidget *combolabel;
    GtkWidget *hsep;
    GtkWidget *parent_button;
-   GtkWidget *refresh_button;   
-   
+   GtkWidget *refresh_button;
+   GList *combolist=NULL;
+   GtkAdjustment *file_adjustment;
+   GtkAdjustment *dir_adjustment;
+	
    file_list = gtk_type_new(GNOME_TYPE_FILELIST);
    gtk_container_set_border_width(GTK_CONTAINER(file_list), 5);
    // gtk_signal_connect(GTK_OBJECT(file_list), "key_press_event", GTK_SIGNAL_FUNC(gnome_filelist_key_press), 0);
-
+   gtk_signal_connect(GTK_OBJECT(file_list), "show", GTK_SIGNAL_FUNC(gnome_filelist_show), file_list);
+   gtk_signal_connect(GTK_OBJECT(file_list), "hide", GTK_SIGNAL_FUNC(gnome_filelist_hide), file_list);
    main_box = gtk_vbox_new(FALSE, 5);
    gtk_container_add(GTK_CONTAINER(file_list), main_box);
-   gtk_widget_show(main_box);
+   gtk_widget_show(main_box);  
 
    toolbar = gtk_toolbar_new(GTK_ORIENTATION_HORIZONTAL, GTK_TOOLBAR_ICONS);
    gtk_box_pack_start(GTK_BOX(main_box), toolbar, TRUE, TRUE, 0);
@@ -130,6 +142,8 @@ GtkWidget *gnome_filelist_new_with_path(gchar *path)
    file_list->delete_button = gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), 0, _("Delete file"), 0, pixmapwid, GTK_SIGNAL_FUNC(delete_file), file_list); 
    pixmapwid = gnome_stock_pixmap_widget_at_size(GTK_WIDGET(file_list), GNOME_STOCK_PIXMAP_CONVERT, 21, 21);
    file_list->rename_button = gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), 0, _("Rename file"), 0, pixmapwid, GTK_SIGNAL_FUNC(rename_file), file_list);
+   pixmapwid = gnome_pixmap_new_from_file_at_size ((const char *) anjuta_res_get_pixmap_file(ANJUTA_PIXMAP_NEW_FOLDER), 21, 21);      
+   file_list->createdir_button = gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), 0, _("Create new folder"), 0, pixmapwid, GTK_SIGNAL_FUNC(create_dir), file_list);
    
    gtk_toolbar_append_space(GTK_TOOLBAR(toolbar));
 
@@ -161,7 +175,7 @@ GtkWidget *gnome_filelist_new_with_path(gchar *path)
    file_list->history_combo = gtk_combo_new();
    gtk_combo_disable_activate(GTK_COMBO(file_list->history_combo));
    gtk_box_pack_start(GTK_BOX(util_box), file_list->history_combo, TRUE, TRUE, 0);
-   gtk_entry_set_editable(GTK_ENTRY(GTK_COMBO(file_list->history_combo)->entry), FALSE);
+   gtk_entry_set_editable(GTK_ENTRY(GTK_COMBO(file_list->history_combo)->entry), TRUE);
    gtk_signal_connect(GTK_OBJECT(GTK_COMBO(file_list->history_combo)->entry), "changed", GTK_SIGNAL_FUNC(check_ok_button_cb), file_list);
    gtk_signal_connect(GTK_OBJECT(GTK_COMBO(file_list->history_combo)->entry), "activate", GTK_SIGNAL_FUNC(check_goto), file_list);
    gtk_widget_show(file_list->history_combo);
@@ -170,10 +184,17 @@ GtkWidget *gnome_filelist_new_with_path(gchar *path)
    gtk_box_pack_start(GTK_BOX(main_box), paned, TRUE, TRUE, 0);
    gtk_widget_show(paned);
 
-   scrolled_window = gtk_scrolled_window_new(0, 0);
-   gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolled_window), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
-   gtk_widget_set_usize(scrolled_window, 200, 250);
-   gtk_widget_show(scrolled_window);
+   file_list->scrolled_window_dir = gtk_scrolled_window_new(0, 0);
+   gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(file_list->scrolled_window_dir), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+   gtk_widget_set_usize(file_list->scrolled_window_dir, 200, 250);
+
+   dir_adjustment = gtk_scrolled_window_get_vadjustment (GTK_SCROLLED_WINDOW(file_list->scrolled_window_dir));
+   gtk_signal_connect (GTK_OBJECT (dir_adjustment), "value-changed",
+		      GTK_SIGNAL_FUNC (dir_scrollbar_value_changed), file_list);
+   
+   GTK_SCROLLED_WINDOW(file_list->scrolled_window_dir);
+   gtk_widget_show(file_list->scrolled_window_dir);
+
 
    file_list->directory_list = gtk_ctree_new(1, 0);
    gtk_clist_set_selection_mode(GTK_CLIST(file_list->directory_list), GTK_SELECTION_SINGLE);
@@ -184,19 +205,23 @@ GtkWidget *gnome_filelist_new_with_path(gchar *path)
    gtk_ctree_set_expander_style(GTK_CTREE(file_list->directory_list), GTK_CTREE_EXPANDER_NONE);
    gtk_ctree_set_line_style (GTK_CTREE(file_list->directory_list), GTK_CTREE_LINES_NONE);
    gtk_clist_column_titles_passive(GTK_CLIST(file_list->directory_list));
-   gtk_container_add(GTK_CONTAINER(scrolled_window), file_list->directory_list);
+   gtk_container_add(GTK_CONTAINER(file_list->scrolled_window_dir), file_list->directory_list);
    gtk_signal_connect(GTK_OBJECT(file_list->directory_list), "key_press_event", GTK_SIGNAL_FUNC(gnome_filelist_key_press), 0);
    gtk_signal_connect(GTK_OBJECT(file_list->directory_list), "select_row", GTK_SIGNAL_FUNC(file_select_event), file_list);
    gtk_signal_connect(GTK_OBJECT(file_list->directory_list), "unselect_row", GTK_SIGNAL_FUNC(file_unselect_event), file_list);
-   gtk_paned_add1(GTK_PANED(paned), scrolled_window);
+   gtk_paned_add1(GTK_PANED(paned), file_list->scrolled_window_dir);
    gtk_clist_set_column_title(GTK_CLIST(file_list->directory_list), 0, _("Directories"));
    gtk_widget_show(file_list->directory_list);
    
-   scrolled_window = gtk_scrolled_window_new(0, 0);
-   gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolled_window), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
-   gtk_widget_set_usize(scrolled_window, 200, 250);
-   gtk_widget_show(scrolled_window);
-
+   file_list->scrolled_window_file = gtk_scrolled_window_new(0, 0);
+   gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(file_list->scrolled_window_file), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+   gtk_widget_set_usize(file_list->scrolled_window_file, 200, 250);
+   gtk_widget_show(file_list->scrolled_window_file);
+   
+   file_adjustment = gtk_scrolled_window_get_vadjustment (GTK_SCROLLED_WINDOW(file_list->scrolled_window_file));
+   gtk_signal_connect (GTK_OBJECT (file_adjustment), "value-changed",
+		      GTK_SIGNAL_FUNC (file_scrollbar_value_changed), file_list);
+   
    file_list->file_list = gtk_ctree_new(1, 0);
    // gnome_filelist_set_selection_mode(file_list, GTK_SELECTION_EXTENDED);
    // gnome_filelist_set_selection_mode(file_list, GTK_SELECTION_MULTIPLE);
@@ -211,32 +236,74 @@ GtkWidget *gnome_filelist_new_with_path(gchar *path)
    gtk_ctree_set_expander_style(GTK_CTREE(file_list->file_list), GTK_CTREE_EXPANDER_NONE);
    gtk_ctree_set_line_style (GTK_CTREE(file_list->file_list), GTK_CTREE_LINES_NONE);
    gtk_clist_column_titles_passive(GTK_CLIST(file_list->file_list));
-   gtk_container_add(GTK_CONTAINER(scrolled_window), file_list->file_list);
+   gtk_container_add(GTK_CONTAINER(file_list->scrolled_window_file), file_list->file_list);
    gtk_widget_set_events(file_list->file_list, 
                                         GDK_KEY_PRESS_MASK);
 
    gtk_signal_connect(GTK_OBJECT(file_list->file_list), "key_press_event", GTK_SIGNAL_FUNC(gnome_filelist_key_press), 0);
    gtk_signal_connect(GTK_OBJECT(file_list->file_list), "select_row", GTK_SIGNAL_FUNC(file_select_event), file_list);
    gtk_signal_connect(GTK_OBJECT(file_list->file_list), "unselect_row", GTK_SIGNAL_FUNC(file_unselect_event), file_list);
-   gtk_paned_add2(GTK_PANED(paned), scrolled_window);
+   gtk_paned_add2(GTK_PANED(paned), file_list->scrolled_window_file);
    gtk_clist_set_column_title(GTK_CLIST(file_list->file_list), 0, _("Files"));
    gtk_widget_show(file_list->file_list);
+ 
+   util_box = gtk_table_new (2, 2, FALSE);  
+   
+   gtk_container_add(GTK_CONTAINER(main_box), util_box);
+   
 
-   util_box = gtk_hbox_new(FALSE, 0);
-   gtk_box_pack_start(GTK_BOX(main_box), util_box, TRUE, TRUE, 0);
-   gtk_widget_show(util_box);
-
+   gtk_table_set_row_spacings (GTK_TABLE (util_box), 7);
+   gtk_table_set_col_spacings (GTK_TABLE (util_box), 7);
+   
+   gtk_widget_show (util_box);
+   
    label = gtk_label_new(_("Selection: "));
-   gtk_box_pack_start(GTK_BOX(util_box), label, FALSE, TRUE, 0);
+   
+   gtk_table_attach (GTK_TABLE (util_box), label, 0, 1, 0, 1,
+                    (GtkAttachOptions) (GTK_FILL),
+                    (GtkAttachOptions) (0), 0, 0);
+   
    gtk_widget_show(label);
    file_list->selection_label = label;
    
    file_list->selection_entry = gtk_entry_new();
-   gtk_box_pack_start(GTK_BOX(util_box), file_list->selection_entry, TRUE, TRUE, 0);
+   
+   gtk_table_attach (GTK_TABLE (util_box), file_list->selection_entry, 1, 2, 0, 1,
+                    (GtkAttachOptions) (GTK_EXPAND|GTK_FILL),
+                    (GtkAttachOptions) (0), 0,0 );
+
    gtk_signal_connect(GTK_OBJECT(file_list->selection_entry), "changed", GTK_SIGNAL_FUNC(check_ok_button_cb), file_list);
    gtk_signal_connect(GTK_OBJECT(file_list->selection_entry), "activate", GTK_SIGNAL_FUNC(check_goto), file_list);
    gtk_widget_show(file_list->selection_entry);
+     
+
+   if (file_list->filetypes == NULL)
+	   file_list->filetypes = gnome_filelisttype_makedefaultlist(file_list->filetypes);   
+   combolist = gnome_filelisttype_getcombolist(file_list->filetypes);   
    
+   combolabel = gtk_label_new(_("File type: "));
+   file_list->filetype_combo = gtk_combo_new();   
+   
+   gnome_filelist_set_combolist(file_list, combolist);
+   
+   gtk_table_attach (GTK_TABLE (util_box), combolabel, 0, 1, 1, 2,
+                    (GtkAttachOptions) (GTK_FILL),
+                    (GtkAttachOptions) (0), 0, 0);
+     
+   gtk_widget_show(combolabel);
+   
+   gtk_entry_set_editable(GTK_ENTRY(GTK_COMBO(file_list->filetype_combo)->entry), FALSE);
+   gtk_signal_connect(GTK_OBJECT(GTK_COMBO(file_list->filetype_combo)->entry), "activate", GTK_SIGNAL_FUNC(filetype_combo_go), file_list);
+   gtk_signal_connect(GTK_OBJECT(GTK_COMBO(file_list->filetype_combo)->entry), "changed", GTK_SIGNAL_FUNC(filetype_combo_go), file_list);
+   
+
+   gtk_table_attach (GTK_TABLE (util_box), file_list->filetype_combo, 1, 2, 1, 2,
+                    (GtkAttachOptions) (GTK_EXPAND|GTK_FILL),
+                    (GtkAttachOptions) (0), 0, 0);
+
+   gtk_widget_show(file_list->filetype_combo);
+	
+
    hsep = gtk_hseparator_new();
    gtk_box_pack_start(GTK_BOX(main_box), hsep, TRUE, TRUE, 10);
    gtk_widget_show(hsep);
@@ -268,6 +335,165 @@ GtkWidget *gnome_filelist_new_with_path(gchar *path)
    return GTK_WIDGET(file_list);
 }
 
+
+GnomeFileListType *
+gnome_filelisttype_getfiletype(GnomeFileList *file_list, gchar *description)
+{
+	GList *filetypes;
+
+	for (filetypes = file_list->filetypes;
+	     filetypes;
+	     filetypes = g_list_next (filetypes)) {
+		GnomeFileListType *filetype = (GnomeFileListType *) filetypes->data;
+		
+		if (!g_strcasecmp (filetype->description, description))
+			return filetype;
+	}
+
+	return NULL;
+}
+
+
+GList * 
+gnome_filelisttype_addtype_f(GList *filetypes, gchar *description, gint amount, ...)
+{	
+   GList *exts = NULL;
+   gchar *ext;
+   gint i=0;
+   va_list ap;
+
+   va_start (ap, amount);
+
+   while ((ext = g_strdup (va_arg (ap, gchar *))) && i < amount) {
+	    i++;
+	    exts = g_list_append(exts, ext);
+   }
+
+   va_end(ap);
+
+   return gnome_filelisttype_addtype(filetypes, description, exts);
+}
+
+
+GList * 
+gnome_filelisttype_addtype(GList *filetypes, gchar *description, GList *extentions)
+{	
+	GnomeFileListType *filetype = NULL;
+	GList *new_list;
+	GList *last;
+	
+	filetype = g_malloc0(sizeof(GnomeFileListType));
+	filetype->description = g_strdup(description);
+	filetype->extentions = extentions; 			
+
+	new_list = g_list_alloc ();
+	new_list->data = filetype;  
+	
+	if (filetypes) {
+		last = g_list_last (filetypes);
+		last->next = new_list;
+		new_list->prev = last;
+
+		return filetypes;
+	}
+
+	return new_list;
+}
+
+GList * 
+gnome_filelisttype_makedefaultlist(GList *filetypes)
+{	
+	GList *ftypes=filetypes;
+
+	ftypes = gnome_filelisttype_addtype(ftypes, _("All files"), NULL);
+	/* ftypes = gnome_filelisttype_addtype_f(ftypes, _("Anjuta project files"), 1, "prj"); */
+	ftypes = gnome_filelisttype_addtype_f(ftypes, _("C/C++ source files"), 9, "c", "cc", "cxx", "cpp", "c++", "cs", "hpp", "h", "hh");
+	ftypes = gnome_filelisttype_addtype_f(ftypes, _("Java files"), 2, "java", "js");   
+	ftypes = gnome_filelisttype_addtype_f(ftypes, _("Pascal files"), 1, "pas");
+	ftypes = gnome_filelisttype_addtype_f(ftypes, _("Perl files"), 1, "pl");   
+	ftypes = gnome_filelisttype_addtype_f(ftypes, _("Python files"), 1, "py");
+	ftypes = gnome_filelisttype_addtype_f(ftypes, _("Hyper Text Markup files"), 3, "htm", "html", "css", "htm");
+	ftypes = gnome_filelisttype_addtype_f(ftypes, _("Shell Script files"), 1, "sh");
+	ftypes = gnome_filelisttype_addtype_f(ftypes, _("Config files"), 1, "conf");
+	ftypes = gnome_filelisttype_addtype_f(ftypes, _("Visual Basic files"), 2, "vb", "vbs");
+	ftypes = gnome_filelisttype_addtype_f(ftypes, _("Properties files"), 1, "properties");
+	ftypes = gnome_filelisttype_addtype_f(ftypes, _(".mak files"), 1, "mak");
+	ftypes = gnome_filelisttype_addtype_f(ftypes, _(".lua files"), 1, "lua");
+
+	return ftypes;
+}
+
+GList * 
+gnome_filelisttype_getdescriptions(GList *filetypes)
+{	
+	GList *rlist = NULL, *ftypes;
+
+	for (ftypes = filetypes; ftypes; ftypes = g_list_next (ftypes)) {
+		GnomeFileListType *filetype = (GnomeFileListType *) ftypes->data;
+		rlist = g_list_append(rlist, filetype->description);
+	}
+
+	return rlist;
+}
+
+GList *
+gnome_filelisttype_getcombolist(GList *filetypes) 
+{
+	GList *descriptions = NULL;
+	GList *combolist = NULL;
+ 
+	for (descriptions = gnome_filelisttype_getdescriptions (filetypes);
+	     descriptions;
+	     descriptions = g_list_next (descriptions))
+		combolist = g_list_append(combolist, (gchar *) descriptions->data);
+   
+	return combolist;
+}
+
+GList * 
+gnome_filelisttype_getextentions(GList *filetypes, gchar *description)
+{	
+	GList *rlist = NULL, *ftypes;
+	gboolean found = FALSE;
+
+	for (ftypes = filetypes; ftypes; ftypes = g_list_next (ftypes)) {
+		GnomeFileListType *filetype = (GnomeFileListType *) ftypes->data;
+
+		if (!strcmp (filetype->description, description)) {
+			found = TRUE;
+
+			for (; filetype->extentions;
+			       filetype->extentions = g_list_next (filetype->extentions))
+				rlist = g_list_append(rlist, filetype->extentions->data);
+		}
+	}
+
+	return found ? rlist : NULL;
+}
+
+void 
+gnome_filelist_set_combolist(GnomeFileList *file_list, GList *combolist) 
+{
+	
+	gtk_combo_set_popdown_strings(GTK_COMBO(file_list->filetype_combo), combolist);
+}
+
+GList * gnome_filelisttype_clearfiletypes(GnomeFileList *file_list) 
+{
+	g_list_free(file_list->filetypes);
+	file_list->filetypes = NULL;
+	return file_list->filetypes;
+}
+
+static void filetype_combo_go(GtkWidget *widget, GnomeFileList *file_list)
+{
+    gchar *string;
+    string = build_full_path(file_list->path, "");
+    gnome_filelist_set_dir(file_list, string);
+    g_free(string);
+}
+
+
 static void gnome_filelist_destroy(GtkObject *object)
 {
    GtkWidget *file_list;
@@ -287,6 +513,44 @@ static void gnome_filelist_destroy(GtkObject *object)
    g_list_free (GNOME_FILELIST(file_list)->history);
    
    gtk_widget_destroy(file_list);
+}
+
+static void gnome_filelist_show(GtkWidget *widget, GnomeFileList *file_list)
+{
+   gchar *string;
+   GtkAdjustment *file_adjustment;
+   GtkAdjustment *dir_adjustment;	
+   gfloat file_value=file_list->file_scrollbar_value;
+   gfloat dir_value=file_list->dir_scrollbar_value;	
+	
+   string = build_full_path(file_list->path, "");
+   gnome_filelist_set_dir(file_list, string);
+   g_free(string);	
+
+   file_adjustment = gtk_scrolled_window_get_vadjustment (GTK_SCROLLED_WINDOW(file_list->scrolled_window_file));
+   gtk_adjustment_set_value (file_adjustment, file_value);
+   gtk_scrolled_window_set_vadjustment (GTK_SCROLLED_WINDOW(file_list->scrolled_window_file), file_adjustment);
+
+   dir_adjustment = gtk_scrolled_window_get_vadjustment (GTK_SCROLLED_WINDOW(file_list->scrolled_window_dir));
+   gtk_adjustment_set_value (dir_adjustment, dir_value);
+   gtk_scrolled_window_set_vadjustment (GTK_SCROLLED_WINDOW(file_list->scrolled_window_dir), dir_adjustment);
+
+   return;
+}
+
+static void gnome_filelist_hide(GtkWidget *widget, GnomeFileList *file_list)
+{
+   return;
+}
+
+static void file_scrollbar_value_changed(GtkAdjustment *adjustment, GnomeFileList *file_list)
+{
+	    file_list->file_scrollbar_value = adjustment->value;
+}
+
+static void dir_scrollbar_value_changed(GtkAdjustment *adjustment, GnomeFileList *file_list)
+{
+	    file_list->dir_scrollbar_value = adjustment->value;
 }
 
 static void file_select_event(GtkCTree *tree, gint row, gint col, GdkEvent *event, GnomeFileList *file_list)
@@ -373,41 +637,75 @@ static void gnome_filelist_get_dirs(GnomeFileList *file_list)
    struct dirent *dir;
    struct stat st;
    gchar filename[384];
+   
    GtkCTreeNode *node;
    gchar *str;
    GList *dirs_list = NULL;
    GList *files_list = NULL;
-   GList *temp;
-      
+   GList *temp;   
+   GnomeFileListType *filetype;
+    
    gtk_clist_clear(GTK_CLIST(file_list->directory_list));
    gtk_clist_clear(GTK_CLIST(file_list->file_list));
    gtk_clist_freeze(GTK_CLIST(file_list->directory_list));
    gtk_clist_freeze(GTK_CLIST(file_list->file_list));
 
+   filetype = gnome_filelisttype_getfiletype(file_list, 
+		   gtk_entry_get_text(GTK_ENTRY(GTK_COMBO(file_list->filetype_combo)->entry)));	  	   
+	   
    dir_file = opendir(file_list->path);
    if(dir_file != NULL)
    {
       while((dir = readdir(dir_file)) != NULL)
       {
          g_snprintf(filename, sizeof(filename), "%s/%s", file_list->path, dir->d_name);
-   	   stat(filename, &st);
+    	 stat(filename, &st);
          str = g_new(char, strlen(dir->d_name)+1);
          strcpy(str, dir->d_name);
          if(S_ISDIR(st.st_mode))
          {
 			if ( str[0] != '.' || file_list->show_hidden)
 			{
-            	dirs_list = g_list_prepend(dirs_list, (gpointer)str);
+				dirs_list = g_list_prepend(dirs_list, (gpointer)str);
 			}
          }	    
          else
          {
+			
 			if ( str[0] != '.' || file_list->show_hidden)
-			{
-            	files_list = g_list_prepend(files_list, (gpointer)str);
+			{	
+				GList *extentions=NULL;
+				gboolean match=FALSE;
+				
+				extentions = g_list_copy(filetype->extentions);				
+				if (!extentions)
+					match=TRUE;
+
+				while (extentions && !match) {
+					gint result = 0;
+					gchar *pattern=NULL;
+					
+					pattern = g_strdup_printf ("*%s",(gchar *) extentions->data);
+					result = fnmatch(pattern, str, 0 );
+
+					if (!result) {
+						match = TRUE;
+						extentions = g_list_next (extentions);
+						break;
+					}
+
+					/* g_print("%s vs %s gives %d\n",str, pattern, result); */
+					extentions = g_list_next(extentions);
+			    	}
+
+				extentions = g_list_first(extentions);
+				
+				if (match)
+					files_list = g_list_prepend(files_list, (gpointer) str);
 			}
          }
       }
+
       closedir(dir_file);
 
       dirs_list = g_list_sort(dirs_list, (GCompareFunc)dir_compare_func);
@@ -439,6 +737,7 @@ static void gnome_filelist_get_dirs(GnomeFileList *file_list)
    }
    gtk_clist_thaw(GTK_CLIST(file_list->directory_list));
    gtk_clist_thaw(GTK_CLIST(file_list->file_list));
+  
 }
 
 
@@ -1128,6 +1427,101 @@ static void rename_file(GtkWidget *widget, GnomeFileList *file_list)
    file_list->entry_text = NULL;
    g_free(string);
    g_free(full);
+}
+
+static void create_dir(GtkWidget *widget, GnomeFileList *file_list) 
+{  
+  GtkWidget *vbox1;
+  GtkWidget *label;
+  GtkWidget *hseparator1;
+  GtkWidget *hbox1;
+  GtkWidget *util_box;
+  GtkWidget *okbutton;
+  GtkWidget *cancelbutton;
+  /* The window and the entry are in the _GnomeFileList struct */  
+	
+  file_list->createdir_window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+  gtk_window_set_title (GTK_WINDOW (file_list->createdir_window), _("New folder"));
+
+  vbox1 = gtk_vbox_new (FALSE, 6);  
+	
+  gtk_widget_show (vbox1);
+  gtk_container_add (GTK_CONTAINER (file_list->createdir_window), vbox1);
+  gtk_container_set_border_width (GTK_CONTAINER (vbox1), 4);
+
+  label = gtk_label_new (_("Folder name:"));
+  gtk_label_set_justify (GTK_LABEL (label), GTK_JUSTIFY_LEFT);
+  gtk_misc_set_alignment (GTK_MISC (label), 0, 0); 
+  gtk_box_pack_start (GTK_BOX (vbox1), label, FALSE, FALSE, 0);
+  gtk_widget_show (label);
+
+  
+  file_list->createdir_entry = gtk_entry_new ();
+  gtk_widget_show (file_list->createdir_entry);
+  gtk_box_pack_start (GTK_BOX (vbox1), file_list->createdir_entry, FALSE, FALSE, 0);
+
+  hseparator1 = gtk_hseparator_new ();
+  gtk_widget_ref (hseparator1);
+  gtk_widget_show (hseparator1);
+  gtk_box_pack_start (GTK_BOX (vbox1), hseparator1, TRUE, TRUE, 14);
+
+  hbox1 = gtk_hbox_new (FALSE, 0);
+  gtk_widget_show (hbox1);
+  gtk_box_pack_start (GTK_BOX (vbox1), hbox1, TRUE, TRUE, 0);
+
+
+  util_box = gtk_hbutton_box_new();
+  gtk_box_pack_start(GTK_BOX(hbox1), util_box, FALSE, TRUE, 14);  
+  gtk_button_box_set_layout(GTK_BUTTON_BOX(util_box), gnome_preferences_get_button_layout());
+  gtk_button_box_set_spacing(GTK_BUTTON_BOX(util_box), GNOME_PAD);
+  gtk_widget_show(util_box);
+
+  okbutton = gnome_stock_button(GNOME_STOCK_BUTTON_OK);
+  gtk_box_pack_start(GTK_BOX(util_box), okbutton, FALSE, FALSE, 5);
+  GTK_WIDGET_SET_FLAGS(okbutton, GTK_CAN_DEFAULT);
+  gtk_widget_grab_default(okbutton);
+  gtk_widget_show(okbutton);
+
+  cancelbutton = gnome_stock_button(GNOME_STOCK_BUTTON_CANCEL);
+  gtk_box_pack_start(GTK_BOX(util_box), cancelbutton, FALSE, FALSE, 5);
+  GTK_WIDGET_SET_FLAGS(cancelbutton, GTK_CAN_DEFAULT);
+  gtk_widget_show(cancelbutton);   
+   
+  
+
+  gtk_signal_connect (GTK_OBJECT (okbutton), "clicked",
+                      GTK_SIGNAL_FUNC (create_dir_okbutton_cb),
+                      file_list);
+  gtk_signal_connect (GTK_OBJECT (cancelbutton), "clicked",
+                      GTK_SIGNAL_FUNC (create_dir_cancelbutton_cb),
+                      file_list);
+					  
+  gtk_window_set_wmclass (GTK_WINDOW (file_list->createdir_window), "createdir", "Anjuta");
+  gtk_widget_show(GTK_WIDGET(file_list->createdir_window));
+  gtk_widget_grab_focus (file_list->createdir_entry);
+	
+}
+
+static void create_dir_okbutton_cb(GtkWidget *button, GnomeFileList *file_list)
+{
+   gchar *text, *indir, *both, *string;
+   indir = gnome_filelist_get_path(file_list);
+   text = gtk_entry_get_text(GTK_ENTRY(file_list->createdir_entry));
+   both = g_strdup_printf("%s%s", indir, text);    
+   if (mkdir (both, (S_IRWXU | S_IRGRP | S_IROTH)) != 0) {
+	   gnome_dialog_run_and_close (GNOME_DIALOG (gnome_error_dialog (_("Creating folder failed."))));
+   } else {
+	   string = build_full_path(file_list->path, "");
+	   gnome_filelist_set_dir(file_list, string);
+	   g_free(string);
+	   gtk_widget_destroy(file_list->createdir_window);
+   }
+}
+
+static void create_dir_cancelbutton_cb(GtkWidget *button, GnomeFileList *file_list)
+{
+	gtk_widget_destroy(file_list->createdir_window);
+	
 }
 
 static void home_directory_cb (GtkButton * button, GnomeFileList *file_list)

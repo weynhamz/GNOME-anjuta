@@ -67,16 +67,12 @@
 // To debug it
 #define	SHOW_LOCALS_DEFAULT 	TRUE
 
-static void
-project_reload_session_files(ProjectDBase * p);
-static void
-project_dbase_save_session (ProjectDBase * p);
-static void
-project_dbase_reload_session (ProjectDBase * p);
-static void
-project_dbase_save_session_files (ProjectDBase * p);
-static void
-project_dbase_save_markers( ProjectDBase * p, TextEditor *te, const gint nItem );
+static void project_reload_session_files(ProjectDBase * p);
+static void project_dbase_save_session (ProjectDBase * p);
+static void project_dbase_reload_session (ProjectDBase * p);
+static void project_dbase_save_session_files (ProjectDBase * p);
+static void project_dbase_save_markers( ProjectDBase * p, TextEditor *te, const gint nItem );
+static void project_dbase_make_default_filetype_list(ProjectDBase * p);
 
 static const gchar szShowLocalsItem[] = { "ShowLocals" };
 
@@ -553,17 +549,34 @@ project_dbase_hide (ProjectDBase * p)
 	}
 }
 
+static void 
+project_dbase_make_default_filetype_list(ProjectDBase * p)
+{
+    GList *ftypes=NULL;
+	GList *combolist=NULL;
+
+	p->fileselection_open = fileselection_clearfiletypes(p->fileselection_open);  
+	ftypes = fileselection_addtype_f(ftypes, _("Anjuta project files"), 1, "prj");
+	ftypes = fileselection_addtype(ftypes, _("All files"), NULL);
+	p->fileselection_open = fileselection_storetypes(p->fileselection_open, ftypes);
+	combolist = fileselection_getcombolist(p->fileselection_open, ftypes);	
+	fileselection_set_combolist(p->fileselection_open, combolist);
+}
+
 void
 project_dbase_open_project (ProjectDBase * p)
 {
 	gchar *all_projects_dir;
-
+	
+	project_dbase_make_default_filetype_list(p);
+	
 	all_projects_dir =
 		preferences_get (app->preferences, PROJECTS_DIRECTORY);
 	chdir (all_projects_dir);
 	
 	fileselection_set_dir (p->fileselection_open, all_projects_dir);
 	gtk_widget_show (p->fileselection_open);
+
 	g_free (all_projects_dir);
 }
 

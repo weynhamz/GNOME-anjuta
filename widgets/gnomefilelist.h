@@ -21,7 +21,16 @@
 #include <dirent.h>
 #include <sys/stat.h>
 #include <unistd.h>
+#include <fnmatch.h>
+#include <stdarg.h>
 
+
+
+#include "src/pixmaps.h"
+#include "src/resources.h"
+
+
+ 
 #ifndef GTK_FILELIST_H__
 #define GTK_FILELIST_H__
 #ifdef __cplusplus
@@ -34,8 +43,16 @@ extern "C" {
 #define GNOME_IS_FILELIST(obj) (GTK_CHECK_TYPE((obj), GNOME_TYPE_FILELIST))
 #define GNOME_IS_FILELIST_CLASS(klass) (GTK_CHECK_CLASS_TYPE((klass), GNOME_TYPE_FILELIST))
 
+typedef struct _GnomeFileListType GnomeFileListType;
 typedef struct _GnomeFileList GnomeFileList;
 typedef struct _GnomeFileListClass GnomeFileListClass;
+
+struct _GnomeFileListType {	
+	gchar *description;
+	GList *extentions;
+	gchar *pattern;
+};
+
 
 struct _GnomeFileList {
    GtkWindow window;
@@ -53,13 +70,25 @@ struct _GnomeFileList {
    GtkWidget *selection_entry;
    GtkWidget *ok_button;
    GtkWidget *cancel_button;
-	
+   GtkWidget *filetype_combo;
+   GtkWidget *createdir_button;
+   GtkWidget *createdir_window;
+   GtkWidget *createdir_entry;
+   GtkWidget *scrolled_window_dir;
+   GtkWidget *scrolled_window_file;
+
+   gfloat file_scrollbar_value;
+   gfloat dir_scrollbar_value;
+
    gboolean show_hidden;
    gchar *path;
    gchar *selected;
 //	GtkList *list;
    gint history_position;
    GList *history;
+      
+   GList *filetypes;
+   
    gint selected_row;
    GnomePixmap *folder;
    GnomePixmap *file;
@@ -92,7 +121,15 @@ gboolean gnome_filelist_set_dir(GnomeFileList *file_list, gchar *path);
 gboolean gnome_filelist_set_filename (GnomeFileList *file_list, gchar *fname);
 void gnome_filelist_set_show_hidden (GnomeFileList *file_list, gboolean show_hidden);
 void gnome_filelist_set_selection_mode (GnomeFileList *file_list, GtkSelectionMode mode);
-
+GList * gnome_filelisttype_makedefaultlist(GList *filetypes);
+GList * gnome_filelisttype_addtype(GList *filetypes, gchar *description, GList *extentions);
+GList * gnome_filelisttype_getextentions(GList *filetypes, gchar *description);
+GList * gnome_filelisttype_getdescriptions(GList *filetypes);
+GList * gnome_filelisttype_getcombolist(GList *filetypes);
+GList * gnome_filelisttype_clearfiletypes(GnomeFileList *file_list);
+GList * gnome_filelisttype_addtype_f(GList *filetypes, gchar *description, gint amount, ...);
+GnomeFileListType * gnome_filelisttype_getfiletype(GnomeFileList *file_list, gchar *description);
+void gnome_filelist_set_combolist(GnomeFileList *file_list, GList *combolist);
 #ifdef __cplusplus /* cpp compatibility */
 }
 #endif

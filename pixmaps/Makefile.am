@@ -92,6 +92,7 @@ anjuta_pixmaps_DATA = \
 	mini_locals.xpm\
 	mini_term.xpm\
 	new_file.xpm\
+	new_folder.xpm\
 	open_file.xpm\
 	open_project.xpm\
 	paste.xpm\

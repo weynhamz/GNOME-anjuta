@@ -96,8 +96,15 @@ create_fileselection_gui (FileSelData * fsd)
 		last_dir = g_new(char, PATH_MAX);
 		getcwd(last_dir, PATH_MAX);
 	}
+
 	fileselection_gui = gnome_filelist_new_with_path(last_dir);
 	gnome_filelist_set_title (GNOME_FILELIST(fileselection_gui), _(fsd->title));
+
+	/* FIXME: we really need a boolean here */
+	if (strcmp (fsd->title, _("Save")) && strcmp (fsd->title, _("Save As")))
+		gtk_widget_hide(GNOME_FILELIST (fileselection_gui)->createdir_button);
+	else
+		gtk_widget_show(GNOME_FILELIST (fileselection_gui)->createdir_button);
 	gtk_container_set_border_width (GTK_CONTAINER (fileselection_gui), 10);
 	gtk_window_set_position (GTK_WINDOW (fileselection_gui), GTK_WIN_POS_CENTER);
 	gtk_window_set_wmclass (GTK_WINDOW (fileselection_gui), "filesel", "Anjuta");
@@ -194,4 +201,65 @@ fileselection_set_filename (GtkWidget* filesel, gchar* fname)
 	}
 
 	return gnome_filelist_set_filename (GNOME_FILELIST(filesel), fname);
+}
+
+GtkWidget * 
+fileselection_storetypes(GtkWidget* filesel, GList *filetypes)
+{
+	GnomeFileList *file_list=GNOME_FILELIST(filesel);
+	file_list->filetypes = filetypes;
+	return GTK_WIDGET(file_list);
+}
+
+GList * 
+fileselection_addtype(GList *filetypes, gchar *description, GList *extentions)
+{
+	GList *ftypes = filetypes;	
+	ftypes = gnome_filelisttype_addtype(ftypes, description, extentions);	
+	return ftypes;
+}
+
+GList * 
+fileselection_addtype_f(GList *filetypes, gchar *description, gint amount, ...)
+{	
+   GList *exts=NULL;
+   gchar *ext;
+   gint i=0;
+   GList *ftypes = filetypes;
+   va_list ap;
+	  
+   va_start (ap, amount);
+   while ((ext = g_strdup(va_arg(ap, gchar *)))&&(i<amount)) {
+	    i++;
+	    exts = g_list_append(exts, ext);
+   }
+
+   va_end(ap);
+	
+   ftypes = fileselection_addtype(ftypes, description, exts);
+   
+   return ftypes;
+
+}
+
+GList * 
+fileselection_getcombolist(GtkWidget * filesel, GList *filetypes)
+{
+	GList *combolist;
+	combolist = gnome_filelisttype_getcombolist(filetypes);
+	return combolist;
+}
+
+void 
+fileselection_set_combolist(GtkWidget* filesel, GList *combolist)
+{
+	gnome_filelist_set_combolist(GNOME_FILELIST(filesel), combolist);
+}
+
+GtkWidget*
+fileselection_clearfiletypes(GtkWidget* filesel)
+{
+	GnomeFileList *file_list=GNOME_FILELIST(filesel);	
+	file_list->filetypes = gnome_filelisttype_clearfiletypes(file_list);	
+	return GTK_WIDGET(file_list);
 }
