@@ -44,5 +44,4 @@ template_LDADD = \
 	$(top_builddir)/libegg/treeviewutils/libegg-treeview.a\
 	$(top_builddir)/libegg/toolbar/libegg-toolbar.a\
 	$(top_builddir)/libegg/menu/libegg-menu.a\
-	$(top_builddir)/libegg/util/libeggutil.a\
-	$(LEXER_OBJS)
+	$(top_builddir)/libegg/util/libeggutil.a
