@@ -4,6 +4,7 @@
 	call instead of running 'tty' externally.
 	
 	* data/properties/cs.properties: Added compile/build commands.
+	Fixed execution properties.
 	
 	* src/commands.c: Added c# options.
 
