@@ -14,6 +14,13 @@
 
 </para>
 
+<!-- ##### ENUM IAnjutaEditorError ##### -->
+<para>
+
+</para>
+
+@IANJUTA_EDITOR_DOESNT_EXIST: 
+
 <!-- ##### MACRO IANJUTA_EDITOR_ERROR ##### -->
 <para>
 
@@ -33,11 +40,9 @@
 </para>
 
 @g_iface: 
-@save_point: 
-@get_selection: 
-@get_filename: 
-@get_text: 
 @get_attributes: 
+@get_selection: 
+@get_text: 
 @goto_line: 
 
 <!-- ##### FUNCTION ianjuta_editor_error_quark ##### -->
@@ -48,33 +53,31 @@
 @Returns: 
 
 
+<!-- ##### FUNCTION ianjuta_editor_get_attributes ##### -->
+<para>
+
+</para>
+
+@obj: 
+@start: 
+@end: 
+@err: 
+@Returns: 
+<!-- # Unused Parameters # -->
+@editor: 
+@e: 
+
+
 <!-- ##### FUNCTION ianjuta_editor_get_selection ##### -->
 <para>
 
 </para>
 
-@editor: 
-@e: 
+@obj: 
+@err: 
 @Returns: 
-
-
-<!-- ##### FUNCTION ianjuta_editor_get_filename ##### -->
-<para>
-
-</para>
-
+<!-- # Unused Parameters # -->
 @editor: 
-@e: 
-@Returns: 
-
-
-<!-- ##### FUNCTION ianjuta_editor_goto_line ##### -->
-<para>
-
-</para>
-
-@editor: 
-@lineno: 
 @e: 
 
 
@@ -83,22 +86,26 @@
 
 </para>
 
-@editor: 
+@obj: 
 @start: 
 @end: 
-@e: 
+@err: 
 @Returns: 
+<!-- # Unused Parameters # -->
+@editor: 
+@e: 
 
 
-<!-- ##### FUNCTION ianjuta_editor_get_attributes ##### -->
+<!-- ##### FUNCTION ianjuta_editor_goto_line ##### -->
 <para>
 
 </para>
 
+@obj: 
+@lineno: 
+@err: 
+<!-- # Unused Parameters # -->
 @editor: 
-@start: 
-@end: 
 @e: 
-@Returns: 
 
 

@@ -1,0 +1,66 @@
+<!-- ##### SECTION Title ##### -->
+ianjuta-file
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### MACRO IANJUTA_FILE_ERROR ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### STRUCT IAnjutaFile ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### STRUCT IAnjutaFileIface ##### -->
+<para>
+
+</para>
+
+@g_iface: 
+@get_filename: 
+@open: 
+
+<!-- ##### FUNCTION ianjuta_file_error_quark ##### -->
+<para>
+
+</para>
+
+@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_file_get_filename ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_file_open ##### -->
+<para>
+
+</para>
+
+@obj: 
+@filename: 
+@err: 
+
+

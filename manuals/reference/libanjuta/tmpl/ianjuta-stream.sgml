@@ -1,0 +1,55 @@
+<!-- ##### SECTION Title ##### -->
+ianjuta-stream
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### MACRO IANJUTA_STREAM_ERROR ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### STRUCT IAnjutaStream ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### STRUCT IAnjutaStreamIface ##### -->
+<para>
+
+</para>
+
+@g_iface: 
+@open: 
+
+<!-- ##### FUNCTION ianjuta_stream_error_quark ##### -->
+<para>
+
+</para>
+
+@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_stream_open ##### -->
+<para>
+
+</para>
+
+@obj: 
+@stream: 
+@err: 
+
+

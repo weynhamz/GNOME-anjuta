@@ -1,0 +1,69 @@
+<!-- ##### SECTION Title ##### -->
+ianjuta-file-loader
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### MACRO IANJUTA_FILE_LOADER_ERROR ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### STRUCT IAnjutaFileLoader ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### STRUCT IAnjutaFileLoaderIface ##### -->
+<para>
+
+</para>
+
+@g_iface: 
+@load: 
+@peek_interface: 
+
+<!-- ##### FUNCTION ianjuta_file_loader_error_quark ##### -->
+<para>
+
+</para>
+
+@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_file_loader_load ##### -->
+<para>
+
+</para>
+
+@obj: 
+@filename: 
+@readonly: 
+@err: 
+@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_file_loader_peek_interface ##### -->
+<para>
+
+</para>
+
+@obj: 
+@filename: 
+@err: 
+@Returns: 
+
+

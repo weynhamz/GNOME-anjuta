@@ -242,17 +242,7 @@ else
 </para>
 
 
-<!-- ##### ARG AnjutaPlugin:prefs ##### -->
-<para>
-
-</para>
-
 <!-- ##### ARG AnjutaPlugin:shell ##### -->
-<para>
-
-</para>
-
-<!-- ##### ARG AnjutaPlugin:ui ##### -->
 <para>
 
 </para>
@@ -282,6 +272,33 @@ else
 <!-- # Unused Parameters # -->
 @data: 
 @tool: 
+
+
+<!-- ##### FUNCTION anjuta_plugin_is_active ##### -->
+<para>
+
+</para>
+
+@plugin: 
+@Returns: 
+
+
+<!-- ##### FUNCTION anjuta_plugin_activate ##### -->
+<para>
+
+</para>
+
+@plugin: 
+@Returns: 
+
+
+<!-- ##### FUNCTION anjuta_plugin_deactivate ##### -->
+<para>
+
+</para>
+
+@plugin: 
+@Returns: 
 
 
 <!-- ##### FUNCTION anjuta_plugin_add_watch ##### -->

@@ -79,12 +79,6 @@ struct _AnjutaPlugin {
 	/* The shell in which the plugin has been added */
 	AnjutaShell *shell;
 	
-	/* UI manager */
-	AnjutaUI *ui;
-	
-	/* Preferences system  */
-	AnjutaPreferences *prefs;
-	
 	/*< private >*/
 	AnjutaPluginPrivate *priv;
 };
@@ -93,11 +87,17 @@ struct _AnjutaPluginClass {
 	GObjectClass parent_class;
 
 	/* Virtual functions */
-	void (*activate) (AnjutaPlugin *plugin);
+	gboolean (*activate) (AnjutaPlugin *plugin);
 	gboolean (*deactivate) (AnjutaPlugin *plugin);
 };
 
 GType anjuta_plugin_get_type   (void);
+
+gboolean anjuta_plugin_activate (AnjutaPlugin *plugin);
+
+gboolean anjuta_plugin_deactivate (AnjutaPlugin *plugin);
+
+gboolean anjuta_plugin_is_active (AnjutaPlugin *plugin);
 
 guint anjuta_plugin_add_watch (AnjutaPlugin *plugin, 
 							   const gchar *name,

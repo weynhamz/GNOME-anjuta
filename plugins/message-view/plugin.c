@@ -63,17 +63,20 @@ static GtkActionEntry actions_view[] = {
 
 gpointer parent_class;
 
-static void
+static gboolean
 activate_plugin (AnjutaPlugin *plugin)
 {
 	AnjutaUI *ui;
+	AnjutaPreferences *prefs;
 	MessageViewPlugin *mv_plugin;
 	GtkWidget* msgman;
 	
 	g_message ("MessageViewPlugin: Activating MessageView plugin ...");
 	mv_plugin = (MessageViewPlugin*) plugin;
-	ui = plugin->ui;
-	msgman = anjuta_msgman_new(plugin->prefs);
+	
+	ui = anjuta_shell_get_ui (plugin->shell, NULL);
+	prefs = anjuta_shell_get_preferences (plugin->shell, NULL);
+	msgman = anjuta_msgman_new(prefs);
 	mv_plugin->msgman = msgman;
 	
 	anjuta_ui_add_action_group_entries (ui, "ActionGroupGotoMessages",
@@ -85,18 +88,21 @@ activate_plugin (AnjutaPlugin *plugin)
 										actions_view,
 										G_N_ELEMENTS (actions_view), plugin);
 	
-	mv_plugin->uiid = anjuta_ui_merge (plugin->ui, UI_FILE);
+	mv_plugin->uiid = anjuta_ui_merge (ui, UI_FILE);
 	anjuta_shell_add_widget (plugin->shell, msgman,
-				  "AnjutaMessageView", _("Messages"), NULL);
+							 "AnjutaMessageView", _("Messages"),
+							 ANJUTA_SHELL_PLACEMENT_BOTTOM, NULL);
+	return TRUE;
 }
 
 static gboolean
 deactivate_plugin (AnjutaPlugin *plugin)
 {
+	AnjutaUI *ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	g_message ("MessageViewPlugin: Dectivating message view plugin ...");
 	anjuta_shell_remove_widget (plugin->shell,
 								((MessageViewPlugin*)plugin)->msgman, NULL);
-	anjuta_ui_unmerge (plugin->ui, ((MessageViewPlugin*)plugin)->uiid);
+	anjuta_ui_unmerge (ui, ((MessageViewPlugin*)plugin)->uiid);
 	return TRUE;
 }
 

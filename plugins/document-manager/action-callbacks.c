@@ -248,7 +248,7 @@ anjuta_print_cb (GtkAction *action, gpointer user_data)
 	te = anjuta_docman_get_current_editor (docman);
 	if (te == NULL)
 		return;
-	anjuta_print (FALSE, ANJUTA_PLUGIN (plugin)->prefs, te);
+	anjuta_print (FALSE, plugin->prefs, te);
 }
 
 void
@@ -263,7 +263,7 @@ anjuta_print_preview_cb (GtkAction * action, gpointer user_data)
 	te = anjuta_docman_get_current_editor (docman);
 	if (te == NULL)
 		return;
-	anjuta_print (TRUE, ANJUTA_PLUGIN (plugin)->prefs, te);
+	anjuta_print (TRUE, plugin->prefs, te);
 }
 
 static void
@@ -901,10 +901,8 @@ void
 on_goto_activate (GtkAction *action, gpointer user_data)
 {
 	EditorPlugin *plugin;
-	AnjutaUI *ui;
 	plugin = (EditorPlugin *) user_data;
-	ui = ANJUTA_UI (ANJUTA_PLUGIN (plugin)->ui);
-	anjuta_ui_activate_action_by_path (ui,
+	anjuta_ui_activate_action_by_path (plugin->ui,
 		"ActionGroupNavigation/ActionEditGotoLineEntry");
 }
 
@@ -1012,7 +1010,7 @@ on_editor_linenos1_activate (GtkAction * action, gpointer user_data)
 	editors = anjuta_docman_get_all_editors (docman);
 	
 	state = gtk_toggle_action_get_active (GTK_TOGGLE_ACTION (action));
-	anjuta_preferences_set_int (ANJUTA_PREFERENCES (ANJUTA_PLUGIN(plugin)->prefs),
+	anjuta_preferences_set_int (plugin->prefs,
 								"margin.linenumber.visible", state);
 	node = editors;
 	while (node)
@@ -1038,7 +1036,7 @@ on_editor_markers1_activate (GtkAction * action, gpointer user_data)
 	
 	state = gtk_toggle_action_get_active (GTK_TOGGLE_ACTION (action));
 
-	anjuta_preferences_set_int (ANJUTA_PREFERENCES (ANJUTA_PLUGIN(plugin)->prefs),
+	anjuta_preferences_set_int (plugin->prefs,
 								"margin.marker.visible", state);
 	node = editors;
 	while (node)
@@ -1063,7 +1061,7 @@ on_editor_codefold1_activate (GtkAction * action, gpointer user_data)
 	editors = anjuta_docman_get_all_editors (docman);
 	
 	state = gtk_toggle_action_get_active (GTK_TOGGLE_ACTION (action));
-	anjuta_preferences_set_int (ANJUTA_PREFERENCES (ANJUTA_PLUGIN(plugin)->prefs),
+	anjuta_preferences_set_int (plugin->prefs,
 								"margin.fold.visible", state);
 	node = editors;
 	while (node)
@@ -1088,7 +1086,7 @@ on_editor_indentguides1_activate (GtkAction * action, gpointer user_data)
 	editors = anjuta_docman_get_all_editors (docman);
 	
 	state = gtk_toggle_action_get_active (GTK_TOGGLE_ACTION (action));
-	anjuta_preferences_set_int (ANJUTA_PREFERENCES (ANJUTA_PLUGIN(plugin)->prefs),
+	anjuta_preferences_set_int (plugin->prefs,
 								"view.indentation.guides", state);
 	node = editors;
 	while (node)
@@ -1113,7 +1111,7 @@ on_editor_whitespaces1_activate (GtkAction * action, gpointer user_data)
 	editors = anjuta_docman_get_all_editors (docman);
 	
 	state = gtk_toggle_action_get_active (GTK_TOGGLE_ACTION (action));
-	anjuta_preferences_set_int (ANJUTA_PREFERENCES (ANJUTA_PLUGIN(plugin)->prefs),
+	anjuta_preferences_set_int (plugin->prefs,
 								"view.whitespace", state);
 	node = editors;
 	while (node)
@@ -1138,7 +1136,7 @@ on_editor_eolchars1_activate (GtkAction * action, gpointer user_data)
 	editors = anjuta_docman_get_all_editors (docman);
 	
 	state = gtk_toggle_action_get_active (GTK_TOGGLE_ACTION (action));
-	anjuta_preferences_set_int (ANJUTA_PREFERENCES (ANJUTA_PLUGIN(plugin)->prefs),
+	anjuta_preferences_set_int (plugin->prefs,
 								"view.eol", state);
 	node = editors;
 	while (node)
@@ -1163,7 +1161,7 @@ on_editor_linewrap1_activate (GtkAction * action, gpointer user_data)
 	editors = anjuta_docman_get_all_editors (docman);
 	
 	state = gtk_toggle_action_get_active (GTK_TOGGLE_ACTION (action));
-	anjuta_preferences_set_int (ANJUTA_PREFERENCES (ANJUTA_PLUGIN(plugin)->prefs),
+	anjuta_preferences_set_int (plugin->prefs,
 								"view.line.wrap", state);
 	node = editors;
 	while (node)
@@ -1179,22 +1177,17 @@ on_editor_linewrap1_activate (GtkAction * action, gpointer user_data)
 
 static void
 on_zoom_text_activate (GtkAction * action, const gchar *zoom_text,
-					   gpointer user_data)
+					   EditorPlugin *plugin)
 {
-	AnjutaPlugin *plugin;
-	AnjutaPreferences *p;
 	gint zoom;
 	gchar buf[20];
-	
-	plugin = (AnjutaPlugin *) user_data;
-	p = ANJUTA_PREFERENCES (plugin->prefs);
 	
 	if (!zoom_text)
 		zoom = 0;
 	else if (0 == strncmp(zoom_text, "++", 2))
-		zoom = prop_get_int(p->props, TEXT_ZOOM_FACTOR, 0) + 2;
+		zoom = prop_get_int(plugin->prefs->props, TEXT_ZOOM_FACTOR, 0) + 2;
 	else if (0 == strncmp(zoom_text, "--", 2))
-		zoom = prop_get_int(p->props, TEXT_ZOOM_FACTOR, 0) - 2;
+		zoom = prop_get_int(plugin->prefs->props, TEXT_ZOOM_FACTOR, 0) - 2;
 	else
 		zoom = atoi(zoom_text);
 	if (zoom > MAX_ZOOM_FACTOR)
@@ -1202,7 +1195,7 @@ on_zoom_text_activate (GtkAction * action, const gchar *zoom_text,
 	else if (zoom < MIN_ZOOM_FACTOR)
 		zoom = MIN_ZOOM_FACTOR;
 	g_snprintf(buf, 20, "%d", zoom);
-	prop_set_with_key (p->props, TEXT_ZOOM_FACTOR, buf);
+	prop_set_with_key (plugin->prefs->props, TEXT_ZOOM_FACTOR, buf);
 	// FIXME: anjuta_docman_set_zoom_factor(zoom);
 }
 
@@ -1402,17 +1395,15 @@ void
 on_enterselection (GtkAction * action, gpointer user_data)
 {
 	AnjutaDocman *docman;
-	AnjutaUI *ui;
 	EditorPlugin *plugin;
 	GtkAction *entry_action;
 	
 	plugin = (EditorPlugin *) user_data;
 	docman = ANJUTA_DOCMAN (plugin->docman);
-	ui = ANJUTA_UI(ANJUTA_PLUGIN (plugin)->ui);
 	
 	// FIXME: enter_selection_as_search_target();
 	
-	entry_action = anjuta_ui_get_action (ui, "ActionNavigation",
+	entry_action = anjuta_ui_get_action (plugin->ui, "ActionNavigation",
 								   "ActionEditSearchEntry");
 	g_return_if_fail (EGG_IS_ENTRY_ACTION (entry_action));
 	// line_ascii = egg_entry_action_get_text (EGG_ENTRY_ACTION (action));
@@ -1424,7 +1415,7 @@ on_format_indent_style_clicked (GtkAction * action, gpointer user_data)
 {
 	EditorPlugin *plugin;
 	plugin = (EditorPlugin *) user_data;
-	gtk_signal_emit_by_name (GTK_OBJECT (ANJUTA_PLUGIN (plugin)->prefs),
+	gtk_signal_emit_by_name (GTK_OBJECT (plugin->prefs),
 										 "activate");
 }
 
@@ -1435,13 +1426,11 @@ on_toolbar_find_incremental_start (GtkAction *action, gpointer user_data)
 	// const gchar *string1;
 	TextEditor *te;
 	AnjutaDocman *docman;
-	AnjutaUI *ui;
 	EditorPlugin *plugin;
 	// EggEntryAction *entry_action;
 	
 	plugin = (EditorPlugin *) user_data;
 	docman = ANJUTA_DOCMAN (plugin->docman);
-	ui = ANJUTA_UI(ANJUTA_PLUGIN (plugin)->ui);
 	te = anjuta_docman_get_current_editor (docman);
 
 	if (!te) return FALSE;
@@ -1574,13 +1563,11 @@ on_toolbar_find_clicked (GtkAction * action, gpointer user_data)
 	// gint ret;
 	TextEditor *te;
 	AnjutaDocman *docman;
-	AnjutaUI *ui;
 	EditorPlugin *plugin;
 	// gboolean search_wrap = FALSE;
 	
 	plugin = (EditorPlugin *) user_data;
 	docman = ANJUTA_DOCMAN (plugin->docman);
-	ui = ANJUTA_PLUGIN (plugin)->ui;
 	
 	te = anjuta_docman_get_current_editor (docman);
 	if (!te)
@@ -1593,7 +1580,7 @@ on_toolbar_find_clicked (GtkAction * action, gpointer user_data)
 	else
 	{
 		GtkAction *entry_action;
-		entry_action = anjuta_ui_get_action (ui, "ActionGroupNavigation",
+		entry_action = anjuta_ui_get_action (plugin->ui, "ActionGroupNavigation",
 									   "ActionEditSearchEntry");
 		g_return_if_fail (EGG_IS_ENTRY_ACTION (action));
 		string = egg_entry_action_get_text (EGG_ENTRY_ACTION (action));

@@ -1,4 +1,4 @@
-  <chapter id="plugin-descrition-file">
+  <chapter id="plugin-description-file">
     <title>Plugin description file</title>
 	<para>
 		Plugin meta-data is a <emphasis>.plugin</emphasis> file that

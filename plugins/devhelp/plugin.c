@@ -28,6 +28,8 @@
 #include <devhelp/dh-base.h>
 
 #include <libanjuta/anjuta-shell.h>
+#include <libanjuta/interfaces/ianjuta-help.h>
+
 #include "plugin.h"
 
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-devhelp.ui"
@@ -148,7 +150,7 @@ forward_exists_changed_cb (DhHistory *history,
 */
 }
 
-static void
+static gboolean
 activate_plugin (AnjutaPlugin *plugin)
 {
 	AnjutaUI *ui;
@@ -157,7 +159,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	
 	g_message ("DevhelpPlugin: Activating Devhelp plugin ...");
 	devhelp_plugin = (DevhelpPlugin*) plugin;
-	ui = plugin->ui;
+	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	priv = devhelp_plugin->priv;
 	
 	/* Add all our editor actions */
@@ -166,21 +168,25 @@ activate_plugin (AnjutaPlugin *plugin)
 										actions,
 										G_N_ELEMENTS (actions),
 										devhelp_plugin);
-	devhelp_plugin->uiid = anjuta_ui_merge (plugin->ui, UI_FILE);
+	devhelp_plugin->uiid = anjuta_ui_merge (ui, UI_FILE);
 	
 	anjuta_shell_add_widget (plugin->shell, priv->notebook,
-				  "AnjutaDevhelpIndex", _("Help"), NULL);
+							 "AnjutaDevhelpIndex", _("Help"),
+							 ANJUTA_SHELL_PLACEMENT_LEFT, NULL);
 	anjuta_shell_add_widget (plugin->shell, priv->browser_frame,
-				  "AnjutaDevhelpDisplay", _("Help display"), NULL);
+							 "AnjutaDevhelpDisplay", _("Help display"),
+							 ANJUTA_SHELL_PLACEMENT_CENTER, NULL);
+	return TRUE;
 }
 
 static gboolean
 deactivate_plugin (AnjutaPlugin *plugin)
 {
+	AnjutaUI *ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	g_message ("DevhelpPlugin: Dectivating Devhelp plugin ...");
 	anjuta_shell_remove_widget (plugin->shell, ((DevhelpPlugin*)plugin)->priv->browser_frame, NULL);
 	anjuta_shell_remove_widget (plugin->shell, ((DevhelpPlugin*)plugin)->priv->notebook, NULL);
-	anjuta_ui_unmerge (plugin->ui, ((DevhelpPlugin*)plugin)->uiid);
+	anjuta_ui_unmerge (ui, ((DevhelpPlugin*)plugin)->uiid);
 	return TRUE;
 }
 
@@ -286,5 +292,20 @@ devhelp_plugin_class_init (GObjectClass *klass)
 	klass->dispose = dispose;
 }
 
-ANJUTA_PLUGIN_BOILERPLATE (DevhelpPlugin, devhelp_plugin);
+static void
+ihelp_search (IAnjutaHelp *help, const gchar *query, GError **err)
+{
+
+}
+
+static void
+ihelp_iface_init(IAnjutaHelpIface *iface)
+{
+	iface->search = ihelp_search;
+}
+
+ANJUTA_PLUGIN_BEGIN (DevhelpPlugin, devhelp_plugin);
+ANJUTA_INTERFACE (ihelp, IANJUTA_TYPE_HELP);
+ANJUTA_PLUGIN_END;
+
 ANJUTA_SIMPLE_PLUGIN (DevhelpPlugin, devhelp_plugin);

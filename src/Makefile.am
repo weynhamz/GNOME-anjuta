@@ -200,6 +200,7 @@ anjuta_SOURCES = \
 anjuta_LDADD =  \
 	$(ANJUTA_LIBS) -lutil\
 	$(PCRE_LIBS)\
+	$(top_builddir)/libanjuta/libanjuta.la\
 	$(top_builddir)/tagmanager/libanjuta-ctags.la\
 	$(top_builddir)/libanjuta/libanjuta.la\
 	$(top_builddir)/scintilla/libanjuta-scintilla.la

@@ -1,5 +1,5 @@
-/* AnjutaPluginParser - a parser of icon-plugin files
- * anjuta-plugin-parser.c Copyright (C) 2002 Red Hat, Inc.
+/* AnjutaPluginDescription - Plugin meta data
+ * anjuta-plugin-description.c Copyright (C) 2002 Red Hat, Inc.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -21,32 +21,32 @@
 #include <locale.h>
 #include <stdlib.h>
 
-#include <libanjuta/anjuta-plugin-parser.h>
+#include <libanjuta/anjuta-plugin-description.h>
 
-typedef struct _AnjutaPluginFileSection AnjutaPluginFileSection;
-typedef struct _AnjutaPluginFileLine AnjutaPluginFileLine;
-typedef struct _AnjutaPluginFileParser AnjutaPluginFileParser;
+typedef struct _AnjutaPluginDescriptionSection AnjutaPluginDescriptionSection;
+typedef struct _AnjutaPluginDescriptionLine AnjutaPluginDescriptionLine;
+typedef struct _AnjutaPluginDescriptionParser AnjutaPluginDescriptionParser;
 
-struct _AnjutaPluginFileSection {
+struct _AnjutaPluginDescriptionSection {
   GQuark section_name; /* 0 means just a comment block (before any section) */
   gint n_lines;
-  AnjutaPluginFileLine *lines;
+  AnjutaPluginDescriptionLine *lines;
 };
 
-struct _AnjutaPluginFileLine {
+struct _AnjutaPluginDescriptionLine {
   GQuark key; /* 0 means comment or blank line in value */
   char *locale;
   gchar *value;
 };
 
-struct _AnjutaPluginFile {
+struct _AnjutaPluginDescription {
   gint n_sections;
-  AnjutaPluginFileSection *sections;
+  AnjutaPluginDescriptionSection *sections;
   char *current_locale[2];
 };
 
-struct _AnjutaPluginFileParser {
-  AnjutaPluginFile *df;
+struct _AnjutaPluginDescriptionParser {
+  AnjutaPluginDescription *df;
   gint current_section;
   gint n_allocated_lines;
   gint n_allocated_sections;
@@ -75,22 +75,21 @@ guchar valid[256] = {
    0x0 , 0x0 , 0x0 , 0x0 , 0x0 , 0x0 , 0x0 , 0x0 , 0x0 , 0x0 , 0x0 , 0x0 , 0x0 , 0x0 , 0x0 , 0x0 , 
 };
 
-static void                     report_error   (AnjutaPluginFileParser   *parser,
-						char                     *message,
-						AnjutaPluginFileParseError    error_code,
-						GError                  **error);
-static AnjutaPluginFileSection *lookup_section (AnjutaPluginFile         *df,
-					      const char               *section);
-static AnjutaPluginFileLine *   lookup_line    (AnjutaPluginFile         *df,
-					      AnjutaPluginFileSection  *section,
-					      const char               *keyname,
-					      const char               *locale);
+static void report_error (AnjutaPluginDescriptionParser *parser,
+						  char *message,
+						  AnjutaPluginDescriptionParseError    error_code,
+						  GError                  **error);
 
+static AnjutaPluginDescriptionSection *lookup_section (AnjutaPluginDescription *df,
+					      const char *section);
 
-
+static AnjutaPluginDescriptionLine *lookup_line (AnjutaPluginDescription *df,
+												 AnjutaPluginDescriptionSection *section,
+												 const char *keyname,
+												 const char *locale);
 
 GQuark
-anjuta_plugin_file_parse_error_quark (void)
+anjuta_plugin_description_parse_error_quark (void)
 {
   static GQuark quark;
   if (!quark)
@@ -100,36 +99,36 @@ anjuta_plugin_file_parse_error_quark (void)
 }
 
 static void
-parser_free (AnjutaPluginFileParser *parser)
+parser_free (AnjutaPluginDescriptionParser *parser)
 {
-  anjuta_plugin_file_free (parser->df);
+  anjuta_plugin_description_free (parser->df);
 }
 
 static void
-anjuta_plugin_file_line_free (AnjutaPluginFileLine *line)
+anjuta_plugin_description_line_free (AnjutaPluginDescriptionLine *line)
 {
   g_free (line->locale);
   g_free (line->value);
 }
 
 static void
-anjuta_plugin_file_section_free (AnjutaPluginFileSection *section)
+anjuta_plugin_description_section_free (AnjutaPluginDescriptionSection *section)
 {
   int i;
 
   for (i = 0; i < section->n_lines; i++)
-    anjuta_plugin_file_line_free (&section->lines[i]);
+    anjuta_plugin_description_line_free (&section->lines[i]);
   
   g_free (section->lines);
 }
 
 void
-anjuta_plugin_file_free (AnjutaPluginFile *df)
+anjuta_plugin_description_free (AnjutaPluginDescription *df)
 {
   int i;
 
   for (i = 0; i < df->n_sections; i++)
-    anjuta_plugin_file_section_free (&df->sections[i]);
+    anjuta_plugin_description_section_free (&df->sections[i]);
   g_free (df->sections);
   g_free (df->current_locale[0]);
   g_free (df->current_locale[1]);
@@ -138,10 +137,10 @@ anjuta_plugin_file_free (AnjutaPluginFile *df)
 }
 
 static void
-grow_lines (AnjutaPluginFileParser *parser)
+grow_lines (AnjutaPluginDescriptionParser *parser)
 {
   int new_n_lines;
-  AnjutaPluginFileSection *section;
+  AnjutaPluginDescriptionSection *section;
 
   if (parser->n_allocated_lines == 0)
     new_n_lines = 1;
@@ -151,12 +150,12 @@ grow_lines (AnjutaPluginFileParser *parser)
   section = &parser->df->sections[parser->current_section];
 
   section->lines = g_realloc (section->lines,
-			      sizeof (AnjutaPluginFileLine) * new_n_lines);
+			      sizeof (AnjutaPluginDescriptionLine) * new_n_lines);
   parser->n_allocated_lines = new_n_lines;
 }
 
 static void
-grow_sections (AnjutaPluginFileParser *parser)
+grow_sections (AnjutaPluginDescriptionParser *parser)
 {
   int new_n_sections;
 
@@ -166,7 +165,7 @@ grow_sections (AnjutaPluginFileParser *parser)
     new_n_sections = parser->n_allocated_sections*2;
 
   parser->df->sections = g_realloc (parser->df->sections,
-				    sizeof (AnjutaPluginFileSection) * new_n_sections);
+				    sizeof (AnjutaPluginDescriptionSection) * new_n_sections);
   parser->n_allocated_sections = new_n_sections;
 }
 
@@ -293,7 +292,7 @@ escape_string (const gchar *str, gboolean escape_first_space)
 
 
 static void 
-open_section (AnjutaPluginFileParser *parser,
+open_section (AnjutaPluginDescriptionParser *parser,
 	      const char           *name)
 {
   int n;
@@ -328,11 +327,11 @@ open_section (AnjutaPluginFileParser *parser,
   grow_lines (parser);
 }
 
-static AnjutaPluginFileLine *
-new_line (AnjutaPluginFileParser *parser)
+static AnjutaPluginDescriptionLine *
+new_line (AnjutaPluginDescriptionParser *parser)
 {
-  AnjutaPluginFileSection *section;
-  AnjutaPluginFileLine *line;
+  AnjutaPluginDescriptionSection *section;
+  AnjutaPluginDescriptionLine *line;
 
   section = &parser->df->sections[parser->current_section];
   
@@ -341,13 +340,13 @@ new_line (AnjutaPluginFileParser *parser)
 
   line = &section->lines[section->n_lines++];
 
-  memset (line, 0, sizeof (AnjutaPluginFileLine));
+  memset (line, 0, sizeof (AnjutaPluginDescriptionLine));
   
   return line;
 }
 
 static gboolean
-is_blank_line (AnjutaPluginFileParser *parser)
+is_blank_line (AnjutaPluginDescriptionParser *parser)
 {
   gchar *p;
 
@@ -364,9 +363,9 @@ is_blank_line (AnjutaPluginFileParser *parser)
 }
 
 static void
-parse_comment_or_blank (AnjutaPluginFileParser *parser)
+parse_comment_or_blank (AnjutaPluginDescriptionParser *parser)
 {
-  AnjutaPluginFileLine *line;
+  AnjutaPluginDescriptionLine *line;
   gchar *line_end;
 
   line_end = strchr (parser->line, '\n');
@@ -382,7 +381,7 @@ parse_comment_or_blank (AnjutaPluginFileParser *parser)
 }
 
 static gboolean
-parse_section_start (AnjutaPluginFileParser *parser, GError **error)
+parse_section_start (AnjutaPluginDescriptionParser *parser, GError **error)
 {
   gchar *line_end;
   gchar *section_name;
@@ -394,7 +393,7 @@ parse_section_start (AnjutaPluginFileParser *parser, GError **error)
   if (line_end - parser->line <= 2 ||
       line_end[-1] != ']')
     {
-      report_error (parser, "Invalid syntax for section header", ANJUTA_PLUGIN_FILE_PARSE_ERROR_INVALID_SYNTAX, error);
+      report_error (parser, "Invalid syntax for section header", ANJUTA_PLUGIN_DESCRIPTION_PARSE_ERROR_INVALID_SYNTAX, error);
       parser_free (parser);
       return FALSE;
     }
@@ -403,7 +402,7 @@ parse_section_start (AnjutaPluginFileParser *parser, GError **error)
 
   if (section_name == NULL)
     {
-      report_error (parser, "Invalid escaping in section name", ANJUTA_PLUGIN_FILE_PARSE_ERROR_INVALID_ESCAPES, error);
+      report_error (parser, "Invalid escaping in section name", ANJUTA_PLUGIN_DESCRIPTION_PARSE_ERROR_INVALID_ESCAPES, error);
       parser_free (parser);
       return FALSE;
     }
@@ -419,9 +418,9 @@ parse_section_start (AnjutaPluginFileParser *parser, GError **error)
 }
 
 static gboolean
-parse_key_value (AnjutaPluginFileParser *parser, GError **error)
+parse_key_value (AnjutaPluginDescriptionParser *parser, GError **error)
 {
-  AnjutaPluginFileLine *line;
+  AnjutaPluginDescriptionLine *line;
   gchar *line_end;
   gchar *key_start;
   gchar *key_end;
@@ -445,7 +444,7 @@ parse_key_value (AnjutaPluginFileParser *parser, GError **error)
 
   if (key_start == key_end)
     {
-      report_error (parser, "Empty key name", ANJUTA_PLUGIN_FILE_PARSE_ERROR_INVALID_SYNTAX, error);
+      report_error (parser, "Empty key name", ANJUTA_PLUGIN_DESCRIPTION_PARSE_ERROR_INVALID_SYNTAX, error);
       parser_free (parser);
       return FALSE;
     }
@@ -460,7 +459,7 @@ parse_key_value (AnjutaPluginFileParser *parser, GError **error)
 
       if (p == line_end)
 	{
-	  report_error (parser, "Unterminated locale specification in key", ANJUTA_PLUGIN_FILE_PARSE_ERROR_INVALID_SYNTAX, error);
+	  report_error (parser, "Unterminated locale specification in key", ANJUTA_PLUGIN_DESCRIPTION_PARSE_ERROR_INVALID_SYNTAX, error);
 	  parser_free (parser);
 	  return FALSE;
 	}
@@ -474,14 +473,14 @@ parse_key_value (AnjutaPluginFileParser *parser, GError **error)
 
   if (p < line_end && *p != '=')
     {
-      report_error (parser, "Invalid characters in key name", ANJUTA_PLUGIN_FILE_PARSE_ERROR_INVALID_CHARS, error);
+      report_error (parser, "Invalid characters in key name", ANJUTA_PLUGIN_DESCRIPTION_PARSE_ERROR_INVALID_CHARS, error);
       parser_free (parser);
       return FALSE;
     }
 
   if (p == line_end)
     {
-      report_error (parser, "No '=' in key/value pair", ANJUTA_PLUGIN_FILE_PARSE_ERROR_INVALID_SYNTAX, error);
+      report_error (parser, "No '=' in key/value pair", ANJUTA_PLUGIN_DESCRIPTION_PARSE_ERROR_INVALID_SYNTAX, error);
       parser_free (parser);
       return FALSE;
     }
@@ -498,7 +497,7 @@ parse_key_value (AnjutaPluginFileParser *parser, GError **error)
   value = unescape_string (value_start, line_end - value_start);
   if (value == NULL)
     {
-      report_error (parser, "Invalid escaping in value", ANJUTA_PLUGIN_FILE_PARSE_ERROR_INVALID_ESCAPES, error);
+      report_error (parser, "Invalid escaping in value", ANJUTA_PLUGIN_DESCRIPTION_PARSE_ERROR_INVALID_ESCAPES, error);
       parser_free (parser);
       return FALSE;
     }
@@ -519,12 +518,12 @@ parse_key_value (AnjutaPluginFileParser *parser, GError **error)
 
 
 static void
-report_error (AnjutaPluginFileParser *parser,
+report_error (AnjutaPluginDescriptionParser *parser,
 	      char                   *message,
-	      AnjutaPluginFileParseError  error_code,
+	      AnjutaPluginDescriptionParseError  error_code,
 	      GError                **error)
 {
-  AnjutaPluginFileSection *section;
+  AnjutaPluginDescriptionSection *section;
   const gchar *section_name = NULL;
 
   section = &parser->df->sections[parser->current_section];
@@ -535,24 +534,23 @@ report_error (AnjutaPluginFileParser *parser,
   if (error)
     {
       if (section_name)
-	*error = g_error_new (ANJUTA_PLUGIN_FILE_PARSE_ERROR,
+	*error = g_error_new (ANJUTA_PLUGIN_DESCRIPTION_PARSE_ERROR,
 			      error_code,
 			      "Error in section %s at line %d: %s", section_name, parser->line_nr, message);
       else
-	*error = g_error_new (ANJUTA_PLUGIN_FILE_PARSE_ERROR,
+	*error = g_error_new (ANJUTA_PLUGIN_DESCRIPTION_PARSE_ERROR,
 			      error_code,
 			      "Error at line %d: %s", parser->line_nr, message);
     }
 }
 
 
-AnjutaPluginFile *
-anjuta_plugin_file_new_from_string (char                       *data,
-				  GError                    **error)
+AnjutaPluginDescription *
+anjuta_plugin_description_new_from_string (char *data, GError **error)
 {
-  AnjutaPluginFileParser parser;
+  AnjutaPluginDescriptionParser parser;
 
-  parser.df = g_new0 (AnjutaPluginFile, 1);
+  parser.df = g_new0 (AnjutaPluginDescription, 1);
   parser.current_section = -1;
 
   parser.n_allocated_lines = 0;
@@ -583,10 +581,10 @@ anjuta_plugin_file_new_from_string (char                       *data,
 }
 
 char *
-anjuta_plugin_file_to_string (AnjutaPluginFile *df)
+anjuta_plugin_description_to_string (AnjutaPluginDescription *df)
 {
-  AnjutaPluginFileSection *section;
-  AnjutaPluginFileLine *line;
+  AnjutaPluginDescriptionSection *section;
+  AnjutaPluginDescriptionLine *line;
   GString *str;
   char *s;
   int i, j;
@@ -636,11 +634,11 @@ anjuta_plugin_file_to_string (AnjutaPluginFile *df)
   return g_string_free (str, FALSE);
 }
 
-static AnjutaPluginFileSection *
-lookup_section (AnjutaPluginFile  *df,
+static AnjutaPluginDescriptionSection *
+lookup_section (AnjutaPluginDescription  *df,
 		const char        *section_name)
 {
-  AnjutaPluginFileSection *section;
+  AnjutaPluginDescriptionSection *section;
   GQuark section_quark;
   int i;
 
@@ -658,13 +656,13 @@ lookup_section (AnjutaPluginFile  *df,
   return NULL;
 }
 
-static AnjutaPluginFileLine *
-lookup_line (AnjutaPluginFile        *df,
-	     AnjutaPluginFileSection *section,
+static AnjutaPluginDescriptionLine *
+lookup_line (AnjutaPluginDescription        *df,
+	     AnjutaPluginDescriptionSection *section,
 	     const char              *keyname,
 	     const char              *locale)
 {
-  AnjutaPluginFileLine *line;
+  AnjutaPluginDescriptionLine *line;
   GQuark key_quark;
   int i;
 
@@ -686,14 +684,14 @@ lookup_line (AnjutaPluginFile        *df,
 }
 
 gboolean
-anjuta_plugin_file_get_raw (AnjutaPluginFile  *df,
+anjuta_plugin_description_get_raw (AnjutaPluginDescription  *df,
 			    const char    *section_name,
 			    const char    *keyname,
 			    const char    *locale,
 			    char         **val)
 {
-  AnjutaPluginFileSection *section;
-  AnjutaPluginFileLine *line;
+  AnjutaPluginDescriptionSection *section;
+  AnjutaPluginDescriptionLine *line;
 
   *val = NULL;
 
@@ -716,11 +714,11 @@ anjuta_plugin_file_get_raw (AnjutaPluginFile  *df,
 
 
 void
-anjuta_plugin_file_foreach_section (AnjutaPluginFile            *df,
-				  AnjutaPluginFileSectionFunc  func,
+anjuta_plugin_description_foreach_section (AnjutaPluginDescription            *df,
+				  AnjutaPluginDescriptionSectionFunc  func,
 				  gpointer                     user_data)
 {
-  AnjutaPluginFileSection *section;
+  AnjutaPluginDescriptionSection *section;
   int i;
 
   for (i = 0; i < df->n_sections; i ++)
@@ -733,14 +731,14 @@ anjuta_plugin_file_foreach_section (AnjutaPluginFile            *df,
 }
 
 void
-anjuta_plugin_file_foreach_key (AnjutaPluginFile            *df,
+anjuta_plugin_description_foreach_key (AnjutaPluginDescription            *df,
 			      const char                  *section_name,
 			      gboolean                     include_localized,
-			      AnjutaPluginFileLineFunc     func,
+			      AnjutaPluginDescriptionLineFunc     func,
 			      gpointer                     user_data)
 {
-  AnjutaPluginFileSection *section;
-  AnjutaPluginFileLine *line;
+  AnjutaPluginDescriptionSection *section;
+  AnjutaPluginDescriptionLine *line;
   int i;
 
   section = lookup_section (df, section_name);
@@ -759,7 +757,7 @@ anjuta_plugin_file_foreach_key (AnjutaPluginFile            *df,
 
 
 static void
-calculate_locale (AnjutaPluginFile   *df)
+calculate_locale (AnjutaPluginDescription   *df)
 {
   char *p, *lang;
 
@@ -792,7 +790,7 @@ calculate_locale (AnjutaPluginFile   *df)
 }
 
 gboolean
-anjuta_plugin_file_get_locale_string  (AnjutaPluginFile  *df,
+anjuta_plugin_description_get_locale_string  (AnjutaPluginDescription  *df,
 				     const char      *section,
 				     const char      *keyname,
 				     char           **val)
@@ -804,7 +802,7 @@ anjuta_plugin_file_get_locale_string  (AnjutaPluginFile  *df,
 
   if  (df->current_locale[0] != NULL)
     {
-      res = anjuta_plugin_file_get_raw (df,section, keyname,
+      res = anjuta_plugin_description_get_raw (df,section, keyname,
 				      df->current_locale[0], val);
       if (res)
 	return TRUE;
@@ -812,26 +810,26 @@ anjuta_plugin_file_get_locale_string  (AnjutaPluginFile  *df,
   
   if  (df->current_locale[1] != NULL)
     {
-      res = anjuta_plugin_file_get_raw (df,section, keyname,
+      res = anjuta_plugin_description_get_raw (df,section, keyname,
 				      df->current_locale[1], val);
       if (res)
 	return TRUE;
     }
   
-  return anjuta_plugin_file_get_raw (df, section, keyname, NULL, val);
+  return anjuta_plugin_description_get_raw (df, section, keyname, NULL, val);
 }
 
 gboolean
-anjuta_plugin_file_get_string (AnjutaPluginFile   *df,
+anjuta_plugin_description_get_string (AnjutaPluginDescription   *df,
 			     const char       *section,
 			     const char       *keyname,
 			     char            **val)
 {
-  return anjuta_plugin_file_get_raw (df, section, keyname, NULL, val);
+  return anjuta_plugin_description_get_raw (df, section, keyname, NULL, val);
 }
 
 gboolean
-anjuta_plugin_file_get_integer (AnjutaPluginFile   *df,
+anjuta_plugin_description_get_integer (AnjutaPluginDescription   *df,
 			      const char       *section,
 			      const char       *keyname,
 			      int              *val)
@@ -841,7 +839,7 @@ anjuta_plugin_file_get_integer (AnjutaPluginFile   *df,
   
   *val = 0;
 
-  res = anjuta_plugin_file_get_raw (df, section, keyname, NULL, &str);
+  res = anjuta_plugin_description_get_raw (df, section, keyname, NULL, &str);
   if (!res)
     return FALSE;
 

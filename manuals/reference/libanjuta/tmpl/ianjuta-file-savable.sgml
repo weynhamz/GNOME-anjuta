@@ -1,0 +1,88 @@
+<!-- ##### SECTION Title ##### -->
+ianjuta-file-savable
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### MACRO IANJUTA_FILE_SAVABLE_ERROR ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### STRUCT IAnjutaFileSavable ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### STRUCT IAnjutaFileSavableIface ##### -->
+<para>
+
+</para>
+
+@g_iface: 
+@save_point: 
+@is_dirty: 
+@save: 
+@save_as: 
+@set_dirty: 
+
+<!-- ##### FUNCTION ianjuta_file_savable_error_quark ##### -->
+<para>
+
+</para>
+
+@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_file_savable_is_dirty ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_file_savable_save ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+
+
+<!-- ##### FUNCTION ianjuta_file_savable_save_as ##### -->
+<para>
+
+</para>
+
+@obj: 
+@filename: 
+@err: 
+
+
+<!-- ##### FUNCTION ianjuta_file_savable_set_dirty ##### -->
+<para>
+
+</para>
+
+@obj: 
+@dirty: 
+@err: 
+
+

@@ -35,10 +35,12 @@ Plugins management and activation
 </para>
 
 @shell: 
+@name: 
+@Returns: 
+<!-- # Unused Parameters # -->
 @ui: 
 @prefs: 
 @splash: 
-@name: 
 
 
 <!-- ##### FUNCTION anjuta_plugins_unload ##### -->
@@ -47,17 +49,63 @@ Plugins management and activation
 </para>
 
 @shell: 
+@name: 
 @Returns: 
 
 
-<!-- ##### FUNCTION anjuta_plugins_get_object ##### -->
+<!-- ##### FUNCTION anjuta_plugins_query ##### -->
 <para>
 
 </para>
 
 @shell: 
-@interface_name: 
+@section_name: 
+@attribute_name: 
+@attribute_value: 
+@Varargs: 
 @Returns: 
+
+
+<!-- ##### FUNCTION anjuta_plugins_get_description ##### -->
+<para>
+
+</para>
+
+@shell: 
+@plugin: 
+@Returns: 
+
+
+<!-- ##### FUNCTION anjuta_plugins_get_description_by_name ##### -->
+<para>
+
+</para>
+
+@shell: 
+@plugin_name: 
+@Returns: 
+
+
+<!-- ##### FUNCTION anjuta_plugins_get_plugin ##### -->
+<para>
+
+</para>
+
+@shell: 
+@iface_name: 
+@Returns: 
+<!-- # Unused Parameters # -->
+@interface_name: 
+
+
+<!-- ##### MACRO anjuta_plugins_get_interface ##### -->
+<para>
+
+</para>
+
+@shell: 
+@iface_type: 
+@error: 
 
 
 <!-- ##### FUNCTION anjuta_plugins_get_installed_dialog ##### -->
@@ -66,8 +114,9 @@ Plugins management and activation
 </para>
 
 @shell: 
+@Returns: 
+<!-- # Unused Parameters # -->
 @ui: 
 @prefs: 
-@Returns: 
 
 

@@ -19,6 +19,11 @@ which gnome-autogen.sh || {
     exit 1
 }
 
+echo "Generating initial interface files"
+sh -c "cd $srcdir/libanjuta/interfaces && \
+perl anjuta-idl-compiler.pl libanjuta && \
+touch iface-built.stamp"
+
 USE_GNOME2_MACROS=1 NOCONFIGURE=1 . gnome-autogen.sh
 conf_flags="--enable-maintainer-mode --enable-compile-warnings=yes --enable-gtk-doc --enable-debug"
 echo $srcdir/configure $conf_flags "$@"

@@ -13,7 +13,8 @@ lib_LTLIBRARIES=libanjuta.la
 
 libanjuta_la_LIADD = $(LIBANJUTA_LIBS)
 libanjuta_la_LIBADD = \
-	$(top_builddir)/libegg/libanjuta-egg.la
+	$(top_builddir)/libegg/libanjuta-egg.la\
+	$(top_builddir)/libanjuta/interfaces/libanjuta-interfaces.la
 
 libanjuta_la_SOURCES= \
 	cell-renderer-captioned-image.c	\
@@ -26,7 +27,7 @@ libanjuta_la_SOURCES= \
 	anjuta-preferences-dialog.c \
 	anjuta-preferences.c \
 	anjuta-plugin.c \
-	anjuta-plugin-parser.c \
+	anjuta-plugin-description.c \
 	anjuta-ui.c \
 	anjuta-utils.c \
 	anjuta-children.c \
@@ -50,7 +51,7 @@ libanjutainclude_HEADERS = \
 	anjuta-shell.h \
 	anjuta-encodings.h \
 	anjuta-plugin.h \
-	anjuta-plugin-parser.h \
+	anjuta-plugin-description.h \
 	anjuta-marshal.h \
 	anjuta-utils.h \
 	anjuta-preferences-dialog.h \

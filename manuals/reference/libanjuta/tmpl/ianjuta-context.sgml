@@ -1,0 +1,74 @@
+<!-- ##### SECTION Title ##### -->
+ianjuta-context
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### MACRO IANJUTA_CONTEXT_ERROR ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### STRUCT IAnjutaContext ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### STRUCT IAnjutaContextIface ##### -->
+<para>
+
+</para>
+
+@g_iface: 
+@begin: 
+@clear: 
+@end: 
+
+<!-- ##### FUNCTION ianjuta_context_error_quark ##### -->
+<para>
+
+</para>
+
+@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_context_begin ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+
+
+<!-- ##### FUNCTION ianjuta_context_clear ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+
+
+<!-- ##### FUNCTION ianjuta_context_end ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+
+

@@ -257,6 +257,19 @@ interface IAnjutaBuildable
 	void clean ();
 }
 
+// Studio profile. Like c++ profile, java profiler etc.
+interface IAnjutaProfile
+{
+	#include <libanjuta/e-splash.h>
+	
+	void load(ESplash *splash);
+}
+
+interface IAnjutaHelp
+{
+	void search (const gchar *query);
+}
+
 // Loaders can deterime correct plugin to open a file or stream.  They
 // themselves can not load it, but will correctly redirect the request to
 // an implementor of IAnjutaFile, IAnjutaFileSavable, IAnjutaStream or
@@ -397,59 +410,51 @@ interface IAnjutaFileManager
 	void set_selected (const gchar *filename);
 }
 
-interface IAnjutaModule
-{
-}
-
-// Implemented by plugins which can manage something
-interface IAnjutaManager
-{
-	GValue* get (const gchar *key);
-	void set (const gchar *key, GValue *value);
-	
-	// Implemented by plugins which can manage metafiles
-	interface IAnjutaMataManager
-	{
-		gchar* get_name ();
-		gchar* get_filename ();
-	
-		interface IAnjutaProjectManager
-		{
-			#include "ianjuta-module.h"
-			void configure();
-			IAnjutaModule* get_root();
-		}
-		
-		interface IAnjutaModuleManager
-		{
-			#include "ianjuta-module.h"
-			
-			void ::file_added (const gchar *filename);
-			void ::module_added (const gchar *module_name);
-			
-			void add_file (const gchar *filename);
-			void remove_file (const gchar *filename);
-			
-			gchar* get_path (const gchar *filename);
-			
-			void add_module (IAnjutaModule *module);
-			void remove_module (IAnjutaModule *module);
-			IAnjutaModule *get_module (const gchar *module_name);
-			
-			interface IAnjutaModuleSource
-			{
-				void ::target_added (const gchar *target);
-				
-				enum TargetType
-				{
-					SLIB,
-					DLIB,
-					BIN,
-					EXTRA
-				}
-				void add_target (const gchar *target_name);
-				void remove_target (const gchar *target_name);
-			}
-		}
-	}
-}
+/* interface IAnjutaModule
+ * {
+ * }
+ * 
+ * // Implemented by plugins which can manage something
+ * interface IAnjutaManager
+ * {
+ * 	GValue* get (const gchar *key);
+ * 	void set (const gchar *key, GValue *value);
+ * 	
+ * 	// Implemented by plugins which can manage metafiles
+ * 	interface IAnjutaMataManager
+ * 	{
+ * 		gchar* get_name ();
+ * 	
+ * 		interface IAnjutaProjectManager
+ * 		{
+ * 			void configure();
+ * 		}
+ * 		
+ * 		interface IAnjutaModuleManager
+ * 		{
+ * 			void ::file_added (const gchar *filename);
+ * 			void ::module_added (const gchar *module_name);
+ * 			
+ * 			void add_file (const gchar *filename);
+ * 			void remove_file (const gchar *filename);
+ * 			
+ * 			gchar* get_path (const gchar *filename);
+ * 			
+ * 			interface IAnjutaModuleSource
+ * 			{
+ * 				void ::target_added (const gchar *target);
+ * 				
+ * 				enum TargetType
+ * 				{
+ * 					SLIB,
+ * 					DLIB,
+ * 					BIN,
+ * 					EXTRA
+ * 				}
+ * 				void add_target (const gchar *target_name);
+ * 				void remove_target (const gchar *target_name);
+ * 			}
+ * 		}
+ * 	}
+ * }
+ */

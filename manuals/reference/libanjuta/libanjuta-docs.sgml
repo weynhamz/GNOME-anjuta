@@ -1,6 +1,10 @@
 <?xml version="1.0"?>
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
-    "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+    "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+<!ENTITY AnjutaArchitecture SYSTEM "anjuta-architecture.sgml">
+<!ENTITY WritingPlugins SYSTEM "writing-plugins.sgml">
+<!ENTITY PluginDescriptionFile SYSTEM "plugin-description-file.sgml">
+]>
 <book id="index" xmlns:xi="http://www.w3.org/2003/XInclude">
   <bookinfo>
     <authorgroup>
@@ -36,24 +40,24 @@
     </legalnotice>
   </bookinfo>
 
-  <xml:include href="anjuta-architecture.sgml"/>
-  <xml:include href="writing-plugins.sgml"/>
-  <xml:include href="plugin-description-file.sgml"/>
+  &AnjutaArchitecture;
+  &WritingPlugins;
+  &PluginDescriptionFile;
   
   <chapter>
     <title>libanjuta API</title>
-    <xi:include href="xml/anjuta-plugin.xml"/>
     <xi:include href="xml/anjuta-shell.xml"/>
     <xi:include href="xml/anjuta-preferences.xml"/>
     <xi:include href="xml/anjuta-preferences-dialog.xml"/>
     <xi:include href="xml/anjuta-ui.xml"/>
+    <xi:include href="xml/anjuta-plugin.xml"/>
+    <xi:include href="xml/anjuta-plugin-description.xml"/>
+    <xi:include href="xml/plugins.xml"/>
+    <xi:include href="xml/anjuta-children.xml"/>
+    <xi:include href="xml/anjuta-utils.xml"/>
     <xi:include href="xml/anjuta-marshal.xml"/>
     <xi:include href="xml/properties.xml"/>
     <xi:include href="xml/resources.xml"/>
-    <xi:include href="xml/anjuta-utils.xml"/>
-    <xi:include href="xml/plugins.xml"/>
-    <xi:include href="xml/anjuta-plugin-parser.xml"/>
-    <xi:include href="xml/anjuta-children.xml"/>
     <xi:include href="xml/anjuta-encodings.xml"/>
     <xi:include href="xml/anjuta-stock.xml"/>
   </chapter>
@@ -71,10 +75,32 @@
   </chapter>
   <chapter id="plugin-interfaces">
     <title>Plugin interfaces</title>
+    <xi:include href="xml/ianjuta-file.xml"/>
+    <xi:include href="xml/ianjuta-file-savable.xml"/>
+    <xi:include href="xml/ianjuta-stream.xml"/>
+    <xi:include href="xml/ianjuta-stream-savable.xml"/>
+    <xi:include href="xml/ianjuta-iterable.xml"/>
+    <xi:include href="xml/ianjuta-iterable-tree.xml"/>
+    <xi:include href="xml/ianjuta-markable.xml"/>
+    <xi:include href="xml/ianjuta-sand-box.xml"/>
+    <xi:include href="xml/ianjuta-context.xml"/>
+    <xi:include href="xml/ianjuta-context-list.xml"/>
+    <xi:include href="xml/ianjuta-context-text.xml"/>
+    <xi:include href="xml/ianjuta-context-tree.xml"/>
+    <xi:include href="xml/ianjuta-renderable.xml"/>
+    <xi:include href="xml/ianjuta-buildable.xml"/>
+    <xi:include href="xml/ianjuta-transformable.xml"/>
+    <xi:include href="xml/ianjuta-loader.xml"/>
+    <xi:include href="xml/ianjuta-file-loader.xml"/>
+    <xi:include href="xml/ianjuta-stream-loader.xml"/>
+    <xi:include href="xml/ianjuta-profile.xml"/>
+    <xi:include href="xml/ianjuta-file-manager.xml"/>
+    <xi:include href="xml/ianjuta-help.xml"/>
     <xi:include href="xml/ianjuta-editor.xml"/>
     <xi:include href="xml/ianjuta-document-manager.xml"/>
     <xi:include href="xml/ianjuta-message-view.xml"/>
     <xi:include href="xml/ianjuta-message-manager.xml"/>
+    <xi:include href="xml/libanjuta-iface-marshallers.xml"/>
   </chapter>
   <chapter id="object-hierarchy">
     <title>Object Hierarchy</title>

@@ -2,18 +2,23 @@
   	<title>Anjuta Architecture</title>
 	<para>
 		libanjuta defines a component-based plugin framework for Anjuta. In
-		its core is the shell (#AnjutaShell) in which all plugins are loaded.
-		Plugins can also merge thier UI and preferences in #AnjutaUI and
-		#AnjutaPreferences, respectively.
+		its core is the shell (<link linkend="AnjutaShell"><type>AnjutaShell</type></link>)
+		in which all plugins are loaded.
+		Plugins can also merge thier UI and preferences in
+		<link linkend="AnjutaUI"><type>AnjutaUI</type></link>
+		and	<link linkend="AnjutaPreferences"><type>AnjutaPreferences</type></link>,
+		respectively.
 	</para>
 	<para>
-		Plugins subclass #AnjutaPlugin abstract class and interact with
-		each other using interfaces. They can also export objects with
-		<emphasis>Values Sytem</emphasis> in #AnjutaShell.
+		Plugins subclass <link linkend="AnjutaPlugin"><type>AnjutaPlugin</type></link>
+		abstract class and
+		interact with each other using interfaces. They can also export
+		objects with <emphasis>Values Sytem</emphasis> in
+		<link linkend="AnjutaShell"><type>AnjutaShell</type></link>.
 	</para>
 	<para>
 		Following diagram illustrates the architecture more clearly.
-		<figure id="anjuta-architecture">
+		<figure id="anjuta-architecture-diagram">
 			<title>Architecture diagram</title>
 			<mediaobject>
 				<imageobject>

@@ -59,7 +59,7 @@ static GtkActionEntry actions_file[] = {
 	}
 };
 
-static void
+static gboolean
 activate_plugin (AnjutaPlugin *plugin)
 {
 	GtkWidget *wid;
@@ -68,7 +68,8 @@ activate_plugin (AnjutaPlugin *plugin)
 	
 	g_message ("SamplePlugin: Activating Sample plugin ...");
 	sample_plugin = (SamplePlugin*) plugin;
-	ui = plugin->ui;
+	
+	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	wid = gtk_label_new ("This is a sample plugin");
 	sample_plugin->widget = wid;
 	
@@ -78,18 +79,21 @@ activate_plugin (AnjutaPlugin *plugin)
 										actions_file,
 										G_N_ELEMENTS (actions_file),
 										plugin);
-	sample_plugin->uiid = anjuta_ui_merge (plugin->ui, UI_FILE);
+	sample_plugin->uiid = anjuta_ui_merge (ui, UI_FILE);
 	anjuta_shell_add_widget (plugin->shell, wid,
-				  "AnjutaSamplePlugin", _("SamplePlugin"), NULL);
+							 "AnjutaSamplePlugin", _("SamplePlugin"),
+							 ANJUTA_SHELL_PLACEMENT_CENTER, NULL);
+	return TRUE;
 }
 
 static gboolean
 deactivate_plugin (AnjutaPlugin *plugin)
 {
+	AnjutaUI *ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	g_message ("SamplePlugin: Dectivating Sample plugin ...");
 	anjuta_shell_remove_widget (plugin->shell, ((SamplePlugin*)plugin)->widget,
 								NULL);
-	anjuta_ui_unmerge (plugin->ui, ((SamplePlugin*)plugin)->uiid);
+	anjuta_ui_unmerge (ui, ((SamplePlugin*)plugin)->uiid);
 	return TRUE;
 }
 

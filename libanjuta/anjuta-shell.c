@@ -25,17 +25,19 @@ anjuta_shell_error_quark (void)
  * the shell.
  * @title: Translated string which is displayed along side the widget when
  * required (eg. as window title or notebook tab label).
+ * @placement: Placement of the widget in shell.
  * @error: Error propagation object.
  *
- * Adds @widget in the shell. The place where the widget will appear depends
- * on the implementor of this interface. Generally it will be a container
- * (dock, notebook, GtkContainer etc.).
+ * Adds @widget in the shell. The @placement tells where the widget should
+ * appear, but generally it will be overridden by the container
+ * (dock, notebook, GtkContainer etc.) saved layout.
  */
 void
 anjuta_shell_add_widget (AnjutaShell *shell,
 			 GtkWidget *widget,
 			 const char *name,
 			 const char *title,
+			 AnjutaShellPlacement placement,
 			 GError **error)
 {
 	g_return_if_fail (shell != NULL);
@@ -46,7 +48,7 @@ anjuta_shell_add_widget (AnjutaShell *shell,
 	g_return_if_fail (title != NULL);
 
 	ANJUTA_SHELL_GET_IFACE (shell)->add_widget (shell, widget, name,
-						    title, error);
+												title, placement, error);
 }
 
 /**
@@ -319,13 +321,11 @@ anjuta_shell_remove_value (AnjutaShell *shell,
  * anjuta_shell_get_object:
  * @shell: A #AnjutaShell interface
  * @iface_name: The interface implemented by the object to be found
- * @error: Error propagation object.
- * returns: The plugin object (subclass of #AnjutaPlugin) which implements
- * the given interface. See #AnjutaPlugin for more detail on interfaces
- * implemented by plugins.
- * 
- * Searches the currently loaded plugin objects to find the one which
- * implements the given interface as primary interface and returns it.
+ * @error: Error propagation.
+ *
+ * Searches the currently available plugins to find the one which
+ * implements the given interface as primary interface and returns it. If
+ * the plugin is not yet loaded, it will be loaded and activated.
  * The returned object is garanteed to be an implementor of the
  * interface (as exported by the plugin metafile). It only searches
  * from the pool of plugin objects loaded in this shell and can only search
@@ -335,26 +335,40 @@ anjuta_shell_remove_value (AnjutaShell *shell,
  * function is:
  * <programlisting>
  * GObject *docman =
- *     anjuta_shell_get_object (shell, "IAnjutaDocumentManager", error);
+ *     anjuta_plugins_get_object (shell, "IAnjutaDocumentManager", error);
  * </programlisting>
  * Notice that this function takes the interface name string as string, unlike
- * anjuta_shell_get_interface() which takes the type directly.
- *
- * @error is set to ANJUTA_SHELL_ERROR_DOESNT_EXIST, if a plugin implementing
- * the interface is not found and NULL is returned.
+ * anjuta_plugins_get_interface() which takes the type directly.
  *
  * Return value: A plugin object implementing the primary interface or NULL.
  */
 GObject*
-anjuta_shell_get_object     (AnjutaShell     *shell,
-							 const char      *iface_name,
-							 GError         **error)
+anjuta_shell_get_object (AnjutaShell *shell, const gchar *iface_name,
+						 GError **error)
+{
+	g_return_val_if_fail (shell != NULL, NULL);
+	g_return_val_if_fail (iface_name != NULL, NULL);
+	g_return_val_if_fail (ANJUTA_IS_SHELL (shell), NULL);
+
+	return ANJUTA_SHELL_GET_IFACE (shell)->get_object (shell, iface_name, error);
+}
+
+AnjutaUI*
+anjuta_shell_get_ui (AnjutaShell *shell, GError **error)
 {
 	g_return_val_if_fail (shell != NULL, NULL);
 	g_return_val_if_fail (ANJUTA_IS_SHELL (shell), NULL);
-	g_return_val_if_fail (iface_name != NULL, NULL);
 
-	return ANJUTA_SHELL_GET_IFACE (shell)->get_object (shell, iface_name, error);
+	return ANJUTA_SHELL_GET_IFACE (shell)->get_ui (shell, error);
+}
+
+AnjutaPreferences*
+anjuta_shell_get_preferences (AnjutaShell *shell, GError **error)
+{
+	g_return_val_if_fail (shell != NULL, NULL);
+	g_return_val_if_fail (ANJUTA_IS_SHELL (shell), NULL);
+
+	return ANJUTA_SHELL_GET_IFACE (shell)->get_preferences (shell, error);
 }
 
 static void
@@ -380,23 +394,6 @@ anjuta_shell_base_init (gpointer gclass)
 			      anjuta_cclosure_marshal_VOID__STRING,
 			      G_TYPE_NONE, 1,
 			      G_TYPE_STRING);
-
-		g_signal_new ("session_load",
-			      ANJUTA_TYPE_SHELL,
-			      G_SIGNAL_RUN_LAST,
-			      G_STRUCT_OFFSET (AnjutaShellIface, session_load),
-			      NULL, NULL,
-			      g_cclosure_marshal_VOID__VOID,
-			      G_TYPE_NONE, 0,
-			      NULL);
-		g_signal_new ("session_save",
-			      ANJUTA_TYPE_SHELL,
-			      G_SIGNAL_RUN_LAST,
-			      G_STRUCT_OFFSET (AnjutaShellIface, session_save),
-			      NULL, NULL,
-			      g_cclosure_marshal_VOID__VOID,
-			      G_TYPE_NONE, 0,
-			      NULL);
 		initialized = TRUE;
 	}
 }

@@ -49,13 +49,13 @@ struct _AnjutaPluginPrivate {
 	int removed_signal_id;
 
 	GList *watches;
+	
+	gboolean activated;
 };
 
 enum {
 	PROP_0,
 	PROP_SHELL,
-	PROP_UI,
-	PROP_PREFS
 };
 
 static void anjuta_plugin_finalize (GObject         *object);
@@ -123,12 +123,6 @@ anjuta_plugin_get_property (GObject *object,
 	case PROP_SHELL:
 		g_value_set_object (value, plugin->shell);
 		break;
-	case PROP_UI:
-	  g_value_set_object (value, plugin->ui);
-	  break;
-	case PROP_PREFS:
-	  g_value_set_object (value, plugin->prefs);
-	  break;
 	default :
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, param_id, pspec);
 		break;
@@ -154,24 +148,6 @@ anjuta_plugin_set_property (GObject *object,
 
 		g_object_notify (object, "shell");
 		break;
-	case PROP_UI:
-	  g_return_if_fail (plugin->ui == NULL);
-	  plugin->ui = g_value_get_object (value);
-	  g_object_ref (plugin->ui);
-
-	  //ANJUTA_PLUGIN_GET_CLASS (object)->ui_set (plugin);
-	  
-	  g_object_notify (object, "ui");
-	  break;
-	case PROP_PREFS:
-	  g_return_if_fail (plugin->prefs == NULL);
-	  plugin->prefs = g_value_get_object (value);
-	  g_object_ref (plugin->prefs);
-
-	  //ANJUTA_PLUGIN_GET_CLASS (object)->prefs_set (plugin);
-
-	  g_object_notify (object, "prefs");
-	  break;
 	default :
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, param_id, pspec);
 		break;
@@ -199,22 +175,6 @@ anjuta_plugin_class_init (AnjutaPluginClass *class)
 				      _("Anjuta Shell"),
 				      _("Anjuta shell that will contain the plugin"),
 				      ANJUTA_TYPE_SHELL,
-				      G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
-	g_object_class_install_property
-		(object_class,
-		 PROP_UI,
-		 g_param_spec_object ("ui",
-				      _("Anjuta UI"),
-				      _("Anjuta UI that will contain Menus and pluginbars"),
-				      ANJUTA_TYPE_UI,
-				      G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
-	g_object_class_install_property
-		(object_class,
-		 PROP_PREFS,
-		 g_param_spec_object ("prefs",
-				      _("Anjuta Preferences"),
-				      _("Anjuta preferences that will contain preferences"),
-				      ANJUTA_TYPE_PREFERENCES,
 				      G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
 }
 
@@ -376,4 +336,44 @@ anjuta_plugin_remove_watch (AnjutaPlugin *plugin, guint id,
 	
 	g_list_remove (plugin->priv->watches, watch);
 	destroy_watch (watch);
+}
+
+gboolean
+anjuta_plugin_activate (AnjutaPlugin *plugin)
+{
+	AnjutaPluginClass *klass;
+	
+	g_return_val_if_fail (plugin != NULL, FALSE);
+	g_return_val_if_fail (ANJUTA_IS_PLUGIN (plugin), FALSE);
+	g_return_val_if_fail (plugin->priv->activated == FALSE, FALSE);
+	
+	klass = ANJUTA_PLUGIN_GET_CLASS(plugin);
+	g_return_val_if_fail (klass->activate != NULL, FALSE);
+	
+	plugin->priv->activated = klass->activate(plugin);
+	return plugin->priv->activated;
+}
+
+gboolean
+anjuta_plugin_deactivate (AnjutaPlugin *plugin)
+{
+	AnjutaPluginClass *klass;
+	gboolean success;
+	
+	g_return_val_if_fail (plugin != NULL, FALSE);
+	g_return_val_if_fail (ANJUTA_IS_PLUGIN (plugin), FALSE);
+	g_return_val_if_fail (plugin->priv->activated == TRUE, FALSE);
+	
+	klass = ANJUTA_PLUGIN_GET_CLASS(plugin);
+	g_return_val_if_fail (klass->deactivate != NULL, FALSE);
+	
+	success = klass->deactivate(plugin);
+	plugin->priv->activated = !success;
+	return success;
+}
+
+gboolean
+anjuta_plugin_is_active (AnjutaPlugin *plugin)
+{
+	return plugin->priv->activated;
 }

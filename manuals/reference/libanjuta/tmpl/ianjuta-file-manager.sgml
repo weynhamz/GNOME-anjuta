@@ -1,0 +1,78 @@
+<!-- ##### SECTION Title ##### -->
+ianjuta-file-manager
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### MACRO IANJUTA_FILE_MANAGER_ERROR ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### STRUCT IAnjutaFileManager ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### STRUCT IAnjutaFileManagerIface ##### -->
+<para>
+
+</para>
+
+@g_iface: 
+@section_changed: 
+@get_selected: 
+@set_root: 
+@set_selected: 
+
+<!-- ##### FUNCTION ianjuta_file_manager_error_quark ##### -->
+<para>
+
+</para>
+
+@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_file_manager_get_selected ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_file_manager_set_root ##### -->
+<para>
+
+</para>
+
+@obj: 
+@root_directory: 
+@err: 
+
+
+<!-- ##### FUNCTION ianjuta_file_manager_set_selected ##### -->
+<para>
+
+</para>
+
+@obj: 
+@filename: 
+@err: 
+
+

@@ -36,11 +36,11 @@
 @message_clicked: 
 @append: 
 @clear: 
-@select_next: 
-@select_previous: 
+@get_all_messages: 
 @get_line: 
 @get_message: 
-@get_all_messages: 
+@select_next: 
+@select_previous: 
 
 <!-- ##### FUNCTION ianjuta_message_view_error_quark ##### -->
 <para>
@@ -55,8 +55,11 @@
 
 </para>
 
-@message_view: 
+@obj: 
 @message: 
+@err: 
+<!-- # Unused Parameters # -->
+@message_view: 
 @e: 
 
 
@@ -65,24 +68,22 @@
 
 </para>
 
+@obj: 
+@err: 
+<!-- # Unused Parameters # -->
 @message_view: 
 @e: 
 
 
-<!-- ##### FUNCTION ianjuta_message_view_select_next ##### -->
+<!-- ##### FUNCTION ianjuta_message_view_get_all_messages ##### -->
 <para>
 
 </para>
 
-@message_view: 
-@e: 
-
-
-<!-- ##### FUNCTION ianjuta_message_view_select_previous ##### -->
-<para>
-
-</para>
-
+@obj: 
+@err: 
+@Returns: 
+<!-- # Unused Parameters # -->
 @message_view: 
 @e: 
 
@@ -92,9 +93,12 @@
 
 </para>
 
+@obj: 
+@err: 
+@Returns: 
+<!-- # Unused Parameters # -->
 @message_view: 
 @e: 
-@Returns: 
 
 
 <!-- ##### FUNCTION ianjuta_message_view_get_message ##### -->
@@ -102,18 +106,35 @@
 
 </para>
 
+@obj: 
+@err: 
+@Returns: 
+<!-- # Unused Parameters # -->
 @message_view: 
 @e: 
-@Returns: 
 
 
-<!-- ##### FUNCTION ianjuta_message_view_get_all_messages ##### -->
+<!-- ##### FUNCTION ianjuta_message_view_select_next ##### -->
 <para>
 
 </para>
 
+@obj: 
+@err: 
+<!-- # Unused Parameters # -->
 @message_view: 
 @e: 
-@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_message_view_select_previous ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+<!-- # Unused Parameters # -->
+@message_view: 
+@e: 
 
 

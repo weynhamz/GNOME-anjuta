@@ -1,0 +1,64 @@
+<!-- ##### SECTION Title ##### -->
+ianjuta-context-tree
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### MACRO IANJUTA_CONTEXT_TREE_ERROR ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### STRUCT IAnjutaContextTree ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### STRUCT IAnjutaContextTreeIface ##### -->
+<para>
+
+</para>
+
+@g_iface: 
+@down: 
+@up: 
+
+<!-- ##### FUNCTION ianjuta_context_tree_error_quark ##### -->
+<para>
+
+</para>
+
+@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_context_tree_down ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+
+
+<!-- ##### FUNCTION ianjuta_context_tree_up ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+
+

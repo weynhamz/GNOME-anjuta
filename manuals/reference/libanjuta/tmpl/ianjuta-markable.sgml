@@ -1,0 +1,107 @@
+<!-- ##### SECTION Title ##### -->
+ianjuta-markable
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### ENUM IAnjutaMarkableError ##### -->
+<para>
+
+</para>
+
+@IANJUTA_MARKABLE_INVALID_LOCATION: 
+
+<!-- ##### ENUM IAnjutaMarkableMarker ##### -->
+<para>
+
+</para>
+
+@IANJUTA_MARKABLE_NONE: 
+@IANJUTA_MARKABLE_LIGHT: 
+@IANJUTA_MARKABLE_ATTENTIVE: 
+@IANJUTA_MARKABLE_INTENSE: 
+
+<!-- ##### MACRO IANJUTA_MARKABLE_ERROR ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### STRUCT IAnjutaMarkable ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### STRUCT IAnjutaMarkableIface ##### -->
+<para>
+
+</para>
+
+@g_iface: 
+@get_all_marks: 
+@get_mark: 
+@mark: 
+@unmark: 
+
+<!-- ##### FUNCTION ianjuta_markable_error_quark ##### -->
+<para>
+
+</para>
+
+@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_markable_get_all_marks ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_markable_get_mark ##### -->
+<para>
+
+</para>
+
+@obj: 
+@location: 
+@err: 
+@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_markable_mark ##### -->
+<para>
+
+</para>
+
+@obj: 
+@location: 
+@marker: 
+@err: 
+
+
+<!-- ##### FUNCTION ianjuta_markable_unmark ##### -->
+<para>
+
+</para>
+
+@obj: 
+@location: 
+@err: 
+
+

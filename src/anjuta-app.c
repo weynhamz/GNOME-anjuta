@@ -155,7 +155,7 @@ on_add_merge_widget (GtkWidget *merge, GtkWidget *widget,
 		
 		gtk_toolbar_set_icon_size (GTK_TOOLBAR (widget),
 								   GTK_ICON_SIZE_SMALL_TOOLBAR);
- 		//egg_toolbar_set_show_arrow (EGG_TOOLBAR (widget), TRUE);
+		gtk_toolbar_set_show_arrow (GTK_TOOLBAR (widget), FALSE);
 		if (count < 5)
 		{
 			toolbarname = g_strdup (toolbar_name[count]);
@@ -167,8 +167,8 @@ on_add_merge_widget (GtkWidget *merge, GtkWidget *widget,
 		g_message ("Adding toolbar: %s", toolbarname);
 		gnome_app_add_docked (GNOME_APP (ui_container), widget,
 							  toolbarname,
-							  BONOBO_DOCK_ITEM_BEH_NEVER_VERTICAL ||
-							  BONOBO_DOCK_ITEM_BEH_EXCLUSIVE,
+							  BONOBO_DOCK_ITEM_BEH_NEVER_VERTICAL /*||
+							  BONOBO_DOCK_ITEM_BEH_EXCLUSIVE*/,
 							  BONOBO_DOCK_TOP, count + 1, 0, 0);
 		if (!ANJUTA_APP (ui_container)->toolbars_menu)
 			ANJUTA_APP (ui_container)->toolbars_menu = gtk_menu_new ();
@@ -177,21 +177,25 @@ on_add_merge_widget (GtkWidget *merge, GtkWidget *widget,
 						 menuitem);
 		// Show/hide toolbar
 		gtk_widget_show (widget);
+		item = gnome_app_get_dock_item_by_name (GNOME_APP (ui_container),
+												toolbarname);
+		gtk_widget_show (GTK_WIDGET (item));
+		gtk_widget_show (GTK_BIN(item)->child);
+		/*
 		if (count < 5)
 		{
 			pr = ANJUTA_PREFERENCES (ANJUTA_APP(ui_container)->preferences)->props;
 			key = g_strconcat (toolbarname, ".visible", NULL);
-			// action = anjuta_ui_get_action (ANJUTA_APP(ui_container)->ui, "ActionGroupView",
+			// action = anjuta_ui_get_action (ANJUTA_APP(ui_container)->ui,
+			//								  "ActionGroupView",
 			//							   action_name[count]);
 			// egg_toggle_action_set_active (EGG_TOGGLE_ACTION (action),
 			//							  prop_get_int (pr, key, 1));
 			g_free (key);
 		} else {
-			item = gnome_app_get_dock_item_by_name (GNOME_APP (ui_container),
-													toolbarname);
 			gtk_widget_show (GTK_WIDGET (item));
 			gtk_widget_show (GTK_BIN(item)->child);
-		}
+		}*/
 		g_free (toolbarname);
 		count ++;
 	}
@@ -363,19 +367,18 @@ anjuta_app_get_value (AnjutaShell *shell,
 
 static void 
 anjuta_app_add_widget (AnjutaShell *shell, 
-			  GtkWidget *w, 
-			  const char *name,
-			  const char *title, 
-			  GError **error)
+					   GtkWidget *w, 
+					   const char *name,
+					   const char *title, 
+					   AnjutaShellPlacement placement,
+					   GError **error)
 {
 	AnjutaApp *window = ANJUTA_APP (shell);
 	GtkWidget *item;
 
 	g_return_if_fail (w != NULL);
 
-	anjuta_shell_add (shell, 
-			  name, G_TYPE_FROM_INSTANCE (w), w, 
-			  NULL);
+	anjuta_shell_add (shell, name, G_TYPE_FROM_INSTANCE (w), w, NULL);
 
 	g_hash_table_insert (window->widgets, g_strdup (name), w);
 
@@ -384,7 +387,7 @@ anjuta_app_add_widget (AnjutaShell *shell,
 	g_object_set_data (G_OBJECT (w), "dockitem", item);
 
 	egg_dock_add_item (EGG_DOCK (window->dock), 
-			   EGG_DOCK_ITEM (item), EGG_DOCK_TOP);
+					   EGG_DOCK_ITEM (item), (EggDockPlacement)placement);
 	
 	gtk_widget_show_all (item);	
 }
@@ -448,7 +451,19 @@ static GObject*
 anjuta_app_get_object  (AnjutaShell *shell, const char *iface_name,
 					    GError **error)
 {
-	return anjuta_plugins_get_object (shell, iface_name);
+	return anjuta_plugins_get_plugin (shell, iface_name);
+}
+
+static AnjutaUI *
+anjuta_app_get_ui  (AnjutaShell *shell, GError **error)
+{
+	return ANJUTA_APP (shell)->ui;
+}
+
+static AnjutaPreferences *
+anjuta_app_get_preferences  (AnjutaShell *shell, GError **error)
+{
+	return ANJUTA_APP (shell)->preferences;
 }
 
 static void
@@ -630,6 +645,8 @@ anjuta_shell_iface_init (AnjutaShellIface *iface)
 	iface->get_value = anjuta_app_get_value;
 	iface->remove_value = anjuta_app_remove_value;
 	iface->get_object = anjuta_app_get_object;
+	iface->get_ui = anjuta_app_get_ui;
+	iface->get_preferences = anjuta_app_get_preferences;
 }
 
 ANJUTA_TYPE_BEGIN(AnjutaApp, anjuta_app, GNOME_TYPE_APP);

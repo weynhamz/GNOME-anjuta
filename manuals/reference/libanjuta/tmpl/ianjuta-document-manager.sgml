@@ -14,6 +14,13 @@
 
 </para>
 
+<!-- ##### ENUM IAnjutaDocumentManagerError ##### -->
+<para>
+
+</para>
+
+@IANJUTA_DOCUMENT_MANAGER_DOESNT_EXIST: 
+
 <!-- ##### MACRO IANJUTA_DOCUMENT_MANAGER_ERROR ##### -->
 <para>
 
@@ -33,10 +40,10 @@
 </para>
 
 @g_iface: 
-@goto_file_line: 
 @get_current_editor: 
-@set_current_editor: 
 @get_editors: 
+@goto_file_line: 
+@set_current_editor: 
 
 <!-- ##### FUNCTION ianjuta_document_manager_error_quark ##### -->
 <para>
@@ -46,34 +53,16 @@
 @Returns: 
 
 
-<!-- ##### FUNCTION ianjuta_document_manager_goto_file_line ##### -->
-<para>
-
-</para>
-
-@docman: 
-@file: 
-@lineno: 
-@e: 
-
-
 <!-- ##### FUNCTION ianjuta_document_manager_get_current_editor ##### -->
 <para>
 
 </para>
 
-@docman: 
-@e: 
+@obj: 
+@err: 
 @Returns: 
-
-
-<!-- ##### FUNCTION ianjuta_document_manager_set_current_editor ##### -->
-<para>
-
-</para>
-
+<!-- # Unused Parameters # -->
 @docman: 
-@editor: 
 @e: 
 
 
@@ -82,8 +71,38 @@
 
 </para>
 
+@obj: 
+@err: 
+@Returns: 
+<!-- # Unused Parameters # -->
 @docman: 
 @e: 
-@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_document_manager_goto_file_line ##### -->
+<para>
+
+</para>
+
+@obj: 
+@file: 
+@lineno: 
+@err: 
+<!-- # Unused Parameters # -->
+@docman: 
+@e: 
+
+
+<!-- ##### FUNCTION ianjuta_document_manager_set_current_editor ##### -->
+<para>
+
+</para>
+
+@obj: 
+@editor: 
+@err: 
+<!-- # Unused Parameters # -->
+@docman: 
+@e: 
 
 

@@ -1,0 +1,73 @@
+<!-- ##### SECTION Title ##### -->
+ianjuta-sand-box
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### ENUM IAnjutaSandBoxError ##### -->
+<para>
+
+</para>
+
+@IANJUTA_SAND_BOX_ACCESS_VIOLATION: 
+
+<!-- ##### MACRO IANJUTA_SAND_BOX_ERROR ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### STRUCT IAnjutaSandBox ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### STRUCT IAnjutaSandBoxIface ##### -->
+<para>
+
+</para>
+
+@g_iface: 
+@pop_lock: 
+@push_lock: 
+
+<!-- ##### FUNCTION ianjuta_sand_box_error_quark ##### -->
+<para>
+
+</para>
+
+@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_sand_box_pop_lock ##### -->
+<para>
+
+</para>
+
+@obj: 
+@lock_signature: 
+@err: 
+
+
+<!-- ##### FUNCTION ianjuta_sand_box_push_lock ##### -->
+<para>
+
+</para>
+
+@obj: 
+@lock_signature: 
+@err: 
+
+

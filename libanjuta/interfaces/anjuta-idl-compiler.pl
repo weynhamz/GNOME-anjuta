@@ -1150,7 +1150,11 @@ sub write_file
     print OUTFILE $contents;
     close OUTFILE;
 	
-	my $diff = `diff $filename $filename.tmp`;
+	my $diff = "not matched";
+	if (-e $filename)
+	{
+		$diff = `diff $filename $filename.tmp`;
+	}
 	unlink ("$filename.tmp");
 	if ($diff !~ /^\s*$/)
 	{

@@ -1,5 +1,6 @@
 [Anjuta Plugin]
-Location=anjuta-devhelp:DevhelpPlugin
-Icon=anjuta-devhelp-plugin.png
 _Name=Devhelp Plugin
 _Description=Devhelp Plugin for Anjuta.
+Location=anjuta-devhelp:DevhelpPlugin
+Icon=anjuta-devhelp-plugin.png
+Interfaces=IAnjutaHelp

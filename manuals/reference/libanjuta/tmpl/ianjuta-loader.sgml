@@ -1,0 +1,44 @@
+<!-- ##### SECTION Title ##### -->
+ianjuta-loader
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### MACRO IANJUTA_LOADER_ERROR ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### STRUCT IAnjutaLoader ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### STRUCT IAnjutaLoaderIface ##### -->
+<para>
+
+</para>
+
+@g_iface: 
+
+<!-- ##### FUNCTION ianjuta_loader_error_quark ##### -->
+<para>
+
+</para>
+
+@Returns: 
+
+

@@ -520,7 +520,7 @@ swap_toggle_label_and_stock (GtkToggleActionEntry* actions, gint size)
 	}
 }
 
-static void
+static gboolean
 activate_plugin (AnjutaPlugin *plugin)
 {
 	GtkWidget *docman;
@@ -532,8 +532,11 @@ activate_plugin (AnjutaPlugin *plugin)
 	
 	g_message ("EditorPlugin: Activating Editor plugin ...");
 	editor_plugin = (EditorPlugin*) plugin;
-	ui = plugin->ui;
-	docman = anjuta_docman_new (plugin->prefs);
+	editor_plugin->ui = anjuta_shell_get_ui (plugin->shell, NULL);
+	editor_plugin->prefs = anjuta_shell_get_preferences (plugin->shell, NULL);
+	
+	ui = editor_plugin->ui;
+	docman = anjuta_docman_new (editor_plugin->prefs);
 	editor_plugin->docman = docman;
 	
 	/* Add all our editor actions */
@@ -606,18 +609,24 @@ activate_plugin (AnjutaPlugin *plugin)
 	anjuta_ui_add_action_group (ui, "ActionGroupNavigation",
 								N_("Editor quick navigations"), group);
 	
-	editor_plugin->uiid = anjuta_ui_merge (plugin->ui, UI_FILE);
+	editor_plugin->uiid = anjuta_ui_merge (ui, UI_FILE);
 	anjuta_shell_add_widget (plugin->shell, docman,
-				  "AnjutaDocumentManager", _("Documents"), NULL);
+							 "AnjutaDocumentManager", _("Documents"),
+							 ANJUTA_SHELL_PLACEMENT_CENTER, NULL);
+	return TRUE;
 }
 
 static gboolean
 deactivate_plugin (AnjutaPlugin *plugin)
 {
+	EditorPlugin *eplugin;
+	AnjutaUI *ui;
+	
+	eplugin = (EditorPlugin*)plugin;
+	
 	g_message ("EditorPlugin: Dectivating Editor plugin ...");
-	anjuta_shell_remove_widget (plugin->shell, ((EditorPlugin*)plugin)->docman,
-								NULL);
-	anjuta_ui_unmerge (plugin->ui, ((EditorPlugin*)plugin)->uiid);
+	anjuta_shell_remove_widget (plugin->shell, eplugin->docman, NULL);
+	anjuta_ui_unmerge (ui, eplugin->uiid);
 	return TRUE;
 }
 

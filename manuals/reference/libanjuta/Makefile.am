@@ -33,7 +33,10 @@ HTML_IMAGES = anjuta-architecture.png
 
 # Extra SGML files that are included by $(DOC_MAIN_SGML_FILE)
 content_files = \
-	version.xml
+	version.xml \
+	anjuta-architecture.sgml\
+	writing-plugins.sgml\
+	plugin-description-file.sgml
 
 # Other files to distribute
 extra_files = version.xml.in

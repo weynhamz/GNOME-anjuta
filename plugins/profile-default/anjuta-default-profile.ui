@@ -1,0 +1,10 @@
+<!--*- xml -*-->
+<ui>
+	<menubar name="MenuMain">
+		<menu name="MenuFile" action="ActionMenuFile">
+			<placeholder name="PlaceholderFileMenus">
+				<menuitem name="DefaultProfileAction" action="ActionFileDefaultProfile" />
+			</placeholder>
+		</menu>
+	</menubar>
+</ui>

@@ -88,8 +88,7 @@ on_show_plugins_activate (GtkAction *action, AnjutaApp *app)
 {
 	GtkWidget *win, *plg;
 	
-	plg = anjuta_plugins_get_installed_dialog (ANJUTA_SHELL (app),
-											   app->ui, app->preferences);
+	plg = anjuta_plugins_get_installed_dialog (ANJUTA_SHELL (app));
 	win = gtk_dialog_new_with_buttons (_("Anjuta Plugins"), GTK_WINDOW (app),
 									   GTK_DIALOG_DESTROY_WITH_PARENT,
 									   GTK_STOCK_CLOSE, GTK_STOCK_CANCEL, NULL);

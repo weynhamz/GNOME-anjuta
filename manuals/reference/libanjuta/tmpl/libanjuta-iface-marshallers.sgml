@@ -1,0 +1,30 @@
+<!-- ##### SECTION Title ##### -->
+libanjuta-iface-marshallers
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### MACRO libanjuta_iface_cclosure_marshal_VOID__STRING ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO libanjuta_iface_cclosure_marshal_VOID__BOOLEAN ##### -->
+<para>
+
+</para>
+
+
+

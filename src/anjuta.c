@@ -17,6 +17,8 @@
  */
 
 #include <libanjuta/anjuta-shell.h>
+#include <libanjuta/interfaces/ianjuta-profile.h>
+
 #include "anjuta.h"
 
 gint
@@ -202,7 +204,8 @@ anjuta_new (gchar *prog_name, GList *prog_args, ESplash *splash)
 	AnjutaApp *app;
 	GnomeClient *client;
 	GnomeClientFlags flags;
-
+	IAnjutaProfile *profile;
+	
 	/* Initialize application */
 	app = ANJUTA_APP (anjuta_app_new ());
 
@@ -212,9 +215,13 @@ anjuta_new (gchar *prog_name, GList *prog_args, ESplash *splash)
 					  G_CALLBACK (on_anjuta_destroy), NULL);
 	
 	/* Load plugins */
-	anjuta_plugins_load (ANJUTA_SHELL (app), 
-			     app->ui, app->preferences,
-			     E_SPLASH (splash), "default");
+	profile = anjuta_shell_get_interface (ANJUTA_SHELL(app), IAnjutaProfile, NULL);
+	if (!profile)
+	{
+		g_warning ("No profile could be loaded");
+		exit(1);
+	}
+	ianjuta_profile_load (profile, splash, NULL);
 	
 	/* Session management */
 	client = gnome_master_client();

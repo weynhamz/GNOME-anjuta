@@ -34,6 +34,7 @@
 #include <libanjuta/properties.h>
 #include <libanjuta/anjuta-encodings.h>
 #include <libanjuta/interfaces/ianjuta-editor.h>
+#include <libanjuta/interfaces/ianjuta-file-savable.h>
 
 // #include "global.h"
 // #include "anjuta.h"
@@ -1674,15 +1675,6 @@ itext_editor_get_selection (IAnjutaEditor *editor, GError **error)
 	return text_editor_get_selection (TEXT_EDITOR (editor));
 }
 
-static gchar*
-itext_editor_get_filename (IAnjutaEditor *editor, GError **error)
-{
-	TextEditor *text_editor;
-	if (text_editor->filename)
-		return g_strdup (text_editor->filename);
-	return NULL;
-}
-
 static void
 itext_editor_goto_line (IAnjutaEditor *editor, gint lineno, GError **e)
 {
@@ -1714,12 +1706,38 @@ static void
 itext_editor_iface_init (IAnjutaEditorIface *iface)
 {
 	iface->goto_line = itext_editor_goto_line;
-	iface->get_filename = itext_editor_get_filename;
 	iface->get_text = itext_editor_get_text;
 	iface->get_selection = itext_editor_get_selection;
 	iface->get_attributes = itext_editor_get_attributes;
 }
 
+static gchar*
+ifile_get_filename (IAnjutaFile *editor, GError **error)
+{
+	TextEditor *text_editor;
+	if (text_editor->filename)
+		return g_strdup (text_editor->filename);
+	return NULL;
+}
+
+static void
+isavable_iface_init (IAnjutaFileSavableIface *iface)
+{
+	iface->save = NULL;
+	iface->save_as = NULL;
+	iface->set_dirty = NULL;
+	iface->is_dirty = NULL;
+}
+
+static void
+ifile_iface_init (IAnjutaFileIface *iface)
+{
+	iface->open = NULL;
+	iface->get_filename = ifile_get_filename;
+}
+
 ANJUTA_TYPE_BEGIN(TextEditor, text_editor, GTK_TYPE_VBOX);
+ANJUTA_INTERFACE(ifile, IANJUTA_TYPE_FILE);
+ANJUTA_INTERFACE(isavable, IANJUTA_TYPE_FILE_SAVABLE);
 ANJUTA_INTERFACE(itext_editor, IANJUTA_TYPE_EDITOR);
 ANJUTA_TYPE_END;

@@ -1,0 +1,54 @@
+<!-- ##### SECTION Title ##### -->
+ianjuta-transformable
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### MACRO IANJUTA_TRANSFORMABLE_ERROR ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### STRUCT IAnjutaTransformable ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### STRUCT IAnjutaTransformableIface ##### -->
+<para>
+
+</para>
+
+@g_iface: 
+@transform: 
+
+<!-- ##### FUNCTION ianjuta_transformable_error_quark ##### -->
+<para>
+
+</para>
+
+@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_transformable_transform ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+
+

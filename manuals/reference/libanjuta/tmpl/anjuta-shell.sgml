@@ -73,8 +73,8 @@ Application shell interface
 @g_iface: 
 @value_added: 
 @value_removed: 
-@session_load: 
-@session_save: 
+@get_ui: 
+@get_preferences: 
 @add_widget: 
 @remove_widget: 
 @add_value: 
@@ -88,6 +88,19 @@ Application shell interface
 </para>
 
 @ANJUTA_SHELL_ERROR_DOESNT_EXIST: 
+
+<!-- ##### ENUM AnjutaShellPlacement ##### -->
+<para>
+
+</para>
+
+@ANJUTA_SHELL_PLACEMENT_NONE: 
+@ANJUTA_SHELL_PLACEMENT_TOP: 
+@ANJUTA_SHELL_PLACEMENT_BOTTOM: 
+@ANJUTA_SHELL_PLACEMENT_RIGHT: 
+@ANJUTA_SHELL_PLACEMENT_LEFT: 
+@ANJUTA_SHELL_PLACEMENT_CENTER: 
+@ANJUTA_SHELL_PLACEMENT_FLOATING: 
 
 <!-- ##### MACRO ANJUTA_SHELL_ERROR ##### -->
 <para>
@@ -113,6 +126,7 @@ Application shell interface
 @widget: 
 @name: 
 @title: 
+@placement: 
 @error: 
 
 
@@ -202,6 +216,26 @@ Application shell interface
 @error: 
 
 
+<!-- ##### FUNCTION anjuta_shell_get_ui ##### -->
+<para>
+
+</para>
+
+@shell: 
+@err: 
+@Returns: 
+
+
+<!-- ##### FUNCTION anjuta_shell_get_preferences ##### -->
+<para>
+
+</para>
+
+@shell: 
+@err: 
+@Returns: 
+
+
 <!-- ##### FUNCTION anjuta_shell_get_object ##### -->
 <para>
 
@@ -211,6 +245,8 @@ Application shell interface
 @iface_name: 
 @error: 
 @Returns: 
+<!-- # Unused Parameters # -->
+@interface_name: 
 
 
 <!-- ##### MACRO anjuta_shell_get_interface ##### -->

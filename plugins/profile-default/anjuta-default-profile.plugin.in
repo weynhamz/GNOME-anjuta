@@ -1,0 +1,6 @@
+[Anjuta Plugin]
+_Name=Default Profile
+_Description=Anjuta default profile
+Location=anjuta-default-profile:DefaultProfilePlugin
+Icon=anjuta-default-profile-plugin.png
+Interfaces=IAnjutaProfile

@@ -3,7 +3,9 @@
 
 #include <glib-object.h>
 #include <gtk/gtkwidget.h>
-//#include <bonobo/bonobo-ui-container.h>
+
+#include <libanjuta/anjuta-ui.h>
+#include <libanjuta/anjuta-preferences.h>
 
 G_BEGIN_DECLS
 
@@ -21,20 +23,32 @@ typedef enum  {
 	ANJUTA_SHELL_ERROR_DOESNT_EXIST,
 } AnjutaShellError;
 
+typedef enum {
+	ANJUTA_SHELL_PLACEMENT_NONE = 0,
+	ANJUTA_SHELL_PLACEMENT_TOP,
+	ANJUTA_SHELL_PLACEMENT_BOTTOM,
+	ANJUTA_SHELL_PLACEMENT_RIGHT,
+	ANJUTA_SHELL_PLACEMENT_LEFT,
+	ANJUTA_SHELL_PLACEMENT_CENTER,
+	ANJUTA_SHELL_PLACEMENT_FLOATING
+} AnjutaShellPlacement;
+	
 struct _AnjutaShellIface {
 	GTypeInterface g_iface;
 	
 	/* Signals */
 	void (*value_added) (AnjutaShell *shell, char *name, GValue *value);
 	void (*value_removed) (AnjutaShell *shell, char *name);
-	void (*session_load) (AnjutaShell *shell);
-	void (*session_save) (AnjutaShell *shell);
 
 	/* Virtual Table */
+	AnjutaUI* (*get_ui) (AnjutaShell  *shell, GError **err);
+	AnjutaPreferences* (*get_preferences) (AnjutaShell *shell, GError **err);
+	
 	void (*add_widget)        (AnjutaShell  *shell,
 							   GtkWidget    *widget,
 							   const char   *name,
 							   const char   *title,
+							   AnjutaShellPlacement placement,
 							   GError      **error);
 	void (*remove_widget)     (AnjutaShell  *shell,
 							   GtkWidget    *widget,
@@ -57,10 +71,17 @@ struct _AnjutaShellIface {
 
 GQuark anjuta_shell_error_quark     (void);
 GType  anjuta_shell_get_type        (void);
+
+AnjutaUI* anjuta_shell_get_ui (AnjutaShell *shell, GError **err);
+
+AnjutaPreferences* anjuta_shell_get_preferences (AnjutaShell *shell,
+												 GError **err);
+
 void   anjuta_shell_add_widget      (AnjutaShell     *shell,
 									 GtkWidget       *widget,
 									 const char      *name,
 									 const char      *title,
+									 AnjutaShellPlacement placement,
 									 GError         **error);
 void   anjuta_shell_remove_widget   (AnjutaShell     *shell,
 									 GtkWidget       *widget,
@@ -93,10 +114,9 @@ void   anjuta_shell_remove_value    (AnjutaShell     *shell,
 									 const char      *name,
 									 GError         **error);
 
-GObject*   anjuta_shell_get_object  (AnjutaShell     *shell,
-									 const char      *iface_name,
-									 GError         **error);
-
+GObject *anjuta_shell_get_object (AnjutaShell *shell,
+								  const gchar *iface_name,
+								  GError **error);
 /**
  * anjuta_shell_get_interface:
  * @shell: A #AnjutaShell object
@@ -112,7 +132,7 @@ GObject*   anjuta_shell_get_object  (AnjutaShell     *shell,
  * </programlisting>
  */
 #define anjuta_shell_get_interface(shell, iface_type, error) \
-	(((iface_type)*) anjuta_shell_get_object((shell), #iface_type, (error))
+	((iface_type*) anjuta_shell_get_object((shell), #iface_type, (error)))
 
 G_END_DECLS
 

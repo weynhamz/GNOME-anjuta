@@ -1,0 +1,75 @@
+<!-- ##### SECTION Title ##### -->
+ianjuta-buildable
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### MACRO IANJUTA_BUILDABLE_ERROR ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### STRUCT IAnjutaBuildable ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### STRUCT IAnjutaBuildableIface ##### -->
+<para>
+
+</para>
+
+@g_iface: 
+@build: 
+@clean: 
+@compile: 
+
+<!-- ##### FUNCTION ianjuta_buildable_error_quark ##### -->
+<para>
+
+</para>
+
+@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_buildable_build ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+
+
+<!-- ##### FUNCTION ianjuta_buildable_clean ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+
+
+<!-- ##### FUNCTION ianjuta_buildable_compile ##### -->
+<para>
+
+</para>
+
+@obj: 
+@filename: 
+@err: 
+
+
