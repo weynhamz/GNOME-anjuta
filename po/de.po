@@ -14,8 +14,8 @@ msgstr ""
 "Last-Translator: Jens Georg <mail@jensgeorg.de>\n"
 "Language-Team: german <mail@jensgeorg.de>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=de-latin1\n"
-"Content-Transfer-Encoding: iso-8859-1\n"
+"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
 
 #: anjuta.desktop.in.in.h:1
 msgid "Anjuta C/C++ IDE"
