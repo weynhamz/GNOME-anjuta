@@ -66,6 +66,7 @@ typedef struct ClsGen_CreateClass {
 	gchar	*m_szClassName;
 	gchar	*m_szDeclFile;
 	gchar	*m_szImplFile;
+	gchar	*m_szPrevClassname;
 	
   GtkWidget *dlgClass;
   GtkWidget *dialog_vbox1;
@@ -139,6 +140,8 @@ void Activate( GModule *self, void *pUserData, AnjutaApp* p)
 {
 	if( p && p->project_dbase && p->project_dbase->project_is_open )
 		CreateCodeClass( p->project_dbase );
+	else
+		MessageBox(_("No project open, can not add class!"));
 }
 
 gchar *GetMenuTitle( GModule *self, void *pUserData )
@@ -247,12 +250,51 @@ BrowseImpl                             (GtkButton       *button,
 //	INIT(user_data);
 }
 
+gboolean IsFileNameGenerated(gchar* classname, gchar* filename, gchar* extension);
+
+gboolean IsFileNameGenerated(gchar* classname, gchar* filename, gchar* extension)
+{
+	gboolean result;
+	gchar* generatedname = g_strdup_printf("%s.%s", classname, extension);
+
+	if(!strcmp(generatedname, filename)) {
+		result = TRUE;
+	} else {
+		result = FALSE;
+	}
+	
+	g_free(generatedname);
+	
+	return result;
+}
+
 static void CG_DataChanged(CG_Creator	*self )
 {
+	gchar* generatedname;
 	gboolean	bHow = FALSE ;
 	
 	CG_GetStrings( self );
 
+	if(IsFileNameGenerated(self->m_szPrevClassname, self->m_szDeclFile, "h")) {
+		generatedname =  g_strdup_printf("%s.h", self->m_szClassName);
+		gtk_signal_handler_block_by_func(GTK_OBJECT(self->m_declFile), GTK_SIGNAL_FUNC(on_m_clsname_changed), self);
+		gtk_entry_set_text(GTK_ENTRY(self->m_declFile), generatedname);
+		gtk_signal_handler_unblock_by_func(GTK_OBJECT(self->m_declFile), GTK_SIGNAL_FUNC(on_m_clsname_changed), self);
+		g_free(generatedname);
+	}
+	
+	if(IsFileNameGenerated(self->m_szPrevClassname, self->m_szImplFile, "cpp")) {
+		generatedname =  g_strdup_printf("%s.cpp", self->m_szClassName);
+		gtk_signal_handler_block_by_func(GTK_OBJECT(self->m_ImplFile), GTK_SIGNAL_FUNC(on_m_clsname_changed), self);
+		gtk_entry_set_text(GTK_ENTRY(self->m_ImplFile), generatedname);
+		gtk_signal_handler_unblock_by_func(GTK_OBJECT(self->m_ImplFile), GTK_SIGNAL_FUNC(on_m_clsname_changed), self);
+		g_free(generatedname);
+	}
+	
+	if(self->m_szPrevClassname)
+		g_free(self->m_szPrevClassname);
+	self->m_szPrevClassname = g_strdup(self->m_szClassName);
+	
 	// Se lutente non ha editato genero automaticamente
 	// i nomi di file.
 	if( 	IsLegalClassName(self->m_szClassName ) 
@@ -568,6 +610,7 @@ void CG_Init(CG_Creator *self)
 	self->m_szClassName = NULL ;
 	self->m_szDeclFile= NULL ;
 	self->m_szImplFile= NULL ;
+	self->m_szPrevClassname = g_strdup("");
 }
 
 void CG_Del(CG_Creator *self)
@@ -575,6 +618,7 @@ void CG_Del(CG_Creator *self)
 	g_free(self->m_szClassName);
 	g_free(self->m_szDeclFile) ;
 	g_free(self->m_szImplFile);
+	g_free(self->m_szPrevClassname);
 }
 
 
@@ -631,6 +675,7 @@ create_dlgClass ( CG_Creator *self )
                     (GtkAttachOptions) (0), 0, 0);
 
   self->m_declFile = gtk_entry_new_with_max_length (255);
+  gtk_entry_set_text(GTK_ENTRY(self->m_declFile), ".h");
   gtk_widget_ref (self->m_declFile);
   gtk_object_set_data_full (GTK_OBJECT (self->dlgClass), "m_declFile", self->m_declFile,
                             (GtkDestroyNotify) gtk_widget_unref);
@@ -667,6 +712,7 @@ create_dlgClass ( CG_Creator *self )
                     (GtkAttachOptions) (0), 0, 0);
 
   self->m_ImplFile = gtk_entry_new_with_max_length (255);
+  gtk_entry_set_text(GTK_ENTRY(self->m_ImplFile), ".cpp");
   gtk_widget_ref (self->m_ImplFile);
   gtk_object_set_data_full (GTK_OBJECT (self->dlgClass), "m_ImplFile", self->m_ImplFile,
                             (GtkDestroyNotify) gtk_widget_unref);

@@ -1,3 +1,11 @@
+2002-03-03 Roel Vanhout <roel@stack.be>
+	
+	Reviewed by Naba Kumar <kh_naba@users.sourceforge.net>
+	
+	* plugins/class-gen/clsGen.c
+	Added functionality to semi-intelligently prefill filename
+	boxes with names deduced from class name
+
 2002-02-26 lbell <lbell@tsc4.com>
 
 	Reviewed by Naba Kumar <kh_naba@users.sourceforge.net>
