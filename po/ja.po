@@ -5,9 +5,9 @@
 #, no-wrap
 msgid ""
 msgstr ""
-"Project-Id-Version: anjyuta 0.1.8\n"
-"POT-Creation-Date: 2001-11-28 12:12+0900\n"
-"PO-Revision-Date: 2001-11-28 11:58+0900\n"
+"Project-Id-Version: anjyuta 0.1.9-pre\n"
+"POT-Creation-Date: 2001-12-14 22:06+0900\n"
+"PO-Revision-Date: 2001-12-14 22:06+0900\n"
 "Last-Translator: Takeshi Aihana <aihana@gnome.gr.jp>\n"
 "Language-Team: Japanese <translation@gnome.gr.jp>\n"
 "MIME-Version: 1.0\n"
@@ -231,13 +231,13 @@ msgstr ""
 "先に進むには正しい \"%s\" を入力して下さい。"
 
 #. For the time being
-#: src/appwizard_cbs.c:251 src/project_dbase.c:1411 src/project_dbase.c:1416
-#: src/project_dbase.c:1419 src/signals_cbs.c:140 src/signals_cbs.c:153
+#: src/appwizard_cbs.c:251 src/project_dbase.c:1418 src/project_dbase.c:1423
+#: src/project_dbase.c:1426 src/signals_cbs.c:140 src/signals_cbs.c:153
 #: src/signals_cbs.c:166
 msgid "Yes"
 msgstr "はい"
 
-#: src/appwizard_cbs.c:253 src/project_dbase.c:1413 src/project_dbase.c:1421
+#: src/appwizard_cbs.c:253 src/project_dbase.c:1420 src/project_dbase.c:1428
 #: src/signals_cbs.c:142 src/signals_cbs.c:155 src/signals_cbs.c:168
 msgid "No"
 msgstr "いいえ"
@@ -504,7 +504,7 @@ msgstr "実行形式プログラムが更新されました。再ビルドの必要はありません。"
 msgid "I do not really know how to build this file."
 msgstr "このファイルのビルド方法が不明です。"
 
-#: src/build_file.c:107 src/messages.c:517 src/preferences_gui.c:174
+#: src/build_file.c:107 src/messages.c:535 src/preferences_gui.c:174
 #: src/text_editor_gui.c:246 src/toolbar.c:474
 msgid "Build"
 msgstr "ビルド"
@@ -1248,13 +1248,11 @@ msgstr "'gnome-terminal' が実行できません"
 
 #: src/debugger.c:1133
 msgid "Error: Cannot start terminal for debugging."
-msgstr "エラー: デバッグ用ターミナルが起動できません。"
+msgstr "エラー: デバッグ用端末を起動できません。"
 
 #: src/debugger.c:1180
 msgid "Warning: No debug terminal. Redirecting stdio to /dev/null.\n"
-msgstr ""
-"警告: デバッグ用ターミナルがありません。標準入力から /dev/null にリダイレクト"
-"します。\n"
+msgstr "警告: デバッグ用端末がありません。標準入力から /dev/null にリダイレクトします。\n"
 
 #: src/debugger.c:1198
 msgid "Running program ... \n"
@@ -1318,7 +1316,7 @@ msgstr "コマンド引数"
 
 #: src/executer.c:147
 msgid "Run in Terminal"
-msgstr "ターミナル内で実行"
+msgstr "端末内で実行"
 
 #. FIXME: fix this mess of braces, maybe overriding gnome_dialog_append_dialog
 #: src/executer.c:187 src/toolbar.c:500
@@ -1496,7 +1494,7 @@ msgstr "指定した範囲内に文字列 \"%s\" が見つかりませんでした。"
 msgid "The string \"%s\" was not found from the current location"
 msgstr "現在の場所から文字列 \"%s\" が見つかりませんでした。"
 
-#: src/find_text.c:251 src/messages.c:519 src/text_editor_gui.c:187
+#: src/find_text.c:251 src/messages.c:537 src/text_editor_gui.c:187
 #: src/toolbar.c:231
 msgid "Find"
 msgstr "検索"
@@ -1648,7 +1646,7 @@ msgstr "最近開いたファイル"
 msgid "Plug Ins"
 msgstr "プラグイン"
 
-#: src/main_menubar.c:548 src/project_dbase.c:1884
+#: src/main_menubar.c:548 src/project_dbase.c:1891
 msgid "Recent Projects "
 msgstr "最近開いたプロジェクト"
 
@@ -3341,51 +3339,59 @@ msgstr ""
 msgid "Cannot launch gnome-help-browser"
 msgstr "gnome-help-browser が起動できません"
 
-#: src/messages.c:253
+#: src/messages.c:265
 msgid "Unknown type in Message window\n"
 msgstr "メッセージウィンドウの中に不明な種類があります。\n"
 
-#: src/messages.c:504
+#: src/messages.c:521
 msgid "Build messages"
 msgstr "ビルド・メッセージ"
 
-#: src/messages.c:505
+#: src/messages.c:522
 msgid "Debug messages"
 msgstr "デバッグ・メッセージ"
 
-#: src/messages.c:506
+#: src/messages.c:523
 msgid "Find messages"
 msgstr "メッセージの検索"
 
-#: src/messages.c:507
+#: src/messages.c:524
 msgid "CVS messages"
 msgstr "CVS メッセージ　"
 
-#: src/messages.c:508
+#: src/messages.c:525
 msgid "Debug Locals Listing"
 msgstr "ローカル変数のデバッグ一覧"
 
-#: src/messages.c:518 src/text_editor_menu.c:270 src/toolbar.c:511
+#: src/messages.c:526
+msgid "Embedded Terminal"
+msgstr "端末を埋め込む"
+
+#: src/messages.c:536 src/text_editor_menu.c:270 src/toolbar.c:511
 msgid "Debug"
 msgstr "デバッグ"
 
-#: src/messages.c:520
+#: src/messages.c:538
 msgid "CVS"
 msgstr "CVS"
 
-#: src/messages.c:521
+#: src/messages.c:539
 msgid "Locals"
 msgstr "ローカル変数"
 
-#: src/messages.c:592 src/toolbar.c:294
+#: src/messages.c:540
+msgid "Term"
+msgstr "端末"
+
+#: src/messages.c:718 src/toolbar.c:294
 msgid "Messages"
 msgstr "メッセージ"
 
-#: src/messages.c:628
+#: src/messages.c:754
 msgid "Dock window"
 msgstr "ドックウィンドウ"
 
-#: src/messages.c:637
+#: src/messages.c:763
 msgid "Dock"
 msgstr "ドック"
 
@@ -3687,8 +3693,8 @@ msgid " Components"
 msgstr " コンポーネント"
 
 #: src/preferences_gui.c:1517
-msgid "Use Components"
-msgstr "コンポーネントを使用する"
+msgid "Use Glade Components (experimental)"
+msgstr "Glade コンポーネントを使用する (実験的)"
 
 #. Must declare static, because it will be used forever
 #: src/project_dbase.c:307 src/toolbar.c:413
@@ -3751,7 +3757,7 @@ msgstr "プロジェクトの保存に成功しました。"
 msgid "Unable to save the project."
 msgstr "プロジェクトを保存することができません。"
 
-#: src/project_dbase.c:1475 src/project_dbase.c:1508
+#: src/project_dbase.c:1482 src/project_dbase.c:1515
 msgid ""
 "The Project glade file does not\n"
 "exist in the top level project directory."
@@ -3760,7 +3766,7 @@ msgstr ""
 "プロジェクトのトップディレクトリに存在しません。"
 
 #. Set project title
-#: src/project_dbase.c:1923
+#: src/project_dbase.c:1930
 msgid "Project: "
 msgstr "プロジェクト: "
 
@@ -4966,11 +4972,11 @@ msgstr "式の検証/評価"
 msgid "Add To Watch"
 msgstr "監視へ追加"
 
-#: src/about.c:64
+#: src/about.c:65
 msgid "Copyright (c) 1999-2001 Naba Kumar"
 msgstr "Copyright (C) 1999-2001 Naba Kumar"
 
-#: src/about.c:75
+#: src/about.c:76
 msgid "Anjuta Home Site"
 msgstr "Anjuta ホームページへどうぞ"
 
@@ -5004,7 +5010,7 @@ msgstr "グループ:"
 
 #: src/appwiz_page4.c:216
 msgid "Needs terminal"
-msgstr "ターミナルから起動する"
+msgstr "端末から起動する"
 
 #: src/source.c:113
 #, c-format
@@ -5026,55 +5032,55 @@ msgid "Anjuta: Caught signal %d (%s) !"
 msgstr "Anjuta: シグナル %d (%s) 発生！"
 
 #. Must declare static, because it will be used forever
-#: src/anjuta.c:106
+#: src/anjuta.c:107
 msgid "Open File"
 msgstr "ファイルを開く"
 
 #. Must declare static, because it will be used forever
-#: src/anjuta.c:112 src/anjuta.c:117
+#: src/anjuta.c:113 src/anjuta.c:118
 msgid "Save File As"
 msgstr "名前を付けて保存"
 
-#: src/anjuta.c:222
+#: src/anjuta.c:224
 msgid "Cannot create application...exiting\n"
 msgstr "アプリケーションが生成できませんでした...終了します。\n"
 
-#: src/anjuta.c:270 src/anjuta.c:274 src/anjuta.c:853 src/anjuta.c:869
+#: src/anjuta.c:272 src/anjuta.c:276 src/anjuta.c:855 src/anjuta.c:871
 #, c-format
 msgid "Anjuta: %s"
 msgstr "Anjuta: %s"
 
-#: src/anjuta.c:336
+#: src/anjuta.c:338
 msgid "Recent Files "
 msgstr "最近開いたファイル "
 
-#: src/anjuta.c:639
+#: src/anjuta.c:641
 msgid "CVS is not yet implemented. :-(\n"
 msgstr "CVS 機能は未だ実装されていません。:-(\n"
 
-#: src/anjuta.c:686
+#: src/anjuta.c:688
 msgid "# * DO NOT EDIT OR RENAME THIS FILE ** Generated by Anjuta **\n"
 msgstr "# * このファイルの編集または名前の変更は厳禁 ** Anjuta が作成 **\n"
 
-#: src/anjuta.c:846
+#: src/anjuta.c:848
 #, c-format
 msgid "Anjuta: %s(Saved)"
 msgstr "Anjuta: %s (保存済み)"
 
-#: src/anjuta.c:861
+#: src/anjuta.c:863
 #, c-format
 msgid "Anjuta: %s(Unsaved)"
 msgstr "Anjuta: %s (未保存)"
 
-#: src/anjuta.c:888
+#: src/anjuta.c:890
 msgid "Anjuta: No file"
 msgstr "Anjuta: ファイルなし"
 
-#: src/anjuta.c:1142
+#: src/anjuta.c:1149
 msgid "ERROR: "
 msgstr "エラー: "
 
-#: src/anjuta.c:1159
+#: src/anjuta.c:1166
 msgid ""
 "\n"
 "System: "
@@ -5082,7 +5088,7 @@ msgstr ""
 "\n"
 "システム: "
 
-#: src/anjuta.c:1393
+#: src/anjuta.c:1400
 #, c-format
 msgid ""
 "Not yet implemented.\n"
@@ -5091,11 +5097,11 @@ msgstr ""
 "まだ実装されていません。\n"
 "\"%s:%u\" にコードを追加して下さい"
 
-#: src/anjuta.c:1609
+#: src/anjuta.c:1616
 msgid "Activate this to select this window"
 msgstr "このウィンドウを選択するには、これを起動して下さい"
 
-#: src/anjuta.c:1656
+#: src/anjuta.c:1663
 #, c-format
 msgid ""
 "You do not have \"%s\" installed in your box.\n"
@@ -5104,19 +5110,19 @@ msgstr ""
 "システムに \"%s\" がインストールされていません。\n"
 "インストール後に Anjuta を再起動して下さい。"
 
-#: src/anjuta.c:1682 src/anjuta.c:1717
+#: src/anjuta.c:1689 src/anjuta.c:1724
 msgid "None"
 msgstr "なし"
 
-#: src/anjuta.c:1699
+#: src/anjuta.c:1706
 msgid "OVR"
 msgstr "OVR"
 
-#: src/anjuta.c:1703 src/anjuta.c:1709
+#: src/anjuta.c:1710 src/anjuta.c:1716
 msgid "INS"
 msgstr "INS"
 
-#: src/anjuta.c:1720
+#: src/anjuta.c:1727
 #, c-format
 msgid ""
 "  Project: %s       Zoom: %d       Line: %04d       Col: %03d       %s       "
@@ -5125,27 +5131,27 @@ msgstr ""
 "  プロジェクト: %s  倍率: %d       行: %04d         列: %03d        %s       "
 "ジョブ: %s"
 
-#: src/anjuta.c:1932 src/anjuta.c:1935
+#: src/anjuta.c:1939 src/anjuta.c:1942
 #, c-format
 msgid "Unable to Load Plug in Module %s. Err: %s"
 msgstr "モジュール %s のプラグインを読み込めません。Err: %s"
 
-#: src/anjuta.c:1938
+#: src/anjuta.c:1945
 #, c-format
 msgid "Plug in Module protocol unknown %s Err:%s"
 msgstr "不明なプロトコル %s のモジュール・プラグインです。Err: %s"
 
-#: src/anjuta.c:1941
+#: src/anjuta.c:1948
 #, c-format
 msgid "Unable to Start Plug in Module %s"
 msgstr "モジュール %s のプラグインを起動できません。"
 
-#: src/anjuta.c:1944
+#: src/anjuta.c:1951
 #, c-format
 msgid "Bad Parameters to Plug in %s. Err: %s"
 msgstr "プラグイン %s に対して不適当なパラメータです。Err: %s"
 
-#: src/anjuta.c:1952
+#: src/anjuta.c:1959
 #, c-format
 msgid ""
 "Unable to load plugin %s.\n"
@@ -5154,7 +5160,7 @@ msgstr ""
 "プラグイン %s を読み込めません。\n"
 "Error %s"
 
-#: src/anjuta.c:2022
+#: src/anjuta.c:2029
 msgid "Out of Memory scanning for plugins."
 msgstr "プラグイン検出に必要なメモリがありません。"
 
@@ -5207,3 +5213,4 @@ msgstr "ファイルから Pixmap が生成できませんでした: %s"
 msgid "Cannot execute Devhelp. Make sure it is installed"
 msgstr ""
 "Devhelp を起動することが出来ません。インストールされているか確認して下さい。"
+
