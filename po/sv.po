@@ -8,8 +8,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
-"POT-Creation-Date: 2002-01-03 18:01+0100\n"
-"PO-Revision-Date: 2002-01-03 18:01+0100\n"
+"POT-Creation-Date: 2002-01-05 14:30+0100\n"
+"PO-Revision-Date: 2002-01-05 14:30+0100\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -114,7 +114,7 @@ msgstr "Inte en vanlig fil: %s."
 msgid "No read permission for: %s."
 msgstr "Inga läsrättigheter för: %s."
 
-#: src/anjuta_cbs.c:235 src/anjuta_cbs.c:449
+#: src/anjuta_cbs.c:235 src/anjuta_cbs.c:450
 #, c-format
 msgid ""
 "The file \"%s\" already exists.\n"
@@ -371,7 +371,7 @@ msgstr "Kommando"
 msgid "Update"
 msgstr "Uppdatera"
 
-#: src/attach_process_gui.c:109 src/text_editor_gui.c:274
+#: src/attach_process_gui.c:109 src/text_editor_gui.c:271
 msgid "Attach"
 msgstr "Anslut"
 
@@ -387,7 +387,7 @@ msgstr "JA"
 msgid "NO"
 msgstr "NEJ"
 
-#: src/breakpoints.c:700 src/main_menubar_def.h:516 src/text_editor_gui.c:227
+#: src/breakpoints.c:700 src/main_menubar_def.h:516 src/text_editor_gui.c:224
 msgid "0"
 msgstr "0"
 
@@ -496,7 +496,7 @@ msgid "I do not really know how to build this file."
 msgstr "Jag vet egentligen inte hur denna fil ska byggas."
 
 #: src/build_file.c:107 src/messages.c:535 src/preferences_gui.c:176
-#: src/text_editor_gui.c:249 src/toolbar.c:474
+#: src/text_editor_gui.c:246 src/toolbar.c:474
 msgid "Build"
 msgstr "Bygge"
 
@@ -794,7 +794,7 @@ msgstr "Objektfilen är aktuell. Omkompilering behövs inte."
 msgid "I do not really know how to compile this file."
 msgstr "Jag vet egentligen inte hur jag ska kompilera denna fil."
 
-#: src/compile.c:156 src/text_editor_gui.c:238 src/toolbar.c:451
+#: src/compile.c:156 src/text_editor_gui.c:235 src/toolbar.c:451
 msgid "Compile"
 msgstr "Kompilera"
 
@@ -1302,15 +1302,15 @@ msgstr "Kör i terminal"
 msgid "Execute"
 msgstr "Kör"
 
-#: src/executer.c:234 src/mainmenu_callbacks.c:1549
+#: src/executer.c:234 src/mainmenu_callbacks.c:1550
 msgid "Target of this project is unknown"
 msgstr "Målet för detta projekt är okänt"
 
-#: src/executer.c:239 src/mainmenu_callbacks.c:1551
+#: src/executer.c:239 src/mainmenu_callbacks.c:1552
 msgid "Target of this project is not executable"
 msgstr "Målet för detta projekt är inte körbart"
 
-#: src/executer.c:244 src/mainmenu_callbacks.c:1555
+#: src/executer.c:244 src/mainmenu_callbacks.c:1556
 msgid "Executable does not exist for this project."
 msgstr "Körbar fil finns inte för detta projekt."
 
@@ -1318,12 +1318,12 @@ msgstr "Körbar fil finns inte för detta projekt."
 msgid "No file or project opened."
 msgstr "Ingen fil eller projekt öppnades."
 
-#: src/executer.c:262 src/executer.c:281 src/mainmenu_callbacks.c:1575
-#: src/mainmenu_callbacks.c:1586
+#: src/executer.c:262 src/executer.c:281 src/mainmenu_callbacks.c:1576
+#: src/mainmenu_callbacks.c:1587
 msgid "No executable for this file."
 msgstr "Ingen körbar fil för denna fil."
 
-#: src/executer.c:286 src/mainmenu_callbacks.c:1581
+#: src/executer.c:286 src/mainmenu_callbacks.c:1582
 msgid "Executable is not up-to-date."
 msgstr "Körbar fil är inte aktuell."
 
@@ -1473,7 +1473,7 @@ msgstr "Strängen \"%s\" hittades inte i den markerade texten"
 msgid "The string \"%s\" was not found from the current location"
 msgstr "Strängen \"%s\" hittades inte från den aktuella platsen"
 
-#: src/find_text.c:251 src/messages.c:537 src/text_editor_gui.c:190
+#: src/find_text.c:251 src/messages.c:537 src/text_editor_gui.c:187
 #: src/toolbar.c:231
 msgid "Find"
 msgstr "Sök"
@@ -1608,7 +1608,7 @@ msgstr "Manualsidor"
 msgid "Info pages"
 msgstr "Infosidor"
 
-#: src/launcher.c:220 src/text_editor.c:1099
+#: src/launcher.c:220 src/text_editor.c:1106
 msgid "Cannot execute command shell"
 msgstr "Kan inte köra kommandoskal"
 
@@ -1636,9 +1636,9 @@ msgstr "projekt1"
 msgid "_New"
 msgstr "_Ny"
 
-#: src/main_menubar_def.h:38 src/text_editor_gui.c:115 src/toolbar.c:109
-msgid "New Text File"
-msgstr "Ny textfil"
+#: src/main_menubar_def.h:38
+msgid "New file"
+msgstr "Ny fil"
 
 #: src/main_menubar_def.h:43
 msgid "_Open ..."
@@ -1701,7 +1701,7 @@ msgid "N_ew Project ..."
 msgstr "N_ytt projekt..."
 
 #: src/main_menubar_def.h:87
-msgid "Create a Project using application wizard"
+msgid "Create a Project using the application wizard"
 msgstr "Skapa ett projekt genom att använda programguiden"
 
 #: src/main_menubar_def.h:92
@@ -3106,11 +3106,11 @@ msgstr "Inställningar för kompilatorn och länkaren"
 
 #: src/main_menubar_def.h:1417
 msgid "_Source Paths ..."
-msgstr "_Källkodssökväg..."
+msgstr "_Källkodssökvägar..."
 
 #: src/main_menubar_def.h:1418
-msgid "Specify the source paths for the Anjuta to search"
-msgstr "Ange källkodssökvägen för Anjuta att söka i"
+msgid "Specify the source paths for Anjuta to search"
+msgstr "Ange källkodssökvägarna för Anjuta att söka i"
 
 #: src/main_menubar_def.h:1423
 msgid "_Commands ..."
@@ -3304,11 +3304,11 @@ msgstr "Är du säker på att du vill skriva ut den aktuella filen?"
 msgid "Tags image update successfully."
 msgstr "Uppdatering av taggbild lyckades."
 
-#: src/mainmenu_callbacks.c:1606
+#: src/mainmenu_callbacks.c:1607
 msgid "Debugger is not running. Start it first."
 msgstr "Felsökaren kör inte. Starta den först."
 
-#: src/mainmenu_callbacks.c:1642
+#: src/mainmenu_callbacks.c:1643
 msgid ""
 "Program is ATTACHED.\n"
 "Do you still want to stop Debugger?"
@@ -3316,7 +3316,7 @@ msgstr ""
 "Programmet är ANSLUTET.\n"
 "Vill du stoppa felsökaren?"
 
-#: src/mainmenu_callbacks.c:1652
+#: src/mainmenu_callbacks.c:1653
 msgid ""
 "Program is running.\n"
 "Do you still want to stop Debugger?"
@@ -3324,8 +3324,8 @@ msgstr ""
 "Programmet kör.\n"
 "Vill du stoppa felsökaren?"
 
-#: src/mainmenu_callbacks.c:1831 src/mainmenu_callbacks.c:1849
-#: src/mainmenu_callbacks.c:1877 src/mainmenu_callbacks.c:1895
+#: src/mainmenu_callbacks.c:1832 src/mainmenu_callbacks.c:1850
+#: src/mainmenu_callbacks.c:1878 src/mainmenu_callbacks.c:1896
 msgid "Cannot launch gnome-help-browser"
 msgstr "Kan inte starta gnome-help-browser"
 
@@ -4209,7 +4209,7 @@ msgstr "Signal"
 msgid "Stop"
 msgstr "Stoppa"
 
-#: src/signals_gui.c:125 src/text_editor_gui.c:263 src/toolbar.c:218
+#: src/signals_gui.c:125 src/text_editor_gui.c:260 src/toolbar.c:218
 msgid "Print"
 msgstr "Skriv ut"
 
@@ -4304,33 +4304,33 @@ msgstr "Uppdatering av taggbild färdig"
 msgid "Syncdronization of Tags image failed"
 msgstr "Synkronisering av taggbild misslyckades"
 
-#: src/text_editor.c:774
+#: src/text_editor.c:781
 msgid "Loading file ..."
 msgstr "Läser in fil..."
 
-#: src/text_editor.c:780
+#: src/text_editor.c:787
 #, c-format
 msgid "Could not load file: %s"
 msgstr "Kunde inte läsa in fil: %s"
 
-#: src/text_editor.c:809
+#: src/text_editor.c:816
 msgid "File loaded successfully"
 msgstr "Filen lästes in utan problem"
 
-#: src/text_editor.c:824
+#: src/text_editor.c:831
 msgid "Saving file ..."
 msgstr "Sparar fil..."
 
-#: src/text_editor.c:829
+#: src/text_editor.c:836
 #, c-format
 msgid "Could not save file: %s."
 msgstr "Kunde inte spara fil: %s."
 
-#: src/text_editor.c:856
+#: src/text_editor.c:863
 msgid "File saved successfully"
 msgstr "Filen sparades utan problem"
 
-#: src/text_editor.c:951
+#: src/text_editor.c:958
 #, c-format
 msgid ""
 "WARNING: The file \"%s\" in the disk is more recent than\n"
@@ -4341,115 +4341,119 @@ msgstr ""
 "den aktuella bufferten.\n"
 "Vill du läsa om den?"
 
-#: src/text_editor.c:1067
+#: src/text_editor.c:1074
 msgid "Auto format is currently disabled. Change the setting in Preferences."
 msgstr ""
 "Autoformatering är för närvarande deaktiverad. Ändra inställningen i "
 "Inställningar."
 
-#: src/text_editor.c:1073
+#: src/text_editor.c:1080
 msgid "Auto formatting ..."
 msgstr "Autoformatering..."
 
-#: src/text_editor.c:1083 src/text_editor.c:1110
+#: src/text_editor.c:1090 src/text_editor.c:1117
 msgid "Error in auto formatting ..."
 msgstr "Fel i autoformatering..."
 
-#: src/text_editor.c:1116
+#: src/text_editor.c:1123
 msgid "Auto formatting completed"
 msgstr "Autoformatering färdig"
 
-#: src/text_editor_cbs.c:186
+#: src/text_editor_cbs.c:187
 #, c-format
 msgid "Autosaved \"%s\""
 msgstr "Autosparade \"%s\""
 
-#: src/text_editor_cbs.c:190
+#: src/text_editor_cbs.c:191
 #, c-format
 msgid "Autosave \"%s\" -- Failed"
 msgstr "Autosparande av \"%s\" -- Misslyckades"
 
-#: src/text_editor_gui.c:115 src/toolbar.c:109
+#: src/text_editor_gui.c:112 src/toolbar.c:109
 msgid "New"
 msgstr "Ny"
 
-#: src/text_editor_gui.c:125 src/toolbar.c:120
+#: src/text_editor_gui.c:112 src/toolbar.c:109
+msgid "New Text File"
+msgstr "Ny textfil"
+
+#: src/text_editor_gui.c:122 src/toolbar.c:120
 msgid "Open"
 msgstr "Öppna"
 
-#: src/text_editor_gui.c:125
+#: src/text_editor_gui.c:122
 msgid "Open Text File"
 msgstr "Öppna textfil"
 
-#: src/text_editor_gui.c:137 src/toolbar.c:133
+#: src/text_editor_gui.c:134 src/toolbar.c:133
 msgid "Save"
 msgstr "Spara"
 
-#: src/text_editor_gui.c:137
+#: src/text_editor_gui.c:134
 msgid "Save Current File"
 msgstr "Spara aktuell fil"
 
-#: src/text_editor_gui.c:147 src/toolbar.c:168
+#: src/text_editor_gui.c:144 src/toolbar.c:168
 msgid "Reload"
 msgstr "Läs om"
 
-#: src/text_editor_gui.c:148
+#: src/text_editor_gui.c:145
 msgid "Reload Current File"
 msgstr "Läs om aktuell fil"
 
-#: src/text_editor_gui.c:159 src/text_editor_menu.c:202
+#: src/text_editor_gui.c:156 src/text_editor_menu.c:202
 msgid "Cut"
 msgstr "Klipp ut"
 
-#: src/text_editor_gui.c:159
+#: src/text_editor_gui.c:156
 msgid "Cut to clipboard"
 msgstr "Klipp ut till urklipp"
 
-#: src/text_editor_gui.c:168 src/text_editor_menu.c:209
+#: src/text_editor_gui.c:165 src/text_editor_menu.c:209
 msgid "Copy"
 msgstr "Kopiera"
 
-#: src/text_editor_gui.c:169
+#: src/text_editor_gui.c:166
 msgid "Copy to clipboard"
 msgstr "Kopiera till urklipp"
 
-#: src/text_editor_gui.c:178 src/text_editor_menu.c:216
+#: src/text_editor_gui.c:175 src/text_editor_menu.c:216
 msgid "Paste"
 msgstr "Klistra in"
 
-#: src/text_editor_gui.c:179
+#: src/text_editor_gui.c:176
 msgid "Paste from clipboard"
 msgstr "Klistra in från urklipp"
 
-#: src/text_editor_gui.c:191
+#: src/text_editor_gui.c:188
 msgid "Search the given string"
 msgstr "Sök den angivna strängen"
 
-#: src/text_editor_gui.c:201
+#: src/text_editor_gui.c:198
 msgid "Replace"
 msgstr "Ersätt"
 
-#: src/text_editor_gui.c:203
+#: src/text_editor_gui.c:200
 msgid "Search and replace the given string"
 msgstr "Sök och ersätt den angivna strängen"
 
-#: src/text_editor_gui.c:223
+#: src/text_editor_gui.c:220
 msgid "line: "
 msgstr "rad: "
 
-#: src/text_editor_gui.c:239 src/toolbar.c:452
+#: src/text_editor_gui.c:236 src/toolbar.c:452
 msgid "Compile the current file"
 msgstr "Kompilera den aktuella filen"
 
-#: src/text_editor_gui.c:251
+#: src/text_editor_gui.c:248
 msgid "Build current File or Build the source directory of the Project"
 msgstr "Bygg aktuell fil eller bygg källkodskatalogen för projektet"
 
-#: src/text_editor_gui.c:264
+#: src/text_editor_gui.c:261
 msgid "Print the current File"
 msgstr "Skriv ut den aktuella filen"
 
-#: src/text_editor_gui.c:276
+#: src/text_editor_gui.c:273
 msgid "Attach the editor window as paged editor"
 msgstr "Fäst redigerarfönstret som en sidredigerare"
 
@@ -4973,8 +4977,8 @@ msgid "Add To Watch"
 msgstr "Lägg till i bevakare"
 
 #: src/about.c:66
-msgid "Copyright (c) 1999-2001 Naba Kumar"
-msgstr "Copyright © 1999-2001 Naba Kumar"
+msgid "Copyright (c) 1999-2002 Naba Kumar"
+msgstr "Copyright © 1999-2002 Naba Kumar"
 
 #: src/about.c:77
 msgid "Anjuta Home Site"
@@ -5049,44 +5053,44 @@ msgstr "Spara fil som"
 msgid "Cannot create application... exiting\n"
 msgstr "Kan inte skapa program...avslutar\n"
 
-#: src/anjuta.c:284 src/anjuta.c:288 src/anjuta.c:877 src/anjuta.c:893
+#: src/anjuta.c:271 src/anjuta.c:275 src/anjuta.c:864 src/anjuta.c:880
 #, c-format
 msgid "Anjuta: %s"
 msgstr "Anjuta: %s"
 
-#: src/anjuta.c:350
+#: src/anjuta.c:337
 msgid "Recent Files "
 msgstr "Senaste filer "
 
-#: src/anjuta.c:663
+#: src/anjuta.c:650
 msgid "CVS is not yet implemented. :-(\n"
 msgstr "CVS är ännu inte implementerat. :-(\n"
 
-#: src/anjuta.c:710
+#: src/anjuta.c:697
 msgid "# * DO NOT EDIT OR RENAME THIS FILE ** Generated by Anjuta **\n"
 msgstr ""
 "# * REDIGERA INTE ELLER BYT INTE NAMN PÅ DENNA FIL ** Genererad av Anjuta "
 "**\n"
 
-#: src/anjuta.c:870
+#: src/anjuta.c:857
 #, c-format
 msgid "Anjuta: %s (Saved)"
 msgstr "Anjuta: %s (Sparad)"
 
-#: src/anjuta.c:885
+#: src/anjuta.c:872
 #, c-format
 msgid "Anjuta: %s (Unsaved)"
 msgstr "Anjuta: %s (Osparad)"
 
-#: src/anjuta.c:912
+#: src/anjuta.c:899
 msgid "Anjuta: No file"
 msgstr "Anjuta: Ingen fil"
 
-#: src/anjuta.c:1171
+#: src/anjuta.c:1158
 msgid "ERROR: "
 msgstr "FEL: "
 
-#: src/anjuta.c:1188
+#: src/anjuta.c:1175
 msgid ""
 "\n"
 "System: "
@@ -5094,7 +5098,7 @@ msgstr ""
 "\n"
 "System: "
 
-#: src/anjuta.c:1422
+#: src/anjuta.c:1409
 #, c-format
 msgid ""
 "Not yet implemented.\n"
@@ -5103,11 +5107,11 @@ msgstr ""
 "Inte implementerad än.\n"
 "Infoga kod vid \"%s:%u\""
 
-#: src/anjuta.c:1638
+#: src/anjuta.c:1625
 msgid "Activate this to select this window"
 msgstr "Aktivera detta för att välja detta fönster"
 
-#: src/anjuta.c:1685
+#: src/anjuta.c:1672
 #, c-format
 msgid ""
 "The \"%s\" utility is not installed.\n"
@@ -5116,19 +5120,19 @@ msgstr ""
 "Verktyget \"%s\" är inte installerat.\n"
 "Installera det och starta sedan om Anjuta."
 
-#: src/anjuta.c:1711 src/anjuta.c:1746
+#: src/anjuta.c:1698 src/anjuta.c:1733
 msgid "None"
 msgstr "Ingen"
 
-#: src/anjuta.c:1728
+#: src/anjuta.c:1715
 msgid "OVR"
 msgstr "OVR"
 
-#: src/anjuta.c:1732 src/anjuta.c:1738
+#: src/anjuta.c:1719 src/anjuta.c:1725
 msgid "INS"
 msgstr "INS"
 
-#: src/anjuta.c:1749
+#: src/anjuta.c:1736
 #, c-format
 msgid ""
 "  Project: %s       Zoom: %d       Line: %04d       Col: %03d       %s       "
@@ -5137,27 +5141,27 @@ msgstr ""
 "  Projekt: %s       Zoom: %d       Rad: %04d       Kolumn: %03d      %s      "
 "Jobb: %s"
 
-#: src/anjuta.c:1961 src/anjuta.c:1964
+#: src/anjuta.c:1948 src/anjuta.c:1951
 #, c-format
 msgid "Unable to Load Plug in Module %s. Err: %s"
 msgstr "Kan inte läsa in insticksmodulen %s. Fel: %s"
 
-#: src/anjuta.c:1967
+#: src/anjuta.c:1954
 #, c-format
 msgid "Plug in Module protocol unknown %s Err:%s"
 msgstr "Protokoll för insticksmodul okänt %s Fel:%s"
 
-#: src/anjuta.c:1970
+#: src/anjuta.c:1957
 #, c-format
 msgid "Unable to Start Plug in Module %s"
 msgstr "Kan inte starta insticksmodulen %s"
 
-#: src/anjuta.c:1973
+#: src/anjuta.c:1960
 #, c-format
 msgid "Bad Parameters to Plug in %s. Err: %s"
 msgstr "Felaktiga parametrar till insticksmodulen %s. Fel: %s"
 
-#: src/anjuta.c:1981
+#: src/anjuta.c:1968
 #, c-format
 msgid ""
 "Unable to load plugin %s.\n"
@@ -5166,7 +5170,7 @@ msgstr ""
 "Kan inte läsa in insticksmodulen %s.\n"
 "Fel %s"
 
-#: src/anjuta.c:2052
+#: src/anjuta.c:2039
 msgid "Out of Memory scanning for plugins."
 msgstr "Slut på minne vid genomsökning efter insticksmoduler"
 
