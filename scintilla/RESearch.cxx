@@ -30,9 +30,37 @@
  * Modification history:
  *
  * $Log$
+ * Revision 1.9  2002/06/04 18:35:56  andyp
+ * 2002-06-04	Andy Piper	<andy.piper@freeuk.com>
+ * * HACKING: updated with new information on printing, patch naming
+ *
+ * * TODO: removed completed tasks
+ *
+ * * THANKS: updated a few contributions
+ *
+ * * anjuta.prj: updated the icon file
+ *
+ * * anjuta.desktop.in.in: updated to add Categories
+ *
+ * * data/anjuta.mime: created a mime type for Anjuta project files (NB needs to be added to the install in /usr/share/mime/)
+ *
+ * * pixmaps/madeinanjuta.xcf: finally added Nick Dowell\'s "Coded in Anjuta" button in Gimp XCF format. It can be converted to PNG for websites.
+ *
+ * * plugins/patch/patch-plugin.c: clarified some messages and made it easier to see different patching sessions
+ *
+ * * src/toolbar.c: changed some message text for consistency
+ *
+ * * src/preferences_gui.c, src/preferences.c, src/preferences.h, src/defaults.c, src/anjuta.c, src/anjuta.h: enable/disable tooltips  in preferences.
+ * Patch from Jean-Noel Guiheneuf <jnoel@saudionline.com.sa>
+ *
+ * * src/appwiz_page1.c, src/appwizard_cbs.c, src/pixmaps.h, src/project_dbase.{c,h}, src/project_import_cbs.c, src/project_type.c, src/source.{c,h}, src/wizard_gui.c: Added XLib Project and a Dockapp Project types.
+ * * pixmaps/Makefile.am: added line for new pixmap for new xlib projects
+ * * pixmaps/appwiz_xlib.png: pixmap for new xlib projects
+ * * src/source.c: Fixed memory leak in existing projects. (filename was not freed)
+ * Patch from Todd Goyen <wettoad@knighthoodofbuh.org>
+ *
  * Revision 1.8  2002/05/29 15:48:43  naba
- * 	* scintilla/*, scintilla/include/*: Upgraded to the vanilla
- * 	scintilla 1.46
+ * Upgraded to the vanilla scintilla 1.46
  *
  * Revision 1.6  2001/04/29 13:32:10  nyamatongwe
  * Addition of new target methods - versions of ReplaceTarget that take counted

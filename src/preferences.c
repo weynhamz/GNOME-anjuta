@@ -206,6 +206,7 @@ preferences_destroy (Preferences * pr)
 		gtk_widget_unref (pr->widgets.mesg_first_spin);
 		gtk_widget_unref (pr->widgets.mesg_last_spin);
 		gtk_widget_unref (pr->widgets.tags_update_check);
+		gtk_widget_unref (pr->widgets.show_tooltips);
 		gtk_widget_unref (pr->widgets.no_tag_check);
 		for (i = 0; i < 4; i++)
 			gtk_widget_unref (pr->widgets.tag_pos_radio[i]);
@@ -675,6 +676,11 @@ preferences_sync (Preferences * pr)
 				      (pr->widgets.tags_update_check),
 				      preferences_get_int (pr,
 							   AUTOMATIC_TAGS_UPDATE));
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON
+				      (pr->widgets.show_tooltips),
+				      preferences_get_int (pr,
+							   SHOW_TOOLTIPS));
+
 	/* Page CVS */
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (pr->widgets.option_force_update),
 			cvs_get_force_update (app->cvs));
@@ -956,6 +962,8 @@ gboolean preferences_save_yourself (Preferences * pr, FILE * fp)
 		 preferences_get_int (pr, EDITOR_TABS_ORDERING));
 	fprintf (fp, "%s=%d\n", AUTOMATIC_TAGS_UPDATE,
 		 preferences_get_int (pr, AUTOMATIC_TAGS_UPDATE));
+	fprintf (fp, "%s=%d\n", SHOW_TOOLTIPS,
+		 preferences_get_int (pr, SHOW_TOOLTIPS));
 	fprintf (fp, "%s=%d\n", USE_COMPONENTS,
 		 preferences_get_int (pr, USE_COMPONENTS));
 	

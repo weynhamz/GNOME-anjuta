@@ -44,7 +44,7 @@ project.programming.language=C_C++
 project.menu.entry=Anjuta IDE
 project.menu.group=Application
 project.menu.comment=Integrated Development Environment
-project.menu.icon=pixmaps/anjuta_icon.xpm
+project.menu.icon=pixmaps/anjuta_icon.png
 project.menu.need.terminal=0
 
 project.configure.options=

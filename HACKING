@@ -2,19 +2,18 @@ Notes for Developers on contributing to Anjuta
 ----------------------------------------------
 
 (TO BE EXPANDED OVER TIME - please post submissions to the Anjuta 
-Development mailing list)
+Development mailing list or the project maintainer)
 
 
 Tools
 -----
 
 IMPORTANT: please be careful about using Anjuta to develop Anjuta.
-It is probably best not to use Anjuta for its own development,
-as it may break lots of things while developing.
+Any instabilities in the development version may cause problems.
 
 Anjuta is written using a mixture of C and C++. You will require
-the standard GNU toolchain to build and work with the Anjuta 
-sources.
+the standard GNU toolchain and current stable GNOME libraries to 
+build and work with the Anjuta sources.
 
 
 Submitting patches
@@ -27,7 +26,7 @@ of areas of the source tree are more complex to apply and test.
 Patches may be submitted to the project website, to the mailing lists, 
 or directly to the project maintainer.
 
-The five-step plan to patching happiness is as follows:
+The six-step plan to patching happiness is as follows:
 
 1) All patches should be submitted in *unified* form, i.e. created 
 with the command "diff -u" or "cvs diff -u"). 
@@ -74,6 +73,12 @@ a reference email to the list mentioning that you have sent a patch.
 5) *Always* include a ChangeLog entry as part of the diff to ensure that
 your entry is also committed directly with your name mentioned.
 
+6) Name the patch with a useful filename. e.g. avoid calling your patch
+patch.diff, anjuta.diff or something like that. It is easier to manage
+a queue of patches named things like biswa-print-20020605.diff and 
+bug-544912.diff as the names are more meaningful. Include the bug number
+or your name and the date in the name of the file. Thanks!
+
 
 General source structure
 ------------------------
@@ -93,6 +98,7 @@ Key elements:
 * scintilla/ - the editor
 * widgets/ - additional widgets used
 * launcher/ - launcher wrapper used by the debugger
+* printing/ - gnome-print support
 * tagmanager/ - the tagmanager library
 * plugins/ - plugin components (see the sample for more information)
 
@@ -138,7 +144,7 @@ b) make sure that mixed case is only used where it makes sense to do so.
 Example: "Unable to Start Plug in Module %s".
 This message is not ideal since the standard terminology is "plugin" (so 
 please do not use "Plug in", "plug-in", etc.). Also, in this case there 
-is no reason for the words "start" and "module" to being with an uppercase 
+is no reason for the words "start" and "module" to start with an uppercase 
 letter.
 
 There are a few standard terms we use - in particular:
@@ -417,16 +423,16 @@ the mailing list)
 
 So that was the easy part ;-)
 
-Now search for every occurence of PROJECT_TYPE_* in the codebase, and 
-decide if you have anything to add (there are about 10 places where it 
-occurs).
+Now search for every occurence of PROJECT_TYPE_* and project_type_* in 
+the codebase, and decide if you have anything to add (there are about 
+10 places where it occurs).
 
 Good luck!
 
 8) How to correctly credit people:
 ----------------------------------
 
-New contributors should always be credited. There are three files which 
+New contributors must always be credited. There are three files which 
 must be updated:
 
 	* THANKS

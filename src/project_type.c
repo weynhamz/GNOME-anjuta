@@ -277,7 +277,49 @@ gchar* project_type_wxwin[] =
 	"0",
 };
 
+gchar* project_type_xwin[] = 
+{
+	"XWINDOWS",
+	  
+	" \\\n\t$(X_CFLAGS)",
+	" \\\n\t-lX11 -lXpm -lXext"
+	" \\\n\t$(X_LIBS)"
+	" \\\n\t$(X_EXTRA_LIBS)",
+    
+	"AC_PATH_XTRA\n\n"
+	"if test $no_x; then\n"
+	"\tAC_MSG_ERROR([The path for the X11 files not found!\n"
+	"\tMake sure you have X and it's headers and libraries"
+	"(the -devel packages in Linux) installed.])\n"
+	"fi\n",
+	
+	"/autogen.sh.generic",
 
+	"0",
+	"0",
+};
+
+gchar* project_type_xwindockapp[] = 
+{
+	"XWINDOWSDOCKAPP",
+	  
+	" \\\n\t$(X_CFLAGS)",
+	" \\\n\t-lX11 -lXpm -lXext"
+	" \\\n\t$(X_LIBS)"
+	" \\\n\t$(X_EXTRA_LIBS)",
+    
+	"AC_PATH_XTRA\n\n"
+	"if test $no_x; then\n"
+	"\tAC_MSG_ERROR([The path for the X11 files not found!\n"
+	"\tMake sure you have X and it's headers and libraries"
+	"(the -devel packages in Linux) installed.])\n"
+	"fi\n",
+	
+	"/autogen.sh.generic",
+
+	"0",
+	"0",	  
+};
 
 Project_Type* load_type_from_data(char* type_data[], gint id);
 
@@ -345,6 +387,16 @@ Project_Type* load_project_type(gint id)
 		case PROJECT_TYPE_WXWIN:
 		{
 			type = load_type_from_data(project_type_wxwin, id);
+			break;
+		}
+		case PROJECT_TYPE_XWIN:
+		{
+			type = load_type_from_data(project_type_xwin, id);
+			break;
+		}
+		case PROJECT_TYPE_XWINDOCKAPP:
+		{
+			type = load_type_from_data(project_type_xwindockapp, id);
 			break;
 		}
 		default:

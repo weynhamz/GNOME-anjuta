@@ -6,3 +6,4 @@ Icon=@PACKAGE_PIXMAPS_DIR@/anjuta_icon.png
 Terminal=false
 MultipleArgs=false
 Type=Application
+Categories=Application;Development;

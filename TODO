@@ -22,12 +22,10 @@ TODO List:
 	  imported as a project
 
 	o Debugger optimization
-	o Gnome Print
 
 	o Utilities
 	o Integration with glade, gtranslator, eog and other bonobo components
 	
-	o Enabling/disabling calltips in preferences.
 	o Double/single click open file in preferences.
 
 	o Use GtkHTML if available to browse online documentation/manuals
@@ -86,5 +84,5 @@ ld gave me errors (can't find -ldb1). Checking for db1 dependency (both rpm and 
 
 - Tooltips that pop up for a function (eg. "printf(") persist
 onscreen when changing source files. 
-This is now fixed but now calltips flicker if the curser touches
+This is now fixed but now calltips flicker if the cursor touches
 them.

@@ -1884,6 +1884,8 @@ create_preferences_page7 (Preferences * p)
 	GtkWidget *frame4;
 	GtkWidget *checkbutton7;
 	GtkWidget *checkbutton8;
+	GtkWidget *frame9;
+	GtkWidget *checkbutton9;
 	gint i;
 
 	window1 = p->widgets.window;
@@ -1980,6 +1982,19 @@ create_preferences_page7 (Preferences * p)
 	gtk_container_add (GTK_CONTAINER (frame4), checkbutton7);
 	gtk_container_set_border_width (GTK_CONTAINER (checkbutton7), 5);
 
+/* Show tooltips */	
+	frame9 = gtk_frame_new (_(" Tooltips"));
+	gtk_widget_show (frame9);
+	gtk_box_pack_start (GTK_BOX (vbox1), frame9, FALSE, FALSE, 0);
+	gtk_container_set_border_width (GTK_CONTAINER (frame9), 5);
+
+	checkbutton9 =
+		gtk_check_button_new_with_label (_
+						 ("Show tooltips"));
+	gtk_widget_show (checkbutton9);
+	gtk_container_add (GTK_CONTAINER (frame9), checkbutton9);
+	gtk_container_set_border_width (GTK_CONTAINER (checkbutton9), 5);
+
 	p->widgets.tag_pos_radio[0] = radiobutton1;
 	p->widgets.tag_pos_radio[1] = radiobutton2;
 	p->widgets.tag_pos_radio[2] = radiobutton3;
@@ -1994,6 +2009,8 @@ create_preferences_page7 (Preferences * p)
 	p->widgets.tags_update_check = checkbutton7;
 	gtk_widget_ref (checkbutton8);
 	p->widgets.tabs_ordering = checkbutton8;
+	gtk_widget_ref (checkbutton9);
+	p->widgets.show_tooltips = checkbutton9;
 
 	return frame1;
 }
@@ -2229,6 +2246,7 @@ on_preferences_apply_clicked (GtkButton * button, gpointer user_data)
 	gint i;
 	gchar *str;
 	gint8 r, g, b, a;
+  gint show_tooltips;
 
 	Preferences *pr = (Preferences *) user_data;
 
@@ -2605,6 +2623,11 @@ on_preferences_apply_clicked (GtkButton * button, gpointer user_data)
 
 	preferences_set_int (pr, AUTOMATIC_TAGS_UPDATE,
 			     gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (pr->widgets.tags_update_check)));
+
+	show_tooltips = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (pr->widgets.show_tooltips));
+	preferences_set_int (pr, SHOW_TOOLTIPS,
+			     gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (pr->widgets.show_tooltips)));
+	show_hide_tooltips(show_tooltips);
 
   /*  Page Identification */
   preferences_set (pr, IDENT_NAME,

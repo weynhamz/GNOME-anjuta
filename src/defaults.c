@@ -95,6 +95,7 @@ char* default_settings=
 "truncat.mesg.first=50\n"
 "truncat.mesg.last=50\n"
 "automatic.tags.update=1\n"
+"show.tooltips=1\n"
 "tabsize=8\n"
 "indent.size=8\n"
 "use.tabs=1\n"

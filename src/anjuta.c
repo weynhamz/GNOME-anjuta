@@ -1147,12 +1147,24 @@ anjuta_update_page_label (TextEditor *te)
 	gtk_rc_style_unref(rc_style);
 }
 
+void 
+show_hide_tooltips (gboolean show)
+{
+	gtk_toolbar_set_tooltips(GTK_TOOLBAR(app->widgets.toolbar.main_toolbar.toolbar), show);
+	gtk_toolbar_set_tooltips(GTK_TOOLBAR(app->widgets.toolbar.extended_toolbar.toolbar), show);
+	gtk_toolbar_set_tooltips(GTK_TOOLBAR(app->widgets.toolbar.debug_toolbar.toolbar), show);
+	gtk_toolbar_set_tooltips(GTK_TOOLBAR(app->widgets.toolbar.browser_toolbar.toolbar), show);
+	gtk_toolbar_set_tooltips(GTK_TOOLBAR(app->widgets.toolbar.format_toolbar.toolbar), show);
+}
+
+
 void
 anjuta_apply_preferences (void)
 {
 	TextEditor *te;
 	gint i;
 	gint no_tag;
+	gint show_tooltips;
 
 	Preferences *pr = app->preferences;
 	
@@ -1206,6 +1218,8 @@ anjuta_apply_preferences (void)
 		text_editor_update_preferences (te);
 		anjuta_refresh_breakpoints (te);
 	}
+	show_tooltips = preferences_get_int (pr, SHOW_TOOLTIPS);
+	show_hide_tooltips(show_tooltips);
 }
 
 void

@@ -2,7 +2,11 @@
 # Please keep this list in alphabetical order.
 anjuta.desktop.in.in
 plugins/class-gen/clsGen.c
+plugins/patch/patch-plugin.c
 plugins/sample1/plugin-sample1.c
+printing/print-doc.c
+printing/print-util.c
+printing/print.c
 src/CORBA-Server.c
 src/an_file_view.c
 src/an_symbol_view.c
@@ -56,6 +60,9 @@ src/configurer.c
 src/configurer.h
 src/controls.c
 src/controls.h
+src/cvs.c
+src/cvs_cbs.c
+src/cvs_gui.c
 src/debugger.c
 src/debugger.h
 src/defaults.c

@@ -292,7 +292,7 @@ create_main_toolbar (GtkWidget * anjuta_gui, MainToolbar * toolbar)
 		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar1),
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
 					    _("Messages"),
-					    _("Compile/Build/Debug Messages"),
+					    _("Show/Hide the Message window"),
 					    NULL, tmp_toolbar_icon, NULL,
 					    NULL);
 	gtk_widget_ref (toolbar_messages);

@@ -370,6 +370,12 @@ on_wizard_import_icon_select (GnomeIconList * gil,
 	case 11:
 		piw->prj_type = PROJECT_TYPE_GNOMEMM2;
 		break;
+	case 12:
+		piw->prj_type = PROJECT_TYPE_XWIN;
+		break;
+	case 13:
+		piw->prj_type = PROJECT_TYPE_XWINDOCKAPP;
+		break;
 	
 	default:		/* Invalid project type */
 		piw->prj_type = PROJECT_TYPE_END_MARK;

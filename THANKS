@@ -1,7 +1,7 @@
 Dear all,
 
 I would like to give my heartiest thanks to the following for their
-invaluable supports and contributions in making the Anjuta project a
+invaluable support and contributions in making the Anjuta project a
 grand success. Without them the project wouldn't have stood where it
 is now.
 
@@ -20,8 +20,11 @@ is now.
 	
 	- Ishan Chattopadhyaya <ichattopadhyaya@yahoo.com>, for his nice
 	  kickstart tutorial,
+	  
+	- Nick Dowell <nixx@nixx.org.uk>, for his Coded with Anjuta icon,
 
-	- Todd Goyen <goyen@mbi-berlin.de>, for his patch and new icon,
+	- Todd Goyen <goyen@mbi-berlin.de>, for his Xlib project tupe patch, 
+	  other patches and new icon,
 	
 	- Jean-Noel Guiheneuf <jnoel@saudionline.com.sa>, for his insert patch
 	  and code cleanups,

@@ -102,6 +102,8 @@ gchar *project_type_map[]=
 	"GTKmm 2.0",
 	"GNOME 2.0",
 	"GNOMEmm 2.0",
+	"XLib",
+	"XLib Dock App",
 	NULL
 };
 
@@ -1432,6 +1434,16 @@ project_dbase_generate_source_code (ProjectDBase *p)
 	{
 		free_project_type (type);
 		return source_write_wxwin_main_c(p);
+	}
+	if(type->id == PROJECT_TYPE_XWIN)
+	{
+		free_project_type (type);
+		return source_write_xwin_main_c(p);        
+	}
+	if(type->id == PROJECT_TYPE_XWINDOCKAPP)
+	{
+		free_project_type (type);
+		return source_write_xwindockapp_main_c(p);        
 	}
 
 	

@@ -1560,6 +1560,7 @@ source_write_generic_main_c (ProjectDBase *data)
 			"}\n\n");
 	}
 	fclose (fp);
+	g_free (filename);
 	return TRUE;
 }
 
@@ -1653,6 +1654,7 @@ source_write_libglade_main_c (ProjectDBase *data)
 			"}\n\n");
 	}
 	fclose (fp);
+	g_free (filename);
 	return TRUE;
 }
 
@@ -1711,6 +1713,734 @@ source_write_wxwin_main_c (ProjectDBase *data)
 	      	"  return TRUE;\n"
 	      	"}\n");
 	fclose (fp);
+	g_free (filename);
+	return TRUE;
+}
+
+gboolean
+source_write_xwin_main_c (ProjectDBase *data)
+{
+	FILE *fp;
+	gchar *filename, *src_dir;
+	fprintf(stderr, "xwin main\n");
+	g_return_val_if_fail (data != NULL, FALSE);
+	g_return_val_if_fail (data->project_is_open, FALSE);
+
+	src_dir = project_dbase_get_module_dir (data, MODULE_SOURCE);
+	if (!src_dir)
+		return FALSE;
+	force_create_dir (src_dir);
+
+	filename = g_strconcat (src_dir, "/main.c", NULL);
+	g_free (src_dir);
+
+	/* FIXME: If main.c exists, just leave it, for now. */
+	if (file_is_regular (filename))
+	{
+		g_free (filename);
+		return TRUE;
+	}
+
+	fp = fopen (filename, "w");
+	if (fp == NULL)
+	{
+		anjuta_system_error (errno, _("Unable to create file: %s."), filename);
+		g_free (filename);
+		return FALSE;
+	}
+	fprintf(fp,
+		"/* Created by Anjuta version %s */\n", VERSION);
+	fprintf(fp,
+		"/*\tThis file will not be overwritten */\n\n");
+	fprintf(fp,
+		"/*Program closes with a mouse click or keypress */\n\n");    
+	fprintf(fp,
+		"#ifdef HAVE_CONFIG_H\n"
+		"#  include <config.h>\n"
+		"#endif\n"
+		"#include <stdio.h>\n"
+		"#include <X11/Xlib.h>\n\n"
+    
+		"int main (int argc, char *argv[])\n"
+		"{\n"
+		"\tDisplay              *dpy;\n"
+		"\tVisual               *visual;\n"
+		"\tint                   depth;\n"
+		"\tXSetWindowAttributes  attributes;\n"    
+		"\tWindow                win;\n"
+		"\tXFontStruct         *fontinfo;\n"
+		"\tXColor               color, dummy;\n"
+		"\tXGCValues            gr_values;\n"
+		"\tGC                   gc;\n"
+		"\tXKeyEvent event;\n\n"
+
+		"\tdpy = XOpenDisplay(NULL);\n"
+		"\tvisual = DefaultVisual(dpy, 0);\n"
+		"\tdepth  = DefaultDepth(dpy, 0);\n"
+		"\tattributes.background_pixel = XWhitePixel(dpy, 0);\n"
+
+		"\t/* create the application window */\n"
+		"\twin = XCreateWindow(dpy, XRootWindow(dpy, 0),\n"
+		"\t\t\t50, 50, 400, 400, 5, depth,\n"  
+		"\t\t\tInputOutput, visual, CWBackPixel,\n" 
+		"\t\t\t&attributes);\n"
+		"\tXSelectInput(dpy, win, ExposureMask | KeyPressMask |\n" 
+		"\t\t\tButtonPressMask | StructureNotifyMask);\n\n"
+		"\tfontinfo = XLoadQueryFont(dpy, \"6x10\");\n"
+
+		"\tXAllocNamedColor(dpy, DefaultColormap(dpy, 0),\n"
+		"\t\t\"green\", &color, &dummy);\n"
+
+		"\tgr_values.font = fontinfo->fid;\n"
+		"\tgr_values.foreground = color.pixel;\n"
+		"\tgc = XCreateGC(dpy, win, GCFont+GCForeground, &gr_values);\n"
+		"\tXMapWindow(dpy, win);\n\n"
+        
+		"\t/* run till key press */\n"
+		"\twhile(1){\n"
+
+		"\t\tXNextEvent(dpy, &event);\n"
+		"\t\tswitch(event.type) {\n"
+		"\t\t\tcase Expose:\n"
+		"\t\t\t\tXDrawLine(dpy, win, gc, 0, 0, 100, 100);\n"
+		"\t\t\t\tXDrawRectangle(dpy, win, gc, 140, 140, 50, 50);\n"
+		"\t\t\t\tXDrawString(dpy, win, gc, 100, 100, \"hello X world\", 13);\n"
+		"\t\t\t\tbreak;\n"
+        
+		"\t\t\tcase ButtonPress:\n"
+		"\t\t\tcase KeyPress:\n"        
+		"\t\t\t\tXUnloadFont(dpy, fontinfo->fid);\n"
+		"\t\t\t\tXFreeGC(dpy, gc);\n"
+		"\t\t\t\tXCloseDisplay(dpy);\n"
+		"\t\t\t\texit(0);\n"
+		"\t\t\t\tbreak;\n"
+        
+		"\t\t\tcase ConfigureNotify:\n"
+		"\t\t\t\t/* reconfigure size of window here */\n"          
+		"\t\t\t\tbreak;\n"    
+        
+		"\t\t\tdefault:\n" 
+		"\t\t\t\tbreak;\n"
+		"\t\t}\n"
+        
+		"\t}\n"
+		"\treturn(0);\n"
+	"}\n");
+	fclose (fp);
+	g_free (filename);
+	return TRUE;
+}
+
+gboolean
+source_write_xwindockapp_main_c (ProjectDBase *data)
+{
+	FILE *fp;
+	gchar *filename, *src_dir;
+
+	g_return_val_if_fail (data != NULL, FALSE);
+	g_return_val_if_fail (data->project_is_open, FALSE);
+
+	src_dir = project_dbase_get_module_dir (data, MODULE_SOURCE);
+	if (!src_dir)
+		return FALSE;
+	force_create_dir (src_dir);
+
+	/* wmgeneral.h */
+	filename = g_strconcat (src_dir, "/wmgeneral.h", NULL);
+
+	/* FIXME: If main.c exists, just leave it, for now. */
+	if (file_is_regular (filename))
+	{
+		g_free (filename);
+		return TRUE;
+	}
+
+	fp = fopen (filename, "w");
+	if (fp == NULL)
+	{
+		anjuta_system_error (errno, _("Unable to create file: %s."), filename);
+		g_free (filename);
+		return FALSE;
+	}
+	fprintf(fp,
+		"/* Created by Anjuta version %s */\n", VERSION);
+	fprintf(fp,
+		"/*\tThis file will not be overwritten */\n\n");
+	fprintf(fp,
+		"#ifndef WMGENERAL_H_INCLUDED\n"
+		"#define WMGENERAL_H_INCLUDED\n"
+
+		"/* Defines */\n"
+		"#define MAX_MOUSE_REGION (8)\n\n"
+
+		"/* Typedefs */\n"
+		"typedef struct _rckeys rckeys;\n\n"
+
+		"struct _rckeys {\n"
+		"\tconst char	*label;\n"
+		"\tchar		**var;\n"
+		"};\n\n"
+
+		"typedef struct {\n"
+		"\tPixmap		pixmap;\n"
+		"\tPixmap		mask;\n"
+		"\tXpmAttributes	attributes;\n"
+		"} XpmIcon;\n\n"
+
+		"/* Global variable */\n"
+		"Display	*display;\n"
+		"Window          Root;\n"
+		"GC              NormalGC;\n"
+		"XpmIcon         wmgen;\n\n"
+
+		"/* Function Prototypes */\n"
+		"void AddMouseRegion(int index, int left, int top, int right, int bottom);\n"
+		"int CheckMouseRegion(int x, int y);\n"
+		"void openXwindow(int argc, char *argv[], char **, char *, int, int);\n"
+		"void RedrawWindow(void);\n"
+		"void RedrawWindowXY(int x, int y);\n"
+		"void copyXPMArea(int, int, int, int, int, int);\n"
+		"void copyXBMArea(int, int, int, int, int, int);\n"
+		"void setMaskXY(int, int);\n"
+		"void parse_rcfile(const char *, rckeys *);\n\n"
+
+		"#endif\n");
+	fclose (fp);
+	g_free (filename);
+  
+	/* wmgeneral.c */
+	filename = g_strconcat (src_dir, "/wmgeneral.c", NULL);
+
+	/* FIXME: If main.c exists, just leave it, for now. */
+	if (file_is_regular (filename))
+	{
+		g_free (filename);
+		return TRUE;
+	}
+
+	fp = fopen (filename, "w");
+	if (fp == NULL)
+	{
+		anjuta_system_error (errno, _("Unable to create file: %s."), filename);
+		g_free (filename);
+		return FALSE;
+	}
+	fprintf(fp,
+		"/* Created by Anjuta version %s */\n", VERSION);
+	fprintf(fp,
+		"/*\tThis file will not be overwritten */\n\n");
+	fprintf(fp,
+		"/*\twmgeneral was taken from wmppp.\n\n"
+		"\tIt has a lot of routines which most of the wm* programs use.\n\n"
+
+		"\t------------------------------------------------------------\n"
+		"\tAuthor: Martijn Pieterse (pieterse@xs4all.nl)\n\n"
+	
+		"\t--- CHANGES: ---\n"
+		"\t02/05/1998 (Martijn Pieterse, pieterse@xs4all.nl)\n"
+		"\t\t* changed the read_rc_file to parse_rcfile, as suggester by Marcelo E. Magallon\n"
+		"\t\t* debugged the parse_rc file.\n"
+		"\t30/04/1998 (Martijn Pieterse, pieterse@xs4all.nl)\n"
+		"\t\t* Ripped similar code from all the wm* programs,\n"
+		"\t\t  and put them in a single file.\n"
+		"*/\n\n"
+
+		"#include <stdlib.h>\n"
+		"#include <stdio.h>\n"
+		"#include <string.h>\n"
+		"#include <unistd.h>\n"
+		"#include <ctype.h>\n"
+		"#include <stdarg.h>\n"
+
+		"#include <X11/Xlib.h>\n"
+		"#include <X11/xpm.h>\n"
+		"#include <X11/extensions/shape.h>\n"
+
+		"#include \"wmgeneral.h\"\n\n"
+
+		"/* X11 Variables */\n"
+		"int\t\tscreen;\n"
+		"int\t\tx_fd;\n"
+		"int\t\td_depth;\n"
+		"XSizeHints\tmysizehints;\n"
+		"XWMHints\tmywmhints;\n"
+		"Pixel\t\tback_pix, fore_pix;\n"
+		"char\t\t*Geometry = \"\";\n"
+		"Window\t\ticonwin, win;\n"
+		"Pixmap\t\tpixmask;\n\n"
+
+		"/* Mouse Regions */\n"
+		"typedef struct {\n"
+		"\tint\tenable;\n"
+		"\tint\ttop;\n"
+		"\tint\tbottom;\n"
+		"\tint\tleft;\n"
+		"\tint\tright;\n"
+		"} MOUSE_REGION;\n\n"
+
+		"#define MAX_MOUSE_REGION (8)\n"
+		"MOUSE_REGION	mouse_region[MAX_MOUSE_REGION];\n\n"
+
+		"/* Function Prototypes */\n"
+		"static void GetXPM(XpmIcon *, char **);\n"
+		"static Pixel GetColor(char *);\n"
+		"void RedrawWindow(void);\n"
+		"void AddMouseRegion(int, int, int, int, int);\n"
+		"int CheckMouseRegion(int, int);\n\n"
+
+		"/* read_rc_file */\n"										
+		"void parse_rcfile(const char *filename, rckeys *keys)\n"
+		"{\n"
+		"\tchar	*p;\n"
+		"\tchar	temp[128];\n"
+		"\tchar	*tokens = \" :\t\\n\";\n"
+		"\tFILE	*fp;\n"
+		"\tint	i,key;\n\n"
+
+		"\tfp = fopen(filename, \"r\");\n"
+		"\tif (fp) {\n"
+		"\t\twhile (fgets(temp, 128, fp)) {\n"
+		"\t\t\tkey = 0;\n"
+		"\t\t\t\twhile (key >= 0 && keys[key].label) {\n"
+		"\t\t\t\t\tif ((p = strstr(temp, keys[key].label))) {\n"
+		"\t\t\t\t\t\tp += strlen(keys[key].label);\n"
+		"\t\t\t\t\t\tp += strspn(p, tokens);\n"
+		"\t\t\t\t\t\tif ((i = strcspn(p, \"#\\n\"))) p[i] = 0;\n"
+		"\t\t\t\t\t\tfree(*keys[key].var);\n"
+		"\t\t\t\t\t\t*keys[key].var = strdup(p);\n"
+		"\t\t\t\t\t\tkey = -1;\n"
+		"\t\t\t\t\t} else key++;\n"
+		"\t\t\t\t}\n"
+		"\t\t\t}\n"
+		"\t\tfclose(fp);\n"
+		"\t}\n"
+		"}\n\n"
+		
+		"static void GetXPM(XpmIcon *wmgen, char *pixmap_bytes[])\n"
+		"{\n"
+		"\tXWindowAttributes	attributes;\n"
+		"\tint			err;\n\n"
+		"\t/* For the colormap */\n"
+		"\tXGetWindowAttributes(display, Root, &attributes);\n\n"
+		"\twmgen->attributes.valuemask |= (XpmReturnPixels | XpmReturnExtensions);\n\n"
+		"\terr = XpmCreatePixmapFromData(display, Root, pixmap_bytes, &(wmgen->pixmap),\n"
+		"\t\t&(wmgen->mask), &(wmgen->attributes));\n\n"
+	
+		"\tif (err != XpmSuccess) {\n"
+		"\t\tfprintf(stderr, \"Not enough free colorcells.\\n\");\n"
+		"\t\texit(1);\n"
+		"\t}\n"
+		"}\n\n"
+
+		"static Pixel GetColor(char *name)\n"
+		"{\n"
+		"\tXColor		color;\n"
+		"\tXWindowAttributes	attributes;\n\n"
+
+		"\tXGetWindowAttributes(display, Root, &attributes);\n\n"
+
+		"\tcolor.pixel = 0;\n"
+		"\tif (!XParseColor(display, attributes.colormap, name, &color)) {\n"
+		"\t\tfprintf(stderr, \"wm.app: can't parse %%s.\\n\", name);\n"
+		"\t} else if (!XAllocColor(display, attributes.colormap, &color)) {\n"
+		"\t\tfprintf(stderr, \"wm.app: can't allocate %%s.\\n\", name);\n"
+		"\t}\n"
+		"\treturn color.pixel;\n"
+		"}\n\n"
+		
+		"static int flush_expose(Window w)\n"
+		"{\n"
+		"\tXEvent	dummy;\n"
+		"\tint		i=0;\n\n"
+
+		"\twhile (XCheckTypedWindowEvent(display, w, Expose, &dummy))\n"
+		"\t\ti++;\n"
+		"\treturn i;\n"
+		"}\n\n"
+
+		"void RedrawWindow(void)\n"
+		"{\n"
+		"\tflush_expose(iconwin);\n"
+		"\tXCopyArea(display, wmgen.pixmap, iconwin, NormalGC,\n"
+		"\t\t0,0, wmgen.attributes.width, wmgen.attributes.height, 0,0);\n"
+		"\tflush_expose(win);\n"
+		"\tXCopyArea(display, wmgen.pixmap, win, NormalGC,\n"
+		"\t\t0,0, wmgen.attributes.width, wmgen.attributes.height, 0,0);\n"
+		"}\n\n"
+
+		"void RedrawWindowXY(int x, int y)\n"
+		"{\n"
+		"\tflush_expose(iconwin);\n"
+		"\tXCopyArea(display, wmgen.pixmap, iconwin, NormalGC,\n"
+		"\t\tx,y, wmgen.attributes.width, wmgen.attributes.height, 0,0);\n"
+		"\tflush_expose(win);\n"
+		"\tXCopyArea(display, wmgen.pixmap, win, NormalGC,\n"
+		"\t\tx,y, wmgen.attributes.width, wmgen.attributes.height, 0,0);\n"
+		"}\n\n"
+
+		"void AddMouseRegion(int index, int left, int top, int right, int bottom)\n"
+		"{\n"
+		"\tif (index < MAX_MOUSE_REGION) {\n"
+		"\t\tmouse_region[index].enable = 1;\n"
+		"\t\tmouse_region[index].top = top;\n"
+		"\t\tmouse_region[index].left = left;\n"
+		"\t\tmouse_region[index].bottom = bottom;\n"
+		"\t\tmouse_region[index].right = right;\n"
+		"\t}\n"
+		"}\n\n"
+		
+		"int CheckMouseRegion(int x, int y)\n"
+		"{\n"
+		"\tint	i;\n\n"
+
+		"\tfor (i=0; i<MAX_MOUSE_REGION; i++) {\n"
+		"\t\tif (mouse_region[i].enable &&\n"
+		"\t\t\tx <= mouse_region[i].right &&\n"
+		"\t\t\tx >= mouse_region[i].left &&\n"
+		"\t\t\ty <= mouse_region[i].bottom &&\n"
+		"\t\t\ty >= mouse_region[i].top)\n"
+		"\t\t\treturn (i-1);\n"
+		"\t}\n"
+		"\treturn -1;\n"
+		"}\n\n"
+
+		"void copyXPMArea(int x, int y, int sx, int sy, int dx, int dy)\n"
+		"{\n"
+		"\tXCopyArea(display, wmgen.pixmap, wmgen.pixmap, NormalGC, x, y, sx, sy, dx, dy);\n"
+		"}\n\n"
+
+		"void copyXBMArea(int x, int y, int sx, int sy, int dx, int dy)\n"
+		"{\n"
+		"\tXCopyArea(display, wmgen.mask, wmgen.pixmap, NormalGC, x, y, sx, sy, dx, dy);\n"
+		"}\n\n"
+
+		"void setMaskXY(int x, int y)\n"
+		"{\n"
+		"\tXShapeCombineMask(display, win, ShapeBounding, x, y, pixmask, ShapeSet);\n"
+		"\tXShapeCombineMask(display, iconwin, ShapeBounding, x, y, pixmask, ShapeSet);\n"
+		"}\n\n"
+
+		"void openXwindow(int argc, char *argv[], char *pixmap_bytes[], char *pixmask_bits, int pixmask_width, int pixmask_height)\n"
+		"{\n"
+		"\tunsigned int	borderwidth = 1;\n"
+		"\tXClassHint	classHint;\n"
+		"\tchar		*display_name = NULL;\n"
+		"\tchar		*wname = argv[0];\n"
+		"\tXTextProperty	name;\n"
+		"\tXGCValues	gcv;\n"
+		"\tunsigned long	gcm;\n"
+		"\tint		i, dummy = 0;\n\n"
+
+		"\tfor (i=1; argv[i]; i++) {\n"
+		"\t\tif (!strcmp(argv[i], \"-display\"))\n"
+		"\t\t\tdisplay_name = argv[i+1];\n"
+		"\t}\n\n"
+
+		"\tif (!(display = XOpenDisplay(display_name))) {\n"
+		"\t\tfprintf(stderr, \"%%s: can't open display %%s\\n\",\n"
+		"\t\t\twname, XDisplayName(display_name));\n"
+		"\t\texit(1);\n"
+		"\t}\n"
+		"\tscreen  = DefaultScreen(display);\n"
+		"\tRoot    = RootWindow(display, screen);\n"
+		"\td_depth = DefaultDepth(display, screen);\n"
+		"\tx_fd    = XConnectionNumber(display);\n\n"
+
+		"\t/* Convert XPM to XImage */\n"
+		"\tGetXPM(&wmgen, pixmap_bytes);\n\n"
+		"\t/* Create a window to hold the stuff */\n"
+		"\tmysizehints.flags = USSize | USPosition;\n"
+		"\tmysizehints.x = 0;\n"
+		"\tmysizehints.y = 0;\n\n"
+
+		"\tback_pix = GetColor(\"white\");\n"
+		"\tfore_pix = GetColor(\"black\");\n\n"
+
+		"\tXWMGeometry(display, screen, Geometry, NULL, borderwidth, &mysizehints,\n"
+		"\t\t&mysizehints.x, &mysizehints.y,&mysizehints.width,&mysizehints.height, &dummy);\n\n"
+
+		"\tmysizehints.width = 64;\n"
+		"\tmysizehints.height = 64;\n\n"
+		
+		"\twin = XCreateSimpleWindow(display, Root, mysizehints.x, mysizehints.y,\n"
+		"\t\tmysizehints.width, mysizehints.height, borderwidth, fore_pix, back_pix);\n\n"
+	
+		"\ticonwin = XCreateSimpleWindow(display, win, mysizehints.x, mysizehints.y,\n"
+		"\t\tmysizehints.width, mysizehints.height, borderwidth, fore_pix, back_pix);\n\n"
+
+		"\t/* Activate hints */\n"
+		"\tXSetWMNormalHints(display, win, &mysizehints);\n"
+		"\tclassHint.res_name = wname;\n"
+		"\tclassHint.res_class = wname;\n"
+		"\tXSetClassHint(display, win, &classHint);\n\n"
+
+		"\tXSelectInput(display, win, ButtonPressMask | ExposureMask | ButtonReleaseMask |\n"
+		"\t\tPointerMotionMask | StructureNotifyMask);\n"
+		"\tXSelectInput(display, iconwin, ButtonPressMask | ExposureMask | ButtonReleaseMask |\n"
+		"\t\tPointerMotionMask | StructureNotifyMask);\n\n"
+
+		"\tif (XStringListToTextProperty(&wname, 1, &name) == 0) {\n"
+		"\t\tfprintf(stderr, \"%%s: can't allocate window name\\n\", wname);\n"
+		"\t\texit(1);\n"
+		"\t}\n\n"
+
+		"\tXSetWMName(display, win, &name);\n\n"
+
+		"\t/* Create GC for drawing */\n"
+		"\tgcm = GCForeground | GCBackground | GCGraphicsExposures;\n"
+		"\tgcv.foreground = fore_pix;\n"
+		"\tgcv.background = back_pix;\n"
+		"\tgcv.graphics_exposures = 0;\n"
+		"\tNormalGC = XCreateGC(display, Root, gcm, &gcv);\n\n"
+
+		"\t/* ONLYSHAPE ON */\n"
+		"\tpixmask = XCreateBitmapFromData(display, win, pixmask_bits, pixmask_width, pixmask_height);\n"
+		"\tXShapeCombineMask(display, win, ShapeBounding, 0, 0, pixmask, ShapeSet);\n"
+		"\tXShapeCombineMask(display, iconwin, ShapeBounding, 0, 0, pixmask, ShapeSet);\n\n"
+
+		"\t/* ONLYSHAPE OFF */\n"
+		"\tmywmhints.initial_state = WithdrawnState;\n"
+		"\tmywmhints.icon_window = iconwin;\n"
+		"\tmywmhints.icon_x = mysizehints.x;\n"
+		"\tmywmhints.icon_y = mysizehints.y;\n"
+		"\tmywmhints.window_group = win;\n"
+		"\tmywmhints.flags = StateHint | IconWindowHint | IconPositionHint | WindowGroupHint;\n\n"
+
+		"\tXSetWMHints(display, win, &mywmhints);\n\n"
+
+		"\tXSetCommand(display, win, argv, argc);\n"
+		"\tXMapWindow(display, win);\n"
+		"}\n");
+	fclose (fp);
+	g_free (filename);
+  
+	/* pixmaps.h */
+	filename = g_strconcat (src_dir, "/pixmaps.h", NULL);
+
+	/* FIXME: If main.c exists, just leave it, for now. */
+	if (file_is_regular (filename))
+	{
+		g_free (filename);
+		return TRUE;
+	}
+
+	fp = fopen (filename, "w");
+	if (fp == NULL)
+	{
+		anjuta_system_error (errno, _("Unable to create file: %s."), filename);
+		g_free (filename);
+		return FALSE;
+	}
+	fprintf(fp,
+		"/* Created by Anjuta version %s */\n", VERSION);
+	fprintf(fp,
+		"/*\tThis file will not be overwritten */\n\n");
+	fprintf(fp,
+		"#define xpm_mask_width 64\n"
+		"#define xpm_mask_height 64\n\n"
+
+		"static char * xpm_master[] = {\n"
+		"\"64 64 2 1\",\n"
+		"\" 	c None\",\n"
+		"\".	c #000000\",\n"
+		"\"                                                                \",\n"
+		"\"                                                                \",\n"
+		"\"                                                                \",\n"
+		"\"                                                                \",\n"
+		"\"                                                                \",\n"
+		"\"     ......................................................     \",\n"
+		"\"     ......................................................     \",\n"
+		"\"     ......................................................     \",\n"
+		"\"     ......................................................     \",\n"
+		"\"     ......................................................     \",\n"
+		"\"     ......................................................     \",\n"
+		"\"     ......................................................     \",\n"
+		"\"     ......................................................     \",\n"
+		"\"     ......................................................     \",\n"
+		"\"     ......................................................     \",\n"
+		"\"     ......................................................     \",\n"
+		"\"     ......................................................     \",\n"
+		"\"     ......................................................     \",\n"
+		"\"     ......................................................     \",\n"
+		"\"     ......................................................     \",\n"
+		"\"     ......................................................     \",\n"
+		"\"     ......................................................     \",\n"
+		"\"     ......................................................     \",\n"
+		"\"     ......................................................     \",\n"
+		"\"     ......................................................     \",\n"
+		"\"     ......................................................     \",\n"
+		"\"     ......................................................     \",\n"
+		"\"     ......................................................     \",\n"
+		"\"     ......................................................     \",\n"
+		"\"     ......................................................     \",\n"
+		"\"     ......................................................     \",\n"
+		"\"     ......................................................     \",\n"
+		"\"     ......................................................     \",\n"
+		"\"     ......................................................     \",\n"
+		"\"     ......................................................     \",\n"
+		"\"     ......................................................     \",\n"
+		"\"     ......................................................     \",\n"
+		"\"     ......................................................     \",\n"
+		"\"     ......................................................     \",\n"
+		"\"     ......................................................     \",\n"
+		"\"     ......................................................     \",\n"
+		"\"     ......................................................     \",\n"
+		"\"     ......................................................     \",\n"
+		"\"     ......................................................     \",\n"
+		"\"     ......................................................     \",\n"
+		"\"     ......................................................     \",\n"
+		"\"     ......................................................     \",\n"
+		"\"     ......................................................     \",\n"
+		"\"     ......................................................     \",\n"
+		"\"     ......................................................     \",\n"
+		"\"     ......................................................     \",\n"
+		"\"     ......................................................     \",\n"
+		"\"     ......................................................     \",\n"
+		"\"     ......................................................     \",\n"
+		"\"     ......................................................     \",\n"
+		"\"     ......................................................     \",\n"
+		"\"     ......................................................     \",\n"
+		"\"     ......................................................     \",\n"
+		"\"     ......................................................     \",\n"
+		"\"                                                                \",\n"
+		"\"                                                                \",\n"
+		"\"                                                                \",\n"
+		"\"                                                                \",\n"
+		"\"                                                                \"};\n\n"
+
+		"static char xpm_mask_bits[] = {\n"
+		"0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,\n"
+		"0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,\n"
+		"0x00,0x00,0xf0,0xff,0xff,0xff,0xff,0xff,0xff,0x0f,0xf0,0xff,0xff,0xff,0xff,\n"
+		"0xff,0xff,0x0f,0xf0,0xff,0xff,0xff,0xff,0xff,0xff,0x0f,0xf0,0xff,0xff,0xff,\n"
+		"0xff,0xff,0xff,0x0f,0xf0,0xff,0xff,0xff,0xff,0xff,0xff,0x0f,0xf0,0xff,0xff,\n"
+		"0xff,0xff,0xff,0xff,0x0f,0xf0,0xff,0xff,0xff,0xff,0xff,0xff,0x0f,0xf0,0xff,\n"
+		"0xff,0xff,0xff,0xff,0xff,0x0f,0xf0,0xff,0xff,0xff,0xff,0xff,0xff,0x0f,0xf0,\n"
+		"0xff,0xff,0xff,0xff,0xff,0xff,0x0f,0xf0,0xff,0xff,0xff,0xff,0xff,0xff,0x0f,\n"
+		"0xf0,0xff,0xff,0xff,0xff,0xff,0xff,0x0f,0xf0,0xff,0xff,0xff,0xff,0xff,0xff,\n"
+		"0x0f,0xf0,0xff,0xff,0xff,0xff,0xff,0xff,0x0f,0xf0,0xff,0xff,0xff,0xff,0xff,\n"
+		"0xff,0x0f,0xf0,0xff,0xff,0xff,0xff,0xff,0xff,0x0f,0xf0,0xff,0xff,0xff,0xff,\n"
+		"0xff,0xff,0x0f,0xf0,0xff,0xff,0xff,0xff,0xff,0xff,0x0f,0xf0,0xff,0xff,0xff,\n"
+		"0xff,0xff,0xff,0x0f,0xf0,0xff,0xff,0xff,0xff,0xff,0xff,0x0f,0xf0,0xff,0xff,\n"
+		"0xff,0xff,0xff,0xff,0x0f,0xf0,0xff,0xff,0xff,0xff,0xff,0xff,0x0f,0xf0,0xff,\n"
+		"0xff,0xff,0xff,0xff,0xff,0x0f,0xf0,0xff,0xff,0xff,0xff,0xff,0xff,0x0f,0xf0,\n"
+		"0xff,0xff,0xff,0xff,0xff,0xff,0x0f,0xf0,0xff,0xff,0xff,0xff,0xff,0xff,0x0f,\n"
+		"0xf0,0xff,0xff,0xff,0xff,0xff,0xff,0x0f,0xf0,0xff,0xff,0xff,0xff,0xff,0xff,\n"
+		"0x0f,0xf0,0xff,0xff,0xff,0xff,0xff,0xff,0x0f,0xf0,0xff,0xff,0xff,0xff,0xff,\n"
+		"0xff,0x0f,0xf0,0xff,0xff,0xff,0xff,0xff,0xff,0x0f,0xf0,0xff,0xff,0xff,0xff,\n"
+		"0xff,0xff,0x0f,0xf0,0xff,0xff,0xff,0xff,0xff,0xff,0x0f,0xf0,0xff,0xff,0xff,\n"
+		"0xff,0xff,0xff,0x0f,0xf0,0xff,0xff,0xff,0xff,0xff,0xff,0x0f,0xf0,0xff,0xff,\n"
+		"0xff,0xff,0xff,0xff,0x0f,0xf0,0xff,0xff,0xff,0xff,0xff,0xff,0x0f,0xf0,0xff,\n"
+		"0xff,0xff,0xff,0xff,0xff,0x0f,0xf0,0xff,0xff,0xff,0xff,0xff,0xff,0x0f,0xf0,\n"
+		"0xff,0xff,0xff,0xff,0xff,0xff,0x0f,0xf0,0xff,0xff,0xff,0xff,0xff,0xff,0x0f,\n"
+		"0xf0,0xff,0xff,0xff,0xff,0xff,0xff,0x0f,0xf0,0xff,0xff,0xff,0xff,0xff,0xff,\n"
+		"0x0f,0xf0,0xff,0xff,0xff,0xff,0xff,0xff,0x0f,0xf0,0xff,0xff,0xff,0xff,0xff,\n"
+		"0xff,0x0f,0xf0,0xff,0xff,0xff,0xff,0xff,0xff,0x0f,0xf0,0xff,0xff,0xff,0xff,\n"
+		"0xff,0xff,0x0f,0xf0,0xff,0xff,0xff,0xff,0xff,0xff,0x0f,0xf0,0xff,0xff,0xff,\n"
+		"0xff,0xff,0xff,0x0f,0xf0,0xff,0xff,0xff,0xff,0xff,0xff,0x0f,0xf0,0xff,0xff,\n"
+		"0xff,0xff,0xff,0xff,0x0f,0xf0,0xff,0xff,0xff,0xff,0xff,0xff,0x0f,0xf0,0xff,\n"
+		"0xff,0xff,0xff,0xff,0xff,0x0f,0xf0,0xff,0xff,0xff,0xff,0xff,0xff,0x0f,0xf0,\n"
+		"0xff,0xff,0xff,0xff,0xff,0xff,0x0f,0xf0,0xff,0xff,0xff,0xff,0xff,0xff,0x0f,\n"
+		"0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,\n"
+		"0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,\n"
+		"0x00,0x00};\n"
+	);
+	fclose (fp);
+	g_free (filename);
+  
+	/* main.c */
+	filename = g_strconcat (src_dir, "/main.c", NULL);
+	g_free (src_dir);
+
+	/* FIXME: If main.c exists, just leave it, for now. */
+	if (file_is_regular (filename))
+	{
+		g_free (filename);
+		return TRUE;
+	}
+
+	fp = fopen (filename, "w");
+	if (fp == NULL)
+	{
+		anjuta_system_error (errno, _("Unable to create file: %s."), filename);
+		g_free (filename);
+		return FALSE;
+	}
+	fprintf(fp,
+		"/* Created by Anjuta version %s */\n", VERSION);
+	fprintf(fp,
+		"/*\tThis file will not be overwritten */\n\n");
+	fprintf(fp,
+		"#ifdef HAVE_CONFIG_H\n"
+		"#  include <config.h>\n"
+		"#endif\n"
+		"#include <stdio.h>\n"
+		"#include <X11/X.h>\n"
+		"#include <X11/xpm.h>\n"
+		"#include <X11/Xlib.h>\n\n"
+
+		"#include \"wmgeneral.h\"\n"
+		"#include \"pixmaps.h\"\n\n"
+
+		"/* Prototypes */\n"
+		"static void print_usage(void);\n"
+		"static void ParseCMDLine(int argc, char *argv[]);\n\n"
+
+		"static void print_usage(void)\n"
+		"{\n"
+		"\tprintf(\"\\nHello Dock App version: %%s\\n\", VERSION);\n"
+		"\tprintf(\"\\nTODO: Write This.\\n\\n\");\n"
+		"}\n\n"
+
+		"void ParseCMDLine(int argc, char *argv[])\n"
+		"{\n"
+		"\tint	i;\n\n"
+    
+		"\tfor (i = 1; i < argc; i++) {\n"
+		"\t\tif (!strcmp(argv[i], \"-display\")) {\n"
+		"\t\t\t++i; /* -display is used in wmgeneral */\n"
+		"\t\t/*} else if (!strcmp(argv[i], \"-option_with_param\")) {\n"
+		"\t\t\tstrcpy(param, argv[++i]);\n"
+		"\t\t} else if (!strcmp(argv[i], \"-option_wo_param\")) {\n"
+		"\t\t\tparam = 1;*/\n"
+		"\t\t} else {\n"
+		"\t\t\tprint_usage();\n"
+		"\t\t\texit(1);\n"
+		"\t\t}\n"
+		"\t}\n"
+		"}\n\n"
+
+		"int main(int argc, char *argv[])\n"
+		"{\n"
+		"\tXEvent	event;\n\n"
+  
+		"\tParseCMDLine(argc, argv);\n"
+		"\topenXwindow(argc, argv, xpm_master, xpm_mask_bits, xpm_mask_width, xpm_mask_height);\n\n"
+    
+		"\t/* Loop Forever */\n"
+		"\twhile (1) {\n"
+		"\t\t/* Process any pending X events. */\n"
+		"\t\twhile (XPending(display)) {\n"
+		"\t\t\tXNextEvent(display, &event);\n"
+		"\t\t\t\tswitch (event.type) {\n"
+		"\t\t\t\t\tcase Expose:\n"
+		"\t\t\t\t\t\tRedrawWindow();\n"
+		"\t\t\t\t\t\tbreak;\n"
+		"\t\t\t\t\tcase ButtonPress:\n"
+		"\t\t\t\t\t\tbreak;\n"
+		"\t\t\t\t\tcase ButtonRelease:\n"
+		"\t\t\t\t\t\tbreak;\n"
+		"\t\t\t\t}\n"
+		"\t\t}\n"
+		"\t\tusleep(10000);\n"
+		"\t}\n\n"
+    
+		"\t/* we should never get here */\n"
+		"\treturn (0);\n"
+		"}\n");
+	fclose (fp);
+	g_free (filename);
+
 	return TRUE;
 }
 

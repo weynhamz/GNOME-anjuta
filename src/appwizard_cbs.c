@@ -73,7 +73,9 @@ on_druidpagestandard1_next (GnomeDruidPage * gnomedruidpage,
 		|| aw->prj_type == PROJECT_TYPE_GTK2
  		|| aw->prj_type == PROJECT_TYPE_GTKMM
 		|| aw->prj_type == PROJECT_TYPE_GTKMM2
-		|| aw->prj_type == PROJECT_TYPE_WXWIN))
+		|| aw->prj_type == PROJECT_TYPE_WXWIN
+		|| aw->prj_type == PROJECT_TYPE_XWIN
+		|| aw->prj_type == PROJECT_TYPE_XWINDOCKAPP))
 	{
 		gtk_widget_set_sensitive (aw->widgets.menu_frame, TRUE);
 	}

@@ -375,8 +375,10 @@ void
 anjuta_load_this_project( const gchar * szProjectPath );
 void 
 anjuta_load_last_project(void);
-void
+void 
 anjuta_open_project(void);
+void
+show_hide_tooltips(gboolean show);
 
 /* Search for the occurence of the string in all source files */
 void anjuta_search_sources_for_symbol(const gchar *s);

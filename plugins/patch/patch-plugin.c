@@ -55,7 +55,7 @@ gint patch_level = 0;
 gchar *
 GetDescr()
 {
-	return g_strdup(_("Interface to patch Projects/Files"));
+	return g_strdup(_("Interface to patch Projects or individual files"));
 }
 	/* GetModule Version hi/low word 1.02 0x10002 */
 glong
@@ -147,6 +147,7 @@ static void on_ok_clicked (GtkButton *button, PatchPluginGUI* gui)
 	gchar* directory;
 	gchar* patch_file;
 	GString* command = g_string_new (NULL);
+	gchar* message;
 	
 	directory = gtk_entry_get_text(GTK_ENTRY(
 		gnome_file_entry_gtk_entry(GNOME_FILE_ENTRY(gui->entry_patch_dir))));
@@ -156,14 +157,18 @@ static void on_ok_clicked (GtkButton *button, PatchPluginGUI* gui)
 	if (!file_is_directory (directory))
 	{
 		g_string_free (command, TRUE);
-		gnome_ok_dialog (_("You have to select the directory where the patch should be applied"));
+		gnome_ok_dialog (_("Please select the directory where the patch should be applied"));
 		return;
 	}
 	
 	g_string_sprintf (command, "patch -d %s -p %d -f -i %s",
 			  directory, patch_level, patch_file);
 	
+	message = g_strdup_printf (_("Patching %s using %s\n"), 
+			  directory, patch_file);
+	
 	anjuta_message_manager_show (app->messages, MESSAGE_BUILD);
+	anjuta_message_manager_append (app->messages, message, MESSAGE_BUILD);
 	anjuta_message_manager_append (app->messages,
 			_("Patching...\n"), MESSAGE_BUILD);
 	
@@ -174,6 +179,7 @@ static void on_ok_clicked (GtkButton *button, PatchPluginGUI* gui)
 		gnome_ok_dialog (
 			_("There are unfinished jobs, please wait until they are finished"));
 	g_string_free(command, TRUE);
+	
 	on_cancel_clicked (GTK_BUTTON(gui->cancel_button), gui);
 }
 
@@ -195,11 +201,11 @@ static void on_patch_terminate (int status, time_t time)
 	if (status)
 	{
 		anjuta_message_manager_append (app->messages,
-			_("Patch failed\n"), MESSAGE_BUILD);
+			_("Patch failed.\nPlease review the failure messages.\nExamine and remove any rejected files.\n"), MESSAGE_BUILD);
 	}
 	else
 	{
 		anjuta_message_manager_append (app->messages,
-			_("Patch successful\n"), MESSAGE_BUILD);	}
+			_("Patch successful.\n"), MESSAGE_BUILD);	}
 }
 
