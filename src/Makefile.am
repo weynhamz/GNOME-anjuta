@@ -5,6 +5,7 @@ INCLUDES = \
 	$(GNOME_INCLUDEDIR)\
 	$(EXTRA_GNOME_CFLAGS)\
 	$(EXTRA_ORBIT_CFLAGS)\
+	$(PCRE_CFLAGS)\
 	-I$(srcdir)/../scintilla/include \
 	-I$(srcdir)/../tagmanager/include \
 	-I$(srcdir)/../widgets \
@@ -169,6 +170,8 @@ anjuta_SOURCES = \
 	registers_cbs.c\
 	registers_cbs.h\
 	registers_gui.c\
+	search-replace.h\
+	search-replace.c\
 	sharedlib.c\
 	sharedlib.h\
 	sharedlib_cbs.c\
@@ -238,6 +241,7 @@ anjuta_LDADD =  \
 	$(GNOMEUI_LIBS)\
 	$(EXTRA_GNOME_LIBS)\
 	$(EXTRA_ORBIT_LIBS)\
+	$(PCRE_LIBS)\
 	$(top_builddir)/scintilla/libscintilla.a\
 	$(top_builddir)/tagmanager/libctags.a\
 	$(top_builddir)/widgets/libwidgets.a\

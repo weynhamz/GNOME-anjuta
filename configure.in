@@ -130,6 +130,17 @@ if test x$PKGCONFIG_CONFIG = xno; then
   AC_MSG_ERROR(Please install the pkg-config package from http://www.freedesktop.org/software/pkgconfig/)
 fi
 
+dnl Check for PCRE
+AC_PATH_PROG(PCRE_CONFIG, pcre-config,no)
+if test x$PCRE_CONFIG = xno; then
+  AC_MSG_ERROR(Please install the PCRE package from http://www.pcre.org/)
+fi
+dnl Glib flags
+PCRE_CFLAGS=`pcre-config --cflags`
+PCRE_LIBS=`pcre-config --libs`
+AC_SUBST(PCRE_LIBS)
+AC_SUBST(PCRE_CFLAGS)
+
 dnl ***************************************************************************
 dnl Test whether jw is installed
 dnl ***************************************************************************

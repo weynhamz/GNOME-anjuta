@@ -51,7 +51,7 @@ project.menu.need.terminal=0
 project.configure.options=
 anjuta.program.arguments=
 preferences.indent.automatic=1
-preferences.use.tabs=1
+preferences.use.tabs=0
 preferences.indent.opening=0
 preferences.indent.closing=0
 preferences.tabsize=4
@@ -208,7 +208,8 @@ module.include.files=\
 	widgets/scroll-menu.h\
 	src/anjuta-tools.h\
 	src/widget-registry.h\
-	src/anjuta-plugins.h
+	src/anjuta-plugins.h\
+	src/search-replace.h
 
 module.source.name=.
 module.source.type=
@@ -420,7 +421,8 @@ module.source.files=\
 	src/debug_tree.c\
 	src/anjuta-tools.c\
 	src/widget-registry.c\
-	src/anjuta-plugins.c
+	src/anjuta-plugins.c\
+	src/search-replace.c
 
 module.pixmap.name=.
 module.pixmap.type=
@@ -674,7 +676,8 @@ module.doc.files=\
 	manuals/C/anjuta-tutorial/anjuta-tutorial.sgml\
 	po/ChangeLog\
 	macros/ChangeLog\
-	manuals/C/anjuta-manual/tools.sgml
+	manuals/C/anjuta-manual/tools.sgml\
+	SEARCH-REPLACE
 
 module.po.expanded=0
 module.po.files=\

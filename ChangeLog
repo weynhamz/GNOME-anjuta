@@ -1,3 +1,11 @@
+2002-12-20  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
+	* anjuta.glade, anjuta.spec.in, configure.in, src/Makefile.am
+	, src/search-replace.[ch], anjuta.prj: Starting new search and
+	replace implementation.
+	* src/proferences_gui.c: Bug #633794
+	* src/cvs.c: Ensure highliting of diffs.
+	* SEARCH-REPLACE, TODO: Doc updates.
+
 2002-12-19  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
 	* manuals/*: Added capability to generate PDF and PS.
 	* src/debugger.c, data/gdb.init: Solaris GDB fixes.

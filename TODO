@@ -1,9 +1,12 @@
 TODO List:
 ----------
 
+	o Bug #616226: Save full font name instead of an abbreviated version.
 	o RPM spec improvement - see the spec file from freshrpms.net which modifies
 	  the menu location so that Anjuta appears in the top-level Programming menu 
 	  in RH8 (where we belong :-)
+Biswa: I've updated anjuta.spec.in. Need to test whether this works properly.
+
 	o Add ignore modules in Project config: Tagmanager does not ignore them.
 Biswa: 'Rebuild Tags Image' now syncs tagManager with project file list.
 

@@ -33,6 +33,7 @@
 #include "preferences.h"
 #include "properties.h"
 #include "pixmaps.h"
+#include "lexer.h"
 
 gchar *format_style[] = {
 	"Custom style", " -i8 -bl -bls -bli0 -ss",
@@ -2160,6 +2161,7 @@ on_preferences_apply_clicked (GtkButton * button, gpointer user_data)
 	gchar *str;
 	gint8 r, g, b, a;
 	gint show_tooltips;
+	gint prev_hilite_value, current_hilite_value;
 
 	Preferences *pr = (Preferences *) user_data;
 
@@ -2171,6 +2173,7 @@ on_preferences_apply_clicked (GtkButton * button, gpointer user_data)
 					(pr->widgets.hilite_item_combo)->
 					entry), pr);
 
+	prev_hilite_value = preferences_get_int(pr, DISABLE_SYNTAX_HILIGHTING);
 /* Page 0 */
 	preferences_set (pr, PROJECTS_DIRECTORY,
 			 gtk_entry_get_text (GTK_ENTRY
@@ -2352,10 +2355,12 @@ on_preferences_apply_clicked (GtkButton * button, gpointer user_data)
 									   (pr->widgets.
 									autoindent_size_spin)));
 	}
-	preferences_set_int (pr, DISABLE_SYNTAX_HILIGHTING,
-			     gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
+	prev_hilite_value = preferences_get_int(pr, DISABLE_SYNTAX_HILIGHTING);
+	current_hilite_value = 			     gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
 							   (pr->widgets.
-							    disable_hilite_check)));
+							    disable_hilite_check));
+	preferences_set_int (pr, DISABLE_SYNTAX_HILIGHTING,
+		current_hilite_value);
 	preferences_set_int (pr, SAVE_AUTOMATIC,
 			     gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
 							   (pr->widgets.
@@ -2645,6 +2650,19 @@ on_preferences_apply_clicked (GtkButton * button, gpointer user_data)
 	preferences_set_int(pr, TERMINAL_BELL
 	  , gtk_toggle_button_get_active((GtkToggleButton *)
 	  pr->widgets.term_bell_cb));
+
+	/* If user re-eabled DISABLE_SYNTAX_HILIGHTING, then reset
+	** highliting for all text editors to automatic */
+	if (prev_hilite_value && !current_hilite_value)
+	{
+		TextEditor *te;
+		GList *tmp;
+		for (tmp = app->text_editor_list; tmp; tmp = g_list_next(tmp))
+		{
+			te = (TextEditor*) (tmp->data);
+			te->force_hilite = TE_LEXER_AUTOMATIC;
+		}
+	}
 
 /* At last the end */
 	anjuta_apply_preferences ();

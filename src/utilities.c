@@ -1036,6 +1036,17 @@ glist_strings_dup (GList * list)
 	return new_list;
 }
 
+/* Dedup a list of strings - duplicates are removed from the tail */
+GList *glist_strings_dedup(GList *list)
+{
+	GList *tmp = list;
+	gchar *str;
+
+	while (tmp)
+	{
+	}
+}
+
 void
 string_assign (gchar ** string, gchar * value)
 {

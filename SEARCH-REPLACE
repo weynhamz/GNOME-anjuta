@@ -2,7 +2,15 @@
 Redesigning Search/Replace: Requirements:
 -----------------------------------------
 
-Reference implementation: Regexxer.
+Reference implementations:
+	1. Regexxer (http://regexxer.sf.net)
+	2. Visual Studio
+	3. KDevelop
+	4. Anjuta (existing dialogs/functionality)
+
+Design Guidelines:
+	1. Use Glade/Libglade for dialog design.
+	2. Use PCRE for regular expressions.
 
 R1. Integrated GUI
 	1.1 Search and replace dialogs should be the same.
@@ -20,6 +28,9 @@ R2. Specifying search expressions:
 R3. Specifying search range:
 	3.1 File level:
 		3.1.1 Current buffer
+			3.1.1.1 Forward
+			3.1.1.2 Backward
+			3.1.1.3 From beginning
 		3.1.2 Current selection
 		3.1.3 Current block
 		3.1.4 Current function (top level block)
@@ -58,6 +69,7 @@ R8. Displaying search results:
 	8.1 Show in find pane.
 	8.2 Two find panes.
 	8.3 Highlight all occurences in buffers.
+	8.4 Bookmark all found occurence lines.
 
 -----------------------------------------------
 
