@@ -145,10 +145,7 @@ protected:
 	ComboMemory memReplaces;
 	ComboMemory memFiles;
 
-	int codePage;
 	int characterSet;
-	UniMode unicodeMode;
-
 	SString language;
 	int lexLanguage;
 	SString overrideExtension;	// User has chosen to use a particular language
@@ -370,9 +367,7 @@ static const char *extList[] = {
 
 AnEditor::AnEditor(PropSetFile* p) {
 
-	codePage = 0;
 	characterSet = 0;
-	unicodeMode = uni8Bit; // Set to 'unknown'
 	language = "java";
 	lexLanguage = SCLEX_CPP;
 	functionDefinition = 0;
@@ -2845,12 +2840,16 @@ void AnEditor::ReadProperties(const char *fileForExt) {
 	ForwardPropertyToEditor("tab.timmy.whinge.level");
 	ForwardPropertyToEditor("asp.default.language");
 	
-	codePage = props->GetInt("code.page");
-	if (unicodeMode != uni8Bit) {
+	// codePage = props->GetInt("code.page");
+	//if (unicodeMode != uni8Bit) {
 		// Override properties file to ensure Unicode displayed.
-		codePage = SC_CP_UTF8;
-	}
-	SendEditor(SCI_SETCODEPAGE, codePage);
+		// codePage = SC_CP_UTF8;
+	// }
+	// SendEditor(SCI_SETCODEPAGE, codePage);
+	
+	// Use unicode everytime.
+	SendEditor(SCI_SETCODEPAGE, SC_CP_UTF8);
+	
 	characterSet = props->GetInt("character.set");
 	setlocale(LC_CTYPE, props->Get("LC_CTYPE").c_str());
 

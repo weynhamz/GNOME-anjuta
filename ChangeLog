@@ -1,5 +1,8 @@
 2003-04-16  Naba Kumar  <naba@gnome.org>
 
+	* aneditor.cxx: use unicode everytime (fixed unicode related
+	bugs).
+
 	* anjuta.prj: Fixed UI editor name (blank to use default) and
 	anjuta version.
 	
