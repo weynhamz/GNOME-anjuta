@@ -25,6 +25,8 @@ src/an_file_view.h
 src/an_symbol_view.c
 src/an_symbol_view.h
 src/aneditor.h
+src/anjuta-encodings.c
+src/anjuta-encodings.h
 src/anjuta-plugins.c
 src/anjuta-plugins.h
 src/anjuta-tools.c
