@@ -168,6 +168,9 @@ class TerminalWindow : public MessageSubwindow
 		/* Signal handlers */
 		static void use_default_profile_cb (GtkToggleButton *button,
 											TerminalWindow *tw);
+		static gboolean term_keypress_cb (GtkWidget *widget,
+										  GdkEventKey  *event,
+										  TerminalWindow *tw);
 		static gboolean term_focus_cb (GtkWidget *widget,
 									   GdkEvent  *event,
 									   TerminalWindow *tw);

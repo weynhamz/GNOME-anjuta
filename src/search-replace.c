@@ -68,6 +68,7 @@ void on_search_button_next_clicked(GtkButton *button, gpointer user_data);
 void on_search_button_jump_clicked(GtkButton *button, gpointer user_data);
 void on_search_expression_activate (GtkEditable *edit, gpointer user_data);
 void on_search_button_save_clicked(GtkButton *button, gpointer user_data);
+void on_search_button_stop_clicked(GtkButton *button, gpointer user_data);
 
 void on_search_direction_changed (GtkEditable *editable, gpointer user_data);
 void on_search_full_buffer_toggled (GtkToggleButton *togglebutton, 
@@ -76,7 +77,8 @@ void on_search_forward_toggled (GtkToggleButton *togglebutton,
 									gpointer user_data);
 void on_search_backward_toggled (GtkToggleButton *togglebutton, 
 									gpointer user_data);
-									
+void on_setting_basic_search_toggled (GtkToggleButton *togglebutton, 
+									  gpointer user_data);
 
 /* GUI dropdown option strings */
 StringMap search_direction_strings[] = {
@@ -733,10 +735,12 @@ search_show_replace(gboolean hide)
 	{
 		widget = sr_get_gladewidget(hide_widgets[i])->widget;
 		if (NULL != widget)
+		{
 			if (hide)
 				gtk_widget_show(widget);
 			else
 				gtk_widget_hide(widget);
+		}
 	}
 }
 
@@ -746,8 +750,8 @@ modify_label_image_button(gchar *button_name, gchar *name, char *stock_image)
 	GList *list, *l;
 	GtkHBox *hbox;
 	GtkWidget *alignment;
-	GtkWidget *label;
-	GtkWidget *image;
+	// GtkWidget *label;
+	// GtkWidget *image;
 	GtkWidget *button = sr_get_gladewidget(button_name)->widget;
 	
 	list = gtk_container_get_children(GTK_CONTAINER (button));
@@ -1067,7 +1071,7 @@ gboolean
 on_search_dialog_key_press_event(GtkWidget *widget, GdkEventKey *event,
                                gpointer user_data)
 {
-	gchar *str;
+	// gchar *str;
 	
 	if (event->keyval == GDK_Escape)
 	{
@@ -1174,7 +1178,7 @@ on_search_regex_toggled (GtkToggleButton *togglebutton, gpointer user_data)
 	static char *dependent_widgets[] = {
 		GREEDY, IGNORE_CASE, WHOLE_WORD, WHOLE_LINE, WORD_START
 	};
-	gchar *dirstring;
+	// gchar *dirstring;
 	int i;
 	GtkWidget *dircombo = sr_get_gladewidget(SEARCH_DIRECTION_COMBO)->widget;
 	GtkWidget *repl_regex = sr_get_gladewidget(REPLACE_REGEX)->widget;
@@ -1402,7 +1406,7 @@ void
 on_search_forward_toggled (GtkToggleButton *togglebutton, 
 									gpointer user_data)
 {
-	GtkWidget *widget;
+	// GtkWidget *widget;
 	if (gtk_toggle_button_get_active(togglebutton))
 	{
 		search_set_direction(SD_FORWARD);
@@ -1414,7 +1418,7 @@ void
 on_search_backward_toggled (GtkToggleButton *togglebutton, 
 									gpointer user_data)
 {
-	GtkWidget *widget;
+	// GtkWidget *widget;
 	
 	if (gtk_toggle_button_get_active(togglebutton))
 	{

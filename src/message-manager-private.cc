@@ -18,6 +18,8 @@
 */
 
 #include <config.h>
+#include <signal.h>
+
 #include "message-manager-private.h"
 #include "message-manager-dock.h"
 #include "preferences.h"
@@ -737,10 +739,12 @@ TerminalWindow::TerminalWindow(AnMessageManager* p_amm, int p_type_id,
 					  G_CALLBACK (TerminalWindow::term_init_cb), this);
 	g_signal_connect (G_OBJECT (m_terminal), "destroy",
 					  G_CALLBACK (TerminalWindow::term_destroy_cb), this);
+	g_signal_connect (G_OBJECT (m_terminal), "event",
+					  G_CALLBACK (TerminalWindow::term_keypress_cb), this);
 
 	sb = gtk_vscrollbar_new (GTK_ADJUSTMENT (VTE_TERMINAL (m_terminal)->adjustment));
 	GTK_WIDGET_UNSET_FLAGS (sb, GTK_CAN_FOCUS);
-
+	
 	frame = gtk_frame_new (NULL);
 	gtk_widget_show (frame);
 	gtk_frame_set_shadow_type (GTK_FRAME (frame), GTK_SHADOW_IN);
@@ -849,6 +853,34 @@ gboolean TerminalWindow::term_focus_cb (GtkWidget *widget,
 		need_init = false;
 	}
 	gtk_widget_grab_focus (widget);
+	return FALSE;
+}
+
+gboolean TerminalWindow::term_keypress_cb (GtkWidget *widget,
+										   GdkEventKey  *event,
+										   TerminalWindow *tw) 
+{
+	if (event->type != GDK_KEY_PRESS)
+		return FALSE;
+	
+	/* Fixme: This doesn't seem to be called for desired keys :-( */
+	DEBUG_PRINT ("Terminal key pressed");
+	/* ctrl-c or ctrl-d */
+	if (event->keyval == GDK_c ||
+		event->keyval == GDK_d ||
+		event->keyval == GDK_C ||
+		event->keyval == GDK_D)
+	{
+		/* Ctrl pressed */
+		if (event->state & GDK_CONTROL_MASK)
+		{
+			DEBUG_PRINT ("Ctrl c/d: Terminal reseting");
+			kill (tw->m_child_pid, SIGINT);
+			tw->m_child_pid = 0;
+			term_init_cb (GTK_WIDGET (tw->m_terminal), tw);
+			return TRUE;
+		}
+	}
 	return FALSE;
 }
 
