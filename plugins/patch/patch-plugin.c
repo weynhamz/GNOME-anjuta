@@ -28,6 +28,8 @@ gchar   *GetTooltipText (GModule *self, void *pUserData);
 
 typedef struct _PatchPluginGUI PatchPluginGUI;
 
+static void patch_level_changed (GtkAdjustment *adj);
+
 static void on_ok_clicked (GtkButton *button, PatchPluginGUI* gui);
 static void on_cancel_clicked (GtkButton *button, PatchPluginGUI* gui);
 
@@ -73,7 +75,8 @@ CleanUp( GModule *self, void *pUserData, AnjutaApp* p )
 {
 }
 
-void patch_level_changed (GtkAdjustment *adj)
+static void
+patch_level_changed (GtkAdjustment *adj)
 {
 	patch_level = (gint) adj->value;
 }
