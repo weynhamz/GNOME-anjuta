@@ -1,3 +1,24 @@
+2005-02-17  Naba Kumar  <naba@gnome.org>
+	
+	* plugins/project-wizard/templates/anjuta-plugin.wiz,
+	plugins/project-wizard/templates/gnome.wiz,
+	plugins/project-wizard/templates/gtk.wiz,
+	plugins/project-wizard/templates/gtkmm.wiz,
+	plugins/project-wizard/templates/terminal.wiz,
+	plugins/project-wizard/templates/anjuta-plugin/src/plugin.c,
+	plugins/project-wizard/templates/anjuta-plugin/src/plugin.h,
+	plugins/project-wizard/templates/gnome/src/callbacks.c,
+	plugins/project-wizard/templates/gnome/src/callbacks.h,
+	plugins/project-wizard/templates/gnome/src/main.c,
+	plugins/project-wizard/templates/gtk/src/callbacks.c,
+	plugins/project-wizard/templates/gtk/src/callbacks.h,
+	plugins/project-wizard/templates/gtk/src/main.c,
+	plugins/project-wizard/templates/gtkmm/src/main.cc,
+	plugins/project-wizard/templates/terminal/src/main.c: Fixed templates
+	to generate licence correctly (without any extra newlines). Removed
+	IncludeGNUHeader macro definition and added proper licence property.
+	Fixed project directory paths in file contents.
+
 2005-02-17  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
 
 	* plugins/macro/macro-dialog.c, plugins/macro/macro-edit.c :

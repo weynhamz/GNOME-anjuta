@@ -10,17 +10,22 @@
 	<property type="string" name="Author" _label="Author:" _description="" default="[+UserName+]" mandatory="yes"/>
 	<property type="string" name="Email" _label="Email address:" _description="" default="[+EmailAddress+]" mandatory="no"/>
 	<property type="string" name="Version" _label="Version:" default="0.1" mandatory="yes"/>
-	<property type="directory" name="Destination" _label="Destination:" _description="" default="[+AnjutaProjectDirectory+]" mandatory="yes"/>
 </page>
 
 <page name="options" _label="Project options" _description="Options for project build system">
+	<property type="directory" name="Destination" _label="Destination:" _description="" default="[+AnjutaProjectDirectory+]/[+(string-downcase (get "Name"))+]" mandatory="yes" exist="no" summary="yes"/>
+	<property type="list" name="License" _label="License" _description="Select code license" default="GPL" editable="no">
+		<item name="GPL" _label="General Public License(GPL)"/>
+		<item name="LGPL" _label="Lesser General Public License(LGPL)"/>
+		<item name="BSD" _label="Berkeley Software Distribution License(BSD)"/>
+		<item name="None" _label="No license"/>
+	</property>
 	<property type="hidden" name="NameUpper" default="[+(string-upcase (get "Name"))+]"/>
 	<property type="hidden" name="NameLower" default="[+(string-downcase (get "Name"))+]"/>
 	<property type="hidden" name="NameCUpper" default="[+(string->c-name! (string-upcase (get "Name")))+]"/>
 	<property type="hidden" name="NameCLower" default="[+(string->c-name! (string-downcase (get "Name")))+]"/>
 	<property type="hidden" name="HavePackage" default="1"/>
 	<property type="hidden" name="PackageModule1" default="gtk+-2.0 libglade-2.0"/>
-	<property type="boolean" name="IncludeGNUHeader" _label="Include GNU Header:" _description="Include GPL header in source files as comments" default="1"/>
 	<property type="boolean" name="HaveLangCPP" _label="Add C++ support:" _description="Adds c++ support to the project so that c++ source files can be built" default="0"/>
 	<property type="boolean" name="HaveI18n" _label="Add internationalization:" _description="Adds supports for internationalization so that your project can have translations in different languages" default="1"/>
 	<property type="boolean" name="HaveSharedlib" _label="Add shared library support:" _description="Adds supports for building shared libraries in your project" default="0"/>
@@ -38,36 +43,34 @@
 [+ENDIF+]
 
 <content>
-	<directory source="." destination="[+Destination+]">
-		<directory source="terminal" destination="[+NameLower+]">
-			<file source="AUTHORS"/>
+	<directory source="terminal" destination="[+Destination+]">
+		<file source="AUTHORS"/>
+		<file source="ChangeLog"/>
+		<file source="Makefile.am.tpl" destination="Makefile.am"/>
+		<file source="NEWS"/>
+		<file source="README"/>
+		<file source="autogen.sh" executable="yes"/>
+		<file source="configure.in.tpl" destination="configure.in"/>
+		<file destination="[+NameLower+].anjuta" source="project.anjuta"/>
+		[+IF (=(get "HaveI18n") "1") +]
+		<directory source="po">
 			<file source="ChangeLog"/>
-			<file source="Makefile.am.tpl" destination="Makefile.am"/>
-			<file source="NEWS"/>
-			<file source="README"/>
-			<file source="autogen.sh" executable="yes"/>
-			<file source="configure.in.tpl" destination="configure.in"/>
-			<file destination="[+NameLower+].anjuta" source="project.anjuta"/>
-			[+IF (=(get "HaveI18n") "1") +]
-			<directory source="po">
-				<file source="ChangeLog"/>
-				<file source="POTFILES.in"/>
-			</directory>
-			[+ENDIF+]
+			<file source="POTFILES.in"/>
 		</directory>
-		<directory source="gtk" destination="[+NameLower+]">
-			<directory source="src">
-				<file source="main.c"/>
-				<file source="callbacks.c"/>
-				<file source="callbacks.h"/>
-				<file source="project.glade" destination="[+NameLower+].glade"/>
-				<file source="Makefile.am.tpl" destination="Makefile.am"/>
-			</directory>
+		[+ENDIF+]
+	</directory>
+	<directory source="gtk" destination="[+Destination+]">
+		<directory source="src">
+			<file source="main.c"/>
+			<file source="callbacks.c"/>
+			<file source="callbacks.h"/>
+			<file source="project.glade" destination="[+NameLower+].glade"/>
+			<file source="Makefile.am.tpl" destination="Makefile.am"/>
 		</directory>
 	</directory>
 </content>
 
 <action>
-	<run command="sh -c 'cd [+Destination+]/[+NameLower+] &amp;&amp; ./autogen.sh'"/>
-	<open file="[+Destination+]/[+NameLower+]/[+NameLower+].anjuta"/>
+	<run command="sh -c 'cd [+Destination+] &amp;&amp; ./autogen.sh'"/>
+	<open file="[+Destination+]/[+NameLower+].anjuta"/>
 </action>

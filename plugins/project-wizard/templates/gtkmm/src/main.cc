@@ -4,10 +4,11 @@
  * main.cc
  * Copyright (C) [+Author+] [+(shell "date +%Y")+] <[+Email+]>
  * 
-[+CASE (get "License") +][+
- == "BSD"  +][+(bsd  "main.cc" (get "Author") " *")+][+
- == "LGPL" +][+(lgpl "main.cc" (get "Author") " *")+][+
- == "GPL"  +][+(gpl  "main.cc" (get "Author") " *")+][+ESAC+] */
+[+CASE (get "License") +]
+[+ == "BSD"  +][+(bsd  "main.cc" (get "Author") " * ")+]
+[+ == "LGPL" +][+(lgpl "main.cc" (get "Author") " * ")+]
+[+ == "GPL"  +][+(gpl  "main.cc"                " * ")+]
+[+ESAC+] */
 
 #include <libglademm/xml.h>
 #include <gtkmm.h>

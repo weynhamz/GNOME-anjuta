@@ -4,10 +4,11 @@
  * plugin.h
  * Copyright (C) [+Author+] [+(shell "date +%Y")+] <[+Email+]>
  * 
-[+CASE (get "License") +][+
- == "BSD"  +][+(bsd  "plugin.h" (get "Author") " *")+][+
- == "LGPL" +][+(lgpl "plugin.h" (get "Author") " *")+][+
- == "GPL"  +][+(gpl  "plugin.h" (get "Author") " *")+][+ESAC+] */
+[+CASE (get "License") +]
+[+ == "BSD"  +][+(bsd  "plugin.h" (get "Author") " * ")+]
+[+ == "LGPL" +][+(lgpl "plugin.h" (get "Author") " * ")+]
+[+ == "GPL"  +][+(gpl  "plugin.h"                " * ")+]
+[+ESAC+] */
 
 #ifndef _[+NameCUpper+]_H_
 #define _[+NameCUpper+]_H_

@@ -4,10 +4,11 @@
  * main.c
  * Copyright (C) [+Author+] [+(shell "date +%Y")+] <[+Email+]>
  * 
-[+CASE (get "License") +][+
- == "BSD"  +][+(bsd  "main.c" (get "Author") " *")+][+
- == "LGPL" +][+(lgpl "main.c" (get "Author") " *")+][+
- == "GPL"  +][+(gpl  "main.c" (get "Author") " *")+][+ESAC+] */
+[+CASE (get "License") +]
+[+ == "BSD"  +][+(bsd  "main.c" (get "Author") " * ")+]
+[+ == "LGPL" +][+(lgpl "main.c" (get "Author") " * ")+]
+[+ == "GPL"  +][+(gpl  "main.c"                " * ")+]
+[+ESAC+] */
 
 #ifdef HAVE_CONFIG_H
 #  include <config.h>

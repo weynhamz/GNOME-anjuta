@@ -1,11 +1,13 @@
 [+ autogen5 template +]
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
-
-[+IF (=(get "IncludeGNUHeader") "1") +]/*
-	callbacks.h
-	Copyright (C) [+Author+] [+(shell "date +%Y")+] <[+Email+]>
-
-[+(gpl "callbacks.h"  "\t")+]
-*/[+ENDIF+]
+/*
+ * callbacks.h
+ * Copyright (C) [+Author+] [+(shell "date +%Y")+] <[+Email+]>
+ * 
+[+CASE (get "License") +]
+[+ == "BSD"  +][+(bsd  "callbacks.h" (get "Author") " * ")+]
+[+ == "LGPL" +][+(lgpl "callbacks.h" (get "Author") " * ")+]
+[+ == "GPL"  +][+(gpl  "callbacks.h"                " * ")+]
+[+ESAC+] */
 
 #include <gtk/gtk.h>

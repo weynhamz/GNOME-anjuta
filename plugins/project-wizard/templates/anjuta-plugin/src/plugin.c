@@ -4,10 +4,11 @@
  * plugin.c
  * Copyright (C) [+Author+] [+(shell "date +%Y")+] <[+Email+]>
  * 
-[+CASE (get "License") +][+
- == "BSD"  +][+(bsd  "plugin.c" (get "Author") " *")+][+
- == "LGPL" +][+(lgpl "plugin.c" (get "Author") " *")+][+
- == "GPL"  +][+(gpl  "plugin.c" (get "Author") " *")+][+ESAC+] */
+[+CASE (get "License") +]
+[+ == "BSD"  +][+(bsd  "plugin.c" (get "Author") " * ")+]
+[+ == "LGPL" +][+(lgpl "plugin.c" (get "Author") " * ")+]
+[+ == "GPL"  +][+(gpl  "plugin.c"                " * ")+]
+[+ESAC+] */
 
 #include <config.h>
 #include <libanjuta/anjuta-shell.h>
