@@ -19,11 +19,13 @@ G_BEGIN_DECLS
 typedef struct _AnjutaShell      AnjutaShell;
 typedef struct _AnjutaShellIface AnjutaShellIface;
 
-typedef enum  {
+typedef enum
+{
 	ANJUTA_SHELL_ERROR_DOESNT_EXIST,
 } AnjutaShellError;
 
-typedef enum {
+typedef enum
+{
 	ANJUTA_SHELL_PLACEMENT_NONE = 0,
 	ANJUTA_SHELL_PLACEMENT_TOP,
 	ANJUTA_SHELL_PLACEMENT_BOTTOM,

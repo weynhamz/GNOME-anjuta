@@ -70,8 +70,6 @@ struct _GnomeFileList {
    GtkWidget *filter_combo;
    GtkWidget *selection_label;
    GtkWidget *selection_entry;
-   // GtkWidget *ok_button;
-   // GtkWidget *cancel_button;
    GtkWidget *filetype_combo;
    GtkWidget *createdir_button;
    GtkWidget *scrolled_window_dir;

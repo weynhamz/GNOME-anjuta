@@ -457,6 +457,8 @@ anjuta_util_glist_from_string
 anjuta_util_glist_strings_dup
 anjuta_util_glist_path_dedup
 anjuta_util_update_string_list
+anjuta_util_execute_shell
+anjuta_util_create_dir
 ANJUTA_TYPE_BEGIN
 ANJUTA_TYPE_END
 ANJUTA_INTERFACE
@@ -575,6 +577,7 @@ fileselection_addtype
 fileselection_getcombolist
 fileselection_set_combolist
 fileselection_clearfiletypes
+fileselection_update_dir
 </SECTION>
 
 <SECTION>
@@ -1010,6 +1013,21 @@ IANJUTA_IS_TRANSFORMABLE
 IANJUTA_TYPE_TRANSFORMABLE
 ianjuta_transformable_get_type
 IANJUTA_TRANSFORMABLE_GET_IFACE
+</SECTION>
+
+<SECTION>
+<FILE>ianjuta-terminal</FILE>
+IANJUTA_TERMINAL_ERROR
+IAnjutaTerminal
+IAnjutaTerminalIface
+ianjuta_terminal_error_quark
+ianjuta_terminal_execute_command
+<SUBSECTION Standard>
+IANJUTA_TERMINAL
+IANJUTA_IS_TERMINAL
+IANJUTA_TYPE_TERMINAL
+ianjuta_terminal_get_type
+IANJUTA_TERMINAL_GET_IFACE
 </SECTION>
 
 <SECTION>

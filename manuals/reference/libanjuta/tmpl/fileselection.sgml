@@ -37,7 +37,7 @@ File selection dialog (deprecated)
 
 </para>
 
-@window: 
+@dialog: 
 @back_button: 
 @forward_button: 
 @home_button: 
@@ -50,8 +50,6 @@ File selection dialog (deprecated)
 @filter_combo: 
 @selection_label: 
 @selection_entry: 
-@ok_button: 
-@cancel_button: 
 @filetype_combo: 
 @createdir_button: 
 @scrolled_window_dir: 
@@ -204,5 +202,13 @@ File selection dialog (deprecated)
 
 @filesel: 
 @Returns: 
+
+
+<!-- ##### FUNCTION fileselection_update_dir ##### -->
+<para>
+
+</para>
+
+@filesel: 
 
 

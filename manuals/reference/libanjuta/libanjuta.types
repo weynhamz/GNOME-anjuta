@@ -24,6 +24,7 @@
 #include <libanjuta/interfaces/ianjuta-stream-loader.h>
 #include <libanjuta/interfaces/ianjuta-stream-savable.h>
 #include <libanjuta/interfaces/ianjuta-transformable.h>
+#include <libanjuta/interfaces/ianjuta-terminal.h>
 
 anjuta_shell_get_type
 anjuta_preferences_get_type
@@ -55,3 +56,4 @@ ianjuta_stream_get_type
 ianjuta_stream_loader_get_type
 ianjuta_stream_savable_get_type
 ianjuta_transformable_get_type
+ianjuta_terminal_get_type

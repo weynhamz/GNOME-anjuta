@@ -1,5 +1,46 @@
 2004-05-11  Naba Kumar  <naba@gnome.org>
 
+	* libanjuta/anjuta-shell.h, libanjuta/gnomefilelist.h: Fixed format.
+	
+	* manuals/reference/libanjuta/libanjuta-docs.sgml,
+	manuals/reference/libanjuta/libanjuta-sections.txt,
+	manuals/reference/libanjuta/libanjuta.types,
+	manuals/reference/libanjuta/tmpl/anjuta-plugin.sgml,
+	manuals/reference/libanjuta/tmpl/anjuta-preferences.sgml,
+	manuals/reference/libanjuta/tmpl/anjuta-utils.sgml,
+	manuals/reference/libanjuta/tmpl/fileselection.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-iterable.sgml,
+	(added) manuals/reference/libanjuta/tmpl/ianjuta-terminal.sgml:
+	Updated documentation.
+
+	* (new) plugins/terminal/*, plugins/Makefile.am, configure.in,
+	plugins/profile-default/plugin.c, src/layout.xml:
+	Created terminal plugin.
+	 
+	* (new) plugins/file-manager/anjuta-file-manager-plugin.glade,
+	(new) plugins/file-manager/.cvsignore,
+	plugins/file-manager/an_file_view.c,
+	plugins/file-manager/plugin.c,
+	plugins/file-manager/plugin.h: Moved preferences to separate
+	glade file and added cvsignore file.
+	
+	* (new) po/ko.po, (new) po/sq.po, po/ChangeLog: Brought missing po files
+	from ANJUTA_1_2_0 branch. Please note that other po files need merging
+	from the branch. I tried it	but there were way too many conflicts.
+	
+	* anjuta.glade: Merged with ANJUTA_1_2_0 branch.
+	
+	* libanjuta/anjuta-utils.c, libanjuta/anjuta-utils.h: Added more
+	util functions required during the merge.
+	
+	* libanjuta/interfaces/libanjuta.idl: Defined IAnjutaTerminal
+	interface.
+	
+	* plugins/editor/aneditor.cxx, plugins/editor/aneditor.h,
+	plugins/editor/anjuta-docman.c, plugins/editor/goto_line.c,
+	plugins/editor/text_editor.c, plugins/editor/text_editor.h,
+	plugins/editor/text_editor_menu.c, plugins/file-manager/Makefile.am:
+	Merged with ANJUTA_1_2_0 branch.
 
 2004-05-09  Johannes Schmid <jhs@cvs.gnome.org>
 

@@ -1,0 +1,56 @@
+<!-- ##### SECTION Title ##### -->
+ianjuta-terminal
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### MACRO IANJUTA_TERMINAL_ERROR ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### STRUCT IAnjutaTerminal ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### STRUCT IAnjutaTerminalIface ##### -->
+<para>
+
+</para>
+
+@g_iface: 
+@execute_command: 
+
+<!-- ##### FUNCTION ianjuta_terminal_error_quark ##### -->
+<para>
+
+</para>
+
+@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_terminal_execute_command ##### -->
+<para>
+
+</para>
+
+@obj: 
+@command: 
+@err: 
+@Returns: 
+
+
