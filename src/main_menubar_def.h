@@ -372,7 +372,7 @@ static GnomeUIInfo edit1_menu_uiinfo[NUM_EDIT_MENUES+1] = {
 	GDK_R, GDK_CONTROL_MASK, NULL},
 	
 	{/*18*/
-	 GNOME_APP_UI_ITEM, N_("_Repeat Find"),
+	 GNOME_APP_UI_ITEM, N_("Find _Next"),
 	 N_("Repeat the Last Find command"),
 	 on_findnext1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_SEARCH,

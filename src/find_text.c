@@ -294,15 +294,15 @@ create_find_text_gui (FindText * ft)
 	vbox1_group =
 		gtk_radio_button_group (GTK_RADIO_BUTTON (radiobutton1));
 	gtk_widget_show (radiobutton1);
-	gtk_box_pack_start (GTK_BOX (vbox1), radiobutton1, FALSE, TRUE, 0);
 
 	radiobutton2 =
 		gtk_radio_button_new_with_label (vbox1_group,
-						 _("From Cursor"));
+						 _("From cursor"));
 	vbox1_group =
 		gtk_radio_button_group (GTK_RADIO_BUTTON (radiobutton2));
 	gtk_widget_show (radiobutton2);
 	gtk_box_pack_start (GTK_BOX (vbox1), radiobutton2, FALSE, TRUE, 0);
+	gtk_box_pack_start (GTK_BOX (vbox1), radiobutton1, FALSE, TRUE, 0);
 
 	frame4 = gtk_frame_new (_(" Direction "));
 	gtk_widget_show (frame4);

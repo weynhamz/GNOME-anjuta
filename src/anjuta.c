@@ -1867,8 +1867,12 @@ plug_in_delete( AnjutaAddInPtr self )
 		g_module_close( self->m_Handle );
 
 	self->m_Handle	= NULL ;
+<<<<<<< anjuta.c
+	g_free( self );
+=======
 
 	g_free( self );
+>>>>>>> 1.21
 }
 
 
@@ -1945,7 +1949,7 @@ Load_plugIn( AnjutaAddInPtr self, const gchar *szModName )
 	}
 		
 	if( ! bOK )
-		anjuta_error ( _("Unable to load %s plugin.\nError %s"), pErr );
+		anjuta_error ( _("Unable to load plugin %s.\nError %s"), szModName, pErr  );
 	return bOK ;
 }
 
