@@ -1,6 +1,11 @@
+2004-02-14  Franco Catrin  <fcatrin@tuxpan.com>
+        * src/message-manager-private.cc
+        Set bold color as foreground color in terminal
+        (fix bug #864924)
+
 2004-02-13  Franco Catrin  <fcatrin@tuxpan.com>
 	* src/build_project.c
-	Use built.silent option from preferences (fix bug #895726)
+	Use build.silent option from preferences (fix bug #895726)
 	
 2004-02-11  Robert Sedak  <robert.sedak@sk.htnet.hr>
 
