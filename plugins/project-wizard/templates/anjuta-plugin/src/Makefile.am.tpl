@@ -37,6 +37,7 @@ INCLUDES = \
 	-DANJUTA_GLADE_DIR=\"$(anjuta_glade_dir)\" \
 	-DANJUTA_UI_DIR=\"$(anjuta_ui_dir)\" \
 	-DPACKAGE_DATA_DIR=\"$(datadir)\" \
+	-DPACKAGE_SRC_DIR=\"$(srcdir)\" \
 	$(LIBANJUTA_CFLAGS) [+IF (=(get "HavePackage") "1")+]$(PACKAGE_CFLAGS)[+ENDIF+]
 
 # Where to install the plugin

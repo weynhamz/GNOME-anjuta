@@ -1,5 +1,28 @@
 2005-01-12  Naba Kumar  <naba@gnome.org>
 
+	* configure.in,
+	plugins/project-wizard/templates/Makefile.am,
+	(added) plugins/project-wizard/templates/anjuta-plugin-logo.png,
+	plugins/project-wizard/templates/anjuta-plugin.wiz,
+	(added) plugins/project-wizard/templates/gtk-logo.png,
+	(added) plugins/project-wizard/templates/gtk.wiz,
+	(added) plugins/project-wizard/templates/terminal-logo.png,
+	plugins/project-wizard/templates/terminal.wiz,
+	plugins/project-wizard/templates/anjuta-plugin/src/Makefile.am.tpl,
+	plugins/project-wizard/templates/anjuta-plugin/src/plugin.c,
+	(added) plugins/project-wizard/templates/gtk/.cvsignore,
+	(added) plugins/project-wizard/templates/gtk/Makefile.am,
+	(added) plugins/project-wizard/templates/gtk/src/.cvsignore,
+	(added) plugins/project-wizard/templates/gtk/src/Makefile.am,
+	(added) plugins/project-wizard/templates/gtk/src/Makefile.am.tpl,
+	(added) plugins/project-wizard/templates/gtk/src/main.c,
+	(added) plugins/project-wizard/templates/gtk/src/project.glade,
+	plugins/project-wizard/templates/terminal/src/Makefile.am.tpl: Added
+	GTK+ project templated and fixed other templates. Updated template
+	logos.
+
+2005-01-12  Naba Kumar  <naba@gnome.org>
+
 	* plugins/macro/anjuta-macro.glade: Improved GUI.
 	
 2005-01-10  Johannes Schmid <jhs@cvs.gnome.org>

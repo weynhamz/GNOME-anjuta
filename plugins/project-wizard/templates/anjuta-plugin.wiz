@@ -1,7 +1,7 @@
 <project-wizard>
 	<name>Anjuta Plugin</name>
 	<description>Anjuta plugin</description>
-	<icon>appwiz_terminal.png</icon>
+	<icon>anjuta-plugin-logo.png</icon>
 	<category>C</category>
 </project-wizard>
 

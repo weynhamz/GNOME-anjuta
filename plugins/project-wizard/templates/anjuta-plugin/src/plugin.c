@@ -94,7 +94,7 @@ static gboolean
 [+IF (=(get "HasGladeFile") "1") +]
 	/* Add plugin widgets to Shell */
 	gxml = glade_xml_new (GLADE_FILE, NULL, NULL);
-	wid = glade_xml_get_widget (gxml, "top_container");
+	wid = glade_xml_get_widget (gxml, "top_widget");
 	[+NameCLower+]->widget = wid;
 	anjuta_shell_add_widget (plugin->shell, wid,
 							 "[+PluginClass+]Widget", _("[+PluginClass+] widget"), NULL,
