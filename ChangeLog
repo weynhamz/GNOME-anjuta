@@ -1,3 +1,25 @@
+2003-01-23  Jakub Steiner <jimmac * ximian * com>
+
+	* pixmaps/autocomplete-16.png,
+	pixmaps/autocomplete.png,
+	pixmaps/block-end-16.png,
+	pixmaps/block-end.png,
+	pixmaps/block-start-16.png,
+	pixmaps/block-start.png,
+	pixmaps/bookmark-first-16.png,
+	pixmaps/bookmark-first.png,
+	pixmaps/bookmark-last-16.png,
+	pixmaps/bookmark-last.png,
+	pixmaps/bookmark-next-16.png,
+	pixmaps/bookmark-next.png,
+	pixmaps/bookmark-prev-16.png,
+	pixmaps/bookmark-prev.png,
+	pixmaps/error-next-16.png,
+	pixmaps/error-next.png,
+	pixmaps/error-prev-16.png,
+	pixmaps/error-prev.png: gnome2-styled icons
+
+
 2003-01-23  Naba Kumar <naba@gnome.org>
 
 	* anjuta.prj: Updated compiler options.
