@@ -1,11 +1,10 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
-
 /***************************************************************************
  *            search_preferences.c
  *
- *  Wed Jan 14 05:22:01 2004
- *  Copyright  2004  Jean-Noel Guiheneuf
- *  jnoel@lotuscompounds.com
+ *  Sat Nov 27 18:26:50 2004
+ *  Copyright  2004  Jean-Noel GUIHENEUF
+ *  guiheneuf.jean-noel@wanadoo.fr
  ****************************************************************************/
 /*
  *  This program is free software; you can redistribute it and/or modify
@@ -33,103 +32,68 @@
 
 #include <gnome.h>
 
-// #include "anjuta.h"
 
 #include "search-replace_backend.h"
 #include "search-replace.h"
 #include "search_preferences.h"
 
 
-typedef struct _SearchSet
-{
-	gchar *name;
-	gchar *search_str;
-	gboolean regex;
-	gboolean greedy;
-	gboolean ignore_case;
-	gboolean whole_word;
-	gboolean whole_line;
-	gboolean word_start;
-	gboolean no_limit;
-	gint actions_max;
-	gint target;
-	gint direction;
-	gint action;
-	gboolean basic_search;
-} SearchSet;
-
-typedef struct _SearchPrefSetting
-{
-	gint nb_ss;
-	GList *setting;
-	gchar *name_default;
-} SearchPrefSetting;
-
-
 enum {PREF_DEFAULT_COLUMN, PREF_NAME_COLUMN, PREF_ACTIVE_COLUMN};
 
-#define MAX_SETTINGS 8
-
-static SearchSet *search_preferences_find_setting(gchar *name);
-static gboolean
-on_search_preferences_clear_default_foreach (GtkTreeModel *model, GtkTreePath *path,
-								             GtkTreeIter *iter, gpointer data);
-static void
-on_search_preferences_treeview_enable_toggle (GtkCellRendererToggle *cell,
-							                  gchar *path_str,
-							                  gpointer data);
-static void
-on_search_preferences_colorize_setting (GtkTreeViewColumn *tree_column,
-					GtkCellRenderer *cell, GtkTreeModel *tree_model,
-					GtkTreeIter *iter, gpointer data);
-static gboolean
-on_search_preferences_setting_inactive (GtkTreeModel *model, GtkTreePath *path,
-								GtkTreeIter *iter, gpointer data);
-static void
-search_preferences_update_sr(SearchSet *ss);
-static void
-search_preferences_update_search(gchar *name);
-static SearchSet *
-search_preferences_update_setting(SearchSet *ss);
-static SearchSet *
-search_preferences_add_setting(gchar *name);
-static void
-search_preferences_update_treeview(void);
-static void
-search_preferences_remove_setting(gchar *name);
-static void
-search_preferences_update_item(gchar *name);
-static void
-search_preferences_save_setting (FILE *stream, gint nb, GList *list);
-static SearchSet *
-search_preferences_load_setting (PropsID props, gint nb);
-static void
-search_preferences_clear_setting(void);
-static void
-search_preferences_activate_default(gchar *name);
+#define SEARCH_PREF_PATH "/apps/anjuta/search_preferences"
+#define BASIC _("Basic Search")
 
 
-
-static SearchPrefSetting *sps = NULL;
+static GSList *list_pref = NULL;
+static gchar *default_pref = NULL;
 
 static SearchReplace *sr = NULL;
-static GtkWidget *sr_dialog = NULL;
 
 
-static SearchSet *
+
+static GSList *search_preferences_find_setting(gchar *name);
+static gboolean on_search_preferences_clear_default_foreach (GtkTreeModel *model, 
+	GtkTreePath *path, GtkTreeIter *iter, gpointer data);
+static gboolean on_search_preferences_setting_inactive (GtkTreeModel *model, 
+	GtkTreePath *path, GtkTreeIter *iter, gpointer data);
+static void search_preferences_update_entry(gchar *name);
+static void search_preferences_read_setting(gchar *name);
+static void search_preferences_setting_by_default(void);
+static void search_preferences_save_setting(gchar *name);
+static void search_preferences_save_search_pref(gchar *name);
+static GtkTreeModel* search_preferences_get_model(void);
+static void search_preferences_add_treeview(gchar *name);
+static void search_preferences_remove_setting(gchar *name);
+static void search_preferences_activate_default(gchar *name);
+static void search_preferences_active_selection_row(GtkTreeView *view);
+static void on_search_preferences_colorize_setting (GtkTreeViewColumn *tree_column,
+					GtkCellRenderer *cell, GtkTreeModel *tree_model,
+					GtkTreeIter *iter, gpointer data);
+static void on_search_preferences_row_activated (GtkTreeView *view,
+	                                 GtkTreePath *tree_path,
+	                                 GtkTreeViewColumn *view_column,
+	                                 GtkCellRenderer *renderer);		
+static void on_search_preferences_treeview_enable_toggle (GtkCellRendererToggle *cell,
+							 gchar			*path_str, gpointer		 data);
+static gboolean search_preferences_name_is_valid(gchar *name);
+void search_preferences_initialize_setting_treeview(GtkWidget *dialog);							 
+
+
+
+
+static GSList* 
 search_preferences_find_setting(gchar *name)
 {
-	GList *list;
-	SearchSet *ss;
-	
-	for(list = sps->setting; list; list=g_list_next(list))
+	GSList *list;
+
+	for(list = list_pref; list; list=g_slist_next(list))
 	{
-		ss = list->data;
-		if (g_ascii_strcasecmp(name, ss->name) == 0)
-			return ss;
+		if (g_ascii_strcasecmp(name, list->data) == 0)
+			return list;
 	}	
 	return NULL;
 }
+
 
 static gboolean
 on_search_preferences_clear_default_foreach (GtkTreeModel *model, GtkTreePath *path,
@@ -141,50 +105,227 @@ on_search_preferences_clear_default_foreach (GtkTreeModel *model, GtkTreePath *p
 	gtk_tree_model_get (model, iter, PREF_NAME_COLUMN, &t_name,
 	                                 PREF_ACTIVE_COLUMN, &active, -1);
 	if ((data != NULL) && (g_ascii_strcasecmp(t_name, (gchar*) data) == 0))
-	{
 		gtk_tree_store_set (GTK_TREE_STORE (model), iter, 
 		                    PREF_DEFAULT_COLUMN, TRUE,
 		                    PREF_ACTIVE_COLUMN, TRUE, -1);
-	}
 	else
-	{
 		gtk_tree_store_set (GTK_TREE_STORE (model), iter, 
-		                   PREF_DEFAULT_COLUMN, FALSE, -1);
-
-	}
+		                   PREF_DEFAULT_COLUMN, FALSE,
+		                  -1);
 	return FALSE;
 }
 
+
+static gboolean
+on_search_preferences_setting_inactive (GtkTreeModel *model, GtkTreePath *path,
+								GtkTreeIter *iter, gpointer data)
+{
+	gtk_tree_store_set (GTK_TREE_STORE (model), iter, PREF_ACTIVE_COLUMN, FALSE, -1);
+	return FALSE;
+}
+
+
 static void
-on_search_preferences_treeview_enable_toggle (GtkCellRendererToggle *cell,
-							 gchar			*path_str,
-							 gpointer		 data)
+search_preferences_update_entry(gchar *name)
+{
+	GtkWidget *pref_entry;
+	
+	pref_entry = sr_get_gladewidget(SETTING_PREF_ENTRY)->widget;
+	gtk_entry_set_text(GTK_ENTRY(pref_entry), name);
+}
+
+
+static void
+search_preferences_read_setting(gchar *name)
+ {
+	GConfClient *client;
+	
+	client = gconf_client_get_default();
+
+	sr->search.expr.regex = gconf_client_get_bool(client, 
+	                        gconf_concat_dir_and_key(name, "regex"), NULL);
+	sr->search.expr.greedy = gconf_client_get_bool(client, 
+	                         gconf_concat_dir_and_key(name, "greedy"), NULL);
+	sr->search.expr.ignore_case = gconf_client_get_bool(client, 
+	                              gconf_concat_dir_and_key(name, "ignore_case"), NULL);
+	sr->search.expr.whole_word = gconf_client_get_bool(client, 
+	                             gconf_concat_dir_and_key(name, "whole_word"), NULL);
+	sr->search.expr.whole_line = gconf_client_get_bool(client, 
+	                             gconf_concat_dir_and_key(name, "whole_line"), NULL);
+	sr->search.expr.word_start = gconf_client_get_bool(client, 
+	                             gconf_concat_dir_and_key(name, "word_start"), NULL);
+	sr->search.expr.no_limit = gconf_client_get_bool(client, 
+	                           gconf_concat_dir_and_key(name, "no_limit"), NULL);
+	sr->search.expr.actions_max = gconf_client_get_int(client, 
+	                              gconf_concat_dir_and_key(name, "actions_max"), NULL);
+	sr->search.range.type = gconf_client_get_int(client, 
+	                        gconf_concat_dir_and_key(name, "type"), NULL);
+	sr->search.range.direction = gconf_client_get_int(client, 
+	                             gconf_concat_dir_and_key(name, "direction"), NULL);	
+	sr->search.action = gconf_client_get_int(client, 
+	                             gconf_concat_dir_and_key(name, "action"), NULL);
+	sr->search.basic_search = gconf_client_get_bool(client, 
+	                             gconf_concat_dir_and_key(name, "basic_search"), NULL);
+								 
+	search_update_dialog();
+ }
+
+ 
+static void
+search_preferences_setting_by_default(void)
+ {
+	sr->search.expr.regex =FALSE;
+	sr->search.expr.greedy = FALSE;
+	sr->search.expr.ignore_case = FALSE;
+	sr->search.expr.whole_word = FALSE;
+	sr->search.expr.whole_line = FALSE;
+	sr->search.expr.word_start = FALSE;
+	sr->search.expr.no_limit =TRUE;
+	sr->search.expr.actions_max = 200;
+	sr->search.range.type = SR_BUFFER;
+	sr->search.range.direction = SD_FORWARD;	
+	sr->search.action = SA_SELECT;
+	sr->search.basic_search = TRUE;
+	
+	search_update_dialog();
+ }
+ 
+ 
+static void
+search_preferences_save_setting(gchar *name)
+{
+	GConfClient *client;
+	gchar *path;
+	
+	search_replace_populate();
+
+	client = gconf_client_get_default();
+	path =  gconf_concat_dir_and_key(SEARCH_PREF_PATH, name);
+	
+	gconf_client_set_bool(client, gconf_concat_dir_and_key(path, "regex"), 
+	                      sr->search.expr.regex, NULL);
+	gconf_client_set_bool(client, gconf_concat_dir_and_key(path, "greedy"),
+	                      sr->search.expr.greedy, NULL);
+	gconf_client_set_bool(client, gconf_concat_dir_and_key(path, "ignore_case"),
+                          sr->search.expr.ignore_case, NULL);
+	gconf_client_set_bool(client, gconf_concat_dir_and_key(path, "whole_word"), 
+	                      sr->search.expr.whole_word, NULL);
+	gconf_client_set_bool(client, gconf_concat_dir_and_key(path, "whole_line"), 
+	                      sr->search.expr.whole_line, NULL);
+	gconf_client_set_bool(client, gconf_concat_dir_and_key(path, "word_start"),
+	                      sr->search.expr.word_start, NULL);
+	gconf_client_set_bool(client, gconf_concat_dir_and_key(path, "no_limit"), 
+	                      sr->search.expr.no_limit, NULL);
+	gconf_client_set_int(client, gconf_concat_dir_and_key(path, "actions_max"), 
+	                     sr->search.expr.actions_max, NULL);
+	gconf_client_set_int(client, gconf_concat_dir_and_key(path, "type"), 
+	                     sr->search.range.type, NULL);
+	gconf_client_set_int(client, gconf_concat_dir_and_key(path, "direction"), 
+	                     sr->search.range.direction, NULL);	
+	gconf_client_set_int(client, gconf_concat_dir_and_key(path, "action"), 
+	                     sr->search.action, NULL);
+	gconf_client_set_bool(client, gconf_concat_dir_and_key(path, "basic_search"), 
+	                     sr->search.basic_search, NULL);
+}
+
+ 
+static void
+search_preferences_save_search_pref(gchar *name)
+{
+	GConfClient *client;
+	gchar *path;
+	
+	client = gconf_client_get_default();
+	gconf_client_set_list(client, gconf_concat_dir_and_key(SEARCH_PREF_PATH, 
+	                      "list_pref"), GCONF_VALUE_STRING, list_pref, NULL);
+
+	path =  gconf_concat_dir_and_key(SEARCH_PREF_PATH, name);
+	gconf_client_add_dir(client, path, GCONF_CLIENT_PRELOAD_NONE, NULL);
+	
+	search_preferences_save_setting(name);
+}
+
+
+static GtkTreeModel*
+search_preferences_get_model(void)
+{
+	GtkTreeView *view;
+	
+	view = GTK_TREE_VIEW (sr_get_gladewidget(SETTING_PREF_TREEVIEW)->widget);
+	return gtk_tree_view_get_model(view);
+}
+
+
+static void
+search_preferences_add_treeview(gchar *name)
+{
+	GtkTreeModel *model;
+	GtkTreeIter iter;
+
+	model = search_preferences_get_model();
+	gtk_tree_model_foreach (model, on_search_preferences_setting_inactive, NULL);
+	gtk_tree_store_append (GTK_TREE_STORE (model), &iter, NULL);
+	gtk_tree_store_set (GTK_TREE_STORE (model), &iter,
+							PREF_DEFAULT_COLUMN, FALSE,
+							PREF_NAME_COLUMN, name,
+						    PREF_ACTIVE_COLUMN, TRUE, -1);
+}
+
+
+static void
+search_preferences_remove_setting(gchar *name)
+{
+	GConfClient *client;
+	
+	client = gconf_client_get_default();
+	gconf_client_set_list(client, gconf_concat_dir_and_key(SEARCH_PREF_PATH, 
+		                  "list_pref"), GCONF_VALUE_STRING, list_pref, NULL);
+// FIXME : Remove Setting Directory
+	gconf_client_remove_dir(client, gconf_concat_dir_and_key(SEARCH_PREF_PATH, name), NULL);
+}
+
+
+
+static void
+search_preferences_activate_default(gchar *name)
 {
 	GtkTreeView *view;
 	GtkTreeModel *model;
-	GtkTreeIter iter;
-	GtkTreePath *path;
-	gboolean state;
-	gchar *name;
 	
-	path = gtk_tree_path_new_from_string (path_str);
 	view = GTK_TREE_VIEW (sr_get_gladewidget(SETTING_PREF_TREEVIEW)->widget);
 	model = gtk_tree_view_get_model (view);
-	gtk_tree_model_get_iter (model, &iter, path);
-	gtk_tree_model_get (model, &iter, PREF_NAME_COLUMN, &name,
-	                                  PREF_DEFAULT_COLUMN, &state, -1);
-	if (state)
-		gtk_tree_store_set (GTK_TREE_STORE (model), &iter, PREF_DEFAULT_COLUMN, FALSE, -1);
-	else
-	{
-		if (sps->name_default != NULL)
-			g_free(sps->name_default);
-		sps->name_default = g_strdup(name);
-		
-		gtk_tree_model_foreach (model, on_search_preferences_clear_default_foreach, NULL);	
-		gtk_tree_store_set (GTK_TREE_STORE (model), &iter, PREF_DEFAULT_COLUMN, TRUE, -1);		
-	}
+	
+	gtk_tree_model_foreach (model, on_search_preferences_clear_default_foreach, name);
+	
 }
+
+static void
+search_preferences_active_selection_row(GtkTreeView *view)
+{
+	GtkTreeSelection *selection;
+	GtkTreeModel *model;
+	GtkTreeIter iter;
+	gchar *name;
+	
+	selection = gtk_tree_view_get_selection (view);
+
+	if (gtk_tree_selection_get_selected (selection, &model, &iter) == TRUE)
+	{
+		gtk_tree_model_foreach (model, on_search_preferences_setting_inactive, NULL);
+		gtk_tree_store_set (GTK_TREE_STORE (model), &iter,
+							PREF_ACTIVE_COLUMN, TRUE,
+							-1);
+		gtk_tree_model_get (model, &iter, PREF_NAME_COLUMN, &name, -1);
+		search_preferences_update_entry(name);
+		
+		if (g_strcasecmp(name, BASIC))
+			search_preferences_read_setting(gconf_concat_dir_and_key(
+				                            SEARCH_PREF_PATH, name));
+		else
+			search_preferences_setting_by_default();
+	}	
+}
+
 
 static void
 on_search_preferences_colorize_setting (GtkTreeViewColumn *tree_column,
@@ -201,258 +342,67 @@ on_search_preferences_colorize_setting (GtkTreeViewColumn *tree_column,
 	g_object_set_property (G_OBJECT (cell), "foreground", &gvalue);
 }
 
-static gboolean
-on_search_preferences_setting_inactive (GtkTreeModel *model, GtkTreePath *path,
-								GtkTreeIter *iter, gpointer data)
-{
-	gtk_tree_store_set (GTK_TREE_STORE (model), iter, PREF_ACTIVE_COLUMN, FALSE, -1);
-	return FALSE;
-}
 
 static void
-search_preferences_update_sr(SearchSet *ss)
+on_search_preferences_row_activated (GtkTreeView *view,
+	                                 GtkTreePath *tree_path,
+	                                 GtkTreeViewColumn *view_column,
+	                                 GtkCellRenderer *renderer)
 {
-	if (ss->search_str)
-		sr->search.expr.search_str = g_strdup(ss->search_str);
-	sr->search.expr.regex =	ss->regex;
-	sr->search.expr.greedy = ss->greedy;
-	sr->search.expr.ignore_case = ss->ignore_case;
-	sr->search.expr.whole_word = ss->whole_word;
-	sr->search.expr.whole_line = ss->whole_line;
-	sr->search.expr.word_start = ss->word_start;
-	sr->search.expr.no_limit = ss->no_limit;
-	sr->search.expr.actions_max = ss->actions_max;
-	sr->search.range.type = ss->target;
-	sr->search.range.direction = ss->direction;
-	sr->search.action = ss->action;
-//	ss->basic_search = 0;
+	search_preferences_active_selection_row(view);	
 }
+
 
 static void
-search_preferences_update_search(gchar *name)
-{
-	SearchSet *ss;
-	
-	if ((ss =search_preferences_find_setting(name)) != NULL)
-		search_preferences_update_sr(ss);
-}
-
-
-static SearchSet *
-search_preferences_update_setting(SearchSet *ss)
-{
-	ss->search_str = sr->search.expr.search_str;
-	ss->regex = sr->search.expr.regex;
-	ss->greedy = sr->search.expr.greedy;
-	ss->ignore_case = sr->search.expr.ignore_case;
-	ss->whole_word = sr->search.expr.whole_word;
-	ss->whole_line = sr->search.expr.whole_line;
-	ss->word_start = sr->search.expr.word_start;
-	ss->no_limit = sr->search.expr.no_limit;
-	ss->actions_max = sr->search.expr.actions_max;
-	ss->target = sr->search.range.type;
-	ss->direction = sr->search.range.direction;
-	ss->action = sr->search.action;
-//	ss->basic_search = 0;
-	
-	return ss;
-}
-
-
-static SearchSet *
-search_preferences_add_setting(gchar *name)
-{
-	SearchSet *ss;
-	
-	ss = g_new0(SearchSet, 1);
-	ss->name = g_strdup(name);
-	(sps->nb_ss)++;
-	
-	ss = search_preferences_update_setting(ss);
-	return ss;
-}
-
-static void
-search_preferences_add_treeview(gchar *name)
+on_search_preferences_treeview_enable_toggle (GtkCellRendererToggle *cell,
+							 gchar			*path_str,
+							 gpointer		 data)
 {
 	GtkTreeView *view;
 	GtkTreeModel *model;
 	GtkTreeIter iter;
-	
-	view = GTK_TREE_VIEW (sr_get_gladewidget(SETTING_PREF_TREEVIEW)->widget);
-	model = gtk_tree_view_get_model(view);
-	gtk_tree_model_foreach (model, on_search_preferences_setting_inactive, NULL);
-	gtk_tree_store_append (GTK_TREE_STORE (model), &iter, NULL);
-	gtk_tree_store_set (GTK_TREE_STORE (model), &iter,
-							PREF_DEFAULT_COLUMN, FALSE,
-							PREF_NAME_COLUMN, name,
-						    PREF_ACTIVE_COLUMN, TRUE,
-							-1);
-}
+	GtkTreePath *path;
+	gboolean state;
+	gchar *name;
+	GConfClient *client;
 
-static void
-search_preferences_update_treeview(void)
-{
-	gint nb;
-	GList *list;
-	SearchSet *ss;
 	
-	list = sps->setting;
-	for (nb=0; nb<sps->nb_ss; nb++)
-	{
-		ss = list->data;
-		search_preferences_add_treeview(ss->name);
-		list = g_list_next(list);
-	}	
-}
-
-
-static void
-search_preferences_remove_setting(gchar *name)
-{
-	SearchSet *ss;
-	
-	if ((ss =search_preferences_find_setting(name)) != NULL)
-	{
-		g_free(ss->name);
-		g_free(ss);
-		sps->setting = g_list_remove(sps->setting, ss);			
-		(sps->nb_ss)--;
-	}		
-}	
-	
-
-static void
-search_preferences_update_item(gchar *name)
-{
-	SearchSet *ss;
-	
-	if ((ss =search_preferences_find_setting(name)) != NULL)
-		search_preferences_update_setting(ss);	
-}
-
-
-static void
-search_preferences_save_setting (FILE *stream, gint nb, GList *list)
-{
-	SearchSet *ss;
-	
-	ss = list->data;
-	fprintf (stream, "search.setting.name%d=%s\n", nb, ss->name);
-	if (ss->search_str)
-		fprintf (stream, "search.setting.search_str%d=%s\n", nb, ss->search_str);
-	fprintf (stream, "search.setting.regex%d=%d\n", nb, ss->regex);
-	fprintf (stream, "search.setting.greedy%d=%d\n", nb, ss->greedy);
-	fprintf (stream, "search.setting.ignore_case%d=%d\n", nb, ss->ignore_case);
-	fprintf (stream, "search.setting.whole_word%d=%d\n", nb, ss->whole_word);
-	fprintf (stream, "search.setting.whole_line%d=%d\n", nb, ss->whole_line);
-	fprintf (stream, "search.setting.word_start%d=%d\n", nb, ss->word_start);
-	fprintf (stream, "search.setting.no_limit%d=%d\n", nb, ss->no_limit);
-	fprintf (stream, "search.setting.actions_max%d=%d\n", nb, ss->actions_max);
-	fprintf (stream, "search.setting.target%d=%d\n", nb, ss->target);
-	fprintf (stream, "search.setting.direction%d=%d\n", nb, ss->direction);
-	fprintf (stream, "search.setting.action%d=%d\n", nb, ss->action);
-	fprintf (stream, "search.setting.basic_search%d=%d\n", nb, ss->basic_search);
-}
-	
-
-static SearchSet *
-search_preferences_load_setting (PropsID props, gint nb)
-{	
-	SearchSet *ss;
-	
-	ss = g_new0(SearchSet, 1);
-	
-	ss->name = prop_get(props, g_strdup_printf("search.setting.name%d",nb));
-	ss->search_str = prop_get(props, g_strdup_printf("search.setting.search_str%d",nb));	
-	ss->regex = prop_get_int(props, g_strdup_printf("search.setting.regex%d",nb), 0);
-	ss->greedy = prop_get_int(props, g_strdup_printf("search.setting.greedy%d",nb), 0);
-	ss->ignore_case = prop_get_int(props, g_strdup_printf("search.setting.ignore_case%d",nb), 0);
-	ss->whole_word = prop_get_int(props, g_strdup_printf("search.setting.whole_word%d",nb), 0);
-	ss->whole_line = prop_get_int(props, g_strdup_printf("search.setting.whole_line%d",nb), 0);
-	ss->word_start = prop_get_int(props, g_strdup_printf("search.setting.word_start%d",nb), 0);
-	ss->no_limit = prop_get_int(props, g_strdup_printf("search.setting.no_limit%d",nb), 0);
-	ss->actions_max = prop_get_int(props, g_strdup_printf("search.setting.actions_max%d",nb), 0);
-	ss->target = prop_get_int(props, g_strdup_printf("search.setting.target%d",nb), 0);
-	ss->direction = prop_get_int(props, g_strdup_printf("search.setting.direction%d",nb), 0);
-	ss->action = prop_get_int(props, g_strdup_printf("search.setting.action%d",nb), 0);
-	ss->basic_search = prop_get_int(props, g_strdup_printf("search.setting.basic_search %d",nb), 0);
-
-	return ss;
-}
-
-static void
-search_preferences_clear_setting(void)
-{
-	GList *list;
-	SearchSet *ss;
-	
-	for(list = sps->setting; list; list=g_list_next(list))
-	{
-		ss = list->data;
-		g_free(ss->name);
-		g_free(ss->search_str);
-		g_free(ss);
-		sps->setting = g_list_remove(sps->setting, list->data);
-	}	
-	g_free(sps->name_default);
-	sps->setting = NULL;
-	sps->nb_ss = 0;
-}
-
-static void
-search_preferences_activate_default(gchar *name)
-{
-	GtkTreeView *view;
-	GtkTreeModel *model;
-	
+	path = gtk_tree_path_new_from_string (path_str);
 	view = GTK_TREE_VIEW (sr_get_gladewidget(SETTING_PREF_TREEVIEW)->widget);
 	model = gtk_tree_view_get_model (view);
+	gtk_tree_model_get_iter (model, &iter, path);
+	gtk_tree_model_get (model, &iter, PREF_NAME_COLUMN, &name,
+	                                  PREF_DEFAULT_COLUMN, &state, -1);
 	
-	gtk_tree_model_foreach (model, on_search_preferences_clear_default_foreach, name);
-	
-}
-
-gboolean
-search_preferences_save_yourself (FILE *stream)
-{
-	gint nb;
-	GList *list;
-
-	fprintf (stream, "search.setting.nb=%d\n", sps->nb_ss);
-	fprintf (stream, "search.setting.default=%s\n", sps->name_default);
-	list = sps->setting;
-	for (nb=0; nb<sps->nb_ss; nb++)
+		client = gconf_client_get_default();
+	if (state)
 	{
-		search_preferences_save_setting (stream, nb, list);
-		list = g_list_next(list);
-	}	
-	return TRUE;
-}
-
-
-gboolean
-search_preferences_load_yourself (PropsID props)
-{
-	gint nb;
-	
-	if (sps == NULL)
-		sps = g_new0(SearchPrefSetting, 1);
-	else
-		search_preferences_clear_setting();
-	sr = create_search_replace_instance(NULL);
-	
-	sps->nb_ss = prop_get_int(props, "search.setting.nb", 0);
-	sps->name_default = prop_get(props, "search.setting.default");
-	
-	for (nb=0; nb<sps->nb_ss; nb++)
-	{
-		sps->setting = g_list_append(sps->setting, search_preferences_load_setting (props, nb));
+		gtk_tree_store_set (GTK_TREE_STORE (model), &iter, PREF_DEFAULT_COLUMN, FALSE, -1);
+		gconf_client_set_string(client, gconf_concat_dir_and_key(SEARCH_PREF_PATH, 
+		                        "search_pref_default"), "", NULL);
 	}
+	else
+	{
+		gconf_client_set_string(client, gconf_concat_dir_and_key(SEARCH_PREF_PATH, 
+		                        "search_pref_default"), name, NULL);
+		
+		gtk_tree_model_foreach (model, on_search_preferences_clear_default_foreach, NULL);	
 	
-	return TRUE;
+		gtk_tree_store_set (GTK_TREE_STORE (model), &iter, PREF_DEFAULT_COLUMN, TRUE, -1);		
+	}
 }
 
+
+static gboolean
+search_preferences_name_is_valid(gchar *name)
+{
+	gint i;
+	
+	for(i=0; i<strlen(name); i++)
+		if ((!g_ascii_isalnum(name[i]) && name[i]!='_'))
+			return FALSE;
+	return TRUE;
+}
 
 
 void
@@ -460,39 +410,29 @@ on_setting_pref_add_clicked(GtkButton *button, gpointer user_data)
 {
 	GtkWidget *pref_entry;
 	gchar *name;
-	GtkWidget *dialog;
-	
+
 	pref_entry = sr_get_gladewidget(SETTING_PREF_ENTRY)->widget;
 	name = g_strstrip(gtk_editable_get_chars(GTK_EDITABLE(pref_entry), 0, -1));
 	
 	if (!name || strlen(name) < 1)
 		return;
-	if (sps->nb_ss >= MAX_SETTINGS)
-	{
-		dialog = gtk_message_dialog_new(GTK_WINDOW (sr_dialog),
-				GTK_DIALOG_MODAL, GTK_MESSAGE_WARNING, GTK_BUTTONS_OK,
-		        _("The maximum number of settings has been reached."));
-		gtk_dialog_run(GTK_DIALOG(dialog));
-		gtk_widget_destroy(dialog);
+
+	if (!search_preferences_name_is_valid(name))
 		return;
-	}	
 	if (search_preferences_find_setting(name))
-	{
-		dialog = gtk_message_dialog_new(GTK_WINDOW (sr_dialog),
-				GTK_DIALOG_MODAL, GTK_MESSAGE_WARNING, GTK_BUTTONS_OK,
-		        _("This name is already used."));
-		gtk_dialog_run(GTK_DIALOG(dialog));
-		gtk_widget_destroy(dialog);
 		return;
-	}	
-	search_replace_populate();	
-	
-	sps->setting = g_list_append(sps->setting, search_preferences_add_setting(name));
-	
-	search_preferences_add_treeview(name);
-	
+		
+	if (g_strcasecmp(name, BASIC))
+	{
+		list_pref = g_slist_append(list_pref, g_strdup(name));
+		
+		search_preferences_save_search_pref(name);
+		
+		search_preferences_add_treeview(name);
+	}
 	g_free(name);
 }
+
 
 void
 on_setting_pref_remove_clicked(GtkButton *button, gpointer user_data)
@@ -504,6 +444,7 @@ on_setting_pref_remove_clicked(GtkButton *button, gpointer user_data)
 	GtkTreeIter iter;
 	gboolean valid;
 	gchar *name;
+	GConfClient *client;
 	
 	view = GTK_TREE_VIEW (sr_get_gladewidget(SETTING_PREF_TREEVIEW)->widget);
 	store = GTK_TREE_STORE (gtk_tree_view_get_model(view));
@@ -512,10 +453,27 @@ on_setting_pref_remove_clicked(GtkButton *button, gpointer user_data)
 	if (valid)
 	{
 		gtk_tree_model_get (model, &iter, PREF_NAME_COLUMN, &name, -1);
-		gtk_tree_store_remove(store, &iter);
-		search_preferences_remove_setting(name);
+		if (g_strcasecmp(name, BASIC))
+		{
+			gtk_tree_store_remove(store, &iter);
+		
+			list_pref = g_slist_remove(list_pref, search_preferences_find_setting(name)->data);
+
+			search_preferences_remove_setting(name);
+
+			client = gconf_client_get_default();
+			if (!g_strcasecmp(name,gconf_client_get_string(client, 
+					gconf_concat_dir_and_key(SEARCH_PREF_PATH,
+					"search_pref_default"), NULL)))
+			{
+				gconf_client_set_string(client, gconf_concat_dir_and_key(
+					SEARCH_PREF_PATH, "search_pref_default"), "", NULL);
+			}
+			search_preferences_update_entry("");
+		}
 	}
 }
+
 
 void
 on_setting_pref_modify_clicked(GtkButton *button, gpointer user_data)
@@ -534,70 +492,32 @@ on_setting_pref_modify_clicked(GtkButton *button, gpointer user_data)
 	valid = gtk_tree_selection_get_selected (selection, &model, &iter);
 	if (valid)
 	{
-		search_replace_populate();	
 		gtk_tree_model_get (model, &iter, PREF_NAME_COLUMN, &name, -1);
-		search_preferences_update_item(name);
-		
-		gtk_tree_model_foreach (model, on_search_preferences_setting_inactive, NULL);
-		gtk_tree_store_set (GTK_TREE_STORE (model), &iter,
-							PREF_ACTIVE_COLUMN, TRUE,
-							-1);
-	}
-		
+		if (g_strcasecmp(name, BASIC))
+		{
+			search_preferences_save_setting(name);
+			search_preferences_update_entry("");
+		}
+	}		
 }
 
-
-void
-on_setting_pref_activate_clicked(GtkButton *button, gpointer user_data)
-{
-	GtkTreeView *view;
-	GtkTreeStore *store;
-	GtkTreeSelection *selection;
-	GtkTreeModel *model;
-	GtkTreeIter iter;
-	gboolean valid;
-	gchar *name;
-
-	view = GTK_TREE_VIEW (sr_get_gladewidget(SETTING_PREF_TREEVIEW)->widget);
-	store = GTK_TREE_STORE (gtk_tree_view_get_model(view));
-	selection = gtk_tree_view_get_selection (view);
-	valid = gtk_tree_selection_get_selected (selection, &model, &iter);
-	if (valid)
-	{
-		gtk_tree_model_get (model, &iter, PREF_NAME_COLUMN, &name, -1);
-		search_preferences_update_search(name);
-		search_update_dialog();
-		
-		gtk_tree_model_foreach (model, on_search_preferences_setting_inactive, NULL);
-		gtk_tree_store_set (GTK_TREE_STORE (model), &iter,
-							PREF_ACTIVE_COLUMN, TRUE,
-							-1);
-	}
-}
 
 void
 search_preferences_initialize_setting_treeview(GtkWidget *dialog)
 {
 	GtkTreeView *view;
-	GtkTreeStore *store;
-	
+	GtkTreeStore *store;	
 	GtkCellRenderer *renderer;
 	GtkTreeViewColumn *column;
-	
-	if (sps == NULL)
-		sps = g_new0(SearchPrefSetting, 1);
-	sr = create_search_replace_instance(NULL);
-	sr_dialog = dialog;
-	
+		
 	view = GTK_TREE_VIEW (sr_get_gladewidget(SETTING_PREF_TREEVIEW)->widget);
 	store = gtk_tree_store_new (3, G_TYPE_BOOLEAN, G_TYPE_STRING, G_TYPE_BOOLEAN);
 	gtk_tree_view_set_model (view, GTK_TREE_MODEL (store));
 	gtk_tree_selection_set_mode (gtk_tree_view_get_selection (view),
 					     GTK_SELECTION_SINGLE);
-	g_object_unref (G_OBJECT (store));
 
 	renderer = gtk_cell_renderer_toggle_new ();
-	column = gtk_tree_view_column_new_with_attributes ("Default",
+	column = gtk_tree_view_column_new_with_attributes (_("Default"),
 														renderer,
 								   						"active",
 														PREF_DEFAULT_COLUMN,
@@ -608,20 +528,56 @@ search_preferences_initialize_setting_treeview(GtkWidget *dialog)
 	gtk_tree_view_append_column (view, column);
 	
 	renderer = gtk_cell_renderer_text_new ();
-	column = gtk_tree_view_column_new_with_attributes ("Name",
+	column = gtk_tree_view_column_new_with_attributes (_("Name"),
 														renderer, 
 														"text", 
 														PREF_NAME_COLUMN, 
 														NULL);
+	g_signal_connect (view, "row-activated",
+						  G_CALLBACK (on_search_preferences_row_activated), renderer);
 	gtk_tree_view_column_set_cell_data_func (column, renderer,
 					on_search_preferences_colorize_setting, NULL, NULL);
 	gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
 	gtk_tree_view_append_column (view, column);
-		
-	search_preferences_update_treeview();
-	gtk_tree_model_foreach (GTK_TREE_MODEL (store), on_search_preferences_setting_inactive, NULL);
-	if (sps->name_default)
-		search_preferences_activate_default(sps->name_default);
+}
+
+void
+search_preferences_init(void)
+{
+	GConfClient *client;
+	GSList *list;
+	GtkTreeModel *model;
+	GtkTreeIter iter;
+
+	sr = create_search_replace_instance(NULL);
+
+	search_preferences_add_treeview(BASIC);
 	
-	search_preferences_update_search(sps->name_default);
+	client = gconf_client_get_default();
+	gconf_client_add_dir(client, SEARCH_PREF_PATH, GCONF_CLIENT_PRELOAD_NONE, NULL);
+	
+	list_pref = gconf_client_get_list(client,gconf_concat_dir_and_key(SEARCH_PREF_PATH, 
+	                                  "list_pref"), GCONF_VALUE_STRING, NULL);
+		
+	for (list = list_pref; list != NULL; list = g_slist_next(list))
+		search_preferences_add_treeview(list->data);
+	
+	default_pref = gconf_client_get_string(client,gconf_concat_dir_and_key(SEARCH_PREF_PATH, 
+	                                       "search_pref_default"), NULL);
+
+	model = search_preferences_get_model();
+	gtk_tree_model_foreach (model, on_search_preferences_setting_inactive, NULL);
+	
+	if (default_pref && g_strcasecmp(default_pref, "")  && g_strcasecmp(default_pref, BASIC))	
+		search_preferences_read_setting(gconf_concat_dir_and_key(SEARCH_PREF_PATH, 
+		                                default_pref));
+	else
+	{
+		gtk_tree_model_get_iter_first(model, &iter);
+		gtk_tree_store_set (GTK_TREE_STORE (model), &iter,
+						    PREF_ACTIVE_COLUMN, TRUE, -1);
+		search_preferences_setting_by_default();
+	}
+	
+	search_preferences_activate_default(default_pref);
 }

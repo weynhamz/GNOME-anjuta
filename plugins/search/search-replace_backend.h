@@ -106,6 +106,7 @@ typedef struct _Search
 	GList *expr_history;
 	gint incremental_pos;
 	gboolean incremental_wrap;
+	gboolean basic_search;
 } Search;
 
 /* Contains information about replacement */

@@ -171,6 +171,7 @@ static GladeWidget glade_widgets[] = {
 	{GE_BOOLEAN, SEARCH_FULL_BUFFER, NULL, NULL},
 	{GE_BOOLEAN, SEARCH_FORWARD, NULL, NULL},	
 	{GE_BOOLEAN, SEARCH_BACKWARD, NULL, NULL},	
+	{GE_BOOLEAN, SEARCH_BASIC, NULL, NULL},		
 	{GE_COMBO, SEARCH_STRING_COMBO, NULL, NULL},
 	{GE_COMBO, SEARCH_TARGET_COMBO, search_target_strings, NULL},
 	{GE_COMBO, SEARCH_ACTION_COMBO, search_action_strings, NULL},
@@ -220,7 +221,7 @@ static void search_set_combo(gchar *name_combo, gchar *name_entry,
 	GtkSignalFunc function, gint command);
 static gint search_get_item_combo(GtkEditable *editable, AnjutaUtilStringMap *map);
 static gint search_get_item_combo_name(gchar *name, AnjutaUtilStringMap *map);
-
+static void basic_search_toggled(void);
 
 static SearchReplaceGUI *sg = NULL;
 
@@ -895,6 +896,8 @@ search_replace_populate(void)
 	populate_value(SEARCH_DIRECTION, &(sr->search.range.direction));
 	populate_value(ACTIONS_NO_LIMIT, &(sr->search.expr.no_limit));
 
+populate_value(SEARCH_BASIC, &(sr->search.basic_search));
+	
 	if (sr->search.expr.no_limit)
 		sr->search.expr.actions_max = G_MAXINT;	
 	else
@@ -988,7 +991,9 @@ create_dialog(void)
 		}
 	}
 	
+	
 	search_preferences_initialize_setting_treeview(sg->dialog);
+	search_preferences_init();
 	
 	glade_xml_signal_autoconnect(sg->xml);
 	return TRUE;
@@ -1128,7 +1133,7 @@ search_update_dialog(void)
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(widget), s->expr.whole_line);
 	widget = sr_get_gladewidget(WORD_START)->widget;
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(widget), s->expr.word_start);
-	
+		
 	widget = sr_get_gladewidget(ACTIONS_NO_LIMIT)->widget;
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(widget), s->expr.no_limit);
 	widget = sr_get_gladewidget(ACTIONS_MAX)->widget;
@@ -1151,7 +1156,11 @@ search_update_dialog(void)
 	
 	widget = sr_get_gladewidget(SEARCH_TARGET_COMBO)->widget;
 	gtk_list_select_item (GTK_LIST(GTK_COMBO(widget)->list), s->range.type);
-
+	
+	widget = sr_get_gladewidget(SEARCH_BASIC)->widget;
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(widget), s->basic_search);
+	
+	basic_search_toggled();
 }
 
 /* -------------- Callbacks --------------------- */
@@ -1583,7 +1592,7 @@ on_setting_basic_search_toggled (GtkToggleButton *togglebutton,
 {
 	SearchAction act;
 	GtkWidget *frame_basic = sr_get_gladewidget(FRAME_SEARCH_BASIC)->widget;
-	
+
 	if (gtk_toggle_button_get_active(togglebutton))
 	{
     	gtk_widget_show(frame_basic);
@@ -1600,6 +1609,18 @@ on_setting_basic_search_toggled (GtkToggleButton *togglebutton,
 	else
 		gtk_widget_hide(frame_basic);
 }
+
+
+static void
+basic_search_toggled(void)
+{
+	GtkToggleButton *togglebutton;
+	
+	togglebutton = GTK_TOGGLE_BUTTON(sr_get_gladewidget(SEARCH_BASIC)->widget);
+	
+	on_setting_basic_search_toggled (togglebutton, NULL);
+}
+
 /***********************************************************************/
 
 #define MAX_LENGTH_SEARCH 64

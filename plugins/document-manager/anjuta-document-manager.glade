@@ -11,11 +11,6 @@
   <property name="modal">False</property>
   <property name="resizable">True</property>
   <property name="destroy_with_parent">False</property>
-  <property name="decorated">True</property>
-  <property name="skip_taskbar_hint">False</property>
-  <property name="skip_pager_hint">False</property>
-  <property name="type_hint">GDK_WINDOW_TYPE_HINT_NORMAL</property>
-  <property name="gravity">GDK_GRAVITY_NORTH_WEST</property>
   <signal name="delete_event" handler="on_search_replace_delete_event"/>
   <signal name="key_press_event" handler="on_search_dialog_key_press_event" after="yes" object="dialog.search.replace" last_modification_time="Sun, 14 Dec 2003 04:32:27 GMT"/>
 
@@ -262,7 +257,6 @@
 				      <property name="label" translatable="yes">Expand regex back references</property>
 				      <property name="use_underline">True</property>
 				      <property name="relief">GTK_RELIEF_NORMAL</property>
-				      <property name="focus_on_click">True</property>
 				      <property name="active">False</property>
 				      <property name="inconsistent">False</property>
 				      <property name="draw_indicator">True</property>
@@ -313,7 +307,6 @@
 				      <property name="label" translatable="yes">Regular Expression</property>
 				      <property name="use_underline">True</property>
 				      <property name="relief">GTK_RELIEF_NORMAL</property>
-				      <property name="focus_on_click">True</property>
 				      <property name="active">False</property>
 				      <property name="inconsistent">False</property>
 				      <property name="draw_indicator">True</property>
@@ -337,7 +330,6 @@
 				      <property name="label" translatable="yes">Case insensitive</property>
 				      <property name="use_underline">True</property>
 				      <property name="relief">GTK_RELIEF_NORMAL</property>
-				      <property name="focus_on_click">True</property>
 				      <property name="active">False</property>
 				      <property name="inconsistent">False</property>
 				      <property name="draw_indicator">True</property>
@@ -360,7 +352,6 @@
 				      <property name="label" translatable="yes">Match complete words</property>
 				      <property name="use_underline">True</property>
 				      <property name="relief">GTK_RELIEF_NORMAL</property>
-				      <property name="focus_on_click">True</property>
 				      <property name="active">False</property>
 				      <property name="inconsistent">False</property>
 				      <property name="draw_indicator">True</property>
@@ -384,7 +375,6 @@
 				      <property name="label" translatable="yes">Greedy matching</property>
 				      <property name="use_underline">True</property>
 				      <property name="relief">GTK_RELIEF_NORMAL</property>
-				      <property name="focus_on_click">True</property>
 				      <property name="active">False</property>
 				      <property name="inconsistent">False</property>
 				      <property name="draw_indicator">True</property>
@@ -407,7 +397,6 @@
 				      <property name="label" translatable="yes">Match complete lines</property>
 				      <property name="use_underline">True</property>
 				      <property name="relief">GTK_RELIEF_NORMAL</property>
-				      <property name="focus_on_click">True</property>
 				      <property name="active">False</property>
 				      <property name="inconsistent">False</property>
 				      <property name="draw_indicator">True</property>
@@ -431,7 +420,6 @@
 				      <property name="label" translatable="yes">Match at start of word</property>
 				      <property name="use_underline">True</property>
 				      <property name="relief">GTK_RELIEF_NORMAL</property>
-				      <property name="focus_on_click">True</property>
 				      <property name="active">False</property>
 				      <property name="inconsistent">False</property>
 				      <property name="draw_indicator">True</property>
@@ -479,7 +467,6 @@
 				      <property name="label" translatable="yes">Full Buffer</property>
 				      <property name="use_underline">True</property>
 				      <property name="relief">GTK_RELIEF_NORMAL</property>
-				      <property name="focus_on_click">True</property>
 				      <property name="active">False</property>
 				      <property name="inconsistent">False</property>
 				      <property name="draw_indicator">True</property>
@@ -499,7 +486,6 @@
 				      <property name="label" translatable="yes">Forward</property>
 				      <property name="use_underline">True</property>
 				      <property name="relief">GTK_RELIEF_NORMAL</property>
-				      <property name="focus_on_click">True</property>
 				      <property name="active">False</property>
 				      <property name="inconsistent">False</property>
 				      <property name="draw_indicator">True</property>
@@ -520,7 +506,6 @@
 				      <property name="label" translatable="yes">Backward</property>
 				      <property name="use_underline">True</property>
 				      <property name="relief">GTK_RELIEF_NORMAL</property>
-				      <property name="focus_on_click">True</property>
 				      <property name="active">False</property>
 				      <property name="inconsistent">False</property>
 				      <property name="draw_indicator">True</property>
@@ -819,7 +804,6 @@
 				      <property name="label" translatable="yes">Ignore Hidden Files</property>
 				      <property name="use_underline">True</property>
 				      <property name="relief">GTK_RELIEF_NORMAL</property>
-				      <property name="focus_on_click">True</property>
 				      <property name="active">False</property>
 				      <property name="inconsistent">False</property>
 				      <property name="draw_indicator">True</property>
@@ -889,7 +873,6 @@
 				      <property name="label" translatable="yes">Ignore Hidden Directories</property>
 				      <property name="use_underline">True</property>
 				      <property name="relief">GTK_RELIEF_NORMAL</property>
-				      <property name="focus_on_click">True</property>
 				      <property name="active">False</property>
 				      <property name="inconsistent">False</property>
 				      <property name="draw_indicator">True</property>
@@ -911,7 +894,6 @@
 				      <property name="label" translatable="yes">Search Recursively</property>
 				      <property name="use_underline">True</property>
 				      <property name="relief">GTK_RELIEF_NORMAL</property>
-				      <property name="focus_on_click">True</property>
 				      <property name="active">False</property>
 				      <property name="inconsistent">False</property>
 				      <property name="draw_indicator">True</property>
@@ -932,7 +914,6 @@
 				      <property name="label" translatable="yes">Ignore Binary Files</property>
 				      <property name="use_underline">True</property>
 				      <property name="relief">GTK_RELIEF_NORMAL</property>
-				      <property name="focus_on_click">True</property>
 				      <property name="active">False</property>
 				      <property name="inconsistent">False</property>
 				      <property name="draw_indicator">True</property>
@@ -1432,7 +1413,6 @@
 				  <property name="label" translatable="yes">No Limit</property>
 				  <property name="use_underline">True</property>
 				  <property name="relief">GTK_RELIEF_NORMAL</property>
-				  <property name="focus_on_click">True</property>
 				  <property name="active">False</property>
 				  <property name="inconsistent">False</property>
 				  <property name="draw_indicator">True</property>
@@ -1742,14 +1722,13 @@
 			      <property name="shadow_type">GTK_SHADOW_ETCHED_IN</property>
 
 			      <child>
-				<widget class="GtkCheckButton" id="setting.basic.search">
+				<widget class="GtkCheckButton" id="search.basic">
 				  <property name="border_width">5</property>
 				  <property name="visible">True</property>
 				  <property name="can_focus">True</property>
 				  <property name="label" translatable="yes">Basic Search &amp; Replace</property>
 				  <property name="use_underline">True</property>
 				  <property name="relief">GTK_RELIEF_NORMAL</property>
-				  <property name="focus_on_click">True</property>
 				  <property name="active">False</property>
 				  <property name="inconsistent">False</property>
 				  <property name="draw_indicator">True</property>
@@ -1790,7 +1769,7 @@
 					  <property name="height_request">100</property>
 					  <property name="visible">True</property>
 					  <property name="can_focus">True</property>
-					  <property name="hscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
+					  <property name="hscrollbar_policy">GTK_POLICY_NEVER</property>
 					  <property name="vscrollbar_policy">GTK_POLICY_ALWAYS</property>
 					  <property name="shadow_type">GTK_SHADOW_IN</property>
 					  <property name="window_placement">GTK_CORNER_TOP_LEFT</property>
@@ -1876,10 +1855,10 @@
 
 				  <child>
 				    <widget class="GtkHBox" id="hbox1129">
-				      <property name="border_width">2</property>
+				      <property name="border_width">3</property>
 				      <property name="visible">True</property>
 				      <property name="homogeneous">True</property>
-				      <property name="spacing">0</property>
+				      <property name="spacing">10</property>
 
 				      <child>
 					<widget class="GtkButton" id="setting.pref.add">
@@ -1889,7 +1868,6 @@
 					  <property name="label">gtk-add</property>
 					  <property name="use_stock">True</property>
 					  <property name="relief">GTK_RELIEF_NORMAL</property>
-					  <property name="focus_on_click">True</property>
 					  <signal name="clicked" handler="on_setting_pref_add_clicked" last_modification_time="Sun, 11 Jan 2004 07:58:58 GMT"/>
 					</widget>
 					<packing>
@@ -1907,7 +1885,6 @@
 					  <property name="label">gtk-remove</property>
 					  <property name="use_stock">True</property>
 					  <property name="relief">GTK_RELIEF_NORMAL</property>
-					  <property name="focus_on_click">True</property>
 					  <signal name="clicked" handler="on_setting_pref_remove_clicked" last_modification_time="Sun, 11 Jan 2004 07:59:10 GMT"/>
 					</widget>
 					<packing>
@@ -1925,26 +1902,7 @@
 					  <property name="label" translatable="yes">Modify</property>
 					  <property name="use_underline">True</property>
 					  <property name="relief">GTK_RELIEF_NORMAL</property>
-					  <property name="focus_on_click">True</property>
 					  <signal name="clicked" handler="on_setting_pref_modify_clicked" last_modification_time="Sun, 11 Jan 2004 19:59:18 GMT"/>
-					</widget>
-					<packing>
-					  <property name="padding">0</property>
-					  <property name="expand">True</property>
-					  <property name="fill">True</property>
-					</packing>
-				      </child>
-
-				      <child>
-					<widget class="GtkButton" id="setting.pref.activate">
-					  <property name="visible">True</property>
-					  <property name="can_default">True</property>
-					  <property name="can_focus">True</property>
-					  <property name="label" translatable="yes">Activate</property>
-					  <property name="use_underline">True</property>
-					  <property name="relief">GTK_RELIEF_NORMAL</property>
-					  <property name="focus_on_click">True</property>
-					  <signal name="clicked" handler="on_setting_pref_activate_clicked" last_modification_time="Sun, 11 Jan 2004 19:56:15 GMT"/>
 					</widget>
 					<packing>
 					  <property name="padding">0</property>
@@ -2074,7 +2032,6 @@ forward direction</property>
 		  <property name="label">gtk-close</property>
 		  <property name="use_stock">True</property>
 		  <property name="relief">GTK_RELIEF_NORMAL</property>
-		  <property name="focus_on_click">True</property>
 		  <signal name="clicked" handler="on_search_button_close_clicked"/>
 		</widget>
 	      </child>
@@ -2087,7 +2044,6 @@ forward direction</property>
 		  <property name="label">gtk-find</property>
 		  <property name="use_stock">True</property>
 		  <property name="relief">GTK_RELIEF_NORMAL</property>
-		  <property name="focus_on_click">True</property>
 		  <signal name="clicked" handler="on_search_button_next_clicked"/>
 		</widget>
 	      </child>
@@ -2100,7 +2056,6 @@ forward direction</property>
 		  <property name="label">gtk-go-forward</property>
 		  <property name="use_stock">True</property>
 		  <property name="relief">GTK_RELIEF_NORMAL</property>
-		  <property name="focus_on_click">True</property>
 		  <signal name="clicked" handler="on_search_button_jump_clicked"/>
 		</widget>
 	      </child>
@@ -2113,7 +2068,6 @@ forward direction</property>
 		  <property name="label">gtk-stop</property>
 		  <property name="use_stock">True</property>
 		  <property name="relief">GTK_RELIEF_NORMAL</property>
-		  <property name="focus_on_click">True</property>
 		  <signal name="clicked" handler="on_search_button_stop_clicked" last_modification_time="Fri, 19 Dec 2003 10:04:07 GMT"/>
 		</widget>
 	      </child>
@@ -2137,11 +2091,6 @@ forward direction</property>
   <property name="modal">False</property>
   <property name="resizable">True</property>
   <property name="destroy_with_parent">False</property>
-  <property name="decorated">True</property>
-  <property name="skip_taskbar_hint">False</property>
-  <property name="skip_pager_hint">False</property>
-  <property name="type_hint">GDK_WINDOW_TYPE_HINT_NORMAL</property>
-  <property name="gravity">GDK_GRAVITY_NORTH_WEST</property>
   <property name="has_separator">True</property>
 
   <child internal-child="vbox">
@@ -2163,7 +2112,6 @@ forward direction</property>
 	      <property name="label">gtk-cancel</property>
 	      <property name="use_stock">True</property>
 	      <property name="relief">GTK_RELIEF_NORMAL</property>
-	      <property name="focus_on_click">True</property>
 	      <property name="response_id">-6</property>
 	    </widget>
 	  </child>
@@ -2176,7 +2124,6 @@ forward direction</property>
 	      <property name="label">gtk-apply</property>
 	      <property name="use_stock">True</property>
 	      <property name="relief">GTK_RELIEF_NORMAL</property>
-	      <property name="focus_on_click">True</property>
 	      <property name="response_id">-10</property>
 	    </widget>
 	  </child>
@@ -2189,7 +2136,6 @@ forward direction</property>
 	      <property name="label">gtk-ok</property>
 	      <property name="use_stock">True</property>
 	      <property name="relief">GTK_RELIEF_NORMAL</property>
-	      <property name="focus_on_click">True</property>
 	      <property name="response_id">-5</property>
 	    </widget>
 	  </child>
@@ -2215,7 +2161,6 @@ forward direction</property>
 	      <property name="label" translatable="yes">Disable syntax highlighting</property>
 	      <property name="use_underline">True</property>
 	      <property name="relief">GTK_RELIEF_NORMAL</property>
-	      <property name="focus_on_click">True</property>
 	      <property name="active">False</property>
 	      <property name="inconsistent">False</property>
 	      <property name="draw_indicator">True</property>
@@ -2255,7 +2200,6 @@ forward direction</property>
 			  <property name="can_default">True</property>
 			  <property name="can_focus">True</property>
 			  <property name="relief">GTK_RELIEF_NORMAL</property>
-			  <property name="focus_on_click">True</property>
 
 			  <child>
 			    <widget class="GtkAlignment" id="alignment13">
@@ -2264,10 +2208,6 @@ forward direction</property>
 			      <property name="yalign">0.5</property>
 			      <property name="xscale">0</property>
 			      <property name="yscale">0</property>
-			      <property name="top_padding">0</property>
-			      <property name="bottom_padding">0</property>
-			      <property name="left_padding">0</property>
-			      <property name="right_padding">0</property>
 
 			      <child>
 				<widget class="GtkHBox" id="hbox34">
@@ -2325,7 +2265,6 @@ forward direction</property>
 			  <property name="can_default">True</property>
 			  <property name="can_focus">True</property>
 			  <property name="relief">GTK_RELIEF_NORMAL</property>
-			  <property name="focus_on_click">True</property>
 
 			  <child>
 			    <widget class="GtkAlignment" id="alignment14">
@@ -2334,10 +2273,6 @@ forward direction</property>
 			      <property name="yalign">0.5</property>
 			      <property name="xscale">0</property>
 			      <property name="yscale">0</property>
-			      <property name="top_padding">0</property>
-			      <property name="bottom_padding">0</property>
-			      <property name="left_padding">0</property>
-			      <property name="right_padding">0</property>
 
 			      <child>
 				<widget class="GtkHBox" id="hbox35">
@@ -2410,7 +2345,6 @@ forward direction</property>
 			  <property name="can_default">True</property>
 			  <property name="can_focus">True</property>
 			  <property name="relief">GTK_RELIEF_NORMAL</property>
-			  <property name="focus_on_click">True</property>
 
 			  <child>
 			    <widget class="GtkAlignment" id="alignment11">
@@ -2419,10 +2353,6 @@ forward direction</property>
 			      <property name="yalign">0.5</property>
 			      <property name="xscale">0</property>
 			      <property name="yscale">0</property>
-			      <property name="top_padding">0</property>
-			      <property name="bottom_padding">0</property>
-			      <property name="left_padding">0</property>
-			      <property name="right_padding">0</property>
 
 			      <child>
 				<widget class="GtkHBox" id="hbox32">
@@ -2480,7 +2410,6 @@ forward direction</property>
 			  <property name="can_default">True</property>
 			  <property name="can_focus">True</property>
 			  <property name="relief">GTK_RELIEF_NORMAL</property>
-			  <property name="focus_on_click">True</property>
 
 			  <child>
 			    <widget class="GtkAlignment" id="alignment12">
@@ -2489,10 +2418,6 @@ forward direction</property>
 			      <property name="yalign">0.5</property>
 			      <property name="xscale">0</property>
 			      <property name="yscale">0</property>
-			      <property name="top_padding">0</property>
-			      <property name="bottom_padding">0</property>
-			      <property name="left_padding">0</property>
-			      <property name="right_padding">0</property>
 
 			      <child>
 				<widget class="GtkHBox" id="hbox33">
@@ -2773,7 +2698,6 @@ forward direction</property>
 		      <property name="label" translatable="yes">Use default</property>
 		      <property name="use_underline">True</property>
 		      <property name="relief">GTK_RELIEF_NORMAL</property>
-		      <property name="focus_on_click">True</property>
 		      <property name="active">False</property>
 		      <property name="inconsistent">False</property>
 		      <property name="draw_indicator">True</property>
@@ -2795,7 +2719,6 @@ forward direction</property>
 		      <property name="label" translatable="yes">Use default</property>
 		      <property name="use_underline">True</property>
 		      <property name="relief">GTK_RELIEF_NORMAL</property>
-		      <property name="focus_on_click">True</property>
 		      <property name="active">False</property>
 		      <property name="inconsistent">False</property>
 		      <property name="draw_indicator">True</property>
@@ -2817,7 +2740,6 @@ forward direction</property>
 		      <property name="label" translatable="yes">Use default</property>
 		      <property name="use_underline">True</property>
 		      <property name="relief">GTK_RELIEF_NORMAL</property>
-		      <property name="focus_on_click">True</property>
 		      <property name="active">False</property>
 		      <property name="inconsistent">False</property>
 		      <property name="draw_indicator">True</property>
@@ -2839,7 +2761,6 @@ forward direction</property>
 		      <property name="label" translatable="yes">Use default</property>
 		      <property name="use_underline">True</property>
 		      <property name="relief">GTK_RELIEF_NORMAL</property>
-		      <property name="focus_on_click">True</property>
 		      <property name="active">False</property>
 		      <property name="inconsistent">False</property>
 		      <property name="draw_indicator">True</property>
@@ -2867,7 +2788,6 @@ forward direction</property>
 			  <property name="label" translatable="yes">Bold</property>
 			  <property name="use_underline">True</property>
 			  <property name="relief">GTK_RELIEF_NORMAL</property>
-			  <property name="focus_on_click">True</property>
 			  <property name="active">False</property>
 			  <property name="inconsistent">False</property>
 			  <property name="draw_indicator">True</property>
@@ -2886,7 +2806,6 @@ forward direction</property>
 			  <property name="label" translatable="yes">Italic</property>
 			  <property name="use_underline">True</property>
 			  <property name="relief">GTK_RELIEF_NORMAL</property>
-			  <property name="focus_on_click">True</property>
 			  <property name="active">False</property>
 			  <property name="inconsistent">False</property>
 			  <property name="draw_indicator">True</property>
@@ -2905,7 +2824,6 @@ forward direction</property>
 			  <property name="label" translatable="yes">Underlined</property>
 			  <property name="use_underline">True</property>
 			  <property name="relief">GTK_RELIEF_NORMAL</property>
-			  <property name="focus_on_click">True</property>
 			  <property name="active">False</property>
 			  <property name="inconsistent">False</property>
 			  <property name="draw_indicator">True</property>
@@ -2935,7 +2853,6 @@ forward direction</property>
 		      <property name="show_size">True</property>
 		      <property name="use_font_in_label">True</property>
 		      <property name="label_font_size">12</property>
-		      <property name="focus_on_click">True</property>
 		    </widget>
 		    <packing>
 		      <property name="left_attach">2</property>
@@ -2953,7 +2870,6 @@ forward direction</property>
 		      <property name="dither">True</property>
 		      <property name="use_alpha">False</property>
 		      <property name="title" translatable="yes">Pick a color</property>
-		      <property name="focus_on_click">True</property>
 		    </widget>
 		    <packing>
 		      <property name="left_attach">2</property>
@@ -2972,7 +2888,6 @@ forward direction</property>
 		      <property name="dither">True</property>
 		      <property name="use_alpha">False</property>
 		      <property name="title" translatable="yes">Pick a color</property>
-		      <property name="focus_on_click">True</property>
 		    </widget>
 		    <packing>
 		      <property name="left_attach">2</property>
@@ -3219,7 +3134,6 @@ forward direction</property>
 		      <property name="dither">True</property>
 		      <property name="use_alpha">False</property>
 		      <property name="title" translatable="yes">Pick a color</property>
-		      <property name="focus_on_click">True</property>
 		    </widget>
 		    <packing>
 		      <property name="left_attach">1</property>
@@ -3237,7 +3151,6 @@ forward direction</property>
 		      <property name="dither">True</property>
 		      <property name="use_alpha">False</property>
 		      <property name="title" translatable="yes">Pick a color</property>
-		      <property name="focus_on_click">True</property>
 		    </widget>
 		    <packing>
 		      <property name="left_attach">3</property>
@@ -3255,7 +3168,6 @@ forward direction</property>
 		      <property name="dither">True</property>
 		      <property name="use_alpha">False</property>
 		      <property name="title" translatable="yes">Pick a color</property>
-		      <property name="focus_on_click">True</property>
 		    </widget>
 		    <packing>
 		      <property name="left_attach">3</property>
@@ -3273,7 +3185,6 @@ forward direction</property>
 		      <property name="dither">True</property>
 		      <property name="use_alpha">False</property>
 		      <property name="title" translatable="yes">Pick a color</property>
-		      <property name="focus_on_click">True</property>
 		    </widget>
 		    <packing>
 		      <property name="left_attach">1</property>
@@ -3329,11 +3240,6 @@ forward direction</property>
   <property name="modal">False</property>
   <property name="resizable">True</property>
   <property name="destroy_with_parent">False</property>
-  <property name="decorated">True</property>
-  <property name="skip_taskbar_hint">False</property>
-  <property name="skip_pager_hint">False</property>
-  <property name="type_hint">GDK_WINDOW_TYPE_HINT_NORMAL</property>
-  <property name="gravity">GDK_GRAVITY_NORTH_WEST</property>
 
   <child>
     <widget class="GtkNotebook" id="Editor">
@@ -3379,7 +3285,6 @@ forward direction</property>
 			  <property name="label" translatable="yes">Enable files autosave</property>
 			  <property name="use_underline">True</property>
 			  <property name="relief">GTK_RELIEF_NORMAL</property>
-			  <property name="focus_on_click">True</property>
 			  <property name="active">False</property>
 			  <property name="inconsistent">False</property>
 			  <property name="draw_indicator">True</property>
@@ -3546,7 +3451,6 @@ forward direction</property>
 			  <property name="label" translatable="yes">Choose autocomplete for single match</property>
 			  <property name="use_underline">True</property>
 			  <property name="relief">GTK_RELIEF_NORMAL</property>
-			  <property name="focus_on_click">True</property>
 			  <property name="active">False</property>
 			  <property name="inconsistent">False</property>
 			  <property name="draw_indicator">True</property>
@@ -3565,7 +3469,6 @@ forward direction</property>
 			  <property name="label" translatable="yes">Autocomplete XML/HTML closing tags</property>
 			  <property name="use_underline">True</property>
 			  <property name="relief">GTK_RELIEF_NORMAL</property>
-			  <property name="focus_on_click">True</property>
 			  <property name="active">False</property>
 			  <property name="inconsistent">False</property>
 			  <property name="draw_indicator">True</property>
@@ -3678,7 +3581,6 @@ forward direction</property>
 			  <property name="label" translatable="yes">Enable code folding</property>
 			  <property name="use_underline">True</property>
 			  <property name="relief">GTK_RELIEF_NORMAL</property>
-			  <property name="focus_on_click">True</property>
 			  <property name="active">False</property>
 			  <property name="inconsistent">False</property>
 			  <property name="draw_indicator">True</property>
@@ -3696,7 +3598,6 @@ forward direction</property>
 			  <property name="label" translatable="yes">Enable comments folding</property>
 			  <property name="use_underline">True</property>
 			  <property name="relief">GTK_RELIEF_NORMAL</property>
-			  <property name="focus_on_click">True</property>
 			  <property name="active">False</property>
 			  <property name="inconsistent">False</property>
 			  <property name="draw_indicator">True</property>
@@ -3714,7 +3615,6 @@ forward direction</property>
 			  <property name="label" translatable="yes">Enable python comments folding</property>
 			  <property name="use_underline">True</property>
 			  <property name="relief">GTK_RELIEF_NORMAL</property>
-			  <property name="focus_on_click">True</property>
 			  <property name="active">False</property>
 			  <property name="inconsistent">False</property>
 			  <property name="draw_indicator">True</property>
@@ -3732,7 +3632,6 @@ forward direction</property>
 			  <property name="label" translatable="yes">Enable python quoted strings folding</property>
 			  <property name="use_underline">True</property>
 			  <property name="relief">GTK_RELIEF_NORMAL</property>
-			  <property name="focus_on_click">True</property>
 			  <property name="active">False</property>
 			  <property name="inconsistent">False</property>
 			  <property name="draw_indicator">True</property>
@@ -3750,7 +3649,6 @@ forward direction</property>
 			  <property name="label" translatable="yes">Enable HTML tags folding</property>
 			  <property name="use_underline">True</property>
 			  <property name="relief">GTK_RELIEF_NORMAL</property>
-			  <property name="focus_on_click">True</property>
 			  <property name="active">False</property>
 			  <property name="inconsistent">False</property>
 			  <property name="draw_indicator">True</property>
@@ -3768,7 +3666,6 @@ forward direction</property>
 			  <property name="label" translatable="yes">Compact folding</property>
 			  <property name="use_underline">True</property>
 			  <property name="relief">GTK_RELIEF_NORMAL</property>
-			  <property name="focus_on_click">True</property>
 			  <property name="active">False</property>
 			  <property name="inconsistent">False</property>
 			  <property name="draw_indicator">True</property>
@@ -3787,7 +3684,6 @@ forward direction</property>
 			  <property name="label" translatable="yes">Draw line below folded lines</property>
 			  <property name="use_underline">True</property>
 			  <property name="relief">GTK_RELIEF_NORMAL</property>
-			  <property name="focus_on_click">True</property>
 			  <property name="active">False</property>
 			  <property name="inconsistent">False</property>
 			  <property name="draw_indicator">True</property>
@@ -3806,7 +3702,6 @@ forward direction</property>
 			  <property name="label" translatable="yes">Collapse all code folds on file open</property>
 			  <property name="use_underline">True</property>
 			  <property name="relief">GTK_RELIEF_NORMAL</property>
-			  <property name="focus_on_click">True</property>
 			  <property name="active">False</property>
 			  <property name="inconsistent">False</property>
 			  <property name="draw_indicator">True</property>
@@ -3968,7 +3863,6 @@ forward direction</property>
 			  <property name="label" translatable="yes">Disable syntax highlighting</property>
 			  <property name="use_underline">True</property>
 			  <property name="relief">GTK_RELIEF_NORMAL</property>
-			  <property name="focus_on_click">True</property>
 			  <property name="active">False</property>
 			  <property name="inconsistent">False</property>
 			  <property name="draw_indicator">True</property>
@@ -3986,7 +3880,6 @@ forward direction</property>
 			  <property name="label" translatable="yes">Enable braces check</property>
 			  <property name="use_underline">True</property>
 			  <property name="relief">GTK_RELIEF_NORMAL</property>
-			  <property name="focus_on_click">True</property>
 			  <property name="active">False</property>
 			  <property name="inconsistent">False</property>
 			  <property name="draw_indicator">True</property>
@@ -4004,7 +3897,6 @@ forward direction</property>
 			  <property name="label" translatable="yes">Strip trailling spaces on file save</property>
 			  <property name="use_underline">True</property>
 			  <property name="relief">GTK_RELIEF_NORMAL</property>
-			  <property name="focus_on_click">True</property>
 			  <property name="active">False</property>
 			  <property name="inconsistent">False</property>
 			  <property name="draw_indicator">True</property>
@@ -4022,7 +3914,6 @@ forward direction</property>
 			  <property name="label" translatable="yes">Filter extraneous characters in DOS mode</property>
 			  <property name="use_underline">True</property>
 			  <property name="relief">GTK_RELIEF_NORMAL</property>
-			  <property name="focus_on_click">True</property>
 			  <property name="active">False</property>
 			  <property name="inconsistent">False</property>
 			  <property name="draw_indicator">True</property>
@@ -4040,7 +3931,6 @@ forward direction</property>
 			  <property name="label" translatable="yes">Wrap bookmarks search around</property>
 			  <property name="use_underline">True</property>
 			  <property name="relief">GTK_RELIEF_NORMAL</property>
-			  <property name="focus_on_click">True</property>
 			  <property name="active">False</property>
 			  <property name="inconsistent">False</property>
 			  <property name="draw_indicator">True</property>
@@ -4295,7 +4185,6 @@ forward direction</property>
 			  <property name="label" translatable="yes">Sorted in opening order</property>
 			  <property name="use_underline">True</property>
 			  <property name="relief">GTK_RELIEF_NORMAL</property>
-			  <property name="focus_on_click">True</property>
 			  <property name="active">True</property>
 			  <property name="inconsistent">False</property>
 			  <property name="draw_indicator">True</property>
@@ -4314,7 +4203,6 @@ forward direction</property>
 			  <property name="label" translatable="yes">Sorted by most recent use</property>
 			  <property name="use_underline">True</property>
 			  <property name="relief">GTK_RELIEF_NORMAL</property>
-			  <property name="focus_on_click">True</property>
 			  <property name="active">False</property>
 			  <property name="inconsistent">False</property>
 			  <property name="draw_indicator">True</property>
@@ -4334,7 +4222,6 @@ forward direction</property>
 			  <property name="label" translatable="yes">Sorted in alphabetical order</property>
 			  <property name="use_underline">True</property>
 			  <property name="relief">GTK_RELIEF_NORMAL</property>
-			  <property name="focus_on_click">True</property>
 			  <property name="active">False</property>
 			  <property name="inconsistent">False</property>
 			  <property name="draw_indicator">True</property>
@@ -4354,7 +4241,6 @@ forward direction</property>
 			  <property name="label" translatable="yes">Do not show tabs</property>
 			  <property name="use_underline">True</property>
 			  <property name="relief">GTK_RELIEF_NORMAL</property>
-			  <property name="focus_on_click">True</property>
 			  <property name="active">False</property>
 			  <property name="inconsistent">False</property>
 			  <property name="draw_indicator">True</property>
@@ -4639,7 +4525,6 @@ forward direction</property>
 		      <property name="label" translatable="yes">Enable automatic indentation</property>
 		      <property name="use_underline">True</property>
 		      <property name="relief">GTK_RELIEF_NORMAL</property>
-		      <property name="focus_on_click">True</property>
 		      <property name="active">False</property>
 		      <property name="inconsistent">False</property>
 		      <property name="draw_indicator">True</property>
@@ -4661,7 +4546,6 @@ forward direction</property>
 		      <property name="label" translatable="yes">Use tabs for indentation</property>
 		      <property name="use_underline">True</property>
 		      <property name="relief">GTK_RELIEF_NORMAL</property>
-		      <property name="focus_on_click">True</property>
 		      <property name="active">False</property>
 		      <property name="inconsistent">False</property>
 		      <property name="draw_indicator">True</property>
@@ -4683,7 +4567,6 @@ forward direction</property>
 		      <property name="label" translatable="yes">Indent opening braces</property>
 		      <property name="use_underline">True</property>
 		      <property name="relief">GTK_RELIEF_NORMAL</property>
-		      <property name="focus_on_click">True</property>
 		      <property name="active">False</property>
 		      <property name="inconsistent">False</property>
 		      <property name="draw_indicator">True</property>
@@ -4705,7 +4588,6 @@ forward direction</property>
 		      <property name="label" translatable="yes">Indent closing braces</property>
 		      <property name="use_underline">True</property>
 		      <property name="relief">GTK_RELIEF_NORMAL</property>
-		      <property name="focus_on_click">True</property>
 		      <property name="active">False</property>
 		      <property name="inconsistent">False</property>
 		      <property name="draw_indicator">True</property>
@@ -4741,7 +4623,6 @@ forward direction</property>
 		      <property name="label" translatable="yes">Pressing backspace un-indents</property>
 		      <property name="use_underline">True</property>
 		      <property name="relief">GTK_RELIEF_NORMAL</property>
-		      <property name="focus_on_click">True</property>
 		      <property name="active">False</property>
 		      <property name="inconsistent">False</property>
 		      <property name="draw_indicator">True</property>
@@ -4763,7 +4644,6 @@ forward direction</property>
 		      <property name="label" translatable="yes">Pressing tab indents</property>
 		      <property name="use_underline">True</property>
 		      <property name="relief">GTK_RELIEF_NORMAL</property>
-		      <property name="focus_on_click">True</property>
 		      <property name="active">False</property>
 		      <property name="inconsistent">False</property>
 		      <property name="draw_indicator">True</property>
@@ -4785,7 +4665,6 @@ forward direction</property>
 		      <property name="label" translatable="yes">Disable auto-format</property>
 		      <property name="use_underline">True</property>
 		      <property name="relief">GTK_RELIEF_NORMAL</property>
-		      <property name="focus_on_click">True</property>
 		      <property name="active">False</property>
 		      <property name="inconsistent">False</property>
 		      <property name="draw_indicator">True</property>
@@ -5147,7 +5026,6 @@ forward direction</property>
 		  <property name="label" translatable="yes">Colour</property>
 		  <property name="use_underline">True</property>
 		  <property name="relief">GTK_RELIEF_NORMAL</property>
-		  <property name="focus_on_click">True</property>
 		  <property name="active">False</property>
 		  <property name="inconsistent">False</property>
 		  <property name="draw_indicator">True</property>
@@ -5169,7 +5047,6 @@ forward direction</property>
 		  <property name="label" translatable="yes">Monochrome</property>
 		  <property name="use_underline">True</property>
 		  <property name="relief">GTK_RELIEF_NORMAL</property>
-		  <property name="focus_on_click">True</property>
 		  <property name="active">False</property>
 		  <property name="inconsistent">False</property>
 		  <property name="draw_indicator">True</property>
@@ -5192,7 +5069,6 @@ forward direction</property>
 		  <property name="label" translatable="yes">Add page header</property>
 		  <property name="use_underline">True</property>
 		  <property name="relief">GTK_RELIEF_NORMAL</property>
-		  <property name="focus_on_click">True</property>
 		  <property name="active">False</property>
 		  <property name="inconsistent">False</property>
 		  <property name="draw_indicator">True</property>
@@ -5214,7 +5090,6 @@ forward direction</property>
 		  <property name="label" translatable="yes">Enable line wrap</property>
 		  <property name="use_underline">True</property>
 		  <property name="relief">GTK_RELIEF_NORMAL</property>
-		  <property name="focus_on_click">True</property>
 		  <property name="active">False</property>
 		  <property name="inconsistent">False</property>
 		  <property name="draw_indicator">True</property>
@@ -5311,7 +5186,6 @@ forward direction</property>
 		      <property name="label" translatable="yes">View EOL chars</property>
 		      <property name="use_underline">True</property>
 		      <property name="relief">GTK_RELIEF_NORMAL</property>
-		      <property name="focus_on_click">True</property>
 		      <property name="active">False</property>
 		      <property name="inconsistent">False</property>
 		      <property name="draw_indicator">True</property>
@@ -5330,7 +5204,6 @@ forward direction</property>
 		      <property name="label" translatable="yes">View Indentation Guides</property>
 		      <property name="use_underline">True</property>
 		      <property name="relief">GTK_RELIEF_NORMAL</property>
-		      <property name="focus_on_click">True</property>
 		      <property name="active">False</property>
 		      <property name="inconsistent">False</property>
 		      <property name="draw_indicator">True</property>
@@ -5349,7 +5222,6 @@ forward direction</property>
 		      <property name="label" translatable="yes">View Whitespaces</property>
 		      <property name="use_underline">True</property>
 		      <property name="relief">GTK_RELIEF_NORMAL</property>
-		      <property name="focus_on_click">True</property>
 		      <property name="active">False</property>
 		      <property name="inconsistent">False</property>
 		      <property name="draw_indicator">True</property>
@@ -5368,7 +5240,6 @@ forward direction</property>
 		      <property name="label" translatable="yes">View indentation whitespaces</property>
 		      <property name="use_underline">True</property>
 		      <property name="relief">GTK_RELIEF_NORMAL</property>
-		      <property name="focus_on_click">True</property>
 		      <property name="active">False</property>
 		      <property name="inconsistent">False</property>
 		      <property name="draw_indicator">True</property>
@@ -5387,7 +5258,6 @@ forward direction</property>
 		      <property name="label" translatable="yes">View Line Wrap</property>
 		      <property name="use_underline">True</property>
 		      <property name="relief">GTK_RELIEF_NORMAL</property>
-		      <property name="focus_on_click">True</property>
 		      <property name="active">False</property>
 		      <property name="inconsistent">False</property>
 		      <property name="draw_indicator">True</property>
@@ -5406,7 +5276,6 @@ forward direction</property>
 		      <property name="label" translatable="yes">Margin Linenum visible</property>
 		      <property name="use_underline">True</property>
 		      <property name="relief">GTK_RELIEF_NORMAL</property>
-		      <property name="focus_on_click">True</property>
 		      <property name="active">False</property>
 		      <property name="inconsistent">False</property>
 		      <property name="draw_indicator">True</property>
@@ -5425,7 +5294,6 @@ forward direction</property>
 		      <property name="label" translatable="yes">Margin Marker visible</property>
 		      <property name="use_underline">True</property>
 		      <property name="relief">GTK_RELIEF_NORMAL</property>
-		      <property name="focus_on_click">True</property>
 		      <property name="active">False</property>
 		      <property name="inconsistent">False</property>
 		      <property name="draw_indicator">True</property>
@@ -5444,7 +5312,6 @@ forward direction</property>
 		      <property name="label" translatable="yes">Margin Fold visible</property>
 		      <property name="use_underline">True</property>
 		      <property name="relief">GTK_RELIEF_NORMAL</property>
-		      <property name="focus_on_click">True</property>
 		      <property name="active">False</property>
 		      <property name="inconsistent">False</property>
 		      <property name="draw_indicator">True</property>
@@ -5542,7 +5409,6 @@ forward direction</property>
 		      <property name="label" translatable="yes">Always save in UTF-8 encoding (faster)</property>
 		      <property name="use_underline">True</property>
 		      <property name="relief">GTK_RELIEF_NORMAL</property>
-		      <property name="focus_on_click">True</property>
 		      <property name="active">False</property>
 		      <property name="inconsistent">False</property>
 		      <property name="draw_indicator">True</property>
@@ -5564,7 +5430,6 @@ forward direction</property>
 		      <property name="label" translatable="yes">Try to save in original encoding</property>
 		      <property name="use_underline">True</property>
 		      <property name="relief">GTK_RELIEF_NORMAL</property>
-		      <property name="focus_on_click">True</property>
 		      <property name="active">False</property>
 		      <property name="inconsistent">False</property>
 		      <property name="draw_indicator">True</property>
@@ -5587,7 +5452,6 @@ forward direction</property>
 		      <property name="label" translatable="yes">Try to save in current locale's encoding</property>
 		      <property name="use_underline">True</property>
 		      <property name="relief">GTK_RELIEF_NORMAL</property>
-		      <property name="focus_on_click">True</property>
 		      <property name="active">False</property>
 		      <property name="inconsistent">False</property>
 		      <property name="draw_indicator">True</property>
@@ -5686,7 +5550,6 @@ forward direction</property>
 			  <property name="label">gtk-add</property>
 			  <property name="use_stock">True</property>
 			  <property name="relief">GTK_RELIEF_NORMAL</property>
-			  <property name="focus_on_click">True</property>
 			</widget>
 			<packing>
 			  <property name="padding">0</property>
@@ -5702,7 +5565,6 @@ forward direction</property>
 			  <property name="label">gtk-remove</property>
 			  <property name="use_stock">True</property>
 			  <property name="relief">GTK_RELIEF_NORMAL</property>
-			  <property name="focus_on_click">True</property>
 			</widget>
 			<packing>
 			  <property name="padding">0</property>
@@ -5718,7 +5580,6 @@ forward direction</property>
 			  <property name="label">gtk-go-up</property>
 			  <property name="use_stock">True</property>
 			  <property name="relief">GTK_RELIEF_NORMAL</property>
-			  <property name="focus_on_click">True</property>
 			</widget>
 			<packing>
 			  <property name="padding">0</property>
@@ -5734,7 +5595,6 @@ forward direction</property>
 			  <property name="label">gtk-go-down</property>
 			  <property name="use_stock">True</property>
 			  <property name="relief">GTK_RELIEF_NORMAL</property>
-			  <property name="focus_on_click">True</property>
 			</widget>
 			<packing>
 			  <property name="padding">0</property>

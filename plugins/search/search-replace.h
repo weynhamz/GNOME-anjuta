@@ -91,6 +91,7 @@ void search_toolbar_set_text(gchar *search_text);
 #define SEARCH_FULL_BUFFER "search.full_buffer"
 #define SEARCH_FORWARD "search.forward"
 #define SEARCH_BACKWARD "search.backward"
+#define SEARCH_BASIC "search.basic"
 
 /* Labels */
 #define LABEL_REPLACE "label.replace"
