@@ -884,7 +884,8 @@ iloader_load (IAnjutaFileLoader *loader, const gchar *uri,
 	status = anjuta_shell_get_status (ANJUTA_PLUGIN (loader)->shell, NULL);
 	anjuta_status_busy_push (status);
 	
-	g_message ("Opening URI: %s", uri);
+	DEBUG_PRINT ("Opening URI: %s", uri);
+	
 	plugin_descs = anjuta_plugins_query (ANJUTA_PLUGIN(loader)->shell,
 										 "Anjuta Plugin",
 										 "Interfaces", "IAnjutaFile",
@@ -919,7 +920,7 @@ iloader_load (IAnjutaFileLoader *loader, const gchar *uri,
 	if (plugin)
 		ianjuta_file_open (IANJUTA_FILE(plugin), uri, NULL);
 	
-	set_recent_file ((AnjutaFileLoaderPlugin*)loader, uri);
+	set_recent_file ((AnjutaFileLoaderPlugin*)loader, new_uri);
 	
 	if (plugin_descs)
 		g_slist_free (plugin_descs);

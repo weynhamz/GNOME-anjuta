@@ -24,10 +24,7 @@
 #include <libanjuta/e-splash.h>
 #include "anjuta-app.h"
 
-AnjutaApp* anjuta_new (gchar *prog_name, GList *prog_args, ESplash *splash);
-
-/* Signal callbacks used from elsewhere */
-gint on_anjuta_delete_event (GtkWidget *w, GdkEvent *event, gpointer data);
-void on_anjuta_destroy (GtkWidget * w, gpointer data);
+AnjutaApp* anjuta_new (gchar *prog_name, GList *prog_args, ESplash *splash,
+					   gboolean proper_shutdown);
 
 #endif

@@ -34,8 +34,9 @@
 #include "anjuta.h"
 
 /* Command line options */
-gboolean no_splash = 0;
-gchar *anjuta_geometry = NULL;
+static gboolean no_splash = 0;
+static gboolean proper_shutdown = 0;
+static gchar *anjuta_geometry = NULL;
 
 /* The static variables used in the poptTable.*/
 /* anjuta's option table */
@@ -55,6 +56,12 @@ poptOption anjuta_options[] = {
 		"no-splash", 's', POPT_ARG_NONE,
 		&no_splash, 0,
 		N_("Do not show the splashscreen"),
+		NULL
+	},
+	{
+		"proper-shutdown", 'p', POPT_ARG_NONE,
+		&proper_shutdown, 0,
+		N_("Shutdown anjuta properly releasing all resources (for debugging)"),
 		NULL
 	},
 	POPT_AUTOHELP {NULL}
@@ -145,17 +152,22 @@ main (int argc, char *argv[])
 	plugins_dirs = g_list_prepend (plugins_dirs, PACKAGE_PLUGIN_DIR);
 	anjuta_plugins_init (plugins_dirs);
 
-	app = anjuta_new (argv[0], command_args, E_SPLASH (splash));
+	/* Create Anjuta application */
+	app = anjuta_new (argv[0], command_args, E_SPLASH (splash), proper_shutdown);
 	if (anjuta_geometry)
 		gtk_window_parse_geometry (GTK_WINDOW (app), anjuta_geometry);
 	
 	if (splash) {
-		gtk_widget_unref (splash);
-        	gtk_widget_destroy (splash);
+		g_object_unref (splash);
+        gtk_widget_destroy (splash);
 	}
 
+	/* Run Anjuta application */
 	gtk_widget_show (GTK_WIDGET (app));
 	gtk_main();
+	
+	/* Finalize plugins system */
+	anjuta_plugins_finalize ();
 	
 	// FIXME: anjuta_application_exit();
 	// FIXME: write_config();

@@ -1,3 +1,20 @@
+2004-12-26  Naba Kumar  <naba@gnome.org>
+
+	* src/anjuta-app.c, src/anjuta.c, src/main.c,
+	src/action-callbacks.c: Fixed app finalization. Added a
+	command line arg --proper-shutdown (-p), which when set
+	will release all plugins and their resources (this option
+	is mainly for debugging).
+	
+	* plugins/file-loader/plugin.c: Fixed filename duplications
+	in recent files history.
+	
+	* plugins/profile-default/plugin.c: Disabled problematic
+	plugins for now to load at startup.
+	
+	* libanjuta/anjuta-ui.c, libanjuta/plugins.c: Disabled 
+	annoying debug prints.
+	
 2004-12-23  Naba Kumar  <naba@gnome.org>
 
 	Patch from: Mark R. Pariente  <markpariente@cmu.edu>

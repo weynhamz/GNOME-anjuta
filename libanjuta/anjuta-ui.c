@@ -565,8 +565,10 @@ on_action_group_remove_hash (gpointer key, gpointer value, gpointer data)
 {
 	if (data == value)
 	{
+		/*
 		DEBUG_PRINT ("Removing action group from hash: %s",
 				   gtk_action_group_get_name (GTK_ACTION_GROUP (data)));
+		*/
 		return TRUE;
 	}
 	else
@@ -611,7 +613,7 @@ anjuta_ui_remove_action_group (AnjutaUI *ui, GtkActionGroup *action_group)
 		}
 		if (strcmp (group_name, group) == 0)
 		{
-			DEBUG_PRINT ("Removing action group from tree: %s", group);
+			/* DEBUG_PRINT ("Removing action group from tree: %s", group); */
 			
 			/* This will also release all action refs */
 			valid = gtk_tree_store_remove (GTK_TREE_STORE (model), &iter);

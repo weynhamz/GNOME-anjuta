@@ -554,7 +554,7 @@ activate_tool (AnjutaShell *shell, AvailableTool *tool)
 	
 	if (!type) {
 		char **pieces;
-		DEBUG_PRINT ("Creating new class type for %s", tool->id);
+		DEBUG_PRINT ("Loading: %s", tool->id);
 		pieces = g_strsplit (tool->id, ":", -1);
 		type = glue_factory_get_object_type (glue_factory,
 										     pieces[0], pieces[1]);

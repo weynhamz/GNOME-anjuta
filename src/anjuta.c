@@ -24,11 +24,15 @@
 
 #include "anjuta.h"
 
-gboolean
+static gboolean
 on_anjuta_delete_event (GtkWidget *w, GdkEvent *event, gpointer data)
 {
 	DEBUG_PRINT ("AnjutaApp delete event");
-	gtk_main_quit ();
+
+	gtk_widget_hide (w);
+	anjuta_plugins_unload_all (ANJUTA_SHELL (w));
+	return FALSE;
+
 #if 0
 	AnjutaApp *app;
 	TextEditor *te;
@@ -93,15 +97,14 @@ on_anjuta_delete_event (GtkWidget *w, GdkEvent *event, gpointer data)
 		anjuta_app_clean_exit (app);
 	return TRUE;
 #endif
-	return FALSE;
 }
 
-void
+static void
 on_anjuta_destroy (GtkWidget * w, gpointer data)
 {
 	DEBUG_PRINT ("AnjutaApp destroy event");
 	/* Nothing to be done here */
-	// gtk_main_quit ();
+	gtk_main_quit ();
 }
 
 static gint
@@ -206,7 +209,8 @@ on_anjuta_session_die(GnomeClient * client, gpointer data)
 }
 
 AnjutaApp*
-anjuta_new (gchar *prog_name, GList *prog_args, ESplash *splash)
+anjuta_new (gchar *prog_name, GList *prog_args, ESplash *splash,
+			gboolean proper_shutdown)
 {
 	AnjutaApp *app;
 	GnomeClient *client;
@@ -216,8 +220,11 @@ anjuta_new (gchar *prog_name, GList *prog_args, ESplash *splash)
 	/* Initialize application */
 	app = ANJUTA_APP (anjuta_app_new ());
 
-	g_signal_connect (G_OBJECT (app), "delete_event",
-					  G_CALLBACK (on_anjuta_delete_event), NULL);
+	if (proper_shutdown)
+	{
+		g_signal_connect (G_OBJECT (app), "delete_event",
+						  G_CALLBACK (on_anjuta_delete_event), NULL);
+	}
 	g_signal_connect (G_OBJECT (app), "destroy",
 					  G_CALLBACK (on_anjuta_destroy), NULL);
 	
