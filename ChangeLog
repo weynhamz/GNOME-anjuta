@@ -1,3 +1,7 @@
+2003-11-19  Pavol Bosik  <Pavol.Bosik@siemens.com>
+
+	* src/dnd.c: Opening files with special characters in the name.
+
 2003-11-20  Jordi Mallach  <jordi@sindominio.net>
 
 	* configure.in (ALL_LINGUAS): Bah, "ca" (Catalan) has been missing for
