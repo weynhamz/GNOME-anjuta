@@ -361,7 +361,7 @@ set_property_value_as_int (AnjutaProperty *prop, gint value)
 	g_free (text_value);	
 }
 
-static gint
+static gboolean
 update_property_on_event_str (GtkWidget *widget, GdkEvent *event,
 							  gpointer user_data)
 {
@@ -384,13 +384,33 @@ update_property_on_change_str (GtkWidget *widget, gpointer user_data)
 	AnjutaPreferences *pr;
 	AnjutaProperty *p;
 	gchar *val;
-	
+
 	pr = ANJUTA_PREFERENCES (g_object_get_data (G_OBJECT (widget),
 												"AnjutaPreferences"));
 	p = (AnjutaProperty *) user_data;
 	val = get_property_value_as_string (p);
 	anjuta_preferences_set (pr, p->key, val);
 	g_free (val);
+}
+
+static gboolean
+block_update_property_on_change_str (GtkWidget *widget, GdkEvent *event,
+							  gpointer user_data)
+{
+	AnjutaProperty *p = (AnjutaProperty *) user_data;
+
+	gtk_signal_handler_block_by_func (GTK_OBJECT(p->object), G_CALLBACK (update_property_on_change_str), p);
+	return FALSE;
+}
+
+static gboolean
+unblock_update_property_on_change_str (GtkWidget *widget, GdkEvent *event,
+							  gpointer user_data)
+{
+	AnjutaProperty *p = (AnjutaProperty *) user_data;
+
+	gtk_signal_handler_unblock_by_func (GTK_OBJECT(p->object), G_CALLBACK (update_property_on_change_str), p);
+	return FALSE;
 }
 
 static void
@@ -483,8 +503,14 @@ register_callbacks (AnjutaPreferences *pr, AnjutaProperty *p)
 	g_object_set_data (G_OBJECT (p->object), "AnjutaPreferences", pr);
 	switch (p->object_type) {
 		case ANJUTA_PROPERTY_OBJECT_TYPE_ENTRY:
+			g_signal_connect (G_OBJECT(p->object), "changed",
+							  G_CALLBACK (update_property_on_change_str), p);
 			g_signal_connect (G_OBJECT(p->object), "focus_out_event",
 							  G_CALLBACK (update_property_on_event_str), p);
+			g_signal_connect (G_OBJECT(p->object), "focus_out_event",
+							  G_CALLBACK (unblock_update_property_on_change_str), p);
+			g_signal_connect (G_OBJECT(p->object), "focus_in_event",
+							  G_CALLBACK (block_update_property_on_change_str), p);
 			break;
 		case ANJUTA_PROPERTY_OBJECT_TYPE_SPIN:
 			g_signal_connect (G_OBJECT(p->object), "value-changed",

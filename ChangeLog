@@ -1,3 +1,9 @@
+2005-02-05  Sebastien Granjoux <seb.sfo@free.fr>
+
+	* libanjuta/anjuta-preferences.
+	Set file property even without a focus out event (file selected 
+	the browse dialog)
+
 2005-02-04  Naba Kumar  <naba@gnome.org>
 
 	* plugins/glade/plugin.c: Fixed glade function calls.
