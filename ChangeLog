@@ -4,6 +4,7 @@
 	, srcipts/anjuta_first_time.sh.in, src/anjuta.c
 	, src/mainmenu_callbacks.[ch], src/main_menubar_def.h:Improved
         the first-time run dialog.
+	* anjuta.glade: Improved the Search/Replace UI
 
 2003-02-28  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
 	* anjuta.glade, src/controls.c, src/main_menubar.[ch]
