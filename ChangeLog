@@ -1,24 +1,65 @@
+2002-06-09	Andy Piper	<andy.piper@freeuk.com>
+
+	* data/stock_libs.anj: expanded library list and began to add 
+	library descriptions
+	
+	* plugins/class-gen/clsGen.c: fixed message strings
+	
+	* po/en_GB.po: added file
+	
+	* configure.in: added en_GB
+	
+	* anjuta.prj: added new files
+	
+	* pixmaps/Makefile.am: install the MadeInAnjuta button file 
+	so users can use it for their websites :-)
+	
+	* pixmaps/anjuta_splash.png: new splash screen from Misha
+	
+	* src/debugger.c: commented the define for ANJUTA_DEBUG_DEBUGGER
+	left over from the previous work to fix bugs :-)
+	
+	* src/main_menubar_def.h, src/main_menubar.h, src/main_menubar.c, 
+	src/controls.c, src/mainmenu_callbacks.h, 
+	src/mainmenu_callbacks.c: Insert CVS keywords, message strings 
+	reviewed
+	
+	* src/watch_gui.c, src/stack_trace_gui.c, src/app_wizard_gui.c, 
+	src/project_import_gui.c, src/sharedlib_gui.c, 
+	src/signals_gui.c: set window icon correctly
+	
+	* NEWS: more updates for the release
+	
+	* HACKING: updated for window icons and insert menu information
+	
+	* src/cvs_gui.c, src/build_project.c, 
+	src/project_import_cbs.c: message strings reviewed
+	
+	* src/controls.c: context help button should be disabled if 
+	DevHelp is not installed
+	
+
 2002-06-08  Naba Kumar <kh_naba@users.sourceforge.net>
 
-	* src/debugger.c: Fixed the signaling screw up because of string
+	* src/debugger.c: Fixed the signalling screw up because of string
 	update in gdb used to report the child process PID. Also, no
-	error dialog will be poped up for "no such file or directory"
+	error dialog will be popped up for "no such file or directory"
 	error (very annoying and useless error). This error will still
 	be shown on the debug message window. Avoided terminating the
 	program when the terminal is terminated -- doesn't hurt, otherwise
 	we get crappy egg-and-hen problem.
 	
-	* src/sharedlib.c, src/signals.c: Fixed the incorrect defalut window
+	* src/sharedlib.c, src/signals.c: Fixed the incorrect default window
 	dimensions loading.
 	
 	* src/anjuta.c: Limited the default size of main window to sane
 	values.
 
-	* src/preferences.c: Fixed some deadly memory curruption bugs in
+	* src/preferences.c: Fixed some deadly memory corruption bugs in
 	the recent patches. Return from getenv() should NEVER be freed,
 	because they are static strings.
 	
-	* src/preferences.c: Removed the fix for crash bug with font
+	* src/preferences_gui.c: Removed the fix for crash bug with font
 	selection and applied the real fix.
 	
 2002-06-08	Andy Piper	<andy.piper@freeuk.com>

@@ -306,8 +306,17 @@ FIXME.
 4) Dialogs and Windows:
 -----------------------
 When adding new dialogs or windows, please ensure...
+
 - the WMCLASS attribute is set to a unique value
-- a default button is defined
+
+- a default icon is defined
+Dialogs will take the Anjuta app icon by default, but windows (GtkWindow) will 
+need the following lines added to their creation code:
+
+#include <libgnomeui/gnome-window-icon.h>
+...
+    gnome_window_icon_set_from_default(GTK_WINDOW(window1));
+
 
 
 5) Property/Config management:

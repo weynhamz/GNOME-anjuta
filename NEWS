@@ -12,7 +12,7 @@ New: Application Wizard support for wxWindows, Xlib,
 New: user identity preferences enabling new editor functions
 New: better find functionality
 New: enhanced file selection widget
-New: enhanced about dialog
+New: enhanced Evolution-style about dialog
 New: better GNOME integration, now uses configured GNOME URL 
      handlers
 New: Anjuta kickstart tutorial

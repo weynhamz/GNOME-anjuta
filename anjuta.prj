@@ -463,11 +463,12 @@ module.pixmap.files=\
 	manuals/C/anjuta-manual/figures/watch.png\
 	manuals/C/anjuta-manual/figures/watch_add.png\
 	pixmaps/add.xpm\
-	pixmaps/an_tag.xpm\
 	pixmaps/anjuta_icon.png\
 	pixmaps/anjuta_logo.png\
 	pixmaps/anjuta_splash.png\
+	pixmaps/an_tag.xpm\
 	pixmaps/applogo.png\
+	pixmaps/appwizard.png\
 	pixmaps/appwiz_bonobo.png\
 	pixmaps/appwiz_bonobo2.png\
 	pixmaps/appwiz_gnome.png\
@@ -483,7 +484,8 @@ module.pixmap.files=\
 	pixmaps/appwiz_opengl.png\
 	pixmaps/appwiz_sdl.png\
 	pixmaps/appwiz_terminal.png\
-	pixmaps/appwizard.png\
+	pixmaps/appwiz_wxwin.png\
+	pixmaps/appwiz_xlib.png\
 	pixmaps/autocomplete.xpm\
 	pixmaps/bfoldc.xpm\
 	pixmaps/bfoldo.xpm\
@@ -554,6 +556,7 @@ module.pixmap.files=\
 	pixmaps/list_select.xpm\
 	pixmaps/list_unselect.xpm\
 	pixmaps/macro.xpm\
+	pixmaps/madeinanjuta.xcf\
 	pixmaps/messages.xpm\
 	pixmaps/mini-modules.xpm\
 	pixmaps/mini_build.xpm\
@@ -663,6 +666,7 @@ module.po.files=\
 	da.po\
 	de.po\
 	el.po\
+	en_GB.po\
 	es.po\
 	fr.po\
 	it.po\
