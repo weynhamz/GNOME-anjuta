@@ -1,4 +1,7 @@
 2005-01-18  Naba Kumar  <naba@gnome.org>
+	
+	* plugins/cvs-plugin/cvs-actions.c: Fixed "whole project" toggle button
+	to work.
 
 	* scintilla/*: Updated scintilla to current cvs and updated
 	scintilla patches.

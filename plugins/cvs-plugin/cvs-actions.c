@@ -79,18 +79,18 @@ static void on_diff_type_changed(GtkComboBox* combo, GtkWidget* unified_check)
 		gtk_combo_box_set_active(combo, DIFF_STANDARD);
 }
 
-static void init_whole_project(GtkWidget* project)
+static void init_whole_project(CVSPlugin *plugin, GtkWidget* project)
 {
-	gboolean project_loaded = FALSE; /* TODO */
-	
+	gboolean project_loaded = (plugin->project_root_dir != NULL);
 	gtk_widget_set_sensitive(project, project_loaded);
 }	
 
-static void on_whole_project_toggled(GtkToggleButton* project, GtkEntry* fileentry)
+static void on_whole_project_toggled(GtkToggleButton* project, CVSPlugin *plugin)
 {
-	if (gtk_toggle_button_get_active(project))
+	GtkEntry* fileentry = g_object_get_data (G_OBJECT (project), "fileentry");
+	if (gtk_toggle_button_get_active(project) && plugin->project_root_dir)
 	{
-		/* TODO: Set to project root dir */
+		gtk_entry_set_text (fileentry, plugin->project_root_dir);
 		gtk_widget_set_sensitive(GTK_WIDGET(fileentry), FALSE);
 	}
 	else
@@ -155,9 +155,10 @@ void cvs_commit_dialog (GtkAction* action, CVSPlugin* plugin, gchar *filename)
 		gtk_entry_set_text(GTK_ENTRY(fileentry), filename);
 	
 	project = glade_xml_get_widget(gxml, "cvs_project");
-	init_whole_project(project);
+	g_object_set_data (G_OBJECT (project), "fileentry", fileentry);
 	g_signal_connect(G_OBJECT(project), "toggled", 
-		G_CALLBACK(on_whole_project_toggled), fileentry);
+		G_CALLBACK(on_whole_project_toggled), plugin);
+	init_whole_project(plugin, project);
 	
 	data = cvs_data_new(plugin, gxml);
 	g_signal_connect(G_OBJECT(dialog), "response", 
@@ -183,9 +184,10 @@ void cvs_update_dialog (GtkAction* action, CVSPlugin* plugin, gchar *filename)
 		gtk_entry_set_text(GTK_ENTRY(fileentry), filename);
 	
 	project = glade_xml_get_widget(gxml, "cvs_project");
-	init_whole_project(project);
+	g_object_set_data (G_OBJECT (project), "fileentry", fileentry);
 	g_signal_connect(G_OBJECT(project), "toggled", 
-		G_CALLBACK(on_whole_project_toggled), fileentry);
+		G_CALLBACK(on_whole_project_toggled), plugin);
+	init_whole_project(plugin, project);
 	
 	data = cvs_data_new(plugin, gxml);
 	g_signal_connect(G_OBJECT(dialog), "response", 
@@ -212,9 +214,10 @@ void cvs_diff_dialog (GtkAction* action, CVSPlugin* plugin, gchar *filename)
 		gtk_entry_set_text(GTK_ENTRY(fileentry), filename);
 	
 	project = glade_xml_get_widget(gxml, "cvs_project");
-	init_whole_project(project);
+	g_object_set_data (G_OBJECT (project), "fileentry", fileentry);
 	g_signal_connect(G_OBJECT(project), "toggled", 
-		G_CALLBACK(on_whole_project_toggled), fileentry);
+		G_CALLBACK(on_whole_project_toggled), plugin);
+	init_whole_project(plugin, project);
 	
 	diff_type = glade_xml_get_widget(gxml, "cvs_diff_type");
 	unified_diff = glade_xml_get_widget(gxml, "cvs_unified");
@@ -245,9 +248,10 @@ void cvs_status_dialog (GtkAction* action, CVSPlugin* plugin, gchar *filename)
 		gtk_entry_set_text(GTK_ENTRY(fileentry), filename);
 
 	project = glade_xml_get_widget(gxml, "cvs_project");
-	init_whole_project(project);
+	g_object_set_data (G_OBJECT (project), "fileentry", fileentry);
 	g_signal_connect(G_OBJECT(project), "toggled", 
-		G_CALLBACK(on_whole_project_toggled), fileentry);
+		G_CALLBACK(on_whole_project_toggled), plugin);
+	init_whole_project(plugin, project);
 	
 	data = cvs_data_new(plugin, gxml);
 	g_signal_connect(G_OBJECT(dialog), "response", 
@@ -273,9 +277,10 @@ void cvs_log_dialog (GtkAction* action, CVSPlugin* plugin, gchar *filename)
 		gtk_entry_set_text(GTK_ENTRY(fileentry), filename);
 	
 	project = glade_xml_get_widget(gxml, "cvs_project");
-	init_whole_project(project);
+	g_object_set_data (G_OBJECT (project), "fileentry", fileentry);
 	g_signal_connect(G_OBJECT(project), "toggled", 
-		G_CALLBACK(on_whole_project_toggled), fileentry);
+		G_CALLBACK(on_whole_project_toggled), plugin);
+	init_whole_project(plugin, project);
 	
 	data = cvs_data_new(plugin, gxml);
 	g_signal_connect(G_OBJECT(dialog), "response", 
