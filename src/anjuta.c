@@ -1334,7 +1334,7 @@ anjuta_clean_exit ()
 	write_config();
 	
 	/* Is this bad? */
-	exit (0);
+	_exit (0);
 
 /* Is it necessary to free up all the memos on exit? */
 /* Assuming that it is not, I am disabling the following */

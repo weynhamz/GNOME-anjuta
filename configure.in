@@ -61,7 +61,7 @@ AC_DEFUN(CHECK_HEADER_DEFINE,
 	$4
 ]) ])
 
-CFLAGS_WARNINGS="-Wall -Wmissing-prototypes -Wmissing-declarations -Wparentheses -Wpointer-arith"
+CFLAGS_WARNINGS="-Wall -Wmissing-prototypes -Wparentheses -Wpointer-arith"
 CFLAGS_DISABLE_CHECKS="-DG_DISABLE_CHECKS -DG_DISABLE_CAST_CHECKS"
 CFLAGS_OPTIMIZE="-Os -s"
 CXXFLAGS_OPTIMIZE="-Os -s -fno-exceptions -fno-check-new"
@@ -74,14 +74,14 @@ fi
 dnl Enable debugging mode
 AC_ARG_ENABLE(debug,
       [  --enable-debug           Enable debug messages],
-      CFLAGS="$CFLAGS -DDEBUG -O0 -g $CFLAGS_WARNINGS"
-      CXXFLAGS="$CFLAGS -DDEBUG -O0 -g $CFLAGS_WARNINGS")
+      CFLAGS="$CFLAGS -DDEBUG -O0 -g $CFLAGS_WARNINGS -Wmissing-declarations"
+      CXXFLAGS="$CXXFLAGS -DDEBUG -O0 -g $CFLAGS_WARNINGS")
 
 dnl Enable profiling mode
 AC_ARG_ENABLE(gprof,
       [  --enable-gprof           Enable profiling with gprof],
       CFLAGS="$CFLAGS -pg"
-      CXXFLAGS="$CFLAGS -pg"
+      CXXFLAGS="$CXXFLAGS -pg"
       LDFLAGS="$LDFLAGS -pg")
 
 dnl Enable release builds

@@ -1,3 +1,12 @@
+2004-03-07  Naba Kumar  <naba@gnome.org>
+
+	* src/anjuta.c: Use _exit() instead of exit() (or gtk_quit() or
+	gtk_main_quit() etc..), so that atexit() functions are not called
+	(which is apparently done to free up memory and we don't need to
+	do that at this point). Incidentally, something also happens in the
+	atexit call which freezes the UI for far too long when the application
+	exits and we want to avoid that..
+	
 2004-03-06  Naba Kumar  <naba@gnome.org>
 
 	* src/project_dbase_gui.c: Fixed errors.
