@@ -1,3 +1,7 @@
+2003-03-27  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
+	* NEWS: Updated for 1.0.2 release
+	* src/text_editor.c: Fixed indicators.
+
 2003-03-21  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
 	* src/main_menubar_def.h: Move Advanced Search/Replace under
 	Search for GUI consistency. Thanks to TTimo for the idea.
@@ -73,7 +77,7 @@
 	* src/search-replace.c: Bugfixes.
 	* scripts/anjuta_first_run.sh.in: Check for GNU m4. Read in
 	user and project level configuration is present.
-	* Save file browser preferences in session, not project
+	* src/an_file_view.c: Save file browser preferences in session, not project
 	* NEWS: Started release notes for 1.0.2
 	* anjuta.prj, an_file_view.[ch], project_dbase.c, session.[ch]:
 	File browser preferences saved to session, not project.
