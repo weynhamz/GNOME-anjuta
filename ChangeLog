@@ -1,5 +1,10 @@
 2003-02-11  Naba Kumar <naba@gnome.org>
 
+	* src/an_file_view.c, src/an_symbol_view.c: The tree updated now
+	restores the expand/collaspe states of the nodes after refresh.
+	
+2003-02-11  Naba Kumar <naba@gnome.org>
+
 	* src/style-editor.c: Fixed pango font description handling for fonts.
 	* src/anjuta.glade: Removed font size spin button.
 	* configure.in, src/anjuta.prj: Corrected version.

@@ -333,6 +333,25 @@ sv_create_context_menu ()
 	gtk_widget_show_all(sv->menu.top);
 }
 
+static void
+mapping_function (GtkTreeView *treeview, GtkTreePath *path, gpointer data)
+{
+	gchar *str;
+	GList *map = * ((GList **) data);
+	
+	str = gtk_tree_path_to_string (path);
+	map = g_list_append (map, str);
+	* ((GList **) data) = map;
+};
+
+static GList *
+sv_map_tree_view_state (GtkTreeView *treeview)
+{
+	GList *map = NULL;
+	gtk_tree_view_map_expanded_rows (treeview, mapping_function, &map);
+	return map;
+}
+
 static gboolean
 on_treeview_row_search (GtkTreeModel *model, gint column,
 						const gchar *key, GtkTreeIter *iter, gpointer data)
@@ -643,11 +662,9 @@ sv_populate (gboolean full)
 	static gboolean busy = FALSE;
 	GString *s;
 	char *arr[1];
-	// TMSymbol *sym, *sym1, *symbol_tree;
-	// SVNodeType type;
-	GtkTreeIter *selected_item[] = {NULL, NULL, NULL};
 	SVRootType root_type;
 	int i;
+	GList *selected_items = NULL;
 
 #ifdef DEBUG
 	g_message("Populating symbol view..");
@@ -662,6 +679,7 @@ sv_populate (gboolean full)
 		busy = TRUE;
 
 	sv_disconnect ();
+	selected_items = sv_map_tree_view_state (GTK_TREE_VIEW (sv->tree));
 	sv_clear ();
 
 	store = GTK_TREE_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (sv->tree)));
@@ -673,7 +691,6 @@ sv_populate (gboolean full)
 				    NAME_COLUMN, sv_root_names[root_type],
 				    -1);
 	}
-	// root[sv_root_max_t] = NULL;
 
 	if (!full)
 		goto clean_leave;
@@ -692,7 +709,7 @@ sv_populate (gboolean full)
 		goto clean_leave;
 	}
 
-	sv_hide();
+	//sv_hide();
 	s = g_string_sized_new (MAX_STRING_LENGTH);
 
 	for (i = 0; i < symbol_tree->info.children->len; ++i) {
@@ -731,18 +748,7 @@ sv_populate (gboolean full)
 				    NAME_COLUMN, s->str,
 				    SVFILE_ENTRY_COLUMN, sfile,
 				    -1);
-		if (sv->sinfo && NULL == selected_item[0])
-		{
-			if (0 == strcmp(sv->sinfo->sym_name, sfile->sym_name))
-			{
-				if (0 == strcmp(NVL(sv->sinfo->def.name, "")
-				  , NVL(sfile->def.name, "")))
-				{
-					selected_item[0] = gtk_tree_iter_copy(&iter);
-					selected_item[1] = gtk_tree_iter_copy(&parent_item);
-				}
-			}
-		}
+
 		while (gtk_events_pending())
 			gtk_main_iteration();
 		
@@ -771,19 +777,6 @@ sv_populate (gboolean full)
 						    NAME_COLUMN, s->str,
 						    SVFILE_ENTRY_COLUMN, sfile,
 						    -1);
-				if (sv->sinfo && NULL == selected_item[0])
-				{
-					if (0 == strcmp(sv->sinfo->sym_name, sfile->sym_name))
-					{
-						if (0 == strcmp(NVL(sv->sinfo->def.name, "")
-				  		, NVL(sfile->def.name, "")))
-						{
-							selected_item[0] = gtk_tree_iter_copy(&sub_iter);
-							selected_item[1] = gtk_tree_iter_copy(&sub_iter);
-							selected_item[1] = gtk_tree_iter_copy(&parent_item);
-						}
-					}
-				}
 				while (gtk_events_pending())
 					gtk_main_iteration();
 			}
@@ -792,33 +785,25 @@ sv_populate (gboolean full)
 	g_string_free (s, TRUE);
 	tm_symbol_tree_free (symbol_tree);
 	
-	if (selected_item[0])
+	if (selected_items)
 	{
-		int i;
-		GtkTreeSelection *selection;
-
-		for (i=0; i <3; ++ i)
+		GtkTreePath *path;
+		GtkTreeModel *model;
+		GList *node;
+		node = selected_items;
+		
+		model = gtk_tree_view_get_model (GTK_TREE_VIEW (sv->tree));
+		while (node)
 		{
-			GtkTreePath *path;
-			GtkTreeModel *model;
-			
-			model = gtk_tree_view_get_model (GTK_TREE_VIEW (sv->tree));
-			path = gtk_tree_model_get_path (GTK_TREE_MODEL (model), selected_item[i]);
+			path = gtk_tree_path_new_from_string (node->data);
 			gtk_tree_view_expand_row (GTK_TREE_VIEW (sv->tree), path, FALSE);
 			gtk_tree_path_free (path);
+			node = g_list_next (node);
 		}
-		selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (sv->tree));
-		gtk_tree_selection_select_iter (selection, selected_item[0]);
-		// gtk_ctree_node_moveto((GtkCTree *) sv->tree, selected_item[0], 0, .5, 0);
-		if (selected_item[0])
-			gtk_tree_iter_free (selected_item[0]);
-		if (selected_item[1])
-			gtk_tree_iter_free (selected_item[1]);
-		if (selected_item[2])
-			gtk_tree_iter_free (selected_item[2]);
+		glist_strings_free (selected_items);
 	}
 	
-	sv_show();
+	//sv_show();
 
 clean_leave:
 	sv_connect ();
