@@ -625,6 +625,7 @@ libegg/Makefile
 libegg/util/Makefile
 libegg/treeviewutils/Makefile
 libegg/menu/Makefile
+libegg/recent-files/Makefile
 scintilla/include/Makefile
 anjuta.spec
 libanjuta/Makefile

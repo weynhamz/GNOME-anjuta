@@ -1,9 +1,19 @@
-2004-08-18  Naba Kumar  <naba@gnome.org>
+2004-09-19  Naba Kumar  <naba@gnome.org>
+
+	* (added) libegg/egg-recent-*.c, (added) libegg/recent-files/*,
+	configure.in, libegg/Makefile.am, plugins/file-loader/Makefile.am,
+	plugins/file-loader/anjuta-loader-plugin.ui,
+	plugins/file-loader/plugin.c, plugins/file-loader/plugin.h:
+	Added recent files in file loade plugin.
+	
+	* ChangeLog: Fixed entry dates.
+	
+2004-09-18  Naba Kumar  <naba@gnome.org>
 
 	* plugins/devhelp/plugin.c: Added UI sensitization and removed
 	an unnecessary GtkFrame.
 	
-2004-08-17  Naba Kumar  <naba@gnome.org>
+2004-09-17  Naba Kumar  <naba@gnome.org>
 
 	* mime/anjuta.xml, mime/Makefile.am: Added mime definition xml.
 
@@ -34,7 +44,7 @@
 	* src/layout.xml, plugins/profile-default/plugin.c:
 	Added project manager plugin for startup.
 
-2004-08-16  Naba Kumar  <naba@gnome.org>
+2004-09-16  Naba Kumar  <naba@gnome.org>
 	
 	* anjuta.prj: Updated.
 	
@@ -47,7 +57,7 @@
 	plugins/gtodo/Makefile.am, plugins/project-manager/Makefile.am:
 	Fixed makefile syntax errors.
 
-2004-08-16  Naba Kumar  <naba@gnome.org>
+2004-09-16  Naba Kumar  <naba@gnome.org>
 
 	* configure.in, src/layout.xml,
 	plugins/profile-default/plugin.c,
@@ -71,11 +81,11 @@
 	manuals/reference/libanjuta/tmpl/libanjuta-unused.sgml,
 	manuals/reference/libanjuta/tmpl/properties.sgml: Updated.
     
-2004-08-16  Naba Kumar  <naba@gnome.org>
+2004-09-16  Naba Kumar  <naba@gnome.org>
 
 	* plugins/editor/action-callbacks.c: Fixed compile error.
 	
-2004-08-15  Naba Kumar  <naba@gnome.org>
+2004-09-15  Naba Kumar  <naba@gnome.org>
 
 	* plugins/devhelp/plugin.[c,h]: Fixed a start-up warning.
 	

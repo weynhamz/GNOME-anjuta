@@ -38,6 +38,11 @@ plugin_LTLIBRARIES = libanjuta-loader.la
 # Plugin sources
 libanjuta_loader_la_SOURCES = plugin.c
 
+libanjuta_loader_la_LIBADD = \
+	$(top_builddir)/libanjuta/libanjuta.la \
+	$(top_builddir)/libanjuta/interfaces/libanjuta-interfaces.la \
+	$(top_builddir)/libegg/libanjuta-egg.la
+
 # Plugin dependencies
 
 EXTRA_DIST = \

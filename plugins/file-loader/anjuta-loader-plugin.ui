@@ -5,6 +5,8 @@
 			<placeholder name="PlaceholderFileMenus">
 				<menuitem name="New" action="ActionFileNew" />
 				<menuitem name="Open" action="ActionFileOpen" />
+				<menuitem name="OpenRecent" action="ActionFileOpenRecent" />
+				<separator/>
 			</placeholder>
 		</menu>
 	</menubar>

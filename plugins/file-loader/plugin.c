@@ -26,11 +26,55 @@
 #include <libanjuta/interfaces/ianjuta-wizard.h>
 #include <libanjuta/plugins.h>
 
+#include <libegg/recent-files/egg-recent-view.h>
+#include <libegg/recent-files/egg-recent-view-gtk.h>
+
 #include "plugin.h"
 
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-loader-plugin.ui"
 
 gpointer parent_class;
+
+static void
+open_file (AnjutaFileLoaderPlugin *plugin, const gchar *uri)
+{
+	GnomeVFSURI *vfs_uri;	
+	gchar *dirname;
+	
+	vfs_uri = gnome_vfs_uri_new (uri);
+	dirname = gnome_vfs_uri_extract_dirname (vfs_uri);
+	gnome_vfs_uri_unref (vfs_uri);
+	chdir (dirname);
+	g_free (dirname);
+	
+	if (ianjuta_file_loader_load (IANJUTA_FILE_LOADER (plugin),
+								  uri, FALSE, NULL))
+	{
+		EggRecentItem *recent_item;
+		
+		recent_item = egg_recent_item_new ();
+		egg_recent_item_set_uri (recent_item, uri);
+		egg_recent_item_add_group (recent_item, "anjuta");
+		egg_recent_model_add_full (plugin->recent_files_model, recent_item);
+	}
+}
+
+static gboolean
+on_open_recent_file (EggRecentView *view, EggRecentItem *item,
+					 AnjutaFileLoaderPlugin *plugin)
+{
+	gchar *uri;
+	GnomeVFSURI *vfs_uri;
+	gboolean ret = TRUE;
+
+	uri = egg_recent_item_get_uri (item);
+	vfs_uri = gnome_vfs_uri_new (uri);
+	open_file (plugin, uri);
+	g_free (uri);
+	gnome_vfs_uri_unref (vfs_uri);
+
+	return ret;
+}
 
 static void
 on_open_response_ok (GtkDialog* dialog, gint id,
@@ -55,7 +99,7 @@ on_open_response_ok (GtkDialog* dialog, gint id,
 		uri = g_strdup(g_slist_nth_data(list,i));
 		if (!uri)
 			return;
-		ianjuta_file_loader_load (IANJUTA_FILE_LOADER (plugin), uri, FALSE, NULL);
+		open_file (plugin, uri);
 		g_free (uri);
 	}
 
@@ -64,6 +108,102 @@ on_open_response_ok (GtkDialog* dialog, gint id,
 		g_slist_remove(list, entry_filename);
 		g_free(entry_filename);
 	}
+}
+
+static void
+setup_file_filters (GtkFileChooser *fc)
+{
+	GtkFileFilter *filter;
+	
+	filter = gtk_file_filter_new ();
+	gtk_file_filter_set_name (filter, _("All files"));
+	gtk_file_filter_add_pattern (filter, "*");
+	gtk_file_chooser_add_filter (fc, filter);
+	
+	filter = gtk_file_filter_new ();
+	gtk_file_filter_set_name (filter, _("Anjuta Projects"));
+	gtk_file_filter_add_pattern (filter, "*.anjuta");
+	gtk_file_filter_add_pattern (filter, "*.prj");
+	gtk_file_chooser_add_filter (fc, filter);
+	
+	filter = gtk_file_filter_new ();
+	gtk_file_filter_set_name (filter, _("C/C++ source files"));
+	gtk_file_filter_add_pattern (filter, "*.c");
+	gtk_file_filter_add_pattern (filter, "*.cc");
+	gtk_file_filter_add_pattern (filter, "*.cpp");
+	gtk_file_filter_add_pattern (filter, "*.cxx");
+	gtk_file_filter_add_pattern (filter, "*.c++");
+	gtk_file_filter_add_pattern (filter, "*.h");
+	gtk_file_filter_add_pattern (filter, "*.hh");
+	gtk_file_filter_add_pattern (filter, "*.hpp");
+	gtk_file_chooser_add_filter (fc, filter);
+
+	filter = gtk_file_filter_new ();
+	gtk_file_filter_set_name (filter, _("C# source files"));
+	gtk_file_filter_add_pattern (filter, "*.cs");
+	gtk_file_filter_add_pattern (filter, "*.h");
+	gtk_file_chooser_add_filter (fc, filter);
+
+	filter = gtk_file_filter_new ();
+	gtk_file_filter_set_name (filter, _("Java source files"));
+	gtk_file_filter_add_pattern (filter, "*.java");
+	gtk_file_filter_add_pattern (filter, "*.js");
+	gtk_file_chooser_add_filter (fc, filter);
+
+	filter = gtk_file_filter_new ();
+	gtk_file_filter_set_name (filter, _("Pascal source files"));
+	gtk_file_filter_add_pattern (filter, "*.pas");
+	gtk_file_chooser_add_filter (fc, filter);
+
+	filter = gtk_file_filter_new ();
+	gtk_file_filter_set_name (filter, _("PHP source files"));
+	gtk_file_filter_add_pattern (filter, "*.php");
+	gtk_file_filter_add_pattern (filter, "*.php?");
+	gtk_file_filter_add_pattern (filter, "*.phtml");
+	gtk_file_chooser_add_filter (fc, filter);
+
+	filter = gtk_file_filter_new ();
+	gtk_file_filter_set_name (filter, _("Perl source files"));
+	gtk_file_filter_add_pattern (filter, "*.pl");
+	gtk_file_filter_add_pattern (filter, "*.pm");
+	gtk_file_chooser_add_filter (fc, filter);
+
+	filter = gtk_file_filter_new ();
+	gtk_file_filter_set_name (filter, _("Python source files"));
+	gtk_file_filter_add_pattern (filter, "*.py");
+	gtk_file_chooser_add_filter (fc, filter);
+
+	filter = gtk_file_filter_new ();
+	gtk_file_filter_set_name (filter, _("Hyper text markup files"));
+	gtk_file_filter_add_pattern (filter, "*.htm");
+	gtk_file_filter_add_pattern (filter, "*.html");
+	gtk_file_filter_add_pattern (filter, "*.xhtml");
+	gtk_file_filter_add_pattern (filter, "*.dhtml");
+	gtk_file_filter_add_pattern (filter, "*.cs");
+	gtk_file_chooser_add_filter (fc, filter);
+
+	filter = gtk_file_filter_new ();
+	gtk_file_filter_set_name (filter, _("Shell scripts files"));
+	gtk_file_filter_add_pattern (filter, "*.sh");
+	gtk_file_chooser_add_filter (fc, filter);
+
+	filter = gtk_file_filter_new ();
+	gtk_file_filter_set_name (filter, _("Makefiles"));
+	gtk_file_filter_add_pattern (filter, "Makefile*");
+	gtk_file_filter_add_pattern (filter, "makefile*");
+	gtk_file_chooser_add_filter (fc, filter);
+
+	filter = gtk_file_filter_new ();
+	gtk_file_filter_set_name (filter, _("Lua files"));
+	gtk_file_filter_add_pattern (filter, "*.lua");
+	gtk_file_chooser_add_filter (fc, filter);
+
+	filter = gtk_file_filter_new ();
+	gtk_file_filter_set_name (filter, _("Diff files"));
+	gtk_file_filter_add_pattern (filter, "*.diff");
+	gtk_file_filter_add_pattern (filter, "*.patch");
+	gtk_file_filter_add_pattern (filter, "*.cvsdiff");
+	gtk_file_chooser_add_filter (fc, filter);
 }
 
 static GtkWidget*
@@ -77,6 +217,8 @@ create_file_open_dialog_gui(GtkWindow* parent, AnjutaFileLoaderPlugin* plugin)
 									GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
 									NULL);
 	gtk_file_chooser_set_select_multiple (GTK_FILE_CHOOSER(dialog), TRUE);
+	setup_file_filters (GTK_FILE_CHOOSER (dialog));
+	
 	g_signal_connect(G_OBJECT(dialog), "response", 
 					G_CALLBACK(on_open_response_ok), plugin);
 	g_signal_connect_swapped (GTK_OBJECT (dialog), 
@@ -122,12 +264,28 @@ on_new_activate (GtkAction *action, AnjutaFileLoaderPlugin *loader)
 	g_slist_free (plugin_descs);
 }
 
+static void
+on_recent_files_tooltip (GtkTooltips *tooltips, GtkWidget *menu_item,
+						 EggRecentItem *item, gpointer user_data)
+{
+	char *uri, *tip;
+
+	uri = egg_recent_item_get_uri_for_display (item);
+	tip = g_strdup_printf ("Open '%s'", uri);
+
+	gtk_tooltips_set_tip (tooltips, menu_item, tip, NULL);
+
+	g_free (uri);
+}
+
 static GtkActionEntry actions_file[] = {
   { "ActionFileNew", GTK_STOCK_NEW, N_("_New ..."), "<control>n",
 	N_("New file, project and project components."),
     G_CALLBACK (on_new_activate)},
   { "ActionFileOpen", GTK_STOCK_OPEN, N_("_Open ..."), "<control>o",
 	N_("Open file"), G_CALLBACK (on_open_activate)},
+  { "ActionFileOpenRecent", GTK_STOCK_OPEN, N_("Open _Recent"), NULL,
+	N_("Open recent file"), NULL},
 };
 
 static gboolean
@@ -135,6 +293,8 @@ activate_plugin (AnjutaPlugin *plugin)
 {
 	AnjutaUI *ui;
 	AnjutaFileLoaderPlugin *loader_plugin;
+	GtkWidget *recent_menu;
+	EggRecentViewGtk *recent_view;
 	
 	loader_plugin = (AnjutaFileLoaderPlugin*)plugin;
 	
@@ -148,6 +308,27 @@ activate_plugin (AnjutaPlugin *plugin)
 											G_N_ELEMENTS (actions_file),
 											plugin);
 	loader_plugin->uiid = anjuta_ui_merge (ui, UI_FILE);
+	
+	/* create Recent files menu */
+	recent_menu =
+		gtk_ui_manager_get_widget (GTK_UI_MANAGER(ui),
+								  "/MenuMain/MenuFile/PlaceholderFileMenus/OpenRecent");
+	if (recent_menu)
+	{
+		GtkWidget *submenu;
+		submenu = gtk_menu_new ();
+		gtk_widget_show (submenu);
+		gtk_menu_item_set_submenu (GTK_MENU_ITEM (recent_menu), submenu);
+		recent_view = egg_recent_view_gtk_new (submenu, NULL);
+		egg_recent_view_gtk_set_tooltip_func (recent_view,
+											  on_recent_files_tooltip, NULL);
+		egg_recent_view_set_model (EGG_RECENT_VIEW (recent_view),
+								   loader_plugin->recent_files_model);
+		g_signal_connect (G_OBJECT (recent_view), "activate",
+						  G_CALLBACK (on_open_recent_file), plugin);
+	}
+	else
+		g_warning ("Cannot retrive recent files submenu widget");
 	return TRUE;
 }
 
@@ -169,11 +350,18 @@ deactivate_plugin (AnjutaPlugin *plugin)
 static void
 dispose (GObject *obj)
 {
+	AnjutaFileLoaderPlugin *plugin = (AnjutaFileLoaderPlugin*)obj;
+	g_object_unref (plugin->recent_files_model);
 }
 
 static void
 anjuta_file_loader_plugin_instance_init (GObject *obj)
 {
+	AnjutaFileLoaderPlugin *plugin = (AnjutaFileLoaderPlugin*)obj;
+	
+	plugin->recent_files_model = egg_recent_model_new (EGG_RECENT_MODEL_SORT_MRU);
+	egg_recent_model_set_limit (plugin->recent_files_model, 15);
+	egg_recent_model_set_filter_groups (plugin->recent_files_model, "anjuta", NULL);
 }
 
 static void

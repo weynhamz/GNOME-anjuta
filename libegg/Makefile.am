@@ -13,7 +13,8 @@ INCLUDES = \
 	-I$(top_builddir)/libegg \
 	-I$(top_builddir)/libegg/menu \
 	-I$(top_builddir)/libegg/treeviewutils \
-	-I$(top_builddir)/libegg/util
+	-I$(top_builddir)/libegg/util \
+	-I$(top_builddir)/libegg/recent-files
 
 lib_LTLIBRARIES = libanjuta-egg.la
 
@@ -38,7 +39,13 @@ libanjuta_egg_la_SOURCES = \
 	eggtreemodelfilter.c \
 	eggtreemodelunion.c \
 	eggtreemultidnd.c \
-	eggtreeviewstate.c
+	eggtreeviewstate.c \
+	egg-recent-files-module.c \
+	egg-recent-model.c \
+	egg-recent-view-gtk.c \
+	egg-recent-item.c \
+	egg-recent-util.c \
+	egg-recent-view.c
 
 noinst_PROGRAMS = \
 	test-tree-utils \
