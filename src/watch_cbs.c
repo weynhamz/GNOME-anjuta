@@ -30,6 +30,8 @@ extern gchar *expr_watch_entry_history;
 static void
 add_watch_entry( GtkEntry *ent );
 
+static void
+change_watch_entry( GtkEntry *ent );
 
 gint on_watch_delete_event (GtkWidget * w, GdkEvent * event, gpointer data)
 {
@@ -43,8 +45,10 @@ on_watch_event (GtkWidget * widget, GdkEvent * event, gpointer user_data)
 {
   GdkEventButton *bevent;
   ExprWatch *ew = user_data;
+
   if (event->type != GDK_BUTTON_PRESS)
     return FALSE;
+  
   if (((GdkEventButton *) event)->button != 3)
     return FALSE;
   bevent = (GdkEventButton *) event;
@@ -63,6 +67,14 @@ on_watch_clist_select_row (GtkCList * clist,
   ExprWatch *ew;
   ew = debugger.watch;
   ew->current_index = row;
+	
+  /* Attempt for double-click to work as expected... */
+  if ((event->type == GDK_2BUTTON_PRESS) && (((GdkEventButton *) event)->button == 1)) {
+	if ((g_list_length (ew->exprs) < 1) || (ew->current_index < 0))
+	    on_watch_add_activate(NULL, NULL);
+	else
+	    on_watch_change_activate(NULL, NULL);
+  }
 }
 
 void
@@ -112,6 +124,21 @@ on_watch_toggle_activate (GtkMenuItem * menuitem, gpointer user_data)
 }
 
 void
+on_watch_change_activate (GtkMenuItem * menuitem, gpointer user_data)
+{
+  GtkWidget *dialog;
+	
+  printf("In on_watch_change_activate...\n");
+  if (g_list_length (debugger.watch->exprs) < 1)
+    return;
+  expr_watch_entry_history = 
+		g_list_nth_data (debugger.watch->exprs,
+										 debugger.watch->current_index);
+  dialog = create_watch_change_dialog();
+  gtk_widget_show (dialog);
+}
+
+void
 on_watch_update_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
   expr_watch_cmd_queqe (debugger.watch);
@@ -137,6 +164,69 @@ on_ew_entry_activate (GtkWidget *wid, gpointer user_data)
   gtk_widget_destroy(GTK_WIDGET(user_data));
 }
 
+void
+on_ew_entry_change_activate (GtkWidget *wid, gpointer user_data)
+{
+  on_ew_change_ok_clicked (NULL, wid);
+  gtk_widget_destroy(GTK_WIDGET(user_data));
+}
+void
+on_ew_change_help_clicked (GtkButton *wid, gpointer user_data)
+{
+	
+}
+
+void
+on_ew_change_ok_clicked (GtkButton *wid, gpointer user_data)
+{
+	change_watch_entry( (GtkEntry *) user_data );
+}
+
+static void 
+change_watch_entry(GtkEntry *ent)
+{
+  gchar *row[2], *exp;
+//	gchar *buff;
+  gint index;		//To forcefully get the index stuff right.
+	
+  if (GTK_IS_ENTRY(ent)==FALSE)
+		return;
+  if (g_list_length (debugger.watch->exprs) < 1) 
+		return;
+	row[0] = gtk_entry_get_text (ent);	
+  if (strlen (row[0]) == 0)
+		return;
+
+	if (expr_watch_entry_history)
+    g_free (expr_watch_entry_history);
+	expr_watch_entry_history = g_strdup (row[0]);		
+	
+  index = debugger.watch->current_index;
+	
+//internal debugger-list stuff:
+	exp = g_list_nth_data(debugger.watch->exprs, index);
+  debugger.watch->exprs = g_list_remove(debugger.watch->exprs,
+																				exp);
+	debugger.watch->exprs = g_list_insert(debugger.watch->exprs,
+																				g_strdup (row[0]),
+																				index);
+
+//Visible watch-list stuff:
+	row[1] = g_strdup ("");
+  gtk_clist_remove(GTK_CLIST (debugger.watch->widgets.clist),
+									 index);
+	gtk_clist_insert(GTK_CLIST (debugger.watch->widgets.clist), 
+									 index,
+									 row);
+//Make watch-screen update:
+/*  buff = g_strconcat ("print ", row[0], NULL);
+  debugger_put_cmd_in_queqe (buff, DB_CMD_NONE, expr_watch_update,
+														 debugger.watch);
+  g_free (buff);	*/
+	expr_watch_cmd_queqe (debugger.watch);
+  g_free (row[1]);
+  debugger_execute_cmd_in_queqe ();
+}
 
 static void
 add_watch_entry( GtkEntry *ent )

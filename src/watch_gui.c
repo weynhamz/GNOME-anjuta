@@ -62,6 +62,12 @@ static GnomeUIInfo watch_menu_uiinfo[] = {
    on_watch_toggle_activate, NULL, NULL,
    GNOME_APP_PIXMAP_NONE, NULL,
    0, 0, NULL},
+  {
+   GNOME_APP_UI_ITEM, N_("Change item"),
+   NULL,
+   on_watch_change_activate, NULL, NULL,
+   GNOME_APP_PIXMAP_NONE, NULL,
+   0, 0, NULL},
   GNOMEUIINFO_SEPARATOR,
   {
    GNOME_APP_UI_ITEM, N_("Help"),
@@ -146,6 +152,7 @@ create_expr_watch_gui (ExprWatch * ew)
   ew->widgets.menu_update = watch_menu_uiinfo[2].widget;
   ew->widgets.menu_clear = watch_menu_uiinfo[3].widget;
   ew->widgets.menu_toggle = watch_menu_uiinfo[4].widget;
+  ew->widgets.menu_change = watch_menu_uiinfo[5].widget;
 
   gtk_widget_ref (ew->widgets.window);
   gtk_widget_ref (ew->widgets.clist);
@@ -154,6 +161,7 @@ create_expr_watch_gui (ExprWatch * ew)
   gtk_widget_ref (ew->widgets.menu_clear);
   gtk_widget_ref (ew->widgets.menu_update);
   gtk_widget_ref (ew->widgets.menu_toggle);
+  gtk_widget_ref (ew->widgets.menu_change);
   gtk_widget_ref (ew->widgets.menu);
 }
 
@@ -216,6 +224,70 @@ create_watch_add_dialog ()
 		      GTK_SIGNAL_FUNC (on_ew_add_ok_clicked), entry7);
   gtk_signal_connect (GTK_OBJECT (entry7), "activate",
 		      GTK_SIGNAL_FUNC (on_ew_entry_activate), dialog3);
+
+  gtk_widget_grab_focus(entry7);
+  return dialog3;
+}
+
+GtkWidget *
+create_watch_change_dialog ()
+{
+  GtkWidget *dialog3;
+  GtkWidget *dialog_vbox3;
+  GtkWidget *label15;
+  GtkWidget *entry7;
+  GtkWidget *dialog_action_area3;
+  GtkWidget *button18;
+  GtkWidget *button19;
+  GtkWidget *button20;
+
+  dialog3 = gnome_dialog_new (_("Modify Watch Expression"), NULL);
+  gtk_window_set_position (GTK_WINDOW (dialog3), GTK_WIN_POS_MOUSE);
+  gtk_window_set_policy (GTK_WINDOW (dialog3), FALSE, FALSE, FALSE);
+  gtk_window_set_wmclass (GTK_WINDOW (dialog3), "watch_add", "Anjuta");
+  gnome_dialog_set_close (GNOME_DIALOG (dialog3), TRUE);
+
+  dialog_vbox3 = GNOME_DIALOG (dialog3)->vbox;
+  gtk_widget_show (dialog_vbox3);
+
+  label15 = gtk_label_new (_("Modify watched expression"));
+  gtk_widget_show (label15);
+  gtk_box_pack_start (GTK_BOX (dialog_vbox3), label15, FALSE, FALSE, 0);
+
+  entry7 = gtk_entry_new ();
+  entry_set_text_n_select (entry7, expr_watch_entry_history, TRUE);
+  gtk_widget_show (entry7);
+  gtk_box_pack_start (GTK_BOX (dialog_vbox3), entry7, FALSE, FALSE, 0);
+
+  dialog_action_area3 = GNOME_DIALOG (dialog3)->action_area;
+  gtk_widget_show (dialog_action_area3);
+  gtk_button_box_set_layout (GTK_BUTTON_BOX (dialog_action_area3),
+			     GTK_BUTTONBOX_END);
+  gtk_button_box_set_spacing (GTK_BUTTON_BOX (dialog_action_area3), 8);
+
+  gnome_dialog_append_button (GNOME_DIALOG (dialog3),
+			      GNOME_STOCK_BUTTON_HELP);
+  button18 = g_list_last (GNOME_DIALOG (dialog3)->buttons)->data;
+  gtk_widget_show (button18);
+  GTK_WIDGET_SET_FLAGS (button18, GTK_CAN_DEFAULT);
+
+  gnome_dialog_append_button (GNOME_DIALOG (dialog3), GNOME_STOCK_BUTTON_CANCEL);
+  button19 = g_list_last (GNOME_DIALOG (dialog3)->buttons)->data;
+  gtk_widget_show (button19);
+  GTK_WIDGET_SET_FLAGS (button19, GTK_CAN_DEFAULT);
+
+  gnome_dialog_append_button (GNOME_DIALOG (dialog3),
+			      GNOME_STOCK_BUTTON_OK);
+  button20 = g_list_last (GNOME_DIALOG (dialog3)->buttons)->data;
+  gtk_widget_show (button20);
+  GTK_WIDGET_SET_FLAGS (button20, GTK_CAN_DEFAULT);
+
+  gtk_signal_connect (GTK_OBJECT (button18), "clicked",
+		      GTK_SIGNAL_FUNC (on_ew_change_help_clicked), NULL);
+  gtk_signal_connect (GTK_OBJECT (button20), "clicked",
+		      GTK_SIGNAL_FUNC (on_ew_change_ok_clicked), entry7);
+  gtk_signal_connect (GTK_OBJECT (entry7), "activate",
+		      GTK_SIGNAL_FUNC (on_ew_entry_change_activate), dialog3);
 
   gtk_widget_grab_focus(entry7);
   return dialog3;

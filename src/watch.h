@@ -35,6 +35,7 @@ struct _ExprWatchGui
     GtkWidget*   menu_clear;
     GtkWidget*   menu_update;
     GtkWidget*   menu_toggle;
+    GtkWidget*   menu_change;
     GtkWidget*   menu;
 };
 
@@ -60,6 +61,9 @@ create_expr_watch_gui(ExprWatch* ew);
 
 GtkWidget*
 create_watch_add_dialog(void);
+
+GtkWidget*
+create_watch_change_dialog(void);
 
 GtkWidget*
 create_eval_dialog(void);

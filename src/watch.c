@@ -141,6 +141,7 @@ expr_watch_update_controls (ExprWatch * ew)
   gtk_widget_set_sensitive (ew->widgets.menu_remove, A && R && C && S);
   gtk_widget_set_sensitive (ew->widgets.menu_clear, A && R && C);
   gtk_widget_set_sensitive (ew->widgets.menu_toggle, FALSE);
+  gtk_widget_set_sensitive (ew->widgets.menu_change, A && R && C && S);
 }
 
 void

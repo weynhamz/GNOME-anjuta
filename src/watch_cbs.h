@@ -56,6 +56,10 @@ on_watch_toggle_activate               (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
 										
 void
+on_watch_change_activate               (GtkMenuItem     *menuitem,
+                                        gpointer         user_data);
+
+void
 on_watch_help_activate                 (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
 
@@ -74,8 +78,21 @@ on_ew_add_ok_clicked                   (GtkButton       *button,
                                         gpointer         user_data);
 
 void
-on_ew_entry_activate               (GtkWidget  *button,
+on_ew_entry_activate                   (GtkWidget  *button,
                                         gpointer         user_data);
+
+void
+on_ew_change_help_clicked              (GtkButton       *button,
+                                        gpointer         user_data);
+
+void
+on_ew_change_ok_clicked                (GtkButton       *button,
+                                        gpointer         user_data);
+
+void
+on_ew_entry_change_activate            (GtkWidget *button,
+                                        gpointer user_data);
+
 /********************************************************************************/
 void
 on_eval_help_clicked                   (GtkButton       *button,
@@ -87,9 +104,10 @@ on_eval_ok_clicked                     (GtkButton       *button,
 
 void
 on_eval_entry_activate                 (GtkWidget   *button,		
-										gpointer         user_data);
-										
+					gpointer         user_data);
+
 void
-on_eval_add_watch(GtkButton * button, gpointer user_data);
+on_eval_add_watch		       (GtkButton * button,
+                                        gpointer user_data);
 
 /********************************************************************************/

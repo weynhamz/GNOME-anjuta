@@ -1,5 +1,15 @@
 2002-03-27 Naba Kumar <kh_naba@users.sourceforge.net>
 
+	* src/watch.c, src/watch.h, src/watch_cbs.c,
+	  src/watch_cbs.h, src/watch_gui.c:
+	
+	  Patch from Jeroen van der Vegt <A.J.vanderVegt@ITS.TUDelft.nl>
+	
+	  Added change watch entries feature
+	  and Watch entries modify on double click fixed.
+
+2002-03-27 Naba Kumar <kh_naba@users.sourceforge.net>
+
 	* src/mainmenu_callbacks.c:
 	
 	  Project commit should not bypass dialog as
