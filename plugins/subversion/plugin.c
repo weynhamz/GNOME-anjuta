@@ -140,14 +140,19 @@ value_added_fm_current_uri (AnjutaPlugin *plugin, const char *name,
 	{
 		if (info.type == GNOME_VFS_FILE_TYPE_DIRECTORY)
 		{
-			subversion_dir = g_strconcat(uri, "/Subversion", NULL);
+			/* Is "Subversion" a valid svn directory in a local checkout,
+			 * If yes, we should check for both .svn and Subversion.
+			 */
+			/* subversion_dir = g_build_filename (uri, "Subversion", NULL); */
+			subversion_dir = g_build_filename (uri, ".svn", NULL);
 		}
 		
 		else
 		{
 			subversion_uri = gnome_vfs_uri_new (uri);
 			subversion_text_uri = gnome_vfs_uri_extract_dirname(subversion_uri);
-			subversion_dir = g_strconcat(subversion_text_uri, "/Subversion", NULL);
+			/* subversion_dir = g_strconcat(subversion_text_uri, "/Subversion", NULL); */
+			subversion_dir = g_build_filename(subversion_text_uri, ".svn", NULL);
 			g_free(subversion_text_uri);
 			gnome_vfs_uri_unref(subversion_uri);
 		}	

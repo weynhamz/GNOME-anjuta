@@ -1,5 +1,9 @@
 2005-03-07  Naba Kumar  <naba@gnome.org>
 
+	* plugins/subvesion/plugin.c: Detect ".svn" directory to enable
+	or disable subversion file-manager submenu. If "Subvesion" is also
+	valid directory, we should also check for it.
+
 	* configure.in: Disable cygwin macro until someone fixes the
 	autoconf warnings.
 	
