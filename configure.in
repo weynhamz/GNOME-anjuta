@@ -528,6 +528,11 @@ tagmanager/include/Makefile
 global-tags/Makefile
 scintilla/Makefile
 gdl/Makefile
+libegg/Makefile
+libegg/util/Makefile
+libegg/treeviewutils/Makefile
+libegg/toolbar/Makefile
+libegg/menu/Makefile
 widgets/Makefile
 printing/Makefile
 scintilla/include/Makefile

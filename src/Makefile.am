@@ -1,7 +1,5 @@
 ## Process this file with automake to produce Makefile.in
 
-LIBEGG_PATH = /home/gnome/gnome2/cvs/libegg
-
 INCLUDES = \
 	$(ANJUTA_CFLAGS)\
 	$(PCRE_CFLAGS)\
@@ -246,10 +244,14 @@ anjuta_LDADD =  \
 	$(top_builddir)/widgets/libwidgets.a\
 	$(top_builddir)/gdl/libgdl.a\
 	$(top_builddir)/printing/libanjutaprint.a\
+	$(top_builddir)/libegg/util/libeggutil.a\
+	$(top_builddir)/libegg/treeviewutils/libegg-treeview.a\
+	$(top_builddir)/libegg/toolbar/libegg-toolbar.a\
+	$(top_builddir)/libegg/menu/libegg-menu.a\
 	$(LEXER_OBJS)
 
-anjuta_DEPENDENCIES =
-	$(LIBEGG_PATH)/libegg/menu/libegg-menu.la \
-	$(LIBEGG_PATH)/libegg/treeviewutils/libegg-treeview.la
+# anjuta_DEPENDENCIES =
+#	$(top_builddir)/libegg/menu/libegg-menu.a \
+#	$(top_builddir)/libegg/treeviewutils/libegg-treeview.a
 
 EXTRA_DIST = anjuta-marshalers.list

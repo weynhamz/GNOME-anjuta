@@ -3,6 +3,9 @@
 	* Merged changes from cvs branch ANJUTA_1_2_0 (tag: MERGE_LEVEL_2)
 	
 	* manuals/de/*: Added german translation docs.
+	
+	* configure.in, Makefile.am, src/Makefile.am,
+	libegg/*/*: Added libegg library.
 
 2003-09-14  Hasbullah Bin Pit <sebol@ikhlas.com>
                                                                                 

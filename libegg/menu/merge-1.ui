@@ -1,0 +1,23 @@
+<!--*- xml -*-->
+<Root>
+  <menu>
+    <submenu name="FileMenu" verb="StockFileMenuAction">
+      <menuitem name="Open" verb="OpenAction" />
+    </submenu>
+    <submenu name="EditMenu" verb="StockEditMenuAction">
+      <menuitem name="Cut" verb="CutAction" />
+    </submenu>
+    <placeholder name="TestPlaceholder" />
+  </menu>
+  <dockitem name="toolbar1">
+    <placeholder name="ToolbarPlaceholder" />
+    <toolitem name="LineEntry3" verb="ActionCombo" />
+    <toolitem name="NewButton" verb="NewAction" />
+    <toolitem name="CutButton" verb="CutAction" />
+    <toolitem name="CopyButton" verb="CopyAction" />
+    <toolitem name="PasteButton" verb="PasteAction" />
+    <toolitem name="LineEntry1" verb="ActionEntry" />
+    <toolitem name="LineEntry2" verb="ActionEntry" />
+    <placeholder name="JustifyToolItems"/>
+  </dockitem>
+</Root>

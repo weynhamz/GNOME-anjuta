@@ -3,7 +3,7 @@
 @INTLTOOL_DESKTOP_RULE@
 
 SUBDIRS = po tagmanager global-tags scintilla \
-	gdl widgets printing pixmaps scripts data \
+	gdl widgets libegg printing pixmaps scripts data \
 	doc launcher plugins src manuals
 
 anjutadocdir = ${prefix}/@NO_PREFIX_PACKAGE_DOC_DIR@
