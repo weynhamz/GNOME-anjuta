@@ -71,6 +71,7 @@ void cvs_login (CVS * cvs, ServerType type, gchar* server,
 
 void cvs_set_editor_destroyed (CVS* cvs);
 
+void cvs_apply_preferences(CVS *cvs, PropsID p);
 gboolean cvs_save_yourself (CVS * cvs, FILE * stream);
 
 #endif

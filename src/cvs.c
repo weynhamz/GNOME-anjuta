@@ -77,15 +77,22 @@ cvs_new (PropsID p)
 {
 	CVS *cvs = g_new0 (CVS, 1);
 	
-	cvs->force_update = prop_get_int (p, "cvs.update.force", 0);
+	cvs_apply_preferences(cvs, p);
+	
+	cvs->editor_destroyed = FALSE;
+	
+	return cvs;
+}
+
+void
+cvs_apply_preferences(CVS *cvs, PropsID p)
+{
+	g_return_if_fail (cvs != NULL);
+	cvs->force_update = prop_get_int (p, "cvs.update.force", 1);
 	cvs->unified_diff = prop_get_int (p, "cvs.diff.unified", 1);
 	cvs->context_diff = prop_get_int (p, "cvs.diff.context", 0);
 	cvs->use_date_diff = prop_get_int (p, "cvs.diff.usedate", 0);
 	cvs->compression = prop_get_int (p, "cvs.compression", 3);
-
-	cvs->editor_destroyed = FALSE;
-	
-	return cvs;
 }
 
 void cvs_set_editor_destroyed (CVS* cvs)

@@ -1247,6 +1247,7 @@ anjuta_apply_preferences (void)
 					    (app->widgets.notebook), TRUE);
 	}
 	anjuta_message_manager_update(app->messages);
+	cvs_apply_preferences(app->cvs, pr->props);
 	for (i = 0; i < g_list_length (app->text_editor_list); i++)
 	{
 		te =	(TextEditor*) (g_list_nth (app->text_editor_list, i)->data);

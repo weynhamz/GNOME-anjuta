@@ -3,6 +3,11 @@
 	* src/controls.c: CVS menu items now becomes
 	insensitive when the launcher is busy.
 	
+	* src/anjuta.c, cvs.h, cvs.c: Created a function
+	to update the cvs preferences when preferences are
+	applied in preferences dialog and called it from
+	anjuta_update_preferences().
+	
 2002-04-19 Naba Kumar <kh_naba@users.sourceforge.net>
 
 	* src/cvs.c: Added a space in the cvs command
