@@ -1,3 +1,10 @@
+2003-01-30  Naba Kumar <naba@gnome.org>
+
+	* (new) src/about.[c,h], pixmaps/anjuta_logo1.png: Added new files
+	for about dialog box.
+	
+	* src/Makefile.am, pixmaps/Makefile.am: Modified for the above additions.
+
 2003-01-29  Naba Kumar <naba@gnome.org>
 
 	* src/style_editor.[c,h]: Added missing files.

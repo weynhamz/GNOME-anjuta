@@ -56,7 +56,7 @@
 #include "cvs_gui.h"
 #include "Scintilla.h"
 #include "ScintillaWidget.h"
-#include "e-shell-about-box.h"
+#include "about.h"
 
 #include "tm_tagmanager.h"
 #include "file_history.h"
@@ -2096,35 +2096,8 @@ about_box_event_callback (GtkWidget *widget,
 void
 on_about1_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
-        static GtkWidget *about_box_window = NULL;
-        GtkWidget *about_box;
-
-        if (about_box_window != NULL) {
-                gdk_window_raise (about_box_window->window);
-                return;
-        }
-
-        about_box = e_shell_about_box_new ();
-        gtk_widget_show (about_box);
-
-        about_box_window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-		gtk_window_set_transient_for(GTK_WINDOW(about_box_window),
-									 GTK_WINDOW(app->widgets.window));
-		gnome_window_icon_set_from_default((GtkWindow *) about_box_window);
-        gtk_window_set_policy (GTK_WINDOW (about_box_window),
-							   FALSE, FALSE, FALSE);
-        gtk_signal_connect (GTK_OBJECT (about_box_window),
-							"button_press_event",
-                            GTK_SIGNAL_FUNC (about_box_event_callback),
-							&about_box_window);
-        gtk_signal_connect (GTK_OBJECT (about_box_window), "delete_event",
-                            GTK_SIGNAL_FUNC (about_box_event_callback),
-							&about_box_window);
-
-        gtk_window_set_title (GTK_WINDOW (about_box_window),
-							  _("About Anjuta"));
-        gtk_container_add (GTK_CONTAINER (about_box_window), about_box);
-        gtk_widget_show (about_box_window);
+	GtkWidget *about_dlg = about_box_new ();
+	gtk_widget_show (about_dlg);
 }
 
 void

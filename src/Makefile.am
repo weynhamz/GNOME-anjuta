@@ -40,6 +40,7 @@ SCILEXERS =\
 bin_PROGRAMS = anjuta
 
 anjuta_SOURCES = \
+	about.c\
 	an_file_view.c\
 	an_file_view.h\
 	an_symbol_view.c\

@@ -29,7 +29,7 @@
 #define _PIXMAPS_H_
 
 /* the main app artwork */
-#define ANJUTA_PIXMAP_LOGO                "anjuta_logo.png"
+#define ANJUTA_PIXMAP_LOGO                "anjuta_logo1.png"
 #define ANJUTA_PIXMAP_ICON                "anjuta_icon.png"
 #define ANJUTA_PIXMAP_SPLASH_SCREEN       "anjuta_splash.png"
 
