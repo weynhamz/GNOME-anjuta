@@ -317,9 +317,9 @@ TerminalWindow::TerminalWindow(AnjutaMessageManager* p_amm, int p_type_id, strin
 	: MessageSubwindow(p_amm, p_type_id, p_type, p_pixmap)
 {	
 	g_return_if_fail(p_amm != NULL);
-	
+  
 	/* A quick hack so that we get a beautiful color terminal */
-    putenv("TERM=xterm");
+  putenv("TERM=xterm");
 	
 	m_terminal = zvt_term_new();
 	zvt_term_set_font_name(ZVT_TERM(m_terminal), ZVT_FONT);
@@ -393,10 +393,51 @@ void TerminalWindow::hide()
 	}
 }
 
+//#define ZVT_DBG
+#ifdef ZVT_DBG
+  #define DEBUG g_message
+#else
+  #define DEBUG(ARGS...)
+#endif
+
+void mouse_to_char(ZvtTerm *term, int mousex, int mousey, int *x, int *y)
+{
+	*x = mousex/term->charwidth;
+	*y = mousey/term->charheight;
+}
+
+extern "C" void anjuta_goto_file_line (gchar * fname, glong lineno);
+
 gboolean TerminalWindow::zvterm_mouse_clicked(GtkWidget* widget, GdkEvent* event, gpointer user_data)
 {
+  int x,y;
+  gchar *line = NULL;
+  gchar *filename;
+  gchar *procpath;
+  int lineno;
 	GtkWidget* terminal = GTK_WIDGET(user_data);
+  ZvtTerm *term = ZVT_TERM(terminal);
 	gtk_widget_grab_focus(terminal);
+  // double left button click
+  if (event->type == GDK_2BUTTON_PRESS && event->button.button==1)
+  {
+    mouse_to_char(term, (int)event->button.x, (int)event->button.y, &x, &y);
+    DEBUG("coord: %d %d, scrollbackoffset: %d", x, y, term->vx->vt.scrollbackoffset);
+    line = zvt_term_get_buffer(term, NULL, VT_SELTYPE_LINE, 0, y+term->vx->vt.scrollbackoffset, 0, y+term->vx->vt.scrollbackoffset);
+    DEBUG("got line: '%s'", line);
+    filename = NULL;
+    if (parse_error_line(line, &filename, &lineno))
+    {
+      DEBUG("parse_error_line: '%s' %d", filename, lineno);
+      // look for the file in the cwd
+      procpath = g_strdup_printf("/proc/%d/cwd/%s", term->vx->vt.childpid, filename);
+      DEBUG("full linked path: %s", procpath);
+      anjuta_goto_file_line (procpath, lineno);
+      g_free(procpath);
+      g_free(filename);
+    }
+    g_free(line);
+  }
 	return TRUE;
 }
 
@@ -407,13 +448,15 @@ void TerminalWindow::zvterm_reinit_child(ZvtTerm* term)
 	struct passwd *pw;
 	static GString *shell = NULL;
 	static GString *name = NULL;
+  int pid;
 
 	if (!shell)
 		shell = g_string_new(NULL);
 	if (!name)
 		name = g_string_new(NULL);
 	zvt_term_reset(term, TRUE);
-	switch (zvt_term_forkpty(term, ZVT_TERM_DO_UTMP_LOG |  ZVT_TERM_DO_WTMP_LOG))
+	pid = zvt_term_forkpty(term, ZVT_TERM_DO_UTMP_LOG |  ZVT_TERM_DO_WTMP_LOG);
+  switch (pid)
 	{
 		case -1:
 			break;
@@ -431,6 +474,7 @@ void TerminalWindow::zvterm_reinit_child(ZvtTerm* term)
 			}
 			execle (shell->str, name->str, NULL, environ);
 		default:
+      DEBUG("zvt terminal shell pid: %d\n", pid);
 			break;
 	}
 }

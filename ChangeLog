@@ -1,3 +1,19 @@
+2002-04-11 Naba Kumar <kh_naba@users.sourceforge.net>
+
+	Patch from: Tina Hirsch <tehirsch@arcor.de>
+	
+	* src/project_type.c:
+	Fixed a bug in the wxproject type and modified the erroroutput when
+	configure doesn't find wx-config
+	
+	Patch from: Timothee Besset <ttimo@idsoftware.com>
+	
+	* src/anjuta.c, src/message-manager-private.cc,
+	  src/message-manager-private.h
+	Catches double clicks in the zvt terminal, and calls goto_error_line
+	to jump to the appropriate location in the source. This will recognize
+	grep -n output
+	
 2002-04-10 Naba Kumar <kh_naba@users.sourceforge.net>
 	
 	* src/build_project.c: Taken care of memory leak
