@@ -33,7 +33,7 @@
 #include <pwd.h>
 #include <sys/types.h>
 #include <libgnomeui/gnome-window-icon.h>
-#include <gdl/gdl-icons.h>
+#include <libegg/gdl-icons.h>
 
 enum
 {

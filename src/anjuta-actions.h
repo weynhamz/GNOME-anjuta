@@ -49,6 +49,10 @@ static EggActionGroupEntry menu_entries_settings[] = {
 	NULL, NULL,
 	N_("Customize shortcuts associated with menu items"),
     G_CALLBACK (on_customize_shortcuts_activate), NULL},
+  { "ActionSettingsLayout", N_("Layout manager"),
+	NULL, NULL,
+	N_("Manipulate layout manager items"),
+    G_CALLBACK (on_layout_manager_activate), NULL},
 };
 
 static EggActionGroupEntry menu_entries_help[] = {

@@ -86,7 +86,11 @@ libanjuta_egg_la_SOURCES = \
 	egg-dock-tablabel.c \
 	egg-dock-layout.c \
 	egg-dock-placeholder.c \
-	libeggdocktypebuiltins.c
+	libeggdocktypebuiltins.c \
+	gdl-icons.c \
+	gdl-i18n.c
+
+noinst_HEADERS = gdl-icons.h gdl-i18n.h
 
 noinst_PROGRAMS = \
 	test-actions \

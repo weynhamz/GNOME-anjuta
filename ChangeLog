@@ -1,3 +1,15 @@
+2004-02-13  Naba Kumar  <naba@gnome.org>
+
+	* src/anjuta.ui, src/actions.h, src/actions-callbacks.h,
+	src/actions-callbacks.c: Added Dock Manager settings menu item.
+
+	* configure.in, plugins/Makefile.am: Disabled devhelp creation.
+	* plugins/devhelp/plugin.c: Fixed a linking bug.
+	
+	* configure.in, (added) libegg/gdl-*, libegg/Makefile.am,
+	libanjuta/gnomefilelist.c, src/anjuta-app.c, src/anjuta-app.h: Removed
+	external GDL dependency and used libegg codes.
+	
 2004-02-12  Naba Kumar  <naba@gnome.org>
 
 	* configure.in, plugins/Makefile.am, plugins/devhelp/*:

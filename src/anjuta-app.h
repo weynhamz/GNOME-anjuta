@@ -22,12 +22,12 @@
 #include <gmodule.h>
 
 #include <glade/glade.h>
-#include <gdl/gdl-icons.h>
-#include <gdl/gdl-dock-layout.h>
+// #include <gdl/gdl-icons.h>
+#include <libegg/dock/egg-dock-layout.h>
+#include <libanjuta/anjuta-ui.h>
 
 #include "toolbar.h"
 #include "preferences.h"
-#include <libanjuta/anjuta-ui.h>
 
 #define g_strdup_printfs2(_FORMAT_, _STR_) \
 	{ \
@@ -57,14 +57,14 @@ struct _AnjutaApp
 	GnomeApp parent;
 	
 	GtkWidget *dock;
- 	GdlDockLayout *layout_manager;
+ 	EggDockLayout *layout_manager;
 
 	GHashTable *values;
 	GHashTable *widgets;
 
 	GtkWidget *appbar;
 	
-	GdlIcons *icon_set;
+// GdlIcons *icon_set;
 	
 	GtkAccelGroup *accel_group;
 	AnjutaUI *ui;

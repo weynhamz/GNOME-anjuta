@@ -32,7 +32,7 @@
 #include <glade/glade.h>
 #include <libegg/toolbar/eggtoolbar.h>
 #include <libegg/menu/egg-toggle-action.h>
-#include <gdl/gdl-dock.h>
+#include <libegg/dock/egg-dock.h>
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-utils.h>
 #include <libanjuta/resources.h>
@@ -203,7 +203,6 @@ anjuta_app_new (void)
 	AnjutaApp *app;
 
 	app = ANJUTA_APP (g_object_new (ANJUTA_TYPE_APP, 
-									"win_name", "Anjuta",
 									"title", "Anjuta",
 									NULL));
 
@@ -230,20 +229,20 @@ anjuta_app_instance_init (AnjutaApp *app)
 	app->widgets = g_hash_table_new (g_str_hash, g_str_equal);
 
 	/* configure dock */
-	app->dock = gdl_dock_new ();
+	app->dock = egg_dock_new ();
 	gnome_app_set_contents (GNOME_APP (app), app->dock);
 	gtk_widget_show (app->dock);
 
 	/* create placeholders for default widget positions (since an
 	   initial host is provided they are automatically bound) */
-	gdl_dock_placeholder_new ("ph_top", GDL_DOCK_OBJECT (app->dock),
-							  GDL_DOCK_TOP, FALSE);
-	gdl_dock_placeholder_new ("ph_bottom", GDL_DOCK_OBJECT (app->dock),
-							  GDL_DOCK_BOTTOM, FALSE);
-	gdl_dock_placeholder_new ("ph_left", GDL_DOCK_OBJECT (app->dock),
-							  GDL_DOCK_LEFT, FALSE);
-	gdl_dock_placeholder_new ("ph_right", GDL_DOCK_OBJECT (app->dock),
-							  GDL_DOCK_RIGHT, FALSE);
+	egg_dock_placeholder_new ("ph_top", EGG_DOCK_OBJECT (app->dock),
+							  EGG_DOCK_TOP, FALSE);
+	egg_dock_placeholder_new ("ph_bottom", EGG_DOCK_OBJECT (app->dock),
+							  EGG_DOCK_BOTTOM, FALSE);
+	egg_dock_placeholder_new ("ph_left", EGG_DOCK_OBJECT (app->dock),
+							  EGG_DOCK_LEFT, FALSE);
+	egg_dock_placeholder_new ("ph_right", EGG_DOCK_OBJECT (app->dock),
+							  EGG_DOCK_RIGHT, FALSE);
 
 	gtk_widget_realize (GTK_WIDGET(app));
 	
@@ -307,7 +306,7 @@ anjuta_app_instance_init (AnjutaApp *app)
 	app->in_progress = FALSE;
 	app->busy_count = 0;
 
-	app->icon_set = gdl_icons_new(24, 16.0);
+	// app->icon_set = gdl_icons_new(24, 16.0);
 
 	gtk_widget_set_uposition (GTK_WIDGET (app), app->win_pos_x, app->win_pos_y);
 	gtk_window_set_default_size (GTK_WINDOW (app), app->win_width,
@@ -387,12 +386,12 @@ anjuta_app_add_widget (AnjutaShell *shell,
 
 	g_hash_table_insert (window->widgets, g_strdup (name), w);
 
-	item = gdl_dock_item_new (name, title, GDL_DOCK_ITEM_BEH_NORMAL);
+	item = egg_dock_item_new (name, title, EGG_DOCK_ITEM_BEH_NORMAL);
 	gtk_container_add (GTK_CONTAINER (item), w);
 	g_object_set_data (G_OBJECT (w), "dockitem", item);
 
-	gdl_dock_add_item (GDL_DOCK (window->dock), 
-			   GDL_DOCK_ITEM (item), GDL_DOCK_TOP);
+	egg_dock_add_item (EGG_DOCK (window->dock), 
+			   EGG_DOCK_ITEM (item), EGG_DOCK_TOP);
 	
 	gtk_widget_show_all (item);	
 }
@@ -411,8 +410,8 @@ anjuta_app_remove_value (AnjutaShell *shell,
 					  (gpointer*)&key, (gpointer*)&w)) {
 		GtkWidget *item;
 		item = g_object_get_data (G_OBJECT (w), "dockitem");
-		gdl_dock_item_hide_item (GDL_DOCK_ITEM (item));
-		gdl_dock_object_unbind (GDL_DOCK_OBJECT (item));
+		egg_dock_item_hide_item (EGG_DOCK_ITEM (item));
+		egg_dock_object_unbind (EGG_DOCK_OBJECT (item));
 		g_free (key);
 	}
 	
@@ -432,19 +431,19 @@ ensure_layout_manager (AnjutaApp *window)
 
 	if (!window->layout_manager) {
 		/* layout manager */
-		window->layout_manager = gdl_dock_layout_new (GDL_DOCK (window->dock));
+		window->layout_manager = egg_dock_layout_new (EGG_DOCK (window->dock));
 		
 		/* load xml layout definitions */
 		filename = gnome_util_prepend_user_home (".anjuta/layout.xml");
 		g_message ("Layout = %s", filename);
-		if (!gdl_dock_layout_load_from_file (window->layout_manager, filename)) {
+		if (!egg_dock_layout_load_from_file (window->layout_manager, filename)) {
 			gchar *datadir;
 			datadir = anjuta_res_get_data_dir();
 			g_free (filename);
 			filename = g_build_filename (datadir, "/layout.xml", NULL);
 			g_message ("Layout = %s", filename);
 			g_free (datadir);
-			if (!gdl_dock_layout_load_from_file (window->layout_manager, filename))
+			if (!egg_dock_layout_load_from_file (window->layout_manager, filename))
 				g_warning ("Loading layout from failed!!");
 		}
 		g_free (filename);
@@ -475,7 +474,7 @@ anjuta_app_save_layout_to_file (AnjutaApp *window)
 	ensure_layout_manager (window);
 	
 	filename = gnome_util_prepend_user_home (".anjuta/layout.xml");
-	if (!gdl_dock_layout_save_to_file (window->layout_manager, filename))
+	if (!egg_dock_layout_save_to_file (window->layout_manager, filename))
 		anjuta_util_dialog_error (GTK_WINDOW (window),
 								  "Could not save layout.");
 	g_free (filename);
@@ -489,7 +488,7 @@ anjuta_app_save_layout (AnjutaApp *window, const gchar *name)
 
 	ensure_layout_manager (window);
 	g_message ("Saving layout ... ");
-	gdl_dock_layout_save_layout (window->layout_manager, name);
+	egg_dock_layout_save_layout (window->layout_manager, name);
 	anjuta_app_save_layout_to_file (window);
 }
 
@@ -499,7 +498,7 @@ anjuta_app_load_layout (AnjutaApp *window, const gchar *name)
 	g_return_if_fail (window != NULL);
 
 	ensure_layout_manager (window);
-	if (!gdl_dock_layout_load_layout (window->layout_manager, name))
+	if (!egg_dock_layout_load_layout (window->layout_manager, name))
 		g_warning ("Loading layout failed!!");
 }
 

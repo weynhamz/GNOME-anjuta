@@ -67,6 +67,12 @@ on_customize_shortcuts_activate(EggAction *action, AnjutaApp *app)
 }
 
 void
+on_layout_manager_activate(EggAction *action, AnjutaApp *app)
+{
+	egg_dock_layout_run_manager (app->layout_manager);
+}
+
+void
 on_help_activate (EggAction *action, gpointer data)
 {
 	if (gnome_help_display ((const gchar*)data, NULL, NULL) == FALSE)

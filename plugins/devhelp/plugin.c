@@ -34,6 +34,9 @@
 
 gpointer parent_class;
 
+/* This is variable required from libdevhelp */
+gchar *geometry = NULL;
+
 struct _DevhelpPluginPriv {
 	DhBase         *base;
 	DhHistory      *history;
