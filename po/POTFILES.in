@@ -28,7 +28,10 @@ plugins/build/compiler_options.c
 plugins/build/configurer.c
 plugins/build/executer.c
 plugins/build-basic-autotools/build-basic-autotools.c
+plugins/class-gen/action-callbacks.c
+plugins/class-gen/class_gen.c
 plugins/class-gen/clsGen.c
+plugins/class-gen/plugin.c
 plugins/cvs-plugin/anjuta-cvs-plugin.glade
 plugins/cvs-plugin/cvs-actions.c
 plugins/cvs-plugin/cvs-callbacks.c
@@ -57,10 +60,12 @@ plugins/file-manager/plugin.c
 plugins/file-wizard/anjuta-file-wizard.glade
 plugins/file-wizard/file.c
 plugins/file-wizard/plugin.c
+plugins/gdb/actions.c
 plugins/gdb/anjuta-gdb.glade
 plugins/gdb/breakpoints.c
 plugins/gdb/debug_tree.c
 plugins/gdb/debugger.c
+plugins/gdb/info.c
 plugins/gdb/memory.c
 plugins/gdb/plugin.c
 plugins/gdb/registers_gui.c
@@ -100,6 +105,7 @@ plugins/message-view/anjuta-message-manager-plugin.glade
 plugins/message-view/message-view.c
 plugins/message-view/plugin.c
 plugins/patch/patch-plugin.c
+plugins/patch/plugin.c
 plugins/project-manager/plugin.c
 plugins/project-manager/project_dbase.c
 plugins/project-manager/project_dbase_gui.c
