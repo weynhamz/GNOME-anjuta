@@ -55,4 +55,4 @@ dist-hook:
 	done
 
 rpm: dist
-	rpm -ta $(distdir).tar.gz
+	rpmbuild -ta $(distdir).tar.gz

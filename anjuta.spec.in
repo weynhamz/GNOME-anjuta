@@ -1,8 +1,8 @@
+%define	desktop_vendor	anjuta
 %define	name		anjuta
 %define	version		@VERSION@
 %define	release		1
 %define	serial		1
-%define	prefix		/usr
 
 Summary:	GNOME IDE for C and C++
 Name:		%{name}
@@ -51,17 +51,11 @@ Group: Development/Tools
 Anjuta documentation in Japanese.
 
 %prep
-%setup
+%setup -q
 
 %build
-CFLAGS="$RPM_OPT_FLAGS" ./configure --prefix=%prefix --enable-final
-
-if [ "$SMP" != "" ]; then
-  (make "MAKE=make -k -j $SMP"; exit 0)
-  make
-else
-  make
-fi
+%configure --enable-final
+make %{?_smp_mflags}
 
 %install
 rm -rf %{buildroot}
@@ -89,35 +83,28 @@ scrollkeeper-update || :
 %doc doc/ScintillaDoc.html
 
 %defattr(-,root,root)
-%{prefix}/bin/anjuta
-%{prefix}/bin/anjuta_launcher
-%{prefix}/bin/anjuta_import.sh
-%{prefix}/bin/anjuta_first_run.sh
-%{prefix}/lib/anjuta
-%{prefix}/share/gnome/apps/Development/anjuta.desktop
-%{prefix}/share/anjuta
-%{prefix}/share/pixmaps/anjuta
-%{prefix}/share/doc/anjuta
-%{prefix}/share/mime-info/anjuta.mime
-%{prefix}/share/mimelnk/application/x-anjuta-project.desktop
-%{prefix}/man/man1/anjuta.1.gz
-%{prefix}/man/man1/anjuta_launcher.1.gz
+%{_bindir}/%{name}*
+%{_libdir}/%{name}
+%{_datadir}/%{name}
+%{_datadir}/applications/*%{name}.desktop
+%{_datadir}/pixmaps/%{name}
+%{_datadir}/doc/%{name}
+%{_datadir}/mime-info/anjuta.mime
+%{_datadir}/mimelnk/application/x-anjuta-project.desktop
+%{_mandir}/man1/*
 
 %files i18n
 %defattr(-, root, root)
-%{prefix}/share/locale/*/LC_MESSAGES/anjuta.mo
+%{_datadir}/locale
 
 %files docs-en
 %defattr(-, root, root)
-%{prefix}/share/gnome/help/anjuta/C
-%{prefix}/share/omf/anjuta/anjuta-tutorial-C.omf
-%{prefix}/share/omf/anjuta/anjuta-faqs-C.omf
-%{prefix}/share/omf/anjuta/anjuta-manual-C.omf
-%{prefix}/var/scrollkeeper/*
+%{_datadir}/gnome/help/%{name}
+%{_datadir}/omf/%{name}/%{name}-*-C.omf
+%{_localstatedir}/scrollkeeper/*
 
 %files docs-ja
 %defattr(-, root, root)
-%{prefix}/share/gnome/help/anjuta/ja
-%{prefix}/share/omf/anjuta/anjuta-faqs-ja_JP.eucJP.omf
-%{prefix}/share/omf/anjuta/anjuta-manual-ja_JP.eucJP.omf
+%{_datadir}/gnome/help/%{name}/ja
+%{_datadir}/omf/%{name}/%{name}-*-ja*.omf
 

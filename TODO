@@ -3,15 +3,15 @@ TODO List:
 
 Before 1.0.2:
 -------------
-	o The debugger command should be a preference.
+	o The debugger command should be a preference. - Done
 	o All context menu items should also be present in the main menu
 		o Find Usage (Should this be removed ?)
 		o Switch to header/source
 		o Customize File Browser
 	o Shortcuts for switching between editor/ISearch/Project Pane/Message Pane ?
-	o Clean up Search/Replace GUI some more
+	o Clean up Search/Replace GUI some more - Mostly done ?
 	o Implement Find Next shortcut for ISearch ?
-	o Restore old Find stuff ?
+	o Restore old Find stuff ? - Done
 	o Stop Build does not work ?
 
 General:

@@ -68,7 +68,6 @@ export CFLAGS
 FILES_COUNT=`echo $FILES | wc -w`
 echo "[Number of files to be scanned: $FILES_COUNT]"
 echo "[...........................................................................]"
-echo "[. Generating System tags. This may take several minutes (1 min to 20 mins}.]"
-echo "[. You can go out, have a coffee and return back in 20 mins.]...............]"
+echo "[. Generating System tags. This may take some time (1 min to 20 mins}.......]"
 echo "[...........................................................................]"
 $PROGDIR/tm_global_tags $GLOBAL_TAGS_FILE $FILES 2>/dev/null
