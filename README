@@ -1,16 +1,16 @@
                          Anjuta Version 0.1.9 Release
 
-                       Copyright (C) 2000-2002 Kh. Naba Kumar Singh.
+                       Copyright (C) 2000-2002 Kh. Naba Kumar Singh
                        Home site => http://anjuta.sourceforge.net
 
 Introduction:
 -------------
 
-Anjuta is a versatile Integrated Development Environment (IDE) for C and C++ 
-on GNU/Linux. It has been written for GTK/GNOME, and features a number of 
-advanced programming facilities. These include project management, 
-application wizards, an on board interactive debugger, and a powerful source 
-editor with source browsing and syntax highlighting.
+Anjuta is a versatile Integrated Development Environment (IDE) for C and C++. 
+It has been written for GTK/GNOME, and features a number of advanced programming 
+facilities. These include project management, application wizards, an on-board 
+interactive debugger, and a powerful source editor with source browsing and 
+syntax highlighting.
 
 Anjuta is an effort to marry the flexibility and power of text-based 
 command-line tools with the ease-of-use of the GNOME graphical user 
@@ -86,12 +86,13 @@ Presently available features in Anjuta:
 
 	11. Above all, she is beautiful. 
 	
+	
 Contact Email addresses for Anjuta:
 -----------------------------------
 
 For personal contacts, reach us at:
 	o 1.x series Maintainer => Andy Piper <andy.piper@freeuk.com>
-	o Main programmer => Naba kumar <kh_naba@users.sourceforge.net>
+	o Main programmer => Naba Kumar <kh_naba@users.sourceforge.net>
 
 Anjuta Home site:	http://anjuta.sourceforge.net.
 Anjuta Project site: 	http://www.sourceforge.net/projects/anjuta
@@ -118,6 +119,7 @@ Mailing lists:
 
 	o anjuta-announce@lists.anjuta.sourceforge.net
 		For announcements of new releases.
+
 
 --------------
 REQUIREMENTS:
