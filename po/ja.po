@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: anjuta HEAD\n"
+"Project-Id-Version: anjuta ANJUTA_1_2_0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-06-28 14:04+0900\n"
-"PO-Revision-Date: 2003-06-28 14:01+0900\n"
+"POT-Creation-Date: 2003-08-17 13:12+0900\n"
+"PO-Revision-Date: 2003-08-17 13:10+0900\n"
 "Last-Translator: Takeshi AIHANA <aihana@gnome.gr.jp>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
 "MIME-Version: 1.0\n"
@@ -22,60 +22,23 @@ msgstr "Anjuta IDE"
 msgid "Integrated Development Environment"
 msgstr "GNOME 向けの統合開発環境です"
 
-#: anjuta.glade.h:1 anjuta_dialogs_strings.c:24 anjuta_dialogs_strings.c:34
+#: anjuta.glade.h:1
 msgid "    "
 msgstr "    "
 
-#: anjuta.glade.h:2 anjuta_dialogs_strings.c:145
+#: anjuta.glade.h:2
 msgid "$(module.source.files) $(module.include.files)"
 msgstr "$(module.source.files) $(module.include.files)"
 
-#: anjuta.glade.h:3 anjuta_dialogs_strings.c:19 anjuta_dialogs_strings.c:20
-#: anjuta_dialogs_strings.c:21 anjuta_dialogs_strings.c:29
-#: anjuta_dialogs_strings.c:30 anjuta_dialogs_strings.c:31
-#: anjuta_dialogs_strings.c:32 anjuta_dialogs_strings.c:39
-#: anjuta_dialogs_strings.c:40 anjuta_dialogs_strings.c:41
-#: anjuta_dialogs_strings.c:43 anjuta_dialogs_strings.c:49
-#: anjuta_dialogs_strings.c:52 anjuta_dialogs_strings.c:55
-#: anjuta_dialogs_strings.c:59 anjuta_dialogs_strings.c:74
-#: anjuta_dialogs_strings.c:75 anjuta_dialogs_strings.c:76
-#: anjuta_dialogs_strings.c:81 anjuta_dialogs_strings.c:83
-#: anjuta_dialogs_strings.c:91 anjuta_dialogs_strings.c:92
-#: anjuta_dialogs_strings.c:95 anjuta_dialogs_strings.c:99
-#: anjuta_dialogs_strings.c:101 anjuta_dialogs_strings.c:116
-#: anjuta_dialogs_strings.c:134 anjuta_dialogs_strings.c:140
-#: anjuta_dialogs_strings.c:142 anjuta_dialogs_strings.c:143
-#: anjuta_dialogs_strings.c:144 anjuta_dialogs_strings.c:149
-#: anjuta_dialogs_strings.c:155 anjuta_dialogs_strings.c:160
-#: anjuta_dialogs_strings.c:163 anjuta_dialogs_strings.c:175
-#: anjuta_dialogs_strings.c:180 anjuta_dialogs_strings.c:185
-#: anjuta_dialogs_strings.c:187 anjuta_dialogs_strings.c:189
-#: anjuta_dialogs_strings.c:193 anjuta_dialogs_strings.c:197
-#: anjuta_dialogs_strings.c:199 anjuta_dialogs_strings.c:227
-#: anjuta_dialogs_strings.c:230 anjuta_dialogs_strings.c:241
-#: anjuta_dialogs_strings.c:243 anjuta_dialogs_strings.c:250
-#: anjuta_dialogs_strings.c:253 anjuta_dialogs_strings.c:254
-#: anjuta_dialogs_strings.c:257 anjuta_dialogs_strings.c:258
-#: anjuta_dialogs_strings.c:260 anjuta_dialogs_strings.c:267
-#: anjuta_dialogs_strings.c:272 anjuta_dialogs_strings.c:278
-#: anjuta_dialogs_strings.c:285 anjuta_dialogs_strings.c:287
-#: anjuta_dialogs_strings.c:300 anjuta_dialogs_strings.c:316
-#: anjuta_dialogs_strings.c:329 anjuta_dialogs_strings.c:345
-#: anjuta_dialogs_strings.c:346 anjuta_dialogs_strings.c:350
-#: anjuta_dialogs_strings.c:356 anjuta_dialogs_strings.c:379
-#: anjuta_dialogs_strings.c:396 anjuta_dialogs_strings.c:409
-#: anjuta_dialogs_strings.c:412 anjuta_dialogs_strings.c:430
-#: anjuta_dialogs_strings.c:436 anjuta_dialogs_strings.c:437
-#: anjuta_dialogs_strings.c:438 anjuta_dialogs_strings.c:458
-#: anjuta_dialogs_strings.c:476 gdl/layout.glade.h:1
+#: anjuta.glade.h:3 gdl/layout.glade.h:1
 msgid "*"
 msgstr "*"
 
-#: anjuta.glade.h:4 anjuta_dialogs_strings.c:151 anjuta_dialogs_strings.c:274
+#: anjuta.glade.h:4
 msgid "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp"
 msgstr "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp"
 
-#: anjuta.glade.h:5 anjuta_dialogs_strings.c:152 anjuta_dialogs_strings.c:275
+#: anjuta.glade.h:5
 msgid ""
 "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp Makefile.am configure.* "
 "README AUTHORS ChangeLog *.m4"
@@ -83,305 +46,297 @@ msgstr ""
 "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp Makefile.am configure.* "
 "README AUTHORS ChangeLog *.m4"
 
-#: anjuta.glade.h:6 anjuta_dialogs_strings.c:156 anjuta_dialogs_strings.c:279
+#: anjuta.glade.h:6
 msgid "*.so *.o *.a *.la"
 msgstr "*.so *.o *.a *.la"
 
-#: anjuta.glade.h:7 anjuta_dialogs_strings.c:150 anjuta_dialogs_strings.c:273
+#: anjuta.glade.h:7
 msgid "*\\.*"
 msgstr "*\\.*"
 
-#: anjuta.glade.h:8 anjuta_dialogs_strings.c:56 anjuta_dialogs_strings.c:60
+#: anjuta.glade.h:8
 msgid "<: Enter Here"
 msgstr "<: ここに入力"
 
-#: anjuta.glade.h:9 anjuta_dialogs_strings.c:422
+#: anjuta.glade.h:9
 msgid "Add line number every:"
 msgstr "行番号を付与する間隔:"
 
-#: anjuta.glade.h:10 anjuta_dialogs_strings.c:420
+#: anjuta.glade.h:10
 msgid "Add page header"
 msgstr "ページ・ヘッダを追加する"
 
-#: anjuta.glade.h:11 anjuta_dialogs_strings.c:217
+#: anjuta.glade.h:11
 msgid "Additional"
 msgstr "その他"
 
-#: anjuta.glade.h:12 anjuta_dialogs_strings.c:72
+#: anjuta.glade.h:12
 msgid "Additional Libraries (LDADD):"
 msgstr "追加するライブラリ (LDADD):"
 
-#: anjuta.glade.h:13 anjuta_dialogs_strings.c:77 src/wizard_gui.c:573
+#: anjuta.glade.h:13 src/wizard_gui.c:573
 msgid "Additional Options"
 msgstr "追加オプション"
 
-#: anjuta.glade.h:14 anjuta_dialogs_strings.c:355
+#: anjuta.glade.h:14
 msgid "Additional build options:"
 msgstr "追加のビルド・オプション:"
 
-#: anjuta.glade.h:15 anjuta_dialogs_strings.c:479
+#: anjuta.glade.h:15
 msgid "Always save in UTF-8 encoding (faster)"
 msgstr "常に UTF-8 エンコーディングで保存する (高速)"
 
-#: anjuta.glade.h:16 anjuta_dialogs_strings.c:179
+#: anjuta.glade.h:16
 msgid "Anjuta help search"
 msgstr "Anjuta ヘルプ検索"
 
-#: anjuta.glade.h:17 anjuta_dialogs_strings.c:462
+#: anjuta.glade.h:17
 msgid "Anjuta start with dialog"
 msgstr "Anjuta をダイアログから起動します"
 
-#: anjuta.glade.h:18 anjuta_dialogs_strings.c:89
+#: anjuta.glade.h:18
 msgid "Append messages"
 msgstr "メッセージを追加する"
 
-#: anjuta.glade.h:19 anjuta_dialogs_strings.c:464 src/appwizard_gui.c:76
-#: src/appwizard_gui.c:90
+#: anjuta.glade.h:19 src/appwizard_gui.c:76 src/appwizard_gui.c:90
 msgid "Application Wizard"
 msgstr "アプリケーション・ウィザード"
 
-#: anjuta.glade.h:20 anjuta_dialogs_strings.c:248
+#: anjuta.glade.h:20
 msgid "Ask for parameters at run-time"
 msgstr "実行時に引数を入力する"
 
-#.
-#. * Translatable strings file generated by Glade.
-#. * Add this file to your project's POTFILES.in.
-#. * DO NOT compile it as part of your application.
-#.
-#: anjuta.glade.h:21 anjuta_dialogs_strings.c:7
+#: anjuta.glade.h:21
 msgid "Attach to process"
 msgstr "プロセスに取り込む"
 
-#: anjuta.glade.h:22 anjuta_dialogs_strings.c:303
+#: anjuta.glade.h:22
 msgid "Attributes:"
 msgstr "属性:"
 
-#: anjuta.glade.h:23 anjuta_dialogs_strings.c:367
+#: anjuta.glade.h:23
 msgid "Autocomplete XML/HTML closing tags"
 msgstr "XML/HML の閉じタグを自動補完する"
 
-#: anjuta.glade.h:24 anjuta_dialogs_strings.c:369
+#: anjuta.glade.h:24
 msgid "Autocompletion"
 msgstr "自動補完"
 
-#: anjuta.glade.h:25 anjuta_dialogs_strings.c:368
+#: anjuta.glade.h:25
 msgid "Autocompletion pop up choices"
 msgstr "自動補完で表示する候補数"
 
-#: anjuta.glade.h:26 anjuta_dialogs_strings.c:335
+#: anjuta.glade.h:26
 msgid "Automatically load last Project"
 msgstr "最後に作業したプロジェクトを自動的に読み込む"
 
-#: anjuta.glade.h:27 anjuta_dialogs_strings.c:365
+#: anjuta.glade.h:27
 msgid "Autosave"
 msgstr "自動保存"
 
-#: anjuta.glade.h:28 anjuta_dialogs_strings.c:358
+#: anjuta.glade.h:28
 msgid "Autosave editor files before build starts"
 msgstr "ビルドする前に編集したファイルを自動保存する"
 
-#: anjuta.glade.h:29 anjuta_dialogs_strings.c:305
+#: anjuta.glade.h:29
 msgid "Back color:"
 msgstr "背景色:"
 
-#: anjuta.glade.h:30 anjuta_dialogs_strings.c:107 anjuta_dialogs_strings.c:122
+#: anjuta.glade.h:30
 msgid "Backwards"
 msgstr "後ろへ"
 
-#: anjuta.glade.h:31 anjuta_dialogs_strings.c:339
+#: anjuta.glade.h:31
 msgid "Beep on job complete"
 msgstr "ジョブが完了したらビープ音を鳴らす"
 
-#: anjuta.glade.h:32 anjuta_dialogs_strings.c:310
+#: anjuta.glade.h:32
 msgid "Bold"
 msgstr "太字"
 
-#: anjuta.glade.h:33 anjuta_dialogs_strings.c:237
+#: anjuta.glade.h:33
 msgid "Bookmark"
 msgstr "ブックマーク"
 
-#: anjuta.glade.h:34 anjuta_dialogs_strings.c:15
+#: anjuta.glade.h:34
 msgid "Breakpoint properties"
 msgstr "ブレークポイントのプロパティ"
 
-#: anjuta.glade.h:35 anjuta_dialogs_strings.c:11
+#: anjuta.glade.h:35
 msgid "Breakpoints"
 msgstr "ブレークポイント"
 
-#: anjuta.glade.h:36 anjuta_dialogs_strings.c:236 src/build_file.c:107
-#: src/message-manager.cc:43 src/text_editor_gui.c:172 src/toolbar.c:271
+#: anjuta.glade.h:36 src/build_file.c:107 src/message-manager.cc:43
+#: src/text_editor_gui.c:172 src/toolbar.c:271
 msgid "Build"
 msgstr "ビルド"
 
-#: anjuta.glade.h:37 anjuta_dialogs_strings.c:349
+#: anjuta.glade.h:37
 msgid "Build command:"
 msgstr "ビルドのコマンド:"
 
-#: anjuta.glade.h:38 anjuta_dialogs_strings.c:337
+#: anjuta.glade.h:38
 msgid "Build file browser automatically"
 msgstr "自動的にファイル・ブラウザを構築する"
 
-#: anjuta.glade.h:39 anjuta_dialogs_strings.c:211
+#: anjuta.glade.h:39
 msgid "Build files"
 msgstr "ビルドするファイル"
 
-#: anjuta.glade.h:40 anjuta_dialogs_strings.c:357
+#: anjuta.glade.h:40
 msgid "Build options"
 msgstr "ビルドのオプション"
 
-#: anjuta.glade.h:41 anjuta_dialogs_strings.c:336
+#: anjuta.glade.h:41
 msgid "Build symbol browser automatically"
 msgstr "自動的にシンボル・ブラウザを構築する"
 
 #. 2
-#: anjuta.glade.h:42 anjuta_dialogs_strings.c:164 anjuta_dialogs_strings.c:239
-#: anjuta_dialogs_strings.c:288 src/an_file_view.c:414
-#: src/message-manager.cc:45
+#: anjuta.glade.h:42 src/an_file_view.c:414 src/message-manager.cc:45
 msgid "CVS"
 msgstr "CVS"
 
-#: anjuta.glade.h:43 anjuta_dialogs_strings.c:455
+#: anjuta.glade.h:43
 msgid "CVS command options"
 msgstr "CVS コマンドのオプション"
 
-#: anjuta.glade.h:44 anjuta_dialogs_strings.c:450
+#: anjuta.glade.h:44
 msgid "CVS compression level:"
 msgstr "CVS の圧縮レベル [-z]:"
 
-#: anjuta.glade.h:45 anjuta_dialogs_strings.c:453
+#: anjuta.glade.h:45
 msgid "CVS context diff format"
 msgstr "CVS を前後の行を含めて diff する"
 
-#: anjuta.glade.h:46 anjuta_dialogs_strings.c:165 anjuta_dialogs_strings.c:289
+#: anjuta.glade.h:46
 msgid "CVS intl po"
 msgstr "CVS intl po"
 
-#: anjuta.glade.h:47 anjuta_dialogs_strings.c:454
+#: anjuta.glade.h:47
 msgid "CVS unified diff format"
 msgstr "CVS を統一書式で diff する"
 
-#: anjuta.glade.h:48 anjuta_dialogs_strings.c:451
+#: anjuta.glade.h:48
 msgid "CVS update and prune directories [-dP]"
-msgstr "CVS を update してディレクトリを整合 [-dP] する"
+msgstr "CVS を update してフォルダを整合 [-dP] する"
 
-#: anjuta.glade.h:49 anjuta_dialogs_strings.c:35
+#: anjuta.glade.h:49
 msgid "C_ompile:"
 msgstr "コンパイル(_O):"
 
-#: anjuta.glade.h:50 anjuta_dialogs_strings.c:320
+#: anjuta.glade.h:50
 msgid "Calltip background:"
 msgstr "コールチップの背景色:"
 
-#: anjuta.glade.h:51 anjuta_dialogs_strings.c:321
+#: anjuta.glade.h:51
 msgid "Caret (cursor) color:"
 msgstr "カーソルの色:"
 
-#: anjuta.glade.h:52 anjuta_dialogs_strings.c:388
+#: anjuta.glade.h:52
 msgid "Caret blink period in milli-seconds"
 msgstr "カーソルの点滅周期 (ミリ秒)"
 
-#: anjuta.glade.h:53 anjuta_dialogs_strings.c:133
+#: anjuta.glade.h:53
 msgid "Case insensitive"
 msgstr "大小文字を区別しない"
 
-#: anjuta.glade.h:54 anjuta_dialogs_strings.c:86
+#: anjuta.glade.h:54
 msgid "Case sensitive"
 msgstr "大小文字を区別する"
 
-#: anjuta.glade.h:55 anjuta_dialogs_strings.c:158
+#: anjuta.glade.h:55
 msgid "Choose Directories:"
 msgstr "フォルダの選択:"
 
-#: anjuta.glade.h:56 anjuta_dialogs_strings.c:147
+#: anjuta.glade.h:56
 msgid "Choose Files:"
 msgstr "ファイルの選択:"
 
-#: anjuta.glade.h:57 anjuta_dialogs_strings.c:366
+#: anjuta.glade.h:57
 msgid "Choose autocomplete for single match"
 msgstr "一つにマッチする自動補完を選択する"
 
-#: anjuta.glade.h:58 anjuta_dialogs_strings.c:282
+#: anjuta.glade.h:58
 msgid "Choose directories"
 msgstr "フォルダの選択"
 
-#: anjuta.glade.h:59 anjuta_dialogs_strings.c:270
+#: anjuta.glade.h:59
 msgid "Choose files"
 msgstr "ファイルの選択"
 
-#: anjuta.glade.h:60 anjuta_dialogs_strings.c:380
+#: anjuta.glade.h:60
 msgid "Code folding"
 msgstr "コードの折り畳み"
 
-#: anjuta.glade.h:61 anjuta_dialogs_strings.c:377
+#: anjuta.glade.h:61
 msgid "Collapse all code folds on file open"
 msgstr "ファイルのオープン時にコードを全て折り畳む"
 
-#: anjuta.glade.h:62 anjuta_dialogs_strings.c:418
+#: anjuta.glade.h:62
 msgid "Colour"
 msgstr "カラー"
 
-#: anjuta.glade.h:63 anjuta_dialogs_strings.c:389
+#: anjuta.glade.h:63
 msgid "Column at edge indicator"
 msgstr "左端の識別エリアの桁数"
 
-#: anjuta.glade.h:64 anjuta_dialogs_strings.c:333
+#: anjuta.glade.h:64
 msgid "Combo Popdown:"
 msgstr "プルダウン数:"
 
-#: anjuta.glade.h:65 anjuta_dialogs_strings.c:96
+#: anjuta.glade.h:65
 msgid "Command Line Parameters"
 msgstr "コマンド・ライン引数"
 
-#: anjuta.glade.h:66 anjuta_dialogs_strings.c:266
+#: anjuta.glade.h:66
 msgid "Command line parameters"
 msgstr "コマンド・ライン引数"
 
-#: anjuta.glade.h:67 anjuta_dialogs_strings.c:229
+#: anjuta.glade.h:67
 msgid "Command:"
 msgstr "コマンド:"
 
-#: anjuta.glade.h:68 anjuta_dialogs_strings.c:22
+#: anjuta.glade.h:68
 msgid "Commands"
 msgstr "コマンド"
 
-#: anjuta.glade.h:69 anjuta_dialogs_strings.c:23
+#: anjuta.glade.h:69
 msgid "Common commands:"
 msgstr "共通なコマンド:"
 
-#: anjuta.glade.h:70 anjuta_dialogs_strings.c:375
+#: anjuta.glade.h:70
 msgid "Compact folding"
 msgstr "コンパクトに折り畳む"
 
-#: anjuta.glade.h:71 anjuta_dialogs_strings.c:215
+#: anjuta.glade.h:71
 msgid "Compiler"
 msgstr "コンパイラ"
 
-#: anjuta.glade.h:72 anjuta_dialogs_strings.c:71
+#: anjuta.glade.h:72
 msgid "Compiler Flags (CFLAGS):"
 msgstr "コンパイラのフラグ (CFLAGS):"
 
-#: anjuta.glade.h:73 anjuta_dialogs_strings.c:46
+#: anjuta.glade.h:73
 msgid "Compiler and linker options"
 msgstr "コンパイラとリンカのオプション"
 
-#: anjuta.glade.h:74 anjuta_dialogs_strings.c:220
+#: anjuta.glade.h:74
 msgid "Configuration"
 msgstr "設定"
 
-#: anjuta.glade.h:75 anjuta_dialogs_strings.c:219
+#: anjuta.glade.h:75
 msgid "Configuration script segments"
 msgstr "configure スクリプトのセグメント"
 
-#: anjuta.glade.h:76 anjuta_dialogs_strings.c:84
+#: anjuta.glade.h:76
 msgid "Configure Parameters"
 msgstr "Configure のパラメータ"
 
-#: anjuta.glade.h:77 anjuta_dialogs_strings.c:413
+#: anjuta.glade.h:77
 msgid "Custom style"
 msgstr "Custom style"
 
-#: anjuta.glade.h:78 anjuta_dialogs_strings.c:408
+#: anjuta.glade.h:78
 msgid ""
 "Custom style,GNU coding style,Kernighan & Ritchie style,Original Berkeley "
 "style,Style of Kangleipak,Hello World style,Crazy boy style"
@@ -390,169 +345,169 @@ msgstr ""
 "ルの Berkeley スタイル,Kangleipak のスタイル,Hello World スタイル,Crazy boy "
 "スタイル"
 
-#: anjuta.glade.h:79 anjuta_dialogs_strings.c:269
+#: anjuta.glade.h:79
 msgid "Customize File Browser"
 msgstr "ファイル・ブラウザのカスタマイズ"
 
-#: anjuta.glade.h:80 anjuta_dialogs_strings.c:268
+#: anjuta.glade.h:80
 msgid "Customize what is to be shown in the file tree"
 msgstr "ファイル・ツリーの中に表示するもののカスタマイズ"
 
-#: anjuta.glade.h:81 anjuta_dialogs_strings.c:207
+#: anjuta.glade.h:81
 msgid "Data module Makefile.am"
 msgstr "データ・モジュール (data) 配下の Makefile.am"
 
 #. 13
-#: anjuta.glade.h:82 anjuta_dialogs_strings.c:238 src/message-manager.cc:49
-#: src/text_editor_menu.c:319 src/toolbar.c:305
+#: anjuta.glade.h:82 src/message-manager.cc:49 src/text_editor_menu.c:319
+#: src/toolbar.c:305
 msgid "Debug"
 msgstr "デバッグ"
 
-#: anjuta.glade.h:83 anjuta_dialogs_strings.c:70
+#: anjuta.glade.h:83
 msgid "Debugging and Profiling"
 msgstr "デバッグとプロファイリング"
 
-#: anjuta.glade.h:84 anjuta_dialogs_strings.c:459
+#: anjuta.glade.h:84
 msgid "Default"
 msgstr "デフォルト"
 
-#: anjuta.glade.h:85 anjuta_dialogs_strings.c:61
+#: anjuta.glade.h:85
 msgid "Defines"
 msgstr "定義"
 
-#: anjuta.glade.h:86 anjuta_dialogs_strings.c:298
+#: anjuta.glade.h:86
 msgid "Delete Theme"
 msgstr "テーマの削除"
 
-#: anjuta.glade.h:87 anjuta_dialogs_strings.c:340
+#: anjuta.glade.h:87
 msgid "Dialog on job complete"
 msgstr "ジョブが完了したらダイアログを表示する"
 
-#: anjuta.glade.h:88 anjuta_dialogs_strings.c:108 anjuta_dialogs_strings.c:123
+#: anjuta.glade.h:88
 msgid "Direction"
 msgstr "方向"
 
-#: anjuta.glade.h:89 anjuta_dialogs_strings.c:330 widgets/gnomefilelist.c:342
+#: anjuta.glade.h:89 widgets/gnomefilelist.c:342
 msgid "Directories"
 msgstr "フォルダ"
 
-#: anjuta.glade.h:90 anjuta_dialogs_strings.c:291
+#: anjuta.glade.h:90
 msgid "Directory filter"
 msgstr "フォルダのフィルタ"
 
-#: anjuta.glade.h:91 anjuta_dialogs_strings.c:407
+#: anjuta.glade.h:91
 msgid "Disable auto-format"
 msgstr "自動整形を無効にする"
 
-#: anjuta.glade.h:92 anjuta_dialogs_strings.c:210
+#: anjuta.glade.h:92
 msgid "Disable overwriting files"
 msgstr "上書きを禁止するファイル群"
 
-#: anjuta.glade.h:93 anjuta_dialogs_strings.c:294 anjuta_dialogs_strings.c:381
+#: anjuta.glade.h:93
 msgid "Disable syntax highlighting"
 msgstr "強調表示を無効にする"
 
-#: anjuta.glade.h:94 anjuta_dialogs_strings.c:290
+#: anjuta.glade.h:94
 msgid "Do not show hidden directories"
 msgstr "隠しフォルダを表示しない"
 
-#: anjuta.glade.h:95 anjuta_dialogs_strings.c:280
+#: anjuta.glade.h:95
 msgid "Do not show hidden files"
 msgstr "隠しファイルを表示しない"
 
-#: anjuta.glade.h:96 anjuta_dialogs_strings.c:473
+#: anjuta.glade.h:96
 msgid "Do not show start with dialog again."
 msgstr "次回からこのダイアログを表示しない"
 
-#: anjuta.glade.h:97 anjuta_dialogs_strings.c:394
+#: anjuta.glade.h:97
 msgid "Do not show tabs"
 msgstr "タブを表示しない"
 
-#: anjuta.glade.h:98 anjuta_dialogs_strings.c:208
+#: anjuta.glade.h:98
 msgid "Document module Makefile.am"
 msgstr "ドキュメント・モジュール (doc) の Makefile.am"
 
-#: anjuta.glade.h:99 anjuta_dialogs_strings.c:376
+#: anjuta.glade.h:99
 msgid "Draw line below folded lines"
 msgstr "折り畳んだ行の下に線を表示する"
 
-#: anjuta.glade.h:100 anjuta_dialogs_strings.c:232
+#: anjuta.glade.h:100
 msgid "Edit"
 msgstr "編集"
 
-#: anjuta.glade.h:101 anjuta_dialogs_strings.c:387
+#: anjuta.glade.h:101
 msgid "Editor caret (cursor) width in pixels"
 msgstr "エディタのカーソル幅 (ピクセル)"
 
-#: anjuta.glade.h:102 anjuta_dialogs_strings.c:397
+#: anjuta.glade.h:102
 msgid "Editor tabs"
 msgstr "エディタのタブ"
 
-#: anjuta.glade.h:103 anjuta_dialogs_strings.c:68
+#: anjuta.glade.h:103
 msgid "Enable Debugging"
 msgstr "デバッグを有効にする"
 
-#: anjuta.glade.h:104 anjuta_dialogs_strings.c:374
+#: anjuta.glade.h:104
 msgid "Enable HTML tags folding"
 msgstr "HTML タグの折り畳みを有効にする"
 
-#: anjuta.glade.h:105 anjuta_dialogs_strings.c:69
+#: anjuta.glade.h:105
 msgid "Enable Profiling"
 msgstr "プロファイリングを有効にする"
 
-#: anjuta.glade.h:106 anjuta_dialogs_strings.c:12
+#: anjuta.glade.h:106
 msgid "Enable _all"
 msgstr "全て有効(_A)"
 
-#: anjuta.glade.h:107 anjuta_dialogs_strings.c:401
+#: anjuta.glade.h:107
 msgid "Enable automatic indentation"
 msgstr "自動インデントを有効にする"
 
-#: anjuta.glade.h:108 anjuta_dialogs_strings.c:432
+#: anjuta.glade.h:108
 msgid "Enable automatic messages indicators"
 msgstr "自動メッセージ識別を有効にする"
 
-#: anjuta.glade.h:109 anjuta_dialogs_strings.c:382
+#: anjuta.glade.h:109
 msgid "Enable braces check"
 msgstr "括弧の対応をチェックする"
 
-#: anjuta.glade.h:110 anjuta_dialogs_strings.c:370
+#: anjuta.glade.h:110
 msgid "Enable code folding"
 msgstr "コード部の折り畳みを有効にする"
 
-#: anjuta.glade.h:111 anjuta_dialogs_strings.c:371
+#: anjuta.glade.h:111
 msgid "Enable comments folding"
 msgstr "コメント部の折り畳みを有効にする"
 
-#: anjuta.glade.h:112 anjuta_dialogs_strings.c:362
+#: anjuta.glade.h:112
 msgid "Enable files autosave"
 msgstr "ファイルの自動保存を有効にする"
 
-#: anjuta.glade.h:113 anjuta_dialogs_strings.c:421
+#: anjuta.glade.h:113
 msgid "Enable line wrap"
 msgstr "行ラップを有効にする"
 
-#: anjuta.glade.h:114 anjuta_dialogs_strings.c:372
+#: anjuta.glade.h:114
 msgid "Enable python comments folding"
 msgstr "Python のコメント部の折り畳みを有効にする"
 
-#: anjuta.glade.h:115 anjuta_dialogs_strings.c:373
+#: anjuta.glade.h:115
 msgid "Enable python quoted strings folding"
 msgstr "Python の引用文字列の折り畳みを有効にする"
 
-#: anjuta.glade.h:116 anjuta_dialogs_strings.c:261 src/breakpoints.c:111
+#: anjuta.glade.h:116 src/breakpoints.c:111
 msgid "Enabled"
 msgstr "有効にする"
 
-#: anjuta.glade.h:117 anjuta_dialogs_strings.c:482
+#: anjuta.glade.h:117
 msgid "Encoding to use when saving files"
 msgstr "ファイル保存時に使用するエンコーディング"
 
-#: anjuta.glade.h:118 anjuta_dialogs_strings.c:477
+#: anjuta.glade.h:118
 msgid "Enter a Hexa adress or select one in the data"
 msgstr "16 進アドレスを入力するか、データから一つ選択して下さい"
 
-#: anjuta.glade.h:119 anjuta_dialogs_strings.c:411
+#: anjuta.glade.h:119
 msgid ""
 "Enter the command line arguments for the 'indent' program. Read the info "
 "page for 'indent' for more details"
@@ -560,103 +515,100 @@ msgstr ""
 "'indent' プログラムに対するコマンド・ライン引数を入力して下さい。\n"
 "詳細については 'indent' の info ページを参照して下さい。"
 
-#: anjuta.glade.h:120 anjuta_dialogs_strings.c:435
+#: anjuta.glade.h:120
 msgid "Error message indicator style:"
 msgstr "エラー・メッセージの識別スタイル:"
 
-#: anjuta.glade.h:121 anjuta_dialogs_strings.c:440
+#: anjuta.glade.h:121
 msgid "Errors messages:"
 msgstr "エラー・メッセージ:"
 
-#: anjuta.glade.h:122 anjuta_dialogs_strings.c:94
+#: anjuta.glade.h:122
 msgid "Execute Program"
 msgstr "プログラムを実行します"
 
-#: anjuta.glade.h:123 anjuta_dialogs_strings.c:176
+#: anjuta.glade.h:123
 msgid "Expand regex back references"
 msgstr "拡張正規表現の後方参照"
 
-#: anjuta.glade.h:124 anjuta_dialogs_strings.c:231 src/an_file_view.c:665
-#: src/breakpoints.c:111
+#: anjuta.glade.h:124 src/an_file_view.c:665 src/breakpoints.c:111
 msgid "File"
 msgstr "ファイル"
 
-#: anjuta.glade.h:125 anjuta_dialogs_strings.c:169
+#: anjuta.glade.h:125
 msgid "File Filter"
 msgstr "ファイルのフィルタ"
 
-#: anjuta.glade.h:126 anjuta_dialogs_strings.c:281
+#: anjuta.glade.h:126
 msgid "File filter"
 msgstr "ファイルのフィルタ"
 
-#: anjuta.glade.h:127 anjuta_dialogs_strings.c:246
+#: anjuta.glade.h:127
 msgid "File level"
 msgstr "ファイルのレベルで実行する"
 
-#: anjuta.glade.h:128 anjuta_dialogs_strings.c:90
+#: anjuta.glade.h:128
 msgid "File/Directory to add:"
 msgstr "追加するファイル/フォルダ:"
 
-#: anjuta.glade.h:129 anjuta_dialogs_strings.c:384
+#: anjuta.glade.h:129
 msgid "Filter extraneous characters in DOS mode"
 msgstr "DOS モードで不適切な文字をフィルタする"
 
-#: anjuta.glade.h:130 anjuta_dialogs_strings.c:129
+#: anjuta.glade.h:130
 msgid "Find & Replace"
 msgstr "検索と置換"
 
-#: anjuta.glade.h:131 anjuta_dialogs_strings.c:98 anjuta_dialogs_strings.c:115
+#: anjuta.glade.h:131
 msgid "Find and replace"
 msgstr "検索と置換"
 
-#: anjuta.glade.h:132 anjuta_dialogs_strings.c:85 src/find_in_files.c:301
+#: anjuta.glade.h:132 src/find_in_files.c:301
 msgid "Find in Files"
 msgstr "ファイル内の検索"
 
-#: anjuta.glade.h:133 anjuta_dialogs_strings.c:378
+#: anjuta.glade.h:133
 msgid "Fold style:"
 msgstr "折り畳むスタイル:"
 
-#: anjuta.glade.h:134 anjuta_dialogs_strings.c:302
+#: anjuta.glade.h:134
 msgid "Font:"
 msgstr "フォント:"
 
-#: anjuta.glade.h:135 anjuta_dialogs_strings.c:304
+#: anjuta.glade.h:135
 msgid "Fore color:"
 msgstr "前景色:"
 
-#: anjuta.glade.h:136 anjuta_dialogs_strings.c:235
+#: anjuta.glade.h:136
 msgid "Format"
 msgstr "書式"
 
-#: anjuta.glade.h:137 anjuta_dialogs_strings.c:410 src/toolbar.c:861
+#: anjuta.glade.h:137 src/toolbar.c:861
 msgid "Format style"
 msgstr "書式のスタイル"
 
-#: anjuta.glade.h:138 anjuta_dialogs_strings.c:106
-#: anjuta_dialogs_strings.c:121
+#: anjuta.glade.h:138
 msgid "Forwards"
 msgstr "前へ"
 
-#: anjuta.glade.h:139 anjuta_dialogs_strings.c:104
-#: anjuta_dialogs_strings.c:119
+#: anjuta.glade.h:139
 msgid "From cursor"
 msgstr "カーソル位置から"
 
-#: anjuta.glade.h:140 anjuta_dialogs_strings.c:216 src/an_symbol_view.c:54
+#: anjuta.glade.h:140 src/an_symbol_view.c:54
 msgid "Functions"
 msgstr "関数"
 
-#: anjuta.glade.h:141 anjuta_dialogs_strings.c:190
+#: anjuta.glade.h:141
 msgid "GUI editor command:"
 msgstr "GUI 編集のコマンド:"
 
 #. 3
-#: anjuta.glade.h:142 anjuta_dialogs_strings.c:195 src/main_menubar_def.h:392
+#: anjuta.glade.h:142 src/main_menubar_def.h:392
 msgid "General"
 msgstr "全般"
 
-#: anjuta.glade.h:143 anjuta_dialogs_strings.c:198
+#: anjuta.glade.h:143
 msgid ""
 "Give a space separated list of directories to be built after source module. "
 "This will be set in configure and Makefiles will be generated for them. They "
@@ -667,7 +619,7 @@ msgstr ""
 "複数の Makefile の中にセットされます。\n"
 "これらは \"make\" で src/ の後でビルドされます。"
 
-#: anjuta.glade.h:144 anjuta_dialogs_strings.c:196
+#: anjuta.glade.h:144
 msgid ""
 "Give a space separated list of directories to be built before source module. "
 "This will be set in configure.in and Makefiles will be generated for them. "
@@ -678,88 +630,87 @@ msgstr ""
 "複数の Makefile の中にセットされます。\n"
 "これらは \"make\" で src/ の前にビルドされます。"
 
-#: anjuta.glade.h:145 anjuta_dialogs_strings.c:181
+#: anjuta.glade.h:145
 msgid "Gnome API"
 msgstr "GNOME API"
 
-#: anjuta.glade.h:146 anjuta_dialogs_strings.c:132
+#: anjuta.glade.h:146
 msgid "Greedy matching"
 msgstr "\"欲張り\" マッチングにする"
 
-#: anjuta.glade.h:147 anjuta_dialogs_strings.c:27
+#: anjuta.glade.h:147
 msgid "HTML _viewer:"
 msgstr "HTML ビュワー(_V):"
 
-#: anjuta.glade.h:148 anjuta_dialogs_strings.c:214
+#: anjuta.glade.h:148
 msgid "Headers"
 msgstr "ヘッダ"
 
-#: anjuta.glade.h:149 anjuta_dialogs_strings.c:205
+#: anjuta.glade.h:149
 msgid "Help module Makefile.am"
 msgstr "ヘルプ・モジュール (help) 配下の Makefile.am"
 
-#: anjuta.glade.h:150 anjuta_dialogs_strings.c:66
+#: anjuta.glade.h:150
 msgid "High-Level Optimization (Functions inlined wherever possible)"
 msgstr "高レベルの最適化 (可能ならば関数をインライン化する) にする"
 
-#: anjuta.glade.h:151 anjuta_dialogs_strings.c:317
+#: anjuta.glade.h:151
 msgid "Highlight style"
 msgstr "強調表示のスタイル"
 
-#: anjuta.glade.h:152 anjuta_dialogs_strings.c:334
+#: anjuta.glade.h:152
 msgid "History sizes"
 msgstr "履歴のサイズ"
 
-#: anjuta.glade.h:153 anjuta_dialogs_strings.c:194
-msgid "Ignome files and directories"
-msgstr "無視するファイルとフォルダ"
-
-#: anjuta.glade.h:154 anjuta_dialogs_strings.c:167
+#: anjuta.glade.h:153
 msgid "Ignore Binary Files"
 msgstr "バイナリ・ファイルを無視する"
 
-#: anjuta.glade.h:155 anjuta_dialogs_strings.c:88
+#: anjuta.glade.h:154
 msgid "Ignore CVS directory"
 msgstr "CVS フォルダを無視する"
 
-#: anjuta.glade.h:156 anjuta_dialogs_strings.c:161
+#: anjuta.glade.h:155
 msgid "Ignore Directories:"
 msgstr "無視するフォルダ:"
 
-#: anjuta.glade.h:157 anjuta_dialogs_strings.c:153
+#: anjuta.glade.h:156
 msgid "Ignore Files:"
 msgstr "無視するファイル:"
 
-#: anjuta.glade.h:158 anjuta_dialogs_strings.c:166
+#: anjuta.glade.h:157
 msgid "Ignore Hidden Directories"
 msgstr "隠しフォルダを無視する"
 
-#: anjuta.glade.h:159 anjuta_dialogs_strings.c:157
+#: anjuta.glade.h:158
 msgid "Ignore Hidden Files"
 msgstr "隠しファイルを無視する"
 
-#: anjuta.glade.h:160 anjuta_dialogs_strings.c:87
+#: anjuta.glade.h:159
 msgid "Ignore binary files"
 msgstr "バイナリ・ファイルを無視する"
 
-#: anjuta.glade.h:161 anjuta_dialogs_strings.c:114
-#: anjuta_dialogs_strings.c:128
+#: anjuta.glade.h:160
 msgid "Ignore case"
 msgstr "大小文字を無視する"
 
-#: anjuta.glade.h:162 anjuta_dialogs_strings.c:283
+#: anjuta.glade.h:161
 msgid "Ignore directories"
 msgstr "無視するフォルダ"
 
-#: anjuta.glade.h:163 anjuta_dialogs_strings.c:276
+#: anjuta.glade.h:162
 msgid "Ignore files"
 msgstr "無視するファイル"
 
-#: anjuta.glade.h:164 anjuta_dialogs_strings.c:466
+#: anjuta.glade.h:163
+msgid "Ignore files and directories"
+msgstr "無視するファイルとフォルダ"
+
+#: anjuta.glade.h:164
 msgid "Import Wizard"
 msgstr "インポート・ウィザード"
 
-#: anjuta.glade.h:165 anjuta_dialogs_strings.c:465
+#: anjuta.glade.h:165
 msgid ""
 "Import existing project. The Import Wizard will guide you to import an "
 "existing Project into Anjuta and convert it into Anjuta Project. There will "
@@ -771,187 +722,184 @@ msgstr ""
 "プロジェクトのデータを失ったり、\n"
 "データを変更するといったことはありません。"
 
-#: anjuta.glade.h:166 anjuta_dialogs_strings.c:50
+#: anjuta.glade.h:166
 msgid "Include Paths"
 msgstr "ヘッダのパス"
 
-#: anjuta.glade.h:167 anjuta_dialogs_strings.c:204
+#: anjuta.glade.h:167
 msgid "Include module Makefile.am"
 msgstr "ヘッダ・モジュール (include) 配下の Makefile.am"
 
-#: anjuta.glade.h:168 anjuta_dialogs_strings.c:404
+#: anjuta.glade.h:168
 msgid "Indent closing braces"
 msgstr "インデント・バランスを閉じる"
 
-#: anjuta.glade.h:169 anjuta_dialogs_strings.c:403
+#: anjuta.glade.h:169
 msgid "Indent opening braces"
 msgstr "インデント・バランスを開く"
 
-#: anjuta.glade.h:170 anjuta_dialogs_strings.c:415
+#: anjuta.glade.h:170
 msgid "Indentation and auto-format options"
 msgstr "インデントと自動書式のオプション"
 
-#: anjuta.glade.h:171 anjuta_dialogs_strings.c:400
+#: anjuta.glade.h:171
 msgid "Indentation size in spaces:"
 msgstr "インデントのサイズ:"
 
-#: anjuta.glade.h:172 anjuta_dialogs_strings.c:439
+#: anjuta.glade.h:172
 msgid "Indicators"
 msgstr "Indicators"
 
-#: anjuta.glade.h:173 anjuta_dialogs_strings.c:183
+#: anjuta.glade.h:173
 msgid "Info Pages"
 msgstr "Info ページ"
 
-#: anjuta.glade.h:174 anjuta_dialogs_strings.c:251
+#: anjuta.glade.h:174
 msgid "Input string:"
 msgstr "入力する文字列:"
 
-#: anjuta.glade.h:175 anjuta_dialogs_strings.c:475 src/text_editor_menu.c:174
-#: src/toolbar.c:604
+#: anjuta.glade.h:175 src/text_editor_menu.c:174 src/toolbar.c:604
 msgid "Inspect"
 msgstr "検証"
 
-#: anjuta.glade.h:176 anjuta_dialogs_strings.c:311
+#: anjuta.glade.h:176
 msgid "Italic"
 msgstr "斜体"
 
-#: anjuta.glade.h:177 anjuta_dialogs_strings.c:351
+#: anjuta.glade.h:177
 msgid "Keep going when some targets can not be made"
 msgstr "いくつかのターゲットがビルドできない場合でも続行する"
 
-#: anjuta.glade.h:178 anjuta_dialogs_strings.c:33
+#: anjuta.glade.h:178
 msgid "Language-specific commands:"
 msgstr "言語依存のコマンド:"
 
-#: anjuta.glade.h:179 anjuta_dialogs_strings.c:57 anjuta_dialogs_strings.c:213
+#: anjuta.glade.h:179
 msgid "Libraries"
 msgstr "ライブラリ群"
 
-#: anjuta.glade.h:180 anjuta_dialogs_strings.c:53
+#: anjuta.glade.h:180
 msgid "Library Paths"
 msgstr "ライブラリのパス"
 
-#: anjuta.glade.h:181 anjuta_dialogs_strings.c:386
+#: anjuta.glade.h:181
 msgid "Line numbers margin width in pixels"
 msgstr "行番号のマージン幅 (ピクセル)"
 
-#: anjuta.glade.h:182 anjuta_dialogs_strings.c:423 printing/print.c:1055
-#: src/anjuta_info.c:126
+#: anjuta.glade.h:182 printing/print.c:1055 src/anjuta_info.c:126
 msgid "Lines"
 msgstr "行ごと"
 
-#: anjuta.glade.h:183 anjuta_dialogs_strings.c:73
+#: anjuta.glade.h:183
 msgid "Linker Flags (LDFLAGS):"
 msgstr "リンカのフラグ (LDFLAGS):"
 
-#: anjuta.glade.h:184 anjuta_dialogs_strings.c:44
+#: anjuta.glade.h:184
 msgid "Load _global defaults"
 msgstr "システム・デフォルトの読み込み(_G)"
 
-#: anjuta.glade.h:185 anjuta_dialogs_strings.c:45
+#: anjuta.glade.h:185
 msgid "Load _user defaults"
 msgstr "ユーザ・デフォルトの読み込み(_U)"
 
-#: anjuta.glade.h:186 anjuta_dialogs_strings.c:64
+#: anjuta.glade.h:186
 msgid "Low-Level Optimization (Machine dependent optimization)"
 msgstr "低レベルの最適化 (機種依存の最適化) にする"
 
-#: anjuta.glade.h:187 anjuta_dialogs_strings.c:222
+#: anjuta.glade.h:187
 msgid "Makefile.am"
 msgstr "Makefile.am"
 
-#: anjuta.glade.h:188 anjuta_dialogs_strings.c:182
+#: anjuta.glade.h:188
 msgid "Man pages"
 msgstr "man ページ"
 
-#: anjuta.glade.h:189 anjuta_dialogs_strings.c:135
+#: anjuta.glade.h:189
 msgid "Match at start of word"
 msgstr "単語の先頭にマッチする"
 
-#: anjuta.glade.h:190 anjuta_dialogs_strings.c:136
+#: anjuta.glade.h:190
 msgid "Match complete lines"
 msgstr "行の全てにマッチする"
 
-#: anjuta.glade.h:191 anjuta_dialogs_strings.c:137
+#: anjuta.glade.h:191
 msgid "Match complete words"
 msgstr "単語全体にマッチする"
 
-#: anjuta.glade.h:192 anjuta_dialogs_strings.c:170
+#: anjuta.glade.h:192
 msgid "Max. Actions"
 msgstr "操作数の最大値"
 
-#: anjuta.glade.h:193 anjuta_dialogs_strings.c:354
+#: anjuta.glade.h:193
 msgid "Maximum number of independent jobs (0 == no limit)"
 msgstr "独立なジョブの最大数 (0 == 制限無し)"
 
-#: anjuta.glade.h:194 anjuta_dialogs_strings.c:65
+#: anjuta.glade.h:194
 msgid "Medium-Level Optimization (Without space-speed trade-off)"
 msgstr "中レベルの最適化 (サイズとスピードのトレードオフ無し) にする"
 
-#: anjuta.glade.h:195 anjuta_dialogs_strings.c:474
+#: anjuta.glade.h:195
 msgid "Memory"
 msgstr "メモリ"
 
-#: anjuta.glade.h:196 anjuta_dialogs_strings.c:259
+#: anjuta.glade.h:196
 msgid "Menu icon:"
 msgstr "メニューのアイコン:"
 
-#: anjuta.glade.h:197 anjuta_dialogs_strings.c:228
+#: anjuta.glade.h:197
 msgid "Menu location:"
 msgstr "メニューの格納場所:"
 
-#: anjuta.glade.h:198 anjuta_dialogs_strings.c:448
+#: anjuta.glade.h:198
 msgid "Message colors"
 msgstr "メッセージの色"
 
-#: anjuta.glade.h:199 anjuta_dialogs_strings.c:431
+#: anjuta.glade.h:199
 msgid "Messages options"
 msgstr "メッセージのオプション"
 
-#: anjuta.glade.h:200 anjuta_dialogs_strings.c:390
+#: anjuta.glade.h:200
 msgid "Misc options"
 msgstr "その他のオプション"
 
-#: anjuta.glade.h:201 anjuta_dialogs_strings.c:417
+#: anjuta.glade.h:201
 msgid "Mode:"
 msgstr "モード:"
 
-#: anjuta.glade.h:202 anjuta_dialogs_strings.c:200
+#: anjuta.glade.h:202
 msgid "Modules"
 msgstr "モジュール群"
 
-#: anjuta.glade.h:203 anjuta_dialogs_strings.c:419
+#: anjuta.glade.h:203
 msgid "Monochrome"
 msgstr "白黒"
 
-#: anjuta.glade.h:204 anjuta_dialogs_strings.c:226
+#: anjuta.glade.h:204
 msgid "Name:"
 msgstr "名前:"
 
-#: anjuta.glade.h:205 anjuta_dialogs_strings.c:471 src/main_menubar_def.h:30
-#: src/text_editor_gui.c:97 src/toolbar.c:76
+#: anjuta.glade.h:205 src/main_menubar_def.h:30 src/text_editor_gui.c:97
+#: src/toolbar.c:76
 msgid "New file"
 msgstr "新規ファイル"
 
-#: anjuta.glade.h:206 anjuta_dialogs_strings.c:171
+#: anjuta.glade.h:206
 msgid "No Limit"
 msgstr "制限なし"
 
-#: anjuta.glade.h:207 anjuta_dialogs_strings.c:63
+#: anjuta.glade.h:207
 msgid "No Optimization"
 msgstr "最適化しない"
 
-#: anjuta.glade.h:208 anjuta_dialogs_strings.c:433
+#: anjuta.glade.h:208
 msgid "Normal message indicator style:"
 msgstr "通常メッセージの識別スタイル:"
 
-#: anjuta.glade.h:209 anjuta_dialogs_strings.c:442
+#: anjuta.glade.h:209
 msgid "Normal messages:"
 msgstr "通常メッセージ:"
 
-#: anjuta.glade.h:210 anjuta_dialogs_strings.c:360
-#: anjuta_dialogs_strings.c:414
+#: anjuta.glade.h:210
 msgid ""
 "Note: If there is a project open, the preferences in this page are project "
 "preferences and will be loaded from and saved with the project. If there is "
@@ -963,349 +911,334 @@ msgstr ""
 "プロジェクトがオープンされていない場合は\n"
 "グローバルな設定になります。"
 
-#: anjuta.glade.h:211 anjuta_dialogs_strings.c:427
+#: anjuta.glade.h:211
 msgid "Number of first characters to show:"
 msgstr "表示する最初の文字数:"
 
-#: anjuta.glade.h:212 anjuta_dialogs_strings.c:428
+#: anjuta.glade.h:212
 msgid "Number of last characters to show:"
 msgstr "表示する最後の文字数:"
 
 #. Must declare static, because it will be used forever
-#: anjuta.glade.h:213 anjuta_dialogs_strings.c:469 src/project_dbase.c:220
-#: src/toolbar.c:211
+#: anjuta.glade.h:213 src/project_dbase.c:220 src/toolbar.c:211
 msgid "Open Project"
 msgstr "プロジェクトを開く"
 
-#: anjuta.glade.h:214 anjuta_dialogs_strings.c:467
+#: anjuta.glade.h:214
 msgid "Open existing Project."
 msgstr "既存のプロジェクトを開きます。"
 
-#: anjuta.glade.h:215 anjuta_dialogs_strings.c:470
+#: anjuta.glade.h:215
 msgid "Open existing file or create a new file."
 msgstr ""
 "既存のファイルを開いたり、\n"
 "新規にファイルを追加します。"
 
-#: anjuta.glade.h:216 anjuta_dialogs_strings.c:472 src/main_menubar_def.h:36
-#: src/text_editor_gui.c:101 src/toolbar.c:80
+#: anjuta.glade.h:216 src/main_menubar_def.h:36 src/text_editor_gui.c:101
+#: src/toolbar.c:80
 msgid "Open file"
 msgstr "ファイルを開く"
 
-#: anjuta.glade.h:217 anjuta_dialogs_strings.c:468
+#: anjuta.glade.h:217
 msgid "Open last working Project"
 msgstr "最後に作業したプロジェクトを開く"
 
-#: anjuta.glade.h:218 anjuta_dialogs_strings.c:67
+#: anjuta.glade.h:218
 msgid "Optimization"
 msgstr "最適化"
 
 #. 15
-#: anjuta.glade.h:219 anjuta_dialogs_strings.c:78 anjuta_dialogs_strings.c:342
-#: src/text_editor_menu.c:329
+#: anjuta.glade.h:219 src/text_editor_menu.c:329
 msgid "Options"
 msgstr "オプション"
 
-#: anjuta.glade.h:220 anjuta_dialogs_strings.c:326
+#: anjuta.glade.h:220
 msgid "Other colors"
 msgstr "その他の色"
 
-#: anjuta.glade.h:221 anjuta_dialogs_strings.c:443
+#: anjuta.glade.h:221
 msgid "Other messages:"
 msgstr "その他のメッセージ:"
 
-#: anjuta.glade.h:222 anjuta_dialogs_strings.c:359 src/an_symbol_view.c:54
+#: anjuta.glade.h:222 src/an_symbol_view.c:54
 msgid "Others"
 msgstr "その他"
 
-#: anjuta.glade.h:223 anjuta_dialogs_strings.c:218
+#: anjuta.glade.h:223
 msgid "Output files"
 msgstr "出力ファイル"
 
-#: anjuta.glade.h:224 anjuta_dialogs_strings.c:313
-#: anjuta_dialogs_strings.c:314 anjuta_dialogs_strings.c:322
-#: anjuta_dialogs_strings.c:323 anjuta_dialogs_strings.c:324
-#: anjuta_dialogs_strings.c:325 anjuta_dialogs_strings.c:444
-#: anjuta_dialogs_strings.c:445 anjuta_dialogs_strings.c:446
-#: anjuta_dialogs_strings.c:447
+#: anjuta.glade.h:224
 msgid "Pick a color"
 msgstr "色の取得"
 
-#: anjuta.glade.h:225 anjuta_dialogs_strings.c:206
+#: anjuta.glade.h:225
 msgid "Pixmap module Makefile.am"
 msgstr "Pixmap モジュール (pixmaps) 配下の Makefile.am"
 
-#: anjuta.glade.h:226 anjuta_dialogs_strings.c:209
+#: anjuta.glade.h:226
 msgid "Po module (translation) Makefile.am"
 msgstr "翻訳メッセージカタログ (po) 配下の Makefile.am"
 
-#: anjuta.glade.h:227 anjuta_dialogs_strings.c:395
+#: anjuta.glade.h:227
 msgid "Position:"
 msgstr "タブの位置:"
 
-#: anjuta.glade.h:228 anjuta_dialogs_strings.c:292
+#: anjuta.glade.h:228
 msgid "Press this button to dismiss the dialog"
 msgstr "ダイアログを破棄する際はこのボタンをクリックして下さい"
 
-#: anjuta.glade.h:229 anjuta_dialogs_strings.c:406
+#: anjuta.glade.h:229
 msgid "Pressing backspace un-indents"
 msgstr "[BS] キー押下でインデントから抜ける"
 
-#: anjuta.glade.h:230 anjuta_dialogs_strings.c:405
+#: anjuta.glade.h:230
 msgid "Pressing tab indents"
 msgstr "[TAB] キー押下でインデントに入る"
 
-#: anjuta.glade.h:231 anjuta_dialogs_strings.c:424
+#: anjuta.glade.h:231
 msgid "Print options"
 msgstr "印刷オプション"
 
-#: anjuta.glade.h:232 anjuta_dialogs_strings.c:212
+#: anjuta.glade.h:232
 msgid "Programs"
 msgstr "プログラム"
 
-#: anjuta.glade.h:233 anjuta_dialogs_strings.c:234 src/project_dbase_gui.c:610
-#: src/project_dbase_gui.c:627 src/toolbar.c:149
+#: anjuta.glade.h:233 src/project_dbase_gui.c:610 src/project_dbase_gui.c:627
+#: src/toolbar.c:149
 msgid "Project"
 msgstr "プロジェクト"
 
-#: anjuta.glade.h:234 anjuta_dialogs_strings.c:184
+#: anjuta.glade.h:234
 msgid "Project Configuration"
 msgstr "プロジェクトの設定"
 
-#: anjuta.glade.h:235 anjuta_dialogs_strings.c:192 src/wizard_gui.c:469
+#: anjuta.glade.h:235 src/wizard_gui.c:469
 msgid "Project Description"
 msgstr "プロジェクトの説明/紹介"
 
-#: anjuta.glade.h:236 anjuta_dialogs_strings.c:191
+#: anjuta.glade.h:236
 msgid "Project Version"
 msgstr "プロジェクトのバージョン"
 
-#: anjuta.glade.h:237 anjuta_dialogs_strings.c:201
+#: anjuta.glade.h:237
 msgid "Project configure.in"
 msgstr "プロジェクトの configure.in"
 
-#: anjuta.glade.h:238 anjuta_dialogs_strings.c:247
+#: anjuta.glade.h:238
 msgid "Project level"
 msgstr "プロジェクトのレベルで実行する"
 
-#: anjuta.glade.h:239 anjuta_dialogs_strings.c:328
+#: anjuta.glade.h:239
 msgid "Projects:"
 msgstr "プロジェクト:"
 
-#: anjuta.glade.h:240 anjuta_dialogs_strings.c:113
+#: anjuta.glade.h:240
 msgid "Prompt before replace"
 msgstr "置換する前に確認する"
 
-#: anjuta.glade.h:241 anjuta_dialogs_strings.c:332
+#: anjuta.glade.h:241
 msgid "Recent Files:"
 msgstr "最近開いたファイル数:"
 
-#: anjuta.glade.h:242 anjuta_dialogs_strings.c:331
+#: anjuta.glade.h:242
 msgid "Recent Projects:"
 msgstr "最近開いたプロジェクト数:"
 
-#: anjuta.glade.h:243 anjuta_dialogs_strings.c:109
-#: anjuta_dialogs_strings.c:124
+#: anjuta.glade.h:243
 msgid "Regexp"
 msgstr "正規表現"
 
-#: anjuta.glade.h:244 anjuta_dialogs_strings.c:100
-#: anjuta_dialogs_strings.c:117
+#: anjuta.glade.h:244
 msgid "Regexp/String to find"
 msgstr "検索する正規表現/文字列"
 
-#: anjuta.glade.h:245 anjuta_dialogs_strings.c:131
+#: anjuta.glade.h:245
 msgid "Regular Expression"
 msgstr "正規表現を使用する"
 
-#: anjuta.glade.h:246 anjuta_dialogs_strings.c:296
+#: anjuta.glade.h:246
 msgid "Reload Session Defaults"
 msgstr "セッション・デフォルトの再ロード"
 
-#: anjuta.glade.h:247 anjuta_dialogs_strings.c:295
+#: anjuta.glade.h:247
 msgid "Reload System Defaults"
 msgstr "システム・デフォルトの再ロード"
 
-#: anjuta.glade.h:248 anjuta_dialogs_strings.c:177
+#: anjuta.glade.h:248
 msgid "Replace Expression"
 msgstr "式の置換"
 
-#: anjuta.glade.h:249 anjuta_dialogs_strings.c:174
+#: anjuta.glade.h:249
 msgid "Replace With:"
 msgstr "置換するもの:"
 
-#: anjuta.glade.h:250 anjuta_dialogs_strings.c:452
+#: anjuta.glade.h:250
 msgid "Reset all sticky tags during update (looses branch) [-A]"
 msgstr "update 中に全ての sticky タグをリセットする (ブランチをなくす) [-A]"
 
-#: anjuta.glade.h:251 anjuta_dialogs_strings.c:82
+#: anjuta.glade.h:251
 msgid "Run Configure Script"
 msgstr "configure スクリプトの実行"
 
-#: anjuta.glade.h:252 anjuta_dialogs_strings.c:244
+#: anjuta.glade.h:252
 msgid "Run detached"
 msgstr "取り込まないで実行する"
 
-#: anjuta.glade.h:253 anjuta_dialogs_strings.c:97
+#: anjuta.glade.h:253
 msgid "Run in Terminal"
 msgstr "端末内で実行する"
 
-#: anjuta.glade.h:254 anjuta_dialogs_strings.c:245
+#: anjuta.glade.h:254
 msgid "Run in terminal"
 msgstr "端末内で実行する"
 
-#: anjuta.glade.h:255 anjuta_dialogs_strings.c:262
+#: anjuta.glade.h:255
 msgid "Save all files"
 msgstr "全てのファイルを保存する"
 
-#: anjuta.glade.h:256 anjuta_dialogs_strings.c:363
+#: anjuta.glade.h:256
 msgid "Save files interval in minutes"
 msgstr "ファイル保存の周期 (分)"
 
-#: anjuta.glade.h:257 anjuta_dialogs_strings.c:364
+#: anjuta.glade.h:257
 msgid "Save session interval in minutes"
 msgstr "セッション保存の周期 (分)"
 
-#: anjuta.glade.h:258 anjuta_dialogs_strings.c:105
-#: anjuta_dialogs_strings.c:120
+#: anjuta.glade.h:258
 msgid "Scope"
 msgstr "範囲"
 
-#: anjuta.glade.h:259 anjuta_dialogs_strings.c:221
+#: anjuta.glade.h:259
 msgid "Scripts at the end of top level Makefile.am"
 msgstr "トップ・レベル Makefile.am の最後におくスクリプト"
 
-#: anjuta.glade.h:260 anjuta_dialogs_strings.c:178 src/search-replace.c:1332
-#: src/search-replace.c:1495 src/search-replace.c:1501
+#: anjuta.glade.h:260 src/search-replace.c:1332 src/search-replace.c:1495
+#: src/search-replace.c:1501
 msgid "Search"
 msgstr "検索"
 
-#: anjuta.glade.h:261 anjuta_dialogs_strings.c:172
+#: anjuta.glade.h:261
 msgid "Search Action:"
 msgstr "検索の方式:"
 
-#: anjuta.glade.h:262 anjuta_dialogs_strings.c:141
+#: anjuta.glade.h:262
 msgid "Search Direction:"
 msgstr "検索する方向:"
 
-#: anjuta.glade.h:263 anjuta_dialogs_strings.c:138
+#: anjuta.glade.h:263
 msgid "Search Expression"
 msgstr "式の検索"
 
-#: anjuta.glade.h:264 anjuta_dialogs_strings.c:130
+#: anjuta.glade.h:264
 msgid "Search Expression:"
 msgstr "式の検索:"
 
-#: anjuta.glade.h:265 anjuta_dialogs_strings.c:139
+#: anjuta.glade.h:265
 msgid "Search In:"
 msgstr "検索する場所:"
 
-#: anjuta.glade.h:266 anjuta_dialogs_strings.c:168
+#: anjuta.glade.h:266
 msgid "Search Recursively"
 msgstr "再帰的に検索する"
 
-#: anjuta.glade.h:267 anjuta_dialogs_strings.c:93
+#: anjuta.glade.h:267
 msgid "Search String"
 msgstr "検索する文字列"
 
-#: anjuta.glade.h:268 anjuta_dialogs_strings.c:173
+#: anjuta.glade.h:268
 msgid "Search Target"
 msgstr "検索する対象"
 
-#: anjuta.glade.h:269 anjuta_dialogs_strings.c:146
+#: anjuta.glade.h:269
 msgid "Search Variable"
 msgstr "検索変数"
 
-#: anjuta.glade.h:270 anjuta_dialogs_strings.c:111
-#: anjuta_dialogs_strings.c:126
+#: anjuta.glade.h:270
 msgid "Search type"
 msgstr "検索の種類"
 
-#: anjuta.glade.h:271 anjuta_dialogs_strings.c:315
+#: anjuta.glade.h:271
 msgid "Select highlight style to edit:"
 msgstr "編集する強調表示スタイルの選択:"
 
-#: anjuta.glade.h:272 anjuta_dialogs_strings.c:299
+#: anjuta.glade.h:272
 msgid "Select theme:"
 msgstr "テーマの選択:"
 
-#: anjuta.glade.h:273 anjuta_dialogs_strings.c:319
+#: anjuta.glade.h:273
 msgid "Selection background:"
 msgstr "背景色の選択:"
 
-#: anjuta.glade.h:274 anjuta_dialogs_strings.c:318
+#: anjuta.glade.h:274
 msgid "Selection foreground:"
 msgstr "前景色の選択:"
 
-#: anjuta.glade.h:275 anjuta_dialogs_strings.c:240
+#: anjuta.glade.h:275
 msgid "Settings"
 msgstr "設定"
 
-#: anjuta.glade.h:276 anjuta_dialogs_strings.c:256
+#: anjuta.glade.h:276
 msgid "Short cut:"
 msgstr "ショートカット:"
 
-#: anjuta.glade.h:277 anjuta_dialogs_strings.c:341
+#: anjuta.glade.h:277
 msgid "Show tooltips"
 msgstr "ツールチップを表示する"
 
-#: anjuta.glade.h:278 anjuta_dialogs_strings.c:352
+#: anjuta.glade.h:278
 msgid "Silent. That is, do not echo shell commads during make"
 msgstr "サイレントモード: `make` 中に Shell コマンドの出力を表示しない"
 
-#: anjuta.glade.h:279 anjuta_dialogs_strings.c:392
+#: anjuta.glade.h:279
 msgid "Sorted by most recent use"
 msgstr "最近使用した順に並べる"
 
-#: anjuta.glade.h:280 anjuta_dialogs_strings.c:393
+#: anjuta.glade.h:280
 msgid "Sorted in alphabetical order"
 msgstr "アルファベット順に並べる"
 
-#: anjuta.glade.h:281 anjuta_dialogs_strings.c:391
+#: anjuta.glade.h:281
 msgid "Sorted in the order you open them"
 msgstr "開いた順に並べる"
 
-#: anjuta.glade.h:282 anjuta_dialogs_strings.c:79
+#: anjuta.glade.h:282
 msgid "Source Directories"
 msgstr "ソースのフォルダ"
 
-#: anjuta.glade.h:283 anjuta_dialogs_strings.c:203
+#: anjuta.glade.h:283
 msgid "Source module Makefile.am"
 msgstr "ソース・モジュール (src) 配下の Makefile.am"
 
-#: anjuta.glade.h:284 anjuta_dialogs_strings.c:162
-#: anjuta_dialogs_strings.c:286
+#: anjuta.glade.h:284
 msgid "Space-seperated list of directory name patterns to ignore"
 msgstr "無視するフォルダ名のパターンを空白で区切って指定します"
 
-#: anjuta.glade.h:285 anjuta_dialogs_strings.c:159
-#: anjuta_dialogs_strings.c:284
+#: anjuta.glade.h:285
 msgid "Space-seperated list of directory name patterns to match"
 msgstr "マッチするフォルダ名のパターンを空白で区切って指定します"
 
-#: anjuta.glade.h:286 anjuta_dialogs_strings.c:154
-#: anjuta_dialogs_strings.c:277
+#: anjuta.glade.h:286
 msgid "Space-seperated list of file name patterns to ignore"
 msgstr "無視するファイル名のパターンを空白で区切って指定します"
 
-#: anjuta.glade.h:287 anjuta_dialogs_strings.c:148
-#: anjuta_dialogs_strings.c:271
+#: anjuta.glade.h:287
 msgid "Space-seperated list of file name patterns to match"
 msgstr "マッチするファイル名のパターンを空白で区切って指定します"
 
-#: anjuta.glade.h:288 anjuta_dialogs_strings.c:255
+#: anjuta.glade.h:288
 msgid "Standard error:"
 msgstr "標準エラー出力:"
 
-#: anjuta.glade.h:289 anjuta_dialogs_strings.c:249
+#: anjuta.glade.h:289
 msgid "Standard input:"
 msgstr "標準入力:"
 
-#: anjuta.glade.h:290 anjuta_dialogs_strings.c:252
+#: anjuta.glade.h:290
 msgid "Standard output:"
 msgstr "標準出力:"
 
-#: anjuta.glade.h:291 anjuta_dialogs_strings.c:463
+#: anjuta.glade.h:291
 msgid ""
 "Start with a new Project. Application wizard will guide you with Project "
 "creation. With the Application Wizard, you will be able to create the "
@@ -1316,267 +1249,226 @@ msgstr ""
 "お手伝いをします。このウィザードを使うと、\n"
 "いろいろなプロジェクトの骨組みを生成できます。"
 
-#: anjuta.glade.h:292 anjuta_dialogs_strings.c:110
-#: anjuta_dialogs_strings.c:125
+#: anjuta.glade.h:292
 msgid "String"
 msgstr "文字列"
 
-#: anjuta.glade.h:293 anjuta_dialogs_strings.c:102
+#: anjuta.glade.h:293
 msgid "String to replace"
 msgstr "置き換える文字列"
 
-#: anjuta.glade.h:294 anjuta_dialogs_strings.c:383
+#: anjuta.glade.h:294
 msgid "Strip trailling spaces on file save"
 msgstr "保存時に後ろ付きの空白を除く"
 
-#: anjuta.glade.h:295 anjuta_dialogs_strings.c:483 src/anjuta-encodings.c:723
+#: anjuta.glade.h:295 src/anjuta-encodings.c:723
 msgid "Supported Encodings"
 msgstr "サポートするエンコーディング"
 
-#: anjuta.glade.h:296 anjuta_dialogs_strings.c:47
+#: anjuta.glade.h:296
 msgid "Supports"
 msgstr "サポート"
 
-#: anjuta.glade.h:297 anjuta_dialogs_strings.c:293
+#: anjuta.glade.h:297
 msgid "Syntax highlight editor"
 msgstr "強調表示エディタ"
 
-#: anjuta.glade.h:298 anjuta_dialogs_strings.c:399
+#: anjuta.glade.h:298
 msgid "Tab size in spaces:"
 msgstr "タブのサイズ:"
 
-#: anjuta.glade.h:299 anjuta_dialogs_strings.c:429
+#: anjuta.glade.h:299
 msgid "Tabs position:"
 msgstr "タブの位置:"
 
-#: anjuta.glade.h:300 anjuta_dialogs_strings.c:188
+#: anjuta.glade.h:300
 msgid "Target:"
 msgstr "対象:"
 
-#: anjuta.glade.h:301 anjuta_dialogs_strings.c:461
+#: anjuta.glade.h:301
 msgid "Terminal options"
 msgstr "端末のオプション"
 
-#: anjuta.glade.h:302 anjuta_dialogs_strings.c:301
+#: anjuta.glade.h:302
 msgid "Theme"
 msgstr "テーマ"
 
-#: anjuta.glade.h:303 anjuta_dialogs_strings.c:225
-#: anjuta_dialogs_strings.c:263
+#: anjuta.glade.h:303
 msgid "Tool Editor"
 msgstr "ツール編集エディタ"
 
-#: anjuta.glade.h:304 anjuta_dialogs_strings.c:202
+#: anjuta.glade.h:304
 msgid "Top level Makefile.am"
 msgstr "トップレベルの Makefile.am"
 
-#: anjuta.glade.h:305 anjuta_dialogs_strings.c:426
+#: anjuta.glade.h:305
 msgid "Truncate long messages"
 msgstr "長いメッセージを切り詰める"
 
-#: anjuta.glade.h:306 anjuta_dialogs_strings.c:481
+#: anjuta.glade.h:306
 msgid "Try to save in current locale's encoding"
 msgstr "現在利用しているロケールのエンコーディングで保存してみる"
 
-#: anjuta.glade.h:307 anjuta_dialogs_strings.c:480
+#: anjuta.glade.h:307
 msgid "Try to save in original encoding"
 msgstr "オリジナルのエンコーディングで保存してみる"
 
-#: anjuta.glade.h:308 anjuta_dialogs_strings.c:312
+#: anjuta.glade.h:308
 msgid "Underlined"
 msgstr "下線"
 
-#: anjuta.glade.h:309 anjuta_dialogs_strings.c:48 anjuta_dialogs_strings.c:51
-#: anjuta_dialogs_strings.c:54 anjuta_dialogs_strings.c:58 src/cvs_gui.c:73
-#: src/registers_gui.c:47 src/sharedlib_gui.c:40 src/signals_gui.c:54
-#: src/stack_trace.c:370
+#: anjuta.glade.h:309 src/cvs_gui.c:73 src/registers_gui.c:47
+#: src/sharedlib_gui.c:40 src/signals_gui.c:54 src/stack_trace.c:370
 msgid "Update"
 msgstr "更新"
 
-#: anjuta.glade.h:310 anjuta_dialogs_strings.c:338
+#: anjuta.glade.h:310
 msgid "Update tags image automatically"
 msgstr "自動的にタグ・イメージを更新する"
 
-#: anjuta.glade.h:311 anjuta_dialogs_strings.c:457
+#: anjuta.glade.h:311
 msgid "Use GNOME terminal profile:"
 msgstr "使用する GNOME 端末のプロファイル:"
 
-#: anjuta.glade.h:312 anjuta_dialogs_strings.c:460
+#: anjuta.glade.h:312
 msgid "Use currently selected profile in GNOME terminal"
 msgstr "GNOME 端末で現在選択されているプロファイルを使用する"
 
-#: anjuta.glade.h:313 anjuta_dialogs_strings.c:306
-#: anjuta_dialogs_strings.c:307 anjuta_dialogs_strings.c:308
-#: anjuta_dialogs_strings.c:309
+#: anjuta.glade.h:313
 msgid "Use default"
 msgstr "デフォルトを使用する"
 
-#: anjuta.glade.h:314 anjuta_dialogs_strings.c:402
+#: anjuta.glade.h:314
 msgid "Use tabs for indentation"
 msgstr "インデントにタブを使う"
 
-#: anjuta.glade.h:315 anjuta_dialogs_strings.c:223
+#: anjuta.glade.h:315
 msgid "User Tools"
 msgstr "ユーザ定義ツール"
 
-#: anjuta.glade.h:316 anjuta_dialogs_strings.c:344
+#: anjuta.glade.h:316
 msgid "User email address:"
 msgstr "E-メール・アドレス:"
 
-#: anjuta.glade.h:317 anjuta_dialogs_strings.c:347
+#: anjuta.glade.h:317
 msgid "User information"
 msgstr "ユーザの情報"
 
-#: anjuta.glade.h:318 anjuta_dialogs_strings.c:343
+#: anjuta.glade.h:318
 msgid "User name:"
 msgstr "ユーザ名:"
 
-#: anjuta.glade.h:319 anjuta_dialogs_strings.c:264
-#: anjuta_dialogs_strings.c:265
+#: anjuta.glade.h:319
 msgid "Variable list"
 msgstr "変数の一覧"
 
-#: anjuta.glade.h:320 anjuta_dialogs_strings.c:186 src/project_dbase_gui.c:932
+#: anjuta.glade.h:320 src/project_dbase_gui.c:932
 msgid "Version:"
 msgstr "バージョン:"
 
-#: anjuta.glade.h:321 anjuta_dialogs_strings.c:233
+#: anjuta.glade.h:321
 msgid "View"
 msgstr "表示"
 
-#: anjuta.glade.h:322 anjuta_dialogs_strings.c:353
+#: anjuta.glade.h:322
 msgid "Warn when an undefined variable is referenced in the Makefile"
 msgstr "Makefile の中で未定義の変数が参照された場合は警告する"
 
-#: anjuta.glade.h:323 anjuta_dialogs_strings.c:434
+#: anjuta.glade.h:323
 msgid "Warning message indicator style:"
 msgstr "警告メッセージの識別スタイル:"
 
-#: anjuta.glade.h:324 anjuta_dialogs_strings.c:62
+#: anjuta.glade.h:324
 msgid "Warnings"
 msgstr "警告メッセージ"
 
-#: anjuta.glade.h:325 anjuta_dialogs_strings.c:441
+#: anjuta.glade.h:325
 msgid "Warnings messages:"
 msgstr "警告メッセージ:"
 
-#: anjuta.glade.h:326 anjuta_dialogs_strings.c:103
-#: anjuta_dialogs_strings.c:118
+#: anjuta.glade.h:326
 msgid "Whole document"
 msgstr "ドキュメント全体"
 
-#: anjuta.glade.h:327 anjuta_dialogs_strings.c:112
-#: anjuta_dialogs_strings.c:127
+#: anjuta.glade.h:327
 msgid "Whole word"
 msgstr "単語全体を対象とする"
 
-#: anjuta.glade.h:328 anjuta_dialogs_strings.c:242
+#: anjuta.glade.h:328
 msgid "Working directory:"
 msgstr "作業フォルダ:"
 
-#: anjuta.glade.h:329 anjuta_dialogs_strings.c:385
+#: anjuta.glade.h:329
 msgid "Wrap bookmarks search around"
 msgstr "ブックマークの検索をくくる"
 
-#: anjuta.glade.h:330 anjuta_dialogs_strings.c:9
+#: anjuta.glade.h:330
 msgid "_Attach"
 msgstr "取り込み(_A)"
 
-#: anjuta.glade.h:331 anjuta_dialogs_strings.c:36
+#: anjuta.glade.h:331
 msgid "_Build a file:"
 msgstr "ファイルのビルド(_B):"
 
-#: anjuta.glade.h:332 anjuta_dialogs_strings.c:17
+#: anjuta.glade.h:332
 msgid "_Condition:"
 msgstr "条件(_C):"
 
-#: anjuta.glade.h:333 anjuta_dialogs_strings.c:13
+#: anjuta.glade.h:333
 msgid "_Disable all"
 msgstr "全て無効(_D)"
 
-#: anjuta.glade.h:334 anjuta_dialogs_strings.c:224
+#: anjuta.glade.h:334
 msgid "_Edit"
 msgstr "編集(_E)"
 
-#: anjuta.glade.h:335 anjuta_dialogs_strings.c:37
+#: anjuta.glade.h:335
 msgid "_Execute:"
 msgstr "実行(_E):"
 
-#: anjuta.glade.h:336 anjuta_dialogs_strings.c:26
+#: anjuta.glade.h:336
 msgid "_Image editor:"
 msgstr "画像エディタ(_I):"
 
-#: anjuta.glade.h:337 anjuta_dialogs_strings.c:42
+#: anjuta.glade.h:337
 msgid "_Language:"
 msgstr "言語(_L):"
 
-#: anjuta.glade.h:338 anjuta_dialogs_strings.c:16
+#: anjuta.glade.h:338
 msgid "_Location:"
 msgstr "場所(_L):"
 
-#: anjuta.glade.h:339 anjuta_dialogs_strings.c:38
+#: anjuta.glade.h:339
 msgid "_Make a file:"
 msgstr "ファイルのメイク(_M):"
 
-#: anjuta.glade.h:340 anjuta_dialogs_strings.c:18
+#: anjuta.glade.h:340
 msgid "_Pass:"
 msgstr "パス(_P):"
 
-#: anjuta.glade.h:341 anjuta_dialogs_strings.c:25
+#: anjuta.glade.h:341
 msgid "_Pixmap editor:"
 msgstr "Pixmap エディタ(_P):"
 
-#: anjuta.glade.h:342 anjuta_dialogs_strings.c:10
+#: anjuta.glade.h:342
 msgid "_Process to attach to:"
 msgstr "取り込むプロセスの選択(_P):"
 
-#: anjuta.glade.h:343 anjuta_dialogs_strings.c:14
+#: anjuta.glade.h:343
 msgid "_Remove all"
 msgstr "全て削除(_R)"
 
-#: anjuta.glade.h:344 anjuta_dialogs_strings.c:297
+#: anjuta.glade.h:344
 msgid "_Save Theme As"
 msgstr "テーマを別名で保存(_S)"
 
-#: anjuta.glade.h:345 anjuta_dialogs_strings.c:28
+#: anjuta.glade.h:345
 msgid "_Terminal:"
 msgstr "端末(_T):"
 
-#: anjuta.glade.h:346 anjuta_dialogs_strings.c:8 anjuta_dialogs_strings.c:80
+#: anjuta.glade.h:346
 msgid "_Update"
 msgstr "更新(_U)"
-
-#: anjuta_dialogs_strings.c:327 anjuta_dialogs_strings.c:478
-msgid "window1"
-msgstr "window1"
-
-#: anjuta_dialogs_strings.c:348
-msgid "window2"
-msgstr "window2"
-
-#: anjuta_dialogs_strings.c:361
-msgid "window3"
-msgstr "window3"
-
-#: anjuta_dialogs_strings.c:398
-msgid "window4"
-msgstr "window4"
-
-#: anjuta_dialogs_strings.c:416
-msgid "window5"
-msgstr "window5"
-
-#: anjuta_dialogs_strings.c:425
-msgid "window6"
-msgstr "window6"
-
-#: anjuta_dialogs_strings.c:449
-msgid "window7"
-msgstr "window7"
-
-#: anjuta_dialogs_strings.c:456
-msgid "window8"
-msgstr "window8"
 
 #: gdl/gdl-dock-item-grip.c:244
 msgid "Dock the toolbar"
@@ -7046,13 +6938,13 @@ msgstr "このファイルは大きすぎます。メモリを割り当てるこ
 #: src/text_editor.c:933
 msgid ""
 "The file does not look like a text file or the file encoding is not "
-"supported.Please check if the encoding of file is in the supported encodings "
-"list. If not, add it from the preferences."
+"supported. Please check if the encoding of file is in the supported "
+"encodings list. If not, add it from the preferences."
 msgstr ""
 "そのファイルはテキスト・ファイルではないか、あるいはそのファイルのエンコー"
-"ディングがサポートされていません。ファイルのエンコーディングが \"サポートする"
-"エンコーディング\" の一覧にあるかどうかをチェックして下さい。無い場合は一覧か"
-"ら追加して下さい。"
+"ディングはサポートされていません。ファイルのエンコーディングが \"サポートする"
+"エンコーディング\" の一覧にあるかどうかを確認して下さい。無い場合は設定から追"
+"加して下さい。"
 
 #: src/text_editor.c:1106
 msgid "Loading file ..."
