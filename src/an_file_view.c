@@ -255,6 +255,12 @@ static void fv_add_tree_entry(TMFileEntry *entry, GtkCTreeNode *root)
 	for (tmp = entry->children; tmp; tmp = g_slist_next(tmp))
 	{
 		child = (TMFileEntry *) tmp->data;
+		if (tm_file_dir_t == entry->type)
+			fv_add_tree_entry(child, parent);
+	}
+	for (tmp = entry->children; tmp; tmp = g_slist_next(tmp))
+	{
+		child = (TMFileEntry *) tmp->data;
 		if (tm_file_regular_t == child->type)
 		{
 			type = fv_get_file_type(child->name);
@@ -269,13 +275,6 @@ static void fv_add_tree_entry(TMFileEntry *entry, GtkCTreeNode *root)
 			gtk_ctree_node_set_row_data_full(GTK_CTREE(fv->tree), item
 			  , g_strdup(child->path), (GtkDestroyNotify) g_free);
 		}
-	}
-	gtk_ctree_sort_node(GTK_CTREE(fv->tree), parent);
-	for (tmp = entry->children; tmp; tmp = g_slist_next(tmp))
-	{
-		child = (TMFileEntry *) tmp->data;
-		if (tm_file_dir_t == entry->type)
-			fv_add_tree_entry(child, parent);
 	}
 }
 
