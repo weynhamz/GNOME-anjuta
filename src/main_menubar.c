@@ -429,14 +429,6 @@ create_submenu (gchar * title, GList * strings, GtkSignalFunc callback_func)
 	gtk_menu_append (GTK_MENU (submenu), item);
 	gtk_widget_show (item);
 
-	item = gtk_menu_item_new ();
-	gtk_menu_append (GTK_MENU (submenu), item);
-	gtk_widget_show (item);
-
-	item = gtk_menu_item_new ();
-	gtk_menu_append (GTK_MENU (submenu), item);
-	gtk_widget_show (item);
-
 	item = gtk_menu_item_new_with_label (title);
 	gtk_widget_set_sensitive (item, FALSE);
 	gtk_menu_append (GTK_MENU (submenu), item);
@@ -456,14 +448,6 @@ create_submenu (gchar * title, GList * strings, GtkSignalFunc callback_func)
 		gtk_signal_connect (GTK_OBJECT (item), "activate",
 				    callback_func, text);
 	}
-	item = gtk_menu_item_new ();
-	gtk_menu_append (GTK_MENU (submenu), item);
-	gtk_widget_show (item);
-
-	item = gtk_menu_item_new ();
-	gtk_menu_append (GTK_MENU (submenu), item);
-	gtk_widget_show (item);
-
 	gtk_widget_show (submenu);
 	return GTK_WIDGET (submenu);
 }
