@@ -340,6 +340,8 @@ on_close_project (GtkAction *action, ProjectManagerPlugin *plugin)
 		update_ui (plugin);
 		anjuta_shell_remove_value (ANJUTA_PLUGIN (plugin)->shell,
 								   "project_root_uri", NULL);
+		g_free (plugin->project_uri);
+		plugin->project_uri = NULL;
 		status = anjuta_shell_get_status (ANJUTA_PLUGIN (plugin)->shell, NULL);
 		anjuta_status_set_default (status, _("Project"), NULL);
 	}
@@ -639,6 +641,17 @@ value_removed_current_editor (AnjutaPlugin *plugin,
 	pm_plugin->current_editor_uri = NULL;
 }
 
+static void
+on_session_save (AnjutaShell *shell, GQueue *commandline_args,
+				 ProjectManagerPlugin *plugin)
+{
+	if (plugin->project_uri)
+	{
+		g_queue_push_tail (commandline_args, g_strdup_printf ("'%s'",
+						   plugin->project_uri));
+	}
+}
+
 static gboolean
 activate_plugin (AnjutaPlugin *plugin)
 {
@@ -733,7 +746,10 @@ activate_plugin (AnjutaPlugin *plugin)
 		anjuta_plugin_add_watch (plugin, "document_manager_current_editor",
 								 value_added_current_editor,
 								 value_removed_current_editor, NULL);
-	initialized = TRUE;
+	/* Connect to save session */
+	g_signal_connect (G_OBJECT (plugin->shell), "save_session",
+					  G_CALLBACK (on_session_save), plugin);
+		initialized = TRUE;
 	return TRUE;
 }
 
@@ -742,6 +758,9 @@ deactivate_plugin (AnjutaPlugin *plugin)
 {
 	ProjectManagerPlugin *pm_plugin;
 	pm_plugin = (ProjectManagerPlugin*) plugin;
+	
+	g_signal_handlers_disconnect_by_func (G_OBJECT (plugin->shell),
+										  G_CALLBACK (on_session_save), plugin);
 	
 	/* Close project if it's open */
 	anjuta_ui_activate_action_by_group (pm_plugin->ui,
@@ -768,6 +787,7 @@ static void
 finalize (GObject *obj)
 {
 	/* FIXME: */
+	g_free (((ProjectManagerPlugin *)obj)->project_uri);
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (obj));
 }
 
@@ -786,6 +806,7 @@ project_manager_plugin_instance_init (GObject *obj)
 	plugin->project = NULL;
 	plugin->view = NULL;
 	plugin->model = NULL;
+	plugin->project_uri = NULL;
 }
 
 static void
@@ -917,6 +938,10 @@ ifile_open (IAnjutaFile *project_manager,
 							"project_root_uri",
 							value, NULL);
 	gtk_widget_destroy (progress_win);
+	
+	g_free (pm_plugin->project_uri);
+	pm_plugin->project_uri = g_strdup (filename);
+	
 	anjuta_status_set_default (status, _("Project"), g_basename (dirname));
 	anjuta_status_pop (status);
 	anjuta_status_busy_pop (status);

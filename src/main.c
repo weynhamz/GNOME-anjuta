@@ -25,10 +25,12 @@
 #include <sys/stat.h>
 
 #include <gnome.h>
-
+#include <gtk/gtkwindow.h>
+#include <libgnomevfs/gnome-vfs-utils.h>
 #include <libanjuta/resources.h>
 #include <libanjuta/plugins.h>
 #include <libanjuta/e-splash.h>
+#include <libanjuta/anjuta-debug.h>
 
 #include "anjuta.h"
 
@@ -73,9 +75,17 @@ static gchar *get_real_path(const gchar *file_name)
 	if (file_name)
 	{
 		gchar path[PATH_MAX+1];
-		memset(path, '\0', PATH_MAX+1);
-		realpath(file_name, path);
-		return g_strdup(path);
+		gchar *uri_scheme;
+		
+		uri_scheme = gnome_vfs_get_uri_scheme (file_name);
+		if (!uri_scheme)
+		{
+			memset(path, '\0', PATH_MAX+1);
+			realpath(file_name, path);
+			return g_strdup(path);
+		}
+		g_free (uri_scheme);
+		return g_strdup (file_name);
 	}
 	else
 		return NULL;
@@ -112,7 +122,10 @@ main (int argc, char *argv[])
 	gchar *data_dir;
 	GList *plugins_dirs = NULL;
 	GList* command_args;
-
+	GdkGeometry size_hints = {
+    	100, 100, 0, 0, 100, 100, 0, 0, 0.0, 0.0, GDK_GRAVITY_NORTH_WEST  
+  	};
+	
 #ifdef ENABLE_NLS
 	bindtextdomain (PACKAGE, PACKAGE_LOCALE_DIR);
 	bind_textdomain_codeset(PACKAGE, "UTF-8");
@@ -132,17 +145,18 @@ main (int argc, char *argv[])
 			    NULL);
 	g_free (data_dir);
 	
+	gtk_window_set_default_icon_from_file (PACKAGE_PIXMAPS_DIR"/anjuta_icon.png", NULL);
+	
 	/* Get the command line files */
 	command_args = get_command_line_args (program);
+	gtk_window_set_auto_startup_notification(FALSE);
 
 	if (!no_splash) {
 		char *im_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_SPLASH_SCREEN);
 		if (im_file) {
 			if (NULL != (splash = e_splash_new(im_file))) {
-				gtk_window_set_auto_startup_notification(FALSE);
 				gtk_widget_show (splash);
-				gtk_window_set_auto_startup_notification(TRUE);
-			        g_object_ref (G_OBJECT (splash));
+				g_object_ref (G_OBJECT (splash));
 				while (gtk_events_pending ())
 					gtk_main_iteration ();
 			}
@@ -155,15 +169,46 @@ main (int argc, char *argv[])
 
 	/* Create Anjuta application */
 	app = anjuta_new (argv[0], command_args, E_SPLASH (splash), proper_shutdown);
-	if (anjuta_geometry)
-		gtk_window_parse_geometry (GTK_WINDOW (app), anjuta_geometry);
-	
+	gtk_window_set_role (GTK_WINDOW (app), "anjuta-app");
 	if (splash) {
 		g_object_unref (splash);
         gtk_widget_destroy (splash);
 	}
-
+	
 	/* Run Anjuta application */
+	gtk_window_set_geometry_hints (GTK_WINDOW (app), GTK_WIDGET (app),
+								   &size_hints, GDK_HINT_RESIZE_INC);
+	if (anjuta_geometry)
+	{
+		gint pos_x, pos_y, width, height;
+		DEBUG_PRINT ("Setting geometry: %s", anjuta_geometry);
+		/* Parse geometry doesn't seem to work here :( */
+		/* gtk_window_parse_geometry (GTK_WINDOW (app), anjuta_geometry); */
+		if (sscanf (anjuta_geometry, "%dx%d+%d+%d", &width, &height,
+			&pos_x, &pos_y) == 4)
+		{
+			gtk_window_set_default_size (GTK_WINDOW (app), width, height);
+			gtk_window_move (GTK_WINDOW (app), pos_x, pos_y);
+		}
+		else
+		{
+			g_warning ("Failed to parse geometry: %s", anjuta_geometry);
+		}
+	}
+	else
+	{
+		gint pos_x, pos_y, width, height;
+		
+		pos_x = 10;
+		pos_y = 10;
+		width = gdk_screen_width () - 10;
+		height = gdk_screen_height () - 25;
+		width = (width < 790)? width : 790;
+		height = (height < 575)? width : 575;
+		gtk_window_set_default_size (GTK_WINDOW (app), width, height);
+		gtk_window_move (GTK_WINDOW (app), pos_x, pos_y);
+	}
+	gtk_window_set_auto_startup_notification(TRUE);
 	gtk_widget_show (GTK_WIDGET (app));
 	gtk_main();
 	

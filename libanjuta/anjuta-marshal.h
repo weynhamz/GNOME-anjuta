@@ -44,6 +44,9 @@ extern void anjuta_cclosure_marshal_VOID__STRING_BOXED (GClosure     *closure,
                                                         gpointer      invocation_hint,
                                                         gpointer      marshal_data);
 
+/* VOID:POINTER (./anjuta-marshal.list:30) */
+#define anjuta_cclosure_marshal_VOID__POINTER	g_cclosure_marshal_VOID__POINTER
+
 G_END_DECLS
 
 #endif /* __anjuta_cclosure_marshal_MARSHAL_H__ */

@@ -111,44 +111,31 @@ on_anjuta_destroy (GtkWidget * w, gpointer data)
 }
 
 static gint
-on_anjuta_restore_session_on_idle (gpointer data)
+on_anjuta_load_session_on_idle (gpointer data)
 {
-	GList *args;
+	GQueue *commandline_args;
+	GList *args, *node;
 	AnjutaApp *app = (AnjutaApp*)data;
-	// GnomeClient* client = gnome_master_client();
 	
 	args = g_object_get_data (G_OBJECT(app), "command-args");
 	if (!args)
 		return FALSE;
+	
+	commandline_args = g_queue_new ();
+	
+	node = args;
+	while (node)
+	{
+		g_queue_push_head (commandline_args, node->data);
+		node = g_list_next (node);
+	}
 	while (gtk_events_pending ())
 	{
 		gtk_main_iteration ();
 	}
-	// FIXME: anjuta_session_restore(client);
+	g_signal_emit_by_name (G_OBJECT (app), "load_session", commandline_args);
 	anjuta_util_glist_strings_free (args);
-	return FALSE;
-}
-
-static gint
-on_anjuta_load_command_lines_on_idle(gpointer data)
-{
-	GList *args;
-	AnjutaApp *app = (AnjutaApp*)data;
-	args = g_object_get_data (G_OBJECT(app), "command-args");
-	
-	if (!args)
-		return FALSE;
-	// int argc = (int)data;
-	// while (gtk_events_pending ())
-	//{
-	//	gtk_main_iteration ();
-	//}
-	// FIXME: anjuta_load_cmdline_files();
-	// FIXME: if( ( 1 == argc ) &&	app->b_reload_last_project )
-	//{
-		// FIXME: anjuta_load_last_project();
-	//}
-	anjuta_util_glist_strings_free (args);
+	g_queue_free (commandline_args);
 	return FALSE;
 }
 
@@ -157,50 +144,52 @@ static gint
 on_anjuta_session_save_yourself (GnomeClient * client, gint phase,
 									  GnomeSaveStyle s_style, gint shutdown,
 									  GnomeInteractStyle i_style, gint fast,
-									  gpointer data)
+									  gpointer app)
 {
-#if 0
 	gchar *argv[] = { "rm",	"-rf", NULL};
+	gchar geometry[256];
 	const gchar *prefix;
 	gchar **res_argv;
-	gint res_argc, counter;
-	GList* node;
+	gint res_argc;
+	GQueue *commandline_args;
+	gint i, width, height, posx, posy;
+	
+	DEBUG_PRINT ("Going to save session ...");
 
-#ifdef DEBUG
-	g_message ("Going to save session ...");
-#endif
 	prefix = gnome_client_get_config_prefix (client);
 	argv[2] = gnome_config_get_real_path (prefix);
 	gnome_client_set_discard_command (client, 3, argv);
+	gnome_client_set_restart_style  (client, GNOME_RESTART_IF_RUNNING);
+	
+	/* We want to be somewhere at last to start, otherwise bonobo-activation and
+	   gnome-vfs gets screwed up at start up */
+	gnome_client_set_priority (client, 80);
+	
+	commandline_args = g_queue_new ();
+	g_signal_emit_by_name (G_OBJECT (app), "save_session", commandline_args);
 
-	res_argc = g_list_length (app->text_editor_list) + 1;
-	if (app->project_dbase->project_is_open)
-		res_argc++;
+	/* Prepare restart command */
+	res_argc = g_queue_get_length(commandline_args) + 2;
 	res_argv = g_malloc (res_argc * sizeof (char*));
-	res_argv[0] = data;
-	counter = 1;
-	if (app->project_dbase->project_is_open)
+	res_argv[0] = "anjuta";
+	
+	/* Get window geometry */
+	gtk_window_get_size (GTK_WINDOW (app), &width, &height);
+	posx = posy = 500;
+	if (GTK_WIDGET(app)->window)
+		gdk_window_get_origin (GTK_WIDGET(app)->window, &posx, &posy);
+	snprintf (geometry, 256, "--geometry=%dx%d+%d+%d", width, height,
+			  posx, posy);
+	res_argv[1] = geometry;
+	
+	/* Prepare other commandline args */
+	for (i = 2; i < res_argc; i++)
 	{
-		res_argv[counter] = app->project_dbase->proj_filename;
-		counter++;
-	}
-	node = app->text_editor_list;
-	while (node)
-	{
-		TextEditor* te;
-		
-		te = node->data;
-		if (te->full_filename)
-		{
-			res_argv[counter] = te->full_filename;
-			counter++;
-		}
-		node = g_list_next (node);
+		res_argv[i] = g_queue_peek_nth (commandline_args, i - 2);
 	}
 	gnome_client_set_restart_command(client, res_argc, res_argv);
 	g_free (res_argv);
-	anjuta_save_settings ();	
-#endif
+	// anjuta_save_settings ();	
 	return TRUE;
 }
 
@@ -244,26 +233,23 @@ anjuta_new (gchar *prog_name, GList *prog_args, ESplash *splash,
 	client = gnome_master_client();
 	gtk_signal_connect(GTK_OBJECT(client), "save_yourself",
 			   GTK_SIGNAL_FUNC(on_anjuta_session_save_yourself),
-			   (gpointer) prog_name);
+			   app);
 	gtk_signal_connect(GTK_OBJECT(client), "die",
-			   GTK_SIGNAL_FUNC(on_anjuta_session_die), NULL);
+			   GTK_SIGNAL_FUNC(on_anjuta_session_die), app);
 
 	flags = gnome_client_get_flags(client);
-	if (flags & GNOME_CLIENT_RESTORED) {
+
+	if (!prog_args)
+	{
+		/* Restore from last state */
+	}
+	if (prog_args)
+	{
 		/* Restore session */
-		if (prog_args)
-			g_object_set_data (G_OBJECT (app), "command-args", prog_args); 
-		gtk_idle_add(on_anjuta_restore_session_on_idle, app);
-	} else {
-		/* Load commandline args */
-		if (prog_args)
-			g_object_set_data (G_OBJECT (app), "command-args", prog_args); 
-		gtk_idle_add(on_anjuta_load_command_lines_on_idle, app);
+		g_object_set_data (G_OBJECT (app), "command-args", prog_args); 
+		gtk_idle_add (on_anjuta_load_session_on_idle, app);
 	}
 	/* Set layout */
 	anjuta_app_load_layout (app, NULL);
-
-	/* Connect the necessary kernal signals */
-	// FIXME: anjuta_kernel_signals_connect ();
 	return app;
 }

@@ -909,6 +909,25 @@ on_window_key_release_event (GtkWidget   *widget,
 	return FALSE;
 }
 
+static void
+on_session_save (AnjutaShell *shell, GQueue *commandline_args,
+				 EditorPlugin *plugin)
+{
+	GList *editors, *node;
+	editors = anjuta_docman_get_all_editors (ANJUTA_DOCMAN (plugin->docman));
+	node = editors;
+	while (node)
+	{
+		TextEditor *te;
+		te = TEXT_EDITOR (node->data);
+		if (te->uri)
+			g_queue_push_tail (commandline_args,
+							   g_strdup_printf ("'%s'", te->uri));
+		node = g_list_next (node);
+	}
+	g_list_free (editors);
+}
+
 static gboolean
 activate_plugin (AnjutaPlugin *plugin)
 {
@@ -923,6 +942,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	static gboolean initialized = FALSE;
 	
 	DEBUG_PRINT ("EditorPlugin: Activating Editor plugin ...");
+	
 	editor_plugin = (EditorPlugin*) plugin;
 	editor_plugin->ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	editor_plugin->prefs = anjuta_shell_get_preferences (plugin->shell, NULL);
@@ -1060,6 +1080,10 @@ activate_plugin (AnjutaPlugin *plugin)
 	{
 		search_and_replace_init (ANJUTA_DOCMAN (docman));
 	}
+	/* Connect to save session */
+	g_signal_connect (G_OBJECT (plugin->shell), "save_session",
+					  G_CALLBACK (on_session_save), plugin);
+	
 	initialized = TRUE;
 	return TRUE;
 }
@@ -1074,6 +1098,9 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	GList *node;
 	
 	DEBUG_PRINT ("EditorPlugin: Dectivating Editor plugin ...");
+	
+	g_signal_handlers_disconnect_by_func (G_OBJECT (plugin->shell),
+										  G_CALLBACK (on_session_save), plugin);
 	
 	eplugin = (EditorPlugin*)plugin;
 

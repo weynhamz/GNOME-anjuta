@@ -35,13 +35,15 @@ typedef enum
 	ANJUTA_SHELL_PLACEMENT_CENTER,
 	ANJUTA_SHELL_PLACEMENT_FLOATING
 } AnjutaShellPlacement;
-	
+
 struct _AnjutaShellIface {
 	GTypeInterface g_iface;
 	
 	/* Signals */
 	void (*value_added) (AnjutaShell *shell, char *name, GValue *value);
 	void (*value_removed) (AnjutaShell *shell, char *name);
+	void (*save_session) (AnjutaShell *shell, GQueue *commandline_queue);
+	void (*load_session) (AnjutaShell *shell, GQueue *commandline_queue);
 
 	/* Virtual Table */
 	AnjutaStatus* (*get_status) (AnjutaShell  *shell, GError **err);

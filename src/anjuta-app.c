@@ -306,19 +306,6 @@ anjuta_app_instance_init (AnjutaApp *app)
 	//							app->accel_group);
 
 	// app->shutdown_in_progress = FALSE;
-	app->win_pos_x = 10;
-	app->win_pos_y = 10;
-	app->win_width = gdk_screen_width () - 10;
-	app->win_height = gdk_screen_height () - 25;
-	app->win_width = (app->win_width < 790)? app->win_width : 790;
-	app->win_height = (app->win_height < 575)? app->win_width : 575;
-	
-	// app->in_progress = FALSE;
-
-	gtk_widget_set_uposition (GTK_WIDGET (app), app->win_pos_x, app->win_pos_y);
-	gtk_window_set_default_size (GTK_WINDOW (app), app->win_width,
-								 app->win_height);
-	
 	/* Load layout */
 	// anjuta_app_load_layout (app, NULL);
 }

@@ -68,21 +68,6 @@ struct _AnjutaApp
 	AnjutaStatus *status;
 	AnjutaUI *ui;
 	AnjutaPreferences *preferences;
-	
-	/* Window state */
-	gint win_pos_x, win_pos_y, win_width, win_height;
-
-#if 0
-	/* Application progress bar */
-	GnomeAppProgressKey progress_key;
-	gdouble progress_value;
-	gdouble progress_full_value;
-	GnomeAppProgressCancelFunc progress_cancel_cb;
-	gboolean in_progress;
-	gint busy_count;
-	gboolean first_time_expose;
-	gboolean shutdown_in_progress;
-#endif
 };
 
 struct _AnjutaAppClass {
@@ -101,7 +86,6 @@ struct _FileLineInfo
 	glong line;
 };
 
-// extern AnjutaApp *app;
 void anjuta_app_session_restore (AnjutaApp *app, GnomeClient* client);
 void anjuta_app_save_settings (AnjutaApp *app);
 // gboolean anjuta_app_save_yourself (AnjutaApp *app, FILE * stream);

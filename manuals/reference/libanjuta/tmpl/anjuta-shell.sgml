@@ -73,6 +73,8 @@ Application shell interface
 @g_iface: 
 @value_added: 
 @value_removed: 
+@save_session: 
+@load_session: 
 @get_status: 
 @get_ui: 
 @get_preferences: 

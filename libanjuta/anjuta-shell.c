@@ -454,6 +454,22 @@ anjuta_shell_base_init (gpointer gclass)
 			      anjuta_cclosure_marshal_VOID__STRING,
 			      G_TYPE_NONE, 1,
 			      G_TYPE_STRING);
+		g_signal_new ("save_session",
+			      ANJUTA_TYPE_SHELL,
+			      G_SIGNAL_RUN_LAST,
+			      G_STRUCT_OFFSET (AnjutaShellIface, save_session),
+			      NULL, NULL,
+			      anjuta_cclosure_marshal_VOID__POINTER,
+			      G_TYPE_NONE, 1,
+			      G_TYPE_POINTER);
+		g_signal_new ("load_session",
+			      ANJUTA_TYPE_SHELL,
+			      G_SIGNAL_RUN_LAST,
+			      G_STRUCT_OFFSET (AnjutaShellIface, load_session),
+			      NULL, NULL,
+			      anjuta_cclosure_marshal_VOID__POINTER,
+			      G_TYPE_NONE, 1,
+			      G_TYPE_POINTER);
 		initialized = TRUE;
 	}
 }

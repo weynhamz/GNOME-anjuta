@@ -751,6 +751,17 @@ dnd_dropped (const gchar *uri, gpointer plugin)
 	ianjuta_file_loader_load (IANJUTA_FILE_LOADER (plugin), uri, FALSE, NULL);
 }
 
+static void
+on_session_load (AnjutaShell *shell, GQueue *commandline_queue,
+				 AnjutaFileLoaderPlugin *plugin)
+{
+	const gchar *uri;
+	while ((uri = g_queue_pop_head (commandline_queue)))
+	{
+		ianjuta_file_loader_load (IANJUTA_FILE_LOADER (plugin), uri, FALSE, NULL);
+	}
+}
+
 static gboolean
 activate_plugin (AnjutaPlugin *plugin)
 {
@@ -810,6 +821,10 @@ activate_plugin (AnjutaPlugin *plugin)
 		anjuta_plugin_add_watch (plugin, "file_manager_current_uri",
 								 value_added_fm_current_uri,
 								 value_removed_fm_current_uri, NULL);
+	
+	/* Connect to session */
+	g_signal_connect (G_OBJECT (plugin->shell), "load_session",
+					  G_CALLBACK (on_session_load), plugin);
 	return TRUE;
 }
 
@@ -822,6 +837,11 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	loader_plugin = (AnjutaFileLoaderPlugin*)plugin;
 	
 	DEBUG_PRINT ("AnjutaFileLoaderPlugin: Deactivating File Loader plugin ...");
+	
+	/* Disconnect session */
+	g_signal_handlers_disconnect_by_func (G_OBJECT (plugin->shell),
+										  G_CALLBACK (on_session_load), plugin);
+	
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	/* Remove watches */
 	anjuta_plugin_remove_watch (plugin, loader_plugin->fm_watch_id, TRUE);

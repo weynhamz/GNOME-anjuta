@@ -41,6 +41,7 @@ static gint
 on_delete_event (GtkWidget *window, GdkEvent *event, gpointer data)
 {
 	shutdown (ANJUTA_TEST_SHELL (window));
+	return TRUE;
 }
 
 static void
@@ -255,7 +256,7 @@ anjuta_test_shell_remove_widget (AnjutaShell *shell,
 								  GtkWidget *w, 
 								  GError **error)
 {
-	gint old_size;
+	// gint old_size;
 	GtkWidget *client_win;
 	AnjutaTestShell *window = ANJUTA_TEST_SHELL (shell);
 	g_return_if_fail (w != NULL);
@@ -277,7 +278,7 @@ anjuta_test_shell_present_widget (AnjutaShell *shell,
 								  GError **error)
 {
 	GtkWidget *client_win;
-	AnjutaTestShell *window = ANJUTA_TEST_SHELL (shell);
+	// AnjutaTestShell *window = ANJUTA_TEST_SHELL (shell);
 	
 	g_return_if_fail (w != NULL);
 
@@ -395,7 +396,7 @@ main (int argc, char *argv[])
 	GnomeProgram *program;
 	gchar *data_dir;
 	GList *plugins_dirs = NULL;
-	GList* command_args;
+	// GList* command_args;
 
 #ifdef ENABLE_NLS
 	bindtextdomain (PACKAGE, PACKAGE_LOCALE_DIR);

@@ -1,3 +1,15 @@
+2005-01-20  Naba Kumar  <naba@gnome.org>
+
+	* libanjuta/anjuta-marshal.c, libanjuta/anjuta-marshal.h,
+	libanjuta/anjuta-marshal.list, libanjuta/anjuta-shell.c,
+	libanjuta/anjuta-shell.h,
+	manuals/reference/libanjuta/tmpl/anjuta-shell.sgml,
+	plugins/editor/plugin.c, plugins/file-loader/plugin.c,
+	plugins/project-manager/plugin.c, plugins/project-manager/plugin.h,
+	src/anjuta-app.c, src/anjuta-app.h, src/anjuta.c,
+	src/main.c, src/shell.c: Implemented command line args processing
+	and session management. Fixed geometry restoration.
+
 2005-01-19  Johannes Schmid <jhs@cvs.gnome.org>
 	
 	* plugins/macro/macro-db.c,
