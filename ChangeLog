@@ -3,6 +3,11 @@
 	* anjuta.spec.in: fixed the doc files list.
 
 
+2001-08-09  Stephane Demurget <demurgets@free.fr>
+
+	* anjuta.spec.in: fixed the doc files list.
+
+
 2001-08-09  Naba Kumar <kh_naba@users.sourceforge.net>
 
 	* src/about.c: corrected my email address. :-)

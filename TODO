@@ -21,6 +21,8 @@ Todo List:
 	o Enabling/disabling calltips in preferences.
 	o Double/single click open file in preferences.
 
+	o Use GtkHTML if available to browse online documentation/manuals
+
 
 BUGS:
 -----
