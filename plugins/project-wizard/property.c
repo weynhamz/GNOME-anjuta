@@ -346,8 +346,9 @@ npw_property_set_value_from_widget (NPWProperty* this, NPWValueTag tag)
 		break;
 	}
 	default:
-		/* Do nothing (for hidden property) */
-		return;
+		/* Hidden property */
+		value = this->defvalue;
+		break;
 	}
 
 	/* Check and mark default value (will not be saved) */
@@ -355,7 +356,7 @@ npw_property_set_value_from_widget (NPWProperty* this, NPWValueTag tag)
 	{
 		tag |= NPW_DEFAULT_VALUE;
 	}
-		
+	
 	npw_value_heap_set_value (this->owner->value, this->value, value, tag);
 }
 

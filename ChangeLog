@@ -1,10 +1,13 @@
 2005-02-12  Naba Kumar  <naba@gnome.org>
 
+	* plugins/project-wizard/property.c: Fixed hidden
+	properties to take values.
+
 	* plugins/project-wizard/file.[ch]: Renamed
 	true/false enum values to fix compile error
 	(conflict with other definition).
 	
-	* plugins/file-loader/plugin.c: Deletec anjuta projects correctly
+	* plugins/file-loader/plugin.c: Detect anjuta projects correctly
 	even when mime type detection fails (for example, when Anjuta is
 	installed in non-system prefix).
 
