@@ -1,4 +1,4 @@
-# anjuta de.po
+# German translation for anjuta.
 # Copyright (C) 2001 Free Software Foundation, Inc.
 # Jens Georg <mail@jensgeorg>, 2001.
 # folgende Kommentare:
@@ -16,10 +16,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta 0.1.8\n"
-"POT-Creation-Date: 2001-11-29 23:53+0100\n"
-"PO-Revision-Date: 2001-11-29 11:28+0100\n"
-"Last-Translator: Jens Georg <mail@jensgeorg.de>\n"
-"Language-Team: german <mail@jensgeorg.de>\n"
+"POT-Creation-Date: 2001-12-06 02:48+0100\n"
+"PO-Revision-Date: 2001-12-06 02:48+0100\n"
+"Last-Translator: Christian Meyer <chrisime@gnome.org>\n"
+"Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=iso-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -34,7 +34,7 @@ msgstr "Integrierte Entwicklungsumgebung"
 
 #: ccview/cccmd.cc:27
 msgid "/_Class Definition"
-msgstr "/Klassendefinitionen"
+msgstr "/_Klassendefinitionen"
 
 #: ccview/cccmd.cc:28
 msgid "/_Function Definition"
@@ -46,7 +46,7 @@ msgstr "/Funktions_deklarationen"
 
 #: ccview/cccmd.cc:36
 msgid "/_Shell here"
-msgstr "/ _Shell hier"
+msgstr "/_Shell hier"
 
 #: ccview/cccmd.cc:37
 msgid "/_Open"
@@ -223,10 +223,9 @@ msgstr "Ziel: dynamische Bibliothek"
 msgid "Project name"
 msgstr "Projektname"
 
-# ??
 #: src/appwizard_cbs.c:107
 msgid "Source target name"
-msgstr ""
+msgstr "Zielname ausfindig machen"
 
 #: src/appwizard_cbs.c:108
 msgid "Project version"
@@ -3669,14 +3668,12 @@ msgid "Truncate long messages"
 msgstr "Lange Nachrichten abschneiden"
 
 #: src/preferences_gui.c:1355
-#, fuzzy
 msgid "Number of first characters to show"
-msgstr "Zeichen am Anfang"
+msgstr "Anzahl der ersten Zeichen, die gezeigt werden sollen"
 
 #: src/preferences_gui.c:1362
-#, fuzzy
 msgid "Number of last characters to show"
-msgstr "Zeichen am Ende"
+msgstr "Anzahl der letzten Zeichen, die gezeigt werden sollen"
 
 #: src/preferences_gui.c:1369
 msgid " Notebook tags position "
