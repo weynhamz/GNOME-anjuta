@@ -1,3 +1,7 @@
+2003-06-04  Abel Cheung  <maddog@linux.org.hk>
+
+	* configure.in: Removed "ta" from ALL_LINGUAS.
+
 2003-05-16  Jordi Mallach  <jordi@sindominio.net>
 
 	* configure.in (ALL_LINGUAS): Added "ca" (Catalan).
