@@ -12,7 +12,7 @@ INCLUDES = \
 	-DGTK_DISABLE_DEPRECATED -DGNOME_DISABLE_DEPRECATED
 
 SCILEXERS =\
-    ../scintilla/StyleContext.o\
+	../scintilla/StyleContext.o\
 	../scintilla/LexCPP.o\
 	../scintilla/LexConf.o\
 	../scintilla/LexHTML.o\
@@ -35,12 +35,11 @@ SCILEXERS =\
 
 bin_PROGRAMS = anjuta
 
-#	an_file_view.c\
-#	an_file_view.h\
-#	an_symbol_view.c\
-#	an_symbol_view.h\
-
 anjuta_SOURCES = \
+	an_file_view.c\
+	an_file_view.h\
+	an_symbol_view.c\
+	an_symbol_view.h\
 	aneditor.cxx\
 	aneditor.h\
 	anjuta.h\
