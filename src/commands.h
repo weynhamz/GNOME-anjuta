@@ -48,6 +48,7 @@ struct _CommandEditorWidgets
 	GtkWidget *make_entry;
 	GtkWidget *build_entry;
 	GtkWidget *execute_entry;
+	GtkWidget *terminal_entry;
 };
 
 struct _CommandEditor

@@ -354,7 +354,7 @@ executer_execute (Executer * e)
 #ifdef DEBUG
 	g_message("Final Command is: %s", cmd);
 #endif
-	
+
 	anjuta_set_execution_dir (dir);
 	if (dir) chdir (dir);
 	gnome_execute_shell (dir, cmd);

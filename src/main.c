@@ -158,26 +158,9 @@ main (int argc, char *argv[])
 	if (args)
 	{
 		gint i;
-		gchar* cur_dir;
-		i = 0;
 		
-		cur_dir = g_get_current_dir ();
-		
-		while (args[i]) {
-			gchar *full_name;
-			gchar *real_path;
-			
-			if (args[i][0] != '/') {
-				full_name = g_strconcat (cur_dir, "/", args[i], NULL);
-			} else {
-				full_name = g_strdup(args[i]);
-			}
-			real_path = tm_get_real_path (full_name);
-			g_free(full_name);
-			command_args = g_list_append (command_args, real_path);
-			i++;
-		}
-		g_free (cur_dir);
+		for(i = 0; args[i]; ++i)
+			command_args = g_list_append (command_args, tm_get_real_path(args[i]));
 	}
 	poptFreeContext(context);
 

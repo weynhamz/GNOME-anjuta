@@ -56,6 +56,13 @@ prog_language_map[]=
 	NULL, NULL
 };
 
+/* Ditto */
+static gchar *
+term_commands[] = {
+	"gnome-terminal --command=\"$(anjuta.current.command)\"",
+	NULL
+};
+
 /* Command data to be used in command editor */
 CommandData*
 command_data_new(void)
@@ -124,9 +131,11 @@ command_editor_destroy (CommandEditor* ce)
 	gtk_widget_unref (ce->widgets.pix_editor_entry);
 	gtk_widget_unref (ce->widgets.image_editor_entry);
 	gtk_widget_unref (ce->widgets.html_editor_entry);
+	gtk_widget_unref(ce->widgets.terminal_entry);
 	gtk_widget_destroy (ce->widgets.window);
 	g_free (ce);
 }
+
 static gchar*
 get_key_for_file_command (gint cmd_type, gchar* filetype)
 {
@@ -223,6 +232,12 @@ sync_from_props (CommandEditor *ce, PropsID pr)
 	g_free (key);
 	gtk_entry_set_text (GTK_ENTRY(ce->widgets.html_editor_entry), str);
 	g_free (str);
+
+	if (NULL != (str = prop_get(pr, COMMAND_TERMINAL)))
+	{
+		gtk_entry_set_text(GTK_ENTRY(ce->widgets.terminal_entry), str);
+		g_free(str);
+	}
 }
 
 /* ----- */
@@ -359,7 +374,12 @@ command_editor_save (CommandEditor *ce, FILE* s)
 		if (fprintf (s, "%s=\n", key) < 1) return FALSE;
 	}
 	g_free (key);
-	
+
+	if (NULL != (str = prop_get(pr, COMMAND_TERMINAL)))
+	{
+		fprintf(s, "%s=%s\n", COMMAND_TERMINAL, str);
+		g_free(str);
+	}
 	return TRUE;
 }
 
@@ -511,7 +531,10 @@ on_apply_clicked        (GtkButton       *button,
 	key = get_key_for_file_command (VIEW_INDEX, "html");
 	prop_set_with_key (ce->props, key, str);
 	g_free (key);
-	
+
+	if (NULL != (str = gtk_entry_get_text(GTK_ENTRY(ce->widgets.terminal_entry))))
+		prop_set_with_key(ce->props, COMMAND_TERMINAL, str);
+
 	anjuta_save_settings ();
 }
 
@@ -565,9 +588,12 @@ create_command_editor_gui (CommandEditor *ce)
 	GtkWidget *label5;
 	GtkWidget *label6;
 	GtkWidget *label7;
+	GtkWidget *label8;
+	GtkWidget *terminal_combo;
 	GtkWidget *entry4;
 	GtkWidget *entry5;
 	GtkWidget *entry6;
+	GtkWidget *entry7;
 	GtkWidget *button4;
 	GtkWidget *button5;
 	GtkWidget *dialog_action_area1;
@@ -699,7 +725,7 @@ create_command_editor_gui (CommandEditor *ce)
 		    (GtkAttachOptions) (GTK_FILL), 0, 0);
 	gtk_container_set_border_width (GTK_CONTAINER (frame3), 5);
 	
-	table4 = gtk_table_new (3, 2, FALSE);
+	table4 = gtk_table_new (4, 2, FALSE);
 	gtk_widget_show (table4);
 	gtk_container_add (GTK_CONTAINER (frame3), table4);
 	gtk_container_set_border_width (GTK_CONTAINER (table4), 5);
@@ -730,12 +756,20 @@ create_command_editor_gui (CommandEditor *ce)
 	gtk_widget_set_usize (label7, 120, -2);
 	gtk_misc_set_alignment (GTK_MISC (label7), 0, -1);
 
+	label8 = gtk_label_new (_("Terminal Launcher:"));
+	gtk_widget_show (label8);
+	gtk_table_attach (GTK_TABLE (table4), label8, 0, 1, 3, 4,
+		    (GtkAttachOptions) (0),
+		    (GtkAttachOptions) (0), 0, 0);
+	gtk_widget_set_usize (label8, 120, -2);
+	gtk_misc_set_alignment (GTK_MISC (label8), 0, -1);
+
 	entry4 = gtk_entry_new ();
 	gtk_widget_show (entry4);
 	gtk_table_attach (GTK_TABLE (table4), entry4, 1, 2, 0, 1,
 		    (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
 		    (GtkAttachOptions) (0), 0, 0);
-	
+
 	entry5 = gtk_entry_new ();
 	gtk_widget_show (entry5);
 	gtk_table_attach (GTK_TABLE (table4), entry5, 1, 2, 1, 2,
@@ -747,6 +781,24 @@ create_command_editor_gui (CommandEditor *ce)
 	gtk_table_attach (GTK_TABLE (table4), entry6, 1, 2, 2, 3,
 		    (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
 		    (GtkAttachOptions) (0), 0, 0);
+
+	/* Terminal combo */
+	terminal_combo = gtk_combo_new ();
+
+	list = NULL;
+
+	for (i = 0; term_commands[i] != NULL ; i++)
+		list = g_list_append (list, term_commands[i]);
+
+	gtk_combo_set_popdown_strings (GTK_COMBO (terminal_combo), list);
+	g_list_free (list);
+
+	gtk_widget_show (terminal_combo);
+	gtk_table_attach (GTK_TABLE (table4), terminal_combo, 1, 2, 3, 4,
+		    (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
+		    (GtkAttachOptions) (0), 0, 0);
+
+	entry7 = GTK_COMBO (terminal_combo)->entry;
 	
 	button4 = gtk_button_new_with_label (_("Load global defaults"));
 	gtk_widget_show (button4);
@@ -761,7 +813,7 @@ create_command_editor_gui (CommandEditor *ce)
 		    (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
 		    (GtkAttachOptions) (0), 0, 0);
 	gtk_container_set_border_width (GTK_CONTAINER (button5), 5);
-	
+
 	dialog_action_area1 = GNOME_DIALOG (dialog1)->action_area;
 	gtk_widget_show (dialog_action_area1);
 	gtk_button_box_set_layout (GTK_BUTTON_BOX (dialog_action_area1), GTK_BUTTONBOX_END);
@@ -771,17 +823,17 @@ create_command_editor_gui (CommandEditor *ce)
 	button6 = g_list_last (GNOME_DIALOG (dialog1)->buttons)->data;
 	gtk_widget_show (button6);
 	GTK_WIDGET_SET_FLAGS (button6, GTK_CAN_DEFAULT);
-	
+
 	gnome_dialog_append_button (GNOME_DIALOG (dialog1), GNOME_STOCK_BUTTON_OK);
 	button1 = g_list_last (GNOME_DIALOG (dialog1)->buttons)->data;
 	gtk_widget_show (button1);
 	GTK_WIDGET_SET_FLAGS (button1, GTK_CAN_DEFAULT);
-	
+
 	gnome_dialog_append_button (GNOME_DIALOG (dialog1), GNOME_STOCK_BUTTON_APPLY);
 	button2 = g_list_last (GNOME_DIALOG (dialog1)->buttons)->data;
 	gtk_widget_show (button2);
 	GTK_WIDGET_SET_FLAGS (button2, GTK_CAN_DEFAULT);
-	
+
 	gnome_dialog_append_button (GNOME_DIALOG (dialog1), GNOME_STOCK_BUTTON_CANCEL);
 	button3 = g_list_last (GNOME_DIALOG (dialog1)->buttons)->data;
 	gtk_widget_show (button3);
@@ -821,7 +873,8 @@ create_command_editor_gui (CommandEditor *ce)
 	ce->widgets.pix_editor_entry = entry4;
 	ce->widgets.image_editor_entry = entry5;
 	ce->widgets.html_editor_entry = entry6;
-	
+	ce->widgets.terminal_entry = entry7;
+
 	gtk_widget_ref (dialog1);
 	gtk_widget_ref (combo1);
 	gtk_widget_ref (entry1);
@@ -831,6 +884,7 @@ create_command_editor_gui (CommandEditor *ce)
 	gtk_widget_ref (entry4);
 	gtk_widget_ref (entry5);
 	gtk_widget_ref (entry6);
+	gtk_widget_ref (entry7);
 }
 
 /* Save and Load */

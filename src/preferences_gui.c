@@ -241,7 +241,7 @@ create_preferences_gui (Preferences * pr)
 	page7 = create_preferences_page7 (pr);
 	gtk_container_add (GTK_CONTAINER (notebook2), page7);
 
-	label103 = gtk_label_new (_("misc"));
+	label103 = gtk_label_new (_("Misc"));
 	gtk_widget_show (label103);
 	gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook2),
 				    gtk_notebook_get_nth_page (GTK_NOTEBOOK

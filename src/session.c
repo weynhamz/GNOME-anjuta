@@ -69,6 +69,7 @@ void write_config(void)
 	//gnome_config_private_sync_file("anjuta");
 	gnome_config_sync();
 }
+
 gchar *GetProfileString( const gchar* szSection, const gchar* szItem, const gchar* szDefault )
 {
 	gchar	szBuf[256];
