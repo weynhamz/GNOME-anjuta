@@ -96,7 +96,8 @@ typedef enum
 	tm_tag_attr_impl_t = 4096, /*!< Implementation (e.g. virtual) */
 	tm_tag_attr_lang_t = 8192, /*!< Language (File tag only) */
 	tm_tag_attr_inactive_t = 16384, /*!< Inactive file (File tag only) */
-	tm_tag_attr_max_t = 32767 /*!< Maximum value */
+	tm_tag_attr_pointer_t = 32768, /*!< Inactive file (File tag only) */
+	tm_tag_attr_max_t = 65535 /*!< Maximum value */
 } TMTagAttrType;
 
 /*! Tag access type for C++/Java member functions and variables */
@@ -130,6 +131,7 @@ typedef struct _TMTag
 			TMSourceFile *file; /*!< File in which the tag occurs */
 			gulong line; /*!< Line number of the tag */
 			gboolean local; /*!< Is the tag of local scope */
+			gboolean isPointer; /*!< Is the tag Pointer ? */
 			char *arglist; /*!< Argument list (functions/prototypes/macros) */
 			char *scope; /*!< Scope of tag */
 			char *inheritance; /*!< Parent classes */
@@ -279,7 +281,8 @@ gboolean tm_tags_custom_dedup(GPtrArray *tags_array, TMTagCompareFunc compare_fu
  \param name Name of the tag to locate.
  \param partial If TRUE, matches the first part of the name instead of doing exact match.
 */
-TMTag **tm_tags_find(GPtrArray *sorted_tags_array, const char *name, gboolean partial, int * tagCount);
+TMTag **tm_tags_find (const GPtrArray *sorted_tags_array, const char *name,
+					  gboolean partial, int * tagCount);
 
 /*!
  Completely frees an array of tags.
@@ -288,12 +291,14 @@ TMTag **tm_tags_find(GPtrArray *sorted_tags_array, const char *name, gboolean pa
 */
 void tm_tags_array_free(GPtrArray *tags_array, gboolean free_all);
 
+#if 0
 /*!
  Destroys a TMTag structure, i.e. frees all elements except the tag itself.
  \param tag The TMTag structure to destroy
  \sa tm_tag_free()
 */
 void tm_tag_destroy(TMTag *tag);
+#endif
 
 /*!
  Destroys all data in the tag and frees the tag structure as well.
@@ -329,6 +334,8 @@ void tm_tags_array_print(GPtrArray *tags, FILE *fp);
   Returns the depth of tag scope (useful for finding tag hierarchy
 */
 gint tm_tag_scope_depth(const TMTag *t);
+
+void tm_tag_chunk_clean (void);
 
 #ifdef __cplusplus
 }

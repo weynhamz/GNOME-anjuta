@@ -40,10 +40,160 @@ static gpointer parent_class;
 
 static void update_ui (ProjectManagerPlugin *plugin);
 
-static void
-on_refresh (GtkAction *action, ProjectManagerPlugin *plugin)
+static GList *
+find_missing_uris (GList *pre, GList *post)
 {
+	GHashTable *hash;
+	GList *ret = NULL;
+	GList *node;
+	
+	hash = g_hash_table_new (g_str_hash, g_str_equal);
+	node = pre;
+	while (node)
+	{
+		g_hash_table_insert (hash, node->data, node->data);
+		node = g_list_next (node);
+	}
+	
+	node = post;
+	while (node)
+	{
+		if (g_hash_table_lookup (hash, node->data) == NULL)
+			ret = g_list_prepend (ret, node->data);
+		node = g_list_next (node);
+	}
+	g_hash_table_destroy (hash);
+	return g_list_reverse (ret);
+}
+
+static void
+update_operation_emit_signals (ProjectManagerPlugin *plugin, GList *pre,
+							   GList *post)
+{
+	GList *missing_uris, *node;
+	
+	missing_uris = find_missing_uris (pre, post);
+	node = missing_uris;
+	while (node)
+	{
+		DEBUG_PRINT ("URI added emitting: %s", (char*)node->data);
+		g_signal_emit_by_name (G_OBJECT (plugin), "element_added",
+							   node->data);
+		node = g_list_next (node);
+	}
+	g_list_free (missing_uris);
+	
+	missing_uris = find_missing_uris (post, pre);
+	node = missing_uris;
+	while (node)
+	{
+		DEBUG_PRINT ("URI removed emitting: %s", (char*)node->data);
+		g_signal_emit_by_name (G_OBJECT (plugin), "element_removed",
+							   node->data);
+		node = g_list_next (node);
+	}
+	g_list_free (missing_uris);
+}
+
+static void
+update_operation_end (ProjectManagerPlugin *plugin, gboolean emit_signal)
+{
+	if (emit_signal)
+	{
+		if (plugin->pre_update_sources)
+		{
+			GList *post_update_sources =
+			ianjuta_project_manager_get_elements (IANJUTA_PROJECT_MANAGER (plugin),
+												  IANJUTA_PROJECT_MANAGER_SOURCE,
+												  NULL);
+			update_operation_emit_signals (plugin, plugin->pre_update_sources,
+										   post_update_sources);
+			if (post_update_sources)
+			{
+				g_list_foreach (post_update_sources, (GFunc)g_free, NULL);
+				g_list_free (post_update_sources);
+			}
+		}
+		if (plugin->pre_update_targets)
+		{
+			GList *post_update_targets =
+			ianjuta_project_manager_get_elements (IANJUTA_PROJECT_MANAGER (plugin),
+												  IANJUTA_PROJECT_MANAGER_TARGET,
+												  NULL);
+			update_operation_emit_signals (plugin, plugin->pre_update_targets,
+										   post_update_targets);
+			if (post_update_targets)
+			{
+				g_list_foreach (post_update_targets, (GFunc)g_free, NULL);
+				g_list_free (post_update_targets);
+			}
+		}
+		if (plugin->pre_update_groups)
+		{
+			GList *post_update_groups =
+			ianjuta_project_manager_get_elements (IANJUTA_PROJECT_MANAGER (plugin),
+												  IANJUTA_PROJECT_MANAGER_TARGET,
+												  NULL);
+			update_operation_emit_signals (plugin, plugin->pre_update_groups,
+										   post_update_groups);
+			if (post_update_groups)
+			{
+				g_list_foreach (post_update_groups, (GFunc)g_free, NULL);
+				g_list_free (post_update_groups);
+			}
+		}
+	}
+	if (plugin->pre_update_sources)
+	{
+		g_list_foreach (plugin->pre_update_sources, (GFunc)g_free, NULL);
+		g_list_free (plugin->pre_update_sources);
+		plugin->pre_update_sources = NULL;
+	}
+	if (plugin->pre_update_targets)
+	{
+		g_list_foreach (plugin->pre_update_targets, (GFunc)g_free, NULL);
+		g_list_free (plugin->pre_update_targets);
+		plugin->pre_update_targets = NULL;
+	}
+	if (plugin->pre_update_groups)
+	{
+		g_list_foreach (plugin->pre_update_groups, (GFunc)g_free, NULL);
+		g_list_free (plugin->pre_update_groups);
+		plugin->pre_update_targets = NULL;
+	}
+}
+
+static void
+update_operation_begin (ProjectManagerPlugin *plugin)
+{
+	update_operation_end (plugin, FALSE);
+	plugin->pre_update_sources =
+	ianjuta_project_manager_get_elements (IANJUTA_PROJECT_MANAGER (plugin),
+										  IANJUTA_PROJECT_MANAGER_SOURCE,
+										  NULL);
+	plugin->pre_update_targets =
+	ianjuta_project_manager_get_elements (IANJUTA_PROJECT_MANAGER (plugin),
+										  IANJUTA_PROJECT_MANAGER_TARGET,
+										  NULL);
+	plugin->pre_update_groups =
+	ianjuta_project_manager_get_elements (IANJUTA_PROJECT_MANAGER (plugin),
+										  IANJUTA_PROJECT_MANAGER_GROUP,
+										  NULL);
+}
+
+static gboolean
+on_refresh_idle (gpointer user_data)
+{
+	ProjectManagerPlugin *plugin;
+	AnjutaStatus *status;
 	GError *err = NULL;
+	
+	plugin = (ProjectManagerPlugin *)user_data;
+	
+	status = anjuta_shell_get_status (ANJUTA_PLUGIN (plugin)->shell, NULL);
+	anjuta_status_push (status, "Refreshing symbol tree ...");
+	anjuta_status_busy_push (status);
+	
 	gbf_project_refresh (GBF_PROJECT (plugin->project), &err);
 	if (err)
 	{
@@ -53,6 +203,15 @@ on_refresh (GtkAction *action, ProjectManagerPlugin *plugin)
 								  err->message);
 		g_error_free (err);
 	}
+	anjuta_status_busy_pop (status);
+	anjuta_status_pop (status);
+	return FALSE;
+}
+
+static void
+on_refresh (GtkAction *action, ProjectManagerPlugin *plugin)
+{
+	g_idle_add (on_refresh_idle, plugin);
 }
 
 static void
@@ -65,25 +224,32 @@ static void
 on_add_group (GtkAction *action, ProjectManagerPlugin *plugin)
 {
 	GtkWidget *win = gtk_widget_get_toplevel (plugin->scrolledwindow);
+	
+	update_operation_begin (plugin);
 	gbf_project_util_new_group (plugin->model,
 								GTK_WINDOW (win), NULL);
+	update_operation_end (plugin, TRUE);
 }
  
 static void
 on_add_target (GtkAction *action, ProjectManagerPlugin *plugin)
 {
 	GtkWidget *win = gtk_widget_get_toplevel (plugin->scrolledwindow);
+	update_operation_begin (plugin);
 	gbf_project_util_new_target (plugin->model,
 								 GTK_WINDOW (win), NULL);
+	update_operation_end (plugin, TRUE);
 }
 
 static void
 on_add_source (GtkAction *action, ProjectManagerPlugin *plugin)
 {
 	GtkWidget *win = gtk_widget_get_toplevel (plugin->scrolledwindow);
+	update_operation_begin (plugin);
 	gbf_project_util_add_source (plugin->model,
 								 GTK_WINDOW (win), NULL,
 								 plugin->current_editor_uri);
+	update_operation_end (plugin, TRUE);
 }
 
 static void
@@ -99,6 +265,7 @@ on_popup_add_group (GtkAction *action, ProjectManagerPlugin *plugin)
 	const gchar *selected_group;
 	GtkWidget *win;
 
+	update_operation_begin (plugin);
 	win = gtk_widget_get_toplevel (plugin->scrolledwindow);
 	data = gbf_project_view_find_selected (GBF_PROJECT_VIEW (plugin->view),
 										   GBF_TREE_NODE_GROUP);
@@ -109,6 +276,7 @@ on_popup_add_group (GtkAction *action, ProjectManagerPlugin *plugin)
 								selected_group);
 	if (data)
 		gbf_tree_data_free (data);
+	update_operation_end (plugin, TRUE);
 }
 
 static void
@@ -118,6 +286,7 @@ on_popup_add_target (GtkAction *action, ProjectManagerPlugin *plugin)
 	const gchar *selected_group;
 	GtkWidget *win;
 
+	update_operation_begin (plugin);
 	win = gtk_widget_get_toplevel (plugin->scrolledwindow);
 	data = gbf_project_view_find_selected (GBF_PROJECT_VIEW (plugin->view),
 										   GBF_TREE_NODE_GROUP);
@@ -128,6 +297,7 @@ on_popup_add_target (GtkAction *action, ProjectManagerPlugin *plugin)
 								 GTK_WINDOW (win), selected_group);
 	if (data)
 		gbf_tree_data_free (data);
+	update_operation_end (plugin, TRUE);
 }
 
 static void
@@ -137,6 +307,7 @@ on_popup_add_source (GtkAction *action, ProjectManagerPlugin *plugin)
 	const gchar *selected_target;
 	GtkWidget *win;
 
+	update_operation_begin (plugin);
 	win = gtk_widget_get_toplevel (plugin->scrolledwindow);
 	data = gbf_project_view_find_selected (GBF_PROJECT_VIEW (plugin->view),
 										   GBF_TREE_NODE_TARGET);
@@ -147,6 +318,7 @@ on_popup_add_source (GtkAction *action, ProjectManagerPlugin *plugin)
 								 GTK_WINDOW (win), selected_target, NULL);
 	if (data)
 		gbf_tree_data_free (data);
+	update_operation_end (plugin, TRUE);
 }
 
 static gboolean
@@ -201,6 +373,7 @@ on_popup_remove (GtkAction *action, ProjectManagerPlugin *plugin)
 		if (confirm_removal (plugin, data))
 		{
 			GError *err = NULL;
+			update_operation_begin (plugin);
 			switch (data->type)
 			{
 				case GBF_TREE_NODE_GROUP:
@@ -215,6 +388,7 @@ on_popup_remove (GtkAction *action, ProjectManagerPlugin *plugin)
 				default:
 					g_warning ("Should not reach here!!!");
 			}
+			update_operation_end (plugin, TRUE);
 			if (err)
 			{
 				GtkWindow *win;
@@ -549,6 +723,7 @@ on_treeview_event  (GtkWidget *widget,
 					NULL, NULL, NULL, NULL,
 					((GdkEventButton *) event)->button,
 					((GdkEventButton *) event)->time);
+			return TRUE;
 		}
 	}
 	return FALSE;
@@ -817,6 +992,9 @@ project_manager_plugin_instance_init (GObject *obj)
 	plugin->view = NULL;
 	plugin->model = NULL;
 	plugin->project_uri = NULL;
+	plugin->pre_update_sources = NULL;
+	plugin->pre_update_targets = NULL;
+	plugin->pre_update_groups = NULL;
 }
 
 static void
@@ -1085,9 +1263,12 @@ iproject_manager_get_elements (IAnjutaProjectManager *project_manager,
 			node = sources;
 			while (node)
 			{
-				source = (GbfProjectTargetSource*) node->data;
-				elements = g_list_prepend (elements,
-										   g_strdup (source->source_uri));
+				source = gbf_project_get_source (plugin->project,
+												 (const gchar *) node->data,
+												 NULL);
+				if (source)
+					elements = g_list_prepend (elements,
+											   g_strdup (source->source_uri));
 				gbf_project_target_source_free (source);
 				node = node->next;
 			}
@@ -1097,16 +1278,13 @@ iproject_manager_get_elements (IAnjutaProjectManager *project_manager,
 		case IANJUTA_PROJECT_MANAGER_TARGET:
 		{
 			GList *targets, *node;
-			GbfProjectTarget *target;
 			targets = gbf_project_get_all_targets (plugin->project, NULL);
 			node = targets;
 			while (node)
 			{
-				target = (GbfProjectTarget*) node->data;
 				elements = g_list_prepend (elements,
 										   get_element_uri_from_id (plugin,
-																	target->id));
-				gbf_project_target_free (target);
+																	(const gchar *)node->data));
 				node = node->next;
 			}
 			g_list_free (targets);

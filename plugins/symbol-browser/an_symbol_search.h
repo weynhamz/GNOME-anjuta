@@ -57,10 +57,6 @@ GtkWidget * anjuta_symbol_search_new (AnjutaSymbolView *symbol_view);
 
 void anjuta_symbol_search_set_search_string  (AnjutaSymbolSearch *search, const gchar *str);
 void anjuta_symbol_search_grab_focus (AnjutaSymbolSearch *search);
-
-void anjuta_symbol_search_set_file_symbol_model(AnjutaSymbolSearch *search, GtkTreeModel * model);
-void anjuta_symbol_search_set_keywords_symbols(AnjutaSymbolSearch *search, GList *keywords);
-void anjuta_symbol_search_set_pixbufs(AnjutaSymbolSearch *search, GdkPixbuf ** pix);
 void anjuta_symbol_search_clear (AnjutaSymbolSearch *search);
 
 G_END_DECLS

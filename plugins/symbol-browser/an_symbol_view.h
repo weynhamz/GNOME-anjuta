@@ -49,7 +49,7 @@ GtkWidget *anjuta_symbol_view_new (void);
 
 void   anjuta_symbol_view_open (AnjutaSymbolView *sv, const gchar *dir);
 void   anjuta_symbol_view_clear (AnjutaSymbolView *sv);
-void   anjuta_symbol_view_update (AnjutaSymbolView *sv);
+void   anjuta_symbol_view_update (AnjutaSymbolView *sv, GList *source_files);
 void   anjuta_symbol_view_save (AnjutaSymbolView *sv);
 
 GList* anjuta_symbol_view_get_node_expansion_states (AnjutaSymbolView *sv);
@@ -57,6 +57,9 @@ void   anjuta_symbol_view_set_node_expansion_states (AnjutaSymbolView *sv,
 													 GList *expansion_states);
 
 G_CONST_RETURN gchar* anjuta_symbol_view_get_current_symbol (AnjutaSymbolView *sv);
+
+void anjuta_symbol_view_add_source (AnjutaSymbolView *sv, const gchar *filename);
+void anjuta_symbol_view_remove_source (AnjutaSymbolView *sv, const gchar *filename);
 
 /* Returns TRUE if file and line are updated */
 gboolean anjuta_symbol_view_get_current_symbol_def (AnjutaSymbolView *sv,
@@ -82,9 +85,6 @@ gboolean anjuta_symbol_view_get_file_symbol (AnjutaSymbolView *sv,
 											 gboolean prefer_definition,
 											 const gchar** const filename,
 											 gint *line);
-/* Returned GList must be unrefed */
-GList* anjuta_symbol_view_get_keywords_symbols( AnjutaSymbolView *sv );
-
 /* Caller does not get a reference */
 GdkPixbuf *anjuta_symbol_view_get_pixbuf (AnjutaSymbolView *sv,
 										  SVNodeType node_type);

@@ -58,8 +58,6 @@ struct _AnjutaSymbolViewPriv
 	const TMWorkspace *tm_workspace;
 	GHashTable *tm_files;
 	GtkTreeModel *file_symbol_model;
-
-	GList *keyword_symbols;
 };
 
 enum
@@ -70,110 +68,13 @@ enum
 	COLUMNS_NB
 };
 
-static char *sv_root_names[] = {
-	N_("Classes"),
-	N_("Structs"),
-	N_("Functions"),
-	N_("Variables"),
-	N_("Macros"),
-	N_("Others"),
-	NULL
-};
-
 static GdlIcons *icon_set = NULL;
 static GdkPixbuf **sv_symbol_pixbufs = NULL;
 static GtkTreeViewClass *parent_class;
 
-static SVNodeType
-sv_get_node_type (TMSymbol * sym)
-{
-	SVNodeType type;
-	char access;
-
-	if (!sym || !sym->tag || (tm_tag_file_t == sym->tag->type))
-		return sv_none_t;
-	access = sym->tag->atts.entry.access;
-	switch (sym->tag->type)
-	{
-	case tm_tag_class_t:
-		type = sv_class_t;
-		break;
-	case tm_tag_struct_t:
-		type = sv_struct_t;
-		break;
-	case tm_tag_function_t:
-	case tm_tag_prototype_t:
-		if ((sym->info.equiv) && (TAG_ACCESS_UNKNOWN == access))
-			access = sym->info.equiv->atts.entry.access;
-		switch (access)
-		{
-		case TAG_ACCESS_PRIVATE:
-			type = sv_private_func_t;
-			break;
-		case TAG_ACCESS_PROTECTED:
-			type = sv_protected_func_t;
-			break;
-		case TAG_ACCESS_PUBLIC:
-			type = sv_public_func_t;
-			break;
-		default:
-			type = sv_function_t;
-			break;
-		}
-		break;
-	case tm_tag_member_t:
-		switch (access)
-		{
-		case TAG_ACCESS_PRIVATE:
-			type = sv_private_var_t;
-			break;
-		case TAG_ACCESS_PROTECTED:
-			type = sv_protected_var_t;
-			break;
-		case TAG_ACCESS_PUBLIC:
-			type = sv_public_var_t;
-			break;
-		default:
-			type = sv_variable_t;
-			break;
-		}
-		break;
-	case tm_tag_externvar_t:
-	case tm_tag_variable_t:
-		type = sv_variable_t;
-		break;
-	case tm_tag_macro_t:
-	case tm_tag_macro_with_arg_t:
-		type = sv_macro_t;
-		break;
-	default:
-		type = sv_none_t;
-		break;
-	}
-	return type;
-}
-
-static SVRootType
-sv_get_root_type (SVNodeType type)
-{
-	if (sv_none_t == type)
-		return sv_root_none_t;
-	switch (type)
-	{
-	case sv_class_t:
-		return sv_root_class_t;
-	case sv_struct_t:
-		return sv_root_struct_t;
-	case sv_function_t:
-		return sv_root_function_t;
-	case sv_variable_t:
-		return sv_root_variable_t;
-	case sv_macro_t:
-		return sv_root_macro_t;
-	default:
-		return sv_root_none_t;
-	}
-}
+static void anjuta_symbol_view_open_priv (AnjutaSymbolView * sv,
+										  const gchar * root_dir,
+										  gboolean only_refresh);
 
 #define CREATE_SV_ICON(N, F) \
 	pix_file = anjuta_res_get_pixmap_file (F); \
@@ -196,8 +97,11 @@ sv_load_symbol_pixbufs (AnjutaSymbolView * sv)
 	CREATE_SV_ICON (sv_none_t, ANJUTA_PIXMAP_SV_UNKNOWN);
 	CREATE_SV_ICON (sv_class_t, ANJUTA_PIXMAP_SV_CLASS);
 	CREATE_SV_ICON (sv_struct_t, ANJUTA_PIXMAP_SV_STRUCT);
+	CREATE_SV_ICON (sv_union_t, ANJUTA_PIXMAP_SV_STRUCT);
+	CREATE_SV_ICON (sv_typedef_t, ANJUTA_PIXMAP_SV_VARIABLE);
 	CREATE_SV_ICON (sv_function_t, ANJUTA_PIXMAP_SV_FUNCTION);
 	CREATE_SV_ICON (sv_variable_t, ANJUTA_PIXMAP_SV_VARIABLE);
+	CREATE_SV_ICON (sv_enumerator_t, ANJUTA_PIXMAP_SV_UNKNOWN);
 	CREATE_SV_ICON (sv_macro_t, ANJUTA_PIXMAP_SV_MACRO);
 	CREATE_SV_ICON (sv_private_func_t, ANJUTA_PIXMAP_SV_PRIVATE_FUN);
 	CREATE_SV_ICON (sv_private_var_t, ANJUTA_PIXMAP_SV_PRIVATE_VAR);
@@ -257,40 +161,12 @@ static void
 on_symbol_view_row_expanded (GtkTreeView * view,
 			     GtkTreeIter * iter, GtkTreePath * path)
 {
-	AnjutaSymbolView *sv;
-	GdkPixbuf *pixbuf;
-	GtkTreeStore *store = GTK_TREE_STORE (gtk_tree_view_get_model (view));
-
-	sv = ANJUTA_SYMBOL_VIEW (view);
-	gtk_tree_model_get (GTK_TREE_MODEL (store), iter,
-			    PIXBUF_COLUMN, &pixbuf, -1);
-	if (pixbuf == anjuta_symbol_view_get_pixbuf (sv, sv_cfolder_t));
-	{
-		gtk_tree_store_set (store, iter,
-				    PIXBUF_COLUMN,
-					anjuta_symbol_view_get_pixbuf (sv, sv_ofolder_t),
-				    -1);
-	}
 }
 
 static void
 on_symbol_view_row_collapsed (GtkTreeView * view,
 			      GtkTreeIter * iter, GtkTreePath * path)
 {
-	AnjutaSymbolView *sv;
-	GdkPixbuf *pixbuf;
-	GtkTreeStore *store = GTK_TREE_STORE (gtk_tree_view_get_model (view));
-	sv = ANJUTA_SYMBOL_VIEW (view);
-
-	gtk_tree_model_get (GTK_TREE_MODEL (store), iter,
-			    PIXBUF_COLUMN, &pixbuf, -1);
-	if (pixbuf == anjuta_symbol_view_get_pixbuf (sv, sv_ofolder_t))
-	{
-		gtk_tree_store_set (store, iter,
-				    PIXBUF_COLUMN,
-					anjuta_symbol_view_get_pixbuf (sv, sv_cfolder_t),
-				    -1);
-	}
 }
 
 static void
@@ -366,14 +242,6 @@ anjuta_symbol_view_clear (AnjutaSymbolView * sv)
 	{
 		/* clean out gtk_tree_store. We won't need it anymore */
 		gtk_tree_store_clear (GTK_TREE_STORE (model));
-		
-		/* run through the g_list and free each element */
-		if (priv->keyword_symbols != NULL ) {
-			g_list_foreach (priv->keyword_symbols,
-							(GFunc)anjuta_symbol_info_destroy, NULL);
-			g_list_free (priv->keyword_symbols);
-			priv->keyword_symbols  = NULL;
-		}
 	}
 	if (sv->priv->file_symbol_model) {
 		/* clearing file_symbol_model */
@@ -404,10 +272,29 @@ sv_assign_node_name (TMSymbol * sym, GString * s)
 		break;
 
 	default:
-		if (sym->tag->atts.entry.var_type)
-			g_string_append_printf (s, " [%s]",
-						sym->tag->atts.entry.
-						var_type);
+		{
+			char *vt = sym->tag->atts.entry.var_type;
+			if (vt)
+			{
+				if((vt = strstr(vt, "_fake_")))
+				{
+					char backup = *vt;
+					*vt = '\0';
+					g_string_append_printf (s, " [%s%s]",
+											sym->tag->atts.entry.var_type,
+											(sym->tag->atts.entry.isPointer ?
+											 "*" : ""));
+					*vt = backup;
+				}
+				else
+				{
+					g_string_append_printf (s, " [%s%s]",
+											sym->tag->atts.entry.var_type,
+											(sym->tag->atts.entry.isPointer ?
+											 "*" : ""));
+				}
+			}
+		}
 		break;
 	}
 }
@@ -432,26 +319,14 @@ sv_get_tm_file (AnjutaSymbolView * sv, const gchar * filename)
 					 TRUE);
 }
 
-void
-sv_save (AnjutaSymbolView * sv)
-{
-	if (sv->priv->tm_project)
-		tm_project_save (TM_PROJECT (sv->priv->tm_project));
-}
+#endif
 
 void
-sv_sync (AnjutaSymbolView * sv, GList * files)
+anjuta_symbol_view_add_source (AnjutaSymbolView * sv, const gchar *filename)
 {
-/*	if (sv->priv->top_proj_dir && !p->tm_project)
-		p->tm_project = tm_project_new (p->top_proj_dir, NULL, NULL, TRUE);
-*/
-	tm_project_sync (TM_PROJECT (p->tm_project), files);
-}
-
-void
-sv_add_source (AnjutaSymbolView * sv, const gchar * filename)
-{
-	tm_project_add_file (TM_PROJECT (p->tm_project), filename, TRUE);
+	if (!sv->priv->tm_project)
+		return;
+	tm_project_add_file (TM_PROJECT (sv->priv->tm_project), filename, TRUE);
 /*
 	for (tmp = app->text_editor_list; tmp; tmp = g_list_next(tmp))
 	{
@@ -464,17 +339,21 @@ sv_add_source (AnjutaSymbolView * sv, const gchar * filename)
 /*	sv_populate (sv); */
 }
 
-sv_remove_source (AnjutaSymbolView * sv, const gchar * filename)
+void
+anjuta_symbol_view_remove_source (AnjutaSymbolView *sv, const gchar *filename)
 {
-	const TMFile *source_file;
+	TMWorkObject *source_file;
+	
+	if (!sv->priv->tm_project)
+		return;
 
-	source_file = tm_project_find_file (p->tm_project, filename, FALSE);
+	source_file = tm_project_find_file (sv->priv->tm_project, filename, FALSE);
 	if (source_file)
 	{
-//              GList *node;
-//              TextEditor *te;
-		tm_project_remove_object (TM_PROJECT (p->tm_project),
-					  source_file);
+		/* GList *node;
+		TextEditor *te; */
+		tm_project_remove_object (TM_PROJECT (sv->priv->tm_project),
+								  source_file);
 /*		for (node = app->text_editor_list; node; node = g_list_next(node))
 		{
 			te = (TextEditor *) node->data;
@@ -482,36 +361,91 @@ sv_remove_source (AnjutaSymbolView * sv, const gchar * filename)
 				te->tm_file = NULL;
 		}
 		sv_populate (sv);
-*/ }
-	else
+*/
+	}
+/*	else
 		g_warning ("Unable to find %s in project", full_fn);
+*/
 }
-#endif
+
+static void
+anjuta_symbol_view_add_children (AnjutaSymbolView *sv, TMSymbol *sym,
+								 GtkTreeStore *store,
+								 GString *s, GtkTreeIter *iter)
+{
+	if (((iter == NULL) || (tm_tag_function_t != sym->tag->type)) &&
+		(sym->info.children) && (sym->info.children->len > 0))
+	{
+		unsigned int j;
+		SVNodeType type;
+		AnjutaSymbolInfo *sfile;
+
+		if (iter == NULL)
+			DEBUG_PRINT ("Total nodes: %d", sym->info.children->len);
+		
+		for (j = 0; j < sym->info.children->len; j++)
+		{
+			TMSymbol *sym1 = TM_SYMBOL (sym->info.children->pdata[j]);
+			GtkTreeIter sub_iter;
+		
+			// if (!sym1 || ! sym1->tag || ! sym1->tag->atts.entry.file)
+			//	continue;
+			
+			if (!sym1 || ! sym1->tag)
+				continue;
+			
+			type = anjuta_symbol_info_get_node_type (sym1);
+			
+			if (sv_none_t == type)
+				continue;
+			
+			sv_assign_node_name (sym1, s);
+			
+			if (sym && sym->tag && sym->tag->atts.entry.scope)
+			{
+				g_string_insert (s, 0, "::");
+				g_string_insert (s, 0, sym->tag->atts.entry.scope);
+			}
+			sfile = anjuta_symbol_info_new (sym1, type);
+			
+			gtk_tree_store_append (store, &sub_iter, iter);
+			gtk_tree_store_set (store, &sub_iter,
+								PIXBUF_COLUMN,
+							    anjuta_symbol_view_get_pixbuf (sv, type),
+								NAME_COLUMN, s->str,
+								SVFILE_ENTRY_COLUMN, sfile,
+								-1);
+			anjuta_symbol_view_add_children (sv, sym1, store, s, &sub_iter);
+			anjuta_symbol_info_free (sfile);
+		}
+	}
+}
 
 /*------------------------------------------------------------------------------
  * this function will add the symbol_tag entries on the GtkTreeStore
  */
-
 void
 anjuta_symbol_view_open (AnjutaSymbolView * sv, const gchar * root_dir)
 {
+	anjuta_symbol_view_open_priv (sv, root_dir, FALSE);
+}
+
+static void
+anjuta_symbol_view_open_priv (AnjutaSymbolView * sv, const gchar * root_dir,
+							  gboolean only_refresh)
+{
 	GtkTreeStore *store;
-	GtkTreeIter iter;
-	GtkTreeIter root[sv_root_max_t + 1];
-	AnjutaSymbolInfo *sfile;
 	TMSymbol *symbol_tree = NULL;
 	static gboolean busy = FALSE;
 	GString *s;
-	char *arr[1];
-	SVRootType root_type;
-	int i;
 	GList *selected_items = NULL;
 	gboolean full = TRUE;
 
 	g_return_if_fail (ANJUTA_IS_SYMBOL_VIEW (sv));
-	g_return_if_fail (root_dir != NULL);
+	if (!only_refresh)
+		g_return_if_fail (root_dir != NULL);
 
-	DEBUG_PRINT ("Populating symbol view..");
+	DEBUG_PRINT ("Populating symbol view: Loading tag database ...");
 
 	gtk_widget_set_sensitive (GTK_WIDGET (sv), FALSE);
 	
@@ -522,27 +456,21 @@ anjuta_symbol_view_open (AnjutaSymbolView * sv, const gchar * root_dir)
 
 	selected_items = anjuta_symbol_view_get_node_expansion_states (sv);
 
-	/* make sure we clear anjuta_symbol_view from previous data */
-	anjuta_symbol_view_clear (sv);
-	
-	sv->priv->tm_project = tm_project_new (root_dir, NULL, NULL, TRUE);
-
 	store = GTK_TREE_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (sv)));
 
-	/* we'll add the main entries to the tree */
-	for (root_type = sv_root_class_t; root_type < sv_root_max_t;
-	     ++root_type)
+	if (only_refresh)
 	{
-		/* append the symbol */
-		gtk_tree_store_append (store, &root[root_type], NULL);
-		/* setting the root_type and the pixmap */
-		gtk_tree_store_set (store, &root[root_type],
-				    PIXBUF_COLUMN,
-					anjuta_symbol_view_get_pixbuf (sv, sv_cfolder_t),
-				    NAME_COLUMN, sv_root_names[root_type],
-				    -1);
+		gtk_tree_store_clear (store);
 	}
-
+	else
+	{
+		/* make sure we clear anjuta_symbol_view from previous data */
+		anjuta_symbol_view_clear (sv);
+		
+		sv->priv->tm_project = tm_project_new (root_dir, NULL, NULL, FALSE);
+	}	
+	DEBUG_PRINT ("Populating symbol view: Creating symbol tree ...");
+	
 	if (!full)
 		goto clean_leave;
 
@@ -551,132 +479,25 @@ anjuta_symbol_view_open (AnjutaSymbolView * sv, const gchar * root_dir)
 	    (0 == sv->priv->tm_project->tags_array->len))
 		goto clean_leave;
 
-	if (!
-	    (symbol_tree =
+	if (!(symbol_tree =
 	     tm_symbol_tree_new (sv->priv->tm_project->tags_array)))
 		goto clean_leave;
 
+	DEBUG_PRINT ("Populating symbol view: Creating symbol view ...");
 	if (!symbol_tree->info.children
 	    || (0 == symbol_tree->info.children->len))
 	{
 		tm_symbol_tree_free (symbol_tree);
 		goto clean_leave;
 	}
-
 	s = g_string_sized_new (MAX_STRING_LENGTH);
-
-	for (i = 0; i < symbol_tree->info.children->len; ++i)
-	{
-		TMSymbol *sym =
-			TM_SYMBOL (symbol_tree->info.children->pdata[i]);
-		SVNodeType type;	/* it's just an int */
-		GtkTreeIter parent_item;
-		gboolean has_children;
-
-		if (!sym || !sym->tag || !sym->tag->atts.entry.file)
-			continue;
-
-		type = sv_get_node_type (sym);
-		root_type = sv_get_root_type (type);
-		parent_item = root[root_type];
-
-		if (root_type == sv_root_max_t)
-			continue;
-
-		sv_assign_node_name (sym, s);
-
-		if (sym->tag->atts.entry.scope)
-		{
-			g_string_insert (s, 0, "::");
-			g_string_insert (s, 0, sym->tag->atts.entry.scope);
-		}
-
-		arr[0] = s->str;
-		if ((tm_tag_function_t != sym->tag->type) &&
-		    (sym->info.children) && (sym->info.children->len > 0))
-			has_children = TRUE;
-		else
-			has_children = FALSE;
-
-		/* create a new symbol_file_info object */
-		sfile = anjuta_symbol_info_new (sym, type);
-		 
-		/* append the current symbol to the GList keywords. */
-		sv->priv->keyword_symbols =
-			g_list_append (sv->priv->keyword_symbols, sfile);
-
-
-		gtk_tree_store_append (store, &iter, &parent_item);
-		
-		/* we'll add a sfile to the tree_store. But pay attention:
-		 * when we'll clear() the tree, we won't free sfile, but just its
-		 * "clone" on the tree_store. We should provide a method to free it at base.
-		 * It will be done in anjuta_symbol_tree_clear();
-		 */
-		gtk_tree_store_set (store, &iter,
-				    PIXBUF_COLUMN, anjuta_symbol_view_get_pixbuf (sv, type),
-				    NAME_COLUMN, s->str,
-				    SVFILE_ENTRY_COLUMN, sfile, -1);
-
-		/*
-		while (gtk_events_pending ())
-			gtk_main_iteration ();
-		*/
-		
-		/* we should parse children too */
-		if (has_children)
-		{
-			int j;
-
-			for (j = 0; j < sym->info.children->len; ++j)
-			{
-				TMSymbol *sym1 =
-					TM_SYMBOL (sym->info.children->
-						   pdata[j]);
-				GtkTreeIter sub_iter;
-				if (!sym1 || !sym1->tag
-				    || !sym1->tag->atts.entry.file)
-					continue;
-
-				type = sv_get_node_type (sym1);
-
-				if (sv_none_t == type)
-					continue;
-
-				sv_assign_node_name (sym1, s);
-
-				arr[0] = s->str;
-				sfile = anjuta_symbol_info_new (sym1, type);
-
-				/* add to the keyword_symbols' GList this sfile too */
-				sv->priv->keyword_symbols =
-					g_list_append (sv->priv->
-						       keyword_symbols,
-						       sfile);
-
-
-				gtk_tree_store_append (store, &sub_iter,
-						       &iter);
-				gtk_tree_store_set (store, &sub_iter,
-						    PIXBUF_COLUMN,
-						    anjuta_symbol_view_get_pixbuf (sv, type),
-						    NAME_COLUMN, s->str,
-						    SVFILE_ENTRY_COLUMN,
-						    sfile, -1);
-				/*
-				while (gtk_events_pending ())
-					gtk_main_iteration ();
-				*/
-			}
-		}
-	}
-	/* freeing s */
+	anjuta_symbol_view_add_children (sv, symbol_tree, store, s, NULL);
 	g_string_free (s, TRUE);
 	
 	tm_symbol_tree_free (symbol_tree);
 	anjuta_symbol_view_set_node_expansion_states (sv, selected_items);
 
-      clean_leave:
+clean_leave:
 	if (selected_items)
 		anjuta_util_glist_strings_free (selected_items);
 	busy = FALSE;
@@ -743,7 +564,8 @@ static void
 anjuta_symbol_view_instance_init (GObject * obj)
 {
 	AnjutaSymbolView *sv;
-
+	gchar *system_tags_path;
+	
 	sv = ANJUTA_SYMBOL_VIEW (obj);
 	sv->priv = g_new0 (AnjutaSymbolViewPriv, 1);
 	sv->priv->file_symbol_model = NULL;
@@ -751,12 +573,12 @@ anjuta_symbol_view_instance_init (GObject * obj)
 	sv->priv->tm_files = g_hash_table_new_full (g_str_hash, g_str_equal,
 						    g_free,
 						    destroy_tm_hash_value);
+	
+	system_tags_path = g_build_filename (g_get_home_dir(), ".anjuta",
+										 "system-tags.cache", NULL);
 	/* Load gloabal tags on gtk idle */
-	if (!tm_workspace_load_global_tags (PACKAGE_DATA_DIR "/system.tags"))
+	if (!tm_workspace_load_global_tags (system_tags_path))
 		g_warning ("Unable to load global tag file");
-
-	/* setup the keywords GList */
-	sv->priv->keyword_symbols = NULL;
 
 	/* let's create symbol_view tree and other gui stuff */
 	sv_create (sv);
@@ -801,37 +623,31 @@ anjuta_symbol_view_get_type (void)
 }
 
 GtkWidget *
-anjuta_symbol_view_new ()
+anjuta_symbol_view_new (void)
 {
-#if 0
-	static GtkWidget *widget = NULL;
-
-	if (!widget)
-	{
-		widget = gtk_widget_new (ANJUTA_TYPE_SYMBOL_VIEW, NULL);
-	}
-	return widget;
-#endif
 	return gtk_widget_new (ANJUTA_TYPE_SYMBOL_VIEW, NULL);
 }
 
 void
-anjuta_symbol_view_update (AnjutaSymbolView * sv)
+anjuta_symbol_view_update (AnjutaSymbolView * sv, GList *source_files)
 {
 	gboolean rebuild = FALSE;
-	g_warning( "symbol_search is not tested with update!" );
+	
 	if (sv->priv->tm_project)
 	{
-		if ((sv->priv->tm_project) ||
-		    (TM_PROJECT (sv->priv->tm_project)->file_list == NULL) ||
+		if ((TM_PROJECT (sv->priv->tm_project)->file_list == NULL) ||
 		    (TM_PROJECT (sv->priv->tm_project)->file_list->len <= 0)
 		    || rebuild)
-			/* && (p->top_proj_dir)) */
-			tm_project_autoscan (TM_PROJECT
-					     (sv->priv->tm_project));
+		{
+			tm_project_autoscan (TM_PROJECT (sv->priv->tm_project));
+		}
 		else
+		{
 			tm_project_update (sv->priv->tm_project, TRUE, TRUE, TRUE);
+			tm_project_sync (TM_PROJECT (sv->priv->tm_project), source_files);
+		}
 		tm_project_save (TM_PROJECT (sv->priv->tm_project));
+		anjuta_symbol_view_open_priv (sv, NULL, TRUE);
 	}
 	/*
 	 * else if (p->top_proj_dir)
@@ -856,7 +672,7 @@ anjuta_symbol_view_get_node_expansion_states (AnjutaSymbolView * sv)
 
 void
 anjuta_symbol_view_set_node_expansion_states (AnjutaSymbolView * sv,
-					      GList * expansion_states)
+											  GList * expansion_states)
 {
 	/* Restore expanded nodes */
 	if (expansion_states)
@@ -891,8 +707,8 @@ anjuta_symbol_view_get_current_symbol (AnjutaSymbolView * sv)
 
 gboolean
 anjuta_symbol_view_get_current_symbol_def (AnjutaSymbolView * sv,
-					   const gchar ** const filename,
-					   gint * line)
+										   const gchar ** const filename,
+										   gint * line)
 {
 	const AnjutaSymbolInfo *info;
 
@@ -909,8 +725,8 @@ anjuta_symbol_view_get_current_symbol_def (AnjutaSymbolView * sv,
 
 gboolean
 anjuta_symbol_view_get_current_symbol_decl (AnjutaSymbolView * sv,
-					    const gchar ** const filename,
-					    gint * line)
+											const gchar ** const filename,
+											gint * line)
 {
 	const AnjutaSymbolInfo *info;
 
@@ -1044,7 +860,7 @@ create_file_symbols_model (AnjutaSymbolView * sv, TMWorkObject * tm_file,
 
 void
 anjuta_symbol_view_workspace_add_file (AnjutaSymbolView * sv,
-				       const gchar * file_uri)
+									   const gchar * file_uri)
 {
 	const gchar *uri;
 	TMWorkObject *tm_file;
@@ -1092,7 +908,7 @@ anjuta_symbol_view_workspace_add_file (AnjutaSymbolView * sv,
 
 void
 anjuta_symbol_view_workspace_remove_file (AnjutaSymbolView * sv,
-					  const gchar * file_uri)
+										  const gchar * file_uri)
 {
 	const gchar *uri;
 
@@ -1109,8 +925,8 @@ anjuta_symbol_view_workspace_remove_file (AnjutaSymbolView * sv,
 
 void
 anjuta_symbol_view_workspace_update_file (AnjutaSymbolView * sv,
-					  const gchar * old_file_uri,
-					  const gchar * new_file_uri)
+										  const gchar * old_file_uri,
+										  const gchar * new_file_uri)
 {
 	g_return_if_fail (ANJUTA_IS_SYMBOL_VIEW (sv));
 	g_return_if_fail (new_file_uri != NULL);
@@ -1176,7 +992,7 @@ anjuta_symbol_view_workspace_update_file (AnjutaSymbolView * sv,
 
 gint
 anjuta_symbol_view_workspace_get_line (AnjutaSymbolView * sv,
-				       GtkTreeIter * iter)
+									   GtkTreeIter * iter)
 {
 	g_return_val_if_fail (iter != NULL, -1);
 	if (sv->priv->file_symbol_model)
@@ -1188,24 +1004,6 @@ anjuta_symbol_view_workspace_get_line (AnjutaSymbolView * sv,
 		return line;
 	}
 	return -1;
-}
-
-
-/*-----------------------------------------------------------------------------
- * it just returns keyword symbols' Glist collected at project-open time
- */
-
-GList *
-anjuta_symbol_view_get_keywords_symbols (AnjutaSymbolView * sv)
-{
-	AnjutaSymbolViewPriv *priv;
-
-	priv = sv->priv;
-
-	if (!priv->keyword_symbols)
-		return NULL;
-
-	return priv->keyword_symbols;
 }
 
 #define IS_DECLARATION(T) ((tm_tag_prototype_t == (T)) || (tm_tag_externvar_t == (T)) \

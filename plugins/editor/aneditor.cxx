@@ -71,6 +71,12 @@ using namespace std;
 #include "sv_class.xpm"
 #include "sv_function.xpm"
 #include "sv_macro.xpm"
+#include "sv_private_fun.xpm"
+#include "sv_private_var.xpm"
+#include "sv_protected_fun.xpm"
+#include "sv_protected_var.xpm"
+#include "sv_public_fun.xpm"
+#include "sv_public_var.xpm"
 #include "sv_struct.xpm"
 #include "sv_variable.xpm"
 
@@ -263,6 +269,7 @@ protected:
 	int LengthDocument();
 	int GetCaretInLine();
 	void GetLine(SString & text, int line = -1);
+	int  GetFullLine(SString & text, int line = -1);
 	void GetRange(Window &win, int start, int end, char *text);
 	int IsLinePreprocessorCondition(const char *line);
 	bool FindMatchingPreprocessorCondition(int &curLine, int direction, int condEnd1, int condEnd2);
@@ -289,9 +296,6 @@ protected:
 	SString FindOpenXmlTag(const char sel[], int nSize);
 	void GoMatchingBrace(bool select);
 	void GetRange(guint start, guint end, gchar *text, gboolean styled);
-//	bool StartCallTip();
-//	void ContinueCallTip();
-	// added
 	bool StartCallTip_new();
 	void ContinueCallTip_new();
 	void SaveCallTip();
@@ -299,7 +303,12 @@ protected:
 	void ShutDownCallTip();
 	void SetCallTipDefaults( );
 
-	bool StartAutoComplete();
+	TMTag ** FindTypeInLocalWords(GPtrArray *CurrentFileTags, const char *root,
+								  const bool type, bool *retptr, int *count);
+	bool SendAutoCompleteRecordsFields(const GPtrArray *CurrentFileTags,
+									   const char *ScanType);
+	bool StartAutoCompleteRecordsFields(char ch);
+ 	bool StartAutoComplete();
 	bool StartAutoCompleteWord(int autoShowCount);
 	bool StartBlockComment();
 	bool CanBeCommented(bool box_stream);
@@ -308,7 +317,8 @@ protected:
 	SString GetMode(SString language); 
 	bool InsertCustomIndent();
 
-	unsigned int GetLinePartsInStyle(int line, int style1, int style2, SString sv[], int len);
+	unsigned int GetLinePartsInStyle(int line, int style1, int style2,
+									 SString sv[], int len);
 	void SetLineIndentation(int line, int indent);
 	int GetLineIndentation(int line);
 	int GetLineIndentPosition(int line);
@@ -325,6 +335,10 @@ protected:
 	bool MarginClick(int position,int modifiers);
 	void HandleDwellStart(int mousePos);
 	void Notify(SCNotification *notification);
+	static void NotifySignal(GtkWidget *w, gint wParam, gpointer lParam,
+							 AnEditor *scitew);
+	int KeyPress (unsigned int state, unsigned int keyval);
+	static gint KeyPressEvent(GtkWidget *w, GdkEventKey *event, AnEditor *editor);
 
 	void BookmarkToggle( int lineno = -1 );
 	void BookmarkFirst();
@@ -337,15 +351,16 @@ protected:
 	StyleAndWords GetStyleAndWords(const char *base);
 	void SetOneStyle(Window &win, int style, const char *s);
 	void SetStyleFor(Window &win, const char *language);
-	static void NotifySignal(GtkWidget *w, gint wParam, gpointer lParam, AnEditor *scitew);
 	SString ExtensionFileName();
 	void Command(int command, unsigned long wParam, long lparam);
 	void ForwardPropertyToEditor(const char *key);
-	SString FindLanguageProperty(const char *pattern, const char *defaultValue="");
+	SString FindLanguageProperty(const char *pattern,
+								 const char *defaultValue="");
 	void ReadPropertiesInitial();
 	void ReadProperties(const char* fileForExt);
 	long SendEditor(unsigned int msg, unsigned long wParam=0, long lParam=0);
-	long SendEditorString(unsigned int msg, unsigned long wParam, const char *s);
+	long SendEditorString(unsigned int msg, unsigned long wParam,
+						  const char *s);
 	void SetOverrideLanguage(int ID);
 	void ViewWhitespace(bool view);
 	bool RangeIsAllWhitespace(int start, int end);
@@ -360,8 +375,8 @@ protected:
 	void FoldCode(bool expanding);
 	void FoldToggle();
 	void SelectBlock ();
-	int GetBlockStartLine();
-	int GetBlockEndLine();
+	int GetBlockStartLine(int lineno = -1);
+	int GetBlockEndLine(int lineno = -1);
 	void GotoBlockStart();
 	void GotoBlockEnd();
 	void EnsureRangeVisible(int posStart, int posEnd);
@@ -508,28 +523,28 @@ AnEditor::AnEditor(PropSetFile* p) {
 	
 	// Trap 'TAB' key for automatic indentation.
 	// SendEditor (SCI_ASSIGNCMDKEY, SCK_TAB, SCI_NULL);
+	g_signal_connect (wEditor.GetID(), "key-press-event", G_CALLBACK (KeyPressEvent), this);
 
 #if 0
 	/* Register images to be used for autocomplete */
 	typedef struct {
-		int type;
+		SVNodeType type;
 		char **xpm_data;
 	} PixAndType;
 	PixAndType pix_list[] = {
-	{ tm_tag_undef_t, sv_unknown_xpm }
-	, { tm_tag_class_t, sv_class_xpm }
-	, { tm_tag_function_t, sv_function_xpm }
-	, { tm_tag_prototype_t, sv_function_xpm }
-	, { tm_tag_interface_t, sv_function_xpm }
-	, { tm_tag_method_t, sv_function_xpm }
-	, { tm_tag_macro_t, sv_macro_xpm }
-	, { tm_tag_macro_with_arg_t, sv_macro_xpm }
-	, { tm_tag_variable_t, sv_variable_xpm }
-	, { tm_tag_externvar_t, sv_variable_xpm }
-	, { tm_tag_member_t, sv_variable_xpm }
-	, { tm_tag_field_t, sv_variable_xpm }
-	, { tm_tag_struct_t, sv_struct_xpm }
-	, { tm_tag_typedef_t, sv_struct_xpm }
+	  { sv_none_t , sv_unknown_xpm }
+	, { sv_class_t, sv_class_xpm }
+  , { sv_struct_t, sv_struct_xpm }
+  , { sv_union_t, sv_struct_xpm }
+	, { sv_function_t, sv_function_xpm }
+	, { sv_macro_t, sv_macro_xpm }
+  , { sv_variable_t, sv_variable_xpm }
+  , { sv_private_func_t, sv_private_fun_xpm }
+	, { sv_private_var_t, sv_private_var_xpm }
+	, { sv_protected_func_t, sv_protected_fun_xpm }
+	, { sv_protected_var_t, sv_protected_var_xpm }
+	, { sv_public_func_t, sv_public_fun_xpm }
+	, { sv_public_var_t, sv_public_var_xpm }
 	};
 	for (guint i = 0; i < (sizeof(pix_list)/sizeof(pix_list[0])); ++i)
 	{
@@ -544,6 +559,72 @@ void AnEditor::SetParent(AnEditor *parent)
 	long pdoc = parent->SendEditor(SCI_GETDOCPOINTER, 0, 0);
 	SendEditor(SCI_SETDOCPOINTER, 0, pdoc);
 }
+
+#if 0
+static SVNodeType
+sv_get_node_type (TMTag *tag)
+{
+	char access;
+
+	if (!tag || (tm_tag_file_t == tag->type))
+		return sv_none_t;
+  
+	access = tag->atts.entry.access;
+	switch (tag->type)
+	{
+		case tm_tag_class_t:
+			return sv_class_t;
+		case tm_tag_struct_t:
+			return sv_struct_t;
+    case tm_tag_union_t:
+			return sv_union_t;
+		case tm_tag_function_t:
+		case tm_tag_prototype_t:
+			switch (access)
+			{
+				case TAG_ACCESS_PRIVATE:
+					return sv_private_func_t;
+					
+				case TAG_ACCESS_PROTECTED:
+					return sv_protected_func_t;
+					
+				case TAG_ACCESS_PUBLIC:
+					return sv_public_func_t;
+					
+				default:
+					return sv_function_t;
+			}
+		case tm_tag_member_t:
+			switch (access)
+			{
+				case TAG_ACCESS_PRIVATE:
+					return sv_private_var_t;
+					
+				case TAG_ACCESS_PROTECTED:
+					return sv_protected_var_t;
+
+				case TAG_ACCESS_PUBLIC:
+					return sv_public_var_t;
+					
+				default:
+					return sv_variable_t;				
+			}
+	
+		case tm_tag_externvar_t:
+		case tm_tag_variable_t:
+			return sv_variable_t;
+			
+		case tm_tag_macro_t:
+		case tm_tag_macro_with_arg_t:
+			return sv_macro_t;
+			
+		default:
+			return sv_none_t;
+			
+	}
+	
+}
+#endif
 
 void
 AnEditor::SetAccelGroup(GtkAccelGroup* acl) {
@@ -614,6 +695,57 @@ void AnEditor::GetLine(SString & text, int line) {
 	text_buffer[len] = '\0';
 	text.attach(text_buffer, len);
 }
+
+int AnEditor::GetFullLine(SString & text, int line) {
+	int caret, lineStart, lineEnd;
+	if (line < 0)
+	{
+		line = GetCurrentLineNumber();
+		caret = GetCaretInLine();
+		lineStart = SendEditor(SCI_POSITIONFROMLINE, line);
+		lineEnd = SendEditor(SCI_GETLINEENDPOSITION, line);
+	}
+	else
+	{
+		lineStart = SendEditor(SCI_POSITIONFROMLINE, line);
+		lineEnd = SendEditor(SCI_GETLINEENDPOSITION, line);
+		caret = lineEnd - lineStart - 1;
+	}
+	int count = 25, current; 
+	int len =  lineEnd - lineStart + 1;
+	text.clear();
+	while(count)
+	{
+		{
+			char *text_buffer = SString::StringAllocate (len + text.length());
+			GetRange(wEditor, lineStart, lineEnd, text_buffer);
+			memcpy(text_buffer + len - 1, text.c_str(), text.length());
+			text_buffer[len + text.length()] = '\0';
+			text.attach(text_buffer, len + text.length());
+		}
+		current = caret;
+		while(current > 0)
+		{
+			if(text[current - 1] == ';' ||
+			   text[current - 1] == '{' || text[current - 1] == '}')
+			{
+				return caret;
+			}
+			current--;
+		}	
+		line--;
+		if(line < 0) break;
+		lineStart = SendEditor(SCI_POSITIONFROMLINE, line);
+		lineEnd = SendEditor(SCI_GETLINEENDPOSITION, line);
+		len =  lineEnd - lineStart;	
+		caret += len;
+		len++;
+		count--;
+	}
+	text.clear();
+	return -1;
+}
+
 
 void AnEditor::GetRange(Window &win, int start, int end, char *text) {
 	TextRange tr;
@@ -1345,6 +1477,7 @@ bool AnEditor::StartAutoComplete() {
 				g_string_append_c(words, ' ');
 			g_string_append(words, tag->name);
 		}
+		SendEditor(SCI_AUTOCSETAUTOHIDE, 1);
 		SendEditorString(SCI_AUTOCSHOW, rootlen, words->str);
 		g_string_free(words, TRUE);
 	}
@@ -1409,6 +1542,662 @@ static void free_word(gpointer key, gpointer value, gpointer user_data)
 
 #define TYPESEP '?'
 
+bool AnEditor::SendAutoCompleteRecordsFields(const GPtrArray *CurrentFileTags,
+                                             const char *ScanType)
+{
+	
+	if( !(ScanType && ScanType[0] != '\0') ) return false;
+		
+	const GPtrArray *tags = tm_workspace_find_scope_members(CurrentFileTags, ScanType, TRUE);
+	
+	if ((tags) && (tags->len > 0))
+	{	
+		TMTag *tag;
+		GHashTable *wordhash = g_hash_table_new(g_str_hash, g_str_equal);
+		GString *words = g_string_sized_new(256);
+	
+		for (guint i=0; ((i < tags->len)); ++i)
+		{
+			tag = TM_TAG(tags->pdata[i]);
+			if (NULL == g_hash_table_lookup(wordhash, (gconstpointer)	tag->name))
+			{
+				g_hash_table_insert(wordhash, g_strdup(tag->name), (gpointer) 1);
+				if (words->len > 0)
+				{
+					g_string_append_c(words, ' ');
+				}
+				g_string_append(words, tag->name);
+				g_string_append_c(words, TYPESEP);
+				g_string_append_printf(words, "%d", tag->type);
+				// g_string_append_printf(words, "%d", sv_get_node_type (tag));
+			}
+		}
+		
+		SendEditor(SCI_AUTOCSETAUTOHIDE, 0);
+		//SendEditorString(SCI_AUTOCSHOW, 0, words->str);
+		SendEditorString(SCI_USERLISTSHOW, 0, words->str);
+	
+		g_string_free(words, TRUE);
+		g_hash_table_foreach(wordhash, free_word, NULL);
+		g_hash_table_destroy(wordhash);	
+
+		return true;
+	}
+  return false;
+}
+
+static bool IsRecordOperatorForward(char *ch)
+{
+	return (((ch[0] == '-') && (ch[1] == '>')) ||
+	        ((ch[0] == ':') && (ch[1] == ':')));
+}
+
+static bool IsRecordOperatorBackward(char *ch)
+{
+	return (((ch[0] == '>') && (ch[-1] == '-')) ||
+	        ((ch[0] == ':') && (ch[-1] == ':')));
+}
+
+static bool IsAlnum(char ch)
+{
+	return (ch == '_' || isalnum(ch));
+}
+
+static bool IsAlpha(char ch)
+{
+	return (ch == '_' || isalpha(ch));
+}
+
+static bool IsRecordOperator(char *ch)
+{
+	return ((ch[0] == '.') ||
+        	IsRecordOperatorForward(ch) ||
+	        IsRecordOperatorBackward(ch) );
+}
+
+TMTag ** AnEditor::FindTypeInLocalWords(GPtrArray *CurrentFileTags,
+                          const char *root, const bool type, bool *retptr, int *count)
+{
+  int posCurrentWord = SendEditor (SCI_GETCURRENTPOS);
+	int Line = SendEditor(SCI_LINEFROMPOSITION , posCurrentWord);
+  
+  {
+    TMTag *tag;
+    if(NULL == (tag = TM_TAG(tm_get_current_function(CurrentFileTags, Line))))
+    {
+      return NULL;
+    }
+    Line = tag->atts.entry.line - 2;
+  }
+  
+  size_t rootlen = strlen(root);
+  posCurrentWord -= (rootlen + (type ? 1 : 2));
+  int EndBlokLine = 
+       GetBlockEndLine(SendEditor(SCI_LINEFROMPOSITION , posCurrentWord));  
+  if(EndBlokLine < 0) return NULL;
+  
+  SString linebuf;
+  const char *name; 
+ 
+  /* find open block '{' */
+  do {
+    Line++;
+    GetLine(linebuf, Line);
+    name = linebuf.c_str();
+    name = strchr(name, '{');
+  } while(!name);
+  
+  int posFind = SendEditor(SCI_POSITIONFROMLINE , Line) + (name - linebuf.c_str());
+  
+	int doclen = LengthDocument();
+	TextToFind ft = {{0, 0}, 0, {0, 0}};
+	ft.lpstrText = const_cast<char*>(root);
+  ft.chrg.cpMin = posFind;
+  /* find close block '}' */
+	ft.chrg.cpMax = SendEditor(SCI_BRACEMATCH , posFind, 0);
+    
+  for (;;) {	// search all function blocks
+		posFind = SendEditorString(SCI_FINDTEXT,
+        (SCFIND_WHOLEWORD | SCFIND_MATCHCASE), reinterpret_cast<char *>(&ft));
+    
+		if (posFind == -1 || posFind >= doclen || posFind >= posCurrentWord)
+		{
+			break;
+		}
+		
+    Line = SendEditor(SCI_LINEFROMPOSITION , posFind);
+    int current = GetBlockEndLine(Line);
+    if (current < 0) break;
+		if ( EndBlokLine > current )
+		{
+			/* not in our block */
+      ft.chrg.cpMin = posFind + rootlen;
+			continue;
+		}
+
+    if(GetFullLine(linebuf, Line) < 0) break;
+    
+    /* find word position */    
+		current = 0;				
+		while(1)
+		{
+		  current = linebuf.search(root, current);
+			if(current < 0) break;
+			if(!current && !IsAlnum(linebuf[rootlen]))
+			{
+				break;
+			}	
+			if(current > 0 && !IsAlpha(linebuf[current-1]) &&
+				                !IsAlnum(linebuf[current + rootlen]))
+			{
+				break;
+			}
+			current += rootlen;
+		}
+    if(current < 1) break;
+    
+    bool isPointer = false;
+    int startword = current - 1;
+    
+		{
+			/* find 'pointer' capability and move to "true start of line" */
+			bool findPointer = true;
+			while (startword > 0)
+			{
+				if(linebuf[startword] == ';' || linebuf[startword] == '{' ||
+					 linebuf[startword] == '}')
+				{
+					break;
+				}
+				if(findPointer && linebuf[startword] == ',')
+				{
+					findPointer = false;
+				}
+				if(findPointer && linebuf[startword] == '*')
+				{
+					findPointer = false;
+					isPointer = true;
+				}
+				startword--;
+			}	
+		}		
+		
+		name = NULL;
+		for (;;) {
+			/* find begin of word */
+			while (startword < current && !IsAlpha(linebuf[startword]))
+		  {
+			  startword++;
+		  }
+		  if (startword == current) break;
+			
+		  name = (linebuf.c_str() + startword);
+			
+			/* find end of word */
+			while (startword < current && IsAlnum(linebuf[startword]))
+		  {
+			  startword++;
+		  }
+			if (startword == current) break;
+				
+		  char backup = linebuf[startword];
+			linebuf.change(startword, '\0');
+			
+			if (strcmp(name, root) == 0)
+			{
+				break;
+			}
+			
+			if (strcmp(name, "struct")   == 0 ||
+				strcmp(name, "class" )   == 0 ||
+			    strcmp(name, "union" )   == 0 ||
+			    strcmp(name, "const" )   == 0 ||
+			    strcmp(name, "static")   == 0 ||
+			    strcmp(name, "auto"  )   == 0 ||
+			    strcmp(name, "register") == 0 ||
+			    strcmp(name, "extern")   == 0 ||
+				strcmp(name, "restrict") == 0)
+			{
+				linebuf.change(startword, backup);
+				continue;
+			}
+		  
+      /* search in file type tag's entrys */
+      doclen = 0;
+      TMTag **match = tm_tags_find(CurrentFileTags, name, FALSE, &current);
+      for(startword = 0; match && startword < current; ++startword)
+      {
+        if ((tm_tag_class_t | tm_tag_struct_t |tm_tag_typedef_t |
+             tm_tag_union_t | tm_tag_namespace_t) & match[startword]->type)
+        {
+					doclen++;
+        }
+      }
+      if (!doclen)
+	    {
+        /* search in global type tag's entrys */
+        const GPtrArray *tags = tm_workspace_find(name,
+                                      (tm_tag_class_t   | tm_tag_struct_t |
+			                                 tm_tag_typedef_t | tm_tag_union_t  |
+			                                 tm_tag_namespace_t), NULL, FALSE);  
+        doclen = tags->len;
+        match = (TMTag **)tags->pdata;
+      }
+      
+      if(retptr) *retptr = isPointer;  
+      if(count) *count = doclen;
+	    return match;
+	
+		}
+    break;
+  }
+  return NULL;
+}
+
+static TMWorkObject * get_current_tm_file (GtkWidget *scintilla)
+{
+	GtkWidget *container;
+	container = gtk_widget_get_parent (scintilla);
+	
+	g_return_val_if_fail (GTK_IS_VBOX (container), NULL);
+	
+	TMWorkObject * tm_file =
+		TM_WORK_OBJECT (g_object_get_data (G_OBJECT (container), "tm_file"));
+	return tm_file;
+}
+
+static char * get_current_function_scope (GtkWidget *scintilla, int line)
+{
+	TMWorkObject * tm_file = get_current_tm_file (scintilla);
+	
+	if((tm_file) && (tm_file->tags_array))
+	{
+		TMTag *tag;
+		g_message ("TMFile for editor found");
+		if(NULL != (tag = TM_TAG(tm_get_current_function(tm_file->tags_array,
+														 line))))
+		{
+			return tag->atts.entry.scope;
+		}
+	}
+	return NULL;
+};
+
+static char * FindTypeInFunctionArgs(GPtrArray *CurrentFileTags,
+                          const char *root, bool *retptr, const int line)
+{
+  /* find type in function arguments */
+  if(CurrentFileTags)
+  {
+    char *name;
+    size_t rootlen;
+    int end, start;
+    TMTag *tag;
+    bool isPointer;
+    if(NULL == (tag = TM_TAG(tm_get_current_function(CurrentFileTags, line))))
+    {
+      return NULL;
+    }
+    if(NULL == (name = tag->atts.entry.arglist))
+    {
+      return NULL;
+    }
+          
+    rootlen = strlen(root);
+    while(name)
+    {
+      if(NULL == (name = strstr(name, root)))
+      {
+        return NULL;
+      }
+      end = name - tag->atts.entry.arglist;
+      if (!end || IsAlpha(name[-1]) || IsAlnum(name[rootlen]))
+      {
+        name++;
+        continue;
+      }
+      name = tag->atts.entry.arglist;
+      break;
+    }
+    isPointer = false;
+    while(end > 0)
+    {
+      while(end > 0 && !IsAlnum(name[end - 1]))
+      {
+        if(!isPointer && name[end - 1] == '*')
+        {
+          isPointer = true;
+        }
+        end--;
+      }
+      start = end;
+            
+      while(start > 0 && IsAlnum(name[start - 1]))
+      {
+        start--;
+      }
+            
+      char backup = name[end];
+      name[end] = '\0';
+      name += start;
+      if( (0 == strcmp("const", name)) ||
+          (0 == strcmp("restrict", name)))
+      {
+        name = tag->atts.entry.arglist;
+        name[end] = backup;
+        end = start;
+        continue;
+      }
+      name = g_strdup(name);
+      tag->atts.entry.arglist[end] = backup;
+      break;
+    }
+    if(retptr) *retptr = isPointer;
+    return name;
+  }
+  
+  return NULL;
+}
+
+bool AnEditor::StartAutoCompleteRecordsFields (char ch)
+{
+	/* TagManager autocompletion - only for C/C++/Java */	  
+	if (SCLEX_CPP != lexLanguage ||
+		((ch != '.') &&	(ch != '>') && (ch != ':')))
+		return false;
+	
+	SString linebuf;
+	const char *root;
+	
+	int current = GetFullLine(linebuf);
+  
+	if (current < 0) return false;
+	if ((ch == '>') && linebuf[current - 2] != '-') return false;
+	if ((ch == ':') && linebuf[current - 2] != ':') return false;
+	
+	char tmp_chr;
+	bool was_long_decl = false, long_declaration = true;
+	int endword, startword = current;
+	TMTag *ScanType;
+	GPtrArray *CurrentFileTags;
+	const GPtrArray *tags;
+	
+	/* scan entire record's chain */
+	while(long_declaration)
+	{
+		endword = startword;
+		
+		while (endword > 1 && IsRecordOperator((char *)(linebuf.c_str() +
+														(endword - 1))) )
+		{
+			endword--;
+		}
+		/* detect function parameter list or othgers () */
+		if(linebuf[endword - 1] == ')')
+		{
+			int count = 0;
+			do {
+				endword--;
+				if(linebuf[endword] == ')') count++;
+				if(linebuf[endword] == '(') count--;
+			}	while (endword > 0 && count);
+		}
+		else
+		{
+			while(linebuf[endword - 1] == ']')
+			{
+				int count = 0;
+				do {
+					endword--;
+					if(linebuf[endword] == ']') count++;
+					if(linebuf[endword] == '[') count--;
+				}	while (endword > 0 && count);
+			}
+		}
+				
+		while (endword > 1 && isspace(linebuf[endword - 1]))
+		{
+			endword--;
+		}
+		
+		startword = endword;
+		while (startword > 1 && IsAlnum(linebuf[startword - 1]))
+		{
+			startword--;
+		}
+		
+		long_declaration = startword > 1 && IsRecordOperator((char *)(linebuf.c_str() + (startword - 1)));
+		if(!was_long_decl && long_declaration) was_long_decl = true;
+	}
+	
+	tmp_chr = linebuf[endword];
+	linebuf.change(endword, '\0');
+	root = linebuf.c_str() + startword;
+	
+	bool isPointer = false;	
+	char *name;
+	char *new_name = NULL;
+	int types = (ch == ':' ? tm_tag_class_t : (tm_tag_max_t & ~tm_tag_class_t));
+	{
+		TMWorkObject  *tm_file = get_current_tm_file (GTK_WIDGET (GetID()));
+		CurrentFileTags = tm_file ? tm_file->tags_array : NULL;
+	}
+	if(0 == strcmp(root, "this"))
+	{
+		name = get_current_function_scope(GTK_WIDGET (GetID()),
+										  GetCurrentLineNumber());
+		if(!name || name[0] == '\0') return false;
+			isPointer = true;
+		}
+		else
+		{
+			TMTagAttrType attrs[] = {
+				tm_tag_attr_name_t,
+				tm_tag_attr_type_t,
+				tm_tag_attr_none_t
+			};
+			TMTag **match = NULL;
+			int count = 0;
+			
+			tm_tags_sort(CurrentFileTags, attrs, FALSE);
+			match = tm_tags_find(CurrentFileTags, root, FALSE, &count);
+			if(count && ch == ':')
+			{
+				int real_count = 0;
+				for(int i = 0; i < count; ++i)
+				{
+					if(types & match[i]->type)
+					{
+						real_count++;
+					}
+				}
+				count = real_count;
+			}
+			if (!count || !match || !(*match))
+			{
+				/* search in global variables and functions tag's entrys */
+				tags = tm_workspace_find(root, types, attrs, FALSE);  
+				count = tags->len;
+				match = NULL;
+			}
+			ScanType = NULL;
+			if( count == 1 )
+			{
+				ScanType = (match ? match[0] : TM_TAG(tags->pdata[0]));
+				if(!(!ScanType->atts.entry.scope ||
+					((name =
+						get_current_function_scope(GTK_WIDGET (GetID()),
+												   GetCurrentLineNumber())) &&
+					0 == strcmp(name, ScanType->atts.entry.scope))) )
+				{
+					ScanType = NULL;
+				}
+			}
+			else
+			{
+				if((count > 0) &&
+					(name =
+						get_current_function_scope(GTK_WIDGET (GetID()),
+												   GetCurrentLineNumber())))
+				{
+					int iter;
+					for( iter =0; iter < count; ++iter)
+					{
+						ScanType =
+							(match ? match[iter] : TM_TAG(tags->pdata[iter]));
+						if(ch != ':' &&
+						   0 == strcmp(name, ScanType->atts.entry.scope))
+						{
+							break;
+						}
+						if(ch == ':' && ScanType->type == tm_tag_class_t)
+						{
+							break;
+						}
+					}
+					if(iter == count) ScanType = NULL;
+				}
+			}
+			if(ScanType)
+			{
+				if(ScanType->type == tm_tag_class_t)
+				{
+					/* show nothing when use normal acces operators (./->) */
+					name = ScanType->name;
+					isPointer = (ch == '.');
+				}
+				else
+				{
+					name = ScanType->atts.entry.var_type;
+					isPointer = ScanType->atts.entry.isPointer;
+				}
+			}
+			else
+			{
+				new_name = FindTypeInFunctionArgs(CurrentFileTags, root,
+												  &isPointer,
+												  GetCurrentLineNumber());
+				if(new_name)
+				{
+					name = new_name;
+				}
+				else
+				{
+				count = 0;
+				TMTag **match = FindTypeInLocalWords(CurrentFileTags,
+													 root, (tmp_chr == '.'),
+													 &isPointer, &count);
+				if ((match) && (count == 1) && (ScanType = match[0]))
+				{
+					name = ScanType->name;
+				}
+				else
+				{
+					return false;
+				}
+			}
+		}
+	}
+	
+	linebuf.change(endword, tmp_chr);
+	
+	while(was_long_decl)
+	{
+		tags = tm_workspace_find_scope_members(CurrentFileTags, name, TRUE);
+		if (!((tags) && (tags->len > 0)))
+		{
+			if(new_name) g_free(new_name);
+			return false;
+		}
+
+		while (endword < current && isspace(linebuf[endword]))
+		{
+			endword++;
+		}
+		if(linebuf[endword] == '(')
+		{
+			int count = 0;
+			do {
+				if(linebuf[endword] == ')') count--;
+				if(linebuf[endword] == '(') count++;
+				endword++;
+			}
+			while (count && endword < current);
+		}
+		else
+		{
+			while(linebuf[endword] == '[')
+			{
+				int count = 0;
+				do {
+					if(linebuf[endword] == ']') count--;
+					if(linebuf[endword] == '[') count++;
+					endword++;
+				}
+				while (count && endword < current);
+			}
+		}
+		while (endword < current &&
+			   IsRecordOperator((char *)(linebuf.c_str() + endword)))
+		{
+			endword++;
+		}
+		if(!IsAlnum(linebuf[endword]))
+			break;
+		
+		startword = endword;
+		while (endword < current && IsAlnum(linebuf[endword]))
+		{
+			endword++;
+		}
+	
+		tmp_chr = linebuf[endword];
+		linebuf.change(endword, '\0');
+		root = linebuf.c_str() + startword;
+		
+		unsigned int i;
+		for (i=0; (i < tags->len); ++i)
+		{
+			ScanType = TM_TAG(tags->pdata[i]);
+			if(ScanType && 0 == strcmp(ScanType->name, root))
+			{
+				break;
+			}
+		}
+		if (i >= tags->len)
+		{
+			if(new_name) g_free(new_name);
+				return false;
+		}
+		linebuf.change(endword, tmp_chr);
+	
+		CurrentFileTags = ScanType->atts.entry.file->work_object.tags_array;
+		name = ScanType->atts.entry.var_type;
+		isPointer = ScanType->atts.entry.isPointer;
+	}
+	if (ch == ':' && ScanType->type != tm_tag_class_t)
+	{
+		if(new_name) g_free(new_name);
+			//anjuta_status (_("Wrong acces operator ... "));
+			return false;
+	}
+	if (ch == '>' && !isPointer)
+	{
+		if(new_name) g_free(new_name);
+			//anjuta_status (_("Wrong acces operator... Please use \"->\""));
+			return false;
+	}
+	if (ch == '.' && isPointer)
+	{
+		if(new_name) g_free(new_name);
+			//anjuta_status (_("Wrong acces operator... Please use \".\""));
+			return false;
+	}	
+	bool retval = SendAutoCompleteRecordsFields(CurrentFileTags, name);
+	if(new_name) g_free(new_name);
+		return retval;	
+}
+
 bool AnEditor::StartAutoCompleteWord(int autoShowCount) {
 	SString linebuf;
 	int nwords = 0;
@@ -1459,6 +2248,7 @@ bool AnEditor::StartAutoCompleteWord(int autoShowCount) {
 					g_string_append(words, tag->name);
 					g_string_append_c(words, TYPESEP);
 					g_string_append_printf(words, "%d", tag->type);
+					// g_string_append_printf(words, "%d", sv_get_node_type (tag));
 					
 					wordlen = strlen(tag->name);
 					if (minWordLength < wordlen)
@@ -1529,6 +2319,7 @@ bool AnEditor::StartAutoCompleteWord(int autoShowCount) {
 	}
 	size_t length = (words->str) ? strlen (words->str) : 0;
 	if ((length > 2) && (autoShowCount <= 0 || (minWordLength > rootlen))) {
+		SendEditor(SCI_AUTOCSETAUTOHIDE, 1);
 		SendEditorString(SCI_AUTOCSHOW, rootlen, words->str);
 	} else {
 		SendEditor(SCI_AUTOCCANCEL);
@@ -2286,7 +3077,7 @@ int AnEditor::IndentOfBlockProper(int line) {
 		}
 		backLine--;
 	}
-	if (noIndentFound)
+	if (noIndentFound && minIndent > 0)
 		indentBlock = minIndent;
 	return indentBlock;
 }
@@ -2443,11 +3234,28 @@ void AnEditor::AutomaticIndentation(char ch) {
 			SendEditor (SCI_VCHOME);
 		
 	} else if (lexLanguage == SCLEX_CPP) {
-		if ((ch == '\t') ||
-			(statementEnd.IsSingleChar() && ch == statementEnd.words[0])) {
+		if ((ch == '\t')) {
 		
 			int indentBlock = IndentOfBlock(curLine - 1);
-			SetLineIndentation(curLine, indentBlock);
+			int indentState = GetIndentState (curLine);
+			
+			if (blockStart.IsSingleChar() && indentState == isBlockStart) {
+				if (!indentOpening) {
+					if (RangeIsAllWhitespace(thisLineStart, selStart - 1)) {
+						// int indentBlock = IndentOfBlockProper(curLine - 1);
+						SetLineIndentation(curLine, indentBlock - indentSize);
+					}
+				}
+			} else if (blockEnd.IsSingleChar() && indentState == isBlockEnd) {
+				if (!indentClosing) {
+					if (RangeIsAllWhitespace(thisLineStart, selStart - 1)) {
+						// int indentBlock = IndentOfBlockProper(curLine - 1);
+						SetLineIndentation(curLine, indentBlock - indentSize);
+					}
+				}
+			} else {
+				SetLineIndentation(curLine, indentBlock);
+			}
 			
 			// Home cursor.
 			if (SendEditor (SCI_GETCOLUMN, SendEditor(SCI_GETCURRENTPOS)) < indentBlock)
@@ -2526,9 +3334,9 @@ void AnEditor::CharAdded(char ch) {
 						AutomaticIndentation(ch);
 					if (autoCompleteStartCharacters.contains(ch)) {
 						StartAutoComplete();
-					} else if (props->GetInt("autocompleteword.automatic") && wordCharacters.contains(ch)) {
-						StartAutoCompleteWord(props->GetInt("autocompleteword.automatic"));
-						autoCCausedByOnlyOne = SendEditor(SCI_AUTOCACTIVE);
+					} else if (!StartAutoCompleteRecordsFields(ch) && props->GetInt("autocompleteword.automatic") && wordCharacters.contains(ch)) {
+					    StartAutoCompleteWord(props->GetInt("autocompleteword.automatic"));
+					    autoCCausedByOnlyOne = SendEditor(SCI_AUTOCACTIVE);
 					}
 				}
 			}
@@ -3137,32 +3945,63 @@ void AnEditor::SelectBlock () {
 		gdk_beep ();
 }
 
-int AnEditor::GetBlockStartLine () {
-	int curLine = SendEditor(SCI_LINEFROMPOSITION, SendEditor (SCI_GETCURRENTPOS));
+int AnEditor::GetBlockStartLine (int curLine) {
+	if(curLine < 0)
+	{
+	  curLine = SendEditor(SCI_LINEFROMPOSITION, SendEditor (SCI_GETCURRENTPOS));
+	}
 	int level = SendEditor(SCI_GETFOLDLEVEL, curLine);
 	if (level & SC_FOLDLEVELHEADERFLAG) {
 		return curLine;
 	}
-	int parent = SendEditor (SCI_GETFOLDPARENT, curLine);
-	int lastChild = SendEditor (SCI_GETLASTCHILD, parent, -1);
-	if (curLine > parent && curLine <= lastChild)
+	int parent = -1;
+	int lastChild = curLine;
+	while(parent == -1)
 	{
-		return parent;
+		parent = SendEditor (SCI_GETFOLDPARENT, lastChild);
+		if (parent == -1)
+		{
+			return -1;
+		}
+		lastChild = SendEditor (SCI_GETLASTCHILD, parent, -1);
+		if (curLine > parent && curLine <= lastChild)
+	  {
+		  return parent;
+	  }
+	  lastChild = parent - 1;
+		parent = -1;
 	}
-	else
-		return -1;
+	return -1;
 }
 
-int AnEditor::GetBlockEndLine () {
-	int curLine = SendEditor(SCI_LINEFROMPOSITION, SendEditor (SCI_GETCURRENTPOS));
-	int parent = SendEditor (SCI_GETFOLDPARENT, curLine);
-	int lastChild = SendEditor (SCI_GETLASTCHILD, parent, -1);
-	if (curLine > parent && curLine <= lastChild)
+int AnEditor::GetBlockEndLine (int curLine) {
+	if(curLine < 0)
 	{
-		return lastChild;
+	  curLine = SendEditor(SCI_LINEFROMPOSITION, SendEditor (SCI_GETCURRENTPOS));
 	}
-	else
-		return -1;
+	int level = SendEditor(SCI_GETFOLDLEVEL, curLine);
+	if (level & SC_FOLDLEVELHEADERFLAG) {
+		/* this may be a problem when we use this function on "start" block line */
+		return curLine;
+	}
+  int parent = -1;
+  int lastChild = curLine;
+	while(parent == -1)
+	{
+		parent = SendEditor (SCI_GETFOLDPARENT, lastChild);
+		if (parent == -1)
+		{
+			return -1;
+		}
+		lastChild = SendEditor (SCI_GETLASTCHILD, parent, -1);
+		if (curLine > parent && curLine <= lastChild)
+	  {
+		  return lastChild;
+	  }
+	  lastChild = parent - 1;
+		parent = -1;
+	}
+	return -1;
 }
 
 void AnEditor::EnsureRangeVisible(int posStart, int posEnd) {
@@ -3212,6 +4051,10 @@ bool AnEditor::MarginClick(int position, int modifiers) {
 		}
 	}
 	return true;
+}
+
+gint AnEditor::KeyPressEvent(GtkWidget *, GdkEventKey *event, AnEditor *anedit) {
+	return anedit->KeyPress(event->state, event->keyval);
 }
 
 void AnEditor::NotifySignal(GtkWidget *, gint /*wParam*/, gpointer lParam, AnEditor *anedit) {
@@ -3342,6 +4185,35 @@ void AnEditor::HandleDwellStart(int mousePos) {
 	debugTipOn = true;
 }
 
+int AnEditor::KeyPress(unsigned int state, unsigned int keyval){
+
+	unsigned int mask = GDK_SHIFT_MASK | GDK_LOCK_MASK |
+		GDK_CONTROL_MASK | GDK_MOD1_MASK | GDK_MOD3_MASK | GDK_MOD4_MASK |
+		GDK_MOD5_MASK;
+	if (state & mask)
+		return false;
+
+	// Trap 'TAB' key for automatic indentation.
+	// printf ("Key is '%c'\n", notification->ch);
+	if ((keyval == GDK_Tab) &&
+		(lexLanguage == SCLEX_CPP) &&
+		(!indentMaintain) &&
+		(props->GetInt("indent.automatic")) &&
+		(!SendEditor(SCI_CALLTIPACTIVE)) &&
+		(!SendEditor(SCI_AUTOCACTIVE))) {
+			
+		CharacterRange crange = GetSelection();
+		int selStart = crange.cpMin;
+		int selEnd = crange.cpMax;
+		
+		if (selStart == selEnd) {
+			AutomaticIndentation('\t');
+			return true;
+		}
+	}
+	return false;
+}
+
 void AnEditor::Notify(SCNotification *notification) {
 	switch (notification->nmhdr.code) {
 	case SCN_CALLTIPCLICK:
@@ -3358,28 +4230,6 @@ void AnEditor::Notify(SCNotification *notification) {
 			ResumeCallTip (false);
 			break;
 	case SCN_KEY: {
-		// Trap 'TAB' key for automatic indentation.
-		// printf ("Key is '%c'\n", notification->ch);
-		if (notification->ch == SCK_TAB) {
-			if ((lexLanguage == SCLEX_CPP) &&
-				(notification->modifiers == 0) &&
-				(!indentMaintain) &&
-				(props->GetInt("indent.automatic"))) {
-				
-				CharacterRange crange = GetSelection();
-				int selStart = crange.cpMin;
-				int selEnd = crange.cpMax;
-				
-				if (selStart == selEnd) {
-					AutomaticIndentation('\t');
-				} else {
-					SendEditor (SCI_TAB);
-				}
-			} else {
-				SendEditor (SCI_TAB);
-			}
-			break;
-		}
 		if(!accelGroup) break;
 		int mods = 0;
 		if (notification->modifiers & SCMOD_SHIFT)

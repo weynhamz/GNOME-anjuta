@@ -11,6 +11,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "tm_symbol.h"
+#include "tm_workspace.h"
 
 static GMemChunk *sym_mem_chunk = NULL;
 
@@ -150,22 +151,164 @@ int tm_symbol_tag_compare(const TMTag **t1, const TMTag **t2)
 	return 0;
 }
 
+static void check_children_symbols(TMSymbol *sym, const char *name)
+{
+  if(sym && name)
+  {
+    const GPtrArray *scope_tags;
+    TMTag *tag;  
+    TMSymbol *sym1 = sym->parent;
+    
+    while(sym1 && (tag = sym1->tag) && tag->name)
+    {
+      if(0 == strcmp(tag->name, name))
+      {
+        return;
+      }
+      sym1 = sym1->parent;
+    }
+    
+    scope_tags = tm_workspace_find_scope_members(NULL, name, FALSE);
+    if(scope_tags && scope_tags->len > 0)
+    {
+      unsigned int j;
+      sym1 = NULL;
+            
+      sym->info.children = g_ptr_array_sized_new(scope_tags->len);
+      for (j=0; j < scope_tags->len; ++j)
+		  {
+        tag = TM_TAG(scope_tags->pdata[j]);
+        SYM_NEW(sym1);
+			  sym1->tag = tag;
+        sym1->parent = sym;
+        g_ptr_array_add(sym->info.children, sym1);
+      }
+      
+      for (j=0; j < sym->info.children->len; ++j)
+		  {        
+        sym1 = TM_SYMBOL(sym->info.children->pdata[j]);
+        if ((tm_tag_member_t & sym1->tag->type) == tm_tag_member_t &&
+             !sym1->tag->atts.entry.isPointer)
+          check_children_symbols(sym1, sym1->tag->atts.entry.var_type);
+      }
+    }
+  }
+  return;    
+}
+
+
+static int
+tm_symbol_get_root_index (TMSymbol * sym)
+{
+	int idx;
+	char access;
+
+	access = sym->tag->atts.entry.access;
+	switch (sym->tag->type)
+	{
+	case tm_tag_class_t:
+		idx = 0;
+		break;
+	case tm_tag_struct_t:
+		idx = 1;
+		break;
+	case tm_tag_union_t:
+		idx = 2;
+		break;
+	case tm_tag_function_t:
+		switch (access)
+		{
+		case TAG_ACCESS_PRIVATE:
+		case TAG_ACCESS_PROTECTED:
+		case TAG_ACCESS_PUBLIC:
+			idx = 8;
+			break;
+		default:
+			idx = 3;
+			break;
+		}
+		break;
+	case tm_tag_prototype_t:
+		if ((sym->info.equiv) && (TAG_ACCESS_UNKNOWN == access))
+			access = sym->info.equiv->atts.entry.access;
+		switch (access)
+		{
+		case TAG_ACCESS_PRIVATE:
+		case TAG_ACCESS_PROTECTED:
+		case TAG_ACCESS_PUBLIC:
+			idx = 8;
+			break;
+		default:
+			idx = 3;
+			break;
+		}
+		break;
+	case tm_tag_member_t:
+		switch (access)
+		{
+		case TAG_ACCESS_PRIVATE:
+		case TAG_ACCESS_PROTECTED:
+		case TAG_ACCESS_PUBLIC:
+			idx = 8;
+			break;
+		default:
+			idx = 4;
+			break;
+		}
+		break;
+	case tm_tag_variable_t:
+	case tm_tag_externvar_t:
+		idx = 4;
+		break;
+	case tm_tag_macro_t:
+	case tm_tag_macro_with_arg_t:
+		idx = 5;
+		break;
+	case tm_tag_typedef_t:
+		idx = 6;
+		break;
+	case tm_tag_enumerator_t:
+		idx = 7;
+		break;
+	default:
+		idx = 8;
+		break;
+	}
+	return idx;
+}
+
 TMSymbol *tm_symbol_tree_new(GPtrArray *tags_array)
 {
-	TMSymbol *root = NULL;
 	GPtrArray *tags;
-
+	TMSymbol *grand_root = NULL;
+	static int subroot_types[] = {
+		tm_tag_class_t, tm_tag_struct_t, tm_tag_union_t,
+		tm_tag_prototype_t, tm_tag_variable_t, tm_tag_macro_t,
+		tm_tag_typedef_t, tm_tag_enumerator_t, tm_tag_other_t,
+		tm_tag_undef_t
+	};
+	static TMTag subroot_tags[sizeof(subroot_types)] = {
+		{0}, {0}, {0}, {0}, {0}, {0}, {0}, {0}, {0}, {0}
+	};
+	static char* subroot_labels[sizeof(subroot_types)] = {
+		"Classes", "Structs", "Unions", "Functions", "Variables",
+		"Macros", "Typedefs", "Enumerators", "Others", NULL
+	};
+	TMSymbol *subroot[sizeof(subroot_types)] = {NULL, NULL, NULL,
+		NULL, NULL, NULL, NULL, NULL, NULL, NULL};
+	
 #ifdef TM_DEBUG
 	g_message("Building symbol tree..");
 #endif
-
+	
 	if ((!tags_array) || (tags_array->len <= 0))
 		return NULL;
-
+	
 #ifdef TM_DEBUG
 	fprintf(stderr, "Dumping all tags..\n");
 	tm_tags_array_print(tags_array, stderr);
-#endif	
+#endif
+	
 	tags = tm_tags_extract(tags_array, tm_tag_max_t);
 #ifdef TM_DEBUG
 	fprintf(stderr, "Dumping unordered tags..\n");
@@ -174,26 +317,39 @@ TMSymbol *tm_symbol_tree_new(GPtrArray *tags_array)
 	if (tags && (tags->len > 0))
 	{
 		guint i;
-		int j;
-		int max_parents = -1;
+				
 		TMTag *tag;
-		TMSymbol *sym = NULL, *sym1;
-		char *parent_name;
-		char *scope_end;
-		gboolean matched;
-		int str_match;
-
-		SYM_NEW(root);
+		TMSymbol *sym = NULL;
+		
+		/* Creating top-level symbols */
+		SYM_NEW(grand_root);
+		if (!grand_root->info.children)
+			grand_root->info.children = g_ptr_array_new();
+		
+		for (i = 0; subroot_types[i] != tm_tag_undef_t; i++)
+		{
+			SYM_NEW(sym);
+			subroot_tags[i].name = subroot_labels[i];
+			subroot_tags[i].type = subroot_types[i];
+			sym->tag = &subroot_tags[i];
+			sym->parent = grand_root;
+			g_ptr_array_add(grand_root->info.children, sym);
+			subroot[i] = sym;
+		}
+		
 		tm_tags_custom_sort(tags, (TMTagCompareFunc) tm_symbol_tag_compare
 		  , FALSE);
+    
 #ifdef TM_DEBUG
 		fprintf(stderr, "Dumping ordered tags..");
 		tm_tags_array_print(tags, stderr);
 		fprintf(stderr, "Rebuilding symbol table..\n");
 #endif
+		sym = NULL;
 		for (i=0; i < tags->len; ++i)
 		{
 			tag = TM_TAG(tags->pdata[i]);
+			
 			if (tm_tag_prototype_t == tag->type)
 			{
 				if (sym && (tm_tag_function_t == sym->tag->type) &&
@@ -205,72 +361,55 @@ TMSymbol *tm_symbol_tree_new(GPtrArray *tags_array)
 					continue;
 				}
 			}
-			if (max_parents < 0)
+
+			if(tag->atts.entry.scope)
 			{
-				if (SYM_ORDER(tag) > 2)
+				if ((tm_tag_class_t | tm_tag_enum_t |
+					 tm_tag_struct_t | tm_tag_union_t ) & tag->type)
 				{
-					max_parents = i;
-					if (max_parents > 0)
-						qsort(root->info.children->pdata, max_parents
-						  , sizeof(gpointer), tm_symbol_compare);
+					/* this is Hack an shold be fixed by adding this info in tag struct */
+					if(NULL != strstr(tag->name, "_fake_"))
+					{
+						continue;
+					}
+				}
+				else
+				{
+					continue;
+				}
+			}
+			else
+			{
+				if(!(tag->type & tm_tag_enum_t)
+				   && NULL != strstr(tag->name, "_fake_"))
+				{
+					/* This is Hack an should be fixed by adding this info in tag struct */
+					continue;
 				}
 			}
 			SYM_NEW(sym);
 			sym->tag = tag;
-			if ((max_parents <= 0) || (!tag->atts.entry.scope))
-			{
-				sym->parent = root;
-				if (!root->info.children)
-					root->info.children = g_ptr_array_new();
-				g_ptr_array_add(root->info.children, sym);
-			}
-			else
-			{
-				parent_name = tag->atts.entry.scope;
-				scope_end = strstr(tag->atts.entry.scope, "::");
-				if (scope_end)
-					*scope_end = '\0';
-				matched = FALSE;
-				if (('\0' != parent_name[0]) &&
-				  (0 != strcmp(parent_name, "<anonymous>")))
-				{
-					for (j=0; j < max_parents; ++j)
-					{
-						sym1 = TM_SYMBOL(root->info.children->pdata[j]);
-						str_match = strcmp(sym1->tag->name, parent_name);
-						if (str_match == 0)
-						{
-							matched = TRUE;
-							sym->parent = sym1;
-							if (!sym1->info.children)
-								sym1->info.children = g_ptr_array_new();
-							g_ptr_array_add(sym1->info.children, sym);
-							break;
-						}
-						else if (str_match > 0)
-							break;
-					}
-				}
-				if (!matched)
-				{
-					sym->parent = root;
-					if (!root->info.children)
-						root->info.children = g_ptr_array_new();
-					g_ptr_array_add(root->info.children, sym);
-				}
-				if (scope_end)
-					*scope_end = ':';
-			}
+			sym->parent = subroot[tm_symbol_get_root_index (sym)];
+			if (!sym->parent->info.children)
+				sym->parent->info.children = g_ptr_array_new();
+			g_ptr_array_add(sym->parent->info.children, sym);
+			
+			if ((tm_tag_undef_t | tm_tag_function_t | tm_tag_prototype_t |
+				 tm_tag_macro_t | tm_tag_macro_with_arg_t | tm_tag_file_t)
+				& tag->type)
+				continue;
+			
+			check_children_symbols(sym, tag->name);
 		}
 #ifdef TM_DEBUG
 		fprintf(stderr, "Done.Dumping symbol tree..");
-		tm_symbol_print(root, 0);
+		tm_symbol_print(grand_root, 0);
 #endif
 	}
 	if (tags)
 		g_ptr_array_free(tags, TRUE);
-
-	return root;
+	
+	return grand_root;
 }
 
 static void tm_symbol_free(TMSymbol *sym)

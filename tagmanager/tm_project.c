@@ -25,7 +25,7 @@
 #include "tm_file_entry.h"
 #include "tm_project.h"
 
-#define TM_FILE_NAME ".tm_project.cache"
+#define TM_FILE_NAME ".tm_project2.cache"
 
 static const char *s_sources[] = { "*.c", "*.pc" /* C/Pro*C files */
 	, "*.C", "*.cpp", "*.cc", "*.cxx", "*.c++" /* C++ files */
@@ -169,26 +169,26 @@ gboolean tm_project_add_file(TMProject *project, const char *file_name
 			tm_workspace_remove_object(source_file, FALSE);
 		}
 		else if (TM_WORK_OBJECT(project) == source_file->parent)
-				{
+		{
 #ifdef TM_DEBUG
 			g_message("%s already exists in project", path);
 #endif
 			exists = TRUE;
-				}
+		}
 		else
 		{
 			g_warning("Source file %s is shared among projects - will be duplicated!", path);
 			source_file = NULL;
-			}
 		}
+	}
 	if (NULL == source_file)
 	{
-	if (NULL == (source_file = tm_source_file_new(file_name, TRUE)))
-	{
-		g_warning("Unable to create source file for file %s", file_name);
-		g_free(path);
-		return FALSE;
-	}
+		if (NULL == (source_file = tm_source_file_new(file_name, TRUE)))
+		{
+			/* g_warning("Unable to create source file for file %s", file_name); */
+			g_free(path);
+			return FALSE;
+		}
 	}
 	source_file->parent = TM_WORK_OBJECT(project);
 	if (NULL == project->file_list)

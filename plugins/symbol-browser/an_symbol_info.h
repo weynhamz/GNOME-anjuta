@@ -39,8 +39,11 @@ typedef enum
 	sv_none_t,
 	sv_class_t,
 	sv_struct_t,
+	sv_union_t,
+	sv_typedef_t,
 	sv_function_t,
 	sv_variable_t,
+	sv_enumerator_t,
 	sv_macro_t,
 	sv_private_func_t,
 	sv_private_var_t,
@@ -57,9 +60,11 @@ typedef enum
 {
 	sv_root_class_t,
 	sv_root_struct_t,
+	sv_root_union_t,
 	sv_root_function_t,
 	sv_root_variable_t,
 	sv_root_macro_t,
+	sv_root_typedef_t,
 	sv_root_none_t,
 	sv_root_max_t
 } SVRootType;
@@ -83,10 +88,10 @@ struct _AnjutaSymbolInfo
 };
 
 GType anjuta_symbol_info_get_type (void);
-AnjutaSymbolInfo *anjuta_symbol_info_new (TMSymbol * sym,
-					  SVNodeType node_type);
-void anjuta_symbol_info_destroy(AnjutaSymbolInfo *sym);
-
+AnjutaSymbolInfo *anjuta_symbol_info_new (TMSymbol * sym, SVNodeType node_type);
+void anjuta_symbol_info_free (AnjutaSymbolInfo *sym);
+SVNodeType anjuta_symbol_info_get_node_type (TMSymbol * sym);
+SVRootType anjuta_symbol_info_get_root_type (SVNodeType type);
 
 G_END_DECLS
 #endif /* __AN_SYMBOL_INFO_H__ */

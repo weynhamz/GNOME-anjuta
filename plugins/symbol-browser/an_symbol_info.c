@@ -54,7 +54,7 @@ AnjutaSymbolInfo* anjuta_symbol_info_new (TMSymbol *sym, SVNodeType node_type )
 	return sfile;
 }
 
-void anjuta_symbol_info_destroy(AnjutaSymbolInfo *sym) {
+void anjuta_symbol_info_free (AnjutaSymbolInfo *sym) {
 
 	g_return_if_fail( sym != NULL );
 	
@@ -120,4 +120,108 @@ GType anjuta_symbol_info_get_type (void) {
 											 (GBoxedFreeFunc) symbol_info_free);
 	}
 	return type;
+}
+
+SVNodeType
+anjuta_symbol_info_get_node_type (TMSymbol * sym)
+{
+	SVNodeType type;
+	char access;
+
+	if (!sym || !sym->tag || (tm_tag_file_t == sym->tag->type))
+		return sv_none_t;
+	access = sym->tag->atts.entry.access;
+	switch (sym->tag->type)
+	{
+	case tm_tag_class_t:
+		type = sv_class_t;
+		break;
+	case tm_tag_struct_t:
+		type = sv_struct_t;
+		break;
+	case tm_tag_union_t:
+		type = sv_union_t;
+		break;
+	case tm_tag_function_t:
+	case tm_tag_prototype_t:
+		if ((sym->info.equiv) && (TAG_ACCESS_UNKNOWN == access))
+			access = sym->info.equiv->atts.entry.access;
+		switch (access)
+		{
+		case TAG_ACCESS_PRIVATE:
+			type = sv_private_func_t;
+			break;
+		case TAG_ACCESS_PROTECTED:
+			type = sv_protected_func_t;
+			break;
+		case TAG_ACCESS_PUBLIC:
+			type = sv_public_func_t;
+			break;
+		default:
+			type = sv_function_t;
+			break;
+		}
+		break;
+	case tm_tag_member_t:
+		switch (access)
+		{
+		case TAG_ACCESS_PRIVATE:
+			type = sv_private_var_t;
+			break;
+		case TAG_ACCESS_PROTECTED:
+			type = sv_protected_var_t;
+			break;
+		case TAG_ACCESS_PUBLIC:
+			type = sv_public_var_t;
+			break;
+		default:
+			type = sv_variable_t;
+			break;
+		}
+		break;
+	case tm_tag_externvar_t:
+	case tm_tag_variable_t:
+		type = sv_variable_t;
+		break;
+	case tm_tag_macro_t:
+	case tm_tag_macro_with_arg_t:
+		type = sv_macro_t;
+		break;
+	case tm_tag_typedef_t:
+		type = sv_typedef_t;
+		break;
+	case tm_tag_enumerator_t:
+		type = sv_enumerator_t;
+		break;
+	default:
+		type = sv_none_t;
+		break;
+	}
+	return type;
+}
+
+SVRootType
+anjuta_symbol_info_get_root_type (SVNodeType type)
+{
+	if (sv_none_t == type)
+		return sv_root_none_t;
+	switch (type)
+	{
+	case sv_class_t:
+		return sv_root_class_t;
+	case sv_struct_t:
+		return sv_root_struct_t;
+	case sv_union_t:
+		return sv_root_union_t;
+	case sv_function_t:
+		return sv_root_function_t;
+	case sv_variable_t:
+		return sv_root_variable_t;
+	case sv_macro_t:
+		return sv_root_macro_t;
+	case sv_typedef_t:
+		return sv_root_typedef_t;
+	default:
+		return sv_root_none_t;
+	}
 }

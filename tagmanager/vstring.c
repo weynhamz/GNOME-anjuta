@@ -38,6 +38,21 @@ static void vStringResize (vString *const string, const size_t newSize)
     string->buffer = newBuffer;
 }
 
+static void vStringRealNCatS (vString *const string, const char *const s,
+			  const size_t length)
+{
+	size_t newSize = string->length + length + 1;
+	if(string->size < newSize)
+	{
+		newSize = ((newSize + vStringInitialSize - 1)
+			/ vStringInitialSize) * vStringInitialSize;
+		vStringResize (string, newSize);
+	}
+	memcpy((string->buffer + string->length), s, length * sizeof(char));
+	string->length += length;
+	string->buffer [string->length] = '\0';
+}
+
 /*
 *   External interface
 */
@@ -92,16 +107,12 @@ extern void vStringPut (vString *const string, const int c)
 
     string->buffer [string->length] = c;
     if (c != '\0')
-	string->length++;
+       string->length++;
 }
 
 extern void vStringCatS (vString *const string, const char *const s)
 {
-    const char *p = s;
-
-    do
-	vStringPut (string, *p);
-    while (*p++ != '\0');
+    vStringRealNCatS (string, s, strlen(s));
 }
 
 extern vString *vStringNewCopy (vString *const string)
@@ -121,16 +132,9 @@ extern vString *vStringNewInit (const char *const s)
 extern void vStringNCatS (vString *const string, const char *const s,
 			  const size_t length)
 {
-    const char *p = s;
-    size_t remain = length;
-
-    while (*p != '\0'  &&  remain > 0)
-    {
-	vStringPut (string, *p);
-	--remain;
-	++p;
-    }
-    vStringTerminate (string);
+    size_t len = strlen(s);
+    len = (len < length ? len : length);
+    vStringRealNCatS (string, s, len);
 }
 
 /*  Strip trailing newline from string.

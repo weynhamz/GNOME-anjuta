@@ -56,9 +56,6 @@ struct _AnjutaSymbolSearchPriv
 
 	guint idle_complete;
 	guint idle_filter;
-
-	GList *original_list;
-	GList *keyword_words;
 };
 
 static void an_symbol_search_init (AnjutaSymbolSearch * search);
@@ -87,14 +84,10 @@ static void an_symbol_search_on_entry_text_inserted (GtkEntry * entry,
 						     search);
 static gboolean an_symbol_search_complete_idle (AnjutaSymbolSearch * search);
 static gboolean an_symbol_search_filter_idle (AnjutaSymbolSearch * search);
-static gchar *an_symbol_search_complete_func (AnjutaSymbolInfo * sym);
-
 
 static AnjutaSymbolInfo *an_symbol_search_model_filter (AnjutaSymbolSearch *
 							model,
 							const gchar * string);
-static gint an_symbol_search_symbolfileinfo_compare (gconstpointer a,
-						     gconstpointer b);
 
 enum
 {
@@ -125,6 +118,7 @@ an_symbol_search_dispose (GObject * obj)
 	
 	DEBUG_PRINT("Destroying symbolsearch");
 	
+	/* anjuta_symbol_view's dispose should manage it's freeing */
 	if (priv->model)
 	{
 		anjuta_symbol_search_clear(search);
@@ -132,23 +126,12 @@ an_symbol_search_dispose (GObject * obj)
 		priv->model = NULL;
 	}	
 	
-	/* anjuta_symbol_view's dispose should manage it's freeing */
-	if (priv->original_list != NULL )
-		priv->original_list = NULL;
-	
-	if (priv->keyword_words != NULL )
-	{
-		g_list_free( priv->keyword_words  );
-		priv->keyword_words = NULL;
-	}
 	if (priv->entry)
-	{
 		priv->entry = NULL;
-	}
+	
 	if (priv->hitlist)
-	{
 		priv->hitlist = NULL;
-	}
+	
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (obj));	
 }
 
@@ -178,22 +161,12 @@ void anjuta_symbol_search_clear (AnjutaSymbolSearch *search) {
 	/* set entry text to a NULL string */
 	gtk_entry_set_text (GTK_ENTRY (priv->entry), "");
 	
-	gtk_editable_set_editable (GTK_EDITABLE (priv->entry), FALSE);
+	/* thrown away the g_completion words */
+	g_completion_clear_items(priv->completion);	
 	
 	/* clean the gtk_tree_store */
 	gtk_tree_store_clear (GTK_TREE_STORE(gtk_tree_view_get_model
 				(GTK_TREE_VIEW (priv->hitlist))));
-	
-	/* set to NULL g_list_original. Its contents will be freed in
-	anjuta_symbol_view_clear */
-	priv->original_list = NULL;
-	
-	/* keywords too */
-	priv->keyword_words = NULL;
-
-	/* thrown away the g_completion words */
-	g_completion_clear_items(priv->completion);	
-	
 }
 
 GType
@@ -262,8 +235,7 @@ an_symbol_search_init (AnjutaSymbolSearch * search)
 	priv->sv = NULL;
 	
 	priv->completion =
-		g_completion_new ((GCompletionFunc)
-				  an_symbol_search_complete_func);
+		g_completion_new (NULL);
 
 	priv->hitlist = gtk_tree_view_new ();
 
@@ -297,16 +269,10 @@ an_symbol_search_init (AnjutaSymbolSearch * search)
 
 	gtk_box_set_spacing (GTK_BOX (search), 2);
 	
-	priv->original_list = NULL;
-	priv->keyword_words = NULL;
-
 	gtk_container_set_border_width (GTK_CONTAINER (search), 2);
 
 	/* creating entry box, where we'll type the keyword to look for */
 	priv->entry = gtk_entry_new ();
-
-	/* set entry to not-editable till we'll load a project */
-	gtk_editable_set_editable (GTK_EDITABLE (priv->entry), FALSE);
 
 	/* set up some signals */
 	g_signal_connect (priv->entry, "key_press_event",
@@ -525,7 +491,6 @@ an_symbol_search_complete_idle (AnjutaSymbolSearch * search)
 
 	if (completed)
 	{
-
 		text_length = strlen (text);
 		gtk_entry_set_text (GTK_ENTRY (priv->entry), completed);
 
@@ -534,6 +499,7 @@ an_symbol_search_complete_idle (AnjutaSymbolSearch * search)
 
 		gtk_editable_select_region (GTK_EDITABLE (priv->entry),
 					    text_length, -1);
+		g_free (completed);
 	}
 	priv->idle_complete = 0;
 	return FALSE;
@@ -569,47 +535,16 @@ an_symbol_search_filter_idle (AnjutaSymbolSearch * search)
 	return FALSE;
 }
 
-/*------------------------------------------------------------------------------
- * this should return the string from a GList of objects. In this case they are
- * AnjutaSymbolInfo. String will be used by autocompletion
- */
-static gchar *
-an_symbol_search_complete_func (AnjutaSymbolInfo * sym)
-{
-
-	return sym->sym_name;
-
-}
-
-/*------------------------------------------------------------------------------
- *
- */
-gint
-an_symbol_search_symbolfileinfo_compare (gconstpointer a, gconstpointer b)
-{
-
-	return strcmp (((AnjutaSymbolInfo *) a)->sym_name,
-		       ((AnjutaSymbolInfo *) b)->sym_name);
-
-}
-
-/*------------------------------------------------------------------------------
- */
 AnjutaSymbolInfo *
 an_symbol_search_model_filter (AnjutaSymbolSearch * search,
-			       const gchar * string)
+							   const gchar * string)
 {
 	AnjutaSymbolSearchPriv *priv;
-	AnjutaSymbolInfo *sym;
-	GList *node;
-	GList *new_list = NULL;
-	gint new_length, old_length;
 	gint i;
-	gint hits = 0;
-	AnjutaSymbolInfo *exactsym = NULL;
-	gboolean found;
-	gchar **stringv;
 	GtkTreeStore *store;
+	const GPtrArray *tags;
+	AnjutaSymbolInfo *exactsym = NULL;
+	gint hits = 0;
 
 	g_return_val_if_fail (ANJUTA_SYMBOL_IS_SEARCH (search), NULL);
 	g_return_val_if_fail (string != NULL, NULL);
@@ -619,139 +554,75 @@ an_symbol_search_model_filter (AnjutaSymbolSearch * search,
 	/* get the tree store model */
 	store = GTK_TREE_STORE (gtk_tree_view_get_model
 				(GTK_TREE_VIEW (priv->hitlist)));
-
-	/* here we want to change the contents of keyword_words,
-	 * call update on all rows that is included in the new 
-	 * list and remove on all outside it */
-
-	old_length = g_list_length (priv->keyword_words);
-
-	DEBUG_PRINT ("an_symbol_search_model_filter: original_list %d, GList_old length is %d",
-		 g_list_length (priv->original_list), old_length);
-
-	if (!strcmp ("", string))
-	{
-		new_list = NULL;
-	}
-	else
-	{
-
-		stringv = g_strsplit (string, " ", -1);
-
-		/* go throught the original list searching for matches */
-		for (node = priv->original_list; node && hits < MAX_HITS;
-		     node = node->next)
-		{
-
-			sym = (AnjutaSymbolInfo *) (node->data);
-			found = TRUE;
-			for (i = 0; stringv[i] != NULL; i++)
-			{
-				if (!g_strrstr (sym->sym_name, stringv[i]))
-				{
-					found = FALSE;
-					break;
-				}
-			}
-
-			if (found)
-			{
-				/* Include in the new list */
-				new_list = g_list_prepend (new_list, sym);
-				hits++;
-			}
-
-			if (strcmp (sym->sym_name, string) == 0)
-			{
-				DEBUG_PRINT ("matched iter ");
-				exactsym = sym;
-			}
-		}
-
-		/* compare the list and sort it following the function_for_comparison */
-		new_list =
-			g_list_sort (new_list,
-				     an_symbol_search_symbolfileinfo_compare);
-		g_strfreev (stringv);
-	}
-
-	new_length = g_list_length (new_list);
-
-	DEBUG_PRINT ("new_lisr length is %d", new_length);
-
-	if (priv->keyword_words != priv->original_list)
-	{
-		DEBUG_PRINT ("freeing old_list");
-		/* Only remove the old list if it's not pointing at the 
-		 * original list */
-		g_list_free (priv->keyword_words);
-		priv->keyword_words = NULL;
-
-	}
-
-	priv->keyword_words = new_list;
-
+	
 	/* let's clean up rows from store model */
+	g_completion_clear_items (priv->completion);
 	gtk_tree_store_clear (GTK_TREE_STORE (store));
 	
-	/* Update rows 0 - new_length  */
-
-	DEBUG_PRINT("adding up to %d items", new_length);
-	for (i = 0; i < new_length; ++i)
+	if (strlen (string))
 	{
-		GtkTreeIter iter;
-		AnjutaSymbolInfo *sym = NULL;
-		
-		node = g_list_nth (new_list, i);
-		sym = node->data;
-
-		/* add a new iter */
-		gtk_tree_store_append (GTK_TREE_STORE (store), &iter, NULL);
-		
-		gtk_tree_store_set (GTK_TREE_STORE (store), &iter,
-				    PIXBUF_COLUMN,
-					anjuta_symbol_view_get_pixbuf (priv->sv, sym->node_type),
-				    NAME_COLUMN, sym->sym_name,
-				    SVFILE_ENTRY_COLUMN, sym, -1);
+		tags = tm_workspace_find (string, tm_tag_max_t, NULL, TRUE);
+		if (tags && (tags->len > 0))
+		{
+			GList *completion_list;
+			gint max_hits;
+			
+			hits = tags->len;
+			max_hits = (tags->len < MAX_HITS)? tags->len : MAX_HITS;
+			
+			completion_list = NULL;
+			
+			for (i = 0; i < max_hits; ++i)
+			{
+				TMSymbol *symbol;
+				GtkTreeIter iter;
+				TMTag *tag;
+				AnjutaSymbolInfo *sym = NULL, *sym_copy;
+				
+				tag = (TMTag *) tags->pdata[i];
+				symbol = g_new0 (TMSymbol, 1);
+				symbol->tag = tag;
+				
+				sym = anjuta_symbol_info_new (symbol,
+							  anjuta_symbol_info_get_node_type (symbol));
+				
+				if (sym->sym_name)
+				{
+					/* add a new iter */
+					gtk_tree_store_append (GTK_TREE_STORE (store), &iter, NULL);
+					
+					gtk_tree_store_set (GTK_TREE_STORE (store), &iter,
+								PIXBUF_COLUMN,
+								anjuta_symbol_view_get_pixbuf (priv->sv,
+															   sym->node_type),
+								NAME_COLUMN, tag->name,
+								SVFILE_ENTRY_COLUMN, sym, -1);
+					
+					/* Get the copy stored in the store */
+					gtk_tree_model_get (GTK_TREE_MODEL (store), &iter,
+										SVFILE_ENTRY_COLUMN, &sym_copy, -1);
+					
+					completion_list = g_list_prepend (completion_list,
+													  sym_copy->sym_name);
+					
+					if ((hits == 1) ||
+						(!exactsym && strcmp (tag->name, string) == 0))
+					{
+						exactsym = sym_copy;
+					}
+				}
+				g_free (symbol);
+				anjuta_symbol_info_free (sym);
+			}
+			if (completion_list)
+			{
+				completion_list = g_list_reverse (completion_list);
+				g_completion_add_items (priv->completion, completion_list);
+				g_list_free (completion_list);
+			}
+		}
 	}
-
-	if (hits == 1)
-	{
-		DEBUG_PRINT ("just one item remained");
-		return (AnjutaSymbolInfo *) (priv->keyword_words->data);
-	}
-
 	return exactsym;
-}
-
-/*------------------------------------------------------------------------------
- */
-void
-anjuta_symbol_search_set_keywords_symbols (AnjutaSymbolSearch * search,
-					   GList * keywords_symbols)
-{
-
-	AnjutaSymbolSearchPriv *priv;
-
-	DEBUG_PRINT
-		("Setting keywords on AnjutaSymbolSearch: GList length is %d ",
-		 g_list_length (keywords_symbols));
-
-	priv = search->priv;
-
-	g_completion_add_items (priv->completion, keywords_symbols);
-
-	/* pay attention: we set the original list as a symbol-keyword.
-	 * The "keywords_symbols" one will be
-	 * used by an_symbol_search_model_filter to store partial results
-	 */
-	if ( priv->original_list != NULL )
-		g_list_free(priv->original_list);
-	
-	priv->original_list = keywords_symbols;
-
-	/* set the entrybox to editable: we can type in out keywords from now */
-	gtk_editable_set_editable (GTK_EDITABLE (priv->entry), TRUE);
 }
 
 /*--------------------------------------------------------------------------*/

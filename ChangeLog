@@ -1,3 +1,53 @@
+2005-02-08  Naba Kumar  <naba@gnome.org>
+
+	* plugins/editor/aneditor.cxx: Implemented auto-indent on 'tab' press.
+	Fixed automatic indentations.
+
+	* global-tags/Makefile.am, global-tags/create_global_tags.sh:
+	Global tags are now segregated into smaller api tags, which can be
+	selectively loaded from symbol browser preferences.
+
+	* plugins/project-manager/plugin.c, plugins/project-manager/plugin.h:
+	Implemented IProjectManager interface in project-manager. Mostly getter
+	methods for now, but need to add add() and remove() methods to add
+	or remove project elements.
+
+	* plugins/gdb/debug_tree.c: Small fix.
+
+	* plugins/editor/aneditor.cxx, plugins/symbol-browser/Makefile.am,
+	plugins/symbol-browser/an_symbol_info.c,
+	plugins/symbol-browser/an_symbol_info.h,
+	plugins/symbol-browser/an_symbol_search.c,
+	plugins/symbol-browser/an_symbol_search.h,
+	plugins/symbol-browser/an_symbol_view.c,
+	plugins/symbol-browser/an_symbol_view.h,
+	plugins/symbol-browser/plugin.c,
+	plugins/symbol-browser/plugin.h,
+	tagmanager/c.c,
+	tagmanager/entry.h,
+	tagmanager/tm_project.c,
+	tagmanager/tm_symbol.c,
+	tagmanager/tm_tag.c,
+	tagmanager/tm_workspace.c,
+	tagmanager/vstring.c,
+	tagmanager/include/tm_tag.h,
+	tagmanager/include/tm_workspace.h:
+	
+	- Fixed tagmanager parsing of source files to parse for typedefines and
+	properly record element scopes. Implemented scope autocompletion
+	(autocompletion on '.', '->', '::' and ':'. The functionality is not
+	fully working. It was based on older patch for Anjuta 1.2.2 in SF
+	patch list (author is unknown).
+	- Implemented symbol-browser preferences for dynamically loading and
+	saving tags API segments.
+	- Fixed symbol-search to use tagmanager directly instead of depending
+	on symbol-view for tags list.
+	- Fixed symbol-view to create the tree using TMSymbol tree directly.
+	- Fixed TMSymbol to create the complete tags tree instead of letting the
+	symbol-view created the root nodes.
+	- Changed project tags cache name to .tm_project2.cache because the
+	newer format records additional scope information.
+	
 2005-02-07  Naba Kumar  <naba@gnome.org>
 
 	* plugins/editor/style-editor.c,

@@ -104,6 +104,14 @@ gboolean tm_workspace_load_global_tags(const char *tags_file);
 gboolean tm_workspace_create_global_tags(const char *pre_process, const char **includes
   , int includes_count, const char *tags_file);
 
+/*! Merges a list of tags files and saves the output in the provided file.
+ \param output_file Out put file.
+ \param tag_files GList of files. The files could be gzipped files.
+ \return TRUE on success, FALSE on failure.
+*/
+gboolean tm_workspace_merge_global_tags (const gchar *output_file, 
+										 GList *tag_files);
+
 /*! Recreates the tag array of the workspace by collecting the tags of
  all member work objects. You shouldn't have to call this directly since
  this is called automatically by tm_workspace_update().
@@ -134,6 +142,20 @@ void tm_workspace_dump(void);
 */
 const GPtrArray *tm_workspace_find(const char *name, int type, TMTagAttrType *attrs
  , gboolean partial);
+
+/*! Returns all matching members tags found in given struct/union/class name.
+ \param name Name of the struct/union/class.
+ \param file_tags A GPtrArray of edited file TMTag pointers (for search speedup, can be NULL).
+ \return A GPtrArray of TMTag pointers to struct/union/class members */
+const GPtrArray *tm_workspace_find_scope_members(const GPtrArray *file_tags,
+												 const char *scope_name,
+												 gboolean find_global);
+
+/*! Returns TMTag to function which "own" given line
+ \param line Current line in edited file.
+ \param file_tags A GPtrArray of edited file TMTag pointers.
+ \return TMTag pointers to owner function. */
+const TMTag *tm_get_current_function(GPtrArray *file_tags, const gulong line);
 
 /*! Returns a list of parent classes for the given class name
  \param name Name of the class

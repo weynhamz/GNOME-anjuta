@@ -21,7 +21,7 @@ static GMemChunk *s_tag_mem_chunk = NULL;
 
 #define TAG_NEW(T) {\
 	if (!s_tag_mem_chunk) \
-		s_tag_mem_chunk = g_mem_chunk_new("TMTag memChunk", sizeof(TMTag), 1024 \
+		s_tag_mem_chunk = g_mem_chunk_new("TMTag memChunk", sizeof(TMTag), 10000 \
 		  , G_ALLOC_AND_FREE); \
 	(T) = g_chunk_new0(TMTag, s_tag_mem_chunk);}
 
@@ -44,7 +44,8 @@ enum
 	TA_ACCESS,
 	TA_IMPL,
 	TA_LANG,
-	TA_INACTIVE
+	TA_INACTIVE,
+	TA_POINTER
 };
 
 static guint *s_sort_attrs = NULL;
@@ -136,6 +137,7 @@ gboolean tm_tag_init(TMTag *tag, TMSourceFile *file, const tagEntryInfo *tag_ent
 		tag->name = g_strdup(tag_entry->name);
 		tag->type = get_tag_type(tag_entry->kindName);
 		tag->atts.entry.local = tag_entry->isFileScope;
+		tag->atts.entry.isPointer = tag_entry->isPointer;
 		tag->atts.entry.line = tag_entry->lineNumber;
 		if (NULL != tag_entry->extensionFields.arglist)
 			tag->atts.entry.arglist = g_strdup(tag_entry->extensionFields.arglist);
@@ -243,6 +245,9 @@ gboolean tm_tag_init_from_file(TMTag *tag, TMSourceFile *file, FILE *fp)
 				case TA_SCOPE:
 					tag->atts.entry.scope = g_strdup(start + 1);
 					break;
+				case TA_POINTER:
+					tag->atts.entry.isPointer = atoi(start + 1);
+					break;
 				case TA_VARTYPE:
 					tag->atts.entry.var_type = g_strdup(start + 1);
 					break;
@@ -337,6 +342,8 @@ gboolean tm_tag_write(TMTag *tag, FILE *fp, guint attrs)
 			fprintf(fp, "%c%s", TA_SCOPE, tag->atts.entry.scope);
 		if ((attrs & tm_tag_attr_inheritance_t) && (NULL != tag->atts.entry.inheritance))
 			fprintf(fp, "%c%s", TA_INHERITS, tag->atts.entry.inheritance);
+		if (attrs & tm_tag_attr_pointer_t)
+			fprintf(fp, "%c%d", TA_POINTER, tag->atts.entry.isPointer);
 		if ((attrs & tm_tag_attr_vartype_t) && (NULL != tag->atts.entry.var_type))
 			fprintf(fp, "%c%s", TA_VARTYPE, tag->atts.entry.var_type);
 		if ((attrs & tm_tag_attr_access_t) && (TAG_ACCESS_UNKNOWN != tag->atts.entry.access))
@@ -350,16 +357,16 @@ gboolean tm_tag_write(TMTag *tag, FILE *fp, guint attrs)
 		return FALSE;
 }
 
-void tm_tag_destroy(TMTag *tag)
+static void tm_tag_destroy(TMTag *tag)
 {
 	g_free(tag->name);
-	if (tm_tag_file_t != tag->type)
-	{
+	//if (tm_tag_file_t != tag->type)
+	//{
 		g_free(tag->atts.entry.arglist);
 		g_free(tag->atts.entry.scope);
 		g_free(tag->atts.entry.inheritance);
 		g_free(tag->atts.entry.var_type);
-	}
+	//}
 }
 
 void tm_tag_free(gpointer tag)
@@ -451,7 +458,9 @@ gboolean tm_tags_dedup(GPtrArray *tags_array, TMTagAttrType *sort_attributes)
 	for (i = 1; i < tags_array->len; ++i)
 	{
 		if (0 == tm_tag_compare(&(tags_array->pdata[i - 1]), &(tags_array->pdata[i])))
+		{
 			tags_array->pdata[i-1] = NULL;
+		}
 	}
 	tm_tags_prune(tags_array);
 	return TRUE;
@@ -527,7 +536,8 @@ void tm_tags_array_free(GPtrArray *tags_array, gboolean free_all)
 	}
 }
 
-TMTag **tm_tags_find(GPtrArray *sorted_tags_array, const char *name, gboolean partial, int * tagCount)
+TMTag **tm_tags_find (const GPtrArray *sorted_tags_array, const char *name,
+					  gboolean partial, int * tagCount)
 {
 	static TMTag *tag = NULL;
 	TMTag **result;
@@ -693,4 +703,10 @@ gint tm_tag_scope_depth(const TMTag *t)
 		++ s;
 	}
 	return depth;
+}
+
+void tm_tag_chunk_clean (void)
+{
+	if (s_tag_mem_chunk)
+		g_mem_chunk_clean (s_tag_mem_chunk);
 }

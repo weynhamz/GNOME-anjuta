@@ -25,6 +25,7 @@
 #include <libanjuta/interfaces/ianjuta-help.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
 #include <libanjuta/interfaces/ianjuta-message-manager.h>
+#include <libanjuta/interfaces/ianjuta-project-manager.h>
 #include <libanjuta/interfaces/ianjuta-file-manager.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
 #include <libanjuta/interfaces/ianjuta-file-loader.h>
@@ -38,6 +39,7 @@
 #include "an_symbol_view.h"
 #include "an_symbol_search.h"
 #include "an_symbol_info.h"
+#include "an_symbol_prefs.h"
 #include "plugin.h"
 
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-symbol-browser-plugin.ui"
@@ -167,10 +169,65 @@ on_find_activate (GtkAction *action, SymbolBrowserPlugin *sv_plugin)
 	}
 }
 
+static gboolean
+on_refresh_idle (gpointer user_data)
+{
+	IAnjutaProjectManager *pm;
+	GList *source_uris;
+	GList *source_files;
+	AnjutaStatus *status;
+	SymbolBrowserPlugin *sv_plugin = (SymbolBrowserPlugin *)user_data;
+	
+	/* FIXME: There should be a way to ensure that this project manager
+	 * is indeed the one that has opened the project_uri
+	 */
+	pm = anjuta_shell_get_interface (ANJUTA_PLUGIN (sv_plugin)->shell,
+									 IAnjutaProjectManager, NULL);
+	g_return_val_if_fail (pm != NULL, FALSE);
+	
+	status = anjuta_shell_get_status (ANJUTA_PLUGIN (sv_plugin)->shell, NULL);
+	anjuta_status_push (status, "Refreshing symbol tree ...");
+	anjuta_status_busy_push (status);
+	
+	source_uris = source_files = NULL;
+	source_uris = ianjuta_project_manager_get_elements (pm,
+										IANJUTA_PROJECT_MANAGER_SOURCE,
+										NULL);
+	if (source_uris)
+	{
+		const gchar *uri;
+		GList *node;
+		node = source_uris;
+		
+		while (node)
+		{
+			gchar *file_path;
+			
+			uri = (const gchar *)node->data;
+			file_path = gnome_vfs_get_local_path_from_uri (uri);
+			if (file_path)
+				source_files = g_list_prepend (source_files, file_path);
+			node = g_list_next (node);
+		}
+		source_files = g_list_reverse (source_files);
+	}
+	anjuta_symbol_view_update (ANJUTA_SYMBOL_VIEW (sv_plugin->sv_tree),
+							   source_files);
+	g_list_foreach (source_files, (GFunc)g_free, NULL);
+	g_list_foreach (source_uris, (GFunc)g_free, NULL);
+	g_list_free (source_files);
+	g_list_free (source_uris);
+	anjuta_status_busy_pop (status);
+	anjuta_status_pop (status);
+	return FALSE;
+}
+
 static void
 on_refresh_activate (GtkAction *action, SymbolBrowserPlugin *sv_plugin)
 {
-	anjuta_symbol_view_update (ANJUTA_SYMBOL_VIEW (sv_plugin->sv_tree));
+	if (!sv_plugin->project_root_uri)
+		return;
+	g_idle_add (on_refresh_idle, sv_plugin);
 }
 
 static GtkActionEntry popup_actions[] = 
@@ -226,17 +283,55 @@ static GtkActionEntry popup_actions[] =
 	}
 };
 
+static void
+on_project_element_added (IAnjutaProjectManager *pm, const gchar *uri,
+						  SymbolBrowserPlugin *sv_plugin)
+{
+	gchar *filename;
+	
+	if (!sv_plugin->project_root_uri)
+		return;
+	
+	filename = gnome_vfs_get_local_path_from_uri (uri);
+	if (filename)
+	{
+		anjuta_symbol_view_add_source (ANJUTA_SYMBOL_VIEW (sv_plugin->sv_tree),
+									   filename);
+		g_free (filename);
+	}
+}
 
+static void
+on_project_element_removed (IAnjutaProjectManager *pm, const gchar *uri,
+							SymbolBrowserPlugin *sv_plugin)
+{
+	gchar *filename;
+	
+	if (!sv_plugin->project_root_uri)
+		return;
+	
+	filename = gnome_vfs_get_local_path_from_uri (uri);
+	if (filename)
+	{
+		anjuta_symbol_view_remove_source (ANJUTA_SYMBOL_VIEW (sv_plugin->sv_tree),
+										  filename);
+		g_free (filename);
+	}
+}
 
 // add a new project
 static void
 project_root_added (AnjutaPlugin *plugin, const gchar *name,
 					const GValue *value, gpointer user_data)
 {
+	IAnjutaProjectManager *pm;
 	SymbolBrowserPlugin *sv_plugin;
 	const gchar *root_uri;
 
 	sv_plugin = (SymbolBrowserPlugin *)plugin;
+	
+	g_free (sv_plugin->project_root_uri);
+	sv_plugin->project_root_uri = NULL;
 	root_uri = g_value_get_string (value);
 	if (root_uri)
 	{
@@ -244,31 +339,47 @@ project_root_added (AnjutaPlugin *plugin, const gchar *name,
 		if (root_dir)
 		{
 			trees_signals_block (sv_plugin);
-			anjuta_symbol_view_open (ANJUTA_SYMBOL_VIEW (sv_plugin->sv_tree), root_dir);
-			
-			/*
-			 * FIXME: should it be better to pass just an AnjutaSymbolView object to
-			 * for example anjuta_symbol_search_set_variables() and let it calls 
-			 * anjuta_symbol_view_get_* functions?
-			 *
-			 * set some variables on anjuta_symbol_search
-			 */
-			anjuta_symbol_search_set_keywords_symbols (ANJUTA_SYMBOL_SEARCH (sv_plugin->ss), 
-				anjuta_symbol_view_get_keywords_symbols (ANJUTA_SYMBOL_VIEW (sv_plugin->sv_tree)));
-			
+			anjuta_symbol_view_open (ANJUTA_SYMBOL_VIEW (sv_plugin->sv_tree),
+									 root_dir);
 			trees_signals_unblock (sv_plugin);
+			g_free (root_dir);
 		}
+		sv_plugin->project_root_uri = g_strdup (root_uri);
 	}
+	/* FIXME: There should be a way to ensure that this project manager
+	 * is indeed the one that has opened the project_uri
+	 */
+	pm = anjuta_shell_get_interface (ANJUTA_PLUGIN (sv_plugin)->shell,
+									 IAnjutaProjectManager, NULL);
+	g_signal_connect (G_OBJECT (pm), "element_added",
+					  G_CALLBACK (on_project_element_added), sv_plugin);
+	g_signal_connect (G_OBJECT (pm), "element_removed",
+					  G_CALLBACK (on_project_element_removed), sv_plugin);
 }
-
 
 static void
 project_root_removed (AnjutaPlugin *plugin, const gchar *name,
 					  gpointer user_data)
 {
+	IAnjutaProjectManager *pm;
 	SymbolBrowserPlugin *sv_plugin;
 	
 	sv_plugin = (SymbolBrowserPlugin *)plugin;
+	
+	/* Disconnect events from project manager */
+	
+	/* FIXME: There should be a way to ensure that this project manager
+	 * is indeed the one that has opened the project_uri
+	 */
+	pm = anjuta_shell_get_interface (ANJUTA_PLUGIN (sv_plugin)->shell,
+									 IAnjutaProjectManager, NULL);
+	g_signal_handlers_disconnect_by_func (G_OBJECT (pm),
+										  on_project_element_added,
+										  sv_plugin);
+	g_signal_handlers_disconnect_by_func (G_OBJECT (pm),
+										  on_project_element_removed,
+										  sv_plugin);
+	
 DEBUG_PRINT ("cleaning with anjuta_symbol_search_clear....");
 	/* clear anjuta_symbol_search side */
 	anjuta_symbol_search_clear(ANJUTA_SYMBOL_SEARCH(sv_plugin->ss));
@@ -276,7 +387,9 @@ DEBUG_PRINT ("good.");
 DEBUG_PRINT ("cleaning with anjuta_symbol_view_clear...." );
 	/* clear glist's sfiles */
 	anjuta_symbol_view_clear (ANJUTA_SYMBOL_VIEW (sv_plugin->sv_tree));
-DEBUG_PRINT ("good.");	
+DEBUG_PRINT ("good.");
+	g_free (sv_plugin->project_root_uri);
+	sv_plugin->project_root_uri = NULL;
 }
 
 static gboolean
@@ -502,7 +615,9 @@ on_editor_saved (IAnjutaEditor *editor, const gchar *saved_uri,
 		
 		file_symbol_model =
 			anjuta_symbol_view_get_file_symbol_model (ANJUTA_SYMBOL_VIEW (sv_plugin->sv_tree));
-		
+		g_object_set_data (G_OBJECT (editor), "tm_file",
+						   g_object_get_data (G_OBJECT (file_symbol_model),
+											  "tm_file"));
 		
 		egg_combo_action_set_model (EGG_COMBO_ACTION (action), file_symbol_model);
 		if (gtk_tree_model_iter_n_children (file_symbol_model, NULL) > 0)
@@ -591,7 +706,9 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 		/* DEBUG_PRINT ("adding file_symbol_model to egg_combo_action..........." ); */
 		file_symbol_model =
 			anjuta_symbol_view_get_file_symbol_model (ANJUTA_SYMBOL_VIEW (sv_plugin->sv_tree));
-		
+		g_object_set_data (G_OBJECT (editor), "tm_file",
+						   g_object_get_data (G_OBJECT (file_symbol_model),
+											  "tm_file"));
 		egg_combo_action_set_model (EGG_COMBO_ACTION (action), file_symbol_model);
 		
 		
@@ -655,6 +772,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	sv_plugin->sw = gtk_notebook_new();
 	
 	/* anjuta symbol view */
+	symbol_browser_prefs_init (sv_plugin);
 
 	/* create symbol-view scrolled window */
 	sv_plugin->sv = gtk_scrolled_window_new (NULL, NULL);
@@ -761,6 +879,8 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	SymbolBrowserPlugin *sv_plugin;
 	sv_plugin = (SymbolBrowserPlugin*) plugin;
 	
+	symbol_browser_prefs_finalize (sv_plugin);
+	
 	/* Ensure all editor cached info are released */
 	if (sv_plugin->editor_connected)
 	{
@@ -839,7 +959,7 @@ symbol_browser_plugin_instance_init (GObject *obj)
 	plugin->editor_connected = NULL;
 	plugin->sw = NULL;
 	plugin->sv = NULL;
-	
+	plugin->gconf_notify_ids = NULL;
 }
 
 static void

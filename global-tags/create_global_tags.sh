@@ -1,70 +1,86 @@
+#!/bin/sh
+
+function anjuta_tags () {
+
+    FILES=""
+    BASEDIR=`pwd`
+    PROGDIR=. # `dirname $0`
+    CFLAGS=""
+    ANJUTA_TAGS_BIN="$PROGDIR/anjuta-tags"
+    OUTPUT_FILE=$1
+    shift
+    
+    if [ -x "$ANJUTA_TAGS_BIN" ]
+	then
+	for cflag in $*
+	  do
+	  infile=`echo $cflag | sed 's/^-I//'`
+	  if [ -d "$infile" -a "$infile" != "/usr/include" -a "$infile" != "/usr/local/include" ]
+	      then
+	      FILES="$FILES \"$infile/*.h\" \"$infile/*/*.h\" \"$infile/*/*/*.h\""
+	  elif [ ! -d "$infile" -a -e "$infile" ]
+	      then
+	      FILES="$FILES $infile"
+	  fi
+	done
+    else
+	echo "Can not execute $ANJUTA_TAGS_BIN"
+	exit 1
+    fi
+    CFLAGS="$CFLAGS $*"
+    export CFLAGS
+    
+    FILES_COUNT=`echo $FILES | wc -w`
+    
+    echo "Creating $OUTPUT_FILE"
+    echo "Number of files to scan: $FILES_COUNT"
+    echo "Files to scan: $FILES"
+    
+    if [ $FILES_COUNT -gt 0 ] ; then
+	rm -f $OUTPUT_FILE
+	$ANJUTA_TAGS_BIN $OUTPUT_FILE $FILES 2>/dev/null
+	
+    # If global tags file could not be generated
+	if [ ! -e $OUTPUT_FILE ] ; then
+	    echo "WARNING: Could not create tags file $OUTPUT_FILE!" >&2
+	else
+	    gzip $OUTPUT_FILE
+	fi
+    fi
+}
+
 ## FILES="\"/usr/include/*.h\" \"/usr/local/include/*.h\""
 FILES=""
 BASEDIR=`pwd`
 PROGDIR=. # `dirname $0`
-GLOBAL_TAGS_FILE=$BASEDIR/system.tags
 CFLAGS=""
+ANJUTA_TAGS="anjuta_tags"
 
-# WxWindows libraries
-WX_CONFIG=`which wx-config 2>/dev/null`
-if ( [ ! -z $WX_CONFIG ] && [ -x $WX_CONFIG ] ) ; then
-  echo "Found wxWindows libraries ... $WX_CONFIG"
-  WX_CFLAGS=`$WX_CONFIG --cxxflags`
-  for cflag in $WX_CFLAGS
-  do
-    dir=`echo $cflag | sed 's/^-I//'`
-    if [ -d "$dir" -a ! -e "$dir/wx/setup.h" ]
-    then
-      FILES="$FILES \"$dir/wx/*.h\" \"$dir/wx/*/*.h\""
-    fi
-  done
-  CFLAGS="$CFLAGS $WX_CFLAGS"
-fi
 
-# SDL libraries
-SDL_CONFIG=`which sdl-config 2>/dev/null`
-if ( [ ! -z $SDL_CONFIG ] && [ -x $SDL_CONFIG ] ) ; then
-  echo "Found SDL libraries ... $SDL_CONFIG"
-  SDL_CFLAGS=`$SDL_CONFIG --cflags`
-  for cflag in $SDL_CFLAGS
-  do
-    dir=`echo $cflag | sed 's/^-I//'`
-    if [ -d "$dir" ]
-    then
-      FILES="$FILES \"$dir/*.h\""
-    fi
-  done
-  CFLAGS="$CFLAGS $SDL_CFLAGS"
-fi
-
-# Pkg config libraries
-PKG_CONFIG=`which pkg-config 2>/dev/null`
-if ( [ ! -z $PKG_CONFIG ] && [ -x $PKG_CONFIG ] ) ; then
-  echo "Found pkg-config ... $PKG_CONFIG"
-  PKG_CONFIG_MODULES=`$PKG_CONFIG --list-all 2>/dev/null | awk '{printf("%s ",$1);}'`
-  PKG_CONFIG_CFLAGS=`$PKG_CONFIG --cflags $PKG_CONFIG_MODULES 2>/dev/null`
-  for cflag in $PKG_CONFIG_CFLAGS
-  do
-    dir=`echo $cflag | sed 's/^-I//'`
-    if [ -d "$dir" -a "$dir" != "/usr/include" -a "$dir" != "/usr/local/include" ]
-    then
-      FILES="$FILES \"$dir/*.h\" \"$dir/*/*.h\""
-    fi
-  done
-  CFLAGS="$CFLAGS $PGK_CONFIG_CFLAGS"
-fi
-export CFLAGS
-FILES_COUNT=`echo $FILES | wc -w`
-echo "[Number of files to be scanned: $FILES_COUNT]"
 echo "[...........................................................................]"
 echo "[. Generating System tags. This may take several minutes (1 min to 20 mins}.]"
 echo "[. You can go out, have a coffee and return back in 20 mins.]...............]"
 echo "[...........................................................................]"
-$PROGDIR/tm_global_tags $GLOBAL_TAGS_FILE $FILES 2>/dev/null
 
-# If global tags file could not be generated
-if [ ! -e $GLOBAL_TAGS_FILE ] ; then
-	echo "WARNING: No system tags generated!!!"
-	echo "WARNING: Please check your pkg-config path"
-	touch $GLOBAL_TAGS_FILE
+mkdir -p "$BASEDIR/tags"
+
+# pkg-config libraries
+PKG_CONFIG=`which pkg-config 2>/dev/null`
+if ( [ ! -z $PKG_CONFIG ] && [ -x $PKG_CONFIG ] ) ; then
+    
+    PKG_DEFAULT_CONFIG_PATH=`echo $PKG_CONFIG | sed -e 's/\/bin\/pkg-config/\/lib\/pkgconfig'/`
+    PKG_CONFIG_PATH="$PKG_CONFIG_PATH:$PKG_DEFAULT_CONFIG_PATH"
+    PKG_CONFIG_PATH_PROPER=`echo $PKG_CONFIG_PATH | sed -e 's/\:/ /g'`
+    for pkg_path in $PKG_CONFIG_PATH_PROPER; do
+	for pkg_file in $pkg_path/*.pc; do
+		# echo "Scanning package: $pkg_file"
+	    PKG_CFLAGS=`cat $pkg_file | grep -e "^\(\w\+\=\|\s*Cflags\:\)" | sed -e "s/^\s*Cflags\:\(.*\)/echo \"\1\"/" | sed -e 's/^\(\w\+\)\=\(.*\)/\1\=\"\2\"/' | sh`
+		# echo $PKG_CFLAGS
+	    package=`echo $pkg_file | sed -e 's/^.*\/\(.*\)\.pc/\1/'`
+	    if [ ! -e $BASEDIR/tags/$package.anjutatags.gz ] ; then
+		echo "Creating tags file: tags/$package.anjutatags.gz ..."
+		anjuta_tags "$BASEDIR/tags/$package.anjutatags" $PKG_CFLAGS > /dev/null
+	    fi
+	done
+    done
 fi

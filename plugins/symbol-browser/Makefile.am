@@ -2,6 +2,10 @@
 symbol_browser_uidir = $(anjuta_ui_dir)
 symbol_browser_ui_DATA = anjuta-symbol-browser-plugin.ui
 
+# Plugin UI file
+symbol_browser_gladedir = $(anjuta_glade_dir)
+symbol_browser_glade_DATA = anjuta-symbol-browser-plugin.glade
+
 # Plugin pixmap files
 symbol_browser_pixmapsdir = $(anjuta_image_dir)
 symbol_browser_pixmaps_DATA = \
@@ -50,7 +54,9 @@ libanjuta_symbol_browser_la_SOURCES = \
 	an_symbol_view.c \
 	an_symbol_search.h \
 	an_symbol_search.c \
-	plugin.c 
+	plugin.c \
+	an_symbol_prefs.c \
+	an_symbol_prefs.h 
 
 libanjuta_symbol_browser_la_LDFLAGS = -module
 
@@ -61,9 +67,9 @@ libanjuta_symbol_browser_la_LIBADD = \
 	$(LIBANJUTA_LIBS) \
 	$(top_builddir)/tagmanager/libanjuta-ctags.la
 
- 
 EXTRA_DIST = \
 	$(plugin_in_files) \
 	$(symbol_browser_plugin_DATA) \
 	$(symbol_browser_pixmaps_DATA) \
+	$(symbol_browser_glade_DATA) \
 	$(symbol_browser_ui_DATA)

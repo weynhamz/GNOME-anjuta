@@ -4,19 +4,32 @@
 ## If you don't want it to overwrite it,
 ## 	Please disable it in the Anjuta project configuration
 
-EXTRA_DIST = create_global_tags.sh
+EXTRA_DIST = create_global_tags.sh anjuta-tags
 
 INCLUDES = -I$(top_srcdir)/tagmanager/include -Wall $(GLIB_CFLAGS)
 
-noinst_PROGRAMS = tm_global_tags
+bin_PROGRAMS = anjuta-tags
 
-tm_global_tags_SOURCES = tm_global_tags.c
+anjuta_tags_SOURCES = tm_global_tags.c
 
-tm_global_tags_LDADD = $(top_builddir)/tagmanager/libanjuta-ctags.la
-tm_global_tags_LDFLAGS = $(GLIB_LIBS)
+anjuta_tags_LDADD = $(top_builddir)/tagmanager/libanjuta-ctags.la
+anjuta_tags_LDFLAGS = $(GLIB_LIBS)
 
-system.tags: create_global_tags.sh tm_global_tags
+system.tags.timestamp: create_global_tags.sh anjuta-tags
 	echo "Detecting header files and Generating global symbols ....."
 	chmod +x $(srcdir)/create_global_tags.sh
-	(cd $(top_builddir)/global-tags; $(srcdir)/create_global_tags.sh)
+	(cd $(top_builddir)/global-tags && $(srcdir)/create_global_tags.sh && touch system.tags.timestamp)
 
+all: system.tags.timestamp
+
+install-data-local: system.tags.timestamp
+	mkdir -p "$(DESTDIR)$(datadir)/anjuta/tags";
+	for tagsfile in tags/*; do \
+		$(INSTALL_DATA) $$tagsfile $(DESTDIR)$(datadir)/anjuta/tags/; \
+	done
+
+uninstall-local:
+	rm -fr $(anjuta_datadir)/tags
+
+clean-local:
+	rm -fr system.tags.timestamp tags

@@ -31,6 +31,11 @@ struct _ProjectManagerPlugin{
 	
 	gchar *fm_current_uri;
 	gchar *current_editor_uri;
+	
+	/* Update state recording */
+	GList *pre_update_sources;
+	GList *pre_update_targets;
+	GList *pre_update_groups;
 };
 
 struct _ProjectManagerPluginClass{
