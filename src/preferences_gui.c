@@ -32,6 +32,7 @@
 #include "resources.h"
 #include "preferences.h"
 #include "properties.h"
+#include "pixmaps.h"
 
 gchar *format_style[] = {
 	"Custom style", " -i8 -bl -bls -bli0 -ss",
@@ -1233,97 +1234,359 @@ create_preferences_page3 (Preferences * p)
 static GtkWidget *
 create_preferences_page4 (Preferences * p)
 {
-	GtkWidget *main_frame;
-	GtkWidget *top_vbox;
-	GtkWidget *paper_selector;
-	GtkWidget *opt_frame;
-	GtkWidget *opt_vbox;
-	GtkWidget *opt_top_hbox;
-	GtkWidget *header_chkbtn;
+	GtkWidget *vbox1;
+	GtkWidget *frame1;
+	GtkWidget *table2;
+	GtkWidget *label1;
+	GtkObject *margin_top_spinbtn_adj;
+	GtkWidget *margin_top_spinbtn;
+	GtkWidget *label2;
+	GtkObject *margin_bottom_spinbtn_adj;
+	GtkWidget *margin_bottom_spinbtn;
+	GtkWidget *pixmap1;
+	GtkWidget *label3;
+	GtkObject *margin_header_spinbtn_adj;
+	GtkWidget *margin_header_spinbtn;
+	GtkWidget *label4;
+	GtkObject *margin_right_spinbtn_adj;
+	GtkWidget *margin_right_spinbtn;
+	GtkWidget *label5;
+	GtkObject *margin_numbers_spinbtn_adj;
+	GtkWidget *margin_numbers_spinbtn;
+	GtkWidget *label6;
+	GtkObject *margin_left_spinbtn_adj;
+	GtkWidget *margin_left_spinbtn;
+	GtkWidget *frame3;
+	GtkWidget *table4;
+	GSList *orientation_group = NULL;
+	GtkWidget *radiobutton1;
+	GtkWidget *pixmap2;
+	GtkWidget *landscape_rb;
+	GtkWidget *pixmap3;
+	GtkWidget *label10;
+	GSList *color_group = NULL;
+	GtkWidget *color_rb;
+	GtkWidget *pixmap4;
+	GtkWidget *radiobutton4;
+	GtkWidget *pixmap5;
+	GtkWidget *label7;
 	GtkWidget *wrap_chkbtn;
-	GtkWidget *opt_bottom_hbox;
-	GtkWidget *linenum_chkbtn;
+	GtkWidget *header_chkbtn;
+	GtkWidget *label9;
 	GtkObject *linenum_spinbtn_adj;
 	GtkWidget *linenum_spinbtn;
-	GtkWidget *lines_lab;
-	GtkWidget *bottom_frame;
-	GtkWidget *orient_hbox;
-	GSList *orient_radio_group = NULL;
-	GtkWidget *portrait_rb;
-	GtkWidget *landscape_rb;
-
-	main_frame = gtk_frame_new (_("Print Settings"));
-	gtk_container_set_border_width (GTK_CONTAINER (main_frame), 5);
-
-	top_vbox = gtk_vbox_new (FALSE, 4);
-	gtk_container_add (GTK_CONTAINER (main_frame), top_vbox);
-	gtk_container_set_border_width (GTK_CONTAINER (top_vbox), 4);
-
-	paper_selector = gnome_paper_selector_new ();
-	gtk_box_pack_start (GTK_BOX (top_vbox), paper_selector, TRUE, TRUE, 0);
-
-	opt_frame = gtk_frame_new (_("Options"));
-	gtk_box_pack_start (GTK_BOX (top_vbox), opt_frame, TRUE, TRUE, 0);
-	gtk_container_set_border_width (GTK_CONTAINER (opt_frame), 5);
-
-	opt_vbox = gtk_vbox_new (TRUE, 0);
-	gtk_container_add (GTK_CONTAINER (opt_frame), opt_vbox);
-
-	opt_top_hbox = gtk_hbox_new (FALSE, 0);
-	gtk_box_pack_start (GTK_BOX (opt_vbox), opt_top_hbox, TRUE, TRUE, 0);
-
-	header_chkbtn = gtk_check_button_new_with_label (_("Add Header"));
-	gtk_box_pack_start (GTK_BOX (opt_top_hbox), header_chkbtn, FALSE, FALSE, 0);
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (header_chkbtn), TRUE);
-
-	wrap_chkbtn = gtk_check_button_new_with_label (_("Enable Word Wrap"));
-	gtk_box_pack_start (GTK_BOX (opt_top_hbox), wrap_chkbtn, FALSE, FALSE, 0);
+	GtkWidget *label8;
+	GtkWidget *hseparator1;
+	GtkWidget *label11;
+	GtkWidget *paper_combo;
+	GtkWidget *paper_entry;
+	GList *paper_combo_items = NULL;
+	
+	/* This is bad, but don't know from where to get these */
+	paper_combo_items = g_list_append (paper_combo_items, (gpointer) "US-Letter");
+	paper_combo_items = g_list_append (paper_combo_items, (gpointer) "US-Legal");
+	paper_combo_items = g_list_append (paper_combo_items, (gpointer) "A3");
+	paper_combo_items = g_list_append (paper_combo_items, (gpointer) "A4");
+	paper_combo_items = g_list_append (paper_combo_items, (gpointer) "A5");
+	paper_combo_items = g_list_append (paper_combo_items, (gpointer) "B4");
+	paper_combo_items = g_list_append (paper_combo_items, (gpointer) "B5");
+	paper_combo_items = g_list_append (paper_combo_items, (gpointer) "B5-Japan");
+	paper_combo_items = g_list_append (paper_combo_items, (gpointer) "Half-Letter");
+	paper_combo_items = g_list_append (paper_combo_items, (gpointer) "Executive");
+	paper_combo_items = g_list_append (paper_combo_items, (gpointer) "Tabloid/Ledger");
+	paper_combo_items = g_list_append (paper_combo_items, (gpointer) "Monarch");
+	paper_combo_items = g_list_append (paper_combo_items, (gpointer) "SuperB");
+	paper_combo_items = g_list_append (paper_combo_items, (gpointer) "Envelope-Commercial");
+	paper_combo_items = g_list_append (paper_combo_items, (gpointer) "Envelope-Monarch");
+	paper_combo_items = g_list_append (paper_combo_items, (gpointer) "Envelope-DL");
+	paper_combo_items = g_list_append (paper_combo_items, (gpointer) "Envelope-C5");
+	paper_combo_items = g_list_append (paper_combo_items, (gpointer) "EuroPostcard");
+	
+	vbox1 = gtk_vbox_new (FALSE, 0);
+	gtk_widget_show (vbox1);
+	
+	frame1 = gtk_frame_new (_("Print Margins"));
+	gtk_widget_show (frame1);
+	gtk_box_pack_start (GTK_BOX (vbox1), frame1, TRUE, TRUE, 0);
+	gtk_container_set_border_width (GTK_CONTAINER (frame1), 5);
+	gtk_frame_set_label_align (GTK_FRAME (frame1), 0.02, 0.5);
+	
+	table2 = gtk_table_new (6, 6, FALSE);
+	gtk_widget_show (table2);
+	gtk_container_add (GTK_CONTAINER (frame1), table2);
+	gtk_container_set_border_width (GTK_CONTAINER (table2), 5);
+	
+	label1 = gtk_label_new (_("Top:"));
+	gtk_widget_show (label1);
+	gtk_table_attach (GTK_TABLE (table2), label1, 2, 3, 0, 1,
+					(GtkAttachOptions) (GTK_FILL),
+					(GtkAttachOptions) (0), 0, 0);
+	gtk_misc_set_alignment (GTK_MISC (label1), 0, 0.5);
+	gtk_misc_set_padding (GTK_MISC (label1), 5, 0);
+	
+	margin_top_spinbtn_adj = gtk_adjustment_new (54, 0, 100, 1, 10, 10);
+	margin_top_spinbtn = gtk_spin_button_new (GTK_ADJUSTMENT (margin_top_spinbtn_adj), 1, 0);
+	gtk_widget_show (margin_top_spinbtn);
+	gtk_table_attach (GTK_TABLE (table2), margin_top_spinbtn, 3, 4, 0, 1,
+					(GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
+					(GtkAttachOptions) (0), 0, 0);
+	
+	label2 = gtk_label_new (_("Bot:"));
+	gtk_widget_show (label2);
+	gtk_table_attach (GTK_TABLE (table2), label2, 2, 3, 5, 6,
+					(GtkAttachOptions) (GTK_FILL),
+					(GtkAttachOptions) (0), 0, 0);
+	gtk_misc_set_alignment (GTK_MISC (label2), 0, 0.5);
+	gtk_misc_set_padding (GTK_MISC (label2), 5, 0);
+	
+	margin_bottom_spinbtn_adj = gtk_adjustment_new (54, 0, 100, 1, 10, 10);
+	margin_bottom_spinbtn = gtk_spin_button_new (GTK_ADJUSTMENT (margin_bottom_spinbtn_adj), 1, 0);
+	gtk_widget_show (margin_bottom_spinbtn);
+	gtk_table_attach (GTK_TABLE (table2), margin_bottom_spinbtn, 3, 4, 5, 6,
+					(GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
+					(GtkAttachOptions) (0), 0, 0);
+	
+	pixmap1 = anjuta_res_get_pixmap_widget (p->widgets.window, ANJUTA_PIXMAP_PRINT_LAYOUT, FALSE);
+	gtk_widget_show (pixmap1);
+	gtk_table_attach (GTK_TABLE (table2), pixmap1, 2, 4, 1, 5,
+					(GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
+					(GtkAttachOptions) (GTK_EXPAND | GTK_FILL), 0, 0);
+	
+	label3 = gtk_label_new (_("Header:"));
+	gtk_widget_show (label3);
+	gtk_table_attach (GTK_TABLE (table2), label3, 4, 5, 1, 2,
+					(GtkAttachOptions) (GTK_FILL),
+					(GtkAttachOptions) (0), 0, 0);
+	gtk_misc_set_alignment (GTK_MISC (label3), 0, 0.5);
+	gtk_misc_set_padding (GTK_MISC (label3), 5, 0);
+	
+	margin_header_spinbtn_adj = gtk_adjustment_new (18, 0, 100, 1, 10, 10);
+	margin_header_spinbtn = gtk_spin_button_new (GTK_ADJUSTMENT (margin_header_spinbtn_adj), 1, 0);
+	gtk_widget_show (margin_header_spinbtn);
+	gtk_table_attach (GTK_TABLE (table2), margin_header_spinbtn, 5, 6, 1, 2,
+					(GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
+					(GtkAttachOptions) (0), 0, 0);
+	
+	label4 = gtk_label_new (_("Right:"));
+	gtk_widget_show (label4);
+	gtk_table_attach (GTK_TABLE (table2), label4, 4, 5, 3, 4,
+					(GtkAttachOptions) (GTK_FILL),
+					(GtkAttachOptions) (0), 0, 0);
+	gtk_misc_set_alignment (GTK_MISC (label4), 0, 0.5);
+	gtk_misc_set_padding (GTK_MISC (label4), 5, 0);
+	
+	margin_right_spinbtn_adj = gtk_adjustment_new (54, 0, 100, 1, 10, 10);
+	margin_right_spinbtn = gtk_spin_button_new (GTK_ADJUSTMENT (margin_right_spinbtn_adj), 1, 0);
+	gtk_widget_show (margin_right_spinbtn);
+	gtk_table_attach (GTK_TABLE (table2), margin_right_spinbtn, 5, 6, 3, 4,
+					(GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
+					(GtkAttachOptions) (0), 0, 0);
+	
+	label5 = gtk_label_new (_("Linenum:"));
+	gtk_widget_show (label5);
+	gtk_table_attach (GTK_TABLE (table2), label5, 0, 1, 1, 2,
+					(GtkAttachOptions) (GTK_FILL),
+					(GtkAttachOptions) (0), 0, 0);
+	gtk_misc_set_alignment (GTK_MISC (label5), 0, 0.5);
+	gtk_misc_set_padding (GTK_MISC (label5), 5, 0);
+	
+	margin_numbers_spinbtn_adj = gtk_adjustment_new (36, 0, 100, 1, 10, 10);
+	margin_numbers_spinbtn = gtk_spin_button_new (GTK_ADJUSTMENT (margin_numbers_spinbtn_adj), 1, 0);
+	gtk_widget_show (margin_numbers_spinbtn);
+	gtk_table_attach (GTK_TABLE (table2), margin_numbers_spinbtn, 1, 2, 1, 2,
+					(GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
+					(GtkAttachOptions) (0), 0, 0);
+	
+	label6 = gtk_label_new (_("Left:"));
+	gtk_widget_show (label6);
+	gtk_table_attach (GTK_TABLE (table2), label6, 0, 1, 3, 4,
+					(GtkAttachOptions) (GTK_FILL),
+					(GtkAttachOptions) (0), 0, 0);
+	gtk_misc_set_alignment (GTK_MISC (label6), 0, 0.5);
+	gtk_misc_set_padding (GTK_MISC (label6), 5, 0);
+	
+	margin_left_spinbtn_adj = gtk_adjustment_new (54, 0, 100, 1, 10, 10);
+	margin_left_spinbtn = gtk_spin_button_new (GTK_ADJUSTMENT (margin_left_spinbtn_adj), 1, 0);
+	gtk_widget_show (margin_left_spinbtn);
+	gtk_table_attach (GTK_TABLE (table2), margin_left_spinbtn, 1, 2, 3, 4,
+					(GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
+					(GtkAttachOptions) (0), 0, 0);
+	
+	frame3 = gtk_frame_new (_("Print Options"));
+	gtk_widget_show (frame3);
+	gtk_box_pack_start (GTK_BOX (vbox1), frame3, TRUE, TRUE, 0);
+	gtk_container_set_border_width (GTK_CONTAINER (frame3), 5);
+	gtk_frame_set_label_align (GTK_FRAME (frame3), 0.05, 0.5);
+	
+	table4 = gtk_table_new (6, 5, FALSE);
+	gtk_widget_show (table4);
+	gtk_container_add (GTK_CONTAINER (frame3), table4);
+	gtk_container_set_border_width (GTK_CONTAINER (table4), 5);
+	
+	radiobutton1 = gtk_radio_button_new_with_label (orientation_group, _("Portrait"));
+	orientation_group = gtk_radio_button_group (GTK_RADIO_BUTTON (radiobutton1));
+	gtk_widget_show (radiobutton1);
+	gtk_table_attach (GTK_TABLE (table4), radiobutton1, 1, 2, 1, 2,
+					(GtkAttachOptions) (GTK_FILL),
+					(GtkAttachOptions) (0), 0, 0);
+	gtk_container_set_border_width (GTK_CONTAINER (radiobutton1), 5);
+	
+	pixmap2 = anjuta_res_get_pixmap_widget (p->widgets.window, ANJUTA_PIXMAP_PRINT_PORTRAIT, FALSE);
+	gtk_widget_show (pixmap2);
+	gtk_table_attach (GTK_TABLE (table4), pixmap2, 2, 3, 1, 2,
+					(GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
+					(GtkAttachOptions) (GTK_FILL), 0, 0);
+	
+	landscape_rb = gtk_radio_button_new_with_label (orientation_group, _("Landscape"));
+	orientation_group = gtk_radio_button_group (GTK_RADIO_BUTTON (landscape_rb));
+	gtk_widget_show (landscape_rb);
+	gtk_table_attach (GTK_TABLE (table4), landscape_rb, 3, 4, 1, 2,
+					(GtkAttachOptions) (GTK_FILL),
+					(GtkAttachOptions) (0), 0, 0);
+	gtk_container_set_border_width (GTK_CONTAINER (landscape_rb), 5);
+	
+	pixmap3 = anjuta_res_get_pixmap_widget (p->widgets.window, ANJUTA_PIXMAP_PRINT_LANDSCAPE, FALSE);
+	gtk_widget_show (pixmap3);
+	gtk_table_attach (GTK_TABLE (table4), pixmap3, 4, 5, 1, 2,
+					(GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
+					(GtkAttachOptions) (GTK_FILL), 0, 0);
+	
+	label10 = gtk_label_new (_("Mode:"));
+	gtk_widget_show (label10);
+	gtk_table_attach (GTK_TABLE (table4), label10, 0, 1, 2, 3,
+					(GtkAttachOptions) (GTK_FILL),
+					(GtkAttachOptions) (0), 0, 0);
+	gtk_misc_set_alignment (GTK_MISC (label10), 0, 0.5);
+	gtk_misc_set_padding (GTK_MISC (label10), 5, 0);
+	
+	color_rb = gtk_radio_button_new_with_label (color_group, _("Color"));
+	color_group = gtk_radio_button_group (GTK_RADIO_BUTTON (color_rb));
+	gtk_widget_show (color_rb);
+	gtk_table_attach (GTK_TABLE (table4), color_rb, 1, 2, 2, 3,
+					(GtkAttachOptions) (GTK_FILL),
+					(GtkAttachOptions) (0), 0, 0);
+	gtk_container_set_border_width (GTK_CONTAINER (color_rb), 5);
+	
+	pixmap4 = anjuta_res_get_pixmap_widget (p->widgets.window, ANJUTA_PIXMAP_PRINT_COLOR, FALSE);
+	gtk_widget_show (pixmap4);
+	gtk_table_attach (GTK_TABLE (table4), pixmap4, 2, 3, 2, 3,
+					(GtkAttachOptions) (GTK_FILL),
+					(GtkAttachOptions) (GTK_FILL), 0, 0);
+	
+	radiobutton4 = gtk_radio_button_new_with_label (color_group, _("Normal"));
+	color_group = gtk_radio_button_group (GTK_RADIO_BUTTON (radiobutton4));
+	gtk_widget_show (radiobutton4);
+	gtk_table_attach (GTK_TABLE (table4), radiobutton4, 3, 4, 2, 3,
+					(GtkAttachOptions) (GTK_FILL),
+					(GtkAttachOptions) (0), 0, 0);
+	gtk_container_set_border_width (GTK_CONTAINER (radiobutton4), 5);
+	
+	pixmap5 = anjuta_res_get_pixmap_widget (p->widgets.window, ANJUTA_PIXMAP_PRINT_NOCOLOR, FALSE);
+	gtk_widget_show (pixmap5);
+	gtk_table_attach (GTK_TABLE (table4), pixmap5, 4, 5, 2, 3,
+					(GtkAttachOptions) (GTK_FILL),
+					(GtkAttachOptions) (GTK_FILL), 0, 0);
+	
+	label7 = gtk_label_new (_("Orientation:"));
+	gtk_widget_show (label7);
+	gtk_table_attach (GTK_TABLE (table4), label7, 0, 1, 1, 2,
+					(GtkAttachOptions) (GTK_FILL),
+					(GtkAttachOptions) (0), 0, 0);
+	gtk_misc_set_alignment (GTK_MISC (label7), 0, 0.5);
+	gtk_misc_set_padding (GTK_MISC (label7), 5, 0);
+	
+	wrap_chkbtn = gtk_check_button_new_with_label (_("Enable Line wrap"));
+	gtk_widget_show (wrap_chkbtn);
+	gtk_table_attach (GTK_TABLE (table4), wrap_chkbtn, 2, 4, 4, 5,
+					(GtkAttachOptions) (GTK_FILL),
+					(GtkAttachOptions) (0), 0, 0);
+	gtk_container_set_border_width (GTK_CONTAINER (wrap_chkbtn), 5);
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (wrap_chkbtn), TRUE);
-
-	opt_bottom_hbox = gtk_hbox_new (FALSE, 0);
-	gtk_box_pack_start (GTK_BOX (opt_vbox), opt_bottom_hbox, TRUE, TRUE, 0);
-
-	linenum_chkbtn = gtk_check_button_new_with_label (_("Add line numbers every"));
-	gtk_box_pack_start (GTK_BOX (opt_bottom_hbox), linenum_chkbtn, FALSE, FALSE, 0);
-
+	
+	header_chkbtn = gtk_check_button_new_with_label (_("Added Header"));
+	gtk_widget_show (header_chkbtn);
+	gtk_table_attach (GTK_TABLE (table4), header_chkbtn, 0, 2, 4, 5,
+					(GtkAttachOptions) (GTK_FILL),
+					(GtkAttachOptions) (0), 0, 0);
+	gtk_container_set_border_width (GTK_CONTAINER (header_chkbtn), 5);
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (header_chkbtn), TRUE);
+	
+	label9 = gtk_label_new (_("Lines"));
+	gtk_widget_show (label9);
+	gtk_table_attach (GTK_TABLE (table4), label9, 4, 5, 5, 6,
+					(GtkAttachOptions) (GTK_FILL),
+					(GtkAttachOptions) (0), 0, 0);
+	gtk_misc_set_alignment (GTK_MISC (label9), 0, 0.5);
+	gtk_misc_set_padding (GTK_MISC (label9), 5, 0);
+	
 	linenum_spinbtn_adj = gtk_adjustment_new (1, 0, 100, 1, 10, 10);
 	linenum_spinbtn = gtk_spin_button_new (GTK_ADJUSTMENT (linenum_spinbtn_adj), 1, 0);
-	gtk_box_pack_start (GTK_BOX (opt_bottom_hbox), linenum_spinbtn, FALSE, FALSE, 0);
-	gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (linenum_spinbtn), TRUE);
+	gtk_widget_show (linenum_spinbtn);
+	gtk_table_attach (GTK_TABLE (table4), linenum_spinbtn, 3, 4, 5, 6,
+					(GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
+					(GtkAttachOptions) (0), 0, 0);
+	
+	label8 = gtk_label_new (_("Added line numbers after every"));
+	gtk_widget_show (label8);
+	gtk_table_attach (GTK_TABLE (table4), label8, 0, 3, 5, 6,
+					(GtkAttachOptions) (GTK_FILL),
+					(GtkAttachOptions) (0), 0, 0);
+	gtk_misc_set_alignment (GTK_MISC (label8), 0, 0.5);
+	gtk_misc_set_padding (GTK_MISC (label8), 5, 0);
+	
+	hseparator1 = gtk_hseparator_new ();
+	gtk_widget_show (hseparator1);
+	gtk_table_attach (GTK_TABLE (table4), hseparator1, 0, 5, 3, 4,
+					(GtkAttachOptions) (GTK_FILL),
+					(GtkAttachOptions) (GTK_EXPAND | GTK_FILL), 0, 0);
+	
+	label11 = gtk_label_new (_("Paper:"));
+	gtk_widget_show (label11);
+	gtk_table_attach (GTK_TABLE (table4), label11, 0, 1, 0, 1,
+					(GtkAttachOptions) (GTK_FILL),
+					(GtkAttachOptions) (0), 0, 0);
+	gtk_misc_set_alignment (GTK_MISC (label11), 0, 0.5);
+	gtk_misc_set_padding (GTK_MISC (label11), 4, 0);
+	
+	paper_combo = gtk_combo_new ();
+	gtk_widget_show (paper_combo);
+	gtk_table_attach (GTK_TABLE (table4), paper_combo, 1, 5, 0, 1,
+					(GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
+					(GtkAttachOptions) (0), 0, 0);
+	gtk_combo_set_popdown_strings (GTK_COMBO (paper_combo), paper_combo_items);
+	g_list_free (paper_combo_items);
 
-	lines_lab = gtk_label_new (_("lines"));
-	gtk_box_pack_start (GTK_BOX (opt_bottom_hbox), lines_lab, FALSE, FALSE, 5);
-	gtk_misc_set_padding (GTK_MISC (lines_lab), 5, 0);
+	paper_entry = GTK_COMBO (paper_combo)->entry;
+	gtk_widget_show (paper_entry);
+	gtk_entry_set_editable (GTK_ENTRY (paper_entry), FALSE);
 
-	bottom_frame = gtk_frame_new (_("Orientation"));
-	gtk_box_pack_start (GTK_BOX (top_vbox), bottom_frame, TRUE, TRUE, 0);
-	gtk_container_set_border_width (GTK_CONTAINER (bottom_frame), 5);
-
-	orient_hbox = gtk_hbox_new (TRUE, 0);
-	gtk_container_add (GTK_CONTAINER (bottom_frame), orient_hbox);
-
-	portrait_rb = gtk_radio_button_new_with_label (orient_radio_group, _("Portrait"));
-	orient_radio_group = gtk_radio_button_group (GTK_RADIO_BUTTON (portrait_rb));
-	gtk_box_pack_start (GTK_BOX (orient_hbox), portrait_rb, FALSE, FALSE, 0);
-
-	landscape_rb = gtk_radio_button_new_with_label (orient_radio_group, _("Landscape"));
-	orient_radio_group = gtk_radio_button_group (GTK_RADIO_BUTTON (landscape_rb));
-	gtk_box_pack_start (GTK_BOX (orient_hbox), landscape_rb, FALSE, FALSE, 0);
-
-	p->widgets.paper_selector = paper_selector;
-	p->widgets.print_header = header_chkbtn;
-	p->widgets.print_wrap = wrap_chkbtn;
-	p->widgets.print_linenum = linenum_chkbtn;
-	p->widgets.print_linenum_count = linenum_spinbtn;
-	p->widgets.print_landscape = landscape_rb;
+	p->widgets.paper_selector = paper_entry;
+	p->widgets.print_header_check = header_chkbtn;
+	p->widgets.print_wrap_check = wrap_chkbtn;
+	p->widgets.print_linenum_count_spin = linenum_spinbtn;
+	p->widgets.print_landscape_check = landscape_rb;
+	p->widgets.print_color_check = color_rb;
+	p->widgets.margin_top_spin = margin_top_spinbtn;
+	p->widgets.margin_bottom_spin = margin_bottom_spinbtn;
+	p->widgets.margin_left_spin = margin_left_spinbtn;
+	p->widgets.margin_right_spin = margin_right_spinbtn;
+	p->widgets.margin_header_spin = margin_header_spinbtn;
+	p->widgets.margin_numbers_spin = margin_numbers_spinbtn;
+	
 	gtk_widget_ref(p->widgets.paper_selector);
-	gtk_widget_ref(p->widgets.print_header);
-	gtk_widget_ref(p->widgets.print_wrap);
-	gtk_widget_ref(p->widgets.print_linenum);
-	gtk_widget_ref(p->widgets.print_linenum_count);
-	gtk_widget_ref(p->widgets.print_landscape);
-	gtk_widget_show_all(main_frame);
-	return main_frame;
+	gtk_widget_ref(p->widgets.print_header_check);
+	gtk_widget_ref(p->widgets.print_wrap_check);
+	gtk_widget_ref(p->widgets.print_linenum_count_spin);
+	gtk_widget_ref(p->widgets.print_landscape_check);
+	gtk_widget_ref(p->widgets.print_color_check);
+	gtk_widget_ref(p->widgets.margin_top_spin);
+	gtk_widget_ref(p->widgets.margin_bottom_spin);
+	gtk_widget_ref(p->widgets.margin_left_spin);
+	gtk_widget_ref(p->widgets.margin_right_spin);
+	gtk_widget_ref(p->widgets.margin_header_spin);
+	gtk_widget_ref(p->widgets.margin_numbers_spin);
+	
+	return vbox1;
 }
 
 static GtkWidget *
@@ -2205,24 +2468,41 @@ on_preferences_apply_clicked (GtkButton * button, gpointer user_data)
 			     gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
 							   (pr->widgets.fold_on_open_check)));
 /* page 4 */
-	preferences_set (pr, PAPER_SIZE, gnome_paper_selector_get_name(
-	  GNOME_PAPER_SELECTOR(pr->widgets.paper_selector)));
+	preferences_set (pr, PRINT_PAPER_SIZE, gtk_entry_get_text (
+	  GTK_ENTRY(pr->widgets.paper_selector)));
 	preferences_set_int (pr, PRINT_HEADER,
 			     gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
-							   (pr->widgets.print_header)));
+							   (pr->widgets.print_header_check)));
 	preferences_set_int (pr, PRINT_WRAP,
 			     gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
-							   (pr->widgets.print_wrap)));
-	preferences_set_int (pr, PRINT_LINENUM,
-			     gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
-							   (pr->widgets.print_linenum)));
-	preferences_set_int (pr, PRINT_LINECOUNT,
+							   (pr->widgets.print_wrap_check)));
+	preferences_set_int (pr, PRINT_LINENUM_COUNT,
 			     gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON
-							   (pr->widgets.print_linenum_count)));
+							   (pr->widgets.print_linenum_count_spin)));
 	preferences_set_int (pr, PRINT_LANDSCAPE,
 			     gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
-							   (pr->widgets.print_landscape)));
-
+							   (pr->widgets.print_landscape_check)));
+	preferences_set_int (pr, PRINT_COLOR,
+			     gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
+							   (pr->widgets.print_color_check)));
+	preferences_set_int (pr, PRINT_MARGIN_LEFT,
+			     gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON
+							   (pr->widgets.margin_left_spin)));
+	preferences_set_int (pr, PRINT_MARGIN_RIGHT,
+			     gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON
+							   (pr->widgets.margin_right_spin)));
+	preferences_set_int (pr, PRINT_MARGIN_TOP,
+			     gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON
+							   (pr->widgets.margin_top_spin)));
+	preferences_set_int (pr, PRINT_MARGIN_BOTTOM,
+			     gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON
+							   (pr->widgets.margin_bottom_spin)));
+	preferences_set_int (pr, PRINT_MARGIN_HEADER,
+			     gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON
+							   (pr->widgets.margin_header_spin)));
+	preferences_set_int (pr, PRINT_MARGIN_NUMBERS,
+			     gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON
+							   (pr->widgets.margin_numbers_spin)));
 /* Page 5 */
 	preferences_set (pr, AUTOFORMAT_STYLE,
 			 gtk_entry_get_text (GTK_ENTRY

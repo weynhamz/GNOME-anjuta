@@ -1,4 +1,4 @@
-# Anjuta Version 0.1.10-pre
+# Anjuta Version 0.1.9.99 
 Compatibility Level: 1 
 
 <PROJECT_DESCRIPTION_START>
@@ -24,7 +24,7 @@ a number of advanced programming facilities.<PROJECT_DESCRIPTION_END>
 
 props.file.type=project
 
-anjuta.version=0.1.10-pre
+anjuta.version=0.1.9.99
 anjuta.compatibility.level=1
 
 project.name=anjuta
@@ -62,6 +62,9 @@ module.include.type=
 module.include.expanded=0
 module.include.files=\
 	acconfig.h\
+	printing/print.h\
+	printing/print-doc.h\
+	printing/print-util.h\
 	scintilla/include/Accessor.h\
 	scintilla/include/KeyWords.h\
 	scintilla/include/Platform.h\
@@ -210,6 +213,9 @@ module.source.files=\
 	plugins/class-gen/clsGen.c\
 	plugins/patch/patch-plugin.c\
 	plugins/sample1/plugin-sample1.c\
+	printing/print.c\
+	printing/print-doc.c\
+	printing/print-util.c\
 	scintilla/AutoComplete.cxx\
 	scintilla/CallTip.cxx\
 	scintilla/CellBuffer.cxx\
@@ -566,6 +572,11 @@ module.pixmap.files=\
 	pixmaps/pointer.xpm\
 	pixmaps/preferences.xpm\
 	pixmaps/print.xpm\
+	pixmaps/print_color.xpm\
+	pixmaps/print_nocolor.xpm\
+	pixmaps/print_landscape.xpm\
+	pixmaps/print_layout.xpm\
+	pixmaps/print_portrait.xpm\
 	pixmaps/project.xpm\
 	pixmaps/redo.xpm\
 	pixmaps/registers.xpm\

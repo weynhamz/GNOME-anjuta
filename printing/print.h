@@ -1,9 +1,23 @@
 /*
-** Gnome-Print support
-** Author: Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
-** Original Author: Chema Celorio <chema@celorio.com>
-** Licence: GPL
-*/
+ * print.h
+ * Copyright (C) 2002
+ *     Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
+ *     Naba Kumar <kh_naba@users.sourceforge.net>
+ * 
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
 
 #ifndef AN_PRINTING_PRINT_H
 #define AN_PRINTING_PRINT_H
@@ -27,13 +41,27 @@ typedef enum _AnPrintOrientation
 	PRINT_ORIENT_LANDSCAPE
 } AnPrintOrientation;
 
-/* FIXME: These should not really be hardcoded but I've no idea how to
-restrict the user to choosing fixed width Type1 fonts - any ideas ? */
-#define AN_PRINT_FONT_BODY   "Courier"
-#define AN_PRINT_FONT_HEADER "Helvetica"
-#define AN_PRINT_FONT_SIZE_BODY   10
-#define AN_PRINT_FONT_SIZE_HEADER 10
-#define AN_PRINT_FONT_SIZE_NUMBERS 6
+/* Default fall back when everything fails */
+#define AN_PRINT_FONT_BODY_DEFAULT   "courier"
+#define AN_PRINT_FONT_HEADER_DEFAULT "helvetica"
+#define AN_PRINT_FONT_SIZE_BODY_DEFAULT   10
+#define AN_PRINT_FONT_SIZE_HEADER_DEFALT 10
+#define AN_PRINT_FONT_SIZE_NUMBERS_DEFAULT 6
+#define AN_PRINT_MAX_STYLES 256
+
+#define TEXT_AT(buf, index)  (buf)[(index)*2]
+#define STYLE_AT(buf, index) (buf)[(index)*2+1]
+
+typedef struct _PrintJobInfoStyle
+{
+	gchar          *font_name;
+	GnomeFont      *font;
+	GdkColor        fore_color;
+	GdkColor        back_color;
+	gboolean        italics;
+	GnomeFontWeight weight;
+	gint            size;
+} PrintJobInfoStyle;
 
 typedef struct _PrintJobInfo
 {
@@ -41,52 +69,66 @@ typedef struct _PrintJobInfo
 	GnomePrintContext *pc;
 	GnomePrinter *printer;
 	const GnomePaper *paper;
+	
+	PrintJobInfoStyle* styles_pool[AN_PRINT_MAX_STYLES];
 
 	TextEditor *te;
-	gchar *filename;
-	guchar *buffer;
-	guint buffer_size;
+
+	/* Print Buffer */
+	guchar  *buffer;
+	guint   buffer_size;
+	
+	/* Preferences */
+	gfloat page_width;
+	gfloat page_height;
+	gfloat margin_top;
+	gfloat margin_bottom;
+	gfloat margin_left;
+	gfloat margin_right;
+	gfloat margin_header;
+	gfloat margin_numbers;
+	
 	gboolean print_header;
-	gint print_line_numbers;
-
-	float font_char_width;
-	float font_char_height;
-	GnomeFont *font_body;
-	GnomeFont *font_header;
-	GnomeFont *font_numbers;
-
-	guint pages;
-	float page_width, page_height;
-	float margin_top, margin_bottom, margin_left, margin_right,
-		margin_numbers;
-	float printable_width, printable_height;
-	float header_height;
-	guint total_lines, total_lines_real;
-	guint lines_per_page;
-	guint chars_per_line;
-	guchar *temp;
+	gboolean print_color;
+	gint     print_line_numbers;
+	gboolean preview;
+	gboolean wrapping;
+	gint     tab_size;
+	
 	AnPrintOrientation orientation;
 
-	gint range;
-	gint page_first;
-	gint page_last;
-	gboolean print_this_page;
-	gboolean preview;
-
-	gint file_offset;
-	gint current_line;
-
-	gboolean wrapping;
-	gint tab_size;
-
+	/* GC state */
+	gfloat cursor_x;
+	gfloat cursor_y;
+	gfloat current_font_height;
+	guint  current_style_num;
+	PrintJobInfoStyle* current_style;
+	guint  current_page;
+	
+	/* Printing range */
+	gint range_type;
+	gint range_start_line;
+	gint range_end_line;
+	
 	/* Progress */
 	GtkWidget *progress_bar;
 	GnomeDialog *progress_dialog;
 	gboolean canceled;
+	
 } PrintJobInfo;
 
-void anjuta_print_cb(GtkWidget * widget, gpointer notused);
-void anjuta_print_preview_cb(GtkWidget * widget, gpointer notused);
+PrintJobInfo* anjuta_print_job_info_new (void);
+void anjuta_print_job_info_destroy(PrintJobInfo *pji);
+void anjuta_print_begin (PrintJobInfo * pji);
+void anjuta_print_end (PrintJobInfo * pji);
+void anjuta_print_document(PrintJobInfo * pji);
+void anjuta_print_set_style (PrintJobInfo *pji, gint style);
+void anjuta_print_set_orientation (PrintJobInfo * pji);
+gfloat anjuta_print_get_width (PrintJobInfo *pji, gint style, const char *str, gint len);
+void anjuta_print_new_line (PrintJobInfo *pji);
+void anjuta_print_new_page (PrintJobInfo *pji);
+gint anjuta_print_show_char_styled (PrintJobInfo *pji, const char ch, const char style);
+void anjuta_print_show_linenum (PrintJobInfo * pji, guint line);
 
 #ifdef __cplusplus
 }

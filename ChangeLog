@@ -1,3 +1,29 @@
+2002-06-02  Naba Kumar <kh_naba@users.sourceforge.net>
+
+	* printing/print-doc.c, printing/print-doc.h, printing/print-util.c,
+	printing/print-util.h, printing/print.c, printing/print.h:
+	Rewritten printing support for style based printing. Syntax hilited
+	printing, monochromatic printing, setup using preferences etc.
+
+	* src/aneditor.cxx, src/aneditor.h: Added two commands for working with
+	printing. ANE_GETLANGUAGE and ANE_GETSTYLEDTEXT for geting the document
+	language and the styled text buffer.
+	
+	* src/preferences.c, src/preferences.h, src/preferences_gui.c: Redesigned
+	the print setup preferences page and added printer preferences. Added functions
+	to retrieve preferences with default values.
+	
+	* src/text_editor_gui.c, src/main_menubar_def.h: Changed an #include for
+	the printing.
+
+	* data/properties/anjuta.properties: Added default printer preferences.
+
+	* pixmaps/print_color.xpm, pixmaps/print_landscape.xpm,
+	pixmaps/print_layout.xpm, pixmaps/print_nocolor.xpm,
+	pixmaps/print_portrait.xpm: CVS added printer setup pixmap files.
+
+	* pixmaps/Makefile.am, src/pixmaps.h, anjuta.prj: Added the new pixmaps referencences.
+	
 2002-06-01	Biswapesh Chattopadhyay	<biswapesh_chatterjee@tcscal.co.in>
 
 	Reviewed by Naba Kumar <kh_naba@users.sourceforge.net>

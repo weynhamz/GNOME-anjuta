@@ -205,7 +205,7 @@ protected:
 	void SelectionIntoProperties();
 	long Find (long flags, char* text);
 	void GoMatchingBrace(bool select);
-	void GetRange(guint start, guint end, gchar *text);
+	void GetRange(guint start, guint end, gchar *text, gboolean styled);
 	bool StartCallTip();
 	void ContinueCallTip();
 	bool StartAutoComplete();
@@ -496,12 +496,15 @@ bool AnEditor::FindMatchingBracePosition(int &braceAtCaret, int &braceOpposite, 
 	return isInside;
 }
 
-void AnEditor::GetRange(guint start, guint end, gchar *text) {
+void AnEditor::GetRange(guint start, guint end, gchar *text, gboolean styled) {
 	TextRange tr;
 	tr.chrg.cpMin = start;
 	tr.chrg.cpMax = end;
 	tr.lpstrText = text;
-	SendEditor (SCI_GETTEXTRANGE, 0, reinterpret_cast<long>(&tr));
+	if (styled)
+		SendEditor (SCI_GETSTYLEDTEXT, 0, reinterpret_cast<long>(&tr));
+	else
+		SendEditor (SCI_GETTEXTRANGE, 0, reinterpret_cast<long>(&tr));
 }
 
 void AnEditor::BraceMatch() {
@@ -1448,7 +1451,7 @@ long AnEditor::Command(int cmdID, long wParam, long lParam) {
 			end = (guint) MAXIMUM(wParam, lParam);
 			gchar *buff = (gchar*) g_malloc(end-start+10);
 			if(!buff) return 0;
-			GetRange(start, end, buff);
+			GetRange(start, end, buff, false);
 			return (long) buff;
 		}
 		break;
@@ -1475,6 +1478,22 @@ long AnEditor::Command(int cmdID, long wParam, long lParam) {
 		SetReadOnly((bool)wParam);
 		break;
 	
+	case ANE_GETSTYLEDTEXT: {
+			guint start, end;
+			if(wParam == lParam) return 0;
+			start = (guint) MINIMUM(wParam, lParam);
+			end = (guint) MAXIMUM(wParam, lParam);
+			gchar *buff = (gchar*) g_malloc((end-start+10)*2);
+			if(!buff) return 0;
+			GetRange(start, end, buff, true);
+			return (long) buff;
+		}
+		break;
+	case ANE_TEXTWIDTH:
+		return SendEditor(SCI_TEXTWIDTH, wParam, lParam);
+	case ANE_GETLANGUAGE:
+		return (long) language.c_str();
+
 	default:
 		break;
 	}

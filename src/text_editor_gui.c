@@ -31,7 +31,7 @@
 #include "mainmenu_callbacks.h"
 #include "pixmaps.h"
 #include "resources.h"
-#include "print.h"
+#include "print-doc.h"
 
 #define GTK
 #undef PLAT_GTK

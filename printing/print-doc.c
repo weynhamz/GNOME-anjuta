@@ -1,9 +1,23 @@
 /*
-** Gnome-Print support
-** Author: Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
-** Original Author: Chema Celorio <chema@celorio.com>
-** Licence: GPL
-*/
+ * print-doc.c
+ * Copyright (C) 2002
+ *     Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
+ *     Naba Kumar <kh_naba@users.sourceforge.net>
+ * 
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -16,274 +30,89 @@
 #include "print-doc.h"
 #include "print-util.h"
 
-static void print_line (PrintJobInfo * pji, int line);
-static void print_ps_line (PrintJobInfo * pji, gint line, gint first_line);
-static void print_header (PrintJobInfo * pji, unsigned int page);
-static void print_start_job (PrintJobInfo * pji);
-static void print_set_orientation (PrintJobInfo * pji);
-static void print_header (PrintJobInfo * pji, unsigned int page);
-static void print_end_page (PrintJobInfo * pji);
-static void print_end_job (GnomePrintContext * pc);
-
-void anjuta_print_document(PrintJobInfo * pji)
+static gboolean anjuta_print_run_dialog(PrintJobInfo *pji)
 {
-	int current_page, current_line;
-	pji->temp = g_malloc (pji->chars_per_line + 2);
-	current_line = 0;
-	anjuta_print_progress_start (pji);
-	print_start_job (pji);
-	for (current_page = 1; current_page <= pji->pages; current_page++)
+	GnomeDialog *dialog;
+	gint selection_flag;
+
+	if (text_editor_has_selection (pji->te))
+		selection_flag = GNOME_PRINT_RANGE_SELECTION;
+	else
+		selection_flag = GNOME_PRINT_RANGE_SELECTION_UNSENSITIVE;
+	dialog = (GnomeDialog *) gnome_print_dialog_new(_("Print Document"),
+		GNOME_PRINT_DIALOG_RANGE);
+	gnome_print_dialog_construct_range_page ((GnomePrintDialog *) dialog,
+		GNOME_PRINT_RANGE_ALL | GNOME_PRINT_RANGE_RANGE | selection_flag,
+		1, text_editor_get_total_lines(pji->te), "A", _("Lines"));
+	
+	switch (gnome_dialog_run(GNOME_DIALOG (dialog)))
 	{
-		if (pji->range != GNOME_PRINT_RANGE_ALL)
-		  pji->print_this_page = (current_page >= pji->page_first
-		  && current_page <= pji->page_last) ? TRUE : FALSE;
-		else
-			pji->print_this_page = TRUE;
-		if (pji->print_this_page)
-		{
-			gchar *pagenumbertext;
-			pagenumbertext = g_strdup_printf ("%d", current_page);
-			gnome_print_beginpage(pji->pc, pagenumbertext);
-			g_free (pagenumbertext);
-			if (pji->print_header)
-				print_header(pji, current_page);
-			gnome_print_setfont(pji->pc, pji->font_body);
-		}
-		if (pji->buffer[pji->file_offset - 1] != '\n' && current_page > 1 && pji->wrapping)
-			current_line--;
-
-		for (current_line++; current_line <= pji->total_lines; current_line++)
-		{
-			print_line(pji, current_line);
-			if (pji->current_line % pji->lines_per_page == 0)
-				break;
-		}
-
-		if (pji->print_this_page)
-			print_end_page (pji);
-
-		anjuta_print_progress_tick (pji, current_page);
-		if (pji->canceled)
+		case GNOME_PRINT_PRINT:
 			break;
-	}
-	print_end_job (pji->pc);
-	g_free (pji->temp);
-
-	gnome_print_context_close (pji->pc);
-
-	anjuta_print_progress_end (pji);
-}
-
-
-static void print_line (PrintJobInfo * pji, int line)
-{
-	gint chars_in_this_line = 0;
-	gint i, temp;
-	gint first_line = TRUE;
-
-	while (pji->buffer[pji->file_offset] != '\n' && pji->file_offset < pji->buffer_size)
-	{
-		chars_in_this_line++;
-
-		if (pji->buffer[pji->file_offset] != '\t')
-		{
-			pji->temp[chars_in_this_line - 1] =
-				pji->buffer[pji->file_offset];
-		}
-		else
-		{
-			temp = chars_in_this_line;
-			chars_in_this_line += pji->tab_size - ((chars_in_this_line - 1) % pji->tab_size) - 1;
-			if (chars_in_this_line > pji->chars_per_line + 1)
-				chars_in_this_line = pji->chars_per_line + 1;
-			for (i = temp; i < chars_in_this_line + 1; i++)
-				pji->temp[i - 1] = ' ';
-		}
-		if (chars_in_this_line < pji->chars_per_line + 1)
-		{
-			pji->file_offset++;
-			continue;
-		}
-		if (!pji->wrapping)
-		{
-			while (pji->buffer[pji->file_offset] != '\n')
-				pji->file_offset++;
-			pji->file_offset--;
-			pji->temp[chars_in_this_line] = (guchar) '\0';
-			print_ps_line (pji, line, TRUE);
-			pji->current_line++;
-			chars_in_this_line = 0;
-			pji->file_offset++;
-			continue;
-		}
-		temp = pji->file_offset;
-		while (pji->buffer[pji->file_offset] != ' ' &&
-		       pji->buffer[pji->file_offset] != '\t' &&
-		       pji->file_offset > temp - pji->chars_per_line - 1)
-		{
-			pji->file_offset--;
-		}
-		if (pji->file_offset == temp - pji->chars_per_line - 1)
-		{
-			pji->file_offset = temp;
-		}
-		pji->temp[chars_in_this_line + pji->file_offset - temp - 1] = (guchar) '\0';
-		print_ps_line (pji, line, first_line);
-		first_line = FALSE;
-		pji->current_line++;
-		chars_in_this_line = 0;
-
-		while (pji->buffer[pji->file_offset] == ' '
-		       || pji->buffer[pji->file_offset] == '\t')
-			pji->file_offset++;
-		if (pji->current_line % pji->lines_per_page == 0)
-			return;
-	}
-	pji->temp[chars_in_this_line] = (guchar) '\0';
-	print_ps_line (pji, line, first_line);
-	pji->current_line++;
-	pji->file_offset++;
-}
-
-static void print_ps_line(PrintJobInfo * pji, gint line, gint first_line)
-{
-	gfloat y;
-
-	y = pji->page_height - pji->margin_top - pji->header_height -
-		(pji->font_char_height * ((pji->current_line % pji->lines_per_page) + 1));
-
-	if (!pji->print_this_page)
-		return;
-
-	gnome_print_moveto (pji->pc, pji->margin_left, y);
-	anjuta_print_show (pji->pc, pji->temp);
-
-	if (pji->print_line_numbers > 0 &&
-	    line % pji->print_line_numbers == 0 && first_line)
-	{
-		char *number_text = g_strdup_printf("%i", line);
-
-		gnome_print_setfont(pji->pc, pji->font_numbers);
-		gnome_print_moveto(pji->pc, pji->margin_left - pji->margin_numbers, y);
-		anjuta_print_show(pji->pc, number_text);
-		g_free(number_text);
-		gnome_print_setfont (pji->pc, pji->font_body);
-	}
-}
-
-guint anjuta_print_document_determine_lines(PrintJobInfo * pji, gboolean real)
-{
-	gint lines = 0;
-	gint i, temp_i;
-	gint chars_in_this_line = 0;
-	guchar *buffer = pji->buffer;
-	gint chars_per_line = pji->chars_per_line;
-	gint tab_size = pji->tab_size;
-	gint wrapping = pji->wrapping;
-	gint buffer_size = pji->buffer_size;
-
-	int dump_info = FALSE;
-	int dump_info_basic = FALSE;
-	int dump_text = FALSE;
-
-	if (real && !wrapping)
-		real = FALSE;
-	if (!real)
-	{
-		dump_info = FALSE;
-		dump_info_basic = FALSE;
-		dump_text = FALSE;
-	}
-	for (i = 0; i < buffer_size; i++)
-	{
-		chars_in_this_line++;
-		if (buffer[i] == '\n')
-		{
-			lines++;
-			chars_in_this_line = 0;
-			continue;
-		}
-		if (buffer[i] == '\t')
-		{
-			temp_i = chars_in_this_line;
-			chars_in_this_line += tab_size -	((chars_in_this_line - 1) % tab_size) - 1;
-			if (chars_in_this_line > chars_per_line + 1)
-				chars_in_this_line = chars_per_line + 1;
-		}
-		if (chars_in_this_line == chars_per_line + 1 && real)
-		{
-			temp_i = i;
-			while (buffer[i] != ' ' && buffer[i] != '\t' && i > temp_i - chars_per_line - 1)
-				i--;
-			if (i == temp_i - chars_per_line - 1)
-				i = temp_i;
-			temp_i = i;
-			while (buffer[i] == ' ' || buffer[i] == '\t')
-				i++;
-			i--;
-			lines++;
-			chars_in_this_line = 0;
-		}
-
-	}
-	if (buffer[i] != '\n')
-		lines++;
-	temp_i = lines;
-	for (i = buffer_size - 1; i > 0; i--)
-	{
-		if (buffer[i] != '\n' && buffer[i] != ' '
-		    && buffer[i] != '\t')
+		case GNOME_PRINT_PREVIEW:
+			pji->preview = TRUE;
 			break;
-		else if (buffer[i] == '\n')
-			lines--;
+		case -1:
+			return TRUE;
+		default:
+			gnome_dialog_close(GNOME_DIALOG (dialog));
+			return TRUE;
 	}
-	return lines;
+	
+	pji->printer = gnome_print_dialog_get_printer(GNOME_PRINT_DIALOG(dialog));
+	if (pji->printer && !pji->preview)
+		gnome_print_master_set_printer(pji->master, pji->printer);
+	
+	pji->range_type = gnome_print_dialog_get_range_page(GNOME_PRINT_DIALOG (dialog),
+						&pji->range_start_line,
+						&pji->range_end_line);
+	
+	gnome_dialog_close (GNOME_DIALOG (dialog));
+	return FALSE;
 }
 
-static void print_start_job (PrintJobInfo * pji)
+static void anjuta_print_preview_real(PrintJobInfo *pji)
 {
-	print_set_orientation(pji);
+	gchar *title = g_strdup_printf (_("Print Preview"));
+	GnomePrintMasterPreview *gpmp = gnome_print_master_preview_new (pji->master, title);
+	g_free (title);
+	gtk_widget_show (GTK_WIDGET (gpmp));
 }
 
-static void print_set_orientation (PrintJobInfo * pji)
+static void anjuta_print(gboolean preview)
 {
-	double affine[6];
+	PrintJobInfo *pji;
+	gboolean cancel = FALSE;
 
-	if (pji->orientation == PRINT_ORIENT_PORTRAIT)
+	if (NULL == (pji = anjuta_print_job_info_new()))
 		return;
-	art_affine_rotate(affine, 90.0);
-	gnome_print_concat(pji->pc, affine);
-	art_affine_translate(affine, 0, -pji->page_height);
-	gnome_print_concat(pji->pc, affine);
+	pji->preview = preview;
+	if (!pji->preview)
+		cancel = anjuta_print_run_dialog(pji);
+	if (cancel)
+	{
+		anjuta_print_job_info_destroy(pji);
+		return;
+	}
+	anjuta_print_document(pji);
+	if (pji->canceled)
+	{
+		anjuta_print_job_info_destroy(pji);
+		return;
+	}
+	if (pji->preview)
+		anjuta_print_preview_real(pji);
+	else
+		gnome_print_master_print(pji->master);
+	anjuta_print_job_info_destroy (pji);
 }
 
-static void print_header (PrintJobInfo * pji, unsigned int page)
+void anjuta_print_cb (GtkWidget *widget, gpointer notused)
 {
-	guchar *text1 = g_strdup (pji->filename);
-	guchar *text2 = g_strdup_printf (_("Page: %i/%i"), page, pji->pages);
-	float x, y, len;
-
-	gnome_print_setfont (pji->pc, pji->font_header);
-	y = pji->page_height - pji->margin_top - pji->header_height / 2;
-	len = gnome_font_get_width_string (pji->font_header, text1);
-	x = pji->page_width / 2 - len / 2;
-	gnome_print_moveto (pji->pc, x, y);
-	anjuta_print_show (pji->pc, text1);
-	y = pji->page_height - pji->margin_top - pji->header_height / 4;
-	len = gnome_font_get_width_string (pji->font_header, text2);
-	x = pji->page_width - len - 36;
-	gnome_print_moveto (pji->pc, x, y);
-	anjuta_print_show (pji->pc, text2);
-	g_free (text1);
-	g_free (text2);
+	anjuta_print(FALSE);
 }
 
-static void print_end_page(PrintJobInfo * pji)
+void anjuta_print_preview_cb(GtkWidget *widget, gpointer notused)
 {
-	gnome_print_showpage(pji->pc);
-	print_set_orientation(pji);
-}
-
-static void print_end_job(GnomePrintContext * pc)
-{
+	anjuta_print(TRUE);
 }

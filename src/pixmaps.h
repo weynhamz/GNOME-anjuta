@@ -109,6 +109,12 @@
 #define ANJUTA_PIXMAP_WIZARD "wizard.xpm"
 #define ANJUTA_PIXMAP_PASSWORD "password.png"
 
+#define ANJUTA_PIXMAP_PRINT_LAYOUT "print_layout.xpm"
+#define ANJUTA_PIXMAP_PRINT_PORTRAIT "print_portrait.xpm"
+#define ANJUTA_PIXMAP_PRINT_LANDSCAPE "print_landscape.xpm"
+#define ANJUTA_PIXMAP_PRINT_COLOR "print_color.xpm"
+#define ANJUTA_PIXMAP_PRINT_NOCOLOR "print_nocolor.xpm"
+
 /* used for the messages window buttons */
 #define ANJUTA_PIXMAP_MINI_BUILD "mini_build.xpm"
 #define ANJUTA_PIXMAP_MINI_DEBUG "mini_debug.xpm"

@@ -169,7 +169,6 @@ preferences_destroy (Preferences * pr)
 		gtk_widget_unref (pr->widgets.build_debug_check);
 		gtk_widget_unref (pr->widgets.build_warn_undef_check);
 		gtk_widget_unref (pr->widgets.build_jobs_spin);
-		// gtk_widget_unref (pr->widgets.build_autosave_check);
 		
 		gtk_widget_unref (pr->widgets.auto_save_check);
 		gtk_widget_unref (pr->widgets.auto_indent_check);
@@ -187,11 +186,17 @@ preferences_destroy (Preferences * pr)
 		gtk_widget_unref (pr->widgets.fold_on_open_check);
 
 		gtk_widget_unref (pr->widgets.paper_selector);
-		gtk_widget_unref (pr->widgets.print_header);
-		gtk_widget_unref (pr->widgets.print_wrap);
-		gtk_widget_unref (pr->widgets.print_linenum);
-		gtk_widget_unref (pr->widgets.print_linenum_count);
-		gtk_widget_unref (pr->widgets.print_landscape);
+		gtk_widget_unref (pr->widgets.print_header_check);
+		gtk_widget_unref (pr->widgets.print_wrap_check);
+		gtk_widget_unref (pr->widgets.print_linenum_count_spin);
+		gtk_widget_unref (pr->widgets.print_landscape_check);
+		gtk_widget_unref (pr->widgets.print_color_check);
+		gtk_widget_unref (pr->widgets.margin_left_spin);
+		gtk_widget_unref (pr->widgets.margin_right_spin);
+		gtk_widget_unref (pr->widgets.margin_top_spin);
+		gtk_widget_unref (pr->widgets.margin_bottom_spin);
+		gtk_widget_unref (pr->widgets.margin_header_spin);
+		gtk_widget_unref (pr->widgets.margin_numbers_spin);
 
 		gtk_widget_unref (pr->widgets.format_style_combo);
 		gtk_widget_unref (pr->widgets.custom_style_entry);
@@ -231,6 +236,12 @@ get_int_from_propset (PropsID props_id, gchar * key)
 	return prop_get_int (props_id, key, 0);
 }
 
+static gint
+get_int_from_propset_with_default (PropsID props_id, gchar * key, gint default_value)
+{
+	return prop_get_int (props_id, key, default_value);
+}
+
 gchar *
 preferences_get (Preferences * p, gchar * key)
 {
@@ -241,6 +252,12 @@ gint
 preferences_get_int (Preferences * p, gchar * key)
 {
 	return get_int_from_propset (p->props, key);
+}
+
+gint
+preferences_get_int_with_default (Preferences * p, gchar * key, gint default_value)
+{
+	return get_int_from_propset_with_default (p->props, key, default_value);
 }
 
 gchar *
@@ -484,26 +501,44 @@ preferences_sync (Preferences * pr)
 							SAVE_SESSION_TIMER));
 
 /* Page 4 */
-	str = preferences_get(pr, PAPER_SIZE);
+	str = preferences_get(pr, PRINT_PAPER_SIZE);
 	if (NULL == str)
 		str = g_strdup(gnome_paper_name_default());
-	gnome_paper_selector_set_name(GNOME_PAPER_SELECTOR(pr->widgets.paper_selector), str);
+	gtk_entry_set_text (GTK_ENTRY (pr->widgets.paper_selector), str);
 	g_free (str);
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON
-					(pr->widgets.print_header),
-					preferences_get_int (pr, PRINT_HEADER));
+					(pr->widgets.print_header_check),
+					preferences_get_int_with_default (pr, PRINT_HEADER, 1));
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON
-					(pr->widgets.print_wrap),
-					preferences_get_int (pr, PRINT_WRAP));
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON
-					(pr->widgets.print_linenum),
-					preferences_get_int (pr, PRINT_LINENUM));
+					(pr->widgets.print_wrap_check),
+					preferences_get_int_with_default (pr, PRINT_WRAP, 1));
 	gtk_spin_button_set_value (GTK_SPIN_BUTTON
-				   (pr->widgets.print_linenum_count),
-				   preferences_get_int (pr, PRINT_LINECOUNT));
+				   (pr->widgets.print_linenum_count_spin),
+				   preferences_get_int_with_default (pr, PRINT_LINENUM_COUNT, 1));
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON
-					(pr->widgets.print_landscape),
-					preferences_get_int (pr, PRINT_LANDSCAPE));
+					(pr->widgets.print_landscape_check),
+					preferences_get_int_with_default (pr, PRINT_LANDSCAPE, 0));
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON
+					(pr->widgets.print_color_check),
+					preferences_get_int_with_default (pr, PRINT_COLOR, 1));
+	gtk_spin_button_set_value (GTK_SPIN_BUTTON
+				   (pr->widgets.margin_left_spin),
+				   preferences_get_int_with_default (pr, PRINT_MARGIN_LEFT, 54));
+	gtk_spin_button_set_value (GTK_SPIN_BUTTON
+				   (pr->widgets.margin_right_spin),
+				   preferences_get_int_with_default (pr, PRINT_MARGIN_RIGHT, 54));
+	gtk_spin_button_set_value (GTK_SPIN_BUTTON
+				   (pr->widgets.margin_top_spin),
+				   preferences_get_int_with_default (pr, PRINT_MARGIN_TOP, 54));
+	gtk_spin_button_set_value (GTK_SPIN_BUTTON
+				   (pr->widgets.margin_bottom_spin),
+				   preferences_get_int_with_default (pr, PRINT_MARGIN_BOTTOM, 54));
+	gtk_spin_button_set_value (GTK_SPIN_BUTTON
+				   (pr->widgets.margin_header_spin),
+				   preferences_get_int_with_default (pr, PRINT_MARGIN_HEADER, 18));
+	gtk_spin_button_set_value (GTK_SPIN_BUTTON
+				   (pr->widgets.margin_numbers_spin),
+				   preferences_get_int_with_default (pr, PRINT_MARGIN_NUMBERS, 36));
 
 /* Page 5 */
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON
@@ -853,9 +888,31 @@ gboolean preferences_save_yourself (Preferences * pr, FILE * fp)
 		 preferences_get_int (pr, SAVE_SESSION_TIMER));
 
 	/* Page 4 */
-	str = preferences_get(pr, PAPER_SIZE);
-	fprintf(fp, "%s=%s\n", PAPER_SIZE, str);
+	str = preferences_get(pr, PRINT_PAPER_SIZE);
+	fprintf(fp, "%s=%s\n", PRINT_PAPER_SIZE, str);
 	g_free (str);
+	fprintf (fp, "%s=%d\n", PRINT_HEADER,
+		 preferences_get_int_with_default (pr, PRINT_HEADER, 1));
+	fprintf (fp, "%s=%d\n", PRINT_WRAP,
+		 preferences_get_int_with_default (pr, PRINT_WRAP, 1));
+	fprintf (fp, "%s=%d\n", PRINT_COLOR,
+		 preferences_get_int_with_default (pr, PRINT_COLOR, 1));
+	fprintf (fp, "%s=%d\n", PRINT_LINENUM_COUNT,
+		 preferences_get_int_with_default (pr, PRINT_LINENUM_COUNT, 1));
+	fprintf (fp, "%s=%d\n", PRINT_LANDSCAPE,
+		 preferences_get_int_with_default (pr, PRINT_LANDSCAPE, 0));
+	fprintf (fp, "%s=%d\n", PRINT_MARGIN_LEFT,
+		 preferences_get_int_with_default (pr, PRINT_MARGIN_LEFT, 54));
+	fprintf (fp, "%s=%d\n", PRINT_MARGIN_RIGHT,
+		 preferences_get_int_with_default (pr, PRINT_MARGIN_RIGHT, 54));
+	fprintf (fp, "%s=%d\n", PRINT_MARGIN_TOP,
+		 preferences_get_int_with_default (pr, PRINT_MARGIN_TOP, 54));
+	fprintf (fp, "%s=%d\n", PRINT_MARGIN_BOTTOM,
+		 preferences_get_int_with_default (pr, PRINT_MARGIN_BOTTOM, 54));
+	fprintf (fp, "%s=%d\n", PRINT_MARGIN_HEADER,
+		 preferences_get_int_with_default (pr, PRINT_MARGIN_HEADER, 18));
+	fprintf (fp, "%s=%d\n", PRINT_MARGIN_NUMBERS,
+		 preferences_get_int_with_default (pr, PRINT_MARGIN_NUMBERS, 36));
 
 	/* Page 5 */
 	fprintf (fp, "%s=%d\n", AUTOFORMAT_DISABLE,

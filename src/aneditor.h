@@ -96,6 +96,9 @@ extern "C" {
 #define   ANE_GET_LINENO                ANE_COMMAND_BASE+60
 #define   ANE_LINEWRAP                  ANE_COMMAND_BASE+61
 #define   ANE_READONLY                  ANE_COMMAND_BASE+62
+#define   ANE_GETSTYLEDTEXT             ANE_COMMAND_BASE+63
+#define   ANE_TEXTWIDTH                 ANE_COMMAND_BASE+64
+#define   ANE_GETLANGUAGE               ANE_COMMAND_BASE+65
 
 typedef guint AnEditorID;
 typedef struct _FindParameters FindParameters;

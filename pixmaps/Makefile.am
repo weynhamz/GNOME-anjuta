@@ -152,7 +152,12 @@ anjuta_pixmaps_DATA = \
 	sv_protected_var.xpm\
 	sv_static_var.xpm\
 	cfolder.xpm\
-	ofolder.xpm
+	ofolder.xpm\
+	print_layout.xpm\
+	print_portrait.xpm\
+	print_landscape.xpm\
+	print_color.xpm\
+	print_nocolor.xpm
 
 EXTRA_DIST = $(anjuta_pixmaps_DATA)
 

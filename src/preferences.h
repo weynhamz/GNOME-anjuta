@@ -119,11 +119,17 @@ struct _PreferencesWidgets
 	 * * Page 4 
 	 */
 	GtkWidget *paper_selector;
-	GtkWidget *print_header;
-	GtkWidget *print_wrap;
-	GtkWidget *print_linenum;
-	GtkWidget *print_linenum_count;
-	GtkWidget *print_landscape;
+	GtkWidget *print_header_check;
+	GtkWidget *print_wrap_check;
+	GtkWidget *print_linenum_count_spin;
+	GtkWidget *print_landscape_check;
+	GtkWidget *print_color_check;
+	GtkWidget *margin_left_spin;
+	GtkWidget *margin_right_spin;
+	GtkWidget *margin_top_spin;
+	GtkWidget *margin_bottom_spin;
+	GtkWidget *margin_header_spin;
+	GtkWidget *margin_numbers_spin;
 
 	/*
 	 * * Page 5 
@@ -165,7 +171,7 @@ struct _PreferencesWidgets
 
 	/* Page Ident */
 	GtkWidget *name_entry;
-  GtkWidget *email_entry;
+	GtkWidget *email_entry;
 };
 
 struct _Preferences
@@ -239,8 +245,11 @@ gchar *preferences_get_format_opts (Preferences * p);
 /* Must free the return string */
 gchar *preferences_get (Preferences * p, gchar * key);
 
-/* Gets the value (int) of a key */
+/* Gets the value (int) of a key. If not found, 0 is returned */
 gint preferences_get_int (Preferences * p, gchar * key);
+
+/* Gets the value (int) of a key. If not found, the default_value is returned */
+gint preferences_get_int_with_default (Preferences * p, gchar * key, gint default_value);
 
 gchar *preferences_default_get (Preferences * p, gchar * key);
 
@@ -256,79 +265,84 @@ void preferences_set_build_options(Preferences* p);
  * Use the keys instead of using the strings directly.
  *
  * Call these as the second arg of the
- * functions preferences_get(), preferences_get_int(),
- * preferences_set() and preferences_set_int() to
- * manupulate the preferences variables.
+ * functions preferences_get_*() or preferences_set_*() to
+ * read or write a preference value the preferences variables.
 */
 
-#define PROJECTS_DIRECTORY "projects.directory"
-#define TARBALLS_DIRECTORY "tarballs.directory"
-#define RPMS_DIRECTORY "rpms.directory"
-#define SRPMS_DIRECTORY "srpms.directory"
-#define MAXIMUM_RECENT_PROJECTS "maximum.recent.projects"
-#define MAXIMUM_RECENT_FILES "maximum.recent.files"
-#define MAXIMUM_COMBO_HISTORY "maximum.combo.history"
-#define DIALOG_ON_BUILD_COMPLETE "dialog.on.build.complete"
-#define BEEP_ON_BUILD_COMPLETE "beep.on.build.complete"
-#define RELOAD_LAST_PROJECT "reload.last.project"
+#define PROJECTS_DIRECTORY         "projects.directory"
+#define TARBALLS_DIRECTORY         "tarballs.directory"
+#define RPMS_DIRECTORY             "rpms.directory"
+#define SRPMS_DIRECTORY            "srpms.directory"
+#define MAXIMUM_RECENT_PROJECTS    "maximum.recent.projects"
+#define MAXIMUM_RECENT_FILES       "maximum.recent.files"
+#define MAXIMUM_COMBO_HISTORY      "maximum.combo.history"
+#define DIALOG_ON_BUILD_COMPLETE   "dialog.on.build.complete"
+#define BEEP_ON_BUILD_COMPLETE     "beep.on.build.complete"
+#define RELOAD_LAST_PROJECT        "reload.last.project"
 
-#define BUILD_OPTION_KEEP_GOING "build.option.keep.going"
-#define BUILD_OPTION_DEBUG "build.option.debug"
-#define BUILD_OPTION_SILENT "build.option.silent"
-#define BUILD_OPTION_WARN_UNDEF "build.option.warn.undef"
-#define BUILD_OPTION_JOBS "build.option.jobs"
-#define BUILD_OPTION_AUTOSAVE "build.option.autosave"
+#define BUILD_OPTION_KEEP_GOING    "build.option.keep.going"
+#define BUILD_OPTION_DEBUG         "build.option.debug"
+#define BUILD_OPTION_SILENT        "build.option.silent"
+#define BUILD_OPTION_WARN_UNDEF    "build.option.warn.undef"
+#define BUILD_OPTION_JOBS          "build.option.jobs"
+#define BUILD_OPTION_AUTOSAVE      "build.option.autosave"
 
-#define DISABLE_SYNTAX_HILIGHTING "disable.syntax.hilighting"
-#define SAVE_AUTOMATIC "save.automatic"
-#define INDENT_AUTOMATIC "indent.automatic"
-#define USE_TABS "use.tabs"
-#define BRACES_CHECK "braces.check"
-#define DOS_EOL_CHECK "editor.doseol"
-#define WRAP_BOOKMARKS "editor.wrapbookmarks"
-#define TAB_SIZE "tabsize"
-#define INDENT_SIZE "indent.size"
-#define INDENT_OPENING "indent.opening"
-#define INDENT_CLOSING "indent.closing"
-#define AUTOSAVE_TIMER "autosave.timer"
-#define MARGIN_LINENUMBER_WIDTH "margin.linenumber.width"
-#define SAVE_SESSION_TIMER "save.session.timer"
-#define AUTOFORMAT_DISABLE "autoformat.disable"
-#define AUTOFORMAT_CUSTOM_STYLE "autoformat.custom.style"
-#define AUTOFORMAT_STYLE "autoformat.style"
-#define EDITOR_TAG_POS "editor.tag.pos"
-#define EDITOR_TAG_HIDE "editor.tag.hide"
-#define EDITOR_TABS_ORDERING "editor.tabs.ordering"
-#define STRIP_TRAILING_SPACES "strip.trailing.spaces"
-#define FOLD_ON_OPEN "fold.on.open"
-#define CARET_FORE_COLOR "caret.fore"
-#define CALLTIP_BACK_COLOR "calltip.back"
-#define SELECTION_FORE_COLOR "selection.fore"
-#define SELECTION_BACK_COLOR "selection.back"
+#define DISABLE_SYNTAX_HILIGHTING  "disable.syntax.hilighting"
+#define SAVE_AUTOMATIC         "save.automatic"
+#define INDENT_AUTOMATIC       "indent.automatic"
+#define USE_TABS               "use.tabs"
+#define BRACES_CHECK           "braces.check"
+#define DOS_EOL_CHECK          "editor.doseol"
+#define WRAP_BOOKMARKS         "editor.wrapbookmarks"
+#define TAB_SIZE               "tabsize"
+#define INDENT_SIZE            "indent.size"
+#define INDENT_OPENING         "indent.opening"
+#define INDENT_CLOSING         "indent.closing"
+#define AUTOSAVE_TIMER         "autosave.timer"
+#define MARGIN_LINENUMBER_WIDTH   "margin.linenumber.width"
+#define SAVE_SESSION_TIMER        "save.session.timer"
+#define AUTOFORMAT_DISABLE        "autoformat.disable"
+#define AUTOFORMAT_CUSTOM_STYLE   "autoformat.custom.style"
+#define AUTOFORMAT_STYLE       "autoformat.style"
+#define EDITOR_TAG_POS         "editor.tag.pos"
+#define EDITOR_TAG_HIDE        "editor.tag.hide"
+#define EDITOR_TABS_ORDERING   "editor.tabs.ordering"
+#define STRIP_TRAILING_SPACES  "strip.trailing.spaces"
+#define FOLD_ON_OPEN           "fold.on.open"
+#define CARET_FORE_COLOR       "caret.fore"
+#define CALLTIP_BACK_COLOR     "calltip.back"
+#define SELECTION_FORE_COLOR   "selection.fore"
+#define SELECTION_BACK_COLOR   "selection.back"
 
-#define TRUNCAT_MESSAGES "truncat.messages"
-#define TRUNCAT_MESG_FIRST "truncat.mesg.first"
-#define TRUNCAT_MESG_LAST "truncat.mesg.last"
-#define MESSAGES_TAG_POS "messages.tag.position"
+#define TRUNCAT_MESSAGES       "truncat.messages"
+#define TRUNCAT_MESG_FIRST     "truncat.mesg.first"
+#define TRUNCAT_MESG_LAST      "truncat.mesg.last"
+#define MESSAGES_TAG_POS       "messages.tag.position"
 
-#define MESSAGES_COLOR_ERROR "messages.color.error"
-#define MESSAGES_COLOR_WARNING "messages.color.warning"
+#define MESSAGES_COLOR_ERROR     "messages.color.error"
+#define MESSAGES_COLOR_WARNING   "messages.color.warning"
 #define MESSAGES_COLOR_MESSAGES1 "messages.color.messages1"
 #define MESSAGES_COLOR_MESSAGES2 "messages.color.messages2"
 
-#define AUTOMATIC_TAGS_UPDATE "automatic.tags.update"
+#define AUTOMATIC_TAGS_UPDATE   "automatic.tags.update"
 
-#define PAPER_SIZE "paper.size"
-#define PRINT_HEADER "print.header"
-#define PRINT_WRAP "print.wordwrap"
-#define PRINT_LINENUM "print.linenumber"
-#define PRINT_LINECOUNT "print.linecount"
-#define PRINT_LANDSCAPE "print.landscape"
+#define PRINT_PAPER_SIZE        "paper.size"
+#define PRINT_HEADER            "print.header"
+#define PRINT_WRAP              "print.linewrap"
+#define PRINT_LINENUM_COUNT     "print.linenumber.count"
+#define PRINT_LANDSCAPE         "print.landscape"
+#define PRINT_MARGIN_LEFT       "print.margin.left"
+#define PRINT_MARGIN_RIGHT      "print.margin.right"
+#define PRINT_MARGIN_TOP        "print.margin.top"
+#define PRINT_MARGIN_BOTTOM     "print.margin.bottom"
+#define PRINT_MARGIN_HEADER     "print.margin.header"
+#define PRINT_MARGIN_NUMBERS    "print.margin.numbers"
+#define PRINT_COLOR             "print.color"
 
-#define USE_COMPONENTS "components.enable"
+#define USE_COMPONENTS          "components.enable"
 
-#define IDENT_NAME "ident.name"
-#define IDENT_EMAIL "ident.email"
+#define IDENT_NAME              "ident.name"
+#define IDENT_EMAIL             "ident.email"
 
 /* Miscellaneous */
 #define CHARACTER_SET "character.set"
