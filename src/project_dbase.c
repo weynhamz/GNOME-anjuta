@@ -100,6 +100,7 @@ gchar *project_type_map[]=
 	"BONOBO",
 	"GTK--",
 	"GNOME--",
+	"LIBGLADE",
 	NULL
 };
 
@@ -1510,7 +1511,7 @@ project_dbase_generate_source_code (ProjectDBase *p)
 {
 	gchar *filename, *target;
 	gboolean ret;
-
+	
 	if (p->project_is_open == FALSE)
 		return FALSE;
 
@@ -1520,7 +1521,7 @@ project_dbase_generate_source_code (ProjectDBase *p)
 	{
 		return source_write_generic_main_c (p);
 	}
-	
+
 	filename = g_strdup_printf ("%s/%s.glade",
 				    p->top_proj_dir,
 				    target);
@@ -1534,6 +1535,10 @@ project_dbase_generate_source_code (ProjectDBase *p)
 	}
 	else
 	{
+		if (project_dbase_get_project_type (p)->id == PROJECT_TYPE_LIBGLADE)
+		{
+			ret = source_write_libglade_main_c (p);
+		} else
 		if ((ret=glade_iface_generate_source_code (filename)) == FALSE)
 			ret = source_write_generic_main_c (p);
 	}

@@ -55,6 +55,28 @@ gchar* project_type_gtk[] =
 	"1",
 };
 
+gchar* project_type_libglade[] =
+{
+	"LIBGLADE",
+	
+	" \\\n\t$(GNOME_INCLUDEDIR) $(LIBGLADE_CFLAGS)",
+	" \\\n\t$(LIBGLADE_LIBS)",
+	
+	"\n"
+	"dnl Pick up the GNOME macros.\n"
+	"AM_ACLOCAL_INCLUDE(macros)\n"
+	"\n"
+	"dnl GNOME macros.\n"
+	"GNOME_INIT\n"
+	"GNOME_COMPILE_WARNINGS\nGNOME_X_CHECKS\n"
+	"AM_PATH_LIBGLADE(,,\"gnome\")",
+	
+	"/autogen.sh.gnome",
+	
+	"1",
+	"1",
+};
+
 gchar* project_type_gnome[] =
 {
 	"GNOME",
@@ -180,6 +202,11 @@ Project_Type* load_project_type(gint id)
 		case PROJECT_TYPE_BONOBO:
 		{
 			type = load_type_from_data(project_type_bonobo, id);
+			break;
+		}
+		case PROJECT_TYPE_LIBGLADE:
+		{
+			type = load_type_from_data(project_type_libglade, id);
 			break;
 		}
 		default:

@@ -111,6 +111,18 @@ gchar *anjuta_supports[][ANJUTA_SUPPORT_END_MARK] = {
 	 "",
 	 "gnome-config --version"}
 	 ,
+	{
+	 "LIBGLADE",
+	 "C program using libglade",
+	 "",
+	 "",
+	 "$(LIBGLADE_CFLAGS)",
+	 "$(LIBGLADE_LIBS)",
+	 "`libglade-config --cflags gnome`",
+	 "`libglade-config --libs gnome`",
+	 "",
+	 "libglade-config --version"}
+	 ,
 	ANJUTA_SUPPORTS_END
 };
 

@@ -1,5 +1,24 @@
 2002-01-21  Naba Kumar <kh_naba@users.sourceforge.net>
 
+	* src/appwiz_page1.c
+	  src/compiler_options.c
+	  src/project_dbase.c
+	  src/project_dbase.h
+	  src/project_type.c
+	  src/source.c
+	  src/source.h:
+	  
+	  New project type named LibGlade.
+	  
+	  Patch submitted by:
+	  Dick Knol <dknol@gmx.net>
+
+	* src/gnome_prj.c:
+	  Commented out unused pixmap creation. May be it
+	  will fix the crash in project creation.
+	  
+2002-01-21  Naba Kumar <kh_naba@users.sourceforge.net>
+
 	* src/registers.c
 	  src/registers.h
 	  src/registers_cbs.c

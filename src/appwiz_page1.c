@@ -48,13 +48,16 @@ on_wizard_app_icon_select (GnomeIconList * gil, gint num,
     aw->prj_type = PROJECT_TYPE_GNOME;
     break;
    case 3:
- 	aw->prj_type = PROJECT_TYPE_GTKMM;
-    	break;
+    aw->prj_type = PROJECT_TYPE_GTKMM;
+    break;
   case 4:
- 	aw->prj_type = PROJECT_TYPE_GNOMEMM;
-  	break;
+    aw->prj_type = PROJECT_TYPE_GNOMEMM;
+    break;
   case 5:
     aw->prj_type = PROJECT_TYPE_BONOBO;
+    break;
+  case 6:
+    aw->prj_type = PROJECT_TYPE_LIBGLADE;
     break;
  default: /* Invalid project type */
     aw->prj_type = PROJECT_TYPE_END_MARK;
@@ -74,7 +77,7 @@ create_app_wizard_page1 (AppWizard * aw)
   GtkWidget *label2;
   GtkWidget *druid_vbox1;
 
-  gchar *icon1_file, *icon2_file, *icon3_file, *icon4_file, *icon5_file, *icon6_file;
+  gchar *icon1_file, *icon2_file, *icon3_file, *icon4_file, *icon5_file, *icon6_file, *icon7_file;
 
   frame = gtk_frame_new (NULL);
   gtk_widget_show (frame);
@@ -124,6 +127,7 @@ create_app_wizard_page1 (AppWizard * aw)
   icon4_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_APP_GTKMM);
   icon5_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_APP_GNOMEMM);
   icon6_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_APP_COMPONENT);
+  icon7_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_APP_GNOME);
 
   if (icon1_file)
 	  gnome_icon_list_append (GNOME_ICON_LIST (iconlist1),
@@ -149,12 +153,17 @@ create_app_wizard_page1 (AppWizard * aw)
 	  gnome_icon_list_append (GNOME_ICON_LIST (iconlist1),
 			  icon6_file, _("Bonobo component"));
 
-  string_free  (icon1_file);
+  if (icon7_file)
+	  gnome_icon_list_append (GNOME_ICON_LIST (iconlist1),
+			  icon7_file, _("LibGlade project"));
+
+  string_free (icon1_file);
   string_free (icon2_file);
   string_free (icon3_file);
   string_free (icon4_file);
   string_free (icon5_file);
   string_free (icon6_file);
+  string_free (icon7_file);
 
   gtk_signal_connect (GTK_OBJECT (iconlist1), "select_icon",
 		      GTK_SIGNAL_FUNC (on_wizard_app_icon_select), aw);

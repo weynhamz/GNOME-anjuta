@@ -85,7 +85,7 @@ create_app_wizard_page3 (AppWizard * aw)
 	GtkWidget *hbox1;
 	gchar *pixmap1_filename;
 	GtkWidget *pixmap1;
-	GtkWidget *vseparator1;
+	/* GtkWidget *vseparator1; */
 	GtkWidget *vbox1;
 	GSList *vbox1_group = NULL;
 	GtkWidget *radiobutton1;
@@ -141,12 +141,13 @@ create_app_wizard_page3 (AppWizard * aw)
 	gtk_container_add (GTK_CONTAINER (frame2), hbox1);
 	gtk_container_set_border_width (GTK_CONTAINER (hbox1), 5);
 	
+/*
 	pixmap1 = gtk_type_new (gnome_pixmap_get_type ());
 	pixmap1_filename = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_APPWIZ_GEAR);
 	if (pixmap1_filename)
-	gnome_pixmap_load_file_at_size (GNOME_PIXMAP (pixmap1), pixmap1_filename, 100, 100);
+		gnome_pixmap_load_file_at_size (GNOME_PIXMAP (pixmap1), pixmap1_filename, 100, 100);
 	else
-	g_warning (_("Couldn't find pixmap file: %s"), pixmap1_filename);
+		g_warning (_("Couldn't find pixmap file: %s"), pixmap1_filename);
 	g_free (pixmap1_filename);
 	gtk_widget_show (pixmap1);
 	gtk_box_pack_start (GTK_BOX (hbox1), pixmap1, FALSE, FALSE, 0);
@@ -154,7 +155,7 @@ create_app_wizard_page3 (AppWizard * aw)
 	vseparator1 = gtk_vseparator_new ();
 	gtk_widget_show (vseparator1);
 	gtk_box_pack_start (GTK_BOX (hbox1), vseparator1, TRUE, TRUE, 0);
-	
+*/	
 	vbox1 = gtk_vbox_new (FALSE, 0);
 	gtk_widget_show (vbox1);
 	gtk_box_pack_start (GTK_BOX (hbox1), vbox1, TRUE, TRUE, 0);
