@@ -1,3 +1,8 @@
+2003-10-02  Jordi Mallach  <jordi@sindominio.net>
+
+	* ca.po: Updated Catalan translation by
+	Xavier A. Conde Rueda <f3285740@est.fib.up.es>.
+
 2003-09-27  Metin Amiroff  <metin@karegen.com>
 
 	* az.po: Updated Azerbaijani translation.
@@ -29,7 +34,7 @@
 
 2003-09-14  Hasbullah Bin Pit <sebol@ikhlas.com>
                                                                                 
-        * ms.po: Added Translation by
+	* ms.po: Added Translation by
                 MIMOS Open Source Development Group <ismas@mimos.my>
                                                                                 
 2003-09-11  Miloslav Trmac  <mitr@volny.cz>
@@ -38,7 +43,7 @@
 
 2003-09-09  Pablo Gonzalo del Campo  <pablodc@bigfoot.com>
 
-        * es.po: Updated Spanish translation by
+	* es.po: Updated Spanish translation by
                  Francisco Javier F. Serrador <serrador@arrakis.es>.
 
 2003-09-09  Duarte Loreto <happyguy_pt@hotmail.com>
@@ -262,7 +267,7 @@
 
 2003-05-30  Pablo Gonzalo del Campo  <pablodc@bigfoot.com>
 
-        * es.po: Updated Spanish translation by
+	* es.po: Updated Spanish translation by
           Francisco Javier Fernandez <serrador@arrakis.es>.
 
 2003-05-30  Christian Rose  <menthos@menthos.com>
@@ -283,7 +288,7 @@
 	
 2003-05-26  Pablo Gonzalo del Campo  <pablodc@bigfoot.com>
 
-        * es.po: Updated Spanish translation by
+	* es.po: Updated Spanish translation by
           Francisco Javier Fernandez <serrador@arrakis.es>.
 
 2003-05-26  Vincent van Adrighem  <V.vanAdrighem@dirck.mine.nu>
@@ -296,7 +301,7 @@
 
 2003-05-20  Duarte Loreto <happyguy_pt@hotmail.com>
 
-        * pt.po: Updated Portuguese translation.
+	* pt.po: Updated Portuguese translation.
 
 2003-05-20  Abel Cheung  <maddog@linux.org.hk>
 
@@ -328,7 +333,7 @@
 
 2003-05-07  Duarte Loreto <happyguy_pt@hotmail.com>
 
-        * pt.po: Updated Portuguese translation.
+	* pt.po: Updated Portuguese translation.
 
 2003-05-06  Miloslav Trmac  <mitr@volny.cz>
 
