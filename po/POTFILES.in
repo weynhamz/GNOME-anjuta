@@ -4,8 +4,6 @@ anjuta.desktop.in.in
 plugins/class-gen/clsGen.c
 plugins/sample1/plugin-sample1.c
 src/CORBA-Server.c
-src/about.c
-src/about.h
 src/an_file_view.c
 src/an_symbol_view.c
 src/aneditor.cxx
@@ -170,6 +168,8 @@ src/watch_cbs.c
 src/watch_cbs.h
 src/watch_gui.c
 src/wizard_gui.c
+widgets/e-shell-about-box.c
+widgets/e-shell-about-box.h
 widgets/gnomedirlist.c
 widgets/gnomefilelist.c
 widgets/scroll-menu.c

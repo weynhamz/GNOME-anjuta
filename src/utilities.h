@@ -24,6 +24,7 @@
 #define COMBO_LIST_LENGTH \
 		preferences_get_int (app->preferences, MAXIMUM_COMBO_HISTORY)
 
+#define _STR(S) ((S)?(S):"")
 
 /* Any addition to this enum must be synced with the
 function get_file_ext_type() */

@@ -391,3 +391,32 @@ on_anjuta_window_key_press_event (GtkWidget   *widget,
 	}
 
 	...
+	
+
+7) How to add a new project type:
+---------------------------------
+
+It is currently a bit difficult - the code is spread around and not
+very consistent. 
+
+Things to do as a start:
+
+- in project_type.c and add an array for your project type (this 
+is well-commented). Add it to the load_project_type function.
+
+- in project_dbase.h: Add your project type to the enum PROJECT_TYPE_*
+
+- in wizard_gui.c: create_project_type_selection_page():
+Add an icon to the list for the project type and define it in pixmaps.h
+(If you are a bad artist, it might be good to ask for help with this on 
+the mailing list)
+
+- appwiz_page1.c: Add your type in on_wizard_app_icon_select()
+
+So that was the easy part ;-)
+
+Now search for every occurence of PROJECT_TYPE_* in the codebase, and 
+decide if you have anything to add (there are about 10 places where it 
+occurs).
+
+Good luck!

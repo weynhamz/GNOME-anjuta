@@ -1,3 +1,14 @@
+2002-05-03  Andy Piper <andy.piper@freeuk.com>
+
+	* anjuta.prj: added new files
+	* HACKING: added information from the mailing list on 
+	adding new project types to the wizard (thanks to Johannes)
+
+2002-05-03  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
+ 
+ 	* src/utilities.h, src/launcher.c, src/gnome_project.c,
+ 	  src/appwiz_page2.c: Fix for 547038.
+
 2002-05-03  Naba Kumar <kh_naba@users.sourceforge.net>
 
     * attach_process.c, attach_process_cbs.c: Fixed a dialog

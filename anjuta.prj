@@ -91,7 +91,6 @@ module.include.files=\
 	src/CORBA-Server.h\
 	src/Gladen.h\
 	src/Prj.h\
-	src/about.h\
 	src/an_file_view.h\
 	src/an_symbol_view.h\
 	src/aneditor.h\
@@ -197,6 +196,7 @@ module.include.files=\
 	tagmanager/sort.h\
 	tagmanager/strlist.h\
 	tagmanager/vstring.h\
+	widgets/e-shell-about-box.h\
 	widgets/gnomedirlist.h\
 	widgets/gnomefilelist.h\
 	widgets/scroll-menu.h
@@ -255,7 +255,6 @@ module.source.files=\
 	src/Prj-skelimpl.c\
 	src/Prj-skels.c\
 	src/Prj-stubs.c\
-	src/about.c\
 	src/an_file_view.c\
 	src/an_symbol_view.c\
 	src/aneditor.cxx\
@@ -400,6 +399,7 @@ module.source.files=\
 	tagmanager/vim.c\
 	tagmanager/vstring.c\
 	tagmanager/yacc.c\
+	widgets/e-shell-about-box.c\
 	widgets/gnomedirlist.c\
 	widgets/gnomefilelist.c\
 	widgets/scroll-menu.c

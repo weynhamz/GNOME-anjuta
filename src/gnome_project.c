@@ -113,18 +113,18 @@ create_new_project (AppWizard * aw)
 	fprintf(fp, "props.file.type=project\n\n");
 	fprintf(fp, "anjuta.version=%s\n", VERSION);
 	fprintf(fp, "anjuta.compatibility.level=%d\n\n", COMPATIBILITY_LEVEL);
-	fprintf(fp, "project.name=%s\n", aw->prj_name);
+	fprintf(fp, "project.name=%s\n", _STR(aw->prj_name));
 	fprintf(fp, "project.type=%s\n", project_type_map[aw->prj_type]);
 	fprintf(fp, "project.target.type=%s\n", project_target_type_map[aw->target_type]);
-	fprintf(fp, "project.version=%s\n", aw->version);
-	fprintf(fp, "project.author=%s\n", aw->author);
-	fprintf(fp, "project.source.target=%s\n", aw->target);
+	fprintf(fp, "project.version=%s\n", _STR(aw->version));
+	fprintf(fp, "project.author=%s\n", _STR(aw->author));
+	fprintf(fp, "project.source.target=%s\n", _STR(aw->target));
 	fprintf(fp, "project.programming.language=%s\n\n", programming_language_map[aw->language]);
 	fprintf(fp, "project.has.gettext=%d\n", aw->gettext_support);
 	fprintf(fp, "project.use.header=%d\n\n", aw->use_header);
-	fprintf(fp, "project.menu.entry=%s\n", aw->menu_entry);
-	fprintf(fp, "project.menu.group=%s\n", aw->app_group);
-	fprintf(fp, "project.menu.comment=%s\n", aw->menu_comment);
+	fprintf(fp, "project.menu.entry=%s\n", _STR(aw->menu_entry));
+	fprintf(fp, "project.menu.group=%s\n", _STR(aw->app_group));
+	fprintf(fp, "project.menu.comment=%s\n", _STR(aw->menu_comment));
 
 	if (aw->icon_file) {
 		gchar *ext = get_file_extension (aw->icon_file);
@@ -138,11 +138,11 @@ create_new_project (AppWizard * aw)
 		fprintf (fp, "project.menu.icon=\n");
 
 	fprintf(fp, "project.menu.need.terminal=%d\n\n", aw->need_terminal);
-	
+
 	type = load_project_type(aw->prj_type);
 	if (type->id != PROJECT_TYPE_GENERIC)
 	{
-		fprintf(fp, "compiler.options.supports=%s\n\n", type->save_string);
+		fprintf(fp, "compiler.options.supports=%s\n\n", _STR(type->save_string));
 		//free_project_type(type);
 		//type = NULL ;
 	}
@@ -169,7 +169,7 @@ create_new_project (AppWizard * aw)
 		gchar* dest;
 		
 		dir = project_dbase_get_module_dir (app->project_dbase, MODULE_PIXMAP);
-		dest = g_strdup_printf ("%s/%s_icon.%s", dir, aw->target, get_file_extension (aw->icon_file));
+		dest = g_strdup_printf ("%s/%s_icon.%s", dir, _STR(aw->target), _STR(get_file_extension (aw->icon_file)));
 		force_create_dir (dir);
 		if (copy_file (aw->icon_file, dest, FALSE) == FALSE)
 		{
@@ -185,7 +185,7 @@ create_new_project (AppWizard * aw)
 		free_project_type(type);
 		type = NULL;
 	}
-	
+
 	anjuta_message_manager_append (app->messages, _("Locating files ...\n"), MESSAGE_BUILD);
 	for(i=0; i<MODULE_END_MARK; i++)
 	{

@@ -171,40 +171,40 @@ launcher_scan_pty()
 {
    gchar* chars;
    gint len;
-   chars = zvt_term_get_buffer(ZVT_TERM(launcher.terminal),
-	&len, VT_SELTYPE_CHAR,
-      -10000, 0, 10000, 0);
 
-   zvt_term_reset(ZVT_TERM(launcher.terminal), TRUE);
-   launcher.char_pos = 1;
-	
-   if (chars && strlen(chars) > launcher.char_pos) {
-	  glong start, end;
-	  gchar *last_line;
-	   
+	if (launcher.terminal)
+	{
+		chars = zvt_term_get_buffer(ZVT_TERM(launcher.terminal),
+		  &len, VT_SELTYPE_CHAR, -10000, 0, 10000, 0);
+		zvt_term_reset(ZVT_TERM(launcher.terminal), TRUE);
+		launcher.char_pos = 1;
+		if (chars && strlen(chars) > launcher.char_pos)
+		{
+			glong start, end;
+			gchar *last_line;
 #ifdef DEBUG
-   g_print("Chars buffer = %s, len = %d", chars, len);
+			g_print("Chars buffer = %s, len = %d", chars, len);
 #endif
-	  
-	  end = strlen(chars)-1;
-	  while (end > 0 && chars[end] == '\n') end--;
-	  start = end;
-	  while (start > 0 && chars[start-1] != '\n') start--;
+			end = strlen(chars)-1;
+			while (end > 0 && chars[end] == '\n') end--;
+			start = end;
+			while (start > 0 && chars[start-1] != '\n') start--;
 
-	  if (end > start) {
-		  last_line = g_strndup(&chars[start], end-start+1);
-		  
+			if (end > start)
+			{
+				last_line = g_strndup(&chars[start], end-start+1);
+
 #ifdef DEBUG
-   g_print("Last line = %s", last_line);
+				g_print("Last line = %s", last_line);
 #endif
-		  if (launcher.child_has_terminated < 1)
-			  launcher_pty_check_password(last_line);
-		  launcher.pty_is_done = launcher_pty_check_child_exit_code(last_line);
-		  g_free(last_line);
-	  }
-	  launcher.char_pos = strlen(chars);
-	  /*g_free(chars);*/
-   }
+				if (launcher.child_has_terminated < 1)
+					launcher_pty_check_password(last_line);
+				launcher.pty_is_done = launcher_pty_check_child_exit_code(last_line);
+				g_free(last_line);
+			}
+			launcher.char_pos = strlen(chars);
+		}
+	}
 };
 
 static gint launcher_poll_inputs_on_idle (gpointer data)
