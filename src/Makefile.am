@@ -15,6 +15,14 @@ INCLUDES = \
 #	-DGDK_PIXBUF_DEPRECATED \
 #	-DGTK_DISABLE_DEPRECATED -DGNOME_DISABLE_DEPRECATED
 
+BUILT_SOURCES = \
+	anjuta-marshalers.h \
+	anjuta-marshalers.c
+
+CLEANFILES = \
+	anjuta-marshalers.h \
+	anjuta-marshalers.c
+
 $(srcdir)/anjuta-marshalers.h: stamp-anjuta-marshalers.h
 	@true
 stamp-anjuta-marshalers.h: anjuta-marshalers.list
