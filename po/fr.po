@@ -42,23 +42,23 @@ msgstr "Nom de classe invalide"
 
 #: plugins/class-gen/clsGen.c:230
 msgid "Declaration filename not valid"
-msgstr "Nom du fichier contenant les déclarations invalide"
+msgstr "Nom du fichier de déclarations invalide"
 
 #: plugins/class-gen/clsGen.c:235
 msgid "Implementation filename not valid"
-msgstr "Nom du fichier contenant l'implémentation invalide"
+msgstr "Nom du fichier d'implémentation invalide"
 
 #: plugins/class-gen/clsGen.c:590
 msgid "Error importing source file"
-msgstr "Erreur lors de l'import du fichier source"
+msgstr "Erreur lors de l'importation du fichier source"
 
 #: plugins/class-gen/clsGen.c:594
 msgid "Error importing include file"
-msgstr "Erreur lors de l'import du fichier d'en-tête"
+msgstr "Erreur lors de l'importation du fichier d'en-tête"
 
 #: plugins/class-gen/clsGen.c:597
 msgid "Error importing files"
-msgstr "Erreur lors de l'import des fichiers"
+msgstr "Erreur lors de l'importation des fichiers"
 
 #: plugins/class-gen/clsGen.c:636
 msgid "New Class :"
@@ -74,11 +74,11 @@ msgstr "Nom de la classe"
 
 #: plugins/class-gen/clsGen.c:696
 msgid "Declaration File:"
-msgstr "Fichier contenant l'en-tête :"
+msgstr "Fichier de déclarations :"
 
 #: plugins/class-gen/clsGen.c:705
 msgid "Implementation File:"
-msgstr "Fichier contenant l'implémentation :"
+msgstr "Fichier d'implémentation :"
 
 #: plugins/sample1/plugin-sample1.c:16
 msgid "Sample Plugin Description. Holla!"
@@ -129,8 +129,8 @@ msgid ""
 "No default viewer specified for the mime type %s.\n"
 "Please set it in GNOME control center"
 msgstr ""
-"Aucun afficheur par défaut affecté au type/mime %s.\n"
-"Veuillez en specifier au moins un dans le centre de contrôle GNOME."
+"Aucun afficheur par défaut affecté au type MIME %s.\n"
+"Veuillez en specifier au moins un dans le Centre de contrôle GNOME."
 
 #: src/an_file_view.c:136 src/text_editor_gui.c:122 src/toolbar.c:120
 msgid "Open"
@@ -138,7 +138,7 @@ msgstr "Ouvrir"
 
 #: src/an_file_view.c:142
 msgid "View in Default Viewer"
-msgstr "Visualiser avec visu. par défaut"
+msgstr "Voir avec visualiseur par défaut"
 
 #: src/an_file_view.c:148 src/an_symbol_view.c:249
 msgid "Refresh Tree"
@@ -253,8 +253,8 @@ msgid ""
 "The \"%s\" utility is not installed.\n"
 "Install it and then restart Anjuta."
 msgstr ""
-"Le programme \"%s\" n'est pas installé sur votre machine.\n"
-"Installez-le puis redémarrer Anjuta."
+"Le programme \"%s\" n'est pas installé.\n"
+"Installez-le puis redémarrez Anjuta."
 
 #: src/anjuta.c:1910 src/anjuta.c:1965
 msgid "None"
@@ -389,8 +389,8 @@ msgid ""
 "Invalid %s field:\n"
 "You must supply a valid %s field to proceed further."
 msgstr ""
-"Le champ %s est invalide: vous devez fournir un champ %s\n"
-"valide avant de pouvoir poursuivre."
+"Champ %s invalide :\n"
+"fournissez un champ %s valide pour continuer."
 
 #. For the time being
 #: src/appwizard_cbs.c:267 src/project_dbase.c:1339 src/project_dbase.c:1344
@@ -457,9 +457,9 @@ msgid ""
 "settings later."
 msgstr ""
 "L'assistant de création d'applications va générer\n"
-"un squelette basique pour le projet, en incluant\n"
-"tous les fichiers nécessaires à sa construction. Il\n"
-"vous faudra répondre à une série de question\n"
+"un squelette pour le projet en incluant tous\n"
+"les fichiers nécessaires à sa construction.\n"
+"Il vous faudra répondre à une série de questions\n"
 "visant à établir cette structure initiale.\n"
 "\n"
 "Répondez aux questions attentivement, car vous ne\n"
@@ -467,7 +467,7 @@ msgstr ""
 
 #: src/appwizard_gui.c:82 src/appwizard_gui.c:95
 msgid "Application Wizard"
-msgstr "Assistant de création d'une application"
+msgstr "Assistant de création d'application"
 
 #: src/attach_process.c:118
 #, c-format
@@ -535,8 +535,8 @@ msgstr "0"
 #: src/breakpoints.c:866
 msgid "Breakpoint is set, but the ID could not be found."
 msgstr ""
-"Le point d'arrêt est positionné, mais son identifiant n'a pu\n"
-"être trouvé."
+"Le point d'arrêt est positionné, mais son identifiant\n"
+"est introuvable."
 
 #: src/breakpoints_cbs.c:96
 msgid "Are you sure you want to delete all breakpoints?"
@@ -587,7 +587,7 @@ msgstr "Editer"
 
 #: src/breakpoints_gui.c:139
 msgid "Toggle Enable"
-msgstr "(Dés)activer"
+msgstr "Activer/Désactiver"
 
 #: src/breakpoints_gui.c:146 src/stack_trace_gui.c:57
 msgid "View Source"
@@ -599,7 +599,7 @@ msgstr "Tout désactiver"
 
 #: src/breakpoints_gui.c:160
 msgid "Enable All"
-msgstr "Tout désactiver"
+msgstr "Tout activer"
 
 #: src/breakpoints_gui.c:167
 msgid "Delete All"
@@ -661,11 +661,11 @@ msgstr "Temps total utilisé : %d secondes\n"
 
 #: src/build_file.c:135
 msgid "Build completed ... unsuccessful\n"
-msgstr "La construction a échouée\n"
+msgstr "La construction a échoué\n"
 
 #: src/build_file.c:138
 msgid "Build completed ... unsuccessful"
-msgstr "La construction a echouée"
+msgstr "La construction a echoué"
 
 #: src/build_file.c:143
 msgid "Build completed ... successful\n"
@@ -763,7 +763,7 @@ msgstr "La reconstruction complète s'est interrompue à la suite d'une erreur\n"
 
 #: src/build_project.c:372
 msgid "Build All completed...............Unsuccessful"
-msgstr "La reconstruction complète a échouée"
+msgstr "La reconstruction complète a échoué"
 
 #: src/build_project.c:377
 msgid "Build All completed...............Successful\n"
@@ -771,11 +771,11 @@ msgstr "La reconstruction complète a réussi\n"
 
 #: src/build_project.c:380
 msgid "Build All completed ... successful"
-msgstr "La reconstruction complète à réussi"
+msgstr "La reconstruction complète a réussi"
 
 #: src/build_project.c:400
 msgid "Build Distribution completed...............Unsuccessful\n"
-msgstr "La construction de la distribution a échouée\n"
+msgstr "La construction de la distribution a échoué\n"
 
 #: src/build_project.c:403
 msgid "Build Distribution completed ... unsuccessful"
@@ -815,7 +815,7 @@ msgstr "L'installation a réussi"
 
 #: src/build_project.c:465 src/gnome_project.c:235
 msgid "Auto generation completed...............Unsuccessful\n"
-msgstr "L'autogénération a échouée\n"
+msgstr "L'autogénération a échoué\n"
 
 #: src/build_project.c:468
 msgid "Auto generation completed ... unsuccessful"
@@ -935,7 +935,7 @@ msgstr "Editeur d'images :"
 
 #: src/commands.c:726
 msgid "HTML viewer:"
-msgstr "Visualisateur Html : "
+msgstr "Visualiseur HTML : "
 
 #: src/commands.c:752
 msgid "Load global defaults"
@@ -954,7 +954,7 @@ msgstr ""
 #: src/compile.c:129
 msgid "The object file is up-to-date, there is no need to compile it again."
 msgstr ""
-"Le fichier objet est déjà à jour, il n'est donc pas utile de le recompiler."
+"Le fichier objet est déjà à jour; il n'est donc pas utile de le recompiler."
 
 #: src/compile.c:141
 msgid "No compile command has been specified for this type of file."
@@ -1014,7 +1014,7 @@ msgstr "Macros du fichier configure.in :\n"
 msgid ""
 "Variables for cflags: %s\n"
 "\n"
-msgstr "Variable(s) pour les flags de compilation :%s\n"
+msgstr "Variable(s) pour les options de compilation en C : %s\n"
 
 #: src/compiler_options_cbs.c:251
 #, c-format
@@ -1028,14 +1028,14 @@ msgstr "Variable(s) pour les librairies : %s\n"
 msgid ""
 "Compile time cflags: %s\n"
 "\n"
-msgstr "Flags de compilation : %s\n"
+msgstr "Options de compilation : %s\n"
 
 #: src/compiler_options_cbs.c:255
 #, c-format
 msgid ""
 "Compile time libraries: %s\n"
 "\n"
-msgstr "Flags de liaison : %s\n"
+msgstr "Options d'édition de liens : %s\n"
 
 #: src/compiler_options_cbs.c:257
 msgid "Entries in acconfig.h file:\n"
@@ -1094,7 +1094,7 @@ msgstr "Optimisation"
 
 #: src/compiler_options_gui.c:251
 msgid "Select the support libraries to add"
-msgstr "Sélectionnez les librairies à supporter"
+msgstr "Sélectionnez les librairies d'appoint à ajouter"
 
 #: src/compiler_options_gui.c:260
 msgid "Info"
@@ -1138,7 +1138,7 @@ msgstr "Traiter les avertissements en tant qu'erreurs"
 
 #: src/compiler_options_gui.c:843
 msgid "No Warnings"
-msgstr "Pas d'avertissement"
+msgstr "Pas d'avertissements"
 
 #: src/compiler_options_gui.c:849
 msgid "All Warnings"
@@ -1150,7 +1150,7 @@ msgstr "Avertissements sur les déclarations implicites"
 
 #: src/compiler_options_gui.c:867
 msgid "Warning for mismatched return types"
-msgstr "Avertissements sur les types de retour qui ne concordent pas"
+msgstr "Avertissements sur les types de retour non concordants"
 
 #: src/compiler_options_gui.c:875
 msgid "Warning for unused variables"
@@ -1159,8 +1159,7 @@ msgstr "Avertissements sur les variables inutilisées"
 #: src/compiler_options_gui.c:883
 msgid "Warning for unhandled switch case with enums"
 msgstr ""
-"Avertissements sur les branchements (switch) non pris en charge avec une "
-"énumération"
+"Avertissements sur les énumérations mal couvertes par un switch"
 
 #: src/compiler_options_gui.c:891
 msgid "Warning for nested comment"
@@ -1180,11 +1179,11 @@ msgstr "Avertissements sur la syntaxe inhabituelle"
 
 #: src/compiler_options_gui.c:923
 msgid "Warning for variable shadowing"
-msgstr "Avertissements sur les variables en masquant d'autres"
+msgstr "Avertissements sur les variables qui en masquent d'autres"
 
 #: src/compiler_options_gui.c:931
 msgid "Warning for suspected pointer arithmetic"
-msgstr "Avertissements sur l'arithmétique douteuse avec des pointeurs"
+msgstr "Avertissements sur l'arithmétique de pointeurs douteuse"
 
 #: src/compiler_options_gui.c:939
 msgid "Warning for missing prototypes"
@@ -1204,15 +1203,15 @@ msgstr "Aucune optimisation"
 
 #: src/compiler_options_gui.c:1001
 msgid "Low-level optimization (machine-dependent)"
-msgstr "Optimisation standard (dépendante de la machine)"
+msgstr "Optimisation de bas niveau (dépendante de la machine)"
 
 #: src/compiler_options_gui.c:1011
 msgid "Higher-level optimization (without space-speed tradeoff)"
-msgstr "Optimisation avancée (sans désavantage taille/vitesse)"
+msgstr "Optimisation de haut niveau (sans compromis taille/vitesse)"
 
 #: src/compiler_options_gui.c:1021
 msgid "Fastest-code optimization (functions inlined where possible"
-msgstr "Optimisation maximale (fonctions 'inline' dès que possible)"
+msgstr "Optimisation pour la vitesse (fonctions 'inline' dès que possible)"
 
 #: src/compiler_options_gui.c:1032
 msgid "Note"
@@ -1226,7 +1225,7 @@ msgid ""
 "debug the optimized code."
 msgstr ""
 "L'optimisation du code peut entraîner des difficultés\n"
-"de débogage. Ce n'est donc peut être pas une bonne idée\n"
+"de débogage. Ce n'est donc peut-être pas une bonne idée\n"
 "d'activer les options de débogage et d'optimisation\n"
 "ensemble, sauf si vous voulez déboguer du code optimisé."
 
@@ -1236,7 +1235,7 @@ msgstr "Activer le débogage"
 
 #: src/compiler_options_gui.c:1088
 msgid "Enable Profiling"
-msgstr "Activer l'audit des performances"
+msgstr "Activer le profilage"
 
 #: src/compiler_options_gui.c:1093 src/wizard_gui.c:566
 msgid "Additional Options"
@@ -1248,7 +1247,7 @@ msgstr "Configurer"
 
 #: src/configurer.c:106
 msgid "Configure Options"
-msgstr "Options de la configuration"
+msgstr "Options pour 'configure'"
 
 #: src/configurer.c:182
 msgid ""
@@ -1260,11 +1259,11 @@ msgstr ""
 
 #: src/configurer.c:205
 msgid "Configuring the Project ....\n"
-msgstr "Configuration du projet ...\n"
+msgstr "Configuration du projet...\n"
 
 #: src/configurer.c:224
 msgid "Configure completed...............Unsuccessful\n"
-msgstr "La configuration a échouée\n"
+msgstr "La configuration a échoué\n"
 
 #: src/configurer.c:226
 msgid "Configure completed ... unsuccessful"
@@ -1302,7 +1301,7 @@ msgstr "Chargement de l'exécutable :"
 
 #: src/debugger.c:228
 msgid "Loading Core: "
-msgstr "Chargement de l'image :"
+msgstr "Chargement de l'image mémoire :"
 
 #: src/debugger.c:274
 msgid ""
@@ -1318,7 +1317,7 @@ msgid ""
 "Please stop it first and then load the executable file."
 msgstr ""
 "Un processus s'exécute dans le débogueur.\n"
-"Veuillez stopper son exécution avant de charger l'exécutable."
+"Veuillez arrêter son exécution avant de charger l'exécutable."
 
 #: src/debugger.c:310
 msgid ""
@@ -1334,7 +1333,7 @@ msgid ""
 "Please stop it first and then load the core file."
 msgstr ""
 "Un processus s'exécute dans le débogueur.\n"
-"Veuillez stopper son exécution avant de charger l'image mémoire."
+"Veuillez arrêter son exécution avant de charger l'image mémoire."
 
 #: src/debugger.c:575
 #, c-format
@@ -5704,7 +5703,7 @@ msgstr "Nom du répertoire : "
 
 #: widgets/gnomefilelist.c:1639
 msgid "Creating folder failed."
-msgstr "La création du répertoire a échouée."
+msgstr "La création du répertoire a échoué."
 
 #~ msgid "Activate this to select this window"
 #~ msgstr "Sélectionne cette fenêtre"
@@ -5821,7 +5820,7 @@ msgstr "La création du répertoire a échouée."
 #~ msgstr "Réenregistrement du projet ...\n"
 
 #~ msgid "Autogeneration completed...............Unsuccessful\n"
-#~ msgstr "L'autogénération a échouée\n"
+#~ msgstr "L'autogénération a échoué\n"
 
 #~ msgid "_Tags Toolbar"
 #~ msgstr "Barre d'outils _balises"
@@ -5915,7 +5914,7 @@ msgstr "La création du répertoire a échouée."
 #~ msgstr "Mise à jour de la liste des balises effectuée"
 
 #~ msgid "Synchronization of Tags image failed"
-#~ msgstr "La mise à jour de la liste des balises a échouée"
+#~ msgstr "La mise à jour de la liste des balises a échoué"
 
 #~ msgid "Build current File or Build the source directory of the Project"
 #~ msgstr "Contruit le fichier courant ou le répertoire des sources du projet"
