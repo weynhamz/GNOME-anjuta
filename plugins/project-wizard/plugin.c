@@ -143,6 +143,13 @@ ANJUTA_SIMPLE_PLUGIN (NPWPlugin, npw_plugin);
 /* Control access to anjuta message view to avoid a closed view
  *---------------------------------------------------------------------------*/
 
+static void
+on_message_buffer_flush (IAnjutaMessageView *view, const gchar *line,
+						 NPWPlugin *this)
+{
+	npw_plugin_print_view (this, IANJUTA_MESSAGE_VIEW_TYPE_NORMAL, line, "");
+}
+
 IAnjutaMessageView* 
 npw_plugin_create_view (NPWPlugin* this)
 {
@@ -154,6 +161,8 @@ npw_plugin_create_view (NPWPlugin* this)
 		this->view = ianjuta_message_manager_add_view (man, _("New Project Wizard"), ICON_FILE, NULL);
 		if (this->view != NULL)
 		{
+			g_signal_connect (G_OBJECT (this->view), "buffer_flushed",
+							  G_CALLBACK (on_message_buffer_flush), this);
 			g_object_add_weak_pointer (G_OBJECT (this->view), (gpointer *)&this->view);
 		}
 	}

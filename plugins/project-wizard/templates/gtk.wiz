@@ -76,3 +76,8 @@
 			</directory>
 	</directory>
 </content>
+
+<action>
+	<run command="sh -c 'cd [+Destination+]/[+NameLower+] &amp;&amp; ./autogen.sh'"/>
+	<open file="[+Destination+]/[+NameLower+]/[+NameLower+].anjuta"/>
+</action>

@@ -448,7 +448,7 @@ npw_install_install_file (NPWInstall* this)
 
 	if (use_autogen)
 	{	
-		msg = g_strdup_printf (_("Creating %s using AutoGen"), destination);
+		msg = g_strdup_printf (_("Creating %s (using AutoGen)"), destination);
 	}
 	else
 	{
@@ -509,17 +509,20 @@ on_run_output (AnjutaLauncher* launcher, AnjutaLauncherOutputType type, const gc
 {
 	NPWInstall* this = (NPWInstall*)data;
 
-	npw_plugin_print_view (this->plugin, IANJUTA_MESSAGE_VIEW_TYPE_INFO, output, "");
+	npw_plugin_append_view (this->plugin, output);
 }
 
 static gboolean
 npw_run_action (NPWInstall* this)
 {
+	gchar *msg;
 	if (this->launcher == NULL)
 	{
 		this->launcher = anjuta_launcher_new ();
 	}
 	g_signal_connect (G_OBJECT (this->launcher), "child-exited", G_CALLBACK (on_run_terminated), this);
+	msg = g_strconcat (_("Executing: "), npw_action_get_command (this->action), NULL);
+	npw_plugin_print_view (this->plugin, IANJUTA_MESSAGE_VIEW_TYPE_INFO, msg, "");
 	return anjuta_launcher_execute (this->launcher, npw_action_get_command (this->action), on_run_output, this);
 }
 

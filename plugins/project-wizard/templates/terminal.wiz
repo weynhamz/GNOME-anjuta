@@ -66,7 +66,6 @@
 </content>
 
 <action>
-	<open file="[+Destination+]/[+NameLower+].anjuta"/>
-	<run command="echo First action"/>
-	<run command="echo Second action"/>
+	<run command="sh -c 'cd [+Destination+]/[+NameLower+] &amp;&amp; ./autogen.sh'"/>
+	<open file="[+Destination+]/[+NameLower+]/[+NameLower+].anjuta"/>
 </action>

@@ -1,5 +1,17 @@
 2005-02-14  Naba Kumar  <naba@gnome.org>
 
+	* plugins/project-wizard/install.c,
+	plugins/project-wizard/plugin.c,
+	plugins/project-wizard/templates/anjuta-plugin.wiz,
+	plugins/project-wizard/templates/gnome.wiz,
+	plugins/project-wizard/templates/gtk.wiz,
+	plugins/project-wizard/templates/libglade2.wiz,
+	plugins/project-wizard/templates/terminal.wiz: Added actions to autogen
+	newly created projects and open them. Fixed message buffering in
+	wizard.
+
+2005-02-14  Naba Kumar  <naba@gnome.org>
+
 	* src/about.c, pixmaps/Makefile.am,
 	(new) pixmaps/anjuta_logo2.png: New about page splash screen.
 	
