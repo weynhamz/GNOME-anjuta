@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: Michele Campeotto <micampe@f2s.com>\n"
 "Language-Team: Italian <it@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso8859-10\n"
+"Content-Type: text/plain; charset=iso-8859-1\n"
 "Content-Transfer-Encoding: iso8859-10\n"
 
 #: src/anjuta_cbs.c:128
@@ -4992,8 +4992,8 @@ msgid ""
 "  Project: %s       Zoom: %d       Line: %04d       Col: %03d       %s       "
 "Job: %s"
 msgstr ""
-"  Progetto: %s       Zoom: %d       Riga: %04d       Col: %03d       %"
-"s       "
+"  Progetto: %s       Zoom: %d       Riga: %04d       Col: %03d       %s"
+"%s       "
 
 #: src/anjuta_gui.c:202 src/anjuta_gui.c:291
 msgid "Click here to undock this window"

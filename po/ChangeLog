@@ -1,13 +1,11 @@
 2001-08-01  Fatih Demir <kabalak@gtranslator.org>
 
-	* es.po & tr.po: Charset lines corrected -- language code got into
-		charset field.
+	* es.po, it.po & tr.po: Po files fixes -- they're now clean and
+		working.
 
 	* fr.po: Small header entries cleanup.
 
-	* it.po: Corrected header fuzziness -- the po file is enabled now .-)
-
-	* ChangeLog: Spew cleanup.
+	* ChangeLog: gettextize spew cleanup.
 
 	* POTFILES.in: Added missing ccview/* files to the list of
 		translatable files.
