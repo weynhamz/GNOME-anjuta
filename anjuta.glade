@@ -15,6 +15,7 @@
 <widget>
   <class>GtkWindow</class>
   <name>dialog.tool.list</name>
+  <tooltip>Dialog showing list of user-defined tools</tooltip>
   <signal>
     <name>delete_event</name>
     <handler>on_user_tool_ok_clicked</handler>
@@ -57,6 +58,7 @@
       <widget>
 	<class>GtkButton</class>
 	<name>button.new</name>
+	<tooltip>Add a new tool</tooltip>
 	<can_default>True</can_default>
 	<can_focus>True</can_focus>
 	<signal>
@@ -70,6 +72,7 @@
       <widget>
 	<class>GtkButton</class>
 	<name>button.delete</name>
+	<tooltip>Delete the selected tool</tooltip>
 	<can_default>True</can_default>
 	<can_focus>True</can_focus>
 	<signal>
@@ -83,6 +86,7 @@
       <widget>
 	<class>GtkButton</class>
 	<name>button.edit</name>
+	<tooltip>Edit the selected tool</tooltip>
 	<can_default>True</can_default>
 	<can_focus>True</can_focus>
 	<signal>
@@ -96,6 +100,7 @@
       <widget>
 	<class>GtkButton</class>
 	<name>button.ok</name>
+	<tooltip>Dismiss the dialog</tooltip>
 	<can_default>True</can_default>
 	<can_focus>True</can_focus>
 	<signal>
@@ -124,6 +129,7 @@
 	<class>GtkCList</class>
 	<name>tools.clist</name>
 	<border_width>10</border_width>
+	<tooltip>List of user-defined tools</tooltip>
 	<can_focus>True</can_focus>
 	<signal>
 	  <name>select_row</name>
@@ -161,6 +167,7 @@
 <widget>
   <class>GtkWindow</class>
   <name>dialog.tool.edit</name>
+  <tooltip>Tool editor dialog</tooltip>
   <signal>
     <name>delete_event</name>
     <handler>on_user_tool_edit_cancel_clicked</handler>
@@ -202,6 +209,7 @@
       <widget>
 	<class>GtkButton</class>
 	<name>button.ok</name>
+	<tooltip>Save and dismiss the tool editor</tooltip>
 	<can_default>True</can_default>
 	<can_focus>True</can_focus>
 	<signal>
@@ -215,6 +223,7 @@
       <widget>
 	<class>GtkButton</class>
 	<name>button.cancel</name>
+	<tooltip>Cancel tool editing and exit the dialog</tooltip>
 	<can_default>True</can_default>
 	<can_focus>True</can_focus>
 	<signal>
@@ -223,6 +232,20 @@
 	  <last_modification_time>Wed, 11 Dec 2002 07:52:52 GMT</last_modification_time>
 	</signal>
 	<stock_button>GNOME_STOCK_BUTTON_CANCEL</stock_button>
+      </widget>
+
+      <widget>
+	<class>GtkButton</class>
+	<name>button.help</name>
+	<tooltip>Show help on tool editor (includes variable reference)</tooltip>
+	<can_default>True</can_default>
+	<can_focus>True</can_focus>
+	<signal>
+	  <name>clicked</name>
+	  <handler>on_user_tool_edit_help_clicked</handler>
+	  <last_modification_time>Wed, 11 Dec 2002 11:31:09 GMT</last_modification_time>
+	</signal>
+	<stock_button>GNOME_STOCK_BUTTON_HELP</stock_button>
       </widget>
     </widget>
 
@@ -276,6 +299,7 @@
 	  <widget>
 	    <class>GtkEntry</class>
 	    <name>tool.name</name>
+	    <tooltip>Name of the tool (must be unique)</tooltip>
 	    <can_focus>True</can_focus>
 	    <editable>True</editable>
 	    <text_visible>True</text_visible>
@@ -334,6 +358,7 @@ Settings
 	      <class>GtkEntry</class>
 	      <child_name>GtkCombo:entry</child_name>
 	      <name>tool.location</name>
+	      <tooltip>Under what menu item will the tool appear</tooltip>
 	      <can_focus>True</can_focus>
 	      <editable>True</editable>
 	      <text_visible>True</text_visible>
@@ -374,6 +399,7 @@ Settings
 	  <widget>
 	    <class>GtkEntry</class>
 	    <name>tool.command</name>
+	    <tooltip>Command that gets executed when the tool is invoked (does variable substitution)</tooltip>
 	    <can_focus>True</can_focus>
 	    <editable>True</editable>
 	    <text_visible>True</text_visible>
@@ -437,6 +463,7 @@ $(top.proj_dir)
 	      <class>GtkEntry</class>
 	      <child_name>GtkCombo:entry</child_name>
 	      <name>tool.working_dir</name>
+	      <tooltip>Working directory of the tool</tooltip>
 	      <can_focus>True</can_focus>
 	      <editable>True</editable>
 	      <text_visible>True</text_visible>
@@ -460,6 +487,7 @@ $(top.proj_dir)
 	  <widget>
 	    <class>GtkCheckButton</class>
 	    <name>tool.enabled</name>
+	    <tooltip>Whether the tool is enabled (active)</tooltip>
 	    <can_focus>True</can_focus>
 	    <label>Enabled</label>
 	    <active>False</active>
@@ -474,6 +502,7 @@ $(top.proj_dir)
 	  <widget>
 	    <class>GtkCheckButton</class>
 	    <name>tool.detached</name>
+	    <tooltip>Whether to run the tool as a detached process</tooltip>
 	    <can_focus>True</can_focus>
 	    <signal>
 	      <name>toggled</name>
@@ -493,6 +522,7 @@ $(top.proj_dir)
 	  <widget>
 	    <class>GtkCheckButton</class>
 	    <name>tool.run_in_terminal</name>
+	    <tooltip>Whether to run the tool in a terminal window</tooltip>
 	    <can_focus>True</can_focus>
 	    <label>Use Terminal</label>
 	    <active>False</active>
@@ -519,6 +549,7 @@ $(top.proj_dir)
 	  <widget>
 	    <class>GtkCheckButton</class>
 	    <name>tool.file_level</name>
+	    <tooltip>Tool works only when there exists an open buffer</tooltip>
 	    <can_focus>True</can_focus>
 	    <label>File Level</label>
 	    <active>False</active>
@@ -533,6 +564,7 @@ $(top.proj_dir)
 	  <widget>
 	    <class>GtkCheckButton</class>
 	    <name>tool.project_level</name>
+	    <tooltip>Tool works only when a project is open</tooltip>
 	    <can_focus>True</can_focus>
 	    <label>Project Level</label>
 	    <active>False</active>
@@ -575,8 +607,8 @@ $(top.proj_dir)
 
 	  <widget>
 	    <class>GtkCombo</class>
-	    <name>tool.input.combo</name>
-	    <value_in_list>False</value_in_list>
+	    <name>tool.input.type.combo</name>
+	    <value_in_list>True</value_in_list>
 	    <ok_if_empty>True</ok_if_empty>
 	    <case_sensitive>False</case_sensitive>
 	    <use_arrows>True</use_arrows>
@@ -593,13 +625,52 @@ $(top.proj_dir)
 	    <widget>
 	      <class>GtkEntry</class>
 	      <child_name>GtkCombo:entry</child_name>
-	      <name>tool.input</name>
+	      <name>tool.input.type</name>
+	      <tooltip>Type of input to supply to the tool</tooltip>
 	      <can_focus>True</can_focus>
+	      <signal>
+		<name>changed</name>
+		<handler>on_user_tool_edit_input_type_changed</handler>
+		<last_modification_time>Thu, 12 Dec 2002 08:08:53 GMT</last_modification_time>
+	      </signal>
 	      <editable>True</editable>
 	      <text_visible>True</text_visible>
 	      <text_max_length>0</text_max_length>
 	      <text></text>
 	    </widget>
+	  </widget>
+
+	  <widget>
+	    <class>GtkLabel</class>
+	    <name>label23</name>
+	    <label>Input String</label>
+	    <justify>GTK_JUSTIFY_CENTER</justify>
+	    <wrap>False</wrap>
+	    <xalign>0.5</xalign>
+	    <yalign>0.5</yalign>
+	    <xpad>0</xpad>
+	    <ypad>0</ypad>
+	    <child>
+	      <padding>0</padding>
+	      <expand>False</expand>
+	      <fill>False</fill>
+	    </child>
+	  </widget>
+
+	  <widget>
+	    <class>GtkEntry</class>
+	    <name>tool.input</name>
+	    <tooltip>String to pass to the standard input of the tool (does variable substitution)</tooltip>
+	    <can_focus>True</can_focus>
+	    <editable>True</editable>
+	    <text_visible>True</text_visible>
+	    <text_max_length>0</text_max_length>
+	    <text></text>
+	    <child>
+	      <padding>0</padding>
+	      <expand>True</expand>
+	      <fill>True</fill>
+	    </child>
 	  </widget>
 	</widget>
 
@@ -650,6 +721,7 @@ $(top.proj_dir)
 	      <class>GtkEntry</class>
 	      <child_name>GtkCombo:entry</child_name>
 	      <name>tool.output</name>
+	      <tooltip>How to handle the tool output messages</tooltip>
 	      <can_focus>True</can_focus>
 	      <editable>True</editable>
 	      <text_visible>True</text_visible>
@@ -706,6 +778,7 @@ $(top.proj_dir)
 	      <class>GtkEntry</class>
 	      <child_name>GtkCombo:entry</child_name>
 	      <name>tool.error</name>
+	      <tooltip>How to handle the tool error messages</tooltip>
 	      <can_focus>True</can_focus>
 	      <editable>True</editable>
 	      <text_visible>True</text_visible>
@@ -746,6 +819,7 @@ $(top.proj_dir)
 	  <widget>
 	    <class>GtkEntry</class>
 	    <name>tool.shortcut</name>
+	    <tooltip>Shortcut (^=Ctrl,+=Shift,#=Alt)</tooltip>
 	    <can_focus>True</can_focus>
 	    <editable>True</editable>
 	    <text_visible>True</text_visible>
@@ -791,6 +865,7 @@ $(top.proj_dir)
 	      <class>GtkEntry</class>
 	      <child_name>GnomeEntry:entry</child_name>
 	      <name>tool.icon</name>
+	      <tooltip>Location of tool icon file</tooltip>
 	      <can_focus>True</can_focus>
 	      <editable>True</editable>
 	      <text_visible>True</text_visible>
@@ -799,6 +874,119 @@ $(top.proj_dir)
 	    </widget>
 	  </widget>
 	</widget>
+      </widget>
+    </widget>
+  </widget>
+</widget>
+
+<widget>
+  <class>GtkWindow</class>
+  <name>dialog.tool.help</name>
+  <tooltip>Help on tool variables</tooltip>
+  <signal>
+    <name>delete_event</name>
+    <handler>on_user_tool_help_ok_clicked</handler>
+    <last_modification_time>Wed, 11 Dec 2002 11:41:56 GMT</last_modification_time>
+  </signal>
+  <title>Tool Help (Variable List)</title>
+  <type>GTK_WINDOW_TOPLEVEL</type>
+  <position>GTK_WIN_POS_NONE</position>
+  <modal>False</modal>
+  <default_width>400</default_width>
+  <default_height>200</default_height>
+  <allow_shrink>False</allow_shrink>
+  <allow_grow>True</allow_grow>
+  <auto_shrink>False</auto_shrink>
+  <wmclass_name>tool-help</wmclass_name>
+  <wmclass_class>Anjuta</wmclass_class>
+
+  <widget>
+    <class>GtkVBox</class>
+    <name>vbox6</name>
+    <border_width>10</border_width>
+    <homogeneous>False</homogeneous>
+    <spacing>0</spacing>
+
+    <widget>
+      <class>GtkScrolledWindow</class>
+      <name>scrolledwindow3</name>
+      <hscrollbar_policy>GTK_POLICY_ALWAYS</hscrollbar_policy>
+      <vscrollbar_policy>GTK_POLICY_ALWAYS</vscrollbar_policy>
+      <hupdate_policy>GTK_UPDATE_CONTINUOUS</hupdate_policy>
+      <vupdate_policy>GTK_UPDATE_CONTINUOUS</vupdate_policy>
+      <child>
+	<padding>0</padding>
+	<expand>True</expand>
+	<fill>True</fill>
+      </child>
+
+      <widget>
+	<class>GtkCList</class>
+	<name>tools.help.clist</name>
+	<tooltip>List of tool variables</tooltip>
+	<can_focus>True</can_focus>
+	<columns>2</columns>
+	<column_widths>80,80</column_widths>
+	<selection_mode>GTK_SELECTION_BROWSE</selection_mode>
+	<show_titles>True</show_titles>
+	<shadow_type>GTK_SHADOW_IN</shadow_type>
+
+	<widget>
+	  <class>GtkLabel</class>
+	  <child_name>CList:title</child_name>
+	  <name>label21</name>
+	  <label>Variable</label>
+	  <justify>GTK_JUSTIFY_CENTER</justify>
+	  <wrap>False</wrap>
+	  <xalign>0.5</xalign>
+	  <yalign>0.5</yalign>
+	  <xpad>0</xpad>
+	  <ypad>0</ypad>
+	</widget>
+
+	<widget>
+	  <class>GtkLabel</class>
+	  <child_name>CList:title</child_name>
+	  <name>label22</name>
+	  <label>Value</label>
+	  <justify>GTK_JUSTIFY_CENTER</justify>
+	  <wrap>False</wrap>
+	  <xalign>0.5</xalign>
+	  <yalign>0.5</yalign>
+	  <xpad>0</xpad>
+	  <ypad>0</ypad>
+	</widget>
+      </widget>
+    </widget>
+
+    <widget>
+      <class>GtkHButtonBox</class>
+      <name>hbuttonbox3</name>
+      <layout_style>GTK_BUTTONBOX_END</layout_style>
+      <spacing>30</spacing>
+      <child_min_width>85</child_min_width>
+      <child_min_height>27</child_min_height>
+      <child_ipad_x>7</child_ipad_x>
+      <child_ipad_y>0</child_ipad_y>
+      <child>
+	<padding>0</padding>
+	<expand>False</expand>
+	<fill>False</fill>
+      </child>
+
+      <widget>
+	<class>GtkButton</class>
+	<name>button.ok</name>
+	<tooltip>Dismiss this dialog</tooltip>
+	<can_default>True</can_default>
+	<can_focus>True</can_focus>
+	<signal>
+	  <name>clicked</name>
+	  <handler>on_user_tool_help_ok_clicked</handler>
+	  <last_modification_time>Wed, 11 Dec 2002 11:37:45 GMT</last_modification_time>
+	</signal>
+	<stock_button>GNOME_STOCK_BUTTON_OK</stock_button>
+	<relief>GTK_RELIEF_NORMAL</relief>
       </widget>
     </widget>
   </widget>

@@ -1309,3 +1309,33 @@ text_editor_tab_widget_destroy(TextEditor* te)
 	te->buttons.close = NULL;
 	te->widgets.tab_label = NULL;
 }
+
+/* Get the current selection. If there is no selection, or if the selection
+** is all blanks, get the word under teh cursor.
+*/
+gchar *text_editor_get_current_word(TextEditor *te)
+{
+	char *buf = NULL;
+	if (text_editor_has_selection(te))
+	{
+		buf = text_editor_get_selection(te);
+		g_strstrip(buf);
+		if ('\0' == *buf)
+		{
+			g_free(buf);
+			buf = NULL;
+		}
+	}
+	if (NULL == buf)
+	{
+		int ret;
+		buf = g_new(char, 256);
+		ret = aneditor_command (te->editor_id, ANE_GETCURRENTWORD, (long)buf, 255L);
+		if (!ret)
+		{
+			g_free(buf);
+			buf = NULL;
+		}
+	}
+	return buf;
+}

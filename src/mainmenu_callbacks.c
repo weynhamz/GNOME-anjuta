@@ -2023,32 +2023,16 @@ on_lookup_symbol_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
 	TextEditor* te;
 	gboolean ret;
-	gchar *buffer = NULL;
+	gchar *buf = NULL;
 
 	te = anjuta_get_current_text_editor();
 	if(!te) return;
-	if (text_editor_has_selection(te))
+	buf = text_editor_get_current_word(te);
+	if (buf)
 	{
-		buffer = text_editor_get_selection(te);
-		g_strstrip(buffer);
-		if ('\0' == *buffer)
-		{
-			g_free(buffer);
-			buffer = NULL;
-		}
+		anjuta_search_sources_for_symbol(buf);
+		g_free(buf);
 	}
-	if (NULL == buffer)
-	{
-		buffer = g_new(char, 256);
-		ret = aneditor_command (te->editor_id, ANE_GETCURRENTWORD, (long)buffer, 255L);
-		if (!ret)
-		{
-			g_free(buffer);
-			return;
-		}
-	}
-	anjuta_search_sources_for_symbol(buffer);
-	g_free(buffer);
 }
 
 void

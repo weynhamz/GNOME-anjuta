@@ -26,9 +26,9 @@ discuss in the devel list before making any major changes.
 R1: Modify GUI at program startup
 	1) (P) Add new menu items associated with external commands.
 	2) (N) Add drop-down toolbar item for easy access to all tools.
-	3) (D) Should be appendable under any of the top/sub level menus.
+	3) (P) Should be appendable under any of the top/sub level menus.
 	4) (N) Should be able to associate icons.
-	5) (P) Should be able to associate shortcuts.
+	5) (R) Should be able to associate shortcuts.
 
 R2: Command line parameters
 	1) (D) Pass variable command-line parameters to the tool.
@@ -40,19 +40,19 @@ R3: Working directory
 	2) (D) Ability to specify property variables for working dir.
 
 R4: Standard input to the tool
-	1) (R) Specify current buffer as standard input.
-	2) (R) Specify property variables as standard input.
+	1) (D) Specify current buffer as standard input.
+	2) (D) Specify property variables as standard input.
 	3) (N) Specify list of open files as standard input.
 
 R5: Output and error redirection
 	1) (D) Output to any of the message pane windows.
-	2) (M) Run in terminal.
-	3) (R) Output to current/new buffer.
-	4) (N) Show output in a popup window.
+	2) (D) Run in terminal (detached mode).
+	3) (D) Output to current/new buffer.
+	4) (D) Show output in a popup window.
 
 R6: Tool manipulation GUI
-	1) (M) Add/remove tools with all options.
-	2) (R) Enable/disable tool loading.
+	1) (D) Add/remove tools with all options.
+	2) (D) Enable/disable tool loading.
 
 R7: Tool Storage
 	1) (D) Gloabal and local tool storage.
@@ -83,18 +83,35 @@ R7: Tool Storage
 #include "anjuta.h"
 #include "anjuta-tools.h"
 
+#define GTK
+#undef PLAT_GTK
+#define PLAT_GTK 1
+#include "Scintilla.h"
+#include "SciLexer.h"
+#include "ScintillaWidget.h"
+
 #define SEPERATOR '\001'
 #define LINESEP '\002'
 #define TOOLS_FILE "tools.properties"
 
-/** Defines how output should be added to buffer */
-typedef enum _AnToolBufferAction
+/** Defines how output should be handled */
+typedef enum _AnToolOutputAction
 {
 	AN_TBUF_NEW = MESSAGE_MAX + 1, /* Create a new buffer and put output into it */
 	AN_TBUF_REPLACE, /* Replace exisitng buffer content with output */
 	AN_TBUF_INSERT, /* Insert at cursor position in the current buffer */
-	AN_TBUF_APPEND /* Append output to the end of the buffer */
-} AnToolBufferAction;
+	AN_TBUF_APPEND, /* Append output to the end of the buffer */
+	AN_TBUF_REPLACESEL, /* Replace the current selection with the output */
+	AN_TBUF_POPUP /* Show result in a popup window */
+} AnToolOutputAction;
+
+/** Defines what to supply to the standard input of the tool  */
+typedef enum _AnToolInputType
+{
+	AN_TINP_NONE = 0, /* No input */
+	AN_TINP_BUFFER, /* Contents of current buffer */
+	AN_TINP_STRING /* User defined string (variables will be expanded) */
+} AnToolInputType;
 
 /** Defines how and where tool information will be stored. */
 typedef enum _AnToolStore
@@ -117,6 +134,7 @@ typedef struct _AnUserTool
 	gchar *icon;
 	gchar *shortcut;
 	gchar *working_dir;
+	int input_type; /* AnToolInputType */
 	gchar *input;
 	int output; /* MESSAGE_* or AN_TBUF_* */
 	int error; /* MESSAGE_* or AN_TBUF_* */
@@ -139,6 +157,10 @@ static GHashTable *tool_hash = NULL;
 ** TODO: This needs to be reworked.
 */
 static AnUserTool *current_tool = NULL;
+
+/* Buffers the output and error lines of the current tool under execution */
+GString *current_tool_output = NULL;
+GString *current_tool_error = NULL;
 
 /* Destroys memory allocated to an user tool */
 #define FREE(x) if (x) g_free(x)
@@ -214,6 +236,7 @@ static AnUserTool *an_user_tool_new(char **buf)
 		else STRMATCH(icon)
 		else STRMATCH(shortcut)
 		else STRMATCH(working_dir)
+		else NUMMATCH(input_type)
 		else STRMATCH(input)
 		else NUMMATCH(output)
 		else NUMMATCH(error)
@@ -284,6 +307,7 @@ static gboolean an_user_tool_save(AnUserTool *tool, FILE *f)
 	STRWRITE(icon)
 	STRWRITE(shortcut)
 	STRWRITE(working_dir)
+	NUMWRITE(input_type)
 	STRWRITE(input)
 	NUMWRITE(output)
 	NUMWRITE(error)
@@ -296,12 +320,22 @@ static gboolean an_user_tool_save(AnUserTool *tool, FILE *f)
 /* Simplistic output handler - needs to be enhanced */
 static void tool_stdout_handler(gchar *line)
 {
-	if (line)
+	if (line && current_tool)
 	{
-		if (current_tool && (current_tool->output <= MESSAGE_MAX))
+		if (current_tool->output <= MESSAGE_MAX)
 		{
+			/* Send the message to the proper message pane */
 			anjuta_message_manager_append (app->messages, line
 			  ,current_tool->output);
+		}
+		else
+		{
+			/* Store the line so that proper action can be taken once
+			the tool has finished running */
+			if (NULL == current_tool_output)
+				current_tool_output = g_string_new(line);
+			else
+				g_string_append(current_tool_output, line);
 		}
 	}
 }
@@ -309,27 +343,101 @@ static void tool_stdout_handler(gchar *line)
 /* Simplistic error handler - needs to be enhanced */
 static void tool_stderr_handler(gchar *line)
 {
-	if (line)
+	if (line && current_tool)
 	{
-		if (current_tool && (current_tool->error <= MESSAGE_MAX))
+		if (current_tool->error <= MESSAGE_MAX)
 		{
+			/* Simply send the message to the proper message pane */
 			anjuta_message_manager_append (app->messages, line
 			  , current_tool->error);
+		}
+		else
+		{
+			/* Store the line so that proper action can be taken once
+			the tool has finished running */
+			if (NULL == current_tool_error)
+				current_tool_error = g_string_new(line);
+			else
+				g_string_append(current_tool_error, line);
 		}
 	}
 }
 
-/* Simplistic termination handler - needs to be enhanced */
+/* Handle non-message output and error lines from current tool */
+static void handle_tool_output(int type, GString *s, gboolean is_error)
+{
+	TextEditor *te;
+	int sci_message = -1;
+
+	if (AN_TBUF_POPUP == type)
+	{
+		messagebox(is_error ? GNOME_MESSAGE_BOX_ERROR : GNOME_MESSAGE_BOX_INFO
+		  , s->str);
+		return;
+	}
+	if (AN_TBUF_NEW == type || (NULL == app->current_text_editor))
+		te = anjuta_append_text_editor(NULL);
+	else
+		te = app->current_text_editor;
+	if (NULL == te)
+	{
+		anjuta_error("Unable to create new text buffer");
+		return;
+	}
+
+	switch(type)
+	{
+		case AN_TBUF_NEW:
+		case AN_TBUF_INSERT:
+			sci_message = SCI_ADDTEXT;
+			break;
+		case AN_TBUF_REPLACE:
+			sci_message = SCI_SETTEXT;
+			break;
+		case AN_TBUF_APPEND:
+			sci_message = SCI_APPENDTEXT;
+			break;
+		case AN_TBUF_REPLACESEL:
+			sci_message = SCI_REPLACESEL;
+			break;
+		default:
+			anjuta_error("Got invalid tool output/error redirection message");
+			return;
+	}
+	scintilla_send_message(SCINTILLA(te->widgets.editor), sci_message
+	  , s->len, (long) s->str);
+}
+
+/* Termination handler
+** Nothing much to do if output and error messages have been sent to the
+** message panes. Otherwise, we need to decide what to do with the output
+** and error and do it.
+*/
 static void tool_terminate_handler(gint status, time_t time)
 {
-	char line[BUFSIZ];
-	snprintf(line, BUFSIZ, "Tool terminated with status %d\n", status);
-	if (current_tool && (current_tool->output <= MESSAGE_MAX))
+	if (current_tool)
 	{
-		anjuta_message_manager_append(app->messages, line
-		  , current_tool->output);
+		if (current_tool->error <= MESSAGE_MAX)
+		{
+			char line[BUFSIZ];
+			snprintf(line, BUFSIZ, "Tool terminated with status %d\n", status);
+			anjuta_message_manager_append(app->messages, line
+			  , current_tool->error);
+		}
+		else if (current_tool_error && (0 < current_tool_error->len))
+		{
+			handle_tool_output(current_tool->error, current_tool_error, TRUE);
+		}
+		if (current_tool->output <= MESSAGE_MAX)
+		{
+			/* Nothing to do here */
+		}
+		else if (current_tool_output && (0 < current_tool_output->len))
+		{
+			handle_tool_output(current_tool->output, current_tool_output, FALSE);
+		}
+		current_tool = NULL;
 	}
-	current_tool = NULL;
 }
 
 /* Menu activate handler which executes the tool. It should do command
@@ -347,8 +455,17 @@ static void execute_tool(GtkMenuItem *item, gpointer data)
 	g_message("Tool: %s (%s)\n", tool->name, tool->command);
 #endif
 	/* Expand variables to get the full command */
-	if (app->current_text_editor && app->current_text_editor->full_filename)
+	if (app->current_text_editor)
+	{
+		/* Update file level properties */
+		gchar *word;
 		anjuta_set_file_properties(app->current_text_editor->full_filename);
+		word = text_editor_get_current_word(app->current_text_editor);
+		prop_set_with_key(app->preferences->props, "current.file.selection"
+		  , word?word:"");
+		if (word)
+			g_free(word);
+	}
 	command = prop_expand(app->project_dbase->props, tool->command);
 	if (NULL == command)
 		return;
@@ -380,9 +497,6 @@ static void execute_tool(GtkMenuItem *item, gpointer data)
 			prop_set_with_key (app->project_dbase->props
 			  , "anjuta.current.command", escaped_cmd);
 			g_free(escaped_cmd);
-#ifdef TOOL_DEBUG
-			g_message("Escaped Command is: %s", escaped_cmd);
-#endif
 			g_free(command);
 			command = command_editor_get_command (app->command_editor
 			  , COMMAND_TERMINAL);
@@ -392,19 +506,53 @@ static void execute_tool(GtkMenuItem *item, gpointer data)
 			prop_set_with_key (app->project_dbase->props
 			  , "anjuta.current.command", command);
 		}
+#ifdef TOOL_DEBUG
+		g_message("Final command: '%s'\n", command);
+#endif
 		gnome_execute_shell(tool->working_dir, command);
 	}
 	else
 	{
 		/* Attached mode - run through launcher */
+		char *buf = NULL;
+		char *tmp = NULL;
 		current_tool = tool;
+		if (current_tool_output)
+			g_string_truncate(current_tool_output, 0);
+		if (current_tool_output)
+			g_string_truncate(current_tool_output, 0);		
 		if (tool->error <= MESSAGE_MAX)
 			anjuta_message_manager_clear(app->messages, tool->error);
+		if (tool->input_type == AN_TINP_BUFFER && app->current_text_editor)
+		{
+			long len = scintilla_send_message(
+			  SCINTILLA(app->current_text_editor->widgets.editor)
+			, SCI_GETLENGTH, 0, 0);
+			buf = g_new(char, len+1);
+			scintilla_send_message(
+			  SCINTILLA(app->current_text_editor->widgets.editor)
+			, SCI_GETTEXT, len+1, (long) buf);
+		}
+		else if ((tool->input_type == AN_TINP_STRING) && (tool->input)
+		  && '\0' != tool->input[0])
+		{
+			buf = prop_expand(app->project_dbase->props, tool->input);
+		}
+		if (buf)
+		{
+			gchar* escaped_cmd = anjuta_util_escape_quotes(command);
+			g_free(command);
+			command = g_strconcat("sh -c \"", escaped_cmd, "<<__EOF__\n"
+			  , buf, "\n__EOF__\n\"", NULL);
+		}
 		if (tool->output <= MESSAGE_MAX)
 		{
 			anjuta_message_manager_clear(app->messages, tool->output);
 			anjuta_message_manager_show(app->messages, tool->output);
 		}
+#ifdef TOOL_DEBUG
+	g_message("Final command: '%s'\n", command);
+#endif
 		if (FALSE == launcher_execute(command, tool_stdout_handler
 	  	  , tool_stderr_handler, tool_terminate_handler))
 		{
@@ -419,8 +567,14 @@ static void an_user_tool_activate(AnUserTool *tool)
 {
 	GtkWidget *submenu;
 
-	if (NULL == (submenu = an_get_submenu(tool->location)))
-		an_user_tool_free(tool, TRUE);
+	if (FALSE == tool->enabled)
+		return;
+	else if (NULL == (submenu = an_get_submenu(tool->location)))
+	{
+		tool->enabled = FALSE;
+		tool->menu_item = NULL;
+		return;
+	}
 	else
 	{
 		tool->menu_item = gtk_menu_item_new_with_label(tool->name);
@@ -450,7 +604,7 @@ static gboolean anjuta_tools_load_from_file(const gchar *file_name)
 	char *s;
 	AnUserTool *tool;
 
-#ifdef TOOLS_DEBUG
+#ifdef TOOL_DEBUG
 	g_message("Loading tools from %s\n", file_name);
 #endif
 	if (0 != stat(file_name, &st))
@@ -564,6 +718,8 @@ typedef struct _AnToolEditor
 	GtkToggleButton *terminal_tb;
 	GtkToggleButton *file_tb;
 	GtkToggleButton *project_tb;
+	GtkEditable *input_type_en;
+	GtkCombo *input_type_com;
 	GtkEditable *input_en;
 	GtkEditable *output_en;
 	GtkCombo *output_com;
@@ -577,13 +733,25 @@ typedef struct _AnToolEditor
 	gboolean editing;
 } AnToolEditor;
 
+typedef struct _AnToolHelp
+{
+	GladeXML *xml;
+	GtkWidget *dialog;
+	GtkCList *clist;
+	GtkButton *ok_btn;
+	gboolean busy;
+} AnToolHelp;
+
 static AnToolList *tl = NULL;
 static AnToolEditor *ted = NULL;
+static AnToolHelp *th = NULL;
 
 #define GLADE_FILE "anjuta.glade"
 #define TOOL_LIST "dialog.tool.list"
 #define TOOL_EDITOR "dialog.tool.edit"
+#define TOOL_HELP "dialog.tool.help"
 #define TOOL_CLIST "tools.clist"
+#define TOOL_HELP_CLIST "tools.help.clist"
 #define OK_BUTTON "button.ok"
 #define CANCEL_BUTTON "button.cancel"
 #define NEW_BUTTON "button.new"
@@ -598,6 +766,8 @@ static AnToolEditor *ted = NULL;
 #define TOOL_TERMINAL "tool.run_in_terminal"
 #define TOOL_FILE_LEVEL "tool.file_level"
 #define TOOL_PROJECT_LEVEL "tool.project_level"
+#define TOOL_INPUT_TYPE "tool.input.type"
+#define TOOL_INPUT_TYPE_COMBO "tool.input.type.combo"
 #define TOOL_INPUT "tool.input"
 #define TOOL_OUTPUT "tool.output"
 #define TOOL_OUTPUT_COMBO "tool.output.combo"
@@ -660,10 +830,20 @@ gboolean anjuta_tools_edit(void)
 	return TRUE;
 }
 
-struct {
-	int output;
+typedef struct _StringMap
+{
+	int type;
 	char *name;
-} output_strings[] = {
+} StringMap;
+
+StringMap input_type_strings[] = {
+  { AN_TINP_NONE, "None" }
+, { AN_TINP_BUFFER, "Current buffer" }
+, { AN_TINP_STRING, "String" }
+, { -1, NULL }
+};
+
+StringMap output_strings[] = {
   { MESSAGE_BUILD, "Build Pane" }
 , { MESSAGE_DEBUG, "Debug Pane" }
 , { MESSAGE_FIND, "Find Pane" }
@@ -675,41 +855,43 @@ struct {
 , { AN_TBUF_REPLACE, "Replace Buffer" }
 , { AN_TBUF_INSERT, "Insert in Buffer" }
 , { AN_TBUF_APPEND, "Append to Buffer" }
-, { -1, "" }
+, { AN_TBUF_REPLACESEL, "Replace current selection" }
+, { AN_TBUF_POPUP, "Show as a popup message" }
+, { -1, NULL }
 };
 
-static int output_from_string(const char *str)
+static int type_from_string(StringMap *map, const char *str)
 {
 	int i = 0;
 
-	while (-1 != output_strings[i].output)
+	while (-1 != map[i].type)
 	{
-		if (0 == strcmp(output_strings[i].name, str))
-			return output_strings[i].output;
+		if (0 == strcmp(map[i].name, str))
+			return map[i].type;
 		++ i;
 	}
 	return -1;
 }
 
-static const char *string_from_output(int output)
+static const char *string_from_type(StringMap *map, int type)
 {
 	int i = 0;
-	while (-1 != output_strings[i].output)
+	while (-1 != map[i].type)
 	{
-		if (output_strings[i].output == output)
-			return output_strings[i].name;
+		if (map[i].type == type)
+			return map[i].name;
 		++ i;
 	}
 	return "";
 }
 
-static GList *glist_from_output(void)
+static GList *glist_from_map(StringMap *map)
 {
 	GList *out_list = NULL;
 	int i = 0;
-	while (-1 != output_strings[i].output)
+	while (-1 != map[i].type)
 	{
-		out_list = g_list_append(out_list, output_strings[i].name);
+		out_list = g_list_append(out_list, map[i].name);
 		++ i;
 	}
 	return out_list;
@@ -728,6 +910,7 @@ static void clear_tool_editor()
 		gtk_toggle_button_set_active(ted->terminal_tb, FALSE);
 		gtk_toggle_button_set_active(ted->file_tb, FALSE);
 		gtk_toggle_button_set_active(ted->project_tb, FALSE);
+		gtk_editable_delete_text(ted->input_type_en, 0, -1);
 		gtk_editable_delete_text(ted->input_en, 0, -1);
 		gtk_editable_delete_text(ted->output_en, 0, -1);
 		gtk_editable_delete_text(ted->error_en, 0, -1);
@@ -764,6 +947,13 @@ static void populate_tool_editor(void)
 		gtk_toggle_button_set_active(ted->terminal_tb, ted->tool->run_in_terminal);
 		gtk_toggle_button_set_active(ted->file_tb, ted->tool->file_level);
 		gtk_toggle_button_set_active(ted->project_tb, ted->tool->project_level);
+		if (ted->tool->input_type)
+		{
+			const char *s = string_from_type(input_type_strings
+			  , ted->tool->input_type);
+			if (s)
+				gtk_editable_insert_text(ted->input_type_en, s, strlen(s), &pos);
+		}
 		if (ted->tool->input)
 		{
 			gtk_editable_insert_text(ted->input_en, ted->tool->input
@@ -771,13 +961,15 @@ static void populate_tool_editor(void)
 		}
 		if (ted->tool->output >= 0)
 		{
-			const char *s = string_from_output(ted->tool->output);
+			const char *s = string_from_type(output_strings
+			  , ted->tool->output);
 			if (s)
 				gtk_editable_insert_text(ted->output_en, s, strlen(s), &pos);
 		}
 		if (ted->tool->error >= 0)
 		{
-			const char *s = string_from_output(ted->tool->error);
+			const char *s = string_from_type(output_strings
+			  , ted->tool->error);
 			if (s)
 				gtk_editable_insert_text(ted->error_en, s, strlen(s), &pos);
 		}
@@ -794,14 +986,16 @@ static void populate_tool_editor(void)
 	}
 }
 
-static void set_tool_editor_widget_sensitivity(gboolean state)
+static void set_tool_editor_widget_sensitivity(gboolean s1, gboolean s2)
 {
-	gtk_widget_set_sensitive((GtkWidget *) ted->input_en, !state);
-	gtk_widget_set_sensitive((GtkWidget *) ted->output_en, !state);
-	gtk_widget_set_sensitive((GtkWidget *) ted->output_com, !state);
-	gtk_widget_set_sensitive((GtkWidget *) ted->error_en, !state);
-	gtk_widget_set_sensitive((GtkWidget *) ted->error_com, !state);
-	gtk_widget_set_sensitive((GtkWidget *) ted->terminal_tb, state);	
+	gtk_widget_set_sensitive((GtkWidget *) ted->input_type_en, !s1);
+	gtk_widget_set_sensitive((GtkWidget *) ted->input_type_com, !s1);
+	gtk_widget_set_sensitive((GtkWidget *) ted->input_en, !s1 && s2);
+	gtk_widget_set_sensitive((GtkWidget *) ted->output_en, !s1);
+	gtk_widget_set_sensitive((GtkWidget *) ted->output_com, !s1);
+	gtk_widget_set_sensitive((GtkWidget *) ted->error_en, !s1);
+	gtk_widget_set_sensitive((GtkWidget *) ted->error_com, !s1);
+	gtk_widget_set_sensitive((GtkWidget *) ted->terminal_tb, s1);	
 }
 
 static gboolean show_tool_editor(AnUserTool *tool, gboolean editing)
@@ -842,6 +1036,10 @@ static gboolean show_tool_editor(AnUserTool *tool, gboolean editing)
 		gtk_widget_ref((GtkWidget *) ted->file_tb);
 		ted->project_tb = (GtkToggleButton *) glade_xml_get_widget(ted->xml, TOOL_PROJECT_LEVEL);
 		gtk_widget_ref((GtkWidget *) ted->project_tb);
+		ted->input_type_en = (GtkEditable *) glade_xml_get_widget(ted->xml, TOOL_INPUT_TYPE);
+		gtk_widget_ref((GtkWidget *) ted->input_type_en);
+		ted->input_type_com = (GtkCombo *) glade_xml_get_widget(ted->xml, TOOL_INPUT_TYPE_COMBO);
+		gtk_widget_ref((GtkWidget *) ted->input_type_com);
 		ted->input_en = (GtkEditable *) glade_xml_get_widget(ted->xml, TOOL_INPUT);
 		gtk_widget_ref((GtkWidget *) ted->input_en);
 		ted->output_en = (GtkEditable *) glade_xml_get_widget(ted->xml, TOOL_OUTPUT);
@@ -860,7 +1058,10 @@ static gboolean show_tool_editor(AnUserTool *tool, gboolean editing)
 		gtk_widget_ref((GtkWidget *) ted->ok_btn);
 		ted->cancel_btn = (GtkButton *) glade_xml_get_widget(ted->xml, CANCEL_BUTTON);
 		gtk_widget_ref((GtkWidget *) ted->cancel_btn);
-		strlist = glist_from_output();
+		strlist = glist_from_map(input_type_strings);
+		gtk_combo_set_popdown_strings(ted->input_type_com, strlist);
+		g_list_free(strlist);
+		strlist = glist_from_map(output_strings);
 		gtk_combo_set_popdown_strings(ted->output_com, strlist);
 		gtk_combo_set_popdown_strings(ted->error_com, strlist);
 		g_list_free(strlist);
@@ -874,7 +1075,8 @@ static gboolean show_tool_editor(AnUserTool *tool, gboolean editing)
 	{
 		ted->tool = tool;
 		populate_tool_editor();
-		set_tool_editor_widget_sensitivity(ted->tool->detached);
+		set_tool_editor_widget_sensitivity(ted->tool->detached
+		  , (ted->tool->input_type == AN_TINP_STRING));
 	}
 	else
 		ted->tool = NULL;
@@ -976,12 +1178,15 @@ static AnUserTool *an_user_tool_from_gui(void)
 	tool->run_in_terminal = gtk_toggle_button_get_active(ted->terminal_tb);
 	tool->file_level = gtk_toggle_button_get_active(ted->file_tb);
 	tool->project_level = gtk_toggle_button_get_active(ted->project_tb);
+	s = gtk_editable_get_chars(ted->input_type_en, 0, -1);
+	tool->input_type = type_from_string(input_type_strings, s);
+	g_free(s);
 	tool->input = gtk_editable_get_chars(ted->input_en, 0, -1);
 	s = gtk_editable_get_chars(ted->output_en, 0, -1);
-	tool->output = output_from_string(s);
+	tool->output = type_from_string(output_strings, s);
 	g_free(s);
 	s = gtk_editable_get_chars(ted->error_en, 0, -1);
-	tool->error = output_from_string(s);
+	tool->error = type_from_string(output_strings, s);
 	g_free(s);
 	tool->shortcut = gtk_editable_get_chars(ted->shortcut_en, 0, -1);
 	tool->icon = gtk_editable_get_chars(ted->icon_en, 0, -1);
@@ -990,12 +1195,33 @@ static AnUserTool *an_user_tool_from_gui(void)
 
 /* Callbacks for the tool editor GUI */
 
-on_user_tool_edit_detached_toggled(GtkToggleButton *tb, gpointer user_data)
+void on_user_tool_edit_detached_toggled(GtkToggleButton *tb, gpointer user_data)
 {
+	int input_type = AN_TINP_NONE;
+	char *s = gtk_editable_get_chars(ted->input_type_en, 0, -1);
 	gboolean state = gtk_toggle_button_get_active(tb);
 	/* For a tool in detached mode, input, output and error cannot be
-	** redirected */
-	set_tool_editor_widget_sensitivity(state);
+	** redirected. Also, unless the input type is AN_TINP_STRING,
+	** input string should be disabled.	*/
+	if (s)
+	{
+		input_type = type_from_string(input_type_strings, s);
+		g_free(s);
+	}
+	set_tool_editor_widget_sensitivity(state, (AN_TINP_STRING == input_type));
+}
+
+void on_user_tool_edit_input_type_changed(GtkEditable *editable, gboolean user_data)
+{
+	int input_type = AN_TINP_NONE;
+	char *s = gtk_editable_get_chars(editable, 0, -1);
+	if (s)
+	{
+		input_type = type_from_string(input_type_strings, s);
+		g_free(s);
+	}
+	gtk_widget_set_sensitive((GtkWidget *) ted->input_en
+	  , (AN_TINP_STRING == input_type));
 }
 
 void on_user_tool_edit_ok_clicked(GtkButton *button, gpointer user_data)
@@ -1062,4 +1288,186 @@ void on_user_tool_edit_cancel_clicked(GtkButton *button, gpointer user_data)
 {
 	gtk_widget_hide(ted->dialog);
 	ted->busy = FALSE;
+}
+
+/* List of variables understood by the tools editor and their values.
+** It is grossly incomplete and I need help here ! - Biswa
+*/
+static struct
+{
+	char *name;
+	char *value;
+} variable_list[] = {
+  {"Variables related to the current open buffer", ""}
+, {CURRENT_FULL_FILENAME_WITH_EXT, "Current full filename with extension" }
+, {CURRENT_FULL_FILENAME, "Current full filename without extension" }
+, {CURRENT_FILENAME_WITH_EXT, "Current filename with extension" }
+, {CURRENT_FILENAME, "Current filename without extension" }
+, {CURRENT_FILE_DIRECTORY, "Directory of the current file" }
+, {CURRENT_FILE_EXTENSION, "Extension of the current file" }
+, {"current.file.selection", "Selected/focussed word in the current buffer"}
+, {"Variables related to the current open project", ""}
+, {"top.proj.dir", "Top project directory" }
+, {"project.name", "Name of the project" }
+, {"project.type", "Type of project, e.g. GNOME"}
+, {"project.target.type", "Type of target of the project"}
+, {"project.version", "Project version"}
+, {"project.author", "Author of the project"}
+, {"project.source.target", "Main target executable/library for the project"}
+, {"project.source.paths", "Directories where project sources are present"}
+, {"project.has.gettext", "Whether gettext (INTL) support is enabled for the project"}
+, {"project.programming.language", "Programming languages used in the project"}
+, {"project.excluded.modules", "Modules (directories) excluded from the project"}
+, {"project.config.extra.modules.before", "Modules to configure before source module"}
+, {"project.config.extra.modules.after", "Modules to configure after source module"}
+, {"project.menu.entry", "Project menu entry (i.e. project name)"}
+, {"project.menu.group", "Project menu group (e.g. Applications)"}
+, {"project.menu.comment", "Desktop entry descriptive comment"}
+, {"project.menu.icon", "Icon file for the project"}
+, {"project.menu.need.terminal", "Whether the program should run in a terminal"}
+, {"project.configure.options", "Options to pass to project configure script"}
+, {"anjuta.program.arguments", "Arguments anjuta passes while executing the program"}
+, {"module.*.name", "Name of project module ('*' can be include, source, pixmap, data, help, doc and po"}
+, {"module.*.files", "Files under the given project module (source, include, etc.)"}
+, {"compiler.options.supports", "Compiler support options (needs better explaination"}
+, {"compiler.options.include.paths", "Include paths to pass to the compiler"}
+, {"compiler.options.library.paths", "Library paths to pass to the linker"}
+, {"compiler.options.libraries", "Libraries to link against"}
+, {"compiler.options.defines", "Defines to pass to the compiler"}
+, {"compiler.options.other.c.flags", "Other options to pass to the compiler"}
+, {"compiler.options.other.l.flags", "Other library flags to pass to the linker"}
+, {"compiler.options.opther.l.libs", "Other libraries to link with the application"}
+, {"anjuta.last.open.project", "Last open project"}
+, {"Generic user preferences", ""}
+, {PROJECTS_DIRECTORY, "Directory where projects are created by default"}
+, {TARBALLS_DIRECTORY, "Default tarballs creation directory"}
+, {RPMS_DIRECTORY, "RPMs directory"}
+, {SRPMS_DIRECTORY, "SRPMs directory"}
+, {MAXIMUM_RECENT_PROJECTS, "Maximum recent projects to show" }
+, {MAXIMUM_RECENT_FILES, "Maximum recent files to show" }
+, {MAXIMUM_COMBO_HISTORY, "Maximum combo history size" }
+, {DIALOG_ON_BUILD_COMPLETE, "Whether to show dialog on completion of build" }
+, {BEEP_ON_BUILD_COMPLETE, "Whether to beep on completion of build" }
+, {RELOAD_LAST_PROJECT, "If the last project is to be reloaded at startup" }
+, {BUILD_OPTION_KEEP_GOING, "Whether to continue building on errors" }
+, {BUILD_OPTION_DEBUG, "Enable debugging of build" }
+, {BUILD_OPTION_SILENT, "Build silently" }
+, {BUILD_OPTION_WARN_UNDEF, "Warn on undefined variables during build" }
+, {BUILD_OPTION_JOBS, "Maximum number of build jobs" }
+, {BUILD_OPTION_AUTOSAVE, "Autosave before build"}
+, {DISABLE_SYNTAX_HILIGHTING, "Disable syntax highlighting for source files"}
+, {SAVE_AUTOMATIC, "Save automatically on a periodic basis"}
+, {INDENT_AUTOMATIC, "Auto-indent"}
+, {USE_TABS, "Use tabs for indentation"}
+, {BRACES_CHECK, "Check brace matching"}
+, {DOS_EOL_CHECK, "Use DOS style end-of-line characters"}
+, {WRAP_BOOKMARKS, "Wrap around bookmarks Previous/Next"}
+, {TAB_SIZE, "Tab size"}
+, {INDENT_SIZE, "Indentation size"}
+, {INDENT_OPENING, "Whether to indent opening brace"}
+, {INDENT_CLOSING, "Whether to indent closing brace"}
+, {AUTOSAVE_TIMER, "Time in minutes after which autosave occurs"}
+, {MARGIN_LINENUMBER_WIDTH, "Widhth of line-number margin"}
+, {SAVE_SESSION_TIMER, "use save session timer"}
+, {AUTOFORMAT_DISABLE, "Disable autoformatting"}
+, {AUTOFORMAT_CUSTOM_STYLE, "Custom autoformat style (indent parameters)"}
+, {AUTOFORMAT_STYLE, "Predefined autoformat style"}
+, {EDITOR_TAG_POS, "Editor tab position"}
+, {EDITOR_TAG_HIDE, "Whether to hide editor tabs"}
+, {EDITOR_TABS_ORDERING, "Whether to order editor tabs by file name"}
+, {STRIP_TRAILING_SPACES, "Whether to strip trailing spaces"}
+, {FOLD_ON_OPEN, "Whether to close folds on opening a new file"}
+, {CARET_FORE_COLOR, "Caret foreground color"}
+, {CALLTIP_BACK_COLOR, "Background color of calltip"}
+, {SELECTION_FORE_COLOR, "Foreground color of selection"}
+, {SELECTION_BACK_COLOR, "Background color of selection"}
+, {TEXT_ZOOM_FACTOR, "Current text zoom factor"}
+, {TRUNCAT_MESSAGES, "Whether to truncate long messages"}
+, {TRUNCAT_MESG_FIRST, "Number of characters to truncate after"}
+, {TRUNCAT_MESG_LAST, "No of trailing characters to show"}
+, {MESSAGES_TAG_POS, "Position of messages window tabs"}
+, {MESSAGES_COLOR_ERROR, "Color of error message lines"}
+, {MESSAGES_COLOR_WARNING, "Color of warning message lines"}
+, {MESSAGES_COLOR_MESSAGES1, "Color of program messages"}
+, {MESSAGES_COLOR_MESSAGES2, "Color of other messages"}
+, {MESSAGES_INDICATORS_AUTOMATIC, "Enable utomatic message indicators"}
+, {AUTOMATIC_TAGS_UPDATE, "Update tag image automatically"}
+, {BUILD_SYMBOL_BROWSER, "Build symbol browsxer automatically"}
+, {BUILD_FILE_BROWSER, "Build file browser automatically"}
+, {SHOW_TOOLTIPS, "Show tooltips"}
+, {PRINT_PAPER_SIZE, "Paper size"}
+, {PRINT_HEADER, "Print header"}
+, {PRINT_WRAP, "Enable wrapping while printing"}
+, {PRINT_LINENUM_COUNT, "Print line number after these many lines"}
+, {PRINT_LANDSCAPE, "Use landscape printing mode"}
+, {PRINT_MARGIN_LEFT, "Left margin for printing"}
+, {PRINT_MARGIN_RIGHT, "Right margin for printing"}
+, {PRINT_MARGIN_TOP, "Top margin for printing"}
+, {PRINT_MARGIN_BOTTOM, "Bottom margin for printing"}
+, {PRINT_COLOR, "Enable color printing"}
+, {USE_COMPONENTS, "Use components"}
+, {IDENT_NAME, "User name"}
+, {IDENT_EMAIL, "User e-mail address"}
+, {CHARACTER_SET, "Current character set"}
+, {TERMINAL_FONT, "Font of the embedded terminal"}
+, {TERMINAL_SCROLLSIZE, "Scroll buffer of the embedded terminal"}
+, {TERMINAL_TERM, "Type (TERM) of the embedded terminal"}
+, {TERMINAL_WORDCLASS, "Wordclass (used for selecting words) for terminal"}
+, {TERMINAL_BLINK, "Enable blinking cursor for terminal"}
+, {TERMINAL_BELL, "Enable terminal bell"}
+, {TERMINAL_SCROLL_KEY, "Enable terminal scroll on keystroke"}
+, {TERMINAL_SCROLL_OUTPUT, "Enable terminal scroll on output"}
+, {"anjuta.home.directory", "Home directory for Anjuta"}
+, {"anjuta.data.directory", "Data directory for anjuta"}
+, {"anjuta.pixmap.directory", "Pixmap directory for anjuta"}
+, {"anjuta.version", "Anjuta version"}
+, {NULL, NULL}
+};
+
+gboolean on_user_tool_edit_help_clicked(GtkButton *button, gpointer user_data)
+{
+	if (NULL == th)
+	{
+		char glade_file[PATH_MAX];
+		int i = 0;
+		char *s[3];
+
+		th = g_new0(AnToolHelp, 1);
+		snprintf(glade_file, PATH_MAX, "%s/%s", PACKAGE_DATA_DIR, GLADE_FILE);
+		if (NULL == (th->xml = glade_xml_new(glade_file, TOOL_HELP)))
+		{
+			anjuta_error("Unable to build user interface for tool help");
+			g_free(th);
+			th = NULL;
+			return FALSE;
+		}
+		th->dialog = glade_xml_get_widget(th->xml, TOOL_HELP);
+		gtk_window_set_transient_for (GTK_WINDOW(th->dialog)
+		  , GTK_WINDOW(app->widgets.window));
+		gtk_widget_ref(th->dialog);
+		th->clist = (GtkCList *) glade_xml_get_widget(th->xml, TOOL_HELP_CLIST);
+		gtk_widget_ref((GtkWidget *) th->clist);
+		th->ok_btn = (GtkButton *) glade_xml_get_widget(th->xml, OK_BUTTON);
+		gtk_widget_ref((GtkWidget *) th->ok_btn);
+		s[2] = "";
+		while (NULL != variable_list[i].name)
+		{
+			s[0] = variable_list[i].name;
+			s[1] = variable_list[i].value;
+			gtk_clist_append(th->clist, s);
+			++ i;
+		}
+		glade_xml_signal_autoconnect(th->xml);
+	}
+	if (th->busy)
+		return FALSE;
+	tl->busy = TRUE;
+	gtk_widget_show(th->dialog);
+	return TRUE;
+}
+
+on_user_tool_help_ok_clicked(GtkButton *button, gpointer user_data)
+{
+	th->busy = FALSE;
+	gtk_widget_hide(th->dialog);
 }

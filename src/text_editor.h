@@ -188,6 +188,7 @@ gint text_editor_get_num_bookmarks(TextEditor* te);
 
 GtkWidget* text_editor_tab_widget_new(TextEditor* te);
 void text_editor_tab_widget_destroy(TextEditor* te);
+gchar *text_editor_get_current_word(TextEditor *te);
 
 #define linenum_text_editor_to_scintilla(x) (x-1)
 
