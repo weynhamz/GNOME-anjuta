@@ -1,7 +1,6 @@
 2002-12-12  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
-	* anjuta.glade, src/anjuta-tools.c: Implemented tool help.
-	* src/text_editor.[ch], src/mainmenu_callbacks.c
-	, src/anjuta-tools.c: Added a new property (current selection)
+	* anjuta.glade, src/anjuta-tools.c, src/text_editor.[ch]
+	, src/mainmenu_callbacks.c, controls.c: Tools editor stuff.
 
 2002-12-11  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
 

@@ -639,6 +639,7 @@ static gboolean anjuta_tools_load_from_file(const gchar *file_name)
 	{
 		an_user_tool_activate(tool);
 	}
+	anjuta_tools_sensitize();
 	close(fd);
 	return TRUE;
 }
@@ -686,6 +687,27 @@ gboolean anjuta_tools_save(void)
 	}
 	fclose(f);
 	return TRUE;
+}
+
+void anjuta_tools_sensitize(void)
+{
+	GSList *tmp;
+	AnUserTool *tool;
+
+	for (tmp = tool_list; tmp; tmp = g_slist_next(tmp))
+	{
+		tool = (AnUserTool *) tmp->data;
+		if (tool->menu_item)
+		{
+			if ((!app->project_dbase->project_is_open && tool->project_level)
+			|| (!app->current_text_editor && tool->file_level))
+			{
+				gtk_widget_set_sensitive(tool->menu_item, FALSE);
+			}
+			else
+				gtk_widget_set_sensitive(tool->menu_item, TRUE);
+		}
+	}
 }
 
 /* Structure containing the required properties of the tool list GUI */
@@ -1122,6 +1144,7 @@ void on_user_tool_ok_clicked(GtkButton *button, gpointer user_data)
 			if (NULL == tool->menu_item)
 				an_user_tool_activate(tool);
 		}
+		anjuta_tools_sensitize();
 		gtk_widget_hide(tl->dialog);
 		tl->busy = FALSE;
 	}
@@ -1298,15 +1321,13 @@ static struct
 	char *name;
 	char *value;
 } variable_list[] = {
-  {"Variables related to the current open buffer", ""}
-, {CURRENT_FULL_FILENAME_WITH_EXT, "Current full filename with extension" }
+  {CURRENT_FULL_FILENAME_WITH_EXT, "Current full filename with extension" }
 , {CURRENT_FULL_FILENAME, "Current full filename without extension" }
 , {CURRENT_FILENAME_WITH_EXT, "Current filename with extension" }
 , {CURRENT_FILENAME, "Current filename without extension" }
 , {CURRENT_FILE_DIRECTORY, "Directory of the current file" }
 , {CURRENT_FILE_EXTENSION, "Extension of the current file" }
 , {"current.file.selection", "Selected/focussed word in the current buffer"}
-, {"Variables related to the current open project", ""}
 , {"top.proj.dir", "Top project directory" }
 , {"project.name", "Name of the project" }
 , {"project.type", "Type of project, e.g. GNOME"}
@@ -1360,6 +1381,7 @@ static struct
 , {INDENT_AUTOMATIC, "Auto-indent"}
 , {USE_TABS, "Use tabs for indentation"}
 , {BRACES_CHECK, "Check brace matching"}
+, {"braces.sloppy", "Sloppy braces"}
 , {DOS_EOL_CHECK, "Use DOS style end-of-line characters"}
 , {WRAP_BOOKMARKS, "Wrap around bookmarks Previous/Next"}
 , {TAB_SIZE, "Tab size"}
@@ -1367,7 +1389,6 @@ static struct
 , {INDENT_OPENING, "Whether to indent opening brace"}
 , {INDENT_CLOSING, "Whether to indent closing brace"}
 , {AUTOSAVE_TIMER, "Time in minutes after which autosave occurs"}
-, {MARGIN_LINENUMBER_WIDTH, "Widhth of line-number margin"}
 , {SAVE_SESSION_TIMER, "use save session timer"}
 , {AUTOFORMAT_DISABLE, "Disable autoformatting"}
 , {AUTOFORMAT_CUSTOM_STYLE, "Custom autoformat style (indent parameters)"}
@@ -1376,6 +1397,36 @@ static struct
 , {EDITOR_TAG_HIDE, "Whether to hide editor tabs"}
 , {EDITOR_TABS_ORDERING, "Whether to order editor tabs by file name"}
 , {STRIP_TRAILING_SPACES, "Whether to strip trailing spaces"}
+, {"edge.columns", "Maximum length of line suggested by the editor"}
+, {"edge.mode", "How the editor marks lines exceeding recommended length"}
+, {"edge.color", "Color of edge line"}
+, {"margin.linenumber.visible", "Whether linenumber margin is visible"}
+, {"margin.marker.visible", "Whether marker margin is visible"}
+, {"margin.fold.visible", "Whether the fold margin is visible"}
+, {"margin.linenumber.width", "Width of the linenumber margin"}
+, {"margin.marker.width", "Width of the marker margin"}
+, {"margin.fold.width", "Width of the fold margin"}
+, {"buffered.draw", "Use double-buffering for editor draw"}
+, {"default.file.ext", "Default extension for new files"}
+, {"vc.home.key", "Should the editor use the VC_HOME key"}
+, {"highlight.indentation.guides", "Highlight indentation guides"}
+, {"dwell.period", "Dwell period (used for showing editor tips"}
+, {"fold", "Enable folding"}
+, {"fold.flags", "Fold flags"}
+, {"fold.compact", "Compact folding"}
+, {"fold.use.plus", "User +/- signs for folding"}
+, {"fold.comment", "Fold comments"}
+, {"fold.comment.python", "Fold python comments"}
+, {"fold.quotes.python", "Fold python quotes"}
+, {"fold.html", "Fold HTML"}
+, {"fold.symbols", "Fold symbols"}
+, {"styling.within.preporcessor", "Enable styling within preprocessor"}
+, {"xml.auto.close.tags", "Automatically close XML tags"}
+, {"asp.default.language", "Default language for ASP pages"}
+, {"calltip.*.ignorecase", "Whether calltip should be case-insensitive"}
+, {"autocomplete.*.ignorecase", "Whether autocomplete should be case-insensitive"}
+, {"autocomplete.choose.single", "Whether single autocomplete option is chosen automatically"}
+, {"autocompleteword.automatic", "Try to autocomplete after these many characters"}
 , {FOLD_ON_OPEN, "Whether to close folds on opening a new file"}
 , {CARET_FORE_COLOR, "Caret foreground color"}
 , {CALLTIP_BACK_COLOR, "Background color of calltip"}
@@ -1390,7 +1441,54 @@ static struct
 , {MESSAGES_COLOR_WARNING, "Color of warning message lines"}
 , {MESSAGES_COLOR_MESSAGES1, "Color of program messages"}
 , {MESSAGES_COLOR_MESSAGES2, "Color of other messages"}
-, {MESSAGES_INDICATORS_AUTOMATIC, "Enable utomatic message indicators"}
+, {MESSAGES_INDICATORS_AUTOMATIC, "Enable automatic message indicators"}
+, {"indicator.0.style", "Style for general indicators"}
+, {"indicator.0.color", "Color for general indicators"}
+, {"indicator.1.style", "Style for warning indicators"}
+, {"indicator.1.color", "Color for warning indicators"}
+, {"indicator.2.style", "Style for error indicators"}
+, {"indicator.2.color", "Color for error indicators"}
+, {"blank.margin.left", "Width of left editor margin"}
+, {"blank.margin.right", "Width of right editor margin"}
+, {"horizontal.scrollbar", "Enable horizontal scrollbar"}
+, {"chars.alpha", "Alphabetic characters"}
+, {"chars.numeric", "Numeric characters"}
+, {"chars.accented", "Accented characters"}
+, {"source.files", "These extensions will be treated as source files"}
+, {"view.eol", "Should the EOL character be visible"}
+, {"view.whitespace", "Should the whitespace be visible"}
+, {"view.indentation.whitespace", "Should indentation whitespace be visible"}
+, {"view.indentation.guides", "Should indentation guides be visible"}
+, {"view.line.wrap", "Should line wrap be on by default"}
+, {"use.monospaced", "Use monospaced fonts by default"}
+, {"statusbar.visible", "Should the statusbar be visible"}
+, {"main.toolbar.visible", "Should the main toolbar be visible"}
+, {"browser.toolbar.visible", "Should the browser toolbar be visible"}
+, {"extended.toolbar.visible", "Should the extended toolbar be visible"}
+, {"format.toolbar.visible", "Should the format toolbar be visible"}
+, {"debug.toolbar.visible", "Should the debug toolbar be visible"}
+, {"font.base", "Default base font"}
+, {"font.monospace", "Default monospace font"}
+, {"font.big", "Default big font"}
+, {"font.medium", "Default medium font"}
+, {"font.small", "Default small font"}
+, {"font.comment", "Default comment font"}
+, {"style.default.whitespace", "Default style for whitespaces"}
+, {"style.default.comment", "Default style for comments"}
+, {"style.default.number", "Default style for number"}
+, {"style.default.keyword", "Default style for keywords"}
+, {"style.default.syskeyword", "Default style for system keywords"}
+, {"style.default.localkeyword", "Default style for local keywords"}
+, {"style.default.doublequote", "Default style for doubel quoted strings"}
+, {"style.default.singlequote", "Default style for single quote strings"}
+, {"style.default.preprocessor", "Default style for preprocessor"}
+, {"style.default.operator", "Default style for operators"}
+, {"style.default.unclosedstring", "Default style for unclosed strings"}
+, {"style.default.identifier", "Default style for identifiers"}
+, {"style.default.definition", "Default style for definition name"}
+, {"style.default.function", "Default style for function name"}
+, {"messages.is.docked", "Should be messages window be docked"}
+, {"project.is.docked", "Should be project window be docked"}
 , {AUTOMATIC_TAGS_UPDATE, "Update tag image automatically"}
 , {BUILD_SYMBOL_BROWSER, "Build symbol browsxer automatically"}
 , {BUILD_FILE_BROWSER, "Build file browser automatically"}
@@ -1421,16 +1519,31 @@ static struct
 , {"anjuta.data.directory", "Data directory for anjuta"}
 , {"anjuta.pixmap.directory", "Pixmap directory for anjuta"}
 , {"anjuta.version", "Anjuta version"}
+, {"make", "Command for executing make"}
+, {"anjuta.make.options", "Options to pass to the make command"}
+, {"command.build.module", "Command to build a module"}
+, {"command.build.project", "Command to build the full project"}
+, {"command.build.tarball", "Command to build the project tarball"}
+, {"command.build.install", "Command to install a project"}
+, {"command.build.clean", "Command to clean up temporary project files"}
+, {"command.build.clean.all", "Command to clean all generated files"}
+, {"command.execute.project", "Command to run the project executable"}
+, {"command.terminal", "Command to execute a program in a terminal"}
+, {"anjuta.terminal", "Terminal program to be used (deprecated)"}
+, {"anjuta.compiler.flags", "Default compiler flags"}
+, {"anjuta.linker.flags", "Default linler flags"}
 , {NULL, NULL}
 };
 
 gboolean on_user_tool_edit_help_clicked(GtkButton *button, gpointer user_data)
 {
+	int len;
+	int i = 0;
+	char *s[4];
+
 	if (NULL == th)
 	{
 		char glade_file[PATH_MAX];
-		int i = 0;
-		char *s[3];
 
 		th = g_new0(AnToolHelp, 1);
 		snprintf(glade_file, PATH_MAX, "%s/%s", PACKAGE_DATA_DIR, GLADE_FILE);
@@ -1449,18 +1562,41 @@ gboolean on_user_tool_edit_help_clicked(GtkButton *button, gpointer user_data)
 		gtk_widget_ref((GtkWidget *) th->clist);
 		th->ok_btn = (GtkButton *) glade_xml_get_widget(th->xml, OK_BUTTON);
 		gtk_widget_ref((GtkWidget *) th->ok_btn);
-		s[2] = "";
-		while (NULL != variable_list[i].name)
-		{
-			s[0] = variable_list[i].name;
-			s[1] = variable_list[i].value;
-			gtk_clist_append(th->clist, s);
-			++ i;
-		}
 		glade_xml_signal_autoconnect(th->xml);
 	}
 	if (th->busy)
 		return FALSE;
+	gtk_clist_clear(th->clist);
+	if (app->current_text_editor)
+	{
+		/* Update file level properties */
+		gchar *word;
+		g_message("Setting editor properties..");
+		anjuta_set_file_properties(app->current_text_editor->full_filename);
+		word = text_editor_get_current_word(app->current_text_editor);
+		prop_set_with_key(app->preferences->props, "current.file.selection"
+		  , word?word:"");
+		if (word)
+			g_free(word);
+	}
+	s[3] = "";
+	while (NULL != variable_list[i].name)
+	{
+		s[0] = variable_list[i].name;
+		s[1] = variable_list[i].value;
+		s[2] = prop_get(app->project_dbase->props, s[0]);
+		if (s[2])
+		{
+			len = strlen(s[2]);
+			if (len > 20)
+				s[20] = '\0';
+		}
+		else
+			s[2] = g_strdup("Undefined");
+		gtk_clist_append(th->clist, s);
+		g_free(s[2]);
+		++ i;
+	}
 	tl->busy = TRUE;
 	gtk_widget_show(th->dialog);
 	return TRUE;

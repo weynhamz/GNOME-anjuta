@@ -452,7 +452,7 @@ Settings
 	    <use_arrows_always>True</use_arrows_always>
 	    <items>
 $(current.file.dir)
-$(top.proj_dir)
+$(top.proj.dir)
 </items>
 	    <child>
 	      <padding>0</padding>

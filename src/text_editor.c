@@ -1315,10 +1315,9 @@ text_editor_tab_widget_destroy(TextEditor* te)
 */
 gchar *text_editor_get_current_word(TextEditor *te)
 {
-	char *buf = NULL;
-	if (text_editor_has_selection(te))
+	char *buf = text_editor_get_selection(te);
+	if (buf)
 	{
-		buf = text_editor_get_selection(te);
 		g_strstrip(buf);
 		if ('\0' == *buf)
 		{
@@ -1336,6 +1335,10 @@ gchar *text_editor_get_current_word(TextEditor *te)
 			g_free(buf);
 			buf = NULL;
 		}
+	}
+	if (buf)
+	{
+		g_message("Current word is '%s'", buf);
 	}
 	return buf;
 }

@@ -28,6 +28,7 @@
 #include "anjuta.h"
 #include "utilities.h"
 #include "controls.h"
+#include "anjuta-tools.h"
 
 #define GTK
 #undef PLAT_GTK
@@ -462,6 +463,7 @@ update_main_menubar ()
 	gtk_widget_set_sensitive(hm->gnome, app->has_devhelp);
 	gtk_widget_set_sensitive(hm->context_help, app->has_devhelp);
 	*/
+	anjuta_tools_sensitize();
 	update_led_animator ();
 }
 
