@@ -559,7 +559,7 @@ msgstr ""
 
 #: anjuta.glade.h:132
 msgid "File/Directory to add:"
-msgstr ""
+msgstr "Comhad/Eolaire a suimigh:"
 
 #: anjuta.glade.h:133
 msgid "Filter extraneous characters in DOS mode"
@@ -567,11 +567,11 @@ msgstr ""
 
 #: anjuta.glade.h:134
 msgid "Find & Replace"
-msgstr ""
+msgstr "Cuardaigh & Glac áit"
 
 #: anjuta.glade.h:135
 msgid "Find and replace"
-msgstr ""
+msgstr "Cuardaigh agus glac áit"
 
 #: anjuta.glade.h:136 src/find_in_files.c:316
 msgid "Find in Files"
@@ -587,7 +587,7 @@ msgstr "Clófhoireann:"
 
 #: anjuta.glade.h:139
 msgid "Fore color:"
-msgstr ""
+msgstr "Dath dulra:"
 
 #: anjuta.glade.h:140
 msgid "Format"
@@ -930,7 +930,7 @@ msgstr ""
 #. Must declare static, because it will be used forever
 #: anjuta.glade.h:221 src/project_dbase.c:197 src/toolbar.c:213
 msgid "Open Project"
-msgstr "Oscáil Tionscáil"
+msgstr "Oscail Tionscáil"
 
 #: anjuta.glade.h:222
 msgid "Open existing Project."
@@ -943,7 +943,7 @@ msgstr ""
 #: anjuta.glade.h:224 src/main_menubar_def.h:36 src/text_editor_gui.c:101
 #: src/toolbar.c:80
 msgid "Open file"
-msgstr "Oscáil comhad"
+msgstr "Oscail comhad"
 
 #: anjuta.glade.h:225
 msgid "Open last working Project"
@@ -1194,7 +1194,7 @@ msgstr ""
 
 #: anjuta.glade.h:286
 msgid "Settings"
-msgstr ""
+msgstr "Roghnachais"
 
 #: anjuta.glade.h:287
 msgid "Short cut:"
@@ -1202,7 +1202,7 @@ msgstr ""
 
 #: anjuta.glade.h:288
 msgid "Show tooltips"
-msgstr ""
+msgstr "Taispeán leathfhocail"
 
 #: anjuta.glade.h:289
 msgid "Silent. That is, do not echo shell commads during make"
@@ -1250,15 +1250,15 @@ msgstr ""
 
 #: anjuta.glade.h:300
 msgid "Standard error:"
-msgstr ""
+msgstr "Bealach earraidh Caighdeánach:"
 
 #: anjuta.glade.h:301
 msgid "Standard input:"
-msgstr ""
+msgstr "Inchur caighdeánach:"
 
 #: anjuta.glade.h:302
 msgid "Standard output:"
-msgstr ""
+msgstr "Aschur caighdeánach:"
 
 #: anjuta.glade.h:303
 msgid ""
@@ -1321,11 +1321,11 @@ msgstr ""
 
 #: anjuta.glade.h:317
 msgid "Tool Editor"
-msgstr ""
+msgstr "Eagarthóir na hUirlís"
 
 #: anjuta.glade.h:318
 msgid "Top"
-msgstr ""
+msgstr "Bar"
 
 #: anjuta.glade.h:319
 msgid "Top level Makefile.am"
@@ -1406,11 +1406,11 @@ msgstr ""
 
 #: anjuta.glade.h:338 src/project_dbase_gui.c:931
 msgid "Version:"
-msgstr ""
+msgstr "Leagan:"
 
 #: anjuta.glade.h:339
 msgid "View"
-msgstr ""
+msgstr "Amharc"
 
 #: anjuta.glade.h:340
 msgid "Warn when an undefined variable is referenced in the Makefile"
@@ -1470,7 +1470,7 @@ msgstr ""
 
 #: anjuta.glade.h:354
 msgid "_Image editor:"
-msgstr ""
+msgstr "Eagarthóir na h_Íomhanna"
 
 #: anjuta.glade.h:355
 msgid "_Language:"
@@ -1701,7 +1701,7 @@ msgstr ""
 
 #: gdl/gdl-dock-notebook.c:134
 msgid "Page"
-msgstr ""
+msgstr "Leathanach"
 
 #: gdl/gdl-dock-notebook.c:135
 msgid "The index of the current page"
@@ -1713,7 +1713,7 @@ msgstr ""
 
 #: gdl/gdl-dock-object.c:128
 msgid "Long name"
-msgstr ""
+msgstr "Ainm Fhada"
 
 #: gdl/gdl-dock-object.c:129
 msgid "Human readable name for the dock object"
@@ -1754,7 +1754,7 @@ msgstr ""
 
 #: gdl/gdl-dock-paned.c:134
 msgid "Position"
-msgstr ""
+msgstr "Áit"
 
 #: gdl/gdl-dock-paned.c:135
 msgid "Position of the divider in pixels"
@@ -1826,7 +1826,7 @@ msgstr ""
 
 #: gdl/gdl-dock.c:192
 msgid "Width"
-msgstr ""
+msgstr "Leitheid"
 
 #: gdl/gdl-dock.c:193
 msgid "Width for the dock when it's of floating type"
@@ -1834,7 +1834,7 @@ msgstr ""
 
 #: gdl/gdl-dock.c:200
 msgid "Height"
-msgstr ""
+msgstr "Airde"
 
 #: gdl/gdl-dock.c:201
 msgid "Height for the dock when it's of floating type"
@@ -1875,7 +1875,7 @@ msgstr ""
 
 #: gdl/layout.glade.h:5
 msgid "_Load"
-msgstr ""
+msgstr "_Lódáil"
 
 #: gdl/layout.glade.h:6
 msgid "_Lock dock items"
@@ -1911,11 +1911,11 @@ msgstr ""
 #: src/project_dbase_gui.c:366 src/registers_gui.c:55 src/sharedlib_gui.c:48
 #: src/signals_gui.c:62 src/stack_trace.c:379 src/watch_gui.c:74
 msgid "Help"
-msgstr ""
+msgstr "C_uidiú"
 
 #: plugins/class-gen/clsGen.c:1352 plugins/patch/patch-plugin.c:107
 msgid "Cancel"
-msgstr ""
+msgstr "Cealaigh"
 
 #: plugins/class-gen/clsGen.c:1361
 msgid "Finish"
@@ -1935,7 +1935,7 @@ msgstr ""
 
 #: plugins/class-gen/clsGen.c:1400 plugins/class-gen/clsGen.c:1410
 msgid "..."
-msgstr ""
+msgstr "..."
 
 #: plugins/class-gen/clsGen.c:1408
 msgid "Browse for the declaration file name."
@@ -1958,7 +1958,7 @@ msgstr ""
 #. gtk_widget_set_usize (self->label_description, 400, 16);
 #: plugins/class-gen/clsGen.c:1462
 msgid "Class name: "
-msgstr ""
+msgstr "Ainm Rang: "
 
 #: plugins/class-gen/clsGen.c:1472
 msgid "Header file:  "
@@ -1966,7 +1966,7 @@ msgstr ""
 
 #: plugins/class-gen/clsGen.c:1482
 msgid "Source file:  "
-msgstr ""
+msgstr "Comhad bunchíd: "
 
 #: plugins/class-gen/clsGen.c:1492
 msgid "Base class:   "
@@ -1989,11 +1989,11 @@ msgstr ""
 
 #: plugins/class-gen/clsGen.c:1548
 msgid "By:  Dave Huseby <huseby@linuxprogrammer.org>"
-msgstr ""
+msgstr "Le: Dave Huseby <huseby@linuxprogrammer.org>"
 
 #: plugins/class-gen/clsGen.c:1559
 msgid "V 0.0.2 (June 11, 2002)"
-msgstr ""
+msgstr "V 0.0.2 (Meitheamh 11, 2002)"
 
 #: plugins/class-gen/clsGen.c:1570
 msgid ""
@@ -2007,11 +2007,11 @@ msgstr ""
 #. gtk_widget_set_usize (self->label_welcome, 184, 16);
 #: plugins/class-gen/clsGen.c:1589
 msgid "Class type:   "
-msgstr ""
+msgstr "Saghas Rang:  "
 
 #: plugins/class-gen/clsGen.c:1607 plugins/class-gen/clsGen.c:1620
 msgid "public"
-msgstr ""
+msgstr "poiblí"
 
 #: plugins/class-gen/clsGen.c:1608
 msgid "protected"
@@ -2019,7 +2019,7 @@ msgstr ""
 
 #: plugins/class-gen/clsGen.c:1609
 msgid "private"
-msgstr ""
+msgstr "príomhádach"
 
 #: plugins/class-gen/clsGen.c:1618
 msgid "Choose the type of inheritence from the base class."
@@ -2040,7 +2040,7 @@ msgstr ""
 
 #: plugins/class-gen/clsGen.c:1641
 msgid "GTK+ Class"
-msgstr ""
+msgstr "Rang GTK+"
 
 #: plugins/class-gen/clsGen.c:1650
 msgid "Select the type of class you would like to create."
@@ -2158,7 +2158,7 @@ msgstr "Ag clódáil..."
 
 #: printing/print.c:856
 msgid "Printing ..."
-msgstr ""
+msgstr "Ag Clógáil..."
 
 #: printing/print.c:1002 src/signals_gui.c:123
 msgid "Print"
@@ -2227,7 +2227,7 @@ msgstr ""
 #. 4
 #: src/an_file_view.c:382
 msgid "Add file"
-msgstr ""
+msgstr "Suimigh comhad"
 
 #: src/an_file_view.c:383 src/main_menubar_def.h:1640
 msgid "Add the current file to the repository"
@@ -2255,7 +2255,7 @@ msgstr ""
 #: src/an_file_view.c:406 src/main_menubar_def.h:954
 #: src/project_dbase_gui.c:334
 msgid "Open in Anjuta"
-msgstr ""
+msgstr "Oscail san Anjuta"
 
 #. 1
 #: src/an_file_view.c:413 src/main_menubar_def.h:948
@@ -2291,11 +2291,11 @@ msgstr ""
 
 #: src/an_file_view.c:684
 msgid "Rev"
-msgstr ""
+msgstr "Leag."
 
 #: src/an_symbol_view.c:54
 msgid "Classes"
-msgstr ""
+msgstr "Ranganna"
 
 #: src/an_symbol_view.c:54
 msgid "Structs"
@@ -2303,7 +2303,7 @@ msgstr ""
 
 #: src/an_symbol_view.c:55
 msgid "Variables"
-msgstr ""
+msgstr "Athrógaí"
 
 #: src/an_symbol_view.c:55
 msgid "Macros"
@@ -2326,7 +2326,7 @@ msgstr ""
 
 #: src/an_symbol_view.c:569
 msgid "Symbol"
-msgstr ""
+msgstr "Siombál"
 
 #: src/anjuta-encodings.c:131 src/anjuta-encodings.c:157
 #: src/anjuta-encodings.c:198 src/anjuta-encodings.c:239
@@ -2477,7 +2477,7 @@ msgstr ""
 
 #: src/anjuta-tools.c:1005
 msgid "Tool"
-msgstr ""
+msgstr "Uirlís"
 
 #: src/anjuta-tools.c:1189
 msgid "Unable to build user interface for tool editor"
@@ -2507,7 +2507,7 @@ msgstr ""
 
 #: src/anjuta-tools.c:1807 src/debug_tree.c:106 src/watch_gui.c:125
 msgid "Variable"
-msgstr ""
+msgstr "Athróg"
 
 #: src/anjuta-tools.c:1813
 msgid "Meaning"
@@ -2515,7 +2515,7 @@ msgstr ""
 
 #: src/anjuta-tools.c:1819 src/debug_tree.c:106 src/watch_gui.c:134
 msgid "Value"
-msgstr ""
+msgstr "Luath"
 
 #: src/anjuta-tools.c:1882
 msgid "Unable to build user interface for tool parameters"
@@ -2534,12 +2534,12 @@ msgstr ""
 #. Must declare static, because it will be used forever
 #: src/anjuta.c:130
 msgid "Open File"
-msgstr ""
+msgstr "Oscail Comhad"
 
 #. Must declare static, because it will be used forever
 #: src/anjuta.c:136 src/anjuta.c:141
 msgid "Save File As"
-msgstr ""
+msgstr "Sábháil Comhad Mar"
 
 #: src/anjuta.c:270
 msgid "Cannot create application... exiting\n"
@@ -2548,7 +2548,7 @@ msgstr ""
 #: src/anjuta.c:320 src/anjuta.c:324 src/anjuta.c:1147 src/anjuta.c:1163
 #, c-format
 msgid "Anjuta: %s"
-msgstr ""
+msgstr "Anjuta: %s"
 
 #: src/anjuta.c:381
 msgid "Recent Files "
@@ -2560,12 +2560,12 @@ msgstr ""
 
 #: src/anjuta.c:1112
 msgid "All files saved ..."
-msgstr ""
+msgstr "Gach comhaid sábháilte ..."
 
 #: src/anjuta.c:1140
 #, c-format
 msgid "Anjuta: %s (Saved)"
-msgstr ""
+msgstr "Anjuta: %s (sábháilte)"
 
 #: src/anjuta.c:1155
 #, c-format
@@ -2574,7 +2574,7 @@ msgstr ""
 
 #: src/anjuta.c:1180
 msgid "Anjuta: No file"
-msgstr ""
+msgstr "Anjuta:  Gan Comhad"
 
 #: src/anjuta.c:1485 src/anjuta.c:1587
 msgid "ERROR: "
@@ -2653,7 +2653,7 @@ msgstr ""
 
 #: src/anjuta_cbs.c:512 src/anjuta_cbs.c:576 src/find_replace.c:344
 msgid "_Replace"
-msgstr ""
+msgstr "_Glac áit"
 
 #: src/anjuta_cbs.c:545
 msgid "Could not open file for writing"
@@ -2706,13 +2706,13 @@ msgstr ""
 #: src/project_dbase.c:1498 src/project_import_cbs.c:227 src/signals_cbs.c:114
 #: src/signals_cbs.c:127 src/signals_cbs.c:140
 msgid "Yes"
-msgstr "Tá"
+msgstr "Sea"
 
 #: src/appwizard_cbs.c:284 src/project_dbase.c:1491 src/project_dbase.c:1500
 #: src/project_import_cbs.c:229 src/signals_cbs.c:116 src/signals_cbs.c:129
 #: src/signals_cbs.c:142
 msgid "No"
-msgstr "Níl"
+msgstr "Ní Hea"
 
 #: src/appwizard_cbs.c:286 src/project_import_cbs.c:230
 msgid ""
@@ -2770,7 +2770,7 @@ msgstr ""
 
 #: src/attach_process.c:47
 msgid "User"
-msgstr ""
+msgstr "Úsáideoir"
 
 #: src/attach_process.c:47
 msgid "Time"
@@ -2999,7 +2999,7 @@ msgstr ""
 #: src/compiler_options.c:803 src/compiler_options.c:879
 #: src/compiler_options.c:902 src/compiler_options.c:947 src/signals_gui.c:131
 msgid "Description"
-msgstr ""
+msgstr "Tuarascail"
 
 #: src/compiler_options.c:818
 msgid "Include paths"
@@ -3105,7 +3105,7 @@ msgstr ""
 
 #: src/cvs.c:784
 msgid "done\n"
-msgstr ""
+msgstr "críochnaithe\n"
 
 #: src/cvs_cbs.c:41
 msgid "You do not need to login to a local server"
@@ -3113,11 +3113,11 @@ msgstr ""
 
 #: src/cvs_gui.c:30
 msgid "Local"
-msgstr ""
+msgstr "Áitiúl"
 
 #: src/cvs_gui.c:30
 msgid "Password"
-msgstr ""
+msgstr "Pasfhocal"
 
 #: src/cvs_gui.c:30
 msgid "Extern(rsh)"
@@ -3125,7 +3125,7 @@ msgstr ""
 
 #: src/cvs_gui.c:30
 msgid "Server"
-msgstr ""
+msgstr "Freastalaí"
 
 #: src/cvs_gui.c:72
 msgid "CVS: Update"
@@ -3145,7 +3145,7 @@ msgstr ""
 
 #: src/cvs_gui.c:81
 msgid "Show status"
-msgstr ""
+msgstr "Taispeán stádas"
 
 #: src/cvs_gui.c:84
 msgid "CVS: Log"
@@ -3165,7 +3165,7 @@ msgstr "Suimigh"
 
 #: src/cvs_gui.c:92
 msgid "CVS: Remove file"
-msgstr ""
+msgstr "CVS: Scríos comhad"
 
 #. 3
 #: src/cvs_gui.c:93 src/project_dbase_gui.c:340 src/watch_gui.c:43
@@ -3210,7 +3210,7 @@ msgstr ""
 
 #: src/cvs_gui.c:265
 msgid "Date: "
-msgstr ""
+msgstr "Dáta: "
 
 #: src/cvs_gui.c:333
 msgid "CVS Login"
@@ -3593,11 +3593,11 @@ msgstr ""
 
 #: src/gnome_project.c:159
 msgid "Loading Project ...\n"
-msgstr ""
+msgstr "Ag lódáil Tionscadál ...\n"
 
 #: src/gnome_project.c:170 src/gnome_project.c:231
 msgid "Saving Project ...\n"
-msgstr ""
+msgstr "Ag Sábháil Tionscadal ...\n"
 
 #: src/gnome_project.c:178
 msgid "Generating source codes ...\n"
@@ -3699,26 +3699,26 @@ msgstr ""
 #. 0
 #: src/main_menubar_def.h:29
 msgid "_New"
-msgstr ""
+msgstr "_Nua"
 
 #. 1
 #: src/main_menubar_def.h:35
 msgid "_Open ..."
-msgstr ""
+msgstr "_Oscail ..."
 
 #. 2
 #: src/main_menubar_def.h:41
 msgid "_Save"
-msgstr ""
+msgstr "_Sábháil"
 
 #: src/main_menubar_def.h:42 src/text_editor_gui.c:107 src/toolbar.c:84
 msgid "Save current file"
-msgstr ""
+msgstr "Sábháil comhad reatha"
 
 #. 3
 #: src/main_menubar_def.h:47
 msgid "Save _As ..."
-msgstr ""
+msgstr "Sábháil _Mar ..."
 
 #: src/main_menubar_def.h:48
 msgid "Save the current file with a different name"
@@ -3727,7 +3727,7 @@ msgstr ""
 #. 4
 #: src/main_menubar_def.h:53
 msgid "Save A_ll"
-msgstr ""
+msgstr "Sábháil _Gach rud"
 
 #: src/main_menubar_def.h:54
 msgid "Save all currently open files, except new files"
@@ -3736,20 +3736,20 @@ msgstr ""
 #. 5
 #: src/main_menubar_def.h:59
 msgid "_Close File"
-msgstr ""
+msgstr "_Dún Comhad"
 
 #: src/main_menubar_def.h:60 src/toolbar.c:92
 msgid "Close current file"
-msgstr ""
+msgstr "Dún comhad reatha"
 
 #. 6
 #: src/main_menubar_def.h:65
 msgid "Close All Files"
-msgstr ""
+msgstr "Dún Gach Comhaid"
 
 #: src/main_menubar_def.h:66
 msgid "Close all files"
-msgstr ""
+msgstr "Dún gach comháid"
 
 #. 7
 #: src/main_menubar_def.h:71
@@ -3764,7 +3764,7 @@ msgstr ""
 #. 9
 #: src/main_menubar_def.h:78
 msgid "N_ew Project ..."
-msgstr ""
+msgstr "Tionscadál _Nua ..."
 
 #: src/main_menubar_def.h:79
 msgid "Create a Project using the Application Wizard"
@@ -3810,17 +3810,17 @@ msgstr ""
 #. 15
 #: src/main_menubar_def.h:109
 msgid "Rena_me ..."
-msgstr ""
+msgstr "_Athainmigh ..."
 
 #: src/main_menubar_def.h:110
 msgid "Rename the current file"
-msgstr ""
+msgstr "Athainmigh an comhad reatha"
 
 #. 16
 #. 17
 #: src/main_menubar_def.h:116
 msgid "_Print"
-msgstr ""
+msgstr "_Clódáil"
 
 #: src/main_menubar_def.h:117 src/text_editor_gui.c:177 src/toolbar.c:110
 msgid "Print the current file"
@@ -3903,7 +3903,7 @@ msgstr ""
 #. 0
 #: src/main_menubar_def.h:198
 msgid "_Select All"
-msgstr ""
+msgstr "_Roghnaigh Gach rud"
 
 #: src/main_menubar_def.h:199
 msgid "Select all text in the editor"
@@ -3957,7 +3957,7 @@ msgstr ""
 #. 0
 #: src/main_menubar_def.h:239
 msgid "/* GPL Notice */"
-msgstr ""
+msgstr "/* GPL Notice */"
 
 #: src/main_menubar_def.h:240
 msgid "Insert GPL notice with C style comments"
@@ -3966,7 +3966,7 @@ msgstr ""
 #. 1
 #: src/main_menubar_def.h:245
 msgid "// GPL Notice"
-msgstr ""
+msgstr "// GPL Notice"
 
 #: src/main_menubar_def.h:246
 msgid "Insert GPL notice with C++ style comments"
@@ -3975,7 +3975,7 @@ msgstr ""
 #. 2
 #: src/main_menubar_def.h:251
 msgid "# GPL Notice"
-msgstr ""
+msgstr "# GPL Notice"
 
 #: src/main_menubar_def.h:252
 msgid "Insert GPL notice with Python style comments"
@@ -4129,7 +4129,7 @@ msgstr ""
 #. 0
 #: src/main_menubar_def.h:427
 msgid "_Find ..."
-msgstr ""
+msgstr "_Cuardaigh ..."
 
 #: src/main_menubar_def.h:428
 msgid "Search for a string or regular expression in the editor"
@@ -4348,7 +4348,7 @@ msgstr ""
 #. 6
 #: src/main_menubar_def.h:598
 msgid "C_lear"
-msgstr "G_lan"
+msgstr "_Bánaigh"
 
 #: src/main_menubar_def.h:599
 msgid "Delete the selected text from the editor"
