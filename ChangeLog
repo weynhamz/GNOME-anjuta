@@ -6,6 +6,8 @@
 	* data/properties/anjuta.properties, scintilla/PLatGTK.cxx,
 	scintilla/Document.cxx, scintilla/ScintillaGTK.cxx: i18n patch from
 	Yukihiro Nakai.
+	* src/search-replace.c, tagmanager/tm_file_entry.c: More search
+	replace enhancements from Jean Noel.
 
 2003-01-30  TTimo <ttimo@ttimo.net>
 	* src/anjuta.c, src/anjuta_cbs.c, src/project_dbase.c: Making the

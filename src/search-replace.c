@@ -325,7 +325,7 @@ static FileBuffer *file_buffer_new_from_path(const char *path, const char *buf
 
 		if ((0 == stat(fb->path, &s)) && (S_ISREG(s.st_mode)))
 		{
-			fb->len = s.st_size;
+			if ((fb->len = s.st_size) < 0) return NULL;
 			fb->buf = g_new(char, s.st_size + 1);
 			{
 				int total_bytes = 0, bytes_read, fd;
@@ -487,6 +487,35 @@ static GList *get_project_file_list(void)
 	return files;
 }
 
+
+gboolean extra_match(FileBuffer *fb, SearchExpression *s, gint match_len)
+{
+	gchar b, e;
+	
+	b = fb->buf[fb->pos-1];
+	e = fb->buf[fb->pos+match_len];
+	
+	if (s->whole_line)
+		if ((fb->pos == 0 || b == '\n') && (e == '\0'	|| e == '\n'))
+			return TRUE;
+		else
+			return FALSE;
+	else if (s->whole_word)
+		if ((fb->pos ==0 || b ==' ' || b=='\t' || b == '\n') && 
+			(e=='\0' || e=='\n' || e==' ' || e =='\t'))
+			return TRUE;
+		else
+			return FALSE;
+	else if (s->word_start)
+		if (fb->pos ==0 || b ==' ' || b=='\t' || b == '\n')
+			return TRUE;
+		else
+			return FALSE;	
+	else return TRUE;		
+}
+
+
+
 /* Returns the next match in the passed buffer. The search expression should
 ** be pre-compiled. The returned pointer should be freed with match_info_free()
 ** when no longer required. */
@@ -559,7 +588,7 @@ static MatchInfo *get_next_match(FileBuffer *fb, SearchDirection direction
 					if (tolower(s->search_str[0]) == tolower(fb->buf[fb->pos]))
 					{
 						if (0 == g_strncasecmp(s->search_str, fb->buf + fb->pos
-						  , match_len))
+						  , match_len) &&  extra_match(fb, s, match_len))
 						{
 							mi = g_new0(MatchInfo, 1);
 							mi->pos = fb->pos;
@@ -577,7 +606,7 @@ static MatchInfo *get_next_match(FileBuffer *fb, SearchDirection direction
 					if (s->search_str[0] == fb->buf[fb->pos])
 					{
 						if (0 == strncmp(s->search_str, fb->buf + fb->pos
-						  , match_len))
+						  , match_len) &&  extra_match(fb, s, match_len))
 						{
 							mi = g_new0(MatchInfo, 1);
 							mi->pos = fb->pos;
@@ -599,7 +628,7 @@ static MatchInfo *get_next_match(FileBuffer *fb, SearchDirection direction
 					if (tolower(s->search_str[0]) == tolower(fb->buf[fb->pos]))
 					{
 						if (0 == g_strncasecmp(s->search_str, fb->buf + fb->pos
-						  , match_len))
+						  , match_len) &&  extra_match(fb, s, match_len))
 						{
 							mi = g_new0(MatchInfo, 1);
 							mi->pos = fb->pos;
@@ -618,7 +647,7 @@ static MatchInfo *get_next_match(FileBuffer *fb, SearchDirection direction
 					if (s->search_str[0] == fb->buf[fb->pos])
 					{
 						if (0 == strncmp(s->search_str, fb->buf + fb->pos
-						  , match_len))
+						  , match_len) &&  extra_match(fb, s, match_len))
 						{
 							mi = g_new0(MatchInfo, 1);
 							mi->pos = fb->pos;
@@ -826,17 +855,18 @@ static void search_and_replace(void)
 						break;
 					case SA_REPLACE:
 					case SA_REPLACEALL:
-						if (fb->te)
+						if (fb->te == NULL)
 						{
-							scintilla_send_message(SCINTILLA(
-							  fb->te->widgets.editor), SCI_SETSEL, mi->pos - offset
-							  , (mi->pos + mi->len - offset));
-							scintilla_send_message(SCINTILLA(
-							  fb->te->widgets.editor), SCI_REPLACESEL, 0
-							  ,(long) sr->replace.repl_str); 
-							if (s->range.direction != SD_BACKWARD)							
-								offset += mi->len - strlen(sr->replace.repl_str ) ;
+							fb->te = anjuta_append_text_editor(se->path);
 						}
+						scintilla_send_message(SCINTILLA(
+							fb->te->widgets.editor), SCI_SETSEL, mi->pos - offset
+							, (mi->pos + mi->len - offset));
+						scintilla_send_message(SCINTILLA(
+							fb->te->widgets.editor), SCI_REPLACESEL, 0
+							,(long) (sr->replace).repl_str); 
+						if (se->direction != SD_BACKWARD)						
+							offset += mi->len - strlen(sr->replace.repl_str ) ;
 						break;
 					default:
 						break;
@@ -985,7 +1015,7 @@ static GladeWidget glade_widgets[] = {
 	{GE_BOOLEAN, IGNORE_BINARY_FILES, NULL, NULL},
 	{GE_BOOLEAN, IGNORE_HIDDEN_DIRS, NULL, NULL},
 	{GE_BOOLEAN, SEARCH_RECURSIVE, NULL, NULL},
-	{GE_TEXT, REPLACE_REGEX, NULL, NULL},
+	{GE_BOOLEAN, REPLACE_REGEX, NULL, NULL},
 	{GE_COMBO, SEARCH_STRING_COMBO, NULL, NULL},
 	{GE_COMBO, SEARCH_TARGET_COMBO, search_target_strings, NULL},
 	{GE_COMBO, SEARCH_ACTION_COMBO, search_action_strings, NULL},
@@ -1133,8 +1163,7 @@ void on_search_button_help_clicked(GtkButton *button, gpointer user_data)
 #define POP_LIST(str, var) populate_value(str, &s); \
 			if (s) \
 			{ \
-				sr->search.range.files.var = glist_from_string(s); \
-				g_free(s); \
+				sr->search.range.files.var = glist_from_string(s); \			
 			}
 
 static void search_replace_populate(void)
@@ -1182,7 +1211,10 @@ static void search_replace_populate(void)
 			POP_LIST(MATCH_FILES, match_files);
 			POP_LIST(UNMATCH_FILES, ignore_files);
 			POP_LIST(MATCH_DIRS, match_dirs);
-			POP_LIST(UNMATCH_DIRS, ignore_files);
+			POP_LIST(UNMATCH_DIRS, ignore_dirs);
+		    populate_value(IGNORE_HIDDEN_FILES, &(sr->search.range.files.ignore_hidden_files));
+		    populate_value(IGNORE_HIDDEN_DIRS, &(sr->search.range.files.ignore_hidden_dirs));
+		    populate_value(SEARCH_RECURSIVE, &(sr->search.range.files.recurse));
 			break;
 		default:
 			break;
