@@ -707,6 +707,9 @@ project_dbase_reload_session (ProjectDBase * p)
 	executer_load_session( app->executer, p );
 	find_in_files_load_session( app->find_in_files, p );
 	p->m_prj_ShowLocal = session_get_bool( p, SECSTR(SECTION_PROJECTDBASE), szShowLocalsItem, SHOW_LOCALS_DEFAULT );
+	
+	/* Updates the menu */
+	gtk_check_menu_item_set_active( GTK_CHECK_MENU_ITEM (&app->widgets.menubar.view.show_hide_locals), p->m_prj_ShowLocal );
 }
 
 
@@ -2077,4 +2080,14 @@ project_dbase_get_name (ProjectDBase * p)
 {
 	g_return_val_if_fail( (NULL != p), NULL );
 	return prop_get (p->props, "project.name");
+}
+
+void
+project_dbase_set_show_locals( ProjectDBase * p,  const gboolean bActive )
+{
+	/* Null can be a valid entry */
+	if( NULL != p )
+	{
+		p->m_prj_ShowLocal = bActive ;
+	}
 }

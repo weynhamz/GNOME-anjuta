@@ -131,7 +131,8 @@ create_main_menubar (GtkWidget * ap, MainMenuBar * mb)
 	mb->view.signals = view1_menu_uiinfo[16].widget;
 	mb->view.dump_window = view1_menu_uiinfo[17].widget;
 	mb->view.console = view1_menu_uiinfo[19].widget;
-	for (i = 0; i < 20; i++)
+	mb->view.show_hide_locals = view1_menu_uiinfo[20].widget;
+	for (i = 0; i < NVIEWMENUS ; i++)
 		gtk_widget_ref (view1_menu_uiinfo[i].widget);
 
 	/* unimplemented */
@@ -317,7 +318,7 @@ main_menu_unref ()
 		gtk_widget_unref (toolbar1_submenu_uiinfo[i].widget);
 	for (i = 0; i < 6; i++)
 		gtk_widget_unref (editor1_submenu_uiinfo[i].widget);
-	for (i = 0; i < 16; i++)
+	for (i = 0; i < NVIEWMENUS; i++)
 		gtk_widget_unref (view1_menu_uiinfo[i].widget);
 	for (i = 0; i < 17; i++)
 		gtk_widget_unref (project1_menu_uiinfo[i].widget);

@@ -307,6 +307,7 @@ update_main_menubar ()
 	gtk_widget_set_sensitive (em->goto_block_end, F);
 	
 	gtk_widget_set_sensitive (em->edit_app_gui, P && G);
+	gtk_widget_set_sensitive (vm->show_hide_locals, P && G);
 
 	gtk_widget_set_sensitive (pm->add_src, P);
 	gtk_widget_set_sensitive (pm->add_pix, P);

@@ -1833,6 +1833,10 @@ locals_update_controls(void)
 {
 	if( NULL == app->messages )
 		return ;
+	if( NULL == app->project_dbase )
+		return ;
+	if( !app->project_dbase->m_prj_ShowLocal )
+		return ;
 	message_clear_locals();
 	debugger_put_cmd_in_queqe ("set print pretty on", DB_CMD_NONE, NULL,
 				   NULL);

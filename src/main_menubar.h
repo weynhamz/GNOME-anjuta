@@ -119,6 +119,7 @@ struct _ViewSubMenu
 	GtkWidget *signals;
 	GtkWidget *dump_window;
 	GtkWidget *console;
+	GtkWidget *show_hide_locals;
 };
 
 struct _ProjectSubMenu

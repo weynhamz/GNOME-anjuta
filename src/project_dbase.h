@@ -184,6 +184,8 @@ gboolean project_dbase_save_yourself (ProjectDBase * p, FILE * stream);
 
 gboolean project_dbase_load_yourself (ProjectDBase * p, PropsID props);
 
+void project_dbase_set_show_locals( ProjectDBase * p,  const gboolean bActive );
+
 void
 project_dbase_dock (ProjectDBase * p);
 

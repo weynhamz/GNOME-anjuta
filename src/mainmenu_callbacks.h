@@ -212,7 +212,9 @@ on_dump_window1_activate               (GtkMenuItem     *menuitem,
 void
 on_console1_activate           (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
-
+void
+on_showhide_locals           (GtkMenuItem     *menuitem,
+                                        gpointer         user_data);
 /***********************************************************/
 void
 on_main_toolbar1_activate           (GtkMenuItem     *menuitem,

@@ -1,3 +1,23 @@
+2001-09-29  Naba Kumar <kh_naba@users.sourceforge.net>
+
+    * Patch from lbell <lbell@tsc4.com>
+    src/controls.c
+    src/debugger.c
+    src/main_menubar.c
+    src/main_menubar.h
+    src/main_menubar_def.h
+    src/mainmenu_callbacks.c
+    src/mainmenu_callbacks.h
+    src/project_dbase.c
+    src/project_dbase.h
+    
+    Implemented a check menu item to handle the 'show locals' flag
+    for the current project.
+
+2001-09-25  Naba Kumar <kh_naba@users.sourceforge.net>
+
+	* Patch from lbell <lbell@tsc4.com> for fixing some compiler warnings.
+
 2001-09-24  Fatih Demir <kabalak@gtranslator.org>
 
 	* configure.in: Added "ta" to the languages list.

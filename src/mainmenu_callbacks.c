@@ -699,6 +699,12 @@ on_console1_activate (GtkMenuItem * menuitem, gpointer user_data)
 	anjuta_not_implemented (__FILE__, __LINE__);
 }
 
+void
+on_showhide_locals(GtkMenuItem * menuitem, gpointer user_data)
+{
+	project_dbase_set_show_locals( app->project_dbase, GTK_CHECK_MENU_ITEM (menuitem)->active ) ;
+}
+
 /************************************************************************/
 
 void
