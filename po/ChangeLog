@@ -1,14 +1,7 @@
-2002-12-27  gettextize  <bug-gnu-utils@gnu.org>
+2003-01-10 Naba Kumar <naba@gnome.org>
 
-	* Makefile.in.in: Upgrade to gettext-0.10.40.
-
-2002-12-12  gettextize  <bug-gnu-utils@gnu.org>
-
-	* Makefile.in.in: Upgrade to gettext-0.10.40.
-
-2002-12-12  gettextize  <bug-gnu-utils@gnu.org>
-
-	* Makefile.in.in: Upgrade to gettext-0.10.40.
+	* fr.po: Updated French tranlation from
+	Jean-Noel Guiheneuf <jnoel@saudionline.com.sa>
 
 2002-11-18 Naba Kumar <naba@gnome.org>
 
