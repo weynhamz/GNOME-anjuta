@@ -4,6 +4,10 @@
 	* anjuta.spec: correct libgnomeprintui22 name in depencencies.
 	* widgets/gnomefilelist.c: Implemented multiple file selection mode.
 	* src/cvs.c: Added a frame around commit log text widget.
+	* src/prefereces.[c,h], anjuta.glade, anjuta_dialog_strings.c: Fixed
+	crash bug associated with translated combo box list in preferences
+	dialog (in different locale other than en_US). Used widget names
+	to pass the combo list items.
 	
 2003-06-21  Naba Kumar  <naba@gnome.org>
 

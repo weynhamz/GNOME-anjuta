@@ -93,6 +93,8 @@ get_object_type_from_string (const gchar* object_type)
 {
 	if (strcmp (object_type, "entry") == 0)
 		return ANJUTA_PROPERTY_OBJECT_TYPE_ENTRY;
+	else if (strcmp (object_type, "combo") == 0)
+		return ANJUTA_PROPERTY_OBJECT_TYPE_COMBO;
 	else if (strcmp (object_type, "spin") == 0)
 		return ANJUTA_PROPERTY_OBJECT_TYPE_SPIN;
 	else if (strcmp (object_type, "toggle") == 0)
@@ -116,6 +118,8 @@ get_data_type_from_string (const gchar* data_type)
 		return ANJUTA_PROPERTY_DATA_TYPE_INT;
 	else if (strcmp (data_type, "text") == 0)
 		return ANJUTA_PROPERTY_DATA_TYPE_TEXT;
+	else if (strcmp (data_type, "list") == 0)
+		return ANJUTA_PROPERTY_DATA_TYPE_LIST;
 	else if (strcmp (data_type, "color") == 0)
 		return ANJUTA_PROPERTY_DATA_TYPE_COLOR;
 	else if (strcmp (data_type, "font") == 0)
@@ -337,6 +341,13 @@ save_property (AnjutaPreferences *pr, AnjutaProperty *prop,
 	gboolean return_value;
 
 	return_value = 0;
+	
+	/* Can not save the following property type */
+	if (prop->data_type == ANJUTA_PROPERTY_DATA_TYPE_LIST)
+		return TRUE;
+	if (prop->object_type == ANJUTA_PROPERTY_OBJECT_TYPE_COMBO)
+		return TRUE;
+	
 	if ((filter != ANJUTA_PREFERENCES_FILTER_NONE) && (prop->flags & filter))
 	{
 #ifdef DEBUG
@@ -386,7 +397,28 @@ anjuta_preferences_register_property_raw (AnjutaPreferences *pr,
 	{
 		p->default_value = g_strdup (default_value);
 		if (strlen (default_value) > 0)
-			prop_set_with_key (pr->props_built_in, key, default_value);
+		{
+			/* For combo list, initialize the pop-down strings */
+			if (object_type == ANJUTA_PROPERTY_OBJECT_TYPE_COMBO &&
+				data_type == ANJUTA_PROPERTY_DATA_TYPE_LIST) 
+			{
+				gchar **vstr, **node;
+				GList *list = NULL;
+				vstr = g_strsplit (default_value, ",", 100);
+				node = vstr;
+				while (*node)
+				{
+					list = g_list_append (list, *node);
+					node++;
+				}
+				gtk_combo_set_popdown_strings (GTK_COMBO (object), list);
+				g_list_free (list);
+				g_strfreev (vstr);
+			} /* For others */
+			else if (object_type != ANJUTA_PROPERTY_OBJECT_TYPE_COMBO &&
+					 data_type != ANJUTA_PROPERTY_DATA_TYPE_LIST) 
+				prop_set_with_key (pr->props_built_in, key, default_value);
+		}
 	}
 	p->flags = flags;
 	p->custom = FALSE;
@@ -609,9 +641,13 @@ preferences_objects_to_prop (AnjutaPreferences *pr)
 	{
 		gchar *value;
 		p = node->data;
-		value = get_property_value_as_string (p);
-		anjuta_preferences_set (pr, p->key, value);
-		g_free (value);
+		if (p->object_type != ANJUTA_PROPERTY_OBJECT_TYPE_COMBO &&
+			p->data_type != ANJUTA_PROPERTY_DATA_TYPE_LIST)
+		{
+			value = get_property_value_as_string (p);
+			anjuta_preferences_set (pr, p->key, value);
+			g_free (value);
+		}
 		node = g_list_next (node);
 	}
 }
@@ -680,10 +716,14 @@ anjuta_preferences_foreach (AnjutaPreferences * pr,
 	while (node && go_on)
 	{
 		p = node->data;
-		if (filter == ANJUTA_PREFERENCES_FILTER_NONE)
-			go_on = callback (pr, p->key, data);
-		else if (p->flags & filter)
-			go_on = callback (pr, p->key, data);
+		if (p->object_type != ANJUTA_PROPERTY_OBJECT_TYPE_COMBO &&
+			p->data_type != ANJUTA_PROPERTY_DATA_TYPE_LIST)
+		{
+			if (filter == ANJUTA_PREFERENCES_FILTER_NONE)
+				go_on = callback (pr, p->key, data);
+			else if (p->flags & filter)
+				go_on = callback (pr, p->key, data);
+		}
 		node = g_list_next (node);
 	}
 }
@@ -704,8 +744,12 @@ anjuta_preferences_save_filtered (AnjutaPreferences * pr, FILE * fp,
 	while (node)
 	{
 		p = node->data;
-		if (save_property (pr, p, fp, filter) == FALSE)
-			ret_val = FALSE;
+		if (p->object_type != ANJUTA_PROPERTY_OBJECT_TYPE_COMBO &&
+			p->data_type != ANJUTA_PROPERTY_DATA_TYPE_LIST)
+		{
+			if (save_property (pr, p, fp, filter) == FALSE)
+				ret_val = FALSE;
+		}
 		node = g_list_next (node);
 	}
 	if (ret_val == FALSE)
@@ -763,9 +807,13 @@ preferences_prop_to_objects (AnjutaPreferences *pr)
 	{
 		gchar *value;
 		p = node->data;
-		value = anjuta_preferences_get (pr, p->key);
-		set_property_value_as_string (p, value);
-		g_free (value);
+		if (p->object_type != ANJUTA_PROPERTY_OBJECT_TYPE_COMBO &&
+			p->data_type != ANJUTA_PROPERTY_DATA_TYPE_LIST)
+		{
+			value = anjuta_preferences_get (pr, p->key);
+			set_property_value_as_string (p, value);
+			g_free (value);
+		}
 		node = g_list_next (node);
 	}
 }

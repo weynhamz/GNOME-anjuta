@@ -12439,7 +12439,7 @@
 		      </child>
 
 		      <child>
-			<widget class="GtkCombo" id="combo13">
+			<widget class="GtkCombo" id="preferences_combo:list:Arrows,Plus/Minus,Circular,Squares:0:combo1">
 			  <property name="visible">True</property>
 			  <property name="value_in_list">True</property>
 			  <property name="allow_empty">False</property>
@@ -12465,38 +12465,6 @@
 			    <widget class="GtkList" id="combo-list26">
 			      <property name="visible">True</property>
 			      <property name="selection_mode">GTK_SELECTION_BROWSE</property>
-
-			      <child>
-				<widget class="GtkListItem" id="listitem2906">
-				  <property name="visible">True</property>
-				  <property name="can_focus">True</property>
-				  <property name="label" translatable="yes">Arrows</property>
-				</widget>
-			      </child>
-
-			      <child>
-				<widget class="GtkListItem" id="listitem2907">
-				  <property name="visible">True</property>
-				  <property name="can_focus">True</property>
-				  <property name="label" translatable="yes">Plus/Minus</property>
-				</widget>
-			      </child>
-
-			      <child>
-				<widget class="GtkListItem" id="listitem2908">
-				  <property name="visible">True</property>
-				  <property name="can_focus">True</property>
-				  <property name="label" translatable="yes">Circular</property>
-				</widget>
-			      </child>
-
-			      <child>
-				<widget class="GtkListItem" id="listitem2909">
-				  <property name="visible">True</property>
-				  <property name="can_focus">True</property>
-				  <property name="label" translatable="yes">Squares</property>
-				</widget>
-			      </child>
 			    </widget>
 			  </child>
 			</widget>
@@ -13005,7 +12973,7 @@
 		      </child>
 
 		      <child>
-			<widget class="GtkCombo" id="combo6">
+			<widget class="GtkCombo" id="preferences_combo:list:Top,Bottom,Left,Right:0:combo2">
 			  <property name="visible">True</property>
 			  <property name="value_in_list">True</property>
 			  <property name="allow_empty">False</property>
@@ -13031,38 +12999,6 @@
 			    <widget class="GtkList" id="combo-list18">
 			      <property name="visible">True</property>
 			      <property name="selection_mode">GTK_SELECTION_BROWSE</property>
-
-			      <child>
-				<widget class="GtkListItem" id="listitem45">
-				  <property name="visible">True</property>
-				  <property name="can_focus">True</property>
-				  <property name="label" translatable="yes">Top</property>
-				</widget>
-			      </child>
-
-			      <child>
-				<widget class="GtkListItem" id="listitem46">
-				  <property name="visible">True</property>
-				  <property name="can_focus">True</property>
-				  <property name="label" translatable="yes">Bottom</property>
-				</widget>
-			      </child>
-
-			      <child>
-				<widget class="GtkListItem" id="listitem47">
-				  <property name="visible">True</property>
-				  <property name="can_focus">True</property>
-				  <property name="label" translatable="yes">Left</property>
-				</widget>
-			      </child>
-
-			      <child>
-				<widget class="GtkListItem" id="listitem48">
-				  <property name="visible">True</property>
-				  <property name="can_focus">True</property>
-				  <property name="label" translatable="yes">Right</property>
-				</widget>
-			      </child>
 			    </widget>
 			  </child>
 			</widget>
@@ -13419,7 +13355,7 @@
 	      <property name="shadow_type">GTK_SHADOW_ETCHED_IN</property>
 
 	      <child>
-		<widget class="GtkCombo" id="combo7">
+		<widget class="GtkCombo" id="preferences_combo:list:Custom style,GNU coding style,Kernighan &amp; Ritchie style,Original Berkeley style,Style of Kangleipak,Hello World style,Crazy boy style:0:combo2">
 		  <property name="border_width">5</property>
 		  <property name="visible">True</property>
 		  <property name="value_in_list">True</property>
@@ -13435,7 +13371,7 @@
 		      <property name="editable">False</property>
 		      <property name="visibility">True</property>
 		      <property name="max_length">0</property>
-		      <property name="text" translatable="yes"></property>
+		      <property name="text" translatable="yes">Custom style,GNU coding style,Kernighan &amp; Ritchie style,Original Berkeley style,Style of Kangleipak,Hello World style,Crazy boy style</property>
 		      <property name="has_frame">True</property>
 		      <property name="invisible_char" translatable="yes">*</property>
 		      <property name="activates_default">False</property>
@@ -13446,62 +13382,6 @@
 		    <widget class="GtkList" id="combo-list19">
 		      <property name="visible">True</property>
 		      <property name="selection_mode">GTK_SELECTION_BROWSE</property>
-
-		      <child>
-			<widget class="GtkListItem" id="listitem501">
-			  <property name="visible">True</property>
-			  <property name="can_focus">True</property>
-			  <property name="label" translatable="yes">Custom style</property>
-			</widget>
-		      </child>
-
-		      <child>
-			<widget class="GtkListItem" id="listitem502">
-			  <property name="visible">True</property>
-			  <property name="can_focus">True</property>
-			  <property name="label" translatable="yes">GNU coding style</property>
-			</widget>
-		      </child>
-
-		      <child>
-			<widget class="GtkListItem" id="listitem503">
-			  <property name="visible">True</property>
-			  <property name="can_focus">True</property>
-			  <property name="label" translatable="yes">Kernighan &amp; Ritchie style</property>
-			</widget>
-		      </child>
-
-		      <child>
-			<widget class="GtkListItem" id="listitem504">
-			  <property name="visible">True</property>
-			  <property name="can_focus">True</property>
-			  <property name="label" translatable="yes">Original Berkeley style</property>
-			</widget>
-		      </child>
-
-		      <child>
-			<widget class="GtkListItem" id="listitem505">
-			  <property name="visible">True</property>
-			  <property name="can_focus">True</property>
-			  <property name="label" translatable="yes">Style of Kangleipak</property>
-			</widget>
-		      </child>
-
-		      <child>
-			<widget class="GtkListItem" id="listitem506">
-			  <property name="visible">True</property>
-			  <property name="can_focus">True</property>
-			  <property name="label" translatable="yes">Hello World style</property>
-			</widget>
-		      </child>
-
-		      <child>
-			<widget class="GtkListItem" id="listitem507">
-			  <property name="visible">True</property>
-			  <property name="can_focus">True</property>
-			  <property name="label" translatable="yes">Crazy boy style</property>
-			</widget>
-		      </child>
 		    </widget>
 		  </child>
 		</widget>
@@ -14104,7 +13984,7 @@
 	      </child>
 
 	      <child>
-		<widget class="GtkCombo" id="combo9">
+		<widget class="GtkCombo" id="preferences_combo:list:Top,Bottom,Left,Right:0:combo9">
 		  <property name="visible">True</property>
 		  <property name="value_in_list">True</property>
 		  <property name="allow_empty">False</property>
@@ -14130,38 +14010,6 @@
 		    <widget class="GtkList" id="combo-list21">
 		      <property name="visible">True</property>
 		      <property name="selection_mode">GTK_SELECTION_BROWSE</property>
-
-		      <child>
-			<widget class="GtkListItem" id="listitem2497">
-			  <property name="visible">True</property>
-			  <property name="can_focus">True</property>
-			  <property name="label" translatable="yes">Top</property>
-			</widget>
-		      </child>
-
-		      <child>
-			<widget class="GtkListItem" id="listitem2498">
-			  <property name="visible">True</property>
-			  <property name="can_focus">True</property>
-			  <property name="label" translatable="yes">Bottom</property>
-			</widget>
-		      </child>
-
-		      <child>
-			<widget class="GtkListItem" id="listitem2499">
-			  <property name="visible">True</property>
-			  <property name="can_focus">True</property>
-			  <property name="label" translatable="yes">Left</property>
-			</widget>
-		      </child>
-
-		      <child>
-			<widget class="GtkListItem" id="listitem2500">
-			  <property name="visible">True</property>
-			  <property name="can_focus">True</property>
-			  <property name="label" translatable="yes">Right</property>
-			</widget>
-		      </child>
 		    </widget>
 		  </child>
 		</widget>
@@ -14315,7 +14163,7 @@
 	      </child>
 
 	      <child>
-		<widget class="GtkCombo" id="combo10">
+		<widget class="GtkCombo" id="preferences_combo:list:Underline-Plain,Underline-Squiggle,Underline-TT,Diagonal,Strike-Out:0:combo2">
 		  <property name="visible">True</property>
 		  <property name="value_in_list">True</property>
 		  <property name="allow_empty">False</property>
@@ -14341,46 +14189,6 @@
 		    <widget class="GtkList" id="combo-list22">
 		      <property name="visible">True</property>
 		      <property name="selection_mode">GTK_SELECTION_BROWSE</property>
-
-		      <child>
-			<widget class="GtkListItem" id="listitem2832">
-			  <property name="visible">True</property>
-			  <property name="can_focus">True</property>
-			  <property name="label" translatable="yes">Underline-Plain</property>
-			</widget>
-		      </child>
-
-		      <child>
-			<widget class="GtkListItem" id="listitem2833">
-			  <property name="visible">True</property>
-			  <property name="can_focus">True</property>
-			  <property name="label" translatable="yes">Underline-Squiggle</property>
-			</widget>
-		      </child>
-
-		      <child>
-			<widget class="GtkListItem" id="listitem2834">
-			  <property name="visible">True</property>
-			  <property name="can_focus">True</property>
-			  <property name="label" translatable="yes">Underline-TT</property>
-			</widget>
-		      </child>
-
-		      <child>
-			<widget class="GtkListItem" id="listitem2835">
-			  <property name="visible">True</property>
-			  <property name="can_focus">True</property>
-			  <property name="label" translatable="yes">Diagonal</property>
-			</widget>
-		      </child>
-
-		      <child>
-			<widget class="GtkListItem" id="listitem2836">
-			  <property name="visible">True</property>
-			  <property name="can_focus">True</property>
-			  <property name="label" translatable="yes">Strike-Out</property>
-			</widget>
-		      </child>
 		    </widget>
 		  </child>
 		</widget>
@@ -14395,7 +14203,7 @@
 	      </child>
 
 	      <child>
-		<widget class="GtkCombo" id="combo11">
+		<widget class="GtkCombo" id="preferences_combo:list:Underline-Plain,Underline-Squiggle,Underline-TT,Diagonal,Strike-Out:0:combo2">
 		  <property name="visible">True</property>
 		  <property name="value_in_list">True</property>
 		  <property name="allow_empty">False</property>
@@ -14421,46 +14229,6 @@
 		    <widget class="GtkList" id="list2">
 		      <property name="visible">True</property>
 		      <property name="selection_mode">GTK_SELECTION_BROWSE</property>
-
-		      <child>
-			<widget class="GtkListItem" id="listitem2845">
-			  <property name="visible">True</property>
-			  <property name="can_focus">True</property>
-			  <property name="label" translatable="yes">Underline-Plain</property>
-			</widget>
-		      </child>
-
-		      <child>
-			<widget class="GtkListItem" id="listitem2846">
-			  <property name="visible">True</property>
-			  <property name="can_focus">True</property>
-			  <property name="label" translatable="yes">Underline-Squiggle</property>
-			</widget>
-		      </child>
-
-		      <child>
-			<widget class="GtkListItem" id="listitem2847">
-			  <property name="visible">True</property>
-			  <property name="can_focus">True</property>
-			  <property name="label" translatable="yes">Underline-TT</property>
-			</widget>
-		      </child>
-
-		      <child>
-			<widget class="GtkListItem" id="listitem2848">
-			  <property name="visible">True</property>
-			  <property name="can_focus">True</property>
-			  <property name="label" translatable="yes">Diagonal</property>
-			</widget>
-		      </child>
-
-		      <child>
-			<widget class="GtkListItem" id="listitem2849">
-			  <property name="visible">True</property>
-			  <property name="can_focus">True</property>
-			  <property name="label" translatable="yes">Strike-Out</property>
-			</widget>
-		      </child>
 		    </widget>
 		  </child>
 		</widget>
@@ -14475,7 +14243,7 @@
 	      </child>
 
 	      <child>
-		<widget class="GtkCombo" id="combo12">
+		<widget class="GtkCombo" id="preferences_combo:list:Underline-Plain,Underline-Squiggle,Underline-TT,Diagonal,Strike-Out:0:combo2">
 		  <property name="visible">True</property>
 		  <property name="value_in_list">True</property>
 		  <property name="allow_empty">False</property>
@@ -14501,46 +14269,6 @@
 		    <widget class="GtkList" id="list3">
 		      <property name="visible">True</property>
 		      <property name="selection_mode">GTK_SELECTION_BROWSE</property>
-
-		      <child>
-			<widget class="GtkListItem" id="listitem2850">
-			  <property name="visible">True</property>
-			  <property name="can_focus">True</property>
-			  <property name="label" translatable="yes">Underline-Plain</property>
-			</widget>
-		      </child>
-
-		      <child>
-			<widget class="GtkListItem" id="listitem2851">
-			  <property name="visible">True</property>
-			  <property name="can_focus">True</property>
-			  <property name="label" translatable="yes">Underline-Squiggle</property>
-			</widget>
-		      </child>
-
-		      <child>
-			<widget class="GtkListItem" id="listitem2852">
-			  <property name="visible">True</property>
-			  <property name="can_focus">True</property>
-			  <property name="label" translatable="yes">Underline-TT</property>
-			</widget>
-		      </child>
-
-		      <child>
-			<widget class="GtkListItem" id="listitem2853">
-			  <property name="visible">True</property>
-			  <property name="can_focus">True</property>
-			  <property name="label" translatable="yes">Diagonal</property>
-			</widget>
-		      </child>
-
-		      <child>
-			<widget class="GtkListItem" id="listitem2854">
-			  <property name="visible">True</property>
-			  <property name="can_focus">True</property>
-			  <property name="label" translatable="yes">Strike-Out</property>
-			</widget>
-		      </child>
 		    </widget>
 		  </child>
 		</widget>
