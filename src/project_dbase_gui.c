@@ -261,13 +261,6 @@ on_open_prjfilesel_ok_clicked (GtkButton * button, gpointer user_data)
 	project_dbase_load_project (p, TRUE);
 }
 
-void
-on_open_prjfilesel_cancel_clicked (GtkButton * button, gpointer user_data)
-{
-//	fileselection_hide_widget(app->project_dbase->fileselection_open);
-	gtk_widget_hide (app->project_dbase->fileselection_open);
-}
-
 static gboolean
 on_project_dbase_event (GtkWidget * widget,
 			GdkEvent * event, gpointer user_data)
@@ -1239,15 +1232,6 @@ on_prj_import_confirm_yes (GtkButton * button, gpointer user_data)
 	g_free (filename);
 	return;
 }
-
-void
-on_add_prjfilesel_cancel_clicked (GtkButton * button, gpointer user_data)
-{
-	fileselection_hide_widget(app->project_dbase->fileselection_add_file);
-	// gtk_widget_hide (app->project_dbase->fileselection_add_file);
-}
-
-		
 
 void
 on_add_prjfilesel_ok_clicked (GtkButton * button, gpointer user_data)

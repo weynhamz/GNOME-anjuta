@@ -107,7 +107,7 @@ anjuta_new ()
 		/* Must declare static, because it will be used forever */
 		static FileSelData fsd1 = { N_("Open File"), NULL,
 			on_open_filesel_ok_clicked,
-			on_open_filesel_cancel_clicked, NULL
+			NULL, NULL
 		};
 
 		/* Must declare static, because it will be used forever */

@@ -137,6 +137,7 @@ GList * gnome_filelisttype_clearfiletypes(GnomeFileList *file_list);
 GList * gnome_filelisttype_addtype_f(GList *filetypes, gchar *description, ...);
 GnomeFileListType * gnome_filelisttype_getfiletype(GnomeFileList *file_list, gchar *description);
 void gnome_filelist_set_combolist(GnomeFileList *file_list, GList *combolist);
+void gnome_filelist_set_multiple_selection (GnomeFileList *file_list, gboolean mode);
 #ifdef __cplusplus /* cpp compatibility */
 }
 #endif

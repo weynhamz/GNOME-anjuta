@@ -314,14 +314,14 @@ project_dbase_new (PropsID pr_props)
 	/* Must declare static, because it will be used forever */
 	static FileSelData fsd1 = { N_("Open Project"), NULL,
 		on_open_prjfilesel_ok_clicked,
-		on_open_prjfilesel_cancel_clicked,
+		NULL,
 		NULL
 	};
 
 	/* Must declare static, because it will be used forever */
 	static FileSelData fsd2 = { N_("Add to Project"), NULL,
 		on_add_prjfilesel_ok_clicked,
-		on_add_prjfilesel_cancel_clicked,
+		NULL,
 		NULL
 	};
 

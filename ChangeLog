@@ -1,4 +1,36 @@
-2002-05-06  Stephane Demurget  <demurgets@free.fr>
+2002-05-10  Stephane Demurget  <demurgets@free.fr>
+
+	Fix for #525107.
+
+	* src/anjuta_cbs.c: (on_open_filesel_ok_clicked): removed unecessary
+	  calls to fileselection_hide_widget,
+	  (on_open_filesel_cancel_clicked): removed.
+
+	* src/project_dbase.c: (on_open_prjfilesel_cancel_clicked),
+	  (on_add_prjfilesel_cancel_clicked):
+
+	* widgets/gnomefilelist.[ch]: (gnome_filelist_set_multiple_selection):
+	  impl.
+
+	* src/fileselection.c: Made some functions static.
+	  (fileselection_hide_widget): rewritten using the new
+	  gnome_filelist_set_multiple_selection function.
+
+	* src/fileselection.c: (on_file_selection_delete_event): removed
+	  unuseful widget hides. Some cleanups,
+	  (on_file_selection_cancel_clicked): impl,
+	  (create_fileselection_gui): changed the cancel button clicked's
+	  callback to use this new function.
+
+	* src/anjuta.c: (anjuta_new):
+ 	* src/project_dbase.c: (project_dbase_new): removed the use of cancel
+	  callbacks, because this the gnome filelist widget's job.
+
+	* widgets/gnomefilelist.c: (gnome_filelist_new_with_path): removed
+	  clist selection mode duplicates set,
+	  (gnome_filelist_key_press): use the new impl. function.
+
+2002-05-10  Stephane Demurget  <demurgets@free.fr>
 
 	Fix for #441233.
 

@@ -227,7 +227,6 @@ GtkWidget *gnome_filelist_new_with_path(gchar *path)
 
 
    file_list->directory_list = gtk_ctree_new(1, 0);
-   gtk_clist_set_selection_mode(GTK_CLIST(file_list->directory_list), GTK_SELECTION_SINGLE);
    gtk_clist_set_shadow_type(GTK_CLIST(file_list->directory_list), GTK_SHADOW_ETCHED_IN);
    gtk_clist_set_column_justification(GTK_CLIST(file_list->directory_list), 0, GTK_JUSTIFY_LEFT);
    gtk_clist_set_row_height(GTK_CLIST(file_list->directory_list), 18);
@@ -257,8 +256,6 @@ GtkWidget *gnome_filelist_new_with_path(gchar *path)
    // gnome_filelist_set_selection_mode(file_list, GTK_SELECTION_MULTIPLE);
    gnome_filelist_set_selection_mode(file_list, GTK_SELECTION_SINGLE);
    file_list->multiple_selection = FALSE;
-   // gtk_clist_set_selection_mode(GTK_CLIST(file_list->file_list), GTK_SELECTION_SINGLE);
-   // gtk_clist_set_selection_mode(GTK_CLIST(file_list->file_list), GTK_SELECTION_MULTIPLE);
    gtk_clist_set_shadow_type(GTK_CLIST(file_list->file_list), GTK_SHADOW_ETCHED_IN);
    gtk_clist_set_column_justification(GTK_CLIST(file_list->file_list), 0, GTK_JUSTIFY_LEFT);
    gtk_clist_set_row_height(GTK_CLIST(file_list->file_list), 18);
@@ -1254,22 +1251,10 @@ static gint gnome_filelist_key_press(GtkWidget *widget, GdkEventKey *event)
       gtk_widget_grab_focus(GTK_WIDGET(clist));
       del = TRUE;
    }
-	else if(event->keyval == GDK_Control_L || event->keyval == GDK_Control_R)
-	{
-		// printf("Control pressed\n");
-		if (file_list->multiple_selection == FALSE) {
-			gnome_filelist_set_selection_mode(file_list, GTK_SELECTION_MULTIPLE);
-			file_list->multiple_selection = TRUE;
-			gtk_widget_hide (file_list->selection_entry);
-			gtk_label_set_text (GTK_LABEL(file_list->selection_label), _("Multiple selection mode"));
-		} else {
-			gnome_filelist_set_selection_mode(file_list, GTK_SELECTION_SINGLE);
-			file_list->multiple_selection = FALSE;
-			gtk_widget_show (file_list->selection_entry);
-			gtk_label_set_text (GTK_LABEL(file_list->selection_label), _("Selection: "));
-		}
-	}
-	
+	else if (event->keyval == GDK_Control_L ||
+		 event->keyval == GDK_Control_R)
+		gnome_filelist_set_multiple_selection (file_list, !file_list->multiple_selection);
+
    if(row >= 0 && row < clist->rows)
    {
       gtk_clist_select_row(clist, row, 0);
@@ -1286,6 +1271,32 @@ static gint gnome_filelist_key_press(GtkWidget *widget, GdkEventKey *event)
       gtk_clist_moveto(clist, clist->rows-1, 0, 1.0, 1.0);
    }
    return(TRUE);
+}
+
+void
+gnome_filelist_set_multiple_selection (GnomeFileList *file_list,
+				       gboolean       mode)
+{
+	g_return_if_fail (file_list != NULL);
+	g_return_if_fail (GNOME_IS_FILELIST (file_list));
+
+	if (file_list->multiple_selection == mode)
+		return;
+
+	if (mode) {
+		gnome_filelist_set_selection_mode (file_list, GTK_SELECTION_MULTIPLE);
+		gtk_label_set_text (GTK_LABEL (file_list->selection_label),
+				    _("Multiple selection mode"));
+		gtk_widget_hide (file_list->selection_entry);
+	} else {
+		gnome_filelist_set_selection_mode (file_list,
+						   GTK_SELECTION_SINGLE);
+		gtk_label_set_text (GTK_LABEL (file_list->selection_label),
+				    _("Selection: "));
+		gtk_widget_show (file_list->selection_entry);
+	}
+
+	file_list->multiple_selection = mode;
 }
 
 static void refresh_listing(GtkWidget *widget, GnomeFileList *file_list)
