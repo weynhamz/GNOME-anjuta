@@ -60,9 +60,10 @@ static GdkPixbuf **sv_pixbufs = NULL;
 
 static SymbolFileInfo *symbol_file_info_new(TMSymbol *sym)
 {
-	SymbolFileInfo *sfile = g_new0(SymbolFileInfo, 1);
+	SymbolFileInfo *sfile = NULL;
 	if (sym && sym->tag && sym->tag->atts.entry.file)
 	{
+		sfile = g_new0(SymbolFileInfo, 1);
 		sfile->sym_name = g_strdup(sym->tag->name);
 		sfile->def.name = g_strdup(sym->tag->atts.entry.file->work_object.file_name);
 		sfile->def.line = sym->tag->atts.entry.line;
@@ -666,13 +667,10 @@ AnSymbolView *
 sv_populate (gboolean full)
 {
 	GtkTreeStore *store;
-	GtkTreeIter iter;
 	GtkTreeIter root[sv_root_max_t + 1];
-	SymbolFileInfo *sfile;
 	TMSymbol *symbol_tree = NULL;
 	static gboolean busy = FALSE;
 	GString *s;
-	char *arr[1];
 	SVRootType root_type;
 	int i;
 	GList *selected_items = NULL;
@@ -727,14 +725,16 @@ sv_populate (gboolean full)
 		TMSymbol *sym = TM_SYMBOL(symbol_tree->info.children->pdata[i]);
 		SVNodeType type;
 		GtkTreeIter parent_item;
+		GtkTreeIter iter;
 		gboolean has_children;
+		SymbolFileInfo *sfile;
 		
 		if (!sym || ! sym->tag || !sym->tag->atts.entry.file)
 			continue ;
 
 		type = sv_get_node_type (sym);
 		root_type = sv_get_root_type (type);
-		parent_item = root[root_type];
+ 		parent_item = root[root_type];
 
 		if (root_type == sv_root_max_t)
 			continue ;
@@ -746,7 +746,6 @@ sv_populate (gboolean full)
 			g_string_insert(s, 0, sym->tag->atts.entry.scope);
 		}
 		
-		arr[0] = s->str;
 		if ((tm_tag_function_t != sym->tag->type) &&
 			(sym->info.children) && (sym->info.children->len > 0))
 			has_children = TRUE;
@@ -760,9 +759,6 @@ sv_populate (gboolean full)
 				    SVFILE_ENTRY_COLUMN, sfile,
 				    -1);
 
-		while (gtk_events_pending())
-			gtk_main_iteration();
-		
 		if (has_children)
 		{
 			int j;
@@ -780,7 +776,6 @@ sv_populate (gboolean full)
 
 				sv_assign_node_name (sym1, s);
 
-				arr[0] = s->str;
 				sfile = symbol_file_info_new (sym1);
 				gtk_tree_store_append (store, &sub_iter, &iter);
 				gtk_tree_store_set (store, &sub_iter,
@@ -788,8 +783,6 @@ sv_populate (gboolean full)
 						    NAME_COLUMN, s->str,
 						    SVFILE_ENTRY_COLUMN, sfile,
 						    -1);
-				while (gtk_events_pending())
-					gtk_main_iteration();
 			}
 		}
 	}
