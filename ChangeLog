@@ -1,3 +1,21 @@
+2004-05-06  Naba Kumar  <naba@gnome.org>
+
+	* plugins/file-manager/Makefile.am,
+	(added) plugins/file-manager/anjuta-file-manager-plugin.png,
+	(added) plugins/file-manager/anjuta-file-manager.plugin.in,
+	(added) plugins/file-manager/anjuta-file-manager.ui,
+	(added) plugins/file-manager/plugin.c,
+	(added) plugins/file-manager/plugin.h,
+	(removed) plugins/file-manager/an_file_view.h,
+	plugins/Makefile.am, configure.in,
+	plugins/file-manager/an_file_view.c: Created file manager plugin.
+	
+	* plugins/profile-default/plugin.c: Added file manager plugin in default
+	profile.
+	
+	* libanjuta/Makefile.am: Fixed dependencies.
+	* pixmaps/anjuta_splash.png: New splash screen.
+
 2004-05-05  Johannes Schmid <jhs@cvs.gnome.org>
 	
 	* template/template.c/h: Added in-line doc

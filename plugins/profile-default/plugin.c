@@ -75,6 +75,7 @@ iprofile_load (IAnjutaProfile *profile, ESplash *splash, GError **err)
 		"IAnjutaDocumentManager",
 		"IAnjutaHelp",
 		"IAnjutaMessageManager",
+		"IAnjutaFileManager",
 		NULL
 	};
 	max_icons = 0;
@@ -109,8 +110,8 @@ iprofile_load (IAnjutaProfile *profile, ESplash *splash, GError **err)
 						max_icons++;
 						g_object_unref (icon_pixbuf);
 					}
-					while (gtk_events_pending ())
-						gtk_main_iteration ();
+					// while (gtk_events_pending ())
+					//	gtk_main_iteration ();
 				} else {
 					g_warning ("Plugin does not define Icon");
 				}

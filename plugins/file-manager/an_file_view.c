@@ -8,21 +8,27 @@
 #include <fcntl.h>
 #include <fnmatch.h>
 #include <string.h>
+#include <dirent.h>
 
 #include <gnome.h>
 #include <glade/glade.h>
 #include <libgnomevfs/gnome-vfs.h>
 #include <libgnomevfs/gnome-vfs-mime-handlers.h>
-#include <libgnomevfs/gnome-vfs-mime.h>
+// #include <libgnomevfs/gnome-vfs-mime.h>
+#include <libanjuta/resources.h>
+#include <libanjuta/pixmaps.h>
+#include <libegg/gdl-icons.h>
+#include <libanjuta/anjuta-utils.h>
 
-#include "anjuta.h"
-#include "resources.h"
-#include "mainmenu_callbacks.h"
-#include "pixmaps.h"
-#include "cvs_gui.h"
-#include "properties.h"
+// #include "anjuta.h"
+// #include "resources.h"
+// #include "mainmenu_callbacks.h"
+// #include "pixmaps.h"
+// #include "cvs_gui.h"
+// #include "properties.h"
+// #include "an_file_view.h"
 
-#include "an_file_view.h"
+#include "plugin.h"
 
 enum {
 	PIXBUF_COLUMN,
@@ -31,14 +37,45 @@ enum {
 	COLUMNS_NB
 };
 
+typedef struct _FileFilter
+{
+/* 	GladeXML *xml;
+ * 	GtkWindow *dialog;
+ * 	GtkEditable *file_match_en;
+ * 	GtkEditable *file_unmatch_en;
+ * 	GtkEditable *dir_match_en;
+ * 	GtkEditable *dir_unmatch_en;
+ * 	GtkCombo *file_match_combo;
+ * 	GtkCombo *file_unmatch_combo;
+ * 	GtkToggleButton *ignore_hidden_files_tb;
+ * 	GtkCombo *dir_match_combo;
+ * 	GtkCombo *dir_unmatch_combo;
+ * 	GtkToggleButton *ignore_hidden_dirs_tb;
+ */
+	GList *file_match;
+	GList *file_unmatch;
+	GList *dir_match;
+	GList *dir_unmatch;
+	GList *file_match_strings;
+	GList *file_unmatch_strings;
+	GList *dir_match_strings;
+	GList *dir_unmatch_strings;
+	gboolean ignore_hidden_files;
+	gboolean ignore_hidden_dirs;
+	// gboolean showing;
+} FileFilter;
+
+static GdlIcons *icon_set = NULL;
+// static FileManagerPlugin *fv = NULL;
+static FileFilter *ff = NULL;
+
+#if 0
 /* LibGlade auto-signal-connect callbacks. Do not declare static. */
 gboolean on_file_filter_delete_event (GtkWidget *widget,
 									  GdkEventCrossing *event,
 									  gpointer user_data);
 void on_file_filter_response (GtkWidget *dlg, gint res, gpointer user_data);
 void on_file_filter_close (GtkWidget *dlg, gpointer user_data);
-
-static AnFileView *fv = NULL;
 
 gboolean
 anjuta_fv_open_file (const char *path, gboolean use_anjuta)
@@ -104,35 +141,6 @@ typedef enum {
 #define DIR_FILTER_UNMATCH "filter.dir.unmatch"
 #define DIR_FILTER_UNMATCH_COMBO "filter.dir.unmatch.combo"
 #define DIR_FILTER_IGNORE_HIDDEN "filter.dir.ignore.hidden"
-
-typedef struct _FileFilter
-{
-	GladeXML *xml;
-	GtkWindow *dialog;
-	GtkEditable *file_match_en;
-	GtkEditable *file_unmatch_en;
-	GtkEditable *dir_match_en;
-	GtkEditable *dir_unmatch_en;
-	GtkCombo *file_match_combo;
-	GtkCombo *file_unmatch_combo;
-	GtkToggleButton *ignore_hidden_files_tb;
-	GtkCombo *dir_match_combo;
-	GtkCombo *dir_unmatch_combo;
-	GtkToggleButton *ignore_hidden_dirs_tb;
-	GList *file_match;
-	GList *file_unmatch;
-	GList *dir_match;
-	GList *dir_unmatch;
-	GList *file_match_strings;
-	GList *file_unmatch_strings;
-	GList *dir_match_strings;
-	GList *dir_unmatch_strings;
-	gboolean ignore_hidden_files;
-	gboolean ignore_hidden_dirs;
-	gboolean showing;
-} FileFilter;
-
-static FileFilter *ff = NULL;
 
 #define APPLY_PREF(var, P) \
 	s = gtk_editable_get_chars(ff->var ## _en, 0, -1); \
@@ -309,9 +317,10 @@ void fv_customize(gboolean really_show)
 		ff->showing = TRUE;
 	}
 }
+#endif
 
 static gchar *
-fv_construct_full_path (AnFileView *fv, GtkTreeIter *selected_iter)
+fv_construct_full_path (FileManagerPlugin *fv, GtkTreeIter *selected_iter)
 {
 	gchar *path, *dir;
 	GtkTreeModel *model;
@@ -341,20 +350,22 @@ fv_construct_full_path (AnFileView *fv, GtkTreeIter *selected_iter)
 	return path;
 }
 
-static gchar *
-fv_get_selected_file_path (AnFileView *fv, GtkTreeView *view)
+gchar *
+fv_get_selected_file_path (FileManagerPlugin *fv)
 {
 	GtkTreeSelection *selection;
 	GtkTreeIter iter;
 	GtkTreeModel *model;
+	GtkTreeView *view;
 	
-	g_return_val_if_fail (GTK_IS_TREE_VIEW (view), NULL);
+	view = GTK_TREE_VIEW (fv->tree);
 	selection = gtk_tree_view_get_selection (view);
 	if (!gtk_tree_selection_get_selected (selection, &model, &iter))
 		return NULL;
 	return fv_construct_full_path (fv, &iter);
 }
 
+#if 0
 static void
 on_file_view_cvs_event (GtkMenuItem *item, gpointer user_data)
 {
@@ -547,11 +558,12 @@ fv_create_context_menu ()
 	gtk_widget_show_all(fv->menu.top);
 }
 
+
 static void
 on_treeview_row_activated (GtkTreeView *view,
 						   GtkTreePath *arg1,
 						   GtkTreeViewColumn *arg2,
-                           AnFileView *fv)
+                           FileManagerPlugin *fv)
 {
 	gchar *path;
 
@@ -561,10 +573,12 @@ on_treeview_row_activated (GtkTreeView *view,
 	g_free (path);
 }
 
+#endif
+
 static gboolean
 on_tree_view_event  (GtkWidget *widget,
 					 GdkEvent  *event,
-					 gpointer   user_data)
+					 FileManagerPlugin *fv)
 {
 	GtkTreeView *view;
 	GtkTreeModel *model;
@@ -587,8 +601,8 @@ on_tree_view_event  (GtkWidget *widget,
 	gtk_tree_model_get (model, &iter, REV_COLUMN, &version, -1);
 
 	if (event->type == GDK_BUTTON_PRESS) {
-		GdkEventButton *e = (GdkEventButton *) event;
-
+		// GdkEventButton *e = (GdkEventButton *) event;
+#if 0
 		if (e->button == 3) {
 			gboolean has_cvs_entry = (version && strlen(version) > 0);
 
@@ -608,6 +622,7 @@ on_tree_view_event  (GtkWidget *widget,
 					((GdkEventButton *) event)->button,
 					((GdkEventButton *) event)->time);
 		}
+#endif
 	} else if (event->type == GDK_KEY_PRESS) {
 		GtkTreePath *path;
 		GdkEventKey *e = (GdkEventKey *) event;
@@ -616,9 +631,9 @@ on_tree_view_event  (GtkWidget *widget,
 			case GDK_Return:
 				if (!gtk_tree_model_iter_has_child (model, &iter))
 				{
-					gchar *path = fv_get_selected_file_path(fv, view);
+					gchar *path = fv_get_selected_file_path(fv);
 					if (path && !g_file_test (path, G_FILE_TEST_IS_DIR))
-						anjuta_fv_open_file (path, TRUE);
+						// anjuta_fv_open_file (path, TRUE);
 					g_free (path);
 					return TRUE;
 				}
@@ -649,7 +664,7 @@ on_tree_view_event  (GtkWidget *widget,
 }
 
 static void
-fv_disconnect ()
+fv_disconnect (FileManagerPlugin *fv)
 {
 	g_return_if_fail (fv != NULL);
 	g_signal_handlers_block_by_func (fv->tree,
@@ -658,7 +673,7 @@ fv_disconnect ()
 }
 
 static void
-fv_connect ()
+fv_connect (FileManagerPlugin *fv)
 {
 	g_return_if_fail (fv != NULL && fv->tree);
 	g_signal_handlers_unblock_by_func (fv->tree,
@@ -699,7 +714,7 @@ file_entry_apply_filter (const char *name, GList *match, GList *unmatch,
 }
 
 static void
-fv_add_tree_entry (AnFileView *fv, const gchar *path, GtkTreeIter *root)
+fv_add_tree_entry (FileManagerPlugin *fv, const gchar *path, GtkTreeIter *root)
 {
 	GtkTreeStore *store;
 	gchar file_name[PATH_MAX];
@@ -798,7 +813,7 @@ fv_add_tree_entry (AnFileView *fv, const gchar *path, GtkTreeIter *root)
 					}
 					g_free(str);
 				}
-				pixbuf = gdl_icons_get_uri_icon(app->icon_set, file_name);
+				pixbuf = gdl_icons_get_uri_icon(icon_set, file_name);
 				gtk_tree_store_append (store, &iter, root);
 				gtk_tree_store_set (store, &iter,
 							PIXBUF_COLUMN, pixbuf,
@@ -819,7 +834,7 @@ static void
 on_file_view_row_expanded (GtkTreeView *view,
 						   GtkTreeIter *iter,
 						   GtkTreePath *path,
-						   AnFileView *fv)
+						   FileManagerPlugin *fv)
 {
 	GdkPixbuf *pix;
 	gchar *full_path;
@@ -854,7 +869,7 @@ static void
 on_file_view_row_collapsed (GtkTreeView *view,
 						   GtkTreeIter *iter,
 						   GtkTreePath *path,
-						   AnFileView *fv)
+						   FileManagerPlugin *fv)
 {
 	GdkPixbuf *pix;
 	GtkTreeIter child;
@@ -877,22 +892,20 @@ on_file_view_row_collapsed (GtkTreeView *view,
 	}
 }
 
-static void
-fv_create ()
+void
+fv_init (FileManagerPlugin *fv)
 {
 	GtkTreeStore *store;
 	GtkTreeViewColumn *column;
 	GtkCellRenderer *renderer;
 	GtkTreeSelection *selection;
 
-	fv = g_new0 (AnFileView, 1);
-
 	/* Scrolled window */
-	fv->win = gtk_scrolled_window_new (NULL,NULL);
-	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (fv->win),
+	fv->scrolledwindow = gtk_scrolled_window_new (NULL,NULL);
+	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (fv->scrolledwindow),
 					GTK_POLICY_AUTOMATIC,
 					GTK_POLICY_AUTOMATIC);
-	gtk_widget_show (fv->win);
+	gtk_widget_show (fv->scrolledwindow);
 
 	/* Tree and his model */
 	store = gtk_tree_store_new (COLUMNS_NB,
@@ -904,15 +917,15 @@ fv_create ()
 	gtk_tree_view_set_rules_hint (GTK_TREE_VIEW (fv->tree), TRUE);
 	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (fv->tree));
 	gtk_tree_selection_set_mode (selection, GTK_SELECTION_SINGLE);
-	gtk_container_add (GTK_CONTAINER (fv->win), fv->tree);
+	gtk_container_add (GTK_CONTAINER (fv->scrolledwindow), fv->tree);
 	g_signal_connect (fv->tree, "row_expanded",
 					  G_CALLBACK (on_file_view_row_expanded), fv);
 	g_signal_connect (fv->tree, "row_collapsed",
 					  G_CALLBACK (on_file_view_row_collapsed), fv);
 	g_signal_connect (fv->tree, "event-after",
 					  G_CALLBACK (on_tree_view_event), fv);
-	g_signal_connect (fv->tree, "row_activated",
-					  G_CALLBACK (on_treeview_row_activated), fv);
+	// g_signal_connect (fv->tree, "row_activated",
+	//				  G_CALLBACK (on_treeview_row_activated), fv);
 	gtk_widget_show (fv->tree);
 
 	g_object_unref (G_OBJECT (store));
@@ -940,13 +953,25 @@ fv_create ()
 	gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
 	gtk_tree_view_append_column (GTK_TREE_VIEW (fv->tree), column);
 
-	fv_create_context_menu ();
-	gtk_widget_ref (fv->tree);
-	gtk_widget_ref (fv->win);
+	// fv_create_context_menu ();
+	g_object_ref (G_OBJECT (fv->tree));
+	g_object_ref (G_OBJECT (fv->scrolledwindow));
 }
 
 void
-fv_clear ()
+fv_finalize (FileManagerPlugin *fv)
+{
+	if (fv->top_dir)
+		g_free (fv->top_dir);
+	g_object_unref (G_OBJECT (fv->tree));
+	g_object_unref (G_OBJECT (fv->scrolledwindow));
+	fv->top_dir = NULL;
+	fv->tree = NULL;
+	fv->scrolledwindow = NULL;
+}
+
+void
+fv_clear (FileManagerPlugin *fv)
 {
 	GtkTreeModel *model;
 
@@ -968,7 +993,7 @@ mapping_function (GtkTreeView *treeview, GtkTreePath *path, gpointer data)
 };
 
 GList *
-fv_get_node_expansion_states (void)
+fv_get_node_expansion_states (FileManagerPlugin *fv)
 {
 	GList *map = NULL;
 	gtk_tree_view_map_expanded_rows (GTK_TREE_VIEW (fv->tree),
@@ -977,7 +1002,7 @@ fv_get_node_expansion_states (void)
 }
 
 void
-fv_set_node_expansion_states (GList *expansion_states)
+fv_set_node_expansion_states (FileManagerPlugin *fv, GList *expansion_states)
 {
 	/* Restore expanded nodes */	
 	if (expansion_states)
@@ -998,8 +1023,8 @@ fv_set_node_expansion_states (GList *expansion_states)
 	}
 }
 
-AnFileView *
-fv_populate (gboolean full)
+void
+fv_set_root (FileManagerPlugin *fv, const gchar *root_dir)
 {
 	static gboolean busy = FALSE;
 	GList *selected_items;
@@ -1011,32 +1036,38 @@ fv_populate (gboolean full)
 	GdkPixbuf *pixbuf;
 	gchar *project_dir;
 
-	if (!fv)
-		fv_create ();
 	if (busy)
-		return fv;
+		return;
 	else
 		busy = TRUE;
 
-	anjuta_status (_("Refreshing file view ..."));
-	while (gtk_events_pending())
-		gtk_main_iteration();
+	// anjuta_status (_("Refreshing file view ..."));
+	// while (gtk_events_pending())
+	//	gtk_main_iteration();
 	
-	fv_disconnect ();
-	selected_items = fv_get_node_expansion_states ();
-	fv_clear ();
+	if (icon_set == NULL)
+		icon_set = gdl_icons_new (24, 16.0);
+	if (ff == NULL)
+		ff = g_new0(FileFilter, 1);
+	
+	fv_disconnect (fv);
+	selected_items = fv_get_node_expansion_states (fv);
+	fv_clear (fv);
 
-	if (!app || !app->project_dbase || !app->project_dbase->top_proj_dir)
-		goto clean_leave;
-	if (!fv->top_dir || 0 != strcmp(fv->top_dir, app->project_dbase->top_proj_dir))
+	// if (!app || !app->project_dbase || !app->project_dbase->top_proj_dir)
+	//	goto clean_leave;
+	// if (!fv->top_dir || 0 != strcmp(fv->top_dir, app->project_dbase->top_proj_dir))
+	if (!fv->top_dir || 0 != strcmp(fv->top_dir, root_dir))
 	{
 		/* Different project - reload project preferences */
 		if (fv->top_dir)
 			g_free(fv->top_dir);
-		fv->top_dir = g_strdup(app->project_dbase->top_proj_dir);
+		fv->top_dir = g_strdup(root_dir);
+#if 0
 		if (!ff)
 			fv_customize(FALSE);
 		fv_prefs_load();
+#endif
 	}
 	
 	project_dir = g_path_get_basename (fv->top_dir);
@@ -1066,12 +1097,12 @@ fv_populate (gboolean full)
 	gtk_tree_view_expand_row (GTK_TREE_VIEW (fv->tree), path, FALSE);
 	gtk_tree_path_free (path);
 
-	fv_set_node_expansion_states (selected_items);
+	fv_set_node_expansion_states (fv, selected_items);
 	
-clean_leave:
+// clean_leave:
 	if (selected_items)
-		glist_strings_free (selected_items);
-	fv_connect ();
+		anjuta_util_glist_strings_free (selected_items);
+	fv_connect (fv);
 	busy = FALSE;
-	return fv;
+	return;
 }

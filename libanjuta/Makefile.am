@@ -14,7 +14,8 @@ lib_LTLIBRARIES=libanjuta.la
 libanjuta_la_LIADD = $(LIBANJUTA_LIBS)
 libanjuta_la_LIBADD = \
 	$(top_builddir)/libegg/libanjuta-egg.la\
-	$(top_builddir)/libanjuta/interfaces/libanjuta-interfaces.la
+	$(top_builddir)/libanjuta/interfaces/libanjuta-interfaces.la\
+	$(top_builddir)/scintilla/libanjuta-scintilla.la
 
 libanjuta_la_SOURCES= \
 	cell-renderer-captioned-image.c	\

@@ -622,6 +622,8 @@ plugins/patch/Makefile
 plugins/editor/Makefile
 plugins/message-view/Makefile
 plugins/devhelp/Makefile
+plugins/file-manager/Makefile
+plugins/profile-default/Makefile
 template/Makefile
 anjuta.desktop.in
 manuals/Makefile
