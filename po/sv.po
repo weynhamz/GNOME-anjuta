@@ -8,8 +8,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
-"POT-Creation-Date: 2003-05-12 23:17+0200\n"
-"PO-Revision-Date: 2003-05-12 23:17+0200\n"
+"POT-Creation-Date: 2003-05-14 02:34+0200\n"
+"PO-Revision-Date: 2003-05-14 02:34+0200\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1913,6 +1913,8 @@ msgid ""
 "If is set to 1, all the dock items bound to the master are locked; if it's "
 "0, all are unlocked; -1 indicates inconsistency among the items"
 msgstr ""
+"Om satt till 1 kommer alla dockobjekt som är bundna till huvudet låsta; om "
+"det är 0 är alla olåsta; -1 indikerar inkonsekvens bland objekten"
 
 #: gdl/gdl-dock-master.c:736
 #, c-format
@@ -1920,6 +1922,8 @@ msgid ""
 "master %p: unable to add object %p[%s] to the hash.  There already is an "
 "item with that name (%p)."
 msgstr ""
+"huvud %p: kan inte lägga till objekt %p[%s] till hashtabellen. Det finns "
+"redan ett objekt med namnet (%p)."
 
 #: gdl/gdl-dock-master.c:906
 #, c-format
@@ -1927,6 +1931,8 @@ msgid ""
 "The new dock controller %p is automatic.  Only manual dock objects should be "
 "named controller."
 msgstr ""
+"Den nya dockkontrollern %p är automatisk. Endast manuella dockobjekt ska ges "
+"namnet controller."
 
 #: gdl/gdl-dock-notebook.c:134
 msgid "Page"
@@ -1944,9 +1950,10 @@ msgstr "Unikt namn för identifiering av dockobjektet"
 msgid "Long name"
 msgstr "Långt namn"
 
+# Osäket
 #: gdl/gdl-dock-object.c:129
 msgid "Human readable name for the dock object"
-msgstr ""
+msgstr "Läsbart namn för dockobjektet"
 
 # Osäker
 #: gdl/gdl-dock-object.c:135
@@ -1955,7 +1962,7 @@ msgstr "Dockhuvud"
 
 #: gdl/gdl-dock-object.c:136
 msgid "Dock master this dock object is bound to"
-msgstr ""
+msgstr "Dockhuvud detta objekt är bundet till"
 
 #: gdl/gdl-dock-object.c:405
 #, c-format
@@ -1963,6 +1970,8 @@ msgid ""
 "Call to gdl_dock_object_dock in a dock object %p (object type is %s) which "
 "hasn't implemented this method"
 msgstr ""
+"Anrop av gdl_dock_object_dock i ett dockobjekt %p (objekttypen är %s) som "
+"inte har implementerat denna metod"
 
 #: gdl/gdl-dock-object.c:534
 #, c-format
@@ -1970,17 +1979,19 @@ msgid ""
 "Dock operation requested in a non-bound object %p. The application might "
 "crash"
 msgstr ""
+"Dockoperation begärd i ett icke-bundet objekt %p. Programmet kan krascha"
 
 #: gdl/gdl-dock-object.c:541
 #, c-format
 msgid "Cannot dock %p to %p because they belong to different masters"
-msgstr ""
+msgstr "Kan inte docka %p till %p eftersom de hör till olika huvud"
 
 #: gdl/gdl-dock-object.c:583
 #, c-format
 msgid ""
 "Attempt to bind to %p an already bound dock object %p (current master: %p)"
 msgstr ""
+"Försök att binda till %p ett redan bundet dockobjekt %p (aktuellt huvud: %p)"
 
 #: gdl/gdl-dock-paned.c:134
 msgid "Position"
@@ -1988,7 +1999,7 @@ msgstr "Position"
 
 #: gdl/gdl-dock-paned.c:135
 msgid "Position of the divider in pixels"
-msgstr ""
+msgstr "Position för avskiljaren i bildpunkter"
 
 #: gdl/gdl-dock-placeholder.c:127
 msgid "Sticky"
@@ -1999,6 +2010,8 @@ msgid ""
 "Whether the placeholder will stick to its host or move up the hierarchy when "
 "the host is redocked"
 msgstr ""
+"Huruvida platshållaren ska hålla fast vid sin värd eller flytta upp i "
+"hierarkin då värden dockas om"
 
 #: gdl/gdl-dock-placeholder.c:135
 msgid "Host"
@@ -2006,7 +2019,7 @@ msgstr "Värd"
 
 #: gdl/gdl-dock-placeholder.c:136
 msgid "The dock object this placeholder is attached to"
-msgstr ""
+msgstr "Dockobjektet som denna platshållare är fäst vid"
 
 #: gdl/gdl-dock-placeholder.c:143
 msgid "Next placement"
@@ -2017,15 +2030,18 @@ msgid ""
 "The position an item will be docked to our host if a request is made to dock "
 "to us"
 msgstr ""
+"Positionen som ett objekt kommer att dockas vid vår värd om en begäran görs "
+"att docka till oss"
 
 #: gdl/gdl-dock-placeholder.c:305
 msgid "Attempt to dock a dock object to an unbound placeholder"
-msgstr ""
+msgstr "Försök att docka ett dockobjekt till en obunden platshållare"
 
 #: gdl/gdl-dock-placeholder.c:419
 #, c-format
 msgid "Got a detach signal from an object (%p) who is not our host %p"
 msgstr ""
+"Fick en frånkopplingssignal från ett objekt (%p) som inte är vår värd %p"
 
 #: gdl/gdl-dock-placeholder.c:440
 #, c-format
@@ -2033,6 +2049,8 @@ msgid ""
 "Something weird happened while getting the child placement for %p from "
 "parent %p"
 msgstr ""
+"Någonting konstigt hände vid hämtande av barnplaceringen för %p från "
+"föräldern %p"
 
 #: gdl/gdl-dock-tablabel.c:130
 msgid "Controlling dock item"
@@ -2040,7 +2058,7 @@ msgstr "Styrande dockobjekt"
 
 #: gdl/gdl-dock-tablabel.c:131
 msgid "Dockitem which 'owns' this tablabel"
-msgstr ""
+msgstr "Dockobjekt som \"äger\" denna fliketikett"
 
 #: gdl/gdl-dock.c:177
 msgid "Floating"
