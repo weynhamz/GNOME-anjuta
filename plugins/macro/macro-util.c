@@ -20,6 +20,7 @@
 #include "macro-util.h"
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
 
+
 static char *get_date_time(void);
 static gchar *get_date_Ymd(void);
 static gchar *get_date_Y(void);
@@ -214,7 +215,7 @@ expand_keyword(MacroPlugin * plugin, gchar *keyword, gchar **expand)
 
 
 gchar*
-expand_macro(MacroPlugin * plugin, gchar *txt)
+expand_macro(MacroPlugin * plugin, gchar *txt, gint *offset)
 {
 	gchar *ptr = txt;
 	gchar *c = txt;
@@ -223,6 +224,7 @@ expand_macro(MacroPlugin * plugin, gchar *txt)
 	gchar *keyword;
 	gchar *buf = NULL;
 	gchar *expand = NULL;
+	gboolean found_curs = FALSE;
 	
 	while ( *(c) )
 	{
@@ -251,12 +253,22 @@ expand_macro(MacroPlugin * plugin, gchar *txt)
 					g_free(buf);
 			        ptr = c + 1;
 			       break;
-				}
-			    c++;
+				}	
+				c++;
 			}
 		}
-	    c++;
+		/* Move the cursor at '|' position */
+		else if ( !found_curs && *c=='|' )		
+		{
+			found_curs = TRUE;
+			buf = g_strndup(ptr, c - ptr);
+			*offset = c - ptr;
+			buffer = g_strconcat(buffer, buf, NULL);
+			ptr = c + 1;	
+		}    
+		c++;
 	}
+
     buf = g_strndup(ptr, c - ptr);
     buffer = g_strconcat(buffer, buf, NULL);
     g_free(buf);

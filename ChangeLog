@@ -1,3 +1,11 @@
+2005-03-08  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
+
+	* plugins/macro/macro-actions.c, plugins/macro/macro-db.[ch],
+	plugins/macro/macro-dialog.c, plugins/macro/macro-util.[ch],
+	plugins/macro/macro-util.c, plugins/macro/macro-util.h
+	plugins/macro/macros.xml, plugins/macro/plugin.c :
+	Moved cursor at the '|' position defined in macros.
+
 2005-03-07  Naba Kumar  <naba@gnome.org>
 
 	* plugins/subversion/Makefile.am: Fixed build error.

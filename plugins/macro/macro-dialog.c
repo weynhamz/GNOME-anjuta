@@ -48,23 +48,29 @@ on_ok_clicked (MacroPlugin * plugin)
 	GtkTreeModel* model = macro_db_get_model(dialog->macro_db);
 	GtkTreeIter iter;
 	gchar* text;
+	gint offset = 0;
+	gint pos;
 	
 	g_return_if_fail (plugin != NULL);
 	g_return_if_fail (model != NULL);
 
 	if (!gtk_tree_selection_get_selected(selection, &model, &iter))
 		return;
-	text = macro_db_get_macro(plugin, dialog->macro_db, &iter);
+	text = macro_db_get_macro(plugin, dialog->macro_db, &iter, &offset);
 	if (text)
 	{
 		const int CURRENT_POS = -1;
 		if (plugin->current_editor != NULL)
 		{
-			ianjuta_editor_insert (IANJUTA_EDITOR
-								   (plugin->
-									current_editor),
+			pos = ianjuta_editor_get_position (IANJUTA_EDITOR(plugin->current_editor),
+			                                   NULL);
+			ianjuta_editor_insert (IANJUTA_EDITOR(plugin->current_editor),
 								   CURRENT_POS, text, -1,
 								   NULL);
+g_print("POS: %d  OFFSET: %d", pos, offset);
+			ianjuta_editor_goto_position (IANJUTA_EDITOR(plugin->current_editor), 
+			                              pos + offset, 
+			                              NULL);
 		}
 		g_free(text);
 		gtk_widget_hide (plugin->macro_dialog);
@@ -122,6 +128,7 @@ on_macro_selection_changed (GtkTreeSelection * selection,
 		gchar *details_utf8;
 		gboolean is_category;
 		gboolean predefined;
+		gint offset;
 
 		gtk_tree_model_get (model, &iter,
 				    MACRO_NAME, &name,
@@ -140,7 +147,7 @@ on_macro_selection_changed (GtkTreeSelection * selection,
 
 			gtk_label_set_text (GTK_LABEL (dialog->details_label),
 					    details_utf8);
-			text = macro_db_get_macro(dialog->plugin, dialog->macro_db, &iter);
+			text = macro_db_get_macro(dialog->plugin, dialog->macro_db, &iter, &offset);
 			if (text != NULL)
 			{
 				gtk_text_buffer_set_text (text_buffer, text, -1);

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <anjuta-macros>
-<macro _name="switch" _category="C" _shortcut=""><![CDATA[switch ()
+<macro _name="switch" _category="C" _shortcut=""><![CDATA[switch (|)
 {
 	case  :
 		;
@@ -13,20 +13,20 @@
 		break;
 }
 ]]></macro>
-<macro _name="for" _category="C" _shortcut=""><![CDATA[for ( ; ; )
+<macro _name="for" _category="C" _shortcut=""><![CDATA[for (|; ; )
 {
 	;
 }]]></macro>
-<macro _name="while" _category="C" _shortcut=""><![CDATA[while ()
+<macro _name="while" _category="C" _shortcut=""><![CDATA[while (|)
 {
 	;
 }]]></macro>
 <macro _name="do_while" _category="C" _shortcut=""><![CDATA[do
 {
-	;
+	|;
 }
 while ();]]></macro>
-<macro _name="if...else" _category="C" _shortcut="azerty"><![CDATA[if ()
+<macro _name="if...else" _category="C" _shortcut="azerty"><![CDATA[if (|)
 {
 	;
 }

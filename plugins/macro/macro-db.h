@@ -73,6 +73,7 @@ void macro_db_change (MacroDB * db, GtkTreeIter * iter,
 
 void macro_db_remove (MacroDB * db, GtkTreeIter * iter);
 
-gchar* macro_db_get_macro(MacroPlugin * plugin, MacroDB * db, GtkTreeIter* iter);
+gchar* macro_db_get_macro(MacroPlugin * plugin, MacroDB * db, GtkTreeIter* iter,
+                          gint *offset);
 
 #endif
