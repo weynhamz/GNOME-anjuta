@@ -19,11 +19,10 @@
 
 
 #include <gnome.h>
+#include "watch.h"
 
-gint
-on_watch_delete_event(GtkWidget* w, GdkEvent* event, gpointer data);
 
-void
+/*void
 on_watch_clist_select_row          (GtkCList        *clist,
                                         gint             row,
                                         gint             column,
@@ -34,7 +33,7 @@ on_watch_clist_unselect_row          (GtkCList        *clist,
                                         gint             row,
                                         gint             column,
                                         GdkEvent        *event,
-                                        gpointer         user_data);
+                                        gpointer         user_data);*/
 void
 on_watch_add_activate                  (GtkMenuItem     *menuitem,
                                         gpointer         user_data);

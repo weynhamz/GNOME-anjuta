@@ -96,7 +96,7 @@ struct _DebugToolbar
 	GtkWidget *step_over;
 	GtkWidget *toggle_bp;
 	GtkWidget *breakpoints;
-	GtkWidget *watch;
+	/* GtkWidget *watch; */
 	GtkWidget *wachpoints;
 	GtkWidget *registers;
 	GtkWidget *stack;

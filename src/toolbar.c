@@ -496,7 +496,7 @@ create_debug_toolbar (GtkWidget * anjuta_gui, DebugToolbar * toolbar)
 	GtkWidget *toolbar_toggle_bp;
 	GtkWidget *toolbar_interrupt;
 	GtkWidget *toolbar_frame;
-	GtkWidget *toolbar_watch;
+	/* GtkWidget *toolbar_watch; */
 	GtkWidget *toolbar_inspect;
 	GtkWidget *toolbar_stack;
 	GtkWidget *toolbar_registers;
@@ -624,7 +624,7 @@ create_debug_toolbar (GtkWidget * anjuta_gui, DebugToolbar * toolbar)
 	gtk_widget_show (toolbar_frame);
 
 	gtk_toolbar_append_space (GTK_TOOLBAR (toolbar3));
-
+	/*
 	tmp_toolbar_icon =
 		anjuta_res_get_image (ANJUTA_PIXMAP_WATCH);
 	toolbar_watch =
@@ -637,7 +637,7 @@ create_debug_toolbar (GtkWidget * anjuta_gui, DebugToolbar * toolbar)
 					    NULL);
 	gtk_widget_ref (toolbar_watch);
 	gtk_widget_show (toolbar_watch);
-
+	*/
 	tmp_toolbar_icon =
 		anjuta_res_get_image (ANJUTA_PIXMAP_STACK);
 	toolbar_stack =
@@ -695,8 +695,10 @@ create_debug_toolbar (GtkWidget * anjuta_gui, DebugToolbar * toolbar)
 	gtk_signal_connect (GTK_OBJECT (toolbar_go), "clicked",
 			    GTK_SIGNAL_FUNC (on_toolbar_go_clicked), NULL);
 
+	/*
 	gtk_signal_connect (GTK_OBJECT (toolbar_watch), "clicked",
 			    GTK_SIGNAL_FUNC (on_toolbar_watch_clicked), NULL);
+	*/
 	gtk_signal_connect (GTK_OBJECT (toolbar_stack), "clicked",
 			    GTK_SIGNAL_FUNC (on_toolbar_stack_clicked), NULL);
 	gtk_signal_connect (GTK_OBJECT (toolbar_frame), "clicked",
@@ -717,7 +719,7 @@ create_debug_toolbar (GtkWidget * anjuta_gui, DebugToolbar * toolbar)
 	toolbar->step_out = toolbar_step_out;
 	toolbar->step_over = toolbar_step_over;
 	toolbar->toggle_bp = toolbar_toggle_bp;
-	toolbar->watch = toolbar_watch;
+	/* toolbar->watch = toolbar_watch; */
 	toolbar->frame = toolbar_frame;
 	toolbar->interrupt = toolbar_interrupt;
 	toolbar->stack = toolbar_stack;

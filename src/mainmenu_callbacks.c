@@ -1108,12 +1108,6 @@ on_breakpoints1_activate (GtkMenuItem * menuitem, gpointer user_data)
 	breakpoints_dbase_show (debugger.breakpoints_dbase);
 }
 
-void
-on_watch_window1_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-	expr_watch_show (debugger.watch);
-}
-
 
 void
 on_registers1_activate (GtkMenuItem * menuitem, gpointer user_data)
@@ -1815,7 +1809,6 @@ on_debugger_inspect_activate (GtkMenuItem * menuitem, gpointer user_data)
 void
 on_debugger_add_watch_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
-	expr_watch_show (debugger.watch);
 	on_watch_add_activate (NULL, NULL);
 }
 

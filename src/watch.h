@@ -26,9 +26,15 @@
 typedef struct _ExprWatchGui ExprWatchGui;
 typedef struct _ExprWatch ExprWatch;
 
+enum {
+	WATCH_VARIABLE_COLUMN,
+	WATCH_VALUE_COLUMN,
+	WATCH_N_COLUMNS
+};
+
+
 struct _ExprWatchGui
 {
-    GtkWidget*   window;
     GtkWidget*   clist;
     GtkWidget*   menu_add;
     GtkWidget*   menu_remove;
@@ -42,13 +48,13 @@ struct _ExprWatchGui
 struct _ExprWatch
 {
   ExprWatchGui  widgets;
-  GList                    *exprs;
-  gint                      current_index;
-  gint                      count;
-  gboolean             is_showing;
-  gint                     win_pos_x, win_pos_y;
-  gint                     win_width, win_height;
 };
+
+struct watch_cb_data {
+	ExprWatch* ew;
+	GtkTreeIter* iter;
+};
+
 
 ExprWatch*
 expr_watch_new(void);
@@ -60,10 +66,10 @@ void
 create_expr_watch_gui(ExprWatch* ew);
 
 GtkWidget*
-create_watch_add_dialog(GtkWindow* parent);
+create_watch_add_dialog();
 
 GtkWidget*
-create_watch_change_dialog(GtkWindow* parent);
+create_watch_change_dialog();
 
 GtkWidget*
 create_eval_dialog(GtkWindow* parent);
@@ -83,20 +89,7 @@ expr_watch_update_controls(ExprWatch* ew);
 void
 expr_watch_destroy(ExprWatch*ew);
 
-gboolean
-expr_watch_save_yourself(ExprWatch* ew, FILE* stream);
-
-gboolean
-expr_watch_load_yourself(ExprWatch* ew, PropsID props);
-
-void
-expr_watch_show(ExprWatch * ew);
-
-void
-expr_watch_hide(ExprWatch * ew);
-
 void
 eval_output_arrived(GList *outputs, gpointer data);
 
 #endif
-

@@ -20,6 +20,7 @@
 #  include <config.h>
 #endif
 
+#include <gtk/gtk.h>
 #include <gnome.h>
 #include <libgnomeui/gnome-window-icon.h>
 
@@ -28,6 +29,8 @@
 #include "debugger.h"
 #include "watch_cbs.h"
 #include "utilities.h"
+
+
 
 gchar *eval_entry_history;
 gchar *expr_watch_entry_history;
@@ -94,61 +97,43 @@ create_watch_menu ()
 void
 create_expr_watch_gui (ExprWatch * ew)
 {
-  GtkWidget *window1;
-  GtkWidget *scrolledwindow1;
   GtkWidget *clist1;
   GtkWidget *label1;
   GtkWidget *label2;
+  GtkTreeModel* model;
+  GtkTreeSelection *selection;
+  GtkTreeViewColumn *column;
+  GtkCellRenderer *renderer;	
+	
+  model = GTK_TREE_MODEL(gtk_list_store_new(WATCH_N_COLUMNS,
+											GTK_TYPE_STRING,
+											GTK_TYPE_STRING));
 
-  window1 = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-  gtk_window_set_transient_for(GTK_WINDOW(window1), GTK_WINDOW(app->widgets.window));
-  gtk_widget_set_usize (window1, 300, -2);
-  gtk_window_set_title (GTK_WINDOW (window1), _("Expression Watch"));
-  gtk_window_set_wmclass (GTK_WINDOW (window1), "expr_watch", "Anjuta");
-  gtk_window_set_default_size (GTK_WINDOW (window1), 500, -1);
-  gnome_window_icon_set_from_default(GTK_WINDOW(window1));
+  ew->widgets.clist = gtk_tree_view_new_with_model(model);
+  selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (ew->widgets.clist));
+  gtk_tree_selection_set_mode (selection, GTK_SELECTION_SINGLE);
+  g_object_unref (G_OBJECT (model));
 
-  scrolledwindow1 = gtk_scrolled_window_new (NULL, NULL);
-  gtk_widget_show (scrolledwindow1);
-  gtk_container_add (GTK_CONTAINER (window1), scrolledwindow1);
-  gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolledwindow1),
-				  GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+  /* Columns */
+  column = gtk_tree_view_column_new ();
+  renderer = gtk_cell_renderer_text_new ();
+  gtk_tree_view_column_pack_start (column, renderer, TRUE);
+  gtk_tree_view_column_add_attribute (column, renderer, "text",	WATCH_VARIABLE_COLUMN);
+  gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
+  gtk_tree_view_column_set_title (column, _("Variable"));
+  gtk_tree_view_append_column (GTK_TREE_VIEW (ew->widgets.clist), column);
+  gtk_tree_view_set_expander_column (GTK_TREE_VIEW (ew->widgets.clist), column);
 
-  clist1 = gtk_clist_new (2);
-  gtk_widget_show (clist1);
-  gtk_container_add (GTK_CONTAINER (scrolledwindow1), clist1);
-  gtk_widget_set_usize (clist1, 410, 0);
-  gtk_clist_set_column_width (GTK_CLIST (clist1), 0, 169);
-  gtk_clist_set_column_width (GTK_CLIST (clist1), 1, 118);
-  gtk_clist_set_selection_mode (GTK_CLIST (clist1), GTK_SELECTION_SINGLE);
-  gtk_clist_column_titles_show (GTK_CLIST (clist1));
-  gtk_clist_set_column_auto_resize (GTK_CLIST (clist1), 1, TRUE);
+  column = gtk_tree_view_column_new ();
+  renderer = gtk_cell_renderer_text_new ();
+  gtk_tree_view_column_pack_start (column, renderer, TRUE);
+  gtk_tree_view_column_add_attribute (column, renderer, "text", WATCH_VALUE_COLUMN);
+  gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
+  gtk_tree_view_column_set_title (column, _("Value"));
+  gtk_tree_view_append_column (GTK_TREE_VIEW (ew->widgets.clist), column);
 
-  label1 = gtk_label_new (_("Expression"));
-  gtk_widget_show (label1);
-  gtk_clist_set_column_widget (GTK_CLIST (clist1), 0, label1);
-  gtk_clist_set_column_justification (GTK_CLIST (clist1), 0,
-				      GTK_JUSTIFY_LEFT);
+  g_signal_connect (ew->widgets.clist, "event", G_CALLBACK (on_watch_event), ew);
 
-  label2 = gtk_label_new (_("Value"));
-  gtk_widget_show (label2);
-  gtk_clist_set_column_widget (GTK_CLIST (clist1), 1, label2);
-  gtk_clist_set_column_justification (GTK_CLIST (clist1), 1,
-				      GTK_JUSTIFY_LEFT);
-
-  gtk_window_add_accel_group (GTK_WINDOW (window1), app->accel_group);
-
-  gtk_signal_connect (GTK_OBJECT (window1), "delete_event",
-		      GTK_SIGNAL_FUNC (on_watch_delete_event), ew);
-  gtk_signal_connect (GTK_OBJECT (clist1), "select_row",
-		      GTK_SIGNAL_FUNC (on_watch_clist_select_row), ew);
-  gtk_signal_connect (GTK_OBJECT (clist1), "unselect_row",
-		      GTK_SIGNAL_FUNC (on_watch_clist_unselect_row), ew);
-  gtk_signal_connect (GTK_OBJECT (clist1), "event",
-		      GTK_SIGNAL_FUNC (on_watch_event), ew);
-
-  ew->widgets.window = window1;
-  ew->widgets.clist = clist1;
   ew->widgets.menu = create_watch_menu ();
   ew->widgets.menu_add = watch_menu_uiinfo[0].widget;
   ew->widgets.menu_remove = watch_menu_uiinfo[1].widget;
@@ -157,7 +142,6 @@ create_expr_watch_gui (ExprWatch * ew)
   ew->widgets.menu_toggle = watch_menu_uiinfo[4].widget;
   ew->widgets.menu_change = watch_menu_uiinfo[5].widget;
 
-  gtk_widget_ref (ew->widgets.window);
   gtk_widget_ref (ew->widgets.clist);
   gtk_widget_ref (ew->widgets.menu_add);
   gtk_widget_ref (ew->widgets.menu_remove);
@@ -169,7 +153,7 @@ create_expr_watch_gui (ExprWatch * ew)
 }
 
 GtkWidget *
-create_watch_add_dialog (GtkWindow* parent)
+create_watch_add_dialog ()
 {
   GtkWidget *dialog3;
   GtkWidget *dialog_vbox3;
@@ -181,7 +165,7 @@ create_watch_add_dialog (GtkWindow* parent)
   GtkWidget *button20;
 
   dialog3 = gnome_dialog_new (_("Add Watch Expression"), NULL);
-  gtk_window_set_transient_for (GTK_WINDOW(dialog3), GTK_WINDOW(parent));
+
   gtk_window_set_position (GTK_WINDOW (dialog3), GTK_WIN_POS_MOUSE);
   gtk_window_set_policy (GTK_WINDOW (dialog3), FALSE, FALSE, FALSE);
   gtk_window_set_wmclass (GTK_WINDOW (dialog3), "watch_add", "Anjuta");
@@ -234,7 +218,7 @@ create_watch_add_dialog (GtkWindow* parent)
 }
 
 GtkWidget *
-create_watch_change_dialog (GtkWindow* parent)
+create_watch_change_dialog ()
 {
   GtkWidget *dialog3;
   GtkWidget *dialog_vbox3;
@@ -246,7 +230,7 @@ create_watch_change_dialog (GtkWindow* parent)
   GtkWidget *button20;
 
   dialog3 = gnome_dialog_new (_("Modify Watch Expression"), NULL);
-  gtk_window_set_transient_for (GTK_WINDOW(dialog3), GTK_WINDOW(parent));
+
   gtk_window_set_position (GTK_WINDOW (dialog3), GTK_WIN_POS_MOUSE);
   gtk_window_set_policy (GTK_WINDOW (dialog3), FALSE, FALSE, FALSE);
   gtk_window_set_wmclass (GTK_WINDOW (dialog3), "watch_add", "Anjuta");

@@ -450,6 +450,7 @@ on_toolbar_toggle_bp_clicked (GtkButton * button, gpointer user_data)
 				 "activate");
 }
 
+/*
 void
 on_toolbar_watch_clicked (GtkButton * button, gpointer user_data)
 {
@@ -457,7 +458,7 @@ on_toolbar_watch_clicked (GtkButton * button, gpointer user_data)
 				 (app->widgets.menubar.view.variable_watch),
 				 "activate");
 }
-
+*/
 void
 on_toolbar_stack_clicked (GtkButton * button, gpointer user_data)
 {

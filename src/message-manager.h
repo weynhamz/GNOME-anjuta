@@ -103,6 +103,7 @@ void anjuta_message_manager_indicate_warning (AnjutaMessageManager * amm, gint t
 void anjuta_message_manager_indicate_others (AnjutaMessageManager * amm, gint type_name, gchar* file, glong line);
 
 void create_default_types(AnjutaMessageManager* amm);
+void anjuta_message_manager_set_widget(AnjutaMessageManager* amm, gint type_name, GtkWidget* widget);
 
 #ifdef __cplusplus
 };
@@ -116,6 +117,7 @@ typedef enum _AnMessageType
 	MESSAGE_FIND,
 	MESSAGE_CVS,
 	MESSAGE_LOCALS,
+	MESSAGE_WATCHES,
 	MESSAGE_TERMINAL,
 	MESSAGE_STDOUT,
 	MESSAGE_STDERR,

@@ -1,3 +1,23 @@
+2003-04-09  Naba Kumar  <naba@gnome.org>
+
+	* anjuta.glade: Added (hidden) initial setup-wizard window.
+	
+	Patch from: Vitaly  <vvv@rfniias.ru>
+	* src/preferences.c: Fixes a bug with libglace widget access with
+	translated strings.
+
+	Patch from: Etay Meiri  <etay-m@bezeqint.net>
+	* src/debug_tree.c, src/debug_tree.h, src/debugger.c,
+	src/debugger.h, src/main_menubar_def.h, src/mainmenu_callbacks.c,
+	src/mainmenu_callbacks.h, main_menubar.[c,h], src/toolbar.[c,h],
+	src/toolbar_callbacks.[c,h],
+	src/memory.c, src/message-manager-private.cc,
+	src/message-manager-private.h, src/message-manager.cc,
+	src/message-manager.h, src/watch.c, src/watch.h, src/watch_cbs.c
+	src/watch_cbs.h, src/watch_gui.c: Ports the watch related stuff
+	to HEAD (mostly changing GtkClist to GtkTreeView). Also changed the
+	watch window to a subwindow in the notebook
+
 2003-04-09  Biswapesh Chattopadhyay  <biswapesh_chatterjee@tcscal.co.in>
 	* src/anjuta-tools.c: Use CDATA for saving tools data.
 

@@ -1384,7 +1384,6 @@ debug_tree_pointer_recursive (GtkTreeView* tree)
 }
 
 
-#if 0
 static void
 on_inspect_memory_clicked (GtkMenuItem * menu_item, gpointer data)
 {
@@ -1394,9 +1393,11 @@ on_inspect_memory_clicked (GtkMenuItem * menu_item, gpointer data)
 	gchar *hexa;
 	guchar *adr;
 	GtkWidget *memory;
+	GtkTreeModel* model;
+	
+	model = gtk_tree_view_get_model (GTK_TREE_VIEW(d_tree->tree));
 
-	gtk_ctree_node_get_text (GTK_CTREE (d_tree->tree), d_tree->cur_node, 1,
-							 &buf);
+	gtk_tree_model_get(model, d_tree->cur_node, VALUE_COLUMN, &buf, -1);
 
 	while (*buf != '\0' && !(*buf == '0' && *(buf + 1) == 'x'))
 		buf++;
@@ -1407,12 +1408,11 @@ on_inspect_memory_clicked (GtkMenuItem * menu_item, gpointer data)
 			end++;
 		hexa = g_strndup (start, end - start);
 		adr = adr_to_decimal (hexa);
-		memory = create_info_memory (adr);
+		memory = memory_info_new (adr);
 		gtk_widget_show (memory);
 		g_free (hexa);
 	}
 }
-#endif
 
 
 /* parse debugger output into the debug tree */
@@ -1426,6 +1426,7 @@ debug_tree_parse_variables (DebugTree * d_tree, GList * list)
 	GtkTreePath* path;
 	
 	g_return_if_fail (d_tree);
+	g_return_if_fail (list);
 	
 	model = gtk_tree_view_get_model (GTK_TREE_VIEW(d_tree->tree));
 	
@@ -1451,10 +1452,8 @@ debug_tree_parse_variables (DebugTree * d_tree, GList * list)
 
 
 /* return a pointer to a newly allocated DebugTree object */
-/* @param: container - container for new object */
-/* @param: title - title of tree root */
 DebugTree *
-debug_tree_create (GtkWidget * container)
+debug_tree_create ()
 {
 	GtkTreeModel *model;
 	GtkTreeSelection *selection;
@@ -1473,8 +1472,6 @@ debug_tree_create (GtkWidget * container)
 	d_tree->tree = gtk_tree_view_new_with_model (model);
 	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (d_tree->tree));
 	gtk_tree_selection_set_mode (selection, GTK_SELECTION_SINGLE);
-	gtk_container_add (GTK_CONTAINER (container), d_tree->tree);
-	gtk_widget_show (d_tree->tree);
 	g_object_unref (G_OBJECT (model));
 
 	/* Columns */

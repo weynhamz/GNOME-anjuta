@@ -787,7 +787,7 @@ static GnomeUIInfo zoom_text1_submenu_uiinfo[NUM_ZOOMTEXT_SUBMENUS+1] = {
 	GNOMEUIINFO_END/*11*/
 };
 
-#define	NUM_VIEW_SUBMENUS	18
+#define	NUM_VIEW_SUBMENUS	17
 static GnomeUIInfo view1_menu_uiinfo[NUM_VIEW_SUBMENUS+1] = {
 	{/*0*/
 	 GNOME_APP_UI_ITEM, N_("_Message window"),
@@ -807,7 +807,7 @@ static GnomeUIInfo view1_menu_uiinfo[NUM_VIEW_SUBMENUS+1] = {
 	 on_bookmarks1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 GDK_F3, GDK_CONTROL_MASK, NULL},
-	GNOMEUIINFO_SEPARATOR,/*3*/
+	GNOMEUIINFO_SEPARATOR, /*3*/
 	{/*4*/
 	 GNOME_APP_UI_SUBTREE, N_("_Toolbars"),
 	 NULL,
@@ -826,7 +826,7 @@ static GnomeUIInfo view1_menu_uiinfo[NUM_VIEW_SUBMENUS+1] = {
 	 zoom_text1_submenu_uiinfo, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
-	GNOMEUIINFO_SEPARATOR,/*7*/
+	GNOMEUIINFO_SEPARATOR, /*7*/
 	{/*8*/
 	 GNOME_APP_UI_ITEM, N_("_Breakpoints"),
 	 N_("Show breakpoints editor window"),
@@ -834,55 +834,49 @@ static GnomeUIInfo view1_menu_uiinfo[NUM_VIEW_SUBMENUS+1] = {
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 GDK_F4, GDK_CONTROL_MASK, NULL},
 	{/*9*/
-	 GNOME_APP_UI_ITEM, N_("Expression _Watch"),
-	 N_("Show expression watch window"),
-	 on_watch_window1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
-	 GDK_F5, GDK_CONTROL_MASK, NULL},
-	{/*10*/
 	 GNOME_APP_UI_ITEM, N_("_Registers"),
 	 N_("Show CPU registers and their contents"),
 	 on_registers1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 GDK_F6, GDK_CONTROL_MASK, NULL},
-	{/*11*/
+	{/*10*/
 	 GNOME_APP_UI_ITEM, N_("Program _Stack"),
 	 N_("Show stack trace of the program"),
 	 on_program_stack1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 GDK_F7, GDK_CONTROL_MASK, NULL},
-	{/*12*/
+	{/*11*/
 	 GNOME_APP_UI_ITEM, N_("Shared _Libraries"),
 	 N_("Show shared libraries loaded by the program"),
 	 on_shared_lib1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 GDK_F8, GDK_CONTROL_MASK, NULL},
-	{/*13*/
+	{/*12*/
 	 GNOME_APP_UI_ITEM, N_("_Kernel Signals"),
 	 N_("Show the kernel signals editor window"),
 	 on_kernal_signals1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 GDK_F9, GDK_CONTROL_MASK, NULL},
-	{/*14*/
+	{/*13*/
 	 GNOME_APP_UI_ITEM, N_("_Dump Window"),
 	 N_("Show memory dump window"),
 	 on_dump_window1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 GDK_F10, GDK_CONTROL_MASK, NULL},
-	GNOMEUIINFO_SEPARATOR,/*15*/
-	{/*16*/
+	GNOMEUIINFO_SEPARATOR, /*14*/
+	{/*15*/
 	 GNOME_APP_UI_ITEM, N_("_Console"),
 	 N_("Show the console where the program runs"),
 	 on_console1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 GDK_F11, GDK_CONTROL_MASK, NULL},
-	{/*17*/
+	{/*16*/
 	 GNOME_APP_UI_TOGGLEITEM, N_("Show _Locals"),
 	 N_("Show/Hide Local variables in Message window"),
 	 on_showhide_locals, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
-	GNOMEUIINFO_END/*18*/
+	GNOMEUIINFO_END /*17*/
 };
 
 #define NUM_IMPORTFILE_SUBMENUS 7

@@ -163,9 +163,11 @@ on_toolbar_step_over_clicked        (GtkButton       *button,
 void
 on_toolbar_toggle_bp_clicked           (GtkButton       *button,
                                         gpointer         user_data);
+/*
 void
 on_toolbar_watch_clicked           (GtkButton       *button,
                                         gpointer         user_data);
+*/
 void
 on_toolbar_stack_clicked           (GtkButton       *button,
                                         gpointer         user_data);

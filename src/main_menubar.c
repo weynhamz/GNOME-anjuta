@@ -140,14 +140,13 @@ create_main_menubar (GtkWidget * ap, MainMenuBar * mb)
 	mb->view.project_listing = view1_menu_uiinfo[1].widget;
 	mb->view.bookmarks = view1_menu_uiinfo[2].widget;
 	mb->view.breakpoints = view1_menu_uiinfo[8].widget;
-	mb->view.variable_watch = view1_menu_uiinfo[9].widget;
-	mb->view.registers = view1_menu_uiinfo[10].widget;
-	mb->view.program_stack = view1_menu_uiinfo[11].widget;
+	mb->view.registers = view1_menu_uiinfo[9].widget;
+	mb->view.program_stack = view1_menu_uiinfo[10].widget;
 	mb->view.shared_lib = view1_menu_uiinfo[12].widget;
-	mb->view.signals = view1_menu_uiinfo[13].widget;
-	mb->view.dump_window = view1_menu_uiinfo[14].widget;
-	mb->view.console = view1_menu_uiinfo[16].widget;
-	mb->view.show_hide_locals = view1_menu_uiinfo[17].widget;
+	mb->view.signals = view1_menu_uiinfo[12].widget;
+	mb->view.dump_window = view1_menu_uiinfo[13].widget;
+	mb->view.console = view1_menu_uiinfo[15].widget;
+	mb->view.show_hide_locals = view1_menu_uiinfo[16].widget;
 
 	/* Project submenu */
 	mb->project.add_file = project1_menu_uiinfo[0].widget;
@@ -271,8 +270,8 @@ create_main_menubar (GtkWidget * ap, MainMenuBar * mb)
 	gtk_widget_hide (file1_menu_uiinfo[16].widget);
 	gtk_widget_hide (edit1_menu_uiinfo[16].widget);
 	gtk_widget_hide (view1_menu_uiinfo[2].widget);
-	gtk_widget_hide (view1_menu_uiinfo[14].widget);
-	gtk_widget_hide (view1_menu_uiinfo[16].widget);
+	gtk_widget_hide (view1_menu_uiinfo[13].widget);
+	gtk_widget_hide (view1_menu_uiinfo[15].widget);
 	gtk_widget_hide (project1_menu_uiinfo[13].widget);
 	gtk_widget_hide (project1_menu_uiinfo[14].widget);
 

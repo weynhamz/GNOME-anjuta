@@ -67,7 +67,6 @@ void on_messages1_activate (GtkMenuItem * menuitem, gpointer user_data);
 void on_project_listing1_activate (GtkMenuItem * menuitem, gpointer user_data);
 void on_bookmarks1_activate (GtkMenuItem * menuitem, gpointer user_data);
 void on_breakpoints1_activate (GtkMenuItem * menuitem, gpointer user_data);
-void on_watch_window1_activate (GtkMenuItem * menuitem, gpointer user_data);
 void on_registers1_activate (GtkMenuItem * menuitem, gpointer user_data);
 void on_program_stack1_activate (GtkMenuItem * menuitem, gpointer user_data);
 void on_shared_lib1_activate (GtkMenuItem * menuitem, gpointer user_data);

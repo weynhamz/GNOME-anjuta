@@ -88,6 +88,62 @@ MessageSubwindow::MessageSubwindow(AnjutaMessageManager* p_amm,
 	m_page_num = p_amm->intern->last_page;
 }
 
+GtkWidget* 
+MessageSubwindow::create_scrolled_window(GtkWidget* widget_in_window)
+{
+	GtkWidget* scrolled_win = gtk_scrolled_window_new(NULL, NULL);
+	gtk_widget_show(scrolled_win);
+	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW(scrolled_win),
+									GTK_POLICY_AUTOMATIC, 
+									GTK_POLICY_AUTOMATIC);
+	
+	gtk_container_add(GTK_CONTAINER(scrolled_win), widget_in_window);
+	gtk_widget_show(widget_in_window);
+	
+	GtkWidget* label = create_label();
+	
+	gtk_notebook_append_page(GTK_NOTEBOOK(m_parent->intern->notebook),
+							 scrolled_win, label);
+	
+	return scrolled_win;
+}
+
+void
+MessageSubwindow::hideWidget(GtkWidget* widget)
+{
+	if (m_is_shown)
+	{
+		gtk_widget_ref(widget);
+		gtk_container_remove(GTK_CONTAINER(m_parent->intern->notebook), widget);		
+		m_is_shown = false;
+	}
+}
+
+void 
+MessageSubwindow::showWidget(GtkWidget* widget)
+{
+	if (!m_is_shown)
+	{
+		GtkWidget* label = create_label();
+		
+		gtk_notebook_append_page (GTK_NOTEBOOK(m_parent->intern->notebook),
+								  widget, label);
+		gtk_widget_unref(widget);
+		
+		GList* children = gtk_container_children
+								(GTK_CONTAINER (m_parent->intern->notebook));
+		for (uint i = 0; i < g_list_length(children); i++)
+		{
+			if (g_list_nth(children, i)->data == widget)
+			{
+				m_page_num = i;
+				break;
+			}
+		}
+		m_is_shown = true;
+	}
+}
+
 AnjutaMessageManager* 
 MessageSubwindow::get_parent() const
 {
@@ -169,21 +225,11 @@ AnjutaMessageWindow::AnjutaMessageWindow(AnjutaMessageManager* p_amm,
 {
 	g_return_if_fail(p_amm != NULL);
 
-	m_scrolled_win = gtk_scrolled_window_new(NULL, NULL);
-	gtk_widget_show(m_scrolled_win);
-	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW(m_scrolled_win),
-					GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
-	
 	m_msg_list = gtk_clist_new(1);
-	gtk_container_add(GTK_CONTAINER(m_scrolled_win), m_msg_list);
-	gtk_widget_show(m_msg_list);
 	gtk_clist_columns_autosize (GTK_CLIST(m_msg_list));
 	gtk_clist_set_selection_mode(GTK_CLIST(m_msg_list), GTK_SELECTION_BROWSE);
 	
-	GtkWidget* label = create_label();
-	
-	gtk_notebook_append_page(GTK_NOTEBOOK(p_amm->intern->notebook),
-							 m_scrolled_win, label);
+	m_scrolled_win = create_scrolled_window(m_msg_list);
 	
 	set_cur_line(0);
 }
@@ -323,38 +369,13 @@ AnjutaMessageWindow::thaw()
 void 
 AnjutaMessageWindow::show()
 {
-	if (!m_is_shown)
-	{
-		GtkWidget* label = create_label();
-		
-		gtk_notebook_append_page (GTK_NOTEBOOK(m_parent->intern->notebook),
-								  m_scrolled_win, label);
-		gtk_widget_unref(m_scrolled_win);
-		
-		GList* children = gtk_container_children
-								(GTK_CONTAINER (m_parent->intern->notebook));
-		for (uint i = 0; i < g_list_length(children); i++)
-		{
-			if (g_list_nth(children, i)->data == m_scrolled_win)
-			{
-				m_page_num = i;
-				break;
-			}
-		}
-		m_is_shown = true;
-	}
+	showWidget(m_scrolled_win);
 }
 
 void 
 AnjutaMessageWindow::hide()
 {
-	if (m_is_shown)
-	{
-		gtk_widget_ref(m_scrolled_win);
-		gtk_container_remove(GTK_CONTAINER(m_parent->intern->notebook), m_scrolled_win);
-		
-		m_is_shown = false;
-	}
+	hideWidget(m_scrolled_win);
 }
 
 GtkWidget* AnjutaMessageWindow::get_msg_list()
@@ -581,37 +602,12 @@ TerminalWindow::TerminalWindow(AnjutaMessageManager* p_amm, int p_type_id,
 
 void TerminalWindow::show()
 {
-	if (!m_is_shown)
-	{
-		GtkWidget* label = create_label();
-		
-		gtk_notebook_append_page(GTK_NOTEBOOK(m_parent->intern->notebook),
-								 m_frame,
-								 label);
-		gtk_widget_unref(m_frame);
-		
-		GList* children = gtk_container_children
-							(GTK_CONTAINER (m_parent->intern->notebook));
-		for (uint i = 0; i < g_list_length(children); i++)
-		{
-			if (g_list_nth(children, i)->data == m_frame)
-			{
-				m_page_num = i;
-				break;
-			}
-		}
-		m_is_shown = true;
-	}
+	showWidget(m_frame);
 }
 
 void TerminalWindow::hide()
 {
-	if (m_is_shown)
-	{
-		gtk_widget_ref(m_frame);
-		gtk_container_remove (GTK_CONTAINER(m_parent->intern->notebook), m_frame);
-		m_is_shown = false;
-	}
+	hideWidget(m_frame);
 }
 
 extern "C" void anjuta_goto_file_line (gchar * fname, glong lineno);
@@ -706,6 +702,10 @@ void TerminalWindow::term_destroy_cb (GtkWidget *widget,
 					tw);
 }
 
+
+// locals window
+
+
 LocalsWindow::LocalsWindow (AnjutaMessageManager * p_amm, int p_type_id,
 							string p_type, string p_pixmap):
 							MessageSubwindow (p_amm, p_type_id,
@@ -713,19 +713,9 @@ LocalsWindow::LocalsWindow (AnjutaMessageManager * p_amm, int p_type_id,
 {
 	g_return_if_fail (p_amm != NULL);
 
-	m_scrollbar = gtk_scrolled_window_new (NULL, NULL);
-	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (m_scrollbar),
-					GTK_POLICY_AUTOMATIC,
-					GTK_POLICY_AUTOMATIC);
-	gtk_widget_show (m_scrollbar);
-	m_debug_tree = debug_tree_create (m_scrollbar);
-	m_frame = gtk_event_box_new ();
-	gtk_widget_show (m_frame);
-	//gtk_frame_set_shadow_type (GTK_FRAME (m_frame), GTK_SHADOW_IN);
-	gtk_notebook_append_page (GTK_NOTEBOOK (p_amm->intern->notebook),
-				  m_frame, create_label ());
+	m_debug_tree = debug_tree_create ();
 
-	gtk_container_add (GTK_CONTAINER (m_frame), m_scrollbar);
+	m_scrollbar = create_scrolled_window(m_debug_tree->tree);
 }
 
 LocalsWindow::~LocalsWindow ()
@@ -738,40 +728,13 @@ LocalsWindow::~LocalsWindow ()
 void
 LocalsWindow::show ()
 {
-	if (!m_is_shown)
-	{
-		GtkWidget *label = create_label ();
-
-		gtk_notebook_append_page (GTK_NOTEBOOK
-					  (m_parent->intern->notebook),
-					  m_frame, label);
-		gtk_widget_unref (m_frame);
-
-		GList *children =
-			gtk_container_children (GTK_CONTAINER
-						(m_parent->intern->notebook));
-		for (uint i = 0; i < g_list_length (children); i++)
-		{
-			if (g_list_nth (children, i)->data == m_frame)
-			{
-				m_page_num = i;
-				break;
-			}
-		}
-		m_is_shown = true;
-	}
+	showWidget(m_scrollbar);
 }
 
 void
 LocalsWindow::hide ()
 {
-	if (m_is_shown)
-	{
-		gtk_widget_ref (m_frame);
-		gtk_container_remove (GTK_CONTAINER
-				      (m_parent->intern->notebook), m_frame);
-		m_is_shown = false;
-	}
+	hideWidget(m_scrollbar);
 }
 
 void
@@ -784,4 +747,43 @@ void
 LocalsWindow::update_view (GList * list)
 {
 	debug_tree_parse_variables (m_debug_tree, list);
+}
+
+
+// widget window
+
+WidgetWindow::WidgetWindow (AnjutaMessageManager * p_amm, int p_type_id,
+							string p_type, string p_pixmap):
+							MessageSubwindow (p_amm, p_type_id,
+							p_type, p_pixmap)
+{
+}
+
+WidgetWindow::~WidgetWindow ()
+{
+}
+
+
+void
+WidgetWindow::set_widget(GtkWidget* widget)
+{
+	m_scrollbar = create_scrolled_window(widget);
+}
+
+void
+WidgetWindow::show ()
+{
+	showWidget(m_scrollbar);
+}
+
+void
+WidgetWindow::hide ()
+{
+	hideWidget(m_scrollbar);
+}
+
+void
+WidgetWindow::clear ()
+{
+
 }

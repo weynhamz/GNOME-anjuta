@@ -21,8 +21,8 @@
 
 #include "global.h"
 #include "breakpoints.h"
-#include "watch.h"
 #include "registers.h"
+#include "watch.h"
 #include "stack_trace.h"
 #include "signals.h"
 #include "sharedlib.h"

@@ -252,7 +252,7 @@ memory_info_new (guchar *ptr)
                       GTK_SIGNAL_FUNC (on_window_destroy), mem_app);
 
   mem_app->new_window = FALSE;
-  inspect_memory (ptr, mem_app);
+  /*inspect_memory (ptr, mem_app);*/
 
   gtk_widget_grab_focus (mem_app->adr_entry);
   gtk_widget_grab_default (button1);

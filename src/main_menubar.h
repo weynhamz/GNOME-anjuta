@@ -143,7 +143,6 @@ struct _ViewSubMenu
 	GtkWidget *project_listing;
 	GtkWidget *bookmarks;
 	GtkWidget *breakpoints;
-	GtkWidget *variable_watch;
 	GtkWidget *registers;
 	GtkWidget *program_stack;
 	GtkWidget *shared_lib;

@@ -15730,7 +15730,6 @@
 </widget>
 
 <widget class="GtkWindow" id="setup_wizard_dialog">
-  <property name="visible">True</property>
   <property name="title" translatable="yes">Anjuta setup wizard</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
   <property name="window_position">GTK_WIN_POS_NONE</property>
@@ -15764,7 +15763,7 @@
 	<widget class="GnomeDruidPageStandard" id="druidpagestandard1">
 	  <property name="visible">True</property>
 	  <property name="title" translatable="yes">Windows style</property>
-	  <property name="logo_background">#c320082beadc</property>
+	  <property name="logo_background">#6f98084ceadc</property>
 	  <property name="logo">applogo.png</property>
 
 	  <child internal-child="vbox">

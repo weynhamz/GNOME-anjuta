@@ -116,6 +116,7 @@ debugger_init ()
 	debugger.breakpoints_dbase = breakpoints_dbase_new ();
 	debugger.stack = stack_trace_new ();
 	debugger.watch = expr_watch_new ();
+	anjuta_message_manager_set_widget(app->messages, MESSAGE_WATCHES, debugger.watch->widgets.clist);
 	debugger.cpu_registers = cpu_registers_new ();
 	debugger.signals = signals_new ();
 	debugger.sharedlibs = sharedlibs_new ();
@@ -138,8 +139,8 @@ debugger_save_yourself (FILE * stream)
 	if (!breakpoints_dbase_save_yourself
 	    (debugger.breakpoints_dbase, stream))
 		return FALSE;
-	if (!expr_watch_save_yourself (debugger.watch, stream))
-		return FALSE;
+	/*if (!expr_watch_save_yourself (debugger.watch, stream))
+		return FALSE;*/
 	if (!cpu_registers_save_yourself (debugger.cpu_registers, stream))
 		return FALSE;
 	if (!signals_save_yourself (debugger.signals, stream))
@@ -162,8 +163,8 @@ debugger_load_yourself (PropsID stream)
 	if (!breakpoints_dbase_load_yourself
 	    (debugger.breakpoints_dbase, stream))
 		return FALSE;
-	if (!expr_watch_load_yourself (debugger.watch, stream))
-		return FALSE;
+	/*if (!expr_watch_load_yourself (debugger.watch, stream))
+		return FALSE;*/
 	if (!cpu_registers_load_yourself (debugger.cpu_registers, stream))
 		return FALSE;
 	if (!signals_load_yourself (debugger.signals, stream))

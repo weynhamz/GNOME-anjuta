@@ -71,6 +71,8 @@ class MessageSubwindow
 	
 		AnjutaMessageManager* get_parent() const;
 		
+		GtkWidget* create_scrolled_window(GtkWidget* widget_in_window);
+		
 		virtual void show() = 0;
 		virtual void hide() = 0;
 		virtual void clear() = 0;
@@ -99,6 +101,8 @@ class MessageSubwindow
 		bool m_is_shown;
 
 		GtkWidget* create_label() const;
+		void hideWidget(GtkWidget* widget);
+		void showWidget(GtkWidget* widget);
 };
 	
 
@@ -185,8 +189,32 @@ class LocalsWindow : public MessageSubwindow
 	
 	private:
 	
-		GtkWidget* m_frame;
 		DebugTree* m_debug_tree;
+		GtkWidget* m_scrollbar;
+};
+
+
+/* this class provides a basic facility for an externally
+   defined widget to be displayed within a message window */
+class WidgetWindow : public MessageSubwindow
+{
+	public:
+	
+		WidgetWindow(AnjutaMessageManager* p_amm,
+					 int p_type_id,
+					 string p_type,
+					 string p_pixmap);
+	
+		~WidgetWindow();
+		
+		void show();
+		void hide();
+		void clear();
+		void set_widget(GtkWidget* w);
+	
+	private:
+
+		GtkWidget* m_widget;	
 		GtkWidget* m_scrollbar;
 };
 

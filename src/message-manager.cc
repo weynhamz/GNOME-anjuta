@@ -51,7 +51,7 @@ static guint anjuta_message_manager_signals[SIGNALS_END] = { 0 };
 
 // Data:
 static char *labels[] =
-	{ N_("Build"), N_("Debug"), N_("Find"), N_("CVS"), N_("Locals"),
+	{ N_("Build"), N_("Debug"), N_("Find"), N_("CVS"), N_("Locals"), N_("Watches"),
 N_("Terminal"), N_("Stdout"), N_("Stderr") };
 
 // Intern functions
@@ -256,30 +256,29 @@ anjuta_message_manager_add_type (AnjutaMessageManager * amm, gint type_name,
 	}
 
 	MessageSubwindow *sub_win;
-	if (type_name == MESSAGE_TERMINAL)
-	{
-		TerminalWindow *window = new TerminalWindow (amm, type_name, type, pixmap);
-		sub_win = window;
-	}
-	else if (type_name == MESSAGE_LOCALS)
-	{
-	    LocalsWindow* window = new LocalsWindow(amm, type_name, type, pixmap);
-	    sub_win = window;
-	}
-	else 
-	{
-		AnjutaMessageWindow *window =
-			new AnjutaMessageWindow (amm, type_name, type, pixmap);
-		gtk_signal_connect (GTK_OBJECT (window->get_msg_list ()),
+	
+	switch(type_name) {
+		case MESSAGE_TERMINAL:
+			sub_win = new TerminalWindow (amm, type_name, type, pixmap);
+			break;
+		case MESSAGE_LOCALS:
+		    sub_win = new LocalsWindow(amm, type_name, type, pixmap);
+			break;
+		case MESSAGE_WATCHES:
+			sub_win = new WidgetWindow(amm, type_name, type, pixmap);
+			break;
+		default:
+			sub_win = new AnjutaMessageWindow (amm, type_name, type, pixmap);
+			gtk_signal_connect (GTK_OBJECT (((AnjutaMessageWindow*)sub_win)->get_msg_list ()),
 				    "select_row",
 				    GTK_SIGNAL_FUNC (on_msg_double_clicked),
-				    window);
-		gtk_signal_connect (GTK_OBJECT (window->get_msg_list ()),
+				    			sub_win);		
+			gtk_signal_connect (GTK_OBJECT (((AnjutaMessageWindow*)sub_win)->get_msg_list ()),
 				    "event",
 				    GTK_SIGNAL_FUNC (on_mesg_event),
-				    window);
-		sub_win = window;
+				    			sub_win);
 	}
+
 	amm->intern->msg_windows.push_back (sub_win);
 	if (amm->intern->last_page == 0)
 		amm->intern->msg_windows.back ()->activate ();
@@ -853,6 +852,32 @@ anjuta_message_manager_build_is_empty(AnjutaMessageManager* amm)
 	return true;
 }
 		
+
+void
+anjuta_message_manager_set_widget(AnjutaMessageManager* amm, gint type_name, GtkWidget* widget)
+{
+	MessageSubwindow* msb = NULL;
+	WidgetWindow* ww = NULL;
+
+	msb = anjuta_message_manager_get_window(amm, type_name);
+	
+	if (!msb) 
+	{
+		g_warning("No window type: %d\n",type_name);
+		return;
+	}
+	
+	ww = dynamic_cast<WidgetWindow*>(msb);
+	
+	if (!ww)
+	{
+		g_warning("Cannot case to widget window");
+		return;
+	}
+	
+	ww->set_widget(widget);
+}
+
 // Private:
 
 // Callbacks:
@@ -1029,6 +1054,8 @@ create_default_types (AnjutaMessageManager * amm)
 					 ANJUTA_PIXMAP_MINI_CVS);
 	anjuta_message_manager_add_type (amm, MESSAGE_LOCALS,
 					 ANJUTA_PIXMAP_MINI_LOCALS);
+	anjuta_message_manager_add_type (amm, MESSAGE_WATCHES,
+					 ANJUTA_PIXMAP_MINI_LOCALS);	
 	anjuta_message_manager_add_type (amm, MESSAGE_TERMINAL,
 					 ANJUTA_PIXMAP_MINI_TERMINAL);
 	anjuta_message_manager_add_type (amm, MESSAGE_STDOUT,
@@ -1055,3 +1082,4 @@ disconnect_menuitem_signal (GtkWidget * item, MessageSubwindow * msg_win)
 				       GTK_SIGNAL_FUNC (on_show_hide_tab),
 				       msg_win);
 }
+

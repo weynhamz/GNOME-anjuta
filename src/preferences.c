@@ -1,3 +1,4 @@
+/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
  * preferences.c
  * Copyright (C) 2000 - 2003  Naba Kumar <naba@gnome.org>
@@ -31,6 +32,8 @@
 #include <style-editor.h>
 #include <defaults.h>
 #include <pixmaps.h>
+
+#include <glade/glade-parser.h>
 
 struct _AnjutaPreferencesPriv
 {
@@ -683,44 +686,110 @@ anjuta_preferences_add_page (AnjutaPreferences* pr, GladeXML *gxml,
 	anjuta_preferences_register_all_properties_from_glade_xml (pr, gxml);
 }
 
+
 #define GLADE_FILE_ANJUTA              PACKAGE_DATA_DIR"/glade/anjuta.glade"
+
+/*
+Function returns icon name *.png to certain preferences chapter
+e.g. "General" corresponds to "preferences-general.png"
+for future this maybe a map or something like 
+but for now let's simply transform prefs_chapter to icon_name 
+*/
+gchar* get_preferences_icon_name(gchar* prefs_chapter)
+{
+    GString * st=g_string_new(prefs_chapter);
+    st=g_string_ascii_down(st);
+    st=g_string_prepend(st,"preferences-");
+    st=g_string_append(st,".png");
+    return st->str;
+}
+
+/*
+utility function for previous one. The output structure completely 
+describes widget that was specified in input by its name
+02/04 by Vitaly<vvv@rfniias.ru>
+*/
+GladeWidgetInfo* glade_get_toplevel_by_name(GladeInterface *gi,gchar *name)
+{
+	int i;
+	if(gi==NULL)
+	return NULL;
+	for(i=0;i<gi->n_toplevels;i++)
+	{
+		if(!strcmp(gi->toplevels[i]->name,name))
+		return gi->toplevels[i];
+	}
+	return NULL;
+}
+
+/*
+input :
+    yet created gladeinterface, the name of interested toplevel widget,
+    and index of the latter child. 
+out: 
+    the name of the child
+
+info:
+    this provided to make glade extract main frame's names from toplevel 
+    names to avoid mess when they are specified by hand
+  
+02/04 by Vitaly<vvv@rfniias.ru>*/
+
+gchar* glade_get_from_toplevel_child_name_nth(GladeInterface *gi,
+											  gchar *toplevel_name, gint index)
+{	
+
+	GladeWidgetInfo *wi;
+	gint dd=index+1;
+    
+	wi=glade_get_toplevel_by_name(gi,toplevel_name);
+	if(wi==NULL)
+	return NULL;
+	if(index>wi->children->child->n_children)
+	return NULL;
+	while(dd--)
+	{
+		wi=wi->children->child;
+	}	
+	return wi->name;
+}
 
 static void
 add_all_default_pages (AnjutaPreferences *pr)
 {
-	GtkWidget *button;
+	GtkWidget *button,*button1, *wid;
 	GladeXML *gxml;
+	GList *node;
 	
-	gxml = glade_xml_new (GLADE_FILE_ANJUTA,
-						  "preferences_dialog_general", NULL);
-	anjuta_preferences_add_page (pr, gxml, _("General"), "preferences-general.png");
-	g_object_unref (gxml);
+	GladeInterface *gi;
+
+	gxml = glade_xml_new (GLADE_FILE_ANJUTA,NULL, NULL);
+	gi=glade_parser_parse_file(GLADE_FILE_ANJUTA,(const gchar*)NULL);
 	
-	gxml = glade_xml_new (GLADE_FILE_ANJUTA, "preferences_dialog_editor", NULL);
-	anjuta_preferences_add_page (pr, gxml, _("Editor"), "preferences-editor.png");
+	node=glade_xml_get_widget_prefix(gxml,"preferences_dialog");
+	
+	while (node)
+	{
+		const gchar *name;
+		GtkWidget *widget = node->data;
+		name = glade_get_widget_name (widget);
+		if(!strstr(name, "terminal"))
+			if (strncmp (name, PREFERENCE_PROPERTY_PREFIX,
+				strlen (PREFERENCE_PROPERTY_PREFIX)) == 0)
+			{
+				const gchar* MainFrame =
+					glade_get_from_toplevel_child_name_nth (gi,
+															(gchar*) name, 0);
+				anjuta_preferences_add_page (pr, gxml, MainFrame,
+							get_preferences_icon_name ((gchar*) MainFrame));
+			}
+		node = g_list_next (node);
+	}
+	
 	button = glade_xml_get_widget (gxml, "edit_syntax_highlighting");
 	g_signal_connect (G_OBJECT (button), "clicked",
 					  G_CALLBACK (on_style_editor_clicked), pr);
-	g_object_unref (gxml);
 	
-	gxml = glade_xml_new (GLADE_FILE_ANJUTA, "preferences_dialog_indentation", NULL);
-	anjuta_preferences_add_page (pr, gxml, _("Indentation"), "preferences-indentation.png");
-	g_object_unref (gxml);
-	
-	gxml = glade_xml_new (GLADE_FILE_ANJUTA, "preferences_dialog_build", NULL);
-	anjuta_preferences_add_page (pr, gxml, _("Build"), "preferences-build.png");
-	g_object_unref (gxml);
-	
-	gxml = glade_xml_new (GLADE_FILE_ANJUTA, "preferences_dialog_print", NULL);
-	anjuta_preferences_add_page (pr, gxml, _("Print"), "preferences-print.png");
-	g_object_unref (gxml);
-	
-	gxml = glade_xml_new (GLADE_FILE_ANJUTA, "preferences_dialog_messages", NULL);
-	anjuta_preferences_add_page (pr, gxml, _("Messages"), "preferences-messages.png");
-	g_object_unref (gxml);
-	
-	gxml = glade_xml_new (GLADE_FILE_ANJUTA, "preferences_dialog_cvs", NULL);
-	anjuta_preferences_add_page (pr, gxml, _("CVS"), "preferences-cvs.png");
 	g_object_unref (gxml);
 }
 
