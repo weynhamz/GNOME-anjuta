@@ -1,0 +1,791 @@
+<!-- ============= Debugging ====================== -->
+ <chapter id="debugging">
+  <title>Debugging</title>
+
+<sect1 id="debugger-session">
+<title>Introduction to debugging</title>
+  <para>
+   <emphasis>To debug is human. To fix it is divine...</emphasis>
+  </para>
+  <para>
+   Well, the <emphasis>human</emphasis> part is what this section is about. The 
+   <emphasis>divine</emphasis> part is up to you!
+  </para>
+  <para>
+   When a program does not behave in the way it is supposed to, we say the program
+   contains a bug or bugs. This does not refer to compilation errors &mdash; those are 
+   simply errors and they are relatively easy to clear, because the compiler tells you 
+   where the problems are. On the other hand, <emphasis>bugs</emphasis> are errors 
+   that happen during the execution of the program and they can be hard (sometimes very hard!) 
+   to detect.
+  </para>
+  <para>
+   Any program that you think is bug-free is never completely bug-free. All we can try 
+   to do is to reduce the number of bugs contained in the program. The process of removing 
+   bugs is known as <emphasis>debugging</emphasis>, and the tool that is used for debugging 
+   is called the <emphasis>debugger</emphasis>. <application>Anjuta</application> provides a 
+   very user-friendly and powerful debugging environment (actually, a GUI wrapper over 
+   <application>gdb</application>, a powerful command line debugging tool).
+  </para>
+  <para>
+   A debugger tracks and traces the execution of the program and provides various 
+   views of information needed to study the execution of the program.
+  </para>
+  
+  <sect2 id="debugger-targets">
+   <title>Debugger Targets</title>
+   <para>
+    Before debugging, it is important to understand what <emphasis>debugging 
+	targets</emphasis> are. Debugging targets refer to those entities with which 
+	the debugger interacts during operation. There are four types of debugging 
+	targets:
+   </para>
+   <para>
+    <orderedlist>
+     <listitem><para>Executable</para></listitem>
+     <listitem><para>Symbol table</para></listitem>
+     <listitem><para>Core file</para></listitem>
+     <listitem><para>Process</para></listitem>
+    </orderedlist>
+   </para>
+   <para>
+    There can be only one target active for each of the four types of targets at
+    any give time.
+    All of the targets do not need to be active for the debugger to work, although 
+	certain	combinations are required active for a useful debugging session. Example 
+	combinations may be [ <emphasis>executable, symbol table, and process</emphasis> ]
+    or [ <emphasis>executable, symbol table and core file</emphasis> ].
+   </para>
+   <para>
+    The target <emphasis>Executable</emphasis> becomes active when an executable 
+	file is loaded into the debugger.
+   </para>
+   <para>
+    The target <emphasis>Symbol table</emphasis> is automatically loaded from the 
+	executable file, therefore it does not have to be handled separately. The symbol 
+	table is necessary for the debugger to identify the various symbols in the source 
+	code of the program. The information is included in the executable during the 
+	compilation (as long as the program is compiled with the Debug option enabled &mdash; 
+	see <xref linkend="setting-compiler-options"/> for details).
+   </para>
+   <para>
+    The target <emphasis>Core file</emphasis> becomes active when the core file is 
+	loaded into the debugger.
+    A core file is the memory image of the program which was dumped by the kernel, 
+	usually because it had performed an illegal operation. The core file can provide 
+	information such as variable contents, register values, and stack trace of the 
+	program at the time of the error. By studying the core file it is possible to find 
+	out which part of the program has misbehaved and resulted in the core dump.
+   </para>
+   <para>
+    The target <emphasis>Process</emphasis> becomes active when the program is executed
+    under the debugger or when you attach to an already running process.
+   </para>
+  </sect2>
+  
+  <sect2 id="debug-start">
+   <title>Starting and Stopping the Debugger</title>
+   <para>
+    To start the debugger, choose the menu item 
+	<menuchoice><guisubmenu>Debug</guisubmenu><guimenuitem>Start Debugger</guimenuitem></menuchoice>. 
+	This will start the debugger with the executable of the current project. If there is no project
+    open, then it will load the executable of the currently active file. If there is no project
+	open, and no active file, the debugger will start, but no executable will be loaded. The 
+	executable will have to be loaded manually.
+   </para>
+   <para>
+    Once the debugger is started, a debugging session will be entered. When debugging is complete,
+	exit the debugging session by choosing the menu item 
+	<menuchoice><guisubmenu>Debug</guisubmenu><guimenuitem>Stop Debugger</guimenuitem></menuchoice>.
+   </para>
+  </sect2>
+  
+  <sect2 id="debug-loading">
+   <title>Loading Executables</title>
+   <para>
+    The debugger will automatically load an executable if a project or a file is currently open. 
+	To load a different executable, choose the menu item <menuchoice><guisubmenu>Debug</guisubmenu>
+	<guimenuitem>Load Executable &hellip;</guimenuitem></menuchoice>. A file selection dialog 
+	will open. Select the executable to debug and click on <guibutton>OK</guibutton>.
+   </para>
+  </sect2>
+  
+  <sect2 id="debug-attach">
+  <title>Attaching to a Process</title>
+   <para>
+    It is possible to attach to a running process for debugging. Choose the menu item
+    <menuchoice><guisubmenu>Debug</guisubmenu>
+	<guimenuitem>Attach to Process &hellip;</guimenuitem></menuchoice>. A list of all the
+    process running on the system will appear. 
+   </para>
+   <figure id="attach">
+    <title>Attach to Process dialog</title>
+    <screenshot>
+	<screeninfo>Attach to Process dialog</screeninfo>
+     <graphic fileref="figures/attach" format="png" srccredit="andyp"/>
+    </screenshot>
+   </figure>
+   <para>	
+	Select the process to attach to and click <guibutton>OK</guibutton>. Ensure that
+	the executable (and hence the symbol table) have already been loaded into the debugger.
+   </para>
+   <para>
+    If lots of question marks (??) appear during the debugging session, then the
+    attached process and the executable do not match.
+   </para>
+  </sect2>
+  
+  <sect2 id="debug-core">
+   <title>Loading a Core file</title>
+   <para>
+    Choose the menu item <menuchoice><guisubmenu>Debug</guisubmenu>
+	<guimenuitem>Load Core file &hellip;</guimenuitem></menuchoice> to load the core file. 
+	Select the core file in the file selection dialog and click <guibutton>OK</guibutton>. When 
+	loading a core file, ensure that the executable file (and hence the symbol table) has 
+	already been loaded &mdash; otherwise, debugging may be tricky!
+   </para>
+   <para>
+    If lots of question marks (??) appear during the debugging session, then the
+    core file and the executable do not match.
+   </para>
+  </sect2>
+ </sect1>
+ 
+ <!-- Debugger: Execution -->
+ 
+ <sect1 id="debugger-exec">
+  <title>Execution</title>
+  <para>
+   Execution of a program in the debugger can be finely controlled. The program can be 
+   executed in single steps, or allowed to continue until it encounters a breakpoint. 
+   Executing like this is essential for tracking program behaviour. Like a video editing 
+   session, the program can be executed in <emphasis>slow motion</emphasis>
+   with the ability to go forward, pause, stop, and so on.
+  </para>
+  <para>
+   The methods that can be used to execute a program in the debugger are described in 
+   the next few sections.
+  </para>
+  
+  <sect2 id="dbg-step-in">
+   <title>Single stepping (step in)</title>
+   <para>
+    Single stepping executes only one statement of the program (from the place where it 
+	has stopped) and then returns control. If the statement that is executed contains one 
+	or more functions, the debugger tries to step inside the functions (in the sequence in 
+	which the functions are executed). Once the statement is executed and
+    control is passed back, it is possible to study the various program parameters.
+   </para>
+   <para>
+    If the program has not been started at the time single stepping is started, the 
+	program will be started and will be stopped at the first statement of the program 
+	(the first statement in the function <emphasis>main()</emphasis>).
+   </para>
+   <para>
+    Choose the menu item <menuchoice><guisubmenu>Debug</guisubmenu>
+	<guisubmenu>Execution</guisubmenu><guimenuitem>Step In</guimenuitem></menuchoice>
+    or click on the <guibutton>Step In</guibutton> icon in the 
+	<interface>Debug toolbar</interface> to step into a program.
+   </para>
+  </sect2>
+
+  <sect2 id="dbg-step-over">
+   <title>Single stepping (step over)</title>
+   <para>
+    <emphasis>Step over</emphasis> is similar to <emphasis>step in</emphasis>,
+    except that it does not step inside any function in the statement being executed.
+    The statement will be executed in one go.
+   </para>
+   <para>
+    Choose the menu item <menuchoice><guisubmenu>Debug</guisubmenu>
+	<guisubmenu>Execution</guisubmenu><guimenuitem>Step Over</guimenuitem></menuchoice>
+    or click on the <guibutton>Step Over</guibutton> icon in the 
+	<interface>Debug toolbar</interface> to step over statements in a program.
+   </para>
+  </sect2>
+  
+  <sect2 id="dbg-step-out">
+   <title>Single stepping (step out)</title>
+   <para>
+    <emphasis>Step out</emphasis> will execute the current function until it 
+	returns. The program will be stopped once it exits from the function. 
+	Step out is not really single stepping, because it does not only execute 
+	a single statement &mdash; it executes the whole function until that 
+	function returns to the calling function.
+   </para>
+   <para>
+    Choose the menu item <menuchoice><guisubmenu>Debug</guisubmenu>
+	<guisubmenu>Execution</guisubmenu><guimenuitem>Step Out</guimenuitem></menuchoice>
+    or click on the <guibutton>Step Out</guibutton> icon in the 
+	<interface>Debug toolbar</interface> to step out in a program.
+   </para>
+  </sect2>
+  
+  <sect2 id="dbg-run">
+   <title>Run/Continue</title>
+   <para>
+    This option will continue the execution of the program until a breakpoint is 
+	encountered, or the program exits.
+   </para>
+   <para>
+    If the program is not yet started, then the program will be started and executed until 
+	a breakpoint or program termination is reached.
+   </para>
+   <para>
+    Choose the menu item <menuchoice><guisubmenu>Debug</guisubmenu>
+	<guisubmenu>Execution</guisubmenu><guimenuitem>Run/Continue</guimenuitem></menuchoice>
+    or click on the <guibutton>Run/Continue</guibutton> icon in the 
+	<interface>Debug toolbar</interface> to continue the execution of a program.
+    </para>
+  </sect2>
+  
+  <sect2 id="dbg-stop">
+   <title>Stop Program</title>
+   <para>
+    This option will kill the program which is being debugged. Note that it is not
+	possible to stop an attached process.
+   </para>
+   <para>
+    Choose the menu item <menuchoice><guisubmenu>Debug</guisubmenu>
+	<guimenuitem>Stop Program</guimenuitem></menuchoice>
+    or click on the <guibutton>Stop Program</guibutton> icon in the 
+	<interface>Debug toolbar</interface> to terminate the execution of a program.
+   </para>
+  </sect2>
+  
+  <sect2 id="dbg-restart">
+   <title>Restart Program</title>
+   <para>
+    This option will stop the program and then restart it. All of the 
+    breakpoints will remain in effect. Note that it is not possible to restart an
+    attached process.
+   </para>
+   <para>
+    Choose the menu item <menuchoice><guisubmenu>Debug</guisubmenu>
+	<guimenuitem>Restart Program</guimenuitem></menuchoice> to restart the 
+	execution of a program.
+   </para>
+  </sect2>
+ 
+ </sect1>
+ 
+<!-- ============= Debugging: Breakpoints ====================== -->
+ 
+ <sect1 id="debugging-breaks">
+  <title>Breakpoints</title>
+  <para>
+   When debugging a program, it is useful to be able to stop the execution of the program at
+   a particular point, so that the state of the program can be examined at that location. 
+   Breakpoints enable this to happen. Breakpoints can be set at different locations in a 
+   source file, and then the program is allowed to run. When a breakpoint is encountered, 
+   the execution of the program is suspended, enabling expressions to be evaluated, 
+   variables to be inspected, the stack trace to be studied, and so on.
+  </para>
+  <para>
+   <figure>
+     <title>Breakpoint dialog</title>
+     <screenshot>
+      <screeninfo>Breakpoint dialog</screeninfo>
+      <graphic fileref="figures/brk_dlg" format="png" srccredit="andyp"/>
+     </screenshot>
+   </figure>
+  </para>
+  <para>
+   <emphasis>Location</emphasis>, refers to the location of the code in the source
+   file. <emphasis>Location</emphasis> can be specified in any of the following 
+   formats:
+  </para>
+  <para>
+   <orderedlist>
+    <listitem><para>File_name:Line_number</para></listitem>
+    <listitem><para>Function_name</para></listitem>
+    <listitem><para>File:Function_name</para></listitem>
+   </orderedlist>
+  </para>
+  <para>
+   The first one is obvious &mdash; The location refers to the line number 
+   <emphasis>Line_number</emphasis> in the source file <emphasis>File</emphasis>. 
+   The second refers to the first line of the function 
+   <emphasis>Function_name</emphasis>. The third is similar to the second, except that 
+   this notation is used where there is more than one function with the name 
+   <emphasis>Function_name</emphasis> in the program. It is possible to 
+   differentiate between them by providing the <emphasis>File</emphasis>, so the 
+   notation refers to the function <emphasis>Function_name</emphasis> in the 
+   file <emphasis>File</emphasis>.
+  </para>
+  <para>
+   Two parameters can be associated with each breakpoint:
+   <orderedlist>
+    <listitem><para>Break condition</para></listitem>
+    <listitem><para>Pass count</para></listitem>
+   </orderedlist>
+  </para>
+  <para>
+   The <emphasis>Break condition</emphasis> is a valid C 
+   expression which should evaluate to a Boolean value &mdash; that is, the 
+   evaluation of the expression should result in either TRUE(1) or FALSE(0). 
+   If the final evaluation value is not a Boolean value, then it will be 
+   appropriately type casted to a Boolean.
+  </para>
+  <para>
+   Every time the breakpoint is encountered during the execution, the break 
+   condition will be evaluated. The debugger will break the execution only if 
+   the evaluation results in a TRUE value, otherwise it will continue the 
+   execution as though there had been no breakpoint.
+  </para>
+  <para>
+   The default value of <emphasis>Break condition</emphasis> is always TRUE. 
+   The debugger will break the execution at the breakpoint location.
+  </para>
+  <para>
+   The <emphasis>Pass count</emphasis> is an integer (unsigned) value which 
+   tells the debugger to skip the breakpoint that number of times before it 
+   is considered. <emphasis>Pass count</emphasis> has a higher priority than 
+   the <emphasis>Break condition</emphasis>. Only when the 
+   <emphasis>Pass count</emphasis> reaches zero will the debugger evaluate the 
+   <emphasis>Break condition</emphasis> (if any condition is present). If there 
+   is no condition, the debugger will break the execution once the 
+   <emphasis>Pass count</emphasis> counts down to zero.
+  </para>
+  <para>
+   The default value of the <emphasis>Pass count</emphasis> is zero. The 
+   breakpoint will be considered when it is first encountered.
+  </para>
+  
+  <sect2 id="breaks-set">
+   <title>Adding or Setting Breakpoints</title>
+   <para>
+    The <interface>Breakpoint editing window</interface> can be opened by 
+	choosing <menuchoice><guisubmenu>View</guisubmenu>
+	<guimenuitem>Breakpoints</guimenuitem></menuchoice> or 
+	<menuchoice><guisubmenu>Debug</guisubmenu><guisubmenu>Breakpoints</guisubmenu>
+	<guimenuitem>Breakpoints &hellip;</guimenuitem></menuchoice>. Click on
+    <guibutton>Add</guibutton>. A dialog will appear.
+   </para>
+   <para>
+    <figure>
+      <title>Breakpoint add dialog</title>
+      <screenshot>
+	   <screeninfo>Breakpoint add dialog</screeninfo>
+       <graphic fileref="figures/brk_add" format="png" srccredit="mkv"/>
+      </screenshot>
+    </figure>
+   </para>
+   <para>
+    Enter the location at which to set the breakpoint. Optionally, enter
+    the <emphasis>Break condition</emphasis> and the <emphasis>Pass count</emphasis>
+    in the appropriate entry boxes. Click <guibutton>OK</guibutton> to set the 
+	breakpoint.
+   </para>
+   <para>
+    A breakpoint may also be by highlighting the function name in the editor
+    and choosing the menu item <menuchoice><guisubmenu>Debug</guisubmenu>
+	<guisubmenu>Breakpoints</guisubmenu><guimenuitem>Set Breakpoint</guimenuitem></menuchoice>
+    (or by clicking on the <guibutton>Toggle breakpoint at cursor</guibutton> 
+	button on the <interface>Debug Toolbar</interface>).
+   </para>
+  </sect2>
+  
+  <sect2 id="breaks-edit">
+   <title>Editing Breakpoints</title>
+   <para>
+    Open the <interface>Breakpoint editing window</interface> by choosing the menu item 
+	<menuchoice><guisubmenu>View</guisubmenu>
+	<guimenuitem>Breakpoints</guimenuitem></menuchoice> or 
+	<menuchoice><guisubmenu>Debug</guisubmenu><guisubmenu>Breakpoints</guisubmenu>
+	<guimenuitem>Breakpoints &hellip;</guimenuitem></menuchoice>. Select the breakpoint 
+	to edit and click on <guibutton>Edit</guibutton>. A dialog will appear.
+   </para>
+   <para>
+    <figure>
+      <title>Breakpoint edit dialog</title>
+      <screenshot>
+	   <screeninfo>Breakpoint edit dialog</screeninfo>
+       <graphic fileref="figures/brk_edit" format="png" srccredit="mkv"/>
+      </screenshot>
+    </figure>
+   </para>
+   <para>
+    Edit the entries as required and click on <guibutton>OK</guibutton> to
+    commit the changes.
+   </para>
+  </sect2>
+
+  <sect2 id="breaks-del">
+   <title>Deleting Breakpoints</title>
+   <para>
+    Open the <interface>Breakpoint editing window</interface> by choosing the menu item 
+	<menuchoice><guisubmenu>View</guisubmenu>
+	<guimenuitem>Breakpoints</guimenuitem></menuchoice> or 
+	<menuchoice><guisubmenu>Debug</guisubmenu><guisubmenu>Breakpoints</guisubmenu>
+	<guimenuitem>Breakpoints &hellip;</guimenuitem></menuchoice>. Select the breakpoint 
+	to delete and click on <guibutton>Delete</guibutton>. The breakpoint will be deleted.
+   </para>
+   <para>
+    To delete all breakpoints, click on <guibutton>Delete All</guibutton>.
+   </para>
+  </sect2>
+
+  <sect2 id="breaks-enbdis">
+   <title>Enabling or Disabling Breakpoints</title>
+   <para>
+    Open the <interface>Breakpoint editing window</interface> by choosing the menu item 
+	<menuchoice><guisubmenu>View</guisubmenu>
+	<guimenuitem>Breakpoints</guimenuitem></menuchoice> or 
+	<menuchoice><guisubmenu>Debug</guisubmenu><guisubmenu>Breakpoints</guisubmenu>
+	<guimenuitem>Breakpoints &hellip;</guimenuitem></menuchoice>. Select the breakpoint 
+	to enable or disable and click on <guibutton>Toggle Enable</guibutton>. The 
+	breakpoint will be enabled or disabled, depending on the current state.
+   </para>
+   <para>
+    To enable all or disable all breakpoints, click on <guibutton>Enable All</guibutton>
+    or <guibutton>Disable All</guibutton>.
+   </para>
+   <para>
+    <note>
+     <title>Note</title>
+     <para>
+      When the debugger is started, all breakpoints will be set. Any old breakpoints
+      (where the source file is more recent than the breakpoint) will be disabled.
+     </para>
+    </note>
+   </para>
+  </sect2>
+ </sect1>
+
+<!-- ============= Debugging: Working with expressions ====================== -->
+ <sect1 id="debugging-exprs">
+  <title>Working with Expressions</title>
+  <para>
+   FIXME:
+  </para>
+  
+  <sect2 id="expr-eval">
+   <title>Evaluating expressions</title>
+   <para>
+    When control is returned from a program &mdash; possibly at a breakpoint &mdash; 
+	it is possible to evaluate expressions or inspect the values of variables in the 
+	program. Choose the menu item <menuchoice><guisubmenu>Debug</guisubmenu>
+    <guimenuitem>Inspect/Evaluate &hellip;</guimenuitem></menuchoice>, or click 
+	the <guibutton>Inspect</guibutton> button on the <interface>Debug Toolbar</interface>. 
+	A dialog prompting for the expression will appear. Supply a valid C expression, or a 
+	variable name, and click on <guibutton>OK</guibutton>.
+   </para>
+   <para>
+    <figure>
+      <title>Inspect/Evaluate dialog</title>
+      <screenshot>
+	   <screeninfo>Inspect/Evaluate dialog</screeninfo>
+       <graphic fileref="figures/evaluate" format="png" srccredit="andyp"/>
+      </screenshot>
+    </figure>
+   </para>
+   <para>
+    A window will appear showing the result of the evaluation.
+   </para>
+   <para>
+    <figure>
+      <title>Evaluation result</title>
+      <screenshot>
+	   <screeninfo>Evaluation result</screeninfo>
+       <graphic fileref="figures/inspect" format="png" srccredit="andyp"/>
+      </screenshot>
+    </figure>
+   </para>
+   <para>
+    Alternatively, it is possible to highlight the expression in the editor 
+	and perform the above steps. This will save typing the expression in the 
+	<interface>Inspect dialog</interface>.
+   </para>
+   <para>
+    The expression may be any valid C expression and may include function calls
+    from the program, library calls, system calls, etc..
+   </para>
+  </sect2>
+  
+  <sect2 id="expr-watch">
+   <title>Expression Watch</title>
+   <para>
+    Inspecting or evaluating an expression provides the result only once. To continuously 
+	monitor some variables or expressions, use <emphasis>expression watch</emphasis>.
+   </para>
+   <para>
+   Add all the expressions and variables to monitor in the watch. These values will be
+   automatically updated and shown in the <interface>expression watch window</interface>.
+   </para>
+   <para>
+    <figure>
+      <title>Expression Watch window</title>
+      <screenshot>
+	   <screeninfo>Evaluation watch</screeninfo>
+       <graphic fileref="figures/watch" format="png" srccredit="andyp"/>
+      </screenshot>
+    </figure>
+   </para>
+   <sect3 id="watch-add">
+    <title>Adding an expression to watch</title>
+    <para>
+     Choose the menu item <menuchoice><guisubmenu>View</guisubmenu><guimenuitem>Watch
+	 Window</guimenuitem></menuchoice>. Right-click on the <interface>expression watch 
+	 window</interface> to open the <interface>Operation menu</interface>. Choose the 
+	 menu item <guimenuitem>Add</guimenuitem>.
+     A dialog prompting for the expression will appear. Enter the expression and 
+     click <guibutton>OK</guibutton>.
+    </para>
+    <para>
+     <figure>
+       <title>Add Expression dialog</title>
+       <screenshot>
+	   <screeninfo>Add Expression dialog</screeninfo>
+        <graphic fileref="figures/watch_add" format="png" srccredit="andyp"/>
+       </screenshot>
+     </figure>
+    </para>
+    <para>
+     If the expression was selected in the editor prior to the addition, it will automatically 
+	 appear in the dialog.
+    </para>
+   </sect3>
+   <sect3 id="watch-remove">
+    <title>Removing an expression from watch</title>
+    <para>
+     Choose the menu item <menuchoice><guisubmenu>View</guisubmenu><guimenuitem>Watch
+	 Window</guimenuitem></menuchoice>. Right-click on the <interface>expression watch 
+	 window</interface> to open the <interface>Operation menu</interface>. Choose the 
+	 menu item <guimenuitem>Remove</guimenuitem> to remove the entry.
+	</para>
+   </sect3>
+   <sect3 id="watch-clear">
+    <title>Clearing the watch</title>
+    <para>
+     Choose the menu item <menuchoice><guisubmenu>View</guisubmenu><guimenuitem>Watch
+	 Window</guimenuitem></menuchoice>. Right-click on the <interface>expression watch 
+	 window</interface> to open the <interface>Operation menu</interface>. Choose the 
+	 menu item <guimenuitem>Clear</guimenuitem> to update or clear.
+    </para>
+   </sect3>
+  </sect2>
+ </sect1>
+
+<!-- ============= Debugging: Program Stack ====================== -->
+ <sect1 id="debugging-stack">
+  <title>Stack Trace</title>
+  <sect2 id="stack-win">
+   <title>Stack Window</title>
+   <para>
+    The <interface>Stack trace window</interface> shows the contents of the 
+	program stack. It lists all of the functions and their arguments in the 
+	sequence they were called. There is also a number representing each call. 
+	This number is called the <emphasis>Frame</emphasis>. Each call in the trace 
+	exists in a different frame. This starts from frame 0 (the last function
+    called) and grows higher as the function nesting become deeper.
+   </para>
+   <para>
+    Choose the menu item <menuchoice><guisubmenu>View</guisubmenu><guimenuitem>Program 
+	Stack</guimenuitem></menuchoice>, to open the stack trace for the program 
+	being debugged.
+   </para>
+   <para>
+    <figure>
+      <title>Stack trace window</title>
+      <screenshot>
+	   <screeninfo>Stack trace window</screeninfo>
+       <graphic fileref="figures/stack" format="png" srccredit="andyp"/>
+      </screenshot>
+    </figure>
+   </para>
+   <para>
+    A small arrow points to the currently selected frame in the stack trace. By 
+	default, this will be frame 0, the last function called. All of the evaluation 
+	and inspection of expressions or variables will be with reference to this selected 
+	frame. The scope of the variables or expressions being evaluated will be limited 
+	to the selected frame only. The same applies for expressions in the watch.
+   </para>
+  </sect2>
+  
+  <sect2 id="stack-frame">
+   <title>Setting the current frame</title>
+   <para>
+    Double-clicking on any frame in the stack trace will set that frame as the 
+	currently selected frame (the arrow will point to the frame, indicating that it 
+	has been selected as the current frame). Alternatively, open the 
+	<interface>Operation menu</interface> by right-clicking on the 
+	<interface>Stack trace window</interface>, and choose the menu item 
+	<guimenuitem>Set frame</guimenuitem> to set the frame.
+   </para>
+  </sect2>
+  
+  <sect2 id="stack-frame-info">
+   <title>Information about the current frame</title>
+   <para>
+    It is possible to obtain information about the currently selected frame 
+	by choosing the menu item <menuchoice><guisubmenu>Debug</guisubmenu>
+	<guisubmenu>Information</guisubmenu><guimenuitem>Info Current Frame</guimenuitem></menuchoice>. 
+	A window will open describing the current frame.
+   </para>
+   <para>
+    <figure>
+      <title>Current Frame Information</title>
+      <screenshot>
+	   <screeninfo>Current Frame Information</screeninfo>
+       <graphic fileref="figures/frame" format="png" srccredit="andyp"/>
+      </screenshot>
+    </figure>
+   </para>
+  </sect2>
+  
+  <sect2 id="stack-update">
+   <title>Updating Stack trace</title>
+   <para>
+    Choose the menu item <guimenuitem>Update</guimenuitem> from the
+    <interface>Operation menu</interface> (right-click on the 
+	<interface>Stack trace window</interface>) to refresh the 
+	<interface>Stack trace window</interface>.
+   </para>
+  </sect2>
+ </sect1>
+<!-- Debugger: Others-->
+ <sect1 id="debugger-others">
+  <title>Others</title>
+  <para>
+   There are a number of other debugger features which are used
+   less frequently, but are nevertheless handy.
+  </para>
+  <sect2 id="dbg-kernel">
+   <title>Kernel Signals</title>
+   <para>
+    Kernel signals are a way of signaling between processes in Linux. The list 
+	of signals available for a program can be displayed by choosing the menu item
+    <menuchoice><guisubmenu>View</guisubmenu><guimenuitem>Kernel Signals</guimenuitem></menuchoice>.
+    A window will open which lists all of the signals available in the system along with
+    a brief description of each signal.
+   </para>
+   <para>
+    <figure>
+      <title>Kernel Signals window</title>
+      <screenshot>
+	   <screeninfo>Kernel Signals window</screeninfo>
+       <graphic fileref="figures/signals" format="png" srccredit="andyp"/>
+      </screenshot>
+    </figure>
+   </para>
+   <para>
+    There are three columns which specify what to do when the signal is received:
+   </para>
+   
+   <orderedlist>
+    <listitem>
+     <para><emphasis>Stop</emphasis> &mdash; this tells the debugger whether to 
+	 stop the program execution (and return control) when the program receives 
+	 this signal.
+     </para>
+    </listitem>
+    <listitem>
+     <para><emphasis>Print</emphasis> &mdash; this tells the debugger whether to 
+	 display the received signal.
+     </para>
+    </listitem>
+    <listitem>
+     <para><emphasis>Pass</emphasis> &mdash; this tells the debugger whether to pass 
+	 the signal to the program.
+     </para>
+    </listitem>
+   </orderedlist>
+   
+   <sect3 id="dbg-kernel-beh">
+    <title>Changing behaviour on signals</title>
+    <para>
+     To change the way debugger behaves when a particular signal is
+     received, select the signal in the list. Right-click to open the 
+	 <interface>Operation menu</interface>. Choose <guimenuitem>Modify Signal</guimenuitem>. 
+	 This will open a dialog. Set the three behaviours and click <guibutton>OK</guibutton> 
+	 to commit the change.
+    </para>
+    <para>
+     <figure>
+       <title>Modify Kernel Signal dialog</title>
+       <screenshot>
+	   <screeninfo>Modify Kernel Signal dialog</screeninfo>
+        <graphic fileref="figures/signal_mod" format="png" srccredit="andyp"/>
+       </screenshot>
+     </figure>
+    </para>
+   </sect3>
+   <sect3 id="dbg-kernel-send">
+    <title>Sending the signal to the program</title>
+    <para>
+     To explicitly sent the signal to the program being debugged, select the signal 
+	 in the given list. Right-click to open the <interface>Operation menu</interface>. 
+	 Choose the menu item <guimenuitem>Send to process</guimenuitem>. A confirmation 
+	 dialog will appear. Click <guibutton>OK</guibutton> to confirm and send the 
+	 signal to the program.
+    </para>
+   </sect3>
+   <sect3 id="dbg-kernel-update">
+    <title>Updating the signal list</title>
+    <para>
+     Choose the menu item <guimenuitem>Update</guimenuitem>
+     from the <interface>Operation menu</interface> (right-click in the <interface>Kernal Signals 
+	 window</interface> to open) to refresh the <interface>Kernel Signals window</interface>.
+    </para>
+   </sect3>
+  </sect2>
+ 
+  <sect2 id="dbg-registers">
+   <title>CPU registers</title>
+   <para>
+    It is possible to examine the contents of the internal registers of the 
+	CPU (microprocessor). Choose the menu item <menuchoice><guisubmenu>View</guisubmenu>
+	<guimenuitem>Registers</guimenuitem></menuchoice>. A window listing all 
+	of the available registers in the microprocessor and their corrosponding contents 
+	will appear.
+   </para>
+   <para>
+    <figure>
+      <title>CPU Registers window</title>
+      <screenshot>
+	   <screeninfo>CPU Registers window</screeninfo>
+       <graphic fileref="figures/registers" format="png" srccredit="andyp"/>
+      </screenshot>
+    </figure>
+   </para>
+  </sect2>
+ 
+  <sect2 id="dbg-dyna-libs">
+   <title>Dynamically loaded Libraries</title>
+   <para>
+    To obtain a list of the dynamic libraries used by the program, choose the 
+	menu item <menuchoice><guisubmenu>View</guisubmenu>
+	<guimenuitem>Shared Libraries</guimenuitem></menuchoice>. This will bring 
+	open a window which will list all the shared libraries the program has loaded 
+	and their locations in the memory. It also shows whether the symbol table is 
+	loaded or not (Yes/No).
+   </para>
+   <para>
+    <figure>
+      <title>Shared Libraries window</title>
+      <screenshot>
+	   <screeninfo>Shared Libraries window</screeninfo>
+       <graphic fileref="figures/sharedlibs" format="png" srccredit="andyp"/>
+      </screenshot>
+    </figure>
+   </para>
+  </sect2>
+ 
+  <sect2 id="dbg-interrupt">
+   <title>Interrupting the program</title>
+   <para>
+    While the program is running and has control, no debugging tasks can be 
+	performed. To obtain control while the program is running, choose the menu item
+	<menuchoice><guisubmenu>Debug</guisubmenu>
+	<guimenuitem>Interrupt Program</guimenuitem></menuchoice>.
+    This will interrupt the program and return control to the debugger.
+   </para>
+   <para>
+    For interruption to work properly, set the debugger behaviour for the interrupt 
+	signal (SIGINT) to the value [ Stop:Yes, Print:Yes, Pass:No ]. This is the default value.
+   </para>
+  </sect2>
+ </sect1>
+ 
+ </chapter>

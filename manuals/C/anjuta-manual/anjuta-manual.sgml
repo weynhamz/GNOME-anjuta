@@ -1,19 +1,19 @@
 <!DOCTYPE Book PUBLIC "-//GNOME//DTD DocBook PNG Variant V1.1//EN"[
-<!ENTITY chapter01 SYSTEM "chapter01.sgml">
-<!ENTITY chapter02 SYSTEM "chapter02.sgml">
-<!ENTITY chapter03 SYSTEM "chapter03.sgml">
-<!ENTITY chapter04 SYSTEM "chapter04.sgml">
-<!ENTITY chapter05 SYSTEM "chapter05.sgml">
-<!ENTITY chapter06 SYSTEM "chapter06.sgml">
-<!ENTITY chapter07 SYSTEM "chapter07.sgml">
-<!ENTITY chapter08 SYSTEM "chapter08.sgml">
-<!ENTITY chapter09 SYSTEM "chapter09.sgml">
-<!ENTITY chapter10 SYSTEM "chapter10.sgml">
-<!ENTITY chapter11 SYSTEM "chapter11.sgml">
-<!ENTITY chapter12 SYSTEM "chapter12.sgml">
-<!ENTITY chapter13 SYSTEM "chapter13.sgml">
-<!ENTITY chapter14 SYSTEM "chapter14.sgml">
-<!ENTITY chapter15 SYSTEM "chapter15.sgml">
+<!ENTITY introduction SYSTEM "introduction.sgml">
+<!ENTITY interface SYSTEM "interface.sgml">
+<!ENTITY fileoperations SYSTEM "fileoperations.sgml">
+<!ENTITY build SYSTEM "build.sgml">
+<!ENTITY execute SYSTEM "execute.sgml">
+<!ENTITY compileopts SYSTEM "compileopts.sgml">
+<!ENTITY projects SYSTEM "projects.sgml">
+<!ENTITY debugger SYSTEM "debugger.sgml">
+<!ENTITY dbgsession SYSTEM "dbgsession.sgml">
+<!ENTITY dbgexecute SYSTEM "dbgexecute.sgml">
+<!ENTITY dbgbrkpts SYSTEM "dbgbrkpts.sgml">
+<!ENTITY dbgexprs SYSTEM "dbgexprs.sgml">
+<!ENTITY dbgstack SYSTEM "dbgstack.sgml">
+<!ENTITY dbgother SYSTEM "dbgother.sgml">
+<!ENTITY preferences SYSTEM "preferences.sgml">
 <!ENTITY authors SYSTEM "authors.sgml">
 <!ENTITY license SYSTEM "license.sgml">
 ]>
@@ -81,35 +81,23 @@
  </bookinfo>
  <!-- Document Body -->
  <!-- Introduction -->
- &chapter01;
+ &introduction;
  <!-- Getting Familiar with Anjuta -->
- &chapter02;
+ &interface;
  <!-- File operations -->
- &chapter03;
+ &fileoperations;
  <!-- Compiling and building -->
- &chapter04;
+ &build;
  <!-- Executing -->
- &chapter05;
+ &execute;
  <!-- Setting compiler options -->
- &chapter06;
+ &compileopts;
  <!-- Project Management -->
- &chapter07;
- <!-- Debugging: Session -->
- &chapter08;
- <!-- Debugging: Execution -->
- &chapter09;
- <!-- Debugging: Breakpoints -->
- &chapter10;
- <!-- Debugging: Working with expressions -->
- &chapter11;
- <!-- Debugging: Program stack -->
- &chapter12;
- <!-- Debugging: Others -->
- &chapter13;
+ &projects;
+ <!-- Debugging -->
+ &debugger;
  <!-- Preferences -->
- &chapter14;
- <!-- empty -->
- &chapter15;
+ &preferences;
  <!-- Authors -->
  &authors;
  <!-- License -->

@@ -31,24 +31,16 @@
    the <guisubmenu>File</guisubmenu> menu.
    </para>
     
+    <para>
+     The menubar can be detached. Drag it from the main window using the handle 
+	 at the left. Once detached, it will become a floating window.
+    </para>
+	
     <figure id="menubar">
       <title>Menubar</title>
 	  <screenshot>
       <screeninfo>Anjuta menubar</screeninfo>
        <graphic fileref="figures/menu_main" format="png" srccredit="andyp"/>
-      </screenshot>
-    </figure>
-        
-    <para>
-     The menubar can be detached. Drag it from the main window using the handle 
-	 at the left. Once detached, it will become a floating window.
-    </para>
-    
-    <figure id="file-menu-detach">
-      <title>File menu (detached)</title>
-      <screenshot>
-      <screeninfo>File menu (detached)</screeninfo>
-       <graphic fileref="figures/menu_detached" format="png" srccredit="andyp"/>
       </screenshot>
     </figure>
     
@@ -57,54 +49,58 @@
 	 (the dashed line just above the first menu item). Once the menu is 
 	 detached, it will become an independent window.
     </para>
+        
+    <figure id="file-menu-detach">
+      <title>File menu (detached)</title>
+      <screenshot>
+      <screeninfo>File menu (detached)</screeninfo>
+       <graphic fileref="figures/menu_detached" format="png" srccredit="andyp"/>
+      </screenshot>
+    </figure>
+	
+   <para>
+    Shortcut keys are available for	many of the menu options. All of the shortcut 
+	keys are shown alongside the corresponding menu items. A complete reference to 
+	the shortcut keys is also available in section (FIXME!). 
+   </para>
+	
   </sect1>
 
 <!-- ============= Getting Familiar: Toolbars  ============-->
   <sect1 id="toolbars">
    <title>Toolbars</title>
    <para>
+    The operations which used most often are made available from the toolbars. 
+	There are five toolbars on the main window.
+   </para>
+   
+   <para>
+    <itemizedlist>
+     <listitem><para><interface>Main Toolbar</interface> - file and editing functions</para></listitem>
+     <listitem><para><interface>Extended Toolbar</interface> - project and build functions</para></listitem>
+     <listitem><para><interface>Debug Toolbar</interface> - controls for the debugger</para></listitem>
+     <listitem><para><interface>Browser Toolbar</interface> - browse bookmarks and function tags</para></listitem>
+     <listitem><para><interface>Format Toolbar</interface> - text and code formatting functions</para></listitem>
+    </itemizedlist>
+   </para>
+ 
     <figure id="toolbar-detach">
-	<title>Toolbar (detached)</title>
+	<title>Main toolbar (detached)</title>
      <screenshot>
      <screeninfo>Main toolbar (detached)</screeninfo>
 	  <graphic fileref="figures/toolbar_main" format="png" srccredit="andyp"/>
      </screenshot>
     </figure>
-    To make life easier, the operations which used most often are made 
-	available from the toolbars. There are six basic toolbars on the 
-	main window.
-   </para>
-   
-   <para>
-    <itemizedlist>
-     <listitem><para><interface>Main Toolbar</interface></para></listitem>
-     <listitem><para><interface>Extended Toolbar</interface></para></listitem>
-     <listitem><para><interface>Browser Toolbar</interface></para></listitem>
-     <listitem><para><interface>Tags Toolbar</interface></para></listitem>
-     <listitem><para><interface>Format Toolbar</interface></para></listitem>
-     <listitem><para><interface>Debug Toolbar</interface></para></listitem>
-    </itemizedlist>
-   </para>
-   
-   <para>
-    It would be worth spending some time becoming familiar with the toolbar 
-	buttons. Tooltips describing the function of the buttons will appear 
-	as soon as you move the mouse over them. Toolbars provide rapid access to some 
-	of the more popular menu items.
-   </para>
-   
-   <para>
-    You will find some drop-down combination boxes on the toolbars. They are 
-	explained in a later section.
-   </para>
  
    <para>
-    To make life even easier, shortcut keys are available for 
-	the most-used options. All of the shortcut keys are shown along with 
-	their corresponding menu items. You might like to remember some of 
-	them, as they will be handy while you are typing into the editor and you 
-	don't want to leave the keyboard.
+    Move the mouse pointer over any toolbar button.	A tooltip describing the function of the button will appear.
    </para>
+   
+   <para>
+    There are some drop-down combination boxes on the toolbars. These are 
+	explained in later sections of the manual.
+   </para>
+ 
   </sect1>
 
 <!-- ============= Getting Familiar: Main window  ============-->

@@ -1,3 +1,18 @@
+2002-02-03	Andy Piper	<andy.piper@freeuk.com>
+
+	* src/text_editor_menu.c, src/an_file_view.c, 
+	  src/an_symbol_view.c: marked strings for translation
+	
+	* src/defaults.c, data/properties/xml.properties:
+	  *.omf and *.xsl files should use XML highlighting
+	  
+	* manuals/C/anjuta-manual/*:
+	  - restructured so that files have more meaningful names
+	    and are easier to edit (see anjuta-manual.sgml for the
+		ordering)
+	  - updated some screenshots
+	  - continued rewrite
+
 2002-02-02  Naba Kumar <kh_naba@users.sourceforge.net>
 
 	* main.c: Made a workaround to remove the old

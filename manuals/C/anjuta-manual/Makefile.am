@@ -46,21 +46,15 @@ figs = \
 	figures/watch.png
 
 sgml_ents =\
-	chapter01.sgml\
-	chapter02.sgml\
-	chapter03.sgml\
-	chapter04.sgml\
-	chapter05.sgml\
-	chapter06.sgml\
-	chapter07.sgml\
-	chapter08.sgml\
-	chapter09.sgml\
-	chapter10.sgml\
-	chapter11.sgml\
-	chapter12.sgml\
-    chapter13.sgml\
-    chapter14.sgml\
-    chapter15.sgml\
+	introduction.sgml\
+	interface.sgml\
+	fileoperations.sgml\
+	build.sgml\
+	execute.sgml\
+	compileopts.sgml\
+	projects.sgml\
+	debugger.sgml\
+	preferences.sgml\
 	authors.sgml\
 	license.sgml
 
