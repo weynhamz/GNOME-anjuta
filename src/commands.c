@@ -48,6 +48,7 @@ prog_language_map[]=
 {
 	"C", "c",
 	"C++", "cpp",
+	"C#", "cs",
 	"Java", "java",
 	"Perl", "perl",
 	"Python", "py",
