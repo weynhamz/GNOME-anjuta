@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 2.2\n"
-"POT-Creation-Date: 2003-03-24 17:29+0530\n"
-"PO-Revision-Date: 2003-03-23 15:55+0000\n"
+"POT-Creation-Date: 2003-03-31 23:44+0100\n"
+"PO-Revision-Date: 2003-03-31 23:55+0000\n"
 "Last-Translator: Duarte Loreto <happyguy_pt@hotmail.com>\n"
 "Language-Team: Portuguese <gnome_pt@yahoogroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -1504,6 +1504,132 @@ msgstr "Opções consola"
 msgid "Anjuta windows"
 msgstr "Janelas Anjuta"
 
+#: anjuta_dialogs_strings.c:494
+msgid "Anjuta start with dialog"
+msgstr "Anjuta inicia com diálogo"
+
+#: anjuta_dialogs_strings.c:495
+msgid ""
+"Start with a new Project. Application wizard will guide you with Project "
+"creation. With the Application Wizard, you will be able to create the "
+"skelleton of various types of Project."
+msgstr ""
+"Iniciar com um novo Projecto. Ajudante de Aplicação irá guia-lo através da "
+"cração do Projecto. Com o Ajudante de Aplicação, poderá criar o esqueleto "
+"de vários tipos de Projectos."
+
+#: anjuta_dialogs_strings.c:496 src/appwizard_gui.c:76 src/appwizard_gui.c:90
+msgid "Application Wizard"
+msgstr "Ajudante de Aplicação"
+
+#: anjuta_dialogs_strings.c:497
+msgid ""
+"Import existing project. The Import Wizard will guide you to import an "
+"existing Project into Anjuta and convert it into Anjuta Project. There will "
+"be no data lose or modification done to the project."
+msgstr ""
+"Importar projecto existente. O Ajudante de Importação irá apoia-lo a importar "
+"um Projecto existente para o Anjuta e converte-lo num Projecto Anjuta. Não "
+"ocorrerão quaisquer percas de dados ou modificações ao projecto."
+
+#: anjuta_dialogs_strings.c:498
+msgid "Import Wizard"
+msgstr "Ajudante Importação"
+
+#: anjuta_dialogs_strings.c:499
+msgid "Open existing Project."
+msgstr "Abrir Projecto existente."
+
+#: anjuta_dialogs_strings.c:500
+msgid "Open last working Project"
+msgstr "Abrir último Projecto utilizado"
+
+#. Must declare static, because it will be used forever
+#: anjuta_dialogs_strings.c:501 src/project_dbase.c:227 src/toolbar.c:212
+msgid "Open Project"
+msgstr "Abrir Projecto"
+
+#: anjuta_dialogs_strings.c:502
+msgid "Open existing file or create a new file."
+msgstr "Abrir ficheiro existente ou criar um novo ficheiro."
+
+#: anjuta_dialogs_strings.c:503 src/main_menubar_def.h:30
+#: src/text_editor_gui.c:97 src/toolbar.c:75
+msgid "New file"
+msgstr "Novo ficheiro"
+
+#: anjuta_dialogs_strings.c:504 src/main_menubar_def.h:36
+#: src/text_editor_gui.c:101 src/toolbar.c:79
+msgid "Open file"
+msgstr "Abrir ficheiro"
+
+#: anjuta_dialogs_strings.c:505
+msgid "Do not show start with dialog again."
+msgstr "Não mostrar início com diálogo novamente."
+
+#: anjuta_dialogs_strings.c:506
+msgid "Anjuta setup wizard"
+msgstr "Ajudante configuração Anjuta"
+
+#: anjuta_dialogs_strings.c:507
+msgid "Anjuta Setup Wizard"
+msgstr "Ajudante Configuração Anjuta"
+
+#: anjuta_dialogs_strings.c:508
+msgid ""
+"Anjuta setup wizard will guide with the initial setup of Anjuta. These setup "
+"could be changed later from Anjuta settings menu (Main menu->Settings). "
+msgstr ""
+"O ajudante de configuração Anjuta guia-lo-á através da configuração inicial do "
+"Anjuta. Esta configuração poderá ser alterada mais tarde no menu de configurações "
+"do Anjuta (Menu principal -> Definições). "
+
+#: anjuta_dialogs_strings.c:509
+msgid "Windows style"
+msgstr "Estilo janelas"
+
+#: anjuta_dialogs_strings.c:510
+msgid ""
+"Undocked style presents Anjuta\n"
+"in with all sub-windows undocked\n"
+"from the main window."
+msgstr ""
+"Estilo não anexado apresenta o Anjuta\n"
+"com todas as suas sub-janelas não\n"
+"anexadas à janela principal."
+
+#: anjuta_dialogs_strings.c:513
+msgid ""
+"Docked style presents Anjuta \n"
+"in the classic IDE form with all\n"
+"sub-windows docked on the\n"
+"main window."
+msgstr ""
+"Estilo anexado apresenta o Anjuta\n"
+"na forma clássica de AID com todas\n"
+"as sub-janelas anexadas à janela\n"
+"principal."
+
+#: anjuta_dialogs_strings.c:517
+msgid "Docked style"
+msgstr "Estilo anexado"
+
+#: anjuta_dialogs_strings.c:518
+msgid "Undocked style"
+msgstr "Estilo não anexado"
+
+#: anjuta_dialogs_strings.c:519
+msgid "Syntax highlighting style"
+msgstr "Estilo realce de sintaxe"
+
+#: anjuta_dialogs_strings.c:520
+msgid "Helper applications"
+msgstr "Aplicações de apoio"
+
+#: anjuta_dialogs_strings.c:521 src/wizard_gui.c:780
+msgid "Summary"
+msgstr "Resumo"
+
 #: plugins/class-gen/clsGen.c:449
 msgid "Class name not valid"
 msgstr "Nome de classe inválido"
@@ -1924,61 +2050,61 @@ msgstr "Customizar o navegador de ficheiros"
 msgid "Rev"
 msgstr "Rev"
 
-#: src/anjuta.c:71 src/anjuta.c:78
+#: src/anjuta.c:72 src/anjuta.c:79
 #, c-format
 msgid "Anjuta: Caught signal %d (%s) !"
 msgstr "Anjuta: Apanhado o sinal %d (%s) !"
 
 #. Must declare static, because it will be used forever
-#: src/anjuta.c:106
+#: src/anjuta.c:107
 msgid "Open File"
 msgstr "Abrir Ficheiro"
 
 #. Must declare static, because it will be used forever
-#: src/anjuta.c:112 src/anjuta.c:117
+#: src/anjuta.c:113 src/anjuta.c:118
 msgid "Save File As"
 msgstr "Gravar Ficheiro Como"
 
-#: src/anjuta.c:261
+#: src/anjuta.c:262
 msgid "Cannot create application... exiting\n"
 msgstr "Incapaz de criar aplicação... a sair\n"
 
-#: src/anjuta.c:311 src/anjuta.c:315 src/anjuta.c:1127 src/anjuta.c:1143
+#: src/anjuta.c:312 src/anjuta.c:316 src/anjuta.c:1132 src/anjuta.c:1148
 #, c-format
 msgid "Anjuta: %s"
 msgstr "Anjuta: %s"
 
-#: src/anjuta.c:372
+#: src/anjuta.c:373
 msgid "Recent Files "
 msgstr "Ficheiros Recentes "
 
-#: src/anjuta.c:923
+#: src/anjuta.c:926
 msgid "# * DO NOT EDIT OR RENAME THIS FILE ** Generated by Anjuta **\n"
 msgstr "# * NÃO EDITE OU RENOMEIE ESTE FICHEIRO ** Gerado pelo Anjuta **\n"
 
-#: src/anjuta.c:1092
+#: src/anjuta.c:1097
 msgid "All files saved ..."
 msgstr "Todos os ficheiros gravados ..."
 
-#: src/anjuta.c:1120
+#: src/anjuta.c:1125
 #, c-format
 msgid "Anjuta: %s (Saved)"
 msgstr "Anjuta: %s (Gravado)"
 
-#: src/anjuta.c:1135
+#: src/anjuta.c:1140
 #, c-format
 msgid "Anjuta: %s (Unsaved)"
 msgstr "Anjuta: %s (Não Gravado)"
 
-#: src/anjuta.c:1160
+#: src/anjuta.c:1165
 msgid "Anjuta: No file"
 msgstr "Anjuta: Nenhum ficheiro"
 
-#: src/anjuta.c:1480 src/anjuta.c:1556
+#: src/anjuta.c:1485 src/anjuta.c:1561
 msgid "ERROR: "
 msgstr "ERRO: "
 
-#: src/anjuta.c:1501 src/anjuta.c:1574
+#: src/anjuta.c:1506 src/anjuta.c:1579
 msgid ""
 "\n"
 "System: "
@@ -1986,7 +2112,7 @@ msgstr ""
 "\n"
 "Sistema: "
 
-#: src/anjuta.c:2046
+#: src/anjuta.c:2051
 #, c-format
 msgid ""
 "The \"%s\" utility is not installed.\n"
@@ -1995,35 +2121,35 @@ msgstr ""
 "O utilitário \"%s\" não está instalado.\n"
 "Instale-o e depois reinicie o Anjuta."
 
-#: src/anjuta.c:2072 src/anjuta.c:2128
+#: src/anjuta.c:2077 src/anjuta.c:2133
 msgid "None"
 msgstr "Nenhum"
 
-#: src/anjuta.c:2083
+#: src/anjuta.c:2088
 msgid "DOS (CRLF)"
 msgstr "DOS (CRLF)"
 
-#: src/anjuta.c:2086 src/anjuta.c:2120
+#: src/anjuta.c:2091 src/anjuta.c:2125
 msgid "Unix (LF)"
 msgstr "Unix (LF)"
 
-#: src/anjuta.c:2089
+#: src/anjuta.c:2094
 msgid "Mac (CR)"
 msgstr "Mac (CR)"
 
-#: src/anjuta.c:2092
+#: src/anjuta.c:2097
 msgid "Unknown"
 msgstr "Desconhecido"
 
-#: src/anjuta.c:2109
+#: src/anjuta.c:2114
 msgid "OVR"
 msgstr "OVR"
 
-#: src/anjuta.c:2113 src/anjuta.c:2119
+#: src/anjuta.c:2118 src/anjuta.c:2124
 msgid "INS"
 msgstr "INS"
 
-#: src/anjuta.c:2131
+#: src/anjuta.c:2136
 #, c-format
 msgid ""
 "  Project: %s       Zoom: %d       Line: %04d       Col: %03d       %s       "
@@ -2032,11 +2158,11 @@ msgstr ""
 "  Projecto: %s      Zoom: %d       Linha: %04d      Col: %03d       %s       "
 "Proc: %s      Modo: %s"
 
-#: src/anjuta.c:2415
+#: src/anjuta.c:2420
 msgid "Looking up symbol"
 msgstr "A procurar símbolo"
 
-#: src/anjuta.c:2417 src/find_in_files.c:306
+#: src/anjuta.c:2422 src/find_in_files.c:306
 msgid "Finding in Files ....\n"
 msgstr "A Encontrar nos Ficheiros ....\n"
 
@@ -2300,10 +2426,6 @@ msgstr ""
 "Responda atentamente às questões, já que\n"
 "poderá não ser possível mais tarde modificar\n"
 "algumas das definições."
-
-#: src/appwizard_gui.c:76 src/appwizard_gui.c:90
-msgid "Application Wizard"
-msgstr "Ajudante de Aplicação"
 
 #: src/attach_process.c:46
 msgid "Pid"
@@ -3345,7 +3467,7 @@ msgstr "Incapaz de executar comando de consola"
 msgid "Do not show the splashscreen"
 msgstr "Não mostrar o ecrã de logotipo"
 
-#: src/main.c:165
+#: src/main.c:169
 msgid "Integrated Development Environment"
 msgstr "Ambiente de Desenvolvimento Integrado (IDE)"
 
@@ -3362,18 +3484,10 @@ msgstr "Projectos Recentes "
 msgid "_New"
 msgstr "_Novo"
 
-#: src/main_menubar_def.h:30 src/text_editor_gui.c:97 src/toolbar.c:75
-msgid "New file"
-msgstr "Novo ficheiro"
-
 #. 1
 #: src/main_menubar_def.h:35
 msgid "_Open ..."
 msgstr "_Abrir ..."
-
-#: src/main_menubar_def.h:36 src/text_editor_gui.c:101 src/toolbar.c:79
-msgid "Open file"
-msgstr "Abrir ficheiro"
 
 #. 2
 #: src/main_menubar_def.h:41
@@ -4789,7 +4903,7 @@ msgid "Compile the current source file using Make"
 msgstr "Compilar o ficheiro de código actual utilizando Make"
 
 #. 2
-#: src/main_menubar_def.h:1248 src/main_menubar_def.h:1871
+#: src/main_menubar_def.h:1248 src/main_menubar_def.h:1884
 msgid "_Build"
 msgstr "C_onstruir"
 
@@ -5447,131 +5561,150 @@ msgstr "Editor Ferramen_tas"
 msgid "Customize user-defined tools"
 msgstr "Customizar ferramentas definidas utilizador"
 
+#. 11
+#. 12
+#: src/main_menubar_def.h:1774
+msgid "St_art-with dialog"
+msgstr "Inici_ar com diálogo"
+
+#: src/main_menubar_def.h:1775
+msgid "Show start-with dialog"
+msgstr "Mostrar iniciar com diálogo"
+
+#. 13
+#: src/main_menubar_def.h:1780
+msgid "An_juta setup wizard"
+msgstr "A_judante configuração Anjuta"
+
+#: src/main_menubar_def.h:1781
+msgid "Setup wizard for first time run"
+msgstr "Ajudante configuração executa da primeira vez"
+
 #. 0
 #. 1
 #. 2
-#: src/main_menubar_def.h:1780
+#: src/main_menubar_def.h:1793
 msgid "Browse GNOME _API Pages"
 msgstr "Consultar Páginas _API GNOME"
 
-#: src/main_menubar_def.h:1781
+#: src/main_menubar_def.h:1794
 msgid "The GNOME API pages"
 msgstr "As páginas da API GNOME"
 
 #. 3
-#: src/main_menubar_def.h:1786
+#: src/main_menubar_def.h:1799
 msgid "Browse _Man Pages"
 msgstr "Consultar Páginas _Man"
 
-#: src/main_menubar_def.h:1787
+#: src/main_menubar_def.h:1800
 msgid "The good old manual pages"
 msgstr "As boas antigas páginas de manual"
 
 #. 4
-#: src/main_menubar_def.h:1792
+#: src/main_menubar_def.h:1805
 msgid "Browse _Info Pages"
 msgstr "Consultar Páginas _Info"
 
-#: src/main_menubar_def.h:1793
+#: src/main_menubar_def.h:1806
 msgid "Browse Info pages"
 msgstr "Consultar páginas Info"
 
 #. 5
 #. 6
-#: src/main_menubar_def.h:1799
+#: src/main_menubar_def.h:1812
 msgid "_Context Help"
 msgstr "Ajuda de _Contexto"
 
-#: src/main_menubar_def.h:1800
+#: src/main_menubar_def.h:1813
 msgid "Search help for the current word in the editor"
 msgstr "Procurar ajuda para a palavra actual no editor"
 
 #. 7
-#: src/main_menubar_def.h:1805
+#: src/main_menubar_def.h:1818
 msgid "_Search a topic"
 msgstr "Proc_urar um tópico"
 
-#: src/main_menubar_def.h:1806
+#: src/main_menubar_def.h:1819
 msgid "May I help you?"
 msgstr "Posso ajuda-lo?"
 
 #. 8
 #. 9
-#: src/main_menubar_def.h:1812
+#: src/main_menubar_def.h:1825
 msgid "Anjuta _Home Page"
 msgstr "Página do An_juta"
 
-#: src/main_menubar_def.h:1813
+#: src/main_menubar_def.h:1826
 msgid "Online documentation and resources"
 msgstr "Documentação e recursos online"
 
 #. 10
 #. 11
-#: src/main_menubar_def.h:1819
+#: src/main_menubar_def.h:1832
 msgid "_Libraries API references"
 msgstr "Referência de API das bibliotecas"
 
-#: src/main_menubar_def.h:1820
+#: src/main_menubar_def.h:1833
 msgid "Online reference library for GDK, GLib, GNOME etc.."
 msgstr "Referência online para as bibliotecas GDK, GLib, GNOME etc.."
 
 #. 12
-#: src/main_menubar_def.h:1825
+#: src/main_menubar_def.h:1838
 msgid "Report _Bugs"
 msgstr "Relatar _Bugs"
 
-#: src/main_menubar_def.h:1826
+#: src/main_menubar_def.h:1839
 msgid "Submit a bug report for Anjuta"
 msgstr "Enviar um relatório de bug sobre o Anjuta"
 
 #. 13
-#: src/main_menubar_def.h:1831
+#: src/main_menubar_def.h:1844
 msgid "Request _Features"
 msgstr "Pedir _Funcionalidades"
 
-#: src/main_menubar_def.h:1832
+#: src/main_menubar_def.h:1845
 msgid "Submit a feature request for Anjuta"
 msgstr "Enviar um pedido de novas funcionalidades para o Anjuta"
 
 #. 14
-#: src/main_menubar_def.h:1837
+#: src/main_menubar_def.h:1850
 msgid "Submit _patches"
 msgstr "Enviar _patches"
 
-#: src/main_menubar_def.h:1838
+#: src/main_menubar_def.h:1851
 msgid "Submit patches for Anjuta"
 msgstr "Enviar modificações (patches) para o Anjuta"
 
 #. 15
-#: src/main_menubar_def.h:1843
+#: src/main_menubar_def.h:1856
 msgid "Ask a _question"
 msgstr "Fazer uma per_gunta"
 
-#: src/main_menubar_def.h:1844
+#: src/main_menubar_def.h:1857
 msgid "Submit a question for FAQs"
 msgstr "Enviar uma questão para a FAQ (Perguntas Frequentes)"
 
-#: src/main_menubar_def.h:1859
+#: src/main_menubar_def.h:1872
 msgid "_Project"
 msgstr "_Projecto"
 
-#: src/main_menubar_def.h:1865
+#: src/main_menubar_def.h:1878
 msgid "For_mat"
 msgstr "For_matar"
 
-#: src/main_menubar_def.h:1877
+#: src/main_menubar_def.h:1890
 msgid "Bookmar_k"
 msgstr "Mar_ca"
 
-#: src/main_menubar_def.h:1883
+#: src/main_menubar_def.h:1896
 msgid "_Debug"
 msgstr "_Depurar"
 
-#: src/main_menubar_def.h:1889
+#: src/main_menubar_def.h:1902
 msgid "_CVS"
 msgstr "_CVS"
 
-#: src/main_menubar_def.h:1895
+#: src/main_menubar_def.h:1908
 msgid "_Settings"
 msgstr "Definiçõe_s"
 
@@ -5624,7 +5757,7 @@ msgstr "Executável não está actualizado."
 msgid "Debugger is not running. Start it first."
 msgstr "Depurador não está a correr. Inicie-o primeiro."
 
-#: src/mainmenu_callbacks.c:2134
+#: src/mainmenu_callbacks.c:2147
 msgid ""
 "Hover the mouse pointer over any menu item and press\n"
 " the shortcut key to associate with it."
@@ -5696,11 +5829,6 @@ msgstr "Categoria"
 #: src/preferences-dialog.c:225
 msgid "Anjuta Preferences Dialog"
 msgstr "Diálogo Preferências Anjuta"
-
-#. Must declare static, because it will be used forever
-#: src/project_dbase.c:227 src/toolbar.c:212
-msgid "Open Project"
-msgstr "Abrir Projecto"
 
 #. Must declare static, because it will be used forever
 #: src/project_dbase.c:234
@@ -7145,10 +7273,6 @@ msgstr "Grupo:"
 #: src/wizard_gui.c:739
 msgid "Needs terminal"
 msgstr "Necessita consola"
-
-#: src/wizard_gui.c:780
-msgid "Summary"
-msgstr "Resumo"
 
 #: widgets/gnomefilelist.c:220
 msgid "Go to the previous directory"
