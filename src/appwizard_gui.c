@@ -46,13 +46,6 @@ may not be possible to change some of the\n\
 settings later.");
 }
 
-void create_app_wizard_gui (AppWizard * aw);
-void create_app_wizard_page0 (AppWizard * aw);
-void create_app_wizard_page1 (AppWizard * aw);
-void create_app_wizard_page2 (AppWizard * aw);
-void create_app_wizard_page3 (AppWizard * aw);
-void create_app_wizard_page4 (AppWizard * aw);
-
 void
 create_app_wizard_gui (AppWizard * aw)
 {
