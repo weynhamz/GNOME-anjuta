@@ -1379,7 +1379,7 @@ on_add_prjfilesel_ok_clicked (GtkDialog * button, gpointer user_data)
 			gtk_widget_show(label);
 			button = gtk_dialog_run (GTK_DIALOG(dialog));
 			g_free(mesg);
-			if(button == GTK_RESPONSE_YES)
+			if(button == GTK_RESPONSE_YES) {
 				on_prj_import_confirm_yes (NULL, filename, p);
 				files_added = TRUE;
 			}

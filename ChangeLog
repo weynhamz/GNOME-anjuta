@@ -1,5 +1,7 @@
 2004-03-06  Naba Kumar  <naba@gnome.org>
 
+	* src/project_dbase_gui.c: Fixed errors.
+
 	* src/registers_gui.c: Fixed possible crash bug.
 	* src/signals_cbs.[c,h], src/signals_gui.c: Removed.
 	* src/signals.[c,h]: Used tree view and glade file for dialog.
