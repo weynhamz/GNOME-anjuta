@@ -1,3 +1,9 @@
+2004-10-20  Naba Kumar  <naba@gnome.org>
+
+	* TODO.tasks: Added task list.
+	* plugins/file-manager/anjuta-file-manager-plugin.glade: Set
+	default values.
+
 2004-10-19  Naba Kumar  <naba@gnome.org>
 
 	* plugins/build-basic-autotools/build-basic-autotools.c: Fixed bugs.
