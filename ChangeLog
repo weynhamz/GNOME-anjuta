@@ -1,3 +1,12 @@
+2005-03-23  Adam Weinberger  <adamw@gnome.org>
+
+	* plugins/editor/action-callbacks.c,
+	  plugins/file-loader/plugin.c,
+	  plugins/gtodo/main.c,
+	  plugins/project-wizard/druid.c:
+	  Fix spelling/grammar errors. Fixes bugs
+	  169068, 169137, 169138, and 169139.
+
 2005-03-21  Naba Kumar  <naba@gnome.org>
 
 	Patch from: Massimo Cora' <maxcvs@email.it>:

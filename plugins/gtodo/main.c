@@ -190,7 +190,7 @@ static char *parse_command (int argc, char **argv)
 	{
 		if(!strncmp(argv[i], "-?", 2) || !strncmp(argv[i], "--help", 6) || !strncmp(argv[i], _("--help"), strlen(_("--help"))))
 		{
-			printf(_("gtodo v%s\ngtodo has to following commandline options:\n-s	--show	Shows a todo item by its id.\n only usefull for programs calling gtodo\n-?	--help	This Message.\n"), VERSION);
+			printf(_("gtodo v%s\ngtodo has the following command-line options:\n-s	--show	Shows a todo item by its ID.\n only useful for programs calling gtodo\n-?	--help	This Message.\n"), VERSION);
 			exit(1);
 		}
 		else if (!strncmp(argv[i], "-s", 2) || !strncmp(argv[i], "--show", 6) || !strncmp(argv[i], _("--show"), strlen(_("--show"))))

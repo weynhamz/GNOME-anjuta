@@ -173,7 +173,7 @@ open_with_dialog (AnjutaFileLoaderPlugin *plugin, const gchar *uri,
 								 "\n"
 								 "Mime type: %s.\n"
 								 "\n"
-								 "You may choose to try opening it with the following"
+								 "You may choose to try opening it with the following "
 								 "plugins or applications."),
 							   g_basename(uri), mime_type);
 	parent =

@@ -493,7 +493,7 @@ cb_save_valid_property (NPWProperty* property, gpointer user_data)
 				gboolean yes;
 
 				yes = anjuta_util_dialog_boolean_question (data->parent,
-					_("Directory \"%s\" already exists. Project creation could fail if some files"
+					_("Directory \"%s\" already exists. Project creation could fail if some files "
 					  "cannot be written. Do you want to continue?"),
 			       		value);
 
