@@ -1,3 +1,8 @@
+2004-12-07  Naba Kumar  <naba@gnome.org>
+
+	* plugins/build-basic-autotools.c: Added codes to track build directory
+	so that absolute path of the files could be determined.
+
 2004-12-06  Naba Kumar  <naba@gnome.org>
 
 	* plugins/cvs-plugin/cvs-execute.c: Show completion message.

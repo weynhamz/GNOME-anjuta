@@ -55,9 +55,73 @@ typedef struct
 	gchar *command;
 	IAnjutaMessageView *message_view;
 	AnjutaLauncher *launcher;
+	GHashTable *build_dir_stack;
+	
 } BuildContext;
 
 static GList *patterns_list = NULL;
+
+static void
+build_context_stack_destroy (gpointer value)
+{
+	GSList *slist = (GSList *)value;
+	if (slist)
+	{
+		g_slist_foreach (slist, (GFunc)g_free, NULL);
+		g_slist_free (slist);
+	}
+}
+
+static void
+build_context_push_dir (BuildContext *context, const gchar *key,
+						const gchar *dir)
+{
+	GSList *dir_stack;
+	
+	if (context->build_dir_stack == NULL)
+	{
+		context->build_dir_stack =
+			g_hash_table_new_full (g_str_hash, g_str_equal, NULL,
+								   build_context_stack_destroy);
+	}
+	dir_stack = g_hash_table_lookup (context->build_dir_stack, key);
+	if (dir_stack)
+		g_hash_table_steal (context->build_dir_stack, key);
+	
+	dir_stack =	g_slist_prepend (dir_stack, g_strdup (dir));
+	g_hash_table_insert (context->build_dir_stack, (gpointer)key, dir_stack);	
+}
+
+static void
+build_context_pop_dir (BuildContext *context, const gchar *key,
+						const gchar *dir)
+{
+	GSList *dir_stack;
+	
+	if (context->build_dir_stack == NULL)
+		return;
+	dir_stack = g_hash_table_lookup (context->build_dir_stack, key);
+	if (dir_stack == NULL)
+		return;
+	
+	g_hash_table_steal (context->build_dir_stack, key);
+	dir_stack =	g_slist_remove (dir_stack, dir_stack->data);
+	g_hash_table_insert (context->build_dir_stack, (gpointer)key, dir_stack);	
+}
+
+static const gchar *
+build_context_get_dir (BuildContext *context, const gchar *key)
+{
+	GSList *dir_stack;
+	
+	if (context->build_dir_stack == NULL)
+		return NULL;
+	dir_stack = g_hash_table_lookup (context->build_dir_stack, key);
+	if (dir_stack == NULL)
+		return NULL;
+	
+	return dir_stack->data;
+}
 
 static void
 build_regex_load ()
