@@ -822,21 +822,75 @@ bool AnEditor::StartAutoCompleteWord() {
 	linebuf[current] = '\0';
 	const char *root = linebuf + startword;
 	int rootlen = current - startword;
+
+	/* Added word-completion feature back - Biswa */
+	int doclen = LengthDocument();
+	TextToFind ft = {{0, 0}, 0, {0, 0}};
+	ft.lpstrText = const_cast<char*>(root);
+	ft.chrg.cpMin = 0;
+	ft.chrgText.cpMin = 0;
+	ft.chrgText.cpMax = 0;
+	int flags = SCFIND_WORDSTART | (autoCompleteIgnoreCase ? 0 : SCFIND_MATCHCASE);
+	int posCurrentWord = SendEditor (SCI_GETCURRENTPOS) - rootlen;
+	GString *words = g_string_sized_new(100);
+	char wordstart[100];
+	char *wordend, *wordbreak, *wordpos;
+	int wordlen;
+	for (;;)
+	{
+		ft.chrg.cpMax = doclen;
+		int posFind = SendEditor(SCI_FINDTEXT, flags
+		  , reinterpret_cast<long>(&ft));
+		if (posFind == -1 || posFind >= doclen)
+			break;
+		if (posFind == posCurrentWord)
+		{
+			ft.chrg.cpMin = posFind + rootlen;
+			continue;
+		}
+		GetRange(wEditor, posFind, Platform::Minimum(posFind+99, doclen)
+		  , wordstart);
+		wordend = wordstart + rootlen;
+		while (iswordcharforsel(*wordend))
+			wordend++;
+		*wordend = '\0';
+		wordlen = wordend - wordstart;
+		wordbreak = words->str;
+		for (;;)
+		{
+			wordpos = strstr (wordbreak, wordstart);
+			if (!wordpos)
+				break;
+			if (wordpos > words->str && wordpos[ -1] != ' ' ||
+			  wordpos[wordlen] && wordpos[wordlen] != ' ')
+				wordbreak = wordpos + wordlen;
+			else
+				break;
+		}
+		if (!wordpos)
+		{
+			if (words->len > 0)
+				g_string_append_c(words, ' ');
+			g_string_append(words, wordstart);
+		}
+		ft.chrg.cpMin = posFind + wordlen;
+	}
+	/* Now for the TM based autocompletion */
 	const GPtrArray *tags = tm_workspace_find(root, tm_tag_max_t, NULL, TRUE);
 	if ((tags) && (tags->len > 0))
 	{
-		GString *words = g_string_sized_new(100);
 		TMTag *tag;
 		for (guint i=0; ((i < tags->len) && (i < MAX_AUTOCOMPLETE_WORDS)); ++i)
 		{
 			tag = (TMTag *) tags->pdata[i];
-			if (i > 0)
+			if (words->len > 0)
 				g_string_append_c(words, ' ');
 			g_string_append(words, tag->name);
 		}
-		SendEditorString(SCI_AUTOCSHOW, rootlen, words->str);
-		g_string_free(words, TRUE);
 	}
+	if (words->len > 0)
+		SendEditorString(SCI_AUTOCSHOW, rootlen, words->str);
+	g_string_free(words, TRUE);
 	return true;
 }
 
