@@ -1076,6 +1076,25 @@ void create_compiler_options_gui (CompilerOptions *co)
 		g_signal_connect (GTK_TOGGLE_BUTTON (co->priv->widgets.other_button[i]), 
 			"toggled", G_CALLBACK (on_button_selection_changed),co);
 	
+	g_signal_connect (G_OBJECT (co->priv->widgets.other_c_flags_entry), "changed",
+					  G_CALLBACK (on_entry_changed), co);
+
+	g_signal_connect (G_OBJECT (co->priv->widgets.other_l_flags_entry), "changed",
+					  G_CALLBACK (on_entry_changed), co);
+
+	g_signal_connect (G_OBJECT (co->priv->widgets.other_l_libs_entry), "changed",
+					  G_CALLBACK (on_entry_changed), co);
+
+	/* optimization buttons */
+	for (i = 0 ; i < 4 ; i++)											 
+		g_signal_connect (GTK_TOGGLE_BUTTON (co->priv->widgets.optimize_button[i]), 
+			"toggled", G_CALLBACK (on_button_selection_changed),co);
+
+	/* debug and profile */
+	for (i = 0 ; i < 2 ; i++)											 
+		g_signal_connect (GTK_TOGGLE_BUTTON (co->priv->widgets.other_button[i]), 
+			"toggled", G_CALLBACK (on_button_selection_changed),co);
+	
 	/* Connect editiong button signals */
 	button = glade_xml_get_widget (co->priv->gxml, "inc_add_b");
 	BUTTON_SIGNAL_CONNECT (button, on_add_to_clist_clicked,

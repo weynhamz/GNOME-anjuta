@@ -1308,18 +1308,16 @@ create_langsel_dialog (void)
 #endif /* Disabling */
 
 static void
-on_prj_import_confirm_yes (GtkButton * button, gpointer user_data)
+on_prj_import_confirm_yes (GtkButton * button, gchar* filename, 
+							gpointer user_data)
 {
-	gchar *filename;
 	PrjModule	selMod ;
 	ProjectDBase *p = user_data;
 	
 	gtk_widget_hide (p->fileselection_add_file);
-	filename =  fileselection_get_filename (p->fileselection_add_file);
 	if (!filename)
 		return;
 	project_dbase_import_file_real(p, selMod, filename);
-	g_free (filename);
 }
 
 void
@@ -1365,7 +1363,7 @@ on_add_prjfilesel_ok_clicked (GtkButton * button, gpointer user_data)
 		}
 		comp_dir = project_dbase_get_module_dir (p, p->sel_module);
 		if (is_file_in_dir(filename, comp_dir))
-			on_prj_import_confirm_yes (NULL, user_data);
+			on_prj_import_confirm_yes (NULL, filename, user_data);
 		else
 		{
 			int button;
@@ -1380,7 +1378,7 @@ on_add_prjfilesel_ok_clicked (GtkButton * button, gpointer user_data)
 			button = gnome_dialog_run_and_close(GNOME_DIALOG(dialog));
 			g_free(mesg);
 			if(button == 0)
-				on_prj_import_confirm_yes (NULL, p);
+				on_prj_import_confirm_yes (NULL, filename, p);
 		}
 		g_free (comp_dir);
 		node = g_list_next (node);

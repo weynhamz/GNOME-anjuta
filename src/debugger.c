@@ -75,6 +75,7 @@ static void debugger_set_next_command (void);
 
 static void gdb_stdout_line_arrived (const gchar * line);
 static void gdb_stderr_line_arrived (const gchar * line);
+static gchar * gdb_convert_line_to_UTF (const gchar * line);
 static void gdb_terminated (int status, time_t);
 
 void
@@ -725,6 +726,29 @@ gdb_stderr_line_arrived (const gchar * chars)
 	}
 }
 
+static gchar * gdb_convert_line_to_UTF (const gchar * line)
+{
+	gsize read, written;
+	gchar *result;
+
+#ifdef ANJUTA_DEBUG_DEBUGGER
+	// g_message ("In function: gdb_convert_line_to_UTF()");
+#endif
+
+	result = g_locale_to_utf8 (line, -1, &read, &written, NULL);
+	if (result)
+	{
+		return result;
+	}
+	else
+	{
+		g_warning ("Failed to convert gdb output to UTF-8. Passing it as is.");
+		/* some widgets (e.g. GtkTreeView) may crash when trying to display /
+		 * "not a valid UTF-8" strings */
+		return g_strdup (line);
+	}
+}
+
 void
 debugger_stdo_flush ()
 {
@@ -859,10 +883,8 @@ debugger_stdo_flush ()
 				     strlen ("Reading ")) != 0)
 				{
 					debugger.gdb_stdo_outputs =
-						g_list_append (debugger.
-							       gdb_stdo_outputs,
-							       g_strdup
-							       (line));
+						g_list_append (debugger.gdb_stdo_outputs,
+							       gdb_convert_line_to_UTF (line));
 				}
 				if (debugger.current_cmd.
 				    flags & DB_CMD_SO_MESG)
@@ -881,9 +903,8 @@ debugger_stdo_flush ()
 			    0)
 			{
 				debugger.gdb_stdo_outputs =
-					g_list_append (debugger.
-						       gdb_stdo_outputs,
-						       g_strdup (line));
+					g_list_append (debugger.gdb_stdo_outputs,
+						       gdb_convert_line_to_UTF (line));
 			}
 			if (debugger.current_cmd.flags & DB_CMD_SO_MESG)
 			{

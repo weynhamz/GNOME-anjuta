@@ -76,10 +76,13 @@ drag_data_received_cb (GtkWidget *widget, GdkDragContext *context,
 		/*
 		 * get each file:path in buffer and process
 		 */
-		while(*tmp1 != '\n')
+		while(*tmp1 && *tmp1 != '\n')
 			*tmpptr++ = *tmp1++;				
-		
-		*(tmpptr - 1) = '\0'; /* remove the \r and end the string */			
+
+		/* remove the \r if necessary and end the string */
+		if (*tmp1 == '\n' && *(tmpptr - 1) == '\r')
+			*(tmpptr - 1) = '\0';
+		*tmpptr = '\0';
 		
 		/* Some dumb software drops URI without "file:" in the begining */
 		if (strncasecmp (tmppath, "file:", 5) == 0) {
@@ -87,7 +90,10 @@ drag_data_received_cb (GtkWidget *widget, GdkDragContext *context,
 		} else {
 			dnd_data_dropped(tmppath, user_data);
 		};
-		
+
+		if (! *tmp1)
+			break;
+
 		tmpptr = tmppath;
 		tmp1++;					
 	}
@@ -172,4 +178,3 @@ scintilla_uri_dropped(const char *uri)
 	drag_data_received_cb (NULL, NULL, 0, 0, &tmp, 0,0,NULL);
 	return;
 }
-

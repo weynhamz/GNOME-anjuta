@@ -566,7 +566,7 @@ on_build_msg_save_ok_clicked(GtkButton * button, gpointer user_data)
 										 GTK_MESSAGE_QUESTION,
 										 GTK_BUTTONS_NONE,
 										 _("The file '%s' already exists.\n"
-										 "Do you want to overwrite it?."),
+										 "Do you want to replace it with the one you are saving?."),
 										 filename);
 		gtk_dialog_add_button (GTK_DIALOG (dialog),
 							   GTK_STOCK_CANCEL,

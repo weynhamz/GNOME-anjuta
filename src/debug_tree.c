@@ -133,14 +133,10 @@ build_menu_item (gchar * menutext, GtkSignalFunc signalhandler,
 static void
 add_menu_separator (GtkWidget * menu)
 {
-	GtkWidget *menuitem;
-
 	g_return_if_fail (menu);
-
-	menuitem = gtk_menu_item_new ();
-	gtk_container_add (GTK_CONTAINER (menuitem), gtk_hseparator_new ());
-
-	gtk_menu_append (GTK_MENU (menu), menuitem);
+                                                                                
+	gtk_menu_shell_append (GTK_MENU_SHELL (menu),
+			gtk_separator_menu_item_new ());
 }
 
 static void
@@ -1460,8 +1456,8 @@ debug_tree_create ()
 
 	model = GTK_TREE_MODEL (gtk_tree_store_new
 						   (N_COLUMNS, 
-	                        GTK_TYPE_STRING, 
-	                        GTK_TYPE_STRING,
+	                        G_TYPE_STRING, 
+	                        G_TYPE_STRING,
 						    G_TYPE_POINTER));
 	
 	d_tree->tree = gtk_tree_view_new_with_model (model);
@@ -1482,7 +1478,7 @@ debug_tree_create ()
 	column = gtk_tree_view_column_new ();
 	renderer = gtk_cell_renderer_text_new ();
 	gtk_tree_view_column_pack_start (column, renderer, TRUE);
-	gtk_tree_view_column_add_attribute (column, renderer, "markup", VALUE_COLUMN);
+	gtk_tree_view_column_add_attribute (column, renderer, "text", VALUE_COLUMN);
 	gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
 	gtk_tree_view_column_set_title (column, _("Value"));
 	gtk_tree_view_append_column (GTK_TREE_VIEW (d_tree->tree), column);

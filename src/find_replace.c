@@ -334,15 +334,16 @@ create_replace_messagebox (FindAndReplace *fr)
 									 GTK_DIALOG_DESTROY_WITH_PARENT,
 									 GTK_MESSAGE_QUESTION,
 									 GTK_BUTTONS_NONE,
-									 _("Do you want to replace this?"));
+									 _("Do you want to replace this occurence?"));
 	gtk_dialog_add_buttons (GTK_DIALOG (dialog),
 							GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-							GTK_STOCK_NO, GTK_RESPONSE_NO, NULL);
+							GTK_STOCK_NO, GTK_RESPONSE_NO, 
+							NULL);
 	anjuta_dialog_add_button (GTK_DIALOG (dialog),
 							  _("_Replace"),
 							  GTK_STOCK_REFRESH,
 							  GTK_RESPONSE_YES);
-	gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_OK);
+	gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_YES);
 	return dialog;
 }
 

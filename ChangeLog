@@ -1,3 +1,30 @@
+2003-08-22  Naba Kumar  <naba@gnome.org>
+
+	Patch from: Rob Bradford  <rob@debianplanet.org>
+	* data/Makefile.am: Fixed to install properly during
+	package building.
+	
+	Patch from: Etay Meiri  <etay-m@bezeqint.net>
+	* src/debug-tree.c: Fixed a crash bug.
+	* src/compiler_options.c: Takes care of linking the missing pieces;
+	C flags, libs, optimization options, debug and profile.
+
+	Patch from: Enver ALTIN  <ealtin@casdb.com>
+	* src/anjuta_cbs.c, src/find_replace.c: Trivial dialog HIG fixes.
+	
+2003-08-22  Johannes Schmid <clubfan@users.sourceforge.net>
+
+	Reviewed by Naba Kumar  <naba@gnome.org>
+	* src/project_dbase.c: Fixed bugs #778263 and #778413
+	  Adding multiple files to project should work now.
+
+2003-08-22  Pavol Bosik  <bosikp@frcatel.fri.utc.sk>
+
+	Reviewed by Naba Kumar  <naba@gnome.org>
+	* src/dnd.c: Fixed Drag&Drop (opening file(s)).
+  	* src/debug_tree.c, src/debugger.c: Fixed context menu separator
+	for Locals window.
+
 2003-08-08  Abel Cheung  <maddog@linux.org.hk>
 
 	* anjuta.glade, anjuta_dialog_strings.c: Fix typo. (#107513)
