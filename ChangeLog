@@ -1,5 +1,11 @@
 2005-01-03  Naba Kumar  <naba@gnome.org>
 
+	* libanjuta/interfaces/libanjuta.idl: Added configure() and
+	generate() methods for IAnjutaBuildable interface.
+
+	* plugins/build-basic-autotools/build-basic-autotools.c: Implemented
+	IAnjutaBuildable inteface.
+
 	* plugins/build-basic-autotools/build-basic-autotools.c: Use weak ref
 	to destroy build context when message view is destroyed.
 	

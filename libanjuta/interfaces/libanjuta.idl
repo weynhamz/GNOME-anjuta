@@ -290,9 +290,11 @@ interface IAnjutaTransformable
 interface IAnjutaBuildable
 {
 	void compile (const gchar* filename);
-	void build ();
-	void clean ();
-	void install ();
+	void build (const gchar *directory);
+	void clean (const gchar *directory);
+	void install (const gchar *directory);
+	void configure (const gchar *directory);
+	void generate(const gchar *directory);
 }
 
 // Studio profile. Like c++ profile, java profiler etc.

@@ -1370,21 +1370,48 @@ static void
 ibuildable_compile (IAnjutaBuildable *manager, const gchar * filename,
 					GError **err)
 {
+	BasicAutotoolsPlugin *plugin = (BasicAutotoolsPlugin*)ANJUTA_PLUGIN (manager);
+	build_compile_file_real (plugin, filename);
 }
 
 static void
-ibuildable_build (IAnjutaBuildable *manager, GError **err)
+ibuildable_build (IAnjutaBuildable *manager, const gchar *directory,
+				  GError **err)
 {
+	BasicAutotoolsPlugin *plugin = (BasicAutotoolsPlugin*)ANJUTA_PLUGIN (manager);
+	build_execute_command (plugin, directory, MAKE_COMMAND);
 }
 
 static void
-ibuildable_clean (IAnjutaBuildable *manager, GError **err)
+ibuildable_clean (IAnjutaBuildable *manager, const gchar *directory,
+				  GError **err)
 {
+	BasicAutotoolsPlugin *plugin = (BasicAutotoolsPlugin*)ANJUTA_PLUGIN (manager);
+	build_execute_command (plugin, directory, MAKE_COMMAND" clean");
 }
 
 static void
-ibuildable_install (IAnjutaBuildable *manager, GError **err)
+ibuildable_install (IAnjutaBuildable *manager, const gchar *directory,
+					GError **err)
 {
+	BasicAutotoolsPlugin *plugin = (BasicAutotoolsPlugin*)ANJUTA_PLUGIN (manager);
+	build_execute_command (plugin, directory, MAKE_COMMAND" install");
+}
+
+static void
+ibuildable_configure (IAnjutaBuildable *manager, const gchar *directory,
+					  GError **err)
+{
+	BasicAutotoolsPlugin *plugin = (BasicAutotoolsPlugin*)ANJUTA_PLUGIN (manager);
+	build_execute_command (plugin, directory, "./configure");
+}
+
+static void
+ibuildable_generate (IAnjutaBuildable *manager, const gchar *directory,
+					 GError **err)
+{
+	BasicAutotoolsPlugin *plugin = (BasicAutotoolsPlugin*)ANJUTA_PLUGIN (manager);
+	build_execute_command (plugin, directory, "./autogen.sh");
 }
 
 static void
@@ -1394,6 +1421,8 @@ ibuildable_iface_init (IAnjutaBuildableIface *iface)
 	iface->build = ibuildable_build;
 	iface->clean = ibuildable_clean;
 	iface->install = ibuildable_install;
+	iface->configure = ibuildable_configure;
+	iface->generate = ibuildable_generate;
 }
 
 ANJUTA_PLUGIN_BEGIN (BasicAutotoolsPlugin, basic_autotools_plugin);
