@@ -2,6 +2,7 @@
 
 	* libanjuta/interfaces/giface-idlc-c.pl,
 	libanjuta/interfaces/libanjuta.idl: Upgraded.
+	* libanjuta/interfaces/Makefile.am.iface: Added.
 	
 2004-04-28  Naba kumar  <naba@gnome.org>
 
