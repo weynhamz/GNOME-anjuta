@@ -49,11 +49,9 @@ msgstr ""
 "Anjuta Dev Studio\n"
 "Copyright (C) Naba Kumar\n"
 "\n"
-"ഇതൊരു free software ആകുന്നു;Free Software  Foundation ന്റെ "
-"GNU General Public License ലക്കം 2/നിങ്ങള്ക്ക ഇഷ്ടമുളള മറ്റൊരു "
-"ലക്കത്തിലെ ഉപാധികള്ക്കനുസൃതമായി നിങ്ങള്ക്ക് ഈ SOFTWARE "
-"വിതരണം/മാറ്റം നടത്താവുന്നതാണ്്   "
-"\n"
+"ഇതൊരു free software ആകുന്നു;Free Software  Foundation ന്റെ GNU General Public "
+"License ലക്കം 2/നിങ്ങള്ക്ക ഇഷ്ടമുളള മറ്റൊരു ലക്കത്തിലെ ഉപാധികള്ക്കനുസൃതമായി നിങ്ങള്ക്ക് ഈ "
+"SOFTWARE വിതരണം/മാറ്റം നടത്താവുന്നതാണ്്   \n"
 "This program is distributed in the hope that it will be useful, but WITHOUT "
 "ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
 "FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for "
@@ -69,7 +67,7 @@ msgstr "   "
 
 #: anjuta.glade.h:12 anjuta_dialogs_strings.c:145
 msgid "$(module.source.files) $(module.include.files)"
-msgstr ""
+msgstr "$(module.source.files) $(module.include.files)"
 
 #: anjuta.glade.h:13 anjuta_dialogs_strings.c:19 anjuta_dialogs_strings.c:20
 #: anjuta_dialogs_strings.c:21 anjuta_dialogs_strings.c:29
@@ -145,8 +143,9 @@ msgid "Add page header"
 msgstr "താള് തലക്കെട്ട് ചേര്ക്കുക"
 
 #: anjuta.glade.h:21 anjuta_dialogs_strings.c:217
+#, fuzzy
 msgid "Additional"
-msgstr ""
+msgstr "കൂടുതല്"
 
 #: anjuta.glade.h:22 anjuta_dialogs_strings.c:72
 #, fuzzy
@@ -167,8 +166,9 @@ msgid "Anjuta Setup Wizard"
 msgstr "അന്ജുത സജ്ജീകരണ മാന്ത്രികന്"
 
 #: anjuta.glade.h:26 anjuta_dialogs_strings.c:179
+#, fuzzy
 msgid "Anjuta help search"
-msgstr ""
+msgstr "അന്ജുത സഹായത്തില് തെരയുക"
 
 #: anjuta.glade.h:27 anjuta_dialogs_strings.c:507
 #, fuzzy
@@ -176,14 +176,17 @@ msgid "Anjuta setup wizard"
 msgstr "അന്ജുത സജ്ജീകരണ മാന്ത്രികന്"
 
 #: anjuta.glade.h:28 anjuta_dialogs_strings.c:509
+#, fuzzy
 msgid ""
 "Anjuta setup wizard will guide with the initial setup of Anjuta. These setup "
 "could be changed later from Anjuta settings menu (Main menu->Settings). "
 msgstr ""
+"അന്ജുത പ്രാധമിക സജ്ജീകരണത്തില് അന്ജുത സജ്ജീകരണ മാന്ത്രികന് സഹായിക്കും. ഈ സജ്ജീകരണങ്ങള് പിന്നീട് "
+"സജ്ജീകരണ പട്ടികയിലൂടെ(പ്രധാന പട്ടിക->സജ്ജീകരണങ്ങള്)  മാററാവുന്നതാണ്."
 
 #: anjuta.glade.h:29 anjuta_dialogs_strings.c:495
 msgid "Anjuta start with dialog"
-msgstr ""
+msgstr "സംവാദചതുരവുമായി തുടങ്ങുക"
 
 #: anjuta.glade.h:30 anjuta_dialogs_strings.c:494
 msgid "Anjuta windows"
@@ -219,7 +222,7 @@ msgstr "ജോലിയോടു ചേര്ക്കുക"
 
 #: anjuta.glade.h:36 anjuta_dialogs_strings.c:303
 msgid "Attributes:"
-msgstr ""
+msgstr "സ്വഭാവങ്ങള്:"
 
 #: anjuta.glade.h:37 anjuta_dialogs_strings.c:367
 msgid "Autocomplete XML/HTML closing tags"
@@ -235,7 +238,7 @@ msgstr ""
 
 #: anjuta.glade.h:40 anjuta_dialogs_strings.c:335
 msgid "Automatically load last Project"
-msgstr ""
+msgstr "അവസാനത്തെ പ്രോജക്ട് സ്വയം തുറക്കുക"
 
 #: anjuta.glade.h:41 anjuta_dialogs_strings.c:365
 msgid "Autosave"
@@ -247,15 +250,15 @@ msgstr ""
 
 #: anjuta.glade.h:43 anjuta_dialogs_strings.c:305
 msgid "Back color:"
-msgstr ""
+msgstr "പശ്ചാത്തല നിറം:"
 
 #: anjuta.glade.h:44 anjuta_dialogs_strings.c:107 anjuta_dialogs_strings.c:122
 msgid "Backwards"
-msgstr ""
+msgstr "പിന്നോട്ട്"
 
 #: anjuta.glade.h:45 anjuta_dialogs_strings.c:339
 msgid "Beep on job complete"
-msgstr ""
+msgstr "ജോലി തീര്ന്നാല് ശബ്ദം പുറപ്പെടുവിക്കുക"
 
 #: anjuta.glade.h:46 anjuta_dialogs_strings.c:310
 msgid "Bold"
@@ -292,7 +295,7 @@ msgstr ""
 
 #: anjuta.glade.h:54 anjuta_dialogs_strings.c:211
 msgid "Build files"
-msgstr ""
+msgstr "നിര്മ്മിതി രചനകള്"
 
 #: anjuta.glade.h:55 anjuta_dialogs_strings.c:357
 msgid "Build options"
@@ -311,7 +314,7 @@ msgstr "CVS"
 
 #: anjuta.glade.h:58 anjuta_dialogs_strings.c:487
 msgid "CVS command options"
-msgstr ""
+msgstr "CVS നിര് ദ്ദേശ ബദലുകള്"
 
 #: anjuta.glade.h:59 anjuta_dialogs_strings.c:483
 msgid "CVS compression level:"
@@ -359,11 +362,11 @@ msgstr "ലിപി ഗ്രാഹകം"
 
 #: anjuta.glade.h:70 anjuta_dialogs_strings.c:158
 msgid "Choose Directories:"
-msgstr ""
+msgstr "കൂടുകള് തെരഞ്ഞെടുക്കുക:"
 
 #: anjuta.glade.h:71 anjuta_dialogs_strings.c:147
 msgid "Choose Files:"
-msgstr ""
+msgstr "രചനകള് തെരഞ്ഞെടുക്കുക:"
 
 #: anjuta.glade.h:72 anjuta_dialogs_strings.c:366
 msgid "Choose autocomplete for single match"
@@ -371,11 +374,11 @@ msgstr ""
 
 #: anjuta.glade.h:73 anjuta_dialogs_strings.c:282
 msgid "Choose directories"
-msgstr ""
+msgstr "കൂടുകള് തെരഞ്ഞെടുക്കുക:"
 
 #: anjuta.glade.h:74 anjuta_dialogs_strings.c:270
 msgid "Choose files"
-msgstr ""
+msgstr "രചനകള് തെരഞ്ഞെടുക്കുക:"
 
 #: anjuta.glade.h:75 anjuta_dialogs_strings.c:382
 msgid "Circular"
@@ -588,7 +591,7 @@ msgstr ""
 
 #: anjuta.glade.h:128 anjuta_dialogs_strings.c:12
 msgid "Enable _all"
-msgstr ""
+msgstr "എല്ലാം പ്രാപയ്മാക്കുക"
 
 #: anjuta.glade.h:129 anjuta_dialogs_strings.c:409
 msgid "Enable automatic indentation"
@@ -672,23 +675,25 @@ msgstr ""
 
 #: anjuta.glade.h:148 anjuta_dialogs_strings.c:90
 msgid "File/Directory to add:"
-msgstr ""
+msgstr "ചേര്ക്കേണ്ട രചന/കൂട്:"
 
 #: anjuta.glade.h:149 anjuta_dialogs_strings.c:388
 msgid "Filter extraneous characters in DOS mode"
 msgstr ""
 
 #: anjuta.glade.h:150 anjuta_dialogs_strings.c:129
+#, fuzzy
 msgid "Find & Replace"
-msgstr ""
+msgstr "കണ്ടെത്തുക & മാറ്റുക"
 
 #: anjuta.glade.h:151 anjuta_dialogs_strings.c:98 anjuta_dialogs_strings.c:115
+#, fuzzy
 msgid "Find and replace"
-msgstr ""
+msgstr "കണ്ടെത്തുക & മാറ്റുക"
 
 #: anjuta.glade.h:152 anjuta_dialogs_strings.c:85 src/find_in_files.c:301
 msgid "Find in Files"
-msgstr ""
+msgstr "രചനകളില് കണ്ടെത്തുക"
 
 #: anjuta.glade.h:153 anjuta_dialogs_strings.c:378
 msgid "Fold style:"
@@ -765,7 +770,7 @@ msgstr ""
 
 #: anjuta.glade.h:169 anjuta_dialogs_strings.c:214
 msgid "Headers"
-msgstr ""
+msgstr "തലക്കെട്ടുകള്"
 
 #: anjuta.glade.h:170 anjuta_dialogs_strings.c:422
 msgid "Hello World style"
@@ -845,7 +850,7 @@ msgstr ""
 
 #: anjuta.glade.h:188 anjuta_dialogs_strings.c:50
 msgid "Include Paths"
-msgstr ""
+msgstr "പാതകള് ഉള്പ്പെടുത്തുക"
 
 #: anjuta.glade.h:189 anjuta_dialogs_strings.c:204
 msgid "Include module Makefile.am"
@@ -869,7 +874,7 @@ msgstr ""
 
 #: anjuta.glade.h:194 anjuta_dialogs_strings.c:472
 msgid "Indicators"
-msgstr ""
+msgstr "സൂചകങ്ങള്"
 
 #: anjuta.glade.h:195 anjuta_dialogs_strings.c:183
 msgid "Info Pages"
@@ -967,19 +972,19 @@ msgstr ""
 
 #: anjuta.glade.h:218 anjuta_dialogs_strings.c:259
 msgid "Menu icon:"
-msgstr ""
+msgstr "പട്ടിക ചിഹ്നംഃ"
 
 #: anjuta.glade.h:219 anjuta_dialogs_strings.c:228
 msgid "Menu location:"
-msgstr ""
+msgstr "പട്ടിക സ്ഥലം:"
 
 #: anjuta.glade.h:220 anjuta_dialogs_strings.c:481
 msgid "Message colors"
-msgstr ""
+msgstr "സന്ദേശ നിറങ്ങള്"
 
 #: anjuta.glade.h:221 anjuta_dialogs_strings.c:449
 msgid "Messages options"
-msgstr ""
+msgstr "സന്ദേശ  ബദലുകള്"
 
 #: anjuta.glade.h:222 anjuta_dialogs_strings.c:394
 msgid "Misc options"
@@ -987,7 +992,7 @@ msgstr ""
 
 #: anjuta.glade.h:223 anjuta_dialogs_strings.c:431
 msgid "Mode:"
-msgstr ""
+msgstr "തരം:"
 
 #: anjuta.glade.h:224 anjuta_dialogs_strings.c:200
 msgid "Modules"
@@ -1004,11 +1009,11 @@ msgstr "നാമം:"
 #: anjuta.glade.h:227 anjuta_dialogs_strings.c:504 src/main_menubar_def.h:30
 #: src/text_editor_gui.c:97 src/toolbar.c:75
 msgid "New file"
-msgstr ""
+msgstr "പുതിയ രചന"
 
 #: anjuta.glade.h:228 anjuta_dialogs_strings.c:171
 msgid "No Limit"
-msgstr ""
+msgstr "പരിധിയില്ലാത്ത"
 
 #: anjuta.glade.h:229 anjuta_dialogs_strings.c:63
 msgid "No Optimization"
@@ -1020,7 +1025,7 @@ msgstr ""
 
 #: anjuta.glade.h:231 anjuta_dialogs_strings.c:475
 msgid "Normal messages:"
-msgstr ""
+msgstr "സാധാരണ സന്ദേശള:്"
 
 #: anjuta.glade.h:232 anjuta_dialogs_strings.c:360
 #: anjuta_dialogs_strings.c:428
@@ -1042,7 +1047,7 @@ msgstr ""
 #: anjuta.glade.h:235 anjuta_dialogs_strings.c:502 src/project_dbase.c:223
 #: src/toolbar.c:212
 msgid "Open Project"
-msgstr ""
+msgstr " പ്രൊജക്ട് തുറക്കുക"
 
 #: anjuta.glade.h:236 anjuta_dialogs_strings.c:500
 msgid "Open existing Project."
@@ -1055,7 +1060,7 @@ msgstr ""
 #: anjuta.glade.h:238 anjuta_dialogs_strings.c:505 src/main_menubar_def.h:36
 #: src/text_editor_gui.c:101 src/toolbar.c:79
 msgid "Open file"
-msgstr ""
+msgstr "രചന തുറക്കുക"
 
 #: anjuta.glade.h:239 anjuta_dialogs_strings.c:501
 msgid "Open last working Project"
@@ -1077,19 +1082,19 @@ msgstr ""
 
 #: anjuta.glade.h:243 anjuta_dialogs_strings.c:326
 msgid "Other colors"
-msgstr ""
+msgstr "മറ്റു നിറങ്ങള്"
 
 #: anjuta.glade.h:244 anjuta_dialogs_strings.c:476
 msgid "Other messages:"
-msgstr ""
+msgstr "മറ്റു സന്ദേശള്:"
 
 #: anjuta.glade.h:245 anjuta_dialogs_strings.c:359 src/an_symbol_view.c:54
 msgid "Others"
-msgstr ""
+msgstr "മറ്റുള്ളവ"
 
 #: anjuta.glade.h:246 anjuta_dialogs_strings.c:218
 msgid "Output files"
-msgstr ""
+msgstr "ഫല രചനകള്"
 
 #: anjuta.glade.h:247 anjuta_dialogs_strings.c:313
 #: anjuta_dialogs_strings.c:314 anjuta_dialogs_strings.c:322
@@ -1105,8 +1110,9 @@ msgid "Pixmap module Makefile.am"
 msgstr ""
 
 #: anjuta.glade.h:249 anjuta_dialogs_strings.c:381
+#, fuzzy
 msgid "Plus/Minus"
-msgstr ""
+msgstr "+/-"
 
 #: anjuta.glade.h:250 anjuta_dialogs_strings.c:209
 msgid "Po module (translation) Makefile.am"
@@ -1130,7 +1136,7 @@ msgstr ""
 
 #: anjuta.glade.h:255 anjuta_dialogs_strings.c:438
 msgid "Print options"
-msgstr ""
+msgstr "അച്ചടി ബദലുകള്"
 
 #: anjuta.glade.h:256 anjuta_dialogs_strings.c:212
 msgid "Programs"
@@ -1139,7 +1145,7 @@ msgstr "നിര്‍ദ്ദേശ-സംഹിത"
 #: anjuta.glade.h:257 anjuta_dialogs_strings.c:234 src/project_dbase_gui.c:599
 #: src/project_dbase_gui.c:616 src/toolbar.c:148
 msgid "Project"
-msgstr ""
+msgstr " പ്രൊജക്ട് "
 
 #: anjuta.glade.h:258 anjuta_dialogs_strings.c:184
 msgid "Project Configuration"
@@ -1167,7 +1173,7 @@ msgstr ""
 
 #: anjuta.glade.h:264 anjuta_dialogs_strings.c:113
 msgid "Prompt before replace"
-msgstr ""
+msgstr "മാറ്റുന്നതിനു മുന്പ്് പറയുക"
 
 #: anjuta.glade.h:265 anjuta_dialogs_strings.c:332
 msgid "Recent Files:"
@@ -1230,11 +1236,11 @@ msgstr ""
 
 #: anjuta.glade.h:279 anjuta_dialogs_strings.c:262
 msgid "Save all files"
-msgstr ""
+msgstr "എല്ലാ രചനകളും സംരക്ഷിക്കുക"
 
 #: anjuta.glade.h:280 anjuta_dialogs_strings.c:363
 msgid "Save files interval in minutes"
-msgstr ""
+msgstr "രചനകള് നിമിഷ ഇടവേളകളില് സംരക്ഷിക്കുക"
 
 #: anjuta.glade.h:281 anjuta_dialogs_strings.c:364
 msgid "Save session interval in minutes"
@@ -1260,7 +1266,7 @@ msgstr ""
 
 #: anjuta.glade.h:286 anjuta_dialogs_strings.c:141
 msgid "Search Direction:"
-msgstr ""
+msgstr "തെരയച്ചില് ദിശ:"
 
 #: anjuta.glade.h:287 anjuta_dialogs_strings.c:138
 msgid "Search Expression"
@@ -1301,11 +1307,11 @@ msgstr ""
 
 #: anjuta.glade.h:296 anjuta_dialogs_strings.c:299
 msgid "Select theme:"
-msgstr ""
+msgstr "പ്രമേയം തെരഞ്ഞെടുക്കുക:"
 
 #: anjuta.glade.h:297 anjuta_dialogs_strings.c:319
 msgid "Selection background:"
-msgstr ""
+msgstr "പശ്ചാത്തലം തെരഞ്ഞെടുക്കുക:"
 
 #: anjuta.glade.h:298 anjuta_dialogs_strings.c:318
 msgid "Selection foreground:"
@@ -1317,7 +1323,7 @@ msgstr "സജ്ജീകരണം"
 
 #: anjuta.glade.h:300 anjuta_dialogs_strings.c:256
 msgid "Short cut:"
-msgstr ""
+msgstr "കുറുക്കു വഴി"
 
 #: anjuta.glade.h:301 anjuta_dialogs_strings.c:341
 msgid "Show tooltips"
@@ -1402,7 +1408,7 @@ msgstr "വാക്യം"
 
 #: anjuta.glade.h:319 anjuta_dialogs_strings.c:102
 msgid "String to replace"
-msgstr ""
+msgstr "മാറ്റേണ്ട വാകയ്ം"
 
 #: anjuta.glade.h:320 anjuta_dialogs_strings.c:387
 msgid "Strip trailling spaces on file save"
@@ -1716,7 +1722,7 @@ msgstr ""
 
 #: gdl/gdl-dock-item.c:266
 msgid "Item behavior"
-msgstr ""
+msgstr "ഇനത്തിന്റെ സ്വഭാവം"
 
 #: gdl/gdl-dock-item.c:267
 msgid ""
@@ -1737,7 +1743,8 @@ msgid "Locked"
 msgstr "പൂട്ടി"
 
 #: gdl/gdl-dock-item.c:283
-msgid "If set, the dock item cannot be dragged around and it doesn't show a grip"
+msgid ""
+"If set, the dock item cannot be dragged around and it doesn't show a grip"
 msgstr ""
 
 #: gdl/gdl-dock-item.c:291
@@ -1825,7 +1832,7 @@ msgstr "ദൃശ്യമായ"
 
 #: gdl/gdl-dock-layout.c:687
 msgid "Item"
-msgstr ""
+msgstr "ഇനം"
 
 #: gdl/gdl-dock-layout.c:737 gdl/gdl-dock-object.c:120
 #: src/compiler_options.c:741 src/windows-dialog.c:294
@@ -1928,7 +1935,8 @@ msgstr ""
 
 #: gdl/gdl-dock-object.c:583
 #, c-format
-msgid "Attempt to bind to %p an already bound dock object %p (current master: %p)"
+msgid ""
+"Attempt to bind to %p an already bound dock object %p (current master: %p)"
 msgstr ""
 
 #: gdl/gdl-dock-paned.c:134
@@ -1941,7 +1949,7 @@ msgstr ""
 
 #: gdl/gdl-dock-placeholder.c:127
 msgid "Sticky"
-msgstr ""
+msgstr "ഒട്ടുന്ന"
 
 #: gdl/gdl-dock-placeholder.c:128
 msgid ""
@@ -1993,7 +2001,7 @@ msgstr ""
 
 #: gdl/gdl-dock.c:177
 msgid "Floating"
-msgstr ""
+msgstr "ഒഴുകുന്ന"
 
 #: gdl/gdl-dock.c:178
 msgid "Whether the dock is floating in its own window"
@@ -2177,7 +2185,8 @@ msgid "V 0.0.2 (June 11, 2002)"
 msgstr ""
 
 #: plugins/class-gen/clsGen.c:1570
-msgid "TODO: add the ability to declare member functions and their parameters here."
+msgid ""
+"TODO: add the ability to declare member functions and their parameters here."
 msgstr ""
 
 #: plugins/class-gen/clsGen.c:1580
@@ -3024,7 +3033,8 @@ msgid "Build Distribution completed...............Successful\n"
 msgstr ""
 
 #: src/build_project.c:400
-msgid "The source tarball can be found in the top level directory of the Project.\n"
+msgid ""
+"The source tarball can be found in the top level directory of the Project.\n"
 msgstr ""
 
 #: src/build_project.c:404
@@ -4186,7 +4196,8 @@ msgid "Insert the CVS Date keyword (date and time of the change)"
 msgstr ""
 
 #: src/main_menubar_def.h:322
-msgid "Insert the CVS Header keyword (full path, revision, date, author, state)"
+msgid ""
+"Insert the CVS Header keyword (full path, revision, date, author, state)"
 msgstr ""
 
 #: src/main_menubar_def.h:328
@@ -4283,7 +4294,8 @@ msgid "Find and R_eplace ..."
 msgstr ""
 
 #: src/main_menubar_def.h:429
-msgid "Search for and replace a string or regular expression with another string"
+msgid ""
+"Search for and replace a string or regular expression with another string"
 msgstr ""
 
 #. 3
@@ -5814,7 +5826,8 @@ msgid "_Diff Project"
 msgstr ""
 
 #: src/main_menubar_def.h:1693
-msgid "Create a diff between the working copy of the Project and the repository"
+msgid ""
+"Create a diff between the working copy of the Project and the repository"
 msgstr ""
 
 #. 15
@@ -7037,7 +7050,7 @@ msgstr ""
 
 #: src/text_editor_menu.c:174 src/toolbar.c:605
 msgid "Inspect"
-msgstr ""
+msgstr "പരിശോധിക്കുക"
 
 #: src/text_editor_menu.c:181 src/toolbar.c:579
 msgid "Interrupt"
@@ -7112,7 +7125,7 @@ msgstr "പിന്"
 
 #: src/toolbar.c:104
 msgid "Detach"
-msgstr ""
+msgstr "വേര്പ്പെടുത്തുക"
 
 #: src/toolbar.c:105
 msgid "Detach the current page"
@@ -7746,4 +7759,3 @@ msgstr ""
 #: widgets/gnomefilelist.c:1976
 msgid "Folder name:"
 msgstr ""
-
