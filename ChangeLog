@@ -1,3 +1,18 @@
+2002-09-02  Stephane Demurget  <demurgets@free.fr>
+
+	* configure.in:
+	* src/Makefile.am: added libglade-2 to the build.
+
+	* src/anjuta.[ch]: added support for libglade.
+
+	* src/anjuta.glade: added. There could be a file per top-level widget,
+	as some other gnome projects, though.
+
+	* src/attach_process_gui.c: removed.
+	* src/attach_process.[ch]: gnome 2 port.
+	(attach_process_new): Added the treeview init and the widget references
+	here.
+
 2002-08-31  Stephane Demurget  <demurgets@free.fr>
 
 	* src/an_file_view.c: fixed some compilation issues.
