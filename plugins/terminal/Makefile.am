@@ -7,8 +7,10 @@ anjuta_glade_DATA =  anjuta-terminal-plugin.glade
 # anjuta_ui_DATA =  anjuta-terminal.ui
 
 # Plugin Icon file
-plugin_icondir = $(prefix)/@NO_PREFIX_PACKAGE_PIXMAPS_DIR@
-plugin_icon_DATA = anjuta-terminal-plugin.png
+plugin_pixmapsdir = $(prefix)/@NO_PREFIX_PACKAGE_PIXMAPS_DIR@
+plugin_pixmaps_DATA = \
+	anjuta-terminal-plugin.png \
+	preferences-terminal.png
 
 # Plugin description file
 plugin_in_files = anjuta-terminal.plugin.in

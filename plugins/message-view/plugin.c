@@ -29,6 +29,16 @@
 #define PREFS_GLADE PACKAGE_DATA_DIR"/glade/anjuta-message-manager-plugin.glade"
 #define ICON_FILE "preferences-messages.png"
 
+/* Pixmaps */
+#define ANJUTA_PIXMAP_MESSAGES                "messages.xpm"
+#define ANJUTA_PIXMAP_PREV_MESSAGE            "error-prev.png"
+#define ANJUTA_PIXMAP_NEXT_MESSAGE            "error-next.png"
+
+/* Stock icons */
+#define ANJUTA_STOCK_MESSAGES                 "anjuta-messages"
+#define ANJUTA_STOCK_PREV_MESSAGE             "anjuta-prev-message"
+#define ANJUTA_STOCK_NEXT_MESSAGE             "anjuta-next-message"
+
 static void on_next_message(GtkAction* menuitem, MessageViewPlugin *plugin)
 {
 	g_message("Next Message");
@@ -41,11 +51,11 @@ static void on_prev_message(GtkAction* menuitem, MessageViewPlugin *plugin)
 
 
 static GtkActionEntry actions_goto[] = {
-  { "ActionMessageNext", GTK_STOCK_GO_FORWARD,
+  { "ActionMessageNext", ANJUTA_STOCK_NEXT_MESSAGE,
     N_("_Next message"), NULL,
 	N_("Next message"),
     G_CALLBACK (on_next_message)},
-  { "ActionMessagePrev", GTK_STOCK_GO_BACK,
+  { "ActionMessagePrev", ANJUTA_STOCK_PREV_MESSAGE,
     N_("_Previous message"), NULL,
 	N_("Previous message"),
     G_CALLBACK (on_prev_message)}
@@ -54,7 +64,7 @@ static GtkActionEntry actions_goto[] = {
 gpointer parent_class;
 
 #define REGISTER_ICON(icon, stock_id) \
-	pixbuf = gdk_pixbuf_new_from_file (icon, NULL); \
+	pixbuf = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"icon, NULL); \
 	icon_set = gtk_icon_set_new_from_pixbuf (pixbuf); \
 	gtk_icon_factory_add (icon_factory, stock_id, icon_set); \
 	g_object_unref (pixbuf);
@@ -75,7 +85,10 @@ register_stock_icons (AnjutaPlugin *plugin)
 	/* Register stock icons */
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	icon_factory = anjuta_ui_get_icon_factory (ui);
-	REGISTER_ICON (PACKAGE_PIXMAPS_DIR"/"ICON_FILE, "message-manager-plugin-icon");
+	REGISTER_ICON (ICON_FILE, "message-manager-plugin-icon");
+	REGISTER_ICON (ANJUTA_PIXMAP_MESSAGES, ANJUTA_STOCK_MESSAGES);
+	REGISTER_ICON (ANJUTA_PIXMAP_NEXT_MESSAGE, ANJUTA_STOCK_NEXT_MESSAGE);
+	REGISTER_ICON (ANJUTA_PIXMAP_PREV_MESSAGE, ANJUTA_STOCK_PREV_MESSAGE);
 }
 
 static gboolean

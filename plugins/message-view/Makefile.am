@@ -2,8 +2,15 @@
 anjuta_gladedir = $(prefix)/@NO_PREFIX_PACKAGE_DATA_DIR@/glade
 anjuta_glade_DATA =  anjuta-message-manager-plugin.glade
 
-plugin_icondir = $(prefix)/@NO_PREFIX_PACKAGE_PIXMAPS_DIR@
-plugin_icon_DATA = anjuta-message-view.png
+plugin_pixmapsdir = $(prefix)/@NO_PREFIX_PACKAGE_PIXMAPS_DIR@
+plugin_pixmaps_DATA = \
+	anjuta-message-view.png \
+	preferences-messages.png \
+	error-next.png \
+    error-prev.png \
+	error-next-16.png \
+	error-prev-16.png \
+	messages.xpm
 
 anjuta_uidir = $(prefix)/@NO_PREFIX_PACKAGE_DATA_DIR@/ui
 anjuta_ui_DATA =  anjuta-message-manager.ui
@@ -39,7 +46,7 @@ libanjuta_message_view_la_SOURCES = \
 	message-view.h
 
 EXTRA_DIST = \
-	$(plugin_icon_DATA) \
-        $(plugin_in_files) \
-        $(anjuta_plugin_DATA) \
+	$(plugin_pixmaps_DATA) \
+	$(plugin_in_files) \
+	$(anjuta_plugin_DATA) \
 	$(anjuta_ui_DATA)

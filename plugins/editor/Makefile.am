@@ -6,9 +6,36 @@ anjuta_glade_DATA =  anjuta-document-manager.glade
 anjuta_uidir = $(prefix)/@NO_PREFIX_PACKAGE_DATA_DIR@/ui
 anjuta_ui_DATA =  anjuta-document-manager.ui
 
-# Plugin Icon file
-plugin_icondir = $(prefix)/@NO_PREFIX_PACKAGE_PIXMAPS_DIR@
-plugin_icon_DATA = anjuta-document-manager.png
+# Plugin pixmaps
+plugin_pixmapsdir = $(prefix)/@NO_PREFIX_PACKAGE_PIXMAPS_DIR@
+plugin_pixmaps_DATA = \
+	anjuta-document-manager.png \
+	preferences-editor.png \
+	undock.png \
+	fold_toggle.xpm \
+	fold_open.xpm \
+	fold_close.xpm \
+	indent.xpm \
+	indent_set.xpm \
+	indent_inc.xpm \
+	indent_dcr.xpm \
+	indent_auto.xpm \
+	autocomplete-16.png \
+	autocomplete.png \
+	block-end-16.png \
+	block-end.png \
+	block-start-16.png \
+	block-start.png \
+	block_select.xpm \
+	bookmark-first-16.png \
+	bookmark-first.png \
+	bookmark-prev-16.png \
+	bookmark-prev.png \
+    bookmark-next-16.png \
+	bookmark-next.png \
+	bookmark-last-16.png \
+	bookmark-last.png \
+	bookmark_toggle.xpm
 
 # Plugin Icon file
 plugin_in_files = anjuta-document-manager.plugin.in
@@ -74,7 +101,7 @@ libanjuta_editor_la_SOURCES= \
 	print.h
 
 EXTRA_DIST = \
-	$(plugin_icon_DATA) \
-        $(plugin_in_files) \
-        $(anjuta_plugin_DATA) \
+	$(plugin_pixmaps_DATA) \
+	$(plugin_in_files) \
+	$(anjuta_plugin_DATA) \
 	$(anjuta_ui_DATA)

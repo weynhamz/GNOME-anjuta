@@ -30,23 +30,7 @@ anjuta_pixmaps_DATA = \
 	appwiz_terminal.png \
 	appwiz_wxwin.png \
 	appwiz_xlib.png \
-	autocomplete-16.png \
-	autocomplete.png \
 	blank.xpm \
-	block-end-16.png \
-	block-end.png \
-	block_select.xpm \
-	block-start-16.png \
-	block-start.png \
-	bookmark-first-16.png \
-	bookmark-first.png \
-	bookmark-last-16.png \
-	bookmark-last.png \
-	bookmark-next-16.png \
-	bookmark-next.png \
-	bookmark-prev-16.png \
-	bookmark-prev.png \
-	bookmark_toggle.xpm \
 	breakpoint.xpm \
 	build_all.xpm \
 	build.xpm \
@@ -61,22 +45,10 @@ anjuta_pixmaps_DATA = \
 	dock.xpm \
 	directory.png \
 	directory-accept.png
-	error-next-16.png \
-	error-next.png \
-	error-prev-16.png \
-	error-prev.png \
-	fold_close.xpm \
-	fold_open.xpm \
-	fold_toggle.xpm \
 	frame.xpm \
 	handle_hide.xpm \
 	handle_undock.xpm \
 	help.xpm \
-	indent_auto.xpm \
-	indent_dcr.xpm \
-	indent_inc.xpm \
-	indent_set.xpm \
-	indent.xpm \
 	inspect.xpm \
 	interrupt.xpm \
 	madeinanjuta.xcf\
@@ -97,11 +69,8 @@ anjuta_pixmaps_DATA = \
 	preferences-encodings.png\
 	preferences-indentation.png\
 	preferences-cvs.png\
-	preferences-messages.png\
-	preferences-editor.png\
 	preferences-print.png\
 	preferences-general.png\
-	preferences-terminal.png\
 	project.xpm \
 	registers.xpm \
 	run_to_cursor.xpm \
@@ -126,7 +95,6 @@ anjuta_pixmaps_DATA = \
 	sv_unknown.xpm \
 	sv_variable.xpm \
 	syntax.xpm \
-	undock.png \
 	watch.xpm \
 	wizard.xpm
 

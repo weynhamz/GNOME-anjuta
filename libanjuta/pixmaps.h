@@ -40,8 +40,6 @@
 #define ANJUTA_PIXMAP_OPEN_PROJECT        "open_project.png"
 #define ANJUTA_PIXMAP_SAVE_PROJECT        "save_project.png"
 #define ANJUTA_PIXMAP_CLOSE_PROJECT       "close_project.png"
-#define ANJUTA_PIXMAP_SYNTAX              "syntax.xpm"
-#define ANJUTA_PIXMAP_MESSAGES            "messages.xpm"
 #define ANJUTA_PIXMAP_PROJECT_LISTING     "project.xpm"
 #define ANJUTA_PIXMAP_BREAKPOINT          "breakpoint.xpm"
 #define ANJUTA_PIXMAP_WATCH               "watch.xpm"
@@ -55,10 +53,8 @@
 #define ANJUTA_PIXMAP_BUILD               "build.xpm"
 #define ANJUTA_PIXMAP_DEBUG               "debug.xpm"
 #define ANJUTA_PIXMAP_BUILD_ALL           "build_all.xpm"
-#define ANJUTA_PIXMAP_INDENT              "indent.xpm"
 #define ANJUTA_PIXMAP_HELP                "help.xpm"
 #define ANJUTA_PIXMAP_DOCK                "dock.xpm"
-#define ANJUTA_PIXMAP_UNDOCK              "undock.png"
 #define ANJUTA_PIXMAP_CONTINUE            "continue.xpm"
 #define ANJUTA_PIXMAP_RUN_TO_CURSOR       "run_to_cursor.xpm"
 #define ANJUTA_PIXMAP_STEP_IN             "step_in.xpm"
@@ -100,30 +96,6 @@
 #define ANJUTA_PIXMAP_APP_XWIN            "appwiz_xlib.png"
 #define ANJUTA_PIXMAP_APP_XWINDOCKAPP     "appwiz_xlib.png"
 #define ANJUTA_PIXMAP_APP_QT              "appwiz_terminal.png"
-
-#define ANJUTA_PIXMAP_BOOKMARK_TOGGLE     "bookmark_toggle.xpm"
-#define ANJUTA_PIXMAP_BOOKMARK_FIRST      "bookmark-first.png"
-#define ANJUTA_PIXMAP_BOOKMARK_PREV       "bookmark-prev.png"
-#define ANJUTA_PIXMAP_BOOKMARK_NEXT       "bookmark-next.png"
-#define ANJUTA_PIXMAP_BOOKMARK_LAST       "bookmark-last.png"
-#define ANJUTA_PIXMAP_ERROR_PREV          "error-prev.png"
-#define ANJUTA_PIXMAP_ERROR_NEXT          "error-next.png"
-
-#define ANJUTA_PIXMAP_FOLD_TOGGLE         "fold_toggle.xpm"
-#define ANJUTA_PIXMAP_FOLD_CLOSE          "fold_close.xpm"
-#define ANJUTA_PIXMAP_FOLD_OPEN           "fold_open.xpm"
-
-#define ANJUTA_PIXMAP_BLOCK_SELECT        "block_select.xpm"
-#define ANJUTA_PIXMAP_BLOCK_START         "block-start.png"
-#define ANJUTA_PIXMAP_BLOCK_END           "block-end.png"
-
-#define ANJUTA_PIXMAP_INDENT_INC          "indent_inc.xpm"
-#define ANJUTA_PIXMAP_INDENT_DCR          "indent_dcr.xpm"
-#define ANJUTA_PIXMAP_INDENT_AUTO         "indent_auto.xpm"
-#define ANJUTA_PIXMAP_AUTOFORMAT_SETTING  "indent_set.xpm"
-
-#define ANJUTA_PIXMAP_CALLTIP             "calltip.xpm"
-#define ANJUTA_PIXMAP_AUTOCOMPLETE        "autocomplete.png"
 
 /* Pixmaps for file and symbol browsers */
 /* Symbol browser */

@@ -1,5 +1,32 @@
 2004-07-28  Naba Kumar  <naba@gnome.org>
 
+	* src/anjuta-app.c, libanjuta/pixmaps.h, libanjuta/anjuta-stock.h,
+	terminal/preferences-terminal.png (added), message-view/*.png (added),
+	message-view/*.xpm (added), editor/*.png (added),
+	editor/*.xpm (added), plugins/editor/Makefile.am,
+	plugins/editor/plugin.c, plugins/message-view/Makefile.am,
+	plugins/message-view/plugin.c, plugins/terminal/Makefile.am,
+	src/anjuta-app.c, pixmaps/Makefile.am: Moved pixmap files to
+	respective plugins directories.
+
+	* pixmaps/autocomplete-16.png, pixmaps/autocomplete.png,
+	pixmaps/block-end-16.png, pixmaps/block-end.png
+	pixmaps/block-start-16.png, pixmaps/block-start.png
+	pixmaps/block_select.xpm, pixmaps/bookmark-first-16.png
+	pixmaps/bookmark-first.png, pixmaps/bookmark-last-16.png
+	pixmaps/bookmark-last.png, pixmaps/bookmark-next-16.png
+	pixmaps/bookmark-next.png, pixmaps/bookmark-prev-16.png
+	pixmaps/bookmark-prev.png, pixmaps/bookmark_toggle.xpm
+	pixmaps/fold_close.xpm, pixmaps/fold_open.xpm
+	pixmaps/fold_toggle.xpm, pixmaps/indent.xpm
+	pixmaps/indent_auto.xpm, pixmaps/indent_dcr.xpm
+	pixmaps/indent_inc.xpm, pixmaps/indent_set.xpm
+	pixmaps/preferences-editor.png, pixmaps/undock.png
+	pixmaps/error-next-16.png, pixmaps/error-next.png
+	pixmaps/error-prev-16.png, pixmaps/error-prev.png
+	pixmaps/messages.xpm, pixmaps/preferences-messages.png,
+	pixmaps/preferences-terminal.png: Deleted
+
 	* libanjuta/properties* (removed), plugins/editor/properties* (added),
 	plugins/editor/Makefile.am, plugins/editor/action-callbacks.c,
 	plugins/editor/aneditor.cxx, plugins/editor/anjuta-docman.c,
@@ -45,6 +72,8 @@
 	plugins/terminal/terminal.c, src/Makefile.am,
 	src/action-callbacks.c, src/anjuta-app.c, src/anjuta-app.h,
 	src/anjuta.c, src/layout.xml, src/preferences.c: Bug fixes.
+	
+	* libegg/dock/*: Removed directory.
 	
 2004-07-28  Naba Kumar  <naba@gnome.org>
 

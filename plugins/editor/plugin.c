@@ -40,6 +40,51 @@
 #define PREFS_GLADE PACKAGE_DATA_DIR"/glade/anjuta-document-manager.glade"
 #define ICON_FILE "anjuta-document-manager.png"
 
+/* Pixmaps */
+#define ANJUTA_PIXMAP_UNDOCK              "undock.png"
+#define ANJUTA_PIXMAP_INDENT              "indent.xpm"
+#define ANJUTA_PIXMAP_SYNTAX              "syntax.xpm"
+#define ANJUTA_PIXMAP_BOOKMARK_TOGGLE     "bookmark_toggle.xpm"
+#define ANJUTA_PIXMAP_BOOKMARK_FIRST      "bookmark-first.png"
+#define ANJUTA_PIXMAP_BOOKMARK_PREV       "bookmark-prev.png"
+#define ANJUTA_PIXMAP_BOOKMARK_NEXT       "bookmark-next.png"
+#define ANJUTA_PIXMAP_BOOKMARK_LAST       "bookmark-last.png"
+#define ANJUTA_PIXMAP_ERROR_PREV          "error-prev.png"
+#define ANJUTA_PIXMAP_ERROR_NEXT          "error-next.png"
+
+#define ANJUTA_PIXMAP_FOLD_TOGGLE         "fold_toggle.xpm"
+#define ANJUTA_PIXMAP_FOLD_CLOSE          "fold_close.xpm"
+#define ANJUTA_PIXMAP_FOLD_OPEN           "fold_open.xpm"
+
+#define ANJUTA_PIXMAP_BLOCK_SELECT        "block_select.xpm"
+#define ANJUTA_PIXMAP_BLOCK_START         "block-start.png"
+#define ANJUTA_PIXMAP_BLOCK_END           "block-end.png"
+
+#define ANJUTA_PIXMAP_INDENT_INC          "indent_inc.xpm"
+#define ANJUTA_PIXMAP_INDENT_DCR          "indent_dcr.xpm"
+#define ANJUTA_PIXMAP_INDENT_AUTO         "indent_auto.xpm"
+#define ANJUTA_PIXMAP_AUTOFORMAT_SETTING  "indent_set.xpm"
+
+#define ANJUTA_PIXMAP_CALLTIP             "calltip.xpm"
+#define ANJUTA_PIXMAP_AUTOCOMPLETE        "autocomplete.png"
+
+/* Stock icons */
+#define ANJUTA_STOCK_UNDOCK                   "anjuta-undock"
+#define ANJUTA_STOCK_FOLD_TOGGLE              "anjuta-fold-toggle"
+#define ANJUTA_STOCK_FOLD_OPEN                "anjuta-fold-open"
+#define ANJUTA_STOCK_FOLD_CLOSE               "anjuta-fold-close"
+#define ANJUTA_STOCK_BLOCK_SELECT             "anjuta-block-select"
+#define ANJUTA_STOCK_INDENT_INC               "anjuta-indent-inc"
+#define ANJUTA_STOCK_INDENT_DCR               "anjuta-indect-dcr"
+#define ANJUTA_STOCK_INDENT_AUTO              "anjuta-indent-auto"
+#define ANJUTA_STOCK_AUTOFORMAT_SETTINGS      "anjuta-autoformat-settings"
+#define ANJUTA_STOCK_AUTOCOMPLETE             "anjuta-autocomplete"
+#define ANJUTA_STOCK_PREV_BRACE               "anjuta-prev-brace"
+#define ANJUTA_STOCK_NEXT_BRACE               "anjuta-next-brace"
+#define ANJUTA_STOCK_BLOCK_START              "anjuta-block-start"
+#define ANJUTA_STOCK_BLOCK_END                "anjuta-block-end"
+#define ANJUTA_STOCK_TOGGLE_BOOKMARK          "anjuta-toggle-bookmark"
+
 gpointer parent_class;
 
 static GtkActionEntry actions_file[] = {
@@ -552,7 +597,7 @@ ui_states_init (AnjutaPlugin *plugin)
 }
 
 #define REGISTER_ICON(icon, stock_id) \
-	pixbuf = gdk_pixbuf_new_from_file (icon, NULL); \
+	pixbuf = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"icon, NULL); \
 	icon_set = gtk_icon_set_new_from_pixbuf (pixbuf); \
 	gtk_icon_factory_add (icon_factory, stock_id, icon_set); \
 	g_object_unref (pixbuf);
@@ -573,7 +618,20 @@ register_stock_icons (AnjutaPlugin *plugin)
 	/* Register stock icons */
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	icon_factory = anjuta_ui_get_icon_factory (ui);
-	REGISTER_ICON (PACKAGE_PIXMAPS_DIR"/"ICON_FILE, "editor-plugin-icon");
+	REGISTER_ICON (ICON_FILE, "editor-plugin-icon");
+	REGISTER_ICON (ANJUTA_PIXMAP_UNDOCK, ANJUTA_STOCK_UNDOCK);
+	REGISTER_ICON (ANJUTA_PIXMAP_FOLD_TOGGLE, ANJUTA_STOCK_FOLD_TOGGLE);
+	REGISTER_ICON (ANJUTA_PIXMAP_FOLD_OPEN, ANJUTA_STOCK_FOLD_OPEN);
+	REGISTER_ICON (ANJUTA_PIXMAP_FOLD_CLOSE, ANJUTA_STOCK_FOLD_CLOSE);
+	REGISTER_ICON (ANJUTA_PIXMAP_INDENT_INC, ANJUTA_STOCK_INDENT_INC);
+	REGISTER_ICON (ANJUTA_PIXMAP_INDENT_DCR, ANJUTA_STOCK_INDENT_DCR);
+	REGISTER_ICON (ANJUTA_PIXMAP_INDENT_AUTO, ANJUTA_STOCK_INDENT_AUTO);
+	REGISTER_ICON (ANJUTA_PIXMAP_AUTOFORMAT_SETTING, ANJUTA_STOCK_AUTOFORMAT_SETTINGS);
+	REGISTER_ICON (ANJUTA_PIXMAP_AUTOCOMPLETE, ANJUTA_STOCK_AUTOCOMPLETE);
+	REGISTER_ICON (ANJUTA_PIXMAP_BLOCK_SELECT, ANJUTA_STOCK_BLOCK_SELECT);
+	REGISTER_ICON (ANJUTA_PIXMAP_BOOKMARK_TOGGLE, ANJUTA_STOCK_TOGGLE_BOOKMARK);
+	REGISTER_ICON (ANJUTA_PIXMAP_BLOCK_START, ANJUTA_STOCK_BLOCK_START);
+	REGISTER_ICON (ANJUTA_PIXMAP_BLOCK_END, ANJUTA_STOCK_BLOCK_END);
 }
 
 static gboolean
