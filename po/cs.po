@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta VERSION\n"
-"POT-Creation-Date: 2003-04-28 11:32+0200\n"
-"PO-Revision-Date: 2003-04-28 13:32+0200\n"
+"POT-Creation-Date: 2003-05-06 03:43+0200\n"
+"PO-Revision-Date: 2003-05-06 14:05+0200\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -178,7 +178,7 @@ msgstr "Podporuje"
 #: anjuta_dialogs_strings.c:48 anjuta_dialogs_strings.c:51
 #: anjuta_dialogs_strings.c:54 anjuta_dialogs_strings.c:58 src/cvs_gui.c:72
 #: src/registers_gui.c:47 src/sharedlib_gui.c:40 src/signals_gui.c:54
-#: src/stack_trace_gui.c:52
+#: src/stack_trace_gui.c:60
 msgid "Update"
 msgstr "Aktualizovat"
 
@@ -1692,8 +1692,8 @@ msgstr "Tvůrce tříd"
 #. 14
 #: plugins/class-gen/clsGen.c:1343 src/main_menubar_def.h:996
 #: src/project_dbase_gui.c:358 src/registers_gui.c:55 src/sharedlib_gui.c:48
-#: src/signals_gui.c:62 src/stack_trace_gui.c:67 src/toolbar.c:158
-#: src/watch_gui.c:77
+#: src/signals_gui.c:62 src/stack_trace_gui.c:75 src/toolbar.c:158
+#: src/watch_gui.c:76
 msgid "Help"
 msgstr "Nápověda"
 
@@ -2310,7 +2310,7 @@ msgid "Unable to build user interface for tool help"
 msgstr "Nemohu sestavit uživatelské rozhraní pro nápovědu nástrojů"
 
 #: src/anjuta-tools.c:1777 src/debug_tree.c:1463 src/debug_tree.c:1483
-#: src/watch_gui.c:123
+#: src/watch_gui.c:130
 msgid "Variable"
 msgstr "Proměnná"
 
@@ -2319,7 +2319,7 @@ msgid "Meaning"
 msgstr "Význam"
 
 #: src/anjuta-tools.c:1789 src/debug_tree.c:1463 src/debug_tree.c:1492
-#: src/watch_gui.c:132
+#: src/watch_gui.c:139
 msgid "Value"
 msgstr "Hodnota"
 
@@ -2992,7 +2992,7 @@ msgid "CVS: Remove file"
 msgstr "CVS: Odstranit soubor"
 
 #. 3
-#: src/cvs_gui.c:92 src/project_dbase_gui.c:332 src/watch_gui.c:46
+#: src/cvs_gui.c:92 src/project_dbase_gui.c:332 src/watch_gui.c:45
 msgid "Remove"
 msgstr "Odstranit"
 
@@ -3095,24 +3095,24 @@ msgid "Import settings"
 msgstr "Nastavení importu"
 
 #. Must declare static, because it will be used forever
-#: src/debugger.c:78
+#: src/debugger.c:75
 msgid "Load Executable File"
 msgstr "Načíst spustitelný soubor"
 
 #. Must declare static, because it will be used forever
-#: src/debugger.c:84
+#: src/debugger.c:81
 msgid "Load Core File"
 msgstr "Načíst soubor core"
 
-#: src/debugger.c:194 src/debugger.c:646
+#: src/debugger.c:184 src/debugger.c:633
 msgid "Loading Executable: "
 msgstr "Načítám spustitelný soubor: "
 
-#: src/debugger.c:245
+#: src/debugger.c:235
 msgid "Loading Core: "
 msgstr "Načítám core: "
 
-#: src/debugger.c:290 src/debugger.c:318
+#: src/debugger.c:280 src/debugger.c:308
 msgid ""
 "You have a process ATTACHED under the debugger.\n"
 "Please detach it first and then load the executable file."
@@ -3120,7 +3120,7 @@ msgstr ""
 "V debuggeru máte PŘIPOJEN proces.\n"
 "Nejdříve jej prosím odpojte a spustitelný soubor načtěte potom."
 
-#: src/debugger.c:293 src/debugger.c:321
+#: src/debugger.c:283 src/debugger.c:311
 msgid ""
 "You have a process RUNNING under the debugger.\n"
 "Please stop it first and then load the executable file."
@@ -3128,7 +3128,7 @@ msgstr ""
 "V debuggeru máte BĚŽÍCÍ proces.\n"
 "Nejdříve jej prosím zastavte a spustitelný soubor načtěte potom."
 
-#: src/debugger.c:572
+#: src/debugger.c:559
 #, c-format
 msgid ""
 "Unable to find: %s.\n"
@@ -3139,40 +3139,40 @@ msgstr ""
 "Nemohu inicializovat debugger.\n"
 "Přesvědčte se, že Anjuta je správně nainstalovaná."
 
-#: src/debugger.c:641
+#: src/debugger.c:628
 msgid "Debugger"
 msgstr "Debugger"
 
-#: src/debugger.c:644
+#: src/debugger.c:631
 msgid "Getting ready to start debugging session ...\n"
 msgstr "Připravuji se na spuštění ladicího sezení ...\n"
 
-#: src/debugger.c:656
+#: src/debugger.c:643
 msgid "No executable specified\n"
 msgstr "Nezadán spustitelný soubor\n"
 
-#: src/debugger.c:660
+#: src/debugger.c:647
 msgid "Open an executable or attach to a process to start debugging.\n"
 msgstr ""
 "Pro spuštění ladění otevřete spustitelný soubor nebo se připojte k procesu.\n"
 
-#: src/debugger.c:668
+#: src/debugger.c:655
 msgid "There was an error whilst launching the debugger.\n"
 msgstr "Při spuštění debuggeru došlo k chybě.\n"
 
-#: src/debugger.c:672
+#: src/debugger.c:659
 msgid "Make sure 'gdb' is installed on the system.\n"
 msgstr "Přesvědčte se, že v systému je nainstalován 'gdb'.\n"
 
-#: src/debugger.c:812
+#: src/debugger.c:797
 msgid "Error: "
 msgstr "Chyba: "
 
-#: src/debugger.c:837
+#: src/debugger.c:822
 msgid "Debugger is ready.\n"
 msgstr "Debugger je připraven.\n"
 
-#: src/debugger.c:944
+#: src/debugger.c:929
 msgid ""
 "\n"
 "Well, did you find the BUG? Debugging session completed.\n"
@@ -3182,28 +3182,28 @@ msgstr ""
 "No, našli jste tu CHYBU? Ladicí sezení dokončeno.\n"
 "\n"
 
-#: src/debugger.c:1174
+#: src/debugger.c:1161
 msgid "Cannot execute gnome-terminal"
 msgstr "Nemohu spustit gnome-terminal"
 
-#: src/debugger.c:1209
+#: src/debugger.c:1196
 msgid "Cannot start terminal for debugging."
 msgstr "Nemohu spustit terminál pro ladění."
 
-#: src/debugger.c:1274
+#: src/debugger.c:1261
 msgid "Warning: No debug terminal. Redirecting stdio to /dev/null.\n"
 msgstr "Varování: Žádný ladicí terminál. Přesměrovávám stdio do /dev/null.\n"
 
-#: src/debugger.c:1292
+#: src/debugger.c:1279
 msgid "Running program ... \n"
 msgstr "Spouštím program ... \n"
 
-#: src/debugger.c:1422
+#: src/debugger.c:1409
 #, c-format
 msgid "Attaching to process: %d\n"
 msgstr "Připojuji se k procesu: %d\n"
 
-#: src/debugger.c:1451
+#: src/debugger.c:1438
 msgid ""
 "A process is already running.\n"
 "Would you like to terminate it and attach the new process?"
@@ -3211,16 +3211,16 @@ msgstr ""
 "Proces již běží.\n"
 "Chcete jej přerušit a připojit se k novém procesu?"
 
-#: src/debugger.c:1463
+#: src/debugger.c:1450
 msgid "Anjuta is unable to attach to itself."
 msgstr "Anjuta se nemůže připojit sama k sobě."
 
-#: src/debugger.c:1549
+#: src/debugger.c:1536
 #, c-format
 msgid "Detaching the process: %d\n"
 msgstr "Odpojuji proces: %d\n"
 
-#: src/debugger.c:1605
+#: src/debugger.c:1592
 msgid ""
 "Program is ATTACHED.\n"
 "Do you still want to stop Debugger?"
@@ -3228,7 +3228,7 @@ msgstr ""
 "Program je PŘIPOJEN.\n"
 "Chcete přesto zastavit debugger?"
 
-#: src/debugger.c:1608
+#: src/debugger.c:1595
 msgid ""
 "Program is RUNNING.\n"
 "Do you still want to stop Debugger?"
@@ -3241,7 +3241,7 @@ msgstr ""
 #. breakpoints_dbase_update,
 #. debugger.breakpoints_dbase);
 #.
-#: src/debugger.c:1788
+#: src/debugger.c:1775
 msgid "All breakpoints enabled:\n"
 msgstr "Všechny breakpointy povoleny:\n"
 
@@ -3250,7 +3250,7 @@ msgstr "Všechny breakpointy povoleny:\n"
 #. breakpoints_dbase_update,
 #. debugger.breakpoints_dbase);
 #.
-#: src/debugger.c:1834
+#: src/debugger.c:1821
 msgid "All breakpoints disabled:\n"
 msgstr "Všechny breakpointy zakázány:\n"
 
@@ -3259,21 +3259,21 @@ msgstr "Všechny breakpointy zakázány:\n"
 #. breakpoints_dbase_update,
 #. debugger.breakpoints_dbase);
 #.
-#: src/debugger.c:1880
+#: src/debugger.c:1867
 msgid "All breakpoints deleted:\n"
 msgstr "Všechny breakpointy odstraněny:\n"
 
-#: src/debugger.c:1913
+#: src/debugger.c:1900
 #, c-format
 msgid "Interrupting the process: %d\n"
 msgstr "Přerušuji proces: %d\n"
 
-#: src/debugger.c:1942
+#: src/debugger.c:1929
 #, c-format
 msgid "Sending signal %s to the process: %d\n"
 msgstr "Posílám procesu signál %s: %d\n"
 
-#: src/debugger.c:1963
+#: src/debugger.c:1950
 msgid "Error whilst signalling the process."
 msgstr "Chyba při posílání signálu procesu."
 
@@ -3305,15 +3305,15 @@ msgstr "Šestnáctkový"
 msgid "Char"
 msgstr "Znak"
 
-#: src/executer.c:53 src/mainmenu_callbacks.c:1695
+#: src/executer.c:53 src/mainmenu_callbacks.c:1690
 msgid "The target executable of this Project is unknown"
 msgstr "Cílový spustitelný soubor tohoto projektu není znám"
 
-#: src/executer.c:58 src/mainmenu_callbacks.c:1697
+#: src/executer.c:58 src/mainmenu_callbacks.c:1692
 msgid "The target executable of this Project is not executable"
 msgstr "Cílový spustitelný soubor tohoto projektu není spustitelný"
 
-#: src/executer.c:63 src/mainmenu_callbacks.c:1701
+#: src/executer.c:63 src/mainmenu_callbacks.c:1696
 msgid "The target executable does not exist for this Project"
 msgstr "Cílový spustitelný soubor tohoto projektu neexistuje"
 
@@ -3321,8 +3321,8 @@ msgstr "Cílový spustitelný soubor tohoto projektu neexistuje"
 msgid "No file or Project opened."
 msgstr "Neotevřen žádný soubor ani projekt."
 
-#: src/executer.c:81 src/executer.c:100 src/mainmenu_callbacks.c:1721
-#: src/mainmenu_callbacks.c:1732
+#: src/executer.c:81 src/executer.c:100 src/mainmenu_callbacks.c:1716
+#: src/mainmenu_callbacks.c:1727
 msgid "No executable for this file."
 msgstr "Pro tento soubor neexistuje spustitelný soubor."
 
@@ -4451,15 +4451,12 @@ msgstr "_Registry"
 msgid "Show CPU registers and their contents"
 msgstr "Zobrazit registry CPU a jejich obsah"
 
-#. 10
-#: src/main_menubar_def.h:843
-msgid "Program _Stack"
-msgstr "_Zásobník programu"
-
-#: src/main_menubar_def.h:844
-msgid "Show stack trace of the program"
-msgstr "Zobrazit stopu zásobníku programu"
-
+#. {/*10*/
+#. GNOME_APP_UI_ITEM, N_("Program _Stack"),
+#. N_("Show stack trace of the program"),
+#. on_program_stack1_activate, NULL, NULL,
+#. GNOME_APP_PIXMAP_NONE, NULL,
+#. GDK_F7, GDK_CONTROL_MASK, NULL},
 #. 11
 #: src/main_menubar_def.h:849
 msgid "Shared _Libraries"
@@ -5770,15 +5767,15 @@ msgstr "%d.%m.%Y"
 msgid "The file \"%s\" is not a header file."
 msgstr "Soubor \"%s\" není hlavičkový soubor."
 
-#: src/mainmenu_callbacks.c:1727
+#: src/mainmenu_callbacks.c:1722
 msgid "The executable is not up-to-date."
 msgstr "Spustitelný soubor není aktuální."
 
-#: src/mainmenu_callbacks.c:1752
+#: src/mainmenu_callbacks.c:1747
 msgid "Debugger is not running. Start it first."
 msgstr "Debugger neběží. Nejdříve jej spusťte."
 
-#: src/mainmenu_callbacks.c:2141
+#: src/mainmenu_callbacks.c:2136
 msgid ""
 "Hover the mouse pointer over any menu item and press\n"
 " the shortcut key to associate with it."
@@ -5806,7 +5803,7 @@ msgstr "Konec"
 msgid "Non accessible address !"
 msgstr "Nepřístupná adresa !"
 
-#: src/preferences.c:527
+#: src/preferences.c:553
 msgid ""
 "Are you sure you want to reset the preferences to\n"
 "their default settings?"
@@ -5814,7 +5811,7 @@ msgstr ""
 "Jste si jisti, že chcete vrátit nastavení na jejich\n"
 "implicitní hodnoty?"
 
-#: src/preferences.c:906
+#: src/preferences.c:940
 #, c-format
 msgid ""
 "Cannot load Global defaults and configuration files:\n"
@@ -5827,7 +5824,7 @@ msgstr ""
 "To může způsobit nesprávné chování nebo nestabilitu.\n"
 "Anjuta použije vestavěná (omezená) nastavení"
 
-#: src/preferences.c:1038
+#: src/preferences.c:1072
 msgid "Anjuta Preferences"
 msgstr "Nastavení Anjuty"
 
@@ -6464,29 +6461,41 @@ msgstr "Chyba při zápisu do: %s."
 msgid "Source Paths"
 msgstr "Zdrojové cesty"
 
-#: src/stack_trace_gui.c:38
+#: src/stack_trace_cbs.c:170
+msgid "Error getting selection\n"
+msgstr "Chyba při získávání výběru\n"
+
+#: src/stack_trace_cbs.c:181
+msgid "Error getting source location from stack frame"
+msgstr "Chyba při získávání umístění zdroje z aktivačního záznamu"
+
+#: src/stack_trace_gui.c:39
 msgid "Frame set"
 msgstr "Nastavení aktivačního záznamu"
 
-#: src/stack_trace_gui.c:45
+#: src/stack_trace_gui.c:46
 msgid "Frame info"
 msgstr "Informace o aktivačním záznamu"
 
-#: src/stack_trace_gui.c:59
+#: src/stack_trace_gui.c:53
+msgid "Frame args"
+msgstr "Argumenty aktivačního záznamu"
+
+#: src/stack_trace_gui.c:67
 msgid "View Source"
 msgstr "Zobrazit zdroj"
 
-#: src/stack_trace_gui.c:101
-msgid "Stack Trace"
-msgstr "Stopa zásobníku"
+#: src/stack_trace_gui.c:108
+msgid "Active"
+msgstr "Aktivní"
 
-#: src/stack_trace_gui.c:123 src/toolbar.c:618
+#: src/stack_trace_gui.c:117
+msgid "Count"
+msgstr "Počet"
+
+#: src/stack_trace_gui.c:129 src/toolbar.c:618
 msgid "Frame"
 msgstr "Aktivační záznam"
-
-#: src/stack_trace_gui.c:127 src/toolbar.c:646
-msgid "Stack"
-msgstr "Zásobník"
 
 #: src/support.c:60 src/support.c:85
 #, c-format
@@ -6950,6 +6959,10 @@ msgstr "Zkoumat nebo vyhodnotit výraz"
 msgid "Display the current frame information"
 msgstr "Zobrazit informace o aktuálním aktivačním záznamu"
 
+#: src/toolbar.c:646
+msgid "Stack"
+msgstr "Zásobník"
+
 #: src/toolbar.c:647
 msgid "Stack trace of the program"
 msgstr "Stopa zásobníku programu"
@@ -7052,55 +7065,55 @@ msgstr "Nemohu číst soubor: %s."
 msgid "Unable to complete file copy"
 msgstr "Nemohu dokončit kopírování souboru"
 
-#: src/watch_cbs.c:315
+#: src/watch_cbs.c:237
 msgid "< Not defined in current context >"
 msgstr "< Nedefinováno v aktuálním kontextu >"
 
-#: src/watch_gui.c:40
+#: src/watch_gui.c:39
 msgid "Add expression"
 msgstr "Přidat výraz"
 
-#: src/watch_gui.c:52
+#: src/watch_gui.c:51
 msgid "Update all"
 msgstr "Aktualizovat vše"
 
-#: src/watch_gui.c:58
+#: src/watch_gui.c:57
 msgid "Clear"
 msgstr "Vymazat"
 
-#: src/watch_gui.c:64
+#: src/watch_gui.c:63
 msgid "Toggle enable"
 msgstr "Přepnout povolení"
 
-#: src/watch_gui.c:70
+#: src/watch_gui.c:69
 msgid "Change item"
 msgstr "Změnit položku"
 
-#: src/watch_gui.c:167
+#: src/watch_gui.c:174
 msgid "Add Watch Expression"
 msgstr "Přidat sledovaný výraz"
 
-#: src/watch_gui.c:177
+#: src/watch_gui.c:184
 msgid "Add expression to watch"
 msgstr "Přidat výraz, který sledovat"
 
-#: src/watch_gui.c:232
+#: src/watch_gui.c:240
 msgid "Modify Watch Expression"
 msgstr "Upravit sledovaný výraz"
 
-#: src/watch_gui.c:242
+#: src/watch_gui.c:250
 msgid "Modify watched expression"
 msgstr "Upravit sledovaný výraz"
 
-#: src/watch_gui.c:298
+#: src/watch_gui.c:307
 msgid "Inspect/Evaluate"
 msgstr "Zkoumat/vyhodnotit"
 
-#: src/watch_gui.c:308
+#: src/watch_gui.c:317
 msgid "Inspect/Evaluate Expression"
 msgstr "Zkoumat/vyhodnotit výraz"
 
-#: src/watch_gui.c:317
+#: src/watch_gui.c:327
 msgid "Add To Watch"
 msgstr "Přidat do sledovaných"
 
@@ -7382,42 +7395,3 @@ msgstr "Objekt pixbuf"
 #: widgets/cell-renderer-captioned-image.c:215
 msgid "The pixbuf to render."
 msgstr "Pixbuf, který vykreslit."
-
-#~ msgid "Syntax highlighting and color styles"
-#~ msgstr "Zvýrazňování syntaxe a styly barev"
-
-#~ msgid "Syntax highlighting style"
-#~ msgstr "Styl zvýrazňování syntaxe"
-
-#~ msgid "Helper applications"
-#~ msgstr "Pomocné aplikace"
-
-#~ msgid "Expression _Watch"
-#~ msgstr "_Sledování výrazů"
-
-#~ msgid "Show expression watch window"
-#~ msgstr "Zobrazit okno sledování výrazů"
-
-#~ msgid "Syntax _highlighting ..."
-#~ msgstr "_Zvýrazňování syntaxe ..."
-
-#~ msgid "Windows settings ..."
-#~ msgstr "Nastavení oken ..."
-
-#~ msgid "Edit windows settings"
-#~ msgstr "Upravit nastavení oken"
-
-#~ msgid "Indentation"
-#~ msgstr "Odsazení"
-
-#~ msgid "Watch"
-#~ msgstr "Sledování"
-
-#~ msgid "Watch expressions during execution"
-#~ msgstr "Sledovat při běhu výrazy"
-
-#~ msgid "Expression Watch"
-#~ msgstr "Sledování výrazu"
-
-#~ msgid "Expression"
-#~ msgstr "Výraz"
