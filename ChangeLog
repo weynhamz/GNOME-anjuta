@@ -1,3 +1,9 @@
+2002-02-26  Naba Kumar <kh_naba@users.sourceforge.net>
+
+	* widgets/gnomefilelist.c: Bug fixes.
+	
+	Patch from Philip Van Hoof <freax@pandora.be>
+	
 2002-02-25  Naba Kumar <kh_naba@users.sourceforge.net>
 
 	* src/an_file_view.c:
