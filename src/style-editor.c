@@ -72,7 +72,6 @@ struct _StyleEditorPriv
 	GtkWidget *dialog;
 	GtkWidget *hilite_item_combo;
 	GtkWidget *font_picker;
-	GtkWidget *font_size_spin;
 	GtkWidget *font_bold_check;
 	GtkWidget *font_italics_check;
 	GtkWidget *font_underlined_check;
@@ -241,7 +240,35 @@ style_data_get_string (StyleData * sdata)
 static void
 style_data_set_font (StyleData * sdata, const gchar *font)
 {
-	string_assign (&sdata->font, font);
+	PangoFontDescription *desc;
+	const gchar *font_family;
+	
+	desc = pango_font_description_from_string (font);
+	font_family = pango_font_description_get_family(desc);
+	string_assign (&sdata->font, font_family);
+	
+	/* Change to lower case */
+	if (sdata->font)
+	{
+		gchar *s = sdata->font;
+		while(*s)
+		{
+			*s = tolower(*s);
+			s++;
+		}
+	}
+	pango_font_description_free (desc);
+}
+
+static void
+style_data_set_font_size_from_pango (StyleData * sdata, const gchar *font)
+{
+	PangoFontDescription *desc;
+	const gchar *font_family;
+	
+	desc = pango_font_description_from_string (font);
+	sdata->size = pango_font_description_get_size (desc) / PANGO_SCALE;
+	pango_font_description_free (desc);
 }
 
 static void
@@ -391,27 +418,30 @@ on_use_default_font_toggled (GtkToggleButton * tb, gpointer data)
 	p = data;
 
 	gtk_widget_set_sensitive (p->priv->font_picker, TRUE);
-	gtk_widget_set_sensitive (p->priv->font_size_spin, TRUE);
 	state = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (tb));
 	if (state)
 	{
-		font_name = g_strdup (p->priv->default_style->font);
-		gtk_spin_button_set_value (GTK_SPIN_BUTTON
-			(p->priv->font_size_spin),
-			p->priv->default_style->size);
+		font_name = g_strdup_printf ("%s %d",
+									 p->priv->default_style->font,
+									 p->priv->default_style->size);
 	}
 	else
 	{
-		font_name = g_strdup (p->priv->current_style->font);
-		gtk_spin_button_set_value (GTK_SPIN_BUTTON
-					   (p->priv->font_size_spin),
-					   p->priv->current_style->size);
+		if (p->priv->current_style->font &&
+			strlen (p->priv->current_style->font))
+		{
+			font_name = g_strdup_printf ("%s %d",
+										 p->priv->current_style->font,
+										 p->priv->current_style->size);
+		}
+		else
+		{
+			font_name = g_strdup_printf ("%s %d",
+										 p->priv->default_style->font,
+										 p->priv->default_style->size);
+		}
 	}
-	if (state)
-	{
-		gtk_widget_set_sensitive (p->priv->font_picker, FALSE);
-		gtk_widget_set_sensitive (p->priv->font_size_spin, FALSE);
-	}
+	gtk_widget_set_sensitive (p->priv->font_picker, !state);
 	gnome_font_picker_set_font_name (GNOME_FONT_PICKER (p->priv->font_picker),
 		font_name);
 	g_free(font_name);
@@ -510,46 +540,6 @@ on_use_default_back_toggled (GtkToggleButton * tb, gpointer data)
 	}
 }
 
-#if 0 /* No longer required, but keep it */
-static gchar* 
-font_get_nth_field (const gchar* font_name, gint n)
-{
-	gchar *start, *end, *tmp;
-	gint i;
-	
-	g_return_val_if_fail (font_name != NULL, NULL);
-	g_return_val_if_fail (strlen (font_name) !=0, NULL);
-	g_return_val_if_fail (n >= 0 && n < 14, NULL);
-	
-	start = strchr (font_name, '-');
-	for (i=0; i < n; i++)
-	{
-		tmp = start+1;
-		start = strchr (tmp, '-');
-		if (!start) return NULL;
-	}
-	tmp = start+1;
-	end = strchr (tmp, '-');
-	if (!end)
-		end = &start[strlen(start)-1];
-	return g_strndup (tmp, end-tmp);
-}
-
-static gboolean
-fontpicker_get_font_name (GtkWidget *gnomefontpicker, gchar** font)
-{
-	const gchar *font_name;
-	
-	font_name = gnome_font_picker_get_font_name (GNOME_FONT_PICKER(gnomefontpicker));
-	g_return_val_if_fail (font_name != NULL, FALSE);
-	*font = font_get_nth_field (font_name, 1);
-	g_message ("Font name is: %s", font_name);
-	if (*font == NULL)
-		return FALSE;
-	return TRUE;
-}
-#endif
-
 static void
 on_hilite_style_entry_changed (GtkEditable * editable, gpointer user_data)
 {
@@ -570,13 +560,17 @@ on_hilite_style_entry_changed (GtkEditable * editable, gpointer user_data)
 		font = gnome_font_picker_get_font_name (GNOME_FONT_PICKER
 												(p->priv->font_picker));
 		if (font)
+		{
 			style_data_set_font (p->priv->current_style, font);
+			style_data_set_font_size_from_pango (p->priv->current_style, font);
+		}
 		else
+		{
 			style_data_set_font (p->priv->current_style,
 								 p->priv->default_style->font);
-		p->priv->current_style->size =
-			gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON
-							  (p->priv->font_size_spin));
+			p->priv->current_style->size = p->priv->default_style->size;
+		}
+		
 		p->priv->current_style->bold =
 			gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
 						      (p->priv->font_bold_check));
@@ -844,7 +838,6 @@ create_style_editor_gui (StyleEditor * se)
 	gxml = glade_xml_new (GLADE_FILE_ANJUTA, "style_editor_dialog", NULL);
 	se->priv->dialog = glade_xml_get_widget (gxml, "style_editor_dialog");
 	se->priv->font_picker = glade_xml_get_widget (gxml, "font");
-	se->priv->font_size_spin = glade_xml_get_widget (gxml, "size");
 	se->priv->hilite_item_combo = glade_xml_get_widget (gxml, "combo");
 	se->priv->font_bold_check = glade_xml_get_widget (gxml, "bold");
 	se->priv->font_italics_check = glade_xml_get_widget (gxml, "italic");

@@ -1,6 +1,9 @@
 TODO List:
 ----------
 
+	o Save tree expand/collapse status of project/symbol/file trees in 
+	  session.
+	o s/zvt/vte/ terminal.
 	o Anjuta can open same file in multiple text editors.
 	  --> TagManager should not remove the file from it's database if
 	  another copy of the file is still open -- it crashes.

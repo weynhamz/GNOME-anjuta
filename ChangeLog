@@ -1,3 +1,10 @@
+2003-02-11  Naba Kumar <naba@gnome.org>
+
+	* src/style-editor.c: Fixed pango font description handling for fonts.
+	* src/anjuta.glade: Removed font size spin button.
+	* configure.in, src/anjuta.prj: Corrected version.
+	* TODO: update.
+	
 2003-02-10  Naba Kumar <naba@gnome.org>
 
 	* src/Makefile.am, src/anjuta-tools.c, src/main_menubar.c: Removed
