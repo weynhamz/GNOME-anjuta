@@ -1440,7 +1440,7 @@
 	* src/project_dbase_gui.c: Usability: Show file name in error message.
 	* widgets/gnomefilelist.c: Fixed memory leaks.
 
-2002-06-12  SÈbastien CÙtÈ <cots01@gel.usherb.ca>
+2002-06-12  S√©bastien C√¥t√© <cots01@gel.usherb.ca>
 
 	* printing/print.c, printing/print.h: Dynamically calculate
 	the line number width in print.
@@ -2146,9 +2146,9 @@
 2002-05-01  Stephane Demurget  <demurgets@free.fr>
 
 	* THANKS, src/about.c, manuals/anjuta-manual/C/authors.sgml: added
-	Benke L·szlÛ.
+	Benke L√°szl√≥.
 
-2002-05-01  Benke L·szlÛ  <decike@freemail.hu>
+2002-05-01  Benke L√°szl√≥  <decike@freemail.hu>
 
 	Patch reviewed by Stephane Demurget <demurgets@free.fr>.
 
@@ -4926,7 +4926,7 @@ attached the fix for the menu
 	* anjuta.h, anjuta_gui.c, anjuta_cbs.c:
 	   Added drag and drop support for opening files.
 	
-	Thanks to JosÅÈ Antonio Caminero Granja <JCamGra@alumnos.uva.es> and
+	Thanks to Jos√© Antonio Caminero Granja <JCamGra@alumnos.uva.es> and
 	Archit Baweja <bighead@crosswinds.net> for this idea.
 	
 	* TODO: Added some more todos. :-(
@@ -5468,7 +5468,7 @@ attached the fix for the menu
 	
 	* HACKING: Wrote something stupid.
 
-2001-05-02  StÈphane DÈmurget <demurgets@free.fr>
+2001-05-02  St√©phane D√©murget <demurgets@free.fr>
 
 	* Makefile.am: Added ChangeLog in local data list, becaused it's
 	  needed to create a new project.
@@ -5483,13 +5483,13 @@ attached the fix for the menu
 	* widgets/gnomefilelist.c: Fixed a project creation bug,
 	  introduced with latest changes.
 
-2001-05-01  StÈphane DÈmurget <demurgets@free.fr>
+2001-05-01  St√©phane D√©murget <demurgets@free.fr>
 
 	* widgets/gnomefilelist.c,
 	  BUGS: Fixed an annoying bug preventing from loading files/project
 	  given on the command line. Polished the whole gnome_filelist widget.
 
-2001-04-27  StÈphane DÈmurget <demurgets@free.fr>
+2001-04-27  St√©phane D√©murget <demurgets@free.fr>
 
 	* src/main.c,
 	  src/anjuta.c,
@@ -5497,7 +5497,7 @@ attached the fix for the menu
 
 	* BUGS: Need to clean that damn gnome_filelist widget.
 
-2001-04-25  StÈphane DÈmurget <demurgets@free.fr>
+2001-04-25  St√©phane D√©murget <demurgets@free.fr>
 
 	* src/registers.c,
 	  src/sharedlib.c,
@@ -5521,6 +5521,6 @@ attached the fix for the menu
 
 	* configure.in: Sort ALL_LINGUAS alphabetically.
 
-2001-04-22  StÈphane DÈmurget <demurgets@free.fr>
+2001-04-22  St√©phane D√©murget <demurgets@free.fr>
 
 	* Emptied that ugly old Changelog.
