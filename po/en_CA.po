@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-03-15 19:18-0500\n"
-"PO-Revision-Date: 2005-03-15 12:57-0400\n"
+"POT-Creation-Date: 2005-03-16 12:02-0500\n"
+"PO-Revision-Date: 2005-03-16 12:57-0400\n"
 "Last-Translator: Adam Weinberger <adamw@gnome.org>\n"
 "Language-Team: Canadian English <adamw@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -1864,131 +1864,154 @@ msgid "Select source file"
 msgstr "Select source file"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:1
+msgid "* Base Class Name:"
+msgstr "* Base Class Name:"
+
+#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:2
+msgid "* Class Function Prefix:"
+msgstr "* Class Function Prefix:"
+
+#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:3
+msgid "* Class name:"
+msgstr "* Class name:"
+
+#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:4
+msgid "* GObject Type Prefix:"
+msgstr "* GObject Type Prefix:"
+
+#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:5
+msgid "* GObject Type:"
+msgstr "* GObject Type:"
+
+#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:6
+msgid "* Output Header File:"
+msgstr "* Output Header File:"
+
+#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:7
+msgid "* Output Source File:"
+msgstr "* Output Source File:"
+
+#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:8
 msgid ""
 "<span size=\"large\" weight=\"bold\">GObject Class Template Builder</span>"
 msgstr ""
 "<span size=\"large\" weight=\"bold\">GObject Class Template Builder</span>"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:2
+#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:9
 msgid "<span size=\"large\" weight=\"bold\">Generic C++ Class Builder</span>"
 msgstr "<span size=\"large\" weight=\"bold\">Generic C++ Class Builder</span>"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:3
+#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:10
+msgid "Add to Repository"
+msgstr "Add to Repository"
+
+#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:11
+msgid "Add to current Project?"
+msgstr "Add to current Project?"
+
+#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:12
+#: ../plugins/file-wizard/anjuta-file-wizard.glade.h:6
+msgid "Add to project"
+msgstr "Add to project"
+
+#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:13
 msgid "Author Email:"
 msgstr "Author Email:"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:4
+#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:14
 msgid "Author Name:"
 msgstr "Author Name:"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:5
+#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:15
 msgid "Author/Date-Time"
 msgstr "Author/Date-Time"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:6
-msgid "Base Class Name:"
-msgstr "Base Class Name:"
-
-#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:7
+#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:16
 msgid "Base Class:"
 msgstr "Base Class:"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:8
+#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:17
 msgid "Base class inheritance:"
 msgstr "Base class inheritance:"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:9
+#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:18
 msgid "Browse"
 msgstr "Browse"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:10
+#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:19
 msgid "Browse for the declaration file name."
 msgstr "Browse for the declaration file name."
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:11
+#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:20
 msgid "Browse for the implementation file name."
 msgstr "Browse for the implementation file name."
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:12
-msgid "Class Function Prefix:"
-msgstr "Class Function Prefix:"
-
-#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:13
+#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:21
 msgid "Class Generator"
 msgstr "Class Generator"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:14
+#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:22
 msgid "Class Options:"
 msgstr "Class Options:"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:15
-msgid "Class name:"
-msgstr "Class name:"
-
-#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:16
+#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:23
 #: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:2
 msgid "Create"
 msgstr "Create"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:17
+#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:24
 msgid "Enter the name for the class you want to add."
 msgstr "Enter the name for the class you want to add."
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:18
+#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:25
 msgid "Enter the name of the class your new class will inherit from."
 msgstr "Enter the name of the class your new class will inherit from."
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:19
+#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:26
 msgid "GObject Class"
 msgstr "GObject Class"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:20
-msgid "GObject Type Prefix:"
-msgstr "GObject Type Prefix:"
+#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:27
+msgid ""
+"General Public License (GPL)\n"
+"Lesser General Public License (LGPL)\n"
+"No License\n"
+msgstr ""
+"General Public Licence (GPL)\n"
+"Lesser General Public Licence (LGPL)\n"
+"No Licence\n"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:21
-msgid "GObject Type:"
-msgstr "GObject Type:"
-
-#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:22
-msgid "GPL Notice"
-msgstr "GPL Notice"
-
-#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:23
+#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:31
 msgid "Generic C++ Class"
 msgstr "Generic C++ Class"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:24
+#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:32
 msgid "Inline the declaration and implementation"
 msgstr "Inline the declaration and implementation"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:25
-msgid "Output Header File:"
-msgstr "Output Header File:"
+#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:33
+msgid "License: "
+msgstr "Licence: "
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:26
-msgid "Output Source File:"
-msgstr "Output Source File:"
-
-#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:27
+#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:34
 msgid "Source/Header Headings:"
 msgstr "Source/Header Headings:"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:28
+#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:35
 msgid ""
 "This plugin will create a class of the type you specify and add it to your "
 "project. Note that the creating class's parameters will be taken from the "
-"active tab."
+"active tab. Please be sure to fill all required fields marked by *."
 msgstr ""
 "This plugin will create a class of the type you specify and add it to your "
 "project. Note that the creating class's parameters will be taken from the "
-"active tab."
+"active tab. Please be sure to fill all required fields marked by *."
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:29
+#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:36
 msgid "Virtual destructor"
 msgstr "Virtual destructor"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:30
+#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:37
 msgid ""
 "public\n"
 "protected\n"
@@ -1998,11 +2021,11 @@ msgstr ""
 "protected\n"
 "private"
 
-#: ../plugins/class-gen/class_gen.c:151 ../plugins/class-gen/class_gen.c:349
-msgid "Please check your fields."
-msgstr "Please check your fields."
+#: ../plugins/class-gen/class_gen.c:140
+msgid "Please check your required fields."
+msgstr "Please check your required fields."
 
-#: ../plugins/class-gen/class_gen.c:188
+#: ../plugins/class-gen/class_gen.c:190
 msgid ""
 "An error occurred when trying to write GObject Class Template. Check file "
 "permissions."
@@ -2010,13 +2033,13 @@ msgstr ""
 "An error occurred when trying to write GObject Class Template. Check file "
 "permissions."
 
-#: ../plugins/class-gen/class_gen.c:395
+#: ../plugins/class-gen/class_gen.c:362
+msgid "Please fill required fields."
+msgstr "Please fill required fields."
+
+#: ../plugins/class-gen/class_gen.c:420
 msgid "Error in writing files"
 msgstr "Error writing files"
-
-#: ../plugins/class-gen/plugin.c:150
-msgid "A project must be open before creating a class"
-msgstr "A project must be opened before creating a class"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:2
 msgid "/usr/bin/cvs"
@@ -4609,10 +4632,6 @@ msgstr "Add Licence Information"
 msgid "Add to CVS"
 msgstr "Add to CVS"
 
-#: ../plugins/file-wizard/anjuta-file-wizard.glade.h:6
-msgid "Add to project"
-msgstr "Add to project"
-
 #: ../plugins/file-wizard/anjuta-file-wizard.glade.h:7
 msgid "Create corresponding header file"
 msgstr "Create corresponding header file"
@@ -7059,8 +7078,8 @@ msgid ""
 "Generation of project file failed. Please check if you have write access to "
 "the project directory!"
 msgstr ""
-"Generation of project file failed. Please ensure that you have write access to "
-"the project directory!"
+"Generation of project file failed. Please ensure that you have write access "
+"to the project directory!"
 
 #: ../plugins/project-manager/plugin.c:334
 #, c-format
