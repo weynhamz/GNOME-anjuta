@@ -61,6 +61,37 @@ on_menu_insert_macro (GtkAction * action, MacroPlugin * plugin)
 }
 
 static gboolean
+match_special_key(gchar *keyword)
+{
+	enum {DATE = 0, USER , HEADER, ENDKEYW };		
+	gchar *tabkey[ENDKEYW] =
+		{"@DATE@", "@USER@", "@HEADER@"};
+	gint key;
+		
+	for (key=0; key<ENDKEYW; key++)
+		if ( strcmp(keyword, tabkey[key]) == 0)
+			break;
+		
+	switch (key)
+	{
+		case DATE :
+			g_print("Found DATE\n");
+		break;
+		case USER :
+			g_print("Found USER\n");
+			break;
+		case HEADER :
+			g_print("Found HEADER\n");
+			break;
+		default:
+			g_print("Not Found\n");
+			return FALSE;
+	}
+	
+	return TRUE;
+}
+
+static gboolean
 match_keyword (MacroPlugin * plugin, GtkTreeIter * iter, const gchar *keyword)
 {
 	gchar *name;
@@ -143,16 +174,17 @@ insert_macro (const gchar *keyword, MacroPlugin * plugin)
 
 void on_menu_add_macro (GtkAction * action, MacroPlugin * plugin)
 {
-	MacroEdit* add = MACRO_EDIT(macro_edit_new(MACRO_ADD, plugin->macro_db));
-	gchar* selection = NULL;
-	if (plugin->current_editor != NULL)
-	{
-		selection = 
-			ianjuta_editor_get_selection(IANJUTA_EDITOR(plugin->current_editor), NULL);
-	}
-	if (selection != NULL && strlen(selection))
-		macro_edit_set_macro(add, selection);
-	gtk_widget_show(GTK_WIDGET(add));
+	match_special_key("@USEhR@");
+	//~ MacroEdit* add = MACRO_EDIT(macro_edit_new(MACRO_ADD, plugin->macro_db));
+	//~ gchar* selection = NULL;
+	//~ if (plugin->current_editor != NULL)
+	//~ {
+		//~ selection = 
+			//~ ianjuta_editor_get_selection(IANJUTA_EDITOR(plugin->current_editor), NULL);
+	//~ }
+	//~ if (selection != NULL && strlen(selection))
+		//~ macro_edit_set_macro(add, selection);
+	//~ gtk_widget_show(GTK_WIDGET(add));
 }
 
 void on_menu_manage_macro (GtkAction * action, MacroPlugin * plugin)

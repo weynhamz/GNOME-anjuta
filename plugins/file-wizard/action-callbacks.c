@@ -21,6 +21,8 @@
 #include <libanjuta/anjuta-preferences.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
 
+#include <libanjuta/interfaces/ianjuta-macro.h>
+
 #include "file.h"
 #include "action-callbacks.h"
 
@@ -36,31 +38,35 @@ get_current_editor (AnjutaPlugin *plugin)
 	return editor;
 }
 
+IAnjutaMacro*
+get_macro(gpointer user_data)
+{
+	AnjutaPlugin *plugin = ANJUTA_PLUGIN (user_data);
+	return anjuta_shell_get_interface (plugin->shell, IAnjutaMacro, NULL);
+}
+
 void
 on_insert_c_gpl_notice(GtkAction * action, gpointer user_data)
 {
-	IAnjutaEditor *editor;
-	editor = get_current_editor (ANJUTA_PLUGIN (user_data));
-	if(editor)
-		insert_c_gpl_notice(editor);
+	IAnjutaMacro *macro = get_macro(user_data);
+	if (macro)
+		ianjuta_macro_insert (macro, "/* GPL */", NULL);
 }
 
 void
 on_insert_cpp_gpl_notice(GtkAction * action, gpointer user_data)
 {
-	IAnjutaEditor *editor;
-	editor = get_current_editor (ANJUTA_PLUGIN (user_data));
-	if(editor)
-		insert_cpp_gpl_notice(editor);
+	IAnjutaMacro *macro = get_macro(user_data);
+	if (macro)
+		ianjuta_macro_insert (macro, "// GPL", NULL);
 }
 
 void
 on_insert_py_gpl_notice(GtkAction * action, gpointer user_data)
 {
-	IAnjutaEditor *editor;
-	editor = get_current_editor (ANJUTA_PLUGIN (user_data));
-	if(editor)
-		insert_py_gpl_notice(editor);
+	IAnjutaMacro *macro = get_macro(user_data);
+	if (macro)
+		ianjuta_macro_insert (macro, "# GPL", NULL);
 }
 
 void
@@ -117,111 +123,95 @@ on_insert_header(GtkAction * action, gpointer user_data)
 void
 on_insert_switch_template(GtkAction * action, gpointer user_data)
 {
-	IAnjutaEditor *editor;
-	editor = get_current_editor (ANJUTA_PLUGIN (user_data));
-	if(editor)
-		insert_switch_template(editor);
+	IAnjutaMacro *macro = get_macro(user_data);
+	if (macro)
+		ianjuta_macro_insert (macro, "switch", NULL);
 }
 
 void
 on_insert_for_template(GtkAction * action, gpointer user_data)
 {
-	IAnjutaEditor *editor;
-	editor = get_current_editor (ANJUTA_PLUGIN (user_data));
-	if(editor)
-		insert_for_template(editor);
+	IAnjutaMacro *macro = get_macro(user_data);
+	if (macro)
+		ianjuta_macro_insert (macro, "for", NULL);
 }
 
 void
 on_insert_while_template(GtkAction * action, gpointer user_data)
 {
-	IAnjutaEditor *editor;
-	editor = get_current_editor (ANJUTA_PLUGIN (user_data));
-	if(editor)
-		insert_while_template(editor);
+	IAnjutaMacro *macro = get_macro(user_data);
+	if (macro)
+		ianjuta_macro_insert (macro, "while", NULL);
 }
 
 void
 on_insert_ifelse_template(GtkAction * action, gpointer user_data)
 {
-	IAnjutaEditor *editor;
-	editor = get_current_editor (ANJUTA_PLUGIN (user_data));
-	if(editor)
-		insert_ifelse_template(editor);
+	IAnjutaMacro *macro = get_macro(user_data);
+	if (macro)
+		ianjuta_macro_insert (macro, "if...else", NULL);
 }
 
 void
 on_insert_cvs_author(GtkAction * action, gpointer user_data)
 {
-	IAnjutaEditor *editor;
-	AnjutaPreferences *prefs;
-	prefs = get_preferences (ANJUTA_PLUGIN (user_data));
-	editor = get_current_editor (ANJUTA_PLUGIN (user_data));
-	if(editor)
-		insert_cvs_author(editor);
+	IAnjutaMacro *macro = get_macro(user_data);
+	if (macro)
+		ianjuta_macro_insert (macro, "cvs_author", NULL);
 }
 
 void
 on_insert_cvs_date(GtkAction * action, gpointer user_data)
 {
-	IAnjutaEditor *editor;
-	AnjutaPreferences *prefs;
-	prefs = get_preferences (ANJUTA_PLUGIN (user_data));
-	editor = get_current_editor (ANJUTA_PLUGIN (user_data));
-	if(editor)
-		insert_cvs_date(editor);
+	IAnjutaMacro *macro = get_macro(user_data);
+	if (macro)
+		ianjuta_macro_insert (macro, "cvs_date", NULL);
 }
 
 void
 on_insert_cvs_header(GtkAction * action, gpointer user_data)
 {
-	IAnjutaEditor *editor;
-	editor = get_current_editor (ANJUTA_PLUGIN (user_data));
-	if(editor)
-		insert_cvs_header(editor);
+	IAnjutaMacro *macro = get_macro(user_data);
+	if (macro)
+		ianjuta_macro_insert (macro, "cvs_header", NULL);
 }
 
 void
 on_insert_cvs_id(GtkAction * action, gpointer user_data)
 {
-	IAnjutaEditor *editor;
-	editor = get_current_editor (ANJUTA_PLUGIN (user_data));
-	if(editor)
-		insert_cvs_id(editor);
+	IAnjutaMacro *macro = get_macro(user_data);
+	if (macro)
+		ianjuta_macro_insert (macro, "cvs_id", NULL);
 }
 
 void
 on_insert_cvs_log(GtkAction * action, gpointer user_data)
 {
-	IAnjutaEditor *editor;
-	editor = get_current_editor (ANJUTA_PLUGIN (user_data));
-	if(editor)
-		insert_cvs_log(editor);
+	IAnjutaMacro *macro = get_macro(user_data);
+	if (macro)
+		ianjuta_macro_insert (macro, "cvs_log", NULL);
 }
 
 void
 on_insert_cvs_name(GtkAction * action, gpointer user_data)
 {
-	IAnjutaEditor *editor;
-	editor = get_current_editor (ANJUTA_PLUGIN (user_data));
-	if(editor)
-		insert_cvs_name(editor);
+	IAnjutaMacro *macro = get_macro(user_data);
+	if (macro)
+		ianjuta_macro_insert (macro, "cvs_name", NULL);
 }
 
 void
 on_insert_cvs_revision(GtkAction * action, gpointer user_data)
 {
-	IAnjutaEditor *editor;
-	editor = get_current_editor (ANJUTA_PLUGIN (user_data));
-	if(editor)
-		insert_cvs_revision(editor);
+	IAnjutaMacro *macro = get_macro(user_data);
+	if (macro)
+		ianjuta_macro_insert (macro, "cvs_revision", NULL);
 }
 
 void
 on_insert_cvs_source(GtkAction * action, gpointer user_data)
 {
-	IAnjutaEditor *editor;
-	editor = get_current_editor (ANJUTA_PLUGIN (user_data));
-	if(editor)
-		insert_cvs_source(editor);
+	IAnjutaMacro *macro = get_macro(user_data);
+	if (macro)
+		ianjuta_macro_insert (macro, "cvs_source", NULL);
 }

@@ -44,30 +44,12 @@ AnjutaPreferences *get_preferences (AnjutaPlugin *plugin);
 void file_insert_text(IAnjutaEditor *te, gchar *txt, gint offset);
 
 void insert_notice(IAnjutaEditor *te, gint comment_type, gint license_type);
-void insert_c_gpl_notice(IAnjutaEditor *te);
-void insert_cpp_gpl_notice(IAnjutaEditor *te);
-void insert_py_gpl_notice(IAnjutaEditor *te);
 
 void insert_header_template(IAnjutaEditor *te);
 void insert_date_time(IAnjutaEditor *te);
 void insert_username(IAnjutaEditor *te, AnjutaPreferences *prefs);
 void insert_changelog_entry(IAnjutaEditor *te, AnjutaPreferences *prefs);
 void insert_header(IAnjutaEditor *te, AnjutaPreferences *prefs, gint source_type);
-
-void insert_switch_template(IAnjutaEditor *te);
-void insert_for_template(IAnjutaEditor *te);
-void insert_while_template(IAnjutaEditor *te);
-void insert_ifelse_template(IAnjutaEditor *te);
-
-void insert_cvs_name(IAnjutaEditor *te);
-void insert_cvs_author(IAnjutaEditor *te);
-void insert_cvs_date(IAnjutaEditor *te);
-void insert_cvs_header(IAnjutaEditor *te);
-void insert_cvs_id(IAnjutaEditor *te);
-void insert_cvs_log(IAnjutaEditor *te);
-void insert_cvs_revision(IAnjutaEditor *te);
-void insert_cvs_revision(IAnjutaEditor *te);
-void insert_cvs_source(IAnjutaEditor *te);
 
 void on_new_file_license_toggled(GtkToggleButton *button, gpointer user_data);
 

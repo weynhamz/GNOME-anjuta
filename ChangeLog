@@ -1,3 +1,12 @@
+2005-02-22  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
+
+	* plugins/file-wizard/action-callbacks.c,
+	plugins/file-wizard/file.[ch], plugins/macro/macro-actions.c,
+	plugins/macro/macros.xml :
+	
+	Inserting text by macro plugin
+	In progress ...
+
 2005-02-22  Johannes Schmid <jhs@cvs.gnome.org>
 
 	* plugins/macro/plugin.c

@@ -38,9 +38,9 @@ else
 <macro _name="cvs_id" _category="CVS" _shortcut=""><![CDATA[$Id$
 ]]></macro>
 <macro _name="cvs_log" _category="CVS" _shortcut=""><![CDATA[$Log$
-<macro _name="cvs_log" _category="CVS" _shortcut=""><![CDATA[Revision 1.6  2005/02/21 02:49:40  jnoel
+<macro _name="cvs_log" _category="CVS" _shortcut=""><![CDATA[Revision 1.7  2005/02/22 17:40:00  jnoel
 <macro _name="cvs_log" _category="CVS" _shortcut=""><![CDATA[
-<macro _name="cvs_log" _category="CVS" _shortcut=""><![CDATA[Added macro_insert.
+<macro _name="cvs_log" _category="CVS" _shortcut=""><![CDATA[Inserting by Macro plugin.
 <macro _name="cvs_log" _category="CVS" _shortcut=""><![CDATA[
 ]]></macro>
 <macro _name="cvs_name" _category="CVS" _shortcut=""><![CDATA[$Name$
