@@ -24,12 +24,24 @@ if (@ARGV != 1)
 	die "Usage: perl anjuta-idl-compiler.pl module_name";
 }
 
-## Add your types which are not class
+## Types starting with prefix mentioned in
+## @known_type_prefixes array are automatically assumed to be GObject derived
+## class and their type and assertion checks are determined based on that.
+## This automation is skipped if the type is found in %not_classes hash table.
+my $known_type_prefixes = [
+	"Gdk",
+	"Gtk",
+	"Gnome",
+	"Anjuta",
+	"IAnjuta",
+];
+
+## Add your types which are not classes despite starting with above prefixes
 my $not_classes = {
-	"GtkTreeIter" => "1",
+	"GtkTreeIter" => 1,
 };
 
-## Add your type mappings.
+## Additional non-standard type mappings.
 my $type_map = {
 	"void" => {
 		"gtype" => "G_TYPE_NONE",
@@ -368,7 +380,7 @@ sub is_struct
 sub is_method
 {
 	my ($line, $method_hr) = @_;
-	if ($line =~ s/([\w_]+)\s*\((.*)\)\s*\;\s*$//)
+	if ($line =~ s/([\w_][\w\d_]*)\s*\((.*)\)\s*\;\s*$//)
 	{
 		my $function = $1;
 		my $args = $2;
@@ -610,7 +622,7 @@ sub get_arg_assert
 {
 	my ($rettype, $type_arg, $force) = @_;
 	my ($type, $arg);
-	if ($type_arg =~ s/([\w\d_]+)+$//)
+	if ($type_arg =~ s/([\w_][\w\d_]*)+$//)
 	{
 		$arg = $1;
 		$type = $type_arg;
@@ -710,7 +722,7 @@ sub construct_marshaller
 		my @margs = split(",", $args);
 		foreach my $one_arg (@margs)
 		{
-			if ($one_arg =~ s/([\w_]+)$//)
+			if ($one_arg =~ s/([\w_][\w\d_]*)$//)
 			{
 				$one_arg =~ s/\s//g;
 				my $oarg = get_arg_type_info ($one_arg, "gtype");
@@ -756,7 +768,7 @@ sub generate_class
 	$macro_assert =~ /^_/;
 	
 	my $parent_iface = "GTypeInterface";
-	my $parent_type = "G_TYPE_INTERFACE";
+	my $parent_type = "G_TYPE_OBJECT";
 	my $parent_include = "";
 	if ($parent ne "")
 	{
@@ -989,7 +1001,7 @@ ${prefix}_error_quark (void)
 				{
 					$asserts .= "\t$assert_stmt\n";
 				}
-				if ($one_arg =~ /([\w_]+)$/)
+				if ($one_arg =~ /([\w_][\w\d_]*)$/)
 				{
 					push @params, $1;
 				}
@@ -1069,8 +1081,8 @@ ${prefix}_get_type (void)
 			0,
 			NULL
 		};
-		type = g_type_register_static ($parent_type, \"$class\", &info, 0);
-		g_type_interface_add_prerequisite (type, G_TYPE_OBJECT);
+		type = g_type_register_static (G_TYPE_INTERFACE, \"$class\", &info, 0);
+		g_type_interface_add_prerequisite (type, $parent_type);
 	}
 	return type;			
 }

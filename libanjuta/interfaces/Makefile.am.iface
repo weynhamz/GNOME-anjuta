@@ -16,6 +16,9 @@ BUILT_SOURCES = iface-built.stamp
 iface-built.stamp: libanjuta.idl Makefile.am.iface anjuta-idl-compiler.pl
 	savedir=`pwd` && \
 	cd $(srcdir) && perl $(srcdir)/anjuta-idl-compiler.pl libanjuta && \
+	echo 'GInterface' > hierarchy.txt && grep -e '^[[:space:]|\t]*interface' \
+	libanjuta.idl  | sed -e 's/\binterface\b\s*/\t/' | sed -e 's/\t/    /g' \
+	>> hierarchy.txt && \
 	touch $(srcdir)/iface-built.stamp && \
 	echo "changing to $$savedir" && \
 	make && \

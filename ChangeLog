@@ -1,6 +1,11 @@
 2004-04-30
 
 	* libanjuta/interfaces/Makefile.am.iface,
+	libanjuta/interfaces/anjuta-idl-compiler.pl: Fixed errors.
+	
+	* libanjuta/interfaces/libanjuta.idl: Updated.
+
+	* libanjuta/interfaces/Makefile.am.iface,
 	libanjuta/interfaces/libanjuta.idl: Updated.
 
 2004-04-29  Naba Kumar  <naba@gnome.org>

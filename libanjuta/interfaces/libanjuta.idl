@@ -20,24 +20,37 @@
 
 #include <glib-object.h>
 
-interface IAnjutaReusable
+// Implemented by all plugins that can open files
+interface IAnjutaFile
 {
-	void ref ();
-	void unref ();
-	gint get_ref_count ();
+	void open (const gchar *filename);
+	gchar* get_filename ();
+	
+	// Implemented by plugins which can also edit the files
+	interface IAnjutaFileSavable
+	{
+		// Signals
+		void ::save_point (gboolean entered);
+		
+		void save ();
+		void save_as (const gchar *filename);
+		
+		void set_dirty (gboolean dirty);
+		gboolean is_dirty ();
+	}
 }
 
-interface IAnjutaEditor
+// Stream interface
+interface IAnjutaStream
 {
-	enum Error
-	{
-		DOESNT_EXIST
-	}
+	#include <stdio.h>
 	
-	void   goto_line (gint lineno);
-	gchar* get_selection ();
-	gchar* get_text (gint start, gint end);
-	gchar* get_attributes (gint start, gint end);
+	void open (FILE *stream);
+	
+	interface IAnjutaStreamSavable
+	{
+		void save (FILE *stream);
+	}
 }
 
 interface IAnjutaMarkable
@@ -59,6 +72,274 @@ interface IAnjutaMarkable
 	void unmark (gint location);
 	Marker get_mark (gint location);
 	GList* get_all_marks ();
+}
+
+// Sandbox gives restricted and localized access to the implementation
+interface IAnjutaSandBox
+{
+	enum Error
+	{
+		ACCESS_VIOLATION
+	}
+	
+	// Invokers wishing to pass the box down to others, should lock
+	// their current box. lock_signature is just a unique key to
+	// protect invoker's box and only a matching lock_signature with the last
+	// push lock can pop open a lock, otherwise ACCESS_VIOLATION error will
+	// be thrown.
+	void push_lock (gpointer lock_signature);
+	void pop_lock (gpointer lock_signature);
+	
+	// Contexts are, well, contexts. Interesting things happen in contexts.
+	interface IAnjutaContext
+	{
+		// Contexts can only be begun or ended while the lock stack is
+		// empty. It basically means only the owner of this context can call
+		// these, presumably to initialize or finalize the context. Any other
+		// invoker trying to call them (that is, lock stack is not empty),
+		// will result in ACCESS_VIOLATION error.
+		void begin();
+		void end();
+		
+		// Clears current level. That is, anything done since last push_lock
+		// is cleared and context state restored to just after the push.
+		void clear();
+		
+		// Text context represents a hierarchially indented
+		// text. Each call to push_lock starts a level and automatically
+		// indents subsequent render texts to that level.
+		interface IAnjutaContextText
+		{
+			// Sets indentation level. Indentations should be stacked for
+			// each level, because they might have different indentation sizes.
+			void set_indentation (gint spaces);
+			
+			// Returns current level's indentation in space. Presumably to 
+			// do some calculations before rendering a text.
+			gint get_indentation ();
+			
+			// renders the text.
+			void render (const gchar *text);
+		}
+
+		// Tree context represents a hierarchial tree. Each render() renders
+		// a tree node. down() takes it down one level and up() takes it to the
+		// parent node. Note that tree depths are not equivalent to context
+		// levels. A context level might consist of many tree depths.
+		interface IAnjutaContextList
+		{
+			#include <gdk/gdkpixbuf.h>
+			
+			enum Size
+			{
+				MINI,
+				SMALL,
+				LARGE
+			}
+			
+			// Sets the size of the context.
+			void set_size (Size size);
+			
+			// Gets the size of the context.
+			Size get_size ();
+			
+			// Renders a mini view.
+			void render (GdkPixbuf *image, const gchar *text, GValue* data);
+			
+			// Tree context represents a hierarchial tree. Each render() renders
+			// a tree node. down() takes it down one level and up() takes it to the
+			// parent node. Note that tree depths are not equivalent to context
+			// levels. A context level might consist of many tree depths.
+			interface IAnjutaContextTree
+			{
+				void down ();
+				void up ();
+			}
+		}
+	}
+}
+
+// Implemented by plugins which can render itself
+interface IAnjutaRenderable
+{
+	#include "ianjuta-context.h"
+	
+	enum Error
+	{
+		NOT_SUPPORTED
+	}
+	// Render itself in the given context. Note that the renderable should
+	// automatically determine the type of context and render accordingly.
+	// It also means the context implementor should really not implement
+	// more than one context type, avoiding ambiguity in renderable.
+	void render (IAnjutaContext *context);
+}
+
+interface IAnjutaIterable
+{
+	enum Error
+	{
+		INVALID_ITER,
+		UNSETTABLE,
+	}
+	
+	// Implementation dependent data to store iter info. Should
+	// not be used by the invoker.
+	struct Iter
+	{
+		gpointer a;
+		gpointer b;
+		gpointer c;
+		gpointer d;
+		gpointer e;
+	}
+	
+	// Iter at begining
+	Iter* begin ();
+	
+	// iter at end
+	Iter* end ();
+	
+	// Copy iter
+	Iter* copy (Iter *iter);
+	
+	// iters returned by begin(), end() and copy must be freeed with this
+	void free_iter (Iter *iter);
+	
+	// Resets the iter to the begining
+	void reset (Iter *iter);
+	
+	// If the iter value is settable
+	gboolean get_settable ();
+	
+	// Forwards the iter. In recursable, it will desent into first node
+	// if current iter has children.
+	void next (Iter* iter);
+	
+	// Reverse the iter. In recursable, it will come up the parent node
+	// if current iter is first child.
+	void previous (Iter* iter);
+	
+	// Call callback for each iter starting from given iter.
+	// Give NULL iter to call for all nodes
+	void foreach (Iter* start_iter, GCallback *callback, gpointer user_dat);
+	
+	// Interpretation of 'data' really depends on implementation
+	gpointer get (Iter *iter);
+	void set (Iter *iter, gpointer data);
+	
+	// Checks if the iter is valid
+	gboolean valid (Iter* iter);
+	
+	interface IAnjutaIterableTree
+	{
+		// Set iter to parent
+		void parent (Iter *iter);
+		
+		// Get first child
+		Iter* get_children (Iter *ter);
+		
+		gboolean has_children (Iter *iter);
+	}
+}
+
+// Implemented by plugins which can transform it's data into some output.
+interface IAnjutaTransformable
+{
+	void transform();
+}
+
+// Implemented by plugins which can build (e.g module manager plugins).
+interface IAnjutaBuildable
+{
+	void compile (const gchar* filename);
+	void build ();
+	void clean ();
+}
+
+// Loaders can deterime correct plugin to open a file or stream.  They
+// themselves can not load it, but will correctly redirect the request to
+// an implementor of IAnjutaFile, IAnjutaFileSavable, IAnjutaStream or
+// IAnjutaStreamSavable, depending on the mime-type, meta-type or any other
+// requirements.
+interface IAnjutaLoader
+{
+	// Loaders can deterime correct plugin to open a file
+	interface IAnjutaFileLoader
+	{
+		/**
+		 * ianjuta_file_loader_load:
+		 * @obj: Self
+		 * @filename: File to load
+		 * @readonly: Open in readonly mode.
+		 * @err: Error propagation and reporting
+		 *
+		 * Determines a plugin which can open the given file, activates it
+		 * opening the file and returns the interface of the plugin activated.
+		 * 
+		 * Return value: Plugin interface used to load the file.
+		 */
+		GObject* load (gchar *filename, gboolean readonly);
+		
+		/**
+		 * ianjuta_loader_peek_interface:
+		 * @obj: Self
+		 * @filename: Meta file to peek
+		 * @err: Error propagation and reporting
+		 *
+		 * Peeks the file and determines the interface which can load
+		 * this file.
+		 *
+		 * Return value: Plugin interface name that can load the file.
+		 */
+		gchar* peek_interface (gchar *filename);
+	}
+	
+	// StreamLoaders can deterime correct plugin to open a stream.
+	interface IAnjutaStreamLoader
+	{
+		#include <stdio.h>
+		
+		/**
+		 * ianjuta_stream_loader_load:
+		 * @obj: Self
+		 * @stream: Stream to load
+		 * @readonly: Open in readonly mode.
+		 * @err: Error propagation and reporting
+		 *
+		 * Determines a plugin which can open the given stream, activates it
+		 * opening the stream and returns the interface of the plugin activated.
+		 * 
+		 * Return value: Plugin interface used to load the stream.
+		 */
+		GObject* load (FILE *stream, gboolean readonly);
+		
+		/**
+		 * ianjuta_stream_loader_peek_interface:
+		 * @obj: Self
+		 * @stream: Stream to load
+		 * @err: Error propagation and reporting
+		 *
+		 * Peeks the stream and determines the interface which can load
+		 * this stream.
+		 *
+		 * Return value: Plugin interface name that can load the stream.
+		 */
+		gchar* peek_interface (FILE *stream);
+	}
+}
+
+interface IAnjutaEditor
+{
+	enum Error
+	{
+		DOESNT_EXIST
+	}
+	
+	void   goto_line (gint lineno);
+	gchar* get_selection ();
+	gchar* get_text (gint start, gint end);
+	gchar* get_attributes (gint start, gint end);
 }
 
 interface IAnjutaDocumentManager
@@ -105,217 +386,6 @@ interface IAnjutaMessageManager
 	IAnjutaMessageView* get_view_by_name (const gchar *name);
 	GList* get_all_views ();
 	void set_current_view (IAnjutaMessageView *view);
-}
-
-// Implemented by all plugins that can open files
-interface IAnjutaFile
-{
-	void open (const gchar *filename);
-	gchar* get_filename ();
-	
-	// Implemented by plugins which can also edit the files
-	interface IAnjutaFileSavable
-	{
-		// Signals
-		void ::save_point (gboolean entered);
-		
-		void save ();
-		void save_as (const gchar *filename);
-		
-		void set_dirty (gboolean dirty);
-		gboolean is_dirty ();
-	}
-}
-
-// Stream interface
-interface IAnjutaStream
-{
-	#include <stdio.h>
-	
-	void open (FILE *stream);
-	
-	interface IAnjutaStreamSavable
-	{
-		void save (FILE *stream);
-	}
-}
-
-// Loaders can deterime correct plugin to open a file
-interface IAnjutaFileLoader
-{
-	/**
-	 * ianjuta_file_loader_load:
-	 * @obj: Self
-	 * @filename: File to load
-	 * @readonly: Open in readonly mode.
-	 * @err: Error propagation and reporting
-	 *
-	 * Determines a plugin which can open the given file, activates it
-	 * opening the file and returns the interface of the plugin activated.
-	 * 
-	 * Return value: Plugin interface used to load the file.
-	 */
-	GObject* load (gchar *filename, gboolean readonly);
-	
-	/**
-	 * ianjuta_loader_peek_interface:
-	 * @obj: Self
-	 * @filename: Meta file to peek
-	 * @err: Error propagation and reporting
-	 *
-	 * Peeks the file and determines the interface which can load
-	 * this metafile.
-	 *
-	 * Return value: Plugin interface name that can load the file.
-	 */
-	gchar* peek_interface (gchar *filename);
-}
-
-// Sandboxes give restricted and localized access to the implementation
-interface IAnjutaSandBox
-{
-	enum Error
-	{
-		ACCESS_VIOLATION
-	}
-	
-	// Invokers wishing to pass the box down to others, should lock
-	// their current box. lock_signature is just a unique key to
-	// protect invoker's box and only a matching lock_signature with the last
-	// push lock can pop open a lock, otherwise ACCESS_VIOLATION error will
-	// be thrown.
-	void push_lock (gpointer lock_signature);
-	void pop_lock (gpointer lock_signature);
-	
-	interface IAnjutaContext
-	{
-		// Contexts can only be begun or ended while the lock stack is
-		// empty. It basically means only the owner can call these.
-		// Any other invoker trying to call these (that is, lock stack
-		// is non-empty), will result in ACCESS_VIOLATION error.
-		void begin();
-		void end();
-		
-		// Clears current level. That is, anything done since last push_lock
-		// is cleared and context state restored to just after the push.
-		void clear();
-		
-		// Text context represents a hierarchially indented
-		// text. Each call to push_lock starts a level and automatically
-		// indents subsequent render text to that level.
-		interface IAnjutaContextText
-		{
-			// Returns current level's indentation in space. Presumably to 
-			// do some calculations before rendering a text.
-			gint get_indentation ();
-			
-			// renders the text.
-			void render (const gchar *text);
-		}
-		
-		// Tree context represents a hierarchial tree. Each render() renders
-		// current tree node. down() takes it to first child node of
-		// current node (creating it if it doesn't exist). Note that tree
-		// depths are not equivalent to context levels. A context level might
-		// consist of many tree depths, but the invoker can't go beyond it's
-		// allocated context level.
-		interface IAnjutaContextTree
-		{
-			#include <gdk/gdkpixbuf.h>
-			
-			void down ();
-			void up ();
-			void next ();
-			void previous ();
-			void render (GdkPixbuf *icon, const gchar *label, GValue* data);
-		}
-	}
-}
-
-// Implemented by plugins which can render itself
-interface IAnjutaRenderable
-{
-	#include "ianjuta-context.h"
-	
-	void render (IAnjutaContext *context);
-}
-
-// Implemented by plugins which can transform it's data into some output.
-interface IAnjutaTransformable
-{
-	void transform();
-}
-
-// Implemented by plugins which can build (e.g module manager plugins).
-interface IAnjutaBuildable
-{
-	void compile (const gchar* filename);
-	void build ();
-	void clean ();
-}
-
-interface IAnjutaIterable
-{
-	enum Error
-	{
-		INVALID_ITER,
-		UNSETTABLE,
-	}
-	
-	// Implementation dependent data to store iter info. Should
-	// not be used by the invoker.
-	struct Iter
-	{
-		gpointer a;
-		gpointer b;
-		gpointer c;
-		gpointer d;
-		gpointer e;
-	}
-	
-	// Returned iter must be end()'ed when finished
-	Iter* begin ();
-	void end (Iter *iter);
-	
-	// Resets the iter to the begining
-	void reset (Iter *iter);
-	
-	// If the iter value is settable
-	gboolean get_settable ();
-	
-	// Forwards the iter. In recursable, it will desent into first node
-	// if current iter has children.
-	void next (Iter* iter);
-	
-	// Reverse the iter. In recursable, it will come up the parent node
-	// if current iter is first child.
-	void previous (Iter* iter);
-	
-	// Call callback for each iter starting from given iter.
-	// Give NULL iter to call for all nodes
-	void foreach (Iter* start_iter, GCallback *callback, gpointer user_dat);
-	
-	// Interpretation of 'data' really depends on implementation
-	gpointer get (Iter *iter);
-	void set (Iter *iter, gpointer data);
-	
-	// Checks if the iter is valid
-	gboolean valid (Iter* iter);
-	
-	// Spawns an iter. Returned iter can then be used separately and
-	// must also be end()'ed when finished.
-	Iter* spawn (Iter *iter);
-	
-	interface IAnjutaRecursable
-	{
-		// Set iter to parent
-		void parent (Iter *iter);
-		
-		// Get first child
-		Iter* get_children (Iter *ter);
-		
-		gboolean has_children (Iter *iter);
-	}
 }
 
 interface IAnjutaModule
