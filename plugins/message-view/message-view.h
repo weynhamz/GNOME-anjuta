@@ -61,6 +61,9 @@ struct _MessageViewClass
 GType message_view_get_type (void);
 GtkWidget* message_view_new (AnjutaPreferences* prefs);
 
+void message_view_next(MessageView* view);
+void message_view_previous(MessageView* view);
+
 G_END_DECLS
 
 #endif

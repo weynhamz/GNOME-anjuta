@@ -44,12 +44,18 @@
 
 static void on_next_message(GtkAction* menuitem, MessageViewPlugin *plugin)
 {
-	g_message("Next Message");
+	AnjutaMsgman* msgman = ANJUTA_MSGMAN(plugin->msgman);
+	MessageView* view = anjuta_msgman_get_current_view(msgman);
+	if (view != NULL)
+		message_view_next(view);
 }
 
 static void on_prev_message(GtkAction* menuitem, MessageViewPlugin *plugin)
 {
-	g_message("Prev Message");
+	AnjutaMsgman* msgman = ANJUTA_MSGMAN(plugin->msgman);
+	MessageView* view = anjuta_msgman_get_current_view(msgman);
+	if (view != NULL)
+		message_view_previous(view);
 }
 
 

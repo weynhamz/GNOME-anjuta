@@ -1,3 +1,10 @@
+2005-02-15  Johannes Schmid <jhs@cvs.gnome.org>
+
+	* plugins/message-view/plugin.c
+	plugins/message-view/message-view.c
+	TODO.gtodo:
+	Implemented next/prev action
+
 2005-02-15  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
 
 	* plugins/project-wizard/templates/libglade2.* :

@@ -332,7 +332,7 @@ abort the process.</comment>
   </category>
   <category title="Plugin: Message Manager" place="13">
     <item>
-      <attribute id="1108060925" priority="1" done="0" start_date="731988" enddate="99999999" notify="0" endtime="-60" last_edited="1108060925"/>
+      <attribute id="1108060925" priority="1" done="1" start_date="731988" completed_date="731992" notify="0" last_edited="1108466518"/>
       <summary>Make next/previous work</summary>
       <comment>Make next/previous action work</comment>
     </item>

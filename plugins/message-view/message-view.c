@@ -684,6 +684,88 @@ message_view_new (AnjutaPreferences* prefs)
 	return GTK_WIDGET(mv);
 }
 
+void message_view_next(MessageView* view)
+{
+	GtkTreeIter iter;
+	GtkTreeModel *model;
+	GtkTreeSelection *select;
+
+	model = gtk_tree_view_get_model (GTK_TREE_VIEW
+					 (view->privat->tree_view));
+	select = gtk_tree_view_get_selection (GTK_TREE_VIEW
+					      (view->privat->tree_view));
+
+	if (!gtk_tree_selection_get_selected (select, &model, &iter))
+	{
+		if (gtk_tree_model_get_iter_first (model, &iter))
+			gtk_tree_selection_select_iter (select, &iter);
+	}
+	while (gtk_tree_model_iter_next (model, &iter))
+	{
+		Message *message;
+		gtk_tree_model_get (model, &iter, COLUMN_MESSAGE,
+							&message, -1);
+		if (message->type != IANJUTA_MESSAGE_VIEW_TYPE_NORMAL
+			&& message->type != IANJUTA_MESSAGE_VIEW_TYPE_INFO)
+		{
+			gtk_tree_selection_select_iter (select, &iter);
+			const gchar* message =
+				ianjuta_message_view_get_current_message(IANJUTA_MESSAGE_VIEW (view), NULL);
+			if (message)
+			{
+				g_signal_emit_by_name (G_OBJECT (view), "message_clicked", 
+									   message);
+			}
+			break;
+		}
+	}
+}
+
+void message_view_previous(MessageView* view)
+{
+	GtkTreeIter iter;
+	GtkTreeModel *model;
+	GtkTreeSelection *select;
+	GtkTreePath *path;
+
+	model = gtk_tree_view_get_model (GTK_TREE_VIEW
+					 (view->privat->tree_view));
+	select = gtk_tree_view_get_selection (GTK_TREE_VIEW
+					      (view->privat->tree_view));
+	
+	if (!gtk_tree_selection_get_selected (select, &model, &iter))
+	{
+		if (gtk_tree_model_get_iter_first (model, &iter))
+			gtk_tree_selection_select_iter (select, &iter);
+	}
+
+	path = gtk_tree_model_get_path (model, &iter);
+
+	if (gtk_tree_path_prev (path))
+		gtk_tree_selection_select_path (select, path);
+	while (gtk_tree_path_prev(path))
+	{
+		Message *message;
+		gtk_tree_model_get_iter(model, &iter, path);
+		gtk_tree_model_get (model, &iter, COLUMN_MESSAGE,
+							&message, -1);
+		if (message->type != IANJUTA_MESSAGE_VIEW_TYPE_NORMAL
+			&& message->type != IANJUTA_MESSAGE_VIEW_TYPE_INFO)
+		{
+			gtk_tree_selection_select_iter (select, &iter);
+			const gchar* message =
+				ianjuta_message_view_get_current_message(IANJUTA_MESSAGE_VIEW (view), NULL);
+			if (message)
+			{
+				g_signal_emit_by_name (G_OBJECT (view), "message_clicked", 
+									   message);
+			}
+			break;
+		}
+	}
+	gtk_tree_path_free (path);
+}
+
 /* Preferences notifications */
 static void
 pref_change_color (MessageView *mview, IAnjutaMessageViewType type,
@@ -904,69 +986,22 @@ imessage_view_clear (IAnjutaMessageView *message_view, GError **e)
 	gtk_list_store_clear (store);
 }
 
-/* Move the selection to the next line. Return TRUE is next line 
- * is availible or if the first line was selected, otherwise false
- */
+/* Move the selection to the next line. */
 static void
 imessage_view_select_next (IAnjutaMessageView * message_view,
 						   GError ** e)
 {
-	MessageView *view;
-	GtkTreeIter iter;
-	GtkTreeModel *model;
-	GtkTreeSelection *select;
-
-	g_return_if_fail (MESSAGE_IS_VIEW (message_view));
-	
-	view = MESSAGE_VIEW (message_view);
-	model = gtk_tree_view_get_model (GTK_TREE_VIEW
-					 (view->privat->tree_view));
-	select = gtk_tree_view_get_selection (GTK_TREE_VIEW
-					      (view->privat->tree_view));
-
-	if (!gtk_tree_selection_get_selected (select, &model, &iter))
-	{
-		if (gtk_tree_model_get_iter_first (model, &iter))
-			gtk_tree_selection_select_iter (select, &iter);
-	}
-	if (gtk_tree_model_iter_next (model, &iter))
-		gtk_tree_selection_select_iter (select, &iter);
+	MessageView* view = MESSAGE_VIEW(message_view);
+	message_view_next(view);
 }
 
-/* Move the selection to the previous line. Return TRUE is 
- * previous line is availible or if the first line was selected,
- * otherwise false
- */
+/* Move the selection to the previous line. */
 static void
 imessage_view_select_previous (IAnjutaMessageView * message_view,
 							   GError ** e)
 {
-	MessageView *view;
-	GtkTreeIter iter;
-	GtkTreeModel *model;
-	GtkTreeSelection *select;
-	GtkTreePath *path;
-
-	g_return_if_fail (MESSAGE_IS_VIEW (message_view));
-	
-	view = MESSAGE_VIEW (message_view);
-	model = gtk_tree_view_get_model (GTK_TREE_VIEW
-					 (view->privat->tree_view));
-	select = gtk_tree_view_get_selection (GTK_TREE_VIEW
-					      (view->privat->tree_view));
-	
-	if (!gtk_tree_selection_get_selected (select, &model, &iter))
-	{
-		if (gtk_tree_model_get_iter_first (model, &iter))
-			gtk_tree_selection_select_iter (select, &iter);
-	}
-
-	path = gtk_tree_model_get_path (model, &iter);
-
-	if (gtk_tree_path_prev (path))
-		gtk_tree_selection_select_path (select, path);
-	
-	gtk_tree_path_free (path);
+	MessageView *view = MESSAGE_VIEW(message_view);
+	message_view_previous(view);	
 }
 
 /* Return the currently selected messages or the first message if no
