@@ -4802,6 +4802,8 @@
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
   <property name="window_position">GTK_WIN_POS_NONE</property>
   <property name="modal">False</property>
+  <property name="wmclass_name">search-replace</property>
+  <property name="wmclass_class">Anjuta</property>
   <property name="resizable">True</property>
   <property name="destroy_with_parent">False</property>
   <signal name="delete_event" handler="on_search_replace_delete_event"/>
@@ -4811,7 +4813,7 @@
       <property name="visible">True</property>
       <property name="label_xalign">0</property>
       <property name="label_yalign">0.5</property>
-      <property name="shadow_type">GTK_SHADOW_ETCHED_IN</property>
+      <property name="shadow_type">GTK_SHADOW_NONE</property>
 
       <child>
 	<widget class="GtkVBox" id="vbox10">
@@ -4824,7 +4826,7 @@
 	      <property name="visible">True</property>
 	      <property name="label_xalign">0</property>
 	      <property name="label_yalign">0.5</property>
-	      <property name="shadow_type">GTK_SHADOW_ETCHED_IN</property>
+	      <property name="shadow_type">GTK_SHADOW_NONE</property>
 
 	      <child>
 		<widget class="GtkNotebook" id="notebook1">
@@ -4834,19 +4836,20 @@
 		  <property name="show_border">True</property>
 		  <property name="tab_pos">GTK_POS_TOP</property>
 		  <property name="scrollable">False</property>
+		  <property name="tab_hborder">2</property>
+		  <property name="tab_vborder">2</property>
 		  <property name="enable_popup">False</property>
 
 		  <child>
 		    <widget class="GtkFrame" id="frame.search.expression">
-		      <property name="border_width">10</property>
+		      <property name="border_width">5</property>
 		      <property name="visible">True</property>
 		      <property name="label_xalign">0</property>
 		      <property name="label_yalign">0.5</property>
-		      <property name="shadow_type">GTK_SHADOW_ETCHED_IN</property>
+		      <property name="shadow_type">GTK_SHADOW_NONE</property>
 
 		      <child>
 			<widget class="GtkTable" id="table3">
-			  <property name="border_width">10</property>
 			  <property name="visible">True</property>
 			  <property name="n_rows">4</property>
 			  <property name="n_columns">3</property>
@@ -4857,7 +4860,7 @@
 			  <child>
 			    <widget class="GtkLabel" id="label29">
 			      <property name="visible">True</property>
-			      <property name="label" translatable="yes">Search Expression</property>
+			      <property name="label" translatable="yes">Search Expression:</property>
 			      <property name="use_underline">False</property>
 			      <property name="use_markup">False</property>
 			      <property name="justify">GTK_JUSTIFY_CENTER</property>
@@ -4967,16 +4970,16 @@
 			      </child>
 
 			      <child internal-child="list">
-				<widget class="GtkList" id="convertwidget81">
+				<widget class="GtkList" id="convertwidget1">
 				  <property name="visible">True</property>
 				  <property name="selection_mode">GTK_SELECTION_BROWSE</property>
 
 				  <child>
-				    <widget class="GtkListItem" id="convertwidget82">
+				    <widget class="GtkListItem" id="convertwidget2">
 				      <property name="visible">True</property>
 
 				      <child>
-					<widget class="GtkLabel" id="convertwidget83">
+					<widget class="GtkLabel" id="convertwidget3">
 					  <property name="visible">True</property>
 					  <property name="label" translatable="yes"></property>
 					  <property name="use_underline">False</property>
@@ -5099,26 +5102,25 @@
 
 		  <child>
 		    <widget class="GtkFrame" id="frame.search.target">
-		      <property name="border_width">10</property>
+		      <property name="border_width">5</property>
 		      <property name="visible">True</property>
 		      <property name="label_xalign">0</property>
 		      <property name="label_yalign">0.5</property>
-		      <property name="shadow_type">GTK_SHADOW_ETCHED_IN</property>
+		      <property name="shadow_type">GTK_SHADOW_NONE</property>
 
 		      <child>
 			<widget class="GtkTable" id="table4">
-			  <property name="border_width">10</property>
 			  <property name="visible">True</property>
 			  <property name="n_rows">6</property>
 			  <property name="n_columns">3</property>
 			  <property name="homogeneous">False</property>
-			  <property name="row_spacing">10</property>
-			  <property name="column_spacing">10</property>
+			  <property name="row_spacing">5</property>
+			  <property name="column_spacing">5</property>
 
 			  <child>
 			    <widget class="GtkLabel" id="label30">
 			      <property name="visible">True</property>
-			      <property name="label" translatable="yes">Search In</property>
+			      <property name="label" translatable="yes">Search In:</property>
 			      <property name="use_underline">False</property>
 			      <property name="use_markup">False</property>
 			      <property name="justify">GTK_JUSTIFY_CENTER</property>
@@ -5134,30 +5136,6 @@
 			      <property name="right_attach">1</property>
 			      <property name="top_attach">0</property>
 			      <property name="bottom_attach">1</property>
-			      <property name="x_options">fill</property>
-			      <property name="y_options"></property>
-			    </packing>
-			  </child>
-
-			  <child>
-			    <widget class="GtkLabel" id="label31">
-			      <property name="visible">True</property>
-			      <property name="label" translatable="yes">Search Action</property>
-			      <property name="use_underline">False</property>
-			      <property name="use_markup">False</property>
-			      <property name="justify">GTK_JUSTIFY_CENTER</property>
-			      <property name="wrap">False</property>
-			      <property name="selectable">False</property>
-			      <property name="xalign">0</property>
-			      <property name="yalign">0.5</property>
-			      <property name="xpad">0</property>
-			      <property name="ypad">0</property>
-			    </widget>
-			    <packing>
-			      <property name="left_attach">0</property>
-			      <property name="right_attach">1</property>
-			      <property name="top_attach">4</property>
-			      <property name="bottom_attach">5</property>
 			      <property name="x_options">fill</property>
 			      <property name="y_options"></property>
 			    </packing>
@@ -5188,16 +5166,16 @@
 			      </child>
 
 			      <child internal-child="list">
-				<widget class="GtkList" id="convertwidget84">
+				<widget class="GtkList" id="convertwidget4">
 				  <property name="visible">True</property>
 				  <property name="selection_mode">GTK_SELECTION_BROWSE</property>
 
 				  <child>
-				    <widget class="GtkListItem" id="convertwidget85">
+				    <widget class="GtkListItem" id="convertwidget5">
 				      <property name="visible">True</property>
 
 				      <child>
-					<widget class="GtkLabel" id="convertwidget86">
+					<widget class="GtkLabel" id="convertwidget6">
 					  <property name="visible">True</property>
 					  <property name="label" translatable="yes"></property>
 					  <property name="use_underline">False</property>
@@ -5228,7 +5206,7 @@
 			  <child>
 			    <widget class="GtkLabel" id="label38">
 			      <property name="visible">True</property>
-			      <property name="label" translatable="yes">Search Direction</property>
+			      <property name="label" translatable="yes">Search Direction:</property>
 			      <property name="use_underline">False</property>
 			      <property name="use_markup">False</property>
 			      <property name="justify">GTK_JUSTIFY_CENTER</property>
@@ -5274,16 +5252,16 @@
 			      </child>
 
 			      <child internal-child="list">
-				<widget class="GtkList" id="convertwidget87">
+				<widget class="GtkList" id="convertwidget7">
 				  <property name="visible">True</property>
 				  <property name="selection_mode">GTK_SELECTION_BROWSE</property>
 
 				  <child>
-				    <widget class="GtkListItem" id="convertwidget88">
+				    <widget class="GtkListItem" id="convertwidget8">
 				      <property name="visible">True</property>
 
 				      <child>
-					<widget class="GtkLabel" id="convertwidget89">
+					<widget class="GtkLabel" id="convertwidget9">
 					  <property name="visible">True</property>
 					  <property name="label" translatable="yes"></property>
 					  <property name="use_underline">False</property>
@@ -5335,16 +5313,16 @@
 			      </child>
 
 			      <child internal-child="list">
-				<widget class="GtkList" id="convertwidget90">
+				<widget class="GtkList" id="convertwidget10">
 				  <property name="visible">True</property>
 				  <property name="selection_mode">GTK_SELECTION_BROWSE</property>
 
 				  <child>
-				    <widget class="GtkListItem" id="convertwidget91">
+				    <widget class="GtkListItem" id="convertwidget11">
 				      <property name="visible">True</property>
 
 				      <child>
-					<widget class="GtkLabel" id="convertwidget92">
+					<widget class="GtkLabel" id="convertwidget12">
 					  <property name="visible">True</property>
 					  <property name="label" translatable="yes"></property>
 					  <property name="use_underline">False</property>
@@ -5380,7 +5358,7 @@
 
 			      <child>
 				<widget class="GtkCombo" id="search.var.combo">
-				  <property name="border_width">10</property>
+				  <property name="border_width">5</property>
 				  <property name="visible">True</property>
 				  <property name="value_in_list">False</property>
 				  <property name="allow_empty">True</property>
@@ -5403,15 +5381,51 @@
 				  </child>
 
 				  <child internal-child="list">
-				    <widget class="GtkList" id="convertwidget93">
+				    <widget class="GtkList" id="convertwidget13">
 				      <property name="visible">True</property>
 				      <property name="selection_mode">GTK_SELECTION_BROWSE</property>
 
 				      <child>
-					<widget class="GtkListItem" id="listitem2">
+					<widget class="GtkListItem" id="convertwidget14">
 					  <property name="visible">True</property>
-					  <property name="can_focus">True</property>
-					  <property name="label" translatable="yes">$(module.source.files) $(module.include.files)</property>
+
+					  <child>
+					    <widget class="GtkLabel" id="convertwidget15">
+					      <property name="visible">True</property>
+					      <property name="label" translatable="yes">$(module.source.files) $(module.include.files)</property>
+					      <property name="use_underline">False</property>
+					      <property name="use_markup">False</property>
+					      <property name="justify">GTK_JUSTIFY_LEFT</property>
+					      <property name="wrap">False</property>
+					      <property name="selectable">False</property>
+					      <property name="xalign">0</property>
+					      <property name="yalign">0.5</property>
+					      <property name="xpad">0</property>
+					      <property name="ypad">0</property>
+					    </widget>
+					  </child>
+					</widget>
+				      </child>
+
+				      <child>
+					<widget class="GtkListItem" id="convertwidget16">
+					  <property name="visible">True</property>
+
+					  <child>
+					    <widget class="GtkLabel" id="convertwidget17">
+					      <property name="visible">True</property>
+					      <property name="label" translatable="yes"></property>
+					      <property name="use_underline">False</property>
+					      <property name="use_markup">False</property>
+					      <property name="justify">GTK_JUSTIFY_LEFT</property>
+					      <property name="wrap">False</property>
+					      <property name="selectable">False</property>
+					      <property name="xalign">0</property>
+					      <property name="yalign">0.5</property>
+					      <property name="xpad">0</property>
+					      <property name="ypad">0</property>
+					    </widget>
+					  </child>
 					</widget>
 				      </child>
 				    </widget>
@@ -5455,18 +5469,18 @@
 
 			      <child>
 				<widget class="GtkTable" id="table5">
-				  <property name="border_width">10</property>
+				  <property name="border_width">5</property>
 				  <property name="visible">True</property>
 				  <property name="n_rows">6</property>
 				  <property name="n_columns">2</property>
 				  <property name="homogeneous">False</property>
-				  <property name="row_spacing">10</property>
-				  <property name="column_spacing">10</property>
+				  <property name="row_spacing">5</property>
+				  <property name="column_spacing">5</property>
 
 				  <child>
 				    <widget class="GtkLabel" id="label32">
 				      <property name="visible">True</property>
-				      <property name="label" translatable="yes">Choose Files</property>
+				      <property name="label" translatable="yes">Choose Files:</property>
 				      <property name="use_underline">False</property>
 				      <property name="use_markup">False</property>
 				      <property name="justify">GTK_JUSTIFY_CENTER</property>
@@ -5512,16 +5526,16 @@
 				      </child>
 
 				      <child internal-child="list">
-					<widget class="GtkList" id="convertwidget98">
+					<widget class="GtkList" id="convertwidget18">
 					  <property name="visible">True</property>
 					  <property name="selection_mode">GTK_SELECTION_BROWSE</property>
 
 					  <child>
-					    <widget class="GtkListItem" id="convertwidget99">
+					    <widget class="GtkListItem" id="convertwidget19">
 					      <property name="visible">True</property>
 
 					      <child>
-						<widget class="GtkLabel" id="convertwidget100">
+						<widget class="GtkLabel" id="convertwidget20">
 						  <property name="visible">True</property>
 						  <property name="label" translatable="yes"></property>
 						  <property name="use_underline">False</property>
@@ -5539,11 +5553,11 @@
 					  </child>
 
 					  <child>
-					    <widget class="GtkListItem" id="convertwidget101">
+					    <widget class="GtkListItem" id="convertwidget21">
 					      <property name="visible">True</property>
 
 					      <child>
-						<widget class="GtkLabel" id="convertwidget102">
+						<widget class="GtkLabel" id="convertwidget22">
 						  <property name="visible">True</property>
 						  <property name="label" translatable="yes">*\.*</property>
 						  <property name="use_underline">False</property>
@@ -5561,11 +5575,11 @@
 					  </child>
 
 					  <child>
-					    <widget class="GtkListItem" id="convertwidget103">
+					    <widget class="GtkListItem" id="convertwidget23">
 					      <property name="visible">True</property>
 
 					      <child>
-						<widget class="GtkLabel" id="convertwidget104">
+						<widget class="GtkLabel" id="convertwidget24">
 						  <property name="visible">True</property>
 						  <property name="label" translatable="yes">*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp</property>
 						  <property name="use_underline">False</property>
@@ -5583,11 +5597,11 @@
 					  </child>
 
 					  <child>
-					    <widget class="GtkListItem" id="convertwidget105">
+					    <widget class="GtkListItem" id="convertwidget25">
 					      <property name="visible">True</property>
 
 					      <child>
-						<widget class="GtkLabel" id="convertwidget106">
+						<widget class="GtkLabel" id="convertwidget26">
 						  <property name="visible">True</property>
 						  <property name="label" translatable="yes">*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp Makefile.am configure.* README AUTHORS ChangeLog *.m4</property>
 						  <property name="use_underline">False</property>
@@ -5605,11 +5619,11 @@
 					  </child>
 
 					  <child>
-					    <widget class="GtkListItem" id="convertwidget107">
+					    <widget class="GtkListItem" id="convertwidget27">
 					      <property name="visible">True</property>
 
 					      <child>
-						<widget class="GtkLabel" id="convertwidget108">
+						<widget class="GtkLabel" id="convertwidget28">
 						  <property name="visible">True</property>
 						  <property name="label" translatable="yes"></property>
 						  <property name="use_underline">False</property>
@@ -5640,7 +5654,7 @@
 				  <child>
 				    <widget class="GtkLabel" id="label33">
 				      <property name="visible">True</property>
-				      <property name="label" translatable="yes">Ignore Files</property>
+				      <property name="label" translatable="yes">Ignore Files:</property>
 				      <property name="use_underline">False</property>
 				      <property name="use_markup">False</property>
 				      <property name="justify">GTK_JUSTIFY_CENTER</property>
@@ -5686,15 +5700,51 @@
 				      </child>
 
 				      <child internal-child="list">
-					<widget class="GtkList" id="convertwidget109">
+					<widget class="GtkList" id="convertwidget29">
 					  <property name="visible">True</property>
 					  <property name="selection_mode">GTK_SELECTION_BROWSE</property>
 
 					  <child>
-					    <widget class="GtkListItem" id="listitem1">
+					    <widget class="GtkListItem" id="convertwidget30">
 					      <property name="visible">True</property>
-					      <property name="can_focus">True</property>
-					      <property name="label" translatable="yes">*.so *.o *.a *.la</property>
+
+					      <child>
+						<widget class="GtkLabel" id="convertwidget31">
+						  <property name="visible">True</property>
+						  <property name="label" translatable="yes">*.so *.o *.a *.la</property>
+						  <property name="use_underline">False</property>
+						  <property name="use_markup">False</property>
+						  <property name="justify">GTK_JUSTIFY_LEFT</property>
+						  <property name="wrap">False</property>
+						  <property name="selectable">False</property>
+						  <property name="xalign">0</property>
+						  <property name="yalign">0.5</property>
+						  <property name="xpad">0</property>
+						  <property name="ypad">0</property>
+						</widget>
+					      </child>
+					    </widget>
+					  </child>
+
+					  <child>
+					    <widget class="GtkListItem" id="convertwidget32">
+					      <property name="visible">True</property>
+
+					      <child>
+						<widget class="GtkLabel" id="convertwidget33">
+						  <property name="visible">True</property>
+						  <property name="label" translatable="yes"></property>
+						  <property name="use_underline">False</property>
+						  <property name="use_markup">False</property>
+						  <property name="justify">GTK_JUSTIFY_LEFT</property>
+						  <property name="wrap">False</property>
+						  <property name="selectable">False</property>
+						  <property name="xalign">0</property>
+						  <property name="yalign">0.5</property>
+						  <property name="xpad">0</property>
+						  <property name="ypad">0</property>
+						</widget>
+					      </child>
 					    </widget>
 					  </child>
 					</widget>
@@ -5731,30 +5781,9 @@
 				  </child>
 
 				  <child>
-				    <widget class="GtkCheckButton" id="ignore.binary.files">
-				      <property name="visible">True</property>
-				      <property name="can_focus">True</property>
-				      <property name="label" translatable="yes">Ignore Binary Files</property>
-				      <property name="use_underline">True</property>
-				      <property name="relief">GTK_RELIEF_NORMAL</property>
-				      <property name="active">False</property>
-				      <property name="inconsistent">False</property>
-				      <property name="draw_indicator">True</property>
-				    </widget>
-				    <packing>
-				      <property name="left_attach">1</property>
-				      <property name="right_attach">2</property>
-				      <property name="top_attach">2</property>
-				      <property name="bottom_attach">3</property>
-				      <property name="x_options">fill</property>
-				      <property name="y_options"></property>
-				    </packing>
-				  </child>
-
-				  <child>
 				    <widget class="GtkLabel" id="label34">
 				      <property name="visible">True</property>
-				      <property name="label" translatable="yes">Choose Directories</property>
+				      <property name="label" translatable="yes">Choose Directories:</property>
 				      <property name="use_underline">False</property>
 				      <property name="use_markup">False</property>
 				      <property name="justify">GTK_JUSTIFY_CENTER</property>
@@ -5800,16 +5829,16 @@
 				      </child>
 
 				      <child internal-child="list">
-					<widget class="GtkList" id="convertwidget114">
+					<widget class="GtkList" id="convertwidget34">
 					  <property name="visible">True</property>
 					  <property name="selection_mode">GTK_SELECTION_BROWSE</property>
 
 					  <child>
-					    <widget class="GtkListItem" id="convertwidget115">
+					    <widget class="GtkListItem" id="convertwidget35">
 					      <property name="visible">True</property>
 
 					      <child>
-						<widget class="GtkLabel" id="convertwidget116">
+						<widget class="GtkLabel" id="convertwidget36">
 						  <property name="visible">True</property>
 						  <property name="label" translatable="yes"></property>
 						  <property name="use_underline">False</property>
@@ -5840,7 +5869,7 @@
 				  <child>
 				    <widget class="GtkLabel" id="label35">
 				      <property name="visible">True</property>
-				      <property name="label" translatable="yes">Ignore Directories</property>
+				      <property name="label" translatable="yes">Ignore Directories:</property>
 				      <property name="use_underline">False</property>
 				      <property name="use_markup">False</property>
 				      <property name="justify">GTK_JUSTIFY_CENTER</property>
@@ -5886,16 +5915,16 @@
 				      </child>
 
 				      <child internal-child="list">
-					<widget class="GtkList" id="convertwidget117">
+					<widget class="GtkList" id="convertwidget37">
 					  <property name="visible">True</property>
 					  <property name="selection_mode">GTK_SELECTION_BROWSE</property>
 
 					  <child>
-					    <widget class="GtkListItem" id="convertwidget118">
+					    <widget class="GtkListItem" id="convertwidget38">
 					      <property name="visible">True</property>
 
 					      <child>
-						<widget class="GtkLabel" id="convertwidget119">
+						<widget class="GtkLabel" id="convertwidget39">
 						  <property name="visible">True</property>
 						  <property name="label" translatable="yes"></property>
 						  <property name="use_underline">False</property>
@@ -5913,11 +5942,11 @@
 					  </child>
 
 					  <child>
-					    <widget class="GtkListItem" id="convertwidget120">
+					    <widget class="GtkListItem" id="convertwidget40">
 					      <property name="visible">True</property>
 
 					      <child>
-						<widget class="GtkLabel" id="convertwidget121">
+						<widget class="GtkLabel" id="convertwidget41">
 						  <property name="visible">True</property>
 						  <property name="label" translatable="yes">CVS</property>
 						  <property name="use_underline">False</property>
@@ -5935,11 +5964,11 @@
 					  </child>
 
 					  <child>
-					    <widget class="GtkListItem" id="convertwidget122">
+					    <widget class="GtkListItem" id="convertwidget42">
 					      <property name="visible">True</property>
 
 					      <child>
-						<widget class="GtkLabel" id="convertwidget123">
+						<widget class="GtkLabel" id="convertwidget43">
 						  <property name="visible">True</property>
 						  <property name="label" translatable="yes">CVS intl po</property>
 						  <property name="use_underline">False</property>
@@ -5957,11 +5986,11 @@
 					  </child>
 
 					  <child>
-					    <widget class="GtkListItem" id="convertwidget124">
+					    <widget class="GtkListItem" id="convertwidget44">
 					      <property name="visible">True</property>
 
 					      <child>
-						<widget class="GtkLabel" id="convertwidget125">
+						<widget class="GtkLabel" id="convertwidget45">
 						  <property name="visible">True</property>
 						  <property name="label" translatable="yes"></property>
 						  <property name="use_underline">False</property>
@@ -6011,6 +6040,26 @@
 				  </child>
 
 				  <child>
+				    <widget class="GtkCheckButton" id="ignore.binary.files">
+				      <property name="visible">True</property>
+				      <property name="can_focus">True</property>
+				      <property name="label" translatable="yes">Ignore Binary Files</property>
+				      <property name="use_underline">True</property>
+				      <property name="relief">GTK_RELIEF_NORMAL</property>
+				      <property name="active">False</property>
+				      <property name="inconsistent">False</property>
+				      <property name="draw_indicator">True</property>
+				    </widget>
+				    <packing>
+				      <property name="left_attach">1</property>
+				      <property name="right_attach">2</property>
+				      <property name="top_attach">2</property>
+				      <property name="bottom_attach">3</property>
+				      <property name="y_options"></property>
+				    </packing>
+				  </child>
+
+				  <child>
 				    <widget class="GtkCheckButton" id="search.dir.recursive">
 				      <property name="visible">True</property>
 				      <property name="can_focus">True</property>
@@ -6026,7 +6075,6 @@
 				      <property name="right_attach">2</property>
 				      <property name="top_attach">5</property>
 				      <property name="bottom_attach">6</property>
-				      <property name="x_options">fill</property>
 				      <property name="y_options"></property>
 				    </packing>
 				  </child>
@@ -6128,6 +6176,30 @@
 			      <property name="y_options"></property>
 			    </packing>
 			  </child>
+
+			  <child>
+			    <widget class="GtkLabel" id="label31">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">Search Action:</property>
+			      <property name="use_underline">False</property>
+			      <property name="use_markup">False</property>
+			      <property name="justify">GTK_JUSTIFY_CENTER</property>
+			      <property name="wrap">False</property>
+			      <property name="selectable">False</property>
+			      <property name="xalign">0</property>
+			      <property name="yalign">0.5</property>
+			      <property name="xpad">0</property>
+			      <property name="ypad">0</property>
+			    </widget>
+			    <packing>
+			      <property name="left_attach">0</property>
+			      <property name="right_attach">1</property>
+			      <property name="top_attach">4</property>
+			      <property name="bottom_attach">5</property>
+			      <property name="x_options">fill</property>
+			      <property name="y_options"></property>
+			    </packing>
+			  </child>
 			</widget>
 		      </child>
 		    </widget>
@@ -6143,7 +6215,7 @@
 		      <property name="label" translatable="yes">Search Target</property>
 		      <property name="use_underline">False</property>
 		      <property name="use_markup">False</property>
-		      <property name="justify">GTK_JUSTIFY_LEFT</property>
+		      <property name="justify">GTK_JUSTIFY_CENTER</property>
 		      <property name="wrap">False</property>
 		      <property name="selectable">False</property>
 		      <property name="xalign">0.5</property>
@@ -6158,25 +6230,25 @@
 
 		  <child>
 		    <widget class="GtkFrame" id="frame.replace">
-		      <property name="border_width">10</property>
+		      <property name="border_width">5</property>
 		      <property name="label_xalign">0</property>
 		      <property name="label_yalign">0.5</property>
-		      <property name="shadow_type">GTK_SHADOW_ETCHED_IN</property>
+		      <property name="shadow_type">GTK_SHADOW_NONE</property>
 
 		      <child>
 			<widget class="GtkTable" id="table7">
-			  <property name="border_width">10</property>
+			  <property name="border_width">5</property>
 			  <property name="visible">True</property>
 			  <property name="n_rows">2</property>
 			  <property name="n_columns">2</property>
 			  <property name="homogeneous">False</property>
-			  <property name="row_spacing">10</property>
-			  <property name="column_spacing">10</property>
+			  <property name="row_spacing">5</property>
+			  <property name="column_spacing">5</property>
 
 			  <child>
 			    <widget class="GtkLabel" id="label37">
 			      <property name="visible">True</property>
-			      <property name="label" translatable="yes">Replace With</property>
+			      <property name="label" translatable="yes">Replace With:</property>
 			      <property name="use_underline">False</property>
 			      <property name="use_markup">False</property>
 			      <property name="justify">GTK_JUSTIFY_CENTER</property>
@@ -6222,16 +6294,16 @@
 			      </child>
 
 			      <child internal-child="list">
-				<widget class="GtkList" id="convertwidget126">
+				<widget class="GtkList" id="convertwidget46">
 				  <property name="visible">True</property>
 				  <property name="selection_mode">GTK_SELECTION_BROWSE</property>
 
 				  <child>
-				    <widget class="GtkListItem" id="convertwidget127">
+				    <widget class="GtkListItem" id="convertwidget47">
 				      <property name="visible">True</property>
 
 				      <child>
-					<widget class="GtkLabel" id="convertwidget128">
+					<widget class="GtkLabel" id="convertwidget48">
 					  <property name="visible">True</property>
 					  <property name="label" translatable="yes"></property>
 					  <property name="use_underline">False</property>
@@ -6282,25 +6354,6 @@
 			  </child>
 			</widget>
 		      </child>
-
-		      <child>
-			<widget class="GtkLabel" id="label41">
-			  <property name="visible">True</property>
-			  <property name="label" translatable="yes">Replace</property>
-			  <property name="use_underline">False</property>
-			  <property name="use_markup">False</property>
-			  <property name="justify">GTK_JUSTIFY_LEFT</property>
-			  <property name="wrap">False</property>
-			  <property name="selectable">False</property>
-			  <property name="xalign">0.5</property>
-			  <property name="yalign">0.5</property>
-			  <property name="xpad">0</property>
-			  <property name="ypad">0</property>
-			</widget>
-			<packing>
-			  <property name="type">label_item</property>
-			</packing>
-		      </child>
 		    </widget>
 		    <packing>
 		      <property name="tab_expand">False</property>
@@ -6338,9 +6391,10 @@
 
 	  <child>
 	    <widget class="GtkHButtonBox" id="hbuttonbox7">
+	      <property name="border_width">5</property>
 	      <property name="visible">True</property>
-	      <property name="layout_style">GTK_BUTTONBOX_SPREAD</property>
-	      <property name="spacing">30</property>
+	      <property name="layout_style">GTK_BUTTONBOX_END</property>
+	      <property name="spacing">5</property>
 
 	      <child>
 		<widget class="GtkButton" id="button.close">
@@ -6371,10 +6425,10 @@
 		  <property name="visible">True</property>
 		  <property name="can_default">True</property>
 		  <property name="can_focus">True</property>
-		  <property name="label" translatable="yes">Next</property>
-		  <property name="use_underline">True</property>
+		  <property name="label">gtk-go-forward</property>
+		  <property name="use_stock">True</property>
 		  <property name="relief">GTK_RELIEF_NORMAL</property>
-		  <signal name="clicked" handler="on_search_button_jump_clicked" last_modification_time="Wed, 09 Apr 2003 08:11:39 GMT"/>
+		  <signal name="clicked" handler="on_search_button_jump_clicked"/>
 		</widget>
 	      </child>
 
