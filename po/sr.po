@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 23.32\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-10-08 23:32+0200\n"
-"PO-Revision-Date: 2003-10-08 23:33+0200\n"
+"POT-Creation-Date: 2003-11-05 13:30+0100\n"
+"PO-Revision-Date: 2003-11-05 13:36+0100\n"
 "Last-Translator: Слободан Средојевић <ssl@uns.ns.ac.yu>\n"
 "Language-Team: Serbian (sr) <serbiangnome-lista@nongnu.org>\n"
 "MIME-Version: 1.0\n"
@@ -344,7 +344,9 @@ msgstr "Произвољан стил"
 msgid ""
 "Custom style,GNU coding style,Kernighan and Ritchie style,Original Berkeley "
 "style,Style of Kangleipak,Hello World style,Crazy boy style"
-msgstr "Стил по избору,Гнуов стил кодирања,Стил Кернигана и Ричија,Изворни Беркли стил,Стил Канглејпака,Стил Здраво Свете,Стил лудог дечка"
+msgstr ""
+"Стил по избору,Гнуов стил кодирања,Стил Кернигана и Ричија,Изворни Беркли "
+"стил,Стил Канглејпака,Стил Здраво Свете,Стил лудог дечка"
 
 #: anjuta.glade.h:79
 msgid "Customize File Browser"
@@ -1108,8 +1110,8 @@ msgstr "Домет"
 msgid "Scripts at the end of top level Makefile.am"
 msgstr "Скрипте на крају корене Makefile.am датотеке"
 
-#: anjuta.glade.h:260 src/search-replace.c:1361 src/search-replace.c:1527
-#: src/search-replace.c:1533
+#: anjuta.glade.h:260 src/search-replace.c:1362 src/search-replace.c:1528
+#: src/search-replace.c:1534
 msgid "Search"
 msgstr "Тражи"
 
@@ -1895,7 +1897,7 @@ msgstr "Програм за изградњу класа"
 
 #. 13
 #. 14
-#: plugins/class-gen/clsGen.c:1343 src/main_menubar_def.h:999
+#: plugins/class-gen/clsGen.c:1343 src/main_menubar_def.h:1006
 #: src/project_dbase_gui.c:367 src/registers_gui.c:55 src/sharedlib_gui.c:48
 #: src/signals_gui.c:62 src/stack_trace.c:379 src/watch_gui.c:74
 msgid "Help"
@@ -2192,7 +2194,7 @@ msgstr "Не могу приказати прозор за избор/филтр
 msgid "Update file"
 msgstr "Освежи датотеку"
 
-#: src/an_file_view.c:355 src/main_menubar_def.h:1605
+#: src/an_file_view.c:355 src/main_menubar_def.h:1612
 msgid "Update current working copy"
 msgstr "Освежи тренутни радни примерак"
 
@@ -2201,7 +2203,7 @@ msgstr "Освежи тренутни радни примерак"
 msgid "Commit file"
 msgstr "Пошаљи датотеку"
 
-#: src/an_file_view.c:362 src/main_menubar_def.h:1612
+#: src/an_file_view.c:362 src/main_menubar_def.h:1619
 msgid "Commit changes to the repository"
 msgstr "Пошаљи измене на сервер"
 
@@ -2210,7 +2212,7 @@ msgstr "Пошаљи измене на сервер"
 msgid "Status of file"
 msgstr "Стање датотеке"
 
-#: src/an_file_view.c:369 src/main_menubar_def.h:1619
+#: src/an_file_view.c:369 src/main_menubar_def.h:1626
 msgid "Print the status of the current file"
 msgstr "Прикажи стање текуће датотеке"
 
@@ -2219,7 +2221,7 @@ msgstr "Прикажи стање текуће датотеке"
 msgid "Get file log"
 msgstr "Преузми дневник датотеке"
 
-#: src/an_file_view.c:376 src/main_menubar_def.h:1626
+#: src/an_file_view.c:376 src/main_menubar_def.h:1633
 msgid "Print the CVS log for the current file"
 msgstr "Прикажи CVS дневник за текућу датотеку"
 
@@ -2228,7 +2230,7 @@ msgstr "Прикажи CVS дневник за текућу датотеку"
 msgid "Add file"
 msgstr "Додај датотеку"
 
-#: src/an_file_view.c:383 src/main_menubar_def.h:1633
+#: src/an_file_view.c:383 src/main_menubar_def.h:1640
 msgid "Add the current file to the repository"
 msgstr "Додај текућу датотеку на сервер"
 
@@ -2237,7 +2239,7 @@ msgstr "Додај текућу датотеку на сервер"
 msgid "Remove file"
 msgstr "Уклони датотеку"
 
-#: src/an_file_view.c:390 src/main_menubar_def.h:1640
+#: src/an_file_view.c:390 src/main_menubar_def.h:1647
 msgid "Remove the current file from the repository"
 msgstr "Уклони текућу датотеку са сервера"
 
@@ -2246,19 +2248,19 @@ msgstr "Уклони текућу датотеку са сервера"
 msgid "Diff file"
 msgstr "Датотека са изменама"
 
-#: src/an_file_view.c:397 src/main_menubar_def.h:1647
+#: src/an_file_view.c:397 src/main_menubar_def.h:1654
 msgid "Create a diff between the working copy and the repository"
 msgstr ""
 "Направи датотеку са разликама између радног примерка пројекта и сервера"
 
 #. 0
-#: src/an_file_view.c:406 src/main_menubar_def.h:947
+#: src/an_file_view.c:406 src/main_menubar_def.h:954
 #: src/project_dbase_gui.c:335
 msgid "Open in Anjuta"
 msgstr "Отвори у Anjuta-и"
 
 #. 1
-#: src/an_file_view.c:413 src/main_menubar_def.h:941
+#: src/an_file_view.c:413 src/main_menubar_def.h:948
 #: src/project_dbase_gui.c:329
 msgid "Open in default viewer"
 msgstr "Отвори у подразумеваном прегледнику"
@@ -2270,13 +2272,13 @@ msgstr "Освежи"
 
 #. 4
 #. 5
-#: src/an_file_view.c:435 src/an_symbol_view.c:309 src/main_menubar_def.h:973
+#: src/an_file_view.c:435 src/an_symbol_view.c:309 src/main_menubar_def.h:980
 #: src/message-manager.cc:143 src/project_dbase_gui.c:361
 #: src/text_editor_menu.c:355
 msgid "Docked"
 msgstr "Прикачен"
 
-#: src/an_file_view.c:436 src/an_symbol_view.c:310 src/main_menubar_def.h:974
+#: src/an_file_view.c:436 src/an_symbol_view.c:310 src/main_menubar_def.h:981
 msgid "Dock/Undock the Project Window"
 msgstr "Прикачи/одвој прозор пројекта"
 
@@ -2654,7 +2656,7 @@ msgstr ""
 "Једна или више датотека нису забележене.\n"
 "Да ли и даље желите да напустите програм?"
 
-#: src/anjuta_cbs.c:504
+#: src/anjuta_cbs.c:505
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -2663,16 +2665,16 @@ msgstr ""
 "Датотека „%s“ већ постоји.\n"
 "Да ли желите да је замените са оном коју бележите?"
 
-#: src/anjuta_cbs.c:511 src/anjuta_cbs.c:575 src/find_replace.c:344
+#: src/anjuta_cbs.c:512 src/anjuta_cbs.c:576 src/find_replace.c:344
 msgid "_Replace"
 msgstr "_Замени"
 
-#: src/anjuta_cbs.c:544
+#: src/anjuta_cbs.c:545
 msgid "Could not open file for writing"
 msgstr "Не могу отворити датотеку за писање"
 
 # bug: "?." -> "?"
-#: src/anjuta_cbs.c:568
+#: src/anjuta_cbs.c:569
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -2864,7 +2866,7 @@ msgid "Old breakpoints disabled."
 msgstr "Старе тачке прекида онемогућене"
 
 #. 5
-#: src/breakpoints.c:1438 src/main_menubar_def.h:774 src/text_editor_gui.c:159
+#: src/breakpoints.c:1438 src/main_menubar_def.h:781 src/text_editor_gui.c:159
 msgid "0"
 msgstr "0"
 
@@ -3246,7 +3248,7 @@ msgid "CVS: Diff file"
 msgstr "CVS: Датотека са разликама"
 
 #. 17
-#: src/cvs_gui.c:229 src/main_menubar_def.h:1112
+#: src/cvs_gui.c:229 src/main_menubar_def.h:1119
 msgid "Diff"
 msgstr "Разлике"
 
@@ -3514,15 +3516,15 @@ msgstr "Шаљем сигнал %s процесу: %d\n"
 msgid "Error whilst signalling the process."
 msgstr "Грешка при сигнализирању процеса."
 
-#: src/executer.c:53 src/mainmenu_callbacks.c:1701
+#: src/executer.c:53 src/mainmenu_callbacks.c:1709
 msgid "The target executable of this Project is unknown"
 msgstr "Тип излазне датотеке овог пројекта је непознат"
 
-#: src/executer.c:58 src/mainmenu_callbacks.c:1703
+#: src/executer.c:58 src/mainmenu_callbacks.c:1711
 msgid "The target executable of this Project is not executable"
 msgstr "Тип излазне датотеке овог пројекта није извршни"
 
-#: src/executer.c:63 src/mainmenu_callbacks.c:1707
+#: src/executer.c:63 src/mainmenu_callbacks.c:1715
 msgid "The target executable does not exist for this Project"
 msgstr "Извршна излазна датотека не постоји за овај пројекат "
 
@@ -3530,8 +3532,8 @@ msgstr "Извршна излазна датотека не постоји за 
 msgid "No file or Project opened."
 msgstr "Нема отворених датотека или пројеката."
 
-#: src/executer.c:81 src/executer.c:100 src/mainmenu_callbacks.c:1727
-#: src/mainmenu_callbacks.c:1738
+#: src/executer.c:81 src/executer.c:100 src/mainmenu_callbacks.c:1735
+#: src/mainmenu_callbacks.c:1746
 msgid "No executable for this file."
 msgstr "Нема извршне датотеке за овај програм."
 
@@ -3726,7 +3728,7 @@ msgstr "launcher.c: грешка при читању садржаног терм
 msgid "launcher.c: PTY pipe error!"
 msgstr "launcher.c: цев терминала је затворена"
 
-#: src/launcher.c:842 src/text_editor.c:1510
+#: src/launcher.c:842 src/text_editor.c:1554
 msgid "Cannot execute command shell"
 msgstr "Не могу покренути интерпретатор наредби"
 
@@ -3734,11 +3736,11 @@ msgstr "Не могу покренути интерпретатор наредб
 msgid "Do not show the splashscreen"
 msgstr "Не приказуј уводну слику"
 
-#: src/main_menubar.c:381
+#: src/main_menubar.c:382
 msgid "Recent Files    "
 msgstr "Последње отваране датотеке    "
 
-#: src/main_menubar.c:392 src/project_dbase.c:2041
+#: src/main_menubar.c:393 src/project_dbase.c:2041
 msgid "Recent Projects "
 msgstr "Последњи отварани пројекти"
 
@@ -4141,1834 +4143,1844 @@ msgstr "Убаци један C калуп"
 msgid "CVS keyword"
 msgstr "CVS кључна реч"
 
+#. 4
+#. 5
+#: src/main_menubar_def.h:393
+msgid "Custom Indent"
+msgstr "Посебно увлачење"
+
+#: src/main_menubar_def.h:394
+msgid "Indent Mode, Offset, Tab-width"
+msgstr "Режим увлачења, померај, ширина табулатора"
+
 #. 0
-#: src/main_menubar_def.h:397
+#: src/main_menubar_def.h:404
 msgid "Block Comment/Uncomment"
 msgstr "Изкоментариши/коментариши у виду блока"
 
-#: src/main_menubar_def.h:398
+#: src/main_menubar_def.h:405
 msgid "Block comment/uncomment the selected text"
 msgstr "Изкоментариши/коментариши изабрани текст у виду блока"
 
 #. 1
-#: src/main_menubar_def.h:403
+#: src/main_menubar_def.h:410
 msgid "Box Comment/Uncomment"
 msgstr "Изкоментариши/коментариши у виду правоугаоника"
 
-#: src/main_menubar_def.h:404
+#: src/main_menubar_def.h:411
 msgid "Box comment/uncomment the selected text"
 msgstr "Изкоментариши/коментариши изабрани текст у виду правоугаоника"
 
 #. 2
-#: src/main_menubar_def.h:409
+#: src/main_menubar_def.h:416
 msgid "Stream Comment/Uncomment"
 msgstr "Изкоментариши/коментариши у виду тока"
 
-#: src/main_menubar_def.h:410
+#: src/main_menubar_def.h:417
 msgid "Stream comment/uncomment the selected text"
 msgstr "Изкоментариши/коментариши изабрани текст у виду тока"
 
 #. 0
-#: src/main_menubar_def.h:420
+#: src/main_menubar_def.h:427
 msgid "_Find ..."
 msgstr "_Пронађи ..."
 
-#: src/main_menubar_def.h:421
+#: src/main_menubar_def.h:428
 msgid "Search for a string or regular expression in the editor"
 msgstr "Тражи низ знакова или регуларни израз у уреднику"
 
 #. 1
-#: src/main_menubar_def.h:427
+#: src/main_menubar_def.h:434
 msgid "Find _Next"
 msgstr "_Пронађи следеће"
 
-#: src/main_menubar_def.h:428
+#: src/main_menubar_def.h:435
 msgid "Search Forward"
 msgstr "Тражи унапред"
 
 #. 2
-#: src/main_menubar_def.h:434
+#: src/main_menubar_def.h:441
 msgid "Find Previous"
 msgstr "Пронађи претходно"
 
-#: src/main_menubar_def.h:435
+#: src/main_menubar_def.h:442
 msgid "Search Backward"
 msgstr "Тражи уназад"
 
 #. 3
-#: src/main_menubar_def.h:441
+#: src/main_menubar_def.h:448
 msgid "Find and R_eplace ..."
 msgstr "_Пронађи и замени ..."
 
-#: src/main_menubar_def.h:442
+#: src/main_menubar_def.h:449
 msgid ""
 "Search for and replace a string or regular expression with another string"
 msgstr ""
 "Пронађи и замени низ знакова или регуларни израз са другим низом знакова"
 
 #. 4
-#: src/main_menubar_def.h:448
+#: src/main_menubar_def.h:455
 msgid "Fin_d in Files ..."
 msgstr "_Пронађи у датотекама ..."
 
-#: src/main_menubar_def.h:449
+#: src/main_menubar_def.h:456
 msgid "Search for a string in multiple files or directories"
 msgstr "Тражи низ знакова у датотекама или директоријумима"
 
 #. 5
-#: src/main_menubar_def.h:455
+#: src/main_menubar_def.h:462
 msgid "_Enter Selection/I-Search"
 msgstr "П_ронађи означено"
 
-#: src/main_menubar_def.h:456
+#: src/main_menubar_def.h:463
 msgid "Enter the selected text as the search target"
 msgstr "Проследите означени текст као низ знакова који тражите"
 
 #. 6
 #. 7
-#: src/main_menubar_def.h:464
+#: src/main_menubar_def.h:471
 msgid "Advanced search and re_place"
 msgstr "Напредна претрага и _замена"
 
-#: src/main_menubar_def.h:465
+#: src/main_menubar_def.h:472
 msgid "Advanced Search And Replace"
 msgstr "Напредна претрага и замена"
 
 #. 0
-#: src/main_menubar_def.h:476
+#: src/main_menubar_def.h:483
 msgid "_Goto Line number ..."
 msgstr "_Иди на линију број..."
 
-#: src/main_menubar_def.h:477
+#: src/main_menubar_def.h:484
 msgid "Go to a particular line in the editor"
 msgstr "Премешта курсор на одређени број линије у уреднику текста"
 
 #. 1
-#: src/main_menubar_def.h:482
+#: src/main_menubar_def.h:489
 msgid "Goto Matching _Brace"
 msgstr "Oдговарајућу _заграду"
 
-#: src/main_menubar_def.h:483
+#: src/main_menubar_def.h:490
 msgid "Go to the matching brace in the editor"
 msgstr ""
 "Пређи на одговарајућу (отварајућу/затварајућу) заграду у програму за обраду "
 "текста"
 
 #. 2
-#: src/main_menubar_def.h:488
+#: src/main_menubar_def.h:495
 msgid "_Goto start of block"
 msgstr "По_четак блока"
 
-#: src/main_menubar_def.h:489
+#: src/main_menubar_def.h:496
 msgid "Go to the start of the current block"
 msgstr "Помера курсор на почетак блока у којем се налази"
 
 #. 3
-#: src/main_menubar_def.h:494
+#: src/main_menubar_def.h:501
 msgid "_Goto end of block"
 msgstr "_Крај блока"
 
-#: src/main_menubar_def.h:495
+#: src/main_menubar_def.h:502
 msgid "Go to the end of the current block"
 msgstr "Помера курсор на крај блока у којем се налази"
 
 #. 4
-#: src/main_menubar_def.h:500
+#: src/main_menubar_def.h:507
 msgid "_Goto previous mesg"
 msgstr "Прет_ходну поруку"
 
-#: src/main_menubar_def.h:501
+#: src/main_menubar_def.h:508
 msgid "Go to previous message"
 msgstr "Иди на претходну поруку"
 
 #. 5
-#: src/main_menubar_def.h:506
+#: src/main_menubar_def.h:513
 msgid "_Goto next mesg"
 msgstr "_Следећу поруку"
 
-#: src/main_menubar_def.h:507
+#: src/main_menubar_def.h:514
 msgid "Go to next message"
 msgstr "Иди на следећу поруку"
 
 #. 6
-#: src/main_menubar_def.h:512
+#: src/main_menubar_def.h:519
 msgid "_Go Back"
 msgstr "_Иди назад"
 
-#: src/main_menubar_def.h:513
+#: src/main_menubar_def.h:520
 msgid "Go back"
 msgstr "Иди назад"
 
 #. 7
-#: src/main_menubar_def.h:518
+#: src/main_menubar_def.h:525
 msgid "_Go Forward"
 msgstr "_Иди напред"
 
-#: src/main_menubar_def.h:519
+#: src/main_menubar_def.h:526
 msgid "Go forward"
 msgstr "Иди напред"
 
 #. 8
-#: src/main_menubar_def.h:524 src/text_editor_menu.c:93
+#: src/main_menubar_def.h:531 src/text_editor_menu.c:93
 msgid "Tag Definition"
 msgstr "Дефиниција функције/променљиве"
 
-#: src/main_menubar_def.h:525
+#: src/main_menubar_def.h:532
 msgid "Goto tag definition"
 msgstr "Иди на дефиницију функције/променљиве"
 
 #. 9
-#: src/main_menubar_def.h:530 src/text_editor_menu.c:100
+#: src/main_menubar_def.h:537 src/text_editor_menu.c:100
 msgid "Tag Declaration"
 msgstr "Декларација функције/променљиве"
 
-#: src/main_menubar_def.h:531
+#: src/main_menubar_def.h:538
 msgid "Goto tag declaration"
 msgstr "Иди на декларацију функције/променљиве"
 
 #. 10
-#: src/main_menubar_def.h:536
+#: src/main_menubar_def.h:543
 msgid "Next occurrence"
 msgstr "Следеће појављивање"
 
-#: src/main_menubar_def.h:537
+#: src/main_menubar_def.h:544
 msgid "Find the next occurrence of current word"
 msgstr "Пронађи следећу појаву текуће речи у тексту програма"
 
 #. 11
-#: src/main_menubar_def.h:542
+#: src/main_menubar_def.h:549
 msgid "Previous occurrence"
 msgstr "Претходно појављивање"
 
-#: src/main_menubar_def.h:543
+#: src/main_menubar_def.h:550
 msgid "Find the previous occurrence of current word"
 msgstr "Пронађи претходно појављивање текуће речи у тексту програма"
 
 #. 0
-#: src/main_menubar_def.h:554
+#: src/main_menubar_def.h:561
 msgid "U_ndo"
 msgstr "_Поништи"
 
-#: src/main_menubar_def.h:555 src/toolbar.c:97
+#: src/main_menubar_def.h:562 src/toolbar.c:97
 msgid "Undo the last action"
 msgstr "Поништава последњу радњу"
 
 #. 1
-#: src/main_menubar_def.h:561
+#: src/main_menubar_def.h:568
 msgid "_Redo"
 msgstr "_Понови"
 
-#: src/main_menubar_def.h:562 src/toolbar.c:101
+#: src/main_menubar_def.h:569 src/toolbar.c:101
 msgid "Redo the last undone action"
 msgstr "Понавља последњу поништену радњу"
 
 #. 2
 #. 3
-#: src/main_menubar_def.h:570
+#: src/main_menubar_def.h:577
 msgid "C_ut"
 msgstr "_Исеци"
 
-#: src/main_menubar_def.h:571
+#: src/main_menubar_def.h:578
 msgid "Cut the selected text from the editor to the clipboard"
 msgstr "Исеца означени текст из програма за уређење текста на списак исечака"
 
 #. 4
-#: src/main_menubar_def.h:577
+#: src/main_menubar_def.h:584
 msgid "_Copy"
 msgstr "_Умножи"
 
-#: src/main_menubar_def.h:578
+#: src/main_menubar_def.h:585
 msgid "Copy the selected text to the clipboard"
 msgstr "Умножава означени текст на списак исечака"
 
 #. 5
-#: src/main_menubar_def.h:584
+#: src/main_menubar_def.h:591
 msgid "_Paste"
 msgstr "_Убаци"
 
-#: src/main_menubar_def.h:585
+#: src/main_menubar_def.h:592
 msgid "Paste the content of clipboard at the current position"
 msgstr "Убаци последњу ставку на списку исечака на место курсора"
 
 #. 6
-#: src/main_menubar_def.h:591
+#: src/main_menubar_def.h:598
 msgid "C_lear"
 msgstr "_Очисти"
 
-#: src/main_menubar_def.h:592
+#: src/main_menubar_def.h:599
 msgid "Delete the selected text from the editor"
 msgstr "Уклони означени текст из програма за уређивање текста"
 
 #. 7
 #. 8
-#: src/main_menubar_def.h:600
+#: src/main_menubar_def.h:607
 msgid "_Transform"
 msgstr "_Трансформиши"
 
 #. 9
-#: src/main_menubar_def.h:607
+#: src/main_menubar_def.h:614
 msgid "_Select"
 msgstr "_Означи"
 
 #. 10
-#: src/main_menubar_def.h:614
+#: src/main_menubar_def.h:621
 msgid "_Insert text"
 msgstr "_Убаци текст"
 
 #. 11
-#: src/main_menubar_def.h:621
+#: src/main_menubar_def.h:628
 msgid "Co_mment code"
 msgstr "_Коментари"
 
 #. 12
-#: src/main_menubar_def.h:627
+#: src/main_menubar_def.h:634
 msgid "S_earch"
 msgstr "_Тражи"
 
 #. 13
-#: src/main_menubar_def.h:633
+#: src/main_menubar_def.h:640
 msgid "G_o to"
 msgstr "_Пређи на"
 
 #. 14
 #. 15
-#: src/main_menubar_def.h:642
+#: src/main_menubar_def.h:649
 msgid "_AutoComplete"
 msgstr "_Аутоматски допуни"
 
-#: src/main_menubar_def.h:643
+#: src/main_menubar_def.h:650
 msgid "AutoComplete the current word"
 msgstr "Аутоматски допуни текућу реч"
 
 #. 16
-#: src/main_menubar_def.h:649
+#: src/main_menubar_def.h:656
 msgid "S_how calltip"
 msgstr "Прикажи прототип"
 
-#: src/main_menubar_def.h:650
+#: src/main_menubar_def.h:657
 msgid "Show calltip for the function"
 msgstr "Прикажи прототип функције"
 
 #. 0
-#: src/main_menubar_def.h:662
+#: src/main_menubar_def.h:669
 msgid "_Main Toolbar"
 msgstr "_Главна линија са алатима"
 
-#: src/main_menubar_def.h:663
+#: src/main_menubar_def.h:670
 msgid "Hide/Unhide Main toolbar"
 msgstr "Прикажи/сакриј главну линију са алатима"
 
 #. 1
-#: src/main_menubar_def.h:668
+#: src/main_menubar_def.h:675
 msgid "_Extended Toolbar"
 msgstr "_Проширена линија са алатима"
 
-#: src/main_menubar_def.h:669
+#: src/main_menubar_def.h:676
 msgid "Hide/Unhide Extended toolbar"
 msgstr "Прикажи/сакриј проширену линију са алатима"
 
 #. 2
-#: src/main_menubar_def.h:674
+#: src/main_menubar_def.h:681
 msgid "_Debug Toolbar"
 msgstr "_Линија са алатима за проналажење грешака"
 
-#: src/main_menubar_def.h:675
+#: src/main_menubar_def.h:682
 msgid "Hide/Unhide Debug toolbar"
 msgstr "Прикажи/сакриј линију са алатима за проналажење грешака"
 
 #. 3
-#: src/main_menubar_def.h:680
+#: src/main_menubar_def.h:687
 msgid "_Browser Toolbar"
 msgstr "_Алатке прегледника"
 
-#: src/main_menubar_def.h:681
+#: src/main_menubar_def.h:688
 msgid "Hide/Unhide Browser toolbar"
 msgstr "Прикажи/сакриј линију са алатакама прегледника"
 
 #. 4
-#: src/main_menubar_def.h:686
+#: src/main_menubar_def.h:693
 msgid "_Format Toolbar"
 msgstr "_Линија са алатима за форматирање"
 
-#: src/main_menubar_def.h:687
+#: src/main_menubar_def.h:694
 msgid "Hide/Unhide Format toolbar"
 msgstr "Прикажи/сакриј линију са алатима за форматирање"
 
 #. 0
-#: src/main_menubar_def.h:697
+#: src/main_menubar_def.h:704
 msgid "_Line numbers margin"
 msgstr "_Маргина са бројевима линија"
 
-#: src/main_menubar_def.h:698
+#: src/main_menubar_def.h:705
 msgid "Show/Hide line numbers"
 msgstr "Прикажи/сакриј маргину са бројевима линија"
 
 #. 1
-#: src/main_menubar_def.h:703
+#: src/main_menubar_def.h:710
 msgid "_Markers Margin"
 msgstr "_Маргина са ознакама"
 
-#: src/main_menubar_def.h:704
+#: src/main_menubar_def.h:711
 msgid "Show/Hide markers margin"
 msgstr "Прикажи/сакриј маргину са ознакама"
 
 #. 2
-#: src/main_menubar_def.h:709
+#: src/main_menubar_def.h:716
 msgid "_Code fold margin"
 msgstr "_Маргина програмске језичке структуре"
 
-#: src/main_menubar_def.h:710
+#: src/main_menubar_def.h:717
 msgid "Show/Hide code fold margin"
 msgstr "Прикажи/сакриј маргину програмске језичке структуре"
 
 #. 3
-#: src/main_menubar_def.h:715
+#: src/main_menubar_def.h:722
 msgid "_Indentation guides"
 msgstr "_Линије које прате увлачење редова"
 
-#: src/main_menubar_def.h:716
+#: src/main_menubar_def.h:723
 msgid "Show/Hide indentation guides"
 msgstr "Прикажи/сакриј вертикалне линије које прате увлачење програмског кода"
 
 #. 4
-#: src/main_menubar_def.h:721
+#: src/main_menubar_def.h:728
 msgid "_White spaces"
 msgstr "_Празна места"
 
-#: src/main_menubar_def.h:722
+#: src/main_menubar_def.h:729
 msgid "Show/Hide white spaces"
 msgstr "Прикажи/сакриј празна места"
 
 #. 5
-#: src/main_menubar_def.h:727
+#: src/main_menubar_def.h:734
 msgid "_Line end characters"
 msgstr "_Знак за крај линије"
 
-#: src/main_menubar_def.h:728
+#: src/main_menubar_def.h:735
 msgid "Show/Hide line end characters"
 msgstr "Прикажи/сакриј знаке за крај линије"
 
 #. 6
-#: src/main_menubar_def.h:733
+#: src/main_menubar_def.h:740
 msgid "Line _wrapping"
 msgstr "_Прелом реда"
 
-#: src/main_menubar_def.h:734
+#: src/main_menubar_def.h:741
 msgid "Enable/disable line wrapping"
 msgstr "Омогући/онемогући прелом реда"
 
 #. 0
-#: src/main_menubar_def.h:744
+#: src/main_menubar_def.h:751
 msgid "++ Zoom"
 msgstr "++ увећање"
 
-#: src/main_menubar_def.h:745
+#: src/main_menubar_def.h:752
 msgid "Increase text zoom by 1 unit"
 msgstr "Повећај увећање текста за једну јединицу"
 
 #. 1
-#: src/main_menubar_def.h:750
+#: src/main_menubar_def.h:757
 msgid "+8"
 msgstr "+8"
 
-#: src/main_menubar_def.h:751
+#: src/main_menubar_def.h:758
 msgid "Zoom factor +8"
 msgstr "Вредност увећања +8"
 
 #. 2
-#: src/main_menubar_def.h:756
+#: src/main_menubar_def.h:763
 msgid "+6"
 msgstr "+6"
 
-#: src/main_menubar_def.h:757
+#: src/main_menubar_def.h:764
 msgid "Zoom factor +6"
 msgstr "Вредност увећања +6"
 
 #. 3
-#: src/main_menubar_def.h:762
+#: src/main_menubar_def.h:769
 msgid "+4"
 msgstr "+4"
 
-#: src/main_menubar_def.h:763
+#: src/main_menubar_def.h:770
 msgid "Zoom factor +4"
 msgstr "Вредност увећања +4"
 
 #. 4
-#: src/main_menubar_def.h:768
+#: src/main_menubar_def.h:775
 msgid "+2"
 msgstr "+2"
 
-#: src/main_menubar_def.h:769
+#: src/main_menubar_def.h:776
 msgid "Zoom factor +2"
 msgstr "Вредност увећања +2"
 
-#: src/main_menubar_def.h:775
+#: src/main_menubar_def.h:782
 msgid "Zoom factor 0"
 msgstr "Вредност увећања 0"
 
 #. 6
-#: src/main_menubar_def.h:780
+#: src/main_menubar_def.h:787
 msgid "-2"
 msgstr "-2"
 
-#: src/main_menubar_def.h:781
+#: src/main_menubar_def.h:788
 msgid "Zoom factor -2"
 msgstr "Вредност увећања -2"
 
 #. 7
-#: src/main_menubar_def.h:786
+#: src/main_menubar_def.h:793
 msgid "-4"
 msgstr "-4"
 
-#: src/main_menubar_def.h:787
+#: src/main_menubar_def.h:794
 msgid "Zoom factor -4"
 msgstr "Вредност увећања -4"
 
 #. 8
-#: src/main_menubar_def.h:792
+#: src/main_menubar_def.h:799
 msgid "-6"
 msgstr "-6"
 
-#: src/main_menubar_def.h:793
+#: src/main_menubar_def.h:800
 msgid "Zoom factor -6"
 msgstr "Вредност увећања -6"
 
 #. 9
-#: src/main_menubar_def.h:798
+#: src/main_menubar_def.h:805
 msgid "-8"
 msgstr "-8"
 
-#: src/main_menubar_def.h:799
+#: src/main_menubar_def.h:806
 msgid "Zoom factor -8"
 msgstr "Вредност увећања -8"
 
 #. 10
-#: src/main_menubar_def.h:804
+#: src/main_menubar_def.h:811
 msgid "-- Zoom"
 msgstr "-- умањење"
 
-#: src/main_menubar_def.h:805
+#: src/main_menubar_def.h:812
 msgid "Reduce text zoom by 1 unit"
 msgstr "Умањи увећање текста за једну јединицу"
 
 #. 0
-#: src/main_menubar_def.h:815
+#: src/main_menubar_def.h:822
 msgid "_Message window"
 msgstr "_Прозор са порукама"
 
-#: src/main_menubar_def.h:816 src/toolbar.c:155
+#: src/main_menubar_def.h:823 src/toolbar.c:155
 msgid "Show/Hide the Message window"
 msgstr "Прикажи/сакриј прозор са порукама"
 
 #. 1
-#: src/main_menubar_def.h:821
+#: src/main_menubar_def.h:828
 msgid "_Project window"
 msgstr "_Прозор пројекта"
 
-#: src/main_menubar_def.h:822 src/toolbar.c:151
+#: src/main_menubar_def.h:829 src/toolbar.c:151
 msgid "Show/Hide the Project window"
 msgstr "Прикажи/сакриј прозор пројекта"
 
 #. 2
-#: src/main_menubar_def.h:827
+#: src/main_menubar_def.h:834
 msgid "B_ookmarks"
 msgstr "_Ознаке"
 
-#: src/main_menubar_def.h:828
+#: src/main_menubar_def.h:835
 msgid "Show the Bookmark window"
 msgstr "Прикажи прозор са ознакама"
 
 #. 3
 #. 4
-#: src/main_menubar_def.h:834
+#: src/main_menubar_def.h:841
 msgid "_Toolbars"
 msgstr "_Линија са алатима"
 
 #. 5
-#: src/main_menubar_def.h:840
+#: src/main_menubar_def.h:847
 msgid "_Editor"
 msgstr "_Уредник"
 
 #. 6
-#: src/main_menubar_def.h:846
+#: src/main_menubar_def.h:853
 msgid "_Zoom text"
 msgstr "_Увећај текст"
 
 #. 7
 #. 8
-#: src/main_menubar_def.h:853 src/main_menubar_def.h:1565
+#: src/main_menubar_def.h:860 src/main_menubar_def.h:1572
 msgid "_Breakpoints"
 msgstr "_Тачке прекида"
 
-#: src/main_menubar_def.h:854
+#: src/main_menubar_def.h:861
 msgid "Show breakpoints editor window"
 msgstr "Прикажи прозор за уређење тачки прекида"
 
 #. 9
-#: src/main_menubar_def.h:859
+#: src/main_menubar_def.h:866
 msgid "_Registers"
 msgstr "_Регистри"
 
-#: src/main_menubar_def.h:860
+#: src/main_menubar_def.h:867
 msgid "Show CPU registers and their contents"
 msgstr "Прикажи регистре процесора и њихов садржај"
 
 #. 10
-#: src/main_menubar_def.h:865
+#: src/main_menubar_def.h:872
 msgid "Shared _Libraries"
 msgstr "_Дељене библиотеке"
 
-#: src/main_menubar_def.h:866
+#: src/main_menubar_def.h:873
 msgid "Show shared libraries loaded by the program"
 msgstr "Прикажи које дељене библиотеке користи програм"
 
 #. 11
-#: src/main_menubar_def.h:871
+#: src/main_menubar_def.h:878
 msgid "_Kernel Signals"
 msgstr "_Сигнали језгра"
 
-#: src/main_menubar_def.h:872
+#: src/main_menubar_def.h:879
 msgid "Show the kernel signals editor window"
 msgstr "Прикажи прозор за уређење сигнала језгра"
 
 #. 12
-#: src/main_menubar_def.h:877
+#: src/main_menubar_def.h:884
 msgid "Memory _Dump"
 msgstr "Испис _меморије"
 
-#: src/main_menubar_def.h:878
+#: src/main_menubar_def.h:885
 msgid "Show memory dump window"
 msgstr "Прикажи прозор са исписом меморије"
 
 #. 0
-#: src/main_menubar_def.h:888 src/project_dbase_gui.c:277
+#: src/main_menubar_def.h:895 src/project_dbase_gui.c:277
 msgid "Include file"
 msgstr "Датотека са прототипима"
 
 #. 1
-#: src/main_menubar_def.h:894 src/project_dbase_gui.c:283
+#: src/main_menubar_def.h:901 src/project_dbase_gui.c:283
 msgid "Source file"
 msgstr "Датотека са изворним кодом"
 
 #. 2
-#: src/main_menubar_def.h:900 src/project_dbase_gui.c:289
+#: src/main_menubar_def.h:907 src/project_dbase_gui.c:289
 msgid "Help file"
 msgstr "Датотека која садржи помоћ"
 
 #. 3
-#: src/main_menubar_def.h:906 src/project_dbase_gui.c:295
+#: src/main_menubar_def.h:913 src/project_dbase_gui.c:295
 msgid "Data file"
 msgstr "Датотека са подацима"
 
 #. 4
-#: src/main_menubar_def.h:912 src/project_dbase_gui.c:301
+#: src/main_menubar_def.h:919 src/project_dbase_gui.c:301
 msgid "Pixmap file"
 msgstr "Pixmap датотека"
 
 #. 5
-#: src/main_menubar_def.h:918 src/project_dbase_gui.c:307
+#: src/main_menubar_def.h:925 src/project_dbase_gui.c:307
 msgid "Translation file"
 msgstr "Датотека са преводом"
 
 #. 6
-#: src/main_menubar_def.h:924 src/project_dbase_gui.c:313
+#: src/main_menubar_def.h:931 src/project_dbase_gui.c:313
 msgid "Doc file"
 msgstr "Документација"
 
 #. 0
-#: src/main_menubar_def.h:935 src/project_dbase_gui.c:323
+#: src/main_menubar_def.h:942 src/project_dbase_gui.c:323
 msgid "Add File"
 msgstr "Додај датотеку"
 
 #. 3
-#: src/main_menubar_def.h:953
+#: src/main_menubar_def.h:960
 msgid "Remove File"
 msgstr "Уклони датотеку"
 
 #. 4
 #. 5
-#: src/main_menubar_def.h:960 src/project_dbase_gui.c:348
+#: src/main_menubar_def.h:967 src/project_dbase_gui.c:348
 msgid "Configure Project"
 msgstr "Подеси пројекат"
 
-#: src/main_menubar_def.h:961
+#: src/main_menubar_def.h:968
 msgid "Configure options for the current Project"
 msgstr "Подеси опције текућег пројекта"
 
 #. 6
-#: src/main_menubar_def.h:966 src/project_dbase_gui.c:354
+#: src/main_menubar_def.h:973 src/project_dbase_gui.c:354
 msgid "Project Info"
 msgstr "Подаци о пројекту"
 
-#: src/main_menubar_def.h:967
+#: src/main_menubar_def.h:974
 msgid "Display the Project information"
 msgstr "Приказује податке о пројекту"
 
 #. 9
 #. 10
-#: src/main_menubar_def.h:980
+#: src/main_menubar_def.h:987
 msgid "_Update tags image"
 msgstr "_Допуни списак функција/променљивих"
 
-#: src/main_menubar_def.h:981
+#: src/main_menubar_def.h:988
 msgid "Update the tags image of the Project/opened files"
 msgstr ""
 "Допуни списак функција/променљивих тренутно отвореног пројекта или датотека"
 
 #. 11
-#: src/main_menubar_def.h:986
+#: src/main_menubar_def.h:993
 msgid "Rebuild tags image"
 msgstr "Поново образуј списак функција/променљивих"
 
-#: src/main_menubar_def.h:987
+#: src/main_menubar_def.h:994
 msgid "Rebuild the tags image of the Project"
 msgstr "Поново образуј списак функција/променљивих текућег пројекта"
 
 #. 12
-#: src/main_menubar_def.h:992
+#: src/main_menubar_def.h:999
 msgid "Ed_it Application GUI ..."
 msgstr "_Уреди графички изглед програма ..."
 
-#: src/main_menubar_def.h:993
+#: src/main_menubar_def.h:1000
 msgid "Edit application GUI with the Glade GUI editor"
 msgstr "Уреди графички изглед програма помоћу програма Глејд(Glade)"
 
 #. 0
-#: src/main_menubar_def.h:1010
+#: src/main_menubar_def.h:1017
 msgid "Automatic"
 msgstr "Аутоматски"
 
-#: src/main_menubar_def.h:1011
+#: src/main_menubar_def.h:1018
 msgid "Automatically determine the highlight style"
 msgstr "Аутоматски препознај стил осветљења кода"
 
 #. 1
-#: src/main_menubar_def.h:1016
+#: src/main_menubar_def.h:1023
 msgid "No Highlight style"
 msgstr "Без стила осветљења"
 
-#: src/main_menubar_def.h:1017
+#: src/main_menubar_def.h:1024
 msgid "Remove the current highlight style"
 msgstr "Уклони текући стил осветљења"
 
 #. 2
-#: src/main_menubar_def.h:1022
+#: src/main_menubar_def.h:1029
 msgid "C and C++"
 msgstr "C и C++"
 
-#: src/main_menubar_def.h:1023
+#: src/main_menubar_def.h:1030
 msgid "Force the highlight style to C and C++"
 msgstr "Наметни стил осветљења као да се ради о C или C++ програму"
 
 #. 3
-#: src/main_menubar_def.h:1028
+#: src/main_menubar_def.h:1035
 msgid "C and C++ with GNOME"
 msgstr "Гном(GNOME) C и C++"
 
-#: src/main_menubar_def.h:1029
+#: src/main_menubar_def.h:1036
 msgid "Force the highlight style to C and C++ with GNOME"
 msgstr "Наметни стил осветљења као да се ради о Гном(GNOME) C и C++ програму"
 
 #. 4
-#: src/main_menubar_def.h:1034
+#: src/main_menubar_def.h:1041
 msgid "HTML"
 msgstr "HTML"
 
-#: src/main_menubar_def.h:1035
+#: src/main_menubar_def.h:1042
 msgid "Force the highlight style to HTML"
 msgstr "Наметни стил осветљења као да се ради о HTML програму"
 
 #. 5
-#: src/main_menubar_def.h:1040
+#: src/main_menubar_def.h:1047
 msgid "XML"
 msgstr "XML"
 
-#: src/main_menubar_def.h:1041
+#: src/main_menubar_def.h:1048
 msgid "Force the highlight style to XML"
 msgstr "Наметни стил осветљења као да се ради о XML програму"
 
 #. 6
-#: src/main_menubar_def.h:1046
+#: src/main_menubar_def.h:1053
 msgid "Javascript"
 msgstr "Јаваскрипт (Javascript)"
 
-#: src/main_menubar_def.h:1047
+#: src/main_menubar_def.h:1054
 msgid "Force the highlight style to Javascript"
 msgstr ""
 "Наметни стил осветљења као да се ради о Јаваскрипт(Javascript) програму"
 
 #. 7
-#: src/main_menubar_def.h:1052
+#: src/main_menubar_def.h:1059
 msgid "WScript"
 msgstr "WScript"
 
-#: src/main_menubar_def.h:1053
+#: src/main_menubar_def.h:1060
 msgid "Force the highlight style to WScript"
 msgstr "Наметни стил осветљења као да се ради о WScript програму"
 
 #. 8
-#: src/main_menubar_def.h:1058
+#: src/main_menubar_def.h:1065
 msgid "Makefile"
 msgstr "Makefile"
 
-#: src/main_menubar_def.h:1059
+#: src/main_menubar_def.h:1066
 msgid "Force the highlight style to Makefile"
 msgstr "Наметни стил осветљења као да се ради о Makefile програму"
 
 #. 9
-#: src/main_menubar_def.h:1064
+#: src/main_menubar_def.h:1071
 msgid "Java"
 msgstr "Јава (Java)"
 
-#: src/main_menubar_def.h:1065
+#: src/main_menubar_def.h:1072
 msgid "Force the highlight type to Java"
 msgstr "Наметни стил осветљења као да се ради о Јава (Java) програму"
 
 #. 10
-#: src/main_menubar_def.h:1070
+#: src/main_menubar_def.h:1077
 msgid "LUA"
 msgstr "Луа (LUA)"
 
-#: src/main_menubar_def.h:1071
+#: src/main_menubar_def.h:1078
 msgid "Force the highlight style to LUA"
 msgstr "Наметни стил осветљења као да се ради о Луа (LUA) програму"
 
 #. 11
-#: src/main_menubar_def.h:1076
+#: src/main_menubar_def.h:1083
 msgid "Python"
 msgstr "Пајтон (Python)"
 
-#: src/main_menubar_def.h:1077
+#: src/main_menubar_def.h:1084
 msgid "Force the highlight style to Python"
 msgstr "Наметни стил осветљења као да се ради о Пајтон (Python) програму"
 
 #. 12
-#: src/main_menubar_def.h:1082
+#: src/main_menubar_def.h:1089
 msgid "Perl"
 msgstr "Перл (Perl)"
 
-#: src/main_menubar_def.h:1083
+#: src/main_menubar_def.h:1090
 msgid "Force the highlight style to Perl"
 msgstr "Наметни стил осветљења као да се ради о Перл (Perl) програму"
 
 #. 13
-#: src/main_menubar_def.h:1088
+#: src/main_menubar_def.h:1095
 msgid "SQL"
 msgstr "SQL"
 
-#: src/main_menubar_def.h:1089
+#: src/main_menubar_def.h:1096
 msgid "Force the highlight style to SQL"
 msgstr "Наметни стил осветљења као да се ради о SQL програму"
 
 #. 14
-#: src/main_menubar_def.h:1094
+#: src/main_menubar_def.h:1101
 msgid "PL/SQL"
 msgstr "PL/SQL"
 
-#: src/main_menubar_def.h:1095
+#: src/main_menubar_def.h:1102
 msgid "Force the highlight style to PL/SQL"
 msgstr "Наметни стил осветљења као да се ради о PL/SQL програму"
 
 #. 15
-#: src/main_menubar_def.h:1100
+#: src/main_menubar_def.h:1107
 msgid "PHP"
 msgstr "PHP"
 
-#: src/main_menubar_def.h:1101
+#: src/main_menubar_def.h:1108
 msgid "Force the highlight style to PHP"
 msgstr "Наметни стил осветљења као да се ради о PHP програму"
 
 #. 16
-#: src/main_menubar_def.h:1106
+#: src/main_menubar_def.h:1113
 msgid "LaTex"
 msgstr "Латекс (LaTex)"
 
-#: src/main_menubar_def.h:1107
+#: src/main_menubar_def.h:1114
 msgid "Force the highlight style to LaTex"
 msgstr "Наметни стил осветљења као да се ради о Латекс (LaTex) програму"
 
-#: src/main_menubar_def.h:1113
+#: src/main_menubar_def.h:1120
 msgid "Force the highlight style to Diff"
 msgstr "Наметни стил осветљења као да се ради о Diff програму"
 
 #. 18
-#: src/main_menubar_def.h:1118
+#: src/main_menubar_def.h:1125
 msgid "Pascal"
 msgstr "Паскал (Pascal)"
 
-#: src/main_menubar_def.h:1119
+#: src/main_menubar_def.h:1126
 msgid "Force the highlight style to Pascal"
 msgstr "Наметни стил осветљења као да се ради о Паскал (Pascal) програму"
 
 #. 19
-#: src/main_menubar_def.h:1124
+#: src/main_menubar_def.h:1131
 msgid "Xcode"
 msgstr "Xcode"
 
-#: src/main_menubar_def.h:1125
+#: src/main_menubar_def.h:1132
 msgid "Force the highlight style to Xcode"
 msgstr "Наметни стил осветљења као да се ради о Xcode програму"
 
 #. 20
-#: src/main_menubar_def.h:1130
+#: src/main_menubar_def.h:1137
 msgid "Prj/Properties"
 msgstr "Пројекат/подешавања"
 
-#: src/main_menubar_def.h:1131
+#: src/main_menubar_def.h:1138
 msgid "Force the highlight style to project/properties files"
 msgstr "Наметни стил осветљења као да се ради о Пројекат/подешавања датотекама"
 
 #. 21
-#: src/main_menubar_def.h:1136
+#: src/main_menubar_def.h:1143
 msgid "Conf"
 msgstr "Conf"
 
-#: src/main_menubar_def.h:1137
+#: src/main_menubar_def.h:1144
 msgid "Force the highlight style to UNIX conf files"
 msgstr "Наметни стил осветљења као да се ради о Conf датотекама"
 
 #. 22
-#: src/main_menubar_def.h:1142
+#: src/main_menubar_def.h:1149
 msgid "Ada"
 msgstr "Ада (Ada)"
 
-#: src/main_menubar_def.h:1143
+#: src/main_menubar_def.h:1150
 msgid "Force the highlight style to Ada"
 msgstr "Наметни стил осветљења као да се ради о Ада (Ada) програму"
 
 #. 23
-#: src/main_menubar_def.h:1148
+#: src/main_menubar_def.h:1155
 msgid "Baan"
 msgstr "Baan"
 
-#: src/main_menubar_def.h:1149
+#: src/main_menubar_def.h:1156
 msgid "Force the highlight style to Baan"
 msgstr "Наметни стил осветљења као да се ради о Baan програму"
 
 #. 24
-#: src/main_menubar_def.h:1154
+#: src/main_menubar_def.h:1161
 msgid "Lisp"
 msgstr "Лисп (Lisp)"
 
-#: src/main_menubar_def.h:1155
+#: src/main_menubar_def.h:1162
 msgid "Force the highlight style to Lisp"
 msgstr "Наметни стил осветљења као да се ради о Лисп (Lisp) програму"
 
 #. 25
-#: src/main_menubar_def.h:1160
+#: src/main_menubar_def.h:1167
 msgid "Ruby"
 msgstr "Руби (Ruby)"
 
-#: src/main_menubar_def.h:1161
+#: src/main_menubar_def.h:1168
 msgid "Force the highlight style to Ruby"
 msgstr "Наметни стил осветљења као да се ради о Руби (Ruby) програму"
 
 #. 26
-#: src/main_menubar_def.h:1166
+#: src/main_menubar_def.h:1173
 msgid "Matlab"
 msgstr "Матлаб(Matlab)"
 
-#: src/main_menubar_def.h:1167
+#: src/main_menubar_def.h:1174
 msgid "Force the highlight style to Matlab"
 msgstr "Наметни стил осветљења као да се ради о Матлаб (Matlab) програму"
 
 #. 0
-#: src/main_menubar_def.h:1177
+#: src/main_menubar_def.h:1184
 msgid "Auto _Format"
 msgstr "_Аутоматско форматирање"
 
-#: src/main_menubar_def.h:1178
+#: src/main_menubar_def.h:1185
 msgid "Autoformat the current source file"
 msgstr "Аутоматски препознај и форматирај програмски код"
 
 #. 1
-#: src/main_menubar_def.h:1183
+#: src/main_menubar_def.h:1190
 msgid "_Increase Indent"
 msgstr "_Повећај увлачење реда"
 
-#: src/main_menubar_def.h:1184
+#: src/main_menubar_def.h:1191
 msgid "Increase indentation of line/selection"
 msgstr "Повећај увлачење реда или означеног текста"
 
 #. 2
-#: src/main_menubar_def.h:1189
+#: src/main_menubar_def.h:1196
 msgid "_Decrease Indent"
 msgstr "_Смањи увлачење реда"
 
-#: src/main_menubar_def.h:1190
+#: src/main_menubar_def.h:1197
 msgid "Decrease indentation of line/selection"
 msgstr "Смањи увлачење реда или означеног текста"
 
 #. 3
 #. 4
-#: src/main_menubar_def.h:1196
+#: src/main_menubar_def.h:1203
 msgid "Force _Highlight Style"
 msgstr "Наметни стил _осветљења"
 
 #. 5
 #. 6
-#: src/main_menubar_def.h:1203
+#: src/main_menubar_def.h:1210
 msgid "_Close All Folds"
 msgstr "_Затвори све језичке структуре"
 
-#: src/main_menubar_def.h:1204
+#: src/main_menubar_def.h:1211
 msgid "Close all code folds in the editor"
 msgstr "Затвори све програмске језичке структуре у уреднику текста"
 
 #. 7
-#: src/main_menubar_def.h:1209
+#: src/main_menubar_def.h:1216
 msgid "_Open All Folds"
 msgstr "О_твори све језичке структуре"
 
-#: src/main_menubar_def.h:1210
+#: src/main_menubar_def.h:1217
 msgid "Open all code folds in the editor"
 msgstr "Отвори све програмске језичке структуре у уреднику текста"
 
 #. 8
-#: src/main_menubar_def.h:1215
+#: src/main_menubar_def.h:1222
 msgid "_Toggle Current Fold"
 msgstr "_Промени стање приказа језичких структура"
 
-#: src/main_menubar_def.h:1216
+#: src/main_menubar_def.h:1223
 msgid "Toggle current code fold in the editor"
 msgstr "Промени тренутно стање приказа језичких структура у уреднику текста"
 
 #. 9
 #. 10
-#: src/main_menubar_def.h:1222
+#: src/main_menubar_def.h:1229
 msgid "D_etach Current Document"
 msgstr "Прикаж_и у одвојеном прозору"
 
-#: src/main_menubar_def.h:1223
+#: src/main_menubar_def.h:1230
 msgid "Detach the current document into a separate editor window"
 msgstr ""
 "Растави текући документ и прикажи га у одвојеном прозору за уређивање текста"
 
 #. 0
-#: src/main_menubar_def.h:1233
+#: src/main_menubar_def.h:1240
 msgid "_Compile"
 msgstr "_Преведи"
 
-#: src/main_menubar_def.h:1234
+#: src/main_menubar_def.h:1241
 msgid "Compile the current source file"
 msgstr "Преводи текућу датотеку са изворним кодом"
 
 #. 1
-#: src/main_menubar_def.h:1239
+#: src/main_menubar_def.h:1246
 msgid "Compile With _Make"
 msgstr "Преведи са програмом мејк (make)"
 
-#: src/main_menubar_def.h:1240
+#: src/main_menubar_def.h:1247
 msgid "Compile the current source file using Make"
 msgstr "Преводи датотеку са изворним кодом користећи програм мејк (make)"
 
 #. 2
-#: src/main_menubar_def.h:1245 src/main_menubar_def.h:1881
+#: src/main_menubar_def.h:1252 src/main_menubar_def.h:1888
 msgid "_Build"
 msgstr "_Преведи и повежи"
 
-#: src/main_menubar_def.h:1246
+#: src/main_menubar_def.h:1253
 msgid "Build the source directory of the Project or the current source file"
 msgstr ""
 "Преведи све у директоријуму са изворним кодом пројекта или само датотеку са "
 "изворним кодом"
 
 #. 3
-#: src/main_menubar_def.h:1251
+#: src/main_menubar_def.h:1258
 msgid "Build _All"
 msgstr "П_реведи и повежи све"
 
-#: src/main_menubar_def.h:1252
+#: src/main_menubar_def.h:1259
 msgid "Build the whole Project"
 msgstr "Преведи и повежи цео пројекат"
 
 #. 4
 #. 5
-#: src/main_menubar_def.h:1258
+#: src/main_menubar_def.h:1265
 msgid "Save Build Messages"
 msgstr "Забележи поруке приликом превођења"
 
-#: src/main_menubar_def.h:1259
+#: src/main_menubar_def.h:1266
 msgid "Save build messages to a file"
 msgstr "Забележи поруке приликом превођења и повезивања у датотеку"
 
 #. 6
 #. 7
-#: src/main_menubar_def.h:1265
+#: src/main_menubar_def.h:1272
 msgid "_Install"
 msgstr "_Инсталирај"
 
-#: src/main_menubar_def.h:1266
+#: src/main_menubar_def.h:1273
 msgid "Install the Project on your system"
 msgstr "Инсталирај пројекат на овом рачунару"
 
 #. 8
-#: src/main_menubar_def.h:1271
+#: src/main_menubar_def.h:1278
 msgid "Build _Distribution"
 msgstr "Направи пакет"
 
-#: src/main_menubar_def.h:1272
+#: src/main_menubar_def.h:1279
 msgid "Build the distribution tarball of the Project"
 msgstr "Направи архиву/пакет пројекта"
 
 #. 9
 #. 10
-#: src/main_menubar_def.h:1278
+#: src/main_menubar_def.h:1285
 msgid "Con_figure ..."
 msgstr "Подеси..."
 
-#: src/main_menubar_def.h:1279
+#: src/main_menubar_def.h:1286
 msgid "Configure the Project"
 msgstr "Подеси пројекат"
 
 #. 11
-#: src/main_menubar_def.h:1284
+#: src/main_menubar_def.h:1291
 msgid "Auto _generate ..."
 msgstr "_Аутоматски образуј..."
 
-#: src/main_menubar_def.h:1285
+#: src/main_menubar_def.h:1292
 msgid "Auto generate all the build files for the Project"
 msgstr ""
 "Аутоматски образуј све датотеке пројекта потребне за превођење и повезивање"
 
 #. 12
 #. 13
-#: src/main_menubar_def.h:1291
+#: src/main_menubar_def.h:1298
 msgid "Clea_n"
 msgstr "_Очисти"
 
-#: src/main_menubar_def.h:1292
+#: src/main_menubar_def.h:1299
 msgid "Clean the source directory"
 msgstr "Очисти директоријум са изворним кодом (уклони објектне датотеке)"
 
 #. 14
-#: src/main_menubar_def.h:1297
+#: src/main_menubar_def.h:1304
 msgid "Clean A_ll"
 msgstr "_Очисти све"
 
-#: src/main_menubar_def.h:1298
+#: src/main_menubar_def.h:1305
 msgid "Clean the whole Project directory"
 msgstr "Очисти цео директоријум пројекта (уклони објектне датотеке)"
 
 #. 15
 #. 16
-#: src/main_menubar_def.h:1304
+#: src/main_menubar_def.h:1311
 msgid "_Stop Build"
 msgstr "_Заустави превођење и повезивање"
 
-#: src/main_menubar_def.h:1305
+#: src/main_menubar_def.h:1312
 msgid "Stop the current compile or build process"
 msgstr "Заустави тренутно превођење односно повезивање"
 
 #. 17
 #. 18
-#: src/main_menubar_def.h:1311
+#: src/main_menubar_def.h:1318
 msgid "_Execute"
 msgstr "_Покрени"
 
-#: src/main_menubar_def.h:1312 src/toolbar.c:296
+#: src/main_menubar_def.h:1319 src/toolbar.c:296
 msgid "Execute the program"
 msgstr "Покрени програм"
 
 #. 19
-#: src/main_menubar_def.h:1317
+#: src/main_menubar_def.h:1324
 msgid "Set _Program params ..."
 msgstr "_Постави параметре програма..."
 
-#: src/main_menubar_def.h:1318
+#: src/main_menubar_def.h:1325
 msgid "Set the execution parameters of the program"
 msgstr "Постави параметре извршења програма"
 
 #. 0
-#: src/main_menubar_def.h:1328
+#: src/main_menubar_def.h:1335
 msgid "_Toggle bookmark"
 msgstr "_Постави/уклони ознаку"
 
-#: src/main_menubar_def.h:1329
+#: src/main_menubar_def.h:1336
 msgid "Toggle a bookmark at the current line position"
 msgstr "Постави или уклони ознаку на текућој линији"
 
 #. 1
 #. 2
-#: src/main_menubar_def.h:1335
+#: src/main_menubar_def.h:1342
 msgid "_First bookmark"
 msgstr "_Прва ознака"
 
-#: src/main_menubar_def.h:1336
+#: src/main_menubar_def.h:1343
 msgid "Jump to the first bookmark in the file"
 msgstr "Иди на прву ознаку у датотеци"
 
 #. 3
-#: src/main_menubar_def.h:1341
+#: src/main_menubar_def.h:1348
 msgid "_Previous bookmark"
 msgstr "_Претходна ознака"
 
-#: src/main_menubar_def.h:1342
+#: src/main_menubar_def.h:1349
 msgid "Jump to the previous bookmark in the file"
 msgstr "Иди на претходну ознаку у датотеци"
 
 #. 4
-#: src/main_menubar_def.h:1347
+#: src/main_menubar_def.h:1354
 msgid "_Next bookmark"
 msgstr "_Следећа ознака"
 
-#: src/main_menubar_def.h:1348
+#: src/main_menubar_def.h:1355
 msgid "Jump to the next bookmark in the file"
 msgstr "Иди на следећу ознаку у датотеци"
 
 #. 5
-#: src/main_menubar_def.h:1353
+#: src/main_menubar_def.h:1360
 msgid "_Last bookmark"
 msgstr "_Последња ознака"
 
-#: src/main_menubar_def.h:1354
+#: src/main_menubar_def.h:1361
 msgid "Jump to the last bookmark in the file"
 msgstr "Иди на последњу ознаку у датотеци"
 
 #. 6
 #. 7
-#: src/main_menubar_def.h:1360
+#: src/main_menubar_def.h:1367
 msgid "_Clear all bookmarks"
 msgstr "_Уклони све ознаке"
 
-#: src/main_menubar_def.h:1361
+#: src/main_menubar_def.h:1368
 msgid "Clear bookmarks"
 msgstr "Уклони све ознаке"
 
 #. 0
-#: src/main_menubar_def.h:1371
+#: src/main_menubar_def.h:1378
 msgid "Run/_Continue"
 msgstr "_Покрени/настави"
 
-#: src/main_menubar_def.h:1372
+#: src/main_menubar_def.h:1379
 msgid "Continue the execution of the program"
 msgstr "Настави извршење програма"
 
 #. 1
-#: src/main_menubar_def.h:1377
+#: src/main_menubar_def.h:1384
 msgid "Step _In"
 msgstr "Корак _унутар"
 
-#: src/main_menubar_def.h:1378
+#: src/main_menubar_def.h:1385
 msgid "Single step into function"
 msgstr "Један корак унутар функције"
 
 #. 2
-#: src/main_menubar_def.h:1383
+#: src/main_menubar_def.h:1390
 msgid "Step O_ver"
 msgstr "Корак _преко"
 
-#: src/main_menubar_def.h:1384
+#: src/main_menubar_def.h:1391
 msgid "Single step over function"
 msgstr "Један корак преко функције"
 
 #. 3
-#: src/main_menubar_def.h:1389
+#: src/main_menubar_def.h:1396
 msgid "Step _Out"
 msgstr "Корак _ван"
 
-#: src/main_menubar_def.h:1390
+#: src/main_menubar_def.h:1397
 msgid "Single step out of the function"
 msgstr "Један корак ван функције"
 
 #. 4
-#: src/main_menubar_def.h:1395
+#: src/main_menubar_def.h:1402
 msgid "_Run to cursor"
 msgstr "_Изврши до курсора"
 
-#: src/main_menubar_def.h:1396
+#: src/main_menubar_def.h:1403
 msgid "Run to the cursor"
 msgstr "Изврши програм до линије где се налази курсор"
 
 #. 0
-#: src/main_menubar_def.h:1406 src/text_editor_menu.c:136
+#: src/main_menubar_def.h:1413 src/text_editor_menu.c:136
 msgid "Toggle breakpoint"
 msgstr "Постави/уклони ознаку"
 
-#: src/main_menubar_def.h:1407
+#: src/main_menubar_def.h:1414
 msgid "Toggle breakpoint at the current location"
 msgstr "Постави/уклони ознаку на текућој линији"
 
 #. 1
-#: src/main_menubar_def.h:1412
+#: src/main_menubar_def.h:1419
 msgid "Set Breakpoint ..."
 msgstr "Постави тачку прекида ..."
 
-#: src/main_menubar_def.h:1413
+#: src/main_menubar_def.h:1420
 msgid "Set a breakpoint"
 msgstr "Постави тачку прекида"
 
 #. 2
 #. 3
-#: src/main_menubar_def.h:1419
+#: src/main_menubar_def.h:1426
 msgid "_Breakpoints ..."
 msgstr "_Тачке прекида ..."
 
-#: src/main_menubar_def.h:1420
+#: src/main_menubar_def.h:1427
 msgid "Edit breakpoints"
 msgstr "Уреди тачке прекида"
 
 #. 4
-#: src/main_menubar_def.h:1425
+#: src/main_menubar_def.h:1432
 msgid "Disable all Breakpoints"
 msgstr "Онемогући све тачке прекида"
 
-#: src/main_menubar_def.h:1426
+#: src/main_menubar_def.h:1433
 msgid "Deactivate all breakpoints"
 msgstr "Деактивирај све тачке прекида"
 
 #. 5
-#: src/main_menubar_def.h:1431
+#: src/main_menubar_def.h:1438
 msgid "C_lear all Breakpoints"
 msgstr "_Очисти све тачке прекида"
 
-#: src/main_menubar_def.h:1432
+#: src/main_menubar_def.h:1439
 msgid "Delete all breakpoints"
 msgstr "Уклони све тачке прекида"
 
 #. 0
-#: src/main_menubar_def.h:1442
+#: src/main_menubar_def.h:1449
 msgid "Info _Target Files"
 msgstr "Прика_жи информације о излазним датотекама"
 
-#: src/main_menubar_def.h:1443
+#: src/main_menubar_def.h:1450
 msgid "Display information on the files the debugger is active with"
 msgstr ""
 "Прикажи информације о датотекама на којима ради програм за проналажење "
 "грешака"
 
 #. 1
-#: src/main_menubar_def.h:1448
+#: src/main_menubar_def.h:1455
 msgid "Info _Program"
 msgstr "_Информације о програму"
 
-#: src/main_menubar_def.h:1449
+#: src/main_menubar_def.h:1456
 msgid "Display information on the execution status of the program"
 msgstr "Прикажи информације о стању извршења програма"
 
 #. 2
-#: src/main_menubar_def.h:1454
+#: src/main_menubar_def.h:1461
 msgid "Info _Kernel User Struct"
 msgstr "Подаци о кориснику из _језгра"
 
-#: src/main_menubar_def.h:1455
+#: src/main_menubar_def.h:1462
 msgid "Display the contents of kernel 'struct user' for current child"
 msgstr "Прикажи садржај структуре „user“ из језгра за текући процес"
 
 #. 3
-#: src/main_menubar_def.h:1460
+#: src/main_menubar_def.h:1467
 msgid "Info _Threads"
 msgstr "_Информације о нитима"
 
-#: src/main_menubar_def.h:1461
+#: src/main_menubar_def.h:1468
 msgid "Display the IDs of currently known threads"
 msgstr "Прикажи идентификационе бројеве тренутно познатих нити"
 
 #. 4
-#: src/main_menubar_def.h:1466
+#: src/main_menubar_def.h:1473
 msgid "Info _Global variables"
 msgstr "Информације о _глобалним променљивама"
 
-#: src/main_menubar_def.h:1467
+#: src/main_menubar_def.h:1474
 msgid "Display all global and static variables of the program"
 msgstr "Прикажи све глобалне и статичке променљиве програма"
 
 #. 5
-#: src/main_menubar_def.h:1472
+#: src/main_menubar_def.h:1479
 msgid "Info _Local variables"
 msgstr "Информације о _локалним променљивама"
 
-#: src/main_menubar_def.h:1473
+#: src/main_menubar_def.h:1480
 msgid "Display local variables of the current frame"
 msgstr "Прикажи локалне променљиве текућег оквира програма"
 
 #. 6
-#: src/main_menubar_def.h:1478
+#: src/main_menubar_def.h:1485
 msgid "Info _Current Frame"
 msgstr "Ин_формације о текућем оквиру"
 
-#: src/main_menubar_def.h:1479
+#: src/main_menubar_def.h:1486
 msgid "Display information about the current frame of execution"
 msgstr "Прикажи информације о текућем оквиру извршења"
 
 #. 7
-#: src/main_menubar_def.h:1484
+#: src/main_menubar_def.h:1491
 msgid "Info Function _Arguments"
 msgstr "Информације о _аргументима функција"
 
-#: src/main_menubar_def.h:1485
+#: src/main_menubar_def.h:1492
 msgid "Display function arguments of the current frame"
 msgstr "Прикажи аргументе функције текућег оквира"
 
 #. 8
-#: src/main_menubar_def.h:1490
+#: src/main_menubar_def.h:1497
 msgid "Info _Memory"
 msgstr "Информације о _меморији"
 
-#: src/main_menubar_def.h:1491
+#: src/main_menubar_def.h:1498
 msgid "Display accessible memory"
 msgstr "Прикажи меморију којој се приступа"
 
 #. 0
-#: src/main_menubar_def.h:1501
+#: src/main_menubar_def.h:1508
 msgid "_Start Debugger"
 msgstr "Покрени програм за проналажење _грешака"
 
-#: src/main_menubar_def.h:1502
+#: src/main_menubar_def.h:1509
 msgid "Start the debugging session"
 msgstr "Покрени окружење за тражење грешака"
 
 #. 1
 #. 2
-#: src/main_menubar_def.h:1508
+#: src/main_menubar_def.h:1515
 msgid "Load E_xecutable ..."
 msgstr "_Учитај извршни програм"
 
-#: src/main_menubar_def.h:1509
+#: src/main_menubar_def.h:1516
 msgid "Open the executable for debugging"
 msgstr "Учитај извршни програм у програм за проналажење грешака"
 
 #. 3
-#: src/main_menubar_def.h:1514
+#: src/main_menubar_def.h:1521
 msgid "Load _Core file ..."
 msgstr "Учитај датотеку са _меморијом..."
 
-#: src/main_menubar_def.h:1515
+#: src/main_menubar_def.h:1522
 msgid "Load a core file to dissect"
 msgstr "Учитај датотеку са меморијом коју желите да испитате"
 
 #. 4
-#: src/main_menubar_def.h:1520
+#: src/main_menubar_def.h:1527
 msgid "_Attach to Process ..."
 msgstr "_Додај процесу ..."
 
-#: src/main_menubar_def.h:1521
+#: src/main_menubar_def.h:1528
 msgid "Attach to a running program"
 msgstr "Додај тренутно активном програму"
 
 #. 5
 #. 6
-#: src/main_menubar_def.h:1527
+#: src/main_menubar_def.h:1534
 msgid "_Restart Program"
 msgstr "_Изнова покрени програм"
 
-#: src/main_menubar_def.h:1528
+#: src/main_menubar_def.h:1535
 msgid "Stop and restart the program"
 msgstr "Заустави и поново покрени програм"
 
 #. 7
-#: src/main_menubar_def.h:1533
+#: src/main_menubar_def.h:1540
 msgid "S_top Program"
 msgstr "_Заустави програм"
 
-#: src/main_menubar_def.h:1534
+#: src/main_menubar_def.h:1541
 msgid "Stop the program being debugged"
 msgstr "Заустави програм који се испитује"
 
 #. 8
-#: src/main_menubar_def.h:1539
+#: src/main_menubar_def.h:1546
 msgid "_Detach Debugger"
 msgstr "_Одвој програм за проналажење грешака"
 
-#: src/main_menubar_def.h:1540
+#: src/main_menubar_def.h:1547
 msgid "Detach from an attached program"
 msgstr "Одваја програм за проналажење грешака са придруженог програма"
 
 #. 9
 #. 10
-#: src/main_menubar_def.h:1546
+#: src/main_menubar_def.h:1553
 msgid "Pa_use Program"
 msgstr "Па_узирај програм"
 
-#: src/main_menubar_def.h:1547
+#: src/main_menubar_def.h:1554
 msgid "Pauses the execution of the program"
 msgstr "Привремено обустави извршавање програма"
 
 #. 11
-#: src/main_menubar_def.h:1552
+#: src/main_menubar_def.h:1559
 msgid "Si_gnal to Process"
 msgstr "Пошаљи сигнал процесу"
 
-#: src/main_menubar_def.h:1553
+#: src/main_menubar_def.h:1560
 msgid "Send a kernel signal to the process being debugged"
 msgstr "Пошаљи сигнал језгра процесу који се испитује"
 
 #. 12
 #. 13
-#: src/main_menubar_def.h:1559
+#: src/main_menubar_def.h:1566
 msgid "_Execution"
 msgstr "_Извршење"
 
 #. 15
 #. 16
-#: src/main_menubar_def.h:1572
+#: src/main_menubar_def.h:1579
 msgid "_Information"
 msgstr "_Информације"
 
 #. 17
 #. 18
-#: src/main_menubar_def.h:1579
+#: src/main_menubar_def.h:1586
 msgid "Ins_pect/Evaluate ..."
 msgstr "Над_гледај/Додели вредност..."
 
-#: src/main_menubar_def.h:1580
+#: src/main_menubar_def.h:1587
 msgid "Inspect or evaluate an expression or variable"
 msgstr "Надгледање или додела вредности изразу или променљивој"
 
 #. 19
-#: src/main_menubar_def.h:1585
+#: src/main_menubar_def.h:1592
 msgid "Add Expression in _Watch ..."
 msgstr "_Додај израз у списак за надгледање ..."
 
-#: src/main_menubar_def.h:1586
+#: src/main_menubar_def.h:1593
 msgid "Add expression or variable to the watch"
 msgstr "Додај израз или променљиву на списак за надгледање"
 
 #. 20
 #. 21
-#: src/main_menubar_def.h:1592
+#: src/main_menubar_def.h:1599
 msgid "St_op Debugger"
 msgstr "_Заустави програм за проналажење грешака"
 
-#: src/main_menubar_def.h:1593
+#: src/main_menubar_def.h:1600
 msgid "Say goodbye to the debugger"
 msgstr "Реците збогом програму за проналажење грешака!"
 
 #. 0
-#: src/main_menubar_def.h:1604
+#: src/main_menubar_def.h:1611
 msgid "U_pdate file"
 msgstr "_Освежи датотеку"
 
 #. 1
-#: src/main_menubar_def.h:1611
+#: src/main_menubar_def.h:1618
 msgid "C_ommit file"
 msgstr "_Пошаљи датотеку"
 
 #. 2
-#: src/main_menubar_def.h:1618
+#: src/main_menubar_def.h:1625
 msgid "S_tatus of file"
 msgstr "_Стање датотеке"
 
 #. 3
-#: src/main_menubar_def.h:1625
+#: src/main_menubar_def.h:1632
 msgid "G_et file log"
 msgstr "_Преузми дневник датотеке"
 
 #. 4
-#: src/main_menubar_def.h:1632
+#: src/main_menubar_def.h:1639
 msgid "_Add file"
 msgstr "_Додај датотеку"
 
 #. 5
-#: src/main_menubar_def.h:1639
+#: src/main_menubar_def.h:1646
 msgid "_Remove file"
 msgstr "_Уклони датотеку"
 
 #. 6
-#: src/main_menubar_def.h:1646
+#: src/main_menubar_def.h:1653
 msgid "D_iff file"
 msgstr "_Датотека са изменама"
 
 #. 8
-#: src/main_menubar_def.h:1654
+#: src/main_menubar_def.h:1661
 msgid "_Update Project"
 msgstr "_Освежи пројекат"
 
-#: src/main_menubar_def.h:1655
+#: src/main_menubar_def.h:1662
 msgid "Update the working copy of a Project"
 msgstr "Освежи радни примерак пројекта"
 
 #. 9
-#: src/main_menubar_def.h:1661
+#: src/main_menubar_def.h:1668
 msgid "_Commit Project"
 msgstr "_Пошаљи пројекат"
 
-#: src/main_menubar_def.h:1662
+#: src/main_menubar_def.h:1669
 msgid "Commit local changes to the repository"
 msgstr "Пошаљи локалне измене на сервер"
 
 #. 10
-#: src/main_menubar_def.h:1668
+#: src/main_menubar_def.h:1675
 msgid "_Import Project"
 msgstr "_Увези пројекат"
 
-#: src/main_menubar_def.h:1669
+#: src/main_menubar_def.h:1676
 msgid "Import Project as a new module in the repository"
 msgstr "Увези пројекат као нови модул на серверу"
 
 #. 11
-#: src/main_menubar_def.h:1675
+#: src/main_menubar_def.h:1682
 msgid "_Status of Project"
 msgstr "_Стање пројекта"
 
-#: src/main_menubar_def.h:1676
+#: src/main_menubar_def.h:1683
 msgid "Print the status of the Project"
 msgstr "Прикажи стање пројекта"
 
 #. 12
-#: src/main_menubar_def.h:1682
+#: src/main_menubar_def.h:1689
 msgid "Get Project _log"
 msgstr "Преузми _дневник пројекта"
 
-#: src/main_menubar_def.h:1683
+#: src/main_menubar_def.h:1690
 msgid "Print the CVS log of the Project"
 msgstr "Прикажи CVS дневник пројекта"
 
 #. 13
-#: src/main_menubar_def.h:1689
+#: src/main_menubar_def.h:1696
 msgid "_Diff Project"
 msgstr "_Датотека са изменама пројекта"
 
-#: src/main_menubar_def.h:1690
+#: src/main_menubar_def.h:1697
 msgid ""
 "Create a diff between the working copy of the Project and the repository"
 msgstr ""
 "Направи датотеку са разликама између радног примерка пројекта и сервера"
 
 #. 15
-#: src/main_menubar_def.h:1697
+#: src/main_menubar_def.h:1704
 msgid "_Login"
 msgstr "_Пријава"
 
-#: src/main_menubar_def.h:1698
+#: src/main_menubar_def.h:1705
 msgid "Login to a CVS server"
 msgstr "Пријава на CVS сервер"
 
 #. 0
-#: src/main_menubar_def.h:1709
+#: src/main_menubar_def.h:1716
 msgid "_Compiler and Linker Settings ..."
 msgstr "_Подешавање преводиоца и програма за повезивање..."
 
-#: src/main_menubar_def.h:1710
+#: src/main_menubar_def.h:1717
 msgid "Settings for the compiler and linker"
 msgstr "Подешавање програмског преводиоца и програма за повезивање"
 
 #. 1
-#: src/main_menubar_def.h:1715
+#: src/main_menubar_def.h:1722
 msgid "_Source Paths ..."
 msgstr "_Путање изворног кода..."
 
-#: src/main_menubar_def.h:1716
+#: src/main_menubar_def.h:1723
 msgid "Specify the source paths for Anjuta to search"
 msgstr "Задајте путање до датотека са изворним кодом које ће Анјута претражити"
 
 #. 2
-#: src/main_menubar_def.h:1721
+#: src/main_menubar_def.h:1728
 msgid "Co_mmands ..."
 msgstr "_Наредбе..."
 
-#: src/main_menubar_def.h:1722
+#: src/main_menubar_def.h:1729
 msgid "Specify the various commands for use"
 msgstr "Задајте различите наредбе за коришћење"
 
 #. 3
 #. 4
-#: src/main_menubar_def.h:1728
+#: src/main_menubar_def.h:1735
 msgid "_Preferences ..."
 msgstr "_Подешавања..."
 
-#: src/main_menubar_def.h:1729
+#: src/main_menubar_def.h:1736
 msgid "Do you prefer coffee to tea? Check it out."
 msgstr "Да ли више волите кафу или степ? Проверите то."
 
 #. 5
-#: src/main_menubar_def.h:1734
+#: src/main_menubar_def.h:1741
 msgid "_Editor colors and fonts ..."
 msgstr "Боје и фонтови _уређивача..."
 
-#: src/main_menubar_def.h:1735
+#: src/main_menubar_def.h:1742
 msgid "Syntax highlighting settings"
 msgstr "Подешавање осветљавања програмског кода"
 
 #. 6
-#: src/main_menubar_def.h:1740
+#: src/main_menubar_def.h:1747
 msgid "File view filters ..."
 msgstr "Филтер прегледа датотека..."
 
-#: src/main_menubar_def.h:1741
+#: src/main_menubar_def.h:1748
 msgid "Edit file view filters"
 msgstr "Уреди филтер прегледа датотека"
 
 #. 7
-#: src/main_menubar_def.h:1746
+#: src/main_menubar_def.h:1753
 msgid "_Edit user.properties file ..."
 msgstr "_Уреди датотеку корисничких подешавања"
 
-#: src/main_menubar_def.h:1747
+#: src/main_menubar_def.h:1754
 msgid "Edit user properties file"
 msgstr "Уреди датотеку корисничких подешавања"
 
 #. 8
-#: src/main_menubar_def.h:1752
+#: src/main_menubar_def.h:1759
 msgid "Set _Default Preferences"
 msgstr "_Постави подразумевана подешавања"
 
-#: src/main_menubar_def.h:1753
+#: src/main_menubar_def.h:1760
 msgid "But I prefer tea."
 msgstr "Постави подразумевана подешавања"
 
 #. 9
-#: src/main_menubar_def.h:1758
+#: src/main_menubar_def.h:1765
 msgid "C_ustomize shortcuts"
 msgstr "Прилагоди _пречице"
 
-#: src/main_menubar_def.h:1759
+#: src/main_menubar_def.h:1766
 msgid "Customize shortcuts associated with menu items"
 msgstr "Прилагоди пречице са тастатуре које отварају ставке менија"
 
 #. 10
-#: src/main_menubar_def.h:1764
+#: src/main_menubar_def.h:1771
 msgid "_Tools Editor"
 msgstr "_Уреди алате"
 
-#: src/main_menubar_def.h:1765
+#: src/main_menubar_def.h:1772
 msgid "Customize user-defined tools"
 msgstr "Прилагоди кориснички дефинисане алате"
 
 #. 11
 #. 12
-#: src/main_menubar_def.h:1771
+#: src/main_menubar_def.h:1778
 msgid "St_art-with dialog"
 msgstr "_Покрени са прозорчетом"
 
-#: src/main_menubar_def.h:1772
+#: src/main_menubar_def.h:1779
 msgid "Show start-with dialog"
 msgstr "Прикажи покрени са прозорчетом"
 
 #. 13
-#: src/main_menubar_def.h:1777
+#: src/main_menubar_def.h:1784
 msgid "An_juta setup wizard"
 msgstr "Анјута чаробњак"
 
-#: src/main_menubar_def.h:1778
+#: src/main_menubar_def.h:1785
 msgid "Setup wizard for first time run"
 msgstr "Чаробњак који се појављује када први пут покренете програм"
 
 #. 0
 #. 1
 #. 2
-#: src/main_menubar_def.h:1790
+#: src/main_menubar_def.h:1797
 msgid "Browse GNOME _API Pages"
 msgstr "Прегледај Гном API странице"
 
-#: src/main_menubar_def.h:1791
+#: src/main_menubar_def.h:1798
 msgid "The GNOME API pages"
 msgstr "Гном API странице"
 
 #. 3
-#: src/main_menubar_def.h:1796
+#: src/main_menubar_def.h:1803
 msgid "Browse _Man Pages"
 msgstr "Пре_гледај man странице"
 
-#: src/main_menubar_def.h:1797
+#: src/main_menubar_def.h:1804
 msgid "The good old manual pages"
 msgstr "Старе добре man странице"
 
 #. 4
-#: src/main_menubar_def.h:1802
+#: src/main_menubar_def.h:1809
 msgid "Browse _Info Pages"
 msgstr "Прегл_едај info странице"
 
-#: src/main_menubar_def.h:1803
+#: src/main_menubar_def.h:1810
 msgid "Browse Info pages"
 msgstr "Прегледај info странице"
 
 #. 5
 #. 6
-#: src/main_menubar_def.h:1809
+#: src/main_menubar_def.h:1816
 msgid "_Context Help"
 msgstr "_Помоћ на основу контекста"
 
-#: src/main_menubar_def.h:1810
+#: src/main_menubar_def.h:1817
 msgid "Search help for the current word in the editor"
 msgstr "Претражи помоћ за текућу реч у програму за унос текста"
 
 #. 7
-#: src/main_menubar_def.h:1815
+#: src/main_menubar_def.h:1822
 msgid "_Search a topic"
 msgstr "_Претражи по темама"
 
-#: src/main_menubar_def.h:1816
+#: src/main_menubar_def.h:1823
 msgid "May I help you?"
 msgstr "Увек на услузи!"
 
 #. 8
 #. 9
-#: src/main_menubar_def.h:1822
+#: src/main_menubar_def.h:1829
 msgid "Anjuta _Home Page"
 msgstr "Интернет страница Анјута пројекта"
 
-#: src/main_menubar_def.h:1823
+#: src/main_menubar_def.h:1830
 msgid "Online documentation and resources"
 msgstr "Документација и извори знања доступни на мрежи"
 
 #. 10
 #. 11
-#: src/main_menubar_def.h:1829
+#: src/main_menubar_def.h:1836
 msgid "_Libraries API references"
 msgstr "Референце за програмске спреге _библиотека"
 
-#: src/main_menubar_def.h:1830
+#: src/main_menubar_def.h:1837
 msgid "Online reference library for GDK, GLib, GNOME etc.."
 msgstr "Библиотека референци на мрежи за GDK, GLib, Гном(GNOME) итд..."
 
 #. 12
-#: src/main_menubar_def.h:1835
+#: src/main_menubar_def.h:1842
 msgid "Report _Bugs"
 msgstr "_Пријави грешке"
 
-#: src/main_menubar_def.h:1836
+#: src/main_menubar_def.h:1843
 msgid "Submit a bug report for Anjuta"
 msgstr "Пријавите грешке у програму"
 
 #. 13
-#: src/main_menubar_def.h:1841
+#: src/main_menubar_def.h:1848
 msgid "Request _Features"
 msgstr "_Захтев за побољшањем"
 
-#: src/main_menubar_def.h:1842
+#: src/main_menubar_def.h:1849
 msgid "Submit a feature request for Anjuta"
 msgstr "Пошаљите захтев за побољшање програма"
 
 #. 14
-#: src/main_menubar_def.h:1847
+#: src/main_menubar_def.h:1854
 msgid "Submit _patches"
 msgstr "_Пошаљите закрпе"
 
-#: src/main_menubar_def.h:1848
+#: src/main_menubar_def.h:1855
 msgid "Submit patches for Anjuta"
 msgstr "Пошаљите закрпе за програм"
 
 #. 15
-#: src/main_menubar_def.h:1853
+#: src/main_menubar_def.h:1860
 msgid "Ask a _question"
 msgstr "_Поставите питање"
 
-#: src/main_menubar_def.h:1854
+#: src/main_menubar_def.h:1861
 msgid "Submit a question for FAQs"
 msgstr "Пошаљите питање за списак најчешћихј питања (FAQ)"
 
-#: src/main_menubar_def.h:1869
+#: src/main_menubar_def.h:1876
 msgid "_Project"
 msgstr "_Пројекат"
 
-#: src/main_menubar_def.h:1875
+#: src/main_menubar_def.h:1882
 msgid "For_mat"
 msgstr "_Формат"
 
-#: src/main_menubar_def.h:1887
+#: src/main_menubar_def.h:1894
 msgid "Bookmar_k"
 msgstr "_Ознаке"
 
-#: src/main_menubar_def.h:1893
+#: src/main_menubar_def.h:1900
 msgid "_Debug"
 msgstr "_Проналажење грешака"
 
-#: src/main_menubar_def.h:1899
+#: src/main_menubar_def.h:1906
 msgid "_CVS"
 msgstr "_CVS"
 
-#: src/main_menubar_def.h:1905
+#: src/main_menubar_def.h:1912
 msgid "_Settings"
 msgstr "_Подешавања"
 
@@ -6021,15 +6033,15 @@ msgstr "%d. %m. %Y."
 msgid "The file \"%s\" is not a header file."
 msgstr "Датотека „%s“ није датотека са заглављем."
 
-#: src/mainmenu_callbacks.c:1733
+#: src/mainmenu_callbacks.c:1741
 msgid "The executable is not up-to-date."
 msgstr "Извршна датотека није најновија."
 
-#: src/mainmenu_callbacks.c:1758
+#: src/mainmenu_callbacks.c:1766
 msgid "Debugger is not running. Start it first."
 msgstr "Програм за проналажење грешака није покренут. Прво га покрените."
 
-#: src/mainmenu_callbacks.c:2148
+#: src/mainmenu_callbacks.c:2156
 msgid ""
 "You need to run gconf-editor, look for the key 'desktop/gnome/interface/"
 "can_change_accels' and set this toggle button ON. Then you can hover the "
@@ -6085,12 +6097,13 @@ msgstr "Праћења"
 msgid "Stack"
 msgstr "Стек"
 
-#: src/message-manager.cc:271 src/message-manager.cc:326
+#: src/message-manager.cc:271 src/message-manager.cc:325
+#: src/message-manager.cc:363
 #, c-format
 msgid "Could not find message type %s!\n"
 msgstr "Не могу пронаћи поруку типа %s!\n"
 
-#: src/message-manager.cc:555 src/toolbar.c:154
+#: src/message-manager.cc:592 src/toolbar.c:154
 msgid "Messages"
 msgstr "Поруке"
 
@@ -6662,29 +6675,29 @@ msgstr "Не могу пронаћи pixmap датотеку програма: %
 msgid "Cannot execute Devhelp. Make sure it is installed"
 msgstr "Не могу покренути Devhelp. Проверите да ли је инсталиран."
 
-#: src/search-replace.c:1087
+#: src/search-replace.c:1088
 msgid "Replace"
 msgstr "Замени"
 
-#: src/search-replace.c:1363 src/search-replace.c:1529
+#: src/search-replace.c:1364 src/search-replace.c:1530
 msgid "Replace All"
 msgstr "Замени све"
 
-#: src/search-replace.c:1371
+#: src/search-replace.c:1372
 msgid "No matches."
 msgstr "Нема поклапања."
 
-#: src/search-replace.c:1381
+#: src/search-replace.c:1382
 msgid "The maximum number of results has been reached."
 msgstr "Највећи дозвољени број резултата је достигнут."
 
 # bug: plural-forms
-#: src/search-replace.c:1391
+#: src/search-replace.c:1392
 #, c-format
 msgid "%d matches have been replaced."
 msgstr "Заменио је %d поклапања."
 
-#: src/search-replace.c:1748
+#: src/search-replace.c:1749
 msgid "Unable to build user interface for Search And Replace"
 msgstr "Не могу приказати прозор за претрагу и замену"
 
@@ -6871,20 +6884,25 @@ msgstr ""
 "тренутног приказа.\n"
 "Да ли желите да је поново учитате?"
 
-#: src/text_editor.c:1478
+#: src/text_editor.c:1506
 msgid "Auto format is currently disabled. Change the setting in Preferences."
 msgstr ""
 "Аутоматско форматирање је тренутно онемогућено. Промените то у Подешавањима"
 
-#: src/text_editor.c:1484
+#: src/text_editor.c:1512
 msgid "Auto formatting ..."
 msgstr "Аутоматско форматирање..."
 
-#: src/text_editor.c:1494
+#: src/text_editor.c:1522
 msgid "Error in auto formatting ..."
 msgstr "Грешка приликом аутоматског форматирања..."
 
-#: src/text_editor.c:1521
+#: src/text_editor.c:1537
+#, c-format
+msgid "Anjuta does not know %s!"
+msgstr "Anjuta не познаје %s!"
+
+#: src/text_editor.c:1565
 #, c-format
 msgid ""
 "Error in auto formatting ...\n"
@@ -6893,7 +6911,7 @@ msgstr ""
 "Грешка приликом аутоматског форматирања...\n"
 "Детаљи: %s"
 
-#: src/text_editor.c:1528
+#: src/text_editor.c:1572
 msgid "Auto formatting completed"
 msgstr "Аутоматско форматирање је завршено"
 
@@ -7358,7 +7376,7 @@ msgstr "Не могу прочитати датотеку: %s."
 msgid "Unable to complete file copy"
 msgstr "Не могу завршити умножавање датотеке"
 
-#: src/watch_cbs.c:235
+#: src/watch_cbs.c:236
 msgid "< Not defined in current context >"
 msgstr "< Није дефинисан у тренутном контексту >"
 
