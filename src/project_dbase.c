@@ -2069,12 +2069,13 @@ project_dbase_add_file_to_module (ProjectDBase * p, PrjModule module,
 		return;
 	}
 	relative_fn = get_relative_file_name(comp_dir, filename);
-	g_free(comp_dir);
 	if (!relative_fn)
 	{
 		anjuta_error(_("Unable to get relative file name for %s in %s"), filename, comp_dir);
+		g_free(comp_dir);
 		return;
 	}
+	g_free(comp_dir);
 
 	if (NULL == (mod_files = g_strconcat ("module.", module_map[module], ".files", NULL)))
 	{
