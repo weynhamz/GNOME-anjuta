@@ -8,8 +8,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
-"POT-Creation-Date: 2003-05-30 02:13+0200\n"
-"PO-Revision-Date: 2003-05-30 02:13+0200\n"
+"POT-Creation-Date: 2003-05-30 12:23+0200\n"
+"PO-Revision-Date: 2003-05-30 12:24+0200\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1907,7 +1907,7 @@ msgid "Item"
 msgstr "Objekt"
 
 #: gdl/gdl-dock-layout.c:737 gdl/gdl-dock-object.c:120
-#: src/compiler_options.c:745 src/windows-dialog.c:294
+#: src/compiler_options.c:816 src/windows-dialog.c:294
 msgid "Name"
 msgstr "Namn"
 
@@ -2874,11 +2874,11 @@ msgstr "Anjuta: %s (Osparad)"
 msgid "Anjuta: No file"
 msgstr "Anjuta: Ingen fil"
 
-#: src/anjuta.c:1484 src/anjuta.c:1561
+#: src/anjuta.c:1484 src/anjuta.c:1586
 msgid "ERROR: "
 msgstr "FEL: "
 
-#: src/anjuta.c:1505 src/anjuta.c:1579
+#: src/anjuta.c:1505 src/anjuta.c:1605
 msgid ""
 "\n"
 "System: "
@@ -2886,7 +2886,7 @@ msgstr ""
 "\n"
 "System: "
 
-#: src/anjuta.c:2052
+#: src/anjuta.c:2078
 #, c-format
 msgid ""
 "The \"%s\" utility is not installed.\n"
@@ -2895,35 +2895,35 @@ msgstr ""
 "Verktyget \"%s\" är inte installerat.\n"
 "Installera det och starta sedan om Anjuta."
 
-#: src/anjuta.c:2078 src/anjuta.c:2134
+#: src/anjuta.c:2104 src/anjuta.c:2160
 msgid "None"
 msgstr "Ingen"
 
-#: src/anjuta.c:2089
+#: src/anjuta.c:2115
 msgid "DOS (CRLF)"
 msgstr "DOS (CRLF)"
 
-#: src/anjuta.c:2092 src/anjuta.c:2126
+#: src/anjuta.c:2118 src/anjuta.c:2152
 msgid "Unix (LF)"
 msgstr "Unix (LF)"
 
-#: src/anjuta.c:2095
+#: src/anjuta.c:2121
 msgid "Mac (CR)"
 msgstr "Mac (CR)"
 
-#: src/anjuta.c:2098
+#: src/anjuta.c:2124
 msgid "Unknown"
 msgstr "Okänd"
 
-#: src/anjuta.c:2115
+#: src/anjuta.c:2141
 msgid "OVR"
 msgstr "ÖVR"
 
-#: src/anjuta.c:2119 src/anjuta.c:2125
+#: src/anjuta.c:2145 src/anjuta.c:2151
 msgid "INS"
 msgstr "INS"
 
-#: src/anjuta.c:2137
+#: src/anjuta.c:2163
 #, c-format
 msgid ""
 "  Project: %s       Zoom: %d       Line: %04d       Col: %03d       %s       "
@@ -2932,11 +2932,11 @@ msgstr ""
 "  Projekt: %s       Zoom: %d       Rad: %04d        Kolumn: %03d    %s      "
 "Jobb: %s      Läge: %s"
 
-#: src/anjuta.c:2374
+#: src/anjuta.c:2400
 msgid "Looking up symbol"
 msgstr "Slår upp symbol"
 
-#: src/anjuta.c:2376 src/find_in_files.c:306
+#: src/anjuta.c:2402 src/find_in_files.c:306
 msgid "Finding in Files ....\n"
 msgstr "Söker i filer...\n"
 
@@ -3012,13 +3012,13 @@ msgstr ""
 "Du måste ange ett giltigt %s-fält för att kunna fortsätta."
 
 #. For the time being
-#: src/appwizard_cbs.c:277 src/project_dbase.c:1517 src/project_dbase.c:1523
-#: src/project_dbase.c:1526 src/project_import_cbs.c:221 src/signals_cbs.c:115
+#: src/appwizard_cbs.c:277 src/project_dbase.c:1524 src/project_dbase.c:1530
+#: src/project_dbase.c:1533 src/project_import_cbs.c:221 src/signals_cbs.c:115
 #: src/signals_cbs.c:128 src/signals_cbs.c:141
 msgid "Yes"
 msgstr "Ja"
 
-#: src/appwizard_cbs.c:279 src/project_dbase.c:1519 src/project_dbase.c:1528
+#: src/appwizard_cbs.c:279 src/project_dbase.c:1526 src/project_dbase.c:1535
 #: src/project_import_cbs.c:223 src/signals_cbs.c:117 src/signals_cbs.c:130
 #: src/signals_cbs.c:143
 msgid "No"
@@ -3179,9 +3179,9 @@ msgstr "Inget byggkommando har angivits för denna typ av fil."
 msgid "Building file: %s ...\n"
 msgstr "Bygger fil: %s...\n"
 
-#: src/build_file.c:130 src/build_project.c:332 src/build_project.c:369
-#: src/build_project.c:407 src/build_project.c:441 src/build_project.c:475
-#: src/clean_project.c:118 src/clean_project.c:201 src/compile.c:198
+#: src/build_file.c:130 src/build_project.c:347 src/build_project.c:384
+#: src/build_project.c:422 src/build_project.c:456 src/build_project.c:490
+#: src/clean_project.c:179 src/clean_project.c:220 src/compile.c:198
 #: src/configurer.c:223 src/cvs.c:746 src/find_in_files.c:341
 #: src/project_import.c:179
 #, c-format
@@ -3204,132 +3204,132 @@ msgstr "Bygge färdigt... lyckades\n"
 msgid "Build completed ... successful"
 msgstr "Bygge färdigt... lyckades"
 
-#: src/build_project.c:63 src/compile.c:60
+#: src/build_project.c:71 src/compile.c:60
 msgid "Unable to build module. Check Settings->Commands."
 msgstr "Kan inte bygga modul. Kontrollera Inställningar->Kommandon."
 
-#: src/build_project.c:84 src/build_project.c:140 src/compile.c:75
+#: src/build_project.c:92 src/build_project.c:155 src/compile.c:75
 msgid "Build Project"
 msgstr "Bygg projekt"
 
-#: src/build_project.c:86 src/compile.c:77
+#: src/build_project.c:94 src/compile.c:77
 msgid "Building source directory of the Project: "
 msgstr "Bygger projektets källkatalog: "
 
-#: src/build_project.c:123
+#: src/build_project.c:138
 msgid "Unable to build Project. Check Settings->Commands."
 msgstr "Kan inte bygga projekt. Kontrollera Inställningar->Kommandon."
 
-#: src/build_project.c:143
+#: src/build_project.c:158
 msgid "Building the whole Project: "
 msgstr "Bygger hela projektet: "
 
-#: src/build_project.c:176
+#: src/build_project.c:191
 msgid "Unable to build tarball. Check Settings->Commands."
 msgstr "Kan inte bygga tarboll. Kontrollera Inställningar->Kommandon."
 
-#: src/build_project.c:193
+#: src/build_project.c:208
 msgid "Build Distribution"
 msgstr "Bygg distribution"
 
-#: src/build_project.c:197
+#: src/build_project.c:212
 msgid "Building the distribution package of the Project: "
 msgstr "Bygger distributionspaketet för projektet: "
 
-#: src/build_project.c:229
+#: src/build_project.c:244
 msgid "Do you prefer installing as root ?"
 msgstr "Föredrar du att installera som root?"
 
-#: src/build_project.c:268
+#: src/build_project.c:283
 msgid "Unable to auto generate. Check Settings->Commands."
 msgstr "Kan inte autogenerera. Kontrollera Inställningar->Kommandon."
 
-#: src/build_project.c:284
+#: src/build_project.c:299
 msgid "Auto generate Project"
 msgstr "Autogenerera projekt"
 
-#: src/build_project.c:287
+#: src/build_project.c:302
 msgid "Auto generating the Project: "
 msgstr "Autogenererar projektet: "
 
-#: src/build_project.c:315
+#: src/build_project.c:330
 msgid "Build completed...............Unsuccessful\n"
 msgstr "Bygge färdigt.................misslyckades\n"
 
-#: src/build_project.c:319
+#: src/build_project.c:334
 msgid "Build terminated with error(s)."
 msgstr "Bygge avslutades med fel."
 
-#: src/build_project.c:325
+#: src/build_project.c:340
 msgid "Build completed...............Successful\n"
 msgstr "Bygge färdigt.................lyckades\n"
 
-#: src/build_project.c:329
+#: src/build_project.c:344
 msgid "Build completed ... successful."
 msgstr "Bygge färdigt... lyckades."
 
-#: src/build_project.c:353
+#: src/build_project.c:368
 msgid "Build All completed...............Unsuccessful\n"
 msgstr "Bygge av allt färdigt.............misslyckades\n"
 
-#: src/build_project.c:357
+#: src/build_project.c:372
 msgid "Build All completed...............Unsuccessful"
 msgstr "Bygge av allt färdigt.............misslyckades"
 
-#: src/build_project.c:362
+#: src/build_project.c:377
 msgid "Build All completed...............Successful\n"
 msgstr "Bygge av allt färdigt.............lyckades\n"
 
-#: src/build_project.c:366
+#: src/build_project.c:381
 msgid "Build All completed ... successful"
 msgstr "Bygge av allt färdigt... lyckades"
 
-#: src/build_project.c:388
+#: src/build_project.c:403
 msgid "Build Distribution completed...............Unsuccessful\n"
 msgstr "Bygge av distribution färdigt..............misslyckades\n"
 
-#: src/build_project.c:392
+#: src/build_project.c:407
 msgid "Build Distribution completed ... unsuccessful"
 msgstr "Bygge av distribution färdigt... misslyckades"
 
-#: src/build_project.c:397
+#: src/build_project.c:412
 msgid "Build Distribution completed...............Successful\n"
 msgstr "Bygge av distribution färdigt..............lyckades\n"
 
-#: src/build_project.c:400
+#: src/build_project.c:415
 msgid ""
 "The source tarball can be found in the top level directory of the Project.\n"
 msgstr "Källkodstarbollen kan hittas i projektets översta katalog.\n"
 
-#: src/build_project.c:404
+#: src/build_project.c:419
 msgid "Build Distribution completed ... successful"
 msgstr "Bygge av distribution färdigt... lyckades"
 
-#: src/build_project.c:425
+#: src/build_project.c:440
 msgid "Install completed...............Unsuccessful\n"
 msgstr "Installation färdig.............misslyckades\n"
 
-#: src/build_project.c:429
+#: src/build_project.c:444
 msgid "Install completed...............Unsuccessful"
 msgstr "Installation färdig.............misslyckades"
 
-#: src/build_project.c:434
+#: src/build_project.c:449
 msgid "Install completed...............Successful\n"
 msgstr "Installation färdig.............lyckades\n"
 
-#: src/build_project.c:438
+#: src/build_project.c:453
 msgid "Install completed ... successful"
 msgstr "Installation färdig... lyckades"
 
-#: src/build_project.c:459 src/gnome_project.c:259
+#: src/build_project.c:474 src/gnome_project.c:259
 msgid "Auto generation completed...............Unsuccessful\n"
 msgstr "Autogenerering färdig...................misslyckades\n"
 
-#: src/build_project.c:463
+#: src/build_project.c:478
 msgid "Auto generation completed ... unsuccessful"
 msgstr "Autogenerering färdig... misslyckades"
 
-#: src/build_project.c:468
+#: src/build_project.c:483
 msgid ""
 "Auto generation completed...............Successful\n"
 "Now Configure the Project.\n"
@@ -3337,75 +3337,75 @@ msgstr ""
 "Autogenerering färdig....................lyckades\n"
 "Konfigurera nu projektet.\n"
 
-#: src/build_project.c:472
+#: src/build_project.c:487
 msgid "Auto generation completed ... successful"
 msgstr "Autogenerering färdig... lyckades"
 
-#: src/build_project.c:493 src/build_project.c:538
+#: src/build_project.c:508 src/build_project.c:553
 msgid "Unable to install Project. Check Settings->Commands."
 msgstr "Kan inte installera projekt. Kontrollera Inställningar->Kommandon."
 
-#: src/build_project.c:515 src/build_project.c:557
+#: src/build_project.c:530 src/build_project.c:572
 msgid "Install Project"
 msgstr "Installera projekt"
 
-#: src/build_project.c:517 src/build_project.c:559
+#: src/build_project.c:532 src/build_project.c:574
 msgid "Installing the Project: "
 msgstr "Installerar projektet: "
 
-#: src/clean_project.c:61
+#: src/clean_project.c:66
 msgid "Unable to clean Project. Check Settings->Commands."
 msgstr "Kan inte städa projekt. Kontrollera Inställningar->Kommandon."
 
-#: src/clean_project.c:72
+#: src/clean_project.c:82
 msgid "Clean"
 msgstr "Städa"
 
-#: src/clean_project.c:75
+#: src/clean_project.c:85
 msgid "Cleaning the source directory of the Project: "
 msgstr "Städar projektets källkodskatalog: "
 
-#: src/clean_project.c:102
-msgid "Cleaning completed...............Unsuccessful\n"
-msgstr "Städning färdig..................misslyckades\n"
-
-#: src/clean_project.c:106
-msgid "Cleaning completed ... unsuccessful"
-msgstr "Städning färdig... misslyckades"
-
-#: src/clean_project.c:111
-msgid "Cleaning completed...............Successful\n"
-msgstr "Städning färdig..................misslyckades\n"
-
-#: src/clean_project.c:115
-msgid "Cleaning completed ... successful"
-msgstr "Städning färdig... lyckades"
-
-#: src/clean_project.c:150
+#: src/clean_project.c:121
 msgid "Unable to Clean All for the Project. Check Settings->Commands."
 msgstr "Kan inte städa allt i projekt. Kontrollera Inställningar->Kommandon."
 
-#: src/clean_project.c:161
+#: src/clean_project.c:132
 msgid "Clean All"
 msgstr "Städa allt"
 
-#: src/clean_project.c:164
+#: src/clean_project.c:135
 msgid "Cleaning whole of the Project: "
 msgstr "Städar hela projektet: "
 
-#: src/clean_project.c:185
+#: src/clean_project.c:163
+msgid "Cleaning completed...............Unsuccessful\n"
+msgstr "Städning färdig..................misslyckades\n"
+
+#: src/clean_project.c:166
+msgid "Cleaning completed ... unsuccessful"
+msgstr "Städning färdig... misslyckades"
+
+#: src/clean_project.c:173
+msgid "Cleaning completed...............Successful\n"
+msgstr "Städning färdig..................misslyckades\n"
+
+#: src/clean_project.c:176
+msgid "Cleaning completed ... successful"
+msgstr "Städning färdig... lyckades"
+
+#: src/clean_project.c:206
 msgid "Clean All completed...............Unsuccessful\n"
 msgstr "Städning av allt färdig...........misslyckades\n"
 
-#: src/clean_project.c:189
+#: src/clean_project.c:210
 msgid "Clean All completed ... unsuccessful"
 msgstr "Städning av allt färdigt... misslyckades"
 
-#: src/clean_project.c:194
+#: src/clean_project.c:215
 msgid "Clean All completed...............Successful\n"
 msgstr "Städning av allt färdigt..........lyckades\n"
 
-#: src/clean_project.c:198
+#: src/clean_project.c:218
 msgid "Clean All completed ... successful"
 msgstr "Städning av allt färdigt... lyckades"
 
@@ -3438,36 +3438,46 @@ msgstr "Kompilering färdig... misslyckades"
 msgid "Compile completed ... successful"
 msgstr "Kompilering färdig... lyckades"
 
-#: src/compiler_options.c:676 src/src_paths.c:218
+#: src/compiler_options.c:521
+msgid ""
+"You have changed some of the compiler options of the project,\n"
+"would you like the next build action to perform a complete\n"
+"rebuild of the project?"
+msgstr ""
+"Du har ändrat några av kompilatoralternativen för projektet.\n"
+"Vill du att nästa byggåtgärd ska utföra en fullständig\n"
+"ombyggnad av projektet?"
+
+#: src/compiler_options.c:743 src/src_paths.c:218
 msgid "Do you want to clear the list?"
 msgstr "Vill du tömma listan?"
 
-#: src/compiler_options.c:752 src/compiler_options.c:828
-#: src/compiler_options.c:851 src/compiler_options.c:896 src/signals_gui.c:131
+#: src/compiler_options.c:823 src/compiler_options.c:899
+#: src/compiler_options.c:922 src/compiler_options.c:967 src/signals_gui.c:131
 msgid "Description"
 msgstr "Beskrivning"
 
-#: src/compiler_options.c:767
+#: src/compiler_options.c:838
 msgid "Include paths"
 msgstr "Inkluderingssökvägar"
 
-#: src/compiler_options.c:782
+#: src/compiler_options.c:853
 msgid "Libraries paths"
 msgstr "Bibliotekssökvägar"
 
-#: src/compiler_options.c:805
+#: src/compiler_options.c:876
 msgid "Libraries and modules"
 msgstr "Bibliotek och moduler"
 
-#: src/compiler_options.c:821
+#: src/compiler_options.c:892
 msgid "Stock"
 msgstr "Standard"
 
-#: src/compiler_options.c:866
+#: src/compiler_options.c:937
 msgid "Stock Defines"
 msgstr "Standarddefinitioner"
 
-#: src/compiler_options.c:889
+#: src/compiler_options.c:960
 msgid "Warning"
 msgstr "Varning"
 
@@ -4134,7 +4144,7 @@ msgstr "Visa inte startbilden"
 msgid "Recent Files    "
 msgstr "Senaste filer   "
 
-#: src/main_menubar.c:394 src/project_dbase.c:2067
+#: src/main_menubar.c:394 src/project_dbase.c:2074
 msgid "Recent Projects "
 msgstr "Senaste projekt "
 
@@ -6519,15 +6529,15 @@ msgstr "Inställningar för Anjuta"
 msgid "Add to Project"
 msgstr "Lägg till i projekt"
 
-#: src/project_dbase.c:259 src/project_dbase.c:330 src/project_dbase_gui.c:586
+#: src/project_dbase.c:260 src/project_dbase.c:331 src/project_dbase_gui.c:586
 msgid "Project: None"
 msgstr "Projekt: Inget"
 
-#: src/project_dbase.c:400
+#: src/project_dbase.c:401
 msgid "Anjuta project files"
 msgstr "Anjuta-projektfiler"
 
-#: src/project_dbase.c:401 src/project_dbase_gui.c:170
+#: src/project_dbase.c:402 src/project_dbase_gui.c:170
 #: src/project_dbase_gui.c:188 src/project_dbase_gui.c:200
 #: src/project_dbase_gui.c:208 src/project_dbase_gui.c:220
 #: src/project_dbase_gui.c:229 src/project_dbase_gui.c:238
@@ -6535,12 +6545,12 @@ msgstr "Anjuta-projektfiler"
 msgid "All files"
 msgstr "Alla filer"
 
-#: src/project_dbase.c:482 src/project_dbase.c:500
+#: src/project_dbase.c:483 src/project_dbase.c:501
 #, c-format
 msgid "Unable to load Project: %s"
 msgstr "Kan inte läsa in projekt: %s"
 
-#: src/project_dbase.c:493 src/project_dbase.c:2516
+#: src/project_dbase.c:494 src/project_dbase.c:2523
 #, c-format
 msgid ""
 "Anjuta version %s or later is required to open this Project.\n"
@@ -6549,15 +6559,15 @@ msgstr ""
 "Anjuta version %s eller senare krävs för att öppna detta projekt.\n"
 "Uppgradera Anjuta till den senaste versionen (Hjälp för mer information)."
 
-#: src/project_dbase.c:885
+#: src/project_dbase.c:886
 msgid "Project saved successfully"
 msgstr "Projektet sparades utan problem"
 
-#: src/project_dbase.c:891 src/project_dbase.c:893
+#: src/project_dbase.c:892 src/project_dbase.c:894
 msgid "Unable to save the Project."
 msgstr "Kan inte spara projektet."
 
-#: src/project_dbase.c:1594
+#: src/project_dbase.c:1601
 msgid ""
 "A .glade file does not exist in the top level Project directory. If you do "
 "not use glade for GUI editing,  please specify a custom command for it in "
@@ -6567,7 +6577,7 @@ msgstr ""
 "glade för redigering av grafiska anvndargränssnitt bör du ange ett anpassat "
 "kommando för det i [Projekt]->[Projektkonfiguration]->[GUI-redigerarkommando]"
 
-#: src/project_dbase.c:1656
+#: src/project_dbase.c:1663
 msgid ""
 "A .glade file does not\n"
 "exist in the top level Project directory."
@@ -6576,11 +6586,11 @@ msgstr ""
 "projektets översta katalog."
 
 #. Set project title
-#: src/project_dbase.c:2104
+#: src/project_dbase.c:2111
 msgid "Project: "
 msgstr "Projekt: "
 
-#: src/project_dbase.c:2221
+#: src/project_dbase.c:2228
 #, c-format
 msgid ""
 "Unable to get relative file name for %s\n"
@@ -6589,20 +6599,20 @@ msgstr ""
 "Kan inte hämta relativt filnamn för %s\n"
 " i %s"
 
-#: src/project_dbase.c:2286
+#: src/project_dbase.c:2293
 msgid " already exists in the project"
 msgstr " finns redan i projektet"
 
-#: src/project_dbase.c:2319
+#: src/project_dbase.c:2326
 msgid "Error while copying the file inside the module."
 msgstr "Fel vid kopiering av filen inuti modulen."
 
-#: src/project_dbase.c:2592 src/project_dbase.c:2595
+#: src/project_dbase.c:2599 src/project_dbase.c:2602
 #, c-format
 msgid "Error in loading Project: %s"
 msgstr "Fel vid inläsning av projekt: %s"
 
-#: src/project_dbase.c:2616
+#: src/project_dbase.c:2623
 msgid "Project loaded successfully."
 msgstr "Projektet lästes in utan problem."
 
