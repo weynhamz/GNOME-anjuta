@@ -400,8 +400,11 @@ AC_CHECK_HEADERS(time.h types.h unistd.h)
 AC_CHECK_HEADERS(sys/dir.h sys/stat.h sys/times.h sys/types.h)
 
 dnl Checks for typedefs, structures, and compiler characteristics.
-AC_CYGWIN
+
+dnl Disable cygwin check until someone fixes that stupid autoconf warnings.
+dnl AC_CYGWIN
 dnl AC_MINGW
+
 AC_C_CONST
 AC_OBJEXT
 AC_EXEEXT
