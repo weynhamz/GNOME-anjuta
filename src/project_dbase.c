@@ -1511,7 +1511,7 @@ project_dbase_show_info (ProjectDBase * p)
 	gchar *str[14];
 	gint i;
 	GList *list;
-	Project_Type* type;
+	ProjectType* type;
 	
 	g_return_if_fail (p != NULL);
 	g_return_if_fail (p->project_is_open == TRUE);
@@ -1525,7 +1525,7 @@ project_dbase_show_info (ProjectDBase * p)
 	else
 		str[3] = g_strdup (_("No"));
 	
-	free_project_type (type);
+	project_type_free (type);
 	/* For the time being */
 	str[4] = g_strdup (_("Yes"));
 
@@ -1618,7 +1618,7 @@ project_dbase_generate_source_code (ProjectDBase *p)
 {
 	gchar *filename, *prj_name;
 	gboolean ret;
-	Project_Type* type;
+	ProjectType* type;
 	
 	if (p->project_is_open == FALSE)
 		return FALSE;
@@ -1629,17 +1629,17 @@ project_dbase_generate_source_code (ProjectDBase *p)
 	 * so use an extra function for writing its main.cc */
 	if(type->id == PROJECT_TYPE_WXWIN)
 	{
-		free_project_type (type);
+		project_type_free (type);
 		return source_write_wxwin_main_c(p);
 	}
 	if(type->id == PROJECT_TYPE_XWIN)
 	{
-		free_project_type (type);
+		project_type_free (type);
 		return source_write_xwin_main_c(p);        
 	}
 	if(type->id == PROJECT_TYPE_XWINDOCKAPP)
 	{
-		free_project_type (type);
+		project_type_free (type);
 		return source_write_xwindockapp_main_c(p);        
 	}
 
@@ -1647,7 +1647,7 @@ project_dbase_generate_source_code (ProjectDBase *p)
 	if (!type->glade_support
 		|| project_dbase_get_target_type(p) != PROJECT_TARGET_TYPE_EXECUTABLE)
 	{
-		free_project_type(type);
+		project_type_free (type);
 		return source_write_generic_main_c (p);
 	}
 
@@ -1674,7 +1674,7 @@ project_dbase_generate_source_code (ProjectDBase *p)
 			ret = source_write_generic_main_c (p);
 	}
 	g_free (filename);
-	free_project_type (type);
+	project_type_free (type);
 	return ret;
 }
 
@@ -1736,7 +1736,7 @@ project_dbase_get_version (ProjectDBase * p)
 }
 
 /* project type. Must be freed after use!!!*/
-Project_Type*
+ProjectType*
 project_dbase_get_project_type (ProjectDBase* p)
 {
 	gchar *str;
@@ -1756,7 +1756,7 @@ project_dbase_get_project_type (ProjectDBase* p)
 		if (ret == 0)
 		{
 			g_free (str);
-			return load_project_type(i);
+			return project_type_load (i);
 		}
 	}
 	return NULL;

@@ -72,8 +72,7 @@ create_project_type_selection_page (GnomeDruid * druid, GtkWidget ** iconlist)
 	GtkWidget *label2;
 	GtkWidget *druid_vbox1;
 
-	gchar *icon1_file, *icon2_file, *icon3_file, *icon4_file, *icon5_file,
-		*icon6_file, *icon7_file, *icon8_file, *icon9_file, *icon10_file,
+	gchar *icon1_file, *icon8_file, *icon9_file, *icon10_file,
 		*icon11_file, *icon12_file, *icon13_file, *icon14_file, *icon15_file,
 		*icon16_file;
 
@@ -145,12 +144,6 @@ create_project_type_selection_page (GnomeDruid * druid, GtkWidget ** iconlist)
 	gnome_icon_list_set_text_spacing (GNOME_ICON_LIST (iconlist1), 5);
 
 	icon1_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_APP_GENERIC);
-	icon2_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_APP_GTK);
-	icon3_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_APP_GNOME);
-	icon4_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_APP_GTKMM);
-	icon5_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_APP_GNOMEMM);
-	icon6_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_APP_COMPONENT);
-	icon7_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_APP_LIBGLADE);
 	icon8_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_APP_WXWIN);
 	icon9_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_APP_GTK2);
 	icon10_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_APP_GNOME2);
@@ -165,42 +158,12 @@ create_project_type_selection_page (GnomeDruid * druid, GtkWidget ** iconlist)
 		gnome_icon_list_append (GNOME_ICON_LIST (iconlist1),
 					icon1_file,
 					_("Generic/Terminal project"));
-
-	if (icon2_file)
-		gnome_icon_list_append (GNOME_ICON_LIST (iconlist1),
-					icon2_file, _("GTK project"));
-
-	if (icon3_file)
-		gnome_icon_list_append (GNOME_ICON_LIST (iconlist1),
-					icon3_file, _("GNOME project"));
-
-	if (icon4_file)
-		gnome_icon_list_append (GNOME_ICON_LIST (iconlist1),
-					icon4_file, _("glademm (gtkmm 1.2) project"));
-
-	if (icon5_file)
-		gnome_icon_list_append (GNOME_ICON_LIST (iconlist1),
-					icon5_file, _("glademm (gnomemm 1.2) project"));
-
-	if (icon6_file)
-		gnome_icon_list_append (GNOME_ICON_LIST (iconlist1),
-					icon6_file, _("Bonobo component"));
-
-	if (icon7_file)
-		gnome_icon_list_append (GNOME_ICON_LIST (iconlist1),
-					icon7_file, _("LibGlade project"));
-	if (icon8_file)
-		gnome_icon_list_append (GNOME_ICON_LIST (iconlist1),
-					icon8_file, _("wxWindows project"));
 	if (icon9_file)
 		gnome_icon_list_append (GNOME_ICON_LIST (iconlist1),
 					icon9_file, _("GTK 2.0 project"));
 	if (icon10_file)
 		gnome_icon_list_append (GNOME_ICON_LIST (iconlist1),
 					icon10_file, _("GNOME 2.0 project"));
-	if (icon11_file)
-		gnome_icon_list_append (GNOME_ICON_LIST (iconlist1),
-					icon11_file, _("GNOME 2.0 Bonobo component"));
 	if (icon12_file)
 		gnome_icon_list_append (GNOME_ICON_LIST (iconlist1),
 					icon12_file, _("LibGlade 2.0 project"));
@@ -210,6 +173,12 @@ create_project_type_selection_page (GnomeDruid * druid, GtkWidget ** iconlist)
 	if (icon14_file)
 		gnome_icon_list_append (GNOME_ICON_LIST (iconlist1),
 					icon14_file, _("gnomemm 2.0 project"));
+	if (icon11_file)
+		gnome_icon_list_append (GNOME_ICON_LIST (iconlist1),
+					icon11_file, _("GNOME 2.0 Bonobo component"));
+	if (icon8_file)
+		gnome_icon_list_append (GNOME_ICON_LIST (iconlist1),
+					icon8_file, _("wxWindows project"));
 	if (icon15_file)
 		gnome_icon_list_append (GNOME_ICON_LIST (iconlist1),
 					icon15_file, _("Xlib project"));
@@ -218,12 +187,6 @@ create_project_type_selection_page (GnomeDruid * druid, GtkWidget ** iconlist)
 					icon16_file, _("X Dock App project"));
 
 	g_free (icon1_file);
-	g_free (icon2_file);
-	g_free (icon3_file);
-	g_free (icon4_file);
-	g_free (icon5_file);
-	g_free (icon6_file);
-	g_free (icon7_file);
 	g_free (icon8_file);
 	g_free (icon9_file);
 	g_free (icon10_file);

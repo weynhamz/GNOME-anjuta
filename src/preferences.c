@@ -813,7 +813,7 @@ add_all_default_pages (AnjutaPreferences *pr)
 		const gchar *name;
 		GtkWidget *widget = node->data;
 		name = glade_get_widget_name (widget);
-		if(!strstr (name, "terminal"))
+		if(!strstr (name, "terminal") && !strstr (name, "encodings"))
 			if (strncmp (name, PREFERENCE_PROPERTY_PREFIX,
 				strlen (PREFERENCE_PROPERTY_PREFIX)) == 0)
 			{

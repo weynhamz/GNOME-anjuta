@@ -31,6 +31,7 @@
 #define __ANJUTA_ENCODINGS_H__
 
 #include <glib.h>
+#include "preferences.h"
 
 typedef struct _AnjutaEncoding AnjutaEncoding;
 
@@ -41,5 +42,7 @@ gchar* anjuta_encoding_to_string (const AnjutaEncoding* enc);
 const gchar* anjuta_encoding_get_charset (const AnjutaEncoding* enc);
 
 GList* anjuta_encoding_get_encodings (GList *encoding_strings);
+
+void anjuta_encodings_init (AnjutaPreferences *pref);
 
 #endif  /* __ANJUTA_ENCODINGS_H__ */

@@ -145,7 +145,7 @@ source_write_autogen_sh (ProjectDBase * data)
 {
 	gchar *srcbuffer, *destbuffer;
 	gint old_umask;
-	Project_Type* type;
+	ProjectType* type;
 
 	g_return_val_if_fail (data != NULL, FALSE);
 
@@ -185,7 +185,7 @@ source_write_configure_in (ProjectDBase * data)
 {
 	FILE *fp;
 	gchar *filename, *actual_file, *prj_name, *version;
-	Project_Type* type;
+	ProjectType* type;
 	gint lang_type, i;
 	GList *list, *node;
 
@@ -465,7 +465,7 @@ source_write_toplevel_makefile_am (ProjectDBase * data)
 	gchar *filename, *actual_file, *target, *prj_name;
 	gint i;
 	gchar *str;
-	Project_Type* type;
+	ProjectType* type;
 
 	g_return_val_if_fail (data != NULL, FALSE);
 
@@ -575,7 +575,7 @@ source_write_toplevel_makefile_am (ProjectDBase * data)
 	g_free (target);
 	g_free (prj_name);
 	g_free (filename);
-	free_project_type(type);
+	project_type_free (type);
 	return TRUE;
 }
 
@@ -633,7 +633,7 @@ source_write_macros_files (ProjectDBase * data)
 	 * same buffers for each file. */
 	static const gint MAX_MACROS_FILENAME_LEN = 64;
 	gchar *srcbuffer, *destbuffer;
-	Project_Type* type;
+	ProjectType* type;
 	gint i;
 
 	g_return_val_if_fail (data != NULL, FALSE);
@@ -735,7 +735,7 @@ source_write_executable_source_files (ProjectDBase * data)
 {
 	FILE *fp;
 	gchar *src_dir, *filename, *actual_file, *target;
-	Project_Type* type;
+	ProjectType* type;
 	gint lang;
 	
 	g_return_val_if_fail (data != NULL, FALSE);
@@ -759,7 +759,7 @@ source_write_executable_source_files (ProjectDBase * data)
 	{
 		anjuta_system_error (errno, _("Unable to create file: %s."), filename);
 		g_free (filename);
-		free_project_type(type);
+		project_type_free (type);
 		g_free (actual_file);
 		return FALSE;
 	}
@@ -816,7 +816,7 @@ source_write_executable_source_files (ProjectDBase * data)
 	
 	g_free (actual_file);
 	g_free (target);
-	free_project_type(type);
+	project_type_free (type);
 	g_free (filename);
 	return TRUE;
 }
@@ -826,7 +826,7 @@ source_write_static_lib_source_files (ProjectDBase * data)
 {
 	FILE *fp;
 	gchar *src_dir, *filename, *actual_file, *target;
-	Project_Type* type;
+	ProjectType* type;
 	gint lang;
 	
 	g_return_val_if_fail (data != NULL, FALSE);
@@ -850,7 +850,7 @@ source_write_static_lib_source_files (ProjectDBase * data)
 	{
 		anjuta_system_error (errno, _("Unable to create file: %s."), filename);
 		g_free (filename);
-		free_project_type(type);
+		project_type_free (type);
 		g_free (actual_file);
 		return FALSE;
 	}
@@ -906,7 +906,7 @@ source_write_static_lib_source_files (ProjectDBase * data)
 	
 	g_free (actual_file);
 	g_free (target);
-	free_project_type(type);
+	project_type_free (type);
 	g_free (filename);
 	return TRUE;
 }
@@ -916,7 +916,7 @@ source_write_dynamic_lib_source_files (ProjectDBase * data)
 {
 	FILE *fp;
 	gchar *src_dir, *filename, *actual_file, *target;
-	Project_Type* type;
+	ProjectType* type;
 	gint lang;
 	
 	g_return_val_if_fail (data != NULL, FALSE);
@@ -940,7 +940,7 @@ source_write_dynamic_lib_source_files (ProjectDBase * data)
 	{
 		anjuta_system_error (errno, _("Unable to create file: %s."), filename);
 		g_free (filename);
-		free_project_type(type);
+		project_type_free (type);
 		g_free (actual_file);
 		return FALSE;
 	}
@@ -997,7 +997,7 @@ source_write_dynamic_lib_source_files (ProjectDBase * data)
 	
 	g_free (actual_file);
 	g_free (target);
-	free_project_type(type);
+	project_type_free (type);
 	g_free (filename);
 	return TRUE;
 }
@@ -1080,7 +1080,7 @@ source_write_pixmap_files (ProjectDBase * data)
 {
 	FILE *fp;
 	gchar *src_dir, *filename, *actual_file, *target;
-	Project_Type* type;
+	ProjectType* type;
 
 	g_return_val_if_fail (data != NULL, FALSE);
 
@@ -1104,7 +1104,7 @@ source_write_pixmap_files (ProjectDBase * data)
 		anjuta_system_error (errno, _("Unable to create file: %s."), filename);
 		g_free (filename);
 		g_free (actual_file);
-		free_project_type(type);
+		project_type_free (type);
 		return FALSE;
 	}
 	fprintf (fp,"## Process this file with automake to produce Makefile.in\n\n");
@@ -1124,7 +1124,7 @@ source_write_pixmap_files (ProjectDBase * data)
 	g_free (actual_file);
 	g_free (target);
 	g_free (filename);
-	free_project_type(type);
+	project_type_free (type);
 	return TRUE;
 }
 
@@ -1133,7 +1133,7 @@ source_write_help_files (ProjectDBase * data)
 {
 	FILE *fp;
 	gchar *src_dir, *filename, *actual_file, *target;
-	Project_Type* type;
+	ProjectType* type;
 
 	g_return_val_if_fail (data != NULL, FALSE);
 
@@ -1155,7 +1155,7 @@ source_write_help_files (ProjectDBase * data)
 	{
 		anjuta_system_error (errno, _("Unable to create file: %s."), filename);
 		g_free (filename);
-		free_project_type(type);
+		project_type_free (type);
 		g_free (actual_file);
 		return FALSE;
 	}
@@ -1175,7 +1175,7 @@ source_write_help_files (ProjectDBase * data)
 		anjuta_system_error (errno, _("Unable to create file: %s."), actual_file);
 	g_free (actual_file);
 	g_free (target);
-	free_project_type(type);
+	project_type_free (type);
 	g_free (filename);
 	return TRUE;
 }
@@ -1365,7 +1365,7 @@ source_write_setup_gettext (ProjectDBase * data)
 {
 	gchar *srcbuffer, *destbuffer;
 	gint old_umask;
-	Project_Type* type;
+	ProjectType* type;
 
 	g_return_val_if_fail (data != NULL, FALSE);
 
@@ -1483,7 +1483,7 @@ source_write_glade_file (ProjectDBase * data)
 	FILE *fp;
 	gchar *filename, *target, *prj_name;
 	gchar *prj, *src, *pix;
-	Project_Type* type;
+	ProjectType* type;
 	gint lang;
 	gboolean bOK = TRUE ;
 
@@ -1500,7 +1500,7 @@ source_write_glade_file (ProjectDBase * data)
 	/* FIXME: If *.glade exists, just leave it, for now. */
 	if (file_is_regular (filename))
 	{
-		free_project_type(type);
+		project_type_free (type);
 		g_free (filename);
 		g_free (target);
 		return TRUE;
@@ -1510,7 +1510,7 @@ source_write_glade_file (ProjectDBase * data)
 	if (fp == NULL)
 	{
 		anjuta_system_error (errno, _("Unable to create file: %s."), filename);
-		free_project_type(type);
+		project_type_free (type);
 		g_free (filename);
 		g_free (target);
 		return FALSE;
@@ -1602,7 +1602,7 @@ source_write_glade_file (ProjectDBase * data)
 		"</widget>\n\n"
 		"</GTK-Interface>\n"
 		);
-	free_project_type(type);
+	project_type_free (type);
 	fflush( fp );
 	if( ferror( fp ) )
 	{
@@ -1621,7 +1621,7 @@ source_write_glade2_file (ProjectDBase * data)
 	FILE *fp;
 	gchar *filename, *target, *prj_name;
 	gchar *prj, *src, *pix;
-	Project_Type* type;
+	ProjectType* type;
 	gint lang;
 	gboolean bOK = TRUE ;
 
@@ -1722,7 +1722,7 @@ source_write_glade2_file (ProjectDBase * data)
 		fprintf(fp, "  <gnome_support>FALSE</gnome_support>\n");
 	fprintf (fp, "</glade-project>\n");
 	
-	free_project_type (type);
+	project_type_free  (type);
 	fflush (fp);
 	if (ferror (fp))
 	{
@@ -2780,7 +2780,7 @@ source_write_xwindockapp_main_c (ProjectDBase *data)
 gboolean
 source_write_build_files (ProjectDBase * data)
 {
-	Project_Type* type;
+	ProjectType* type;
 	gint ret;
 
 	g_return_val_if_fail (data != NULL, FALSE);
@@ -2823,7 +2823,7 @@ source_write_build_files (ProjectDBase * data)
 		ret = source_write_macros_files (data);
 		if (!ret) return FALSE;
 	}
-	free_project_type(type);
+	project_type_free (type);
 
 	if (!project_config_get_overwrite_disabled (data->project_config,
 												BUILD_FILE_CONFIGURE_IN))

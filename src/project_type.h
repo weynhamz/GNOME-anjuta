@@ -22,9 +22,9 @@
 
 #include <glib.h>
 
-typedef struct _Project_Type Project_Type;
+typedef struct _ProjectType ProjectType;
 
-struct _Project_Type
+struct _ProjectType
 {
 	gint id;
 	gchar* name;
@@ -40,12 +40,10 @@ struct _Project_Type
 	gboolean gnome_support;
 	gboolean gnome2_support;
 	gboolean glade_support;
+	gboolean deprecated;
 };
 
-Project_Type* 
-load_project_type(gint ID);
-
-void 
-free_project_type(Project_Type *type);
+ProjectType* project_type_load (gint ID);
+void project_type_free (ProjectType *type);
 
 #endif

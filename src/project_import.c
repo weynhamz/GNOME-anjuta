@@ -228,7 +228,7 @@ progressbar_timeout (gpointer data)
 static gboolean
 project_import_load_project_values (gchar * filename)
 {
-	Project_Type *type;
+	ProjectType *type;
 	ProjectDBase *p = app->project_dbase;
 
 	if (!project_dbase_load_project_file (p, filename))
@@ -243,7 +243,7 @@ project_import_load_project_values (gchar * filename)
 	if (type)
 	{
 		piw->prj_type = type->id;
-		free_project_type (type);
+		project_type_free (type);
 	}
 	else
 		piw->prj_type = PROJECT_TYPE_GENERIC;
@@ -295,10 +295,10 @@ project_import_save_values (ProjectImportWizard * piw)
 	ProjectDBase *p = app->project_dbase;
 	ProjectConfig *config = p->project_config;
 
-	Project_Type *type = load_project_type (piw->prj_type);
+	ProjectType *type = project_type_load (piw->prj_type);
 	prop_set_with_key (p->props, "project.name", piw->prj_name);
 	prop_set_with_key (p->props, "project.type", type->name);
-	free_project_type (type);
+	project_type_free (type);
 	prop_set_with_key (p->props, "project.version", piw->prj_version);
 	prop_set_with_key (p->props, "project.author", piw->prj_author);
 	prop_set_with_key (p->props, "project.source.target",

@@ -44,6 +44,7 @@
 #include "anjuta-tools.h"
 #include "pixmaps.h"
 #include "start-with.h"
+#include "anjuta-encodings.h"
 #include "anjuta.h"
 
 #define GTK
@@ -164,6 +165,9 @@ anjuta_new ()
 		app->windows_dialog =
 			ANJUTA_WINDOWS_DIALOG (anjuta_windows_dialog_new
 								   (app->preferences->props));
+		/* Editor encodings */
+		anjuta_encodings_init (app->preferences);
+		
 		/* Register main window */
 		anjuta_windows_register_window (app->windows_dialog,
 										GTK_WINDOW (app->widgets.window),

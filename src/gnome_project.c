@@ -46,7 +46,7 @@ create_new_project (AppWizard * aw)
 	gchar* files;
 	FILE* fp;
 	gint i;
-	Project_Type* type;
+	ProjectType* type;
 
 	all_prj_dir  =
 		anjuta_preferences_get (ANJUTA_PREFERENCES (app->preferences),
@@ -142,7 +142,7 @@ create_new_project (AppWizard * aw)
 
 	fprintf(fp, "project.menu.need.terminal=%d\n\n", aw->need_terminal);
 
-	type = load_project_type (aw->prj_type);
+	type = project_type_load (aw->prj_type);
 	if (type->id != PROJECT_TYPE_GENERIC)
 	{
 		fprintf (fp, "compiler.options.supports=%s\n\n",
@@ -200,7 +200,7 @@ create_new_project (AppWizard * aw)
 	/* Scanning for created files in every module */
 	if (type)
 	{
-		free_project_type(type);
+		project_type_free (type);
 		type = NULL;
 	}
 

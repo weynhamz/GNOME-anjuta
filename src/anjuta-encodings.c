@@ -30,10 +30,14 @@
 #include <config.h>
 #endif
 
-#include "anjuta-encodings.h"
-
+#include <gtk/gtktreeview.h>
+#include <gtk/gtkliststore.h>
+#include <glade/glade.h>
 #include <bonobo/bonobo-i18n.h>
 #include <string.h>
+
+#include "anjuta-encodings.h"
+#include "utilities.h"
 
 struct _AnjutaEncoding
 {
@@ -358,4 +362,286 @@ anjuta_encoding_get_encodings (GList *encoding_strings)
 		}
 	}
 	return res;
+}
+
+typedef struct
+{
+	AnjutaPreferences *pref;
+	GtkWidget *add_button;
+	GtkWidget *remove_button;
+	GtkWidget *up_button;
+	GtkWidget *down_button;
+	GtkWidget *supported_treeview;
+	GtkWidget *stock_treeview;
+} AnjutaEncodingsDialog;
+
+static AnjutaEncodingsDialog *anjuta_encodings_dialog = NULL;
+
+enum
+{
+	COLUMN_ENCODING_NAME = 0,
+	COLUMN_ENCODING_INDEX,
+	ENCODING_NUM_COLS
+};
+
+enum
+{
+	COLUMN_SUPPORTED_ENCODING_NAME = 0,
+	COLUMN_SUPPORTED_ENCODING,
+	SUPPORTED_ENCODING_NUM_COLS
+};
+
+static GtkTreeModel*
+create_encodings_treeview_model (void)
+{
+	GtkListStore *store;
+	GtkTreeIter iter;
+	gint i;
+	const AnjutaEncoding* enc;
+
+	/* create list store */
+	store = gtk_list_store_new (ENCODING_NUM_COLS, G_TYPE_STRING, G_TYPE_INT);
+
+	i = 0;
+	while ((enc = anjuta_encoding_get_from_index (i)) != NULL)
+	{
+		gchar *name;
+		enc = anjuta_encoding_get_from_index (i);
+		name = anjuta_encoding_to_string (enc);
+		gtk_list_store_append (store, &iter);
+		gtk_list_store_set (store, &iter, COLUMN_ENCODING_NAME, name,
+				    		COLUMN_ENCODING_INDEX, i, -1);
+		g_free (name);
+		++i;
+	}
+	return GTK_TREE_MODEL (store);
+}
+
+static void 
+on_add_encodings (GtkButton *button)
+{
+	GValue value = {0, };
+	const AnjutaEncoding* enc;
+	GSList *encs = NULL;
+	
+	GtkTreeIter iter;
+	GtkTreeSelection *selection;
+	GtkTreeModel *model;
+	
+
+	selection =
+		gtk_tree_view_get_selection (GTK_TREE_VIEW
+									 (anjuta_encodings_dialog->stock_treeview));
+	g_return_if_fail (selection != NULL);
+	
+	model =	gtk_tree_view_get_model (GTK_TREE_VIEW 
+							 (anjuta_encodings_dialog->stock_treeview));
+	if (!gtk_tree_model_get_iter_first (model, &iter))
+		return;
+
+	if (gtk_tree_selection_iter_is_selected (selection, &iter))
+	{
+		gtk_tree_model_get_value (model, &iter,
+								  COLUMN_ENCODING_INDEX, &value);
+		enc = anjuta_encoding_get_from_index (g_value_get_int (&value));
+		g_return_if_fail (enc != NULL);
+		encs = g_slist_prepend (encs, (gpointer)enc);
+		
+		g_value_unset (&value);
+	}
+
+	while (gtk_tree_model_iter_next (model, &iter))
+	{
+		if (gtk_tree_selection_iter_is_selected (selection, &iter))
+		{
+			gtk_tree_model_get_value (model, &iter,
+				    COLUMN_ENCODING_INDEX, &value);
+
+			enc = anjuta_encoding_get_from_index (g_value_get_int (&value));
+			g_return_if_fail (enc != NULL);
+	
+			encs = g_slist_prepend (encs, (gpointer)enc);
+	
+			g_value_unset (&value);
+		}
+	}
+
+	if (encs != NULL)
+	{
+		GSList *node;
+		model =	gtk_tree_view_get_model (GTK_TREE_VIEW 
+							 (anjuta_encodings_dialog->supported_treeview));
+		encs = g_slist_reverse (encs);
+		node = encs;
+		while (node)
+		{
+			const AnjutaEncoding *enc;
+			gchar *name;
+			GtkTreeIter iter;
+			enc = (const AnjutaEncoding *) node->data;
+			
+			name = anjuta_encoding_to_string (enc);
+			
+			gtk_list_store_append (GTK_LIST_STORE (model), &iter);
+			gtk_list_store_set (GTK_LIST_STORE (model), &iter,
+						COLUMN_SUPPORTED_ENCODING_NAME, name,
+						COLUMN_SUPPORTED_ENCODING, enc,
+						-1);
+			g_free (name);
+	
+			node = g_slist_next (node);
+		}
+		g_slist_free (encs);
+	}
+}
+
+void
+on_remove_encodings (GtkButton *button)
+{
+	GtkTreeSelection *selection;
+	GtkTreeModel *model;
+	GtkTreeIter iter;
+	GtkTreeView *treeview;
+	
+	treeview = GTK_TREE_VIEW (anjuta_encodings_dialog->supported_treeview);
+	selection = gtk_tree_view_get_selection (treeview);
+	if (selection &&
+		gtk_tree_selection_get_selected (selection, &model, &iter))
+		gtk_list_store_remove (GTK_LIST_STORE (model), &iter);
+}
+
+void
+on_preferences_apply (AnjutaPreferences *pref, gpointer data)
+{
+	GString *str;
+	GtkTreeIter iter;
+	GtkTreeModel *model;
+	gboolean valid;
+	gchar *value;
+	
+	str = g_string_new ("");
+	
+	model =	gtk_tree_view_get_model (GTK_TREE_VIEW 
+							 (anjuta_encodings_dialog->supported_treeview));
+	valid = gtk_tree_model_get_iter_first (model, &iter);
+	while (valid)
+	{
+		AnjutaEncoding *enc;
+		gtk_tree_model_get (model, &iter, COLUMN_SUPPORTED_ENCODING, &enc, -1);
+		g_assert (enc != NULL);
+		g_assert (enc->charset != NULL);
+		str = g_string_append (str, enc->charset);
+		str = g_string_append (str, " ");
+		valid = gtk_tree_model_iter_next (model, &iter);
+	}
+	value = g_string_free (str, FALSE);
+	anjuta_preferences_set (anjuta_encodings_dialog->pref,
+							"supported.encodings", value);
+	g_free (value);
+}
+
+void
+anjuta_encodings_init (AnjutaPreferences *pref)
+{
+	GtkWidget *add_button;
+	GtkWidget *remove_button;
+	GtkWidget *up_button;
+	GtkWidget *down_button;
+	GtkWidget *supported_treeview;
+	GtkWidget *stock_treeview;
+	GtkTreeModel *model;
+	GladeXML *gxml;
+	GtkCellRenderer *cell;
+	GtkTreeViewColumn *column;
+	GtkTreeSelection *selection;
+	GList *list, *node;
+	
+	g_return_if_fail (anjuta_encodings_dialog == NULL);
+	
+	/* Create the Encodings preferences page */
+	gxml = glade_xml_new (PACKAGE_DATA_DIR"/glade/anjuta.glade",
+						  "preferences_dialog_encodings",
+						  NULL);
+	anjuta_preferences_add_page (pref, gxml,
+								"Encodings",
+								"preferences-encodings.png");
+	supported_treeview = glade_xml_get_widget (gxml, "supported_treeview");
+	stock_treeview =  glade_xml_get_widget (gxml, "stock_treeview");
+	add_button = glade_xml_get_widget (gxml, "add_button");
+	remove_button = glade_xml_get_widget (gxml, "remove_button");
+	up_button = glade_xml_get_widget (gxml, "up_button");
+	down_button = glade_xml_get_widget (gxml, "down_button");
+	
+	/* Add the encoding column for stock treeview*/
+	cell = gtk_cell_renderer_text_new ();
+	column = gtk_tree_view_column_new_with_attributes (_("Stock Encodings"),
+													  cell, "text",
+													  COLUMN_ENCODING_NAME,
+													  NULL);
+	gtk_tree_view_append_column (GTK_TREE_VIEW (stock_treeview), column);
+	gtk_tree_view_set_search_column (GTK_TREE_VIEW (stock_treeview),
+									 COLUMN_ENCODING_NAME);
+	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (stock_treeview));
+	g_return_if_fail (selection != NULL);
+	gtk_tree_selection_set_mode (selection, GTK_SELECTION_MULTIPLE);
+	model = create_encodings_treeview_model ();
+	gtk_tree_view_set_model (GTK_TREE_VIEW (stock_treeview), model);
+	g_object_unref (model);
+
+	/* Add the encoding column for supported treeview*/
+	cell = gtk_cell_renderer_text_new ();
+	column = gtk_tree_view_column_new_with_attributes (_("Supported Encodings"),
+													   cell, "text",
+													   COLUMN_ENCODING_NAME,
+													   NULL);
+	gtk_tree_view_append_column (GTK_TREE_VIEW (supported_treeview), column);
+	gtk_tree_view_set_search_column (GTK_TREE_VIEW (supported_treeview),
+									 COLUMN_ENCODING_NAME);
+	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (supported_treeview));
+	g_return_if_fail (selection != NULL);
+	gtk_tree_selection_set_mode (selection, GTK_SELECTION_BROWSE);
+
+	/* create list store */
+	model = GTK_TREE_MODEL (gtk_list_store_new (SUPPORTED_ENCODING_NUM_COLS,
+												G_TYPE_STRING, G_TYPE_POINTER));
+	gtk_tree_view_set_model (GTK_TREE_VIEW (supported_treeview), model);
+	/* Fill the model */
+	list = glist_from_data (pref->props, "supported.encodings");
+	node = list;
+	while (node)
+	{
+		const AnjutaEncoding *enc;
+		gchar *name;
+		GtkTreeIter iter;
+		
+		enc = anjuta_encoding_get_from_charset ((gchar *) node->data);
+		name = anjuta_encoding_to_string (enc);
+		
+		gtk_list_store_append (GTK_LIST_STORE (model), &iter);
+		gtk_list_store_set (GTK_LIST_STORE (model), &iter,
+				    COLUMN_SUPPORTED_ENCODING_NAME, name,
+					COLUMN_SUPPORTED_ENCODING, enc,
+				    -1);
+		g_free (name);
+
+		node = g_list_next (node);
+	}
+	glist_strings_free (list);
+	g_object_unref (model);
+
+	g_signal_connect (G_OBJECT (pref), "changed",
+					  G_CALLBACK (on_preferences_apply), NULL);
+	g_signal_connect (G_OBJECT (add_button), "clicked",
+					  G_CALLBACK (on_add_encodings), NULL);
+	g_signal_connect (G_OBJECT (remove_button), "clicked",
+					  G_CALLBACK (on_remove_encodings), NULL);
+	
+	anjuta_encodings_dialog = g_new0 (AnjutaEncodingsDialog, 1);
+	anjuta_encodings_dialog->pref = pref;
+	anjuta_encodings_dialog->add_button = add_button;
+	anjuta_encodings_dialog->remove_button = remove_button;
+	anjuta_encodings_dialog->up_button = up_button;
+	anjuta_encodings_dialog->down_button = down_button;
+	anjuta_encodings_dialog->supported_treeview = supported_treeview;
+	anjuta_encodings_dialog->stock_treeview = stock_treeview;
 }

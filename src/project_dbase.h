@@ -223,7 +223,7 @@ gboolean project_dbase_generate_source_code (ProjectDBase *p);
 gchar* project_dbase_get_proj_name (ProjectDBase * p);
 
 /* project type. */
-Project_Type* project_dbase_get_project_type (ProjectDBase* p);
+ProjectType* project_dbase_get_project_type (ProjectDBase* p);
 
 /* Target type*/
 gint project_dbase_get_target_type (ProjectDBase* p);

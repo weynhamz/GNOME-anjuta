@@ -65,6 +65,7 @@ struct _AppWizard
 	gint cur_page;
 
 	gint  prj_type;
+	GList *active_project_types;
 	gint  target_type;
 	
 	gchar *prj_name;
