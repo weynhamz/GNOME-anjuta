@@ -187,7 +187,9 @@ create_compiler_options_gui (CompilerOptions * co)
 	GTK_WIDGET_SET_FLAGS (comopt_cancel, GTK_CAN_DEFAULT);
 
 	gtk_accel_group_attach (app->accel_group, GTK_OBJECT (window1));
-
+	
+	compiler_options_connect_signals(co);
+	
 	gtk_signal_connect (GTK_OBJECT (dialog1), "delete_event",
 			    GTK_SIGNAL_FUNC (on_comopt_delete_event), co);
 	gtk_signal_connect (GTK_OBJECT (comopt_ok), "clicked",
@@ -264,10 +266,6 @@ create_compiler_options_page0 (CompilerOptions * co)
 	gtk_widget_show (button2);
 	gtk_box_pack_start (GTK_BOX (vbox1), button2, FALSE, FALSE, 0);
 	gtk_container_set_border_width (GTK_CONTAINER (button2), 5);
-
-	gtk_signal_connect (GTK_OBJECT (clist1), "select_row",
-			    GTK_SIGNAL_FUNC (on_co_supp_clist_select_row),
-			    co);
 
 	gtk_signal_connect (GTK_OBJECT (button0), "clicked",
 			    GTK_SIGNAL_FUNC (on_co_supp_info_clicked), co);
@@ -376,8 +374,6 @@ create_compiler_options_page1 (CompilerOptions * co)
 	gtk_box_pack_start (GTK_BOX (vbox1), button4, FALSE, FALSE, 0);
 	gtk_container_set_border_width (GTK_CONTAINER (button4), 5);
 
-	gtk_signal_connect (GTK_OBJECT (clist1), "select_row",
-			    GTK_SIGNAL_FUNC (on_co_inc_clist_select_row), co);
 	gtk_signal_connect (GTK_OBJECT (button0), "clicked",
 			    GTK_SIGNAL_FUNC (on_co_inc_add_clicked), co);
 	gtk_signal_connect (GTK_OBJECT (button1), "clicked",
@@ -496,9 +492,6 @@ create_compiler_options_page2 (CompilerOptions * co)
 	gtk_box_pack_start (GTK_BOX (vbox1), button4, FALSE, FALSE, 0);
 	gtk_container_set_border_width (GTK_CONTAINER (button4), 5);
 
-	gtk_signal_connect (GTK_OBJECT (clist1), "select_row",
-			    GTK_SIGNAL_FUNC
-			    (on_co_lib_paths_clist_select_row), co);
 	gtk_signal_connect (GTK_OBJECT (button0), "clicked",
 			    GTK_SIGNAL_FUNC (on_co_lib_paths_add_clicked),
 			    co);
@@ -653,8 +646,6 @@ create_compiler_options_page3 (CompilerOptions * co)
 	gtk_box_pack_start (GTK_BOX (vbox1), button4, FALSE, FALSE, 0);
 	gtk_container_set_border_width (GTK_CONTAINER (button4), 5);
 
-	gtk_signal_connect (GTK_OBJECT (clist1), "select_row",
-			    GTK_SIGNAL_FUNC (on_co_lib_clist_select_row), co);
 	gtk_signal_connect (GTK_OBJECT (clist2), "select_row",
 			    GTK_SIGNAL_FUNC
 			    (on_co_lib_stock_clist_select_row), co);
@@ -781,8 +772,6 @@ create_compiler_options_page4 (CompilerOptions * co)
 	gtk_box_pack_start (GTK_BOX (vbox1), button4, FALSE, FALSE, 0);
 	gtk_container_set_border_width (GTK_CONTAINER (button4), 5);
 
-	gtk_signal_connect (GTK_OBJECT (clist1), "select_row",
-			    GTK_SIGNAL_FUNC (on_co_def_clist_select_row), co);
 	gtk_signal_connect (GTK_OBJECT (button0), "clicked",
 			    GTK_SIGNAL_FUNC (on_co_def_add_clicked), co);
 	gtk_signal_connect (GTK_OBJECT (button1), "clicked",
@@ -1166,4 +1155,50 @@ create_compiler_options_page7 (CompilerOptions * co)
 	gtk_widget_ref (entry3);
 
 	return frame;
+}
+
+void
+compiler_options_connect_signals(CompilerOptions* co)
+{
+	gtk_signal_connect (GTK_OBJECT (co->widgets.supp_clist), "select_row",
+			    GTK_SIGNAL_FUNC (on_co_supp_clist_select_row),
+			    co);
+	
+	gtk_signal_connect (GTK_OBJECT (co->widgets.inc_clist), "select_row",
+			    GTK_SIGNAL_FUNC (on_co_inc_clist_select_row), co);
+	
+	gtk_signal_connect (GTK_OBJECT (co->widgets.lib_paths_clist), "select_row",
+			    GTK_SIGNAL_FUNC (on_co_lib_paths_clist_select_row),
+				co);
+	
+	gtk_signal_connect (GTK_OBJECT (co->widgets.lib_clist), "select_row",
+			    GTK_SIGNAL_FUNC (on_co_lib_clist_select_row),
+				co);
+	
+	gtk_signal_connect (GTK_OBJECT (co->widgets.def_clist), "select_row",
+			    GTK_SIGNAL_FUNC (on_co_def_clist_select_row),
+				co);
+}
+
+void
+compiler_options_disconnect_signals(CompilerOptions* co)
+{
+	gtk_signal_disconnect_by_func (GTK_OBJECT (co->widgets.supp_clist),
+			    GTK_SIGNAL_FUNC (on_co_supp_clist_select_row),
+			    co);
+	
+	gtk_signal_disconnect_by_func (GTK_OBJECT (co->widgets.inc_clist),
+			    GTK_SIGNAL_FUNC (on_co_inc_clist_select_row), co);
+	
+	gtk_signal_disconnect_by_func (GTK_OBJECT (co->widgets.lib_paths_clist),
+			    GTK_SIGNAL_FUNC (on_co_lib_paths_clist_select_row),
+				co);
+	
+	gtk_signal_disconnect_by_func (GTK_OBJECT (co->widgets.lib_clist),
+			    GTK_SIGNAL_FUNC (on_co_lib_clist_select_row),
+				co);
+	
+	gtk_signal_disconnect_by_func (GTK_OBJECT (co->widgets.def_clist),
+			    GTK_SIGNAL_FUNC (on_co_def_clist_select_row),
+				co);
 }

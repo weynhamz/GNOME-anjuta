@@ -145,4 +145,7 @@ void compiler_options_set_prjmacros_in_file (CompilerOptions * co, FILE* fp);
 /* private */
 void compiler_options_set_in_properties (CompilerOptions* co, PropsID props);
 
+void compiler_options_connect_signals(CompilerOptions* co);
+void compiler_options_disconnect_signals(CompilerOptions* co);
+
 #endif

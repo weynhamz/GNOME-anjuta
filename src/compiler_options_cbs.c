@@ -352,9 +352,14 @@ on_co_inc_remove_clicked (GtkButton * button, gpointer data)
 	CompilerOptions *co = data;
 	if (g_list_length (GTK_CLIST (co->widgets.inc_clist)->row_list) < 1)
 		return;
+	
+	compiler_options_disconnect_signals(co);
+	
 	gtk_entry_set_text (GTK_ENTRY (co->widgets.inc_entry), "");
 	gtk_clist_remove (GTK_CLIST (co->widgets.inc_clist), co->inc_index);
 	compiler_options_update_controls (co);
+	
+	compiler_options_connect_signals(co);
 }
 
 void
@@ -445,9 +450,14 @@ on_co_lib_remove_clicked (GtkButton * button, gpointer data)
 	CompilerOptions *co = data;
 	if (g_list_length (GTK_CLIST (co->widgets.lib_clist)->row_list) < 1)
 		return;
+	
+	compiler_options_disconnect_signals(co);
+	
 	gtk_entry_set_text (GTK_ENTRY (co->widgets.lib_entry), "");
 	gtk_clist_remove (GTK_CLIST (co->widgets.lib_clist), co->lib_index);
 	compiler_options_update_controls (co);
+	
+	compiler_options_connect_signals(co);
 }
 
 void
@@ -628,9 +638,14 @@ on_co_def_remove_clicked (GtkButton * button, gpointer data)
 	CompilerOptions *co = data;
 	if (g_list_length (GTK_CLIST (co->widgets.def_clist)->row_list) < 1)
 		return;
+	
+	compiler_options_disconnect_signals(co);
+	
 	gtk_entry_set_text (GTK_ENTRY (co->widgets.def_entry), "");
 	gtk_clist_remove (GTK_CLIST (co->widgets.def_clist), co->def_index);
 	compiler_options_update_controls (co);
+	
+	compiler_options_connect_signals(co);
 }
 
 void

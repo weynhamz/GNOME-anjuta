@@ -1,5 +1,16 @@
-2002-01-25  Naba Kumar <kh_naba@users.sourceforge.net>
+2002-01-26  Naba Kumar <kh_naba@users.sourceforge.net>
 
+	* src/compiler_options_cbs.c, compiler_options.h, compiler_options_gui.c,
+	  Fixed Bug #499807, ie crash on removing libs, includes, defines from
+	  the compiler options dialog.
+	
+	* ChangeLog:
+	  Correct todays date. :)
+	  
+2002-01-26  Naba Kumar <kh_naba@users.sourceforge.net>
+
+	* Fix for bug #499373
+	
 	* data/properties/anjuta.properties, ada.properties, cpp.properties,
 	  java, properties, latex.properties, lua.properties, others.properties,
 	  perl.properties:
@@ -13,7 +24,7 @@
 	  
 	  Commented #DEBUG switch.
 	  
-2002-01-25  Naba Kumar <kh_naba@users.sourceforge.net>
+2002-01-26  Naba Kumar <kh_naba@users.sourceforge.net>
 
 	* scripts/*: Added files which I forgot previously.
 	
