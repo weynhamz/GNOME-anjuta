@@ -8,6 +8,7 @@
 	
 	* NEWS: Updated.
 	* manuals/C/anjuta-tutorial/anjuta-tutorial.xml: Fixed tutorial
+	* src/widzard_gui.c: Added horiz scrollbar for desc text.
 	
 2003-12-04  Naba Kumar  <naba@gnome.org>
 	

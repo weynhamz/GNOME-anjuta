@@ -22,6 +22,7 @@ Bug fix: Fixed pascal highlighting
 Bug fix: Fixed build failure with no 'intl' directory.
 Bug fix: Added filters to find in files.
 Bug fix: Fixed tutorial
+Bug fix: Added horizontal scrollbar to description text in wizard.
 
 Anjuta 1.1.98 rc2 for 1.2.0   (07 Nov 2003) -- Naba Kumar
 

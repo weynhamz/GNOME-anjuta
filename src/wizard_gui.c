@@ -499,7 +499,7 @@ create_project_description_page (GnomeDruid * druid,
 	gtk_box_pack_start (GTK_BOX (vbox3), scrolledwindow1, TRUE, TRUE, 0);
 	gtk_container_set_border_width (GTK_CONTAINER (scrolledwindow1), 5);
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolledwindow1),
-					GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
+					GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 
 	description_text = gtk_text_view_new ();
 	gtk_widget_show (description_text);
