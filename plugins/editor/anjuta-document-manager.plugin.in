@@ -4,4 +4,4 @@ _Description=Provides document management capabilities.
 Location=anjuta-editor:EditorPlugin
 Version=0.1
 Icon=anjuta-document-manager.png
-Interfaces=IAnjutaDocumentManager
+Interfaces=IAnjutaDocumentManager,IAnjutaFile

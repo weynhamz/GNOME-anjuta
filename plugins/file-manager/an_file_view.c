@@ -14,11 +14,12 @@
 #include <glade/glade.h>
 #include <libgnomevfs/gnome-vfs.h>
 #include <libgnomevfs/gnome-vfs-mime-handlers.h>
-// #include <libgnomevfs/gnome-vfs-mime.h>
 #include <libanjuta/resources.h>
 #include <libanjuta/pixmaps.h>
 #include <libegg/gdl-icons.h>
 #include <libanjuta/anjuta-utils.h>
+#include <libanjuta/interfaces/ianjuta-document-manager.h>
+#include <libanjuta/interfaces/ianjuta-file.h>
 
 // #include "anjuta.h"
 // #include "resources.h"
@@ -61,16 +62,29 @@ gboolean on_file_filter_delete_event (GtkWidget *widget,
 									  gpointer user_data);
 void on_file_filter_response (GtkWidget *dlg, gint res, gpointer user_data);
 void on_file_filter_close (GtkWidget *dlg, gpointer user_data);
+#endif
 
-gboolean
-anjuta_fv_open_file (const char *path, gboolean use_anjuta)
+static gboolean anjuta_file_iface_open(FileManagerPlugin* fv, const char* path)
+{
+	AnjutaShell* shell = ANJUTA_PLUGIN(fv)->shell;		
+	IAnjutaDocumentManager* docman = anjuta_shell_get_interface(shell, IAnjutaDocumentManager, NULL);
+	g_return_val_if_fail(docman != NULL, FALSE);
+	
+	if (IANJUTA_IS_FILE(docman))
+	{
+		ianjuta_file_open(IANJUTA_FILE(docman), path, NULL);
+	}
+	return TRUE;
+}
+
+static gboolean
+anjuta_fv_open_file (FileManagerPlugin * fv, const char *path, gboolean use_anjuta)
 {
 	gboolean status = FALSE;
-	const char *mime_type = gnome_vfs_get_file_mime_type(path, NULL, FALSE);
+	const char *mime_type = gnome_vfs_get_mime_type(path);
 	if (use_anjuta)
-	{
-		anjuta_goto_file_line_mark((char *) path, -1, FALSE);
-		status = TRUE;
+	{		
+		status = anjuta_file_iface_open(fv, path);
 	}
 	else
 	{
@@ -78,7 +92,7 @@ anjuta_fv_open_file (const char *path, gboolean use_anjuta)
 		if ((app) && (app->command))
 		{
 			if (NULL != strstr (app->command, "anjuta"))
-				anjuta_goto_file_line_mark ((char *) path, -1, FALSE);
+				status = anjuta_file_iface_open(fv, path);
 			else
 			{
 				char **argv = g_new(char *, 3);
@@ -88,7 +102,9 @@ anjuta_fv_open_file (const char *path, gboolean use_anjuta)
 				argv[2] = NULL;
 
 				if (-1 == gnome_execute_async (NULL, 2, argv))
-					anjuta_warning(_("Unable to open %s in %s"), path, app->command);
+				{
+					//anjuta_warning(_("Unable to open %s in %s"), path, app->command);
+				}
 
 				g_free(argv);
 			}
@@ -98,12 +114,14 @@ anjuta_fv_open_file (const char *path, gboolean use_anjuta)
 		}
 		else
 		{
-			anjuta_warning(_("No default viewer specified for the mime type %s.\n"
-					"Please set it in GNOME control center"), mime_type);
+			/*anjuta_warning(_("No default viewer specified for the mime type %s.\n"
+					"Please set it in GNOME control center"), mime_type);*/
 		}
 	}
 	return status;
 }
+
+#if 0
 
 typedef enum {
 	OPEN,
@@ -417,6 +435,7 @@ fv_create_context_menu ()
 	gtk_widget_show_all(fv->menu.top);
 }
 
+#endif
 
 static void
 on_treeview_row_activated (GtkTreeView *view,
@@ -426,13 +445,11 @@ on_treeview_row_activated (GtkTreeView *view,
 {
 	gchar *path;
 
-	path = fv_get_selected_file_path (fv, view);
+	path = fv_get_selected_file_path (fv);
 	if (path)
-		anjuta_fv_open_file (path, TRUE);
+		anjuta_fv_open_file (fv, path, TRUE);
 	g_free (path);
 }
-
-#endif
 
 static gboolean
 on_tree_view_event  (GtkWidget *widget,
@@ -492,7 +509,7 @@ on_tree_view_event  (GtkWidget *widget,
 				{
 					gchar *path = fv_get_selected_file_path(fv);
 					if (path && !g_file_test (path, G_FILE_TEST_IS_DIR))
-						// anjuta_fv_open_file (path, TRUE);
+						anjuta_fv_open_file (fv, path, TRUE);
 					g_free (path);
 					return TRUE;
 				}
@@ -798,8 +815,8 @@ fv_init (FileManagerPlugin *fv)
 					  G_CALLBACK (on_file_view_row_collapsed), fv);
 	g_signal_connect (fv->tree, "event-after",
 					  G_CALLBACK (on_tree_view_event), fv);
-	// g_signal_connect (fv->tree, "row_activated",
-	//				  G_CALLBACK (on_treeview_row_activated), fv);
+	g_signal_connect (fv->tree, "row_activated",
+					  G_CALLBACK (on_treeview_row_activated), fv);
 	gtk_widget_show (fv->tree);
 
 	g_object_unref (G_OBJECT (store));

@@ -48,8 +48,8 @@ struct _AnjutaDocmanClass {
 GType anjuta_docman_get_type (void);
 GtkWidget* anjuta_docman_new (AnjutaPreferences *pref);
 
-TextEditor* anjuta_docman_add_editor (AnjutaDocman *docman, gchar *uri,
-									  gchar *name);
+TextEditor* anjuta_docman_add_editor (AnjutaDocman *docman, const gchar *uri,
+									  const gchar *name);
 void anjuta_docman_remove_editor (AnjutaDocman *docman, TextEditor* te);
 
 TextEditor* anjuta_docman_get_current_editor (AnjutaDocman *docman);
@@ -58,10 +58,10 @@ TextEditor* anjuta_docman_get_editor_from_path (AnjutaDocman *docman,
 
 void anjuta_docman_set_current_editor (AnjutaDocman *docman, TextEditor *te);
 
-TextEditor* anjuta_docman_goto_file_line (AnjutaDocman *docman, gchar * fname,
+TextEditor* anjuta_docman_goto_file_line (AnjutaDocman *docman, const gchar * fname,
 										  glong lineno);
 TextEditor* anjuta_docman_goto_file_line_mark (AnjutaDocman *docman,
-											   gchar *fname, glong lineno,
+											   const gchar *fname, glong lineno,
 											   gboolean mark);
 void anjuta_docman_show_editor (AnjutaDocman *docman, GtkWidget* te);
 

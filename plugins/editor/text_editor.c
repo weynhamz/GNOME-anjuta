@@ -44,6 +44,8 @@
 // #include "text_editor_gui.h"
 #include "text_editor_cbs.h"
 #include "text_editor_menu.h"
+#include "plugin.h"
+#include "anjuta-docman.h"
 #include "src/launcher.h"
 
 #define GTK
@@ -1766,9 +1768,18 @@ static gchar*
 ifile_get_filename (IAnjutaFile *editor, GError **error)
 {
 	TextEditor *text_editor;
+	EditorPlugin* edit = (EditorPlugin* )editor; 
+	text_editor = anjuta_docman_get_current_editor(ANJUTA_DOCMAN(edit->docman));
 	if (text_editor->filename)
 		return g_strdup (text_editor->filename);
 	return NULL;
+}
+
+static void
+ifile_open(IAnjutaFile *editor, const gchar* filename, GError **error)
+{
+	EditorPlugin* edit = (EditorPlugin* )editor;
+	anjuta_docman_goto_file_line(ANJUTA_DOCMAN(edit->docman), filename, -1);
 }
 
 static void
@@ -1783,7 +1794,7 @@ isavable_iface_init (IAnjutaFileSavableIface *iface)
 static void
 ifile_iface_init (IAnjutaFileIface *iface)
 {
-	iface->open = NULL;
+	iface->open = ifile_open;
 	iface->get_filename = ifile_get_filename;
 }
 

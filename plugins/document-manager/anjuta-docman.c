@@ -429,7 +429,7 @@ on_notebook_switch_page (GtkNotebook * notebook,
 }
 
 TextEditor *
-anjuta_docman_add_editor (AnjutaDocman *docman, gchar *uri, gchar *name)
+anjuta_docman_add_editor (AnjutaDocman *docman, const gchar *uri, const gchar *name)
 {
 	GtkWidget *te;
 	AnjutaDocmanPage *page;
@@ -624,14 +624,14 @@ anjuta_docman_set_current_editor (AnjutaDocman *docman, TextEditor * te)
 }
 
 TextEditor *
-anjuta_docman_goto_file_line (AnjutaDocman *docman, gchar *fname, glong lineno)
+anjuta_docman_goto_file_line (AnjutaDocman *docman, const gchar *fname, glong lineno)
 {
 	return anjuta_docman_goto_file_line_mark (docman, fname, lineno, TRUE);
 }
 
 
 TextEditor *
-anjuta_docman_goto_file_line_mark (AnjutaDocman *docman, gchar *fname,
+anjuta_docman_goto_file_line_mark (AnjutaDocman *docman, const gchar *fname,
 								   glong lineno, gboolean mark)
 {
 	gchar *uri;
