@@ -1482,6 +1482,7 @@ anjuta_get_full_filename (gchar * fn)
 	{
 		gchar *src_dir;
 
+		/* See if it on of the source files */
 		src_dir = project_dbase_get_module_dir (app->project_dbase, MODULE_SOURCE);
 		dummy = g_strconcat (src_dir, "/", fn, NULL);
 		g_free (src_dir);
@@ -1491,6 +1492,18 @@ anjuta_get_full_filename (gchar * fn)
 			return dummy;
 		}
 		g_free (dummy);
+		
+		/* See if the file is relative to the top project dir */
+		src_dir = app->project_dbase->top_proj_dir;
+		if (src_dir) {
+			dummy = g_strconcat (src_dir, "/", fn, NULL);
+			if (file_is_regular (dummy) == TRUE)
+			{
+				g_free (cur_dir);
+				return dummy;
+			}
+			g_free (dummy);
+		}
 	}
 	else
 	{
