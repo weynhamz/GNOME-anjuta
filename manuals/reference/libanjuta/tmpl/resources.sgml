@@ -2,7 +2,7 @@
 Program resources
 
 <!-- ##### SECTION Short_Description ##### -->
-
+Application resource management
 
 <!-- ##### SECTION Long_Description ##### -->
 <para>
@@ -152,6 +152,4 @@ Program resources
 
 </para>
 
-@url: 
-
-
+@url:

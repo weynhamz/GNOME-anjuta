@@ -2,7 +2,7 @@
 GnomeFileList
 
 <!-- ##### SECTION Short_Description ##### -->
-
+Gnome file selector (deprecated)
 
 <!-- ##### SECTION Long_Description ##### -->
 <para>
@@ -198,6 +198,4 @@ GnomeFileList
 </para>
 
 @file_list: 
-@combolist: 
-
-
+@combolist:

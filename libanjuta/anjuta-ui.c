@@ -437,6 +437,24 @@ anjuta_ui_instance_init (AnjutaUI *ui)
 	gtk_container_add (GTK_CONTAINER (GTK_DIALOG(ui)->vbox), view);
 }
 
+/**
+ * anjuta_ui_new:
+ * @ui_container: The container where UI objects (menus and toolbars) will
+ * be added.
+ * @add_widget_cb: Callback function to call for adding the widget in
+ * ui_container.
+ * @remove_widget_cb: Callback function to call for removing the widget from
+ * ui_container.
+ * 
+ * Creates a new instance of #AnjutaUI. @ui_container is the container where
+ * where UI elements (menus and toolbars) will be added using the callback
+ * @add_widget_cb. @remove_widget_cb will be called for removing the UI
+ * elements from @ui_container. These two callbacks are directly connected to
+ * the "add_widget" and "remove_widget" signals of GtkUIManager class, so the
+ * the prototypes for these callbacks should be based on them.
+ * 
+ * Return value: A #AnjutaUI object
+ */
 GtkWidget *
 anjuta_ui_new (GtkWidget *ui_container,
 			   GCallback add_widget_cb, GCallback remove_widget_cb)
@@ -456,6 +474,16 @@ anjuta_ui_new (GtkWidget *ui_container,
 	return widget;
 }
 
+/**
+ * anjuta_ui_get_icon_factory:
+ * @ui: A #AnjutaUI object
+ * 
+ * This returns the IconFactory object. All icons should be registered using
+ * this icon factory. Read the documentation for #GtkIconFactory on how to 
+ * use it.
+ *
+ * Return value: The #GtkIconFactory object used by it
+ */
 GtkIconFactory*
 anjuta_ui_get_icon_factory (AnjutaUI *ui)
 {
@@ -463,6 +491,29 @@ anjuta_ui_get_icon_factory (AnjutaUI *ui)
 	return ui->priv->icon_factory;
 }
 
+/**
+ * anjuta_ui_add_action_group_entries:
+ * @ui: A #AnjutaUI object.
+ * @action_group_name: Untranslated name of the action group.
+ * @action_group_label: Translated label of the action group.
+ * @entries: An array of action entries.
+ * @num_entries: Number of elements in the action entries array.
+ * @user_data: User data to pass to action objects. This is the data that
+ * will come as user_data in "activate" signal of the actions.
+ * 
+ * #GtkAction objects are created from the #GtkActionEntry structures and
+ * added to the UI Manager. "activate" signal of #GtkAction is connected for
+ * all the action objects using the callback in the entry structure and the
+ * @user_data passed here.
+ *
+ * This group of actions are registered with the name @action_group_name
+ * in #AnjutaUI. A #GtkAction object from this action group can be later
+ * retrieved by anjuta_ui_get_action() using @action_group_name and action name.
+ * @action_group_label is used as the display name for the action group in
+ * UI manager dialog where action shortcuts are configured.
+ * 
+ * Return value: A #GtkActionGroup object holding all the action objects.
+ */
 GtkActionGroup*
 anjuta_ui_add_action_group_entries (AnjutaUI *ui,
 									const gchar *action_group_name,
@@ -486,6 +537,21 @@ anjuta_ui_add_action_group_entries (AnjutaUI *ui,
 	return action_group;
 }
 
+/**
+ * anjuta_ui_add_toggle_action_group_entries:
+ * @ui: A #AnjutaUI object.
+ * @action_group_name: Untranslated name of the action group.
+ * @action_group_label: Translated label of the action group.
+ * @entries: An array of action entries.
+ * @num_entries: Number of elements in the action entries array.
+ * @user_data: User data to pass to action objects. This is the data that
+ * will come as user_data in "activate" signal of the actions.
+ * 
+ * This is similar to anjuta_ui_add_action_group_entries(), except that
+ * it adds #GtkToggleAction objects after creating them from the @entries.
+ * 
+ * Return value: A #GtkActionGroup object holding all the action objects.
+ */
 GtkActionGroup*
 anjuta_ui_add_toggle_action_group_entries (AnjutaUI *ui,
 									const gchar *action_group_name,
@@ -509,6 +575,18 @@ anjuta_ui_add_toggle_action_group_entries (AnjutaUI *ui,
 	return action_group;
 }
 
+/**
+ * anjuta_ui_add_action_group:
+ * @ui: A #AnjutaUI object.
+ * @action_group_name: Untranslated name of the action group.
+ * @action_group_label: Translated label of the action group.
+ * @action_group: #GtkActionGroup object to add.
+ * 
+ * This is similar to anjuta_ui_add_action_group_entries(), except that
+ * it adds #GtkActionGroup object @action_group directly. All actions in this
+ * group are automatically registered in #AnjutaUI and can be retrieved
+ * normally with anjuta_ui_get_action().
+ */
 void
 anjuta_ui_add_action_group (AnjutaUI *ui,
 							const gchar *action_group_name,
@@ -595,6 +673,14 @@ on_action_group_remove_hash (gpointer key, gpointer value, gpointer data)
 		return FALSE;
 }
 
+/**
+ * anjuta_ui_remove_action_group:
+ * @ui: A #AnjutaUI object
+ * @action_group: #GtkActionGroup object to remove.
+ *
+ * Removes a previous added action group. All actions in this group are
+ * also unregistered from UI manager.
+ */
 void
 anjuta_ui_remove_action_group (AnjutaUI *ui, GtkActionGroup *action_group)
 {
@@ -639,6 +725,18 @@ anjuta_ui_remove_action_group (AnjutaUI *ui, GtkActionGroup *action_group)
 	gtk_ui_manager_remove_action_group (ui->priv->merge, action_group);
 }
 
+/**
+ * anjuta_ui_merge:
+ * @ui: A #AnjutaUI object.
+ * @ui_filename: UI file to merge into UI manager.
+ *
+ * Merges XML UI definition in @ui_filename. UI elements defined in the xml
+ * are merged with existing UI elements in UI manager. The format of the
+ * file content is the standard XML UI definition tree. For more detail,
+ * read the documentation for #GtkUIManager.
+ * 
+ * Return value: Integer merge ID
+ */
 gint
 anjuta_ui_merge (AnjutaUI *ui, const gchar *ui_filename)
 {
@@ -659,6 +757,14 @@ anjuta_ui_merge (AnjutaUI *ui, const gchar *ui_filename)
 	return id;
 }
 
+/**
+ * anjuta_ui_unmerge:
+ * @ui: A #AnjutaUI object.
+ * @id: Merge ID returned by anjuta_ui_merge().
+ *
+ * Unmerges UI with the ID value @id (returned by anjuta_ui_merge() when
+ * it was merged. For more detail, read the documentation for #GtkUIManager.
+ */
 void
 anjuta_ui_unmerge (AnjutaUI *ui, gint id)
 {
@@ -669,47 +775,13 @@ anjuta_ui_unmerge (AnjutaUI *ui, gint id)
 	gtk_ui_manager_remove_ui(ui->priv->merge, id);
 }
 
-#if 0
-static gchar *node_type_names[] = {
-  "UNDECIDED",
-  "ROOT",
-  "MENUBAR",
-  "MENU",
-  "TOOLBAR",
-  "MENU_PLACEHOLDER",
-  "TOOLBAR_PLACEHOLDER",
-  "POPUPS",
-  "MENUITEM",
-  "TOOLITEM",
-  "SEPARATOR"
-};
-
-static void
-print_node (GtkUIManager *merge, GNode *node, gint indent_level)
-{
-	gint i;
-	GtkUIManagerNode *mnode;
-	GNode *child;
-	gchar *action_label = NULL;
-	
-	mnode = node->data;
-	
-	if (mnode->action)
-		g_object_get (mnode->action, "label", &action_label, NULL);
-	
-	for (i = 0; i < indent_level; i++)
-	printf("  ");
-	printf("%s (%s): action_name=%s action_label=%s\n", mnode->name,
-	node_type_names[mnode->type],
-	g_quark_to_string(mnode->action_name), action_label);
-	
-	g_free(action_label);
-	
-	for (child = node->children; child != NULL; child = child->next)
-		print_node(merge, child, indent_level + 1);
-}
-#endif
-
+/**
+ * anjuta_ui_get_accel_group:
+ * @ui: A #AnjutaUI object.
+ * returns: A #GtkAccelGroup object.
+ *
+ * Returns the #GtkAccelGroup object associated with this UI manager.
+ */
 GtkAccelGroup*
 anjuta_ui_get_accel_group (AnjutaUI *ui)
 {
@@ -717,6 +789,17 @@ anjuta_ui_get_accel_group (AnjutaUI *ui)
 	return gtk_ui_manager_get_accel_group (ui->priv->merge);
 }
 
+/**
+ * anjuta_ui_get_menu_merge:
+ * @ui: A #AnjutaUI object.
+ * returns: A #GtkUIManager object.
+ *
+ * Returns the #GtkUIManager object use by this UI manager. Please note that
+ * any actions additions/removals using GtkUIManager are not registred with
+ * #AnjutaUI and hence their accellerators cannot be edited. Nor will they be
+ * listed in the UI manager dialog. Hence, use #AnjutaUI methods whenever
+ * possible.
+ */
 GtkUIManager*
 anjuta_ui_get_menu_merge (AnjutaUI *ui)
 {
@@ -724,6 +807,17 @@ anjuta_ui_get_menu_merge (AnjutaUI *ui)
 	return ui->priv->merge;
 }
 
+/**
+ * anjuta_ui_get_action:
+ * @ui: This #AnjutaUI object
+ * @action_group_name: Group name.
+ * @action_name: Action name.
+ * returns: A #GtkAction object
+ *
+ * Returns the action object with the name @action_name in @action_group_name.
+ * Note that it will be only sucessully returned if the group has been added
+ * using methods in #AnjutaUI.
+ */
 GtkAction*
 anjuta_ui_get_action (AnjutaUI *ui, const gchar *action_group_name,
 					  const gchar *action_name)
@@ -748,8 +842,17 @@ anjuta_ui_get_action (AnjutaUI *ui, const gchar *action_group_name,
 	return NULL;
 }
 
+/**
+ * anjuta_ui_activate_action_by_path:
+ * @ui: This #AnjutaUI object
+ * @action_path: Path of the action in the form "GroupName/ActionName"
+ *
+ * Activates the action represented by @action_path. The path is in the form
+ * "ActionGroupName/ActionName". Note that it will only work if the group has
+ * been added using methods in #AnjutaUI.
+ */
 void
-anjuta_ui_activate_action_by_path (AnjutaUI *ui, gchar *action_path)
+anjuta_ui_activate_action_by_path (AnjutaUI *ui, const gchar *action_path)
 {
 	const gchar *action_group_name;
 	const gchar *action_name;
@@ -771,6 +874,16 @@ anjuta_ui_activate_action_by_path (AnjutaUI *ui, gchar *action_path)
 	g_strfreev (strv);
 }
 
+/**
+ * anjuta_ui_activate_action_by_group:
+ * @ui: This #AnjutaUI object
+ * @action_group: Action group.
+ * @action_name: Action name.
+ *
+ * Activates the action @action_name in the #GtkActionGroup @action_group.
+ * "ActionGroupName/ActionName". Note that it will only work if the group has
+ * been added using methods in #AnjutaUI.
+ */
 void
 anjuta_ui_activate_action_by_group (AnjutaUI *ui, GtkActionGroup *action_group,
 									const gchar *action_name)
@@ -785,13 +898,21 @@ anjuta_ui_activate_action_by_group (AnjutaUI *ui, GtkActionGroup *action_group,
 		gtk_action_activate (action);
 }
 
-#if 0
+/**
+ * anjuta_ui_dump_tree:
+ * @ui: A #AnjutaUI object.
+ *
+ * Dumps the current UI XML tree in STDOUT. Useful for debugging.
+ */
 void
 anjuta_ui_dump_tree (AnjutaUI *ui)
 {
+	gchar *ui_str;
+	
 	g_return_if_fail (ANJUTA_IS_UI(ui));
 	
-	egg_menu_merge_ensure_update (ui->priv->merge);
-	print_node (ui->priv->merge, ui->priv->merge->root_node, 0);
+	gtk_ui_manager_ensure_update (ui->priv->merge);
+	ui_str = gtk_ui_manager_get_ui (ui->priv->merge);
+	printf("%s", ui_str);
+	g_free (ui_str);
 }
-#endif

@@ -50,6 +50,14 @@ anjuta_child_terminated (int t)
 	signal(SIGCHLD, anjuta_child_terminated);
 }
 
+/**
+ * anjuta_children_init:
+ * 
+ * Initializes the children management. Call this somewhere in the begining
+ * of your program. Please note that if you are using this for children
+ * management, do not hook up SIGCHLD anywhere in your program. Instead
+ * use the #anjuta_children_register() to get notified for child exits.
+ */
 void
 anjuta_children_init()
 {
@@ -59,6 +67,19 @@ anjuta_children_init()
 	signal(SIGCHLD, anjuta_child_terminated);
 }
 
+/**
+ * anjuta_children_register:
+ * @pid: Process ID of the child (usually the value retured by fork or similar
+ * system calls.
+ * @ch_terminated: Callback function which will be called when this child
+ * exits. The callback should be defined as the
+ * type #AnjutaChildTerminatedCallback.
+ * @data: User data.
+ *
+ * Registers a child process with the manager. ch_terminated will be called
+ * when the child terminates. DO NOT use SIGCHLD directly, otherwise whole
+ * children management will fail.
+ */
 void
 anjuta_children_register (pid_t pid,
 						  AnjutaChildTerminatedCallback ch_terminated,
@@ -74,6 +95,14 @@ anjuta_children_register (pid_t pid,
 		g_list_append (registered_child_processes_cb_data, data);
 }
 
+/**
+ * anjuta_children_unregister:
+ * @pid: Process ID of the child.
+ * 
+ * Unregisters the child process (It should have been registred before with
+ * #anjuta_children_register() call). No child terminated callback will be
+ * executed for this child.
+ */
 void
 anjuta_children_unregister (pid_t pid)
 {
@@ -95,12 +124,26 @@ anjuta_children_unregister (pid_t pid)
 		g_list_delete_link (registered_child_processes_cb_data, ptr);
 }
 
+/**
+ * anjuta_children_foreach:
+ * @cb: Callback function.
+ * @data: User data.
+ * 
+ * Calls the given callback function with the data for each child
+ * registered, that have not yet been terminated.
+ */
 void
 anjuta_children_foreach (GFunc cb, gpointer data)
 {
 	g_list_foreach (registered_child_processes, cb, data);
 }
 
+/**
+ * anjuta_children_finalize:
+ * 
+ * Shuts down the children management. Usually not required to call, if you
+ * you are anyway exiting the program.
+ */
 void
 anjuta_children_finalize()
 {

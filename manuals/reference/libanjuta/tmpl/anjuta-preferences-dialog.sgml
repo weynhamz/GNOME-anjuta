@@ -2,7 +2,7 @@
 AnjutaPreferencesDialog
 
 <!-- ##### SECTION Short_Description ##### -->
-
+Preferences dialog
 
 <!-- ##### SECTION Long_Description ##### -->
 <para>
@@ -45,6 +45,4 @@ AnjutaPreferencesDialog
 </para>
 
 @dlg: 
-@name: 
-
-
+@name:

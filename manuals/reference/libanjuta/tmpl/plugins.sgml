@@ -2,7 +2,7 @@
 Plugins
 
 <!-- ##### SECTION Short_Description ##### -->
-
+Plugins management and activation
 
 <!-- ##### SECTION Long_Description ##### -->
 <para>
@@ -47,6 +47,4 @@ Plugins
 </para>
 
 @shell: 
-@Returns: 
-
-
+@Returns:

@@ -22,6 +22,20 @@ anjuta_shell_error_quark (void)
 	return quark;
 }
 
+/**
+ * anjuta_shell_add_widget:
+ * @shell: A #AnjutaShell interface.
+ * @widget: Then widget to add
+ * @name: Name of the widget. None translated string used to identify it in 
+ * the shell.
+ * @title: Translated string which is displayed along side the widget when
+ * required (eg. as window title or notebook tab label).
+ * @error: Error propagation object.
+ *
+ * Adds @widget in the shell. The place where the widget will appear depends
+ * on the implementor of this interface. Generally it will be a container
+ * (dock, notebook, GtkContainer etc.).
+ */
 void
 anjuta_shell_add_widget (AnjutaShell *shell,
 			 GtkWidget *widget,
@@ -40,6 +54,15 @@ anjuta_shell_add_widget (AnjutaShell *shell,
 						    title, error);
 }
 
+/**
+ * anjuta_shell_remove_widget:
+ * @shell: A #AnjutaShell interface
+ * @widget: The widget to remove
+ * @error: Error propagation object
+ * 
+ * Removes the widget from shell. The widget should have been added before
+ * with #anjuta_shell_add_widget.
+ */
 void
 anjuta_shell_remove_widget (AnjutaShell *shell,
 							GtkWidget *widget,
@@ -107,9 +130,19 @@ anjuta_shell_add_preferences (AnjutaShell *shell,
 							 pixbuf,
 							 error);
 }
-
 #endif
 
+/**
+ * anjuta_shell_add_value:
+ * @shell: A #AnjutaShell interface
+ * @name: Name of the value
+ * @value: Value to add
+ * @error: Error propagation object
+ *
+ * Sets a value in the shell with the given name. Any previous value will
+ * be overridden. "value_added" signal will be emitted. Objects connecting
+ * to this signal can then update their data according to the new value.
+ */
 void
 anjuta_shell_add_value (AnjutaShell *shell,
 			const char *name,
@@ -124,6 +157,17 @@ anjuta_shell_add_value (AnjutaShell *shell,
 	ANJUTA_SHELL_GET_IFACE (shell)->add_value (shell, name, value, error);
 }
 
+/**
+ * anjuta_shell_add_valist:
+ * @shell: A #AnjutaShell interface
+ * @first_name: First value name
+ * @first_type: First value type
+ * @var_args: First value, Second value name, Second value type ....
+ * 
+ * Adds a valist of values in the shell. The valist should be in the order -
+ * value1, name2, type2, value2,... "value_added" signal will be emitted
+ * for each of the value.
+ */
 void
 anjuta_shell_add_valist (AnjutaShell *shell,
 			 const char *first_name,
@@ -172,6 +216,17 @@ anjuta_shell_add_valist (AnjutaShell *shell,
 	}
 }
 
+/**
+ * anjuta_shell_add:
+ * @shell: A #AnjutaShell interface
+ * @first_name: First value name
+ * @first_type: First value type
+ * @...: First value, Second value name, Second value type .... NULL
+ * 
+ * Adds a list of values in the shell. The list should be NULL terminated
+ * and should be in the order - name1, type1, value1, name2, type2, value2,
+ * ..., NULL. "value_added" signal will be emitted for each of the value.
+ */
 void
 anjuta_shell_add (AnjutaShell  *shell,
 		  const char *first_name,
@@ -189,6 +244,16 @@ anjuta_shell_add (AnjutaShell  *shell,
 	va_end (var_args);
 }
 
+/**
+ * anjuta_shell_get_value:
+ * @shell: A #AnjutaShell interface
+ * @name: Name of the value to get
+ * @value: Value to get
+ * @error: Error propagation object
+ *
+ * Gets a value from the shell with the given name. The value will be set
+ * in the passed value pointer.
+ */
 void
 anjuta_shell_get_value (AnjutaShell *shell,
 			const char *name,
@@ -203,6 +268,16 @@ anjuta_shell_get_value (AnjutaShell *shell,
 	ANJUTA_SHELL_GET_IFACE (shell)->get_value (shell, name, value, error);
 }
 
+/**
+ * anjuta_shell_get_valist:
+ * @shell: A #AnjutaShell interface
+ * @first_name: First value name
+ * @first_type: First value type
+ * @var_args: First value holder, Second value name, Second value type ....
+ * 
+ * Gets a valist of values from the shell. The valist should be in the order -
+ * value1, name2, type2, value2,...
+ */
 void
 anjuta_shell_get_valist (AnjutaShell *shell,
 			 const char *first_name,
@@ -251,6 +326,17 @@ anjuta_shell_get_valist (AnjutaShell *shell,
 	}
 }
 
+/**
+ * anjuta_shell_get:
+ * @shell: A #AnjutaShell interface
+ * @first_name: First value name
+ * @first_type: First value type
+ * @...: First value holder, Second value name, Second value type .... NULL
+ * 
+ * Gets a list of values in the shell. The list should be NULL terminated
+ * and should be in the order - name1, type1, value1, name2, type2, value2,
+ * ..., NULL.
+ */
 void
 anjuta_shell_get (AnjutaShell  *shell,
 		  const char *first_name,
@@ -268,6 +354,16 @@ anjuta_shell_get (AnjutaShell  *shell,
 	va_end (var_args);
 }
 
+/**
+ * anjuta_shell_remove_value:
+ * @shell: A #AnjutaShell interface
+ * @name: Name of the value to remove
+ * @error: Error propagation object
+ *
+ * Removes a value from the shell with the given name. "value_removed" signal
+ * will be emitted. Objects connecting to this signal can then update their
+ * data/internal-state accordingly.
+ */
 void
 anjuta_shell_remove_value (AnjutaShell *shell,
 			   const char *name,
@@ -280,6 +376,24 @@ anjuta_shell_remove_value (AnjutaShell *shell,
 	ANJUTA_SHELL_GET_IFACE (shell)->remove_value (shell, name, error);
 }
 
+/**
+ * anjuta_shell_get_object:
+ * @shell: A #AnjutaShell interface
+ * @iface_name: The interface implemented by the object to be found
+ * @error: Error propagation object.
+ * returns: The plugin object (subclass of #AnjutaPlugin) which implements
+ * the given interface. See #AnjutaPlugin for more detail on interfaces
+ * implemented by plugins.
+ * 
+ * Searches the currently loaded plugin objects to find the one which
+ * implements the given interface as primary interface and returns it.
+ * The returned object is garanteed to be an implementor of the
+ * interface (as exported by the plugin metafile). It only searches
+ * from the pool of plugin objects loaded in this shell and can only search
+ * by primary interface. If there are more objects implementing this primary
+ * interface, user might be prompted to select one from them (and might give
+ * the option to use it as default for future queries).
+ */
 GObject*
 anjuta_shell_get_object     (AnjutaShell     *shell,
 							 const char      *iface_name,

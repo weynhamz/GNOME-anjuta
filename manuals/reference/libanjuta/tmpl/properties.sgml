@@ -2,7 +2,7 @@
 Properties
 
 <!-- ##### SECTION Short_Description ##### -->
-
+Properties system
 
 <!-- ##### SECTION Long_Description ##### -->
 <para>
@@ -200,6 +200,4 @@ Properties
 </para>
 
 @filename: 
-@directoryForImports: 
-
-
+@directoryForImports:

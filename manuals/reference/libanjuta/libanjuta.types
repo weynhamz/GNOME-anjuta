@@ -1,5 +1,7 @@
 #include <libanjuta/libanjuta.h>
 
-anjuta_plugin_get_type
 anjuta_shell_get_type
 anjuta_preferences_get_type
+anjuta_preferences_dialog_get_type
+anjuta_ui_get_type
+anjuta_plugin_get_type

@@ -2,7 +2,7 @@
 AnjutaShell
 
 <!-- ##### SECTION Short_Description ##### -->
-
+Application shell interface
 
 <!-- ##### SECTION Long_Description ##### -->
 <para>
@@ -137,6 +137,4 @@ AnjutaShell
 
 @shell: 
 @name: 
-@error: 
-
-
+@error:

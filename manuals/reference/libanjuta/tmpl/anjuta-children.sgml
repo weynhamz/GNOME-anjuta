@@ -2,11 +2,17 @@
 Children management
 
 <!-- ##### SECTION Short_Description ##### -->
-
+Children management in Anjuta
 
 <!-- ##### SECTION Long_Description ##### -->
 <para>
-
+All child processes in anjuta are registred using API here. SIGCHLD should
+never be used directly. Call anjuta_children_init() somewhere in the begining
+of your program. and use anjuta_children_register() and
+anjuta_children_unregister() to register or unregister a child process.
+Notifications are sent if callback function is given in
+anjuta_children_register(), which can be used in lieu of hooking SIGCHLD
+signal.
 </para>
 
 <!-- ##### SECTION See_Also ##### -->
@@ -36,8 +42,10 @@ Children management
 </para>
 
 @pid: 
-@Param2: 
+@ch_terminated: 
 @data: 
+<!-- # Unused Parameters # -->
+@Param2: 
 
 
 <!-- ##### FUNCTION anjuta_children_unregister ##### -->
@@ -61,6 +69,3 @@ Children management
 <para>
 
 </para>
-
-
-

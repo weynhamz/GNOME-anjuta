@@ -49,10 +49,14 @@ on_sample_action_activate (GtkAction *action, SamplePlugin *plugin)
 }
 
 static GtkActionEntry actions_file[] = {
-  { "ActionFileSample", GTK_STOCK_NEW,
-    N_("_Sample action"), NULL,
-	N_("Sample action"),
-    G_CALLBACK (on_sample_action_activate)},
+	{
+		"ActionFileSample",                       /* Action name */
+		GTK_STOCK_NEW,                            /* Stock icon, if any */
+		N_("_Sample action"),                     /* Display label */
+		NULL,                                     /* short-cut */
+		N_("Sample action"),                      /* Tooltip */
+		G_CALLBACK (on_sample_action_activate)    /* action callback */
+	}
 };
 
 static void

@@ -2,7 +2,7 @@
 File selection dialog
 
 <!-- ##### SECTION Short_Description ##### -->
-
+File selection dialog (deprecated)
 
 <!-- ##### SECTION Long_Description ##### -->
 <para>
@@ -163,6 +163,4 @@ File selection dialog
 </para>
 
 @filesel: 
-@Returns: 
-
-
+@Returns:

@@ -63,8 +63,8 @@ GType anjuta_ui_get_type (void);
 
 /* Creates a new AnjutaUI object */
 GtkWidget* anjuta_ui_new (GtkWidget *ui_container,
-						  GCallback add_widget,
-						  GCallback remove_widget);
+						  GCallback add_widget_cb,
+						  GCallback remove_widget_cb);
 
 /* Gets the icon factory */
 GtkIconFactory* anjuta_ui_get_icon_factory (AnjutaUI* ui);
@@ -75,20 +75,20 @@ GtkIconFactory* anjuta_ui_get_icon_factory (AnjutaUI* ui);
  * will no longer be valid).
  */
 GtkActionGroup* anjuta_ui_add_action_group_entries (AnjutaUI *ui,
-													const gchar *group_name,
-													const gchar *group_label,
-													GtkActionEntry *entries,
-													gint num_entries,
-													gpointer user_data);
+											const gchar *action_group_name,
+											const gchar *action_group_label,
+											GtkActionEntry *entries,
+											gint num_entries,
+											gpointer user_data);
 GtkActionGroup* anjuta_ui_add_toggle_action_group_entries (AnjutaUI *ui,
-													const gchar *group_name,
-													const gchar *group_label,
-													GtkToggleActionEntry *entries,
-													gint num_entries,
-													gpointer user_data);
+											const gchar *action_group_name,
+											const gchar *action_group_label,
+											GtkToggleActionEntry *entries,
+											gint num_entries,
+											gpointer user_data);
 void anjuta_ui_add_action_group (AnjutaUI *ui,
-								 const gchar *group_name,
-								 const gchar *group_label,
+								 const gchar *action_group_name,
+								 const gchar *action_group_label,
 								 GtkActionGroup *action_group);
 
 /* Removes the group of Actions */
@@ -96,7 +96,7 @@ void anjuta_ui_remove_action_group (AnjutaUI *ui, GtkActionGroup *action_group);
 
 /* Merges the given UI description file (written in xml)
    Returns an id representing it */
-gint anjuta_ui_merge (AnjutaUI *ui, const gchar *filename);
+gint anjuta_ui_merge (AnjutaUI *ui, const gchar *ui_filename);
 
 /* Unmerges the give merge id */
 void anjuta_ui_unmerge (AnjutaUI *ui, gint id);
@@ -110,13 +110,15 @@ GtkAccelGroup* anjuta_ui_get_accel_group (AnjutaUI *ui);
 GtkUIManager* anjuta_ui_get_menu_merge (AnjutaUI *ui);
 
 /* Get the action object from the given group with the given name */
-GtkAction * anjuta_ui_get_action (AnjutaUI *ui, const gchar *group_name,
+GtkAction * anjuta_ui_get_action (AnjutaUI *ui,
+								  const gchar *action_group_name,
 								  const gchar *action_name);
 
 /* Activates (calls the action callback) the action given by the action
  * path. Path is given by "ActionGroupName/ActionName".
  */
-void anjuta_ui_activate_action_by_path (AnjutaUI *ui, gchar *action_path);
+void anjuta_ui_activate_action_by_path (AnjutaUI *ui,
+										const gchar *action_path);
 
 /* Activates the action in the given Action group object with the given
  * action name.

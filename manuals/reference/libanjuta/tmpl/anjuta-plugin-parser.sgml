@@ -2,7 +2,7 @@
 Plugin parser
 
 <!-- ##### SECTION Short_Description ##### -->
-
+Parser for parsing plugins meta data
 
 <!-- ##### SECTION Long_Description ##### -->
 <para>
@@ -161,6 +161,4 @@ Plugin parser
 @section: 
 @keyname: 
 @val: 
-@Returns: 
-
-
+@Returns:

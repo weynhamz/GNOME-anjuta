@@ -2,7 +2,7 @@
 GluePlugin
 
 <!-- ##### SECTION Short_Description ##### -->
-
+Underlying glue plugin
 
 <!-- ##### SECTION Long_Description ##### -->
 <para>
@@ -61,6 +61,4 @@ GluePlugin
 
 </para>
 
-@components: 
-
-
+@components:

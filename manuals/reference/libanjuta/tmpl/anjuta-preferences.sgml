@@ -2,7 +2,7 @@
 AnjutaPreferences
 
 <!-- ##### SECTION Short_Description ##### -->
-
+Anjuta Prefereces system.
 
 <!-- ##### SECTION Long_Description ##### -->
 <para>
@@ -154,8 +154,6 @@ AnjutaPreferences
 </para>
 
 @pr: 
-<!-- # Unused Parameters # -->
-@Param1: 
 
 
 <!-- ##### FUNCTION anjuta_preferences_save ##### -->
@@ -163,9 +161,11 @@ AnjutaPreferences
 
 </para>
 
-@p: 
+@pr: 
 @stream: 
 @Returns: 
+<!-- # Unused Parameters # -->
+@p: 
 
 
 <!-- ##### FUNCTION anjuta_preferences_save_filtered ##### -->
@@ -173,10 +173,12 @@ AnjutaPreferences
 
 </para>
 
-@p: 
+@pr: 
 @stream: 
 @filter: 
 @Returns: 
+<!-- # Unused Parameters # -->
+@p: 
 
 
 <!-- ##### FUNCTION anjuta_preferences_foreach ##### -->
@@ -203,9 +205,11 @@ AnjutaPreferences
 
 </para>
 
-@Param1: 
+@pr: 
 @key: 
 @value: 
+<!-- # Unused Parameters # -->
+@Param1: 
 
 
 <!-- ##### FUNCTION anjuta_preferences_set_int ##### -->
@@ -213,9 +217,11 @@ AnjutaPreferences
 
 </para>
 
-@Param1: 
+@pr: 
 @key: 
 @value: 
+<!-- # Unused Parameters # -->
+@Param1: 
 
 
 <!-- ##### FUNCTION anjuta_preferences_get ##### -->
@@ -223,9 +229,11 @@ AnjutaPreferences
 
 </para>
 
-@p: 
+@pr: 
 @key: 
 @Returns: 
+<!-- # Unused Parameters # -->
+@p: 
 
 
 <!-- ##### FUNCTION anjuta_preferences_get_int ##### -->
@@ -233,9 +241,11 @@ AnjutaPreferences
 
 </para>
 
-@p: 
+@pr: 
 @key: 
 @Returns: 
+<!-- # Unused Parameters # -->
+@p: 
 
 
 <!-- ##### FUNCTION anjuta_preferences_get_int_with_default ##### -->
@@ -243,10 +253,12 @@ AnjutaPreferences
 
 </para>
 
-@p: 
+@pr: 
 @key: 
 @default_value: 
 @Returns: 
+<!-- # Unused Parameters # -->
+@p: 
 
 
 <!-- ##### FUNCTION anjuta_preferences_default_get ##### -->
@@ -254,9 +266,11 @@ AnjutaPreferences
 
 </para>
 
-@p: 
+@pr: 
 @key: 
 @Returns: 
+<!-- # Unused Parameters # -->
+@p: 
 
 
 <!-- ##### FUNCTION anjuta_preferences_default_get_int ##### -->
@@ -264,8 +278,8 @@ AnjutaPreferences
 
 </para>
 
-@p: 
+@pr: 
 @key: 
 @Returns: 
-
-
+<!-- # Unused Parameters # -->
+@p:
