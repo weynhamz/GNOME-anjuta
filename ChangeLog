@@ -6,6 +6,7 @@
 	text_editor_find() and Fixed I-Search wrapping.
 	* src/debugger.c: Fixed to pass a newline after a debugger
 	command (which was broken since the launcher was refactored.
+	(Pointed out by Bosik Pavol  <Pavol.Bosik@siemens.com>)
 
 2003-09-25  Naba Kumar  <naba@gnome.org>
 
