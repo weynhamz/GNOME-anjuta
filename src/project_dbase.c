@@ -783,6 +783,22 @@ project_dbase_load_project (ProjectDBase * p, gboolean show_project)
 	return ret;
 }
 
+static gboolean
+save_project_preference_property (Preferences *pr, const gchar *key,
+								  gpointer data)
+{
+	gchar *str;
+	FILE *fp = data;
+	
+	str = prop_get (pr->props, key);
+	if (str)
+	{
+		fprintf (fp, "preferences.%s=%s\n", key, str);
+		g_free (str);
+	}
+	return TRUE;
+}
+
 gboolean
 project_dbase_save_project (ProjectDBase * p)
 {
@@ -944,16 +960,8 @@ project_dbase_save_project (ProjectDBase * p)
 #ifdef DEBUG
 	printf("Saving editor preferences in the project file\n");
 #endif
-	for(i=0; editor_prefs[i]; i++)
-	{
-		str_prop = g_strdup_printf("preferences.%s", editor_prefs[i]);
-		str = prop_get(app->project_dbase->props, str_prop);
-		if (str) {
-			fprintf(fp, "%s=%s\n", str_prop, str);
-			g_free(str);
-		}
-		g_free(str_prop);
-	}
+	preferences_foreach (app->preferences, PREFERENCES_FILTER_PROJECT,
+						 save_project_preference_property, fp);
 	fprintf(fp, "\n");
 
 	for(i=0; i<MODULE_END_MARK; i++)
@@ -1307,7 +1315,7 @@ project_dbase_close_project (ProjectDBase * p)
 		GtkWidget *dialog;
 		gint but;
 		
-		dialog = GTK_DIALOG (create_project_confirm_dlg (p->widgets.window));
+		dialog = create_project_confirm_dlg (p->widgets.window);
 		but = gtk_dialog_run (GTK_DIALOG (dialog));
 		switch (but)
 		{
@@ -1864,126 +1872,44 @@ project_dbase_scan_files_in_module(ProjectDBase* p, PrjModule module, gboolean w
 	return files;
 }
 
+static gboolean
+restore_preference_property (Preferences *pr, const gchar *key, gpointer data)
+{
+	gchar *str, *str_prop;
+	ProjectDBase *p = data;
+
+	str = prop_get (pr->props_session, key);
+	if (str) {
+		prop_set_with_key(pr->props, key, str);
+		g_free(str);
+	} else {
+		prop_set_with_key(pr->props, key, "");
+	}
+	return TRUE;
+}
+
 void
 project_dbase_clean_left (ProjectDBase * p)
 {
 	gint i;
-	gboolean pref_changed = FALSE;
 	
 	/* Clear project related preferences that have been set. */
 #ifdef DEBUG
-	printf("Clearing project preferences\n");
+	g_message ("Clearing project preferences\n");
 #endif
-	for(i=0; editor_prefs[i]; i++)
-	{
-		gchar *str, *str_prop;
-	
-		str_prop = g_strdup_printf("preferences.%s", editor_prefs[i]);			
-		str = prop_get(p->props, str_prop);
-		g_free(str_prop);
-		if (str) {
-			g_free(str);
-			str_prop = g_strdup_printf("%s", editor_prefs[i]);			
-			str = prop_get(app->preferences->props_session, str_prop);
-			g_free(str_prop);
-			if (str) {
-				prop_set_with_key(app->preferences->props, editor_prefs[i], str);
-				g_free(str);
-			} else {
-				prop_set_with_key(app->preferences->props, editor_prefs[i], "");
-			}
-			pref_changed = TRUE;
-		}
-	}
-	
+	preferences_foreach (app->preferences, PREFERENCES_FILTER_PROJECT,
+						 restore_preference_property, p);
 	project_dbase_clear (p);
 	project_config_clear (p->project_config);
 
 	compiler_options_load (app->compiler_options, app->preferences->props);
 	src_paths_load (app->src_paths, app->preferences->props);
-	
-	if (pref_changed)
-		anjuta_apply_preferences ();
+	anjuta_apply_styles ();
 }
 
 /*
  * Private functions: Do not use
  */
-
-/*
-void
-project_dbase_detach (ProjectDBase * p)
-{
-	gtk_container_remove (GTK_CONTAINER
-			      (app->widgets.project_dbase_win_container),
-			      app->project_dbase->widgets.client);
-	gtk_container_add (GTK_CONTAINER
-			   (app->project_dbase->widgets.client_area),
-			   app->project_dbase->widgets.client);
-
-	if (app->widgets.the_client == app->widgets.vpaned)
-	{
-		gtk_container_remove (GTK_CONTAINER (app->widgets.hpaned),
-				      app->widgets.notebook);
-		gtk_container_remove (GTK_CONTAINER (app->widgets.vpaned),
-				      app->widgets.hpaned);
-		gtk_container_add (GTK_CONTAINER (app->widgets.vpaned),
-				   app->widgets.notebook);
-		app->widgets.hpaned_client = app->widgets.notebook;
-	}
-	else
-	{
-		gtk_container_remove (GTK_CONTAINER (app->widgets.hpaned),
-				      app->widgets.notebook);
-		gtk_container_remove (GTK_CONTAINER
-				      (app->widgets.client_area),
-				      app->widgets.hpaned);
-		gtk_container_add (GTK_CONTAINER (app->widgets.client_area),
-				   app->widgets.notebook);
-		app->widgets.hpaned_client = app->widgets.notebook;
-		app->widgets.the_client = app->widgets.notebook;
-	}
-	gtk_widget_show (app->project_dbase->widgets.client);
-	gtk_widget_show (app->widgets.notebook);
-}
-
-void
-project_dbase_attach (ProjectDBase * p)
-{
-	gtk_container_remove (GTK_CONTAINER
-			      (app->project_dbase->widgets.client_area),
-			      app->project_dbase->widgets.client);
-	gtk_container_add (GTK_CONTAINER
-			   (app->widgets.project_dbase_win_container),
-			   app->project_dbase->widgets.client);
-
-	if (app->widgets.the_client == app->widgets.vpaned)
-	{
-		gtk_container_remove (GTK_CONTAINER (app->widgets.vpaned),
-				      app->widgets.notebook);
-		gtk_container_add (GTK_CONTAINER (app->widgets.hpaned),
-				   app->widgets.notebook);
-		gtk_container_add (GTK_CONTAINER (app->widgets.vpaned),
-				   app->widgets.hpaned);
-		app->widgets.hpaned_client = app->widgets.hpaned;
-	}
-	else
-	{
-		gtk_container_remove (GTK_CONTAINER
-				      (app->widgets.client_area),
-				      app->widgets.notebook);
-		gtk_container_add (GTK_CONTAINER
-				   (app->widgets.hpaned),
-				   app->widgets.notebook);
-		gtk_container_add (GTK_CONTAINER (app->widgets.client_area),
-				   app->widgets.hpaned);
-		app->widgets.hpaned_client = app->widgets.hpaned;
-		app->widgets.the_client = app->widgets.hpaned;
-	}
-	gtk_widget_show (app->widgets.the_client);
-}
-*/
-
 /*
 	Here we handle juggling the user interface to hide/show the project pane.
 
@@ -2014,23 +1940,22 @@ project_dbase_attach (ProjectDBase * p)
 void
 project_dbase_detach (ProjectDBase * p)
 {
-	gtk_widget_reparent (app->project_dbase->widgets.client, app->project_dbase->widgets.client_area);
-
+	gtk_widget_reparent (app->project_dbase->widgets.client,
+						 app->project_dbase->widgets.client_area);
 	gtk_widget_reparent (app->widgets.notebook, app->widgets.client_area);
 
 	if (app->widgets.the_client == app->widgets.vpaned)
 	{
-		gtk_container_remove (GTK_CONTAINER (app->widgets.vpaned), app->widgets.hpaned);
+		gtk_container_remove (GTK_CONTAINER (app->widgets.vpaned),
+							  app->widgets.hpaned);
 		gtk_widget_reparent (app->widgets.notebook, app->widgets.vpaned);
 	}
-	
 	else
 	{
-		gtk_container_remove (GTK_CONTAINER (app->widgets.client_area), app->widgets.hpaned);
-
+		gtk_container_remove (GTK_CONTAINER (app->widgets.client_area),
+							  app->widgets.hpaned);
 		app->widgets.the_client = app->widgets.notebook;
 	}
-
 	app->widgets.hpaned_client = app->widgets.notebook;
 }
 
@@ -2450,6 +2375,25 @@ project_dbase_set_show_locals( ProjectDBase * p,  const gboolean bActive )
 	}
 }
 
+static gboolean
+load_preferences_property (Preferences *pr, const gchar *key, gpointer data)
+{
+	ProjectDBase *p;
+	gchar *str_prop, *str;
+	
+	p = data;
+	g_return_val_if_fail (p, TRUE);
+	str_prop = g_strdup_printf ("preferences.%s", key);			
+	str = prop_get (p->props, str_prop);
+	g_free(str_prop);
+	if (str)
+	{
+		prop_set_with_key (pr->props, key, str);
+		g_free(str);
+	}
+	return TRUE;
+}
+
 gboolean
 project_dbase_load_project_file (ProjectDBase * p, gchar * filename)
 {
@@ -2553,24 +2497,15 @@ done:
 	
 	/* some preferences may be stored in project file */
 #ifdef DEBUG
-	printf("Loading editor preferences from project\n");
+	g_message ("Loading editor preferences from project");
 #endif
-	prefs_changed = FALSE;
-	for(i=0; editor_prefs[i]; i++)
-	{
-		gchar *str_prop;
-		
-		str_prop = g_strdup_printf("preferences.%s", editor_prefs[i]);			
-		str = prop_get(p->props, str_prop);
-		g_free(str_prop);
-		if (str) {
-			prop_set_with_key(app->preferences->props, editor_prefs[i], str);
-			g_free(str);
-			prefs_changed = TRUE;
-		}
-	}
-	if (prefs_changed)
-		anjuta_apply_preferences ();
+	/* Save the current preferences in session database */
+	preferences_sync_to_session (app->preferences);
+	/* Transfer preferences from project to preferences database */
+	preferences_foreach (app->preferences, PREFERENCES_FILTER_PROJECT,
+						 load_preferences_property, p);
+	/* Update the preferences */
+	anjuta_apply_styles ();
 	
 	p->is_saved = TRUE;
 	p->top_proj_dir = tm_get_real_path(p->proj_filename);

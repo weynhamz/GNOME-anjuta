@@ -41,16 +41,16 @@ AnjutaHelp* anjuta_help_new(void)
 	return help;
 }
 
-void anjuta_help_destroy(AnjutaHelp* help)
+void anjuta_help_destroy (AnjutaHelp* help)
 {
 	g_return_if_fail (help != NULL);
-	gtk_widget_unref(help->widgets.entry);
-	gtk_widget_unref(help->widgets.combo);
-	gtk_widget_unref(help->widgets.gnome_radio);
-	gtk_widget_unref(help->widgets.man_radio);
-	gtk_widget_unref(help->widgets.info_radio);
+	gtk_widget_unref (help->widgets.entry);
+	gtk_widget_unref (help->widgets.combo);
+	gtk_widget_unref (help->widgets.gnome_radio);
+	gtk_widget_unref (help->widgets.man_radio);
+	gtk_widget_unref (help->widgets.info_radio);
 	gtk_widget_destroy (help->widgets.window);
-	glist_strings_free(help->history);
+	glist_strings_free (help->history);
 	g_object_unref (help->gxml);
 	g_free (help);
 }
@@ -69,9 +69,10 @@ void anjuta_help_show(AnjutaHelp* help)
 	help->is_showing = TRUE;
 }
 
-void anjuta_help_hide(AnjutaHelp* help)
+void anjuta_help_hide (AnjutaHelp* help)
 {
 	g_return_if_fail (help != NULL);
+	gtk_widget_hide (help->widgets.window);
 	help->is_showing = FALSE;
 }
 
@@ -95,24 +96,22 @@ on_response (GtkDialog *dialog, gint response, AnjutaHelp *help)
 {
 	if (response == GTK_RESPONSE_CANCEL)
 	{
-		gtk_dialog_response (GTK_DIALOG(help->widgets.window),
-							 GTK_RESPONSE_NONE);
+		anjuta_help_hide (help);
 	}
 	else
 	{
 		const gchar* word = gtk_entry_get_text (GTK_ENTRY(help->widgets.entry));
 		if(strlen(word)==0) return;
-		gtk_dialog_response (GTK_DIALOG(help->widgets.window),
-							 GTK_RESPONSE_NONE);
 		anjuta_help_search(help, word);
+		anjuta_help_hide (help);
 	}
 }
 
 static gboolean
-on_close (GtkWidget *w, AnjutaHelp *help)
+on_delete_event (GtkWidget *w, AnjutaHelp *help)
 {
 	anjuta_help_hide(help);
-	return FALSE;
+	return TRUE;
 }
 
 static void
@@ -132,6 +131,6 @@ create_anjuta_help_gui (AnjutaHelp* help)
 
   g_signal_connect (G_OBJECT (help->widgets.window), "response",
                     G_CALLBACK (on_response), help);
-  g_signal_connect (G_OBJECT (help->widgets.window), "close",
-				  	G_CALLBACK (on_close), help);
+  g_signal_connect (G_OBJECT (help->widgets.window), "delete_event",
+				  	G_CALLBACK (on_delete_event), help);
 }

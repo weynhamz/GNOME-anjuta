@@ -311,10 +311,26 @@ fv_create_context_menu ()
 	gtk_widget_show_all(fv->menu.top);
 }
 
+static void
+on_treeview_row_activated (GtkTreeView *view)
+{
+	GtkTreeModel *model;
+	GtkTreeSelection *selection;
+	GtkTreeIter iter;
+
+	g_return_if_fail (GTK_IS_TREE_VIEW (view));
+	selection = gtk_tree_view_get_selection (view);
+	if (!gtk_tree_selection_get_selected (selection, &model, &iter))
+		return;
+	gtk_tree_model_get (model, &iter, TMFILE_ENTRY_COLUMN, &fv->curr_entry, -1);
+	if (fv->curr_entry && tm_file_regular_t == fv->curr_entry->type)
+		anjuta_fv_open_file (fv->curr_entry->path, TRUE);
+}
+
 static gboolean
-fv_on_event (GtkWidget *widget,
-	     GdkEvent  *event,
-	     gpointer   user_data)
+on_tree_view_event  (GtkWidget *widget,
+					 GdkEvent  *event,
+					 gpointer   user_data)
 {
 	GtkTreeView *view;
 	GtkTreeModel *model;
@@ -356,13 +372,6 @@ fv_on_event (GtkWidget *widget,
 					NULL, NULL, NULL, NULL,
 					((GdkEventButton *) event)->button,
 					((GdkEventButton *) event)->time);
-
-			return TRUE;
-		} else if (e->type == GDK_2BUTTON_PRESS && e->button == 1) {
-			if (fv->curr_entry && tm_file_regular_t == fv->curr_entry->type)
-				anjuta_fv_open_file(fv->curr_entry->path, TRUE);
-
-			return TRUE;
 		}
 	} else if (event->type == GDK_KEY_PRESS) {
 		GdkEventKey *e = (GdkEventKey *) event;
@@ -383,16 +392,18 @@ static void
 fv_disconnect ()
 {
 	g_return_if_fail (fv != NULL);
-
-	g_signal_handlers_block_by_func (fv->tree, G_CALLBACK (fv_on_event), NULL);
+	g_signal_handlers_block_by_func (fv->tree,
+									 G_CALLBACK (on_tree_view_event),
+									 NULL);
 }
 
 static void
 fv_connect ()
 {
 	g_return_if_fail (fv != NULL && fv->tree);
-
-	g_signal_handlers_unblock_by_func (fv->tree, G_CALLBACK (fv_on_event), NULL);
+	g_signal_handlers_unblock_by_func (fv->tree,
+									   G_CALLBACK (on_tree_view_event),
+									   NULL);
 }
 
 static void
@@ -444,11 +455,18 @@ fv_create ()
 				    G_TYPE_POINTER);
 
 	fv->tree = gtk_tree_view_new_with_model (GTK_TREE_MODEL (store));
+	gtk_tree_view_set_rules_hint (GTK_TREE_VIEW (fv->tree), TRUE);
 	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (fv->tree));
 	gtk_tree_selection_set_mode (selection, GTK_SELECTION_SINGLE);
 	gtk_container_add (GTK_CONTAINER (fv->win), fv->tree);
-	g_signal_connect (fv->tree, "row_expanded", G_CALLBACK (on_file_view_row_expanded), NULL);
-	g_signal_connect (fv->tree, "row_collapsed", G_CALLBACK (on_file_view_row_collapsed), NULL);
+	g_signal_connect (fv->tree, "row_expanded",
+					  G_CALLBACK (on_file_view_row_expanded), NULL);
+	g_signal_connect (fv->tree, "row_collapsed",
+					  G_CALLBACK (on_file_view_row_collapsed), NULL);
+	g_signal_connect (fv->tree, "event",
+					  G_CALLBACK (on_tree_view_event), NULL);
+	g_signal_connect (fv->tree, "row_activated",
+					  G_CALLBACK (on_treeview_row_activated), NULL);
 	gtk_widget_show (fv->tree);
 
 	g_object_unref (G_OBJECT (store));
@@ -480,8 +498,6 @@ fv_create ()
 		fv_load_pixbufs ();
 
 	fv_create_context_menu ();
-	fv_connect ();
-
 	gtk_widget_ref (fv->tree);
 	gtk_widget_ref (fv->win);
 }
@@ -511,7 +527,7 @@ void fv_show(void)
 
 static void
 fv_add_tree_entry (TMFileEntry *entry,
-		   GtkTreeIter *root)
+				   GtkTreeIter *root)
 {
 	GtkTreeStore *store;
 	GtkTreeIter iter, sub_iter;
@@ -526,9 +542,9 @@ fv_add_tree_entry (TMFileEntry *entry,
 
 	store = GTK_TREE_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (fv->tree)));
 
-	/* while (gtk_events_pending())
+	while (gtk_events_pending())
 		gtk_main_iteration();
-	*/
+	
 	gtk_tree_store_append (store, &iter, parent);
 	gtk_tree_store_set (store, &iter,
 			    PIXBUF_COLUMN, fv_pixbufs[fv_cfolder_t],
@@ -536,7 +552,13 @@ fv_add_tree_entry (TMFileEntry *entry,
 			    REV_COLUMN, entry->version ? entry->version : "",
 			    TMFILE_ENTRY_COLUMN, entry,
 			    -1);
-
+	if (parent == NULL) 
+	{
+		GtkTreePath *path;
+		path = gtk_tree_model_get_path (GTK_TREE_MODEL (store), &iter);
+		gtk_tree_view_expand_row (GTK_TREE_VIEW (fv->tree), path, FALSE);
+		gtk_tree_path_free (path);
+	}
 	for (tmp = entry->children; tmp; tmp = g_slist_next (tmp)) {
 		TMFileEntry *child = (TMFileEntry *) tmp->data;
 		if (tm_file_dir_t == entry->type)

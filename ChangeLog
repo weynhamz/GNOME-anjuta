@@ -1,3 +1,76 @@
+2003-01-28  Naba Kumar <naba@gnome.org>
+
+	* TODO: Updated
+	
+	* scintilla/AutoComplete.c,xx,
+	scintilla/AutoComplete.h,
+	scintilla/CallTip.c,xx,
+	scintilla/CallTip.h,
+	scintilla/Document.c,xx,
+	scintilla/Document.h,
+	scintilla/Editor.c,xx,
+	scintilla/Editor.h,
+	scintilla/LexAVE.c,xx,
+	scintilla/LexCSS.c,xx,
+	scintilla/LexHTML.c,xx,
+	scintilla/LexOthers.c,xx,
+	scintilla/LexPython.c,xx,
+	scintilla/LineMarker.c,xx,
+	scintilla/LineMarker.h,
+	scintilla/Makefile.am
+	scintilla/PlatGTK.c,xx,
+	scintilla/PropSet.c,xx,
+	scintilla/ScintillaBase.c,xx,
+	scintilla/ScintillaBase.h,
+	scintilla/ScintillaGTK.c,xx,
+	scintilla/ViewStyle.c,xx,
+	scintilla/include/Platform.h,
+	scintilla/include/SciLexer.h,
+	scintilla/include/Scintilla.h,
+	scintilla/include/Scintilla.iface: upgraded to scintilla version 1.50
+	
+	
+	src/Makefile.am,
+	src/an_file_view.c,
+	src/an_symbol_view.c,
+	src/anjuta-tools.c,
+	src/anjuta.c,
+	src/anjuta.glade
+	src/anjuta.h,
+	src/anjuta_cbs.c,
+	src/anjuta_dialogs_strings.c,
+	src/anjuta_info.c,
+	src/commands.c,
+	src/compiler_options.c,
+	src/debugger.c,
+	src/help.c,
+	src/main_menubar.c,
+	src/main_menubar.h,
+	src/main_menubar_def.h,
+	src/mainmenu_callbacks.c,
+	src/mainmenu_callbacks.h,
+	src/message-manager-private.c,c
+	src/message-manager-private.h,
+	src/message-manager.c,c
+	src/message-manager.h,
+	src/pixmaps.h,
+	src/preferences.c,
+	src/preferences.h,
+	src/project_config.c,
+	src/project_dbase.c,
+	src/project_dbase_gui.c,
+	src/project_import_gui.c,
+	src/properties.c,xx,
+	src/properties.h,
+	src/resources.c,
+	src/src_paths.c,
+	src/text_editor.c,
+	src/text_editor_gui.c,
+	src/toolbar.c,
+	src/utilities.c,
+	src/utilities.h,
+	anjuta.prj: GNOME2 porting and fixed many porting bugs.
+	
 2003-01-24  Naba Kumar <naba@gnome.org>
 
 	* src/text_editor_gui.c, src/toolbar.c,

@@ -974,7 +974,8 @@ text_editor_update_preferences (TextEditor * te)
 		te->autosave_on = FALSE;
 	}
 	text_editor_set_hilite_type (te);
-	text_editor_set_zoom_factor(te, preferences_get_int (te->preferences, "text.zoom.factor"));
+	text_editor_set_zoom_factor(te, preferences_get_int (te->preferences,
+														 "text.zoom.factor"));
 }
 
 gboolean
@@ -1298,7 +1299,6 @@ GtkWidget* text_editor_tab_widget_new(TextEditor* te)
 	gtk_widget_set_sensitive(close_pixmap, FALSE);
 	
 	label = gtk_label_new (te->filename);
-	gtk_misc_set_alignment (GTK_MISC (label), 0, -1);
 	gtk_widget_show (label);
 	
 	color.red = 0;

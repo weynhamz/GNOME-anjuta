@@ -1967,6 +1967,12 @@ on_set_preferences1_activate (GtkMenuItem * menuitem, gpointer user_data)
 }
 
 void
+on_set_style_editor_activate (GtkMenuItem * menuitem, gpointer user_data)
+{
+	style_editor_show (app->style_editor);
+}
+
+void
 on_edit_user_properties1_activate           (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
@@ -2060,7 +2066,7 @@ on_history_activate (GtkMenuItem * menuitem, gpointer user_data)
 void
 on_search_a_topic1_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
-	anjuta_help_show(app->help_system);
+	anjuta_help_show (app->help_system);
 }
 
 void

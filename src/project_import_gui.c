@@ -182,8 +182,7 @@ create_import_wizard_page2 (ProjectImportWizard * piw)
 					     _("Select directory"));
 	gnome_druid_page_standard_set_logo (GNOME_DRUID_PAGE_STANDARD
 					    (piw->widgets.page[1]),
-					    anjuta_res_get_image
-					    (ANJUTA_PIXMAP_APPWIZ_LOGO));
+					    anjuta_res_get_pixbuf (ANJUTA_PIXMAP_APPWIZ_LOGO));
 
 	frame = gtk_frame_new (NULL);
 	gtk_widget_show (frame);

@@ -32,6 +32,8 @@
 #include "properties.h"
 #include "src_paths.h"
 
+#define PROJECT_SRC_PATHS "project.src.paths"
+
 struct _SrcPathsPriv
 {
 	PropsID props;
@@ -75,7 +77,7 @@ sync_to_props (SrcPaths *co)
 {
 	gchar *str =
 		get_from_treeview_as_string (GTK_TREE_VIEW (co->priv->clist), " ");
-	prop_set_with_key (co->priv->props, "project.src.paths", str);
+	prop_set_with_key (co->priv->props, PROJECT_SRC_PATHS, str);
 	g_free (str);
 }
 
@@ -302,13 +304,16 @@ src_paths_save (SrcPaths * co, FILE * f)
 	g_return_val_if_fail (co != NULL, FALSE);
 	g_return_val_if_fail (f != NULL, FALSE);
 	
-	fprintf (f, "project.source.paths=");
-	list = glist_from_data (co->priv->props, "project.source.paths");
+	fprintf (f, PROJECT_SRC_PATHS"=");
+	list = glist_from_data (co->priv->props, PROJECT_SRC_PATHS);
 	node = list;
 	while (node)
 	{
 		text = node->data;
-		fprintf (f, "%s \\\n", text);
+		if (node->next)
+			fprintf (f, "%s \\\n", text);
+		else
+			fprintf (f, "%s\n", text);
 		node = g_list_next (node);
 	}
 	fprintf (f, "\n");
@@ -327,7 +332,7 @@ src_paths_load (SrcPaths *co, PropsID props)
 GList *
 src_paths_get_paths (SrcPaths * co)
 {
-	return glist_from_data (co->priv->props, "project.source.paths");
+	return glist_from_data (co->priv->props, PROJECT_SRC_PATHS);
 }
 
 void
@@ -339,7 +344,7 @@ src_paths_show (SrcPaths * co)
 	g_return_if_fail (co != NULL);
 	create_src_paths_gui (co);
 
-	list = glist_from_data (co->priv->props, "project.source.paths");
+	list = glist_from_data (co->priv->props, PROJECT_SRC_PATHS);
 	node = list;
 	while (node)
 	{
@@ -355,5 +360,6 @@ src_paths_show (SrcPaths * co)
 		}
 		node = g_list_next (node);
 	}
+	glist_strings_free (list);
 	gtk_entry_set_text (GTK_ENTRY (co->priv->entry), "");
 }

@@ -173,7 +173,7 @@
 /* File browser */
 #define ANJUTA_PIXMAP_FV_UNKNOWN          "file_unknown.xpm"
 #define ANJUTA_PIXMAP_FV_TEXT             "file_text.xpm"
-#define ANJUTA_PIXMAP_FV_IMAGE            "file_image.xpm"
+#define ANJUTA_PIXMAP_FV_IMAGE            "file_pix.xpm"
 #define ANJUTA_PIXMAP_FV_EXECUTABLE       "file_exec.xpm"
 #define ANJUTA_PIXMAP_FV_CORE             "file_core.xpm"
 
@@ -183,7 +183,7 @@
 #define ANJUTA_PIXMAP_INCLUDE             "file_h.xpm"
 #define ANJUTA_PIXMAP_SOURCE              "file_cpp.xpm"
 #define ANJUTA_PIXMAP_DATA                "file_unknown.xpm"
-#define ANJUTA_PIXMAP_PIXMAP              "file_image.xpm"
+#define ANJUTA_PIXMAP_PIXMAP              "file_pix.xpm"
 #define ANJUTA_PIXMAP_TRANSLATION         "file_unknown.xpm"
 #define ANJUTA_PIXMAP_DOC                 "file_text.xpm"
 

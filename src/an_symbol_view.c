@@ -333,10 +333,33 @@ sv_create_context_menu ()
 	gtk_widget_show_all(sv->menu.top);
 }
 
+static void
+on_treeview_row_activated (GtkTreeView *view)
+{
+	GtkTreeModel *model;
+	GtkTreeSelection *selection;
+	GtkTreeIter iter;
+	SymbolFileInfo *info;
+
+	g_return_if_fail (GTK_IS_TREE_VIEW (view));
+	selection = gtk_tree_view_get_selection (view);
+	if (!gtk_tree_selection_get_selected (selection, &model, &iter))
+		return;
+
+	gtk_tree_model_get (model, &iter, SVFILE_ENTRY_COLUMN, &info, -1);
+	if (sv->sinfo)
+		symbol_file_info_free(sv->sinfo);
+	sv->sinfo = symbol_file_info_dup(info);
+	if (sv->sinfo && sv->sinfo->def.name)
+			anjuta_goto_file_line_mark (sv->sinfo->def.name,
+									    sv->sinfo->def.line,
+									    TRUE);
+}
+
 static gboolean
-sv_on_event (GtkWidget *widget,
-	     GdkEvent  *event,
-	     gpointer   user_data)
+on_treeview_event (GtkWidget *widget,
+				   GdkEvent  *event,
+				   gpointer   user_data)
 {
 	GtkTreeView *view;
 	GtkTreeModel *model;
@@ -376,13 +399,6 @@ sv_on_event (GtkWidget *widget,
 					NULL, NULL, e->button, e->time);
 
 			return TRUE;
-		} else if (e->type == GDK_2BUTTON_PRESS && e->button == 1) {
-			if (sv->sinfo && sv->sinfo->def.name)
-				anjuta_goto_file_line_mark (sv->sinfo->def.name,
-							    sv->sinfo->def.line,
-							    TRUE);
-
-			return TRUE;
 		}
 	} else if (event->type == GDK_KEY_PRESS) {
 		GdkEventKey *e = (GdkEventKey *) event;
@@ -406,7 +422,7 @@ sv_disconnect ()
 {
 	g_return_if_fail (sv != NULL);
 
-	g_signal_handlers_block_by_func (sv->tree, G_CALLBACK (sv_on_event), NULL);
+	g_signal_handlers_block_by_func (sv->tree, G_CALLBACK (on_treeview_event), NULL);
 }
 
 static void
@@ -414,7 +430,7 @@ sv_connect ()
 {
 	g_return_if_fail (sv != NULL);
 
-	g_signal_handlers_unblock_by_func (sv->tree, G_CALLBACK (sv_on_event), NULL);
+	g_signal_handlers_unblock_by_func (sv->tree, G_CALLBACK (on_treeview_event), NULL);
 }
 
 static void
@@ -494,11 +510,18 @@ sv_create ()
 	g_signal_connect (store, "row_deleted", G_CALLBACK (on_symbol_model_row_deleted), NULL);
 
 	sv->tree = gtk_tree_view_new_with_model (GTK_TREE_MODEL (store));
+	gtk_tree_view_set_rules_hint (GTK_TREE_VIEW (sv->tree), TRUE);
 	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (sv->tree));
 	gtk_tree_selection_set_mode (selection, GTK_SELECTION_SINGLE);
 	gtk_container_add (GTK_CONTAINER (sv->win), sv->tree);
-	g_signal_connect (sv->tree, "row_expanded", G_CALLBACK (on_symbol_view_row_expanded), NULL);
-	g_signal_connect (sv->tree, "row_collapsed", G_CALLBACK (on_symbol_view_row_collapsed), NULL);
+	g_signal_connect (sv->tree, "row_expanded",
+					  G_CALLBACK (on_symbol_view_row_expanded), NULL);
+	g_signal_connect (sv->tree, "row_collapsed",
+					  G_CALLBACK (on_symbol_view_row_collapsed), NULL);
+	g_signal_connect (sv->tree, "event",
+					  G_CALLBACK (on_treeview_event), NULL);
+	g_signal_connect (sv->tree, "row_activated",
+					  G_CALLBACK (on_treeview_row_activated), NULL);
 	gtk_widget_show (sv->tree);
 
 	g_object_unref (G_OBJECT (store));
@@ -524,8 +547,6 @@ sv_create ()
 		sv_load_pixbufs ();
 
 	sv_create_context_menu ();
-	sv_connect ();
-
 	gtk_widget_ref (sv->tree);
 	gtk_widget_ref (sv->win);
 }
@@ -741,9 +762,13 @@ sv_populate (gboolean full)
 
 		for (i=0; i <3; ++ i)
 		{
-			//if (selected_item[i])
-#warning "G2: Expande tree node here."
-				//gtk_tree_view_expand(GTK_TREE_VIEW(sv->tree), selected_item[i]);
+			GtkTreePath *path;
+			GtkTreeModel *model;
+			
+			model = gtk_tree_view_get_model (GTK_TREE_VIEW (sv->tree));
+			path = gtk_tree_model_get_path (GTK_TREE_MODEL (model), selected_item[i]);
+			gtk_tree_view_expand_row (GTK_TREE_VIEW (sv->tree), path, FALSE);
+			gtk_tree_path_free (path);
 		}
 		selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (sv->tree));
 		gtk_tree_selection_select_iter (selection, selected_item[0]);

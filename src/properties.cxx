@@ -175,16 +175,16 @@ prop_set_int_with_key (PropsID p, const gchar *key, int value)
 }
 
 void
-prop_set(PropsID handle, gchar *keyval)
+prop_set(PropsID handle, const gchar *keyval)
 {
   PropSetFile* p;
-  p = get_propset(handle);
+  p = get_propset (handle);
   if(!p) return;
   p->Set(keyval);
 }
 
 gchar*
-prop_get(PropsID handle, gchar *key)
+prop_get(PropsID handle, const gchar *key)
 {
   PropSetFile* p;
   SString s;

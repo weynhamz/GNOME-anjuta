@@ -83,6 +83,7 @@ typedef sptr_t (*SciFnDirect)(sptr_t ptr, unsigned int iMessage, uptr_t wParam, 
 #define SCI_SETTABWIDTH 2036
 #define SCI_GETTABWIDTH 2121
 #define SC_CP_UTF8 65001
+#define SC_CP_DBCS 1
 #define SCI_SETCODEPAGE 2037
 #define SCI_SETUSEPALETTE 2039
 #define MARKER_MAX 31
@@ -244,6 +245,7 @@ typedef sptr_t (*SciFnDirect)(sptr_t ptr, unsigned int iMessage, uptr_t wParam, 
 #define SCI_AUTOCSETDROPRESTOFWORD 2270
 #define SCI_AUTOCGETDROPRESTOFWORD 2271
 #define SCI_REGISTERIMAGE 2405
+#define SCI_CLEARREGISTEREDIMAGES 2408
 #define SCI_SETINDENT 2122
 #define SCI_GETINDENT 2123
 #define SCI_SETUSETABS 2124
@@ -505,6 +507,8 @@ typedef sptr_t (*SciFnDirect)(sptr_t ptr, unsigned int iMessage, uptr_t wParam, 
 #define CARET_EVEN 0x08
 #define SCI_SETXCARETPOLICY 2402
 #define SCI_SETYCARETPOLICY 2403
+#define SCI_SETPRINTWRAPMODE 2406
+#define SCI_GETPRINTWRAPMODE 2407
 #define SCI_STARTRECORD 3001
 #define SCI_STOPRECORD 3002
 #define SCI_SETLEXER 4001

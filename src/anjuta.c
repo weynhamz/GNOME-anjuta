@@ -55,7 +55,7 @@ static GdkCursor *app_cursor;
 /*-------------------------------------------------------------------*/
 void anjuta_child_terminated (int t);
 static void on_message_clicked(GtkObject* obj, char* message);	
-static void on_message_indicate(GtkObject* obj, gint type_name, gchar* file, glong line, gint type);	
+static void on_message_indicate(GtkObject* obj, MessageIndicatorInfo *info);
 static void anjuta_show_text_editor (TextEditor * te);
 static int select_all_files (const struct dirent *e);
 
@@ -165,19 +165,16 @@ anjuta_new ()
 		app->find_in_files = find_in_files_new ();
 		app->compiler_options = compiler_options_new (app->preferences->props);
 		app->src_paths = src_paths_new ();
-		app->messages = ANJUTA_MESSAGE_MANAGER(anjuta_message_manager_new ());
+		app->messages = ANJUTA_MESSAGE_MANAGER (anjuta_message_manager_new ());
 		create_default_types(app->messages);
 		gtk_signal_connect(GTK_OBJECT(app->messages),
 						   "message_clicked",
 						   GTK_SIGNAL_FUNC(on_message_clicked),
 						   NULL);
-#warning "G2: Connect indicator signal here"
-		/*
 		gtk_signal_connect(GTK_OBJECT(app->messages),
 						   "message_indicate",
 						   GTK_SIGNAL_FUNC(on_message_indicate),
 						   NULL);
-		*/
 		app->project_dbase = project_dbase_new (app->preferences->props);
 		app->configurer = configurer_new (app->project_dbase->props);
 		app->executer = executer_new (app->project_dbase->props);
@@ -188,6 +185,11 @@ anjuta_new ()
 			g_warning("Unable to load global tag file");
 		app->help_system = anjuta_help_new();
 		app->cvs = cvs_new(app->preferences->props);
+		app->style_editor = style_editor_new (app->preferences->props_global,
+											  app->preferences->props_local,
+											  app->preferences->props_session,
+											  app->preferences->props);
+		
 		app->widgets.the_client = app->widgets.vpaned;
 		app->widgets.hpaned_client = app->widgets.hpaned;
 		gtk_container_add (GTK_CONTAINER (app->widgets.hpaned),
@@ -868,7 +870,8 @@ anjuta_save_settings ()
 	}
 }
 
-gboolean anjuta_save_yourself (FILE * stream)
+gboolean
+anjuta_save_yourself (FILE * stream)
 {
 #ifdef	USE_STD_PREFERENCES
 	GList *node;
@@ -956,8 +959,8 @@ gboolean anjuta_save_yourself (FILE * stream)
 	fprintf (stream, "%s=", ANJUTA_LAST_OPEN_PROJECT );
 	{
 		gchar *last_open_project_path = "" ;
-		if( 		app->project_dbase->project_is_open 
-			&&	( NULL != app->project_dbase->proj_filename ) )
+		if (app->project_dbase->project_is_open &&
+			(NULL != app->project_dbase->proj_filename))
 			last_open_project_path = app->project_dbase->proj_filename ;
 			
 		fprintf (stream, "%s\n\n", last_open_project_path );
@@ -979,7 +982,16 @@ gboolean anjuta_save_yourself (FILE * stream)
     find_in_files_save_yourself (app->find_in_files, stream);
 	debugger_save_yourself (stream);
 	cvs_save_yourself(app->cvs, stream);
-	preferences_save (app->preferences, stream);
+	style_editor_save_yourself (app->style_editor, stream);
+	if (app->project_dbase->project_is_open)
+	{
+		preferences_save_filtered (app->preferences, stream,
+								   PREFERENCES_FILTER_PROJECT);
+	}
+	else
+	{
+		preferences_save (app->preferences, stream);
+	}
 	return TRUE;
 }
 
@@ -1153,6 +1165,18 @@ void anjuta_set_zoom_factor(gint zoom)
 	TextEditor *te = anjuta_get_current_text_editor();
 	if (te)
 		text_editor_set_zoom_factor(te, zoom);
+}
+
+void anjuta_apply_styles (void)
+{
+	GList *node;
+	node = app->text_editor_list;
+	while (node)
+	{
+		TextEditor *te = (TextEditor*) node->data;
+		text_editor_set_hilite_type (te);
+		node = g_list_next (node);
+	}
 }
 
 void
@@ -1331,6 +1355,8 @@ anjuta_clean_exit ()
 		executer_destroy (app->executer);
 	if (app->configurer)
 		configurer_destroy (app->configurer);
+	if (app->style_editor)
+		style_editor_destroy (app->style_editor);
 	if (app->execution_dir)
 		g_free (app->execution_dir);
 	debugger_shutdown ();
@@ -2194,7 +2220,7 @@ static void on_message_clicked(GtkObject* obj, char* message)
 	}
 }
 
-static void on_message_indicate (GtkObject* obj, gint type_name, gchar* file, glong line, gint indicator)
+static void on_message_indicate (GtkObject* obj, MessageIndicatorInfo *info)
 {
 	gchar *fn;
 	GList *node;
@@ -2204,8 +2230,9 @@ static void on_message_indicate (GtkObject* obj, gint type_name, gchar* file, gl
 			MESSAGES_INDICATORS_AUTOMATIC, 1)) {
 		return;
 	}
-	g_return_if_fail (file);
-	fn = anjuta_get_full_filename (file);
+	g_return_if_fail (info);
+	g_return_if_fail (info->filename);
+	fn = anjuta_get_full_filename (info->filename);
 	g_return_if_fail (fn);
 	
 	node = app->text_editor_list;
@@ -2219,8 +2246,8 @@ static void on_message_indicate (GtkObject* obj, gint type_name, gchar* file, gl
 		}
 		if (strcmp (fn, te->full_filename) == 0)
 		{
-			if (line >= 0)
-				text_editor_set_indicator (te, line, indicator);
+			if (info->line >= 0)
+				text_editor_set_indicator (te, info->line, info->message_type);
 			g_free (fn);
 			return;
 		}

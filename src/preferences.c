@@ -1,6 +1,6 @@
 /*
  * preferences.c
- * Copyright (C) 2000  Kh. Naba Kumar Singh
+ * Copyright (C) 2000  Naba Kumar <gnome.org>
  * 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -31,16 +31,14 @@
 //#include "commands.h"
 #include "defaults.h"
 
-extern gchar *format_style[];
-extern gchar *hilite_style[];
-
 typedef enum
 {
 	ANJUTA_PROPERTY_OBJECT_TYPE_TOGGLE,
 	ANJUTA_PROPERTY_OBJECT_TYPE_SPIN,
 	ANJUTA_PROPERTY_OBJECT_TYPE_ENTRY,
 	ANJUTA_PROPERTY_OBJECT_TYPE_TEXT,
-	ANJUTA_PROPERTY_OBJECT_TYPE_COLOR
+	ANJUTA_PROPERTY_OBJECT_TYPE_COLOR,
+	ANJUTA_PROPERTY_OBJECT_TYPE_FONT
 } AnjutaPropertyObjectType;
 
 typedef enum
@@ -48,7 +46,8 @@ typedef enum
 	ANJUTA_PROPERTY_DATA_TYPE_BOOL,
 	ANJUTA_PROPERTY_DATA_TYPE_INT,
 	ANJUTA_PROPERTY_DATA_TYPE_TEXT,
-	ANJUTA_PROPERTY_DATA_TYPE_COLOR
+	ANJUTA_PROPERTY_DATA_TYPE_COLOR,
+	ANJUTA_PROPERTY_DATA_TYPE_FONT
 } AnjutaPropertyDataType;
 
 typedef struct {
@@ -94,6 +93,8 @@ get_object_type_from_string (const gchar* object_type)
 		return ANJUTA_PROPERTY_OBJECT_TYPE_TEXT;
 	else if (strcmp (object_type, "color") == 0)
 		return ANJUTA_PROPERTY_OBJECT_TYPE_COLOR;
+	else if (strcmp (object_type, "font") == 0)
+		return ANJUTA_PROPERTY_OBJECT_TYPE_FONT;
 	else
 		return (AnjutaPropertyObjectType)(-1);
 }
@@ -109,6 +110,8 @@ get_data_type_from_string (const gchar* data_type)
 		return ANJUTA_PROPERTY_DATA_TYPE_TEXT;
 	else if (strcmp (data_type, "color") == 0)
 		return ANJUTA_PROPERTY_DATA_TYPE_COLOR;
+	else if (strcmp (data_type, "font") == 0)
+		return ANJUTA_PROPERTY_DATA_TYPE_FONT;
 	else
 		return (AnjutaPropertyDataType)(-1);
 }
@@ -155,6 +158,14 @@ get_property_value_as_string (AnjutaProperty *prop)
 			gnome_color_picker_get_i8 (GNOME_COLOR_PICKER (prop->object),
 									   &r, &g, &b, &a);
 			text_value = anjuta_util_string_from_color (r, g, b);
+		}
+		break;
+	case ANJUTA_PROPERTY_OBJECT_TYPE_FONT:
+		{
+			const gchar *font;
+			font = gnome_font_picker_get_font_name (GNOME_FONT_PICKER
+													(prop->object));
+			text_value = g_strdup (font);
 		}
 		break;
 	}
@@ -213,8 +224,8 @@ set_property_value_as_string (AnjutaProperty *prop, const gchar *value)
 			else
 				gtk_text_buffer_set_text (buffer, (gchar*) prop->default_value,
 										  -1);
-			break;
 		}
+		break;
 	case ANJUTA_PROPERTY_OBJECT_TYPE_COLOR:
 		{
 			guint8 r, g, b;
@@ -230,6 +241,45 @@ set_property_value_as_string (AnjutaProperty *prop, const gchar *value)
 			gnome_color_picker_set_i8 (GNOME_COLOR_PICKER (prop->object),
 									   r, g, b, 8);
 		}
+		break;
+	case ANJUTA_PROPERTY_OBJECT_TYPE_FONT:
+		if (value)
+		{
+			/* If the font name is Xfont name, convert it into
+			   Pango font description text -- Just take the family name :) */
+			if (value[0] == '-')
+			{
+				/* Font is xfont name */
+				gchar *font_name, *tmp;
+				const gchar *end, *start;
+				start = value;
+				start = g_strstr_len (&start[1], strlen (&start[1]), "-");
+				end = g_strstr_len (&start[1], strlen (&start[1]), "-");
+				font_name = g_strndup (&start[1], end-start-1);
+				tmp = font_name;
+				
+				/* Set font size to (arbitrary) 12 points */
+				font_name = g_strconcat (tmp, " 12", NULL);
+				g_free (tmp);
+#ifdef DEBUG
+				g_message ("Terminal font set as: %s", font_name);
+#endif
+				gnome_font_picker_set_font_name (GNOME_FONT_PICKER
+												 (prop->object), font_name);
+				g_free (font_name);
+			}
+			else
+			{				
+				gnome_font_picker_set_font_name (GNOME_FONT_PICKER
+												 (prop->object), value);
+			}
+		}
+		else
+		{
+			gnome_font_picker_set_font_name (GNOME_FONT_PICKER (prop->object),
+											 prop->default_value);
+		}
+		break;
 	}
 }
 
@@ -243,15 +293,32 @@ set_property_value_as_int (AnjutaProperty *prop, gint value)
 }
 
 static gboolean
-save_property (AnjutaProperty *prop, FILE *fp)
+save_property (Preferences *pr, AnjutaProperty *prop,
+			   FILE *fp, PreferencesFilterType filter)
 {
 	gchar *value;
 	gboolean return_value;
-	
-	value = get_property_value_as_string (prop);
-	return_value = fprintf (fp, "%s=%s\n", prop->key, value);
+
+	return_value = 0;
+	if ((filter != PREFERENCES_FILTER_NONE) && (prop->flags & filter))
+	{
+#ifdef DEBUG
+		g_message ("Skipping (filtered) property '%s'", prop->key);
+#endif
+		value = prop_get (pr->props_session, prop->key);
+	}
+	else
+	{
+		value = prop_get (pr->props, prop->key);
+	}
+	if (value)
+		return_value = fprintf (fp, "%s=%s\n", prop->key, value);
+#ifdef DEBUG
+	if (return_value <= 0)
+		g_warning ("Error saving property '%s'", prop->key);
+#endif
 	g_free (value);
-	return return_value;
+	return (return_value > 0);
 }
 
 gboolean
@@ -367,7 +434,8 @@ preferences_get_int (Preferences * p, gchar * key)
 }
 
 inline gint
-preferences_get_int_with_default (Preferences * p, gchar * key, gint default_value)
+preferences_get_int_with_default (Preferences * p,
+								  gchar * key, gint default_value)
 {
 	return prop_get_int (p->props, key, default_value);
 }
@@ -407,8 +475,11 @@ preferences_objects_to_prop (Preferences *pr)
 		gchar *value;
 		p = node->data;
 		value = get_property_value_as_string (p);
-		preferences_set (pr, p->key, value);
-		g_free (value);
+		if (value)
+		{
+			preferences_set (pr, p->key, value);
+			g_free (value);
+		}
 		node = g_list_next (node);
 	}
 }
@@ -427,6 +498,9 @@ on_preferences_dialog_response (GtkDialog *dialog,
 			/* Note: No break here */
 		case GTK_RESPONSE_APPLY:
 			preferences_objects_to_prop (pr);
+			if (app->project_dbase->project_is_open)
+				app->project_dbase->is_saved = FALSE;
+			anjuta_apply_preferences ();
 			break;
 		case GTK_RESPONSE_CANCEL:
 			preferences_hide (pr);
@@ -453,19 +527,74 @@ preferences_reset_defaults (Preferences * pr)
 	gtk_widget_destroy (dlg);
 }
 
-gboolean
-preferences_save (Preferences *pr, FILE *fp)
+/* Save excluding the filtered properties */
+void
+preferences_foreach (Preferences * pr, PreferencesFilterType filter,
+					 PreferencesCallback callback, gpointer data)
 {
 	AnjutaProperty *p;
 	GList *node;
+	gboolean go_on = TRUE;
+	
+	node = pr->priv->properties;
+	while (node && go_on)
+	{
+		p = node->data;
+		if (filter == PREFERENCES_FILTER_NONE)
+			go_on = callback (pr, p->key, data);
+		else if (p->flags & filter)
+			go_on = callback (pr, p->key, data);
+		node = g_list_next (node);
+	}
+}
+
+/* Save excluding the filtered properties */
+gboolean
+preferences_save_filtered (Preferences * pr, FILE * fp,
+						   PreferencesFilterType filter)
+{
+	AnjutaProperty *p;
+	GList *node;
+	gboolean ret_val = TRUE;
+	
 	node = pr->priv->properties;
 	while (node)
 	{
 		p = node->data;
-		if (save_property (p, fp) == FALSE)
-			return FALSE;
+		if (save_property (pr, p, fp, filter) == FALSE)
+			ret_val = FALSE;
 		node = g_list_next (node);
 	}
+	if (ret_val == FALSE)
+		g_warning ("Error saving some preferences properties");
+	return ret_val;
+}
+
+gboolean
+preferences_save (Preferences *pr, FILE *fp)
+{
+	return preferences_save_filtered (pr, fp, PREFERENCES_FILTER_NONE);	
+}
+
+static gboolean
+transfer_to_session (Preferences *pr, const gchar *key, gpointer data)
+{
+	gchar *value;
+	g_return_val_if_fail (key, TRUE);
+	value = prop_get (pr->props, key);
+	if (value)
+	{
+		prop_set_with_key (pr->props_session, key, value);
+		g_free (value);
+	}
+	return TRUE;
+}
+
+void
+preferences_sync_to_session (Preferences *pr)
+{
+	preferences_foreach (pr, PREFERENCES_FILTER_NONE,
+						 transfer_to_session, NULL);
 }
 
 void 
@@ -515,18 +644,32 @@ preferences_show (Preferences * pr)
 }
 
 static void
+on_style_editor_clicked (GtkWidget *button, Preferences *pr)
+{
+	g_signal_emit_by_name (app->widgets.menubar.settings.style_editor,
+						   "activate", NULL);
+}
+
+static void
 create_preferences_gui (Preferences * pr)
 {
-	pr->priv->gxml = glade_xml_new (GLADE_FILE_ANJUTA, "preferences_dialog", NULL);
+	GtkWidget *button;
+	pr->priv->gxml = glade_xml_new (GLADE_FILE_ANJUTA,
+									"preferences_dialog", NULL);
 	glade_xml_signal_autoconnect (pr->priv->gxml);
-	pr->priv->dialog = glade_xml_get_widget (pr->priv->gxml, "preferences_dialog");
+	pr->priv->dialog = glade_xml_get_widget (pr->priv->gxml,
+											 "preferences_dialog");
 	gtk_widget_hide (pr->priv->dialog);
 	gtk_window_set_transient_for (GTK_WINDOW (pr->priv->dialog),
 								  GTK_WINDOW (app->widgets.window));
-	pr->priv->notebook = glade_xml_get_widget (pr->priv->gxml, "preferences_notebook");
+	pr->priv->notebook = glade_xml_get_widget (pr->priv->gxml,
+											   "preferences_notebook");
+	gtk_window_add_accel_group (GTK_WINDOW (pr->priv->dialog),
+								app->accel_group);
 
-	gtk_window_add_accel_group (GTK_WINDOW (pr->priv->dialog), app->accel_group);
-
+	button = glade_xml_get_widget (pr->priv->gxml, "edit_syntax_highlighting");
+	g_signal_connect (G_OBJECT (button), "clicked",
+			    G_CALLBACK (on_style_editor_clicked), pr);
 	g_signal_connect (G_OBJECT (pr->priv->dialog), "delete_event",
 			    G_CALLBACK (on_preferences_dialog_delete_event), pr);
 	g_signal_connect (G_OBJECT (pr->priv->dialog), "response",
@@ -643,6 +786,7 @@ preferences_new ()
 		pr->priv->is_showing = FALSE;
 		create_preferences_gui (pr);
 		preferences_register_all_properties_from_glade_xml (pr, pr->priv->gxml);
+		preferences_prop_to_objects (pr);
 	}
 	return pr;
 }

@@ -18,6 +18,7 @@
 #include "Scintilla.h"
 #include "ScintillaWidget.h"
 #include "UniConversion.h"
+#include "XPM.h"
 
 /* GLIB must be compiled with thread support, otherwise we
    will bail on trying to use locks, and that could lead to
@@ -186,7 +187,6 @@ void Palette::Allocate(Window &w) {
 	delete []successPalette;
 }
 
-
 static const char *CharacterSetName(int characterSet) {
 	switch (characterSet) {
 	case SC_CHARSET_ANSI:
@@ -229,6 +229,18 @@ static const char *CharacterSetName(int characterSet) {
 		return "*-1";
 	default:
 		return "*-*";
+	}
+}
+
+static bool IsDBCSCharacterSet(int characterSet) {
+	switch (characterSet) {
+	case SC_CHARSET_GB2312:
+	case SC_CHARSET_HANGUL:
+	case SC_CHARSET_SHIFTJIS:
+	case SC_CHARSET_CHINESEBIG5:
+		return true;
+	default:
+		return false;
 	}
 }
 
@@ -283,7 +295,7 @@ static void SetLogFont(LOGFONT &lf, const char *faceName, int characterSet, int 
 	lf.bold = bold;
 	lf.italic = italic;
 	lf.characterSet = characterSet;
-	strncpy(lf.faceName, faceName, sizeof(lf.faceName)-1);
+	strncpy(lf.faceName, faceName, sizeof(lf.faceName) - 1);
 }
 
 /**
@@ -320,7 +332,7 @@ public:
 FontCached *FontCached::first = 0;
 
 FontCached::FontCached(const char *faceName_, int characterSet_, int size_, bool bold_, bool italic_) :
-	next(0), usage(0), hash(0) {
+next(0), usage(0), hash(0) {
 	::SetLogFont(lf, faceName_, characterSet_, size_, bold_, italic_);
 	hash = HashFont(faceName_, characterSet_, size_, bold_, italic_);
 	id = CreateNewFont(faceName_, characterSet_, size_, bold_, italic_);
@@ -333,7 +345,7 @@ bool FontCached::SameAs(const char *faceName_, int characterSet_, int size_, boo
 		lf.bold == bold_ &&
 		lf.italic == italic_ &&
 		lf.characterSet == characterSet_ &&
-		0 == strcmp(lf.faceName,faceName_);
+	    0 == strcmp(lf.faceName, faceName_);
 }
 
 void FontCached::Release() {
@@ -346,7 +358,7 @@ FontID FontCached::FindOrCreate(const char *faceName_, int characterSet_, int si
 	FontID ret = 0;
 	FontMutexLock();
 	int hashFind = HashFont(faceName_, characterSet_, size_, bold_, italic_);
-	for (FontCached *cur=first; cur; cur=cur->next) {
+	for (FontCached *cur = first; cur; cur = cur->next) {
 		if ((cur->hash == hashFind) &&
 			cur->SameAs(faceName_, characterSet_, size_, bold_, italic_)) {
 			cur->usage++;
@@ -367,8 +379,8 @@ FontID FontCached::FindOrCreate(const char *faceName_, int characterSet_, int si
 
 void FontCached::ReleaseId(FontID id_) {
 	FontMutexLock();
-	FontCached **pcur=&first;
-	for (FontCached *cur=first; cur; cur=cur->next) {
+	FontCached **pcur = &first;
+	for (FontCached *cur = first; cur; cur = cur->next) {
 		if (cur->id == id_) {
 			cur->usage--;
 			if (cur->usage == 0) {
@@ -379,9 +391,17 @@ void FontCached::ReleaseId(FontID id_) {
 			}
 			break;
 		}
-		pcur=&cur->next;
+		pcur = &cur->next;
 	}
 	FontMutexUnlock();
+}
+
+static FontID LoadFontOrSet(const char *fontspec, int characterSet) {
+	if (IsDBCSCharacterSet(characterSet)) {
+		return gdk_fontset_load(fontspec);
+	} else {
+		return gdk_font_load(fontspec);
+	}
 }
 
 FontID FontCached::CreateNewFont(const char *fontName, int characterSet,
@@ -401,7 +421,7 @@ FontID FontCached::CreateNewFont(const char *fontName, int characterSet,
 	// If name of the font begins with a '-', assume, that it is
 	// a full fontspec.
 	if (fontName[0] == '-') {
-		if (strchr(fontName, ',')) {
+		if (strchr(fontName, ',') || IsDBCSCharacterSet(characterSet)) {
 			newid = gdk_fontset_load(fontName);
 		} else {
 			newid = gdk_font_load(fontName);
@@ -409,7 +429,8 @@ FontID FontCached::CreateNewFont(const char *fontName, int characterSet,
 		if (!newid) {
 			// Font not available so substitute a reasonable code font
 			// iso8859 appears to only allow western characters.
-			newid = gdk_font_load("-*-*-*-*-*-*-*-*-*-*-*-*-iso8859-*");
+			newid = LoadFontOrSet("-*-*-*-*-*-*-*-*-*-*-*-*-iso8859-*",
+				characterSet);
 		}
 		return newid;
 	}
@@ -502,7 +523,7 @@ FontID FontCached::CreateNewFont(const char *fontName, int characterSet,
 	         italic ? "-i" : "-r",
 	         size * 10,
 	         charset);
-	newid = gdk_font_load(fontspec);
+	newid = LoadFontOrSet(fontspec, characterSet);
 	if (!newid) {
 		// some fonts have oblique, not italic
 		snprintf(fontspec,
@@ -513,7 +534,7 @@ FontID FontCached::CreateNewFont(const char *fontName, int characterSet,
 		         italic ? "-o" : "-r",
 		         size * 10,
 		         charset);
-		newid = gdk_font_load(fontspec);
+		newid = LoadFontOrSet(fontspec, characterSet);
 	}
 	if (!newid) {
 		snprintf(fontspec,
@@ -526,11 +547,11 @@ FontID FontCached::CreateNewFont(const char *fontName, int characterSet,
 	if (!newid) {
 		// Font not available so substitute a reasonable code font
 		// iso8859 appears to only allow western characters.
-		newid = gdk_font_load("-*-*-*-*-*-*-*-*-*-*-*-*-iso8859-*");
+		newid = LoadFontOrSet("-*-*-*-*-*-*-*-*-*-*-*-*-iso8859-*",
+			characterSet);
 	}
 	return newid;
 }
-
 
 Font::Font() : id(0) {}
 
@@ -547,9 +568,9 @@ void Font::Release() {
 	id = 0;
 }
 
-
 class SurfaceImpl : public Surface {
 	bool unicodeMode;
+	bool dbcsMode;
 	GdkDrawable *drawable;
 	GdkGC *gc;
 	GdkPixmap *ppixmap;
@@ -597,10 +618,12 @@ public:
 	void FlushCachedState();
 
 	void SetUnicodeMode(bool unicodeMode_);
+	void SetDBCSMode(int codePage);
 };
 
-SurfaceImpl::SurfaceImpl() : unicodeMode(false), drawable(0), gc(0), ppixmap(0),
-x(0), y(0), inited(false), createdGC(false) {}
+SurfaceImpl::SurfaceImpl() : unicodeMode(false), dbcsMode(false), drawable(0), gc(0), ppixmap(0),
+x(0), y(0), inited(false), createdGC(false) {
+}
 
 SurfaceImpl::~SurfaceImpl() {
 	Release();
@@ -824,6 +847,40 @@ void SurfaceImpl::DrawTextNoClip(PRectangle rc, Font &font_, int ybase, const ch
 				}
 				wcp += lenDraw;
 			}
+		} else if (dbcsMode) {
+			GdkWChar wctext[MAX_US_LEN];
+			GdkWChar *wcp = (GdkWChar *) & wctext;
+			int wclen = gdk_mbstowcs(wcp, s, MAX_US_LEN);
+
+			/* In the annoying case when non-locale chars
+			 * in the line.
+			 * e.g. latin1 chars in Japanese locale */
+			if (wclen < 1) {
+				while ((len > 0) && (x < maxCoordinate)) {
+					int lenDraw = Platform::Minimum(len, segmentLength);
+					gdk_draw_text(drawable, PFont(font_), gc,
+					              x, ybase, s, lenDraw);
+					len -= lenDraw;
+					if (len > 0) {
+						x += gdk_text_width(PFont(font_), s, lenDraw);
+					}
+					s += lenDraw;
+				}
+			} else {
+				wctext[wclen] = L'\0';
+				int lenDraw;
+				while ((wclen > 0) && (x < maxCoordinate)) {
+					lenDraw = Platform::Minimum(wclen, segmentLength);
+					gdk_draw_text_wc(drawable, PFont(font_), gc,
+					                 x, ybase, wcp, lenDraw);
+					wclen -= lenDraw;
+					if (wclen > 0) {
+						x += gdk_text_width_wc(PFont(font_),
+						                       wcp, lenDraw);
+					}
+					wcp += lenDraw;
+ 				}
+			}
 		} else {
 			while ((len > 0) && (x < maxCoordinate)) {
 				int lenDraw = Platform::Minimum(len, segmentLength);
@@ -884,6 +941,49 @@ void SurfaceImpl::MeasureWidths(Font &font_, const char *s, int len, int *positi
 			while (i < static_cast<size_t>(len)) {
 				positions[i++] = lastPos;
 			}
+		} else if (dbcsMode) {
+			GdkWChar wctext[MAX_US_LEN];
+			size_t wclen = (size_t)gdk_mbstowcs(wctext, s, MAX_US_LEN);
+			/* In the annoying case when non-locale chars
+			 * in the line.
+			 * e.g. latin1 chars in Japanese locale */
+			if( (int)wclen < 1 ) {
+				for (int i = 0; i < len; i++) {
+					int width = gdk_char_width(gf, s[i]);
+					totalWidth += width;
+					positions[i] = totalWidth;
+				}
+			} else {
+				wctext[wclen] = L'\0';
+				int poses[MAX_US_LEN];
+				size_t i;
+				for (i = 0; i < wclen; i++) {
+					int width = gdk_char_width_wc(gf, wctext[i]);
+					totalWidth += width;
+					poses[i] = totalWidth;
+				}
+				size_t ui = 0;
+				i = 0;
+				for (ui = 0; ui< wclen; ui++) {
+					GdkWChar wch[2];
+					wch[0] = wctext[ui];
+					wch[1] = L'\0';
+					gchar* mbstr = gdk_wcstombs(wch);
+					if (mbstr == NULL || *mbstr == '\0')
+						g_error("mbs broken\n");
+					for(int j=0; j<(int)strlen(mbstr); j++) {
+						positions[i++] = poses[ui];
+					}
+					if( mbstr != NULL )
+						g_free(mbstr);
+				}
+				int lastPos = 0;
+				if (i > 0)
+					lastPos = positions[i - 1];
+				while (i < static_cast<size_t>(len)) {
+					positions[i++] = lastPos;
+				}
+			}
 		} else {
 			for (int i = 0; i < len; i++) {
 				int width = gdk_char_width(gf, s[i]);
@@ -926,11 +1026,11 @@ int SurfaceImpl::WidthChar(Font &font_, char ch) {
 // 3) Call gdk_string_extents with string as 1 but also including accented capitals.
 // Smallest values given by 1 and largest by 3 with 2 in between.
 // Techniques 1 and 2 sometimes chop off extreme portions of ascenders and
-// descenders but are mostly OK except for accented characters like M-E which are
+// descenders but are mostly OK except for accented characters like Å which are
 // rarely used in code.
 
 // This string contains a good range of characters to test for size.
-const char largeSizeString[] = "M-BM-CM-EM-D `~!@#$%^&*()-_=+\\|[]{};:\"\'<,>.?/1234567890"
+const char largeSizeString[] = "ÂÃÅÄ `~!@#$%^&*()-_=+\\|[]{};:\"\'<,>.?/1234567890"
                                "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 const char sizeString[] = "`~!@#$%^&*()-_=+\\|[]{};:\"\'<,>.?/1234567890"
                           "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -939,8 +1039,10 @@ int SurfaceImpl::Ascent(Font &font_) {
 	if (!font_.GetID())
 		return 1;
 #ifdef FAST_WAY
+
 	return PFont(font_)->ascent;
 #else
+
 	gint lbearing;
 	gint rbearing;
 	gint width;
@@ -957,8 +1059,10 @@ int SurfaceImpl::Descent(Font &font_) {
 	if (!font_.GetID())
 		return 1;
 #ifdef FAST_WAY
+
 	return PFont(font_)->descent;
 #else
+
 	gint lbearing;
 	gint rbearing;
 	gint width;
@@ -1007,6 +1111,10 @@ void SurfaceImpl::SetUnicodeMode(bool unicodeMode_) {
 	unicodeMode = unicodeMode_;
 }
 
+void SurfaceImpl::SetDBCSMode(int codePage) {
+	dbcsMode = codePage == SC_CP_DBCS;
+}
+
 Surface *Surface::Allocate() {
 	return new SurfaceImpl;
 }
@@ -1047,6 +1155,7 @@ void Window::SetPosition(PRectangle rc) {
 	alloc.height = rc.Height();
 	gtk_widget_size_allocate(PWidget(id), &alloc);
 #else
+
 	gtk_widget_set_uposition(id, rc.left, rc.top);
 	gtk_widget_set_usize(id, rc.right - rc.left, rc.bottom - rc.top);
 #endif
@@ -1059,6 +1168,7 @@ void Window::SetPositionRelative(PRectangle rc, Window relativeTo) {
 
 	gtk_widget_set_uposition(PWidget(id), rc.left + ox, rc.top + oy);
 #if 0
+
 	GtkAllocation alloc;
 	alloc.x = rc.left + ox;
 	alloc.y = rc.top + oy;
@@ -1066,6 +1176,7 @@ void Window::SetPositionRelative(PRectangle rc, Window relativeTo) {
 	alloc.height = rc.bottom - rc.top;
 	gtk_widget_size_allocate(id, &alloc);
 #endif
+
 	gtk_widget_set_usize(PWidget(id), rc.right - rc.left, rc.bottom - rc.top);
 }
 
@@ -1136,16 +1247,13 @@ void Window::SetTitle(const char *s) {
 	gtk_window_set_title(GTK_WINDOW(id), s);
 }
 
-typedef struct {
-	const char **xpm_data;
+struct ListImage {
+	const char *xpm_data;
 	GdkPixmap *pixmap;
 	GdkBitmap *bitmap;
-} ListImage;
+};
 
-ListBox::ListBox() : list(0), current(0), pixhash(NULL), desiredVisibleRows(5), maxItemCharacters(0),
-doubleClickAction(NULL), doubleClickActionData(NULL) {}
-
-static void list_image_free(gpointer key, gpointer value, gpointer user_data) {
+static void list_image_free(gpointer, gpointer value, gpointer) {
 	ListImage *list_image = (ListImage *) value;
 	if (list_image->pixmap)
 		gdk_pixmap_unref(list_image->pixmap);
@@ -1154,9 +1262,61 @@ static void list_image_free(gpointer key, gpointer value, gpointer user_data) {
 	g_free(list_image);
 }
 
+ListBox::ListBox() {
+}
+
 ListBox::~ListBox() {
+}
+
+class ListBoxX : public ListBox {
+	WindowID list;
+	WindowID scroller;
+	int current;
+	void *pixhash;
+	int lineHeight;
+	XPMSet xset;
+	bool unicodeMode;
+	int desiredVisibleRows;
+	unsigned int maxItemCharacters;
+	unsigned int aveCharWidth;
+public:
+	CallBackAction doubleClickAction;
+	void *doubleClickActionData;
+
+	ListBoxX() : list(0), current(0), pixhash(NULL), desiredVisibleRows(5), maxItemCharacters(0),
+		doubleClickAction(NULL), doubleClickActionData(NULL) {
+	}
+	virtual ~ListBoxX() {
+		if (pixhash) {
 	g_hash_table_foreach((GHashTable *) pixhash, list_image_free, NULL);
 	g_hash_table_destroy((GHashTable *) pixhash);
+		}
+	}
+	virtual void SetFont(Font &font);
+	virtual void Create(Window &parent, int ctrlID, int lineHeight_, bool unicodeMode_);
+	virtual void SetAverageCharWidth(int width);
+	virtual void SetVisibleRows(int rows);
+	virtual PRectangle GetDesiredRect();
+	virtual int CaretFromEdge();
+	virtual void Clear();
+	virtual void Append(char *s, int type = -1);
+	virtual int Length();
+	virtual void Select(int n);
+	virtual int GetSelection();
+	virtual int Find(const char *prefix);
+	virtual void GetValue(int n, char *value, int len);
+	virtual void Sort();
+	virtual void RegisterImage(int type, const char *xpm_data);
+	virtual void ClearRegisteredImages();
+	virtual void SetDoubleClickAction(CallBackAction action, void *data) {
+		doubleClickAction = action;
+		doubleClickActionData = data;
+	}
+};
+
+ListBox *ListBox::Allocate() {
+	ListBoxX *lb = new ListBoxX();
+	return lb;
 }
 
 static void SelectionAC(GtkWidget *, gint row, gint,
@@ -1166,7 +1326,7 @@ static void SelectionAC(GtkWidget *, gint row, gint,
 }
 
 static gboolean ButtonPress(GtkWidget *, GdkEventButton* ev, gpointer p) {
-	ListBox* lb = reinterpret_cast<ListBox*>(p);
+	ListBoxX* lb = reinterpret_cast<ListBoxX*>(p);
 	if (ev->type == GDK_2BUTTON_PRESS && lb->doubleClickAction != NULL) {
 		lb->doubleClickAction(lb->doubleClickActionData);
 		return TRUE;
@@ -1175,7 +1335,7 @@ static gboolean ButtonPress(GtkWidget *, GdkEventButton* ev, gpointer p) {
 	return FALSE;
 }
 
-void ListBox::Create(Window &, int) {
+void ListBoxX::Create(Window &, int, int, bool) {
 	id = gtk_window_new(GTK_WINDOW_POPUP);
 
 	GtkWidget *frame = gtk_frame_new(NULL);
@@ -1205,14 +1365,14 @@ void ListBox::Create(Window &, int) {
 	gtk_widget_realize(PWidget(id));
 }
 
-void ListBox::SetFont(Font &scint_font) {
+void ListBoxX::SetFont(Font &scint_font) {
 #if GTK_MAJOR_VERSION < 2
 	GtkStyle *style = gtk_widget_get_style(GTK_WIDGET(PWidget(list)));
 	if (!gdk_font_equal(style->font, PFont(scint_font))) {
 		style = gtk_style_copy(style);
-		gdk_font_unref(font);
-		font = PFont(scint_font);
-		gdk_font_ref(font);
+		gdk_font_unref(style->font);
+		style->font = PFont(scint_font);
+		gdk_font_ref(style->font);
 		gtk_widget_set_style(GTK_WIDGET(PWidget(list)), style);
 		gtk_style_unref(style);
 	}
@@ -1228,15 +1388,15 @@ void ListBox::SetFont(Font &scint_font) {
 #endif
 }
 
-void ListBox::SetAverageCharWidth(int width) {
+void ListBoxX::SetAverageCharWidth(int width) {
 	aveCharWidth = width;
 }
 
-void ListBox::SetVisibleRows(int rows) {
+void ListBoxX::SetVisibleRows(int rows) {
 	desiredVisibleRows = rows;
 }
 
-PRectangle ListBox::GetDesiredRect() {
+PRectangle ListBoxX::GetDesiredRect() {
 	// Before any size allocated pretend its 100 wide so not scrolled
 	PRectangle rc(0, 0, 100, 100);
 	if (id) {
@@ -1248,8 +1408,10 @@ PRectangle ListBox::GetDesiredRect() {
 		int height;
 
 #if GTK_MAJOR_VERSION < 2
+
 		int ythickness = PWidget(list)->style->klass->ythickness;
 #else
+
 		int ythickness = PWidget(list)->style->ythickness;
 #endif
 		// First calculate height of the clist for our desired visible row count otherwise it tries to expand to the total # of rows
@@ -1275,38 +1437,59 @@ PRectangle ListBox::GetDesiredRect() {
 	return rc;
 }
 
-void ListBox::Clear() {
+int ListBoxX::CaretFromEdge() {
+	return 4 + xset.GetWidth();
+}
+
+void ListBoxX::Clear() {
 	gtk_clist_clear(GTK_CLIST(list));
 	maxItemCharacters = 0;
 }
 
-static void init_pixmap(ListImage *li, GtkWidget *window)
-{
-	li->pixmap = gdk_pixmap_colormap_create_from_xpm_d(NULL
-	  , gtk_widget_get_colormap(window), &(li->bitmap), NULL
-	  , (gchar **) li->xpm_data);
-	
-	g_assert(li->pixmap);
-	
-	if (NULL == li->pixmap)
-	{
-		if (li->bitmap)
-			gdk_bitmap_unref(li->bitmap);
-		li->bitmap = NULL;
+static void init_pixmap(ListImage *list_image, GtkWidget *window) {
+	const char *textForm = list_image->xpm_data;
+	const char * const * xpm_lineform = reinterpret_cast<const char * const *>(textForm);
+	const char **xpm_lineformfromtext = 0;
+	// The XPM data can be either in atext form as will be read from a file
+	// or in a line form (array of char  *) as will be used for images defined in code.
+	// Test for text form and convert to line form
+	if ((0 == memcmp(textForm, "/* X", 4)) && (0 == memcmp(textForm, "/* XPM */", 9))) {
+		// Test done is two parts to avoid possibility of overstepping the memory
+		// if memcmp implemented strangely. Must be 4 bytes at least at destination.
+		xpm_lineformfromtext = XPM::LinesFormFromTextForm(textForm);
+		xpm_lineform = xpm_lineformfromtext;
 	}
+
+	// Drop any existing pixmap/bitmap as data may have changed
+	if (list_image->pixmap)
+		gdk_pixmap_unref(list_image->pixmap);
+	list_image->pixmap = NULL;
+	if (list_image->bitmap)
+		gdk_bitmap_unref(list_image->bitmap);
+	list_image->bitmap = NULL;
+
+	list_image->pixmap = gdk_pixmap_colormap_create_from_xpm_d(NULL
+	             , gtk_widget_get_colormap(window), &(list_image->bitmap), NULL
+	             , (gchar **) xpm_lineform);
+	if (NULL == list_image->pixmap) {
+		if (list_image->bitmap)
+			gdk_bitmap_unref(list_image->bitmap);
+		list_image->bitmap = NULL;
+	}
+	delete []xpm_lineformfromtext;
 }
 
 #define SPACING 5
 
-void ListBox::Append(char *s, int type) {
-	char *szs[] = { s, NULL };
+void ListBoxX::Append(char *s, int type) {
+	char * szs[] = { s, NULL };
 	ListImage *list_image = NULL;
-	if (type >= 0)
+	if ((type >= 0) && pixhash) {
 		list_image = (ListImage *) g_hash_table_lookup((GHashTable *) pixhash
 	  , (gconstpointer) GINT_TO_POINTER(type));
+	}
 	int rownum = gtk_clist_append(GTK_CLIST(list), szs);
-	if (list_image)
-	{
+	if (list_image) {
 		if (NULL == list_image->pixmap)
 			init_pixmap(list_image, (GtkWidget *) list);
 		gtk_clist_set_pixtext(GTK_CLIST(list), rownum, 0, s, SPACING
@@ -1317,22 +1500,22 @@ void ListBox::Append(char *s, int type) {
 		maxItemCharacters = len;
 }
 
-int ListBox::Length() {
+int ListBoxX::Length() {
 	if (id)
 		return GTK_CLIST(list)->rows;
 	return 0;
 }
 
-void ListBox::Select(int n) {
+void ListBoxX::Select(int n) {
 	gtk_clist_select_row(GTK_CLIST(list), n, 0);
 	gtk_clist_moveto(GTK_CLIST(list), n, 0, 0.5, 0.5);
 }
 
-int ListBox::GetSelection() {
+int ListBoxX::GetSelection() {
 	return current;
 }
 
-int ListBox::Find(const char *prefix) {
+int ListBoxX::Find(const char *prefix) {
 	int count = Length();
 	for (int i = 0; i < count; i++) {
 		char *s = 0;
@@ -1344,11 +1527,10 @@ int ListBox::Find(const char *prefix) {
 	return - 1;
 }
 
-void ListBox::GetValue(int n, char *value, int len) {
+void ListBoxX::GetValue(int n, char *value, int len) {
 	char *text = NULL;
 	GtkCellType type = gtk_clist_get_cell_type(GTK_CLIST(list), n, 0);
-	switch (type)
-	{
+	switch (type) {
 		case GTK_CELL_TEXT:
 			gtk_clist_get_text(GTK_CLIST(list), n, 0, &text);
 			break;
@@ -1366,28 +1548,47 @@ void ListBox::GetValue(int n, char *value, int len) {
 	}
 }
 
-void ListBox::Sort() {
+void ListBoxX::Sort() {
 	gtk_clist_sort(GTK_CLIST(list));
 }
 
-void ListBox::SetTypeXpm(int type, const char **xpm_data)
-{
-	ListImage *list_image;
+// g_return_if_fail causes unnecessary compiler warning in release compile.
+#ifdef _MSC_VER
+#pragma warning(disable: 4127)
+#endif
+
+void ListBoxX::RegisterImage(int type, const char *xpm_data) {
 	g_return_if_fail(xpm_data);
 
-	if (NULL == pixhash)
+	// Saved and use the saved copy so caller's copy can disappear.
+	xset.Add(type, xpm_data);
+	XPM *pxpm = xset.Get(type);
+	xpm_data = reinterpret_cast<const char *>(pxpm->InLinesForm());
+
+	if (!pixhash) {
 		pixhash = g_hash_table_new(g_direct_hash, g_direct_equal);
-	else
-	{
-		list_image = (ListImage *) g_hash_table_lookup((GHashTable *) pixhash
-		  , (gconstpointer) GINT_TO_POINTER(type));
-		if (list_image)
-			return;
 	}
+	ListImage *list_image = (ListImage *) g_hash_table_lookup((GHashTable *) pixhash,
+		(gconstpointer) GINT_TO_POINTER(type));
+	if (list_image) {
+		// Drop icon already registered
+		if (list_image->pixmap)
+			gdk_pixmap_unref(list_image->pixmap);
+		list_image->pixmap = 0;
+		if (list_image->bitmap)
+			gdk_bitmap_unref(list_image->bitmap);
+		list_image->bitmap = 0;
+		list_image->xpm_data = xpm_data;
+	} else {
 	list_image = g_new0(ListImage, 1);
 	list_image->xpm_data = xpm_data;
-	g_hash_table_insert((GHashTable *) pixhash, GINT_TO_POINTER(type)
-	  , (gpointer) list_image);
+		g_hash_table_insert((GHashTable *) pixhash, GINT_TO_POINTER(type),
+			(gpointer) list_image);
+	}
+}
+
+void ListBoxX::ClearRegisteredImages() {
+	xset.Clear();
 }
 
 Menu::Menu() : id(0) {}
@@ -1454,6 +1655,7 @@ const char *Platform::DefaultFont() {
 #ifdef G_OS_WIN32
 	return "Lucida Console";
 #else
+
 	return "lucidatypewriter";
 #endif
 }
@@ -1493,6 +1695,18 @@ long Platform::SendScintillaPointer(
 
 bool Platform::IsDBCSLeadByte(int /*codePage*/, char /*ch*/) {
 	return false;
+}
+
+int Platform::DBCSCharLength(int /*codePage*/, const char *s) {
+	int bytes = mblen(s, MB_CUR_MAX);
+	if (bytes >= 1)
+		return bytes;
+	else
+		return 1;
+}
+
+int Platform::DBCSCharMaxLength() {
+	return MB_CUR_MAX;
 }
 
 // These are utility functions not really tied to a platform

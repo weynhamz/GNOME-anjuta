@@ -2,7 +2,7 @@
 /** @file ViewStyle.cxx
  ** Store information on how the document is to be viewed.
  **/
-// Copyright 1998-2001 by Neil Hodgson <neilh@scintilla.org>
+// Copyright 1998-2003 by Neil Hodgson <neilh@scintilla.org>
 // The License.txt file describes the conditions under which this software may be distributed.
 
 #include <string.h>
@@ -11,6 +11,7 @@
 
 #include "Scintilla.h"
 #include "Indicator.h"
+#include "XPM.h"
 #include "LineMarker.h"
 #include "Style.h"
 #include "ViewStyle.h"
@@ -148,9 +149,7 @@ void ViewStyle::Init() {
 	ms[1].width = 16;
 	ms[1].mask = ~SC_MASK_FOLDERS;
 	ms[2].symbol = true;
-	ms[2].width = 14;	// Nice width for arrows
-	ms[2].mask = SC_MASK_FOLDERS;
-	ms[2].width = 0;	// Nice width for arrows
+	ms[2].width = 0;
 	ms[2].mask = 0;
 	fixedColumnWidth = leftMarginWidth;
 	symbolMargin = false;

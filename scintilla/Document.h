@@ -222,7 +222,6 @@ public:
 	int WordPartRight(int pos);
 
 private:
-	bool IsDBCS(int pos);
 	charClassification WordCharClass(unsigned char ch);
 	bool IsWordStartAt(int pos);
 	bool IsWordEndAt(int pos);

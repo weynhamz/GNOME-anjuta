@@ -42,7 +42,7 @@ extern "C"
 enum
 {
 	MESSAGE_CLICKED,
-//	MESSAGE_INDICATE,
+	MESSAGE_INDICATE,
 	SIGNALS_END
 };
 
@@ -145,18 +145,17 @@ anjuta_message_manager_class_init (AnjutaMessageManagerClass * klass)
 					NULL, NULL,
 					g_cclosure_marshal_VOID__POINTER, G_TYPE_NONE,
 					1, G_TYPE_POINTER);
-#warning "G2: Add MESSAGE_INDICATE signal!!"
-/*
+
 	anjuta_message_manager_signals[MESSAGE_INDICATE] =
 		g_signal_new ("message_indicate",
 					G_TYPE_FROM_CLASS (object_class),
 					G_SIGNAL_RUN_FIRST,
 					G_STRUCT_OFFSET (AnjutaMessageManagerClass,
 									 message_indicate),
-					g_cclosure_marshal_VOID__BOXED_INT_BOXED_LONG_INT, G_TYPE_NONE,
-					4, G_TYPE_INT, G_TYPE_POINTER,
-					G_TYPE_LONG, G_TYPE_INT);
-
+					NULL, NULL,
+					g_cclosure_marshal_VOID__POINTER, G_TYPE_NONE,
+					1, G_TYPE_POINTER);
+/*
 	g_object_class_add_signals (object_class,
 				      anjuta_message_manager_signals,
 				      SIGNALS_END);
@@ -178,9 +177,9 @@ anjuta_message_manager_init (GtkObject * obj)
 	// Create Widgets
 	amm->intern->notebook = gtk_notebook_new ();
 	gtk_notebook_set_tab_pos (GTK_NOTEBOOK (amm->intern->notebook),
-				  GTK_POS_LEFT);
+				  			  GTK_POS_BOTTOM);
 	gtk_notebook_set_scrollable (GTK_NOTEBOOK (amm->intern->notebook),
-				     true);
+				     			 true);
 	gtk_widget_show (amm->intern->notebook);
 
 	amm->intern->window = NULL;
@@ -190,7 +189,8 @@ anjuta_message_manager_init (GtkObject * obj)
 		{"/separator", NULL, NULL, 0, "<Separator>"}
 	};
 	GtkWidget* dock_item = gtk_check_menu_item_new_with_label(_("Docked"));
-	gtk_signal_connect(GTK_OBJECT(dock_item), "activate", GTK_SIGNAL_FUNC(on_dock_activate), amm);
+	gtk_signal_connect(GTK_OBJECT(dock_item), "activate",
+					   GTK_SIGNAL_FUNC(on_dock_activate), amm);
 	gtk_widget_show(dock_item);
 	
 	GtkAccelGroup *agroup = gtk_accel_group_new ();
@@ -475,30 +475,41 @@ void
 anjuta_message_manager_indicate_error (AnjutaMessageManager * amm, gint type_name,
 		gchar* file, glong line)
 {
+	static MessageIndicatorInfo info;
 	if (type_name) return; // Only for Build messages.
-//	gtk_signal_emit(GTK_OBJECT(amm), 
-//				anjuta_message_manager_signals[MESSAGE_INDICATE],
-//				type_name, file, line, MESSAGE_INDICATOR_ERROR);
+	info.type = type_name;
+	info.filename = file;
+	info.line = line;
+	info.message_type = MESSAGE_INDICATOR_ERROR;
+	gtk_signal_emit(GTK_OBJECT(amm), 
+				anjuta_message_manager_signals[MESSAGE_INDICATE], &info);
 }
 
 void
 anjuta_message_manager_indicate_warning (AnjutaMessageManager * amm, gint type_name,
 		gchar* file, glong line)
 {
+	static MessageIndicatorInfo info;
 	if (type_name) return; // Only for Build messages.
-//	gtk_signal_emit(GTK_OBJECT(amm),
-//				anjuta_message_manager_signals[MESSAGE_INDICATE],
-//				type_name, file, line, MESSAGE_INDICATOR_WARNING);
+	info.type = type_name;
+	info.filename = file;
+	info.line = line;
+	info.message_type = MESSAGE_INDICATOR_WARNING;
+	gtk_signal_emit(GTK_OBJECT(amm), 
+				anjuta_message_manager_signals[MESSAGE_INDICATE], &info);
 }
 
 void
 anjuta_message_manager_indicate_others (AnjutaMessageManager * amm, gint type_name,
 		gchar* file, glong line)
 {
-	// Any message
-//	gtk_signal_emit(GTK_OBJECT(amm),
-//				anjuta_message_manager_signals[MESSAGE_INDICATE],
-//				type_name, file, line, MESSAGE_INDICATOR_OTHERS);
+	static MessageIndicatorInfo info;
+	info.type = type_name;
+	info.filename = file;
+	info.line = line;
+	info.message_type = MESSAGE_INDICATOR_OTHERS;
+	gtk_signal_emit(GTK_OBJECT(amm), 
+				anjuta_message_manager_signals[MESSAGE_INDICATE], &info);
 }
 
 void
@@ -722,14 +733,15 @@ anjuta_message_manager_update(AnjutaMessageManager* amm)
 	char* tag_pos = preferences_get(p, MESSAGES_TAG_POS);
 	if (tag_pos != NULL)
 	{
-		if (strcmp(tag_pos, "top")==0)
+		if (strcasecmp(tag_pos, "top")==0)
 			gtk_notebook_set_tab_pos(GTK_NOTEBOOK(amm->intern->notebook), GTK_POS_TOP);
-		else if (strcmp(tag_pos, "left")==0)
+		else if (strcasecmp(tag_pos, "left")==0)
 			gtk_notebook_set_tab_pos(GTK_NOTEBOOK(amm->intern->notebook), GTK_POS_LEFT);
-		if (strcmp(tag_pos, "bottom")==0)
-			gtk_notebook_set_tab_pos(GTK_NOTEBOOK(amm->intern->notebook), GTK_POS_BOTTOM);
-		if (strcmp(tag_pos, "right")==0)
+		else if (strcasecmp(tag_pos, "right")==0)
 			gtk_notebook_set_tab_pos(GTK_NOTEBOOK(amm->intern->notebook), GTK_POS_RIGHT);
+		else
+			gtk_notebook_set_tab_pos(GTK_NOTEBOOK(amm->intern->notebook), GTK_POS_BOTTOM);
+		
 		g_free(tag_pos);
 	}
 	
@@ -1017,8 +1029,11 @@ create_default_types (AnjutaMessageManager * amm)
 					 ANJUTA_PIXMAP_MINI_CVS);
 	anjuta_message_manager_add_type (amm, MESSAGE_LOCALS,
 					 ANJUTA_PIXMAP_MINI_LOCALS);
+#warning "G2: Disabling terminal -- there is a resize bug"
+/*
 	anjuta_message_manager_add_type (amm, MESSAGE_TERMINAL,
 					 ANJUTA_PIXMAP_MINI_TERMINAL);
+*/
 	anjuta_message_manager_add_type (amm, MESSAGE_STDOUT,
 					 ANJUTA_PIXMAP_MINI_TERMINAL);
 	anjuta_message_manager_add_type (amm, MESSAGE_STDERR,

@@ -48,8 +48,9 @@ on_anjuta_session_die(GnomeClient * client, gpointer data)
 
 /* Saves the current anjuta session */
 gint on_anjuta_session_save_yourself (GnomeClient * client, gint phase,
-		       GnomeSaveStyle s_style, gint shutdown,
-		       GnomeInteractStyle i_style, gint fast, gpointer data)
+									  GnomeSaveStyle s_style, gint shutdown,
+									  GnomeInteractStyle i_style, gint fast,
+									  gpointer data)
 {
 	gchar *argv[] = { "rm",	"-rf", NULL};
 	const gchar *prefix;
@@ -57,6 +58,9 @@ gint on_anjuta_session_save_yourself (GnomeClient * client, gint phase,
 	gint res_argc, counter;
 	GList* node;
 
+#ifdef DEBUG
+	g_message ("Going to save session ...");
+#endif
 	prefix = gnome_client_get_config_prefix (client);
 	argv[2] = gnome_config_get_real_path (prefix);
 	gnome_client_set_discard_command (client, 3, argv);
@@ -127,15 +131,17 @@ gint on_anjuta_delete (GtkWidget * w, GdkEvent * event, gpointer data)
 	if (file_not_saved)
 	{
 		GtkWidget *dialog;
+		gint response;
 		dialog = gtk_message_dialog_new (GTK_WINDOW (app->widgets.window),
 										 GTK_DIALOG_DESTROY_WITH_PARENT,
 										 GTK_MESSAGE_QUESTION,
 										 GTK_BUTTONS_YES_NO,
 										 _("One or more files are not saved.\n"
 										 "Do you still want to exit?"));
-		if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_YES)
-			anjuta_clean_exit ();
+		response = gtk_dialog_run (GTK_DIALOG (dialog));
 		gtk_widget_destroy (dialog);
+		if (response == GTK_RESPONSE_YES)
+			anjuta_clean_exit ();
 		return TRUE;
 	}
 	else

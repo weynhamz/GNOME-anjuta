@@ -943,8 +943,9 @@ gboolean widget_is_child (GtkWidget * parent, GtkWidget * child)
 	return FALSE;
 }
 
+/* GList of strings operations */
 GList *
-glist_from_string (gchar * string)
+glist_from_string (const gchar *string)
 {
 	gchar *str, *temp, buff[256];
 	GList *list;
@@ -989,8 +990,10 @@ glist_from_string (gchar * string)
 	return list;
 }
 
+/* Get the list of strings as GList from a property value.
+   Strings are splitted from white spaces */
 GList *
-glist_from_data (guint props, gchar * id)
+glist_from_data (guint props, const gchar *id)
 {
 	gchar *str;
 	GList *list;
@@ -1001,20 +1004,43 @@ glist_from_data (guint props, gchar * id)
 	return list;
 }
 
+/* Prefix the strings */
 void
-glist_strings_free (GList * list)
+glist_strings_prefix (GList * list, const gchar *prefix)
 {
 	GList *node;
 	node = list;
+	
+	g_return_if_fail (prefix != NULL);
 	while (node)
 	{
-		if (node->data)
-			g_free (node->data);
+		gchar* tmp;
+		tmp = node->data;
+		node->data = g_strconcat (prefix, tmp, NULL);
+		if (tmp) g_free (tmp);
 		node = g_list_next (node);
 	}
-	g_list_free (list);
 }
 
+/* Suffix the strings */
+void
+glist_strings_sufix (GList * list, const gchar *sufix)
+{
+	GList *node;
+	node = list;
+	
+	g_return_if_fail (sufix != NULL);
+	while (node)
+	{
+		gchar* tmp;
+		tmp = node->data;
+		node->data = g_strconcat (tmp, sufix, NULL);
+		if (tmp) g_free (tmp);
+		node = g_list_next (node);
+	}
+}
+
+/* Duplicate list of strings */
 GList*
 glist_strings_dup (GList * list)
 {
@@ -1034,50 +1060,6 @@ glist_strings_dup (GList * list)
 	return new_list;
 }
 
-void
-string_assign (gchar ** string, const gchar * value)
-{
-	if (*string)
-		g_free (*string);
-	*string = NULL;
-	if (value)
-		*string = g_strdup (value);
-}
-void
-glist_strings_prefix (GList * list, gchar *prefix)
-{
-	GList *node;
-	node = list;
-	
-	g_return_if_fail (prefix != NULL);
-	while (node)
-	{
-		gchar* tmp;
-		tmp = node->data;
-		node->data = g_strconcat (prefix, tmp, NULL);
-		if (tmp) g_free (tmp);
-		node = g_list_next (node);
-	}
-}
-
-void
-glist_strings_sufix (GList * list, gchar *sufix)
-{
-	GList *node;
-	node = list;
-	
-	g_return_if_fail (sufix != NULL);
-	while (node)
-	{
-		gchar* tmp;
-		tmp = node->data;
-		node->data = g_strconcat (tmp, sufix, NULL);
-		if (tmp) g_free (tmp);
-		node = g_list_next (node);
-	}
-}
-
-
 static gint
 sort_node (gchar* a, gchar *b)
 {
@@ -1087,10 +1069,37 @@ sort_node (gchar* a, gchar *b)
 	return strcmp (a, b);
 }
 
+/* Sort the list alphabatically */
 GList*
 glist_strings_sort (GList * list)
 {
 	return g_list_sort(list, (GCompareFunc)sort_node);
+}
+
+/* Free the strings and GList */
+void
+glist_strings_free (GList * list)
+{
+	GList *node;
+	node = list;
+	while (node)
+	{
+		if (node->data)
+			g_free (node->data);
+		node = g_list_next (node);
+	}
+	g_list_free (list);
+}
+
+/* Assign a value to a string */
+void
+string_assign (gchar ** string, const gchar *value)
+{
+	if (*string)
+		g_free (*string);
+	*string = NULL;
+	if (value)
+		*string = g_strdup (value);
 }
 
 gchar*

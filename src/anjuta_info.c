@@ -55,6 +55,9 @@ create_dialog_with_textview (GtkWindow *parent, gint width,
 	gtk_window_set_default_size (GTK_WINDOW (dialog), 400, 250);
 	gtk_window_set_wmclass (GTK_WINDOW (dialog), "infoless", "Anjuta");
 	gtk_widget_show (dialog);
+	/* Auto close */
+	g_signal_connect (G_OBJECT (dialog), "response",
+					 G_CALLBACK (gtk_widget_destroy), NULL);
 
 	scrolledwindow = gtk_scrolled_window_new (NULL, NULL);
 	gtk_container_add (GTK_CONTAINER (GTK_DIALOG (dialog)->vbox),
@@ -98,6 +101,9 @@ create_dialog_with_treeview (GtkWindow *parent, gint width,
 	gtk_window_set_default_size (GTK_WINDOW (dialog), 400, 250);
 	gtk_window_set_wmclass (GTK_WINDOW (dialog), "infoless", "Anjuta");
 	gtk_widget_show (dialog);
+	/* Auto close */
+	g_signal_connect (G_OBJECT (dialog), "response",
+					 G_CALLBACK (gtk_widget_destroy), NULL);
 
 	scrolledwindow = gtk_scrolled_window_new (NULL, NULL);
 	gtk_container_add (GTK_CONTAINER (GTK_DIALOG (dialog)->vbox),

@@ -27,11 +27,8 @@ typedef struct _FormatSubMenu FormatSubMenu;
 typedef struct _BuildSubMenu BuildSubMenu;
 typedef struct _BookmarkSubMenu BookmarkSubMenu;
 typedef struct _DebugSubMenu DebugSubMenu;
-typedef struct _UtilitiesSubMenu UtilitiesSubMenu;
-typedef struct _WindowsSubMenu WindowsSubMenu;
 typedef struct _CVSSubMenu CVSSubMenu;
 typedef struct _SettingsSubMenu SettingsSubMenu;
-typedef struct _HelpSubMenu HelpSubMenu;
 typedef struct _MainMenuBar MainMenuBar;
 
 struct _FileSubMenu
@@ -271,6 +268,7 @@ struct _SettingsSubMenu
 	GtkWidget *src_paths;
 	GtkWidget *commands;
 	GtkWidget *preferences;
+	GtkWidget *style_editor;
 	GtkWidget *user_properties;
 	GtkWidget *default_preferences;
 	GtkWidget *shortcuts;

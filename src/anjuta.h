@@ -42,7 +42,7 @@
 #include "properties.h"
 #include "help.h"
 #include "cvs.h"
-
+#include "style-editor.h"
 #include "tm_tagmanager.h"
 #include "file_history.h"
 
@@ -102,7 +102,8 @@ struct _AnjutaApp
 	const TMWorkspace *tm_workspace;
 	AnjutaHelp* help_system;
 	CVS* cvs;
-
+	StyleEditor *style_editor;
+	
 	GList *registered_windows;
 	GList *registered_child_processes;
 	GList *registered_child_processes_cb;
@@ -185,6 +186,7 @@ void anjuta_goto_tag(const char *symbol, TextEditor *te,
 					 gboolean prefer_definition);
 void anjuta_set_zoom_factor(gint zoom);
 void anjuta_apply_preferences (void);
+void anjuta_apply_styles (void);
 void anjuta_load_cmdline_files (void);
 
 TextEditor *anjuta_get_notebook_text_editor (gint page_num);

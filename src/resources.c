@@ -160,6 +160,7 @@ anjuta_res_get_pixmap_file (const gchar * pixfile)
 	path = g_strconcat (PACKAGE_PIXMAPS_DIR, "/", pixfile, NULL);
 	if (file_is_regular(path))
 		return path;
+	g_warning ("Pixmap file not found: %s", path);
 	g_free (path);
 	return NULL;
 }

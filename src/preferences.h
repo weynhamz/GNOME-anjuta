@@ -28,6 +28,12 @@ extern "C"
 {
 #endif
 
+typedef enum
+{
+	PREFERENCES_FILTER_NONE = 0,
+	PREFERENCES_FILTER_PROJECT = 1
+} PreferencesFilterType;
+
 typedef struct _Preferences Preferences;
 typedef struct _PreferencesPriv PreferencesPriv;
 
@@ -42,6 +48,8 @@ struct _Preferences
 	PreferencesPriv *priv;
 };
 
+typedef gboolean (*PreferencesCallback) (Preferences *pr, const gchar *key,
+										 gpointer data);
 /* Preferences */
 Preferences *preferences_new (void);
 
@@ -55,6 +63,20 @@ void preferences_destroy (Preferences *);
 
 /* Save and (Loading is done in _new()) */
 gboolean preferences_save (Preferences * p, FILE * stream);
+
+/* Save excluding the filtered properties */
+gboolean preferences_save_filtered (Preferences * p, FILE * stream,
+									PreferencesFilterType filter);
+
+/* Save excluding the filtered properties */
+void
+preferences_foreach (Preferences * pr, PreferencesFilterType filter,
+					 PreferencesCallback callback, gpointer data);
+
+/* This will transfer all the properties values from the main
+properties database to the parent session properties database */
+void
+preferences_sync_to_session (Preferences *pr);
 
 /* Sets the value (string) of a key */
 void preferences_set (Preferences *, gchar * key, gchar * value);
@@ -70,7 +92,8 @@ gchar *preferences_get (Preferences * p, gchar * key);
 gint preferences_get_int (Preferences * p, gchar * key);
 
 /* Gets the value (int) of a key. If not found, the default_value is returned */
-gint preferences_get_int_with_default (Preferences * p, gchar * key, gint default_value);
+gint preferences_get_int_with_default (Preferences * p,
+									   gchar *key, gint default_value);
 
 gchar *preferences_default_get (Preferences * p, gchar * key);
 
@@ -182,7 +205,7 @@ gint preferences_default_get_int (Preferences * p, gchar * key);
 ** terminal widget - Biswa
 */
 #ifndef DEFAULT_ZVT_FONT
-#define DEFAULT_ZVT_FONT "-adobe-courier-medium-r-normal-*-*-120-*-*-m-*-iso8859-1"
+#define DEFAULT_ZVT_FONT "Courier 12"
 #endif
 
 #ifndef DEFAULT_ZVT_SCROLLSIZE
@@ -197,9 +220,6 @@ gint preferences_default_get_int (Preferences * p, gchar * key);
 #ifndef DEFAULT_ZVT_WORDCLASS
 #define DEFAULT_ZVT_WORDCLASS "-A-Za-z0-9/_:.,?+%="
 #endif
-
-void
-ColorFromString (const gchar * val, guint8 * r, guint8 * g, guint8 * b);
 
 #ifdef __cplusplus
 };

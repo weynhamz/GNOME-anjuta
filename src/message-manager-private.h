@@ -134,7 +134,8 @@ class AnjutaMessageWindow : public MessageSubwindow
 class TerminalWindow : public MessageSubwindow
 {
 	public:
-		TerminalWindow(AnjutaMessageManager* p_amm, int p_type_id, string p_type, string p_pixmap);
+		TerminalWindow (AnjutaMessageManager* p_amm, int p_type_id,
+					   string p_type, string p_pixmap);
 		virtual ~TerminalWindow() { };
 	
 		void show();

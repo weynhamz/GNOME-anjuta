@@ -42,7 +42,7 @@ create_main_toolbar (GtkWidget * anjuta_gui, MainToolbar * toolbar)
 	GtkWidget *tmp_toolbar_icon;
 	gchar *filename;
 	GdkPixbufAnimation *led_anim;
-	GError *gerror;
+	GError *gerror = NULL;
 
 	tooltips = gtk_tooltips_new ();
 
@@ -153,7 +153,8 @@ create_main_toolbar (GtkWidget * anjuta_gui, MainToolbar * toolbar)
 						   G_CALLBACK (on_toolbar_messages_clicked), NULL);
 	gtk_toolbar_append_space (GTK_TOOLBAR (toolbar1));
 	toolbar->help =
-		anjuta_util_toolbar_append_button (toolbar1, ANJUTA_PIXMAP_HELP, _("Help"),
+		anjuta_util_toolbar_append_stock (toolbar1, GTK_STOCK_HELP,
+						   _("Help"),
 						   _("Context sensitive help"),
 						   G_CALLBACK (on_toolbar_help_clicked), NULL);
 	
@@ -363,24 +364,7 @@ create_browser_toolbar (GtkWidget * anjuta_gui, BrowserToolbar * toolbar)
 {
 	GtkWidget *window1;
 	GtkWidget *toolbar2;
-
-	GtkWidget *button2;
-	GtkWidget *button3;
-	GtkWidget *button4;
-	GtkWidget *button5;
-	GtkWidget *button6;
-	GtkWidget *button7;
-	GtkWidget *button8;
-	GtkWidget *button9;
-	GtkWidget *button10;
-	/* Goto Tag functionality - Biswa */
-	GtkWidget *toolbar_tag_label;
-	GtkWidget *toolbar_tag;
-	GtkWidget *toolbar_tag_combo;
-	GtkWidget *toolbar_tag_entry;
-	/* End of Goto Tag widgets */
 	GtkTooltips *tooltips;
-	GtkWidget *tmp_toolbar_icon;
 
 	tooltips = gtk_tooltips_new ();
 
@@ -392,222 +376,110 @@ create_browser_toolbar (GtkWidget * anjuta_gui, BrowserToolbar * toolbar)
 	gtk_toolbar_set_style (GTK_TOOLBAR (toolbar2), GTK_TOOLBAR_ICONS);
 	gtk_widget_ref (toolbar2);
 	gtk_widget_show (toolbar2);
-	//gtk_toolbar_set_space_style (GTK_TOOLBAR (toolbar2),
-	//			     GTK_TOOLBAR_SPACE_LINE);
-	//gtk_toolbar_set_button_relief (GTK_TOOLBAR (toolbar2),
-	//			       GTK_RELIEF_NONE);
 
-	tmp_toolbar_icon =
-		anjuta_res_get_image (ANJUTA_PIXMAP_BOOKMARK_TOGGLE);
-	button2 =
-		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar2),
-					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
-					    _("Toggle"),
-					    _
-					    ("Toggle bookmark at current location"),
-					    NULL, tmp_toolbar_icon, NULL,
-					    NULL);
-	gtk_widget_ref (button2);
-	gtk_widget_show (button2);
+	toolbar->toggle_bookmark =
+		anjuta_util_toolbar_append_button (toolbar2,
+						   ANJUTA_PIXMAP_BOOKMARK_TOGGLE,
+						   _("Toggle"),
+					       _("Toggle bookmark at current location"),
+						   G_CALLBACK (on_browser_toggle_bookmark_clicked),
+						   NULL);
 
-	tmp_toolbar_icon =
-		anjuta_res_get_image (ANJUTA_PIXMAP_BOOKMARK_FIRST);
-	button3 =
-		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar2),
-					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
-					    _("First"),
-					    _
-					    ("Goto first bookmark in this document"),
-					    NULL, tmp_toolbar_icon, NULL,
-					    NULL);
-	gtk_widget_ref (button3);
-	gtk_widget_show (button3);
-
-	tmp_toolbar_icon =
-		anjuta_res_get_image (ANJUTA_PIXMAP_BOOKMARK_PREV);
-	button4 =
-		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar2),
-					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
-					    _("Prev"),
-					    _
-					    ("Goto previous bookmark in this document"),
-					    NULL, tmp_toolbar_icon, NULL,
-					    NULL);
-	gtk_widget_ref (button4);
-	gtk_widget_show (button4);
-
-	tmp_toolbar_icon =
-		anjuta_res_get_image (ANJUTA_PIXMAP_BOOKMARK_NEXT);
-	button5 =
-		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar2),
-					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
-					    _("Next"),
-					    _
-					    ("Goto next bookmark in this document"),
-					    NULL, tmp_toolbar_icon, NULL,
-					    NULL);
-	gtk_widget_ref (button5);
-	gtk_widget_show (button5);
-
-	tmp_toolbar_icon =
-		anjuta_res_get_image (ANJUTA_PIXMAP_BOOKMARK_LAST);
-	button6 =
-		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar2),
-					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
-					    _("Last"),
-					    _
-					    ("Goto last bookmark in this document"),
-					    NULL, tmp_toolbar_icon, NULL,
-					    NULL);
-	gtk_widget_ref (button6);
-	gtk_widget_show (button6);
+	toolbar->first_bookmark =
+		anjuta_util_toolbar_append_stock (toolbar2, GTK_STOCK_GOTO_FIRST,
+						   _("First"),
+						   _("Goto first bookmark in this document"),
+						   G_CALLBACK (on_browser_first_bookmark_clicked),
+						   NULL);
+	
+	toolbar->prev_bookmark =
+		anjuta_util_toolbar_append_stock (toolbar2, GTK_STOCK_GO_BACK,
+						   _("Prev"),
+						   _("Goto previous bookmark in this document"),
+						   G_CALLBACK (on_browser_prev_bookmark_clicked),
+						   NULL);
+	toolbar->next_bookmark =
+		anjuta_util_toolbar_append_stock (toolbar2, GTK_STOCK_GO_FORWARD,
+						   _("Next"),
+						   _("Goto next bookmark in this document"),
+						   G_CALLBACK (on_browser_next_bookmark_clicked),
+						   NULL);
+	toolbar->last_bookmark =
+		anjuta_util_toolbar_append_stock (toolbar2, GTK_STOCK_GOTO_LAST,
+						   _("Last"),
+						   _("Goto last bookmark in this document"),
+						   G_CALLBACK (on_browser_last_bookmark_clicked),
+						   NULL);
 
 	gtk_toolbar_append_space (GTK_TOOLBAR (toolbar2));
 
-	tmp_toolbar_icon =
-		anjuta_res_get_image (ANJUTA_PIXMAP_ERROR_PREV);
-	button7 =
-		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar2),
-					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
-					    _("Prev"),
-					    _
-					    ("Goto previous message in this document"),
-					    NULL, tmp_toolbar_icon, NULL,
-					    NULL);
-	gtk_widget_ref (button7);
-	gtk_widget_show (button7);
-
-	tmp_toolbar_icon =
-		anjuta_res_get_image (ANJUTA_PIXMAP_ERROR_NEXT);
-	button8 =
-		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar2),
-					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
-					    _("Next"),
-					    _
-					    ("Goto next message in this document"),
-					    NULL, tmp_toolbar_icon, NULL,
-					    NULL);
-	gtk_widget_ref (button8);
-	gtk_widget_show (button8);
-
+	toolbar->prev_error =
+		anjuta_util_toolbar_append_button (toolbar2,
+						   ANJUTA_PIXMAP_ERROR_PREV,
+						   _("Prev"),
+						   _("Goto previous message in this document"),
+						   G_CALLBACK (on_browser_prev_mesg_clicked),
+						   NULL);
+	toolbar->next_error =
+		anjuta_util_toolbar_append_button (toolbar2,
+						   ANJUTA_PIXMAP_ERROR_NEXT,
+						   _("Next"),
+						   _("Goto next message in this document"),
+						   G_CALLBACK (on_browser_next_mesg_clicked),
+						   NULL);
 	gtk_toolbar_append_space (GTK_TOOLBAR (toolbar2));
 
-	tmp_toolbar_icon =
-		anjuta_res_get_image (ANJUTA_PIXMAP_BLOCK_START);
-	button9 =
-		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar2),
-					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
-					    _("Start"),
-					    _
-					    ("Goto start of current code block"),
-					    NULL, tmp_toolbar_icon, NULL,
-					    NULL);
-	gtk_widget_ref (button9);
-	gtk_widget_show (button9);
-
-	tmp_toolbar_icon =
-		anjuta_res_get_image (ANJUTA_PIXMAP_BLOCK_END);
-	button10 =
-		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar2),
-					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
-					    _("End"),
-					    _
-					    ("Goto end of current code block"),
-					    NULL, tmp_toolbar_icon, NULL,
-					    NULL);
-	gtk_widget_ref (button10);
-	gtk_widget_show (button10);
+	toolbar->block_start =
+		anjuta_util_toolbar_append_button (toolbar2,
+						   ANJUTA_PIXMAP_BLOCK_START,
+						   _("Start"),
+						   _("Goto start of current code block"),
+						   G_CALLBACK (on_browser_block_start_clicked),
+						   NULL);
+	toolbar->block_end =
+		anjuta_util_toolbar_append_button (toolbar2,
+						   ANJUTA_PIXMAP_BLOCK_END,
+						   _("End"),
+						   _("Goto end of current code block"),
+						   G_CALLBACK (on_browser_block_end_clicked),
+						   NULL);
 	
 	/* Tag combo entry - added by Biswa */
 	gtk_toolbar_append_space (GTK_TOOLBAR (toolbar2));
 	
-	toolbar_tag_label = gtk_label_new(_("Tags:"));
-	gtk_misc_set_padding(GTK_MISC(toolbar_tag_label), 5, 5);
-	gtk_widget_show(toolbar_tag_label);
-	gtk_widget_ref(toolbar_tag_label);
-	gtk_toolbar_append_widget (GTK_TOOLBAR (toolbar2), toolbar_tag_label,
+	toolbar->tag_label = gtk_label_new(_("Tags:"));
+	// gtk_misc_set_padding (GTK_MISC(toolbar->tag_label), 5, 5);
+	gtk_widget_show (toolbar->tag_label);
+	gtk_toolbar_append_widget (GTK_TOOLBAR (toolbar2), toolbar->tag_label,
 				   NULL, NULL);
 	
-	toolbar_tag =
-		anjuta_util_toolbar_append_stock (toolbar2, GTK_STOCK_JUMP_TO,
-										  _("Goto Tag"),
-						_("Search for the given tag in the current file"),
-										  NULL, NULL);
-	gtk_widget_ref (toolbar_tag);
-	gtk_widget_show (toolbar_tag);
+	toolbar->tag =
+		anjuta_util_toolbar_append_stock (toolbar2,
+						   GTK_STOCK_JUMP_TO,
+						   _("Goto Tag"),
+						   _("Search for the given tag in the current file"),
+						   G_CALLBACK (on_toolbar_tag_clicked), NULL);
 
-	toolbar_tag_combo = gtk_combo_new ();
-	gtk_widget_ref (toolbar_tag_combo);
-	gtk_combo_set_case_sensitive (GTK_COMBO (toolbar_tag_combo), TRUE);
-	gtk_widget_set_usize(toolbar_tag_combo, 256, -1);
-	gtk_widget_show (toolbar_tag_combo);
-	gtk_toolbar_append_widget (GTK_TOOLBAR (toolbar2), toolbar_tag_combo,
-				   NULL, NULL);
+	toolbar->tag_combo = gtk_combo_new ();
+	gtk_combo_set_case_sensitive (GTK_COMBO (toolbar->tag_combo), TRUE);
+	gtk_widget_set_usize(toolbar->tag_combo, 256, -1);
+	gtk_widget_show (toolbar->tag_combo);
+	gtk_toolbar_append_widget (GTK_TOOLBAR (toolbar2), toolbar->tag_combo,
+							   NULL, NULL);
 
-	toolbar_tag_entry = GTK_COMBO (toolbar_tag_combo)->entry;
-	gtk_editable_set_editable(GTK_EDITABLE(toolbar_tag_entry), FALSE);
-	gtk_widget_ref (toolbar_tag_entry);
-	gtk_widget_show (toolbar_tag_entry);
-	gtk_tooltips_set_tip (tooltips, toolbar_tag_entry,
-			      _
-			      ("Enter the tag to jump to"),
-			      NULL);
+	toolbar->tag_entry = GTK_COMBO (toolbar->tag_combo)->entry;
+	gtk_editable_set_editable(GTK_EDITABLE(toolbar->tag_entry), FALSE);
+	gtk_widget_ref (toolbar->tag_entry);
+	gtk_widget_show (toolbar->tag_entry);
+	gtk_tooltips_set_tip (tooltips, toolbar->tag_entry,
+						  _("Enter the tag to jump to"),
+						  NULL);
 
-	/* Tag combo entry ends here */
-
-
-	gtk_signal_connect (GTK_OBJECT (button2), "clicked",
-			    GTK_SIGNAL_FUNC
-			    (on_browser_toggle_bookmark_clicked), NULL);
-	gtk_signal_connect (GTK_OBJECT (button3), "clicked",
-			    GTK_SIGNAL_FUNC
-			    (on_browser_first_bookmark_clicked), NULL);
-	gtk_signal_connect (GTK_OBJECT (button4), "clicked",
-			    GTK_SIGNAL_FUNC
-			    (on_browser_prev_bookmark_clicked), NULL);
-	gtk_signal_connect (GTK_OBJECT (button5), "clicked",
-			    GTK_SIGNAL_FUNC
-			    (on_browser_next_bookmark_clicked), NULL);
-	gtk_signal_connect (GTK_OBJECT (button6), "clicked",
-			    GTK_SIGNAL_FUNC
-			    (on_browser_last_bookmark_clicked), NULL);
-	gtk_signal_connect (GTK_OBJECT (button7), "clicked",
-			    GTK_SIGNAL_FUNC (on_browser_prev_mesg_clicked),
-			    NULL);
-	gtk_signal_connect (GTK_OBJECT (button8), "clicked",
-			    GTK_SIGNAL_FUNC (on_browser_next_mesg_clicked),
-			    NULL);
-	gtk_signal_connect (GTK_OBJECT (button9), "clicked",
-			    GTK_SIGNAL_FUNC (on_browser_block_start_clicked),
-			    NULL);
-	gtk_signal_connect (GTK_OBJECT (button10), "clicked",
-			    GTK_SIGNAL_FUNC (on_browser_block_end_clicked),
-			    NULL);
 	/* Goto Tag signal handlers */
-	gtk_signal_connect (GTK_OBJECT (toolbar_tag), "clicked",
-			    GTK_SIGNAL_FUNC (on_toolbar_tag_clicked), NULL);
-	gtk_signal_connect (GTK_OBJECT(GTK_COMBO(toolbar_tag_combo)->list),
+	gtk_signal_connect (GTK_OBJECT(GTK_COMBO(toolbar->tag_combo)->list),
 			    "selection-changed", GTK_SIGNAL_FUNC (on_toolbar_tag_clicked), NULL);
-	/* End of Goto Tag signal handlers */
-
 
 	toolbar->toolbar = toolbar2;
-	toolbar->toggle_bookmark = button2;
-	toolbar->first_bookmark = button3;
-	toolbar->prev_bookmark = button4;
-	toolbar->next_bookmark = button5;
-	toolbar->last_bookmark = button6;
-	toolbar->prev_error = button7;
-	toolbar->next_error = button8;
-	toolbar->block_start = button9;
-	toolbar->block_end = button10;
-	/* Goto Tag stuff - added by Biswa */
-	toolbar->tag_label = toolbar_tag_label;
-	toolbar->tag = toolbar_tag;
-	toolbar->tag_combo = toolbar_tag_combo;
-	toolbar->tag_entry = toolbar_tag_entry;
-	/* End of added code */
-
 	return toolbar2;
 }
 

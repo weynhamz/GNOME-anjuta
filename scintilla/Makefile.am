@@ -68,5 +68,7 @@ libscintilla_a_SOURCES =\
 	Style.h \
 	UniConversion.h \
 	ViewStyle.h\
-	StyleContext.h
+	StyleContext.h\
+	XPM.h\
+	XPM.cxx
 

@@ -165,11 +165,11 @@ create_text_editor_gui (TextEditor * te)
 	gtk_toolbar_append_space (GTK_TOOLBAR (toolbar1));
 
 	te->buttons.compile =
-		anjuta_util_toolbar_append_button (toolbar1, ANJUTA_PIXMAP_COMPILE, _("Compile"),
+		anjuta_util_toolbar_append_stock (toolbar1, GTK_STOCK_CONVERT, _("Compile"),
 						   _("Compile the current file"),
 						   G_CALLBACK (on_compile1_activate), te);
 	te->buttons.build =
-		anjuta_util_toolbar_append_stock (toolbar1, GTK_STOCK_PRINT, _("Print"),
+		anjuta_util_toolbar_append_stock (toolbar1, GTK_STOCK_EXECUTE, _("Build"),
 						   _("Build current file or the source directory of the Project"),
 						   G_CALLBACK (on_build_project1_activate), te);
 	gtk_toolbar_append_space (GTK_TOOLBAR (toolbar1));

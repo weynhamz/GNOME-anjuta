@@ -450,8 +450,9 @@ on_compt_response (GtkWidget *widget, gint response, gpointer data)
 		/* FIXME: Add help for compiler options here */
 		return;
 	case GTK_RESPONSE_CLOSE:
+		compiler_options_set_in_properties(co, co->priv->props);
 		compiler_options_hide (co);
-		return;		
+		return;
 	}
 }
 
@@ -612,6 +613,8 @@ on_add_to_clist_clicked (GtkButton * button, gpointer data)
 	g_assert (model);
 	gtk_list_store_append (GTK_LIST_STORE (model), &iter);
 	gtk_list_store_set (GTK_LIST_STORE(model), &iter, col, text, -1);
+	if (col != 0) /* Also enable it */
+		gtk_list_store_set (GTK_LIST_STORE(model), &iter, 0, TRUE, -1);
 	gtk_entry_set_text (GTK_ENTRY (entry), "");
 	g_free (str);
 }
@@ -1519,7 +1522,7 @@ get_supports (CompilerOptions *co, gint item, gchar *separator)
 		gboolean value;
 		gchar *text, *tmp;
 		
-		gtk_tree_model_get (model, &iter, 0, &value, -1);
+		gtk_tree_model_get (model, &iter, SUPP_TOGGLE_COLUMN, &value, -1);
 		valid = gtk_tree_model_iter_next (model, &iter);
 		if (!value)
 		{
@@ -1541,7 +1544,8 @@ get_include_paths (CompilerOptions * co, gboolean with_support)
 	gchar *str;
 
 	str = g_strdup ("");
-	GET_ALL_STRING_DATA (co->priv->widgets.inc_clist, str, " -I", 0);
+	GET_ALL_STRING_DATA (co->priv->widgets.inc_clist,
+						str, " -I", INC_PATHS_COLUMN);
 	
 	if (with_support)
 	{
@@ -1560,7 +1564,8 @@ get_library_paths (CompilerOptions * co)
 	gchar *str;
 
 	str = g_strdup ("");
-	GET_ALL_STRING_DATA (co->priv->widgets.lib_paths_clist, str, " -L", 0);
+	GET_ALL_STRING_DATA (co->priv->widgets.lib_paths_clist, str,
+						 " -L", LIB_PATHS_COLUMN);
 	return str;
 }
 
@@ -1581,7 +1586,8 @@ get_libraries (CompilerOptions * co, gboolean with_support)
 	{
 		gboolean value;
 		
-		gtk_tree_model_get (model, &iter, 0, &value, 1, &text, -1);
+		gtk_tree_model_get (model, &iter, LIB_TOGGLE_COLUMN,
+							&value, LIB_COLUMN, &text, -1);
 		valid = gtk_tree_model_iter_next (model, &iter);
 		if (!value)
 			continue;
@@ -1611,7 +1617,8 @@ get_defines (CompilerOptions * co)
 {
 	gchar *str;
 	str = g_strdup ("");
-	GET_ALL_STRING_DATA (co->priv->widgets.def_clist, str, " -D", 0);
+	GET_ALL_STRING_DATA (co->priv->widgets.def_clist, str,
+						 " -D", DEF_DEFINE_COLUMN);
 	return str;
 }
 
@@ -1632,7 +1639,8 @@ get_warnings(CompilerOptions *co)
 	while (valid)
 	{
 		gboolean value;
-		gtk_tree_model_get (model, &iter, 0, &value, -1);
+		gtk_tree_model_get (model, &iter, WARNINGS_TOGGLE_COLUMN,
+							&value, -1);
 		valid = gtk_tree_model_iter_next (model, &iter);
 		if (!value)
 		{

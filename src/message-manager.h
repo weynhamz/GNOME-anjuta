@@ -43,6 +43,16 @@ typedef struct _AnjutaMessageManagerClass AnjutaMessageManagerClass;
 #define ANJUTA_IS_MESSAGE_MANAGER(o)       (GTK_CHECK_TYPE ((o), ANJUTA_MESSAGE_MANAGER_TYPE))
 #define ANJUTA_IS_MESSAGE_MANAGER_CLASS(k) (GTK_CHECK_CLASS_TYPE ((k), ANJUTA_MESSAGE_MANAGER_TYPE))
 
+/* Message info passed to indicate signal */
+typedef struct
+{
+	gint type;
+	gchar *filename;
+	gint line;
+	gint message_type;
+
+} MessageIndicatorInfo;
+
 typedef struct _AnjutaMessageManagerPrivate AnjutaMessageManagerPrivate;
 
 struct _AnjutaMessageManager
@@ -57,8 +67,8 @@ struct _AnjutaMessageManagerClass
 	GtkFrameClass parent_class;
 	
 	// Signals
-	void (*message_clicked) (AnjutaMessageManager *amm, gchar* message);
-	void (*message_indicate) (AnjutaMessageManager *amm, gint type_name, gchar* file, glong line, gint indicator);
+	void (*message_clicked) (AnjutaMessageManager *amm, gchar *message);
+	void (*message_indicate) (AnjutaMessageManager *amm, MessageIndicatorInfo *info);
 };
 
 // Public functions

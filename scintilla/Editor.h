@@ -138,18 +138,20 @@ class AutoSurface {
 private:
 	Surface *surf;
 public:
-	AutoSurface(bool unicodeMode) {
+	AutoSurface(int codePage) {
 		surf = Surface::Allocate();
 		if (surf) {
 			surf->Init();
-			surf->SetUnicodeMode(unicodeMode);
+			surf->SetUnicodeMode(SC_CP_UTF8 == codePage);
+			surf->SetDBCSMode(codePage);
 		}
 	}
-	AutoSurface(SurfaceID sid, bool unicodeMode) {
+	AutoSurface(SurfaceID sid, int codePage) {
 		surf = Surface::Allocate();
 		if (surf) {
 			surf->Init(sid);
-			surf->SetUnicodeMode(unicodeMode);
+			surf->SetUnicodeMode(SC_CP_UTF8 == codePage);
+			surf->SetDBCSMode(codePage);
 		}
 	}
 	~AutoSurface() {
@@ -184,6 +186,7 @@ protected:	// ScintillaBase subclass needs access to much of Editor
 
 	int printMagnification;
 	int printColourMode;
+	int printWrapState;
 	int cursorMode;
 	int controlCharSymbol;
 
@@ -327,7 +330,7 @@ protected:	// ScintillaBase subclass needs access to much of Editor
 	int MovePositionSoVisible(int pos, int moveDir);
 	void SetLastXChosen();
 
-	void ScrollTo(int line);
+	void ScrollTo(int line, bool moveThumb=true);
 	virtual void ScrollText(int linesToMove);
 	void HorizontalScrollTo(int xPos);
 	void MoveCaretInsideView(bool ensureVisible=true);
@@ -457,6 +460,8 @@ protected:	// ScintillaBase subclass needs access to much of Editor
 	void ToggleContraction(int line);
 	void EnsureLineVisible(int lineDoc, bool enforcePolicy);
 	int ReplaceTarget(bool replacePatterns, const char *text, int length=-1);
+
+	int CodePage() const;
 
 	virtual sptr_t DefWndProc(unsigned int iMessage, uptr_t wParam, sptr_t lParam) = 0;
 

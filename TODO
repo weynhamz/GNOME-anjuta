@@ -1,15 +1,25 @@
 TODO List:
 ----------
 
+	o Anjuta can open same file in multiple text editors.
+	  --> TagManager should not remove the file from it's database if
+	  another copy of the file is still open -- it crashes.
+	o Move "Disable syntax hilighting" property from preferences to
+	  style editor.
+	o Support "Style themes".
+	o Save project preferences with project.
+	o Save compiler options settings.
+	o Add "indicator.automatic" pref in message prefs.
+	o Debugger windows should not be updated if it's not shown
+	  --> freeze/thaw.
+	o Anjuta UI (menus and toolbars) -- freeze/thaw.
+	
 	o RPM spec improvement - see the spec file from freshrpms.net which modifies
 	  the menu location so that Anjuta appears in the top-level Programming menu 
 	  in RH8 (where we belong :-)
 	o Add ignore modules in Project config: Tagmanager does not ignore them.
 Biswa: 'Rebuild Tags Image' now syncs tagManager with project file list.
 
-	o Bring all indent/format preferences under one tab.
-	o Add more editor preferences.
-	o Add "indicator.automatic" pref in message prefs.
 	o Compiler options: supports
 	o add credits for ALL new contributors
 	o update manual

@@ -150,6 +150,7 @@ project_config_hide (ProjectConfig * pc)
 				    &pc->win_pos_x, &pc->win_pos_y);
 	gdk_window_get_size (pc->widgets.window->window, &pc->win_width,
 			     &pc->win_height);
+	gtk_widget_hide (pc->widgets.window);
 	pc->is_showing = FALSE;
 }
 
@@ -681,8 +682,7 @@ on_response (GtkButton *button, gint response, gpointer user_data)
 	switch (response)
 	{
 	case GTK_RESPONSE_OK:
-		gtk_dialog_response (GTK_DIALOG(pc->widgets.window),
-							 GTK_RESPONSE_NONE);
+		project_config_hide (pc);
 		/* Note: No break here */
 	case GTK_RESPONSE_APPLY:
 		project_config_get (pc);
@@ -690,18 +690,17 @@ on_response (GtkButton *button, gint response, gpointer user_data)
 			app->project_dbase->is_saved = FALSE;
 		break;
 	case GTK_RESPONSE_CANCEL:
-		gtk_dialog_response (GTK_DIALOG(pc->widgets.window),
-							 GTK_RESPONSE_NONE);
+		project_config_hide (pc);
 		break;
 	}
 }
 
 static gboolean
-on_close(GtkWidget *w, gpointer user_data)
+on_delete_event (GtkWidget *w, GdkEvent *event, gpointer user_data)
 {
 	ProjectConfig *pc = (ProjectConfig *)user_data;
 	project_config_hide(pc);
-	return FALSE;
+	return TRUE;
 }
 
 static void
@@ -715,8 +714,8 @@ create_project_config_gui (ProjectConfig * pc)
 	gtk_widget_hide (pc->widgets.window);
 	g_signal_connect (G_OBJECT (pc->widgets.window), "response",
 			    G_CALLBACK (on_response), pc);
-	g_signal_connect (G_OBJECT (pc->widgets.window), "close",
-				G_CALLBACK (on_close), pc);
+	g_signal_connect (G_OBJECT (pc->widgets.window), "delete_event",
+				G_CALLBACK (on_delete_event), pc);
 
 	for(i=0; i< BUILD_FILE_END_MARK; i++)
 	{

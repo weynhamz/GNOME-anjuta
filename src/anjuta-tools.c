@@ -227,14 +227,20 @@ static AnUserTool *an_user_tool_new(xmlNodePtr tool_node)
 	xmlNodePtr node;
 	
 	g_return_val_if_fail (tool_node, NULL);
-	if (xmlIsBlankNode(tool_node) || !tool_node->name ||
-		strcmp(tool_node->name, "tool") != 0)
+	if (!tool_node || !tool_node->name)
+	{
+		g_warning ("Anjuta tools xml parse error: Invalide Node");
+		return NULL;
+	}
+	if (xmlIsBlankNode(tool_node) || strcmp (tool_node->name, "text") == 0)
+		return NULL;
+	if (strcmp (tool_node->name, "tool") != 0)
 	{
 		g_warning ("Anjuta tools xml parse error: Invalide Node");
 		return NULL;
 	}
 	
-	tool = g_new0(AnUserTool, 1);
+	tool = g_new0 (AnUserTool, 1);
 	/* Set default values */
 	tool->enabled = TRUE;
 	tool->output = MESSAGE_STDOUT;
@@ -257,6 +263,11 @@ static AnUserTool *an_user_tool_new(xmlNodePtr tool_node)
 	{
 		if (!node->name) {
 			g_warning ("Anjuta tools xml parse error: Invalid node");
+			node = node->next;
+			continue;
+		}
+		if (xmlIsBlankNode(tool_node) || strcmp (node->name, "text") == 0)
+		{
 			node = node->next;
 			continue;
 		}
@@ -1212,10 +1223,25 @@ gboolean
 on_user_tool_delete_event (GtkWindow *window, GdkEvent* event,
 						   gpointer user_data)
 {
-	g_message ("Tools: Delete event called");
-	g_free (tl);
-	tl = NULL;
-	return FALSE;
+	/* Don't hide the tool list if a tool is being edited */
+	if (!ted)
+	{
+		GSList *tmp;
+		AnUserTool *tool;
+		anjuta_tools_save();
+		for (tmp = tool_list; tmp; tmp = g_slist_next(tmp))
+		{
+			tool = (AnUserTool *) tmp->data;
+			if (NULL == tool->menu_item)
+				an_user_tool_activate(tool);
+			gtk_widget_destroy (tl->dialog);
+		}
+		anjuta_tools_sensitize();
+		g_free (tl);
+		tl = NULL;
+		return FALSE;
+	}
+	return TRUE;
 }
 
 static void really_delete_tool ()
@@ -1260,24 +1286,6 @@ on_user_tool_response (GtkDialog *dialog, gint res, gpointer user_data)
 	
 	switch (res)
 	{
-	case GTK_RESPONSE_OK:
-		/* Don't hide the tool list if a tool is being edited */
-		if (ted)
-		{
-			GSList *tmp;
-			AnUserTool *tool;
-			anjuta_tools_save();
-			for (tmp = tool_list; tmp; tmp = g_slist_next(tmp))
-			{
-				tool = (AnUserTool *) tmp->data;
-				if (NULL == tool->menu_item)
-					an_user_tool_activate(tool);
-				gtk_widget_destroy (tl->dialog);
-			}
-			anjuta_tools_sensitize();
-		}
-		return;
-		
 	case GTK_RESPONSE_APPLY:
 		/* Make sure no tool is selected, so that the edit form is cleared
 		when a new tool is created */
@@ -1294,8 +1302,8 @@ on_user_tool_response (GtkDialog *dialog, gint res, gpointer user_data)
 			when a new tool is created */
 			if (tl)
 				gtk_tree_selection_unselect_all (selection);
-			show_tool_editor(NULL, FALSE);
 		}
+		show_tool_editor(NULL, FALSE);
 		return;
 
 	case GTK_RESPONSE_NO:

@@ -117,7 +117,10 @@ void MessageSubwindow::activate()
 
 GtkWidget* MessageSubwindow::create_label() const
 {
-	GtkWidget* label = create_xpm_label_box(GTK_WIDGET(m_parent), (gchar*) m_pixmap.c_str(), FALSE, (gchar*) m_type_name.c_str());
+	GtkWidget* label = create_xpm_label_box (GTK_WIDGET(m_parent),
+											 (gchar*) m_pixmap.c_str(),
+											 FALSE,
+											 (gchar*) m_type_name.c_str());
 	gtk_widget_ref(label);
 	gtk_widget_show(label);
 	return label;
@@ -316,7 +319,8 @@ GtkWidget* AnjutaMessageWindow::get_msg_list()
 	return m_msg_list;
 }
 
-TerminalWindow::TerminalWindow(AnjutaMessageManager* p_amm, int p_type_id, string p_type, string p_pixmap)
+TerminalWindow::TerminalWindow(AnjutaMessageManager* p_amm, int p_type_id,
+							   string p_type, string p_pixmap)
 	: MessageSubwindow(p_amm, p_type_id, p_type, p_pixmap)
 {	
 	g_return_if_fail(p_amm != NULL);
@@ -343,7 +347,19 @@ TerminalWindow::TerminalWindow(AnjutaMessageManager* p_amm, int p_type_id, strin
 
 	putenv(termenv);
 	// putenv("TERM=xterm");
+	m_frame = gtk_frame_new(NULL);
+	gtk_widget_show (m_frame);
+	gtk_frame_set_shadow_type(GTK_FRAME(m_frame), GTK_SHADOW_IN);
+	gtk_notebook_append_page(GTK_NOTEBOOK(p_amm->intern->notebook), m_frame, create_label());
+
+	m_hbox = gtk_hbox_new(FALSE, 0);
+	gtk_widget_show (m_hbox);
+	gtk_container_add (GTK_CONTAINER(m_frame), m_hbox);
+	
 	m_terminal = zvt_term_new();
+	gtk_widget_show(m_terminal);
+	gtk_box_pack_start(GTK_BOX(m_hbox), m_terminal, TRUE, TRUE, 0);
+	
 	zvt_term_set_font_name(ZVT_TERM(m_terminal), font);
 	g_free(font);
 	zvt_term_set_blink(ZVT_TERM(m_terminal), preferences_get_int(
@@ -365,24 +381,12 @@ TerminalWindow::TerminalWindow(AnjutaMessageManager* p_amm, int p_type_id, strin
 		"^[-A-Za-z0-9_\\/.]+:[0-9]+:.*$",
 		VTATTR_UNDERLINE, NULL);
 #endif
-	gtk_widget_show(m_terminal);
 
 	m_scrollbar = gtk_vscrollbar_new(GTK_ADJUSTMENT(
 	  ZVT_TERM(m_terminal)->adjustment));
-	GTK_WIDGET_UNSET_FLAGS(m_scrollbar, GTK_CAN_FOCUS);
-	
-	m_frame = gtk_frame_new(NULL);
-	gtk_widget_show (m_frame);
-	gtk_frame_set_shadow_type(GTK_FRAME(m_frame), GTK_SHADOW_IN);
-	gtk_notebook_append_page(GTK_NOTEBOOK(p_amm->intern->notebook), m_frame, create_label());
-
-	m_hbox = gtk_hbox_new(FALSE, 0);
-	gtk_widget_show (m_hbox);
-	gtk_container_add (GTK_CONTAINER(m_frame), m_hbox);
-	
-	gtk_box_pack_start(GTK_BOX(m_hbox), m_terminal, TRUE, TRUE, 0);
-	gtk_box_pack_start(GTK_BOX(m_hbox), m_scrollbar, FALSE, TRUE, 0);
 	gtk_widget_show (m_scrollbar);
+	GTK_WIDGET_UNSET_FLAGS(m_scrollbar, GTK_CAN_FOCUS);
+	gtk_box_pack_start(GTK_BOX(m_hbox), m_scrollbar, FALSE, TRUE, 0);
 
 	//zvterm_reinit_child(ZVT_TERM(m_terminal));
 	gtk_signal_connect(GTK_OBJECT(m_terminal), "button_press_event"
@@ -399,13 +403,15 @@ TerminalWindow::TerminalWindow(AnjutaMessageManager* p_amm, int p_type_id, strin
 void TerminalWindow::show()
 {
 	if (!m_is_shown)
-	{		
+	{
 		GtkWidget* label = create_label();
 		
-		gtk_notebook_append_page(GTK_NOTEBOOK(m_parent->intern->notebook), m_frame, label);
+		gtk_notebook_append_page(GTK_NOTEBOOK(m_parent->intern->notebook),
+								 m_frame,
+								 label);
 		gtk_widget_unref(m_frame);
 		
-		GList* children = gtk_container_children(GTK_CONTAINER(m_parent->intern->notebook));
+		GList* children = gtk_container_children (GTK_CONTAINER(m_parent->intern->notebook));
 		for (uint i = 0; i < g_list_length(children); i++)
 		{
 			if (g_list_nth(children, i)->data == m_frame)
@@ -417,13 +423,13 @@ void TerminalWindow::show()
 		m_is_shown = true;
 	}
 }
-	
+
 void TerminalWindow::hide()
 {
 	if (m_is_shown)
 	{
 		gtk_widget_ref(m_frame);
-		gtk_container_remove(GTK_CONTAINER(m_parent->intern->notebook), m_frame);
+		gtk_container_remove (GTK_CONTAINER(m_parent->intern->notebook), m_frame);
 		m_is_shown = false;
 	}
 }
@@ -436,7 +442,9 @@ void mouse_to_char(ZvtTerm *term, int mousex, int mousey, int *x, int *y)
 
 extern "C" void anjuta_goto_file_line (gchar * fname, glong lineno);
 
-gboolean TerminalWindow::zvterm_mouse_clicked(GtkWidget* widget, GdkEvent* event, gpointer user_data)
+gboolean TerminalWindow::zvterm_mouse_clicked(GtkWidget* widget,
+											  GdkEvent* event,
+											  gpointer user_data)
 {
   int x,y;
   gchar *line = NULL;
@@ -479,7 +487,7 @@ void TerminalWindow::zvterm_reinit_child(ZvtTerm* term)
 	struct passwd *pw;
 	static GString *shell = NULL;
 	static GString *name = NULL;
-  int pid;
+	int pid;
 
 	if (!shell)
 		shell = g_string_new(NULL);
@@ -487,7 +495,7 @@ void TerminalWindow::zvterm_reinit_child(ZvtTerm* term)
 		name = g_string_new(NULL);
 	zvt_term_reset(term, TRUE);
 	pid = zvt_term_forkpty(term, ZVT_TERM_DO_UTMP_LOG |  ZVT_TERM_DO_WTMP_LOG);
-  switch (pid)
+	switch (pid)
 	{
 		case -1:
 			break;
@@ -505,14 +513,16 @@ void TerminalWindow::zvterm_reinit_child(ZvtTerm* term)
 			}
 			execle (shell->str, name->str, NULL, environ);
 		default:
-      DEBUG_PRINT("zvt terminal shell pid: %d\n", pid);
+			DEBUG_PRINT("zvt terminal shell pid: %d\n", pid);
 			break;
 	}
 }
 
 void TerminalWindow::zvterm_terminate(ZvtTerm* term)
 {
-	gtk_signal_disconnect_by_func(GTK_OBJECT(term), GTK_SIGNAL_FUNC(TerminalWindow::zvterm_reinit_child), NULL);
+	gtk_signal_disconnect_by_func(GTK_OBJECT(term),
+						  GTK_SIGNAL_FUNC(TerminalWindow::zvterm_reinit_child),
+						  NULL);
 	zvt_term_closepty(term);
 }
 
@@ -528,8 +538,9 @@ int TerminalWindow::zvterm_focus_in(ZvtTerm* term, GdkEventFocus* event)
 }
 
 LocalsWindow::LocalsWindow (AnjutaMessageManager * p_amm, int p_type_id,
-		  string p_type, string p_pixmap):
-			MessageSubwindow (p_amm, p_type_id, p_type, p_pixmap)
+							string p_type, string p_pixmap):
+							MessageSubwindow (p_amm, p_type_id,
+							p_type, p_pixmap)
 {
 	g_return_if_fail (p_amm != NULL);
 

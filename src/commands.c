@@ -676,6 +676,7 @@ on_response (GtkDialog *dialog, gint response, gpointer user_data)
 		command_editor_hide (ce);
 		return;
 	case GTK_RESPONSE_HELP:
+		return;
 	}
 }
 
