@@ -1,3 +1,15 @@
+2004-11-19  Naba Kumar  <naba@gnome.org>
+
+	* plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui:
+	Fixed UI separators.
+	
+	* plugins/file-manager/anjuta-file-manager.ui: Added project manager
+	UI placeholder.
+	
+	* plugins/project-manager/anjuta-project-manager.ui,
+	plugins/project-manager/plugin.[c,h]: Added add/remove context
+	menus and implemented them. Added file manager merge menu.
+
 2004-11-18  Naba Kumar  <naba@gnome.org>
 
 	* TODO.tasks: Updated.

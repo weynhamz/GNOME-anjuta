@@ -6,14 +6,28 @@
 				<menuitem name="AddGroup" action="ActionProjectAddGroup" />
 				<menuitem name="AddTarget" action="ActionProjectAddTarget" />
 				<menuitem name="AddSource" action="ActionProjectAddSource" />
-				<separator/>
+				<separator name="separator1"/>
+				<menuitem name="Properties" action="ActionProjectProperties"/>
+				<menuitem name="Refresh" action="ActionProjectRefresh"/>
+				<separator name="separator2"/>
 				<menuitem name="CloseProject" action="ActionProjectCloseProject" />
 		</menu>
 	</placeholder>
 	</menubar>
 	<popup name="PopupProjectManager">
 		<placeholder name="PlaceholderPopupProjectBuild"/>
-		<separator/>
-		<menuitem name="PopupProjectManagerRefresh" action="ActionPopupProjectManagerRefresh"/>
+		<menuitem name="AddGroup" action="ActionPopupProjectAddGroup"/>
+		<menuitem name="AddTarget" action="ActionPopupProjectAddTarget"/>
+		<menuitem name="AddSource" action="ActionPopupProjectAddSource"/>
+		<separator name="separator1"/>
+		<menuitem name="Remove" action="ActionPopupProjectRemove"/>
+		<separator name="separator2"/>
+		<menuitem name="Properties" action="ActionPopupProjectProperties"/>
+		<menuitem name="Refresh" action="ActionProjectRefresh"/>
+	</popup>
+	<popup name="PopupFileManager">
+		<placeholder name="PlaceholderPopupFileProject">
+			<menuitem name="AddToProject" action="ActionPopupProjectAddToProject"/>
+		</placeholder>
 	</popup>
 </ui>

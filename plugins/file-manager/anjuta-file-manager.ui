@@ -1,6 +1,7 @@
 <!--*- xml -*-->
 <ui>
 	<popup name="PopupFileManager">
+		<placeholder name="PlaceholderPopupFileProject"/>
 		<placeholder name="PlaceholderPopupFileBuild"/>
 		<separator/>
 		<menuitem name="PopupFileManagerRefresh" action="ActionPopupFileManagerRefresh"/>

@@ -7,13 +7,13 @@
 				<menuitem name="BuildModule" action="ActionBuildBuildModule"/>
 				<menuitem name="BuildProject" action="ActionBuildBuildProject"/>
 				<menuitem name="BuildDistribution" action="ActionBuildDistribution"/>
-				<separator/>
+				<separator name="separator10"/>
 				<menuitem name="InstallModule" action="ActionBuildInstallModule"/>
 				<menuitem name="InstallProject" action="ActionBuildInstallProject"/>
-				<separator/>
+				<separator name="separator11"/>
 				<menuitem name="Configure" action="ActionBuildConfigure"/>
 				<menuitem name="Autogen" action="ActionBuildAutogen"/>
-				<separator/>
+				<separator name="separator12"/>
 				<menuitem name="CleanModule" action="ActionBuildCleanModule"/>
 				<menuitem name="CleanProject" action="ActionBuildCleanProject"/>
 			</menu>

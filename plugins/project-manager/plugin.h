@@ -23,6 +23,12 @@ struct _ProjectManagerPlugin{
 	GtkActionGroup *pm_action_group;
 	GtkActionGroup *popup_action_group;
 	gint merge_id;
+	
+	gint fm_watch_id;
+	gint editor_watch_id;
+	
+	gchar *fm_current_uri;
+	gchar *current_editor_uri;
 };
 
 struct _ProjectManagerPluginClass{

@@ -20,6 +20,7 @@
 
 #include <config.h>
 #include <libgnomevfs/gnome-vfs-utils.h>
+#include <libgnomevfs/gnome-vfs-ops.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
 #include <libanjuta/interfaces/ianjuta-file-loader.h>
 #include <libanjuta/interfaces/ianjuta-project-manager.h>
@@ -38,8 +39,25 @@ static gpointer parent_class;
 
 static void update_ui (ProjectManagerPlugin *plugin);
 
-static void refresh (GtkAction *action, ProjectManagerPlugin *plugin)
+static void
+on_refresh (GtkAction *action, ProjectManagerPlugin *plugin)
 {
+	GError *err = NULL;
+	gbf_project_refresh (GBF_PROJECT (plugin->project), &err);
+	if (err)
+	{
+		GtkWindow *win;
+		win = GTK_WINDOW (gtk_widget_get_toplevel (plugin->scrolledwindow));
+		anjuta_util_dialog_error (win, "Failed to refresh project: %s",
+								  err->message);
+		g_error_free (err);
+	}
+}
+
+static void
+on_properties (GtkAction *action, ProjectManagerPlugin *plugin)
+{
+	/* FIXME: */
 }
 
 static void
@@ -57,13 +75,193 @@ on_add_target (GtkAction *action, ProjectManagerPlugin *plugin)
 	gbf_project_util_new_target (plugin->model,
 								 GTK_WINDOW (win), NULL);
 }
- 
+
 static void
 on_add_source (GtkAction *action, ProjectManagerPlugin *plugin)
 {
 	GtkWidget *win = gtk_widget_get_toplevel (plugin->scrolledwindow);
 	gbf_project_util_add_source (plugin->model,
-								 GTK_WINDOW (win), NULL, NULL);
+								 GTK_WINDOW (win), NULL,
+								 plugin->current_editor_uri);
+}
+
+static void
+on_popup_properties (GtkAction *action, ProjectManagerPlugin *plugin)
+{
+	/* FIXME: */
+}
+
+static void
+on_popup_add_group (GtkAction *action, ProjectManagerPlugin *plugin)
+{
+	GbfTreeData *data;
+	const gchar *selected_group;
+	GtkWidget *win;
+
+	win = gtk_widget_get_toplevel (plugin->scrolledwindow);
+	data = gbf_project_view_find_selected (GBF_PROJECT_VIEW (plugin->view),
+										   GBF_TREE_NODE_GROUP);
+	selected_group = NULL;
+	if (data)
+		selected_group = data->id;
+	gbf_project_util_new_group (plugin->model, GTK_WINDOW (win),
+								selected_group);
+	if (data)
+		gbf_tree_data_free (data);
+}
+
+static void
+on_popup_add_target (GtkAction *action, ProjectManagerPlugin *plugin)
+{
+	GbfTreeData *data;
+	const gchar *selected_group;
+	GtkWidget *win;
+
+	win = gtk_widget_get_toplevel (plugin->scrolledwindow);
+	data = gbf_project_view_find_selected (GBF_PROJECT_VIEW (plugin->view),
+										   GBF_TREE_NODE_GROUP);
+	selected_group = NULL;
+	if (data)
+		selected_group = data->id;
+	gbf_project_util_new_target (plugin->model,
+								 GTK_WINDOW (win), selected_group);
+	if (data)
+		gbf_tree_data_free (data);
+}
+
+static void
+on_popup_add_source (GtkAction *action, ProjectManagerPlugin *plugin)
+{
+	GbfTreeData *data;
+	const gchar *selected_target;
+	GtkWidget *win;
+
+	win = gtk_widget_get_toplevel (plugin->scrolledwindow);
+	data = gbf_project_view_find_selected (GBF_PROJECT_VIEW (plugin->view),
+										   GBF_TREE_NODE_TARGET);
+	selected_target = NULL;
+	if (data)
+		selected_target = data->id;
+	gbf_project_util_add_source (plugin->model,
+								 GTK_WINDOW (win), selected_target, NULL);
+	if (data)
+		gbf_tree_data_free (data);
+}
+
+static gboolean
+confirm_removal (ProjectManagerPlugin *plugin, GbfTreeData *data)
+{
+	GtkWidget *win;
+	gboolean answer;
+	gchar *mesg;
+	
+	switch (data->type)
+	{
+		case GBF_TREE_NODE_GROUP:
+			mesg = _("%sGroup: %s\n\nThe group will not be deleted from file system.");
+			break;
+		case GBF_TREE_NODE_TARGET:
+			mesg = _("%sTarget: %s");
+			break;
+		case GBF_TREE_NODE_TARGET_SOURCE:
+			mesg = _("%sSource: %s\n\nThe source file will not be deleted from file system.");
+			break;
+		default:
+			g_warning ("Unknow node");
+			return FALSE;
+	}
+	win = gtk_widget_get_toplevel (plugin->scrolledwindow);
+	answer = anjuta_util_dialog_boolean_question (GTK_WINDOW (win),
+												  mesg,
+		_("Are you sure you want to remove the following from project?\n\n"),
+												  data->name);
+	return answer;
+}
+
+static void
+on_popup_remove (GtkAction *action, ProjectManagerPlugin *plugin)
+{
+	GbfTreeData *data;
+	
+	data = gbf_project_view_find_selected (GBF_PROJECT_VIEW (plugin->view),
+										   GBF_TREE_NODE_TARGET_SOURCE);
+	if (data == NULL)
+	{
+		data = gbf_project_view_find_selected (GBF_PROJECT_VIEW (plugin->view),
+											   GBF_TREE_NODE_TARGET);
+	}
+	if (data == NULL)
+	{
+		data = gbf_project_view_find_selected (GBF_PROJECT_VIEW (plugin->view),
+											   GBF_TREE_NODE_GROUP);
+	}
+	if (data)
+	{
+		if (confirm_removal (plugin, data))
+		{
+			GError *err = NULL;
+			switch (data->type)
+			{
+				case GBF_TREE_NODE_GROUP:
+					gbf_project_remove_group (plugin->project, data->id, &err);
+					break;
+				case GBF_TREE_NODE_TARGET:
+					gbf_project_remove_target (plugin->project, data->id, &err);
+					break;
+				case GBF_TREE_NODE_TARGET_SOURCE:
+					gbf_project_remove_source (plugin->project, data->id, &err);
+					break;
+				default:
+					g_warning ("Should not reach here!!!");
+			}
+			if (err)
+			{
+				GtkWindow *win;
+				win = GTK_WINDOW (gtk_widget_get_toplevel (plugin->scrolledwindow));
+				anjuta_util_dialog_error (win, "Failed to remove '%s':\n%s",
+										  err->message);
+				g_error_free (err);
+			}
+		}
+		gbf_tree_data_free (data);
+	}
+}
+
+static void
+on_popup_add_to_project (GtkAction *action, ProjectManagerPlugin *plugin)
+{
+	GtkWidget *win;
+	GnomeVFSFileInfo info;
+	GnomeVFSResult res;
+	
+	win = gtk_widget_get_toplevel (plugin->scrolledwindow);
+	res = gnome_vfs_get_file_info (plugin->fm_current_uri, &info,
+								   GNOME_VFS_FILE_INFO_DEFAULT |
+								   GNOME_VFS_FILE_INFO_FOLLOW_LINKS);
+	if (res == GNOME_VFS_OK)
+	{
+		if (info.type == GNOME_VFS_FILE_TYPE_DIRECTORY)
+		{
+			/* FIXME: Should select current directory */
+			gbf_project_util_new_group (plugin->model,
+										GTK_WINDOW (win), NULL);
+		}
+		else
+		{
+			gbf_project_util_add_source (plugin->model,
+										 GTK_WINDOW (win), NULL,
+										 plugin->fm_current_uri);
+		}
+	}
+	else
+	{
+		const gchar *mesg;
+		
+		mesg = gnome_vfs_result_to_string (res);
+		anjuta_util_dialog_error (GTK_WINDOW (win),
+								  "Failed to retried URI info of %s: %s",
+								  plugin->fm_current_uri, mesg);
+	}
 }
 
 static void
@@ -154,17 +352,27 @@ static GtkActionEntry pm_actions[] =
 		G_CALLBACK (on_close_project)
 	},
 	{
-		"ActionProjectAddGroup", NULL,
-		N_("Add Targets _Group"), NULL, N_("Add a targets group to project"),
+		"ActionProjectProperties", GTK_STOCK_PROPERTIES,
+		N_("_Properties"), NULL, N_("Project properties"),
+		G_CALLBACK (on_properties)
+	},
+	{
+		"ActionProjectRefresh", GTK_STOCK_REFRESH,
+		N_("_Refresh"), NULL, N_("Refresh project manager tree"),
+		G_CALLBACK (on_refresh)
+	},
+	{
+		"ActionProjectAddGroup", GTK_STOCK_ADD,
+		N_("Add _Group"), NULL, N_("Add a group to project"),
 		G_CALLBACK (on_add_group)
 	},
 	{
-		"ActionProjectAddTarget", NULL,
-		N_("Add Build _Target"), NULL, N_("Add a target to project"),
+		"ActionProjectAddTarget", GTK_STOCK_ADD,
+		N_("Add _Target"), NULL, N_("Add a target to project"),
 		G_CALLBACK (on_add_target)
 	},
 	{
-		"ActionProjectAddSource", NULL,
+		"ActionProjectAddSource", GTK_STOCK_ADD,
 		N_("Add _Source File"), NULL, N_("Add a source file to project"),
 		G_CALLBACK (on_add_source)
 	}
@@ -173,9 +381,34 @@ static GtkActionEntry pm_actions[] =
 static GtkActionEntry popup_actions[] = 
 {
 	{
-		"ActionPopupProjectManagerRefresh", GTK_STOCK_REFRESH,
-		N_("_Refresh"), NULL, N_("Refresh project manager tree"),
-		G_CALLBACK (refresh)
+		"ActionPopupProjectProperties", GTK_STOCK_PROPERTIES,
+		N_("_Properties"), NULL, N_("Properties of group/target/source"),
+		G_CALLBACK (on_popup_properties)
+	},
+	{
+		"ActionPopupProjectAddToProject", GTK_STOCK_ADD,
+		N_("_Add To Project"), NULL, N_("Add a source file to project"),
+		G_CALLBACK (on_popup_add_to_project)
+	},
+	{
+		"ActionPopupProjectAddGroup", GTK_STOCK_ADD,
+		N_("Add _Group"), NULL, N_("Add a group to project"),
+		G_CALLBACK (on_popup_add_group)
+	},
+	{
+		"ActionPopupProjectAddTarget", GTK_STOCK_ADD,
+		N_("Add _Target"), NULL, N_("Add a target to project"),
+		G_CALLBACK (on_popup_add_target)
+	},
+	{
+		"ActionPopupProjectAddSource", GTK_STOCK_ADD,
+		N_("Add _Source File"), NULL, N_("Add a source file to project"),
+		G_CALLBACK (on_popup_add_source)
+	},
+	{
+		"ActionPopupProjectRemove", GTK_STOCK_REMOVE,
+		N_("Re_move"), NULL, N_("Remove from project"),
+		G_CALLBACK (on_popup_remove)
 	}
 };
 
@@ -209,20 +442,99 @@ update_ui (ProjectManagerPlugin *plugin)
 	}
 }
 
-#if 0
 static void
-preferences_changed (AnjutaPreferences *prefs, ProjectManagerPlugin *fv)
+on_treeview_selection_changed (GtkTreeSelection *sel,
+							   ProjectManagerPlugin *plugin)
 {
-	gchar* root = anjuta_preferences_get(prefs, "root.dir");
-	if (root)
+	AnjutaUI *ui;
+	GtkAction *action;
+	GbfTreeData *data;
+	
+	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (plugin)->shell, NULL);
+	action = anjuta_ui_get_action (ui, "ActionGroupProjectManagerPopup",
+								   "ActionPopupProjectAddGroup");
+	g_object_set (G_OBJECT (action), "sensitive", FALSE, NULL);
+	action = anjuta_ui_get_action (ui, "ActionGroupProjectManagerPopup",
+								   "ActionPopupProjectAddTarget");
+	g_object_set (G_OBJECT (action), "sensitive", FALSE, NULL);
+	action = anjuta_ui_get_action (ui, "ActionGroupProjectManagerPopup",
+								   "ActionPopupProjectAddSource");
+	g_object_set (G_OBJECT (action), "sensitive", FALSE, NULL);
+	action = anjuta_ui_get_action (ui, "ActionGroupProjectManagerPopup",
+								   "ActionPopupProjectRemove");
+	g_object_set (G_OBJECT (action), "sensitive", FALSE, NULL);
+	
+	data = gbf_project_view_find_selected (GBF_PROJECT_VIEW (plugin->view),
+										   GBF_TREE_NODE_TARGET_SOURCE);
+	if (data && data->type == GBF_TREE_NODE_TARGET_SOURCE)
 	{
-		pm_set_root (fv, root);
+		action = anjuta_ui_get_action (ui, "ActionGroupProjectManagerPopup",
+									   "ActionPopupProjectAddSource");
+		g_object_set (G_OBJECT (action), "sensitive", TRUE, NULL);
+		action = anjuta_ui_get_action (ui, "ActionGroupProjectManagerPopup",
+									   "ActionPopupProjectRemove");
+		g_object_set (G_OBJECT (action), "sensitive", TRUE, NULL);
+		gbf_tree_data_free (data);
+		return;
 	}
-	else
-		pm_set_root (fv, "/");
-	pm_refresh (fv);
+	
+	gbf_tree_data_free (data);
+	data = gbf_project_view_find_selected (GBF_PROJECT_VIEW (plugin->view),
+										   GBF_TREE_NODE_TARGET);
+	if (data && data->type == GBF_TREE_NODE_TARGET)
+	{
+		action = anjuta_ui_get_action (ui, "ActionGroupProjectManagerPopup",
+									   "ActionPopupProjectAddSource");
+		g_object_set (G_OBJECT (action), "sensitive", TRUE, NULL);
+		action = anjuta_ui_get_action (ui, "ActionGroupProjectManagerPopup",
+									   "ActionPopupProjectRemove");
+		g_object_set (G_OBJECT (action), "sensitive", TRUE, NULL);
+		gbf_tree_data_free (data);
+		return;
+	}
+	
+	gbf_tree_data_free (data);
+	data = gbf_project_view_find_selected (GBF_PROJECT_VIEW (plugin->view),
+										   GBF_TREE_NODE_GROUP);
+	if (data && data->type == GBF_TREE_NODE_GROUP)
+	{
+		action = anjuta_ui_get_action (ui, "ActionGroupProjectManagerPopup",
+									   "ActionPopupProjectAddGroup");
+		g_object_set (G_OBJECT (action), "sensitive", TRUE, NULL);
+		action = anjuta_ui_get_action (ui, "ActionGroupProjectManagerPopup",
+									   "ActionPopupProjectAddTarget");
+		g_object_set (G_OBJECT (action), "sensitive", TRUE, NULL);
+		action = anjuta_ui_get_action (ui, "ActionGroupProjectManagerPopup",
+									   "ActionPopupProjectRemove");
+		g_object_set (G_OBJECT (action), "sensitive", TRUE, NULL);
+		gbf_tree_data_free (data);
+		return;
+	}
 }
-#endif
+
+static gboolean
+on_treeview_event  (GtkWidget *widget,
+					 GdkEvent  *event,
+					 ProjectManagerPlugin *plugin)
+{
+	AnjutaUI *ui;
+	
+	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (plugin)->shell, NULL);
+	if (event->type == GDK_BUTTON_PRESS) {
+		GdkEventButton *e = (GdkEventButton *) event;
+		if (e->button == 3) {
+			GtkWidget *popup;
+			popup = gtk_ui_manager_get_widget (GTK_UI_MANAGER (ui),
+											   "/PopupProjectManager");
+			g_return_val_if_fail (GTK_IS_WIDGET (popup), FALSE);
+			gtk_menu_popup (GTK_MENU (popup),
+					NULL, NULL, NULL, NULL,
+					((GdkEventButton *) event)->button,
+					((GdkEventButton *) event)->time);
+		}
+	}
+	return FALSE;
+}
 
 #define REGISTER_ICON(icon, stock_id) \
 	pixbuf = gdk_pixbuf_new_from_file (icon, NULL); \
@@ -250,6 +562,77 @@ register_stock_icons (AnjutaPlugin *plugin)
 				   "project-manager-plugin-icon");
 }
 
+static void
+value_added_fm_current_uri (AnjutaPlugin *plugin, const char *name,
+							const GValue *value, gpointer data)
+{
+	AnjutaUI *ui;
+	GtkAction *action;
+	const gchar *uri;
+	ProjectManagerPlugin *pm_plugin;
+	
+	uri = g_value_get_string (value);
+
+	pm_plugin = (ProjectManagerPlugin*)plugin;
+	ui = anjuta_shell_get_ui (plugin->shell, NULL);
+	
+	if (pm_plugin->fm_current_uri)
+		g_free (pm_plugin->fm_current_uri);
+	pm_plugin->fm_current_uri = g_strdup (uri);
+	
+	action = anjuta_ui_get_action (ui, "ActionGroupProjectManager",
+								   "ActionPopupProjectAddToProject");
+	g_object_set (G_OBJECT (action), "sensitive", TRUE, NULL);
+}
+
+static void
+value_removed_fm_current_uri (AnjutaPlugin *plugin,
+							  const char *name, gpointer data)
+{
+	AnjutaUI *ui;
+	GtkAction *action;
+	ProjectManagerPlugin *pm_plugin;
+
+	pm_plugin = (ProjectManagerPlugin*)plugin;
+	
+	if (pm_plugin->fm_current_uri)
+		g_free (pm_plugin->fm_current_uri);
+	pm_plugin->fm_current_uri = NULL;
+	
+	ui = anjuta_shell_get_ui (plugin->shell, NULL);
+	action = anjuta_ui_get_action (ui, "ActionGroupProjectManager",
+								   "ActionPopupProjectAddToProject");
+	g_object_set (G_OBJECT (action), "sensitive", FALSE, NULL);
+}
+
+static void
+value_added_current_editor (AnjutaPlugin *plugin, const char *name,
+							const GValue *value, gpointer data)
+{
+	GObject *editor;
+	ProjectManagerPlugin *pm_plugin;
+	
+	editor = g_value_get_object (value);
+	pm_plugin = (ProjectManagerPlugin*)plugin;
+	
+	if (pm_plugin->current_editor_uri)
+		g_free (pm_plugin->current_editor_uri);
+	pm_plugin->current_editor_uri =
+		ianjuta_file_get_uri (IANJUTA_FILE (editor), NULL);
+}
+
+static void
+value_removed_current_editor (AnjutaPlugin *plugin,
+							  const char *name, gpointer data)
+{
+	ProjectManagerPlugin *pm_plugin;
+	
+	pm_plugin = (ProjectManagerPlugin*)plugin;
+	
+	if (pm_plugin->current_editor_uri)
+		g_free (pm_plugin->current_editor_uri);
+	pm_plugin->current_editor_uri = NULL;
+}
 
 static gboolean
 activate_plugin (AnjutaPlugin *plugin)
@@ -257,7 +640,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	GtkWidget *view, *scrolled_window;
 	GbfProjectModel *model;
 	static gboolean initialized = FALSE;
-	
+	GtkTreeSelection *selection;
 	// GladeXML *gxml;
 	ProjectManagerPlugin *pm_plugin;
 	
@@ -277,10 +660,15 @@ activate_plugin (AnjutaPlugin *plugin)
 	g_object_ref (view);
 	gtk_tree_view_set_model (GTK_TREE_VIEW (view),
 							 GTK_TREE_MODEL (model));
+	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (view));
 	g_signal_connect (view, "uri-activated",
 					  G_CALLBACK (on_uri_activated), plugin);
 	g_signal_connect (view, "target-selected",
 					  G_CALLBACK (on_target_activated), plugin);
+	g_signal_connect (selection, "changed",
+					  G_CALLBACK (on_treeview_selection_changed), plugin);
+	g_signal_connect (view, "event",
+					  G_CALLBACK (on_treeview_event), plugin);
 	
 	scrolled_window = gtk_scrolled_window_new (NULL, NULL);
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),
@@ -328,10 +716,18 @@ activate_plugin (AnjutaPlugin *plugin)
 	anjuta_preferences_add_page (pm_plugin->prefs,
 								gxml, "Project Manager", ICON_FILE);
 	preferences_changed(pm_plugin->prefs, pm_plugin);
-	g_signal_connect (G_OBJECT (pm_plugin->prefs), "changed",
-					  G_CALLBACK (preferences_changed), pm_plugin);
 	g_object_unref (G_OBJECT (gxml));
-#endif	
+#endif
+	
+	/* Add watches */
+	pm_plugin->fm_watch_id =
+		anjuta_plugin_add_watch (plugin, "file_manager_current_uri",
+								 value_added_fm_current_uri,
+								 value_removed_fm_current_uri, NULL);
+	pm_plugin->editor_watch_id = 
+		anjuta_plugin_add_watch (plugin, "document_manager_current_editor",
+								 value_added_current_editor,
+								 value_removed_current_editor, NULL);
 	initialized = TRUE;
 	return TRUE;
 }
@@ -342,9 +738,10 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	ProjectManagerPlugin *pm_plugin;
 	pm_plugin = (ProjectManagerPlugin*) plugin;
 	
-	// g_signal_handlers_disconnect_by_func (G_OBJECT (pm_plugin->prefs),
-	//									  G_CALLBACK (preferences_changed),
-	//									  pm_plugin);
+	/* Remove watches */
+	anjuta_plugin_remove_watch (plugin, pm_plugin->fm_watch_id, TRUE);
+	anjuta_plugin_remove_watch (plugin, pm_plugin->editor_watch_id, TRUE);
+	
 	// pm_finalize(pm_plugin);
 	anjuta_shell_remove_widget (plugin->shell, pm_plugin->scrolledwindow, NULL);
 	anjuta_ui_unmerge (pm_plugin->ui, pm_plugin->merge_id);
@@ -357,8 +754,17 @@ deactivate_plugin (AnjutaPlugin *plugin)
 }
 
 static void
+finalize (GObject *obj)
+{
+	/* FIXME: */
+	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (obj));
+}
+
+static void
 dispose (GObject *obj)
 {
+	/* FIXME: */
+	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (obj));
 }
 
 static void
@@ -380,6 +786,7 @@ project_manager_plugin_class_init (GObjectClass *klass)
 
 	plugin_class->activate = activate_plugin;
 	plugin_class->deactivate = deactivate_plugin;
+	klass->dispose = finalize;
 	klass->dispose = dispose;
 }
 
