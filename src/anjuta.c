@@ -24,7 +24,7 @@
 #include <signal.h>
 #include <string.h>
 #include <syslog.h>
-
+#include <ctype.h>
 #include <sys/wait.h>
 #include <gnome.h>
 
@@ -510,6 +510,7 @@ anjuta_goto_file_line_mark (gchar * fname, glong lineno, gboolean mark)
 static const GString *get_qualified_tag_name(const TMTag *tag)
 {
 	static GString *s = NULL;
+	gchar *tag_name;
 
 	g_return_val_if_fail((tag && tag->name), NULL);
 	if (!s)
@@ -518,6 +519,16 @@ static const GString *get_qualified_tag_name(const TMTag *tag)
 	if (tag->atts.entry.scope)
 		g_string_sprintfa(s, "%s.", tag->atts.entry.scope);
 	g_string_sprintfa(s, "%s", tag->name);
+	
+	tag_name = g_strdup(tm_tag_type_name(tag));
+	if (tag_name) {
+		char* ptr = tag_name;
+		while(*ptr) {*ptr = toupper(*ptr); ptr++;}
+		/* Hack to allow anjuta to find both prototypes and functions */
+		g_string_sprintfa(s, " - [%s]", tag_name);
+		g_free(tag_name);
+	}
+	
 	return s;
 }
 
@@ -589,6 +600,8 @@ gboolean anjuta_goto_local_tag(TextEditor *te, const char *qual_name)
 {
 	char *name;
 	char *scope;
+	char *typestring;
+	int type;
 	guint i;
 	int cmp;
 	TMTag *tag;
@@ -609,12 +622,30 @@ gboolean anjuta_goto_local_tag(TextEditor *te, const char *qual_name)
 		name = scope;
 		scope = NULL;
 	}
-
+	/* BEGIN tag hack */
+	type = -1;
+	typestring =  strstr(name, " - [");
+	if (typestring)
+	{
+		gchar* type_name;
+		gchar* ptr;
+		
+		*typestring = '\0';
+		typestring = typestring + 4;
+		type_name = g_strdup(typestring);
+		ptr = type_name;
+		while (*ptr && *ptr != ']') {*ptr = tolower(*ptr); ptr++;}
+		*ptr = '\0';
+		type = tm_tag_name_type(type_name);
+		g_free(type_name);
+	}
+	/* END tag hack */
+	
 	for (i = 0; i < te->tm_file->tags_array->len; ++i)
 	{
 		tag = TM_TAG(te->tm_file->tags_array->pdata[i]);
 		cmp = strcmp(name, tag->name);
-		if (0 == cmp)
+		if (0 == cmp && (type == tag->type || type == -1))
 		{
 			if ((!scope || !tag->atts.entry.scope) || (0 == strcmp(scope, tag->atts.entry.scope)))
 			{

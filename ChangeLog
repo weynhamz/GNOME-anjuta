@@ -1,3 +1,17 @@
+2002-04-13 Naba Kumar <kh_naba@users.sourceforge.net>
+
+	* tagmanager/include/tm_tag.h, tagmanager/tm_tag.c:
+	Removed static qualifier from tm_tag_type_name() and
+	availed it's prototype for use in outside code. also
+	created reverse map function tm_tag_type_name();
+	
+	* src/anjuta.c: Implemented qualified tags names for
+	the tag list (on the toolbar pulldown list) to avoid
+	ambiguty in tags with similar names (like prototype
+	and definition). Patch modified and improved.
+	
+	Patch from: Todd Goyen <wettoad@knighthoodofbuh.org>
+	
 2002-04-11 Naba Kumar <kh_naba@users.sourceforge.net>
 
 	* src/utilities.[c,h]: Added a utility funtion
