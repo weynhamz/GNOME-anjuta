@@ -418,6 +418,18 @@ void fv_clear(void)
 	gtk_clist_clear(GTK_CLIST(fv->tree));
 }
 
+void fv_hide(void)
+{
+	g_return_if_fail(fv && fv->tree);
+	gtk_widget_hide(fv->tree);
+}
+
+void fv_show(void)
+{
+	g_return_if_fail(fv && fv->tree);
+	gtk_widget_show(fv->tree);
+}
+
 static void fv_add_tree_entry(TMFileEntry *entry, GtkCTreeNode *root)
 {
 	char *arr[2];
@@ -503,7 +515,9 @@ AnFileView *fv_populate(gboolean full)
 	  NULL, full, NULL, ignore, TRUE);
 	if (! fv->file_tree)
 		goto clean_leave;
+	fv_hide();
 	fv_add_tree_entry(fv->file_tree, NULL);
+	fv_show();
 
 clean_leave:
 	fv_connect();

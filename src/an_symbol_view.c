@@ -456,6 +456,18 @@ void sv_clear(void)
 	gtk_clist_clear(GTK_CLIST(sv->tree));
 }
 
+void sv_hide(void)
+{
+	g_return_if_fail(sv && sv->tree);
+	gtk_widget_hide(sv->tree);
+}
+
+void sv_show(void)
+{
+	g_return_if_fail(sv && sv->tree);
+	gtk_widget_show(sv->tree);
+}
+
 static void sv_assign_node_name(TMSymbol *sym, GString *s)
 {
 	g_assert(sym && sym->tag && s);
@@ -535,6 +547,7 @@ AnSymbolView *sv_populate(gboolean full)
 		goto clean_leave;
 	}
 
+	sv_hide();
 	s = g_string_sized_new(MAX_STRING_LENGTH);
 	for (i=0; i < symbol_tree->info.children->len; ++i)
 	{
@@ -620,7 +633,6 @@ AnSymbolView *sv_populate(gboolean full)
 	{
 		int i;
 
-		g_message("We have a selected item!");
 		for (i=0; i <3; ++ i)
 		{
 			if (selected_item[i])
@@ -629,6 +641,7 @@ AnSymbolView *sv_populate(gboolean full)
 		gtk_ctree_select((GtkCTree *) sv->tree, selected_item[0]);
 		gtk_ctree_node_moveto((GtkCTree *) sv->tree, selected_item[0], 0, .5, 0);
 	}
+	sv_show();
 
 clean_leave:
 	sv_connect();

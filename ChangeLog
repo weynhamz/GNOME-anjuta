@@ -3,6 +3,7 @@
 	* src/debugger.c, data/gdb.init: Solaris GDB fixes.
 	* TODO, TODO.biswa: Intergated TODO list.
 	* src/project_dbase.c: Patch by TTimo (pref saving), bug #636542
+	, bug #574470
 	* src/dnd.c: Fix typo
 	* src/an_[symbol|file]_view.c: Hide when updating (reduced flicker)
 	* src/anjuta.c: Bug #568895

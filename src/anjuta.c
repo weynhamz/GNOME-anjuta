@@ -481,6 +481,7 @@ anjuta_goto_file_line_mark (gchar * fname, glong lineno, gboolean mark)
 		}
 		if (strcmp (fn, te->full_filename) == 0)
 		{
+			text_editor_check_disk_status(te, TRUE);
 			if (lineno >= 0)
 				text_editor_goto_line (te, lineno, mark);
 			anjuta_show_text_editor (te);

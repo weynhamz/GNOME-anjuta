@@ -212,7 +212,7 @@ module.include.files=\
 
 module.source.name=.
 module.source.type=
-module.source.expanded=0
+module.source.expanded=1
 module.source.files=\
 	global-tags/tm_global_tags.c\
 	launcher/anjuta_launcher.c\
@@ -642,7 +642,7 @@ module.help.files=
 
 module.doc.name=.
 module.doc.type=
-module.doc.expanded=1
+module.doc.expanded=0
 module.doc.files=\
 	AUTHORS\
 	COPYING\
