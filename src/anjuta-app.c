@@ -475,10 +475,11 @@ ensure_layout_manager (AnjutaApp *window)
 		/* layout manager */
 		window->layout_manager = egg_dock_layout_new (EGG_DOCK (window->dock));
 		
+		/* FIXME: Always load system layout for now */
 		/* load xml layout definitions */
-		filename = gnome_util_prepend_user_home (".anjuta/layout.xml");
+		/* filename = gnome_util_prepend_user_home (".anjuta/layout.xml");
 		g_message ("Layout = %s", filename);
-		if (!egg_dock_layout_load_from_file (window->layout_manager, filename)) {
+		if (!egg_dock_layout_load_from_file (window->layout_manager, filename)) */{
 			gchar *datadir;
 			datadir = anjuta_res_get_data_dir();
 			g_free (filename);

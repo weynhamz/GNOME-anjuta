@@ -1,4 +1,6 @@
 2004-05-11  Naba Kumar  <naba@gnome.org>
+	
+	* src/anjuta-app.c: Always load system layout for now.
 
 	* libanjuta/anjuta-shell.h, libanjuta/gnomefilelist.h: Fixed format.
 	
