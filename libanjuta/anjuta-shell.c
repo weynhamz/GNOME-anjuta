@@ -1,8 +1,7 @@
 #include <config.h>
-#include "anjuta-shell.h"
-
 #include <string.h>
 #include <gobject/gvaluecollector.h>
+#include "anjuta-shell.h"
 #include "anjuta-marshal.h"
 
 GQuark 
@@ -76,6 +75,15 @@ anjuta_shell_remove_widget (AnjutaShell *shell,
 	ANJUTA_SHELL_GET_IFACE (shell)->remove_widget (shell, widget, error);
 }
 
+/**
+ * anjuta_shell_present_widget:
+ * @shell: A #AnjutaShell interface
+ * @widget: The widget to present
+ * @error: Error propagation object
+ * 
+ * Make sure the widget is visible to user. If the widget is hidden, it will
+ * be shown. If it is not visible to user, it will be made visible.
+ */
 void
 anjuta_shell_present_widget (AnjutaShell *shell,
 							 GtkWidget *widget,
@@ -369,6 +377,15 @@ anjuta_shell_get_object (AnjutaShell *shell, const gchar *iface_name,
 	return ANJUTA_SHELL_GET_IFACE (shell)->get_object (shell, iface_name, error);
 }
 
+/**
+ * anjuta_shell_get_status:
+ * @shell: A #AnjutaShell interface
+ * @error: Error propagation object
+ *
+ * Retrieves the #AnjutaStatus object associated with the shell.
+ *
+ * Return value: The #AnjutaStatus object.
+ */
 AnjutaStatus*
 anjuta_shell_get_status (AnjutaShell *shell, GError **error)
 {
@@ -378,6 +395,15 @@ anjuta_shell_get_status (AnjutaShell *shell, GError **error)
 	return ANJUTA_SHELL_GET_IFACE (shell)->get_status (shell, error);
 }
 
+/**
+ * anjuta_shell_get_ui:
+ * @shell: A #AnjutaShell interface
+ * @error: Error propagation object
+ *
+ * Retrieves the #AnjutaUI object associated with the shell.
+ *
+ * Return value: The #AnjutaUI object.
+ */
 AnjutaUI*
 anjuta_shell_get_ui (AnjutaShell *shell, GError **error)
 {
@@ -387,6 +413,15 @@ anjuta_shell_get_ui (AnjutaShell *shell, GError **error)
 	return ANJUTA_SHELL_GET_IFACE (shell)->get_ui (shell, error);
 }
 
+/**
+ * anjuta_shell_get_preferences:
+ * @shell: A #AnjutaShell interface
+ * @error: Error propagation object
+ *
+ * Retrieves the #AnjutaPreferences object associated with the shell.
+ *
+ * Return value: The #AnjutaPreferences object.
+ */
 AnjutaPreferences*
 anjuta_shell_get_preferences (AnjutaShell *shell, GError **error)
 {

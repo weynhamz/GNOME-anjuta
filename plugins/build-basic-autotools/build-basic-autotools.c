@@ -377,7 +377,7 @@ on_build_mesg_format (IAnjutaMessageView *view, const gchar *one_line,
 	GList *node;
 	gchar dir[2048];
 	
-	g_return_if_fail (line != NULL);
+	g_return_if_fail (one_line != NULL);
 	
 	/* FIXME: What about translations in the following sscanf strings */
 	/* The translations should match that of 'make' program */

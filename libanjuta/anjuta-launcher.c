@@ -332,7 +332,7 @@ anjuta_launcher_send_stdin (AnjutaLauncher *launcher, const gchar * input_str)
 void
 anjuta_launcher_send_ptyin (AnjutaLauncher *launcher, const gchar * input_str)
 {
-	int bytes_written;
+	gsize bytes_written;
 	GError *err = NULL;
 	
 	if (!input_str || strlen (input_str) == 0) return;
@@ -612,7 +612,7 @@ static gboolean
 anjuta_launcher_scan_output (GIOChannel *channel, GIOCondition condition,
 							 AnjutaLauncher *launcher)
 {
-	int n;
+	gsize n;
 	gchar buffer[FILE_BUFFER_SIZE];
 	gboolean ret = TRUE;
 	
@@ -656,7 +656,7 @@ static gboolean
 anjuta_launcher_scan_error (GIOChannel *channel, GIOCondition condition,
 							AnjutaLauncher *launcher)
 {
-	int n;
+	gsize n;
 	gchar buffer[FILE_BUFFER_SIZE];
 	gboolean ret = TRUE;
 	
@@ -700,7 +700,7 @@ static gboolean
 anjuta_launcher_scan_pty (GIOChannel *channel, GIOCondition condition,
 						  AnjutaLauncher *launcher)
 {
-	int n;
+	gsize n;
 	gchar buffer[FILE_BUFFER_SIZE];
 	gboolean ret = TRUE;
 	

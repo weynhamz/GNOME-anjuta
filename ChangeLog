@@ -1,4 +1,15 @@
 2005-01-17  Naba Kumar  <naba@gnome.org>
+
+	* libanjuta/anjuta-plugin-description.c,
+	libanjuta/anjuta-shell.c: Updated documentations.
+
+	Patch from: Hamish Mackenzie  <hamish@firestream.co.uk>
+	
+	* libanjuta/anjuta-launcher.c,
+	plugins/build-basic-autotools/build-basic-autotools.c: Fixed errors in
+	x86_64 systems.
+
+2005-01-17  Naba Kumar  <naba@gnome.org>
 	
 	* plugins/project-wizard/templates/anjuta-plugin.wiz,
 	plugins/project-wizard/templates/gtk.wiz,

@@ -122,7 +122,8 @@ anjuta_plugin_description_section_free (AnjutaPluginDescriptionSection *section)
   g_free (section->lines);
 }
 
-/* anjuta_plugin_description_free:
+/**
+ * anjuta_plugin_description_free:
  * @df: an #AnjutaPluginDescription object
  *
  * Frees the #AnjutaPluginDescription instance.
@@ -549,7 +550,8 @@ report_error (AnjutaPluginDescriptionParser *parser,
     }
 }
 
-/* anjuta_plugin_description_new_from_string:
+/**
+ * anjuta_plugin_description_new_from_string:
  * @data: The data to parse. The format of the data is .ini style.
  *
  * Parses the given plugin description data (usally read from the plugin
@@ -593,7 +595,8 @@ anjuta_plugin_description_new_from_string (char *data, GError **error)
   return parser.df;
 }
 
-/* anjuta_plugin_description_to_string:
+/**
+ * anjuta_plugin_description_to_string:
  * @df: an #AnjutaPluginDescription object.
  *
  * Converts the description detains into string format, usually for
@@ -705,7 +708,8 @@ lookup_line (AnjutaPluginDescription        *df,
   return NULL;
 }
 
-/* anjuta_plugin_description_get_raw:
+/**
+ * anjuta_plugin_description_get_raw:
  * @df: an #AnjutaPluginDescription object.
  * @section_name: Name of the section.
  * @keyname: Name of the key.
@@ -746,7 +750,8 @@ anjuta_plugin_description_get_raw (AnjutaPluginDescription  *df,
   return TRUE;
 }
 
-/* anjuta_plugin_description_foreach_section:
+/**
+ * anjuta_plugin_description_foreach_section:
  * @df: an #AnjutaPluginDescription object.
  * @func: Callback function.
  * @user_data: User data to pass to @func.
@@ -770,7 +775,8 @@ anjuta_plugin_description_foreach_section (AnjutaPluginDescription            *d
   return;
 }
 
-/* anjuta_plugin_description_foreach_key:
+/**
+ * anjuta_plugin_description_foreach_key:
  * @df: an #AnjutaPluginDescription object.
  * @section_name: Name of the section.
  * @include_localized: Whether each localized key should be called separately.
@@ -840,7 +846,8 @@ calculate_locale (AnjutaPluginDescription   *df)
     }
 }
 
-/* anjuta_plugin_description_get_locale_string:
+/**
+ * anjuta_plugin_description_get_locale_string:
  * @df: an #AnjutaPluginDescription object.
  * @section: Section name.
  * @keyname: Key name.
@@ -880,7 +887,8 @@ anjuta_plugin_description_get_locale_string  (AnjutaPluginDescription  *df,
   return anjuta_plugin_description_get_raw (df, section, keyname, NULL, val);
 }
 
-/* anjuta_plugin_description_get_string:
+/**
+ * anjuta_plugin_description_get_string:
  * @df: an #AnjutaPluginDescription object.
  * @section: Section name.
  * @keyname: Key name.
@@ -899,7 +907,8 @@ anjuta_plugin_description_get_string (AnjutaPluginDescription   *df,
   return anjuta_plugin_description_get_raw (df, section, keyname, NULL, val);
 }
 
-/* anjuta_plugin_description_get_integer:
+/**
+ * anjuta_plugin_description_get_integer:
  * @df: an #AnjutaPluginDescription object.
  * @section: Section name.
  * @keyname: Key name.
