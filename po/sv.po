@@ -8,8 +8,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
-"POT-Creation-Date: 2001-12-02 14:13+0100\n"
-"PO-Revision-Date: 2001-12-02 14:13+0100\n"
+"POT-Creation-Date: 2001-12-12 01:26+0100\n"
+"PO-Revision-Date: 2001-12-12 01:26+0100\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -504,7 +504,7 @@ msgstr "Den körbara filen är aktuell. Ombyggnad behövs inte."
 msgid "I do not really know how to build this file."
 msgstr "Jag vet egentligen inte hur denna fil ska byggas."
 
-#: src/build_file.c:107 src/messages.c:517 src/preferences_gui.c:174
+#: src/build_file.c:107 src/messages.c:538 src/preferences_gui.c:174
 #: src/text_editor_gui.c:246 src/toolbar.c:474
 msgid "Build"
 msgstr "Bygge"
@@ -1486,7 +1486,7 @@ msgstr "Strängen \"%s\" hittades inte i den markerade texten"
 msgid "The string \"%s\" was not found from the current location"
 msgstr "Strängen \"%s\" hittades inte från den aktuella platsen"
 
-#: src/find_text.c:251 src/messages.c:519 src/text_editor_gui.c:187
+#: src/find_text.c:251 src/messages.c:540 src/text_editor_gui.c:187
 #: src/toolbar.c:231
 msgid "Find"
 msgstr "Sök"
@@ -3331,51 +3331,59 @@ msgstr ""
 msgid "Cannot launch gnome-help-browser"
 msgstr "Kan inte starta gnome-help-browser"
 
-#: src/messages.c:253
+#: src/messages.c:268
 msgid "Unknown type in Message window\n"
 msgstr "Okänd typ i meddelandefönster\n"
 
-#: src/messages.c:504
+#: src/messages.c:524
 msgid "Build messages"
 msgstr "Byggmeddelanden"
 
-#: src/messages.c:505
+#: src/messages.c:525
 msgid "Debug messages"
 msgstr "Felsökningsmeddelanden"
 
-#: src/messages.c:506
+#: src/messages.c:526
 msgid "Find messages"
 msgstr "Sökmeddelanden"
 
-#: src/messages.c:507
+#: src/messages.c:527
 msgid "CVS messages"
 msgstr "CVS-meddelanden"
 
-#: src/messages.c:508
+#: src/messages.c:528
 msgid "Debug Locals Listing"
 msgstr "Felsök lokallistning"
 
-#: src/messages.c:518 src/text_editor_menu.c:270 src/toolbar.c:511
+#: src/messages.c:529
+msgid "Embedded Terminal"
+msgstr "Inbyggd terminal"
+
+#: src/messages.c:539 src/text_editor_menu.c:270 src/toolbar.c:511
 msgid "Debug"
 msgstr "Felsök"
 
-#: src/messages.c:520
+#: src/messages.c:541
 msgid "CVS"
 msgstr "CVS"
 
-#: src/messages.c:521
+#: src/messages.c:542
 msgid "Locals"
 msgstr "Lokala variabler"
 
-#: src/messages.c:592 src/toolbar.c:294
+#: src/messages.c:543
+msgid "Term"
+msgstr "Term"
+
+#: src/messages.c:690 src/toolbar.c:294
 msgid "Messages"
 msgstr "Meddelanden"
 
-#: src/messages.c:628
+#: src/messages.c:726
 msgid "Dock window"
 msgstr "Docka fönster"
 
-#: src/messages.c:637
+#: src/messages.c:735
 msgid "Dock"
 msgstr "Docka"
 
@@ -4953,11 +4961,11 @@ msgstr "Inspektera/Evaluera uttryck"
 msgid "Add To Watch"
 msgstr "Lägg till i bevakare"
 
-#: src/about.c:64
+#: src/about.c:65
 msgid "Copyright (c) 1999-2001 Naba Kumar"
 msgstr "Copyright © 1999-2001 Naba Kumar"
 
-#: src/about.c:75
+#: src/about.c:76
 msgid "Anjuta Home Site"
 msgstr "Hemsida för Anjuta"
 
@@ -5059,11 +5067,11 @@ msgstr "Anjuta: %s(Osparad)"
 msgid "Anjuta: No file"
 msgstr "Anjuta: Ingen fil"
 
-#: src/anjuta.c:1142
+#: src/anjuta.c:1147
 msgid "ERROR: "
 msgstr "FEL: "
 
-#: src/anjuta.c:1159
+#: src/anjuta.c:1164
 msgid ""
 "\n"
 "System: "
@@ -5071,7 +5079,7 @@ msgstr ""
 "\n"
 "System: "
 
-#: src/anjuta.c:1393
+#: src/anjuta.c:1398
 #, c-format
 msgid ""
 "Not yet implemented.\n"
@@ -5080,11 +5088,11 @@ msgstr ""
 "Inte implementerad än.\n"
 "Infoga kod vid \"%s:%u\""
 
-#: src/anjuta.c:1609
+#: src/anjuta.c:1614
 msgid "Activate this to select this window"
 msgstr "Aktivera detta för att välja detta fönster"
 
-#: src/anjuta.c:1656
+#: src/anjuta.c:1661
 #, c-format
 msgid ""
 "You do not have \"%s\" installed in your box.\n"
@@ -5093,19 +5101,19 @@ msgstr ""
 "Du har inte \"%s\" installerat på din maskin.\n"
 "Installera det och starta sedan om Anjuta."
 
-#: src/anjuta.c:1682 src/anjuta.c:1717
+#: src/anjuta.c:1687 src/anjuta.c:1722
 msgid "None"
 msgstr "Ingen"
 
-#: src/anjuta.c:1699
+#: src/anjuta.c:1704
 msgid "OVR"
 msgstr "OVR"
 
-#: src/anjuta.c:1703 src/anjuta.c:1709
+#: src/anjuta.c:1708 src/anjuta.c:1714
 msgid "INS"
 msgstr "INS"
 
-#: src/anjuta.c:1720
+#: src/anjuta.c:1725
 #, c-format
 msgid ""
 "  Project: %s       Zoom: %d       Line: %04d       Col: %03d       %s       "
@@ -5114,27 +5122,27 @@ msgstr ""
 "  Projekt: %s       Zoom: %d       Rad: %04d       Kolumn: %03d      %s      "
 "Jobb: %s"
 
-#: src/anjuta.c:1932 src/anjuta.c:1935
+#: src/anjuta.c:1937 src/anjuta.c:1940
 #, c-format
 msgid "Unable to Load Plug in Module %s. Err: %s"
 msgstr "Kan inte läsa in insticksmodulen %s. Fel: %s"
 
-#: src/anjuta.c:1938
+#: src/anjuta.c:1943
 #, c-format
 msgid "Plug in Module protocol unknown %s Err:%s"
 msgstr "Protokoll för insticksmodul okänt %s Fel:%s"
 
-#: src/anjuta.c:1941
+#: src/anjuta.c:1946
 #, c-format
 msgid "Unable to Start Plug in Module %s"
 msgstr "Kan inte starta insticksmodulen %s"
 
-#: src/anjuta.c:1944
+#: src/anjuta.c:1949
 #, c-format
 msgid "Bad Parameters to Plug in %s. Err: %s"
 msgstr "Felaktiga parametrar till insticksmodulen %s. Fel: %s"
 
-#: src/anjuta.c:1952
+#: src/anjuta.c:1957
 #, c-format
 msgid ""
 "Unable to load plugin %s.\n"
@@ -5143,7 +5151,7 @@ msgstr ""
 "Kan inte läsa in insticksmodulen %s.\n"
 "Fel %s"
 
-#: src/anjuta.c:2022
+#: src/anjuta.c:2027
 msgid "Out of Memory scanning for plugins."
 msgstr "Slut på minne vid genomsökning efter insticksmoduler"
 
