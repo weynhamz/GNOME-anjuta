@@ -63,7 +63,8 @@
 
 static void text_editor_finalize (GObject *obj);
 static void text_editor_dispose (GObject *obj);
-static void text_editor_set_hilite_type_one (TextEditor * te, AnEditorID editor);
+static void text_editor_hilite_one (TextEditor * te, AnEditorID editor,
+									gboolean force);
 
 static GtkVBoxClass *parent_class;
 
@@ -77,7 +78,7 @@ text_editor_instance_init (TextEditor *te)
 	
 	te->modified_time = time (NULL);
 	te->preferences = NULL;
-	te->force_hilite = TE_LEXER_AUTOMATIC;
+	te->force_hilite = NULL;
 	te->freeze_count = 0;
 	te->current_line = 0;
 	te->popup_menu = NULL;
@@ -217,7 +218,7 @@ text_editor_add_view (TextEditor *te)
 				G_CALLBACK (on_text_editor_scintilla_focus_in), te);
 	
 	initialize_markers (te, scintilla);
-	text_editor_set_hilite_type_one (te, editor_id);
+	text_editor_hilite_one (te, editor_id, FALSE);
 	text_editor_set_line_number_width (te);
 	
 	if (current_line)
@@ -384,6 +385,8 @@ text_editor_finalize (GObject *obj)
 		g_free (te->uri);
 	if (te->encoding)
 		g_free (te->encoding);
+	if (te->force_hilite)
+		g_free (te->force_hilite);
 	
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (G_OBJECT(te)));
 }
@@ -402,16 +405,32 @@ text_editor_thaw (TextEditor *te)
 		te->freeze_count = 0;
 }
 
-static void
-text_editor_set_hilite_type_one (TextEditor * te, AnEditorID editor_id)
+void
+text_editor_set_hilite_type (TextEditor * te, const gchar *file_extension)
 {
-	if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (te->preferences),
+	g_free (te->force_hilite);
+	if (file_extension)
+		te->force_hilite = g_strdup (file_extension);
+	else
+		te->force_hilite = NULL;
+}
+
+static void
+text_editor_hilite_one (TextEditor * te, AnEditorID editor_id,
+						gboolean override_by_pref)
+{
+	/* If syntax highlighting is disabled ... */
+	if (override_by_pref &&
+		anjuta_preferences_get_int (ANJUTA_PREFERENCES (te->preferences),
 									DISABLE_SYNTAX_HILIGHTING))
-		te->force_hilite = TE_LEXER_NONE;
-	else if (te->force_hilite == TE_LEXER_NONE)
-		te->force_hilite = TE_LEXER_AUTOMATIC;
-	aneditor_command (editor_id, ANE_SETLANGUAGE, te->force_hilite, 0);
-	if (te->uri)
+	{
+		aneditor_command (editor_id, ANE_SETHILITE, (guint) "plain.txt", 0);
+	}
+	else if (te->force_hilite)
+	{
+		aneditor_command (editor_id, ANE_SETHILITE, (guint) te->force_hilite, 0);
+	}
+	else if (te->uri)
 	{
 		gchar *basename;
 		basename = g_path_get_basename (te->uri);
@@ -420,7 +439,7 @@ text_editor_set_hilite_type_one (TextEditor * te, AnEditorID editor_id)
 	}
 	else if (te->filename)
 	{
-		aneditor_command (editor_id, ANE_SETHILITE, (guint)te->filename, 0);
+		aneditor_command (editor_id, ANE_SETHILITE, (guint) te->filename, 0);
 	}
 	else
 	{
@@ -429,14 +448,15 @@ text_editor_set_hilite_type_one (TextEditor * te, AnEditorID editor_id)
 }
 
 void
-text_editor_set_hilite_type (TextEditor * te)
+text_editor_hilite (TextEditor * te, gboolean override_by_pref)
 {
 	GList *node;
 	
 	node = te->views;
 	while (node)
 	{
-		text_editor_set_hilite_type_one (te, GPOINTER_TO_INT(node->data));
+		text_editor_hilite_one (te, GPOINTER_TO_INT (node->data),
+								override_by_pref);
 		node = g_list_next (node);
 	}
 }
@@ -1312,7 +1332,7 @@ text_editor_load_file (TextEditor * te)
 							SCI_SETSAVEPOINT, 0, 0);
 	scintilla_send_message (SCINTILLA (te->scintilla),
 							SCI_EMPTYUNDOBUFFER, 0, 0);
-	text_editor_set_hilite_type (te);
+	text_editor_set_hilite_type (te, NULL);
 	if (anjuta_preferences_get_int (te->preferences, FOLD_ON_OPEN))
 	{
 		aneditor_command (te->editor_id, ANE_CLOSE_FOLDALL, 0, 0);
@@ -1641,7 +1661,7 @@ text_editor_autoformat (TextEditor * te)
 	}
 	else
 	{
-		text_editor_set_hilite_type (te);
+		text_editor_hilite (te, FALSE);
 		gtk_widget_queue_draw (te->scintilla);
 		// FIXME: anjuta_status (_("Auto formatting completed"));
 	}
@@ -2046,13 +2066,24 @@ itext_editor_insert (IAnjutaEditor *editor, gint pos, const gchar *txt,
 	else
 		text_to_insert = g_strdup (txt);
 	
-	if (pos >= 0)
-		aneditor_command (TEXT_EDITOR(editor)->editor_id, ANE_INSERTTEXT,
-						  pos, (long)text_to_insert);
+	aneditor_command (TEXT_EDITOR(editor)->editor_id, ANE_INSERTTEXT,
+					  pos, (long)text_to_insert);
+	g_free (text_to_insert);
+}
+
+static void
+itext_editor_append (IAnjutaEditor *editor, const gchar *txt,
+					 gint length, GError **e)
+{
+	gchar *text_to_insert;
+	if (length >= 0)
+		text_to_insert = g_strndup (txt, length);
 	else
-		scintilla_send_message (SCINTILLA (TEXT_EDITOR (editor)->scintilla),
-								SCI_APPENDTEXT, strlen(text_to_insert),
-								(long)text_to_insert);
+		text_to_insert = g_strdup (txt);
+	
+	scintilla_send_message (SCINTILLA (TEXT_EDITOR (editor)->scintilla),
+							SCI_APPENDTEXT, strlen(text_to_insert),
+							(long)text_to_insert);
 	g_free (text_to_insert);
 }
 
@@ -2075,6 +2106,7 @@ itext_editor_iface_init (IAnjutaEditorIface *iface)
 	iface->get_length = itext_editor_get_length;
 	iface->get_current_word = itext_editor_get_current_word;
 	iface->insert = itext_editor_insert;
+	iface->append = itext_editor_append;
 	iface->get_filename = itext_editor_get_filename;
 }
 

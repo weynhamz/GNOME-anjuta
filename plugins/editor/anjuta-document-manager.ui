@@ -117,34 +117,7 @@
 				<menuitem name="IndentationDecrease" action="ActionFormatIndentationDecrease" />
 				<menuitem name="AutoformatSettings" action="ActionFormatSettings" />
 				<separator name="separator1" />
-				<menu name="MenuFormatSyle" action="ActionMenuFormatStyle">
-					<menuitem name="Automatic" action="ActionFormatHighlightStyleAutomatic" />
-					<menuitem name="None" action="ActionFormatHighlightStyleNone" />
-					<menuitem name="Cpp" action="ActionFormatHighlightStyleCpp" />
-					<menuitem name="HTML" action="ActionFormatHighlightStyleHtml" />
-					<menuitem name="XML" action="ActionFormatHighlightStyleXml" />
-					<menuitem name="JS" action="ActionFormatHighlightStyleJs" />
-					<menuitem name="WScript" action="ActionFormatHighlightStyleWScript" />
-					<menuitem name="Makefile" action="ActionFormatHighlightStyleMakefile" />
-					<menuitem name="Java" action="ActionFormatHighlightStyleJava" />
-					<menuitem name="Lua" action="ActionFormatHighlightStyleLua" />
-					<menuitem name="Python" action="ActionFormatHighlightStylePython" />
-					<menuitem name="Perl" action="ActionFormatHighlightStylePerl" />
-					<menuitem name="SQL" action="ActionFormatHighlightStyleSQL" />
-					<menuitem name="PLSQL" action="ActionFormatHighlightStylePLSQL" />
-					<menuitem name="PHP" action="ActionFormatHighlightStylePHP" />
-					<menuitem name="Latex" action="ActionFormatHighlightStyleLatex" />
-					<menuitem name="Diff" action="ActionFormatHighlightStyleDiff" />
-					<menuitem name="Pascal" action="ActionFormatHighlightStylePascal" />
-					<menuitem name="Lexcode" action="ActionFormatHighlightStyleXcode" />
-					<menuitem name="Props" action="ActionFormatHighlightStyleProps" />
-					<menuitem name="Conf" action="ActionFormatHighlightStyleConf" />
-					<menuitem name="Ada" action="ActionFormatHighlightStyleAda" />
-					<menuitem name="Baan" action="ActionFormatHighlightStyleBaan" />
-					<menuitem name="Lisp" action="ActionFormatHighlightStyleLisp" />
-					<menuitem name="Ruby" action="ActionFormatHighlightStyleRuby" />
-					<menuitem name="Matlab" action="ActionFormatHighlightStyleMatlab" />
-				</menu>
+				<menuitem name="MenuFormatStyle" action="ActionMenuFormatStyle"/>
 				<separator name="separator2" />
 				<menuitem name="FoldCloseAll" action="ActionFormatFoldCloseAll" />
 				<menuitem name="FoldOpenAll" action="ActionFormatFoldOpenAll" />

@@ -34,8 +34,10 @@ on_menu_insert_macro (GtkAction * action, MacroPlugin * plugin)
 	
 	GtkWidget* window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 	GtkWidget* entry = gtk_entry_new_with_max_length(1);
-	GtkWidget* label = gtk_label_new_with_mnemonic(_("Press macro shortcut"));
-	GtkWidget* hbox = gtk_hbox_new(FALSE, 0);	
+	GtkWidget* label = gtk_label_new_with_mnemonic(_("Press macro shortcut ..."));
+	GtkWidget* hbox = gtk_hbox_new (FALSE, 0);	
+	
+	gtk_container_set_border_width (GTK_CONTAINER (hbox), 10);
 	
 	gtk_widget_set_size_request(entry, 0, 0);
 	
@@ -47,7 +49,7 @@ on_menu_insert_macro (GtkAction * action, MacroPlugin * plugin)
 	gtk_container_add(GTK_CONTAINER(window), hbox);
 	gtk_box_pack_start_defaults(GTK_BOX(hbox), label);
 	gtk_box_pack_end_defaults(GTK_BOX(hbox), entry);
-	g_signal_connect (G_OBJECT (entry), "key-press-event",
+	g_signal_connect (G_OBJECT (window), "key-press-event",
 			  G_CALLBACK (on_shortcut_pressed), plugin);
 	gtk_widget_grab_focus (entry);
 	
@@ -76,17 +78,15 @@ void on_menu_manage_macro (GtkAction * action, MacroPlugin * plugin)
 	gtk_widget_show (plugin->macro_dialog);
 }
 
-
 /* Shortcut handling */
 static gboolean
-on_shortcut_pressed (GtkWidget * entry, GdkEventKey * event,
-		     MacroPlugin * plugin)
+on_shortcut_pressed (GtkWidget * window, GdkEventKey * event,
+					 MacroPlugin * plugin)
 {
 	gchar key;
 	GtkTreeIter parent;
 	GtkTreeIter cur_cat;
 	GtkTreeModel *model = macro_db_get_model (plugin->macro_db);
-	GtkWidget* window = gtk_widget_get_parent(gtk_widget_get_parent(entry));
 	/* Plase note that this implementation is deprecated but
 	 * I could not figure out how to do this with GtkIMContext as 
 	 * proposed by the gtk docs */

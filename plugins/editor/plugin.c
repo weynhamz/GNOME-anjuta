@@ -344,86 +344,7 @@ static GtkActionEntry actions_zoom[] = {
 };
 
 static GtkActionEntry actions_style[] = {
-  { "ActionMenuFormatStyle", N_("Force _Highlight Style"), NULL, NULL, NULL, NULL},
-  { "ActionFormatHighlightStyleAutomatic",
-	N_("Automatic"), GTK_STOCK_EXECUTE, NULL,
-	N_("Automatically determine the highlight style"),
-    G_CALLBACK (on_force_hilite1_auto_activate)},
-  { "ActionFormatHighlightStyleNone",N_("No Highlight style"), NULL, NULL,
-	N_("Remove the current highlight style"),
-    G_CALLBACK (on_force_hilite1_none_activate)},
-  { "ActionFormatHighlightStyleCpp",N_("C and C++"), NULL, NULL,
-	N_("Force the highlight style to C and C++"),
-    G_CALLBACK (on_force_hilite1_cpp_activate)},
-  { "ActionFormatHighlightStyleHtml", N_("HTML"), NULL, NULL,
-	N_("Force the highlight style to HTML"),
-    G_CALLBACK (on_force_hilite1_html_activate)},
-  { "ActionFormatHighlightStyleXml", N_("XML"), NULL, NULL,
-	N_("Force the highlight style to XML"),
-    G_CALLBACK (on_force_hilite1_xml_activate)},
-  { "ActionFormatHighlightStyleJs", N_("Javascript"), NULL, NULL,
-	N_("Force the highlight style to Javascript"),
-    G_CALLBACK (on_force_hilite1_js_activate)},
-  { "ActionFormatHighlightStyleWScript", N_("WScript"), NULL, NULL,
-	N_("Force the highlight style to WScript"),
-    G_CALLBACK (on_force_hilite1_wscript_activate)},
-  { "ActionFormatHighlightStyleMakefile", N_("Makefile"), NULL, NULL,
-	N_("Force the highlight style to Makefile"),
-    G_CALLBACK (on_force_hilite1_make_activate)},
-  { "ActionFormatHighlightStyleJava", N_("Java"), NULL, NULL,
-	N_("Force the highlight type to Java"),
-    G_CALLBACK (on_force_hilite1_java_activate)},
-  { "ActionFormatHighlightStyleLua", N_("LUA"), NULL, NULL,
-	N_("Force the highlight style to LUA"),
-    G_CALLBACK (on_force_hilite1_lua_activate)},
-  { "ActionFormatHighlightStylePython", N_("Python"), NULL, NULL,
-	N_("Force the highlight style to Python"),
-    G_CALLBACK (on_force_hilite1_python_activate)},
-  { "ActionFormatHighlightStylePerl", N_("Perl"), NULL, NULL,
-	N_("Force the highlight style to Perl"),
-    G_CALLBACK (on_force_hilite1_perl_activate)},
-  { "ActionFormatHighlightStyleSQL", N_("SQL"), NULL, NULL,
-	N_("Force the highlight style to SQL"),
-    G_CALLBACK (on_force_hilite1_sql_activate)},
-  { "ActionFormatHighlightStylePLSQL", N_("PL/SQL"), NULL, NULL,
-	N_("Force the highlight style to PL/SQL"),
-    G_CALLBACK (on_force_hilite1_plsql_activate)},
-  { "ActionFormatHighlightStylePHP", N_("PHP"), NULL, NULL,
-	N_("Force the highlight style to PHP"),
-    G_CALLBACK (on_force_hilite1_php_activate)},
-  { "ActionFormatHighlightStyleLatex", N_("LaTex"), NULL, NULL,
-	N_("Force the highlight style to LaTex"),
-    G_CALLBACK (on_force_hilite1_latex_activate)},
-  { "ActionFormatHighlightStyleDiff", N_("Diff"), NULL, NULL,
-	N_("Force the highlight style to Diff"),
-    G_CALLBACK (on_force_hilite1_diff_activate)},
-  { "ActionFormatHighlightStylePascal", N_("Pascal"), NULL, NULL,
-	N_("Force the highlight style to Pascal"),
-    G_CALLBACK (on_force_hilite1_pascal_activate)},
-  { "ActionFormatHighlightStyleXcode", N_("Xcode"), NULL, NULL,
-	N_("Force the highlight style to Xcode"),
-    G_CALLBACK (on_force_hilite1_xcode_activate)},
-  { "ActionFormatHighlightStyleProps", N_("Prj/Properties"), NULL, NULL,
-	N_("Force the highlight style to project/properties files"),
-    G_CALLBACK (on_force_hilite1_props_activate)},
-  { "ActionFormatHighlightStyleConf", N_("Conf"), NULL, NULL,
-	N_("Force the highlight style to UNIX conf files"),
-    G_CALLBACK (on_force_hilite1_conf_activate)},
-  { "ActionFormatHighlightStyleAda", N_("Ada"), NULL, NULL,
-	N_("Force the highlight style to Ada"),
-    G_CALLBACK (on_force_hilite1_ada_activate)},
-  { "ActionFormatHighlightStyleBaan", N_("Baan"), NULL, NULL,
-	N_("Force the highlight style to Baan"),
-    G_CALLBACK (on_force_hilite1_baan_activate)},
-  { "ActionFormatHighlightStyleLisp", N_("Lisp"), NULL, NULL,
-	N_("Force the highlight style to Lisp"),
-    G_CALLBACK (on_force_hilite1_lisp_activate)},
-  { "ActionFormatHighlightStyleRuby", N_("Ruby"), NULL, NULL,
-	N_("Force the highlight style to Ruby"),
-    G_CALLBACK (on_force_hilite1_ruby_activate)},
-  { "ActionFormatHighlightStyleMatlab", N_("Matlab"), NULL, NULL,
-	N_("Force the highlight style to Matlab"),
-    G_CALLBACK (on_force_hilite1_matlab_activate)},
+  { "ActionMenuFormatStyle", N_("Force _Highlight Style"), NULL, NULL, NULL, NULL}
 };
 
 static GtkActionEntry actions_format[] = {
@@ -1000,6 +921,66 @@ prefs_finalize (EditorPlugin *ep)
 	ep->gconf_notify_ids = NULL;
 }
 
+static GtkWidget*
+create_highlight_submenu (EditorPlugin *plugin)
+{
+	gchar *menu_entries;
+	GtkWidget *submenu;
+	gchar **strv;
+	gchar **token;
+	GtkWidget *menuitem;
+	
+	submenu = gtk_menu_new ();
+	
+	/* Automatic highlight menu */
+	menuitem = gtk_menu_item_new_with_mnemonic (_("Automatic"));
+	g_signal_connect (G_OBJECT (menuitem), "activate",
+					  G_CALLBACK (on_force_hilite_activate),
+					  plugin);
+	gtk_menu_shell_append (GTK_MENU_SHELL (submenu), menuitem);
+
+	menu_entries = prop_get (text_editor_get_props (), "menu.language");
+	g_return_val_if_fail (menu_entries != NULL, NULL);
+	strv = g_strsplit (menu_entries, "|", 100);
+	token = strv;
+	while (*token)
+	{
+		gchar *iter;
+		gchar *name, *extension;
+		
+		name = *token++;
+		if (!name)
+			break;
+		
+		extension = *token++;
+		if (!extension)
+			break;
+		token++;
+		
+		if (name[0] == '#')
+			continue;
+		
+		iter = name;
+		while (*iter)
+		{
+			if (*iter == '&')
+				*iter = '_';
+			iter++;
+		}
+		menuitem = gtk_menu_item_new_with_mnemonic (name);
+		g_object_set_data_full (G_OBJECT (menuitem), "file_extension",
+								g_strconcat ("file.", extension, NULL),
+								(GDestroyNotify)g_free);
+		g_signal_connect (G_OBJECT (menuitem), "activate",
+						  G_CALLBACK (on_force_hilite_activate),
+						  plugin);
+		gtk_menu_shell_append (GTK_MENU_SHELL (submenu), menuitem);
+	}
+	g_strfreev (strv);
+	gtk_widget_show_all (submenu);
+	return submenu;
+}
+
 static gboolean
 activate_plugin (AnjutaPlugin *plugin)
 {
@@ -1011,6 +992,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	GladeXML *gxml;
 	gint i;
 	AnjutaStatus *status;
+	GtkWidget *highlight_submenu, *highlight_menu;
 	static gboolean initialized = FALSE;
 	
 	DEBUG_PRINT ("EditorPlugin: Activating Editor plugin ...");
@@ -1117,7 +1099,7 @@ activate_plugin (AnjutaPlugin *plugin)
 						   "tooltip", _("Incremental search"),
 						   "stock_id", GTK_STOCK_JUMP_TO,
 						   "width", 150,
-							NULL);
+						   NULL);
 	g_assert (EGG_IS_ENTRY_ACTION (action));
 	g_signal_connect (action, "activate",
 					  G_CALLBACK (on_toolbar_find_clicked), plugin);
@@ -1139,6 +1121,13 @@ activate_plugin (AnjutaPlugin *plugin)
 							 "AnjutaDocumentManager", _("Documents"),
 							 "editor-plugin-icon",
 							 ANJUTA_SHELL_PLACEMENT_CENTER, NULL); 
+	/* Create Highlight submenu */
+	highlight_submenu = 
+		create_highlight_submenu (editor_plugin);
+	highlight_menu = gtk_ui_manager_get_widget (GTK_UI_MANAGER (ui),
+				"/MenuMain/PlaceHolderFormatMenus/MenuFormat/MenuFormatStyle");
+	gtk_menu_item_set_submenu (GTK_MENU_ITEM (highlight_menu),
+							   highlight_submenu);
 	ui_states_init(plugin);
 	ui_give_shorter_names (plugin);
 	update_editor_ui (plugin, NULL);

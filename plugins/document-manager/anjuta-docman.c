@@ -245,7 +245,7 @@ save_as_real (AnjutaDocman *docman)
 		}
 		else
 		{
-			text_editor_set_hilite_type(te);
+			text_editor_hilite (te, FALSE);
 		}
 	}
 }

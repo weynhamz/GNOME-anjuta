@@ -874,151 +874,23 @@ on_zoom_out_text_activate (GtkAction * action, gpointer user_data)
 	on_zoom_text_activate (action, "--", user_data);
 }
 
-static void
-on_force_hilite1_activate (GtkAction * action, gint highlight_type,
-						   gpointer user_data)
+void
+on_force_hilite_activate (GtkWidget *menuitem, gpointer user_data)
 {
 	TextEditor *te;
 	AnjutaDocman *docman;
 	EditorPlugin *plugin;
+	const gchar *file_extension;
 	
 	plugin = (EditorPlugin *) user_data;
 	docman = ANJUTA_DOCMAN (plugin->docman);
 	te = anjuta_docman_get_current_editor (docman);
+	file_extension = g_object_get_data (G_OBJECT (menuitem), "file_extension");
+	
 	if (te == NULL)
 		return;
-	te->force_hilite = (gint) highlight_type;
-	text_editor_set_hilite_type (te);
-}
-
-void on_force_hilite1_auto_activate (GtkAction * action, gpointer user_data)
-{
-	on_force_hilite1_activate (action, TE_LEXER_AUTOMATIC, user_data);
-}
-
-void on_force_hilite1_none_activate (GtkAction * action, gpointer user_data)
-{
-	on_force_hilite1_activate (action, TE_LEXER_NONE, user_data);
-}
-
-void on_force_hilite1_cpp_activate (GtkAction * action, gpointer user_data)
-{
-	on_force_hilite1_activate (action, TE_LEXER_CPP, user_data);
-}
-
-void on_force_hilite1_html_activate (GtkAction * action, gpointer user_data)
-{
-	on_force_hilite1_activate (action, TE_LEXER_HTML, user_data);
-}
-
-void on_force_hilite1_xml_activate (GtkAction * action, gpointer user_data)
-{
-	on_force_hilite1_activate (action, TE_LEXER_XML, user_data);
-}
-
-void on_force_hilite1_js_activate (GtkAction * action, gpointer user_data)
-{
-	on_force_hilite1_activate (action, TE_LEXER_JS, user_data);
-}
-
-void on_force_hilite1_wscript_activate (GtkAction * action, gpointer user_data)
-{
-	on_force_hilite1_activate (action, TE_LEXER_WSCRIPT, user_data);
-}
-
-void on_force_hilite1_make_activate (GtkAction * action, gpointer user_data)
-{
-	on_force_hilite1_activate (action, TE_LEXER_MAKE, user_data);
-}
-
-void on_force_hilite1_java_activate (GtkAction * action, gpointer user_data)
-{
-	on_force_hilite1_activate (action, TE_LEXER_JAVA, user_data);
-}
-
-void on_force_hilite1_lua_activate (GtkAction * action, gpointer user_data)
-{
-	on_force_hilite1_activate (action, TE_LEXER_LUA, user_data);
-}
-
-void on_force_hilite1_python_activate (GtkAction * action, gpointer user_data)
-{
-	on_force_hilite1_activate (action, TE_LEXER_PYTHON, user_data);
-}
-
-void on_force_hilite1_perl_activate (GtkAction * action, gpointer user_data)
-{
-	on_force_hilite1_activate (action, TE_LEXER_PERL, user_data);
-}
-
-void on_force_hilite1_sql_activate (GtkAction * action, gpointer user_data)
-{
-	on_force_hilite1_activate (action, TE_LEXER_SQL, user_data);
-}
-
-void on_force_hilite1_plsql_activate (GtkAction * action, gpointer user_data)
-{
-	on_force_hilite1_activate (action, TE_LEXER_PLSQL, user_data);
-}
-
-void on_force_hilite1_php_activate (GtkAction * action, gpointer user_data)
-{
-	on_force_hilite1_activate (action, TE_LEXER_PHP, user_data);
-}
-
-void on_force_hilite1_latex_activate (GtkAction * action, gpointer user_data)
-{
-	on_force_hilite1_activate (action, TE_LEXER_LATEX, user_data);
-}
-
-void on_force_hilite1_diff_activate (GtkAction * action, gpointer user_data)
-{
-	on_force_hilite1_activate (action, TE_LEXER_DIFF, user_data);
-}
-
-void on_force_hilite1_pascal_activate (GtkAction * action, gpointer user_data)
-{
-	on_force_hilite1_activate (action, TE_LEXER_PASCAL, user_data);
-}
-
-void on_force_hilite1_xcode_activate (GtkAction * action, gpointer user_data)
-{
-	on_force_hilite1_activate (action, TE_LEXER_XCODE, user_data);
-}
-
-void on_force_hilite1_props_activate (GtkAction * action, gpointer user_data)
-{
-	on_force_hilite1_activate (action, TE_LEXER_PROPS, user_data);
-}
-
-void on_force_hilite1_conf_activate (GtkAction * action, gpointer user_data)
-{
-	on_force_hilite1_activate (action, TE_LEXER_CONF, user_data);
-}
-
-void on_force_hilite1_ada_activate (GtkAction * action, gpointer user_data)
-{
-	on_force_hilite1_activate (action, TE_LEXER_ADA, user_data);
-}
-
-void on_force_hilite1_baan_activate (GtkAction * action, gpointer user_data)
-{
-	on_force_hilite1_activate (action, TE_LEXER_BAAN, user_data);
-}
-
-void on_force_hilite1_lisp_activate (GtkAction * action, gpointer user_data)
-{
-	on_force_hilite1_activate (action, TE_LEXER_LISP, user_data);
-}
-
-void on_force_hilite1_ruby_activate (GtkAction * action, gpointer user_data)
-{
-	on_force_hilite1_activate (action, TE_LEXER_RUBY, user_data);
-}
-
-void on_force_hilite1_matlab_activate (GtkAction * action, gpointer user_data)
-{
-	on_force_hilite1_activate (action, TE_LEXER_MATLAB, user_data);
+	text_editor_set_hilite_type (te, file_extension);
+	text_editor_hilite (te, TRUE);
 }
 
 void

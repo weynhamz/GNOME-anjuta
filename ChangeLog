@@ -1,5 +1,28 @@
 2005-01-31  Naba Kumar  <naba@gnome.org>
 
+	* libanjuta/interfaces/libanjuta.idl,
+	plugins/cvs-plugin/cvs-execute.c, plugins/macro/macro-actions.c:
+	Implemented append() method for IAnjutaEditor interface and fixed
+	various bugs with text insertions (cvs diff and macro insertions).
+	
+	* plugins/editor/aneditor.cxx: Implemented mulilevel calltips, fixed
+	automatic indentation.
+	
+	* plugins/editor/action-callbacks.c,
+	plugins/editor/action-callbacks.h,
+	plugins/editor/anjuta-docman.c,
+	plugins/editor/anjuta-document-manager.ui,
+	plugins/editor/plugin.c,
+	plugins/editor/text_editor.c,
+	plugins/editor/text_editor.h,
+	plugins/editor/text_editor_prefs.c: Create highlight menu dynamically.
+	Fixed highlight issues.
+
+	* plugins/macro/plugin.c: Added keyboard shortcuts for insert and add
+	macro.
+	
+	* plugins/symbol-browser/an_symbol_view.c: Force update project.
+
 	* data/properties/*: Updated properties files from scite. Created
 	styles.properties to override the scite styles.
 	

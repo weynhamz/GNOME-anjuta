@@ -148,7 +148,7 @@ on_gconf_notify_disable_hilite (GConfClient *gclient, guint cnxn_id,
 	
 	te = TEXT_EDITOR (user_data);
 	set_n_get_prop_int (te, DISABLE_SYNTAX_HILIGHTING);
-	text_editor_set_hilite_type (te);
+	text_editor_hilite (te, TRUE);
 }
 
 static void

@@ -310,6 +310,7 @@ interface IAnjutaEditor
 	void   ::update_ui ();
 	
 	void   insert (int position, const gchar *text, gint length);
+	void   append (const gchar *text, gint length);
 	void   goto_line (gint lineno);
 	void   goto_position (gint position);
 	gchar* get_selection ();

@@ -48,42 +48,43 @@ struct _TextEditor
 	gchar *filename;
 	gchar *uri;
 	time_t modified_time;
-	gint force_hilite;
+	
+	/* File extension that will be used to force hilite type */
+	gchar *force_hilite;
 
 	glong current_line;
 
 	AnjutaPreferences *preferences;
 
-/* Editor ID and widget for AnEditor */
+	/* Editor ID and widget for AnEditor */
 	AnEditorID editor_id;
 	AnEditorID editor_id_split;
 	GtkWidget *scintilla;
 	GList *views;
 
-/* Properties set ID in the preferences */
+	/* Properties set ID in the preferences */
 	gint props_base;
 
-/* Autosave timer ID */
+	/* Autosave timer ID */
 	gint autosave_id;
 	gboolean autosave_on;
 
-/* Timer interval in mins */
+	/* Timer interval in mins */
 	gint autosave_it;
 
-/* Cool! not the usual freeze/thaw */
-/* Something to stop unecessary signalings */
+	/* Something to stop unecessary signalings */
 	gint freeze_count;
 	
-/* First time exposer */
+	/* First time exposer */
 	gboolean first_time_expose;
 
-/* File encoding */
+	/* File encoding */
 	gchar *encoding;
 	
-/* Popup menu widget */
+	/* Popup menu widget */
 	GtkWidget *popup_menu;
 	
-/* Gconf notify IDs */
+	/* Gconf notify IDs */
 	GList* gconf_notify_ids;
 };
 
@@ -103,7 +104,8 @@ void text_editor_thaw (TextEditor * te);
 
 void text_editor_set_popup_menu (TextEditor *te, GtkWidget *popup_menu);
 
-void text_editor_set_hilite_type (TextEditor * te);
+void text_editor_set_hilite_type (TextEditor * te, const gchar *file_extension);
+void text_editor_hilite (TextEditor *te, gboolean force);
 
 void text_editor_set_zoom_factor (TextEditor * te, gint zfac);
 

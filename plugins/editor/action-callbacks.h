@@ -102,32 +102,7 @@ void on_editor_linewrap1_activate (GtkAction *action, gpointer user_data);
 void on_zoom_in_text_activate (GtkAction * action, gpointer user_data);
 void on_zoom_out_text_activate (GtkAction * action, gpointer user_data);
 
-void on_force_hilite1_auto_activate (GtkAction * action, gpointer user_data);
-void on_force_hilite1_none_activate (GtkAction * action, gpointer user_data);
-void on_force_hilite1_cpp_activate (GtkAction * action, gpointer user_data);
-void on_force_hilite1_html_activate (GtkAction * action, gpointer user_data);
-void on_force_hilite1_xml_activate (GtkAction * action, gpointer user_data);
-void on_force_hilite1_js_activate (GtkAction * action, gpointer user_data);
-void on_force_hilite1_wscript_activate (GtkAction * action, gpointer user_data);
-void on_force_hilite1_make_activate (GtkAction * action, gpointer user_data);
-void on_force_hilite1_java_activate (GtkAction * action, gpointer user_data);
-void on_force_hilite1_lua_activate (GtkAction * action, gpointer user_data);
-void on_force_hilite1_python_activate (GtkAction * action, gpointer user_data);
-void on_force_hilite1_perl_activate (GtkAction * action, gpointer user_data);
-void on_force_hilite1_sql_activate (GtkAction * action, gpointer user_data);
-void on_force_hilite1_plsql_activate (GtkAction * action, gpointer user_data);
-void on_force_hilite1_php_activate (GtkAction * action, gpointer user_data);
-void on_force_hilite1_latex_activate (GtkAction * action, gpointer user_data);
-void on_force_hilite1_diff_activate (GtkAction * action, gpointer user_data);
-void on_force_hilite1_pascal_activate (GtkAction * action, gpointer user_data);
-void on_force_hilite1_xcode_activate (GtkAction * action, gpointer user_data);
-void on_force_hilite1_props_activate (GtkAction * action, gpointer user_data);
-void on_force_hilite1_conf_activate (GtkAction * action, gpointer user_data);
-void on_force_hilite1_ada_activate (GtkAction * action, gpointer user_data);
-void on_force_hilite1_baan_activate (GtkAction * action, gpointer user_data);
-void on_force_hilite1_lisp_activate (GtkAction * action, gpointer user_data);
-void on_force_hilite1_ruby_activate (GtkAction * action, gpointer user_data);
-void on_force_hilite1_matlab_activate (GtkAction * action, gpointer user_data);
+void on_force_hilite_activate (GtkWidget *menuitem, gpointer user_data);
 
 void on_indent1_activate (GtkAction * action, gpointer user_data);
 

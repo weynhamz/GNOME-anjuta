@@ -35,21 +35,21 @@ static GtkActionEntry actions_macro[] = {
 	 {
 	 "ActionEditMacroInsert",
 	 NULL,
-	 N_("_Insert Macro"),
-	 NULL,
+	 N_("_Insert Macro ..."),
+	 "<control>i",
 	 N_("Insert a macro using a shortcut"),
 	 G_CALLBACK (on_menu_insert_macro)},
 	 {
 	 "ActionEditMacroAdd",
 	 NULL,
-	 N_("_Add Macro"),
-	 NULL,
+	 N_("_Add Macro ..."),
+	 "<control>m",
 	 N_("Add a macro"),
 	 G_CALLBACK (on_menu_add_macro)},
 	 {
 	 "ActionEditMacroManager",
 	 NULL,
-	 N_("Manage Macros"),
+	 N_("Macros ..."),
 	 NULL,
 	 N_("Add/Edit/Remove macros"),
 	 G_CALLBACK (on_menu_manage_macro)}

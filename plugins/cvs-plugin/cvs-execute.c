@@ -196,7 +196,7 @@ on_cvs_diff(AnjutaLauncher *launcher,
 			ianjuta_message_view_buffer_append (plugin->mesg_view, mesg, NULL);
 			break;
 		default:
-			ianjuta_editor_insert(plugin->diff_editor, -1, mesg, -1, NULL);
+			ianjuta_editor_append (plugin->diff_editor, mesg, -1, NULL);
 	}
 }
 

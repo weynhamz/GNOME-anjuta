@@ -828,8 +828,7 @@ anjuta_symbol_view_update (AnjutaSymbolView * sv)
 			tm_project_autoscan (TM_PROJECT
 					     (sv->priv->tm_project));
 		else
-			tm_project_update (sv->priv->tm_project, FALSE, TRUE,
-					   TRUE);
+			tm_project_update (sv->priv->tm_project, TRUE, TRUE, TRUE);
 		tm_project_save (TM_PROJECT (sv->priv->tm_project));
 	}
 	/*
