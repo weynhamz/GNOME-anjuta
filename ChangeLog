@@ -1,5 +1,10 @@
 2003-02-21  Naba Kumar  <naba@gnome.org>
 
+	* .cvsignore, (new)config.guess, (new)config.sub: Added these files
+	as they should be part of CVS(?).
+
+        * Makefile.am: Corrected a typo for glade generated strings file.
+
 	* configure.in, po/hi.po: Added new Hindi (hi) translation
 	in ALL_LINGUS and added initial Hindi translation.
 

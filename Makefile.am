@@ -34,8 +34,8 @@ EXTRA_DIST = \
 	intltool-update.in\
 	$(anjutadoc_DATA)\
 	$(anjuta_glade_file_DATA)\
-	anjuta_dialog_strings.c
-	
+	anjuta_dialogs_strings.c
+
 gnomemenudir = $(prefix)/@NO_PREFIX_PACKAGE_MENU_DIR@/Development
 
 gnomemenu_premerge_file = anjuta.desktop.in
