@@ -1,4 +1,13 @@
-2002-10-07  Naba Kumar <naba@gnome.org>
+2002-10-21  Naba Kumar <naba@gnome.org>
+
+	Patch from Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
+	
+	* setup-gettext: New script to maintain gettext cross version
+	compatibility.
+	* configure.in, macros/autogen.sh: Fix for gettext cross version
+	compatibility.
+	
+2002-10-21  Naba Kumar <naba@gnome.org>
 
 	* debug_tree.c: Fixed incorrect use of debug assertion.
 	
