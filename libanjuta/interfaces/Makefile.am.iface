@@ -9,3 +9,10 @@ MODULE_INCLUDEDIR = $(includedir)/libanjuta-1.0/libanjuta/interfaces
 MODULE_LIBS = $(LIBANJUTA_LIBS)
 
 @@IFACE_RULES@@
+
+BUILT_SOURCES = Makefile.am
+
+Makefile.am: libanjuta.idl Makefile.am.iface
+	$(srcdir)/giface-idlc-c.pl libanjuta
+	echo "Makefile.am has been regenrated. You need to run make again"
+	exit(1)

@@ -1,4 +1,9 @@
 2004-04-29  Naba Kumar  <naba@gnome.org>
+	
+	* libanjuta/interfaces/Makefile.am.iface,
+	libanjuta/interfaces/libanjuta.idl: Updated.
+
+2004-04-29  Naba Kumar  <naba@gnome.org>
 
 	* libanjuta/interfaces/giface-idlc-c.pl,
 	libanjuta/interfaces/libanjuta.idl: Upgraded.
