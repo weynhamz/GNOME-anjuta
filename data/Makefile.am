@@ -4,14 +4,14 @@
 ## If you don't want it to overwrite it,
 ## 	Please disable it in the Anjuta project configuration
 
+SUBDIRS = properties
+
 anjuta_datadir = $(prefix)/@NO_PREFIX_PACKAGE_DATA_DIR@
 
 anjuta_data_DATA = \
-	anjuta.properties\
 	gdb.init\
 	README.stock_libs\
 	header.c\
-	internal.properties\
 	stock_libs.anj\
 	welcome.txt\
 	autogen.sh.gnome\

@@ -368,6 +368,7 @@ anjuta.spec
 src/Makefile
 pixmaps/Makefile
 data/Makefile
+data/properties/Makefile
 doc/Makefile
 launcher/Makefile
 plugins/Makefile

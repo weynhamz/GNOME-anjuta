@@ -45,7 +45,7 @@ preferences_new ()
 	pr = (Preferences *) malloc (sizeof (Preferences));
 	if (pr)
 	{
-		gchar *propdir, *propfile, *internfile, *str;
+		gchar *propdir, *propfile, *str;
 
 		pr->props_build_in = prop_set_new ();
 		pr->props_global = prop_set_new ();
@@ -92,33 +92,30 @@ preferences_new ()
 		prop_set_with_key (pr->props_build_in, "anjuta.pixmap.directory", app->dirs->pixmaps);
 	
 		/* Load the external configuration files */
-		propdir = g_strconcat (app->dirs->data, "/", NULL);
-		internfile =
-			g_strconcat (propdir, "/internal.properties", NULL);
-		propfile = g_strconcat (propdir, "/anjuta.properties", NULL);
-		if (file_is_readable (internfile) == FALSE
-		    || file_is_readable (propfile) == FALSE)
+		propdir = g_strconcat (app->dirs->data, "/properties/", NULL);
+		propfile = g_strconcat (propdir, "anjuta.properties", NULL);
+		
+		if (file_is_readable (propfile) == FALSE)
 		{
 			anjuta_error
-				(_("Cannot load Global defaults and internal configuration files:\n"
-				 "%s.\n%s.\n"
+				(_("Cannot load Global defaults and configuration files:\n"
+				 "%s.\n"
 				 "This may result in improper behaviour or instabilities.\n"
 				 "Anjuta will fall back to built in (limited) settings"),
-				 propfile, internfile);
+				 propfile);
 		}
 		prop_read (pr->props_global, propfile, propdir);
-		g_free (internfile);
 		g_free (propfile);
 		g_free (propdir);
 
-		propdir = g_strconcat (app->dirs->home, "/.anjuta", NULL);
-		propfile = g_strconcat (propdir, "/users.properties", NULL);
+		propdir = g_strconcat (app->dirs->home, "/.anjuta/", NULL);
+		propfile = g_strconcat (propdir, "user.properties", NULL);
 		prop_read (pr->props_local, propfile, propdir);
 		g_free (propdir);
 		g_free (propfile);
 
-		propdir = g_strconcat (app->dirs->home, "/.anjuta", NULL);
-		propfile = g_strconcat (propdir, "/session.properties", NULL);
+		propdir = g_strconcat (app->dirs->home, "/.anjuta/", NULL);
+		propfile = g_strconcat (propdir, "session.properties", NULL);
 		prop_read (pr->props_session, propfile, propdir);
 		g_free (propdir);
 		g_free (propfile);

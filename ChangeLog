@@ -1,3 +1,42 @@
+2002-01-03  Naba Kumar <kh_naba@users.sourceforge.net>
+
+	* src/aneditor.c: Some debug codes around.
+	
+	* data/internal.properties, data/anjuta.properties: Removed.
+	  data/properties/Makefile.am:
+	  data/properties/ada
+	  data/properties/cs
+	  data/properties/make
+	  data/properties/rc
+	  data/properties/html
+	  data/properties/ruby
+	  data/properties/baan
+	  data/properties/idl
+	  data/properties/pascal
+	  data/properties/sample
+	  data/properties/bash
+	  data/properties/java
+	  data/properties/perl
+	  data/properties/sql
+	  data/properties/conf
+	  data/properties/latex
+	  data/properties/props
+	  data/properties/vb
+	  data/properties/cpp
+	  data/properties/lua
+	  data/properties/python
+	  data/properties/xml
+	  data/properties/others
+	  data/properties/.cvsignore:
+	    Added files. Properties now splitted into small files
+	    for each language.
+
+	* data/Makefile.am
+	  configure.in: Update the removal and added properties module.
+
+	* src/preferences.c: preferences_new(): Updated to reflect the
+	  new properties files organization.
+
 2002-01-01  Stephane Demurget  <demurgets@free.fr>
 
 	* src/aneditor.cxx: readded the baan lexer. 

@@ -37,7 +37,8 @@ SCILEXERS =\
 	../scintilla/LexLisp.o\
 	../scintilla/LexRuby.o\
 	../scintilla/LexBullant.o\
-	../scintilla/LexAda.o
+	../scintilla/LexAda.o\
+	../scintilla/LexBaan.o
 
 bin_PROGRAMS = anjuta
 

@@ -1697,6 +1697,7 @@ void AnEditor::SetStyleFor(Window &win, const char *lang) {
 			char key[200];
 			sprintf(key, "style.%s.%0d", lang, style);
 			SString sval = props->GetExpanded(key);
+			// g_print ("Style for %s:%0d == %s\n", lang, style, sval.c_str());
 			SetOneStyle(win, style, sval.c_str());
 		}
 	}
@@ -1785,7 +1786,8 @@ void AnEditor::ReadProperties(const char *fileForExt) {
 g_print ("> REMOVE ME: a\n");
 	SendEditor(SCI_SETLEXER, lexLanguage);
 g_print ("> REMOVE ME: b\n");
-
+g_print ("Language: %s\n", language.c_str());
+	
 	SString kw0 = props->GetNewExpand("keywords.", fileNameForExtension.c_str());
 	SendEditorString(SCI_SETKEYWORDS, 0, kw0.c_str());
 	/* For C/C++ projects, get list of typedefs for colorizing */
