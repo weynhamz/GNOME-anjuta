@@ -1,3 +1,9 @@
+2005-03-10  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
+
+	* plugins/file-wizard/action-callbacks.c : Added error message.
+	plugins/project-import/project-import.c : Closed Import wizard with Esc key.
+
+
 2005-03-09	Johannes Schmid <jhs@cvs.gnome.org>
 	
 	* plugins/cvs-plugin/cvs-callbacks.c

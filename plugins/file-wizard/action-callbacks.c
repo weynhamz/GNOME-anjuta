@@ -107,6 +107,12 @@ on_insert_header_template(GtkAction * action, gpointer user_data)
 		if (macro)
 			ianjuta_macro_insert (macro, "Header_h", NULL);	
 	}
+	else
+	{
+		gchar *tmp = g_strdup_printf(_("%s is not a '.h' file !"), filename);
+		anjuta_util_dialog_error(NULL, tmp);
+		g_free(tmp);
+	}
 }
 
 void

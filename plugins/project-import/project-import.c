@@ -38,6 +38,18 @@ on_import_cancel(GnomeDruid* druid, ProjectImport* pi)
 }
 
 static gboolean
+on_import_key_press_event(GtkWidget *widget, GdkEventKey *event,
+                          ProjectImport* pi)
+{
+	if (event->keyval == GDK_Escape)
+	{
+		g_object_unref(G_OBJECT(pi));
+		return TRUE;
+	}
+	return FALSE;
+}
+
+static gboolean
 on_import_next(GnomeDruidPage* page, GtkWidget* druid, ProjectImport* pi)
 {	
 	gchar* configure_path;
@@ -155,6 +167,8 @@ project_import_init(ProjectImport *pi)
 					 G_CALLBACK(on_import_finish), pi);
 	g_signal_connect(G_OBJECT(pi->druid), "cancel",
 					 G_CALLBACK(on_import_cancel), pi);
+	g_signal_connect(G_OBJECT(pi->druid), "key-press-event",
+			G_CALLBACK(on_import_key_press_event), pi);
 	
 	g_object_unref(G_OBJECT(gxml));
 	gtk_widget_show_all(pi->window);
@@ -248,4 +262,3 @@ project_import_generate_file(ProjectImport* pi, const gchar* prjfile)
 	}
 	return TRUE;
 }
-
