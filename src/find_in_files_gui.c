@@ -168,12 +168,12 @@ create_find_in_files_gui (FindInFiles *sf)
   gtk_button_box_set_layout (GTK_BUTTON_BOX (dialog_action_area3), GTK_BUTTONBOX_END);
   gtk_button_box_set_spacing (GTK_BUTTON_BOX (dialog_action_area3), 8);
 
-  gnome_dialog_append_button (GNOME_DIALOG (dialog3), GNOME_STOCK_BUTTON_OK);
+  gnome_dialog_append_button (GNOME_DIALOG (dialog3), GNOME_STOCK_BUTTON_CANCEL);
   button8 = g_list_last (GNOME_DIALOG (dialog3)->buttons)->data;
   gtk_widget_show (button8);
   GTK_WIDGET_SET_FLAGS (button8, GTK_CAN_DEFAULT);
 
-  gnome_dialog_append_button (GNOME_DIALOG (dialog3), GNOME_STOCK_BUTTON_CANCEL);
+  gnome_dialog_append_button (GNOME_DIALOG (dialog3), GNOME_STOCK_BUTTON_OK);
   button9 = g_list_last (GNOME_DIALOG (dialog3)->buttons)->data;
   gtk_widget_show (button9);
   GTK_WIDGET_SET_FLAGS (button9, GTK_CAN_DEFAULT);
@@ -199,10 +199,10 @@ create_find_in_files_gui (FindInFiles *sf)
                       GTK_SIGNAL_FUNC (on_search_in_files_help_clicked),
                       sf);
   gtk_signal_connect (GTK_OBJECT (button8), "clicked",
-                      GTK_SIGNAL_FUNC (on_search_in_files_ok_clicked),
+                      GTK_SIGNAL_FUNC (on_search_in_files_cancel_clicked),
                       sf);
   gtk_signal_connect (GTK_OBJECT (button9), "clicked",
-                      GTK_SIGNAL_FUNC (on_search_in_files_cancel_clicked),
+                      GTK_SIGNAL_FUNC (on_search_in_files_ok_clicked),
                       sf);
 
   sf->widgets.window = dialog3;gtk_widget_ref(dialog3);
@@ -215,8 +215,8 @@ create_find_in_files_gui (FindInFiles *sf)
   sf->widgets.regexp_entry = combo_entry4;gtk_widget_ref(combo_entry4);
   sf->widgets.regexp_combo = entry1;gtk_widget_ref(entry1);
   sf->widgets.help = button16;gtk_widget_ref(button16);
-  sf->widgets.ok = button8;gtk_widget_ref(button8);
-  sf->widgets.cancel = button9;gtk_widget_ref(button9);
+  sf->widgets.cancel = button8;gtk_widget_ref(button8);
+  sf->widgets.ok = button9;gtk_widget_ref(button9);
   sf->widgets.case_sensitive_check = checkbutton3;
       gtk_widget_ref(checkbutton3);
 }
