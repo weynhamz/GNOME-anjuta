@@ -651,7 +651,7 @@ gnome_filelist_file_matches(GnomeFileListType *filetype, gchar *filename, gboole
 		else 
 			pattern = g_strdup_printf ("*%s",(gchar *) extentions->data);
 		result = fnmatch(pattern, filename, 0 );
-
+		g_free(pattern);
 		if (!result) {
 			match = TRUE;
 			extentions = g_list_next (extentions);
@@ -663,7 +663,7 @@ gnome_filelist_file_matches(GnomeFileListType *filetype, gchar *filename, gboole
 
 	extentions = g_list_first(extentions);
 
-	return match;			
+	return match;
 }
 
 static void
@@ -700,23 +700,33 @@ static void filetype_combo_go(GtkWidget *widget, GnomeFileList *file_list)
 		
 	if (filetype && (!gnome_filelist_file_matches(filetype, filename, FALSE))) {
 		GList *extentions=NULL;
-		const gchar *text;
+		gchar *text;
 		gchar *last_dot;
 		GString *s;
 		
 		if (strlen(filename) <= 0)
+		{
+			g_free(filename);
 			filename = g_strdup("Newfile");
+		}
 
 		extentions = g_list_copy(filetype->extentions);
 		extentions = g_list_first(extentions);
 		/* This routine comes from The Gimp. [app/gui/file-dialog-utils.c] Thanks :) */
 		text = g_strdup(filename);
 		last_dot = strrchr (text, '.');
-		if (last_dot == text || !text[0]) return;
+		if (last_dot == text || !text[0])
+		{
+			g_free(filename);
+			g_free(text);
+			return;
+		}
 		s = g_string_new (text);
+		g_free(text);
 		if (last_dot)
 			g_string_truncate (s, last_dot-text);
 		g_string_append (s, (gchar *) extentions->data);
+		g_free(filename);
 		filename = g_strdup(s->str);
 		g_string_free (s, TRUE);
 	}
@@ -879,7 +889,6 @@ static void gnome_filelist_get_dirs(GnomeFileList *file_list)
    gchar filename[384];
    
    GtkCTreeNode *node;
-   gchar *str;
    GList *dirs_list = NULL;
    GList *files_list = NULL;
    GList *temp;   
@@ -903,29 +912,27 @@ static void gnome_filelist_get_dirs(GnomeFileList *file_list)
 		 g_snprintf(filename, sizeof(filename), "%s%s", file_list->path, dir->d_name);
 		 
     	 stat(filename, &st);
-         str = g_new(char, strlen(dir->d_name)+1);
-         strcpy(str, dir->d_name);
          if(S_ISDIR(st.st_mode))
          {
-			if ( str[0] != '.' || file_list->show_hidden)
+			if ( dir->d_name[0] != '.' || file_list->show_hidden)
 			{
 				if (file_list->dirpattern) {
-					if (fnmatch(file_list->dirpattern, str, 0)==0) {
-						dirs_list = g_list_prepend(dirs_list, (gpointer)str);
+					if (fnmatch(file_list->dirpattern, dir->d_name, 0)==0) {
+						dirs_list = g_list_prepend(dirs_list, g_strdup(dir->d_name));
 						file_list->dirs_matched++;
 					}
 				} else {
-					dirs_list = g_list_prepend(dirs_list, (gpointer)str);
+					dirs_list = g_list_prepend(dirs_list, g_strdup(dir->d_name));
 					file_list->dirs_matched++;
 				}
 			}
          }
          else
          {
-			if ( str[0] != '.' || file_list->show_hidden)
+			if ( dir->d_name[0] != '.' || file_list->show_hidden)
 			{
-				if (gnome_filelist_file_matches(filetype, str, FALSE))		
-  					files_list = g_list_prepend(files_list, (gpointer) str);
+				if (gnome_filelist_file_matches(filetype, dir->d_name, FALSE))		
+  					files_list = g_list_prepend(files_list, g_strdup(dir->d_name));
 			}
          }
       }
@@ -938,9 +945,10 @@ static void gnome_filelist_get_dirs(GnomeFileList *file_list)
       temp = dirs_list;
       while(temp != NULL)
       {
-         str = (gchar *)temp->data;
-         node = gtk_ctree_insert_node(GTK_CTREE(file_list->directory_list), NULL, NULL, &str, 4, file_list->folder->pixmap, file_list->folder->mask, file_list->folder->pixmap, file_list->folder->mask, FALSE, FALSE);
-         g_free(str);
+         node = gtk_ctree_insert_node(GTK_CTREE(file_list->directory_list), NULL, NULL
+		    , (gchar **) &(temp->data), 4, file_list->folder->pixmap, file_list->folder->mask
+		    , file_list->folder->pixmap, file_list->folder->mask, FALSE, FALSE);
+         g_free(temp->data);
          temp = g_list_next(temp);
       }
       g_list_free(dirs_list);
@@ -948,20 +956,20 @@ static void gnome_filelist_get_dirs(GnomeFileList *file_list)
       temp = files_list;
       while(temp != NULL)
       {
-         str = (gchar *)temp->data;
-         node = gtk_ctree_insert_node(GTK_CTREE(file_list->file_list), NULL, NULL, &str, 4, file_list->file->pixmap, file_list->file->mask, file_list->file->pixmap, file_list->file->mask, FALSE, FALSE);
-         g_free(str);
+         node = gtk_ctree_insert_node(GTK_CTREE(file_list->file_list), NULL, NULL
+		   , (gchar **) &(temp->data), 4, file_list->file->pixmap, file_list->file->mask
+		   , file_list->file->pixmap, file_list->file->mask, FALSE, FALSE);
+         g_free(temp->data);
          temp = g_list_next(temp);
       }
       g_list_free(files_list);
    }
+#ifdef DEBUG
    else
-   {
-      g_print("The directory was not found!\n");
-   }
+      g_warning("Directory %s not found!", file_list->path);
+#endif
    gtk_clist_thaw(GTK_CLIST(file_list->directory_list));
-   gtk_clist_thaw(GTK_CLIST(file_list->file_list));
-  
+   gtk_clist_thaw(GTK_CLIST(file_list->file_list));  
 }
 
 
@@ -1015,7 +1023,9 @@ set_dir_internal (GnomeFileList *file_list, gchar *path)
    chdir (path_bak);
    g_free (path_bak);
 
-// temp = file_list->path; 
+// temp = file_list->path;
+   if (file_list->path)
+	   g_free(file_list->path);
    file_list->path = build_full_path (path, "");
 // strcpy(file_list->path, path);
    gnome_filelist_get_dirs (file_list);
@@ -1174,7 +1184,8 @@ gboolean gnome_filelist_set_dir(GnomeFileList *file_list, gchar path[])
 	}
 
    return FALSE;
-  
+  /* This code is never reached!! - Biswa */
+#if 0
    file_list->path = build_full_path(path, "");
    gnome_filelist_get_dirs(file_list);
    g_free(file_list->selected);
@@ -1185,6 +1196,7 @@ gboolean gnome_filelist_set_dir(GnomeFileList *file_list, gchar path[])
    file_list->selected_row = -1;
 
    return(TRUE);
+#endif
 }
 
 void gnome_filelist_set_show_hidden (GnomeFileList *file_list, gboolean show_hidden)

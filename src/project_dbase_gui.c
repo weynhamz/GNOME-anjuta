@@ -1221,8 +1221,9 @@ on_prj_import_confirm_yes (GtkButton * button, gpointer user_data)
 			/*
 			 * file has already been added. So skip with a message 
 			 */
-			messagebox (GNOME_MESSAGE_BOX_INFO,
-				 _("This file has already been added to the Project"));
+			gchar *message = g_strconcat(real_modfile, _(" already exists in the project"), NULL); 
+			messagebox(GNOME_MESSAGE_BOX_INFO, message);
+			g_free(message);
 			g_free (comp_dir);
 			g_free (filename);
 			g_free(real_modfile);

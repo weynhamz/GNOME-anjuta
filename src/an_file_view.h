@@ -9,12 +9,32 @@
 extern "C"
 {
 #endif
+
 typedef struct _AnFileView
 {
 	GtkWidget *win;
 	GtkWidget *tree;
-	GtkWidget *menu;
-	char *file;
+	TMFileEntry *file_tree;
+	TMFileEntry *curr_entry;
+	struct
+	{
+		GtkWidget *top;
+		GtkWidget *open;
+		GtkWidget *view;
+		struct
+		{
+			GtkWidget *top;
+			GtkWidget *update;
+			GtkWidget *commit;
+			GtkWidget *status;
+			GtkWidget *log;
+			GtkWidget *add;
+			GtkWidget *remove;
+			GtkWidget *diff;
+		} cvs;
+		GtkWidget *refresh;
+		GtkWidget *docked;
+	} menu;
 } AnFileView;
 
 AnFileView *fv_populate(gboolean full);

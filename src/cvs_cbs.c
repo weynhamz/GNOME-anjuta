@@ -85,16 +85,17 @@ on_cvs_ok (GtkWidget * button, CVSFileGUI * gui)
 	gtk_entry_branch =
 		gnome_entry_gtk_entry (GNOME_ENTRY (gui->entry_branch));
 
-	filename = g_strdup (gtk_entry_get_text (GTK_ENTRY (gtk_entry_file)));
-	branch = g_strdup (gtk_entry_get_text (GTK_ENTRY (gtk_entry_branch)));
-	message =
-		g_strdup (gtk_editable_get_chars
-			  (GTK_EDITABLE (gui->text_message), 0,
-			   gtk_text_get_length (GTK_TEXT
-				(gui->text_message))));
+	filename = gtk_editable_get_chars (GTK_EDITABLE (gtk_entry_file), 0, -1);
+	branch = gtk_editable_get_chars (GTK_EDITABLE (gtk_entry_branch), 0, -1);
+	message = gtk_editable_get_chars (GTK_EDITABLE (gui->text_message), 0, -1);
 
 	if (strlen (filename) == 0)
+	{
+		g_free(filename);
+		g_free(branch);
+		g_free(message);
 		return;
+	}
 
 	is_dir = file_is_directory(filename);
 	
@@ -120,13 +121,13 @@ on_cvs_ok (GtkWidget * button, CVSFileGUI * gui)
 		break;
 	default:
 		g_warning ("Invalid dialog type %d !", gui->type);
-		return;
+		break;
 	}
 
 	g_free (filename);
 	g_free (branch);
 	g_free (message);
-	
+
 	/* Destroy dialog */
 	on_cvs_cancel (button, gui);
 }

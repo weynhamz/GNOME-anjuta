@@ -1,13 +1,21 @@
-2002-06-11  Sébastien Côté <cots01@gel.usherb.ca>
+2002-06-12	Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
+
+	* src/an_file_view.[ch], src/cvs_gui.h: CVS integration.
+	* src/an_symbol_view.[ch]: Usability and memory leak fixes.
+	* src/anjuta.c, src/cvs_cbs.c, src/project_dbase.c: Fixed memory leaks.
+	* src/project_dbase_gui.c: Usability: Show file name in error message.
+	* widgets/gnomefilelist.c: Fixed memory leaks.
+
+2002-06-12  Sébastien Côté <cots01@gel.usherb.ca>
 
 	* printing/print.c, printing/print.h: Dynamically calculate
 	the line number width in print.
-	
+
 2002-06-11  Johannes Schmid <clubfan@users.sourceforge.net>
 	
 	* src/cvs.c: FileView is automatically updated after a 
 	cvs commit/update.
-	
+
 2002-06-11	Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
 
 	* anjuta.prj: Added source directories

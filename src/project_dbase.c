@@ -2145,12 +2145,12 @@ project_dbase_remove_file (ProjectDBase * p)
 		return;
 	}
 	for (i=0; i< strlen(fn); i++)
-	{
 		*pos++ = ' ';
-	}
 	if (NULL == (cmp_dir = project_dbase_get_module_dir (p, module)))
 	{
 		g_warning("Unable to get component directory!");
+		g_free(files);
+		g_free(key);
 		return;
 	}
 	full_fn = g_strconcat(cmp_dir, "/", fn, NULL);
@@ -2176,12 +2176,15 @@ project_dbase_remove_file (ProjectDBase * p)
 		p->widgets.current_node);
 	p->is_saved = FALSE;
 	/* Check if the module is empty */
+	g_free(files);
 	files = prop_get (p->props, key);
 	if (files == NULL)
 	{
 		/* Module is empty so remove the module */
 		gtk_ctree_remove_node (GTK_CTREE (p->widgets.ctree),
 			p->widgets.module_node[module]);
+		g_free(files);
+		g_free(key);
 		return;
 	}
 	g_free (key);

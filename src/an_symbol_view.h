@@ -29,7 +29,15 @@ typedef struct _AnSymbolView
 {
 	GtkWidget *win;
 	GtkWidget *tree;
-	GtkWidget *menu;
+	struct
+	{
+		GtkWidget *top;
+		GtkWidget *goto_decl;
+		GtkWidget *goto_def;
+		GtkWidget *find;
+		GtkWidget *refresh;
+		GtkWidget *docked;
+	} menu;
 	SymbolFileInfo *sinfo;
 } AnSymbolView;
 

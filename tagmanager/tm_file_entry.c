@@ -175,6 +175,7 @@ TMFileEntry *tm_file_entry_new(const char *path, TMFileEntry *parent
 						total_read += n;
 					entries[s.st_size] = '\0';
 					close(fd);
+					entry->version = g_strdup("D");
 				}
 			}
 		}

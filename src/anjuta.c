@@ -1362,6 +1362,7 @@ anjuta_status (gchar * mesg, ...)
 	message = g_strdup_vprintf (mesg, args);
 	va_end (args);
 	gnome_app_flash (GNOME_APP (app->widgets.window), message);
+	g_free(message);
 }
 
 void

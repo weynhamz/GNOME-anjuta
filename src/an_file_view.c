@@ -11,6 +11,7 @@
 #include "resources.h"
 #include "mainmenu_callbacks.h"
 #include "pixmaps.h"
+#include "cvs_gui.h"
 
 #include "an_file_view.h"
 
@@ -32,10 +33,11 @@ static AnFileView *fv = NULL;
 
 #define CREATE_FV_ICON(N, F) fv_icons[(N)] = gdk_pixmap_colormap_create_from_xpm(\
   NULL,	gtk_widget_get_colormap(fv->win), &fv_bitmaps[(N)],\
-  NULL, anjuta_res_get_pixmap_file(F));
+  NULL, (pix_file = anjuta_res_get_pixmap_file(F))); g_free(pix_file);
 
 static void fv_load_pixmaps(void)
 {
+	char *pix_file;
 	if (fv_icons)
 		return;
 	g_return_if_fail(fv && fv->win);
@@ -113,18 +115,42 @@ typedef enum
 	MENU_MAX
 } FVSignal;
 
+static void on_file_view_cvs_event(GtkMenuItem *item, gpointer user_data)
+{
+	int action = (int) user_data;
+	if ((fv->curr_entry) && (tm_file_regular_t == fv->curr_entry->type))
+	{
+		switch (action)
+		{
+			case CVS_ACTION_UPDATE:
+			case CVS_ACTION_COMMIT:
+			case CVS_ACTION_STATUS:
+			case CVS_ACTION_LOG:
+			case CVS_ACTION_ADD:
+			case CVS_ACTION_REMOVE:
+				create_cvs_gui(app->cvs, action, fv->curr_entry->path, FALSE);
+				break;
+			case CVS_ACTION_DIFF:
+				create_cvs_diff_gui(app->cvs, fv->curr_entry->path, FALSE);
+				break;
+			default:
+				break;
+		}
+	}
+}
+
 static void fv_context_handler(GtkMenuItem *item, gpointer user_data)
 {
 	FVSignal signal = (FVSignal) user_data;
 	switch (signal)
 	{
 		case OPEN:
-			if (fv->file)
-				anjuta_fv_open_file(fv->file, TRUE);
+			if ((fv->curr_entry) && (tm_file_regular_t == fv->curr_entry->type))
+				anjuta_fv_open_file(fv->curr_entry->path, TRUE);
 			break;
 		case VIEW:
-			if (fv->file)
-				anjuta_fv_open_file(fv->file, FALSE);
+			if ((fv->curr_entry) && (tm_file_regular_t == fv->curr_entry->type))
+				anjuta_fv_open_file(fv->curr_entry->path, FALSE);
 			break;
 		case REFRESH:
 			fv_populate(TRUE);
@@ -133,6 +159,59 @@ static void fv_context_handler(GtkMenuItem *item, gpointer user_data)
 			break;
 	}
 }
+
+static GnomeUIInfo an_file_view_cvs_uiinfo[] = {
+	{
+	 /* 0 */
+	 GNOME_APP_UI_ITEM, N_("Update file"),
+	 N_("Update current working copy"),
+	 on_file_view_cvs_event, (gpointer) CVS_ACTION_UPDATE, NULL,
+	 GNOME_APP_PIXMAP_NONE, NULL,
+	 0, 0, NULL},
+	{
+	 /* 1 */
+	 GNOME_APP_UI_ITEM, N_("Commit file"),
+	 N_("Commit changes to the repository"),
+	 on_file_view_cvs_event, (gpointer) CVS_ACTION_COMMIT, NULL,
+	 GNOME_APP_PIXMAP_NONE, NULL,
+	 0, 0, NULL},
+	{
+	 /* 2 */
+	 GNOME_APP_UI_ITEM, N_("Status of file"),
+	 N_("Print the status of the current file"),
+	 on_file_view_cvs_event, (gpointer) CVS_ACTION_STATUS, NULL,
+	 GNOME_APP_PIXMAP_NONE, NULL,
+	 0, 0, NULL},
+	{
+	 /* 3 */
+	 GNOME_APP_UI_ITEM, N_("Get file log"),
+	 N_("Print the CVS log for the current file"),
+	 on_file_view_cvs_event, (gpointer) CVS_ACTION_LOG, NULL,
+	 GNOME_APP_PIXMAP_NONE, NULL,
+	 0, 0, NULL},
+	{
+	 /* 4 */
+	 GNOME_APP_UI_ITEM, N_("Add file"),
+	 N_("Add the current file to the repository"),
+	 on_file_view_cvs_event, (gpointer) CVS_ACTION_ADD, NULL,
+	 GNOME_APP_PIXMAP_NONE, NULL,
+	 0, 0, NULL},
+	{
+	 /* 5 */
+	 GNOME_APP_UI_ITEM, N_("Remove file"),
+	 N_("Remove the current file from the repository"),
+	 on_file_view_cvs_event, (gpointer) CVS_ACTION_REMOVE, NULL,
+	 GNOME_APP_PIXMAP_NONE, NULL,
+	 0, 0, NULL},
+	{
+	 /* 6 */
+	 GNOME_APP_UI_ITEM, N_("Diff file"),
+	 N_("Create a diff between the working copy and the repository"),
+	 on_file_view_cvs_event, (gpointer) CVS_ACTION_DIFF, NULL,
+	 GNOME_APP_PIXMAP_NONE, NULL,
+	 0, 0, NULL},
+	 GNOMEUIINFO_END /* 7 */
+};
 
 static GnomeUIInfo an_file_view_menu_uiinfo[] = {
 	{/* 0 */
@@ -150,71 +229,103 @@ static GnomeUIInfo an_file_view_menu_uiinfo[] = {
 	 0, 0, NULL}
 	,
 	{/* 2 */
+	 GNOME_APP_UI_SUBTREE, N_("CVS"),
+	 NULL,
+	 an_file_view_cvs_uiinfo, NULL, NULL,
+	 GNOME_APP_PIXMAP_NONE, NULL,
+	 0, 0, NULL}
+	 ,
+	{/* 3 */
 	 GNOME_APP_UI_ITEM, N_("Refresh"),
 	 NULL,
 	 fv_context_handler, (gpointer) REFRESH, NULL,
 	 PIX_STOCK(REFRESH),
 	 0, 0, NULL}
 	,
-	 GNOMEUIINFO_SEPARATOR, /* 3 */
-	{/* 4 */
+	 GNOMEUIINFO_SEPARATOR, /* 4 */
+	{/* 5 */
 	 GNOME_APP_UI_TOGGLEITEM, N_("Docked"),
 	 N_("Dock/Undock the Project Window"),
 	 on_project_dock_undock1_activate, NULL, NULL,
 	 PIX_FILE(DOCK),
-	 0, 0, NULL},
-	GNOMEUIINFO_END /* 5 */
+	 0, 0, NULL}
+	 ,
+	GNOMEUIINFO_END /* 6 */
 };
 
 static void fv_create_context_menu(void)
 {
 	int i;
 
-	fv->menu = gtk_menu_new();
-	gtk_widget_ref(fv->menu);
-	gnome_app_fill_menu (GTK_MENU_SHELL (fv->menu),
-	  an_file_view_menu_uiinfo, NULL, FALSE, 0);
-	for (i=0; i < sizeof(an_file_view_menu_uiinfo)/sizeof(an_file_view_menu_uiinfo[0]); ++i)
+	fv->menu.top = gtk_menu_new();
+	gtk_widget_ref(fv->menu.top);
+	gnome_app_fill_menu(GTK_MENU_SHELL(fv->menu.top), an_file_view_menu_uiinfo
+	  , NULL, FALSE, 0);
+	for (i=0; i < sizeof(an_file_view_menu_uiinfo)/sizeof(an_file_view_menu_uiinfo[0])
+	  ; ++i)
 		gtk_widget_ref(an_file_view_menu_uiinfo[i].widget);
-	gtk_widget_show(fv->menu);
+	for (i=0; i < sizeof(an_file_view_cvs_uiinfo)/sizeof(an_file_view_cvs_uiinfo[0])
+	  ; ++i)
+		gtk_widget_ref(an_file_view_cvs_uiinfo[i].widget);
+	fv->menu.open = an_file_view_menu_uiinfo[0].widget;
+	fv->menu.view = an_file_view_menu_uiinfo[1].widget;
+	fv->menu.cvs.top = an_file_view_menu_uiinfo[2].widget;
+	fv->menu.cvs.update = an_file_view_cvs_uiinfo[0].widget;
+	fv->menu.cvs.commit = an_file_view_cvs_uiinfo[1].widget;
+	fv->menu.cvs.status = an_file_view_cvs_uiinfo[2].widget;
+	fv->menu.cvs.log = an_file_view_cvs_uiinfo[3].widget;
+	fv->menu.cvs.add = an_file_view_cvs_uiinfo[4].widget;
+	fv->menu.cvs.remove = an_file_view_cvs_uiinfo[5].widget;
+	fv->menu.cvs.diff = an_file_view_cvs_uiinfo[6].widget;
+	fv->menu.refresh = an_file_view_menu_uiinfo[3].widget;
+	fv->menu.docked = an_file_view_menu_uiinfo[5].widget;
+	gtk_widget_show_all(fv->menu.top);
 }
 
 static gboolean
 fv_on_event(GtkWidget *widget, GdkEvent *event, gpointer user_data)
 {
-	if (!event)
-		return FALSE;
+	gint row;
+	GtkCTree *tree;
+	GtkCTreeNode *node;
+	tree = GTK_CTREE(widget);
+	row = tree->clist.focus_row;
+	node = gtk_ctree_node_nth(tree,row);
 
-	if (event->type == GDK_BUTTON_PRESS) {
+	if (!node || !event)
+		return FALSE;
+	fv->curr_entry = (TMFileEntry *) gtk_ctree_node_get_row_data(
+	  GTK_CTREE(fv->tree), GTK_CTREE_NODE(node));
+
+	if (event->type == GDK_BUTTON_PRESS)
+	{
+		gboolean has_cvs_entry = (fv->curr_entry && fv->curr_entry->version);
+
 		if (((GdkEventButton *) event)->button != 3)
 			return FALSE;
 
-		/* Popup project menu */
-		GTK_CHECK_MENU_ITEM(an_file_view_menu_uiinfo[4].widget)->active =
-		  app->project_dbase->is_docked;
-		gtk_menu_popup(GTK_MENU(fv->menu), NULL, NULL, NULL, NULL
+		GTK_CHECK_MENU_ITEM(fv->menu.docked)->active = app->project_dbase->is_docked;
+		gtk_widget_set_sensitive(fv->menu.cvs.top, app->project_dbase->has_cvs);
+		gtk_widget_set_sensitive(fv->menu.cvs.update, has_cvs_entry);
+		gtk_widget_set_sensitive(fv->menu.cvs.commit, has_cvs_entry);
+		gtk_widget_set_sensitive(fv->menu.cvs.status, has_cvs_entry);
+		gtk_widget_set_sensitive(fv->menu.cvs.log, has_cvs_entry);
+		gtk_widget_set_sensitive(fv->menu.cvs.add, !has_cvs_entry);
+		gtk_widget_set_sensitive(fv->menu.cvs.remove, has_cvs_entry);
+		gtk_widget_set_sensitive(fv->menu.cvs.diff, has_cvs_entry);
+		gtk_menu_popup(GTK_MENU(fv->menu.top), NULL, NULL, NULL, NULL
 		  , ((GdkEventButton *) event)->button, ((GdkEventButton *) event)->time);
-
 		return TRUE;
-	} else if (event->type == GDK_KEY_PRESS){
-		gint row;
-		GtkCTree *tree;
-		GtkCTreeNode *node;
-		tree = GTK_CTREE(widget);
-		row = tree->clist.focus_row;
-		node = gtk_ctree_node_nth(tree,row);
-		
-		if (!node)
-			return FALSE;
-			
+	}
+	else if (event->type == GDK_KEY_PRESS)
+	{
 		switch(((GdkEventKey *)event)->keyval) {
 			case GDK_space:
 			case GDK_Return:
-				if(GTK_CTREE_ROW(node)->is_leaf) {
-					fv->file = (char *) gtk_ctree_node_get_row_data(
-					  GTK_CTREE(fv->tree), GTK_CTREE_NODE(node));
-					if (fv->file)
-						anjuta_fv_open_file(fv->file, TRUE);
+				if(GTK_CTREE_ROW(node)->is_leaf)
+				{
+					if ((fv->curr_entry) && (tm_file_regular_t == fv->curr_entry->type))
+						anjuta_fv_open_file(fv->curr_entry->path, TRUE);
 				}
 				break;
 			case GDK_Left:
@@ -237,12 +348,12 @@ static void fv_on_select_row(GtkCList *clist, gint row, gint column
 	GtkCTreeNode *node = gtk_ctree_node_nth(GTK_CTREE(fv->tree), row);
 	if (!node || !event || row < 0 || column < 0)
 		return;
-	fv->file = (char *) gtk_ctree_node_get_row_data(
+	fv->curr_entry = (TMFileEntry *) gtk_ctree_node_get_row_data(
 	  GTK_CTREE(fv->tree), GTK_CTREE_NODE(node));
 	if ((event->type == GDK_2BUTTON_PRESS) && (event->button == 1))
 	{
-		if (fv->file)
-			anjuta_fv_open_file(fv->file, TRUE);
+		if ((fv->curr_entry) && (tm_file_regular_t == fv->curr_entry->type))
+			anjuta_fv_open_file(fv->curr_entry->path, TRUE);
 	}
 }
 
@@ -333,6 +444,8 @@ static void fv_add_tree_entry(TMFileEntry *entry, GtkCTreeNode *root)
 	parent = gtk_ctree_insert_node(GTK_CTREE(fv->tree), root, NULL
 	  , arr, 5, closed_icon, closed_bitmap, open_icon, open_bitmap
 	  , FALSE, !root);
+	gtk_ctree_node_set_row_data_full(GTK_CTREE(fv->tree), parent
+	  , entry, NULL);
 	for (tmp = entry->children; tmp; tmp = g_slist_next(tmp))
 	{
 		child = (TMFileEntry *) tmp->data;
@@ -358,7 +471,7 @@ static void fv_add_tree_entry(TMFileEntry *entry, GtkCTreeNode *root)
 			  , arr, 5, closed_icon, closed_bitmap, open_icon, open_bitmap
 			  , TRUE, FALSE);
 			gtk_ctree_node_set_row_data_full(GTK_CTREE(fv->tree), item
-			  , g_strdup(child->path), (GtkDestroyNotify) g_free);
+			  , child, NULL);
 		}
 	}
 }
@@ -366,7 +479,6 @@ static void fv_add_tree_entry(TMFileEntry *entry, GtkCTreeNode *root)
 AnFileView *fv_populate(gboolean full)
 {
 	static const char *ignore[] = {"CVS", NULL};
-	TMFileEntry *file_tree;
 #ifdef DEBUG
 	g_message("Populating file view..");
 #endif
@@ -377,12 +489,13 @@ AnFileView *fv_populate(gboolean full)
 	fv_clear();
 	if (!app || !app->project_dbase || !app->project_dbase->top_proj_dir)
 		goto clean_leave;
-	file_tree = tm_file_entry_new(app->project_dbase->top_proj_dir,
+	if (fv->file_tree)
+		tm_file_entry_free(fv->file_tree);
+	fv->file_tree = tm_file_entry_new(app->project_dbase->top_proj_dir,
 	  NULL, full, NULL, ignore, TRUE);
-	if (!file_tree)
+	if (! fv->file_tree)
 		goto clean_leave;
-	fv_add_tree_entry(file_tree, NULL);
-	tm_file_entry_free(file_tree);
+	fv_add_tree_entry(fv->file_tree, NULL);
 
 clean_leave:
 	fv_connect();

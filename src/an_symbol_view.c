@@ -172,10 +172,12 @@ static SVRootType sv_get_root_type(SVNodeType type)
 
 #define CREATE_SV_ICON(N, F) sv_icons[(N)] = gdk_pixmap_colormap_create_from_xpm(\
   NULL,	gtk_widget_get_colormap(sv->win), &sv_bitmaps[(N)],\
-  NULL, anjuta_res_get_pixmap_file(F));
+  NULL, (pix_file = anjuta_res_get_pixmap_file(F))); g_free(pix_file);
 
 static void sv_load_pixmaps(void)
 {
+	gchar *pix_file;
+
 	if (sv_icons)
 		return;
 	sv_icons = g_new(GdkPixmap *, (sv_max_t+1));
@@ -279,54 +281,61 @@ static void sv_create_context_menu(void)
 {
 	int i;
 
-	sv->menu = gtk_menu_new();
-	gtk_widget_ref(sv->menu);
-	gnome_app_fill_menu (GTK_MENU_SHELL (sv->menu),
+	sv->menu.top = gtk_menu_new();
+	gtk_widget_ref(sv->menu.top);
+	gnome_app_fill_menu (GTK_MENU_SHELL (sv->menu.top),
 	  an_symbol_view_menu_uiinfo, NULL, FALSE, 0);
 	for (i=0; i < sizeof(an_symbol_view_menu_uiinfo)/sizeof(an_symbol_view_menu_uiinfo[0]); ++i)
 		gtk_widget_ref(an_symbol_view_menu_uiinfo[i].widget);
-	gtk_widget_show(sv->menu);
+	sv->menu.goto_decl = an_symbol_view_menu_uiinfo[0].widget;
+	sv->menu.goto_def = an_symbol_view_menu_uiinfo[1].widget;
+	sv->menu.find = an_symbol_view_menu_uiinfo[2].widget;
+	sv->menu.refresh = an_symbol_view_menu_uiinfo[3].widget;
+	sv->menu.docked = an_symbol_view_menu_uiinfo[5].widget;
+	gtk_widget_show_all(sv->menu.top);
 }
 
 static gboolean
 sv_on_event(GtkWidget *widget, GdkEvent *event, gpointer user_data)
 {
-	if (!event)
-		return FALSE;
+	gint row;
+	GtkCTree *tree;
+	GtkCTreeNode *node;
+	tree = GTK_CTREE(widget);
+	row = tree->clist.focus_row;
+	node = gtk_ctree_node_nth(tree,row);
+		
+	if (!node || !event)
+			return FALSE;
+	sv->sinfo = (SymbolFileInfo *) gtk_ctree_node_get_row_data(
+	  GTK_CTREE(sv->tree), GTK_CTREE_NODE(node));
 
-	if (event->type == GDK_BUTTON_PRESS) {
+	if (event->type == GDK_BUTTON_PRESS)
+	{
+		gboolean has_sinfo = (NULL != sv->sinfo);
 		if (((GdkEventButton *) event)->button != 3)
 			return FALSE;
 
 		/* Popup project menu */
-		GTK_CHECK_MENU_ITEM(an_symbol_view_menu_uiinfo[5].widget)->active =
-		  app->project_dbase->is_docked;
-		gtk_menu_popup(GTK_MENU(sv->menu), NULL, NULL, NULL, NULL
+		GTK_CHECK_MENU_ITEM(sv->menu.docked)->active = app->project_dbase->is_docked;
+		gtk_widget_set_sensitive(sv->menu.goto_decl, has_sinfo);
+		gtk_widget_set_sensitive(sv->menu.goto_def, has_sinfo);
+		gtk_widget_set_sensitive(sv->menu.find, has_sinfo);
+		gtk_menu_popup(GTK_MENU(sv->menu.top), NULL, NULL, NULL, NULL
 		  , ((GdkEventButton *) event)->button, ((GdkEventButton *) event)->time);
-		
 		return TRUE;
-	} else if (event->type == GDK_KEY_PRESS){
-		gint row;
-		GtkCTree *tree;
-		GtkCTreeNode *node;
-		tree = GTK_CTREE(widget);
-		row = tree->clist.focus_row;
-		node = gtk_ctree_node_nth(tree,row);
-		
-		if (!node)
-			return FALSE;
-			
-		switch(((GdkEventKey *)event)->keyval) {
+	}
+	else if (event->type == GDK_KEY_PRESS)
+	{
+		switch(((GdkEventKey *)event)->keyval)
+		{
 			case GDK_space:
 			case GDK_Return:
-				if(GTK_CTREE_ROW(node)->is_leaf) {
-					
-					sv->sinfo = (SymbolFileInfo *) gtk_ctree_node_get_row_data(
-					  GTK_CTREE(sv->tree), GTK_CTREE_NODE(node));
-					
+				if(GTK_CTREE_ROW(node)->is_leaf)
+				{					
 					if (sv->sinfo && sv->sinfo->def.name)
-							anjuta_goto_file_line_mark(sv->sinfo->def.name
-							  , sv->sinfo->def.line, TRUE);
+						anjuta_goto_file_line_mark(sv->sinfo->def.name
+						  , sv->sinfo->def.line, TRUE);
 				}
 				break;
 			case GDK_Left:
@@ -541,6 +550,7 @@ AnSymbolView *sv_populate(gboolean full)
 		}
 	}
 	g_string_free(s, TRUE);
+	tm_symbol_tree_free(symbol_tree);
 
 clean_leave:
 	sv_connect();
