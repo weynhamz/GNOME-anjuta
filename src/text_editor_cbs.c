@@ -204,6 +204,134 @@ click_timeout (gpointer line)
 	return FALSE;
 }
 
+#define IS_DECLARATION(T) ((tm_tag_prototype_t == (T)) || (tm_tag_externvar_t == (T)) \
+  || (tm_tag_typedef_t == (T)))
+
+void anjuta_explorer_view_goto_symbol(TextEditor *te, gchar *symbol, gboolean prefer_definition)
+{
+	GPtrArray *tags;
+	TMTag *tag = NULL, *local_tag = NULL, *global_tag = NULL;
+	TMTag *local_proto = NULL, *global_proto = NULL;
+	guint i;
+	int cmp;
+	gchar *buf;
+
+	g_return_if_fail(symbol);
+
+	if (!te)
+		te = anjuta_get_current_text_editor();
+
+	/* Get the matching definition and declaration in the local file */
+	if (te && (te->tm_file) && (te->tm_file->tags_array) &&
+		(te->tm_file->tags_array->len > 0))
+	{
+		for (i=0; i < te->tm_file->tags_array->len; ++i)
+		{
+			tag = TM_TAG(te->tm_file->tags_array->pdata[i]);
+			cmp =  strcmp(symbol, tag->name);
+			if (0 == cmp)
+			{
+				if (IS_DECLARATION(tag->type))
+					local_proto = tag;
+				else
+					local_tag = tag;
+			}
+			else if (cmp < 0)
+				break;
+		}
+	}
+	if (!(((prefer_definition) && (local_tag)) || ((!prefer_definition) && (local_proto))))
+	{
+		/* Get the matching definition and declaration in the workspace */
+		tags =  TM_WORK_OBJECT(tm_get_workspace())->tags_array;
+		if (tags && (tags->len > 0))
+		{
+			for (i=0; i < tags->len; ++i)
+			{
+				tag = TM_TAG(tags->pdata[i]);
+				if (tag->atts.entry.file)
+				{
+					cmp = strcmp(symbol, tag->name);
+					if (cmp == 0)
+					{
+						if (IS_DECLARATION(tag->type))
+							global_proto = tag;
+						else
+							global_tag = tag;
+					}
+					else if (cmp < 0)
+						break;
+				}
+			}
+		}
+	}
+	if (prefer_definition)
+	{
+		if (local_tag)
+			tag = local_tag;
+		else if (global_tag)
+			tag = global_tag;
+		else if (local_proto)
+			tag = local_proto;
+		else
+			tag = global_proto;
+	}
+	else
+	{
+		if (local_proto)
+			tag = local_proto;
+		else if (global_proto)
+			tag = global_proto;
+		else if (local_tag)
+			tag = local_tag;
+		else
+			tag = global_tag;
+	}
+
+	if (tag)
+	{
+		anjuta_explorer_view_goto_file_line_mark(tag->atts.entry.file->work_object.file_name
+		  , tag->atts.entry.line, TRUE);
+	
+		/* hack, when a struct is define as "typedef struct _a a", 
+		   we would like to view _a but not just a typedef line.;) */
+		if ( '_' != *symbol)
+		{
+			buf = g_strdup_printf("_%s", symbol);
+			anjuta_explorer_view_goto_symbol(te, buf, TRUE);
+			g_free(buf);
+		}
+	}
+}
+
+void anjuta_explorer_current_keyword(void)
+{
+		TextEditor *te;
+	    gchar *buf = NULL;
+        static gchar *symb_saved = NULL;
+ 
+        te = anjuta_get_current_text_editor();
+        if(!te) return;
+
+		/* no project/ no tags etc, we could do nothing.:) */
+		if (!app || !app->project_dbase || !app->project_dbase->project_is_open
+		|| !app->project_dbase->tm_project ||
+	    !app->project_dbase->tm_project->tags_array ||
+	    (0 == app->project_dbase->tm_project->tags_array->len))
+			return;		
+		
+        buf = text_editor_get_current_word(te);
+        if ((buf == NULL) || ('\0' == *buf )) 	return;
+		
+		if (symb_saved && strcmp(buf, symb_saved) == 0)
+			return;
+
+		anjuta_explorer_view_goto_symbol(te, buf, TRUE);
+
+		g_free(symb_saved);
+		symb_saved = buf;
+}
+
 void
 on_text_editor_scintilla_notify (GtkWidget * sci,
 				 gint wParam, gpointer lParam, gpointer data)
@@ -231,6 +359,7 @@ on_text_editor_scintilla_notify (GtkWidget * sci,
 	case SCN_UPDATEUI:
 		anjuta_update_app_status (FALSE, NULL);
 		te->current_line = text_editor_get_current_lineno (te);
+	    anjuta_explorer_current_keyword();
 		return;
 		
 	case SCN_CHARADDED:

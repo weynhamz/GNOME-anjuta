@@ -1,5 +1,10 @@
 2004-10-20  Johannes Schmid <jhs@cvs.gnome.org>
 	
+	* configure.in, README, NEWS, FUTURE:
+	Ready for 1.2.3
+
+2004-10-20  Johannes Schmid <jhs@cvs.gnome.org>
+	
 	* src/anjuta.[ch], src/message-manager.[ch], 
 	src/text_editor_cbs.c, src/anjuta-tools.c:
 	
@@ -11,10 +16,13 @@
 	common text_editor as same as which one in editor window.
 
 	locate related file:line with the current focused keywords.
+	
+	Change from Johannes Schmid:
+	Make this window read-only because we cannot save it!
 
 2004-10-20  Johannes Schmid <jhs@cvs.gnome.org>
 	
-	* src/: Patch from bursig@poczta.fm:
+	* src/: Patch from <bursig@poczta.fm>:
 	
 	- autocompletion exploration of struct/unions/classes
 	functionality after ./->/:: operator. (work for local
@@ -25,25 +33,25 @@
 	- small crach tmp fix in debug code (please put
 	breakpoint in anjuta creatTags() function and run)
 	- remove "anonumous" struct/union/class mebers and
-	replased by "%s_fake_%d" names. (better will be
+	replaced by "%s_fake_%d" names. (better will be
 	randomes names ...)
-	- pointer dettection in tags system.
+	- pointer detection in tags system.
 	
 2004-10-20  Johannes Schmid <jhs@cvs.gnome.org>
 	
-	* src/, scintilla: Fix for IA64 from sbrabec@users.sourceforge.net
+	* src/, scintilla/: Fix for IA64 from sbrabec@users.sourceforge.net
 	* Patch from sbrabec@users.sourceforge.net to fix bug #956649
 	* src/file.c: Patch from apatterno@users.sourceforge.net:
 	Fix GPL-Notice for new files
 
 2004-10-20  Johannes Schmid <jhs@cvs.gnome.org>
 	
-	* src/debugger.c: Patch from yiuga@users.sourceforge.net
+	* src/debugger.c: Patch from <yiuga@users.sourceforge.net>
 	Fix some debugger bugs
-	* src/message-manager.c: Patch from ktirf@users.sourceforge.net
+	* src/message-manager.c: Patch from <ktirf@users.sourceforge.net>
 	Make shift insert work in terminal and make ctrl-c not restart 
 	terminal but work like in gnome-terminal
-	* src/launcher.c, src/utilities.c  : Patch from wettoad@users.sourceforge.net
+	* src/launcher.c, src/utilities.c  : Patch from <wettoad@users.sourceforge.net>
 	Hack to fix compiling on sun
 	
 

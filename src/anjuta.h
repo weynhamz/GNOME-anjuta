@@ -97,7 +97,7 @@ struct _AnjutaApp
 	AnjutaPreferences *preferences;
 	CompilerOptions *compiler_options;
 	SrcPaths *src_paths;
-	TextEditor *current_text_editor;
+	TextEditor *current_text_editor, *explorer_view;
 	AnjutaDirs *dirs;
 	Executer *executer;
 	Configurer *configurer;
@@ -193,6 +193,8 @@ gchar *anjuta_get_current_selection (void);
 TextEditor*  anjuta_goto_file_line (const gchar * fname, glong lineno);
 TextEditor*  anjuta_goto_file_line_mark (const gchar * fname,
 										 glong lineno, gboolean mark);
+gint anjuta_explorer_view_goto_file_line_mark (const gchar * fname, 
+										glong lineno, gboolean mark);
 gboolean anjuta_goto_local_tag(TextEditor *te, const char *qual_name);
 void anjuta_goto_tag(const char *symbol, TextEditor *te,
 					 gboolean prefer_definition);

@@ -1,19 +1,15 @@
-The Future!
------------
+This document is mostly obsolete:
 
-On 9th November 2001, it was announced that the two leading GNOME IDE
-projects - Anjuta and gIDE - had merged to work on a new IDE application. 
-The announcement is reproduced below for information purposes.
+- This is anjuta 1.2 which is the current stable release of anjuta, it is brached with ANJUTA_1_2_0 in GNOME CVS.
 
-What does this mean for the current path of Anjuta development? Since it
-is currently a more stable and usable application than Anjuta DevStudio 
-("Anjuta2"), the current Anjuta 1.x series will continue to be maintained 
-and developed. However, there will be a gradual transition where development 
-moves over to the new tree.
+- The next generation of anjuta is developed in GNOME CVS HEAD module anjuta and is usually called anjuta2
 
--- 
-Andy Piper <andy.piper@freeuk.com>
-Anjuta 1.x maintainer
+If you want to know something about anjuta2 development see anjuta-devel@lists.sourceforge.net or the anjuta modules.
+
+Johannes Schmid
+
+Rest is historic:
+
 
 
 

@@ -144,6 +144,10 @@ anjuta_new ()
 			on_build_msg_save_ok_clicked,
 			on_build_msg_save_cancel_clicked, NULL
 		};
+		
+		TextEditor *te;
+		GtkTextView *explorer_view;
+		
 		app->size = sizeof(AnjutaApp);
 		app->addIns_list	= NULL ;
 		app->shutdown_in_progress = FALSE;
@@ -250,6 +254,15 @@ anjuta_new ()
 		g_signal_connect (G_OBJECT (app->launcher), "busy",
 						  G_CALLBACK (update_ui_from_launcher), NULL);
 		debugger_init ();
+
+		te = text_editor_new(NULL, NULL, ANJUTA_PREFERENCES (app->preferences), NULL);
+		if (te != NULL)
+		{
+			an_message_manager_set_widget (app->messages, MESSAGE_EXPLORER,
+								   te->widgets.client);
+			app->explorer_view = te;
+		}
+		
 		anjuta_plugins_load();
 		anjuta_tools_load();
 		anjuta_load_yourself (ANJUTA_PREFERENCES (app->preferences)->props);
@@ -557,6 +570,61 @@ anjuta_goto_file_line_mark (const gchar * fname, glong lineno, gboolean mark)
 	}
 	g_free (fn);
 	return te ;
+}
+
+gint anjuta_explorer_view_goto_file_line_mark (const gchar * fname, glong lineno, gboolean mark)
+{
+	gchar *fn;
+	TextEditor *te;
+	guint *explorer_height;
+
+	g_return_val_if_fail (fname, NULL);
+	fn = anjuta_get_full_filename (fname);
+	g_return_val_if_fail (fname != NULL, NULL);
+
+	te = app->explorer_view;
+	if (te)
+	{
+		if ((!te->full_filename) || (strcmp(fn, te->full_filename) != 0))
+		{
+			g_free(te->filename);
+			g_free(te->full_filename);
+			te->filename = g_strdup(fname);
+			te->full_filename = g_strdup(fn);
+			text_editor_load_file(te);
+		}
+		if (lineno >= 0)
+		{
+			gint selpos;
+			text_editor_goto_line (te, lineno, mark, FALSE);
+				te->current_line = lineno;
+			scintilla_send_message (SCINTILLA (te->widgets.editor), 
+					SCI_MARKERDELETEALL,	2, 0); /* TEXT_EDITOR_LINEMARKER =2 */
+			text_editor_set_marker (te, lineno, 2);
+		
+			selpos = scintilla_send_message(SCINTILLA (te->widgets.editor),
+											SCI_POSITIONFROMLINE,
+										linenum_text_editor_to_scintilla (lineno), 0);
+			scintilla_send_message (SCINTILLA (te->widgets.editor),
+									SCI_SETSELECTIONSTART, selpos, 0);
+			scintilla_send_message (SCINTILLA (te->widgets.editor),
+									SCI_SETSELECTIONEND, selpos, 0);
+			
+			explorer_height = scintilla_send_message (SCINTILLA (te->widgets.editor),
+									SCI_TEXTHEIGHT, 0, 0);
+			/* This ensures that we have arround 1 lines visible upon the mark, 
+			    and locat to to top of the explorer view */
+			scintilla_send_message (SCINTILLA (te->widgets.editor), SCI_GOTOLINE, 
+				linenum_text_editor_to_scintilla (lineno)+ explorer_height - 1, 0);
+			scintilla_send_message (SCINTILLA (te->widgets.editor), SCI_GOTOLINE, 
+				linenum_text_editor_to_scintilla (lineno), 0);
+			/* Since we cannot save this window we make it read-only */
+			scintilla_send_message (SCINTILLA (te->widgets.editor), SCI_SETREADONLY, 
+				TRUE, 0);
+		}
+	}
+	g_free (fn);
+	return 0;
 }
 
 const GList *anjuta_get_tag_list(TextEditor *te, guint tag_types)

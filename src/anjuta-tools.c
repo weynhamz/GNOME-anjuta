@@ -1053,6 +1053,7 @@ StringMap output_strings[] = {
   { MESSAGE_BUILD, "Build Pane" }
 , { MESSAGE_DEBUG, "Debug Pane" }
 , { MESSAGE_FIND, "Find Pane" }
+, { MESSAGE_EXPLORER, "Explorer Pane" }
 , { MESSAGE_CVS, "CVS Pane" }
 , { MESSAGE_TERMINAL, "Terminal Pane" }
 , { MESSAGE_STDOUT, "Stdout Pane" }

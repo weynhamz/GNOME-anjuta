@@ -126,53 +126,15 @@ REQUIREMENTS:
 -------------
 
 Installation should be a breeze on any reasonably up-to-date *NIX system
-with GNOME 1.4 (Ximian GNOME recommended). The following are the minimum
-requirements. Development platform is RedHat Linux 7.x with GNOME 1.4
+with GNOME 2.0+ (Ximian GNOME recommended). The following are the minimum
+requirements.
+
+
 
 1) Installation
-# From Tarball:
-	* GNOME libs (1.2.8 or later)
-	* gnome-xml (aka libxml1) (1.4.0 or later)
-	* ORBit (0.5.0 or later)
-	* gnome-print (0.35 or later)
-	* gdk-pixbuf
-	* scrollkeeper (0.1.4 or later)
-	* pkgconfig
-
-# From CVS:
-	* All the requirements for tarball
-	* GNU gettext 0.10.x (or later)
-	* Automake 1.4 (or later)
-	* Autoconf 2.13 (or later)
-
-# From Src RPM:
-	< RedHat 6.1 or upwards >
-	* gnome-libs & gnome-libs-devel (1.2.8 or later)
-	* libxml & libxml-devel (1.4.0 or later)
-	* ORBit & ORBit-devel (0.5.0 or later)
-	* gnome-print & gnome-print-devel (0.35 or later)
-	* gdk-pixbuf & gdk-pixbuf-devel (0.15 or later)
-	* scrollkeeper (0.1.4 or later)
-	* pkgconfig (0.10 or later)
-	* automake (1.4)
-	* gcc & gcc-c++ (2.95.2 or later)
-	* RPM (4.0 ?)
-	* xml-i18n-tools or intltool (for documentation)
-
-# From RPM Pkg:
-	< RedHat 7.1 or upwards >
-	* gnome-libs & gnome-libs-devel (1.2.8 or later)
-	* libxml (1.4.0 or later)
-	* ORBit (0.5.0 or later)
-	* gnome-print (0.35 or later)
-	* gdk-pixbuf (0.15 or later)
-	* scrollkeeper (0.1.4 or later)
-	* automake (1.4)
-	* RPM (4.0 ?)
-
 2) Running
 	< RedHat 6.1 or upwards >
-	* GNOME (2 full install recommended)
+	* GNOME2 (full install recommended)
 	* Bash command shell
 	* GNU Indent
 	* gnome-terminal
@@ -185,6 +147,8 @@ requirements. Development platform is RedHat Linux 7.x with GNOME 1.4
 
 INSTALLATION:
 -------------
+
+Please Note: Install anjuta 1.2 and anjuta2 with different prefixes! Anjuta 1.2 will else crash!
 
 # From Tarball:
 	Note:- The package as an example is taken as anjuta-1.0.tar.gz

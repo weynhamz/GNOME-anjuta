@@ -50,6 +50,7 @@ static char *labels[] =
 	N_("Locals"),
 	N_("Watches"),
 	N_("Stack"),
+	N_("Explorer")
 };
 
 // Intern functions
@@ -217,6 +218,7 @@ an_message_manager_add_type (AnMessageManager * amm, gint type_name,
 			break;
 		case MESSAGE_WATCHES:
 		case MESSAGE_STACK:
+		case MESSAGE_EXPLORER:
 			sub_win = new WidgetWindow(amm, type_name, type, pixmap);
 			break;
 		default:
@@ -990,6 +992,8 @@ create_default_types (AnMessageManager * amm)
 	an_message_manager_add_type (amm, MESSAGE_STACK,
 					 ANJUTA_PIXMAP_MINI_LOCALS);	
 	
+	an_message_manager_add_type (amm, MESSAGE_EXPLORER,
+					 ANJUTA_PIXMAP_MINI_FIND);
 	// Fix for bug #509192 (Crash on next message)
 	amm->intern->cur_msg_win = 
 			dynamic_cast<AnMessageWindow*>(*(amm->intern->msg_windows.begin()));

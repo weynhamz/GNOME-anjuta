@@ -1,3 +1,15 @@
+Anjuta 1.2.3 (x Oct 2004) -- Johannes Schmid
+
+After a long time I made another release to bring some patches from the community to all users:
+
+New: Better symbol handling of structs/classes/etc.
+New: New realtime func/macros/var/struct define exporer in message windows.
+Bug fix: IA64 and Solaris problems
+Bug fix: Terminal Ctrl-C and Shift-Insert
+Bug fix: Debugger improvements
+
+Of course there are many many other bugs but development is concentrating on anjuta2
+
 Anjuta 1.2.2 (13 Apr 2004) -- Naba Kumar
 
 New: Anjuta advanced tutorial
