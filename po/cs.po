@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-09-27 11:12+0200\n"
-"PO-Revision-Date: 2003-09-27 17:03+0200\n"
+"POT-Creation-Date: 2003-10-13 02:59+0200\n"
+"PO-Revision-Date: 2003-10-13 10:32+0200\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -339,10 +339,10 @@ msgstr "Vlastní styl"
 
 #: anjuta.glade.h:78
 msgid ""
-"Custom style,GNU coding style,Kernighan & Ritchie style,Original Berkeley "
+"Custom style,GNU coding style,Kernighan and Ritchie style,Original Berkeley "
 "style,Style of Kangleipak,Hello World style,Crazy boy style"
 msgstr ""
-"Vlastní styl,Styl kódování GNU,Styl Kernighan & Ritchie,Původní styl "
+"Vlastní styl,Styl kódování GNU,Styl Kernighan a Ritchie,Původní styl "
 "Berkeley,Styl Kangleipak,Styl Hello World,Styl šílený kluk"
 
 #: anjuta.glade.h:79
@@ -563,7 +563,7 @@ msgstr "Hledat & nahradit"
 msgid "Find and replace"
 msgstr "Hledat a nahradit"
 
-#: anjuta.glade.h:132 src/find_in_files.c:302
+#: anjuta.glade.h:132 src/find_in_files.c:316
 msgid "Find in Files"
 msgstr "Hledat v souborech"
 
@@ -2627,7 +2627,7 @@ msgstr ""
 msgid "Looking up symbol"
 msgstr "Vyhledávám symbol"
 
-#: src/anjuta.c:2413 src/find_in_files.c:308
+#: src/anjuta.c:2413 src/find_in_files.c:322
 msgid "Finding in Files ....\n"
 msgstr "Hledám v souborech ....\n"
 
@@ -2704,13 +2704,13 @@ msgstr ""
 "Pro pokračování dále musíte dodat platné pole %s."
 
 #. For the time being
-#: src/appwizard_cbs.c:282 src/project_dbase.c:1484 src/project_dbase.c:1490
-#: src/project_dbase.c:1493 src/project_import_cbs.c:227 src/signals_cbs.c:115
+#: src/appwizard_cbs.c:282 src/project_dbase.c:1492 src/project_dbase.c:1498
+#: src/project_dbase.c:1501 src/project_import_cbs.c:227 src/signals_cbs.c:115
 #: src/signals_cbs.c:128 src/signals_cbs.c:141
 msgid "Yes"
 msgstr "Ano"
 
-#: src/appwizard_cbs.c:284 src/project_dbase.c:1486 src/project_dbase.c:1495
+#: src/appwizard_cbs.c:284 src/project_dbase.c:1494 src/project_dbase.c:1503
 #: src/project_import_cbs.c:229 src/signals_cbs.c:117 src/signals_cbs.c:130
 #: src/signals_cbs.c:143
 msgid "No"
@@ -2867,7 +2867,7 @@ msgstr "Pro tento typ souboru nebyl určen sestavovací příkaz."
 msgid "Building file: %s ...\n"
 msgstr "Sestavuji soubor: %s ...\n"
 
-#: src/build_file.c:132 src/cvs.c:776 src/find_in_files.c:346
+#: src/build_file.c:132 src/cvs.c:776 src/find_in_files.c:360
 #: src/project_import.c:192
 #, c-format
 msgid "Total time taken: %lu secs\n"
@@ -2889,63 +2889,63 @@ msgstr "Dokončeno...úspěšně\n"
 msgid "Completed ... successful"
 msgstr "Dokončeno...úspěšně"
 
-#: src/build_project.c:72 src/compile.c:61
+#: src/build_project.c:76 src/compile.c:61
 msgid "Unable to build module. Check Settings->Commands."
 msgstr "Nemohu sestavit modul. Zkontrolujte Nastavení->Příkazy."
 
-#: src/build_project.c:91 src/build_project.c:152 src/compile.c:74
+#: src/build_project.c:95 src/build_project.c:160 src/compile.c:74
 msgid "Build Project"
 msgstr "Sestavit projekt"
 
-#: src/build_project.c:93 src/compile.c:76
+#: src/build_project.c:97 src/compile.c:76
 msgid "Building source directory of the Project: "
 msgstr "Sestavuji zdrojový adresář projektu: "
 
-#: src/build_project.c:137
+#: src/build_project.c:145
 msgid "Unable to build Project. Check Settings->Commands."
 msgstr "Nemohu sestavit projekt. Zkontrolujte Nastavení->Příkazy."
 
-#: src/build_project.c:155
+#: src/build_project.c:163
 msgid "Building the whole Project: "
 msgstr "Sestavuji celý projekt: "
 
-#: src/build_project.c:188
+#: src/build_project.c:196
 msgid "Unable to build tarball. Check Settings->Commands."
 msgstr "Nemohu sestavit tarball. Zkontrolujte Nastavení->Příkazy."
 
-#: src/build_project.c:203
+#: src/build_project.c:211
 msgid "Build Distribution"
 msgstr "Sestavit distribuci"
 
-#: src/build_project.c:207
+#: src/build_project.c:215
 msgid "Building the distribution package of the Project: "
 msgstr "Sestavuji distribuční balíček projektu: "
 
-#: src/build_project.c:239
+#: src/build_project.c:247
 msgid "Do you prefer installing as root ?"
 msgstr "Dáváte přednost instalaci jako root ?"
 
-#: src/build_project.c:277
+#: src/build_project.c:285
 msgid "Unable to auto generate. Check Settings->Commands."
 msgstr "Nemohu automaticky generovat. Zkontrolujte Nastavení->Příkazy."
 
-#: src/build_project.c:291
+#: src/build_project.c:299
 msgid "Auto generate Project"
 msgstr "Automaticky vygenerovat projekt"
 
-#: src/build_project.c:294
+#: src/build_project.c:302
 msgid "Auto generating the Project: "
 msgstr "Automaticky generuji projekt: "
 
-#: src/build_project.c:316 src/build_project.c:354
+#: src/build_project.c:324 src/build_project.c:362
 msgid "Unable to install Project. Check Settings->Commands."
 msgstr "Nemohu nainstalovat projekt. Zkontrolujte Nastavení->Příkazy."
 
-#: src/build_project.c:331 src/build_project.c:366
+#: src/build_project.c:339 src/build_project.c:374
 msgid "Install Project"
 msgstr "Nainstalovat projekt"
 
-#: src/build_project.c:333 src/build_project.c:368
+#: src/build_project.c:341 src/build_project.c:376
 msgid "Installing the Project: "
 msgstr "Instaluje projekt: "
 
@@ -3522,19 +3522,19 @@ msgstr "Tento soubor nebyl uložen. Nejdříve jej uložte."
 msgid "Unable to execute file. Check Settings->Commands."
 msgstr "Nemohu spustit soubor. Zkontrolujte Nastavení->Příkazy."
 
-#: src/find_in_files.c:335
+#: src/find_in_files.c:349
 msgid "Find in Files completed...............Unsuccessful\n"
 msgstr "Hledání v souborech dokončeno...............Neúspěšně\n"
 
-#: src/find_in_files.c:337
+#: src/find_in_files.c:351
 msgid "Find in Files completed ... unsuccessful"
 msgstr "Hledání v souborech dokončeno ... neúspěšně"
 
-#: src/find_in_files.c:342
+#: src/find_in_files.c:356
 msgid "Find in Files completed...............Successful\n"
 msgstr "Hledání v souborech dokončeno...............Úspěšně\n"
 
-#: src/find_in_files.c:344
+#: src/find_in_files.c:358
 msgid "Find in Files completed ... successful"
 msgstr "Hledání v souborech dokončeno ... úspěšně"
 
@@ -3560,22 +3560,22 @@ msgstr "Řetězec \"%s\" nebyl nalezen ve vybraném textu"
 msgid "The string \"%s\" was not found from the current location"
 msgstr "Řetězec \"%s\" nebyl z aktuálního umístění nalezen"
 
-#: src/find_text.c:163
+#: src/find_text.c:156
 #, c-format
 msgid "The match \"%s\" was not found in the whole document"
 msgstr "Hledané \"%s\" nebylo nalezeno v celém dokumentu"
 
-#: src/find_text.c:168
+#: src/find_text.c:161
 #, c-format
 msgid "The match \"%s\" was not found in the selected text"
 msgstr "Hledané \"%s\" nebylo nalezeno ve vybraném textu"
 
-#: src/find_text.c:173
+#: src/find_text.c:166
 #, c-format
 msgid "The match \"%s\" was not found from the current location"
 msgstr "Hledané \"%s\" nebylo nalezeno v aktuálním umístění"
 
-#: src/find_text.c:197
+#: src/find_text.c:190
 msgid "No matches found. Wrap search around the document?"
 msgstr "Nenalezen žádný výsledek. Hledat od druhého konce dokumentu?"
 
@@ -3709,7 +3709,7 @@ msgstr "Nezobrazovat úvodní obrazovku"
 msgid "Recent Files    "
 msgstr "Nedávné soubory "
 
-#: src/main_menubar.c:392 src/project_dbase.c:2033
+#: src/main_menubar.c:392 src/project_dbase.c:2041
 msgid "Recent Projects "
 msgstr "Nedávné projekty"
 
@@ -6112,7 +6112,7 @@ msgstr "Všechny soubor"
 msgid "Unable to load Project: %s"
 msgstr "Nemohu načíst projet: %s"
 
-#: src/project_dbase.c:466 src/project_dbase.c:2472
+#: src/project_dbase.c:466 src/project_dbase.c:2480
 #, c-format
 msgid ""
 "Anjuta version %s or later is required to open this Project.\n"
@@ -6121,15 +6121,15 @@ msgstr ""
 "Pro otevření tohoto projektu je vyžadována Anjuta verze %s nebo vyšší.\n"
 "Aktualizujte prosím na nejnovější verzi Anjuty (více informací v nápovědě)."
 
-#: src/project_dbase.c:846
+#: src/project_dbase.c:849
 msgid "Project saved successfully"
 msgstr "Projekt úspěšně uložen"
 
-#: src/project_dbase.c:852 src/project_dbase.c:854
+#: src/project_dbase.c:855 src/project_dbase.c:857
 msgid "Unable to save the Project."
 msgstr "Nemohu uložit projekt."
 
-#: src/project_dbase.c:1561
+#: src/project_dbase.c:1569
 msgid ""
 "A .glade file does not exist in the top level Project directory. If you do "
 "not use glade for GUI editing,  please specify a custom command for it in "
@@ -6139,7 +6139,7 @@ msgstr ""
 "editování GUI nepoužíváte GLADE, určete pro ně prosím vlastní příkaz v "
 "[Projekt]->[Konfigurace projektu]->[Příkaz editoru GUI]"
 
-#: src/project_dbase.c:1623
+#: src/project_dbase.c:1631
 msgid ""
 "A .glade file does not\n"
 "exist in the top level Project directory."
@@ -6148,11 +6148,11 @@ msgstr ""
 "neexistuje soubor .glade."
 
 #. Set project title
-#: src/project_dbase.c:2070
+#: src/project_dbase.c:2078
 msgid "Project: "
 msgstr "Projekt: "
 
-#: src/project_dbase.c:2187
+#: src/project_dbase.c:2195
 #, c-format
 msgid ""
 "Unable to get relative file name for %s\n"
@@ -6161,20 +6161,20 @@ msgstr ""
 "Nemohu získat relativní jméno souboru pro %s\n"
 " v %s"
 
-#: src/project_dbase.c:2252
+#: src/project_dbase.c:2260
 msgid " already exists in the project"
 msgstr " již v projektu existuje"
 
-#: src/project_dbase.c:2285
+#: src/project_dbase.c:2293
 msgid "Error while copying the file inside the module."
 msgstr "Chyba při kopírování souboru uvnitř modulu."
 
-#: src/project_dbase.c:2548 src/project_dbase.c:2551
+#: src/project_dbase.c:2556 src/project_dbase.c:2559
 #, c-format
 msgid "Error in loading Project: %s"
 msgstr "Chyba při načítání projektu: %s"
 
-#: src/project_dbase.c:2572
+#: src/project_dbase.c:2580
 msgid "Project loaded successfully."
 msgstr "Projekt úspěšně načten."
 
