@@ -1,5 +1,7 @@
 2002-12-01  Naba Kumar <naba@gnome.org>
 
+	* data/properies/anjuta.properties: Corrected "indicators.automatic"
+	property name.
 	* src/anjuta.c, src/preferences.h: Added MESSAGES_INDCATORS_AUTOMATIC
 	property and uses it.
 	* src/aneditor.cxx: Fixed a bug associated with selection a word at
