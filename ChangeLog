@@ -12,6 +12,8 @@
 		Applied the patch that addes menu items which allow users to
 		insert GPL notice and date time in current document.
 		patch from: Rick Patel <rikul@shreve.net>	
+		
+	* src/main_menu.c: Fixed a compilation error.
 	
 2001-08-28  Naba Kumar <kh_naba@users.sourceforge.net>
 	

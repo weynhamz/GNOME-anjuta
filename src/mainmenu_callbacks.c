@@ -427,6 +427,7 @@ on_insert_c_gpl_notice(GtkMenuItem * menuitem, gpointer user_data)
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
+ 
  ";
 
        te = anjuta_get_current_text_editor ();

@@ -308,7 +308,7 @@ main_menu_unref ()
 	for (i = 0; i < 6; i++)
 		gtk_widget_unref (goto1_submenu_uiinfo[i].widget);
 	for (i = 0; i < 3; i++)
-		gtk_widget_unref (insert1_menu_uiinfo[i].widget);
+		gtk_widget_unref (inserttext1_submenu_uiinfo[i].widget);
 	for (i = 0; i < 22; i++)
 		gtk_widget_unref (edit1_menu_uiinfo[i].widget);
 	for (i = 0; i < 11; i++)
