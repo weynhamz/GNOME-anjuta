@@ -1,3 +1,17 @@
+2005-02-21  Johannes Schmid <jhs@cvs.gnome.org>
+	
+	* plugins/macro/macro-actions.[ch]
+	plugins/macro/plugin.c
+	libanjuta/interfaces/libanjuta.idl:
+	
+	Implemented IAnjutaMacro interface to be used by file-wizard
+	
+	* plugins/cvs-plugin/plugin.c
+	libanjuta/interfaces/libanjuta.idl:
+	
+	Reworked IAnjutaCvs to IAnjutaVCS to be used as an interface
+	for all version control systems and not only for cvs.
+
 2005-02-20  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
 
 	* plugins/macro/macro-actions.[ch], plugins/macro/macros.xml : Added 

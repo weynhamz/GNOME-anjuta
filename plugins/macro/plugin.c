@@ -19,6 +19,8 @@
 #include "macro-actions.h"
 #include "macro-db.h"
 
+#include <libanjuta/interfaces/ianjuta-macro.h>
+
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-macro.ui"
 #define ICON_FILE "anjuta-macro.png"
 
@@ -172,5 +174,21 @@ macro_plugin_class_init (GObjectClass * klass)
 	klass->finalize = finalize;
 }
 
-ANJUTA_PLUGIN_BOILERPLATE (MacroPlugin, macro_plugin);
+void ianjuta_macro_insert(IAnjutaMacro* macro, const gchar* key, GError** err)
+{
+	MacroPlugin* plugin = (MacroPlugin*)(macro);
+	insert_macro(key, plugin);
+}
+
+/* Interface */
+static void
+ianjuta_macro_iface_init (IAnjutaMacroIface *iface)
+{
+	iface->insert = ianjuta_macro_insert;
+}
+
+ANJUTA_PLUGIN_BEGIN (MacroPlugin, macro_plugin);
+ANJUTA_PLUGIN_ADD_INTERFACE (ianjuta_macro, IANJUTA_TYPE_MACRO);
+ANJUTA_PLUGIN_END;
+
 ANJUTA_SIMPLE_PLUGIN (MacroPlugin, macro_plugin);

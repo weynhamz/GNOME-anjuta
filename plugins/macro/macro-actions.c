@@ -27,7 +27,7 @@ static gboolean match_shortcut (MacroPlugin *plugin, GtkTreeIter *iter,
 				                gchar key);
 
 static gboolean match_keyword (MacroPlugin * plugin, GtkTreeIter * iter, 
-                              gchar *keyword);
+                              const gchar *keyword);
 
 void
 on_menu_insert_macro (GtkAction * action, MacroPlugin * plugin)
@@ -61,7 +61,7 @@ on_menu_insert_macro (GtkAction * action, MacroPlugin * plugin)
 }
 
 static gboolean
-match_keyword (MacroPlugin * plugin, GtkTreeIter * iter, gchar *keyword)
+match_keyword (MacroPlugin * plugin, GtkTreeIter * iter, const gchar *keyword)
 {
 	gchar *name;
 	gtk_tree_model_get(macro_db_get_model(plugin->macro_db), iter,
@@ -84,8 +84,8 @@ match_keyword (MacroPlugin * plugin, GtkTreeIter * iter, gchar *keyword)
 
 /* keyword : macro name  */
 
-static gboolean
-insert_macro (gchar *keyword, MacroPlugin * plugin)
+gboolean
+insert_macro (const gchar *keyword, MacroPlugin * plugin)
 {
 	GtkTreeIter parent;
 	GtkTreeIter cur_cat;
