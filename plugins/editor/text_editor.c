@@ -43,7 +43,6 @@
 #include "text_editor.h"
 #include "text_editor_cbs.h"
 #include "text_editor_menu.h"
-#include "src/launcher.h"
 
 #define GTK
 #undef PLAT_GTK

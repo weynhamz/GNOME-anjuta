@@ -1,5 +1,8 @@
 2005-03-10  Naba Kumar  <naba@gnome.org>
 
+	* plugins/editor/text_editor.c: Removed reference to
+	src/launcher.h (a dead file).
+
 	* src/anjuta_dirs.c, src/anjuta_dirs.h, src/anjuta_gui.c,
 	src/controls.c, src/controls.h, src/fileselection.c,
 	src/fileselection.h, src/glade_iface.c, src/glade_iface.h,
