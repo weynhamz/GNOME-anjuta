@@ -13,6 +13,7 @@
 2003-04-16  Biswapesh Chattopadhyay  <biswapesh_chatterjee@tcscal.co.in>
 	* src/anjuta.[ch], src/print.c: Fixed warnings
 	* scintilla/*, src/aneditor.cxx: Restore LexCPP patch.
+	* configure.in: Profiling support with gprof
 
 2003-04-16  Naba Kumar  <naba@gnome.org>
 
