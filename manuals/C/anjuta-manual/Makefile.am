@@ -77,3 +77,8 @@ lang = C
 omffile = anjuta-manual-C.omf
 include $(top_srcdir)/manuals/sgmldocs.make
 dist-hook: app-dist-hook
+pdf: eps $(docname).pdf
+ps: eps $(docname).ps
+
+eps:
+	cd figures && ./makeeps.sh

@@ -1383,6 +1383,14 @@ on_debugger_update_prog_status (GList * lines, gpointer data)
 			goto down;
 		}
 	}
+    else if ((str = strstr(lines->data, "child lwp ")))
+	{
+		if (sscanf(str, "child lwp %d", &pid) != 1)
+		{
+			error = TRUE;
+			goto down;
+		}
+	}
 	else /* Nothing known about this particular process recognition string */
 	{
 		error = TRUE;

@@ -75,6 +75,20 @@ $(docname)/index.html: $(srcdir)/$(docname).sgml $(sgml_ents)
 		fi \
 	fi
 
+$(docname).ps: $(srcdir)/$(docname).sgml $(sgml_ents)
+	-if test -e $(docname).ps ; then \
+		rm -f $(docname).ps ; \
+	fi
+	-srcdir=`cd $(srcdir) && pwd`; \
+	if test "$(HAVE_JW)" = 'yes' ; then \
+		jw -b ps -c /etc/sgml/catalog $$srcdir/$(docname).sgml; \
+	else \
+		db2ps $$srcdir/$(docname).sgml; \
+	fi
+
+$(docname).pdf: $(docname).ps
+	ps2pdf $(docname).ps
+
 app-dist-hook: index.html
 	-$(mkinstalldirs) $(distdir)/figures
 	-cp $(srcdir)/$(docname)/*.html $(distdir)/$(docname)
@@ -94,14 +108,6 @@ install-data-am: index.html omf
 	  basefile=`echo $$file | sed -e  's,^.*/,,'`; \
 	  $(INSTALL_DATA) $$file $(DESTDIR)$(docdir)/figures/$$basefile; \
 	done
-
-$(docname).ps: $(srcdir)/$(docname).sgml
-	-srcdir=`cd $(srcdir) && pwd`; \
-	db2ps $$srcdir/$(docname).sgml
-
-$(docname).rtf: $(srcdir)/$(docname).sgml
-	-srcdir=`cd $(srcdir) && pwd`; \
-	db2ps $$srcdir/$(docname).sgml
 
 uninstall-local:
 	-for file in $(srcdir)/figures/*.png; do \

@@ -2,6 +2,9 @@ Tentative roadmap for Anjuta after 1.0 release
 
 ----------------------------------------------------------------------------------------------
 1) More powerful Search, Search&Replace, Find In Files, etc. (422986, 533297)
+Notes: Have a look at regexxer (uses PCRE). Might be a good idea to reuse the
+code there to revamp the current search/replace interface.
+
 2) Better support for other languages, e.g., Java, Perl, Python, etc.
 	a) TagManager integration (tags, symbol browser, autocomplete, etc.)
 	b) Project types (new project, import, etc.)
