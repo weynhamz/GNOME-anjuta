@@ -1,0 +1,20 @@
+diff -r -u scintilla/RESearch.cxx scintilla-new/RESearch.cxx
+--- scintilla/RESearch.cxx	2003-09-18 12:44:09.000000000 +0530
++++ scintilla-new/RESearch.cxx	2003-09-17 11:31:58.000000000 +0530
+@@ -29,7 +29,6 @@
+  *
+  * Modification history:
+  *
+- * $Log$
+- * Revision 1.1.2.1  2003/09/18 08:16:04  naba
+- * 	* (new) scintilla/patches/research-cvs-nolog.diff: Added
+- * 	patch to remove cvs log command from RESearch.cxx file.
+- * 	* scintilla/patches/scintilla-pango-always.diff:
+- * 	Fixed file name.
+- * 	* scintilla/RESearch.cxx: Removed spurious cvs log command
+- * 	and logs.
+- * 	* (new) scintilla/test-scintilla.cxx: A test file for scintilla.
+- *
+  * Revision 1.14.2.2  2003/09/18 07:46:30  naba
+  * 	* scintilla/*/*, src/scintilla/Makefile.am, src/Makefile.am,
+  * 	(new) lexers.make, (new) lexers: Update scintilla to latest

@@ -1,4 +1,4 @@
-diff -u scintilla/Editor.cxx scintilla-new/Editor.cxx
+diff -u scintilla/PlatGTK.cxx scintilla-new/PlatGTK.cxx
 --- scintilla/PlatGTK.cxx	2003-09-18 12:05:56.000000000 +0530
 +++ scintilla-new/PlatGTK.cxx	2003-09-17 11:31:58.000000000 +0530
 @@ -494,16 +494,16 @@

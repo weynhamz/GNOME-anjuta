@@ -7,6 +7,14 @@
 	patches. Optimized pango rendering. Fixed a crash bug
 	in scintilla.
 	
+	* (new) scintilla/patches/research-cvs-nolog.diff: Added
+	patch to remove cvs log command from RESearch.cxx file.
+	* scintilla/patches/scintilla-pango-always.diff:
+	Fixed file name.
+	* scintilla/RESearch.cxx: Removed spurious cvs log command
+	and logs.
+	* (new) scintilla/test-scintilla.cxx: A test file for scintilla.
+	
 2003-09-15  Naba Kumar  <naba@gnome.org>
 
 	* src/text_editor.[c,h], src/anjuta.c, src/breakpoints.c,
