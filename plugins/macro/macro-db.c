@@ -130,6 +130,8 @@ macro_db_save (MacroDB * db)
 	GnomeVFSHandle *handle;
 	GnomeVFSResult result;
 	GnomeVFSFileSize bytes_written;
+	const gchar* header = "<?xml version=\"1.0\" " 
+		"encoding=\"UTF-8\"?>\n";
 	const gchar *begin = "<anjuta-macros>\n";
 	const gchar *end = "</anjuta-macros>\n";
 
@@ -143,6 +145,10 @@ macro_db_save (MacroDB * db)
 		return;
 
 
+	result = gnome_vfs_write (handle, header, strlen (header),
+				  &bytes_written);
+	if (result != GNOME_VFS_OK)
+		return;
 	result = gnome_vfs_write (handle, begin, strlen (begin),
 				  &bytes_written);
 	if (result != GNOME_VFS_OK)
@@ -278,76 +284,31 @@ read_macros (xmlDocPtr doc, xmlNodePtr cur, GtkTreeStore * tree_store,
 	{
 		if ((!xmlStrcmp (cur->name, (const xmlChar *) "macro")))
 		{
-			xmlNodePtr node = cur->xmlChildrenNode;
-			xmlChar *key;
-			gchar *name = NULL;
-			gchar *category = NULL;
-			gchar *shortcut = NULL;
-			gchar *text = NULL;
-			while (node != NULL)
-			{
-				if ((!xmlStrcmp
-				     (node->name, (const xmlChar *) "name")))
-				{
-					key = xmlNodeListGetString (doc,
-								    node->
-								    xmlChildrenNode,
-								    1);
-					name = g_strdup (key);
-					xmlFree (key);
-				}
-				else if ((!xmlStrcmp
-					  (node->name,
-					   (const xmlChar *) "category")))
-				{
-					key = xmlNodeListGetString (doc,
-								    node->
-								    xmlChildrenNode,
-								    1);
-					if (key && strlen (key))
-						category = g_strdup (key);
-					else
-						category = g_strdup ("");
-					xmlFree (key);
-				}
-				else if ((!xmlStrcmp
-					  (node->name,
-					   (const xmlChar *) "shortcut")))
-				{
-					key = xmlNodeListGetString (doc,
-								    node->
-								    xmlChildrenNode,
-								    1);
-					shortcut = g_strdup (key);
-					xmlFree (key);
-				}
-				else if ((!xmlStrcmp
-					  (node->name,
-					   (const xmlChar *) "macro-text")))
-				{
-					key = xmlNodeListGetString (doc,
-								    node->
-								    xmlChildrenNode,
-								    1);
-					text = g_strdup (key);
-					xmlFree (key);
-				}
-				else
-				{
-#ifdef DEBUG
-					g_warning
-						("Skipping unknown macro field \"%s\"!",
-						 node->name);
-#endif
-				}
-				node = node->next;
-			}
+			xmlChar *name;
+			xmlChar *category;
+			xmlChar *shortcut;
+			xmlChar *text;
+			
+			name = xmlGetProp(cur, "_name");
+			category = xmlGetProp(cur, "_category");
+			shortcut = xmlGetProp(cur, "_shortcut");
+			text = xmlNodeListGetString (doc, cur->xmlChildrenNode, 1);
+			
 			macro_db_add_real (tree_store, iter, name,
 					   category, shortcut, text,
 					   pre_defined);
-			g_free (name);
-			g_free (category);
-			g_free (text);
+			xmlFree(name);
+			xmlFree(category);
+			xmlFree(shortcut);
+			xmlFree(text);
+		}
+		else
+		{
+#ifdef DEBUG
+			g_warning
+				("Skipping unknown xml field \"%s\"!",
+				 cur->name);
+#endif
 		}
 		cur = cur->next;
 	}
@@ -470,13 +431,10 @@ save_macro (GtkTreeModel * model, GtkTreeIter * iter, GnomeVFSHandle * handle)
 			    MACRO_CATEGORY, &category,
 			    MACRO_SHORTCUT, &shortcut, MACRO_TEXT, &text, -1);
 	shortcut_string = g_strdup_printf ("%c", shortcut);
-	output = g_strdup_printf ("\t<macro>\n"
-				  "\t\t<name>%s</name>\n"
-				  "\t\t<category>%s</category>\n"
-				  "\t\t<shortcut>%s</shortcut>\n"
-				  "\t\t<macro-text>%s</macro-text>\n"
-				  "\t</macro>\n",
-				  name, category, shortcut_string, text);
+	output = g_strdup_printf ("<macro _name=\"%s\" _category=\"%s\" "
+								"_shortcut=\"%s\">"
+								"<![CDATA[%s]]></macro>\n",
+				  				name, category, shortcut_string, text);
 	g_free (shortcut_string);
 	bytes = strlen (output);
 	result = gnome_vfs_write (handle, output,

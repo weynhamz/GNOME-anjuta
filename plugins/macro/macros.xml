@@ -1,9 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <anjuta-macros>
-	<macro>
-		<name>switch</name>
-		<category>C-Template</category>
-		<shortcut></shortcut>
-		<macro-text>switch ()
+<macro _name="switch" _category="C" _shortcut=""><![CDATA[switch ()
 {
 	case  :
 		;
@@ -14,42 +11,25 @@
 	default:
 		;
 		break;
-}</macro-text>
-	</macro>
-	<macro>
-		<name>while</name>
-		<category>C-Template</category>
-		<shortcut></shortcut>
-		<macro-text>while ()
+}
+]]></macro>
+<macro _name="for" _category="C" _shortcut=""><![CDATA[for ( ; ; )
 {
 	;
-}</macro-text>
-	</macro>
-	<macro>
-		<name>for</name>
-		<category>C-Template</category>
-		<shortcut></shortcut>
-		<macro-text>for</macro-text>
-	</macro>
-	<macro>
-		<name>if...else</name>
-		<category>C-Template</category>
-		<shortcut></shortcut>
-		<macro-text>if ()
+}]]></macro>
+<macro _name="while" _category="C" _shortcut=""><![CDATA[while ()
+{
+	;
+}]]></macro>
+<macro _name="if...else" _category="C" _shortcut=""><![CDATA[if ()
 {
 	;
 }
 else
 {
 	;
-}
-</macro-text>
-	</macro>
-	<macro>
-		<name>/* GPL */</name>
-		<category>License</category>
-		<shortcut></shortcut>
-		<macro-text>/*
+}]]></macro>
+<macro _name="/* GPL */" _category="Licenses" _shortcut=""><![CDATA[/*
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
@@ -63,13 +43,8 @@ else
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
- */</macro-text>
-	</macro>
-	<macro>
-		<name>// GPL</name>
-		<category>License</category>
-		<shortcut></shortcut>
-		<macro-text>// This program is free software; you can redistribute it and/or modify
+ */]]></macro>
+<macro _name="// GPL" _category="Licenses" _shortcut=""><![CDATA[// This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation; either version 2 of the License, or
 // (at your option) any later version.
@@ -81,13 +56,10 @@ else
 // 
 // You should have received a copy of the GNU General Public License
 // along with this program; if not, write to the Free Software
-// Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.</macro-text>
-	</macro>
-	<macro>
-		<name># GPL</name>
-		<category>License</category>
-		<shortcut></shortcut>
-		<macro-text># This program is free software; you can redistribute it and/or modify
+// Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+
+]]></macro>
+<macro _name="# GPL" _category="Licenses" _shortcut=""><![CDATA[# This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 2 of the License, or
 # (at your option) any later version.
@@ -99,6 +71,7 @@ else
 # 
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
-# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.</macro-text>
-	</macro>
+# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+
+]]></macro>
 </anjuta-macros>

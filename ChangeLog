@@ -1,3 +1,10 @@
+2005-01-19  Johannes Schmid <jhs@cvs.gnome.org>
+	
+	* plugins/macro/macro-db.c,
+	plugins/macros.xml:
+	Cleaned up XML interface and use attributes now for name, category and 
+	shortcut. CDATA is used to avoid xml errors inside of macros.
+
 2005-01-19  Naba Kumar  <naba@gnome.org>
 
 	* libanjuta/anjuta-launcher.[c,h]: Fixed bugs.
