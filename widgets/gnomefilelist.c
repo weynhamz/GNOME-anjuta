@@ -28,6 +28,7 @@ static void rename_file(GtkWidget *widget, GnomeFileList *file_list);
 static void home_directory_cb (GtkButton * button, GnomeFileList *file_list);
 static gboolean check_if_file_exists(gchar *filename);
 static gboolean check_can_modify(gchar *filename);
+static void show_hidden_toggled(GtkToggleButton* b, gpointer data);
 /* end function declarations */
 
 static GtkWindowClass *parent_class = NULL;
@@ -70,6 +71,7 @@ static void gnome_filelist_init(GnomeFileList *file_list)
    file_list->directory_list = NULL;
    file_list->file_list = NULL;
    file_list->history = NULL;
+   file_list->show_hidden = FALSE;
    file_list->path = 0;
    file_list->selected = 0;
    file_list->selected_row = -1;
@@ -85,6 +87,8 @@ GtkWidget *gnome_filelist_new_with_path(gchar *path)
 {
    GnomeFileList *file_list;
    GtkWidget *main_box;
+   GtkWidget *hbox;
+   GtkWidget *label1;
    GtkWidget *util_box;
    GtkWidget *toolbar;
    GtkWidget *pixmapwid;
@@ -123,6 +127,25 @@ GtkWidget *gnome_filelist_new_with_path(gchar *path)
    file_list->delete_button = gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), 0, "Delete file", 0, pixmapwid, GTK_SIGNAL_FUNC(delete_file), file_list); 
    pixmapwid = gnome_stock_pixmap_widget_at_size(GTK_WIDGET(file_list), GNOME_STOCK_PIXMAP_CONVERT, 21, 21);
    file_list->rename_button = gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), 0, "Rename file", 0, pixmapwid, GTK_SIGNAL_FUNC(rename_file), file_list);
+   
+   gtk_toolbar_append_space(GTK_TOOLBAR(toolbar));
+
+   file_list->show_hidden_button = gtk_toggle_button_new();
+   gtk_widget_show (file_list->show_hidden_button);
+   gtk_toolbar_append_widget (GTK_TOOLBAR(toolbar), file_list->show_hidden_button, "Show hidden files and directories", NULL);
+   gtk_signal_connect (GTK_OBJECT(file_list->show_hidden_button), "toggled", GTK_SIGNAL_FUNC(show_hidden_toggled), file_list);
+   
+   hbox = gtk_hbox_new(FALSE, 0);
+   gtk_widget_show(hbox);
+   gtk_container_add (GTK_CONTAINER (file_list->show_hidden_button), hbox);
+   
+   pixmapwid = gnome_stock_pixmap_widget_at_size(GTK_WIDGET(file_list), GNOME_STOCK_PIXMAP_NEW, 21, 21);
+   gtk_widget_show (pixmapwid);
+   gtk_box_pack_start (GTK_BOX(hbox), pixmapwid, FALSE, FALSE, 0);
+   
+   label1 = gtk_label_new ("Show Hidden");
+   gtk_widget_show (label1);
+   gtk_box_pack_start (GTK_BOX(hbox), label1, TRUE, TRUE, 3);
 
    util_box = gtk_hbox_new(FALSE, 0);
    gtk_box_pack_start(GTK_BOX(main_box), util_box, TRUE, TRUE, 0);
@@ -347,11 +370,17 @@ static void gnome_filelist_get_dirs(GnomeFileList *file_list)
          strcpy(str, dir->d_name);
          if(S_ISDIR(st.st_mode))
          {
-            dirs_list = g_list_prepend(dirs_list, (gpointer)str);
+			if ( str[0] != '.' || file_list->show_hidden)
+			{
+            	dirs_list = g_list_prepend(dirs_list, (gpointer)str);
+			}
          }	    
          else
          {
-            files_list = g_list_prepend(files_list, (gpointer)str);	 
+			if ( str[0] != '.' || file_list->show_hidden)
+			{
+            	files_list = g_list_prepend(files_list, (gpointer)str);
+			}
          }
       }
       closedir(dir_file);
@@ -515,6 +544,13 @@ gboolean gnome_filelist_set_dir(GnomeFileList *file_list, gchar path[])
    file_list->selected_row = -1;
 
    return(TRUE);
+}
+
+void gnome_filelist_set_show_hidden (GnomeFileList *file_list, gboolean show_hidden)
+{
+	g_return_if_fail(file_list != NULL);
+	g_return_if_fail(GNOME_IS_FILELIST(file_list));
+	file_list->show_hidden = show_hidden;
 }
 
 void gnome_filelist_set_title(GnomeFileList *file_list, gchar *title)
@@ -942,4 +978,13 @@ static gboolean check_can_modify(gchar *filename)
       return(FALSE);
    fclose(file);
    return(TRUE);
+}
+
+static void show_hidden_toggled(GtkToggleButton* b, gpointer data)
+{
+	GnomeFileList* file_list = data;
+	g_return_if_fail(file_list != NULL);
+	g_return_if_fail(GNOME_IS_FILELIST(file_list));
+	file_list->show_hidden = gtk_toggle_button_get_active(b);
+	refresh_listing(NULL, file_list);
 }

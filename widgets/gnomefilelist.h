@@ -44,6 +44,7 @@ struct _GnomeFileList {
    GtkWidget *home_button;
    GtkWidget *delete_button;
    GtkWidget *rename_button;
+   GtkWidget *show_hidden_button;
    GtkWidget *history_combo;
    GtkWidget *directory_list;
    GtkWidget *file_list;
@@ -51,6 +52,7 @@ struct _GnomeFileList {
    GtkWidget *selection_entry;
    GtkWidget *ok_button;
    GtkWidget *cancel_button;
+   gboolean show_hidden;
    gchar *path;
    gchar *selected;
    gint history_position;
@@ -81,6 +83,7 @@ gchar *gnome_filelist_get_path(GnomeFileList *file_list);
 void gnome_filelist_set_title(GnomeFileList *file_list, gchar *title);
 gboolean gnome_filelist_set_dir(GnomeFileList *file_list, gchar *path);
 gboolean gnome_filelist_set_filename (GnomeFileList *file_list, gchar *fname);
+void gnome_filelist_set_show_hidden (GnomeFileList *file_list, gboolean show_hidden);
 
 #ifdef __cplusplus /* cpp compatibility */
 }
