@@ -1,3 +1,9 @@
+2002-01-04  Stephane Demurget  <demurgets@free.fr>
+
+	* src/aneditor.cxx: removed debugging code.
+
+	* data/properties/.cvsignore: added swap files.
+
 2002-01-03  Naba Kumar <kh_naba@users.sourceforge.net>
 
 	* src/anjuta.c

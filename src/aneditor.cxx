@@ -1783,10 +1783,7 @@ void AnEditor::ReadProperties(const char *fileForExt) {
 	else
 		SendEditor(SCI_SETSTYLEBITS, 5);
 
-g_print ("> REMOVE ME: a\n");
 	SendEditor(SCI_SETLEXER, lexLanguage);
-g_print ("> REMOVE ME: b\n");
-g_print ("Language: %s\n", language.c_str());
 	
 	SString kw0 = props->GetNewExpand("keywords.", fileNameForExtension.c_str());
 	SendEditorString(SCI_SETKEYWORDS, 0, kw0.c_str());
