@@ -48,7 +48,7 @@ struct _Messages
   gint cur_char_pos[MESSAGE_TYPE_END];
   MessageType cur_type;
 
-  GdkColor color_red, color_blue, color_green, color_black;
+  GdkColor color_red, color_blue, color_green, color_black, color_white;
 
   gboolean is_showing;
   gboolean is_docked;

@@ -7,15 +7,16 @@
 INCLUDES = \
 	-I$(top_srcdir)/intl \
 	$(GNOME_INCLUDEDIR)\
-	 -I$(srcdir)/../scintilla/include \
-	 -I$(srcdir)/../widgets \
-	 -I$(srcdir)/../ccview \
-	 -I$(srcdir)/../pixmaps \
-	 -I.. -I. \
-	 -DHAVE_CONFIG_H\
-	 -Wall -Wimplicit -Wreturn-type -Wunused -Wswitch -Wcomment -Wuninitialized -Wparentheses -Wtraditional -Wpointer-arith -Wmissing-prototypes\
-	 -O1\
-	 -g
+	-I$(srcdir)/../scintilla/include \
+	-I$(srcdir)/../widgets \
+	-I$(srcdir)/../ccview \
+	-I$(srcdir)/../pixmaps \
+	-I.. -I. \
+	-Wall -Wimplicit -Wreturn-type -Wunused -Wswitch -Wcomment\
+	-Wuninitialized -Wparentheses -Wtraditional -Wpointer-arith\
+	-Wmissing-prototypes\
+ 	-O1\
+ 	-g
 
 bin_PROGRAMS = anjuta
 
@@ -67,8 +68,8 @@ anjuta_SOURCES = \
 	controls.h\
 	debugger.c\
 	debugger.h\
-	dnd.h\
 	dnd.c\
+	dnd.h\
 	executer.c\
 	executer.h\
 	fileselection.c\
@@ -178,11 +179,24 @@ anjuta_SOURCES = \
 	resources.c\
 	resources.h\
 	notebook.c\
-	notebook.h
+	notebook.h\
+	CORBA-Server.c\
+	CORBA-Server.h\
+	Gladen-common.c\
+	Gladen.h\
+	Prj.h\
+	glades.c\
+	Prj-common.c\
+	Gladen-stubs.c\
+	session.c\
+	session.h
 
 anjuta_LDADD =  \
 	$(INTLLIBS) \
 	$(GNOME_LIBDIR) $(GNOMEUI_LIBS)\
-	 -L../scintilla -L../widgets -L../ccview\
-	 ../scintilla/LexCPP.o ../scintilla/LexConf.o ../scintilla/LexHTML.o ../scintilla/LexLua.o ../scintilla/LexOthers.o ../scintilla/LexPerl.o ../scintilla/LexPython.o ../scintilla/LexSQL.o ../scintilla/LexVB.o ../scintilla/LexPascal.o ../scintilla/LexAVE.o -lwidgets -lccview -lxml -lscintilla
-
+	-L../scintilla -L../widgets -L../ccview\
+	../scintilla/LexCPP.o ../scintilla/LexConf.o ../scintilla/LexHTML.o\
+	../scintilla/LexLua.o ../scintilla/LexOthers.o ../scintilla/LexPerl.o\
+	../scintilla/LexPython.o ../scintilla/LexSQL.o ../scintilla/LexVB.o\
+	../scintilla/LexPascal.o ../scintilla/LexAVE.o -lwidgets -lccview -lxml\
+	-lscintilla -lORBit -lIIOP -lORBitutil -lgnorba

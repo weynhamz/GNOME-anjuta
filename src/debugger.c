@@ -1864,3 +1864,16 @@ debugger_signal (gchar * sig, gboolean show_msg)	/* eg:- "SIGTERM" */
 		}
 	}
 }
+
+void debugger_reload_session_breakpoints( ProjectDBase *p )
+{
+	g_return_if_fail( NULL != p );
+	breakpoints_dbase_load ( debugger.breakpoints_dbase, p );
+}
+
+void 
+debugger_save_session_breakpoints( ProjectDBase *p )
+{
+	g_return_if_fail( NULL != p );
+	breakpoints_dbase_save ( debugger.breakpoints_dbase, p );
+}

@@ -1,3 +1,30 @@
+2001-09-12  Naba Kumar <kh_naba@users.sourceforge.net>
+
+	* dnd.c: Support for multiple files drag-n-drop.
+	
+	  Patch from: rikul <null@acm.org>
+	
+	* anjuta.c, anjuta.h, anjuta_cbs.c, main_menubar_def.h,
+	mainmenu_callbacks.c, mainmenu_callbacks.h: Added message text
+	saving from menu.
+	
+	  Patch from: rikul <null@acm.org>
+
+2001-09-12  Naba Kumar <kh_naba@users.sourceforge.net>
+
+	* Makefile.am, aneditor.cxx, aneditor.h, anjuta.c, anjuta.h,
+	  anjuta_cbs.c, anjuta_gui.c, breakpoints.c, breakpoints.h,
+	  debugger.c, debugger.h, find_in_files.c, find_in_files.h,
+	  find_replace.c, find_replace.h, find_text.c, find_text.h,
+	  glade_iface.c, main.c, messages.c, messages.h, project_dbase.c,
+	  project_dbase.h, source.c, text_editor.c, text_editor.h,
+	  text_editor_cbs.c, utilities.c, utilities.h:
+	
+	  Applied a huge patch (after slight preview). I would like Luca
+	  to have his feature additions mentioned here.
+	
+	  Patch from: lbell <lbell@tsc4.com>
+
 2001-09-09  Stephane Demurget <demurgets@free.fr>
 
 	* scintilla/Makefile.am: added to $(GTK_CFLAGS) INCLUDES.

@@ -20,6 +20,7 @@
 #define _FIND_TEXT_H_
 
 #include <gnome.h>
+#include "project_dbase.h"
 #define FR_CENTRE     -1
 
 typedef struct _FindTextGui FindTextGui;
@@ -63,6 +64,8 @@ struct _FindText
 
 FindText *find_text_new (void);
 
+void find_text_save_settings (FindText * ft);
+
 void create_find_text_gui (FindText * ft);
 
 void find_text_show (FindText * ft);
@@ -83,5 +86,9 @@ on_find_text_delete_event (GtkWidget * widget,
 void
 on_find_ignore_case_toggled (GtkToggleButton * togglebutton,
 			     gpointer user_data);
+gboolean 
+find_text_save_session ( FindText * ft, ProjectDBase *p );
+void
+find_text_load_session( FindText * ft, ProjectDBase *p );
 
 #endif

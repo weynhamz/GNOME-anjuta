@@ -26,6 +26,8 @@
 #include "anjuta.h"
 #include "utilities.h"
 #include "fileselection.h"
+#include "CORBA-Server.h"
+
 
 /* One and only one instance of AnjutaApp. */
 AnjutaApp *app;			
@@ -52,16 +54,29 @@ main (int argc, char *argv[])
 	GnomeClientFlags flags;
 	poptContext context;
 	const char** args;
+	CORBA_Environment	ev;
+	CORBA_ORB			corb ;
+	int		retCode ;
+
 
 #ifdef ENABLE_NLS
 	bindtextdomain (PACKAGE, PACKAGE_LOCALE_DIR);
 	textdomain (PACKAGE);
 #endif
+	
 	/* Connect the necessary kernal signals */
 	anjuta_connect_kernel_signals();
+	
+	CInitEx( &ev );
+	corb = gnome_CORBA_init_with_popt_table("anjuta", VERSION, &argc, argv,
+					   anjuta_options, 0, &context,
+					   GNORBA_INIT_SERVER_FUNC, &ev );
+	/*corb = gnome_CORBA_init( "anjuta", VERSION, &argc, argv, 
+								GNORBA_INIT_SERVER_FUNC, &ev );*/
 
-	gnome_init_with_popt_table("anjuta", VERSION, argc, argv,
-				   anjuta_options, 0, &context);
+
+	//gnome_init_with_popt_table("anjuta", VERSION, argc, argv,
+	//			   anjuta_options, 0, &context);
 	
 	/* Session management */
 	client = gnome_master_client();
@@ -98,6 +113,10 @@ main (int argc, char *argv[])
 		anjuta_session_restore(client);
 	else
 		anjuta_load_cmdline_files();
-	gtk_main ();
-	return 0;
+	//gtk_main ();
+	retCode = MainLoop( &argc, argv, corb );
+	write_config();
+	return retCode ;
+//	return 0;
 }
+

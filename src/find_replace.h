@@ -76,4 +76,11 @@ find_replace_save_yourself(FindAndReplace* fr, FILE* stream);
 gboolean
 find_replace_load_yourself(FindAndReplace* fr, PropsID props);
 
+gboolean 
+find_replace_save_project ( FindAndReplace * fr, ProjectDBase *p );
+void
+find_replace_save_session ( FindAndReplace * fr, ProjectDBase *p );
+void
+find_replace_load_session ( FindAndReplace * fr, ProjectDBase *p );
+
 #endif

@@ -22,6 +22,7 @@
 
 #include "properties.h"
 #include "text_editor.h"
+#include "project_dbase.h"
 
 typedef enum _BreakpointType BreakpointType;
 typedef struct _BreakpointItem BreakpointItem;
@@ -92,6 +93,8 @@ void breakpoint_item_destroy (BreakpointItem * bi);
 
 BreakpointsDBase *breakpoints_dbase_new (void);
 
+void breakpoints_dbase_save (BreakpointsDBase * bd, ProjectDBase * pdb );
+
 void breakpoints_dbase_show (BreakpointsDBase * bd);
 
 void breakpoints_dbase_hide (BreakpointsDBase * bd);
@@ -117,7 +120,9 @@ void breakpoints_dbase_destroy (BreakpointsDBase * bd);
 gboolean
 breakpoints_dbase_save_yourself (BreakpointsDBase * bd, FILE * stream);
 
-gboolean breakpoints_dbase_load_project (BreakpointsDBase * bd);
+/*gboolean breakpoints_dbase_load_project (BreakpointsDBase * bd);*/
+
+void breakpoints_dbase_load (BreakpointsDBase * bd, ProjectDBase *p );
 
 void breakpoints_dbase_set_all (BreakpointsDBase * bd);
 

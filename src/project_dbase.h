@@ -295,6 +295,13 @@ project_dbase_update_tree (ProjectDBase * p);
 void
 project_dbase_update_controls (ProjectDBase * pd);
 
+/* reference */
+gchar*
+project_dbase_get_dir (ProjectDBase * p);
+
+/* copy of string */
+gchar*
+project_dbase_get_name (ProjectDBase * p);
 
 /* Callback signals */
 

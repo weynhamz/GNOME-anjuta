@@ -38,6 +38,17 @@
 #include "utilities.h"
 #include "debugger.h"
 
+#define	BKPT_FIELDS	(13)
+
+
+static void
+breakpoint_item_save ( BreakpointItem * bi, ProjectDBase * pdb, const gint nBreak );
+static void
+breakpoints_dbase_delete_all_breakpoints (BreakpointsDBase * bd);
+static gboolean
+breakpoint_item_load ( BreakpointItem * bi, gchar* szStr );
+
+
 #define BREAKPOINTS_MARKER 1
 
 BreakpointItem *
@@ -56,6 +67,8 @@ breakpoint_item_new ()
 		bi->function = NULL;
 		bi->handle = 0;
 		bi->handle_invalid = TRUE;
+		bi->info = NULL;
+		bi->disp = NULL;
 	}
 	return bi;
 }
@@ -71,8 +84,103 @@ breakpoint_item_destroy (BreakpointItem * bi)
 		g_free (bi->file);
 	if (bi->condition)
 		g_free (bi->condition);
+	if (bi->info)
+		g_free (bi->info);
+	if (bi->disp)
+		g_free (bi->disp);
 	g_free (bi);
 }
+
+
+static gint
+breakpoint_item_calc_size( BreakpointItem *bi )
+{
+	g_return_val_if_fail( bi != NULL, 0 );
+	
+	return 
+
+	+calc_gnum_len( /*bi->id*/ )
+	+calc_string_len( bi->disp )
+	+calc_gnum_len( /*bi->enable*/ )
+	+calc_gnum_len( /*bi->addr*/ )
+	+calc_gnum_len( /*bi->pass*/ )
+	+calc_string_len( bi->condition )
+	+calc_string_len( bi->file )
+
+	+calc_gnum_len( /*bi->line*/ )
+	+calc_gnum_len( /*bi->handle*/ )	
+	+calc_gnum_len( /*bi->handle_invalid*/ )	
+	+calc_string_len( bi->function )	
+	+calc_string_len( bi->info )
+	+calc_gnum_len( /*bi->time*/ )	;
+}
+
+/* The saving format is a single string comma separated */
+static void
+breakpoint_item_save ( BreakpointItem * bi, ProjectDBase * pdb, const gint nBreak )
+{
+	gint	nSize ;
+	gchar	*szStrSave, *szDst ;
+	
+	g_return_if_fail( bi != NULL );
+	g_return_if_fail( pdb != NULL );
+
+	nSize = breakpoint_item_calc_size( bi );
+	szStrSave = g_malloc( nSize );
+	if( NULL == szStrSave )
+		return ;
+	szDst = szStrSave ;
+	/* Writes the fields to the string */
+	szDst = WriteBufI( szDst, bi->id );
+	szDst = WriteBufS( szDst, bi->disp );
+	szDst = WriteBufB( szDst, bi->enable );
+	szDst = WriteBufUL( szDst, bi->addr );
+	szDst = WriteBufI( szDst, bi->pass );
+	szDst = WriteBufS( szDst, bi->condition );
+	szDst = WriteBufS( szDst, bi->file );	
+	szDst = WriteBufI( szDst, bi->line );
+	szDst = WriteBufI( szDst, bi->handle );
+	szDst = WriteBufB( szDst, bi->handle_invalid );
+	szDst = WriteBufS( szDst, bi->function );	
+	szDst = WriteBufS( szDst, bi->info );	
+	szDst = WriteBufUL( szDst, (gulong)bi->time );
+	
+	session_save_string( pdb, SECSTR(SECTION_BREAKPOINTS), nBreak, szStrSave );
+	g_free( szStrSave );
+};
+
+#define	ASS_STR(x,nItem)	do{ if (NULL == ( bi->x = GetStrCod( p[nItem] ) ) ){ goto fine;} }while(0)
+
+static gboolean
+breakpoint_item_load ( BreakpointItem * bi, gchar* szStr )
+{
+	gchar		**p;
+	gboolean	bOK = FALSE ;
+	
+	g_return_val_if_fail( bi != NULL, FALSE );
+	
+	p = PARSE_STR(BKPT_FIELDS,szStr);
+	if( NULL == p )
+		return FALSE ;
+	bi->id	= atoi( p[0] );
+	ASS_STR(disp ,1);
+	bi->enable	= atoi( p[2] ) ? TRUE : FALSE ;
+	bi->addr	= atol( p[3] );
+	bi->pass	= atol( p[4] );
+	ASS_STR(condition ,5);
+	ASS_STR(file ,6);
+	bi->line	= atoi( p[7] );
+	bi->handle	= atoi( p[8] );
+	bi->handle_invalid	= atoi( p[9] ) ? TRUE : FALSE ;
+	ASS_STR(function ,10);
+	ASS_STR(info ,11);
+	bi->time	=  atol( p[12] );
+	bOK = TRUE ;
+fine:
+	g_free(p);
+	return bOK ;
+};
+
 
 BreakpointsDBase *
 breakpoints_dbase_new ()
@@ -133,14 +241,106 @@ breakpoints_dbase_destroy (BreakpointsDBase * bd)
 }
 
 void
+breakpoints_dbase_save (BreakpointsDBase * bd, ProjectDBase * pdb )
+{
+	gint	i;
+	gint	nLen ;
+
+	g_return_if_fail (bd != NULL);
+	g_return_if_fail (pdb != NULL);
+	
+	session_clear_section( pdb, SECSTR(SECTION_BREAKPOINTS) );
+
+	nLen = g_list_length (bd->breakpoints) ;
+	for (i = 0; i < nLen ; i++)
+	{
+		breakpoint_item_save ((BreakpointItem *)
+						g_list_nth_data (bd->breakpoints, i),
+						pdb, i );
+	}
+}
+
+
+void
+breakpoints_dbase_load (BreakpointsDBase * bd, ProjectDBase *p )
+{
+	/*gint i;*/
+	gpointer	config_iterator;
+	guint		loaded = 0;
+
+	g_return_if_fail( p != NULL );
+	breakpoints_dbase_clear(bd);
+	config_iterator = session_get_iterator( p, SECSTR(SECTION_BREAKPOINTS) );
+	if ( config_iterator !=  NULL )
+	{
+		gchar * szItem, *szData;
+		loaded = 0;
+		while ((config_iterator = gnome_config_iterator_next( config_iterator,
+									&szItem, &szData )))
+		{
+			// shouldn't happen, but I'm paranoid
+			if( NULL != szData )
+			{
+				gboolean	bToDel = TRUE ;
+				BreakpointItem *bi = breakpoint_item_new();
+				if( NULL != bi )
+				{
+					if( breakpoint_item_load ( bi, szData ) )
+					{
+						g_list_append (bd->breakpoints, (gpointer) bi);
+						bToDel = FALSE ;
+					}
+				}
+				if( bToDel && bi )
+					breakpoint_item_destroy(bi);
+			}
+			loaded ++ ;
+			g_free( szItem );
+			g_free( szData );
+		}
+	}
+}
+
+
+void
+experimental_not_use_breakpoints_dbase_toggle_breakpoint (BreakpointsDBase* b)
+{
+	guint line;
+	struct BkItemData *bid;
+	gchar *buff;
+	TextEditor* te;
+
+	g_return_if_fail (b != NULL);
+	te = anjuta_get_current_text_editor();
+	g_return_if_fail (te != NULL);
+	
+	if (debugger_is_active()==FALSE) return;
+	if (debugger_is_ready()==FALSE) return;
+
+	line = text_editor_get_current_lineno (te);
+	/* Is breakpoint set? */
+	
+	/* Brakpoint is not set. So, set it. */
+	bid = g_malloc (sizeof(struct BkItemData));
+	if (bid == NULL) return;
+	bid->loc_text = g_strdup_printf ("%s:%d", te->filename, line);
+	bid->cond_text = g_strdup("");
+	bid->pass_text = g_strdup("");
+	bid->bd = b;
+
+	buff = g_strdup_printf ("break %s", bid->loc_text);
+	debugger_put_cmd_in_queqe (buff, DB_CMD_ALL,
+				   bk_item_add_mesg_arrived,
+				   bid);
+	g_free (buff);
+	debugger_execute_cmd_in_queqe ();
+}
+
+void
 breakpoints_dbase_clear (BreakpointsDBase * bd)
 {
-	gint i;
 	g_return_if_fail (bd != NULL);
-	for (i = 0; i < g_list_length (bd->breakpoints); i++)
-		breakpoint_item_destroy ((BreakpointItem *)
-					 g_list_nth_data (bd->breakpoints,
-							  i));
+	breakpoints_dbase_delete_all_breakpoints (bd);
 	if (bd->breakpoints)
 		g_list_free (bd->breakpoints);
 	bd->breakpoints = NULL;
@@ -148,6 +348,17 @@ breakpoints_dbase_clear (BreakpointsDBase * bd)
 		gtk_clist_clear (GTK_CLIST (bd->widgets.clist));
 	bd->current_index = -1;
 	anjuta_delete_all_marker (BREAKPOINTS_MARKER);
+}
+
+static void
+breakpoints_dbase_delete_all_breakpoints (BreakpointsDBase * bd)
+{
+	gint i;
+	g_return_if_fail (bd != NULL);
+	for (i = 0; i < g_list_length (bd->breakpoints); i++)
+		breakpoint_item_destroy ((BreakpointItem *)
+					 g_list_nth_data (bd->breakpoints,
+							  i));
 }
 
 void

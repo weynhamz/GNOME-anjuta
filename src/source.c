@@ -31,6 +31,7 @@
 #include "anjuta.h"
 #include "utilities.h"
 #include "source.h"
+#include "glades.h"
 
 /*************************************************************************
  * Build Files.
@@ -295,8 +296,8 @@ source_write_configure_in (ProjectDBase * data)
 	case PROJECT_TYPE_GTKMM:
 		fprintf(fp, 
 			"\n"
-			"AM_PATH_GTKMM(1.2.5, ,\n"
-			"			   AC_MSG_ERROR(Cannot find GTK--: Is gtkmm-config in path?))\n");
+			"AM_PATH_GTKMM(1.2.0, ,\n"
+			"			  AC_MSG_ERROR(Cannot find GTK--: Is gtkmm-config in path?))\n");
 		break;
 	case PROJECT_TYPE_GENERIC:
 		break;
@@ -1254,6 +1255,7 @@ source_write_glade_file (ProjectDBase * data)
 	gchar *filename, *target;
 	gchar *prj, *src, *pix;
 	gint type, lang;
+	gboolean bOK = TRUE ;
 
 	g_return_val_if_fail (data != NULL, FALSE);
 
@@ -1353,8 +1355,19 @@ source_write_glade_file (ProjectDBase * data)
 		"</widget>\n\n"
 		"</GTK-Interface>\n"
 		);
+	fflush( fp );
+	if( ferror( fp ) )
+	{		anjuta_system_error (errno, _("Error writing to : %s."), filename);
+		bOK = FALSE ;
+	}
 	fclose (fp);
-	return TRUE;
+	if( bOK )
+	{
+		gladen_load_project(filename);
+		gladen_add_main_components();
+	}
+	g_free( filename );
+	return bOK ;
 }
 
 gboolean

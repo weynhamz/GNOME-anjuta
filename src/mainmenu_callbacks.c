@@ -601,6 +601,19 @@ on_edit_app_gui1_activate (GtkMenuItem * menuitem, gpointer user_data)
 	project_dbase_summon_glade (app->project_dbase);
 }
 
+
+void
+on_save_build_messages_activate (GtkMenuItem * menuitem, gpointer user_data)
+{
+	if (app->messages->data[MESSAGE_BUILD])
+		gtk_widget_show (app->save_as_build_msg_sel);
+	else
+		anjuta_error("There are no build messages.");
+
+	return;
+}
+
+
 /***********************************************************************/
 
 void

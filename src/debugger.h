@@ -27,6 +27,7 @@
 #include "signals.h"
 #include "sharedlib.h"
 #include "attach_process.h"
+#include "project_dbase.h"
 
 #define DB_CMD_NONE			0x0
 #define DB_CMD_SO_MESG		0x1
@@ -149,5 +150,6 @@ void debugger_custom_command (void);
 void debugger_shared_library (void);
 
 void on_debugger_update_prog_status (GList * lines, gpointer data);
-
+void debugger_reload_session_breakpoints( ProjectDBase *p);
+void debugger_save_session_breakpoints( ProjectDBase *p );
 #endif

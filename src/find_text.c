@@ -26,6 +26,8 @@
 #include "find_text.h"
 #include "utilities.h"
 
+static const gchar SecFT [] = {"FindText"};
+/*static const gchar SECTION_SEARCH [] =  {"search_text"};*/
 
 FindText *
 find_text_new ()
@@ -35,19 +37,43 @@ find_text_new ()
 	if (ft)
 	{
 		ft->find_history = NULL;
-		ft->area = 1;
+		/*ft->area = 1;
 		ft->forward = TRUE;
 		ft->regexp = FALSE;
 		ft->ignore_case = FALSE;
 		ft->whole_word = FALSE;
 
+		ft->is_showing = FALSE;*/
+		
+		ft->area		= GetProfileInt( SecFT, "area", 1) ;
+		ft->forward		= GetProfileBool( SecFT, "forward", TRUE ) ;
+		ft->regexp		= GetProfileBool( SecFT, "regexp", FALSE ) ;
+		ft->ignore_case = GetProfileBool( SecFT, "ignore_case", FALSE ) ;
+		ft->whole_word	= GetProfileBool( SecFT, "whole_word", FALSE ) ;
+
 		ft->is_showing = FALSE;
+		
 		ft->pos_x = 100;
 		ft->pos_y = 100;
 		create_find_text_gui (ft);
 	}
 	return ft;
 }
+
+void
+find_text_save_settings (FindText * ft)
+{
+	if (ft)
+	{
+		/* Passivation */
+		WriteProfileInt( SecFT, "area", ft->area ) ;
+		WriteProfileBool( SecFT, "forward", ft->forward ) ;
+		WriteProfileBool( SecFT, "regexp", ft->regexp ) ;
+		WriteProfileBool( SecFT, "ignore_case", ft->ignore_case ) ;
+		WriteProfileBool( SecFT, "whole_word", ft->whole_word ) ;
+	}
+}
+
 
 void
 find_text_destroy (FindText * ft)
@@ -76,6 +102,15 @@ find_text_destroy (FindText * ft)
 		g_free (ft);
 		ft = NULL;
 	}
+}
+
+void
+find_text_load_session( FindText * ft, ProjectDBase *p )
+{
+	g_return_if_fail( NULL != p );
+	g_return_if_fail( NULL != ft );
+
+	ft->find_history = load_session_strings( p, SECSTR(SECTION_FINDTEXT), ft->find_history );
 }
 
 void
@@ -126,7 +161,6 @@ find_text_show (FindText * ft)
 	{
 		gtk_widget_show (ft->f_gui.GUI);
 		gdk_window_raise (ft->f_gui.GUI->window);
-
 		return;
 	}
 	gtk_widget_set_uposition (ft->f_gui.GUI, ft->pos_x, ft->pos_y);
@@ -203,7 +237,29 @@ find_text_hide (FindText * ft)
 					       (app->widgets.toolbar.
 						main_toolbar.find_combo),
 					       ft->find_history);
+	/*if( app->project_dbase )
+		find_text_save_project( ft, app->project_dbase );*/
+}
 
+gboolean 
+find_text_save_session ( FindText * ft, ProjectDBase *p )
+{
+	g_return_val_if_fail( NULL != p, FALSE );
+	save_session_strings( p, SECSTR(SECTION_FINDTEXT), ft->find_history );
+	/*session_clear_section( p, SECTION_SEARCH );
+	if( ft->find_history )
+	{
+		const gchar *szFnd ;
+		int 		i;
+		int			nLen = g_list_length (ft->find_history); 
+		for (i = 0; i < nLen ; i++)
+		{
+			szFnd = (gchar*)g_list_nth (ft->find_history, i)->data ;
+			if( szFnd && szFnd[0] )
+				session_save_string( p, SECTION_SEARCH, i, szFnd );
+		}
+	}*/
+	return TRUE;
 }
 
 void

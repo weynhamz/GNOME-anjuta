@@ -68,6 +68,7 @@ struct _AnjutaApp
 	AnjutaAppGui widgets;
 	GtkWidget *fileselection;
 	GtkWidget *save_as_fileselection;
+	GtkWidget *save_as_build_msg_sel;
 	GList *text_editor_list;
 
 	GtkAccelGroup *accel_group;
@@ -152,8 +153,8 @@ GtkWidget *anjuta_get_current_text (void);
 
 gchar *anjuta_get_current_selection (void);
 
-void anjuta_goto_file_line (gchar * fname, guint lineno);
-void anjuta_goto_file_line_mark (gchar * fname, guint lineno, gboolean mark);
+TextEditor*  anjuta_goto_file_line (gchar * fname, guint lineno);
+TextEditor*  anjuta_goto_file_line_mark (gchar * fname, guint lineno, gboolean mark);
 
 void anjuta_apply_preferences (void);
 void anjuta_load_cmdline_files (void);
@@ -258,6 +259,15 @@ void
 on_save_as_overwrite_yes_clicked (GtkButton * button, gpointer user_data);
 
 void
+on_build_msg_save_ok_clicked(GtkButton * button, gpointer user_data);
+
+void
+on_build_msg_save_cancel_clicked(GtkButton * button, gpointer user_data);
+
+void 
+on_build_msg_save_overwrite(GtkButton * button, gpointer user_data);
+
+void
 on_prj_list_undock_button_clicked (GtkButton * button, gpointer user_data);
 
 void on_prj_list_hide_button_clicked (GtkButton * button, gpointer user_data);
@@ -280,6 +290,15 @@ void anjuta_toolbar_set_view (gchar* toolbar_name, gboolean view,
 
 gint
 anjuta_get_file_property (gchar* key, gchar* filename, gint default_value);
+
+TextEditor *
+anjuta_get_te_from_path( const gchar *szFullPath );
+
+void 
+anjuta_reload_file( const gchar *szFullPath );
+void 
+anjuta_save_file_if_modified( const gchar *szFullPath );
+
 
 #define anjuta_set_execution_dir(d)     string_assign(&app->execution_dir, (d))
 #define anjuta_clear_execution_dir()     string_assign(&app->execution_dir, NULL)
@@ -304,5 +323,9 @@ anjuta_get_file_property (gchar* key, gchar* filename, gint default_value);
 #define ANJUTA_FORMAT_TOOLBAR "format.toolbar"
 #define ANJUTA_DEBUG_TOOLBAR "debug.toolbar"
 #define ANJUTA_BROWSER_TOOLBAR "browser.toolbar"
+
+
+#include "session.h"
+
 
 #endif

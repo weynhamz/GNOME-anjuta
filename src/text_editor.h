@@ -166,12 +166,16 @@ void text_editor_undock (TextEditor * te, GtkWidget * container);
 gboolean text_editor_save_yourself (TextEditor * te, FILE * stream);
 gboolean text_editor_recover_yourself (TextEditor * te, FILE * stream);
 
-gboolean text_editor_check_disk_status (TextEditor * te);
+/*gboolean text_editor_check_disk_status (TextEditor * te);*/
+gboolean text_editor_check_disk_status (TextEditor * te, const gboolean bForce );
 
 void text_editor_autoformat (TextEditor * te);
 gboolean text_editor_is_marker_set (TextEditor* te, gint line, gint marker);
 void text_editor_delete_marker (TextEditor* te, gint line, gint marker);
 gint text_editor_line_from_handle (TextEditor* te, gint marker_handle);
+gint text_editor_get_bookmark_line( TextEditor* te, const gint nLineStart );
+gint text_editor_get_num_bookmarks(TextEditor* te);
+
 
 #define linenum_text_editor_to_scintilla(x) (x-1)
 

@@ -184,7 +184,7 @@ on_open_filesel_ok_clicked (GtkButton * button, gpointer user_data)
 		/*  full_filename = fileselection_get_filename (app->fileselection); */
 		/*	full_filename = (gchar *)g_list_nth_data(list,i); */
 		full_filename = g_strdup(g_list_nth_data(list,i));
-		/* printf("Filename retrived = %s\n",full_filename); */
+		/*printf("Filename retrived = %s\n",full_filename);*/
 		if (!full_filename)
 			return;
 		if (strlen (extract_filename (full_filename)) == 0)
@@ -204,9 +204,9 @@ on_open_filesel_ok_clicked (GtkButton * button, gpointer user_data)
 			g_free (full_filename);
 			return;
 		}
-		/* printf("I have reached this point\n"); */
+		/*printf("I have reached this point\n");*/
 		anjuta_goto_file_line (full_filename, -1);
-		/* printf("I have reached this point goto line\n"); */
+		/*printf("I have reached this point goto line\n");*/
 		//gtk_widget_hide (app->fileselection);
 		fileselection_hide_widget(app->fileselection);
 		g_free (full_filename);
@@ -349,6 +349,72 @@ on_save_as_filesel_cancel_clicked (GtkButton * button, gpointer user_data)
 	gtk_widget_hide (app->save_as_fileselection);
 	closing_state = FALSE;
 }
+
+void
+on_build_msg_save_ok_clicked(GtkButton * button, gpointer user_data)
+{
+	gchar *filename, *buff;
+
+	filename = fileselection_get_filename (app->save_as_build_msg_sel);
+	if (file_is_regular (filename))
+	{
+		buff =
+			g_strdup_printf (_
+					 ("The file \"%s\" already exists.\nDo you want to overwrite it?."),
+					 filename);
+		messagebox2 (GNOME_MESSAGE_BOX_QUESTION, buff,
+			     GNOME_STOCK_BUTTON_YES, GNOME_STOCK_BUTTON_NO,
+			     GTK_SIGNAL_FUNC
+			     (on_build_msg_save_overwrite), NULL,
+			     user_data);
+		g_free (buff);
+	}
+	else
+		on_build_msg_save_overwrite(NULL, user_data);
+	g_free (filename);
+}
+
+void
+on_build_msg_save_cancel_clicked(GtkButton * button, gpointer user_data)
+{
+	gtk_widget_hide (app->save_as_build_msg_sel);
+	closing_state = FALSE;
+}
+
+
+void 
+on_build_msg_save_overwrite(GtkButton * button, gpointer user_data)
+{
+	gchar *filename;
+	FILE *msgfile; 
+	GList *msgdata;
+	
+	if (! app->messages->data[MESSAGE_BUILD])
+			return;
+	gtk_clist_freeze(app->messages->clist[MESSAGE_BUILD]);
+
+	filename = fileselection_get_filename (app->save_as_build_msg_sel);
+	msgfile = fopen(filename, "w");
+	if (! msgfile)
+	{
+		anjuta_error("Could not open file for writing");
+		return;
+	}
+	
+	msgdata = g_list_first(app->messages->data[MESSAGE_BUILD]);
+	while (msgdata)
+	{
+		fprintf(msgfile, "%s\n", msgdata->data);
+		msgdata = g_list_next(msgdata);
+	}
+			
+	fclose(msgfile);
+
+	
+	gtk_clist_thaw(app->messages->clist[MESSAGE_BUILD]);
+	return;
+}
+
 
 void
 on_prj_list_undock_button_clicked (GtkButton * button, gpointer user_data)

@@ -31,6 +31,7 @@
 #include "notebook.h"
 #include "dnd.h"
 
+
 void
 create_anjuta_gui (AnjutaApp * appl)
 {

@@ -43,6 +43,10 @@
 #include "compatibility_0.h"
 #include "defaults.h"
 #include "ccview.h"
+#include "glades.h"
+#include "CORBA-Server.h"
+#include "debugger.h"
+#include "find_replace.h"
 
 /* Including small pixmaps at compile time */
 /* So that these at least work when gnome pixmaps are not found */
@@ -56,6 +60,18 @@
 #include "../pixmaps/file_icon.xpm"
 #include "../pixmaps/file_html.xpm"
 #include "../pixmaps/file_i18n.xpm"
+
+static void
+project_reload_session_files(ProjectDBase * p);
+static void
+project_dbase_save_session (ProjectDBase * p);
+static void
+project_dbase_reload_session (ProjectDBase * p);
+static void
+project_dbase_save_session_files (ProjectDBase * p);
+static void
+project_dbase_save_markers( ProjectDBase * p, TextEditor *te, const gint nItem );
+
 
 static GdkPixmap *opened_folder_pix,
 	*closed_folder_pix,
@@ -434,6 +450,7 @@ project_dbase_clear_ctree (ProjectDBase * p)
 	gtk_ctree_remove_node (GTK_CTREE (p->widgets.ctree),
 			       p->widgets.root_node);
 	p->widgets.root_node = NULL;
+	session_sync();
 }
 
 void
@@ -605,6 +622,86 @@ load_from_buffer (ProjectDBase* p, gchar* prj_buff, gint loc)
 	return TRUE;
 }
 
+#if 0
+static void
+project_reload_session_files_v(ProjectDBase * p)
+{
+	gint	nItems, i ;
+	gchar** argvp ;
+	
+	g_return_if_fail( p != NULL );
+
+	session_get_strings( p, SECSTR(SECTION_FILELIST), &nItems, &argvp );
+	for( i = 0 ; i < nItems ; i ++ )
+	{
+		if( argvp[i] )
+		{
+			anjuta_goto_file_line (argvp[i], -1);
+		}
+		g_free( argvp[i] );
+	}
+}
+#endif
+
+static void
+project_reload_session_files(ProjectDBase * p)
+{
+	gpointer	config_iterator;
+	g_return_if_fail( p != NULL );
+
+	config_iterator = session_get_iterator( p, SECSTR(SECTION_FILELIST) );
+	if ( config_iterator !=  NULL )
+	{
+		gchar * szItem, *szFile;
+		while ((config_iterator = gnome_config_iterator_next( config_iterator,
+									&szItem, &szFile )))
+		{
+			// shouldn't happen, but I'm paranoid
+			if( ( NULL != szFile ) && ( NULL != szItem ) )
+			{
+				gint nItem = atoi(szItem);
+				/* Read the line number */
+				glong	gline = session_get_long_n( p, SECSTR(SECTION_FILENUMBER), nItem, -1 );
+				gchar	*szMarkers = session_get_string_n( p, SECSTR(SECTION_FILEMARKERS), nItem, "" );
+				TextEditor * te = anjuta_goto_file_line ( szFile, gline );
+				/*printf( "%d:%s %d id:%ld (%s)\n", nItem, szFile, (int)gline, (long)te->editor_id, szMarkers );*/
+				if( ( NULL != szMarkers ) && ( NULL != te ) )
+				{
+					/* a simple data parsing */
+					gchar	*szData = szMarkers ;
+					gchar	*szEnd ;
+					while( (szEnd = strchr( szData, ',' ) ) != NULL )
+					{
+						gint	nLine = atoi( szData );
+						if( nLine >= 0 )
+						{
+							aneditor_command (te->editor_id, ANE_BOOKMARK_TOGGLE_LINE, nLine, 0);
+							/*printf( "To Editor %ld %d\n", (long)te->editor_id, nLine );*/
+						}
+						szData = szEnd + 1;
+					}
+				}
+				g_free( szMarkers );
+			}
+			g_free( szItem );
+			g_free( szFile );
+		}
+	}
+}
+
+static void
+project_dbase_reload_session (ProjectDBase * p)
+{
+	g_return_if_fail( NULL != p );
+	debugger_reload_session_breakpoints(p);	
+	project_reload_session_files(p);
+
+	find_replace_load_session( app->find_replace, p );
+	/*run_program_load_session( p );*/
+	find_in_files_load_session( app->find_in_files, p );
+}
+
+
 gboolean
 project_dbase_load_project (ProjectDBase * p, gboolean show_project)
 {
@@ -726,6 +823,9 @@ done:
 	anjuta_set_active ();
 	if (show_project)
 		project_dbase_show (p);
+	project_dbase_reload_session(p);
+	if( IsGladen() )
+		project_dbase_summon_glade ( p );
 	return TRUE;
 
 go_error:
@@ -1051,6 +1151,78 @@ project_dbase_update_tags_image(ProjectDBase* p)
 	}
 }
 
+static void
+project_dbase_save_session_files (ProjectDBase * p)
+{
+	GList	*node;
+	gint	nIndex = 0;
+
+	g_return_if_fail (p != NULL);
+	g_return_if_fail (p->project_is_open == TRUE);
+	
+	/* Save session.... */
+	session_clear_section( p, SECSTR(SECTION_FILELIST) );
+	node = app->text_editor_list;
+	while (node)
+	{
+		TextEditor* te;
+		te = node->data;
+		if(te)
+		{
+			if ( te->full_filename )
+			{
+				session_save_string( p, SECSTR(SECTION_FILELIST), nIndex, te->full_filename );
+				session_save_long_n( p, SECSTR(SECTION_FILENUMBER), nIndex, te->current_line );
+				project_dbase_save_markers( p, te, nIndex );
+				nIndex++;
+			}
+		}
+		node = node->next;
+	}
+}
+
+
+static void
+project_dbase_save_markers( ProjectDBase * p, TextEditor *te, const gint nItem )
+{
+	gint	nLineNo = -1 ;
+	gint	nIndex = 0 ;
+	gint	nMarks;
+	gchar	*szSaveStr;
+
+	g_return_if_fail (p != NULL);
+	g_return_if_fail (te != NULL);
+	nMarks = text_editor_get_num_bookmarks(te);
+	szSaveStr = g_malloc( nMarks*20+2);
+	if( ( NULL != szSaveStr ) && nMarks )
+	{
+		gchar	*sz = szSaveStr ;
+		strcpy( sz, "" );
+		while( ( nLineNo = text_editor_get_bookmark_line( te, nLineNo ) ) >= 0 )
+		{
+			sz += sprintf( sz, "%d,", nLineNo );
+			nIndex ++ ;
+			if( nIndex > nMarks )
+				break;
+		}
+		session_save_string( p, SECSTR(SECTION_FILEMARKERS), nItem, szSaveStr );
+	} else
+		session_save_string( p, SECSTR(SECTION_FILEMARKERS), nItem, "" );
+	g_free( szSaveStr );
+}
+
+static void
+project_dbase_save_session (ProjectDBase * p)
+{
+	debugger_save_session_breakpoints( p );
+	project_dbase_save_session_files ( p );
+	find_replace_save_session( app->find_replace, p );
+	/*run_program_save_session( p );*/
+	find_in_files_save_session( app->find_in_files, p );
+	session_sync();
+}
+
+
 void
 project_dbase_close_project (ProjectDBase * p)
 {
@@ -1078,6 +1250,8 @@ project_dbase_close_project (ProjectDBase * p)
 		}
 	}
 
+	/* Save session.... */
+	project_dbase_save_session(p);
 	/* Close all files that are part of the project */
 	node = app->text_editor_list;
 	while (node)
@@ -1092,6 +1266,7 @@ project_dbase_close_project (ProjectDBase * p)
 			{
 				if (strncmp(te->full_filename, p->top_proj_dir, strlen(p->top_proj_dir)) ==0)
 				{
+					/*g_print("Closing file %s\n", te->filename);*/
 					anjuta_remove_text_editor(te);
 				}
 			}
@@ -1099,7 +1274,7 @@ project_dbase_close_project (ProjectDBase * p)
 		node = next;
 	}
 	project_dbase_hide (p);
-	project_dbase_update_menu (p);
+	project_dbase_update_menu (p);	
 	project_dbase_clean_left (p);
 	ccview_project_clear(CCVIEW_PROJECT(p->widgets.ccview));
 }
@@ -1875,4 +2050,18 @@ project_dbase_remove_file (ProjectDBase * p)
 	}
 	g_free (key);
 	g_free (files);
+}
+
+gchar*
+project_dbase_get_dir (ProjectDBase * p)
+{
+	g_return_val_if_fail( (NULL != p), NULL );
+	return p->top_proj_dir ;
+}
+
+gchar*
+project_dbase_get_name (ProjectDBase * p)
+{
+	g_return_val_if_fail( (NULL != p), NULL );
+	return prop_get (p->props, "project.name");
 }

@@ -27,6 +27,8 @@
 #include "anjuta.h"
 #include "project_dbase.h"
 #include "glade_iface.h"
+#include "glades.h"
+#include "CORBA-Server.h"
 
 gboolean
 glade_iface_generate_source_code(gchar* glade_file)
@@ -119,6 +121,9 @@ glade_iface_start_glade_editing (gchar* glade_file)
 {
 	gchar *dir, *cmd;
 	g_return_val_if_fail (glade_file != NULL, FALSE);
+
+	if( IsGladen() )
+		return gladen_load_project(glade_file);
 	
 	if (anjuta_is_installed ("glade", TRUE) == FALSE)
 		return FALSE;

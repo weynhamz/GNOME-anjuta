@@ -213,5 +213,23 @@ GtkWidget*
 create_xpm_label_box( GtkWidget *parent,
                                  gchar     *xpm_filename, gboolean gnome_pixmap,
                                  gchar     *label_text );
+/* Excluding the final 0 */
+gint calc_string_len( const gchar *szStr );
+gint calc_gnum_len( void /*const gint iVal*/ );
+
+/* Allocates a struct of pointers if sep = 0 use ',' */
+gchar **string_parse_separator( const gint nItems, gchar *szStrIn, const gchar chSep /*= ','*/ );
+#define	PARSE_STR(nItems,szStr)	string_parse_separator( nItems, szStr, ',' );
+gchar* GetStrCod( const gchar *szIn );
+
+/* Write in file....*/
+gchar *WriteBufUL( gchar* szDst, const gulong ulVal);
+gchar *WriteBufI( gchar* szDst, const gint iVal );
+gchar *WriteBufB( gchar* szDst, const gboolean bVal );
+gchar *WriteBufS( gchar* szDst, const gchar* szVal );
+
+void
+free_string_list ( GList * pList );
+
 
 #endif

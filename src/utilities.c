@@ -87,6 +87,22 @@ update_string_list (GList * list, gchar * string, gint length)
 	return list;
 }
 
+void
+free_string_list ( GList * pList )
+{
+	int i ;
+
+	if( pList )
+	{
+		for (i = 0; i < g_list_length (pList); i++)
+			g_free (g_list_nth (pList, i)->data);
+		
+		g_list_free (pList);
+	}
+}
+
+
+
 gboolean
 parse_error_line (gchar * line, gchar ** filename, int *lineno)
 {
@@ -1253,3 +1269,143 @@ create_xpm_label_box( GtkWidget *parent,
 
            return(box1);
 }
+
+/* Excluding the final 0 */
+gint calc_string_len( const gchar *szStr )
+{
+	if( NULL == szStr )
+		return 0;
+	return strlen( szStr )*3 ;	/* Leave space for the translated character */
+}
+
+gint calc_gnum_len(void)
+{
+	return 24 ;	/* size of a stringfied integer */
+}
+/* Allocates a struct of pointers */
+gchar **string_parse_separator( const gint nItems, gchar *szStrIn, const gchar chSep )
+{
+	gchar	**szAllocPtrs = (char**)g_new( gchar*, nItems );
+	if( NULL != szAllocPtrs )
+	{
+		int			i ;
+		gboolean	bOK = TRUE ;
+		gchar		*p = szStrIn ;
+		for( i = 0 ; i < nItems ; i ++ )
+		{
+			gchar		*szp ;
+			szp = strchr( p, chSep ) ;
+			if( NULL != szp )
+			{
+				szAllocPtrs[i] = p ;
+				szp[0] = '\0' ;	/* Parse Operation */
+				p = szp + 1 ;
+			} else
+			{
+				bOK = FALSE ;
+				break;
+			}
+		}
+		if( ! bOK )
+		{
+			g_free( szAllocPtrs );
+			szAllocPtrs = NULL ;
+		}
+	}
+	return szAllocPtrs ;
+}
+
+
+/* Write in file....*/
+gchar *WriteBufUL( gchar* szDst, const gulong ulVal)
+{
+	return szDst += sprintf( szDst, "%lu,", ulVal ); 
+}
+
+gchar *WriteBufI( gchar* szDst, const gint iVal )
+{
+	return szDst += sprintf( szDst, "%d,", iVal );
+}
+
+gchar *WriteBufB( gchar* szDst, const gboolean bVal )
+{
+	return szDst += sprintf( szDst, "%d,", (int)bVal );
+}
+
+
+gchar *WriteBufS( gchar* szDst, const gchar* szVal )
+{
+	if( NULL == szVal )
+	{
+		return szDst += sprintf( szDst, "," );
+	} else
+	{
+		/* Scrive il valore convertendo eventuali caratteri non alfanumerici */
+		/*int		nLen = strlen( szVal );*/
+		const gchar	*szSrc = szVal ;
+		while( szSrc[0] )
+		{
+			if( isalnum( szSrc[0] ) || ('.'==szSrc[0]) || ('/'==szSrc[0]) || ('_'==szSrc[0]) )
+			{
+				*szDst++ = *szSrc ;
+			} else if( '\\' == szSrc[0] )
+			{
+				*szDst++ = *szSrc ;
+				*szDst++ = *szSrc ;
+			} else
+			{
+				szDst += sprintf( szDst, "\\%2.2X", (0x00FF&szSrc[0]) );
+			}
+			szSrc++ ;
+		}
+		*szDst++ = ',' ;
+		*szDst = '\0' ;	}
+	return szDst ;
+}
+
+#define	SRCH_CHAR	'\\'
+
+static int GetHexAs( const gchar c )
+{
+	if( isdigit( c ) )
+		return c - '0' ;
+	else
+		return toupper(c) - 'A' + 10 ;
+}
+
+static gchar GetHexb( const gchar c1, const gchar c2 )
+{	return GetHexAs( c1 ) * 16 + GetHexAs( c2 ) ;
+}
+
+gchar* GetStrCod( const gchar *szIn )
+{
+	gchar	*szRet ;
+	g_return_val_if_fail( NULL != szIn, NULL );
+	szRet = g_malloc( strlen( szIn )+2 );
+	if( NULL != szRet )
+	{
+		gchar*	szDst = szRet ;
+		while( szIn[0] )
+		{
+			if( SRCH_CHAR == szIn[0] )
+			{
+				if( SRCH_CHAR == szIn[1] )
+				{
+					*szDst++ = *szIn ++ ;
+					szIn ++ ;
+				} else
+				{
+					*szDst ++ = GetHexb( szIn[1], szIn[2] ) ;
+					szIn += 3;
+				}
+			} else
+			{
+				*szDst++ = *szIn ++ ;
+			}
+			szIn ++ ;
+		}
+		szDst [0] = '\0' ;
+	}
+	return szRet ;
+}
+

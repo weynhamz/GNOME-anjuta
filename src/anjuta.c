@@ -105,6 +105,11 @@ anjuta_new ()
 			on_save_as_filesel_ok_clicked,
 			on_save_as_filesel_cancel_clicked, NULL
 		};
+		/* Must declare static, because it will be used forever */
+		static FileSelData fsd3 = { N_("Save File As"), NULL,
+			on_build_msg_save_ok_clicked,
+			on_build_msg_save_cancel_clicked, NULL
+		};
 		app->shutdown_in_progress = FALSE;
 		app->registered_windows = NULL;
 		app->registered_child_processes = NULL;
@@ -134,6 +139,7 @@ anjuta_new ()
 		fileselection_set_dir (app->fileselection, (gchar *)get_current_dir_name());
 		
 		app->save_as_fileselection = create_fileselection_gui (&fsd2);
+		app->save_as_build_msg_sel = create_fileselection_gui (&fsd3);
 		app->find_replace = find_replace_new ();
 		app->find_in_files = find_in_files_new ();
 		app->preferences = preferences_new ();
@@ -421,13 +427,13 @@ anjuta_get_current_selection ()
 	return chars;
 }
 
-void
+TextEditor *
 anjuta_goto_file_line (gchar * fname, guint lineno)
 {
-	anjuta_goto_file_line_mark (fname, lineno, TRUE);
+	return anjuta_goto_file_line_mark (fname, lineno, TRUE);
 }
 
-void
+TextEditor *
 anjuta_goto_file_line_mark (gchar * fname, guint lineno, gboolean mark)
 {
 	gchar *fn;
@@ -435,9 +441,9 @@ anjuta_goto_file_line_mark (gchar * fname, guint lineno, gboolean mark)
 
 	TextEditor *te;
 
-	g_return_if_fail (fname != NULL);
+	g_return_val_if_fail (fname != NULL, NULL);
 	fn = anjuta_get_full_filename (fname);
-	g_return_if_fail (fname != NULL);
+	g_return_val_if_fail (fname != NULL, NULL);
 	node = app->text_editor_list;
 	while (node)
 	{
@@ -454,7 +460,7 @@ anjuta_goto_file_line_mark (gchar * fname, guint lineno, gboolean mark)
 			anjuta_show_text_editor (te);
 			anjuta_grab_text_focus ();
 			g_free (fn);
-			return;
+			return te ;
 		}
 		node = g_list_next (node);
 	}
@@ -462,7 +468,7 @@ anjuta_goto_file_line_mark (gchar * fname, guint lineno, gboolean mark)
 	if (lineno >= 0 && te)
 		text_editor_goto_line (te, lineno, mark);
 	g_free (fn);
-	return;
+	return te ;
 }
 
 static void
@@ -785,7 +791,9 @@ anjuta_update_title ()
 			extended_toolbar_update ();
 		}
 		else
-			{ window = te->widgets.window;}
+		{
+			window = te->widgets.window;
+		}
 
 		if (text_editor_is_saved (te))
 		{
@@ -793,9 +801,8 @@ anjuta_update_title ()
 			{
 				buff1 =
 					g_strdup_printf (_("Anjuta: %s(Saved)"),
-						 te->full_filename);
-			}
-			else
+							 te->full_filename);
+			} else
 			{
 				buff1 = g_strdup("");
 			}
@@ -826,8 +833,9 @@ anjuta_update_title ()
 						   te->full_filename);
 		}
 		else
-		{ gtk_window_set_title (GTK_WINDOW (window), buff2);}
-		
+		{
+			gtk_window_set_title (GTK_WINDOW (window), buff2);
+		}
 		g_free (buff1);
 		g_free (buff2);
 	}
@@ -1665,3 +1673,66 @@ anjuta_get_file_property (gchar* key, gchar* filename, gint default_value)
 	value = atoi (value_str);
 	return value;
 }
+
+TextEditor *
+anjuta_get_te_from_path( const gchar *szFullPath )
+{
+	GList *node;
+
+	TextEditor *te;
+
+	g_return_val_if_fail ( szFullPath != NULL, NULL );
+	node = app->text_editor_list;
+	while (node)
+	{
+		te = (TextEditor *) node->data;
+		if (te->full_filename != NULL)
+		{
+			if ( !strcmp ( szFullPath, te->full_filename) )
+			{
+				return te ;
+			}
+		}
+		node = g_list_next (node);
+	}
+	return NULL ;
+}
+
+/* Saves a file to keep it synchronized with external programs */
+void 
+anjuta_save_file_if_modified( const gchar *szFullPath )
+{
+	TextEditor *te;
+
+	g_return_if_fail ( szFullPath != NULL );
+
+	te = anjuta_get_te_from_path( szFullPath );
+	if( NULL != te )
+	{
+		if( !text_editor_is_saved (te) )
+		{
+			text_editor_save_file (te);
+		}
+	}
+	return;
+}
+
+/* If an external program changed the file, we must reload it */
+void 
+anjuta_reload_file( const gchar *szFullPath )
+{
+	TextEditor *te;
+
+	g_return_if_fail ( szFullPath != NULL );
+
+	te = anjuta_get_te_from_path( szFullPath );
+	if( NULL != te )
+	{
+		glong	nNowPos = te->current_line ;
+		/*text_editor_check_disk_status ( te, TRUE );asd sdf*/
+		text_editor_load_file (te);
+		text_editor_goto_line ( te,  nNowPos, FALSE );
+	}
+	return;
+}
+

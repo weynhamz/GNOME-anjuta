@@ -723,7 +723,7 @@ text_editor_update_preferences (TextEditor * te)
 }
 
 gboolean
-text_editor_check_disk_status (TextEditor * te)
+text_editor_check_disk_status (TextEditor * te, const gboolean bForce )
 {
 	struct stat status;
 	time_t t;
@@ -745,19 +745,25 @@ text_editor_check_disk_status (TextEditor * te)
 	}
 	if (te->modified_time < status.st_mtime)
 	{
-		buff =
-			g_strdup_printf (_
-					 ("WARNING: The file \"%s\" in the disk is more recent "
-					  "than\nthe current buffer.\nDo you want to reload it."),
-			te->filename);
-		messagebox2 (GNOME_MESSAGE_BOX_WARNING, buff,
-			     GNOME_STOCK_BUTTON_YES,
-			     GNOME_STOCK_BUTTON_NO,
-			     GTK_SIGNAL_FUNC
-			     (on_text_editor_check_yes_clicked),
-			     GTK_SIGNAL_FUNC
-			     (on_text_editor_check_no_clicked), te);
-		return FALSE;
+		if( bForce )
+		{
+			text_editor_load_file (te);
+		} else
+		{
+			buff =
+				g_strdup_printf (_
+						 ("WARNING: The file \"%s\" in the disk is more recent "
+						  "than\nthe current buffer.\nDo you want to reload it."),
+				te->filename);
+			messagebox2 (GNOME_MESSAGE_BOX_WARNING, buff,
+					 GNOME_STOCK_BUTTON_YES,
+					 GNOME_STOCK_BUTTON_NO,
+					 GTK_SIGNAL_FUNC
+					 (on_text_editor_check_yes_clicked),
+					 GTK_SIGNAL_FUNC
+					 (on_text_editor_check_no_clicked), te);
+			return FALSE;
+		}
 	}
 	return TRUE;
 }
@@ -961,3 +967,24 @@ text_editor_line_from_handle (TextEditor* te, gint marker_handle)
 	return linenum_scintilla_to_text_editor (line);
 }
 
+gint text_editor_get_bookmark_line( TextEditor* te, const gint nLineStart )
+{
+	return aneditor_command (te->editor_id, ANE_GETBOOKMARK_POS, nLineStart, 0 );
+}
+
+
+gint text_editor_get_num_bookmarks(TextEditor* te)
+{
+	gint	nLineNo = -1 ;
+	gint	nMarkers = 0 ;
+	
+	g_return_val_if_fail (te != NULL, 0 );
+
+	while( ( nLineNo = text_editor_get_bookmark_line( te, nLineNo ) ) >= 0 )
+	{
+		//printf( "Line %d\n", nLineNo );
+		nMarkers++;
+	}
+	//printf( "out Line %d\n", nLineNo );
+	return nMarkers ;
+}

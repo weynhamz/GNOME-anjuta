@@ -246,6 +246,7 @@ protected:
 	void GotoBlockEnd();
 	void EnsureRangeVisible(int posStart, int posEnd);
 	void SetAccelGroup(GtkAccelGroup* acl);
+	int GetBookmarkLine( const int nLineStart );
 
 public:
 
@@ -1143,9 +1144,19 @@ int ControlIDOfCommand(unsigned long wParam) {
 
 long AnEditor::Command(int cmdID, long wParam, long lParam) {
 	switch (cmdID) {
+			
 	case ANE_INSERTTEXT:
 		SendEditor(SCI_INSERTTEXT,wParam,lParam);
 		break;
+	
+	case ANE_GETBOOKMARK_POS:
+		return GetBookmarkLine( wParam );
+		break;	/* pleonastico */
+
+	case ANE_BOOKMARK_TOGGLE_LINE:
+		BookmarkToggle( wParam );
+		break;
+
 	case ANE_UNDO:
 		SendEditor(SCI_UNDO);
 		break;
@@ -2015,6 +2026,16 @@ void AnEditor::ReadPropertiesInitial() {
 	SendEditor(SCI_SETMARGINWIDTHN, 2, foldMargin ? foldMarginWidth : 0);
 }
 
+int AnEditor::GetBookmarkLine( const int nLineStart )
+{
+	int nNextLine = SendEditor(SCI_MARKERNEXT, nLineStart+1, 1 << ANE_MARKER_BOOKMARK);
+	//printf( "...look %d --> %d\n", nLineStart, nNextLine );
+	if ( (nNextLine < 0) || (nNextLine == nLineStart) )
+		return -1 ;
+	else
+		return nNextLine;
+}
+
 static GList* editors;
 
 static AnEditor*
@@ -2081,3 +2102,5 @@ aneditor_command(AnEditorID handle, gint command, glong wparam, glong lparam)
    if(!ed) return 0;
    return ed->Command(command, wparam, lparam);
 }
+
+

@@ -32,6 +32,8 @@
 #include "resources.h"
 #include "properties.h"
 
+static GdkColor *GetColorError(Messages * m);
+
 static void on_mesg_win_but1_clicked (GtkButton * but, gpointer data);
 
 static void on_mesg_win_but2_clicked (GtkButton * but, gpointer data);
@@ -46,6 +48,10 @@ on_mesg_win_orien_changed (GtkToolbar * t, GtkOrientation or, gpointer data);
 gboolean
 on_mesg_win_but_event (GtkWidget * widget,
 		       GdkEvent * event, gpointer user_data);
+
+static GdkColor *GetColorError(Messages * m)
+{	return & m->color_white ;
+}
 
 Messages *
 messages_new ()
@@ -98,6 +104,12 @@ messages_new ()
 			m->color_black.red = 0;
 			m->color_black.green = 0;
 			m->color_black.blue = 0;
+			
+			m->color_white.pixel = 16;
+			m->color_white.red = (guint16) - 1;
+			m->color_white.green = (guint16) - 1;
+			m->color_white.blue = (guint16) - 1;
+
 		}
 	}
 	return m;
@@ -304,7 +316,7 @@ messages_add_line (Messages * m, MessageType type)
 	{
 		gtk_clist_set_foreground (m->clist[type],
 					  g_list_length (m->data[type]) - 1,
-					  &(m->color_red));
+					  GetColorError(m) );
 		g_free (dummy_fn);
 	}
 	else
@@ -425,7 +437,7 @@ messages_update (Messages * m)
 			if (parse_error_line (item, &dummy_fn, &dummy_int))
 			{
 				gtk_clist_set_foreground (m->clist[type], j,
-							  &(m->color_red));
+							  GetColorError(m) );
 				g_free (dummy_fn);
 			}
 			else

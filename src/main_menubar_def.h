@@ -376,6 +376,15 @@ static GnomeUIInfo edit1_menu_uiinfo[] = {
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 GDK_E, GDK_MOD1_MASK, NULL},
 	
+	GNOMEUIINFO_SEPARATOR,
+	
+	{
+	 GNOME_APP_UI_ITEM, N_("Save Build Messages"),
+	 N_("Save build messages to file"),
+	 on_save_build_messages_activate, NULL, NULL,
+	 GNOME_APP_PIXMAP_NONE, NULL,
+	 0, 0, NULL},
+
 	GNOMEUIINFO_END
 };
 

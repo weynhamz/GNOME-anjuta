@@ -58,41 +58,39 @@ drag_data_received_cb (GtkWidget *widget, GdkDragContext *context,
 		       gint x, gint y, GtkSelectionData *data,
 		       guint info, guint time, gpointer user_data)
 {
-	guchar *file_name, *tmp1, *tmp2, *tmp3;
-
+	guchar *file_name, *tmp1, *tmppath, *tmpptr;
+	
 	/*
 	 * Check to see that we got the name of the file. Impossible that it is
 	 * NULL.
 	 */	
 	g_return_if_fail (data->data != NULL);
 
-	/*
-	 * First we make a copy of the string so that we don't fiddle with what
-	 * is not ours. The string has a "file:" prefix and a "\r\n" suffix, so
-	 * we have to take care of that too, to get path and name of file.
-	 */
-	tmp1 = g_strdup (data->data);
-	tmp2 = tmp1 + 5;
-	tmp3 = tmp2 + ((strlen (tmp2) - 2));
-	*tmp3 = '\0';
-	file_name = tmp2;
 
-	/*
-	 * Check to see that after shifting the pointer, we still have a file
-	 * name and not a 0 length string.
-	 */
-	g_assert (file_name != NULL);
+	tmp1 = data->data;
+	tmppath = g_malloc(strlen(data->data));
+	tmpptr = tmppath;
 
-	/*
-	 * Call the user supplied functions which will handle the "dropping".
-	 */
-	dnd_data_dropped (file_name, user_data);
-
+	while (*tmp1)
+	{
+		/*
+		 * get each file:path in buffer and process
+		 */
+		while(*tmp1 != '\n')
+			*tmpptr++ = *tmp1++;				
+		
+		*(tmpptr - 1) = '\0'; /* remove the \r and end the string */			
+		
+		dnd_data_dropped(tmppath+5, user_data);
+		
+		tmpptr = tmppath;
+		tmp1++;					
+	}
+	
 	/*
 	 * Clean up and return.
 	 */
-	*tmp3 = 'A';
-	g_free (tmp1);
+	g_free (tmppath);
 	return;
 }
 

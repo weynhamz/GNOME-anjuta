@@ -31,6 +31,9 @@
 #include "Scintilla.h"
 #include "ScintillaWidget.h"
 
+
+static const gchar SECTION_REPLACE [] =  {"replace_text"};
+
 static void create_find_replace_gui (FindAndReplace * fr);
 
 static GtkWidget *create_replace_messagebox (void);
@@ -101,8 +104,53 @@ find_replace_destroy (FindAndReplace * fr)
 
 gboolean find_replace_save_yourself (FindAndReplace * fr, FILE * stream)
 {
+	find_text_save_settings (fr->find_text);
 	return TRUE;
 }
+
+void
+find_replace_save_session ( FindAndReplace * fr, ProjectDBase *p )
+{
+	g_return_if_fail( NULL != p );
+	g_return_if_fail( NULL != fr );
+	save_session_strings( p, SECSTR(SECTION_REPLACETEXT), fr->replace_history );
+	if( fr->find_text )
+		find_text_save_session ( fr->find_text, p );
+}
+
+void
+find_replace_load_session ( FindAndReplace * fr, ProjectDBase *p )
+{
+	g_return_if_fail( NULL != p );
+	g_return_if_fail( NULL != fr );
+	fr->replace_history	= load_session_strings( p, SECSTR(SECTION_REPLACETEXT), fr->replace_history );
+	if( fr->find_text )
+		find_text_load_session ( fr->find_text, p );
+}
+
+/*
+gboolean find_replace_save_project ( FindAndReplace * fr, ProjectDBase *p )
+{
+	g_return_val_if_fail( NULL != p, FALSE );
+	
+	session_clear_section( p, SECTION_SEARCH );
+	session_clear_section( p, SECTION_REPLACE );
+	if( fr->find_text->find_history )
+	{
+		const gchar *szFnd ;
+		int 		i;
+		int			nLen = g_list_length (fr->find_text->find_history); 
+		for (i = 0; i < nLen ; i++)
+		{
+			szFnd = (gchar*)g_list_nth (ft->find_history, i)->data ;
+			if( szFnd && szFnd[0] )
+				session_save_string( p, SECTION_SEARCH, i, szFnd );
+		}
+	}
+
+	return TRUE;
+}
+*/
 
 gboolean find_replace_load_yourself (FindAndReplace * fr, PropsID props)
 {

@@ -64,7 +64,7 @@ on_text_editor_text_buttonpress_event (GtkWidget * widget,
 				       gpointer user_data)
 {
 	TextEditor *te = user_data;
-	text_editor_check_disk_status (te);
+	text_editor_check_disk_status ( te, FALSE );
 	return FALSE;
 }
 

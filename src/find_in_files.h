@@ -20,9 +20,10 @@
 #define _FIND_IN_FILES_H_
 
 #include <gnome.h>
-
+#include "project_dbase.h"
 
 #define FR_CENTRE     -1
+
 
 typedef  struct  _FindInFilesGui                        FindInFilesGui;
 typedef  struct  _FindInFiles                                FindInFiles;
@@ -87,5 +88,12 @@ find_in_files_mesg_arrived(gchar *mesg);
 
 void
 find_in_files_process(FindInFiles* ff);
+
+void
+find_in_files_save_session ( FindInFiles* ff, ProjectDBase *p );
+
+void
+find_in_files_load_session( FindInFiles * ff, ProjectDBase *p );
+
 
 #endif
