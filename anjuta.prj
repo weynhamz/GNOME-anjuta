@@ -45,6 +45,8 @@ install-data-local:
 	install -m 0644 macros/Makefile.am $(pkgdatadir)/gnome
 	install -m 0644 macros/autogen.sh $(pkgdatadir)/gnome
 	install -m 0644 macros/*.m4 $(pkgdatadir)/gnome
+	install -m 0644 macros/ChangeLog $(pkgdatadir)/gnome
+
 <MAKEFILE_AM_END>
 
 props.file.type=project
@@ -73,7 +75,7 @@ project.configure.options=--prefix=/usr
 
 anjuta.program.arguments=
 
-project.config.disable.overwriting=1 1 1 1 1 1 1 1 1 
+project.config.disable.overwriting=1 0 1 1 1 1 1 1 1 
 project.config.extra.modules.before=scintilla widgets manuals omf-install
 project.config.extra.modules.after=launcher
 

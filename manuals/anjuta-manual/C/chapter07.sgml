@@ -72,8 +72,8 @@
   
   <sect1 id="loadsave-prjs">
    <title>Loading and Saving projects</title>
-   <para>
-   <title>Loading Projects:</title>
+   <sect2 id="loadingprj">
+    <title>Loading Projects:</title>
     <para>
      To open a project, activate the menu item <b>File->Open Project</b>.
      Select the project file (*.prj) in the file selection box and <b>Click OK</b>.
@@ -85,51 +85,83 @@
     <para>
      As soon as a project is opened. Anjuta will enter into the <b>Project mode</b> of operation. 
     </para>
-   </para>
-   <para>
+   </sect2>
+   <sect2 id="savingprj">
     <title>Saving project:</title>
     <para>
      To save the current project activating the menu item 
      <citetitle>File->Save project</citetitle> or click the save project icon in 
      the extended tool-bar. When a project is saved, only the files that needs
      to be updated are actually written to avoid breaking the unnecessary dependencies.
-     </para>
-     <para>
-      Moreover, the build files that are flaged disable overwrite in
-      the project configuration will not be touched.
-     </para>
     </para>
-   </para>
+    <para>
+     Moreover, the build files that are flaged disable overwrite in
+     the project configuration will not be touched.
+    </para>
+   </sect2>
   </sect1>
   
   <sect1 id="add-rm-files">
    <title>Adding and removing files</title>
    <para>
-There are three types of files Anjuta will manage for you in the project. They are:
-<p>
-<ul>
-  <li> Source files
-  <li> Document files
-  <li> Pixmap files
-</ul>
-<p>
-These three different types of files exist in the three different directories under the project.
-Namely, <i>Source directory, Document directory and Pixmap directory</i>
-<p>
-<b><u>Adding files:<u></b><p>
-Activate the corresponding <i>Add</i> menu item from the <b>Project</b> sub-menu. 
-Select the file you want to add in the <i>file selection dialog box</i> and <i>click OK</i>. 
-<p>
-If the file you are adding is already added to the project, then Anjuta will not add it again. 
-It will also give you a warning that the file is already added.
-<p>
-If the file you are adding is not in the <i>corresponding</i> directory (<i>source directory, document directory 
-or pixmap directory</i>), then Anjuta will ask you a confirmation to copy the file in the corresponding 
-directory. Anjuta can not add a file which is outside the corresponding directory. It needs to 
-be copied first to the directory and then added. That's why Anjuta ask for the confirmation.
-<p>
-
+    There are the different type of files Anjuta will manage for you in the project:
    </para>
+   <para>
+    <orderedlist>
+      <listitem><para> Source files. </para></listitem>
+      <listitem><para> Document files. </para></listitem>
+      <listitem><para> Pixmap files. </para></listitem>
+      <listitem><para> Help files. </para></listitem> 
+      <listitem><para> Data files. </para></listitem>
+      <listitem><para> PO files. </para></listitem> 
+    </orderedlist>
+   </para>
+   <para>
+   These different type of files exist in their own
+   different directories under the project.
+   </para>
+   <sect2 id="addingfiles">
+    <title>Adding files:</title>
+    <para>
+     Activate the corresponding <citetitle>Add</citetitle> menu item from
+     the <citetitle>Project</citetitle> sub-menu. 
+     Select the file you want to add in the <citetitle>file selection
+     dialog box</citetitle> and <citetitle>click OK</citetitle>. 
+    </para>
+    <para>
+     If the file you are adding is already added to the project, then
+     Anjuta will not add it again. 
+     It will also give you a warning that the file is already added.
+    </para>
+    <para>
+     If the file you are adding is not in the <i>corresponding</i> directory,
+     then it will ask you a confirmation to copy the file in the corresponding 
+     directory. Anjuta can not add a file which is outside the
+     corresponding directory. It needs to be copied first to the directory
+     and then added. That's why Anjuta ask for the confirmation.
+    </para>
+   </sect2>
+   <sect2 id="removingfiles">
+    <title>Removing Files:</title>
+    <para>
+     To remove a file from the project, select the file you want to remove
+     from the project listing, right click to popup the operation menu and
+     activate <citetitle>Remove</citetitle>
+    </para>
+    <para>
+     A confirmation will be asked and the file file will be removed from the
+     project.
+    </para>
+    <note>
+     <title>File is not deleted</title>
+     <para>
+     The file is removed from the project listing only and will not take part
+     in any of the project operations such as compiling, building, distribution etc.
+     The file is not deleted from the file system. It still exists and you can
+     add it later also, if you so wish.
+     </para>
+     </note>
+   </sect2>
   </sect1>
   
   <sect1 id="project-config">
@@ -142,14 +174,52 @@ be copied first to the directory and then added. That's why Anjuta ask for the c
   <sect1 id="project-infomations">
    <title>Getting Project Information</title>
    <para>
-    FIXME:
+    Activate <citetitle>Project-&gt;Project Information</citetitle> and
+    a window (shown above) will appear 
+    which will give the information about the currently opened Project.
    </para>
   </sect1>
   
   <sect1 id="project-files">
    <title>Managing project files</title>
    <para>
-    FIXME:
+    This part is for the <citetitle>dare devils</citetitle>. Others may skip this section.
+   </para>
+   <para>
+    Anjuta will manage the following files of a project:
+    <orderedlist>
+      <listitem><para> Project file --> [ *.prj file ]</para></listitem>
+      <listitem><para> Top level configure.in --> [ configure.in ]</para></listitem>
+      <listitem><para> Top level Makefile.am --> [ Makefile.am ]</para></listitem>
+      <listitem><para> Source Makefile.am --> [ Makefile.am in the source sub-directory ]</para></listitem>
+      <listitem><para> Document Makefile.am --> [ Makefile.am in the document sub-directory ]</para></listitem>
+      <listitem><para> Help Makefile.am --> [ Makefile.am in the help sub-directory ]</para></listitem>
+      <listitem><para> Data Makefile.am --> [ Makefile.am in the data sub-directory ]</para></listitem>
+      <listitem><para> Pixmaps Makefile.am --> [ Makefile.am in the pixmaps sub-directory ]</para></listitem>
+      <listitem><para> POTFILE.in --> [ POTFILE.in the po sub-directory ]</para></listitem>
+    </orderedlist>
+   </para>
+   <para>
+    If you are doing your own stuffs with the project's build files, then make sure whatever you do
+    does not conflict with what Anjuta does. For that matter, It is recommended that these files be not touched.
+   </para>
+   <para>
+    If you wish to modify these files, disable their overwrite option in the project
+    configuration under the tab build files. Activate project configuration
+    by right clicking on the project listing and selecting project configuration.
+   </para>
+   <para>
+    You can also create your own subdirectories in the project. Managing build 
+    files in these directories is solely your job.
+   </para>
+   <para>
+    If your project has multiple executables, then do not mix them with 
+    the project's main executable in the source directory. Make separate directory 
+    or directories for them. Again it's your job to manage them.
+   </para>
+   <para>
+    Also make sure to add the modules in project configuration under the tab
+    modules to accommodate the subdirectories you have created.
    </para>
   </sect1>
   

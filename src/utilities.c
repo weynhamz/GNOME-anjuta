@@ -1017,6 +1017,11 @@ glist_strings_sufix (GList * list, gchar *sufix)
 	}
 }
 
+GList*
+glist_strings_sort (GList * list)
+{
+	return g_list_sort(list, alphasort);
+}
 
 gchar*
 get_swapped_filename(gchar* filename)

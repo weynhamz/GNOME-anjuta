@@ -28,6 +28,8 @@ install-data-local:
 	install -m 0644 macros/Makefile.am $(pkgdatadir)/gnome
 	install -m 0644 macros/autogen.sh $(pkgdatadir)/gnome
 	install -m 0644 macros/*.m4 $(pkgdatadir)/gnome
+	install -m 0644 macros/ChangeLog $(pkgdatadir)/gnome
+
 
 # Copy all the spec files. Of cource, only one is actually used.
 dist-hook:

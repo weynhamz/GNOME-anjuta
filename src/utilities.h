@@ -181,12 +181,13 @@ void string_assign (gchar** string, gchar* value);
 /* Used as the callback for scandir() */
 int select_only_file (const struct dirent *e);
 
-/************************************************/
-/*  Functions that operates on list of strings. */
-/************************************************/
+/***********************************************/
+/*  Functions that operate on list of strings. */
+/***********************************************/
 void glist_strings_free(GList* list);
 void glist_strings_prefix (GList * list, gchar *prefix);
 void glist_strings_sufix (GList * list, gchar *sufix);
+void glist_strings_sort (GList * list);
 
 /**********************************************************/
 /* Both the returned glist and the data should be g_freed */
@@ -194,6 +195,7 @@ void glist_strings_sufix (GList * list, gchar *sufix);
 GList* glist_from_data(guint props, gchar* id);
 GList* glist_from_string(gchar* id);
 GList* glist_strings_dup (GList * list);
+
 /* Returns the alphabatically sorted list for files in dir */
 /* select is the func that approves (returning 1)each file */
 GList* scan_files_in_dir (const char *dir, int (*select)(const struct dirent *));
