@@ -60,6 +60,8 @@
 #include "tm_tagmanager.h"
 #include "file_history.h"
 #include "memory.h"
+#include "fileselection.h"
+
 void on_toolbar_find_clicked (GtkButton * button, gpointer user_data);
 
 gboolean closing_state;		/* Do not tamper with this variable  */
@@ -108,8 +110,12 @@ on_save1_activate (GtkMenuItem * menuitem, gpointer user_data)
 void
 on_save_as1_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
-	if (anjuta_get_current_text_editor () == NULL)
+TextEditor *te;
+
+	te = anjuta_get_current_text_editor ();
+	if (te == NULL)
 		return;
+  fileselection_set_filename (app->save_as_fileselection, te->full_filename);
 	gtk_widget_show (app->save_as_fileselection);
 }
 

@@ -1,5 +1,14 @@
 2002-09-20  Naba Kumar <kh_naba@gnome.org>
 
+	Patch from: Jean-Noel Guiheneuf <jnoel@saudionline.com.sa>
+	
+	* mainmenu_callbacks.c: Set's the current file name in
+	file save as dialog.
+	
+2002-09-20  Naba Kumar <kh_naba@gnome.org>
+
+	Patch from: Vlastimil Holer <xholer@informatics.muni.cz>
+
 	* data/properties/tcltk.properties: New file for tcl/tk
 	properties.
 
