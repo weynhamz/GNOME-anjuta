@@ -8,6 +8,9 @@
 	* configure.in, src/main.c: Defines SYSTEM_DATA_DIR for
 	anjuta.
 
+	* src/source.c: Installs .glade file of libgllade
+	projects in $(datadir)/$(package)/glade (part of bug #861038).
+	
 2004-03-29  Pavol Bosik <Pavol.Bosik@siemens.com>
 
 	* anjuta/src/search-replace.c: fixed another crash bug in

@@ -555,6 +555,13 @@ source_write_toplevel_makefile_am (ProjectDBase * data)
 		fprintf (fp, "gnomemenu_DATA = %s.desktop\n\n", prj_name);
 		g_free (group);
 	}
+	if (type->id == PROJECT_TYPE_LIBGLADE2)
+	{
+		fprintf (fp, "%s_glade_filedir = $(prefix)/@NO_PREFIX_PACKAGE_DATA_DIR@/@PACKAGE@/glade\n",
+				 canonicalize_target);
+		fprintf (fp, "%s_glade_file_DATA = %s.glade\n\n",
+				 canonicalize_target, prj_name);
+	}
 	str = project_config_get_makefile_am_content (data->project_config);
 	if (str)
 	{
