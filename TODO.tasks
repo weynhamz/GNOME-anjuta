@@ -43,6 +43,12 @@ mismatch when the keys are queried.</comment>
 number of progressbar should be acceptable. All of them
 should be shown side-by-side in status bar.</comment>
     </item>
+    <item>
+      <attribute id="1107255619" priority="1" done="0" start_date="731978" enddate="99999999" notify="0" endtime="-60" last_edited="1107255619"/>
+      <summary>Plugins reference counting</summary>
+      <comment>Implement plugins reference counting. Loading a plugin gets
+1 ref and when ref count reaches 0, plugin is deactivated.</comment>
+    </item>
   </category>
   <category title="Plugin: Editor" place="5">
     <item>
