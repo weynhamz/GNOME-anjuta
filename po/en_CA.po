@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-17 01:32-0500\n"
-"PO-Revision-Date: 2005-02-17 12:57-0400\n"
+"POT-Creation-Date: 2005-02-18 12:56-0500\n"
+"PO-Revision-Date: 2005-02-18 12:57-0400\n"
 "Last-Translator: Adam Weinberger <adamw@gnome.org>\n"
 "Language-Team: en_CA <adamw@FreeBSD.org>\n"
 "MIME-Version: 1.0\n"
@@ -520,8 +520,8 @@ msgid "Open existing file or create a new file."
 msgstr "Open existing file or create a new file."
 
 #: anjuta.glade.h:110 plugins/editor/anjuta-docman.c:303
-#: plugins/file-loader/plugin.c:507 plugins/file-loader/plugin.c:666
-#: plugins/file-loader/plugin.c:673 src/toolbar.c:80
+#: plugins/file-loader/plugin.c:518 plugins/file-loader/plugin.c:677
+#: plugins/file-loader/plugin.c:684 src/toolbar.c:80
 msgid "Open file"
 msgstr "Open file"
 
@@ -1347,11 +1347,11 @@ msgstr "Search"
 msgid "Incremental search"
 msgstr "Incremental search"
 
-#: libegg/test-actions.c:155 plugins/file-loader/plugin.c:864
+#: libegg/test-actions.c:155 plugins/file-loader/plugin.c:875
 msgid "Open _Recent"
 msgstr "Open _Recent"
 
-#: libegg/test-actions.c:156 plugins/file-loader/plugin.c:875
+#: libegg/test-actions.c:156 plugins/file-loader/plugin.c:886
 msgid "Open recent files"
 msgstr "Open recent files"
 
@@ -2365,7 +2365,7 @@ msgstr "Load Executable File"
 msgid "Load Core File"
 msgstr "Load Core File"
 
-#: plugins/debug-manager/plugin.c:61 plugins/file-loader/plugin.c:413
+#: plugins/debug-manager/plugin.c:61 plugins/file-loader/plugin.c:424
 #: plugins/project-manager/project_dbase.c:363
 #: plugins/project-manager/project_dbase_gui.c:153
 #: plugins/project-manager/project_dbase_gui.c:170
@@ -4312,7 +4312,7 @@ msgstr "Close"
 msgid "Docked"
 msgstr "Docked"
 
-#: plugins/file-loader/plugin.c:159
+#: plugins/file-loader/plugin.c:170
 #, c-format
 msgid ""
 "<b>Can not open \"%s\"</b>.\n"
@@ -4334,106 +4334,106 @@ msgstr ""
 "You may choose to try opening it with any of the following plugins or "
 "applications."
 
-#: plugins/file-loader/plugin.c:171
+#: plugins/file-loader/plugin.c:182
 msgid "Open with:"
 msgstr "Open with:"
 
 #. Document manager plugin
-#: plugins/file-loader/plugin.c:179
+#: plugins/file-loader/plugin.c:190
 msgid "Document Manager"
 msgstr "Document Manager"
 
-#: plugins/file-loader/plugin.c:418
+#: plugins/file-loader/plugin.c:429
 msgid "Anjuta Projects"
 msgstr "Anjuta Projects"
 
-#: plugins/file-loader/plugin.c:424
+#: plugins/file-loader/plugin.c:435
 #: plugins/project-manager/project_dbase_gui.c:161
 msgid "C/C++ source files"
 msgstr "C/C++ source files"
 
-#: plugins/file-loader/plugin.c:436
+#: plugins/file-loader/plugin.c:447
 msgid "C# source files"
 msgstr "C# source files"
 
-#: plugins/file-loader/plugin.c:442
+#: plugins/file-loader/plugin.c:453
 #: plugins/project-manager/project_dbase_gui.c:162
 msgid "Java source files"
 msgstr "Java source files"
 
-#: plugins/file-loader/plugin.c:448
+#: plugins/file-loader/plugin.c:459
 msgid "Pascal source files"
 msgstr "Pascal source files"
 
-#: plugins/file-loader/plugin.c:453
+#: plugins/file-loader/plugin.c:464
 msgid "PHP source files"
 msgstr "PHP source files"
 
-#: plugins/file-loader/plugin.c:460
+#: plugins/file-loader/plugin.c:471
 msgid "Perl source files"
 msgstr "Perl source files"
 
-#: plugins/file-loader/plugin.c:466
+#: plugins/file-loader/plugin.c:477
 msgid "Python source files"
 msgstr "Python source files"
 
-#: plugins/file-loader/plugin.c:471
+#: plugins/file-loader/plugin.c:482
 msgid "Hyper text markup files"
 msgstr "Hypertext markup files"
 
-#: plugins/file-loader/plugin.c:480
+#: plugins/file-loader/plugin.c:491
 msgid "Shell scripts files"
 msgstr "Shell scripts files"
 
-#: plugins/file-loader/plugin.c:485
+#: plugins/file-loader/plugin.c:496
 msgid "Makefiles"
 msgstr "Makefiles"
 
-#: plugins/file-loader/plugin.c:491
+#: plugins/file-loader/plugin.c:502
 msgid "Lua files"
 msgstr "Lua files"
 
-#: plugins/file-loader/plugin.c:496
+#: plugins/file-loader/plugin.c:507
 msgid "Diff files"
 msgstr "Diff files"
 
-#: plugins/file-loader/plugin.c:656
+#: plugins/file-loader/plugin.c:667
 msgid "_New ..."
 msgstr "_New ..."
 
-#: plugins/file-loader/plugin.c:658
+#: plugins/file-loader/plugin.c:669
 msgid "New file, project and project components."
 msgstr "New file, project and project components."
 
-#: plugins/file-loader/plugin.c:664
+#: plugins/file-loader/plugin.c:675
 msgid "_Open ..."
 msgstr "_Open ..."
 
-#: plugins/file-loader/plugin.c:672
+#: plugins/file-loader/plugin.c:683
 msgid "_Open"
 msgstr "_Open"
 
-#: plugins/file-loader/plugin.c:679
+#: plugins/file-loader/plugin.c:690
 msgid "Open _With"
 msgstr "Open _With"
 
-#: plugins/file-loader/plugin.c:680
+#: plugins/file-loader/plugin.c:691
 msgid "Open with"
 msgstr "Open with"
 
-#: plugins/file-loader/plugin.c:851
+#: plugins/file-loader/plugin.c:862
 msgid "File Loader"
 msgstr "File Loader"
 
-#: plugins/file-loader/plugin.c:856
+#: plugins/file-loader/plugin.c:867
 msgid "New"
 msgstr "New"
 
-#: plugins/file-loader/plugin.c:858
+#: plugins/file-loader/plugin.c:869
 msgid "Open"
 msgstr "Open"
 
-#: plugins/file-loader/plugin.c:865
+#: plugins/file-loader/plugin.c:876
 msgid "Open recent file"
 msgstr "Open recent file"
 
@@ -6570,11 +6570,11 @@ msgstr "Anjuta macros"
 msgid "My macros"
 msgstr "My macros"
 
-#: plugins/macro/macro-dialog.c:91
+#: plugins/macro/macro-dialog.c:93
 msgid "Insert macro"
 msgstr "Insert macro"
 
-#: plugins/macro/macro-edit.c:88
+#: plugins/macro/macro-edit.c:91
 msgid "Add/Edit macro"
 msgstr "Add/Edit macro"
 
@@ -7919,52 +7919,52 @@ msgid "_Help"
 msgstr "_Help"
 
 #: src/anjuta-actions.h:72
-msgid "Browse _Man Pages"
-msgstr "Browse _Man Pages"
+msgid "_Users manual"
+msgstr "_User's manual"
 
 #: src/anjuta-actions.h:73
-msgid "The good old manual pages"
-msgstr "The good old manual pages"
+msgid "Anjuta users manual"
+msgstr "Anjuta user's manual"
 
 #: src/anjuta-actions.h:76
-msgid "Browse _Info Pages"
-msgstr "Browse _Info Pages"
+msgid "Kick start _tutorial"
+msgstr "Kick start _tutorial"
 
 #: src/anjuta-actions.h:77
-msgid "The good info pages"
-msgstr "The good info pages"
+msgid "Anjuta Kick start tutorial"
+msgstr "Anjuta Kick start tutorial"
 
 #: src/anjuta-actions.h:80
+msgid "_Advanced tutorial"
+msgstr "_Advanced tutorial"
+
+#: src/anjuta-actions.h:81
+msgid "Anjuta advanced tutorial"
+msgstr "Anjuta advanced tutorial"
+
+#: src/anjuta-actions.h:84
+msgid "_Frequently asked questions"
+msgstr "_Frequently asked questions"
+
+#: src/anjuta-actions.h:85
+msgid "Anjuta frequently asked questions"
+msgstr "Anjuta frequently asked questions"
+
+#: src/anjuta-actions.h:88
 msgid "Anjuta _Home Page"
 msgstr "Anjuta _Home Page"
 
-#: src/anjuta-actions.h:81
+#: src/anjuta-actions.h:89
 msgid "Online documentation and resources"
 msgstr "Online documentation and resources"
 
-#: src/anjuta-actions.h:84
-msgid "Report _Bugs"
-msgstr "Report _Bugs"
-
-#: src/anjuta-actions.h:85
-msgid "Submit a bug report for Anjuta"
-msgstr "Submit a bug report for Anjuta"
-
-#: src/anjuta-actions.h:88
-msgid "Request _Features"
-msgstr "Request _Features"
-
-#: src/anjuta-actions.h:89
-msgid "Submit a feature request for Anjuta"
-msgstr "Submit a feature request for Anjuta"
-
 #: src/anjuta-actions.h:92
-msgid "Submit _patches"
-msgstr "Submit _patches"
+msgid "Report _Bugs/Patches/Requests"
+msgstr "Report _Bugs/Patches/Requests"
 
 #: src/anjuta-actions.h:93
-msgid "Submit patches for Anjuta"
-msgstr "Submit patches for Anjuta"
+msgid "Submit a bug report, patch or feature request for Anjuta"
+msgstr "Submit a bug report, patch or feature request for Anjuta"
 
 #: src/anjuta-actions.h:96
 msgid "Ask a _question"
