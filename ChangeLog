@@ -2,6 +2,13 @@
 
 	Patch from Timothee Besset <ttimo@idsoftware.com>
 	
+	* src/message-manager-private.cc: Interpretes absolute
+	file paths properly in zvt terminal.
+
+2002-11-19  Naba Kumar <naba@gnome.org>
+
+	Patch from Timothee Besset <ttimo@idsoftware.com>
+	
 	* src/preferences.c, src/preferences_gui.c, src/project_dbase.c,
 	src/properties.cxx, src/properties.h, anjuta.prj: Saves some of the 
 	(important) editor preferences in project (if there is one

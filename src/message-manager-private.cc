@@ -457,7 +457,10 @@ gboolean TerminalWindow::zvterm_mouse_clicked(GtkWidget* widget, GdkEvent* event
     {
       DEBUG_PRINT("parse_error_line: '%s' %d", filename, lineno);
       // look for the file in the cwd
-      procpath = g_strdup_printf("/proc/%d/cwd/%s", term->vx->vt.childpid, filename);
+      if (filename[0]!='/')
+        procpath = g_strdup_printf("/proc/%d/cwd/%s", term->vx->vt.childpid, filename);
+      else
+        procpath = g_strdup(filename);
       DEBUG_PRINT("full linked path: %s", procpath);
       anjuta_goto_file_line (procpath, lineno);
       g_free(procpath);
