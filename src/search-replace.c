@@ -1613,8 +1613,14 @@ anjuta_search_replace_activate (gboolean replace, gboolean project)
 		modify_label_image_button(SEARCH_BUTTON, _("Search"), GTK_STOCK_FIND);
 	
 	if (project)
+	{
 		search_set_target(SR_PROJECT);
-	
+		if (!replace)
+		{
+			search_set_action (SA_FIND_PANE);
+			search_set_direction (SD_FORWARD);
+		}
+	}
 	show_jump_button(FALSE);
 	
 	notebook = sr_get_gladewidget(SEARCH_NOTEBOOK)->widget;

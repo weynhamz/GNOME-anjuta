@@ -548,7 +548,7 @@ debugger_start (const gchar * prog)
 {
 	gchar *command_str, *dir, *tmp, *text;
 	gchar *exec_dir;
-	gboolean ret;
+	gboolean ret, terminal_echo_save;
 	GList *list, *node;
 
 #ifdef ANJUTA_DEBUG_DEBUGGER
@@ -639,9 +639,14 @@ debugger_start (const gchar * prog)
 	// Prepare for launch.	
 	g_signal_connect (G_OBJECT (app->launcher), "child-exited",
 					  G_CALLBACK (on_gdb_terminated), NULL);
-	
+
+	/* Make sure terminal echo is switched off */
+	terminal_echo_save = anjuta_launcher_set_terminal_echo (app->launcher,
+															FALSE);
 	ret = anjuta_launcher_execute (app->launcher, command_str,
 								   on_gdb_output_arrived, NULL);
+	anjuta_launcher_set_terminal_echo (app->launcher, terminal_echo_save);
+	
 	anjuta_launcher_set_encoding (app->launcher, "ISO-8859-1");
 
 	an_message_manager_clear (app->messages, MESSAGE_DEBUG);

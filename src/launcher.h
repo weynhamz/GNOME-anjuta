@@ -35,8 +35,8 @@ typedef struct _AnjutaLauncherPriv  AnjutaLauncherPriv;
 #define ANJUTA_LAUNCHER(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), ANJUTA_TYPE_LAUNCHER, AnjutaLauncher))
 #define ANJUTA_LAUNCHER_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), ANJUTA_TYPE_LAUNCHER, AnjutaLauncherClass))
 
-#define ANJUTA_IS_LUANCHER(obj)         (G_TYPE_CHECK_INSTANCE_CAST ((obj), ANJUTA_TYPE_LAUNCHER))
-#define ANJUTA_IS_LUANCHER_CLASS(klass) (G_TYPE_CHECK_CLASS_CAST ((klass), ANJUTA_TYPE_LAUNCHER))
+#define ANJUTA_IS_LAUNCHER(obj)         (G_TYPE_CHECK_INSTANCE_CAST ((obj), ANJUTA_TYPE_LAUNCHER))
+#define ANJUTA_IS_LAUNCHER_CLASS(klass) (G_TYPE_CHECK_CLASS_CAST ((klass), ANJUTA_TYPE_LAUNCHER))
 
 typedef enum {
 	ANJUTA_LAUNCHER_OUTPUT_STDOUT,
@@ -88,6 +88,10 @@ void anjuta_launcher_set_buffered_output (AnjutaLauncher *launcher,
 										  gboolean buffered);
 void anjuta_launcher_set_check_passwd_prompt (AnjutaLauncher *launcher,
 											  gboolean buffered);
+/* Returns old value */
+gboolean anjuta_launcher_set_terminal_echo (AnjutaLauncher *launcher,
+											gboolean echo_on);
+
 #ifdef __cplusplus
 };
 #endif

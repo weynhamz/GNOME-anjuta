@@ -1,3 +1,12 @@
+2004-04-05  Naba Kumar  <naba@gnome.org>
+
+	* src/launcher.[h,c], src/debugger.c: Added a method in launcher to 
+	switch terminal echo on/off. Debugger requires it off, while the
+	rest requires it on.
+
+	* src/search-replace.c: sets search direction and action (in addtion
+	to target) for find in files.
+	
 2004-04-02  Naba Kumar  <naba@gnome.org>
 
 	* src/mainmenu_callbacks.c: Sets filename during save of new files.

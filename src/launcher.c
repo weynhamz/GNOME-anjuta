@@ -71,6 +71,9 @@ struct _AnjutaLauncherPriv
 	/* Output of the pty is constantly stored here.*/
 	gchar *pty_output_buffer;
 
+	/* Terminal ehco */
+	gboolean terminal_echo_on;
+	
 	/* The child */
 	pid_t child_pid;
 	gint child_status;
@@ -131,6 +134,8 @@ anjuta_launcher_initialize (AnjutaLauncher *obj)
 	
 	/* Pty buffer */
 	obj->priv->pty_output_buffer = NULL;
+	
+	obj->priv->terminal_echo_on = TRUE;
 	
 	/* The child */
 	obj->priv->child_pid = 0;
@@ -912,10 +917,12 @@ anjuta_launcher_fork (AnjutaLauncher *launcher, gchar *const args[])
 //	termios_flags.c_oflag |= 0;
 	termios_flags.c_cflag &= ~(CSTOPB | CREAD | PARENB | HUPCL);
 	termios_flags.c_cflag |= CS8 | CLOCAL;
-	
-	/* Do not enable terminal echo. Password prompts fail to work */ 
-	/* termios_flags.c_lflag &= ~(ECHOKE | ECHOE | ECHO | ECHONL | ECHOPRT |
-					ECHOCTL | ISIG | ICANON | IEXTEN | NOFLSH | TOSTOP); */
+
+	if (!launcher->priv->terminal_echo_on)
+	{
+		termios_flags.c_lflag &= ~(ECHOKE | ECHOE | ECHO | ECHONL | ECHOPRT |
+						ECHOCTL | ISIG | ICANON | IEXTEN | NOFLSH | TOSTOP);
+	}
 //	termios_flags.c_lflag |= 0;
 	termios_flags.c_cc[VMIN] = 0;
 	cfsetospeed(&termios_flags, __MAX_BAUD);
@@ -997,6 +1004,15 @@ anjuta_launcher_execute (AnjutaLauncher *launcher, const gchar *command_str,
 	g_free (args);
 	glist_strings_free (args_list);
 	return ret;
+}
+
+gboolean
+anjuta_launcher_set_terminal_echo (AnjutaLauncher *launcher,
+								   gboolean echo_on)
+{
+	gboolean past_value = launcher->priv->terminal_echo_on;
+	launcher->priv->terminal_echo_on = echo_on;
+	return past_value;
 }
 
 GObject *
