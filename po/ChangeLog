@@ -1,3 +1,9 @@
+2004-02-15  Christophe Merlet  <redfox@redfoxcenter.org>
+
+	* POTFILES.in: Updated.
+	* fr.po: Updated French translation with corrections from
+	Pierre Sarrazin <sarrazip@sympatico.ca>.
+
 2004-02-09  Robert Sedak  <robert.sedak@sk.htnet.hr>
 
 	* POTFILES.in: Sync with source tree.
