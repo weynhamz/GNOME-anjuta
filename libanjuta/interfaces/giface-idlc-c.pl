@@ -19,17 +19,30 @@
 use strict;
 use Data::Dumper;
 
-my $idl_file = "libanjuta.idl";
+if (@ARGV != 1)
+{
+	die "Usage: perl giface-idlc-c.pl module_name";
+}
+
+my $module_name = $ARGV[0];
+
+my $idl_file = "$module_name.idl";
 
 open (INFILE, "<$idl_file")
 	or die "Can not open IDL file for reading";
 
 my %marshallers = ();
+my @global_includes;
+my @class_includes;
+
+my @header_files;
+my @source_files;
+
 my $parent_class = "";
 my $current_class = "";
 my @classes;
 
-my $level = 0;
+my @level = ();
 my $inside_block = 0;
 my $inside_comment = 0;
 my $comments = "";
@@ -37,81 +50,170 @@ my $line = "";
 my $linenum = 1;
 
 my $data_hr = {};
-
+my @collector = ();
+	
+my $struct = "";
+my $enum = "";
 while ($line = <INFILE>)
 {
-	if ($line =~ /\/\*/) {
-		$inside_comment = 1;
+	if (is_comment_begin($line)) {
+		if (current_level(@level) ne "comment") {
+			push @level, "comment";
+		}
 	}
-	if ($inside_comment)
+	if (current_level(@level) eq "comment")
 	{
 		$comments .= $line;
-		if ($line =~ /\*\//) {
-			$inside_comment = 0;
+		if (is_comment_end($line)) {
+			splice @level, @level - 1, 1;
 		}
+		$linenum++;
 		next;
 	}
 	chomp ($line);
 	## Remove comments
-	$line =~ s/\\\\.*$//;
+	$line =~ s/\/\/.*$//;
 	$line =~ s/^\s+//;
 	$line =~ s/\s+$//;
-	next if ($line =~ /^\s*$/);
-		
+	if ($line =~ /^\s*$/)
+	{
+ 		$linenum++;
+		next;
+	}
+	
+	if ($line =~ /^\#include/)
+	{
+		if (@level <= 0)
+		{
+			push @global_includes, $line;
+		}
+		else 
+		{
+			my $includes_lr = $class_includes[@class_includes-1];
+			push @$includes_lr, $line;
+		}
+		next;
+	}
 	if (is_block_begin($line))
 	{
-		$inside_block = 1;
-		$level++;
+		$linenum++;
 		next;
 	}
 	
 	my $class;
-	if (is_class($line, \$class))
+	if (is_interface($line, \$class))
 	{
+		push @level, "interface";
 		if ($current_class ne "")
 		{
 			$parent_class = $current_class;
 		}
+		push (@class_includes, []);
 		push (@classes, $current_class);
 		$current_class = $class;
-		compile_class($data_hr, $parent_class, $current_class);
+		my $comments_in = get_comments();
+		compile_class($data_hr, $parent_class, $comments_in, $current_class);
+		$linenum++;
 		next;
 	}
+	elsif (is_struct($line, \$class))
+	{
+		push @level, "struct";
+		$struct = $class;
+		$linenum++;
+		next;
+	}
+	elsif (is_enum($line, \$class))
+	{
+		push @level, "enum";
+		$enum = $class;
+		$linenum++;
+		next;
+	}
+
 	my $method_hr = {};
 	if (is_method($line, $method_hr)) {
+		die "Parse error at $idl_file:$linenum: Methods should only be in interface"
+			if (current_level(@level) ne "interface");
 		die "Parse error at $idl_file:$linenum: Class name expected"
 			if ($current_class eq "");
-		die "Parse error at $idl_file:$linenum: Block begin expected"
-			if (!$inside_block);
-		my $comments_in = $comments;
-		if ($comments ne "")
-		{
-			$comments = "";
-		}
-		compile_method($data_hr, $parent_class, $current_class, $method_hr, $comments_in);
+		my $comments_in = get_comments();
+		compile_method($data_hr, $parent_class, $current_class, $comments_in, $method_hr);
+		$linenum++;
 		next;
 	}
 	if (is_block_end($line))
 	{
-		$inside_block = 0;
-		$level--;
-		$current_class = "";
-		$parent_class = "";
-		if (@classes > 0)
+		if (current_level(@level) eq "interface")
 		{
-			$current_class = pop (@classes);
+			splice @class_includes, @class_includes - 1, 1;
+			# pop (@class_includes);
+			$current_class = "";
+			$parent_class = "";
+			if (@classes > 0)
+			{
+				$current_class = splice @classes, @classes - 1, 1;
+				## $current_class = pop (@classes);
+			}
+			if (@classes > 0)
+			{
+				$parent_class = $classes[@classes -1];
+			}
+			$linenum++;
 		}
-		if (@classes > 0)
+		elsif (current_level(@level) eq "struct")
 		{
-			$parent_class = pop(@classes);
-			push (@classes, $parent_class);
+			my $comments_in = get_comments();
+			compile_struct($data_hr, $current_class, $struct,
+						   $comments_in, @collector);
+			@collector = ();
+			$struct = "";
+			$linenum++;
 		}
+		elsif (current_level(@level) eq "enum")
+		{
+			my $comments_in = get_comments();
+			compile_enum($data_hr, $current_class, $enum,
+						 $comments_in, @collector);
+			@collector = ();
+			$enum = "";
+			$linenum++;
+		}
+		splice @level, @level - 1, 1;
 		next;
 	}
+	die "Parse error at $idl_file:$linenum: Type name or method expected"
+		if (current_level(@level) ne "struct" and
+			current_level(@level) ne "enum");
+	push @collector, $line;
+	$linenum++;
 }
 
 ## print Dumper($data_hr);
 generate_files($data_hr);
+write_makefile();
+
+sub is_comment_begin
+{
+	my ($line) = @_;
+	if ($line =~ /\/\*/)
+	{
+		## print "Comment begin\n";
+		return 1;
+	}
+	return 0;
+}
+
+sub is_comment_end
+{
+	my ($line) = @_;
+	if ($line =~ /^\s*\}\s*$/)
+	{
+		## print "Block End\n";
+		return 1;
+	}
+	return 0;
+}
 
 sub is_block_begin
 {
@@ -135,13 +237,37 @@ sub is_block_end
 	return 0;
 }
 
-sub is_class
+sub is_interface
 {
 	my ($line, $class_ref) = @_;
-	if ($line =~ /^\s*([\w|_]+)\s*$/)
+	if ($line =~ /^\s*interface\s*([\w|_]+)\s*$/)
 	{
 		$$class_ref = $1;
-		## print "Class: $line\n";
+		## print "Interface: $line\n";
+		return 1;
+	}
+	return 0;
+}
+
+sub is_enum
+{
+	my ($line, $class_ref) = @_;
+	if ($line =~ /^\s*enum\s*([\w|_]+)\s*$/)
+	{
+		$$class_ref = $1;
+		## print "Enum: $line\n";
+		return 1;
+	}
+	return 0;
+}
+
+sub is_struct
+{
+	my ($line, $class_ref) = @_;
+	if ($line =~ /^\s*struct\s*([\w|_]+)\s*$/)
+	{
+		$$class_ref = $1;
+		## print "Struct: $line\n";
 		return 1;
 	}
 	return 0;
@@ -175,20 +301,40 @@ sub is_method
 	return 0;
 }
 
+sub current_level
+{
+	## @l = @_;
+	## return splice @l, @l - 1, 1;
+	return $_[@_-1] if (@_ > 0);
+	return "";
+}
+
+sub get_comments
+{
+	my $comments_in = $comments;
+	if ($comments ne "")
+	{
+		$comments = "";
+	}
+	$comments_in =~ s/^\t+//mg;
+	return $comments_in;
+}
+
 sub compile_class
 {
-	my ($data_hr, $parent, $class) = @_;
+	my ($data_hr, $parent, $comments, $class) = @_;
 	die "Error $idl_file:$linenum: Class $class already exist"
 		if (ref($data_hr->{$class}) eq 'HASH');
 	$data_hr->{$class} = {};
 	my $class_ref = $data_hr->{$class};
 	
 	$class_ref->{'__parent'} = $parent;
+	$class_ref->{'__comments'} = $comments;
 }
 
 sub compile_method
 {
-	my ($data_hr, $parent, $class, $method_hr, $comments) = @_;
+	my ($data_hr, $parent, $class, $comments, $method_hr) = @_;
 	die "Error $idl_file:$linenum: Class $class doesn't exist"
 		if (ref($data_hr->{$class}) ne 'HASH');
 	my $class_hr = $data_hr->{$class};
@@ -199,6 +345,55 @@ sub compile_method
 	
 	$method_hr->{'__comments'} = $comments;
 	$class_hr->{$method} = $method_hr;
+	
+	if (ref($class_hr->{"__include"}) ne 'ARRAY')
+	{
+		my @includes;
+		foreach my $inc (@global_includes)
+		{
+			push @includes, $inc;
+		}
+		my $class_incs_lr = $class_includes[@class_includes-1];
+		foreach my $inc (@$class_incs_lr)
+		{
+			push @includes, $inc;
+		}
+		$class_hr->{'__include'} = \@includes;
+	}	
+}
+
+sub compile_enum
+{
+	my ($data_hr, $parent, $class, $comments, @collector) = @_;
+	my $class_hr = $data_hr->{$parent};
+	if (!defined($class_hr->{"__enums"}))
+	{
+		$class_hr->{"__enums"} = {};
+	}
+	my $enums_hr = $class_hr->{"__enums"};
+	
+	my @data = @collector;
+	$enums_hr->{$class} = {};
+	$enums_hr->{$class}->{"__parent"} = $parent;
+	$enums_hr->{$class}->{"__comments"} = $comments;
+	$enums_hr->{$class}->{"__data"} = \@data;
+}
+
+sub compile_struct
+{
+	my ($data_hr, $parent, $class, $comments, @collector) = @_;
+	my $class_hr = $data_hr->{$parent};
+	if (!defined($class_hr->{"__structs"}))
+	{
+		$class_hr->{"__structs"} = {};
+	}
+	my $enums_hr = $class_hr->{"__structs"};
+	
+	my @data = @collector;
+	$enums_hr->{$class} = {};
+	$enums_hr->{$class}->{"__parent"} = $parent;
+	$enums_hr->{$class}->{"__comments"} = $comments;
+	$enums_hr->{$class}->{"__data"} = \@data;
 }
 
 ## GObject based C class files
@@ -216,9 +411,11 @@ sub generate_files
 		generate_class($c, $data_hr->{$c});
 	}
 	## Write marshallers
-	my $filename = "iface-marshallers.list";
+	my $filename = "$module_name-iface-marshallers.list";
 	open (OUTFILE, ">$filename")
 		or die "Can not open $filename for writing";
+	push @header_files, "$module_name-iface-marshallers.h";
+	push @source_files, "$module_name-iface-marshallers.c";
 	foreach my $m (sort keys %marshallers)
 	{
 		$m =~ s/__/\:/;
@@ -257,37 +454,178 @@ sub get_canonical_names
 	$$cano_macro_ref = uc($c);
 }
 
+sub get_arg_type_info
+{
+	my ($type, $info) = @_;
+	my $type_map = {
+		"void" => {
+			"gtype" => "G_TYPE_NONE",
+		},
+		"gchar*" => {
+			"gtype" => "G_TYPE_STRING",
+			"assert" => "__arg__ != NULL",
+			"fail_return" => "NULL"
+		},
+		"constgchar*" => {
+			"gtype" => "G_TYPE_STRING",
+			"assert" => "__arg__ != NULL",
+			"fail_return" => "NULL"
+		},
+		"gint" => {
+			"gtype" => "G_TYPE_INT",
+			"fail_return" => "-1"
+		},
+		"gboolean" => {
+			"gtype" => "G_TYPE_BOOLEAN",
+			"fail_return" => "FALSE"
+		},
+		"GInterface*" => {
+			"gtype" => "G_TYPE_INTERFACE",
+			"assert" => "G_IS_INTERFACE (__arg__)",
+			"fail_return" => "NULL"
+		},
+		## G_TYPE_CHAR
+		"guchar*" => {
+			"gtype" => "G_TYPE_UCHAR",
+			"assert" => "__arg__ != NULL",
+			"fail_return" => "NULL"
+		},
+		"constguchar*" => {
+			"gtype" => "G_TYPE_UCHAR",
+			"assert" => "__arg__ != NULL",
+			"fail_return" => "NULL"
+		},
+		"guint" => {
+			"gtype" => "G_TYPE_UINT",
+			"fail_return" => "0"
+		},
+		"glong" => {
+			"gtype" => "G_TYPE_LONG",
+			"fail_return" => "-1"
+		},
+		"gulong" => {
+			"gtype" => "G_TYPE_ULONG",
+			"fail_return" => "0"
+		},
+		"gint64" => {
+			"gtype" => "G_TYPE_INT64",
+			"fail_return" => "-1"
+		},
+		"guint64" => {
+			"gtype" => "G_TYPE_UINT64",
+			"fail_return" => "0"
+		},
+		## G_TYPE_ENUM
+		## G_TYPE_FLAGS
+		"gfloat" => {
+			"gtype" => "G_TYPE_FLOAT",
+			"fail_return" => "0"
+		},
+		"gdouble" => {
+			"gtype" => "G_TYPE_DOUBLE",
+			"fail_return" => "0"
+		},
+		"gpointer" => {
+			"gtype" => "G_TYPE_POINTER",
+			"assert" => "__arg__ != NULL",
+			"fail_return" => "NULL"
+		},
+		"GValue*" => {
+			"gtype" => "G_TYPE_BOXED",
+			"assert" => "G_IS_VALUE(__arg__)",
+			"fail_return" => "NULL"
+		},
+		## G_TYPE_PARAM
+		"GObject*" => {
+			"gtype" => "G_TYPE_OBJECT",
+			"assert" => "G_IS_OBJECT(__arg__)",
+			"fail_return" => "NULL"
+		}
+	};
+	if (defined ($type_map->{$type}))
+	{
+		if (defined ($type_map->{$type}->{$info}))
+		{
+			return $type_map->{$type}->{$info};
+		}
+	}
+}
+
+sub get_arg_assert
+{
+	my ($rettype, $type_arg, $force) = @_;
+	my ($type, $arg);
+	if ($type_arg =~ s/([\w\d_]+)+$//)
+	{
+		$arg = $1;
+		$type = $type_arg;
+		$type =~ s/\s//g;
+	}
+	if (!defined($force) || $force eq "")
+	{
+		$force = 0;
+	}
+	my $ainfo = get_arg_type_info($type, "assert");
+	if (!defined($ainfo) || $ainfo eq "")
+	{
+		## Autodetect type assert
+		if ($force ||
+			(($type =~ /\*$/) &&
+			 ($type =~ /^Gtk/ ||
+			  $type =~ /^Gdk/ ||
+			  $type =~ /^Gnome/ || 
+			  $type =~ /^Anjuta/ || 
+			  $type =~ /^IAnjuta/)))
+		{
+			$type =~ s/\*//g;
+			my $prefix;
+			my $macro_prefix;
+			my $macro_suffix;
+			my $macro_name;
+			get_canonical_names($type, \$prefix, \$macro_prefix,
+								\$macro_suffix, \$macro_name);
+			$ainfo = $macro_prefix."_IS_".$macro_suffix."(__arg__)";
+		}
+		else
+		{
+			## die "Cannot determine assert macro for type '$type'. Fix it first";
+			return "";
+		}
+	}
+	if ($rettype eq "void")
+	{
+		$ainfo =~ s/__arg__/$arg/;
+		my $ret = "g_return_if_fail ($ainfo);";
+		return $ret;
+	}
+	else
+	{
+		my $fail_ret = get_arg_type_info($rettype, "fail_return");
+		if (!defined($fail_ret) || $fail_ret eq "")
+		{
+			## Return NULL for pointer types
+			if ($rettype =~ /\*$/ ||
+				$rettype =~ /gpointer/)
+			{
+				$fail_ret = "NULL";
+			}
+		}
+		if (defined($fail_ret))
+		{
+			$ainfo =~ s/__arg__/$arg/;
+			my $ret = "g_return_val_if_fail ($ainfo, $fail_ret);";
+			return $ret;
+		}
+	}
+	die "Cannot determine failed return value for type '$rettype'. Fix it first";
+}
+
 sub construct_marshaller
 {
 	my ($rettype, $args) = @_;
 	## Type mapping
-	my %type_map = (
-		"void" => "G_TYPE_NONE",
-		"GValue" => "G_TYPE_BOXED",
-		"gchar*" => "G_TYPE_STRING",
-		"constgchar*" => "G_TYPE_STRING",
-		"gint" => "G_TYPE_INT",
-		"gboolean" => "G_TYPE_BOOLEAN",
-		"GInterface*" => "G_TYPE_INTERFACE",
-		## G_TYPE_CHAR
-		"guchar*" => "G_TYPE_UCHAR",
-		"constguchar*" => "G_TYPE_UCHAR",
-		"guint" => "G_TYPE_UINT",
-		"glong" => "G_TYPE_LONG",
-		"gulong" => "G_TYPE_ULONG",
-		"gint64" => "G_TYPE_INT64",
-		"guint64" => "G_TYPE_UINT64",
-		## G_TYPE_ENUM
-		## G_TYPE_FLAGS
-		"gfloat" => "G_TYPE_FLOAT",
-		"gdouble" => "G_TYPE_DOUBLE",
-		"gpointer" => "G_TYPE_POINTER",
-		"GValue*" => "G_TYPE_BOXED",
-		## G_TYPE_PARAM
-		"GObject*" => "G_TYPE_OBJECT"
-	);
 	$rettype =~ s/\s//g;
-	my $rtype = $type_map{$rettype};
+	my $rtype = get_arg_type_info ($rettype, "gtype");
 	if (!defined($rtype) or $rtype eq '')
 	{
 		die "Can not find GType for arg type '$rettype'. Fix it first.";
@@ -306,7 +644,7 @@ sub construct_marshaller
 			if ($one_arg =~ s/([\w_]+)$//)
 			{
 				$one_arg =~ s/\s//g;
-				my $oarg = $type_map{$one_arg};
+				my $oarg = get_arg_type_info ($one_arg, "gtype");
 				if (!defined($oarg) or $oarg eq '')
 				{
 					die "Can not find GType for arg type '$one_arg'. Fix it first.";
@@ -326,7 +664,7 @@ sub construct_marshaller
 		$marshal_index .= "_VOID";
 	}
 	$marshallers{$marshal_index} = 1;
-	$marshal_index = "iface_cclosure_marshal_$marshal_index";
+	$marshal_index = "$module_name-iface_cclosure_marshal_$marshal_index";
 	return $marshal_index.",\n\t\t\t".$args_list;
 }
 
@@ -350,6 +688,7 @@ sub generate_class
 	
 	my $parent_iface = "GTypeInterface";
 	my $parent_type = "G_TYPE_INTERFACE";
+	my $parent_include = "";
 	if ($parent ne "")
 	{
 		my ($pprefix, $pmacro_name, $pmacro_prefix, $pmacro_suffix);
@@ -358,6 +697,8 @@ sub generate_class
 		get_canonical_names($parent, \$pprefix, \$pmacro_prefix,
 							\$pmacro_suffix, \$pmacro_name);
 		$parent_type = $pmacro_prefix."_TYPE_".$pmacro_suffix;
+		$pprefix =~ s/_/-/g;
+		$parent_include = $pprefix.".h";
 	}
 	
 	print "\tmethod prefix: $prefix\n";
@@ -391,15 +732,56 @@ sub generate_class
 #ifndef _${macro_name}_H_
 #define _${macro_name}_H_
 
-#include <glib-object.h>
-
+";
+	my $class_incs_lr = $class_hr->{"__include"};
+	foreach my $inc (@$class_incs_lr)
+	{
+		$answer .= "$inc\n";
+	}
+	if ($parent_include ne "")
+	{
+		$answer .= "#include <$parent_include>\n";
+	}
+	$answer .=
+"
 G_BEGIN_DECLS
 
 #define $macro_type (${prefix}_get_type ())
-#define ${macro_name}(obj) (G_TYPE_CHECK_INSTANCE_CAST ((obj), , $class))
+#define ${macro_name}(obj) (G_TYPE_CHECK_INSTANCE_CAST ((obj), $macro_type, $class))
 #define ${macro_assert}(obj) (G_TYPE_CHECK_INSTANCE_TYPE ((obj), $macro_type))
 #define ${macro_name}_GET_IFACE(obj) (G_TYPE_INSTANCE_GET_INTERFACE ((obj), $macro_type, ${class}Iface))
 
+";
+	## Added enums;
+	my $enums_hr = $class_hr->{"__enums"};
+	if (defined ($enums_hr))
+	{
+		foreach my $e (sort keys %$enums_hr)
+		{
+			$answer .= "typedef enum {\n";
+			foreach my $d (@{$enums_hr->{$e}->{"__data"}})
+			{
+				$answer .= "\t${macro_name}_$d\n";
+			}
+			$answer .= "} ${class}$e;\n\n";
+		}
+	}
+	## Added structs;
+	my $structs_hr = $class_hr->{"__structs"};
+	if (defined ($structs_hr))
+	{
+		foreach my $s (sort keys %$structs_hr)
+		{
+			$answer .= "typedef struct {\n";
+			foreach my $d (@{$structs_hr->{$s}->{"__data"}})
+			{
+				$answer .= "\t$d\n";
+			}
+			$answer .= "} ${class}$s;\n\n";
+		}
+	}
+	$answer .=
+"	
 #define ${macro_name}_ERROR ${prefix}_error_quark()
 
 typedef struct _$class $class;
@@ -422,7 +804,7 @@ struct _${class}Iface {
 		if ($func =~ s/^\:\://)
 		{
 			$answer .= "\t/* Signal */\n";
-			$answer .= "\t$rettype (*$func) ($class obj${args});\n";
+			$answer .= "\t$rettype (*$func) ($class *obj${args});\n";
 		}
 	}
 	$answer .= "\n";
@@ -438,7 +820,7 @@ struct _${class}Iface {
 		}
 		if ($func !~ /^\:\:/)
 		{
-			$answer .= "\t$rettype (*$func) ($class obj, ${args}GError **err);\n";
+			$answer .= "\t$rettype (*$func) ($class *obj, ${args}GError **err);\n";
 		}
 	}
 	$answer .=
@@ -460,7 +842,7 @@ GType  ${prefix}_get_type        (void);
 		}
 		if ($func !~ /^\:\:/)
 		{
-			$answer .= "${rettype} ${prefix}_$func ($class obj, ${args}GError **err);\n\n";
+			$answer .= "${rettype} ${prefix}_$func ($class *obj, ${args}GError **err);\n\n";
 		}
 	}
 	$answer .=
@@ -473,7 +855,8 @@ G_END_DECLS
 		or die "Can not open $filename for writing";
 	print OUTFILE $answer;
 	close (OUTFILE);
-
+	push @header_files, $filename;
+	
 	## Source file.
 	
 	$answer = "";
@@ -503,6 +886,7 @@ G_END_DECLS
  */
 
 #include \"$headerfile\"
+#include \"$module_name-iface-marshallers.h\"
 
 GQuark 
 ${prefix}_error_quark (void)
@@ -526,12 +910,19 @@ ${prefix}_error_quark (void)
 		my $params = "";
 		next if ($func =~ /^\:\:/);
 
+		my $asserts = "\t".get_arg_assert($rettype, "$class *obj", 1)."\n";
+		## self assert;
 		if ($args ne '')
 		{
 			my @params;
 			my @margs = split(",", $args);
 			foreach my $one_arg (@margs)
 			{
+				my $assert_stmt = get_arg_assert($rettype, $one_arg, 0);
+				if (defined($assert_stmt) && $assert_stmt ne "")
+				{
+					$asserts .= "\t$assert_stmt\n";
+				}
 				if ($one_arg =~ /([\w_]+)$/)
 				{
 					push @params, $1;
@@ -546,13 +937,17 @@ ${prefix}_error_quark (void)
 			$args .= ", ";
 		}
 		my $comments_out = $class_hr->{$m}->{'__comments'};
-		$comments_out =~ s/^\t+//mg;
 		$answer .= "${comments_out}${rettype}\n${prefix}_$func ($class *obj, ${args}GError **err)\n";
-		$answer .= "{\n\t";
+		$answer .= "{\n";
+		if ($asserts ne "")
+		{
+			$answer .= $asserts;
+		}
+		$answer .= "\t";
 		if ($rettype ne "void") {
 			$answer .= "return ";
 		}
-		$answer .= "${macro_name}_GET_IFACE (shell)->$func (obj, ${params}err);";
+		$answer .= "${macro_name}_GET_IFACE (obj)->$func (obj, ${params}err);";
 		$answer .="\n}\n\n";
 	}
 	$answer .=
@@ -618,4 +1013,71 @@ ${prefix}_get_type (void)
 		or die "Can not open $filename for writing";
 	print OUTFILE $answer;
 	close (OUTFILE);
+	push @source_files, $filename;
+}
+
+sub write_makefile
+{
+    system "echo \"#include \\\"${module_name}-iface-marshallers.h\\\"\" ".
+	"> xgen-gmc && glib-genmarshal --prefix=${module_name}_iface_cclosure_marshal ".
+	"./${module_name}-iface-marshallers.list --body > xgen-gmc && cp xgen-gmc ".
+	"$module_name-iface-marshallers.c && rm -f xgen-gmc";
+    system "glib-genmarshal --prefix=${module_name}_iface_cclosure_marshal ".
+	"./${module_name}-iface-marshallers.list --header > xgen-gmc && cp xgen-gmc ".
+	"$module_name-iface-marshallers.h && rm -f xgen-gmc";
+    
+
+    my $iface_headers = "";
+    foreach my $h (@header_files)
+    {
+	$iface_headers .= "\\\n\t$h";
+    }
+    my $iface_sources = "";
+    foreach my $s (@source_files)
+    {
+	$iface_sources .= "\\\n\t$s";
+    }
+    
+    my $iface_rules = "lib_LTLIBRARIES = $module_name-interfaces.la\n";
+    $iface_rules .= "${module_name}_interfaces_la_LIADD = \$(MODULE_LIBS)\n";
+    $iface_rules .= "${module_name}_interfaces_la_LIBADD = \n";
+    $iface_rules .= "${module_name}_interfaces_la_SOURCES = $iface_sources\n";
+    $iface_rules .= "${module_name}_interfaces_includedir = \$(MODULE_INCLUDEDIR)\n";
+    $iface_rules .= "${module_name}_interfaces_include_HEADERS = $iface_headers\n";
+    
+    my $contents = `cat Makefile.am.iface`;
+    $contents =~ s/\@\@IFACE_RULES\@\@/$iface_rules/;
+    my $filename = "Makefile.am";
+    open (OUTFILE, ">$filename")
+	or die "Can not open $filename for writing";
+    print OUTFILE $contents;
+    close OUTFILE;
+
+	if (0)
+	{
+	    ## Marshallers build rule
+	    print OUTFILE "BUILT_SOURCES=$module_name-iface-marshallers.c\n\n";
+
+	    print OUTFILE "$module_name-iface-marshallers.c: ${module_name}-iface-marshallers.h\n";
+	    print OUTFILE "\techo \"#include \\\"${module_name}-iface-marshallers.h\\\"";
+	    print OUTFILE "> xgen-gmc \\\n";
+	    print OUTFILE "\t\@GLIB_GENMARSHAL\@ \\\n";
+	    print OUTFILE "\t\t--prefix=${module_name}_iface_cclosure_marshal";
+	    print OUTFILE ' $(srcdir)/',"${module_name}-iface-marshallers.list --body ";
+	    print OUTFILE "> xgen-gmc \\\n";
+	    print OUTFILE "\t\t", '&& cp xgen-gmc $(@F) ', "\\\n";
+	    print OUTFILE "\t\t", '&& rm -f xgen-gmc', "\n\n";
+	    
+	    print OUTFILE "$module_name-iface-marshallers.h: $module_name-iface-marshallers.list\n";
+	    print OUTFILE "\t\@GLIB_GENMARSHAL\@ \\\n";
+	    print OUTFILE "\t\t--prefix=${module_name}_iface_cclosure_marshal";
+	    print OUTFILE ' $(srcdir)/',"$module_name-iface-marshallers.list --header ";
+	    print OUTFILE "> xgen-gmc \\\n";
+	    print OUTFILE "\t\t", '&& cp xgen-gmc $(@F) ', "\\\n";
+	    print OUTFILE "\t\t", '&& rm -f xgen-gmc', "\n\n";
+	
+	    print OUTFILE "$module_name-iface-marshallers.list: $module_name.idl\n";
+	    print OUTFILE "\t", 'cd $(srcdir) && perl $(srcdir)/giface-idlc-c.pl ';
+	    print OUTFILE "$module_name.idl\n\n";
+	}
 }

@@ -1,3 +1,8 @@
+2004-04-29  Naba Kumar  <naba@gnome.org>
+
+	* libanjuta/interfaces/giface-idlc-c.pl,
+	libanjuta/interfaces/libanjuta.idl: Upgraded.
+	
 2004-04-28  Naba kumar  <naba@gnome.org>
 
 	* libanjuta/interfaces/giface-idlc-c.pl,

@@ -1,64 +1,119 @@
-//libanjuta interfaces
+// -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
+//
+//  libanjuta interfaces, Generate stubs with giface-idlc-c.pl
+// 
+//  Copyright (C) 2004 Naba Kumar  <naba@gnome.org>
+//
+//  This program is free software; you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation; either version 2 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU Library General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program; if not, write to the Free Software
+//  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
-IAnjutaBuffer
+#include <glib-object.h>
+
+interface IAnjutaEditor
 {
+	enum Error
+	{
+		DOESNT_EXIST
+	}
+	
+	// Signals
+	void ::save_point (gboolean entered);
+
+	gchar* get_filename ();
+	void   goto_line (gint lineno);
 	gchar* get_selection ();
 	gchar* get_text (gint start, gint end);
 	gchar* get_attributes (gint start, gint end);
+}
+
+interface IAnjutaMarkable
+{
+	enum Error
+	{
+		INVALID_LOCATION
+	}
 	
-	IAnjutaEditor
+	enum Marker
+	{
+		NONE,
+		LIGHT,
+		ATTENTIVE,
+		INTENSE
+	}
+	
+	struct TestStruct
+	{
+		gchar *data;
+		gchar *data2;
+	}
+	
+	void mark (gint location, IAnjutaMarkableMarker marker);
+	void unmark (gint location);
+	IAnjutaMarkableMarker get_mark (gint location);
+	
+	GList* get_all_marks ();
+}
+
+// Implemented by all plugins that can open files
+interface IAnjutaFile
+{
+	void open (const gchar *filename);
+	gchar* get_filename ();
+	
+	// Implemented by plugins which can also edit the files
+	interface IAnjutaFileEditor
 	{
 		// Signals
 		void ::save_point (gboolean entered);
-
-		gchar* get_filename ();
-		void   goto_line (gint lineno);
+		
+		void save ();
+		void save_as (const gchar *filename);
+		
+		void set_dirty (gboolean dirty);
+		gboolean is_dirty ();
 	}
 }
 
 // Stream interface
-IAnjutaStream
+interface IAnjutaStream
 {
 	void open(FILE *stream);
-	void save(FILE *stream)
+	void save(FILE *stream);
 }
 
-// File interface
-// Implemented by all plugins that can open files
-IAnjutaFile
+interface IAnjutaLoader
 {
-	void open(const gchar *filename);
-	void save(const gchar *filename);
-	
-	// Implemented by AnjutaSession
-	IAnjutaPersistent
-	{
-		store(const gchar *name, GValue *blurb);
-	}
-}
-
-IAnjutaLoader
-{
-	IAnjutaMetaDOMLoader
+	interface IAnjutaMetaDomLoader
 	{
 	}
-	IAnjutaMetaLoader
+	interface IAnjutaMetaLoader
 	{
-		IAnjutaProject
+		interface IAnjutaProject
 		{
 		}
-		IAnjutaModule
+		interface IAnjutaModule
 		{
-			IAnjutaModuleSource
+			interface IAnjutaModuleSource
 			{
 			}
-			IAnjutaModuleData
+			interface IAnjutaModuleData
 			{
 			}
-			IAnjutaModuleDoc
+			interface IAnjutaModuleDoc
 			{
 			}
-			IAnjutaModuleReference
+			interface IAnjutaModuleReference
 			{
 			}
 		}
@@ -66,29 +121,29 @@ IAnjutaLoader
 }
 
 // Implemented by plugins which can render itself
-IAnjutaRenderable
+interface IAnjutaRenderable
 {
 	// Implemented by plugins which can render itself into text
-	IAnjutaRenderableText
+	interface IAnjutaRenderableText
 	{
 	}
 	
 	// Implemented by plugins which can render itself into tree
-	IAnjutaRenderableTree
+	interface IAnjutaRenderableTree
 	{
 	}
 	
 	// Implemented by plugins which can render itself into graphics
-	IAnjutaRenderableGraphic
+	interface IAnjutaRenderableGraphic
 	{
 	}
 }
 
 // Implemented by plugins which can manage something
-IAnjutaManager
+interface IAnjutaManager
 {
 	// Implemented by plugins which can manage metafiles
-	IAnjutaMataManager
+	interface IAnjutaMataManager
 	{
 	}
 }
