@@ -145,6 +145,12 @@ The shell should provide APIs for loading/unloading of plugins and a core
 stable API for plugins to do the above. We should check out the anjuta2 code
 to see if we can reuse the plugins system.
 
+In order to keep the IDE lightweight and simple, we would like to avoid
+Bonobo code as much as possible. To this end, the plugin system will be
+implemented using plain GModule and shared libraries. In the future, we
+might be adding support for Bonobo components but currently, the focus
+is not on that.
+
 Editor:
 -------
 We currently use scintilla for the editing component. Unfortunately, the
