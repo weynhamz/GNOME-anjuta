@@ -8,6 +8,10 @@
 	* src/watch_cbs.c: Debugger clean up.
 	* configure.in: Added libanjuta-2.0.pc
 
+	* configure.in, libanjuta/Makefile.am,
+	(new) libanjuta/libanjuta.pc.in, (rm) libanjuta-2.0.pc.in: Used
+	libanjuta instead.
+
 2003-12-11  Naba Kumar  <naba@gnome.org>
 
 	Patch from: Jean-Noel Guiheneuf   <jnoel@saudionline.com.sa>

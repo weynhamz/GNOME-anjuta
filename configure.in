@@ -549,7 +549,7 @@ printing/Makefile
 scintilla/include/Makefile
 anjuta.spec
 libanjuta/Makefile
-libanjuta/libanjuta-2.0.pc
+libanjuta/libanjuta.pc
 src/Makefile
 pixmaps/Makefile
 data/Makefile

@@ -6,10 +6,10 @@ INCLUDES = \
 	$(DEPRECATED_FLAGS) \
 	$(LIBANJUTA_CFLAGS)
 
-lib_LTLIBRARIES=libanjuta-2.la
+lib_LTLIBRARIES=libanjuta.la
 
-libanjuta_2_la_LIADD=$(LIBANJUTA_LIBS)
-libanjuta_2_la_SOURCES= \
+libanjuta_la_LIADD=$(LIBANJUTA_LIBS)
+libanjuta_la_SOURCES= \
 	anjuta-shell.c \
 	anjuta-marshal.c \
 	anjuta-preferences-dialog.c \
@@ -47,6 +47,6 @@ anjuta-marshal.c: anjuta-marshal.h
 	&& rm -f xgen-gmc
 
 pkgconfigdir = $(libdir)/pkgconfig
-pkgconfig_DATA=libanjuta-2.0.pc
+pkgconfig_DATA=libanjuta.pc
 
-EXTRA_DIST=$(libanjutainclude_HEADERS) libanjuta-2.0.pc.in anjuta-marshal.list
+EXTRA_DIST=$(libanjutainclude_HEADERS) libanjuta.pc.in anjuta-marshal.list
