@@ -567,6 +567,7 @@ plugins/Makefile
 plugins/sample1/Makefile
 plugins/class-gen/Makefile
 plugins/patch/Makefile
+plugins/editor/Makefile
 plugins/message-view/Makefile
 anjuta.desktop.in
 manuals/Makefile

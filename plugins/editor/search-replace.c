@@ -69,13 +69,20 @@ void on_search_button_jump_clicked(GtkButton *button, gpointer user_data);
 void on_search_expression_activate (GtkEditable *edit, gpointer user_data);
 void on_search_button_save_clicked(GtkButton *button, gpointer user_data);
 
-
+void on_search_direction_changed (GtkEditable *editable, gpointer user_data);
+void on_search_full_buffer_toggled (GtkToggleButton *togglebutton, 
+									gpointer user_data);
+void on_search_forward_toggled (GtkToggleButton *togglebutton, 
+									gpointer user_data);
+void on_search_backward_toggled (GtkToggleButton *togglebutton, 
+									gpointer user_data);
+									
 /* The GUI part starts here */
 
 #define GLADE_FILE "anjuta.glade"
 #define SEARCH_REPLACE_DIALOG "dialog.search.replace"
 #define CLOSE_BUTTON "button.close"
-#define HELP_BUTTON "button.help"
+#define STOP_BUTTON "button.stop"
 #define SEARCH_BUTTON "button.next"
 #define JUMP_BUTTON "button.jump"
 #define SEARCH_NOTEBOOK "search.notebook"
@@ -86,6 +93,7 @@ void on_search_button_save_clicked(GtkButton *button, gpointer user_data);
 #define SEARCH_VAR_FRAME "frame.search.var"
 #define FILE_FILTER_FRAME "frame.file.filter"
 #define REPLACE_FRAME "frame.replace"
+#define FRAME_SEARCH_BASIC "frame.search.basic"
 
 /* Entries */
 #define SEARCH_STRING "search.string"
@@ -113,6 +121,9 @@ void on_search_button_save_clicked(GtkButton *button, gpointer user_data);
 #define SEARCH_RECURSIVE "search.dir.recursive"
 #define REPLACE_REGEX "replace.regex"
 #define ACTIONS_NO_LIMIT "actions.no_limit"
+#define SEARCH_FULL_BUFFER "search.full_buffer"
+#define SEARCH_FORWARD "search.forward"
+#define SEARCH_BACKWARD "search.backward"
 
 /* Labels */
 #define LABEL_REPLACE "label.replace"
@@ -184,22 +195,18 @@ typedef struct _SearchReplaceGUI
 	gboolean showing;
 } SearchReplaceGUI;
 
-typedef struct _OrnButton
-{
-	GtkWidget *label;
-	GtkWidget *image;
-} OrnButton;
 
 static GladeWidget glade_widgets[] = {
 	{GE_NONE, SEARCH_REPLACE_DIALOG, NULL, NULL},
 	{GE_BUTTON, CLOSE_BUTTON, NULL, NULL},
-	{GE_BUTTON, HELP_BUTTON, NULL, NULL},
+	{GE_BUTTON, STOP_BUTTON, NULL, NULL},
 	{GE_BUTTON, SEARCH_BUTTON, NULL, NULL},
 	{GE_BUTTON, JUMP_BUTTON, NULL, NULL},
 	{GE_NONE, SEARCH_EXPR_FRAME, NULL, NULL},
 	{GE_NONE, SEARCH_TARGET_FRAME, NULL, NULL},
 	{GE_NONE, SEARCH_VAR_FRAME, NULL, NULL},
 	{GE_NONE, FILE_FILTER_FRAME, NULL, NULL},
+	{GE_NONE, FRAME_SEARCH_BASIC, NULL, NULL},
 	{GE_NONE, LABEL_REPLACE, NULL, NULL},
 	{GE_TEXT, SEARCH_STRING, NULL, NULL},
 	{GE_OPTION, SEARCH_TARGET, search_target_strings, NULL},
@@ -224,6 +231,9 @@ static GladeWidget glade_widgets[] = {
 	{GE_BOOLEAN, SEARCH_RECURSIVE, NULL, NULL},
 	{GE_BOOLEAN, REPLACE_REGEX, NULL, NULL},
 	{GE_BOOLEAN, ACTIONS_NO_LIMIT, NULL, NULL},
+	{GE_BOOLEAN, SEARCH_FULL_BUFFER, NULL, NULL},
+	{GE_BOOLEAN, SEARCH_FORWARD, NULL, NULL},	
+	{GE_BOOLEAN, SEARCH_BACKWARD, NULL, NULL},	
 	{GE_COMBO, SEARCH_STRING_COMBO, NULL, NULL},
 	{GE_COMBO, SEARCH_TARGET_COMBO, search_target_strings, NULL},
 	{GE_COMBO, SEARCH_ACTION_COMBO, search_action_strings, NULL},
@@ -245,14 +255,14 @@ static void search_set_action(SearchAction action);
 static void search_set_target(SearchRangeType target);
 static void search_set_direction(SearchDirection dir);
 static void populate_value(const char *name, gpointer val_ptr);
-static void reset_flags (void);
+static void reset_flags(void);
+static void reset_flags_and_search_button (void);
 static void search_start_over (SearchDirection direction);
 static void search_end_alert (gchar *string);
 static void max_results_alert (void);
 static void nb_results_alert (gint nb);
 static void search_show_replace(gboolean hide);
-static void modify_label_image_button(OrnButton *orn, gchar *name, char *stock_image);
-static OrnButton *add_label_image_button(gchar *name);
+static void modify_label_image_button(gchar *button_name, gchar *name, char *stock_image);
 static void search_replace_populate(void);
 static void show_jump_button (gboolean show);
 static gboolean create_dialog(void);
@@ -262,6 +272,17 @@ static GList* list_max_items(GList *list, guint nb_max);
 static void search_update_combos (void);
 static void replace_update_combos (void);
 static void search_update_dialog(void);
+static void search_make_sensitive(gboolean sensitive);
+static void search_direction_changed(SearchDirection dir);
+static void search_set_direction(SearchDirection dir);
+static void search_set_toggle_direction(SearchDirection dir);
+static void search_disconnect_set_toggle_connect(const gchar *name, 
+	GtkSignalFunc function, gboolean active);
+static void search_replace_next_previous(SearchDirection dir);
+static void search_set_combo(gchar *name_combo, gchar *name_entry, 
+	GtkSignalFunc function, gint command);
+static gint search_get_item_combo(GtkEditable *editable, AnjutaUtilStringMap *map);
+static gint search_get_item_combo_name(gchar *name, AnjutaUtilStringMap *map);
 
 
 static SearchReplaceGUI *sg = NULL;
@@ -270,8 +291,8 @@ static SearchReplace *sr = NULL;
 
 gboolean flag_select = FALSE;
 gboolean interactive = FALSE;
+gboolean end_activity = FALSE;
 
-OrnButton *ornsearch;
 
 /***********************************************************/
 
@@ -302,6 +323,9 @@ search_and_replace (void)
 	g_return_if_fail(sr);
 	s = &(sr->search);
 
+	end_activity = FALSE;
+	search_make_sensitive(FALSE);
+	
 	entries = create_search_entries(s);
 	
 	search_update_combos (); //
@@ -319,6 +343,11 @@ search_and_replace (void)
 	for (tmp = entries; tmp && (nb_results <= s->expr.actions_max); 
 		 tmp = g_list_next(tmp))
 	{
+		if (end_activity)
+			break;
+		while(gtk_events_pending())
+			gtk_main_iteration();
+		
 		se = (SearchEntry *) tmp->data;
 		if (flag_select)
 		{
@@ -392,7 +421,7 @@ search_and_replace (void)
 								mi->pos - offset, mi->pos - offset + mi->len);
 							interactive = TRUE;
 							os = offset;
-							modify_label_image_button(ornsearch, _("Replace"), 
+							modify_label_image_button(SEARCH_BUTTON, _("Replace"), 
 								                      GTK_STOCK_FIND_AND_REPLACE);
 							show_jump_button(TRUE);
 							if (sr->replace.regex && sr->search.expr.regex)
@@ -477,38 +506,51 @@ search_and_replace (void)
 	
 	if ((s->range.direction == SD_BEGINNING) &&
 		((s->action == SA_SELECT) || (s->action == SA_REPLACE)) )
+	{
 		search_set_direction(SD_FORWARD);
+		search_set_toggle_direction(SD_FORWARD);
+	}
 	
+	search_make_sensitive(TRUE);
 	return;
 }
 
+static void
+search_replace_next_previous(SearchDirection dir)
+{
+	SearchDirection save_direction;
+	SearchAction save_action;
+	SearchRangeType save_type;
+	
+	if (sr)
+	{
+		save_action = sr->search.action;
+		save_type = sr->search.range.type;
+		save_direction = sr->search.range.direction;
+		sr->search.range.direction = dir;	
+		if (save_type == SR_OPEN_BUFFERS || save_type == SR_PROJECT ||
+				save_type == SR_VARIABLE || save_type == SR_FILES)
+			sr->search.range.direction = SR_BUFFER;
+		sr->search.action = SA_SELECT;
+		
+		search_and_replace();
+		
+		sr->search.action = save_action;
+		sr->search.range.type = save_type;
+		sr->search.range.direction = save_direction;
+	}	
+}
 
 void
 search_replace_next(void)
 {
-	SearchDirection save_direction;
-	
-	if (sr)
-	{
-		save_direction = sr->search.range.direction;
-		sr->search.range.direction = SD_FORWARD;				
-		search_and_replace();
-		sr->search.range.direction = save_direction;
-	}
+	search_replace_next_previous(SD_FORWARD);
 }
 
 void
 search_replace_previous(void)
 {
-	SearchDirection save_direction;
-	
-	if (sr)
-	{
-		save_direction = sr->search.range.direction;
-		sr->search.range.direction = SD_BACKWARD;				
-		search_and_replace();
-		sr->search.range.direction = save_direction;
-	}
+	search_replace_next_previous(SD_BACKWARD);
 }
 
 /****************************************************************/
@@ -531,32 +573,89 @@ sr_get_gladewidget(const gchar *name)
 }
 
 static void
+search_set_combo(gchar *name_combo, gchar *name_entry, GtkSignalFunc function,
+                 gint command)
+{
+	GtkCombo *combo;
+	GtkWidget *entry;
+	
+	combo = GTK_COMBO(sr_get_gladewidget(name_combo)->widget);
+	entry = sr_get_gladewidget(name_entry)->widget;
+	gtk_signal_disconnect_by_func(GTK_OBJECT(entry),(GtkSignalFunc)
+	                              function , NULL);
+	
+	gtk_list_select_item(GTK_LIST(combo->list), command);
+	gtk_signal_connect(GTK_OBJECT(entry),"changed", (GtkSignalFunc)
+	                   function, NULL);
+}
+
+static void
 search_set_action(SearchAction action)
 {
-	GtkCombo *combo_action;
-	
-	combo_action = GTK_COMBO(sr_get_gladewidget(SEARCH_ACTION_COMBO)->widget);
-	gtk_list_select_item(GTK_LIST(combo_action->list), action);
-	
+	search_set_combo(SEARCH_ACTION_COMBO, SEARCH_ACTION, (GtkSignalFunc)
+		on_search_action_changed, action);
 }
 
 static void
 search_set_target(SearchRangeType target)
 {
-	GtkCombo *combo_target;
-	
-	combo_target = GTK_COMBO(sr_get_gladewidget(SEARCH_TARGET_COMBO)->widget);
-	gtk_list_select_item(GTK_LIST(combo_target->list), target);
-	
+	search_set_combo(SEARCH_TARGET_COMBO, SEARCH_TARGET, (GtkSignalFunc)
+		on_search_target_changed, target);
 }
 
 static void
 search_set_direction(SearchDirection dir)
 {
-	GtkWidget *dircombo = sr_get_gladewidget(SEARCH_DIRECTION_COMBO)->widget;
+	search_set_combo(SEARCH_DIRECTION_COMBO, SEARCH_DIRECTION, (GtkSignalFunc)
+		on_search_direction_changed, dir);
+}
+
+static gint
+search_get_item_combo(GtkEditable *editable, AnjutaUtilStringMap *map)
+{
+	gchar *s;
+	gint item;
 	
-	gtk_list_select_item (GTK_LIST(GTK_COMBO(dircombo)->list), dir);
-	sr->search.range.direction = dir;
+	s = gtk_editable_get_chars(GTK_EDITABLE(editable), 0, -1);
+	item = type_from_string(map, s);
+	g_free(s);
+	return item;
+}
+
+static gint
+search_get_item_combo_name(gchar *name, AnjutaUtilStringMap *map)
+{
+	GtkWidget *editable = sr_get_gladewidget(name)->widget;
+	return search_get_item_combo(GTK_EDITABLE(editable), map);
+}
+
+static void
+search_direction_changed(SearchDirection dir)
+{
+	SearchEntryType tgt;
+	SearchAction act;
+	
+	tgt = search_get_item_combo_name(SEARCH_TARGET, search_target_strings);
+	if (dir != SD_BEGINNING)
+	{
+		if (tgt == SR_OPEN_BUFFERS || tgt == SR_PROJECT || tgt == SR_VARIABLE
+				   || tgt == SR_FILES)
+			search_set_target(SR_BUFFER);
+	}
+	else
+	{
+		if (tgt == SR_BUFFER ||tgt == SR_SELECTION || tgt == SR_BLOCK ||
+				tgt == SR_FUNCTION)
+			search_set_target(SR_BUFFER);
+		else
+		{
+			act = search_get_item_combo_name(SEARCH_ACTION, search_action_strings);
+			if (act == SA_SELECT)
+				search_set_action(SA_BOOKMARK);
+			if (act == SA_REPLACE)
+				search_set_action(SA_REPLACEALL);				
+		}
+	}
 }
 
 static void
@@ -595,17 +694,22 @@ populate_value(const char *name, gpointer val_ptr)
 	}
 }
 
-
 static void
 reset_flags(void)
 {
 	flag_select = FALSE;
 	interactive = FALSE;
+}
+
+static void
+reset_flags_and_search_button(void)
+{
+	reset_flags();
 	if (sr->search.action != SA_REPLACEALL)
-		modify_label_image_button(ornsearch, _("Search"), GTK_STOCK_FIND);
+		modify_label_image_button(SEARCH_BUTTON, _("Search"), GTK_STOCK_FIND);
 
 	else
-		modify_label_image_button(ornsearch, _("Replace All"), 
+		modify_label_image_button(SEARCH_BUTTON, _("Replace All"), 
 			                      GTK_STOCK_FIND_AND_REPLACE);
 
 	show_jump_button(FALSE);
@@ -617,14 +721,17 @@ search_start_over (SearchDirection direction)
 	TextEditor *te = anjuta_docman_get_current_editor(sr->docman);
 	long length;
 	
-	length = aneditor_command(te->editor_id, ANE_GETLENGTH, 0, 0);
-
-	if (direction != SD_BACKWARD)
-		/* search from doc start */
-		text_editor_goto_point (te, 0);
-	else
-		/* search from doc end */
-		text_editor_goto_point (te, length);
+	if (te)
+	{
+		length = aneditor_command(te->editor_id, ANE_GETLENGTH, 0, 0);
+	
+		if (direction != SD_BACKWARD)
+			/* search from doc start */
+			text_editor_goto_point (te, 0);
+		else
+			/* search from doc end */
+			text_editor_goto_point (te, length);
+	}
 }
 
 static void 
@@ -708,6 +815,7 @@ search_show_replace(gboolean hide)
 	};
 	int i;
 	GtkWidget *widget;
+	
 	for (i=0; i < sizeof(hide_widgets)/sizeof(hide_widgets[0]); ++i)
 	{
 		widget = sr_get_gladewidget(hide_widgets[i])->widget;
@@ -722,53 +830,31 @@ search_show_replace(gboolean hide)
 }
 
 static void
-modify_label_image_button(OrnButton *orn, gchar *name, char *stock_image)
+modify_label_image_button(gchar *button_name, gchar *name, char *stock_image)
 {
-	GtkWidget *box;
-	
-	gtk_label_set_text(GTK_LABEL(orn->label), name);
-	box = gtk_widget_get_parent(orn->image );
-	gtk_container_remove(GTK_CONTAINER (box), GTK_WIDGET(orn->image));
-	orn->image = gtk_image_new_from_stock (stock_image, GTK_ICON_SIZE_BUTTON);
-	gtk_widget_show (orn->image);
-	gtk_box_pack_start (GTK_BOX (box), orn->image, FALSE, FALSE, 0);
-	gtk_box_reorder_child (GTK_BOX (box), orn->image, 0);
-}
-
-static OrnButton *
-add_label_image_button(gchar *name)
-{
-	GtkWidget *alignment;
-	GtkWidget *hbox;
 	GList *list, *l;
-	OrnButton *orn;
-	GtkWidget *button = sr_get_gladewidget(name)->widget;
+	GtkHBox *hbox;
+	GtkWidget *alignment;
+	GtkWidget *label;
+	GtkWidget *image;
+	GtkWidget *button = sr_get_gladewidget(button_name)->widget;
 	
 	list = gtk_container_get_children(GTK_CONTAINER (button));
+	alignment = GTK_WIDGET(list->data);
+	g_list_free(list);		
+	list = gtk_container_get_children(GTK_CONTAINER (alignment));
+	hbox = GTK_HBOX(list->data);
+	g_list_free(list);
+	list = gtk_container_get_children(GTK_CONTAINER (hbox));
 	for (l=list; l; l = g_list_next(l))
-		gtk_container_remove(GTK_CONTAINER (button), GTK_WIDGET(list->data));
-	g_list_free(list);	
-	
-	alignment = gtk_alignment_new (0.5, 0.5, 0, 0);
-	gtk_widget_show (alignment);
-	gtk_container_add (GTK_CONTAINER (button), alignment);
-
-	hbox = gtk_hbox_new (FALSE, 2);
-	gtk_widget_show (hbox);
-	gtk_container_add (GTK_CONTAINER (alignment), hbox);
-
-	orn = g_new0(OrnButton, 1);
-	
-	orn->image = gtk_image_new_from_stock (GTK_STOCK_FIND, GTK_ICON_SIZE_BUTTON);
-	gtk_widget_show (orn->image);
-	gtk_box_pack_start (GTK_BOX (hbox), orn->image, FALSE, FALSE, 0);
-
-	orn->label = gtk_label_new_with_mnemonic (_("Search"));
-	gtk_widget_show (orn->label);
-	gtk_box_pack_start (GTK_BOX (hbox), orn->label, FALSE, FALSE, 0);
-	gtk_label_set_justify (GTK_LABEL (orn->label), GTK_JUSTIFY_LEFT);
-	
-	return orn;
+	{
+		if (GTK_IS_LABEL(l->data))
+			gtk_label_set_text(GTK_LABEL(l->data), name);
+		if (GTK_IS_IMAGE(l->data))
+			gtk_image_set_from_stock(GTK_IMAGE(l->data), stock_image, 
+									 GTK_ICON_SIZE_BUTTON);
+	}
+	g_list_free(list);
 }
 
 
@@ -897,7 +983,6 @@ create_dialog(void)
 			g_list_free(combo_strings);
 		}
 	}
-	ornsearch = add_label_image_button(SEARCH_BUTTON);
 	glade_xml_signal_autoconnect(sg->xml);
 	return TRUE;
 }
@@ -966,6 +1051,8 @@ search_update_combos(void)
 					MAX_ITEMS_SEARCH_COMBO);
 				gtk_combo_set_popdown_strings((GtkCombo *) search_list,
 					sr->search.expr_history);
+				//~ entry_set_text_n_select (app->widgets.toolbar.main_toolbar.find_entry,
+								 //~ search_word, FALSE);
 			}
 		}
 	}
@@ -1096,71 +1183,74 @@ on_search_dialog_key_press_event(GtkWidget *widget, GdkEventKey *event,
 	}
 }
 
+static void
+search_disconnect_set_toggle_connect(const gchar *name, GtkSignalFunc function, 
+	                                 gboolean active)
+{
+	GtkWidget *button;
+	
+	button = sr_get_gladewidget(name)->widget;
+	gtk_signal_disconnect_by_func(GTK_OBJECT(button), function, NULL);
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button), active);
+	gtk_signal_connect(GTK_OBJECT(button), "toggled", function, NULL);
+}
+
 
 void
 on_search_match_whole_word_toggled (GtkToggleButton *togglebutton, 
 									gpointer user_data)
 {
-	GtkWidget *whole_line = sr_get_gladewidget(WHOLE_LINE)->widget;
-	GtkWidget *word_start = sr_get_gladewidget(WORD_START)->widget;
-	
-	gtk_signal_disconnect_by_func(GTK_OBJECT(whole_line),(GtkSignalFunc)
-	                              on_search_match_whole_line_toggled, NULL);
-	gtk_signal_disconnect_by_func(GTK_OBJECT(word_start),(GtkSignalFunc)
-	                              on_search_match_word_start_toggled, NULL);
 	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(togglebutton)))
 	{
-    	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(whole_line), FALSE);	
-		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(word_start), FALSE);
+		search_disconnect_set_toggle_connect(WHOLE_LINE, (GtkSignalFunc) 
+				on_search_match_whole_line_toggled, FALSE);
+		search_disconnect_set_toggle_connect(WORD_START, (GtkSignalFunc) 
+				on_search_match_word_start_toggled, FALSE);
 	}
-	gtk_signal_connect(GTK_OBJECT(whole_line),"toggled", (GtkSignalFunc)
-	                   on_search_match_whole_line_toggled, NULL);
-	gtk_signal_connect(GTK_OBJECT(word_start),"toggled", (GtkSignalFunc)
-	                   on_search_match_word_start_toggled, NULL);
 }
 
 void
 on_search_match_whole_line_toggled (GtkToggleButton *togglebutton, 
 									gpointer user_data)
 {
-	GtkWidget *whole_word = sr_get_gladewidget(WHOLE_WORD)->widget;
-	GtkWidget *word_start = sr_get_gladewidget(WORD_START)->widget;
-
-	gtk_signal_disconnect_by_func(GTK_OBJECT(word_start),(GtkSignalFunc)
-	                              on_search_match_word_start_toggled, NULL);
-	gtk_signal_disconnect_by_func(GTK_OBJECT(whole_word),(GtkSignalFunc)
-	                              on_search_match_whole_word_toggled, NULL);
 	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(togglebutton)))
 	{
- 	  	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(whole_word), FALSE);	
-		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(word_start), FALSE);
+		search_disconnect_set_toggle_connect(WHOLE_WORD, (GtkSignalFunc) 
+				on_search_match_whole_word_toggled, FALSE);
+		search_disconnect_set_toggle_connect(WORD_START, (GtkSignalFunc) 
+				on_search_match_word_start_toggled, FALSE);
 	}
-	gtk_signal_connect(GTK_OBJECT(word_start),"toggled", (GtkSignalFunc)
-	                   on_search_match_word_start_toggled, NULL);
-	gtk_signal_connect(GTK_OBJECT(whole_word),"toggled", (GtkSignalFunc)
-	                   on_search_match_whole_word_toggled, NULL);
 }
 
 void
 on_search_match_word_start_toggled (GtkToggleButton *togglebutton, 
 									gpointer user_data)
-{
-	GtkWidget *whole_word = sr_get_gladewidget(WHOLE_WORD)->widget;
-	GtkWidget *whole_line = sr_get_gladewidget(WHOLE_LINE)->widget;
-
-	gtk_signal_disconnect_by_func(GTK_OBJECT(whole_line),(GtkSignalFunc)
-	                              on_search_match_whole_line_toggled, NULL);
-	gtk_signal_disconnect_by_func(GTK_OBJECT(whole_word),(GtkSignalFunc)
-	                              on_search_match_whole_word_toggled, NULL);	
+{	
 	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(togglebutton)))
 	{
-    	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(whole_word), FALSE);
-		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(whole_line), FALSE);
+		search_disconnect_set_toggle_connect(WHOLE_WORD, (GtkSignalFunc) 
+				on_search_match_whole_word_toggled, FALSE);
+		search_disconnect_set_toggle_connect(WHOLE_LINE, (GtkSignalFunc) 
+				on_search_match_whole_line_toggled, FALSE);
 	}
-	gtk_signal_connect(GTK_OBJECT(whole_word),"toggled", (GtkSignalFunc)
-	                   on_search_match_whole_word_toggled, NULL);
-	gtk_signal_connect(GTK_OBJECT(whole_line),"toggled", (GtkSignalFunc)
-	                   on_search_match_whole_line_toggled, NULL);
+}
+
+static void
+search_make_sensitive(gboolean sensitive)
+{
+	static char *widgets[] = {
+		SEARCH_EXPR_FRAME, SEARCH_TARGET_FRAME, CLOSE_BUTTON, SEARCH_BUTTON,
+		JUMP_BUTTON
+	};
+	gint i;
+	GtkWidget *widget;
+	
+	for (i=0; i < sizeof(widgets)/sizeof(widgets[0]); ++i)
+	{
+		widget = sr_get_gladewidget(widgets[i])->widget;
+		if (NULL != widget)
+			gtk_widget_set_sensitive(widget, sensitive);
+	}
 }
 
 void
@@ -1169,7 +1259,6 @@ on_search_regex_toggled (GtkToggleButton *togglebutton, gpointer user_data)
 	static char *dependent_widgets[] = {
 		GREEDY, IGNORE_CASE, WHOLE_WORD, WHOLE_LINE, WORD_START
 	};
-	// gchar *dirstring;
 	int i;
 	GtkWidget *dircombo = sr_get_gladewidget(SEARCH_DIRECTION_COMBO)->widget;
 	GtkWidget *repl_regex = sr_get_gladewidget(REPLACE_REGEX)->widget;
@@ -1177,7 +1266,10 @@ on_search_regex_toggled (GtkToggleButton *togglebutton, gpointer user_data)
 	gboolean state = gtk_toggle_button_get_active(togglebutton);
 
 	if (state)
+	{
 		search_set_direction(SD_FORWARD);
+		search_direction_changed(SD_FORWARD);
+	}
 	
 	gtk_widget_set_sensitive(dircombo, !state);
 	gtk_widget_set_sensitive(repl_regex, state);
@@ -1193,30 +1285,70 @@ on_search_regex_toggled (GtkToggleButton *togglebutton, gpointer user_data)
 	}
 }
 
+static void
+search_set_toggle_direction(SearchDirection dir)
+{
+	switch (dir)
+	{
+		case SD_FORWARD :
+			search_disconnect_set_toggle_connect(SEARCH_FORWARD, (GtkSignalFunc) 
+				on_search_forward_toggled, TRUE);
+			break;
+		case SD_BACKWARD :
+			search_disconnect_set_toggle_connect(SEARCH_BACKWARD, (GtkSignalFunc) 
+				on_search_backward_toggled, TRUE);
+			break;
+		case SD_BEGINNING :
+			search_disconnect_set_toggle_connect(SEARCH_FULL_BUFFER, (GtkSignalFunc) 
+				on_search_full_buffer_toggled, TRUE);
+			break;
+	}
+}
+
+void
+on_search_direction_changed (GtkEditable *editable, gpointer user_data)
+{
+	SearchDirection dir;
+
+	dir = search_get_item_combo(editable, search_direction_strings);
+	search_set_toggle_direction(dir);
+	search_direction_changed(dir);
+}
+
 void
 on_search_action_changed (GtkEditable *editable, gpointer user_data)
 {
-	// GtkWidget *replace_frame = sr_get_gladewidget(REPLACE_FRAME)->widget;
-	char *s;
+	GtkWidget *replace_frame = sr_get_gladewidget(REPLACE_FRAME)->widget;
 	SearchAction act;
-
+	SearchRangeType rt;
+	
 	reset_flags();
-	s = gtk_editable_get_chars(editable, 0, -1);
-	act = anjuta_util_type_from_string(search_action_strings, s);
+	act = search_get_item_combo(editable, search_action_strings);
+	rt = search_get_item_combo_name(SEARCH_TARGET, search_target_strings);
 	switch(act)
 	{
+		case SA_SELECT:
+			search_show_replace(FALSE);
+			modify_label_image_button(SEARCH_BUTTON, _("Search"), GTK_STOCK_FIND);
+			if (rt == SR_OPEN_BUFFERS || rt == SR_PROJECT || rt == SR_VARIABLE ||
+					rt == SR_FILES)
+				search_set_target(SR_BUFFER);
+			break;
 		case SA_REPLACE:
+			search_show_replace(TRUE);
+			modify_label_image_button(SEARCH_BUTTON, _("Search"), GTK_STOCK_FIND);
+			if (rt == SR_OPEN_BUFFERS || rt == SR_PROJECT || rt == SR_VARIABLE ||
+					rt == SR_FILES)
+				search_set_target(SR_BUFFER);
+			break;
 		case SA_REPLACEALL:
 			search_show_replace(TRUE);
-		    if (act == SA_REPLACE)
-				modify_label_image_button(ornsearch, _("Search"), GTK_STOCK_FIND);
-			else
-				modify_label_image_button(ornsearch, _("Replace All"), 
+			modify_label_image_button(SEARCH_BUTTON, _("Replace All"), 
 								          GTK_STOCK_FIND_AND_REPLACE);
 			break;
 		default:
 			search_show_replace(FALSE);
-			modify_label_image_button(ornsearch, _("Search"), GTK_STOCK_FIND);
+			modify_label_image_button(SEARCH_BUTTON, _("Search"), GTK_STOCK_FIND);
 			break;
 	}
 }
@@ -1224,16 +1356,14 @@ on_search_action_changed (GtkEditable *editable, gpointer user_data)
 void
 on_search_target_changed(GtkEditable *editable, gpointer user_data)
 {
-	SearchRangeType type;
-	char *s;
+	SearchRangeType tgt;
+	SearchDirection dir;
+	SearchAction act;
 	GtkWidget *search_var_frame = sr_get_gladewidget(SEARCH_VAR_FRAME)->widget;
 	GtkWidget *file_filter_frame = sr_get_gladewidget(FILE_FILTER_FRAME)->widget;
-	
-	s = gtk_editable_get_chars(editable, 0, -1);
-	type = anjuta_util_type_from_string(search_target_strings, s);
-	g_free(s);
-	
-	switch(type)
+
+	tgt = search_get_item_combo(editable, search_target_strings);
+	switch(tgt)
 	{
 		case SR_FILES:
 			gtk_widget_hide(search_var_frame);
@@ -1248,7 +1378,36 @@ on_search_target_changed(GtkEditable *editable, gpointer user_data)
 			gtk_widget_hide(file_filter_frame);
 			break;
 	}
-	reset_flags();
+	
+	dir = search_get_item_combo_name(SEARCH_DIRECTION, search_direction_strings);	
+	
+	if (tgt == SR_SELECTION || tgt == SR_BLOCK || tgt == SR_FUNCTION)
+	{
+		
+		if (dir == SD_BEGINNING)
+		{
+			search_set_direction(SD_FORWARD);
+			search_set_toggle_direction(SD_FORWARD);
+		}
+	}
+	if (tgt == SR_OPEN_BUFFERS || tgt == SR_PROJECT || tgt == SR_VARIABLE ||
+			tgt == SR_FILES)
+	{
+		search_set_direction(SD_BEGINNING);
+		search_set_toggle_direction(SD_BEGINNING);
+
+		act = search_get_item_combo_name(SEARCH_ACTION, search_action_strings);	
+		if (act != SA_REPLACE && act != SA_REPLACEALL)
+		{
+			if (tgt == SR_OPEN_BUFFERS)
+				search_set_action(SA_BOOKMARK);
+			else
+				search_set_action(SA_FIND_PANE);
+		}
+		else
+			search_set_action(SA_REPLACEALL);	
+	}
+	reset_flags_and_search_button();
 }
 
 
@@ -1268,16 +1427,15 @@ on_search_button_close_clicked(GtkButton *button, gpointer user_data)
 {
 	if (sg->showing)
 	{
-		/* Save current search items */
 		gtk_widget_hide(sg->dialog);
 		sg->showing = FALSE;
 	}
 }
 
 void
-on_search_button_help_clicked(GtkButton *button, gpointer user_data)
+on_search_button_stop_clicked(GtkButton *button, gpointer user_data)
 {
-	//anjuta_tools_show_variables();
+	end_activity = TRUE;
 }
 
 void
@@ -1310,15 +1468,69 @@ on_search_expression_activate (GtkEditable *edit, gpointer user_data)
 	search_and_replace();
 	combo = GTK_WIDGET(edit)->parent;
 	gtk_combo_disable_activate((GtkCombo*)combo);
-	reset_flags();
+	reset_flags_and_search_button();
+}
+
+
+void
+on_search_full_buffer_toggled (GtkToggleButton *togglebutton, 
+									gpointer user_data)
+{
+	if (gtk_toggle_button_get_active(togglebutton))
+	{
+		search_set_direction(SD_BEGINNING);
+		search_direction_changed(SD_BEGINNING);
+	}
 }
 
 void
-on_search_button_save_clicked(GtkButton *button, gpointer user_data)
+on_search_forward_toggled (GtkToggleButton *togglebutton, 
+									gpointer user_data)
 {
-	// FIXME: anjuta_not_implemented(__FILE__, __LINE__);
+	GtkWidget *widget;
+	if (gtk_toggle_button_get_active(togglebutton))
+	{
+		search_set_direction(SD_FORWARD);
+		search_direction_changed(SD_FORWARD);
+	}
 }
 
+void
+on_search_backward_toggled (GtkToggleButton *togglebutton, 
+									gpointer user_data)
+{
+	GtkWidget *widget;
+	
+	if (gtk_toggle_button_get_active(togglebutton))
+	{
+		search_set_direction(SD_BACKWARD);
+		search_direction_changed(SD_BACKWARD);
+	}
+}
+
+void
+on_setting_basic_search_toggled (GtkToggleButton *togglebutton, 
+									gpointer user_data)
+{
+	SearchAction act;
+	GtkWidget *frame_basic = sr_get_gladewidget(FRAME_SEARCH_BASIC)->widget;
+	
+	if (gtk_toggle_button_get_active(togglebutton))
+	{
+    	gtk_widget_show(frame_basic);
+		search_set_target(SR_BUFFER);	
+		search_set_direction(SD_FORWARD);
+		search_set_toggle_direction(SD_FORWARD);
+
+		act = search_get_item_combo_name(SEARCH_ACTION, search_action_strings);
+		if (act == SA_REPLACE || act == SA_REPLACEALL)
+			search_set_action(SA_REPLACE);
+		else		
+			search_set_action(SA_SELECT);
+	}
+	else
+		gtk_widget_hide(frame_basic);
+}
 /***********************************************************************/
 
 #define MAX_LENGTH_SEARCH 64
@@ -1329,8 +1541,6 @@ anjuta_search_replace_activate (gboolean replace, gboolean project)
 	GtkWidget *search_entry = NULL;
 	gchar *current_word = NULL;
 	TextEditor *te;  
-	GtkWidget *search_list = NULL;
-	GtkWidget *replace_list = NULL;
 	GtkWidget *notebook;
 	
 	if (NULL == sg)
@@ -1343,7 +1553,7 @@ anjuta_search_replace_activate (gboolean replace, gboolean project)
 	search_update_dialog();
 
 	search_replace_populate();
-	reset_flags();
+	reset_flags_and_search_button();
 	/* Set properties */
 	search_entry = sr_get_gladewidget(SEARCH_STRING)->widget;
 	if (te && search_entry && sr->search.range.type != SR_SELECTION)
@@ -1357,15 +1567,7 @@ anjuta_search_replace_activate (gboolean replace, gboolean project)
 			g_free(current_word);
 		}	
 	}
-	/* Set the text case sensitive */
-	search_list = sr_get_gladewidget(SEARCH_STRING_COMBO)->widget;
-	if (search_list)
-		gtk_combo_set_case_sensitive ((GtkCombo *) search_list, TRUE);
-	replace_list = sr_get_gladewidget(REPLACE_STRING_COMBO)->widget;
-	if (replace_list)
-		gtk_combo_set_case_sensitive ((GtkCombo *) replace_list, TRUE);
-	
-	
+		
 	search_show_replace(replace);
 	if (replace)
 		search_set_action(SA_REPLACE);

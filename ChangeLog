@@ -1,3 +1,16 @@
+2004-01-10  Jean-Noel Guiheneuf <jnoel@lotuscompounds.com>
+
+	* configure.in: Added editor plugins
+	
+	* plugins/Makefile.am, src/search-replace_backend.h,
+	plugins/editor/Makefile.am, plugins/editor/ action-callbacks.c,
+	plugins/editor/search-replace.c, plugins/editor/search-replace_backend.h
+	
+	* Added: plugins/editor/search_incremental.c, 
+	plugins/editor/search_incremental.h
+
+	* Update search-replace in plugins/editor
+	
 2004-01-09  Johannes Schmid <jhs@cvs.gnome.org>
 	
 	* plugins/message-view/message-view.c: Some code clean-up

@@ -34,5 +34,7 @@ libanjuta_editor_la_SOURCES= \
 	search-replace.c \
 	search-replace_backend.c \
 	search-replace_backend.h \
+	search_incremental.c \
+	search_incremental.h \
 	goto_line.c \
 	goto_line.h
