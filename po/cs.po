@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-11-06 13:58+0100\n"
-"PO-Revision-Date: 2003-11-06 16:52+0100\n"
+"POT-Creation-Date: 2003-11-10 03:00+0100\n"
+"PO-Revision-Date: 2003-11-10 16:01+0100\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -5134,7 +5134,7 @@ msgid "Compile the current source file using Make"
 msgstr "Přeložit aktuální zdrojový soubor pomocí Make"
 
 #. 2
-#: src/main_menubar_def.h:1252 src/main_menubar_def.h:1888
+#: src/main_menubar_def.h:1252 src/main_menubar_def.h:1905
 msgid "_Build"
 msgstr "_Sestavit"
 
@@ -5810,130 +5810,156 @@ msgid "Setup wizard for first time run"
 msgstr "Kouzelník nastavení pro první spuštění"
 
 #. 0
+#: src/main_menubar_def.h:1795
+msgid "Anjuta Manual"
+msgstr "Manuál Anjuty"
+
+#: src/main_menubar_def.h:1796
+msgid "Anjuta IDE Manual"
+msgstr "Manuál IDE Anjuta"
+
 #. 1
+#: src/main_menubar_def.h:1801
+msgid "Anjuta Tutorial"
+msgstr "Úvod do Anjuty"
+
+#: src/main_menubar_def.h:1802
+msgid "Anjuta IDE Tutorial"
+msgstr "Úvod do IDE Anjuta"
+
 #. 2
-#: src/main_menubar_def.h:1797
+#: src/main_menubar_def.h:1807
+msgid "Anjuta Faqs"
+msgstr "FAQ o Anjutě"
+
+#: src/main_menubar_def.h:1808
+msgid "Anjuta IDE Faqs"
+msgstr "FAQ o IDE Anjuta"
+
+#. 3
+#. 4
+#: src/main_menubar_def.h:1814
 msgid "Browse GNOME _API Pages"
 msgstr "Procházet stránky GNOME _API"
 
-#: src/main_menubar_def.h:1798
+#: src/main_menubar_def.h:1815
 msgid "The GNOME API pages"
 msgstr "Stránky GNOME API"
 
-#. 3
-#: src/main_menubar_def.h:1803
+#. 5
+#: src/main_menubar_def.h:1820
 msgid "Browse _Man Pages"
 msgstr "Procházet stránky _man"
 
-#: src/main_menubar_def.h:1804
+#: src/main_menubar_def.h:1821
 msgid "The good old manual pages"
 msgstr "Staré dobré manuálové stránky"
 
-#. 4
-#: src/main_menubar_def.h:1809
+#. 6
+#: src/main_menubar_def.h:1826
 msgid "Browse _Info Pages"
 msgstr "Procházet stránky _info"
 
-#: src/main_menubar_def.h:1810
+#: src/main_menubar_def.h:1827
 msgid "Browse Info pages"
 msgstr "Procházet stránky info"
 
-#. 5
-#. 6
-#: src/main_menubar_def.h:1816
+#. 7
+#. 8
+#: src/main_menubar_def.h:1833
 msgid "_Context Help"
 msgstr "_Kontextová nápověda"
 
-#: src/main_menubar_def.h:1817
+#: src/main_menubar_def.h:1834
 msgid "Search help for the current word in the editor"
 msgstr "Hledat nápovědu o aktuálním slovu v editoru"
 
-#. 7
-#: src/main_menubar_def.h:1822
+#. 9
+#: src/main_menubar_def.h:1839
 msgid "_Search a topic"
 msgstr "_Hledat téma"
 
-#: src/main_menubar_def.h:1823
+#: src/main_menubar_def.h:1840
 msgid "May I help you?"
 msgstr "Jak vám mohu pomoci?"
 
-#. 8
-#. 9
-#: src/main_menubar_def.h:1829
+#. 10
+#. 11
+#: src/main_menubar_def.h:1846
 msgid "Anjuta _Home Page"
 msgstr "_Domovská stránka Anjuty"
 
-#: src/main_menubar_def.h:1830
+#: src/main_menubar_def.h:1847
 msgid "Online documentation and resources"
 msgstr "Dokumentace a zdroje online"
 
-#. 10
-#. 11
-#: src/main_menubar_def.h:1836
+#. 12
+#. 13
+#: src/main_menubar_def.h:1853
 msgid "_Libraries API references"
 msgstr "Reference API _knihoven"
 
-#: src/main_menubar_def.h:1837
+#: src/main_menubar_def.h:1854
 msgid "Online reference library for GDK, GLib, GNOME etc.."
 msgstr "Online knihovna referencí pro GDK, GLib, GNOME atd.."
 
-#. 12
-#: src/main_menubar_def.h:1842
+#. 14
+#: src/main_menubar_def.h:1859
 msgid "Report _Bugs"
 msgstr "Nahlásit _chyby"
 
-#: src/main_menubar_def.h:1843
+#: src/main_menubar_def.h:1860
 msgid "Submit a bug report for Anjuta"
 msgstr "Poslat hlášení o chybě Anjuty"
 
-#. 13
-#: src/main_menubar_def.h:1848
+#. 15
+#: src/main_menubar_def.h:1865
 msgid "Request _Features"
 msgstr "Žádat o _vlastnosti"
 
-#: src/main_menubar_def.h:1849
+#: src/main_menubar_def.h:1866
 msgid "Submit a feature request for Anjuta"
 msgstr "Poslat požadavek na vlastnost Anjuty"
 
-#. 14
-#: src/main_menubar_def.h:1854
+#. 16
+#: src/main_menubar_def.h:1871
 msgid "Submit _patches"
 msgstr "Poslat _patche"
 
-#: src/main_menubar_def.h:1855
+#: src/main_menubar_def.h:1872
 msgid "Submit patches for Anjuta"
 msgstr "Poslat patche pro Anjutu"
 
-#. 15
-#: src/main_menubar_def.h:1860
+#. 17
+#: src/main_menubar_def.h:1877
 msgid "Ask a _question"
 msgstr "_Zeptat se"
 
-#: src/main_menubar_def.h:1861
+#: src/main_menubar_def.h:1878
 msgid "Submit a question for FAQs"
 msgstr "Poslat otázku pro FAQ"
 
-#: src/main_menubar_def.h:1876
+#: src/main_menubar_def.h:1893
 msgid "_Project"
 msgstr "Projekt"
 
-#: src/main_menubar_def.h:1882
+#: src/main_menubar_def.h:1899
 msgid "For_mat"
 msgstr "_Formát"
 
-#: src/main_menubar_def.h:1894
+#: src/main_menubar_def.h:1911
 msgid "Bookmar_k"
 msgstr "_Záložka"
 
-#: src/main_menubar_def.h:1900
+#: src/main_menubar_def.h:1917
 msgid "_Debug"
 msgstr "_Ladění"
 
-#: src/main_menubar_def.h:1906
+#: src/main_menubar_def.h:1923
 msgid "_CVS"
 msgstr "_CVS"
 
-#: src/main_menubar_def.h:1912
+#: src/main_menubar_def.h:1929
 msgid "_Settings"
 msgstr "_Nastavení"
 
@@ -5994,7 +6020,13 @@ msgstr "Spustitelný soubor není aktuální."
 msgid "Debugger is not running. Start it first."
 msgstr "Debugger neběží. Nejdříve jej spusťte."
 
-#: src/mainmenu_callbacks.c:2156
+#: src/mainmenu_callbacks.c:2032
+msgid ""
+"Unable to display help. Please make sure Anjuta documentation package is "
+"install. It can be downloaded from http://anjuta.org"
+msgstr "Nemohu zobrazit nápovědu. Přesvědčte se prosím, že je nainstalován balíček dokumentace Anjuty. Můžete jej stáhnout z http://anjuta.org"
+
+#: src/mainmenu_callbacks.c:2165
 msgid ""
 "You need to run gconf-editor, look for the key 'desktop/gnome/interface/"
 "can_change_accels' and set this toggle button ON. Then you can hover the "
