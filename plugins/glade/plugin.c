@@ -544,15 +544,15 @@ activate_plugin (AnjutaPlugin *plugin)
 	anjuta_shell_add_widget (ANJUTA_PLUGIN (plugin)->shell,
 							 GTK_WIDGET (glade_app_get_palette (priv->gpw)),
 							 "AnjutaGladePalette", "Glade Palette", NULL,
-							 ANJUTA_SHELL_PLACEMENT_FLOATING, NULL);
+							 ANJUTA_SHELL_PLACEMENT_TOP, NULL);
 	anjuta_shell_add_widget (ANJUTA_PLUGIN (plugin)->shell,
 							 GTK_WIDGET (glade_app_get_editor (priv->gpw)),
 							 "AnjutaGladeEditor", "Glade Editor", NULL,
-							 ANJUTA_SHELL_PLACEMENT_FLOATING, NULL);
+							 ANJUTA_SHELL_PLACEMENT_RIGHT, NULL);
 	anjuta_shell_add_widget (ANJUTA_PLUGIN (plugin)->shell,
 							 GTK_WIDGET (priv->view_box),
 							 "AnjutaGladeTree", "Glade Tree", NULL,
-							 ANJUTA_SHELL_PLACEMENT_LEFT, NULL);
+							 ANJUTA_SHELL_PLACEMENT_RIGHT, NULL);
 	return TRUE;
 }
 

@@ -11,14 +11,26 @@
 						<item name="AnjutaDevhelpIndex" orientation="horizontal" locked="no"/>
 						<placeholder name="ph_left" next-placement="center"/>
 					</notebook>
-					<notebook orientation="vertical" locked="no" page="0">
-						<item name="AnjutaDocumentManager" orientation="horizontal" locked="no"/>
-						<item name="AnjutaDevhelpDisplay" orientation="horizontal" locked="no"/>
-						<item name="AnjutaTodoPlugin" orientation="horizontal" locked="no"/>
-						<item name="AnjutaSamplePlugin" orientation="horizontal" locked="no"/>
-						<placeholder name="ph_right" next-placement="right"/>
-						<placeholder name="ph_center" next-placement="center"/>
-					</notebook>
+					<paned orientation="horizontal" locked="no" position="500">
+						<paned orientation="vertical" locked="no" position="200">
+							<notebook orientation="vertical" locked="no" page="0">
+								<item name="AnjutaGladeEditor" orientation="horizontal" locked="no"/>
+								<placeholder name="ph_top" next-placement="center"/>
+							</notebook>
+							<notebook orientation="vertical" locked="no" page="0">
+								<item name="AnjutaDocumentManager" orientation="horizontal" locked="no"/>
+								<item name="AnjutaDevhelpDisplay" orientation="horizontal" locked="no"/>
+								<item name="AnjutaTodoPlugin" orientation="horizontal" locked="no"/>
+								<item name="AnjutaSamplePlugin" orientation="horizontal" locked="no"/>
+								<placeholder name="ph_center" next-placement="center"/>
+							</notebook>
+						</paned>
+						<notebook orientation="vertical" locked="no" page="0">
+							<item name="AnjutaGladeTree" orientation="horizontal" locked="no"/>
+							<item name="AnjutaGladePalette" orientation="horizontal" locked="no"/>
+							<placeholder name="ph_right" next-placement="right"/>
+						</notebook>
+					</paned>
 				</paned>
 				<notebook orientation="vertical" locked="no" page="0">
 					<item name="AnjutaTerminal" orientation="horizontal" locked="no"/>
@@ -27,7 +39,6 @@
 					<item name="AnjutaDebuggerLocals" orientation="horizontal" locked="no"/>
 					<item name="AnjutaDebuggerWatch" orientation="horizontal" locked="no"/>
 					<placeholder name="ph_bottom" next-placement="center"/>
-					<placeholder name="ph_top" next-placement="center"/>
 				</notebook>
 			</paned>
 		</dock>

@@ -876,6 +876,7 @@ plugins/cvs-plugin/Makefile
 plugins/project-wizard/Makefile
 plugins/macro/Makefile
 plugins/subversion/Makefile
+plugins/tools/Makefile
 plugins/project-import/Makefile
 plugins/project-wizard/templates/Makefile
 plugins/project-wizard/templates/terminal/Makefile

@@ -23,7 +23,8 @@ SUBDIRS = . \
 	patch \
 	subversion \
 	project-import \
-	glade
+	glade \
+	tools
 
 ## This a temporary measure to insure anjuta does not crash due to old plugin.
 ## Make sure there are no old plugins left
