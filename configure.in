@@ -22,15 +22,36 @@ GNOME_COMPILE_WARNINGS
 GNOME_X_CHECKS
 
 dnl Checks for programs.
+dnl ***************************************************************************
+dnl Check for ScrollKeeper
+dnl ***************************************************************************
+AC_PATH_PROG(SCROLLKEEPER_CONFIG, scrollkeeper-config,no)
+if test x$SCROLLKEEPER_CONFIG = xno; then
+  AC_MSG_ERROR(Couldn't find scrollkeeper-config, please install the scrollkeeper package)
+fi
+SCROLLKEEPER_REQUIRED=0.1.4
+AC_SUBST(SCROLLKEEPER_REQUIRED)
+
+
 dnl Checks for libraries.
+
+
 dnl Checks for header files.
+
+
 dnl Checks for typedefs, structures, and compiler characteristics.
+
+
 dnl Checks for library functions.
+
+
 dnl Checks for Additional stuffs.
+
+
 
 dnl Languages which your application supports
 ALL_LINGUAS="es fr ja tr"
-AM_GNOME_GETTEXT
+AM_GNU_GETTEXT
 
 dnl Set PACKAGE_LOCALE_DIR in config.h.
 if test "x${prefix}" = "xNONE"; then
@@ -93,7 +114,11 @@ po/Makefile.in
 macros/Makefile
 scintilla/Makefile
 widgets/Makefile
+manuals/Makefile
 scintilla/include/Makefile
+manuals/anjuta-manual/Makefile
+manuals/anjuta-manual/C/Makefile
+omf-install/Makefile
 anjuta.spec
 src/Makefile
 pixmaps/Makefile

@@ -3,31 +3,28 @@
 ## If you don't want it to overwrite it,
 ## 	Please disable it in the Anjtua Project configuration
 
-SUBDIRS = intl po macros scintilla widgets src pixmaps data help doc launcher
+SUBDIRS = intl po macros scintilla widgets manuals src pixmaps data help doc launcher
 
 anjutadocdir = ${prefix}/doc/anjuta
 anjutadoc_DATA = \
-	README \
-	COPYING \
-	AUTHORS \
-	ChangeLog \
-	INSTALL \
-	NEWS \
-	TODO \
-	ABOUT-NLS \
-	HACKING
+	README\
+	COPYING\
+	AUTHORS\
+	ChangeLog\
+	INSTALL\
+	NEWS\
+	TODO\
+	ABOUT-NLS
 
-EXTRA_DIST = 
-	anjuta.prj \
-	$(anjutadoc_DATA)
+EXTRA_DIST = anjuta.prj $(anjutadoc_DATA)
 
 gnomemenudir = $(prefix)/@NO_PREFIX_PACKAGE_MENU_DIR@/Development
 gnomemenu_DATA = anjuta.desktop
 
+
 install-data-local:
 	install -d -m 0755 $(pkgdatadir)
 	install -d -m 0755 $(pkgdatadir)/gnome
-	install -m 0644 macros/ChangeLog $(pkgdatadir)/gnome
 	install -m 0644 macros/Makefile.am $(pkgdatadir)/gnome
 	install -m 0644 macros/autogen.sh $(pkgdatadir)/gnome
 	install -m 0644 macros/*.m4 $(pkgdatadir)/gnome
@@ -39,3 +36,4 @@ dist-hook:
 			cp -p $$specfile $(distdir); \
 		fi \
 	done
+

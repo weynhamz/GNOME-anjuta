@@ -1,4 +1,4 @@
-# Anjuta Version 0.1.4 
+# Anjuta Version 0.1.5 
 Compatibility Level: 1 
 
 <PROJECT_DESCRIPTION_START>
@@ -12,6 +12,15 @@ Anjuta is an effort to marry the flexibility and power of text based
 command line tools with the ease of graphical user interface of gnome.
 <PROJECT_DESCRIPTION_END>
 <CONFIG_PROGS_START>
+dnl ***************************************************************************
+dnl Check for ScrollKeeper
+dnl ***************************************************************************
+AC_PATH_PROG(SCROLLKEEPER_CONFIG, scrollkeeper-config,no)
+if test x$SCROLLKEEPER_CONFIG = xno; then
+  AC_MSG_ERROR(Couldn't find scrollkeeper-config, please install the scrollkeeper package)
+fi
+SCROLLKEEPER_REQUIRED=0.1.4
+AC_SUBST(SCROLLKEEPER_REQUIRED)
 <CONFIG_PROGS_END>
 <CONFIG_LIBS_START>
 <CONFIG_LIBS_END>
@@ -25,6 +34,9 @@ command line tools with the ease of graphical user interface of gnome.
 <CONFIG_ADDITIONAL_END>
 <CONFIG_FILES_START>
 scintilla/include/Makefile
+manuals/anjuta-manual/Makefile
+manuals/anjuta-manual/C/Makefile
+omf-install/Makefile
 anjuta.spec
 <CONFIG_FILES_END>
 <MAKEFILE_AM_START>
@@ -38,7 +50,7 @@ install-data-local:
 
 props.file.type=project
 
-anjuta.version=0.1.4
+anjuta.version=0.1.5
 anjuta.compatibility.level=1
 
 project.name=Anjuta
@@ -62,8 +74,8 @@ project.configure.options=--prefix=/usr
 
 anjuta.program.arguments=
 
-project.config.disable.overwriting=0 0 0 0 0 0 0 0 0 
-project.config.extra.modules.before=scintilla widgets
+project.config.disable.overwriting=1 1 1 1 1 1 1 1 1 
+project.config.extra.modules.before=scintilla widgets manuals
 project.config.extra.modules.after=launcher
 
 module.incude.name=include

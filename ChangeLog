@@ -1,3 +1,18 @@
+2001-05-04  Naba Kumar <kh_naba@123india.com>
+
+	* manuals/: dir tree added.
+	  Sgml documentation started in this dir.
+	
+	* manuals/anjuta-manual/C/anjuta-manual.sgml:
+	  Created initial document structure.
+	  
+	* configure.in: Added test for scrollkeeper.
+	  Added some Makefile entries in AC_OUTPUT.
+	
+	* Makefile.am: Added subdir manuals/
+	
+	* HACKING: Wrote something stupid.
+
 2001-05-02  Stéphane Démurget <demurgets@free.fr>
 
 	* Makefile.am: Added ChangeLog in local data list, becaused it's

@@ -1,3 +1,11 @@
-Gotcha let Naba write something here
+Please be carefull while using anjuta to develop anjuta
+It is better not to use anjuta for it's own development
+as it may break lots of things while developing.
 
--- Stef
+Also when new class or methods are added please try
+to conform with the style I've followed in the source
+files.
+
+I will describe the details later. :-)
+
+-- Naba

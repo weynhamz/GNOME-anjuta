@@ -1,0 +1,29 @@
+<?xml version="1.0" standalone="no"?>
+<omf>
+  <resource>
+    <title>
+     Anjuta IDE Manual
+    </title>
+    <creator>
+     <person>
+      <firstName>Naba</firstName>
+      <lastName>Kumar</lastName>
+      <email>kh_naba@users.sourceforge.net</email> 
+     </person>
+    </creator>
+    <subject>
+	<category>GNOME|Development</category>
+    </subject>
+    <description>
+     This Document describes how Anjuta IDE is used for C/C++ Project developments
+     and how it should be used to for maximum productivity.
+    </description>
+    <type>
+     manual
+    </type>
+    <format mime="text/sgml"/>
+    <identifier url="anjuta-manual.sgml"/>
+    <language code="C"/>
+  </resource>
+</omf>
+
