@@ -282,7 +282,7 @@ gint on_aneditor_focus_out(GtkWidget* widget, gpointer * unused, AnEditor* ed);
 static const char *extList[] = {
     "", "x", "x.cpp", "x.cpp", "x.html", "x.xml", "x.js", "x.vbs", "x.mak", "x.java",
     "x.lua", "x.py", "x.pl", "x.sql", "x.spec", "x.php3", "x.tex", "x.diff", "x.pas",
-    "x.cs", "x.properties", "x.conf", "x.bc", "x.adb"
+	"x.cs", "x.properties", "x.conf", "x.bc", "x.adb", "x.lisp", "x.rb", ".m"
 };
 
 AnEditor::AnEditor(PropSetFile* p) {

@@ -1,3 +1,8 @@
+2002-05-09  Dan Elphick <dre00r@ecs.soton.ac.uk>
+
+    * src/aneditor.cxx: extended extension list which fixes segfault
+    on selecting lisp, ruby or matlab as highlight style.
+
 2002-05-09  Andy Piper <andy.piper@freeuk.com>
 
 	* src/main_menubar_def.h: fixed an array initialiser and fixed
