@@ -297,6 +297,9 @@ anjuta_message_manager_next (AnjutaMessageManager * amm)
 		dynamic_cast <
 		AnjutaMessageWindow * >(amm->intern->cur_msg_win);
 	g_return_if_fail (win != 0);
+	// Fix for bug #509192 (Crash on next message)
+	if (win->get_messages().empty())
+		return;
 	if (win->get_cur_line () < (win->get_messages ().size () - 1))
 	{
 		gchar* file;
@@ -335,6 +338,9 @@ anjuta_message_manager_previous (AnjutaMessageManager * amm)
 	AnjutaMessageWindow *win =
 		dynamic_cast < AnjutaMessageWindow * >(amm->intern->cur_msg_win);
 	g_return_if_fail (win != 0);
+	// Fix for bug #509192 (Crash on next message)
+	if (win->get_messages().empty())
+		return;
 	if (win->get_cur_line () > 0)
 	{
 		gchar* file;
@@ -845,6 +851,10 @@ create_default_types (AnjutaMessageManager * amm)
 					 ANJUTA_PIXMAP_MINI_LOCALS);
 	anjuta_message_manager_add_type (amm, MESSAGE_TERMINAL,
 					 ANJUTA_PIXMAP_MINI_TERMINAL);
+	
+	// Fix for bug #509192 (Crash on next message)
+	amm->intern->cur_msg_win = 
+			dynamic_cast<AnjutaMessageWindow*>(*(amm->intern->msg_windows.begin()));
 }
 
 void

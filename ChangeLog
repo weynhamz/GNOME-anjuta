@@ -1,3 +1,65 @@
+2002-01-29  Naba Kumar <kh_naba@users.sourceforge.net>
+
+	* src/tm_file_view.c:
+
+	  Sorts the file list at the end instead of doing sort-insert
+	  to improve performance.
+	  Patch from: Dan Elphick <dre00r@ecs.soton.ac.uk>
+
+	* src/project_dbase.c: Resolved a conflict from
+	  Johannes's patch.
+	  
+	* src/project_import.c:
+	
+	  Fixed to use anjuta_import.sh for the bin dir and
+	  not from the data dir.
+	
+	  Used anjuta_is_installed() function to verify a the command's
+	  executability.
+	
+	  Fixed import command to use sh (which is more general and is
+	  gauranteed to be found in any unix system :-)). Also, added
+	  double quotes around the import directory.
+	
+	  Changed some strings for better translations (like avoiding
+	  duplicates).
+	  
+	  Fixed the reading of wrong target type.
+	  
+	* src/control.c: Insensitive "import project" when there is
+	  a project open.
+	  
+	* src/project_import_cbs.c:
+	  
+	  Fixed strcmp() [== 0 was left out]. Languages now selected properly.
+	  Fixed selection of gettext checkbox.
+	  Sets the menu entries.
+	  
+2002-01-28  Johannes Schmid <clubfan@users.sourceforge.net>
+	
+	* src/appwiz_page[1-4].c
+	* src/appwiz_gui.c
+	* src/appwizard.[c/h]: Moved some code to wizard_gui.[c/h]
+	be able to reuse it.
+	
+	* src/mainmenubar.[c/h]
+	* src/mainmenubar_def.h
+	* src/mainmenu_callbacks.[c/h]: Code to create "Import Project" 
+	menu item
+	
+	* src/message-manager.c: Fixed bug 509192
+	* src/message-manager-dock.c: Added accel_group if window is undocked
+	
+	* src/project_dbase.[c/h]: Splitted opening code to be able
+	to use it without an open file dialog
+	(Maybe I broke Naba's changes, please take a look)
+			
+	* src/project_import.[c/h]
+	* src/project_import_gui.c: New Files, Code for Project Import Wizard
+	
+	* src/wizard_gui.[c/h]: New Files, shared code between appwizard and 
+	import wizard
+
 2002-01-28  Andy Piper <andy.piper@freeuk.com>
 
 	* src/main_menubar_def.h, tagmanager/tm_project.c: more

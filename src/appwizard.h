@@ -56,6 +56,7 @@ struct _AppWizardGui
 	GtkWidget *app_group_combo;
 	GtkWidget *app_group_entry;
 	GtkWidget *term_check;
+	
 };
 
 struct _AppWizard

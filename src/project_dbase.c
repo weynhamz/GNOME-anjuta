@@ -729,152 +729,16 @@ project_dbase_reload_session (ProjectDBase * p)
 gboolean
 project_dbase_load_project (ProjectDBase * p, gboolean show_project)
 {
-	gchar *prj_buff, buff[512], *str;
-	gint level, read_size, pos;
-	gboolean error_shown, syserr;
-	FILE* fp;
-
+	gchar* filename = fileselection_get_filename (p->fileselection_open);
+	gboolean ret;
+	
 	anjuta_set_busy ();
-	prj_buff = NULL;
-	fp = NULL;
-	error_shown = FALSE;
-	syserr = FALSE;
-	pos = 0;
-	
-	if (p->project_is_open == TRUE)
-		project_dbase_clean_left (p);
-
-	p->project_is_open = TRUE;
-	p->proj_filename = fileselection_get_filename (p->fileselection_open);
-
-	/* Doing some check before actual loading */
-	fp = fopen (p->proj_filename, "r");
-	if (fp == NULL)
-	{
-		syserr = TRUE;
-		goto go_error;
-	}
-	
-	if (fscanf (fp, "# Anjuta Version %s \n", buff) < 1)
-	{
-		syserr = TRUE;
-		goto go_error;
-	}
-	if (fscanf (fp, "Compatibility Level: %d\n", &level) < 1)
-	{
-		syserr = TRUE;
-		goto go_error;
-	}
-	if (level < COMPATIBILITY_LEVEL)
-	{
-		switch (level)
-		{
-		case 0:
-			load_default_project (p);
-			compatibility_0_load_project (p, fp);
-			fclose (fp);
-			goto done;
-		default:
-			anjuta_error ("Unknown compatibility level of the Project");
-			error_shown = TRUE;
-			goto go_error;
-		}
-	}
-	if (level > COMPATIBILITY_LEVEL)
-	{
-		anjuta_error (_
-		 ("Anjuta version %s or later is required to "
-		"open this project.\n"
-		"Please upgradeto the latest version of Anjuta "
-		"(Help for more information)."), buff);
-		error_shown = TRUE;
-		goto go_error;
-	}
-
-	pos = ftell (fp);
-	fclose (fp);
-	fp = NULL;
-	/* Checks end here */
-
-	prj_buff = get_file_as_buffer (p->proj_filename);
-	if (prj_buff == NULL)
-	{
-		syserr = TRUE;
-		goto go_error;
-	}
-	if (pos > strlen(prj_buff))
-	{
-		syserr = TRUE;
-		goto go_error;
-	}
-	read_size = project_config_load_scripts (p->project_config, &prj_buff[pos]);
-	if (read_size < 0)
-		goto go_error;
-	if (load_from_buffer(p, prj_buff, pos+read_size) == FALSE)
-	{
-		error_shown = TRUE;
-		goto go_error;
-	}
-	g_free (prj_buff);
-	prj_buff = NULL;
-
-done:
-	/* It is necessary to transfer this variable */
-	/* from prj props to preferences props */
-	str = prop_get (p->props, "anjuta.program.parameters");
-	if (str)
-		prop_set_with_key (app->preferences->props,
-			"anjuta.program.parameters", str);
-	else
-		prop_set_with_key (app->preferences->props,
-			"anjuta.program.parameters", "");
-	string_free (str);		
-	p->is_saved = TRUE;
-	p->top_proj_dir = g_dirname (p->proj_filename);
-	
-	if (p->excluded_modules)
-		glist_strings_free(p->excluded_modules);
-	p->excluded_modules = glist_from_data (p->props, "project.excluded.modules");
-	
-	compiler_options_load (app->compiler_options, p->props);
-	src_paths_load (app->src_paths, p->props);
-	/* Project loading completed */
-
-	/* Now Project setup */
-	project_dbase_update_tree (p);
-	extended_toolbar_update ();
-	tags_manager_load (app->tags_manager);
-	project_dbase_update_tags_image(p);
-	anjuta_update_app_status(FALSE, NULL);
-	anjuta_status (_("Project loaded successfully."));
+	ret = project_dbase_load_project_file(p, filename);
+	if (ret)
+		project_dbase_load_project_finish(p, show_project);		
+	g_free(filename);
 	anjuta_set_active ();
-	if (show_project)
-		project_dbase_show (p);
-	project_dbase_reload_session(p);
-	if( IsGladen() )
-		project_dbase_summon_glade ( p );
-	return TRUE;
-
-go_error:
-	prop_clear (p->props);
-	if (!error_shown) /* If error is not yet shown */
-	{
-		if (syserr)
-		{
-			anjuta_system_error (errno, _("Error in loading Project: %s"), p->proj_filename);
-		}
-		else
-		{
-			anjuta_error (_("Error in loading Project: %s"), p->proj_filename);
-		}
-	}
-	string_assign (&p->proj_filename, NULL);
-	p->proj_filename = NULL;
-	p->project_is_open = FALSE;
-	if (prj_buff) g_free (prj_buff);
-	if (fp) fclose (fp);
-	anjuta_set_active ();
-	return FALSE;
+	return ret;
 }
 
 gboolean
@@ -2157,4 +2021,156 @@ project_dbase_set_show_locals( ProjectDBase * p,  const gboolean bActive )
 	{
 		p->m_prj_ShowLocal = bActive ;
 	}
+}
+
+gboolean
+project_dbase_load_project_file (ProjectDBase * p, gchar * filename)
+{
+	gchar *prj_buff, buff[512], *str;
+	gint level, read_size, pos;
+	gboolean error_shown, syserr;
+	FILE* fp;
+	
+	prj_buff = NULL;
+	fp = NULL;
+	error_shown = FALSE;
+	syserr = FALSE;
+	pos = 0;
+	
+	if (p->project_is_open == TRUE)
+		project_dbase_clean_left (p);
+
+	p->project_is_open = TRUE;
+	p->proj_filename = g_strdup(filename);
+	
+	/* Doing some check before actual loading */
+	fp = fopen (p->proj_filename, "r");
+	if (fp == NULL)
+	{
+		syserr = TRUE;
+		goto go_error;
+	}
+	
+	if (fscanf (fp, "# Anjuta Version %s \n", buff) < 1)
+	{
+		syserr = TRUE;
+		goto go_error;
+	}
+	if (fscanf (fp, "Compatibility Level: %d\n", &level) < 1)
+	{
+		syserr = TRUE;
+		goto go_error;
+	}
+	if (level < COMPATIBILITY_LEVEL)
+	{
+		switch (level)
+		{
+		case 0:
+			load_default_project (p);
+			compatibility_0_load_project (p, fp);
+			fclose (fp);
+			goto done;
+		default:
+			anjuta_error ("Unknown compatibility level of the project");
+			error_shown = TRUE;
+			goto go_error;
+		}
+	}
+	if (level > COMPATIBILITY_LEVEL)
+	{
+		anjuta_error (_
+		 ("You need Anjuta version %s or later to "
+		"open this project.\n"
+		"Please upgrade Anjuta to the latest version "
+		"(Help for more information).\n"
+		"For the time being, I am too old to load it."), buff);
+		error_shown = TRUE;
+		goto go_error;
+	}
+
+	pos = ftell (fp);
+	fclose (fp);
+	fp = NULL;
+	/* Checks end here */
+
+	prj_buff = get_file_as_buffer (p->proj_filename);
+	if (prj_buff == NULL)
+	{
+		syserr = TRUE;
+		goto go_error;
+	}
+	if (pos > strlen(prj_buff))
+	{
+		syserr = TRUE;
+		goto go_error;
+	}
+	read_size = project_config_load_scripts (p->project_config, &prj_buff[pos]);
+	if (read_size < 0)
+		goto go_error;
+	if (load_from_buffer(p, prj_buff, pos+read_size) == FALSE)
+	{
+		error_shown = TRUE;
+		goto go_error;
+	}
+	g_free (prj_buff);
+	prj_buff = NULL;
+
+
+
+done:
+	/* It is necessary to transfer this variable */
+	/* from prj props to preferences props */
+	str = prop_get (p->props, "anjuta.program.parameters");
+	if (str)
+		prop_set_with_key (app->preferences->props,
+			"anjuta.program.parameters", str);
+	else
+		prop_set_with_key (app->preferences->props,
+			"anjuta.program.parameters", "");
+	string_free (str);		
+	p->is_saved = TRUE;
+	p->top_proj_dir = g_dirname (p->proj_filename);
+	compiler_options_load (app->compiler_options, p->props);
+	src_paths_load (app->src_paths, p->props);
+	/* Project loading completed */
+	return TRUE;
+	
+go_error:
+	prop_clear (p->props);
+	if (!error_shown) /* If error is not yet shown */
+	{
+		if (syserr)
+		{
+			anjuta_system_error (errno, _("Error in loading Project: %s"), p->proj_filename);
+		}
+		else
+		{
+			anjuta_error (_("Error in loading Project: %s"), p->proj_filename);
+		}
+	}
+	string_assign (&p->proj_filename, NULL);
+	p->proj_filename = NULL;
+	p->project_is_open = FALSE;
+	if (prj_buff) g_free (prj_buff);
+	if (fp) fclose (fp);
+	return FALSE;
+}
+
+gboolean
+project_dbase_load_project_finish (ProjectDBase * p, gboolean show_project)
+{
+	/* Now Project setup */
+	project_dbase_update_tree (p);
+	extended_toolbar_update ();
+	tags_manager_load (app->tags_manager);
+	project_dbase_update_tags_image(p);
+	anjuta_update_app_status(FALSE, NULL);
+	anjuta_status (_("Project loaded successfully."));
+	anjuta_set_active ();
+	if (show_project)
+		project_dbase_show (p);
+	project_dbase_reload_session(p);
+	if( IsGladen() )
+		project_dbase_summon_glade ( p );
+	return TRUE;
 }

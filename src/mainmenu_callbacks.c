@@ -52,6 +52,7 @@
 #include "signals_cbs.h"
 #include "watch_cbs.h"
 #include "help.h"
+#include "project_import.h"
 #include "Scintilla.h"
 #include "ScintillaWidget.h"
 
@@ -190,6 +191,12 @@ void
 on_new_project1_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
 	app_wizard_proceed ();
+}
+
+void
+on_import_project_activate (GtkMenuItem * menuitem, gpointer user_data)
+{
+	create_project_import_gui ();
 }
 
 void

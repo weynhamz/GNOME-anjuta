@@ -89,6 +89,12 @@ static GnomeUIInfo file1_menu_uiinfo[] = {
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_NEW,
 	 0, 0, NULL},
 	{
+	 GNOME_APP_UI_ITEM, N_("Import Project ..."),
+	 N_("Import a Project using the import project wizard"),
+	 on_import_project_activate, NULL, NULL,
+	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_CONVERT,
+	 0, 0, NULL},
+	{
 	 GNOME_APP_UI_ITEM, N_("Open P_roject ..."),
 	 N_("Open a Project"),
 	 on_open_project1_activate, NULL, NULL,

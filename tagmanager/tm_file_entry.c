@@ -52,7 +52,7 @@ static TMFileType tm_file_entry_type(const char *path)
 		return tm_file_unknown_t;
 }
 
-gint tm_file_entry_compare(gconstpointer a, gconstpointer b)
+static gint tm_file_entry_compare(gconstpointer a, gconstpointer b)
 {
 	TMFileEntry *tm_a, *tm_b;
 	tm_a = (TMFileEntry *)a;
@@ -163,10 +163,10 @@ TMFileEntry *tm_file_entry_new(const char *path, TMFileEntry *parent
 				new_entry = tm_file_entry_new(file_name, entry, TRUE, match
 				  , ignore, ignore_hidden);
 				if (new_entry)
-					entry->children = g_slist_insert_sorted(entry->children, new_entry,
-										&tm_file_entry_compare);
+					entry->children = g_slist_prepend(entry->children, new_entry);
 			}
 		}
+		entry->children = g_slist_sort(entry->children, &tm_file_entry_compare);
 	}
 	return entry;
 }

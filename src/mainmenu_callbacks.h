@@ -59,6 +59,14 @@ on_new_project1_activate              (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
 
 void
+on_import_project_activate              (GtkMenuItem     *menuitem,
+                                        gpointer         user_data);
+
+void
+on_open_project1_activate              (GtkMenuItem     *menuitem,
+                                        gpointer         user_data);
+
+void
 on_open_project1_activate              (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
 

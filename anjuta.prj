@@ -32,8 +32,7 @@ project.version=0.1.9-pre
 project.author=naba
 project.source.target=src/anjuta
 
-project.excluded.modules=\
-	intl
+project.excluded.modules=
 
 project.has.gettext=0
 
@@ -676,5 +675,7 @@ compiler.options.other.l.flags=
 
 compiler.options.other.l.libs=
 
-project.source.paths=
+project.source.paths=\
+	src\
+	widgets
 

@@ -23,7 +23,6 @@
 #include "properties.h"
 #include "project_config.h"
 #include "project_type.h"
-#include "project_type.h"
 
 #include "tm_tagmanager.h"
 
@@ -177,7 +176,14 @@ project_dbase_hide (ProjectDBase * p);
 void
 project_dbase_open_project (ProjectDBase * p);
 
-gboolean project_dbase_load_project (ProjectDBase * p, gboolean show_project);
+gboolean
+project_dbase_load_project (ProjectDBase * p, gboolean show_project);
+
+gboolean
+project_dbase_load_project_file (ProjectDBase * p, gchar * filename);
+
+gboolean
+project_dbase_load_project_finish (ProjectDBase * p, gboolean show_project);
 
 void
 project_dbase_close_project (ProjectDBase * p);

@@ -145,6 +145,11 @@ anjuta_SOURCES = \
 	project_type.c\
 	project_type.h\
 	project_dbase_gui.c\
+	project_import.h\
+	project_import.c\
+	project_import_gui.c\
+	project_import_cbs.h\
+	project_import_cbs.c\
 	properties.cxx\
 	properties.h\
 	registers.c\
@@ -197,6 +202,8 @@ anjuta_SOURCES = \
 	watch_cbs.c\
 	watch_cbs.h\
 	watch_gui.c\
+	wizard_gui.h\
+	wizard_gui.c\
 	about.c\
 	appwiz_page4.c\
 	source.c\

@@ -284,3 +284,5 @@ on_druidpagefinish1_back (GnomeDruidPage *
 {
 	return FALSE;
 }
+
+
