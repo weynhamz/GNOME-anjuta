@@ -14,6 +14,7 @@
 			<placeholder name="PlaceholderSearchMenus"/>
 		</menu>
 		<menu name="MenuView" action="ActionMenuView">
+			<menuitem name="Fullscreen" action="ActionViewFullscreen"/>
 			<menuitem name="Toolbars" action="ActionViewToolbars"/>
 		</menu>
 		<placeholder name="PlaceholderGotoMenus"/>

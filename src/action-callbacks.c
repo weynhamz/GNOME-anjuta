@@ -56,6 +56,15 @@ on_exit1_activate (GtkAction * action, AnjutaApp *app)
 }
 
 void
+on_fullscreen_toggle (GtkAction *action, AnjutaApp *app)
+{
+	if (gtk_toggle_action_get_active (GTK_TOGGLE_ACTION (action)))
+		gtk_window_fullscreen (GTK_WINDOW(app));
+	else
+		gtk_window_unfullscreen (GTK_WINDOW(app));
+}
+
+void
 on_set_preferences1_activate (GtkAction * action, AnjutaApp *app)
 {
 	gtk_widget_show (GTK_WIDGET (app->preferences));

@@ -40,6 +40,16 @@ struct _CVSPlugin{
 	IAnjutaEditor* diff_editor;
 	AnjutaLauncher* launcher;
 	gboolean executing_command;
+	
+	/* Watch IDs */
+	gint fm_watch_id;
+	gint project_watch_id;
+	gint editor_watch_id;
+
+	/* Watched values */
+	gchar *fm_current_filename;
+	gchar *project_root_dir;
+	gchar *current_editor_filename;
 };
 
 struct _CVSPluginClass{

@@ -33,9 +33,6 @@
 #include <libanjuta/anjuta-preferences.h>
 #include <libanjuta/anjuta-utils.h>
 
-#include <libanjuta/interfaces/ianjuta-document-manager.h>
-#include <libanjuta/interfaces/ianjuta-editor.h>
-
 enum
 {
 	DIFF_STANDARD = 0,
@@ -124,20 +121,9 @@ static void diff_type_changed(GtkComboBox* combo, GtkWidget* unified_check)
 
 static void set_editor_filename (CVSPlugin* plugin, GtkWidget* entry)
 {
-	IAnjutaDocumentManager* docman;
-	IAnjutaEditor* cur_editor;
-	
-	docman = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
-	                                     IAnjutaDocumentManager, NULL);
-	cur_editor = ianjuta_document_manager_get_current_editor (docman, NULL);
-	if (!cur_editor)
-		return;
-	else
+	if (plugin->current_editor_filename)
 	{
-		const gchar* file = ianjuta_editor_get_filename(cur_editor, NULL);
-		const gchar* filename = ianjuta_document_manager_get_full_filename(docman, file, NULL);
-		if (filename)
-			gtk_entry_set_text(GTK_ENTRY(entry), filename);
+		gtk_entry_set_text(GTK_ENTRY(entry), plugin->current_editor_filename);
 	}
 }
 

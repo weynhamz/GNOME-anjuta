@@ -296,6 +296,11 @@ anjuta_app_instance_init (AnjutaApp *app)
 	anjuta_ui_add_action_group_entries (app->ui, "ActionGroupView", _("View"),
 										menu_entries_view,
 										G_N_ELEMENTS (menu_entries_view), app);
+	anjuta_ui_add_toggle_action_group_entries (app->ui, "ActionGroupToggleView",
+										_("Toggle View"),
+										menu_entries_toggle_view,
+										G_N_ELEMENTS (menu_entries_toggle_view),
+										app);
 	anjuta_ui_add_action_group_entries (app->ui, "ActionGroupSettings", _("Settings"),
 										menu_entries_settings,
 										G_N_ELEMENTS (menu_entries_settings), app);
@@ -336,7 +341,7 @@ anjuta_app_instance_init (AnjutaApp *app)
 	app->win_height = gdk_screen_height () - 25;
 	app->win_width = (app->win_width < 790)? app->win_width : 790;
 	app->win_height = (app->win_height < 575)? app->win_width : 575;
-		
+	
 	// app->in_progress = FALSE;
 
 	gtk_widget_set_uposition (GTK_WIDGET (app), app->win_pos_x, app->win_pos_y);

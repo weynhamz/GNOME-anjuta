@@ -18,9 +18,12 @@
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
+#include <libgnomevfs/gnome-vfs-utils.h>
+
 #include <libanjuta/anjuta-shell.h>
-#include <libanjuta/interfaces/ianjuta-document-manager.h>
 #include <libanjuta/anjuta-preferences.h>
+#include <libanjuta/interfaces/ianjuta-file.h>
+#include <libanjuta/interfaces/ianjuta-document-manager.h>
 
 #include "plugin.h"
 #include "cvs-actions.h"
@@ -105,6 +108,152 @@ static GtkActionEntry actions_cvs[] = {
 	}
 };
 
+static void
+value_added_fm_current_uri (AnjutaPlugin *plugin, const char *name,
+							const GValue *value, gpointer data)
+{
+	AnjutaUI *ui;
+	/* GtkAction *action; */
+	const gchar *uri;
+	gchar /* *dirname, */ *filename;
+	/* gboolean makefile_exists, is_dir; */
+	
+	uri = g_value_get_string (value);
+	filename = gnome_vfs_get_local_path_from_uri (uri);
+	g_return_if_fail (filename != NULL);
+
+	CVSPlugin *cvs_plugin = (CVSPlugin*)plugin;
+	ui = anjuta_shell_get_ui (plugin->shell, NULL);
+	
+	if (cvs_plugin->fm_current_filename)
+		g_free (cvs_plugin->fm_current_filename);
+	cvs_plugin->fm_current_filename = filename;
+	
+	/*
+	is_dir = g_file_test (filename, G_FILE_TEST_IS_DIR);
+	if (is_dir)
+		dirname = g_strdup (filename);
+	else
+		dirname = g_path_get_dirname (filename);
+	makefile_exists = directory_has_makefile (dirname);
+	g_free (dirname);
+	
+	if (!makefile_exists)
+		return;
+	
+	action = anjuta_ui_get_action (ui, "ActionGroupBuild", "ActionPopupBuild");
+	g_object_set (G_OBJECT (action), "sensitive", TRUE, NULL);
+	action = anjuta_ui_get_action (ui, "ActionGroupBuild",
+										"ActionPopupBuildCompile");
+	if (is_dir)
+		g_object_set (G_OBJECT (action), "sensitive", FALSE, NULL);
+	else
+		g_object_set (G_OBJECT (action), "sensitive", TRUE, NULL);
+	*/
+}
+
+static void
+value_removed_fm_current_uri (AnjutaPlugin *plugin,
+							  const char *name, gpointer data)
+{
+	/* AnjutaUI *ui;
+	GtkAction *action; */
+	
+	CVSPlugin *cvs_plugin = (CVSPlugin*)plugin;
+	
+	if (cvs_plugin->fm_current_filename)
+		g_free (cvs_plugin->fm_current_filename);
+	cvs_plugin->fm_current_filename = NULL;
+	/*
+	ui = anjuta_shell_get_ui (plugin->shell, NULL);
+	action = anjuta_ui_get_action (ui, "ActionGroupBuild", "ActionPopupBuild");
+	g_object_set (G_OBJECT (action), "sensitive", FALSE, NULL);
+	*/
+}
+
+static void
+value_added_project_root_uri (AnjutaPlugin *plugin, const gchar *name,
+							  const GValue *value, gpointer user_data)
+{
+	CVSPlugin *bb_plugin;
+	const gchar *root_uri;
+
+	bb_plugin = (CVSPlugin *) plugin;
+	
+	g_message ("Project added");
+	
+	if (bb_plugin->project_root_dir)
+		g_free (bb_plugin->project_root_dir);
+	bb_plugin->project_root_dir = NULL;
+	
+	root_uri = g_value_get_string (value);
+	if (root_uri)
+	{
+		bb_plugin->project_root_dir =
+			gnome_vfs_get_local_path_from_uri (root_uri);
+		if (bb_plugin->project_root_dir)
+		{
+			// update_project_ui (bb_plugin);
+		}
+	}
+}
+
+static void
+value_removed_project_root_uri (AnjutaPlugin *plugin, const gchar *name,
+								gpointer user_data)
+{
+	CVSPlugin *bb_plugin;
+
+	bb_plugin = (CVSPlugin *) plugin;
+	if (bb_plugin->project_root_dir)
+		g_free (bb_plugin->project_root_dir);
+	bb_plugin->project_root_dir = NULL;
+	// update_project_ui (bb_plugin);
+}
+
+static void
+value_added_current_editor (AnjutaPlugin *plugin, const char *name,
+							const GValue *value, gpointer data)
+{
+	AnjutaUI *ui;
+	gchar *uri;
+	GObject *editor;
+	
+	editor = g_value_get_object (value);
+	
+	CVSPlugin *cvs_plugin = (CVSPlugin*)plugin;
+	ui = anjuta_shell_get_ui (plugin->shell, NULL);
+	
+	if (cvs_plugin->current_editor_filename)
+		g_free (cvs_plugin->current_editor_filename);
+	cvs_plugin->current_editor_filename = NULL;
+	
+	uri = ianjuta_file_get_uri (IANJUTA_FILE (editor), NULL);
+	if (uri)
+	{
+		gchar *filename;
+		
+		filename = gnome_vfs_get_local_path_from_uri (uri);
+		g_return_if_fail (filename != NULL);
+		cvs_plugin->current_editor_filename = filename;
+		g_free (uri);
+		// update_module_ui (cvs_plugin);
+	}
+}
+
+static void
+value_removed_current_editor (AnjutaPlugin *plugin,
+							  const char *name, gpointer data)
+{
+	CVSPlugin *cvs_plugin = (CVSPlugin*)plugin;
+	
+	if (cvs_plugin->current_editor_filename)
+		g_free (cvs_plugin->current_editor_filename);
+	cvs_plugin->current_editor_filename = NULL;
+	
+	// update_module_ui (cvs_plugin);
+}
+
 static gboolean
 activate_plugin (AnjutaPlugin *plugin)
 {
@@ -131,6 +280,20 @@ activate_plugin (AnjutaPlugin *plugin)
 					G_N_ELEMENTS (actions_cvs),
 					plugin);
 	cvs_plugin->uiid = anjuta_ui_merge (ui, UI_FILE);
+	
+	/* Add watches */
+	cvs_plugin->fm_watch_id = 
+		anjuta_plugin_add_watch (plugin, "file_manager_current_uri",
+								 value_added_fm_current_uri,
+								 value_removed_fm_current_uri, NULL);
+	cvs_plugin->project_watch_id = 
+		anjuta_plugin_add_watch (plugin, "project_root_uri",
+								 value_added_project_root_uri,
+								 value_removed_project_root_uri, NULL);
+	cvs_plugin->editor_watch_id = 
+		anjuta_plugin_add_watch (plugin, "document_manager_current_editor",
+								 value_added_current_editor,
+								 value_removed_current_editor, NULL);
 	return TRUE;
 }
 
@@ -166,6 +329,9 @@ cvs_plugin_instance_init (GObject *obj)
 	plugin->mesg_view = NULL;
 	plugin->launcher = NULL;
 	plugin->diff_editor = NULL;
+	plugin->fm_current_filename = NULL;
+	plugin->project_root_dir = NULL;
+	plugin->current_editor_filename = NULL;
 }
 
 static void

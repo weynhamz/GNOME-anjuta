@@ -22,6 +22,7 @@
 #include <gnome.h>
 
 void on_exit1_activate (GtkAction * action, AnjutaApp *app);
+void on_fullscreen_toggle (GtkAction *action, AnjutaApp *app);
 void on_set_preferences1_activate (GtkAction * action, AnjutaApp *app);
 void on_set_default_preferences1_activate (GtkAction *action,
 					   AnjutaApp *app);

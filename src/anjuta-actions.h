@@ -36,6 +36,13 @@ static GtkActionEntry menu_entries_view[] = {
   { "ActionViewToolbars", NULL, N_("_Toolbars")}
 };
 
+static GtkToggleActionEntry menu_entries_toggle_view[] = {
+  { "ActionViewFullscreen", NULL,
+    N_("_Full Screen"), NULL,
+    N_("Toggle fullscreen mode"),
+	G_CALLBACK (on_fullscreen_toggle)}
+};
+
 static GtkActionEntry menu_entries_settings[] = {
   { "ActionMenuSettings", NULL, N_("_Settings")},
   { "ActionSettingsPreferences", GTK_STOCK_PROPERTIES, 
