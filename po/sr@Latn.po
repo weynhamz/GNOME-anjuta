@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 23.32\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-11-19 18:43+0100\n"
-"PO-Revision-Date: 2003-11-19 18:44+0100\n"
+"POT-Creation-Date: 2003-11-29 14:17+0100\n"
+"PO-Revision-Date: 2003-11-29 14:19+0100\n"
 "Last-Translator: Slobodan Sredojević <ssl@uns.ns.ac.yu>\n"
 "Language-Team: Serbian (sr) <serbiangnome-lista@nongnu.org>\n"
 "MIME-Version: 1.0\n"
@@ -78,7 +78,7 @@ msgstr "Dodatno"
 msgid "Additional Libraries (LDADD):"
 msgstr "Dodatne biblioteke (LDADD):"
 
-#: anjuta.glade.h:13 src/wizard_gui.c:573
+#: anjuta.glade.h:13 src/wizard_gui.c:575
 msgid "Additional Options"
 msgstr "Dodatne opcije"
 
@@ -2792,14 +2792,14 @@ msgstr ""
 
 #. For the time being
 #: src/appwizard_cbs.c:282 src/project_dbase.c:1489 src/project_dbase.c:1495
-#: src/project_dbase.c:1498 src/project_import_cbs.c:227 src/signals_cbs.c:115
-#: src/signals_cbs.c:128 src/signals_cbs.c:141
+#: src/project_dbase.c:1498 src/project_import_cbs.c:227 src/signals_cbs.c:114
+#: src/signals_cbs.c:127 src/signals_cbs.c:140
 msgid "Yes"
 msgstr "Da"
 
 #: src/appwizard_cbs.c:284 src/project_dbase.c:1491 src/project_dbase.c:1500
-#: src/project_import_cbs.c:229 src/signals_cbs.c:117 src/signals_cbs.c:130
-#: src/signals_cbs.c:143
+#: src/project_import_cbs.c:229 src/signals_cbs.c:116 src/signals_cbs.c:129
+#: src/signals_cbs.c:142
 msgid "No"
 msgstr "Ne"
 
@@ -2936,7 +2936,7 @@ msgid "Old breakpoints disabled."
 msgstr "Stare tačke prekida onemogućene"
 
 #. 5
-#: src/breakpoints.c:1439 src/main_menubar_def.h:781 src/text_editor_gui.c:159
+#: src/breakpoints.c:1436 src/main_menubar_def.h:781 src/text_editor_gui.c:159
 msgid "0"
 msgstr "0"
 
@@ -3586,6 +3586,16 @@ msgstr "Šaljem signal %s procesu: %d\n"
 msgid "Error whilst signalling the process."
 msgstr "Greška pri signaliziranju procesa."
 
+#: src/dnd.c:104
+#, c-format
+msgid "File %s is not local."
+msgstr "Datoteka „%s“ nije lokalna."
+
+#: src/dnd.c:112
+#, c-format
+msgid "Invalid filename %s."
+msgstr "Neispravno ime datoteke %s."
+
 #: src/executer.c:53 src/mainmenu_callbacks.c:1709
 msgid "The target executable of this Project is unknown"
 msgstr "Tip izlazne datoteke ovog projekta je nepoznat"
@@ -3661,22 +3671,22 @@ msgstr "Niz znakova „%s“ nije pronađen u označenom tekstu"
 msgid "The string \"%s\" was not found from the current location"
 msgstr "Niz znakova „%s“ nije pronađen u preostalom delu teksta"
 
-#: src/find_text.c:156
+#: src/find_text.c:155
 #, c-format
 msgid "The match \"%s\" was not found in the whole document"
 msgstr "Znakovni niz „%s“ nije pronađen u celom dokumentu"
 
-#: src/find_text.c:161
+#: src/find_text.c:160
 #, c-format
 msgid "The match \"%s\" was not found in the selected text"
 msgstr "Znakovni niz „%s“ nije pronađen u označenom tekstu"
 
-#: src/find_text.c:166
+#: src/find_text.c:165
 #, c-format
 msgid "The match \"%s\" was not found from the current location"
 msgstr "Znakovni niz „%s“ nije pronađen u preostalom delu teksta"
 
-#: src/find_text.c:190
+#: src/find_text.c:189
 msgid "No matches found. Wrap search around the document?"
 msgstr "Nema traženog teksta. Da li da nastavim pretragu od početka dokumenta?"
 
@@ -3725,7 +3735,7 @@ msgstr "Ne mogu napraviti datoteku: %s"
 msgid "Loading Project ...\n"
 msgstr "Učitavam projekat...\n"
 
-#: src/gnome_project.c:168 src/gnome_project.c:228
+#: src/gnome_project.c:168 src/gnome_project.c:229
 msgid "Saving Project ...\n"
 msgstr "Beležim projekat...\n"
 
@@ -3734,35 +3744,35 @@ msgid "Generating source codes ...\n"
 msgstr "Obrazujem izvorni kod...\n"
 
 #. Creating icon pixmap file for gnome projects
-#: src/gnome_project.c:182
+#: src/gnome_project.c:183
 msgid "Copying icon file ...\n"
 msgstr "Prenosim sliku ikonice...\n"
 
-#: src/gnome_project.c:196
+#: src/gnome_project.c:197
 msgid "Could not create icon file ...\n"
 msgstr "Ne mogu napraviti datoteku sa slikom ikonice...\n"
 
-#: src/gnome_project.c:210
+#: src/gnome_project.c:211
 msgid "Locating files ...\n"
 msgstr "Pronalazim datoteke...\n"
 
-#: src/gnome_project.c:232
+#: src/gnome_project.c:233
 msgid "Updating Project ...\n"
 msgstr "Dopunjavam projekat...\n"
 
-#: src/gnome_project.c:235
+#: src/gnome_project.c:236
 msgid "Running autogen.sh ...\n"
 msgstr "Pokrećem skriptu autogen.sh...\n"
 
-#: src/gnome_project.c:247
+#: src/gnome_project.c:248
 msgid "App Wizard"
 msgstr "Čarobnjak za pravljenje programa"
 
-#: src/gnome_project.c:272
+#: src/gnome_project.c:270
 msgid "Auto generation completed...............Unsuccessful\n"
 msgstr "Automatsko stvaranje je završeno...............neuspešno\n"
 
-#: src/gnome_project.c:275
+#: src/gnome_project.c:273
 msgid ""
 "The Project was not successfully auto generated.\n"
 "Please run autogen.sh manually."
@@ -3770,7 +3780,7 @@ msgstr ""
 "Neuspešno automatsko stvaranje projekta.\n"
 "Molim, pokrenite ručno skriptu autogen.sh."
 
-#: src/gnome_project.c:281
+#: src/gnome_project.c:279
 msgid ""
 "Auto generation completed...............Successful\n"
 "Now Build the Project to have a LOOK at it\n"
@@ -3778,7 +3788,7 @@ msgstr ""
 "Automatsko stvaranje je završeno...............uspešno\n"
 "Sada prevedite i povežite projekat kako bi videli rezultat\n"
 
-#: src/gnome_project.c:284
+#: src/gnome_project.c:282
 msgid "Project was successfully auto generated."
 msgstr "Uspešno automatsko stvaranje projekta."
 
@@ -3786,35 +3796,35 @@ msgstr "Uspešno automatsko stvaranje projekta."
 msgid " Goto Line number "
 msgstr "Idi na broj linije "
 
-#: src/launcher.c:581
+#: src/launcher.c:582
 msgid "launcher.c: Error while reading child stdout\n"
 msgstr "launcher.c: greška pri čitanju sadržanog standardnog izlaza\n"
 
-#: src/launcher.c:593
+#: src/launcher.c:594
 msgid "launcher.c: STDOUT pipe closed"
 msgstr "launcher.c: cev standardnog izlaza je zatvorena"
 
-#: src/launcher.c:629
+#: src/launcher.c:630
 msgid "launcher.c: Error while reading child stderr"
 msgstr "launcher.c: greška pri čitanju sadržanog standardnog izlaza za greške"
 
-#: src/launcher.c:641
+#: src/launcher.c:642
 msgid "launcher.c: STDERR pipe closed"
 msgstr "launcher.c: cev standardnog izlaza za greške je zatvorena"
 
-#: src/launcher.c:682
+#: src/launcher.c:683
 msgid "launcher.c: Error while reading child pty\n"
 msgstr "launcher.c: greška pri čitanju sadržanog terminala\n"
 
-#: src/launcher.c:700
+#: src/launcher.c:701
 msgid "launcher.c: PTY pipe error!"
 msgstr "launcher.c: cev terminala je zatvorena"
 
-#: src/launcher.c:802
+#: src/launcher.c:803
 msgid "launcher.c: Failed to set channel encoding!"
 msgstr "launcher.c: neuspešno postavljanje kodiranja kanala!"
 
-#: src/launcher.c:852 src/text_editor.c:1556
+#: src/launcher.c:853 src/text_editor.c:1556
 msgid "Cannot execute command shell"
 msgstr "Ne mogu pokrenuti interpretator naredbi"
 
@@ -3826,7 +3836,7 @@ msgstr "Ne prikazuj uvodnu sliku"
 msgid "Recent Files    "
 msgstr "Poslednje otvarane datoteke    "
 
-#: src/main_menubar.c:393 src/project_dbase.c:2038
+#: src/main_menubar.c:393 src/project_dbase.c:2039
 msgid "Recent Projects "
 msgstr "Poslednji otvarani projekti"
 
@@ -6291,7 +6301,7 @@ msgstr "Sve datoteke"
 msgid "Unable to load Project: %s"
 msgstr "Ne uspevam učitati projekat: %s"
 
-#: src/project_dbase.c:466 src/project_dbase.c:2477
+#: src/project_dbase.c:466 src/project_dbase.c:2478
 #, c-format
 msgid ""
 "Anjuta version %s or later is required to open this Project.\n"
@@ -6330,11 +6340,11 @@ msgstr ""
 "u korenom direktorijumu projekta."
 
 #. Set project title
-#: src/project_dbase.c:2075
+#: src/project_dbase.c:2076
 msgid "Project: "
 msgstr "Projekat: "
 
-#: src/project_dbase.c:2192
+#: src/project_dbase.c:2193
 #, c-format
 msgid ""
 "Unable to get relative file name for %s\n"
@@ -6343,20 +6353,20 @@ msgstr ""
 "Ne mogu dobiti samo ime datoteke iz %s\n"
 " u %s"
 
-#: src/project_dbase.c:2257
+#: src/project_dbase.c:2258
 msgid " already exists in the project"
 msgstr " već postoji u projektu"
 
-#: src/project_dbase.c:2290
+#: src/project_dbase.c:2291
 msgid "Error while copying the file inside the module."
 msgstr "Greška prilikom prenosa datoteke unutar modula."
 
-#: src/project_dbase.c:2553 src/project_dbase.c:2556
+#: src/project_dbase.c:2554 src/project_dbase.c:2557
 #, c-format
 msgid "Error in loading Project: %s"
 msgstr "Greška pri učitavanju projekta: %s"
 
-#: src/project_dbase.c:2577
+#: src/project_dbase.c:2578
 msgid "Project loaded successfully."
 msgstr "Projekat uspešno učitan."
 
@@ -7653,43 +7663,47 @@ msgstr "Dinamička biblioteka"
 msgid "Enter a short description of the Project"
 msgstr "Unesite kratak opis projekta"
 
-#: src/wizard_gui.c:594
+#: src/wizard_gui.c:596
 msgid "Enter any additional Project options"
 msgstr "Unesite sve dodatne opcije projekta"
 
-#: src/wizard_gui.c:611
+#: src/wizard_gui.c:613
 msgid " Project Options "
 msgstr "Opcije projekta"
 
-#: src/wizard_gui.c:622
+#: src/wizard_gui.c:624
 msgid "Include GNU Copyright statement in file headings"
 msgstr "Uključi GNU izjavu o autorskim pravima u zaglavlju datoteke"
 
-#: src/wizard_gui.c:629
+#: src/wizard_gui.c:631
 msgid "Enable Gettext Support"
 msgstr "Omogući Gettext podršku"
 
-#: src/wizard_gui.c:636
+#: src/wizard_gui.c:639
+msgid "Generate source code using glade or glademm"
+msgstr "Obrazuj izvorni kod pomoću glade-a ili glademm-a"
+
+#: src/wizard_gui.c:646
 msgid "GNOME Menu Entry"
 msgstr "Gnom meni stavka"
 
-#: src/wizard_gui.c:646
+#: src/wizard_gui.c:656
 msgid "Entry name:"
 msgstr "Ime stavke:"
 
-#: src/wizard_gui.c:653
+#: src/wizard_gui.c:663
 msgid "Comment:"
 msgstr "Napomena:"
 
-#: src/wizard_gui.c:660
+#: src/wizard_gui.c:670
 msgid "Group:"
 msgstr "Grupa:"
 
-#: src/wizard_gui.c:702
+#: src/wizard_gui.c:712
 msgid "Needs terminal"
 msgstr "Zahteva terminal"
 
-#: src/wizard_gui.c:743
+#: src/wizard_gui.c:754
 msgid "Summary"
 msgstr "Ukupno"
 
