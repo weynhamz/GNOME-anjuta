@@ -1436,7 +1436,7 @@ breakpoints_dbase_add_brkpnt (BreakpointsDBase *bd, gchar *brkpnt)
 				strcpy (line, ptr);
 				ptr--;
 				*ptr = '\0';
-				strcpy (file, fileln);
+				strcpy (file, g_basename (fileln));
 			}
 		}
 

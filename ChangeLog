@@ -1,5 +1,8 @@
 2004-03-25  Naba Kumar  <naba@gnome.org>
 
+	* src/breakpoints.c: Fixed bug #895536 (breakpoint glyphs do not
+	always display within the margin.)
+	
 	* src/debugger.c: Fixed a typo (detele -> delete) which deletes
 	the old breakpoint when it's properties are updated
 	(creating a new updated one).
