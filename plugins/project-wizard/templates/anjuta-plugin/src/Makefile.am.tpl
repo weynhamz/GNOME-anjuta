@@ -8,7 +8,7 @@
 [+IF (=(get "HasGladeFile") "1")+]
 # Plugin Glade file
 [+NameCLower+]_gladedir = $(anjuta_glade_dir)
-[+NameCLower+]_glade_DATA =  [+NameLower+].ui
+[+NameCLower+]_glade_DATA =  [+NameLower+].glade
 [+ENDIF+]
 # Plugin Icon file
 [+NameCLower+]_pixmapsdir = $(anjuta_image_dir)

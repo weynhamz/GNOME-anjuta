@@ -1,3 +1,10 @@
+2005-02-08  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
+
+	* plugins/project-wizard/templates/anjuta-plugin/src/Makefile.am.tpl
+	  plugins/project-wizard/templates/anjuta-plugin/src/plugin.c
+	 
+	- Fixed anjuta-plugin project (glade)
+
 2005-02-08  Naba Kumar  <naba@gnome.org>
 
 	* plugins/editor/aneditor.cxx: Implemented auto-indent on 'tab' press.

@@ -29,7 +29,7 @@
 #define UI_FILE ANJUTA_DATA_DIR"/ui/[+NameLower+].ui"
 [+ENDIF+]
 [+IF (=(get "HasGladeFile") "1") +]
-#define GLADE_FILE ANJUTA_DATA_DIR"/ui/[+NameLower+].glade"
+#define GLADE_FILE ANJUTA_DATA_DIR"/glade/[+NameLower+].glade"
 [+ENDIF+]
 
 static gpointer parent_class;
