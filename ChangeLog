@@ -1,5 +1,8 @@
 2003-03-21  Naba Kumar  <naba@gnome.org>
 
+	* README: Removed Andy Piper's name from the active maintainers
+	list on his request.
+	
 	* src/anjuta_cbs.c: Fixed alphabetical ordering of tabs with
 	preferences.
 	
