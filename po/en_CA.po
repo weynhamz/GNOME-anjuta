@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-13 10:26-0500\n"
-"PO-Revision-Date: 2005-02-13 12:57-0400\n"
+"POT-Creation-Date: 2005-02-14 10:21-0500\n"
+"PO-Revision-Date: 2005-02-14 12:57-0400\n"
 "Last-Translator: Adam Weinberger <adamw@gnome.org>\n"
 "Language-Team: en_CA <adamw@FreeBSD.org>\n"
 "MIME-Version: 1.0\n"
@@ -37,7 +37,6 @@ msgstr "    "
 #: plugins/file-wizard/anjuta-file-wizard.glade.h:1
 #: plugins/gdb/anjuta-gdb.glade.h:1 plugins/macro/anjuta-macro.glade.h:1
 #: plugins/project-wizard/anjuta-project-wizard.glade.h:1
-#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:1
 #: plugins/terminal/anjuta-terminal-plugin.glade.h:1
 msgid "*"
 msgstr "*"
@@ -144,7 +143,6 @@ msgstr "CPU Registers"
 #: plugins/editor/anjuta-document-manager.glade.h:39
 #: plugins/file-manager/an_file_view.c:335
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:9
-#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:9
 msgid "CVS"
 msgstr "CVS"
 
@@ -1146,7 +1144,7 @@ msgstr "Pixbuf Object"
 msgid "The pixbuf to render."
 msgstr "The pixbuf to render."
 
-#: libanjuta/plugins.c:930
+#: libanjuta/plugins.c:930 plugins/symbol-browser/an_symbol_prefs.c:330
 msgid "Load"
 msgstr "Load"
 
@@ -2609,7 +2607,7 @@ msgstr ""
 "Are you sure you want to reload '%s'?\n"
 "Any unsaved changes will be lost."
 
-#: plugins/editor/action-callbacks.c:238 plugins/editor/text_editor.c:1438
+#: plugins/editor/action-callbacks.c:238 plugins/editor/text_editor.c:306
 msgid "_Reload"
 msgstr "_Reload"
 
@@ -2646,13 +2644,11 @@ msgstr "$(module.source.files) $(module.include.files)"
 
 #: plugins/editor/anjuta-document-manager.glade.h:3
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:2
-#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:2
 msgid "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp"
 msgstr "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp"
 
 #: plugins/editor/anjuta-document-manager.glade.h:4
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:3
-#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:3
 msgid ""
 "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp Makefile.am configure.* "
 "README AUTHORS ChangeLog *.m4"
@@ -2662,13 +2658,11 @@ msgstr ""
 
 #: plugins/editor/anjuta-document-manager.glade.h:5
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:4
-#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:4
 msgid "*.so *.o *.a *.la"
 msgstr "*.so *.o *.a *.la"
 
 #: plugins/editor/anjuta-document-manager.glade.h:6
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:5
-#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:5
 msgid "*\\.*"
 msgstr "*\\.*"
 
@@ -2799,7 +2793,6 @@ msgstr "Bottom"
 
 #: plugins/editor/anjuta-document-manager.glade.h:40
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:10
-#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:10
 msgid "CVS intl po"
 msgstr "CVS intl po"
 
@@ -3215,25 +3208,21 @@ msgstr "Sorted in opening order"
 
 #: plugins/editor/anjuta-document-manager.glade.h:142
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:18
-#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:18
 msgid "Space-seperated list of directory name patterns to ignore"
 msgstr "Space-seperated list of directory name patterns to ignore"
 
 #: plugins/editor/anjuta-document-manager.glade.h:143
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:19
-#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:19
 msgid "Space-seperated list of directory name patterns to match"
 msgstr "Space-seperated list of directory name patterns to match"
 
 #: plugins/editor/anjuta-document-manager.glade.h:144
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:20
-#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:20
 msgid "Space-seperated list of file name patterns to ignore"
 msgstr "Space-seperated list of file name patterns to ignore"
 
 #: plugins/editor/anjuta-document-manager.glade.h:145
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:21
-#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:21
 msgid "Space-seperated list of file name patterns to match"
 msgstr "Space-seperated list of file name patterns to match"
 
@@ -4084,23 +4073,34 @@ msgstr "%d matches have been replaced."
 msgid "Unable to build user interface for Search And Replace"
 msgstr "Unable to build user interface for Search And Replace"
 
-#: plugins/editor/text_editor.c:1099
+#: plugins/editor/text_editor.c:292
+#, c-format
+msgid ""
+"The file '%s' on the disk is more recent than\n"
+"the current buffer.\n"
+"Do you want to reload it?"
+msgstr ""
+"The file '%s' on the disk is more recent than\n"
+"the current buffer.\n"
+"Do you want to reload it?"
+
+#: plugins/editor/text_editor.c:1169
 msgid "Could not get file info"
 msgstr "Could not get file info"
 
-#: plugins/editor/text_editor.c:1106
+#: plugins/editor/text_editor.c:1176
 msgid "This file is too big. Unable to allocate memory."
 msgstr "This file is too big. Unable to allocate memory."
 
-#: plugins/editor/text_editor.c:1113
+#: plugins/editor/text_editor.c:1183
 msgid "Could not open file"
 msgstr "Could not open file"
 
-#: plugins/editor/text_editor.c:1121
+#: plugins/editor/text_editor.c:1191
 msgid "Error while reading from file"
 msgstr "Error while reading from file"
 
-#: plugins/editor/text_editor.c:1157
+#: plugins/editor/text_editor.c:1227
 msgid ""
 "The file does not look like a text file or the file encoding is not "
 "supported. Please check if the encoding of file is in the supported "
@@ -4110,7 +4110,7 @@ msgstr ""
 "supported. Please check if the encoding of file is in the supported "
 "encodings list. If not, add it from the preferences."
 
-#: plugins/editor/text_editor.c:1321
+#: plugins/editor/text_editor.c:1392
 #, c-format
 msgid ""
 "Could not load file: %s\n"
@@ -4121,37 +4121,26 @@ msgstr ""
 "\n"
 "Details: %s"
 
-#: plugins/editor/text_editor.c:1361
+#: plugins/editor/text_editor.c:1439
 #, c-format
 msgid "Could not save file: %s."
 msgstr "Could not save file: %s."
 
-#: plugins/editor/text_editor.c:1424
-#, c-format
-msgid ""
-"The file '%s' on the disk is more recent than\n"
-"the current buffer.\n"
-"Do you want to reload it?"
-msgstr ""
-"The file '%s' on the disk is more recent than\n"
-"the current buffer.\n"
-"Do you want to reload it?"
-
-#: plugins/editor/text_editor.c:1599
+#: plugins/editor/text_editor.c:1615
 msgid "Auto format is currently disabled. Change the setting in Preferences."
 msgstr "Auto format is currently disabled. Change the setting in Preferences."
 
-#: plugins/editor/text_editor.c:1618
+#: plugins/editor/text_editor.c:1634
 msgid "Error in auto formatting ..."
 msgstr "Error in auto formatting ..."
 
 #. FIXME: anjuta_set_active ();
-#: plugins/editor/text_editor.c:1634
+#: plugins/editor/text_editor.c:1650
 #, c-format
 msgid "Anjuta does not know %s!"
 msgstr "Anjuta does not know %s!"
 
-#: plugins/editor/text_editor.c:1659
+#: plugins/editor/text_editor.c:1675
 #, c-format
 msgid ""
 "Error in auto formatting ...\n"
@@ -4160,7 +4149,7 @@ msgstr ""
 "Error in auto formatting ...\n"
 "Details: %s"
 
-#: plugins/editor/text_editor.c:1906
+#: plugins/editor/text_editor.c:1922
 #, c-format
 msgid ""
 "Cannot load Global defaults and configuration files:\n"
@@ -4173,7 +4162,7 @@ msgstr ""
 "This may result in improper behaviour or instabilities.\n"
 "Anjuta will fall back to built in (limited) settings"
 
-#: plugins/editor/text_editor_cbs.c:127
+#: plugins/editor/text_editor_cbs.c:126
 #, c-format
 msgid "Autosave \"%s\" -- Failed"
 msgstr "Autosave \"%s\" -- Failed"
@@ -4543,57 +4532,47 @@ msgid "Rev"
 msgstr "Rev"
 
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:6
-#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:6
 msgid "<b>Directory filter:</b>"
 msgstr "<b>Directory filter:</b>"
 
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:7
-#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:7
 msgid "<b>File filter:</b>"
 msgstr "<b>File filter:</b>"
 
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:8
-#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:8
 msgid "<b>Root directory if no project is open:</b>"
 msgstr "<b>Root directory if no project is open:</b>"
 
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:11
-#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:11
 msgid "Choose directories"
 msgstr "Choose directories"
 
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:12
-#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:12
 msgid "Choose files"
 msgstr "Choose files"
 
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:13
-#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:13
 msgid "Directory "
 msgstr "Directory "
 
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:14
-#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:14
 msgid "Do not show hidden directories"
 msgstr "Do not show hidden directories"
 
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:15
-#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:15
 msgid "Do not show hidden files"
 msgstr "Do not show hidden files"
 
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:16
-#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:16
 msgid "Ignore directories"
 msgstr "Ignore directories"
 
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:17
-#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:17
 msgid "Ignore files"
 msgstr "Ignore files"
 
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:22
-#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:22
+#: plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:3
 msgid "dialog3"
 msgstr "dialog3"
 
@@ -7402,7 +7381,7 @@ msgstr "User name"
 msgid "label"
 msgstr "label"
 
-#: plugins/project-wizard/druid.c:173
+#: plugins/project-wizard/druid.c:174
 msgid ""
 "Confim the following information:\n"
 "\n"
@@ -7410,21 +7389,30 @@ msgstr ""
 "Confirm the following information:\n"
 "\n"
 
-#: plugins/project-wizard/druid.c:175
+#: plugins/project-wizard/druid.c:176
 msgid "Project Type: "
 msgstr "Project Type: "
 
-#: plugins/project-wizard/druid.c:288
+#: plugins/project-wizard/druid.c:289
 #, c-format
 msgid "Unable to find any project template in %s"
 msgstr "Unable to find any project template in %s"
 
-#: plugins/project-wizard/druid.c:611
+#: plugins/project-wizard/druid.c:465
 #, c-format
 msgid "Field \"%s\" is mandatory. Please enter it."
 msgstr "Field \"%s\" is mandatory."
 
-#: plugins/project-wizard/druid.c:730
+#: plugins/project-wizard/druid.c:483
+#, c-format
+msgid ""
+"Directory \"%s\" already exist,the creation of the project could fail if "
+"some files cannot be written. Do you want to continue ?"
+msgstr ""
+"Directory \"%s\" already exist. The creation of the project could fail if "
+"some files cannot be written. Do you want to continue?"
+
+#: plugins/project-wizard/druid.c:763
 msgid ""
 "Could not find autogen version 5, please install the autogen package. You "
 "can get it from http://autogen.sourceforge.net"
@@ -7432,7 +7420,7 @@ msgstr ""
 "Could not find autogen version 5. Please install the autogen package. You "
 "can get it from http://autogen.sourceforge.net"
 
-#: plugins/project-wizard/druid.c:738
+#: plugins/project-wizard/druid.c:771
 msgid "Unable to build project wizard user interface"
 msgstr "Unable to build project wizard user interface"
 
@@ -7455,32 +7443,41 @@ msgstr "Creating %s using AutoGen"
 msgid "Creating %s"
 msgstr "Creating %s"
 
+#: plugins/project-wizard/plugin.c:154
+msgid "New Project Wizard"
+msgstr "New Project Wizard"
+
 #. Action name
 #. Stock icon, if any
-#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.c:51
 #: plugins/sample1/plugin.c:55
 msgid "_Sample action"
 msgstr "_Sample action"
 
 #. Display label
 #. short-cut
-#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.c:53
 #: plugins/sample1/plugin.c:57
 msgid "Sample action"
 msgstr "Sample action"
 
-#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.c:77
 #: plugins/sample1/plugin.c:78
 msgid "Sample file operations"
 msgstr "Sample file operations"
 
-#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.c:89
-msgid "[+PluginClass+] widget"
-msgstr "[+PluginClass+] widget"
-
 #: plugins/sample1/plugin.c:84
 msgid "SamplePlugin"
 msgstr "SamplePlugin"
+
+#: plugins/symbol-browser/an_symbol_prefs.c:338
+msgid "API Tags"
+msgstr "API Tags"
+
+#: plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:1
+msgid "<b>Available API tags:</b>"
+msgstr "<b>Available API tags:</b>"
+
+#: plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:2
+msgid "Create"
+msgstr "Create"
 
 #: plugins/symbol-browser/plugin.c:239
 msgid "Tag _Definition"
