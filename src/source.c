@@ -682,7 +682,8 @@ source_write_executable_source_files (ProjectDBase * data)
 	FILE *fp;
 	gchar *src_dir, *filename, *actual_file, *target;
 	Project_Type* type;
-
+	gint lang;
+	
 	g_return_val_if_fail (data != NULL, FALSE);
 
 	type = project_dbase_get_project_type(data);
@@ -713,11 +714,30 @@ source_write_executable_source_files (ProjectDBase * data)
 	source_write_no_modify_warning (data, fp);
 	/* If the project directory is the source directory, we need to output
 	 * SUBDIRS here. */
+	/* Fixed bug #460321 "Problem with optimization options" by separating 
+	   INCLUDE AND C(XX)FLAGS. Johannes Schmid 3.2.2002 */ 
+	
 	fprintf (fp, "INCLUDES =");
 	fprintf (fp, type->cflags);
-	compiler_options_set_prjcflags_in_file (app->compiler_options, fp);
+	compiler_options_set_prjincl_in_file (app->compiler_options, fp);
 	fprintf (fp, "\n\n");
-
+	
+	lang = project_dbase_get_language(data);
+	if (lang == PROJECT_PROGRAMMING_LANGUAGE_C ||
+		lang == PROJECT_PROGRAMMING_LANGUAGE_C_CPP)
+	{
+		fprintf (fp, "CFLAGS =");
+		compiler_options_set_prjcflags_in_file (app->compiler_options, fp);
+		fprintf (fp, "\n\n");
+	}
+	if (lang == PROJECT_PROGRAMMING_LANGUAGE_CPP ||
+		lang == PROJECT_PROGRAMMING_LANGUAGE_C_CPP)
+	{
+		fprintf (fp, "CXXFLAGS =");
+		compiler_options_set_prjcflags_in_file (app->compiler_options, fp);
+		fprintf (fp, "\n\n");
+	}
+	
 	target =
 		prop_get (data->props, "project.source.target");
 	g_strdelimit (target, "-", '_');

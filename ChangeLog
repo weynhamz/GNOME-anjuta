@@ -1,3 +1,14 @@
+2002-02-03  Johannes Schmid <clubfan@users.sourceforge.net>
+
+	* source.c, compiler_options.[c/h]:
+	  Fixed bug #460321 "Problem with optimization options" 
+	  by separating INCLUDE and C(XX)FLAGS in Makefile.am creation
+	
+2002-02-03	Andy Piper	<andy.piper@freeuk.com>
+
+	* NEWS: prepared for release, need to fill in date
+	* data/welcome.txt: version number updated
+
 2002-02-03	Andy Piper	<andy.piper@freeuk.com>
 
 	* src/text_editor_menu.c, src/an_file_view.c, 

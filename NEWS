@@ -1,3 +1,26 @@
+Anjuta 0.1.9:   (xxth February 2002)		-- Andy Piper
+
+   => Release of Anjuta-0.1.9 (stable)
+   
+New: messages manager rewritten to use notebook tabs
+New: symbol and tag browser fully based on TagManager
+New: embedded terminal window (using zvt)
+New: Project Import Wizard makes it easier to migrate
+     existing projects to Anjuta
+New: libglade project type added to the Application
+     Wizard
+New: simple class creator plugin now included
+New: files autosaved before a build
+New: more translations - 21 languages now fully or 
+     partially supported
+
+Updated: new look for the Application Wizard
+Updated: rewritten manual
+Updated: Solaris support improved
+Updated: many, many bug fixes.....
+
+--------------------------------------------------------------------
+
 Anjuta 0.1.8:   (30th November 2001)		-- Andy Piper
 
    => Release of Anjuta-0.1.8 (stable)

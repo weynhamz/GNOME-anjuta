@@ -137,6 +137,7 @@ void compiler_options_load (CompilerOptions * co, PropsID props);
 gboolean compiler_options_save_yourself (CompilerOptions * co, FILE * s);
 gboolean compiler_options_load_yourself (CompilerOptions * co, PropsID props);
 void compiler_options_update_controls (CompilerOptions *);
+void compiler_options_set_prjincl_in_file (CompilerOptions * co, FILE* fp);
 void compiler_options_set_prjcflags_in_file (CompilerOptions * co, FILE* fp);
 void compiler_options_set_prjlflags_in_file (CompilerOptions * co, FILE* fp);
 void compiler_options_set_prjlibs_in_file (CompilerOptions * co, FILE* fp);

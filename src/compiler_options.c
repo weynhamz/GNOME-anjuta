@@ -1137,11 +1137,9 @@ compiler_options_set_in_properties (CompilerOptions * co, PropsID props)
 }
 
 void
-compiler_options_set_prjcflags_in_file (CompilerOptions * co, FILE* fp)
+compiler_options_set_prjincl_in_file (CompilerOptions* co, FILE* fp)
 {
-	gchar *buff, *tmp;
-	gint i;
-
+	gchar *buff;
 	buff = get_include_paths (co, FALSE);
 	if (buff)
 	{
@@ -1150,7 +1148,14 @@ compiler_options_set_prjcflags_in_file (CompilerOptions * co, FILE* fp)
 			fprintf (fp, "\\\n\t%s", buff);
 		}
 		g_free (buff);
-	}
+	}	
+}
+
+void
+compiler_options_set_prjcflags_in_file (CompilerOptions * co, FILE* fp)
+{
+	gchar *buff, *tmp;
+	gint i;
 
 /*
 	for (i = 0; i < g_list_length (GTK_CLIST (co->widgets.supp_clist)->row_list); i++)
