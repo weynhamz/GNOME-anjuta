@@ -1,7 +1,7 @@
 2001-08-01  Fatih Demir <kabalak@gtranslator.org>
 
 	* anjuta.desktop.(in(.in)), configure.in & Makefile.am: Get the desktop
-		file to work: merge translations.
+		file to work: merge translations and distribute it.
 
 	* .cvsignore & ABOUT-NLS: Erh, "ABOUT-NLS" shouldn't be in CVS.
 
