@@ -837,6 +837,7 @@ create_style_editor_gui (StyleEditor * se)
 	
 	gxml = glade_xml_new (GLADE_FILE_ANJUTA, "style_editor_dialog", NULL);
 	se->priv->dialog = glade_xml_get_widget (gxml, "style_editor_dialog");
+	gtk_widget_show (se->priv->dialog);
 	se->priv->font_picker = glade_xml_get_widget (gxml, "font");
 	se->priv->hilite_item_combo = glade_xml_get_widget (gxml, "combo");
 	se->priv->font_bold_check = glade_xml_get_widget (gxml, "bold");

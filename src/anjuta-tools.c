@@ -889,6 +889,7 @@ gboolean anjuta_tools_edit(void)
 		return FALSE;
 	}
 	tl->dialog = glade_xml_get_widget(xml, TOOL_LIST);
+	gtk_widget_show (tl->dialog);
 	gtk_window_set_transient_for (GTK_WINDOW(tl->dialog)
 	  , GTK_WINDOW(app->widgets.window));
 	

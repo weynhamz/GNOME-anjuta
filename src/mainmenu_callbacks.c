@@ -1983,6 +1983,12 @@ on_set_style_editor_activate (GtkMenuItem * menuitem, gpointer user_data)
 }
 
 void
+on_windows_settings_activate (GtkMenuItem * menuitem, gpointer user_data)
+{
+	gtk_widget_show (GTK_WIDGET (app->windows_dialog));
+}
+
+void
 on_edit_user_properties1_activate           (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {

@@ -19,6 +19,7 @@
 #include <config.h>
 #include <ctype.h>
 
+#include <gtk/gtkscrolledwindow.h>
 #include <bonobo/bonobo-i18n.h>
 #include <gtk/gtkliststore.h>
 #include <gtk/gtktreeview.h>
@@ -26,6 +27,7 @@
 #include <gtk/gtkcellrenderertext.h>
 #include <gtk/gtkcellrendererpixbuf.h>
 #include <gtk/gtkcellrenderertoggle.h>
+#include <gtk/gtkstock.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include <libgnome/gnome-macros.h>
 #include <libgnomeui/gnome-uidefs.h>
@@ -156,6 +158,7 @@ anjuta_windows_dialog_dispose (GObject *obj)
 	AnjutaWindowsDialog *dlg = ANJUTA_WINDOWS_DIALOG (obj);
 
 	if (dlg->priv->store) {
+		g_object_unref (dlg->priv->treeview);
 		g_object_unref (dlg->priv->store);
 		dlg->priv->store = NULL;
 	}
@@ -166,7 +169,7 @@ anjuta_windows_dialog_dispose (GObject *obj)
 static void
 anjuta_windows_dialog_finalize (GObject *obj)
 {
-	AnjutaWindowsDialog *dlg = ANJUTA_WINDOWS_DIALOG (obj);	
+	AnjutaWindowsDialog *dlg = ANJUTA_WINDOWS_DIALOG (obj);
 
 	g_free (dlg->priv);
 
@@ -200,8 +203,15 @@ anjuta_windows_dialog_class_init (AnjutaWindowsDialogClass *class)
 	object_class->dispose = anjuta_windows_dialog_dispose;
 	object_class->finalize = anjuta_windows_dialog_finalize;
 
-	// dialog_class->response = anjuta_windows_dialog_response;
+	dialog_class->response = anjuta_windows_dialog_close;
 	dialog_class->close = anjuta_windows_dialog_close;
+}
+
+static gboolean
+on_delete_event (GtkWidget *widget, GdkEvent *event, gpointer data)
+{
+	gtk_widget_hide (widget);
+	return TRUE;
 }
 
 static void
@@ -210,14 +220,31 @@ anjuta_windows_dialog_instance_init (AnjutaWindowsDialog *dlg)
 	GtkTreeSelection *selection;
 	GtkCellRenderer *renderer;
 	GtkTreeViewColumn *column;
-	GladeXML *gxml;
+	GtkWidget *scrollwindow;
 	
 	dlg->priv = g_new0 (AnjutaWindowsDialogPrivate, 1);
-
-	gxml = glade_xml_new (PACKAGE_DATA_DIR"/glade/anjuta.glade",
-						  "winodws_dialogs_dialog", NULL);
 	
-	dlg->priv->treeview = glade_xml_get_widget (gxml, "treeview");
+	gtk_dialog_add_button (GTK_DIALOG (dlg), GTK_STOCK_CLOSE,
+						   GTK_RESPONSE_CLOSE);
+	gtk_window_set_default_size (GTK_WINDOW (dlg), 400, 300);
+	g_signal_connect (G_OBJECT (dlg), "delete_event",
+					  G_CALLBACK (on_delete_event), NULL);
+	
+	scrollwindow = gtk_scrolled_window_new (NULL, NULL);
+	gtk_widget_show (scrollwindow);
+	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrollwindow),
+										 GTK_SHADOW_IN);
+	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrollwindow),
+									GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+	gtk_container_add (GTK_CONTAINER (GTK_DIALOG (dlg)->vbox), scrollwindow);
+	
+	dlg->priv->treeview = gtk_tree_view_new ();
+	gtk_widget_show (dlg->priv->treeview);
+	gtk_tree_view_set_reorderable (GTK_TREE_VIEW (dlg->priv->treeview), FALSE);
+	gtk_tree_view_set_rules_hint (GTK_TREE_VIEW (dlg->priv->treeview), TRUE);
+	g_object_ref (dlg->priv->treeview);
+	gtk_container_add (GTK_CONTAINER (scrollwindow), dlg->priv->treeview);
+	
 
 	dlg->priv->store = gtk_list_store_new (N_COLUMNS, 
 										   GDK_TYPE_PIXBUF,
@@ -261,6 +288,7 @@ anjuta_windows_dialog_instance_init (AnjutaWindowsDialog *dlg)
 													   NULL);
 	gtk_tree_view_append_column (GTK_TREE_VIEW (dlg->priv->treeview),
 								 column);
+	// g_object_unref (gxml);
 }
 
 static gboolean
@@ -278,6 +306,7 @@ anjuta_windows_dialog_new (PropsID props)
 						"title", _("Anjuta Windows Dialog"),
 						NULL);
 	ANJUTA_WINDOWS_DIALOG (w)->priv->props = props;
+	return w;
 }
 
 void

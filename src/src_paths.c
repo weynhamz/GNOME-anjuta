@@ -238,6 +238,7 @@ create_src_paths_gui (SrcPaths *co)
 		return;
 	gxml = glade_xml_new (GLADE_FILE_ANJUTA, "source_paths_dialog", NULL);
 	co->priv->dialog = glade_xml_get_widget (gxml, "source_paths_dialog");
+	gtk_widget_show (co->priv->dialog);
 	co->priv->clist = glade_xml_get_widget (gxml, "src_clist");
 	co->priv->entry = glade_xml_get_widget (gxml, "src_entry");
 	

@@ -326,6 +326,7 @@ command_editor_show (CommandEditor *ce)
 	gxml = glade_xml_new (GLADE_FILE_ANJUTA, "commands_dialog", NULL);
 	glade_xml_signal_autoconnect (gxml);
 	ce->priv->widgets.window = glade_xml_get_widget (gxml, "commands_dialog");
+	gtk_widget_show (ce->priv->widgets.window);
 	gtk_window_set_transient_for (GTK_WINDOW (ce->priv->widgets.window),
 								  GTK_WINDOW (app->widgets.window));
 	ce->priv->widgets.pix_editor_entry = glade_xml_get_widget (gxml, "commands_pixmap_editor_entry");

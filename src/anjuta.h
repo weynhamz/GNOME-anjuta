@@ -45,6 +45,7 @@
 #include "style-editor.h"
 #include "tm_tagmanager.h"
 #include "file_history.h"
+#include "windows-dialog.h"
 
 #define g_strdup_printfs2(_FORMAT_, _STR_) \
 	{ \
@@ -99,6 +100,7 @@ struct _AnjutaApp
 	Executer *executer;
 	Configurer *configurer;
 	FindInFiles *find_in_files;
+	AnjutaWindowsDialog *windows_dialog;
 	const TMWorkspace *tm_workspace;
 	AnjutaHelp* help_system;
 	CVS* cvs;

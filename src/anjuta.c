@@ -202,6 +202,9 @@ anjuta_new ()
 							  app->preferences->props_local,
 							  app->preferences->props_session,
 							  app->preferences->props);
+		app->windows_dialog =
+			ANJUTA_WINDOWS_DIALOG (anjuta_windows_dialog_new
+								   (app->preferences->props));
 		
 		app->widgets.the_client = app->widgets.vpaned;
 		app->widgets.hpaned_client = app->widgets.hpaned;
