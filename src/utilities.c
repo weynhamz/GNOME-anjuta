@@ -1955,7 +1955,7 @@ anjuta_execute_shell (const gchar *dir, const gchar *command)
 			chdir (dir);
 		}
 		execlp (shell, shell, "-c", command, NULL);
-		g_warning (_("Cannot execute command: %s (using shell %s)\n", command, shell);
+		g_warning (_("Cannot execute command: %s (using shell %s)\n"), command, shell);
 		_exit(1);
 	}
 	if (pid < 0)
