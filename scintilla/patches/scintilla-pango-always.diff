@@ -1,7 +1,6 @@
-diff -u scintilla/PlatGTK.cxx scintilla-new/PlatGTK.cxx
---- scintilla/PlatGTK.cxx	2003-09-18 12:05:56.000000000 +0530
-+++ scintilla-new/PlatGTK.cxx	2003-09-17 11:31:58.000000000 +0530
-@@ -494,16 +494,16 @@
+--- scintilla-new/gtk/PlatGTK.cxx	2004-10-03 18:22:16.000000000 +0530
++++ scintilla/PlatGTK.cxx	2005-01-18 22:05:31.000000000 +0530
+@@ -493,16 +493,16 @@
  	charset[0] = '\0';
  
  #ifdef USE_PANGO
