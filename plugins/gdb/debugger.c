@@ -30,12 +30,14 @@
 #include <errno.h>
 
 #include <gnome.h>
-#include "anjuta.h"
+/* TODO #include "anjuta.h" */
 #include "debugger.h"
-#include "controls.h"
-#include "launcher.h"
-#include "fileselection.h"
-#include "anjuta_info.h"
+/* TODO #include "controls.h" */
+#include <libanjuta/anjuta-launcher.h>
+/* TODO #include "fileselection.h" */
+/* TODO #include "anjuta_info.h" */
+#include "utilities.h"
+#include "plugin.h"
 
 /* only needed when we are debugging ourselves */
 /* if you use it, please remember to comment   */
@@ -63,7 +65,7 @@ static void on_debugger_open_exec_filesel_cancel_clicked (GtkButton * button,
 														  gpointer user_data);
 static void on_debugger_load_core_filesel_cancel_clicked (GtkButton * button,
 														  gpointer user_data);
-static void debugger_stop_terminal (void);
+/* TODO static void debugger_stop_terminal (void); */
 static void debugger_info_locals_cb (GList* list, gpointer data);
 static void debugger_handle_post_execution (void);
 static void debugger_command (const gchar * com);
@@ -87,16 +89,20 @@ void
 debugger_init ()
 {
 	/* Must declare static, because it will be used forever */
+/* TODO: to be removed
 	static FileSelData fsd1 = { N_("Load Executable File"), NULL,
 		on_debugger_open_exec_filesel_ok_clicked,
 		on_debugger_open_exec_filesel_cancel_clicked, NULL
 	};
+*/
 
 	/* Must declare static, because it will be used forever */
+/* TODO: to be removed
 	static FileSelData fsd2 = { N_("Load Core File"), NULL,
 		on_debugger_load_core_filesel_ok_clicked,
 		on_debugger_load_core_filesel_cancel_clicked, NULL
 	};
+*/
 
 #ifdef ANJUTA_DEBUG_DEBUGGER
 	g_message ("In function: debugger_init()");
@@ -117,31 +123,31 @@ debugger_init ()
 	debugger.term_is_running = FALSE;
 	debugger.term_pid = -1;
 	debugger.post_execution_flag = DEBUGGER_NONE;
-    debugger.gnome_terminal_type = anjuta_util_check_gnome_terminal();
+/* TODO    debugger.gnome_terminal_type = anjuta_util_check_gnome_terminal(); */
 
 #ifdef ANJUTA_DEBUG_DEBUGGER
     g_message ("gnome-terminal type %d found.", debugger.gnome_terminal_type);
 #endif
 
-	debugger.open_exec_filesel = create_fileselection_gui (&fsd1);
-	debugger.load_core_filesel = create_fileselection_gui (&fsd2);
+/* TODO	debugger.open_exec_filesel = create_fileselection_gui (&fsd1); */
+/* TODO	debugger.load_core_filesel = create_fileselection_gui (&fsd2); */
 	debugger.breakpoints_dbase = breakpoints_dbase_new ();
 	debugger.stack = stack_trace_new ();
+/* TODO
 	an_message_manager_set_widget (app->messages, MESSAGE_STACK,
 								   stack_trace_get_treeview (debugger.stack));
+*/
 	debugger.watch = expr_watch_new ();
+/* TODO
 	an_message_manager_set_widget(app->messages, MESSAGE_WATCHES,
 								  debugger.watch->widgets.clist);
+*/
 	debugger.cpu_registers = cpu_registers_new ();
 	debugger.signals = signals_new ();
 	debugger.sharedlibs = sharedlibs_new ();
-	debugger.attach_process = attach_process_new ();
 
 	debugger_set_active (FALSE);
 	debugger_set_ready (TRUE);
-	
-	/* Redundant. Alread called in _set_ready() */
-	/* debugger_update_controls (); */
 }
 
 gboolean
@@ -164,6 +170,7 @@ debugger_save_yourself (FILE * stream)
 	return TRUE;
 }
 
+/* TODO
 gboolean
 debugger_load_yourself (PropsID stream)
 {
@@ -183,12 +190,13 @@ debugger_load_yourself (PropsID stream)
 		return FALSE;
 	return TRUE;
 }
+*/
 
 static void
 on_debugger_open_exec_filesel_ok_clicked (GtkButton * button,
 					  gpointer user_data)
 {
-	gchar *filename, *command, *dir;
+	gchar *filename, *command, *dir, *msg;
 
 
 #ifdef ANJUTA_DEBUG_DEBUGGER
@@ -196,17 +204,21 @@ on_debugger_open_exec_filesel_ok_clicked (GtkButton * button,
 #endif
 	
 	gtk_widget_hide (debugger.open_exec_filesel);
+/* TODO
 	filename = fileselection_get_filename (debugger.open_exec_filesel);
+*/
 	if (!filename)
 		return;
-	an_message_manager_append (app->messages, _("Loading Executable: "),
-			 MESSAGE_DEBUG);
-	an_message_manager_append (app->messages, filename, MESSAGE_DEBUG);
-	an_message_manager_append (app->messages, "\n", MESSAGE_DEBUG);
+
+	msg = g_strconcat (_("Loading Executable: "), filename, NULL);
+	append_message (msg);
+	g_free (msg);
 
 	command = g_strconcat ("file ", filename, NULL);
 	dir = extract_directory (filename);
+/* TODO
 	anjuta_set_execution_dir(dir);
+*/
 	g_free (dir);
 	debugger_put_cmd_in_queqe (command, DB_CMD_ALL, NULL, NULL);
 	g_free (command);
@@ -237,7 +249,7 @@ static void
 on_debugger_load_core_filesel_ok_clicked (GtkButton * button,
 					  gpointer user_data)
 {
-	gchar *filename, *command, *dir;
+	gchar *filename, *command, *dir, *msg;
 
 
 #ifdef ANJUTA_DEBUG_DEBUGGER
@@ -245,16 +257,21 @@ on_debugger_load_core_filesel_ok_clicked (GtkButton * button,
 #endif
 	
 	gtk_widget_hide (debugger.load_core_filesel);
+/* TODO
 	filename = fileselection_get_filename (debugger.load_core_filesel);
+*/
 	if (!filename)
 		return;
-	an_message_manager_append (app->messages, _("Loading Core: "), MESSAGE_DEBUG);
-	an_message_manager_append (app->messages, filename, MESSAGE_DEBUG);
-	an_message_manager_append (app->messages, "\n", MESSAGE_DEBUG);
+
+	msg = g_strconcat (_("Loading Core: "), filename, NULL);
+	append_message (msg);
+	g_free (msg);
 
 	command = g_strconcat ("core file ", filename, NULL);
 	dir = extract_directory (filename);
+/* TODO
 	anjuta_set_execution_dir(dir);
+*/
 	g_free (dir);
 
 	debugger_put_cmd_in_queqe (command, DB_CMD_ALL, NULL, NULL);
@@ -298,7 +315,7 @@ debugger_open_exec_file ()
 		else
 			mesg = _("You have a process RUNNING under the debugger.\n"
 				     "Please stop it first and then load the executable file.");
-		anjuta_information (mesg);
+/* TODO		anjuta_information (mesg); */
 		return;
 	}
 
@@ -326,7 +343,7 @@ debugger_load_core_file ()
 		else
 			mesg = _("You have a process RUNNING under the debugger.\n"
 				     "Please stop it first and then load the executable file.");
-		anjuta_information (mesg);
+/* TODO		anjuta_information (mesg); */
 		return;
 	}
 	gtk_widget_show (debugger.load_core_filesel);
@@ -339,7 +356,7 @@ debugger_shutdown ()
 #ifdef ANJUTA_DEBUG_DEBUGGER
 	g_message ("In function: debugger_shutdown()");
 #endif
-	debugger_stop_terminal();
+/* TODO	debugger_stop_terminal(); */
 	if (debugger.breakpoints_dbase)
 		breakpoints_dbase_destroy (debugger.breakpoints_dbase);
 	if (debugger.watch)
@@ -352,8 +369,6 @@ debugger_shutdown ()
 		signals_destroy (debugger.signals);
 	if (debugger.sharedlibs)
 		sharedlibs_destroy (debugger.sharedlibs);
-	if (debugger.attach_process)
-		attach_process_destroy (debugger.attach_process);
 }
 
 void
@@ -546,7 +561,7 @@ debugger_execute_cmd_in_queqe ()
 void
 debugger_start (const gchar * prog)
 {
-	gchar *command_str, *dir, *tmp, *text;
+	gchar *command_str, *dir, *tmp, *text, *msg;
 	gchar *exec_dir;
 	gboolean ret;
 	GList *list, *node;
@@ -554,22 +569,24 @@ debugger_start (const gchar * prog)
 #ifdef ANJUTA_DEBUG_DEBUGGER
 	g_message ("In function: debugger_start()");
 #endif
-	
+
+/* TODO	
 	if (anjuta_is_installed ("gdb", TRUE) == FALSE)
 		return;
+*/
 	if (debugger_is_active ())
 		return;
 
 	debugger_set_active (TRUE);
 	debugger_set_ready (FALSE);
 	debugger_clear_cmd_queqe ();
-	an_message_manager_clear(app->messages, MESSAGE_LOCALS);
+/* TODO	an_message_manager_clear(app->messages, MESSAGE_LOCALS); */
 	debugger.child_pid = -1;
 	debugger.term_is_running = FALSE;
 	debugger.term_pid = -1;
 
-	tmp = g_strconcat (app->dirs->data, "/", "gdb.init", NULL);
-	if (file_is_regular (tmp) == FALSE)
+/* TODO	tmp = g_strconcat (app->dirs->data, "/", "gdb.init", NULL);
+	if (g_file_test (tmp, G_FILE_TEST_IS_REGULAR) == FALSE)
 	{
 		anjuta_error (_("Unable to find: %s.\n"
 				   "Unable to initialize debugger.\n"
@@ -580,8 +597,11 @@ debugger_start (const gchar * prog)
 		return;
 	}
 	g_free (tmp);
+*/
+	tmp = "";  /* TODO remove this line */
 
-	exec_dir = project_dbase_get_module_dir (app->project_dbase, MODULE_SOURCE);
+/* TODO	exec_dir = project_dbase_get_module_dir (app->project_dbase, MODULE_SOURCE); */
+	exec_dir = NULL; /* TODO remove this line */
 	if (exec_dir)
 	{
 		dir = g_strconcat (" -directory=", exec_dir, NULL);
@@ -590,7 +610,8 @@ debugger_start (const gchar * prog)
 	else
 		dir = g_strdup (" ");
 	
-	list = src_paths_get_paths(app->src_paths);
+/* TODO	list = src_paths_get_paths(app->src_paths); */
+	list = NULL; /* TODO: remove this line */
 	node = list;
 	while (node)
 	{
@@ -599,6 +620,7 @@ debugger_start (const gchar * prog)
 			tmp = g_strconcat (dir, " -directory=", text, NULL);
 		else
 		{
+/* TODO
 			if (app->project_dbase->project_is_open)
 				tmp =
 					g_strconcat (dir, " -directory=",
@@ -606,6 +628,7 @@ debugger_start (const gchar * prog)
 						     top_proj_dir, "/", text,
 						     NULL);
 			else
+*/
 				tmp =
 					g_strconcat (dir, " -directory=",
 						     text, NULL);
@@ -614,8 +637,10 @@ debugger_start (const gchar * prog)
 		dir = tmp;
 		node = g_list_next (node);
 	}
+/* TODO
 	glist_strings_free (list);
-	
+*/
+/* TODO
 	if (prog)
 	{
 		tmp = extract_directory (prog);
@@ -634,52 +659,47 @@ debugger_start (const gchar * prog)
 					 dir, app->dirs->data);
 	}
 	g_free (dir);
+*/
 	debugger.starting = TRUE;
 
-	// Prepare for launch.	
-	g_signal_connect (G_OBJECT (app->launcher), "child-exited",
+	// Prepare for launch.
+	AnjutaLauncher *launcher = get_launcher ();
+	g_signal_connect (G_OBJECT (launcher), "child-exited",
 					  G_CALLBACK (on_gdb_terminated), NULL);
-	
-	ret = anjuta_launcher_execute (app->launcher, command_str,
+/* TODO
+	ret = anjuta_launcher_execute (launcher, command_str,
 								   on_gdb_output_arrived, NULL);
-	anjuta_launcher_set_encoding (app->launcher, "ISO-8859-1");
+*/
+	ret = anjuta_launcher_execute (launcher, prog, on_gdb_output_arrived, NULL);
+	anjuta_launcher_set_encoding (launcher, "ISO-8859-1");
 
-	an_message_manager_clear (app->messages, MESSAGE_DEBUG);
+	clear_messages ();
+
 	if (ret == TRUE)
 	{
-		anjuta_update_app_status (TRUE, _("Debugger"));
-		an_message_manager_append (app->messages,
-				 _("Getting ready to start debugging session ...\n"),
-				 MESSAGE_DEBUG);
-		an_message_manager_append (app->messages, _("Loading Executable: "),
-				 MESSAGE_DEBUG);
-
+/* TODO		anjuta_update_app_status (TRUE, _("Debugger")); */
+		append_message (_("Getting ready to start debugging session ..."));
 		if (prog)
 		{
-			an_message_manager_append (app->messages, prog, MESSAGE_DEBUG);
-			an_message_manager_append (app->messages, "\n", MESSAGE_DEBUG);
+			msg = g_strconcat (_("Loading Executable: "), prog, NULL);
+			append_message (msg);
+			g_free (msg);
 		}
 		else
 		{
-			an_message_manager_append (app->messages,
-									   _("No executable specified\n"),
-									   MESSAGE_DEBUG);
-			an_message_manager_append (app->messages,
-		 _("Open an executable or attach to a process to start debugging.\n"),
-									   MESSAGE_DEBUG);
+			append_message (_("No executable specified."));
+			append_message (_("Open an executable or attach to a process to start debugging."));
 		}
 	}
 	else
 	{
-		an_message_manager_append (app->messages,
-				 _("There was an error whilst launching the debugger.\n"),
-				 MESSAGE_DEBUG);
-		an_message_manager_append (app->messages,
-				 _("Make sure 'gdb' is installed on the system.\n"),
-				 MESSAGE_DEBUG);
+		append_message (_("There was an error whilst launching the debugger."));
+		append_message (_("Make sure 'gdb' is installed on the system.\n"));
 	}
-	an_message_manager_show (app->messages, MESSAGE_DEBUG);
+	show_messages ();
+/* TODO
 	g_free (command_str);
+*/
 }
 
 static void
@@ -753,10 +773,10 @@ on_gdb_output_arrived (AnjutaLauncher *launcher,
 }
 
 void
-debugger_stdo_flush ()
+debugger_stdo_flush (void)
 {
 	guint lineno;
-	gchar *filename, *line;
+	gchar *filename, *line, *msg;
 
 #ifdef ANJUTA_DEBUG_DEBUGGER
 	// g_message ("In function: debugger_stdo_flush()");
@@ -770,7 +790,7 @@ debugger_stdo_flush ()
 				       g_strdup (" "));
 		if (debugger.current_cmd.flags & DB_CMD_SO_MESG)
 		{
-			an_message_manager_append (app->messages, "\n", MESSAGE_DEBUG);
+			append_message ("");
 		}
 		return;
 	}
@@ -779,7 +799,7 @@ debugger_stdo_flush ()
 		parse_error_line (&(line[2]), &filename, &lineno);
 		if (filename)
 		{
-			anjuta_goto_file_line (filename, lineno);
+/* TODO			anjuta_goto_file_line (filename, lineno); */
 			g_free (filename);
 		}
 	}
@@ -832,13 +852,9 @@ debugger_stdo_flush ()
 		{
 			if (debugger.current_cmd.flags & DB_CMD_SE_MESG)
 			{
-				an_message_manager_append (app->messages, _("Error: "),
-						 MESSAGE_DEBUG);
-				an_message_manager_append (app->messages,
-						 (gchar *) list->data,
-						 MESSAGE_DEBUG);
-				an_message_manager_append (app->messages, "\n",
-						 MESSAGE_DEBUG);
+				msg = g_strconcat (_("Error: "), (gchar *) list->data, NULL);
+				append_message (msg);
+				g_free (msg);
 			}
 			if (list->data)
 				g_free (list->data);
@@ -853,8 +869,7 @@ debugger_stdo_flush ()
 			breakpoints_dbase_set_all (debugger.breakpoints_dbase);
 			debugger_put_cmd_in_queqe ("info signals", DB_CMD_NONE,
 						   				signals_update, debugger.signals);
-			an_message_manager_append (app->messages, _("Debugger is ready.\n"),
-					 MESSAGE_DEBUG);
+			append_message (_("Debugger is ready.\n"));
 		}
 
 		/* Clear the line buffer */
@@ -885,17 +900,16 @@ debugger_stdo_flush ()
 				    (line, "Reading ",
 				     strlen ("Reading ")) != 0)
 				{
+/* TODO
 					debugger.gdb_stdo_outputs =
 						g_list_append (debugger.gdb_stdo_outputs,
 							       anjuta_util_convert_to_utf8 (line));
+*/
 				}
 				if (debugger.current_cmd.
 				    flags & DB_CMD_SO_MESG)
 				{
-					an_message_manager_append (app->messages, line,
-							 MESSAGE_DEBUG);
-					an_message_manager_append (app->messages, "\n",
-							 MESSAGE_DEBUG);
+					append_message (line);
 				}
 			}
 		}
@@ -905,16 +919,15 @@ debugger_stdo_flush ()
 			if (strncmp (line, "Reading ", strlen ("Reading ")) !=
 			    0)
 			{
+/* TODO
 				debugger.gdb_stdo_outputs =
 					g_list_append (debugger.gdb_stdo_outputs,
 						       anjuta_util_convert_to_utf8 (line));
+*/
 			}
 			if (debugger.current_cmd.flags & DB_CMD_SO_MESG)
 			{
-				an_message_manager_append (app->messages, line,
-						 MESSAGE_DEBUG);
-				an_message_manager_append (app->messages, "\n",
-						 MESSAGE_DEBUG);
+				append_message (line);
 			}
 		}
 	}
@@ -956,13 +969,15 @@ on_gdb_terminated (AnjutaLauncher *launcher,
 	
 	/* Clear the command queue & Buffer */
 	debugger_clear_buffers ();
-	debugger_stop_terminal ();
+/* TODO	debugger_stop_terminal (); */
 
 	/* Good Bye message */
+/* TODO
 	an_message_manager_append (app->messages,
 			 _
 			 ("\nWell, did you find the BUG? Debugging session completed.\n\n"),
 			 MESSAGE_DEBUG);
+*/
 	/* Ready to start again */
 	cpu_registers_clear (debugger.cpu_registers);
 	stack_trace_clear (debugger.stack);
@@ -974,7 +989,7 @@ on_gdb_terminated (AnjutaLauncher *launcher,
 	debugger.child_pid = -1;
 	debugger.term_is_running = FALSE;
 	debugger.term_pid = -1;
-	anjuta_update_app_status (TRUE, NULL);
+/* TODO	anjuta_update_app_status (TRUE, NULL); */
 }
 
 static void
@@ -997,7 +1012,7 @@ debugger_command (const gchar * com)
 #endif
 	debugger_set_ready (FALSE);
 	cmd = g_strconcat (com, "\n", NULL);
-	anjuta_launcher_send_stdin (app->launcher, cmd);
+	anjuta_launcher_send_stdin (get_launcher (), cmd);
 	g_free (cmd);
 }
 
@@ -1013,7 +1028,7 @@ debugger_update_controls ()
 	expr_watch_update_controls (debugger.watch);
 	stack_trace_update_controls (debugger.stack);
 	signals_update_controls (debugger.signals);
-	debug_toolbar_update ();
+/* TODO	debug_toolbar_update (); */
 }
 
 void
@@ -1026,8 +1041,9 @@ debugger_dialog_message (GList * lines, gpointer data)
 	
 	if (g_list_length (lines) < 1)
 		return;
-	
+/* TODO
 	anjuta_info_show_list (lines, 0, 0);
+*/
 }
 
 void
@@ -1053,7 +1069,9 @@ debugger_dialog_error (GList * lines, gpointer data)
 		g_free (tmp);
 	}
 	if (strstr (ptr, ": No such file or directory.") == NULL)
-		anjuta_error (ptr);
+	{
+/* TODO		anjuta_error (ptr); */
+	}
 	g_free (ptr);
 }
 
@@ -1082,6 +1100,7 @@ on_debugger_terminal_terminated (int status, gpointer data)
 gchar *
 debugger_start_terminal ()
 {
+/* TODO
 	gchar *file, *cmd, *encoded_cmd;
 	gchar  dev_name[100];
 	gint   count, idx;
@@ -1126,20 +1145,20 @@ debugger_start_terminal ()
 	g_free (cmd);
 	
 	/* cmd = prop_get_expanded (app->preferences->props, "command.terminal"); */
-	cmd = command_editor_get_command (app->command_editor, COMMAND_TERMINAL);
+/* TODO	cmd = command_editor_get_command (app->command_editor, COMMAND_TERMINAL);
 	if (!cmd) goto error;
 	
 	args = anjuta_util_parse_args_from_string (cmd);
     
     /* Fix gnome-terminal1 and gnome-terminal2 confusion */
-    if (g_list_length(args) > 0 && strcmp ((gchar*)args->data, "gnome-terminal") == 0)
+/* TODO    if (g_list_length(args) > 0 && strcmp ((gchar*)args->data, "gnome-terminal") == 0)
     {
         GList* node;
         node = g_list_next(args);
         /* Terminal command is gnome-terminal */
-        if (debugger.gnome_terminal_type == 1) {
+/* TODO        if (debugger.gnome_terminal_type == 1) {
             /* Remove any --disable-factory option, if present */
-            while (node) {
+/* TODO            while (node) {
                 if (strcmp ((gchar*)args->data, "--disable-factory") == 0) {
                     g_free (node->data);
                     args = g_list_remove (args, node);
@@ -1149,7 +1168,7 @@ debugger_start_terminal ()
             }
         } else if (debugger.gnome_terminal_type == 2) {
             /* Add --disable-factory option, if not present */
-            gboolean found = 0;
+/* TODO            gboolean found = 0;
             while (node) {
                 if (strcmp ((gchar*)args->data, "--disable-factory") == 0) {
                     found = 1;
@@ -1170,7 +1189,7 @@ debugger_start_terminal ()
 	g_free (cmd);
 	
 	/* Rearrange the args to be passed to fork */
-	node = args;
+/* TODO	node = args;
 	idx = 0;
 	while (node) {
 		argv[idx++] = (gchar*)node->data;
@@ -1196,7 +1215,7 @@ debugger_start_terminal ()
 	/* With this command SIGCHILD is not emitted */
 	/* pid = gnome_execute_async (app->dirs->home, 6, av); */
 	/* so using fork instead */
-	if ((pid = fork ()) == 0)
+/* TODO	if ((pid = fork ()) == 0)
 	{
 		execvp (argv[0], argv);
 		g_error (_("Cannot execute gnome-terminal"));
@@ -1214,15 +1233,15 @@ debugger_start_terminal ()
 	 * May be the terminal is not started properly.
 	 * Callback will reset this flag
 	 */
-	if (debugger.term_is_running == FALSE)
+/* TODO	if (debugger.term_is_running == FALSE)
 		goto error;
 
 	/*
 	 * Warning: call to fopen() may be blocked if the terminal is not properly started.
 	 * I don't know how to handle this. May be opening as non-blocking will solve this .
 	 */
-	fp = fopen (file, "r");		/* Ok, take the risk. */
-
+/* TODO	fp = fopen (file, "r");		/* Ok, take the risk. */
+/* TODO
 	if (!fp)
 		goto error;
 	if (fscanf (fp, "%s", dev_name) < 1)
@@ -1238,13 +1257,14 @@ debugger_start_terminal ()
 	debugger_stop_terminal ();
 	remove (file);
 	g_free (file);
+*/
 	return NULL;
 }
 
 static void
 debugger_stop_terminal ()
 {
-
+/* TODO
 #ifdef ANJUTA_DEBUG_DEBUGGER
 	g_message ("In function: debugger_stop_terminal()");
 #endif
@@ -1271,6 +1291,7 @@ debugger_stop_terminal ()
 	}
 	debugger.term_pid = -1;
 	debugger.term_is_running = FALSE;
+*/
 }
 
 void
@@ -1290,17 +1311,18 @@ debugger_start_program (void)
 	if (debugger.prog_is_running == TRUE)
 		return;
 
+/* TODO
 	args = prop_get (app->executer->props, EXECUTER_PROGRAM_ARGS_KEY);
+*/
+	args = NULL; /* TODO: remove this line */
 	if (args == NULL)
 		args = g_strdup (" ");
 
 	term = debugger_start_terminal ();
 	if (!term)
 	{
-		an_message_manager_append (app->messages,
-								   _("Warning: No debug terminal."
-								   " Redirecting stdio to /dev/null.\n"),
-								   MESSAGE_DEBUG);
+		append_message (_("Warning: No debug terminal."
+				" Redirecting stdio to /dev/null.\n"));
 		cmd = g_strconcat ("run >/dev/null 2>/dev/null ", args, NULL);
 		debugger_put_cmd_in_queqe (cmd, DB_CMD_ALL, NULL, NULL);
 	}
@@ -1317,8 +1339,7 @@ debugger_start_program (void)
 	g_free (cmd);
 	debugger_put_cmd_in_queqe ("info program", DB_CMD_NONE,
 				   on_debugger_update_prog_status, NULL);
-	an_message_manager_append (app->messages, _("Running program ... \n"),
-			 MESSAGE_DEBUG);
+	append_message (_("Running program ..."));
 	debugger.post_execution_flag = DEBUGGER_NONE;
 }
 
@@ -1415,8 +1436,8 @@ on_debugger_update_prog_status (GList * lines, gpointer data)
 		debugger.prog_is_attached = FALSE;
 		debugger.child_pid = -1;
 		debugger_stop_terminal ();
-		update_main_menubar ();
-		debug_toolbar_update ();
+/* TODO		update_main_menubar (); */
+/* TODO		debug_toolbar_update (); */
 		debugger_handle_post_execution();
 	}
 	else
@@ -1428,8 +1449,8 @@ on_debugger_update_prog_status (GList * lines, gpointer data)
 		debugger.child_pid = pid;
 		stack_trace_set_frame (debugger.stack, 0);
 		debugger.child_pid = pid;
-		update_main_menubar ();
-		debug_toolbar_update ();
+/* TODO		update_main_menubar (); */
+/* TODO		debug_toolbar_update (); */
 		debugger_info_prg();
 	}
 }
@@ -1447,8 +1468,8 @@ debugger_attach_process_real (pid_t pid)
 		return;
 	if (debugger_is_ready () == FALSE)
 		return;
-	buf = g_strdup_printf (_("Attaching to process: %d\n"), pid);
-	an_message_manager_append (app->messages, buf, MESSAGE_DEBUG);
+	buf = g_strdup_printf (_("Attaching to process: %d"), pid);
+	append_message (buf);
 	g_free (buf);
 	buf = g_strdup_printf ("attach %d", pid);
 	debugger.prog_is_attached = TRUE;
@@ -1472,9 +1493,10 @@ debugger_attach_process (gint pid)
 		return;
 	if (debugger_is_ready () == FALSE)
 		return;
+/* TODO
 	if (debugger.prog_is_running == TRUE)
 	{
-		// Dialog to be made HIG compliant.
+		// TODO: Dialog to be made HIG compliant.
 		gchar *mesg;
 		GtkWidget *dialog;
 		mesg = _("A process is already running.\n"
@@ -1495,6 +1517,7 @@ debugger_attach_process (gint pid)
 	}
 	else
 		debugger_attach_process_real (pid);
+*/
 }
 
 void
@@ -1554,8 +1577,7 @@ debugger_stop_program ()
 					   NULL);
 		debugger_execute_cmd_in_queqe ();
 	}
-	an_message_manager_append (app->messages, "Program forcefully terminated\n",
-			 MESSAGE_DEBUG);
+	append_message (_("Program forcefully terminated."));
 	debugger_stop_terminal ();
 	stack_trace_set_frame (debugger.stack, 0);
 }
@@ -1576,9 +1598,9 @@ debugger_detach_process ()
 	if (debugger_is_ready () == FALSE)
 		return;
 	buff =
-		g_strdup_printf (_("Detaching the process: %d\n"),
+		g_strdup_printf (_("Detaching the process: %d"),
 				 (int) debugger.child_pid);
-	an_message_manager_append (app->messages, buff, MESSAGE_DEBUG);
+	append_message (buff);
 	g_free (buff);
 	debugger_put_cmd_in_queqe ("detach", DB_CMD_ALL, NULL, NULL);
 	debugger_put_cmd_in_queqe ("info program", DB_CMD_NONE,
@@ -1637,11 +1659,13 @@ debugger_stop ()
 		else
 			mesg = _("Program is RUNNING.\n"
 				   "Do you still want to stop Debugger?");
-		
+
+/* TODO		
 		dialog = gtk_message_dialog_new (GTK_WINDOW (app),
 										 GTK_DIALOG_DESTROY_WITH_PARENT,
 										 GTK_MESSAGE_QUESTION,
 										 GTK_BUTTONS_NONE, mesg);
+*/
 		gtk_dialog_add_buttons (GTK_DIALOG (dialog),
 								GTK_STOCK_CANCEL,	GTK_RESPONSE_NO,
 								GTK_STOCK_STOP,		GTK_RESPONSE_YES,
@@ -1822,8 +1846,8 @@ debugger_enable_all_breakpoints ()
 				   breakpoints_dbase_update,
 				   debugger.breakpoints_dbase);
 	*/
-	an_message_manager_append (app->messages, _("All breakpoints enabled:\n"),
-			 MESSAGE_DEBUG); debugger_execute_cmd_in_queqe ();
+	append_message (_("All breakpoints enabled:"));
+	debugger_execute_cmd_in_queqe ();
 }
 
 void
@@ -1868,8 +1892,8 @@ debugger_disable_all_breakpoints ()
 				   breakpoints_dbase_update,
 				   debugger.breakpoints_dbase);
 	*/
-	an_message_manager_append (app->messages, _("All breakpoints disabled:\n"),
-			 MESSAGE_DEBUG); debugger_execute_cmd_in_queqe ();
+	append_message (_("All breakpoints disabled:"));
+	debugger_execute_cmd_in_queqe ();
 }
 
 void
@@ -1914,8 +1938,8 @@ debugger_delete_all_breakpoints ()
 				   breakpoints_dbase_update,
 				   debugger.breakpoints_dbase);
 	*/
-	an_message_manager_append (app->messages, _("All breakpoints deleted:\n"),
-			 MESSAGE_DEBUG); debugger_execute_cmd_in_queqe ();
+	append_message (_("All breakpoints deleted:"));
+	debugger_execute_cmd_in_queqe ();
 }
 
 void
@@ -1925,8 +1949,10 @@ debugger_custom_command ()
 #ifdef ANJUTA_DEBUG_DEBUGGER
 	g_message ("In function: debugger_custom_command()");
 #endif
-	
+
+/* TODO
 	anjuta_not_implemented (__FILE__, __LINE__);
+*/
 }
 
 void
@@ -1946,10 +1972,9 @@ debugger_interrupt ()
 		return;
 	if (debugger.child_pid < 1)
 		return;
-	buff =
-		g_strdup_printf (_("Interrupting the process: %d\n"),
-				 (int) debugger.child_pid);
-	an_message_manager_append (app->messages, buff, MESSAGE_DEBUG);
+	buff = g_strdup_printf (_("Interrupting the process: %d"),
+			(int) debugger.child_pid);
+	append_message (buff);
 	g_free (buff);
 	stack_trace_set_frame (debugger.stack, 0);
 	debugger_signal ("SIGINT", FALSE);
@@ -1979,9 +2004,9 @@ debugger_signal (const gchar *sig, gboolean show_msg)	/* eg:- "SIGTERM" */
 
 	if (show_msg)
 	{
-		buff = g_strdup_printf (_("Sending signal %s to the process: %d\n"),
-					 sig, (int) debugger.child_pid);
-		an_message_manager_append (app->messages, buff, MESSAGE_DEBUG);
+		buff = g_strdup_printf (_("Sending signal %s to the process: %d"),
+				sig, (int) debugger.child_pid);
+		append_message (buff);
 		g_free (buff);
 	}
 
@@ -1998,12 +2023,14 @@ debugger_signal (const gchar *sig, gboolean show_msg)	/* eg:- "SIGTERM" */
 	}
 	else
 	{
-		int status = anjuta_util_kill (debugger.child_pid, sig);
+/* TODO		int status = anjuta_util_kill (debugger.child_pid, sig);
 		if (status != 0 && show_msg)
 			anjuta_error (_("Error whilst signalling the process."));
+*/
 	}
 }
 
+/* TODO
 void debugger_reload_session_breakpoints( ProjectDBase *p )
 {
 	g_return_if_fail( NULL != p );
@@ -2016,6 +2043,7 @@ debugger_save_session_breakpoints( ProjectDBase *p )
 	g_return_if_fail( NULL != p );
 	breakpoints_dbase_save ( debugger.breakpoints_dbase, p );
 }
+*/
 
 static void
 locals_update_controls(void)
@@ -2044,7 +2072,7 @@ debugger_info_prg(void)
 
 static void debugger_info_locals_cb(GList* list, gpointer data)
 {
-	an_message_manager_info_locals(app->messages, list, data);
+/* TODO	an_message_manager_info_locals(app->messages, list, data); */
 }
 
 static void debugger_handle_post_execution()

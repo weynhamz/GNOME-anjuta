@@ -19,6 +19,7 @@
 #ifndef _DEBUGGER_H_
 #define _DEBUGGER_H_
 
+/* TODO: remove global.h */
 #include "global.h"
 #include "breakpoints.h"
 #include "registers.h"
@@ -26,8 +27,7 @@
 #include "stack_trace.h"
 #include "signals.h"
 #include "sharedlib.h"
-#include "attach_process.h"
-#include "project_dbase.h"
+/* TODO #include "project_dbase.h" */
 
 #ifdef __cplusplus
 extern "C" {
@@ -69,7 +69,6 @@ struct _Debugger
 	StackTrace *stack;
 	Signals *signals;
 	Sharedlibs *sharedlibs;
-	AttachProcess *attach_process;
 
 	gchar stdo_line[FILE_BUFFER_SIZE];
 	gint stdo_cur_char_pos;
@@ -92,7 +91,7 @@ extern Debugger debugger;
 void debugger_init (void);
 void debugger_shutdown (void);
 gboolean debugger_save_yourself (FILE * stream);
-gboolean debugger_load_yourself (PropsID props);
+/* TODO gboolean debugger_load_yourself (PropsID props); */
 void debugger_start (const gchar * prog);
 gboolean debugger_is_active (void);
 gboolean debugger_is_ready (void);
@@ -171,8 +170,8 @@ void debugger_query_info_args (
 
 
 void on_debugger_update_prog_status (GList * lines, gpointer data);
-void debugger_reload_session_breakpoints( ProjectDBase *p);
-void debugger_save_session_breakpoints( ProjectDBase *p );
+/* TODO void debugger_reload_session_breakpoints( ProjectDBase *p); */
+/* TODO void debugger_save_session_breakpoints( ProjectDBase *p ); */
 gboolean debugger_is_engaged(void);
 const gchar* debugger_get_last_frame(void);
 

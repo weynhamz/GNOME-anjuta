@@ -523,3 +523,8 @@ interface IAnjutaWizard
  * 	}
  * }
  */
+
+interface IAnjutaDebuggerBE
+{
+	void start(const gchar *prog);
+}

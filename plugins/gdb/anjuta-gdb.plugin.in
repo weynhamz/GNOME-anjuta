@@ -1,0 +1,6 @@
+[Anjuta Plugin]
+_Name=Gdb
+_Description=Gdb plugin.
+Location=anjuta-gdb:GdbPlugin
+Icon=anjuta-gdb.plugin.png
+Interfaces=IAnjutaDebuggerBE

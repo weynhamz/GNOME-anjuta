@@ -31,11 +31,14 @@
 
 #include <libanjuta/resources.h>
 
-#include "properties.h"
+//#include "properties.h"
 #include "attach_process.h"
-#include "global.h"
-#include "anjuta.h"
-#include "debugger.h"
+//#include "global.h"
+//#include "anjuta.h"
+//#include "debugger.h"
+#include "utilities.h"
+#include "plugin.h"
+#include <glade/glade-xml.h>
 
 enum
 {
@@ -386,9 +389,10 @@ attach_process_update (AttachProcess * ap)
 	store = GTK_TREE_STORE (gtk_tree_view_get_model
 							(GTK_TREE_VIEW (ap->treeview)));
 	g_return_if_fail (store);
-
+/* TODO
 	if (anjuta_is_installed ("ps", TRUE) == FALSE)
 		return;
+*/
 
 	tmp = get_a_tmp_file ();
 	cmd = g_strconcat ("ps axw -H -o pid,user,start_time,args > ", tmp, NULL);
@@ -400,7 +404,9 @@ attach_process_update (AttachProcess * ap)
 	}
 	if (ch_pid < 0)
 	{
+/* TODO
 		anjuta_system_error (errno, _("Unable to execute: %s."), cmd);
+*/
 		g_free (tmp);
 		g_free (cmd);
 		return;
@@ -413,7 +419,9 @@ attach_process_update (AttachProcess * ap)
 	g_free (tmp);
 	if (! result)
 	{
+/* TODO
 		anjuta_system_error (errno, _("Unable to open the file: %s\n"), tmp);
+*/
 		return;
 	}
 
@@ -461,7 +469,9 @@ on_response (GtkWidget* dialog, gint res, gpointer data)
 			attach_process_update (ap);
 			break;
 		case GTK_RESPONSE_OK:
+/* TODO
 			if (ap->pid > 0) debugger_attach_process (ap->pid);
+*/
 		case GTK_RESPONSE_CLOSE:
 			attach_process_clear (ap, CLEAR_FINAL);
 	}
@@ -531,7 +541,7 @@ attach_process_show (AttachProcess * ap)
 	g_return_if_fail (ap);
 
 	if (ap->dialog) return;
-	gxml = glade_xml_new (GLADE_FILE_ANJUTA, "attach_process_dialog", NULL);
+	gxml = glade_xml_new (PREFS_GLADE, "attach_process_dialog", NULL);
 	ap->dialog = glade_xml_get_widget (gxml, "attach_process_dialog");
 	ap->treeview = glade_xml_get_widget (gxml, "attach_process_tv");
 	checkb_hide_paths = GTK_CHECK_BUTTON (
@@ -593,9 +603,10 @@ attach_process_show (AttachProcess * ap)
 						G_CALLBACK (on_toggle_hide_params), ap);
 	g_signal_connect (GTK_OBJECT (checkb_process_tree), "toggled",
 						G_CALLBACK (on_toggle_process_tree), ap);
-
+/* TODO
 	gtk_window_set_transient_for (GTK_WINDOW (ap->dialog),
 								  GTK_WINDOW (app));
+*/
 	gtk_widget_show (ap->dialog);
 }
 

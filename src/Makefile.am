@@ -45,5 +45,5 @@ anjuta_LDADD =  \
 
 anjuta_shell_SOURCES = shell.c
 anjuta_shell_LDADD =  \
-	$(ANJUTA_LIBS) -lutil \
+	-lutil \
 	$(top_builddir)/libanjuta/libanjuta.la

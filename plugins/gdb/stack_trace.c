@@ -31,7 +31,7 @@
 
 #include "debugger.h"
 #include "utilities.h"
-#include "anjuta.h"
+/* TODO #include "anjuta.h" */
 
 typedef struct _StackTraceGui StackTraceGui;
 struct _StackTraceGui
@@ -329,7 +329,7 @@ on_stack_view_src_activate (GtkMenuItem * menuitem, gpointer user_data)
 		return;
 	}
 	
-	anjuta_goto_file_line (file, lineno);
+/* TODO	anjuta_goto_file_line (file, lineno); */
 }
 
 static void

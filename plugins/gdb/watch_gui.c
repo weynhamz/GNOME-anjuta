@@ -24,7 +24,7 @@
 #include <gnome.h>
 #include <libgnomeui/gnome-window-icon.h>
 
-#include "anjuta.h"
+/* TODO #include "anjuta.h" */
 #include "watch_gui.h"
 #include "watch_cbs.h"
 #include "utilities.h"
@@ -185,7 +185,7 @@ create_watch_add_dialog (ExprWatch *ew)
 	
 	entry7 = gtk_entry_new ();
 	g_object_set_data (G_OBJECT (entry7), "user_data", ew);
-	entry_set_text_n_select (entry7, expr_watch_entry_history, TRUE);
+/* TODO	entry_set_text_n_select (entry7, expr_watch_entry_history, TRUE); */
 	gtk_widget_show (entry7);
 	gtk_box_pack_start (GTK_BOX (dialog_vbox3), entry7, FALSE, FALSE, 0);
 	
@@ -251,7 +251,7 @@ create_watch_change_dialog (ExprWatch *ew)
 	
 	entry7 = gtk_entry_new ();
 	g_object_set_data (G_OBJECT (entry7), "user_data", ew);
-	entry_set_text_n_select (entry7, expr_watch_entry_history, TRUE);
+/* TODO	entry_set_text_n_select (entry7, expr_watch_entry_history, TRUE); */
 	gtk_widget_show (entry7);
 	gtk_box_pack_start (GTK_BOX (dialog_vbox3), entry7, FALSE, FALSE, 0);
 	
@@ -318,7 +318,7 @@ create_eval_dialog (GtkWindow* parent, ExprWatch *ew)
 	
 	entry8 = gtk_entry_new ();
 	g_object_set_data (G_OBJECT (entry8), "user_data", ew);  
-	entry_set_text_n_select (entry8, eval_entry_history, TRUE);
+/* TODO	entry_set_text_n_select (entry8, eval_entry_history, TRUE); */
 	gtk_widget_show (entry8);
 	gtk_box_pack_start (GTK_BOX (dialog_vbox4), entry8, FALSE, FALSE, 0);
 	

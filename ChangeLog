@@ -1,3 +1,63 @@
+2004-10-10  Naba Kumar  <naba@gnome.org>
+
+	Patch from Bosik, Pavol  <pavol.bosik@radiantsystems.com>:
+	
+	* libanjuta/interfaces/libanjuta.idl: Added debugger interface.
+	
+	* plugins/debugger/.cvsignore,
+	(added) plugins/debugger/Makefile.am,
+	(added) plugins/debugger/anjuta-debugger.glade,
+	(added) plugins/debugger/anjuta-debugger.plugin.in,
+	(added) plugins/debugger/anjuta-debugger.plugin.png,
+	(added) plugins/debugger/anjuta-debugger.ui,
+	plugins/debugger/attach_process.c,
+	(removed) plugins/debugger/attach_process_cbs.c,
+	(removed) plugins/debugger/attach_process_cbs.h,
+	(removed) plugins/debugger/breakpoints.c,
+	(removed) plugins/debugger/breakpoints.h,
+	(removed) plugins/debugger/debug_tree.c,
+	(removed) plugins/debugger/debug_tree.h,
+	(removed) plugins/debugger/debugger.c,
+	(removed) plugins/debugger/debugger.h,
+	(removed) plugins/debugger/memory.c,
+	(removed) plugins/debugger/memory.h,
+	(added) plugins/debugger/plugin.c,
+	(added) plugins/debugger/plugin.h,
+	(removed) plugins/debugger/registers.c,
+	(removed) plugins/debugger/registers.h,
+	(removed) plugins/debugger/registers_cbs.c,
+	(removed) plugins/debugger/registers_cbs.h,
+	(removed) plugins/debugger/registers_gui.c,
+	(removed) plugins/debugger/sharedlib.c,
+	(removed) plugins/debugger/sharedlib.h,
+	(removed) plugins/debugger/sharedlib_cbs.c,
+	(removed) plugins/debugger/sharedlib_cbs.h,
+	(removed) plugins/debugger/sharedlib_gui.c,
+	(removed) plugins/debugger/signals.c,
+	(removed) plugins/debugger/signals.h,
+	(removed) plugins/debugger/signals_cbs.c,
+	(removed) plugins/debugger/signals_cbs.h,
+	(removed) plugins/debugger/signals_gui.c,
+	(removed) plugins/debugger/stack_trace.c,
+	(removed) plugins/debugger/stack_trace.h,
+	(added) plugins/debugger/utilities.c,
+	(added) plugins/debugger/utilities.h,
+	(removed) plugins/debugger/watch.c,
+	(removed) plugins/debugger/watch.h,
+	(removed) plugins/debugger/watch_cbs.c,
+	(removed) plugins/debugger/watch_cbs.h,
+	(removed) plugins/debugger/watch_gui.c,
+	(removed) plugins/debugger/watch_gui.h: Moved files to gdb backend plugin.
+	
+	* configure.in, plugins/Makefile.am, (added) plugins/gdb/*:
+	Added debugger gdb backend plugin.
+	
+	* plugins/message-view/plugin.c: Registered all message stock icons.
+	
+	* plugins/profile-default/plugin.c: Loads debugger plugin.
+	
+	* src/Makefile.am, libegg/Makefile.am: Fixed build errors.
+
 2004-10-08  Naba Kumar  <naba@gnome.org>
 
 	* libanjuta/libanjuta-1.0.pc.in: changed .pc file to have version

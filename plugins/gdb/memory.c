@@ -29,7 +29,7 @@
 #include <gnome.h>
 #include <glade/glade.h>
 
-#include "anjuta.h"
+/* TODO #include "anjuta.h" */
 #include "debugger.h"
 #include "memory.h"
 
@@ -103,9 +103,11 @@ memory_info_new (guchar *ptr)
 	memapp = g_new0 (MemApp, 1);
 	memapp->adr = ptr;
 	
-	if (NULL == (memapp->xml = glade_xml_new (GLADE_FILE_ANJUTA, MEMORY_DIALOG, NULL)))
+/* TODO 	if (NULL == (memapp->xml = glade_xml_new (GLADE_FILE_ANJUTA, MEMORY_DIALOG, NULL))) */
 	{
+/* TODO
 		anjuta_error (_("Unable to build user interface for Memory\n"));
+*/
 		g_free (memapp);
 		memapp = NULL;
 		return NULL;

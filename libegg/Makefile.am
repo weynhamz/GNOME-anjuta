@@ -73,7 +73,7 @@ test_union_LDADD = libanjuta-egg.la
 test_union_DEPENDENCIES = libanjuta-egg.la
 
 test_actions_SOURCES = test-actions.c
-test_actions_LDADD = libanjuta-egg.la $(ANJUTA_LIBS)
+test_actions_LDADD = libanjuta-egg.la
 test_actions_DEPENDENCIES = libanjuta-egg.la
 
 EXTRA_DIST = \

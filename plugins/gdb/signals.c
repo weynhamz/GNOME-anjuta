@@ -162,6 +162,7 @@ signals_save_yourself (Signals * ew, FILE * stream)
 	return TRUE;
 }
 
+/* TODO
 gboolean
 signals_load_yourself (Signals * ew, PropsID props)
 {
@@ -173,6 +174,7 @@ signals_load_yourself (Signals * ew, PropsID props)
 	ew->win_height = prop_get_int (props, "signals.win.height", 320);
 	return TRUE;
 }
+*/
 
 void
 signals_destroy (Signals * sg)

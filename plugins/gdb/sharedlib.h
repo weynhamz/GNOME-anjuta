@@ -1,5 +1,5 @@
 /*
-    signals.h
+    sharedlibs.h
     Copyright (C) 2000  Kh. Naba Kumar Singh
 
     This program is free software; you can redistribute it and/or modify
@@ -17,68 +17,63 @@
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
-#ifndef _SIGNALS_H_
-#define _SIGNALS_H_
+#ifndef _SHAREDLIBS_H_
+#define _SHAREDLIBS_H_
 
 #include <gnome.h>
-#include "properties.h"
+/* TODO #include "properties.h" */
 
-typedef struct _SignalsGui SignalsGui;
-typedef struct _Signals Signals;
+typedef struct _SharedlibsGui SharedlibsGui;
+typedef struct _Sharedlibs Sharedlibs;
 
-struct _SignalsGui
+struct _SharedlibsGui
 {
     GtkWidget*   window;
     GtkWidget*   clist;
     GtkWidget*   menu;
-    GtkWidget*   menu_modify;
-    GtkWidget*   menu_signal;
     GtkWidget*   menu_update;
 };
 
-struct _Signals
+struct _Sharedlibs
 {
-  SignalsGui  widgets;
+  SharedlibsGui  widgets;
   gboolean         is_showing;
   gint             win_pos_x, win_pos_y, win_width, win_height;
-  gint		idx;
-  gchar		*signal;
-  gboolean	stop;
-  gboolean	print;
-  gboolean	pass;
 };
 
-Signals*
-signals_new(void);
+Sharedlibs*
+sharedlibs_new(void);
 
 void
-create_signals_gui(Signals* ew);
+create_sharedlibs_gui(Sharedlibs* ew);
 
 GtkWidget*
-create_signals_set_dialog(Signals *s);
+create_sharedlibs_modify_dialog(void);
 
 void
-signals_clear(Signals *ew);
+sharedlibs_clear(Sharedlibs *ew);
 
 void
-signals_update(GList *lines, gpointer  ew);
+sharedlibs_update(GList *lines, gpointer  ew);
 
 void
-signals_destroy(Signals*ew);
+sharedlibs_destroy(Sharedlibs*ew);
 
 gboolean
-signals_save_yourself(Signals* ew, FILE* stream);
+sharedlibs_save_yourself(Sharedlibs* ew, FILE* stream);
 
+/* TODO
 gboolean
-signals_load_yourself(Signals* ew, PropsID props);
+sharedlibs_load_yourself(Sharedlibs* ew, PropsID props);
+*/
 
 void
-signals_show(Signals * ew);
+sharedlibs_show(Sharedlibs * ew);
 
 void
-signals_hide(Signals * ew);
+sharedlibs_hide(Sharedlibs * ew);
 
 void
-signals_update_controls(Signals* ew);
+sharedlibs_update_controls(Sharedlibs* ew);
 
 #endif

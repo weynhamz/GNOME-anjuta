@@ -83,6 +83,7 @@ iprofile_load (IAnjutaProfile *profile, ESplash *splash, GError **err)
 		"anjuta-symbol-browser:SymbolBrowserPlugin",
 		"IAnjutaTerminal",
 		"IAnjutaBuildable",
+		"anjuta-debugger:DebuggerPlugin",
 		"IAnjutaTodo",
 		NULL
 	};

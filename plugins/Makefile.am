@@ -6,6 +6,8 @@ SUBDIRS = . \
 	gtodo \
 	message-view \
 	editor \
+	debugger \
+	gdb \
 	devhelp \
 	file-manager \
 	terminal \

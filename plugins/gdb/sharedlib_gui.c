@@ -29,7 +29,7 @@
 
 #include <libanjuta/resources.h>
 
-#include "anjuta.h"
+/* TODO #include "anjuta.h" */
 #include "sharedlib.h"
 #include "sharedlib_cbs.h"
 
@@ -75,7 +75,7 @@ create_sharedlibs_gui(Sharedlibs *sl)
   GtkWidget *label6, *label7, *label8, *label9;
 
   window3 = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-  gtk_window_set_transient_for(GTK_WINDOW(window3), GTK_WINDOW(app));
+/* TODO  gtk_window_set_transient_for(GTK_WINDOW(window3), GTK_WINDOW(app)); */
   gtk_widget_set_usize (window3, 170, -2);
   gtk_window_set_title (GTK_WINDOW (window3), _("Shared libraries"));
   gtk_window_set_wmclass (GTK_WINDOW (window3), "sharedlibs", "Anjuta");
@@ -121,7 +121,7 @@ create_sharedlibs_gui(Sharedlibs *sl)
                       GTK_SIGNAL_FUNC (on_sharedlibs_event),
                       sl);
 
-  gtk_window_add_accel_group (GTK_WINDOW (window3), app->accel_group);
+/* TODO  gtk_window_add_accel_group (GTK_WINDOW (window3), app->accel_group); */
 
   sl->widgets.window = window3;
   sl->widgets.clist = clist4;

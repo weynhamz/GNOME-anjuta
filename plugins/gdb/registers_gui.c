@@ -29,7 +29,7 @@
 
 #include <libanjuta/resources.h>
 
-#include "anjuta.h"
+/* TODO #include "anjuta.h" */
 #include "registers.h"
 #include "registers_cbs.h"
 
@@ -84,7 +84,7 @@ create_cpu_registers_gui(CpuRegisters *cr)
   GtkWidget *label8;
 
   window3 = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-  gtk_window_set_transient_for(GTK_WINDOW(window3), GTK_WINDOW(app));
+/* TODO  gtk_window_set_transient_for(GTK_WINDOW(window3), GTK_WINDOW(app)); */
   gtk_widget_set_usize (window3, 170, -2);
   gtk_window_set_title (GTK_WINDOW (window3), _("CPU Registers"));
   gtk_window_set_wmclass (GTK_WINDOW (window3), "cpu_registers", "Anjuta");
@@ -117,7 +117,7 @@ create_cpu_registers_gui(CpuRegisters *cr)
   gtk_widget_show (label8);
   gtk_clist_set_column_widget (GTK_CLIST (clist4), 2, label8);
 
-  gtk_window_add_accel_group (GTK_WINDOW (window3), app->accel_group);
+/* TODO  gtk_window_add_accel_group (GTK_WINDOW (window3), app->accel_group); */
 
   gtk_signal_connect (GTK_OBJECT (clist4), "select_row",
                       GTK_SIGNAL_FUNC (on_registers_clist_select_row),

@@ -19,7 +19,7 @@
 #endif
 
 #include <gnome.h>
-#include "anjuta.h"
+/* TODO #include "anjuta.h" */
 #include "debugger.h"
 #include "watch_cbs.h"
 #include "watch_gui.h"
@@ -314,7 +314,7 @@ add_watch_entry (GtkEntry * ent, ExprWatch* ew)
 	debugger_put_cmd_in_queqe (buff, DB_CMD_NONE, expr_watch_update, cb_data);
 	debugger_execute_cmd_in_queqe ();
 
-	an_message_manager_show_pane (app->messages, MESSAGE_WATCHES);
+/* TODO	an_message_manager_show_pane (app->messages, MESSAGE_WATCHES); */
 	g_free (buff);
 }
 

@@ -27,7 +27,7 @@
 #include <libanjuta/resources.h>
 
 #include "debugger.h"
-#include "anjuta_info.h"
+/* TODO #include "anjuta_info.h" */
 #include "utilities.h"
 #include "watch.h"
 #include "watch_gui.h"
@@ -140,7 +140,7 @@ eval_output_arrived (GList * lines, gpointer data)
 		}
 		g_free (data);
 	}
-	anjuta_info_show_list (lines, 0, 0);
+/* TODO	anjuta_info_show_list (lines, 0, 0); */
 }
 
 

@@ -21,7 +21,7 @@
 #define _WATCH_H_
 
 #include <gnome.h>
-#include "properties.h"
+/* TODO #include "properties.h" */
 
 typedef struct _ExprWatchGui ExprWatchGui;
 typedef struct _ExprWatch ExprWatch;

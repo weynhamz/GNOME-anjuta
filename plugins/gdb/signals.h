@@ -1,5 +1,5 @@
 /*
-    sharedlibs.h
+    signals.h
     Copyright (C) 2000  Kh. Naba Kumar Singh
 
     This program is free software; you can redistribute it and/or modify
@@ -17,62 +17,70 @@
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
-#ifndef _SHAREDLIBS_H_
-#define _SHAREDLIBS_H_
+#ifndef _SIGNALS_H_
+#define _SIGNALS_H_
 
 #include <gnome.h>
-#include "properties.h"
+/* TODO #include "properties.h" */
 
-typedef struct _SharedlibsGui SharedlibsGui;
-typedef struct _Sharedlibs Sharedlibs;
+typedef struct _SignalsGui SignalsGui;
+typedef struct _Signals Signals;
 
-struct _SharedlibsGui
+struct _SignalsGui
 {
     GtkWidget*   window;
     GtkWidget*   clist;
     GtkWidget*   menu;
+    GtkWidget*   menu_modify;
+    GtkWidget*   menu_signal;
     GtkWidget*   menu_update;
 };
 
-struct _Sharedlibs
+struct _Signals
 {
-  SharedlibsGui  widgets;
+  SignalsGui  widgets;
   gboolean         is_showing;
   gint             win_pos_x, win_pos_y, win_width, win_height;
+  gint		idx;
+  gchar		*signal;
+  gboolean	stop;
+  gboolean	print;
+  gboolean	pass;
 };
 
-Sharedlibs*
-sharedlibs_new(void);
+Signals*
+signals_new(void);
 
 void
-create_sharedlibs_gui(Sharedlibs* ew);
+create_signals_gui(Signals* ew);
 
 GtkWidget*
-create_sharedlibs_modify_dialog(void);
+create_signals_set_dialog(Signals *s);
 
 void
-sharedlibs_clear(Sharedlibs *ew);
+signals_clear(Signals *ew);
 
 void
-sharedlibs_update(GList *lines, gpointer  ew);
+signals_update(GList *lines, gpointer  ew);
 
 void
-sharedlibs_destroy(Sharedlibs*ew);
+signals_destroy(Signals*ew);
 
 gboolean
-sharedlibs_save_yourself(Sharedlibs* ew, FILE* stream);
+signals_save_yourself(Signals* ew, FILE* stream);
 
+/* TODO
 gboolean
-sharedlibs_load_yourself(Sharedlibs* ew, PropsID props);
+signals_load_yourself(Signals* ew, PropsID props);
+*/
 
 void
-sharedlibs_show(Sharedlibs * ew);
+signals_show(Signals * ew);
 
 void
-sharedlibs_hide(Sharedlibs * ew);
+signals_hide(Signals * ew);
 
 void
-sharedlibs_update_controls(Sharedlibs* ew);
+signals_update_controls(Signals* ew);
 
 #endif
-

@@ -29,7 +29,7 @@
 
 #include <libanjuta/resources.h>
 
-#include "anjuta.h"
+/* TODO #include "anjuta.h" */
 #include "signals.h"
 #include "signals_cbs.h"
 
@@ -89,7 +89,7 @@ create_signals_gui(Signals *cr)
   GtkWidget *label6, *label7, *label8, *label9, *label10;
 
   window3 = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-  gtk_window_set_transient_for(GTK_WINDOW(window3), GTK_WINDOW(app));
+/* TODO  gtk_window_set_transient_for(GTK_WINDOW(window3), GTK_WINDOW(app)); */
   gtk_widget_set_usize (window3, 170, -2);
   gtk_window_set_title (GTK_WINDOW (window3), _("Kernel signals"));
   gtk_window_set_wmclass (GTK_WINDOW (window3), "signals", "Anjuta");

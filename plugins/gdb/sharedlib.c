@@ -1,5 +1,5 @@
 /*
-    cpu_registers.c
+    sharedlibs.c
     Copyright (C) 2000  Kh. Naba Kumar Singh
 
     This program is free software; you can redistribute it and/or modify
@@ -31,66 +31,67 @@
 #include "debugger.h"
 #include "utilities.h"
 
-CpuRegisters* cpu_registers_new()
+Sharedlibs* sharedlibs_new()
 {
-  CpuRegisters* ew;
-  ew = g_malloc(sizeof(CpuRegisters));
+  Sharedlibs* ew;
+  ew = g_malloc(sizeof(Sharedlibs));
   if(ew)
   {
-     create_cpu_registers_gui(ew);
-     ew->current_index = 0;
      ew->is_showing = FALSE;
-     ew->win_pos_x = 250;
-     ew->win_pos_y = 100;
-     ew->win_width = 200;
-     ew->win_height = 300;
+	 ew->win_width = 410;
+     ew->win_height = 370;
+     ew->win_pos_x = 120;
+     ew->win_pos_y = 140;
+     create_sharedlibs_gui(ew);
   }
   return ew;
 }
 
 void
-cpu_registers_clear(CpuRegisters *ew)
+sharedlibs_clear(Sharedlibs *sg)
 {
-   gtk_clist_clear(GTK_CLIST(ew->widgets.clist));
+   if(GTK_IS_CLIST(sg->widgets.clist)) gtk_clist_clear(GTK_CLIST(sg->widgets.clist));
 }
 
 void
-cpu_registers_update( GList *lines, gpointer data)
+sharedlibs_update( GList *lines, gpointer data)
 {
-    CpuRegisters *ew;
-    gchar reg[10], hex[32], dec[32];
-    gchar *row[3];
+    Sharedlibs *sl;
+    gchar obj[512], from[32], to[32], read[32];
+    gchar *row[4];
     gint count;
-    GList *node, *list;
+    GList *list, *node;
 
-    ew = (CpuRegisters*)data;
+    sl = (Sharedlibs*)data;
 
     list = remove_blank_lines(lines);
-    cpu_registers_clear(ew);
-    if(g_list_length(list) < 2 ){ g_list_free(list); return;}
+    sharedlibs_clear(sl);
+    if(g_list_length(list) < 2 ){g_list_free(list); return;}
     node = list->next;
     while(node)
     {
-        count = sscanf((char*)node->data, "%s %s %s", reg, hex, dec);
+        count = sscanf((char*)node->data, "%s %s %s %s", from,to,read,obj);
         node = g_list_next(node);
-        if(count != 3) continue;
-        row[0]=reg;
-        row[1]=hex;
-        row[2]=dec;
-        gtk_clist_append(GTK_CLIST(ew->widgets.clist), row);
+        if(count != 4) continue;
+        row[0]=(gchar*) extract_filename(obj);
+        row[1]=from;
+        row[2]=to;
+        row[3]=read;
+        gtk_clist_append(GTK_CLIST(sl->widgets.clist), row);
      }
      g_list_free(list);
 }
 
 void
-cpu_registers_show(CpuRegisters* ew)
+sharedlibs_show(Sharedlibs* ew)
 {
   if(ew)
   {
      if(ew->is_showing)
      {
-		 gdk_window_raise(ew->widgets.window->window);
-     }
+         gdk_window_raise(ew->widgets.window->window);
+		 return;
+	 }
      gtk_widget_set_uposition(ew->widgets.window, ew->win_pos_x, ew->win_pos_y);
      gtk_window_set_default_size(GTK_WINDOW(ew->widgets.window), ew->win_width, ew->win_height);
      gtk_widget_show(ew->widgets.window);
@@ -99,7 +100,7 @@ cpu_registers_show(CpuRegisters* ew)
 }
 
 void
-cpu_registers_hide(CpuRegisters* ew)
+sharedlibs_hide(Sharedlibs* ew)
 {
   if(ew)
   {
@@ -112,7 +113,7 @@ cpu_registers_hide(CpuRegisters* ew)
 }
 
 gboolean
-cpu_registers_save_yourself(CpuRegisters* ew, FILE* stream)
+sharedlibs_save_yourself(Sharedlibs* ew, FILE* stream)
 {
 	if (!ew) return FALSE;
 
@@ -122,50 +123,50 @@ cpu_registers_save_yourself(CpuRegisters* ew, FILE* stream)
 		      &ew->win_pos_y);
 		gdk_window_get_size (ew->widgets.window->window, &ew->win_width, &ew->win_height);
 	}
-	fprintf(stream, "registers.win.pos.x=%d\n", ew->win_pos_x);
-	fprintf(stream, "registers.win.pos.y=%d\n", ew->win_pos_y);
-	fprintf(stream, "registers.win.width=%d\n", ew->win_width);
-	fprintf(stream, "registers.win.height=%d\n", ew->win_height);
+	fprintf(stream, "sharedlibs.win.pos.x=%d\n", ew->win_pos_x);
+	fprintf(stream, "sharedlibs.win.pos.y=%d\n", ew->win_pos_y);
+	fprintf(stream, "sharedlibs.win.width=%d\n", ew->win_width);
+	fprintf(stream, "sharedlibs.win.height=%d\n", ew->win_height);
 	return TRUE;
 }
 
+/* TODO
 gboolean
-cpu_registers_load_yourself(CpuRegisters* ew, PropsID props)
+sharedlibs_load_yourself(Sharedlibs* ew, PropsID props)
 {
 	if (!ew) return FALSE;
 	
-	ew->win_pos_x = prop_get_int (props, "registers.win.pos.x", 250);
-	ew->win_pos_y = prop_get_int (props, "registers.win.pos.y", 100);
-	ew->win_width = prop_get_int (props, "registers.win.width", 200);
-	ew->win_height = prop_get_int (props, "registers.win.height", 300);
+	ew->win_pos_x = prop_get_int (props, "sharedlibs.win.pos.x", 120);
+	ew->win_pos_y = prop_get_int (props, "sharedlibs.win.pos.y", 140);
+	ew->win_width = prop_get_int (props, "sharedlibs.win.width", 410);
+	ew->win_height = prop_get_int (props, "sharedlibs.win.height", 370);
 	return TRUE;
 }
+*/
 
 void
-cpu_registers_destroy(CpuRegisters* cr)
+sharedlibs_destroy(Sharedlibs* sg)
 {
-  if(cr)
+  if(sg)
   {
-     cpu_registers_clear(cr);
-     gtk_widget_unref(cr->widgets.window);
-     gtk_widget_unref(cr->widgets.clist);
-     gtk_widget_unref(cr->widgets.menu);
-     gtk_widget_unref(cr->widgets.menu_modify);
-     gtk_widget_unref(cr->widgets.menu_update);
-     if(GTK_IS_WIDGET(cr->widgets.window))
-              gtk_widget_destroy(cr->widgets.window);
-     g_free(cr);
+     sharedlibs_clear(sg);
+     gtk_widget_unref(sg->widgets.window);
+     gtk_widget_unref(sg->widgets.clist);
+     gtk_widget_unref(sg->widgets.menu);
+     gtk_widget_unref(sg->widgets.menu_update);
+     if(GTK_IS_WIDGET(sg->widgets.window))
+              gtk_widget_destroy(sg->widgets.window);
+     g_free(sg);
   }
 }
 
 void
-registers_update_controls(CpuRegisters* ew)
+sharedlibs_update_controls(Sharedlibs* ew)
 {
      gboolean A, R;
 
      A = debugger_is_active();
      R = debugger_is_ready();
 
-     gtk_widget_set_sensitive(ew->widgets.menu_modify, A && R);
      gtk_widget_set_sensitive(ew->widgets.menu_update, A && R);
 }

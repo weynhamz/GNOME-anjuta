@@ -21,9 +21,10 @@
 #define _BREAKPOINTS_DBASE_H_
 
 #include <glade/glade.h>
-#include "properties.h"
+/* TODO #include "properties.h" */
 // #include "text_editor.h"
-#include "project_dbase.h"
+/* TODO #include "project_dbase.h" */
+#include <stdio.h>
 
 typedef struct _BreakpointsDBase BreakpointsDBase;
 typedef struct _BreakpointsDBasePriv BreakpointsDBasePriv;
@@ -36,7 +37,9 @@ struct _BreakpointsDBase
 
 BreakpointsDBase *breakpoints_dbase_new (void);
 
+/* TODO
 void breakpoints_dbase_save (BreakpointsDBase * bd, ProjectDBase * pdb );
+*/
 
 void breakpoints_dbase_show (BreakpointsDBase * bd);
 
@@ -74,9 +77,11 @@ void breakpoints_dbase_remove_all (BreakpointsDBase *bd);
 
 gboolean breakpoints_dbase_save_yourself (BreakpointsDBase * bd, FILE * stream);
 
+/* TODO
 gboolean breakpoints_dbase_load_yourself (BreakpointsDBase * bd, PropsID props);
 
 void breakpoints_dbase_load (BreakpointsDBase * bd, ProjectDBase *p );
+*/
 
 void breakpoints_dbase_set_all (BreakpointsDBase * bd);
 

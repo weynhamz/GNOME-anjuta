@@ -21,7 +21,7 @@
 #define _REGISTERS_H_
 
 #include <gnome.h>
-#include "properties.h"
+/* #include "properties.h" */
 
 typedef struct _CpuRegistersGui CpuRegistersGui;
 typedef struct _CpuRegisters CpuRegisters;
@@ -64,8 +64,10 @@ cpu_registers_destroy(CpuRegisters*ew);
 gboolean
 cpu_registers_save_yourself(CpuRegisters* ew, FILE* stream);
 
+/* TODO
 gboolean
 cpu_registers_load_yourself(CpuRegisters* ew, PropsID props);
+*/
 
 void
 cpu_registers_show(CpuRegisters * ew);
@@ -77,4 +79,3 @@ void
 registers_update_controls(CpuRegisters* ew);
 
 #endif
-
