@@ -476,87 +476,145 @@
   <!-- ============= File operations: Searching and replacing in files === -->
   <sect1 id="search-replace-files">
    <title>Searching for and Replacing text in files</title>
-   <sect2 id="searching">
+    <sect2 id="searching">
     <title>Searching</title>
-	     <para>
-     To search for a <emphasis>text</emphasis> or <emphasis>regular expression</emphasis>
-     string in the current file, choose <menuchoice><guisubmenu>Edit</guisubmenu>
-	 <guimenuitem>Find</guimenuitem></menuchoice> or press <keycombo><keycap>Alt</keycap>
-	 <keycap>F</keycap></keycombo>. This will open the <interface>Find</interface> dialog.
-    </para>
-        <figure id="find-text">
-     <title>Find Text dialog</title>
-     <screenshot>
-       <graphic fileref="figures/find_text.png" format="PNG" srccredit="andyp"></graphic>
-     </screenshot>
-    </figure>
+      <para>
+       To search for a <emphasis>text</emphasis> or <emphasis>regular expression</emphasis>
+       string in the current file, choose <menuchoice><guimenu>Edit</guimenu>
+       <guisubmenu>Search</guisubmenu><guimenuitem>Find</guimenuitem></menuchoice>
+       or press <keycombo><keycap>Ctrl</keycap><keycap>F</keycap></keycombo>.
+       This will open the <interface>Find</interface> dialog. 
+      </para>
+      <para>
+       Use the text box to specify the string to search for, and select whether it is a normal 
+       string or a regular expression (RegExp). It is also possible to specify the direction of 
+       search, whether the search is case-sensitive or not, and the scope of the search. Click 
+       <guibutton>Search</guibutton> to start searching.
+      </para>
+      <para>
+       If the search is successful, the matched text in the document will be highlighted, marked...
+       (according to the search action choice). If the search is not successful, 
+       a <emphasis>match not found</emphasis> message will be displayed.
+      </para>
+      <para>
+       If you want to search again, click on the <guibutton>Search</guibutton> button on the main 
+       toolbar or press <keycombo><keycap>Ctrl</keycap><keycap>G</keycap></keycombo>. This will 
+       find the next match (<keycombo><keycap>Shift</keycap><keycap>Ctrl</keycap>
+       <keycap>G</keycap></keycombo> for the previous match). You can even 
+       change the search text when you do this. Enter the new string in the 
+       <guilabel>Search Expression</guilabel> text box in the main toolbar.
+      </para>
 
-     <sect3 id="bibi">
-     <title>Searching xxxxxxx for and Replacing text in files</title>
+      <figure id="search-expr">
+      <title>Search Text dialog</title>
+        <screenshot>
+        <graphic fileref="figures/search_expr.png" format="PNG" srccredit="jnoel"></graphic>
+        </screenshot>
+      </figure>
+      <figure id="search-expr-basic">
+      <title>Basic Search Text dialog</title>
+        <screenshot>
+        <graphic fileref="figures/search_expr_basic.png" format="PNG" srccredit="jnoel"></graphic>
+        </screenshot>
+      </figure>
+    </sect2>
+    <sect2 id="search-range">
+    <title>Specifying Search Range</title>
+      <para>
+ 
+      </para>
+      <figure id="search-target">
+      <title>Search Target dialog</title>
+        <screenshot>
+        <graphic fileref="figures/search_target.png" format="PNG" srccredit="jnoel"></graphic>
+        </screenshot>
+      </figure>
+      <para>
+ 
+      </para>
+      <figure id="search-target-in">
+      <title>Search Target In choice</title>
+       <screenshot>
+       <graphic fileref="figures/search_target_in.png" format="PNG" srccredit="jnoel"></graphic>
+       </screenshot>
+      </figure>
+      <sect3 id="search-file">
+      <title>Searching in Files</title>
+       <para>
+  
+       </para>	 
+       <figure id="search-file-list">
+       <title>Search File List</title>
+        <screenshot>
+        <graphic fileref="figures/search_file_list.png" format="PNG" srccredit="jnoel"></graphic>
+        </screenshot>
+       </figure>
 
-     </sect3>
-    <para>
-     To search for a <emphasis>text</emphasis> or <emphasis>regular expression</emphasis>
-     string in the current file, choose <menuchoice><guisubmenu>Edit</guisubmenu>
-	 <guimenuitem>Find</guimenuitem></menuchoice> or press <keycombo><keycap>Alt</keycap>
-	 <keycap>F</keycap></keycombo>. This will open the <interface>Find</interface> dialog.
-    </para>
+      </sect3>	
+      <sect3 id="search-pattern">
+      <title>Specifying File Patterns</title>
+       <para>
 
-    <figure id="find-text">
-     <title>Find Text dialog</title>
-     <screenshot>
-	 <screeninfo>Find Text dialog</screeninfo>
-       <graphic fileref="figures/find_text.png" format="PNG" srccredit="andyp"></graphic>
-     </screenshot>
-    </figure>
+       </para>	 
+         <figure id="search-file-pattern">
+         <title>Search File Pattern</title>
+          <screenshot>
+          <graphic fileref="figures/search_file_pattern.png" format="PNG" srccredit="jnoel"></graphic>
+          </screenshot>
+       </figure>
 
-    <para>
-     Use the text box to specify the string to search for, and select whether it is a normal 
-	 string or a regular expression (RegExp). It is also possible to specify the direction of 
-	 search, whether the search is case-sensitive or not, and the scope of the search. Click 
-	 <guibutton>OK</guibutton> to start searching.
-    </para>
-    <para>
-     If the search is successful, the matched text in the document will be highlighted and 
-     you will be taken to the line containing the match. If the search is not successful, 
-     a <emphasis>match not found</emphasis> message will be displayed.
-    </para>
-    <para>
-    If you want to search again, click on the <guibutton>Find</guibutton> button on the main 
-	toolbar. This will find the next match in the direction of the search. You can even 
-	change the search text when you do this. Enter the new string in the 
-	<guilabel>Find String</guilabel> text box in the main toolbar.
-    </para>
-   </sect2>
-   
-   <sect2 id="replacing">
-    <title>Searching and replacing</title>
-	<figure id="find-and-replace">
-     <title>Find and Replace dialog</title>
-     <screenshot>
-	 <screeninfo>Find and Replace dialog</screeninfo>
-       <graphic fileref="figures/find_replace.png" format="PNG" srccredit="andyp"></graphic>
-     </screenshot>
-    </figure>
-    
-	<para>
-     Search and replace is similar to just finding text, except that you 
-     also specify the replace text in the <guilabel>Replace Text</guilabel> text box, 
-	 and whether or not you want to be prompted before the replace takes place.
-    </para>
-   </sect2>
+      </sect3>		 
+
+	</sect2>
+    <sect2 id="search-action">
+    <title>Specifying Search Action</title>
+      <para>
+
+      </para>
+      <figure id="search-target-action">
+      <title>Search Target Action choice</title>
+       <screenshot>
+       <graphic fileref="figures/search_target_action.png" format="PNG" srccredit="jnoel"></graphic>
+       </screenshot>
+      </figure>
+  
+    </sect2>
+    <sect2 id="replacing">
+    <title>Replacing</title>
+      <para>
+       Search and replace is similar to just finding text, except that you 
+       also specify the replace text in the <guilabel>Replace Text</guilabel> text box, 
+       and whether or not you want to be prompted before the replace takes place.
+      </para>
+	  <para>
+	  
+	  </para>
+      <figure id="replace">
+      <title>Replacing</title>
+        <screenshot>
+        <graphic fileref="figures/search_replace.png" format="PNG" srccredit="jnoel"></graphic>
+        </screenshot>
+      </figure>
+
+	</sect2>
+    <sect2 id="search-setting">
+    <title>Search Setting</title>
+      <para>
+ 
+      </para>
+      <figure id="search-setting">
+      <title>Search Setting dialog</title>
+        <screenshot>
+        <graphic fileref="figures/search_setting.png" format="PNG" srccredit="jnoel"></graphic>
+        </screenshot>
+       </figure>
+    </sect2>
+
   </sect1>
 
  <!-- ============= File operations: Finding in multiple files and folders === -->
   <sect1 id="multiple-find-files">
    <title>Finding in Multiple Files and Folders</title>
-    <figure id="find-in-files">
-     <title>Find in files dialog</title>
-     <screenshot>
-	 <screeninfo>Find in files dialog</screeninfo>
-       <graphic fileref="figures/find_files.png" format="PNG" srccredit="andyp"></graphic>
-     </screenshot>
-    </figure>
 	
    <para>
     To find in files and/or folders, add all the files and/or folders
@@ -601,7 +659,7 @@
 	 <figure>
        <title>Print preview of a C file</title>
        <screenshot>
-	   <screeninfo>Print preview</screeninfo>
+       <screeninfo>Print preview</screeninfo>
         <graphic fileref="figures/print_preview.png" format="PNG" srccredit="jnoel"></graphic>
        </screenshot>
      </figure>
