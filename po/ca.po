@@ -1,16 +1,16 @@
 # Anjuta Catalan translation.
 # Copyright © 2003 Free Software Foundation, Inc.
 # This file is distributed under the same license as the anjuta package.
-# Xavier A. Conde Rueda <f3285740@est.fib.upc.es>, 2003.
+# Xavier A. Conde Rueda <xaviconde@eresmas.com>, 2003.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: anjuta 1.2.0\n"
+"Project-Id-Version: anjuta 1.2.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-10-02 14:07+0200\n"
-"PO-Revision-Date: 2003-10-02 14:02+0200\n"
-"Last-Translator: Xavier A. Conde Rueda <f3285740@est.fib.up.es>\n"
-"Language-Team: <tradgnome@softcatala.org>\n"
+"POT-Creation-Date: 2003-11-13 14:29+0100\n"
+"PO-Revision-Date: 2003-11-13 14:34+0100\n"
+"Last-Translator: Xavier A. Conde Rueda <xaviconde@eresmas.com>\n"
+"Language-Team: Catalan <tradgnome@softcatala.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -104,430 +104,444 @@ msgid "Application Wizard"
 msgstr "Assistent d'aplicacions"
 
 #: anjuta.glade.h:20
+msgid "Arrows"
+msgstr "Fletxes"
+
+#: anjuta.glade.h:21
 msgid "Ask for parameters at run-time"
 msgstr "Demana paràmetres en temps d'execució"
 
-#: anjuta.glade.h:21
+#: anjuta.glade.h:22
 msgid "Attach to process"
 msgstr "Adjunta a procés"
 
-#: anjuta.glade.h:22
+#: anjuta.glade.h:23
 msgid "Attributes:"
 msgstr "Atributs:"
 
-#: anjuta.glade.h:23
+#: anjuta.glade.h:24
 msgid "Autocomplete XML/HTML closing tags"
 msgstr "Completa automàticament les etiquetes de tancament XML/HTML"
 
-#: anjuta.glade.h:24
+#: anjuta.glade.h:25
 msgid "Autocompletion"
 msgstr "Completa automàticament"
 
-#: anjuta.glade.h:25
+#: anjuta.glade.h:26
 msgid "Autocompletion pop up choices"
 msgstr "Diàleg emeregent amb alternatives per autocompletar"
 
-#: anjuta.glade.h:26
+#: anjuta.glade.h:27
 msgid "Automatically load last Project"
 msgstr "Carrega automàticament el darrer projecte"
 
-#: anjuta.glade.h:27
+#: anjuta.glade.h:28
 msgid "Autosave"
 msgstr "Desa automàticament"
 
-#: anjuta.glade.h:28
+#: anjuta.glade.h:29
 msgid "Autosave editor files before build starts"
 msgstr "Desa automàticament abans de muntar"
 
-#: anjuta.glade.h:29
+#: anjuta.glade.h:30
 msgid "Back color:"
 msgstr "Color del fons:"
 
 # source\ui\docvw\docvw.src menuitem MN_READONLY_POPUP MN_READONLY_BROWSE_BACKWARD
 # Projecte_Open_Office_1.1 [sw.po]
-#: anjuta.glade.h:30
+#: anjuta.glade.h:31
 msgid "Backwards"
 msgstr "Cap enrere"
 
-#: anjuta.glade.h:31
+#: anjuta.glade.h:32
 msgid "Beep on job complete"
 msgstr "Avís sonor en acabar una tasca"
 
 # Netscape_4.7->String:MNPREF32.DLL
-#: anjuta.glade.h:32
+#: anjuta.glade.h:33
 msgid "Bold"
 msgstr "Negreta"
 
 # Mozilla 1.3->menuitem.newBookmark.label
-#: anjuta.glade.h:33
+#: anjuta.glade.h:34
 msgid "Bookmark"
 msgstr "Adreça d'interès"
 
-#: anjuta.glade.h:34
+# Netscape_4.7->Dialog Box Control:EDITOR32.DLL
+#: anjuta.glade.h:35
+msgid "Bottom"
+msgstr "Inferior"
+
+#: anjuta.glade.h:36
 msgid "Breakpoint properties"
 msgstr "Propietats dels punts de ruptura"
 
-#: anjuta.glade.h:35
+#: anjuta.glade.h:37
 msgid "Breakpoints"
 msgstr "Punts de ruptura"
 
 # Projecte_Gnome_2.2 [glade.glade-gnome2-branch.ca.po]
-#: anjuta.glade.h:36 src/build_file.c:102 src/message-manager.cc:43
+#: anjuta.glade.h:38 src/build_file.c:102 src/message-manager.cc:43
 #: src/toolbar.c:273
 msgid "Build"
 msgstr "Munta"
 
-#: anjuta.glade.h:37
+#: anjuta.glade.h:39
 msgid "Build command:"
 msgstr "Ordre per muntar:"
 
-#: anjuta.glade.h:38
+#: anjuta.glade.h:40
 msgid "Build file browser automatically"
 msgstr "Construeix el navegador de fitxers automàticament"
 
-#: anjuta.glade.h:39
+#: anjuta.glade.h:41
 msgid "Build files"
 msgstr "Fitxers per muntar"
 
-#: anjuta.glade.h:40
+#: anjuta.glade.h:42
 msgid "Build options"
 msgstr "Opcions per muntar"
 
-#: anjuta.glade.h:41
+#: anjuta.glade.h:43
 msgid "Build symbol browser automatically"
 msgstr "Construeix el navegador de símbols automàticament"
 
 #. 2
-#: anjuta.glade.h:42 src/an_file_view.c:420 src/message-manager.cc:45
+#: anjuta.glade.h:44 src/an_file_view.c:420 src/message-manager.cc:45
 msgid "CVS"
 msgstr "CVS"
 
-#: anjuta.glade.h:43
+#: anjuta.glade.h:45
 msgid "CVS command options"
 msgstr "Opcions de línia d'ordres de CVS"
 
-#: anjuta.glade.h:44
+#: anjuta.glade.h:46
 msgid "CVS compression level:"
 msgstr "Nivell de compressió de CVS:"
 
-#: anjuta.glade.h:45
+#: anjuta.glade.h:47
 msgid "CVS context diff format"
 msgstr "Format de diferències contextual de CVS"
 
-#: anjuta.glade.h:46
+#: anjuta.glade.h:48
 msgid "CVS intl po"
 msgstr "CVS intl po"
 
-#: anjuta.glade.h:47
+#: anjuta.glade.h:49
 msgid "CVS unified diff format"
 msgstr "Format de diferències unificat de CVS"
 
-#: anjuta.glade.h:48
+#: anjuta.glade.h:50
 msgid "CVS update and prune directories [-dP]"
 msgstr "Actualitza CVS i poda els directoris [-dP]"
 
 # sdi\sfxslots.src sfxslotinfo SID_BASICCOMPILE
 # Projecte_Open_Office_1.1 [sfx2.po]
-#: anjuta.glade.h:49
+#: anjuta.glade.h:51
 msgid "C_ompile:"
 msgstr "C_ompila:"
 
-#: anjuta.glade.h:50
+#: anjuta.glade.h:52
 msgid "Calltip background:"
 msgstr "Color de fons de l'etiqueta de funció:"
 
-#: anjuta.glade.h:51
+#: anjuta.glade.h:53
 msgid "Caret (cursor) color:"
 msgstr "Color del cursor:"
 
-#: anjuta.glade.h:52
+#: anjuta.glade.h:54
 msgid "Caret blink period in milli-seconds"
 msgstr "Període de pampallugueix del cursor, en mil·lisegons"
 
-#: anjuta.glade.h:53
+#: anjuta.glade.h:55
 msgid "Case insensitive"
 msgstr "No diferencia majúscules/minúscules"
 
-#: anjuta.glade.h:54
+#: anjuta.glade.h:56
 msgid "Case sensitive"
 msgstr "Diferencia majúscules/minúscules"
 
-#: anjuta.glade.h:55
+#: anjuta.glade.h:57
 msgid "Choose Directories:"
 msgstr "Esculliu directoris:"
 
-#: anjuta.glade.h:56
+#: anjuta.glade.h:58
 msgid "Choose Files:"
 msgstr "Esculliu Fitxers:"
 
-#: anjuta.glade.h:57
+#: anjuta.glade.h:59
 msgid "Choose autocomplete for single match"
 msgstr "Completa automàticament quan hi hagi només una concordància"
 
-#: anjuta.glade.h:58
+#: anjuta.glade.h:60
 msgid "Choose directories"
 msgstr "Esculliu directoris"
 
-#: anjuta.glade.h:59
+#: anjuta.glade.h:61
 msgid "Choose files"
 msgstr "Esculliu fitxers"
 
-#: anjuta.glade.h:60
+# Netscape_4.7->Dialog Box Control:RESDLL.DLL
+#: anjuta.glade.h:62
+msgid "Circular"
+msgstr "Rodó"
+
+#: anjuta.glade.h:63
 msgid "Code folding"
 msgstr "Marge de desplegament de codi"
 
-#: anjuta.glade.h:61
+#: anjuta.glade.h:64
 msgid "Collapse all code folds on file open"
 msgstr "Plega totes les vistes de codi quan s'obre un fitxer"
 
 # Mozilla 1.3->Color
-#: anjuta.glade.h:62
+#: anjuta.glade.h:65
 msgid "Colour"
 msgstr "Color"
 
-#: anjuta.glade.h:63
+#: anjuta.glade.h:66
 msgid "Column at edge indicator"
 msgstr ""
 
-#: anjuta.glade.h:64
+#: anjuta.glade.h:67
 msgid "Combo Popdown:"
 msgstr "Entrades d'un quadre desplegable:"
 
-#: anjuta.glade.h:65
+#: anjuta.glade.h:68
 msgid "Command Line Parameters"
 msgstr "Paràmetres de la línia d'ordres"
 
-#: anjuta.glade.h:66
+#: anjuta.glade.h:69
 msgid "Command line parameters"
 msgstr "Paràmetres de l'ordre"
 
 # Projecte_Mandrake [tm-mandrake.po]
-#: anjuta.glade.h:67
+#: anjuta.glade.h:70
 msgid "Command:"
 msgstr "Ordre:"
 
 # Winrar 2.9->Menu:rarlng.dll
-#: anjuta.glade.h:68
+#: anjuta.glade.h:71
 msgid "Commands"
 msgstr "Ordres"
 
 # Winrar 2.9->Menu:rarlng.dll
-#: anjuta.glade.h:69
+#: anjuta.glade.h:72
 msgid "Common commands:"
 msgstr "Ordres comunes:"
 
-#: anjuta.glade.h:70
+#: anjuta.glade.h:73
 msgid "Compact folding"
 msgstr "Desplegament compacte"
 
 # sdi\sfxslots.src sfxslotinfo SID_BASICCOMPILE
 # Projecte_Open_Office_1.1 [sfx2.po]
-#: anjuta.glade.h:71
+#: anjuta.glade.h:74
 msgid "Compiler"
 msgstr "Compilador"
 
-#: anjuta.glade.h:72
+#: anjuta.glade.h:75
 msgid "Compiler Flags (CFLAGS):"
 msgstr "Paràmetres del compilador (CFLAGS):"
 
-#: anjuta.glade.h:73
+#: anjuta.glade.h:76
 msgid "Compiler and linker options"
 msgstr "Configuració del compilador i l'enllaçador"
 
-#: anjuta.glade.h:74
+#: anjuta.glade.h:77
 msgid "Configuration"
 msgstr "Configuració"
 
-#: anjuta.glade.h:75
+#: anjuta.glade.h:78
 msgid "Configuration script segments"
 msgstr "Segments de fitxers de seqüència d'ordres de configuració"
 
-#: anjuta.glade.h:76
+#: anjuta.glade.h:79
 msgid "Configure Parameters"
 msgstr "Configura paràmetres"
 
-#: anjuta.glade.h:77
+#: anjuta.glade.h:80
+msgid "Costom style"
+msgstr "Estil personalitzat"
+
+#: anjuta.glade.h:81
+msgid "Crazy boy style"
+msgstr "Estil nano boig"
+
+#: anjuta.glade.h:82
 msgid "Custom style"
 msgstr "Estil personalitzat"
 
-#: anjuta.glade.h:78
-msgid ""
-"Custom style,GNU coding style,Kernighan & Ritchie style,Original Berkeley "
-"style,Style of Kangleipak,Hello World style,Crazy boy style"
-msgstr ""
-"Estil personalitzat, estil de codificació GNU, estil de Kernighan & Ritchie, "
-"estil original de Berkeley, estil de Kangleipak, estil 'hola món', estil "
-"xaval esbojerrat"
-
-#: anjuta.glade.h:79
+#: anjuta.glade.h:83
 msgid "Customize File Browser"
 msgstr "Personalitza l'explorador de fitxers"
 
-#: anjuta.glade.h:80
+#: anjuta.glade.h:84
 msgid "Customize what is to be shown in the file tree"
 msgstr "Personalitza allò que s'ha de mostrar a l'arbre de fitxers"
 
-#: anjuta.glade.h:81
+#: anjuta.glade.h:85
 msgid "Data module Makefile.am"
 msgstr "Mòdul de dades de Makefile.am"
 
 # Netscape_4.7->Menu:TALKBACK.EXE
 #. 13
-#: anjuta.glade.h:82 src/message-manager.cc:49 src/text_editor_menu.c:319
+#: anjuta.glade.h:86 src/message-manager.cc:49 src/text_editor_menu.c:319
 #: src/toolbar.c:306
 msgid "Debug"
 msgstr "Depura"
 
-#: anjuta.glade.h:83
+#: anjuta.glade.h:87
 msgid "Debugging and Profiling"
 msgstr "Depuració i mesura del rendiment"
 
-#: anjuta.glade.h:84
-msgid "Default"
-msgstr "Per defecte"
-
-#: anjuta.glade.h:85
+#: anjuta.glade.h:88
 msgid "Defines"
 msgstr "Definicions"
 
-#: anjuta.glade.h:86
+#: anjuta.glade.h:89
 msgid "Delete Theme"
 msgstr "Esborra tema"
 
-#: anjuta.glade.h:87
+# Projecte_Gnome_2.2 [libgtop.libgtop-GNOME-2-0-port.ca.po]
+#: anjuta.glade.h:90
+msgid "Diagonal"
+msgstr "Diagonal"
+
+#: anjuta.glade.h:91
 msgid "Dialog on job complete"
 msgstr "Mostra un diàleg en acabar una tasca"
 
-#: anjuta.glade.h:88
+#: anjuta.glade.h:92
 msgid "Direction"
 msgstr "Direcció"
 
 # Netscape_4.7->String:RESDLL.DLL
-#: anjuta.glade.h:89 widgets/gnomefilelist.c:342
+#: anjuta.glade.h:93 widgets/gnomefilelist.c:342
 msgid "Directories"
 msgstr "Directoris"
 
-#: anjuta.glade.h:90
+#: anjuta.glade.h:94
 msgid "Directory filter"
 msgstr "Filtre de directoris"
 
-#: anjuta.glade.h:91
+#: anjuta.glade.h:95
 msgid "Disable auto-format"
 msgstr "Inhabilita format automàtic"
 
-#: anjuta.glade.h:92
+#: anjuta.glade.h:96
 msgid "Disable overwriting files"
 msgstr "Inhabilita sobreescriptura dels fitxers"
 
-#: anjuta.glade.h:93
+#: anjuta.glade.h:97
 msgid "Disable syntax highlighting"
 msgstr "Desactiva el formateig de sintaxi"
 
-#: anjuta.glade.h:94
+#: anjuta.glade.h:98
 msgid "Do not show hidden directories"
 msgstr "No mostra directoris ocults"
 
-#: anjuta.glade.h:95
+#: anjuta.glade.h:99
 msgid "Do not show hidden files"
 msgstr "No mostra els fitxers ocults"
 
-#: anjuta.glade.h:96
+#: anjuta.glade.h:100
 msgid "Do not show start with dialog again."
 msgstr "No mostra l'inici amb diàleg una altra vegada."
 
-#: anjuta.glade.h:97
+#: anjuta.glade.h:101
 msgid "Do not show tabs"
 msgstr "No mostra pestanyes"
 
-#: anjuta.glade.h:98
+#: anjuta.glade.h:102
 msgid "Document module Makefile.am"
 msgstr "Mòdul de documentació de Makefile.am"
 
-#: anjuta.glade.h:99
+#: anjuta.glade.h:103
 msgid "Draw line below folded lines"
 msgstr "Dibuixa línia sota la línia plegada"
 
 # Winrar 2.9->Menu:rarlng.dll
-#: anjuta.glade.h:100
+#: anjuta.glade.h:104
 msgid "Edit"
 msgstr "Edita"
 
-#: anjuta.glade.h:101
+#: anjuta.glade.h:105
 msgid "Editor caret (cursor) width in pixels"
 msgstr "Amplada del cursor, en píxels"
 
 # source\ui\utlui\initui.src string STR_AUTH_FIELD_EDITOR
 # Projecte_Open_Office_1.1 [sw.po]
-#: anjuta.glade.h:102
+#: anjuta.glade.h:106
 msgid "Editor tabs"
 msgstr "Pestanyes de l'editor"
 
-#: anjuta.glade.h:103
+#: anjuta.glade.h:107
 msgid "Enable Debugging"
 msgstr "Habilita depuració"
 
-#: anjuta.glade.h:104
+#: anjuta.glade.h:108
 msgid "Enable HTML tags folding"
 msgstr "Habilita desplegament d'etiquetes HTML"
 
-#: anjuta.glade.h:105
+#: anjuta.glade.h:109
 msgid "Enable Profiling"
 msgstr "Habilita la mesura del rendiment"
 
-#: anjuta.glade.h:106
+#: anjuta.glade.h:110
 msgid "Enable _all"
 msgstr "Habilit_a'ls tots"
 
-#: anjuta.glade.h:107
+#: anjuta.glade.h:111
 msgid "Enable automatic indentation"
 msgstr "Habilita sagnat automàtic"
 
-#: anjuta.glade.h:108
+#: anjuta.glade.h:112
 msgid "Enable automatic messages indicators"
 msgstr "Habilita indicadors automàtics de missatge"
 
-#: anjuta.glade.h:109
+#: anjuta.glade.h:113
 msgid "Enable braces check"
 msgstr "Comprova concordància entre claus/parèntesis"
 
-#: anjuta.glade.h:110
+#: anjuta.glade.h:114
 msgid "Enable code folding"
 msgstr "Habilita desplegament de codi"
 
-#: anjuta.glade.h:111
+#: anjuta.glade.h:115
 msgid "Enable comments folding"
 msgstr "Habilita desplegament de comentaris"
 
-#: anjuta.glade.h:112
+#: anjuta.glade.h:116
 msgid "Enable files autosave"
 msgstr "Habilita desar automàticament"
 
-#: anjuta.glade.h:113
+#: anjuta.glade.h:117
 msgid "Enable line wrap"
 msgstr "Habilita tall de línia"
 
-#: anjuta.glade.h:114
+#: anjuta.glade.h:118
 msgid "Enable python comments folding"
 msgstr "Habilita desplegament de comentaris estil python"
 
-#: anjuta.glade.h:115
+#: anjuta.glade.h:119
 msgid "Enable python quoted strings folding"
 msgstr "Habilita desplegament de cadenes comentades python"
 
 # Netscape_4.7->Menu:NSNOTIFY.EXE
-#: anjuta.glade.h:116 src/breakpoints.c:111
+#: anjuta.glade.h:120 src/breakpoints.c:111
 msgid "Enabled"
 msgstr "Habilitat"
 
-#: anjuta.glade.h:117
+#: anjuta.glade.h:121
 msgid "Encoding to use when saving files"
 msgstr "Codificació que s'emprarà en desar els fitxers"
 
-#: anjuta.glade.h:118
+#: anjuta.glade.h:122
 msgid "Enter a Hexa adress or select one in the data"
 msgstr "Introduïu una adreça en hexadecimal o seleccioneu un en les dades"
 
-#: anjuta.glade.h:119
+#: anjuta.glade.h:123
 msgid ""
 "Enter the command line arguments for the 'indent' program. Read the info "
 "page for 'indent' for more details"
@@ -535,108 +549,111 @@ msgstr ""
 "Introduïu els paràmetres de línia d'ordres per al programa 'indent'.Llegiu "
 "la pàgina info d' 'indent' per obtenir més detalls."
 
-#: anjuta.glade.h:120
+#: anjuta.glade.h:124
 msgid "Error message indicator style:"
 msgstr "Estil d'indicador de missatge d'error:"
 
-#: anjuta.glade.h:121
+#: anjuta.glade.h:125
 msgid "Errors messages:"
 msgstr "Missatges d'error:"
 
-#: anjuta.glade.h:122
+#: anjuta.glade.h:126
 msgid "Execute Program"
 msgstr "Executa el programa"
 
-#: anjuta.glade.h:123
+#: anjuta.glade.h:127
 msgid "Expand regex back references"
 msgstr ""
 
-# Netscape_4.7->Menu:TALKBACK.EXE
-#: anjuta.glade.h:124 src/an_file_view.c:671 src/breakpoints.c:111
+#: anjuta.glade.h:128 src/an_file_view.c:671 src/breakpoints.c:111
 msgid "File"
 msgstr "Fitxer"
 
-#: anjuta.glade.h:125
+#: anjuta.glade.h:129
 msgid "File Filter"
 msgstr "Filtre de fitxers"
 
-#: anjuta.glade.h:126
+#: anjuta.glade.h:130
 msgid "File filter"
 msgstr "Filtre de fitxers"
 
-#: anjuta.glade.h:127
+#: anjuta.glade.h:131
 msgid "File level"
 msgstr "Nivell de fitxer"
 
-#: anjuta.glade.h:128
+#: anjuta.glade.h:132
 msgid "File/Directory to add:"
 msgstr "Fitxer/directori per afegir:"
 
-#: anjuta.glade.h:129
+#: anjuta.glade.h:133
 msgid "Filter extraneous characters in DOS mode"
 msgstr "Filtra caràcters estranys en mode DOS"
 
 # source\dialog\srchdlg.src modelessdialog RID_SVXDLG_SEARCH
 # Projecte_Open_Office_1.1 [svx.po]
-#: anjuta.glade.h:130
+#: anjuta.glade.h:134
 msgid "Find & Replace"
 msgstr "Cerca i reemplaça"
 
-#: anjuta.glade.h:131
+#: anjuta.glade.h:135
 msgid "Find and replace"
 msgstr "Cerca i reemplaça"
 
-#: anjuta.glade.h:132 src/find_in_files.c:316
+#: anjuta.glade.h:136 src/find_in_files.c:316
 msgid "Find in Files"
 msgstr "Cerca a fitxers"
 
-#: anjuta.glade.h:133
+#: anjuta.glade.h:137
 msgid "Fold style:"
 msgstr "Estil del format:"
 
 # Netscape_4.7->Dialog Box Control:RESDLL.DLL
-#: anjuta.glade.h:134
+#: anjuta.glade.h:138
 msgid "Font:"
 msgstr "Font:"
 
-#: anjuta.glade.h:135
+#: anjuta.glade.h:139
 msgid "Fore color:"
 msgstr "Color de la lletra:"
 
 # Netscape_4.7->Menu:RESDLL.DLL
-#: anjuta.glade.h:136
+#: anjuta.glade.h:140
 msgid "Format"
 msgstr "Format"
 
-#: anjuta.glade.h:137 src/toolbar.c:856
+#: anjuta.glade.h:141 src/toolbar.c:856
 msgid "Format style"
 msgstr "Estil del format"
 
-#: anjuta.glade.h:138
+#: anjuta.glade.h:142
 msgid "Forwards"
 msgstr "Cap endavant"
 
-#: anjuta.glade.h:139
+#: anjuta.glade.h:143
 msgid "From cursor"
 msgstr "Des del cursor"
 
 # source\ui\fldui\fldfunc.src tabpage TP_FLD_FUNC
 # Projecte_Open_Office_1.1 [sw.po]
-#: anjuta.glade.h:140 src/an_symbol_view.c:54
+#: anjuta.glade.h:144 src/an_symbol_view.c:54
 msgid "Functions"
 msgstr "Funcions"
 
-#: anjuta.glade.h:141
+#: anjuta.glade.h:145
+msgid "GNU coding style"
+msgstr "Estil de codificació GNU"
+
+#: anjuta.glade.h:146
 msgid "GUI editor command:"
 msgstr "Ordre de l'editor d'interfícies gràfiques:"
 
 # Mozilla 1.3->general.label
 #. 3
-#: anjuta.glade.h:142 src/main_menubar_def.h:386
+#: anjuta.glade.h:147 src/main_menubar_def.h:386
 msgid "General"
 msgstr "General"
 
-#: anjuta.glade.h:143
+#: anjuta.glade.h:148
 msgid ""
 "Give a space separated list of directories to be built after source module. "
 "This will be set in configure and Makefiles will be generated for them. They "
@@ -647,7 +664,7 @@ msgstr ""
 "generaran Makefiles per a ells. Seran muntats després del directori de codi "
 "(src/) durant \"make\"."
 
-#: anjuta.glade.h:144
+#: anjuta.glade.h:149
 msgid ""
 "Give a space separated list of directories to be built before source module. "
 "This will be set in configure.in and Makefiles will be generated for them. "
@@ -658,289 +675,302 @@ msgstr ""
 "generaran Makefiles per a ells. Seran muntats abans del directori de codi "
 "(src/) durant \"make\"."
 
-#: anjuta.glade.h:145
+#: anjuta.glade.h:150
 msgid "Gnome API"
 msgstr "API del GNOME"
 
-#: anjuta.glade.h:146
+#: anjuta.glade.h:151
 msgid "Greedy matching"
 msgstr "Cerca voraç"
 
-#: anjuta.glade.h:147
+#: anjuta.glade.h:152
 msgid "HTML _viewer:"
 msgstr "_Visualitzador HTML:"
 
 # Netscape_4.7->String:RESDLL.DLL
-#: anjuta.glade.h:148
+#: anjuta.glade.h:153
 msgid "Headers"
 msgstr "Capçaleres"
 
-#: anjuta.glade.h:149
+#: anjuta.glade.h:154
+msgid "Hello World style"
+msgstr "Estil 'hola món'"
+
+#: anjuta.glade.h:155
 msgid "Help module Makefile.am"
 msgstr "Mòdul d'ajuda de Makefile.am"
 
-#: anjuta.glade.h:150
+#: anjuta.glade.h:156
 msgid "High-Level Optimization (Functions inlined wherever possible)"
 msgstr ""
 "Nivell alt d'optimització (funcions declarades inline sempre que sigui "
 "possible)"
 
-#: anjuta.glade.h:151
+#: anjuta.glade.h:157
 msgid "Highlight style"
 msgstr "Estil de formateig"
 
-#: anjuta.glade.h:152
+#: anjuta.glade.h:158
 msgid "History sizes"
 msgstr "Mida de l'historial"
 
-#: anjuta.glade.h:153
+#: anjuta.glade.h:159
 msgid "Ignore Binary Files"
 msgstr "No tenir en compte fitxers binaris"
 
-#: anjuta.glade.h:154
+#: anjuta.glade.h:160
 msgid "Ignore CVS directory"
 msgstr "No tenir en compte el directori CVS"
 
-#: anjuta.glade.h:155
+#: anjuta.glade.h:161
 msgid "Ignore Directories:"
 msgstr "No tenir en compte directoris:"
 
-#: anjuta.glade.h:156
+#: anjuta.glade.h:162
 msgid "Ignore Files:"
 msgstr "No tenir en compte fitxers:"
 
-#: anjuta.glade.h:157
+#: anjuta.glade.h:163
 msgid "Ignore Hidden Directories"
 msgstr "No tenir en compte directoris ocults"
 
-#: anjuta.glade.h:158
+#: anjuta.glade.h:164
 msgid "Ignore Hidden Files"
 msgstr "No tenir en compte fitxers ocults"
 
-#: anjuta.glade.h:159
+#: anjuta.glade.h:165
 msgid "Ignore binary files"
 msgstr "No tenir en compte els fitxers binaris"
 
-#: anjuta.glade.h:160
+#: anjuta.glade.h:166
 msgid "Ignore case"
 msgstr "No diferencia majúscules/minúscules"
 
-#: anjuta.glade.h:161
+#: anjuta.glade.h:167
 msgid "Ignore directories"
 msgstr "No tenir en compte directoris"
 
-#: anjuta.glade.h:162
+#: anjuta.glade.h:168
 msgid "Ignore files"
 msgstr "No tenir en compte fitxers"
 
 # la cadena anglesa és incorrecta!
-#: anjuta.glade.h:163
+#: anjuta.glade.h:169
 msgid "Ignore files and directories"
 msgstr "No tenir en compte els fitxers i els directoris"
 
-#: anjuta.glade.h:164
+#: anjuta.glade.h:170
 msgid "Import Wizard"
 msgstr "Assistent d'importació de projectes"
 
-#: anjuta.glade.h:165
+#: anjuta.glade.h:171
 msgid ""
 "Import existing project. The Import Wizard will guide you to import an "
 "existing Project into Anjuta and convert it into Anjuta Project. There will "
-"be no data lose or modification done to the project."
+"be no data loss or modification done to the project."
 msgstr ""
 "Importa un projecte existent. L'assistent d'importació el guiarà per "
 "importar un projecte existent dins d'Anjuta i el convertirà en un projecte "
 "Anjuta. No hi haurà cap pèrdua de dades, ni el projecte serà modificat."
 
-#: anjuta.glade.h:166
+#: anjuta.glade.h:172
 msgid "Include Paths"
 msgstr "Camins per incloure fitxers"
 
-#: anjuta.glade.h:167
+#: anjuta.glade.h:173
 msgid "Include module Makefile.am"
 msgstr "Mòdul d'Inclusió de Makefile.am"
 
-#: anjuta.glade.h:168
+#: anjuta.glade.h:174
 msgid "Indent closing braces"
 msgstr "Sagnat de la clau/parèntesi final"
 
-#: anjuta.glade.h:169
+#: anjuta.glade.h:175
 msgid "Indent opening braces"
 msgstr "Sagnat de la clau/parèntesi inicial"
 
-#: anjuta.glade.h:170
+#: anjuta.glade.h:176
 msgid "Indentation and auto-format options"
 msgstr "Opcions de sagnat i de format automàtic"
 
-#: anjuta.glade.h:171
+#: anjuta.glade.h:177
 msgid "Indentation size in spaces:"
 msgstr "Mida de sagnat en espais:"
 
-#: anjuta.glade.h:172
+#: anjuta.glade.h:178
 msgid "Indicators"
 msgstr "Indicadors"
 
-#: anjuta.glade.h:173
+#: anjuta.glade.h:179
 msgid "Info Pages"
 msgstr "Pàgines info"
 
-#: anjuta.glade.h:174
+#: anjuta.glade.h:180
 msgid "Input string:"
 msgstr "Cadena d'entrada:"
 
-#: anjuta.glade.h:175 src/text_editor_menu.c:174 src/toolbar.c:599
+#: anjuta.glade.h:181 src/text_editor_menu.c:174 src/toolbar.c:599
 msgid "Inspect"
 msgstr "Inspecciona"
 
 # Netscape_4.7->String:MNPREF32.DLL
-#: anjuta.glade.h:176
+#: anjuta.glade.h:182
 msgid "Italic"
 msgstr "Cursiva"
 
-#: anjuta.glade.h:177
+#: anjuta.glade.h:183
 msgid "Keep going when some targets can not be made"
 msgstr "Continua encara que alguns objectius no es puguin muntar"
 
-#: anjuta.glade.h:178
+#: anjuta.glade.h:184
+msgid "Kernighan and Ritchie style"
+msgstr "Estil de Kernighan i Ritchie"
+
+#: anjuta.glade.h:185
 msgid "Language-specific commands:"
 msgstr "Ordres específiques del llenguatge:"
 
+# Netscape_4.7->Dialog Box Control:EDITOR32.DLL
+#: anjuta.glade.h:186
+msgid "Left"
+msgstr "Esquerra"
+
 # Projecte_Gnome_2.2 [scrollkeeper.HEAD.ca.po]
-#: anjuta.glade.h:179
+#: anjuta.glade.h:187
 msgid "Libraries"
 msgstr "Biblioteques"
 
-#: anjuta.glade.h:180
+#: anjuta.glade.h:188
 msgid "Library Paths"
 msgstr "Camins a biblioteques"
 
-#: anjuta.glade.h:181
+#: anjuta.glade.h:189
 msgid "Line numbers margin width in pixels"
 msgstr "Amplada del marge del número de línia, en píxels"
 
 # Netscape_4.7->String:RESDLL.DLL
-#: anjuta.glade.h:182 printing/print.c:1011 src/anjuta_info.c:126
+#: anjuta.glade.h:190 printing/print.c:1011 src/anjuta_info.c:126
 msgid "Lines"
 msgstr "Línies"
 
-#: anjuta.glade.h:183
+#: anjuta.glade.h:191
 msgid "Linker Flags (LDFLAGS):"
 msgstr "Paràmetres de l'enllaçador (LDFLAGS):"
 
-#: anjuta.glade.h:184
+#: anjuta.glade.h:192
 msgid "Load _global defaults"
 msgstr "Carrega opcions _globals per defecte"
 
-#: anjuta.glade.h:185
+#: anjuta.glade.h:193
 msgid "Load _user defaults"
 msgstr "Carrega opcions per defecte de l'_usuari"
 
-#: anjuta.glade.h:186
+#: anjuta.glade.h:194
 msgid "Low-Level Optimization (Machine dependent optimization)"
 msgstr "Baix nivell d'optimització (depenent de la màquina)"
 
-#: anjuta.glade.h:187
+#: anjuta.glade.h:195
 msgid "Makefile.am"
 msgstr "Makefile.am"
 
-#: anjuta.glade.h:188
+#: anjuta.glade.h:196
 msgid "Man pages"
 msgstr "Pàgines de manual"
 
-#: anjuta.glade.h:189
+#: anjuta.glade.h:197
 msgid "Match at start of word"
 msgstr "Concorda al començament de la paraula"
 
-#: anjuta.glade.h:190
+#: anjuta.glade.h:198
 msgid "Match complete lines"
 msgstr "Concorda amb línies senceres"
 
-#: anjuta.glade.h:191
+#: anjuta.glade.h:199
 msgid "Match complete words"
 msgstr "Concorda amb paraules senceres"
 
-#: anjuta.glade.h:192
+#: anjuta.glade.h:200
 msgid "Max. Actions"
 msgstr "Màx. accions"
 
-#: anjuta.glade.h:193
+#: anjuta.glade.h:201
 msgid "Maximum number of independent jobs (0 == no limit)"
 msgstr "Nombre màxim de tasques independents (0 == cap límit)"
 
-#: anjuta.glade.h:194
+#: anjuta.glade.h:202
 msgid "Medium-Level Optimization (Without space-speed trade-off)"
 msgstr ""
 "Nivell mitjà d'optimització (sense compensació entre espai i velocitat)"
 
 # Projecte_Mandrake [tm-mandrake.po]
-#: anjuta.glade.h:195
+#: anjuta.glade.h:203
 msgid "Memory"
 msgstr "Memòria"
 
-#: anjuta.glade.h:196
+#: anjuta.glade.h:204
 msgid "Menu icon:"
 msgstr "Icona del menú:"
 
-#: anjuta.glade.h:197
+#: anjuta.glade.h:205
 msgid "Menu location:"
 msgstr "Ubicació del menú:"
 
 # Netscape_4.7->Menu:RESDLL.DLL
-#: anjuta.glade.h:198
+#: anjuta.glade.h:206
 msgid "Message colors"
 msgstr "Colors dels missatges"
 
 # Netscape_4.7->Menu:RESDLL.DLL
-#: anjuta.glade.h:199
+#: anjuta.glade.h:207
 msgid "Messages options"
 msgstr "Opcions dels missatges"
 
-#: anjuta.glade.h:200
+#: anjuta.glade.h:208
 msgid "Misc options"
 msgstr "Altres opcions"
 
 # Projecte_Gnome_2.2 [glade.glade-gnome2-branch.ca.po]
-#: anjuta.glade.h:201
+#: anjuta.glade.h:209
 msgid "Mode:"
 msgstr "Mode:"
 
 # source\appl\app.src string STR_KEY_MODULES_PATH
 # Projecte_Open_Office_1.1 [sfx2.po]
-#: anjuta.glade.h:202
+#: anjuta.glade.h:210
 msgid "Modules"
 msgstr "Mòduls"
 
-#: anjuta.glade.h:203
+#: anjuta.glade.h:211
 msgid "Monochrome"
 msgstr "Monocolor"
 
 # Winrar 2.9->String:rarlng.dll
-#: anjuta.glade.h:204
+#: anjuta.glade.h:212
 msgid "Name:"
 msgstr "Nom:"
 
-#: anjuta.glade.h:205 src/main_menubar_def.h:30 src/text_editor_gui.c:97
+#: anjuta.glade.h:213 src/main_menubar_def.h:30 src/text_editor_gui.c:97
 #: src/toolbar.c:76
 msgid "New file"
 msgstr "Nou fitxer"
 
-#: anjuta.glade.h:206
+#: anjuta.glade.h:214
 msgid "No Limit"
 msgstr "Cap límit"
 
-#: anjuta.glade.h:207
+#: anjuta.glade.h:215
 msgid "No Optimization"
 msgstr "Cap optimització"
 
-#: anjuta.glade.h:208
+#: anjuta.glade.h:216
 msgid "Normal message indicator style:"
 msgstr "Estil d'indicador de missatge normal:"
 
-#: anjuta.glade.h:209
+#: anjuta.glade.h:217
 msgid "Normal messages:"
 msgstr "Missatges normals:"
 
-#: anjuta.glade.h:210
+#: anjuta.glade.h:218
 msgid ""
 "Note: If there is a project open, the preferences in this page are project "
 "preferences and will be loaded from and saved with the project. If there is "
@@ -950,57 +980,61 @@ msgstr ""
 "preferències del projecte i seran carregades i desades amb el projecte. Si "
 "no hi ha cap projecte obert, seran preferències globals."
 
-#: anjuta.glade.h:211
+#: anjuta.glade.h:219
 msgid "Number of first characters to show:"
 msgstr "Quantitat de càracters inicials que s'han de mostrar:"
 
-#: anjuta.glade.h:212
+#: anjuta.glade.h:220
 msgid "Number of last characters to show:"
 msgstr "Quantitat de càracters finals que s'han de mostrar:"
 
 # Projecte_Gnome_2.2 [glade.glade-gnome2-branch.ca.po]
 #. Must declare static, because it will be used forever
-#: anjuta.glade.h:213 src/project_dbase.c:197 src/toolbar.c:213
+#: anjuta.glade.h:221 src/project_dbase.c:197 src/toolbar.c:213
 msgid "Open Project"
 msgstr "Obre un projecte"
 
-#: anjuta.glade.h:214
+#: anjuta.glade.h:222
 msgid "Open existing Project."
 msgstr "Obre un projecte existent."
 
-#: anjuta.glade.h:215
+#: anjuta.glade.h:223
 msgid "Open existing file or create a new file."
 msgstr "Obre un fitxer existent o crea un nou fitxer."
 
-#: anjuta.glade.h:216 src/main_menubar_def.h:36 src/text_editor_gui.c:101
+#: anjuta.glade.h:224 src/main_menubar_def.h:36 src/text_editor_gui.c:101
 #: src/toolbar.c:80
 msgid "Open file"
 msgstr "Obre fitxer"
 
-#: anjuta.glade.h:217
+#: anjuta.glade.h:225
 msgid "Open last working Project"
 msgstr "Obre un projecte"
 
-#: anjuta.glade.h:218
+#: anjuta.glade.h:226
 msgid "Optimization"
 msgstr "Optimització"
 
 # Winrar 2.9->Menu:rarlng.dll
 #. 15
-#: anjuta.glade.h:219 src/text_editor_menu.c:329
+#: anjuta.glade.h:227 src/text_editor_menu.c:329
 msgid "Options"
 msgstr "Opcions"
+
+#: anjuta.glade.h:228
+msgid "Original Berkeley style"
+msgstr "Estil original de Berkeley"
 
 # source\smres.src toolboxitem RID_TOOLBOXWINDOW.10 RID_FUNCTIONS_CAT
 # source\smres.src toolboxitem RID_TOOLBOXWINDOW.10 RID_OPERATORS_CAT
 # source\smres.src toolboxitem RID_TOOLBOXWINDOW.10 RID_ATTRIBUTES_CAT
 # source\smres.src toolboxitem RID_TOOLBOXWINDOW.10 RID_MISC_CAT
 # Projecte_Open_Office_1.1 [starmath.po]
-#: anjuta.glade.h:220
+#: anjuta.glade.h:229
 msgid "Other colors"
 msgstr "Altres colors"
 
-#: anjuta.glade.h:221
+#: anjuta.glade.h:230
 msgid "Other messages:"
 msgstr "Altres missatges:"
 
@@ -1009,49 +1043,53 @@ msgstr "Altres missatges:"
 # source\smres.src toolboxitem RID_TOOLBOXWINDOW.10 RID_ATTRIBUTES_CAT
 # source\smres.src toolboxitem RID_TOOLBOXWINDOW.10 RID_MISC_CAT
 # Projecte_Open_Office_1.1 [starmath.po]
-#: anjuta.glade.h:222 src/an_symbol_view.c:54
+#: anjuta.glade.h:231 src/an_symbol_view.c:54
 msgid "Others"
 msgstr "Altres"
 
-#: anjuta.glade.h:223
+#: anjuta.glade.h:232
 msgid "Output files"
 msgstr "Fitxers de sortida"
 
-#: anjuta.glade.h:224
+#: anjuta.glade.h:233
 msgid "Pick a color"
 msgstr "Esculliu un color"
 
-#: anjuta.glade.h:225
+#: anjuta.glade.h:234
 msgid "Pixmap module Makefile.am"
 msgstr "Mòdul de mapa de píxels de Makefile.am"
 
-#: anjuta.glade.h:226
+#: anjuta.glade.h:235
+msgid "Plus/Minus"
+msgstr "Més/menys"
+
+#: anjuta.glade.h:236
 msgid "Po module (translation) Makefile.am"
 msgstr "Mòdul de traduccions (Po) de Makefile.am"
 
-#: anjuta.glade.h:227
+#: anjuta.glade.h:237
 msgid "Position:"
 msgstr "Posició:"
 
-#: anjuta.glade.h:228
+#: anjuta.glade.h:238
 msgid "Press this button to dismiss the dialog"
 msgstr "Pressioneu aquest botó per tancar el diàleg"
 
-#: anjuta.glade.h:229
+#: anjuta.glade.h:239
 msgid "Pressing backspace un-indents"
 msgstr "Pressiona tecla de retrocés redueix el sagnat"
 
-#: anjuta.glade.h:230
+#: anjuta.glade.h:240
 msgid "Pressing tab indents"
 msgstr "Pressiona tabulador incrementa el sagnat"
 
 # source\ui\app\mn.src menuitem MN_PPREVIEW_POPUPMENU FN_PREVIEW_PRINT_OPTIONS
 # Projecte_Open_Office_1.1 [sw.po]
-#: anjuta.glade.h:231
+#: anjuta.glade.h:241
 msgid "Print options"
 msgstr "Opcions de impressió"
 
-#: anjuta.glade.h:232
+#: anjuta.glade.h:242
 msgid "Programs"
 msgstr "Programes"
 
@@ -1060,380 +1098,416 @@ msgstr "Programes"
 # source\misc\mediatyp.src string STR_SVT_MIMETYPE_CNT_FSYSURLFILE
 # source\misc\mediatyp.src string STR_SVT_MIMETYPE_CNT_PUBLBOX
 # Projecte_Open_Office_1.1 [svtools.po]
-#: anjuta.glade.h:233 src/project_dbase_gui.c:610 src/project_dbase_gui.c:627
+#: anjuta.glade.h:243 src/project_dbase_gui.c:610 src/project_dbase_gui.c:627
 #: src/toolbar.c:150
 msgid "Project"
 msgstr "Projecte"
 
-#: anjuta.glade.h:234
+#: anjuta.glade.h:244
 msgid "Project Configuration"
 msgstr "Configuració del projecte"
 
-#: anjuta.glade.h:235 src/wizard_gui.c:469
+#: anjuta.glade.h:245 src/wizard_gui.c:469
 msgid "Project Description"
 msgstr "Descripció del projecte"
 
-#: anjuta.glade.h:236
+#: anjuta.glade.h:246
 msgid "Project Version"
 msgstr "Versió del projecte"
 
-#: anjuta.glade.h:237
+#: anjuta.glade.h:247
 msgid "Project configure.in"
 msgstr "Fitxer configure.in del projecte"
 
-#: anjuta.glade.h:238
+#: anjuta.glade.h:248
 msgid "Project level"
 msgstr "Nivell del projecte"
 
-#: anjuta.glade.h:239
+#: anjuta.glade.h:249
 msgid "Projects:"
 msgstr "Projectes:"
 
-#: anjuta.glade.h:240
+#: anjuta.glade.h:250
 msgid "Prompt before replace"
 msgstr "Demana confirmació abans de reemplaçar"
 
-#: anjuta.glade.h:241
+#: anjuta.glade.h:251
 msgid "Recent Files:"
 msgstr "Fitxers recents:"
 
-#: anjuta.glade.h:242
+#: anjuta.glade.h:252
 msgid "Recent Projects:"
 msgstr "Projectes recents:"
 
-#: anjuta.glade.h:243
+#: anjuta.glade.h:253
 msgid "Regexp"
 msgstr "Expressió regular"
 
-#: anjuta.glade.h:244
+#: anjuta.glade.h:254
 msgid "Regexp/String to find"
 msgstr "Expressió regular/cadena per cercar"
 
 # Projecte_Gnome_2.2 [balsa.HEAD.ca.po]
-#: anjuta.glade.h:245
+#: anjuta.glade.h:255
 msgid "Regular Expression"
 msgstr "Expressió regular"
 
-#: anjuta.glade.h:246
+#: anjuta.glade.h:256
 msgid "Reload Session Defaults"
 msgstr "Refresca valors de la sessió per defecte"
 
-#: anjuta.glade.h:247
+#: anjuta.glade.h:257
 msgid "Reload System Defaults"
 msgstr "Refresca valors del sistema per defecte"
 
-#: anjuta.glade.h:248
+#: anjuta.glade.h:258
 msgid "Replace Expression"
 msgstr "Expressió per reemplaçar"
 
-#: anjuta.glade.h:249
+#: anjuta.glade.h:259
 msgid "Replace With:"
 msgstr "Reemplaça amb:"
 
-#: anjuta.glade.h:250
+#: anjuta.glade.h:260
 msgid "Reset all sticky tags during update (looses branch) [-A]"
 msgstr ""
 "Reinicia totes les etiquetes enganxables en actualizar (es perd la branca) [-"
 "A]"
 
-#: anjuta.glade.h:251
+# Netscape_4.7->Dialog Box Control:EDITOR32.DLL
+#: anjuta.glade.h:261
+msgid "Right"
+msgstr "Dreta"
+
+#: anjuta.glade.h:262
 msgid "Run Configure Script"
 msgstr "Executa el fitxer de seqüència d'ordres Configure"
 
-#: anjuta.glade.h:252
+#: anjuta.glade.h:263
 msgid "Run detached"
 msgstr "Executa separat"
 
-#: anjuta.glade.h:253
+#: anjuta.glade.h:264
 msgid "Run in Terminal"
 msgstr "Executa en un Terminal"
 
-#: anjuta.glade.h:254
+#: anjuta.glade.h:265
 msgid "Run in terminal"
 msgstr "Executa en un terminal"
 
-#: anjuta.glade.h:255
+#: anjuta.glade.h:266
 msgid "Save all files"
 msgstr "Desa tots els fitxer"
 
-#: anjuta.glade.h:256
+#: anjuta.glade.h:267
 msgid "Save files interval in minutes"
 msgstr "Interval en minuts per desar fitxers automàticament"
 
-#: anjuta.glade.h:257
+#: anjuta.glade.h:268
 msgid "Save session interval in minutes"
 msgstr "Interval en minuts per desar la sessió automàticament"
 
-#: anjuta.glade.h:258
+#: anjuta.glade.h:269
 msgid "Scope"
 msgstr "Abast"
 
-#: anjuta.glade.h:259
+#: anjuta.glade.h:270
 msgid "Scripts at the end of top level Makefile.am"
 msgstr ""
 "Fitxers de seqüència d'ordres extra al final del Makefile.am de nivell "
 "superior"
 
 # Netscape_4.7->Dialog Box Control:RESDLL.DLL
-#: anjuta.glade.h:260 src/search-replace.c:1361 src/search-replace.c:1527
-#: src/search-replace.c:1533
+#: anjuta.glade.h:271 src/search-replace.c:1362 src/search-replace.c:1528
+#: src/search-replace.c:1534
 msgid "Search"
 msgstr "Cerca"
 
-#: anjuta.glade.h:261
+#: anjuta.glade.h:272
 msgid "Search Action:"
 msgstr "Acció de la cerca:"
 
-#: anjuta.glade.h:262
+#: anjuta.glade.h:273
 msgid "Search Direction:"
 msgstr "Direcció de la cerca:"
 
-#: anjuta.glade.h:263
+#: anjuta.glade.h:274
 msgid "Search Expression"
 msgstr "Expressió per Cercar"
 
-#: anjuta.glade.h:264
+#: anjuta.glade.h:275
 msgid "Search Expression:"
 msgstr "Expressió per cercar:"
 
-#: anjuta.glade.h:265
+#: anjuta.glade.h:276
 msgid "Search In:"
 msgstr "Cerca a:"
 
-#: anjuta.glade.h:266
+#: anjuta.glade.h:277
 msgid "Search Recursively"
 msgstr "Cerca recursiva"
 
-#: anjuta.glade.h:267
+#: anjuta.glade.h:278
 msgid "Search String"
 msgstr "Cadena de Cerca"
 
-#: anjuta.glade.h:268
+#: anjuta.glade.h:279
 msgid "Search Target"
 msgstr "Objectiu de la cerca"
 
-#: anjuta.glade.h:269
+#: anjuta.glade.h:280
 msgid "Search Variable"
 msgstr "Variables de cerca"
 
-#: anjuta.glade.h:270
+#: anjuta.glade.h:281
 msgid "Search type"
 msgstr "Tipus de cerca"
 
-#: anjuta.glade.h:271
+#: anjuta.glade.h:282
 msgid "Select highlight style to edit:"
 msgstr "Seleccioneu l'estil de formateig que voleu editar:"
 
 # source\euro\euro.src string MESSAGES+2
 # Projecte_Open_Office_1.1 [wizards.po]
-#: anjuta.glade.h:272
+#: anjuta.glade.h:283
 msgid "Select theme:"
 msgstr "Seleccioneu tema:"
 
-#: anjuta.glade.h:273
+#: anjuta.glade.h:284
 msgid "Selection background:"
 msgstr "Color del fons seleccionat:"
 
-#: anjuta.glade.h:274
+#: anjuta.glade.h:285
 msgid "Selection foreground:"
 msgstr "Color de la lletra seleccionada:"
 
 # Winrar 2.9->String:rarlng.dll
-#: anjuta.glade.h:275
+#: anjuta.glade.h:286
 msgid "Settings"
 msgstr "Paràmetres"
 
 #
 # Projecte_Gnome_2.2 [gnome-control-center.gnome-2-0.ca.po]
-#: anjuta.glade.h:276
+#: anjuta.glade.h:287
 msgid "Short cut:"
 msgstr "Drecera:"
 
-#: anjuta.glade.h:277
+#: anjuta.glade.h:288
 msgid "Show tooltips"
 msgstr "Mostra indicador de funcionalitat"
 
-#: anjuta.glade.h:278
+#: anjuta.glade.h:289
 msgid "Silent. That is, do not echo shell commads during make"
 msgstr "Silenciós: no escriure la sortida de les comandes durant el muntatge"
 
-#: anjuta.glade.h:279
+#: anjuta.glade.h:290
 msgid "Sorted by most recent use"
 msgstr "Ordenats segons l'usat més recentment"
 
-#: anjuta.glade.h:280
+#: anjuta.glade.h:291
 msgid "Sorted in alphabetical order"
 msgstr "Ordenats alfabèticament"
 
-#: anjuta.glade.h:281
+#: anjuta.glade.h:292
 msgid "Sorted in the order you open them"
 msgstr "Ordenats en l'ordre en què s'obrin"
 
-#: anjuta.glade.h:282
+#: anjuta.glade.h:293
 msgid "Source Directories"
 msgstr "Directoris font"
 
-#: anjuta.glade.h:283
+#: anjuta.glade.h:294
 msgid "Source module Makefile.am"
 msgstr "Mòdul de codi de Makefile.am"
 
-#: anjuta.glade.h:284
+#: anjuta.glade.h:295
 msgid "Space-seperated list of directory name patterns to ignore"
 msgstr ""
 "Llista de patrons de nom de directori, separats per espais, que no es "
 "tindran en compte"
 
-#: anjuta.glade.h:285
+#: anjuta.glade.h:296
 msgid "Space-seperated list of directory name patterns to match"
 msgstr ""
 "Llista de patrons de nom de directoris, separats per espais, per cercar una "
 "coincidència"
 
-#: anjuta.glade.h:286
+#: anjuta.glade.h:297
 msgid "Space-seperated list of file name patterns to ignore"
 msgstr ""
 "Llista de patrons de nom de fitxer, separats per espais, que no es tindran "
 "en compte"
 
-#: anjuta.glade.h:287
+#: anjuta.glade.h:298
 msgid "Space-seperated list of file name patterns to match"
 msgstr ""
 "Llista de patrons de nom de fitxer, separats per espais, per cercar una "
 "coincidència"
 
+#: anjuta.glade.h:299
+msgid "Squares"
+msgstr "Quadrat"
+
 # Projecte_Gnome_2.2 [gnumeric.HEAD.ca.po]
-#: anjuta.glade.h:288
+#: anjuta.glade.h:300
 msgid "Standard error:"
 msgstr "Error estàndard:"
 
-#: anjuta.glade.h:289
+#: anjuta.glade.h:301
 msgid "Standard input:"
 msgstr "Entrada estàndard:"
 
-#: anjuta.glade.h:290
+#: anjuta.glade.h:302
 msgid "Standard output:"
 msgstr "Sortida estàndard:"
 
-#: anjuta.glade.h:291
+#: anjuta.glade.h:303
 msgid ""
 "Start with a new Project. Application wizard will guide you with Project "
 "creation. With the Application Wizard, you will be able to create the "
-"skelleton of various types of Project."
+"skeleton of various Project types."
 msgstr ""
-"Comença amb un projecte nou. L'assistent d'aplicacions el guiarà amb la "
+"Començi amb un projecte nou. L'assistent d'aplicacions el guiarà amb la "
 "creació del projecte. Amb l'assistent d'apliacions podrà crear l'esquelet de "
 "diferents tipus de projectes."
 
+# sdi\sfxslots.src sfxslotinfo SID_BASICSTEPOUT
+# Projecte_Open_Office_1.1 [sfx2.po]
+#: anjuta.glade.h:304
+msgid "Strike-Out"
+msgstr "Ratllat"
+
 # Projecte_Gnome_2.2 [pong.HEAD.ca.po]
-#: anjuta.glade.h:292
+#: anjuta.glade.h:305
 msgid "String"
 msgstr "Cadena"
 
-#: anjuta.glade.h:293
+#: anjuta.glade.h:306
 msgid "String to replace"
 msgstr "Cadena per reemplaçar"
 
-#: anjuta.glade.h:294
+#: anjuta.glade.h:307
 msgid "Strip trailling spaces on file save"
 msgstr "Retalla espais al final de línia en desar el fitxer"
 
-#: anjuta.glade.h:295 src/anjuta-encodings.c:721
+#: anjuta.glade.h:308
+msgid "Style of Kangleipak"
+msgstr "Estil de Kangleipak"
+
+#: anjuta.glade.h:309 src/anjuta-encodings.c:721
 msgid "Supported Encodings"
 msgstr "Codificacions disponibles"
 
-#: anjuta.glade.h:296
+#: anjuta.glade.h:310
 msgid "Supports"
 msgstr "Dóna suport a"
 
-#: anjuta.glade.h:297
+#: anjuta.glade.h:311
 msgid "Syntax highlight editor"
 msgstr "Edita el format de sintaxi"
 
-#: anjuta.glade.h:298
+#: anjuta.glade.h:312
 msgid "Tab size in spaces:"
 msgstr "Mida de tabulació en espais:"
 
-#: anjuta.glade.h:299
+#: anjuta.glade.h:313
 msgid "Tabs position:"
 msgstr "Posició de les pestanyes:"
 
-#: anjuta.glade.h:300
+#: anjuta.glade.h:314
 msgid "Target:"
 msgstr "Tipus d'objecte:"
 
-#: anjuta.glade.h:301
+#: anjuta.glade.h:315
 msgid "Terminal options"
 msgstr "Opcions del terminal"
 
 # Winrar 2.9->String:rarlng.dll
-#: anjuta.glade.h:302
+#: anjuta.glade.h:316
 msgid "Theme"
 msgstr "Tema"
 
-#: anjuta.glade.h:303
+#: anjuta.glade.h:317
 msgid "Tool Editor"
 msgstr "Editor d'eines"
 
-#: anjuta.glade.h:304
+# Netscape_4.7->String:RESDLL.DLL
+#: anjuta.glade.h:318
+msgid "Top"
+msgstr "Principi"
+
+#: anjuta.glade.h:319
 msgid "Top level Makefile.am"
 msgstr "Makefile.am de nivell superior"
 
-#: anjuta.glade.h:305
+#: anjuta.glade.h:320
 msgid "Truncate long messages"
 msgstr "Redueix missatges llargs"
 
-#: anjuta.glade.h:306
+#: anjuta.glade.h:321
 msgid "Try to save in current locale's encoding"
 msgstr "Intenta desar en la codificació de la localització actual"
 
-#: anjuta.glade.h:307
+#: anjuta.glade.h:322
 msgid "Try to save in original encoding"
 msgstr "Intenta desar en la codificació original"
 
-#: anjuta.glade.h:308
+#: anjuta.glade.h:323
+msgid "Underline Plain"
+msgstr "Subratllat de línia recta"
+
+#: anjuta.glade.h:324
+msgid "Underline Squiggle"
+msgstr "Subratllat de línies mogudes"
+
+#: anjuta.glade.h:325
+msgid "Underline-TT"
+msgstr "Subratllat-TT"
+
+#: anjuta.glade.h:326
 msgid "Underlined"
 msgstr "Subratllat"
 
 # Projecte_Mandrake [tm-mandrake.po]
-#: anjuta.glade.h:309 src/cvs_gui.c:73 src/registers_gui.c:47
+#: anjuta.glade.h:327 src/cvs_gui.c:73 src/registers_gui.c:47
 #: src/sharedlib_gui.c:40 src/signals_gui.c:54 src/stack_trace.c:364
 msgid "Update"
 msgstr "Actualitza"
 
-#: anjuta.glade.h:310
+#: anjuta.glade.h:328
 msgid "Update tags image automatically"
 msgstr "Actualitza la imatge d'etiquetes automàticament"
 
-#: anjuta.glade.h:311
+#: anjuta.glade.h:329
 msgid "Use GNOME terminal profile:"
 msgstr "Fes servir el perfil de terminal de GNOME:"
 
-#: anjuta.glade.h:312
+#: anjuta.glade.h:330
 msgid "Use currently selected profile in GNOME terminal"
 msgstr "Fes servir el perfil de terminal actual de GNOME"
 
-#: anjuta.glade.h:313
+#: anjuta.glade.h:331
 msgid "Use default"
 msgstr "Fa servir opcions per defecte"
 
-#: anjuta.glade.h:314
+#: anjuta.glade.h:332
 msgid "Use tabs for indentation"
 msgstr "Usa tabulador per fer el sagnat"
 
-#: anjuta.glade.h:315
+#: anjuta.glade.h:333
 msgid "User Tools"
 msgstr "Eines d'usuari"
 
-#: anjuta.glade.h:316
+#: anjuta.glade.h:334
 msgid "User email address:"
 msgstr "Correu electrònic de l'usuari:"
 
 # Netscape_4.7->Dialog Caption:_ISRES.DLL
-#: anjuta.glade.h:317
+#: anjuta.glade.h:335
 msgid "User information"
 msgstr "Informació d'usuari"
 
-#: anjuta.glade.h:318
+#: anjuta.glade.h:336
 msgid "User name:"
 msgstr "Nom d'usuari:"
 
@@ -1443,126 +1517,126 @@ msgstr "Nom d'usuari:"
 # source\ui\fldui\fldtdlg.src pageitem DLG_FLD_INSERT.1 TP_FLD_DOKINF
 # source\ui\fldui\fldtdlg.src pageitem DLG_FLD_INSERT.1 TP_FLD_VAR
 # Projecte_Open_Office_1.1 [sw.po]
-#: anjuta.glade.h:319
+#: anjuta.glade.h:337
 msgid "Variable list"
 msgstr "Llista de variables"
 
 # Projecte_Mandrake [xmms-ca.po]
-#: anjuta.glade.h:320 src/project_dbase_gui.c:932
+#: anjuta.glade.h:338 src/project_dbase_gui.c:932
 msgid "Version:"
 msgstr "Versió:"
 
 # Winrar 2.9->Menu:rarlng.dll
-#: anjuta.glade.h:321
+#: anjuta.glade.h:339
 msgid "View"
 msgstr "Visualitza"
 
-#: anjuta.glade.h:322
+#: anjuta.glade.h:340
 msgid "Warn when an undefined variable is referenced in the Makefile"
 msgstr "Avisa quan una variable no definida sigui referenciada al Makefile"
 
-#: anjuta.glade.h:323
+#: anjuta.glade.h:341
 msgid "Warning message indicator style:"
 msgstr "Estil d'indicador de missatge d'avís:"
 
 # Mozilla 1.3->warnings.label
-#: anjuta.glade.h:324
+#: anjuta.glade.h:342
 msgid "Warnings"
 msgstr "Avisos"
 
-#: anjuta.glade.h:325
+#: anjuta.glade.h:343
 msgid "Warnings messages:"
 msgstr "Missatges d'avís:"
 
-#: anjuta.glade.h:326
+#: anjuta.glade.h:344
 msgid "Whole document"
 msgstr "Document sencer"
 
-#: anjuta.glade.h:327
+#: anjuta.glade.h:345
 msgid "Whole word"
 msgstr "Paraula sencera"
 
-#: anjuta.glade.h:328
+#: anjuta.glade.h:346
 msgid "Working directory:"
 msgstr "Directori de treball:"
 
-#: anjuta.glade.h:329
+#: anjuta.glade.h:347
 msgid "Wrap bookmarks search around"
 msgstr "Torna a començar la cerca d'adreces d'interés quan arribi al final"
 
 # Netscape_4.7->Menu:RESDLL.DLL
-#: anjuta.glade.h:330
+#: anjuta.glade.h:348
 msgid "_Attach"
 msgstr "_Adjunta"
 
-#: anjuta.glade.h:331
+#: anjuta.glade.h:349
 msgid "_Build a file:"
 msgstr "Munta un _fitxer:"
 
-#: anjuta.glade.h:332
+#: anjuta.glade.h:350
 msgid "_Condition:"
 msgstr "_Condició:"
 
 # Mozilla 1.3->DisableMunger.label
-#: anjuta.glade.h:333
+#: anjuta.glade.h:351
 msgid "_Disable all"
 msgstr "Inhabilita'ls _tots"
 
 # Winrar 2.9->Menu:rarlng.dll
-#: anjuta.glade.h:334
+#: anjuta.glade.h:352
 msgid "_Edit"
 msgstr "_Edita"
 
 # Projecte_Gnome_2.2 [gtk+.gtk-2-0.ca.po]
-#: anjuta.glade.h:335
+#: anjuta.glade.h:353
 msgid "_Execute:"
 msgstr "_Executa:"
 
-#: anjuta.glade.h:336
+#: anjuta.glade.h:354
 msgid "_Image editor:"
 msgstr "Editor d'_imatges:"
 
-#: anjuta.glade.h:337
+#: anjuta.glade.h:355
 msgid "_Language:"
 msgstr "_Llenguatge:"
 
 # Netscape_4.7->Dialog Box Control:RESDLL.DLL
-#: anjuta.glade.h:338
+#: anjuta.glade.h:356
 msgid "_Location:"
 msgstr "_Ubicació:"
 
-#: anjuta.glade.h:339
+#: anjuta.glade.h:357
 msgid "_Make a file:"
 msgstr "_Munta un fitxer amb make:"
 
-#: anjuta.glade.h:340
+#: anjuta.glade.h:358
 msgid "_Pass:"
 msgstr "_Passa:"
 
-#: anjuta.glade.h:341
+#: anjuta.glade.h:359
 msgid "_Pixmap editor:"
 msgstr "Editor de ma_pes de píxels:"
 
-#: anjuta.glade.h:342
+#: anjuta.glade.h:360
 msgid "_Process to attach to:"
 msgstr "_Procés al qual s'adjunta:"
 
-#: anjuta.glade.h:343
+#: anjuta.glade.h:361
 msgid "_Remove all"
 msgstr "Sup_rimeix-los tots"
 
 # Projecte_Mandrake [abiword-ca.po]
-#: anjuta.glade.h:344
+#: anjuta.glade.h:362
 msgid "_Save Theme As"
 msgstr "De_sa tema com a"
 
 # Projecte_Gnome_2.2 [sawfish.gnome-2.ca.po]
-#: anjuta.glade.h:345
+#: anjuta.glade.h:363
 msgid "_Terminal:"
 msgstr "_Terminal:"
 
 # Projecte_Mandrake [tm-mandrake.po]
-#: anjuta.glade.h:346
+#: anjuta.glade.h:364
 msgid "_Update"
 msgstr "Act_ualitza"
 
@@ -1780,10 +1854,9 @@ msgstr ""
 "El nou controlador %p és automàtic. Només els objectes enganxables "
 "manualment s'han de dir controladors."
 
-# Netscape_4.7->String:RESDLL.DLL
 #: gdl/gdl-dock-notebook.c:134
 msgid "Page"
-msgstr "Página"
+msgstr "Pàgina"
 
 #: gdl/gdl-dock-notebook.c:135
 msgid "The index of the current page"
@@ -1859,7 +1932,7 @@ msgstr ""
 
 #: gdl/gdl-dock-placeholder.c:135
 msgid "Host"
-msgstr "Element anfitrió"
+msgstr "Element amfitrió"
 
 #: gdl/gdl-dock-placeholder.c:136
 msgid "The dock object this placeholder is attached to"
@@ -1873,7 +1946,7 @@ msgstr "Següent emplaçament"
 msgid ""
 "The position an item will be docked to our host if a request is made to dock "
 "to us"
-msgstr ""
+msgstr "La posició on un element s'enganxarà al nostre element amfitrió, en el cas que se'ns demani enganxar-se a nosaltres"
 
 #: gdl/gdl-dock-placeholder.c:305
 msgid "Attempt to dock a dock object to an unbound placeholder"
@@ -1922,7 +1995,6 @@ msgstr "Amplada"
 msgid "Width for the dock when it's of floating type"
 msgstr "Amplada de l'element enganxable quan és un objecte flotant"
 
-# Netscape_4.7->Dialog Box Control:EDITOR32.DLL
 #: gdl/gdl-dock.c:200
 msgid "Height"
 msgstr "Alçada"
@@ -1931,7 +2003,6 @@ msgstr "Alçada"
 msgid "Height for the dock when it's of floating type"
 msgstr "Alçada de l'element enganxable quan és un objecte flotant"
 
-# Netscape_4.7->Menu:RESDLL.DLL
 #: gdl/gdl-dock.c:208
 msgid "Float X"
 msgstr "Flota X"
@@ -1940,7 +2011,6 @@ msgstr "Flota X"
 msgid "X coordinate for a floating dock"
 msgstr "Coordenada X per a l'element flotant"
 
-# Netscape_4.7->Menu:RESDLL.DLL
 #: gdl/gdl-dock.c:216
 msgid "Float Y"
 msgstr "Flota Y"
@@ -1966,7 +2036,6 @@ msgstr "Icona de l'ampliació"
 msgid "Layout Managment"
 msgstr "Gestió de disposició"
 
-# Projecte_Gnome_2.2 [scrollkeeper.HEAD.ca.po]
 #: gdl/layout.glade.h:5
 msgid "_Load"
 msgstr "_Carrega"
@@ -1999,21 +2068,18 @@ msgstr "S'ha produït un error en importar fitxers"
 msgid "Class Builder"
 msgstr "Constructor de classes"
 
-# Winrar 2.9->Menu:rarlng.dll
 #. 13
 #. 14
-#: plugins/class-gen/clsGen.c:1343 src/main_menubar_def.h:999
+#: plugins/class-gen/clsGen.c:1343 src/main_menubar_def.h:1006
 #: src/project_dbase_gui.c:367 src/registers_gui.c:55 src/sharedlib_gui.c:48
 #: src/signals_gui.c:62 src/stack_trace.c:379 src/watch_gui.c:74
 msgid "Help"
 msgstr "Ajuda"
 
-# Winrar 2.9->Dialog Box Control:rarlng.dll
 #: plugins/class-gen/clsGen.c:1352 plugins/patch/patch-plugin.c:107
 msgid "Cancel"
 msgstr "Cancel·la"
 
-# Netscape_4.7->Dialog Box Control:_ISRES.DLL
 #: plugins/class-gen/clsGen.c:1361
 msgid "Finish"
 msgstr "Acaba"
@@ -2115,7 +2181,6 @@ msgstr "Benvingut al constructor de classes d'Anjuta. "
 msgid "Class type:   "
 msgstr "Tipus de classe: "
 
-# Projecte_Gnome_2.2 [glade.glade-gnome2-branch.ca.po]
 #: plugins/class-gen/clsGen.c:1607 plugins/class-gen/clsGen.c:1620
 msgid "public"
 msgstr "pública"
@@ -2310,7 +2375,7 @@ msgstr "No es pot construir la interfície d'usuari per al filtre de fitxers"
 msgid "Update file"
 msgstr "Actualitza fitxer"
 
-#: src/an_file_view.c:355 src/main_menubar_def.h:1605
+#: src/an_file_view.c:355 src/main_menubar_def.h:1612
 msgid "Update current working copy"
 msgstr "Actualitza la còpia de treball"
 
@@ -2319,7 +2384,7 @@ msgstr "Actualitza la còpia de treball"
 msgid "Commit file"
 msgstr "Confirma canvis de fitxer"
 
-#: src/an_file_view.c:362 src/main_menubar_def.h:1612
+#: src/an_file_view.c:362 src/main_menubar_def.h:1619
 msgid "Commit changes to the repository"
 msgstr "Confirma canvis al repositori"
 
@@ -2328,7 +2393,7 @@ msgstr "Confirma canvis al repositori"
 msgid "Status of file"
 msgstr "Estat de fitxer"
 
-#: src/an_file_view.c:369 src/main_menubar_def.h:1619
+#: src/an_file_view.c:369 src/main_menubar_def.h:1626
 msgid "Print the status of the current file"
 msgstr "Mostra l'estat del fitxer actual"
 
@@ -2337,7 +2402,7 @@ msgstr "Mostra l'estat del fitxer actual"
 msgid "Get file log"
 msgstr "Obtenir el fitxer de registre"
 
-#: src/an_file_view.c:376 src/main_menubar_def.h:1626
+#: src/an_file_view.c:376 src/main_menubar_def.h:1633
 msgid "Print the CVS log for the current file"
 msgstr "Mostra el registre de CVS del fitxer actual"
 
@@ -2346,7 +2411,7 @@ msgstr "Mostra el registre de CVS del fitxer actual"
 msgid "Add file"
 msgstr "Afegeix fitxer"
 
-#: src/an_file_view.c:383 src/main_menubar_def.h:1633
+#: src/an_file_view.c:383 src/main_menubar_def.h:1640
 msgid "Add the current file to the repository"
 msgstr "Afegeix el fitxer actual al repositori"
 
@@ -2355,7 +2420,7 @@ msgstr "Afegeix el fitxer actual al repositori"
 msgid "Remove file"
 msgstr "Esborra fitxer"
 
-#: src/an_file_view.c:390 src/main_menubar_def.h:1640
+#: src/an_file_view.c:390 src/main_menubar_def.h:1647
 msgid "Remove the current file from the repository"
 msgstr "Esborra el fitxer actual del repository"
 
@@ -2364,24 +2429,23 @@ msgstr "Esborra el fitxer actual del repository"
 msgid "Diff file"
 msgstr "Fitxer de diferències"
 
-#: src/an_file_view.c:397 src/main_menubar_def.h:1647
+#: src/an_file_view.c:397 src/main_menubar_def.h:1654
 msgid "Create a diff between the working copy and the repository"
 msgstr ""
 "Crea un fitxer de diferències entre la còpia de treball i el repositori"
 
 #. 0
-#: src/an_file_view.c:406 src/main_menubar_def.h:947
+#: src/an_file_view.c:406 src/main_menubar_def.h:954
 #: src/project_dbase_gui.c:335
 msgid "Open in Anjuta"
 msgstr "Obre dins d'Anjuta"
 
 #. 1
-#: src/an_file_view.c:413 src/main_menubar_def.h:941
+#: src/an_file_view.c:413 src/main_menubar_def.h:948
 #: src/project_dbase_gui.c:329
 msgid "Open in default viewer"
 msgstr "Obre en el visualitzador per defecte"
 
-# Netscape_4.7->Menu:RESDLL.DLL
 #. 3
 #: src/an_file_view.c:427 src/an_symbol_view.c:302
 msgid "Refresh"
@@ -2389,13 +2453,13 @@ msgstr "Refresca"
 
 #. 4
 #. 5
-#: src/an_file_view.c:435 src/an_symbol_view.c:309 src/main_menubar_def.h:973
+#: src/an_file_view.c:435 src/an_symbol_view.c:309 src/main_menubar_def.h:980
 #: src/message-manager.cc:143 src/project_dbase_gui.c:361
 #: src/text_editor_menu.c:355
 msgid "Docked"
 msgstr "Enganxat"
 
-#: src/an_file_view.c:436 src/an_symbol_view.c:310 src/main_menubar_def.h:974
+#: src/an_file_view.c:436 src/an_symbol_view.c:310 src/main_menubar_def.h:981
 msgid "Dock/Undock the Project Window"
 msgstr "Enganxa/Separa la finestra de projecte"
 
@@ -2805,7 +2869,7 @@ msgstr ""
 "No s'han desat un o més fitxers.\n"
 "Encara desitjeu sortir?"
 
-#: src/anjuta_cbs.c:504
+#: src/anjuta_cbs.c:505
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -2815,16 +2879,16 @@ msgstr ""
 "Desitgeu reemplaçar-lo amb el què esteu desant ara?"
 
 # Netscape_4.7->Dialog Box Control:RESDLL.DLL
-#: src/anjuta_cbs.c:511 src/anjuta_cbs.c:575 src/find_replace.c:344
+#: src/anjuta_cbs.c:512 src/anjuta_cbs.c:576 src/find_replace.c:344
 msgid "_Replace"
 msgstr "_Reemplaça"
 
 # Projecte_Gnome_2.2 [gnumeric.HEAD.ca.po]
-#: src/anjuta_cbs.c:544
+#: src/anjuta_cbs.c:545
 msgid "Could not open file for writing"
 msgstr "No s'ha pogut obrir el fitxer per escriure"
 
-#: src/anjuta_cbs.c:568
+#: src/anjuta_cbs.c:569
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -2873,14 +2937,14 @@ msgstr ""
 
 # Winrar 2.9->Dialog Box Control:rarlng.dll
 #. For the time being
-#: src/appwizard_cbs.c:282 src/project_dbase.c:1492 src/project_dbase.c:1498
-#: src/project_dbase.c:1501 src/project_import_cbs.c:227 src/signals_cbs.c:115
+#: src/appwizard_cbs.c:282 src/project_dbase.c:1493 src/project_dbase.c:1499
+#: src/project_dbase.c:1502 src/project_import_cbs.c:227 src/signals_cbs.c:115
 #: src/signals_cbs.c:128 src/signals_cbs.c:141
 msgid "Yes"
 msgstr "Sí"
 
 # Winrar 2.9->Dialog Box Control:rarlng.dll
-#: src/appwizard_cbs.c:284 src/project_dbase.c:1494 src/project_dbase.c:1503
+#: src/appwizard_cbs.c:284 src/project_dbase.c:1495 src/project_dbase.c:1504
 #: src/project_import_cbs.c:229 src/signals_cbs.c:117 src/signals_cbs.c:130
 #: src/signals_cbs.c:143
 msgid "No"
@@ -3030,7 +3094,7 @@ msgstr "Punts de ruptura antics desactivats."
 
 # Mozilla 1.3->textZoomResetCmd.commandkey
 #. 5
-#: src/breakpoints.c:1438 src/main_menubar_def.h:774 src/text_editor_gui.c:159
+#: src/breakpoints.c:1439 src/main_menubar_def.h:781 src/text_editor_gui.c:159
 msgid "0"
 msgstr "0"
 
@@ -3418,7 +3482,7 @@ msgid "CVS: Diff file"
 msgstr "CVS: Fitxer de diferències"
 
 #. 17
-#: src/cvs_gui.c:229 src/main_menubar_def.h:1112
+#: src/cvs_gui.c:229 src/main_menubar_def.h:1119
 msgid "Diff"
 msgstr "Diferències"
 
@@ -3694,15 +3758,15 @@ msgstr "S'està enviant el senyal %s al procés: %d\n"
 msgid "Error whilst signalling the process."
 msgstr "Hi ha hagut un error quan s'enviava el senyal al procés."
 
-#: src/executer.c:53 src/mainmenu_callbacks.c:1701
+#: src/executer.c:53 src/mainmenu_callbacks.c:1709
 msgid "The target executable of this Project is unknown"
 msgstr "L'objectiu executable d'aquest projecte és desconegut"
 
-#: src/executer.c:58 src/mainmenu_callbacks.c:1703
+#: src/executer.c:58 src/mainmenu_callbacks.c:1711
 msgid "The target executable of this Project is not executable"
 msgstr "L'objectiu executable d'aquest projecte no es pot executar"
 
-#: src/executer.c:63 src/mainmenu_callbacks.c:1707
+#: src/executer.c:63 src/mainmenu_callbacks.c:1715
 msgid "The target executable does not exist for this Project"
 msgstr "No existeix cap objectiu executable per a aquest projecte"
 
@@ -3710,8 +3774,8 @@ msgstr "No existeix cap objectiu executable per a aquest projecte"
 msgid "No file or Project opened."
 msgstr "No hi ha cap fitxer o projecte obert."
 
-#: src/executer.c:81 src/executer.c:100 src/mainmenu_callbacks.c:1727
-#: src/mainmenu_callbacks.c:1738
+#: src/executer.c:81 src/executer.c:100 src/mainmenu_callbacks.c:1735
+#: src/mainmenu_callbacks.c:1746
 msgid "No executable for this file."
 msgstr "No hi ha cap executable per a aquest fitxer."
 
@@ -3769,34 +3833,46 @@ msgstr "No s'ha trobat la cadena \"%s\" en el text seleccionat"
 msgid "The string \"%s\" was not found from the current location"
 msgstr "No s'ha trobat la cadena\"%s\" des de la ubicació actual"
 
-#: src/find_text.c:163
+#: src/find_text.c:156
 #, c-format
 msgid "The match \"%s\" was not found in the whole document"
 msgstr "No s'ha trobat la concordància \"%s\" en tot el document"
 
-#: src/find_text.c:168
+#: src/find_text.c:161
 #, c-format
 msgid "The match \"%s\" was not found in the selected text"
 msgstr "No s'ha trobat la concordància \"%s\" en el text seleccionat"
 
-#: src/find_text.c:173
+#: src/find_text.c:166
 #, c-format
 msgid "The match \"%s\" was not found from the current location"
 msgstr "No s'ha trobat la concordància \"%s\" en la ubicació actual"
 
-#: src/find_text.c:197
+#: src/find_text.c:190
 msgid "No matches found. Wrap search around the document?"
 msgstr "No hi ha concordàncies. Voleu començar la cerca des del principi?"
 
-#: src/glade_iface.c:99
+#: src/glade_iface.c:69
+msgid ""
+"Warning: Can not generate c/c++ source code.\n"
+"Warning: It is because either glade (for gtk/gnome projects) or glademm (for "
+"gtkmm/gnomemm projects) is not installed.\n"
+"Warning: Your generated project will still be fine, though.\n"
+msgstr ""
+"Atenció: no es pot generar codi font c/c++.\n"
+"Atenció: es deu a que o bé el glade (per a projectes gtk/gnome) o el glademm "
+"(per a projectes gtkmm/gnomemm) no deu estar instal·lat\n"
+"Atenció: tot i això, el projecte s'ha generat correctament.\n"
+
+#: src/glade_iface.c:108
 msgid "Cannot fork glade."
 msgstr "No es pot executar glade."
 
-#: src/glade_iface.c:136 src/glade_iface.c:211
+#: src/glade_iface.c:148 src/glade_iface.c:229
 msgid "Cannot fork glade--."
 msgstr "No es pot executar glade--."
 
-#: src/glade_iface.c:174
+#: src/glade_iface.c:189
 msgid "Cannot fork glade-2."
 msgstr "No es pot executar glade-2."
 
@@ -3883,37 +3959,37 @@ msgstr "El projecte s'ha generat automàticament."
 msgid " Goto Line number "
 msgstr " Vés al número de línia "
 
-#: src/launcher.c:596
+#: src/launcher.c:597
 msgid "launcher.c: Error while reading child stdout\n"
 msgstr ""
 "launcher.c: s'ha produït un error quan es llegia la sortida estàndard del "
 "fill - %s\n"
 
-#: src/launcher.c:608
+#: src/launcher.c:609
 msgid "launcher.c: STDOUT pipe closed"
 msgstr "laucher.c: s'ha tancat el conducte de sortida estàndard"
 
-#: src/launcher.c:644
+#: src/launcher.c:645
 msgid "launcher.c: Error while reading child stderr"
 msgstr ""
 "launcher.c: s'ha produït un error quan es llegia l'error estàndard del fill "
 "- %s"
 
-#: src/launcher.c:656
+#: src/launcher.c:657
 msgid "launcher.c: STDERR pipe closed"
 msgstr "laucher.c: s'ha tancat el conducte d'error estàndard"
 
-#: src/launcher.c:697
+#: src/launcher.c:698
 msgid "launcher.c: Error while reading child pty\n"
 msgstr ""
 "launcher.c: s'ha produït un error quan es llegia la sortida estàndard del "
 "fill - %s\n"
 
-#: src/launcher.c:715
+#: src/launcher.c:716
 msgid "launcher.c: PTY pipe error!"
 msgstr "launcher.c: s'ha produït un error en el conducte de la PTY!"
 
-#: src/launcher.c:842 src/text_editor.c:1510
+#: src/launcher.c:844 src/text_editor.c:1556
 msgid "Cannot execute command shell"
 msgstr "No es pot executar l'intèrpret d'ordres"
 
@@ -3921,11 +3997,11 @@ msgstr "No es pot executar l'intèrpret d'ordres"
 msgid "Do not show the splashscreen"
 msgstr "No mostra la pantalla d'inici"
 
-#: src/main_menubar.c:381
+#: src/main_menubar.c:382
 msgid "Recent Files    "
 msgstr "Fitxers Recents    "
 
-#: src/main_menubar.c:392 src/project_dbase.c:2041
+#: src/main_menubar.c:393 src/project_dbase.c:2042
 msgid "Recent Projects "
 msgstr "Projectes recents "
 
@@ -4337,744 +4413,754 @@ msgstr "Insereix una plantilla de C"
 msgid "CVS keyword"
 msgstr "Paraula clau CVS"
 
+#. 4
+#. 5
+#: src/main_menubar_def.h:393
+msgid "Custom Indent"
+msgstr "Sagnat personalitzat"
+
+#: src/main_menubar_def.h:394
+msgid "Indent Mode, Offset, Tab-width"
+msgstr "Mode de sagnat, desplaçament, amplada de tabulació"
+
 #. 0
-#: src/main_menubar_def.h:397
+#: src/main_menubar_def.h:404
 msgid "Block Comment/Uncomment"
 msgstr "Comenta/descomenta com a bloc"
 
-#: src/main_menubar_def.h:398
+#: src/main_menubar_def.h:405
 msgid "Block comment/uncomment the selected text"
 msgstr "Comenta/descomenta el text seleccionat com a caixa"
 
 #. 1
-#: src/main_menubar_def.h:403
+#: src/main_menubar_def.h:410
 msgid "Box Comment/Uncomment"
 msgstr "Comenta/descomenta com a caixa"
 
-#: src/main_menubar_def.h:404
+#: src/main_menubar_def.h:411
 msgid "Box comment/uncomment the selected text"
 msgstr "Comenta el text seleccionat com a caixa"
 
 #. 2
-#: src/main_menubar_def.h:409
+#: src/main_menubar_def.h:416
 msgid "Stream Comment/Uncomment"
 msgstr "Comenta/descomenta inici i final"
 
-#: src/main_menubar_def.h:410
+#: src/main_menubar_def.h:417
 msgid "Stream comment/uncomment the selected text"
 msgstr "Comenta/descomenta el text seleccionat a l'inici i al final"
 
 #. 0
-#: src/main_menubar_def.h:420
+#: src/main_menubar_def.h:427
 msgid "_Find ..."
 msgstr "Ce_rca ..."
 
-#: src/main_menubar_def.h:421
+#: src/main_menubar_def.h:428
 msgid "Search for a string or regular expression in the editor"
 msgstr "Cerca una cadena o una expressió regular en l'editor"
 
 #. 1
-#: src/main_menubar_def.h:427
+#: src/main_menubar_def.h:434
 msgid "Find _Next"
 msgstr "Cerca el següe_nt"
 
-#: src/main_menubar_def.h:428
+#: src/main_menubar_def.h:435
 msgid "Search Forward"
 msgstr "Cerca cap endavant"
 
 # Netscape_4.7->Menu:RESDLL.DLL
 #. 2
-#: src/main_menubar_def.h:434
+#: src/main_menubar_def.h:441
 msgid "Find Previous"
 msgstr "Troba anterior"
 
 # source\ui\docvw\docvw.src menuitem MN_READONLY_POPUP MN_READONLY_BROWSE_BACKWARD
 # Projecte_Open_Office_1.1 [sw.po]
-#: src/main_menubar_def.h:435
+#: src/main_menubar_def.h:442
 msgid "Search Backward"
 msgstr "Cerca cap enrere"
 
 #. 3
-#: src/main_menubar_def.h:441
+#: src/main_menubar_def.h:448
 msgid "Find and R_eplace ..."
 msgstr "C_erca i reemplaça ..."
 
-#: src/main_menubar_def.h:442
+#: src/main_menubar_def.h:449
 msgid ""
 "Search for and replace a string or regular expression with another string"
 msgstr ""
 "Cerca i reemplaça una cadena o una expressió regular amb una altra cadena"
 
 #. 4
-#: src/main_menubar_def.h:448
+#: src/main_menubar_def.h:455
 msgid "Fin_d in Files ..."
 msgstr "Cerca a fit_xers ..."
 
-#: src/main_menubar_def.h:449
+#: src/main_menubar_def.h:456
 msgid "Search for a string in multiple files or directories"
 msgstr "Cerca una cadena a múltiples fitxers o directoris"
 
 #. 5
-#: src/main_menubar_def.h:455
+#: src/main_menubar_def.h:462
 msgid "_Enter Selection/I-Search"
 msgstr "_Introduïu selecció/I-cerca"
 
-#: src/main_menubar_def.h:456
+#: src/main_menubar_def.h:463
 msgid "Enter the selected text as the search target"
 msgstr "Introduïu el text seleccionat com a objectiu de la cerca"
 
 #. 6
 #. 7
-#: src/main_menubar_def.h:464
+#: src/main_menubar_def.h:471
 msgid "Advanced search and re_place"
 msgstr "Cerca i reem_plaçament avançat"
 
-#: src/main_menubar_def.h:465
+#: src/main_menubar_def.h:472
 msgid "Advanced Search And Replace"
 msgstr "Cerca i reemplaçament avançat"
 
 #. 0
-#: src/main_menubar_def.h:476
+#: src/main_menubar_def.h:483
 msgid "_Goto Line number ..."
 msgstr "Vés a la línia _número ..."
 
-#: src/main_menubar_def.h:477
+#: src/main_menubar_def.h:484
 msgid "Go to a particular line in the editor"
 msgstr "Vés a una línia particular en l'editor"
 
 #. 1
-#: src/main_menubar_def.h:482
+#: src/main_menubar_def.h:489
 msgid "Goto Matching _Brace"
 msgstr "Vés a la clau o _parèntesi concordant"
 
-#: src/main_menubar_def.h:483
+#: src/main_menubar_def.h:490
 msgid "Go to the matching brace in the editor"
 msgstr "Vés a la clau o parèntesi concordant en l'editor"
 
 #. 2
-#: src/main_menubar_def.h:488
+#: src/main_menubar_def.h:495
 msgid "_Goto start of block"
 msgstr "Vés a l'inici del _bloc"
 
-#: src/main_menubar_def.h:489
+#: src/main_menubar_def.h:496
 msgid "Go to the start of the current block"
 msgstr "Vés a l'inici del bloc actual"
 
 #. 3
-#: src/main_menubar_def.h:494
+#: src/main_menubar_def.h:501
 msgid "_Goto end of block"
 msgstr "Vés a la _fi del bloc"
 
-#: src/main_menubar_def.h:495
+#: src/main_menubar_def.h:502
 msgid "Go to the end of the current block"
 msgstr "Vés a la fi del bloc actual"
 
 #. 4
-#: src/main_menubar_def.h:500
+#: src/main_menubar_def.h:507
 msgid "_Goto previous mesg"
 msgstr "Vés al missatge _anterior"
 
-#: src/main_menubar_def.h:501
+#: src/main_menubar_def.h:508
 msgid "Go to previous message"
 msgstr "Vés al missatge anterior"
 
 #. 5
-#: src/main_menubar_def.h:506
+#: src/main_menubar_def.h:513
 msgid "_Goto next mesg"
 msgstr "Vés al _següent missatge"
 
-#: src/main_menubar_def.h:507
+#: src/main_menubar_def.h:514
 msgid "Go to next message"
 msgstr "Vés al següent missatge"
 
 #. 6
-#: src/main_menubar_def.h:512
+#: src/main_menubar_def.h:519
 msgid "_Go Back"
 msgstr "E_ndavant"
 
-#: src/main_menubar_def.h:513
+#: src/main_menubar_def.h:520
 msgid "Go back"
 msgstr "Endavant"
 
 #. 7
-#: src/main_menubar_def.h:518
+#: src/main_menubar_def.h:525
 msgid "_Go Forward"
 msgstr "Enda_rrera"
 
-#: src/main_menubar_def.h:519
+#: src/main_menubar_def.h:526
 msgid "Go forward"
 msgstr "Endarrera"
 
 #. 8
-#: src/main_menubar_def.h:524 src/text_editor_menu.c:93
+#: src/main_menubar_def.h:531 src/text_editor_menu.c:93
 msgid "Tag Definition"
 msgstr "Definició d'etiqueta"
 
-#: src/main_menubar_def.h:525
+#: src/main_menubar_def.h:532
 msgid "Goto tag definition"
 msgstr "Vés a la definició de l'etiqueta"
 
 #. 9
-#: src/main_menubar_def.h:530 src/text_editor_menu.c:100
+#: src/main_menubar_def.h:537 src/text_editor_menu.c:100
 msgid "Tag Declaration"
 msgstr "Declaració d'etiqueta"
 
-#: src/main_menubar_def.h:531
+#: src/main_menubar_def.h:538
 msgid "Goto tag declaration"
 msgstr "Vés a la declaració de l'etiqueta"
 
 #. 10
-#: src/main_menubar_def.h:536
+#: src/main_menubar_def.h:543
 msgid "Next occurrence"
 msgstr "Següent cas"
 
-#: src/main_menubar_def.h:537
+#: src/main_menubar_def.h:544
 msgid "Find the next occurrence of current word"
 msgstr "Troba el següent cas de la paraula actual"
 
 #. 11
-#: src/main_menubar_def.h:542
+#: src/main_menubar_def.h:549
 msgid "Previous occurrence"
 msgstr "Anterior cas"
 
-#: src/main_menubar_def.h:543
+#: src/main_menubar_def.h:550
 msgid "Find the previous occurrence of current word"
 msgstr "Troba el cas anterior de la paraula actual"
 
 #. 0
-#: src/main_menubar_def.h:554
+#: src/main_menubar_def.h:561
 msgid "U_ndo"
 msgstr "Des_fà"
 
 # Projecte_Gnome_2.2 [mrproject.HEAD.ca.po]
-#: src/main_menubar_def.h:555 src/toolbar.c:97
+#: src/main_menubar_def.h:562 src/toolbar.c:97
 msgid "Undo the last action"
 msgstr "Desfà l'última acció"
 
 # Projecte_Gnome_2.2 [libgnomeui.gnome-2-0.ca.po]
 #. 1
-#: src/main_menubar_def.h:561
+#: src/main_menubar_def.h:568
 msgid "_Redo"
 msgstr "To_rna a fer"
 
-#: src/main_menubar_def.h:562 src/toolbar.c:101
+#: src/main_menubar_def.h:569 src/toolbar.c:101
 msgid "Redo the last undone action"
 msgstr "Torna a fer la darrera acció desfeta"
 
 # Projecte_Gnome_2.2 [gnome-control-center.gnome-2-0.ca.po]
 #. 2
 #. 3
-#: src/main_menubar_def.h:570
+#: src/main_menubar_def.h:577
 msgid "C_ut"
 msgstr "Ta_lla"
 
-#: src/main_menubar_def.h:571
+#: src/main_menubar_def.h:578
 msgid "Cut the selected text from the editor to the clipboard"
 msgstr "Retalla el text seleccionat de l'editor al porta-retalls"
 
 #. 4
-#: src/main_menubar_def.h:577
+#: src/main_menubar_def.h:584
 msgid "_Copy"
 msgstr "_Copia"
 
 # Projecte_Gnome_2.2 [nautilus.gnome-2-0.ca.po]
-#: src/main_menubar_def.h:578
+#: src/main_menubar_def.h:585
 msgid "Copy the selected text to the clipboard"
 msgstr "Copia el text seleccionat al porta-retalls"
 
 #. 5
-#: src/main_menubar_def.h:584
+#: src/main_menubar_def.h:591
 msgid "_Paste"
 msgstr "_Enganxa"
 
-#: src/main_menubar_def.h:585
+#: src/main_menubar_def.h:592
 msgid "Paste the content of clipboard at the current position"
 msgstr "Enganxa el contingut del porta-retalls a la posició actual"
 
 # Projecte_Gnome_2.2 [libgnomeui.gnome-2-0.ca.po]
 #. 6
-#: src/main_menubar_def.h:591
+#: src/main_menubar_def.h:598
 msgid "C_lear"
 msgstr "Es_borra"
 
-#: src/main_menubar_def.h:592
+#: src/main_menubar_def.h:599
 msgid "Delete the selected text from the editor"
 msgstr "Esborra el text seleccionat de l'editor"
 
 #. 7
 #. 8
-#: src/main_menubar_def.h:600
+#: src/main_menubar_def.h:607
 msgid "_Transform"
 msgstr "_Transforma"
 
 # Projecte_Gnome_2.2 [libbonoboui.gnome-2-0.ca.po]
 #. 9
-#: src/main_menubar_def.h:607
+#: src/main_menubar_def.h:614
 msgid "_Select"
 msgstr "_Selecciona"
 
 #. 10
-#: src/main_menubar_def.h:614
+#: src/main_menubar_def.h:621
 msgid "_Insert text"
 msgstr "_Insereix text"
 
 #. 11
-#: src/main_menubar_def.h:621
+#: src/main_menubar_def.h:628
 msgid "Co_mment code"
 msgstr "Co_menta codi"
 
 # Netscape_4.7->Dialog Box Control:RESDLL.DLL
 #. 12
-#: src/main_menubar_def.h:627
+#: src/main_menubar_def.h:634
 msgid "S_earch"
 msgstr "C_erca"
 
 #. 13
-#: src/main_menubar_def.h:633
+#: src/main_menubar_def.h:640
 msgid "G_o to"
 msgstr "Vés _a"
 
 #. 14
 #. 15
-#: src/main_menubar_def.h:642
+#: src/main_menubar_def.h:649
 msgid "_AutoComplete"
 msgstr "Completa _automàticament"
 
-#: src/main_menubar_def.h:643
+#: src/main_menubar_def.h:650
 msgid "AutoComplete the current word"
 msgstr "Completa automàticament la paraula actual"
 
 #. 16
-#: src/main_menubar_def.h:649
+#: src/main_menubar_def.h:656
 msgid "S_how calltip"
 msgstr "Mostra eti_queta de funció"
 
-#: src/main_menubar_def.h:650
+#: src/main_menubar_def.h:657
 msgid "Show calltip for the function"
 msgstr "Mostra etiqueta amb la crida de la funció"
 
 #. 0
-#: src/main_menubar_def.h:662
+#: src/main_menubar_def.h:669
 msgid "_Main Toolbar"
 msgstr "Barra d'eines _principal"
 
-#: src/main_menubar_def.h:663
+#: src/main_menubar_def.h:670
 msgid "Hide/Unhide Main toolbar"
 msgstr "Mostra/oculta la barra d'eines principal"
 
 #. 1
-#: src/main_menubar_def.h:668
+#: src/main_menubar_def.h:675
 msgid "_Extended Toolbar"
 msgstr "Barra d'eines _extesa"
 
-#: src/main_menubar_def.h:669
+#: src/main_menubar_def.h:676
 msgid "Hide/Unhide Extended toolbar"
 msgstr "Mostra/oculta la barra d'eines extesa"
 
 #. 2
-#: src/main_menubar_def.h:674
+#: src/main_menubar_def.h:681
 msgid "_Debug Toolbar"
 msgstr "Barra d'eines de _depuració"
 
-#: src/main_menubar_def.h:675
+#: src/main_menubar_def.h:682
 msgid "Hide/Unhide Debug toolbar"
 msgstr "Mostra/oculta la barra d'eines de depuració"
 
 #. 3
-#: src/main_menubar_def.h:680
+#: src/main_menubar_def.h:687
 msgid "_Browser Toolbar"
 msgstr "_Barra d'eines de navegació"
 
-#: src/main_menubar_def.h:681
+#: src/main_menubar_def.h:688
 msgid "Hide/Unhide Browser toolbar"
 msgstr "Mostra/oculta la barra d'eines de navegació"
 
 #. 4
-#: src/main_menubar_def.h:686
+#: src/main_menubar_def.h:693
 msgid "_Format Toolbar"
 msgstr "Barra d'eines de _format"
 
-#: src/main_menubar_def.h:687
+#: src/main_menubar_def.h:694
 msgid "Hide/Unhide Format toolbar"
 msgstr "Mostra/oculta la barra d'eines de format"
 
 #. 0
-#: src/main_menubar_def.h:697
+#: src/main_menubar_def.h:704
 msgid "_Line numbers margin"
 msgstr "Número de _línia del marge"
 
-#: src/main_menubar_def.h:698
+#: src/main_menubar_def.h:705
 msgid "Show/Hide line numbers"
 msgstr "Mostra/oculta el número de línia"
 
 #. 1
-#: src/main_menubar_def.h:703
+#: src/main_menubar_def.h:710
 msgid "_Markers Margin"
 msgstr "Marge dels _Marcadors"
 
-#: src/main_menubar_def.h:704
+#: src/main_menubar_def.h:711
 msgid "Show/Hide markers margin"
 msgstr "Mostra/oculta el marge dels marcadors"
 
 #. 2
-#: src/main_menubar_def.h:709
+#: src/main_menubar_def.h:716
 msgid "_Code fold margin"
 msgstr "Marge de desplegament de _codi"
 
-#: src/main_menubar_def.h:710
+#: src/main_menubar_def.h:717
 msgid "Show/Hide code fold margin"
 msgstr "Mostra/oculta el marge de desplegament de codi"
 
 #. 3
-#: src/main_menubar_def.h:715
+#: src/main_menubar_def.h:722
 msgid "_Indentation guides"
 msgstr "Gu_ies de sagnat"
 
-#: src/main_menubar_def.h:716
+#: src/main_menubar_def.h:723
 msgid "Show/Hide indentation guides"
 msgstr "Mostra/oculta les guies de sagnat"
 
 #. 4
-#: src/main_menubar_def.h:721
+#: src/main_menubar_def.h:728
 msgid "_White spaces"
 msgstr "Espais en _blanc"
 
-#: src/main_menubar_def.h:722
+#: src/main_menubar_def.h:729
 msgid "Show/Hide white spaces"
 msgstr "Mostra/Oculta espais en blanc"
 
 #. 5
-#: src/main_menubar_def.h:727
+#: src/main_menubar_def.h:734
 msgid "_Line end characters"
 msgstr "Caràcters fi de _línia"
 
-#: src/main_menubar_def.h:728
+#: src/main_menubar_def.h:735
 msgid "Show/Hide line end characters"
 msgstr "Mostra/oculta caràcters de fi de línia"
 
 #. 6
-#: src/main_menubar_def.h:733
+#: src/main_menubar_def.h:740
 msgid "Line _wrapping"
 msgstr "Retalla _línia"
 
-#: src/main_menubar_def.h:734
+#: src/main_menubar_def.h:741
 msgid "Enable/disable line wrapping"
 msgstr "Habilita/deshabilita retallar la línia al final"
 
 #. 0
-#: src/main_menubar_def.h:744
+#: src/main_menubar_def.h:751
 msgid "++ Zoom"
 msgstr "Ampliació"
 
-#: src/main_menubar_def.h:745
+#: src/main_menubar_def.h:752
 msgid "Increase text zoom by 1 unit"
 msgstr "Incrementa l'ampliació del text en una unitat"
 
 #. 1
-#: src/main_menubar_def.h:750
+#: src/main_menubar_def.h:757
 msgid "+8"
 msgstr "+8"
 
-#: src/main_menubar_def.h:751
+#: src/main_menubar_def.h:758
 msgid "Zoom factor +8"
 msgstr "Factor d'ampliació +8"
 
 #. 2
-#: src/main_menubar_def.h:756
+#: src/main_menubar_def.h:763
 msgid "+6"
 msgstr "+6"
 
-#: src/main_menubar_def.h:757
+#: src/main_menubar_def.h:764
 msgid "Zoom factor +6"
 msgstr "Factor d'ampliació +6"
 
 #. 3
-#: src/main_menubar_def.h:762
+#: src/main_menubar_def.h:769
 msgid "+4"
 msgstr "+4"
 
-#: src/main_menubar_def.h:763
+#: src/main_menubar_def.h:770
 msgid "Zoom factor +4"
 msgstr "Factor d'ampliació +4"
 
 #. 4
-#: src/main_menubar_def.h:768
+#: src/main_menubar_def.h:775
 msgid "+2"
 msgstr "+2"
 
-#: src/main_menubar_def.h:769
+#: src/main_menubar_def.h:776
 msgid "Zoom factor +2"
 msgstr "Factor d'ampliació +2"
 
-#: src/main_menubar_def.h:775
+#: src/main_menubar_def.h:782
 msgid "Zoom factor 0"
 msgstr "Cap ampliació"
 
 #. 6
-#: src/main_menubar_def.h:780
+#: src/main_menubar_def.h:787
 msgid "-2"
 msgstr "-2"
 
-#: src/main_menubar_def.h:781
+#: src/main_menubar_def.h:788
 msgid "Zoom factor -2"
 msgstr "Factor de reducció -2"
 
 #. 7
-#: src/main_menubar_def.h:786
+#: src/main_menubar_def.h:793
 msgid "-4"
 msgstr "-4"
 
-#: src/main_menubar_def.h:787
+#: src/main_menubar_def.h:794
 msgid "Zoom factor -4"
 msgstr "Factor de reducció -4"
 
 #. 8
-#: src/main_menubar_def.h:792
+#: src/main_menubar_def.h:799
 msgid "-6"
 msgstr "-6"
 
-#: src/main_menubar_def.h:793
+#: src/main_menubar_def.h:800
 msgid "Zoom factor -6"
 msgstr "Factor de reducció -6"
 
 #. 9
-#: src/main_menubar_def.h:798
+#: src/main_menubar_def.h:805
 msgid "-8"
 msgstr "-8"
 
-#: src/main_menubar_def.h:799
+#: src/main_menubar_def.h:806
 msgid "Zoom factor -8"
 msgstr "Factor de reducció -8"
 
 #. 10
-#: src/main_menubar_def.h:804
+#: src/main_menubar_def.h:811
 msgid "-- Zoom"
 msgstr "Reducció"
 
-#: src/main_menubar_def.h:805
+#: src/main_menubar_def.h:812
 msgid "Reduce text zoom by 1 unit"
 msgstr "Redueix l'ampliació del text en una unitat"
 
 #. 0
-#: src/main_menubar_def.h:815
+#: src/main_menubar_def.h:822
 msgid "_Message window"
 msgstr "Finestra de _missatges"
 
-#: src/main_menubar_def.h:816 src/toolbar.c:155
+#: src/main_menubar_def.h:823 src/toolbar.c:155
 msgid "Show/Hide the Message window"
 msgstr "Mostra/oculta la finestra de missatges"
 
 #. 1
-#: src/main_menubar_def.h:821
+#: src/main_menubar_def.h:828
 msgid "_Project window"
 msgstr "Finestra de _projecte"
 
-#: src/main_menubar_def.h:822 src/toolbar.c:151
+#: src/main_menubar_def.h:829 src/toolbar.c:151
 msgid "Show/Hide the Project window"
 msgstr "Mostra/oculta la finestra de projecte"
 
 #. 2
-#: src/main_menubar_def.h:827
+#: src/main_menubar_def.h:834
 msgid "B_ookmarks"
 msgstr "Adreces d'i_nterés"
 
-#: src/main_menubar_def.h:828
+#: src/main_menubar_def.h:835
 msgid "Show the Bookmark window"
 msgstr "Mostra la finestra d'adreces d'interés"
 
 #. 3
 #. 4
-#: src/main_menubar_def.h:834
+#: src/main_menubar_def.h:841
 msgid "_Toolbars"
 msgstr "Bar_res d'eines"
 
 #. 5
-#: src/main_menubar_def.h:840
+#: src/main_menubar_def.h:847
 msgid "_Editor"
 msgstr "_Editor"
 
 #. 6
-#: src/main_menubar_def.h:846
+#: src/main_menubar_def.h:853
 msgid "_Zoom text"
 msgstr "Ampliació del te_xt"
 
 #. 7
 #. 8
-#: src/main_menubar_def.h:853 src/main_menubar_def.h:1565
+#: src/main_menubar_def.h:860 src/main_menubar_def.h:1572
 msgid "_Breakpoints"
 msgstr "Pun_ts de ruptura"
 
-#: src/main_menubar_def.h:854
+#: src/main_menubar_def.h:861
 msgid "Show breakpoints editor window"
 msgstr "Mostra la finestra de l'editor de punts de trencament"
 
 #. 9
-#: src/main_menubar_def.h:859
+#: src/main_menubar_def.h:866
 msgid "_Registers"
 msgstr "_Registres"
 
-#: src/main_menubar_def.h:860
+#: src/main_menubar_def.h:867
 msgid "Show CPU registers and their contents"
 msgstr "Mostra els registres de la CPU i els seus continguts"
 
 #. 10
-#: src/main_menubar_def.h:865
+#: src/main_menubar_def.h:872
 msgid "Shared _Libraries"
 msgstr "Bib_lioteques compartides"
 
-#: src/main_menubar_def.h:866
+#: src/main_menubar_def.h:873
 msgid "Show shared libraries loaded by the program"
 msgstr "Mostra les biblioteques compartides carregades pel programa"
 
 #. 11
-#: src/main_menubar_def.h:871
+#: src/main_menubar_def.h:878
 msgid "_Kernel Signals"
 msgstr "Senyals del nu_cli"
 
-#: src/main_menubar_def.h:872
+#: src/main_menubar_def.h:879
 msgid "Show the kernel signals editor window"
 msgstr "Mostra la finestra de l'editor de senyals del nucli"
 
 # Projecte_Mandrake [tm-mandrake.po]
 #. 12
-#: src/main_menubar_def.h:877
+#: src/main_menubar_def.h:884
 msgid "Memory _Dump"
 msgstr "Volcat _de memòria"
 
-#: src/main_menubar_def.h:878
+#: src/main_menubar_def.h:885
 msgid "Show memory dump window"
 msgstr "Mostra finestra de volcat de memòria"
 
 # Projecte_Gnome_2.2 [balsa.HEAD.ca.po]
 #. 0
-#: src/main_menubar_def.h:888 src/project_dbase_gui.c:277
+#: src/main_menubar_def.h:895 src/project_dbase_gui.c:277
 msgid "Include file"
 msgstr "Fitxer inclòs"
 
 #. 1
-#: src/main_menubar_def.h:894 src/project_dbase_gui.c:283
+#: src/main_menubar_def.h:901 src/project_dbase_gui.c:283
 msgid "Source file"
 msgstr "Fitxer de codi"
 
 # source\misc\imagemgr.src string STR_DESCRIPTION_HELP_DOC
 # Projecte_Open_Office_1.1 [svtools.po]
 #. 2
-#: src/main_menubar_def.h:900 src/project_dbase_gui.c:289
+#: src/main_menubar_def.h:907 src/project_dbase_gui.c:289
 msgid "Help file"
 msgstr "Fitxer d'ajuda"
 
 #. 3
-#: src/main_menubar_def.h:906 src/project_dbase_gui.c:295
+#: src/main_menubar_def.h:913 src/project_dbase_gui.c:295
 msgid "Data file"
 msgstr "Fitxer de dades"
 
 #. 4
-#: src/main_menubar_def.h:912 src/project_dbase_gui.c:301
+#: src/main_menubar_def.h:919 src/project_dbase_gui.c:301
 msgid "Pixmap file"
 msgstr "Fitxer de mapa de píxels"
 
 #. 5
-#: src/main_menubar_def.h:918 src/project_dbase_gui.c:307
+#: src/main_menubar_def.h:925 src/project_dbase_gui.c:307
 msgid "Translation file"
 msgstr "Fitxer de traduccions"
 
 #. 6
-#: src/main_menubar_def.h:924 src/project_dbase_gui.c:313
+#: src/main_menubar_def.h:931 src/project_dbase_gui.c:313
 msgid "Doc file"
 msgstr "Fitxer doc"
 
 #. 0
-#: src/main_menubar_def.h:935 src/project_dbase_gui.c:323
+#: src/main_menubar_def.h:942 src/project_dbase_gui.c:323
 msgid "Add File"
 msgstr "Afegeix fitxer"
 
 #. 3
-#: src/main_menubar_def.h:953
+#: src/main_menubar_def.h:960
 msgid "Remove File"
 msgstr "Esborra fitxer"
 
 #. 4
 #. 5
-#: src/main_menubar_def.h:960 src/project_dbase_gui.c:348
+#: src/main_menubar_def.h:967 src/project_dbase_gui.c:348
 msgid "Configure Project"
 msgstr "Configura el projecte"
 
-#: src/main_menubar_def.h:961
+#: src/main_menubar_def.h:968
 msgid "Configure options for the current Project"
 msgstr "Configura opcions per al projecte actual"
 
 #. 6
-#: src/main_menubar_def.h:966 src/project_dbase_gui.c:354
+#: src/main_menubar_def.h:973 src/project_dbase_gui.c:354
 msgid "Project Info"
 msgstr "Informació del projecte"
 
-#: src/main_menubar_def.h:967
+#: src/main_menubar_def.h:974
 msgid "Display the Project information"
 msgstr "Mostra la informació del projecte"
 
 #. 9
 #. 10
-#: src/main_menubar_def.h:980
+#: src/main_menubar_def.h:987
 msgid "_Update tags image"
 msgstr "Act_ualitza imatge d'etiquetes"
 
-#: src/main_menubar_def.h:981
+#: src/main_menubar_def.h:988
 msgid "Update the tags image of the Project/opened files"
 msgstr ""
 "Actualitza la imatge de les etiquetes del projecte o dels fitxers oberts"
 
 #. 11
-#: src/main_menubar_def.h:986
+#: src/main_menubar_def.h:993
 msgid "Rebuild tags image"
 msgstr "Refresca imatge d'etiquetes"
 
-#: src/main_menubar_def.h:987
+#: src/main_menubar_def.h:994
 msgid "Rebuild the tags image of the Project"
 msgstr "Refresca la imatge d'etiquetes del projecte"
 
 #. 12
-#: src/main_menubar_def.h:992
+#: src/main_menubar_def.h:999
 msgid "Ed_it Application GUI ..."
 msgstr "Ed_ita la interfície gràfica de l'aplicació ..."
 
-#: src/main_menubar_def.h:993
+#: src/main_menubar_def.h:1000
 msgid "Edit application GUI with the Glade GUI editor"
 msgstr "Edita la interfície gràfica d'usuari del programa amb l'editor Glade"
 
 # Netscape_4.7->String:RESDLL.DLL
 #. 0
-#: src/main_menubar_def.h:1010
+#: src/main_menubar_def.h:1017
 msgid "Automatic"
 msgstr "Automàtic"
 
-#: src/main_menubar_def.h:1011
+#: src/main_menubar_def.h:1018
 msgid "Automatically determine the highlight style"
 msgstr "Determina automàticament l'estil de formateig"
 
 #. 1
-#: src/main_menubar_def.h:1016
+#: src/main_menubar_def.h:1023
 msgid "No Highlight style"
 msgstr "Cap estil de formateig"
 
-#: src/main_menubar_def.h:1017
+#: src/main_menubar_def.h:1024
 msgid "Remove the current highlight style"
 msgstr "Esborra l'estil de formateig actual"
 
 #. 2
-#: src/main_menubar_def.h:1022
+#: src/main_menubar_def.h:1029
 msgid "C and C++"
 msgstr "C i C++"
 
-#: src/main_menubar_def.h:1023
+#: src/main_menubar_def.h:1030
 msgid "Force the highlight style to C and C++"
 msgstr "Empra l'estil de formateig de sintaxi de C i C++"
 
 #. 3
-#: src/main_menubar_def.h:1028
+#: src/main_menubar_def.h:1035
 msgid "C and C++ with GNOME"
 msgstr "C i C++ amb GNOME"
 
-#: src/main_menubar_def.h:1029
+#: src/main_menubar_def.h:1036
 msgid "Force the highlight style to C and C++ with GNOME"
 msgstr "Empra l'estil de formateig de sintaxi de C i C++ amb GNOME"
 
@@ -5083,47 +5169,47 @@ msgstr "Empra l'estil de formateig de sintaxi de C i C++ amb GNOME"
 # source\ui\utlui\poolfmt.src string STR_POOLPAGE_HTML
 # Projecte_Open_Office_1.1 [sw.po]
 #. 4
-#: src/main_menubar_def.h:1034
+#: src/main_menubar_def.h:1041
 msgid "HTML"
 msgstr "HTML"
 
-#: src/main_menubar_def.h:1035
+#: src/main_menubar_def.h:1042
 msgid "Force the highlight style to HTML"
 msgstr "Empra l'estil de formateig de sintaxi d'HTML"
 
 #. 5
-#: src/main_menubar_def.h:1040
+#: src/main_menubar_def.h:1047
 msgid "XML"
 msgstr "XML"
 
-#: src/main_menubar_def.h:1041
+#: src/main_menubar_def.h:1048
 msgid "Force the highlight style to XML"
 msgstr "Empra l'estil de formateig de sintaxi d'XML"
 
 #. 6
-#: src/main_menubar_def.h:1046
+#: src/main_menubar_def.h:1053
 msgid "Javascript"
 msgstr "Javascript"
 
-#: src/main_menubar_def.h:1047
+#: src/main_menubar_def.h:1054
 msgid "Force the highlight style to Javascript"
 msgstr "Empra l'estil de formateig de sintaxi de Javascript"
 
 #. 7
-#: src/main_menubar_def.h:1052
+#: src/main_menubar_def.h:1059
 msgid "WScript"
 msgstr "WScript"
 
-#: src/main_menubar_def.h:1053
+#: src/main_menubar_def.h:1060
 msgid "Force the highlight style to WScript"
 msgstr "Empra l'estil de formateig de sintaxi de WScript"
 
 #. 8
-#: src/main_menubar_def.h:1058
+#: src/main_menubar_def.h:1065
 msgid "Makefile"
 msgstr "Makefile"
 
-#: src/main_menubar_def.h:1059
+#: src/main_menubar_def.h:1066
 msgid "Force the highlight style to Makefile"
 msgstr "Empra l'estil de formateig de sintaxi del Makefile"
 
@@ -5131,146 +5217,146 @@ msgstr "Empra l'estil de formateig de sintaxi del Makefile"
 # source\options\optinet2.src fixedline RID_SVXPAGE_INET_SCRIPTING FL_JAVA
 # Projecte_Open_Office_1.1 [svx.po]
 #. 9
-#: src/main_menubar_def.h:1064
+#: src/main_menubar_def.h:1071
 msgid "Java"
 msgstr "Java"
 
-#: src/main_menubar_def.h:1065
+#: src/main_menubar_def.h:1072
 msgid "Force the highlight type to Java"
 msgstr "Empra l'estil de formateig de sintaxi de Java"
 
 #. 10
-#: src/main_menubar_def.h:1070
+#: src/main_menubar_def.h:1077
 msgid "LUA"
 msgstr "LUA"
 
-#: src/main_menubar_def.h:1071
+#: src/main_menubar_def.h:1078
 msgid "Force the highlight style to LUA"
 msgstr "Empra l'estil de formateig de sintaxi de LUA"
 
 # Projecte_Gnome_2.2 [scrollkeeper.HEAD.ca.po]
 #. 11
-#: src/main_menubar_def.h:1076
+#: src/main_menubar_def.h:1083
 msgid "Python"
 msgstr "Python"
 
-#: src/main_menubar_def.h:1077
+#: src/main_menubar_def.h:1084
 msgid "Force the highlight style to Python"
 msgstr "Empra l'estil de formateig de sintaxi de Python"
 
 # source\ui\dlg\pubdlg.src radiobutton DLG_PUBLISHING PAGE2_PERL
 # Projecte_Open_Office_1.1 [sd.po]
 #. 12
-#: src/main_menubar_def.h:1082
+#: src/main_menubar_def.h:1089
 msgid "Perl"
 msgstr "Perl"
 
-#: src/main_menubar_def.h:1083
+#: src/main_menubar_def.h:1090
 msgid "Force the highlight style to Perl"
 msgstr "Empra l'estil de formateig de sintaxi de Perl"
 
 #. 13
-#: src/main_menubar_def.h:1088
+#: src/main_menubar_def.h:1095
 msgid "SQL"
 msgstr "SQL"
 
-#: src/main_menubar_def.h:1089
+#: src/main_menubar_def.h:1096
 msgid "Force the highlight style to SQL"
 msgstr "Empra l'estil de formateig de sintaxi d'SQL"
 
 #. 14
-#: src/main_menubar_def.h:1094
+#: src/main_menubar_def.h:1101
 msgid "PL/SQL"
 msgstr "PL/SQL"
 
-#: src/main_menubar_def.h:1095
+#: src/main_menubar_def.h:1102
 msgid "Force the highlight style to PL/SQL"
 msgstr "Empra l'estil de formateig de sintaxi de PL/SQL"
 
 #. 15
-#: src/main_menubar_def.h:1100
+#: src/main_menubar_def.h:1107
 msgid "PHP"
 msgstr "PHP"
 
-#: src/main_menubar_def.h:1101
+#: src/main_menubar_def.h:1108
 msgid "Force the highlight style to PHP"
 msgstr "Empra l'estil de formateig de sintaxi de PHP"
 
 #. 16
-#: src/main_menubar_def.h:1106
+#: src/main_menubar_def.h:1113
 msgid "LaTex"
 msgstr "LaTex"
 
-#: src/main_menubar_def.h:1107
+#: src/main_menubar_def.h:1114
 msgid "Force the highlight style to LaTex"
 msgstr "Empra l'estil de formateig de sintaxi de LaTex"
 
-#: src/main_menubar_def.h:1113
+#: src/main_menubar_def.h:1120
 msgid "Force the highlight style to Diff"
 msgstr "Empra l'estil de formateig de sintaxi dels fitxers de diferències"
 
 #. 18
-#: src/main_menubar_def.h:1118
+#: src/main_menubar_def.h:1125
 msgid "Pascal"
 msgstr "Pascal"
 
-#: src/main_menubar_def.h:1119
+#: src/main_menubar_def.h:1126
 msgid "Force the highlight style to Pascal"
 msgstr "Empra l'estil de formateig de sintaxi de Pascal"
 
 #. 19
-#: src/main_menubar_def.h:1124
+#: src/main_menubar_def.h:1131
 msgid "Xcode"
 msgstr "Xcode"
 
-#: src/main_menubar_def.h:1125
+#: src/main_menubar_def.h:1132
 msgid "Force the highlight style to Xcode"
 msgstr "Empra l'estil de formateig de sintaxi de Xcode"
 
 #. 20
-#: src/main_menubar_def.h:1130
+#: src/main_menubar_def.h:1137
 msgid "Prj/Properties"
 msgstr "Prj/Propietats"
 
-#: src/main_menubar_def.h:1131
+#: src/main_menubar_def.h:1138
 msgid "Force the highlight style to project/properties files"
 msgstr ""
 "Empra l'estil de formateig de sintaxi de fitxers de projecte/propietats"
 
 #. 21
-#: src/main_menubar_def.h:1136
+#: src/main_menubar_def.h:1143
 msgid "Conf"
 msgstr "Conf"
 
-#: src/main_menubar_def.h:1137
+#: src/main_menubar_def.h:1144
 msgid "Force the highlight style to UNIX conf files"
 msgstr ""
 "Empra l'estil de formateig de sintaxi de fitxers de configuració de UNIX"
 
 #. 22
-#: src/main_menubar_def.h:1142
+#: src/main_menubar_def.h:1149
 msgid "Ada"
 msgstr "Ada"
 
-#: src/main_menubar_def.h:1143
+#: src/main_menubar_def.h:1150
 msgid "Force the highlight style to Ada"
 msgstr "Empra l'estil de formateig de sintaxi d'Ada"
 
 #. 23
-#: src/main_menubar_def.h:1148
+#: src/main_menubar_def.h:1155
 msgid "Baan"
 msgstr "Baan"
 
-#: src/main_menubar_def.h:1149
+#: src/main_menubar_def.h:1156
 msgid "Force the highlight style to Baan"
 msgstr "Empra l'estil de formateig de sintaxi d'Ada"
 
 #. 24
-#: src/main_menubar_def.h:1154
+#: src/main_menubar_def.h:1161
 msgid "Lisp"
 msgstr "Lisp"
 
-#: src/main_menubar_def.h:1155
+#: src/main_menubar_def.h:1162
 msgid "Force the highlight style to Lisp"
 msgstr "Empra l'estil de formateig de sintaxi de Lisp"
 
@@ -5278,671 +5364,671 @@ msgstr "Empra l'estil de formateig de sintaxi de Lisp"
 # source\dialog\rubydialog.src modelessdialog RID_SVXDLG_RUBY
 # Projecte_Open_Office_1.1 [svx.po]
 #. 25
-#: src/main_menubar_def.h:1160
+#: src/main_menubar_def.h:1167
 msgid "Ruby"
 msgstr "Ruby"
 
-#: src/main_menubar_def.h:1161
+#: src/main_menubar_def.h:1168
 msgid "Force the highlight style to Ruby"
 msgstr "Empra l'estil de formateig de sintaxi de Ruby"
 
 #. 26
-#: src/main_menubar_def.h:1166
+#: src/main_menubar_def.h:1173
 msgid "Matlab"
 msgstr "Matlab"
 
-#: src/main_menubar_def.h:1167
+#: src/main_menubar_def.h:1174
 msgid "Force the highlight style to Matlab"
 msgstr "Empra l'estil de formateig de sintaxi de Matlab"
 
 #. 0
-#: src/main_menubar_def.h:1177
+#: src/main_menubar_def.h:1184
 msgid "Auto _Format"
 msgstr "_Format automàtic"
 
-#: src/main_menubar_def.h:1178
+#: src/main_menubar_def.h:1185
 msgid "Autoformat the current source file"
 msgstr "Formateja automàticament el fitxer de codi actual"
 
 #. 1
-#: src/main_menubar_def.h:1183
+#: src/main_menubar_def.h:1190
 msgid "_Increase Indent"
 msgstr "_Incremente el sagnat"
 
-#: src/main_menubar_def.h:1184
+#: src/main_menubar_def.h:1191
 msgid "Increase indentation of line/selection"
 msgstr "Incrementa el sagnat de la línia/selecció"
 
 #. 2
-#: src/main_menubar_def.h:1189
+#: src/main_menubar_def.h:1196
 msgid "_Decrease Indent"
 msgstr "Re_dueix el Sagnat"
 
-#: src/main_menubar_def.h:1190
+#: src/main_menubar_def.h:1197
 msgid "Decrease indentation of line/selection"
 msgstr "Reduiex el sagnat de la línia/selecció"
 
 #. 3
 #. 4
-#: src/main_menubar_def.h:1196
+#: src/main_menubar_def.h:1203
 msgid "Force _Highlight Style"
 msgstr "Empra un estil de sinta_xi"
 
 #. 5
 #. 6
-#: src/main_menubar_def.h:1203
+#: src/main_menubar_def.h:1210
 msgid "_Close All Folds"
 msgstr "Plega totes les vistes de _codi"
 
-#: src/main_menubar_def.h:1204
+#: src/main_menubar_def.h:1211
 msgid "Close all code folds in the editor"
 msgstr "Plega totes les vistes de codi en l'editor"
 
 #. 7
-#: src/main_menubar_def.h:1209
+#: src/main_menubar_def.h:1216
 msgid "_Open All Folds"
 msgstr "Desplega t_otes les vistes de codi"
 
-#: src/main_menubar_def.h:1210
+#: src/main_menubar_def.h:1217
 msgid "Open all code folds in the editor"
 msgstr "Desplega totes les vistes de codi en l'editor"
 
 #. 8
-#: src/main_menubar_def.h:1215
+#: src/main_menubar_def.h:1222
 msgid "_Toggle Current Fold"
 msgstr "Commu_ta la vista de codi actual"
 
-#: src/main_menubar_def.h:1216
+#: src/main_menubar_def.h:1223
 msgid "Toggle current code fold in the editor"
 msgstr "Commuta la vista de codi actual en l'editor"
 
 #. 9
 #. 10
-#: src/main_menubar_def.h:1222
+#: src/main_menubar_def.h:1229
 msgid "D_etach Current Document"
 msgstr "S_epara el document actual"
 
-#: src/main_menubar_def.h:1223
+#: src/main_menubar_def.h:1230
 msgid "Detach the current document into a separate editor window"
 msgstr "Separa el document actual en una finestra d'editor independent"
 
 # Projecte_Gnome_2.2 [gtranslator.HEAD.ca.po]
 #. 0
-#: src/main_menubar_def.h:1233
+#: src/main_menubar_def.h:1240
 msgid "_Compile"
 msgstr "_Compila"
 
-#: src/main_menubar_def.h:1234
+#: src/main_menubar_def.h:1241
 msgid "Compile the current source file"
 msgstr "Compila el fitxer de codi font actual"
 
 #. 1
-#: src/main_menubar_def.h:1239
+#: src/main_menubar_def.h:1246
 msgid "Compile With _Make"
 msgstr "Compila amb _make"
 
-#: src/main_menubar_def.h:1240
+#: src/main_menubar_def.h:1247
 msgid "Compile the current source file using Make"
 msgstr "Compila el fitxer de codi actual usant make"
 
 #. 2
-#: src/main_menubar_def.h:1245 src/main_menubar_def.h:1881
+#: src/main_menubar_def.h:1252 src/main_menubar_def.h:1905
 msgid "_Build"
 msgstr "M_unta"
 
-#: src/main_menubar_def.h:1246
+#: src/main_menubar_def.h:1253
 msgid "Build the source directory of the Project or the current source file"
 msgstr ""
 "Munta el directori de fitxers de codi del projecte o el fitxer de codi actual"
 
 #. 3
-#: src/main_menubar_def.h:1251
+#: src/main_menubar_def.h:1258
 msgid "Build _All"
 msgstr "Munta _tot"
 
-#: src/main_menubar_def.h:1252
+#: src/main_menubar_def.h:1259
 msgid "Build the whole Project"
 msgstr "Construeix el projecte sencer"
 
 #. 4
 #. 5
-#: src/main_menubar_def.h:1258
+#: src/main_menubar_def.h:1265
 msgid "Save Build Messages"
 msgstr "Desa els missatges de muntatge"
 
-#: src/main_menubar_def.h:1259
+#: src/main_menubar_def.h:1266
 msgid "Save build messages to a file"
 msgstr "Desa els missatges de muntatge en un fitxer"
 
 # Projecte_Gnome_2.2 [gnome-control-center.gnome-2-0.ca.po]
 #. 6
 #. 7
-#: src/main_menubar_def.h:1265
+#: src/main_menubar_def.h:1272
 msgid "_Install"
 msgstr "_Instal·la"
 
-#: src/main_menubar_def.h:1266
+#: src/main_menubar_def.h:1273
 msgid "Install the Project on your system"
 msgstr "Instal·la el projecte al seu sistema"
 
 #. 8
-#: src/main_menubar_def.h:1271
+#: src/main_menubar_def.h:1278
 msgid "Build _Distribution"
 msgstr "Genera _distribució"
 
-#: src/main_menubar_def.h:1272
+#: src/main_menubar_def.h:1279
 msgid "Build the distribution tarball of the Project"
 msgstr "Genera el fitxer tar de distribució del projecte"
 
 #. 9
 #. 10
-#: src/main_menubar_def.h:1278
+#: src/main_menubar_def.h:1285
 msgid "Con_figure ..."
 msgstr "Con_figura ..."
 
-#: src/main_menubar_def.h:1279
+#: src/main_menubar_def.h:1286
 msgid "Configure the Project"
 msgstr "Configura el projecte"
 
 #. 11
-#: src/main_menubar_def.h:1284
+#: src/main_menubar_def.h:1291
 msgid "Auto _generate ..."
 msgstr "_Genera automàticament ..."
 
-#: src/main_menubar_def.h:1285
+#: src/main_menubar_def.h:1292
 msgid "Auto generate all the build files for the Project"
 msgstr "Genera automàticament tots els fitxers de muntatge del projecte"
 
 #. 12
 #. 13
-#: src/main_menubar_def.h:1291
+#: src/main_menubar_def.h:1298
 msgid "Clea_n"
 msgstr "_Neteja"
 
-#: src/main_menubar_def.h:1292
+#: src/main_menubar_def.h:1299
 msgid "Clean the source directory"
 msgstr "Neteja el directori de fitxers de codi"
 
 #. 14
-#: src/main_menubar_def.h:1297
+#: src/main_menubar_def.h:1304
 msgid "Clean A_ll"
 msgstr "Nete_ja tot"
 
-#: src/main_menubar_def.h:1298
+#: src/main_menubar_def.h:1305
 msgid "Clean the whole Project directory"
 msgstr "Neteja el directori del projecte sencer"
 
 #. 15
 #. 16
-#: src/main_menubar_def.h:1304
+#: src/main_menubar_def.h:1311
 msgid "_Stop Build"
 msgstr "Atura muntat_ge"
 
-#: src/main_menubar_def.h:1305
+#: src/main_menubar_def.h:1312
 msgid "Stop the current compile or build process"
 msgstr "Atura el procés de compilació o muntatge"
 
 # Projecte_Gnome_2.2 [gtk+.gtk-2-0.ca.po]
 #. 17
 #. 18
-#: src/main_menubar_def.h:1311
+#: src/main_menubar_def.h:1318
 msgid "_Execute"
 msgstr "_Executa"
 
-#: src/main_menubar_def.h:1312 src/toolbar.c:296
+#: src/main_menubar_def.h:1319 src/toolbar.c:296
 msgid "Execute the program"
 msgstr "Executa el programa"
 
 #. 19
-#: src/main_menubar_def.h:1317
+#: src/main_menubar_def.h:1324
 msgid "Set _Program params ..."
 msgstr "Defineix paràmetres del _programa ..."
 
-#: src/main_menubar_def.h:1318
+#: src/main_menubar_def.h:1325
 msgid "Set the execution parameters of the program"
 msgstr "Defineix els paràmetres d'execució del programa"
 
 #. 0
-#: src/main_menubar_def.h:1328
+#: src/main_menubar_def.h:1335
 msgid "_Toggle bookmark"
 msgstr "Commu_ta adreça d'interés"
 
-#: src/main_menubar_def.h:1329
+#: src/main_menubar_def.h:1336
 msgid "Toggle a bookmark at the current line position"
 msgstr "Commuta una adreça d'interés a la línia actual"
 
 #. 1
 #. 2
-#: src/main_menubar_def.h:1335
+#: src/main_menubar_def.h:1342
 msgid "_First bookmark"
 msgstr "_Primera adreça d'interés"
 
-#: src/main_menubar_def.h:1336
+#: src/main_menubar_def.h:1343
 msgid "Jump to the first bookmark in the file"
 msgstr "Vés a la primera adreça d'interés del fitxer"
 
 #. 3
-#: src/main_menubar_def.h:1341
+#: src/main_menubar_def.h:1348
 msgid "_Previous bookmark"
 msgstr "_Anterior adreça d'interés"
 
-#: src/main_menubar_def.h:1342
+#: src/main_menubar_def.h:1349
 msgid "Jump to the previous bookmark in the file"
 msgstr "Vés a la anterior adreça d'interés del fitxer"
 
 #. 4
-#: src/main_menubar_def.h:1347
+#: src/main_menubar_def.h:1354
 msgid "_Next bookmark"
 msgstr "_Següent adreça d'interés"
 
-#: src/main_menubar_def.h:1348
+#: src/main_menubar_def.h:1355
 msgid "Jump to the next bookmark in the file"
 msgstr "Vés a la següent adreça d'interés del fitxer"
 
 #. 5
-#: src/main_menubar_def.h:1353
+#: src/main_menubar_def.h:1360
 msgid "_Last bookmark"
 msgstr "_Última adreça d'interés"
 
-#: src/main_menubar_def.h:1354
+#: src/main_menubar_def.h:1361
 msgid "Jump to the last bookmark in the file"
 msgstr "Vés a l'última adreça d'interés del fitxer"
 
 #. 6
 #. 7
-#: src/main_menubar_def.h:1360
+#: src/main_menubar_def.h:1367
 msgid "_Clear all bookmarks"
 msgstr "Neteja totes les adre_ces d'interés"
 
-#: src/main_menubar_def.h:1361
+#: src/main_menubar_def.h:1368
 msgid "Clear bookmarks"
 msgstr "Neteja adreces d'interés"
 
 #. 0
-#: src/main_menubar_def.h:1371
+#: src/main_menubar_def.h:1378
 msgid "Run/_Continue"
 msgstr "Executa/_continua"
 
-#: src/main_menubar_def.h:1372
+#: src/main_menubar_def.h:1379
 msgid "Continue the execution of the program"
 msgstr "Continua l'execució del programa"
 
 # Tots aquests steps són difícils d'entendre 
 #. 1
-#: src/main_menubar_def.h:1377
+#: src/main_menubar_def.h:1384
 msgid "Step _In"
 msgstr "A_vança un pas"
 
-#: src/main_menubar_def.h:1378
+#: src/main_menubar_def.h:1385
 msgid "Single step into function"
 msgstr "Avança un pas dins de la funció"
 
 #. 2
-#: src/main_menubar_def.h:1383
+#: src/main_menubar_def.h:1390
 msgid "Step O_ver"
 msgstr "A_vança fins"
 
-#: src/main_menubar_def.h:1384
+#: src/main_menubar_def.h:1391
 msgid "Single step over function"
 msgstr "Avança fins la crida a la funció"
 
 #. 3
-#: src/main_menubar_def.h:1389
+#: src/main_menubar_def.h:1396
 msgid "Step _Out"
 msgstr "Avança al fi_nal"
 
-#: src/main_menubar_def.h:1390
+#: src/main_menubar_def.h:1397
 msgid "Single step out of the function"
 msgstr "Avança fins el final de la funció"
 
 #. 4
-#: src/main_menubar_def.h:1395
+#: src/main_menubar_def.h:1402
 msgid "_Run to cursor"
 msgstr "Executa fins cu_rsor"
 
-#: src/main_menubar_def.h:1396
+#: src/main_menubar_def.h:1403
 msgid "Run to the cursor"
 msgstr "Executa fins el cursor"
 
 #. 0
-#: src/main_menubar_def.h:1406 src/text_editor_menu.c:136
+#: src/main_menubar_def.h:1413 src/text_editor_menu.c:136
 msgid "Toggle breakpoint"
 msgstr "Commuta punt de ruptura"
 
-#: src/main_menubar_def.h:1407
+#: src/main_menubar_def.h:1414
 msgid "Toggle breakpoint at the current location"
 msgstr "Commuta punt de ruptura a la ubicació actual"
 
 #. 1
-#: src/main_menubar_def.h:1412
+#: src/main_menubar_def.h:1419
 msgid "Set Breakpoint ..."
 msgstr "Defineix punt de ruptura ..."
 
-#: src/main_menubar_def.h:1413
+#: src/main_menubar_def.h:1420
 msgid "Set a breakpoint"
 msgstr "Defineix un punt de ruptura"
 
 #. 2
 #. 3
-#: src/main_menubar_def.h:1419
+#: src/main_menubar_def.h:1426
 msgid "_Breakpoints ..."
 msgstr "_Punts de ruptura ..."
 
-#: src/main_menubar_def.h:1420
+#: src/main_menubar_def.h:1427
 msgid "Edit breakpoints"
 msgstr "Edita punts de ruptura"
 
 #. 4
-#: src/main_menubar_def.h:1425
+#: src/main_menubar_def.h:1432
 msgid "Disable all Breakpoints"
 msgstr "Inhabilita tots els punts de ruptura"
 
-#: src/main_menubar_def.h:1426
+#: src/main_menubar_def.h:1433
 msgid "Deactivate all breakpoints"
 msgstr "Desactiva tots els punts de ruptura"
 
 #. 5
-#: src/main_menubar_def.h:1431
+#: src/main_menubar_def.h:1438
 msgid "C_lear all Breakpoints"
 msgstr "Neteja tots e_ls punts de ruptura"
 
-#: src/main_menubar_def.h:1432
+#: src/main_menubar_def.h:1439
 msgid "Delete all breakpoints"
 msgstr "Esborra tots els punts de ruptura"
 
 #. 0
-#: src/main_menubar_def.h:1442
+#: src/main_menubar_def.h:1449
 msgid "Info _Target Files"
 msgstr "Fitxers d'Informació de l'objec_tiu"
 
-#: src/main_menubar_def.h:1443
+#: src/main_menubar_def.h:1450
 msgid "Display information on the files the debugger is active with"
 msgstr "Mostra informació sobre els fitxers amb els que treballa el depurador"
 
 #. 1
-#: src/main_menubar_def.h:1448
+#: src/main_menubar_def.h:1455
 msgid "Info _Program"
 msgstr "Informació del _programa"
 
-#: src/main_menubar_def.h:1449
+#: src/main_menubar_def.h:1456
 msgid "Display information on the execution status of the program"
 msgstr "Mostra informació sobre l'estat d'execució del programa"
 
 #. 2
-#: src/main_menubar_def.h:1454
+#: src/main_menubar_def.h:1461
 msgid "Info _Kernel User Struct"
 msgstr "Informació d'estructura d'usuari del _nucli"
 
-#: src/main_menubar_def.h:1455
+#: src/main_menubar_def.h:1462
 msgid "Display the contents of kernel 'struct user' for current child"
 msgstr "Mostra el contingut de l'estructura d'usuari del fill actual"
 
 #. 3
-#: src/main_menubar_def.h:1460
+#: src/main_menubar_def.h:1467
 msgid "Info _Threads"
 msgstr "Informació de flu_xes"
 
-#: src/main_menubar_def.h:1461
+#: src/main_menubar_def.h:1468
 msgid "Display the IDs of currently known threads"
 msgstr "Mostra els identificadors dels fluxes actualment coneguts"
 
 #. 4
-#: src/main_menubar_def.h:1466
+#: src/main_menubar_def.h:1473
 msgid "Info _Global variables"
 msgstr "Informació de variables _globals"
 
-#: src/main_menubar_def.h:1467
+#: src/main_menubar_def.h:1474
 msgid "Display all global and static variables of the program"
 msgstr "Mostra totes les variables globals i estàtiques del programa"
 
 #. 5
-#: src/main_menubar_def.h:1472
+#: src/main_menubar_def.h:1479
 msgid "Info _Local variables"
 msgstr "Informació de variables _locals"
 
-#: src/main_menubar_def.h:1473
+#: src/main_menubar_def.h:1480
 msgid "Display local variables of the current frame"
 msgstr "Mostra les variables locals del marc actual"
 
 #. 6
-#: src/main_menubar_def.h:1478
+#: src/main_menubar_def.h:1485
 msgid "Info _Current Frame"
 msgstr "Informació del marc a_ctual"
 
-#: src/main_menubar_def.h:1479
+#: src/main_menubar_def.h:1486
 msgid "Display information about the current frame of execution"
 msgstr "Mostra informació sobre el marc d'execució actual"
 
 #. 7
-#: src/main_menubar_def.h:1484
+#: src/main_menubar_def.h:1491
 msgid "Info Function _Arguments"
 msgstr "Informació d'_arguments de funció"
 
-#: src/main_menubar_def.h:1485
+#: src/main_menubar_def.h:1492
 msgid "Display function arguments of the current frame"
 msgstr "Mostra els arguments de funció del marc actual"
 
 #. 8
-#: src/main_menubar_def.h:1490
+#: src/main_menubar_def.h:1497
 msgid "Info _Memory"
 msgstr "Informació de _memòria"
 
-#: src/main_menubar_def.h:1491
+#: src/main_menubar_def.h:1498
 msgid "Display accessible memory"
 msgstr "Mostra memòria accessible"
 
 #. 0
-#: src/main_menubar_def.h:1501
+#: src/main_menubar_def.h:1508
 msgid "_Start Debugger"
 msgstr "Inicia dep_uració"
 
-#: src/main_menubar_def.h:1502
+#: src/main_menubar_def.h:1509
 msgid "Start the debugging session"
 msgstr "Inicia la sessió de depuració"
 
 #. 1
 #. 2
-#: src/main_menubar_def.h:1508
+#: src/main_menubar_def.h:1515
 msgid "Load E_xecutable ..."
 msgstr "Carrega e_xecutable ..."
 
-#: src/main_menubar_def.h:1509
+#: src/main_menubar_def.h:1516
 msgid "Open the executable for debugging"
 msgstr "Obre l'executable per depurar"
 
 #. 3
-#: src/main_menubar_def.h:1514
+#: src/main_menubar_def.h:1521
 msgid "Load _Core file ..."
 msgstr "_Carrega un fitxer core..."
 
-#: src/main_menubar_def.h:1515
+#: src/main_menubar_def.h:1522
 msgid "Load a core file to dissect"
 msgstr "Carrega un fitxer core per disseccionar-lo"
 
 #. 4
-#: src/main_menubar_def.h:1520
+#: src/main_menubar_def.h:1527
 msgid "_Attach to Process ..."
 msgstr "_Adjunta a un procés ..."
 
-#: src/main_menubar_def.h:1521
+#: src/main_menubar_def.h:1528
 msgid "Attach to a running program"
 msgstr "Adjunta a un programa en execució"
 
 #. 5
 #. 6
-#: src/main_menubar_def.h:1527
+#: src/main_menubar_def.h:1534
 msgid "_Restart Program"
 msgstr "_Reinicia programa"
 
-#: src/main_menubar_def.h:1528
+#: src/main_menubar_def.h:1535
 msgid "Stop and restart the program"
 msgstr "Atura i reinicia el programa"
 
 #. 7
-#: src/main_menubar_def.h:1533
+#: src/main_menubar_def.h:1540
 msgid "S_top Program"
 msgstr "A_tura programa"
 
-#: src/main_menubar_def.h:1534
+#: src/main_menubar_def.h:1541
 msgid "Stop the program being debugged"
 msgstr "Atura el programa que està sent depurat"
 
 #. 8
-#: src/main_menubar_def.h:1539
+#: src/main_menubar_def.h:1546
 msgid "_Detach Debugger"
 msgstr "Separa _depurador"
 
-#: src/main_menubar_def.h:1540
+#: src/main_menubar_def.h:1547
 msgid "Detach from an attached program"
 msgstr "Separa un programa adjuntat"
 
 #. 9
 #. 10
-#: src/main_menubar_def.h:1546
+#: src/main_menubar_def.h:1553
 msgid "Pa_use Program"
 msgstr "Pa_usa el programa"
 
-#: src/main_menubar_def.h:1547
+#: src/main_menubar_def.h:1554
 msgid "Pauses the execution of the program"
 msgstr "Pausa l'execució del programa"
 
 #. 11
-#: src/main_menubar_def.h:1552
+#: src/main_menubar_def.h:1559
 msgid "Si_gnal to Process"
 msgstr "Envia sen_yal al procés"
 
-#: src/main_menubar_def.h:1553
+#: src/main_menubar_def.h:1560
 msgid "Send a kernel signal to the process being debugged"
 msgstr "Envia un senyal de nucli al procés que està sent depurat"
 
 #. 12
 #. 13
-#: src/main_menubar_def.h:1559
+#: src/main_menubar_def.h:1566
 msgid "_Execution"
 msgstr "_Execució"
 
 # Projecte_Gnome_2.2 [file-roller.gnome-2-0.ca.po]
 #. 15
 #. 16
-#: src/main_menubar_def.h:1572
+#: src/main_menubar_def.h:1579
 msgid "_Information"
 msgstr "_Informació"
 
 #. 17
 #. 18
-#: src/main_menubar_def.h:1579
+#: src/main_menubar_def.h:1586
 msgid "Ins_pect/Evaluate ..."
 msgstr "Ins_pecciona/avalua ..."
 
-#: src/main_menubar_def.h:1580
+#: src/main_menubar_def.h:1587
 msgid "Inspect or evaluate an expression or variable"
 msgstr "Inspecciona o avalua una expressio o variable"
 
 #. 19
-#: src/main_menubar_def.h:1585
+#: src/main_menubar_def.h:1592
 msgid "Add Expression in _Watch ..."
 msgstr "Afegeix expressió a _vigilància ..."
 
-#: src/main_menubar_def.h:1586
+#: src/main_menubar_def.h:1593
 msgid "Add expression or variable to the watch"
 msgstr "Afegeix expressió o variable a la vigilància"
 
 #. 20
 #. 21
-#: src/main_menubar_def.h:1592
+#: src/main_menubar_def.h:1599
 msgid "St_op Debugger"
 msgstr "Atura el depurad_or"
 
-#: src/main_menubar_def.h:1593
+#: src/main_menubar_def.h:1600
 msgid "Say goodbye to the debugger"
 msgstr "Acomiadeu-vos del depurador"
 
 #. 0
-#: src/main_menubar_def.h:1604
+#: src/main_menubar_def.h:1611
 msgid "U_pdate file"
 msgstr "Actualit_za fitxer"
 
 #. 1
-#: src/main_menubar_def.h:1611
+#: src/main_menubar_def.h:1618
 msgid "C_ommit file"
 msgstr "C_onfirma canvis al fitxer"
 
 #. 2
-#: src/main_menubar_def.h:1618
+#: src/main_menubar_def.h:1625
 msgid "S_tatus of file"
 msgstr "Es_tat del fitxer"
 
 #. 3
-#: src/main_menubar_def.h:1625
+#: src/main_menubar_def.h:1632
 msgid "G_et file log"
 msgstr "Obt_enir fitxer de registre"
 
 #. 4
-#: src/main_menubar_def.h:1632
+#: src/main_menubar_def.h:1639
 msgid "_Add file"
 msgstr "_Afegeix fitxer"
 
 #. 5
-#: src/main_menubar_def.h:1639
+#: src/main_menubar_def.h:1646
 msgid "_Remove file"
 msgstr "Esbo_rra fitxer"
 
 #. 6
-#: src/main_menubar_def.h:1646
+#: src/main_menubar_def.h:1653
 msgid "D_iff file"
 msgstr "Fitxer de d_iferències"
 
 #. 8
-#: src/main_menubar_def.h:1654
+#: src/main_menubar_def.h:1661
 msgid "_Update Project"
 msgstr "Act_ualitza projecte"
 
-#: src/main_menubar_def.h:1655
+#: src/main_menubar_def.h:1662
 msgid "Update the working copy of a Project"
 msgstr "Actualitza la còpìa de treball d'un projecte"
 
 #. 9
-#: src/main_menubar_def.h:1661
+#: src/main_menubar_def.h:1668
 msgid "_Commit Project"
 msgstr "_Confirma canvi de projecte"
 
-#: src/main_menubar_def.h:1662
+#: src/main_menubar_def.h:1669
 msgid "Commit local changes to the repository"
 msgstr "Confirma canvis locals al repositori"
 
 #. 10
-#: src/main_menubar_def.h:1668
+#: src/main_menubar_def.h:1675
 msgid "_Import Project"
 msgstr "_Importa projecte"
 
-#: src/main_menubar_def.h:1669
+#: src/main_menubar_def.h:1676
 msgid "Import Project as a new module in the repository"
 msgstr "Importa un projecte com a nou mòdul al repositori"
 
 #. 11
-#: src/main_menubar_def.h:1675
+#: src/main_menubar_def.h:1682
 msgid "_Status of Project"
 msgstr "E_stat del projecte"
 
-#: src/main_menubar_def.h:1676
+#: src/main_menubar_def.h:1683
 msgid "Print the status of the Project"
 msgstr "Mostra l'estat del projecte"
 
 #. 12
-#: src/main_menubar_def.h:1682
+#: src/main_menubar_def.h:1689
 msgid "Get Project _log"
 msgstr "Obté registre de_l projecte"
 
-#: src/main_menubar_def.h:1683
+#: src/main_menubar_def.h:1690
 msgid "Print the CVS log of the Project"
 msgstr "Mostra el registre CVS del projecte"
 
 #. 13
-#: src/main_menubar_def.h:1689
+#: src/main_menubar_def.h:1696
 msgid "_Diff Project"
 msgstr "_Diferències del projecte"
 
-#: src/main_menubar_def.h:1690
+#: src/main_menubar_def.h:1697
 msgid ""
 "Create a diff between the working copy of the Project and the repository"
 msgstr ""
@@ -5950,253 +6036,279 @@ msgstr ""
 "repositori"
 
 #. 15
-#: src/main_menubar_def.h:1697
+#: src/main_menubar_def.h:1704
 msgid "_Login"
 msgstr "En_tra"
 
-#: src/main_menubar_def.h:1698
+#: src/main_menubar_def.h:1705
 msgid "Login to a CVS server"
 msgstr "Entra a un servidor CVS"
 
 #. 0
-#: src/main_menubar_def.h:1709
+#: src/main_menubar_def.h:1716
 msgid "_Compiler and Linker Settings ..."
 msgstr "_Configuració del compilador i l'enllaçador"
 
-#: src/main_menubar_def.h:1710
+#: src/main_menubar_def.h:1717
 msgid "Settings for the compiler and linker"
 msgstr "Configuracions pel compilador i l'enllaçador"
 
 #. 1
-#: src/main_menubar_def.h:1715
+#: src/main_menubar_def.h:1722
 msgid "_Source Paths ..."
 msgstr "Camin_s de codis font ..."
 
-#: src/main_menubar_def.h:1716
+#: src/main_menubar_def.h:1723
 msgid "Specify the source paths for Anjuta to search"
 msgstr "Especifica on ha de cercar l'Anjuta els fitxers de codi font"
 
 #. 2
-#: src/main_menubar_def.h:1721
+#: src/main_menubar_def.h:1728
 msgid "Co_mmands ..."
 msgstr "Co_mandes ..."
 
-#: src/main_menubar_def.h:1722
+#: src/main_menubar_def.h:1729
 msgid "Specify the various commands for use"
 msgstr "Especifica les diferents ordres que s'han de fer servir"
 
 # Projecte_Gnome_2.2 [atomix.HEAD.ca.po]
 #. 3
 #. 4
-#: src/main_menubar_def.h:1728
+#: src/main_menubar_def.h:1735
 msgid "_Preferences ..."
 msgstr "_Preferències ..."
 
-#: src/main_menubar_def.h:1729
+#: src/main_menubar_def.h:1736
 msgid "Do you prefer coffee to tea? Check it out."
 msgstr "Preferiu cafè o té?"
 
 #. 5
-#: src/main_menubar_def.h:1734
+#: src/main_menubar_def.h:1741
 msgid "_Editor colors and fonts ..."
 msgstr "_Edita colors i fonts ..."
 
-#: src/main_menubar_def.h:1735
+#: src/main_menubar_def.h:1742
 msgid "Syntax highlighting settings"
 msgstr "Opcions de formateig de sintaxi"
 
 #. 6
-#: src/main_menubar_def.h:1740
+#: src/main_menubar_def.h:1747
 msgid "File view filters ..."
 msgstr "Filtres de vista de fitxers ..."
 
-#: src/main_menubar_def.h:1741
+#: src/main_menubar_def.h:1748
 msgid "Edit file view filters"
 msgstr "Edita filtres de vista de fitxers"
 
 #. 7
-#: src/main_menubar_def.h:1746
+#: src/main_menubar_def.h:1753
 msgid "_Edit user.properties file ..."
 msgstr "_Edita fitxer de propietats d'usuari ..."
 
-#: src/main_menubar_def.h:1747
+#: src/main_menubar_def.h:1754
 msgid "Edit user properties file"
 msgstr "Edita fitxer de propietats d'usuari"
 
 #. 8
-#: src/main_menubar_def.h:1752
+#: src/main_menubar_def.h:1759
 msgid "Set _Default Preferences"
 msgstr "Defineix preferències per _defecte"
 
-#: src/main_menubar_def.h:1753
+#: src/main_menubar_def.h:1760
 msgid "But I prefer tea."
 msgstr "Però jo prefereixo el té."
 
 #. 9
-#: src/main_menubar_def.h:1758
+#: src/main_menubar_def.h:1765
 msgid "C_ustomize shortcuts"
 msgstr "Pers_onalitza drecera de teclat"
 
-#: src/main_menubar_def.h:1759
+#: src/main_menubar_def.h:1766
 msgid "Customize shortcuts associated with menu items"
 msgstr "Personalitza dreceres de teclat associades amb els elements de menú"
 
 #. 10
-#: src/main_menubar_def.h:1764
+#: src/main_menubar_def.h:1771
 msgid "_Tools Editor"
 msgstr "Edi_tor d'eines"
 
-#: src/main_menubar_def.h:1765
+#: src/main_menubar_def.h:1772
 msgid "Customize user-defined tools"
 msgstr "Personalitza les eines definides per l'usuari"
 
 #. 11
 #. 12
-#: src/main_menubar_def.h:1771
+#: src/main_menubar_def.h:1778
 msgid "St_art-with dialog"
 msgstr "Diàleg inici_al"
 
-#: src/main_menubar_def.h:1772
+#: src/main_menubar_def.h:1779
 msgid "Show start-with dialog"
 msgstr "Mostra el diàleg inicial"
 
 #. 13
-#: src/main_menubar_def.h:1777
+#: src/main_menubar_def.h:1784
 msgid "An_juta setup wizard"
 msgstr "Assistent de configuració d'An_juta"
 
-#: src/main_menubar_def.h:1778
+#: src/main_menubar_def.h:1785
 msgid "Setup wizard for first time run"
 msgstr "Assistent de configuració de la primera execució"
 
 #. 0
+#: src/main_menubar_def.h:1795
+msgid "Anjuta Manual"
+msgstr "Manual d'Anjuta"
+
+#: src/main_menubar_def.h:1796
+msgid "Anjuta IDE Manual"
+msgstr "Manual de l'EID Anjuta"
+
 #. 1
+#: src/main_menubar_def.h:1801
+msgid "Anjuta Tutorial"
+msgstr "Tutorial d'Anjuta"
+
+#: src/main_menubar_def.h:1802
+msgid "Anjuta IDE Tutorial"
+msgstr "Tutorial de l'EID Anjuta"
+
 #. 2
-#: src/main_menubar_def.h:1790
+#: src/main_menubar_def.h:1807
+msgid "Anjuta Faqs"
+msgstr "Preguntes sobre Anjuta"
+
+#: src/main_menubar_def.h:1808
+msgid "Anjuta IDE Faqs"
+msgstr "Preguuntes habituals sobre l'EID Anjuta"
+
+#. 3
+#. 4
+#: src/main_menubar_def.h:1814
 msgid "Browse GNOME _API Pages"
 msgstr "Navega per les pàgines de l'_API de GNOME"
 
-#: src/main_menubar_def.h:1791
+#: src/main_menubar_def.h:1815
 msgid "The GNOME API pages"
 msgstr "Les pàgines de l'interfaç de programació d'aplicacions del GNOME"
 
-#. 3
-#: src/main_menubar_def.h:1796
+#. 5
+#: src/main_menubar_def.h:1820
 msgid "Browse _Man Pages"
 msgstr "Navega per les pàgines _man"
 
-#: src/main_menubar_def.h:1797
+#: src/main_menubar_def.h:1821
 msgid "The good old manual pages"
 msgstr "Les bones i veteranes pàgines de manual"
 
-#. 4
-#: src/main_menubar_def.h:1802
+#. 6
+#: src/main_menubar_def.h:1826
 msgid "Browse _Info Pages"
 msgstr "Navega per les pàgines _info"
 
-#: src/main_menubar_def.h:1803
+#: src/main_menubar_def.h:1827
 msgid "Browse Info pages"
 msgstr "Navega per les pàgines info"
 
-#. 5
-#. 6
-#: src/main_menubar_def.h:1809
+#. 7
+#. 8
+#: src/main_menubar_def.h:1833
 msgid "_Context Help"
 msgstr "Ajuda _contextual"
 
-#: src/main_menubar_def.h:1810
+#: src/main_menubar_def.h:1834
 msgid "Search help for the current word in the editor"
 msgstr "Cerca ajuda sobre la paraula actual en l'editor"
 
-#. 7
-#: src/main_menubar_def.h:1815
+#. 9
+#: src/main_menubar_def.h:1839
 msgid "_Search a topic"
 msgstr "_Cerca un tema"
 
-#: src/main_menubar_def.h:1816
+#: src/main_menubar_def.h:1840
 msgid "May I help you?"
 msgstr "Puc ajudar-te?"
 
-#. 8
-#. 9
-#: src/main_menubar_def.h:1822
+#. 10
+#. 11
+#: src/main_menubar_def.h:1846
 msgid "Anjuta _Home Page"
 msgstr "Pà_gina web d'Anjuta"
 
-#: src/main_menubar_def.h:1823
+#: src/main_menubar_def.h:1847
 msgid "Online documentation and resources"
 msgstr "Documentació en línia"
 
-#. 10
-#. 11
-#: src/main_menubar_def.h:1829
+#. 12
+#. 13
+#: src/main_menubar_def.h:1853
 msgid "_Libraries API references"
 msgstr "Referències a les bib_lioteques de l'API"
 
-#: src/main_menubar_def.h:1830
+#: src/main_menubar_def.h:1854
 msgid "Online reference library for GDK, GLib, GNOME etc.."
 msgstr "Referència en línia sobre les biblioteques GDK, GLib, GNOME, etc."
 
-#. 12
-#: src/main_menubar_def.h:1835
+#. 14
+#: src/main_menubar_def.h:1859
 msgid "Report _Bugs"
 msgstr "Informa d'_errors"
 
-#: src/main_menubar_def.h:1836
+#: src/main_menubar_def.h:1860
 msgid "Submit a bug report for Anjuta"
 msgstr "Envia un informe d'errors d'Anjuta"
 
-#. 13
-#: src/main_menubar_def.h:1841
+#. 15
+#: src/main_menubar_def.h:1865
 msgid "Request _Features"
 msgstr "Demana no_ves característiques"
 
-#: src/main_menubar_def.h:1842
+#: src/main_menubar_def.h:1866
 msgid "Submit a feature request for Anjuta"
 msgstr "Demana noves característiques per a Anjuta"
 
-#. 14
-#: src/main_menubar_def.h:1847
+#. 16
+#: src/main_menubar_def.h:1871
 msgid "Submit _patches"
 msgstr "Envia _pedaços"
 
-#: src/main_menubar_def.h:1848
+#: src/main_menubar_def.h:1872
 msgid "Submit patches for Anjuta"
 msgstr "Envia _pedaços per a Anjuta"
 
-#. 15
-#: src/main_menubar_def.h:1853
+#. 17
+#: src/main_menubar_def.h:1877
 msgid "Ask a _question"
 msgstr "Faci una pre_gunta"
 
-#: src/main_menubar_def.h:1854
+#: src/main_menubar_def.h:1878
 msgid "Submit a question for FAQs"
 msgstr "Envia una pregunta a les PUFs"
 
 # Projecte_Gnome_2.2 [anjuta2.HEAD.ca.po]
-#: src/main_menubar_def.h:1869
+#: src/main_menubar_def.h:1893
 msgid "_Project"
 msgstr "_Projecte"
 
-#: src/main_menubar_def.h:1875
+#: src/main_menubar_def.h:1899
 msgid "For_mat"
 msgstr "For_mat"
 
-#: src/main_menubar_def.h:1887
+#: src/main_menubar_def.h:1911
 msgid "Bookmar_k"
 msgstr "Adreces d'inte_rés"
 
 # Projecte_Gnome_2.2 [gedit.gnome-2-0.ca.po]
-#: src/main_menubar_def.h:1893
+#: src/main_menubar_def.h:1917
 msgid "_Debug"
 msgstr "_Depura"
 
-#: src/main_menubar_def.h:1899
+#: src/main_menubar_def.h:1923
 msgid "_CVS"
 msgstr "_CVS"
 
 # Projecte_Gnome_2.2 [sawfish.gnome-2.ca.po]
-#: src/main_menubar_def.h:1905
+#: src/main_menubar_def.h:1929
 msgid "_Settings"
 msgstr "_Paràmetres"
 
@@ -6233,7 +6345,7 @@ msgstr ""
 "El canvis no desats es perdran."
 
 # Netscape_4.7->Menu:RESDLL.DLL
-#: src/mainmenu_callbacks.c:250 src/text_editor.c:1350
+#: src/mainmenu_callbacks.c:250 src/text_editor.c:1352
 msgid "_Reload"
 msgstr "Ac_tualitza"
 
@@ -6251,15 +6363,23 @@ msgstr "%d-%m-%Y"
 msgid "The file \"%s\" is not a header file."
 msgstr "El fitxer \"%s\" no és un fitxer de capçalera."
 
-#: src/mainmenu_callbacks.c:1733
+#: src/mainmenu_callbacks.c:1741
 msgid "The executable is not up-to-date."
 msgstr "L'executable no està actualitzat."
 
-#: src/mainmenu_callbacks.c:1758
+#: src/mainmenu_callbacks.c:1766
 msgid "Debugger is not running. Start it first."
 msgstr "El depurador no s'està executant. Inicieu-lo abans."
 
-#: src/mainmenu_callbacks.c:2148
+#: src/mainmenu_callbacks.c:2032
+msgid ""
+"Unable to display help. Please make sure Anjuta documentation package is "
+"install. It can be downloaded from http://anjuta.org"
+msgstr ""
+"No es pot mostrar l'ajuda. Assegureu-vos que el paquet de documentació "
+"d'Anjuta està instal·lat. El podeu descarregar d'http://anjuta.org"
+
+#: src/mainmenu_callbacks.c:2165
 msgid ""
 "You need to run gconf-editor, look for the key 'desktop/gnome/interface/"
 "can_change_accels' and set this toggle button ON. Then you can hover the "
@@ -6320,13 +6440,14 @@ msgstr "Vigilàncies"
 msgid "Stack"
 msgstr "Pila"
 
-#: src/message-manager.cc:271 src/message-manager.cc:326
+#: src/message-manager.cc:271 src/message-manager.cc:325
+#: src/message-manager.cc:363
 #, c-format
 msgid "Could not find message type %s!\n"
 msgstr "No s'ha trobat el tipus de missatge %s!\n"
 
 # Netscape_4.7->Menu:RESDLL.DLL
-#: src/message-manager.cc:555 src/toolbar.c:154
+#: src/message-manager.cc:592 src/toolbar.c:154
 msgid "Messages"
 msgstr "Missatges"
 
@@ -6339,7 +6460,7 @@ msgstr "Categoria"
 msgid "Anjuta Preferences Dialog"
 msgstr "Diàleg de Preferències d'Anjuta"
 
-#: src/preferences.c:692
+#: src/preferences.c:695
 msgid ""
 "Are you sure you want to reset the preferences to\n"
 "their default settings?"
@@ -6347,11 +6468,11 @@ msgstr ""
 "Desitja retornar les preferències\n"
 "als seus valors per defecte?"
 
-#: src/preferences.c:695
+#: src/preferences.c:698
 msgid "_Reset"
 msgstr "_Reinicia"
 
-#: src/preferences.c:1079
+#: src/preferences.c:1073
 #, c-format
 msgid ""
 "Cannot load Global defaults and configuration files:\n"
@@ -6366,7 +6487,7 @@ msgstr ""
 "Anjuta farà servir les opcions incloses per defecte (més limitades)"
 
 # Netscape_4.7->Menu:RESDLL.DLL
-#: src/preferences.c:1211
+#: src/preferences.c:1205
 msgid "Anjuta Preferences"
 msgstr "Preferències d'Anjuta"
 
@@ -6397,7 +6518,7 @@ msgstr "Tots els fitxers"
 msgid "Unable to load Project: %s"
 msgstr "No es pot carregar el projecte: %s"
 
-#: src/project_dbase.c:466 src/project_dbase.c:2480
+#: src/project_dbase.c:466 src/project_dbase.c:2481
 #, c-format
 msgid ""
 "Anjuta version %s or later is required to open this Project.\n"
@@ -6410,11 +6531,11 @@ msgstr ""
 msgid "Project saved successfully"
 msgstr "Projecte desat correctament"
 
-#: src/project_dbase.c:855 src/project_dbase.c:857
+#: src/project_dbase.c:855 src/project_dbase.c:858
 msgid "Unable to save the Project."
 msgstr "No es pot desar el projecte."
 
-#: src/project_dbase.c:1569
+#: src/project_dbase.c:1570
 msgid ""
 "A .glade file does not exist in the top level Project directory. If you do "
 "not use glade for GUI editing,  please specify a custom command for it in "
@@ -6425,7 +6546,7 @@ msgstr ""
 "personalitzada a [Projecte]->[Configuració del projecte]->[Ordre de l'editor "
 "d'interfícies gràfiques]"
 
-#: src/project_dbase.c:1631
+#: src/project_dbase.c:1632
 msgid ""
 "A .glade file does not\n"
 "exist in the top level Project directory."
@@ -6434,11 +6555,11 @@ msgstr ""
 "al directori de nivell superior del Projecte."
 
 #. Set project title
-#: src/project_dbase.c:2078
+#: src/project_dbase.c:2079
 msgid "Project: "
 msgstr "Projecte: "
 
-#: src/project_dbase.c:2195
+#: src/project_dbase.c:2196
 #, c-format
 msgid ""
 "Unable to get relative file name for %s\n"
@@ -6447,20 +6568,20 @@ msgstr ""
 "No es pot obtenir el nom de fitxer relatiu per a %s\n"
 " a %s"
 
-#: src/project_dbase.c:2260
+#: src/project_dbase.c:2261
 msgid " already exists in the project"
 msgstr " ja existeix al projecte"
 
-#: src/project_dbase.c:2293
+#: src/project_dbase.c:2294
 msgid "Error while copying the file inside the module."
 msgstr "S'ha produït un error en copiar el fitxer dins del mòdul."
 
-#: src/project_dbase.c:2556 src/project_dbase.c:2559
+#: src/project_dbase.c:2557 src/project_dbase.c:2560
 #, c-format
 msgid "Error in loading Project: %s"
 msgstr "S'ha produït un error en carregar projecte: %s"
 
-#: src/project_dbase.c:2580
+#: src/project_dbase.c:2581
 msgid "Project loaded successfully."
 msgstr "Projecte carregat correctament."
 
@@ -6940,29 +7061,29 @@ msgid "Cannot execute Devhelp. Make sure it is installed"
 msgstr "No es pot executar Devhelp. Asegureu-vos que és instal·lat"
 
 # Netscape_4.7->Dialog Box Control:RESDLL.DLL
-#: src/search-replace.c:1087
+#: src/search-replace.c:1088
 msgid "Replace"
 msgstr "Reemplaça"
 
 # Netscape_4.7->Dialog Box Control:RESDLL.DLL
-#: src/search-replace.c:1363 src/search-replace.c:1529
+#: src/search-replace.c:1364 src/search-replace.c:1530
 msgid "Replace All"
 msgstr "Reemplaça tots"
 
-#: src/search-replace.c:1371
+#: src/search-replace.c:1372
 msgid "No matches."
 msgstr "Cap concordància."
 
-#: src/search-replace.c:1381
+#: src/search-replace.c:1382
 msgid "The maximum number of results has been reached."
 msgstr "S'han obtingut el nombre màxim de resultats."
 
-#: src/search-replace.c:1391
+#: src/search-replace.c:1392
 #, c-format
 msgid "%d matches have been replaced."
 msgstr "s'han reeemplaçat %d concordàncies."
 
-#: src/search-replace.c:1748
+#: src/search-replace.c:1749
 msgid "Unable to build user interface for Search And Replace"
 msgstr "No es pot construir la interfície d'usuari per a Cerca i Reemplaça"
 
@@ -7101,11 +7222,11 @@ msgstr "Marc"
 msgid "Couldn't find pixmap file: %s"
 msgstr "No s'ha trobat el fitxer de mapa de píxels: %s"
 
-#: src/text_editor.c:930
+#: src/text_editor.c:932
 msgid "This file is too big. Unable to allocate memory."
 msgstr "El fitxer és massa gran. No es pot obtenir la memòria necessària."
 
-#: src/text_editor.c:975
+#: src/text_editor.c:977
 msgid ""
 "The file does not look like a text file or the file encoding is not "
 "supported. Please check if the encoding of file is in the supported "
@@ -7115,12 +7236,12 @@ msgstr ""
 "codificació donada. Comproveu que la codificació es troba entre les "
 "codificacions disponibles. En cas contrari, afegiu-la a les preferències."
 
-#: src/text_editor.c:1148
+#: src/text_editor.c:1150
 msgid "Loading file ..."
 msgstr "S'està carregant el fitxer ..."
 
 # Projecte_Gnome_2.2 [gnumeric.HEAD.ca.po]
-#: src/text_editor.c:1154
+#: src/text_editor.c:1156
 #, c-format
 msgid ""
 "Could not load file: %s\n"
@@ -7131,24 +7252,24 @@ msgstr ""
 "\n"
 "Motius: %s"
 
-#: src/text_editor.c:1175
+#: src/text_editor.c:1177
 msgid "File loaded successfully"
 msgstr "Fitxer carregat correctament"
 
-#: src/text_editor.c:1190
+#: src/text_editor.c:1192
 msgid "Saving file ..."
 msgstr "Desant fitxer ..."
 
-#: src/text_editor.c:1195
+#: src/text_editor.c:1197
 #, c-format
 msgid "Could not save file: %s."
 msgstr "No es pot desar el fitxer: %s."
 
-#: src/text_editor.c:1235
+#: src/text_editor.c:1237
 msgid "File saved successfully"
 msgstr "Fitxer desat correctament"
 
-#: src/text_editor.c:1333
+#: src/text_editor.c:1335
 #, c-format
 msgid ""
 "The file '%s' on the disk is more recent than\n"
@@ -7159,20 +7280,25 @@ msgstr ""
 "el carregat a la memòria.\n"
 "Desitjeu actualitzar-lo?"
 
-#: src/text_editor.c:1478
+#: src/text_editor.c:1508
 msgid "Auto format is currently disabled. Change the setting in Preferences."
 msgstr ""
 "El format automàtic està desactivat. Canviï la configuració a Preferències."
 
-#: src/text_editor.c:1484
+#: src/text_editor.c:1514
 msgid "Auto formatting ..."
 msgstr "Formateja automàticament ..."
 
-#: src/text_editor.c:1494
+#: src/text_editor.c:1524
 msgid "Error in auto formatting ..."
 msgstr "S'ha produït un error en formatejar automàticament ..."
 
-#: src/text_editor.c:1521
+#: src/text_editor.c:1539
+#, c-format
+msgid "Anjuta does not know %s!"
+msgstr "L'Anjuta no coneix %s!"
+
+#: src/text_editor.c:1567
 #, c-format
 msgid ""
 "Error in auto formatting ...\n"
@@ -7181,7 +7307,7 @@ msgstr ""
 "S'ha produït un error en formatejar automàticament ...\n"
 "Motius: %s"
 
-#: src/text_editor.c:1528
+#: src/text_editor.c:1574
 msgid "Auto formatting completed"
 msgstr "Formateig automàtic completat"
 
@@ -7677,7 +7803,7 @@ msgstr "No es pot llegir el fitxer: %s."
 msgid "Unable to complete file copy"
 msgstr "No es pot completar la còpia de fitxer"
 
-#: src/watch_cbs.c:235
+#: src/watch_cbs.c:236
 msgid "< Not defined in current context >"
 msgstr "< No està definit al context actual >"
 
@@ -7924,8 +8050,6 @@ msgstr "Esborra fitxer"
 msgid "Rename file"
 msgstr "Canvia el nom d'un fitxer"
 
-# source\filepicker\iodlg.src fixedline DLG_SVT_QUERYFOLDERNAME FL_SVT_QUERYFOLDERNAME_DLG_NAME
-# Projecte_Open_Office_1.1 [svtools.po]
 #: widgets/gnomefilelist.c:257 widgets/gnomefilelist.c:1988
 msgid "Create new folder"
 msgstr "Crea una carpeta nova"
@@ -7942,7 +8066,6 @@ msgstr "Mostra els fitxers ocults"
 msgid "Directory: "
 msgstr "Directori: "
 
-# Projecte_Gnome_2.2 [gtk+.gtk-2-0.ca.po]
 #: widgets/gnomefilelist.c:430
 msgid "Selection: "
 msgstr "Selecció: "
@@ -7997,390 +8120,3 @@ msgstr "Ha fallat la creació de la carpeta '%s': %s"
 #: widgets/gnomefilelist.c:2000
 msgid "Folder name:"
 msgstr "Nom de carpeta:"
-
-#~ msgid "Anjuta Setup Wizard"
-#~ msgstr "Assistent de configuració d'Anjuta"
-
-#~ msgid "Anjuta setup wizard"
-#~ msgstr "Assistent de configuració d'Anjuta"
-
-#~ msgid ""
-#~ "Anjuta setup wizard will guide with the initial setup of Anjuta. These "
-#~ "setup could be changed later from Anjuta settings menu (Main menu-"
-#~ ">Settings). "
-#~ msgstr ""
-#~ "L'assistent de configuració d'Anjuta us guiarà en la configuració inicial "
-#~ "d'Anjuta. Podreu canviar aquesta configuració des de (Menú principal-"
-#~ ">Configuració)."
-
-#~ msgid "Anjuta windows"
-#~ msgstr "Finestres d'Anjuta"
-
-#~ msgid "Arrows"
-#~ msgstr "Fletxes"
-
-# Netscape_4.7->Dialog Box Control:EDITOR32.DLL
-#~ msgid "Bottom"
-#~ msgstr "Inferior"
-
-#~ msgid "CVS forced update [-dP -A]"
-#~ msgstr "Actualització forçada de CVS [-dP -A]"
-
-# Netscape_4.7->Dialog Box Control:RESDLL.DLL
-#~ msgid "Circular"
-#~ msgstr "Rodó"
-
-#~ msgid "Crazy boy style"
-#~ msgstr "Estil nano boig"
-
-# Projecte_Gnome_2.2 [libgtop.libgtop-GNOME-2-0-port.ca.po]
-#~ msgid "Diagonal"
-#~ msgstr "Diagonal"
-
-#~ msgid "Docked style"
-#~ msgstr "Estil enganxat"
-
-#~ msgid ""
-#~ "Docked style presents Anjuta \n"
-#~ "in the classic IDE form with all\n"
-#~ "sub-windows docked on the\n"
-#~ "main window."
-#~ msgstr ""
-#~ "L'estil enganxat presenta Anjuta \n"
-#~ "en la forma clàsica d'un IDE amb totes\n"
-#~ "les subfinestres enganxades a la\n"
-#~ "finestra principal."
-
-#~ msgid "GNU coding style"
-#~ msgstr "Estil de codificació GNU"
-
-#~ msgid "Hello World style"
-#~ msgstr "Estil 'hola món'"
-
-#~ msgid "Kernighan & Ritchie style"
-#~ msgstr "Estil de Kernighan i Ritchie"
-
-# Netscape_4.7->Dialog Box Control:EDITOR32.DLL
-#~ msgid "Left"
-#~ msgstr "Esquerra"
-
-#~ msgid "Original Berkeley style"
-#~ msgstr "Estil original de Berkeley"
-
-#~ msgid "Plus/Minus"
-#~ msgstr "Més/menys"
-
-# Netscape_4.7->Dialog Box Control:EDITOR32.DLL
-#~ msgid "Right"
-#~ msgstr "Dreta"
-
-#~ msgid "Squares"
-#~ msgstr "Quadrat"
-
-# sdi\sfxslots.src sfxslotinfo SID_BASICSTEPOUT
-# Projecte_Open_Office_1.1 [sfx2.po]
-#~ msgid "Strike-Out"
-#~ msgstr "Ratllat"
-
-#~ msgid "Style of Kangleipak"
-#~ msgstr "Estil de Kangleipak"
-
-# Netscape_4.7->String:RESDLL.DLL
-#~ msgid "Top"
-#~ msgstr "Principi"
-
-#~ msgid "Underline-Plain"
-#~ msgstr "Subratllat - línia recta"
-
-#~ msgid "Underline-Squiggle"
-#~ msgstr "Subratllat - línies mogudes"
-
-#~ msgid "Underline-TT"
-#~ msgstr "Subratllat-TT"
-
-#~ msgid "Undocked style"
-#~ msgstr "Estil separat"
-
-#~ msgid ""
-#~ "Undocked style presents Anjuta\n"
-#~ "in with all sub-windows undocked\n"
-#~ "from the main window."
-#~ msgstr ""
-#~ "L'estil separat presenta Anjuta \n"
-#~ "amb totes les subfinestres separades de la\n"
-#~ "finestra principal."
-
-#~ msgid "Windows style"
-#~ msgstr "Estil de finestres"
-
-#~ msgid "window1"
-#~ msgstr "finestra1"
-
-#~ msgid "window2"
-#~ msgstr "window2"
-
-#~ msgid "window3"
-#~ msgstr "finestra3"
-
-#~ msgid "window4"
-#~ msgstr "finestra4"
-
-#~ msgid "window5"
-#~ msgstr "finestra5"
-
-#~ msgid "window6"
-#~ msgstr "finestra6"
-
-#~ msgid "window7"
-#~ msgstr "finestra7"
-
-#~ msgid "window8"
-#~ msgstr "finestra8"
-
-#~ msgid ""
-#~ "The file '%s' already exists.\n"
-#~ "Do you want to overwrite it?."
-#~ msgstr ""
-#~ "El fitxer \"%s\" existeix.\n"
-#~ "Desitgeu sobreescriure'l?"
-
-#~ msgid "Build completed ... unsuccessful"
-#~ msgstr "El muntatge s'ha completat ... incorrectament"
-
-#~ msgid "Build completed ... successful\n"
-#~ msgstr "El muntatge s'ha completat ... correctament\n"
-
-#~ msgid "Build completed ... successful"
-#~ msgstr "El muntatge s'ha completat ... correctament"
-
-#~ msgid "Build completed...............Unsuccessful\n"
-#~ msgstr "Muntatge completat...............Incorrectament\n"
-
-#~ msgid "Build terminated with error(s)."
-#~ msgstr "El muntatge ha acabat amb error(s)."
-
-#~ msgid "Build completed...............Successful\n"
-#~ msgstr "Muntatge completat...............Correctament\n"
-
-#~ msgid "Build completed ... successful."
-#~ msgstr "Muntatge completat ... correctament."
-
-#~ msgid "Build All completed...............Unsuccessful\n"
-#~ msgstr "Muntar-ho tot s'ha completat...............Incorrectament\n"
-
-#~ msgid "Build All completed...............Unsuccessful"
-#~ msgstr "Muntar-ho tot s'ha completat...............Incorrectament"
-
-#~ msgid "Build All completed...............Successful\n"
-#~ msgstr "Muntar-ho tot s'ha completat...............Correctament\n"
-
-#~ msgid "Build All completed ... successful"
-#~ msgstr "Muntar-ho tot s'ha completat ... correctament"
-
-#~ msgid "Build Distribution completed...............Unsuccessful\n"
-#~ msgstr "Muntar-ho tot s'ha completat...............Incorrectament\n"
-
-#~ msgid "Build Distribution completed ... unsuccessful"
-#~ msgstr "Generar la distribució completat ... incorrectament"
-
-#~ msgid "Build Distribution completed...............Successful\n"
-#~ msgstr "Generar la distribució completat...............Correctament\n"
-
-#~ msgid ""
-#~ "The source tarball can be found in the top level directory of the "
-#~ "Project.\n"
-#~ msgstr ""
-#~ "El fitxer tar es troba al directori de nivell superior del projecte.\n"
-
-#~ msgid "Build Distribution completed ... successful"
-#~ msgstr "Generar la distribució completat ... correctament"
-
-#~ msgid "Install completed...............Unsuccessful\n"
-#~ msgstr "Instal·lació completada...............Incorrectament\n"
-
-#~ msgid "Install completed...............Unsuccessful"
-#~ msgstr "Instal·lació completada...............Incorrectament"
-
-#~ msgid "Install completed...............Successful\n"
-#~ msgstr "Instal·lació completada...............Correctament\n"
-
-#~ msgid "Install completed ... successful"
-#~ msgstr "Instal·lació completada ... correctament"
-
-#~ msgid "Auto generation completed ... unsuccessful"
-#~ msgstr "Generació automàtica completada ... incorrectament"
-
-#~ msgid ""
-#~ "Auto generation completed...............Successful\n"
-#~ "Now Configure the Project.\n"
-#~ msgstr ""
-#~ "Generació automàtica completada...............Correctament\n"
-#~ "Configureu el Projecte.\n"
-
-#~ msgid "Auto generation completed ... successful"
-#~ msgstr "Generació automàtica completada ... correctament"
-
-#~ msgid "Cleaning completed...............Unsuccessful\n"
-#~ msgstr "Neteja completada...............Incorrectament\n"
-
-#~ msgid "Cleaning completed ... unsuccessful"
-#~ msgstr "Neteja completada ... incorrecament"
-
-#~ msgid "Cleaning completed...............Successful\n"
-#~ msgstr "Neteja completada...............Correctament\n"
-
-#~ msgid "Cleaning completed ... successful"
-#~ msgstr "Neteja completada ... correctament"
-
-#~ msgid "Clean All completed...............Unsuccessful\n"
-#~ msgstr "Netejar-ho tot s'ha completat...............Incorrectament\n"
-
-#~ msgid "Clean All completed ... unsuccessful"
-#~ msgstr "Netejar-ho tot s'ha completat ... incorrectament"
-
-#~ msgid "Clean All completed...............Successful\n"
-#~ msgstr "Netejar-ho tot s'ha completat...............Correctament\n"
-
-#~ msgid "Clean All completed ... successful"
-#~ msgstr "Netejar-ho tot s'ha completat ... correctament"
-
-#~ msgid "Compile completed ... successful"
-#~ msgstr "Compilació completada ... correctament"
-
-#~ msgid "Configure completed...............Unsuccessful\n"
-#~ msgstr "Configuració completada...............Incorrectament\n"
-
-#~ msgid "Configure completed ... unsuccessful"
-#~ msgstr "Configuració completada ... incorrectament"
-
-#~ msgid "Configure completed...............Successful\n"
-#~ msgstr "Configuració completada...............Correctament\n"
-
-#~ msgid "Configure completed ... successful"
-#~ msgstr "Configuració completada ... correctament"
-
-#~ msgid "Page Set_up ..."
-#~ msgstr "Config_uració de la página ..."
-
-#~ msgid "Page setup for printing"
-#~ msgstr "Configuració de la pàgina per imprimir"
-
-#~ msgid "Block comment the selected text"
-#~ msgstr "Comenta el text seleccionat com a bloc"
-
-#~ msgid "Repeat the last Find command"
-#~ msgstr "Repeteix la darrera ordre de cerca"
-
-#~ msgid "New Search And Replace stuff"
-#~ msgstr "Nova cerca i reemplaçament"
-
-#~ msgid "_Dump Window"
-#~ msgstr "Finestra _de volcat"
-
-#~ msgid "_Console"
-#~ msgstr "_Cònsola"
-
-#~ msgid "Show the console where the program runs"
-#~ msgstr "Mostra la cònsola on s'executa el programa"
-
-#~ msgid "Show _Locals"
-#~ msgstr "Mostra _locals"
-
-#~ msgid "Show/Hide Local variables in Message window"
-#~ msgstr "Mostra/Oculta les variables Locals a la Finestra de Missatge"
-
-#~ msgid "I_nterrupt Program"
-#~ msgstr "I_nterrromp programa"
-
-#~ msgid ""
-#~ "Hover the mouse pointer over any menu item and press\n"
-#~ " the shortcut key to associate with it."
-#~ msgstr ""
-#~ "Possicioni el punter del ratolí sobre un element de menú i\n"
-#~ "pressioni 1a drecera de teclat amb què el vol associar."
-
-# Netscape_4.7->Menu:RESDLL.DLL
-#~ msgid "New"
-#~ msgstr "Nova"
-
-# Netscape_4.7->Menu:RESDLL.DLL
-#~ msgid "Open"
-#~ msgstr "Obre"
-
-# Netscape_4.7->String:RESDLL.DLL
-#~ msgid "Save"
-#~ msgstr "Desa"
-
-# Netscape_4.7->Menu:RESDLL.DLL
-#~ msgid "Reload"
-#~ msgstr "Actualitza"
-
-# Netscape_4.7->String:RESDLL.DLL
-#~ msgid "Undo"
-#~ msgstr "Desfà"
-
-# Netscape_4.7->String:RESDLL.DLL
-#~ msgid "Redo"
-#~ msgstr "Torna a fer"
-
-# Projecte_Mandrake [abiword-ca.po]
-#~ msgid "Go To"
-#~ msgstr "Vés a"
-
-# Winrar 2.9->String:rarlng.dll
-#~ msgid "Execute"
-#~ msgstr "Executa"
-
-# Mozilla 1.3->firstButton.label
-#~ msgid "First"
-#~ msgstr "Primer"
-
-# Mozilla 1.3->lastButton.label
-#~ msgid "Last"
-#~ msgstr "Últim"
-
-#~ msgid "Goto Tag"
-#~ msgstr "Vés a l'etiqueta"
-
-#~ msgid "Icon"
-#~ msgstr "Icona"
-
-# Netscape_4.7->Menu:RESDLL.DLL
-#~ msgid "Float"
-#~ msgstr "Flota"
-
-#~ msgid "Anjuta Windows Dialog"
-#~ msgstr "Diàleg de finestres d'Anjuta"
-
-#~ msgid "GTK project"
-#~ msgstr "Projecte GTK"
-
-#~ msgid "GNOME project"
-#~ msgstr "Projecte GNOME"
-
-#~ msgid "glademm (gtkmm 1.2) project"
-#~ msgstr "Projecte glademm (gtkmm 1.2)"
-
-#~ msgid "glademm (gnomemm 1.2) project"
-#~ msgstr "Projecte glademm (gnomemm 1.2)"
-
-#~ msgid "Bonobo component"
-#~ msgstr "Component Bonobo"
-
-#~ msgid "LibGlade project"
-#~ msgstr "Projecte LibGlade"
-
-#~ msgid "No read permission for: %s."
-#~ msgstr "No teniu permís per a: %s."
-
-#
-# Projecte_Gnome_2.2 [gedit.gnome-2-0.ca.po]
-#~ msgid "_Search"
-#~ msgstr "_Cerca"
-
-#~ msgid "Hexa address "
-#~ msgstr "Adreça hexadecimal "
-
-# Mozilla 1.3->exitCmd.label
-#~ msgid "Quit"
-#~ msgstr "Surt"
