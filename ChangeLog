@@ -6,7 +6,8 @@
 	from an icon selected previously). Used toggle buttons for boolean
 	properties. Check if all mandatory fields are given before going
 	forward in the wizard. Use scrollable viewport for listing property
-	widgets incase the list goes out of wizard's size. And other fixes.
+	widgets incase the list goes out of wizard's size. Added tooltips
+	as descriptions of the property widgets. And other fixes.
 
 	* (Removed) plugins/project-wizard/templates/anjuta-plugin/plugin.c,
 	(Removed) plugins/project-wizard/templates/anjuta-plugin/plugin.glade,
