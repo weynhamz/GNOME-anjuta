@@ -1084,8 +1084,20 @@ deactivate_plugin (AnjutaPlugin *plugin)
 }
 
 static void
+finalize (GObject *obj)
+{
+}
+
+static void
 dispose (GObject *obj)
 {
+	BasicAutotoolsPlugin *ba_plugin = (BasicAutotoolsPlugin*) obj;
+	if (ba_plugin->fm_current_filename)
+		g_free (ba_plugin->fm_current_filename);
+	if (ba_plugin->project_root_dir)
+		g_free (ba_plugin->project_root_dir);
+	if (ba_plugin->current_editor_filename)
+		g_free (ba_plugin->current_editor_filename);
 }
 
 static void
@@ -1107,6 +1119,7 @@ basic_autotools_plugin_class_init (GObjectClass *klass)
 	plugin_class->activate = activate_plugin;
 	plugin_class->deactivate = deactivate_plugin;
 	klass->dispose = dispose;
+	klass->finalize = finalize;
 }
 
 static void

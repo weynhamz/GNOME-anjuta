@@ -161,7 +161,7 @@ static GtkActionEntry actions_search[] = {
   { "ActionEditSearchFind", N_("_Find ..."), GTK_STOCK_FIND, "<control>f",
 	N_("Search for a string or regular expression in the editor"),
     G_CALLBACK (on_find1_activate)},
-  { "ActionEditSearchFindNext", N_("Find _Next"), GTK_STOCK_FIND, "<shift>g",
+  { "ActionEditSearchFindNext", N_("Find _Next"), GTK_STOCK_FIND, "<control>g",
 	N_("Repeat the last Find command"),
     G_CALLBACK (on_findnext1_activate)},
   { "ActionEditSearchFindPrevious", N_("Find _Previous"),
@@ -227,7 +227,15 @@ static GtkActionEntry actions_navigation[] = {
   { "ActionEditGotoOccurancePrev", N_("Pre_vious occurrence"),
 	GTK_STOCK_JUMP_TO, NULL,
 	N_("Find the previous occurrence of current word"),
-    G_CALLBACK (on_prev_occur)}
+    G_CALLBACK (on_prev_occur)},
+  { "ActionEditGotoHistoryPrev", N_("Previous _history"),
+	GTK_STOCK_JUMP_TO, NULL,
+	N_("Goto previous history"),
+    G_CALLBACK (on_prev_history)},
+  { "ActionEditGotoHistoryNext", N_("Next histor_y"),
+	GTK_STOCK_JUMP_TO, NULL,
+	N_("Goto next history"),
+    G_CALLBACK (on_next_history)}
 };
 
 static GtkActionEntry actions_edit[] = {

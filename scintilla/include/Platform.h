@@ -64,7 +64,7 @@ public:
 	int x;
 	int y;
 
-	Point(int x_=0, int y_=0) : x(x_), y(y_) {
+	explicit Point(int x_=0, int y_=0) : x(x_), y(y_) {
 	}
 
 	// Other automatically defined methods (assignment, copy constructor, destructor) are fine
@@ -279,7 +279,8 @@ public:
 	Font();
 	virtual ~Font();
 
-	virtual void Create(const char *faceName, int characterSet, int size, bool bold, bool italic);
+	virtual void Create(const char *faceName, int characterSet, int size,
+		bool bold, bool italic, bool extraFontFlag=false);
 	virtual void Release();
 
 	FontID GetID() { return id; }

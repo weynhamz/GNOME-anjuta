@@ -460,6 +460,10 @@ anjuta_symbol_view_clear (AnjutaSymbolView *sv)
 
 	g_return_if_fail (ANJUTA_IS_SYMBOL_VIEW (sv));
 
+	if (sv->priv->tm_project)
+	{
+		tm_project_save (sv->priv->tm_project);
+	}
 	model = gtk_tree_view_get_model (GTK_TREE_VIEW (sv));
 	if (model)
 	{
@@ -830,6 +834,7 @@ anjuta_symbol_view_update (AnjutaSymbolView *sv)
 			tm_project_autoscan (TM_PROJECT(sv->priv->tm_project));
 		else
 			tm_project_update (sv->priv->tm_project, FALSE, TRUE, TRUE);
+		tm_project_save (sv->priv->tm_project);
 	}
 	/*
 	else if (p->top_proj_dir)
@@ -1084,4 +1089,104 @@ anjuta_symbol_view_workspace_get_line (AnjutaSymbolView *sv, GtkTreeIter *iter)
 		return line;
 	}
 	return -1;
+}
+
+#define IS_DECLARATION(T) ((tm_tag_prototype_t == (T)) || (tm_tag_externvar_t == (T)) \
+  || (tm_tag_typedef_t == (T)))
+
+gboolean
+anjuta_symbol_view_get_file_symbol (AnjutaSymbolView *sv, const gchar *symbol,
+									gboolean prefer_definition,
+									const gchar** const filename,
+									gint *line)
+{
+	TMWorkObject *tm_file;
+	GPtrArray *tags;
+	TMTag *tag = NULL, *local_tag = NULL, *global_tag = NULL;
+	TMTag *local_proto = NULL, *global_proto = NULL;
+	guint i;
+	int cmp;
+
+	g_return_val_if_fail (symbol != NULL, FALSE);
+
+	/* Get the matching definition and declaration in the local file */
+	if (sv->priv->file_symbol_model == NULL)
+	{
+		tm_file = g_object_get_data (G_OBJECT (sv->priv->file_symbol_model),
+									 "tm_file");
+		if (tm_file && tm_file->tags_array &&
+			tm_file->tags_array->len > 0)
+		{
+			for (i = 0; i < tm_file->tags_array->len; ++i)
+			{
+				tag = TM_TAG (tm_file->tags_array->pdata[i]);
+				cmp =  strcmp (symbol, tag->name);
+				if (0 == cmp)
+				{
+					if (IS_DECLARATION (tag->type))
+						local_proto = tag;
+					else
+						local_tag = tag;
+				}
+				else if (cmp < 0)
+					break;
+			}
+		}
+	}
+	/* Get the matching definition and declaration in the workspace */
+	if (!(((prefer_definition) && (local_tag)) ||
+		((!prefer_definition) && (local_proto))))
+	{
+		tags =  TM_WORK_OBJECT (tm_get_workspace())->tags_array;
+		if (tags && (tags->len > 0))
+		{
+			for (i=0; i < tags->len; ++i)
+			{
+				tag = TM_TAG (tags->pdata[i]);
+				if (tag->atts.entry.file)
+				{
+					cmp = strcmp (symbol, tag->name);
+					if (cmp == 0)
+					{
+						if (IS_DECLARATION (tag->type))
+							global_proto = tag;
+						else
+							global_tag = tag;
+					}
+					else if (cmp < 0)
+						break;
+				}
+			}
+		}
+	}
+	if (prefer_definition)
+	{
+		if (local_tag)
+			tag = local_tag;
+		else if (global_tag)
+			tag = global_tag;
+		else if (local_proto)
+			tag = local_proto;
+		else
+			tag = global_proto;
+	}
+	else
+	{
+		if (local_proto)
+			tag = local_proto;
+		else if (global_proto)
+			tag = global_proto;
+		else if (local_tag)
+			tag = local_tag;
+		else
+			tag = global_tag;
+	}
+
+	if (tag)
+	{
+		*filename = g_strdup (tag->atts.entry.file->work_object.file_name);
+		*line = tag->atts.entry.line;
+		return TRUE;
+	}
+	return FALSE;
 }

@@ -1,12 +1,26 @@
 <!--*- xml -*-->
 <ui>
+	<menubar name="MenuMain">
+		<placeholder name="PlaceholderGotoMenus">
+			<menu name="Goto" action="ActionMenuGoto">
+					<menuitem name="TagDef" action="ActionSymbolBrowserGotoDef" />
+					<menuitem name="TagDecl" action="ActionSymbolBrowserGotoDecl" />
+			</menu>
+		</placeholder>
+	</menubar>
+	<toolbar name="ToolbarBrowser">
+		<toolitem name="Symbol" action="ActionGotoSymbol"/>
+	</toolbar>
 	<popup name="PopupSymbolBrowser">
 		<menuitem name="GotoDef" action="ActionPopupSymbolBrowserGotoDef"/>
 		<menuitem name="GotoDecl" action="ActionPopupSymbolBrowserGotoDecl"/>
 		<separator/>
 		<menuitem name="Refresh" action="ActionPopupSymbolBrowserRefresh"/>
 	</popup>
-	<toolbar name="ToolbarBrowser">
-		<toolitem name="Symbol" action="ActionGotoSymbol"/>
-	</toolbar>
+	<popup name="PopupDocumentManager">
+		<menu name="Goto" action="ActionMenuGoto">
+			<menuitem name="TagDef" action="ActionSymbolBrowserGotoDef" />
+			<menuitem name="TagDecl" action="ActionSymbolBrowserGotoDecl" />
+		</menu>
+	</popup>
 </ui>

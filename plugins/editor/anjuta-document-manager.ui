@@ -104,6 +104,8 @@
 				<separator name="separator2"/>
 				<menuitem name="PreviousOccurance" action="ActionEditGotoOccurancePrev" />
 				<menuitem name="NextOccurance" action="ActionEditGotoOccuranceNext" />
+				<menuitem name="PreviousHistory" action="ActionEditGotoHistoryPrev" />
+				<menuitem name="NextHistory" action="ActionEditGotoHistoryNext" />
 				<separator name="separator3"/>
 			</menu>
 		</placeholder>
@@ -207,6 +209,8 @@
 				<separator name="separator1" />
 				<menuitem name="Previous" action="ActionBookmarkPrevious" />
 				<menuitem name="Next" action="ActionBookmarkNext" />
+				<menuitem name="HistoryPrevious" action="ActionEditGotoHistoryPrev" />
+				<menuitem name="HistoryNext" action="ActionEditGotoHistoryNext" />
 		</menu>
 		<menu name="MenuView" action="ActionMenuView">
 			<menuitem name="LineNumbersMargin" action="ActionViewEditorLinenumbers" />

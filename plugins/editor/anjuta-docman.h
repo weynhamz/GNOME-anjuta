@@ -26,6 +26,8 @@
 
 #include "text_editor.h"
 
+G_BEGIN_DECLS
+
 #define ANJUTA_TYPE_DOCMAN        (anjuta_docman_get_type ())
 #define ANJUTA_DOCMAN(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), ANJUTA_TYPE_DOCMAN, AnjutaDocman))
 #define ANJUTA_DOCMAN_CLASS(k)    (G_TYPE_CHECK_CLASS_CAST((k), ANJUTA_TYPE_DOCMAN, AnjutaDocmanClass))
@@ -91,5 +93,7 @@ GList* anjuta_docman_get_all_editors (AnjutaDocman *docman);
 void anjuta_docman_open_file (AnjutaDocman *docman);
 
 void anjuta_docman_save_as_file (AnjutaDocman *docman);
+
+G_END_DECLS
 
 #endif

@@ -297,7 +297,7 @@ void ScintillaBase::AutoCompleteCharacterAdded(char ch) {
 }
 
 void ScintillaBase::AutoCompleteCharacterDeleted() {
-	if (currentPos <= ac.posStart - ac.startLen) {
+	if (currentPos < ac.posStart - ac.startLen) {
 		ac.Cancel();
 	} else if (ac.cancelAtStartPos && (currentPos <= ac.posStart)) {
 		ac.Cancel();
@@ -314,6 +314,8 @@ void ScintillaBase::AutoCompleteCompleted() {
 		ac.lb->GetValue(item, selected, sizeof(selected));
 	}
 	ac.Cancel();
+	if (item == -1)
+		return;
 
 	if (listType > 0) {
 		userListSelected = selected;
@@ -355,11 +357,12 @@ void ScintillaBase::CallTipShow(Point pt, const char *defn) {
 	AutoCompleteCancel();
 	pt.y += vs.lineHeight;
 	PRectangle rc = ct.CallTipStart(currentPos, pt,
-									defn,
-									vs.styles[STYLE_DEFAULT].fontName,
-									vs.styles[STYLE_DEFAULT].sizeZoomed,
-									IsUnicodeMode(),
-									wMain);
+		defn,
+		vs.styles[STYLE_DEFAULT].fontName,
+		vs.styles[STYLE_DEFAULT].sizeZoomed,
+		CodePage(),
+		vs.styles[STYLE_DEFAULT].characterSet,
+		wMain);
 	// If the call-tip window would be out of the client
 	// space, adjust so it displays above the text.
 	PRectangle rcClient = GetClientRectangle();

@@ -73,6 +73,7 @@ test_scintilla_DEPENDENCIES = $(top_builddir)/scintilla/libanjuta-scintilla.la
 
 update-scintilla:
 	cp $(srcdir)/scintilla/gtk/*.cxx $(srcdir)/
+	cp $(srcdir)/scintilla/gtk/*.h $(srcdir)/
 	cp $(srcdir)/scintilla/src/*.cxx $(srcdir)/
 	cp $(srcdir)/scintilla/src/*.h $(srcdir)/
 	cp $(srcdir)/scintilla/include/*.h $(srcdir)/include/
@@ -96,7 +97,7 @@ update-scintilla:
 	done
 	echo "" >> lexers.make
 	echo "Patching files ..."
-	for patchfile in patches/*.diff; do \
+	for patchfile in patches/*.diff patches/*.patch; do \
 		patch -p1 < $$patchfile; \
 	done
 

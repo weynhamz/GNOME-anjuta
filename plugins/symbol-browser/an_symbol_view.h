@@ -70,6 +70,11 @@ void anjuta_symbol_view_workspace_remove_file (AnjutaSymbolView *sv,
 											   const gchar *uri);
 gint anjuta_symbol_view_workspace_get_line (AnjutaSymbolView *sv,
 											GtkTreeIter *iter);
+gboolean anjuta_symbol_view_get_file_symbol (AnjutaSymbolView *sv,
+											 const gchar *symbol,
+											 gboolean prefer_definition,
+											 const gchar** const filename,
+											 gint *line);
 
 G_END_DECLS
 

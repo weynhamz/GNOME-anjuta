@@ -32,6 +32,7 @@
 #include "goto_line.h"
 #include "print.h"
 #include "lexer.h"
+#include "file_history.h"
 
 gboolean closing_state;
 
@@ -596,9 +597,27 @@ void on_next_occur(GtkAction * action, gpointer user_data)
 
 }
 
+void on_prev_history (GtkAction *action, gpointer user_data)
+{
+	AnjutaDocman *docman;
+	EditorPlugin *plugin;
+	plugin = (EditorPlugin *) user_data;
+	docman = ANJUTA_DOCMAN (plugin->docman);
+	an_file_history_back (docman);
+}
+
+void on_next_history (GtkAction *action, gpointer user_data)
+{
+	AnjutaDocman *docman;
+	EditorPlugin *plugin;
+	plugin = (EditorPlugin *) user_data;
+	docman = ANJUTA_DOCMAN (plugin->docman);
+	an_file_history_forward (docman);
+}
+
 void on_comment_block (GtkAction * action, gpointer user_data)
 {
-    TextEditor* te;
+TextEditor* te;
 	AnjutaDocman *docman;
 	EditorPlugin *plugin;
 	plugin = (EditorPlugin *) user_data;

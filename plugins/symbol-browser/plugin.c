@@ -61,6 +61,24 @@ goto_file_line (AnjutaPlugin *plugin, const gchar *filename, gint lineno)
 }
 
 static void
+goto_file_tag (SymbolBrowserPlugin *sv_plugin, const char *symbol,
+			   gboolean prefer_definition)
+{
+	const gchar *file;
+	gint line;
+	gboolean ret;
+	
+	ret = anjuta_symbol_view_get_file_symbol (ANJUTA_SYMBOL_VIEW (sv_plugin->sv),
+											  symbol, prefer_definition,
+											  &file, &line);
+	if (ret)
+	{
+		goto_file_line (ANJUTA_PLUGIN (sv_plugin), file, line);
+	}
+}
+
+
+static void
 on_goto_def_activate (GtkAction *action, SymbolBrowserPlugin *sv_plugin)
 {
 	const gchar *file;
@@ -91,6 +109,44 @@ on_goto_decl_activate (GtkAction *action, SymbolBrowserPlugin *sv_plugin)
 }
 
 static void
+on_goto_file_tag_decl_activate (GtkAction * action,
+								SymbolBrowserPlugin *sv_plugin)
+{
+	IAnjutaEditor *ed;
+	gchar *word;
+
+	if (sv_plugin->current_editor)
+	{
+		ed = IANJUTA_EDITOR (sv_plugin->current_editor);
+		word = ianjuta_editor_get_current_word (ed, NULL);
+		if (word)
+		{
+			goto_file_tag (sv_plugin, word, FALSE);
+			g_free (word);
+		}
+	}
+}
+
+static void
+on_goto_file_tag_def_activate (GtkAction * action,
+								SymbolBrowserPlugin *sv_plugin)
+{
+	IAnjutaEditor *ed;
+	gchar *word;
+
+	if (sv_plugin->current_editor)
+	{
+		ed = IANJUTA_EDITOR (sv_plugin->current_editor);
+		word = ianjuta_editor_get_current_word (ed, NULL);
+		if (word)
+		{
+			goto_file_tag (sv_plugin, word, TRUE);
+			g_free (word);
+		}
+	}
+}
+
+static void
 on_find_activate (GtkAction *action, SymbolBrowserPlugin *sv_plugin)
 {
 	const gchar *symbol;
@@ -109,10 +165,27 @@ on_refresh_activate (GtkAction *action, SymbolBrowserPlugin *sv_plugin)
 
 static GtkActionEntry popup_actions[] = 
 {
+	/* { "ActionMenuGoto", N_("_Goto"), NULL, NULL, NULL, NULL}, */
+	{
+		"ActionSymbolBrowserGotoDef",
+		NULL,
+		N_("Tag _Definition"),
+		"<control>d",
+		N_("Goto symbol definition"),
+		G_CALLBACK (on_goto_file_tag_def_activate)
+	},
+	{
+		"ActionSymbolBrowserGotoDecl",
+		NULL,
+		N_("Tag De_claration"),
+		"<shift><control>d",
+		N_("Goto symbol declaration"),
+		G_CALLBACK (on_goto_file_tag_decl_activate)
+	},
 	{
 		"ActionPopupSymbolBrowserGotoDef",
 		NULL,
-		N_("Goto _Definition"),
+		N_("Tag _Definition"),
 		NULL,
 		N_("Goto symbol definition"),
 		G_CALLBACK (on_goto_def_activate)

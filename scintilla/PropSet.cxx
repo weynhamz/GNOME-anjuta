@@ -71,6 +71,264 @@ bool EqualCaseInsensitive(const char *a, const char *b) {
 	return 0 == CompareCaseInsensitive(a, b);
 }
 
+// Since the CaseInsensitive functions declared in SString
+// are implemented here, I will for now put the non-inline
+// implementations of the SString members here as well, so
+// that I can quickly see what effect this has.
+
+SString::SString(int i) : sizeGrowth(sizeGrowthDefault) {
+	char number[32];
+	sprintf(number, "%0d", i);
+	s = StringAllocate(number);
+	sSize = sLen = (s) ? strlen(s) : 0;
+}
+
+SString::SString(double d, int precision) : sizeGrowth(sizeGrowthDefault) {
+	char number[32];
+	sprintf(number, "%.*f", precision, d);
+	s = StringAllocate(number);
+	sSize = sLen = (s) ? strlen(s) : 0;
+}
+
+bool SString::grow(lenpos_t lenNew) {
+	while (sizeGrowth * 6 < lenNew) {
+		sizeGrowth *= 2;
+	}
+	char *sNew = new char[lenNew + sizeGrowth + 1];
+	if (sNew) {
+		if (s) {
+			memcpy(sNew, s, sLen);
+			delete []s;
+		}
+		s = sNew;
+		s[sLen] = '\0';
+		sSize = lenNew + sizeGrowth;
+	}
+	return sNew != 0;
+}
+
+SString &SString::assign(const char *sOther, lenpos_t sSize_) {
+	if (!sOther) {
+		sSize_ = 0;
+	} else if (sSize_ == measure_length) {
+		sSize_ = strlen(sOther);
+	}
+	if (sSize > 0 && sSize_ <= sSize) {	// Does not allocate new buffer if the current is big enough
+		if (s && sSize_) {
+			memcpy(s, sOther, sSize_);
+		}
+		s[sSize_] = '\0';
+		sLen = sSize_;
+	} else {
+		delete []s;
+		s = StringAllocate(sOther, sSize_);
+		if (s) {
+			sSize = sSize_;	// Allow buffer bigger than real string, thus providing space to grow
+			sLen = sSize_;
+		} else {
+			sSize = sLen = 0;
+		}
+	}
+	return *this;
+}
+
+bool SString::operator==(const SString &sOther) const {
+	if ((s == 0) && (sOther.s == 0))
+		return true;
+	if ((s == 0) || (sOther.s == 0))
+		return false;
+	return strcmp(s, sOther.s) == 0;
+}
+
+bool SString::operator==(const char *sOther) const {
+	if ((s == 0) && (sOther == 0))
+		return true;
+	if ((s == 0) || (sOther == 0))
+		return false;
+	return strcmp(s, sOther) == 0;
+}
+
+SString SString::substr(lenpos_t subPos, lenpos_t subLen) const {
+	if (subPos >= sLen) {
+		return SString();					// return a null string if start index is out of bounds
+	}
+	if ((subLen == measure_length) || (subPos + subLen > sLen)) {
+		subLen = sLen - subPos;		// can't substr past end of source string
+	}
+	return SString(s, subPos, subPos + subLen);
+}
+
+SString &SString::lowercase(lenpos_t subPos, lenpos_t subLen) {
+	if ((subLen == measure_length) || (subPos + subLen > sLen)) {
+		subLen = sLen - subPos;		// don't apply past end of string
+	}
+	for (lenpos_t i = subPos; i < subPos + subLen; i++) {
+		if (s[i] < 'A' || s[i] > 'Z')
+			continue;
+		else
+			s[i] = static_cast<char>(s[i] - 'A' + 'a');
+	}
+	return *this;
+}
+
+SString &SString::uppercase(lenpos_t subPos, lenpos_t subLen) {
+	if ((subLen == measure_length) || (subPos + subLen > sLen)) {
+		subLen = sLen - subPos;		// don't apply past end of string
+	}
+	for (lenpos_t i = subPos; i < subPos + subLen; i++) {
+		if (s[i] < 'a' || s[i] > 'z')
+			continue;
+		else
+			s[i] = static_cast<char>(s[i] - 'a' + 'A');
+	}
+	return *this;
+}
+
+SString &SString::append(const char *sOther, lenpos_t sLenOther, char sep) {
+	if (!sOther) {
+		return *this;
+	}
+	if (sLenOther == measure_length) {
+		sLenOther = strlen(sOther);
+	}
+	int lenSep = 0;
+	if (sLen && sep) {	// Only add a separator if not empty
+		lenSep = 1;
+	}
+	lenpos_t lenNew = sLen + sLenOther + lenSep;
+	// Conservative about growing the buffer: don't do it, unless really needed
+	if ((lenNew < sSize) || (grow(lenNew))) {
+		if (lenSep) {
+			s[sLen] = sep;
+			sLen++;
+		}
+		memcpy(&s[sLen], sOther, sLenOther);
+		sLen += sLenOther;
+		s[sLen] = '\0';
+	}
+	return *this;
+}
+
+SString &SString::insert(lenpos_t pos, const char *sOther, lenpos_t sLenOther) {
+	if (!sOther || pos > sLen) {
+		return *this;
+	}
+	if (sLenOther == measure_length) {
+		sLenOther = strlen(sOther);
+	}
+	lenpos_t lenNew = sLen + sLenOther;
+	// Conservative about growing the buffer: don't do it, unless really needed
+	if ((lenNew < sSize) || grow(lenNew)) {
+		lenpos_t moveChars = sLen - pos + 1;
+		for (lenpos_t i = moveChars; i > 0; i--) {
+			s[pos + sLenOther + i - 1] = s[pos + i - 1];
+		}
+		memcpy(s + pos, sOther, sLenOther);
+		sLen = lenNew;
+	}
+	return *this;
+}
+
+/**
+ * Remove @a len characters from the @a pos position, included.
+ * Characters at pos + len and beyond replace characters at pos.
+ * If @a len is 0, or greater than the length of the string
+ * starting at @a pos, the string is just truncated at @a pos.
+ */
+void SString::remove(lenpos_t pos, lenpos_t len) {
+	if (pos >= sLen) {
+		return;
+	}
+	if (len < 1 || pos + len >= sLen) {
+		s[pos] = '\0';
+		sLen = pos;
+	} else {
+		for (lenpos_t i = pos; i < sLen - len + 1; i++) {
+			s[i] = s[i+len];
+		}
+		sLen -= len;
+	}
+}
+
+bool SString::startswith(const char *prefix) {
+	lenpos_t lenPrefix = strlen(prefix);
+	if (lenPrefix > sLen) {
+		return false;
+	}
+	return strncmp(s, prefix, lenPrefix) == 0;
+}
+
+bool SString::endswith(const char *suffix) {
+	lenpos_t lenSuffix = strlen(suffix);
+	if (lenSuffix > sLen) {
+		return false;
+	}
+	return strncmp(s + sLen - lenSuffix, suffix, lenSuffix) == 0;
+}
+
+int SString::search(const char *sFind, lenpos_t start) const {
+	if (start < sLen) {
+		const char *sFound = strstr(s + start, sFind);
+		if (sFound) {
+			return sFound - s;
+		}
+	}
+	return -1;
+}
+
+int SString::substitute(char chFind, char chReplace) {
+	int c = 0;
+	char *t = s;
+	while (t) {
+		t = strchr(t, chFind);
+		if (t) {
+			*t = chReplace;
+			t++;
+			c++;
+		}
+	}
+	return c;
+}
+
+int SString::substitute(const char *sFind, const char *sReplace) {
+	int c = 0;
+	lenpos_t lenFind = strlen(sFind);
+	lenpos_t lenReplace = strlen(sReplace);
+	int posFound = search(sFind);
+	while (posFound >= 0) {
+		remove(posFound, lenFind);
+		insert(posFound, sReplace, lenReplace);
+		posFound = search(sFind, posFound + lenReplace);
+		c++;
+	}
+	return c;
+}
+
+char *SContainer::StringAllocate(lenpos_t len) {
+	if (len != measure_length) {
+		return new char[len + 1];
+	} else {
+		return 0;
+	}
+}
+
+char *SContainer::StringAllocate(const char *s, lenpos_t len) {
+	if (s == 0) {
+		return 0;
+	}
+	if (len == measure_length) {
+		len = strlen(s);
+	}
+	char *sNew = new char[len + 1];
+	if (sNew) {
+		memcpy(sNew, s, len);
+		sNew[len] = '\0';
+	}
+	return sNew;
+}
+
+// End SString functions
+
 PropSet::PropSet() {
 	superPS = 0;
 	for (int root = 0; root < hashRoots; root++)
@@ -125,6 +383,33 @@ void PropSet::Set(const char *keyVal) {
 	}
 }
 
+void PropSet::Unset(const char *key, int lenKey) {
+	if (!*key)	// Empty keys are not supported
+		return;
+	if (lenKey == -1)
+		lenKey = static_cast<int>(strlen(key));
+	unsigned int hash = HashString(key, lenKey);
+	Property *pPrev = NULL;
+	for (Property *p = props[hash % hashRoots]; p; p = p->next) {
+		if ((hash == p->hash) &&
+			((strlen(p->key) == static_cast<unsigned int>(lenKey)) &&
+				(0 == strncmp(p->key, key, lenKey)))) {
+			if (pPrev)
+				pPrev->next = p->next;
+			else
+				props[hash % hashRoots] = p->next;
+			if (p == enumnext)
+				enumnext = p->next; // Not that anyone should mix enum and Set / Unset.
+			delete [](p->key);
+			delete [](p->val);
+			delete p;
+			return;
+		} else {
+			pPrev = p;
+		}
+	}
+}
+
 void PropSet::SetMultiple(const char *s) {
 	const char *eol = strchr(s, '\n');
 	while (eol) {
@@ -164,39 +449,71 @@ bool PropSet::IncludesVar(const char *value, const char *key) {
 	return false;
 }
 
+
+// There is some inconsistency between GetExpanded("foo") and Expand("$(foo)").
+// A solution is to keep a stack of variables that have been expanded, so that
+// recursive expansions can be skipped.  For now I'll just use the C++ stack
+// for that, through a recursive function and a simple chain of pointers.
+
+struct VarChain {
+	VarChain(const char*var_=NULL, const VarChain *link_=NULL): var(var_), link(link_) {}
+
+	bool contains(const char *testVar) const {
+		return (var && (0 == strcmp(var, testVar))) 
+			|| (link && link->contains(testVar));
+	}
+
+	const char *var;
+	const VarChain *link;
+};
+
+static int ExpandAllInPlace(PropSet &props, SString &withVars, int maxExpands, const VarChain &blankVars = VarChain()) {
+	int varStart = withVars.search("$(");
+	while ((varStart >= 0) && (maxExpands > 0)) {
+		int varEnd = withVars.search(")", varStart+2);
+		if (varEnd < 0) {
+			break;
+		}
+
+		// For consistency, when we see '$(ab$(cde))', expand the inner variable first,
+		// regardless whether there is actually a degenerate variable named 'ab$(cde'.
+		int innerVarStart = withVars.search("$(", varStart+2);
+		while ((innerVarStart > varStart) && (innerVarStart < varEnd)) {
+			varStart = innerVarStart;
+			innerVarStart = withVars.search("$(", varStart+2);
+		}
+
+		SString var(withVars.c_str(), varStart + 2, varEnd);
+		SString val = props.Get(var.c_str());
+
+		if (blankVars.contains(var.c_str())) {
+			val.clear(); // treat blankVar as an empty string (e.g. to block self-reference)
+		}
+
+		if (--maxExpands >= 0) {
+			maxExpands = ExpandAllInPlace(props, val, maxExpands, VarChain(var.c_str(), &blankVars));
+		}
+
+		withVars.remove(varStart, varEnd-varStart+1);
+		withVars.insert(varStart, val.c_str(), val.length());
+
+		varStart = withVars.search("$(");
+	}
+
+	return maxExpands;
+}
+
+
 SString PropSet::GetExpanded(const char *key) {
 	SString val = Get(key);
-	if (IncludesVar(val.c_str(), key))
-		return val;
-	return Expand(val.c_str());
+	ExpandAllInPlace(*this, val, 100, VarChain(key));
+	return val;
 }
 
 SString PropSet::Expand(const char *withVars, int maxExpands) {
-	char *base = StringDup(withVars);
-	char *cpvar = strstr(base, "$(");
-	while (cpvar && (maxExpands > 0)) {
-		char *cpendvar = strchr(cpvar, ')');
-		if (!cpendvar)
-			break;
-		int lenvar = cpendvar - cpvar - 2;  	// Subtract the $()
-		char *var = StringDup(cpvar + 2, lenvar);
-		SString val = Get(var);
-		if (IncludesVar(val.c_str(), var))
-			break;
-		size_t newlenbase = strlen(base) + val.length() - lenvar;
-		char *newbase = new char[newlenbase];
-		strncpy(newbase, base, cpvar - base);
-		strcpy(newbase + (cpvar - base), val.c_str());
-		strcpy(newbase + (cpvar - base) + val.length(), cpendvar + 1);
-		delete []var;
-		delete []base;
-		base = newbase;
-		cpvar = strstr(base, "$(");
-		maxExpands--;
-	}
-	SString sret = base;
-	delete []base;
-	return sret;
+	SString val = withVars;
+	ExpandAllInPlace(*this, val, maxExpands);
+	return val;
 }
 
 int PropSet::GetInt(const char *key, int defaultValue) {
@@ -291,6 +608,8 @@ SString PropSet::GetWild(const char *keybase, const char *filename) {
 	}
 }
 
+
+
 // GetNewExpand does not use Expand as it has to use GetWild with the filename for each
 // variable reference found.
 SString PropSet::GetNewExpand(const char *keybase, const char *filename) {
@@ -303,6 +622,8 @@ SString PropSet::GetNewExpand(const char *keybase, const char *filename) {
 			int lenvar = cpendvar - cpvar - 2;  	// Subtract the $()
 			char *var = StringDup(cpvar + 2, lenvar);
 			SString val = GetWild(var, filename);
+			if (0 == strcmp(var, keybase))
+				val.clear(); // Self-references evaluate to empty string
 			size_t newlenbase = strlen(base) + val.length() - lenvar;
 			char *newbase = new char[newlenbase];
 			strncpy(newbase, base, cpvar - base);
@@ -562,7 +883,7 @@ bool WordList::InList(const char *s) {
  * The length of the word to compare is passed too.
  * Letter case can be ignored or preserved (default).
  */
-const char *WordList::GetNearestWord(const char *wordStart, int searchLen /*= -1*/, bool ignoreCase /*= false*/, SString wordCharacters /*='/0' */, int wordIndex /*= -1 */) {
+const char *WordList::GetNearestWord(const char *wordStart, int searchLen, bool ignoreCase /*= false*/, SString wordCharacters /*='/0' */, int wordIndex /*= -1 */) {
 	int start = 0; // lower bound of the api array block to search
 	int end = len - 1; // upper bound of the api array block to search
 	int pivot; // index of api array element just being compared
@@ -580,36 +901,32 @@ const char *WordList::GetNearestWord(const char *wordStart, int searchLen /*= -1
 			pivot = (start + end) >> 1;
 			word = wordsNoCase[pivot];
 			cond = CompareNCaseInsensitive(wordStart, word, searchLen);
-			if (!cond && (!wordCharacters.contains(word[searchLen]))) {
-				// Found a word in a binary fashion. Now checks if a specific index was requested
-				if (wordIndex < 0)
-					return word; // result must not be freed with free()
-
-				// Finds first word in a series of equal words
-				int first = pivot;
-				end = pivot - 1;
-				while (start <= end) {
-					pivot = (start + end) >> 1;
-					word = wordsNoCase[pivot];
-					cond = CompareNCaseInsensitive(wordStart, word, searchLen);
-					if (!cond && (!wordCharacters.contains(word[searchLen]))) {
-						// Found another word
-						first = pivot;
-						end = pivot - 1;
-					} 
-					else if (cond > 0) 
-						start = pivot + 1;
-					else if (cond <= 0)
-						break;
+			if (!cond) {
+				// find first word
+				start = pivot;
+				while (start > 0 && !CompareNCaseInsensitive(wordStart, wordsNoCase[start-1], searchLen)) {
+					start--;
 				}
-
-				// Gets the word at the requested index
-				word = wordsNoCase[first + wordIndex];
-				return word;
+				// find last word
+				end = pivot;
+				while (end < len-1 && !CompareNCaseInsensitive(wordStart, wordsNoCase[end+1], searchLen)) {
+					end++;
+				}
+				
+				// Finds first word in a series of equal words
+				for (pivot = start; pivot <= end; pivot++) {
+					word = wordsNoCase[pivot];
+					if (!wordCharacters.contains(word[searchLen])) {
+						if (wordIndex <= 0) // Checks if a specific index was requested
+							return word; // result must not be freed with free()
+						wordIndex--;
+					}
+				}
+				return NULL;
 			}
 			else if (cond > 0)
 				start = pivot + 1;
-			else if (cond <= 0)
+			else if (cond < 0)
 				end = pivot - 1;
 		}
 	} else { // preserve the letter case
@@ -617,36 +934,34 @@ const char *WordList::GetNearestWord(const char *wordStart, int searchLen /*= -1
 			pivot = (start + end) >> 1;
 			word = words[pivot];
 			cond = strncmp(wordStart, word, searchLen);
-			if (!cond && (!wordCharacters.contains(word[searchLen]))) {
-				// Found a word in a binary fashion. Now checks if a specific index was requested
-				if (wordIndex < 0)
-					return word; // result must not be freed with free()
-
-				// Finds first word in a series of equal words
-				int first = pivot;
-				end = pivot - 1;
-				while (start <= end) {
-					pivot = (start + end) >> 1;
-					word = words[pivot];
-					cond = strncmp(wordStart, word, searchLen);
-					if (!cond && (!wordCharacters.contains(word[searchLen]))) {
-						// Found another word
-						first = pivot;
-						end = pivot - 1;
-					} 
-					else if (cond > 0) 
-						start = pivot + 1;
-					else if (cond <= 0)
-						break;
+			if (!cond) {
+				// find first word
+				start = pivot;
+				while (start > 0 && !strncmp(wordStart, words[start-1], searchLen)) {
+					start--;
 				}
-
-				// Gets the word at the requested index
-				word = words[first + wordIndex];
-				return word;
+				// find last word
+				end = pivot;
+				while (end < len-1 && !strncmp(wordStart, words[end+1], searchLen)) {
+					end++;
+				}
+				
+				// Finds first word in a series of equal words
+				pivot = start;
+				while (pivot <= end) {
+					word = words[pivot];
+					if (!wordCharacters.contains(word[searchLen])) {
+						if (wordIndex <= 0) // Checks if a specific index was requested
+							return word; // result must not be freed with free()
+						wordIndex--;
+					}
+					pivot++;
+				}
+				return NULL;
 			}
 			else if (cond > 0)
 				start = pivot + 1;
-			else if (cond <= 0)
+			else if (cond < 0)
 				end = pivot - 1;
 		}
 	}
@@ -655,15 +970,13 @@ const char *WordList::GetNearestWord(const char *wordStart, int searchLen /*= -1
 
 /**
  * Find the length of a 'word' which is actually an identifier in a string
- * which looks like "identifier(..." or "identifier:" or "identifier" and where
+ * which looks like "identifier(..." or "identifier" and where
  * there may be extra spaces after the identifier that should not be
  * counted in the length.
  */
 static unsigned int LengthWord(const char *word, char otherSeparator) {
-	// Find a '(', or ':'. If that fails go to the end of the string.
+	// Find a '('. If that fails go to the end of the string.
 	const char *endWord = strchr(word, '(');
-	if (!endWord)
-		endWord = strchr(word, ':');
 	if (!endWord && otherSeparator)
 		endWord = strchr(word, otherSeparator);
 	if (!endWord)
@@ -672,7 +985,7 @@ static unsigned int LengthWord(const char *word, char otherSeparator) {
 
 	// Drop any space characters.
 	if (endWord > word) {
-		endWord--;	// Back from the '(', ':', or '\0'
+		endWord--;	// Back from the '(', otherSeparator, or '\0'
 		// Move backwards over any spaces
 		while ((endWord > word) && (IsASpace(*endWord))) {
 			endWord--;
@@ -693,10 +1006,11 @@ static unsigned int LengthWord(const char *word, char otherSeparator) {
  */
 char *WordList::GetNearestWords(
     const char *wordStart,
-    int searchLen /*= -1*/,
+    int searchLen,
     bool ignoreCase /*= false*/,
-    char otherSeparator /*= '\0'*/) {
-	int wordlen; // length of the word part (before the '(' brace) of the api array element
+    char otherSeparator /*= '\0'*/,
+    bool exactLen /*=false*/) {
+	unsigned int wordlen; // length of the word part (before the '(' brace) of the api array element
 	SString wordsNear;
 	wordsNear.setsizegrowth(1000);
 	int start = 0; // lower bound of the api array block to search
@@ -726,8 +1040,10 @@ char *WordList::GetNearestWords(
 					(0 == CompareNCaseInsensitive(wordStart,
 						wordsNoCase[pivot], searchLen))) {
 					wordlen = LengthWord(wordsNoCase[pivot], otherSeparator) + 1;
-					wordsNear.append(wordsNoCase[pivot], wordlen, ' ');
 					++pivot;
+					if (exactLen && wordlen != LengthWord(wordStart, otherSeparator) + 1)
+						continue;
+					wordsNear.append(wordsNoCase[pivot-1], wordlen, ' ');
 				}
 				return wordsNear.detach();
 			} else if (cond < 0) {
@@ -752,8 +1068,10 @@ char *WordList::GetNearestWords(
 					(0 == strncmp(wordStart,
 						words[pivot], searchLen))) {
 					wordlen = LengthWord(words[pivot], otherSeparator) + 1;
-					wordsNear.append(words[pivot], wordlen, ' ');
 					++pivot;
+					if (exactLen && wordlen != LengthWord(wordStart, otherSeparator) + 1)
+						continue;
+					wordsNear.append(words[pivot-1], wordlen, ' ');
 				}
 				return wordsNear.detach();
 			} else if (cond < 0) {

@@ -795,6 +795,7 @@ int gtodo_client_load(GTodoClient *cl, const gchar *xml_path)
 		if(debug)g_print("Failed to reload the file\n");
 		return FALSE;
 	}
+	gtodo_client_set_changed_callback (cl, cl->function, cl->data);
 	return TRUE;
 }
 

@@ -8,4 +8,10 @@
 			</menu>
 		</placeholder>
 	</menubar>
+	<popup name="PopupDocumentManager">
+		<menu name="Goto" action="ActionMenuGoto">
+			<menuitem name="NextMessage" action="ActionMessageNext" />
+			<menuitem name="PrevMessage" action="ActionMessagePrev" />
+		</menu>
+	</popup>
 </ui>

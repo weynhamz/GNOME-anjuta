@@ -110,6 +110,7 @@ project_root_added (AnjutaPlugin *plugin, const gchar *name,
 		todo_file = g_strconcat (root_uri, "/TODO.tasks", NULL);
 		gtodo_client_load (cl, todo_file);
 		g_free (todo_file);
+		category_changed();
 	}
 }
 
@@ -117,6 +118,15 @@ static void
 project_root_removed (AnjutaPlugin *plugin, const gchar *name,
 					  gpointer user_data)
 {
+	const gchar * home;
+	gchar *default_todo;
+	
+	home = g_get_home_dir ();
+	default_todo = g_strconcat ("file://", home, "/.gtodo/todos", NULL);
+	
+	gtodo_client_load (cl, default_todo);
+	category_changed();
+	g_free (default_todo);
 }
 
 static gboolean

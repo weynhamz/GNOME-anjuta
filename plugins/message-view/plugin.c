@@ -53,6 +53,7 @@ static void on_prev_message(GtkAction* menuitem, MessageViewPlugin *plugin)
 
 
 static GtkActionEntry actions_goto[] = {
+  /* { "ActionMenuGoto", N_("_Goto"), NULL, NULL, NULL, NULL}, */
   { "ActionMessageNext", ANJUTA_STOCK_NEXT_MESSAGE,
     N_("_Next message"), NULL,
 	N_("Next message"),

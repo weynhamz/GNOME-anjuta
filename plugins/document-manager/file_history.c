@@ -101,7 +101,7 @@ void an_file_history_push(const char *filename, glong line)
 	s_history->current = s_history->items;
 }
 
-void an_file_history_back(void)
+void an_file_history_back(AnjutaDocman *docman)
 {
 	AnHistFile *h_file;
 
@@ -110,10 +110,11 @@ void an_file_history_back(void)
 
 	s_history->current = s_history->current->next;
 	h_file = (AnHistFile *) s_history->current->data;
-	// FIXME: anjuta_goto_file_line_mark(h_file->file, h_file->line, FALSE);
+	anjuta_docman_goto_file_line_mark (docman, h_file->file,
+									   h_file->line, FALSE);
 }
 
-void an_file_history_forward(void)
+void an_file_history_forward(AnjutaDocman *docman)
 {
 	AnHistFile *h_file;
 
@@ -122,7 +123,8 @@ void an_file_history_forward(void)
 	
 	s_history->current = s_history->current->prev;
 	h_file = (AnHistFile *) s_history->current->data;
-	// FIXME: anjuta_goto_file_line_mark(h_file->file, h_file->line, FALSE);
+	anjuta_docman_goto_file_line_mark(docman, h_file->file,
+									  h_file->line, FALSE);
 }
 
 void an_file_history_dump(void)

@@ -687,7 +687,7 @@ anjuta_docman_goto_file_line_mark (AnjutaDocman *docman, const gchar *fname,
 				text_editor_goto_line (te, lineno, mark, TRUE);
 			anjuta_docman_show_editor (docman, GTK_WIDGET (te));
 			g_free (uri);
-			// an_file_history_push(te->uri, lineno);
+			an_file_history_push (te->uri, lineno);
 			return te;
 		}
 		node = g_list_next (node);
@@ -695,7 +695,7 @@ anjuta_docman_goto_file_line_mark (AnjutaDocman *docman, const gchar *fname,
 	te = anjuta_docman_add_editor (docman, uri, NULL);
 	if (te)
 	{
-		an_file_history_push(te->uri, lineno);
+		an_file_history_push (te->uri, lineno);
 		if (lineno >= 0)
 			text_editor_goto_line (te, lineno, mark, FALSE);
 	}

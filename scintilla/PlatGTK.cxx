@@ -1,6 +1,6 @@
 // Scintilla source code edit control
 // PlatGTK.cxx - implementation of platform facilities on GTK+/Linux
-// Copyright 1998-2003 by Neil Hodgson <neilh@scintilla.org>
+// Copyright 1998-2004 by Neil Hodgson <neilh@scintilla.org>
 // The License.txt file describes the conditions under which this software may be distributed.
 
 #include <string.h>
@@ -37,16 +37,7 @@
 
 #if GTK_MAJOR_VERSION >= 2
 #define USE_PANGO 1
-#include <iconv.h>
-const iconv_t iconvhBad = (iconv_t)(-1);
-// Since various versions of iconv can not agree on whether the src argument
-// is char ** or const char ** provide a templatised adaptor.
-template<typename T>
-size_t iconv_adaptor(size_t(*f_iconv)(iconv_t, T, size_t *, char **, size_t *),
-		iconv_t cd, char** src, size_t *srcleft,
-		char **dst, size_t *dstleft) {
-	return f_iconv(cd, (T)src, srcleft, dst, dstleft);
-}
+#include "Converter.h"
 #endif
 
 #ifdef _MSC_VER
@@ -654,7 +645,8 @@ Font::Font() : id(0) {}
 
 Font::~Font() {}
 
-void Font::Create(const char *faceName, int characterSet, int size, bool bold, bool italic) {
+void Font::Create(const char *faceName, int characterSet, int size,
+	bool bold, bool italic, bool) {
 	Release();
 	id = FontCached::FindOrCreate(faceName, characterSet, size, bold, italic);
 }
@@ -677,9 +669,9 @@ class SurfaceImpl : public Surface {
 #ifdef USE_PANGO
 	PangoContext *pcontext;
 	PangoLayout *layout;
-	iconv_t iconvh;
+	Converter conv;
 	int characterSet;
-	void SetIconv(int characterSet_);
+	void SetConverter(int characterSet_);
 #endif
 public:
 	SurfaceImpl();
@@ -773,16 +765,10 @@ const char *CharacterSetID(int characterSet) {
 
 #ifdef USE_PANGO
 
-void SurfaceImpl::SetIconv(int characterSet_) {
+void SurfaceImpl::SetConverter(int characterSet_) {
 	if (characterSet != characterSet_) {
-		if (iconvh != iconvhBad)
-			iconv_close(iconvh);
-		iconvh = iconvhBad;
 		characterSet = characterSet_;
-		const char *source = CharacterSetID(characterSet);
-		if (*source) {
-			iconvh = iconv_open("UTF-8", source);
-		}
+		conv.Open("UTF-8", CharacterSetID(characterSet));
 	}
 }
 #endif
@@ -790,7 +776,7 @@ void SurfaceImpl::SetIconv(int characterSet_) {
 SurfaceImpl::SurfaceImpl() : et(singleByte), drawable(0), gc(0), ppixmap(0),
 x(0), y(0), inited(false), createdGC(false)
 #ifdef USE_PANGO
-, pcontext(0), layout(0), iconvh(iconvhBad), characterSet(-1)
+, pcontext(0), layout(0), characterSet(-1)
 #endif
 {
 }
@@ -817,9 +803,7 @@ void SurfaceImpl::Release() {
 	if (pcontext)
 		g_object_unref(pcontext);
 	pcontext = 0;
-	if (iconvh != iconvhBad)
-		iconv_close(iconvh);
-	iconvh = iconvhBad;
+	conv.Close();
 	characterSet = -1;
 #endif
 	x = 0;
@@ -862,6 +846,8 @@ void SurfaceImpl::Init(SurfaceID sid, WindowID WID_NAME) {
 #endif
 	drawable = drawable_;
 	gc = gdk_gc_new(drawable_);
+	// Ask for lines that do not paint the last pixel so is like Win32
+	gdk_gc_set_line_attributes(gc, 0, GDK_LINE_SOLID, GDK_CAP_NOT_LAST, GDK_JOIN_MITER);
 	createdGC = true;
 	inited = true;
 }
@@ -882,6 +868,8 @@ void SurfaceImpl::InitPixMap(int width, int height, Surface *surface_, WindowID 
 		ppixmap = gdk_pixmap_new(surfImpl->drawable, width, height, -1);
 	drawable = ppixmap;
 	gc = gdk_gc_new(surfImpl->drawable);
+	// Ask for lines that do not paint the last pixel so is like Win32
+	gdk_gc_set_line_attributes(gc, 0, GDK_LINE_SOLID, GDK_CAP_NOT_LAST, GDK_JOIN_MITER);
 	createdGC = true;
 	inited = true;
 }
@@ -1038,40 +1026,7 @@ static size_t UTF8Len(char ch) {
 		return 3;
 }
 
-#ifdef USE_PANGO
-static char *UTF8FromIconv(iconv_t iconvh, const char *s, int len) {
-	if (iconvh != ((iconv_t)(-1))) {
-		char *utfForm = new char[len*3+1];
-		char *pin = const_cast<char *>(s);
-		size_t inLeft = len;
-		char *pout = utfForm;
-		size_t outLeft = len*3+1;
-		size_t conversions = iconv_adaptor(iconv, iconvh, &pin, &inLeft, &pout, &outLeft);
-		if (conversions != ((size_t)(-1))) {
-			*pout = '\0';
-			return utfForm;
-		}
-		delete []utfForm;
-	}
-	return 0;
-}
-
-static size_t MultiByteLenFromIconv(iconv_t iconvh, const char *s, size_t len) {
-	for (size_t lenMB=1; (lenMB<4) && (lenMB <= len); lenMB++) {
-		char wcForm[2];
-		char *pin = const_cast<char *>(s);
-		size_t inLeft = lenMB;
-		char *pout = wcForm;
-		size_t outLeft = 2;
-		size_t conversions = iconv_adaptor(iconv, iconvh, &pin, &inLeft, &pout, &outLeft);
-		if (conversions != ((size_t)(-1))) {
-			return lenMB;
-		}
-	}
-	return 1;
-}
-
-static char *UTF8FromLatin1(const char *s, int len) {
+char *UTF8FromLatin1(const char *s, int &len) {
 	char *utfForm = new char[len*2+1];
 	size_t lenU = 0;
 	for (int i=0;i<len;i++) {
@@ -1084,7 +1039,44 @@ static char *UTF8FromLatin1(const char *s, int len) {
 		}
 	}
 	utfForm[lenU] = '\0';
+	len = lenU;
 	return utfForm;
+}
+
+#ifdef USE_PANGO
+static char *UTF8FromIconv(const Converter &conv, const char *s, int &len) {
+	if (conv) {
+		char *utfForm = new char[len*3+1];
+		char *pin = const_cast<char *>(s);
+		size_t inLeft = len;
+		char *pout = utfForm;
+		size_t outLeft = len*3+1;
+		size_t conversions = conv.Convert(&pin, &inLeft, &pout, &outLeft);
+		if (conversions != ((size_t)(-1))) {
+			*pout = '\0';
+			len = pout - utfForm;
+			return utfForm;
+		}
+		delete []utfForm;
+	}
+	return 0;
+}
+
+// Work out how many bytes are in a character by trying to convert using iconv,
+// returning the first length that succeeds.
+static size_t MultiByteLenFromIconv(const Converter &conv, const char *s, size_t len) {
+	for (size_t lenMB=1; (lenMB<4) && (lenMB <= len); lenMB++) {
+		char wcForm[2];
+		char *pin = const_cast<char *>(s);
+		size_t inLeft = lenMB;
+		char *pout = wcForm;
+		size_t outLeft = 2;
+		size_t conversions = conv.Convert(&pin, &inLeft, &pout, &outLeft);
+		if (conversions != ((size_t)(-1))) {
+			return lenMB;
+		}
+	}
+	return 1;
 }
 
 static char *UTF8FromGdkWChar(GdkWChar *wctext, int wclen) {
@@ -1107,7 +1099,7 @@ static char *UTF8FromGdkWChar(GdkWChar *wctext, int wclen) {
 	return utfForm;
 }
 
-static char *UTF8FromDBCS(const char *s, int len) {
+static char *UTF8FromDBCS(const char *s, int &len) {
 	GdkWChar *wctext = new GdkWChar[len + 1];
 	GdkWChar *wcp = wctext;
 	int wclen = gdk_mbstowcs(wcp, s, len);
@@ -1120,6 +1112,7 @@ static char *UTF8FromDBCS(const char *s, int len) {
 
 	char *utfForm = UTF8FromGdkWChar(wctext, wclen);
 	delete []wctext;
+	len = strlen(utfForm);
 	return utfForm;
 }
 
@@ -1154,8 +1147,8 @@ void SurfaceImpl::DrawTextBase(PRectangle rc, Font &font_, int ybase, const char
 				pango_layout_set_text(layout, s, len);
 			} else {
 				if (!utfForm) {
-					SetIconv(PFont(font_)->characterSet);
-					utfForm = UTF8FromIconv(iconvh, s, len);
+					SetConverter(PFont(font_)->characterSet);
+					utfForm = UTF8FromIconv(conv, s, len);
 				}
 				if (!utfForm) {	// iconv failed so try DBCS if DBCS mode
 					if (et == dbcs) {
@@ -1166,7 +1159,7 @@ void SurfaceImpl::DrawTextBase(PRectangle rc, Font &font_, int ybase, const char
 				if (!utfForm) {	// iconv and DBCS failed so treat as Latin1
 					utfForm = UTF8FromLatin1(s, len);
 				}
-				pango_layout_set_text(layout, utfForm, strlen(utfForm));
+				pango_layout_set_text(layout, utfForm, len);
 			}
 			pango_layout_set_font_description(layout, PFont(font_)->pfd);
 			PangoLayoutLine *pll = pango_layout_get_line(layout,0);
@@ -1184,13 +1177,18 @@ void SurfaceImpl::DrawTextBase(PRectangle rc, Font &font_, int ybase, const char
 		bool draw8bit = true;
 		if (et != singleByte) {
 			GdkWChar wctext[maxLengthTextRun];
+			if (len >= maxLengthTextRun)
+				len = maxLengthTextRun-1;
 			int wclen;
 			if (et == UTF8) {
 				wclen = UCS2FromUTF8(s, len,
 					reinterpret_cast<wchar_t *>(wctext), maxLengthTextRun - 1);
 			} else {	// dbcs, so convert using current locale
+				char sMeasure[maxLengthTextRun];
+				memcpy(sMeasure, s, len);
+				sMeasure[len] = '\0';
 				wclen = gdk_mbstowcs(
-					wctext, s, maxLengthTextRun - 1);
+					wctext, sMeasure, maxLengthTextRun - 1);
 			}
 			if (wclen > 0) {
 				draw8bit = false;
@@ -1201,11 +1199,11 @@ void SurfaceImpl::DrawTextBase(PRectangle rc, Font &font_, int ybase, const char
 					gdk_draw_text_wc(drawable, PFont(font_)->pfont, gc,
 							 x, ybase, wcp, lenDraw);
 					wclen -= lenDraw;
-					wcp += lenDraw;
 					if (wclen > 0) {	// Avoid next calculation if possible as may be expensive
 						x += gdk_text_width_wc(PFont(font_)->pfont,
 								       wcp, lenDraw);
 					}
+					wcp += lenDraw;
 				}
 			}
 		}
@@ -1215,10 +1213,10 @@ void SurfaceImpl::DrawTextBase(PRectangle rc, Font &font_, int ybase, const char
 				gdk_draw_text(drawable, PFont(font_)->pfont, gc,
 				              x, ybase, s, lenDraw);
 				len -= lenDraw;
-				s += lenDraw;
 				if (len > 0) {	// Avoid next calculation if possible as may be expensive
 					x += gdk_text_width(PFont(font_)->pfont, s, lenDraw);
 				}
+				s += lenDraw;
 			}
 		}
 	}
@@ -1279,14 +1277,13 @@ void SurfaceImpl::MeasureWidths(Font &font_, const char *s, int len, int *positi
 			} else {
 				int positionsCalculated = 0;
 				if (et == dbcs) {
-					SetIconv(PFont(font_)->characterSet);
-					char *utfForm = UTF8FromIconv(iconvh, s, len);
+					SetConverter(PFont(font_)->characterSet);
+					char *utfForm = UTF8FromIconv(conv, s, len);
 					if (utfForm) {
 						// Convert to UTF-8 so can ask Pango for widths, then
 						// Loop through UTF-8 and DBCS forms, taking account of different
 						// character byte lengths.
-						iconv_t iconvhMeasure =
-							iconv_open("UCS-2", CharacterSetID(characterSet));
+						Converter convMeasure("UCS-2", CharacterSetID(characterSet));
 						pango_layout_set_text(layout, utfForm, strlen(utfForm));
 						int i = 0;
 						int utfIndex = 0;
@@ -1296,7 +1293,7 @@ void SurfaceImpl::MeasureWidths(Font &font_, const char *s, int len, int *positi
 							int position = PANGO_PIXELS(pos.x);
 							int utfIndexNext = pango_layout_iter_get_index (iter);
 							while (utfIndex < utfIndexNext) {
-								size_t lenChar = MultiByteLenFromIconv(iconvhMeasure, s+i, len-i);
+								size_t lenChar = MultiByteLenFromIconv(convMeasure, s+i, len-i);
 								//size_t lenChar = mblen(s+i, MB_CUR_MAX);
 								while (lenChar--) {
 									positions[i++] = position;
@@ -1307,18 +1304,17 @@ void SurfaceImpl::MeasureWidths(Font &font_, const char *s, int len, int *positi
 						}
 						pango_layout_iter_free (iter);
 						delete []utfForm;
-						iconv_close(iconvhMeasure);
 					}
 				}
 				if (positionsCalculated < 1 ) {
 					// Either Latin1 or DBCS conversion failed so treat as Latin1.
 					bool useGFree = false;
-					SetIconv(PFont(font_)->characterSet);
-					char *utfForm = UTF8FromIconv(iconvh, s, len);
+					SetConverter(PFont(font_)->characterSet);
+					char *utfForm = UTF8FromIconv(conv, s, len);
 					if (!utfForm) {
 						utfForm = UTF8FromLatin1(s, len);
 					}
-					pango_layout_set_text(layout, utfForm, strlen(utfForm));
+					pango_layout_set_text(layout, utfForm, len);
 					int i = 0;
 					PangoLayoutIter *iter = pango_layout_get_iter (layout);
 					while (pango_layout_iter_next_cluster (iter)) {
@@ -1343,13 +1339,18 @@ void SurfaceImpl::MeasureWidths(Font &font_, const char *s, int len, int *positi
 		bool measure8bit = true;
 		if (et != singleByte) {
 			GdkWChar wctext[maxLengthTextRun];
+			if (len >= maxLengthTextRun)
+				len = maxLengthTextRun-1;
 			int wclen;
 			if (et == UTF8) {
 				wclen = UCS2FromUTF8(s, len,
 					reinterpret_cast<wchar_t *>(wctext), maxLengthTextRun - 1);
 			} else {	// dbcsMode, so convert using current locale
+				char sDraw[maxLengthTextRun];
+				memcpy(sDraw, s, len);
+				sDraw[len] = '\0';
 				wclen = gdk_mbstowcs(
-					wctext, s, maxLengthTextRun - 1);
+					wctext, sDraw, maxLengthTextRun - 1);
 			}
 			if (wclen > 0) {
 				measure8bit = false;
@@ -1359,11 +1360,13 @@ void SurfaceImpl::MeasureWidths(Font &font_, const char *s, int len, int *positi
 				for (int iU = 0; iU < wclen; iU++) {
 					int width = gdk_char_width_wc(gf, wctext[iU]);
 					totalWidth += width;
-					size_t lenChar;
+					int lenChar;
 					if (et == UTF8) {
 						lenChar = UTF8Len(s[i]);
 					} else {
 						lenChar = mblen(s+i, MB_CUR_MAX);
+						if (lenChar < 0)
+							lenChar = 1;
 					}
 					while (lenChar--) {
 						positions[i++] = totalWidth;
@@ -1406,14 +1409,13 @@ int SurfaceImpl::WidthText(Font &font_, const char *s, int len) {
 					utfForm = UTF8FromDBCS(s, len);
 				}
 				if (!utfForm) {	// DBCS failed so treat as iconv
-					SetIconv(PFont(font_)->characterSet);
-					utfForm = UTF8FromIconv(iconvh, s, len);
+					SetConverter(PFont(font_)->characterSet);
+					utfForm = UTF8FromIconv(conv, s, len);
 				}
 				if (!utfForm) {	// g_locale_to_utf8 failed so treat as Latin1
 					utfForm = UTF8FromLatin1(s, len);
 				}
-				pango_layout_set_text(layout, utfForm, strlen(utfForm));
-				len = strlen(utfForm);
+				pango_layout_set_text(layout, utfForm, len);
 			}
 			PangoLayoutLine *pangoLine = pango_layout_get_line(layout, 0);
 			pango_layout_line_get_extents(pangoLine, NULL, &pos);
@@ -1482,8 +1484,11 @@ int SurfaceImpl::Ascent(Font &font_) {
 		ascent = PFont(font_)->ascent;
 	}
 #endif
-	if (ascent == 0) {
+	if ((ascent == 0) && (PFont(font_)->pfont)) {
 		ascent = PFont(font_)->pfont->ascent;
+	}
+	if (ascent == 0) {
+		ascent = 1;
 	}
 	FontMutexUnlock();
 	return ascent;
@@ -1627,20 +1632,20 @@ void Window::SetPositionRelative(PRectangle rc, Window relativeTo) {
 		oy = 0;
 
 	/* do some corrections to fit into screen */
-	int sizey = rc.bottom - rc.top;
 	int sizex = rc.right - rc.left;
+	int sizey = rc.bottom - rc.top;
 	int screenWidth = gdk_screen_width();
 	int screenHeight = gdk_screen_height();
 	if (sizex > screenWidth)
 		ox = 0; /* the best we can do */
-	else
-		if (ox + sizex > screenWidth)
-			ox -= ox + sizex - screenWidth;
+	else if (ox + sizex > screenWidth)
+		ox = screenWidth - sizex;
 	if (oy + sizey > screenHeight)
-		oy -= oy + sizey - screenHeight;
+		oy = screenHeight - sizey;
 
 	gtk_widget_set_uposition(PWidget(id), ox, oy);
 #if 0
+
 	GtkAllocation alloc;
 	alloc.x = rc.left + ox;
 	alloc.y = rc.top + oy;
@@ -1814,6 +1819,11 @@ ListBox *ListBox::Allocate() {
 }
 
 #if GTK_MAJOR_VERSION < 2
+static void UnselectionAC(GtkWidget *, gint, gint,
+                        GdkEventButton *, gpointer p) {
+	int *pi = reinterpret_cast<int *>(p);
+	*pi = -1;
+}
 static void SelectionAC(GtkWidget *, gint row, gint,
                         GdkEventButton *, gpointer p) {
 	int *pi = reinterpret_cast<int *>(p);
@@ -1853,6 +1863,8 @@ void ListBoxX::Create(Window &, int, int, bool) {
 	gtk_container_add(GTK_CONTAINER(PWidget(scroller)), PWidget(list));
 	gtk_clist_set_column_auto_resize(GTK_CLIST(PWidget(list)), 0, TRUE);
 	gtk_clist_set_selection_mode(GTK_CLIST(PWidget(list)), GTK_SELECTION_BROWSE);
+	gtk_signal_connect(GTK_OBJECT(PWidget(list)), "unselect_row",
+	                   GTK_SIGNAL_FUNC(UnselectionAC), &current);
 	gtk_signal_connect(GTK_OBJECT(PWidget(list)), "select_row",
 	                   GTK_SIGNAL_FUNC(SelectionAC), &current);
 	gtk_signal_connect(GTK_OBJECT(PWidget(list)), "button_press_event",
@@ -1888,9 +1900,6 @@ void ListBoxX::Create(Window &, int, int, bool) {
 	gtk_tree_view_append_column(GTK_TREE_VIEW(list), column);
 	gtk_container_add(GTK_CONTAINER(PWidget(scroller)), PWidget(list));
 	gtk_widget_show(PWidget(list));
-
-	gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(store),
-										  TEXT_COLUMN, GTK_SORT_ASCENDING);
 
 	gtk_signal_connect(GTK_OBJECT(PWidget(list)), "button_press_event",
 	                   GTK_SIGNAL_FUNC(ButtonPress), this);
@@ -2090,16 +2099,23 @@ int ListBoxX::Length() {
 
 void ListBoxX::Select(int n) {
 #if GTK_MAJOR_VERSION < 2
-	gtk_clist_select_row(GTK_CLIST(list), n, 0);
-	gtk_clist_moveto(GTK_CLIST(list), n, 0, 0.5, 0.5);
+	if (n == -1) {
+		gtk_clist_unselect_row(GTK_CLIST(list), current, 0);
+	} else {
+		gtk_clist_select_row(GTK_CLIST(list), n, 0);
+		gtk_clist_moveto(GTK_CLIST(list), n, 0, 0.5, 0.5);
+	}
 #else
-	if (n < 0)
-		return;
-
 	GtkTreeIter iter;
 	GtkTreeModel *model = gtk_tree_view_get_model(GTK_TREE_VIEW(list));
 	GtkTreeSelection *selection =
 		gtk_tree_view_get_selection(GTK_TREE_VIEW(list));
+
+	if (n < 0) {
+		gtk_tree_selection_unselect_all(selection);
+		return;
+	}
+
 	bool valid = gtk_tree_model_iter_nth_child(model, &iter, NULL, n);
 	if (valid) {
 		gtk_tree_selection_select_iter(selection, &iter);
@@ -2134,6 +2150,8 @@ void ListBoxX::Select(int n) {
 
 		// Set it.
 		gtk_adjustment_set_value(adj, value);
+	} else {
+		gtk_tree_selection_unselect_all(selection);
 	}
 #endif
 }
@@ -2153,7 +2171,7 @@ int ListBoxX::GetSelection() {
 		if (indices)
 			return indices[0];
 	}
-	return 0;
+	return -1;
 #endif
 }
 
@@ -2183,7 +2201,7 @@ int ListBoxX::Find(const char *prefix) {
 		i++;
 	}
 #endif
-	return - 1;
+	return -1;
 }
 
 void ListBoxX::GetValue(int n, char *value, int len) {
@@ -2420,10 +2438,8 @@ int Platform::DBCSCharLength(int codePage, const char *s) {
 		// Experimental and disabled code - change 999932 to 932 above to
 		// enable locale avoiding but expensive character length determination.
 		// Avoid locale with explicit use of iconv
-		iconv_t iconvhMeasure =
-			iconv_open("UCS-2", CharacterSetID(SC_CHARSET_SHIFTJIS));
-		size_t lenChar = MultiByteLenFromIconv(iconvhMeasure, s, strlen(s));
-		iconv_close(iconvhMeasure);
+		Converter convMeasure("UCS-2", CharacterSetID(SC_CHARSET_SHIFTJIS));
+		size_t lenChar = MultiByteLenFromIconv(convMeasure, s, strlen(s));
 		return lenChar;
 	} else {
 		int bytes = mblen(s, MB_CUR_MAX);

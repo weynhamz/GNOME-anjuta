@@ -76,6 +76,9 @@ void on_goto_line_no1_activate (GtkAction * action, gpointer user_data);
 void on_next_occur (GtkAction * action, gpointer user_data);
 void on_prev_occur (GtkAction * action, gpointer user_data);
 
+void on_next_history (GtkAction * action, gpointer user_data);
+void on_prev_history (GtkAction * action, gpointer user_data);
+
 void on_autocomplete1_activate (GtkAction * action, gpointer user_data);
 void on_calltip1_activate (GtkAction * action, gpointer user_data);
 

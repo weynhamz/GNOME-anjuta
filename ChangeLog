@@ -1,5 +1,31 @@
 2004-10-19  Naba Kumar  <naba@gnome.org>
 
+	* plugins/build-basic-autotools/build-basic-autotools.c: Fixed bugs.
+	
+	* plugins/editor/action-callbacks.c,
+	plugins/editor/action-callbacks.h,
+	plugins/editor/anjuta-docman.c,
+	plugins/editor/anjuta-docman.h,
+	plugins/editor/anjuta-document-manager.ui,
+	plugins/editor/file_history.c,
+	plugins/editor/file_history.h,
+	plugins/editor/plugin.c: Added file history browsing.
+	
+	* plugins/gtodo/libgtodo.c, plugins/gtodo/plugin.c: Fixed refresh.
+	
+	* plugins/message-view/anjuta-message-manager.ui,
+	plugins/message-view/plugin.c: Added document manager context menu.
+	
+	* plugins/symbol-browser/an_symbol_view.c,
+	plugins/symbol-browser/an_symbol_view.h,
+	plugins/symbol-browser/anjuta-symbol-browser-plugin.ui,
+	plugins/symbol-browser/plugin.c: Added goto tag def/decl. Added
+	document manager context menu.
+	
+	* scintilla/*, scintilla/include/*: Updated to current cvs.
+	
+2004-10-19  Naba Kumar  <naba@gnome.org>
+
 	*plugins/debugger/anjuta-debugger.ui, src/anjuta.ui: Added
 	placeholder for debugger UI.
 	

@@ -1,6 +1,6 @@
 // Scintilla source code edit control
 // ScintillaGTK.cxx - GTK+ specific subclass of ScintillaBase
-// Copyright 1998-2003 by Neil Hodgson <neilh@scintilla.org>
+// Copyright 1998-2004 by Neil Hodgson <neilh@scintilla.org>
 // The License.txt file describes the conditions under which this software may be distributed.
 
 #include <stdlib.h>
@@ -45,7 +45,9 @@
 
 #include "gtk/gtksignal.h"
 #include "gtk/gtkmarshal.h"
+#if GTK_MAJOR_VERSION >= 2
 #include "scintilla-marshal.h"
+#endif
 
 #ifdef SCI_LEXER
 #include <glib.h>
@@ -55,16 +57,12 @@
 
 #define INTERNATIONAL_INPUT
 
-#if !PLAT_GTK_WIN32
-#include <iconv.h>
-// Since various versions of iconv can not agree on whether the src argument
-// is char ** or const char ** provide a templatised adaptor.
-template<typename T>
-size_t iconv_adaptor(size_t(*f_iconv)(iconv_t, T, size_t *, char **, size_t *),
-		iconv_t cd, char** src, size_t *srcleft,
-		char **dst, size_t *dstleft) {
-	return f_iconv(cd, (T)src, srcleft, dst, dstleft);
-}
+#if !PLAT_GTK_WIN32 || GTK_MAJOR_VERSION >= 2
+#define USE_CONVERTER
+#endif
+
+#ifdef USE_CONVERTER
+#include "Converter.h"
 #endif
 
 #ifdef _MSC_VER
@@ -73,6 +71,12 @@ size_t iconv_adaptor(size_t(*f_iconv)(iconv_t, T, size_t *, char **, size_t *),
 // Ignore unreferenced local functions in GTK+ headers
 #pragma warning(disable: 4505)
 #endif
+
+#if GTK_MAJOR_VERSION == 2 && GTK_MINOR_VERSION >= 2
+#define USE_GTK_CLIPBOARD
+#endif
+
+extern char *UTF8FromLatin1(const char *s, int &len);
 
 class ScintillaGTK : public ScintillaBase {
 	_ScintillaObject *sci;
@@ -85,7 +89,9 @@ class ScintillaGTK : public ScintillaBase {
 	int scrollBarHeight;
 
 	// Because clipboard access is asynchronous, copyText is created by Copy
+#ifndef USE_GTK_CLIPBOARD
 	SelectionText copyText;
+#endif
 
 	SelectionText primary;
 
@@ -96,23 +102,27 @@ class ScintillaGTK : public ScintillaBase {
 
 	GtkWidgetClass *parentClass;
 
-	GdkAtom atomClipboard;
+	static GdkAtom atomClipboard;
+	static GdkAtom atomUTF8;
+	static GdkAtom atomString;
 	GdkAtom atomSought;
-	GdkAtom atomUTF8;
-	GdkAtom atomString;
 
 #if PLAT_GTK_WIN32
 	CLIPFORMAT cfColumnSelect;
 #endif
+
 #ifdef INTERNATIONAL_INPUT
 #if GTK_MAJOR_VERSION < 2
 	// Input context used for supporting internationalized key entry
 	GdkIC *ic;
 	GdkICAttr *ic_attr;
 #else
+	Window wPreedit;
+	Window wPreeditDraw;
 	GtkIMContext *im_context;
 #endif
 #endif
+
 	// Wheel mouse support
 	unsigned int linesPerScroll;
 	GTimeVal lastWheelMouseTime;
@@ -133,6 +143,8 @@ private:
 	virtual void Finalise();
 	virtual void DisplayCursor(Window::Cursor c);
 	virtual void StartDrag();
+	int TargetAsUTF8(char *text);
+	int EncodedFromUTF8(char *utf8, char *encoded);
 public: 	// Public for scintilla_send_message
 	virtual sptr_t WndProc(unsigned int iMessage, uptr_t wParam, sptr_t lParam);
 private:
@@ -154,6 +166,8 @@ private:
 	virtual void NotifyParent(SCNotification scn);
 	void NotifyKey(int key, int modifiers);
 	void NotifyURIDropped(const char *list);
+	bool UseInputMethod() const;
+	const char *CharacterSetID() const;
 	virtual int KeyDefault(int key, int modifiers);
 	virtual void CopyToClipboard(const SelectionText &selectedText);
 	virtual void Copy();
@@ -162,10 +176,15 @@ private:
 	virtual void AddToPopUp(const char *label, int cmd = 0, bool enabled = true);
 	bool OwnPrimarySelection();
 	virtual void ClaimSelection();
-	void GetGtkSelectionText(const GtkSelectionData *selectionData, SelectionText &selText);
+	void GetGtkSelectionText(GtkSelectionData *selectionData, SelectionText &selText);
 	void ReceivedSelection(GtkSelectionData *selection_data);
 	void ReceivedDrop(GtkSelectionData *selection_data);
-	void GetSelection(GtkSelectionData *selection_data, guint info, SelectionText *selected);
+	static void GetSelection(GtkSelectionData *selection_data, guint info, SelectionText *selected);
+#ifdef USE_GTK_CLIPBOARD
+	static void ClipboardGetSelection(GtkClipboard* clip, GtkSelectionData *selection_data, guint info, void *data);
+	static void ClipboardClearSelection(GtkClipboard* clip, void *data);
+#endif
+
 	void UnclaimSelection(GdkEventSelection *selection_event);
 	void Resize(int width, int height);
 
@@ -202,9 +221,15 @@ private:
 	static gint KeyPress(GtkWidget *widget, GdkEventKey *event);
 	static gint KeyRelease(GtkWidget *widget, GdkEventKey *event);
 #if GTK_MAJOR_VERSION >= 2
+	static gint ExposePreedit(GtkWidget *widget, GdkEventExpose *ose, ScintillaGTK *sciThis);
+	gint ExposePreeditThis(GtkWidget *widget, GdkEventExpose *ose);
 	static void Commit(GtkIMContext *context, char *str, ScintillaGTK *sciThis);
 	void CommitThis(char *str);
+	static void PreeditChanged(GtkIMContext *context, ScintillaGTK *sciThis);
+	void PreeditChangedThis();
 #endif
+	static gint StyleSetText(GtkWidget *widget, GtkStyle *previous, void*);
+	static gint RealizeText(GtkWidget *widget, void*);
 	static void Destroy(GtkObject *object);
 	static void SelectionReceived(GtkWidget *widget, GtkSelectionData *selection_data,
 	                              guint time);
@@ -256,6 +281,19 @@ enum {
     TARGET_UTF8_STRING
 };
 
+GdkAtom ScintillaGTK::atomClipboard = 0;
+GdkAtom ScintillaGTK::atomUTF8 = 0;
+GdkAtom ScintillaGTK::atomString = 0;
+
+static const GtkTargetEntry clipboardTargets[] = {
+	{ "UTF8_STRING", 0, TARGET_UTF8_STRING },
+	{ "STRING", 0, TARGET_STRING },
+//	    { "TEXT", 0, TARGET_TEXT },
+//	    { "COMPOUND_TEXT", 0, TARGET_COMPOUND_TEXT },
+	{ "text/uri-list", 0, 0 },
+};
+static const gint nClipboardTargets = sizeof(clipboardTargets) / sizeof(clipboardTargets[0]);
+
 static GtkWidget *PWidget(Window &w) {
 	return reinterpret_cast<GtkWidget *>(w.GetID());
 }
@@ -282,11 +320,6 @@ ScintillaGTK::ScintillaGTK(_ScintillaObject *sci_) :
 		wheelMouseIntensity(0) {
 	sci = sci_;
 	wMain = GTK_WIDGET(sci);
-
-	atomClipboard = GDK_NONE;
-	atomSought = GDK_NONE;
-	atomUTF8 = GDK_NONE;
-	atomString = GDK_NONE;
 
 #if PLAT_GTK_WIN32
  	// There does not seem to be a real standard for indicating that the clipboard
@@ -333,6 +366,7 @@ void ScintillaGTK::RealizeThis(GtkWidget *widget) {
 	gdk_window_set_background(widget->window, &widget->style->bg[GTK_STATE_NORMAL]);
 	gdk_window_show(widget->window);
 	gdk_cursor_destroy(cursor);
+	widget->style = gtk_style_attach(widget->style, widget->window);
 #ifdef INTERNATIONAL_INPUT
 #if GTK_MAJOR_VERSION < 2
 	if (gdk_im_ready() && (ic_attr = gdk_ic_attr_new()) != NULL) {
@@ -392,12 +426,27 @@ void ScintillaGTK::RealizeThis(GtkWidget *widget) {
 		}
 	}
 #else
+	wPreedit = gtk_window_new(GTK_WINDOW_POPUP);
+	wPreeditDraw = gtk_drawing_area_new();
+	gtk_signal_connect(GTK_OBJECT(PWidget(wPreeditDraw)), "expose_event",
+			   GtkSignalFunc(ExposePreedit), this);
+	gtk_container_add(GTK_CONTAINER(PWidget(wPreedit)), PWidget(wPreeditDraw));
+	gtk_widget_realize(PWidget(wPreedit));
+	gtk_widget_realize(PWidget(wPreeditDraw));
+	gtk_widget_show(PWidget(wPreeditDraw));
+
 	im_context = gtk_im_multicontext_new();
 	g_signal_connect(im_context, "commit",
 			 G_CALLBACK(Commit), this);
+	g_signal_connect(im_context, "preedit_changed",
+			 G_CALLBACK(PreeditChanged), this);
 	gtk_im_context_set_client_window(im_context, widget->window);
 #endif
 #endif
+	gtk_signal_connect_after(GTK_OBJECT(PWidget(wText)), "style_set",
+				 GtkSignalFunc(ScintillaGTK::StyleSetText), NULL);
+	gtk_signal_connect_after(GTK_OBJECT(PWidget(wText)), "realize",
+				 GtkSignalFunc(ScintillaGTK::RealizeText), NULL);
 	gtk_widget_realize(PWidget(wText));
 	gtk_widget_realize(PWidget(scrollbarv));
 	gtk_widget_realize(PWidget(scrollbarh));
@@ -427,6 +476,8 @@ void ScintillaGTK::UnRealizeThis(GtkWidget *widget) {
 		ic_attr = NULL;
 	}
 #else
+	gtk_widget_unrealize(PWidget(wPreedit));
+	gtk_widget_unrealize(PWidget(wPreeditDraw));
 	g_object_unref(im_context);
 #endif
 #endif
@@ -458,6 +509,7 @@ void ScintillaGTK::MapThis() {
 	wMain.SetCursor(Window::cursorArrow);
 	scrollbarv.SetCursor(Window::cursorArrow);
 	scrollbarh.SetCursor(Window::cursorArrow);
+	ChangeSize();
 	gdk_window_show(PWidget(wMain)->window);
 }
 
@@ -498,10 +550,10 @@ void ScintillaGTK::MainForAll(GtkContainer *container, gboolean include_internal
 #if GTK_MAJOR_VERSION < 2
 gint ScintillaGTK::CursorMoved(GtkWidget *widget, int xoffset, int yoffset, ScintillaGTK *sciThis) {
 	if (GTK_WIDGET_HAS_FOCUS(widget) && gdk_im_ready() && sciThis->ic &&
-	        (gdk_ic_get_style (sciThis->ic) & GDK_IM_PREEDIT_POSITION)) {
+	        (gdk_ic_get_style(sciThis->ic) & GDK_IM_PREEDIT_POSITION)) {
 		sciThis->ic_attr->spot_location.x = xoffset;
 		sciThis->ic_attr->spot_location.y = yoffset;
-		gdk_ic_set_attr (sciThis->ic, sciThis->ic_attr, GDK_IC_SPOT_LOCATION);
+		gdk_ic_set_attr(sciThis->ic, sciThis->ic_attr, GDK_IC_SPOT_LOCATION);
 	}
 	return FALSE;
 }
@@ -533,6 +585,15 @@ gint ScintillaGTK::FocusIn(GtkWidget *widget, GdkEventFocus * /*event*/) {
 	if (sciThis->ic)
 		gdk_im_begin(sciThis->ic, widget->window);
 #else
+	gchar *str;
+	gint cursor_pos;
+	gtk_im_context_get_preedit_string(sciThis->im_context, &str, NULL, &cursor_pos);
+	if (strlen(str) > 0){
+		gtk_widget_show(PWidget(sciThis->wPreedit));
+	} else{
+		gtk_widget_hide(PWidget(sciThis->wPreedit));
+	}
+	g_free(str);
 	gtk_im_context_focus_in(sciThis->im_context);
 #endif
 #endif
@@ -550,6 +611,7 @@ gint ScintillaGTK::FocusOut(GtkWidget *widget, GdkEventFocus * /*event*/) {
 #if GTK_MAJOR_VERSION < 2
 	gdk_im_end();
 #else
+	gtk_widget_hide(PWidget(sciThis->wPreedit));
 	gtk_im_context_focus_out(sciThis->im_context);
 #endif
 #endif
@@ -580,7 +642,7 @@ void ScintillaGTK::SizeAllocate(GtkWidget *widget, GtkAllocation *allocation) {
 
 #ifdef INTERNATIONAL_INPUT
 #if GTK_MAJOR_VERSION < 2
-	if (sciThis->ic && (gdk_ic_get_style (sciThis->ic) & GDK_IM_PREEDIT_POSITION)) {
+	if (sciThis->ic && (gdk_ic_get_style(sciThis->ic) & GDK_IM_PREEDIT_POSITION)) {
 		gint width, height;
 
 		gdk_window_get_size(widget->window, &width, &height);
@@ -643,27 +705,16 @@ void ScintillaGTK::Initialise() {
 
 	gtk_widget_grab_focus(PWidget(wMain));
 
-	static const GtkTargetEntry targets[] = {
-	    { "UTF8_STRING", 0, TARGET_UTF8_STRING },
-	    { "STRING", 0, TARGET_STRING },
-//	    { "TEXT", 0, TARGET_TEXT },
-//	    { "COMPOUND_TEXT", 0, TARGET_COMPOUND_TEXT },
-	    { "text/uri-list", 0, 0 },
-	};
-	static const gint n_targets = sizeof(targets) / sizeof(targets[0]);
-
 	gtk_selection_add_targets(GTK_WIDGET(PWidget(wMain)), GDK_SELECTION_PRIMARY,
-	                          targets, n_targets);
+	                          clipboardTargets, nClipboardTargets);
 
-	atomClipboard = gdk_atom_intern("CLIPBOARD", FALSE);
-	atomUTF8 = gdk_atom_intern("UTF8_STRING", FALSE);
-	atomString = gdk_atom_intern("STRING", FALSE);
-
+#ifndef USE_GTK_CLIPBOARD
 	gtk_selection_add_targets(GTK_WIDGET(PWidget(wMain)), atomClipboard,
-	                          targets, n_targets);
+	                          clipboardTargets, nClipboardTargets);
+#endif
 
 	gtk_drag_dest_set(GTK_WIDGET(PWidget(wMain)),
-	                  GTK_DEST_DEFAULT_ALL, targets, n_targets,
+	                  GTK_DEST_DEFAULT_ALL, clipboardTargets, nClipboardTargets,
 	                  static_cast<GdkDragAction>(GDK_ACTION_COPY | GDK_ACTION_MOVE));
 
 	SetTicking(true);
@@ -684,9 +735,10 @@ void ScintillaGTK::DisplayCursor(Window::Cursor c) {
 void ScintillaGTK::StartDrag() {
 	dragWasDropped = false;
 	static const GtkTargetEntry targets[] = {
+	    { "UTF8_STRING", 0, TARGET_UTF8_STRING },
 	    { "STRING", 0, TARGET_STRING },
-	    { "TEXT", 0, TARGET_TEXT },
-	    { "COMPOUND_TEXT", 0, TARGET_COMPOUND_TEXT },
+	    // { "TEXT", 0, TARGET_TEXT },
+	    // { "COMPOUND_TEXT", 0, TARGET_COMPOUND_TEXT },
 	};
 	static const gint n_targets = sizeof(targets) / sizeof(targets[0]);
 	GtkTargetList *tl = gtk_target_list_new(targets, n_targets);
@@ -695,6 +747,116 @@ void ScintillaGTK::StartDrag() {
 	               static_cast<GdkDragAction>(GDK_ACTION_COPY | GDK_ACTION_MOVE),
 	               evbtn.button,
 	               reinterpret_cast<GdkEvent *>(&evbtn));
+}
+
+#ifdef USE_CONVERTER
+static char *ConvertText(int *lenResult, char *s, size_t len, const char *charSetDest, const char *charSetSource) {
+	*lenResult = 0;
+	char *destForm = 0;
+	Converter conv(charSetDest, charSetSource);
+	if (conv) {
+		destForm = new char[len*3+1];
+		char *pin = s;
+		size_t inLeft = len;
+		char *pout = destForm;
+		size_t outLeft = len*3+1;
+		size_t conversions = conv.Convert(&pin, &inLeft, &pout, &outLeft);
+		if (conversions == ((size_t)(-1))) {
+fprintf(stderr, "iconv %s->%s failed for %s\n", charSetSource, charSetDest, static_cast<char *>(s));
+			delete []destForm;
+			destForm = 0;
+		} else {
+//fprintf(stderr, "iconv OK %s %d\n", destForm, pout - destForm);
+			*pout = '\0';
+			*lenResult = pout - destForm;
+		}
+	} else {
+fprintf(stderr, "Can not iconv %s %s\n", charSetDest, charSetSource);
+	}
+	if (!destForm) {
+		destForm = new char[1];
+		destForm[0] = '\0';
+		*lenResult = 0;
+	}
+	return destForm;
+}
+#endif
+
+// Returns the target converted to UTF8.
+// Return the length in bytes.
+int ScintillaGTK::TargetAsUTF8(char *text) {
+	int targetLength = targetEnd - targetStart;
+	if (IsUnicodeMode()) {
+		if (text) {
+			pdoc->GetCharRange(text, targetStart, targetLength);
+		}
+	} else {
+		// Need to convert
+#ifdef USE_CONVERTER
+		const char *charSetBuffer = CharacterSetID();
+		if (*charSetBuffer) {
+//~ fprintf(stderr, "AsUTF8 %s %d  %0d-%0d\n", charSetBuffer, targetLength, targetStart, targetEnd);
+			char *s = new char[targetLength];
+			if (s) {
+				pdoc->GetCharRange(s, targetStart, targetLength);
+//~ fprintf(stderr, "    \"%s\"\n", s);
+				if (text) {
+					char *tmputf = ConvertText(&targetLength, s, targetLength, "UTF-8", charSetBuffer);
+					memcpy(text, tmputf, targetLength);
+					delete []tmputf;
+//~ fprintf(stderr, "    \"%s\"\n", text);
+				}
+				delete []s;
+			}
+		} else {
+			if (text) {
+				pdoc->GetCharRange(text, targetStart, targetLength);
+			}
+		}
+#else
+		// Fail
+		return 0;
+#endif
+	}
+//~ fprintf(stderr, "Length = %d bytes\n", targetLength);
+	return targetLength;
+}
+
+// Translates a nul terminated UTF8 string into the document encoding.
+// Return the length of the result in bytes.
+int ScintillaGTK::EncodedFromUTF8(char *utf8, char *encoded) {
+	int inputLength = lengthForEncode ? lengthForEncode : strlen(utf8);
+	if (IsUnicodeMode()) {
+		if (encoded) {
+			memcpy(encoded, utf8, inputLength);
+		}
+		return inputLength;
+	} else {
+		// Need to convert
+#ifdef USE_CONVERTER
+		const char *charSetBuffer = CharacterSetID();
+		if (*charSetBuffer) {
+//~ fprintf(stderr, "Encode %s %d\n", charSetBuffer, inputLength);
+			int outLength = 0;
+			char *tmpEncoded = ConvertText(&outLength, utf8, inputLength, charSetBuffer, "UTF-8");
+			if (tmpEncoded) {
+//~ fprintf(stderr, "    \"%s\"\n", tmpEncoded);
+				if (encoded) {
+					memcpy(encoded, tmpEncoded, outLength);
+				}
+				delete []tmpEncoded;
+			}
+			return outLength;
+		} else {
+			if (encoded) {
+				memcpy(encoded, utf8, inputLength);
+			}
+			return inputLength;
+		}
+#endif
+	}
+	// Fail
+	return 0;
 }
 
 sptr_t ScintillaGTK::WndProc(unsigned int iMessage, uptr_t wParam, sptr_t lParam) {
@@ -712,9 +874,15 @@ sptr_t ScintillaGTK::WndProc(unsigned int iMessage, uptr_t wParam, sptr_t lParam
 
 #ifdef SCI_LEXER
 	case SCI_LOADLEXERLIBRARY:
-		LexerManager::GetInstance()->Load(reinterpret_cast<const char*>( wParam ));
+		LexerManager::GetInstance()->Load(reinterpret_cast<const char*>(wParam));
 		break;
 #endif
+	case SCI_TARGETASUTF8:
+		return TargetAsUTF8(reinterpret_cast<char*>(lParam));
+
+	case SCI_ENCODEDFROMUTF8:
+		return EncodedFromUTF8(reinterpret_cast<char*>(wParam), 
+			reinterpret_cast<char*>(lParam));
 
 	default:
 		return ScintillaBase::WndProc(iMessage, wParam, lParam);
@@ -878,6 +1046,7 @@ void ScintillaGTK::ScrollText(int linesToMove) {
 	gdk_gc_unref(gc);
 #else
 	gdk_window_scroll(wi->window, 0, -diff);
+	gdk_window_process_updates(wi->window, FALSE);
 #endif
 }
 
@@ -956,7 +1125,29 @@ void ScintillaGTK::NotifyURIDropped(const char *list) {
 
 	NotifyParent(scn);
 }
+
+bool ScintillaGTK::UseInputMethod() const {
+	switch (vs.styles[STYLE_DEFAULT].characterSet) {
+	case SC_CHARSET_CHINESEBIG5:
+	case SC_CHARSET_GB2312:
+	case SC_CHARSET_HANGUL:
+	case SC_CHARSET_SHIFTJIS:
+	case SC_CHARSET_JOHAB:
+	case SC_CHARSET_HEBREW:
+	case SC_CHARSET_ARABIC:
+	case SC_CHARSET_VIETNAMESE:
+	case SC_CHARSET_THAI:
+		return true;
+	default:
+		return false;
+	}
+}
+
 const char *CharacterSetID(int characterSet);
+
+const char *ScintillaGTK::CharacterSetID() const {
+	return ::CharacterSetID(vs.styles[STYLE_DEFAULT].characterSet);
+}
 
 #if GTK_MAJOR_VERSION >= 2
 #define IS_ACC(x) \
@@ -975,7 +1166,6 @@ const char *CharacterSetID(int characterSet);
 #define IS_ACC_OR_CHAR(x) \
 	(IS_CHAR(x)) || (IS_ACC(x))
 
-#ifndef INTERNATIONAL_INPUT
 static int MakeAccent(int key, int acc) {
 	const char *conv[] = {
 		"aeiounc AEIOUNC",
@@ -1008,52 +1198,49 @@ static int MakeAccent(int key, int acc) {
 	return key;
 }
 #endif
-#endif
 
 int ScintillaGTK::KeyDefault(int key, int modifiers) {
 	if (!(modifiers & SCI_CTRL) && !(modifiers & SCI_ALT)) {
-#ifndef INTERNATIONAL_INPUT
 #if GTK_MAJOR_VERSION >= 2
-		char utfVal[4]="\0\0\0";
-		wchar_t wcs[2];
-		if (IS_CHAR(key) && IS_ACC(lastKey)) {
-			lastKey = key = MakeAccent(key, lastKey);
-		}
-		if (IS_ACC_OR_CHAR(key)) {
-			lastKey = key;
-		}
-		wcs[0] = gdk_keyval_to_unicode(key);
-		wcs[1] = 0;
-		UTF8FromUCS2(wcs, 1, utfVal, 3);
-		if (key <= 0xFE00) {
-			if (IsUnicodeMode()) {
-				AddCharUTF(utfVal,strlen(utfVal));
-				return 1;
-			} else {
-				const char *source =
-					CharacterSetID(vs.styles[STYLE_DEFAULT].characterSet);
-				if (*source) {
-					iconv_t iconvh = iconv_open(source, "UTF-8");
-					if (iconvh != ((iconv_t)(-1))) {
-						char localeVal[4]="\0\0\0";
-						char *pin = utfVal;
-						size_t inLeft = strlen(utfVal);
-						char *pout = localeVal;
-						size_t outLeft = sizeof(localeVal);
-						size_t conversions = iconv_adaptor(iconv, iconvh, &pin, &inLeft, &pout, &outLeft);
-						iconv_close(iconvh);
-						if (conversions != ((size_t)(-1))) {
-							*pout = '\0';
-							for (int i=0; localeVal[i]; i++) {
-								AddChar(localeVal[i]);
+		if (!UseInputMethod()) {
+			char utfVal[4]="\0\0\0";
+			wchar_t wcs[2];
+			if (IS_CHAR(key) && IS_ACC(lastKey)) {
+				lastKey = key = MakeAccent(key, lastKey);
+			}
+			if (IS_ACC_OR_CHAR(key)) {
+				lastKey = key;
+			}
+			wcs[0] = gdk_keyval_to_unicode(key);
+			wcs[1] = 0;
+			UTF8FromUCS2(wcs, 1, utfVal, 3);
+			if (key <= 0xFE00) {
+				if (IsUnicodeMode()) {
+					AddCharUTF(utfVal,strlen(utfVal));
+					return 1;
+				} else {
+					const char *source = CharacterSetID();
+					if (*source) {
+						Converter conv(source, "UTF-8");
+						if (conv) {
+							char localeVal[4]="\0\0\0";
+							char *pin = utfVal;
+							size_t inLeft = strlen(utfVal);
+							char *pout = localeVal;
+							size_t outLeft = sizeof(localeVal);
+							size_t conversions = conv.Convert(&pin, &inLeft, &pout, &outLeft);
+							if (conversions != ((size_t)(-1))) {
+								*pout = '\0';
+								for (int i=0; localeVal[i]; i++) {
+									AddChar(localeVal[i]);
+								}
+								return 1;
 							}
-							return 1;
 						}
 					}
 				}
 			}
 		}
-#endif
 #endif
 		if (key < 256) {
 			AddChar(key);
@@ -1072,18 +1259,46 @@ int ScintillaGTK::KeyDefault(int key, int modifiers) {
 }
 
 void ScintillaGTK::CopyToClipboard(const SelectionText &selectedText) {
-	copyText.Copy(selectedText.s, selectedText.len);
+#ifndef USE_GTK_CLIPBOARD
+	copyText.Copy(selectedText);
 	gtk_selection_owner_set(GTK_WIDGET(PWidget(wMain)),
 				atomClipboard,
 				GDK_CURRENT_TIME);
+#else
+	GtkClipboard *clipBoard;
+	clipBoard = gtk_widget_get_clipboard(GTK_WIDGET(PWidget(wMain)), atomClipboard);
+	if (clipBoard == NULL) // Occurs if widget isn't in a toplevel
+		return;
+
+	SelectionText *clipText = new SelectionText();
+	clipText->Copy(selectedText);
+
+	gtk_clipboard_set_with_data(clipBoard, clipboardTargets, nClipboardTargets,
+				    ClipboardGetSelection, ClipboardClearSelection, clipText);
+
+#endif
 }
 
 void ScintillaGTK::Copy() {
 	if (currentPos != anchor) {
+#ifndef USE_GTK_CLIPBOARD
 		CopySelectionRange(&copyText);
 		gtk_selection_owner_set(GTK_WIDGET(PWidget(wMain)),
 		                        atomClipboard,
 		                        GDK_CURRENT_TIME);
+#else
+		GtkClipboard *clipBoard;
+		clipBoard = gtk_widget_get_clipboard(GTK_WIDGET(PWidget(wMain)), atomClipboard);
+		if (clipBoard == NULL) // Occurs if widget isn't in a toplevel
+			return;
+
+		SelectionText *clipText = new SelectionText();
+		CopySelectionRange(clipText);
+
+		gtk_clipboard_set_with_data(clipBoard, clipboardTargets, nClipboardTargets,
+					    ClipboardGetSelection, ClipboardClearSelection, clipText);
+
+#endif
 #if PLAT_GTK_WIN32
 		if (selType == selRectangle) {
 			::OpenClipboard(NULL);
@@ -1115,6 +1330,7 @@ void ScintillaGTK::CreateCallTipWindow(PRectangle rc) {
 	gtk_drawing_area_size(GTK_DRAWING_AREA(PWidget(ct.wDraw)),
 	                      rc.Width(), rc.Height());
 	ct.wDraw.Show();
+	//ct.wCallTip.Show();
 	//gtk_widget_set_usize(PWidget(ct.wCallTip), rc.Width(), rc.Height());
 	gdk_window_resize(PWidget(ct.wCallTip)->window, rc.Width(), rc.Height());
 }
@@ -1156,125 +1372,67 @@ void ScintillaGTK::ClaimSelection() {
 		primarySelection = true;
 		gtk_selection_owner_set(GTK_WIDGET(PWidget(wMain)),
 		                        GDK_SELECTION_PRIMARY, GDK_CURRENT_TIME);
-		primary.Set(0, 0);
+		primary.Free();
 	} else if (OwnPrimarySelection()) {
 		primarySelection = true;
 		if (primary.s == NULL)
 			gtk_selection_owner_set(NULL, GDK_SELECTION_PRIMARY, GDK_CURRENT_TIME);
 	} else {
 		primarySelection = false;
-		primary.Set(0, 0);
+		primary.Free();
 	}
-}
-
-#if !PLAT_GTK_WIN32
-static char *ConvertText(size_t *lenResult, char *s, size_t len, const char *charSetDest, const char *charSetSource) {
-	*lenResult = 0;
-	char *destForm = 0;
-	iconv_t iconvh = iconv_open(charSetDest, charSetSource);
-	if (iconvh != ((iconv_t)(-1))) {
-		destForm = new char[len*3+1];
-		char *pin = s;
-		size_t inLeft = len;
-		char *pout = destForm;
-		size_t outLeft = len*3+1;
-		size_t conversions = iconv_adaptor(iconv, iconvh, &pin, &inLeft, &pout, &outLeft);
-		if (conversions == ((size_t)(-1))) {
-fprintf(stderr, "iconv failed for %s\n", static_cast<char *>(s));
-			delete []destForm;
-			destForm = 0;
-		} else {
-//fprintf(stderr, "iconv OK %s %d\n", destForm, pout - destForm);
-			*pout = '\0';
-			*lenResult = pout - destForm;
-		}
-		iconv_close(iconvh);
-	} else {
-//fprintf(stderr, "Can not iconv %s %s\n", charSetDest, charSetSource);
-	}
-	if (!destForm) {
-		destForm = new char[1];
-		destForm[0] = '\0';
-		*lenResult = 0;
-	}
-	return destForm;
-}
-#endif
-
-// Convert line endings for a piece of text to a particular mode.
-// Stop at len or when a NUL is found.
-char *ConvertLineEnds(size_t *pLenOut, const char *s, size_t len, int eolMode) {
-	char *dest = new char[2 * len + 1];
-	const char *sptr = s;
-	char *dptr = dest;
-	for (size_t i = 0; (i < len) && (*sptr != '\0'); i++) {
-		if (*sptr == '\n' || *sptr == '\r') {
-			if (eolMode == SC_EOL_CR) {
-				*dptr++ = '\r';
-			} else if (eolMode == SC_EOL_LF) {
-				*dptr++ = '\n';
-			} else { // eolMode == SC_EOL_CRLF
-				*dptr++ = '\r';
-				*dptr++ = '\n';
-			}
-			if ((*sptr == '\r') && (i+1 < len) && (*(sptr+1) == '\n')) {
-				i++;
-				sptr++;
-			}
-			sptr++;
-		} else {
-			*dptr++ = *sptr++;
-		}
-	}
-	*dptr++ = '\0';
-	*pLenOut = (dptr - dest) - 1;
-	return dest;
 }
 
 // Detect rectangular text, convert line ends to current mode, convert from or to UTF-8
-void ScintillaGTK::GetGtkSelectionText(const GtkSelectionData *selectionData, SelectionText &selText) {
+void ScintillaGTK::GetGtkSelectionText(GtkSelectionData *selectionData, SelectionText &selText) {
 	char *data = reinterpret_cast<char *>(selectionData->data);
-	size_t len = selectionData->length;
+	int len = selectionData->length;
 	GdkAtom selectionType = selectionData->type;
 
 	// Return empty string if selection is not a string
 	if ((selectionType != GDK_TARGET_STRING) && (selectionType != atomUTF8)) {
 		char *empty = new char[1];
 		empty[0] = '\0';
-		selText.Set(empty,0);
+		selText.Set(empty, 0, SC_CP_UTF8, 0, false);
 		return;
 	}
 
 	// Check for "\n\0" ending to string indicating that selection is rectangular
-	bool isRectangular = ((len > 2) && (data[len - 1] == 0 && data[len - 2] == '\n'));
-	// Need to convert to correct newline form for this file: win32gtk *always* returns
-	// only \n line delimiter from clipboard, and linux/unix gtk may also not send the
-	// form that matches the document (this is probably not effectively standardized by X)
-	char *dest = ConvertLineEnds(&len, data, len, pdoc->eolMode);
-	selText.Set(dest, len, isRectangular);
-
-#if !PLAT_GTK_WIN32
-	// Possible character set conversion
-	const char *charSetBuffer =
-		CharacterSetID(vs.styles[STYLE_DEFAULT].characterSet);
-	if (*charSetBuffer) {
-		if (IsUnicodeMode()) {
-			if (selectionType == GDK_TARGET_STRING) {
-				// Convert to UTF-8
-//fprintf(stderr, "Convert to UTF-8 from %s\n", charSetBuffer);
-				dest = ConvertText(&len, dest, len, "UTF-8", charSetBuffer);
-				selText.Set(dest, len, isRectangular);
-			}
-		} else {
-			if (selectionType == atomUTF8) {
-//fprintf(stderr, "Convert to locale %s\n", charSetBuffer);
-				// Convert to locale
-				dest = ConvertText(&len, dest, len, charSetBuffer, "UTF-8");
-				selText.Set(dest, len, isRectangular);
-			}
-		}
-	}
+	bool isRectangular;
+#if PLAT_GTK_WIN32
+	isRectangular = ::IsClipboardFormatAvailable(cfColumnSelect) != 0;
+#else
+	isRectangular = ((len > 2) && (data[len - 1] == 0 && data[len - 2] == '\n'));
 #endif
+
+	char *dest;
+	if (selectionType == GDK_TARGET_STRING) {
+		dest = Document::TransformLineEnds(&len, data, len, pdoc->eolMode);
+		if (IsUnicodeMode()) {
+			// Unknown encoding so assume in Latin1
+			char *destPrevious = dest;
+			dest = UTF8FromLatin1(dest, len);
+			selText.Set(dest, len, SC_CP_UTF8, 0, selText.rectangular);
+			delete []destPrevious;
+		} else {
+			// Assume buffer is in same encoding as selection
+			selText.Set(dest, len, pdoc->dbcsCodePage,
+				vs.styles[STYLE_DEFAULT].characterSet, isRectangular);
+		}
+	} else {	// UTF-8
+		dest = Document::TransformLineEnds(&len, data, len, pdoc->eolMode);
+		selText.Set(dest, len, SC_CP_UTF8, 0, isRectangular);
+#ifdef USE_CONVERTER
+		const char *charSetBuffer = CharacterSetID();
+		if (!IsUnicodeMode() && *charSetBuffer) {
+//fprintf(stderr, "Convert to locale %s\n", CharacterSetID());
+				// Convert to locale
+				dest = ConvertText(&len, selText.s, selText.len, charSetBuffer, "UTF-8");
+				selText.Set(dest, len, pdoc->dbcsCodePage,
+					vs.styles[STYLE_DEFAULT].characterSet, selText.rectangular);
+		}
+#endif
+	}
 }
 
 void ScintillaGTK::ReceivedSelection(GtkSelectionData *selection_data) {
@@ -1283,14 +1441,11 @@ void ScintillaGTK::ReceivedSelection(GtkSelectionData *selection_data) {
 		if ((atomSought == atomUTF8) && (selection_data->length <= 0)) {
 			atomSought = atomString;
 			gtk_selection_convert(GTK_WIDGET(PWidget(wMain)),
-					      atomClipboard, atomSought, GDK_CURRENT_TIME);
+					      selection_data->selection, atomSought, GDK_CURRENT_TIME);
 		} else if ((selection_data->length > 0) &&
 			((selection_data->type == GDK_TARGET_STRING) || (selection_data->type == atomUTF8))) {
 			SelectionText selText;
 			GetGtkSelectionText(selection_data, selText);
-#if PLAT_GTK_WIN32
-			selText.rectangular = ::IsClipboardFormatAvailable(cfColumnSelect) != 0;
-#endif
 
 			pdoc->BeginUndoAction();
 			int selStart = SelectionStart();
@@ -1327,54 +1482,73 @@ void ScintillaGTK::ReceivedDrop(GtkSelectionData *selection_data) {
 	Redraw();
 }
 
+
+
 void ScintillaGTK::GetSelection(GtkSelectionData *selection_data, guint info, SelectionText *text) {
-	if (selection_data->selection == GDK_SELECTION_PRIMARY) {
-		if (primary.s == NULL) {
-			CopySelectionRange(&primary);
+#if GTK_MAJOR_VERSION >= 2
+	// Convert text to utf8 if it isn't already
+	SelectionText *converted = 0;
+	if ((text->codePage != SC_CP_UTF8) && (info == TARGET_UTF8_STRING)) {
+		const char *charSet = ::CharacterSetID(text->characterSet);
+		if (*charSet) {
+			int new_len;
+			char* tmputf = ConvertText(&new_len, text->s, text->len, "UTF-8", charSet);
+			converted = new SelectionText();
+			converted->Set(tmputf, new_len, SC_CP_UTF8, 0, text->rectangular);
+			text = converted;
 		}
-		text = &primary;
 	}
 
+	// Here is a somewhat evil kludge.
+	// As I can not work out how to store data on the clipboard in multiple formats
+	// and need some way to mark the clipping as being stream or rectangular,
+	// the terminating \0 is included in the length for rectangular clippings.
+	// All other tested aplications behave benignly by ignoring the \0.
+	// The #if is here because on Windows cfColumnSelect clip entry is used
+	// instead as standard indicator of rectangularness (so no need to kludge)
+	int len = strlen(text->s);
+#if PLAT_GTK_WIN32 == 0
+	if (text->rectangular)
+		len++;
+#endif
+
+	if (info == TARGET_UTF8_STRING) {
+		gtk_selection_data_set_text(selection_data, text->s, len);
+	} else {
+		gtk_selection_data_set(selection_data,
+			static_cast<GdkAtom>(GDK_SELECTION_TYPE_STRING),
+			8, reinterpret_cast<unsigned char *>(text->s), len);
+	}
+	delete converted;
+
+#else /* Gtk 1 */
 	char *selBuffer = text->s;
 
 #if PLAT_GTK_WIN32
-	// win32gtk requires \n delimited lines and doesn't work right with
-	// other line formats, so make a copy of the clip text now with
-	// newlines converted
-	char *tmpstr = new char[text->len + 1];
-	char *sptr = selBuffer;
-	char *dptr = tmpstr;
-	while (*sptr != '\0') {
-		if (pdoc->eolMode == SC_EOL_CR && *sptr == '\r') {
-			*dptr++ = '\n';
-			sptr++;
-		} else if (pdoc->eolMode != SC_EOL_CR && *sptr == '\r') {
-			sptr++;
-		} else {
-			*dptr++ = *sptr++;
-		}
-	}
-	*dptr = '\0';
+
+	// Many native win32 programs require \n line endings,
+	 // so make a copy of the clip text now with newlines converted
+
+	int new_len;
+	char *tmpstr = Document::TransformLineEnds(&new_len, selBuffer, text->len, SC_EOL_LF);
 	selBuffer = tmpstr;
 #endif
-
 	char *tmputf = 0;
 	if ((info == TARGET_UTF8_STRING) || (info == TARGET_STRING)) {
-		size_t len = strlen(selBuffer);
-#if !PLAT_GTK_WIN32
+		int len = strlen(selBuffer);
+#ifdef USE_CONVERTER
 		// Possible character set conversion
-		const char *charSetBuffer =
-			CharacterSetID(vs.styles[STYLE_DEFAULT].characterSet);
+		const char *charSetBuffer = ::CharacterSetID(text->characterSet);
 		if (info == TARGET_UTF8_STRING) {
 			//fprintf(stderr, "Copy to clipboard as UTF-8\n");
-			if (!IsUnicodeMode()) {
+			if (text->codePage != SC_CP_UTF8) {
 				// Convert to UTF-8
 	//fprintf(stderr, "Convert to UTF-8 from %s\n", charSetBuffer);
 				tmputf = ConvertText(&len, selBuffer, len, "UTF-8", charSetBuffer);
 				selBuffer = tmputf;
 			}
 		} else if (info == TARGET_STRING) {
-			if (IsUnicodeMode()) {
+			if (text->codePage == SC_CP_UTF8) {
 	//fprintf(stderr, "Convert to locale %s\n", charSetBuffer);
 				// Convert to locale
 				tmputf = ConvertText(&len, selBuffer, len, charSetBuffer, "UTF-8");
@@ -1415,14 +1589,26 @@ void ScintillaGTK::GetSelection(GtkSelectionData *selection_data, guint info, Se
 #if PLAT_GTK_WIN32
 	delete []tmpstr;
 #endif
+#endif /* Gtk >= 2 */
 }
+
+#ifdef USE_GTK_CLIPBOARD
+void ScintillaGTK::ClipboardGetSelection(GtkClipboard *, GtkSelectionData *selection_data, guint info, void *data) {
+	GetSelection(selection_data, info, static_cast<SelectionText*>(data));
+}
+
+void ScintillaGTK::ClipboardClearSelection(GtkClipboard *, void *data) {
+	SelectionText *obj = static_cast<SelectionText*>(data);
+	delete obj;
+}
+#endif
 
 void ScintillaGTK::UnclaimSelection(GdkEventSelection *selection_event) {
 	//Platform::DebugPrintf("UnclaimSelection\n");
 	if (selection_event->selection == GDK_SELECTION_PRIMARY) {
 		//Platform::DebugPrintf("UnclaimPrimarySelection\n");
 		if (!OwnPrimarySelection()) {
-			primary.Set(0, 0);
+			primary.Free();
 			primarySelection = false;
 			FullPaint();
 		}
@@ -1519,16 +1705,19 @@ gint ScintillaGTK::PressThis(GdkEventButton *event) {
 
 	gtk_widget_grab_focus(PWidget(wMain));
 	if (event->button == 1) {
-		//ButtonDown(pt, event->time,
-		//	event->state & GDK_SHIFT_MASK,
-		//	event->state & GDK_CONTROL_MASK,
-		//	event->state & GDK_MOD1_MASK);
-		// Instead of sending literal modifiers use control instead of alt
-		// This is because all the window managers seem to grab alt + click for moving
+		// On X, instead of sending literal modifiers use control instead of alt
+		// This is because most X window managers grab alt + click for moving
+#if !PLAT_GTK_WIN32
 		ButtonDown(pt, event->time,
-		                    (event->state & GDK_SHIFT_MASK) != 0,
-		                    (event->state & GDK_CONTROL_MASK) != 0,
-		                    (event->state & GDK_CONTROL_MASK) != 0);
+				    (event->state & GDK_SHIFT_MASK) != 0,
+				    (event->state & GDK_CONTROL_MASK) != 0,
+				    (event->state & GDK_CONTROL_MASK) != 0);
+#else
+		ButtonDown(pt, event->time,
+				    (event->state & GDK_SHIFT_MASK) != 0,
+				    (event->state & GDK_CONTROL_MASK) != 0,
+				    (event->state & GDK_MOD1_MASK) != 0);
+#endif
 	} else if (event->button == 2) {
 		// Grab the primary selection if it exists
 		Position pos = PositionFromLocation(pt);
@@ -1754,13 +1943,16 @@ static int KeyTranslate(int keyIn) {
 gint ScintillaGTK::KeyThis(GdkEventKey *event) {
 	//Platform::DebugPrintf("SC-key: %d %x [%s]\n",
 	//	event->keyval, event->state, (event->length > 0) ? event->string : "empty");
+#if GTK_MAJOR_VERSION >= 2
+	if (UseInputMethod()) {
+		if (gtk_im_context_filter_keypress(im_context, event)) {
+			return 1;
+		}
+	}
+#endif
 	if (!event->keyval) {
 		return true;
 	}
-#if GTK_MAJOR_VERSION >= 2
-	if (gtk_im_context_filter_keypress(im_context, event))
-		return 1;
-#endif
 
 	bool shift = (event->state & GDK_SHIFT_MASK) != 0;
 	bool ctrl = (event->state & GDK_CONTROL_MASK) != 0;
@@ -1806,6 +1998,40 @@ gint ScintillaGTK::KeyRelease(GtkWidget *, GdkEventKey * /*event*/) {
 }
 
 #if GTK_MAJOR_VERSION >= 2
+gint ScintillaGTK::ExposePreedit(GtkWidget *widget, GdkEventExpose *ose, ScintillaGTK *sciThis) {
+	return sciThis->ExposePreeditThis(widget, ose);
+}
+
+gint ScintillaGTK::ExposePreeditThis(GtkWidget *widget, GdkEventExpose *ose) {
+	gchar *str;
+	gint cursor_pos;
+	PangoAttrList *attrs;
+
+	gtk_im_context_get_preedit_string(im_context, &str, &attrs, &cursor_pos);
+	PangoLayout *layout = gtk_widget_create_pango_layout(PWidget(wText), str);
+	pango_layout_set_attributes(layout, attrs);
+
+	GdkGC *gc = gdk_gc_new(widget->window);
+	GdkColor color[2] = {   {0, 0x0000, 0x0000, 0x0000},
+                            {0, 0xffff, 0xffff, 0xffff}};
+	gdk_color_alloc(gdk_colormap_get_system(), color);
+	gdk_color_alloc(gdk_colormap_get_system(), color + 1);
+
+	gdk_gc_set_foreground(gc, color + 1);
+	gdk_draw_rectangle(widget->window, gc, TRUE, ose->area.x, ose->area.y,
+	                   ose->area.width, ose->area.height);
+
+	gdk_gc_set_foreground(gc, color);
+	gdk_gc_set_background(gc, color + 1);
+	gdk_draw_layout(widget->window, gc, 0, 0, layout);
+
+	gdk_gc_unref(gc);
+	g_free(str);
+	pango_attr_list_unref(attrs);
+	g_object_unref(layout);
+	return TRUE;
+}
+
 void ScintillaGTK::Commit(GtkIMContext *, char  *str, ScintillaGTK *sciThis) {
 	sciThis->CommitThis(str);
 }
@@ -1813,7 +2039,56 @@ void ScintillaGTK::Commit(GtkIMContext *, char  *str, ScintillaGTK *sciThis) {
 void ScintillaGTK::CommitThis(char *str) {
 	AddCharUTF(str, strlen(str));
 }
+
+void ScintillaGTK::PreeditChanged(GtkIMContext *, ScintillaGTK *sciThis) {
+	sciThis->PreeditChangedThis();
+}
+
+void ScintillaGTK::PreeditChangedThis() {
+	gchar *str;
+	PangoAttrList *attrs;
+	gint cursor_pos;
+	gtk_im_context_get_preedit_string(im_context, &str, &attrs, &cursor_pos);
+	if (strlen(str) > 0){
+		PangoLayout *layout = gtk_widget_create_pango_layout(PWidget(wText), str);
+		pango_layout_set_attributes(layout, attrs);
+
+		gint w, h;
+		pango_layout_get_pixel_size(layout, &w, &h);
+		g_object_unref(layout);
+
+		gint x, y;
+		gdk_window_get_origin((PWidget(wText))->window, &x, &y);
+
+		Point pt = LocationFromPosition(currentPos);
+		if (pt.x < 0)
+			pt.x = 0;
+		if (pt.y < 0)
+			pt.y = 0;
+
+		gtk_window_move(GTK_WINDOW(PWidget(wPreedit)), x+pt.x, y+pt.y);
+		gtk_window_resize(GTK_WINDOW(PWidget(wPreedit)), w, h);
+		gtk_widget_show(PWidget(wPreedit));
+		gtk_widget_queue_draw_area(PWidget(wPreeditDraw), 0, 0, w, h);
+	} else {
+		gtk_widget_hide(PWidget(wPreedit));
+	}
+	g_free(str);
+	pango_attr_list_unref(attrs);
+}
 #endif
+
+gint ScintillaGTK::StyleSetText(GtkWidget *widget, GtkStyle *, void*) {
+	if (widget->window != NULL)
+		gdk_window_set_back_pixmap(widget->window, NULL, FALSE);
+	return FALSE;
+}
+
+gint ScintillaGTK::RealizeText(GtkWidget *widget, void*) {
+	if (widget->window != NULL)
+		gdk_window_set_back_pixmap(widget->window, NULL, FALSE);
+	return FALSE;
+}
 
 void ScintillaGTK::Destroy(GtkObject* object) {
 	ScintillaObject *scio = reinterpret_cast<ScintillaObject *>(object);
@@ -1824,8 +2099,8 @@ void ScintillaGTK::Destroy(GtkObject* object) {
 	//Platform::DebugPrintf("Destroying %x %x\n", sciThis, object);
 	sciThis->Finalise();
 
-	if (GTK_OBJECT_CLASS (parent_class)->destroy)
-		(* GTK_OBJECT_CLASS (parent_class)->destroy) (object);
+	if (GTK_OBJECT_CLASS(parent_class)->destroy)
+		(* GTK_OBJECT_CLASS(parent_class)->destroy)(object);
 
 	delete sciThis;
 	scio->pscin = 0;
@@ -1967,7 +2242,17 @@ void ScintillaGTK::SelectionGet(GtkWidget *widget,
                                 GtkSelectionData *selection_data, guint info, guint) {
 	ScintillaGTK *sciThis = ScintillaFromWidget(widget);
 	//Platform::DebugPrintf("Selection get\n");
-	sciThis->GetSelection(selection_data, info, &sciThis->copyText);
+	if (selection_data->selection == GDK_SELECTION_PRIMARY) {
+		if (sciThis->primary.s == NULL) {
+			sciThis->CopySelectionRange(&sciThis->primary);
+		}
+		sciThis->GetSelection(selection_data, info, &sciThis->primary);
+	}
+#ifndef USE_GTK_CLIPBOARD
+	else {
+		sciThis->GetSelection(selection_data, info, &sciThis->copyText);
+	}
+#endif
 }
 
 gint ScintillaGTK::SelectionClear(GtkWidget *widget, GdkEventSelection *selection_event) {
@@ -2114,8 +2399,8 @@ sptr_t scintilla_send_message(ScintillaObject *sci, unsigned int iMessage, uptr_
 	return psci->WndProc(iMessage, wParam, lParam);
 }
 
-static void scintilla_class_init (ScintillaClass *klass);
-static void scintilla_init (ScintillaObject *sci);
+static void scintilla_class_init(ScintillaClass *klass);
+static void scintilla_init(ScintillaObject *sci);
 
 extern void Platform_Initialise();
 extern void Platform_Finalise();
@@ -2143,6 +2428,10 @@ guint scintilla_get_type() {
 }
 
 void ScintillaGTK::ClassInit(GtkObjectClass* object_class, GtkWidgetClass *widget_class, GtkContainerClass *container_class) {
+    atomClipboard = gdk_atom_intern("CLIPBOARD", FALSE);
+    atomUTF8 = gdk_atom_intern("UTF8_STRING", FALSE);
+    atomString = GDK_SELECTION_TYPE_STRING;
+
 	// Define default signal handlers for the class:  Could move more
 	// of the signal handlers here (those that currently attached to wDraw
 	// in Initialise() may require coordinate translation?)
@@ -2190,8 +2479,10 @@ void ScintillaGTK::ClassInit(GtkObjectClass* object_class, GtkWidgetClass *widge
 
 #if GTK_MAJOR_VERSION < 2
 #define GTK_CLASS_TYPE(c) (c->type)
-#endif
+#define SIG_MARSHAL gtk_marshal_NONE__INT_POINTER
+#else
 #define SIG_MARSHAL scintilla_marshal_NONE__INT_POINTER
+#endif
 #define MARSHAL_ARGUMENTS GTK_TYPE_INT, GTK_TYPE_POINTER
 
 static void scintilla_class_init(ScintillaClass *klass) {

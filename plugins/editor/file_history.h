@@ -4,11 +4,9 @@
 #include <glib.h>
 
 // #include "anjuta.h"
+#include "anjuta-docman.h"
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
+G_BEGIN_DECLS
 
 typedef struct _AnHistFile AnHistFile;
 
@@ -23,13 +21,11 @@ void an_hist_file_free(AnHistFile *h_file);
 
 void an_file_history_reset(void);
 void an_file_history_push(const char *filename, glong line);
-void an_file_history_back(void);
-void an_file_history_forward(void);
+void an_file_history_back(AnjutaDocman *docman);
+void an_file_history_forward(AnjutaDocman *docman);
 void an_file_history_dump(void);
 void an_file_history_free(void);
 
-#ifdef __cplusplus
-}
-#endif
+G_END_DECLS
 
 #endif /* _FILE_HISTORY_H */

@@ -2,9 +2,13 @@
 LEXER_OBJS = \
 	$(top_srcdir)/scintilla/StyleContext.o\
 	$(top_srcdir)/scintilla/LexAda.o\
+	$(top_srcdir)/scintilla/LexAPDL.o\
 	$(top_srcdir)/scintilla/LexAsm.o\
+	$(top_srcdir)/scintilla/LexAsn1.o\
+	$(top_srcdir)/scintilla/LexAU3.o\
 	$(top_srcdir)/scintilla/LexAVE.o\
 	$(top_srcdir)/scintilla/LexBaan.o\
+	$(top_srcdir)/scintilla/LexBash.o\
 	$(top_srcdir)/scintilla/LexBullant.o\
 	$(top_srcdir)/scintilla/LexCLW.o\
 	$(top_srcdir)/scintilla/LexConf.o\
@@ -16,7 +20,9 @@ LEXER_OBJS = \
 	$(top_srcdir)/scintilla/LexEScript.o\
 	$(top_srcdir)/scintilla/LexForth.o\
 	$(top_srcdir)/scintilla/LexFortran.o\
+	$(top_srcdir)/scintilla/LexGui4Cli.o\
 	$(top_srcdir)/scintilla/LexHTML.o\
+	$(top_srcdir)/scintilla/LexKix.o\
 	$(top_srcdir)/scintilla/LexLisp.o\
 	$(top_srcdir)/scintilla/LexLout.o\
 	$(top_srcdir)/scintilla/LexLua.o\
@@ -24,6 +30,7 @@ LEXER_OBJS = \
 	$(top_srcdir)/scintilla/LexMetapost.o\
 	$(top_srcdir)/scintilla/LexMMIXAL.o\
 	$(top_srcdir)/scintilla/LexMPT.o\
+	$(top_srcdir)/scintilla/LexMSSQL.o\
 	$(top_srcdir)/scintilla/LexNsis.o\
 	$(top_srcdir)/scintilla/LexOthers.o\
 	$(top_srcdir)/scintilla/LexPascal.o\
@@ -34,16 +41,23 @@ LEXER_OBJS = \
 	$(top_srcdir)/scintilla/LexPython.o\
 	$(top_srcdir)/scintilla/LexRuby.o\
 	$(top_srcdir)/scintilla/LexScriptol.o\
+	$(top_srcdir)/scintilla/LexSpecman.o\
 	$(top_srcdir)/scintilla/LexSQL.o\
 	$(top_srcdir)/scintilla/LexTeX.o\
 	$(top_srcdir)/scintilla/LexVB.o\
+	$(top_srcdir)/scintilla/LexVerilog.o\
+	$(top_srcdir)/scintilla/LexVHDL.o\
 	$(top_srcdir)/scintilla/LexYAML.o
 
 LEXER_SRCS = \
 	LexAda.cxx\
+	LexAPDL.cxx\
 	LexAsm.cxx\
+	LexAsn1.cxx\
+	LexAU3.cxx\
 	LexAVE.cxx\
 	LexBaan.cxx\
+	LexBash.cxx\
 	LexBullant.cxx\
 	LexCLW.cxx\
 	LexConf.cxx\
@@ -55,7 +69,9 @@ LEXER_SRCS = \
 	LexEScript.cxx\
 	LexForth.cxx\
 	LexFortran.cxx\
+	LexGui4Cli.cxx\
 	LexHTML.cxx\
+	LexKix.cxx\
 	LexLisp.cxx\
 	LexLout.cxx\
 	LexLua.cxx\
@@ -63,6 +79,7 @@ LEXER_SRCS = \
 	LexMetapost.cxx\
 	LexMMIXAL.cxx\
 	LexMPT.cxx\
+	LexMSSQL.cxx\
 	LexNsis.cxx\
 	LexOthers.cxx\
 	LexPascal.cxx\
@@ -73,7 +90,10 @@ LEXER_SRCS = \
 	LexPython.cxx\
 	LexRuby.cxx\
 	LexScriptol.cxx\
+	LexSpecman.cxx\
 	LexSQL.cxx\
 	LexTeX.cxx\
 	LexVB.cxx\
+	LexVerilog.cxx\
+	LexVHDL.cxx\
 	LexYAML.cxx
