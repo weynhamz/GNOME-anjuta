@@ -510,6 +510,7 @@ interface IAnjutaProjectManager
 	void ::element_removed (const gchar *element_uri);
 	void ::element_selected (const gchar *element_uri);
 	
+	// Methods
 	ElementType get_element_type (const gchar *element_uri);
 	GList* get_elements (ElementType element_type);
 	
@@ -519,6 +520,10 @@ interface IAnjutaProjectManager
 	gchar* get_parent (const gchar *element_uri);
 	GList* get_children (const gchar *element_uri);
 	gchar* get_selected ();
+	
+	gboolean add_source (const gchar *source_uri, const gchar *target_uri);
+	gboolean add_target (const gchar *target_uri);
+	gboolean add_group (const gchar *group_uri);
 }
 
 interface IAnjutaTodo
