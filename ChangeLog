@@ -1,3 +1,12 @@
+2005-02-14  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
+
+	* configure.in,
+	plugins/project-wizard/templates/libglade2-logo.png,
+	plugins/project-wizard/templates/libglade2.wiz,
+	plugins/project-wizard/templates/libglade2/* :
+	Add Glade2 project
+
+
 2005-02-13  Naba Kumar  <naba@gnome.org>
 
 	* TODO.tasks: Updated.
