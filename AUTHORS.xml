@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<credit>
+	<founder _title="Founder and Lead developer:">
+		<author _name="Naba kumar"  _email="naba@gnome.org" _country="Manipur, India"></author>
+	</founder>
+	
+	<present_developers _title="Present Developers:">
+		<author _name="Biswapesh Chattopadhyay" _email="biswapesh_chatterjee@tcscal.co.in" _country="Kolkata, India"></author>
+		<author _name="Jean-Noel Guiheneuf" _email="guiheneuf.jean-noel@wanadoo.fr" _country="France"></author>
+		<author _name="Johannes Schmid" _email="clubfan@users.sourceforge.net" _country="Germany"></author>
+	</present_developers>
+	
+	<past_developers _title="Past developers:">
+		<author _name="Andy Piper" _email="andy.piper@freeuk.com" _country="United Kingdom"></author>
+		<author _name="Stéphane Démurget" _email="demurgets@free.fr" _country="France"></author>
+	</past_developers>
+	
+	<contributors _title="Patches, bugfixes and beta-testing Contributors:">
+		<author _name="Archit Baweja" _email="bighead@crosswinds.net" _country="India"></author>
+		<author _name="Benke Lázló" _email="decike@freemail.hu"></author>
+		<author _name="Chris Woodruff" _email="cwoodruff@openpenguin.com" _country="US"></author>
+		<author _name="Dan Elphick"  _email="dre00r@ecs.soton.ac.uk" _country="United Kingdom"></author>
+		<author _name="Dave Huseby" _email="huseby@shockfusion.com"></author>
+		<author _name="Denis Boehme" _email="boehme at synci dot de"></author>
+		<author _name="Dick Knol" _email="dknol@gmx.net"></author>
+		<author _name="Enver ALTIN" _email="ealtin@casdb.com"></author>
+		<author _name="Etay Meiri" _email="etay-m@bezeqint.net"></author>
+		<author _name="Fatih Demir" _email="kabalak@gtranslator.org"></author>
+		<author _name="Franco Catrin L." _email="fcatrin@tuxpan.cl"></author>
+		<author _name="Frederic RUAUDEL" _email="grumz@users.sourceforge.net"></author>
+		<author _name="Giovanni Corriga" _email="valkadesh@libero.it" _country="Itally"></author>
+		<author _name="Gregory Schmitt" _email="gregory.schmitt@free.fr" _country="France"></author>
+		<author _name="Hector Rivera Falu" _email="misha@phreaker.net"></author>
+		<author _name="Ishan Chattopadhyaya" _email="ichattopadhyaya@yahoo.com"></author>
+		<author _name="Jakub Steiner" _email="jimmac * ximian * com"></author>
+		<author _name="Jason Williams" _email="jason_williams@suth.com"></author>
+		<author _name="Jens Georg" _email="mail@jensgeorg.de"></author>
+		<author _name="Jeroen van der Vegt" _email="A.J.vanderVegt@ITS.TUDelft.nl"></author>
+		<author _name="Kelly Bergougnoux" _email="three3@users.sourceforge.net"></author>
+		<author _name="Lord Sibn" _email="sibn@utspl.cjb.net" _country="US"></author>
+		<author _name="Luca Bellonda" _email="lbell@tsc4.com" _country="Italy"></author>
+		<author _name="Martyn Bone" _email="mbone@brightstar.u-net.com"></author>
+		<author _name="Max Blagai" _email="maximblagai@yahoo.com" _country="Germany"></author>
+		<author _name="Michael Tindal" _email="etherscape@paradoxpoint.com"></author>
+		<author _name="Murray Cumming" _email="murrayc@usa.net"></author>
+		<author _name="Nick Dowell" _email="nixx@nixx.org.uk"></author>
+		<author _name="Olivier Pinçon" _email="opincon@wanadoo.fr"></author>
+		<author _name="Pavol Bosik" _email="Pavol.Bosik@siemens.com"></author>
+		<author _name="Philip Van Hoof" _email="freax@pandora.be"></author>
+		<author _name="Pierre Sarrazin" _email="sarrazip@sympatico.ca"></author>
+		<author _name="Rick Patel" _email="rikul@bellsouth.net"></author>
+		<author _name="Rob Bradford" _email="robster@debian.org"></author>
+		<author _name="Roel Vanhout" _email="roel@stack.be"></author>
+		<author _name="Roy Wood" _email="roy.wood@filogix.com"></author>
+		<author _name="Séastien Côé" _email="cots01@gel.usherb.ca"></author>
+		<author _name="Steven Knight" _email="steven.knight@unh.edu"></author>
+		<author _name="Taller D.I.C.E. ORG" _email="opensource@tallerdice.org"></author>
+		<author _name="Timothee Besset" _email="timo@qeradiant.com" _country="United Kingdom"></author>
+		<author _name="Tina Hirsch" _email="cevina@users.sourceforge.net"></author>
+		<author _name="Todd Goyen" _email="goyen@mbi-berlin.de"></author>
+		<author _name="Vadim Berezniker" _email="vadim@berezniker.com"></author>
+		<author _name="Venugopal Gummuluru" _email="vgummuluru@yahoo.com"></author>
+		<author _name="Willy-Francois Poulet - Byssus Software Solutions" _email="wfp@byssus.com" _country="England"></author>
+		<author _name="Yannick Koehler" _email="yannick.koehler@colubris.com"></author>
+	</contributors>
+		
+	<documenters _title="Documentation:">
+		<author _name="Naba Kumar" _email="naba@gnome.org" _country="Manipur, India"></author>
+		<author _name="Andy Piper" _email="andy.piper@freeuk.com" _country="England"></author>
+		<author _name="Biswapesh Chattopadhyay" _email="Biswapesh Chattopadhyay" ></author>	
+	</documenters>
+
+	<website _title="Website:">
+		<author _name="Naba kumar"  _email="naba@gnome.org" _country="Manipur, India"></author>
+	</website>
+	
+	<translators>
+		<author _lang="zh_TW" _name="Abel Cheung" _email="maddog@linux.org.hk"></author>
+		<author _lang="en_CA" _name="Adam Weinberger" _email="adamw@gnome.org"></author>
+		<author _lang="ga" _name="Alastair McKinstry" _email="mckinstry@computer.org"></author>
+		<author _lang="pt_BR" _name="Alexandre Folle de Menezes" _email="afmenez@terra.com.br"></author>
+		<author _lang="pt_BR" _name="Alexandre Folle de Menezes" _email="afmenez@terra.com.br"></author>
+		<author _lang="pa" _name="Amanpreet Singh Alam" _email="aalam@redhat.com"></author>	
+		<author _lang="de" _name="Christian Meyer" _email="chrisime@gnome.org"></author>
+		<author _lang="sv" _name="Christian Rose" _email="menthos@menthos.com"></author>
+		<author _lang="fr" _name="Christophe Merlet (RedFox)" _email="redfox@redfoxcenter.org"></author>
+		<author _lang="fr_FR" _name="Christophe Merlet (RedFox)" _email="redfox@redfoxcenter.org"></author>
+		<author _lang="hr" _name="Danijel Studen" _email="dstuden@vuka.hr"></author>
+		<author _lang="ru" _name="Denis Dementiev" _email="denm@asplinux.ru"></author>
+		<author _lang="pt" _name="Duarte Loreto" _email="happyguy_pt@hotmail.com"></author>
+		<author _lang="es" _name="Francisco Javier F. Serrador" _email="serrador@cvs.gnome.org"></author>
+		<author _lang="ml" _name="FSF-India" _email="locale@gnu.org.in"></author>
+		<author _lang="hu" _name="Gabor Kelemen" _email="kelemen@gnome.hu"></author>
+		<author _lang="en_GB" _name="Gareh Owen" _email="gowen72@yahoo.com"></author>
+		<author _lang="da" _name="Keld Simonsen" _email="keld@dkuug.dk"></author>
+		<author _lang="nb" _name="Kjartan Maraas" _email="kmaraas@gnome.org"></author>
+		<author _lang="no" _name="Kjartan Maraas" _email="kmaraas@gnome.org"></author>
+		<author _lang="sq" _name="Laurent Dhima" _email="laurent@alblinux.net"></author>
+		<author _lang="sk" _name="Martin Lacko" _email="lacko@host.sk"></author>
+		<author _lang="it" _name="Michele Campeotto" _email="micampe@f2s.com"></author>
+		<author _lang="cs" _name="Miloslav Trmac" _email="mitr@volny.cz"></author>		
+		<author _lang="az" _name="Mətin Əmirov" _email="metin@karegen.com"></author>	
+		<author _lang="zh_CN" _name="Noah Bentusi" _email="blue_atlantis400@hotmail.com"></author>
+		<author _lang="ms" _name="Projek Gabai" _email="gabai-penyumbang@lists.sf.net"></author>	
+		<author _lang="ko" _name="Seongchong Park" _email="lostinu@kaist.ac.kr"></author>
+		<author _lang="tr" _name="Serkan Kenar" _email="serkan@ieee.metu.edu.tr"></author>
+		<author _lang="sr@Latn" _name="Slobodan Sredojevic" _email="ssl@uns.ns.ac.yu"></author>
+		<author _lang="el" _name="Socrates Vavilis" _email="s_vavilis@yahoo.fr"></author>	
+		<author _lang="mk" _name="Stojcev Darko" _email="atom1c@linux.net.mk"></author>
+		<author _lang="ja" _name="Takeshi Aihana" _email="aihana@gnome.gr.jp"></author>
+		<author _lang="nl" _name="Tino Meinen" _email="a.t.meinen@chello.nl"></author>
+		<author _lang="be" _name="Vital Khilko" _email="dojlid@mova.org"></author>
+		<author _lang="ca" _name="Xavier A. Conde Rueda" _email="xaviconde@eresmas.com"></author>
+		<author _lang="uk" _name="Yuriy Syrota" _email="rasta@renome.rovno.ua"></author>
+	</translators>
+	
+	<note _title="Note:">
+		<ntxt _text="If you have contributed something significant to Anjuta and your name"></ntxt>
+		<ntxt _text="is missing here, please email naba@gnome.org with your Full name,"></ntxt>
+		<ntxt _text="email address, country and a brief reminder of what you have done."></ntxt>
+	</note>
+</credit>

@@ -1,3 +1,7 @@
+2005-03-04  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
+
+	* Makefile.am, src/about.c : Updated about dialog by AUTHORS.xml file.
+
 2005-03-04  Naba Kumar  <naba@gnome.org>
 
 	Patch from Massimo Cora' <maxcvs@email.it>:
