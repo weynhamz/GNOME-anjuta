@@ -35,6 +35,7 @@
 #include <libanjuta/properties.h>
 #include <libanjuta/anjuta-encodings.h>
 #include <libanjuta/interfaces/ianjuta-editor.h>
+#include <libanjuta/interfaces/ianjuta-file.h>
 #include <libanjuta/interfaces/ianjuta-file-savable.h>
 
 // #include "global.h"
@@ -44,8 +45,6 @@
 // #include "text_editor_gui.h"
 #include "text_editor_cbs.h"
 #include "text_editor_menu.h"
-#include "plugin.h"
-#include "anjuta-docman.h"
 #include "src/launcher.h"
 
 #define GTK
@@ -1768,8 +1767,7 @@ static gchar*
 ifile_get_filename (IAnjutaFile *editor, GError **error)
 {
 	TextEditor *text_editor;
-	EditorPlugin* edit = (EditorPlugin* )editor; 
-	text_editor = anjuta_docman_get_current_editor(ANJUTA_DOCMAN(edit->docman));
+	text_editor = TEXT_EDITOR(editor);
 	if (text_editor->filename)
 		return g_strdup (text_editor->filename);
 	return NULL;
@@ -1778,17 +1776,59 @@ ifile_get_filename (IAnjutaFile *editor, GError **error)
 static void
 ifile_open(IAnjutaFile *editor, const gchar* filename, GError **error)
 {
-	EditorPlugin* edit = (EditorPlugin* )editor;
-	anjuta_docman_goto_file_line(ANJUTA_DOCMAN(edit->docman), filename, -1);
+	/* Close current file and open new file in this editor */
+	TextEditor* text_editor;
+	text_editor = TEXT_EDITOR(editor);
+	/* Do nothing if current file is not saved */
+	if (!text_editor_is_saved(text_editor))
+		return;
+	text_editor->uri = g_strdup(filename);
+	/* Remove path */
+	text_editor->filename = g_strdup(strrchr(filename, '/') + 1);
+	text_editor_load_file(text_editor);
 }
+
+static void
+isaveable_save(IAnjutaFileSavable* editor, GError** e)
+{
+	TextEditor *text_editor = TEXT_EDITOR(editor);
+	if (text_editor->uri != NULL)
+		text_editor_save_file(text_editor, FALSE);
+}
+
+static void
+isavable_save_as(IAnjutaFileSavable* editor, const gchar* filename, GError** e)
+{
+	TextEditor *text_editor = TEXT_EDITOR(editor);
+	text_editor->uri = g_strdup(filename);
+	/* Remove path */
+	text_editor->filename = g_strdup(strrchr(filename, '/') + 1);
+	text_editor_save_file(text_editor, FALSE);
+}
+
+static gboolean
+isavable_is_dirty(IAnjutaFileSavable* editor, GError** e)
+{
+	TextEditor *text_editor = TEXT_EDITOR(editor);
+	return !text_editor_is_saved(text_editor);
+}
+
+static void
+isavable_set_dirty(IAnjutaFileSavable* editor, gboolean dirty, GError** e)
+{
+	#ifdef DEBUG
+	g_warning("set_dirty: Not implemented in EditorPlugin");
+	#endif
+}
+
 
 static void
 isavable_iface_init (IAnjutaFileSavableIface *iface)
 {
-	iface->save = NULL;
-	iface->save_as = NULL;
-	iface->set_dirty = NULL;
-	iface->is_dirty = NULL;
+	iface->save = isaveable_save;
+	iface->save_as = isavable_save_as;
+	iface->set_dirty = isavable_set_dirty;
+	iface->is_dirty = isavable_is_dirty;
 }
 
 static void

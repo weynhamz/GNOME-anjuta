@@ -36,6 +36,7 @@ ianjuta-buildable
 @build: 
 @clean: 
 @compile: 
+@install: 
 
 <!-- ##### FUNCTION ianjuta_buildable_error_quark ##### -->
 <para>

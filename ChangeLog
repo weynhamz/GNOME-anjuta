@@ -1,3 +1,9 @@
+2004-05-17  Johannes Schmid <jhs@cvs.gnome.org>
+
+	* plugins/editor/text_editor.c: Implemented IAnjutaFile correctly.
+	Implemented IAnjutaSavable
+	* plugins/editor/plugin.c: Implemented IAnjutaFile and IAnjutaSavable.
+
 2004-05-17  Naba Kumar  <naba@gnome.org>
 
 	* configure.in, plugins/Makefile.am, plugins/profile-default/plugin.c,

@@ -25,6 +25,8 @@
 #include <libegg/menu/egg-entry-action.h>
 // #include <libegg/toolbar/eggtoolbar.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
+#include <libanjuta/interfaces/ianjuta-file.h>
+#include <libanjuta/interfaces/ianjuta-file-savable.h>
 
 #include "print.h"
 #include "anjuta-docman.h"
@@ -700,7 +702,7 @@ editor_plugin_class_init (GObjectClass *klass)
 	klass->dispose = dispose;
 }
 
-/* Implement interfaces */
+/* Implement IAnjutaDocumentManager interfaces */
 static IAnjutaEditor*
 ianjuta_docman_get_current_editor (IAnjutaDocumentManager *plugin, GError **e)
 {
@@ -710,7 +712,6 @@ ianjuta_docman_get_current_editor (IAnjutaDocumentManager *plugin, GError **e)
 	return IANJUTA_EDITOR (te);
 }
 
-/* Implement interfaces */
 static void
 ianjuta_docman_set_current_editor (IAnjutaDocumentManager *plugin,
 								   IAnjutaEditor *editor, GError **e)
@@ -739,8 +740,108 @@ ianjuta_document_manager_iface_init (IAnjutaDocumentManagerIface *iface)
 	iface->get_editors = ianjuta_docman_get_editors;
 }
 
+/* Implement IAnjutaFile interface */
+static void
+ifile_open(IAnjutaFile* plugin, const gchar* filename, GError** e)
+{
+	AnjutaDocman *docman;
+	docman = ANJUTA_DOCMAN ((((EditorPlugin*)plugin)->docman));
+	anjuta_docman_goto_file_line(docman, filename, -1);
+}
+
+static gchar*
+ifile_get_filename(IAnjutaFile* plugin, GError** e)
+{
+	AnjutaDocman *docman;
+	TextEditor* editor;
+	docman = ANJUTA_DOCMAN ((((EditorPlugin*)plugin)->docman));
+	editor = anjuta_docman_get_current_editor(docman);
+	if (editor != NULL)
+		return editor->filename;
+	else
+		return NULL;
+}
+
+static void
+ifile_iface_init (IAnjutaFileIface *iface)
+{
+	iface->open = ifile_open;
+	iface->get_filename = ifile_get_filename;
+}
+
+/* Implement IAnjutaFileSavable interface */	
+static void
+isaveable_save(IAnjutaFileSavable* plugin, GError** e)
+{
+	/* Save all editors */
+	AnjutaDocman *docman;
+	TextEditor* editor;
+	GList* editors;
+	docman = ANJUTA_DOCMAN ((((EditorPlugin*)plugin)->docman));
+	editors = anjuta_docman_get_all_editors(docman);
+	while(editors)
+	{
+		editor = TEXT_EDITOR(editors->data);
+		if (editor->uri != NULL)
+			text_editor_save_file(editor, FALSE);
+		editors = g_list_next(editors);
+	}
+	g_list_free(editors);
+}
+
+static void
+isavable_save_as(IAnjutaFileSavable* plugin, const gchar* filename, GError** e)
+{
+#ifdef DEBUG
+	g_warning("save_as: Not implemented	in EditorPlugin");
+#endif
+}
+
+static gboolean
+isavable_is_dirty(IAnjutaFileSavable* plugin, GError** e)
+{
+	/* Is any editor unsaved */
+	AnjutaDocman *docman;
+	TextEditor* editor;
+	GList* editors;
+	gboolean retval = FALSE;
+	docman = ANJUTA_DOCMAN ((((EditorPlugin*)plugin)->docman));
+	editors = anjuta_docman_get_all_editors(docman);
+	while(editors)
+	{
+		editor = TEXT_EDITOR(editors->data);
+		if (!text_editor_is_saved(editor))
+		{
+			retval = TRUE;
+			break;
+		}
+		editors = g_list_next(editors);
+	}
+	g_list_free(editors);
+	return retval;	
+}
+
+static void
+isavable_set_dirty(IAnjutaFileSavable* plugin, gboolean dirty, GError** e)
+{
+#ifdef DEBUG
+	g_warning("set_dirty: Not implemented in EditorPlugin");
+#endif	
+}
+
+static void
+isavable_iface_init (IAnjutaFileSavableIface *iface)
+{
+	iface->save = isaveable_save;
+	iface->save_as = isavable_save_as;
+	iface->set_dirty = isavable_set_dirty;
+	iface->is_dirty = isavable_is_dirty;
+}
+
 ANJUTA_PLUGIN_BEGIN (EditorPlugin, editor_plugin);
 ANJUTA_INTERFACE(ianjuta_document_manager, IANJUTA_TYPE_DOCUMENT_MANAGER);
+ANJUTA_INTERFACE(ifile, IANJUTA_TYPE_FILE);
+ANJUTA_INTERFACE(isavable, IANJUTA_TYPE_FILE_SAVABLE);
 ANJUTA_PLUGIN_END;
 
 ANJUTA_SIMPLE_PLUGIN (EditorPlugin, editor_plugin);
