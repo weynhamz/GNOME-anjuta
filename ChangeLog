@@ -1,3 +1,20 @@
+2003-11-17  Naba Kumar  <naba@gnome.org>
+
+	Patch from: arief_mulya  <arief_m_utama@telkomsel.co.id>
+	* src/project_dbase.c: Prompts user for unsaved project files
+	when project is closed.
+	
+2003-11-16  Naba Kumar  <naba@gnome.org>
+
+	Patch from: Marcin "Zenek" Jaskólski  <zenek@moo.pl>
+	* src/appwizard_cbs.c, src/start-with.c: Fixed compiler errors with
+	older gcc.
+	
+2003-11-11  Johannes Schmid <clubfan@users.sourceforge.net>
+	
+	* src/anjuta.c: Fixed crash related to tag == NULL while 
+	anjuta is exiting
+
 2003-11-11  Naba Kumar  <naba@gnome.org>
 
 	* src/glade_iface.c: Avoids error conditions for glade or glademm not

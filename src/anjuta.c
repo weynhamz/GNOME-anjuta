@@ -580,6 +580,8 @@ const GList *anjuta_get_tag_list(TextEditor *te, guint tag_types)
 		for (i=0; i < te->tm_file->tags_array->len; ++i)
 		{
 			tag = TM_TAG(te->tm_file->tags_array->pdata[i]);
+			if (tag == NULL) 
+				return NULL;
 			if (tag->type & tag_types)
 			{
 				if ((NULL != tag->atts.entry.scope) && isalpha(tag->atts.entry.scope[0]))

@@ -1354,13 +1354,9 @@ project_dbase_close_project (ProjectDBase * p)
 		next = node->next; // Save it now, as we may change it.
 		if(te)
 		{
-			if (text_editor_is_saved (te) && te->full_filename)
+			if (te->full_filename && strncmp(te->full_filename, p->top_proj_dir, strlen(p->top_proj_dir)) ==0)
 			{
-				if (strncmp(te->full_filename, p->top_proj_dir, strlen(p->top_proj_dir)) ==0)
-				{
-					/*g_print("Closing file %s\n", te->filename);*/
-					anjuta_remove_text_editor(te);
-				}
+				on_close_file1_activate(NULL, te);
 			}
 		}
 		node = next;
