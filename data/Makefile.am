@@ -41,6 +41,7 @@ install-data-local: system.tags
 	mkdir -p $(MACROS_dir)
 	$(INSTALL_DATA) $(MACROS:%=$(top_srcdir)/macros/%) $(MACROS_dir)
 	$(INSTALL_DATA) system.tags $(anjuta_datadir)
+	$(INSTALL_DATA) $(top_srcdir)/setup-gettext $(anjuta_datadir)
 
 uninstall-local:
 	@rm -fv $(MACROS:%=$(MACROS_dir)/%)

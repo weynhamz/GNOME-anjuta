@@ -1,5 +1,18 @@
 2002-10-22  Naba Kumar <naba@gnome.org>
 
+	* configure.in, acinclude.m4, setup-gettext: Used AM_GNU_GETTEXT
+	instead of AM_GNOME_GETTEXT.
+	
+	* src/source.c, data/autogen.sh.*, data/Makefile.am: Added support
+	for setup-gettext for the wizard generated projects.
+
+	* src/source.c: Fixed a bug where glade file wasn't generated.
+	
+	* src/gnome_project.c: Excluded project version from project dir
+	name.
+	
+2002-10-22  Naba Kumar <naba@gnome.org>
+
 	* acinclude.m4: New file with dummy funtion for gettext
 	cross compatibility fix.
 	

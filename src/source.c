@@ -278,7 +278,10 @@ source_write_configure_in (ProjectDBase * data)
 				fprintf(fp, " ");
 		}
 		fprintf (fp,
-			 "\"\n" "AM_GNU_GETTEXT\n" "\n");
+			 "\"\nAM_GNU_GETTEXT\n");
+		fprintf (fp,
+			 "AM_GNU_GETTEXT_VERSION(0.10.40)\n\n");
+		
 		fprintf (fp,
 			 "dnl Set PACKAGE_LOCALE_DIR in config.h.\n"
 			 "if test \"x${prefix}\" = \"xNONE\"; then\n"
@@ -1230,6 +1233,8 @@ source_write_data_files (ProjectDBase * data)
 	return TRUE;
 }
 
+/* FIXME: Newer autoconf deprecates the use of this file, but just
+gives a little warning */
 static gboolean
 source_write_acconfig_h (ProjectDBase * data)
 {
@@ -1273,6 +1278,79 @@ source_write_acconfig_h (ProjectDBase * data)
 		 "#undef PACKAGE_SOURCE_DIR\n");
 	fclose (fp);
 	g_free (filename);
+	return TRUE;
+}
+
+static gboolean
+source_write_acinclude_m4 (ProjectDBase * data)
+{
+	FILE *fp;
+	gchar *filename;
+
+	g_return_val_if_fail (data != NULL, FALSE);
+
+	filename = g_strconcat (data->top_proj_dir, "/acinclude.m4", NULL);
+
+	/* FIXME: If file exists, just leave it, for now. */
+	if (file_is_regular (filename))
+	{
+		g_free (filename);
+		return TRUE;
+	}
+
+	fp = fopen (filename, "w");
+	if (fp == NULL)
+	{
+		anjuta_system_error (errno, _("Unable to create file: %s."), filename);
+		g_free (filename);
+		return FALSE;
+	}
+
+	fprintf (fp, "AC_DEFUN([AM_GNU_GETTEXT_VERSION], [])\n");
+	fclose (fp);
+	g_free (filename);
+	return TRUE;
+}
+
+/* Copies the generic autogen.sh script which runs aclocal, automake
+   & autoconf to create the Makefiles etc. */
+static gboolean
+source_write_setup_gettext (ProjectDBase * data)
+{
+	gchar *srcbuffer, *destbuffer;
+	gint old_umask;
+	Project_Type* type;
+
+	g_return_val_if_fail (data != NULL, FALSE);
+
+	type = project_dbase_get_project_type(data);
+
+	srcbuffer = g_strconcat (app->dirs->data, "/setup-gettext", NULL);
+	destbuffer = g_strconcat (data->top_proj_dir, "/setup-gettext", NULL);
+
+	/* FIXME: If *.desktop.in exists, just leave it, for now. */
+	if (file_is_regular (destbuffer))
+	{
+		g_free (destbuffer);
+		g_free (srcbuffer);
+		return TRUE;
+	}
+
+	if (!copy_file (srcbuffer, destbuffer, FALSE))
+	{
+		anjuta_system_error (errno, _("Unable to create file: %s."), destbuffer);
+		g_free (destbuffer);
+		g_free (srcbuffer);
+		return FALSE;
+	}
+
+	/* We need to make the script executable, but we try to honour any umask. */
+	old_umask = umask (0666);
+	chmod (destbuffer, 0777 & ~old_umask);
+	umask (old_umask);
+
+	g_free (srcbuffer);
+	g_free (destbuffer);
 	return TRUE;
 }
 
@@ -2463,11 +2541,15 @@ source_write_build_files (ProjectDBase * data)
 	if (!ret) return FALSE;
 	ret = source_write_acconfig_h (data);
 	if (!ret) return FALSE;
+	ret = source_write_acinclude_m4 (data);
+	if (!ret) return FALSE;
+	ret = source_write_setup_gettext (data);
+	if (!ret) return FALSE;
 
 	type = project_dbase_get_project_type (data);
 	if (type->glade_support)
 	{
-		ret = source_write_desktop_entry (data);
+		ret = source_write_glade_file (data);
 		if (!ret) return FALSE;
 	}
 	if (type->gnome_support)

@@ -321,8 +321,8 @@ dnl Checks for Additional stuffs.
 
 dnl Languages which your application supports
 ALL_LINGUAS="az da de el en_GB es fr it ja nl no pl pt pt_BR ru sk sv ta tr uk zh_CN zh_TW"
-AM_GNOME_GETTEXT
-AM_GNOME_GETTEXT_VERSION(0.10.40)
+AM_GNU_GETTEXT
+AM_GNU_GETTEXT_VERSION(0.10.40)
 
 dnl Set PACKAGE_LOCALE_DIR in config.h.
 if test "x${prefix}" = "xNONE"; then
