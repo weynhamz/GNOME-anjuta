@@ -1,3 +1,25 @@
+2001-11-22 Naba Kumar <kh_naba@users.sourceforge.net>
+	
+	* Big patch submitted by
+	  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>.
+	  Many thanks to him.
+	
+	* src/Makefile.am, src/aneditor.cxx
+	  src/anjuta.c, src/anjuta.h, src/project_dbase.c,
+	  src/project_dbase.h, src/text_editor.c, src/text_editor.h:
+	  Use of tagmanager lib for advanced calltips.
+
+	* global-tags/*: Created new directory and added files to 
+	  generate system.tags.
+
+	* tagmanager/*: Created new directory and added tagmanager lib
+	  files.
+
+	* configure.in, acconfig.h, Makefile.am: Modified to reflect
+	  the above additions.
+
+	* data/Makefile.am: Modified to accomodate generated system.tags file.
+
 2001-11-07	Andy Piper	<andy.piper@freeuk.com>
 
 	* scintilla/: updated to 1.41

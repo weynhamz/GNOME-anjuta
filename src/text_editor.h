@@ -24,6 +24,8 @@
 #include "preferences.h"
 #include "aneditor.h"
 
+#include "tm_tagmanager.h"
+
 #define TEXT_EDITOR_FIND_SCOPE_WHOLE 1
 #define TEXT_EDITOR_FIND_SCOPE_CURRENT 2
 #define TEXT_EDITOR_FIND_SCOPE_SELECTION 3
@@ -82,6 +84,7 @@ struct _TextEditor
 
 	gchar *filename;
 	gchar *full_filename;
+	TMWorkObject *tm_file;
 	time_t modified_time;
 	gint force_hilite;
 

@@ -41,6 +41,8 @@
 #include "properties.h"
 #include "help.h"
 
+#include "tm_tagmanager.h"
+
 #define g_strdup_printfs2(_FORMAT_, _STR_) { assert(_STR_); g_strdup_printf(_FORMAT_, _STR_); }
 #define g_strdup_printfs3(_FORMAT_, _STR1_, _STR2_) { assert(_STR1_); assert(_STR2_); g_strdup_printf(_FORMAT_, _STR1_, _STR2_); }
 
@@ -125,6 +127,7 @@ struct _AnjutaApp
 	Configurer *configurer;
 	FindInFiles *find_in_files;
 	TagsManager *tags_manager;
+	const TMWorkspace *tm_workspace;
 	AnjutaHelp* help_system;
 
 	GList *registered_windows;

@@ -25,6 +25,8 @@
 #include "project_type.h"
 #include "project_type.h"
 
+#include "tm_tagmanager.h"
+
 #define COMPATIBILITY_LEVEL    1
 
 typedef enum _ProjectType ProjectType;
@@ -122,6 +124,7 @@ struct _ProjectDBase
 	guint props;
 
 	gchar *top_proj_dir;
+	TMWorkObject *tm_project;
 	gchar *proj_filename;
 	gboolean is_saved;
 	gboolean is_showing;

@@ -52,10 +52,14 @@
 #include "properties.h"
 #include "aneditor.h"
 
+#include "tm_tagmanager.h"
+
 #define ANE_MARKER_BOOKMARK 0
 #define MAX_PATH 260
 #define MAXIMUM(x, y)	((x>y)?x:y)
 #define MINIMUM(x,y)	((x<y)?x:y)
+
+#define MAX_AUTOCOMPLETE_WORDS 50 /* Maximum number of autocomplete words to show */
 
 /* Colour has mysteriously vanished from scintilla */
 /* Using the substitute */
@@ -115,7 +119,6 @@ protected:
 	int lexLanguage;
 	SString overrideExtension;	// User has chosen to use a particular language
 	enum {numWordLists=5};
-	WordList apis;
 	SString functionDefinition;
 	GtkAccelGroup* accelGroup;
 
@@ -272,7 +275,7 @@ static const char *extList[] = {
     "x.cs", "x.properties", "x.conf"
 };
 
-AnEditor::AnEditor(PropSetFile* p) : apis(true){
+AnEditor::AnEditor(PropSetFile* p) {
 
 	characterSet = 0;
 	language = "java";
@@ -658,6 +661,8 @@ bool AnEditor::StartCallTip() {
 	int current = GetLine(linebuf, sizeof(linebuf));
 	int pos = SendEditor(SCI_GETCURRENTPOS);
 	int braces;
+	TMTagAttrType attrs[] = { tm_tag_attr_name_t, tm_tag_attr_type_t, tm_tag_attr_none_t};
+	
 	do {
 		braces = 0;
 		while (current > 0 && (braces || linebuf[current - 1] != '(')) {
@@ -687,13 +692,17 @@ bool AnEditor::StartCallTip() {
 	linebuf[current] = '\0';
 	int rootlen = current - startword;
 	functionDefinition = "";
-	if (apis) {
-		const char *word = apis.GetNearestWord (linebuf + startword, rootlen, callTipIgnoreCase);
-		if (word) {
-			functionDefinition = word;
-			SendEditorString(SCI_CALLTIPSHOW, pos - rootlen + 1, word);
-			ContinueCallTip();
-		}
+	const GPtrArray *tags = tm_workspace_find(linebuf+startword, tm_tag_prototype_t
+	  | tm_tag_function_t | tm_tag_macro_with_arg_t, attrs, FALSE);
+	if (tags && (tags->len > 0))
+	{
+		TMTag *tag = (TMTag *) tags->pdata[0];
+		char *tmp = g_strdup_printf("%s %s%s", NVL(tag->atts.entry.var_type, "")
+		  , tag->name, NVL(tag->atts.entry.arglist, ""));
+		functionDefinition = tmp;
+		SendEditorString(SCI_CALLTIPSHOW, pos - rootlen + 1, tmp);
+		g_free(tmp);
+		ContinueCallTip();
 	}
 	return true;
 }
@@ -746,12 +755,20 @@ bool AnEditor::StartAutoComplete() {
 	linebuf[current] = '\0';
 	const char *root = linebuf + startword;
 	int rootlen = current - startword;
-	if (apis) {
-		char *words = apis.GetNearestWords(root, rootlen, autoCompleteIgnoreCase);
-		if (words) {
-			SendEditorString(SCI_AUTOCSHOW, rootlen, words);
-			free(words);
+	const GPtrArray *tags = tm_workspace_find(root, tm_tag_max_t, NULL, TRUE);
+	if (NULL != tags)
+	{
+		GString *words = g_string_sized_new(100);
+		TMTag *tag;
+		for (guint i = 0; ((i < tags->len) && (i < MAX_AUTOCOMPLETE_WORDS)); ++i)
+		{
+			tag = (TMTag *) tags->pdata[i];
+			if (i > 0)
+				g_string_append_c(words, ' ');
+			g_string_append(words, tag->name);
 		}
+		SendEditorString(SCI_AUTOCSHOW, rootlen, words->str);
+		g_string_free(words, TRUE);
 	}
 	return true;
 }
@@ -805,73 +822,21 @@ bool AnEditor::StartAutoCompleteWord() {
 	linebuf[current] = '\0';
 	const char *root = linebuf + startword;
 	int rootlen = current - startword;
-	int doclen = LengthDocument();
-	TextToFind ft = {{0, 0}, 0, {0, 0}};
-	ft.lpstrText = const_cast<char*>(root);
-	ft.chrg.cpMin = 0;
-	ft.chrgText.cpMin = 0;
-	ft.chrgText.cpMax = 0;
-	int flags = SCFIND_WORDSTART | (autoCompleteIgnoreCase ? 0 : SCFIND_MATCHCASE);
-	//int flags = (autoCompleteIgnoreCase ? 0 : SCFIND_MATCHCASE);
-	int posCurrentWord = SendEditor (SCI_GETCURRENTPOS) - rootlen;
-	//DWORD dwStart = timeGetTime();
-	int length = 0;	// variables for reallocatable array creation
-	int newlength;
-#undef WORDCHUNK
-#define WORDCHUNK 100
-	int size = WORDCHUNK;
-	char *words = (char*) malloc(size);
-	*words = '\0';
-	for (;;) {	// search all the document
-		ft.chrg.cpMax = doclen;
-		int posFind = SendEditor(SCI_FINDTEXT, flags, reinterpret_cast<long>(&ft));
-		if (posFind == -1 || posFind >= doclen)
-			break;
-		if (posFind == posCurrentWord) {
-			ft.chrg.cpMin = posFind + rootlen;
-			continue;
+	const GPtrArray *tags = tm_workspace_find(root, tm_tag_max_t, NULL, TRUE);
+	if ((tags) && (tags->len > 0))
+	{
+		GString *words = g_string_sized_new(100);
+		TMTag *tag;
+		for (guint i=0; ((i < tags->len) && (i < MAX_AUTOCOMPLETE_WORDS)); ++i)
+		{
+			tag = (TMTag *) tags->pdata[i];
+			if (i > 0)
+				g_string_append_c(words, ' ');
+			g_string_append(words, tag->name);
 		}
-		char wordstart[WORDCHUNK];
-		GetRange(wEditor, posFind, Platform::Minimum(posFind + WORDCHUNK - 1, doclen), wordstart);
-		char *wordend = wordstart + rootlen;
-		while (iswordcharforsel(*wordend))
-			wordend++;
-		*wordend = '\0';
-		int wordlen = wordend - wordstart;
-		const char *wordbreak = words;
-		const char *wordpos;
-		for (;;) {	// searches the found word in the storage
-			wordpos = strstr (wordbreak, wordstart);
-			if (!wordpos)
-				break;
-			if (wordpos > words && wordpos[ -1] != ' ' ||
-			        wordpos[wordlen] && wordpos[wordlen] != ' ')
-				wordbreak = wordpos + wordlen;
-			else
-				break;
-		}
-		if (!wordpos) {	// add a new entry
-			newlength = length + wordlen;
-			if (length)
-				newlength++;
-			if (newlength >= size) {
-				do
-					size += WORDCHUNK;
-				while (size <= newlength);
-				words = (char*) realloc (words, size);
-			}
-			if (length)
-				words[length++] = ' ';
-			memcpy (words + length, wordstart, wordlen);
-			length = newlength;
-			words[length] = '\0';
-		}
-		ft.chrg.cpMin = posFind + wordlen;
+		SendEditorString(SCI_AUTOCSHOW, rootlen, words->str);
+		g_string_free(words, TRUE);
 	}
-	if (length) {
-		SendEditorString(SCI_AUTOCSHOW, rootlen, words);
-	}
-	free(words);
 	return true;
 }
 
@@ -1761,8 +1726,6 @@ void AnEditor::ReadProperties(const char *fileForExt) {
 
 	SendEditor(SCI_SETLEXER, lexLanguage);
 
-	apis.Clear();
-
 	SString kw0 = props->GetNewExpand("keywords.", fileNameForExtension.c_str());
 	SendEditorString(SCI_SETKEYWORDS, 0, kw0.c_str());
 	SString kw1 = props->GetNewExpand("keywords2.", fileNameForExtension.c_str());
@@ -1805,22 +1768,6 @@ void AnEditor::ReadProperties(const char *fileForExt) {
 	SString ttwl = props->Get("tab.timmy.whinge.level");
 	SendEditorString(SCI_SETPROPERTY, reinterpret_cast<unsigned long>("tab.timmy.whinge.level"),
 	                 ttwl.c_str());
-
-	SString apifilename = props->GetNewExpand("api.", fileNameForExtension.c_str());
-	if (apifilename.length()) {
-		FILE *fp = fopen(apifilename.c_str(), "rb");
-		if (fp) {
-			fseek(fp, 0, SEEK_END);
-			int len = ftell(fp);
-			char *buffer = apis.Allocate(len);
-			if (buffer) {
-				fseek(fp, 0, SEEK_SET);
-				fread(buffer, 1, len, fp);
-				apis.SetFromAllocated();
-			}
-			fclose(fp);
-		}
-	}
 
 	SendEditor(SCI_SETEOLMODE, SC_EOL_LF);
 

@@ -20,7 +20,8 @@ anjuta_data_DATA = \
 	linux-gnome-c.api\
 	tags2api.py\
 	autogen.sh.gtkmm\
-	autogen.sh.gnomemm
+	autogen.sh.gnomemm\
+	system.tags
 
 EXTRA_DIST = $(anjuta_data_DATA)
 

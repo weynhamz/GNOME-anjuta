@@ -66,6 +66,21 @@ static glong marker_prop[] =
 	MARKER_PROP_END,	/* end */
 };
 
+static void check_tm_file(TextEditor *te)
+{
+	if (NULL == te->tm_file)
+	{
+		te->tm_file = tm_workspace_find_object(
+		  TM_WORK_OBJECT(app->tm_workspace), te->full_filename);
+		if (NULL == te->tm_file)
+		{
+			te->tm_file = tm_source_file_new(te->full_filename, TRUE);
+			if (NULL != te->tm_file)
+				tm_workspace_add_object(te->tm_file);
+		}
+	}
+}
+
 static void initialize_markers (TextEditor* te)
 {
 	gint i, marker;
@@ -99,6 +114,7 @@ text_editor_new (gchar * filename, TextEditor * parent, Preferences * eo)
 	te->size	= sizeof(TextEditor);
 	te->filename = g_strdup_printf ("Newfile#%d", ++new_file_count);
 	te->full_filename = NULL;
+	te->tm_file = NULL;
 	te->modified_time = time (NULL);
 	te->preferences = eo;
 	te->force_hilite = TE_LEXER_AUTOMATIC;
@@ -235,6 +251,9 @@ text_editor_destroy (TextEditor * te)
 			g_free (te->filename);
 		if (te->full_filename)
 			g_free (te->full_filename);
+		if (te->tm_file)
+			if (te->tm_file->parent == TM_WORK_OBJECT(app->tm_workspace))
+				tm_workspace_remove_object(te->tm_file, TRUE);
 		if (te->menu)
 			text_editor_menu_destroy (te->menu);
 		if (te->editor_id)
@@ -776,6 +795,7 @@ text_editor_load_file (TextEditor * te)
 	{
 		tags_manager_update (app->tags_manager, te->full_filename);
 	}
+	check_tm_file(te);
 	anjuta_set_active ();
 	text_editor_thaw (te);
 	scintilla_send_message (SCINTILLA (te->widgets.editor),
@@ -826,6 +846,9 @@ text_editor_save_file (TextEditor * te)
 			    && tags_update)
 			tags_manager_update (app->tags_manager,
 					     te->full_filename);
+		check_tm_file(te);
+		if (te->tm_file)
+			tm_source_file_update(TM_WORK_OBJECT(te->tm_file), FALSE, FALSE, TRUE);
 		/* we need to update UI with the call to scintilla */
 		text_editor_thaw (te);
 		scintilla_send_message (SCINTILLA (te->widgets.editor),

@@ -164,6 +164,9 @@ anjuta_new ()
 		app->command_editor = command_editor_new (app->preferences->props_global,
 					app->preferences->props_local, app->project_dbase->props);
 		app->tags_manager = tags_manager_new ();
+		app->tm_workspace = tm_get_workspace();
+		if (TRUE != tm_workspace_load_global_tags(PACKAGE_DATA_DIR "/system.tags"))
+			g_warning("Unable to load global tag file");
 		app->help_system = anjuta_help_new();
 
 		app->widgets.the_client = app->widgets.vpaned;
@@ -988,6 +991,7 @@ anjuta_application_exit(void)
 	{
 		project_dbase_close_project(app->project_dbase) ;
 	}
+	tm_workspace_free(tm_get_workspace());
 	free_plug_ins( app->addIns_list );
 	app->addIns_list	= NULL ;
 }

@@ -6,6 +6,7 @@ INCLUDES = \
 	$(EXTRA_GNOME_CFLAGS)\
 	$(EXTRA_ORBIT_CFLAGS)\
 	-I$(srcdir)/../scintilla/include \
+	-I$(srcdir)/../tagmanager/include \
 	-I$(srcdir)/../widgets \
 	-I$(srcdir)/../ccview \
 	-I$(srcdir)/../pixmaps \
@@ -217,7 +218,7 @@ anjuta_LDADD =  \
 	$(GNOMEUI_LIBS)\
 	$(EXTRA_GNOME_LIBS)\
 	$(EXTRA_ORBIT_LIBS)\
-	-L../scintilla -L../widgets -L../ccview\
+	-L../scintilla -L../tagmanager -L../widgets -L../ccview\
 	-lwidgets -lccview -lxml\
-	-lscintilla\
+	-lscintilla -lctags\
 	$(SCILEXERS)

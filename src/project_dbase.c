@@ -329,6 +329,7 @@ project_dbase_new (PropsID pr_props)
 	p->fileselection_open = create_fileselection_gui (&fsd1);
 	p->fileselection_add_file = create_fileselection_gui (&fsd2);
 	p->project_config = project_config_new ();
+	p->tm_project = NULL;
 
 	p->widgets.root_node = NULL;
 	p->widgets.current_node = NULL;
@@ -1075,6 +1076,8 @@ project_dbase_save_project (ProjectDBase * p)
 	if (src_paths_save (app->src_paths, fp) == FALSE)
 		goto error_show;
 	tags_manager_save (app->tags_manager);
+	if (p->tm_project)
+		tm_project_save(TM_PROJECT(p->tm_project));
 	ccview_project_save(CCVIEW_PROJECT(app->project_dbase->widgets.ccview));
 	p->is_saved = TRUE;
 	fclose (fp);
@@ -1146,7 +1149,10 @@ project_dbase_update_tags_image(ProjectDBase* p)
 	gchar* src_dir;
 	if (p->project_is_open == FALSE)
 		return;
-	
+	if (p->tm_project)
+		tm_project_update(p->tm_project, FALSE, TRUE, TRUE);
+	else if (p->top_proj_dir)
+		p->tm_project = tm_project_new(p->top_proj_dir, NULL);
 	src_dir = project_dbase_get_module_dir (p, MODULE_SOURCE);
 	if (src_dir)
 	{
@@ -1284,6 +1290,11 @@ project_dbase_close_project (ProjectDBase * p)
 			}
 		}
 		node = next;
+	}
+	if (p->tm_project)
+	{
+		tm_project_free(p->tm_project);
+		p->tm_project = NULL;
 	}
 	project_dbase_hide (p);
 	project_dbase_update_menu (p);	
