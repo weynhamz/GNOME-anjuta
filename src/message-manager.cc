@@ -80,7 +80,7 @@ an_message_manager_new ()
 	return amm;
 }
 
-guint
+GType
 an_message_manager_get_type (void)
 {
 	static GType type = 0;

@@ -48,10 +48,10 @@ static void gotoline_init (GotoLine * obj);
 static void on_go_to_line_response (GtkDialog* dialog, gint response,
                                     gpointer user_data);
 
-guint
+GType
 gotoline_get_type ()
 {
-	static guint obj_type = 0;
+	static GType obj_type = 0;
 	
 	if (!obj_type)
 	{

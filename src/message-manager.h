@@ -68,7 +68,7 @@ struct _AnMessageManagerClass
 
 // Public functions
 GtkWidget* an_message_manager_new();
-guint an_message_manager_get_type();
+GType an_message_manager_get_type();
 
 gboolean an_message_manager_add_type(AnMessageManager* amm, const gint type_name, const gchar* pixmap);
 gboolean an_message_manager_append(AnMessageManager* amm, const gchar* msg_string, gint type_name);

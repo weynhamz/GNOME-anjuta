@@ -172,11 +172,11 @@ requirements. Development platform is RedHat Linux 7.x with GNOME 1.4
 
 2) Running
 	< RedHat 6.1 or upwards >
-	* GNOME (1.4 full install recommended)
+	* GNOME (2 full install recommended)
 	* Bash command shell
 	* GNU Indent
 	* gnome-terminal
-	* gnome-help-browser (or Nautilus or mozilla)
+	* yelp (or Nautilus or mozilla)
 	* Automake/Autoconf
 	* GNU Make
 	* GNU C/C++ compiler

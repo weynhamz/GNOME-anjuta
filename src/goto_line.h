@@ -52,7 +52,7 @@ extern "C"
   };
 
   /** GTK widget implementation function */
-  guint gotoline_get_type (void);
+  GType gotoline_get_type (void);
   
   /** Create a new instance of this gotoline dialog */
   GtkWidget *gotoline_new (void);

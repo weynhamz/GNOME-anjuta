@@ -270,7 +270,7 @@
       <para>
       It is best to do a system installation (as root) and not local installation. 
       <application>Anjuta</application> depends on GNOME for supplying pixmaps, and 
-      the help system works with <application>gnome-help-browser</application> 
+      the help system works with <application>yelp</application> 
       or <application>Nautilus</application>, none of which will be happy if you do a 
       local installation.
       </para>

@@ -158,7 +158,7 @@
      </question>
      <answer>
       <para>
-      ローカル規模のインストールではなく、(root による) システム規模のインストールが最善です。<application>Anjuta</application> は、GNOME によるアイコンの提供ルール、<application>gnome-help-browser</application> または <application>Nautilus</application> などによるヘルプシステムなどに依存しているので、ローカル規模のインストールでは幸せになれないでしょう。
+      ローカル規模のインストールではなく、(root による) システム規模のインストールが最善です。<application>Anjuta</application> は、GNOME によるアイコンの提供ルール、<application>yelp</application> または <application>Nautilus</application> などによるヘルプシステムなどに依存しているので、ローカル規模のインストールでは幸せになれないでしょう。
       </para>
       </answer>
      </qandaentry>

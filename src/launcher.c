@@ -423,10 +423,10 @@ anjuta_launcher_initialize (AnjutaLauncher *obj)
 	obj->priv->callback_data = NULL;
 }
 
-guint
+GType
 anjuta_launcher_get_type ()
 {
-	static guint obj_type = 0;
+	static GType obj_type = 0;
 	
 	if (!obj_type)
 	{

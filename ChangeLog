@@ -1,5 +1,12 @@
 2004-10-20  Johannes Schmid <jhs@cvs.gnome.org>
 	
+	* src/, scintilla: Fix for IA64 from sbrabec@users.sourceforge.net
+	* Patch from sbrabec@users.sourceforge.net to fix bug #956649
+	* src/file.c: Patch from apatterno@users.sourceforge.net:
+	Fix GPL-Notice for new files
+
+2004-10-20  Johannes Schmid <jhs@cvs.gnome.org>
+	
 	* src/debugger.c: Patch from yiuga@users.sourceforge.net
 	Fix some debugger bugs
 	* src/message-manager.c: Patch from ktirf@users.sourceforge.net

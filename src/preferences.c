@@ -35,6 +35,8 @@
 
 #include <glade/glade-parser.h>
 
+#include "anjuta.h"
+
 struct _AnjutaProperty
 {
 	GtkWidget                *object;
