@@ -18,6 +18,7 @@ Bug fix: Dnd file drop.
 Bug fix: Setting breakpoints for c++ files works.
 Bug fix: Crash bug to multiple open of same file fixed.
 Bug fix: Enables debug and optimization flags for new projects.
+Bug fix: Fixed pascal highlighting
 
 Anjuta 1.1.98 rc2 for 1.2.0   (07 Nov 2003) -- Naba Kumar
 
