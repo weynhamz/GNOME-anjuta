@@ -1,19 +1,20 @@
 2004-03-10  Pavol Bosik <Pavol.Bosik@siemens.com>
  	
  	* src/anjuta.c, src/search-replace.c, src/search-replace.h: "Find Usage"
- 	rework (bug 890609)
+ 	rework (bug #890609)
 
 2004-03-10  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
-	* src/aneditor.cxx
-	Fixed bug #910097 (Insert comment)
+	
+	* src/aneditor.cxx: Fixed bug #910097 (Insert comment)
 
 2004-03-08  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
-	* src/search-replace.c
-	"Replace All" in not opened files (All Project files, File List ...).
-	* src/search_preferences.c : Fixed typo.
+	
+	* src/search-replace.c: "Replace All" in not opened files (All Project files, File List ...).
+	* src/search_preferences.c: Fixed typo.
 	
 2004-02-26  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
-	* src/search-replace.c : improved Search&Replace
+	
+	* src/search-replace.c: improved Search&Replace
 	For the moment "Replace All" does not work with non opened files
 	but Anjuta should not crash now ! ??? 
 	
@@ -29,13 +30,17 @@
 	* manuals/C/anjuta-manual/build.xml: Changed build shortcut to F11.
 	bug #877683.
 	
+	* src/registers_gui.c: Fixed a runtime warning. bug #900087.
+	
+	* src/message-manager-private.cc: Disabled debug messages.
+	
 2004-02-25  Adam Weinberger  <adamw@FreeBSD.org>
 
 	* configure.in: Added 'en_CA' (Canadian English) to ALL_LINGUAS.
 
 2004-02-25  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
-	* anjuta.glade  src/search-replace.c
-	Reduced Search&Replace dialog  :  bug #902636
+	* anjuta.glade, src/search-replace.c:
+	Reduced Search&Replace dialog, bug #902636.
 	
 2004-02-23  Naba Kumar  <naba@gnome.or>
 
@@ -48,11 +53,8 @@
 
 2004-02-23  Pavol Bosik <Pavol.Bosik@siemens.com>
 	
-	* src/defaults.c
-	* src/message-manager.cc
-	* src/project_dbase.c
-	* src/anjuta.c:
-	Fixed bugs #890609 and #890609
+	* src/defaults.c, src/message-manager.cc, src/project_dbase.c,
+	src/anjuta.c: Fixed bugs #890609 and #890609
 
 2004-02-23  Naba Kumar  <naba@gnome.or>
 
@@ -75,13 +77,14 @@
 2004-02-18  Franco Catrin  <fcatrin@tuxpan.com>
 
 	* src/mainmenu_callbacks.c, widgets/gnomefilelist.c
-	Use defined file name when saving new files	(fixes bug #898105)
+	Use defined file name when saving new files (fixes bug #898105)
 	Don't change filename when clicking on a directory
 	
 	BTW: Happy birthday to me :-)
 	
 2004-02-18  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
-	* src/search-replace.c : Fixed a crash bug 
+	
+	* src/search-replace.c: Fixed a crash bug 
 	Crash on Find & Replace (#887833)
 	
 2004-02-18  Naba Kumar  <naba@gnome.org>
@@ -110,13 +113,12 @@
 	
 2004-02-17  Franco Catrin  <fcatrin@tuxpan.com>
 
-	* src/anjuta.c
-	"Save all" action now asks for filenames for new files
+	* src/anjuta.c: "Save all" action now asks for filenames for new files
 	(fixes bug #898111)
 
 2004-02-16  Franco Catrin  <fcatrin@tuxpan.com>
 
-	* anjuta.glade, src/text_editor.c
+	* anjuta.glade, src/text_editor.c:
 	Fixed a typo in Hello World indentation style 
 	Fixed misuse of translated strings when looking for style
 	This entry fixes bug #876037
@@ -132,18 +134,18 @@
 	
 2004-02-14  Franco Catrin  <fcatrin@tuxpan.com>
 
-	* src/message-manager-private.cc
+	* src/message-manager-private.cc:
 	Set bold color as foreground color in terminal
 	(fixes bug #864924)
 
-	* src/aneditor.cxx
+	* src/aneditor.cxx:
 	Use font style defined for message indicators in
 	preferences/messages
 	(fixes bug #885032)
 
 2004-02-13  Franco Catrin  <fcatrin@tuxpan.com>
 
-	* src/build_project.c
+	* src/build_project.c:
 	Use build.silent option from preferences (fixes bug #895726)
 	
 2004-02-11  Robert Sedak  <robert.sedak@sk.htnet.hr>
@@ -171,8 +173,8 @@
 
 2004-01-16  Franco Catrin L. <fcatrin@tuxpan.com>
 
-	* Save GtkOptionMenu properties properly
-	* Fixes editor mispell of fold.symbols property
+	* src/preferences.c: Save GtkOptionMenu properties properly
+	* src/text_editor.c: Fixes editor mispell of fold.symbols property
 
 2004-01-15  Johannes Schmid <jhs@cvs.gnome.org>
 	
@@ -199,46 +201,39 @@
 
 2004-01-12  Changwoo Ryu  <cwryu@debian.org>
 
-	*  configure.in: Added "ko" to ALL_LINGUAS.
+	* configure.in: Added "ko" to ALL_LINGUAS.
 
 2004-01-09  Jean-Noel Guiheneuf <jnoel@lotuscompounds.com>
 
-* src/toolbar.c, src/toolbar_callbacks.c, src/toolbar_callbacks.h,
-src/search_incremental.c, src/search_incremental.h
-
-Search_incremental: code cleanup
-
+	* src/toolbar.c, src/toolbar_callbacks.c, src/toolbar_callbacks.h,
+	src/search_incremental.c, src/search_incremental.h: 
+	Search_incremental code cleanup
 
 2004-01-08  Jean-Noel Guiheneuf <jnoel@lotuscompounds.com>
 
-* scintilla/*/*: Updated scintilla to CVS
-
-* Added: scintilla/Readme.sync
-
-* scintilla/Document.cxx, scintilla/Editor.cxx, scintilla/KeyWords.cxx
-scintilla/LexMatlab.cxx, scintilla/LexOthers.cxx, scintilla/LexRuby.cxx
-scintilla/LexVB.cxx, scintilla/ScintillaBase.cxx, scintilla/ScintillaBase.h
-scintilla/ScintillaGTK.cxx
-scintilla/include/SciLexer.h, scintilla/include/Scintilla.h
-scintilla/include/Scintilla.iface
+	* scintilla/*/*: Updated scintilla to CVS
+	* Added: scintilla/Readme.sync
+	* scintilla/Document.cxx, scintilla/Editor.cxx, scintilla/KeyWords.cxx,
+	scintilla/LexMatlab.cxx, scintilla/LexOthers.cxx, scintilla/LexRuby.cxx,
+	scintilla/LexVB.cxx, scintilla/ScintillaBase.cxx, scintilla/ScintillaBase.h,
+	scintilla/ScintillaGTK.cxx,
+	scintilla/include/SciLexer.h, scintilla/include/Scintilla.h,
+	scintilla/include/Scintilla.iface: Updated.
 
 2004-01-07  Jean-Noel Guiheneuf <jnoel@lotuscompounds.com>
 
-	* Added: search-replace_backend.[ch], search_incremental[ch]
+	* search-replace_backend.[ch], search_incremental[ch]: Added
 	
-	* Removed: find_text.[ch], find_in_files.[ch], find_in_files_cbs.[ch],
-	find_replace.[ch]
+	* find_text.[ch], find_in_files.[ch], find_in_files_cbs.[ch],
+	find_replace.[ch]: Removed.
 	
 	* anjuta.glade, src/search-replace.c, src/search-replace.h,
 	src/search-replace_backend.c, src/search-replace_backend.h,
 	src/mainmenu_callbacks.c, src/mainmenu_callbacks.h,
 	src/anjuta.c, src/anjuta.h, src/project_dbase.c, src/project_dbase.h,
-	src/toolbar_callbacks.c, src/Makefile.am
-	
-	* The advanced Search/Replace functionality now replaces the older
-	Find/Replace stuff.
-	* The Search/Replace functionality can be interrupted during a long
-	Search/Replace.
+	src/toolbar_callbacks.c, src/Makefile.am: The advanced Search/Replace
+	functionality now replaces the older Find/Replace stuff. The Search/Replace
+	functionality can be interrupted during a long Search/Replace.
 
 2004-01-02  Dan Elphick <dre00r@ecs.soton.ac.uk>
 
