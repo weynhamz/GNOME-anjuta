@@ -52,8 +52,8 @@ typedef enum _AnPrintOrientation
 #define AN_PRINT_LINENUM_PADDING '0'
 
 /* Boiler plate */
-#define TEXT_AT(buf, index)  (buf)[(index)*2]
-#define STYLE_AT(buf, index) (buf)[(index)*2+1]
+#define TEXT_AT(buf, I)  (buf)[(I)*2]
+#define STYLE_AT(buf, I) (buf)[(I)*2+1]
 
 typedef struct _PrintJobInfoStyle
 {

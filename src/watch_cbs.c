@@ -187,7 +187,7 @@ change_watch_entry(GtkEntry *ent)
 {
   gchar *row[2], *exp;
 //	gchar *buff;
-  gint index;		//To forcefully get the index stuff right.
+  gint idx;		//To forcefully get the index stuff right.
 	
   if (GTK_IS_ENTRY(ent)==FALSE)
 		return;
@@ -201,22 +201,22 @@ change_watch_entry(GtkEntry *ent)
     g_free (expr_watch_entry_history);
 	expr_watch_entry_history = g_strdup (row[0]);		
 	
-  index = debugger.watch->current_index;
+  idx = debugger.watch->current_index;
 	
 //internal debugger-list stuff:
-	exp = g_list_nth_data(debugger.watch->exprs, index);
+	exp = g_list_nth_data(debugger.watch->exprs, idx);
   debugger.watch->exprs = g_list_remove(debugger.watch->exprs,
 																				exp);
 	debugger.watch->exprs = g_list_insert(debugger.watch->exprs,
 																				g_strdup (row[0]),
-																				index);
+																				idx);
 
 //Visible watch-list stuff:
 	row[1] = g_strdup ("");
   gtk_clist_remove(GTK_CLIST (debugger.watch->widgets.clist),
-									 index);
+									 idx);
 	gtk_clist_insert(GTK_CLIST (debugger.watch->widgets.clist), 
-									 index,
+									 idx,
 									 row);
 //Make watch-screen update:
 /*  buff = g_strconcat ("print ", row[0], NULL);
@@ -303,4 +303,3 @@ on_eval_add_watch(GtkButton * button, gpointer user_data)
 {
 	add_watch_entry( (GtkEntry *) user_data );
 }
-

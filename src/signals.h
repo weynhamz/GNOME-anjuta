@@ -41,7 +41,7 @@ struct _Signals
   SignalsGui  widgets;
   gboolean         is_showing;
   gint             win_pos_x, win_pos_y, win_width, win_height;
-  gint		index;
+  gint		idx;
   gchar		*signal;
   gboolean	stop;
   gboolean	print;
@@ -82,4 +82,3 @@ void
 signals_update_controls(Signals* ew);
 
 #endif
-

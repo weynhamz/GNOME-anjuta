@@ -1510,21 +1510,21 @@ gchar*
 anjuta_util_escape_quotes(const gchar* str)
 {
 	gchar buffer[2048];
-	gint index;
+	gint idx;
 	const gchar *s = str;
 	
 	g_return_val_if_fail(str, NULL);
-	index = 0;
+	idx = 0;
 	
 	while(*s) {
-		if (index > 2040)
+		if (idx > 2040)
 			break;
 		if (*s == '\"' || *s == '\'' || *s == '\\')
-			buffer[index++] = '\\';
-		buffer[index++] = *s;
+			buffer[idx++] = '\\';
+		buffer[idx++] = *s;
 		s++;
 	}
-	buffer[index] = '\0';
+	buffer[idx] = '\0';
 	return g_strdup(buffer);
 }
 
@@ -1583,10 +1583,10 @@ anjuta_util_parse_args_from_string (gchar* string)
 	gboolean escaped;
 	gchar    quote;
 	gchar    buffer[2048], *s;
-	gint     index;
+	gint     idx;
 	GList* args = NULL;
 	
-	index = 0;
+	idx = 0;
 	escaped = FALSE;
 	quote = (gchar)-1;
 	s = string;
@@ -1600,7 +1600,7 @@ anjuta_util_parse_args_from_string (gchar* string)
 	while (*s) {
 		if (escaped) {
 			/* The current char was escaped */
-			buffer[index++] = *s;
+			buffer[idx++] = *s;
 			escaped = FALSE;
 		} else if (*s == '\\') {
 			/* Current char is an escape */
@@ -1619,28 +1619,28 @@ anjuta_util_parse_args_from_string (gchar* string)
 				quote = *s;
 			} else {
 				/* Just a quote char inside quote */
-				buffer[index++] = *s;
+				buffer[idx++] = *s;
 			}
 		} else if (quote > 0){
 			/* Any other char inside quote */
-			buffer[index++] = *s;
+			buffer[idx++] = *s;
 		} else if (isspace(*s)) {
 			/* Any white space outside quote */
-			if (index > 0) {
-				buffer[index++] = '\0';
+			if (idx > 0) {
+				buffer[idx++] = '\0';
 				args = g_list_append (args, g_strdup (buffer));
-				index = 0;
+				idx = 0;
 			}
 		} else {
-			buffer[index++] = *s;
+			buffer[idx++] = *s;
 		}
 		s++;
 	}
-	if (index > 0) {
+	if (idx > 0) {
 		/* There are chars in the buffer. Flush as the last arg */
-		buffer[index++] = '\0';
+		buffer[idx++] = '\0';
 		args = g_list_append (args, g_strdup (buffer));
-		index = 0;
+		idx = 0;
 	}
 	if (quote > 0) {
 		g_warning ("Unclosed quotation encountered at the end of parsing");

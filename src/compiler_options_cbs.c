@@ -230,10 +230,10 @@ on_co_supp_info_clicked (GtkButton * button, gpointer data)
 	CompilerOptions *co;
 	gchar *tmp_file, *str;
 	FILE *tmp;
-	gint index;
+	gint idx;
 
 	co = data;
-	index = co->supp_index;
+	idx = co->supp_index;
 	tmp_file = get_a_tmp_file ();
 	tmp = fopen (tmp_file, "w");
 	if (!tmp)
@@ -241,24 +241,24 @@ on_co_supp_info_clicked (GtkButton * button, gpointer data)
 		anjuta_error (_("Cannot create: %s."), tmp_file);
 		return;
 	}
-	fprintf (tmp, _("Support ID: %s\n\n"), anjuta_supports[index][ANJUTA_SUPPORT_ID]);
+	fprintf (tmp, _("Support ID: %s\n\n"), anjuta_supports[idx][ANJUTA_SUPPORT_ID]);
 	fprintf (tmp, _("Description:\n"));
-	fprintf (tmp, "%s\n\n", anjuta_supports[index][ANJUTA_SUPPORT_DESCRIPTION]);
-	fprintf (tmp, _("Dependencies: %s\n\n"), anjuta_supports[index][ANJUTA_SUPPORT_DEPENDENCY]);
+	fprintf (tmp, "%s\n\n", anjuta_supports[idx][ANJUTA_SUPPORT_DESCRIPTION]);
+	fprintf (tmp, _("Dependencies: %s\n\n"), anjuta_supports[idx][ANJUTA_SUPPORT_DEPENDENCY]);
 	fprintf (tmp, _("Macros in configure.in file:\n"));
-	fprintf (tmp, "%s\n", anjuta_supports[index][ANJUTA_SUPPORT_MACROS]);
+	fprintf (tmp, "%s\n", anjuta_supports[idx][ANJUTA_SUPPORT_MACROS]);
 	fprintf (tmp, _("Variables for cflags: %s\n\n"),
-		 anjuta_supports[index][ANJUTA_SUPPORT_PRJ_CFLAGS]);
+		 anjuta_supports[idx][ANJUTA_SUPPORT_PRJ_CFLAGS]);
 	fprintf (tmp, _("Variables for libraries: %s\n\n"),
-		 anjuta_supports[index][ANJUTA_SUPPORT_PRJ_LIBS]);
+		 anjuta_supports[idx][ANJUTA_SUPPORT_PRJ_LIBS]);
 	fprintf (tmp, _("Compile time cflags: %s\n\n"),
-		 anjuta_supports[index][ANJUTA_SUPPORT_FILE_CFLAGS]);
+		 anjuta_supports[idx][ANJUTA_SUPPORT_FILE_CFLAGS]);
 	fprintf (tmp, _("Compile time libraries: %s\n\n"),
-		 anjuta_supports[index][ANJUTA_SUPPORT_FILE_LIBS]);
+		 anjuta_supports[idx][ANJUTA_SUPPORT_FILE_LIBS]);
 	fprintf (tmp, _("Entries in acconfig.h file:\n"));
-	fprintf (tmp, "%s\n", anjuta_supports[index][ANJUTA_SUPPORT_ACCONFIG_H]);
+	fprintf (tmp, "%s\n", anjuta_supports[idx][ANJUTA_SUPPORT_ACCONFIG_H]);
 	fprintf (tmp, _("Installation status:\n"));
-	str = anjuta_supports[index][ANJUTA_SUPPORT_INSTALL_STATUS];
+	str = anjuta_supports[idx][ANJUTA_SUPPORT_INSTALL_STATUS];
 	if (str)
 	{
 		gchar *cmd, *count, *path;

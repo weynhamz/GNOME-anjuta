@@ -31,7 +31,7 @@ extern "C"
 
 int  anjuta_print_unichar_to_utf8(gint c, gchar * outbuf);
 void anjuta_print_progress_start(PrintJobInfo *pji);
-void anjuta_print_progress_tick(PrintJobInfo *pji, guint index);
+void anjuta_print_progress_tick(PrintJobInfo *pji, guint idx);
 void anjuta_print_progress_end(PrintJobInfo *pji);
 
 #ifdef __cplusplus

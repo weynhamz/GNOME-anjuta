@@ -183,12 +183,12 @@ create_signals_set_dialog (Signals *s)
   GtkWidget *button3;
   gchar *row[5];
 
-  if(s->index < 0) return NULL;
-  gtk_clist_get_text(GTK_CLIST(s->widgets.clist), s->index,0, &row[0]);
-  gtk_clist_get_text(GTK_CLIST(s->widgets.clist), s->index,1, &row[1]);
-  gtk_clist_get_text(GTK_CLIST(s->widgets.clist), s->index,2, &row[2]);
-  gtk_clist_get_text(GTK_CLIST(s->widgets.clist), s->index,3, &row[3]);
-  gtk_clist_get_text(GTK_CLIST(s->widgets.clist), s->index,4, &row[4]);
+  if(s->idx < 0) return NULL;
+  gtk_clist_get_text(GTK_CLIST(s->widgets.clist), s->idx,0, &row[0]);
+  gtk_clist_get_text(GTK_CLIST(s->widgets.clist), s->idx,1, &row[1]);
+  gtk_clist_get_text(GTK_CLIST(s->widgets.clist), s->idx,2, &row[2]);
+  gtk_clist_get_text(GTK_CLIST(s->widgets.clist), s->idx,3, &row[3]);
+  gtk_clist_get_text(GTK_CLIST(s->widgets.clist), s->idx,4, &row[4]);
   s->signal = row[0];
 
   if(strcasecmp(row[1], "Yes")==0)
@@ -321,4 +321,3 @@ create_signals_set_dialog (Signals *s)
 
   return dialog1;
 }
-

@@ -35,7 +35,7 @@ on_signals_clist_select_row          (GtkCList        *clist,
 {
     Signals *s;
     s = debugger.signals;
-    s->index = row;
+    s->idx = row;
 }
 
 gint
@@ -77,7 +77,7 @@ on_signals_send_activate            (GtkMenuItem     *menuitem,
   if (debugger.child_pid < 1) return;
 
   signals_show(s);
-  gtk_clist_get_text( GTK_CLIST(s->widgets.clist), s->index, 0, &sig);
+  gtk_clist_get_text( GTK_CLIST(s->widgets.clist), s->idx, 0, &sig);
   msg = g_strdup_printf( "Send signal %s to the process %d?", sig, debugger.child_pid);
   messagebox2(GNOME_MESSAGE_BOX_QUESTION, msg,
       GNOME_STOCK_BUTTON_YES, GNOME_STOCK_BUTTON_NO,
@@ -176,12 +176,12 @@ on_signals_set_ok_clicked              (GtkButton       *button,
   tmp = cmd;
   if(s->stop)
   {
-      gtk_clist_set_text(GTK_CLIST(s->widgets.clist), s->index, 1, "Yes");
+      gtk_clist_set_text(GTK_CLIST(s->widgets.clist), s->idx, 1, "Yes");
       cmd = g_strconcat(tmp, "stop ", NULL);
   }
   else
   {
-      gtk_clist_set_text(GTK_CLIST(s->widgets.clist), s->index, 1, "No");
+      gtk_clist_set_text(GTK_CLIST(s->widgets.clist), s->idx, 1, "No");
       cmd = g_strconcat(tmp, "nostop ", NULL);
   }
   g_free(tmp);
@@ -189,12 +189,12 @@ on_signals_set_ok_clicked              (GtkButton       *button,
   tmp = cmd;
   if(s->print)
   {
-      gtk_clist_set_text(GTK_CLIST(s->widgets.clist), s->index, 2, "Yes");
+      gtk_clist_set_text(GTK_CLIST(s->widgets.clist), s->idx, 2, "Yes");
       cmd = g_strconcat(tmp, "print ", NULL);
   }
   else
   {
-      gtk_clist_set_text(GTK_CLIST(s->widgets.clist), s->index, 2, "No");
+      gtk_clist_set_text(GTK_CLIST(s->widgets.clist), s->idx, 2, "No");
       cmd = g_strconcat(tmp, "noprint ", NULL);
    }
   g_free(tmp);
@@ -202,12 +202,12 @@ on_signals_set_ok_clicked              (GtkButton       *button,
   tmp = cmd;
   if(s->pass)
   {
-      gtk_clist_set_text(GTK_CLIST(s->widgets.clist), s->index, 3, "Yes");
+      gtk_clist_set_text(GTK_CLIST(s->widgets.clist), s->idx, 3, "Yes");
       cmd = g_strconcat(tmp, "pass ", NULL);
   }
   else
   {
-      gtk_clist_set_text(GTK_CLIST(s->widgets.clist), s->index, 3, "No");
+      gtk_clist_set_text(GTK_CLIST(s->widgets.clist), s->idx, 3, "No");
       cmd = g_strconcat(tmp, "nopass ", NULL);
   }
   g_free(tmp);

@@ -183,7 +183,7 @@ TMFileEntry *tm_file_entry_new(const char *path, TMFileEntry *parent
 						continue;
 					g_snprintf(file_name, PATH_MAX, "%s/%s", entry->path
 					  , dir_entry->d_name);
-					new_entry = tm_file_entry_new(file_name, entry, TRUE
+					new_entry = tm_file_entry_new(file_name, entry, recurse
 					  , file_match, file_unmatch, dir_match, dir_unmatch
 			  		  , ignore_hidden_files, ignore_hidden_dirs);
 					if (new_entry)

@@ -1796,21 +1796,21 @@ anjuta_register_child_process (pid_t pid,
 void
 anjuta_unregister_child_process (pid_t pid)
 {
-	gint index;
-	index = g_list_index (app->registered_child_processes, (int *) pid);
+	gint idx;
+	idx = g_list_index (app->registered_child_processes, (int *) pid);
 	app->registered_child_processes =
 		g_list_remove (app->registered_child_processes, (int *) pid);
 	app->registered_child_processes_cb =
 		g_list_remove (app->registered_child_processes_cb,
 			       g_list_nth_data (app->
 						registered_child_processes_cb,
-						index));
+						idx));
 	app->registered_child_processes_cb_data =
 		g_list_remove (app->registered_child_processes_cb_data,
 			       g_list_nth_data (app->
 
 						registered_child_processes_cb_data,
-						index));}
+						idx));}
 
 void
 anjuta_foreach_child_processes (GFunc cb, gpointer data)
@@ -1822,19 +1822,19 @@ void
 anjuta_child_terminated (int t)
 {
 	int status;
-	gint index;
+	gint idx;
 	pid_t pid;
 	int (*callback) (int st, gpointer d);
 	gpointer cb_data;
 	pid = waitpid (0, &status, WNOHANG);
 	if (pid < 1)
 		return;
-	index = g_list_index (app->registered_child_processes, (int *) pid);
-	if (index < 0)
+	idx = g_list_index (app->registered_child_processes, (int *) pid);
+	if (idx < 0)
 		return;
 	callback =
-		g_list_nth_data (app->registered_child_processes_cb, index);
-	cb_data = g_list_nth_data (app->registered_child_processes_cb, index);
+		g_list_nth_data (app->registered_child_processes_cb, idx);
+	cb_data = g_list_nth_data (app->registered_child_processes_cb, idx);
 	if (callback)
 		(*callback) (status, cb_data);
 	anjuta_unregister_child_process (pid);

@@ -74,14 +74,14 @@ on_bk_delete_clicked (GtkButton * button, gpointer user_data)
 {
 	BreakpointsDBase *bd;
 	BreakpointItem *bi;
-	gint index;
+	gint idx;
 
 	bd = (BreakpointsDBase *) user_data;
 	if (bd->breakpoints == NULL)
 		return;
-	index = bd->current_index;
-	gtk_clist_remove (GTK_CLIST (bd->widgets.clist), index);
-	bi = g_list_nth_data (bd->breakpoints, index);
+	idx = bd->current_index;
+	gtk_clist_remove (GTK_CLIST (bd->widgets.clist), idx);
+	bi = g_list_nth_data (bd->breakpoints, idx);
 	debugger_delete_breakpoint (bi->id);
 	bd->breakpoints = g_list_remove (bd->breakpoints, bi);
 	breakpoint_item_destroy (bi);
@@ -290,7 +290,7 @@ bk_item_add_mesg_arrived (GList * lines, gpointer user_data)
 	struct BkItemData *bid;
 	BreakpointsDBase *bd;
 	BreakpointItem *bi;
-	gint index;
+	gint idx;
 	GList *outputs;
 
 	bid = (struct BkItemData *) user_data;
@@ -328,12 +328,12 @@ bk_item_add_mesg_arrived (GList * lines, gpointer user_data)
 			g_free (buff);
 		}
 		bd = bid->bd;
-		index = bd->edit_index;
-		if (index >= 0)
+		idx = bd->edit_index;
+		if (idx >= 0)
 		{
 			gtk_clist_remove (GTK_CLIST (bd->widgets.clist),
-					  index);
-			bi = g_list_nth_data (bd->breakpoints, index);
+					  idx);
+			bi = g_list_nth_data (bd->breakpoints, idx);
 			debugger_delete_breakpoint (bi->id);
 			bd->edit_index = -1;
 			bd->breakpoints = g_list_remove (bd->breakpoints, bi);

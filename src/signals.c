@@ -43,7 +43,7 @@ signals_new ()
     ew->win_height = 320;
     ew->win_pos_x = 150;
     ew->win_pos_y = 130;
-    ew->index = -1;
+    ew->idx = -1;
     create_signals_gui (ew);
   }
   return ew;
@@ -54,7 +54,7 @@ signals_clear (Signals * sg)
 {
   if (GTK_IS_CLIST (sg->widgets.clist))
     gtk_clist_clear (GTK_CLIST (sg->widgets.clist));
-  sg->index = -1;
+  sg->idx = -1;
 }
 
 void

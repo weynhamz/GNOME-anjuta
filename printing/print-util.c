@@ -113,7 +113,7 @@ void anjuta_print_progress_start(PrintJobInfo * pji)
 	gtk_widget_show_all (GTK_WIDGET (dialog));
 }
 
-void anjuta_print_progress_tick(PrintJobInfo * pji, guint index)
+void anjuta_print_progress_tick(PrintJobInfo * pji, guint idx)
 {
 	gfloat percentage;
 
@@ -121,7 +121,7 @@ void anjuta_print_progress_tick(PrintJobInfo * pji, guint index)
 		gtk_main_iteration ();
 	if (pji->progress_dialog == NULL)
 		return;
-	percentage = (float)index/pji->buffer_size;
+	percentage = (float)idx/pji->buffer_size;
 	if (percentage < 0.0) percentage = 0.0;
 	if (percentage > 1.0) percentage = 1.0;
 	gtk_progress_set_percentage(GTK_PROGRESS(pji->progress_bar), percentage);

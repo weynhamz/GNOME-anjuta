@@ -382,13 +382,13 @@ static FileBuffer *file_buffer_new_from_path(const char *path, const char *buf
 static long file_buffer_line_from_pos(FileBuffer *fb, int pos)
 {
 	GList *tmp;
-	int lineno = 0;
+	int lineno = -1;
 	g_return_val_if_fail(fb && pos >= 0, 1);
 	if (FB_FILE == fb->type)
 	{
 		for (tmp = fb->lines; tmp; tmp = g_list_next(tmp))
 		{
-			if (pos >= GPOINTER_TO_INT(tmp->data))
+			if (pos < GPOINTER_TO_INT(tmp->data))
 				return lineno;
 			++ lineno;
 		}

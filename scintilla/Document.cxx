@@ -883,11 +883,11 @@ public:
 		pdoc(pdoc_), end(end_) {
 	}
 
-	virtual char CharAt(int index) {
-		if (index < 0 || index >= end)
+	virtual char CharAt(int idx) {
+		if (idx < 0 || idx >= end)
 			return 0;
 		else
-			return pdoc->CharAt(index);
+			return pdoc->CharAt(idx);
 	}
 };
 
