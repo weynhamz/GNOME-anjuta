@@ -13,7 +13,7 @@ EXTRA_DIST = \
 	$(mime_DATA) \
 	$(mimexml_DATA)
 
-install-data-local:
+install-data-local: install-mimexmlDATA
 	update-mime-database $(datadir)/mime
 
 uninstall-local:

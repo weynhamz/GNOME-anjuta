@@ -1,0 +1,6 @@
+[Anjuta Plugin]
+_Name=CVS Plugin
+_Description=A version control system plugin
+Location=anjuta-cvs:CVSPlugin
+Icon=anjuta-cvs-plugin.png
+Interfaces=IAnjutaCVS

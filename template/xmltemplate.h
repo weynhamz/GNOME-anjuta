@@ -21,9 +21,6 @@
 #include <gnome.h>
 
 #include "text-template.h"
-#include "lib-template.h"
-#include "lang-template.h"
-#include "prj-template.h"
 
 #define XML_TEMPLATE_TYPE (xml_template_get_type ())
 #define XML_TEMPLATE(obj) (G_TYPE_CHECK_INSTANCE_CAST ((obj), XML_TEMPLATE_TYPE, XmlTemplate))
@@ -50,19 +47,6 @@ struct _XmlTemplateClass
 
 GType xml_template_get_type();
 XmlTemplate* xml_template_new();
-
-GList* xml_template_get_all_projects(XmlTemplate* xtmp);
-PrjTemplate* xml_template_get_project(XmlTemplate* xtmp, const gchar* name);
-GList* xml_template_query_projects_by_language(XmlTemplate* xtmp, 
-	const gchar* language);
-
-GList* xml_template_get_all_libs(XmlTemplate* xtmp);
-LibTemplate* xml_template_get_lib(XmlTemplate* xtmp, const gchar* name);
-GList* xml_template_query_libs_by_language(XmlTemplate* xtmp, 
-	const gchar* language);
-
-GList* xml_template_get_all_languages(XmlTemplate* xtmp);
-LangTemplate* xml_template_get_language(XmlTemplate* xtmp, const gchar* name);
 
 GList* xml_template_get_all_texts(XmlTemplate* xtmp);
 TextTemplate* xml_template_get_text(XmlTemplate* xtmp, const gchar* name);

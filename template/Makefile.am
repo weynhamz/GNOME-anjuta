@@ -16,16 +16,7 @@ libxmltemplate_la_SOURCES = \
 	xmlstrings.c\
 	xmlstrings.h\
 	text-template.c\
-	text-template.h\
-	autotools.c\
-	autotools.h\
-	lang-template.c\
-	lang-template.h\
-	lib-template.c\
-	lib-template.h\
-	prj-template.c\
-	prj-temlate.h
-
+	text-template.h
 	
 #bin_PROGRAMS = template
 

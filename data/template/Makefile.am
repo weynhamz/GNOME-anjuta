@@ -1,1 +1,1 @@
-SUBDIRS = project library language text
+SUBDIRS = text

@@ -1,5 +1,0 @@
-<!ENTITY % autotools SYSTEM "autotools.dtd" >
-%autotools;
-<!ELEMENT language-template (name, description, autotools)>
-	<!ELEMENT name (#PCDATA)>
-	<!ELEMENT description (#PCDATA)>

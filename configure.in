@@ -698,10 +698,6 @@ data/properties/Makefile
 data/macros/Makefile
 data/macros2/Makefile
 data/template/Makefile
-data/template/language/Makefile
-data/template/library/Makefile
-data/template/project/Makefile
-data/template/project/terminal/Makefile
 data/template/text/Makefile
 doc/anjuta.1
 doc/anjuta_launcher.1
@@ -713,6 +709,7 @@ plugins/Makefile
 plugins/sample1/Makefile
 plugins/gtodo/Makefile
 plugins/class-gen/Makefile
+plugins/cvs-plugin/Makefile
 plugins/patch/Makefile
 plugins/editor/Makefile
 plugins/message-view/Makefile

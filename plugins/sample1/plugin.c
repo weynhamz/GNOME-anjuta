@@ -1,7 +1,7 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
     plugin.c
-    Copyright (C) 2000 Naba Kumar
+    Copyright (C) 2000 Naba Kumar, Johannes Schmid
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -23,66 +23,97 @@
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
 
 #include "plugin.h"
+#include "cvs-actions.h"
 
-#define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-sample.ui"
+#define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-cvs.ui"
 
 static gpointer parent_class;
 
-static void
-on_sample_action_activate (GtkAction *action, SamplePlugin *plugin)
-{
-	GObject *obj;
-	IAnjutaEditor *editor;
-	IAnjutaDocumentManager *docman;
-	
-	/* Query for object implementing IAnjutaDocumentManager interface */
-	obj = anjuta_shell_get_object (ANJUTA_PLUGIN (plugin)->shell,
-									  "IAnjutaDocumentManager", NULL);
-	docman = IANJUTA_DOCUMENT_MANAGER (obj);
-	editor = ianjuta_document_manager_get_current_editor (docman, NULL);
-
-	/* Do whatever with plugin */
-	anjuta_util_dialog_info (GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell),
-							 "Document manager pointer is: '0x%X'\n"
-							 "Current Editor pointer is: 0x%X", docman,
-							 editor);
-}
-
-static GtkActionEntry actions_file[] = {
+static GtkActionEntry actions_cvs[] = {
 	{
-		"ActionFileSample",                       /* Action name */
-		GTK_STOCK_NEW,                            /* Stock icon, if any */
-		N_("_Sample action"),                     /* Display label */
+		"ActionMenuCVS",                       /* Action name */
+		NULL,                            /* Stock icon, if any */
+		N_("_CVS"),                     /* Display label */
 		NULL,                                     /* short-cut */
-		N_("Sample action"),                      /* Tooltip */
-		G_CALLBACK (on_sample_action_activate)    /* action callback */
+		NULL,                      /* Tooltip */
+		NULL
+	},
+	{
+		"ActionCVSAdd",                       /* Action name */
+		GTK_STOCK_ADD,                            /* Stock icon, if any */
+		N_("_Add File"),                     /* Display label */
+		NULL,                                     /* short-cut */
+		N_("Add a new file to the CVS tree"),                      /* Tooltip */
+		G_CALLBACK (on_cvs_add_activate)    /* action callback */
+	},
+	{
+		"ActionCVSRemove",                       /* Action name */
+		GTK_STOCK_REMOVE,                            /* Stock icon, if any */
+		N_("_Remove File"),                     /* Display label */
+		NULL,                                     /* short-cut */
+		N_("Remove a file from CVS tree"),                      /* Tooltip */
+		G_CALLBACK (on_cvs_remove_activate)    /* action callback */
+	},
+	{
+		"ActionCVSCommit",                       /* Action name */
+		GTK_STOCK_YES,                            /* Stock icon, if any */
+		N_("_Commit"),                     /* Display label */
+		NULL,                                     /* short-cut */
+		N_("Commit your changes to the CVS tree"),                      /* Tooltip */
+		G_CALLBACK (on_cvs_commit_activate)    /* action callback */
+	},
+	{
+		"ActionCVSUpdate",                       /* Action name */
+		GTK_STOCK_REFRESH,                            /* Stock icon, if any */
+		N_("_Update"),                     /* Display label */
+		NULL,                                     /* short-cut */
+		N_("Sync your local copy with the CVS tree"),                      /* Tooltip */
+		G_CALLBACK (on_cvs_update_activate)    /* action callback */
+	},
+	{
+		"ActionCVSDiffFile",                       /* Action name */
+		GTK_STOCK_ZOOM_100,                            /* Stock icon, if any */
+		N_("_Diff File"),                     /* Display label */
+		NULL,                                     /* short-cut */
+		N_("Show differences between a file in your local copy and the tree"),                      /* Tooltip */
+		G_CALLBACK (on_cvs_diff_file_activate)    /* action callback */
+	},
+	{
+		"ActionCVSDiffTree",                       /* Action name */
+		GTK_STOCK_ZOOM_100,                            /* Stock icon, if any */
+		N_("Diff Tree"),                     /* Display label */
+		NULL,                                     /* short-cut */
+		N_("Show differences between your local copy and the tree"),                      /* Tooltip */
+		G_CALLBACK (on_cvs_diff_tree_activate)    /* action callback */
+	},
+	{
+		"ActionCVSImport",                       /* Action name */
+		GTK_STOCK_ADD,                            /* Stock icon, if any */
+		N_("_Import Tree"),                     /* Display label */
+		NULL,                                     /* short-cut */
+		N_("Import a new source tree to CVS"),                      /* Tooltip */
+		G_CALLBACK (on_cvs_import_activate)    /* action callback */
 	}
 };
 
 static gboolean
 activate_plugin (AnjutaPlugin *plugin)
 {
-	GtkWidget *wid;
 	AnjutaUI *ui;
-	SamplePlugin *sample_plugin;
+	CVSPlugin *cvs_plugin;
 	
-	g_message ("SamplePlugin: Activating Sample plugin ...");
-	sample_plugin = (SamplePlugin*) plugin;
+	g_message ("CVSPlugin: Activating CVS plugin ...");
+	cvs_plugin = (CVSPlugin*) plugin;
 	
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
-	wid = gtk_label_new ("This is a sample plugin");
-	sample_plugin->widget = wid;
 	
 	/* Add all our editor actions */
-	anjuta_ui_add_action_group_entries (ui, "ActionGroupSampleFile",
-										_("Sample file operations"),
-										actions_file,
-										G_N_ELEMENTS (actions_file),
-										plugin);
-	sample_plugin->uiid = anjuta_ui_merge (ui, UI_FILE);
-	anjuta_shell_add_widget (plugin->shell, wid,
-							 "AnjutaSamplePlugin", _("SamplePlugin"), NULL,
-							 ANJUTA_SHELL_PLACEMENT_CENTER, NULL);
+	anjuta_ui_add_action_group_entries (ui, "ActionGroupCVS",
+					_("CVS operations"),
+					actions_cvs,
+					G_N_ELEMENTS (actions_cvs),
+					plugin);
+	cvs_plugin->uiid = anjuta_ui_merge (ui, UI_FILE);
 	return TRUE;
 }
 
@@ -90,28 +121,26 @@ static gboolean
 deactivate_plugin (AnjutaPlugin *plugin)
 {
 	AnjutaUI *ui = anjuta_shell_get_ui (plugin->shell, NULL);
-	g_message ("SamplePlugin: Dectivating Sample plugin ...");
-	anjuta_shell_remove_widget (plugin->shell, ((SamplePlugin*)plugin)->widget,
-								NULL);
-	anjuta_ui_unmerge (ui, ((SamplePlugin*)plugin)->uiid);
+	g_message ("CVSPlugin: Dectivating CVS plugin ...");
+	anjuta_ui_unmerge (ui, ((CVSPlugin*)plugin)->uiid);
 	return TRUE;
 }
 
 static void
 dispose (GObject *obj)
 {
-	// SamplePlugin *plugin = (SamplePlugin*)obj;
+	// CVSPlugin *plugin = (CVSPlugin*)obj;
 }
 
 static void
-sample_plugin_instance_init (GObject *obj)
+cvs_plugin_instance_init (GObject *obj)
 {
-	SamplePlugin *plugin = (SamplePlugin*)obj;
+	CVSPlugin *plugin = (CVSPlugin*)obj;
 	plugin->uiid = 0;
 }
 
 static void
-sample_plugin_class_init (GObjectClass *klass) 
+cvs_plugin_class_init (GObjectClass *klass) 
 {
 	AnjutaPluginClass *plugin_class = ANJUTA_PLUGIN_CLASS (klass);
 
@@ -122,5 +151,5 @@ sample_plugin_class_init (GObjectClass *klass)
 	klass->dispose = dispose;
 }
 
-ANJUTA_PLUGIN_BOILERPLATE (SamplePlugin, sample_plugin);
-ANJUTA_SIMPLE_PLUGIN (SamplePlugin, sample_plugin);
+ANJUTA_PLUGIN_BOILERPLATE (CVSPlugin, cvs_plugin);
+ANJUTA_SIMPLE_PLUGIN (CVSPlugin, cvs_plugin);

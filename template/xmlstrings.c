@@ -17,10 +17,6 @@
 #include "xmlstrings.h"
 
 const xmlChar* TEXT_TYPE = "text-template";
-const xmlChar* AUTOTOOLS_TYPE = "autotools";
-const xmlChar* LANG_TYPE = "language-template";
-const xmlChar* LIB_TYPE = "library-template";
-const xmlChar* PRJ_TYPE = "project-template";
 
 /* General */
 const xmlChar* NAME = "name";
@@ -29,25 +25,3 @@ const xmlChar* DESCRIPTION = "description";
 
 /* Text */
 const xmlChar* CONTENT = "content";
-
-/* Project */
-const xmlChar* TARGET = "target";
-const xmlChar* LIBS = "libs";
-const xmlChar* LIBRARY = "library";
-const xmlChar* INIT_SCRIPT = "init_script";
-const xmlChar* INIT_TARBALL = "init_tarball";
-
-/* autotools */
-const xmlChar* AUTOCONF = "autoconf";
-const xmlChar* AUTOMAKE = "automake";
-const xmlChar* MACRO = "macro";
-const xmlChar* INCLUDE = "include";
-const xmlChar* LD_ADD = "ld_add";
-const xmlChar* LD_PATH = "ld_path";
-const xmlChar* PKGCONFIG = "pkgconfig";
-const xmlChar* PACKAGE = "package";
-const xmlChar* PKGVERSION = "pkgversion";
-
-
-/* library */
-const xmlChar* VERSION = "version";

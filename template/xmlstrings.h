@@ -22,10 +22,6 @@
 /* Keep this up-to-date with the dtds 
 and with xmlstrings.c*/
 extern const xmlChar* TEXT_TYPE;
-extern const xmlChar* AUTOTOOLS_TYPE;
-extern const xmlChar* LANG_TYPE;
-extern const xmlChar* LIB_TYPE;
-extern const xmlChar* PRJ_TYPE;
 
 /* General */
 extern const xmlChar* NAME;
@@ -35,23 +31,4 @@ extern const xmlChar* DESCRIPTION;
 /* Text */
 extern const xmlChar* CONTENT;
 
-/* Project */
-extern const xmlChar* TARGET;
-extern const xmlChar* LIBS;
-extern const xmlChar* LIBRARY;
-extern const xmlChar* INIT_SCRIPT;
-extern const xmlChar* INIT_TARBALL;
-
-/* autotools */
-extern const xmlChar* AUTOCONF;
-extern const xmlChar* AUTOMAKE;
-extern const xmlChar* MACRO;
-extern const xmlChar* INCLUDE;
-extern const xmlChar* LD_ADD;
-extern const xmlChar* PKGCONFIG;
-extern const xmlChar* PACKAGE;
-extern const xmlChar* PKGVERSION;
-
-/* library */
-extern const xmlChar* VERSION;
 #endif

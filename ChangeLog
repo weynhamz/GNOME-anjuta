@@ -1,3 +1,31 @@
+2004-10-22  Johannes Schmid <jhs@cvs.gnome.org>
+	
+	* global-tags/Makefile.am
+	mime/Makefile.am
+	
+	Some fixes in build process from Alexey Rusakov <ktirf@users.sf.net>
+	
+	* template/xmltemplate.[ch]
+	template/xmlstrings.[ch]
+	template/autotools.[ch] removed
+	template/prj_template.[ch] removed
+	template/lang_template.[ch] removed
+	template/lib_template.[ch] removed
+	template/Makefile.am adjusted
+	template/dtds/lang.dtd removed	
+	template/dtds/lib.dtd removed
+	template/dtds/prj.dtd removed
+	template/dtds/autotools.dtd removed
+	data/template/lib/* removed
+	data/template/language/* removed
+	data/template/library/* removed
+	data/template/project/* removed	
+	date/template/Makefile.am adjusted
+	
+	Remove everything except text-templates to replace hardcoded 
+	Edit->Insert texts with dynamic loaded.
+		
+
 2004-10-21  Naba Kumar  <naba@gnome.org>
 	
 	* libanjuta/anjuta-plugin.c,
