@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-03-08 16:25-0500\n"
-"PO-Revision-Date: 2005-03-08 12:57-0400\n"
+"POT-Creation-Date: 2005-03-09 23:55-0500\n"
+"PO-Revision-Date: 2005-03-09 12:57-0400\n"
 "Last-Translator: Adam Weinberger <adamw@gnome.org>\n"
 "Language-Team: Canadian English <adamw@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -70,7 +70,7 @@ msgid "Anjuta start with dialog"
 msgstr "Anjuta start with dialog"
 
 #: ../anjuta.glade.h:10
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:4
+#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:5
 msgid "Application Wizard"
 msgstr "Application Wizard"
 
@@ -565,7 +565,7 @@ msgstr "Output files"
 
 #: ../anjuta.glade.h:116
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:16
-#: ../plugins/gdb/anjuta-gdb.glade.h:16 ../plugins/gdb/signals_gui.c:263
+#: ../plugins/gdb/anjuta-gdb.glade.h:16 ../plugins/gdb/signals_gui.c:256
 msgid "Pass:"
 msgstr "Pass:"
 
@@ -672,7 +672,7 @@ msgstr "Scripts at the end of top level Makefile.am"
 
 #: ../anjuta.glade.h:139
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:21
-#: ../plugins/gdb/anjuta-gdb.glade.h:21 ../plugins/gdb/signals_gui.c:212
+#: ../plugins/gdb/anjuta-gdb.glade.h:21 ../plugins/gdb/signals_gui.c:205
 msgid "Set Signal Property"
 msgstr "Set Signal Property"
 
@@ -758,7 +758,7 @@ msgstr "Top level Makefile.am"
 
 #: ../anjuta.glade.h:157 ../plugins/gdb/registers_gui.c:48
 #: ../plugins/gdb/sharedlib_gui.c:41 ../plugins/gdb/signals_gui.c:55
-#: ../plugins/gdb/stack_trace.c:368 ../plugins/subversion/svn-notify.c:118
+#: ../plugins/gdb/stack_trace.c:369 ../plugins/subversion/svn-notify.c:118
 msgid "Update"
 msgstr "Update"
 
@@ -783,7 +783,7 @@ msgid "User name:"
 msgstr "User name:"
 
 #: ../anjuta.glade.h:163 ../plugins/project-manager/project_dbase_gui.c:871
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:17
+#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:18
 msgid "Version:"
 msgstr "Version:"
 
@@ -2265,33 +2265,37 @@ msgstr "Please enter a filename!"
 msgid "Please fill field: %s"
 msgstr "Please fill field: %s"
 
-#: ../plugins/cvs-plugin/cvs-callbacks.c:131
+#: ../plugins/cvs-plugin/cvs-callbacks.c:81
+msgid "CVS command is running! Please wait until it is finished!"
+msgstr "CVS command is running! Please wait until it is finished!"
+
+#: ../plugins/cvs-plugin/cvs-callbacks.c:153
 msgid "Unable to delete file"
 msgstr "Unable to delete file"
 
-#: ../plugins/cvs-plugin/cvs-callbacks.c:216
-#: ../plugins/cvs-plugin/cvs-callbacks.c:414
+#: ../plugins/cvs-plugin/cvs-callbacks.c:244
+#: ../plugins/cvs-plugin/cvs-callbacks.c:454
 #: ../plugins/subversion/subversion-callbacks.c:234
 msgid "Are you sure that you do not want a log message?"
 msgstr "Are you sure that you do not want a log message?"
 
-#: ../plugins/cvs-plugin/cvs-callbacks.c:390
+#: ../plugins/cvs-plugin/cvs-callbacks.c:430
 msgid "CVSROOT"
 msgstr "CVSROOT"
 
-#: ../plugins/cvs-plugin/cvs-callbacks.c:393
+#: ../plugins/cvs-plugin/cvs-callbacks.c:433
 msgid "Module"
 msgstr "Module"
 
-#: ../plugins/cvs-plugin/cvs-callbacks.c:396
+#: ../plugins/cvs-plugin/cvs-callbacks.c:436
 msgid "Vendor"
 msgstr "Vendor"
 
-#: ../plugins/cvs-plugin/cvs-callbacks.c:399
+#: ../plugins/cvs-plugin/cvs-callbacks.c:439
 msgid "Release"
 msgstr "Release"
 
-#: ../plugins/cvs-plugin/cvs-callbacks.c:403
+#: ../plugins/cvs-plugin/cvs-callbacks.c:443
 msgid "Directory"
 msgstr "Directory"
 
@@ -2413,7 +2417,7 @@ msgstr "_Import Tree"
 msgid "Import a new source tree to CVS"
 msgstr "Import a new source tree to CVS"
 
-#: ../plugins/cvs-plugin/plugin.c:349
+#: ../plugins/cvs-plugin/plugin.c:355
 msgid "CVS operations"
 msgstr "CVS operations"
 
@@ -2594,7 +2598,7 @@ msgstr "Contents"
 #: ../plugins/devhelp/plugin.c:250 ../plugins/devhelp/plugin.c:476
 #: ../plugins/devhelp/plugin.c:489 ../plugins/gdb/registers_gui.c:56
 #: ../plugins/gdb/sharedlib_gui.c:49 ../plugins/gdb/signals_gui.c:63
-#: ../plugins/gdb/stack_trace.c:383 ../plugins/gdb/watch_gui.c:74
+#: ../plugins/gdb/stack_trace.c:384 ../plugins/gdb/watch_gui.c:74
 #: ../plugins/project-manager/project_dbase_gui.c:343 ../src/anjuta-app.c:432
 #: ../src/anjuta_gui.c:123
 msgid "Help"
@@ -4641,7 +4645,7 @@ msgstr ""
 "The extension will be added according to the type."
 
 #: ../plugins/file-wizard/anjuta-file-wizard.glade.h:10
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:10
+#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:11
 msgid "License:"
 msgstr "Licence:"
 
@@ -4906,7 +4910,7 @@ msgstr "Pass"
 msgid "Condition"
 msgstr "Condition"
 
-#: ../plugins/gdb/breakpoints.c:184 ../plugins/gdb/debugger.c:1657
+#: ../plugins/gdb/breakpoints.c:184 ../plugins/gdb/debugger.c:1658
 msgid "All breakpoints enabled:"
 msgstr "All breakpoints enabled:"
 
@@ -4915,7 +4919,7 @@ msgstr "All breakpoints enabled:"
 #. breakpoints_dbase_update,
 #. debugger.breakpoints_dbase);
 #.
-#: ../plugins/gdb/breakpoints.c:202 ../plugins/gdb/debugger.c:1698
+#: ../plugins/gdb/breakpoints.c:202 ../plugins/gdb/debugger.c:1699
 msgid "All breakpoints disabled:"
 msgstr "All breakpoints disabled:"
 
@@ -4927,12 +4931,12 @@ msgstr "Are you sure you want to delete all the breakpoints?"
 msgid "0"
 msgstr "0"
 
-#: ../plugins/gdb/debug_tree.c:106 ../plugins/gdb/watch_gui.c:125
+#: ../plugins/gdb/debug_tree.c:106 ../plugins/gdb/watch_gui.c:135
 #: ../plugins/tools/anjuta-tools.c:1807
 msgid "Variable"
 msgstr "Variable"
 
-#: ../plugins/gdb/debug_tree.c:106 ../plugins/gdb/watch_gui.c:134
+#: ../plugins/gdb/debug_tree.c:106 ../plugins/gdb/watch_gui.c:144
 #: ../plugins/tools/anjuta-tools.c:1819
 msgid "Value"
 msgstr "Value"
@@ -4973,27 +4977,27 @@ msgstr "Char"
 msgid "Inspect memory"
 msgstr "Inspect memory"
 
-#: ../plugins/gdb/debugger.c:120
+#: ../plugins/gdb/debugger.c:113
 msgid "Stack"
 msgstr "Stack"
 
-#: ../plugins/gdb/debugger.c:124
+#: ../plugins/gdb/debugger.c:118
 msgid "Locals"
 msgstr "Locals"
 
-#: ../plugins/gdb/debugger.c:128
+#: ../plugins/gdb/debugger.c:123
 msgid "Watches"
 msgstr "Watches"
 
-#: ../plugins/gdb/debugger.c:186 ../plugins/gdb/debugger.c:536
+#: ../plugins/gdb/debugger.c:182 ../plugins/gdb/debugger.c:537
 msgid "Loading Executable: "
 msgstr "Loading Executable: "
 
-#: ../plugins/gdb/debugger.c:217
+#: ../plugins/gdb/debugger.c:213
 msgid "Loading Core: "
 msgstr "Loading Core: "
 
-#: ../plugins/gdb/debugger.c:449
+#: ../plugins/gdb/debugger.c:450
 #, c-format
 msgid ""
 "Unable to find: %s.\n"
@@ -5004,56 +5008,56 @@ msgstr ""
 "Unable to initialize debugger.\n"
 "Make sure Anjuta is installed correctly."
 
-#: ../plugins/gdb/debugger.c:533
+#: ../plugins/gdb/debugger.c:534
 msgid "Getting ready to start debugging session ..."
 msgstr "Getting ready to start debugging session..."
 
-#: ../plugins/gdb/debugger.c:543
+#: ../plugins/gdb/debugger.c:544
 msgid "No executable specified."
 msgstr "No executable specified."
 
-#: ../plugins/gdb/debugger.c:545
+#: ../plugins/gdb/debugger.c:546
 msgid "Open an executable or attach to a process to start debugging."
 msgstr "Open an executable or attach to a process to start debugging."
 
-#: ../plugins/gdb/debugger.c:551
+#: ../plugins/gdb/debugger.c:552
 msgid "There was an error whilst launching the debugger."
 msgstr "There was an error while launching the debugger."
 
-#: ../plugins/gdb/debugger.c:553
+#: ../plugins/gdb/debugger.c:554
 msgid "Make sure 'gdb' is installed on the system.\n"
 msgstr "Make sure 'gdb' is installed on the system.\n"
 
-#: ../plugins/gdb/debugger.c:710
+#: ../plugins/gdb/debugger.c:711
 msgid "Error: "
 msgstr "Error: "
 
-#: ../plugins/gdb/debugger.c:727
+#: ../plugins/gdb/debugger.c:728
 msgid "Debugger is ready.\n"
 msgstr "Debugger is ready.\n"
 
-#: ../plugins/gdb/debugger.c:1063
+#: ../plugins/gdb/debugger.c:1064
 msgid "Cannot execute gnome-terminal"
 msgstr "Cannot execute gnome-terminal"
 
-#: ../plugins/gdb/debugger.c:1099
+#: ../plugins/gdb/debugger.c:1100
 msgid "Cannot start terminal for debugging."
 msgstr "Cannot start terminal for debugging."
 
-#: ../plugins/gdb/debugger.c:1162
+#: ../plugins/gdb/debugger.c:1163
 msgid "Warning: No debug terminal. Redirecting stdio to /dev/null.\n"
 msgstr "Warning: No debug terminal. Redirecting stdio to /dev/null.\n"
 
-#: ../plugins/gdb/debugger.c:1181
+#: ../plugins/gdb/debugger.c:1182
 msgid "Running program ..."
 msgstr "Running program..."
 
-#: ../plugins/gdb/debugger.c:1301
+#: ../plugins/gdb/debugger.c:1302
 #, c-format
 msgid "Attaching to process: %d"
 msgstr "Attaching to process: %d"
 
-#: ../plugins/gdb/debugger.c:1332
+#: ../plugins/gdb/debugger.c:1333
 msgid ""
 "A process is already running.\n"
 "Would you like to terminate it and attach the new process?"
@@ -5061,20 +5065,20 @@ msgstr ""
 "A process is already running.\n"
 "Would you like to terminate it and attach the new process?"
 
-#: ../plugins/gdb/debugger.c:1346
+#: ../plugins/gdb/debugger.c:1347
 msgid "Anjuta is unable to attach to itself."
 msgstr "Anjuta is unable to attach to itself."
 
-#: ../plugins/gdb/debugger.c:1405
+#: ../plugins/gdb/debugger.c:1406
 msgid "Program forcefully terminated."
 msgstr "Program forcefully terminated."
 
-#: ../plugins/gdb/debugger.c:1424
+#: ../plugins/gdb/debugger.c:1425
 #, c-format
 msgid "Detaching the process: %d"
 msgstr "Detaching the process: %d"
 
-#: ../plugins/gdb/debugger.c:1478
+#: ../plugins/gdb/debugger.c:1479
 msgid ""
 "Program is ATTACHED.\n"
 "Do you still want to stop Debugger?"
@@ -5082,7 +5086,7 @@ msgstr ""
 "Program is ATTACHED.\n"
 "Do you still want to stop Debugger?"
 
-#: ../plugins/gdb/debugger.c:1481
+#: ../plugins/gdb/debugger.c:1482
 msgid ""
 "Program is RUNNING.\n"
 "Do you still want to stop Debugger?"
@@ -5090,21 +5094,21 @@ msgstr ""
 "Program is RUNNING.\n"
 "Do you still want to stop Debugger?"
 
-#: ../plugins/gdb/debugger.c:1739
+#: ../plugins/gdb/debugger.c:1740
 msgid "All breakpoints deleted:"
 msgstr "All breakpoints deleted:"
 
-#: ../plugins/gdb/debugger.c:1766
+#: ../plugins/gdb/debugger.c:1767
 #, c-format
 msgid "Interrupting the process: %d"
 msgstr "Interrupting the process: %d"
 
-#: ../plugins/gdb/debugger.c:1794
+#: ../plugins/gdb/debugger.c:1795
 #, c-format
 msgid "Sending signal %s to the process: %d"
 msgstr "Sending signal %s to the process: %d"
 
-#: ../plugins/gdb/debugger.c:1820
+#: ../plugins/gdb/debugger.c:1821
 msgid "Error whilst signaling the process."
 msgstr "Error while signalling the process."
 
@@ -5340,7 +5344,7 @@ msgstr "Kernel Signals..."
 msgid "Show kernel signals"
 msgstr "Show kernel signals"
 
-#: ../plugins/gdb/plugin.c:487
+#: ../plugins/gdb/plugin.c:515
 msgid "Gdb (debugger) commands"
 msgstr "Gdb (debugger) commands"
 
@@ -5402,47 +5406,47 @@ msgstr "Signal"
 msgid "Stop"
 msgstr "Stop"
 
-#: ../plugins/gdb/signals_gui.c:255
+#: ../plugins/gdb/signals_gui.c:248
 msgid " Stop: "
 msgstr " Stop: "
 
-#: ../plugins/gdb/signals_gui.c:259
+#: ../plugins/gdb/signals_gui.c:252
 msgid " Print: "
 msgstr " Print: "
 
-#: ../plugins/gdb/stack_trace.c:319
+#: ../plugins/gdb/stack_trace.c:320
 msgid "Error getting selection\n"
 msgstr "Error getting selection\n"
 
-#: ../plugins/gdb/stack_trace.c:330
+#: ../plugins/gdb/stack_trace.c:331
 msgid "Error getting source location from stack frame"
 msgstr "Error getting source location from stack frame"
 
-#: ../plugins/gdb/stack_trace.c:347
+#: ../plugins/gdb/stack_trace.c:348
 msgid "Frame set"
 msgstr "Frame set"
 
-#: ../plugins/gdb/stack_trace.c:354
+#: ../plugins/gdb/stack_trace.c:355
 msgid "Frame info"
 msgstr "Frame info"
 
-#: ../plugins/gdb/stack_trace.c:361
+#: ../plugins/gdb/stack_trace.c:362
 msgid "Frame args"
 msgstr "Frame args"
 
-#: ../plugins/gdb/stack_trace.c:375
+#: ../plugins/gdb/stack_trace.c:376
 msgid "View Source"
 msgstr "View Source"
 
-#: ../plugins/gdb/stack_trace.c:442
+#: ../plugins/gdb/stack_trace.c:454
 msgid "Active"
 msgstr "Active"
 
-#: ../plugins/gdb/stack_trace.c:453
+#: ../plugins/gdb/stack_trace.c:465
 msgid "Count"
 msgstr "Count"
 
-#: ../plugins/gdb/stack_trace.c:468 ../src/toolbar.c:612
+#: ../plugins/gdb/stack_trace.c:480 ../src/toolbar.c:612
 msgid "Frame"
 msgstr "Frame"
 
@@ -5477,31 +5481,31 @@ msgstr "Toggle enable"
 msgid "Change item"
 msgstr "Change item"
 
-#: ../plugins/gdb/watch_gui.c:172
+#: ../plugins/gdb/watch_gui.c:173
 msgid "Add Watch Expression"
 msgstr "Add Watch Expression"
 
-#: ../plugins/gdb/watch_gui.c:182
+#: ../plugins/gdb/watch_gui.c:183
 msgid "Add expression to watch"
 msgstr "Add expression to watch"
 
-#: ../plugins/gdb/watch_gui.c:238
+#: ../plugins/gdb/watch_gui.c:239
 msgid "Modify Watch Expression"
 msgstr "Modify Watch Expression"
 
-#: ../plugins/gdb/watch_gui.c:248
+#: ../plugins/gdb/watch_gui.c:249
 msgid "Modify watched expression"
 msgstr "Modify watched expression"
 
-#: ../plugins/gdb/watch_gui.c:305
+#: ../plugins/gdb/watch_gui.c:306
 msgid "Inspect/Evaluate"
 msgstr "Inspect/Evaluate"
 
-#: ../plugins/gdb/watch_gui.c:315
+#: ../plugins/gdb/watch_gui.c:316
 msgid "Inspect/Evaluate Expression"
 msgstr "Inspect/Evaluate Expression"
 
-#: ../plugins/gdb/watch_gui.c:325
+#: ../plugins/gdb/watch_gui.c:326
 msgid "Add To Watch"
 msgstr "Add To Watch"
 
@@ -5619,16 +5623,16 @@ msgstr "Clos_e"
 msgid "Close current glade project"
 msgstr "Close current glade project"
 
-#: ../plugins/glade/plugin.c:532
+#: ../plugins/glade/plugin.c:536
 msgid "Glade operations"
 msgstr "Glade operations"
 
-#: ../plugins/glade/plugin.c:650
+#: ../plugins/glade/plugin.c:654
 #, c-format
 msgid "Could not open: %s"
 msgstr "Could not open: %s"
 
-#: ../plugins/glade/plugin.c:681
+#: ../plugins/glade/plugin.c:685
 msgid "Could not create a new glade project."
 msgstr "Could not create a new glade project."
 
@@ -6180,7 +6184,7 @@ msgid "Due date"
 msgstr "Due date"
 
 #: ../plugins/gtodo/interface.c:228
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:13
+#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:14
 msgid "Summary"
 msgstr "Summary"
 
@@ -6605,7 +6609,7 @@ msgstr "Anjuta macros"
 msgid "My macros"
 msgstr "My macros"
 
-#: ../plugins/macro/macro-dialog.c:259
+#: ../plugins/macro/macro-dialog.c:258
 msgid "Insert macro"
 msgstr "Insert macro"
 
@@ -6654,130 +6658,110 @@ msgid "C"
 msgstr "C"
 
 #: ../plugins/macro/macros.xml.h:10
+msgid "C_Custom_Indent"
+msgstr "C_Custom_Indent"
+
+#: ../plugins/macro/macros.xml.h:11
 msgid "Changelog"
 msgstr "ChangeLog"
 
-#: ../plugins/macro/macros.xml.h:11
+#: ../plugins/macro/macros.xml.h:12
 msgid "Copyright"
 msgstr "Copyright"
 
-#: ../plugins/macro/macros.xml.h:12
+#: ../plugins/macro/macros.xml.h:13
 msgid "Date_Time"
 msgstr "Date_Time"
 
-#: ../plugins/macro/macros.xml.h:13
-msgid "Date_Y"
-msgstr "Date_Y"
-
 #: ../plugins/macro/macros.xml.h:14
-msgid "Date_Ymd"
-msgstr "Date_YMD"
+msgid "Ext."
+msgstr "Ext."
 
 #: ../plugins/macro/macros.xml.h:15
-msgid "EXPAND"
-msgstr "EXPAND"
-
-#: ../plugins/macro/macros.xml.h:16
-msgid "Email"
-msgstr "Email"
-
-#: ../plugins/macro/macros.xml.h:17
-msgid "File_Name"
-msgstr "File_Name"
-
-#: ../plugins/macro/macros.xml.h:18
-msgid "File_Name_Up"
-msgstr "File_Name_Up"
-
-#: ../plugins/macro/macros.xml.h:19
-msgid "File_Name_Up_Prefix"
-msgstr "File_Name_Up_Prefix"
-
-#: ../plugins/macro/macros.xml.h:20
 msgid "Header_c"
 msgstr "Header_C"
 
-#: ../plugins/macro/macros.xml.h:21
+#: ../plugins/macro/macros.xml.h:16
 msgid "Header_cpp"
 msgstr "Header_CPP"
 
-#: ../plugins/macro/macros.xml.h:22
+#: ../plugins/macro/macros.xml.h:17
 msgid "Header_csharp"
 msgstr "Header_CSharp"
 
-#: ../plugins/macro/macros.xml.h:23
+#: ../plugins/macro/macros.xml.h:18
 msgid "Header_h"
 msgstr "Header_H"
 
-#: ../plugins/macro/macros.xml.h:24
+#: ../plugins/macro/macros.xml.h:19
 msgid "Header_perl"
 msgstr "Header_Perl"
 
-#: ../plugins/macro/macros.xml.h:25
+#: ../plugins/macro/macros.xml.h:20
 msgid "Header_shell"
 msgstr "Header_Shell"
 
-#: ../plugins/macro/macros.xml.h:26
+#: ../plugins/macro/macros.xml.h:21
 msgid "Licenses"
 msgstr "Licences"
 
-#: ../plugins/macro/macros.xml.h:27
+#: ../plugins/macro/macros.xml.h:22
 msgid "UserName"
 msgstr "UserName"
 
-#: ../plugins/macro/macros.xml.h:28
+#: ../plugins/macro/macros.xml.h:23
 msgid "azerty"
 msgstr "azerty"
 
-#: ../plugins/macro/macros.xml.h:29
+#: ../plugins/macro/macros.xml.h:24
 msgid "cvs_author"
 msgstr "cvs_author"
 
-#: ../plugins/macro/macros.xml.h:30
+#: ../plugins/macro/macros.xml.h:25
 msgid "cvs_date"
 msgstr "cvs_date"
 
-#: ../plugins/macro/macros.xml.h:31
+#: ../plugins/macro/macros.xml.h:26
 msgid "cvs_header"
 msgstr "cvs_header"
 
-#: ../plugins/macro/macros.xml.h:32
+#: ../plugins/macro/macros.xml.h:27
 msgid "cvs_id"
 msgstr "cvs_id"
 
-#: ../plugins/macro/macros.xml.h:33
+#: ../plugins/macro/macros.xml.h:28
 msgid "cvs_log"
 msgstr "cvs_log"
 
-#: ../plugins/macro/macros.xml.h:34
+#: ../plugins/macro/macros.xml.h:29
 msgid "cvs_name"
 msgstr "cvs_name"
 
-#: ../plugins/macro/macros.xml.h:35
+#: ../plugins/macro/macros.xml.h:30
 msgid "cvs_revision"
 msgstr "cvs_revision"
 
-#: ../plugins/macro/macros.xml.h:36
+#: ../plugins/macro/macros.xml.h:31
 msgid "cvs_source"
 msgstr "cvs_source"
 
-#: ../plugins/macro/macros.xml.h:37
+#: ../plugins/macro/macros.xml.h:32
 msgid "do_while"
 msgstr "do_while"
 
-#: ../plugins/macro/macros.xml.h:38
+#: ../plugins/macro/macros.xml.h:33
 msgid "for"
 msgstr "for"
 
-#: ../plugins/macro/macros.xml.h:39
+#: ../plugins/macro/macros.xml.h:34
 msgid "if...else"
 msgstr "if...else"
 
-#: ../plugins/macro/macros.xml.h:40
+#: ../plugins/macro/macros.xml.h:35
 msgid "switch"
 msgstr "switch"
 
-#: ../plugins/macro/macros.xml.h:41
+#: ../plugins/macro/macros.xml.h:36
 msgid "while"
 msgstr "while"
 
@@ -7421,12 +7405,12 @@ msgid " Project Information "
 msgstr " Project Information "
 
 #: ../plugins/project-manager/project_dbase_gui.c:721
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:5
+#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:6
 msgid "Author:"
 msgstr "Author:"
 
 #: ../plugins/project-manager/project_dbase_gui.c:729
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:11
+#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:12
 msgid "Project Name:"
 msgstr "Project Name:"
 
@@ -7781,30 +7765,34 @@ msgid "<b>New Project Wizard Options</b>"
 msgstr "<b>New Project Wizard Options</b>"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:3
+msgid "<b>Project description:</b>"
+msgstr "<b>Project description:</b>"
+
+#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:4
 msgid "<b>Select the type of application to be developed</b>"
 msgstr "<b>Select the type of application to be developed</b>"
 
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:6
+#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:7
 msgid "Basic Information"
 msgstr "Basic Information"
 
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:7
+#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:8
 msgid "Default project directory"
 msgstr "Default project directory"
 
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:8
+#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:9
 msgid "Destination:"
 msgstr "Destination:"
 
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:9
+#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:10
 msgid "Enter the basic Project information"
 msgstr "Enter the basic Project information"
 
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:12
+#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:13
 msgid "Project Type"
 msgstr "Project Type"
 
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:14
+#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:15
 msgid ""
 "The Application Wizard will generate a basic skeleton for a project, "
 "including all of the build files. It will ask for details of the initial "
@@ -7816,15 +7804,15 @@ msgstr ""
 "structure for the application. Please answer the questions carefully, as it "
 "may not be possible to change some of the settings later."
 
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:15
+#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:16
 msgid "User email address"
 msgstr "User email address"
 
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:16
+#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:17
 msgid "User name"
 msgstr "User name"
 
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:18
+#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:19
 msgid "label"
 msgstr "label"
 
