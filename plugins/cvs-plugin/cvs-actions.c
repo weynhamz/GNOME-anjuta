@@ -735,7 +735,6 @@ void on_menu_cvs_import (GtkAction* action, CVSPlugin* plugin)
 				}
 				case SERVER_EXTERN:
 				{
-					/* FIXME: Does this format work with ext:? */
 					cvsroot = g_strdup_printf("-d:ext:%s@%s",
 						gtk_entry_get_text(GTK_ENTRY(username)),
 						gtk_entry_get_text(GTK_ENTRY(cvsroot_entry)));
