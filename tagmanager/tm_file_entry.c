@@ -156,7 +156,7 @@ TMFileEntry *tm_file_entry_new(const char *path, TMFileEntry *parent
 				if (S_ISREG(s.st_mode))
 				{
 					int fd;
-					entries = g_new(char, s.st_size + 1);
+					entries = g_new(char, s.st_size + 2);
 					if (0 > (fd = open(file_name, O_RDONLY)))
 					{
 						g_free(entries);
@@ -165,10 +165,11 @@ TMFileEntry *tm_file_entry_new(const char *path, TMFileEntry *parent
 					else
 					{
 						off_t n =0;
-						off_t total_read = 0;
+						off_t total_read = 1;
 						while (0 < (n = read(fd, entries + total_read, s.st_size - total_read)))
 							total_read += n;
 						entries[s.st_size] = '\0';
+						entries[0] = '\n';
 						close(fd);
 						entry->version = g_strdup("D");
 					}

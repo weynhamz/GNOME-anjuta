@@ -1,3 +1,8 @@
+2003-04-14  Dan Elphick <dre00r@ecs.soton.ac.uk>
+
+	* tagmanager/tm_file_entry.c: Fix to make CVS info appear for first 
+	file in CVS/Entries. (Reviewed and applied by Biswa)
+
 2003-04-16  Naba Kumar  <naba@gnome.org>
 
 	* aneditor.cxx: use unicode everytime (fixed unicode related
