@@ -25,11 +25,12 @@
 #include <string.h>
 
 #include <gnome.h>
+#include <libgnomeui/gnome-window-icon.h>
 #include "anjuta.h"
+#include "pixmaps.h"
 #include "resources.h"
 #include "main_menubar.h"
 #include "dnd.h"
-
 
 void
 create_anjuta_gui (AnjutaApp * appl)
@@ -67,8 +68,8 @@ create_anjuta_gui (AnjutaApp * appl)
 	GtkWidget *appbar1;
 	GtkTooltips *tooltips;
 
+	gnome_window_icon_set_default_from_file(PACKAGE_PIXMAPS_DIR "/" ANJUTA_PIXMAP_ICON);
 	tooltips = gtk_tooltips_new ();
-
 	anjuta_gui = gnome_app_new ("Anjuta", "Anjuta");
 	gtk_widget_set_uposition (anjuta_gui, 0, 0);
 	gtk_widget_set_usize (anjuta_gui, 500, 116);
