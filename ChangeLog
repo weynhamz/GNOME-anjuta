@@ -1,3 +1,8 @@
+2005-02-24	Johannes Schmid <jhs@cvs.gnome.org>
+	
+	* plugins/macor/macro-util.c: Fixed crash bugs if email or
+	username can not be found correctly.
+
 2005-02-24  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
 
 	* plugins/file-wizard/file.[ch], plugins/macro/macro-util.c,

@@ -70,7 +70,9 @@ get_username(MacroPlugin * plugin)
 		username = getenv("USERNAME");
 	if (!username || strlen(username) == 0)
 		username = getenv("USER");
-	return username;
+	if (!username || strlen(username) == 0)
+		username = "<username>";
+	return g_strdup(username);
 }	
 
 
@@ -79,31 +81,34 @@ get_email(MacroPlugin * plugin)
 {
 	AnjutaPreferences *prefs;
 	gchar *email;
-	gchar *username;
 	
 	prefs = anjuta_shell_get_preferences ((ANJUTA_PLUGIN(plugin))->shell, NULL);
 	email = anjuta_preferences_get (prefs, "anjuta.project.email");
 	if (!email || strlen(email) == 0)
 	{
-		email = getenv("HOSTNAME");
-		if (!(username = getenv("USERNAME")) || strlen(username) == 0)
-			username = getenv("USER");
-		email = g_strconcat(username, "@", email, NULL);
+		gchar* host = getenv("HOSTNAME");
+		gchar* username = get_username(plugin);
+		
+		if (host == NULL || !strlen(host))
+			host = "<host>";
+		email = g_strconcat(username, "@", host, NULL);
 		g_free(username);
+		return email;
 	}
-	return email;
+	return g_strdup(email);
 }
 	
 static IAnjutaEditor*
 get_current_editor (AnjutaPlugin *plugin)
 {
-	IAnjutaEditor *editor;
 	IAnjutaDocumentManager* docman;
 	docman = anjuta_shell_get_interface (plugin->shell,
 										 IAnjutaDocumentManager,
 										 NULL);
-	editor = ianjuta_document_manager_get_current_editor (docman, NULL);
-	return editor;
+	if (docman)
+		return ianjuta_document_manager_get_current_editor (docman, NULL);
+	else
+		return NULL;
 }
 
 static gchar *
@@ -112,8 +117,11 @@ get_filename(MacroPlugin * plugin)
 	IAnjutaEditor *te;
 	gchar *filename;
 	
-	te = get_current_editor (plugin);
-	filename = g_strdup(ianjuta_editor_get_filename (IANJUTA_EDITOR (te), NULL));	
+	te = get_current_editor (ANJUTA_PLUGIN(plugin));
+	if (te != NULL)
+		filename = g_strdup(ianjuta_editor_get_filename (IANJUTA_EDITOR (te), NULL));	
+	else
+		filename = g_strdup("<filename>");
 
 	return filename;
 }
