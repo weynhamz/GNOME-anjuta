@@ -1,3 +1,7 @@
+2003-04-03  Dmitry G. Mastrukov  <dmitry@taurussoft.org>
+
+	* configure.in: Added Belarusian to ALL_LINGUAS.
+
 2003-04-01  Biswapesh Chattopadhyay  <biswapesh_chatterjee@tcscal.co.in>
 	* src/fileselection.c, src/goto_line.c: Fixed warnings. Patch by
 	Henry Jia

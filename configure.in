@@ -128,7 +128,7 @@ PKG_CHECK_MODULES(GTK, gtk+-2.0)
 AC_SUBST(GTK_CFLAGS)
 AC_SUBST(GTK_LIBS)
 
-ALL_LINGUAS="az da de el en_GB es fr hi it ja nl no pl pt pt_BR ru sk sv ta tr uk zh_CN zh_TW"
+ALL_LINGUAS="az be da de el en_GB es fr hi it ja nl no pl pt pt_BR ru sk sv ta tr uk zh_CN zh_TW"
 GETTEXT_PACKAGE=anjuta
 AC_SUBST(GETTEXT_PACKAGE)
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE", [GETTEXT package name])
