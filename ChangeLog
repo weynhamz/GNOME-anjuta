@@ -1,3 +1,7 @@
+2004-05-09  Johannes Schmid <jhs@cvs.gnome.org>
+
+	* configure.in: Changed GNOME_COMPILE_WARNIGS from error to maximum
+
 2004-05-07  Naba Kumar  <naba@gnome.org>
 
 	* manuals/reference/libanjuta/anjuta-architecture.sgml: Added some docs.

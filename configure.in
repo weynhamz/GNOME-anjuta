@@ -50,7 +50,7 @@ AM_CONFIG_HEADER(config.h)
 
 # Environment
 GNOME_COMMON_INIT
-GNOME_COMPILE_WARNINGS(error)
+GNOME_COMPILE_WARNINGS(maximum)
 
 dnl Define convenience macros
 dnl -------------------------
