@@ -1,6 +1,9 @@
 2003-04-14  Naba Kumar  <naba@gnome.org>
 
 	* anjuta.glade, anjuta_dialogs_strings.c: Updated setup dialog.
+	
+	* src/auncher.c: More child exit fixes
+	from Timothee Besset  <ttimo@idsoftware.com>
 
 2003-04-14  Johannes Schmid <clubfan@users.sourceforge.net>
 	

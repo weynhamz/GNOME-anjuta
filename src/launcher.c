@@ -82,6 +82,9 @@ struct				/* Launcher */
   gboolean stderr_is_done;
   gboolean pty_is_done;
   gboolean child_has_terminated;
+  
+/* Track if launcher_execution_done has been started */
+  gboolean waiting_for_done;
 
 /* Child's stdin, stdout and stderr pipes */
   gint stderr_pipe[2];
@@ -89,7 +92,6 @@ struct				/* Launcher */
   gint stdin_pipe[2];
 
 /* Gdk  Input Tags */
-  gint idle_id;
   gint poll_id;
 
 /* The child */
@@ -398,9 +400,18 @@ to_terminal_child_terminated (GtkWidget* term, gpointer data)
 #endif
 
   launcher.child_has_terminated = TRUE;
-  launcher.idle_id = gtk_timeout_add (50, launcher_execution_done, NULL);
+  if (!launcher.waiting_for_done) {
+    gtk_timeout_add (50, launcher_execution_done, NULL);
+    launcher.waiting_for_done = TRUE;
+  }
+#ifdef DEBUG    
+  else {
+    printf("WARNING: to_terminal_child_terminated - waiting_for_done == TRUE\n");
+  }
+#endif
 }
 
+/* monitors closure of stdout stderr and pty through a gtk_timeout_add setup */
 static gboolean
 launcher_execution_done (gpointer data)
 {
@@ -422,6 +433,8 @@ launcher_execution_done (gpointer data)
   gtk_widget_destroy(launcher.terminal);
   launcher.terminal = NULL;
   launcher_set_busy (FALSE);
+  
+  launcher.waiting_for_done = FALSE; /* After this, we can only return FALSE; */
   
   /* Call this here, after set_busy(FALSE)so we are able to 
 	 launch a new child from the terminate function.
@@ -460,6 +473,17 @@ launcher_pty_check_child_exit_code (gchar* line)
 #ifdef DEBUG
 			g_print ("Exit code: %d\n", exit_code);
 #endif
+                        /* TTimo: I've seen situations where to_terminal_child_died is not called
+                                    so make sure we still monitor process exit here */
+                        if (!launcher.waiting_for_done) {
+                          gtk_timeout_add (50, launcher_execution_done, NULL);
+                          launcher.waiting_for_done = TRUE;
+                        }
+                        #ifdef DEBUG    
+                        else {
+                          printf("launcher_pty_check_child_exit_code - waiting_for_done == TRUE\n");
+                        }
+                        #endif                  
 			ret = TRUE;
 		}
 		g_free(ascii_str);
