@@ -101,9 +101,10 @@ create_main_menubar (GtkWidget * ap, MainMenuBar * mb)
 	
 	mb->edit.find = find_submenu_uiinfo[0].widget;
 	mb->edit.find_next = find_submenu_uiinfo[1].widget;
-	mb->edit.find_replace = find_submenu_uiinfo[2].widget;
-	mb->edit.find_in_files = find_submenu_uiinfo[3].widget;
-	mb->edit.enter_selection = find_submenu_uiinfo[4].widget;
+	mb->edit.find_previous = find_submenu_uiinfo[2].widget;
+	mb->edit.find_replace = find_submenu_uiinfo[3].widget;
+	mb->edit.find_in_files = find_submenu_uiinfo[4].widget;
+	mb->edit.enter_selection = find_submenu_uiinfo[5].widget;
 	
 	mb->edit.goto_line = goto1_submenu_uiinfo[0].widget;
 	mb->edit.goto_brace = goto1_submenu_uiinfo[1].widget;

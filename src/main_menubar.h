@@ -105,6 +105,7 @@ struct _EditSubMenu
 
 	GtkWidget *find;
 	GtkWidget *find_next;	
+	GtkWidget *find_previous;
 	GtkWidget *find_in_files;
 	GtkWidget *find_replace;
 	GtkWidget *enter_selection;

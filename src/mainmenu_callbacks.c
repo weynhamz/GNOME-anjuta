@@ -2129,10 +2129,11 @@ on_about1_activate (GtkMenuItem * menuitem, gpointer user_data)
 	gtk_widget_show (about_dlg);
 }
 
+/*  *user_data : TRUE=Forward  False=Backward  */
 void
 on_findnext1_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
-	on_toolbar_find_clicked ( NULL, NULL );
+	on_toolbar_find_clicked ( NULL, user_data);	
 }
 
 void

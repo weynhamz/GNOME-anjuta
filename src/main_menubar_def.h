@@ -414,7 +414,7 @@ static GnomeUIInfo comment_submenu_uiinfo[NUM_COMMENT_SUBMENUS+1] = {
 	GNOMEUIINFO_END/*10*/
 };
 
-#define NUM_FIND_SUBMENUS 7
+#define NUM_FIND_SUBMENUS 8
 static GnomeUIInfo find_submenu_uiinfo[NUM_FIND_SUBMENUS+1] = {
 	{/*0*/
 	 GNOME_APP_UI_ITEM, N_("_Find ..."),
@@ -425,42 +425,49 @@ static GnomeUIInfo find_submenu_uiinfo[NUM_FIND_SUBMENUS+1] = {
 	
 	{/*1*/
 	 GNOME_APP_UI_ITEM, N_("Find _Next"),
-	 N_("Repeat the last Find command"),
-	 on_findnext1_activate, NULL, NULL,
+	 N_("Search Forward"),
+	 on_findnext1_activate, GINT_TO_POINTER(TRUE), NULL,
 	 GNOME_APP_PIXMAP_STOCK, GTK_STOCK_FIND,
-	 GDK_F6, GDK_SHIFT_MASK, NULL},
+	 GDK_G, GDK_CONTROL_MASK , NULL},
 	 
 	{/*2*/
+	 GNOME_APP_UI_ITEM, N_("Find Previous"),
+	 N_("Search Backward"),
+	 on_findnext1_activate, GINT_TO_POINTER(FALSE), NULL,
+	 GNOME_APP_PIXMAP_STOCK, GTK_STOCK_FIND,
+	 GDK_G, GDK_CONTROL_MASK | GDK_SHIFT_MASK, NULL},
+	 
+	{/*3*/
 	GNOME_APP_UI_ITEM, N_("Find and R_eplace ..."),
 	N_("Search for and replace a string or regular expression with another string"),
 	on_find_and_replace1_activate, NULL, NULL,
 	GNOME_APP_PIXMAP_STOCK, GTK_STOCK_FIND_AND_REPLACE,
 	GDK_F, GDK_CONTROL_MASK | GDK_SHIFT_MASK, NULL},
  
-	{/*3*/
+	{/*4*/
 	 GNOME_APP_UI_ITEM, N_("Fin_d in Files ..."),
 	 N_("Search for a string in multiple files or directories"),
 	 on_find_in_files1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	
-	{/*4*/
+	{/*5*/
 	 GNOME_APP_UI_ITEM, N_("_Enter Selection/I-Search"),
 	 N_("Enter the selected text as the search target"),
 	 on_enterselection, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 GDK_E, GDK_CONTROL_MASK, NULL},
 	
-	 GNOMEUIINFO_SEPARATOR, /*5*/
+	 GNOMEUIINFO_SEPARATOR, /*6*/
 
-	{/*6*/
+	{/*7*/
 	 GNOME_APP_UI_ITEM, N_("Advanced search and re_place"),
 	 N_("Advanced Search And Replace"),
 	 anjuta_search_replace_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	
-	GNOMEUIINFO_END/*7*/
+	GNOMEUIINFO_END/*8*/
 };
 
 #define NUM_GOTO_SUBMENUS 12

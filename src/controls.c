@@ -353,6 +353,7 @@ update_main_menubar ()
 	gtk_widget_set_sensitive (em->autocomplete, F);
 	gtk_widget_set_sensitive (em->find, F);
 	gtk_widget_set_sensitive (em->find_next, F);
+	gtk_widget_set_sensitive (em->find_previous, F);
 	gtk_widget_set_sensitive (em->find_in_files, !L);
 	gtk_widget_set_sensitive (em->find_replace, F);
 	gtk_widget_set_sensitive (em->enter_selection, F);

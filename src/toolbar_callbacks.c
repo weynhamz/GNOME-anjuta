@@ -132,19 +132,19 @@ on_toolbar_find_incremental_start (GtkEntry *entry,
 		gtk_entry_get_text (GTK_ENTRY
 				    (app->widgets.toolbar.main_toolbar.
 				     find_entry));
-	if (!string1 || strlen (string1) == 0)
-		return FALSE;
-	string = g_strdup (string1);
-	app->find_replace->find_text->find_history =
-		update_string_list (app->find_replace->find_text->
-				    find_history, string, COMBO_LIST_LENGTH);
-	gtk_combo_set_popdown_strings (GTK_COMBO
-				       (app->widgets.toolbar.main_toolbar.
-					find_combo),
-				       app->find_replace->find_text->
-				       find_history);
-	g_free (string);
-
+	if (string1 && strlen (string1) > 0)
+	{
+		string = g_strdup (string1);
+		app->find_replace->find_text->find_history =
+			update_string_list (app->find_replace->find_text->
+						find_history, string, COMBO_LIST_LENGTH);
+		gtk_combo_set_popdown_strings (GTK_COMBO
+						   (app->widgets.toolbar.main_toolbar.
+						find_combo),
+						   app->find_replace->find_text->
+						   find_history);
+		g_free (string);
+	}
 	/* Prepare to begin incremental search */	
 	app->find_replace->find_text->incremental_pos =
 		text_editor_get_current_position(te);
@@ -180,27 +180,29 @@ on_toolbar_find_incremental (GtkEntry *entry, gpointer user_data)
 	
 	/* Search forward by default */
 	app->find_replace->find_text->forward = TRUE;
-	on_toolbar_find_clicked (NULL, NULL);
+	on_toolbar_find_clicked (NULL, GINT_TO_POINTER(TRUE));
 }
 
+/*  *user_data : TRUE=Forward  False=Backward  */
 static void
 on_toolbar_find_start_over (GtkButton * button, gpointer user_data)
 {
 	TextEditor *te = anjuta_get_current_text_editor();
 	long length;
-
-	length = aneditor_command(te->editor_id, ANE_GETLENGTH, 0, 0);
 	
-	if (app->find_replace->find_text->forward == TRUE)
+	length = aneditor_command(te->editor_id, ANE_GETLENGTH, 0, 0);
+
+	if (GPOINTER_TO_INT(user_data))
 		/* search from doc start */
 		aneditor_command (te->editor_id, ANE_GOTOLINE, 0, 0);
 	else
 		/* search from doc end */
 		aneditor_command (te->editor_id, ANE_GOTOLINE, length, 0);
 
-	on_toolbar_find_clicked (NULL, NULL);
+	on_toolbar_find_clicked (NULL, user_data);
 }
 
+/*  *user_data : TRUE=Forward  False=Backward  */
 void
 on_toolbar_find_clicked (GtkButton * button, gpointer user_data)
 {
@@ -223,7 +225,7 @@ on_toolbar_find_clicked (GtkButton * button, gpointer user_data)
 				     find_entry));
 	ret = text_editor_find (te, string,
 				TEXT_EDITOR_FIND_SCOPE_CURRENT,
-				app->find_replace->find_text->forward,
+				GPOINTER_TO_INT(user_data), /* Forward - Backward */
 				app->find_replace->find_text->regexp,
 				app->find_replace->find_text->ignore_case,
 				app->find_replace->find_text->whole_word);
@@ -239,7 +241,7 @@ on_toolbar_find_clicked (GtkButton * button, gpointer user_data)
 											 GTK_BUTTONS_YES_NO,
 					_("No matches. Wrap search around the document?"));
 			if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_YES)
-				on_toolbar_find_start_over (NULL, NULL);
+				on_toolbar_find_start_over (NULL, user_data);
 			gtk_widget_destroy (dialog);
 		}
 		else
