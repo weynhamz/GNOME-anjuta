@@ -28,10 +28,8 @@ typedef struct _NPWValue NPWValue;
 
 typedef enum {
 	NPW_EMPTY_VALUE = 0, 		/* value should be NULL */
-			  	    	/* The two following states are exclusive */
-	NPW_VALID_VALUE = 1 << 0,	/* non empty, active value */ 
+	NPW_VALID_VALUE = 1 << 0,	/* non empty, valid value */ 
 	NPW_OLD_VALUE = 1 << 1,		/* non empty, removed value */
-
 	NPW_DEFAULT_VALUE = 1 << 2  	/* default value = could be overwritten */
 } NPWValueTag;
 
@@ -40,7 +38,7 @@ void npw_value_heap_free (NPWValueHeap* this);
 
 NPWValue* npw_value_heap_find_value (NPWValueHeap* this, const gchar* name);
 
-void npw_value_heap_set_value (NPWValueHeap* this, NPWValue* node, const gchar* value, NPWValueTag tag);
+gboolean npw_value_heap_set_value (NPWValueHeap* this, NPWValue* node, const gchar* value, NPWValueTag tag);
 const gchar* npw_value_heap_get_value (const NPWValueHeap* this, const NPWValue* node);
 
 const gchar* npw_value_heap_get_name (const NPWValueHeap* this, const NPWValue* node);

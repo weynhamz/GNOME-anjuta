@@ -295,8 +295,7 @@ npw_property_set_default (NPWProperty* this, const gchar* value)
 	this->defvalue = g_string_chunk_insert (this->owner->string_pool, value);
 }
 
-
-static void
+static gboolean
 npw_property_set_value_from_widget (NPWProperty* this, NPWValueTag tag)
 {
 	const gchar* value = NULL;
@@ -357,19 +356,25 @@ npw_property_set_value_from_widget (NPWProperty* this, NPWValueTag tag)
 		tag |= NPW_DEFAULT_VALUE;
 	}
 	
-	npw_value_heap_set_value (this->owner->value, this->value, value, tag);
+	return npw_value_heap_set_value (this->owner->value, this->value, value, tag);
 }
 
-void
+gboolean
 npw_property_update_value_from_widget (NPWProperty* this)
 {
-	npw_property_set_value_from_widget (this, NPW_VALID_VALUE);
+	return npw_property_set_value_from_widget (this, NPW_VALID_VALUE);
 }
 
-void
+gboolean
 npw_property_save_value_from_widget (NPWProperty* this)
 {
-	npw_property_set_value_from_widget (this, NPW_OLD_VALUE);
+	return npw_property_set_value_from_widget (this, NPW_OLD_VALUE);
+}
+
+gboolean
+npw_property_remove_value (NPWProperty* this)
+{
+	return npw_value_heap_set_value (this->owner->value, this->value, NULL, NPW_EMPTY_VALUE);
 }
 
 const char*

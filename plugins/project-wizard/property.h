@@ -83,8 +83,9 @@ GtkWidget* npw_property_get_widget (const NPWProperty* this);
 
 void npw_property_set_default (NPWProperty* this, const gchar* value);
 
-void npw_property_update_value_from_widget (NPWProperty* this);
-void npw_property_save_value_from_widget (NPWProperty* this);
+gboolean npw_property_update_value_from_widget (NPWProperty* this);
+gboolean npw_property_save_value_from_widget (NPWProperty* this);
+gboolean npw_property_remove_value (NPWProperty* this);
 const char* npw_property_get_value (const NPWProperty* this);
 
 gboolean npw_property_add_list_item (NPWProperty* this, const char* name, const gchar* label);

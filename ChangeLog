@@ -1,3 +1,14 @@
+2005-02-13  Sebastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/project-wizard/values.c,
+	plugins/project-wizard/values.h,
+	plugins/project-wizard/property.c,
+	plugins/project-wizard/property.h,
+	plugins/project-wizard/druid.c:
+	Rewrite mandatory property check
+	Add check of exist property
+	Rewrite handling of cached property page
+
 2005-02-13  Naba Kumar  <naba@gnome.org>
 
 	Patch from Igor Kovalenko  <garrison@mail.ru>:

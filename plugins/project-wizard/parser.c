@@ -1667,7 +1667,7 @@ npw_action_list_parser_parse (NPWActionListParser* this, const gchar* text, gssi
 	g_markup_parse_context_parse (this->ctx, text, len, &err);
 	if (err != NULL)
 	{
-		printf (err->message);
+		g_warning (err->message);
 	}
 
 	return TRUE;

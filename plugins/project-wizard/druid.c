@@ -213,7 +213,7 @@ on_druid_project_select_icon (GnomeIconList* iconlist, gint idx, GdkEvent* event
 static void
 on_druid_project_select_page (GtkWidget* widget, gpointer user_data)
 {
-	NPWHeader* header;
+	/* NPWHeader* header; */
 	NPWDruidAndTextBuffer* data = (NPWDruidAndTextBuffer *)user_data;
 
 	g_return_if_fail (data->header != NULL);
@@ -301,28 +301,24 @@ npw_druid_fill_selection_page (NPWDruid* this)
  *---------------------------------------------------------------------------*/
 
 /* Group infomation need by the following call back function */
-typedef struct _NPWPropertyContext
+typedef struct _NPWDruidAddPropertyData
 {
 	NPWDruid* druid;
-	NPWPage* page;
 	guint row;
-	GString* text;
-	const gchar* required_property;
-} NPWPropertyContext;
-
+} NPWDruidAddPropertyData;
 
 static void
-cb_druid_destroy_widget (GtkWidget* widget, gpointer data)
+cb_druid_destroy_widget (GtkWidget* widget, gpointer user_data)
 {
 	gtk_widget_destroy (widget);
 }
 
 static void
-cb_druid_add_property (NPWProperty* property, gpointer data)
+cb_druid_add_property (NPWProperty* property, gpointer user_data)
 {
 	GtkWidget* label;
 	GtkWidget* entry;
-	NPWPropertyContext* ctx = (NPWPropertyContext *)data;
+	NPWDruidAddPropertyData* data = (NPWDruidAddPropertyData *)user_data;
 	const gchar* description;
 
 
@@ -337,11 +333,11 @@ cb_druid_add_property (NPWProperty* property, gpointer data)
 		{
 			GtkTooltips *tooltips;
 		
-			tooltips = ctx->druid->tooltips;
+			tooltips = data->druid->tooltips;
 			if (!tooltips)
 			{
-				tooltips = ctx->druid->tooltips = gtk_tooltips_new ();
-				ctx->druid->tooltips = tooltips;
+				tooltips = data->druid->tooltips = gtk_tooltips_new ();
+				data->druid->tooltips = tooltips;
 				g_object_ref (tooltips);
 				gtk_object_sink (GTK_OBJECT (tooltips));
 			}
@@ -349,65 +345,23 @@ cb_druid_add_property (NPWProperty* property, gpointer data)
 		}
 
 		/* Add label and entry */
-		gtk_table_resize (ctx->druid->property_table, ctx->row + 1, 2);
+		gtk_table_resize (data->druid->property_table, data->row + 1, 2);
 		label = gtk_label_new (_(npw_property_get_label (property)));
 		gtk_misc_set_alignment (GTK_MISC (label), 0, 0.5);
 		gtk_misc_set_padding (GTK_MISC (label), 5, 5);
-		gtk_table_attach (ctx->druid->property_table, label, 0, 1, ctx->row, ctx->row + 1,
+		gtk_table_attach (data->druid->property_table, label, 0, 1, data->row, data->row + 1,
 			(GtkAttachOptions)(GTK_FILL), (GtkAttachOptions)(0), 0, 0);
-		gtk_table_attach (ctx->druid->property_table, entry, 1, 2, ctx->row, ctx->row + 1,
+		gtk_table_attach (data->druid->property_table, entry, 1, 2, data->row, data->row + 1,
 			(GtkAttachOptions)(GTK_EXPAND|GTK_FILL), (GtkAttachOptions)(0), 0, 0);
 
-		ctx->row++;
+		data->row++;
 	}
 };
-
-static NPWPage*
-npw_druid_add_new_page (NPWDruid* this)
-{
-	NPWPage* page;
-
-	/* Create cache if not here */
-	if (this->page_list == NULL)
-	{
-		this->page_list = g_queue_new ();
-	}
-	
-	/* Get page in cache */
-	page = g_queue_peek_nth (this->page_list, this->page - 1);
-	if (page == NULL)
-	{
-		/* Page not found in cache, create */
-		page = npw_page_new (this->values);
-
-		/* Add page in cache */
-		g_queue_push_tail (this->page_list, page);
-	}
-
-	return page;
-}
-
-static NPWPage*
-npw_druid_remove_current_page (NPWDruid* this)
-{
-	NPWPage* page;
-
-	this->page--;
-
-	page = g_queue_pop_tail (this->page_list);
-	if (page != NULL)
-	{
-		npw_page_free (page);
-		//npw_autogen_remove_definition (this->gen, page);
-	}
-
-	return g_queue_peek_tail (this->page_list);
-}
 
 static gboolean
 npw_druid_fill_property_page (NPWDruid* this, NPWPage* page)
 {
-	NPWPropertyContext ctx;
+	NPWDruidAddPropertyData data;
 	PangoAttribute* attr;
 	PangoAttrList* attr_list;
 	
@@ -426,10 +380,9 @@ npw_druid_fill_property_page (NPWDruid* this, NPWPage* page)
 	pango_attr_list_unref (attr_list);
 	
 	/* Add new widget */
-	ctx.druid = this;
-	ctx.page = page;
-	ctx.row = 0;
-	npw_page_foreach_property (page, cb_druid_add_property, &ctx);
+	data.druid = this;
+	data.row = 0;
+	npw_page_foreach_property (page, cb_druid_add_property, &data);
 
 	/* Change page only if current is project selection page */
 	gnome_druid_set_page (this->druid, GNOME_DRUID_PAGE (this->property_page));
@@ -438,62 +391,156 @@ npw_druid_fill_property_page (NPWDruid* this, NPWPage* page)
 	return TRUE;
 }
 
+/* Handle page cache
+ *---------------------------------------------------------------------------*/
+
+static NPWPage*
+npw_druid_add_new_page (NPWDruid* this)
+{
+	NPWPage* page;
+
+	/* Get page in cache */
+	page = g_queue_peek_nth (this->page_list, this->page);
+	if (page == NULL)
+	{
+		/* Page not found in cache, create */
+		page = npw_page_new (this->values);
+
+		/* Add page in cache */
+		g_queue_push_tail (this->page_list, page);
+	}
+
+	return page;
+}
+
+/* Remove all following page */
+
+static void
+npw_druid_remove_following_page (NPWDruid* this)
+{
+	NPWPage* page;
+
+	for(;;)
+	{
+		page = g_queue_pop_nth (this->page_list, this->page);
+		if (page == NULL) break;
+		npw_page_free (page);
+	}
+}
+
 /* Save properties
  *---------------------------------------------------------------------------*/
 
-static void
-cb_save_valid_property (NPWProperty* property, gpointer data)
+typedef struct _NPWSaveValidPropertyData
 {
+	GtkWindow *parent;
+	gboolean next;
+	gboolean modified;
+} NPWSaveValidPropertyData;
+
+static void
+cb_save_valid_property (NPWProperty* property, gpointer user_data)
+{
+	NPWSaveValidPropertyData* data = (NPWSaveValidPropertyData *)user_data;
 	const gchar* value;
-	NPWPropertyContext *ctx = (NPWPropertyContext*)data;
+	gboolean modified;
 
-	npw_property_update_value_from_widget (property);
-	value = npw_property_get_value (property);
-
-	if ((ctx->required_property == NULL) &&
-		(value == NULL || strlen (value) <= 0) &&
-		(npw_property_get_options (property) & NPW_MANDATORY_OPTION))
+	/* Get value from widget */
+	modified = npw_property_update_value_from_widget (property);
+	if (modified) data->modified = modified;
+       	value = npw_property_get_value (property);
+	
+	/* Check mandatory property */ 
+	if (modified &&  (npw_property_get_options (property) & NPW_MANDATORY_OPTION))
 	{
-		/* Mandatory field not filled. */
-		ctx->required_property = npw_property_get_label (property);
+		if ((value == NULL) || (strlen (value) <= 0))
+		{
+			if (data->next == TRUE)
+			{
+				/* First error message */
+				data->next = FALSE;
+
+				/* Show error message. */
+				anjuta_util_dialog_error (data->parent,
+					_("Field \"%s\" is mandatory. Please enter it."),
+					_(npw_property_get_label (property)));
+			}
+			npw_property_remove_value (property);
+		}
+	}
+
+	/* Check exist property */
+	if (modified && (npw_property_get_exist_option (property) == NPW_FALSE))
+	{
+		if ((value != NULL) && (g_file_test (value, G_FILE_TEST_EXISTS)))
+		{
+			if (data->next == TRUE)
+			{
+				/* First error message */
+				gboolean yes;
+
+				yes = anjuta_util_dialog_boolean_question (data->parent,
+					_("Directory \"%s\" already exist,"
+					"the creation of the project could fail "
+					"if some files cannot be written. Do you want to continue ?"),
+			       		value);
+
+				if (!yes)
+				{
+					data->next = FALSE;
+					npw_property_remove_value (property);
+				}
+			}
+			else
+			{
+				/* value is not invalid */
+				npw_property_remove_value (property);
+			}
+		}
 	}
 };
 
 static void
-cb_save_old_property (NPWProperty* property, gpointer data)
+cb_save_old_property (NPWProperty* property, gpointer user_data)
 {
-
-	npw_property_save_value_from_widget (property);
+	if (npw_property_save_value_from_widget (property))
+	{
+		*(gboolean *)user_data = TRUE;
+	}
 };
 
-/* Returns the first mandatory property which has no value given */
-static const gchar*
+/* Save values and check them, if it's possible to go to next page */
+
+static gboolean
 npw_druid_save_valid_values (NPWDruid* this)
 {
-	NPWPropertyContext ctx;
 	NPWPage* page;
+	NPWSaveValidPropertyData data;
 
-	page = g_queue_peek_nth (this->page_list, this->page - 2);
-	ctx.druid = this;
-	ctx.page = page;
-	ctx.required_property = NULL;
-	npw_page_foreach_property (page, cb_save_valid_property, &ctx);
-	
-	return ctx.required_property;
+	page = g_queue_peek_nth (this->page_list, this->page - 1);
+	data.modified = FALSE;
+	data.next = TRUE;
+	data.parent = GTK_WINDOW (this->dialog);
+	npw_page_foreach_property (page, cb_save_valid_property, &data);
+
+	if (data.modified) npw_druid_remove_following_page (this);
+
+	return data.next;
 }
+
+/* Save current value, but do not check anything  */
 
 static void
 npw_druid_save_old_values (NPWDruid* this)
 {
-	NPWPropertyContext ctx;
 	NPWPage* page;
+	gboolean modified;
 
 	page = g_queue_peek_nth (this->page_list, this->page - 1);
-	ctx.druid = this;
-	ctx.page = page;
-	
-	npw_page_foreach_property (page, cb_save_old_property, &ctx);
+	modified = FALSE;
+	npw_page_foreach_property (page, cb_save_old_property, &modified);
 }
+
 
 /* Druid GUI functions
  *---------------------------------------------------------------------------*/
@@ -514,21 +561,6 @@ npw_druid_set_busy (NPWDruid *this, gboolean busy_state)
 		anjuta_status_busy_pop (anjuta_shell_get_status (ANJUTA_PLUGIN (this->plugin)->shell, NULL));
 	this->busy = busy_state;
 }
-/* Clear page in cache up to downto (0 = all pages) */
-
-/*static void
-clear_page_cache (GQueue* cache, guint downto)
-{
-	NPWPage* page;
-
-	if (cache == NULL) return;
-
-	while (g_queue_get_length (cache) > downto)
-	{
-		page = g_queue_pop_tail (cache);
-		npw_page_free (page);
-	}
-}*/
 
 /* Druid call backs
  *---------------------------------------------------------------------------*/
@@ -588,44 +620,40 @@ on_druid_next (GnomeDruidPage* page, GtkWidget* widget, NPWDruid* this)
 	/* Set busy */
 	npw_druid_set_busy (this, TRUE);
 
-	this->page++;
-	if (this->page == 1)
+	if (this->page == 0)
 	{
 		/* Current is Select project page */
 		this->project_file = npw_header_get_filename (this->header);
-		if (this->gen == NULL)
-			this->gen = npw_autogen_new ();
 		npw_autogen_set_input_file (this->gen, this->project_file, "[+","+]");
-
-		//npw_autogen_add_default_definition (this->gen, anjuta_shell_get_preferences (ANJUTA_PLUGIN (this->plugin)->shell, NULL));
 	}
 	else
 	{
 		/* Current is one of the property page */
-		const gchar *mandatory_property;
-		
-		mandatory_property = npw_druid_save_valid_values (this);
-		if (mandatory_property)
+		if (!npw_druid_save_valid_values (this))
 		{
-			/* Show error message. */
-			anjuta_util_dialog_error (GTK_WINDOW (this->dialog),
-									  _("Field \"%s\" is mandatory. Please enter it."),
-									  mandatory_property);
-			this->page--;
-			
-			/* Unset busy */
+			/* Error stay on this page */
 			npw_druid_set_busy (this, FALSE);
+
 			return TRUE;
 		}
-		//npw_autogen_add_definition (this->gen, g_queue_peek_nth (this->page_list, this->page - 2));
 	}
+	this->page++;
 
-	if (this->parser != NULL)
-		npw_page_parser_free (this->parser);
-	this->parser = npw_page_parser_new (npw_druid_add_new_page (this), this->project_file, this->page - 1);
-	npw_autogen_set_output_callback (this->gen, on_druid_parse_page, this->parser);
-	npw_autogen_write_definition_file (this->gen, this->values);
-	npw_autogen_execute (this->gen, on_druid_get_new_page, this, NULL);
+	if (g_queue_peek_nth (this->page_list, this->page - 1) == NULL)
+	{
+		/* Regenerate new page */
+		if (this->parser != NULL)
+			npw_page_parser_free (this->parser);
+		this->parser = npw_page_parser_new (npw_druid_add_new_page (this), this->project_file, this->page - 1);
+		npw_autogen_set_output_callback (this->gen, on_druid_parse_page, this->parser);
+		npw_autogen_write_definition_file (this->gen, this->values);
+		npw_autogen_execute (this->gen, on_druid_get_new_page, this, NULL);
+	}
+	else
+	{
+		/* Page is already in cache */
+		on_druid_get_new_page (NULL, (gpointer)this);
+	}
 
 	return TRUE;
 }
@@ -633,8 +661,6 @@ on_druid_next (GnomeDruidPage* page, GtkWidget* widget, NPWDruid* this)
 static gboolean
 on_druid_back (GnomeDruidPage* dpage, GtkWidget* widget, NPWDruid* druid)
 {
-	NPWPage* page;
-
 	/* Skip if busy */
 	if (druid->busy) return TRUE;
 
@@ -642,16 +668,19 @@ on_druid_back (GnomeDruidPage* dpage, GtkWidget* widget, NPWDruid* druid)
 
 	npw_druid_save_old_values (druid);
 
-	page = npw_druid_remove_current_page (druid);
-	if (page != NULL)
-	{
-		/* Create property page */
-		npw_druid_fill_property_page (druid, page);
-	}
-	else
+	druid->page--;
+	if (druid->page == 0)
 	{
 		/* Go back to project selection page */
 		gnome_druid_set_page (druid->druid, druid->selection_page);
+	}
+	else
+	{
+		NPWPage* page;
+
+		page = g_queue_peek_nth (druid->page_list, druid->page - 1);
+		/* Create property page */
+		npw_druid_fill_property_page (druid, page);
 	}
 
 	return TRUE;
@@ -683,7 +712,7 @@ npw_druid_connect_all_signal (NPWDruid* this, GladeXML* xml)
 /* Add default property
  *---------------------------------------------------------------------------*/
 
-void
+static void
 npw_druid_add_default_property (NPWDruid* this)
 {
 	NPWValue* value;
@@ -708,7 +737,6 @@ npw_druid_add_default_property (NPWDruid* this)
 	else
 	{
 		npw_value_heap_set_value (this->values, value, s, NPW_VALID_VALUE);
-		g_free (s);
 	}
 	/* Add Email address */
 	value = npw_value_heap_find_value (this->values, EMAIL_ADDRESS_PROPERTY);
@@ -723,7 +751,7 @@ NPWDruid*
 npw_druid_new (NPWPlugin* plugin)
 {
 	GladeXML* xml;
-	GtkContainer* project_scroll;
+	/* GtkContainer* project_scroll; */
 	NPWDruid* this;
 
 	/* Skip if already created */
@@ -761,7 +789,7 @@ npw_druid_new (NPWPlugin* plugin)
 	this->finish_page = GNOME_DRUID_PAGE (glade_xml_get_widget (xml, DRUID_FINISH_PAGE));
 	this->page = 0;
 	this->busy = FALSE;
-	this->page_list = NULL;
+	this->page_list = g_queue_new ();
 	this->values = npw_value_heap_new ();
 	this->gen = npw_autogen_new ();
 	this->plugin = plugin;
@@ -793,6 +821,8 @@ npw_druid_new (NPWPlugin* plugin)
 void
 npw_druid_free (NPWDruid* this)
 {
+	/* NPWPage* page; */
+
 	g_return_if_fail (this != NULL);
 
 	if (this->tooltips)
@@ -800,21 +830,11 @@ npw_druid_free (NPWDruid* this)
 		g_object_unref (this->tooltips);
 		this->tooltips = NULL;
 	}
-	if (this->page_list != NULL)
-	{
-		NPWPage* page;
-
-		/* Delete page list */
-		while ((page = (NPWPage *)g_queue_pop_tail (this->page_list)) != NULL)
-		{
-			npw_page_free (page);
-		}
-		g_queue_free (this->page_list);
-	}
-	if (this->values != NULL)
-	{
-		npw_value_heap_free (this->values);
-	}
+	/* Delete page list */
+	this->page = 0;
+	npw_druid_remove_following_page (this);
+	g_queue_free (this->page_list);
+	npw_value_heap_free (this->values);
 	npw_autogen_free (this->gen);
 	if (this->parser != NULL) npw_page_parser_free (this->parser);
 	g_mem_chunk_destroy(this->pool);
@@ -830,6 +850,5 @@ npw_druid_show (NPWDruid* this)
 	g_return_if_fail (this);
 
 	/* Display dialog box */
-	if (this->dialog)
-		gtk_window_present (GTK_WINDOW (this->dialog));
+	if (this->dialog) gtk_window_present (GTK_WINDOW (this->dialog));
 }

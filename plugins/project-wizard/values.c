@@ -122,6 +122,7 @@ npw_value_heap_find_value (NPWValueHeap* this, const gchar* name)
 		new_name = g_string_chunk_insert (this->string_pool, name);
 		node->name = new_name;
 		node->tag = NPW_EMPTY_VALUE;
+		node->value = NULL;
 		g_hash_table_insert (this->hash, new_name, node);
 	}
 
@@ -164,21 +165,58 @@ npw_value_heap_get_name (const NPWValueHeap* this, const NPWValue* node)
 	return node->name;
 }
 
-void
+/* set new value, return FALSE if value has not changed */
+
+gboolean
 npw_value_heap_set_value (NPWValueHeap* this, NPWValue* node, const gchar* value, NPWValueTag tag)
 {
-	g_return_val_if_fail (node != NULL, NULL);
+	gboolean change = FALSE;
 
-	if ((value == NULL) || (tag == NPW_EMPTY_VALUE))
+	g_return_val_if_fail (node != NULL, FALSE);
+
+	if (tag == NPW_EMPTY_VALUE)
 	{
-		node->tag = NPW_EMPTY_VALUE;
-		node->value = NULL;
+		if (node->tag != NPW_EMPTY_VALUE)
+		{
+			node->tag = NPW_EMPTY_VALUE;
+			change = TRUE;
+		}
 	}
 	else
 	{
-		node->tag = tag;
-		node->value = value == NULL ? NULL : g_string_chunk_insert (this->string_pool, value);
+		/* Set value */
+		if (value == NULL)
+		{
+			if (node->value != NULL)
+			{
+				node->value = NULL;
+				change = TRUE;
+			}
+		}
+		else
+		{
+			if ((node->value == NULL) || (strcmp (node->value, value) != 0))
+			{
+				node->value = g_string_chunk_insert (this->string_pool, value);
+				change = TRUE;
+			}
+		}
+		/* Set tag */
+		if (change == TRUE)
+		{
+			/* remove valid tag if value change */
+			node->tag &= ~NPW_VALID_VALUE;
+		}
+		else if ((tag & NPW_VALID_VALUE) != (node->tag & NPW_VALID_VALUE))
+		{
+			/* Changing valid tag count as a change */
+			change = TRUE;
+		}
+		node->tag &= NPW_VALID_VALUE;	
+		node->tag |= tag;
 	}
+
+	return change;
 }
 
 const gchar*
@@ -186,7 +224,7 @@ npw_value_heap_get_value (const NPWValueHeap* this, const NPWValue* node)
 {
 	g_return_val_if_fail (node != NULL, NULL);
 	
-	return node->value;
+	return node->tag == NPW_EMPTY_VALUE ? NULL : node->value;
 }
 
 NPWValueTag
