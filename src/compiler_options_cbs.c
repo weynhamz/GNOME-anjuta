@@ -30,16 +30,22 @@
 #include "anjuta_info.h"
 
 gboolean
-on_compt_delete_event                (GtkWidget       *widget,
-                                        GdkEvent        *event,
-                                        gpointer         user_data)
+on_compt_delete_event (GtkWidget *widget, GdkEvent *event, gpointer data)
 {
-	CompilerOptions *co = user_data;
+	CompilerOptions *co = data;
 	compiler_options_set_in_properties(co, co->props);
 	compiler_options_hide(co);
 	return TRUE;
 }
 
+gboolean
+on_compt_response (GtkWidget *widget, gint response, gpointer data)
+{
+	CompilerOptions *co = data;
+	compiler_options_set_in_properties(co, co->props);
+	compiler_options_hide(co);
+	return TRUE;
+}
 
 static void
 on_clear_clist_confirm_yes_clicked (GtkButton * button, gpointer data)
@@ -246,7 +252,16 @@ on_co_inc_clear_clicked (GtkButton * button, gpointer data)
 }
 
 void
-on_co_lib_clist_row_activated             (GtkTreeView     *treeview,
+on_co_lib_clist_row_activated          (GtkTreeView     *treeview,
+                                        GtkTreePath     *arg1,
+                                        GtkTreeViewColumn *arg2,
+                                        gpointer         user_data)
+{
+
+}
+
+void
+on_co_lib_stock_clist_row_activated    (GtkTreeView     *treeview,
                                         GtkTreePath     *arg1,
                                         GtkTreeViewColumn *arg2,
                                         gpointer         user_data)
@@ -348,4 +363,13 @@ void
 on_co_def_clear_clicked (GtkButton * button, gpointer data)
 {
 	CompilerOptions *co = data;
+}
+
+void
+on_co_def_stock_clist_row_activated    (GtkTreeView     *treeview,
+                                        GtkTreePath     *arg1,
+                                        GtkTreeViewColumn *arg2,
+                                        gpointer         user_data)
+{
+
 }
