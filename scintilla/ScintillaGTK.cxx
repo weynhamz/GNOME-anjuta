@@ -45,6 +45,7 @@
 
 #include "gtk/gtksignal.h"
 #include "gtk/gtkmarshal.h"
+#include "scintilla-marshal.h"
 
 #ifdef SCI_LEXER
 #include <glib.h>
@@ -52,9 +53,7 @@
 #include "ExternalLexer.h"
 #endif
 
-#if GTK_MAJOR_VERSION < 2
 #define INTERNATIONAL_INPUT
-#endif
 
 #if !PLAT_GTK_WIN32
 #include <iconv.h>
@@ -106,9 +105,13 @@ class ScintillaGTK : public ScintillaBase {
 	CLIPFORMAT cfColumnSelect;
 #endif
 #ifdef INTERNATIONAL_INPUT
+#if GTK_MAJOR_VERSION < 2
 	// Input context used for supporting internationalized key entry
 	GdkIC *ic;
 	GdkICAttr *ic_attr;
+#else
+	GtkIMContext *im_context;
+#endif
 #endif
 	// Wheel mouse support
 	unsigned int linesPerScroll;
@@ -198,6 +201,10 @@ private:
 	gint KeyThis(GdkEventKey *event);
 	static gint KeyPress(GtkWidget *widget, GdkEventKey *event);
 	static gint KeyRelease(GtkWidget *widget, GdkEventKey *event);
+#if GTK_MAJOR_VERSION >= 2
+	static void Commit(GtkIMContext *context, char *str, ScintillaGTK *sciThis);
+	void CommitThis(char *str);
+#endif
 	static void Destroy(GtkObject *object);
 	static void SelectionReceived(GtkWidget *widget, GtkSelectionData *selection_data,
 	                              guint time);
@@ -264,8 +271,12 @@ ScintillaGTK::ScintillaGTK(_ScintillaObject *sci_) :
 		capturedMouse(false), dragWasDropped(false),
 		lastKey(0), parentClass(0),
 #ifdef INTERNATIONAL_INPUT
+#if GTK_MAJOR_VERSION < 2
 		ic(NULL),
 		ic_attr(NULL),
+#else
+		im_context(NULL),
+#endif
 #endif
 		lastWheelMouseDirection(0),
 		wheelMouseIntensity(0) {
@@ -323,6 +334,7 @@ void ScintillaGTK::RealizeThis(GtkWidget *widget) {
 	gdk_window_show(widget->window);
 	gdk_cursor_destroy(cursor);
 #ifdef INTERNATIONAL_INPUT
+#if GTK_MAJOR_VERSION < 2
 	if (gdk_im_ready() && (ic_attr = gdk_ic_attr_new()) != NULL) {
 		gint width, height;
 		GdkColormap *colormap;
@@ -379,6 +391,12 @@ void ScintillaGTK::RealizeThis(GtkWidget *widget) {
 				gdk_im_begin(ic, widget->window);
 		}
 	}
+#else
+	im_context = gtk_im_multicontext_new();
+	g_signal_connect(im_context, "commit",
+			 G_CALLBACK(Commit), this);
+	gtk_im_context_set_client_window(im_context, widget->window);
+#endif
 #endif
 	gtk_widget_realize(PWidget(wText));
 	gtk_widget_realize(PWidget(scrollbarv));
@@ -399,6 +417,7 @@ void ScintillaGTK::UnRealizeThis(GtkWidget *widget) {
 	gtk_widget_unrealize(PWidget(scrollbarv));
 	gtk_widget_unrealize(PWidget(scrollbarh));
 #ifdef INTERNATIONAL_INPUT
+#if GTK_MAJOR_VERSION < 2
 	if (ic) {
 		gdk_ic_destroy(ic);
 		ic = NULL;
@@ -407,6 +426,9 @@ void ScintillaGTK::UnRealizeThis(GtkWidget *widget) {
 		gdk_ic_attr_destroy(ic_attr);
 		ic_attr = NULL;
 	}
+#else
+	g_object_unref(im_context);
+#endif
 #endif
 	if (GTK_WIDGET_CLASS(parentClass)->unrealize)
 		GTK_WIDGET_CLASS(parentClass)->unrealize(widget);
@@ -473,6 +495,7 @@ void ScintillaGTK::MainForAll(GtkContainer *container, gboolean include_internal
 }
 
 #ifdef INTERNATIONAL_INPUT
+#if GTK_MAJOR_VERSION < 2
 gint ScintillaGTK::CursorMoved(GtkWidget *widget, int xoffset, int yoffset, ScintillaGTK *sciThis) {
 	if (GTK_WIDGET_HAS_FOCUS(widget) && gdk_im_ready() && sciThis->ic &&
 	        (gdk_ic_get_style (sciThis->ic) & GDK_IM_PREEDIT_POSITION)) {
@@ -482,6 +505,17 @@ gint ScintillaGTK::CursorMoved(GtkWidget *widget, int xoffset, int yoffset, Scin
 	}
 	return FALSE;
 }
+#else
+gint ScintillaGTK::CursorMoved(GtkWidget *, int xoffset, int yoffset, ScintillaGTK *sciThis) {
+	GdkRectangle area;
+	area.x = xoffset;
+	area.y = yoffset;
+	area.width = 1;
+	area.height = 1;
+	gtk_im_context_set_cursor_location(sciThis->im_context, &area);
+	return FALSE;
+}
+#endif
 #else
 gint ScintillaGTK::CursorMoved(GtkWidget *, int, int, ScintillaGTK *) {
 	return FALSE;
@@ -495,8 +529,12 @@ gint ScintillaGTK::FocusIn(GtkWidget *widget, GdkEventFocus * /*event*/) {
 	sciThis->SetFocusState(true);
 
 #ifdef INTERNATIONAL_INPUT
+#if GTK_MAJOR_VERSION < 2
 	if (sciThis->ic)
 		gdk_im_begin(sciThis->ic, widget->window);
+#else
+	gtk_im_context_focus_in(sciThis->im_context);
+#endif
 #endif
 
 	return FALSE;
@@ -509,7 +547,11 @@ gint ScintillaGTK::FocusOut(GtkWidget *widget, GdkEventFocus * /*event*/) {
 	sciThis->SetFocusState(false);
 
 #ifdef INTERNATIONAL_INPUT
+#if GTK_MAJOR_VERSION < 2
 	gdk_im_end();
+#else
+	gtk_im_context_focus_out(sciThis->im_context);
+#endif
 #endif
 
 	return FALSE;
@@ -537,6 +579,7 @@ void ScintillaGTK::SizeAllocate(GtkWidget *widget, GtkAllocation *allocation) {
 	sciThis->Resize(allocation->width, allocation->height);
 
 #ifdef INTERNATIONAL_INPUT
+#if GTK_MAJOR_VERSION < 2
 	if (sciThis->ic && (gdk_ic_get_style (sciThis->ic) & GDK_IM_PREEDIT_POSITION)) {
 		gint width, height;
 
@@ -546,6 +589,7 @@ void ScintillaGTK::SizeAllocate(GtkWidget *widget, GtkAllocation *allocation) {
 
 		gdk_ic_set_attr(sciThis->ic, sciThis->ic_attr, GDK_IC_PREEDIT_AREA);
 	}
+#endif
 #endif
 }
 
@@ -931,6 +975,7 @@ const char *CharacterSetID(int characterSet);
 #define IS_ACC_OR_CHAR(x) \
 	(IS_CHAR(x)) || (IS_ACC(x))
 
+#ifndef INTERNATIONAL_INPUT
 static int MakeAccent(int key, int acc) {
 	const char *conv[] = {
 		"aeiounc AEIOUNC",
@@ -963,9 +1008,11 @@ static int MakeAccent(int key, int acc) {
 	return key;
 }
 #endif
+#endif
 
 int ScintillaGTK::KeyDefault(int key, int modifiers) {
 	if (!(modifiers & SCI_CTRL) && !(modifiers & SCI_ALT)) {
+#ifndef INTERNATIONAL_INPUT
 #if GTK_MAJOR_VERSION >= 2
 		char utfVal[4]="\0\0\0";
 		wchar_t wcs[2];
@@ -1006,6 +1053,7 @@ int ScintillaGTK::KeyDefault(int key, int modifiers) {
 				}
 			}
 		}
+#endif
 #endif
 		if (key < 256) {
 			AddChar(key);
@@ -1067,7 +1115,6 @@ void ScintillaGTK::CreateCallTipWindow(PRectangle rc) {
 	gtk_drawing_area_size(GTK_DRAWING_AREA(PWidget(ct.wDraw)),
 	                      rc.Width(), rc.Height());
 	ct.wDraw.Show();
-	ct.wCallTip.Show();
 	//gtk_widget_set_usize(PWidget(ct.wCallTip), rc.Width(), rc.Height());
 	gdk_window_resize(PWidget(ct.wCallTip)->window, rc.Width(), rc.Height());
 }
@@ -1710,6 +1757,10 @@ gint ScintillaGTK::KeyThis(GdkEventKey *event) {
 	if (!event->keyval) {
 		return true;
 	}
+#if GTK_MAJOR_VERSION >= 2
+	if (gtk_im_context_filter_keypress(im_context, event))
+		return 1;
+#endif
 
 	bool shift = (event->state & GDK_SHIFT_MASK) != 0;
 	bool ctrl = (event->state & GDK_CONTROL_MASK) != 0;
@@ -1753,6 +1804,16 @@ gint ScintillaGTK::KeyRelease(GtkWidget *, GdkEventKey * /*event*/) {
 	//Platform::DebugPrintf("SC-keyrel: %d %x %3s\n",event->keyval, event->state, event->string);
 	return FALSE;
 }
+
+#if GTK_MAJOR_VERSION >= 2
+void ScintillaGTK::Commit(GtkIMContext *, char  *str, ScintillaGTK *sciThis) {
+	sciThis->CommitThis(str);
+}
+
+void ScintillaGTK::CommitThis(char *str) {
+	AddCharUTF(str, strlen(str));
+}
+#endif
 
 void ScintillaGTK::Destroy(GtkObject* object) {
 	ScintillaObject *scio = reinterpret_cast<ScintillaObject *>(object);
@@ -2129,12 +2190,9 @@ void ScintillaGTK::ClassInit(GtkObjectClass* object_class, GtkWidgetClass *widge
 
 #if GTK_MAJOR_VERSION < 2
 #define GTK_CLASS_TYPE(c) (c->type)
-#define SIG_MARSHAL gtk_marshal_NONE__INT_POINTER
-#define MARSHAL_ARGUMENTS GTK_TYPE_INT, GTK_TYPE_POINTER
-#else
-#define SIG_MARSHAL gtk_marshal_NONE__INT_INT
-#define MARSHAL_ARGUMENTS GTK_TYPE_INT, GTK_TYPE_INT
 #endif
+#define SIG_MARSHAL scintilla_marshal_NONE__INT_POINTER
+#define MARSHAL_ARGUMENTS GTK_TYPE_INT, GTK_TYPE_POINTER
 
 static void scintilla_class_init(ScintillaClass *klass) {
 	GtkObjectClass *object_class = (GtkObjectClass*) klass;

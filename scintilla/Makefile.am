@@ -53,6 +53,8 @@ libanjuta_scintilla_la_SOURCES =\
 	StyleContext.h\
 	XPM.h\
 	XPM.cxx\
+	scintilla-marshal.h\
+	scintilla-marshal.c\
 	$(LEXER_SRCS)
 
 noinst_PROGRAMS = test-scintilla
@@ -60,7 +62,8 @@ test_scintilla_CXXFLAGS = -DGTK
 test_scintilla_SOURCES = test-scintilla.cxx
 test_scintilla_LDADD = \
 	$(ANJUTA_LIBS) \
-	$(top_builddir)/scintilla/libanjuta-scintilla.la
+	$(top_builddir)/scintilla/libanjuta-scintilla.la \
+	@LIBICONV@
 test_scintilla_DEPENDENCIES = $(top_builddir)/scintilla/libanjuta-scintilla.la
 
 update-scintilla:
@@ -93,3 +96,7 @@ update-scintilla:
 	done
 
 EXTRA_DIST=lexers.make
+
+marshallers: scintilla-marshal.list
+	glib-genmarshal --prefix scintilla_marshal scintilla-marshal.list --header > scintilla-marshal.h
+	glib-genmarshal --prefix scintilla_marshal scintilla-marshal.list --body > scintilla-marshal.c 

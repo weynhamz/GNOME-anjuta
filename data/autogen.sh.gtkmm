@@ -101,6 +101,7 @@ do
 	echo "Running libtoolize..."
 	libtoolize --force --copy
       fi
+      test -d m4 && aclocalinclude="$aclocalinclude -I m4"
       echo "Running aclocal $aclocalinclude ..."
       aclocal $aclocalinclude
       if grep "^AM_CONFIG_HEADER" configure.in >/dev/null; then

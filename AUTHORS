@@ -1,15 +1,126 @@
-Main programmer and founder:
-----------------------------
-	Naba kumar <naba@gnome.org>
+Founder and Lead developer:
+---------------------------
+	Naba kumar  <naba@gnome.org> (Manipur, India)
 	
-Major contributors:
--------------------
-
-	St�phane D�murget <demurgets@free.fr>
+Present Developers:
+------------------
+	Biswapesh Chattopadhyay  <biswapesh_chatterjee@tcscal.co.in> (Kolkata, India)
+	Jean-Noel Guiheneuf  <guiheneuf.jean-noel@wanadoo.fr> (France)
+	Johannes Schmid  <clubfan@users.sourceforge.net> (Germany)
+	
+Past developers:
+----------------
+	Andy Piper  <andy.piper@freeuk.com> (United Kingdom)
+	Stéphane Démurget  <demurgets@free.fr> (France)
+	
+Patches, bugfixes, documentation, website and beta-testing Contributors:
+------------------------------------------------------------------------
+	Archit Baweja  <bighead@crosswinds.net> (India)
+	Benke Lázló  <decike@freemail.hu>
+	Chris Woodruff  <cwoodruff@openpenguin.com> (US)
+	Dan Elphick  <dre00r@ecs.soton.ac.uk> (United Kingdom)
+	Dave Huseby  <huseby@shockfusion.com>
+	Denis Boehme  <boehme at synci dot de>
+	Dick Knol  <dknol@gmx.net>
+	Enver ALTIN  <ealtin@casdb.com>
+	Etay Meiri <etay-m@bezeqint.net>
+	Fatih Demir  <kabalak@gtranslator.org>
+	Franco Catrin L.  <fcatrin@tuxpan.cl>
+	Frederic RUAUDEL <grumz@users.sourceforge.net>
+	Giovanni Corriga  <valkadesh@libero.it> (Itally)
+	Gregory Schmitt  <gregory.schmitt@free.fr> (France)
+	Hector Rivera Falu  <misha@phreaker.net>
+	Ishan Chattopadhyaya  <ichattopadhyaya@yahoo.com>
+	Jakub Steiner  <jimmac * ximian * com>
+	Jason Williams  <jason_williams@suth.com>
+	Jens Georg  <mail@jensgeorg.de>
+	Jeroen van der Vegt  <A.J.vanderVegt@ITS.TUDelft.nl>
+	Kelly Bergougnoux  <three3@users.sourceforge.net>
+	Lord Sibn  <sibn@utspl.cjb.net> (US)
+	Luca Bellonda  <lbell@tsc4.com> (Itally)
+	Martyn Bone  <mbone@brightstar.u-net.com>
+	Max Blagai  <maximblagai@yahoo.com> (Germany)
+	Michael Tindal  <etherscape@paradoxpoint.com>
+	Murray Cumming  <murrayc@usa.net>
+	Nick Dowell  <nixx@nixx.org.uk>
+	Olivier Pinçon  <opincon@wanadoo.fr>
+	Pavol Bosik  <Pavol.Bosik@siemens.com>
+	Philip Van Hoof  <freax@pandora.be>
+	Pierre Sarrazin <sarrazip@sympatico.ca>
+	Rick Patel  <rikul@bellsouth.net>
+	Rob Bradford  <robster@debian.org>
+	Roel Vanhout  <roel@stack.be>
+	Roy Wood  <roy.wood@filogix.com>
+	Séastien Côé  <cots01@gel.usherb.ca>
+	Steven Knight  <steven.knight@unh.edu>
+	Taller D.I.C.E. ORG  <opensource@tallerdice.org>
+	Timothee Besset <timo@qeradiant.com> (United Kingdom)
+	Tina Hirsch  <cevina@users.sourceforge.net>
+	Todd Goyen  <goyen@mbi-berlin.de>
+	Vadim Berezniker  <vadim@berezniker.com>
+	Venugopal Gummuluru  <vgummuluru@yahoo.com>
+	Willy-Francois Poulet - Byssus Software Solutions  <wfp@byssus.com> (England)
+	Yannick Koehler  <yannick.koehler@colubris.com>
+	
+Translators:
+------------
+	Abel Cheung <maddog@linux.org.hk>
+	Alastair McKinstry <mckinstry@computer.org>
+	Alexandre Folle de Menezes <afmenez@terra.com.br>
 	Andy Piper <andy.piper@freeuk.com>
-	Hector Rivera Falu <misha@phreaker.net>
-	Luca Bellonda <lbell@tsc4.com>
-	Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in
-
-* Please see the THANKS file in the same directory
-for the list of all the contributors and translators.
+	Automatski Prijevod
+	Blagoja Gjakovski <agitator@bagra.net.mk>
+	Christian Meyer <chrisime@gnome.org>
+	Christian Rose <menthos@menthos.com>
+	Christophe Merlet (RedFox) <redfox@redfoxcenter.org>
+	Conner Mo <connermo@hotmail.com>
+	Daniel van Eeden <daniel_e@dds.nl>
+	Danijel Studen <dstuden@vuka.hr>
+	Denis Dementiev <denm@asplinux.ru>
+	Denis Lackovic <delacko@fly.srk.fer.hr>
+	Duarte Loreto <happyguy_pt@hotmail.com>
+	Francisco Javier F. Serrador <serrador@cvs.gnome.org>
+	FSF-India <locale@gnu.org.in>
+	Gitte Wange <gitte@babytux.dk>
+	Göran Weinholt <weinholt@linux.nu>
+	Hrvoje Spoljar <spole@x.pbf.hr>
+	Ime Prezime <email@adresa.com>
+	Ivan Jankovic <rbrrneck@gmx.net>
+	Javier Conde Rueda <f3285740@est.fib.upc.es>
+	Jens Georg <mail@jensgeorg>
+	Jeroen van der Vegt <jeroen at dirck.mine.nu>
+	Joe Man <trmetal@yahoo.com.hk>
+	Keld Simonsen <keld@dkuug.dk>
+	Kjartan Maraas <kmaraas@gnome.org>
+	Maintainer: Adam Weinberger <adamw@FreeBSD.org>
+	M.Ali Vardar <ali@linuxprogramlama.com>
+	Marcelo Elias Del Valle <marceloelias@iname.com>
+	Martin Lacko <lacko@host.sk>
+	Michele Campeotto <micampe@f2s.com>
+	Miloslav Trmac <mitr@volny.cz>
+	Miloslav Trmac <mitr@volny.cz>
+	MIMOS Open Source Development Group <opensource@mimos.my>
+	Mətin Əmirov <metin@karegen.com>
+	Nikola Planinac
+	Robert Sedak <robert.sedak@sk.tel.hr>
+	Sebastien Bacher <seb128@debian.org>
+	Simos Xenitellis <simos@hellug.gr>
+	Stefan Martinski <stefanandrej@hotmail.com>
+	Stéphane Démurget <demurgets@free.fr>
+	Stojcev Darko <atom1c@linux.net.mk>
+	Takeshi Aihana <aihana@gnome.gr.jp>
+	Tino Meinen <a.t.meinen@chello.nl>
+	Valek Filippov <frob@df.ru>
+	Vasif İsmayıloğlu MD <azerb_linux@hotmail.com>
+	Vedran Vyroubal <vedran.vyroubal@inet.hr>
+	Velonis Petros <velonis@freemail.gr>
+	Vincent van Adrighem <V.vanAdrighem@dirck.mine.nu>
+	Vital Khilko <dojlid@mova.org>
+	Vlado Dojcinovski <dr_wulfi@dr.com>
+	Xavier A. Conde Rueda <xaviconde@eresmas.com>
+	Yuriy Syrota <rasta@renome.rovno.ua>
+	Васко Митанов <vasko@accent.com.mk>
+	
+Note: If you have contributed something significant to Anjuta and your name
+is missing here, please email naba@gnome.org with your Full name,
+email address, country and a brief reminder of what you have done.

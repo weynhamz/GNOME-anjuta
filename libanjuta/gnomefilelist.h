@@ -57,7 +57,7 @@ struct _GnomeFileListType {
 
 
 struct _GnomeFileList {
-   GtkWindow window;
+   GtkDialog dialog;
    GtkWidget *back_button;
    GtkWidget *forward_button;
    GtkWidget *home_button;
@@ -70,8 +70,8 @@ struct _GnomeFileList {
    GtkWidget *filter_combo;
    GtkWidget *selection_label;
    GtkWidget *selection_entry;
-   GtkWidget *ok_button;
-   GtkWidget *cancel_button;
+   // GtkWidget *ok_button;
+   // GtkWidget *cancel_button;
    GtkWidget *filetype_combo;
    GtkWidget *createdir_button;
    GtkWidget *scrolled_window_dir;
@@ -97,7 +97,7 @@ struct _GnomeFileList {
 };
 
 struct _GnomeFileListClass {
-   GtkWindowClass parent_class;
+   GtkDialogClass parent_class;
 };
 
 GtkType gnome_filelist_get_type(void);

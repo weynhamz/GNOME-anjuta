@@ -1,6 +1,43 @@
 2004-05-07  Naba Kumar  <naba@gnome.org>
 
-	* manuals/reference/libanjuta/anjuta-architecture.sgml.
+	* manuals/reference/libanjuta/anjuta-architecture.sgml: Added some docs.
+
+	* AUTHORS, HACKING, NEWS, README, anjuta.desktop.in.in,
+	anjuta.spec.in, configure.in, data/autogen.sh.generic,
+	data/autogen.sh.gtk, data/autogen.sh.gtkmm, data/autogen.sh.wxwin,
+	data/macros/autogen.sh, data/macros2/autogen.sh
+	data/properties/ada.properties, data/properties/anjuta.properties,
+	launcher/Makefile.am, launcher/anjuta_launcher.c, libanjuta/gnomefilelist.c,
+	libanjuta/gnomefilelist.h, manuals/C/Makefile.am,
+	(added) manuals/C/anjuta-advanced-tutorial/.cvsignore,
+	(added) manuals/C/anjuta-advanced-tutorial/Makefile.am,
+	(added) manuals/C/anjuta-advanced-tutorial/anjuta-advanced-tutorial-C.omf,
+	(added) manuals/C/anjuta-advanced-tutorial/anjuta-advanced-tutorial.xml,
+	(added) manuals/C/anjuta-advanced-tutorial/figures/aat_additional_options.png,
+	(added) manuals/C/anjuta-advanced-tutorial/figures/aat_config_libraries_lib3ds.png,
+	(added) manuals/C/anjuta-advanced-tutorial/figures/aat_config_libraries_libxml2.png,
+	(added) manuals/C/anjuta-advanced-tutorial/figures/aat_include_paths.png,
+	(added) manuals/C/anjuta-advanced-tutorial/figures/aat_libraries.png,
+	(added) manuals/C/anjuta-advanced-tutorial/figures/aat_options_lib3ds.png,
+	(added) manuals/C/anjuta-advanced-tutorial/figures/aat_options_libxml2.png,
+	(added) manuals/C/anjuta-advanced-tutorial/figures/aat_project_type.png,
+	manuals/C/anjuta-manual/authors.xml, manuals/C/anjuta-manual/build.xml,
+	manuals/C/anjuta-tutorial/anjuta-tutorial.xml,
+	plugins/class-gen/clsGen.c, plugins/editor/print.c,
+	plugins/patch/patch-plugin.c, scintilla/Document.cxx,
+	scintilla/Editor.cxx, scintilla/KeyWords.cxx, scintilla/LexCPP.cxx
+	scintilla/LexMatlab.cxx, scintilla/LexOthers.cxx, scintilla/LexRuby.cxx,
+	scintilla/LexVB.cxx, scintilla/Makefile.am, scintilla/PlatGTK.cxx,
+	(added) scintilla/README.sync, scintilla/ScintillaBase.cxx,
+	scintilla/ScintillaBase.h, scintilla/ScintillaGTK.cxx,
+	(added) scintilla/scintilla-marshal.c,
+	(added) scintilla/scintilla-marshal.h,
+	(added) scintilla/scintilla-marshal.list,
+	scintilla/include/SString.h, scintilla/include/SciLexer.h,
+	scintilla/include/Scintilla.h, scintilla/include/Scintilla.iface,
+	(added) scintilla/patches/scintilla-calltip-align.patch,
+	(added) scintilla/patches/scintilla-minor.patch,
+	tagmanager/Makefile.am: Merge (level 4) with ANJUTA_1_2_0 branch.
 
 2004-05-06  Naba Kumar  <naba@gnome.org>
 

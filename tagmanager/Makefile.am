@@ -1,6 +1,10 @@
 ## Process this file with automake to produce Makefile.in
 SUBDIRS = include
 INCLUDES = -I$(srcdir)/include $(GLIB_CFLAGS)
+#	-DG_DISABLE_DEPRECATED -DGDK_DISABLE_DEPRECATED \
+#	-DGDK_PIXBUF_DEPRECATED \
+#	-DGTK_DISABLE_DEPRECATED -DGNOME_DISABLE_DEPRECATED
+
 lib_LTLIBRARIES = libanjuta-ctags.la
 libanjuta_ctags_la_SOURCES =\
 	debug.h\
@@ -63,4 +67,3 @@ libanjuta_ctags_la_SOURCES =\
 	tm_symbol.c\
 	tm_file_entry.c\
 	tm_tagmanager.c
-

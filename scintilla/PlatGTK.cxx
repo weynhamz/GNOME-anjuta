@@ -1625,9 +1625,22 @@ void Window::SetPositionRelative(PRectangle rc, Window relativeTo) {
 	oy += rc.top;
 	if (oy < 0)
 		oy = 0;
+
+	/* do some corrections to fit into screen */
+	int sizey = rc.bottom - rc.top;
+	int sizex = rc.right - rc.left;
+	int screenWidth = gdk_screen_width();
+	int screenHeight = gdk_screen_height();
+	if (sizex > screenWidth)
+		ox = 0; /* the best we can do */
+	else
+		if (ox + sizex > screenWidth)
+			ox -= ox + sizex - screenWidth;
+	if (oy + sizey > screenHeight)
+		oy -= oy + sizey - screenHeight;
+
 	gtk_widget_set_uposition(PWidget(id), ox, oy);
 #if 0
-
 	GtkAllocation alloc;
 	alloc.x = rc.left + ox;
 	alloc.y = rc.top + oy;
@@ -1635,7 +1648,7 @@ void Window::SetPositionRelative(PRectangle rc, Window relativeTo) {
 	alloc.height = rc.bottom - rc.top;
 	gtk_widget_size_allocate(id, &alloc);
 #endif
-	gtk_widget_set_usize(PWidget(id), rc.right - rc.left, rc.bottom - rc.top);
+	gtk_widget_set_usize(PWidget(id), sizex, sizey);
 }
 
 PRectangle Window::GetClientPosition() {

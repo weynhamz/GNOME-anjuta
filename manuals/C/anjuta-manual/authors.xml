@@ -1,28 +1,10 @@
  <chapter id="authors">
   <title>Authors</title>
    <para>
-    The <application>Anjuta</application> project was founded by Naba Kumar. Naba 
-    is from India (Manipur) and got his B.Tech degree in electronic and 
-    communication engineering from <citetitle>North Eastern Regional 
-    Institute of Science and Technology (NERIST), India.</citetitle>
-   </para>
-
-   <para>
-    <application>Anjuta</application> was written by Naba Kumar, Stephane Demurget, Luca Bellonda, 
-    Hector Rivera Falu, Andy Piper, Max Blagai, Johannes Schmid, Rick Patel, Denis Boehme, Fatih Demir, 
-    Archit Baweja, Martyn Bone, Venugopal Gummuluru, Gregory Schmitt, Yannick Koehler, 
-    Giovanni Corriga, Dan Elphick, Biswapesh Chattopadhyay, Jason Williams, Dick Knol, Benke Laszlo,
-	Timothee Besset, Roel Vanhout, Roy Wood, Tina Hirsch, Jeroen van der Vegt,
-	Ishan Chattopadhyaya, Todd Goyen, Nick Dowell, Pierre Sarrazin, Kelly Bergougnoux, Dave Huseby,
-	Sebastien Cote, Jean-Noel Guiheneuf and Stephen Knight.
-   </para>
-   
-   <para>
-    Thanks go to the translators: Javier Conde Rueda, Stephane Demurget, Takeshi Aihana, 
-    M.Ali Vardar, Michele Campeotto, Christian Rose, Yuriy Syrota, Valek Filippov, Marc Botermans, 
-    Joe Man, Conner Mo, Jens Georg, Kjartan Maraas, Dinesh Nadarajah, Christian Meyer, 
-	Simos Xenitellis, Duarte Loreto, Marcelo Elias Del Valle, Gitte Wange, Goran Weinholt, Keld Simonsen,
-	Martin Lacko, and the GNOME Polish and Azerbaijani Turkic translation teams.
+    The <application>Anjuta</application> project was founded by Naba Kumar.
+	Please visit
+	<ulink type="http" url="http://anjuta.org?page=authors/">this online list</ulink>
+	 to know all Anjuta contributors.
    </para>
 
    <para>

@@ -8,6 +8,8 @@
 #ifndef SSTRING_H
 #define SSTRING_H
 
+#include <string.h>
+
 // These functions are implemented because each platform calls them something different.
 int CompareCaseInsensitive(const char *a, const char *b);
 int CompareNCaseInsensitive(const char *a, const char *b, size_t len);
@@ -175,6 +177,22 @@ public:
 		else
 			return "";
 	}
+
+	/** Attach to a string allocated by means of StringAlloc(len). */
+	SString &attach(char *s_, lenpos_t sLen_ = measure_length, lenpos_t sSize_ = measure_length) {
+		delete []s;
+		s = s_;
+		if (!s) {
+			sLen = sSize = 0;
+		}
+		else
+		{
+			sLen = (sLen_ == measure_length ? strlen(s) : sLen_);
+			sSize = (sSize_ == measure_length ? sLen + 1 : sSize_);
+		}
+		return *this;
+	}
+
 	/** Give ownership of buffer to caller which must use delete[] to free buffer. */
 	char *detach() {
 		char *sRet = s;
@@ -358,6 +376,18 @@ public:
 			sNew[len] = '\0';
 		}
 		return sNew;
+	}
+	/**
+	 * Allocate uninitialized memory big enough to fit a string of the given length
+	 * @return the pointer to the new string
+	 */
+	static char *StringAllocate(
+		lenpos_t len)
+	{
+		if (len >= 0 && len != measure_length)
+			return new char [len + 1];
+		else
+			return 0;
 	}
 };
 

@@ -1,7 +1,7 @@
 AC_PREREQ(2.53)
 AC_INIT(src/Makefile.am)
 
-ANJUTA_VERSION=1.2.0
+ANJUTA_VERSION=1.2.2
 
 GLIB_REQUIRED=2.4.0
 GOBJECT_REQUIRED=2.4.0
@@ -71,7 +71,7 @@ AC_DEFUN(CHECK_HEADER_DEFINE,
 	$4
 ]) ])
 
-CFLAGS_WARNINGS="-Wall -Wmissing-prototypes -Wmissing-declarations -Wparentheses -Wpointer-arith"
+CFLAGS_WARNINGS="-Wall -Wmissing-prototypes -Wparentheses -Wpointer-arith"
 CFLAGS_DISABLE_CHECKS="-DG_DISABLE_CHECKS -DG_DISABLE_CAST_CHECKS"
 CFLAGS_OPTIMIZE="-Os -s"
 CXXFLAGS_OPTIMIZE="-Os -s -fno-exceptions -fno-check-new"
@@ -84,14 +84,14 @@ fi
 dnl Enable debugging mode
 AC_ARG_ENABLE(debug,
       [  --enable-debug           Enable debug messages],
-      CFLAGS="$CFLAGS -DDEBUG -O0 -g $CFLAGS_WARNINGS"
-      CXXFLAGS="$CFLAGS -DDEBUG -O0 -g $CFLAGS_WARNINGS")
+      CFLAGS="$CFLAGS -DDEBUG -O0 -g $CFLAGS_WARNINGS -Wmissing-declarations"
+      CXXFLAGS="$CXXFLAGS -DDEBUG -O0 -g $CFLAGS_WARNINGS")
 
 dnl Enable profiling mode
 AC_ARG_ENABLE(gprof,
       [  --enable-gprof           Enable profiling with gprof],
       CFLAGS="$CFLAGS -pg"
-      CXXFLAGS="$CFLAGS -pg"
+      CXXFLAGS="$CXXFLAGS -pg"
       LDFLAGS="$LDFLAGS -pg")
 
 dnl Enable release builds
@@ -207,7 +207,7 @@ AC_SUBST(GLIB_MKENUMS)
 dnl ***************************************************************************
 dnl Internatinalization
 dnl ***************************************************************************
-ALL_LINGUAS="az be ca cs da de el en_CA en_GB es fr hi hr hu it ja mk ml ms nl no pl pt pt_BR ru sk sr sr@Latn sv tr uk zh_CN zh_TW"
+ALL_LINGUAS="az be ca cs da de el en_CA en_GB es fr ga hi hr hu it ja ko mk ml ms nl no pl pt pt_BR ru sk sq sr sr@Latn sv tr uk zh_CN zh_TW"
 GETTEXT_PACKAGE=anjuta
 AC_SUBST(GETTEXT_PACKAGE)
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE", [GETTEXT package name])
@@ -303,6 +303,12 @@ dnl AM_CONDITIONAL(HAVE_JW, test "x$HAVE_JW" = "xyes")
 dnl AC_SUBST(HAVE_JW)
 
 dnl ***************************************************************************
+dnl Test for libiconv
+dnl ***************************************************************************
+
+AM_ICONV()
+
+dnl ***************************************************************************
 dnl Tagmanager checks.
 dnl ***************************************************************************
 
@@ -378,6 +384,7 @@ AC_CHECK_FUNCS(fnmatch)
 AC_CHECK_FUNCS(strstr)
 AC_CHECK_FUNCS(stricmp)
 AC_CHECK_FUNCS(strnicmp)
+AC_CHECK_FUNCS(getline)
 
 AC_CHECK_FUNCS(fgetpos, have_fgetpos=yes)
 
@@ -525,6 +532,7 @@ else
 fi
 
 dnl Set PACKAGE DATA & DOC DIR
+systemdatadir=share
 packagedatadir=share/${PACKAGE}
 packagedocdir=share/doc/${PACKAGE}
 packageplugindir=lib/${PACKAGE}/plugins/${VERSION}
@@ -540,6 +548,8 @@ NO_PREFIX_PACKAGE_DATA_DIR="${packagedatadir}"
 AC_SUBST(NO_PREFIX_PACKAGE_DATA_DIR)
 PACKAGE_DATA_DIR="${packageprefix}/${packagedatadir}"
 AC_SUBST(PACKAGE_DATA_DIR)
+SYSTEM_DATA_DIR="${packageprefix}/${systemdatadir}"
+AC_SUBST(SYSTEM_DATA_DIR)
 
 dnl Subst PACKAGE_DOC_DIR.
 NO_PREFIX_PACKAGE_DOC_DIR="${packagedocdir}"
@@ -571,6 +581,7 @@ AC_SUBST(NO_PREFIX_PACKAGE_PLUGIN_DIR)
 PACKAGE_PLUGIN_DIR="${packageprefix}/${packageplugindir}"
 AC_SUBST(PACKAGE_PLUGIN_DIR)
 
+AC_DEFINE_UNQUOTED(SYSTEM_DATA_DIR, "${packageprefix}/${systemdatadir}", [System data directory])
 AC_DEFINE_UNQUOTED(PACKAGE_DATA_DIR, "${packageprefix}/${packagedatadir}", [Package data directory])
 AC_DEFINE_UNQUOTED(PACKAGE_DOC_DIR, "${packageprefix}/${packagedocdir}", [Package doc directory])
 AC_DEFINE_UNQUOTED(PACKAGE_PIXMAPS_DIR, "${packageprefix}/${packagepixmapsdir}", [Package pixmaps directory])
@@ -629,6 +640,7 @@ anjuta.desktop.in
 manuals/Makefile
 manuals/C/Makefile
 manuals/C/anjuta-tutorial/Makefile
+manuals/C/anjuta-advanced-tutorial/Makefile
 manuals/C/anjuta-faqs/Makefile
 manuals/C/anjuta-manual/Makefile
 manuals/de/Makefile

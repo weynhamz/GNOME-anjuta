@@ -3,4 +3,7 @@
 # as a subdir here.                                    #
 ########################################################
 
-SUBDIRS = anjuta-tutorial anjuta-faqs anjuta-manual
+SUBDIRS = \
+	anjuta-tutorial \
+	anjuta-advanced-tutorial \
+	anjuta-faqs anjuta-manual
