@@ -157,6 +157,12 @@ on_find_and_replace1_activate          (GtkMenuItem     *menuitem,
 void
 on_goto_line_no1_activate              (GtkMenuItem     *menuitem,
                                        gpointer         user_data);
+
+void on_next_occur(GtkMenuItem * menuitem, gpointer user_data);
+
+void on_prev_occur(GtkMenuItem * menuitem, gpointer user_data);
+
+                                    
 void
 on_goto_matchbrace1_activate              (GtkMenuItem     *menuitem,
                                         gpointer         user_data);

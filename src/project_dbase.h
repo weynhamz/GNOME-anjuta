@@ -66,11 +66,11 @@ enum
 	PROJECT_TYPE_GNOMEMM2,
 	PROJECT_TYPE_XWIN,
 	PROJECT_TYPE_XWINDOCKAPP,
+	PROJECT_TYPE_QT,
 	PROJECT_TYPE_END_MARK
 };
 
-/* Do not break the sequence of the following enums.*/
-/* only append */
+/* Do not break the sequence of the following enums.*/ /* only append */
 enum
 {
 	PROJECT_TARGET_TYPE_EXECUTABLE,

@@ -41,12 +41,14 @@ struct _MemApp
 	GtkWidget *mem_label;
 	GdkFont *fixed_font;
 	guchar *adr;
+  guchar *start_adr;
+  gboolean new_window;
 };
 
 
 GtkWidget* create_info_memory (guchar *ptr);
 
-gboolean address_is_accessible(guchar *adr);
+gboolean address_is_accessible(guchar *adr, MemApp *memapp);
 
 
 #ifdef __cplusplus

@@ -983,6 +983,75 @@ on_find_and_replace1_activate (GtkMenuItem * menuitem, gpointer user_data)
 }
 
 
+
+void on_prev_occur(GtkMenuItem * menuitem, gpointer user_data)
+{
+    TextEditor* te;
+	gboolean ret;
+	gchar *buffer = NULL;
+    gint return_;
+	te = anjuta_get_current_text_editor();
+	if(!te) return;
+	if (text_editor_has_selection(te))
+	{
+		buffer = text_editor_get_selection(te);
+		g_strstrip(buffer);
+		if ('\0' == *buffer)
+		{
+			g_free(buffer);
+			buffer = NULL;
+		}
+	}
+	if (NULL == buffer)
+	{
+		buffer = g_new(char, 256);
+		ret = aneditor_command (te->editor_id, ANE_GETCURRENTWORD, (long)buffer, 255L);
+		if (!ret)
+		{
+			g_free(buffer);
+			return;
+		}
+	}
+    return_=text_editor_find(te,buffer,TEXT_EDITOR_FIND_SCOPE_CURRENT,0,0,1,1);
+	
+	g_free(buffer);
+
+}
+
+
+void on_next_occur(GtkMenuItem * menuitem, gpointer user_data)
+{
+    TextEditor* te;
+	gboolean ret;
+	gchar *buffer = NULL;
+    gint return_;
+	te = anjuta_get_current_text_editor();
+	if(!te) return;
+	if (text_editor_has_selection(te))
+	{
+		buffer = text_editor_get_selection(te);
+		g_strstrip(buffer);
+		if ('\0' == *buffer)
+		{
+			g_free(buffer);
+			buffer = NULL;
+		}
+	}
+	if (NULL == buffer)
+	{
+		buffer = g_new(char, 256);
+		ret = aneditor_command (te->editor_id, ANE_GETCURRENTWORD, (long)buffer, 255L);
+		if (!ret)
+		{
+			g_free(buffer);
+			return;
+		}
+	}
+    return_=text_editor_find(te,buffer,TEXT_EDITOR_FIND_SCOPE_CURRENT,1,0,1,1);
+	
+	g_free(buffer);
+
+}
 void
 on_goto_line_no1_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
@@ -1487,12 +1556,17 @@ on_force_hilite1_activate (GtkMenuItem * menuitem, gpointer user_data)
 void
 on_indent1_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
+    //trying to restore line no where i was before autoformat invoked
+    gint lineno;
 	TextEditor *te;
 	te = anjuta_get_current_text_editor ();
+    lineno=aneditor_command (te->editor_id, ANE_GET_LINENO, 0, 0);
 	if (te == NULL)
 		return;
 	text_editor_autoformat (te);
 	anjuta_update_title();
+    text_editor_goto_line(te,lineno+1,TRUE);
+    
 }
 
 void

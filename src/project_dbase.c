@@ -105,6 +105,7 @@ gchar *project_type_map[]=
 	"GNOMEmm 2.0",
 	"XLib",
 	"XLib Dock App",
+	"Qt",
 	NULL
 };
 

@@ -83,7 +83,10 @@ on_wizard_app_icon_select (GnomeIconList * gil, gint num,
   case 14:
     aw->prj_type = PROJECT_TYPE_XWINDOCKAPP;
     break;
-  
+  case 15:
+	aw->prj_type = PROJECT_TYPE_QT;
+	break;
+ 
  default: /* Invalid project type */
     aw->prj_type = PROJECT_TYPE_END_MARK;
     break;

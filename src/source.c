@@ -1429,7 +1429,8 @@ source_write_glade_file (ProjectDBase * data)
 	else if (type->id == PROJECT_TYPE_GTKMM ||
 			type->id == PROJECT_TYPE_GNOMEMM ||
 			type->id == PROJECT_TYPE_GTKMM2 ||
-			type->id == PROJECT_TYPE_GNOMEMM2)
+			type->id == PROJECT_TYPE_GNOMEMM2 ||
+			type->id == PROJECT_TYPE_QT )
 	{	
 		fprintf(fp, "  <language>CPP</language>\n");
 	}

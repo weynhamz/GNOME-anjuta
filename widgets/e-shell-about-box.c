@@ -95,7 +95,8 @@ static const char *text[] = {
 	"Pierre Sarrazin <sarrazip@sympatico.ca>",
 	"Kelly Bergougnoux <three3@users.sourceforge.net>",
 	"Dave Huseby <huseby@shockfusion.com>",
-	"Sébastien Côté <cots01@gel.usherb.ca>"
+	"Sébastien Côté <cots01@gel.usherb.ca>",
+	"Stephen Knight <steven.knight@unh.edu>"
 };
 #define NUM_TEXT_LINES (sizeof (text) / sizeof (*text))
 

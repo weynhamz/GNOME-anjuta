@@ -338,6 +338,17 @@ gchar* project_type_xwindockapp[] =
 	"0",	  
 };
 
+gchar* project_type_qt[] = {	
+	"QT", // gnome_project save string
+	"", // cflags
+	"", // ldadd
+	"", // configure macros
+	"", // autogen file
+	"0", // gnome support
+	"0" // glade support
+
+};
+
 Project_Type* load_type_from_data(char* type_data[], gint id);
 
 Project_Type* load_project_type(gint id)
@@ -419,6 +430,11 @@ Project_Type* load_project_type(gint id)
 		case PROJECT_TYPE_XWINDOCKAPP:
 		{
 			type = load_type_from_data(project_type_xwindockapp, id);
+			break;
+		}
+		case PROJECT_TYPE_QT:
+		{
+			type = load_type_from_data(project_type_qt, id);
 			break;
 		}
 		default:

@@ -445,7 +445,7 @@ static GnomeUIInfo goto1_submenu_uiinfo[NUM_GOTO_SUBMENUS+1] = {
 };
 
 
-#define	NUM_EDIT_SUBMENUS	21
+#define	NUM_EDIT_SUBMENUS	23
 static GnomeUIInfo edit1_menu_uiinfo[NUM_EDIT_SUBMENUS+1] = {
 	{/*0*/
 	 GNOME_APP_UI_ITEM, N_("U_ndo"),
@@ -566,15 +566,28 @@ static GnomeUIInfo edit1_menu_uiinfo[NUM_EDIT_SUBMENUS+1] = {
 	 on_enterselection, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 GDK_E, GDK_CONTROL_MASK, NULL},
-	
 	{/*20*/
+	 GNOME_APP_UI_ITEM, N_("Next occurrence"),
+	 N_("Find the next occurrence of current word"),
+	 on_next_occur, NULL, NULL,
+	 GNOME_APP_PIXMAP_NONE, NULL,
+	 0, GDK_CONTROL_MASK, NULL}, 
+     {/*21*/
+	 GNOME_APP_UI_ITEM, N_("Previous occurence"),
+	 N_("Find the previous occurrence of current word"),
+	 on_prev_occur, NULL, NULL,
+	 GNOME_APP_PIXMAP_NONE, NULL,
+	 0, GDK_CONTROL_MASK, NULL},
+     {/*22*/
 	 GNOME_APP_UI_SUBTREE, N_("G_o to"),
 	 NULL,
 	 goto1_submenu_uiinfo, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
+     
 	
-	/*21*/
+    
+	/*23*/
 	GNOMEUIINFO_END
 };
 
@@ -897,7 +910,7 @@ static GnomeUIInfo project1_menu_uiinfo[NUM_PROJECT_SUBMENUS+1] = {
 	 PIX_STOCK(OPEN),
 	 0, 0, NULL},
 	{/*3*/
-	 GNOME_APP_UI_ITEM, N_("Remove"),
+	 GNOME_APP_UI_ITEM, N_("Remove File"),
 	 NULL,
 	 on_project_remove1_activate, NULL, NULL,
 	 PIX_STOCK(CUT),

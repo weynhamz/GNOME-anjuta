@@ -78,7 +78,8 @@ create_project_type_selection_page (GnomeDruid * druid, GtkWidget ** iconlist)
 
 	gchar *icon1_file, *icon2_file, *icon3_file, *icon4_file, *icon5_file,
 		*icon6_file, *icon7_file, *icon8_file, *icon9_file, *icon10_file,
-		*icon11_file, *icon12_file, *icon13_file, *icon14_file, *icon15_file;
+		*icon11_file, *icon12_file, *icon13_file, *icon14_file, *icon15_file,
+		*icon16_file;
 
 	GdkColor page_bg_color = { 0, 15616, 33280, 46848 };
 	GdkColor page_logo_bg_color = { 0, 15616, 33280, 46848 };
@@ -162,6 +163,7 @@ create_project_type_selection_page (GnomeDruid * druid, GtkWidget ** iconlist)
 	icon13_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_APP_GNOMEMM2);
 	icon14_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_APP_XWIN);
 	icon15_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_APP_XWINDOCKAPP);
+	icon16_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_APP_QT);
 	
 	if (icon1_file)
 		gnome_icon_list_append (GNOME_ICON_LIST (iconlist1),
@@ -215,6 +217,9 @@ create_project_type_selection_page (GnomeDruid * druid, GtkWidget ** iconlist)
 	if (icon15_file)
 		gnome_icon_list_append (GNOME_ICON_LIST (iconlist1),
 					icon15_file, _("X Dock App project"));
+	if (icon15_file)
+		gnome_icon_list_append (GNOME_ICON_LIST (iconlist1),
+					icon16_file, _("Qt project"));
 
 	g_free (icon1_file);
 	g_free (icon2_file);
@@ -231,6 +236,7 @@ create_project_type_selection_page (GnomeDruid * druid, GtkWidget ** iconlist)
 	g_free (icon13_file);
 	g_free (icon14_file);	
 	g_free (icon15_file);	
+	g_free (icon16_file);	
 
 	*iconlist = iconlist1;
 	return page;
