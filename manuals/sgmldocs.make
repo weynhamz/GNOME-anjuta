@@ -53,10 +53,7 @@ index.html: $(docname)/index.html
 	-cp $(docname)/index.html .
 
 $(docname).sgml: $(sgml_ents)
-        -ourdir=`pwd`;  \
-        cd $(srcdir);   \
-        cp $(sgml_ents) $$ourdir
-
+        ourdir=`pwd` && cd $(srcdir) && cp -f $(sgml_ents) $$ourdir || true
 
 # The weird srcdir trick is because the db2html from the Cygnus RPMs
 # cannot handle relative filenames

@@ -1,3 +1,33 @@
+2002-05-26	Andy Piper	<andy.piper@freeuk.com>
+
+	* THANKS, widgets/e-shell-about-box.c, 
+	manuals/anjuta-manual/C/authors.sgml: updated for new
+	patch
+	* src/anjuta.c: removed unnecessary warning code since CVS 
+	support is now implemented :-)
+	* manuals/sgmldocs.make: implemented a fix for bug #553969
+	* manuals/C/anjuta-tutorial/anjuta-tutorial.sgml: fixed some CRs
+	* manuals/C/anjuta-tutorial/anjuta-turorial-C.omf, 
+	manuals/C/anjuta-faqs-C.omf: modified the descriptions
+	
+2002-05-20 Jean-Noel Guiheneuf <jnoel@saudionline.com.sa>
+	
+	* src/main_menubar.c, src/main_menubar.h, src/controls.c,
+	  src/mainmenu_callbacks.c, src/mainmenu_callbacks.h,
+	  src/main_menubar_def.h, src/preferences_gui.c,
+	  preferences.c, preferences.h: setup Username and Email 
+	  preferences, Insert ChangeLog and Username editor functions
+	  
+	  Patch reviewed and modified by Andy Piper <andy.piper@freeuk.com>
+
+2002-05-17  Jean-Noel Guiheneuf <jnoel@saudionline.com.sa>
+	
+	* src/commands.c, src/compiler_options_cb.c src/compiler_options_gui.c
+	  src/src_paths_cbs.c, src/src_paths_gui.c
+	  Fixed some minor bugs and replace gtk_entries by gnome_file_entries
+
+	  Patch reviewed by Andy Piper <andy.piper@freeuk.com>
+
 2002-05-14  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
 
 	* src/main_menubar.[ch], main_menubar_def.h: Added back/forward
@@ -3546,3 +3576,5 @@ attached the fix for the menu
 2001-04-22  Stéphane Démurget <demurgets@free.fr>
 
 	* Emptied that ugly old Changelog.
+
+
