@@ -519,8 +519,8 @@ static void execute_tool(GtkMenuItem *item, gpointer data)
 		current_tool = tool;
 		if (current_tool_output)
 			g_string_truncate(current_tool_output, 0);
-		if (current_tool_output)
-			g_string_truncate(current_tool_output, 0);		
+		if (current_tool_error)
+			g_string_truncate(current_tool_error, 0);		
 		if (tool->error <= MESSAGE_MAX)
 			anjuta_message_manager_clear(app->messages, tool->error);
 		if (tool->input_type == AN_TINP_BUFFER && app->current_text_editor)
