@@ -23,20 +23,31 @@
 
 #include <glib.h>
 
-typedef struct _NPWPropertyValues NPWPropertyValues;
-typedef GSList* NPWPropertyKey;
+typedef struct _NPWValueHeap NPWValueHeap;
+typedef struct _NPWValue NPWValue;
 
-NPWPropertyValues* npw_property_values_new (void);
-void npw_property_values_free (NPWPropertyValues* this);
+typedef enum {
+	NPW_EMPTY_VALUE = 0, 		/* value should be NULL */
+			  	    	/* The two following states are exclusive */
+	NPW_VALID_VALUE = 1 << 0,	/* non empty, active value */ 
+	NPW_OLD_VALUE = 1 << 1,		/* non empty, removed value */
 
-NPWPropertyKey npw_property_values_add (NPWPropertyValues* this, const gchar* name);
-const gchar* npw_property_values_get_name (const NPWPropertyValues* this, NPWPropertyKey key);
-void npw_property_values_set (NPWPropertyValues* this, NPWPropertyKey key, const gchar* value, gint tag);
-const gchar* npw_property_values_get (const NPWPropertyValues* this, NPWPropertyKey key);
-gint npw_property_values_get_tag (const NPWPropertyValues* this, NPWPropertyKey key);
+	NPW_DEFAULT_VALUE = 1 << 2  	/* default value = could be overwritten */
+} NPWValueTag;
 
-typedef void (*NPWPropertyValuesForeachFunc) (const gchar* name, const gchar* value, gint tag, gpointer data);
-void npw_property_values_foreach_property (const NPWPropertyValues* this, NPWPropertyValuesForeachFunc func, gpointer data);
+NPWValueHeap* npw_value_heap_new (void);
+void npw_value_heap_free (NPWValueHeap* this);
+
+NPWValue* npw_value_heap_find_value (NPWValueHeap* this, const gchar* name);
+
+void npw_value_heap_set_value (NPWValueHeap* this, NPWValue* node, const gchar* value, NPWValueTag tag);
+const gchar* npw_value_heap_get_value (const NPWValueHeap* this, const NPWValue* node);
+
+const gchar* npw_value_heap_get_name (const NPWValueHeap* this, const NPWValue* node);
+NPWValueTag npw_value_heap_get_tag (const NPWValueHeap* this, const NPWValue* node);
+
+typedef void (*NPWValueHeapForeachFunc) (const gchar* name, const gchar* value, NPWValueTag tag, gpointer user_data);
+void npw_value_heap_foreach_value (const NPWValueHeap* this, NPWValueHeapForeachFunc func, gpointer user_data);
 
 #endif
 

@@ -20,7 +20,8 @@
 
 /*
  * Actions data read in .wiz file
- *
+ * 
+ * It's just a list containing all data
  *---------------------------------------------------------------------------*/
 
 #include <config.h>
@@ -35,12 +36,17 @@
 
 /*---------------------------------------------------------------------------*/
 
+/* List containing all actions. It includes chunk for strings and actions
+ * object, so memory allocation is handled by the list itself */
+
 struct _NPWActionList
 {
 	GList* list;
 	GStringChunk* string_pool;
 	GMemChunk* data_pool;
 };
+
+/* Action object, it includes a pointer on its owner to allocate new data */
 
 struct _NPWAction {
 	NPWActionType type;
@@ -50,6 +56,7 @@ struct _NPWAction {
 };
 
 /* Action object
+ *
  *---------------------------------------------------------------------------*/
 
 NPWAction*

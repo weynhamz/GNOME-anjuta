@@ -21,6 +21,12 @@
 /*
  * Execute autogen program
  *
+ * This takes cares of everything needed to run autogen:
+ * 	- generate the definition files from a list of values
+ * 	- add autogen marker in template file if necessary
+ * 	- check autogen version
+ * 	- run autogen with AnjutaLauncher object
+ * Autogen output could be written in a file or pass to callback function.
  *---------------------------------------------------------------------------*/
 
 #include <config.h>
@@ -44,182 +50,103 @@
 
 struct _NPWAutogen
 {
-	AnjutaLauncher* launcher;
-	GList* definition;
-	gchar* temptplfilename;
-	const gchar* tplfilename;
-	gchar* deffilename;
-	gboolean cached;
+	gchar* deffilename;		/* name of generated definition file */
+	const gchar* tplfilename;	/* name of template (input) file */
+	gchar* temptplfilename;		/* name of generated template if the
+					 * previous file doesn't contains
+					 * autogen marker */
+
+					/* Output file name and handle used
+					 * when autogen output is written
+					 * in a file */
 	const gchar* outfilename;
 	FILE* output;
+					/* Call back function and data used
+					 * when autogen output something */
 	NPWAutogenOutputFunc outfunc;
 	gpointer outdata;
+					/* Call back function and data used
+					 * when autogen terminate */
 	NPWAutogenFunc endfunc;
 	gpointer enddata;
-};
 
-typedef struct _NPWDefinitionPage
-{
-	GString* data;
-	NPWPage* page;
-} NPWDefinitionPage;
+	AnjutaLauncher* launcher;
+	gboolean busy;			/* For debugging */
+};
 
 /*---------------------------------------------------------------------------*/
 
-void npw_autogen_free (NPWAutogen* this)
-{
-	g_return_if_fail(this != NULL);
+/* Helper functions
+ *---------------------------------------------------------------------------*/
 
-	if (this->launcher != NULL)
-	{
-		g_object_unref (this->launcher);
-	}
-	if (this->definition != NULL)
-	{
-		GList* node;
-		NPWDefinitionPage* page;
-
-		/* Delete definition list */
-		for (node = this->definition; node != NULL; node = node->next)
-		{
-			page = (NPWDefinitionPage *)node->data;
-			g_string_free (page->data, TRUE);
-			g_free (page);
-		}
-		g_list_free (this->definition);
-	}
-	if (this->temptplfilename != NULL)
-	{
-		remove (this->temptplfilename);
-		g_free (this->temptplfilename);
-	}
-	if (this->deffilename != NULL)
-	{
-		remove (this->deffilename);
-		g_free (this->deffilename);
-	}
-	if (this->output != NULL)
-	{
-		fclose (this->output);
-	}
-	g_free (this);
-}
+/* Check if autogen version 5 is present */
 
 gboolean
-npw_autogen_add_default_definition (NPWAutogen* this, AnjutaPreferences* pref)
+npw_check_autogen (void)
 {
-	NPWDefinitionPage* def;
-	const gchar* value;
+	gchar* args[] = {"autogen", "-v", NULL};
+	gchar* output;
 
-	/* Remove previous definition if exist */
-	npw_autogen_remove_definition (this, NULL);
-
-	/* Add new node */
-	def = g_new (NPWDefinitionPage, 1);
-	def->data = g_string_new ("");
-	def->page = NULL;
-	this->definition = g_list_append (this->definition, def);
-	this->cached = FALSE;
-
-	/* Add project directory */
-	value = anjuta_preferences_get (pref, "anjuta.project.directory");
-	g_string_append_printf (def->data,"%s = \"%s\";\n", "AnjutaProjectDirectory", value);
-	value = anjuta_preferences_get (pref, "anjuta.project.user");
-	if (strlen(value) == 0)
-		value = g_get_real_name();
-	g_string_append_printf (def->data,"%s = \"%s\";\n", "UserName", value);
-
-	return TRUE;
-}
-
-static void
-cb_autogen_add_definition (NPWProperty* property, gpointer data)
-{
-	NPWDefinitionPage* def = (NPWDefinitionPage*)data;
-	const gchar* name;
-	const gchar* value;
-
-	name = npw_property_get_name (property);
-	if (name != NULL)
+	if (g_spawn_sync (NULL, args, NULL, G_SPAWN_SEARCH_PATH | G_SPAWN_STDERR_TO_DEV_NULL,
+		NULL, NULL, &output, NULL, NULL, NULL))
 	{
-		value = npw_property_get_value (property);
-		if (value == NULL) value = "";
-		g_string_append_printf (def->data,"%s = \"%s\";\n", name, value);
-	}
-}
+		gint ver[3];
+		gchar* ptr;
 
-gboolean
-npw_autogen_add_definition (NPWAutogen* this, NPWPage* page)
-{
-	NPWDefinitionPage* def;
+		/* Check autogen */
+		if (strstr(output, "The Automated Program Generator") == NULL) return FALSE;
 
-	/* Remove old page if exist */
-	npw_autogen_remove_definition (this, page);
+		/* Get version number */
+		ptr = strstr(output, "Ver. ");
+	       	if (ptr == NULL) return FALSE;
+		ptr += 5;
+		sscanf(ptr,"%d.%d.%d", &ver[0], &ver[1], &ver[2]);
 
-	/* Add new node */
-	def = g_new (NPWDefinitionPage, 1);
-	def->data = g_string_new ("");
-	def->page = page;
-	this->definition = g_list_append (this->definition, def);
-	this->cached = FALSE;
-
-	/* Generate definition data for autogen */
-	npw_page_foreach_property (page, cb_autogen_add_definition, def);
-
-	return TRUE;
-}
-
-gboolean
-npw_autogen_remove_definition (NPWAutogen* this, NPWPage* page)
-{
-	GList* node;
-	NPWDefinitionPage* def;
-
-	for (node = this->definition; node != NULL; node = node->next)
-	{
-		def = (NPWDefinitionPage *)node->data;
-		if (def->page == page)
-		{
-			g_string_free (def->data, TRUE);
-			g_free (def);
-			this->definition = g_list_delete_link (this->definition, node);
-			this->cached = FALSE;
-
-			return TRUE;
-		}
+		return (ver[0] == 5);
 	}
 
 	return FALSE;
 }
 
+/* Write definitions
+ *---------------------------------------------------------------------------*/
+
+static void
+cb_autogen_write_definition (const gchar* name, const gchar* value, NPWValueTag tag, gpointer user_data)
+{
+	FILE* def = (FILE *)user_data;
+
+	if ((tag & NPW_VALID_VALUE) && (value != NULL))
+	{
+		fprintf (def, "%s = \"%s\";\n", name, value);
+	}
+}
+
 gboolean
-npw_autogen_write_definition_file (NPWAutogen* this)
+npw_autogen_write_definition_file (NPWAutogen* this, NPWValueHeap* values)
 {
 	FILE* def;
-	GList* node;
-	NPWDefinitionPage* page;
 
-	/* Definition file have already been written */
-	if (this->cached == TRUE) return TRUE;
+	/* Autogen should not be running */
+	g_return_val_if_fail (this->busy == FALSE, FALSE);
 
 	def = fopen (this->deffilename, "wt");
 	if (def == NULL) return FALSE;
-	fputs ("AutoGen Definitions .;\n",def);
 
-	for (node = this->definition; node != NULL; node = node->next)
-	{
-		page = (NPWDefinitionPage *)node->data;
-		fwrite (page->data->str, 1, page->data->len, def);
-	}
+	/* Generate definition data for autogen */
+	fputs ("AutoGen Definitions .;\n",def);
+	npw_value_heap_foreach_value (values, cb_autogen_write_definition, def);
 
 	fclose (def);
-	this->cached = TRUE;
 
 	return FALSE;
 }
 
+/* Set input and output
+ *---------------------------------------------------------------------------*/
+
 gboolean
-npw_autogen_set_input_file (NPWAutogen* this, const gchar* filename, const gchar* start_macro, const gchar* end_macro)
+npw_autogen_set_input_file (NPWAutogen* this, const gchar* filename, const gchar* start_marker, const gchar* end_marker)
 {
 	FILE* tpl;
 	FILE* src;
@@ -227,23 +154,30 @@ npw_autogen_set_input_file (NPWAutogen* this, const gchar* filename, const gchar
 	gchar* buffer;
 	guint len;
 
-	g_return_val_if_fail ((start_macro && end_macro) || (!start_macro && !end_macro), FALSE);
+	/* Autogen should not be running */
+	g_return_val_if_fail (this->busy == FALSE, FALSE);
 
+	/* We need to specify start and end marker or nothing */
+	g_return_val_if_fail ((start_marker && end_marker) || (!start_marker && !end_marker), FALSE);
+
+	/* Remove previous temporary file if exist */
 	if (this->temptplfilename != NULL)
 	{
 		remove (this->temptplfilename);
 		g_free (this->temptplfilename);
 		this->temptplfilename = NULL;
 	}
-	if ((start_macro == NULL) && (end_macro == NULL))
+
+	if ((start_marker == NULL) && (end_marker == NULL))
 	{
-		/* input file is really an autogen file */
+		/* input file is really an autogen file, nothig do to */
 		this->tplfilename = filename;
 
 		return TRUE;
 	}
 
-	/* Autogen definition is missing */
+	/* Autogen definition is missing, we need to create a temporary file
+	 * with them */
 
 	/* Create temporary file */
 	this->temptplfilename = g_build_filename (g_get_tmp_dir (), TMP_TPL_FILENAME, NULL);
@@ -253,9 +187,9 @@ npw_autogen_set_input_file (NPWAutogen* this, const gchar* filename, const gchar
 	if (tpl == NULL) return FALSE;
 
 	/* Add autogen definition */
-	fputs (start_macro, tpl);
+	fputs (start_marker, tpl);
 	fputs (" autogen5 template ", tpl);
-	fputs (end_macro, tpl);
+	fputs (end_marker, tpl);
 	fputc ('\n', tpl);
 
 	/* Copy source file into this new file */
@@ -291,6 +225,9 @@ npw_autogen_set_input_file (NPWAutogen* this, const gchar* filename, const gchar
 gboolean
 npw_autogen_set_output_file (NPWAutogen* this, const gchar* filename)
 {
+	/* Autogen should not be running */
+	g_return_val_if_fail (this->busy == FALSE, FALSE);
+
 	this->outfilename = filename;
 	this->outfunc = NULL;
 
@@ -298,25 +235,32 @@ npw_autogen_set_output_file (NPWAutogen* this, const gchar* filename)
 }
 
 gboolean
-npw_autogen_set_output_callback (NPWAutogen* this, NPWAutogenOutputFunc func, gpointer data)
+npw_autogen_set_output_callback (NPWAutogen* this, NPWAutogenOutputFunc func, gpointer user_data)
 {
+	/* Autogen should not be running */
+	g_return_val_if_fail (this->busy == FALSE, FALSE);
+
 	this->outfunc = func;
-	this->outdata = data;
+	this->outdata = user_data;
 	this->outfilename = NULL;
 
 	return TRUE;
 }
 
-static void
-on_autogen_output (AnjutaLauncher* launcher, AnjutaLauncherOutputType type, const gchar* output, gpointer data)
-{
-	NPWAutogen* this = (NPWAutogen*)data;
+/* Execute autogen
+ *---------------------------------------------------------------------------*/
 
-	printf("OUTPUT: \"%s\"\n", output);
+static void
+on_autogen_output (AnjutaLauncher* launcher, AnjutaLauncherOutputType type, const gchar* output, gpointer user_data)
+{
+	NPWAutogen* this = (NPWAutogen*)user_data;
+
 	if (this->outfilename != NULL)
 	{
+		/* Write output in a file */
 		if (this->output == NULL)
 		{
+			/* Open file if it's not already done */
 			this->output = fopen (this->outfilename, "wt");
 		}
 		if (this->output != NULL)
@@ -326,6 +270,7 @@ on_autogen_output (AnjutaLauncher* launcher, AnjutaLauncherOutputType type, cons
 	}
 	if (this->outfunc != NULL)
 	{
+		/* Call a callback function */
 		(this->outfunc)(output, this->outdata);
 	}
 }
@@ -333,6 +278,7 @@ on_autogen_output (AnjutaLauncher* launcher, AnjutaLauncherOutputType type, cons
 static void
 on_autogen_terminated (AnjutaLauncher* launcher, gint pid, gint status, gulong time, NPWAutogen* this)
 {
+	this->busy = FALSE;
 	if (this->output != NULL)
 	{
 		fclose (this->output);
@@ -350,29 +296,35 @@ npw_autogen_execute (NPWAutogen* this, NPWAutogenFunc func, gpointer data, GErro
 {
 	gchar* args[] = {"autogen", "-T", NULL, NULL, NULL};
 
+	/* Autogen should not be running */
+	g_return_val_if_fail (this->busy == FALSE, FALSE);
 	g_return_val_if_fail (this, FALSE);
 	g_return_val_if_fail (this->launcher, FALSE);
 
-	/* Write definition file */
-	npw_autogen_write_definition_file (this);
-
+	/* Set output end callback */
 	if (func != NULL)
 	{
 		this->endfunc = func;
 		this->enddata = data;
 	}
+	else
+	{
+		this->endfunc = NULL;
+	}
 	args[2] = (gchar *)this->tplfilename;
 	args[3] = (gchar *)this->deffilename;
 
+	this->busy = TRUE;
 	if (!anjuta_launcher_execute_v (this->launcher, args, on_autogen_output, this))
 	{
-		printf("anjuta launcher return FALSE\n");
 		return FALSE;
 	}
-	printf("anjuta launcher return TRUE\n");
 
 	return TRUE;
 }
+
+/* Creation and Destruction
+ *---------------------------------------------------------------------------*/
 
 NPWAutogen* npw_autogen_new (void)
 {
@@ -381,36 +333,45 @@ NPWAutogen* npw_autogen_new (void)
 	this = g_new0(NPWAutogen, 1);
 
 	this->launcher = anjuta_launcher_new ();
+	g_signal_connect (G_OBJECT (this->launcher), "child-exited", G_CALLBACK (on_autogen_terminated), this);
+
+	/* Create a temporary file for definitions */
 	this->deffilename = g_build_filename (g_get_tmp_dir (), TMP_DEF_FILENAME, NULL);
 	mktemp (this->deffilename);
-	g_signal_connect (G_OBJECT (this->launcher), "child-exited", G_CALLBACK (on_autogen_terminated), this);
 
 	return this;
 }
 
-gboolean
-npw_check_autogen (void)
+void npw_autogen_free (NPWAutogen* this)
 {
-	gchar* args[] = {"autogen", "-v", NULL};
-	gchar* output;
+	g_return_if_fail(this != NULL);
 
-	if (g_spawn_sync (NULL, args, NULL, G_SPAWN_SEARCH_PATH | G_SPAWN_STDERR_TO_DEV_NULL,
-		NULL, NULL, &output, NULL, NULL, NULL))
+	if (this->output != NULL)
 	{
-		gint ver[3];
-		gchar* ptr;
-
-		/* Check autogen */
-		if (strstr(output, "The Automated Program Generator") == NULL) return FALSE;
-
-		/* Get version number */
-		ptr = strstr(output, "Ver. ");
-	       	if (ptr == NULL) return FALSE;
-		ptr += 5;
-		sscanf(ptr,"%d.%d.%d", &ver[0], &ver[1], &ver[2]);
-
-		return (ver[0] == 5);
+		/* output is not used if a callback function is used */
+		fclose (this->output);
 	}
 
-	return FALSE;
+	if (this->temptplfilename != NULL)
+	{
+		/* temptplfilename is not used if input file already
+		 * contains autogen marker */
+		remove (this->temptplfilename);
+		g_free (this->temptplfilename);
+	}
+
+
+	/* deffilename should always be here (created in new) */
+	g_return_if_fail (this->deffilename);
+	remove (this->deffilename);
+	g_free (this->deffilename);
+
+	g_signal_handlers_disconnect_by_func (G_OBJECT (this->launcher), G_CALLBACK (on_autogen_terminated), this);
+	g_object_unref (this->launcher);
+
+	g_free (this);
 }
+
+
+
+

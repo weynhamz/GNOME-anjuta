@@ -50,8 +50,16 @@ typedef enum {
 typedef enum {
 	NPW_MANDATORY_OPTION = 1 << 0,
 	NPW_SUMMARY_OPTION = 1 << 1,
-	NPW_EDITABLE_OPTION = 1 << 2
+	NPW_EDITABLE_OPTION = 1 << 2,
+	NPW_EXIST_OPTION = 1 << 3,
+	NPW_EXIST_SET_OPTION = 1 << 4
 } NPWPropertyOptions;
+
+typedef enum {
+	NPW_DEFAULT = -1,
+	NPW_FALSE = 0,
+	NPW_TRUE = 1
+} NPWPropertyBooleanValue;
 
 NPWProperty* npw_property_new (NPWPage* owner);
 void npw_property_free (NPWProperty* this);
@@ -75,8 +83,8 @@ GtkWidget* npw_property_get_widget (const NPWProperty* this);
 
 void npw_property_set_default (NPWProperty* this, const gchar* value);
 
-void npw_property_set_value_from_widget (NPWProperty* this, gint tag);
-void npw_property_set_value (NPWProperty* this, const gchar* value, gint tag);
+void npw_property_update_value_from_widget (NPWProperty* this);
+void npw_property_save_value_from_widget (NPWProperty* this);
 const char* npw_property_get_value (const NPWProperty* this);
 
 gboolean npw_property_add_list_item (NPWProperty* this, const char* name, const gchar* label);
@@ -86,8 +94,11 @@ void npw_property_set_summary_option (NPWProperty* this, gboolean value);
 void npw_property_set_editable_option (NPWProperty* this, gboolean value);
 NPWPropertyOptions npw_property_get_options (const NPWProperty* this);
 
+void npw_property_set_exist_option (NPWProperty* this, NPWPropertyBooleanValue value);
+NPWPropertyBooleanValue npw_property_get_exist_option (const NPWProperty* this);
 
-NPWPage* npw_page_new (NPWPropertyValues* value);
+
+NPWPage* npw_page_new (NPWValueHeap* value);
 void npw_page_free (NPWPage* this);
 
 typedef void (*NPWPropertyForeachFunc) (NPWProperty* head, gpointer data);

@@ -65,6 +65,7 @@ typedef enum {
 	NPW_SUMMARY_ATTRIBUTE,
 	NPW_TYPE_ATTRIBUTE,
 	NPW_MANDATORY_ATTRIBUTE,
+	NPW_EXIST_ATTRIBUTE,
 	NPW_EDITABLE_ATTRIBUTE,
 	NPW_SOURCE_ATTRIBUTE,
 	NPW_DESTINATION_ATTRIBUTE,
@@ -231,6 +232,10 @@ parse_attribute (const char* name)
 	else if (strcmp ("editable", name) == 0)
 	{
 		return NPW_EDITABLE_ATTRIBUTE;
+	}
+	else if (strcmp ("exist", name) == 0)
+	{
+		return NPW_EXIST_ATTRIBUTE;
 	}
 	else if (strcmp ("source", name) == 0)
 	{
@@ -725,6 +730,9 @@ parse_property (NPWPageParser* this,
 			break;
 		case NPW_EDITABLE_ATTRIBUTE:
 			npw_property_set_editable_option (this->property, parse_boolean_string (*values));
+			break;
+		case NPW_EXIST_ATTRIBUTE:
+			npw_property_set_exist_option (this->property, parse_boolean_string (*values));
 			break;
 		default:
 			parser_warning (this->ctx, "Unknown property attribute \"%s\"", *attributes);

@@ -47,7 +47,7 @@ struct _NPWPage
 	GStringChunk* string_pool;
 	GMemChunk* data_pool;
 	GMemChunk* item_pool;
-	NPWPropertyValues* value;
+	NPWValueHeap* value;
 	gchar* name;
 	gchar* label;
 	gchar* description;
@@ -59,7 +59,7 @@ struct _NPWProperty {
 	gchar* label;
 	gchar* description;
 	gchar* defvalue;
-	NPWPropertyKey key;
+	NPWValue* value;
 	GtkWidget* widget;
 	NPWPage* owner;
 	GSList* item;
@@ -164,13 +164,13 @@ npw_property_get_type (const NPWProperty* this)
 void
 npw_property_set_name (NPWProperty* this, const gchar* name)
 {
-	this->key = npw_property_values_add (this->owner->value, name);
+	this->value = npw_value_heap_find_value (this->owner->value, name);
 }
 
 const gchar*
 npw_property_get_name (const NPWProperty* this)
 {
-	return npw_property_values_get_name (this->owner->value, this->key);
+	return npw_value_heap_get_name (this->owner->value, this->value);
 }
 
 void
@@ -295,8 +295,9 @@ npw_property_set_default (NPWProperty* this, const gchar* value)
 	this->defvalue = g_string_chunk_insert (this->owner->string_pool, value);
 }
 
-void
-npw_property_set_value_from_widget (NPWProperty* this, gint tag)
+
+static void
+npw_property_set_value_from_widget (NPWProperty* this, NPWValueTag tag)
 {
 	const gchar* value = NULL;
 
@@ -349,25 +350,41 @@ npw_property_set_value_from_widget (NPWProperty* this, gint tag)
 		return;
 	}
 
-	npw_property_set_value (this, value, tag);
+	/* Check and mark default value (will not be saved) */
+	if ((value) && (this->defvalue) && (strcmp (value, this->defvalue) == 0))
+	{
+		tag |= NPW_DEFAULT_VALUE;
+	}
+		
+	npw_value_heap_set_value (this->owner->value, this->value, value, tag);
 }
 
 void
-npw_property_set_value (NPWProperty* this, const gchar* value, gint tag)
+npw_property_update_value_from_widget (NPWProperty* this)
 {
-	npw_property_values_set (this->owner->value, this->key, value, tag);
+	npw_property_set_value_from_widget (this, NPW_VALID_VALUE);
+}
+
+void
+npw_property_save_value_from_widget (NPWProperty* this)
+{
+	npw_property_set_value_from_widget (this, NPW_OLD_VALUE);
 }
 
 const char*
 npw_property_get_value (const NPWProperty* this)
 {
-	if (npw_property_values_get_tag (this->owner->value, this->key) == 0)
+	NPWValueTag tag;
+
+	tag = npw_value_heap_get_tag (this->owner->value, this->value);
+	if ((tag == NPW_EMPTY_VALUE) || (tag & NPW_DEFAULT_VALUE))
 	{
 		return this->defvalue;
 	}
 	else
 	{
-		return npw_property_values_get (this->owner->value, this->key);
+		/* Only value entered by user could replace default value */
+		return npw_value_heap_get_value (this->owner->value, this->value);
 	}	
 }
 
@@ -430,11 +447,35 @@ npw_property_get_options (const NPWProperty* this)
 	return this->options;
 }
 
+void
+npw_property_set_exist_option (NPWProperty* this, NPWPropertyBooleanValue value)
+{
+	switch (value)
+	{
+	case NPW_TRUE:
+		this->options |= NPW_EXIST_OPTION | NPW_EXIST_SET_OPTION;
+		break;
+	case NPW_FALSE:
+		this->options &= ~NPW_EXIST_OPTION;
+		this->options |= NPW_EXIST_SET_OPTION;
+		break;
+	case NPW_DEFAULT:
+		this->options &= ~(NPW_EXIST_OPTION | NPW_EXIST_SET_OPTION);
+		break;
+	}
+}
+
+NPWPropertyBooleanValue
+npw_property_get_exist_option (const NPWProperty* this)
+{
+	return this->options & NPW_EXIST_SET_OPTION ? (this->options & NPW_EXIST_OPTION ? NPW_TRUE : NPW_FALSE) : NPW_DEFAULT;
+}
+
 /* Page object = list of properties
  *---------------------------------------------------------------------------*/
 
 NPWPage*
-npw_page_new (NPWPropertyValues* value)
+npw_page_new (NPWValueHeap* value)
 {
 	NPWPage* this;
 

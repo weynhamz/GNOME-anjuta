@@ -19,9 +19,14 @@
 */
 
 /*
- * Project property values (only names and values without other informations
- *  like associated widget or attributes)
+ * Store all project property values (= just the name and the value
+ * without other high level information like the associated widget)
  *
+ * The property values are stored independently because we want to keep
+ * all values entered by the user even if it goes back in the wizard and
+ * regenerate all properties.
+ * Moreover it removes dependencies between the installer part and the
+ * properties. The installer part could work with the values only.
  *---------------------------------------------------------------------------*/
 
 #include <config.h>
@@ -36,152 +41,160 @@
 
 /*---------------------------------------------------------------------------*/
 
-struct _NPWPropertyValues
+/* This stores all the values. It's basically an hash table with a string
+ * and a mem chunk to allocate all memories inside the object.
+ * After adding a new property, there is no way to remove it, but you can
+ * use the tag to mark it as obsolete */
+
+struct _NPWValueHeap
 {
 	GHashTable* hash;
-	GSList* list;
 	GStringChunk* string_pool;
+	GMemChunk* value_pool;	
 };
 
-typedef struct _NPWValue
+/* One property value, so just a name and a value plus a tag !
+ * The tag is defined in the header file, but is not really used in this code */
+
+struct _NPWValue
 {
-	gint tag;
-	gboolean empty;
+	NPWValueTag tag;
 	const gchar* name;
-	gchar value[0];
-} NPWValue;
+	const gchar* value;
+};
 
-
-/* Contains value of all properties
+/* Creation and Destruction
  *---------------------------------------------------------------------------*/
 
-NPWPropertyValues*
-npw_property_values_new (void)
+static NPWValueHeap*
+npw_value_heap_initialize (NPWValueHeap* this)
 {
-	NPWPropertyValues* this;
-
-	this = g_new0(NPWPropertyValues, 1);
 	this->string_pool = g_string_chunk_new (STRING_CHUNK_SIZE);
+	this->value_pool = g_mem_chunk_new ("value pool", sizeof(NPWValue), (STRING_CHUNK_SIZE / 4) * sizeof(NPWValue), G_ALLOC_ONLY);
 	this->hash = g_hash_table_new (g_str_hash, g_str_equal);
-	this->list = NULL;
 
 	return this;
 }
 
+static void
+npw_value_heap_deinitialize (NPWValueHeap* this)
+{
+	g_string_chunk_free (this->string_pool);
+	g_mem_chunk_destroy (this->value_pool);
+	g_hash_table_destroy (this->hash);
+}
+
+
+NPWValueHeap*
+npw_value_heap_new (void)
+{
+	NPWValueHeap* this;
+
+	this = g_new0 (NPWValueHeap, 1);
+	return npw_value_heap_initialize (this);
+}
+
 void
-npw_property_values_free (NPWPropertyValues* this)
+npw_value_heap_free (NPWValueHeap* this)
 {
 	GSList* node;
 	g_return_if_fail (this != NULL);
 
-	g_string_chunk_free (this->string_pool);
-	g_hash_table_destroy (this->hash);
-	for (node = this->list; node != NULL; node = g_slist_next (node))
-	{
-		g_free (node->data);
-	}
-	
-	g_slist_free (this->list);
+	npw_value_heap_deinitialize (this);
 	g_free (this);
 }
 
-NPWPropertyKey
-npw_property_values_add (NPWPropertyValues* this, const gchar* name)
-{
-	gchar* key;
-	gpointer value;
-	NPWValue* new_value;
+/* Find a value or list all values
+ *---------------------------------------------------------------------------*/
 
-	if (!g_hash_table_lookup_extended (this->hash, name, (gpointer)&key, &value))
+/* Return key corresponding to name, create key if it doesn't exist */
+
+NPWValue*
+npw_value_heap_find_value (NPWValueHeap* this, const gchar* name)
+{
+	NPWValue* node;
+
+	if (!g_hash_table_lookup_extended (this->hash, name, NULL, (gpointer)&node))
 	{
-		key = g_string_chunk_insert (this->string_pool, name);
-		new_value = (NPWValue *)g_new (char, sizeof (NPWValue));
-		new_value->name = key;
-		new_value->tag = 0;
-		this->list = g_slist_prepend (this->list, new_value);
-		value = (gpointer)this->list;
-		g_hash_table_insert (this->hash, key, value);
+		gchar* new_name;
+
+		node = g_chunk_new (NPWValue, this->value_pool);
+		new_name = g_string_chunk_insert (this->string_pool, name);
+		node->name = new_name;
+		node->tag = NPW_EMPTY_VALUE;
+		g_hash_table_insert (this->hash, new_name, node);
 	}
 
-	return value;
+	return node;
 }
 
-const gchar*
-npw_property_values_get_name (const NPWPropertyValues* this, NPWPropertyKey key)
+typedef struct _NPWValueHeapForeachValueData
 {
-	NPWValue* new_value;
+	NPWValueHeapForeachFunc func;
+	gpointer data;
+} NPWValueHeapForeachValueData;
 
-	new_value = (NPWValue *)key->data;
+static void
+cb_value_heap_foreach_value (gpointer key, gpointer value, gpointer user_data)
+{
+	NPWValueHeapForeachValueData* data = (NPWValueHeapForeachValueData *)user_data;
+	NPWValue* node = (NPWValue*)value;
 
-	return new_value->name;
+	(data->func)(node->name, node->value, node->tag, data->data);
 }
 
 void
-npw_property_values_set (NPWPropertyValues* this, NPWPropertyKey key, const gchar* value, gint tag)
+npw_value_heap_foreach_value (const NPWValueHeap* this, NPWValueHeapForeachFunc func, gpointer user_data)
 {
-	NPWValue* new_value;
-	const gchar* name;
+	NPWValueHeapForeachValueData data;
 
-	new_value = (NPWValue *)key->data;
-	name = new_value->name;
-	g_free (new_value);
+	data.func = func;
+	data.data = user_data;
+	g_hash_table_foreach (this->hash, cb_value_heap_foreach_value, &data);
+}
 
-	new_value = (NPWValue *)g_new (char, sizeof (NPWValue) + (value == NULL ? 0: strlen (value)) + 1);
-	new_value->name = name;
-	new_value->tag = tag;
-	if (value == NULL)
+/* Access value attributes
+ *---------------------------------------------------------------------------*/
+
+const gchar*
+npw_value_heap_get_name (const NPWValueHeap* this, const NPWValue* node)
+{
+	g_return_val_if_fail (node != NULL, NULL);
+
+	return node->name;
+}
+
+void
+npw_value_heap_set_value (NPWValueHeap* this, NPWValue* node, const gchar* value, NPWValueTag tag)
+{
+	g_return_val_if_fail (node != NULL, NULL);
+
+	if ((value == NULL) || (tag == NPW_EMPTY_VALUE))
 	{
-		new_value->value[0] = '\0';
+		node->tag = NPW_EMPTY_VALUE;
+		node->value = NULL;
 	}
 	else
 	{
-		strcpy (new_value->value, value);
+		node->tag = tag;
+		node->value = value == NULL ? NULL : g_string_chunk_insert (this->string_pool, value);
 	}
-	key->data = new_value;
 }
 
 const gchar*
-npw_property_values_get (const NPWPropertyValues* this, NPWPropertyKey key)
+npw_value_heap_get_value (const NPWValueHeap* this, const NPWValue* node)
 {
-	NPWValue* value;
-
-	value = (NPWValue*)key->data;
-
-	return value == NULL ? NULL : value->value;
+	g_return_val_if_fail (node != NULL, NULL);
+	
+	return node->value;
 }
 
-gint
-npw_property_values_get_tag (const NPWPropertyValues* this, NPWPropertyKey key)
+NPWValueTag
+npw_value_heap_get_tag (const NPWValueHeap* this, const NPWValue* node)
 {
-	NPWValue* value;
+	g_return_val_if_fail (node != NULL, NPW_EMPTY_VALUE);
 
-	value = (NPWValue*)key->data;
-
-	return value == NULL ? 0 : value->tag;
+	return node->tag;
 }
 
-typedef struct _NPWPropertyValueForeachPropertyData
-{
-	NPWPropertyValuesForeachFunc func;
-	gpointer data;
-} NPWPropertyValuesForeachPropertyData;
-
-static void
-cb_property_values_foreach_property (gpointer value, gpointer data)
-{
-	NPWPropertyValuesForeachPropertyData* d = (NPWPropertyValuesForeachPropertyData *)data;
-	NPWValue* v = (NPWValue*)value;
-
-	(d->func)(v->name, v->value, v->tag, d->data);
-}
-
-void
-npw_property_values_foreach_property (const NPWPropertyValues* this, NPWPropertyValuesForeachFunc func, gpointer data)
-{
-	NPWPropertyValuesForeachPropertyData d;
-
-	d.func = func;
-	d.data = data;
-	g_slist_foreach (this->list, cb_property_values_foreach_property, &d);
-}
 

@@ -21,8 +21,10 @@
 #ifndef __AUTOGEN_H__
 #define __AUTOGEN_H__
 
-#include "property.h"
+#include "values.h"
+
 #include <libanjuta/anjuta-preferences.h>
+
 #include <glib.h>
 
 typedef struct _NPWAutogen NPWAutogen;
@@ -32,14 +34,11 @@ typedef void (*NPWAutogenOutputFunc) (const gchar* output, gpointer data);
 NPWAutogen* npw_autogen_new (void);
 void npw_autogen_free (NPWAutogen* this);
 
-gboolean npw_autogen_add_default_definition (NPWAutogen* this, AnjutaPreferences* pref);
-gboolean npw_autogen_add_definition (NPWAutogen* this, NPWPage* page);
-gboolean npw_autogen_remove_definition (NPWAutogen* this, NPWPage* page);
-gboolean npw_autogen_write_definition_file (NPWAutogen* this);
+gboolean npw_autogen_write_definition_file (NPWAutogen* this, NPWValueHeap* values);
 
-gboolean npw_autogen_set_input_file (NPWAutogen* this, const gchar* filename, const gchar* start_macro, const gchar* end_macro);
+gboolean npw_autogen_set_input_file (NPWAutogen* this, const gchar* filename, const gchar* start_marker, const gchar* end_marker);
 gboolean npw_autogen_set_output_file (NPWAutogen* this, const gchar* filename);
-gboolean npw_autogen_set_output_callback (NPWAutogen* this, NPWAutogenOutputFunc func, gpointer data);
+gboolean npw_autogen_set_output_callback (NPWAutogen* this, NPWAutogenOutputFunc func, gpointer user_data);
 
 gboolean npw_autogen_execute (NPWAutogen* this, NPWAutogenFunc func, gpointer data, GError** error);
 

@@ -230,17 +230,9 @@ void npw_install_free (NPWInstall* this)
 
 
 gboolean
-npw_install_set_property (NPWInstall* this, GQueue* page_list, AnjutaPlugin* plugin)
+npw_install_set_property (NPWInstall* this, NPWValueHeap* values)
 {
-	int i;
-
-	/* Generate definition file */
-	npw_autogen_add_default_definition (this->gen, anjuta_shell_get_preferences (plugin->shell, NULL));	
-	for (i = 0; g_queue_peek_nth (page_list, i) != NULL; ++i)
-	{
-		npw_autogen_add_definition (this->gen, g_queue_peek_nth (page_list, i));
-	}
-	npw_autogen_write_definition_file (this->gen);
+	npw_autogen_write_definition_file (this->gen, values);
 
 	return TRUE;
 }
@@ -273,6 +265,7 @@ on_install_read_action_list (const gchar* output, gpointer data)
 	npw_action_list_parser_parse (this->action_parser, output, strlen (output), NULL);
 }
 
+static void
 on_install_end_action (gpointer data)
 {
 	NPWInstall* this = (NPWInstall*)data;
@@ -373,9 +366,12 @@ on_install_end_install_file (NPWAutogen* gen, gpointer data)
 		}
 		if (this->file == NULL)
 		{
-			IAnjutaFileLoader* loader;
+			/* IAnjutaFileLoader* loader; */
 			/* All files have been installed */
-			npw_plugin_print_view (this->plugin, IANJUTA_MESSAGE_VIEW_TYPE_INFO, _("New project has been created successfully"), "");
+			npw_plugin_print_view (this->plugin,
+								   IANJUTA_MESSAGE_VIEW_TYPE_INFO,
+								   _("New project has been created successfully"),
+								   "");
 
 			/*if (this->project_file != NULL)
 			{
@@ -424,6 +420,17 @@ npw_install_install_file (NPWInstall* this)
 
 	destination = npw_file_get_destination (this->file);
 	source = npw_file_get_source (this->file);
+
+	/* Check if file already exist */
+	if (g_file_test (destination, G_FILE_TEST_EXISTS))
+	{
+		msg = g_strdup_printf (_("Skipping %s, file already exist"), destination);
+		npw_plugin_print_view (this->plugin, IANJUTA_MESSAGE_VIEW_TYPE_WARNING, msg, "");
+		g_free (msg);
+		on_install_end_install_file (this->gen, this);
+
+		return FALSE;
+	}	
 
 	/* Check if autogen is needed */
 	switch (npw_file_get_autogen (this->file))
