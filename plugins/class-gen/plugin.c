@@ -83,7 +83,6 @@ activate_plugin (AnjutaPlugin *plugin)
 	AnjutaClassGenPlugin *cg_plugin;
 	
 	DEBUG_PRINT ("AnjutaClassGenPlugin: Activating ClassGen plugin...");
-	return TRUE;
 	cg_plugin = (AnjutaClassGenPlugin *)plugin;
 	cg_plugin->prefs = anjuta_shell_get_preferences (plugin->shell, NULL);
 	
