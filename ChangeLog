@@ -19,6 +19,8 @@
 	* src/debugger.c: Clean ups.
 	* src/lexer.h: Added CSS lexer definition.
 	
+	* Makefile.am: Installs destop file properly.
+	
 2003-06-24  Naba Kumar  <naba@gnome.org>
 
 	* src/search-replace.c: Shows the dialog properly, even when it is
