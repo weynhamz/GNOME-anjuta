@@ -32,16 +32,6 @@ Key elements:
 * ccview/ - the C++ class viewer
 * launcher/ - launcher wrapper used by the debugger
 
-
-Config management
------------------
-
-Anjuta does not use gnome-config, and instead has its own config 
-manager / properties manager. The source for this is in 
-src/properties.cxx. There are several advantages to using this over 
-gnome-config, including the ability to do variable substitution.
-
-
 Documentation
 -------------
 
@@ -55,3 +45,108 @@ and menus are converted to RGB and the Script-Fu Drop Shadow effect applied
 
 Translations of application messages are stored in the standard po/ 
 directory structure at the top level of the source tree.
+
+ARCHITECHTURE:
+-------------
+
+FIXME.
+
+1) Event Driven:
+----------------
+
+When anjuta was first designed, the primary goal was to enable the use of 
+external unix commnads in a more productive and intutive way. Therefore,
+anjuta follows non-blocking input/output operations aggresively. This means
+that anjuta UI will not freeze while it performs a lengthy task. All such
+jobs are event-driven (I am not refering to the gtk-events here) and works
+on asynchronous basis. The example Jobs are compilation, debugging, file search,
+class updates etc. While aynchronous event-driven implementation is more
+complex than it's synchronous counter part, it gives a smooth and non-frustrative
+operation. :-)
+
+1.a) Executing external commands in non-blocking mode:
+------------------------------------------------------
+
+launcher (launcher.[c,h]) is the class responsible for executing external commands in
+non-blocking mode. launcher_execute takes 4 arguments, first is the command
+to be executed, second is the stdout callback, stderr callback and the child
+terminated callback. They are called when there is chars available in the
+stdout and stderr and when the child terminates respectively.
+
+/* Start a job. */
+/* command_str is the command to be executed */
+/* stdout_func is the callback to be called when chars are received in STDOUT from the process */
+/* stderr_func is the callback to be called when chars are received in STDERR from the process */
+/* commnad_terminated is the callback to be called when the job is completed or terminated */
+gboolean launcher_execute(gchar* command_str,
+                               void (*stdout_func)(gchar*),
+                               void (*stderr_func)(gchar*),
+                               void (*command_terminated)(gint status, time_t time));
+
+The three callbacks stated above should be of the following prototype:
+
+/* The function names are arbitary */
+void stdout_func (gchar * chars);
+void stderr_func (gchar * chars);
+void command_terminated (int return_status, time_t total_time);
+
+Refer to the file launcher.h for further information.
+
+Remember to use this launcher instead of gtk/glib non-blocking IO interface.
+
+1.b) Process synchronization:
+-----------------------------
+
+The rest of the processes, which are quick (less that 1/10 sec) in execution
+or whose IO interfaces are not necessary, can safely be forked just like a
+normal fork. For shorter execution wait() system call would suffice it's
+synchronization when the process ends, but for longer jobs, asynchronous
+notification is suggested.
+
+For asynchronos notification of child termination, a few additional steps
+are needed to be done just after the fork() call. Register the child pid
+with the call to anjuta_register_child(). It takes two arguments, first the
+child pid and second, the callback to be called when the process with that
+pid terminates. The call to the callback is shipped with the child exit status.
+
+/* Registers the child for asynchronous notification */
+void anjuta_register_child_process (pid_t pid,
+			       void (*callback) (int status, gpointer user_data),
+			       gpointer user_data);
+
+/* Unregisters the child. No notification will be emited thereafter. */
+void anjuta_unregister_child_process (pid_t pid);
+
+The callback should be of the following prototype:
+
+/* function name choosen arbitarily */
+void child_terminated_callback (int status, gpointer user_data);
+
+For further information, refer to the file anjuta.c.
+
+WARNING: Do not hook up the signal SIGCHLD, for the similar purpose. Just use
+the above method to perform the same thing. SIGCHLD is used by anjuta 
+internally to manage the children.
+
+2) How to add new menu items in the Main Menu:
+----------------------------------------------
+FIXME.
+
+3) How to add new toolbar items in the Toolbars:
+------------------------------------------------
+FIXME.
+
+4) Property/Config management:
+------------------------------
+Anjuta does not use gconf (atleast, not now), and instead has its own config 
+manager/properties manager. The source for this is in src/properties.cxx.
+There are some advantages in using this over gconf, including the ability to
+do variable substitution. Anjuta needs these advantages to operate properly.
+Even though gconf have additional advantages, we are not really concerned about
+them right now. In future, things may change, though.
+
+FIXME.
+
+When anjuta was started, there were not many application support libraries.
+To cope up with the requirements, anjuta had to implement the supports within
+itself. And it is still going.

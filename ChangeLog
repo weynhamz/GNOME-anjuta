@@ -1,3 +1,11 @@
+2001-08-22  Naba Kumar <kh_naba@users.sourceforge.net>
+
+	* HACKING: corrected >>>>>>> Config management.
+	
+	* HACKING: Added many things.
+	
+	* src/launcher.h: Added some comments.
+
 2001-08-21  Stephane Demurget <demurgets@free.fr>
 
 	* configure.in, NEWS, README: bumped anjuta version to 0.1.7.
