@@ -1,15 +1,15 @@
 # Canadian English translation for anjuta.
-# Copyright (C) 2004 Adam Weinberger and the GNOME Foundation.
+# Copyright (C) 2004-2005 Adam Weinberger and the GNOME Foundation.
 # This file is distributed under the same licence as the anjuta package.
-# Adam Weinberger <adamw@gnome.org>, 2004
+# Adam Weinberger <adamw@gnome.org>, 2004, 2005.
 #
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-29 03:02-0500\n"
-"PO-Revision-Date: 2004-12-29 12:57-0400\n"
+"POT-Creation-Date: 2005-01-21 16:51-0500\n"
+"PO-Revision-Date: 2005-01-21 12:57-0400\n"
 "Last-Translator: Adam Weinberger <adamw@gnome.org>\n"
 "Language-Team: en_CA <adamw@FreeBSD.org>\n"
 "MIME-Version: 1.0\n"
@@ -20,7 +20,8 @@ msgstr ""
 msgid "Anjuta IDE"
 msgstr "Anjuta IDE"
 
-#: anjuta.desktop.in.in.h:2 src/about.c:97 src/main.c:129 src/main.cpp:122
+#: anjuta.desktop.in.in.h:2 src/about.c:97 src/about.c:109 src/main.c:143
+#: src/main.cpp:122
 msgid "Integrated Development Environment"
 msgstr "Integrated Development Environment"
 
@@ -33,7 +34,9 @@ msgstr "    "
 #: plugins/editor/anjuta-document-manager.glade.h:8
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:1
 #: plugins/file-wizard/anjuta-file-wizard.glade.h:1
-#: plugins/gdb/anjuta-gdb.glade.h:1
+#: plugins/gdb/anjuta-gdb.glade.h:1 plugins/macro/anjuta-macro.glade.h:1
+#: plugins/project-wizard/anjuta-project-wizard.glade.h:1
+#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:1
 #: plugins/terminal/anjuta-terminal-plugin.glade.h:1
 msgid "*"
 msgstr "*"
@@ -50,7 +53,7 @@ msgstr "Additional"
 msgid "Additional Libraries (LDADD):"
 msgstr "Additional Libraries (LDADD):"
 
-#: anjuta.glade.h:6 plugins/project-wizard/wizard_gui.c:576
+#: anjuta.glade.h:6
 msgid "Additional Options"
 msgstr "Additional Options"
 
@@ -66,8 +69,7 @@ msgstr "Anjuta help search"
 msgid "Anjuta start with dialog"
 msgstr "Anjuta start with dialog"
 
-#: anjuta.glade.h:10 plugins/project-wizard/appwizard_gui.c:77
-#: plugins/project-wizard/appwizard_gui.c:91
+#: anjuta.glade.h:10 plugins/project-wizard/anjuta-project-wizard.glade.h:4
 msgid "Application Wizard"
 msgstr "Application Wizard"
 
@@ -139,8 +141,9 @@ msgstr "CPU Registers"
 #. 2
 #: anjuta.glade.h:26 plugins/cvs-plugin/cvs-execute.c:230
 #: plugins/editor/anjuta-document-manager.glade.h:39
-#: plugins/file-manager/an_file_view.c:344
+#: plugins/file-manager/an_file_view.c:335
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:9
+#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:9
 msgid "CVS"
 msgstr "CVS"
 
@@ -222,7 +225,7 @@ msgid "Data module Makefile.am"
 msgstr "Data module Makefile.am"
 
 #. 13
-#: anjuta.glade.h:46 plugins/editor/text_editor_menu.c:321
+#: anjuta.glade.h:46 plugins/editor/text_editor_menu.c:320
 #: plugins/gdb/plugin.c:37 plugins/gdb/utilities.c:2017 src/toolbar.c:306
 msgid "Debug"
 msgstr "Debug"
@@ -265,7 +268,7 @@ msgstr "Do not show start with dialog again."
 msgid "Document module Makefile.am"
 msgstr "Document module Makefile.am"
 
-#: anjuta.glade.h:56 src/anjuta-app.c:293 src/anjuta_gui.c:105
+#: anjuta.glade.h:56 src/anjuta-app.c:264 src/anjuta_gui.c:105
 msgid "Edit"
 msgstr "Edit"
 
@@ -297,8 +300,8 @@ msgid "Execute Program"
 msgstr "Execute Program"
 
 #. Register actions
-#: anjuta.glade.h:63 plugins/file-manager/an_file_view.c:923
-#: plugins/gdb/breakpoints.c:116 src/anjuta-app.c:290 src/anjuta_gui.c:102
+#: anjuta.glade.h:63 plugins/file-manager/an_file_view.c:916
+#: plugins/gdb/breakpoints.c:116 src/anjuta-app.c:261 src/anjuta_gui.c:102
 msgid "File"
 msgstr "File"
 
@@ -310,7 +313,7 @@ msgstr "File level"
 msgid "Format"
 msgstr "Format"
 
-#: anjuta.glade.h:66 plugins/symbol-browser/an_symbol_view.c:118
+#: anjuta.glade.h:66 plugins/symbol-browser/an_symbol_view.c:79
 msgid "Functions"
 msgstr "Functions"
 
@@ -406,7 +409,7 @@ msgid "Input string:"
 msgstr "Input string:"
 
 #: anjuta.glade.h:85 plugins/debug-manager/anjuta-debug-manager.glade.h:13
-#: plugins/editor/text_editor_menu.c:176 plugins/gdb/anjuta-gdb.glade.h:13
+#: plugins/editor/text_editor_menu.c:175 plugins/gdb/anjuta-gdb.glade.h:13
 #: src/toolbar.c:599
 msgid "Inspect"
 msgstr "Inspect"
@@ -517,9 +520,9 @@ msgstr "Open existing Project."
 msgid "Open existing file or create a new file."
 msgstr "Open existing file or create a new file."
 
-#: anjuta.glade.h:110 plugins/editor/anjuta-docman.c:338
-#: plugins/file-loader/plugin.c:430 plugins/file-loader/plugin.c:587
-#: plugins/file-loader/plugin.c:601 src/toolbar.c:80
+#: anjuta.glade.h:110 plugins/editor/anjuta-docman.c:328
+#: plugins/file-loader/plugin.c:440 plugins/file-loader/plugin.c:599
+#: plugins/file-loader/plugin.c:606 src/toolbar.c:80
 msgid "Open file"
 msgstr "Open file"
 
@@ -532,11 +535,11 @@ msgid "Optimization"
 msgstr "Optimization"
 
 #. 15
-#: anjuta.glade.h:113 plugins/editor/text_editor_menu.c:331
+#: anjuta.glade.h:113 plugins/editor/text_editor_menu.c:330
 msgid "Options"
 msgstr "Options"
 
-#: anjuta.glade.h:114 plugins/symbol-browser/an_symbol_view.c:121
+#: anjuta.glade.h:114 plugins/symbol-browser/an_symbol_view.c:82
 msgid "Others"
 msgstr "Others"
 
@@ -571,8 +574,8 @@ msgstr "Program Interrupt"
 msgid "Programs"
 msgstr "Programs"
 
-#: anjuta.glade.h:122 plugins/project-manager/plugin.c:344
-#: plugins/project-manager/plugin.c:716 plugins/project-manager/plugin.c:924
+#: anjuta.glade.h:122 plugins/project-manager/plugin.c:346
+#: plugins/project-manager/plugin.c:727 plugins/project-manager/plugin.c:945
 #: plugins/project-manager/project_dbase_gui.c:581 src/anjuta_gui.c:114
 #: src/toolbar.c:150
 msgid "Project"
@@ -582,7 +585,7 @@ msgstr "Project"
 msgid "Project Configuration"
 msgstr "Project Configuration"
 
-#: anjuta.glade.h:124 plugins/project-wizard/wizard_gui.c:470
+#: anjuta.glade.h:124
 msgid "Project Description"
 msgstr "Project Description"
 
@@ -649,7 +652,7 @@ msgstr "Scripts at the end of top level Makefile.am"
 msgid "Set Signal Property"
 msgstr "Set Signal Property"
 
-#: anjuta.glade.h:140 src/anjuta-app.c:304 src/anjuta_gui.c:120
+#: anjuta.glade.h:140 src/anjuta-app.c:275 src/anjuta_gui.c:120
 msgid "Settings"
 msgstr "Settings"
 
@@ -726,9 +729,9 @@ msgstr "Tool Editor"
 msgid "Top level Makefile.am"
 msgstr "Top level Makefile.am"
 
-#: anjuta.glade.h:157 plugins/cvs-plugin/cvs_gui.c:73
-#: plugins/gdb/registers_gui.c:48 plugins/gdb/sharedlib_gui.c:41
-#: plugins/gdb/signals_gui.c:55 plugins/gdb/stack_trace.c:366
+#: anjuta.glade.h:157 plugins/gdb/registers_gui.c:48
+#: plugins/gdb/sharedlib_gui.c:41 plugins/gdb/signals_gui.c:55
+#: plugins/gdb/stack_trace.c:368
 msgid "Update"
 msgstr "Update"
 
@@ -753,10 +756,11 @@ msgid "User name:"
 msgstr "User name:"
 
 #: anjuta.glade.h:163 plugins/project-manager/project_dbase_gui.c:871
+#: plugins/project-wizard/anjuta-project-wizard.glade.h:15
 msgid "Version:"
 msgstr "Version:"
 
-#: anjuta.glade.h:164 src/anjuta-app.c:296 src/anjuta_gui.c:111
+#: anjuta.glade.h:164 src/anjuta-app.c:267 src/anjuta_gui.c:111
 msgid "View"
 msgstr "View"
 
@@ -780,7 +784,7 @@ msgstr "Working directory:"
 #: plugins/project-manager/project_dbase.c:1472
 #: plugins/project-manager/project_dbase.c:1475
 #: plugins/project-manager/project_import_cbs.c:227
-#: plugins/project-wizard/appwizard_cbs.c:282
+#: plugins/project-wizard/property.c:197
 msgid "Yes"
 msgstr "Yes"
 
@@ -803,8 +807,8 @@ msgstr "_Condition:"
 msgid "_Disable all"
 msgstr "_Disable all"
 
-#: anjuta.glade.h:173 plugins/editor/plugin.c:242
-#: plugins/gtodo/interface.c:169 src/anjuta-actions.h:31 src/shell.c:75
+#: anjuta.glade.h:173 plugins/editor/plugin.c:278
+#: plugins/gtodo/interface.c:169 src/anjuta-actions.h:30 src/shell.c:76
 msgid "_Edit"
 msgstr "_Edit"
 
@@ -859,8 +863,8 @@ msgstr "_Terminal:"
 
 #. Action name
 #. Stock icon, if any
-#: anjuta.glade.h:185 plugins/cvs-plugin/plugin.c:72
-#: plugins/cvs-plugin/plugin.c:128
+#: anjuta.glade.h:185 plugins/cvs-plugin/plugin.c:75
+#: plugins/cvs-plugin/plugin.c:131
 #: plugins/debug-manager/anjuta-debug-manager.glade.h:34
 #: plugins/gdb/anjuta-gdb.glade.h:34
 msgid "_Update"
@@ -997,16 +1001,16 @@ msgstr "Stock Encodings"
 msgid "Supported Encodings"
 msgstr "Supported Encodings"
 
-#: libanjuta/anjuta-launcher.c:685 src/launcher.c:683
+#: libanjuta/anjuta-launcher.c:731 src/launcher.c:683
 msgid "launcher.c: Error while reading child pty\n"
 msgstr "launcher.c: Error while reading child pty\n"
 
-#: libanjuta/anjuta-launcher.c:802 src/launcher.c:803
+#: libanjuta/anjuta-launcher.c:857 src/launcher.c:803
 msgid "launcher.c: Failed to set channel encoding!"
 msgstr "launcher.c: Failed to set channel encoding!"
 
-#: libanjuta/anjuta-launcher.c:852 libanjuta/resources.c:288
-#: libanjuta/resources.c:297
+#: libanjuta/anjuta-launcher.c:907 libanjuta/resources.c:253
+#: libanjuta/resources.c:262
 #, c-format
 msgid "Cannot execute command: \"%s\""
 msgstr "Cannot execute command: \"%s\""
@@ -1028,7 +1032,7 @@ msgstr "Category"
 msgid "Anjuta Preferences Dialog"
 msgstr "Anjuta Preferences Dialog"
 
-#: libanjuta/anjuta-preferences.c:1150
+#: libanjuta/anjuta-preferences.c:1133
 msgid ""
 "Are you sure you want to reset the preferences to\n"
 "their default settings?"
@@ -1036,28 +1040,28 @@ msgstr ""
 "Are you sure you want to reset the preferences to\n"
 "their default settings?"
 
-#: libanjuta/anjuta-preferences.c:1154
+#: libanjuta/anjuta-preferences.c:1137
 msgid "_Reset"
 msgstr "_Reset"
 
-#: libanjuta/anjuta-preferences.c:1448
+#: libanjuta/anjuta-preferences.c:1435
 msgid "Anjuta Preferences"
 msgstr "Anjuta Preferences"
 
 #. gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
-#: libanjuta/anjuta-ui.c:813
+#: libanjuta/anjuta-ui.c:795
 msgid "Action"
 msgstr "Action"
 
-#: libanjuta/anjuta-ui.c:831
+#: libanjuta/anjuta-ui.c:813
 msgid "Visible"
 msgstr "Visible"
 
-#: libanjuta/anjuta-ui.c:842
+#: libanjuta/anjuta-ui.c:824
 msgid "Sensitive"
 msgstr "Sensitive"
 
-#: libanjuta/anjuta-ui.c:851
+#: libanjuta/anjuta-ui.c:833
 msgid "Shortcut"
 msgstr "Shortcut"
 
@@ -1125,7 +1129,7 @@ msgstr "Cannot execute command: %s (using shell %s)\n"
 msgid "Cannot execute command %s (using shell %s)\n"
 msgstr "Cannot execute command %s (using shell %s)\n"
 
-#: libanjuta/cell-renderer-captioned-image.c:207 libegg/egg-entry-action.c:110
+#: libanjuta/cell-renderer-captioned-image.c:207 libegg/egg-entry-action.c:131
 msgid "Text"
 msgstr "Text"
 
@@ -1145,42 +1149,41 @@ msgstr "The pixbuf to render."
 msgid "Load"
 msgstr "Load"
 
-#: libanjuta/plugins.c:949 libanjuta/plugins.c:1353
+#: libanjuta/plugins.c:949 libanjuta/plugins.c:1357
 msgid "Available Plugins"
 msgstr "Available Plugins"
 
-#: libanjuta/resources.c:50
+#: libanjuta/resources.c:49
 #, c-format
 msgid "Widget not found: %s"
 msgstr "Widget not found: %s"
 
-#: libanjuta/resources.c:74
-#, c-format
-msgid "Could not find application image file: %s"
-msgstr "Could not find application image file: %s"
-
-#: libanjuta/resources.c:100 libanjuta/resources.c:122
+#: libanjuta/resources.c:65 libanjuta/resources.c:87
 #, c-format
 msgid "Could not find application pixmap file: %s"
 msgstr "Could not find application pixmap file: %s"
 
-#: libegg/egg-combo-action.c:118
+#: libegg/egg-combo-action.c:119
 msgid "Model"
 msgstr "Model"
 
-#: libegg/egg-combo-action.c:119
+#: libegg/egg-combo-action.c:120
 msgid "Model for the combo box"
 msgstr "Model for the combo box"
 
-#: libegg/egg-combo-action.c:125 libegg/egg-entry-action.c:118
+#: libegg/egg-combo-action.c:126 libegg/egg-entry-action.c:139
 msgid "Width"
 msgstr "Width"
 
-#: libegg/egg-combo-action.c:126 libegg/egg-entry-action.c:119
+#: libegg/egg-combo-action.c:127 libegg/egg-entry-action.c:140
 msgid "Width of the entry."
 msgstr "Width of the entry."
 
-#: libegg/egg-entry-action.c:111
+#: libegg/egg-combo-action.c:294 plugins/symbol-browser/an_symbol_view.c:334
+msgid "Symbol"
+msgstr "Symbol"
+
+#: libegg/egg-entry-action.c:132
 msgid "Text in the entry"
 msgstr "Text in the entry"
 
@@ -1335,16 +1338,25 @@ msgstr "_Load"
 msgid "_Lock dock items"
 msgstr "_Lock dock items"
 
-#: libegg/test-actions.c:123 plugins/devhelp/plugin.c:212
-#: plugins/editor/plugin.c:876 plugins/editor/search-replace.c:725
+#: libegg/test-actions.c:140 plugins/devhelp/plugin.c:212
+#: plugins/editor/plugin.c:1044 plugins/editor/search-replace.c:725
 #: plugins/editor/search-replace.c:1358 plugins/editor/search-replace.c:1365
 #: plugins/editor/search-replace.c:1377 plugins/editor/search-replace.c:1678
+#: plugins/symbol-browser/plugin.c:695
 msgid "Search"
 msgstr "Search"
 
-#: libegg/test-actions.c:124 plugins/editor/plugin.c:877
+#: libegg/test-actions.c:141 plugins/editor/plugin.c:1045
 msgid "Incremental search"
 msgstr "Incremental search"
+
+#: libegg/test-actions.c:155 plugins/file-loader/plugin.c:797
+msgid "Open _Recent"
+msgstr "Open _Recent"
+
+#: libegg/test-actions.c:156 plugins/file-loader/plugin.c:808
+msgid "Open recent files"
+msgstr "Open recent files"
 
 #: plugins/build/build_file.c:48
 msgid "This file has not been saved. Save it first and then build."
@@ -1364,14 +1376,14 @@ msgid "Building file: %s ...\n"
 msgstr "Building file: %s ...\n"
 
 #: plugins/build/build_file.c:132
-#: plugins/build-basic-autotools/build-basic-autotools.c:504
-#: plugins/cvs-plugin/cvs.c:776 plugins/project-manager/project_import.c:192
+#: plugins/build-basic-autotools/build-basic-autotools.c:502
+#: plugins/project-manager/project_import.c:192
 #, c-format
 msgid "Total time taken: %lu secs\n"
 msgstr "Total time taken: %lu secs\n"
 
 #: plugins/build/build_file.c:136
-#: plugins/build-basic-autotools/build-basic-autotools.c:509
+#: plugins/build-basic-autotools/build-basic-autotools.c:507
 msgid "Completed ... unsuccessful\n"
 msgstr "Completed ... unsuccessful\n"
 
@@ -1380,7 +1392,7 @@ msgid "Completed ... unsuccessful"
 msgstr "Completed ... unsuccessful"
 
 #: plugins/build/build_file.c:145
-#: plugins/build-basic-autotools/build-basic-autotools.c:514
+#: plugins/build-basic-autotools/build-basic-autotools.c:512
 msgid "Completed ... successful\n"
 msgstr "Completed ... successful\n"
 
@@ -1599,183 +1611,183 @@ msgstr "Unable to execute file. Check Settings->Commands."
 
 #. FIXME: What about translations in the following sscanf strings
 #. The translations should match that of 'make' program
-#: plugins/build-basic-autotools/build-basic-autotools.c:386
+#: plugins/build-basic-autotools/build-basic-autotools.c:384
 #, c-format
 msgid "make[%d]: Entering directory `%s'"
 msgstr "make[%d]: Entering directory `%s'"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:387
+#: plugins/build-basic-autotools/build-basic-autotools.c:385
 #, c-format
 msgid "make: Entering directory `%s'"
 msgstr "make: Entering directory `%s'"
 
 #. Traslation for the following should match that of 'make' program
-#: plugins/build-basic-autotools/build-basic-autotools.c:400
+#: plugins/build-basic-autotools/build-basic-autotools.c:398
 #, c-format
 msgid "make[%d]: Leaving directory `%s'"
 msgstr "make[%d]: Leaving directory `%s'"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:401
+#: plugins/build-basic-autotools/build-basic-autotools.c:399
 #, c-format
 msgid "make: Leaving directory `%s'"
 msgstr "make: Leaving directory `%s'"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:421
+#: plugins/build-basic-autotools/build-basic-autotools.c:419
 msgid "warning:"
 msgstr "warning:"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:565
+#: plugins/build-basic-autotools/build-basic-autotools.c:564
 #, c-format
 msgid "Build %d: %s"
 msgstr "Build %d: %s"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:684
-#: plugins/build-basic-autotools/build-basic-autotools.c:711
+#: plugins/build-basic-autotools/build-basic-autotools.c:685
+#: plugins/build-basic-autotools/build-basic-autotools.c:712
 msgid "Configure Parameters:"
 msgstr "Configure Parameters:"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:826
-#: plugins/build-basic-autotools/build-basic-autotools.c:890
-#: plugins/build-basic-autotools/build-basic-autotools.c:900
-#: plugins/build-basic-autotools/build-basic-autotools.c:1069
+#: plugins/build-basic-autotools/build-basic-autotools.c:827
+#: plugins/build-basic-autotools/build-basic-autotools.c:891
+#: plugins/build-basic-autotools/build-basic-autotools.c:901
+#: plugins/build-basic-autotools/build-basic-autotools.c:1070
 msgid "_Build"
 msgstr "_Build"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:830
+#: plugins/build-basic-autotools/build-basic-autotools.c:831
 msgid "_Build Project"
 msgstr "_Build Project"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:831
+#: plugins/build-basic-autotools/build-basic-autotools.c:832
 msgid "Build whole project"
 msgstr "Build whole project"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:836
+#: plugins/build-basic-autotools/build-basic-autotools.c:837
 msgid "_Install Project"
 msgstr "_Install Project"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:837
+#: plugins/build-basic-autotools/build-basic-autotools.c:838
 msgid "Install whole project"
 msgstr "Install whole project"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:842
+#: plugins/build-basic-autotools/build-basic-autotools.c:843
 msgid "_Clean Project"
 msgstr "_Clean Project"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:843
+#: plugins/build-basic-autotools/build-basic-autotools.c:844
 msgid "Clean whole project"
 msgstr "Clean whole project"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:848
+#: plugins/build-basic-autotools/build-basic-autotools.c:849
 msgid "Run C_onfigure ..."
 msgstr "Run C_onfigure ..."
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:849
+#: plugins/build-basic-autotools/build-basic-autotools.c:850
 msgid "Configure project"
 msgstr "Configure project"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:854
+#: plugins/build-basic-autotools/build-basic-autotools.c:855
 msgid "Run _Autogenerate ..."
 msgstr "Run _Autogenerate ..."
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:855
+#: plugins/build-basic-autotools/build-basic-autotools.c:856
 msgid "Autogenrate project files"
 msgstr "Autogenerate project files"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:860
+#: plugins/build-basic-autotools/build-basic-autotools.c:861
 msgid "Build _Tarball"
 msgstr "Build _Tarball"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:861
+#: plugins/build-basic-autotools/build-basic-autotools.c:862
 msgid "Build project tarball distribution"
 msgstr "Build project tarball distribution"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:866
+#: plugins/build-basic-autotools/build-basic-autotools.c:867
 msgid "_Build Module"
 msgstr "_Build Module"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:867
+#: plugins/build-basic-autotools/build-basic-autotools.c:868
 msgid "Build module associated with current file"
 msgstr "Build module associated with current file"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:872
+#: plugins/build-basic-autotools/build-basic-autotools.c:873
 msgid "_Install Module"
 msgstr "_Install Module"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:873
+#: plugins/build-basic-autotools/build-basic-autotools.c:874
 msgid "Install module associated with current file"
 msgstr "Install module associated with current file"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:878
+#: plugins/build-basic-autotools/build-basic-autotools.c:879
 msgid "_Clean Module"
 msgstr "_Clean Module"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:879
+#: plugins/build-basic-autotools/build-basic-autotools.c:880
 msgid "Clean module associated with current file"
 msgstr "Clean module associated with current file"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:884
+#: plugins/build-basic-autotools/build-basic-autotools.c:885
 msgid "Co_mpile File"
 msgstr "Co_mpile File"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:885
+#: plugins/build-basic-autotools/build-basic-autotools.c:886
 msgid "Compile current editor file"
 msgstr "Compile current editor file"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:894
+#: plugins/build-basic-autotools/build-basic-autotools.c:895
 msgid "_Compile"
 msgstr "_Compile"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:895
+#: plugins/build-basic-autotools/build-basic-autotools.c:896
 msgid "Complie file"
 msgstr "Compile file"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:901
+#: plugins/build-basic-autotools/build-basic-autotools.c:902
 msgid "Build module"
 msgstr "Build module"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:906
-#: plugins/build-basic-autotools/build-basic-autotools.c:1073
+#: plugins/build-basic-autotools/build-basic-autotools.c:907
+#: plugins/build-basic-autotools/build-basic-autotools.c:1074
 msgid "_Install"
 msgstr "_Install"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:907
+#: plugins/build-basic-autotools/build-basic-autotools.c:908
 msgid "Install module"
 msgstr "Install module"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:912
-#: plugins/build-basic-autotools/build-basic-autotools.c:1077
+#: plugins/build-basic-autotools/build-basic-autotools.c:913
+#: plugins/build-basic-autotools/build-basic-autotools.c:1078
 msgid "_Clean"
 msgstr "_Clean"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:913
+#: plugins/build-basic-autotools/build-basic-autotools.c:914
 msgid "Clean module"
 msgstr "Clean module"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:1081
+#: plugins/build-basic-autotools/build-basic-autotools.c:1082
 msgid "Co_mpile"
 msgstr "Co_mpile"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:1090
+#: plugins/build-basic-autotools/build-basic-autotools.c:1091
 #, c-format
 msgid "_Build (%s)"
 msgstr "_Build (%s)"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:1097
+#: plugins/build-basic-autotools/build-basic-autotools.c:1098
 #, c-format
 msgid "_Install (%s)"
 msgstr "_Install (%s)"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:1104
+#: plugins/build-basic-autotools/build-basic-autotools.c:1105
 #, c-format
 msgid "_Clean (%s)"
 msgstr "_Clean (%s)"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:1111
+#: plugins/build-basic-autotools/build-basic-autotools.c:1112
 #, c-format
 msgid "Co_mpile (%s)"
 msgstr "Co_mpile (%s)"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:1276
+#: plugins/build-basic-autotools/build-basic-autotools.c:1277
 msgid "Build commands"
 msgstr "Build commands"
 
@@ -1808,9 +1820,9 @@ msgstr "Class Builder"
 #: plugins/class-gen/clsGen.c:1360 plugins/devhelp/plugin.c:246
 #: plugins/devhelp/plugin.c:454 plugins/devhelp/plugin.c:467
 #: plugins/gdb/registers_gui.c:56 plugins/gdb/sharedlib_gui.c:49
-#: plugins/gdb/signals_gui.c:63 plugins/gdb/stack_trace.c:381
+#: plugins/gdb/signals_gui.c:63 plugins/gdb/stack_trace.c:383
 #: plugins/gdb/watch_gui.c:74 plugins/project-manager/project_dbase_gui.c:343
-#: src/anjuta-app.c:307 src/anjuta_gui.c:123
+#: src/anjuta-app.c:278 src/anjuta_gui.c:123
 msgid "Help"
 msgstr "Help"
 
@@ -2030,7 +2042,6 @@ msgid "CVS: Remove file/directory"
 msgstr "CVS: Remove file/directory"
 
 #: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:20
-#: plugins/cvs-plugin/cvs_gui.c:80
 msgid "CVS: Status"
 msgstr "CVS: Status"
 
@@ -2125,7 +2136,6 @@ msgid "Reset sticky tags"
 msgstr "Reset sticky tags"
 
 #: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:45
-#: plugins/cvs-plugin/cvs_gui.c:124 plugins/cvs-plugin/cvs_gui.c:291
 msgid "Revision: "
 msgstr "Revision: "
 
@@ -2150,7 +2160,6 @@ msgid "Use revision: "
 msgstr "Use revision: "
 
 #: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:51
-#: plugins/cvs-plugin/cvs_gui.c:348 plugins/cvs-plugin/cvs_gui.c:443
 msgid "Username: "
 msgstr "Username: "
 
@@ -2159,81 +2168,54 @@ msgid "Vendor tag:"
 msgstr "Vendor tag:"
 
 #: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:53
+msgid "Whole project"
+msgstr "Whole project"
+
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:54
 msgid "none"
 msgstr "none"
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:54
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:55
 msgid "start"
 msgstr "start"
 
-#: plugins/cvs-plugin/cvs.c:262
-msgid "CVS Updating "
-msgstr "CVS Updating "
+#: plugins/cvs-plugin/cvs-callbacks.c:48
+msgid "Please enter a filename!"
+msgstr "Please enter a filename!"
 
-#: plugins/cvs-plugin/cvs.c:312
-msgid "CVS Committing "
-msgstr "CVS Committing "
+#: plugins/cvs-plugin/cvs-callbacks.c:61
+#, c-format
+msgid "Please fill field: %s"
+msgstr "Please fill field: %s"
 
-#: plugins/cvs-plugin/cvs.c:373
-msgid "CVS Importing...\n"
-msgstr "CVS Importing...\n"
-
-#: plugins/cvs-plugin/cvs.c:413
-msgid "CVS Adding "
-msgstr "CVS Adding "
-
-#: plugins/cvs-plugin/cvs.c:445
-msgid "CVS Removing "
-msgstr "CVS Removing "
-
-#: plugins/cvs-plugin/cvs.c:486
-msgid "Getting CVS status "
-msgstr "Getting CVS status "
-
-#: plugins/cvs-plugin/cvs.c:501 plugins/cvs-plugin/cvs.c:556
-#: plugins/cvs-plugin/cvs.c:635 plugins/cvs-plugin/cvs.c:891
-msgid "There are jobs running, please wait until they are finished"
-msgstr "There are jobs running, please wait until they are finished"
-
-#: plugins/cvs-plugin/cvs.c:541
-msgid "Getting CVS log "
-msgstr "Getting CVS log "
-
-#: plugins/cvs-plugin/cvs.c:620
-msgid "CVS diffing "
-msgstr "CVS diffing "
-
-#: plugins/cvs-plugin/cvs.c:667
-msgid "CVS login "
-msgstr "CVS login "
-
-#: plugins/cvs-plugin/cvs.c:765 plugins/project-manager/project_import.c:181
-msgid "Project import completed...unsuccessful\n"
-msgstr "Project import completed...unsuccessful\n"
-
-#: plugins/cvs-plugin/cvs.c:767 plugins/project-manager/project_import.c:183
-msgid "Project import completed...unsuccessful"
-msgstr "Project import completed...unsuccessful"
-
-#: plugins/cvs-plugin/cvs.c:772
-msgid "CVS completed...successful\n"
-msgstr "CVS completed...successful\n"
-
-#: plugins/cvs-plugin/cvs.c:774
-msgid "CVS completed...successful"
-msgstr "CVS completed...successful"
-
-#: plugins/cvs-plugin/cvs.c:782
-msgid "Updating versions in file tree..."
-msgstr "Updating versions in file tree..."
-
-#: plugins/cvs-plugin/cvs.c:784
-msgid "done\n"
-msgstr "done\n"
-
-#: plugins/cvs-plugin/cvs-actions.c:269
+#: plugins/cvs-plugin/cvs-callbacks.c:131
 msgid "Unable to delete file"
 msgstr "Unable to delete file"
+
+#: plugins/cvs-plugin/cvs-callbacks.c:215
+#: plugins/cvs-plugin/cvs-callbacks.c:413
+msgid "Are you sure that you do not want a log message?"
+msgstr "Are you sure that you do not want a log message?"
+
+#: plugins/cvs-plugin/cvs-callbacks.c:389
+msgid "CVSROOT"
+msgstr "CVSROOT"
+
+#: plugins/cvs-plugin/cvs-callbacks.c:392
+msgid "Module"
+msgstr "Module"
+
+#: plugins/cvs-plugin/cvs-callbacks.c:395
+msgid "Vendor"
+msgstr "Vendor"
+
+#: plugins/cvs-plugin/cvs-callbacks.c:398
+msgid "Release"
+msgstr "Release"
+
+#: plugins/cvs-plugin/cvs-callbacks.c:402
+msgid "Directory"
+msgstr "Directory"
 
 #: plugins/cvs-plugin/cvs-execute.c:130
 msgid "CVS command failed! - See above for details"
@@ -2248,264 +2230,111 @@ msgstr "CVS command successful! - Time taken: %ld seconds."
 msgid "CVS command is running - please wait until it finishes!"
 msgstr "CVS command is running - please wait until it finishes!"
 
-#: plugins/cvs-plugin/cvs-execute.c:286
+#: plugins/cvs-plugin/cvs-execute.c:285
 msgid "cvs.diff"
 msgstr "cvs.diff"
 
-#: plugins/cvs-plugin/cvs-execute.c:299
+#: plugins/cvs-plugin/cvs-execute.c:298
 msgid "cvs.log"
 msgstr "cvs.log"
 
-#: plugins/cvs-plugin/cvs_cbs.c:41
-msgid "You do not need to login to a local server"
-msgstr "You do not need to login to a local server"
-
-#: plugins/cvs-plugin/cvs_gui.c:30
-msgid "Local"
-msgstr "Local"
-
-#: plugins/cvs-plugin/cvs_gui.c:30
-msgid "Password"
-msgstr "Password"
-
-#: plugins/cvs-plugin/cvs_gui.c:30
-msgid "Extern(rsh)"
-msgstr "Extern(rsh)"
-
-#: plugins/cvs-plugin/cvs_gui.c:30
-msgid "Server"
-msgstr "Server"
-
-#: plugins/cvs-plugin/cvs_gui.c:72
-msgid "CVS: Update"
-msgstr "CVS: Update"
-
-#: plugins/cvs-plugin/cvs_gui.c:76
-msgid "CVS: Commit"
-msgstr "CVS: Commit"
-
-#: plugins/cvs-plugin/cvs_gui.c:77
-msgid "Commit"
-msgstr "Commit"
-
-#: plugins/cvs-plugin/cvs_gui.c:81
-msgid "Show status"
-msgstr "Show status"
-
-#: plugins/cvs-plugin/cvs_gui.c:84
-msgid "CVS: Log"
-msgstr "CVS: Log"
-
-#: plugins/cvs-plugin/cvs_gui.c:85
-msgid "Show log"
-msgstr "Show log"
-
-#: plugins/cvs-plugin/cvs_gui.c:88
-msgid "CVS: Add file"
-msgstr "CVS: Add file"
-
-#: plugins/cvs-plugin/cvs_gui.c:89
-msgid "Add"
-msgstr "Add"
-
-#: plugins/cvs-plugin/cvs_gui.c:92
-msgid "CVS: Remove file"
-msgstr "CVS: Remove file"
-
-#. 3
-#: plugins/cvs-plugin/cvs_gui.c:93 plugins/gdb/watch_gui.c:43
-#: plugins/gtodo/callback.c:15 plugins/gtodo/callback.c:101
-#: plugins/project-manager/project_dbase_gui.c:323
-msgid "Remove"
-msgstr "Remove"
-
-#: plugins/cvs-plugin/cvs_gui.c:95
-msgid ""
-"WARNING: The file will be removed on disc. Use \"cvs commit\" .\n"
-"to apply to the repository. It will still be possible to retrieve older "
-"revisions of the file."
-msgstr ""
-"WARNING: The file will be removed on disc. Use \"cvs commit\" .\n"
-"to apply to the repository. It will still be possible to retrieve older "
-"revisions of the file."
-
-#: plugins/cvs-plugin/cvs_gui.c:120 plugins/cvs-plugin/cvs_gui.c:238
-msgid "File: "
-msgstr "File: "
-
-#: plugins/cvs-plugin/cvs_gui.c:122
-msgid "Branch: "
-msgstr "Branch: "
-
-#: plugins/cvs-plugin/cvs_gui.c:125 plugins/cvs-plugin/cvs_gui.c:470
-msgid "Log message: "
-msgstr "Log message: "
-
-#: plugins/cvs-plugin/cvs_gui.c:128 plugins/cvs-plugin/cvs_gui.c:241
-msgid "Select file"
-msgstr "Select file"
-
-#: plugins/cvs-plugin/cvs_gui.c:225
-msgid "CVS: Diff file"
-msgstr "CVS: Diff file"
-
-#: plugins/cvs-plugin/cvs_gui.c:229 plugins/editor/plugin.c:355
-msgid "Diff"
-msgstr "Diff"
-
-#: plugins/cvs-plugin/cvs_gui.c:265
-msgid "Date: "
-msgstr "Date: "
-
-#: plugins/cvs-plugin/cvs_gui.c:333
-msgid "CVS Login"
-msgstr "CVS Login"
-
-#: plugins/cvs-plugin/cvs_gui.c:337
-msgid "Login"
-msgstr "Login"
-
-#: plugins/cvs-plugin/cvs_gui.c:347 plugins/cvs-plugin/cvs_gui.c:440
-msgid "Server type: "
-msgstr "Server type: "
-
-#: plugins/cvs-plugin/cvs_gui.c:349 plugins/cvs-plugin/cvs_gui.c:441
-msgid "Server: "
-msgstr "Server: "
-
-#: plugins/cvs-plugin/cvs_gui.c:350
-msgid "Directory on the server: "
-msgstr "Directory on the server: "
-
-#: plugins/cvs-plugin/cvs_gui.c:427
-msgid "CVS: Import Project"
-msgstr "CVS: Import Project"
-
-#: plugins/cvs-plugin/cvs_gui.c:431
-msgid "Import"
-msgstr "Import"
-
-#: plugins/cvs-plugin/cvs_gui.c:442
-msgid "Dir on the server: "
-msgstr "Dir on the server: "
-
-#: plugins/cvs-plugin/cvs_gui.c:467
-msgid "Module name: "
-msgstr "Module name: "
-
-#: plugins/cvs-plugin/cvs_gui.c:468
-msgid "Release name: "
-msgstr "Release name: "
-
-#: plugins/cvs-plugin/cvs_gui.c:469
-msgid "Vendor tag: "
-msgstr "Vendor tag: "
-
-#: plugins/cvs-plugin/cvs_gui.c:525
-msgid "Server settings"
-msgstr "Server settings"
-
-#: plugins/cvs-plugin/cvs_gui.c:529
-msgid "Import settings"
-msgstr "Import settings"
-
 #. Action name
 #. Stock icon, if any
-#: plugins/cvs-plugin/plugin.c:40 plugins/cvs-plugin/plugin.c:112
+#: plugins/cvs-plugin/plugin.c:43 plugins/cvs-plugin/plugin.c:115
 msgid "_CVS"
 msgstr "_CVS"
 
 #. Action name
 #. Stock icon, if any
-#: plugins/cvs-plugin/plugin.c:48
+#: plugins/cvs-plugin/plugin.c:51
 msgid "_Add"
 msgstr "_Add"
 
 #. Display label
 #. short-cut
-#: plugins/cvs-plugin/plugin.c:50
+#: plugins/cvs-plugin/plugin.c:53
 msgid "Add a new file/directory to the CVS tree"
 msgstr "Add a new file/directory to the CVS tree"
 
 #. Action name
 #. Stock icon, if any
-#: plugins/cvs-plugin/plugin.c:56
+#: plugins/cvs-plugin/plugin.c:59
 msgid "_Remove"
 msgstr "_Remove"
 
 #. Display label
 #. short-cut
-#: plugins/cvs-plugin/plugin.c:58
+#: plugins/cvs-plugin/plugin.c:61
 msgid "Remove a file/directory from CVS tree"
 msgstr "Remove a file/directory from CVS tree"
 
 #. Action name
 #. Stock icon, if any
-#: plugins/cvs-plugin/plugin.c:64 plugins/cvs-plugin/plugin.c:120
+#: plugins/cvs-plugin/plugin.c:67 plugins/cvs-plugin/plugin.c:123
 msgid "_Commit"
 msgstr "_Commit"
 
 #. Display label
 #. short-cut
-#: plugins/cvs-plugin/plugin.c:66 plugins/cvs-plugin/plugin.c:122
+#: plugins/cvs-plugin/plugin.c:69 plugins/cvs-plugin/plugin.c:125
 msgid "Commit your changes to the CVS tree"
 msgstr "Commit your changes to the CVS tree"
 
 #. Display label
 #. short-cut
-#: plugins/cvs-plugin/plugin.c:74 plugins/cvs-plugin/plugin.c:130
+#: plugins/cvs-plugin/plugin.c:77 plugins/cvs-plugin/plugin.c:133
 msgid "Sync your local copy with the CVS tree"
 msgstr "Sync your local copy with the CVS tree"
 
 #. Action name
 #. Stock icon, if any
-#: plugins/cvs-plugin/plugin.c:80 plugins/cvs-plugin/plugin.c:136
+#: plugins/cvs-plugin/plugin.c:83 plugins/cvs-plugin/plugin.c:139
 msgid "_Diff"
 msgstr "_Diff"
 
 #. Display label
 #. short-cut
-#: plugins/cvs-plugin/plugin.c:82 plugins/cvs-plugin/plugin.c:138
+#: plugins/cvs-plugin/plugin.c:85 plugins/cvs-plugin/plugin.c:141
 msgid "Show differences between your local copy and the tree"
 msgstr "Show differences between your local copy and the tree"
 
 #. Action name
 #. Stock icon, if any
-#: plugins/cvs-plugin/plugin.c:88 plugins/cvs-plugin/plugin.c:144
+#: plugins/cvs-plugin/plugin.c:91 plugins/cvs-plugin/plugin.c:147
 msgid "_Show Status"
 msgstr "_Show Status"
 
 #. Display label
 #. short-cut
-#: plugins/cvs-plugin/plugin.c:90 plugins/cvs-plugin/plugin.c:146
+#: plugins/cvs-plugin/plugin.c:93 plugins/cvs-plugin/plugin.c:149
 msgid "Show the status of a file/directory"
 msgstr "Show the status of a file/directory"
 
 #. Action name
 #. Stock icon, if any
-#: plugins/cvs-plugin/plugin.c:96 plugins/cvs-plugin/plugin.c:152
+#: plugins/cvs-plugin/plugin.c:99 plugins/cvs-plugin/plugin.c:155
 msgid "_Show Log"
 msgstr "_Show Log"
 
 #. Display label
 #. short-cut
-#: plugins/cvs-plugin/plugin.c:98 plugins/cvs-plugin/plugin.c:154
+#: plugins/cvs-plugin/plugin.c:101 plugins/cvs-plugin/plugin.c:157
 msgid "Show the log of a file/directory"
 msgstr "Show the log of a file/directory"
 
 #. Action name
 #. Stock icon, if any
-#: plugins/cvs-plugin/plugin.c:104
+#: plugins/cvs-plugin/plugin.c:107
 msgid "_Import Tree"
 msgstr "_Import Tree"
 
 #. Display label
 #. short-cut
-#: plugins/cvs-plugin/plugin.c:106
+#: plugins/cvs-plugin/plugin.c:109
 msgid "Import a new source tree to CVS"
 msgstr "Import a new source tree to CVS"
 
-#: plugins/cvs-plugin/plugin.c:326
+#: plugins/cvs-plugin/plugin.c:349
 msgid "CVS operations"
 msgstr "CVS operations"
 
@@ -2533,7 +2362,7 @@ msgstr "Load Executable File"
 msgid "Load Core File"
 msgstr "Load Core File"
 
-#: plugins/debug-manager/plugin.c:61 plugins/file-loader/plugin.c:336
+#: plugins/debug-manager/plugin.c:61 plugins/file-loader/plugin.c:346
 #: plugins/project-manager/project_dbase.c:363
 #: plugins/project-manager/project_dbase_gui.c:153
 #: plugins/project-manager/project_dbase_gui.c:170
@@ -2661,7 +2490,7 @@ msgstr "_Breakpoints"
 
 #. Action name
 #. Stock icon, if any
-#: plugins/debug-manager/plugin.c:291 plugins/editor/text_editor_menu.c:138
+#: plugins/debug-manager/plugin.c:291 plugins/editor/text_editor_menu.c:137
 msgid "Toggle breakpoint"
 msgstr "Toggle breakpoint"
 
@@ -2692,8 +2521,8 @@ msgstr "Help display"
 msgid "Search Help:"
 msgstr "Search Help:"
 
-#: plugins/devhelp/plugin.c:351 plugins/editor/plugin.c:202
-#: plugins/message-view/plugin.c:57 plugins/symbol-browser/plugin.c:169
+#: plugins/devhelp/plugin.c:351 plugins/editor/plugin.c:238
+#: plugins/message-view/plugin.c:57 plugins/symbol-browser/plugin.c:184
 msgid "_Goto"
 msgstr "_Goto"
 
@@ -2774,7 +2603,7 @@ msgstr ""
 "Are you sure you want to reload '%s'?\n"
 "Any unsaved changes will be lost."
 
-#: plugins/editor/action-callbacks.c:237 plugins/editor/text_editor.c:1307
+#: plugins/editor/action-callbacks.c:237 plugins/editor/text_editor.c:1330
 msgid "_Reload"
 msgstr "_Reload"
 
@@ -2783,11 +2612,11 @@ msgstr "_Reload"
 msgid "There is no line number %d in \"%s\"."
 msgstr "There is no line number %d in \"%s\"."
 
-#: plugins/editor/action-callbacks.c:1264
+#: plugins/editor/action-callbacks.c:1280
 msgid "No matches. Wrap search around the document?"
 msgstr "No matches. Wrap search around the document?"
 
-#: plugins/editor/anjuta-docman.c:311 src/anjuta_cbs.c:426
+#: plugins/editor/anjuta-docman.c:301 src/anjuta_cbs.c:426
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -2796,12 +2625,12 @@ msgstr ""
 "The file '%s' already exists.\n"
 "Do you want to replace it with the one you are saving?"
 
-#: plugins/editor/anjuta-docman.c:318 src/anjuta-callbacks.c:258
+#: plugins/editor/anjuta-docman.c:308 src/anjuta-callbacks.c:79
 #: src/anjuta_cbs.c:433 src/anjuta_cbs.c:497
 msgid "_Replace"
 msgstr "_Replace"
 
-#: plugins/editor/anjuta-docman.c:359
+#: plugins/editor/anjuta-docman.c:349
 msgid "Save file as"
 msgstr "Save file as"
 
@@ -2827,11 +2656,13 @@ msgstr "$(module.source.files) $(module.include.files)"
 
 #: plugins/editor/anjuta-document-manager.glade.h:9
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:2
+#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:2
 msgid "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp"
 msgstr "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp"
 
 #: plugins/editor/anjuta-document-manager.glade.h:10
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:3
+#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:3
 msgid ""
 "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp Makefile.am configure.* "
 "README AUTHORS ChangeLog *.m4"
@@ -2841,11 +2672,13 @@ msgstr ""
 
 #: plugins/editor/anjuta-document-manager.glade.h:11
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:4
+#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:4
 msgid "*.so *.o *.a *.la"
 msgstr "*.so *.o *.a *.la"
 
 #: plugins/editor/anjuta-document-manager.glade.h:12
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:5
+#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:5
 msgid "*\\.*"
 msgstr "*\\.*"
 
@@ -2956,6 +2789,7 @@ msgstr "Bottom"
 
 #: plugins/editor/anjuta-document-manager.glade.h:40
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:10
+#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:10
 msgid "CVS intl po"
 msgstr "CVS intl po"
 
@@ -3032,7 +2866,7 @@ msgid "Do not show tabs"
 msgstr "Do not show tabs"
 
 #: plugins/editor/anjuta-document-manager.glade.h:59
-#: plugins/editor/plugin.c:899
+#: plugins/editor/plugin.c:1067
 msgid "Documents"
 msgstr "Documents"
 
@@ -3129,7 +2963,7 @@ msgid "Fore color:"
 msgstr "Fore colour:"
 
 #: plugins/editor/anjuta-document-manager.glade.h:82
-#: plugins/editor/text_editor_menu.c:86
+#: plugins/editor/text_editor_menu.c:85
 msgid "Forward"
 msgstr "Forward"
 
@@ -3384,21 +3218,25 @@ msgstr "Sorted in opening order"
 
 #: plugins/editor/anjuta-document-manager.glade.h:145
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:18
+#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:18
 msgid "Space-seperated list of directory name patterns to ignore"
 msgstr "Space-seperated list of directory name patterns to ignore"
 
 #: plugins/editor/anjuta-document-manager.glade.h:146
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:19
+#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:19
 msgid "Space-seperated list of directory name patterns to match"
 msgstr "Space-seperated list of directory name patterns to match"
 
 #: plugins/editor/anjuta-document-manager.glade.h:147
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:20
+#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:20
 msgid "Space-seperated list of file name patterns to ignore"
 msgstr "Space-seperated list of file name patterns to ignore"
 
 #: plugins/editor/anjuta-document-manager.glade.h:148
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:21
+#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:21
 msgid "Space-seperated list of file name patterns to match"
 msgstr "Space-seperated list of file name patterns to match"
 
@@ -3475,881 +3313,885 @@ msgstr "_Save Theme As"
 msgid "<b>Goto Line number:</b>"
 msgstr "<b>Go To Line number:</b>"
 
-#: plugins/editor/plugin.c:92
+#: plugins/editor/plugin.c:128
 msgid "_Save"
 msgstr "_Save"
 
-#: plugins/editor/plugin.c:93 src/toolbar.c:84
+#: plugins/editor/plugin.c:129 src/toolbar.c:84
 msgid "Save current file"
 msgstr "Save current file"
 
-#: plugins/editor/plugin.c:94
+#: plugins/editor/plugin.c:130
 msgid "Save _As ..."
 msgstr "Save _As ..."
 
-#: plugins/editor/plugin.c:95
+#: plugins/editor/plugin.c:131
 msgid "Save the current file with a different name"
 msgstr "Save the current file with a different name"
 
-#: plugins/editor/plugin.c:97
+#: plugins/editor/plugin.c:133
 msgid "Save A_ll"
 msgstr "Save A_ll"
 
-#: plugins/editor/plugin.c:98
+#: plugins/editor/plugin.c:134
 msgid "Save all currently open files, except new files"
 msgstr "Save all currently open files, except new files"
 
-#: plugins/editor/plugin.c:100
+#: plugins/editor/plugin.c:136
 msgid "_Close File"
 msgstr "_Close File"
 
-#: plugins/editor/plugin.c:101 src/toolbar.c:92
+#: plugins/editor/plugin.c:137 src/toolbar.c:92
 msgid "Close current file"
 msgstr "Close current file"
 
-#: plugins/editor/plugin.c:103
+#: plugins/editor/plugin.c:139
 msgid "Close All Files"
 msgstr "Close All Files"
 
-#: plugins/editor/plugin.c:104
+#: plugins/editor/plugin.c:140
 msgid "Close all files"
 msgstr "Close all files"
 
-#: plugins/editor/plugin.c:106
+#: plugins/editor/plugin.c:142
 msgid "Reload F_ile"
 msgstr "Reload F_ile"
 
-#: plugins/editor/plugin.c:107 src/toolbar.c:88
+#: plugins/editor/plugin.c:143 src/toolbar.c:88
 msgid "Reload current file"
 msgstr "Reload current file"
 
 #. 8
-#: plugins/editor/plugin.c:109 plugins/editor/text_editor_menu.c:293
+#: plugins/editor/plugin.c:145 plugins/editor/text_editor_menu.c:292
 msgid "Swap .h/.c"
 msgstr "Swap .h/.c"
 
-#: plugins/editor/plugin.c:110
+#: plugins/editor/plugin.c:146
 msgid "Swap c header and source file"
 msgstr "Swap C header and source file"
 
-#: plugins/editor/plugin.c:112
+#: plugins/editor/plugin.c:148
 msgid "Recent _Files"
 msgstr "Recent _Files"
 
-#: plugins/editor/plugin.c:116
+#: plugins/editor/plugin.c:152
 msgid "_Print"
 msgstr "_Print"
 
-#: plugins/editor/plugin.c:117 src/toolbar.c:110
+#: plugins/editor/plugin.c:153 src/toolbar.c:110
 msgid "Print the current file"
 msgstr "Print the current file"
 
-#: plugins/editor/plugin.c:118
+#: plugins/editor/plugin.c:154
 msgid "_Print Preview"
 msgstr "_Print Preview"
 
-#: plugins/editor/plugin.c:119
+#: plugins/editor/plugin.c:155
 msgid "Print preview of the current file"
 msgstr "Print preview of the current file"
 
-#: plugins/editor/plugin.c:124
+#: plugins/editor/plugin.c:160
 msgid "_Transform"
 msgstr "_Transform"
 
-#: plugins/editor/plugin.c:125
+#: plugins/editor/plugin.c:161
 msgid "_Make Selection Uppercase"
 msgstr "_Make Selection Uppercase"
 
-#: plugins/editor/plugin.c:126
+#: plugins/editor/plugin.c:162
 msgid "Make the selected text uppercase"
 msgstr "Make the selected text uppercase"
 
-#: plugins/editor/plugin.c:128
+#: plugins/editor/plugin.c:164
 msgid "Make Selection Lowercase"
 msgstr "Make Selection Lowercase"
 
-#: plugins/editor/plugin.c:129
+#: plugins/editor/plugin.c:165
 msgid "Make the selected text lowercase"
 msgstr "Make the selected text lowercase"
 
-#: plugins/editor/plugin.c:131
+#: plugins/editor/plugin.c:167
 msgid "Convert EOL chars to CRLF"
 msgstr "Convert EOL chars to CRLF"
 
-#: plugins/editor/plugin.c:132
+#: plugins/editor/plugin.c:168
 msgid "Convert End Of Line characters to DOS EOL (CRLF)"
 msgstr "Convert End Of Line characters to DOS EOL (CRLF)"
 
-#: plugins/editor/plugin.c:134
+#: plugins/editor/plugin.c:170
 msgid "Convert EOL chars to LF"
 msgstr "Convert EOL chars to LF"
 
-#: plugins/editor/plugin.c:135
+#: plugins/editor/plugin.c:171
 msgid "Convert End Of Line characters to Unix EOL (LF)"
 msgstr "Convert End Of Line characters to Unix EOL (LF)"
 
-#: plugins/editor/plugin.c:137
+#: plugins/editor/plugin.c:173
 msgid "Convert EOL chars to CR"
 msgstr "Convert EOL chars to CR"
 
-#: plugins/editor/plugin.c:138
+#: plugins/editor/plugin.c:174
 msgid "Convert End Of Line characters to Mac OS EOL (CR)"
 msgstr "Convert End Of Line characters to Mac OS EOL (CR)"
 
-#: plugins/editor/plugin.c:140
+#: plugins/editor/plugin.c:176
 msgid "Convert EOL chars to majority EOL"
 msgstr "Convert EOL chars to majority EOL"
 
-#: plugins/editor/plugin.c:141
+#: plugins/editor/plugin.c:177
 msgid "Convert End Of Line characters to majority of the EOL found in the file"
 msgstr ""
 "Convert End Of Line characters to majority of the EOL found in the file"
 
-#: plugins/editor/plugin.c:146
+#: plugins/editor/plugin.c:182
 msgid "_Select"
 msgstr "_Select"
 
-#: plugins/editor/plugin.c:147
+#: plugins/editor/plugin.c:183
 msgid "Select _All"
 msgstr "Select _All"
 
-#: plugins/editor/plugin.c:148
+#: plugins/editor/plugin.c:184
 msgid "Select all text in the editor"
 msgstr "Select all text in the editor"
 
-#: plugins/editor/plugin.c:150
+#: plugins/editor/plugin.c:186
 msgid "Select to _Brace"
 msgstr "Select to _Brace"
 
-#: plugins/editor/plugin.c:151
+#: plugins/editor/plugin.c:187
 msgid "Select the text in the matching braces"
 msgstr "Select the text in the matching braces"
 
-#: plugins/editor/plugin.c:153
+#: plugins/editor/plugin.c:189
 msgid "Select _Code Block"
 msgstr "Select _Code Block"
 
-#: plugins/editor/plugin.c:155
+#: plugins/editor/plugin.c:191
 msgid "Select the current code block"
 msgstr "Select the current code block"
 
-#: plugins/editor/plugin.c:160
+#: plugins/editor/plugin.c:196
 msgid "_Search"
 msgstr "_Search"
 
-#: plugins/editor/plugin.c:161
+#: plugins/editor/plugin.c:197
 msgid "_Find ..."
 msgstr "_Find ..."
 
-#: plugins/editor/plugin.c:162
+#: plugins/editor/plugin.c:198
 msgid "Search for a string or regular expression in the editor"
 msgstr "Search for a string or regular expression in the editor"
 
-#: plugins/editor/plugin.c:164
+#: plugins/editor/plugin.c:200
 msgid "Find _Next"
 msgstr "Find _Next"
 
-#: plugins/editor/plugin.c:165 plugins/editor/plugin.c:169
+#: plugins/editor/plugin.c:201 plugins/editor/plugin.c:205
 msgid "Repeat the last Find command"
 msgstr "Repeat the last Find command"
 
-#: plugins/editor/plugin.c:167
+#: plugins/editor/plugin.c:203
 msgid "Find _Previous"
 msgstr "Find _Previous"
 
-#: plugins/editor/plugin.c:171
+#: plugins/editor/plugin.c:207
 msgid "Find and R_eplace ..."
 msgstr "Find and R_eplace ..."
 
-#: plugins/editor/plugin.c:173
+#: plugins/editor/plugin.c:209
 msgid ""
 "Search for and replace a string or regular expression with another string"
 msgstr ""
 "Search for and replace a string or regular expression with another string"
 
-#: plugins/editor/plugin.c:175
+#: plugins/editor/plugin.c:211
 msgid "Advanced Search And Replace"
 msgstr "Advanced Search And Replace"
 
-#: plugins/editor/plugin.c:177
+#: plugins/editor/plugin.c:213
 msgid "New advance search And replace stuff"
 msgstr "New advance search And replace stuff"
 
-#: plugins/editor/plugin.c:179
+#: plugins/editor/plugin.c:215
 msgid "_Enter Selection/I-Search"
 msgstr "_Enter Selection/I-Search"
 
-#: plugins/editor/plugin.c:181
+#: plugins/editor/plugin.c:217
 msgid "Enter the selected text as the search target"
 msgstr "Enter the selected text as the search target"
 
-#: plugins/editor/plugin.c:183
+#: plugins/editor/plugin.c:219
 msgid "Fin_d in Files ..."
 msgstr "Fin_d in Files ..."
 
-#: plugins/editor/plugin.c:184
+#: plugins/editor/plugin.c:220
 msgid "Search for a string in multiple files or directories"
 msgstr "Search for a string in multiple files or directories"
 
-#: plugins/editor/plugin.c:189
+#: plugins/editor/plugin.c:225
 msgid "Co_mment code"
 msgstr "Co_mment code"
 
-#: plugins/editor/plugin.c:190
+#: plugins/editor/plugin.c:226
 msgid "_Block Comment/Uncomment"
 msgstr "_Block Comment/Uncomment"
 
-#: plugins/editor/plugin.c:191
+#: plugins/editor/plugin.c:227
 msgid "Block comment the selected text"
 msgstr "Block comment the selected text"
 
-#: plugins/editor/plugin.c:193
+#: plugins/editor/plugin.c:229
 msgid "Bo_x Comment/Uncomment"
 msgstr "Bo_x Comment/Uncomment"
 
-#: plugins/editor/plugin.c:194
+#: plugins/editor/plugin.c:230
 msgid "Box comment the selected text"
 msgstr "Box comment the selected text"
 
-#: plugins/editor/plugin.c:196
+#: plugins/editor/plugin.c:232
 msgid "_Stream Comment/Uncomment"
 msgstr "_Stream Comment/Uncomment"
 
-#: plugins/editor/plugin.c:197
+#: plugins/editor/plugin.c:233
 msgid "Stream comment the selected text"
 msgstr "Stream comment the selected text"
 
-#: plugins/editor/plugin.c:203
+#: plugins/editor/plugin.c:239
 msgid "_Goto Line number"
 msgstr "_Goto Line number"
 
-#: plugins/editor/plugin.c:205 plugins/editor/plugin.c:209
+#: plugins/editor/plugin.c:241 plugins/editor/plugin.c:245
 msgid "Go to a particular line in the editor"
 msgstr "Go to a particular line in the editor"
 
-#: plugins/editor/plugin.c:207
+#: plugins/editor/plugin.c:243
 msgid "_Line number ..."
 msgstr "_Line number ..."
 
-#: plugins/editor/plugin.c:211
+#: plugins/editor/plugin.c:247
 msgid "Matching _Brace"
 msgstr "Matching _Brace"
 
-#: plugins/editor/plugin.c:213
+#: plugins/editor/plugin.c:249
 msgid "Go to the matching brace in the editor"
 msgstr "Go to the matching brace in the editor"
 
-#: plugins/editor/plugin.c:215
+#: plugins/editor/plugin.c:251
 msgid "_Start of block"
 msgstr "_Start of block"
 
-#: plugins/editor/plugin.c:217
+#: plugins/editor/plugin.c:253
 msgid "Go to the start of the current block"
 msgstr "Go to the start of the current block"
 
-#: plugins/editor/plugin.c:219
+#: plugins/editor/plugin.c:255
 msgid "_End of block"
 msgstr "_End of block"
 
-#: plugins/editor/plugin.c:221
+#: plugins/editor/plugin.c:257
 msgid "Go to the end of the current block"
 msgstr "Go to the end of the current block"
 
-#: plugins/editor/plugin.c:223
+#: plugins/editor/plugin.c:259
 msgid "Ne_xt occurrence"
 msgstr "Ne_xt occurrence"
 
-#: plugins/editor/plugin.c:225
+#: plugins/editor/plugin.c:261
 msgid "Find the next occurrence of current word"
 msgstr "Find the next occurrence of current word"
 
-#: plugins/editor/plugin.c:227
+#: plugins/editor/plugin.c:263
 msgid "Pre_vious occurrence"
 msgstr "Pre_vious occurrence"
 
-#: plugins/editor/plugin.c:229
+#: plugins/editor/plugin.c:265
 msgid "Find the previous occurrence of current word"
 msgstr "Find the previous occurrence of current word"
 
-#: plugins/editor/plugin.c:231
+#: plugins/editor/plugin.c:267
 msgid "Previous _history"
 msgstr "Previous _history"
 
-#: plugins/editor/plugin.c:233
+#: plugins/editor/plugin.c:269
 msgid "Goto previous history"
 msgstr "Go to previous history"
 
-#: plugins/editor/plugin.c:235
+#: plugins/editor/plugin.c:271
 msgid "Next histor_y"
 msgstr "Next histor_y"
 
-#: plugins/editor/plugin.c:237
+#: plugins/editor/plugin.c:273
 msgid "Goto next history"
 msgstr "Go to next history"
 
-#: plugins/editor/plugin.c:243
+#: plugins/editor/plugin.c:279
 msgid "_Editor"
 msgstr "_Editor"
 
-#: plugins/editor/plugin.c:244
+#: plugins/editor/plugin.c:280
 msgid "U_ndo"
 msgstr "U_ndo"
 
-#: plugins/editor/plugin.c:245 src/toolbar.c:97
+#: plugins/editor/plugin.c:281 src/toolbar.c:97
 msgid "Undo the last action"
 msgstr "Undo the last action"
 
-#: plugins/editor/plugin.c:247
+#: plugins/editor/plugin.c:283
 msgid "_Redo"
 msgstr "_Redo"
 
-#: plugins/editor/plugin.c:248 src/toolbar.c:101
+#: plugins/editor/plugin.c:284 src/toolbar.c:101
 msgid "Redo the last undone action"
 msgstr "Redo the last undone action"
 
-#: plugins/editor/plugin.c:250
+#: plugins/editor/plugin.c:286
 msgid "C_ut"
 msgstr "C_ut"
 
-#: plugins/editor/plugin.c:251
+#: plugins/editor/plugin.c:287
 msgid "Cut the selected text from the editor to the clipboard"
 msgstr "Cut the selected text from the editor to the clipboard"
 
-#: plugins/editor/plugin.c:253
+#: plugins/editor/plugin.c:289
 msgid "_Copy"
 msgstr "_Copy"
 
-#: plugins/editor/plugin.c:254
+#: plugins/editor/plugin.c:290
 msgid "Copy the selected text to the clipboard"
 msgstr "Copy the selected text to the clipboard"
 
-#: plugins/editor/plugin.c:256
+#: plugins/editor/plugin.c:292
 msgid "_Paste"
 msgstr "_Paste"
 
-#: plugins/editor/plugin.c:257
+#: plugins/editor/plugin.c:293
 msgid "Paste the content of clipboard at the current position"
 msgstr "Paste the content of clipboard at the current position"
 
-#: plugins/editor/plugin.c:259
+#: plugins/editor/plugin.c:295
 msgid "_Clear"
 msgstr "_Clear"
 
-#: plugins/editor/plugin.c:260
+#: plugins/editor/plugin.c:296
 msgid "Delete the selected text from the editor"
 msgstr "Delete the selected text from the editor"
 
-#: plugins/editor/plugin.c:262
+#: plugins/editor/plugin.c:298
 msgid "_AutoComplete"
 msgstr "_AutoComplete"
 
-#: plugins/editor/plugin.c:264
+#: plugins/editor/plugin.c:300
 msgid "AutoComplete the current word"
 msgstr "AutoComplete the current word"
 
-#: plugins/editor/plugin.c:266
+#: plugins/editor/plugin.c:302
 msgid "S_how calltip"
 msgstr "S_how calltip"
 
-#: plugins/editor/plugin.c:267
+#: plugins/editor/plugin.c:303
 msgid "Show calltip for the function"
 msgstr "Show calltip for the function"
 
-#: plugins/editor/plugin.c:272
+#: plugins/editor/plugin.c:308
 msgid "_Line numbers margin"
 msgstr "_Line numbers margin"
 
-#: plugins/editor/plugin.c:273
+#: plugins/editor/plugin.c:309
 msgid "Show/Hide line numbers"
 msgstr "Show/Hide line numbers"
 
-#: plugins/editor/plugin.c:275
+#: plugins/editor/plugin.c:311
 msgid "_Markers Margin"
 msgstr "_Markers Margin"
 
-#: plugins/editor/plugin.c:276
+#: plugins/editor/plugin.c:312
 msgid "Show/Hide markers margin"
 msgstr "Show/Hide markers margin"
 
-#: plugins/editor/plugin.c:278
+#: plugins/editor/plugin.c:314
 msgid "_Code fold margin"
 msgstr "_Code fold margin"
 
-#: plugins/editor/plugin.c:279
+#: plugins/editor/plugin.c:315
 msgid "Show/Hide code fold margin"
 msgstr "Show/Hide code fold margin"
 
-#: plugins/editor/plugin.c:281
+#: plugins/editor/plugin.c:317
 msgid "_Indentation guides"
 msgstr "_Indentation guides"
 
-#: plugins/editor/plugin.c:282
+#: plugins/editor/plugin.c:318
 msgid "Show/Hide indentation guides"
 msgstr "Show/Hide indentation guides"
 
-#: plugins/editor/plugin.c:284
+#: plugins/editor/plugin.c:320
 msgid "_White spaces"
 msgstr "_White spaces"
 
-#: plugins/editor/plugin.c:285
+#: plugins/editor/plugin.c:321
 msgid "Show/Hide white spaces"
 msgstr "Show/Hide white spaces"
 
-#: plugins/editor/plugin.c:287
+#: plugins/editor/plugin.c:323
 msgid "_Line end characters"
 msgstr "_Line end characters"
 
-#: plugins/editor/plugin.c:288
+#: plugins/editor/plugin.c:324
 msgid "Show/Hide line end characters"
 msgstr "Show/Hide line end characters"
 
-#: plugins/editor/plugin.c:290
+#: plugins/editor/plugin.c:326
 msgid "Line _wrapping"
 msgstr "Line _wrapping"
 
-#: plugins/editor/plugin.c:291
+#: plugins/editor/plugin.c:327
 msgid "Enable/disable line wrapping"
 msgstr "Enable/disable line wrapping"
 
-#: plugins/editor/plugin.c:296
+#: plugins/editor/plugin.c:332
 msgid "Zoom in"
 msgstr "Zoom in"
 
-#: plugins/editor/plugin.c:297
+#: plugins/editor/plugin.c:333
 msgid "Zoom in: Increase font size"
 msgstr "Zoom in: Increase font size"
 
-#: plugins/editor/plugin.c:299
+#: plugins/editor/plugin.c:335
 msgid "Zoom out"
 msgstr "Zoom out"
 
-#: plugins/editor/plugin.c:300
+#: plugins/editor/plugin.c:336
 msgid "Zoom out: Decrease font size"
 msgstr "Zoom out: Decrease font size"
 
-#: plugins/editor/plugin.c:305
+#: plugins/editor/plugin.c:341
 msgid "Force _Highlight Style"
 msgstr "Force _Highlight Style"
 
-#: plugins/editor/plugin.c:307
+#: plugins/editor/plugin.c:343
 msgid "Automatic"
 msgstr "Automatic"
 
-#: plugins/editor/plugin.c:308
+#: plugins/editor/plugin.c:344
 msgid "Automatically determine the highlight style"
 msgstr "Automatically determine the highlight style"
 
-#: plugins/editor/plugin.c:310
+#: plugins/editor/plugin.c:346
 msgid "No Highlight style"
 msgstr "No Highlight style"
 
-#: plugins/editor/plugin.c:311
+#: plugins/editor/plugin.c:347
 msgid "Remove the current highlight style"
 msgstr "Remove the current highlight style"
 
-#: plugins/editor/plugin.c:313
+#: plugins/editor/plugin.c:349
 msgid "C and C++"
 msgstr "C and C++"
 
-#: plugins/editor/plugin.c:314
+#: plugins/editor/plugin.c:350
 msgid "Force the highlight style to C and C++"
 msgstr "Force the highlight style to C and C++"
 
-#: plugins/editor/plugin.c:316
+#: plugins/editor/plugin.c:352
 msgid "HTML"
 msgstr "HTML"
 
-#: plugins/editor/plugin.c:317
+#: plugins/editor/plugin.c:353
 msgid "Force the highlight style to HTML"
 msgstr "Force the highlight style to HTML"
 
-#: plugins/editor/plugin.c:319
+#: plugins/editor/plugin.c:355
 msgid "XML"
 msgstr "XML"
 
-#: plugins/editor/plugin.c:320
+#: plugins/editor/plugin.c:356
 msgid "Force the highlight style to XML"
 msgstr "Force the highlight style to XML"
 
-#: plugins/editor/plugin.c:322
+#: plugins/editor/plugin.c:358
 msgid "Javascript"
 msgstr "Javascript"
 
-#: plugins/editor/plugin.c:323
+#: plugins/editor/plugin.c:359
 msgid "Force the highlight style to Javascript"
 msgstr "Force the highlight style to Javascript"
 
-#: plugins/editor/plugin.c:325
+#: plugins/editor/plugin.c:361
 msgid "WScript"
 msgstr "WScript"
 
-#: plugins/editor/plugin.c:326
+#: plugins/editor/plugin.c:362
 msgid "Force the highlight style to WScript"
 msgstr "Force the highlight style to WScript"
 
-#: plugins/editor/plugin.c:328
+#: plugins/editor/plugin.c:364
 msgid "Makefile"
 msgstr "Makefile"
 
-#: plugins/editor/plugin.c:329
+#: plugins/editor/plugin.c:365
 msgid "Force the highlight style to Makefile"
 msgstr "Force the highlight style to Makefile"
 
-#: plugins/editor/plugin.c:331
+#: plugins/editor/plugin.c:367
 msgid "Java"
 msgstr "Java"
 
-#: plugins/editor/plugin.c:332
+#: plugins/editor/plugin.c:368
 msgid "Force the highlight type to Java"
 msgstr "Force the highlight type to Java"
 
-#: plugins/editor/plugin.c:334
+#: plugins/editor/plugin.c:370
 msgid "LUA"
 msgstr "LUA"
 
-#: plugins/editor/plugin.c:335
+#: plugins/editor/plugin.c:371
 msgid "Force the highlight style to LUA"
 msgstr "Force the highlight style to LUA"
 
-#: plugins/editor/plugin.c:337
+#: plugins/editor/plugin.c:373
 msgid "Python"
 msgstr "Python"
 
-#: plugins/editor/plugin.c:338
+#: plugins/editor/plugin.c:374
 msgid "Force the highlight style to Python"
 msgstr "Force the highlight style to Python"
 
-#: plugins/editor/plugin.c:340
+#: plugins/editor/plugin.c:376
 msgid "Perl"
 msgstr "Perl"
 
-#: plugins/editor/plugin.c:341
+#: plugins/editor/plugin.c:377
 msgid "Force the highlight style to Perl"
 msgstr "Force the highlight style to Perl"
 
-#: plugins/editor/plugin.c:343
+#: plugins/editor/plugin.c:379
 msgid "SQL"
 msgstr "SQL"
 
-#: plugins/editor/plugin.c:344
+#: plugins/editor/plugin.c:380
 msgid "Force the highlight style to SQL"
 msgstr "Force the highlight style to SQL"
 
-#: plugins/editor/plugin.c:346
+#: plugins/editor/plugin.c:382
 msgid "PL/SQL"
 msgstr "PL/SQL"
 
-#: plugins/editor/plugin.c:347
+#: plugins/editor/plugin.c:383
 msgid "Force the highlight style to PL/SQL"
 msgstr "Force the highlight style to PL/SQL"
 
-#: plugins/editor/plugin.c:349
+#: plugins/editor/plugin.c:385
 msgid "PHP"
 msgstr "PHP"
 
-#: plugins/editor/plugin.c:350
+#: plugins/editor/plugin.c:386
 msgid "Force the highlight style to PHP"
 msgstr "Force the highlight style to PHP"
 
-#: plugins/editor/plugin.c:352
+#: plugins/editor/plugin.c:388
 msgid "LaTex"
 msgstr "LaTex"
 
-#: plugins/editor/plugin.c:353
+#: plugins/editor/plugin.c:389
 msgid "Force the highlight style to LaTex"
 msgstr "Force the highlight style to LaTex"
 
-#: plugins/editor/plugin.c:356
+#: plugins/editor/plugin.c:391
+msgid "Diff"
+msgstr "Diff"
+
+#: plugins/editor/plugin.c:392
 msgid "Force the highlight style to Diff"
 msgstr "Force the highlight style to Diff"
 
-#: plugins/editor/plugin.c:358
+#: plugins/editor/plugin.c:394
 msgid "Pascal"
 msgstr "Pascal"
 
-#: plugins/editor/plugin.c:359
+#: plugins/editor/plugin.c:395
 msgid "Force the highlight style to Pascal"
 msgstr "Force the highlight style to Pascal"
 
-#: plugins/editor/plugin.c:361
+#: plugins/editor/plugin.c:397
 msgid "Xcode"
 msgstr "Xcode"
 
-#: plugins/editor/plugin.c:362
+#: plugins/editor/plugin.c:398
 msgid "Force the highlight style to Xcode"
 msgstr "Force the highlight style to Xcode"
 
-#: plugins/editor/plugin.c:364
+#: plugins/editor/plugin.c:400
 msgid "Prj/Properties"
 msgstr "Prj/Properties"
 
-#: plugins/editor/plugin.c:365
+#: plugins/editor/plugin.c:401
 msgid "Force the highlight style to project/properties files"
 msgstr "Force the highlight style to project/properties files"
 
-#: plugins/editor/plugin.c:367
+#: plugins/editor/plugin.c:403
 msgid "Conf"
 msgstr "Conf"
 
-#: plugins/editor/plugin.c:368
+#: plugins/editor/plugin.c:404
 msgid "Force the highlight style to UNIX conf files"
 msgstr "Force the highlight style to UNIX conf files"
 
-#: plugins/editor/plugin.c:370
+#: plugins/editor/plugin.c:406
 msgid "Ada"
 msgstr "Ada"
 
-#: plugins/editor/plugin.c:371
+#: plugins/editor/plugin.c:407
 msgid "Force the highlight style to Ada"
 msgstr "Force the highlight style to Ada"
 
-#: plugins/editor/plugin.c:373
+#: plugins/editor/plugin.c:409
 msgid "Baan"
 msgstr "Baan"
 
-#: plugins/editor/plugin.c:374
+#: plugins/editor/plugin.c:410
 msgid "Force the highlight style to Baan"
 msgstr "Force the highlight style to Baan"
 
-#: plugins/editor/plugin.c:376
+#: plugins/editor/plugin.c:412
 msgid "Lisp"
 msgstr "Lisp"
 
-#: plugins/editor/plugin.c:377
+#: plugins/editor/plugin.c:413
 msgid "Force the highlight style to Lisp"
 msgstr "Force the highlight style to Lisp"
 
-#: plugins/editor/plugin.c:379
+#: plugins/editor/plugin.c:415
 msgid "Ruby"
 msgstr "Ruby"
 
-#: plugins/editor/plugin.c:380
+#: plugins/editor/plugin.c:416
 msgid "Force the highlight style to Ruby"
 msgstr "Force the highlight style to Ruby"
 
-#: plugins/editor/plugin.c:382
+#: plugins/editor/plugin.c:418
 msgid "Matlab"
 msgstr "Matlab"
 
-#: plugins/editor/plugin.c:383
+#: plugins/editor/plugin.c:419
 msgid "Force the highlight style to Matlab"
 msgstr "Force the highlight style to Matlab"
 
-#: plugins/editor/plugin.c:388
+#: plugins/editor/plugin.c:424
 msgid "For_mat"
 msgstr "For_mat"
 
-#: plugins/editor/plugin.c:389
+#: plugins/editor/plugin.c:425
 msgid "Auto _Format"
 msgstr "Auto _Format"
 
-#: plugins/editor/plugin.c:391
+#: plugins/editor/plugin.c:427
 msgid "Autoformat the current source file"
 msgstr "Autoformat the current source file"
 
-#: plugins/editor/plugin.c:393
+#: plugins/editor/plugin.c:429
 msgid "Autoformat _settings"
 msgstr "Autoformat _settings"
 
-#: plugins/editor/plugin.c:395
+#: plugins/editor/plugin.c:431
 msgid "Autoformat settings"
 msgstr "Autoformat settings"
 
-#: plugins/editor/plugin.c:397
+#: plugins/editor/plugin.c:433
 msgid "_Increase Indent"
 msgstr "_Increase Indent"
 
-#: plugins/editor/plugin.c:399
+#: plugins/editor/plugin.c:435
 msgid "Increase indentation of line/selection"
 msgstr "Increase indentation of line/selection"
 
-#: plugins/editor/plugin.c:401
+#: plugins/editor/plugin.c:437
 msgid "_Decrease Indent"
 msgstr "_Decrease Indent"
 
-#: plugins/editor/plugin.c:403
+#: plugins/editor/plugin.c:439
 msgid "Decrease indentation of line/selection"
 msgstr "Decrease indentation of line/selection"
 
-#: plugins/editor/plugin.c:405
+#: plugins/editor/plugin.c:441
 msgid "_Close All Folds"
 msgstr "_Close All Folds"
 
-#: plugins/editor/plugin.c:407
+#: plugins/editor/plugin.c:443
 msgid "Close all code folds in the editor"
 msgstr "Close all code folds in the editor"
 
-#: plugins/editor/plugin.c:409
+#: plugins/editor/plugin.c:445
 msgid "_Open All Folds"
 msgstr "_Open All Folds"
 
-#: plugins/editor/plugin.c:411
+#: plugins/editor/plugin.c:447
 msgid "Open all code folds in the editor"
 msgstr "Open all code folds in the editor"
 
-#: plugins/editor/plugin.c:413
+#: plugins/editor/plugin.c:449
 msgid "_Toggle Current Fold"
 msgstr "_Toggle Current Fold"
 
-#: plugins/editor/plugin.c:415
+#: plugins/editor/plugin.c:451
 msgid "Toggle current code fold in the editor"
 msgstr "Toggle current code fold in the editor"
 
-#: plugins/editor/plugin.c:420
+#: plugins/editor/plugin.c:456
 msgid "Bookmar_k"
 msgstr "Bookmar_k"
 
-#: plugins/editor/plugin.c:421
+#: plugins/editor/plugin.c:457
 msgid "_Toggle bookmark"
 msgstr "_Toggle bookmark"
 
-#: plugins/editor/plugin.c:423
+#: plugins/editor/plugin.c:459
 msgid "Toggle a bookmark at the current line position"
 msgstr "Toggle a bookmark at the current line position"
 
-#: plugins/editor/plugin.c:425
+#: plugins/editor/plugin.c:461
 msgid "_First bookmark"
 msgstr "_First bookmark"
 
-#: plugins/editor/plugin.c:427
+#: plugins/editor/plugin.c:463
 msgid "Jump to the first bookmark in the file"
 msgstr "Jump to the first bookmark in the file"
 
-#: plugins/editor/plugin.c:429
+#: plugins/editor/plugin.c:465
 msgid "_Previous bookmark"
 msgstr "_Previous bookmark"
 
-#: plugins/editor/plugin.c:431
+#: plugins/editor/plugin.c:467
 msgid "Jump to the previous bookmark in the file"
 msgstr "Jump to the previous bookmark in the file"
 
-#: plugins/editor/plugin.c:433
+#: plugins/editor/plugin.c:469
 msgid "_Next bookmark"
 msgstr "_Next bookmark"
 
-#: plugins/editor/plugin.c:435
+#: plugins/editor/plugin.c:471
 msgid "Jump to the next bookmark in the file"
 msgstr "Jump to the next bookmark in the file"
 
-#: plugins/editor/plugin.c:437
+#: plugins/editor/plugin.c:473
 msgid "_Last bookmark"
 msgstr "_Last bookmark"
 
-#: plugins/editor/plugin.c:439
+#: plugins/editor/plugin.c:475
 msgid "Jump to the last bookmark in the file"
 msgstr "Jump to the last bookmark in the file"
 
-#: plugins/editor/plugin.c:441
+#: plugins/editor/plugin.c:477
 msgid "_Clear all bookmarks"
 msgstr "_Clear all bookmarks"
 
-#: plugins/editor/plugin.c:443
+#: plugins/editor/plugin.c:479
 msgid "Clear bookmarks"
 msgstr "Clear bookmarks"
 
-#: plugins/editor/plugin.c:462
+#: plugins/editor/plugin.c:498
 msgid "Editor file operations"
 msgstr "Editor file operations"
 
-#: plugins/editor/plugin.c:463
+#: plugins/editor/plugin.c:499
 msgid "Editor print operations"
 msgstr "Editor print operations"
 
-#: plugins/editor/plugin.c:464
+#: plugins/editor/plugin.c:500
 msgid "Editor text transformation"
 msgstr "Editor text transformation"
 
-#: plugins/editor/plugin.c:465
+#: plugins/editor/plugin.c:501
 msgid "Editor text selection"
 msgstr "Editor text selection"
 
 #. { actions_insert, G_N_ELEMENTS (actions_insert), "ActionGroupEditorInsert", N_("Editor text insertions") },
-#: plugins/editor/plugin.c:467
+#: plugins/editor/plugin.c:503
 msgid "Editor text searching"
 msgstr "Editor text searching"
 
-#: plugins/editor/plugin.c:468
+#: plugins/editor/plugin.c:504
 msgid "Editor code commenting"
 msgstr "Editor code commenting"
 
-#: plugins/editor/plugin.c:469
+#: plugins/editor/plugin.c:505
 msgid "Editor navigations"
 msgstr "Editor navigations"
 
-#: plugins/editor/plugin.c:470
+#: plugins/editor/plugin.c:506
 msgid "Editor edit operations"
 msgstr "Editor edit operations"
 
-#: plugins/editor/plugin.c:471
+#: plugins/editor/plugin.c:507
 msgid "Editor zoom operations"
 msgstr "Editor zoom operations"
 
-#: plugins/editor/plugin.c:472
+#: plugins/editor/plugin.c:508
 msgid "Editor syntax highlighting styles"
 msgstr "Editor syntax highlighting styles"
 
-#: plugins/editor/plugin.c:473
+#: plugins/editor/plugin.c:509
 msgid "Editor text formating"
 msgstr "Editor text formating"
 
-#: plugins/editor/plugin.c:474
+#: plugins/editor/plugin.c:510
 msgid "Editor bookmarks"
 msgstr "Editor bookmarks"
 
-#: plugins/editor/plugin.c:478
+#: plugins/editor/plugin.c:514
 msgid "Editor view settings"
 msgstr "Editor view settings"
 
-#: plugins/editor/plugin.c:548
+#: plugins/editor/plugin.c:584
 msgid "Save"
 msgstr "Save"
 
-#: plugins/editor/plugin.c:552
+#: plugins/editor/plugin.c:588
 msgid "Reload"
 msgstr "Reload"
 
-#: plugins/editor/plugin.c:558
+#: plugins/editor/plugin.c:594
 msgid "Find"
 msgstr "Find"
 
-#: plugins/editor/plugin.c:561
+#: plugins/editor/plugin.c:597
 msgid "Goto"
 msgstr "Goto"
 
-#: plugins/editor/plugin.c:705
+#: plugins/editor/plugin.c:745
 msgid "OVR"
 msgstr "OVR"
 
-#: plugins/editor/plugin.c:709
+#: plugins/editor/plugin.c:749
 msgid "INS"
 msgstr "INS"
 
-#: plugins/editor/plugin.c:711 plugins/editor/plugin.c:722
+#: plugins/editor/plugin.c:751 plugins/editor/plugin.c:762
 msgid "Zoom"
 msgstr "Zoom"
 
-#: plugins/editor/plugin.c:712 plugins/editor/plugin.c:723
+#: plugins/editor/plugin.c:752 plugins/editor/plugin.c:763
 #: plugins/gdb/breakpoints.c:116
 msgid "Line"
 msgstr "Line"
 
-#: plugins/editor/plugin.c:713 plugins/editor/plugin.c:724
+#: plugins/editor/plugin.c:753 plugins/editor/plugin.c:764
 msgid "Col"
 msgstr "Col"
 
-#: plugins/editor/plugin.c:714 plugins/editor/plugin.c:725
+#: plugins/editor/plugin.c:754 plugins/editor/plugin.c:765
 msgid "Mode"
 msgstr "Mode"
 
-#: plugins/editor/plugin.c:865
+#: plugins/editor/plugin.c:1033
 msgid "Goto line"
 msgstr "Goto line"
 
-#: plugins/editor/plugin.c:866
+#: plugins/editor/plugin.c:1034
 msgid "Enter the line number to jump and press enter"
 msgstr "Enter the line number to jump and press enter"
 
-#: plugins/editor/plugin.c:894
+#: plugins/editor/plugin.c:1062
 msgid "Editor quick navigations"
 msgstr "Editor quick navigations"
 
@@ -4431,23 +4273,23 @@ msgstr "%d matches have been replaced."
 msgid "Unable to build user interface for Search And Replace"
 msgstr "Unable to build user interface for Search And Replace"
 
-#: plugins/editor/text_editor.c:953
+#: plugins/editor/text_editor.c:974
 msgid "Could not get file info"
 msgstr "Could not get file info"
 
-#: plugins/editor/text_editor.c:961
+#: plugins/editor/text_editor.c:982
 msgid "This file is too big. Unable to allocate memory."
 msgstr "This file is too big. Unable to allocate memory."
 
-#: plugins/editor/text_editor.c:968
+#: plugins/editor/text_editor.c:989
 msgid "Could not open file"
 msgstr "Could not open file"
 
-#: plugins/editor/text_editor.c:976
+#: plugins/editor/text_editor.c:997
 msgid "Error while reading from file"
 msgstr "Error while reading from file"
 
-#: plugins/editor/text_editor.c:1013
+#: plugins/editor/text_editor.c:1034
 msgid ""
 "The file does not look like a text file or the file encoding is not "
 "supported. Please check if the encoding of file is in the supported "
@@ -4457,7 +4299,7 @@ msgstr ""
 "supported. Please check if the encoding of file is in the supported "
 "encodings list. If not, add it from the preferences."
 
-#: plugins/editor/text_editor.c:1187
+#: plugins/editor/text_editor.c:1208
 #, c-format
 msgid ""
 "Could not load file: %s\n"
@@ -4468,12 +4310,12 @@ msgstr ""
 "\n"
 "Details: %s"
 
-#: plugins/editor/text_editor.c:1229
+#: plugins/editor/text_editor.c:1252
 #, c-format
 msgid "Could not save file: %s."
 msgstr "Could not save file: %s."
 
-#: plugins/editor/text_editor.c:1293
+#: plugins/editor/text_editor.c:1316
 #, c-format
 msgid ""
 "The file '%s' on the disk is more recent than\n"
@@ -4484,21 +4326,21 @@ msgstr ""
 "the current buffer.\n"
 "Do you want to reload it?"
 
-#: plugins/editor/text_editor.c:1467
+#: plugins/editor/text_editor.c:1490
 msgid "Auto format is currently disabled. Change the setting in Preferences."
 msgstr "Auto format is currently disabled. Change the setting in Preferences."
 
-#: plugins/editor/text_editor.c:1486
+#: plugins/editor/text_editor.c:1509
 msgid "Error in auto formatting ..."
 msgstr "Error in auto formatting ..."
 
 #. FIXME: anjuta_set_active ();
-#: plugins/editor/text_editor.c:1502
+#: plugins/editor/text_editor.c:1525
 #, c-format
 msgid "Anjuta does not know %s!"
 msgstr "Anjuta does not know %s!"
 
-#: plugins/editor/text_editor.c:1527
+#: plugins/editor/text_editor.c:1550
 #, c-format
 msgid ""
 "Error in auto formatting ...\n"
@@ -4507,7 +4349,7 @@ msgstr ""
 "Error in auto formatting ...\n"
 "Details: %s"
 
-#: plugins/editor/text_editor.c:1759
+#: plugins/editor/text_editor.c:1793
 #, c-format
 msgid ""
 "Cannot load Global defaults and configuration files:\n"
@@ -4525,141 +4367,141 @@ msgstr ""
 msgid "Autosave \"%s\" -- Failed"
 msgstr "Autosave \"%s\" -- Failed"
 
-#: plugins/editor/text_editor_menu.c:79
+#: plugins/editor/text_editor_menu.c:78
 msgid "Back"
 msgstr "Back"
 
-#: plugins/editor/text_editor_menu.c:95
+#: plugins/editor/text_editor_menu.c:94
 msgid "Tag Definition"
 msgstr "Tag Definition"
 
-#: plugins/editor/text_editor_menu.c:102
+#: plugins/editor/text_editor_menu.c:101
 msgid "Tag Declaration"
 msgstr "Tag Declaration"
 
-#: plugins/editor/text_editor_menu.c:110
+#: plugins/editor/text_editor_menu.c:109
 msgid "Prev mesg"
 msgstr "Prev mesg"
 
-#: plugins/editor/text_editor_menu.c:116
+#: plugins/editor/text_editor_menu.c:115
 msgid "Next mesg"
 msgstr "Next mesg"
 
-#: plugins/editor/text_editor_menu.c:122
+#: plugins/editor/text_editor_menu.c:121
 msgid "Prev bookmark"
 msgstr "Prev bookmark"
 
-#: plugins/editor/text_editor_menu.c:128
+#: plugins/editor/text_editor_menu.c:127
 msgid "Next bookmark"
 msgstr "Next bookmark"
 
-#: plugins/editor/text_editor_menu.c:145 src/toolbar.c:536
+#: plugins/editor/text_editor_menu.c:144 src/toolbar.c:536
 msgid "Step in"
 msgstr "Step in"
 
-#: plugins/editor/text_editor_menu.c:151
+#: plugins/editor/text_editor_menu.c:150
 msgid "Step over"
 msgstr "Step over"
 
-#: plugins/editor/text_editor_menu.c:157
+#: plugins/editor/text_editor_menu.c:156
 msgid "Step out"
 msgstr "Step out"
 
-#: plugins/editor/text_editor_menu.c:163 src/toolbar.c:525
+#: plugins/editor/text_editor_menu.c:162 src/toolbar.c:525
 msgid "Run to cursor"
 msgstr "Run to cursor"
 
-#: plugins/editor/text_editor_menu.c:169
+#: plugins/editor/text_editor_menu.c:168
 msgid "Run/Continue"
 msgstr "Run/Continue"
 
-#: plugins/editor/text_editor_menu.c:183 src/toolbar.c:573
+#: plugins/editor/text_editor_menu.c:182 src/toolbar.c:573
 msgid "Interrupt"
 msgstr "Interrupt"
 
-#: plugins/editor/text_editor_menu.c:193
+#: plugins/editor/text_editor_menu.c:192
 msgid "Toggle Line numbers"
 msgstr "Toggle Line numbers"
 
-#: plugins/editor/text_editor_menu.c:200
+#: plugins/editor/text_editor_menu.c:199
 msgid "Toggle Marker Margin"
 msgstr "Toggle Marker Margin"
 
-#: plugins/editor/text_editor_menu.c:207
+#: plugins/editor/text_editor_menu.c:206
 msgid "Toggle Fold Margin"
 msgstr "Toggle Fold Margin"
 
-#: plugins/editor/text_editor_menu.c:214
+#: plugins/editor/text_editor_menu.c:213
 msgid "Toggle Guides"
 msgstr "Toggle Guides"
 
-#: plugins/editor/text_editor_menu.c:222
+#: plugins/editor/text_editor_menu.c:221
 msgid "++Zoom"
 msgstr "++Zoom"
 
-#: plugins/editor/text_editor_menu.c:229
+#: plugins/editor/text_editor_menu.c:228
 msgid "--Zoom"
 msgstr "--Zoom"
 
 #. 0
-#: plugins/editor/text_editor_menu.c:241
+#: plugins/editor/text_editor_menu.c:240
 msgid "Cut"
 msgstr "Cut"
 
 #. 1
-#: plugins/editor/text_editor_menu.c:249
+#: plugins/editor/text_editor_menu.c:248
 msgid "Copy"
 msgstr "Copy"
 
 #. 2
-#: plugins/editor/text_editor_menu.c:257
+#: plugins/editor/text_editor_menu.c:256
 msgid "Paste"
 msgstr "Paste"
 
 #. 4
-#: plugins/editor/text_editor_menu.c:267
+#: plugins/editor/text_editor_menu.c:266
 msgid "Context Help"
 msgstr "Context Help"
 
 #. 6
-#: plugins/editor/text_editor_menu.c:277
+#: plugins/editor/text_editor_menu.c:276
 msgid "Toggle Bookmark"
 msgstr "Toggle Bookmark"
 
 #. 7
-#: plugins/editor/text_editor_menu.c:285
+#: plugins/editor/text_editor_menu.c:284
 msgid "Auto format"
 msgstr "Auto format"
 
 #. 10
-#: plugins/editor/text_editor_menu.c:303 src/toolbar.c:512
+#: plugins/editor/text_editor_menu.c:302 src/toolbar.c:512
 msgid "Go"
 msgstr "Go"
 
 #. 11
-#: plugins/editor/text_editor_menu.c:311 plugins/editor/text_editor_menu.c:433
+#: plugins/editor/text_editor_menu.c:310 plugins/editor/text_editor_menu.c:432
 msgid "Tags"
 msgstr "Tags"
 
 #. 17
-#: plugins/editor/text_editor_menu.c:341
+#: plugins/editor/text_editor_menu.c:340
 msgid "Find Usage"
 msgstr "Find Usage"
 
 #. 18
-#: plugins/editor/text_editor_menu.c:349
+#: plugins/editor/text_editor_menu.c:348
 msgid "Close"
 msgstr "Close"
 
 #. 19
 #. 4
 #. 5
-#: plugins/editor/text_editor_menu.c:357
-#: plugins/file-manager/an_file_view.c:359
+#: plugins/editor/text_editor_menu.c:356
+#: plugins/file-manager/an_file_view.c:350
 msgid "Docked"
 msgstr "Docked"
 
-#: plugins/file-loader/plugin.c:101
+#: plugins/file-loader/plugin.c:113
 #, c-format
 msgid ""
 "<b>Can not open \"%s\"</b>.\n"
@@ -4681,263 +4523,270 @@ msgstr ""
 "You may choose to try opening it with any of the following plugins or "
 "applications."
 
-#: plugins/file-loader/plugin.c:113
+#: plugins/file-loader/plugin.c:125
 msgid "Open with:"
 msgstr "Open with:"
 
 #. Document manager plugin
-#: plugins/file-loader/plugin.c:121
+#: plugins/file-loader/plugin.c:133
 msgid "Document Manager"
 msgstr "Document Manager"
 
-#: plugins/file-loader/plugin.c:341
+#: plugins/file-loader/plugin.c:351
 msgid "Anjuta Projects"
 msgstr "Anjuta Projects"
 
-#: plugins/file-loader/plugin.c:347
+#: plugins/file-loader/plugin.c:357
 #: plugins/project-manager/project_dbase_gui.c:161
 msgid "C/C++ source files"
 msgstr "C/C++ source files"
 
-#: plugins/file-loader/plugin.c:359
+#: plugins/file-loader/plugin.c:369
 msgid "C# source files"
 msgstr "C# source files"
 
-#: plugins/file-loader/plugin.c:365
+#: plugins/file-loader/plugin.c:375
 #: plugins/project-manager/project_dbase_gui.c:162
 msgid "Java source files"
 msgstr "Java source files"
 
-#: plugins/file-loader/plugin.c:371
+#: plugins/file-loader/plugin.c:381
 msgid "Pascal source files"
 msgstr "Pascal source files"
 
-#: plugins/file-loader/plugin.c:376
+#: plugins/file-loader/plugin.c:386
 msgid "PHP source files"
 msgstr "PHP source files"
 
-#: plugins/file-loader/plugin.c:383
+#: plugins/file-loader/plugin.c:393
 msgid "Perl source files"
 msgstr "Perl source files"
 
-#: plugins/file-loader/plugin.c:389
+#: plugins/file-loader/plugin.c:399
 msgid "Python source files"
 msgstr "Python source files"
 
-#: plugins/file-loader/plugin.c:394
+#: plugins/file-loader/plugin.c:404
 msgid "Hyper text markup files"
 msgstr "Hypertext markup files"
 
-#: plugins/file-loader/plugin.c:403
+#: plugins/file-loader/plugin.c:413
 msgid "Shell scripts files"
 msgstr "Shell scripts files"
 
-#: plugins/file-loader/plugin.c:408
+#: plugins/file-loader/plugin.c:418
 msgid "Makefiles"
 msgstr "Makefiles"
 
-#: plugins/file-loader/plugin.c:414
+#: plugins/file-loader/plugin.c:424
 msgid "Lua files"
 msgstr "Lua files"
 
-#: plugins/file-loader/plugin.c:419
+#: plugins/file-loader/plugin.c:429
 msgid "Diff files"
 msgstr "Diff files"
 
-#: plugins/file-loader/plugin.c:577
+#: plugins/file-loader/plugin.c:589
 msgid "_New ..."
 msgstr "_New ..."
 
-#: plugins/file-loader/plugin.c:579
+#: plugins/file-loader/plugin.c:591
 msgid "New file, project and project components."
 msgstr "New file, project and project components."
 
-#: plugins/file-loader/plugin.c:585
+#: plugins/file-loader/plugin.c:597
 msgid "_Open ..."
 msgstr "_Open ..."
 
-#: plugins/file-loader/plugin.c:593
-msgid "Open _Recent"
-msgstr "Open _Recent"
-
-#: plugins/file-loader/plugin.c:595
-msgid "Open recent file"
-msgstr "Open recent file"
-
-#: plugins/file-loader/plugin.c:600
+#: plugins/file-loader/plugin.c:605
 msgid "_Open"
 msgstr "_Open"
 
-#: plugins/file-loader/plugin.c:607
+#: plugins/file-loader/plugin.c:612
 msgid "Open _With"
 msgstr "Open _With"
 
-#: plugins/file-loader/plugin.c:608
+#: plugins/file-loader/plugin.c:613
 msgid "Open with"
 msgstr "Open with"
 
-#: plugins/file-loader/plugin.c:761
+#: plugins/file-loader/plugin.c:784
 msgid "File Loader"
 msgstr "File Loader"
 
-#: plugins/file-loader/plugin.c:766
+#: plugins/file-loader/plugin.c:789
 msgid "New"
 msgstr "New"
 
-#: plugins/file-loader/plugin.c:768
+#: plugins/file-loader/plugin.c:791
 msgid "Open"
 msgstr "Open"
 
+#: plugins/file-loader/plugin.c:798
+msgid "Open recent file"
+msgstr "Open recent file"
+
 #. 0
-#: plugins/file-manager/an_file_view.c:278
+#: plugins/file-manager/an_file_view.c:269
 msgid "Update file"
 msgstr "Update file"
 
-#: plugins/file-manager/an_file_view.c:279
+#: plugins/file-manager/an_file_view.c:270
 msgid "Update current working copy"
 msgstr "Update current working copy"
 
 #. 1
-#: plugins/file-manager/an_file_view.c:285
+#: plugins/file-manager/an_file_view.c:276
 msgid "Commit file"
 msgstr "Commit file"
 
-#: plugins/file-manager/an_file_view.c:286
+#: plugins/file-manager/an_file_view.c:277
 msgid "Commit changes to the repository"
 msgstr "Commit changes to the repository"
 
 #. 2
-#: plugins/file-manager/an_file_view.c:292
+#: plugins/file-manager/an_file_view.c:283
 msgid "Status of file"
 msgstr "Status of file"
 
-#: plugins/file-manager/an_file_view.c:293
+#: plugins/file-manager/an_file_view.c:284
 msgid "Print the status of the current file"
 msgstr "Print the status of the current file"
 
 #. 3
-#: plugins/file-manager/an_file_view.c:299
+#: plugins/file-manager/an_file_view.c:290
 msgid "Get file log"
 msgstr "Get file log"
 
-#: plugins/file-manager/an_file_view.c:300
+#: plugins/file-manager/an_file_view.c:291
 msgid "Print the CVS log for the current file"
 msgstr "Print the CVS log for the current file"
 
 #. 4
-#: plugins/file-manager/an_file_view.c:306
+#: plugins/file-manager/an_file_view.c:297
 msgid "Add file"
 msgstr "Add file"
 
-#: plugins/file-manager/an_file_view.c:307
+#: plugins/file-manager/an_file_view.c:298
 msgid "Add the current file to the repository"
 msgstr "Add the current file to the repository"
 
 #. 5
-#: plugins/file-manager/an_file_view.c:313
+#: plugins/file-manager/an_file_view.c:304
 msgid "Remove file"
 msgstr "Remove file"
 
-#: plugins/file-manager/an_file_view.c:314
+#: plugins/file-manager/an_file_view.c:305
 msgid "Remove the current file from the repository"
 msgstr "Remove the current file from the repository"
 
 #. 6
-#: plugins/file-manager/an_file_view.c:320
+#: plugins/file-manager/an_file_view.c:311
 msgid "Diff file"
 msgstr "Diff file"
 
-#: plugins/file-manager/an_file_view.c:321
+#: plugins/file-manager/an_file_view.c:312
 msgid "Create a diff between the working copy and the repository"
 msgstr "Create a diff between the working copy and the repository"
 
 #. 0
 #. 2
-#: plugins/file-manager/an_file_view.c:330
+#: plugins/file-manager/an_file_view.c:321
 #: plugins/project-manager/project_dbase_gui.c:317
 msgid "Open in Anjuta"
 msgstr "Open in Anjuta"
 
 #. 1
-#: plugins/file-manager/an_file_view.c:337
+#: plugins/file-manager/an_file_view.c:328
 #: plugins/project-manager/project_dbase_gui.c:311
 msgid "Open in default viewer"
 msgstr "Open in default viewer"
 
 #. 3
-#: plugins/file-manager/an_file_view.c:351
+#: plugins/file-manager/an_file_view.c:342
 msgid "Refresh"
 msgstr "Refresh"
 
-#: plugins/file-manager/an_file_view.c:360
+#: plugins/file-manager/an_file_view.c:351
 msgid "Dock/Undock the Project Window"
 msgstr "Dock/Undock the Project Window"
 
 #. 6
-#: plugins/file-manager/an_file_view.c:366
+#: plugins/file-manager/an_file_view.c:357
 msgid "Customize"
 msgstr "Customize"
 
-#: plugins/file-manager/an_file_view.c:367
+#: plugins/file-manager/an_file_view.c:358
 msgid "Customize the file browser"
 msgstr "Customize the file browser"
 
-#: plugins/file-manager/an_file_view.c:648
-#: plugins/file-manager/an_file_view.c:811
-#: plugins/file-manager/an_file_view.c:1081
+#: plugins/file-manager/an_file_view.c:641
+#: plugins/file-manager/an_file_view.c:804
+#: plugins/file-manager/an_file_view.c:1075
 msgid "Loading ..."
 msgstr "Loading ..."
 
-#: plugins/file-manager/an_file_view.c:937
+#: plugins/file-manager/an_file_view.c:930
 msgid "Rev"
 msgstr "Rev"
 
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:6
+#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:6
 msgid "<b>Directory filter:</b>"
 msgstr "<b>Directory filter:</b>"
 
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:7
+#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:7
 msgid "<b>File filter:</b>"
 msgstr "<b>File filter:</b>"
 
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:8
+#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:8
 msgid "<b>Root directory if no project is open:</b>"
 msgstr "<b>Root directory if no project is open:</b>"
 
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:11
+#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:11
 msgid "Choose directories"
 msgstr "Choose directories"
 
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:12
+#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:12
 msgid "Choose files"
 msgstr "Choose files"
 
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:13
+#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:13
 msgid "Directory "
 msgstr "Directory "
 
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:14
+#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:14
 msgid "Do not show hidden directories"
 msgstr "Do not show hidden directories"
 
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:15
+#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:15
 msgid "Do not show hidden files"
 msgstr "Do not show hidden files"
 
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:16
+#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:16
 msgid "Ignore directories"
 msgstr "Ignore directories"
 
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:17
+#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:17
 msgid "Ignore files"
 msgstr "Ignore files"
 
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:22
+#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:22
 msgid "dialog3"
 msgstr "dialog3"
 
-#: plugins/file-manager/plugin.c:48 plugins/project-manager/plugin.c:366
-#: plugins/symbol-browser/plugin.c:213
+#: plugins/file-manager/plugin.c:48 plugins/project-manager/plugin.c:368
+#: plugins/symbol-browser/plugin.c:228
 msgid "_Refresh"
 msgstr "_Refresh"
 
@@ -4986,6 +4835,7 @@ msgstr ""
 "The extension will be added according to the type."
 
 #: plugins/file-wizard/anjuta-file-wizard.glade.h:10
+#: plugins/project-wizard/anjuta-project-wizard.glade.h:10
 msgid "License:"
 msgstr "Licence:"
 
@@ -5009,64 +4859,64 @@ msgstr "Use Template for the Header file"
 msgid "_C: /* comment */"
 msgstr "_C: /* comment */"
 
-#: plugins/file-wizard/anjuta-file-wizard.glade.h:17
-msgid "_General Public License (GPL)"
-msgstr "_General Public Licence (GPL)"
-
-#: plugins/file-wizard/anjuta-file-wizard.glade.h:18
-msgid "_Lesser General Public License (LGPL)"
-msgstr "_Lesser General Public Licence (LGPL)"
-
-#: plugins/file-wizard/file.c:85
+#: plugins/file-wizard/file.c:80
 msgid "C Source File"
 msgstr "C Source File"
 
-#: plugins/file-wizard/file.c:86
+#: plugins/file-wizard/file.c:81
 msgid "C -C++ Header File"
 msgstr "C -C++ Header File"
 
-#: plugins/file-wizard/file.c:87
+#: plugins/file-wizard/file.c:82
 msgid "C++ Source File"
 msgstr "C++ Source File"
 
-#: plugins/file-wizard/file.c:88
+#: plugins/file-wizard/file.c:83
 msgid "C# Source File"
 msgstr "C# Source File"
 
-#: plugins/file-wizard/file.c:89
+#: plugins/file-wizard/file.c:84
 msgid "Java Source File"
 msgstr "Java Source File"
 
-#: plugins/file-wizard/file.c:90
+#: plugins/file-wizard/file.c:85
 msgid "Perl Source File"
 msgstr "Perl Source File"
 
-#: plugins/file-wizard/file.c:91
+#: plugins/file-wizard/file.c:86
 msgid "Python Source File"
 msgstr "Python Source File"
 
-#: plugins/file-wizard/file.c:92
+#: plugins/file-wizard/file.c:87
 msgid "Shell Script File"
 msgstr "Shell Script File"
 
-#: plugins/file-wizard/file.c:93
+#: plugins/file-wizard/file.c:88
 msgid "Other"
 msgstr "Other"
 
-#: plugins/file-wizard/file.c:136
+#: plugins/file-wizard/file.c:104
+msgid "General Public License (GPL)"
+msgstr "General Public Licence (GPL)"
+
+#: plugins/file-wizard/file.c:105
+msgid "Lesser General Public License (LGPL)"
+msgstr "Lesser General Public Licence (LGPL)"
+
+#: plugins/file-wizard/file.c:148
 msgid "Unable to build user interface for New File"
 msgstr "Unable to build user interface for New File"
 
-#: plugins/file-wizard/file.c:431
+#: plugins/file-wizard/file.c:460
 #, c-format
 msgid "The file \"%s\" is not a header file."
 msgstr "The file \"%s\" is not a header file."
 
-#: plugins/file-wizard/file.c:525
+#: plugins/file-wizard/file.c:554
 msgid "%Y"
 msgstr "%Y"
 
-#: plugins/file-wizard/file.c:544
+#: plugins/file-wizard/file.c:573
 msgid "%Y-%m-%d"
 msgstr "%Y-%m-%d"
 
@@ -5492,7 +5342,7 @@ msgstr "Sysm Read"
 #: plugins/gdb/signals_cbs.c:142 plugins/project-manager/project_dbase.c:1468
 #: plugins/project-manager/project_dbase.c:1477
 #: plugins/project-manager/project_import_cbs.c:229
-#: plugins/project-wizard/appwizard_cbs.c:284
+#: plugins/project-wizard/property.c:199 plugins/project-wizard/property.c:213
 msgid "No"
 msgstr "No"
 
@@ -5524,39 +5374,39 @@ msgstr " Stop: "
 msgid " Print: "
 msgstr " Print: "
 
-#: plugins/gdb/stack_trace.c:317
+#: plugins/gdb/stack_trace.c:319
 msgid "Error getting selection\n"
 msgstr "Error getting selection\n"
 
-#: plugins/gdb/stack_trace.c:328
+#: plugins/gdb/stack_trace.c:330
 msgid "Error getting source location from stack frame"
 msgstr "Error getting source location from stack frame"
 
-#: plugins/gdb/stack_trace.c:345
+#: plugins/gdb/stack_trace.c:347
 msgid "Frame set"
 msgstr "Frame set"
 
-#: plugins/gdb/stack_trace.c:352
+#: plugins/gdb/stack_trace.c:354
 msgid "Frame info"
 msgstr "Frame info"
 
-#: plugins/gdb/stack_trace.c:359
+#: plugins/gdb/stack_trace.c:361
 msgid "Frame args"
 msgstr "Frame args"
 
-#: plugins/gdb/stack_trace.c:373
+#: plugins/gdb/stack_trace.c:375
 msgid "View Source"
 msgstr "View Source"
 
-#: plugins/gdb/stack_trace.c:440
+#: plugins/gdb/stack_trace.c:442
 msgid "Active"
 msgstr "Active"
 
-#: plugins/gdb/stack_trace.c:451
+#: plugins/gdb/stack_trace.c:453
 msgid "Count"
 msgstr "Count"
 
-#: plugins/gdb/stack_trace.c:466 src/toolbar.c:612
+#: plugins/gdb/stack_trace.c:468 src/toolbar.c:612
 msgid "Frame"
 msgstr "Frame"
 
@@ -5567,6 +5417,13 @@ msgstr "< Not defined in current context >"
 #: plugins/gdb/watch_gui.c:37
 msgid "Add expression"
 msgstr "Add expression"
+
+#. 3
+#: plugins/gdb/watch_gui.c:43 plugins/gtodo/callback.c:15
+#: plugins/gtodo/callback.c:101
+#: plugins/project-manager/project_dbase_gui.c:323
+msgid "Remove"
+msgstr "Remove"
 
 #: plugins/gdb/watch_gui.c:49
 msgid "Update all"
@@ -5633,7 +5490,7 @@ msgid "<b>Summary:</b>"
 msgstr "<b>Summary:</b>"
 
 #. option menu label
-#: plugins/gtodo/add_edit_item.c:153
+#: plugins/gtodo/add_edit_item.c:153 plugins/macro/anjuta-macro.glade.h:5
 msgid "Category:"
 msgstr "Category:"
 
@@ -5672,7 +5529,7 @@ msgstr "Medium"
 msgid "Low"
 msgstr "Low"
 
-#: plugins/gtodo/add_edit_item.c:250 plugins/project-wizard/wizard_gui.c:664
+#: plugins/gtodo/add_edit_item.c:250
 msgid "Comment:"
 msgstr "Comment:"
 
@@ -6121,7 +5978,7 @@ msgstr "/Help/_About"
 msgid "Todo List"
 msgstr "Todo List"
 
-#: plugins/gtodo/interface.c:34 src/anjuta-actions.h:35 src/shell.c:76
+#: plugins/gtodo/interface.c:34 src/anjuta-actions.h:34 src/shell.c:77
 msgid "_View"
 msgstr "_View"
 
@@ -6157,7 +6014,8 @@ msgstr "Priority"
 msgid "Due date"
 msgstr "Due date"
 
-#: plugins/gtodo/interface.c:221 plugins/project-wizard/wizard_gui.c:755
+#: plugins/gtodo/interface.c:221
+#: plugins/project-wizard/anjuta-project-wizard.glade.h:13
 msgid "Summary"
 msgstr "Summary"
 
@@ -6392,11 +6250,11 @@ msgstr "Hide items without an _end date"
 msgid "Hide items without an end date"
 msgstr "Hide items without an end date"
 
-#: plugins/gtodo/plugin.c:168 plugins/gtodo/plugin.c:174
+#: plugins/gtodo/plugin.c:169 plugins/gtodo/plugin.c:175
 msgid "Tasks manager"
 msgstr "Tasks manager"
 
-#: plugins/gtodo/plugin.c:180
+#: plugins/gtodo/plugin.c:181
 msgid "Tasks"
 msgstr "Tasks"
 
@@ -6542,6 +6400,114 @@ msgstr "/_Quit"
 msgid "Todo List Manager"
 msgstr "Todo List Manager"
 
+#: plugins/macro/anjuta-macro.glade.h:2
+msgid "<b>Macro details:</b>"
+msgstr "<b>Macro details:</b>"
+
+#: plugins/macro/anjuta-macro.glade.h:3
+msgid "<b>Macro text:</b>"
+msgstr "<b>Macro text:</b>"
+
+#: plugins/macro/anjuta-macro.glade.h:4
+msgid "<b>Macros:</b>"
+msgstr "<b>Macros:</b>"
+
+#: plugins/macro/anjuta-macro.glade.h:6
+msgid "Edit..."
+msgstr "Edit..."
+
+#: plugins/macro/anjuta-macro.glade.h:7
+msgid "Name: "
+msgstr "Name: "
+
+#: plugins/macro/anjuta-macro.glade.h:8
+msgid "Shortcut:"
+msgstr "Shortcut:"
+
+#: plugins/macro/macro-db.c:100
+msgid "Anjuta macros"
+msgstr "Anjuta macros"
+
+#: plugins/macro/macro-db.c:104
+msgid "My macros"
+msgstr "My macros"
+
+#: plugins/macro/macro-dialog.c:91
+msgid "Insert macro"
+msgstr "Insert macro"
+
+#: plugins/macro/macro-edit.c:88
+msgid "Add/Edit macro"
+msgstr "Add/Edit macro"
+
+#: plugins/macro/macros.xml.h:1
+msgid "# GPL"
+msgstr "# GPL"
+
+#: plugins/macro/macros.xml.h:2
+msgid "/* GPL */"
+msgstr "/* GPL */"
+
+#: plugins/macro/macros.xml.h:3
+msgid "// GPL"
+msgstr "// GPL"
+
+#: plugins/macro/macros.xml.h:4
+msgid "C"
+msgstr "C"
+
+#: plugins/macro/macros.xml.h:5
+msgid "Licenses"
+msgstr "Licences"
+
+#: plugins/macro/macros.xml.h:6
+msgid "for"
+msgstr "for"
+
+#: plugins/macro/macros.xml.h:7
+msgid "if...else"
+msgstr "if...else"
+
+#: plugins/macro/macros.xml.h:8
+msgid "switch"
+msgstr "switch"
+
+#: plugins/macro/macros.xml.h:9
+msgid "while"
+msgstr "while"
+
+#: plugins/macro/plugin.c:31 plugins/symbol-browser/an_symbol_view.c:81
+msgid "Macros"
+msgstr "Macros"
+
+#: plugins/macro/plugin.c:38
+msgid "_Insert Macro"
+msgstr "_Insert Macro"
+
+#: plugins/macro/plugin.c:40
+msgid "Insert a macro using a shortcut"
+msgstr "Insert a macro using a shortcut"
+
+#: plugins/macro/plugin.c:45
+msgid "_Add Macro"
+msgstr "_Add Macro"
+
+#: plugins/macro/plugin.c:47
+msgid "Add a macro"
+msgstr "Add a macro"
+
+#: plugins/macro/plugin.c:52
+msgid "Manage Macros"
+msgstr "Manage Macros"
+
+#: plugins/macro/plugin.c:54
+msgid "Add/Edit/Remove macros"
+msgstr "Add/Edit/Remove macros"
+
+#: plugins/macro/plugin.c:110
+msgid "Macro operations"
+msgstr "Macro operations"
+
 #: plugins/message-view/anjuta-message-manager-plugin.glade.h:1
 msgid "<b>Indicators</b>"
 msgstr "<b>Indicators</b>"
@@ -6618,12 +6584,12 @@ msgstr "Warning message indicator style:"
 msgid "Warnings:"
 msgstr "Warnings:"
 
-#: plugins/message-view/message-view.c:203
-#: plugins/message-view/message-view.c:237
+#: plugins/message-view/message-view.c:226
+#: plugins/message-view/message-view.c:260
 msgid "No message details"
 msgstr "No message details"
 
-#: plugins/message-view/message-view.c:595 plugins/message-view/plugin.c:148
+#: plugins/message-view/message-view.c:602 plugins/message-view/plugin.c:148
 #: src/toolbar.c:154
 msgid "Messages"
 msgstr "Messages"
@@ -6754,89 +6720,89 @@ msgstr ""
 "Are you sure you want to remove the following from project?\n"
 "\n"
 
-#: plugins/project-manager/plugin.c:352
+#: plugins/project-manager/plugin.c:354
 msgid "_Project"
 msgstr "_Project"
 
-#: plugins/project-manager/plugin.c:356
+#: plugins/project-manager/plugin.c:358
 msgid "Close Pro_ject"
 msgstr "Close Pro_ject"
 
-#: plugins/project-manager/plugin.c:356
+#: plugins/project-manager/plugin.c:358
 msgid "Close project"
 msgstr "Close project"
 
-#: plugins/project-manager/plugin.c:361 plugins/project-manager/plugin.c:390
+#: plugins/project-manager/plugin.c:363 plugins/project-manager/plugin.c:392
 msgid "_Properties"
 msgstr "_Properties"
 
-#: plugins/project-manager/plugin.c:361
+#: plugins/project-manager/plugin.c:363
 msgid "Project properties"
 msgstr "Project properties"
 
-#: plugins/project-manager/plugin.c:366
+#: plugins/project-manager/plugin.c:368
 msgid "Refresh project manager tree"
 msgstr "Refresh project manager tree"
 
-#: plugins/project-manager/plugin.c:371 plugins/project-manager/plugin.c:400
+#: plugins/project-manager/plugin.c:373 plugins/project-manager/plugin.c:402
 msgid "Add _Group"
 msgstr "Add _Group"
 
-#: plugins/project-manager/plugin.c:371 plugins/project-manager/plugin.c:400
+#: plugins/project-manager/plugin.c:373 plugins/project-manager/plugin.c:402
 msgid "Add a group to project"
 msgstr "Add a group to project"
 
-#: plugins/project-manager/plugin.c:376 plugins/project-manager/plugin.c:405
+#: plugins/project-manager/plugin.c:378 plugins/project-manager/plugin.c:407
 msgid "Add _Target"
 msgstr "Add _Target"
 
-#: plugins/project-manager/plugin.c:376 plugins/project-manager/plugin.c:405
+#: plugins/project-manager/plugin.c:378 plugins/project-manager/plugin.c:407
 msgid "Add a target to project"
 msgstr "Add a target to project"
 
-#: plugins/project-manager/plugin.c:381 plugins/project-manager/plugin.c:410
+#: plugins/project-manager/plugin.c:383 plugins/project-manager/plugin.c:412
 msgid "Add _Source File"
 msgstr "Add _Source File"
 
-#: plugins/project-manager/plugin.c:381 plugins/project-manager/plugin.c:395
-#: plugins/project-manager/plugin.c:410
+#: plugins/project-manager/plugin.c:383 plugins/project-manager/plugin.c:397
+#: plugins/project-manager/plugin.c:412
 msgid "Add a source file to project"
 msgstr "Add a source file to project"
 
-#: plugins/project-manager/plugin.c:390
+#: plugins/project-manager/plugin.c:392
 msgid "Properties of group/target/source"
 msgstr "Properties of group/target/source"
 
-#: plugins/project-manager/plugin.c:395
+#: plugins/project-manager/plugin.c:397
 msgid "_Add To Project"
 msgstr "_Add To Project"
 
-#: plugins/project-manager/plugin.c:415
+#: plugins/project-manager/plugin.c:417
 msgid "Re_move"
 msgstr "Re_move"
 
-#: plugins/project-manager/plugin.c:415
+#: plugins/project-manager/plugin.c:417
 msgid "Remove from project"
 msgstr "Remove from project"
 
-#: plugins/project-manager/plugin.c:698
+#: plugins/project-manager/plugin.c:709
 msgid "Project manager actions"
 msgstr "Project manager actions"
 
-#: plugins/project-manager/plugin.c:704
+#: plugins/project-manager/plugin.c:715
 msgid "Project manager popup actions"
 msgstr "Project manager popup actions"
 
-#: plugins/project-manager/plugin.c:812
+#: plugins/project-manager/plugin.c:829
 msgid "Loading project. Please wait ..."
 msgstr "Loading project. Please wait ..."
 
-#: plugins/project-manager/plugin.c:883
+#: plugins/project-manager/plugin.c:900
 #, c-format
 msgid "Loading project: %s"
 msgstr "Loading project: %s"
 
-#: plugins/project-manager/plugin.c:894
+#: plugins/project-manager/plugin.c:911
 #, c-format
 msgid "Failed to load project %s: %s"
 msgstr "Failed to load project %s: %s"
@@ -7079,11 +7045,12 @@ msgid " Project Information "
 msgstr " Project Information "
 
 #: plugins/project-manager/project_dbase_gui.c:721
+#: plugins/project-wizard/anjuta-project-wizard.glade.h:5
 msgid "Author:"
 msgstr "Author:"
 
 #: plugins/project-manager/project_dbase_gui.c:729
-#: plugins/project-wizard/wizard_gui.c:299
+#: plugins/project-wizard/anjuta-project-wizard.glade.h:11
 msgid "Project Name:"
 msgstr "Project Name:"
 
@@ -7300,6 +7267,14 @@ msgstr "Could not launch script!\n"
 msgid "Importing Project...please wait"
 msgstr "Importing Project...please wait"
 
+#: plugins/project-manager/project_import.c:181
+msgid "Project import completed...unsuccessful\n"
+msgstr "Project import completed...unsuccessful\n"
+
+#: plugins/project-manager/project_import.c:183
+msgid "Project import completed...unsuccessful"
+msgstr "Project import completed...unsuccessful"
+
 #: plugins/project-manager/project_import.c:188
 msgid "Project import completed...successful\n"
 msgstr "Project import completed...successful\n"
@@ -7325,7 +7300,6 @@ msgid "Please complete all of the required fields"
 msgstr "Please complete all of the required fields"
 
 #: plugins/project-manager/project_import_cbs.c:230
-#: plugins/project-wizard/appwizard_cbs.c:286
 msgid ""
 "Confirm the following information:\n"
 "\n"
@@ -7334,42 +7308,34 @@ msgstr ""
 "\n"
 
 #: plugins/project-manager/project_import_cbs.c:231
-#: plugins/project-wizard/appwizard_cbs.c:287
 msgid "Project Name:    "
 msgstr "Project Name:    "
 
 #: plugins/project-manager/project_import_cbs.c:232
-#: plugins/project-wizard/appwizard_cbs.c:288
 msgid "Project Type:    "
 msgstr "Project Type:    "
 
 #: plugins/project-manager/project_import_cbs.c:234
-#: plugins/project-wizard/appwizard_cbs.c:289
 msgid "Target Type:     "
 msgstr "Target Type:     "
 
 #: plugins/project-manager/project_import_cbs.c:237
-#: plugins/project-wizard/appwizard_cbs.c:290
 msgid "Source Target:   "
 msgstr "Source Target:   "
 
 #: plugins/project-manager/project_import_cbs.c:238
-#: plugins/project-wizard/appwizard_cbs.c:291
 msgid "Version:         "
 msgstr "Version:         "
 
 #: plugins/project-manager/project_import_cbs.c:239
-#: plugins/project-wizard/appwizard_cbs.c:292
 msgid "Author:          "
 msgstr "Author:          "
 
 #: plugins/project-manager/project_import_cbs.c:240
-#: plugins/project-wizard/appwizard_cbs.c:293
 msgid "Language:        "
 msgstr "Language:        "
 
 #: plugins/project-manager/project_import_cbs.c:242
-#: plugins/project-wizard/appwizard_cbs.c:294
 msgid "Gettext Support: "
 msgstr "Gettext Support: "
 
@@ -7433,359 +7399,187 @@ msgstr "Error writing to: %s."
 msgid "Source Paths"
 msgstr "Source Paths"
 
-#: plugins/project-wizard/appwizard_cbs.c:126
-msgid "Project name"
-msgstr "Project name"
+#: plugins/project-wizard/anjuta-project-wizard.glade.h:2
+msgid "<b>New Project Wizard Options</b>"
+msgstr "<b>New Project Wizard Options</b>"
 
-#: plugins/project-wizard/appwizard_cbs.c:127
-msgid "Source target name"
-msgstr "Source target name"
+#: plugins/project-wizard/anjuta-project-wizard.glade.h:3
+msgid "<b>Select the type of application to be developed</b>"
+msgstr "<b>Select the type of application to be developed</b>"
 
-#: plugins/project-wizard/appwizard_cbs.c:128
-msgid "Project version"
-msgstr "Project version"
-
-#: plugins/project-wizard/appwizard_cbs.c:224
-#, c-format
-msgid ""
-"Invalid %s field:\n"
-"You must supply a valid %s field to proceed further."
-msgstr ""
-"Invalid %s field:\n"
-"You must supply a valid %s field to proceed further."
-
-#: plugins/project-wizard/appwizard_gui.c:41
-msgid ""
-"The Application Wizard will generate a basic\n"
-"skeleton for a project, including all of the\n"
-"build files. It will ask for details of the initial\n"
-"structure for the application.\n"
-"\n"
-"Please answer the questions carefully, as it\n"
-"may not be possible to change some of the\n"
-"settings later."
-msgstr ""
-"The Application Wizard will generate a basic\n"
-"skeleton for a project, including all of the\n"
-"build files. It will ask for details of the initial\n"
-"structure for the application.\n"
-"\n"
-"Please answer the questions carefully, as it\n"
-"may not be possible to change some of the\n"
-"settings later."
-
-#: plugins/project-wizard/gnome_project.c:65
-msgid ""
-"A project or file with the same name.already exists.\n"
-"Project creation aborted."
-msgstr ""
-"A project or file with the same name.already exists.\n"
-"Project creation aborted."
-
-#: plugins/project-wizard/gnome_project.c:81
-msgid "Generating Project ...\n"
-msgstr "Generating Project ...\n"
-
-#: plugins/project-wizard/gnome_project.c:88
-#, c-format
-msgid "Cannot create file: %s"
-msgstr "Cannot create file: %s"
-
-#: plugins/project-wizard/gnome_project.c:159
-msgid "Loading Project ...\n"
-msgstr "Loading Project ...\n"
-
-#: plugins/project-wizard/gnome_project.c:170
-#: plugins/project-wizard/gnome_project.c:231
-msgid "Saving Project ...\n"
-msgstr "Saving Project ...\n"
-
-#: plugins/project-wizard/gnome_project.c:178
-msgid "Generating source codes ...\n"
-msgstr "Generating source codes ...\n"
-
-#. Creating icon pixmap file for gnome projects
-#: plugins/project-wizard/gnome_project.c:185
-msgid "Copying icon file ...\n"
-msgstr "Copying icon file ...\n"
-
-#: plugins/project-wizard/gnome_project.c:199
-msgid "Could not create icon file ...\n"
-msgstr "Could not create icon file ...\n"
-
-#: plugins/project-wizard/gnome_project.c:213
-msgid "Locating files ...\n"
-msgstr "Locating files ...\n"
-
-#: plugins/project-wizard/gnome_project.c:235
-msgid "Updating Project ...\n"
-msgstr "Updating Project ...\n"
-
-#: plugins/project-wizard/gnome_project.c:238
-msgid "Running autogen.sh ...\n"
-msgstr "Running autogen.sh ...\n"
-
-#: plugins/project-wizard/gnome_project.c:250
-msgid "App Wizard"
-msgstr "App Wizard"
-
-#: plugins/project-wizard/gnome_project.c:272
-msgid "Auto generation completed...............Unsuccessful\n"
-msgstr "Auto generation completed...............Unsuccessful\n"
-
-#: plugins/project-wizard/gnome_project.c:275
-msgid ""
-"The Project was not successfully auto generated.\n"
-"Please run autogen.sh manually."
-msgstr ""
-"The Project was not successfully auto generated.\n"
-"Please run autogen.sh manually."
-
-#: plugins/project-wizard/gnome_project.c:281
-msgid ""
-"Auto generation completed...............Successful\n"
-"Now Build the Project to have a LOOK at it\n"
-msgstr ""
-"Auto generation completed...............Successful\n"
-"Now Build the Project to have a LOOK at it\n"
-
-#: plugins/project-wizard/gnome_project.c:284
-msgid "Project was successfully auto generated."
-msgstr "Project was successfully auto generated."
-
-#: plugins/project-wizard/wizard_gui.c:98
-msgid "Project Type"
-msgstr "Project Type"
-
-#: plugins/project-wizard/wizard_gui.c:120
-msgid "Select the type of application to be developed"
-msgstr "Select the type of application to be developed"
-
-#: plugins/project-wizard/wizard_gui.c:161
-msgid "Generic/Terminal project"
-msgstr "Generic/Terminal project"
-
-#: plugins/project-wizard/wizard_gui.c:164
-msgid "GTK 2.0 project"
-msgstr "GTK 2.0 project"
-
-#: plugins/project-wizard/wizard_gui.c:167
-msgid "GNOME 2.0 project"
-msgstr "GNOME 2.0 project"
-
-#: plugins/project-wizard/wizard_gui.c:170
-msgid "LibGlade 2.0 project"
-msgstr "LibGlade 2.0 project"
-
-#: plugins/project-wizard/wizard_gui.c:173
-msgid "gtkmm 2.0 project"
-msgstr "gtkmm 2.0 project"
-
-#: plugins/project-wizard/wizard_gui.c:176
-msgid "gnomemm 2.0 project"
-msgstr "gnomemm 2.0 project"
-
-#: plugins/project-wizard/wizard_gui.c:179
-msgid "GNOME 2.0 Bonobo component"
-msgstr "GNOME 2.0 Bonobo component"
-
-#: plugins/project-wizard/wizard_gui.c:182
-msgid "wxWindows project"
-msgstr "wxWindows project"
-
-#: plugins/project-wizard/wizard_gui.c:185
-msgid "Xlib project"
-msgstr "Xlib project"
-
-#: plugins/project-wizard/wizard_gui.c:188
-msgid "X Dock App project"
-msgstr "X Dock App project"
-
-#: plugins/project-wizard/wizard_gui.c:262
+#: plugins/project-wizard/anjuta-project-wizard.glade.h:6
 msgid "Basic Information"
 msgstr "Basic Information"
 
-#: plugins/project-wizard/wizard_gui.c:283
+#: plugins/project-wizard/anjuta-project-wizard.glade.h:7
+msgid "Default project directory"
+msgstr "Default project directory"
+
+#: plugins/project-wizard/anjuta-project-wizard.glade.h:8
+msgid "Destination:"
+msgstr "Destination:"
+
+#: plugins/project-wizard/anjuta-project-wizard.glade.h:9
 msgid "Enter the basic Project information"
 msgstr "Enter the basic Project information"
 
-#: plugins/project-wizard/wizard_gui.c:306
-msgid "Project Version:"
-msgstr "Project Version:"
+#: plugins/project-wizard/anjuta-project-wizard.glade.h:12
+msgid "Project Type"
+msgstr "Project Type"
 
-#: plugins/project-wizard/wizard_gui.c:313
-msgid "Project Author:"
-msgstr "Project Author:"
+#: plugins/project-wizard/anjuta-project-wizard.glade.h:14
+msgid ""
+"The Application Wizard will generate a basic skeleton for a project, "
+"including all of the build files. It will ask for details of the initial "
+"structure for the application. Please answer the questions carefully, as it "
+"may not be possible to change some of the settings later."
+msgstr ""
+"The Application Wizard will generate a basic skeleton for a project, "
+"including all of the build files. It will ask for details of the initial "
+"structure for the application. Please answer the questions carefully, as it "
+"may not be possible to change some of the settings later."
 
-#: plugins/project-wizard/wizard_gui.c:320
-msgid "Project Target:"
-msgstr "Project Target:"
+#: plugins/project-wizard/druid.c:178
+msgid ""
+"Confim the following information:\n"
+"\n"
+msgstr ""
+"Confirm the following information:\n"
+"\n"
 
-#: plugins/project-wizard/wizard_gui.c:351
-msgid "Programming language"
-msgstr "Programming language"
+#: plugins/project-wizard/druid.c:180
+msgid "Project Type: "
+msgstr "Project Type: "
 
-#: plugins/project-wizard/wizard_gui.c:362
-msgid "C"
-msgstr "C"
+#: plugins/project-wizard/druid.c:527
+#, c-format
+msgid "Field \"%s\" is mandatory. Please enter it."
+msgstr "Field \"%s\" is mandatory."
 
-#: plugins/project-wizard/wizard_gui.c:370
-msgid "C++"
-msgstr "C++"
+#: plugins/project-wizard/druid.c:611
+msgid "Unable to build project wizard user interface"
+msgstr "Unable to build project wizard user interface"
 
-#: plugins/project-wizard/wizard_gui.c:379
-msgid "Both C and C++"
-msgstr "Both C and C++"
+#. Create new view
+#: plugins/project-wizard/install.c:181
+msgid "New Project Wizard"
+msgstr "New Project Wizard"
 
-#: plugins/project-wizard/wizard_gui.c:386
-msgid "Target type"
-msgstr "Target type"
+#. All files have been installed
+#: plugins/project-wizard/install.c:300
+msgid "New project has been created successfully"
+msgstr "New project has been created successfully"
 
-#: plugins/project-wizard/wizard_gui.c:402
-msgid "Executable target"
-msgstr "Executable target"
+#: plugins/project-wizard/install.c:366
+#, c-format
+msgid "Copying %s to %s with AutoGen"
+msgstr "Copying %s to %s with AutoGen"
 
-#: plugins/project-wizard/wizard_gui.c:409
-msgid "Static library target"
-msgstr "Static library target"
-
-#: plugins/project-wizard/wizard_gui.c:415
-msgid "Dynamic library target"
-msgstr "Dynamic library target"
-
-#: plugins/project-wizard/wizard_gui.c:491
-msgid "Enter a short description of the Project"
-msgstr "Enter a short description of the Project"
-
-#: plugins/project-wizard/wizard_gui.c:597
-msgid "Enter any additional Project options"
-msgstr "Enter any additional Project options"
-
-#: plugins/project-wizard/wizard_gui.c:614
-msgid " Project Options "
-msgstr " Project Options "
-
-#: plugins/project-wizard/wizard_gui.c:625
-msgid "Include GNU Copyright statement in file headings"
-msgstr "Include GNU Copyright statement in file headings"
-
-#: plugins/project-wizard/wizard_gui.c:632
-msgid "Enable Gettext Support"
-msgstr "Enable Gettext Support"
-
-#: plugins/project-wizard/wizard_gui.c:640
-msgid "Generate source code using glade or glademm"
-msgstr "Generate source code using glade or glademm"
-
-#: plugins/project-wizard/wizard_gui.c:647
-msgid "GNOME Menu Entry"
-msgstr "GNOME Menu Entry"
-
-#: plugins/project-wizard/wizard_gui.c:657
-msgid "Entry name:"
-msgstr "Entry name:"
-
-#: plugins/project-wizard/wizard_gui.c:671
-msgid "Group:"
-msgstr "Group:"
-
-#: plugins/project-wizard/wizard_gui.c:713
-msgid "Needs terminal"
-msgstr "Needs terminal"
+#: plugins/project-wizard/install.c:370
+#, c-format
+msgid "Copying %s to %s"
+msgstr "Copying %s to %s"
 
 #. Action name
 #. Stock icon, if any
+#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.c:62
 #: plugins/sample1/plugin.c:55
 msgid "_Sample action"
 msgstr "_Sample action"
 
 #. Display label
 #. short-cut
+#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.c:64
 #: plugins/sample1/plugin.c:57
 msgid "Sample action"
 msgstr "Sample action"
 
+#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.c:88
 #: plugins/sample1/plugin.c:78
 msgid "Sample file operations"
 msgstr "Sample file operations"
+
+#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.c:100
+msgid "[+PluginClass+] widget"
+msgstr "[+PluginClass+] widget"
 
 #: plugins/sample1/plugin.c:84
 msgid "SamplePlugin"
 msgstr "SamplePlugin"
 
-#: plugins/symbol-browser/an_symbol_view.c:116
+#: plugins/symbol-browser/an_symbol_search.c:677
+msgid "Section"
+msgstr "Section"
+
+#: plugins/symbol-browser/an_symbol_view.c:77
 msgid "Classes"
 msgstr "Classes"
 
-#: plugins/symbol-browser/an_symbol_view.c:117
+#: plugins/symbol-browser/an_symbol_view.c:78
 msgid "Structs"
 msgstr "Structs"
 
-#: plugins/symbol-browser/an_symbol_view.c:119
+#: plugins/symbol-browser/an_symbol_view.c:80
 msgid "Variables"
 msgstr "Variables"
 
-#: plugins/symbol-browser/an_symbol_view.c:120
-msgid "Macros"
-msgstr "Macros"
-
-#: plugins/symbol-browser/an_symbol_view.c:435
-msgid "Symbol"
-msgstr "Symbol"
-
-#: plugins/symbol-browser/plugin.c:173
+#: plugins/symbol-browser/plugin.c:188
 msgid "Tag _Definition"
 msgstr "Tag _Definition"
 
-#: plugins/symbol-browser/plugin.c:175 plugins/symbol-browser/plugin.c:191
+#: plugins/symbol-browser/plugin.c:190 plugins/symbol-browser/plugin.c:206
 msgid "Goto symbol definition"
 msgstr "Go to symbol definition"
 
-#: plugins/symbol-browser/plugin.c:181
+#: plugins/symbol-browser/plugin.c:196
 msgid "Tag De_claration"
 msgstr "Tag De_claration"
 
-#: plugins/symbol-browser/plugin.c:183 plugins/symbol-browser/plugin.c:199
+#: plugins/symbol-browser/plugin.c:198 plugins/symbol-browser/plugin.c:214
 msgid "Goto symbol declaration"
 msgstr "Go to symbol declaration"
 
-#: plugins/symbol-browser/plugin.c:189
+#: plugins/symbol-browser/plugin.c:204
 msgid "Goto _Definition"
 msgstr "Go to _Definition"
 
-#: plugins/symbol-browser/plugin.c:197
+#: plugins/symbol-browser/plugin.c:212
 msgid "Goto De_claration"
 msgstr "Go to De_claration"
 
-#: plugins/symbol-browser/plugin.c:205
+#: plugins/symbol-browser/plugin.c:220
 msgid "_Find Usage"
 msgstr "_Find Usage"
 
-#: plugins/symbol-browser/plugin.c:207
+#: plugins/symbol-browser/plugin.c:222
 msgid "Find usage of symbol in project"
 msgstr "Find usage of symbol in project"
 
-#: plugins/symbol-browser/plugin.c:215
+#: plugins/symbol-browser/plugin.c:230
 msgid "Refresh symbol browser tree"
 msgstr "Refresh symbol browser tree"
 
-#: plugins/symbol-browser/plugin.c:593
+#: plugins/symbol-browser/plugin.c:667
+msgid "Tree"
+msgstr "Tree"
+
+#: plugins/symbol-browser/plugin.c:714
 msgid "Symbol browser popup actions"
 msgstr "Symbol browser popup actions"
 
-#: plugins/symbol-browser/plugin.c:600
+#: plugins/symbol-browser/plugin.c:723
 msgid "Goto symbol"
 msgstr "Go to symbol"
 
-#: plugins/symbol-browser/plugin.c:601
+#: plugins/symbol-browser/plugin.c:724
 msgid "Select the symbol to go"
 msgstr "Select the symbol to go to"
 
-#: plugins/symbol-browser/plugin.c:609
+#: plugins/symbol-browser/plugin.c:732
 msgid "Symbol navigations"
 msgstr "Symbol navigations"
 
-#: plugins/symbol-browser/plugin.c:618
+#: plugins/symbol-browser/plugin.c:741
 msgid "Symbols"
 msgstr "Symbols"
 
@@ -7848,11 +7642,15 @@ msgstr "Unable to build user interface for tool parameters"
 msgid "%s: Command line parameters"
 msgstr "%s: Command line parameters"
 
-#: src/about.c:96
+#: src/about.c:96 src/about.c:107
 msgid "Copyright (c) Naba Kumar"
 msgstr "Copyright (c) Naba Kumar"
 
-#: src/action-callbacks.c:86 src/action-callbacks.c:107 src/shell.c:64
+#: src/about.c:111
+msgid "GNU General Public License"
+msgstr "GNU General Public Licence"
+
+#: src/action-callbacks.c:86 src/action-callbacks.c:107 src/shell.c:65
 msgid "Anjuta Plugins"
 msgstr "Anjuta Plugins"
 
@@ -7864,7 +7662,7 @@ msgstr ""
 "Unable to display help. Please make sure Anjuta documentation package is "
 "install. It can be downloaded from http://anjuta.org"
 
-#: src/anjuta.c:84 src/anjuta_cbs.c:93
+#: src/anjuta.c:86 src/anjuta_cbs.c:93
 msgid ""
 "One or more files are not saved.\n"
 "Do you still want to exit?"
@@ -7872,176 +7670,176 @@ msgstr ""
 "One or more files are not saved.\n"
 "Do you still want to exit?"
 
-#: src/anjuta-actions.h:24 src/shell.c:74
+#: src/anjuta-actions.h:23 src/shell.c:75
 msgid "_File"
 msgstr "_File"
 
-#: src/anjuta-actions.h:25 src/shell.c:82
+#: src/anjuta-actions.h:24 src/shell.c:83
 msgid "_Quit"
 msgstr "_Quit"
 
-#: src/anjuta-actions.h:26
+#: src/anjuta-actions.h:25
 msgid "Quit Anjuta IDE"
 msgstr "Quit Anjuta IDE"
 
-#: src/anjuta-actions.h:36
+#: src/anjuta-actions.h:35
 msgid "_Toolbars"
 msgstr "_Toolbars"
 
-#: src/anjuta-actions.h:41
+#: src/anjuta-actions.h:40
 msgid "_Full Screen"
 msgstr "_Full Screen"
 
-#: src/anjuta-actions.h:42
+#: src/anjuta-actions.h:41
 msgid "Toggle fullscreen mode"
 msgstr "Toggle fullscreen mode"
 
-#: src/anjuta-actions.h:47 src/shell.c:77
+#: src/anjuta-actions.h:46 src/shell.c:78
 msgid "_Settings"
 msgstr "_Settings"
 
-#: src/anjuta-actions.h:49 src/shell.c:90
+#: src/anjuta-actions.h:48 src/shell.c:91
 msgid "_Preferences ..."
 msgstr "_Preferences ..."
 
-#: src/anjuta-actions.h:50
+#: src/anjuta-actions.h:49
 msgid "Do you prefer coffee to tea? Check it out."
 msgstr "Do you prefer coffee to tea? Check it out."
 
-#: src/anjuta-actions.h:53
+#: src/anjuta-actions.h:52
 msgid "Set _Default Preferences"
 msgstr "Set _Default Preferences"
 
-#: src/anjuta-actions.h:54
+#: src/anjuta-actions.h:53
 msgid "But I prefer tea."
 msgstr "But I prefer tea."
 
-#: src/anjuta-actions.h:57 src/shell.c:98
+#: src/anjuta-actions.h:56 src/shell.c:99
 msgid "C_ustomize shortcuts"
 msgstr "C_ustomize shortcuts"
 
-#: src/anjuta-actions.h:58 src/shell.c:100
+#: src/anjuta-actions.h:57 src/shell.c:101
 msgid "Customize shortcuts associated with menu items"
 msgstr "Customize shortcuts associated with menu items"
 
-#: src/anjuta-actions.h:61
+#: src/anjuta-actions.h:60
 msgid "Layout manager"
 msgstr "Layout manager"
 
-#: src/anjuta-actions.h:62
+#: src/anjuta-actions.h:61
 msgid "Manipulate layout manager items"
 msgstr "Manipulate layout manager items"
 
-#: src/anjuta-actions.h:65
+#: src/anjuta-actions.h:64
 msgid "Plugins manager"
 msgstr "Plugins manager"
 
-#: src/anjuta-actions.h:66
+#: src/anjuta-actions.h:65
 msgid "Manipulate plugins manager items"
 msgstr "Manipulate plugins manager items"
 
-#: src/anjuta-actions.h:71 src/shell.c:78
+#: src/anjuta-actions.h:70 src/shell.c:79
 msgid "_Help"
 msgstr "_Help"
 
-#: src/anjuta-actions.h:73
+#: src/anjuta-actions.h:72
 msgid "Browse _Man Pages"
 msgstr "Browse _Man Pages"
 
-#: src/anjuta-actions.h:74
+#: src/anjuta-actions.h:73
 msgid "The good old manual pages"
 msgstr "The good old manual pages"
 
-#: src/anjuta-actions.h:77
+#: src/anjuta-actions.h:76
 msgid "Browse _Info Pages"
 msgstr "Browse _Info Pages"
 
-#: src/anjuta-actions.h:78
+#: src/anjuta-actions.h:77
 msgid "The good info pages"
 msgstr "The good info pages"
 
-#: src/anjuta-actions.h:81
+#: src/anjuta-actions.h:80
 msgid "Anjuta _Home Page"
 msgstr "Anjuta _Home Page"
 
-#: src/anjuta-actions.h:82
+#: src/anjuta-actions.h:81
 msgid "Online documentation and resources"
 msgstr "Online documentation and resources"
 
-#: src/anjuta-actions.h:85
+#: src/anjuta-actions.h:84
 msgid "_Libraries API references"
 msgstr "_Libraries API references"
 
-#: src/anjuta-actions.h:86
+#: src/anjuta-actions.h:85
 msgid "Online reference library for GDK, GLib, GNOME etc.."
 msgstr "Online reference library for GDK, GLib, GNOME etc.."
 
-#: src/anjuta-actions.h:89
+#: src/anjuta-actions.h:88
 msgid "Report _Bugs"
 msgstr "Report _Bugs"
 
-#: src/anjuta-actions.h:90
+#: src/anjuta-actions.h:89
 msgid "Submit a bug report for Anjuta"
 msgstr "Submit a bug report for Anjuta"
 
-#: src/anjuta-actions.h:93
+#: src/anjuta-actions.h:92
 msgid "Request _Features"
 msgstr "Request _Features"
 
-#: src/anjuta-actions.h:94
+#: src/anjuta-actions.h:93
 msgid "Submit a feature request for Anjuta"
 msgstr "Submit a feature request for Anjuta"
 
-#: src/anjuta-actions.h:97
+#: src/anjuta-actions.h:96
 msgid "Submit _patches"
 msgstr "Submit _patches"
 
-#: src/anjuta-actions.h:98
+#: src/anjuta-actions.h:97
 msgid "Submit patches for Anjuta"
 msgstr "Submit patches for Anjuta"
 
-#: src/anjuta-actions.h:101
+#: src/anjuta-actions.h:100
 msgid "Ask a _question"
 msgstr "Ask a _question"
 
-#: src/anjuta-actions.h:102
+#: src/anjuta-actions.h:101
 msgid "Submit a question for FAQs"
 msgstr "Submit a question for FAQs"
 
-#: src/anjuta-actions.h:105
+#: src/anjuta-actions.h:104
 msgid "_About"
 msgstr "_About"
 
-#: src/anjuta-actions.h:106
+#: src/anjuta-actions.h:105
 msgid "About Anjuta"
 msgstr "About Anjuta"
 
-#: src/anjuta-app.c:300
+#: src/anjuta-app.c:271
 msgid "Toggle View"
 msgstr "Toggle View"
 
-#: src/anjuta-app.c:421 src/shell.c:212
+#: src/anjuta-app.c:379 src/shell.c:213
 msgid "Value doesn't exist"
 msgstr "Value doesn't exist"
 
-#: src/anjuta-app.c:933
+#: src/anjuta-app.c:900
 #, c-format
 msgid "# * DO NOT EDIT OR RENAME THIS FILE ** Generated by Anjuta **\n"
 msgstr "# * DO NOT EDIT OR RENAME THIS FILE ** Generated by Anjuta **\n"
 
-#: src/anjuta-app.c:1189
+#: src/anjuta-app.c:1156
 msgid "Looking up symbol"
 msgstr "Looking up symbol"
 
-#: src/anjuta-app.c:1191
+#: src/anjuta-app.c:1158
 msgid "Finding in Files ....\n"
 msgstr "Finding in Files ....\n"
 
-#: src/anjuta-callbacks.c:227 src/anjuta_cbs.c:466
+#: src/anjuta-callbacks.c:48 src/anjuta_cbs.c:466
 msgid "Could not open file for writing"
 msgstr "Could not open file for writing"
 
-#: src/anjuta-callbacks.c:251 src/anjuta_cbs.c:490
+#: src/anjuta-callbacks.c:72 src/anjuta_cbs.c:490
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -8069,16 +7867,6 @@ msgstr "Information"
 #: src/controls.c:210
 msgid "No tags"
 msgstr "No tags"
-
-#: src/dnd.c:104
-#, c-format
-msgid "File %s is not local."
-msgstr "File %s is not local."
-
-#: src/dnd.c:112
-#, c-format
-msgid "Invalid filename %s."
-msgstr "Invalid filename %s."
 
 #: src/glade_iface.c:69
 msgid ""
@@ -8128,19 +7916,19 @@ msgstr "launcher.c: PTY pipe error!"
 msgid "Cannot execute command shell"
 msgstr "Cannot execute command shell"
 
-#: src/main.c:52 src/main.cpp:51
+#: src/main.c:55 src/main.cpp:51
 msgid "Specify the size and location of the main window"
 msgstr "Specify the size and location of the main window"
 
-#: src/main.c:53 src/main.cpp:52
+#: src/main.c:56 src/main.cpp:52
 msgid "WIDTHxHEIGHT+XOFF+YOFF"
 msgstr "WIDTHxHEIGHT+XOFF+YOFF"
 
-#: src/main.c:58 src/main.cpp:57
+#: src/main.c:61 src/main.cpp:57
 msgid "Do not show the splashscreen"
 msgstr "Do not show the splashscreen"
 
-#: src/main.c:64
+#: src/main.c:67
 msgid "Shutdown anjuta properly releasing all resources (for debugging)"
 msgstr "Shutdown anjuta properly releasing all resources (for debugging)"
 
@@ -8152,19 +7940,19 @@ msgstr "The executable is not up-to-date."
 msgid "Debugger is not running. Start it first."
 msgstr "Debugger is not running. Start it first."
 
-#: src/shell.c:84
+#: src/shell.c:85
 msgid "Quit Anjuta Test Shell"
 msgstr "Quit Anjuta Test Shell"
 
-#: src/shell.c:92
+#: src/shell.c:93
 msgid "Preferences"
 msgstr "Preferences"
 
-#: src/shell.c:163
+#: src/shell.c:164
 msgid "Test shell action group"
 msgstr "Test shell action group"
 
-#: src/shell.c:414
+#: src/shell.c:415
 msgid "Anjuta test shell"
 msgstr "Anjuta test shell"
 
