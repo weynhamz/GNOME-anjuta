@@ -24,6 +24,7 @@ Todo List:
 	o Use GtkHTML if available to browse online documentation/manuals
 	o easy (S)RPMS & Debian packages build
 	  (assistant and/or edit the spec or debian dir)
+	o embedding a zvt term
 
 	o > When the windows are docked, and we resize the main window of Anjuta, 
 	  > the docked window doesn't move with the resize.  As an example, I had 

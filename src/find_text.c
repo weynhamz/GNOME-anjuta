@@ -125,6 +125,7 @@ find_text_show (FindText * ft)
 	if (ft->is_showing)
 	{
 		gdk_window_raise (ft->f_gui.GUI->window);
+
 		return;
 	}
 	gtk_widget_set_uposition (ft->f_gui.GUI, ft->pos_x, ft->pos_y);
