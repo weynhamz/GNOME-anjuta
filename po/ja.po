@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjyuta 0.1.10-pre\n"
 "POT-Creation-Date: 2002-04-15 13:09+0900\n"
-"PO-Revision-Date: 2002-04-15 12:51+0900\n"
+"PO-Revision-Date: 2002-04-15 21:51+0900\n"
 "Last-Translator: Takeshi Aihana <aihana@gnome.gr.jp>\n"
 "Language-Team: Japanese <translation@gnome.gr.jp>\n"
 "MIME-Version: 1.0\n"
@@ -571,7 +571,7 @@ msgstr "パス"
 
 #: src/breakpoints_gui.c:113
 msgid "Condition"
-msgstr "状態"
+msgstr "条件"
 
 #: src/breakpoints_gui.c:125 src/compiler_options_gui.c:351
 #: src/compiler_options_gui.c:469 src/compiler_options_gui.c:623
@@ -618,7 +618,7 @@ msgstr "場所:"
 
 #: src/breakpoints_gui.c:312 src/breakpoints_gui.c:449
 msgid "Condition:"
-msgstr "状態:"
+msgstr "条件:"
 
 #: src/breakpoints_gui.c:319 src/breakpoints_gui.c:456 src/signals_gui.c:254
 msgid "Pass:"
@@ -3198,7 +3198,7 @@ msgstr "プログラムの実行を続行します"
 #. 1
 #: src/main_menubar_def.h:1129
 msgid "Step _In"
-msgstr "ステップ(_I)"
+msgstr "ステップイン(_I)"
 
 #: src/main_menubar_def.h:1130
 msgid "Single step into function"
