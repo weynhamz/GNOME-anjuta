@@ -1,3 +1,9 @@
+Anjuta 1.0.1:		(xth June 2002)			-- Naba Kumar
+
+Bug fix: Printing now takes editor default fonts
+Bug fix: Rpm package fix
+Bug fix: ChangeLog insert uses spaces (instead of tabs)
+
 Anjuta 1.0-beta1:	(1st August 2002)			-- Andy Piper
 
    => Release of Anjuta-1.0-beta1 (beta)

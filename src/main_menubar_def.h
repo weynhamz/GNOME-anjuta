@@ -1761,7 +1761,7 @@ static GnomeUIInfo help1_menu_uiinfo[NUM_HELP_SUBMENUS+1] = {
 	{/*9*/
 	 GNOME_APP_UI_ITEM, N_("Anjuta Home Page"),
 	 N_("Online documentation and resources"),
-	 on_url_activate, "http://anjuta.sourceforge.net", NULL,
+	 on_url_activate, "http://anjuta.org", NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	GNOMEUIINFO_SEPARATOR,/*10*/

@@ -80,6 +80,7 @@ anjuta_print_job_info_style_init (PrintJobInfoStyle *pis, PropsID prop,
 	
 	style_key = g_strdup_printf ("style.%s.%0d", lang, style);
 	style_string = prop_get_expanded (prop, style_key);
+	g_free (style_key);
 	if (!style_string) return;
 	
 	val = g_strdup(style_string);
@@ -149,6 +150,12 @@ anjuta_print_job_info_style_new (PropsID prop, gchar* lang,
 	pis->italics = FALSE;
 	pis->size = AN_PRINT_FONT_SIZE_BODY_DEFAULT;
 	
+	/* Set default style first */
+	anjuta_print_job_info_style_init (pis, prop, "*", 32);
+	if (lang && strlen(lang) > 0) {
+		anjuta_print_job_info_style_init (pis, prop, lang, 32);
+	}
+	/* Then the specific style */
 	anjuta_print_job_info_style_init (pis, prop, "*", style);
 	if (lang && strlen(lang) > 0) {
 		anjuta_print_job_info_style_init (pis, prop, lang, style);

@@ -58,7 +58,7 @@ static const char *text[] = {
 	"",
 	N_("Brought to you by"),
 	"",
-	"Naba Kumar <kh_naba@users.sourceforge.net>",
+	"Naba Kumar <naba@gnome.org>",
 	"Stéphane Démurget <demurgets@free.fr>",
 	"Andy Piper <andy.piper@freeuk.com>",
 	"Hector Rivera Falu <misha@phreaker.net>", 

@@ -1,3 +1,16 @@
+2002-11-13  Naba Kumar <naba@gnome.org>
+
+	* printing/print.c: Fixed a leak and bug #634819 (print/preview does not
+	take default editor font).
+	
+	* widgets/e-shell-about-box.c, src/main_menubar_def.h:
+	Corrected email address.
+	
+	* src/mainmenu_callbacks.c: Used spaces instead of tabs
+	for changelog entry.
+
+	* NEWS: Updated.
+	
 2002-11-06  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
 	* plugins/class-gen/clsGen.c: Refined the class generator a bit.
 

@@ -498,7 +498,7 @@ insert_changelog_entry(void)
 
 	Username =  insert_name();
 	email = insert_email();
-	sprintf(CLEntry,"%s\t%s\t<%s>\n", datetime, Username, email);
+	sprintf(CLEntry,"%s  %s <%s>\n", datetime, Username, email);
 	g_free(email);
   	
 	return  CLEntry;
