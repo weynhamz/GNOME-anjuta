@@ -6,13 +6,14 @@
 # Francisco Javier Fernandez <serrador@arrakis.es>,2003
 # Javier Conde Rueda <f3285740@est.fib.upc.es>, 2003.
 # Francisco Javier F. Serrador <serrador@arrakis.es>, 2003
+# Francisco Javier Fernández <serrador@arrakis.es>, 2003
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.ANJUTA_1_2_0.es\n"
-"POT-Creation-Date: 2003-05-24 03:38+0200\n"
-"PO-Revision-Date: 2003-05-24 14:01+0000\n"
-"Last-Translator: Francisco Javier F. Serrador <serrador@arrakis.es>\n"
+"POT-Creation-Date: 2003-05-28 19:55+0200\n"
+"PO-Revision-Date: 2003-05-28 22:50+0000\n"
+"Last-Translator: Francisco Javier Fernández <serrador@arrakis.es>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
@@ -52,18 +53,18 @@ msgstr ""
 "Copyright © Naba Kumar\n"
 "\n"
 "Este programa es software libre, puede redistribuirlo y/o modificarlo bajo "
-"los términos de la Licencia Pública generla GNU tal como se publica por "
-"la Free Software Foundation; tanto en la versión 2 de la Licencia, o (a su opción) "
-"cualquier otra versión posterior. \n"
+"los términos de la Licencia Pública generla GNU tal como se publica por la "
+"Free Software Foundation; tanto en la versión 2 de la Licencia, o (a su "
+"opción) cualquier otra versión posterior. \n"
 "\n"
 "Este programa se distribuye con la esperanza de que le sea útil, pero SIN "
 "NINGUNA GARANTÍA, sin incluso la garantía implicita de MERCANTILIDAD O "
-"ADECUACIÓN PARA  UN PROPOSITO PARTICULAR. Vea la Licencia Pública "
-"General GNU para más detalles.\n"
+"ADECUACIÓN PARA  UN PROPOSITO PARTICULAR. Vea la Licencia Pública General "
+"GNU para más detalles.\n"
 "\n"
-"Debería haber recibido una copia de la Licencia Pública General GNU junto con "
-"este programa; si no, escriba a la Free Software Foundation, Inc., 59 Temple "
-"Place, Suite 330, Boston, MA 02111-1307 USA \n"
+"Debería haber recibido una copia de la Licencia Pública General GNU junto "
+"con este programa; si no, escriba a la Free Software Foundation, Inc., 59 "
+"Temple Place, Suite 330, Boston, MA 02111-1307 USA \n"
 
 #: anjuta.glade.h:11 anjuta_dialogs_strings.c:25 anjuta_dialogs_strings.c:35
 msgid "    "
@@ -1170,8 +1171,8 @@ msgstr "Opciones de impresión"
 msgid "Programs"
 msgstr "Programas"
 
-#: anjuta.glade.h:260 anjuta_dialogs_strings.c:235 src/project_dbase_gui.c:599
-#: src/project_dbase_gui.c:616 src/toolbar.c:148
+#: anjuta.glade.h:260 anjuta_dialogs_strings.c:235 src/project_dbase_gui.c:610
+#: src/project_dbase_gui.c:627 src/toolbar.c:148
 msgid "Project"
 msgstr "Proyecto"
 
@@ -1582,7 +1583,7 @@ msgstr "Nombre de usuario:"
 msgid "Variable list"
 msgstr "Lista de variables"
 
-#: anjuta.glade.h:356 anjuta_dialogs_strings.c:187 src/project_dbase_gui.c:921
+#: anjuta.glade.h:356 anjuta_dialogs_strings.c:187 src/project_dbase_gui.c:932
 msgid "Version:"
 msgstr "Versión:"
 
@@ -1750,7 +1751,9 @@ msgstr "Redimensionable"
 
 #: gdl/gdl-dock-item.c:259
 msgid "If set, the dock item can be resized when docked in a paned"
-msgstr "Si se establece, el elemento empotrable puede ser redimensionado cuando está empotrado en un panel"
+msgstr ""
+"Si se establece, el elemento empotrable puede ser redimensionado cuando está "
+"empotrado en un panel"
 
 #: gdl/gdl-dock-item.c:266
 msgid "Item behavior"
@@ -1760,7 +1763,9 @@ msgstr "Comportamiento del elemento"
 msgid ""
 "General behavior for the dock item (i.e. whether it can float, if it's "
 "locked, etc.)"
-msgstr "Comportamiento general para el elemento empotrable ( si puede flotar, si está bloqueado, etc)"
+msgstr ""
+"Comportamiento general para el elemento empotrable ( si puede flotar, si "
+"está bloqueado, etc)"
 
 #: gdl/gdl-dock-item.c:275
 msgid "Grip size"
@@ -1776,7 +1781,9 @@ msgstr "Bloqueado"
 
 #: gdl/gdl-dock-item.c:283
 msgid "If set, the dock item cannot be dragged around and it doesn't show a grip"
-msgstr "Si se establece, el elemento empotrable no puede arrastrarse y no muestra un tirador"
+msgstr ""
+"Si se establece, el elemento empotrable no puede arrastrarse y no muestra un "
+"tirador"
 
 #: gdl/gdl-dock-item.c:291
 msgid "Preferred width"
@@ -1800,8 +1807,8 @@ msgid ""
 "You can't add a dock object (%p of type %s) inside a %s. Use a GdlDock or "
 "some other compound dock object."
 msgstr ""
-"No puede añadir un objeto empotrable (%p de tipo %s) dentro de un %s. Use un GdlDock o "
-"algún otro objeto empotrable compuesto."
+"No puede añadir un objeto empotrable (%p de tipo %s) dentro de un %s. Use un "
+"GdlDock o algún otro objeto empotrable compuesto."
 
 #: gdl/gdl-dock-item.c:553
 #, c-format
@@ -1809,8 +1816,8 @@ msgid ""
 "Attempting to add a widget with type %s to a %s, but it can only contain one "
 "widget at a time; it already contains a widget of type %s"
 msgstr ""
-"Intentando añadir un widget con tipo %s a un %s, pero éste sólo puede contener un "
-"widget a la vez; ya contiene un widget de tipo %s"
+"Intentando añadir un widget con tipo %s a un %s, pero éste sólo puede "
+"contener un widget a la vez; ya contiene un widget de tipo %s"
 
 #: gdl/gdl-dock-item.c:1149
 #, c-format
@@ -1846,7 +1853,9 @@ msgstr "Modificado"
 
 #: gdl/gdl-dock-layout.c:134
 msgid "True if the layouts have changed and need to be saved to a file"
-msgstr "Verdadero si los esquemas se han cambiado y necesitan ser guardados en un archivo"
+msgstr ""
+"Verdadero si los esquemas se han cambiado y necesitan ser guardados en un "
+"archivo"
 
 #: gdl/gdl-dock-layout.c:447
 msgid "You must provide a name for the layout"
@@ -1867,7 +1876,7 @@ msgid "Item"
 msgstr "Elemento"
 
 #: gdl/gdl-dock-layout.c:737 gdl/gdl-dock-object.c:120
-#: src/compiler_options.c:741 src/windows-dialog.c:294
+#: src/compiler_options.c:745 src/windows-dialog.c:294
 msgid "Name"
 msgstr "Nombre"
 
@@ -1884,7 +1893,9 @@ msgstr "Esquemas guardados"
 msgid ""
 "While loading layout: don't know how to create a dock object whose nick is '%"
 "s'"
-msgstr "Al cargar una disposición: no se sabe cómo crear un objeto empotrable cuyo nick es '%s'"
+msgstr ""
+"Al cargar una disposición: no se sabe cómo crear un objeto empotrable cuyo "
+"nick es '%s'"
 
 #: gdl/gdl-dock-layout.c:1303
 msgid "Layout managment"
@@ -1903,15 +1914,18 @@ msgid ""
 "If is set to 1, all the dock items bound to the master are locked; if it's "
 "0, all are unlocked; -1 indicates inconsistency among the items"
 msgstr ""
-"Si se establece a 1, todos los elementos empotrables vinculados al dueño se bloquean; "
-"si se establece a 0, se desbloquean; -1 indica inconsistencia entre los elementos"
+"Si se establece a 1, todos los elementos empotrables vinculados al dueño se "
+"bloquean; si se establece a 0, se desbloquean; -1 indica inconsistencia "
+"entre los elementos"
 
 #: gdl/gdl-dock-master.c:736
 #, c-format
 msgid ""
 "master %p: unable to add object %p[%s] to the hash.  There already is an "
 "item with that name (%p)."
-msgstr "Dueño %p: no se puede añadir objeto %p[%s] al hash. Ya hay un elemento con ese nombre (%p)."
+msgstr ""
+"Dueño %p: no se puede añadir objeto %p[%s] al hash. Ya hay un elemento con "
+"ese nombre (%p)."
 
 #: gdl/gdl-dock-master.c:906
 #, c-format
@@ -1919,8 +1933,8 @@ msgid ""
 "The new dock controller %p is automatic.  Only manual dock objects should be "
 "named controller."
 msgstr ""
-"El controlador de empotrado nuevo %p es automático. Sólo los objetos empotrables manualmente "
-"deberían tener controlador."
+"El controlador de empotrado nuevo %p es automático. Sólo los objetos "
+"empotrables manualmente deberían tener controlador."
 
 #: gdl/gdl-dock-notebook.c:134
 msgid "Page"
@@ -1956,15 +1970,17 @@ msgid ""
 "Call to gdl_dock_object_dock in a dock object %p (object type is %s) which "
 "hasn't implemented this method"
 msgstr ""
-"La llamada a gdl_dock_object_doc en un objeto empotrado %p (tipo de objeto %s) que "
-"no tiene este método implementado"
+"La llamada a gdl_dock_object_doc en un objeto empotrado %p (tipo de objeto %"
+"s) que no tiene este método implementado"
 
 #: gdl/gdl-dock-object.c:534
 #, c-format
 msgid ""
 "Dock operation requested in a non-bound object %p. The application might "
 "crash"
-msgstr "Operación de empotrado solicitada en un objeto no vinculado %p. La aplicación quizá falle"
+msgstr ""
+"Operación de empotrado solicitada en un objeto no vinculado %p. La "
+"aplicación quizá falle"
 
 #: gdl/gdl-dock-object.c:541
 #, c-format
@@ -1974,7 +1990,9 @@ msgstr "no se puede empotrar %p a %p porque pertenecen a diferentes dueños"
 #: gdl/gdl-dock-object.c:583
 #, c-format
 msgid "Attempt to bind to %p an already bound dock object %p (current master: %p)"
-msgstr "Se intentó vincular a %p un objeto empotrable ya vinculado %p (dueño actual : %p)"
+msgstr ""
+"Se intentó vincular a %p un objeto empotrable ya vinculado %p (dueño "
+"actual : %p)"
 
 #: gdl/gdl-dock-paned.c:134
 msgid "Position"
@@ -1992,7 +2010,9 @@ msgstr "Adhesivos"
 msgid ""
 "Whether the placeholder will stick to its host or move up the hierarchy when "
 "the host is redocked"
-msgstr "Indica si el contenedor se ceñirá a su anfitrión o subirá por la jerarquía cuando el anfitrión sea reempotrado"
+msgstr ""
+"Indica si el contenedor se ceñirá a su anfitrión o subirá por la jerarquía "
+"cuando el anfitrión sea reempotrado"
 
 #: gdl/gdl-dock-placeholder.c:135
 msgid "Host"
@@ -2011,8 +2031,8 @@ msgid ""
 "The position an item will be docked to our host if a request is made to dock "
 "to us"
 msgstr ""
-"La posición en que un elemento será empotrado en nuestro anfitrión si se realiza una petición para "
-"empotrarse con nosotros"
+"La posición en que un elemento será empotrado en nuestro anfitrión si se "
+"realiza una petición para empotrarse con nosotros"
 
 #: gdl/gdl-dock-placeholder.c:305
 msgid "Attempt to dock a dock object to an unbound placeholder"
@@ -2021,14 +2041,18 @@ msgstr "Se intentó empotrar un objeto empotrable en un contenedor no vinculado"
 #: gdl/gdl-dock-placeholder.c:419
 #, c-format
 msgid "Got a detach signal from an object (%p) who is not our host %p"
-msgstr "Se obtuvo una señal de desacoplar de un objeto (%p) que no es nuestro hospedador %p"
+msgstr ""
+"Se obtuvo una señal de desacoplar de un objeto (%p) que no es nuestro "
+"hospedador %p"
 
 #: gdl/gdl-dock-placeholder.c:440
 #, c-format
 msgid ""
 "Something weird happened while getting the child placement for %p from "
 "parent %p"
-msgstr "Algo extraño ha ocurrido al obtener la ubicación del hijo para %p desde el padre %p"
+msgstr ""
+"Algo extraño ha ocurrido al obtener la ubicación del hijo para %p desde el "
+"padre %p"
 
 #: gdl/gdl-dock-tablabel.c:130
 msgid "Controlling dock item"
@@ -2134,7 +2158,7 @@ msgstr "Creador de clases"
 #. 13
 #. 14
 #: plugins/class-gen/clsGen.c:1343 src/main_menubar_def.h:1002
-#: src/project_dbase_gui.c:358 src/registers_gui.c:55 src/sharedlib_gui.c:48
+#: src/project_dbase_gui.c:367 src/registers_gui.c:55 src/sharedlib_gui.c:48
 #: src/signals_gui.c:62 src/stack_trace_gui.c:75 src/toolbar.c:158
 #: src/watch_gui.c:76
 msgid "Help"
@@ -2215,8 +2239,8 @@ msgid ""
 "If checked, the plugin will generate both the declaration and implementation "
 "in the header file and will not create a source file."
 msgstr ""
-"Si está marcado, el extensión generará ambas declaraciones e implementaciones "
-"en el archivo cabecera y no creará un archivo fuente."
+"Si está marcado, el extensión generará ambas declaraciones e "
+"implementaciones en el archivo cabecera y no creará un archivo fuente."
 
 #: plugins/class-gen/clsGen.c:1548
 msgid "By:  Dave Huseby <huseby@linuxprogrammer.org>"
@@ -2491,13 +2515,13 @@ msgstr "Crear un archivo de diferencias entre la copia de trabajo y el repositor
 
 #. 0
 #: src/an_file_view.c:400 src/main_menubar_def.h:950
-#: src/project_dbase_gui.c:326
+#: src/project_dbase_gui.c:335
 msgid "Open in Anjuta"
 msgstr "Abrir en Anjuta"
 
 #. 1
 #: src/an_file_view.c:407 src/main_menubar_def.h:944
-#: src/project_dbase_gui.c:320
+#: src/project_dbase_gui.c:329
 msgid "Open in default viewer"
 msgstr "Ver en visualizador predeterminado"
 
@@ -2509,7 +2533,7 @@ msgstr "Recargar"
 #. 4
 #. 5
 #: src/an_file_view.c:429 src/an_symbol_view.c:309 src/main_menubar_def.h:976
-#: src/message-manager.cc:134 src/project_dbase_gui.c:352
+#: src/message-manager.cc:134 src/project_dbase_gui.c:361
 #: src/text_editor_menu.c:355
 msgid "Docked"
 msgstr "Empotrado"
@@ -2566,6 +2590,118 @@ msgstr "Buscar uso"
 msgid "Symbol"
 msgstr "Símbolos"
 
+#: src/anjuta-encodings.c:127 src/anjuta-encodings.c:153
+#: src/anjuta-encodings.c:194 src/anjuta-encodings.c:235
+msgid "Western"
+msgstr "Occidental"
+
+#: src/anjuta-encodings.c:129 src/anjuta-encodings.c:196
+#: src/anjuta-encodings.c:231
+msgid "Central European"
+msgstr "Centroeuropeo"
+
+#: src/anjuta-encodings.c:131
+msgid "South European"
+msgstr "Sur de europa"
+
+#: src/anjuta-encodings.c:133 src/anjuta-encodings.c:149
+#: src/anjuta-encodings.c:245
+msgid "Baltic"
+msgstr "Báltico"
+
+#: src/anjuta-encodings.c:135 src/anjuta-encodings.c:198
+#: src/anjuta-encodings.c:211 src/anjuta-encodings.c:215
+#: src/anjuta-encodings.c:233
+msgid "Cyrillic"
+msgstr "Cirílico"
+
+#: src/anjuta-encodings.c:137 src/anjuta-encodings.c:204
+#: src/anjuta-encodings.c:243
+msgid "Arabic"
+msgstr "Árabe"
+
+#: src/anjuta-encodings.c:139 src/anjuta-encodings.c:237
+#: src/project_dbase_gui.c:1142
+msgid "Greek"
+msgstr "Griego"
+
+#: src/anjuta-encodings.c:141
+msgid "Hebrew Visual"
+msgstr "Hebreo visual"
+
+#: src/anjuta-encodings.c:143 src/anjuta-encodings.c:202
+#: src/anjuta-encodings.c:241
+msgid "Hebrew"
+msgstr "Hebreo"
+
+#: src/anjuta-encodings.c:145 src/anjuta-encodings.c:200
+#: src/anjuta-encodings.c:239 src/project_dbase_gui.c:1162
+msgid "Turkish"
+msgstr "Turco"
+
+#: src/anjuta-encodings.c:147
+msgid "Nordic"
+msgstr "Nórdico"
+
+#: src/anjuta-encodings.c:151
+msgid "Celtic"
+msgstr "Celta"
+
+#: src/anjuta-encodings.c:155 src/project_dbase_gui.c:1159
+msgid "Romanian"
+msgstr "Rumano"
+
+#: src/anjuta-encodings.c:158 src/anjuta-encodings.c:160
+#: src/anjuta-encodings.c:162 src/anjuta-encodings.c:164
+msgid "Unicode"
+msgstr "Unicode"
+
+#: src/anjuta-encodings.c:167
+msgid "Armenian"
+msgstr "Armenio"
+
+#: src/anjuta-encodings.c:169 src/anjuta-encodings.c:171
+#: src/anjuta-encodings.c:180
+msgid "Chinese Traditional"
+msgstr "Chino tradicional"
+
+#: src/anjuta-encodings.c:173
+msgid "Cyrillic/Russian"
+msgstr "Cirílico/Ruso"
+
+#: src/anjuta-encodings.c:176 src/anjuta-encodings.c:207
+#: src/anjuta-encodings.c:220
+msgid "Japanese"
+msgstr "Japonés"
+
+#: src/anjuta-encodings.c:178 src/anjuta-encodings.c:209
+#: src/anjuta-encodings.c:213 src/anjuta-encodings.c:226
+#: src/project_dbase_gui.c:1153
+msgid "Korean"
+msgstr "Coreano"
+
+#: src/anjuta-encodings.c:183 src/anjuta-encodings.c:185
+#: src/anjuta-encodings.c:187 src/anjuta-encodings.c:191
+msgid "Chinese Simplified"
+msgstr "Chino simplificado"
+
+#: src/anjuta-encodings.c:189
+msgid "Georgian"
+msgstr "Georgiano"
+
+#: src/anjuta-encodings.c:217
+msgid "Cyrillic/Ukrainian"
+msgstr "Cirílico/Ucraniano"
+
+#: src/anjuta-encodings.c:222 src/anjuta-encodings.c:228
+#: src/anjuta-encodings.c:247
+msgid "Vietnamese"
+msgstr "Vietnamita"
+
+#: src/anjuta-encodings.c:224
+msgid "Thai"
+msgstr "Tailandés"
+
 #: src/anjuta-plugins.c:115 src/anjuta-plugins.c:118
 #, c-format
 msgid "Unable to load plugin %s. Error: %s"
@@ -2609,47 +2745,47 @@ msgstr "No se pudo compilar el interfaz de usuario para el editor de herramienta
 
 #: src/anjuta-tools.c:1359
 #, c-format
-msgid "Are you sure you want to delete tool '%s'"
+msgid "Are you sure you want to delete the '%s' tool?"
 msgstr "¿Está seguro de querer borrar la herramienta «%s»?"
 
-#: src/anjuta-tools.c:1457
+#: src/anjuta-tools.c:1461
 msgid "You must provide a tool name!"
 msgstr "Debe proporcionar un nombre de herramienta."
 
-#: src/anjuta-tools.c:1463
+#: src/anjuta-tools.c:1467
 msgid "You must provide a tool command!"
 msgstr "Debe proporcionar un comando de herramienta."
 
-#: src/anjuta-tools.c:1478
+#: src/anjuta-tools.c:1482
 #, c-format
 msgid "A tool with the name '%s' already exists!"
 msgstr "Ya existe una herramienta con el nombre «%s»"
 
-#: src/anjuta-tools.c:1762
+#: src/anjuta-tools.c:1766
 msgid "Unable to build user interface for tool help"
 msgstr "No se puede construir el interfaz de usuario para la ayuda de herramienta"
 
-#: src/anjuta-tools.c:1777 src/debug_tree.c:1458 src/debug_tree.c:1478
+#: src/anjuta-tools.c:1781 src/debug_tree.c:1458 src/debug_tree.c:1478
 #: src/watch_gui.c:130
 msgid "Variable"
 msgstr "Variable"
 
-#: src/anjuta-tools.c:1783
+#: src/anjuta-tools.c:1787
 msgid "Meaning"
 msgstr "Significado"
 
-#: src/anjuta-tools.c:1789 src/debug_tree.c:1458 src/debug_tree.c:1487
+#: src/anjuta-tools.c:1793 src/debug_tree.c:1458 src/debug_tree.c:1487
 #: src/watch_gui.c:139
 msgid "Value"
 msgstr "Valor"
 
-#: src/anjuta-tools.c:1852
+#: src/anjuta-tools.c:1856
 msgid "Unable to build user interface for tool parameters"
 msgstr ""
 "No se pudo construir el interfaz de usuario para los parámetros de "
 "herramienta"
 
-#: src/anjuta-tools.c:1856
+#: src/anjuta-tools.c:1860
 #, c-format
 msgid "%s: Command line parameters"
 msgstr "%s: Parámetros del línea de comando"
@@ -2669,46 +2805,46 @@ msgstr "Abrir Archivo"
 msgid "Save File As"
 msgstr "Guardar Archivo Como"
 
-#: src/anjuta.c:253
+#: src/anjuta.c:255
 msgid "Cannot create application... exiting\n"
 msgstr "No puedo crear aplicación...terminando\n"
 
-#: src/anjuta.c:303 src/anjuta.c:307 src/anjuta.c:1128 src/anjuta.c:1144
+#: src/anjuta.c:305 src/anjuta.c:309 src/anjuta.c:1130 src/anjuta.c:1146
 #, c-format
 msgid "Anjuta: %s"
 msgstr "Anjuta: %s"
 
-#: src/anjuta.c:364
+#: src/anjuta.c:366
 msgid "Recent Files "
 msgstr "Archivos Recientes"
 
-#: src/anjuta.c:917
+#: src/anjuta.c:919
 msgid "# * DO NOT EDIT OR RENAME THIS FILE ** Generated by Anjuta **\n"
 msgstr "# * NO EDITE O RENOMBRE ESTE ARCHIVO ** Generado por Anjuta **\n"
 
-#: src/anjuta.c:1093
+#: src/anjuta.c:1095
 msgid "All files saved ..."
 msgstr "Guardados todos los archivos ..."
 
-#: src/anjuta.c:1121
+#: src/anjuta.c:1123
 #, c-format
 msgid "Anjuta: %s (Saved)"
 msgstr "Anjuta: %s (Guardado)"
 
-#: src/anjuta.c:1136
+#: src/anjuta.c:1138
 #, c-format
 msgid "Anjuta: %s (Unsaved)"
 msgstr "Anjuta: %s (Sin Guardar)"
 
-#: src/anjuta.c:1161
+#: src/anjuta.c:1163
 msgid "Anjuta: No file"
 msgstr "Anjuta: No hay archivo"
 
-#: src/anjuta.c:1481 src/anjuta.c:1557
+#: src/anjuta.c:1484 src/anjuta.c:1561
 msgid "ERROR: "
 msgstr "ERROR: "
 
-#: src/anjuta.c:1502 src/anjuta.c:1575
+#: src/anjuta.c:1505 src/anjuta.c:1579
 msgid ""
 "\n"
 "System: "
@@ -2716,7 +2852,7 @@ msgstr ""
 "\n"
 "Sistema: "
 
-#: src/anjuta.c:2047
+#: src/anjuta.c:2052
 #, c-format
 msgid ""
 "The \"%s\" utility is not installed.\n"
@@ -2725,35 +2861,35 @@ msgstr ""
 "La utilidad «%s» no está instalada en su computadora.\n"
 "Instálelo y reinicie Anjuta."
 
-#: src/anjuta.c:2073 src/anjuta.c:2129
+#: src/anjuta.c:2078 src/anjuta.c:2134
 msgid "None"
 msgstr "Ninguno"
 
-#: src/anjuta.c:2084
+#: src/anjuta.c:2089
 msgid "DOS (CRLF)"
 msgstr "DOS (CRLF)"
 
-#: src/anjuta.c:2087 src/anjuta.c:2121
+#: src/anjuta.c:2092 src/anjuta.c:2126
 msgid "Unix (LF)"
 msgstr "Unix (LF)"
 
-#: src/anjuta.c:2090
+#: src/anjuta.c:2095
 msgid "Mac (CR)"
 msgstr "Mac (CR)"
 
-#: src/anjuta.c:2093
+#: src/anjuta.c:2098
 msgid "Unknown"
 msgstr "Desconocido"
 
-#: src/anjuta.c:2110
+#: src/anjuta.c:2115
 msgid "OVR"
 msgstr "OVR"
 
-#: src/anjuta.c:2114 src/anjuta.c:2120
+#: src/anjuta.c:2119 src/anjuta.c:2125
 msgid "INS"
 msgstr "INS"
 
-#: src/anjuta.c:2132
+#: src/anjuta.c:2137
 #, c-format
 msgid ""
 "  Project: %s       Zoom: %d       Line: %04d       Col: %03d       %s       "
@@ -2762,11 +2898,11 @@ msgstr ""
 "  Proyecto: %s       Zoom: %d       Linea: %04d       Col: %03d       %"
 "s       Tarea: %s       Modo: %s"
 
-#: src/anjuta.c:2369
+#: src/anjuta.c:2374
 msgid "Looking up symbol"
 msgstr "Buscando símbolo"
 
-#: src/anjuta.c:2371 src/find_in_files.c:306
+#: src/anjuta.c:2376 src/find_in_files.c:306
 msgid "Finding in Files ....\n"
 msgstr "Buscando en Archivos ...\n"
 
@@ -2778,17 +2914,24 @@ msgstr ""
 "Algunos archivos (o el proyecto) no han sido guardados.\n"
 "¿Desea terminar?"
 
-#: src/anjuta_cbs.c:405 src/project_dbase_gui.c:1348
+#: src/anjuta_cbs.c:504
 #, c-format
-msgid "Not a regular file: %s."
-msgstr "El archivo no es válido: %s."
+msgid ""
+"The file '%s' already exists.\n"
+"Do you want to replace it with the one you are saving?"
+msgstr ""
+"El archivo «%s» ya existe.\n"
+"¿Desea sobreescribirlo con el que está intentando guardar?"
 
-#: src/anjuta_cbs.c:411
-#, c-format
-msgid "No read permission for: %s."
-msgstr "Sin permiso de lectura: %s."
+#: src/anjuta_cbs.c:511 src/anjuta_cbs.c:575 src/find_replace.c:342
+msgid "_Replace"
+msgstr "_Reemplazar"
 
-#: src/anjuta_cbs.c:523 src/anjuta_cbs.c:580
+#: src/anjuta_cbs.c:544
+msgid "Could not open file for writing"
+msgstr "No se puede abrir el archivo para escritura"
+
+#: src/anjuta_cbs.c:568
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -2796,10 +2939,6 @@ msgid ""
 msgstr ""
 "El archivo «%s» ya existe.\n"
 "¿Desea sobreescribirlo?"
-
-#: src/anjuta_cbs.c:556
-msgid "Could not open file for writing"
-msgstr "No se puede abrir el archivo para escritura"
 
 #: src/anjuta_dirs.c:52
 msgid "Unable to create settings directory.\n"
@@ -2958,7 +3097,7 @@ msgstr "Condición"
 #. breakpoints_dbase_update,
 #. debugger.breakpoints_dbase);
 #.
-#: src/breakpoints.c:166 src/debugger.c:1814
+#: src/breakpoints.c:166 src/debugger.c:1818
 msgid "All breakpoints enabled:\n"
 msgstr "Activados todos los puntos de ruptura:\n"
 
@@ -2967,7 +3106,7 @@ msgstr "Activados todos los puntos de ruptura:\n"
 #. breakpoints_dbase_update,
 #. debugger.breakpoints_dbase);
 #.
-#: src/breakpoints.c:184 src/debugger.c:1860
+#: src/breakpoints.c:184 src/debugger.c:1864
 msgid "All breakpoints disabled:\n"
 msgstr "Desactivados todos los puntos de ruptura:\n"
 
@@ -2979,12 +3118,12 @@ msgstr "Debe proporcionar una posición válida para situar el punto de ruptura."
 msgid "Are you sure you want to delete all the breakpoints?"
 msgstr "¿Está seguro de que quiere borrar todos los puntos de ruptura?"
 
-#: src/breakpoints.c:1282
+#: src/breakpoints.c:1286
 msgid "Old breakpoints disabled."
 msgstr "Puntos de ruptura antiguos desactivados."
 
 #. 5
-#: src/breakpoints.c:1424 src/main_menubar_def.h:758 src/text_editor_gui.c:161
+#: src/breakpoints.c:1428 src/main_menubar_def.h:758 src/text_editor_gui.c:161
 msgid "0"
 msgstr "0"
 
@@ -3267,32 +3406,32 @@ msgstr "Compilar terminó ... correctamente"
 msgid "Do you want to clear the list?"
 msgstr "¿Quiere despejar la lista?"
 
-#: src/compiler_options.c:748 src/compiler_options.c:824
-#: src/compiler_options.c:847 src/compiler_options.c:892 src/signals_gui.c:131
+#: src/compiler_options.c:752 src/compiler_options.c:828
+#: src/compiler_options.c:851 src/compiler_options.c:896 src/signals_gui.c:131
 msgid "Description"
 msgstr "Descripción"
 
-#: src/compiler_options.c:763
+#: src/compiler_options.c:767
 msgid "Include paths"
 msgstr "Directorios Include"
 
-#: src/compiler_options.c:778
+#: src/compiler_options.c:782
 msgid "Libraries paths"
 msgstr "Rutas a las bibliotecas"
 
-#: src/compiler_options.c:801
+#: src/compiler_options.c:805
 msgid "Libraries and modules"
 msgstr "Bibliotecas y módulos"
 
-#: src/compiler_options.c:817
+#: src/compiler_options.c:821
 msgid "Stock"
 msgstr "Elementos"
 
-#: src/compiler_options.c:862
+#: src/compiler_options.c:866
 msgid "Stock Defines"
 msgstr "Almacén de definiciones"
 
-#: src/compiler_options.c:885
+#: src/compiler_options.c:889
 msgid "Warning"
 msgstr "Aviso"
 
@@ -3457,7 +3596,7 @@ msgid "CVS: Remove file"
 msgstr "CVS: Borrar archivo"
 
 #. 3
-#: src/cvs_gui.c:92 src/project_dbase_gui.c:332 src/watch_gui.c:45
+#: src/cvs_gui.c:92 src/project_dbase_gui.c:341 src/watch_gui.c:45
 msgid "Remove"
 msgstr "Eliminar"
 
@@ -3699,7 +3838,7 @@ msgstr "Ejecutando programa ... \n"
 msgid "Attaching to process: %d\n"
 msgstr "Adjuntando a proceso: %d\n"
 
-#: src/debugger.c:1459
+#: src/debugger.c:1460
 msgid ""
 "A process is already running.\n"
 "Would you like to terminate it and attach the new process?"
@@ -3707,16 +3846,16 @@ msgstr ""
 "Ya existe un proceso ejecutándose.\n"
 "¿Desea terminarlo y adjuntarse al nuevo proceso?"
 
-#: src/debugger.c:1471
+#: src/debugger.c:1472
 msgid "Anjuta is unable to attach to itself."
 msgstr "Anjuta no puede adjuntarse a sí mismo."
 
-#: src/debugger.c:1557
+#: src/debugger.c:1558
 #, c-format
 msgid "Detaching the process: %d\n"
 msgstr "Separando el proceso: %d\n"
 
-#: src/debugger.c:1617
+#: src/debugger.c:1618
 msgid ""
 "Program is ATTACHED.\n"
 "Do you still want to stop Debugger?"
@@ -3724,7 +3863,7 @@ msgstr ""
 "El programa está ADJUNTO.\n"
 "¿Aún desea detener el depurador?"
 
-#: src/debugger.c:1620
+#: src/debugger.c:1621
 msgid ""
 "Program is RUNNING.\n"
 "Do you still want to stop Debugger?"
@@ -3737,33 +3876,33 @@ msgstr ""
 #. breakpoints_dbase_update,
 #. debugger.breakpoints_dbase);
 #.
-#: src/debugger.c:1906
+#: src/debugger.c:1910
 msgid "All breakpoints deleted:\n"
 msgstr "Borrados todos los puntos de ruptura:\n"
 
-#: src/debugger.c:1939
+#: src/debugger.c:1943
 #, c-format
 msgid "Interrupting the process: %d\n"
 msgstr "Interrumpiendo el proceso: %d\n"
 
-#: src/debugger.c:1968
+#: src/debugger.c:1972
 #, c-format
 msgid "Sending signal %s to the process: %d\n"
 msgstr "Enviando señal %s al proceso: %d\n"
 
-#: src/debugger.c:1989
+#: src/debugger.c:1993
 msgid "Error whilst signalling the process."
 msgstr "Hubo un error al enviar la señal al proceso."
 
-#: src/executer.c:53 src/mainmenu_callbacks.c:2136
+#: src/executer.c:53 src/mainmenu_callbacks.c:2142
 msgid "The target executable of this Project is unknown"
 msgstr "Objetivo desconocido para el proyecto"
 
-#: src/executer.c:58 src/mainmenu_callbacks.c:2138
+#: src/executer.c:58 src/mainmenu_callbacks.c:2144
 msgid "The target executable of this Project is not executable"
 msgstr "El resultado del proyecto no es ejecutable"
 
-#: src/executer.c:63 src/mainmenu_callbacks.c:2142
+#: src/executer.c:63 src/mainmenu_callbacks.c:2148
 msgid "The target executable does not exist for this Project"
 msgstr "No existe ejecutable para este proyecto."
 
@@ -3771,8 +3910,8 @@ msgstr "No existe ejecutable para este proyecto."
 msgid "No file or Project opened."
 msgstr "No hay archivos o proyectos abiertos."
 
-#: src/executer.c:81 src/executer.c:100 src/mainmenu_callbacks.c:2162
-#: src/mainmenu_callbacks.c:2173
+#: src/executer.c:81 src/executer.c:100 src/mainmenu_callbacks.c:2168
+#: src/mainmenu_callbacks.c:2179
 msgid "No executable for this file."
 msgstr "No hay ejecutable para este archivo."
 
@@ -3820,12 +3959,12 @@ msgstr "No se ha proporcionado una cadena"
 msgid "Do you want to replace this?"
 msgstr "¿Desea reemplazarlo?"
 
-#: src/find_replace.c:395
+#: src/find_replace.c:398
 #, c-format
 msgid "The string \"%s\" was not found in the selected text"
 msgstr "La cadena «%s» no se encontró en el texto marcado"
 
-#: src/find_replace.c:400
+#: src/find_replace.c:403
 #, c-format
 msgid "The string \"%s\" was not found from the current location"
 msgstr "La cadena «%s» no se encontró en la posición actual"
@@ -3845,9 +3984,9 @@ msgstr "No se ha encontrado correspondencia con «%s» en la selección"
 msgid "The match \"%s\" was not found from the current location"
 msgstr "No se ha encontrado correspondencia con «%s» en la posición actual"
 
-#: src/find_text.c:196 src/toolbar_callbacks.c:234
-msgid "No matches. Wrap search around the document?"
-msgstr "No hay concordancias"
+#: src/find_text.c:197
+msgid "No matches found. Wrap search around the document?"
+msgstr "No se encontraron coincidencias. ¿Quiere continuar desde el principio del documento?"
 
 #: src/glade_iface.c:96 src/glade_iface.c:171
 msgid "Cannot fork glade."
@@ -3945,7 +4084,7 @@ msgstr "launcher.c: error al leer child stdout - %s\n"
 msgid "launcher.c: error while reading child stderr - %s\n"
 msgstr "launcher.c: error al leer child stderr - %s\n"
 
-#: src/launcher.c:370 src/text_editor.c:1228
+#: src/launcher.c:370 src/text_editor.c:1466
 msgid "Cannot execute command shell"
 msgstr "No puedo ejecutar el comando del shell"
 
@@ -4606,7 +4745,7 @@ msgstr "Co_mentar código"
 
 #. 12
 #: src/main_menubar_def.h:605
-msgid "_Search"
+msgid "S_earch"
 msgstr "_Buscar"
 
 #. 13
@@ -4635,8 +4774,8 @@ msgstr "Mostrar calltip para la función"
 
 #. 17
 #: src/main_menubar_def.h:634
-msgid "Search And Replace"
-msgstr "Buscar y reemplazar"
+msgid "Search And Re_place"
+msgstr "Buscar y reem_plazar"
 
 #: src/main_menubar_def.h:635
 msgid "New Search And Replace stuff"
@@ -4959,42 +5098,42 @@ msgid "Show/Hide Local variables in Message window"
 msgstr "Mostrar/Ocultar variables locales en la ventana de Mensajes"
 
 #. 0
-#: src/main_menubar_def.h:891 src/project_dbase_gui.c:268
+#: src/main_menubar_def.h:891 src/project_dbase_gui.c:277
 msgid "Include file"
 msgstr "Incluir archivos"
 
 #. 1
-#: src/main_menubar_def.h:897 src/project_dbase_gui.c:274
+#: src/main_menubar_def.h:897 src/project_dbase_gui.c:283
 msgid "Source file"
 msgstr "Archivos de código fuente"
 
 #. 2
-#: src/main_menubar_def.h:903 src/project_dbase_gui.c:280
+#: src/main_menubar_def.h:903 src/project_dbase_gui.c:289
 msgid "Help file"
 msgstr "Archivos de ayuda"
 
 #. 3
-#: src/main_menubar_def.h:909 src/project_dbase_gui.c:286
+#: src/main_menubar_def.h:909 src/project_dbase_gui.c:295
 msgid "Data file"
 msgstr "Archivos de datos"
 
 #. 4
-#: src/main_menubar_def.h:915 src/project_dbase_gui.c:292
+#: src/main_menubar_def.h:915 src/project_dbase_gui.c:301
 msgid "Pixmap file"
 msgstr "Archivos pixmap"
 
 #. 5
-#: src/main_menubar_def.h:921 src/project_dbase_gui.c:298
+#: src/main_menubar_def.h:921 src/project_dbase_gui.c:307
 msgid "Translation file"
 msgstr "Archivos de traducción"
 
 #. 6
-#: src/main_menubar_def.h:927 src/project_dbase_gui.c:304
+#: src/main_menubar_def.h:927 src/project_dbase_gui.c:313
 msgid "Doc file"
 msgstr "Archivos de documentación"
 
 #. 0
-#: src/main_menubar_def.h:938 src/project_dbase_gui.c:314
+#: src/main_menubar_def.h:938 src/project_dbase_gui.c:323
 msgid "Add File"
 msgstr "Añadir archivo"
 
@@ -5005,7 +5144,7 @@ msgstr "Borrar archivo"
 
 #. 4
 #. 5
-#: src/main_menubar_def.h:963 src/project_dbase_gui.c:339
+#: src/main_menubar_def.h:963 src/project_dbase_gui.c:348
 msgid "Configure Project"
 msgstr "Configurar Proyecto"
 
@@ -5014,7 +5153,7 @@ msgid "Configure options for the current Project"
 msgstr "Configurar opciones para el Proyecto actual"
 
 #. 6
-#: src/main_menubar_def.h:969 src/project_dbase_gui.c:345
+#: src/main_menubar_def.h:969 src/project_dbase_gui.c:354
 msgid "Project Info"
 msgstr "Información del proyecto"
 
@@ -6201,7 +6340,11 @@ msgstr ""
 "El archivo «%s» no ha sido guardado.\n"
 "¿Desea guardarlo antes de cerrar?"
 
-#: src/mainmenu_callbacks.c:235
+#: src/mainmenu_callbacks.c:180 src/project_dbase_gui.c:1127
+msgid "Do_n't save"
+msgstr "_No guardar"
+
+#: src/mainmenu_callbacks.c:237
 #, c-format
 msgid ""
 "Are you sure you want to reload '%s'?\n"
@@ -6210,24 +6353,28 @@ msgstr ""
 "¿Seguro que desea recargar «%s». ?\n"
 "Perderá todas las modificaciones sin guardar."
 
-#: src/mainmenu_callbacks.c:533
+#: src/mainmenu_callbacks.c:248 src/text_editor.c:1306
+msgid "_Reload"
+msgstr "_Recargar"
+
+#: src/mainmenu_callbacks.c:539
 msgid "%Y"
 msgstr "%Y"
 
-#: src/mainmenu_callbacks.c:552
+#: src/mainmenu_callbacks.c:558
 msgid "%Y-%m-%d"
 msgstr "%Y-%m-%d"
 
-#: src/mainmenu_callbacks.c:627
+#: src/mainmenu_callbacks.c:633
 #, c-format
 msgid "The file \"%s\" is not a header file."
 msgstr "El archivo «%s» no es un archivo de cabecera."
 
-#: src/mainmenu_callbacks.c:1724
+#: src/mainmenu_callbacks.c:1730
 msgid "Debugger is not running. Start it first."
 msgstr "El depurador no se está ejecutando. Inícielo antes."
 
-#: src/mainmenu_callbacks.c:2113
+#: src/mainmenu_callbacks.c:2119
 msgid ""
 "Hover the mouse pointer over any menu item and press\n"
 " the shortcut key to associate with it."
@@ -6235,7 +6382,7 @@ msgstr ""
 "Colocar el puntero de ratón sobre cualquier elemento del menú y pulse\n"
 "la tecla rápida para asociarla con ella."
 
-#: src/mainmenu_callbacks.c:2168
+#: src/mainmenu_callbacks.c:2174
 msgid "The executable is not up-to-date."
 msgstr "El ejecutable no está actualizado."
 
@@ -6284,7 +6431,7 @@ msgstr "Stderr"
 msgid "Could not find message type %s!\n"
 msgstr "¡No puedo encontrar el tipo de mensaje %s!\n"
 
-#: src/message-manager.cc:540 src/toolbar.c:152
+#: src/message-manager.cc:542 src/toolbar.c:152
 msgid "Messages"
 msgstr "Mensajes"
 
@@ -6304,7 +6451,11 @@ msgstr ""
 "¿Está seguro que desea reiniciar las preferencias\n"
 "a sus valores originales?"
 
-#: src/preferences.c:940
+#: src/preferences.c:556
+msgid "_Reset"
+msgstr "_Reestablecer"
+
+#: src/preferences.c:936
 #, c-format
 msgid ""
 "Cannot load Global defaults and configuration files:\n"
@@ -6317,7 +6468,7 @@ msgstr ""
 "Esto puede provocar comportamientos inapropiados e inestabilidades.\n"
 "Anjuta utilizará los valores iniciales (más limitados)"
 
-#: src/preferences.c:1072
+#: src/preferences.c:1068
 msgid "Anjuta Preferences"
 msgstr "Preferencias de Anjuta"
 
@@ -6326,7 +6477,7 @@ msgstr "Preferencias de Anjuta"
 msgid "Add to Project"
 msgstr "Añadir a Proyecto"
 
-#: src/project_dbase.c:259 src/project_dbase.c:330 src/project_dbase_gui.c:575
+#: src/project_dbase.c:259 src/project_dbase.c:330 src/project_dbase_gui.c:586
 msgid "Project: None"
 msgstr "Proyecto: Nada"
 
@@ -6334,10 +6485,10 @@ msgstr "Proyecto: Nada"
 msgid "Anjuta project files"
 msgstr "Archivos de proyecto de Anjuta"
 
-#: src/project_dbase.c:401 src/project_dbase_gui.c:162
-#: src/project_dbase_gui.c:179 src/project_dbase_gui.c:191
-#: src/project_dbase_gui.c:199 src/project_dbase_gui.c:211
-#: src/project_dbase_gui.c:220 src/project_dbase_gui.c:229
+#: src/project_dbase.c:401 src/project_dbase_gui.c:170
+#: src/project_dbase_gui.c:188 src/project_dbase_gui.c:200
+#: src/project_dbase_gui.c:208 src/project_dbase_gui.c:220
+#: src/project_dbase_gui.c:229 src/project_dbase_gui.c:238
 #: widgets/gnomefilelist.c:709
 msgid "All files"
 msgstr "Todos los archivos"
@@ -6421,163 +6572,163 @@ msgstr ""
 "¿Seguro que desea eliminar el elemento\n"
 "«%s» del Proyecto?"
 
-#: src/project_dbase_gui.c:131
+#: src/project_dbase_gui.c:135
 msgid "There is already a Project open.Do you want to close it first?"
 msgstr "Existe un proyecto abierto. ¿Desea cerrarlo antes?"
 
-#: src/project_dbase_gui.c:161
+#: src/project_dbase_gui.c:169
 msgid "Help files"
 msgstr "Archivos de ayuda:"
 
-#: src/project_dbase_gui.c:170 widgets/gnomefilelist.c:712
-msgid "C/C++ source files"
-msgstr "Archivos de código fuente C/C++:"
-
-#: src/project_dbase_gui.c:171
-msgid "Java source files"
-msgstr "Archivos de código fuente Java:"
-
-#: src/project_dbase_gui.c:172 widgets/gnomefilelist.c:719
-msgid "Pascal files"
-msgstr "Archivos Pascal:"
-
-#: src/project_dbase_gui.c:173 widgets/gnomefilelist.c:721
-msgid "PHP files"
-msgstr "Archivos PHP:"
-
-#: src/project_dbase_gui.c:174 widgets/gnomefilelist.c:724
-msgid "Perl files"
-msgstr "Archivos Perl:"
-
-#: src/project_dbase_gui.c:175 widgets/gnomefilelist.c:726
-msgid "Python files"
-msgstr "Archivos Python"
-
-#: src/project_dbase_gui.c:176 widgets/gnomefilelist.c:731
-msgid "Shell Script files"
-msgstr "Archivos script de shell"
-
-#: src/project_dbase_gui.c:177 widgets/gnomefilelist.c:736
-msgid "Visual Basic files"
-msgstr "Archivos Visual Basic"
-
-#: src/project_dbase_gui.c:178 widgets/gnomefilelist.c:744
-msgid ".lua files"
-msgstr "Archivos .lua"
-
-#: src/project_dbase_gui.c:187
-msgid "PNG files"
-msgstr "Archivos PNG:"
-
-#: src/project_dbase_gui.c:188
-msgid "JPG files"
-msgstr "Archivos JPG:"
-
-#: src/project_dbase_gui.c:189
-msgid "BMP files"
-msgstr "Archivos BMP"
-
-#: src/project_dbase_gui.c:190
-msgid "GIF files"
-msgstr "Archivo GIF"
-
-#: src/project_dbase_gui.c:207
-msgid "Text files"
-msgstr "Archivos de texto"
-
-#: src/project_dbase_gui.c:208
-msgid "XML files"
-msgstr "Archivos XML"
-
-#: src/project_dbase_gui.c:209
-msgid "HTML files"
-msgstr "Archivos HTML"
-
-#: src/project_dbase_gui.c:210
-msgid "DOC files"
-msgstr "Archivos DOC:"
-
-#: src/project_dbase_gui.c:219
-msgid "PO files"
-msgstr "Archivos Po:"
-
-#: src/project_dbase_gui.c:228
+#: src/project_dbase_gui.c:178 src/project_dbase_gui.c:237
 msgid "C/C++ Headers"
 msgstr "Cabeceras C/C++"
 
-#: src/project_dbase_gui.c:259
+#: src/project_dbase_gui.c:179 widgets/gnomefilelist.c:712
+msgid "C/C++ source files"
+msgstr "Archivos de código fuente C/C++:"
+
+#: src/project_dbase_gui.c:180
+msgid "Java source files"
+msgstr "Archivos de código fuente Java:"
+
+#: src/project_dbase_gui.c:181 widgets/gnomefilelist.c:719
+msgid "Pascal files"
+msgstr "Archivos Pascal:"
+
+#: src/project_dbase_gui.c:182 widgets/gnomefilelist.c:721
+msgid "PHP files"
+msgstr "Archivos PHP:"
+
+#: src/project_dbase_gui.c:183 widgets/gnomefilelist.c:724
+msgid "Perl files"
+msgstr "Archivos Perl:"
+
+#: src/project_dbase_gui.c:184 widgets/gnomefilelist.c:726
+msgid "Python files"
+msgstr "Archivos Python"
+
+#: src/project_dbase_gui.c:185 widgets/gnomefilelist.c:731
+msgid "Shell Script files"
+msgstr "Archivos script de shell"
+
+#: src/project_dbase_gui.c:186 widgets/gnomefilelist.c:736
+msgid "Visual Basic files"
+msgstr "Archivos Visual Basic"
+
+#: src/project_dbase_gui.c:187 widgets/gnomefilelist.c:744
+msgid ".lua files"
+msgstr "Archivos .lua"
+
+#: src/project_dbase_gui.c:196
+msgid "PNG files"
+msgstr "Archivos PNG:"
+
+#: src/project_dbase_gui.c:197
+msgid "JPG files"
+msgstr "Archivos JPG:"
+
+#: src/project_dbase_gui.c:198
+msgid "BMP files"
+msgstr "Archivos BMP"
+
+#: src/project_dbase_gui.c:199
+msgid "GIF files"
+msgstr "Archivo GIF"
+
+#: src/project_dbase_gui.c:216
+msgid "Text files"
+msgstr "Archivos de texto"
+
+#: src/project_dbase_gui.c:217
+msgid "XML files"
+msgstr "Archivos XML"
+
+#: src/project_dbase_gui.c:218
+msgid "HTML files"
+msgstr "Archivos HTML"
+
+#: src/project_dbase_gui.c:219
+msgid "DOC files"
+msgstr "Archivos DOC:"
+
+#: src/project_dbase_gui.c:228
+msgid "PO files"
+msgstr "Archivos Po:"
+
+#: src/project_dbase_gui.c:268
 msgid "Add file to module: "
 msgstr "Añadir archivo a un módulo: "
 
-#: src/project_dbase_gui.c:587 widgets/gnomefilelist.c:396
+#: src/project_dbase_gui.c:598 widgets/gnomefilelist.c:396
 msgid "Files"
 msgstr "Archivos"
 
-#: src/project_dbase_gui.c:591
+#: src/project_dbase_gui.c:602
 msgid "Symbols"
 msgstr "Símbolos"
 
-#: src/project_dbase_gui.c:727
+#: src/project_dbase_gui.c:738
 msgid "Project Information"
 msgstr "Información del Proyecto"
 
-#: src/project_dbase_gui.c:735
+#: src/project_dbase_gui.c:746
 msgid " Project Information "
 msgstr " Información del Proyecto "
 
-#: src/project_dbase_gui.c:771
+#: src/project_dbase_gui.c:782
 msgid "Author:"
 msgstr "Autor:"
 
-#: src/project_dbase_gui.c:779 src/wizard_gui.c:335
+#: src/project_dbase_gui.c:790 src/wizard_gui.c:335
 msgid "Project Name:"
 msgstr "Nombre del Proyecto:"
 
-#: src/project_dbase_gui.c:858
+#: src/project_dbase_gui.c:869
 msgid "Program Name:"
 msgstr "Nombre del programa:"
 
-#: src/project_dbase_gui.c:865
+#: src/project_dbase_gui.c:876
 msgid "Source files:"
 msgstr "Archivos de código fuente:"
 
-#: src/project_dbase_gui.c:872
+#: src/project_dbase_gui.c:883
 msgid "Help files:"
 msgstr "Archivos de ayuda:"
 
-#: src/project_dbase_gui.c:879
+#: src/project_dbase_gui.c:890
 msgid "Data files:"
 msgstr "Archivos de datos:"
 
-#: src/project_dbase_gui.c:886
+#: src/project_dbase_gui.c:897
 msgid "Pixmap files:"
 msgstr "Archivos pixmap:"
 
-#: src/project_dbase_gui.c:893
+#: src/project_dbase_gui.c:904
 msgid "Doc files:"
 msgstr "Archivos de documentación:"
 
-#: src/project_dbase_gui.c:914
+#: src/project_dbase_gui.c:925
 msgid "Po files:"
 msgstr "Archivos Po de traducción:"
 
-#: src/project_dbase_gui.c:944
+#: src/project_dbase_gui.c:955
 msgid "GUI editable by Glade:"
 msgstr "GUI editable por Glade:"
 
-#: src/project_dbase_gui.c:966
+#: src/project_dbase_gui.c:977
 msgid "Makefiles managed:"
 msgstr "Makefiles administrados:"
 
-#: src/project_dbase_gui.c:1008
+#: src/project_dbase_gui.c:1019
 msgid "Gettext support:"
 msgstr "Soporte de Gettext:"
 
-#: src/project_dbase_gui.c:1066
+#: src/project_dbase_gui.c:1077
 msgid "Project Type:"
 msgstr "Tipo de Proyecto:"
 
-#: src/project_dbase_gui.c:1111
+#: src/project_dbase_gui.c:1122
 msgid ""
 "Project is not saved.\n"
 "Do you want to save it before closing?"
@@ -6585,132 +6736,116 @@ msgstr ""
 "El proyecto no ha sido guardado.\n"
 "¿Desea guardarlo antes de cerrar?"
 
-#: src/project_dbase_gui.c:1123 src/project_dbase_gui.c:1243
+#: src/project_dbase_gui.c:1137 src/project_dbase_gui.c:1257
 msgid "Breton"
 msgstr "Bretón"
 
-#: src/project_dbase_gui.c:1124
+#: src/project_dbase_gui.c:1138
 msgid "Catalan"
 msgstr "Catalán"
 
-#: src/project_dbase_gui.c:1125
+#: src/project_dbase_gui.c:1139
 msgid "Czech"
 msgstr "Checo"
 
-#: src/project_dbase_gui.c:1126
+#: src/project_dbase_gui.c:1140
 msgid "Danish"
 msgstr "Danés"
 
-#: src/project_dbase_gui.c:1127
+#: src/project_dbase_gui.c:1141
 msgid "German"
 msgstr "Alemán"
 
-#: src/project_dbase_gui.c:1128
-msgid "Greek"
-msgstr "Griego"
-
-#: src/project_dbase_gui.c:1129
+#: src/project_dbase_gui.c:1143
 msgid "Esperanto"
 msgstr "Esperanto"
 
-#: src/project_dbase_gui.c:1130
+#: src/project_dbase_gui.c:1144
 msgid "Spanish"
 msgstr "Español"
 
-#: src/project_dbase_gui.c:1131
+#: src/project_dbase_gui.c:1145
 msgid "Finnish"
 msgstr "Finlandés"
 
-#: src/project_dbase_gui.c:1132
+#: src/project_dbase_gui.c:1146
 msgid "French"
 msgstr "Francés"
 
-#: src/project_dbase_gui.c:1133
+#: src/project_dbase_gui.c:1147
 msgid "Herbrew"
 msgstr "Hebreo"
 
-#: src/project_dbase_gui.c:1134 src/project_dbase_gui.c:1138
+#: src/project_dbase_gui.c:1148 src/project_dbase_gui.c:1152
 msgid "Croatian"
 msgstr "Croata"
 
-#: src/project_dbase_gui.c:1135
+#: src/project_dbase_gui.c:1149
 msgid "Hungarian"
 msgstr "Húngaro"
 
-#: src/project_dbase_gui.c:1136
+#: src/project_dbase_gui.c:1150
 msgid "Islandic"
 msgstr "Islandés"
 
-#: src/project_dbase_gui.c:1137
+#: src/project_dbase_gui.c:1151
 msgid "Italian"
 msgstr "Italiano"
 
-#: src/project_dbase_gui.c:1139
-msgid "Korean"
-msgstr "Coreano"
-
-#: src/project_dbase_gui.c:1140
+#: src/project_dbase_gui.c:1154
 msgid "Macedonian"
 msgstr "Macedonio"
 
-#: src/project_dbase_gui.c:1141
+#: src/project_dbase_gui.c:1155
 msgid "Dutch"
 msgstr "Holandés"
 
-#: src/project_dbase_gui.c:1142
+#: src/project_dbase_gui.c:1156
 msgid "Norwegian"
 msgstr "Noruego"
 
-#: src/project_dbase_gui.c:1143
+#: src/project_dbase_gui.c:1157
 msgid "Polish"
 msgstr "Polaco"
 
-#: src/project_dbase_gui.c:1144
+#: src/project_dbase_gui.c:1158
 msgid "Portuguese"
 msgstr "Portugués"
 
-#: src/project_dbase_gui.c:1145
-msgid "Romanian"
-msgstr "Rumano"
-
-#: src/project_dbase_gui.c:1146
+#: src/project_dbase_gui.c:1160
 msgid "Russian"
 msgstr "Ruso"
 
-#: src/project_dbase_gui.c:1147
+#: src/project_dbase_gui.c:1161
 msgid "Slovak"
 msgstr "Eslovaco"
 
-#: src/project_dbase_gui.c:1148
-msgid "Turkish"
-msgstr "Turco"
-
-#: src/project_dbase_gui.c:1149
+#: src/project_dbase_gui.c:1163
 msgid "Simplified Chinese"
 msgstr "Chino simplificado"
 
-#: src/project_dbase_gui.c:1150
+#: src/project_dbase_gui.c:1164
 msgid "Chinese"
 msgstr "Chino"
 
-#: src/project_dbase_gui.c:1151
+#: src/project_dbase_gui.c:1165
 msgid "Estonian"
 msgstr "Estonio"
 
-#: src/project_dbase_gui.c:1195
+#: src/project_dbase_gui.c:1209
 msgid "Select regional language"
 msgstr "Seleccione lengua regional"
 
-#: src/project_dbase_gui.c:1211
+#: src/project_dbase_gui.c:1225
 msgid "Select regional language:"
 msgstr "Seleccione lenguaje regional"
 
-#: src/project_dbase_gui.c:1251
+#: src/project_dbase_gui.c:1265
 #, c-format
 msgid "Unable to find pixmap file: %s"
 msgstr "No puedo encontrar el archivo de imagen: %s"
 
-#: src/project_dbase_gui.c:1330
+#: src/project_dbase_gui.c:1344
 #, c-format
 msgid ""
 "\"%s\"\n"
@@ -6720,7 +6855,12 @@ msgstr ""
 "El archivo «%s» no existe.\n"
 "¿Desea crearlo ahora?"
 
-#: src/project_dbase_gui.c:1358
+#: src/project_dbase_gui.c:1362
+#, c-format
+msgid "Not a regular file: %s."
+msgstr "El archivo no es válido: %s."
+
+#: src/project_dbase_gui.c:1372
 #, c-format
 msgid ""
 "\"%s\"\n"
@@ -6849,12 +6989,12 @@ msgstr "Widget no encontrado: %s"
 msgid "Could not find application image file: %s"
 msgstr "No puedo encontrar el pixmap de la aplicación: %s"
 
-#: src/resources.c:104
+#: src/resources.c:101
 #, c-format
 msgid "Could not find application pixmap file: %s"
 msgstr "No puedo encontrar el pixmap de la aplicación: %s"
 
-#: src/resources.c:266 src/resources.c:274
+#: src/resources.c:263 src/resources.c:271
 msgid "Cannot execute Devhelp. Make sure it is installed"
 msgstr "No puedo ejecutar Devhelp. Asegúrese de que está instalado"
 
@@ -6964,7 +7104,7 @@ msgstr "No puedo crear el archivo: %s"
 msgid "Error writing to: %s."
 msgstr "Error al escribir a: %s."
 
-#: src/src_paths.c:260
+#: src/src_paths.c:264
 msgid "Source Paths"
 msgstr "Directorios de fuentes"
 
@@ -7009,33 +7149,54 @@ msgstr "Marco"
 msgid "Couldn't find pixmap file: %s"
 msgstr "No puedo encontrar el archivo de imagen : %s"
 
-#: src/text_editor.c:876
+#: src/text_editor.c:887
+msgid "This file is too big. Unable to allocate memory."
+msgstr "Este archivo es demasiado grande. No se puede reservar suficiente memoria."
+
+#: src/text_editor.c:933
+msgid ""
+"The file does not look like a text file or the file encoding is not "
+"supported.Please check if the encoding of file is in the supported encodings "
+"list. If not, add it from the preferences."
+msgstr ""
+"El archivo no parece ser un archivo de texto o la codificación "
+"del archivo no está soportada. Verifique que la codificación del archivo "
+"está soportada por la lista de codificaciones. Si no, añádala desde las "
+"preferencias."
+
+#: src/text_editor.c:1104
 msgid "Loading file ..."
 msgstr "Cargando archivo ..."
 
-#: src/text_editor.c:882
+#: src/text_editor.c:1110
 #, c-format
-msgid "Could not load file: %s"
-msgstr "No puedo cargar archivo: %s"
+msgid ""
+"Could not load file: %s\n"
+"\n"
+"Details: %s"
+msgstr ""
+"No puedo cargar archivo: %s\n"
+"\n"
+"Detalles: %s"
 
-#: src/text_editor.c:901
+#: src/text_editor.c:1131
 msgid "File loaded successfully"
 msgstr "Archivo cargado correctamente"
 
-#: src/text_editor.c:916
+#: src/text_editor.c:1146
 msgid "Saving file ..."
 msgstr "Guardando Archivo ..."
 
-#: src/text_editor.c:921
+#: src/text_editor.c:1151
 #, c-format
 msgid "Could not save file: %s."
 msgstr "No puedo guardar: %s."
 
-#: src/text_editor.c:961
+#: src/text_editor.c:1191
 msgid "File saved successfully"
 msgstr "Archivo guardado correctamente"
 
-#: src/text_editor.c:1059
+#: src/text_editor.c:1289
 #, c-format
 msgid ""
 "The file '%s' on the disk is more recent than\n"
@@ -7046,19 +7207,28 @@ msgstr ""
 "que el buffer actual.\n"
 "¿Desea recargarlo?"
 
-#: src/text_editor.c:1196
+#: src/text_editor.c:1434
 msgid "Auto format is currently disabled. Change the setting in Preferences."
 msgstr "Autoformato desactivado. Si lo desea, actívelo en Preferencias."
 
-#: src/text_editor.c:1202
+#: src/text_editor.c:1440
 msgid "Auto formatting ..."
 msgstr "Autoformateando ..."
 
-#: src/text_editor.c:1212 src/text_editor.c:1239
+#: src/text_editor.c:1450
 msgid "Error in auto formatting ..."
 msgstr "Error al autoformatear ..."
 
-#: src/text_editor.c:1245
+#: src/text_editor.c:1477
+#, c-format
+msgid ""
+"Error in auto formatting ...\n"
+"Details: %s"
+msgstr ""
+"Error al autoformatear ...\n"
+"Detalles: %s"
+
+#: src/text_editor.c:1484
 msgid "Auto formatting completed"
 msgstr "Autoformatear terminado"
 
@@ -7538,7 +7708,11 @@ msgstr "Autocompletar"
 msgid "Autocomplete word"
 msgstr "Autocompletar palabra"
 
-#: src/toolbar_callbacks.c:278
+#: src/toolbar_callbacks.c:235
+msgid "No matches. Wrap search around the document?"
+msgstr "No hay concordancias"
+
+#: src/toolbar_callbacks.c:279
 #, c-format
 msgid "There is line number %d in \"%s\"."
 msgstr "Existe una linea nº %d en «%s»."
@@ -7894,6 +8068,12 @@ msgstr "La creación de la carpeta falló «%s»: %s"
 #: widgets/gnomefilelist.c:1976
 msgid "Folder name:"
 msgstr "Nombre de carpeta:"
+
+#~ msgid "No read permission for: %s."
+#~ msgstr "Sin permiso de lectura: %s."
+
+#~ msgid "_Search"
+#~ msgstr "_Buscar"
 
 #~ msgid "Syntax highlighting and color styles"
 #~ msgstr "Resaltado de sintaxis y estilos de color"
