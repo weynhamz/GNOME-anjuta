@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-31 10:36+0100\n"
-"PO-Revision-Date: 2005-01-31 10:47+0100\n"
+"POT-Creation-Date: 2005-02-02 18:36+0100\n"
+"PO-Revision-Date: 2005-02-02 21:16+0100\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -32,7 +32,7 @@ msgstr "    "
 #: anjuta.glade.h:2 libegg/layout.glade.h:1
 #: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:1
 #: plugins/debug-manager/anjuta-debug-manager.glade.h:1
-#: plugins/editor/anjuta-document-manager.glade.h:8
+#: plugins/editor/anjuta-document-manager.glade.h:2
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:1
 #: plugins/file-wizard/anjuta-file-wizard.glade.h:1
 #: plugins/gdb/anjuta-gdb.glade.h:1 plugins/macro/anjuta-macro.glade.h:1
@@ -498,7 +498,7 @@ msgstr "Nový soubor"
 msgid "No Optimization"
 msgstr "Žádná optimalizace"
 
-#: anjuta.glade.h:106 plugins/editor/anjuta-document-manager.glade.h:114
+#: anjuta.glade.h:106 plugins/editor/anjuta-document-manager.glade.h:113
 msgid ""
 "Note: If there is a project open, the preferences in this page are project "
 "preferences and will be loaded from and saved with the project. If there is "
@@ -1002,15 +1002,15 @@ msgstr "Standardní kódování"
 msgid "Supported Encodings"
 msgstr "Podporovaná kódování"
 
-#: libanjuta/anjuta-launcher.c:731 src/launcher.c:683
+#: libanjuta/anjuta-launcher.c:737 src/launcher.c:683
 msgid "launcher.c: Error while reading child pty\n"
 msgstr "launcher.c: Chyba při čtení pty potomka\n"
 
-#: libanjuta/anjuta-launcher.c:857 src/launcher.c:803
+#: libanjuta/anjuta-launcher.c:863 src/launcher.c:803
 msgid "launcher.c: Failed to set channel encoding!"
 msgstr "launcher.c: Nemohu nastavit kódování kanálu!"
 
-#: libanjuta/anjuta-launcher.c:907 libanjuta/resources.c:253
+#: libanjuta/anjuta-launcher.c:913 libanjuta/resources.c:253
 #: libanjuta/resources.c:262
 #, c-format
 msgid "Cannot execute command: \"%s\""
@@ -1024,7 +1024,7 @@ msgstr "Shell Anjuty"
 msgid "Anjuta shell that will contain the plugin"
 msgstr "Shell Anjuty, který bude obsahovat tento zásuvný modul"
 
-#: libanjuta/anjuta-preferences-dialog.c:127 plugins/gtodo/interface.c:216
+#: libanjuta/anjuta-preferences-dialog.c:127 plugins/gtodo/interface.c:218
 #: plugins/gtodo/mcategory.c:36
 msgid "Category"
 msgstr "Kategorie"
@@ -1341,14 +1341,14 @@ msgid "_Lock dock items"
 msgstr "_Zamknout položky doku"
 
 #: libegg/test-actions.c:140 plugins/devhelp/plugin.c:212
-#: plugins/editor/plugin.c:1116 plugins/editor/search-replace.c:725
+#: plugins/editor/plugin.c:1098 plugins/editor/search-replace.c:725
 #: plugins/editor/search-replace.c:1358 plugins/editor/search-replace.c:1365
 #: plugins/editor/search-replace.c:1377 plugins/editor/search-replace.c:1678
 #: plugins/symbol-browser/plugin.c:690
 msgid "Search"
 msgstr "Hledat"
 
-#: libegg/test-actions.c:141 plugins/editor/plugin.c:1117
+#: libegg/test-actions.c:141 plugins/editor/plugin.c:1099
 msgid "Incremental search"
 msgstr "Inkrementální hledání"
 
@@ -1987,6 +1987,7 @@ msgid "<b>Options:</b>"
 msgstr "<b>Možnosti:</b>"
 
 #: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:6
+#: plugins/editor/anjuta-document-manager.glade.h:19
 msgid "<b>Options</b>"
 msgstr "<b>Možnosti</b>"
 
@@ -2613,7 +2614,7 @@ msgstr ""
 "Opravdu chcete znovu načíst '%s'?\n"
 "Neuložené změny budou ztraceny."
 
-#: plugins/editor/action-callbacks.c:238 plugins/editor/text_editor.c:1418
+#: plugins/editor/action-callbacks.c:238 plugins/editor/text_editor.c:1438
 msgid "_Reload"
 msgstr "_Znovu načíst"
 
@@ -2622,7 +2623,7 @@ msgstr "_Znovu načíst"
 msgid "There is no line number %d in \"%s\"."
 msgstr "V \"%2$s\" není řádek číslo %1$d."
 
-#: plugins/editor/action-callbacks.c:1281
+#: plugins/editor/action-callbacks.c:1153
 msgid "No matches. Wrap search around the document?"
 msgstr "Žádný výsledek. Hledat od druhého konce dokumentu?"
 
@@ -2645,32 +2646,16 @@ msgid "Save file as"
 msgstr "Uložit soubor jako"
 
 #: plugins/editor/anjuta-document-manager.glade.h:1
-msgid ""
-"\"Search & Replace\" has to be tested completely !\n"
-"Many search-replacement possibilities are possible\n"
-"and need a lot of time to be verified.\n"
-"\n"
-"Limits : Regular expressions can only be found in\n"
-"forward direction"
-msgstr ""
-"\"Hledat a nahradit\" musí být úplně otestováno!\n"
-"Je mnoho možností hledání-náhrada a jejich ověření\n"
-"vyžaduje spoustu času.\n"
-"\n"
-"Omezení: Regulární výrazy se dají hledat jen ve směru\n"
-"vpřed"
-
-#: plugins/editor/anjuta-document-manager.glade.h:7
 msgid "$(module.source.files) $(module.include.files)"
 msgstr "$(module.source.files) $(module.include.files)"
 
-#: plugins/editor/anjuta-document-manager.glade.h:9
+#: plugins/editor/anjuta-document-manager.glade.h:3
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:2
 #: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:2
 msgid "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp"
 msgstr "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp"
 
-#: plugins/editor/anjuta-document-manager.glade.h:10
+#: plugins/editor/anjuta-document-manager.glade.h:4
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:3
 #: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:3
 msgid ""
@@ -2680,65 +2665,85 @@ msgstr ""
 "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp Makefile.am configure.* "
 "README AUTHORS ChangeLog *.m4"
 
-#: plugins/editor/anjuta-document-manager.glade.h:11
+#: plugins/editor/anjuta-document-manager.glade.h:5
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:4
 #: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:4
 msgid "*.so *.o *.a *.la"
 msgstr "*.so *.o *.a *.la"
 
-#: plugins/editor/anjuta-document-manager.glade.h:12
+#: plugins/editor/anjuta-document-manager.glade.h:6
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:5
 #: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:5
 msgid "*\\.*"
 msgstr "*\\.*"
 
-#: plugins/editor/anjuta-document-manager.glade.h:13
+#: plugins/editor/anjuta-document-manager.glade.h:7
+msgid "<b>Actions</b>"
+msgstr "<b>Akce</b>"
+
+#: plugins/editor/anjuta-document-manager.glade.h:8
 msgid "<b>Autocompletion</b>"
 msgstr "<b>Automatické doplňování</b>"
 
-#: plugins/editor/anjuta-document-manager.glade.h:14
+#: plugins/editor/anjuta-document-manager.glade.h:9
 msgid "<b>Autoformat style</b>"
 msgstr "<b>Styl automatického formátování</b>"
 
-#: plugins/editor/anjuta-document-manager.glade.h:15
+#: plugins/editor/anjuta-document-manager.glade.h:10
 msgid "<b>Autosave</b>"
 msgstr "<b>Automaticky ukládat</b>"
 
-#: plugins/editor/anjuta-document-manager.glade.h:16
+#: plugins/editor/anjuta-document-manager.glade.h:11
 msgid "<b>Code folding</b>"
 msgstr "<b>Skládání kódu</b>"
 
-#: plugins/editor/anjuta-document-manager.glade.h:17
+#: plugins/editor/anjuta-document-manager.glade.h:12
 msgid "<b>Custom autoformate style</b>"
 msgstr "<b>Vlastní styl automatického formátování</b>"
 
-#: plugins/editor/anjuta-document-manager.glade.h:18
+#: plugins/editor/anjuta-document-manager.glade.h:13
 msgid "<b>Editor tabs</b>"
 msgstr "<b>Záložky editoru</b>"
 
-#: plugins/editor/anjuta-document-manager.glade.h:19
+#: plugins/editor/anjuta-document-manager.glade.h:14
 msgid "<b>Encoding to use when saving files</b>"
 msgstr "<b>Kódování, které používat při ukládání souborů</b>"
 
-#: plugins/editor/anjuta-document-manager.glade.h:20
+#: plugins/editor/anjuta-document-manager.glade.h:15
+msgid "<b>File Filter</b>"
+msgstr "<b>Filtr souborů</b>"
+
+#: plugins/editor/anjuta-document-manager.glade.h:16
 msgid "<b>Highlight style</b>"
 msgstr "<b>Styl zvýrazňování</b>"
 
-#: plugins/editor/anjuta-document-manager.glade.h:21
+#: plugins/editor/anjuta-document-manager.glade.h:17
 msgid "<b>Indentation and auto-format options</b>"
 msgstr "<b>Možnosti odsazení a automatického formátování</b>"
 
-#: plugins/editor/anjuta-document-manager.glade.h:22
+#: plugins/editor/anjuta-document-manager.glade.h:18
 msgid "<b>Misc options</b>"
 msgstr "<b>Různé možnosti</b>"
 
-#: plugins/editor/anjuta-document-manager.glade.h:23
+#: plugins/editor/anjuta-document-manager.glade.h:20
 msgid "<b>Other colors</b>"
 msgstr "<b>Jiné barvy</b>"
 
-#: plugins/editor/anjuta-document-manager.glade.h:24
+#: plugins/editor/anjuta-document-manager.glade.h:21
+msgid "<b>Parameters</b>"
+msgstr "<b>Parametry</b>"
+
+#: plugins/editor/anjuta-document-manager.glade.h:22
 msgid "<b>Print options</b>"
 msgstr "<b>Možnosti tisku</b>"
+
+#: plugins/editor/anjuta-document-manager.glade.h:23
+msgid "<b>Scope</b>"
+msgstr "<b>Rozsah</b>"
+
+#: plugins/editor/anjuta-document-manager.glade.h:24
+msgid "<b>Search Variable</b>"
+msgstr "<b>Hledat proměnnou</b>"
 
 #: plugins/editor/anjuta-document-manager.glade.h:25
 msgid "<b>Supported Encodings</b>"
@@ -2876,7 +2881,7 @@ msgid "Do not show tabs"
 msgstr "Nezobrazovat záložky"
 
 #: plugins/editor/anjuta-document-manager.glade.h:59
-#: plugins/editor/plugin.c:1139
+#: plugins/editor/plugin.c:1121
 msgid "Documents"
 msgstr "Dokumenty"
 
@@ -2945,381 +2950,369 @@ msgid "Expand regex back references"
 msgstr "Rozvinout odkazy zpět na regex"
 
 #: plugins/editor/anjuta-document-manager.glade.h:75
-msgid "File Filter"
-msgstr "Filtr souborů"
-
-#: plugins/editor/anjuta-document-manager.glade.h:76
 msgid "Filter extraneous characters in DOS mode"
 msgstr "Filtrovat přebytečné znaky v režimu DOS"
 
-#: plugins/editor/anjuta-document-manager.glade.h:77
+#: plugins/editor/anjuta-document-manager.glade.h:76
 msgid "Find & Replace"
 msgstr "Hledat a nahradit"
 
-#: plugins/editor/anjuta-document-manager.glade.h:78
+#: plugins/editor/anjuta-document-manager.glade.h:77
 msgid "Fold style:"
 msgstr "Styl skládání:"
 
-#: plugins/editor/anjuta-document-manager.glade.h:79
+#: plugins/editor/anjuta-document-manager.glade.h:78
 msgid "Font:"
 msgstr "Písmo:"
 
-#: plugins/editor/anjuta-document-manager.glade.h:80
+#: plugins/editor/anjuta-document-manager.glade.h:79
 msgid "Fonts and colors for editor"
 msgstr "Písma a barvy editoru"
 
-#: plugins/editor/anjuta-document-manager.glade.h:81
+#: plugins/editor/anjuta-document-manager.glade.h:80
 msgid "Fore color:"
 msgstr "Barva popředí:"
 
-#: plugins/editor/anjuta-document-manager.glade.h:82
+#: plugins/editor/anjuta-document-manager.glade.h:81
 #: plugins/editor/text_editor_menu.c:85
 msgid "Forward"
 msgstr "Vpřed"
 
-#: plugins/editor/anjuta-document-manager.glade.h:83
+#: plugins/editor/anjuta-document-manager.glade.h:82
 msgid "Full Buffer"
 msgstr "Celý buffer"
 
-#: plugins/editor/anjuta-document-manager.glade.h:84
+#: plugins/editor/anjuta-document-manager.glade.h:83
 msgid "GNU coding style"
 msgstr "Styl kódování GNU"
 
-#: plugins/editor/anjuta-document-manager.glade.h:85
+#: plugins/editor/anjuta-document-manager.glade.h:84
 msgid "Greedy matching"
 msgstr "Hladové hledání"
 
-#: plugins/editor/anjuta-document-manager.glade.h:86
+#: plugins/editor/anjuta-document-manager.glade.h:85
 msgid "Hello World style"
 msgstr "Styl Ahoj světe"
 
-#: plugins/editor/anjuta-document-manager.glade.h:87
+#: plugins/editor/anjuta-document-manager.glade.h:86
 msgid "Ignore Binary Files"
 msgstr "Ignorovat binární soubory"
 
-#: plugins/editor/anjuta-document-manager.glade.h:88
+#: plugins/editor/anjuta-document-manager.glade.h:87
 msgid "Ignore Directories:"
 msgstr "Ignorovat adresáře:"
 
-#: plugins/editor/anjuta-document-manager.glade.h:89
+#: plugins/editor/anjuta-document-manager.glade.h:88
 msgid "Ignore Files:"
 msgstr "Ignorovat soubory:"
 
-#: plugins/editor/anjuta-document-manager.glade.h:90
+#: plugins/editor/anjuta-document-manager.glade.h:89
 msgid "Ignore Hidden Directories"
 msgstr "Ignorovat skryté adresáře"
 
-#: plugins/editor/anjuta-document-manager.glade.h:91
+#: plugins/editor/anjuta-document-manager.glade.h:90
 msgid "Ignore Hidden Files"
 msgstr "Ignorovat skryté soubory"
 
-#: plugins/editor/anjuta-document-manager.glade.h:92
+#: plugins/editor/anjuta-document-manager.glade.h:91
 msgid "Indent closing braces"
 msgstr "Odsazovat uzavírací složené závorky"
 
-#: plugins/editor/anjuta-document-manager.glade.h:93
+#: plugins/editor/anjuta-document-manager.glade.h:92
 msgid "Indent opening braces"
 msgstr "Odsazovat otevírací složené závorky"
 
-#: plugins/editor/anjuta-document-manager.glade.h:94
+#: plugins/editor/anjuta-document-manager.glade.h:93
 msgid "Indentation"
 msgstr "Odsazení"
 
-#: plugins/editor/anjuta-document-manager.glade.h:95
+#: plugins/editor/anjuta-document-manager.glade.h:94
 msgid "Indentation size in spaces:"
 msgstr "Velikost odsazení v mezerách:"
 
-#: plugins/editor/anjuta-document-manager.glade.h:96
+#: plugins/editor/anjuta-document-manager.glade.h:95
 msgid "Italic"
 msgstr "Kurzíva"
 
-#: plugins/editor/anjuta-document-manager.glade.h:97
+#: plugins/editor/anjuta-document-manager.glade.h:96
 msgid "Kernighan and Ritchie style"
 msgstr "Styl Kernighan a Ritchie"
 
-#: plugins/editor/anjuta-document-manager.glade.h:98
+#: plugins/editor/anjuta-document-manager.glade.h:97
 #: plugins/message-view/anjuta-message-manager-plugin.glade.h:10
 msgid "Left"
 msgstr "Vlevo"
 
-#: plugins/editor/anjuta-document-manager.glade.h:99
+#: plugins/editor/anjuta-document-manager.glade.h:98
 msgid "Line numbers margin width in pixels"
 msgstr "Šířka okraje s čísly řádek v pixelech"
 
-#: plugins/editor/anjuta-document-manager.glade.h:100
+#: plugins/editor/anjuta-document-manager.glade.h:99
 #: plugins/editor/print.c:1038 src/anjuta_info.c:127
 msgid "Lines"
 msgstr "Řádek"
 
-#: plugins/editor/anjuta-document-manager.glade.h:101
+#: plugins/editor/anjuta-document-manager.glade.h:100
 msgid "Maintain past Indentation"
 msgstr "Udržovat minulé odsazení"
 
-#: plugins/editor/anjuta-document-manager.glade.h:102
+#: plugins/editor/anjuta-document-manager.glade.h:101
 msgid "Margin Fold visible"
 msgstr "Skládání na okraji viditelné"
 
-#: plugins/editor/anjuta-document-manager.glade.h:103
+#: plugins/editor/anjuta-document-manager.glade.h:102
 msgid "Margin Linenum visible"
 msgstr "Číslo řádku na okraji viditelné"
 
-#: plugins/editor/anjuta-document-manager.glade.h:104
+#: plugins/editor/anjuta-document-manager.glade.h:103
 msgid "Margin Marker visible"
 msgstr "Značka na okraji viditelná"
 
-#: plugins/editor/anjuta-document-manager.glade.h:105
+#: plugins/editor/anjuta-document-manager.glade.h:104
 msgid "Match at start of word"
 msgstr "Hledat na začátku slova"
 
-#: plugins/editor/anjuta-document-manager.glade.h:106
+#: plugins/editor/anjuta-document-manager.glade.h:105
 msgid "Match complete lines"
 msgstr "Hledat celé řádky"
 
-#: plugins/editor/anjuta-document-manager.glade.h:107
+#: plugins/editor/anjuta-document-manager.glade.h:106
 msgid "Match complete words"
 msgstr "Hledat celá slova"
 
-#: plugins/editor/anjuta-document-manager.glade.h:108
+#: plugins/editor/anjuta-document-manager.glade.h:107
 msgid "Max. Actions"
 msgstr "Max. akcí"
 
-#: plugins/editor/anjuta-document-manager.glade.h:109
+#: plugins/editor/anjuta-document-manager.glade.h:108
 msgid "Mode:"
 msgstr "Režim:"
 
-#: plugins/editor/anjuta-document-manager.glade.h:110
+#: plugins/editor/anjuta-document-manager.glade.h:109
 #: plugins/gdb/registers_gui.c:41
 msgid "Modify"
 msgstr "Upravit"
 
-#: plugins/editor/anjuta-document-manager.glade.h:111
+#: plugins/editor/anjuta-document-manager.glade.h:110
 msgid "Monochrome"
 msgstr "Monochromatický"
 
-#: plugins/editor/anjuta-document-manager.glade.h:112
-msgid "New Name"
-msgstr "Nový název"
+#: plugins/editor/anjuta-document-manager.glade.h:111
+msgid "New Name:"
+msgstr "Nový název:"
 
-#: plugins/editor/anjuta-document-manager.glade.h:113
+#: plugins/editor/anjuta-document-manager.glade.h:112
 msgid "No Limit"
 msgstr "Bez limitu"
 
-#: plugins/editor/anjuta-document-manager.glade.h:115
+#: plugins/editor/anjuta-document-manager.glade.h:114
 msgid "Original Berkeley style"
 msgstr "Původní styl Berkeley"
 
-#: plugins/editor/anjuta-document-manager.glade.h:116
+#: plugins/editor/anjuta-document-manager.glade.h:115
 #: plugins/message-view/anjuta-message-manager-plugin.glade.h:14
 msgid "Pick a color"
 msgstr "Zvolte barvu"
 
-#: plugins/editor/anjuta-document-manager.glade.h:117
+#: plugins/editor/anjuta-document-manager.glade.h:116
 msgid "Plus/Minus"
 msgstr "Plus/Mínus"
 
-#: plugins/editor/anjuta-document-manager.glade.h:118
+#: plugins/editor/anjuta-document-manager.glade.h:117
 msgid "Position:"
 msgstr "Pozice:"
 
-#: plugins/editor/anjuta-document-manager.glade.h:119
+#: plugins/editor/anjuta-document-manager.glade.h:118
 msgid "Pressing backspace un-indents"
 msgstr "Stisk backspace ruší odsazení"
 
-#: plugins/editor/anjuta-document-manager.glade.h:120
+#: plugins/editor/anjuta-document-manager.glade.h:119
 msgid "Pressing tab indents"
 msgstr "Stisk tab odsazuje"
 
-#: plugins/editor/anjuta-document-manager.glade.h:121
+#: plugins/editor/anjuta-document-manager.glade.h:120
 msgid "Printing"
 msgstr "Tisk"
 
-#: plugins/editor/anjuta-document-manager.glade.h:122
-msgid "Read me"
-msgstr "Čti mě"
-
-#: plugins/editor/anjuta-document-manager.glade.h:123
+#: plugins/editor/anjuta-document-manager.glade.h:121
 msgid "Regular Expression"
 msgstr "Regulární výraz"
 
-#: plugins/editor/anjuta-document-manager.glade.h:124
+#: plugins/editor/anjuta-document-manager.glade.h:122
 msgid "Reload Session Defaults"
 msgstr "Znovu načíst implicitní nastavení sezení"
 
-#: plugins/editor/anjuta-document-manager.glade.h:125
+#: plugins/editor/anjuta-document-manager.glade.h:123
 msgid "Reload System Defaults"
 msgstr "Znovu načíst implicitní nastavení systému"
 
-#: plugins/editor/anjuta-document-manager.glade.h:126
+#: plugins/editor/anjuta-document-manager.glade.h:124
 msgid "Replace With:"
 msgstr "Nahradit s:"
 
-#: plugins/editor/anjuta-document-manager.glade.h:127
+#: plugins/editor/anjuta-document-manager.glade.h:125
 #: plugins/message-view/anjuta-message-manager-plugin.glade.h:15
 msgid "Right"
 msgstr "Vpravo"
 
-#: plugins/editor/anjuta-document-manager.glade.h:128
+#: plugins/editor/anjuta-document-manager.glade.h:126
 msgid "Save files interval in minutes"
 msgstr "Interval ukládání souborů v minutách"
 
-#: plugins/editor/anjuta-document-manager.glade.h:129
+#: plugins/editor/anjuta-document-manager.glade.h:127
 msgid "Save session interval in minutes"
 msgstr "Interval ukládání sezení v minutách"
 
-#: plugins/editor/anjuta-document-manager.glade.h:130
+#: plugins/editor/anjuta-document-manager.glade.h:128
 msgid "Search Action:"
 msgstr "Akce hledání:"
 
-#: plugins/editor/anjuta-document-manager.glade.h:131
+#: plugins/editor/anjuta-document-manager.glade.h:129
 msgid "Search Direction:"
 msgstr "Směr hledání:"
 
-#: plugins/editor/anjuta-document-manager.glade.h:132
+#: plugins/editor/anjuta-document-manager.glade.h:130
 msgid "Search Expression"
 msgstr "Výraz hledání"
 
-#: plugins/editor/anjuta-document-manager.glade.h:133
+#: plugins/editor/anjuta-document-manager.glade.h:131
 msgid "Search Expression:"
 msgstr "Hledaný výraz:"
 
-#: plugins/editor/anjuta-document-manager.glade.h:134
+#: plugins/editor/anjuta-document-manager.glade.h:132
 msgid "Search In:"
 msgstr "Hledat v:"
 
-#: plugins/editor/anjuta-document-manager.glade.h:135
+#: plugins/editor/anjuta-document-manager.glade.h:133
 msgid "Search Recursively"
 msgstr "Hledat rekurzivně"
 
-#: plugins/editor/anjuta-document-manager.glade.h:136
+#: plugins/editor/anjuta-document-manager.glade.h:134
 msgid "Search Target"
 msgstr "Cíl hledání"
 
-#: plugins/editor/anjuta-document-manager.glade.h:137
-msgid "Search Variable"
-msgstr "Hledat proměnnou"
-
-#: plugins/editor/anjuta-document-manager.glade.h:138
+#: plugins/editor/anjuta-document-manager.glade.h:135
 msgid "Select highlight style to edit:"
 msgstr "Zvolte styl zvýraznění, který upravit:"
 
-#: plugins/editor/anjuta-document-manager.glade.h:139
+#: plugins/editor/anjuta-document-manager.glade.h:136
 msgid "Select theme:"
 msgstr "Zvolte téma:"
 
-#: plugins/editor/anjuta-document-manager.glade.h:140
+#: plugins/editor/anjuta-document-manager.glade.h:137
 msgid "Selection background:"
 msgstr "Pozadí výběru:"
 
-#: plugins/editor/anjuta-document-manager.glade.h:141
+#: plugins/editor/anjuta-document-manager.glade.h:138
 msgid "Selection foreground:"
 msgstr "Popředí výběru:"
 
-#: plugins/editor/anjuta-document-manager.glade.h:142
+#: plugins/editor/anjuta-document-manager.glade.h:139
 msgid "Setting"
 msgstr "Nastavení"
 
-#: plugins/editor/anjuta-document-manager.glade.h:143
+#: plugins/editor/anjuta-document-manager.glade.h:140
 msgid "Sorted by most recent use"
 msgstr "Setřízeny podle posledního použití"
 
-#: plugins/editor/anjuta-document-manager.glade.h:144
+#: plugins/editor/anjuta-document-manager.glade.h:141
 msgid "Sorted in alphabetical order"
 msgstr "Setřízeny v abecedním pořadí"
 
-#: plugins/editor/anjuta-document-manager.glade.h:145
+#: plugins/editor/anjuta-document-manager.glade.h:142
 msgid "Sorted in opening order"
 msgstr "Setřízeny v pořadí otevírání"
 
-#: plugins/editor/anjuta-document-manager.glade.h:146
+#: plugins/editor/anjuta-document-manager.glade.h:143
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:18
 #: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:18
 msgid "Space-seperated list of directory name patterns to ignore"
 msgstr "Seznam vzorů názvů adresářů, které ignorovat, oddělený mezerami"
 
-#: plugins/editor/anjuta-document-manager.glade.h:147
+#: plugins/editor/anjuta-document-manager.glade.h:144
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:19
 #: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:19
 msgid "Space-seperated list of directory name patterns to match"
 msgstr "Seznam vzorů názvů adresářů, které hledat, oddělený mezerami"
 
-#: plugins/editor/anjuta-document-manager.glade.h:148
+#: plugins/editor/anjuta-document-manager.glade.h:145
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:20
 #: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:20
 msgid "Space-seperated list of file name patterns to ignore"
 msgstr "Seznam vzorů názvů souborů, které ignorovat, oddělený mezerami"
 
-#: plugins/editor/anjuta-document-manager.glade.h:149
+#: plugins/editor/anjuta-document-manager.glade.h:146
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:21
 #: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:21
 msgid "Space-seperated list of file name patterns to match"
 msgstr "Seznam vzorů názvů souborů, které hledat, oddělený mezerami"
 
-#: plugins/editor/anjuta-document-manager.glade.h:150
+#: plugins/editor/anjuta-document-manager.glade.h:147
 msgid "Squares"
 msgstr "Čtverce"
 
-#: plugins/editor/anjuta-document-manager.glade.h:151
+#: plugins/editor/anjuta-document-manager.glade.h:148
 msgid "Strip trailling spaces on file save"
 msgstr "Odstranit mezery na konci řádku při uložení souboru"
 
-#: plugins/editor/anjuta-document-manager.glade.h:152
+#: plugins/editor/anjuta-document-manager.glade.h:149
 msgid "Style of Kangleipak"
 msgstr "Styl Kangleipak"
 
-#: plugins/editor/anjuta-document-manager.glade.h:153
+#: plugins/editor/anjuta-document-manager.glade.h:150
 msgid "Tab size in spaces:"
 msgstr "Velikost tabelátoru v mezerách:"
 
-#: plugins/editor/anjuta-document-manager.glade.h:154
+#: plugins/editor/anjuta-document-manager.glade.h:151
 #: plugins/message-view/anjuta-message-manager-plugin.glade.h:18
 msgid "Top"
 msgstr "Nahoře"
 
-#: plugins/editor/anjuta-document-manager.glade.h:155
+#: plugins/editor/anjuta-document-manager.glade.h:152
 msgid "Try to save in current locale's encoding"
 msgstr "Zkusit uložit v kódování aktuálního locale"
 
-#: plugins/editor/anjuta-document-manager.glade.h:156
+#: plugins/editor/anjuta-document-manager.glade.h:153
 msgid "Try to save in original encoding"
 msgstr "Zkusit uložit v původním kódování"
 
-#: plugins/editor/anjuta-document-manager.glade.h:157
+#: plugins/editor/anjuta-document-manager.glade.h:154
 msgid "Underlined"
 msgstr "Podtržené"
 
-#: plugins/editor/anjuta-document-manager.glade.h:158
+#: plugins/editor/anjuta-document-manager.glade.h:155
 msgid "Use default"
 msgstr "Používat implicitní"
 
-#: plugins/editor/anjuta-document-manager.glade.h:159
+#: plugins/editor/anjuta-document-manager.glade.h:156
 msgid "Use tabs for indentation"
 msgstr "Používat pro odsazování tabelátory"
 
-#: plugins/editor/anjuta-document-manager.glade.h:160
+#: plugins/editor/anjuta-document-manager.glade.h:157
 msgid "View EOL chars"
 msgstr "Zobrazovat znaky EOL"
 
-#: plugins/editor/anjuta-document-manager.glade.h:161
+#: plugins/editor/anjuta-document-manager.glade.h:158
 msgid "View Indentation Guides"
 msgstr "Zobrazovat vodítka odsazení"
 
-#: plugins/editor/anjuta-document-manager.glade.h:162
+#: plugins/editor/anjuta-document-manager.glade.h:159
 msgid "View Line Wrap"
 msgstr "Zobrazovat lámání řádek"
 
-#: plugins/editor/anjuta-document-manager.glade.h:163
+#: plugins/editor/anjuta-document-manager.glade.h:160
 msgid "View Whitespaces"
 msgstr "Zobrazovat bílá místa"
 
-#: plugins/editor/anjuta-document-manager.glade.h:164
+#: plugins/editor/anjuta-document-manager.glade.h:161
 msgid "View indentation whitespaces"
 msgstr "Zobrazovat bílá místa odsazení"
 
-#: plugins/editor/anjuta-document-manager.glade.h:165
+#: plugins/editor/anjuta-document-manager.glade.h:162
 msgid "Wrap bookmarks search around"
 msgstr "Při hledání záložek pokračovat přes konec"
 
-#: plugins/editor/anjuta-document-manager.glade.h:166
+#: plugins/editor/anjuta-document-manager.glade.h:163
 msgid "_Save Theme As"
 msgstr "_Uložit téma jako"
 
@@ -3327,7 +3320,7 @@ msgstr "_Uložit téma jako"
 msgid "<b>Goto Line number:</b>"
 msgstr "<b>_Jít na číslo řádku:</b>"
 
-#: plugins/editor/plugin.c:128
+#: plugins/editor/plugin.c:128 plugins/glade/plugin.c:454
 msgid "_Save"
 msgstr "_Uložit"
 
@@ -3335,7 +3328,7 @@ msgstr "_Uložit"
 msgid "Save current file"
 msgstr "Uložit aktuální soubor"
 
-#: plugins/editor/plugin.c:130
+#: plugins/editor/plugin.c:130 plugins/glade/plugin.c:462
 msgid "Save _As ..."
 msgstr "Uložit _jako ..."
 
@@ -3666,7 +3659,8 @@ msgstr "_Zpět"
 msgid "Undo the last action"
 msgstr "Vrátit poslední akci zpět"
 
-#: plugins/editor/plugin.c:289
+#: plugins/editor/plugin.c:289 plugins/glade/plugin.c:125
+#: plugins/glade/plugin.c:406
 msgid "_Redo"
 msgstr "Z_novu"
 
@@ -3682,7 +3676,7 @@ msgstr "_Vyjmout"
 msgid "Cut the selected text from the editor to the clipboard"
 msgstr "Vyjmout vybraný text z editoru do schránky"
 
-#: plugins/editor/plugin.c:295
+#: plugins/editor/plugin.c:295 plugins/glade/plugin.c:422
 msgid "_Copy"
 msgstr "_Kopírovat"
 
@@ -3690,7 +3684,7 @@ msgstr "_Kopírovat"
 msgid "Copy the selected text to the clipboard"
 msgstr "Kopírovat vybraný text do schránky"
 
-#: plugins/editor/plugin.c:298
+#: plugins/editor/plugin.c:298 plugins/glade/plugin.c:430
 msgid "_Paste"
 msgstr "V_ložit"
 
@@ -3798,429 +3792,226 @@ msgstr "Zmenšit: Zmenšit velikost písma"
 msgid "Force _Highlight Style"
 msgstr "Vnutit _styl zvýraznění"
 
-#: plugins/editor/plugin.c:349
-msgid "Automatic"
-msgstr "Automatický"
-
-#: plugins/editor/plugin.c:350
-msgid "Automatically determine the highlight style"
-msgstr "Automaticky určit styl zvýraznění"
-
-#: plugins/editor/plugin.c:352
-msgid "No Highlight style"
-msgstr "Žádný styl zvýraznění"
-
-#: plugins/editor/plugin.c:353
-msgid "Remove the current highlight style"
-msgstr "Odstranit aktuální styl zvýraznění"
-
-#: plugins/editor/plugin.c:355
-msgid "C and C++"
-msgstr "C a C++"
-
-#: plugins/editor/plugin.c:356
-msgid "Force the highlight style to C and C++"
-msgstr "Vnutit styl zvýraznění C a C++"
-
-#: plugins/editor/plugin.c:358
-msgid "HTML"
-msgstr "HTML"
-
-#: plugins/editor/plugin.c:359
-msgid "Force the highlight style to HTML"
-msgstr "Vnutit styl zvýraznění HTML"
-
-#: plugins/editor/plugin.c:361
-msgid "XML"
-msgstr "XML"
-
-#: plugins/editor/plugin.c:362
-msgid "Force the highlight style to XML"
-msgstr "Vnutit styl zvýraznění XML"
-
-#: plugins/editor/plugin.c:364
-msgid "Javascript"
-msgstr "Javascript"
-
-#: plugins/editor/plugin.c:365
-msgid "Force the highlight style to Javascript"
-msgstr "Vnutit styl zvýraznění Javascript"
-
-#: plugins/editor/plugin.c:367
-msgid "WScript"
-msgstr "WScript"
-
-#: plugins/editor/plugin.c:368
-msgid "Force the highlight style to WScript"
-msgstr "Vnutit styl zvýraznění WScript"
-
-#: plugins/editor/plugin.c:370
-msgid "Makefile"
-msgstr "Makefile"
-
-#: plugins/editor/plugin.c:371
-msgid "Force the highlight style to Makefile"
-msgstr "Vnutit styl zvýraznění Makefile"
-
-#: plugins/editor/plugin.c:373
-msgid "Java"
-msgstr "Java"
-
-#: plugins/editor/plugin.c:374
-msgid "Force the highlight type to Java"
-msgstr "Vnutit styl zvýraznění Java"
-
-#: plugins/editor/plugin.c:376
-msgid "LUA"
-msgstr "LUA"
-
-#: plugins/editor/plugin.c:377
-msgid "Force the highlight style to LUA"
-msgstr "Vnutit styl zvýraznění LUA"
-
-#: plugins/editor/plugin.c:379
-msgid "Python"
-msgstr "Python"
-
-#: plugins/editor/plugin.c:380
-msgid "Force the highlight style to Python"
-msgstr "Vnutit styl zvýraznění Python"
-
-#: plugins/editor/plugin.c:382
-msgid "Perl"
-msgstr "Perl"
-
-#: plugins/editor/plugin.c:383
-msgid "Force the highlight style to Perl"
-msgstr "Vnutit styl zvýraznění Perl"
-
-#: plugins/editor/plugin.c:385
-msgid "SQL"
-msgstr "SQL"
-
-#: plugins/editor/plugin.c:386
-msgid "Force the highlight style to SQL"
-msgstr "Vnutit styl zvýraznění SQL"
-
-#: plugins/editor/plugin.c:388
-msgid "PL/SQL"
-msgstr "PL/SQL"
-
-#: plugins/editor/plugin.c:389
-msgid "Force the highlight style to PL/SQL"
-msgstr "Vnutit styl zvýraznění PL/SQL"
-
-#: plugins/editor/plugin.c:391
-msgid "PHP"
-msgstr "PHP"
-
-#: plugins/editor/plugin.c:392
-msgid "Force the highlight style to PHP"
-msgstr "Vnutit styl zvýraznění PHP"
-
-#: plugins/editor/plugin.c:394
-msgid "LaTex"
-msgstr "LaTex"
-
-#: plugins/editor/plugin.c:395
-msgid "Force the highlight style to LaTex"
-msgstr "Vnutit styl zvýraznění LaTex"
-
-#: plugins/editor/plugin.c:397
-msgid "Diff"
-msgstr "Diff"
-
-#: plugins/editor/plugin.c:398
-msgid "Force the highlight style to Diff"
-msgstr "Vnutit styl zvýraznění Diff"
-
-#: plugins/editor/plugin.c:400
-msgid "Pascal"
-msgstr "Pascal"
-
-#: plugins/editor/plugin.c:401
-msgid "Force the highlight style to Pascal"
-msgstr "Vnutit styl zvýraznění Pascal"
-
-#: plugins/editor/plugin.c:403
-msgid "Xcode"
-msgstr "Xcode"
-
-#: plugins/editor/plugin.c:404
-msgid "Force the highlight style to Xcode"
-msgstr "Vnutit styl zvýraznění Xcode"
-
-#: plugins/editor/plugin.c:406
-msgid "Prj/Properties"
-msgstr "Proj/vlastnosti"
-
-#: plugins/editor/plugin.c:407
-msgid "Force the highlight style to project/properties files"
-msgstr "Vnutit styl zvýraznění souborů projektu/vlastností"
-
-#: plugins/editor/plugin.c:409
-msgid "Conf"
-msgstr "Konf"
-
-#: plugins/editor/plugin.c:410
-msgid "Force the highlight style to UNIX conf files"
-msgstr "Vnutit styl zvýraznění konfiguračních souborů UNIXu"
-
-#: plugins/editor/plugin.c:412
-msgid "Ada"
-msgstr "Ada"
-
-#: plugins/editor/plugin.c:413
-msgid "Force the highlight style to Ada"
-msgstr "Vnutit styl zvýraznění Ada"
-
-#: plugins/editor/plugin.c:415
-msgid "Baan"
-msgstr "Baan"
-
-#: plugins/editor/plugin.c:416
-msgid "Force the highlight style to Baan"
-msgstr "Vnutit styl zvýraznění Baan"
-
-#: plugins/editor/plugin.c:418
-msgid "Lisp"
-msgstr "Lisp"
-
-#: plugins/editor/plugin.c:419
-msgid "Force the highlight style to Lisp"
-msgstr "Vnutit styl zvýraznění Lisp"
-
-#: plugins/editor/plugin.c:421
-msgid "Ruby"
-msgstr "Ruby"
-
-#: plugins/editor/plugin.c:422
-msgid "Force the highlight style to Ruby"
-msgstr "Vnutit styl zvýraznění Ruby"
-
-#: plugins/editor/plugin.c:424
-msgid "Matlab"
-msgstr "Matlab"
-
-#: plugins/editor/plugin.c:425
-msgid "Force the highlight style to Matlab"
-msgstr "Vnutit styl zvýraznění Matlab"
-
-#: plugins/editor/plugin.c:430
+#: plugins/editor/plugin.c:351
 msgid "For_mat"
 msgstr "_Formát"
 
-#: plugins/editor/plugin.c:431
+#: plugins/editor/plugin.c:352
 msgid "Auto _Format"
 msgstr "Automaticky z_formátovat"
 
-#: plugins/editor/plugin.c:433
+#: plugins/editor/plugin.c:354
 msgid "Autoformat the current source file"
 msgstr "Automaticky zformátovat aktuální zdrojový soubor"
 
-#: plugins/editor/plugin.c:435
+#: plugins/editor/plugin.c:356
 msgid "Autoformat _settings"
 msgstr "_Nastavení automatického formátování"
 
-#: plugins/editor/plugin.c:437
+#: plugins/editor/plugin.c:358
 msgid "Autoformat settings"
 msgstr "Nastavení automatického formátování"
 
-#: plugins/editor/plugin.c:439
+#: plugins/editor/plugin.c:360
 msgid "_Increase Indent"
 msgstr "Z_většit odsazení"
 
-#: plugins/editor/plugin.c:441
+#: plugins/editor/plugin.c:362
 msgid "Increase indentation of line/selection"
 msgstr "Zvětšit odsazení řádku/výběru"
 
-#: plugins/editor/plugin.c:443
+#: plugins/editor/plugin.c:364
 msgid "_Decrease Indent"
 msgstr "Z_menšit odsazení"
 
-#: plugins/editor/plugin.c:445
+#: plugins/editor/plugin.c:366
 msgid "Decrease indentation of line/selection"
 msgstr "Zmenšit odsazení řádku/výběru"
 
-#: plugins/editor/plugin.c:447
+#: plugins/editor/plugin.c:368
 msgid "_Close All Folds"
 msgstr "_Zavřít všechna složení"
 
-#: plugins/editor/plugin.c:449
+#: plugins/editor/plugin.c:370
 msgid "Close all code folds in the editor"
 msgstr "Zavřít v editoru všechna složení kódu"
 
-#: plugins/editor/plugin.c:451
+#: plugins/editor/plugin.c:372
 msgid "_Open All Folds"
 msgstr "_Otevřít všechna složení"
 
-#: plugins/editor/plugin.c:453
+#: plugins/editor/plugin.c:374
 msgid "Open all code folds in the editor"
 msgstr "Otevřít v editoru všechna složení kódu"
 
-#: plugins/editor/plugin.c:455
+#: plugins/editor/plugin.c:376
 msgid "_Toggle Current Fold"
 msgstr "_Přepnout aktuální složení"
 
-#: plugins/editor/plugin.c:457
+#: plugins/editor/plugin.c:378
 msgid "Toggle current code fold in the editor"
 msgstr "Přepnout v editoru aktuální složení kódu"
 
-#: plugins/editor/plugin.c:462
+#: plugins/editor/plugin.c:383
 msgid "Bookmar_k"
 msgstr "_Záložka"
 
-#: plugins/editor/plugin.c:463
+#: plugins/editor/plugin.c:384
 msgid "_Toggle bookmark"
 msgstr "_Přepnout záložku"
 
-#: plugins/editor/plugin.c:465
+#: plugins/editor/plugin.c:386
 msgid "Toggle a bookmark at the current line position"
 msgstr "Přepnout záložku na aktuální pozici"
 
-#: plugins/editor/plugin.c:467
+#: plugins/editor/plugin.c:388
 msgid "_First bookmark"
 msgstr "_První záložka"
 
-#: plugins/editor/plugin.c:469
+#: plugins/editor/plugin.c:390
 msgid "Jump to the first bookmark in the file"
 msgstr "Skočit na první záložku v souboru"
 
-#: plugins/editor/plugin.c:471
+#: plugins/editor/plugin.c:392
 msgid "_Previous bookmark"
 msgstr "_Předchozí záložka"
 
-#: plugins/editor/plugin.c:473
+#: plugins/editor/plugin.c:394
 msgid "Jump to the previous bookmark in the file"
 msgstr "Skočit na předchozí záložku v souboru"
 
-#: plugins/editor/plugin.c:475
+#: plugins/editor/plugin.c:396
 msgid "_Next bookmark"
 msgstr "_Následující záložka"
 
-#: plugins/editor/plugin.c:477
+#: plugins/editor/plugin.c:398
 msgid "Jump to the next bookmark in the file"
 msgstr "Skočit na následující záložku v souboru"
 
-#: plugins/editor/plugin.c:479
+#: plugins/editor/plugin.c:400
 msgid "_Last bookmark"
 msgstr "_Poslední záložka"
 
-#: plugins/editor/plugin.c:481
+#: plugins/editor/plugin.c:402
 msgid "Jump to the last bookmark in the file"
 msgstr "Skočit na poslední záložku v souboru"
 
-#: plugins/editor/plugin.c:483
+#: plugins/editor/plugin.c:404
 msgid "_Clear all bookmarks"
 msgstr "_Vymazat všechny záložky"
 
-#: plugins/editor/plugin.c:485
+#: plugins/editor/plugin.c:406
 msgid "Clear bookmarks"
 msgstr "Vymazat záložky"
 
-#: plugins/editor/plugin.c:504
+#: plugins/editor/plugin.c:425
 msgid "Editor file operations"
 msgstr "Operace editoru se soubory"
 
-#: plugins/editor/plugin.c:505
+#: plugins/editor/plugin.c:426
 msgid "Editor print operations"
 msgstr "Operace tisku v editoru"
 
-#: plugins/editor/plugin.c:506
+#: plugins/editor/plugin.c:427
 msgid "Editor text transformation"
 msgstr "Transformace textu v editoru"
 
-#: plugins/editor/plugin.c:507
+#: plugins/editor/plugin.c:428
 msgid "Editor text selection"
 msgstr "Výběr textu v editoru"
 
 #. { actions_insert, G_N_ELEMENTS (actions_insert), "ActionGroupEditorInsert", N_("Editor text insertions") },
-#: plugins/editor/plugin.c:509
+#: plugins/editor/plugin.c:430
 msgid "Editor text searching"
 msgstr "Hledání textu v editoru"
 
-#: plugins/editor/plugin.c:510
+#: plugins/editor/plugin.c:431
 msgid "Editor code commenting"
 msgstr "Komentování kódu v editoru"
 
-#: plugins/editor/plugin.c:511
+#: plugins/editor/plugin.c:432
 msgid "Editor navigations"
 msgstr "Navigace v editoru"
 
-#: plugins/editor/plugin.c:512
+#: plugins/editor/plugin.c:433
 msgid "Editor edit operations"
 msgstr "Operace úprav v editoru"
 
-#: plugins/editor/plugin.c:513
+#: plugins/editor/plugin.c:434
 msgid "Editor zoom operations"
 msgstr "Operace zvětšení editoru"
 
-#: plugins/editor/plugin.c:514
+#: plugins/editor/plugin.c:435
 msgid "Editor syntax highlighting styles"
 msgstr "Styly zvýrazňování syntaxe v editoru"
 
-#: plugins/editor/plugin.c:515
+#: plugins/editor/plugin.c:436
 msgid "Editor text formating"
 msgstr "Formátování textu v editoru"
 
-#: plugins/editor/plugin.c:516
+#: plugins/editor/plugin.c:437
 msgid "Editor bookmarks"
 msgstr "Záložky editoru"
 
-#: plugins/editor/plugin.c:520
+#: plugins/editor/plugin.c:441
 msgid "Editor view settings"
 msgstr "Nastavení zobrazení v editoru"
 
-#: plugins/editor/plugin.c:590
+#: plugins/editor/plugin.c:511
 msgid "Save"
 msgstr "Uložit"
 
-#: plugins/editor/plugin.c:594
+#: plugins/editor/plugin.c:515
 msgid "Reload"
 msgstr "Znovu načíst"
 
-#: plugins/editor/plugin.c:600
+#: plugins/editor/plugin.c:521
 msgid "Find"
 msgstr "Hledat"
 
-#: plugins/editor/plugin.c:603
+#: plugins/editor/plugin.c:524
 msgid "Goto"
 msgstr "Jít na"
 
-#: plugins/editor/plugin.c:751
+#: plugins/editor/plugin.c:672
 msgid "OVR"
 msgstr "PŘE"
 
-#: plugins/editor/plugin.c:755
+#: plugins/editor/plugin.c:676
 msgid "INS"
 msgstr "VKL"
 
-#: plugins/editor/plugin.c:757 plugins/editor/plugin.c:768
+#: plugins/editor/plugin.c:678 plugins/editor/plugin.c:689
 msgid "Zoom"
 msgstr "Zvětšení"
 
-#: plugins/editor/plugin.c:758 plugins/editor/plugin.c:769
+#: plugins/editor/plugin.c:679 plugins/editor/plugin.c:690
 #: plugins/gdb/breakpoints.c:116
 msgid "Line"
 msgstr "Řádek"
 
-#: plugins/editor/plugin.c:759 plugins/editor/plugin.c:770
+#: plugins/editor/plugin.c:680 plugins/editor/plugin.c:691
 msgid "Col"
 msgstr "Sl"
 
-#: plugins/editor/plugin.c:760 plugins/editor/plugin.c:771
+#: plugins/editor/plugin.c:681 plugins/editor/plugin.c:692
 msgid "Mode"
 msgstr "Režim"
 
-#: plugins/editor/plugin.c:1105
+#. Automatic highlight menu
+#: plugins/editor/plugin.c:936
+msgid "Automatic"
+msgstr "Automatický"
+
+#: plugins/editor/plugin.c:1087
 msgid "Goto line"
 msgstr "Jít na řádek"
 
-#: plugins/editor/plugin.c:1106
+#: plugins/editor/plugin.c:1088
 msgid "Enter the line number to jump and press enter"
 msgstr "Zadejte číslo řádku, na které přejít, a stiskněte enter"
 
-#: plugins/editor/plugin.c:1134
+#: plugins/editor/plugin.c:1116
 msgid "Editor quick navigations"
 msgstr "Rychlá navigace v editoru"
 
@@ -4302,23 +4093,23 @@ msgstr "Bylo nahrazeno %d výsledků."
 msgid "Unable to build user interface for Search And Replace"
 msgstr "Nemohu sestavit uživatelské rozhraní pro Hledat a nahradit"
 
-#: plugins/editor/text_editor.c:1079
+#: plugins/editor/text_editor.c:1099
 msgid "Could not get file info"
 msgstr "Nemohu získat informace o souboru"
 
-#: plugins/editor/text_editor.c:1086
+#: plugins/editor/text_editor.c:1106
 msgid "This file is too big. Unable to allocate memory."
 msgstr "Tento soubor je příliš velký. Nemohu alokovat paměť."
 
-#: plugins/editor/text_editor.c:1093
+#: plugins/editor/text_editor.c:1113
 msgid "Could not open file"
 msgstr "Nemohu otevřít soubor"
 
-#: plugins/editor/text_editor.c:1101
+#: plugins/editor/text_editor.c:1121
 msgid "Error while reading from file"
 msgstr "Chyba při čtení ze souboru"
 
-#: plugins/editor/text_editor.c:1137
+#: plugins/editor/text_editor.c:1157
 msgid ""
 "The file does not look like a text file or the file encoding is not "
 "supported. Please check if the encoding of file is in the supported "
@@ -4328,7 +4119,7 @@ msgstr ""
 "podporováno. Zkontrolujte prosím, jestli je kódování souboru v seznamu "
 "podporovaných kódování. Pokud není, přidejte ji v nastavení."
 
-#: plugins/editor/text_editor.c:1301
+#: plugins/editor/text_editor.c:1321
 #, c-format
 msgid ""
 "Could not load file: %s\n"
@@ -4339,12 +4130,12 @@ msgstr ""
 "\n"
 "Detaily: %s"
 
-#: plugins/editor/text_editor.c:1341
+#: plugins/editor/text_editor.c:1361
 #, c-format
 msgid "Could not save file: %s."
 msgstr "Nemohu uložit soubor: %s."
 
-#: plugins/editor/text_editor.c:1404
+#: plugins/editor/text_editor.c:1424
 #, c-format
 msgid ""
 "The file '%s' on the disk is more recent than\n"
@@ -4355,21 +4146,21 @@ msgstr ""
 "aktuální buffer.\n"
 "Chcete jej znovu načíst?"
 
-#: plugins/editor/text_editor.c:1579
+#: plugins/editor/text_editor.c:1599
 msgid "Auto format is currently disabled. Change the setting in Preferences."
 msgstr "Automatické formátování je momentálně zakázáno. Změňte to v Nastavení."
 
-#: plugins/editor/text_editor.c:1598
+#: plugins/editor/text_editor.c:1618
 msgid "Error in auto formatting ..."
 msgstr "Chyba při automatickém formátování ..."
 
 #. FIXME: anjuta_set_active ();
-#: plugins/editor/text_editor.c:1614
+#: plugins/editor/text_editor.c:1634
 #, c-format
 msgid "Anjuta does not know %s!"
 msgstr "Anjuta nezná %s!"
 
-#: plugins/editor/text_editor.c:1639
+#: plugins/editor/text_editor.c:1659
 #, c-format
 msgid ""
 "Error in auto formatting ...\n"
@@ -4378,7 +4169,7 @@ msgstr ""
 "Chyba při automatickém formátování ...\n"
 "Detaily: %s"
 
-#: plugins/editor/text_editor.c:1882
+#: plugins/editor/text_editor.c:1906
 #, c-format
 msgid ""
 "Cannot load Global defaults and configuration files:\n"
@@ -5500,6 +5291,132 @@ msgstr "Zkoumat/vyhodnotit výraz"
 msgid "Add To Watch"
 msgstr "Přidat do sledovaných"
 
+#: plugins/glade/plugin.c:110
+#, c-format
+msgid "_Undo: %s"
+msgstr "_Zpět: %s"
+
+#: plugins/glade/plugin.c:115 plugins/glade/plugin.c:398
+msgid "_Undo"
+msgstr "_Zpět"
+
+#: plugins/glade/plugin.c:120
+#, c-format
+msgid "_Redo: %s"
+msgstr "Zn_ovu: %s"
+
+#: plugins/glade/plugin.c:201 plugins/glade/plugin.c:227
+msgid "Invalid glade file name"
+msgstr "Neplatný název souboru glade"
+
+#. FIXME: gpw_refresh_project_entry (gpw, project);
+#: plugins/glade/plugin.c:205 plugins/glade/plugin.c:224
+#, c-format
+msgid "Glade project '%s' saved"
+msgstr "Projekt glade '%s' uložen"
+
+#. If instead we dont have a path yet, fire up a file selector
+#: plugins/glade/plugin.c:233
+msgid "Save glade file ..."
+msgstr "Uložit soubor glade ..."
+
+#: plugins/glade/plugin.c:259
+msgid "Save glade file as ..."
+msgstr "Uložit soubor lade jako ..."
+
+#: plugins/glade/plugin.c:286
+#, c-format
+msgid ""
+"<span weight=\"bold\" size=\"larger\">Save changes to glade project \"%s\" "
+"before closing?</span>\n"
+"\n"
+"Your changes will be lost if you don't save them.\n"
+msgstr ""
+"<span weight=\"bold\" size=\"larger\">Uložit před zavřením změny do projektu glade \"%s\"?</span>\n"
+"\n"
+"Pokud je neuložíte, budou vaše změny ztraceny.\n"
+
+#: plugins/glade/plugin.c:299
+msgid "_Close without Saving"
+msgstr "_Zavřít bez uložení"
+
+#: plugins/glade/plugin.c:321
+msgid "Save glade project..."
+msgstr "Uložit projekt glade..."
+
+#: plugins/glade/plugin.c:390
+msgid "_Glade"
+msgstr "_Glade"
+
+#: plugins/glade/plugin.c:400
+msgid "Undo last action"
+msgstr "Vrátit poslední akci zpět"
+
+#: plugins/glade/plugin.c:408
+msgid "Redo last undone action"
+msgstr "Zopakovat poslední akci vrácenou zpět"
+
+#: plugins/glade/plugin.c:414
+msgid "Cu_t"
+msgstr "_Vyjmout"
+
+#: plugins/glade/plugin.c:416
+msgid "Cut selection"
+msgstr "Vyjmout výběr"
+
+#: plugins/glade/plugin.c:424
+msgid "Copy selection"
+msgstr "Kopírvat výběr"
+
+#: plugins/glade/plugin.c:432
+msgid "Paste selection"
+msgstr "Vložit výběr"
+
+#: plugins/glade/plugin.c:438
+msgid "_Delete"
+msgstr "_Odstranit"
+
+#: plugins/glade/plugin.c:440
+msgid "Delete selection"
+msgstr "Odstranit výběr"
+
+#: plugins/glade/plugin.c:446
+msgid "_Show Clipboard"
+msgstr "Zo_brazit schránku"
+
+#: plugins/glade/plugin.c:448
+msgid "Show clipboard"
+msgstr "Zobrazit schránku"
+
+#: plugins/glade/plugin.c:456
+msgid "Save glade project"
+msgstr "Uložit projekt glade"
+
+#: plugins/glade/plugin.c:464
+msgid "Save as glade project"
+msgstr "Uložit jako projekt glade"
+
+#: plugins/glade/plugin.c:470
+msgid "Clos_e"
+msgstr "_Zavřít"
+
+#: plugins/glade/plugin.c:472
+msgid "Close current glade project"
+msgstr "Zavřít aktuální projekt glade"
+
+#: plugins/glade/plugin.c:530
+msgid "Glade operations"
+msgstr "Operace glade"
+
+#: plugins/glade/plugin.c:648
+#, c-format
+msgid "Could not open: %s"
+msgstr "Nemohu otevřít: %s"
+
+#: plugins/glade/plugin.c:679
+msgid "Could not create a new glade project."
+msgstr "Nemohu vytvořit nový projekt glade."
+
 #: plugins/gtodo/add_edit_item.c:82
 msgid "You need to select a todo item before you can edit it"
 msgstr "Musíte vybrat úkol, než jej můžete editovat"
@@ -6035,42 +5952,42 @@ msgstr "/Úkoly/Upravit kategorie"
 msgid "All"
 msgstr "Vše"
 
-#: plugins/gtodo/interface.c:206
+#: plugins/gtodo/interface.c:208
 msgid "Priority"
 msgstr "Priorita"
 
-#: plugins/gtodo/interface.c:211
+#: plugins/gtodo/interface.c:213
 msgid "Due date"
 msgstr "Termín dokončení"
 
-#: plugins/gtodo/interface.c:221
+#: plugins/gtodo/interface.c:223
 #: plugins/project-wizard/anjuta-project-wizard.glade.h:13
 msgid "Summary"
 msgstr "Shrnutí"
 
-#: plugins/gtodo/interface.c:244
+#: plugins/gtodo/interface.c:247
 msgid "About gToDo"
 msgstr "O gToDo"
 
-#: plugins/gtodo/interface.c:252
+#: plugins/gtodo/interface.c:255
 #, c-format
 msgid "gToDo %s"
 msgstr "gToDo %s"
 
-#: plugins/gtodo/interface.c:256
+#: plugins/gtodo/interface.c:259
 #, c-format
 msgid "<span size=\"xx-large\"><b>gToDo %s</b></span>"
 msgstr "<span size=\"xx-large\"><b>gToDo %s</b></span>"
 
-#: plugins/gtodo/interface.c:261
+#: plugins/gtodo/interface.c:264
 msgid "gToDo is a small and simple todo list written in gtk+-2.0"
 msgstr "gToDo je malý a jednoduchý seznam úkolů napsaný v gtk+-2.0"
 
-#: plugins/gtodo/interface.c:264
+#: plugins/gtodo/interface.c:267
 msgid "Copyright © 2003-2004 Qball Cow (Qball@qball.homelinux.org)"
 msgstr "Copyright © 2003-2004 Qball Cow (Qball@qball.homelinux.org)"
 
-#: plugins/gtodo/interface.c:265
+#: plugins/gtodo/interface.c:268
 msgid ""
 "<span size=\"small\">Copyright © 2003-2004 Qball Cow (Qball@qball.homelinux."
 "org)</span>"
@@ -6102,24 +6019,24 @@ msgstr "Pracovní"
 msgid "Unfiled"
 msgstr "Nezařazené"
 
-#: plugins/gtodo/libgtodo.c:715
+#: plugins/gtodo/libgtodo.c:759
 msgid "No Gtodo Client to save."
 msgstr "Žádný klient Gtodo, který uložit."
 
-#: plugins/gtodo/libgtodo.c:734
+#: plugins/gtodo/libgtodo.c:778
 #, c-format
 msgid "Failed to delete %s."
 msgstr "Nemohu odstranit %s."
 
-#: plugins/gtodo/libgtodo.c:750
+#: plugins/gtodo/libgtodo.c:794
 msgid "Failed to create/open file."
 msgstr "Nemohu vytvořit/otevřít soubor."
 
-#: plugins/gtodo/libgtodo.c:759
+#: plugins/gtodo/libgtodo.c:803
 msgid "Failed to write data to file."
 msgstr "Nemohu zapsat data do souboru."
 
-#: plugins/gtodo/libgtodo.c:836
+#: plugins/gtodo/libgtodo.c:880
 msgid "No filename supplied."
 msgstr "Nezadán název souboru."
 
@@ -6457,6 +6374,14 @@ msgstr "Název: "
 msgid "Shortcut:"
 msgstr "Zkratka:"
 
+#: plugins/macro/macro-actions.c:37
+msgid "Press macro shortcut ..."
+msgstr "Stiskněte zkratku makra ..."
+
+#: plugins/macro/macro-actions.c:44
+msgid "Press shortcut"
+msgstr "Stiskněte zkratku"
+
 #: plugins/macro/macro-db.c:100
 msgid "Anjuta macros"
 msgstr "Makra Anjuty"
@@ -6514,24 +6439,24 @@ msgid "Macros"
 msgstr "Makra"
 
 #: plugins/macro/plugin.c:38
-msgid "_Insert Macro"
-msgstr "_Vložit makro"
+msgid "_Insert Macro ..."
+msgstr "_Vložit makro ..."
 
 #: plugins/macro/plugin.c:40
 msgid "Insert a macro using a shortcut"
 msgstr "Vložit makro pomocí klávesové zkratky"
 
 #: plugins/macro/plugin.c:45
-msgid "_Add Macro"
-msgstr "_Přidat makro"
+msgid "_Add Macro ..."
+msgstr "_Přidat makro ..."
 
 #: plugins/macro/plugin.c:47
 msgid "Add a macro"
 msgstr "Přidat makro"
 
 #: plugins/macro/plugin.c:52
-msgid "Manage Macros"
-msgstr "Spravovat makra"
+msgid "Macros ..."
+msgstr "Makra ..."
 
 #: plugins/macro/plugin.c:54
 msgid "Add/Edit/Remove macros"
@@ -7628,7 +7553,7 @@ msgstr "Používat profil GNOME terminálu:"
 msgid "Use currently selected profile in GNOME terminal"
 msgstr "Používat aktuální zvolený profil v GNOME terminálu"
 
-#: plugins/terminal/terminal.c:514
+#: plugins/terminal/terminal.c:519
 msgid "Terminal"
 msgstr "Terminál"
 
@@ -8286,443 +8211,3 @@ msgstr "Autodoplnit"
 #: src/toolbar.c:884
 msgid "Autocomplete word"
 msgstr "Autodoplnit slovo"
-
-#~ msgid "Section"
-#~ msgstr "Oddíl"
-
-#~ msgid "_Libraries API references"
-#~ msgstr "Reference API _knihoven"
-
-#~ msgid "Online reference library for GDK, GLib, GNOME etc.."
-#~ msgstr "Online knihovna referencí pro GDK, GLib, GNOME atd.."
-
-#~ msgid "Could not find application image file: %s"
-#~ msgstr "Nemohu najít soubor obrázku aplikace: %s"
-
-#~ msgid "CVS Updating "
-#~ msgstr "CVS Aktualizuji "
-
-#~ msgid "CVS Committing "
-#~ msgstr "CVS Potvrzuji "
-
-#~ msgid "CVS Importing...\n"
-#~ msgstr "CVS Importuji....\n"
-
-#~ msgid "CVS Adding "
-#~ msgstr "CVS Přidávám "
-
-#~ msgid "CVS Removing "
-#~ msgstr "CVS Odstraňuji "
-
-#~ msgid "Getting CVS status "
-#~ msgstr "Získávám stav CVS "
-
-#~ msgid "There are jobs running, please wait until they are finished"
-#~ msgstr "Existují běžící úlohy, počkejte prosím na jejich dokončení"
-
-#~ msgid "Getting CVS log "
-#~ msgstr "Získávám záznam CVS "
-
-#~ msgid "CVS diffing "
-#~ msgstr "CVS diff "
-
-#~ msgid "CVS login "
-#~ msgstr "CVS přihlášení "
-
-#~ msgid "CVS completed...successful\n"
-#~ msgstr "CVS dokončeno...úspěšně\n"
-
-#~ msgid "CVS completed...successful"
-#~ msgstr "CVS dokončeno...úspěšně"
-
-#~ msgid "Updating versions in file tree..."
-#~ msgstr "Aktualizuji verze ve stromu souborů..."
-
-#~ msgid "You do not need to login to a local server"
-#~ msgstr "K místnímu serveru se nemusíte přihlašovat"
-
-#~ msgid "Local"
-#~ msgstr "Místní"
-
-#~ msgid "Extern(rsh)"
-#~ msgstr "Externí(rsh)"
-
-#~ msgid "Server"
-#~ msgstr "Server"
-
-#~ msgid "CVS: Update"
-#~ msgstr "CVS: Aktualizovat"
-
-#~ msgid "CVS: Commit"
-#~ msgstr "CVS: Potvrdit"
-
-#~ msgid "Commit"
-#~ msgstr "Potvrdit"
-
-#~ msgid "Show status"
-#~ msgstr "Zobrazit stav"
-
-#~ msgid "CVS: Log"
-#~ msgstr "CVS: Záznam"
-
-#~ msgid "Show log"
-#~ msgstr "Zobrazit záznam"
-
-#~ msgid "CVS: Add file"
-#~ msgstr "CVS: Přidat soubor"
-
-#~ msgid "Add"
-#~ msgstr "Přidat"
-
-#~ msgid "CVS: Remove file"
-#~ msgstr "CVS: Odstranit soubor"
-
-#~ msgid ""
-#~ "WARNING: The file will be removed on disc. Use \"cvs commit\" .\n"
-#~ "to apply to the repository. It will still be possible to retrieve older "
-#~ "revisions of the file."
-#~ msgstr ""
-#~ "VAROVÁNÍ: Soubor bude odstraněn z disku. Pro potvrzení v úložišti "
-#~ "použijte\n"
-#~ "\"cvs commit\". I potom bude možné získat starší revize souboru."
-
-#~ msgid "File: "
-#~ msgstr "Soubor: "
-
-#~ msgid "Branch: "
-#~ msgstr "Větev: "
-
-#~ msgid "Log message: "
-#~ msgstr "Zpráva záznamu: "
-
-#~ msgid "Select file"
-#~ msgstr "Zvolte soubor"
-
-#~ msgid "CVS: Diff file"
-#~ msgstr "CVS: Diff soubor"
-
-#~ msgid "Date: "
-#~ msgstr "Datum: "
-
-#~ msgid "CVS Login"
-#~ msgstr "CVS Přihlášení"
-
-#~ msgid "Login"
-#~ msgstr "Přihlásit"
-
-#~ msgid "Server type: "
-#~ msgstr "Typ serveru: "
-
-#~ msgid "Directory on the server: "
-#~ msgstr "Adresář na serveru: "
-
-#~ msgid "Dir on the server: "
-#~ msgstr "Adresář na serveru: "
-
-#~ msgid "Server settings"
-#~ msgstr "Nastavení serveru"
-
-#~ msgid "Import settings"
-#~ msgstr "Nastavení importu"
-
-#~ msgid "Project name"
-#~ msgstr "Název projektu"
-
-# ???
-#~ msgid "Source target name"
-#~ msgstr "Název cíle zdroje"
-
-#~ msgid "Project version"
-#~ msgstr "Verze projektu"
-
-#~ msgid ""
-#~ "Invalid %s field:\n"
-#~ "You must supply a valid %s field to proceed further."
-#~ msgstr ""
-#~ "Neplatné pole %s:\n"
-#~ "Pro pokračování dále musíte dodat platné pole %s."
-
-#~ msgid ""
-#~ "A project or file with the same name.already exists.\n"
-#~ "Project creation aborted."
-#~ msgstr ""
-#~ "Projekt nebo soubor se stejným jménem již existuje.\n"
-#~ "Vytváření projektu přerušeno."
-
-#~ msgid "Generating Project ...\n"
-#~ msgstr "Generuji projekt ...\n"
-
-#~ msgid "Cannot create file: %s"
-#~ msgstr "Nemohu vytvořit soubor: %s"
-
-#~ msgid "Loading Project ...\n"
-#~ msgstr "Načítám projekt ...\n"
-
-#~ msgid "Saving Project ...\n"
-#~ msgstr "Ukládám projekt ...\n"
-
-#~ msgid "Generating source codes ...\n"
-#~ msgstr "Generuji zdrojové kódy ....\n"
-
-#~ msgid "Copying icon file ...\n"
-#~ msgstr "Kopíruji soubor ikony ...\n"
-
-#~ msgid "Could not create icon file ...\n"
-#~ msgstr "Nemohu vytvořit soubor ikony ...\n"
-
-#~ msgid "Locating files ...\n"
-#~ msgstr "Hledám soubory ...\n"
-
-#~ msgid "Updating Project ...\n"
-#~ msgstr "Aktualizuji projekt ...\n"
-
-#~ msgid "Running autogen.sh ...\n"
-#~ msgstr "Spouštím autogen.sh ...\n"
-
-#~ msgid "App Wizard"
-#~ msgstr "Kouzelník aplikace"
-
-#~ msgid "Auto generation completed...............Unsuccessful\n"
-#~ msgstr "Automatické generování dokončeno...............Neúspěšně\n"
-
-#~ msgid ""
-#~ "The Project was not successfully auto generated.\n"
-#~ "Please run autogen.sh manually."
-#~ msgstr ""
-#~ "Projekt nebyl automaticky vygenerován úspěšně.\n"
-#~ "Spusťte prosím autogen.sh ručně."
-
-#~ msgid ""
-#~ "Auto generation completed...............Successful\n"
-#~ "Now Build the Project to have a LOOK at it\n"
-#~ msgstr ""
-#~ "Automatické generování dokončeno...............Úspěšně\n"
-#~ "Nyní projekt sestavte, abyste se na něj mohli PODÍVAT\n"
-
-#~ msgid "Project was successfully auto generated."
-#~ msgstr "Projekt byl úspěšně automaticky vygenerován."
-
-#~ msgid "Generic/Terminal project"
-#~ msgstr "Obecný/terminálový projekt"
-
-#~ msgid "GTK 2.0 project"
-#~ msgstr "Projekt GTK 2.0"
-
-#~ msgid "GNOME 2.0 project"
-#~ msgstr "Projekt GNOME 2.0"
-
-#~ msgid "LibGlade 2.0 project"
-#~ msgstr "Projekt LibGlade 2.0"
-
-#~ msgid "gtkmm 2.0 project"
-#~ msgstr "Projekt gtkmm 2.0"
-
-#~ msgid "gnomemm 2.0 project"
-#~ msgstr "Projekt gnomemm 2.0"
-
-#~ msgid "GNOME 2.0 Bonobo component"
-#~ msgstr "Komponenta Bonobo GNOME 2.é"
-
-#~ msgid "wxWindows project"
-#~ msgstr "Projekt wxWindows"
-
-#~ msgid "Xlib project"
-#~ msgstr "Projekt Xlib"
-
-#~ msgid "X Dock App project"
-#~ msgstr "Projekt dokovatelné aplikace X"
-
-#~ msgid "Project Version:"
-#~ msgstr "Verze projektu:"
-
-#~ msgid "Project Author:"
-#~ msgstr "Autor projektu:"
-
-#~ msgid "Project Target:"
-#~ msgstr "Cíl projektu:"
-
-#~ msgid "Programming language"
-#~ msgstr "Programovací jazyk"
-
-#~ msgid "Both C and C++"
-#~ msgstr "C i C++"
-
-#~ msgid "Target type"
-#~ msgstr "Typ cíle"
-
-#~ msgid "Executable target"
-#~ msgstr "Spustitelný cíl"
-
-#~ msgid "Static library target"
-#~ msgstr "Cíl statické knihovny"
-
-#~ msgid "Dynamic library target"
-#~ msgstr "Cíl dynamické knihovny"
-
-#~ msgid "Enter a short description of the Project"
-#~ msgstr "Zadejte krátký popis projektu"
-
-#~ msgid "Enter any additional Project options"
-#~ msgstr "Zadejte přídavné možnosti projektu"
-
-#~ msgid " Project Options "
-#~ msgstr " Možnosti projektu "
-
-#~ msgid "Include GNU Copyright statement in file headings"
-#~ msgstr "Zahrnout do hlaviček prohlášení o copyrightu GNU"
-
-#~ msgid "Enable Gettext Support"
-#~ msgstr "Povolit podporu gettextu"
-
-#~ msgid "Generate source code using glade or glademm"
-#~ msgstr "Vygenerovat zdrojový kód pomocí glade nebo glademm"
-
-#~ msgid "GNOME Menu Entry"
-#~ msgstr "Položka menu GNOME:"
-
-#~ msgid "Entry name:"
-#~ msgstr "Název položky:"
-
-#~ msgid "Group:"
-#~ msgstr "Skupina:"
-
-#~ msgid "Needs terminal"
-#~ msgstr "Potřebuje terminál"
-
-#~ msgid "File %s is not local."
-#~ msgstr "Soubor %s není místní."
-
-#~ msgid "Invalid filename %s."
-#~ msgstr "Neplatný název souboru %s."
-
-#~ msgid "Plugin"
-#~ msgstr "Zásuvný modul"
-
-#~ msgid ""
-#~ "This dialog displays all the available plugins for Anjuta.  You can "
-#~ "select which plugins you want to use by clicking on the plugin in the "
-#~ "list."
-#~ msgstr ""
-#~ "Tento dialog zobrazí všechny dostupné zásuvné moduly pro Anjutu. Můžete "
-#~ "vybrat, které zásuvné moduly chcete používat, kliknutím na zásuvný modul "
-#~ "v seznamu."
-
-#~ msgid "_Build project"
-#~ msgstr "_Sestavit projekt"
-
-#~ msgid "_Install project"
-#~ msgstr "Na_instalovat projekt"
-
-#~ msgid "Build _distribution"
-#~ msgstr "Sestavit _distribuci"
-
-#~ msgid "Popup build commands"
-#~ msgstr "Zobrazit příkazy sestavení"
-
-#~ msgid "Unable to open the file: %s\n"
-#~ msgstr "Nemohu otevřít soubor: %s\n"
-
-#~ msgid "You must give a valid location to set the breakpoint."
-#~ msgstr "Pro nastavení breakpointu musíte zadat platné umístění."
-
-#~ msgid "Old breakpoints disabled."
-#~ msgstr "Staré breakpointy zakázány."
-
-#~ msgid ""
-#~ "You have a process ATTACHED under the debugger.\n"
-#~ "Please detach it first and then load the executable file."
-#~ msgstr ""
-#~ "V debuggeru máte PŘIPOJEN proces.\n"
-#~ "Nejdříve jej prosím odpojte a spustitelný soubor načtěte potom."
-
-#~ msgid ""
-#~ "You have a process RUNNING under the debugger.\n"
-#~ "Please stop it first and then load the executable file."
-#~ msgstr ""
-#~ "V debuggeru máte BĚŽÍCÍ proces.\n"
-#~ "Nejdříve jej prosím zastavte a spustitelný soubor načtěte potom."
-
-#~ msgid ""
-#~ "\n"
-#~ "Well, did you find the BUG? Debugging session completed.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "\n"
-#~ "No, našli jste tu CHYBU? Ladicí sezení dokončeno.\n"
-#~ "\n"
-
-#~ msgid "Cannot execute gnome-terminal"
-#~ msgstr "Nemohu spustit gnome-terminal"
-
-#~ msgid "Cannot start terminal for debugging."
-#~ msgstr "Nemohu spustit terminál pro ladění."
-
-#~ msgid ""
-#~ "A process is already running.\n"
-#~ "Would you like to terminate it and attach the new process?"
-#~ msgstr ""
-#~ "Proces již běží.\n"
-#~ "Chcete jej přerušit a připojit se k novém procesu?"
-
-#~ msgid "Anjuta is unable to attach to itself."
-#~ msgstr "Anjuta se nemůže připojit sama k sobě."
-
-#~ msgid "Error whilst signalling the process."
-#~ msgstr "Chyba při posílání signálu procesu."
-
-#~ msgid "Recent Files "
-#~ msgstr "Nedávné soubory "
-
-#~ msgid "Activate"
-#~ msgstr "Aktivovat"
-
-#~ msgid "Column at edge indicator"
-#~ msgstr "Indikátor sloupce na okraji"
-
-#~ msgid "Sorted in the order you open them"
-#~ msgstr "Setřízeny v pořadí, ve kterém je otvíráte"
-
-#~ msgid "Syntax highlight editor"
-#~ msgstr "Editor se zvýrazněním syntaxe"
-
-#~ msgid " Goto Line number "
-#~ msgstr " Jít na řádek číslo "
-
-#~ msgid "D_etach Current Document"
-#~ msgstr "_Odpojit aktuální dokument"
-
-#~ msgid "Detach the current document into a separate editor window"
-#~ msgstr "Odpojit aktuální dokument do odděleného okna editoru"
-
-#~ msgid "Editor text insertions"
-#~ msgstr "Vkládání textu v editoru"
-
-#~ msgid "The maximum number of settings has been reached."
-#~ msgstr "Byl dosažen maximální počet nastavení."
-
-#~ msgid "This name is already used."
-#~ msgstr "Tento název se již používá."
-
-#~ msgid "Errors messages:"
-#~ msgstr "Chybové zprávy:"
-
-#~ msgid "Other messages:"
-#~ msgstr "Jiné zprávy:"
-
-#~ msgid "Warnings messages:"
-#~ msgstr "Zprávy varování:"
-
-#~ msgid "error:"
-#~ msgstr "chyba:"
-
-#~ msgid "The GNOME API pages"
-#~ msgstr "Stránky GNOME API"
-
-#~ msgid "Browse GNOME _API Pages"
-#~ msgstr "Procházet stránky GNOME _API"
-
-#~ msgid "_Search a topic"
-#~ msgstr "_Hledat téma"
-
-#~ msgid "May I help you?"
-#~ msgstr "Jak vám mohu pomoci?"
