@@ -38,7 +38,7 @@ get_current_editor (AnjutaPlugin *plugin)
 	return editor;
 }
 
-IAnjutaMacro*
+static IAnjutaMacro*
 get_macro(gpointer user_data)
 {
 	AnjutaPlugin *plugin = ANJUTA_PLUGIN (user_data);
@@ -97,7 +97,7 @@ void
 on_insert_header_template(GtkAction * action, gpointer user_data)
 {
 	IAnjutaEditor *editor;
-	gchar *filename;
+	const gchar *filename;
 
 	editor = get_current_editor (ANJUTA_PLUGIN (user_data));
 	filename = ianjuta_editor_get_filename (editor , NULL);	
@@ -107,7 +107,6 @@ on_insert_header_template(GtkAction * action, gpointer user_data)
 		if (macro)
 			ianjuta_macro_insert (macro, "Header_h", NULL);	
 	}
-	g_free(filename);
 }
 
 void
