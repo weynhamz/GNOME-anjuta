@@ -233,8 +233,7 @@ build_install_project ()
 			install_as_root (NULL, NULL);
 		else
 			install_as_user (NULL, NULL);
-
-               		gtk_widget_destroy(dialog);
+		gtk_widget_destroy(dialog);
 	}
 }
 

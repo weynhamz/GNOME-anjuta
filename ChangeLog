@@ -1,5 +1,7 @@
 2003-04-17  Naba Kumar  <naba@gnome.org>
 
+	* src/build_project.c: Fixed a compilation error.
+
 	* src/launcher.c: Removed commnets.
 	
 	* anjuta.glade, anjuta_dialogs_strings.c: Moved indentation
