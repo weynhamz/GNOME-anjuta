@@ -1,8 +1,15 @@
 2002-06-28	Naba Kumar	<kh_naba@users.sourceforge.net>
 
+	(Patch from: ??)
+	
 	* src/appwiz_page1.c, src/pixmaps.h, src/project_dbase.c,
 	src/project_dbase.h, src/project_import_cbs.c, src/project_type.c,
 	src/source.c, src/wizard_gui.c: libglade2 wizard.
+	
+	Patch from Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
+	
+	* scintilla/include/PropSet.h:
+	see mail 13/06/2002 "Dollar is a valid function character"
 	
 2002-06-23	Naba Kumar	<kh_naba@users.sourceforge.net>
 
