@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-02-20 02:58+0100\n"
-"PO-Revision-Date: 2004-02-20 14:26+0100\n"
+"POT-Creation-Date: 2004-02-24 03:18+0100\n"
+"PO-Revision-Date: 2004-02-24 13:07+0100\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -2702,16 +2702,24 @@ msgstr ""
 "  Projekt: %s   Zvětšení: %d      Řádek: %04d   Sloupec: %03d       %s     "
 "Úloha: %s      Režim: %s"
 
-#. ~ g_signal_connect (app->launcher, "child-exited",
-#. ~ G_CALLBACK (find_in_files_terminated), NULL);
-#. ~ if (anjuta_launcher_execute (app->launcher, command,
-#. ~ find_in_files_mesg_arrived, NULL) == FALSE)
-#. ~ return;
-#: src/anjuta.c:2421
+#: src/anjuta.c:2420
+msgid "Find in Files completed...............Unsuccessful\n"
+msgstr "Hledání v souborech dokončeno...............Neúspěšně\n"
+
+#: src/anjuta.c:2427
+msgid "Find in Files completed...............Successful\n"
+msgstr "Hledání v souborech dokončeno...............Úspěšně\n"
+
+#: src/anjuta.c:2432
+#, c-format
+msgid "Total time taken: %d secs\n"
+msgstr "Celkový čas: %d sekund\n"
+
+#: src/anjuta.c:2454
 msgid "Looking up symbol"
 msgstr "Vyhledávám symbol"
 
-#: src/anjuta.c:2423
+#: src/anjuta.c:2456
 msgid "Finding in Files ....\n"
 msgstr "Hledám v souborech ....\n"
 
@@ -2788,13 +2796,13 @@ msgstr ""
 "Pro pokračování dále musíte dodat platné pole %s."
 
 #. For the time being
-#: src/appwizard_cbs.c:282 src/project_dbase.c:1484 src/project_dbase.c:1490
-#: src/project_dbase.c:1493 src/project_import_cbs.c:227 src/signals_cbs.c:128
+#: src/appwizard_cbs.c:282 src/project_dbase.c:1494 src/project_dbase.c:1500
+#: src/project_dbase.c:1503 src/project_import_cbs.c:227 src/signals_cbs.c:128
 #: src/signals_cbs.c:141 src/signals_cbs.c:154
 msgid "Yes"
 msgstr "Ano"
 
-#: src/appwizard_cbs.c:284 src/project_dbase.c:1486 src/project_dbase.c:1495
+#: src/appwizard_cbs.c:284 src/project_dbase.c:1496 src/project_dbase.c:1505
 #: src/project_import_cbs.c:229 src/signals_cbs.c:130 src/signals_cbs.c:143
 #: src/signals_cbs.c:156
 msgid "No"
@@ -3578,15 +3586,15 @@ msgstr "Soubor %s není místní."
 msgid "Invalid filename %s."
 msgstr "Neplatný název souboru %s."
 
-#: src/executer.c:53 src/mainmenu_callbacks.c:1230
+#: src/executer.c:53 src/mainmenu_callbacks.c:1236
 msgid "The target executable of this Project is unknown"
 msgstr "Cílový spustitelný soubor tohoto projektu není znám"
 
-#: src/executer.c:58 src/mainmenu_callbacks.c:1232
+#: src/executer.c:58 src/mainmenu_callbacks.c:1238
 msgid "The target executable of this Project is not executable"
 msgstr "Cílový spustitelný soubor tohoto projektu není spustitelný"
 
-#: src/executer.c:63 src/mainmenu_callbacks.c:1236
+#: src/executer.c:63 src/mainmenu_callbacks.c:1242
 msgid "The target executable does not exist for this Project"
 msgstr "Cílový spustitelný soubor tohoto projektu neexistuje"
 
@@ -3594,8 +3602,8 @@ msgstr "Cílový spustitelný soubor tohoto projektu neexistuje"
 msgid "No file or Project opened."
 msgstr "Neotevřen žádný soubor ani projekt."
 
-#: src/executer.c:81 src/executer.c:100 src/mainmenu_callbacks.c:1256
-#: src/mainmenu_callbacks.c:1267
+#: src/executer.c:81 src/executer.c:100 src/mainmenu_callbacks.c:1262
+#: src/mainmenu_callbacks.c:1273
 msgid "No executable for this file."
 msgstr "Pro tento soubor neexistuje spustitelný soubor."
 
@@ -3814,7 +3822,7 @@ msgstr "Nezobrazovat úvodní obrazovku"
 msgid "Recent Files    "
 msgstr "Nedávné soubory "
 
-#: src/main_menubar.c:393 src/project_dbase.c:2034
+#: src/main_menubar.c:393 src/project_dbase.c:2044
 msgid "Recent Projects "
 msgstr "Nedávné projekty"
 
@@ -6072,7 +6080,11 @@ msgstr ""
 msgid "Do_n't save"
 msgstr "_Neukládat"
 
-#: src/mainmenu_callbacks.c:241
+#: src/mainmenu_callbacks.c:242
+msgid "A new file can not be reloaded."
+msgstr "Nový soubor nemůže být znovu načten."
+
+#: src/mainmenu_callbacks.c:247
 #, c-format
 msgid ""
 "Are you sure you want to reload '%s'?\n"
@@ -6081,19 +6093,19 @@ msgstr ""
 "Jste si jisti, že chcete znovu načíst '%s'?\n"
 "Neuložené změny budou ztraceny."
 
-#: src/mainmenu_callbacks.c:251 src/text_editor.c:1356
+#: src/mainmenu_callbacks.c:257 src/text_editor.c:1356
 msgid "_Reload"
 msgstr "_Znovu načíst"
 
-#: src/mainmenu_callbacks.c:1262
+#: src/mainmenu_callbacks.c:1268
 msgid "The executable is not up-to-date."
 msgstr "Spustitelný soubor není aktuální."
 
-#: src/mainmenu_callbacks.c:1287
+#: src/mainmenu_callbacks.c:1293
 msgid "Debugger is not running. Start it first."
 msgstr "Debugger neběží. Nejdříve jej spusťte."
 
-#: src/mainmenu_callbacks.c:1553
+#: src/mainmenu_callbacks.c:1559
 msgid ""
 "Unable to display help. Please make sure Anjuta documentation package is "
 "install. It can be downloaded from http://anjuta.org"
@@ -6101,7 +6113,7 @@ msgstr ""
 "Nemohu zobrazit nápovědu. Přesvědčte se prosím, že je nainstalován balíček "
 "dokumentace Anjuty. Můžete jej stáhnout z http://anjuta.org"
 
-#: src/mainmenu_callbacks.c:1679
+#: src/mainmenu_callbacks.c:1685
 msgid ""
 "You need to run gconf-editor, look for the key 'desktop/gnome/interface/"
 "can_change_accels' and set this toggle button ON. Then you can hover the "
@@ -6125,7 +6137,7 @@ msgstr "Zadejte šestnáctkovou adresu nebo ji vyberte v datech"
 msgid "Non accessible address !"
 msgstr "Nepřístupná adresa !"
 
-#: src/message-manager-private.cc:322
+#: src/message-manager-private.cc:324
 msgid " warning: "
 msgstr " varování: "
 
@@ -6230,7 +6242,7 @@ msgstr "Všechny soubor"
 msgid "Unable to load Project: %s"
 msgstr "Nemohu načíst projet: %s"
 
-#: src/project_dbase.c:465 src/project_dbase.c:2473
+#: src/project_dbase.c:465 src/project_dbase.c:2483
 #, c-format
 msgid ""
 "Anjuta version %s or later is required to open this Project.\n"
@@ -6247,7 +6259,7 @@ msgstr "Projekt úspěšně uložen"
 msgid "Unable to save the Project."
 msgstr "Nemohu uložit projekt."
 
-#: src/project_dbase.c:1561
+#: src/project_dbase.c:1571
 msgid ""
 "A .glade file does not exist in the top level Project directory. If you do "
 "not use glade for GUI editing,  please specify a custom command for it in "
@@ -6257,7 +6269,7 @@ msgstr ""
 "editování GUI nepoužíváte GLADE, určete pro ně prosím vlastní příkaz v "
 "[Projekt]->[Konfigurace projektu]->[Příkaz editoru GUI]"
 
-#: src/project_dbase.c:1623
+#: src/project_dbase.c:1633
 msgid ""
 "A .glade file does not\n"
 "exist in the top level Project directory."
@@ -6266,11 +6278,11 @@ msgstr ""
 "neexistuje soubor .glade."
 
 #. Set project title
-#: src/project_dbase.c:2071
+#: src/project_dbase.c:2081
 msgid "Project: "
 msgstr "Projekt: "
 
-#: src/project_dbase.c:2188
+#: src/project_dbase.c:2198
 #, c-format
 msgid ""
 "Unable to get relative file name for %s\n"
@@ -6279,20 +6291,20 @@ msgstr ""
 "Nemohu získat relativní jméno souboru pro %s\n"
 " v %s"
 
-#: src/project_dbase.c:2253
+#: src/project_dbase.c:2263
 msgid " already exists in the project"
 msgstr " již v projektu existuje"
 
-#: src/project_dbase.c:2286
+#: src/project_dbase.c:2296
 msgid "Error while copying the file inside the module."
 msgstr "Chyba při kopírování souboru uvnitř modulu."
 
-#: src/project_dbase.c:2549 src/project_dbase.c:2552
+#: src/project_dbase.c:2559 src/project_dbase.c:2562
 #, c-format
 msgid "Error in loading Project: %s"
 msgstr "Chyba při načítání projektu: %s"
 
-#: src/project_dbase.c:2573
+#: src/project_dbase.c:2583
 msgid "Project loaded successfully."
 msgstr "Projekt úspěšně načten."
 
@@ -6725,40 +6737,40 @@ msgstr "Nemohu najít soubor pixmapy aplikace: %s"
 msgid "Cannot execute Devhelp. Make sure it is installed"
 msgstr "Nemohu spustit Devhelp. Přesvědčte se, že je nainstalován"
 
-#: src/search-replace.c:337
+#: src/search-replace.c:339
 msgid "Replace"
 msgstr "Nahradit"
 
-#: src/search-replace.c:622 src/search-replace.c:1247
-#: src/search-replace.c:1254 src/search-replace.c:1266
-#: src/search-replace.c:1508
+#: src/search-replace.c:624 src/search-replace.c:1251
+#: src/search-replace.c:1258 src/search-replace.c:1270
+#: src/search-replace.c:1512
 msgid "Search"
 msgstr "Hledat"
 
-#: src/search-replace.c:625 src/search-replace.c:1261
+#: src/search-replace.c:627 src/search-replace.c:1265
 msgid "Replace All"
 msgstr "Nahradit vše"
 
-#: src/search-replace.c:661
+#: src/search-replace.c:663
 #, c-format
 msgid "The match \"%s\" was not found. Wrap search around the document?"
 msgstr "Hledané \"%s\" nebylo nalezeno. Hledat od druhého konce dokumentu?"
 
-#: src/search-replace.c:684
+#: src/search-replace.c:686
 #, c-format
 msgid "The match \"%s\" was not found."
 msgstr "Hledané \"%s\" nebylo nalezeno."
 
-#: src/search-replace.c:702
+#: src/search-replace.c:704
 msgid "The maximum number of results has been reached."
 msgstr "Byl dosažen maximální počet výsledků."
 
-#: src/search-replace.c:715
+#: src/search-replace.c:717
 #, c-format
 msgid "%d matches have been replaced."
 msgstr "Bylo nahrazeno %d výsledků."
 
-#: src/search-replace.c:870
+#: src/search-replace.c:874
 msgid "Unable to build user interface for Search And Replace"
 msgstr "Nemohu sestavit uživatelské rozhraní pro Hledat a nahradit"
 
@@ -7829,14 +7841,8 @@ msgstr "Název složky"
 #~ msgid "Whole word"
 #~ msgstr "Celé slovo"
 
-#~ msgid "Find in Files completed...............Unsuccessful\n"
-#~ msgstr "Hledání v souborech dokončeno...............Neúspěšně\n"
-
 #~ msgid "Find in Files completed ... unsuccessful"
 #~ msgstr "Hledání v souborech dokončeno ... neúspěšně"
-
-#~ msgid "Find in Files completed...............Successful\n"
-#~ msgstr "Hledání v souborech dokončeno...............Úspěšně\n"
 
 #~ msgid "Find in Files completed ... successful"
 #~ msgstr "Hledání v souborech dokončeno ... úspěšně"
