@@ -1,3 +1,23 @@
+2004-05-03  Naba Kumar  <naba@gnome.org>
+
+	* libanjuta/interfaces/libanjuta.idl: Added interface
+	IAnjutaFileManager.
+	
+	* manuals/reference/libanjuta/anjuta-architecture.dia,
+	manuals/reference/libanjuta/anjuta-architecture.png: Updated
+	architecture diagram.
+	
+	* (added) manuals/reference/libanjuta/anjuta-architecture.sgml,
+	 manuals/reference/libanjuta/libanjuta-docs.sgml,
+	(added) manuals/reference/libanjuta/plugin-description-file.sgml,
+	(added) manuals/reference/libanjuta/writing-plugins.sgml:
+	Wrote writing-plugins document and separated chapters into
+	separate sgml files.
+	
+	* plugins/file-manager/an_file_view.c,
+	plugins/file-manager/an_file_view.h: New and improved directory
+	rendering.
+
 2004-05-02  Sven Herzberg  <herzi@abi02.de>
 
 	* anjuta.glade: re-designed the new file dialog

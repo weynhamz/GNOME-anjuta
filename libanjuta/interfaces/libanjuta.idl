@@ -388,6 +388,15 @@ interface IAnjutaMessageManager
 	void set_current_view (IAnjutaMessageView *view);
 }
 
+interface IAnjutaFileManager
+{
+	void ::section_changed (const gchar *filename);
+	
+	void set_root (const gchar *root_directory);
+	gchar* get_selected ();
+	void set_selected (const gchar *filename);
+}
+
 interface IAnjutaModule
 {
 }

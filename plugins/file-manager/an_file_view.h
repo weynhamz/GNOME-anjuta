@@ -4,8 +4,6 @@
 #include <stdio.h>
 #include <gtk/gtk.h>
 
-#include "tm_tagmanager.h"
-
 #ifdef __cplusplus
 extern "C"
 {
@@ -15,10 +13,7 @@ typedef struct _AnFileView {
 	GtkWidget *win;
 	GtkWidget *tree;
 	gchar *top_dir;
-
-	TMFileEntry *file_tree;
-	TMFileEntry *curr_entry;
-
+	
 	struct {
 		GtkWidget *top;
 		GtkWidget *open;
@@ -36,6 +31,7 @@ typedef struct _AnFileView {
 		} cvs;
 
 		GtkWidget *refresh;
+		GtkWidget *docked;
 		GtkWidget *customize;
 	} menu;
 } AnFileView;
