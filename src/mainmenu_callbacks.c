@@ -62,6 +62,8 @@
 #include "memory.h"
 #include "fileselection.h"
 #include "anjuta-tools.h"
+#include "search-replace.h"
+#include "anjuta_info.h"
 
 void on_toolbar_find_clicked (GtkButton * button, gpointer user_data);
 
@@ -326,6 +328,16 @@ on_editor_command_activate (GtkMenuItem * menuitem, gpointer user_data)
 	if (te == NULL)
 		return;
 	aneditor_command (te->editor_id, (gint) user_data, 0, 0);
+}
+
+void
+on_editor_select_function (GtkMenuItem * menuitem, gpointer user_data)
+{
+	TextEditor *te;
+	te = anjuta_get_current_text_editor ();
+	if (te == NULL)
+		return;
+	function_select(te);
 }
 
 void

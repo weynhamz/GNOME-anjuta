@@ -1,12 +1,16 @@
-Anjuta 1.2.0-beta   (    February 2003)     -- Naba Kumar
+Anjuta 1.2.0-beta   (05 May 2003)     -- Naba Kumar
 
-New: Ported to GNOME2
-New: Preferences management.
+New: Ported to GNOME2:
+New: New Preferences management.
 New: Tools management.
-New: 
-Updated: Scintilla 1.50
+New: Watch and Backtrace moved to messages pane.
+New: GNOMEVFS based file browser.
+New: Pango fonts in editor (Anti-Aliased fonts).
+New: Project configuration for GUI editor and version.
+New: Advance search and replace (ported from 1.0.x branch).
+Updated: Scintilla 1.51+ (cvs)
 Updated: Session management. It now saves tree states.
-
+Bug fix: Many
 
 Anjuta 1.0.1:		(xth June 2002)			-- Naba Kumar
 

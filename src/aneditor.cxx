@@ -263,6 +263,7 @@ protected:
 	bool StartAutoComplete();
 	bool StartAutoCompleteWord(int autoShowCount);
 	bool StartBlockComment();
+	bool CanBeCommented(bool box_stream);
 	bool StartBoxComment();
 	bool StartStreamComment();
 
@@ -1339,6 +1340,155 @@ bool AnEditor::StartBlockComment() {
 	return true;
 }
 
+//  Return true if the selected zone can be commented
+//  Return false if it cannot be commented  or has been uncommented
+//	BOX_COMMENT : box_stream = true    STREAM_COMMENT : box_stream = false
+//	Uncomment if the selected zone or the cursor is inside the comment
+//
+bool AnEditor::CanBeCommented(bool box_stream) {
+	SString fileNameForExtension = ExtensionFileName();
+	SString language = props->GetNewExpand("lexer.", fileNameForExtension.c_str());
+	SString start_base("comment.box.start.");
+	SString middle_base("comment.box.middle.");
+	SString end_base("comment.box.end.");
+	SString white_space(" ");
+	start_base += language;
+	middle_base += language;
+	end_base += language;
+	SString start_comment = props->Get(start_base.c_str());
+	SString middle_cmt = props->Get(middle_base.c_str());
+	SString end_comment = props->Get(end_base.c_str());
+	start_comment += white_space;
+	middle_cmt += white_space;
+	white_space += end_comment;
+	end_comment = white_space;
+	size_t start_comment_length = start_comment.length();
+	size_t end_comment_length = end_comment.length(); 
+	size_t middle_cmt_length = middle_cmt.length();	
+	SString start_base_stream ("comment.stream.start.");
+	start_base_stream += language;
+	SString end_base_stream ("comment.stream.end.");
+	end_base_stream += language;
+	SString end_comment_stream = props->Get(end_base_stream.c_str());
+	SString white_space_stream(" ");
+	//SString end_white_space_stream("  ");
+	SString start_comment_stream = props->Get(start_base_stream.c_str());
+	start_comment_stream += white_space_stream;
+	size_t start_comment_stream_length = start_comment_stream.length();
+	white_space_stream +=end_comment_stream;
+	end_comment_stream = white_space_stream ;
+	size_t end_comment_stream_length = end_comment_stream.length();
+	
+	char linebuf[1000]; 
+	size_t selectionStart = SendEditor(SCI_GETSELECTIONSTART);
+	size_t selectionEnd = SendEditor(SCI_GETSELECTIONEND);
+	int line = SendEditor(SCI_LINEFROMPOSITION, selectionStart);
+	bool start1 = false, start2 = false;
+	bool end1 = false, end2 = false;
+	int lineEnd1;
+	if (box_stream)
+		lineEnd1 = selectionStart + start_comment_length;
+	else
+		lineEnd1 = selectionStart + start_comment_stream_length +1;
+	int lineStart1;
+	size_t start_cmt, end_cmt;
+	int index;	
+	// Find Backward StartComment
+	while (line >= 0 && start1 == false && end1 == false)
+	{
+		lineStart1 = SendEditor(SCI_POSITIONFROMLINE, line);	
+		GetRange(wEditor, lineStart1, lineEnd1, linebuf);
+		for (index = lineEnd1-lineStart1; index >= 0; index--)
+		{
+			if (end1= ((end_comment_length > 1 && !memcmp(linebuf+index,
+				end_comment.c_str(), end_comment_length ))  
+			    || (end_comment_stream_length > 0 && !memcmp(linebuf+index, 
+			    end_comment_stream.c_str(), end_comment_stream_length))))
+				break;
+			if (start1=((start_comment_length > 1 && !memcmp(linebuf+index, 
+				start_comment.c_str(), start_comment_length))
+				|| (start_comment_stream_length > 0 && !memcmp(linebuf+index, 
+			    start_comment_stream.c_str(), start_comment_stream_length)))) 
+				break;
+		}	
+		line --; 
+		lineEnd1= SendEditor(SCI_GETLINEENDPOSITION, line);
+	}
+	start_cmt = index + lineStart1;
+	line = SendEditor(SCI_LINEFROMPOSITION, selectionEnd);
+	if (box_stream)
+		lineStart1 = selectionEnd - start_comment_length;
+	else
+		lineStart1 = selectionEnd - start_comment_stream_length;
+	int last_line = SendEditor(SCI_GETLINECOUNT);
+	// Find Forward EndComment
+	while (line <= last_line && start2 == false && end2 == false) 
+	{
+		lineEnd1= SendEditor(SCI_GETLINEENDPOSITION, line);
+		GetRange(wEditor, lineStart1, lineEnd1, linebuf);
+		for (index = 0; index <= (lineEnd1-lineStart1); index++)
+		{
+			if (start2= ((start_comment_length > 1 && !memcmp(linebuf+index, 
+				start_comment.c_str(), start_comment_length))
+				|| (start_comment_stream_length > 0 && !memcmp(linebuf+index, 
+			    start_comment_stream.c_str(), start_comment_stream_length)))) 
+				break;
+			if (end2= ((end_comment_length > 1 && !memcmp(linebuf+index, 
+				end_comment.c_str(), end_comment_length ))
+				|| (end_comment_stream_length > 0 && !memcmp(linebuf+index, 
+			    end_comment_stream.c_str(), end_comment_stream_length))))
+				break;
+		}
+		line ++;
+		end_cmt = lineStart1 + index;
+		lineStart1 = SendEditor(SCI_POSITIONFROMLINE, line);	
+	}
+	//  Uncomment
+	if(start1 || end2)
+	{
+		if (start1 && end2)
+		{
+			SendEditor(SCI_BEGINUNDOACTION);
+			if (box_stream)	// Box
+			{
+				SendEditor(SCI_SETSEL, start_cmt, start_cmt + 
+				           start_comment_length);  
+				end_cmt -= start_comment_length; 
+			}
+			else            // Stream
+			{
+				SendEditor(SCI_SETSEL, start_cmt, start_cmt + 
+				           start_comment_stream_length); 
+				end_cmt -= start_comment_stream_length;
+			}
+			SendEditorString(SCI_REPLACESEL, 0, "");
+			line = SendEditor(SCI_LINEFROMPOSITION, start_cmt) + 1;
+			last_line = SendEditor(SCI_LINEFROMPOSITION, end_cmt) ;
+			for (int i = line; i < last_line; i++)
+			{
+				int s = SendEditor(SCI_POSITIONFROMLINE, i);
+				int e = SendEditor(SCI_GETLINEENDPOSITION, i);					
+				GetRange(wEditor, s, e, linebuf);
+				if (!memcmp(linebuf, middle_cmt.c_str(), middle_cmt_length))
+				{
+					SendEditor(SCI_SETSEL, s, s + middle_cmt_length);
+					SendEditorString(SCI_REPLACESEL, 0, "");
+					end_cmt -= middle_cmt_length;
+				}
+			}
+			if (box_stream) // Box
+				SendEditor(SCI_SETSEL, end_cmt, end_cmt + end_comment_length);
+			else			// Stream
+				SendEditor(SCI_SETSEL, end_cmt, end_cmt + end_comment_stream_length);
+			SendEditorString(SCI_REPLACESEL, 0, "");
+			SendEditor(SCI_ENDUNDOACTION);
+		}
+		return false;
+	}
+	return true;	
+}
+
+
 bool AnEditor::StartBoxComment() {
 	SString fileNameForExtension = ExtensionFileName();
 	SString language = props->GetNewExpand("lexer.", fileNameForExtension.c_str());
@@ -1386,34 +1536,38 @@ bool AnEditor::StartBoxComment() {
 		// get rid of CRLF problems
 		selectionEnd = SendEditor(SCI_GETLINEENDPOSITION, selEndLine);
 	}
-	SendEditor(SCI_BEGINUNDOACTION);
-	// first commented line (start_comment)
-	int lineStart = SendEditor(SCI_POSITIONFROMLINE, selStartLine);
-	SendEditorString(SCI_INSERTTEXT, lineStart, start_comment.c_str());
-	selectionStart += start_comment_length;
-	// lines between first and last commented lines (middle_comment)
-	for (size_t i = selStartLine + 1; i <= selEndLine; i++) {
-		lineStart = SendEditor(SCI_POSITIONFROMLINE, i);
-		SendEditorString(SCI_INSERTTEXT, lineStart, middle_comment.c_str());
-		selectionEnd += middle_comment_length;
+	//	Comment , Uncomment or Do Nothing
+	if (CanBeCommented(true))
+	{
+		SendEditor(SCI_BEGINUNDOACTION);
+		// first commented line (start_comment)
+		int lineStart = SendEditor(SCI_POSITIONFROMLINE, selStartLine);
+		SendEditorString(SCI_INSERTTEXT, lineStart, start_comment.c_str());
+		selectionStart += start_comment_length;
+		// lines between first and last commented lines (middle_comment)
+		for (size_t i = selStartLine + 1; i <= selEndLine; i++) {
+			lineStart = SendEditor(SCI_POSITIONFROMLINE, i);
+			SendEditorString(SCI_INSERTTEXT, lineStart, middle_comment.c_str());
+			selectionEnd += middle_comment_length;
+		}
+		// last commented line (end_comment)
+		int lineEnd = SendEditor(SCI_GETLINEENDPOSITION, selEndLine);
+		if (lines > 0) {
+			SendEditorString(SCI_INSERTTEXT, lineEnd, "\n");
+			SendEditorString(SCI_INSERTTEXT, lineEnd + 1, (end_comment.c_str() + 1));
+		} else {
+			SendEditorString(SCI_INSERTTEXT, lineEnd, end_comment.c_str());
+		}
+		selectionEnd += (start_comment_length);
+		if (move_caret) {
+			// moving caret to the beginning of selected block
+			SendEditor(SCI_GOTOPOS, selectionEnd);
+			SendEditor(SCI_SETCURRENTPOS, selectionStart);
+		} else {
+			SendEditor(SCI_SETSEL, selectionStart, selectionEnd);
+		}
+		SendEditor(SCI_ENDUNDOACTION);
 	}
-	// last commented line (end_comment)
-	int lineEnd = SendEditor(SCI_GETLINEENDPOSITION, selEndLine);
-	if (lines > 0) {
-		SendEditorString(SCI_INSERTTEXT, lineEnd, "\n");
-		SendEditorString(SCI_INSERTTEXT, lineEnd + 1, (end_comment.c_str() + 1));
-	} else {
-		SendEditorString(SCI_INSERTTEXT, lineEnd, end_comment.c_str());
-	}
-	selectionEnd += (start_comment_length);
-	if (move_caret) {
-		// moving caret to the beginning of selected block
-		SendEditor(SCI_GOTOPOS, selectionEnd);
-		SendEditor(SCI_SETCURRENTPOS, selectionStart);
-	} else {
-		SendEditor(SCI_SETSEL, selectionStart, selectionEnd);
-	}
-	SendEditor(SCI_ENDUNDOACTION);
 	return true;
 }
 
@@ -1423,6 +1577,7 @@ bool AnEditor::StartStreamComment() {
 	SString start_base("comment.stream.start.");
 	SString end_base("comment.stream.end.");
 	SString white_space(" ");
+	//SString end_white_space("  ");
 	start_base += language;
 	end_base += language;
 	SString start_comment = props->Get(start_base.c_str());
@@ -1477,19 +1632,23 @@ bool AnEditor::StartStreamComment() {
 		selectionStart -= start_counter;
 		selectionEnd += (end_counter + 1);
 	}
-	SendEditor(SCI_BEGINUNDOACTION);
-	SendEditorString(SCI_INSERTTEXT, selectionStart, start_comment.c_str());
-	selectionEnd += start_comment_length;
-	selectionStart += start_comment_length;
-	SendEditorString(SCI_INSERTTEXT, selectionEnd, end_comment.c_str());
-	if (move_caret) {
-		// moving caret to the beginning of selected block
-		SendEditor(SCI_GOTOPOS, selectionEnd);
-		SendEditor(SCI_SETCURRENTPOS, selectionStart);
-	} else {
-		SendEditor(SCI_SETSEL, selectionStart, selectionEnd);
+	//	Comment , Uncomment or Do Nothing
+	if (CanBeCommented(false))
+	{
+		SendEditor(SCI_BEGINUNDOACTION);
+		SendEditorString(SCI_INSERTTEXT, selectionStart, start_comment.c_str());
+		selectionEnd += start_comment_length;
+		selectionStart += start_comment_length;
+		SendEditorString(SCI_INSERTTEXT, selectionEnd, end_comment.c_str());
+		if (move_caret) {
+			// moving caret to the beginning of selected block
+			SendEditor(SCI_GOTOPOS, selectionEnd);
+			SendEditor(SCI_SETCURRENTPOS, selectionStart);
+		} else {
+			SendEditor(SCI_SETSEL, selectionStart, selectionEnd);
+		}
+		SendEditor(SCI_ENDUNDOACTION);
 	}
-	SendEditor(SCI_ENDUNDOACTION);
 	return true;
 }
 

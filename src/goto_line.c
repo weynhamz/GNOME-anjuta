@@ -92,7 +92,8 @@ gotoline_init (GotoLine * obj)
   GtkWidget *frame;
   GtkWidget *numberentry;
   GtkWidget *combo_entry;
-
+  GtkWidget *vbox;
+	
   assert (obj != NULL);
 
   gtk_window_set_position (GTK_WINDOW (obj), GTK_WIN_POS_CENTER);
@@ -106,10 +107,14 @@ gotoline_init (GotoLine * obj)
   gtk_widget_show (frame);
   gtk_box_pack_start (GTK_BOX (dialog_vbox), frame, FALSE, FALSE, 0);
 
+  vbox = gtk_vbox_new (FALSE, 0);
+  gtk_widget_show (vbox);
+  gtk_container_add (GTK_CONTAINER (frame), vbox);
+  gtk_container_set_border_width (GTK_CONTAINER (vbox), 10);
+  
   numberentry = gtk_entry_new ();
   gtk_widget_show (numberentry);
-  gtk_container_add (GTK_CONTAINER (frame), numberentry);
-  gtk_container_set_border_width (GTK_CONTAINER (numberentry), 10);
+  gtk_container_add (GTK_CONTAINER (vbox), numberentry);
 
   gtk_dialog_add_button (GTK_DIALOG (obj), GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL);
   gtk_dialog_add_button (GTK_DIALOG (obj), GTK_STOCK_OK, GTK_RESPONSE_OK);
@@ -144,4 +149,6 @@ on_go_to_line_response (GtkDialog* dialog, gint response, gpointer user_data)
 	if (te)
 		text_editor_goto_line (te, num, TRUE);
   }
+  else 
+  	gtk_widget_hide (GTK_WIDGET(dialog));
 }

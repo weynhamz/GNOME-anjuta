@@ -175,6 +175,7 @@ src/watch.c
 src/watch_cbs.c
 src/watch_cbs.h
 src/watch_gui.c
+src/watch_gui.h
 src/watch.h
 src/widget-registry.c
 src/widget-registry.h

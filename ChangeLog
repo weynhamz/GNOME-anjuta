@@ -1,3 +1,10 @@
+2003-05-06  Naba Kumar  <naba@gnome.org>
+
+	* src/aneditor.cxx, src/goto_line.c, src/main_menubar_def.h,
+	src/mainmenu_callbacks.c, src/mainmenu_callbacks.h:
+	Uncomment (Box & Stream), Select the current function,
+	authorize the "Quit" button of the GotoLine window
+
 2003-05-05  Naba Kumar  <naba@gnome.org>
 
 	* src/watch_gui.h: CVS added new file.

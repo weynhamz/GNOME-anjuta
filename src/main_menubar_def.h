@@ -198,7 +198,7 @@ static GnomeUIInfo transform1_submenu_uiinfo[NUM_TRANSFORM_SUBMENUS+1] = {
 	GNOMEUIINFO_END
 };
 
-#define NUM_SELECT_SUBMENUS 3
+#define NUM_SELECT_SUBMENUS 4
 static GnomeUIInfo select1_submenu_uiinfo[NUM_SELECT_SUBMENUS+1] = {
 	{/*0*/
 	 GNOME_APP_UI_ITEM, N_("_Select All"),
@@ -218,7 +218,13 @@ static GnomeUIInfo select1_submenu_uiinfo[NUM_SELECT_SUBMENUS+1] = {
 	 on_editor_command_activate, (gpointer) ANE_SELECTBLOCK, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 GDK_B, GDK_MOD1_MASK, NULL},
-	GNOMEUIINFO_END/*3*/
+	{/*3*/
+	 GNOME_APP_UI_ITEM, N_("Current Function"),
+	 N_("Select the current function"),
+	 on_editor_select_function , NULL, NULL,
+	 GNOME_APP_PIXMAP_NONE, NULL,
+	 0, 0, NULL},
+	GNOMEUIINFO_END/*4*/
 };
 
 #define NUM_INSERTTEXT_SUBMENUS 7
@@ -388,14 +394,14 @@ static GnomeUIInfo comment_submenu_uiinfo[NUM_COMMENT_SUBMENUS+1] = {
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{/*1*/
-	 GNOME_APP_UI_ITEM, N_("Box Comment"),
-	 N_("Box comment the selected text"),
+	 GNOME_APP_UI_ITEM, N_("Box Comment/Uncomment"),
+	 N_("Box comment/uncomment the selected text"),
 	 on_comment_box, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{/*2*/
-	 GNOME_APP_UI_ITEM, N_("Stream Comment"),
-	 N_("Stream comment the selected text"),
+	 GNOME_APP_UI_ITEM, N_("Stream Comment/Uncomment"),
+	 N_("Stream comment/uncomment the selected text"),
 	 on_comment_stream, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
