@@ -1100,9 +1100,9 @@ project_dbase_close_project (ProjectDBase * p)
 		node = next;
 	}
 	project_dbase_hide (p);
+	project_dbase_update_menu (p);
 	project_dbase_clean_left (p);
 	ccview_project_clear(CCVIEW_PROJECT(p->widgets.ccview));
-	project_dbase_update_menu (p);
 }
 
 void
