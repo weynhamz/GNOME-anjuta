@@ -78,7 +78,7 @@ create_project_type_selection_page (GnomeDruid * druid, GtkWidget ** iconlist)
 
 	gchar *icon1_file, *icon2_file, *icon3_file, *icon4_file, *icon5_file,
 		*icon6_file, *icon7_file, *icon8_file, *icon9_file, *icon10_file,
-		*icon11_file, *icon12_file, *icon13_file, *icon14_file;
+		*icon11_file, *icon12_file, *icon13_file, *icon14_file, *icon15_file;
 
 	GdkColor page_bg_color = { 0, 15616, 33280, 46848 };
 	GdkColor page_logo_bg_color = { 0, 15616, 33280, 46848 };
@@ -157,10 +157,11 @@ create_project_type_selection_page (GnomeDruid * druid, GtkWidget ** iconlist)
 	icon8_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_APP_WXWIN);
 	icon9_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_APP_GTK2);
 	icon10_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_APP_GNOME2);
-	icon11_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_APP_GTKMM2);
-	icon12_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_APP_GNOMEMM2);
-	icon13_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_APP_XWIN);
-	icon14_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_APP_XWINDOCKAPP);
+	icon11_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_APP_LIBGLADE2);
+	icon12_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_APP_GTKMM2);
+	icon13_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_APP_GNOMEMM2);
+	icon14_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_APP_XWIN);
+	icon15_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_APP_XWINDOCKAPP);
 	
 	if (icon1_file)
 		gnome_icon_list_append (GNOME_ICON_LIST (iconlist1),
@@ -201,16 +202,19 @@ create_project_type_selection_page (GnomeDruid * druid, GtkWidget ** iconlist)
 					icon10_file, _("GNOME 2.0 project"));
 	if (icon11_file)
 		gnome_icon_list_append (GNOME_ICON_LIST (iconlist1),
-					icon11_file, _("GTKmm 2.0 project"));
+					icon11_file, _("LibGlade 2.0 project"));
 	if (icon12_file)
 		gnome_icon_list_append (GNOME_ICON_LIST (iconlist1),
-					icon12_file, _("GNOMEmm 2.0 project"));
+					icon12_file, _("GTKmm 2.0 project"));
 	if (icon13_file)
 		gnome_icon_list_append (GNOME_ICON_LIST (iconlist1),
-					icon13_file, _("Xlib project"));
+					icon13_file, _("GNOMEmm 2.0 project"));
 	if (icon14_file)
 		gnome_icon_list_append (GNOME_ICON_LIST (iconlist1),
-					icon14_file, _("X Dock App project"));
+					icon14_file, _("Xlib project"));
+	if (icon15_file)
+		gnome_icon_list_append (GNOME_ICON_LIST (iconlist1),
+					icon15_file, _("X Dock App project"));
 
 	g_free (icon1_file);
 	g_free (icon2_file);
@@ -226,6 +230,7 @@ create_project_type_selection_page (GnomeDruid * druid, GtkWidget ** iconlist)
 	g_free (icon12_file);
 	g_free (icon13_file);
 	g_free (icon14_file);	
+	g_free (icon15_file);	
 
 	*iconlist = iconlist1;
 	return page;

@@ -136,6 +136,7 @@
 #define ANJUTA_PIXMAP_APP_GTKMM "appwiz_gtkmm.png"
 #define ANJUTA_PIXMAP_APP_GNOMEMM "appwiz_gnomemm.png"
 #define ANJUTA_PIXMAP_APP_LIBGLADE "appwiz_libglade.png"
+#define ANJUTA_PIXMAP_APP_LIBGLADE2 "appwiz_libglade2.png"
 #define ANJUTA_PIXMAP_APP_WXWIN "appwiz_wxwin.png"
 #define ANJUTA_PIXMAP_APP_GTK2 "appwiz_gtk2.png"
 #define ANJUTA_PIXMAP_APP_GTKMM2 "appwiz_gtkmm2.png"

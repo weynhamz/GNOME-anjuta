@@ -62,6 +62,7 @@ enum
 	PROJECT_TYPE_GTK2,
 	PROJECT_TYPE_GTKMM2,
 	PROJECT_TYPE_GNOME2,
+	PROJECT_TYPE_LIBGLADE2,
 	PROJECT_TYPE_GNOMEMM2,
 	PROJECT_TYPE_XWIN,
 	PROJECT_TYPE_XWINDOCKAPP,
@@ -223,6 +224,10 @@ void
 project_dbase_show_info (ProjectDBase * p);
 
 /* Starts glade for gnome projects */
+gboolean
+project_dbase_summon_glade (ProjectDBase *p);
+
+/* Starts glade-2 for gnome 2.0 projects */
 gboolean
 project_dbase_summon_glade (ProjectDBase *p);
 

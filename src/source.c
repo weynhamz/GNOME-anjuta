@@ -1421,6 +1421,7 @@ source_write_glade_file (ProjectDBase * data)
 	if (type->id == PROJECT_TYPE_GTK || 
 		type->id == PROJECT_TYPE_GNOME ||
 		type->id == PROJECT_TYPE_GTK2 ||
+		type->id == PROJECT_TYPE_LIBGLADE2 ||
 		type->id == PROJECT_TYPE_GNOME2)
 	{
 		fprintf(fp, "  <language>C</language>\n");
@@ -2479,6 +2480,7 @@ source_write_build_files (ProjectDBase * data)
 			case PROJECT_TYPE_GNOME2:
 			case PROJECT_TYPE_BONOBO:
 			case PROJECT_TYPE_LIBGLADE:
+			case PROJECT_TYPE_LIBGLADE2:
 			case PROJECT_TYPE_GNOMEMM:
 			case PROJECT_TYPE_GNOMEMM2:
 				ret = source_write_desktop_entry (data);

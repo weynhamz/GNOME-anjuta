@@ -166,6 +166,7 @@ on_page5_next (GnomeDruidPage * page, gpointer arg1, gpointer data)
 	// Deacticate Menu entries for none Gnome projects
 	if (piw->prj_type == PROJECT_TYPE_GNOME ||
 		piw->prj_type == PROJECT_TYPE_GNOME2 || 
+		piw->prj_type == PROJECT_TYPE_LIBGLADE2 || 
 		piw->prj_type == PROJECT_TYPE_GNOMEMM ||
 		piw->prj_type == PROJECT_TYPE_GNOMEMM2)
 	{
@@ -365,15 +366,18 @@ on_wizard_import_icon_select (GnomeIconList * gil,
 		piw->prj_type = PROJECT_TYPE_GNOME2;
 		break;
 	case 10:
-		piw->prj_type = PROJECT_TYPE_GTKMM2;
+		piw->prj_type = PROJECT_TYPE_LIBGLADE2;
 		break;
 	case 11:
-		piw->prj_type = PROJECT_TYPE_GNOMEMM2;
+		piw->prj_type = PROJECT_TYPE_GTKMM2;
 		break;
 	case 12:
-		piw->prj_type = PROJECT_TYPE_XWIN;
+		piw->prj_type = PROJECT_TYPE_GNOMEMM2;
 		break;
 	case 13:
+		piw->prj_type = PROJECT_TYPE_XWIN;
+		break;
+	case 14:
 		piw->prj_type = PROJECT_TYPE_XWINDOCKAPP;
 		break;
 	

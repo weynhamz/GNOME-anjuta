@@ -101,6 +101,7 @@ gchar *project_type_map[]=
 	"GTK 2.0",
 	"GTKmm 2.0",
 	"GNOME 2.0",
+	"LIBGLADE2",
 	"GNOMEmm 2.0",
 	"XLib",
 	"XLib Dock App",
@@ -1419,7 +1420,6 @@ project_dbase_summon_glade (ProjectDBase *p)
 
 	return ret;
 }
-
 
 gboolean
 project_dbase_generate_source_code (ProjectDBase *p)

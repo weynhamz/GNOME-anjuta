@@ -132,6 +132,23 @@ gchar* project_type_gnome2[] =
 	"0",
 };
 
+gchar* project_type_libglade2[] =
+{
+	"LIBGLADE2",
+	
+	" \\\n\t$(GNOME_CFLAGS)",
+	" \\\n\t$(GNOME_LIBS)",
+	
+	"PKG_CHECK_MODULES(GNOME, libgnomeui-2.0 gtk+-2.0 libglade-2.0,,exit)\n"
+	"AC_SUBST(GNOME_LIBS)\n"
+	"AC_SUBST(GNOME_CFLAGS)",
+	
+	"/autogen.sh.gnome",
+	
+	"1",
+	"0",
+};
+
 gchar* project_type_gtkmm[] =
 {
 	"GTKMM",
@@ -362,6 +379,11 @@ Project_Type* load_project_type(gint id)
 		case PROJECT_TYPE_GNOME2:
 		{
 			type = load_type_from_data(project_type_gnome2, id);
+			break;
+		}
+		case PROJECT_TYPE_LIBGLADE2:
+		{
+			type = load_type_from_data(project_type_libglade2, id);
 			break;
 		}
 		case PROJECT_TYPE_GNOMEMM:
