@@ -114,6 +114,8 @@ plugins/project-wizard/templates/anjuta-plugin/src/plugin.c
 plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade
 plugins/project-wizard/templates/gtk/src/project.glade
 plugins/sample1/plugin.c
+plugins/symbol-browser/an_symbol_info.c,
+plugins/symbol-browser/an_symbol_search.c,
 plugins/symbol-browser/an_symbol_view.c
 plugins/symbol-browser/plugin.c
 plugins/terminal/anjuta-terminal-plugin.glade
