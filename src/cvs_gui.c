@@ -112,11 +112,14 @@ create_cvs_gui (CVS * cvs, int dialog_type, gchar* filename, gboolean bypass_dia
 	gtk_widget_show (label_file);
 
 	gui->entry_file = gnome_file_entry_new ("cvs-file", _("Select file"));
-	gui->entry_branch = gnome_entry_new ("cvs-branch");
-	gui->text_message = gtk_text_new (NULL, NULL);
 	gtk_widget_show (gui->entry_file);
-	gtk_widget_set_usize(gui->entry_file, 300, -1);
-
+	gtk_widget_set_usize(gui->entry_file, 400, -1);
+	
+	gui->text_message = gtk_text_new (NULL, NULL);
+	gtk_widget_set_usize(gui->text_message, 400, 150);
+	
+	gui->entry_branch = gnome_entry_new ("cvs-branch");
+	
 	if (gui->type == CVS_ACTION_UPDATE || gui->type == CVS_ACTION_COMMIT)
 	{
 		gtk_widget_show (label_branch);
@@ -129,17 +132,35 @@ create_cvs_gui (CVS * cvs, int dialog_type, gchar* filename, gboolean bypass_dia
 		gtk_widget_show (gui->text_message);
 		gtk_text_set_editable (GTK_TEXT (gui->text_message), TRUE);
 	}
-
-	gtk_table_attach_defaults (GTK_TABLE (table), label_file, 0, 1, 0, 1);
-	gtk_table_attach_defaults (GTK_TABLE (table), gui->entry_file, 1, 2,
-				   0, 1);
-	gtk_table_attach_defaults (GTK_TABLE (table), label_branch, 0, 1, 1,
-				   2);
-	gtk_table_attach_defaults (GTK_TABLE (table), gui->entry_branch, 1, 2,
-				   1, 2);
-	gtk_table_attach_defaults (GTK_TABLE (table), label_msg, 0, 1, 2, 3);
-	gtk_table_attach_defaults (GTK_TABLE (table), gui->text_message, 1, 2,
-				   2, 4);
+	
+	gtk_misc_set_alignment(GTK_MISC(label_file), 0, -1);	
+	gtk_misc_set_alignment(GTK_MISC(label_branch), 0, -1);	
+	gtk_misc_set_alignment(GTK_MISC(label_msg), 0, 0);	
+	
+	gtk_table_attach (GTK_TABLE (table),
+			label_file,
+			0, 1, 0, 1,
+			GTK_FILL, 0, 3, 3);
+	gtk_table_attach (GTK_TABLE (table),
+			gui->entry_file,
+			1, 2, 0, 1,
+			GTK_FILL | GTK_EXPAND, 0, 3, 3);
+	gtk_table_attach (GTK_TABLE (table),
+			label_branch,
+			0, 1, 1, 2,
+			GTK_FILL, 0, 3, 3);
+	gtk_table_attach (GTK_TABLE (table),
+			gui->entry_branch,
+			1, 2, 1, 2,
+			GTK_FILL | GTK_EXPAND, 0, 3, 3);
+	gtk_table_attach (GTK_TABLE (table),
+			label_msg,
+			0, 1, 2, 3,
+			GTK_FILL, GTK_FILL, 3, 3);
+	gtk_table_attach (GTK_TABLE (table),
+			gui->text_message,
+			1, 2, 2, 3,
+			GTK_FILL | GTK_EXPAND, 0, 3, 3);
 
 	gtkentry =
 		gnome_file_entry_gtk_entry (GNOME_FILE_ENTRY
@@ -207,11 +228,13 @@ create_cvs_diff_gui (CVS * cvs, gchar* filename, gboolean bypass_dialog)
 	gtk_widget_show (table);
 
 	label_file = gtk_label_new (_("File: "));
+	gtk_misc_set_alignment(GTK_MISC(label_file), 0, -1);	
+
 	gui->entry_file = gnome_file_entry_new ("cvs-file", _("Select file"));
 	gtkentry =
 		gnome_file_entry_gtk_entry (GNOME_FILE_ENTRY
 					    (gui->entry_file));
-	gtk_widget_set_usize(gtkentry, 300, -1);
+	gtk_widget_set_usize(gtkentry, 400, -1);
 	
 	if(filename == NULL) {
 		gtk_entry_set_text (GTK_ENTRY (gtkentry), get_cur_filename());
@@ -221,25 +244,42 @@ create_cvs_diff_gui (CVS * cvs, gchar* filename, gboolean bypass_dialog)
 
 	gtk_widget_show (label_file);
 	gtk_widget_show (gui->entry_file);
-	gtk_table_attach_defaults (GTK_TABLE (table), label_file, 0, 1, 0, 1);
-	gtk_table_attach_defaults (GTK_TABLE (table), gui->entry_file, 1, 2,
-				   0, 1);
+	gtk_table_attach (GTK_TABLE (table),
+			label_file,
+			0, 1, 0, 1,
+			GTK_FILL, 0, 3, 3);
+	gtk_table_attach (GTK_TABLE (table),
+			gui->entry_file,
+			1, 2, 0, 1,
+			GTK_FILL | GTK_EXPAND, 0, 3, 3);
 
-	label_date = gtk_label_new (_("Date to diff with: "));
+	label_date = gtk_label_new (_("Date: "));
+	gtk_misc_set_alignment(GTK_MISC(label_date), 0, -1);	
 	gui->entry_date = gnome_date_edit_new (time (NULL), TRUE, TRUE);
 	gtk_widget_show (label_date);
 	gtk_widget_show (gui->entry_date);
-	gtk_table_attach_defaults (GTK_TABLE (table), label_date, 0, 1, 1, 2);
-	gtk_table_attach_defaults (GTK_TABLE (table), gui->entry_date, 1, 2,
-				   1, 2);
+	gtk_table_attach (GTK_TABLE (table),
+			label_date,
+			0, 1, 1, 2,
+			GTK_FILL, 0, 3, 3);
+	gtk_table_attach (GTK_TABLE (table),
+			gui->entry_date,
+			1, 2, 1, 2,
+			GTK_FILL | GTK_EXPAND, 0, 3, 3);
 
-	label_rev = gtk_label_new (_("Revision to diff with: "));
+	label_rev = gtk_label_new (_("Revision: "));
+	gtk_misc_set_alignment(GTK_MISC(label_rev), 0, -1);	
 	gui->entry_rev = gnome_entry_new ("cvs-revision");
 	gtk_widget_show (label_rev);
 	gtk_widget_show (gui->entry_rev);
-	gtk_table_attach_defaults (GTK_TABLE (table), label_rev, 0, 1, 2, 3);
-	gtk_table_attach_defaults (GTK_TABLE (table), gui->entry_rev, 1, 2, 2,
-				   3);
+	gtk_table_attach (GTK_TABLE (table),
+			label_rev,
+			0, 1, 2, 3,
+			GTK_FILL, 0, 3, 3);
+	gtk_table_attach (GTK_TABLE (table),
+			gui->entry_rev,
+			1, 2, 2, 3,
+			GTK_FILL | GTK_EXPAND, 0, 3, 3);
 
 	gtk_box_pack_start_defaults (GTK_BOX(GNOME_DIALOG (gui->dialog)->vbox),
 			table);
@@ -280,16 +320,44 @@ create_cvs_login_gui (CVS * cvs)
 	server_label = gtk_label_new (_("Server: "));
 	dir_label = gtk_label_new (_("Directory on the server: "));
 	
-	table = gtk_table_new (4, 2, TRUE);
-	gtk_table_attach_defaults (GTK_TABLE (table), type_label, 0, 1, 0, 1);
-	gtk_table_attach_defaults (GTK_TABLE (table), server_label, 0, 1, 1, 2);
-	gtk_table_attach_defaults (GTK_TABLE (table), dir_label, 0, 1, 2, 3);
-	gtk_table_attach_defaults (GTK_TABLE (table), user_label, 0, 1, 3, 4);
+	gtk_misc_set_alignment(GTK_MISC(type_label), 0, -1);	
+	gtk_misc_set_alignment(GTK_MISC(user_label), 0, -1);	
+	gtk_misc_set_alignment(GTK_MISC(server_label), 0, -1);	
+	gtk_misc_set_alignment(GTK_MISC(dir_label), 0, -1);	
+
+	table = gtk_table_new (4, 2, FALSE);
+	gtk_table_attach (GTK_TABLE (table),
+				type_label,
+				0, 1, 0, 1,
+				GTK_FILL, 0, 3, 3);
+	gtk_table_attach (GTK_TABLE (table),
+				server_label,
+				0, 1, 1, 2,
+				GTK_FILL, 0, 3, 3);
+	gtk_table_attach (GTK_TABLE (table),
+				dir_label,
+				0, 1, 2, 3,
+				GTK_FILL, 0, 3, 3);
+	gtk_table_attach (GTK_TABLE (table),
+				user_label,
+				0, 1, 3, 4,
+				GTK_FILL, 0, 3, 3);
 	
-	gtk_table_attach_defaults (GTK_TABLE (table), gui->combo_type, 1, 2, 0, 1);
-	gtk_table_attach_defaults (GTK_TABLE (table), gui->entry_server, 1, 2, 1, 2);
-	gtk_table_attach_defaults (GTK_TABLE (table), gui->entry_dir, 1, 2, 2, 3);
-	gtk_table_attach_defaults (GTK_TABLE (table), gui->entry_user, 1, 2, 3, 4);
+	gtk_table_attach (GTK_TABLE (table),
+				gui->combo_type, 1, 2, 0, 1,
+				GTK_EXPAND | GTK_FILL, 0, 3, 3);
+	gtk_table_attach (GTK_TABLE (table),
+				gui->entry_server,
+				1, 2, 1, 2,
+				GTK_EXPAND | GTK_FILL, 0, 3, 3);
+	gtk_table_attach (GTK_TABLE (table),
+				gui->entry_dir,
+				1, 2, 2, 3,
+				GTK_EXPAND | GTK_FILL, 0, 3, 3);
+	gtk_table_attach (GTK_TABLE (table),
+				gui->entry_user,
+				1, 2, 3, 4,
+				GTK_EXPAND | GTK_FILL, 0, 3, 3);
 	
 	strings = g_list_alloc();
 	for (i = 0; i < 4; i++)
@@ -332,66 +400,135 @@ void create_cvs_import_gui (CVS* cvs)
 	GtkWidget* cancel_button;
 	GtkWidget* server_frame;
 	GtkWidget* server_table;
+	GtkWidget* import_frame;
+	GtkWidget* import_table;
 	GList* strings;
 	guint i;
 	CVSImportGUI* gui = g_new0 (CVSImportGUI, 1);
 	
-	table = gtk_table_new (9, 2, FALSE);
+	table = gtk_table_new (2, 1, FALSE);
 	server_table = gtk_table_new (4, 2, FALSE);
+	import_table = gtk_table_new (5, 2, FALSE);
 	
 	type_label = gtk_label_new (_("Server type: "));
 	server_label = gtk_label_new (_("Server: "));
-	dir_label = gtk_label_new (_("Directory on the server: "));
+	dir_label = gtk_label_new (_("Dir on the server: "));
 	user_label = gtk_label_new (_("Username: "));
-	gtk_table_attach_defaults (GTK_TABLE (server_table), type_label, 0, 1, 0, 1);
-	gtk_table_attach_defaults (GTK_TABLE (server_table), server_label, 0, 1, 1, 2);
-	gtk_table_attach_defaults (GTK_TABLE (server_table), dir_label, 0, 1, 2, 3);
-	gtk_table_attach_defaults (GTK_TABLE (server_table), user_label, 0, 1, 3, 4);
 	
-	module_label = gtk_label_new (_("Module name for the project: "));
-	release_label = gtk_label_new (_("Initial release name: "));
-	vendor_label = gtk_label_new (_("Vendor: "));
+	gtk_misc_set_alignment(GTK_MISC(type_label), 0, -1);	
+	gtk_misc_set_alignment(GTK_MISC(user_label), 0, -1);	
+	gtk_misc_set_alignment(GTK_MISC(server_label), 0, -1);	
+	gtk_misc_set_alignment(GTK_MISC(dir_label), 0, -1);	
+	
+	gtk_table_attach (GTK_TABLE (server_table),
+				type_label,
+				0, 1, 0, 1,
+				GTK_FILL, 0, 3, 3);
+	gtk_table_attach (GTK_TABLE (server_table),
+				server_label,
+				0, 1, 1, 2,
+				GTK_FILL, 0, 3, 3);
+	gtk_table_attach (GTK_TABLE (server_table),
+				dir_label,
+				0, 1, 2, 3,
+				GTK_FILL, 0, 3, 3);
+	gtk_table_attach (GTK_TABLE (server_table),
+				user_label,
+				0, 1, 3, 4,
+				GTK_FILL, 0, 3, 3);
+	
+	module_label = gtk_label_new (_("Module name: "));
+	release_label = gtk_label_new (_("Release name: "));
+	vendor_label = gtk_label_new (_("Vendor tag: "));
 	message_label = gtk_label_new (_("Log message: "));
 	
-	gtk_table_attach_defaults (GTK_TABLE (table), module_label, 0, 1, 3, 4);
-	gtk_table_attach_defaults (GTK_TABLE (table), release_label, 0, 1, 4, 5);
-	gtk_table_attach_defaults (GTK_TABLE (table), vendor_label, 0, 1, 5, 6);
-	gtk_table_attach_defaults (GTK_TABLE (table), message_label, 0, 1, 6, 7);
+	gtk_misc_set_alignment(GTK_MISC(module_label), 0, -1);
+	gtk_misc_set_alignment(GTK_MISC(release_label), 0, -1);
+	gtk_misc_set_alignment(GTK_MISC(vendor_label), 0, -1);
+	gtk_misc_set_alignment(GTK_MISC(message_label), 0, 0);
+	
+	gtk_table_attach (GTK_TABLE (import_table),
+				module_label,
+				0, 1, 0, 1,
+				GTK_FILL, 0, 3, 3);
+	gtk_table_attach (GTK_TABLE (import_table),
+				release_label,
+				0, 1, 1, 2,
+				GTK_FILL, 0, 3, 3);
+	gtk_table_attach (GTK_TABLE (import_table),
+				vendor_label,
+				0, 1, 2, 3,
+				GTK_FILL, 0, 3, 3);
+	gtk_table_attach (GTK_TABLE (import_table),
+				message_label,
+				0, 1, 3, 4,
+				GTK_FILL, GTK_EXPAND | GTK_FILL, 3, 3);
 	
 	gui->combo_type = gtk_combo_new ();
-	strings = g_list_alloc();
-	for (i = 0; i < 4; i++)
-	{
-		strings = g_list_append (strings, server_types[i]);
-	}	
-	gtk_editable_set_editable (GTK_EDITABLE (GTK_COMBO (gui->combo_type)->entry), FALSE);
-	gtk_combo_set_popdown_strings (GTK_COMBO (gui->combo_type), strings);
-	gtk_combo_set_value_in_list (GTK_COMBO (gui->combo_type), TRUE, FALSE);
-
 	gui->entry_server = gnome_entry_new ("cvs-server");
 	gui->entry_dir = gnome_entry_new ("cvs-server-dir");
 	gui->entry_user = gnome_entry_new ("cvs-user");
 	
-	gtk_table_attach_defaults (GTK_TABLE (server_table), gui->combo_type, 1, 2, 0, 1);
-	gtk_table_attach_defaults (GTK_TABLE (server_table), gui->entry_server, 1, 2, 1, 2);
-	gtk_table_attach_defaults (GTK_TABLE (server_table), gui->entry_dir, 1, 2, 2, 3);
-	gtk_table_attach_defaults (GTK_TABLE (server_table), gui->entry_user, 1, 2, 3, 4);
+	strings = g_list_alloc();
+	for (i = 0; i < 4; i++)
+	{
+		strings = g_list_append (strings, server_types[i]);
+	}
+	
+	gtk_editable_set_editable (GTK_EDITABLE (GTK_COMBO (gui->combo_type)->entry), FALSE);
+	gtk_combo_set_popdown_strings (GTK_COMBO (gui->combo_type), strings);
+	gtk_combo_set_value_in_list (GTK_COMBO (gui->combo_type), TRUE, FALSE);
+
+	gtk_table_attach (GTK_TABLE (server_table),
+				gui->combo_type, 1, 2, 0, 1,
+				GTK_EXPAND | GTK_FILL, 0, 3, 3);
+	gtk_table_attach (GTK_TABLE (server_table),
+				gui->entry_server,
+				1, 2, 1, 2,
+				GTK_EXPAND | GTK_FILL, 0, 3, 3);
+	gtk_table_attach (GTK_TABLE (server_table),
+				gui->entry_dir,
+				1, 2, 2, 3,
+				GTK_EXPAND | GTK_FILL, 0, 3, 3);
+	gtk_table_attach (GTK_TABLE (server_table),
+				gui->entry_user,
+				1, 2, 3, 4,
+				GTK_EXPAND | GTK_FILL, 0, 3, 3);
 	
 	server_frame = gtk_frame_new (_("Server settings"));
 	gtk_container_set_border_width (GTK_CONTAINER (server_frame), 5);
 	gtk_container_add (GTK_CONTAINER (server_frame), server_table);
-		
+
+	import_frame = gtk_frame_new (_("Import settings"));
+	gtk_container_set_border_width (GTK_CONTAINER (import_frame), 5);
+	gtk_container_add (GTK_CONTAINER (import_frame), import_table);
+
 	gui->entry_module = gnome_entry_new ("cvs-module");
 	gui->entry_release = gnome_entry_new ("cvs-release");
 	gui->entry_vendor = gnome_entry_new ("cvs-vendor");
 	gui->text_message = gtk_text_new (NULL, NULL);
 	gtk_text_set_editable (GTK_TEXT (gui->text_message), TRUE);
+	gtk_widget_set_usize(GTK_WIDGET(gui->text_message), 400, 150);
 	
-	gtk_table_attach_defaults (GTK_TABLE (table), server_frame, 0, 2, 2, 3);
-	gtk_table_attach_defaults (GTK_TABLE (table), gui->entry_module, 1, 2, 3, 4);
-	gtk_table_attach_defaults (GTK_TABLE (table), gui->entry_release, 1, 2, 4, 5);
-	gtk_table_attach_defaults (GTK_TABLE (table), gui->entry_vendor, 1, 2, 5, 6);
-	gtk_table_attach_defaults (GTK_TABLE (table), gui->text_message, 1, 2, 6, 9);
+	gtk_table_attach (GTK_TABLE (import_table),
+				gui->entry_module,
+				1, 2, 0, 1,
+				GTK_EXPAND | GTK_FILL, 0, 3, 3);
+	gtk_table_attach (GTK_TABLE (import_table),
+				gui->entry_release,
+				1, 2, 1, 2,
+				GTK_EXPAND | GTK_FILL, 0, 3, 3);
+	gtk_table_attach (GTK_TABLE (import_table),
+				gui->entry_vendor,
+				1, 2, 2, 3,
+				GTK_EXPAND | GTK_FILL, 0, 3, 3);
+	gtk_table_attach (GTK_TABLE (import_table),
+				gui->text_message,
+				1, 2, 3, 4,
+				GTK_EXPAND | GTK_FILL, GTK_EXPAND | GTK_FILL, 3, 3);
+	
+	gtk_table_attach_defaults (GTK_TABLE (table), server_frame, 0, 1, 0, 1);
+	gtk_table_attach_defaults (GTK_TABLE (table), import_frame, 0, 1, 1, 2);
 	
 	gui->dialog = gnome_dialog_new (_("CVS Import project"), "Import", "Cancel", NULL);
 	gtk_box_pack_start_defaults (GTK_BOX (GNOME_DIALOG(gui->dialog)->vbox), table);

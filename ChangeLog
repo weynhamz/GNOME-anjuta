@@ -1,5 +1,10 @@
 2002-04-16 Naba Kumar <kh_naba@users.sourceforge.net>
 
+	* src/cvs_gui.c: Cleaned up gui and aligned various
+	widgets to give a clean look.
+	
+2002-04-16 Naba Kumar <kh_naba@users.sourceforge.net>
+
 	* src/launcher.c: Added work around to retrieve
 	the child exit code. It works. :)
 	
