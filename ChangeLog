@@ -1,3 +1,7 @@
+2003-06-13  Guntupalli Karunakar  <karunakar@freedomink.org>
+
+	* configure.in: Added "ml" for Malayalam in ALL_LINGUAS.
+
 2003-06-13  Naba Kumar  <naba@gnome.org>
 
 	* src/stack_trace_cbs.c: Moved variable declaration at the
