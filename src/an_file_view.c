@@ -276,6 +276,7 @@ static void fv_create(void)
 	gtk_widget_ref(fv->tree);
 	gtk_widget_show(fv->tree);
 	gtk_clist_set_column_auto_resize(GTK_CLIST(fv->tree), 0, TRUE);
+	gtk_clist_set_column_auto_resize(GTK_CLIST(fv->tree), 1, TRUE);
 	gtk_clist_set_selection_mode(GTK_CLIST(fv->tree)
 	  ,GTK_SELECTION_BROWSE);
 	gtk_container_add (GTK_CONTAINER(fv->win), fv->tree);
