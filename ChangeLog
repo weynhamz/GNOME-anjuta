@@ -1,3 +1,21 @@
+2004-04-28  Naba Kumar  <naba@gnome.org>
+
+	* libanjuta/anjuta-shell.c: Fixed docs.
+	* libanjuta/interfaces/Makefile.am,
+	libanjuta/interfaces/ianjuta-file.c,
+	libanjuta/interfaces/ianjuta-file.h: Added ianjuta-file.{c,h}
+	
+	* libanjuta/interfaces/ianjuta-editor.c: Fixed bug.
+	
+	* manuals/reference/libanjuta/tmpl/anjuta-children.sgml
+
+	* manuals/reference/libanjuta/tmpl/anjuta-plugin.sgml,
+	manuals/reference/libanjuta/tmpl/anjuta-preferences-dialog.sgml,
+	manuals/reference/libanjuta/tmpl/anjuta-preferences.sgml,
+	manuals/reference/libanjuta/tmpl/anjuta-shell.sgml,
+	manuals/reference/libanjuta/tmpl/anjuta-ui.sgml: Updated docs.
+	* src/anjuta-app.c: Fixed bug.
+
 2004-04-27  Naba Kumar  <naba@gnome.org>
 
 	* libanjuta/anjuta-preferences-dialog.c,

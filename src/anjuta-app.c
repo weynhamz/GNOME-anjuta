@@ -413,8 +413,7 @@ anjuta_app_remove_widget (AnjutaShell *shell,
 
 	dock_item = g_object_get_data (G_OBJECT(w), "dockitem");
 	g_return_if_fail (dock_item != NULL);
-	
-	// egg_dock_remove	(GTK_CONTAINER (window->dock), dock_item);
+	egg_dock_item_unbind(EGG_DOCK_ITEM(dock_item));
 }
 
 static void

@@ -100,6 +100,7 @@ ianjuta_editor_base_init (gpointer gclass)
 			      NULL, NULL,
 			      anjuta_cclosure_marshal_VOID__BOOLEAN,
 			      G_TYPE_NONE, 1, G_TYPE_BOOLEAN);
+		initialized = TRUE;
 	}
 }
 

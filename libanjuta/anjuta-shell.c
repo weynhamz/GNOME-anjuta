@@ -2,11 +2,6 @@
 #include "anjuta-shell.h"
 
 #include <string.h>
-/*
-#include <bonobo/bonobo-control-frame.h>
-#include <bonobo/bonobo-widget.h>
-#include <bonobo/bonobo-window.h>
-*/
 #include <gobject/gvaluecollector.h>
 #include "anjuta-marshal.h"
 
@@ -75,62 +70,6 @@ anjuta_shell_remove_widget (AnjutaShell *shell,
 
 	ANJUTA_SHELL_GET_IFACE (shell)->remove_widget (shell, widget, error);
 }
-
-#if 0
-void
-anjuta_shell_add_control       (AnjutaShell   *shell,
-				Bonobo_Control ctrl,
-				const char    *name,
-				const char    *title,
-				GError       **error)
-{
-	GtkWidget *widget;
-	BonoboControlFrame *frame;
-	
-	g_return_if_fail (shell != NULL);
-	g_return_if_fail (ANJUTA_IS_SHELL (shell));
-	g_return_if_fail (ctrl != CORBA_OBJECT_NIL);
-	g_return_if_fail (name != NULL);
-	g_return_if_fail (title != NULL);	
-
-	widget = bonobo_widget_new_control_from_objref (ctrl,
-							BONOBO_OBJREF (bonobo_window_get_ui_container (BONOBO_WINDOW (shell))));
-	frame = bonobo_widget_get_control_frame (BONOBO_WIDGET (widget));
-	
-	bonobo_control_frame_set_autoactivate (frame, FALSE);
-	bonobo_control_frame_control_activate (frame);
-	
-	gtk_widget_show (widget);
-
-	anjuta_shell_add_widget (shell, widget, name, title, error);
-}
-
-void
-anjuta_shell_add_preferences (AnjutaShell *shell,
-			      GtkWidget *page,
-			      const char *name,
-			      const char *title,
-			      GdkPixbuf *pixbuf,
-			      GError **error)
-{
-	g_return_if_fail (shell != NULL);
-	g_return_if_fail (ANJUTA_IS_SHELL (shell));
-	g_return_if_fail (page != NULL);
-	g_return_if_fail (GTK_IS_WIDGET (page));
-	g_return_if_fail (name != NULL);
-	g_return_if_fail (title != NULL);
-	g_return_if_fail (pixbuf != NULL);
-	g_return_if_fail (GDK_IS_PIXBUF (pixbuf));
-	g_return_if_fail (title != NULL);
-
-	ANJUTA_SHELL_GET_IFACE (shell)->add_preferences (shell, 
-							 page, 
-							 name,
-							 title, 
-							 pixbuf,
-							 error);
-}
-#endif
 
 /**
  * anjuta_shell_add_value:
@@ -366,8 +305,8 @@ anjuta_shell_get (AnjutaShell  *shell,
  */
 void
 anjuta_shell_remove_value (AnjutaShell *shell,
-			   const char *name,
-			   GError **error)
+						   const char *name,
+						   GError **error)
 {
 	g_return_if_fail (shell != NULL);
 	g_return_if_fail (ANJUTA_IS_SHELL (shell));
