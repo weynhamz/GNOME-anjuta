@@ -184,7 +184,7 @@ AnjutaMessageWindow::append_buffer()
 	string message = m_line_buffer;
 	m_line_buffer = string();
 	m_messages.push_back(message);
-	
+
 	// Truncate Message:
 	int truncat_mesg = preferences_get_int (get_preferences(), TRUNCAT_MESSAGES);
 	int mesg_first = preferences_get_int (get_preferences(), TRUNCAT_MESG_FIRST);
@@ -255,7 +255,7 @@ AnjutaMessageWindow::get_cur_line() const
 {
 	return m_cur_line;
 }
-			
+
 void
 AnjutaMessageWindow::clear()
 {
