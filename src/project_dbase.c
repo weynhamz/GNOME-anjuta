@@ -2366,7 +2366,8 @@ project_dbase_load_project_finish (ProjectDBase * p, gboolean show_project)
 	/* Now Project setup */
 	project_dbase_update_tree (p);
 	extended_toolbar_update ();
-	project_dbase_update_tags_image(p, TRUE);
+	if (preferences_get_int (app->preferences, AUTOMATIC_TAGS_UPDATE) == 1)
+		project_dbase_update_tags_image(p, TRUE);
 	anjuta_update_app_status(FALSE, NULL);
 	anjuta_status (_("Project loaded successfully."));
 	anjuta_set_active ();
