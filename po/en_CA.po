@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-23 11:15-0500\n"
-"PO-Revision-Date: 2005-02-23 12:57-0400\n"
+"POT-Creation-Date: 2005-02-24 11:05-0500\n"
+"PO-Revision-Date: 2005-02-24 12:57-0400\n"
 "Last-Translator: Adam Weinberger <adamw@gnome.org>\n"
 "Language-Team: en_CA <adamw@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -20,7 +20,7 @@ msgstr ""
 msgid "Anjuta IDE"
 msgstr "Anjuta IDE"
 
-#: anjuta.desktop.in.in.h:2 src/about.c:97 src/about.c:109 src/main.c:140
+#: anjuta.desktop.in.in.h:2 src/about.c:97 src/about.c:109 src/main.c:141
 #: src/main.cpp:122
 msgid "Integrated Development Environment"
 msgstr "Integrated Development Environment"
@@ -143,7 +143,7 @@ msgstr "CPU Registers"
 #: plugins/editor/anjuta-document-manager.glade.h:39
 #: plugins/file-manager/an_file_view.c:335
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:9
-#: plugins/macro/macros.xml.h:5
+#: plugins/macro/macros.xml.h:6
 msgid "CVS"
 msgstr "CVS"
 
@@ -1374,14 +1374,14 @@ msgid "Building file: %s ...\n"
 msgstr "Building file: %s...\n"
 
 #: plugins/build/build_file.c:132
-#: plugins/build-basic-autotools/build-basic-autotools.c:502
+#: plugins/build-basic-autotools/build-basic-autotools.c:507
 #: plugins/project-manager/project_import.c:192
 #, c-format
 msgid "Total time taken: %lu secs\n"
 msgstr "Total time taken: %lu secs\n"
 
 #: plugins/build/build_file.c:136
-#: plugins/build-basic-autotools/build-basic-autotools.c:507
+#: plugins/build-basic-autotools/build-basic-autotools.c:512
 msgid "Completed ... unsuccessful\n"
 msgstr "Completed... unsuccessful\n"
 
@@ -1390,7 +1390,7 @@ msgid "Completed ... unsuccessful"
 msgstr "Completed... unsuccessful"
 
 #: plugins/build/build_file.c:145
-#: plugins/build-basic-autotools/build-basic-autotools.c:512
+#: plugins/build-basic-autotools/build-basic-autotools.c:517
 msgid "Completed ... successful\n"
 msgstr "Completed... successful\n"
 
@@ -1570,15 +1570,18 @@ msgstr "Configure"
 msgid "Configuring the Project ....\n"
 msgstr "Configuring the Project....\n"
 
-#: plugins/build/executer.c:54 src/mainmenu_callbacks.c:513
+#: plugins/build/executer.c:54 plugins/gdb/actions.c:189
+#: src/mainmenu_callbacks.c:513
 msgid "The target executable of this Project is unknown"
 msgstr "The target executable of this Project is unknown"
 
-#: plugins/build/executer.c:59 src/mainmenu_callbacks.c:515
+#: plugins/build/executer.c:59 plugins/gdb/actions.c:191
+#: src/mainmenu_callbacks.c:515
 msgid "The target executable of this Project is not executable"
 msgstr "The target executable of this Project is not executable"
 
-#: plugins/build/executer.c:64 src/mainmenu_callbacks.c:519
+#: plugins/build/executer.c:64 plugins/gdb/actions.c:195
+#: src/mainmenu_callbacks.c:519
 msgid "The target executable does not exist for this Project"
 msgstr "The target executable does not exist for this Project"
 
@@ -1587,6 +1590,7 @@ msgid "No file or Project opened."
 msgstr "No file or Project opened."
 
 #: plugins/build/executer.c:82 plugins/build/executer.c:101
+#: plugins/gdb/actions.c:215 plugins/gdb/actions.c:226
 #: src/mainmenu_callbacks.c:539 src/mainmenu_callbacks.c:550
 msgid "No executable for this file."
 msgstr "No executable for this file."
@@ -1609,258 +1613,269 @@ msgstr "Unable to execute file. Check Settings->Commands."
 
 #. FIXME: What about translations in the following sscanf strings
 #. The translations should match that of 'make' program
-#: plugins/build-basic-autotools/build-basic-autotools.c:384
+#: plugins/build-basic-autotools/build-basic-autotools.c:389
 #, c-format
 msgid "make[%d]: Entering directory `%s'"
 msgstr "make[%d]: Entering directory `%s'"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:385
+#: plugins/build-basic-autotools/build-basic-autotools.c:390
 #, c-format
 msgid "make: Entering directory `%s'"
 msgstr "make: Entering directory `%s'"
 
 #. Traslation for the following should match that of 'make' program
-#: plugins/build-basic-autotools/build-basic-autotools.c:398
+#: plugins/build-basic-autotools/build-basic-autotools.c:403
 #, c-format
 msgid "make[%d]: Leaving directory `%s'"
 msgstr "make[%d]: Leaving directory `%s'"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:399
+#: plugins/build-basic-autotools/build-basic-autotools.c:404
 #, c-format
 msgid "make: Leaving directory `%s'"
 msgstr "make: Leaving directory `%s'"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:419
+#: plugins/build-basic-autotools/build-basic-autotools.c:424
 msgid "warning:"
 msgstr "warning:"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:564
+#: plugins/build-basic-autotools/build-basic-autotools.c:568
 #, c-format
 msgid "Build %d: %s"
 msgstr "Build %d: %s"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:685
-#: plugins/build-basic-autotools/build-basic-autotools.c:712
+#: plugins/build-basic-autotools/build-basic-autotools.c:745
+#: plugins/build-basic-autotools/build-basic-autotools.c:772
 msgid "Configure Parameters:"
 msgstr "Configure Parameters:"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:827
-#: plugins/build-basic-autotools/build-basic-autotools.c:891
-#: plugins/build-basic-autotools/build-basic-autotools.c:901
-#: plugins/build-basic-autotools/build-basic-autotools.c:1070
+#: plugins/build-basic-autotools/build-basic-autotools.c:887
+#: plugins/build-basic-autotools/build-basic-autotools.c:951
+#: plugins/build-basic-autotools/build-basic-autotools.c:961
+#: plugins/build-basic-autotools/build-basic-autotools.c:1130
 msgid "_Build"
 msgstr "_Build"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:831
+#: plugins/build-basic-autotools/build-basic-autotools.c:891
 msgid "_Build Project"
 msgstr "_Build Project"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:832
+#: plugins/build-basic-autotools/build-basic-autotools.c:892
 msgid "Build whole project"
 msgstr "Build whole project"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:837
+#: plugins/build-basic-autotools/build-basic-autotools.c:897
 msgid "_Install Project"
 msgstr "_Install Project"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:838
+#: plugins/build-basic-autotools/build-basic-autotools.c:898
 msgid "Install whole project"
 msgstr "Install whole project"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:843
+#: plugins/build-basic-autotools/build-basic-autotools.c:903
 msgid "_Clean Project"
 msgstr "_Clean Project"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:844
+#: plugins/build-basic-autotools/build-basic-autotools.c:904
 msgid "Clean whole project"
 msgstr "Clean whole project"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:849
+#: plugins/build-basic-autotools/build-basic-autotools.c:909
 msgid "Run C_onfigure ..."
 msgstr "Run C_onfigure..."
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:850
+#: plugins/build-basic-autotools/build-basic-autotools.c:910
 msgid "Configure project"
 msgstr "Configure project"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:855
+#: plugins/build-basic-autotools/build-basic-autotools.c:915
 msgid "Run _Autogenerate ..."
 msgstr "Run _Autogenerate..."
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:856
+#: plugins/build-basic-autotools/build-basic-autotools.c:916
 msgid "Autogenrate project files"
 msgstr "Autogenerate project files"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:861
+#: plugins/build-basic-autotools/build-basic-autotools.c:921
 msgid "Build _Tarball"
 msgstr "Build _Tarball"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:862
+#: plugins/build-basic-autotools/build-basic-autotools.c:922
 msgid "Build project tarball distribution"
 msgstr "Build project tarball distribution"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:867
+#: plugins/build-basic-autotools/build-basic-autotools.c:927
 msgid "_Build Module"
 msgstr "_Build Module"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:868
+#: plugins/build-basic-autotools/build-basic-autotools.c:928
 msgid "Build module associated with current file"
 msgstr "Build module associated with current file"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:873
+#: plugins/build-basic-autotools/build-basic-autotools.c:933
 msgid "_Install Module"
 msgstr "_Install Module"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:874
+#: plugins/build-basic-autotools/build-basic-autotools.c:934
 msgid "Install module associated with current file"
 msgstr "Install module associated with current file"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:879
+#: plugins/build-basic-autotools/build-basic-autotools.c:939
 msgid "_Clean Module"
 msgstr "_Clean Module"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:880
+#: plugins/build-basic-autotools/build-basic-autotools.c:940
 msgid "Clean module associated with current file"
 msgstr "Clean module associated with current file"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:885
+#: plugins/build-basic-autotools/build-basic-autotools.c:945
 msgid "Co_mpile File"
 msgstr "Co_mpile File"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:886
+#: plugins/build-basic-autotools/build-basic-autotools.c:946
 msgid "Compile current editor file"
 msgstr "Compile current editor file"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:895
+#: plugins/build-basic-autotools/build-basic-autotools.c:955
 msgid "_Compile"
 msgstr "_Compile"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:896
+#: plugins/build-basic-autotools/build-basic-autotools.c:956
 msgid "Complie file"
 msgstr "Compile file"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:902
+#: plugins/build-basic-autotools/build-basic-autotools.c:962
 msgid "Build module"
 msgstr "Build module"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:907
-#: plugins/build-basic-autotools/build-basic-autotools.c:1074
+#: plugins/build-basic-autotools/build-basic-autotools.c:967
+#: plugins/build-basic-autotools/build-basic-autotools.c:1134
 msgid "_Install"
 msgstr "_Install"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:908
+#: plugins/build-basic-autotools/build-basic-autotools.c:968
 msgid "Install module"
 msgstr "Install module"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:913
-#: plugins/build-basic-autotools/build-basic-autotools.c:1078
+#: plugins/build-basic-autotools/build-basic-autotools.c:973
+#: plugins/build-basic-autotools/build-basic-autotools.c:1138
 msgid "_Clean"
 msgstr "_Clean"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:914
+#: plugins/build-basic-autotools/build-basic-autotools.c:974
 msgid "Clean module"
 msgstr "Clean module"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:1082
+#: plugins/build-basic-autotools/build-basic-autotools.c:1142
 msgid "Co_mpile"
 msgstr "Co_mpile"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:1091
+#: plugins/build-basic-autotools/build-basic-autotools.c:1151
 #, c-format
 msgid "_Build (%s)"
 msgstr "_Build (%s)"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:1098
+#: plugins/build-basic-autotools/build-basic-autotools.c:1158
 #, c-format
 msgid "_Install (%s)"
 msgstr "_Install (%s)"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:1105
+#: plugins/build-basic-autotools/build-basic-autotools.c:1165
 #, c-format
 msgid "_Clean (%s)"
 msgstr "_Clean (%s)"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:1112
+#: plugins/build-basic-autotools/build-basic-autotools.c:1172
 #, c-format
 msgid "Co_mpile (%s)"
 msgstr "Co_mpile (%s)"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:1277
+#: plugins/build-basic-autotools/build-basic-autotools.c:1337
 msgid "Build commands"
 msgstr "Build commands"
 
-#: plugins/class-gen/clsGen.c:466
+#: plugins/class-gen/action-callbacks.c:40
+msgid "Select header file."
+msgstr "Select header file."
+
+#: plugins/class-gen/action-callbacks.c:55
+msgid "Select source file."
+msgstr "Select source file."
+
+#: plugins/class-gen/action-callbacks.c:199 plugins/class-gen/clsGen.c:466
 msgid "Class name not valid"
 msgstr "Class name not valid"
 
-#: plugins/class-gen/clsGen.c:473
+#: plugins/class-gen/action-callbacks.c:206 plugins/class-gen/clsGen.c:473
 msgid "Base class name not valid"
 msgstr "Base class name not valid"
 
-#: plugins/class-gen/clsGen.c:479
+#: plugins/class-gen/action-callbacks.c:212 plugins/class-gen/clsGen.c:479
 msgid "Declaration file name not valid"
 msgstr "Declaration file name not valid"
 
-#: plugins/class-gen/clsGen.c:484
+#: plugins/class-gen/action-callbacks.c:217 plugins/class-gen/clsGen.c:484
 msgid "Implementation file name not valid"
 msgstr "Implementation file name not valid"
 
-#: plugins/class-gen/clsGen.c:743
+#: plugins/class-gen/class_gen.c:268 plugins/class-gen/clsGen.c:743
 msgid "Error in importing files"
 msgstr "Error in importing files"
 
-#: plugins/class-gen/clsGen.c:1349
+#: plugins/class-gen/class_gen.c:847 plugins/class-gen/clsGen.c:1349
 msgid "Class Builder"
 msgstr "Class Builder"
 
 #. 7
 #. 9
-#: plugins/class-gen/clsGen.c:1360 plugins/devhelp/plugin.c:250
-#: plugins/devhelp/plugin.c:476 plugins/devhelp/plugin.c:489
-#: plugins/gdb/registers_gui.c:56 plugins/gdb/sharedlib_gui.c:49
-#: plugins/gdb/signals_gui.c:63 plugins/gdb/stack_trace.c:383
-#: plugins/gdb/watch_gui.c:74 plugins/project-manager/project_dbase_gui.c:343
-#: src/anjuta-app.c:279 src/anjuta_gui.c:123
+#: plugins/class-gen/class_gen.c:857 plugins/class-gen/clsGen.c:1360
+#: plugins/devhelp/plugin.c:250 plugins/devhelp/plugin.c:476
+#: plugins/devhelp/plugin.c:489 plugins/gdb/registers_gui.c:56
+#: plugins/gdb/sharedlib_gui.c:49 plugins/gdb/signals_gui.c:63
+#: plugins/gdb/stack_trace.c:383 plugins/gdb/watch_gui.c:74
+#: plugins/project-manager/project_dbase_gui.c:343 src/anjuta-app.c:279
+#: src/anjuta_gui.c:123
 msgid "Help"
 msgstr "Help"
 
-#: plugins/class-gen/clsGen.c:1369 plugins/patch/patch-plugin.c:62
+#: plugins/class-gen/class_gen.c:866 plugins/class-gen/clsGen.c:1369
+#: plugins/patch/patch-plugin.c:62
 msgid "Cancel"
 msgstr "Cancel"
 
-#: plugins/class-gen/clsGen.c:1378
+#: plugins/class-gen/class_gen.c:875 plugins/class-gen/clsGen.c:1378
 msgid "Finish"
 msgstr "Finish"
 
-#: plugins/class-gen/clsGen.c:1395
+#: plugins/class-gen/class_gen.c:892 plugins/class-gen/clsGen.c:1395
 msgid "Enter the name for the class you want to add."
 msgstr "Enter the name for the class you want to add."
 
-#: plugins/class-gen/clsGen.c:1405
+#: plugins/class-gen/class_gen.c:902 plugins/class-gen/clsGen.c:1405
 msgid "Enter the declaration file name."
 msgstr "Enter the declaration file name."
 
-#: plugins/class-gen/clsGen.c:1415
+#: plugins/class-gen/class_gen.c:912 plugins/class-gen/clsGen.c:1415
 msgid "Enter the implementation file name."
 msgstr "Enter the implementation file name."
 
+#: plugins/class-gen/class_gen.c:914 plugins/class-gen/class_gen.c:924
 #: plugins/class-gen/clsGen.c:1417 plugins/class-gen/clsGen.c:1427
 msgid "..."
 msgstr "..."
 
-#: plugins/class-gen/clsGen.c:1425
+#: plugins/class-gen/class_gen.c:922 plugins/class-gen/clsGen.c:1425
 msgid "Browse for the declaration file name."
 msgstr "Browse for the declaration file name."
 
-#: plugins/class-gen/clsGen.c:1435
+#: plugins/class-gen/class_gen.c:932 plugins/class-gen/clsGen.c:1435
 msgid "Browse for the implementation file name."
 msgstr "Browse for the implementation file name."
 
-#: plugins/class-gen/clsGen.c:1445
+#: plugins/class-gen/class_gen.c:942 plugins/class-gen/clsGen.c:1445
 msgid "Enter the name of the class your new class will inherit from."
 msgstr "Enter the name of the class your new class will inherit from."
 
-#: plugins/class-gen/clsGen.c:1470
+#: plugins/class-gen/class_gen.c:967 plugins/class-gen/clsGen.c:1470
 msgid ""
 "This plugin will create a class of the type you specify and add it to your "
 "project. "
@@ -1869,32 +1884,32 @@ msgstr ""
 "project. "
 
 #. gtk_widget_set_usize (self->label_description, 400, 16);
-#: plugins/class-gen/clsGen.c:1479
+#: plugins/class-gen/class_gen.c:975 plugins/class-gen/clsGen.c:1479
 msgid "Class name: "
 msgstr "Class name: "
 
-#: plugins/class-gen/clsGen.c:1489
+#: plugins/class-gen/class_gen.c:984 plugins/class-gen/clsGen.c:1489
 msgid "Header file:  "
 msgstr "Header file:  "
 
-#: plugins/class-gen/clsGen.c:1499
+#: plugins/class-gen/class_gen.c:993 plugins/class-gen/clsGen.c:1499
 msgid "Source file:  "
 msgstr "Source file:  "
 
-#: plugins/class-gen/clsGen.c:1509
+#: plugins/class-gen/class_gen.c:1002 plugins/class-gen/clsGen.c:1509
 msgid "Base class:   "
 msgstr "Base class:   "
 
-#: plugins/class-gen/clsGen.c:1519
+#: plugins/class-gen/class_gen.c:1011 plugins/class-gen/clsGen.c:1519
 msgid "Base class inheritance: "
 msgstr "Base class inheritance: "
 
-#: plugins/class-gen/clsGen.c:1555
+#: plugins/class-gen/class_gen.c:1046 plugins/class-gen/clsGen.c:1555
 msgid "Inline the declaration and implementation"
 msgstr "Inline the declaration and implementation"
 
 #. gtk_widget_set_usize (self->checkbutton_inline, 224, 24);
-#: plugins/class-gen/clsGen.c:1563
+#: plugins/class-gen/class_gen.c:1053 plugins/class-gen/clsGen.c:1563
 msgid ""
 "If checked, the plugin will generate both the declaration and implementation "
 "in the header file and will not create a source file."
@@ -1902,65 +1917,71 @@ msgstr ""
 "If checked, the plugin will generate both the declaration and implementation "
 "in the header file and will not create a source file."
 
-#: plugins/class-gen/clsGen.c:1565
+#: plugins/class-gen/class_gen.c:1055 plugins/class-gen/clsGen.c:1565
 msgid "By:  Dave Huseby <huseby@linuxprogrammer.org>"
 msgstr "By:  Dave Huseby <huseby@linuxprogrammer.org>"
 
-#: plugins/class-gen/clsGen.c:1576
+#: plugins/class-gen/class_gen.c:1065 plugins/class-gen/clsGen.c:1576
 msgid "V 0.0.2 (June 11, 2002)"
 msgstr "V 0.0.2 (June 11, 2002)"
 
-#: plugins/class-gen/clsGen.c:1587
+#: plugins/class-gen/class_gen.c:1075 plugins/class-gen/clsGen.c:1587
 msgid ""
 "TODO: add the ability to declare member functions and their parameters here."
 msgstr ""
 "TODO: add the ability to declare member functions and their parameters here."
 
-#: plugins/class-gen/clsGen.c:1597
+#: plugins/class-gen/class_gen.c:1084 plugins/class-gen/clsGen.c:1597
 msgid "Welcome to the Anjuta Class Builder. "
 msgstr "Welcome to the Anjuta Class Builder. "
 
 #. gtk_widget_set_usize (self->label_welcome, 184, 16);
-#: plugins/class-gen/clsGen.c:1606
+#: plugins/class-gen/class_gen.c:1092 plugins/class-gen/clsGen.c:1606
 msgid "Class type:   "
 msgstr "Class type:   "
 
+#: plugins/class-gen/class_gen.c:1109 plugins/class-gen/class_gen.c:1122
 #: plugins/class-gen/clsGen.c:1624 plugins/class-gen/clsGen.c:1637
 msgid "public"
 msgstr "public"
 
-#: plugins/class-gen/clsGen.c:1625
+#: plugins/class-gen/class_gen.c:1110 plugins/class-gen/clsGen.c:1625
 msgid "protected"
 msgstr "protected"
 
-#: plugins/class-gen/clsGen.c:1626
+#: plugins/class-gen/class_gen.c:1111 plugins/class-gen/clsGen.c:1626
 msgid "private"
 msgstr "private"
 
-#: plugins/class-gen/clsGen.c:1635
+#: plugins/class-gen/class_gen.c:1120 plugins/class-gen/clsGen.c:1635
 msgid "Choose the type of inheritence from the base class."
 msgstr "Choose the type of inheritence from the base class."
 
-#: plugins/class-gen/clsGen.c:1639
+#: plugins/class-gen/class_gen.c:1124 plugins/class-gen/clsGen.c:1639
 msgid "Virtual destructor"
 msgstr "Virtual destructor"
 
 #. gtk_widget_set_usize (self->checkbutton_virtual_destructor, 112, 24);
-#: plugins/class-gen/clsGen.c:1647
+#: plugins/class-gen/class_gen.c:1131 plugins/class-gen/clsGen.c:1647
 msgid "If checked, the destructor of your class will be declared virtual."
 msgstr "If checked, the destructor of your class will be declared virtual."
 
+#: plugins/class-gen/class_gen.c:1141 plugins/class-gen/class_gen.c:1153
 #: plugins/class-gen/clsGen.c:1657 plugins/class-gen/clsGen.c:1669
 msgid "Generic C++ Class"
 msgstr "Generic C++ Class"
 
-#: plugins/class-gen/clsGen.c:1658
+#: plugins/class-gen/class_gen.c:1142 plugins/class-gen/clsGen.c:1658
 msgid "GTK+ Class"
 msgstr "GTK+ Class"
 
-#: plugins/class-gen/clsGen.c:1667
+#: plugins/class-gen/class_gen.c:1151 plugins/class-gen/clsGen.c:1667
 msgid "Select the type of class you would like to create."
 msgstr "Select the type of class you would like to create."
+
+#: plugins/class-gen/plugin.c:150
+msgid "A project must be open before creating a class"
+msgstr "A project must be opened before creating a class"
 
 #: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:2
 msgid "/usr/bin/cvs"
@@ -3031,7 +3052,7 @@ msgid "Line numbers margin width in pixels"
 msgstr "Line numbers margin width in pixels"
 
 #: plugins/editor/anjuta-document-manager.glade.h:99
-#: plugins/editor/print.c:1038
+#: plugins/editor/print.c:1038 plugins/gdb/info.c:126
 msgid "Lines"
 msgstr "Lines"
 
@@ -4659,66 +4680,62 @@ msgstr "Use Template for the Header file"
 msgid "_C: /* comment */"
 msgstr "_C: /* comment */"
 
-#: plugins/file-wizard/file.c:80
+#: plugins/file-wizard/file.c:82
 msgid "C Source File"
 msgstr "C Source File"
 
-#: plugins/file-wizard/file.c:81
+#: plugins/file-wizard/file.c:83
 msgid "C -C++ Header File"
 msgstr "C -C++ Header File"
 
-#: plugins/file-wizard/file.c:82
+#: plugins/file-wizard/file.c:84
 msgid "C++ Source File"
 msgstr "C++ Source File"
 
-#: plugins/file-wizard/file.c:83
+#: plugins/file-wizard/file.c:85
 msgid "C# Source File"
 msgstr "C# Source File"
 
-#: plugins/file-wizard/file.c:84
+#: plugins/file-wizard/file.c:86
 msgid "Java Source File"
 msgstr "Java Source File"
 
-#: plugins/file-wizard/file.c:85
+#: plugins/file-wizard/file.c:87
 msgid "Perl Source File"
 msgstr "Perl Source File"
 
-#: plugins/file-wizard/file.c:86
+#: plugins/file-wizard/file.c:88
 msgid "Python Source File"
 msgstr "Python Source File"
 
-#: plugins/file-wizard/file.c:87
+#: plugins/file-wizard/file.c:89
 msgid "Shell Script File"
 msgstr "Shell Script File"
 
-#: plugins/file-wizard/file.c:88
+#: plugins/file-wizard/file.c:90
 msgid "Other"
 msgstr "Other"
 
-#: plugins/file-wizard/file.c:104
+#: plugins/file-wizard/file.c:106
 msgid "General Public License (GPL)"
 msgstr "General Public Licence (GPL)"
 
-#: plugins/file-wizard/file.c:105
+#: plugins/file-wizard/file.c:107
 msgid "Lesser General Public License (LGPL)"
 msgstr "Lesser General Public Licence (LGPL)"
 
-#: plugins/file-wizard/file.c:148
+#: plugins/file-wizard/file.c:150
 msgid "Unable to build user interface for New File"
 msgstr "Unable to build user interface for New File"
 
-#: plugins/file-wizard/file.c:442
+#: plugins/file-wizard/file.c:446
 #, c-format
 msgid "The file \"%s\" is not a header file."
 msgstr "The file \"%s\" is not a header file."
 
-#: plugins/file-wizard/file.c:536
+#: plugins/file-wizard/file.c:540
 msgid "%Y"
 msgstr "%Y"
-
-#: plugins/file-wizard/file.c:555
-msgid "%Y-%m-%d"
-msgstr "%Y-%m-%d"
 
 #: plugins/file-wizard/plugin.c:49
 msgid "_Insert text"
@@ -4900,6 +4917,14 @@ msgstr "File wizard operations"
 #: plugins/file-wizard/plugin.c:160
 msgid "File Wizard"
 msgstr "File Wizard"
+
+#: plugins/gdb/actions.c:221 src/mainmenu_callbacks.c:545
+msgid "The executable is not up-to-date."
+msgstr "The executable is not up-to-date."
+
+#: plugins/gdb/actions.c:246 src/mainmenu_callbacks.c:570
+msgid "Debugger is not running. Start it first."
+msgstr "Debugger is not running. Start it first."
 
 #: plugins/gdb/breakpoints.c:117
 msgid "Function"
@@ -5114,6 +5139,10 @@ msgstr "Sending signal %s to the process: %d"
 #: plugins/gdb/debugger.c:1820
 msgid "Error whilst signaling the process."
 msgstr "Error while signalling the process."
+
+#: plugins/gdb/info.c:51 plugins/gdb/info.c:100
+msgid "Information"
+msgstr "Information"
 
 #: plugins/gdb/memory.c:108
 msgid "Unable to build user interface for Memory\n"
@@ -6604,7 +6633,7 @@ msgstr "Anjuta macros"
 msgid "My macros"
 msgstr "My macros"
 
-#: plugins/macro/macro-dialog.c:253
+#: plugins/macro/macro-dialog.c:252
 msgid "Insert macro"
 msgstr "Insert macro"
 
@@ -6625,70 +6654,118 @@ msgid "// GPL"
 msgstr "// GPL"
 
 #: plugins/macro/macros.xml.h:4
+msgid "Basic"
+msgstr "Basic"
+
+#: plugins/macro/macros.xml.h:5
 msgid "C"
 msgstr "C"
 
-#: plugins/macro/macros.xml.h:6
+#: plugins/macro/macros.xml.h:7
+msgid "Changelog"
+msgstr "ChangeLog"
+
+#: plugins/macro/macros.xml.h:8
+msgid "Copyright"
+msgstr "Copyright"
+
+#: plugins/macro/macros.xml.h:9
+msgid "Date_Time"
+msgstr "Date_Time"
+
+#: plugins/macro/macros.xml.h:10
+msgid "Date_Y"
+msgstr "Date_Y"
+
+#: plugins/macro/macros.xml.h:11
+msgid "Date_Ymd"
+msgstr "Date_YMD"
+
+#: plugins/macro/macros.xml.h:12
 msgid "EXPAND"
 msgstr "EXPAND"
 
-#: plugins/macro/macros.xml.h:7
-msgid "Expand_Test"
-msgstr "Expand_Test"
+#: plugins/macro/macros.xml.h:13
+msgid "Email"
+msgstr "Email"
 
-#: plugins/macro/macros.xml.h:8
+#: plugins/macro/macros.xml.h:14
+msgid "File_Name"
+msgstr "File_Name"
+
+#: plugins/macro/macros.xml.h:15
+msgid "File_Name_Up"
+msgstr "File_Name_Up"
+
+#: plugins/macro/macros.xml.h:16
+msgid "File_Name_Up_Prefix"
+msgstr "File_Name_Up_Prefix"
+
+#: plugins/macro/macros.xml.h:17
+msgid "Header_c"
+msgstr "Header_C"
+
+#: plugins/macro/macros.xml.h:18
+msgid "Header_h"
+msgstr "Header_H"
+
+#: plugins/macro/macros.xml.h:19
 msgid "Licenses"
 msgstr "Licences"
 
-#: plugins/macro/macros.xml.h:9
+#: plugins/macro/macros.xml.h:20
+msgid "UserName"
+msgstr "UserName"
+
+#: plugins/macro/macros.xml.h:21
 msgid "azerty"
 msgstr "azerty"
 
-#: plugins/macro/macros.xml.h:10
+#: plugins/macro/macros.xml.h:22
 msgid "cvs_author"
 msgstr "cvs_author"
 
-#: plugins/macro/macros.xml.h:11
+#: plugins/macro/macros.xml.h:23
 msgid "cvs_date"
 msgstr "cvs_date"
 
-#: plugins/macro/macros.xml.h:12
+#: plugins/macro/macros.xml.h:24
 msgid "cvs_header"
 msgstr "cvs_header"
 
-#: plugins/macro/macros.xml.h:13
+#: plugins/macro/macros.xml.h:25
 msgid "cvs_id"
 msgstr "cvs_id"
 
-#: plugins/macro/macros.xml.h:14
+#: plugins/macro/macros.xml.h:26
 msgid "cvs_log"
 msgstr "cvs_log"
 
-#: plugins/macro/macros.xml.h:15
+#: plugins/macro/macros.xml.h:27
 msgid "cvs_name"
 msgstr "cvs_name"
 
-#: plugins/macro/macros.xml.h:16
+#: plugins/macro/macros.xml.h:28
 msgid "cvs_revision"
 msgstr "cvs_revision"
 
-#: plugins/macro/macros.xml.h:17
+#: plugins/macro/macros.xml.h:29
 msgid "cvs_source"
 msgstr "cvs_source"
 
-#: plugins/macro/macros.xml.h:18
+#: plugins/macro/macros.xml.h:30
 msgid "for"
 msgstr "for"
 
-#: plugins/macro/macros.xml.h:19
+#: plugins/macro/macros.xml.h:31
 msgid "if...else"
 msgstr "if...else"
 
-#: plugins/macro/macros.xml.h:20
+#: plugins/macro/macros.xml.h:32
 msgid "switch"
 msgstr "switch"
 
-#: plugins/macro/macros.xml.h:21
+#: plugins/macro/macros.xml.h:33
 msgid "while"
 msgstr "while"
 
@@ -6892,6 +6969,16 @@ msgstr ""
 #: plugins/patch/patch-plugin.c:211
 msgid "Patch successful.\n"
 msgstr "Patch successful.\n"
+
+#. Action name
+#. Stock icon, if any
+#: plugins/patch/plugin.c:54
+msgid "_Patch"
+msgstr "_Patch"
+
+#: plugins/patch/plugin.c:79
+msgid "Patch files/directories"
+msgstr "Patch files/directories"
 
 #: plugins/project-manager/plugin.c:334
 #, c-format
@@ -7904,7 +7991,7 @@ msgstr ""
 "Unable to display help. Please make sure Anjuta documentation package is "
 "install. It can be downloaded from http://anjuta.org"
 
-#: src/anjuta.c:115 src/anjuta_cbs.c:93
+#: src/anjuta.c:146 src/anjuta_cbs.c:93
 msgid ""
 "One or more files are not saved.\n"
 "Do you still want to exit?"
@@ -8161,14 +8248,6 @@ msgstr "Do not show the splashscreen"
 #: src/main.c:67
 msgid "Shutdown anjuta properly releasing all resources (for debugging)"
 msgstr "Shutdown anjuta properly releasing all resources (for debugging)"
-
-#: src/mainmenu_callbacks.c:545
-msgid "The executable is not up-to-date."
-msgstr "The executable is not up-to-date."
-
-#: src/mainmenu_callbacks.c:570
-msgid "Debugger is not running. Start it first."
-msgstr "Debugger is not running. Start it first."
 
 #: src/shell.c:85
 msgid "Quit Anjuta Test Shell"
