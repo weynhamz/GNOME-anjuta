@@ -661,7 +661,9 @@ static GList *create_search_entries(Search *s)
 	GList *tmp;
 	SearchEntry *se;
 	char *dir;
-
+	long selstart;
+	long tmp_pos;
+	
 	switch(s->range.type)
 	{
 		case SR_BUFFER:
@@ -669,34 +671,48 @@ static GList *create_search_entries(Search *s)
 		case SR_FUNCTION: /* FIXME */
 			se = g_new0(SearchEntry, 1);
 			se->type = SE_BUFFER;
-			se->te = app->current_text_editor;
-			se->direction = s->range.direction;
-			if (SD_BEGINNING == se->direction)
+			if (se->te == app->current_text_editor)
 			{
-				se->start_pos = 0;
-				se->end_pos = -1;
-				se->direction = SD_FORWARD;
+				se->direction = s->range.direction;
+				if (SD_BEGINNING == se->direction)
+				{
+					se->start_pos = 0;
+					se->end_pos = -1;
+					se->direction = SD_FORWARD;
+				}
+				else
+				{
+					selstart = scintilla_send_message(SCINTILLA(
+							  se->te->widgets.editor), SCI_GETSELECTIONSTART,0,0);
+					se->start_pos = scintilla_send_message(SCINTILLA(
+			  		se->te->widgets.editor), SCI_GETCURRENTPOS, 0, 0);
+					if ((se->direction == SD_BACKWARD) && (selstart != se->start_pos))
+						se->start_pos = selstart;						
+					se->end_pos = -1;
+				}
+				entries = g_list_prepend(entries, se);
 			}
-			else
-			{
-				se->start_pos = scintilla_send_message(SCINTILLA(
-			  se->te->widgets.editor), SCI_GETCURRENTPOS, 0, 0);
-				se->end_pos = -1;
-			}
-			entries = g_list_prepend(entries, se);
 			break;
 		case SR_SELECTION:
 			se = g_new0(SearchEntry, 1);
 			se->type = SE_BUFFER;
-			se->te = app->current_text_editor;
-			se->direction = s->range.direction;
-			if (SD_BEGINNING == se->direction)
-				se->direction = SD_FORWARD;
-			se->start_pos = scintilla_send_message(SCINTILLA(
-			  se->te->widgets.editor), SCI_GETSELECTIONSTART, 0, 0);
-			se->end_pos = scintilla_send_message(SCINTILLA(
-			  se->te->widgets.editor), SCI_GETSELECTIONEND, 0, 0);
-			entries = g_list_prepend(entries, se);
+			if (se->te == app->current_text_editor)
+			{
+				se->direction = s->range.direction;
+				if (SD_BEGINNING == se->direction)
+					se->direction = SD_FORWARD;
+				se->start_pos = scintilla_send_message(SCINTILLA(
+			  		se->te->widgets.editor), SCI_GETSELECTIONSTART, 0, 0);
+				se->end_pos = scintilla_send_message(SCINTILLA(
+			  		se->te->widgets.editor), SCI_GETSELECTIONEND, 0, 0);	
+				if (se->direction == SD_BACKWARD)
+				{
+					tmp_pos = se->start_pos;
+					se->start_pos = se->end_pos;
+					se->end_pos = tmp_pos;
+				}	
+				entries = g_list_prepend(entries, se);				
+			}
 			break;
 		case SR_OPEN_BUFFERS:
 			for (tmp = app->text_editor_list; tmp; tmp = g_list_next(tmp))
@@ -774,10 +790,15 @@ static void search_and_replace(void)
 		if (fb)
 		{
 			fb->pos = se->start_pos;
-			offset=0;
-			while ((NULL != (mi = get_next_match(fb, se->direction, &(s->expr))))
-				&& (se->end_pos == -1 || mi->pos+mi->len <= se->end_pos) )
+			offset = 0;
+			while ((NULL != (mi = get_next_match(fb, se->direction, &(s->expr)))))
 			{
+				if ((s->range.direction == SD_BACKWARD) && (mi->pos < se->end_pos))
+						break; 
+				if ((s->range.direction != SD_BACKWARD) && ((se->end_pos != -1) &&
+					(mi->pos+mi->len > se->end_pos)))
+						break; 
+				
 				switch (s->action)
 				{
 					case SA_BOOKMARK:
@@ -812,8 +833,9 @@ static void search_and_replace(void)
 							  , (mi->pos + mi->len - offset));
 							scintilla_send_message(SCINTILLA(
 							  fb->te->widgets.editor), SCI_REPLACESEL, 0
-							  ,(long) sr->replace.repl_str);                  
-							offset += mi->len - strlen(sr->replace.repl_str ) ;
+							  ,(long) sr->replace.repl_str); 
+							if (s->range.direction != SD_BACKWARD)							
+								offset += mi->len - strlen(sr->replace.repl_str ) ;
 						}
 						break;
 					default:
@@ -1247,4 +1269,3 @@ void anjuta_search_replace_activate(void)
 	/* Show the dialog */
 	show_dialog();
 }
-
