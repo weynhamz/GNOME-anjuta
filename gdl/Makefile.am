@@ -2,7 +2,6 @@ INCLUDES = \
 	-DG_LOG_DOMAIN=\"Gdl\"\
 	-DGDL_GLADEDIR=\"$(gladedir)\"\
 	-I$(top_srcdir)\
-	-I$(top_srcdir)/intl\
 	-I$(srcdir)\
 	$(ANJUTA_CFLAGS)\
 	-DHAVE_CONFIG_H

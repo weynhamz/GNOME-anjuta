@@ -12,6 +12,7 @@ Updated: Speedier startup (but needs more optimization todo).
 Updated: New splash.
 Updated: Some re-organization and cleanups.
 Updated: Better debugger operations.
+Updated: Better HIG complient dialogs.
 Bug fix: Separated -dP and -A flags of CVS update into different options.
 Bug fix: No more file corruption for non-utf-8 encodings.
 Bug fix: Removed references to older automake/autoconf in generated projects.
