@@ -504,7 +504,7 @@ create_find_replace_gui (FindAndReplace * fr)
 
 	gtk_accel_group_attach (app->accel_group, GTK_OBJECT (dialog2));
 
-	gtk_signal_connect (GTK_OBJECT (dialog2), "delete_event",
+	gtk_signal_connect (GTK_OBJECT (dialog2), "close",
 			    GTK_SIGNAL_FUNC (on_replace_text_close),
 			    fr);
 	gtk_signal_connect (GTK_OBJECT (combo_entry2), "activate",

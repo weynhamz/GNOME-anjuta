@@ -40,7 +40,8 @@
 #include "global.h"
 #include "pixmaps.h"
 
-#define DEBUG
+#define TERMINATE_CHECK_COUNT 10
+/* #define DEBUG */
 
 static void to_terminal_child_terminated (GtkWidget* term, gpointer data);
 static gint launcher_poll_inputs_on_idle (gpointer data);
@@ -169,23 +170,40 @@ static void
 launcher_scan_pty()
 {
    gchar* chars;
-   chars = zvt_term_get_buffer(ZVT_TERM(launcher.terminal), NULL, VT_SELTYPE_LINE,
+   gint len;
+   chars = zvt_term_get_buffer(ZVT_TERM(launcher.terminal),
+	&len, VT_SELTYPE_CHAR,
       -10000, 0, 10000, 0);
+
+   zvt_term_reset(ZVT_TERM(launcher.terminal), TRUE);
+   launcher.char_pos = 1;
+	
    if (chars && strlen(chars) > launcher.char_pos) {
 	  glong start, end;
 	  gchar *last_line;
-	  start = launcher.char_pos;
+	   
+#ifdef DEBUG
+   g_print("Chars buffer = %s, len = %d", chars, len);
+#endif
+	  
 	  end = strlen(chars)-1;
+	  while (end > 0 && chars[end] == '\n') end--;
+	  start = end;
 	  while (start > 0 && chars[start-1] != '\n') start--;
-	  while (end > start && chars[end] == '\n') end--;
+
 	  if (end > start) {
 		  last_line = g_strndup(&chars[start], end-start+1);
-		  launcher_pty_check_password(last_line);
+		  
+#ifdef DEBUG
+   g_print("Last line = %s", last_line);
+#endif
+		  if (launcher.child_has_terminated < 1)
+			  launcher_pty_check_password(last_line);
 		  launcher.pty_is_done = launcher_pty_check_child_exit_code(last_line);
 		  g_free(last_line);
 	  }
 	  launcher.char_pos = strlen(chars);
-	  g_free(chars);
+	  /*g_free(chars);*/
    }
 };
 
@@ -203,7 +221,16 @@ static gint launcher_poll_inputs_on_idle (gpointer data)
   }
   if (launcher.pty_is_done == FALSE) {
 	launcher_scan_pty();
-	ret = TRUE;
+	
+	if (launcher.child_has_terminated > 1)
+		launcher.child_has_terminated--;
+	
+	if (launcher.child_has_terminated == 1) {
+		launcher.pty_is_done = TRUE;
+		ret = FALSE;
+	} else {
+		ret = TRUE;
+	}
   }
   
   return ret;
@@ -284,15 +311,25 @@ launcher_execute (gchar * command_str,
   shell = gnome_util_user_shell();
   
   launcher.terminal = zvt_term_new ();
+  zvt_term_set_size(ZVT_TERM (launcher.terminal), 100, 100);
   gtk_signal_connect (GTK_OBJECT (launcher.terminal), "child_died", 
 		GTK_SIGNAL_FUNC (to_terminal_child_terminated), NULL);
 
+#ifdef DEBUG
+  if (launcher.terminal) {
+	  GtkWindow* win;
+	  win = gtk_window_new(0);
+	  gtk_container_add(GTK_CONTAINER(win), launcher.terminal);
+	  gtk_widget_show_all(win);
+  }
+#endif
   
   launcher.child_pid = zvt_term_forkpty (ZVT_TERM (launcher.terminal), 
 		ZVT_TERM_DO_UTMP_LOG | ZVT_TERM_DO_WTMP_LOG);
   if (launcher.child_pid == 0)
   {
-    gchar *total_cmd;
+    char *total_cmd;
+	
     close (2);
     dup (launcher.stderr_pipe[1]);
     close (1);
@@ -314,10 +351,11 @@ launcher_execute (gchar * command_str,
   
 	/* This is a quick hack to get the child's exit code */
 	/* Don't complain!! */
-	total_cmd = g_strconcat(command_str, "; echo \\(Child exit code: $?\\) > /dev/tty", NULL);
-	
+	total_cmd = g_strconcat(command_str,
+		"; echo -n \\(Child exit code: $?\\) > /dev/tty",
+		NULL);
 	execlp (shell, shell, "-c", total_cmd, NULL);
-    g_error (_("Cannot execute command shell"));
+	g_error (_("Cannot execute command shell"));
   }
 
   close (launcher.stderr_pipe[1]);
@@ -345,7 +383,7 @@ to_terminal_child_terminated (GtkWidget* term, gpointer data)
 	printf("Terminal child terminated called\n");
 #endif
 	
-	launcher.child_has_terminated = TRUE;
+	launcher.child_has_terminated = TERMINATE_CHECK_COUNT+1;
 	launcher.idle_id = gtk_idle_add (launcher_execution_done, NULL);
 }
 
