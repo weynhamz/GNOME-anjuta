@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.4.1\n"
-"POT-Creation-Date: 2002-01-02 23:13+0000\n"
-"PO-Revision-Date: 2002-01-02 23:23+0000\n"
+"POT-Creation-Date: 2002-01-06 12:54+0000\n"
+"PO-Revision-Date: 2002-01-06 12:54+0000\n"
 "Last-Translator: Duarte Loreto <happyguy_pt@hotmail.com>\n"
 "Language-Team: Portuguese <none@none.org>\n"
 "MIME-Version: 1.0\n"
@@ -111,7 +111,7 @@ msgstr "Não é um ficheiro normal: %s."
 msgid "No read permission for: %s."
 msgstr "Sem permissões de leitura para: %s."
 
-#: src/anjuta_cbs.c:235 src/anjuta_cbs.c:443
+#: src/anjuta_cbs.c:235 src/anjuta_cbs.c:450
 #, c-format
 msgid ""
 "The file \"%s\" already exists.\n"
@@ -367,7 +367,7 @@ msgstr "Comando"
 msgid "Update"
 msgstr "Actualizar"
 
-#: src/attach_process_gui.c:109 src/text_editor_gui.c:274
+#: src/attach_process_gui.c:109 src/text_editor_gui.c:271
 msgid "Attach"
 msgstr "Anexar"
 
@@ -383,7 +383,7 @@ msgstr "SIM"
 msgid "NO"
 msgstr "NÃO"
 
-#: src/breakpoints.c:700 src/main_menubar_def.h:516 src/text_editor_gui.c:227
+#: src/breakpoints.c:700 src/main_menubar_def.h:516 src/text_editor_gui.c:224
 msgid "0"
 msgstr "0"
 
@@ -415,7 +415,8 @@ msgstr "Ficheiro"
 msgid "Line"
 msgstr "Linha"
 
-#: src/breakpoints_gui.c:105 src/text_editor_menu.c:269
+#. 12
+#: src/breakpoints_gui.c:105 src/text_editor_menu.c:281
 msgid "Function"
 msgstr "Função"
 
@@ -491,7 +492,7 @@ msgid "I do not really know how to build this file."
 msgstr "Desconhece-se como compilar este ficheiro."
 
 #: src/build_file.c:107 src/messages.c:535 src/preferences_gui.c:176
-#: src/text_editor_gui.c:249 src/toolbar.c:474
+#: src/text_editor_gui.c:246 src/toolbar.c:474
 msgid "Build"
 msgstr "Compilar"
 
@@ -791,7 +792,7 @@ msgstr "O ficheiro objecto está actualizado. Não é necessário recompilar."
 msgid "I do not really know how to compile this file."
 msgstr "Desconhece-se como compilar este ficheiro."
 
-#: src/compile.c:156 src/text_editor_gui.c:238 src/toolbar.c:451
+#: src/compile.c:156 src/text_editor_gui.c:235 src/toolbar.c:451
 msgid "Compile"
 msgstr "Compilar"
 
@@ -1298,15 +1299,15 @@ msgstr "Executar na Consola"
 msgid "Execute"
 msgstr "Executar"
 
-#: src/executer.c:234 src/mainmenu_callbacks.c:1549
+#: src/executer.c:234 src/mainmenu_callbacks.c:1550
 msgid "Target of this project is unknown"
 msgstr "Desconhece-se o alvo deste projecto"
 
-#: src/executer.c:239 src/mainmenu_callbacks.c:1551
+#: src/executer.c:239 src/mainmenu_callbacks.c:1552
 msgid "Target of this project is not executable"
 msgstr "O alvo deste projecto não é executável"
 
-#: src/executer.c:244 src/mainmenu_callbacks.c:1555
+#: src/executer.c:244 src/mainmenu_callbacks.c:1556
 msgid "Executable does not exist for this project."
 msgstr "Não existe um executável para este projecto."
 
@@ -1314,12 +1315,12 @@ msgstr "Não existe um executável para este projecto."
 msgid "No file or project opened."
 msgstr "Nenhum ficheiro ou projecto aberto."
 
-#: src/executer.c:262 src/executer.c:281 src/mainmenu_callbacks.c:1575
-#: src/mainmenu_callbacks.c:1586
+#: src/executer.c:262 src/executer.c:281 src/mainmenu_callbacks.c:1576
+#: src/mainmenu_callbacks.c:1587
 msgid "No executable for this file."
 msgstr "Nenhum executável para este ficheiro."
 
-#: src/executer.c:286 src/mainmenu_callbacks.c:1581
+#: src/executer.c:286 src/mainmenu_callbacks.c:1582
 msgid "Executable is not up-to-date."
 msgstr "Executável não está actualizado."
 
@@ -1469,7 +1470,7 @@ msgstr "A expressão \"%s\" não foi encontrada no texto seleccionado"
 msgid "The string \"%s\" was not found from the current location"
 msgstr "A expressão \"%s\" não foi encontrada a partir da localização actual"
 
-#: src/find_text.c:251 src/messages.c:537 src/text_editor_gui.c:190
+#: src/find_text.c:251 src/messages.c:537 src/text_editor_gui.c:187
 #: src/toolbar.c:231
 msgid "Find"
 msgstr "Encontrar"
@@ -1605,7 +1606,7 @@ msgstr "Páginas man"
 msgid "Info pages"
 msgstr "Páginas info"
 
-#: src/launcher.c:220 src/text_editor.c:1099
+#: src/launcher.c:220 src/text_editor.c:1106
 msgid "Cannot execute command shell"
 msgstr "Incapaz de executar comando de consola"
 
@@ -1633,9 +1634,9 @@ msgstr "projecto1"
 msgid "_New"
 msgstr "_Novo"
 
-#: src/main_menubar_def.h:38 src/text_editor_gui.c:115 src/toolbar.c:109
-msgid "New Text File"
-msgstr "Novo Ficheiro Texto"
+#: src/main_menubar_def.h:38
+msgid "New file"
+msgstr "Novo ficheiro"
 
 #: src/main_menubar_def.h:43
 msgid "_Open ..."
@@ -1698,8 +1699,8 @@ msgid "N_ew Project ..."
 msgstr "Novo _Projecto ..."
 
 #: src/main_menubar_def.h:87
-msgid "Create a Project using application wizard"
-msgstr "Criar um projecto utilizando o ajudante de aplicações"
+msgid "Create a Project using the application wizard"
+msgstr "Criar um Projecto utilizando o ajudante de aplicações"
 
 #: src/main_menubar_def.h:92
 msgid "Open P_roject ..."
@@ -3104,8 +3105,8 @@ msgid "_Source Paths ..."
 msgstr "Caminho de Códi_go ..."
 
 #: src/main_menubar_def.h:1418
-msgid "Specify the source paths for the Anjuta to search"
-msgstr "Especifique o caminho de código para o Anjuta procurar"
+msgid "Specify the source paths for Anjuta to search"
+msgstr "Especifique os caminhos de código para o Anjuta procurar"
 
 #: src/main_menubar_def.h:1423
 msgid "_Commands ..."
@@ -3155,7 +3156,8 @@ msgstr "Consultar Páginas Info"
 msgid "Info pages, where you cannot find what you are looking for"
 msgstr "Páginas info, onde não vai encontrar aquilo que procura"
 
-#: src/main_menubar_def.h:1467 src/text_editor_menu.c:224
+#. 4
+#: src/main_menubar_def.h:1467 src/text_editor_menu.c:229
 msgid "Context Help"
 msgstr "Ajuda de Contexto"
 
@@ -3299,11 +3301,11 @@ msgstr "Tem a certeza que quer imprimir o ficheiro actual?"
 msgid "Tags image update successfully."
 msgstr "Etiquetas de imagem actualizadas com sucesso."
 
-#: src/mainmenu_callbacks.c:1606
+#: src/mainmenu_callbacks.c:1607
 msgid "Debugger is not running. Start it first."
 msgstr "Depurador não está a correr. Inicie-o primeiro."
 
-#: src/mainmenu_callbacks.c:1642
+#: src/mainmenu_callbacks.c:1643
 msgid ""
 "Program is ATTACHED.\n"
 "Do you still want to stop Debugger?"
@@ -3311,7 +3313,7 @@ msgstr ""
 "Aplicação está ANEXADA.\n"
 "Ainda assim deseja parar o Depurador?"
 
-#: src/mainmenu_callbacks.c:1652
+#: src/mainmenu_callbacks.c:1653
 msgid ""
 "Program is running.\n"
 "Do you still want to stop Debugger?"
@@ -3319,8 +3321,8 @@ msgstr ""
 "Aplicação está em execução.\n"
 "Ainda assim deseja parar o Depurador?"
 
-#: src/mainmenu_callbacks.c:1831 src/mainmenu_callbacks.c:1849
-#: src/mainmenu_callbacks.c:1877 src/mainmenu_callbacks.c:1895
+#: src/mainmenu_callbacks.c:1832 src/mainmenu_callbacks.c:1850
+#: src/mainmenu_callbacks.c:1878 src/mainmenu_callbacks.c:1896
 msgid "Cannot launch gnome-help-browser"
 msgstr "Incapaz de lançar o gnome-help-browser"
 
@@ -3352,7 +3354,8 @@ msgstr "Listagem de Locais de Depuração"
 msgid "Embedded Terminal"
 msgstr "Consola Embebida"
 
-#: src/messages.c:536 src/text_editor_menu.c:277 src/toolbar.c:511
+#. 14
+#: src/messages.c:536 src/text_editor_menu.c:291 src/toolbar.c:511
 msgid "Debug"
 msgstr "Depurar"
 
@@ -3380,22 +3383,20 @@ msgstr "Janela anexada"
 msgid "Dock"
 msgstr "Anexar"
 
-#: src/preferences.c:103
+#: src/preferences.c:101
 #, c-format
 msgid ""
-"Cannot load Global defaults and internal configuration files:\n"
-"%s.\n"
+"Cannot load Global defaults and configuration files:\n"
 "%s.\n"
 "This may result in improper behaviour or instabilities.\n"
 "Anjuta will fall back to built in (limited) settings"
 msgstr ""
-"Incapaz de ler defeitos Globais e ficheiros de configuração interna:\n"
-"%s.\n"
+"Incapaz de ler defeitos Globais e ficheiros de configuração:\n"
 "%s.\n"
 "Isto pode resultar em comportamento inapropriado ou instabilidade.\n"
 "O Anjuta vai reverter para os defeitos (limitados) base"
 
-#: src/preferences.c:546
+#: src/preferences.c:543
 msgid ""
 "Are you sure you want to reset the preferences to\n"
 "their default settings?"
@@ -4208,7 +4209,7 @@ msgstr "Sinal"
 msgid "Stop"
 msgstr "Parar"
 
-#: src/signals_gui.c:125 src/text_editor_gui.c:263 src/toolbar.c:218
+#: src/signals_gui.c:125 src/text_editor_gui.c:260 src/toolbar.c:218
 msgid "Print"
 msgstr "Imprimir"
 
@@ -4303,33 +4304,33 @@ msgstr "Actualização de imagem de Etiquetas completa"
 msgid "Syncdronization of Tags image failed"
 msgstr "Falha na sincronização da imagem de Etiquetas"
 
-#: src/text_editor.c:774
+#: src/text_editor.c:781
 msgid "Loading file ..."
 msgstr "A ler ficheiro ..."
 
-#: src/text_editor.c:780
+#: src/text_editor.c:787
 #, c-format
 msgid "Could not load file: %s"
 msgstr "Incapaz de ler ficheiro: %s"
 
-#: src/text_editor.c:809
+#: src/text_editor.c:816
 msgid "File loaded successfully"
 msgstr "Ficheiro lido com sucesso"
 
-#: src/text_editor.c:824
+#: src/text_editor.c:831
 msgid "Saving file ..."
 msgstr "A gravar ficheiro ..."
 
-#: src/text_editor.c:829
+#: src/text_editor.c:836
 #, c-format
 msgid "Could not save file: %s."
 msgstr "Incapaz de gravar ficheiro: %s."
 
-#: src/text_editor.c:856
+#: src/text_editor.c:863
 msgid "File saved successfully"
 msgstr "Ficheiro gravado com sucesso"
 
-#: src/text_editor.c:951
+#: src/text_editor.c:958
 #, c-format
 msgid ""
 "WARNING: The file \"%s\" in the disk is more recent than\n"
@@ -4340,114 +4341,121 @@ msgstr ""
 "buffer actual.\n"
 "Deseja rele-lo?"
 
-#: src/text_editor.c:1067
+#: src/text_editor.c:1074
 msgid "Auto format is currently disabled. Change the setting in Preferences."
 msgstr "Auto formatação está desactiva. Altere as definições nas Preferências."
 
-#: src/text_editor.c:1073
+#: src/text_editor.c:1080
 msgid "Auto formatting ..."
 msgstr "A auto formatar ..."
 
-#: src/text_editor.c:1083 src/text_editor.c:1110
+#: src/text_editor.c:1090 src/text_editor.c:1117
 msgid "Error in auto formatting ..."
 msgstr "Erro na auto formatação ..."
 
-#: src/text_editor.c:1116
+#: src/text_editor.c:1123
 msgid "Auto formatting completed"
 msgstr "Auto formatação completa"
 
-#: src/text_editor_cbs.c:186
+#: src/text_editor_cbs.c:187
 #, c-format
 msgid "Autosaved \"%s\""
 msgstr "Autogravação \"%s\""
 
-#: src/text_editor_cbs.c:190
+#: src/text_editor_cbs.c:191
 #, c-format
 msgid "Autosave \"%s\" -- Failed"
 msgstr "Autogravação \"%s\" -- Falhou"
 
-#: src/text_editor_gui.c:115 src/toolbar.c:109
+#: src/text_editor_gui.c:112 src/toolbar.c:109
 msgid "New"
 msgstr "Novo"
 
-#: src/text_editor_gui.c:125 src/toolbar.c:120
+#: src/text_editor_gui.c:112 src/toolbar.c:109
+msgid "New Text File"
+msgstr "Novo Ficheiro Texto"
+
+#: src/text_editor_gui.c:122 src/toolbar.c:120
 msgid "Open"
 msgstr "Abrir"
 
-#: src/text_editor_gui.c:125
+#: src/text_editor_gui.c:122
 msgid "Open Text File"
 msgstr "Abrir Ficheiro Texto"
 
-#: src/text_editor_gui.c:137 src/toolbar.c:133
+#: src/text_editor_gui.c:134 src/toolbar.c:133
 msgid "Save"
 msgstr "Gravar"
 
-#: src/text_editor_gui.c:137
+#: src/text_editor_gui.c:134
 msgid "Save Current File"
 msgstr "Gravar Ficheiro Actual"
 
-#: src/text_editor_gui.c:147 src/toolbar.c:168
+#: src/text_editor_gui.c:144 src/toolbar.c:168
 msgid "Reload"
 msgstr "Reler"
 
-#: src/text_editor_gui.c:148
+#: src/text_editor_gui.c:145
 msgid "Reload Current File"
 msgstr "Reler Ficheiro Actual"
 
-#: src/text_editor_gui.c:159 src/text_editor_menu.c:202
+#. 0
+#: src/text_editor_gui.c:156 src/text_editor_menu.c:203
 msgid "Cut"
 msgstr "Cortar"
 
-#: src/text_editor_gui.c:159
+#: src/text_editor_gui.c:156
 msgid "Cut to clipboard"
 msgstr "Cortar para a área de transferência"
 
-#: src/text_editor_gui.c:168 src/text_editor_menu.c:209
+#. 1
+#: src/text_editor_gui.c:165 src/text_editor_menu.c:211
 msgid "Copy"
 msgstr "Copiar"
 
-#: src/text_editor_gui.c:169
+#: src/text_editor_gui.c:166
 msgid "Copy to clipboard"
 msgstr "Copiar para a área de transferência"
 
-#: src/text_editor_gui.c:178 src/text_editor_menu.c:216
+#. 2
+#: src/text_editor_gui.c:175 src/text_editor_menu.c:219
 msgid "Paste"
 msgstr "Colar"
 
-#: src/text_editor_gui.c:179
+#: src/text_editor_gui.c:176
 msgid "Paste from clipboard"
 msgstr "Colar da área de transferência"
 
-#: src/text_editor_gui.c:191
+#: src/text_editor_gui.c:188
 msgid "Search the given string"
 msgstr "Procurar a expressão indicada"
 
-#: src/text_editor_gui.c:201
+#: src/text_editor_gui.c:198
 msgid "Replace"
 msgstr "Sustituir"
 
-#: src/text_editor_gui.c:203
+#: src/text_editor_gui.c:200
 msgid "Search and replace the given string"
 msgstr "Procurar e substituir a expressão indicada"
 
-#: src/text_editor_gui.c:223
+#: src/text_editor_gui.c:220
 msgid "line: "
 msgstr "linha: "
 
-#: src/text_editor_gui.c:239 src/toolbar.c:452
+#: src/text_editor_gui.c:236 src/toolbar.c:452
 msgid "Compile the current file"
 msgstr "Compilar o ficheiro actual"
 
-#: src/text_editor_gui.c:251
+#: src/text_editor_gui.c:248
 msgid "Build current File or Build the source directory of the Project"
 msgstr ""
 "Compilar o Ficheiro actual ou Compilar o directório de código do Projecto"
 
-#: src/text_editor_gui.c:264
+#: src/text_editor_gui.c:261
 msgid "Print the current File"
 msgstr "Imprimir o Ficheiro actual"
 
-#: src/text_editor_gui.c:276
+#: src/text_editor_gui.c:273
 msgid "Attach the editor window as paged editor"
 msgstr "Anexar a janela de edição como editor de páginas"
 
@@ -4519,35 +4527,42 @@ msgstr "++Zoom"
 msgid "--Zoom"
 msgstr "--Zoom"
 
-#: src/text_editor_menu.c:231
+#. 5
+#: src/text_editor_menu.c:237
 msgid "Goto Tag"
 msgstr "Ir Para Etiqueta"
 
-#: src/text_editor_menu.c:239
+#. 7
+#: src/text_editor_menu.c:247
 msgid "Toggle Bookmark"
 msgstr "Alternar Marca"
 
-#: src/text_editor_menu.c:246
+#. 8
+#: src/text_editor_menu.c:255
 msgid "Auto format"
 msgstr "Auto formatar"
 
-#: src/text_editor_menu.c:253
+#. 9
+#: src/text_editor_menu.c:263
 msgid "Swap .h/.c"
 msgstr "Trocar .h/.c"
 
-#: src/text_editor_menu.c:261
+#. 11
+#: src/text_editor_menu.c:273
 msgid "Goto"
 msgstr "Ir Para"
 
-#: src/text_editor_menu.c:285
+#. 16
+#: src/text_editor_menu.c:301
 msgid "Options"
 msgstr "Opções"
 
-#: src/text_editor_menu.c:293 src/toolbar.c:157
+#. 18
+#: src/text_editor_menu.c:311 src/toolbar.c:157
 msgid "Close"
 msgstr "Fechar"
 
-#: src/text_editor_menu.c:355
+#: src/text_editor_menu.c:374
 msgid "Functions "
 msgstr "Funções "
 
@@ -4972,8 +4987,8 @@ msgid "Add To Watch"
 msgstr "Adicionar à Observação"
 
 #: src/about.c:66
-msgid "Copyright (c) 1999-2001 Naba Kumar"
-msgstr "Copyright (c) 1999-2001 Naba Kumar"
+msgid "Copyright (c) 1999-2002 Naba Kumar"
+msgstr "Copyright (c) 1999-2002 Naba Kumar"
 
 #: src/about.c:77
 msgid "Anjuta Home Site"
@@ -5048,42 +5063,42 @@ msgstr "Gravar Ficheiro Como"
 msgid "Cannot create application... exiting\n"
 msgstr "Incapaz de criar aplicação... a sair\n"
 
-#: src/anjuta.c:279 src/anjuta.c:283 src/anjuta.c:872 src/anjuta.c:888
+#: src/anjuta.c:271 src/anjuta.c:275 src/anjuta.c:864 src/anjuta.c:880
 #, c-format
 msgid "Anjuta: %s"
 msgstr "Anjuta: %s"
 
-#: src/anjuta.c:345
+#: src/anjuta.c:337
 msgid "Recent Files "
 msgstr "Ficheiros Recentes "
 
-#: src/anjuta.c:658
+#: src/anjuta.c:650
 msgid "CVS is not yet implemented. :-(\n"
 msgstr "CVS ainda não está implementado. :-(\n"
 
-#: src/anjuta.c:705
+#: src/anjuta.c:697
 msgid "# * DO NOT EDIT OR RENAME THIS FILE ** Generated by Anjuta **\n"
 msgstr "# * NÃO EDITE OU RENOMEIE ESTE FICHEIRO ** Gerado pelo Anjuta **\n"
 
-#: src/anjuta.c:865
+#: src/anjuta.c:857
 #, c-format
 msgid "Anjuta: %s (Saved)"
 msgstr "Anjuta: %s (Gravado)"
 
-#: src/anjuta.c:880
+#: src/anjuta.c:872
 #, c-format
 msgid "Anjuta: %s (Unsaved)"
 msgstr "Anjuta: %s (Não Gravado)"
 
-#: src/anjuta.c:907
+#: src/anjuta.c:899
 msgid "Anjuta: No file"
 msgstr "Anjuta: Nenhum ficheiro"
 
-#: src/anjuta.c:1166
+#: src/anjuta.c:1158
 msgid "ERROR: "
 msgstr "ERRO: "
 
-#: src/anjuta.c:1183
+#: src/anjuta.c:1175
 msgid ""
 "\n"
 "System: "
@@ -5091,7 +5106,7 @@ msgstr ""
 "\n"
 "Sistema: "
 
-#: src/anjuta.c:1417
+#: src/anjuta.c:1409
 #, c-format
 msgid ""
 "Not yet implemented.\n"
@@ -5100,11 +5115,11 @@ msgstr ""
 "Ainda não implementado.\n"
 "Inserir código em \"%s:%u\""
 
-#: src/anjuta.c:1633
+#: src/anjuta.c:1625
 msgid "Activate this to select this window"
 msgstr "Active isto para seleccionar esta janela"
 
-#: src/anjuta.c:1680
+#: src/anjuta.c:1672
 #, c-format
 msgid ""
 "The \"%s\" utility is not installed.\n"
@@ -5113,19 +5128,19 @@ msgstr ""
 "O utilitário \"%s\" não está instalado.\n"
 "Instale-o e depois reinicie o Anjuta."
 
-#: src/anjuta.c:1706 src/anjuta.c:1741
+#: src/anjuta.c:1698 src/anjuta.c:1733
 msgid "None"
 msgstr "Nenhum"
 
-#: src/anjuta.c:1723
+#: src/anjuta.c:1715
 msgid "OVR"
 msgstr "OVR"
 
-#: src/anjuta.c:1727 src/anjuta.c:1733
+#: src/anjuta.c:1719 src/anjuta.c:1725
 msgid "INS"
 msgstr "INS"
 
-#: src/anjuta.c:1744
+#: src/anjuta.c:1736
 #, c-format
 msgid ""
 "  Project: %s       Zoom: %d       Line: %04d       Col: %03d       %s       "
@@ -5134,27 +5149,27 @@ msgstr ""
 "  Projecto: %s      Zoom: %d       Linha: %04d      Col: %03d       %s       "
 "Proc: %s"
 
-#: src/anjuta.c:1956 src/anjuta.c:1959
+#: src/anjuta.c:1948 src/anjuta.c:1951
 #, c-format
 msgid "Unable to Load Plug in Module %s. Err: %s"
 msgstr "Incapaz de Ler Módulo Plug in %s. Erro: %s"
 
-#: src/anjuta.c:1962
+#: src/anjuta.c:1954
 #, c-format
 msgid "Plug in Module protocol unknown %s Err:%s"
 msgstr "Módulo Plug in protocolo desconhecido %s Erro:%s"
 
-#: src/anjuta.c:1965
+#: src/anjuta.c:1957
 #, c-format
 msgid "Unable to Start Plug in Module %s"
 msgstr "Incapaz de Iniciar Módulo Plug in %s"
 
-#: src/anjuta.c:1968
+#: src/anjuta.c:1960
 #, c-format
 msgid "Bad Parameters to Plug in %s. Err: %s"
 msgstr "Parâmetros Incorrectos para Plug in %s. Erro: %s"
 
-#: src/anjuta.c:1976
+#: src/anjuta.c:1968
 #, c-format
 msgid ""
 "Unable to load plugin %s.\n"
@@ -5163,7 +5178,7 @@ msgstr ""
 "Incapaz de ler plugin %s.\n"
 "Erro %s"
 
-#: src/anjuta.c:2047
+#: src/anjuta.c:2039
 msgid "Out of Memory scanning for plugins."
 msgstr "Falta de Memória ao procurar plugins."
 
