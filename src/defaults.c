@@ -70,6 +70,10 @@ char * default_project =
 
 char* default_settings=
 {
+"supported.encodings=ISO-8859-15\n"
+"save.encoding.unicode=0\n"
+"save.encoding.original=1\n"
+"save.encoding.current.locale=0\n"
 "autoformat.custom.style= -i8 -sc -bli0 -bl0 -cbi0 -ss\n"
 "autoformat.style=Style of Kangleipak\n"
 "editor.tag.pos=top\n"

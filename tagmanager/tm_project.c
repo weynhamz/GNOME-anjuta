@@ -118,7 +118,7 @@ TMWorkObject *tm_project_new(const char *dir, const char **sources
 
 void tm_project_destroy(TMProject *project)
 {
-	g_assert(project);
+	g_return_if_fail (project != NULL);
 #ifdef TM_DEBUG
 	g_message("Destroying project: %s", project->work_object.file_name);
 #endif
@@ -329,8 +329,13 @@ gboolean tm_project_update(TMWorkObject *work_object, gboolean force
 					update_tags = TRUE;
 			}
 		}
-		if (update_tags)
+		if (update_tags || (TM_WORK_OBJECT (project)->tags_array == NULL))
+		{
+#ifdef TM_DEBUG
+			g_message ("Tags updated, recreating tags array");
+#endif
 			tm_project_recreate_tags_array(project);
+		}
 	}
 	work_object->analyze_time = time(NULL);
 	if ((work_object->parent) && (update_parent))
@@ -417,6 +422,9 @@ gboolean tm_project_open(TMProject *project, gboolean force)
 				if (NULL == source_file->work_object.tags_array)
 					source_file->work_object.tags_array = g_ptr_array_new();
 				g_ptr_array_add(source_file->work_object.tags_array, tag);
+#ifdef TM_DEBUG
+				g_message ("Added tag %s", tag->name);
+#endif
 			}
 		}
 	}

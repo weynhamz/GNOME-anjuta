@@ -49,7 +49,7 @@ static gchar* get_cur_filename()
 	Default for the filename is the current open file.
 */
 void
-create_cvs_gui (CVS *cvs, int dialog_type, gchar* filename, gboolean bypass_dialog)
+create_cvs_gui (CVS *cvs, int dialog_type, gchar* filename, gboolean is_project)
 {
 	gchar *title;
 	gchar *button_label;
@@ -60,6 +60,7 @@ create_cvs_gui (CVS *cvs, int dialog_type, gchar* filename, gboolean bypass_dial
 	GtkWidget *label_misc = NULL;
 	GtkWidget *table;
 	GtkWidget *gtkentry;
+	GtkWidget *text_frame;
 
 	CVSFileGUI *gui;
 
@@ -110,6 +111,7 @@ create_cvs_gui (CVS *cvs, int dialog_type, gchar* filename, gboolean bypass_dial
 	gtk_window_set_wmclass (GTK_WINDOW (gui->dialog), "cvs-file", "anjuta");
 	gtk_window_set_transient_for (GTK_WINDOW(gui->dialog),
 	                              GTK_WINDOW(app->widgets.window));
+	gtk_dialog_set_default_response (GTK_DIALOG (gui->dialog), GTK_RESPONSE_OK);
 	
 	table = gtk_table_new (5, 2, FALSE);
 	gtk_container_add (GTK_CONTAINER (GTK_DIALOG (gui->dialog)->vbox), table);
@@ -127,8 +129,12 @@ create_cvs_gui (CVS *cvs, int dialog_type, gchar* filename, gboolean bypass_dial
 	gtk_widget_show (gui->entry_file);
 	gtk_widget_set_usize (gui->entry_file, 400, -1);
 	
+	text_frame = gtk_frame_new (NULL);
+	gtk_frame_set_shadow_type (GTK_FRAME (text_frame), GTK_SHADOW_IN);
+	
 	gui->text_message = gtk_text_view_new ();
 	gtk_widget_set_usize (gui->text_message, 400, 150);
+	gtk_container_add (GTK_CONTAINER (text_frame), gui->text_message);
 	
 	gui->entry_branch = gnome_entry_new ("cvs-branch");
 	if (gui->type == CVS_ACTION_UPDATE || gui->type == CVS_ACTION_COMMIT)
@@ -140,6 +146,7 @@ create_cvs_gui (CVS *cvs, int dialog_type, gchar* filename, gboolean bypass_dial
 	if (gui->type == CVS_ACTION_COMMIT || gui->type == CVS_ACTION_ADD)
 	{
 		gtk_widget_show (label_msg);
+		gtk_widget_show (text_frame);
 		gtk_widget_show (gui->text_message);
 		//gtk_text_set_editable (GTK_TEXT (gui->text_message), TRUE);
 	}
@@ -169,7 +176,7 @@ create_cvs_gui (CVS *cvs, int dialog_type, gchar* filename, gboolean bypass_dial
 	                  0, 1, 2, 3,
 	                  GTK_FILL, GTK_FILL, 3, 3);
 	gtk_table_attach (GTK_TABLE (table),
-	                  gui->text_message,
+	                  text_frame,
 	                  1, 2, 2, 3,
 	                  GTK_FILL | GTK_EXPAND, 0, 3, 3);
 	if (label_misc != NULL)
@@ -189,13 +196,12 @@ create_cvs_gui (CVS *cvs, int dialog_type, gchar* filename, gboolean bypass_dial
 	g_signal_connect (G_OBJECT (gui->dialog), "response",
 	                  G_CALLBACK (on_cvs_dialog_response), gui); 
 
-	if (bypass_dialog)
+	// FIXED: Show dialog for project to be able to change branch
+	if (is_project)
 	{
-		on_cvs_dialog_response (NULL, GTK_RESPONSE_OK, gui);
-	} else
-	{
-		gtk_widget_show (gui->dialog);
+		gtk_widget_set_sensitive (gui->entry_file, FALSE);
 	}
+	gtk_widget_show (gui->dialog);
 }
 
 /*
@@ -203,7 +209,7 @@ create_cvs_gui (CVS *cvs, int dialog_type, gchar* filename, gboolean bypass_dial
 	a diff between the working copy of a file and the repositry
 */
 void
-create_cvs_diff_gui (CVS *cvs, gchar *filename, gboolean bypass_dialog)
+create_cvs_diff_gui (CVS *cvs, gchar *filename, gboolean is_project)
 {
 	CVSFileDiffGUI *gui;
 
@@ -221,6 +227,7 @@ create_cvs_diff_gui (CVS *cvs, gchar *filename, gboolean bypass_dialog)
 	                              GTK_DIALOG_DESTROY_WITH_PARENT,
 	                              GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
 	                              _("Diff"), GTK_RESPONSE_OK, NULL);
+	gtk_dialog_set_default_response (GTK_DIALOG (gui->dialog), GTK_RESPONSE_OK);
 	gtk_window_set_transient_for (GTK_WINDOW(gui->dialog),
 	                              GTK_WINDOW(app->widgets.window));
 
@@ -300,7 +307,7 @@ create_cvs_diff_gui (CVS *cvs, gchar *filename, gboolean bypass_dialog)
 	g_signal_connect (G_OBJECT(gui->check_date), "toggled",
 	                  G_CALLBACK (on_cvs_diff_use_date_toggled), gui);
 
-	if (bypass_dialog) 
+	if (is_project) 
 	{
 		gtk_widget_set_sensitive (gui->entry_file, FALSE);
 	}
@@ -315,8 +322,6 @@ create_cvs_login_gui (CVS *cvs)
 	GtkWidget* server_label;
 	GtkWidget* dir_label;
 	GtkWidget* table;
-	GtkWidget* ok_button;
-	GtkWidget* cancel_button;
 	
 	GList* strings;
 	int i;
@@ -330,6 +335,7 @@ create_cvs_login_gui (CVS *cvs)
 		                GTK_DIALOG_DESTROY_WITH_PARENT,
 		                GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
 		                _("Login"), GTK_RESPONSE_OK, NULL);
+	gtk_dialog_set_default_response (GTK_DIALOG (gui->dialog), GTK_RESPONSE_OK);
 	gtk_window_set_transient_for (GTK_WINDOW(gui->dialog),
 	                              GTK_WINDOW(app->widgets.window));
 	
@@ -410,8 +416,6 @@ void create_cvs_import_gui (CVS *cvs)
 	GtkWidget* release_label;
 	GtkWidget* vendor_label;
 	GtkWidget* table;
-	GtkWidget* ok_button;
-	GtkWidget* cancel_button;
 	GtkWidget* server_frame;
 	GtkWidget* server_table;
 	GtkWidget* import_frame;
@@ -425,6 +429,7 @@ void create_cvs_import_gui (CVS *cvs)
 	                              GTK_DIALOG_DESTROY_WITH_PARENT,
 	                              GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
 	                              _("Import"), GTK_RESPONSE_OK, NULL);
+	gtk_dialog_set_default_response (GTK_DIALOG (gui->dialog), GTK_RESPONSE_OK);
 	gtk_window_set_transient_for (GTK_WINDOW(gui->dialog), GTK_WINDOW(app->widgets.window));
 	
 	table = gtk_table_new (2, 1, FALSE);

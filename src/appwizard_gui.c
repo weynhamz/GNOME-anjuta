@@ -125,7 +125,8 @@ create_app_wizard_gui (AppWizard * aw)
 			&aw->widgets.app_group_entry,
 			&aw->widgets.term_check,
 			&aw->widgets.file_header_check,
-			&aw->widgets.gettext_support_check);
+			&aw->widgets.gettext_support_check,
+			&aw->widgets.use_glade_check);
 
 	druid_vbox4 = GNOME_DRUID_PAGE_STANDARD (druidpagestandard4)->vbox;
 	gtk_widget_show (druid_vbox4);

@@ -145,7 +145,7 @@ source_write_autogen_sh (ProjectDBase * data)
 {
 	gchar *srcbuffer, *destbuffer;
 	gint old_umask;
-	Project_Type* type;
+	ProjectType* type;
 
 	g_return_val_if_fail (data != NULL, FALSE);
 
@@ -185,7 +185,7 @@ source_write_configure_in (ProjectDBase * data)
 {
 	FILE *fp;
 	gchar *filename, *actual_file, *prj_name, *version;
-	Project_Type* type;
+	ProjectType* type;
 	gint lang_type, i;
 	GList *list, *node;
 
@@ -227,16 +227,21 @@ source_write_configure_in (ProjectDBase * data)
 	switch (lang_type)
 	{
 		case PROJECT_PROGRAMMING_LANGUAGE_C:
+			fprintf (fp, "AC_SUBST(CFLAGS,$CFLAGS)\n");
 			fprintf (fp, "AC_PROG_CC\n");
 			break;
 		case PROJECT_PROGRAMMING_LANGUAGE_CPP:
+			fprintf (fp, "AC_SUBST(CXXFLAGS,$CXXFLAGS)\n");
 			fprintf (fp, "AC_PROG_CXX\n");
 			break;
 		case PROJECT_PROGRAMMING_LANGUAGE_C_CPP:
+			fprintf (fp, "AC_SUBST(CFLAGS,$CFLAGS)\n");
+			fprintf (fp, "AC_SUBST(CXXFLAGS,$CXXFLAGS)\n");
 			fprintf (fp, "AC_PROG_CC\n");
 			fprintf (fp, "AC_PROG_CXX\n");
 			break;
 		default:
+			fprintf (fp, "AC_SUBST(CFLAGS,$CFLAGS)\n");
 			fprintf (fp, "AC_PROG_CC\n");
 			break;
 	}
@@ -254,13 +259,10 @@ source_write_configure_in (ProjectDBase * data)
 	if (prop_get_int (data->props, "project.has.gettext", 1))
 	{
 		GList *files, *node;
-		if (type->gnome2_support) 
-		{
-			fprintf (fp, "GETTEXT_PACKAGE=%s\n"
-					 "AC_SUBST(GETTEXT_PACKAGE)\n"
-					 "AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, \"$GETTTEXT_PACKAGE\","
-					 " [Package name for gettext])\n\n", prj_name);
-		}
+		fprintf (fp, "GETTEXT_PACKAGE=%s\n"
+				 "AC_SUBST(GETTEXT_PACKAGE)\n"
+				 "AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, \"$GETTEXT_PACKAGE\","
+				 " [Package name for gettext])\n\n", prj_name);
 		fprintf (fp,
 			 "\n"
 			 "dnl Languages which your application supports\n"
@@ -465,7 +467,7 @@ source_write_toplevel_makefile_am (ProjectDBase * data)
 	gchar *filename, *actual_file, *target, *prj_name;
 	gint i;
 	gchar *str;
-	Project_Type* type;
+	ProjectType* type;
 
 	g_return_val_if_fail (data != NULL, FALSE);
 
@@ -575,7 +577,7 @@ source_write_toplevel_makefile_am (ProjectDBase * data)
 	g_free (target);
 	g_free (prj_name);
 	g_free (filename);
-	free_project_type(type);
+	project_type_free (type);
 	return TRUE;
 }
 
@@ -633,7 +635,7 @@ source_write_macros_files (ProjectDBase * data)
 	 * same buffers for each file. */
 	static const gint MAX_MACROS_FILENAME_LEN = 64;
 	gchar *srcbuffer, *destbuffer;
-	Project_Type* type;
+	ProjectType* type;
 	gint i;
 
 	g_return_val_if_fail (data != NULL, FALSE);
@@ -735,7 +737,7 @@ source_write_executable_source_files (ProjectDBase * data)
 {
 	FILE *fp;
 	gchar *src_dir, *filename, *actual_file, *target;
-	Project_Type* type;
+	ProjectType* type;
 	gint lang;
 	
 	g_return_val_if_fail (data != NULL, FALSE);
@@ -759,7 +761,7 @@ source_write_executable_source_files (ProjectDBase * data)
 	{
 		anjuta_system_error (errno, _("Unable to create file: %s."), filename);
 		g_free (filename);
-		free_project_type(type);
+		project_type_free (type);
 		g_free (actual_file);
 		return FALSE;
 	}
@@ -776,25 +778,26 @@ source_write_executable_source_files (ProjectDBase * data)
 	compiler_options_set_prjincl_in_file (app->compiler_options, fp);
 	fprintf (fp, "\n\n");
 	
+	target =
+		prop_get (data->props, "project.source.target");
+	g_strdelimit (target, "-", '_');
+	
 	lang = project_dbase_get_language(data);
 	if (lang == PROJECT_PROGRAMMING_LANGUAGE_C ||
 		lang == PROJECT_PROGRAMMING_LANGUAGE_C_CPP)
 	{
-		fprintf (fp, "CFLAGS =");
+		fprintf (fp, "%s_CFLAGS =", target);
 		compiler_options_set_prjcflags_in_file (app->compiler_options, fp);
 		fprintf (fp, "\n\n");
 	}
 	if (lang == PROJECT_PROGRAMMING_LANGUAGE_CPP ||
 		lang == PROJECT_PROGRAMMING_LANGUAGE_C_CPP)
 	{
-		fprintf (fp, "CXXFLAGS =");
+		fprintf (fp, "%s_CXXFLAGS =", target);
 		compiler_options_set_prjcflags_in_file (app->compiler_options, fp);
 		fprintf (fp, "\n\n");
 	}
 	
-	target =
-		prop_get (data->props, "project.source.target");
-	g_strdelimit (target, "-", '_');
 	fprintf (fp, "bin_PROGRAMS = %s\n\n", target);
 	fprintf (fp, "%s_SOURCES = \\\n", target);
 	source_write_module_file_list (data, fp, TRUE, NULL, MODULE_SOURCE);
@@ -816,7 +819,7 @@ source_write_executable_source_files (ProjectDBase * data)
 	
 	g_free (actual_file);
 	g_free (target);
-	free_project_type(type);
+	project_type_free (type);
 	g_free (filename);
 	return TRUE;
 }
@@ -826,7 +829,7 @@ source_write_static_lib_source_files (ProjectDBase * data)
 {
 	FILE *fp;
 	gchar *src_dir, *filename, *actual_file, *target;
-	Project_Type* type;
+	ProjectType* type;
 	gint lang;
 	
 	g_return_val_if_fail (data != NULL, FALSE);
@@ -850,7 +853,7 @@ source_write_static_lib_source_files (ProjectDBase * data)
 	{
 		anjuta_system_error (errno, _("Unable to create file: %s."), filename);
 		g_free (filename);
-		free_project_type(type);
+		project_type_free (type);
 		g_free (actual_file);
 		return FALSE;
 	}
@@ -867,25 +870,26 @@ source_write_static_lib_source_files (ProjectDBase * data)
 	compiler_options_set_prjincl_in_file (app->compiler_options, fp);
 	fprintf (fp, "\n\n");
 	
+	target =
+		prop_get (data->props, "project.source.target");
+	g_strdelimit (target, "-", '_');
+	
 	lang = project_dbase_get_language(data);
 	if (lang == PROJECT_PROGRAMMING_LANGUAGE_C ||
 		lang == PROJECT_PROGRAMMING_LANGUAGE_C_CPP)
 	{
-		fprintf (fp, "CFLAGS =");
+		fprintf (fp, "%s_%s_CFLAGS =", target, "a");
 		compiler_options_set_prjcflags_in_file (app->compiler_options, fp);
 		fprintf (fp, "\n\n");
 	}
 	if (lang == PROJECT_PROGRAMMING_LANGUAGE_CPP ||
 		lang == PROJECT_PROGRAMMING_LANGUAGE_C_CPP)
 	{
-		fprintf (fp, "CXXFLAGS =");
+		fprintf (fp, "%s_%s_CXXFLAGS =", target, "a");
 		compiler_options_set_prjcflags_in_file (app->compiler_options, fp);
 		fprintf (fp, "\n\n");
 	}
 	
-	target =
-		prop_get (data->props, "project.source.target");
-	g_strdelimit (target, "-", '_');
 	fprintf (fp, "lib_LIBRARIES = %s%s\n\n", target, ".a");
 	fprintf (fp, "%s_%s_SOURCES = \\\n", target, "a");
 	source_write_module_file_list (data, fp, TRUE, NULL, MODULE_SOURCE);
@@ -906,7 +910,7 @@ source_write_static_lib_source_files (ProjectDBase * data)
 	
 	g_free (actual_file);
 	g_free (target);
-	free_project_type(type);
+	project_type_free (type);
 	g_free (filename);
 	return TRUE;
 }
@@ -916,7 +920,7 @@ source_write_dynamic_lib_source_files (ProjectDBase * data)
 {
 	FILE *fp;
 	gchar *src_dir, *filename, *actual_file, *target;
-	Project_Type* type;
+	ProjectType* type;
 	gint lang;
 	
 	g_return_val_if_fail (data != NULL, FALSE);
@@ -940,7 +944,7 @@ source_write_dynamic_lib_source_files (ProjectDBase * data)
 	{
 		anjuta_system_error (errno, _("Unable to create file: %s."), filename);
 		g_free (filename);
-		free_project_type(type);
+		project_type_free (type);
 		g_free (actual_file);
 		return FALSE;
 	}
@@ -957,25 +961,26 @@ source_write_dynamic_lib_source_files (ProjectDBase * data)
 	compiler_options_set_prjincl_in_file (app->compiler_options, fp);
 	fprintf (fp, "\n\n");
 	
+	target =
+		prop_get (data->props, "project.source.target");
+	g_strdelimit (target, "-", '_');
+	
 	lang = project_dbase_get_language(data);
 	if (lang == PROJECT_PROGRAMMING_LANGUAGE_C ||
 		lang == PROJECT_PROGRAMMING_LANGUAGE_C_CPP)
 	{
-		fprintf (fp, "CFLAGS =");
+		fprintf (fp, "%s_%s_CFLAGS =", target, "la");
 		compiler_options_set_prjcflags_in_file (app->compiler_options, fp);
 		fprintf (fp, "\n\n");
 	}
 	if (lang == PROJECT_PROGRAMMING_LANGUAGE_CPP ||
 		lang == PROJECT_PROGRAMMING_LANGUAGE_C_CPP)
 	{
-		fprintf (fp, "CXXFLAGS =");
+		fprintf (fp, "%s_%s_CXXFLAGS =", target, "la");
 		compiler_options_set_prjcflags_in_file (app->compiler_options, fp);
 		fprintf (fp, "\n\n");
 	}
 	
-	target =
-		prop_get (data->props, "project.source.target");
-	g_strdelimit (target, "-", '_');
 	fprintf (fp, "lib_LTLIBRARIES = %s%s\n\n", target, ".la");
 	fprintf (fp, "%s_%s_SOURCES = \\\n", target, "la");
 	source_write_module_file_list (data, fp, TRUE, NULL, MODULE_SOURCE);
@@ -997,7 +1002,7 @@ source_write_dynamic_lib_source_files (ProjectDBase * data)
 	
 	g_free (actual_file);
 	g_free (target);
-	free_project_type(type);
+	project_type_free (type);
 	g_free (filename);
 	return TRUE;
 }
@@ -1080,7 +1085,7 @@ source_write_pixmap_files (ProjectDBase * data)
 {
 	FILE *fp;
 	gchar *src_dir, *filename, *actual_file, *target;
-	Project_Type* type;
+	ProjectType* type;
 
 	g_return_val_if_fail (data != NULL, FALSE);
 
@@ -1104,7 +1109,7 @@ source_write_pixmap_files (ProjectDBase * data)
 		anjuta_system_error (errno, _("Unable to create file: %s."), filename);
 		g_free (filename);
 		g_free (actual_file);
-		free_project_type(type);
+		project_type_free (type);
 		return FALSE;
 	}
 	fprintf (fp,"## Process this file with automake to produce Makefile.in\n\n");
@@ -1124,7 +1129,7 @@ source_write_pixmap_files (ProjectDBase * data)
 	g_free (actual_file);
 	g_free (target);
 	g_free (filename);
-	free_project_type(type);
+	project_type_free (type);
 	return TRUE;
 }
 
@@ -1133,7 +1138,7 @@ source_write_help_files (ProjectDBase * data)
 {
 	FILE *fp;
 	gchar *src_dir, *filename, *actual_file, *target;
-	Project_Type* type;
+	ProjectType* type;
 
 	g_return_val_if_fail (data != NULL, FALSE);
 
@@ -1155,7 +1160,7 @@ source_write_help_files (ProjectDBase * data)
 	{
 		anjuta_system_error (errno, _("Unable to create file: %s."), filename);
 		g_free (filename);
-		free_project_type(type);
+		project_type_free (type);
 		g_free (actual_file);
 		return FALSE;
 	}
@@ -1175,7 +1180,7 @@ source_write_help_files (ProjectDBase * data)
 		anjuta_system_error (errno, _("Unable to create file: %s."), actual_file);
 	g_free (actual_file);
 	g_free (target);
-	free_project_type(type);
+	project_type_free (type);
 	g_free (filename);
 	return TRUE;
 }
@@ -1365,7 +1370,7 @@ source_write_setup_gettext (ProjectDBase * data)
 {
 	gchar *srcbuffer, *destbuffer;
 	gint old_umask;
-	Project_Type* type;
+	ProjectType* type;
 
 	g_return_val_if_fail (data != NULL, FALSE);
 
@@ -1483,7 +1488,7 @@ source_write_glade_file (ProjectDBase * data)
 	FILE *fp;
 	gchar *filename, *target, *prj_name;
 	gchar *prj, *src, *pix;
-	Project_Type* type;
+	ProjectType* type;
 	gint lang;
 	gboolean bOK = TRUE ;
 
@@ -1500,7 +1505,7 @@ source_write_glade_file (ProjectDBase * data)
 	/* FIXME: If *.glade exists, just leave it, for now. */
 	if (file_is_regular (filename))
 	{
-		free_project_type(type);
+		project_type_free (type);
 		g_free (filename);
 		g_free (target);
 		return TRUE;
@@ -1510,7 +1515,7 @@ source_write_glade_file (ProjectDBase * data)
 	if (fp == NULL)
 	{
 		anjuta_system_error (errno, _("Unable to create file: %s."), filename);
-		free_project_type(type);
+		project_type_free (type);
 		g_free (filename);
 		g_free (target);
 		return FALSE;
@@ -1602,7 +1607,7 @@ source_write_glade_file (ProjectDBase * data)
 		"</widget>\n\n"
 		"</GTK-Interface>\n"
 		);
-	free_project_type(type);
+	project_type_free (type);
 	fflush( fp );
 	if( ferror( fp ) )
 	{
@@ -1620,8 +1625,8 @@ source_write_glade2_file (ProjectDBase * data)
 {
 	FILE *fp;
 	gchar *filename, *target, *prj_name;
-	gchar *prj, *src, *pix;
-	Project_Type* type;
+	gchar *pix, *src;
+	ProjectType* type;
 	gint lang;
 	gboolean bOK = TRUE ;
 
@@ -1722,7 +1727,7 @@ source_write_glade2_file (ProjectDBase * data)
 		fprintf(fp, "  <gnome_support>FALSE</gnome_support>\n");
 	fprintf (fp, "</glade-project>\n");
 	
-	free_project_type (type);
+	project_type_free  (type);
 	fflush (fp);
 	if (ferror (fp))
 	{
@@ -2780,7 +2785,7 @@ source_write_xwindockapp_main_c (ProjectDBase *data)
 gboolean
 source_write_build_files (ProjectDBase * data)
 {
-	Project_Type* type;
+	ProjectType* type;
 	gint ret;
 
 	g_return_val_if_fail (data != NULL, FALSE);
@@ -2807,7 +2812,8 @@ source_write_build_files (ProjectDBase * data)
 			type->id == PROJECT_TYPE_GNOMEMM2 ||
 			type->id == PROJECT_TYPE_GTK2 ||
 			type->id == PROJECT_TYPE_GNOME2 ||
-			type->id == PROJECT_TYPE_LIBGLADE2)
+			type->id == PROJECT_TYPE_LIBGLADE2 ||
+			type->id == PROJECT_TYPE_BONOBO2)
 			ret = source_write_glade2_file (data);
 		else
 			ret = source_write_glade_file (data);
@@ -2823,7 +2829,7 @@ source_write_build_files (ProjectDBase * data)
 		ret = source_write_macros_files (data);
 		if (!ret) return FALSE;
 	}
-	free_project_type(type);
+	project_type_free (type);
 
 	if (!project_config_get_overwrite_disabled (data->project_config,
 												BUILD_FILE_CONFIGURE_IN))

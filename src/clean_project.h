@@ -20,21 +20,7 @@
 #ifndef  _CLEAN_PROJECT_H_
 #define _CLEAN_PROJECT_H_
 
-void
-clean_project(void);
-
-void
-clean_all_project(void);
-
-/* Private */
-
-void
-clean_mesg_arrived(gchar* mesg);
-
-void
-clean_terminated(int status, time_t time);
-
-void
-clean_all_terminated(int status, time_t time);
+void clean_project (void (*on_clean_cb) (void));
+void clean_all_project (void);
 
 #endif

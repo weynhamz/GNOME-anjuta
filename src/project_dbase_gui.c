@@ -77,7 +77,11 @@ on_project_remove1_activate (GtkMenuItem * menuitem, gpointer user_data)
 	dialog = gtk_message_dialog_new (GTK_WINDOW (p->widgets.window),
 									 GTK_DIALOG_DESTROY_WITH_PARENT,
 									 GTK_MESSAGE_QUESTION,
-									 GTK_BUTTONS_YES_NO, buff);
+									 GTK_BUTTONS_NONE, buff);
+	gtk_dialog_add_buttons (GTK_DIALOG (dialog),
+							GTK_STOCK_CANCEL,	GTK_RESPONSE_NO,
+							GTK_STOCK_REMOVE,	GTK_RESPONSE_YES,
+							NULL);
 	if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_YES)
 		project_dbase_remove_file (p);
 	gtk_widget_destroy (dialog);
@@ -133,7 +137,11 @@ on_open_prjfilesel_ok_clicked (GtkButton * button, gpointer user_data)
 		dialog = gtk_message_dialog_new (GTK_WINDOW (p->widgets.window),
 										 GTK_DIALOG_DESTROY_WITH_PARENT,
 										 GTK_MESSAGE_QUESTION,
-										 GTK_BUTTONS_YES_NO, buff);
+										 GTK_BUTTONS_NONE, buff);
+		gtk_dialog_add_buttons (GTK_DIALOG (dialog),
+								GTK_STOCK_CANCEL,	GTK_RESPONSE_NO,
+								GTK_STOCK_CLOSE,	GTK_RESPONSE_YES,
+								NULL);
 		if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_YES)
 		{
 			gtk_widget_hide (app->project_dbase->fileselection_open);
@@ -167,6 +175,7 @@ set_fileselection_file_types(ProjectDBase * p)
 
 		case MODULE_SOURCE:
 			p->fileselection_add_file = fileselection_clearfiletypes (p->fileselection_add_file);  
+			ftypes = fileselection_addtype_f (ftypes, _("C/C++ Headers"), ".h", ".H", ".hh", ".hxx", ".hpp", ".h++", NULL);
 			ftypes = fileselection_addtype_f (ftypes, _("C/C++ source files"), ".c", ".pc", ".sc", ".cc", ".cxx", ".cpp", ".c++", ".cs", ".C", NULL);
 			ftypes = fileselection_addtype_f (ftypes, _("Java source files"), ".java", ".js", NULL);
 			ftypes = fileselection_addtype_f (ftypes, _("Pascal files"), ".pas", NULL);
@@ -569,8 +578,10 @@ create_project_dbase_gui (ProjectDBase * p)
 	gboolean build_fv = anjuta_preferences_get_int (pr, BUILD_FILE_BROWSER);
 
 	window1 = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+	/*
 	gtk_window_set_transient_for (GTK_WINDOW (window1),
 								  GTK_WINDOW (app->widgets.window));
+	*/
 	gnome_window_icon_set_from_default ((GtkWindow *) window1);
 	gtk_window_set_title (GTK_WINDOW (window1), _("Project: None"));
 	gtk_window_set_wmclass (GTK_WINDOW (window1), "project_dbase", "Anjuta");
@@ -1111,10 +1122,13 @@ create_project_confirm_dlg (GtkWidget *parent)
 									  _("Project is not saved.\n"
 								"Do you want to save it before closing?"));
 	
-	gtk_dialog_add_buttons (GTK_DIALOG (mesgbox),
-							GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-							GTK_STOCK_NO, GTK_RESPONSE_NO,
-							GTK_STOCK_YES, GTK_RESPONSE_YES, NULL);
+	gtk_dialog_add_button (GTK_DIALOG (mesgbox),
+						   GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL);
+	anjuta_dialog_add_button (GTK_DIALOG (mesgbox), _("Do_n't save"),
+							  GTK_STOCK_NO, GTK_RESPONSE_NO);
+	gtk_dialog_add_button (GTK_DIALOG (mesgbox),
+						   GTK_STOCK_SAVE, GTK_RESPONSE_YES);
+	gtk_dialog_set_default_response (GTK_DIALOG (mesgbox), GTK_RESPONSE_YES);
 	return mesgbox;
 }
 
@@ -1294,18 +1308,16 @@ create_langsel_dialog (void)
 #endif /* Disabling */
 
 static void
-on_prj_import_confirm_yes (GtkButton * button, gpointer user_data)
+on_prj_import_confirm_yes (GtkButton * button, gchar* filename, 
+							gpointer user_data)
 {
-	gchar *filename;
 	PrjModule	selMod ;
 	ProjectDBase *p = user_data;
 	
 	gtk_widget_hide (p->fileselection_add_file);
-	filename =  fileselection_get_filename (p->fileselection_add_file);
 	if (!filename)
 		return;
 	project_dbase_import_file_real(p, selMod, filename);
-	g_free (filename);
 }
 
 void
@@ -1351,7 +1363,7 @@ on_add_prjfilesel_ok_clicked (GtkButton * button, gpointer user_data)
 		}
 		comp_dir = project_dbase_get_module_dir (p, p->sel_module);
 		if (is_file_in_dir(filename, comp_dir))
-			on_prj_import_confirm_yes (NULL, user_data);
+			on_prj_import_confirm_yes (NULL, filename, user_data);
 		else
 		{
 			int button;
@@ -1366,7 +1378,7 @@ on_add_prjfilesel_ok_clicked (GtkButton * button, gpointer user_data)
 			button = gnome_dialog_run_and_close(GNOME_DIALOG(dialog));
 			g_free(mesg);
 			if(button == 0)
-				on_prj_import_confirm_yes (NULL, p);
+				on_prj_import_confirm_yes (NULL, filename, p);
 		}
 		g_free (comp_dir);
 		node = g_list_next (node);

@@ -106,7 +106,7 @@ TMFileEntry *tm_file_entry_new(const char *path, TMFileEntry *parent
   , gboolean ignore_hidden_dirs)
 {
 	TMFileEntry *entry;
-	GList *tmp;
+	/* GList *tmp; */
 	char *real_path;
 	DIR *dir;
 	struct dirent *dir_entry;
@@ -115,11 +115,14 @@ TMFileEntry *tm_file_entry_new(const char *path, TMFileEntry *parent
 	struct stat s;
 	char *entries = NULL;
 
-	g_assert(path);
+	g_return_val_if_fail (path != NULL, NULL);
+	
 	/* TTimo - don't follow symlinks */
 	if (tm_file_entry_type(path) == tm_file_link_t)
 		return NULL;
 	real_path = tm_get_real_path(path);
+	if (!real_path)
+		return NULL;
 	FILE_NEW(entry);
 	entry->type = tm_file_entry_type(real_path);
 	entry->parent = parent;
@@ -241,8 +244,8 @@ void tm_file_entry_free(gpointer entry)
 void tm_file_entry_foreach(TMFileEntry *entry, TMFileEntryFunc func
   , gpointer user_data, guint level, gboolean reverse)
 {
-	g_assert(entry);
-	g_assert(func);
+	g_return_if_fail (entry != NULL);
+	g_return_if_fail (func != NULL);
 
 	if ((reverse) && (entry->children))
 	{

@@ -6,9 +6,10 @@ GLOBAL_TAGS_FILE=$BASEDIR/system.tags
 CFLAGS=""
 
 # WxWindows libraries
-WX_PREFIX=`wx-config --prefix 2>/dev/null`
-if [ ! -z "$WX_PREFIX" ]; then
-  WX_CFLAGS=`wx-config --cxxflags`
+WX_CONFIG=`which wx-config 2>/dev/null`
+if ( [ ! -z $WX_CONFIG ] && [ -x $WX_CONFIG ] ) ; then
+  echo "Found wxWindows libraries ... $WX_CONFIG"
+  WX_CFLAGS=`$WX_CONFIG --cxxflags`
   for cflag in $WX_CFLAGS
   do
     dir=`echo $cflag | sed 's/^-I//'`
@@ -21,9 +22,10 @@ if [ ! -z "$WX_PREFIX" ]; then
 fi
 
 # SDL libraries
-SDL_PREFIX=`sdl-config --prefix 2>/dev/null`
-if [ ! -z "$SDL_PREFIX" ]; then
-  SDL_CFLAGS=`sdl-config --cflags`
+SDL_CONFIG=`which sdl-config 2>/dev/null`
+if ( [ ! -z $SDL_CONFIG ] && [ -x $SDL_CONFIG ] ) ; then
+  echo "Found SDL libraries ... $SDL_CONFIG"
+  SDL_CFLAGS=`$SDL_CONFIG --cflags`
   for cflag in $SDL_CFLAGS
   do
     dir=`echo $cflag | sed 's/^-I//'`
@@ -36,16 +38,11 @@ if [ ! -z "$SDL_PREFIX" ]; then
 fi
 
 # Pkg config libraries
-PKG_CONFIG_INSTALLED=`pkg-config --version`
-if [ ! -z "$PKG_CONFIG_INSTALLED" ]
-then
-## This is dangerously big database in RH 8.0, so only taking selective
-## packages.
-  ## PKG_CONFIG_GNOME_MODULES=`pkg-config --list-all 2>/dev/null | grep "gnome" | awk '{printf("%s ",  $1);}'`
-  ## PKG_CONFIG_GTK_MODULES=`pkg-config --list-all 2>/dev/null | grep "gtk" | awk '{printf("%s ",  $1);}'`
-  ## PKG_CONFIG_MODULES="$PKG_CONFIG_GNOME_MODULES $PKG_CONFIG_GTK_MODULES"
-  PKG_CONFIG_MODULES=`pkg-config --list-all 2>/dev/null | awk '{printf("%s ",$1);}'`
-  PKG_CONFIG_CFLAGS=`pkg-config --cflags $PKG_CONFIG_MODULES 2>/dev/null`
+PKG_CONFIG=`which pkg-config 2>/dev/null`
+if ( [ ! -z $PKG_CONFIG ] && [ -x $PKG_CONFIG ] ) ; then
+  echo "Found pkg-config ... $PKG_CONFIG"
+  PKG_CONFIG_MODULES=`$PKG_CONFIG --list-all 2>/dev/null | awk '{printf("%s ",$1);}'`
+  PKG_CONFIG_CFLAGS=`$PKG_CONFIG --cflags $PKG_CONFIG_MODULES 2>/dev/null`
   for cflag in $PKG_CONFIG_CFLAGS
   do
     dir=`echo $cflag | sed 's/^-I//'`

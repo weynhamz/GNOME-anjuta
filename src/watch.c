@@ -28,24 +28,21 @@
 #include "anjuta_info.h"
 #include "utilities.h"
 #include "watch.h"
+#include "watch_gui.h"
 
 ExprWatch *
 expr_watch_new ()
 {
 	ExprWatch *ew;
 
-	ew = g_malloc (sizeof (ExprWatch));
-	if (ew)
-	{
-		create_expr_watch_gui (ew);
-	}
+	ew = g_new0 (ExprWatch, 1);
+	create_expr_watch_gui (ew);
 	return ew;
 }
 
 void
 expr_watch_clear (ExprWatch * ew)
 {
-	gint i;
 	GtkTreeModel* model;
 
 	model = gtk_tree_view_get_model(GTK_TREE_VIEW(ew->widgets.clist));
@@ -91,11 +88,7 @@ get_watch_expr (GtkTreeModel *model, GtkTreePath* path, GtkTreeIter* iter, gpoin
 void
 expr_watch_cmd_queqe (ExprWatch * ew)
 {
-	gint i;
-	gchar *buff;
 	GtkTreeModel* model;
-	GSList* watch_expr_list = NULL;
-	GSList* it = NULL;
 	
 	model = gtk_tree_view_get_model(GTK_TREE_VIEW(ew->widgets.clist));
 	

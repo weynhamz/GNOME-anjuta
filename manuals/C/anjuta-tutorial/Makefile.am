@@ -1,13 +1,7 @@
-figs = \
-	figures/divided.png\
-	figures/glade-l.png\
-	figures/icons.png\
-	figures/interface.png
-
-sgml_ents =
-
+entities = legal.xml
+figdir = figures
 docname = anjuta-tutorial
 lang = C
 omffile = anjuta-tutorial-C.omf
-include $(top_srcdir)/manuals/sgmldocs.make
+include $(top_srcdir)/manuals/xmldocs.make
 dist-hook: app-dist-hook

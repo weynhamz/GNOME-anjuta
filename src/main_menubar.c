@@ -53,12 +53,11 @@ create_main_menubar (GtkWidget * ap, MainMenuBar * mb)
 	mb->file.save_project = file1_menu_uiinfo[12].widget;
 	mb->file.close_project = file1_menu_uiinfo[13].widget;
 	mb->file.rename = file1_menu_uiinfo[15].widget;
-	mb->file.page_setup = file1_menu_uiinfo[17].widget;
-	mb->file.print = file1_menu_uiinfo[18].widget;
-	mb->file.print_preview = file1_menu_uiinfo[19].widget;
-	mb->file.recent_files = file1_menu_uiinfo[21].widget;
-	mb->file.recent_projects = file1_menu_uiinfo[22].widget;
-	mb->file.exit = file1_menu_uiinfo[24].widget;
+	mb->file.print = file1_menu_uiinfo[17].widget;
+	mb->file.print_preview = file1_menu_uiinfo[18].widget;
+	mb->file.recent_files = file1_menu_uiinfo[20].widget;
+	mb->file.recent_projects = file1_menu_uiinfo[21].widget;
+	mb->file.exit = file1_menu_uiinfo[23].widget;
 
 	/* Edit submenu */
 	mb->edit.uppercase = transform1_submenu_uiinfo[0].widget;
@@ -69,6 +68,7 @@ create_main_menubar (GtkWidget * ap, MainMenuBar * mb)
 	mb->edit.convert_auto = transform1_submenu_uiinfo[6].widget;
 	
 	mb->edit.insert_header = insert_submenu_uiinfo[0].widget;
+	mb->edit.insert_custom_indent = insert_submenu_uiinfo[5].widget;	
 	mb->edit.insert_c_switch = insert_template_c_uiinfo[0].widget;
 	mb->edit.insert_c_for = insert_template_c_uiinfo[1].widget;
 	mb->edit.insert_c_while = insert_template_c_uiinfo[2].widget;
@@ -92,16 +92,20 @@ create_main_menubar (GtkWidget * ap, MainMenuBar * mb)
 	mb->edit.select_all = select1_submenu_uiinfo[0].widget;
 	mb->edit.select_brace = select1_submenu_uiinfo[1].widget;
 	mb->edit.select_block = select1_submenu_uiinfo[2].widget;
+	mb->edit.select_function = select1_submenu_uiinfo[3].widget;
+	mb->edit.select_line = select1_submenu_uiinfo[4].widget;
+	mb->edit.select_word = select1_submenu_uiinfo[5].widget;
 	
 	mb->edit.comment_block = comment_submenu_uiinfo[0].widget;
 	mb->edit.comment_box = comment_submenu_uiinfo[1].widget;
-	mb->edit.comment_stream = comment_submenu_uiinfo[1].widget;
+	mb->edit.comment_stream = comment_submenu_uiinfo[2].widget;
 	
 	mb->edit.find = find_submenu_uiinfo[0].widget;
 	mb->edit.find_next = find_submenu_uiinfo[1].widget;
-	mb->edit.find_replace = find_submenu_uiinfo[2].widget;
-	mb->edit.find_in_files = find_submenu_uiinfo[3].widget;
-	mb->edit.enter_selection = find_submenu_uiinfo[4].widget;
+	mb->edit.find_previous = find_submenu_uiinfo[2].widget;
+	mb->edit.find_replace = find_submenu_uiinfo[3].widget;
+	mb->edit.find_in_files = find_submenu_uiinfo[4].widget;
+	mb->edit.enter_selection = find_submenu_uiinfo[5].widget;
 	
 	mb->edit.goto_line = goto1_submenu_uiinfo[0].widget;
 	mb->edit.goto_brace = goto1_submenu_uiinfo[1].widget;
@@ -141,12 +145,9 @@ create_main_menubar (GtkWidget * ap, MainMenuBar * mb)
 	mb->view.bookmarks = view1_menu_uiinfo[2].widget;
 	mb->view.breakpoints = view1_menu_uiinfo[8].widget;
 	mb->view.registers = view1_menu_uiinfo[9].widget;
-	mb->view.program_stack = view1_menu_uiinfo[10].widget;
-	mb->view.shared_lib = view1_menu_uiinfo[12].widget;
-	mb->view.signals = view1_menu_uiinfo[12].widget;
-	mb->view.dump_window = view1_menu_uiinfo[13].widget;
-	mb->view.console = view1_menu_uiinfo[15].widget;
-	mb->view.show_hide_locals = view1_menu_uiinfo[16].widget;
+	mb->view.shared_lib = view1_menu_uiinfo[10].widget;
+	mb->view.signals = view1_menu_uiinfo[11].widget;
+	mb->view.dump_window = view1_menu_uiinfo[12].widget;
 
 	/* Project submenu */
 	mb->project.add_file = project1_menu_uiinfo[0].widget;
@@ -270,8 +271,6 @@ create_main_menubar (GtkWidget * ap, MainMenuBar * mb)
 	gtk_widget_hide (file1_menu_uiinfo[16].widget);
 	gtk_widget_hide (edit1_menu_uiinfo[16].widget);
 	gtk_widget_hide (view1_menu_uiinfo[2].widget);
-	gtk_widget_hide (view1_menu_uiinfo[13].widget);
-	gtk_widget_hide (view1_menu_uiinfo[15].widget);
 	gtk_widget_hide (project1_menu_uiinfo[13].widget);
 	gtk_widget_hide (project1_menu_uiinfo[14].widget);
 	gtk_widget_hide(settings1_menu_uiinfo[13].widget);

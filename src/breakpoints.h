@@ -61,25 +61,29 @@ void breakpoints_dbase_clear (BreakpointsDBase * bd);
 void breakpoints_dbase_destroy (BreakpointsDBase * bd);
 
 void breakpoints_dbase_add (BreakpointsDBase *bd);
-void breakpoints_dbase_toggle_breakpoint (BreakpointsDBase* bd);
+
+gboolean breakpoints_dbase_toggle_breakpoint (BreakpointsDBase* bd, guint l);
+
+gboolean breakpoints_dbase_toggle_doubleclick (guint line);
+
+void breakpoints_dbase_toggle_singleclick (guint line);
+
 void breakpoints_dbase_disable_all (BreakpointsDBase *bd);
+
 void breakpoints_dbase_remove_all (BreakpointsDBase *bd);
 
-gboolean
-breakpoints_dbase_save_yourself (BreakpointsDBase * bd, FILE * stream);
+gboolean breakpoints_dbase_save_yourself (BreakpointsDBase * bd, FILE * stream);
+
+gboolean breakpoints_dbase_load_yourself (BreakpointsDBase * bd, PropsID props);
 
 void breakpoints_dbase_load (BreakpointsDBase * bd, ProjectDBase *p );
 
 void breakpoints_dbase_set_all (BreakpointsDBase * bd);
 
-gboolean
-breakpoints_dbase_load_yourself (BreakpointsDBase * bd, PropsID props);
-
-/* Private */
-
 void breakpoints_dbase_update_controls (BreakpointsDBase * bd);
-void breakpoints_dbase_add_brkpnt (BreakpointsDBase * bd, gchar * line);
+
 void breakpoints_dbase_set_all_in_editor (BreakpointsDBase* bd, TextEditor* te);
+
 void breakpoints_dbase_clear_all_in_editor (BreakpointsDBase* bd, TextEditor* te);
 
 #endif

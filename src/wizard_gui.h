@@ -21,6 +21,7 @@
 #define WIZARD_GUI_H
 
 #include <gnome.h>
+#include "watch.h"
 
 GtkWidget *create_project_start_page (GnomeDruid * druid, gchar * greetings,
 				      gchar * title);
@@ -52,9 +53,12 @@ GtkWidget *create_project_menu_page (GnomeDruid * druid,
 				     GtkWidget ** app_group_combo,
 				     GtkWidget ** term_check,
 				     GtkWidget ** file_header_support,
-				     GtkWidget ** gettext_support_check);
+				     GtkWidget ** gettext_support_check,
+					 GtkWidget ** use_glade_check);
 
 GtkWidget *create_project_finish_page (GnomeDruid * druid);
+
+GtkWidget *create_eval_dialog (GtkWindow* parent, ExprWatch *ew);
 
 
 #endif

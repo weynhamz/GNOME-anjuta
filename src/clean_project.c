@@ -36,8 +36,10 @@
 #include "build_project.h"
 
 
+static void (*on_clean_finished_cb) (void);
+
 void
-clean_project ()
+clean_project (void (*on_clean_cb) (void))
 {
 	gchar *cmd, *prj_name;
 
@@ -52,23 +54,25 @@ clean_project ()
 
 	if (app->project_dbase->project_is_open)
 	{
-		cmd =
-			command_editor_get_command (app->command_editor,
+		cmd = command_editor_get_command (app->command_editor,
 						    COMMAND_BUILD_CLEAN);
 		if (cmd == NULL)
 		{
-			anjuta_warning (_
-					("Unable to clean Project. Check Settings->Commands."));
+			anjuta_warning (_("Unable to clean Project. Check Settings->Commands."));
 			return;
 		}
 		chdir (app->project_dbase->top_proj_dir);
-		if (launcher_execute (cmd, clean_mesg_arrived,
-				      clean_mesg_arrived,
-				      clean_terminated) == FALSE)
+		
+		/* set up the callback for a successful finish */
+		on_clean_finished_cb = on_clean_cb;
+		
+		/* launche 'make clean' */
+		if (build_execute_command (cmd) == FALSE)
 		{
 			g_free (cmd);
 			return;
 		}
+		
 		anjuta_update_app_status (TRUE, _("Clean"));
 		an_message_manager_clear (app->messages, MESSAGE_BUILD);
 		an_message_manager_append (app->messages,
@@ -80,49 +84,10 @@ clean_project ()
 		an_message_manager_append (app->messages, cmd, MESSAGE_BUILD);
 		an_message_manager_append (app->messages, "\n", MESSAGE_BUILD);
 		an_message_manager_append (app->messages, "", MESSAGE_BUILD); // Maybe something is missing here
+		an_message_manager_show (app->messages, MESSAGE_BUILD);
 		g_free (cmd);
 		g_free (prj_name);
 	}
-}
-
-void
-clean_mesg_arrived (gchar * mesg)
-{
-	an_message_manager_append (app->messages, mesg, MESSAGE_BUILD);
-}
-
-void
-clean_terminated (int status, time_t time)
-{
-	gchar *buff1;
-
-	if (status)
-	{
-		an_message_manager_append (app->messages,
-				 _("Cleaning completed...............Unsuccessful\n"),
-				 MESSAGE_BUILD);
-		if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
-										DIALOG_ON_BUILD_COMPLETE))
-			anjuta_warning (_("Cleaning completed ... unsuccessful"));
-	}
-	else
-	{
-		an_message_manager_append (app->messages,
-				 _("Cleaning completed...............Successful\n"),
-				 MESSAGE_BUILD);
-		if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
-										DIALOG_ON_BUILD_COMPLETE))
-			anjuta_status (_("Cleaning completed ... successful"));
-	}
-	buff1 =
-		g_strdup_printf (_("Total time taken: %d secs\n"),
-				 (gint) time);
-	an_message_manager_append (app->messages, buff1, MESSAGE_BUILD);
-	if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
-									BEEP_ON_BUILD_COMPLETE))
-		gdk_beep ();
-	g_free (buff1);
-	anjuta_update_app_status (TRUE, NULL);
 }
 
 void
@@ -151,9 +116,7 @@ clean_all_project ()
 			return;
 		}
 		chdir (app->project_dbase->top_proj_dir);
-		if (launcher_execute (cmd, clean_mesg_arrived,
-				      clean_mesg_arrived,
-				      clean_all_terminated) == FALSE)
+		if (build_execute_command (cmd) == FALSE)
 		{
 			g_free (cmd);
 			return;
@@ -172,38 +135,4 @@ clean_all_project ()
 		g_free (cmd);
 		g_free (prj_name);
 	}
-}
-
-void
-clean_all_terminated (int status, time_t time)
-{
-	gchar *buff1;
-
-	if (status)
-	{
-		an_message_manager_append (app->messages,
-				 _("Clean All completed...............Unsuccessful\n"),
-				 MESSAGE_BUILD);
-		if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
-										DIALOG_ON_BUILD_COMPLETE))
-			anjuta_warning (_("Clean All completed ... unsuccessful"));
-	}
-	else
-	{
-		an_message_manager_append (app->messages,
-				 _("Clean All completed...............Successful\n"),
-				 MESSAGE_BUILD);
-		if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
-										DIALOG_ON_BUILD_COMPLETE))
-			anjuta_status (_("Clean All completed ... successful"));
-	}
-	buff1 =
-		g_strdup_printf (_("Total time taken: %d secs\n"),
-				 (gint) time);
-	an_message_manager_append (app->messages, buff1, MESSAGE_BUILD);
-	if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
-									BEEP_ON_BUILD_COMPLETE))
-		gdk_beep ();
-	g_free (buff1);
-	anjuta_update_app_status (TRUE, NULL);
 }

@@ -35,8 +35,11 @@
 #include "gnome_project.h"
 #include "fileselection.h"
 
-static void new_prj_mesg_arrived (gchar * mesg);
-static void new_prj_terminated (int status, time_t t);
+static void new_prj_mesg_arrived (AnjutaLauncher *launcher,
+								  AnjutaLauncherOutputType output_type,
+								  const gchar * mesg, gpointer data);
+static void new_prj_terminated (AnjutaLauncher *launcher, gint child_pid,
+								gint status, time_t t, gpointer data);
 
 gboolean
 create_new_project (AppWizard * aw)
@@ -46,7 +49,7 @@ create_new_project (AppWizard * aw)
 	gchar* files;
 	FILE* fp;
 	gint i;
-	Project_Type* type;
+	ProjectType* type;
 
 	all_prj_dir  =
 		anjuta_preferences_get (ANJUTA_PREFERENCES (app->preferences),
@@ -142,7 +145,7 @@ create_new_project (AppWizard * aw)
 
 	fprintf(fp, "project.menu.need.terminal=%d\n\n", aw->need_terminal);
 
-	type = load_project_type (aw->prj_type);
+	type = project_type_load (aw->prj_type);
 	if (type->id != PROJECT_TYPE_GENERIC)
 	{
 		fprintf (fp, "compiler.options.supports=%s\n\n",
@@ -172,7 +175,8 @@ create_new_project (AppWizard * aw)
 	an_message_manager_append (app->messages,
 								   _("Generating source codes ...\n"),
 								   MESSAGE_BUILD);
-	if (project_dbase_generate_source_code (app->project_dbase)==FALSE)
+	if (project_dbase_generate_source_code (app->project_dbase,
+											aw->use_glade)==FALSE)
 		return FALSE;
 	
 	/* Creating icon pixmap file for gnome projects */
@@ -200,7 +204,7 @@ create_new_project (AppWizard * aw)
 	/* Scanning for created files in every module */
 	if (type)
 	{
-		free_project_type(type);
+		project_type_free (type);
 		type = NULL;
 	}
 
@@ -232,10 +236,11 @@ create_new_project (AppWizard * aw)
 	an_message_manager_append (app->messages, _("Running autogen.sh ...\n"),
 								   MESSAGE_BUILD);
 	chdir (app->project_dbase->top_proj_dir);
-	if (launcher_execute ("./autogen.sh",
-			new_prj_mesg_arrived,
-			new_prj_mesg_arrived,
-			new_prj_terminated) == FALSE)
+	
+	g_signal_connect (G_OBJECT (app->launcher), "child-exited",
+					  G_CALLBACK (new_prj_terminated), NULL);
+	if (anjuta_launcher_execute (app->launcher, "./autogen.sh",
+								 new_prj_mesg_arrived, NULL) == FALSE)
 	{
 		anjuta_error ("Could not run ./autogen.sh");
 		return FALSE;
@@ -245,14 +250,20 @@ create_new_project (AppWizard * aw)
 }
 
 static void
-new_prj_mesg_arrived (gchar * mesg)
+new_prj_mesg_arrived (AnjutaLauncher *launcher,
+					  AnjutaLauncherOutputType output_type,
+					  const gchar * mesg, gpointer data)
 {
 	an_message_manager_append (app->messages, mesg, MESSAGE_BUILD);
 }
 
 static void
-new_prj_terminated (int status, time_t t)
+new_prj_terminated (AnjutaLauncher *launcher, gint child_pid,
+					gint status, time_t t, gpointer data)
 {
+	g_signal_handlers_disconnect_by_func (launcher,
+										  G_CALLBACK (new_prj_terminated),
+										  data);
 	if (status)
 	{
 		an_message_manager_append (app->messages,

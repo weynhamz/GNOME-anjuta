@@ -35,10 +35,29 @@
 
 #include <glade/glade-parser.h>
 
+struct _AnjutaProperty
+{
+	GtkWidget                *object;
+	gchar                    *key;
+	gchar                    *default_value;
+	guint                     flags;
+	
+	/* Set true if custom set/get to be used */
+	gboolean                  custom;
+	
+	/* For inbuilt generic objects */
+	AnjutaPropertyObjectType  object_type;
+	AnjutaPropertyDataType    data_type;
+	
+	/* For custom objects */
+	void    (*set_property) (AnjutaProperty *prop, const gchar *value);
+	gchar * (*get_property) (AnjutaProperty *prop);
+	
+};
+
 struct _AnjutaPreferencesPriv
 {
 	GList     *properties;
-	//GtkWidget *dialog;
 	gboolean   is_showing;
 };
 
@@ -62,11 +81,20 @@ property_destroy (AnjutaProperty *property)
 	g_free (property);
 }
 
+/* Get functions. Add more get functions for AnjutaProperty, if required */
+GtkWidget*
+anjuta_property_get_widget (AnjutaProperty *prop)
+{
+	return prop->object;
+}
+
 static AnjutaPropertyObjectType
 get_object_type_from_string (const gchar* object_type)
 {
 	if (strcmp (object_type, "entry") == 0)
 		return ANJUTA_PROPERTY_OBJECT_TYPE_ENTRY;
+	else if (strcmp (object_type, "menu") == 0)
+		return ANJUTA_PROPERTY_OBJECT_TYPE_MENU;
 	else if (strcmp (object_type, "spin") == 0)
 		return ANJUTA_PROPERTY_OBJECT_TYPE_SPIN;
 	else if (strcmp (object_type, "toggle") == 0)
@@ -103,7 +131,19 @@ get_property_value_as_string (AnjutaProperty *prop)
 {
 	gint  int_value;
 	gchar *text_value;
+	gchar** values;
 	
+	if (prop->custom)
+	{
+		if (prop->get_property != NULL)
+			return prop->get_property (prop);
+		else
+		{
+			g_warning ("%s: Undefined get_property() for custom object",
+					   prop->key);
+			return NULL;
+		}
+	}
 	switch (prop->object_type)
 	{
 	case ANJUTA_PROPERTY_OBJECT_TYPE_TOGGLE:
@@ -121,6 +161,12 @@ get_property_value_as_string (AnjutaProperty *prop)
 	case ANJUTA_PROPERTY_OBJECT_TYPE_ENTRY:
 		text_value =
 			gtk_editable_get_chars (GTK_EDITABLE (prop->object), 0, -1);
+		break;
+	case ANJUTA_PROPERTY_OBJECT_TYPE_MENU:
+		values = g_object_get_data(G_OBJECT(prop->object), "untranslated");
+		int idx = gtk_option_menu_get_history(GTK_OPTION_MENU(prop->object));
+		if (values[idx] != NULL)
+			text_value = g_strdup(values[idx]);
 		break;
 	case ANJUTA_PROPERTY_OBJECT_TYPE_TEXT:
 		{
@@ -151,9 +197,15 @@ get_property_value_as_string (AnjutaProperty *prop)
 		}
 		break;
 	}
+	if (text_value && (strlen (text_value) == 0))
+	{
+		g_free (text_value);
+		text_value = NULL;
+	}
 	return text_value;
 }
 
+/*
 static gint
 get_property_value_as_int (AnjutaProperty *prop)
 {
@@ -164,19 +216,35 @@ get_property_value_as_int (AnjutaProperty *prop)
 	g_free (text_value);	
 	return int_value;
 }
-
+*/
 static void
 set_property_value_as_string (AnjutaProperty *prop, const gchar *value)
 {
 	gint  int_value;
+	char** values;
+	gint i; 
 	
+	if (prop->custom)
+	{
+		if (prop->set_property != NULL)
+		{
+			prop->set_property (prop, value);
+			return;
+		}
+		else
+		{
+			g_warning ("%s: Undefined set_property() for custom object",
+					   prop->key);
+			return;
+		}
+	}
 	switch (prop->object_type)
 	{
 	case ANJUTA_PROPERTY_OBJECT_TYPE_TOGGLE:
 		if (value) 
 			int_value = atoi (value);
 		else
-			int_value = atoi (prop->default_value);
+			int_value = 0;
 		
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prop->object),
 		                              int_value);
@@ -186,7 +254,8 @@ set_property_value_as_string (AnjutaProperty *prop, const gchar *value)
 		if (value) 
 			int_value = atoi (value);
 		else
-			int_value = atoi (prop->default_value);
+			int_value = 0;
+		
 		gtk_spin_button_set_value (GTK_SPIN_BUTTON (prop->object), int_value);
 		break;
 	
@@ -194,9 +263,22 @@ set_property_value_as_string (AnjutaProperty *prop, const gchar *value)
 		if (value)
 			gtk_entry_set_text (GTK_ENTRY (prop->object), value);
 		else
-			gtk_entry_set_text (GTK_ENTRY (prop->object),
-								(gchar*) prop->default_value);
+			gtk_entry_set_text (GTK_ENTRY (prop->object), "");
 		break;
+	case ANJUTA_PROPERTY_OBJECT_TYPE_MENU:
+		values = g_object_get_data(G_OBJECT(prop->object), "untranslated");
+		if (value != NULL)
+		{
+			for (i=0; values[i] != NULL; i++)
+			{
+				if (strcmp(value, values[i]) == 0)
+				{
+					gtk_option_menu_set_history(GTK_OPTION_MENU(prop->object), i);
+					break;
+				}
+			}
+		}			
+		break;		
 	case ANJUTA_PROPERTY_OBJECT_TYPE_TEXT:
 		{
 			GtkTextBuffer *buffer;
@@ -204,19 +286,16 @@ set_property_value_as_string (AnjutaProperty *prop, const gchar *value)
 			if (value)
 				gtk_text_buffer_set_text (buffer, value, -1);
 			else
-				gtk_text_buffer_set_text (buffer, (gchar*) prop->default_value,
-										  -1);
+				gtk_text_buffer_set_text (buffer, "", -1);
 		}
 		break;
+		
 	case ANJUTA_PROPERTY_OBJECT_TYPE_COLOR:
 		{
 			guint8 r, g, b;
 			
 			if (value)
 				anjuta_util_color_from_string (value, &r, &g, &b);
-			else if (prop->default_value)
-				anjuta_util_color_from_string (prop->default_value,
-											   &r, &g, &b);
 			else
 				r = g = b = 0;
 			
@@ -224,6 +303,7 @@ set_property_value_as_string (AnjutaProperty *prop, const gchar *value)
 									   r, g, b, 8);
 		}
 		break;
+		
 	case ANJUTA_PROPERTY_OBJECT_TYPE_FONT:
 		if (value)
 		{
@@ -243,6 +323,9 @@ set_property_value_as_string (AnjutaProperty *prop, const gchar *value)
 				/* Set font size to (arbitrary) 12 points */
 				font_name = g_strconcat (tmp, " 12", NULL);
 				g_free (tmp);
+#ifdef DEBUG
+				g_message ("Font set as: %s", font_name);
+#endif
 				gnome_font_picker_set_font_name (GNOME_FONT_PICKER
 												 (prop->object), font_name);
 				g_free (font_name);
@@ -253,15 +336,16 @@ set_property_value_as_string (AnjutaProperty *prop, const gchar *value)
 												 (prop->object), value);
 			}
 		}
-		else
+		/* else
 		{
 			gnome_font_picker_set_font_name (GNOME_FONT_PICKER (prop->object),
-											 prop->default_value);
-		}
+											 "A standard font");
+		}*/
 		break;
 	}
 }
 
+/*
 static void
 set_property_value_as_int (AnjutaProperty *prop, gint value)
 {
@@ -270,6 +354,7 @@ set_property_value_as_int (AnjutaProperty *prop, gint value)
 	set_property_value_as_string (prop, text_value);
 	g_free (text_value);	
 }
+*/
 
 static gboolean
 save_property (AnjutaPreferences *pr, AnjutaProperty *prop,
@@ -279,6 +364,10 @@ save_property (AnjutaPreferences *pr, AnjutaProperty *prop,
 	gboolean return_value;
 
 	return_value = 0;
+	
+	if (prop->object_type == ANJUTA_PROPERTY_OBJECT_TYPE_MENU)
+		return TRUE;
+	
 	if ((filter != ANJUTA_PREFERENCES_FILTER_NONE) && (prop->flags & filter))
 	{
 		value = prop_get (pr->props_session, prop->key);
@@ -289,6 +378,8 @@ save_property (AnjutaPreferences *pr, AnjutaProperty *prop,
 	}
 	if (value)
 		return_value = fprintf (fp, "%s=%s\n", prop->key, value);
+	else
+		return_value = fprintf (fp, "%s=\n", prop->key);
 #ifdef DEBUG
 	if (return_value <= 0)
 		g_warning ("Error saving property '%s'", prop->key);
@@ -300,11 +391,11 @@ save_property (AnjutaPreferences *pr, AnjutaProperty *prop,
 gboolean
 anjuta_preferences_register_property_raw (AnjutaPreferences *pr,
 										  GtkWidget *object,
-										  AnjutaPropertyObjectType object_type,
-										  AnjutaPropertyDataType  data_type,
 										  const gchar *key,
 										  const gchar *default_value,
-										  guint flags)
+										  guint flags,
+										  AnjutaPropertyObjectType object_type,
+										  AnjutaPropertyDataType  data_type)
 {
 	AnjutaProperty *p;
 	
@@ -320,8 +411,62 @@ anjuta_preferences_register_property_raw (AnjutaPreferences *pr,
 	p->data_type = data_type;
 	p->key = g_strdup (key);
 	if (default_value)
+	{
 		p->default_value = g_strdup (default_value);
+		if (strlen (default_value) > 0)
+		{
+			/* For menu, initialize the untranslated strings */
+			if (object_type == ANJUTA_PROPERTY_OBJECT_TYPE_MENU) 
+			{
+				gchar **vstr;
+				vstr = g_strsplit (default_value, ",", 100);
+				g_object_set_data(G_OBJECT(p->object), "untranslated",
+									vstr);
+			} /* For others */
+			else if (object_type != ANJUTA_PROPERTY_OBJECT_TYPE_MENU) 
+				prop_set_with_key (pr->props_built_in, key, default_value);
+		}
+	}
 	p->flags = flags;
+	p->custom = FALSE;
+	p->set_property = NULL;
+	p->get_property = NULL;
+	pr->priv->properties = g_list_append (pr->priv->properties, p);
+	return TRUE;
+}
+
+gboolean
+anjuta_preferences_register_property_custom (AnjutaPreferences *pr,
+											 GtkWidget *object,
+										     const gchar *key,
+										     const gchar *default_value,
+										     guint flags,
+		void    (*set_property) (AnjutaProperty *prop, const gchar *value),
+		gchar * (*get_property) (AnjutaProperty *))
+{
+	AnjutaProperty *p;
+	
+	g_return_val_if_fail (ANJUTA_IS_PREFERENCES (pr), FALSE);
+	g_return_val_if_fail (GTK_IS_WIDGET (object), FALSE);
+	g_return_val_if_fail (key != NULL, FALSE);
+	g_return_val_if_fail (strlen(key) > 0, FALSE);
+	
+	p = g_new0 (AnjutaProperty, 1);
+	g_object_ref (object);
+	p->object = object;
+	p->object_type = (AnjutaPropertyObjectType) 0;
+	p->data_type = (AnjutaPropertyDataType) 0;
+	p->key = g_strdup (key);
+	if (default_value)
+	{
+		p->default_value = g_strdup (default_value);
+		if (strlen (default_value) > 0)
+			prop_set_with_key (pr->props_built_in, key, default_value);
+	}
+	p->custom = TRUE;
+	p->flags = flags;
+	p->set_property = set_property;
+	p->get_property = get_property;
 	
 	pr->priv->properties = g_list_append (pr->priv->properties, p);
 	return TRUE;
@@ -333,7 +478,6 @@ anjuta_preferences_register_property_from_string (AnjutaPreferences *pr,
 												  const gchar *property_desc)
 {
 	gchar **fields;
-	gchar *field;
 	gint  n_fields;
 	
 	AnjutaPropertyObjectType object_type;
@@ -371,9 +515,9 @@ anjuta_preferences_register_property_from_string (AnjutaPreferences *pr,
 		g_strfreev (fields);
 		return FALSE;
 	}
-	anjuta_preferences_register_property_raw (pr, object, object_type,
-											  data_type, key, default_value,
-											  flags);
+	anjuta_preferences_register_property_raw (pr, object, key, default_value,
+											  flags,  object_type,
+											  data_type);
 	g_strfreev (fields);
 	return TRUE;
 }
@@ -478,8 +622,11 @@ anjuta_preferences_set (AnjutaPreferences * pr, gchar * key, gchar * value)
 {
 	g_return_if_fail (ANJUTA_IS_PREFERENCES (pr));
 	g_return_if_fail (key != NULL);
-	g_return_if_fail (value != NULL);
-	prop_set_with_key (pr->props, key, value);
+
+	if (value && (strlen (value) > 0))
+		prop_set_with_key (pr->props, key, value);
+	else
+		prop_set_with_key (pr->props, key, "");
 }
 
 inline void
@@ -501,13 +648,11 @@ preferences_objects_to_prop (AnjutaPreferences *pr)
 		gchar *value;
 		p = node->data;
 		value = get_property_value_as_string (p);
-		if (value)
-		{
-			anjuta_preferences_set (pr, p->key, value);
-			g_free (value);
-		}
+		anjuta_preferences_set (pr, p->key, value);
+		g_free (value);
 		node = g_list_next (node);
 	}
+	return TRUE;
 }
 
 static void
@@ -543,9 +688,11 @@ anjuta_preferences_reset_defaults (AnjutaPreferences * pr)
 	
 	dlg = gtk_message_dialog_new (GTK_WINDOW (pr),
 			GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_QUESTION,
-			GTK_BUTTONS_YES_NO,
+			GTK_BUTTONS_NONE,
 		     _("Are you sure you want to reset the preferences to\n"
 		       "their default settings?"));
+	gtk_dialog_add_button (GTK_DIALOG (dlg), GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL);
+	anjuta_dialog_add_button (GTK_DIALOG (dlg), _("_Reset"), GTK_STOCK_REVERT_TO_SAVED, GTK_RESPONSE_YES);
 	if (gtk_dialog_run (GTK_DIALOG (dlg)) == GTK_RESPONSE_YES)
 	{
 		prop_clear (pr->props_session);
@@ -572,10 +719,13 @@ anjuta_preferences_foreach (AnjutaPreferences * pr,
 	while (node && go_on)
 	{
 		p = node->data;
-		if (filter == ANJUTA_PREFERENCES_FILTER_NONE)
-			go_on = callback (pr, p->key, data);
-		else if (p->flags & filter)
-			go_on = callback (pr, p->key, data);
+		if (p->object_type != ANJUTA_PROPERTY_OBJECT_TYPE_MENU)
+		{
+			if (filter == ANJUTA_PREFERENCES_FILTER_NONE)
+				go_on = callback (pr, p->key, data);
+			else if (p->flags & filter)
+				go_on = callback (pr, p->key, data);
+		}
 		node = g_list_next (node);
 	}
 }
@@ -589,8 +739,8 @@ anjuta_preferences_save_filtered (AnjutaPreferences * pr, FILE * fp,
 	GList *node;
 	gboolean ret_val = TRUE;
 	
-	g_return_if_fail (ANJUTA_IS_PREFERENCES (pr));
-	g_return_if_fail (fp != NULL);
+	g_return_val_if_fail (ANJUTA_IS_PREFERENCES (pr), FALSE);
+	g_return_val_if_fail (fp != NULL, FALSE);
 	
 	node = pr->priv->properties;
 	while (node)
@@ -640,7 +790,6 @@ on_preferences_dialog_delete_event (GtkDialog *dialog,
 									GdkEvent *event,
 									gpointer user_data)
 {
-	AnjutaPreferences *pr = (AnjutaPreferences*) user_data;
 	gtk_widget_hide (GTK_WIDGET(dialog));
 	return TRUE;
 }
@@ -655,17 +804,12 @@ preferences_prop_to_objects (AnjutaPreferences *pr)
 	{
 		gchar *value;
 		p = node->data;
-		value = anjuta_preferences_get (pr, p->key);
-		set_property_value_as_string (p, value);
-		g_free (value);
+			value = anjuta_preferences_get (pr, p->key);
+			set_property_value_as_string (p, value);
+			g_free (value);
 		node = g_list_next (node);
 	}
-}
-
-static void
-on_style_editor_clicked (GtkWidget *button, AnjutaPreferences *pr)
-{
-	// FIXME: style_editor_show (app->style_editor);
+	return TRUE;
 }
 
 void
@@ -759,15 +903,15 @@ info:
 */
 static gchar*
 glade_get_from_toplevel_child_name_nth(GladeInterface *gi,
-									   gchar *toplevel_name, gint index)
+									   gchar *toplevel_name, gint idx)
 {
 	GladeWidgetInfo *wi;
-	gint dd = index + 1;
+	gint dd = idx + 1;
     
 	wi = glade_get_toplevel_by_name (gi, toplevel_name);
 	if (wi == NULL)
 		return NULL;
-	if (index>wi->children->child->n_children)
+	if (idx > wi->children->child->n_children)
 		return NULL;
 	while (dd--)
 	{
@@ -779,7 +923,6 @@ glade_get_from_toplevel_child_name_nth(GladeInterface *gi,
 static void
 add_all_default_pages (AnjutaPreferences *pr)
 {
-	GtkWidget *button,*button1, *wid;
 	GladeXML *gxml;
 	GList *node;
 	
@@ -795,7 +938,7 @@ add_all_default_pages (AnjutaPreferences *pr)
 		const gchar *name;
 		GtkWidget *widget = node->data;
 		name = glade_get_widget_name (widget);
-		if(!strstr (name, "terminal"))
+		if(!strstr (name, "terminal") && !strstr (name, "encodings"))
 			if (strncmp (name, PREFERENCE_PROPERTY_PREFIX,
 				strlen (PREFERENCE_PROPERTY_PREFIX)) == 0)
 			{
@@ -804,9 +947,6 @@ add_all_default_pages (AnjutaPreferences *pr)
 															(gchar*) name, 0);
 				anjuta_preferences_add_page (pr, gxml, MainFrame,
 							get_preferences_icon_name ((gchar*) MainFrame));
-#ifdef DEBUG
-				g_message ("Added preferences page : %s", MainFrame);
-#endif	
 			}
 		node = g_list_next (node);
 	}
@@ -861,57 +1001,58 @@ anjuta_preferences_dispose (GObject *obj)
 static void
 anjuta_preferences_instance_init (AnjutaPreferences *pr)
 {
-	GtkWidget *button;
 	gchar *propdir, *propfile, *str;
 	
 	pr->priv = g_new0(AnjutaPreferencesPriv, 1);
 	pr->priv->properties = NULL;
 	
-	pr->props_build_in = prop_set_new ();
+	g_message ("Initializing AP Instance");
+	
+	pr->props_built_in = prop_set_new ();
 	pr->props_global = prop_set_new ();
 	pr->props_local = prop_set_new ();
 	pr->props_session = prop_set_new ();
 	pr->props = prop_set_new ();
 
-	prop_clear (pr->props_build_in);
+	prop_clear (pr->props_built_in);
 	prop_clear (pr->props_global);
 	prop_clear (pr->props_local);
 	prop_clear (pr->props_session);
 	prop_clear (pr->props);
 
-	prop_set_parent (pr->props_global, pr->props_build_in);
+	prop_set_parent (pr->props_global, pr->props_built_in);
 	prop_set_parent (pr->props_local, pr->props_global);
 	prop_set_parent (pr->props_session, pr->props_local);
 	prop_set_parent (pr->props, pr->props_session);
 
 	/* Reading the build in default properties */
-	prop_read_from_memory (pr->props_build_in,
+	prop_read_from_memory (pr->props_built_in,
 						   default_settings, strlen(default_settings), "");
 
 	/* Dynamic properties: Default paths */
 	str = g_strconcat (g_getenv("HOME"), "/Projects", NULL);
-	prop_set_with_key (pr->props_build_in, "projects.directory", str);
+	prop_set_with_key (pr->props_built_in, "projects.directory", str);
 	g_free (str);
 	
 	str = g_strconcat (g_getenv("HOME"), "/Tarballs", NULL);
-	prop_set_with_key (pr->props_build_in, "tarballs.directory", str);
+	prop_set_with_key (pr->props_built_in, "tarballs.directory", str);
 	g_free (str);
 
 	str = g_strconcat (g_getenv("HOME"), "/Rpms", NULL);
-	prop_set_with_key (pr->props_build_in, "rpms.directory", str);
+	prop_set_with_key (pr->props_built_in, "rpms.directory", str);
 	g_free (str);
 	
 	str = g_strconcat (g_getenv("HOME"), "/Tarballs", NULL);
-	prop_set_with_key (pr->props_build_in, "srpms.directory", str);
+	prop_set_with_key (pr->props_built_in, "srpms.directory", str);
 	g_free (str);
 	
 	str = g_strdup (g_getenv("HOME"));
-	prop_set_with_key (pr->props_build_in, "anjuta.home.directory", str);
+	prop_set_with_key (pr->props_built_in, "anjuta.home.directory", str);
 	g_free (str);
 	
-	prop_set_with_key (pr->props_build_in, "anjuta.data.directory",
+	prop_set_with_key (pr->props_built_in, "anjuta.data.directory",
 					   PACKAGE_DATA_DIR);
-	prop_set_with_key (pr->props_build_in, "anjuta.pixmap.directory",
+	prop_set_with_key (pr->props_built_in, "anjuta.pixmap.directory",
 					   PACKAGE_PIXMAPS_DIR);
 
 	/* Load the external configuration files */
@@ -999,7 +1140,7 @@ anjuta_preferences_hide (GtkWidget *w)
 	GNOME_CALL_PARENT (GTK_WIDGET_CLASS, hide, (w));
 }
 
-void
+static void
 anjuta_preferences_show (GtkWidget * w)
 {
 	AnjutaPreferences *pr = ANJUTA_PREFERENCES (w);

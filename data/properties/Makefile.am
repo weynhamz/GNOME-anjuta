@@ -13,6 +13,7 @@ properties_data_DATA = \
 	conf.properties \
 	cpp.properties \
 	cs.properties \
+	css.properties \
 	eiffel.properties \
 	fortran.properties \
 	html.properties \

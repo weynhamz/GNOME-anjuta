@@ -42,48 +42,30 @@ on_wizard_app_icon_select (GnomeIconList * gil, gint num,
     aw->prj_type = PROJECT_TYPE_GENERIC;
     break;
   case 1:
-    aw->prj_type = PROJECT_TYPE_GTK;
+    aw->prj_type = PROJECT_TYPE_GTK2;
     break;
   case 2:
-    aw->prj_type = PROJECT_TYPE_GNOME;
+    aw->prj_type = PROJECT_TYPE_GNOME2;
     break;
   case 3:
-    aw->prj_type = PROJECT_TYPE_GTKMM;
+    aw->prj_type = PROJECT_TYPE_LIBGLADE2;
     break;
   case 4:
-    aw->prj_type = PROJECT_TYPE_GNOMEMM;
+    aw->prj_type = PROJECT_TYPE_GTKMM2;
     break;
   case 5:
-    aw->prj_type = PROJECT_TYPE_BONOBO;
+    aw->prj_type = PROJECT_TYPE_GNOMEMM2;
     break;
   case 6:
-    aw->prj_type = PROJECT_TYPE_LIBGLADE;
+    aw->prj_type = PROJECT_TYPE_BONOBO2;
     break;
   case 7:
     aw->prj_type = PROJECT_TYPE_WXWIN;
     break;
   case 8:
-    aw->prj_type = PROJECT_TYPE_GTK2;
-    break;
-  case 9:
-    aw->prj_type = PROJECT_TYPE_GNOME2;
-    break;
-  case 10:
-	aw->prj_type = PROJECT_TYPE_BONOBO2;
-	break;
-  case 11:
-    aw->prj_type = PROJECT_TYPE_LIBGLADE2;
-    break;
-  case 12:
-    aw->prj_type = PROJECT_TYPE_GTKMM2;
-    break;
-  case 13:
-    aw->prj_type = PROJECT_TYPE_GNOMEMM2;
-    break;
-  case 14:
     aw->prj_type = PROJECT_TYPE_XWIN;
     break;
-  case 15:
+  case 9:
     aw->prj_type = PROJECT_TYPE_XWINDOCKAPP;
     break;
  
@@ -91,6 +73,14 @@ on_wizard_app_icon_select (GnomeIconList * gil, gint num,
     aw->prj_type = PROJECT_TYPE_END_MARK;
     break;
   }
+  if (aw->prj_type == PROJECT_TYPE_GTK2 ||
+	  aw->prj_type == PROJECT_TYPE_GNOME2 ||
+	  aw->prj_type == PROJECT_TYPE_GTKMM2 ||
+	  aw->prj_type == PROJECT_TYPE_GNOMEMM2 ||
+	  aw->prj_type == PROJECT_TYPE_BONOBO2)
+	  gtk_widget_set_sensitive (aw->widgets.use_glade_check, TRUE);
+  else
+	  gtk_widget_set_sensitive (aw->widgets.use_glade_check, FALSE);
 }
 
 void

@@ -102,6 +102,9 @@ extern "C" {
 #define   ANE_BLOCKCOMMENT              (ANE_COMMAND_BASE+66)
 #define   ANE_BOXCOMMENT                (ANE_COMMAND_BASE+67)
 #define   ANE_STREAMCOMMENT             (ANE_COMMAND_BASE+68)
+#define   ANE_WORDSELECT                (ANE_COMMAND_BASE+69)
+#define   ANE_LINESELECT                (ANE_COMMAND_BASE+70)
+#define   ANE_CUSTOMINDENT              (ANE_COMMAND_BASE+71)
 
 typedef guint AnEditorID;
 typedef struct _FindParameters FindParameters;

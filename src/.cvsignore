@@ -9,3 +9,6 @@ Makefile.in
 .sources
 .nautilus-metafile.xml
 anjuta
+anjuta-marshalers.h
+anjuta-marshalers.c
+stamp-anjuta-marshalers.h

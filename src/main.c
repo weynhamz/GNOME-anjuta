@@ -156,12 +156,10 @@ main (int argc, char *argv[])
 	
 #ifdef ENABLE_NLS
 	bindtextdomain (PACKAGE, PACKAGE_LOCALE_DIR);
+	bind_textdomain_codeset(PACKAGE, "UTF-8");
 	textdomain (PACKAGE);
 #endif
 	
-	/* Connect the necessary kernal signals */
-	anjuta_connect_kernel_signals();
-
 	data_dir = g_strdup (PACKAGE_DATA_DIR);
 	data_dir[strlen (data_dir) - strlen (PACKAGE) - 1] = '\0';
 	
@@ -193,7 +191,9 @@ main (int argc, char *argv[])
 		char *im_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_SPLASH_SCREEN);
 		if (im_file) {
 			if (NULL != (splash = e_splash_new(im_file))) {
+				gtk_window_set_auto_startup_notification(FALSE);
 				gtk_widget_show (splash);
+				gtk_window_set_auto_startup_notification(TRUE);
 			        g_object_ref (G_OBJECT (splash));
 				while (gtk_events_pending ())
 					gtk_main_iteration ();
@@ -202,6 +202,8 @@ main (int argc, char *argv[])
 	}
 	
 	anjuta_new ();
+	while (gtk_events_pending ())
+		gtk_main_iteration ();
 	anjuta_show ();
 
 	if (splash) {
@@ -218,6 +220,9 @@ main (int argc, char *argv[])
 		gtk_idle_add(load_command_lines_on_idle, (gpointer)argc);
 	}
 	
+	/* Connect the necessary kernal signals */
+	anjuta_kernel_signals_connect ();
+
 	gtk_main();
 	
 	anjuta_application_exit();

@@ -54,6 +54,13 @@ on_need_term_checkbutton_toggled (GtkToggleButton * tb, gpointer user_data)
 	aw->need_terminal = gtk_toggle_button_get_active (tb);
 }
 
+static void
+on_use_glade_checkbutton_toggled (GtkToggleButton * tb, gpointer user_data)
+{
+	AppWizard *aw = user_data;
+	aw->use_glade = gtk_toggle_button_get_active (tb);
+}
+
 void
 create_app_wizard_page4 (AppWizard * aw)
 {
@@ -77,9 +84,12 @@ create_app_wizard_page4 (AppWizard * aw)
 	
 	gtk_signal_connect (GTK_OBJECT (aw->widgets.term_check), "toggled",
 			    GTK_SIGNAL_FUNC(on_need_term_checkbutton_toggled), aw);
+	gtk_signal_connect (GTK_OBJECT (aw->widgets.use_glade_check), "toggled",
+			    GTK_SIGNAL_FUNC(on_use_glade_checkbutton_toggled), aw);
 
 	gtk_widget_ref (aw->widgets.gettext_support_check);
 	gtk_widget_ref (aw->widgets.file_header_check);
+	gtk_widget_ref (aw->widgets.use_glade_check);
 	gtk_widget_ref (aw->widgets.menu_frame);
 	gtk_widget_ref (aw->widgets.menu_entry_entry);
 	gtk_widget_ref (aw->widgets.menu_comment_entry);

@@ -376,9 +376,8 @@ gchar *s = N_("Compact folding");
 gchar *s = N_("Draw line below folded lines");
 gchar *s = N_("Collapse all code folds on file open");
 gchar *s = N_("Fold style:");
-gchar *s = N_("*");
-gchar *s = N_("Arrows");
 gchar *s = N_("Plus/Minus");
+gchar *s = N_("Arrows");
 gchar *s = N_("Circular");
 gchar *s = N_("Squares");
 gchar *s = N_("Code folding");
@@ -397,7 +396,6 @@ gchar *s = N_("Sorted by most recent use");
 gchar *s = N_("Sorted in alphabetical order");
 gchar *s = N_("Do not show tabs");
 gchar *s = N_("Position:");
-gchar *s = N_("*");
 gchar *s = N_("Top");
 gchar *s = N_("Bottom");
 gchar *s = N_("Left");
@@ -413,12 +411,11 @@ gchar *s = N_("Indent closing braces");
 gchar *s = N_("Pressing tab indents");
 gchar *s = N_("Pressing backspace un-indents");
 gchar *s = N_("Disable auto-format");
-gchar *s = N_("*");
-gchar *s = N_("Custom style");
-gchar *s = N_("GNU coding style");
-gchar *s = N_("Kernighan & Ritchie style");
-gchar *s = N_("Original Berkeley style");
 gchar *s = N_("Style of Kangleipak");
+gchar *s = N_("Costom style");
+gchar *s = N_("GNU coding style");
+gchar *s = N_("Kernighan and Ritchie style");
+gchar *s = N_("Original Berkeley style");
 gchar *s = N_("Hello World style");
 gchar *s = N_("Crazy boy style");
 gchar *s = N_("Format style");
@@ -441,7 +438,6 @@ gchar *s = N_("Truncate long messages");
 gchar *s = N_("Number of first characters to show:");
 gchar *s = N_("Number of last characters to show:");
 gchar *s = N_("Tabs position:");
-gchar *s = N_("*");
 gchar *s = N_("Top");
 gchar *s = N_("Bottom");
 gchar *s = N_("Left");
@@ -451,24 +447,21 @@ gchar *s = N_("Enable automatic messages indicators");
 gchar *s = N_("Normal message indicator style:");
 gchar *s = N_("Warning message indicator style:");
 gchar *s = N_("Error message indicator style:");
-gchar *s = N_("*");
-gchar *s = N_("Underline-Plain");
-gchar *s = N_("Underline-Squiggle");
+gchar *s = N_("Underline Plain");
+gchar *s = N_("Underline Squiggle");
 gchar *s = N_("Underline-TT");
 gchar *s = N_("Diagonal");
 gchar *s = N_("Strike-Out");
-gchar *s = N_("*");
-gchar *s = N_("Underline-Plain");
-gchar *s = N_("Underline-Squiggle");
+gchar *s = N_("Underline Squiggle");
+gchar *s = N_("Underline Plain");
 gchar *s = N_("Underline-TT");
 gchar *s = N_("Diagonal");
 gchar *s = N_("Strike-Out");
-gchar *s = N_("*");
-gchar *s = N_("Underline-Plain");
-gchar *s = N_("Underline-Squiggle");
+gchar *s = N_("Strike-Out");
+gchar *s = N_("Underline Plain");
+gchar *s = N_("Underline Squiggle");
 gchar *s = N_("Underline-TT");
 gchar *s = N_("Diagonal");
-gchar *s = N_("Strike-Out");
 gchar *s = N_("Indicators");
 gchar *s = N_("Errors messages:");
 gchar *s = N_("Warnings messages:");
@@ -481,21 +474,20 @@ gchar *s = N_("Pick a color");
 gchar *s = N_("Message colors");
 gchar *s = N_("window7");
 gchar *s = N_("CVS compression level:");
-gchar *s = N_("CVS forced update [-dP -A]");
+gchar *s = N_("CVS update and prune directories [-dP]");
+gchar *s = N_("Reset all sticky tags during update (looses branch) [-A]");
 gchar *s = N_("CVS context diff format");
 gchar *s = N_("CVS unified diff format");
 gchar *s = N_("CVS command options");
 gchar *s = N_("window8");
 gchar *s = N_("Use GNOME terminal profile:");
-gchar *s = N_("*");
-gchar *s = N_("Default");
 gchar *s = N_("Use currently selected profile in GNOME terminal");
+gchar *s = N_("*");
 gchar *s = N_("Terminal options");
-gchar *s = N_("Anjuta windows");
 gchar *s = N_("Anjuta start with dialog");
-gchar *s = N_("Start with a new Project. Application wizard will guide you with Project creation. With the Application Wizard, you will be able to create the skelleton of various types of Project.");
+gchar *s = N_("Start with a new Project. Application wizard will guide you with Project creation. With the Application Wizard, you will be able to create the skeleton of various Project types.");
 gchar *s = N_("Application Wizard");
-gchar *s = N_("Import existing project. The Import Wizard will guide you to import an existing Project into Anjuta and convert it into Anjuta Project. There will be no data lose or modification done to the project.");
+gchar *s = N_("Import existing project. The Import Wizard will guide you to import an existing Project into Anjuta and convert it into Anjuta Project. There will be no data loss or modification done to the project.");
 gchar *s = N_("Import Wizard");
 gchar *s = N_("Open existing Project.");
 gchar *s = N_("Open last working Project");
@@ -504,27 +496,13 @@ gchar *s = N_("Open existing file or create a new file.");
 gchar *s = N_("New file");
 gchar *s = N_("Open file");
 gchar *s = N_("Do not show start with dialog again.");
-gchar *s = N_("Anjuta setup wizard");
-gchar *s = N_("Anjuta Setup Wizard");
-gchar *s = N_("Anjuta setup wizard will guide with the initial setup of Anjuta. These setup could be changed later from Anjuta settings menu (Main menu->Settings). ");
-gchar *s = N_("Windows style");
-gchar *s = N_("Undocked style presents Anjuta\n"
-              "in with all sub-windows undocked\n"
-              "from the main window.");
-gchar *s = N_("Docked style presents Anjuta \n"
-              "in the classic IDE form with all\n"
-              "sub-windows docked on the\n"
-              "main window.");
-gchar *s = N_("Docked style");
-gchar *s = N_("Undocked style");
-gchar *s = N_("Summary");
-gchar *s = N_("\n"
-              "Anjuta Dev Studio\n"
-              "Copyright (C) Naba Kumar\n"
-              "\n"
-              "This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version. \n"
-              "\n"
-              "This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. \n"
-              "\n"
-              "You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA \n"
-              "");
+gchar *s = N_("Memory");
+gchar *s = N_("Inspect");
+gchar *s = N_("*");
+gchar *s = N_("Enter a Hexa adress or select one in the data");
+gchar *s = N_("window1");
+gchar *s = N_("Always save in UTF-8 encoding (faster)");
+gchar *s = N_("Try to save in original encoding");
+gchar *s = N_("Try to save in current locale's encoding");
+gchar *s = N_("Encoding to use when saving files");
+gchar *s = N_("Supported Encodings");

@@ -36,15 +36,15 @@
 #include "launcher.h"
 #include "configurer.h"
 #include "resources.h"
+#include "build_file.h"
 
-static GtkWidget* create_configurer_dialog(Configurer* c);
+static GtkWidget* create_configurer_dialog (Configurer* c);
 static void on_configurer_response (GtkDialog *dialog, gint res, gpointer data);
 static void on_configurer_entry_changed (GtkEditable *editable, gpointer data);
+/*
 static void on_configurer_environment_changed (GtkEditable * editable,
 											   gpointer user_data);
-
-static void conf_mesg_arrived(gchar *mesg);
-static void conf_terminated(int status, time_t t);
+*/
 
 Configurer *
 configurer_new (PropsID props)
@@ -72,7 +72,6 @@ create_configurer_dialog (Configurer * c)
 {
 	GtkWidget *dialog;
 	GtkWidget *entry;
-	GtkWidget *ok_button;
 	gchar *options;
 	
 	GladeXML *gxml;
@@ -92,6 +91,8 @@ create_configurer_dialog (Configurer * c)
 	g_signal_connect (G_OBJECT (entry), "changed",
 			    G_CALLBACK (on_configurer_entry_changed), c);
 	
+	/* Not implemented yet
+	
 	entry = glade_xml_get_widget (gxml, "configurer_environment_entry");
 	options = prop_get (c->props, "project.configure.environment");
 	if (options)
@@ -100,7 +101,8 @@ create_configurer_dialog (Configurer * c)
 		g_free (options);
 	}
 	g_signal_connect (G_OBJECT (entry), "changed",
-			    G_CALLBACK (on_configurer_environment_changed), c);
+			    G_CALLBACK (on_configurer_environment_changed), c); */
+
 	g_object_unref (G_OBJECT (gxml));
 	
 	/* gtk_accel_group_attach (app->accel_group, GTK_OBJECT (dialog)); */
@@ -120,6 +122,8 @@ on_configurer_entry_changed (GtkEditable * editable, gpointer user_data)
 		prop_set_with_key (c->props, "project.configure.options", "");
 }
 
+/* FIXME: ... */
+#if 0
 static void
 on_configurer_environment_changed (GtkEditable * editable, gpointer user_data)
 {
@@ -132,6 +136,7 @@ on_configurer_environment_changed (GtkEditable * editable, gpointer user_data)
 	else
 		prop_set_with_key (c->props, "project.configure.environment", "");
 }
+#endif
 
 static void
 on_configurer_response (GtkDialog* dialog, gint res, gpointer user_data)
@@ -173,8 +178,7 @@ on_configurer_response (GtkDialog* dialog, gint res, gpointer user_data)
 	#ifdef DEBUG
 		g_message("Executing '%s'\n", tmp);
 	#endif
-		if (launcher_execute (tmp, conf_mesg_arrived,
-			conf_mesg_arrived, conf_terminated) == FALSE)
+		if (build_execute_command (tmp) == FALSE)
 		{
 			anjuta_error ("Project configuration failed.");
 			g_free (tmp);
@@ -186,42 +190,5 @@ on_configurer_response (GtkDialog* dialog, gint res, gpointer user_data)
 		an_message_manager_append (app->messages, _("Configuring the Project ....\n"), MESSAGE_BUILD);
 		an_message_manager_show (app->messages, MESSAGE_BUILD);
 	}
-	g_object_unref (G_OBJECT (dialog));
-}
-
-static void
-conf_mesg_arrived (gchar * mesg)
-{
-	an_message_manager_append (app->messages, mesg, MESSAGE_BUILD);
-}
-
-static void
-conf_terminated (int status, time_t time)
-{
-	gchar *buff1;
-
-	if (status)
-	{
-		an_message_manager_append (app->messages,
-				 _
-				 ("Configure completed...............Unsuccessful\n"),
-				 MESSAGE_BUILD);
-		anjuta_warning (_("Configure completed ... unsuccessful"));
-	}
-	else
-	{
-		an_message_manager_append (app->messages,
-				 _
-				 ("Configure completed...............Successful\n"),
-				 MESSAGE_BUILD);
-		anjuta_status (_("Configure completed ... successful"));
-	}
-	buff1 =
-		g_strdup_printf (_("Total time taken: %d secs\n"),
-				 (gint) time);
-	an_message_manager_append (app->messages, buff1, MESSAGE_BUILD);
-	if (anjuta_preferences_get_int (app->preferences, BEEP_ON_BUILD_COMPLETE))
-		gdk_beep ();
-	g_free (buff1);
-	anjuta_update_app_status (TRUE, NULL);
+	gtk_widget_destroy (GTK_WIDGET (dialog));
 }

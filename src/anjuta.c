@@ -45,6 +45,7 @@
 #include "anjuta-tools.h"
 #include "pixmaps.h"
 #include "start-with.h"
+#include "anjuta-encodings.h"
 #include "anjuta.h"
 
 #define GTK
@@ -64,7 +65,7 @@ static void anjuta_apply_preferences (AnjutaPreferences *pr, AnjutaApp *app);
 
 /*-------------------------------------------------------------------*/
 
-
+#if 0
 static void
 anjuta_fatal_signal_handler (int t)
 {
@@ -79,10 +80,12 @@ anjuta_exit_signal_handler (int t)
 	anjuta_clean_exit ();
 	exit(1);
 }
+#endif
 
 void
-anjuta_connect_kernel_signals ()
+anjuta_kernel_signals_connect ()
 {
+/*
 	signal(SIGSEGV, anjuta_fatal_signal_handler);
 	signal(SIGILL, anjuta_fatal_signal_handler);
 	signal(SIGABRT, anjuta_fatal_signal_handler);
@@ -91,14 +94,36 @@ anjuta_connect_kernel_signals ()
 	signal(SIGINT, anjuta_exit_signal_handler);
 	signal(SIGHUP, anjuta_exit_signal_handler);
 	signal(SIGQUIT, anjuta_exit_signal_handler);
+*/
+	signal(SIGCHLD, anjuta_child_terminated);
+}
 
-	signal (SIGCHLD, anjuta_child_terminated);
+void
+anjuta_kernel_signals_disconnect ()
+{
+/*
+	signal(SIGSEGV, SIG_DFL);
+	signal(SIGILL, SIG_DFL);
+	signal(SIGABRT, SIG_DFL);
+	signal(SIGSEGV, SIG_DFL);
+
+	signal(SIGINT, SIG_DFL);
+	signal(SIGHUP, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
+*/
+	signal(SIGCHLD, SIG_DFL);
+}
+
+static void
+update_ui_from_launcher (AnjutaLauncher *launcher, gboolean busy_flag)
+{
+	main_toolbar_update ();
+	extended_toolbar_update ();
 }
 
 void
 anjuta_new ()
 {
-	char wd[PATH_MAX];
 	app = (AnjutaApp *) g_malloc0(sizeof (AnjutaApp));
 	if (app)
 	{
@@ -120,7 +145,6 @@ anjuta_new ()
 		};
 		app->size = sizeof(AnjutaApp);
 		app->addIns_list	= NULL ;
-		app->bUseComponentUI	= FALSE ;
 		app->shutdown_in_progress = FALSE;
 		app->registered_windows = NULL;
 		app->registered_child_processes = NULL;
@@ -143,7 +167,7 @@ anjuta_new ()
 		app->hpaned_width = app->win_width / 4;
 		
 		app->in_progress = FALSE;
-		app->has_devhelp = anjuta_is_installed("devhelp", FALSE);
+		app->has_devhelp = anjuta_is_installed ("devhelp", FALSE);
 		app->auto_gtk_update = TRUE;
 		app->busy_count = 0;
 		app->execution_dir = NULL;
@@ -157,91 +181,83 @@ anjuta_new ()
 		app->fileselection = create_fileselection_gui (&fsd1);
 		
 		/* Set to the current dir */
-		getcwd (wd, PATH_MAX);
-		fileselection_set_dir (app->fileselection, wd);
+		/* Spends too much time */
+		/* getcwd(wd, PATH_MAX);
+		fileselection_set_dir (app->fileselection, wd); */
 		
 		app->b_reload_last_project	= TRUE ;
 		
+		/* Preferencesnces */
 		app->preferences = ANJUTA_PREFERENCES (anjuta_preferences_new ());
-		app->windows_dialog =
-			ANJUTA_WINDOWS_DIALOG (anjuta_windows_dialog_new
-								   (app->preferences->props));
-		/* Register main window */
-		anjuta_windows_register_window (app->windows_dialog,
-										GTK_WINDOW (app->widgets.window),
-										"Anjuta Main Window",
-										ANJUTA_PIXMAP_ICON,
-										NULL);
-		/* Register main window */
-		anjuta_windows_register_window (app->windows_dialog,
-										GTK_WINDOW (app->preferences),
-										"Preferences Dialog",
-										ANJUTA_PIXMAP_ICON,
-										GTK_WINDOW (app->widgets.window));
-		
 		gtk_window_set_transient_for (GTK_WINDOW (app->preferences),
 									  GTK_WINDOW (app->widgets.window));
 		gtk_window_add_accel_group (GTK_WINDOW (app->preferences),
 									app->accel_group);
 		g_signal_connect (G_OBJECT (app->preferences), "changed",
 						  G_CALLBACK (anjuta_apply_preferences), app);
+		
+		/* Editor encodings */
+		anjuta_encodings_init (app->preferences);
+		
 		app->save_as_fileselection = create_fileselection_gui (&fsd2);
 		gtk_window_set_modal ((GtkWindow *) app->save_as_fileselection, TRUE);
 		app->save_as_build_msg_sel = create_fileselection_gui (&fsd3);
 		app->find_replace = find_replace_new ();
 		app->find_in_files = find_in_files_new ();
-		app->compiler_options =
-			compiler_options_new (ANJUTA_PREFERENCES (app->preferences)->props);
+		app->compiler_options =	compiler_options_new (app->preferences->props);
 		app->src_paths = src_paths_new ();
 		app->messages = AN_MESSAGE_MANAGER (an_message_manager_new ());
 		create_default_types (app->messages);
-		app->project_dbase =
-			project_dbase_new (app->preferences->props);
+		app->project_dbase = project_dbase_new (app->preferences->props);
 		app->configurer = configurer_new (app->project_dbase->props);
 		app->executer = executer_new (app->project_dbase->props);
 		app->command_editor =
 			command_editor_new (app->preferences->props_global,
-					app->preferences->props_local,
-					app->project_dbase->props);
+								app->preferences->props_local,
+								app->project_dbase->props);
 		app->tm_workspace = tm_get_workspace();
 		if (TRUE != tm_workspace_load_global_tags(PACKAGE_DATA_DIR "/system.tags"))
 			g_warning("Unable to load global tag file");
 		app->help_system = anjuta_help_new();
 		app->cvs = cvs_new(app->preferences->props);
-		app->style_editor =
-			style_editor_new (app->preferences->props_global,
-							  app->preferences->props_local,
-							  app->preferences->props_session,
-							  app->preferences->props);
+		app->style_editor =	style_editor_new (app->preferences->props_global,
+											  app->preferences->props_local,
+											  app->preferences->props_session,
+											  app->preferences->props);
+		
+		/* Set up docking */
 		app->widgets.the_client = app->widgets.vpaned;
 		app->widgets.hpaned_client = app->widgets.hpaned;
 		gtk_container_add (GTK_CONTAINER (app->widgets.hpaned),
-				   app->widgets.notebook);
-		gtk_notebook_popup_enable (GTK_NOTEBOOK
-					   (app->widgets.notebook));
+						   app->widgets.notebook);
+		gtk_notebook_popup_enable (GTK_NOTEBOOK (app->widgets.notebook));
 		gtk_box_pack_start (GTK_BOX (app->widgets.mesg_win_container),
-				    GTK_WIDGET(app->messages), TRUE, TRUE, 0);
-		gtk_box_pack_start (GTK_BOX
-				    (app->widgets.
-				     project_dbase_win_container),
-				    app->project_dbase->widgets.client, TRUE,
-				    TRUE, 0);
+						    GTK_WIDGET(app->messages), TRUE, TRUE, 0);
+		gtk_box_pack_start (GTK_BOX(app->widgets.project_dbase_win_container),
+						    app->project_dbase->widgets.client, TRUE, TRUE, 0);
 		project_dbase_hide (app->project_dbase);
 		gtk_widget_hide(GTK_WIDGET(app->messages));
 		gtk_paned_set_position (GTK_PANED (app->widgets.vpaned),
-					app->vpaned_height);
+								app->vpaned_height);
 		gtk_paned_set_position (GTK_PANED (app->widgets.hpaned),
-					app->hpaned_width);
+								app->hpaned_width);
+		
 		anjuta_update_title ();
-		launcher_init ();
+		
+		while (gtk_events_pending ())
+			gtk_main_iteration ();
+		
+		app->launcher = ANJUTA_LAUNCHER (anjuta_launcher_new ());
+		g_signal_connect (G_OBJECT (app->launcher), "busy",
+						  G_CALLBACK (update_ui_from_launcher), NULL);
 		debugger_init ();
 		anjuta_plugins_load();
 		anjuta_tools_load();
 		anjuta_load_yourself (ANJUTA_PREFERENCES (app->preferences)->props);
 		gtk_widget_set_uposition (app->widgets.window, app->win_pos_x,
-					  app->win_pos_y);
+								  app->win_pos_y);
 		gtk_window_set_default_size (GTK_WINDOW (app->widgets.window),
-					     app->win_width, app->win_height);
+								     app->win_width, app->win_height);
 		main_toolbar_update ();
 		extended_toolbar_update ();
 		debug_toolbar_update ();
@@ -462,10 +478,10 @@ anjuta_get_notebook_text_editor (gint page_num)
 	page =
 		gtk_notebook_get_nth_page (GTK_NOTEBOOK
 					   (app->widgets.notebook), page_num);
-	te = g_object_get_data (G_OBJECT (page), "TextEditor");
-	/* TTimo - walk through the tabs easily */
 	if (!page)
 		return NULL;
+	te = g_object_get_data (G_OBJECT (page), "TextEditor");
+	/* TTimo - walk through the tabs easily */
 	return te;
 }
 
@@ -522,7 +538,7 @@ anjuta_goto_file_line_mark (gchar * fname, glong lineno, gboolean mark)
 		{
 			text_editor_check_disk_status(te, TRUE);
 			if (lineno >= 0)
-				text_editor_goto_line (te, lineno, mark);
+				text_editor_goto_line (te, lineno, mark, TRUE);
 			anjuta_show_text_editor (te);
 			anjuta_grab_text_focus ();
 			g_free (fn);
@@ -536,7 +552,7 @@ anjuta_goto_file_line_mark (gchar * fname, glong lineno, gboolean mark)
 	{
 		an_file_history_push(te->full_filename, lineno);
 		if (lineno >= 0)
-			text_editor_goto_line (te, lineno, mark);
+			text_editor_goto_line (te, lineno, mark, FALSE);
 	}
 	g_free (fn);
 	return te ;
@@ -566,6 +582,8 @@ const GList *anjuta_get_tag_list(TextEditor *te, guint tag_types)
 		for (i=0; i < te->tm_file->tags_array->len; ++i)
 		{
 			tag = TM_TAG(te->tm_file->tags_array->pdata[i]);
+			if (tag == NULL) 
+				return NULL;
 			if (tag->type & tag_types)
 			{
 				if ((NULL != tag->atts.entry.scope) && isalpha(tag->atts.entry.scope[0]))
@@ -631,7 +649,7 @@ gboolean anjuta_goto_local_tag(TextEditor *te, const char *qual_name)
 			*epos = ']';
 			if (0 < line)
 			{
-				text_editor_goto_line(te, line, TRUE);
+				text_editor_goto_line(te, line, TRUE, TRUE);
 				return TRUE;
 			}
 		}
@@ -1026,9 +1044,9 @@ gboolean anjuta_load_yourself (PropsID pr)
 #ifdef	USE_STD_PREFERENCES
 	app->recent_projects = glist_from_data (pr, "anjuta.recent.projects");
 #else
-	app->recent_projects = anjuta_session_load_strings( SECSTR(SECTION_RECENTPROJECTS), NULL );
+	app->recent_projects = anjuta_session_load_strings (SECSTR(SECTION_RECENTPROJECTS), NULL );
 #endif
-	app->last_open_project = prop_get( pr, ANJUTA_LAST_OPEN_PROJECT );
+	app->last_open_project = prop_get (pr, ANJUTA_LAST_OPEN_PROJECT);
 
 	an_message_manager_load_yourself (app->messages, pr);
 	project_dbase_load_yourself (app->project_dbase, pr);
@@ -1045,13 +1063,18 @@ void
 anjuta_save_all_files()
 {
 	TextEditor *te;
-	int i;
-	for (i = 0; i < g_list_length (app->text_editor_list); i++)
+	GList *tmp;
+	for (tmp = app->text_editor_list; tmp; tmp = g_list_next(tmp))
 	{
-		te = g_list_nth_data (app->text_editor_list, i);
+		te = (TextEditor *) tmp->data;
+		/* Save the file if necessary but do not update highlighting. */ 
 		if (te->full_filename && !text_editor_is_saved (te))
-			text_editor_save_file (te);
+			text_editor_save_file (te, FALSE);
 	}
+	/* Update the highlighting after all the files are saved. */
+	for (tmp = app->text_editor_list; tmp; tmp = g_list_next(tmp))
+		text_editor_set_hilite_type((TextEditor *) tmp->data);
+
 	anjuta_status (_("All files saved ..."));
 }
 
@@ -1127,7 +1150,6 @@ anjuta_update_title ()
 void
 anjuta_update_page_label (TextEditor *te)
 {
-	GtkRcStyle *rc_style;
 	GdkColor tmpcolor;
 
 	if (te == NULL)
@@ -1147,15 +1169,11 @@ anjuta_update_page_label (TextEditor *te)
 	{
 		gdk_color_parse("red",&tmpcolor);
 	}
-	
-	rc_style = gtk_rc_style_new();
-			
-	rc_style->fg[GTK_STATE_NORMAL] = tmpcolor;
-	rc_style->color_flags[GTK_STATE_NORMAL] = GTK_RC_FG;
-
-	gtk_widget_modify_style(te->widgets.tab_label, rc_style);
-	
-	gtk_rc_style_unref(rc_style);
+	gtk_widget_modify_fg (te->widgets.tab_label, GTK_STATE_NORMAL, &tmpcolor);
+	gtk_widget_modify_fg (te->widgets.tab_label, GTK_STATE_INSENSITIVE, &tmpcolor);
+	gtk_widget_modify_fg (te->widgets.tab_label, GTK_STATE_ACTIVE, &tmpcolor);
+	gtk_widget_modify_fg (te->widgets.tab_label, GTK_STATE_PRELIGHT, &tmpcolor);
+	gtk_widget_modify_fg (te->widgets.tab_label, GTK_STATE_SELECTED, &tmpcolor);
 }
 
 void 
@@ -1195,14 +1213,12 @@ anjuta_apply_preferences (AnjutaPreferences *pr, AnjutaApp *app)
 	gint no_tag;
 	gint show_tooltips;
 
-	app->bUseComponentUI = anjuta_preferences_get_int (pr, USE_COMPONENTS);
 	app->b_reload_last_project =
-		anjuta_preferences_get_int (pr , RELOAD_LAST_PROJECT);
+		anjuta_preferences_get_int (pr, RELOAD_LAST_PROJECT);
 	
 	no_tag = anjuta_preferences_get_int (pr, EDITOR_TABS_HIDE);
 
-	gtk_notebook_set_show_tabs (GTK_NOTEBOOK (app->widgets.notebook),
-				    !no_tag);
+	gtk_notebook_set_show_tabs (GTK_NOTEBOOK (app->widgets.notebook), !no_tag);
 
 	if (!no_tag)
 	{
@@ -1242,7 +1258,6 @@ anjuta_apply_preferences (AnjutaPreferences *pr, AnjutaApp *app)
 	for (i = 0; i < g_list_length (app->text_editor_list); i++)
 	{
 		te = (TextEditor*) (g_list_nth (app->text_editor_list, i)->data);
-		// text_editor_update_preferences (te);
 		anjuta_refresh_breakpoints (te);
 	}
 	show_tooltips = anjuta_preferences_get_int (pr, SHOW_TOOLTIPS);
@@ -1272,29 +1287,21 @@ anjuta_application_exit(void)
 void
 anjuta_clean_exit ()
 {
-	gchar *tmp;
-	pid_t pid;
-
-	g_return_if_fail (app != NULL);
-
-	/* This will remove all tmp files */
-	tmp =
-		g_strdup_printf ("rm -f %s/anjuta_*.%ld",
-				 app->dirs->tmp, (long) getpid ());
-	pid = gnome_execute_shell (app->dirs->home, tmp);
-	g_free (tmp);
-	if (-1 == pid)
+	anjuta_kernel_signals_disconnect ();
+	if (app)
 	{
-		perror("Cleanup failed");
-		exit(1);
+		gchar cmd[512];
+		/* This will remove all tmp files */
+		snprintf (cmd, 511, "rm -f %s/anjuta_*.%ld",
+				  app->dirs->tmp, (long) getpid ());
+		system (cmd);
 	}
-	waitpid (pid, NULL, 0);
 
 /* Is it necessary to free up all the memos on exit? */
 /* Assuming that it is not, I am disabling the following */
 /* Basically, because it is faster */
-
 #if 0				/* From here */
+
 	if (app->project_dbase->project_is_open)
 		project_dbase_close_project (app->project_dbase);
 	debugger_stop ();
@@ -1404,6 +1411,7 @@ anjuta_information_parented (GtkWidget *parent, gchar * mesg, ...)
 	va_start (args, mesg);
 	message = g_strdup_vprintf (mesg, args);
 	va_end (args);
+	// Dialog to be HIG compliant
 	dialog = gtk_message_dialog_new (GTK_WINDOW (parent),
 									 GTK_DIALOG_DESTROY_WITH_PARENT,
 									 GTK_MESSAGE_INFO,
@@ -1483,6 +1491,7 @@ anjuta_information (gchar * mesg, ...)
 	va_start (args, mesg);
 	message = g_strdup_vprintf (mesg, args);
 	va_end (args);
+	// Dialog to be HIG compliant.
 	dialog = gtk_message_dialog_new (GTK_WINDOW (app->widgets.window), 
 									 GTK_DIALOG_DESTROY_WITH_PARENT,
 									 GTK_MESSAGE_INFO,
@@ -1492,6 +1501,31 @@ anjuta_information (gchar * mesg, ...)
 	gtk_widget_show (dialog);
 	g_free (message);
 }
+
+
+gboolean
+anjuta_boolean_question (gchar * mesg, ...)
+{
+	gchar* message;
+	va_list args;
+	GtkWidget *dialog;
+	gint ret;
+
+	va_start (args, mesg);
+	message = g_strdup_vprintf (mesg, args);
+	va_end (args);
+	dialog = gtk_message_dialog_new (GTK_WINDOW (app->widgets.window), 
+									 GTK_DIALOG_DESTROY_WITH_PARENT,
+									 GTK_MESSAGE_QUESTION,
+									 GTK_BUTTONS_YES_NO, message);
+
+	ret = gtk_dialog_run (GTK_DIALOG (dialog));
+	gtk_widget_destroy (dialog);
+	g_free (message);
+	
+	return (ret == GTK_RESPONSE_YES);
+}
+
 
 void
 anjuta_warning (gchar * mesg, ...)
@@ -1521,6 +1555,7 @@ anjuta_error (gchar * mesg, ... )
 	g_free (message);
 	g_free (str);
 }
+
 
 void
 anjuta_system_error (gint errnum, gchar * mesg, ... )
@@ -1586,8 +1621,6 @@ anjuta_get_full_filename (gchar * fn)
 	gchar *real_path;
 	const gchar *fname;
 	GList *list, *node;
-	gchar *text;
-	gint i;
 
 	g_return_val_if_fail(fn, NULL);
 	real_path = tm_get_real_path(fn);
@@ -1763,10 +1796,11 @@ void
 anjuta_not_implemented (char *file, guint line)
 {
 	GtkWidget *dialog;
+	// Dialog to be HIG compliant
 	dialog = gtk_message_dialog_new (GTK_WINDOW (app->widgets.window),
 									 GTK_DIALOG_DESTROY_WITH_PARENT,
-									 GTK_MESSAGE_QUESTION,
-									 GTK_BUTTONS_YES_NO,
+									 GTK_MESSAGE_INFO,
+									 GTK_BUTTONS_OK,
 									 ("Not yet implemented.\n"
 									 "Insert code at '%s:%u'"),
 									 file, line);
@@ -1875,17 +1909,21 @@ void
 anjuta_unregister_child_process (pid_t pid)
 {
 	gint idx;
+	GList *ptr;
+	
 	idx = g_list_index (app->registered_child_processes, (int *) pid);
 	app->registered_child_processes =
 		g_list_remove (app->registered_child_processes, (int *) pid);
+	
+	ptr = g_list_nth (app->registered_child_processes_cb, idx);
+	// g_assert (ptr != NULL);
 	app->registered_child_processes_cb =
-		g_list_remove (app->registered_child_processes_cb,
-					   g_list_nth_data (app->registered_child_processes_cb,
-										idx));
+		g_list_delete_link (app->registered_child_processes_cb, ptr);
+	
+	ptr = g_list_nth (app->registered_child_processes_cb_data, idx);
+	// g_assert (data != NULL);
 	app->registered_child_processes_cb_data =
-		g_list_remove (app->registered_child_processes_cb_data,
-					   g_list_nth_data (app->registered_child_processes_cb_data,
-										idx));
+		g_list_delete_link (app->registered_child_processes_cb_data, ptr);
 }
 
 void
@@ -1902,7 +1940,9 @@ anjuta_child_terminated (int t)
 	pid_t pid;
 	int (*callback) (int st, gpointer d);
 	gpointer cb_data;
-	pid = waitpid (0, &status, WNOHANG);
+	
+	pid = waitpid (-1, &status, WNOHANG);
+	
 	if (pid < 1)
 		return;
 	idx = g_list_index (app->registered_child_processes, (int *) pid);
@@ -1910,10 +1950,13 @@ anjuta_child_terminated (int t)
 		return;
 	callback =
 		g_list_nth_data (app->registered_child_processes_cb, idx);
-	cb_data = g_list_nth_data (app->registered_child_processes_cb, idx);
+	g_return_if_fail (callback != NULL);
+	
+	cb_data = g_list_nth_data (app->registered_child_processes_cb_data, idx);
 	if (callback)
 		(*callback) (status, cb_data);
 	anjuta_unregister_child_process (pid);
+	signal(SIGCHLD, anjuta_child_terminated);
 }
 
 void
@@ -2194,7 +2237,7 @@ anjuta_save_file_if_modified( const gchar *szFullPath )
 	{
 		if( !text_editor_is_saved (te) )
 		{
-			text_editor_save_file (te);
+			text_editor_save_file (te, TRUE);
 		}
 	}
 	return;
@@ -2214,7 +2257,7 @@ anjuta_reload_file( const gchar *szFullPath )
 		glong	nNowPos = te->current_line ;
 		/*text_editor_check_disk_status ( te, TRUE );asd sdf*/
 		text_editor_load_file (te);
-		text_editor_goto_line ( te,  nNowPos, FALSE );
+		text_editor_goto_line (te,  nNowPos, FALSE, FALSE);
 	}
 	return;
 }
@@ -2323,15 +2366,20 @@ void anjuta_search_sources_for_symbol(const gchar *s)
 	if ((NULL == s) || (isspace(*s) || ('\0' == *s)))
 		return;
 
-	snprintf(command, BUFSIZ, "grep -FInHr '%s' %s", s
-	  , project_dbase_get_dir(app->project_dbase));
-	if (launcher_execute (command, find_in_files_mesg_arrived
-	  , find_in_files_mesg_arrived, find_in_files_terminated) == FALSE)
+	snprintf(command, BUFSIZ, "grep -FInHr '%s' %s", s,
+			 project_dbase_get_dir(app->project_dbase));
+	
+	g_signal_connect (app->launcher, "child-exited",
+					  G_CALLBACK (find_in_files_terminated), NULL);
+	
+	if (anjuta_launcher_execute (app->launcher, command,
+								 find_in_files_mesg_arrived, NULL) == FALSE)
 		return;
+	
 	anjuta_update_app_status (TRUE, _("Looking up symbol"));
 	an_message_manager_clear (app->messages, MESSAGE_FIND);
 	an_message_manager_append (app->messages, _("Finding in Files ....\n"),
-	  MESSAGE_FIND);
+							   MESSAGE_FIND);
 	an_message_manager_show (app->messages, MESSAGE_FIND);
 }
 

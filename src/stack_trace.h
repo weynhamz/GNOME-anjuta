@@ -20,49 +20,20 @@
 #ifndef _STACK_TRACE_H_
 #define _STACK_TRACE_H_
 
-#include <gnome.h>
-#include "properties.h"
+#include <glib.h>
+#include <gtk/gtkwidget.h>
 
-typedef struct _StackTraceGui StackTraceGui;
 typedef struct _StackTrace StackTrace;
-
-struct _StackTraceGui
-{
-  GtkWidget *clist;
-  GtkWidget *menu;
-  GtkWidget *menu_set;
-  GtkWidget *menu_info;
-  GtkWidget *menu_update;
-  GtkWidget *menu_view;
-};
-
-struct _StackTrace
-{
-  StackTraceGui widgets;
-  gint current_frame;
-  gint current_index;
-  GtkTreeIter *current_frame_iter;
-  GtkTreeIter *current_index_iter;
-};
-
-enum {
-	STACK_TRACE_ACTIVE_COLUMN,
-	STACK_TRACE_COUNT_COLUMN,
-	STACK_TRACE_FRAME_COLUMN,
-	STACK_TRACE_N_COLUMNS
-};
-
 
 StackTrace *stack_trace_new (void);
 
-void create_stack_trace_gui (StackTrace * st);
+/* Getters */
+GtkWidget *stack_trace_get_treeview (StackTrace *st);
 
-void stack_trace_clear (StackTrace * st);
-
-void stack_trace_update (GList * lines, gpointer st);
-
-void stack_trace_update_controls (StackTrace * st);
-
-void stack_trace_destroy (StackTrace * st);
+void stack_trace_clear (StackTrace *st);
+void stack_trace_set_frame (StackTrace *st, gint frame);
+void stack_trace_update (GList *lines, gpointer st);
+void stack_trace_update_controls (StackTrace *st);
+void stack_trace_destroy (StackTrace *st);
 
 #endif

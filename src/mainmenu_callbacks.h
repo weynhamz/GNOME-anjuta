@@ -42,6 +42,8 @@ void on_exit1_activate (EggAction * action, gpointer user_data);
 /*****************************************************************************/
 void on_editor_command_activate (EggAction * action, gpointer user_data);
 void on_editor_select_function  (EggAction * action, gpointer user_data);
+void on_editor_select_word (EggAction *action, gpointer user_data);
+void on_editor_select_line (EggAction *action, gpointer user_data);
 void on_transform_eolchars1_activate (EggAction * action,
 									  gpointer user_data);
 void on_find1_activate (EggAction * action, gpointer user_data);
@@ -57,6 +59,7 @@ void on_prev_occur (EggAction * action, gpointer user_data);
 void on_comment_block (EggAction * action, gpointer user_data);
 void on_comment_box (EggAction * action, gpointer user_data);
 void on_comment_stream (EggAction * action, gpointer user_data);
+void on_insert_custom_indent (EggAction *action, gpointer user_data);
 
 void on_goto_block_start1_activate (EggAction * action, gpointer user_data);
 void on_goto_block_end1_activate (EggAction * action, gpointer user_data);
@@ -209,8 +212,8 @@ void on_start_with_dialog_activate (EggAction * action, gpointer user_data);
 void on_setup_wizard_activate (EggAction * action, gpointer user_data);
 
 /*****************************************************************************/
-void on_contents1_activate (EggAction * action, gpointer user_data);
-void on_index1_activate (EggAction * action, gpointer user_data);
+void on_help_activate (EggAction * action, gpointer user_data);
+/* void on_index1_activate (EggAction * action, gpointer user_data); */
 void on_gnome_pages1_activate (EggAction * action, gpointer user_data);
 void on_man_pages1_activate (EggAction * action, gpointer user_data);
 void on_info_pages1_activate (EggAction * action, gpointer user_data);

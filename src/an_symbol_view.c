@@ -599,18 +599,6 @@ sv_clear ()
 	gtk_tree_store_clear (GTK_TREE_STORE (model));
 }
 
-static void sv_hide(void)
-{
-	g_return_if_fail(sv && sv->tree);
-	gtk_widget_hide(sv->tree);
-}
-
-static void sv_show(void)
-{
-	g_return_if_fail(sv && sv->tree);
-	gtk_widget_show(sv->tree);
-}
-
 static void sv_assign_node_name(TMSymbol *sym, GString *s)
 {
 	g_assert (sym && sym->tag && s);
@@ -718,7 +706,8 @@ sv_populate (gboolean full)
 	if (!full)
 		goto clean_leave;
 
-	if (!app || !app->project_dbase || !app->project_dbase->tm_project ||
+	if (!app || !app->project_dbase || !app->project_dbase->project_is_open
+		|| !app->project_dbase->tm_project ||
 	    !app->project_dbase->tm_project->tags_array ||
 	    (0 == app->project_dbase->tm_project->tags_array->len))
 		goto clean_leave;

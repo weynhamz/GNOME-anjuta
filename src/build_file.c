@@ -34,9 +34,6 @@
 #include "compile.h"
 #include "build_file.h"
 
-static void build_file_terminated (int status, time_t time);
-static void build_file_mesg_arrived (gchar * mesg);
-
 void
 build_file ()
 {
@@ -53,7 +50,7 @@ build_file ()
 	}
 	if (text_editor_is_saved (te) == FALSE)
 	{
-		if (text_editor_save_file (te) == FALSE)
+		if (text_editor_save_file (te, TRUE) == FALSE)
 			return;
 	}
 	
@@ -97,9 +94,7 @@ build_file ()
 	anjuta_set_execution_dir(dirname);
 	g_free (dirname);
 
-	if (launcher_execute
-	    (cmd, build_file_mesg_arrived, build_file_mesg_arrived,
-	     build_file_terminated) == FALSE)
+	if (build_execute_command (cmd) == FALSE)
 	{
 		g_free (cmd);
 		return;
@@ -115,37 +110,43 @@ build_file ()
 	g_free (buff);
 }
 
+/* Launching the command */
 static void
-build_file_mesg_arrived (gchar * mesg)
+on_build_mesg_arrived (AnjutaLauncher *launcher,
+					   AnjutaLauncherOutputType output_type,
+					   const gchar * mesg, gpointer data)
 {
 	an_message_manager_append (app->messages, mesg, MESSAGE_BUILD);
 }
 
 static void
-build_file_terminated (int status, time_t time)
+on_build_terminated (AnjutaLauncher *launcher,
+					 gint child_pid, gint status, gulong time_taken,
+					 gpointer data)
 {
 	gchar *buff1;
 
-	buff1 =
-		g_strdup_printf (_("Total time taken: %d secs\n"),
-				 (int) time);
+	g_signal_handlers_disconnect_by_func (launcher,
+										  G_CALLBACK (on_build_terminated),
+										  data);
+	buff1 = g_strdup_printf (_("Total time taken: %lu secs\n"), time_taken);
 	if (status)
 	{
 		an_message_manager_append (app->messages,
-				 _("Build completed ... unsuccessful\n"),
-				 MESSAGE_BUILD);
+								   _("Completed ... unsuccessful\n"),
+								   MESSAGE_BUILD);
 		if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
 										DIALOG_ON_BUILD_COMPLETE))
-			anjuta_warning (_("Build completed ... unsuccessful"));
+			anjuta_warning (_("Completed ... unsuccessful"));
 	}
 	else
 	{
 		an_message_manager_append (app->messages,
-				 _("Build completed ... successful\n"),
-				 MESSAGE_BUILD);
+								   _("Completed ... successful\n"),
+								   MESSAGE_BUILD);
 		if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
 										DIALOG_ON_BUILD_COMPLETE))
-			anjuta_status (_("Build completed ... successful"));
+			anjuta_status (_("Completed ... successful"));
 	}
 	an_message_manager_append (app->messages, buff1, MESSAGE_BUILD);
 	if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
@@ -153,4 +154,13 @@ build_file_terminated (int status, time_t time)
 		gdk_beep ();
 	g_free (buff1);
 	anjuta_update_app_status (TRUE, NULL);
+}
+
+gboolean
+build_execute_command (const gchar *command)
+{
+	g_signal_connect (G_OBJECT (app->launcher), "child-exited",
+					  G_CALLBACK (on_build_terminated), NULL);
+	return anjuta_launcher_execute (app->launcher, command,
+									on_build_mesg_arrived, NULL);
 }

@@ -8,6 +8,8 @@ INCLUDES = -I$(srcdir)/include $(GTK_CFLAGS)
 
 AM_CXXFLAGS = -DGTK -DSCI_LEXER -DUSE_XIM
 
+include $(srcdir)/lexers.make
+
 libscintilla_a_SOURCES =\
 	AutoComplete.cxx \
 	CallTip.cxx \
@@ -21,29 +23,6 @@ libscintilla_a_SOURCES =\
 	Indicator.cxx \
 	KeyMap.cxx \
 	KeyWords.cxx \
-	LexAda.cxx \
-	LexAVE.cxx \
-	LexBaan.cxx \
-	LexBullant.cxx \
-	LexCPP.cxx \
-	LexConf.cxx \
-	LexHTML.cxx \
-	LexLua.cxx \
-	LexOthers.cxx \
-	LexPascal.cxx \
-	LexPerl.cxx \
-	LexPOV.cxx \
-	LexPython.cxx \
-	LexSQL.cxx \
-	LexVB.cxx \
-	LexAsm.cxx \
-	LexFortran.cxx \
-	LexCrontab.cxx\
-	LexEiffel.cxx\
-	LexLisp.cxx\
-	LexRuby.cxx\
-	LexMatlab.cxx\
-	LexCSS.cxx\
 	LineMarker.cxx \
 	PlatGTK.cxx \
 	PropSet.cxx \
@@ -73,5 +52,43 @@ libscintilla_a_SOURCES =\
 	ViewStyle.h\
 	StyleContext.h\
 	XPM.h\
-	XPM.cxx
+	XPM.cxx\
+	$(LEXER_SRCS)
 
+noinst_PROGRAMS = test-scintilla
+test_scintilla_CXXFLAGS = -DGTK
+test_scintilla_SOURCES = test-scintilla.cxx
+test_scintilla_LDADD = \
+	$(ANJUTA_LIBS) \
+	$(top_builddir)/scintilla/libscintilla.a
+
+update-scintilla:
+	cp $(srcdir)/scintilla/gtk/*.cxx $(srcdir)/
+	cp $(srcdir)/scintilla/src/*.cxx $(srcdir)/
+	cp $(srcdir)/scintilla/src/*.h $(srcdir)/
+	cp $(srcdir)/scintilla/include/*.h $(srcdir)/include/
+	cp $(srcdir)/scintilla/include/*.py $(srcdir)/include/
+	cp $(srcdir)/scintilla/include/*.iface $(srcdir)/include/
+	echo "## Lexers make file" > lexers.make
+	echo 'LEXER_OBJS = \' >> lexers.make;
+	echo -n '	$$(top_srcdir)/scintilla/StyleContext.o' >> lexers.make
+	for lex in Lex*.cxx; do \
+		lex=`echo $$lex | sed -e "s/cxx$$/o/"`; \
+		echo '\' >> lexers.make; \
+		echo -n '	$$(top_srcdir)/scintilla/' >> lexers.make; \
+		echo -n "$$lex" >> lexers.make; \
+	done
+	echo "" >> lexers.make
+	echo "" >> lexers.make
+	echo -n 'LEXER_SRCS = ' >> lexers.make
+	for lex in Lex*.cxx; do \
+		echo '\' >> lexers.make; \
+		echo -n "	$$lex" >> lexers.make; \
+	done
+	echo "" >> lexers.make
+	echo "Patching files ..."
+	for patchfile in patches/*.diff; do \
+		patch -p1 < $$patchfile; \
+	done
+
+EXTRA_DIST=lexers.make

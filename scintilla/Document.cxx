@@ -394,7 +394,7 @@ bool Document::InsertStyledString(int position, char *s, int insertLength) {
 			    DocModification(
 			        SC_MOD_BEFOREINSERT | SC_PERFORMED_USER,
 			        position / 2, insertLength / 2,
-			        0, 0));
+			        0, s));
 			int prevLinesTotal = LinesTotal();
 			bool startSavePoint = cb.IsSavePoint();
 			const char *text = cb.InsertString(position, s, insertLength);
@@ -761,7 +761,7 @@ int Document::ExtendWordSelect(int pos, int delta, bool onlyWordCharacters) {
 		while (pos < (Length()) && (WordCharClass(cb.CharAt(pos)) == ccStart))
 			pos++;
 	}
-	return pos;
+	return MovePositionOutsideChar(pos, delta);
 }
 
 /**
@@ -926,7 +926,7 @@ long Document::FindText(int minPos, int maxPos, const char *s,
 				if (line == lineRangeStart) {
 					if ((startPos != endOfLine) && (searchEnd == '$'))
 						continue;	// Can't match end of line if start position before end of line
-					endOfLine = startPos;
+					endOfLine = startPos+1;
 				}
 			}
 
@@ -938,10 +938,10 @@ long Document::FindText(int minPos, int maxPos, const char *s,
 				if (increment == -1) {
 					// Check for the last match on this line.
 					int repetitions = 1000;	// Break out of infinite loop
-					while (success && (pre->eopat[0] < endOfLine) && (repetitions--)) {
-						success = pre->Execute(di, pre->eopat[0], endOfLine);
+					while (success && (pre->eopat[0] <= (endOfLine+1)) && (repetitions--)) {
+						success = pre->Execute(di, pos+1, endOfLine+1);
 						if (success) {
-							if (pre->eopat[0] <= minPos) {
+							if (pre->eopat[0] <= (minPos+1)) {
 								pos = pre->bopat[0];
 								lenRet = pre->eopat[0] - pre->bopat[0];
 							} else {
@@ -1012,7 +1012,7 @@ long Document::FindText(int minPos, int maxPos, const char *s,
 				}
 			}
 			pos += increment;
-			if (dbcsCodePage) {
+			if (dbcsCodePage && (pos >= 0)) {
 				// Ensure trying to match from start of character
 				pos = MovePositionOutsideChar(pos, increment, false);
 			}
@@ -1335,14 +1335,18 @@ int Document::WordPartRight(int pos) {
 	return pos;
 }
 
-int Document::ExtendStyleRange(int pos, int delta) {
+bool IsLineEndChar(char c) {
+	return (c == '\n' || c == '\r');
+}
+
+int Document::ExtendStyleRange(int pos, int delta, bool singleLine) {
 	int sStart = cb.StyleAt(pos);
 	if (delta < 0) {
-		while (pos > 0 && (cb.StyleAt(pos) == sStart))
+		while (pos > 0 && (cb.StyleAt(pos) == sStart) && (!singleLine || !IsLineEndChar(cb.CharAt(pos))) )
 			pos--;
 		pos++;
 	} else {
-		while (pos < (Length()) && (cb.StyleAt(pos) == sStart))
+		while (pos < (Length()) && (cb.StyleAt(pos) == sStart) && (!singleLine || !IsLineEndChar(cb.CharAt(pos))) )
 			pos++;
 	}
 	return pos;

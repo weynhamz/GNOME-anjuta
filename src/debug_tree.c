@@ -102,6 +102,9 @@ enum {
 	N_COLUMNS
 };
 
+static gchar *tree_title[] = {
+	N_("Variable"), N_("Value")
+};
 
 /* build a menu item for the middle-click button @param menutext text to
  * display on the menu item @param signalhandler signal handler for item
@@ -133,14 +136,10 @@ build_menu_item (gchar * menutext, GtkSignalFunc signalhandler,
 static void
 add_menu_separator (GtkWidget * menu)
 {
-	GtkWidget *menuitem;
-
 	g_return_if_fail (menu);
-
-	menuitem = gtk_menu_item_new ();
-	gtk_container_add (GTK_CONTAINER (menuitem), gtk_hseparator_new ());
-
-	gtk_menu_append (GTK_MENU (menu), menuitem);
+                                                                                
+	gtk_menu_shell_append (GTK_MENU_SHELL (menu),
+			gtk_separator_menu_item_new ());
 }
 
 static void
@@ -175,7 +174,6 @@ debug_tree_on_middle_click (GtkWidget *widget,
 	GdkEventButton *buttonevent = NULL;
 	DebugTree *d_tree = NULL;
 	GtkTreeView *tree = NULL;
-	gint row;
 	GtkTreeIter iter;
 	GtkTreeIter parent;
 	TrimmableItem *node_data = NULL;
@@ -509,18 +507,19 @@ debug_ctree_cmd_gdb (GtkTreeView * ctree, GtkTreeIter * node, GList * list,
 	t = full_name;
 	full_name = g_strconcat (comm, full_name, NULL);
 	g_free (t);
-	g_print("gdb comm %s\n", full_name); 
-	debugger_put_cmd_in_queqe ("set print pretty on", 0, NULL, NULL);
-	debugger_put_cmd_in_queqe ("set verbose off", 0, NULL, NULL);
+	//g_print("gdb comm %s\n", full_name); 
+//	debugger_put_cmd_in_queqe ("set print pretty on", 0, NULL, NULL);
+//	debugger_put_cmd_in_queqe ("set verbose off", 0, NULL, NULL);
 	debugger_put_cmd_in_queqe (full_name, 0, (void *) parse_pointer_cbs, parse);
-	debugger_put_cmd_in_queqe ("set verbose on", 0, NULL, NULL);
-	debugger_put_cmd_in_queqe ("set print pretty off", 0, NULL, NULL);
+//	debugger_put_cmd_in_queqe ("set verbose on", 0, NULL, NULL);
+//	debugger_put_cmd_in_queqe ("set print pretty off", 0, NULL, NULL);
 	debugger_execute_cmd_in_queqe ();
 
 	g_free (full_name);
 	/* g_free (comm); */
 }
 
+#if 0
 static void
 on_debug_tree_row_expanded (GtkTreeView * ctree, GtkTreeIter* iter,
 							GtkTreePath* path, gpointer data)
@@ -545,6 +544,7 @@ on_debug_tree_row_expanded (GtkTreeView * ctree, GtkTreeIter* iter,
 		gtk_tree_iter_free(iter);
 	}
 }
+#endif
 
 static gboolean
 debug_tree_on_select_row (GtkWidget *widget, GdkEvent *event,
@@ -557,7 +557,7 @@ debug_tree_on_select_row (GtkWidget *widget, GdkEvent *event,
 	GtkTreeIter iter;
 	GdkEventButton *buttonevent = NULL;
 	
-	g_return_if_fail (GTK_IS_TREE_VIEW (widget));
+	g_return_val_if_fail (GTK_IS_TREE_VIEW (widget), FALSE);
 
 	if (event->type == GDK_BUTTON_PRESS) {
 		buttonevent = (GdkEventButton *) event;
@@ -584,7 +584,7 @@ debug_tree_on_select_row (GtkWidget *widget, GdkEvent *event,
 	if (!data)
 	{
 		g_warning("Unable to get data\n");
-		return;
+		return FALSE;
 	}
 
 	/* g_print ("SELECT : %p %d %s %s %d %d\n", node, data->dataType,
@@ -615,7 +615,7 @@ debug_tree_on_select_row (GtkWidget *widget, GdkEvent *event,
 		}
 	}
 	else
-		g_print("% is not expandable\n",data->name);
+		g_warning ("%s is not expandable\n", data->name);
 	
 	return TRUE;
 }
@@ -627,8 +627,6 @@ parse_data (GtkTreeView* ctree, GtkTreeIter* parent, gchar * buf)
 	gchar *var_name = NULL;
 	gchar *value = NULL;
 	DataType dataType;
-	gchar *t;
-	GtkTreeView *view;
 	GtkTreeModel *model;
 
 	g_return_if_fail (parent);
@@ -813,6 +811,7 @@ set_data (GtkTreeView * ctree, GtkTreeIter* iter, DataType dataType,
 	{
 		data = g_new (TrimmableItem, 1);
 		data->display_type = FORMAT_DEFAULT;
+		data->modified = FALSE;
 		gtk_tree_store_set(GTK_TREE_STORE(model), iter,
 						   DTREE_ENTRY_COLUMN, data, -1);		
 	}
@@ -840,7 +839,7 @@ set_item (GtkTreeView* ctree, GtkTreeIter* parent, const gchar * var_name,
 	if (!var_name || !*var_name)
 		return;
 	
-	g_print("Setting variable %s with value %s\n",var_name, value);
+	//g_print("Setting variable %s with value %s\n",var_name, value);
 
 	model = gtk_tree_view_get_model (ctree);
 	success = gtk_tree_model_iter_children(model,&iter,parent);
@@ -860,33 +859,28 @@ set_item (GtkTreeView* ctree, GtkTreeIter* parent, const gchar * var_name,
 	if (found)
 	{
 		// g_print("Variable %s found - updating\n",var_name);
-		/* Set red color if var modified */
-		// if (g_strcasecmp (value, data->value) == 0)
-		// style = style_normal;
-		// else
-		// {
-		//	style = style_red;
-			/* Destroy following items if long array */
-			/* x <repeats yy times> */
-			if (long_array)
+		/* Destroy following items if long array */
+		/* x <repeats yy times> */
+		if (long_array)
+		{
+			GtkTreeIter* iter2 = gtk_tree_iter_copy(&iter);
+			success = gtk_tree_model_iter_next(model, iter2);
+			while (success)
 			{
-				GtkTreeIter* iter2 = gtk_tree_iter_copy(&iter);
+				destroy_recursive (model, NULL,iter2, NULL);
 				success = gtk_tree_model_iter_next(model, iter2);
-				while (success)
-				{
-					destroy_recursive (model, NULL,iter2, NULL);
-					success = gtk_tree_model_iter_next(model, iter2);
-				}
 			}
-			if (dataType != TYPE_ARRAY && dataType != TYPE_STRUCT)
-			{
-				gchar *val = g_strdup (value);	/* copy value - orig to be
-												 * deleted by caller */
-				gtk_tree_store_set(GTK_TREE_STORE(model), &iter,
+		}
+		if (dataType != TYPE_ARRAY && dataType != TYPE_STRUCT)
+		{
+			gchar *val = g_strdup (value);	/* copy value - orig to be
+											 * deleted by caller */
+			/* Set red color if var modified */
+			data->modified =
+					(g_strcasecmp (value, data->value) != 0) ? TRUE : FALSE;
+			gtk_tree_store_set(GTK_TREE_STORE(model), &iter,
 								   VALUE_COLUMN, val,-1);
-			}
-		// }
-		// gtk_ctree_node_set_row_style (ctree, item, style);
+		}
 		expanded = TRUE;
 	}
 	else		/* child not found - insert it */
@@ -1188,31 +1182,18 @@ skip_next_token_start (gchar * buf)
 	return buf;
 }
 
-/*static void
-init_style (GtkCTree * ctree)
-{
-	GdkColor red = { 16, -1, 0, 0 };
-
-	style_normal = gtk_style_copy (gtk_widget_get_style (GTK_WIDGET (ctree)));
-	style_red = gtk_style_copy (style_normal);
-	style_red->fg[GTK_STATE_NORMAL] = red;
-}
-*/
-
 static void
 debug_tree_init (DebugTree * d_tree)
 {
 	GtkTreeModel* model;
 	GtkTreeIter iter;
-	static const gchar* var_name = "Local Variables";
+	gchar* var_name = _("Local Variables");
 	static const gchar* value = "";
 
 	g_return_if_fail (d_tree);
 
 	model = gtk_tree_view_get_model (GTK_TREE_VIEW (d_tree->tree));		
 	
-	/* init_style (GTK_CTREE (d_tree->tree)); */
-
 	gtk_tree_store_append(GTK_TREE_STORE(model), &iter, NULL);
 	gtk_tree_store_set(GTK_TREE_STORE(model), &iter, VARIABLE_COLUMN, var_name
 						, VALUE_COLUMN, value, -1);
@@ -1234,7 +1215,7 @@ set_not_analyzed(GtkTreeModel *model, GtkTreePath* path,
 
 	if (data && data->dataType != TYPE_ROOT)
 	{
-		g_print("Setting %s to not analyzed\n",data->name);
+		//g_print("Setting %s to not analyzed\n",data->name);
 		data->analyzed = FALSE;
 	}
 
@@ -1259,14 +1240,14 @@ destroy_recursive(GtkTreeModel *model, GtkTreePath* path,
 	
 	if (data->analyzed == FALSE && data->dataType != TYPE_ROOT)
 	{
-		g_print("Destroying %s\n",data->name);
+		//g_print("Destroying %s\n",data->name);
 		g_free (data->name);
 		g_free (data->value);
 		g_free (data);
 		gtk_tree_store_remove(GTK_TREE_STORE(model), iter);
 	}
-	else
-		g_print("Not destroying %s\n",data->name);
+	//else
+		//g_print("Not destroying %s\n",data->name);
 
 	return FALSE;
 }
@@ -1328,7 +1309,7 @@ find_expanded (GtkTreeModel *model, GtkTreePath* path,
 
 	if (data && data->expanded)
 	{
-		g_print("Appending %s to the expanded list\n",data->name);
+		//g_print("Appending %s to the expanded list\n",data->name);
 		*list = g_list_prepend (*list, gtk_tree_iter_copy(iter));
 	}
 	return FALSE;
@@ -1347,7 +1328,7 @@ delete_node(GtkTreeModel *model, GtkTreePath* path,
 
 	if (data)
 	{
-		g_print("Removing node",data->name);
+		//g_print("Removing node",data->name);
 		g_free (data->name);
 		g_free (data->value);
 		g_free (data);
@@ -1450,6 +1431,26 @@ debug_tree_parse_variables (DebugTree * d_tree, GList * list)
 	gtk_tree_path_free(path);
 }
 
+static void
+debug_tree_cell_data_func (GtkTreeViewColumn *tree_column,
+					GtkCellRenderer *cell, GtkTreeModel *tree_model,
+					GtkTreeIter *iter, gpointer data)
+{
+	gchar *value;
+	static const gchar *colors[] = {"black", "red"};
+	GValue gvalue = {0, };
+	TrimmableItem *item_data;
+
+	gtk_tree_model_get (tree_model, iter, VALUE_COLUMN, &value, -1);
+	g_value_init (&gvalue, G_TYPE_STRING);
+	g_value_set_static_string (&gvalue, value);
+	g_object_set_property (G_OBJECT (cell), "text", &gvalue);
+
+	gtk_tree_model_get (tree_model, iter, DTREE_ENTRY_COLUMN, &item_data, -1);
+	g_value_reset (&gvalue);
+	g_value_set_static_string (&gvalue, colors[item_data->modified ? 1 : 0]);
+	g_object_set_property (G_OBJECT (cell), "foreground", &gvalue);
+}
 
 /* return a pointer to a newly allocated DebugTree object */
 DebugTree *
@@ -1460,13 +1461,12 @@ debug_tree_create ()
 	GtkCellRenderer *renderer;
 	GtkTreeViewColumn *column;
 
-	gchar *tree_title[] = { _("Variable"), _("Value") };
 	DebugTree *d_tree = g_malloc (sizeof (DebugTree));
 
 	model = GTK_TREE_MODEL (gtk_tree_store_new
 						   (N_COLUMNS, 
-	                        GTK_TYPE_STRING, 
-	                        GTK_TYPE_STRING,
+	                        G_TYPE_STRING, 
+	                        G_TYPE_STRING,
 						    G_TYPE_POINTER));
 	
 	d_tree->tree = gtk_tree_view_new_with_model (model);
@@ -1480,36 +1480,23 @@ debug_tree_create ()
 	gtk_tree_view_column_pack_start (column, renderer, TRUE);
 	gtk_tree_view_column_add_attribute (column, renderer, "text",	VARIABLE_COLUMN);
 	gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
-	gtk_tree_view_column_set_title (column, _("Variable"));
+	gtk_tree_view_column_set_title (column, _(tree_title[0]));
 	gtk_tree_view_append_column (GTK_TREE_VIEW (d_tree->tree), column);
 	gtk_tree_view_set_expander_column (GTK_TREE_VIEW (d_tree->tree), column);
 
 	column = gtk_tree_view_column_new ();
 	renderer = gtk_cell_renderer_text_new ();
 	gtk_tree_view_column_pack_start (column, renderer, TRUE);
-	gtk_tree_view_column_add_attribute (column, renderer, "text", VALUE_COLUMN);
+	gtk_tree_view_column_set_cell_data_func (column, renderer,
+					debug_tree_cell_data_func, NULL, NULL);
 	gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
-	gtk_tree_view_column_set_title (column, _("Value"));
+	gtk_tree_view_column_set_title (column, _(tree_title[1]));
 	gtk_tree_view_append_column (GTK_TREE_VIEW (d_tree->tree), column);
 
 	debug_tree_init (d_tree);
 
 	g_signal_connect (d_tree->tree, "event", 
 					  G_CALLBACK (debug_tree_on_select_row), d_tree);
-
-	//g_signal_connect (d_tree->tree, "row-deleted",
-	//					G_CALLBACK (debug_tree_on_row_deleted), NULL);
-	//g_signal_handlers_unblock_by_func (d_tree->tree, 
-	//									 G_CALLBACK (debug_tree_on_select_row),
-	//									 NULL);
-	
-	//g_signal_connect_after (G_OBJECT (d_tree->tree), "row_expanded",
-	//						  G_CALLBACK (on_debug_tree_row_expanded), d_tree);
-	//g_signal_connect (G_OBJECT (selection), "changed",
-	//					G_CALLBACK (on_debug_tree_selection_changed), d_tree);
-
-	//g_signal_connect(G_OBJECT(d_tree->tree), "event",
-	//				 G_CALLBACK(debug_tree_on_middle_click), d_tree);
 
 	/* build middle click popup menu */
 	
@@ -1538,10 +1525,10 @@ debug_tree_create ()
 					 d_tree->middle_click_menu, d_tree);
 
 	add_menu_separator (d_tree->middle_click_menu);
-/*	build_menu_item (_("Inspect memory"),
+	build_menu_item (_("Inspect memory"),
 					 GTK_SIGNAL_FUNC(on_inspect_memory_clicked),
 					 d_tree->middle_click_menu, d_tree);
-	*/
+	
 	return d_tree;
 }
 

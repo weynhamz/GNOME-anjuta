@@ -20,9 +20,13 @@
 #  include <config.h>
 #endif
 
+#include <ctype.h>
 #include <sys/stat.h>
 #include <unistd.h>
 #include <string.h>
+
+#define _GNU_SOURCE
+#include <stdio.h>
 
 #include <gnome.h>
 #include "anjuta.h"
@@ -63,6 +67,7 @@ struct _CompilerOptionsPriv
 {
 	GladeXML *gxml;
 	CompilerOptionsGui widgets;
+	gboolean dirty;	
 
 	gboolean is_showing;
 	gint win_pos_x, win_pos_y;
@@ -75,6 +80,9 @@ struct _CompilerOptionsPriv
 	 */
 	PropsID props;
 };
+
+static void create_compiler_options_gui (CompilerOptions *co);
+static void on_remove_from_clist_clicked (GtkButton * button, gpointer data);
 
 #define ANJUTA_SUPPORTS_END_STRING "SUPPORTS_END"
 #define ANJUTA_SUPPORTS_END \
@@ -276,22 +284,6 @@ enum {
 static void compiler_options_set_in_properties (CompilerOptions* co,
 												PropsID props);
 
-static void co_cid_set (GtkListStore* store, GtkTreeIter *iter, gboolean state)
-{
-	// cid->state = state;
-}
-
-static gboolean co_cid_get (GtkListStore* store, GtkTreeIter *iter)
-{
-	// return cid->state;
-	return FALSE;
-}
-
-static gboolean co_cid_toggle (GtkListStore* store, GtkTreeIter *iter)
-{
-	return FALSE;
-}
-
 static void
 populate_stock_libs (GtkListStore *tmodel)
 {
@@ -461,36 +453,74 @@ populate_warnings (GtkListStore *tmodel)
 }
 
 typedef struct {
+	CompilerOptions *co;
 	GtkTreeView *tree;
 	GtkEntry *entry;
 	gint col;
 } EntrySignalInfo;
 
+typedef struct {
+	CompilerOptions *co;
+	gint col;
+} ToggleSignalInfo;
+
 static EntrySignalInfo *
-entry_signal_info_new (GtkWidget *tree, GtkWidget *entry, gint col)
+entry_signal_info_new (CompilerOptions *co, GtkWidget *tree, GtkWidget *entry, 
+					   gint col)
 {
 	EntrySignalInfo *info;
 	g_return_val_if_fail ((GTK_IS_TREE_VIEW (tree) && GTK_IS_ENTRY (entry)),
 						  NULL);
 	info = g_new0 (EntrySignalInfo, 1);
+	info->co = co;
 	info->tree = GTK_TREE_VIEW (tree);
 	info->entry = GTK_ENTRY (entry);
 	info->col = col;
 	return info;
 }
 
-static void
-entry_signal_info_destroy (EntrySignalInfo *info)
+static ToggleSignalInfo *
+toggle_signal_info_new (CompilerOptions *co, gint col)
 {
-	g_return_if_fail (info);
-	g_free (info);
+	ToggleSignalInfo *info;
+
+	info = g_new0 (ToggleSignalInfo, 1);
+	info->co = co;
+	info->col = col;
+	return info;
+}
+
+static void
+on_comp_finish (CompilerOptions* co)
+{
+	gboolean should_rebuild;
+	
+	if (co->priv->dirty && 
+		app->project_dbase->project_is_open)
+	{
+		gchar* msg = _("You have changed some of the compiler options of the project,\n"
+					   "would you like the next build action to perform a complete\n"
+					   "rebuild of the project?");				
+		should_rebuild = anjuta_boolean_question (msg);
+		if (should_rebuild)
+			app->project_dbase->clean_before_build = TRUE;
+		else
+			app->project_dbase->clean_before_build = FALSE;
+	} else {
+		co->priv->dirty = FALSE;
+		app->project_dbase->clean_before_build = FALSE;
+	}
+	compiler_options_set_in_properties(co, co->priv->props);
+	project_dbase_save_project (app->project_dbase);
 }
 
 static gboolean
 on_compt_delete_event (GtkWidget *widget, GdkEvent *event, gpointer data)
 {
 	CompilerOptions *co = data;
-	compiler_options_set_in_properties(co, co->priv->props);
+	g_return_val_if_fail (co, TRUE);	
+	
+	on_comp_finish (co);
 	compiler_options_hide(co);
 	return TRUE;
 }
@@ -500,13 +530,14 @@ on_compt_response (GtkWidget *widget, gint response, gpointer data)
 {
 	CompilerOptions *co = data;
 	g_return_if_fail (co);	
+	
 	switch (response)
 	{
 	case GTK_RESPONSE_HELP:
 		/* FIXME: Add help for compiler options here */
 		return;
 	case GTK_RESPONSE_CLOSE:
-		compiler_options_set_in_properties(co, co->priv->props);
+			on_comp_finish (co);
 		compiler_options_hide (co);
 		return;
 	}
@@ -516,37 +547,55 @@ static void
 on_toggle_clist_row_activated          (GtkTreeView     *treeview,
                                         GtkTreePath     *arg1,
                                         GtkTreeViewColumn *arg2,
-                                        gint            col)
+                                        gpointer        data)
 {
 	GtkTreeModel *model;
 	GtkTreeIter iter;
 	gboolean value;
+	ToggleSignalInfo* info = (ToggleSignalInfo*) data;
 	
 	model = gtk_tree_view_get_model (treeview);
 	if (gtk_tree_model_get_iter (model, &iter, arg1))
 	{
-		gtk_tree_model_get (model, &iter, col, &value, -1);
+		gtk_tree_model_get (model, &iter, info->col, &value, -1);
 		value = value? FALSE : TRUE;
-		gtk_list_store_set (GTK_LIST_STORE (model), &iter, col, value, -1);
+		gtk_list_store_set (GTK_LIST_STORE (model), &iter, info->col, value, -1);
+		compiler_options_set_dirty_flag (info->co, TRUE);
 	}
 }
 
 static void
-on_update_selection_changed            (GtkTreeSelection    *sel,
-                                        EntrySignalInfo     *info)
+on_update_selection_changed (GtkTreeSelection *sel, EntrySignalInfo *info)
 {
 	GtkTreeIter iter;
 	GtkTreeModel *model;
 	const gchar *text;
 	GtkEntry *entry = info->entry;
 	gint col = info->col;
-	
 	if (gtk_tree_selection_get_selected (sel, &model, &iter))
 	{
 		gtk_tree_model_get (model, &iter, col, &text, -1);
 		gtk_entry_set_text (entry, text);
+		compiler_options_set_dirty_flag (info->co, TRUE);
 	}
 }
+
+
+static void
+on_button_selection_changed (GtkToggleButton *togglebutton, gpointer user_data)
+{
+	CompilerOptions *co = (CompilerOptions*) user_data;
+	compiler_options_set_dirty_flag (co, TRUE);
+}
+
+static void
+on_entry_changed (GtkEntry *togglebutton, gpointer user_data)
+{
+	CompilerOptions *co = (CompilerOptions*) user_data;
+	compiler_options_set_dirty_flag (co, TRUE);
+}
+
+
 
 static gboolean
 verify_new_entry (GtkTreeView *tree, const gchar *str, gint col)
@@ -574,7 +623,6 @@ on_add_to_clist_clicked (GtkButton * button, gpointer data)
 {
 	GtkTreeModel *model;
 	GtkTreeIter iter;
-	gboolean valid;
 	gchar *text;
 	gchar *str;
 	EntrySignalInfo *info = data;
@@ -603,6 +651,7 @@ on_add_to_clist_clicked (GtkButton * button, gpointer data)
 		gtk_list_store_set (GTK_LIST_STORE(model), &iter, 0, TRUE, -1);
 	gtk_entry_set_text (GTK_ENTRY (entry), "");
 	g_free (str);
+	compiler_options_set_dirty_flag (info->co, TRUE);
 }
 
 static void
@@ -611,7 +660,6 @@ on_update_in_clist_clicked (GtkButton * button, gpointer data)
 	GtkTreeModel *model;
 	GtkTreeSelection *sel;
 	GtkTreeIter iter;
-	gboolean valid;
 	gchar *text, *str;
 	EntrySignalInfo *info = data;
 	GtkTreeView *tree = info->tree;
@@ -638,25 +686,25 @@ on_update_in_clist_clicked (GtkButton * button, gpointer data)
 		gtk_entry_set_text (GTK_ENTRY (entry), "");
 	}
 	g_free (str);
+	compiler_options_set_dirty_flag (info->co, TRUE);
 }
 
-void
+static void
 on_remove_from_clist_clicked (GtkButton * button, gpointer data)
 {
 	GtkTreeModel *model;
 	GtkTreeIter iter;
 	GtkTreeSelection *sel;
-	gboolean valid;
 	EntrySignalInfo *info = data;
 	GtkTreeView *tree = info->tree;
 	GtkEntry *entry = info->entry;
-	gint col = info->col;
 	
 	sel = gtk_tree_view_get_selection (GTK_TREE_VIEW(tree));
 	if (gtk_tree_selection_get_selected (sel, &model, &iter))
 	{
 		gtk_list_store_remove (GTK_LIST_STORE(model), &iter);
 		gtk_entry_set_text (GTK_ENTRY (entry), "");
+		compiler_options_set_dirty_flag (info->co, TRUE);
 	}
 }
 
@@ -672,23 +720,30 @@ on_clear_clist_clicked (GtkButton * button, gpointer data)
 	win = gtk_message_dialog_new (GTK_WINDOW (top_level),
 								  GTK_DIALOG_DESTROY_WITH_PARENT,
 								  GTK_MESSAGE_QUESTION,
-								  GTK_BUTTONS_YES_NO,
-								  _("Do you want to clear the list?"),
-								  NULL);
+								  GTK_BUTTONS_NONE,
+								  _("Do you want to clear the list?"));
+	gtk_dialog_add_buttons (GTK_DIALOG (win),
+							GTK_STOCK_CANCEL,	GTK_RESPONSE_CANCEL,
+							GTK_STOCK_CLEAR,	GTK_RESPONSE_YES,
+							NULL);
 	if (gtk_dialog_run (GTK_DIALOG (win)) == GTK_RESPONSE_YES)
+	{
 		gtk_list_store_clear (GTK_LIST_STORE (model));
+		compiler_options_set_dirty_flag (info->co, TRUE);
+	}
 	gtk_widget_destroy (win);
 }
 
 #define BUTTON_SIGNAL_CONNECT(w, f, d) \
 	g_signal_connect (G_OBJECT (w), "clicked", G_CALLBACK (f), d);
 
+static
 void create_compiler_options_gui (CompilerOptions *co)
 {
 	GtkTreeView *clist;
 	GtkTreeViewColumn *column;
 	GtkTreeSelection *selection;
-	GtkListStore *store, *list;
+	GtkListStore *store;
 	GtkCellRenderer *renderer;
 	GtkWidget *button;
 	int i;
@@ -907,143 +962,201 @@ void create_compiler_options_gui (CompilerOptions *co)
 	/* Connect toggle signals */
 	g_signal_connect (G_OBJECT (co->priv->widgets.supp_clist), "row_activated",
 					  G_CALLBACK (on_toggle_clist_row_activated),
-					  SUPP_TOGGLE_COLUMN);
+					  toggle_signal_info_new(co,SUPP_TOGGLE_COLUMN));
 	g_signal_connect (G_OBJECT (co->priv->widgets.lib_clist), "row_activated",
 					  G_CALLBACK (on_toggle_clist_row_activated),
-					  LIB_TOGGLE_COLUMN);
+					  toggle_signal_info_new(co,LIB_TOGGLE_COLUMN));
 	g_signal_connect (G_OBJECT (co->priv->widgets.def_clist), "row_activated",
 					  G_CALLBACK (on_toggle_clist_row_activated),
-					  DEF_TOGGLE_COLUMN);
+					  toggle_signal_info_new(co,DEF_TOGGLE_COLUMN));
 	g_signal_connect (G_OBJECT (co->priv->widgets.warnings_clist), "row_activated",
 					  G_CALLBACK (on_toggle_clist_row_activated),
-					  WARNINGS_TOGGLE_COLUMN);
+					  toggle_signal_info_new(co,WARNINGS_TOGGLE_COLUMN));
 
 	/* Connect Entry update signals */
 	clist = GTK_TREE_VIEW (co->priv->widgets.inc_clist);
 	selection = gtk_tree_view_get_selection (clist);
 	g_signal_connect (G_OBJECT (selection), "changed",
 					  G_CALLBACK (on_update_selection_changed),
-					  entry_signal_info_new (co->priv->widgets.inc_clist,
+					  entry_signal_info_new (co,
+					  						 co->priv->widgets.inc_clist,
 					   						 co->priv->widgets.inc_entry,
 											 INC_PATHS_COLUMN));
 	clist = GTK_TREE_VIEW (co->priv->widgets.lib_clist);
 	selection = gtk_tree_view_get_selection (clist);
 	g_signal_connect (G_OBJECT (selection), "changed",
 					  G_CALLBACK (on_update_selection_changed),
-					  entry_signal_info_new (co->priv->widgets.lib_clist,
+					  entry_signal_info_new (co, co->priv->widgets.lib_clist,
 					   						 co->priv->widgets.lib_entry,
 											 LIB_COLUMN));
 	clist = GTK_TREE_VIEW (co->priv->widgets.lib_stock_clist);
 	selection = gtk_tree_view_get_selection (clist);
 	g_signal_connect (G_OBJECT (selection), "changed",
 					  G_CALLBACK (on_update_selection_changed),
-					  entry_signal_info_new (co->priv->widgets.lib_stock_clist,
+					  entry_signal_info_new (co, co->priv->widgets.lib_stock_clist,
 					   						 co->priv->widgets.lib_entry,
 											 LIB_STOCK_COLUMN));
 	clist = GTK_TREE_VIEW (co->priv->widgets.lib_paths_clist);
 	selection = gtk_tree_view_get_selection (clist);
 	g_signal_connect (G_OBJECT (selection), "changed",
 					  G_CALLBACK (on_update_selection_changed),
-					  entry_signal_info_new (co->priv->widgets.lib_paths_clist,
+					  entry_signal_info_new (co, co->priv->widgets.lib_paths_clist,
 					   						 co->priv->widgets.lib_paths_entry,
 											 LIB_PATHS_COLUMN));
 	clist = GTK_TREE_VIEW (co->priv->widgets.def_clist);
 	selection = gtk_tree_view_get_selection (clist);
 	g_signal_connect (G_OBJECT (selection), "changed",
 					  G_CALLBACK (on_update_selection_changed),
-					  entry_signal_info_new (co->priv->widgets.def_clist,
+					  entry_signal_info_new (co, co->priv->widgets.def_clist,
 					   						 co->priv->widgets.def_entry,
 											 DEF_DEFINE_COLUMN));
 	clist = GTK_TREE_VIEW (co->priv->widgets.def_stock_clist);
 	selection = gtk_tree_view_get_selection (clist);
 	g_signal_connect (G_OBJECT (selection), "changed",
 					  G_CALLBACK (on_update_selection_changed),
-					  entry_signal_info_new (co->priv->widgets.def_stock_clist,
+					  entry_signal_info_new (co, co->priv->widgets.def_stock_clist,
 					   						 co->priv->widgets.def_entry,
 											 DEF_STOCK_COLUMN));
+	
+	g_signal_connect (G_OBJECT (co->priv->widgets.other_c_flags_entry), "changed",
+					  G_CALLBACK (on_entry_changed), co);
+
+	g_signal_connect (G_OBJECT (co->priv->widgets.other_l_flags_entry), "changed",
+					  G_CALLBACK (on_entry_changed), co);
+
+	g_signal_connect (G_OBJECT (co->priv->widgets.other_l_libs_entry), "changed",
+					  G_CALLBACK (on_entry_changed), co);
+
+	/* optimization buttons */
+	for (i = 0 ; i < 4 ; i++)											 
+		g_signal_connect (GTK_TOGGLE_BUTTON (co->priv->widgets.optimize_button[i]), 
+			"toggled", G_CALLBACK (on_button_selection_changed),co);
+
+	/* debug and profile */
+	for (i = 0 ; i < 2 ; i++)											 
+		g_signal_connect (GTK_TOGGLE_BUTTON (co->priv->widgets.other_button[i]), 
+			"toggled", G_CALLBACK (on_button_selection_changed),co);
+	
+	g_signal_connect (G_OBJECT (co->priv->widgets.other_c_flags_entry), "changed",
+					  G_CALLBACK (on_entry_changed), co);
+
+	g_signal_connect (G_OBJECT (co->priv->widgets.other_l_flags_entry), "changed",
+					  G_CALLBACK (on_entry_changed), co);
+
+	g_signal_connect (G_OBJECT (co->priv->widgets.other_l_libs_entry), "changed",
+					  G_CALLBACK (on_entry_changed), co);
+
+	/* optimization buttons */
+	for (i = 0 ; i < 4 ; i++)											 
+		g_signal_connect (GTK_TOGGLE_BUTTON (co->priv->widgets.optimize_button[i]), 
+			"toggled", G_CALLBACK (on_button_selection_changed),co);
+
+	/* debug and profile */
+	for (i = 0 ; i < 2 ; i++)											 
+		g_signal_connect (GTK_TOGGLE_BUTTON (co->priv->widgets.other_button[i]), 
+			"toggled", G_CALLBACK (on_button_selection_changed),co);
+	
+	g_signal_connect (G_OBJECT (co->priv->widgets.other_c_flags_entry), "changed",
+					  G_CALLBACK (on_entry_changed), co);
+
+	g_signal_connect (G_OBJECT (co->priv->widgets.other_l_flags_entry), "changed",
+					  G_CALLBACK (on_entry_changed), co);
+
+	g_signal_connect (G_OBJECT (co->priv->widgets.other_l_libs_entry), "changed",
+					  G_CALLBACK (on_entry_changed), co);
+
+	/* optimization buttons */
+	for (i = 0 ; i < 4 ; i++)											 
+		g_signal_connect (GTK_TOGGLE_BUTTON (co->priv->widgets.optimize_button[i]), 
+			"toggled", G_CALLBACK (on_button_selection_changed),co);
+
+	/* debug and profile */
+	for (i = 0 ; i < 2 ; i++)											 
+		g_signal_connect (GTK_TOGGLE_BUTTON (co->priv->widgets.other_button[i]), 
+			"toggled", G_CALLBACK (on_button_selection_changed),co);
 	
 	/* Connect editiong button signals */
 	button = glade_xml_get_widget (co->priv->gxml, "inc_add_b");
 	BUTTON_SIGNAL_CONNECT (button, on_add_to_clist_clicked,
-						   entry_signal_info_new (co->priv->widgets.inc_clist,
+						   entry_signal_info_new (co, co->priv->widgets.inc_clist,
 						   						  co->priv->widgets.inc_entry,
 												  INC_PATHS_COLUMN));
 	button = glade_xml_get_widget (co->priv->gxml, "inc_update_b");
 	BUTTON_SIGNAL_CONNECT (button, on_update_in_clist_clicked,
-						   entry_signal_info_new (co->priv->widgets.inc_clist,
+						   entry_signal_info_new (co, co->priv->widgets.inc_clist,
 						   						  co->priv->widgets.inc_entry,
 												  INC_PATHS_COLUMN));
 	button = glade_xml_get_widget (co->priv->gxml, "inc_remove_b");
 	BUTTON_SIGNAL_CONNECT (button, on_remove_from_clist_clicked,
-						   entry_signal_info_new (co->priv->widgets.inc_clist,
+						   entry_signal_info_new (co, co->priv->widgets.inc_clist,
 						   						  co->priv->widgets.inc_entry,
 												  INC_PATHS_COLUMN));
 	button = glade_xml_get_widget (co->priv->gxml, "inc_clear_b");
 	BUTTON_SIGNAL_CONNECT (button, on_clear_clist_clicked,
-						   entry_signal_info_new (co->priv->widgets.inc_clist,
+						   entry_signal_info_new (co, co->priv->widgets.inc_clist,
 						   						  co->priv->widgets.inc_entry,
 												  INC_PATHS_COLUMN));
 	
 	button = glade_xml_get_widget (co->priv->gxml, "lib_add_b");
 	BUTTON_SIGNAL_CONNECT (button, on_add_to_clist_clicked,
-						   entry_signal_info_new (co->priv->widgets.lib_clist,
+						   entry_signal_info_new (co, co->priv->widgets.lib_clist,
 						   						  co->priv->widgets.lib_entry,
 												  LIB_COLUMN));
 	button = glade_xml_get_widget (co->priv->gxml, "lib_update_b");
 	BUTTON_SIGNAL_CONNECT (button, on_update_in_clist_clicked,
-						   entry_signal_info_new (co->priv->widgets.lib_clist,
+						   entry_signal_info_new (co, co->priv->widgets.lib_clist,
 						   						  co->priv->widgets.lib_entry,
 												  LIB_COLUMN));
 	button = glade_xml_get_widget (co->priv->gxml, "lib_remove_b");
 	BUTTON_SIGNAL_CONNECT (button, on_remove_from_clist_clicked,
-						   entry_signal_info_new (co->priv->widgets.lib_clist,
+						   entry_signal_info_new (co, co->priv->widgets.lib_clist,
 						   						  co->priv->widgets.lib_entry,
 												  LIB_COLUMN));
 	button = glade_xml_get_widget (co->priv->gxml, "lib_clear_b");
 	BUTTON_SIGNAL_CONNECT (button, on_clear_clist_clicked,
-						   entry_signal_info_new (co->priv->widgets.lib_clist,
+						   entry_signal_info_new (co, co->priv->widgets.lib_clist,
 						   						  co->priv->widgets.lib_entry,
 												  LIB_COLUMN));
 	
 	button = glade_xml_get_widget (co->priv->gxml, "lib_paths_add_b");
 	BUTTON_SIGNAL_CONNECT (button, on_add_to_clist_clicked,
-						   entry_signal_info_new (co->priv->widgets.lib_paths_clist,
+						   entry_signal_info_new (co, co->priv->widgets.lib_paths_clist,
 						   						  co->priv->widgets.lib_paths_entry,
 												  LIB_PATHS_COLUMN));
 	button = glade_xml_get_widget (co->priv->gxml, "lib_paths_update_b");
 	BUTTON_SIGNAL_CONNECT (button, on_update_in_clist_clicked,
-						   entry_signal_info_new (co->priv->widgets.lib_paths_clist,
+						   entry_signal_info_new (co, co->priv->widgets.lib_paths_clist,
 						   						  co->priv->widgets.lib_paths_entry,
 												  LIB_PATHS_COLUMN));
 	button = glade_xml_get_widget (co->priv->gxml, "lib_paths_remove_b");
 	BUTTON_SIGNAL_CONNECT (button, on_remove_from_clist_clicked,
-						   entry_signal_info_new (co->priv->widgets.lib_paths_clist,
+						   entry_signal_info_new (co, co->priv->widgets.lib_paths_clist,
 						   						  co->priv->widgets.lib_paths_entry,
 												  LIB_PATHS_COLUMN));
 	button = glade_xml_get_widget (co->priv->gxml, "lib_paths_clear_b");
 	BUTTON_SIGNAL_CONNECT (button, on_clear_clist_clicked,
-						   entry_signal_info_new (co->priv->widgets.lib_paths_clist,
+						   entry_signal_info_new (co, co->priv->widgets.lib_paths_clist,
 						   						  co->priv->widgets.lib_paths_entry,
 												  LIB_PATHS_COLUMN));
 	
 	button = glade_xml_get_widget (co->priv->gxml, "def_add_b");
 	BUTTON_SIGNAL_CONNECT (button, on_add_to_clist_clicked,
-						   entry_signal_info_new (co->priv->widgets.def_clist,
+						   entry_signal_info_new (co, co->priv->widgets.def_clist,
 						   						  co->priv->widgets.def_entry,
 												  DEF_DEFINE_COLUMN));
 	button = glade_xml_get_widget (co->priv->gxml, "def_update_b");
 	BUTTON_SIGNAL_CONNECT (button, on_update_in_clist_clicked,
-						   entry_signal_info_new (co->priv->widgets.def_clist,
+						   entry_signal_info_new (co, co->priv->widgets.def_clist,
 						   						  co->priv->widgets.def_entry,
 												  DEF_DEFINE_COLUMN));
 	button = glade_xml_get_widget (co->priv->gxml, "lib_paths_remove_b");
 	BUTTON_SIGNAL_CONNECT (button, on_remove_from_clist_clicked,
-						   entry_signal_info_new (co->priv->widgets.def_clist,
+						   entry_signal_info_new (co, co->priv->widgets.def_clist,
 						   						  co->priv->widgets.def_entry,
 												  DEF_DEFINE_COLUMN));
 	button = glade_xml_get_widget (co->priv->gxml, "lib_paths_clear_b");
 	BUTTON_SIGNAL_CONNECT (button, on_clear_clist_clicked,
-						   entry_signal_info_new (co->priv->widgets.def_clist,
+						   entry_signal_info_new (co, co->priv->widgets.def_clist,
 						   						  co->priv->widgets.def_entry,
 												  DEF_DEFINE_COLUMN));
 	gtk_widget_ref (co->priv->widgets.window);
@@ -1072,7 +1185,6 @@ void create_compiler_options_gui (CompilerOptions *co)
 CompilerOptions *
 compiler_options_new (PropsID props)
 {
-	int i;
 	CompilerOptions *co = g_new0 (CompilerOptions, 1);
 	
 	co->priv = g_new0 (CompilerOptionsPriv, 1);
@@ -1081,6 +1193,7 @@ compiler_options_new (PropsID props)
 	co->priv->win_pos_y = 100;
 	co->priv->props = props;
 	create_compiler_options_gui (co);
+	co->priv->dirty = FALSE;
 	
 	return co;
 }
@@ -1347,6 +1460,7 @@ gboolean compiler_options_load_yourself (CompilerOptions * co, PropsID props)
 	} \
 	glist_strings_free (list);
 
+
 void
 compiler_options_clear(CompilerOptions *co)
 {
@@ -1511,6 +1625,8 @@ compiler_options_load (CompilerOptions * co, PropsID props)
 								   co->priv->widgets.other_l_libs_entry);
 	
 	compiler_options_set_in_properties (co, co->priv->props);
+	
+	compiler_options_set_dirty_flag (co, FALSE);
 }
 
 void
@@ -1612,9 +1728,6 @@ get_supports (CompilerOptions *co, gint item, gchar *separator)
 			g_free(name);
 		i++;
 	}
-#ifdef DEBUG
-	g_message ("Support flags: %s", str);
-#endif
 	if (has_pkg_modules)
 	{
 		gchar *text, *tmp;
@@ -1956,4 +2069,11 @@ compiler_options_set_prjmacros_in_file (CompilerOptions * co, FILE* fp)
 	
 	buff = get_supports (co, ANJUTA_SUPPORT_MACROS, "\n");
 	PRINT_TO_STREAM_AND_FREE (fp, "\\\n\t%s", buff);
+}
+
+
+void 
+compiler_options_set_dirty_flag (CompilerOptions* co, gboolean is_dirty)
+{
+	co->priv->dirty = is_dirty && app->project_dbase->project_is_open;
 }

@@ -1,8 +1,8 @@
 /***************************************************************************
  *            memory.c
  *
- *  Sun Jun 23 12:56:43 2002
- *  Copyright  2002  Jean-Noel Guiheneuf
+ *  Sat May 10 07:45:38 2003
+ *  Copyright  2003  Jean-Noel Guiheneuf
  *  jnoel@saudionline.com.sa
  ****************************************************************************/
 /*
@@ -20,713 +20,653 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
-
+ 
 #ifdef HAVE_CONFIG_H
-#  include <config.h>
+#include "config.h"
 #endif
 
 
-#include <signal.h>
-#include <setjmp.h>
-
 #include <gnome.h>
-#include <libgnomeui/gnome-window-icon.h>
+#include <glade/glade.h>
 
 #include "anjuta.h"
-#include "utilities.h"
 #include "debugger.h"
 #include "memory.h"
 
-#define MEM_NB_LINES 16
-#define MAX_HEX_ADR 8
 
-static gint hexa_to_decimal (gchar c);
+#define ADR_ENTRY                "adr_entry"
+#define BUTTON_INSPECT           "button_inspect"
+#define BUTTON_QUIT              "button_quit"
+#define MEMORY_LABEL             "memory_label"
+#define ADR_TEXTVIEW             "adr_textview"
+#define DATA_TEXTVIEW            "data_textview"
+#define ASCII_TEXTVIEW           "ascii_textview"
+#define EVENTBOX_UP              "eventbox_up"
+#define EVENTBOX_DOWN            "eventbox_down"
 
-static void remove_space (gchar *string);
+#define MEM_NB_LINES             16
+#define MAX_CAR_ADR_ENTRY        8
 
-static gboolean is_hexa (gchar c);
+void init_memory (MemApp *memapp);
 
-static gchar convert_hexa (gchar c);
+void init_name_memory (MemApp *memapp);
 
-static gchar *convert_adr_hexa (gulong adr);
+void init_widget_memory (MemApp *memapp);
 
-static gchar *convert_hexa_byte (gchar c);
+void init_event_memory (MemApp *memapp);
 
-static guchar convert_ascii_print (guchar c);
+void on_adr_entry_insert_text (GtkEditable *editable, const gchar *text,
+                              gint length, gint *pos, gpointer user_data);
 
-extern void debugger_memory_cbs(GList* list, MemApp *memapp);
-
-gboolean  memory_timeout (MemApp *memapp);
-
-gboolean inspect_memory (guchar *adr, MemApp * memapp);
-
-static void entry_filter (GtkEditable *editable, const gchar *text,
-                          gint length, gint *pos, gpointer data);
-
-static void mem_clear_gtktext (GtkTextView * text);
-
-static void mem_clear_gtktext_all (MemApp * memapp);
+static gboolean inspect_memory (gchar *adr, MemApp * memapp);
 
 static gboolean on_text_data_button_release_event (GtkWidget *widget,
-               GdkEventButton *event,
-               MemApp *memapp);
+												   GdkEventButton *event,
+												   MemApp *memapp);
 
-static void on_quit_button_clicked (GtkButton *button, MemApp *memapp);
+static void on_button_inspect_clicked (GtkButton *button, MemApp *memapp);	
 
-static void on_inspect_button_clicked (GtkButton *button, MemApp *memapp);
+static gboolean on_text1_key_press_event (GtkWidget *widget, GdkEventKey *event,
+										  MemApp *memapp);
 
-static void on_quit_button_clicked (GtkButton *button, MemApp *memapp);
+static gboolean on_eventbox_up_button_press_event (GtkWidget *widget,
+												   GdkEventButton *event,
+												   MemApp *memapp);
 
-static void mem_move_up (MemApp *memapp);
+static gboolean on_eventbox_down_button_press_event (GtkWidget *widget,
+													 GdkEventButton *event,
+													 MemApp *memapp);
 
-static void mem_move_page_up (MemApp *memapp);
+static void on_dialog_memory_destroy (GtkObject *object, MemApp *memapp);
 
-static void mem_move_down (MemApp *memapp);
+static void on_button_quit_clicked (GtkButton *button, MemApp *memapp);
 
-static void mem_move_page_down (MemApp *memapp);
 
-static gboolean on_eventbox1_button_press_event (GtkWidget *widget,
-                GdkEventButton *event,
-                MemApp *memapp);
+static char *glade_names[] =
+{
+	ADR_ENTRY, BUTTON_INSPECT, BUTTON_QUIT, 
+	MEMORY_LABEL, ADR_TEXTVIEW, DATA_TEXTVIEW,
+	ASCII_TEXTVIEW, EVENTBOX_UP, EVENTBOX_DOWN, NULL
+};
 
-static gboolean on_eventbox2_button_press_event (GtkWidget *widget,
-                GdkEventButton *event,
-                MemApp *memapp);
+#define MEMORY_DIALOG "dialog_memory"
+#define GLADE_FILE "glade/anjuta.glade"
 
-static gboolean on_text1_key_press_event (GtkWidget *widget,
-                GdkEventKey *event,
-                MemApp *memapp);
+gboolean timeout = TRUE;
 
-static void on_window_destroy (GtkObject *object, MemApp *memapp);
-
-GtkWidget *
+GtkWidget*
 memory_info_new (guchar *ptr)
 {
-  GtkWidget *vbox1;
-  GtkWidget *vbox2;
-  GtkWidget *hbox1;
-  GtkWidget *hseparator1;
-  GtkWidget *hbox2;
-  GtkWidget *button1;
-  GtkWidget *button2;
-  GtkWidget *eventbox1;
-  GtkWidget *eventbox2;
-  GtkWidget *arrow1;
-  GtkWidget *arrow2;
-  PangoFontDescription *font_desc;
-  GtkWidget *label1;
-  gint car_width;
-  gint car_height;
-  gint default_car_width;
-  MemApp *mem_app;
+	int i;
+	MemApp *memapp;
+	char glade_file[PATH_MAX];
+	
+	memapp = g_new0 (MemApp, 1);
+	memapp->adr = ptr;
+	
+	snprintf (glade_file, PATH_MAX, "%s/%s", PACKAGE_DATA_DIR, GLADE_FILE);	
+	
+	if (NULL == (memapp->xml = glade_xml_new (glade_file, MEMORY_DIALOG, NULL)))
+	{
+		anjuta_error (_("Unable to build user interface for Memory\n"));
+		g_free (memapp);
+		memapp = NULL;
+		return NULL;
+	}
 
-  mem_app = (MemApp *) g_malloc0 (sizeof (MemApp));
-  mem_app->adr = ptr;
+	memapp->dialog = glade_xml_get_widget (memapp->xml, MEMORY_DIALOG);
+	
+	for (i=0; NULL != glade_names[i]; ++i)
+		gtk_widget_ref (glade_xml_get_widget (memapp->xml, glade_names[i]));
 
-  mem_app->window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-  gtk_window_set_transient_for(GTK_WINDOW(mem_app->window),
-                               GTK_WINDOW(app->widgets.window));
-  gnome_window_icon_set_from_default((GtkWindow *) mem_app->window);
-  gtk_object_set_data (GTK_OBJECT (mem_app->window), "Memory",
-                       mem_app->window);
-  gtk_window_set_title (GTK_WINDOW (mem_app->window), _("Memory"));
-  gtk_window_set_policy (GTK_WINDOW (mem_app->window), FALSE, FALSE,
-                         TRUE);
-						 
-  vbox1 = gtk_vbox_new (FALSE, 0);
-  gtk_widget_show (vbox1);
-  gtk_container_add (GTK_CONTAINER (mem_app->window), vbox1);
+	init_name_memory (memapp);
+	init_widget_memory (memapp);
+	init_event_memory (memapp);
+	init_memory (memapp);
+	
+	memapp->new_window = FALSE;
+	if (ptr)
+		inspect_memory (ptr, memapp);
+	
+	gtk_widget_grab_focus (memapp->adr_entry);
+	gtk_widget_grab_default (memapp->button_inspect);
+	
+	glade_xml_signal_autoconnect (memapp->xml);
 
-  hbox1 = gtk_hbox_new (FALSE, 0);
-  gtk_widget_show (hbox1);
-  gtk_box_pack_start (GTK_BOX (vbox1), hbox1, TRUE, TRUE, 0);
-
-  vbox2 = gtk_vbox_new (FALSE, 0);
-  gtk_widget_show (vbox2);
-  gtk_box_pack_start (GTK_BOX (hbox1), vbox2, FALSE, TRUE, 0);
-
-  eventbox1 = gtk_event_box_new ();
-  gtk_widget_show (eventbox1);
-  gtk_box_pack_start (GTK_BOX (vbox2), eventbox1, FALSE, TRUE, 0);
-  arrow1 = gtk_arrow_new (GTK_ARROW_UP, GTK_SHADOW_OUT);
-  gtk_widget_show (arrow1);
-  gtk_container_add (GTK_CONTAINER (eventbox1), arrow1);
-
-  eventbox2 = gtk_event_box_new ();
-  gtk_widget_show (eventbox2);
-  gtk_box_pack_end (GTK_BOX (vbox2), eventbox2, FALSE, TRUE, 0);
-  arrow2 = gtk_arrow_new (GTK_ARROW_DOWN, GTK_SHADOW_OUT);
-  gtk_widget_show (arrow2);
-  gtk_container_add (GTK_CONTAINER (eventbox2), arrow2);
-
-  font_desc = pango_font_description_from_string ("Fixed 12");
-  //car_width = gdk_char_width (mem_app->fixed_font, '_');
-  //car_height = gdk_char_height (mem_app->fixed_font, '|');
-  car_width = 12;
-  car_width = 12;
-  
-  //default_car_width = gdk_char_width (default_font, '_');
-
-  mem_app->text_adr = gtk_text_view_new ();
-  gtk_widget_show (mem_app->text_adr);
-  gtk_widget_set_usize (GTK_WIDGET (mem_app->text_adr),
-                        car_width * (MAX_HEX_ADR + 4),
-                        (car_height + 8) * MEM_NB_LINES);
-  gtk_box_pack_start (GTK_BOX (hbox1), mem_app->text_adr, TRUE, TRUE, 0);
-
-  mem_app->text_data = gtk_text_view_new ();
-  gtk_widget_show (mem_app->text_data);
-  gtk_widget_set_usize (GTK_WIDGET (mem_app->text_data), car_width * 52,
-                                    (car_height + 8) * MEM_NB_LINES);
-  gtk_box_pack_start (GTK_BOX (hbox1), mem_app->text_data, TRUE, TRUE, 0);
-
-  mem_app->text_ascii = gtk_text_view_new ();
-  gtk_widget_show (mem_app->text_ascii);
-  gtk_widget_set_usize (GTK_WIDGET (mem_app->text_ascii),
-                        car_width * 19,
-                        (car_height + 8) * MEM_NB_LINES);
-  gtk_box_pack_start (GTK_BOX (hbox1), mem_app->text_ascii, TRUE, TRUE, 0);
-
-  gtk_widget_modify_font (mem_app->text_adr, font_desc);
-  gtk_widget_modify_font (mem_app->text_data, font_desc);
-  gtk_widget_modify_font (mem_app->text_ascii, font_desc);
-  pango_font_description_free (font_desc);
-  
-  mem_app->mem_label = gtk_label_new ("");
-  gtk_widget_show (mem_app->mem_label);
-  gtk_box_pack_start (GTK_BOX (vbox1), mem_app->mem_label, TRUE, TRUE,
-  		    0);
-
-  hseparator1 = gtk_hseparator_new ();
-  gtk_widget_show (hseparator1);
-  gtk_box_pack_start (GTK_BOX (vbox1), hseparator1, TRUE, TRUE, 5);
-
-  hbox2 = gtk_hbox_new (FALSE, 0);
-  gtk_widget_show (hbox2);
-  gtk_box_pack_start (GTK_BOX (vbox1), hbox2, TRUE, TRUE, 5);
-
-  button1 = gtk_button_new_with_label (_("Inspect "));
-  GTK_WIDGET_SET_FLAGS (button1, GTK_CAN_DEFAULT);
-  gtk_widget_show (button1);
-  gtk_box_pack_start (GTK_BOX (hbox2), button1, TRUE, TRUE, 5);
-
-  label1 = gtk_label_new (_("Hexa address "));
-  gtk_widget_show (label1);
-  gtk_box_pack_start (GTK_BOX (hbox2), label1, FALSE, FALSE, 0);
-
-  mem_app->adr_entry = gtk_entry_new ();
-  gtk_entry_set_max_length (GTK_ENTRY(mem_app->adr_entry), MAX_HEX_ADR);
-  gtk_widget_show (mem_app->adr_entry);
-  gtk_widget_set_usize (GTK_WIDGET (mem_app->adr_entry),
-                        default_car_width * (MAX_HEX_ADR + 2), 0);
-  gtk_box_pack_start (GTK_BOX (hbox2), mem_app->adr_entry, FALSE, FALSE, 0);
-
-  button2 = gtk_button_new_with_label (_("Quit"));
-  gtk_widget_show (button2);
-  gtk_box_pack_start (GTK_BOX (hbox2), button2, TRUE, TRUE, 5);
-
-
-  gtk_signal_connect (GTK_OBJECT (button1), "clicked",
-                      GTK_SIGNAL_FUNC (on_inspect_button_clicked),
-                      mem_app);
-  gtk_signal_connect (GTK_OBJECT (button2), "clicked",
-                      GTK_SIGNAL_FUNC (on_quit_button_clicked),
-                      mem_app);
-  gtk_signal_connect (GTK_OBJECT (mem_app->adr_entry), "insert_text",
-                      GTK_SIGNAL_FUNC (entry_filter), NULL);
-  gtk_signal_connect (GTK_OBJECT (mem_app->text_data),
-                      "button_release_event",
-                      GTK_SIGNAL_FUNC(on_text_data_button_release_event),
-                      mem_app);
-  gtk_signal_connect (GTK_OBJECT (mem_app->text_data),
-                      "key_press_event",
-                      GTK_SIGNAL_FUNC (on_text1_key_press_event),
-                      mem_app);
-  gtk_signal_connect (GTK_OBJECT (eventbox1), "button_press_event",
-                      GTK_SIGNAL_FUNC (on_eventbox1_button_press_event),
-                      mem_app);
-  gtk_signal_connect (GTK_OBJECT (eventbox2), "button_press_event",
-                      GTK_SIGNAL_FUNC (on_eventbox2_button_press_event),
-                      mem_app);
-  gtk_signal_connect (GTK_OBJECT (mem_app->window), "destroy",
-                      GTK_SIGNAL_FUNC (on_window_destroy), mem_app);
-
-  mem_app->new_window = FALSE;
-  /*inspect_memory (ptr, mem_app);*/
-
-  gtk_widget_grab_focus (mem_app->adr_entry);
-  gtk_widget_grab_default (button1);
-
-  return mem_app->window;
+	return memapp->dialog;
 }
 
-static gint
-hexa_to_decimal (gchar c)
+void
+init_memory (MemApp *memapp)
 {
-  if (c >= '0' && c <= '9')
-    return c - '0';
-  if (c >= 'A' && c <= 'F')
-    return c - 'A' + 10;
-  if (c >= 'a' && c <= 'f')
-    return c - 'a' + 10;
-  else
-    return 0;
+	gchar *address = "";
+	gchar *data = "";
+	gchar *ascii = "";
+	gint line, i;
+	
+	for (line = 0 ; line < MEM_NB_LINES; line++)
+	{
+		for (i=0; i<MAX_CAR_ADR_ENTRY; i++)
+			address = g_strconcat (address, "0", NULL);
+		address = g_strconcat (address, "\n", NULL);
+		for (i = 0; i < 16; i++)
+		{
+			data = g_strconcat (data, "00 ", NULL);
+			ascii = g_strconcat (ascii, ".", NULL);	
+		}
+		data = g_strconcat (data, "\n", NULL);
+		ascii = g_strconcat (ascii, "\n", NULL);
+	}
+	gtk_text_buffer_set_text (memapp->adr_buffer, address, -1);
+	gtk_text_buffer_set_text (memapp->data_buffer, data, -1);
+	gtk_text_buffer_set_text (memapp->ascii_buffer, ascii, -1);
+	
+	g_free (data);
+	g_free (address);
+	g_free (ascii);
 }
 
-guchar *
+void
+init_name_memory (MemApp *memapp)
+{
+	memapp->adr_entry = glade_xml_get_widget (memapp->xml, ADR_ENTRY);
+	memapp->button_inspect = glade_xml_get_widget (memapp->xml, BUTTON_INSPECT);
+	memapp->button_quit = glade_xml_get_widget (memapp->xml, BUTTON_QUIT);
+	memapp->memory_label = glade_xml_get_widget (memapp->xml, MEMORY_LABEL);
+	memapp->adr_textview = glade_xml_get_widget (memapp->xml, ADR_TEXTVIEW);
+	memapp->data_textview = glade_xml_get_widget (memapp->xml, DATA_TEXTVIEW);
+	memapp->ascii_textview = glade_xml_get_widget (memapp->xml, ASCII_TEXTVIEW);
+	memapp->eventbox_up = glade_xml_get_widget (memapp->xml, EVENTBOX_UP);
+	memapp->eventbox_down = glade_xml_get_widget (memapp->xml, EVENTBOX_DOWN);
+}
+
+void
+init_widget_memory (MemApp *memapp)
+{
+	PangoFontDescription *font_desc;
+	GdkColor red = {16, -1, 0, 0};
+	GdkColor blue = {16, 0, 0, -1};
+	
+	font_desc = pango_font_description_from_string ("Fixed 11");
+	
+	gtk_widget_modify_font (memapp->adr_entry, font_desc);
+	gtk_entry_set_width_chars (GTK_ENTRY (memapp->adr_entry),
+							   MAX_CAR_ADR_ENTRY);
+	
+	gtk_widget_modify_font (memapp->adr_textview, font_desc);
+	gtk_widget_modify_text (memapp->adr_textview, GTK_STATE_NORMAL, &red);
+	gtk_widget_modify_font (memapp->data_textview, font_desc);
+	gtk_widget_modify_font (memapp->ascii_textview, font_desc);
+	gtk_widget_modify_text (memapp->ascii_textview, GTK_STATE_NORMAL, &blue);
+	
+	pango_font_description_free (font_desc);
+	
+	memapp->adr_buffer =
+		gtk_text_view_get_buffer (GTK_TEXT_VIEW (memapp->adr_textview));
+	memapp->data_buffer =
+		gtk_text_view_get_buffer (GTK_TEXT_VIEW (memapp->data_textview));
+	memapp->ascii_buffer =
+		gtk_text_view_get_buffer (GTK_TEXT_VIEW (memapp->ascii_textview));
+	
+	gtk_text_buffer_create_tag (memapp->data_buffer, "data_select", 
+								"foreground", "white",
+								"background", "blue", NULL);
+}
+
+void
+init_event_memory (MemApp *memapp)
+{
+	gtk_signal_connect (GTK_OBJECT (memapp->button_inspect), "clicked",
+						GTK_SIGNAL_FUNC (on_button_inspect_clicked), memapp);
+	gtk_signal_connect (GTK_OBJECT (memapp->button_quit), "clicked",
+						GTK_SIGNAL_FUNC (on_button_quit_clicked), memapp);
+	gtk_signal_connect (GTK_OBJECT (memapp->adr_entry), "insert_text",
+						GTK_SIGNAL_FUNC (on_adr_entry_insert_text), NULL);
+	gtk_signal_connect (GTK_OBJECT (memapp->dialog), "destroy",
+						GTK_SIGNAL_FUNC (on_dialog_memory_destroy), memapp);
+	gtk_signal_connect (GTK_OBJECT (memapp->dialog),
+						"key_press_event",
+						GTK_SIGNAL_FUNC (on_text1_key_press_event), memapp);
+	gtk_signal_connect (GTK_OBJECT (memapp->data_textview),
+						"button_release_event",
+						GTK_SIGNAL_FUNC (on_text_data_button_release_event),
+						memapp);
+	gtk_signal_connect (GTK_OBJECT (memapp->eventbox_up), "button_press_event",
+						GTK_SIGNAL_FUNC (on_eventbox_up_button_press_event),
+						memapp);
+	gtk_signal_connect (GTK_OBJECT (memapp->eventbox_down),
+						"button_press_event",
+						GTK_SIGNAL_FUNC (on_eventbox_down_button_press_event),
+						memapp);
+}
+
+
+void
+on_adr_entry_insert_text (GtkEditable *editable, const gchar *text,
+						  gint length, gint *pos, gpointer user_data)
+{
+	gint i;
+
+ 	if (length == 1)
+ 	{
+		if (!g_ascii_isxdigit (*text))
+		{
+			gdk_beep ();
+			gtk_signal_emit_stop_by_name (GTK_OBJECT (editable), "insert_text");
+		}
+		return;
+	}
+
+	for (i = 0; i < length; i++)
+	{
+		if (!g_ascii_isxdigit (text[i]))
+		{
+			gdk_beep ();
+			gtk_signal_emit_stop_by_name (GTK_OBJECT (editable), "insert_text");
+			return;
+		}
+	}
+}
+
+gchar*
 memory_info_address_to_decimal (gchar * hexa)
 {
-  gchar *ptr;
-  gulong dec;
-
-  ptr = hexa;
-  dec = 0;
-  while (*ptr)
-  {
-    dec = dec * 16 + hexa_to_decimal (*ptr++);
-  }
-  return (guchar *) dec;
+	gchar *ptr;
+	gulong dec;
+	
+	ptr = hexa;
+	dec = 0;
+	while (*ptr)
+	{
+		dec = dec * 16 + g_ascii_xdigit_value (*ptr++);
+	}
+	return (guchar *) dec;
 }
 
-
-static void
-remove_space (gchar * string)
-{
-  gchar *ptr, *str;
-
-  ptr = str = string;
-  while (*str)
-  {
-    if (*str == ' ' || *str == '\n')
-      str++;
-    else
-      *(ptr++) = *(str++);
-  }
-  *ptr = '\0';
-}
-
-
-static gboolean
-is_hexa (gchar c)
-{
-  if ((c >= '0' && c <= '9') || (c >= 'A' && c <= 'F') ||
-      (c >= 'a' && c <= 'f'))
-    return TRUE;
-  else
-    return FALSE;
-}
 
 
 static gchar
 convert_hexa (gchar c)
 {
-  if (c < 10)
-    return c + '0';
-  else
-    return c + 'A' - 10;
+	if (c < 10)
+		return c + '0';
+	else
+		return c + 'A' - 10;
 }
 
-
-static gchar *
+static gchar*
 convert_adr_hexa (gulong adr)
 {
-  static gchar buffer[9];
-  static gulong r;
-  guchar c;
-  gint i = 0;
-
-  while (adr > 15 && i < MAX_HEX_ADR)
-  {
-    c = adr % 16;
-    r = adr / 16;
-    buffer[i++] = convert_hexa (c);
-    adr = r;
-  }
-  buffer[i++] = convert_hexa (r);
-  buffer[i] = '\0';
-  g_strreverse (buffer);
-
-  return buffer;
+	static gchar buffer[9];
+	static gulong r;
+	guchar c;
+	gint i = 0;
+	
+	while (adr > 15 && i < MAX_CAR_ADR_ENTRY)
+	{
+		c = adr % 16;
+		r = adr / 16;
+		buffer[i++] = convert_hexa (c);
+		adr = r;
+	}
+	buffer[i++] = convert_hexa (r);
+	buffer[i] = '\0';
+	g_strreverse (buffer);
+	
+	return buffer;
 }
 
-
-static gchar *
+static gchar*
 convert_hexa_byte (gchar c)
 {
-  static gchar byte[3];
-
-  byte[0] = convert_hexa (c >> 4 & 0x0F);
-  byte[1] = convert_hexa (c & 0x0F);
-  byte[3] = '\0';
-  return byte;
+	static gchar byte[3];
+	
+	byte[0] = convert_hexa (c >> 4 & 0x0F);
+	byte[1] = convert_hexa (c & 0x0F);
+	byte[3] = '\0';
+	return byte;
 }
 
-
-static guchar
-convert_ascii_print (guchar c)
+static gchar*
+convert_ascii_print (gchar c)
 {
-  if ((c > 31) && (c < 127))
-    return c;
-  else
-    return 183;
-
+	if (g_ascii_isprint (c))
+		return (g_strdup_printf("%c", c));
+	else
+		return ".";
 }
 
 extern void
-debugger_memory_cbs(GList* list, MemApp *memapp)
+debugger_memory_cbs (GList* list, MemApp *memapp)
 {
-  gchar *data;
-  gchar ascii[20];
-  gulong adr;
-  gchar *ptr;
-  gchar *address = NULL;
-  gint col, i;
-  gint car;
-  GdkColor red = { 16, -1, 0, 0 };
-  GdkColor blue = { 16, 0, 0, -1 };
-  GtkWidget *win_mem;
-  GtkTextBuffer *buffer;
+	gchar *address = "";
+	gchar *data = "";
+	gchar *ascii = "";
+	gulong adr;
+	gchar *ptr;
+	gint line, i;
+	gint car;
+	GtkWidget *win_mem;
 
-  if (memapp->new_window)
-  {
-    win_mem = memory_info_new (memapp->adr);
-    gtk_widget_show (win_mem);
-  }
+	if (memapp->new_window)
+	{
+		win_mem = memory_info_new (memapp->adr);
+		gtk_widget_show (win_mem);
+	}
+	else
+	{
+		memapp->new_window = TRUE;
+		memapp->start_adr = memapp->adr;
+		adr = (gulong) memapp->adr & -16;
+		line = (gulong) memapp->adr & 0xF;
+
+		memapp->adr = (gchar*)adr;
+
+		for (i = 0; i < line; i++)
+		{
+			data = g_strconcat (data, "   ", NULL);
+			ascii = g_strconcat (ascii, " ", NULL);
+		}
+
+		while (list)
+		{
+			ptr = (gchar*) list->data;
+			while (*ptr != ':')
+				ptr++;
+			ptr++;
+			while (*ptr)
+			{
+				car = atoi(++ptr);
+				data = g_strconcat (data, convert_hexa_byte (car), " ", NULL);
+				ascii = g_strconcat (ascii, convert_ascii_print (car), NULL);
+				while(*ptr && *ptr != '\t')
+					ptr++;
+				line++;
+				if (line == 16)
+				{
+					address =  g_strconcat (address, convert_adr_hexa (adr),
+											"\n", NULL);
+					data = g_strconcat (data, "\n", NULL);	
+					ascii = g_strconcat (ascii, "\n", NULL);
+					line = 0;
+					adr += 16;
+				}
+			}
+			list = g_list_next (list);
+		}
+		gtk_text_buffer_set_text (memapp->adr_buffer, address, -1);
+		gtk_text_buffer_set_text (memapp->data_buffer, data, -1);
+		gtk_text_buffer_set_text (memapp->ascii_buffer, ascii, -1);
+
+		g_free (data);
+		g_free (address);
+		g_free (ascii);
+	}
+}
+
+static gboolean
+memory_timeout (MemApp * memapp)
+{	
+	if (debugger_is_ready())
+		/*  Accessible address  */
+		gtk_label_set_text (GTK_LABEL (memapp->memory_label), 
+						_("Enter a Hexa address or Select one in the data"));
   else
-  {
-    memapp->new_window = TRUE;
-    memapp->start_adr = memapp->adr;
-    mem_clear_gtktext_all (memapp);
-    adr = (gulong)memapp->adr & -16;
-    col = (gulong)memapp->adr & 0xF;
-
-    memapp->adr = (gchar*)adr;
-    data = g_strdup(" ");
-    for (i=0; i<col; i++)
-    {
-      data = g_strconcat(data, "   ", NULL);
-      ascii[i] = ' ';
-    }
-    while (list)
-    {
-      ptr = (gchar*) list->data;
-      while (*ptr != ':')
-        ptr++;
-      ptr++;
-      while (*ptr)
-      {
-        car = atoi(++ptr);
-        data = g_strconcat(data, convert_hexa_byte(car), " ", NULL);
-        ascii[col] = convert_ascii_print(car);
-        while(*ptr && *ptr != '\t')
-          ptr++;
-        col++;
-        if (col == 16)
-        {
-		  GtkTextBuffer *buffer;
-          address =  g_strconcat(" ", convert_adr_hexa(adr), "\n", NULL);
-          data = g_strconcat(data, "\n", NULL);
-          ascii[col] = '\n';
-          ascii[col + 1] = '\0';
-		  
-		  buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (memapp->text_adr));
-		  gtk_text_buffer_set_text (buffer, address, -1);
-		  buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (memapp->text_data));
-		  gtk_text_buffer_set_text (buffer, data, -1);
-		  buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (memapp->text_ascii));
-		  gtk_text_buffer_set_text (buffer, ascii, -1);
-          col = 0;
-          adr += 16;
-          data = g_strdup(" ");
-        }
-      }
-      list = g_list_next (list);
-    }
-    g_free (data);
-    g_free (address);
-  }
+	{
+		/*  Non Accessible address  */
+		memapp->adr = memapp->start_adr;
+		debugger_set_ready (TRUE);
+		gtk_label_set_text (GTK_LABEL (memapp->memory_label),
+							_("Non accessible address !"));
+	}
+	timeout = TRUE;
+	
+	return FALSE;
 }
 
-gboolean timeout = TRUE;
-
-gboolean  memory_timeout (MemApp * memapp)
+static gboolean
+inspect_memory (gchar *adr, MemApp * memapp)
 {
-  if (debugger_is_ready())
-  {
-    /*  Accessible address  */
-    gtk_label_set_text (GTK_LABEL (memapp->mem_label), "");
-  }
-  else
-  {
-    /*  Non Accessible address  */
-    memapp->adr = memapp->start_adr;
-    debugger_set_ready (TRUE);
-    gtk_label_set_text (GTK_LABEL (memapp->mem_label),
-                        _("Non accessible address !"));
-   }
-timeout = TRUE;
-return FALSE;
-}
-
-gboolean inspect_memory (guchar *adr, MemApp * memapp)
-{
-  gchar *cmd;
-  gchar *address;
-  gchar *nb_car;
-
-  address =g_strdup_printf("%ld", (gulong) adr);
-
-  nb_car = g_strdup_printf("%d", (gint) (MEM_NB_LINES * 16 - ((gulong)adr & 0xF)) );
-
-  cmd = g_strconcat("x", "/", nb_car, "bd ", address, " ", NULL);
-
-  memapp->adr = adr;
-
-  debugger_put_cmd_in_queqe(cmd, 0, (void*)debugger_memory_cbs, memapp);
-  debugger_execute_cmd_in_queqe();
-
-  g_free(cmd);
-  g_free(address);
-  g_free(nb_car);
-
-  /* No answer from gdb after 500ms ==> memory non accessible */
-  g_timeout_add(500, (void*) memory_timeout, memapp);
-
-  return TRUE;
+	gchar *cmd;
+	gchar *address;
+	gchar *nb_car;
+	
+	address =g_strdup_printf ("%ld", (gulong) adr);
+	nb_car = g_strdup_printf ("%d", (gint) (MEM_NB_LINES * 16 - ((gulong)adr & 0xF)) );
+	cmd = g_strconcat ("x", "/", nb_car, "bd ", address, " ", NULL);
+	memapp->adr = adr;
+	
+	debugger_put_cmd_in_queqe (cmd, 0, (void*) debugger_memory_cbs, memapp);
+	debugger_execute_cmd_in_queqe();
+	
+	g_free (cmd);
+	g_free (address);
+	g_free (nb_car);
+	
+	/* No answer from gdb after 500ms ==> memory non accessible */
+	g_timeout_add (500, (void*) memory_timeout, memapp);
+	
+	return FALSE;
 }
 
 static void
-entry_filter (GtkEditable *editable, const gchar *text, gint length,
-             gint *pos, gpointer user_data)
+remove_space_nl (gchar * string)
 {
-  gint i;
+	gchar *ptr, *str;
+	
+	ptr = str = string;
+	while (*str)
+	{
+		if (*str == ' ' || *str == '\n')
+			str++;
+		else
+			*(ptr++) = *(str++);
+	}
+	*ptr = '\0';
+}
 
-  if (length == 1)
-  {
-    if (!is_hexa (*text))
-    {
-      gdk_beep ();
-      gtk_signal_emit_stop_by_name (GTK_OBJECT (editable),
-                                    "insert_text");
-    }
-    return;
-  }
-
-  for (i = 0; i < length; i++)
-  {
-    if (!is_hexa (text[i]))
-    {
-      gdk_beep ();
-      gtk_signal_emit_stop_by_name (GTK_OBJECT (editable),
-                                    "insert_text");
-      return;
-    }
-  }
+static gboolean
+dummy (GtkWidget *widget, GdkEventButton *event, MemApp *memapp)
+{
+	return FALSE;
 }
 
 static void
-mem_clear_gtktext (GtkTextView *text)
+select_new_data (MemApp *memapp, GtkTextIter *start, GtkTextIter *end)
 {
-  gint length;
-  GtkTextBuffer *buffer;
-  buffer = gtk_text_view_get_buffer (text);
-  gtk_text_buffer_set_text (buffer, "", -1);
-}
+	GtkTextIter buffer_start, buffer_end;
+	
+	gtk_text_buffer_get_bounds (memapp->data_buffer, &buffer_start, &buffer_end);
+	gtk_text_buffer_remove_tag_by_name (memapp->data_buffer, "data_select",
+										&buffer_start, &buffer_end);
 
-static void
-mem_clear_gtktext_all (MemApp *memapp)
-{
-  mem_clear_gtktext (GTK_TEXT_VIEW (memapp->text_adr));
-  mem_clear_gtktext (GTK_TEXT_VIEW (memapp->text_data));
-  mem_clear_gtktext (GTK_TEXT_VIEW (memapp->text_ascii));
-
+	gtk_text_buffer_apply_tag_by_name (memapp->data_buffer, "data_select",
+									   start, end);
+	gtk_signal_emit_by_name (GTK_OBJECT (memapp->data_textview),
+							 "button_press_event",
+							 GTK_SIGNAL_FUNC (dummy), memapp);
 }
 
 static gboolean
 on_text_data_button_release_event (GtkWidget *widget,
-                              	   GdkEventButton *event, MemApp *memapp)
+								   GdkEventButton *event,
+								   MemApp *memapp)
 {
-#warning "G2 port: Activate selection in Memory Info"
-#if 0
-  gint tmp;
-  gint l;
-  gchar *buffer;
-  GtkTextBuffer *buffer;
-  GtkTextMark *start_mark, *end_mark;
-
-  gtk_label_set_text (GTK_LABEL (memapp->mem_label), "");
+	GtkTextIter start;
+	GtkTextIter end;
+	gchar *select;
+	gint offset;
+	gint len, nb_lines, nb_digits;
+	gint tmp, l;
 	
-  /* Get selected text */
-  buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (widget));
-  start_mark = gtk_text_buffer_get_selection_mark (buffer);
-  end_mark = gtk_text_buffer_get_insert (buffer);  
-  if (start > end)
-  {
-    tmp = start;
-    start = end;
-    end = tmp;
-  }
+	if (gtk_text_buffer_get_selection_bounds (memapp->data_buffer,
+											  &start, &end))
+	{
+		offset = gtk_text_iter_get_line_offset(&start) % 3;
+		if (offset  == 1)
+			gtk_text_iter_backward_char(&start);
+		else if (offset == 2)
+			gtk_text_iter_forward_char(&start);
+		
+		offset = gtk_text_iter_get_line_offset(&end) % 3;
+		if (offset  == 0)
+			gtk_text_iter_backward_char(&end);
+		else if (offset == 1)
+			gtk_text_iter_forward_char(&end);
+		
+		len = gtk_text_iter_get_offset(&end) - gtk_text_iter_get_offset (&start);
+		nb_lines = gtk_text_iter_get_line (&end) - gtk_text_iter_get_line (&start);
+		nb_digits = (len + 1 - nb_lines) / 3;
+		if (nb_digits > (MAX_CAR_ADR_ENTRY / 2))
+		{
+			gint x = (gtk_text_iter_get_line_offset(&start) > 36) ? 1 : 0;
+			gtk_text_iter_backward_chars (&end,
+					(nb_digits - (MAX_CAR_ADR_ENTRY / 2)) * 3 + nb_lines -x);
+		}
+		
+		select = gtk_text_buffer_get_text (memapp->data_buffer, &start,
+										   &end, TRUE);
+		remove_space_nl (select);
+		
+		if (G_BYTE_ORDER == G_LITTLE_ENDIAN)
+		{
+			for (l = 0; l < strlen (select); l += 2)
+			{
+				tmp = select[l];
+				select[l] = select[l + 1];
+				select[l + 1] = tmp;
+			}
+			g_strreverse (select);
+		}
+		
+		select_new_data (memapp, &start, &end);
+	
+		gtk_entry_set_text (GTK_ENTRY (memapp->adr_entry), select);
+		gtk_widget_grab_focus (memapp->adr_entry);
+		
+		g_free (select);
+	}
 
-  if (end != start)
-  {
-    if (start != 0)
-      start--;
-    if (end < MEM_NB_LINES * 50 )
-      end++;
-    buffer = gtk_editable_get_chars (GTK_EDITABLE (widget), start, end);
-
-    if (buffer[0] == ' ')
-      start++;
-    else if (buffer[1] == ' ')
-      start += 2;
-
-    l = strlen (buffer);
-    if (buffer[l - 1] == ' ')
-      end--;
-    else if (buffer[l - 2] == ' ')
-      end -= 2;
-
-    if (start > end)
-      start = end;
-
-    if ((end - start) > (MAX_HEX_ADR + MAX_HEX_ADR/2 - 1))
-      start = end - (MAX_HEX_ADR + MAX_HEX_ADR/2 - 1);
-
-    buffer = gtk_editable_get_chars (GTK_EDITABLE (widget), start, end);
-    gtk_editable_select_region (GTK_EDITABLE (widget), start, end);
-    remove_space (buffer);
-
-    if (G_BYTE_ORDER == G_LITTLE_ENDIAN)
-    {
-      for (l = 0; l < strlen (buffer); l += 2)
-      {
-        tmp = buffer[l];
-        buffer[l] = buffer[l + 1];
-        buffer[l + 1] = tmp;
-      }
-      g_strreverse (buffer);
-    }
-
-    gtk_entry_set_text (GTK_ENTRY (memapp->adr_entry), buffer);
-    g_free (buffer);
-  }
-  else
-    gtk_entry_set_text (GTK_ENTRY (memapp->adr_entry), "");
-
-#endif
-  return FALSE;
+	return FALSE;
 }
 
 static void
-on_inspect_button_clicked (GtkButton *button, MemApp *memapp)
+memory_inspect (MemApp *memapp)
 {
-  static gchar buffer[20];
-  static gchar *ptr = buffer;
-  gchar* string;
+	gchar *string;
 
-  string = g_strdup (gtk_entry_get_text(GTK_ENTRY (memapp->adr_entry)));
-  ptr = g_strstrip (string);
-  g_free (string);
-  remove_space (ptr);
-
-  inspect_memory (memory_info_address_to_decimal (ptr), memapp );
+	string = g_strstrip (g_strdup (gtk_entry_get_text (GTK_ENTRY (memapp->adr_entry))));
+	inspect_memory (memory_info_address_to_decimal (string), memapp );
+	g_free (string);
 }
 
 static void
-on_quit_button_clicked (GtkButton *button, MemApp *memapp)
+on_button_inspect_clicked (GtkButton *button, MemApp *memapp)
 {
-  gtk_widget_destroy (memapp->window);
+	memory_inspect (memapp);
 }
+
 
 static void
 mem_move_up (MemApp *memapp)
 {
-  if (timeout)
-  {
-    memapp->adr -= 16;
-    memapp->new_window = FALSE;
-    inspect_memory (memapp->adr, memapp );
-    timeout = FALSE;
-  }
+	if (timeout)
+	{
+		memapp->adr -= 16;
+		memapp->new_window = FALSE;
+		inspect_memory (memapp->adr, memapp );
+		timeout = FALSE;
+	}
 }
 
 static void
 mem_move_page_up (MemApp *memapp)
 {
-  if (timeout)
-  {
-    memapp->adr -= 16 * MEM_NB_LINES / 2;
-    memapp->new_window = FALSE;
-    inspect_memory (memapp->adr, memapp );
-    timeout = FALSE;
-  }
-}
-
-static gboolean
-on_eventbox1_button_press_event (GtkWidget *widget, GdkEventButton *event,
-                                 MemApp *memapp)
-{
-  mem_move_up (memapp);
-  return FALSE;
+	if (timeout)
+	{
+		memapp->adr -= 16 * MEM_NB_LINES / 2;
+		memapp->new_window = FALSE;
+		inspect_memory (memapp->adr, memapp );
+		timeout = FALSE;
+	}
 }
 
 static void
 mem_move_down (MemApp *memapp)
 {
-  if (timeout)
-  {
-    memapp->adr += 16;
-    memapp->new_window = FALSE;
-    inspect_memory (memapp->adr, memapp );
-    timeout = FALSE;
-  }
+	if (timeout)
+	{
+		memapp->adr += 16;
+		memapp->new_window = FALSE;
+		inspect_memory (memapp->adr, memapp );
+		timeout = FALSE;
+	}
 }
 
 static void
 mem_move_page_down (MemApp *memapp)
 {
-  if (timeout)
-  {
-    memapp->adr += 16 * MEM_NB_LINES / 2;
-    memapp->new_window = FALSE;
-    inspect_memory (memapp->adr, memapp );
-    timeout = FALSE;
-  }
-}
-
-static gboolean
-on_eventbox2_button_press_event (GtkWidget *widget, GdkEventButton *event,
-                                 MemApp *memapp)
-{
-  mem_move_down (memapp);
-  return FALSE;
+	if (timeout)
+	{
+		memapp->adr += 16 * MEM_NB_LINES / 2;
+		memapp->new_window = FALSE;
+		inspect_memory (memapp->adr, memapp );
+		timeout = FALSE;
+	}
 }
 
 static gboolean
 on_text1_key_press_event (GtkWidget *widget, GdkEventKey *event,
-                          MemApp *memapp)
+						  MemApp *memapp)
 {
-  switch (event->keyval & 0xff)
-  {
-    case 82:
-      mem_move_up (memapp);
-      break;
-    case 84:
-      mem_move_down (memapp);
-      break;
-    case 85:
-      mem_move_page_up (memapp);
-      break;
-    case 86:
-      mem_move_page_down (memapp);
-      break;
-  }
-  return FALSE;
+	switch (event->keyval & 0xff)
+	{
+	case 82:
+		mem_move_up (memapp);
+		break;
+	case 84:
+		mem_move_down (memapp);
+		break;
+	case 85:
+		mem_move_page_up (memapp);
+		break;
+	case 86:
+		mem_move_page_down (memapp);
+		break;
+	case 13:
+		memory_inspect (memapp);
+		break;
+	}
+	return FALSE;
+}
+
+static gboolean
+on_eventbox_up_button_press_event (GtkWidget *widget,
+								   GdkEventButton *event,
+								   MemApp *memapp)
+{
+	mem_move_up (memapp);
+	return FALSE;
+}
+
+static gboolean
+on_eventbox_down_button_press_event (GtkWidget *widget,
+									 GdkEventButton *event,
+									 MemApp *memapp)
+{
+	mem_move_down (memapp);
+	return FALSE;
 }
 
 static void
-on_window_destroy (GtkObject *object, MemApp *memapp)
+on_dialog_memory_destroy (GtkObject *object, MemApp *memapp)
 {
-  g_free (memapp);
-  memapp = NULL;
+	g_free (memapp);
+	memapp = NULL;
+}
+
+static void
+on_button_quit_clicked (GtkButton *button, MemApp *memapp)
+{
+	gtk_widget_destroy (memapp->dialog);
 }

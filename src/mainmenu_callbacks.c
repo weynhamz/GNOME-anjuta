@@ -56,7 +56,6 @@
 #include "ScintillaWidget.h"
 #include "about.h"
 #include "an_file_view.h"
-
 #include "tm_tagmanager.h"
 #include "file_history.h"
 #include "memory.h"
@@ -64,6 +63,10 @@
 #include "anjuta-tools.h"
 #include "search-replace.h"
 #include "anjuta_info.h"
+#include "watch_gui.h"
+#include "signals_cbs.h"
+#include "watch_cbs.h"
+#include "start-with.h"
 
 void on_toolbar_find_clicked (EggAction *action, gpointer user_data);
 
@@ -106,7 +109,7 @@ on_save1_activate (EggAction * action, gpointer user_data)
 		gtk_widget_show (app->save_as_fileselection);
 		return;
 	}
-	ret = text_editor_save_file (te);
+	ret = text_editor_save_file (te, TRUE);
 	if (closing_state && ret == TRUE)
 	{
 		anjuta_remove_text_editor (te);
@@ -175,10 +178,12 @@ on_close_file1_activate (EggAction * action, gpointer user_data)
 										 GTK_MESSAGE_QUESTION,
 										 GTK_BUTTONS_NONE, mesg);
 		g_free (mesg);
-		gtk_dialog_add_buttons (GTK_DIALOG (dialog), 
-								GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-								GTK_STOCK_NO, GTK_RESPONSE_NO,
-								GTK_STOCK_YES, GTK_RESPONSE_YES, NULL);
+		gtk_dialog_add_button (GTK_DIALOG (dialog), 
+							   GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL);
+		anjuta_dialog_add_button (GTK_DIALOG (dialog), _("Do_n't save"),
+								  GTK_STOCK_NO, GTK_RESPONSE_NO);
+		gtk_dialog_add_button (GTK_DIALOG (dialog),
+							   GTK_STOCK_SAVE, GTK_RESPONSE_YES);
 		gtk_dialog_set_default_response (GTK_DIALOG (dialog),
 										 GTK_RESPONSE_CANCEL);
 		res = gtk_dialog_run (GTK_DIALOG (dialog));
@@ -239,7 +244,12 @@ on_reload_file1_activate (EggAction * action, gpointer user_data)
 	dialog = gtk_message_dialog_new (GTK_WINDOW (app->widgets.window),
 									 GTK_DIALOG_DESTROY_WITH_PARENT,
 									 GTK_MESSAGE_QUESTION,
-									 GTK_BUTTONS_YES_NO, mesg);
+									 GTK_BUTTONS_NONE, mesg);
+	gtk_dialog_add_button (GTK_DIALOG (dialog),
+						   GTK_STOCK_CANCEL,	GTK_RESPONSE_NO);
+	anjuta_dialog_add_button (GTK_DIALOG (dialog), _("_Reload"),
+							  GTK_STOCK_REVERT_TO_SAVED,
+							  GTK_RESPONSE_YES);
 	gtk_dialog_set_default_response (GTK_DIALOG (dialog),
 									 GTK_RESPONSE_NO);
 	if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_YES)
@@ -265,7 +275,10 @@ on_new_project1_activate (EggAction * action, gpointer user_data)
 void
 on_import_project_activate (EggAction * action, gpointer user_data)
 {
-	create_project_import_gui ();
+	/* Note: ProjectImportWizard object, which is created by the
+	following call, will be automatically destroyed when the Import is
+	done or canceled. We do not need to take care of it. */
+	project_import_new ();
 }
 
 void
@@ -294,23 +307,11 @@ on_rename1_activate (EggAction * action, gpointer user_data)
 	anjuta_not_implemented (__FILE__, __LINE__);
 }
 
-
-void
-on_page_setup1_activate (EggAction * action, gpointer user_data)
-{
-#warning "G3: Show print setup preferences page here"
-
-	//gtk_notebook_set_page (GTK_NOTEBOOK
-	//		       (app->preferences->notebook), 4);
-	gtk_widget_show (GTK_WIDGET (app->preferences));
-}
-
 void
 on_nonimplemented_activate(EggAction * action, gpointer user_data)
 {
 	anjuta_not_implemented (__FILE__, __LINE__);
 }
-
 
 void
 on_exit1_activate (EggAction * action, gpointer user_data)
@@ -338,6 +339,23 @@ on_editor_select_function (EggAction *action, gpointer user_data)
 	if (te == NULL)
 		return;
 	function_select(te);
+}
+
+
+void on_editor_select_word (EggAction *action, gpointer user_data)
+{
+    TextEditor* te;
+	te = anjuta_get_current_text_editor();
+	if(!te) return;
+    aneditor_command (te->editor_id, ANE_WORDSELECT, 0, 0);
+}
+
+void on_editor_select_line (EggAction *action, gpointer user_data)
+{
+    TextEditor* te;
+	te = anjuta_get_current_text_editor();
+	if(!te) return;
+    aneditor_command (te->editor_id, ANE_LINESELECT, 0, 0);
 }
 
 void
@@ -960,7 +978,7 @@ void on_prev_occur(EggAction * action, gpointer user_data)
 			return;
 		}
 	}
-    return_=text_editor_find(te,buffer,TEXT_EDITOR_FIND_SCOPE_CURRENT,0,0,1,1);
+    return_=text_editor_find(te,buffer,TEXT_EDITOR_FIND_SCOPE_CURRENT,0,0,1,1,0);
 	
 	g_free(buffer);
 
@@ -994,7 +1012,7 @@ void on_next_occur(EggAction * action, gpointer user_data)
 			return;
 		}
 	}
-    return_=text_editor_find(te,buffer,TEXT_EDITOR_FIND_SCOPE_CURRENT,1,0,1,1);
+    return_=text_editor_find(te,buffer,TEXT_EDITOR_FIND_SCOPE_CURRENT,1,0,1,1,0);
 	
 	g_free(buffer);
 
@@ -1022,6 +1040,14 @@ void on_comment_stream (EggAction * action, gpointer user_data)
 	te = anjuta_get_current_text_editor();
 	if(!te) return;
     aneditor_command (te->editor_id, ANE_STREAMCOMMENT, 0, 0);
+}
+
+void on_insert_custom_indent (EggAction *action, gpointer user_data)
+{
+    TextEditor* te;
+	te = anjuta_get_current_text_editor();
+	if(!te) return;
+    aneditor_command (te->editor_id, ANE_CUSTOMINDENT, 0, 0);
 }
 
 void
@@ -1138,25 +1164,6 @@ void
 on_kernal_signals1_activate (EggAction * action, gpointer user_data)
 {
 	signals_show (debugger.signals);
-}
-
-void
-on_dump_window1_activate (EggAction * action, gpointer user_data)
-{
-	anjuta_not_implemented (__FILE__, __LINE__);
-}
-
-
-void
-on_console1_activate (EggAction * action, gpointer user_data)
-{
-	anjuta_not_implemented (__FILE__, __LINE__);
-}
-
-void
-on_showhide_locals(EggAction * action, gpointer user_data)
-{
-	project_dbase_set_show_locals( app->project_dbase, GTK_CHECK_MENU_ITEM (action)->active ) ;
 }
 
 /************************************************************************/
@@ -1355,12 +1362,12 @@ on_indent1_activate (EggAction * action, gpointer user_data)
     gint lineno;
 	TextEditor *te;
 	te = anjuta_get_current_text_editor ();
-    lineno=aneditor_command (te->editor_id, ANE_GET_LINENO, 0, 0);
+    lineno = aneditor_command (te->editor_id, ANE_GET_LINENO, 0, 0);
 	if (te == NULL)
 		return;
 	text_editor_autoformat (te);
-	anjuta_update_title();
-    text_editor_goto_line(te,lineno+1,TRUE);
+	anjuta_update_title ();
+    text_editor_goto_line (te, lineno+1, TRUE, FALSE);
 }
 
 void
@@ -1445,7 +1452,7 @@ on_configure_project1_activate (EggAction * action, gpointer user_data)
 void
 on_clean_project1_activate (EggAction * action, gpointer user_data)
 {
-	clean_project ();
+	clean_project (NULL);
 }
 
 void
@@ -1457,7 +1464,7 @@ on_clean_all_project1_activate (EggAction * action, gpointer user_data)
 void
 on_stop_build_make1_activate (EggAction * action, gpointer user_data)
 {
-	launcher_reset ();
+	anjuta_launcher_reset (app->launcher);
 }
 
 void
@@ -1475,7 +1482,7 @@ on_go_execute2_activate (EggAction * action, gpointer user_data)
 void
 on_toggle_breakpoint1_activate (EggAction * action, gpointer user_data)
 {
-	breakpoints_dbase_toggle_breakpoint(debugger.breakpoints_dbase);
+	breakpoints_dbase_toggle_breakpoint(debugger.breakpoints_dbase, 0);
 }
 
 void
@@ -1815,7 +1822,7 @@ on_debugger_inspect_activate (EggAction * action, gpointer user_data)
 void
 on_debugger_add_watch_activate (EggAction * action, gpointer user_data)
 {
-	on_watch_add_activate (NULL, NULL);
+	on_watch_add_activate (NULL, debugger.watch);
 }
 
 void
@@ -1905,8 +1912,7 @@ on_cvs_commit_project_activate                  (EggAction     *action,
 	gchar* prj;
 	prj = app->project_dbase->top_proj_dir;
 	
-	/* Do not bypass dialog for commit as we need to get the log */
-	create_cvs_gui(app->cvs, CVS_ACTION_COMMIT, prj, FALSE);
+	create_cvs_gui(app->cvs, CVS_ACTION_COMMIT, prj, TRUE);
 }
 
 void
@@ -2017,8 +2023,16 @@ on_setup_wizard_activate (EggAction * action, gpointer user_data)
 }
 
 void
-on_gnome_pages1_activate            (EggAction     *action,
-                                        gpointer         user_data)
+on_help_activate (EggAction *action, gpointer data)
+{
+	if (gnome_help_display ((const gchar*)data, NULL, NULL) == FALSE)
+	{
+		anjuta_error (_("Unable to display help. Please make sure Anjuta documentation package is install. It can be downloaded from http://anjuta.org"));	
+	}
+}
+
+void
+on_gnome_pages1_activate (EggAction     *action, gpointer user_data)
 {
 	if (anjuta_is_installed ("devhelp", TRUE))
 	{
@@ -2105,6 +2119,7 @@ on_url_activate (EggAction * action, gpointer user_data)
 	}
 }
 
+/*
 static int
 about_box_event_callback (GtkWidget *widget,
                           GdkEvent *event,
@@ -2119,6 +2134,7 @@ about_box_event_callback (GtkWidget *widget,
 
         return TRUE;
 }
+*/
 
 void
 on_about1_activate (EggAction * action, gpointer user_data)
@@ -2127,10 +2143,11 @@ on_about1_activate (EggAction * action, gpointer user_data)
 	gtk_widget_show (about_dlg);
 }
 
+/*  *user_data : TRUE=Forward  False=Backward  */
 void
 on_findnext1_activate (EggAction * action, gpointer user_data)
 {
-	on_toolbar_find_clicked (action, NULL );
+	on_toolbar_find_clicked (action, user_data);
 }
 
 void

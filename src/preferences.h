@@ -35,6 +35,7 @@ typedef enum
 	ANJUTA_PROPERTY_OBJECT_TYPE_TOGGLE,
 	ANJUTA_PROPERTY_OBJECT_TYPE_SPIN,
 	ANJUTA_PROPERTY_OBJECT_TYPE_ENTRY,
+	ANJUTA_PROPERTY_OBJECT_TYPE_MENU,
 	ANJUTA_PROPERTY_OBJECT_TYPE_TEXT,
 	ANJUTA_PROPERTY_OBJECT_TYPE_COLOR,
 	ANJUTA_PROPERTY_OBJECT_TYPE_FONT
@@ -55,14 +56,10 @@ typedef enum
 	ANJUTA_PREFERENCES_FILTER_PROJECT = 1
 } AnjutaPreferencesFilterType;
 
-typedef struct {
-	GtkWidget                *object;
-	AnjutaPropertyObjectType  object_type;
-	AnjutaPropertyDataType    data_type;
-	gchar                    *key;
-	gchar                    *default_value;
-	guint                     flags;
-} AnjutaProperty;
+typedef struct _AnjutaProperty AnjutaProperty;
+
+/* Gets the widget associated with the property */
+GtkWidget* anjuta_property_get_widget (AnjutaProperty *prop);
 
 #define ANJUTA_TYPE_PREFERENCES        (anjuta_preferences_get_type ())
 #define ANJUTA_PREFERENCES(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), ANJUTA_TYPE_PREFERENCES, AnjutaPreferences))
@@ -78,7 +75,7 @@ struct _AnjutaPreferences
 {
 	AnjutaPreferencesDialog parent;
 	
-	PropsID props_build_in;
+	PropsID props_built_in;
 	PropsID props_global;
 	PropsID props_local;
 	PropsID props_session;
@@ -89,7 +86,7 @@ struct _AnjutaPreferences
 
 struct _AnjutaPreferencesClass
 {
-	GtkDialogClass parent;
+	AnjutaPreferencesDialogClass parent;
 	
 	void (*changed) (GtkWidget *pref);
 };
@@ -158,11 +155,24 @@ anjuta_preferences_register_property_from_string (AnjutaPreferences *pr,
  */
 gboolean
 anjuta_preferences_register_property_raw (AnjutaPreferences *pr, GtkWidget *object,
-										  AnjutaPropertyObjectType object_type,
-										  AnjutaPropertyDataType  data_type,
 										  const gchar *key,
 										  const gchar *default_value,
-										  guint flags);
+										  guint flags,
+										  AnjutaPropertyObjectType object_type,
+										  AnjutaPropertyDataType  data_type);
+
+/* This is meant for complex widgets which can not be set/get with the
+ * standard object set/get methods. Custom set/get methods are passed for
+ * the property to set/get the value to/from the widget.
+ */
+gboolean
+anjuta_preferences_register_property_custom (AnjutaPreferences *pr,
+											 GtkWidget *object,
+										     const gchar *key,
+										     const gchar *default_value,
+										     guint flags,
+		void    (*set_property) (AnjutaProperty *prop, const gchar *value),
+		gchar * (*get_property) (AnjutaProperty *));
 
 /* Resets the default values into the keys */
 void anjuta_preferences_reset_defaults (AnjutaPreferences *);
@@ -261,6 +271,11 @@ gint anjuta_preferences_default_get_int (AnjutaPreferences * p, gchar * key);
 #define EDITOR_TABS_HIDE           "editor.tabs.hide"
 #define EDITOR_TABS_ORDERING       "editor.tabs.ordering"
 #define EDITOR_TABS_RECENT_FIRST   "editor.tabs.recent.first"
+
+/* Character encodings */
+#define SAVE_ENCODING_ORIGINAL            "save.encoding.original"
+#define SAVE_ENCODING_CURRENT_LOCALE      "save.encoding.current.locale"
+#define SUPPORTED_ENCODINGS               "supported.encodings"
 
 #define STRIP_TRAILING_SPACES      "strip.trailing.spaces"
 #define FOLD_ON_OPEN               "fold.on.open"

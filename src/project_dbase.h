@@ -145,6 +145,7 @@ struct _ProjectDBase
 	gboolean is_docked;
 	gboolean has_cvs;
 	gint win_pos_x, win_pos_y, win_width, win_height;
+	gboolean clean_before_build;
 
 	/* Current node info */
 	ProjectFileData* current_file_data;
@@ -152,7 +153,6 @@ struct _ProjectDBase
 	/* Private */
 	gdouble progress_state;
 	PrjModule sel_module;
-	gboolean m_prj_ShowLocal;	/* Cfg to show local variables */
 };
 
 extern gchar* module_map[];
@@ -195,9 +195,6 @@ void project_dbase_sync_tags_image (ProjectDBase* p);
 gboolean project_dbase_save_yourself (ProjectDBase * p, FILE * stream);
 gboolean project_dbase_load_yourself (ProjectDBase * p, PropsID props);
 
-void project_dbase_set_show_locals (ProjectDBase * p,
-									const gboolean bActive );
-
 void project_dbase_dock (ProjectDBase * p);
 void project_dbase_undock (ProjectDBase * p);
 
@@ -215,14 +212,14 @@ gboolean project_dbase_edit_gui (ProjectDBase *p);
 gboolean project_dbase_summon_glade (ProjectDBase *p);
 
 /* Write source code from glade file */
-gboolean project_dbase_generate_source_code (ProjectDBase *p);
+gboolean project_dbase_generate_source_code (ProjectDBase *p, gboolean use_glade);
 
 /* Name of the project */
 /* Free the returned string when not required */
 gchar* project_dbase_get_proj_name (ProjectDBase * p);
 
 /* project type. */
-Project_Type* project_dbase_get_project_type (ProjectDBase* p);
+ProjectType* project_dbase_get_project_type (ProjectDBase* p);
 
 /* Target type*/
 gint project_dbase_get_target_type (ProjectDBase* p);

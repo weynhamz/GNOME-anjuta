@@ -33,6 +33,7 @@
 #include <pwd.h>
 #include <sys/types.h>
 #include <libgnomeui/gnome-window-icon.h>
+#include <gdl/gdl-icons.h>
 
 enum
 {
@@ -48,8 +49,9 @@ enum
 	N_DIRECTORY_COLUMNS
 };
 
+static GdlIcons *icon_set = NULL;
+
 #define FILE_PIXMAP_FOLDER PACKAGE_PIXMAPS_DIR"/bfoldc.xpm"
-#define FILE_PIXMAP_FILE   PACKAGE_PIXMAPS_DIR"/file_text.png"
 
 /* function declarations */
 static void gnome_filelist_class_init (GnomeFileListClass * klass);
@@ -65,8 +67,10 @@ static void set_file_selection (GnomeFileList * file_list);
 static gboolean set_dir_internal (GnomeFileList * file_list,
 								  const gchar * path);
 
-// static gint g_list_find_string_pos (GList *list, gchar *new_entry);
+/*
+static gint g_list_find_string_pos (GList *list, gchar *new_entry);
 static gint gnome_filelist_key_press (GtkWidget * widget, GdkEventKey * event);
+*/
 static gint selection_entry_key_press (GtkWidget * widget, GdkEventKey * event,
 									   GnomeFileList * file_list);
 static void refresh_listing (GtkWidget * widget, GnomeFileList * file_list);
@@ -82,12 +86,14 @@ static void check_goto (GtkWidget * widget, GnomeFileList * file_list);
 static void delete_file (GtkWidget * widget, GnomeFileList * file_list);
 static void rename_file (GtkWidget * widget, GnomeFileList * file_list);
 static void create_dir (GtkWidget * widget, GnomeFileList * file_list);
+/*
 static gint create_dir_delete_cb (GtkWidget * widget, GdkEvent * e,
 								  GnomeFileList * file_list);
 static void create_dir_okbutton_cb (GtkWidget * button,
 									GnomeFileList * file_list);
 static void create_dir_cancelbutton_cb (GtkWidget * button,
 										GnomeFileList * file_list);
+*/
 static void home_directory_cb (GtkButton * button, GnomeFileList * file_list);
 static gboolean check_if_file_exists (const gchar * filename);
 static gboolean check_can_modify (const gchar * filename);
@@ -162,6 +168,8 @@ gnome_filelist_init (GnomeFileList * file_list)
 	file_list->path = 0;
 	file_list->selected = 0;
 	file_list->history_position = -1;
+	if (!icon_set)
+		icon_set = gdl_icons_new (24, 16.0);
 }
 
 GtkWidget *
@@ -175,11 +183,8 @@ gnome_filelist_new_with_path (const gchar * path)
 {
 	GnomeFileList *file_list;
 	GtkWidget *main_box;
-	GtkWidget *hbox;
-	GtkWidget *label1;
 	GtkWidget *util_box;
 	GtkWidget *toolbar;
-	GtkWidget *pixmapwid;
 	GtkWidget *paned;
 	GtkWidget *label;
 	GtkWidget *combolabel;
@@ -189,7 +194,6 @@ gnome_filelist_new_with_path (const gchar * path)
 	GList *combolist = NULL;
 	GtkAdjustment *file_adjustment;
 	GtkAdjustment *dir_adjustment;
-	gchar *pix_filename;
 	GtkListStore *store;
 	GtkTreeSelection *selection;
 	GtkCellRenderer *renderer;
@@ -373,6 +377,9 @@ gnome_filelist_new_with_path (const gchar * path)
 
 	/* File tree view */
 	file_list->file_list = gtk_tree_view_new ();
+	selection = gtk_tree_view_get_selection(GTK_TREE_VIEW (file_list->file_list));
+	gtk_tree_selection_set_mode (GTK_TREE_SELECTION (selection),
+								 GTK_SELECTION_MULTIPLE);
 	gtk_widget_show (file_list->file_list);
 	gtk_container_add (GTK_CONTAINER (file_list->scrolled_window_file),
 					   file_list->file_list);
@@ -498,8 +505,6 @@ gnome_filelist_new_with_path (const gchar * path)
 
 	file_list->folder_pixbuf =
 		gdk_pixbuf_new_from_file (FILE_PIXMAP_FOLDER, NULL);
-	file_list->file_pixbuf =
-		gdk_pixbuf_new_from_file (FILE_PIXMAP_FILE, NULL);
 
 	if (!gnome_filelist_set_dir (file_list, path))
 		gnome_filelist_set_dir (file_list, g_get_home_dir ());
@@ -1022,20 +1027,31 @@ on_selection_changed_file (GtkTreeSelection * selection, GnomeFileList * file_li
 {
 	GtkTreeIter iter;
 	GtkTreeModel *model;
-	gint valid;
+	gint count;
 	gchar *selected;
 
 	g_free (file_list->selected);
 	file_list->selected = NULL;
 	
-	valid = gtk_tree_selection_get_selected (selection, &model, &iter);
-	if (valid)
+	count = gtk_tree_selection_count_selected_rows(selection);
+	if (count > 0)
 	{
+		GList *list, *last;
+		
+		list = gtk_tree_selection_get_selected_rows (selection, &model);
+		last = g_list_last (list);
+		gtk_tree_model_get_iter (model, &iter, last->data);
 		gtk_tree_model_get (model, &iter, DIRECTORY_COLUMN, &selected, -1);
 		if (selected && strlen (selected) > 0)
+		{
+			if (file_list->selected)
+				g_free (file_list->selected);
 			file_list->selected = g_strdup (selected);
+			set_file_selection (file_list);
+		}
+		g_list_foreach (list, (GFunc)gtk_tree_path_free, NULL);
+		g_list_free (list);
 	}
-	set_file_selection (file_list);
 }
 
 static void
@@ -1055,9 +1071,13 @@ on_selection_changed_dir (GtkTreeSelection * selection,
 	{
 		gtk_tree_model_get (model, &iter, FILE_COLUMN, &selected, -1);
 		if (selected && strlen (selected) > 0)
+		{
+			if (file_list->selected)
+				g_free (file_list->selected);
 			file_list->selected = g_strdup (selected);
+			set_file_selection (file_list);
+		}
 	}
-	set_file_selection (file_list);
 }
 
 static void
@@ -1194,11 +1214,17 @@ gnome_filelist_get_dirs (GnomeFileList * file_list)
 		temp = files_list;
 		while (temp != NULL)
 		{
+			GdkPixbuf *pixbuf;
+			gchar *uri;
+			uri = g_strconcat (file_list->path, "/", (gchar*) temp->data, NULL);
+			pixbuf = gdl_icons_get_uri_icon (icon_set, uri);
+			g_free (uri);
 			gtk_list_store_append (GTK_LIST_STORE (file_model), &iter);
 			gtk_list_store_set (GTK_LIST_STORE (file_model), &iter,
 								FILE_PIXBUF_COLUMN,
-								file_list->file_pixbuf,
+								pixbuf,
 								FILE_COLUMN, (gchar*) temp->data, -1);
+			gdk_pixbuf_unref (pixbuf);
 			g_free (temp->data);
 			temp = g_list_next (temp);
 		}
@@ -1315,9 +1341,7 @@ on_selected_foreach (GtkTreeModel *model, GtkTreePath *path,
 GList *
 gnome_filelist_get_filelist (GnomeFileList * file_list)
 {
-	GtkTreeIter iter;
 	GtkTreeSelection *selection;
-	GtkTreeModel *model;
 	const gchar *path = NULL;
 	GList *list = NULL;
 	GList *node;
@@ -1637,7 +1661,7 @@ static void
 check_ok_button_cb (GtkWidget * widget, GnomeFileList * file_list)
 {
 	const gchar *path, *selected;
-	GList *selected_list;
+	/* GList *selected_list; */
 	gchar *s;
 
 #if 0

@@ -372,7 +372,7 @@ static gboolean an_user_tool_save(AnUserTool *tool, FILE *f)
 }
 
 /* Simplistic output handler - needs to be enhanced */
-static void tool_stdout_handler(gchar *line)
+static void tool_stdout_handler (const gchar *line)
 {
 	if (line && current_tool)
 	{
@@ -395,7 +395,7 @@ static void tool_stdout_handler(gchar *line)
 }
 
 /* Simplistic error handler - needs to be enhanced */
-static void tool_stderr_handler(gchar *line)
+static void tool_stderr_handler (const gchar *line)
 {
 	if (line && current_tool)
 	{
@@ -414,6 +414,20 @@ static void tool_stderr_handler(gchar *line)
 			else
 				g_string_append(current_tool_error, line);
 		}
+	}
+}
+
+static void tool_output_handler (AnjutaLauncher *launcher,
+								 AnjutaLauncherOutputType output_type,
+								 const gchar * mesg, gpointer data)
+{
+	switch (output_type)
+	{
+	case ANJUTA_LAUNCHER_OUTPUT_STDERR:
+		tool_stderr_handler (mesg);
+		break;
+	default:
+		tool_stdout_handler (mesg);
 	}
 }
 
@@ -469,8 +483,13 @@ static void handle_tool_output(int type, GString *s, gboolean is_error)
 ** message panes. Otherwise, we need to decide what to do with the output
 ** and error and do it.
 */
-static void tool_terminate_handler(gint status, time_t time)
+static void tool_terminate_handler (AnjutaLauncher *launcher,
+									gint child_pid, gint status,
+									gulong time_taken, gpointer data)
 {
+	g_signal_handlers_disconnect_by_func (G_OBJECT (launcher),
+										  G_CALLBACK (tool_terminate_handler),
+										  data);
 	if (current_tool)
 	{
 		if (current_tool->error <= MESSAGE_MAX  && current_tool->error >= 0)
@@ -619,8 +638,12 @@ static void execute_tool(GtkMenuItem *item, gpointer data)
 		{
 			int fd;
 			int buflen = strlen(buf);
-			gchar* escaped_cmd;
-			snprintf(tmp_file, PATH_MAX, "/tmp/anjuta.%d.XXXXXX", getpid());
+			gchar* escaped_cmd, *real_tmp_file;
+			
+			real_tmp_file = get_a_tmp_file();
+			strncpy (tmp_file, real_tmp_file, PATH_MAX);
+			g_free (real_tmp_file);
+			
 			if (0 > (fd = mkstemp(tmp_file)))
 			{
 				anjuta_system_error(errno, "Unable to create temporary file %s!"
@@ -647,8 +670,11 @@ static void execute_tool(GtkMenuItem *item, gpointer data)
 #ifdef TOOL_DEBUG
 	g_message("Final command: '%s'\n", command);
 #endif
-		if (FALSE == launcher_execute(command, tool_stdout_handler
-	  	  , tool_stderr_handler, tool_terminate_handler))
+		g_signal_connect (app->launcher, "child-exited",
+						  G_CALLBACK (tool_terminate_handler), NULL);
+		
+		if (FALSE == anjuta_launcher_execute(app->launcher, command,
+											 tool_output_handler, NULL))
 		{
 			anjuta_error("%s: Unable to launch!", command);
 		}
@@ -1356,13 +1382,17 @@ on_user_tool_response (GtkDialog *dialog, gint res, gpointer user_data)
 			GtkWidget *dlg;
 			
 			snprintf(question, 10000,
-					 _("Are you sure you want to delete tool '%s'"),
+					 _("Are you sure you want to delete the '%s' tool?"),
 			  		 tool->name);
 			dlg = gtk_message_dialog_new (GTK_WINDOW (tl->dialog),
 										  GTK_DIALOG_DESTROY_WITH_PARENT,
 										  GTK_MESSAGE_QUESTION,
-										  GTK_BUTTONS_YES_NO,
+										  GTK_BUTTONS_NONE,
 										  question);
+			gtk_dialog_add_buttons (GTK_DIALOG (dlg),
+									GTK_STOCK_CANCEL, GTK_RESPONSE_NO,
+									GTK_STOCK_DELETE, GTK_RESPONSE_YES,
+									NULL);
 			if (gtk_dialog_run (GTK_DIALOG (dlg)) == GTK_RESPONSE_YES)
 				really_delete_tool ();
 			gtk_widget_destroy (dlg);

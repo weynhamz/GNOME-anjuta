@@ -52,6 +52,7 @@ app_wizard_new (void)
 			username = g_strdup(username);
 		}
 		aw->prj_type = PROJECT_TYPE_GNOME;
+		aw->active_project_types = NULL;
 		aw->target_type = PROJECT_TARGET_TYPE_EXECUTABLE;
 		aw->prj_name = NULL;
 		aw->target = NULL;
@@ -68,7 +69,8 @@ app_wizard_new (void)
 		aw->app_group = g_strdup ("Applications");
 		aw->use_header = TRUE;
 		aw->language = PROJECT_PROGRAMMING_LANGUAGE_C;
-
+		aw->use_glade = TRUE;
+		
 		create_app_wizard_gui (aw);
 		create_app_wizard_page1 (aw);
 		create_app_wizard_page2 (aw);
@@ -94,7 +96,7 @@ app_wizard_destroy (AppWizard * aw)
 	gint i;
 	
 	g_return_if_fail (aw != NULL);
-
+	g_list_free (aw->active_project_types);
 	gtk_widget_unref (aw->widgets.window);
 	gtk_widget_unref (aw->widgets.druid);
 	for (i=0; i<6; i++)
@@ -115,6 +117,7 @@ app_wizard_destroy (AppWizard * aw)
 	gtk_widget_unref (aw->widgets.app_group_combo);
 	gtk_widget_unref (aw->widgets.app_group_entry);
 	gtk_widget_unref (aw->widgets.term_check);
+	gtk_widget_unref (aw->widgets.use_glade_check);
 
 	gtk_widget_unref (aw->widgets.language_c_radio);
 	gtk_widget_unref (aw->widgets.language_cpp_radio);

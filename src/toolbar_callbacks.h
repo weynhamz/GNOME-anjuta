@@ -161,8 +161,8 @@ on_toolbar_watch_clicked           (EggAction       *action,
                                         gpointer         user_data);
 */
 void
-on_toolbar_stack_clicked           (EggAction       *action,
-                                        gpointer         user_data);
+on_toolbar_signals_clicked           (EggAction       *action,
+                                      gpointer         user_data);
 void
 on_toolbar_registers_clicked           (EggAction       *action,
                                         gpointer         user_data);

@@ -24,6 +24,9 @@
 #include <errno.h>
 #include <sys/wait.h>
 
+#define _GNU_SOURCE
+#include <stdio.h>
+
 #include "anjuta.h"
 #include "project_dbase.h"
 #include "glade_iface.h"
@@ -61,7 +64,13 @@ glade_iface_generate_source_code(gchar* glade_file)
 	int status;
 	gboolean ret;
 	gboolean glade_2;
-
+	gchar * no_glade_msg;
+	
+	no_glade_msg = _("Warning: Can not generate c/c++ source code.\n"
+	"Warning: It is because either glade (for gtk/gnome projects) or glademm (for "
+	"gtkmm/gnomemm projects) is not installed.\n"
+	"Warning: Your generated project will still be fine, though.\n");
+	
 	ret = TRUE;
 	g_return_val_if_fail (glade_file != NULL, FALSE);
 
@@ -72,8 +81,11 @@ glade_iface_generate_source_code(gchar* glade_file)
 		switch (project_dbase_get_language (app->project_dbase))
 		{
 			case PROJECT_PROGRAMMING_LANGUAGE_C:
-				if (anjuta_is_installed ("glade", TRUE) == FALSE)
+				if (anjuta_is_installed ("glade", FALSE) == FALSE)
+				{
+					an_message_manager_append (app->messages, no_glade_msg, MESSAGE_BUILD);
 					return FALSE;
+				}
 				
 				dir = g_dirname (glade_file);
 				if(dir)
@@ -104,8 +116,11 @@ glade_iface_generate_source_code(gchar* glade_file)
 	
 			case PROJECT_PROGRAMMING_LANGUAGE_CPP:
 			case PROJECT_PROGRAMMING_LANGUAGE_C_CPP:
-				if (anjuta_is_installed ("glade--", TRUE) == FALSE)
+				if (anjuta_is_installed ("glade--", FALSE) == FALSE)
+				{
+					an_message_manager_append (app->messages, no_glade_msg, MESSAGE_BUILD);
 					return FALSE;
+				}
 	
 				dir = g_dirname (glade_file);
 				if(dir)
@@ -147,8 +162,11 @@ glade_iface_generate_source_code(gchar* glade_file)
 		switch (project_dbase_get_language (app->project_dbase))
 		{
 			case PROJECT_PROGRAMMING_LANGUAGE_C:
-				if (anjuta_is_installed ("glade-2", TRUE) == FALSE)
+				if (anjuta_is_installed ("glade-2", FALSE) == FALSE)
+				{
+					an_message_manager_append (app->messages, no_glade_msg, MESSAGE_BUILD);
 					return FALSE;
+				}
 				
 				dir = g_dirname (glade_file);
 				if(dir)
@@ -168,7 +186,7 @@ glade_iface_generate_source_code(gchar* glade_file)
 				}
 				if(pid <1)
 				{
-					anjuta_system_error (errno, _("Cannot fork glade."));
+					anjuta_system_error (errno, _("Cannot fork glade-2."));
 					return FALSE;
 				}
 				waitpid (pid, &status, 0);
@@ -179,8 +197,11 @@ glade_iface_generate_source_code(gchar* glade_file)
 	
 			case PROJECT_PROGRAMMING_LANGUAGE_CPP:
 			case PROJECT_PROGRAMMING_LANGUAGE_C_CPP:
-				if (anjuta_is_installed ("glade--", TRUE) == FALSE)
+				if (anjuta_is_installed ("glade--", FALSE) == FALSE)
+				{
+					an_message_manager_append (app->messages, no_glade_msg, MESSAGE_BUILD);
 					return FALSE;
+				}
 	
 				dir = g_dirname (glade_file);
 				if(dir)

@@ -1,0 +1,562 @@
+<!-- ============= Project management ====================== -->
+ <chapter id="project-management">
+  <title>Project Management</title>
+  
+  <sect1 id="projects-intro">
+  <title>Introduction to managing projects</title>
+  <para>
+   If the program or application you are developing is a small one, and 
+   it is only going to be run on your computer, then a single source file 
+   will often serve the purpose. If the application is more complex, with 
+   multiple source files, it is useful to be able to keep track of 
+   your program and its resources. Such a <emphasis>program</emphasis> 
+   becomes a <emphasis>project</emphasis>.
+  </para>
+  
+  <para>
+   Many command-line tools are available to maintain and manage a project, 
+   and each tool has its own specific rules and capabilities. Do not worry &mdash; 
+   <application>Anjuta</application> will take care of everything. 
+  </para>
+  
+  <para>
+   It is still possible to make use of other tools, which has the added 
+   advantage of making your project more flexible and more adaptable. However, 
+   before you start editing all those makefiles, bear in mind the files that 
+   <application>Anjuta</application> manages. These files will all be 
+   overwritten.
+  </para>
+  
+  <para>
+   If you do not want to get involved with manually editing project files, just 
+   relax and let <application>Anjuta</application> do it all.
+  </para>
+  </sect1>
+  
+  <sect1 id="new-projects">
+   <title>Creating a New Project</title>
+   <para>
+    Choose the menu item <menuchoice><guisubmenu>File</guisubmenu>
+    <guimenuitem>New Project &hellip;</guimenuitem></menuchoice>
+    to start the application wizard.
+    Read the <interface>first page</interface> carefully. Click on 
+	<guibutton>Next</guibutton> to proceed.
+   </para>
+   <para>
+    Select the type of application you want to create in the
+    <interface>second page</interface>.
+    Click on <guibutton>Next</guibutton> to proceed.   
+   </para>
+   <para>
+    On the <interface>third page</interface>, enter all the necessary
+    details for your project. You cannot change these settings later. 
+    No white spaces or any non-alphanumeric characters, except 
+    underscore (_) and dash (-), are allowed in any of the entry boxes 
+	in this page (except the <guilabel>Author</guilabel> text box). You 
+	should also select the <guilabel>Programming language</guilabel> which 
+	should be used for the initial project generation. Only C and C++ are 
+    supported at the moment. Finally, click on <guibutton>Next</guibutton> 
+	to proceed.   
+   </para>
+   <para>
+    Enter a short description of your project on the 
+	<interface>fourth page</interface>. Click on <guibutton>Next</guibutton> 
+	to proceed.
+   </para>
+   
+   <para>
+    On the <interface>fifth page</interface>, specify whether your  
+    project will have <emphasis>internationalization support</emphasis> 
+    using <application>gettext</application> (read the
+    <ulink type="info" url="info:gettext">gettext info page</ulink> for 
+	more details). This gives your project multilingual support for 
+	different regional languages such as English, French, Dutch etc..
+    The rest of the options are for setting whether the GNU copyright 
+	statement should appear in the comments at the top of each file, and 
+	enabling GNOME desktop menu information if necessary. 
+    Click on <guibutton>Next</guibutton> to proceed.
+   </para>
+   <para>
+    The final step is to verify the information you have just supplied.
+	Click on <guibutton>Finish</guibutton> to start generating the project.
+   </para>
+   <para>
+    Once project generation is over, you can try it out by 
+    building the project and executing it.
+   </para>
+  </sect1>
+  
+  <sect1 id="loadsave-prjs">
+   <title>Loading and Saving Projects</title>
+   <sect2 id="loadingprj">
+    <title>Loading Projects</title>
+    <para>
+     To open a project, choose the menu item <menuchoice><guisubmenu>File</guisubmenu>
+	 <guimenuitem>Open Project &hellip;</guimenuitem></menuchoice>.
+     Select the project file (<filename>*.prj</filename>) in the dialog 
+	 and click <guibutton>OK</guibutton>.
+    </para> 
+    <para>
+     If the project has recently been opened, then you will find it listed in the 
+     menu <menuchoice><guisubmenu>File</guisubmenu><guisubmenu>Recent Projects</guisubmenu></menuchoice>. 
+	 Choose the project file from the list, and the project will be opened. 
+    </para>
+    <para>
+     As soon as a project is opened, <application>Anjuta</application> will enter 
+	 <emphasis>Project mode</emphasis>. There are three panes in the project window. The
+     first is the project pane and lists the project files organized in file types. The second
+     is the symbol browser, which has already been discussed in section <emphasis>Symbol
+     Browser and tags Brwoser</emphasis>. The third pane is the file view of the project and
+     is more or less similar to a mini file-manager. In file view, all the files present
+     in the project tree is visible. Right clicking on these files will pop up the file
+     operation submenu.
+    </para>
+    <para>
+     If the project is also a CVS tree, then corrosponing file revision numbers are also
+     listing on the right of file names in the file view pane.
+    </para>
+   </sect2>
+   <sect2 id="importingprj">
+    <title>Importing Projects</title>
+    <para>
+     The import project feature is used to import an already existing project and convert it into
+     <application>anjuta</application> projcect. Activate the import project wizard from
+     <menuchoice><guimenu>File</guimenu><guimenuitem>Import project</guimenuitem></menuchoice>
+     and follow instructions dictated by the wizard. Once the project is imported, it could be
+     opened in <application>anjuta</application> subsequently just like any other <application>
+     anjuta</application> project.
+    </para> 
+   </sect2>
+   <sect2 id="savingprj">
+    <title>Saving Projects</title>
+    <para>
+     To save the current project, choose the menu item <menuchoice><guisubmenu>File</guisubmenu>
+	 <guimenuitem>Save Project</guimenuitem></menuchoice> or click on the 
+	 <guibutton>Save Project</guibutton> button on the Extended toolbar. When a project 
+	 is saved, only the files that need to be updated are actually written to disk, 
+	 to avoid breaking any unnecessary dependencies.
+    </para>
+    <para>
+     Any build files that are flagged <guilabel>Disable Overwriting</guilabel> in
+     the project configuration will also not be touched.
+    </para>
+   </sect2>
+  </sect1>
+  
+  <sect1 id="add-rm-files">
+   <title>Adding and Removing Files</title>
+   <para>
+    There are various different types of file that <application>Anjuta</application> will 
+	manage for you in the project:
+   </para>
+   <para>
+    <orderedlist>
+      <listitem><para>Source files</para></listitem>
+      <listitem><para>Document files</para></listitem>
+      <listitem><para>Pixmap files</para></listitem>
+      <listitem><para>Help files</para></listitem> 
+      <listitem><para>Data files</para></listitem>
+      <listitem><para>PO files</para></listitem> 
+    </orderedlist>
+   </para>
+   <para>
+   Each of these different types exist in their own specific directories inside the project.
+   </para>
+   <sect2 id="addingfiles">
+    <title>Adding Files</title>
+    <para>
+     Choose the corresponding menu item from
+     the <menuchoice><guisubmenu>Project</guisubmenu>
+	 <guisubmenu>Import File</guisubmenu></menuchoice> submenu, or right-click on
+	 the project in the <interface>Project Listing</interface> and select the type 
+	 of file from the <guisubmenu>Import File</guisubmenu> submenu on the 
+	 <guimenu>Operations</guimenu> popup menu. Select the file you want to add in 
+	 the dialog and click <guibutton>OK</guibutton>. 
+    </para>
+    <para>
+     If the file you choose has already been added to the project, then
+     <application>Anjuta</application> will not add it again. 
+     It will also give you a warning that the file is already added.
+    </para>
+    <para>
+     If the file you choose is not in the directory corresponding to the type 
+	 you have selected, you will be asked to confirm that you wish to copy the file 
+	 into that directory. <application>Anjuta</application> cannot add files which are 
+	 outside of their correct directories.
+    </para>
+   </sect2>
+   <sect2 id="removingfiles">
+    <title>Removing Files</title>
+    <para>
+     To remove a file from the project, select the file you want to remove
+     from the <interface>Project Listing</interface>, right-click to open the 
+	 <guimenu>Operation</guimenu> popup menu and choose 
+	 <guimenuitem>Remove</guimenuitem>.
+    </para>
+    <para>
+     A confirmation dialog will appear, and the file will be removed from the 
+	 project.
+    </para>
+    <important>
+     <title>The file is not deleted!</title>
+     <para>
+     The file is not deleted from the filesystem. It still exists, and you can
+     add it back again later if you so wish. The file is only removed from the project 
+	 listing, and will not take part in any of the project operations such as compiling, 
+	 building, distribution etc..
+     </para>
+     </important>
+   </sect2>
+  </sect1>
+  
+  <sect1 id="project-config">
+   <title>Project Configuration</title>
+   <para>
+    Projects created by the wizard are further customizable. During the course of your
+    project development, you are likely to add more features and more codes which will
+    require new configuration setup. Goto <menuchoice><guimenu>Project</guimenu><guimenuitem>
+    Project Configuration</guimenuitem></menuchoice> to bring up the configuration dialog.
+   </para>
+   <orderedlist>
+   <listitem><para><emphasis>Descriptoin:</emphasis>
+   This page contains the short descrption of your project which was provided during
+   the project creation. Description of the project could be updated from here.</para>
+   </listitem>
+   <listitem><para><emphasis>Build files:</emphasis> Some of the project's build
+   files are managed by anjuta by default. These files are configure.in and various Makefile.am
+   of the project. If you need to manually edit these files, disable them from being overwritten
+   by <application>anjuta</application>. They could be disabled from overwriting by selecting the
+   check boxes against them. Once that is done, <application>anjuta</application> will no
+   longer overwrite them and hence you can freely edit those files.</para>
+   </listitem>
+   <listitem><para><emphasis>Configuration scripts:</emphasis> Configure.in file, which could
+   be found in the top level project directory, contains autoconf macros and scripts for configuring
+   your application. You can provide additional scripts here for testing, setting macro variable etc.
+   for your project. This would require you to have enough knowledge of autoconf/automake and to 
+   code them properly.</para>
+   </listitem>
+   <listitem><para><emphasis>Extra Modules:</emphasis>Application wizard creates only a set 
+   of most common directories for your project. If you later wish to add more directories (for
+   example when your project becomes bigger), you can specify the sub-directories here. These
+   subdirectories will be made part of your project and their Makefiles will be configured
+   when the project is configured. The sub-directory names should be space sapareted in the
+   list. Two lists could be formed. First one will be build before src directory and second one
+   will be build after the src directory. One important thing to note here is that <application>
+   anjuta</application> will not manage the Makefile.am files in these sub-directories. You will
+   have to keep them updated yourself.</para>
+   </listitem>
+   <listitem>
+   <para>
+    <emphasis>Top level Makefile:</emphasis> Occationally, we need to provide additional make
+    rules and other additional stuff in the top level Makefile.am (found in the top level directory)
+    of the project. You can provide those codes here and <application>anjuta</application> will
+    append them to the Makefile.am after it is updated.
+   </para>
+   </listitem>
+   </orderedlist>
+   <note><title>Updating project version</title><para>Currently, there is no easy way to 
+   set a version number to your project direcly through an interface. (wizard creates your
+   project with 0.1 version). The next best thing you can to do is: Make sure the project is not open in
+   <application>anjuta</application>, open the *.prj file of your project and edit the
+   <emphasis>project.version</emphasis> propery. Save the project file and open it in
+   <application>anjuta</application>. Save the project again from <application>anjuta</application>.
+   You project version should now have bumped to the new value.
+   </para>
+   </note>
+  </sect1>
+  
+  <sect1 id="project-information">
+   <title>Getting Project Information</title>
+   <para>
+    To display the information for the current project, choose 
+	<menuchoice><guisubmenu>Project</guisubmenu>
+	<guimenuitem>Project Information</guimenuitem></menuchoice>.
+    A dialog will appear displaying various details about the project 
+	generation options.
+   </para>
+   <figure id="proj-info">
+   <title>Project Information dialog</title>
+   <screenshot>
+   <screeninfo>Project Information dialog</screeninfo>
+   <graphic fileref="figures/project_info.png" format="PNG" srccredit="andyp"></graphic>
+   </screenshot>
+   </figure>
+  </sect1>
+  
+  <sect1 id="project-files">
+   <title>Managing Project Files</title>
+   <para>
+    This section details some of the more advanced information about the management 
+	of project files. If you do not want to know about low-level specifics, feel free 
+	to skip this section.
+   </para>
+   <para>
+    <application>Anjuta</application> will manage the following files of a project:
+    <orderedlist>
+      <listitem><para> Project file --&gt; [ <filename>*.prj</filename> file ]</para></listitem>
+      <listitem><para> Top level configure.in --&gt; [ <filename>configure.in</filename> ]</para></listitem>
+      <listitem><para> Top level Makefile.am --&gt; [ <filename>Makefile.am</filename> ]</para></listitem>
+      <listitem><para> Source Makefile.am --&gt; [ <filename>Makefile.am</filename> in the 
+	  <filename class="directory">src</filename> subdirectory ]</para></listitem>
+      <listitem><para> Document Makefile.am --&gt; [ <filename>Makefile.am</filename> in the 
+	  <filename class="directory">doc</filename> subdirectory ]</para></listitem>
+      <listitem><para> Help Makefile.am --&gt; [ <filename>Makefile.am</filename> in the 
+	  <filename class="directory">help</filename> subdirectory ]</para></listitem>
+      <listitem><para> Data Makefile.am --&gt; [ <filename>Makefile.am</filename> in the 
+	  <filename class="directory">data</filename> subdirectory ]</para></listitem>
+      <listitem><para> Pixmaps Makefile.am --&gt; [ <filename>Makefile.am</filename> in the 
+	  <filename class="directory">pixmaps</filename> subdirectory ]</para></listitem>
+      <listitem><para> POTFILE.in --&gt; [ <filename>POTFILE.in</filename> the 
+	  <filename class="directory">po</filename> subdirectory ]</para></listitem>
+    </orderedlist>
+   </para>
+   <para>
+    If you are doing your own work on the build files for an individual project, then 
+	you should avoid conflicting with what <application>Anjuta</application> does. 
+	It is recommended that these files should not be touched.
+   </para>
+   <para>
+    If you wish to modify these files, choose <menuchoice><guisubmenu>Project</guisubmenu>
+	<guimenuitem>Project Configuration &hellip;</guimenuitem></menuchoice> from the menubar, and 
+	disable the overwrite option for each of them on the <guilabel>Build files</guilabel> 
+	tabbed page.
+   </para>
+   <para>
+    You can also create your own subdirectories in the project. Managing build 
+    files in these directories is solely your job.
+   </para>
+   <para>
+    If your project has multiple executables, then do not mix them with 
+    the main executable for the project in the source directory. Create separate 
+	directories for them. Again, it is your job to manage them.
+   </para>
+   <para>
+    Enure that you add modules in to accommodate the subdirectories you have created. 
+	To do so, choose <menuchoice><guisubmenu>Project</guisubmenu>
+	<guimenuitem>Project Configuration &hellip;</guimenuitem></menuchoice> from the menubar, and 
+	add the module information on the <guilabel>Modules</guilabel> tabbed page.
+   </para>
+  </sect1>
+  
+  <sect1 id="project-build">
+   <title>Compiling, Building and Executing a Project</title>
+   <sect2 id="project-basics">
+    <title>Overview</title>
+    <para>
+     An executable for a project is generated in two steps:
+    </para>
+    <para>
+     <orderedlist>
+      <listitem><para>Compiling</para></listitem>
+      <listitem><para>Linking</para></listitem>
+     </orderedlist>
+    </para>
+    <para>
+     These steps are collectively known as <emphasis>Building</emphasis>. Some other
+     steps may also be involved in the build process, but for the sake of
+     simplicity, we will only look at these two steps.
+    </para>
+    <para>
+     <emphasis>Compiling</emphasis> is the step in which object files are generated from 
+	 their corresponding source files. For instance, a source file <filename>hello.c</filename>
+	 will generate <filename>hello.o</filename> after compilation. Usually you do not need 
+	 to worry about these object files &mdash; just think of them as intermediate files 
+	 involved in creating the final executable.
+    </para>
+    <para>
+     Once the object files (<filename>*.o</filename> files) are ready, they are all linked 
+	 together (along with any libraries) to generate the final executable. This step is 
+     called <emphasis>Linking</emphasis>.
+    </para>
+   </sect2>
+   <sect2 id="compiling-project">
+    <title>Compiling the source</title>
+    <para>
+     In a project, the individual source files can be compiled separately into objects 
+	 (<filename>*.o</filename> files). Although you do not have to worry about these object 
+	 files, sometimes it is handy to compile a file first (for example, to make sure there are 
+	 no syntax errors). Building a whole project can take a lot of time, especially in the case of 
+	 larger and more complex applications. Therefore, you will probably go through a series of 
+	 edit-compile-edit-compile-.... loops while a developing the project.
+    </para>
+    <para>
+     To compile a file, choose the menu item <menuchoice><guisubmenu>Build</guisubmenu>
+	 <guimenuitem>Compile</guimenuitem></menuchoice> or click on the 
+	 <guibutton>Compile</guibutton> icon on the extended toolbar. This will 
+	 compile the active file.
+    </para>
+   </sect2>
+   <sect2 id="building-exec">
+    <title>Building an executable</title>
+    <para>
+     <application>Anjuta</application> has no separate link command, simply because 
+	 it is not necessary. The build process will compile all the source files and link them together 
+	 along with the libraries. The build command will note recompile those files which are 
+	 already up-to-date (this is called the <emphasis>dependency check</emphasis>). 
+     If you have already compiled all of the files individually, then the only thing the build 
+	 step performs is the link. If you have already built the project and no dependent file has been 
+     modified, even the link stage will be skipped.
+    </para>
+    <para>
+     So how exactly does the dependency check influence the project development? 
+     If you have modified a file, then all of the source files that depend on the modified 
+	 file are recompiled. All files (not only the object files and executable) in the 
+     project are checked for these dependencies during the build process. If it is found that 
+	 a particular file is dependent on some other file which has been modified, then that file 
+	 will be re-generated.
+    </para>
+    <para>
+     Since you have now got a rough understanding of the value of the dependency check, can 
+	 you imagine how your life (as a programmer) would be if it had not been there? If you 
+	 cannot answer just yet, then will find out when you start developing big projects!
+    </para>
+    <para>
+     <menuchoice><guisubmenu>Build</guisubmenu><guimenuitem>Build</guimenuitem></menuchoice> 
+	 will build all of the files in the <filename class="directory">src</filename> (source) 
+	 directory, and generate the executable. <menuchoice><guisubmenu>Build</guisubmenu>
+	 <guimenuitem>Build All</guimenuitem></menuchoice> will build 
+	 the whole project &mdash; all of the subdirectories (including 
+	 <filename class="directory">src</filename>), are built recursively.
+    </para>
+   </sect2>
+   <sect2 id="build-dist">
+    <title>Creating a distribution package</title>
+    <para>
+     To build the tarball distribution of the project choose <menuchoice><guisubmenu>Build</guisubmenu>
+	 <guimenuitem>Build Distribution</guimenuitem></menuchoice>. This will create a 
+	 tarball (<filename>*.tar.gz</filename>) and put it in the top level project directory. 
+	 Copy the file to a safe place for distribution.
+    </para>
+   </sect2>
+   <sect2 id="build-install">
+    <title>Install</title>
+    <para>
+     Choosing the menu item <menuchoice><guisubmenu>Build</guisubmenu>
+	 <guimenuitem>Install</guimenuitem></menuchoice> will install the generated 
+	 application on your system. 
+    </para>
+	<note>
+	 <title>System wide installation</title>
+	 <para>
+	 You must be logged in as root to perform a system-wide install. Also note that for a GNOME 
+     application to use the pixmaps in the project, it must be installed as a system-wide 
+	 application. Otherwise, when the application is executed in your project, there will be 
+	 lots of &quot;pixmap not found&quot; errors.
+	 </para>
+	</note>
+   </sect2>
+   <sect2 id="configure">
+    <title>Configure</title>
+    <para>
+     To run the <filename>configure</filename> script found in the top level project directory, 
+	 choose the menu item <menuchoice><guisubmenu>Build</guisubmenu>
+	 <guimenuitem>Configure</guimenuitem></menuchoice>. The script will determine the system
+     configuration and create some of the files required to perform a build (such as 
+	 <filename>Makefile</filename> and <filename>config.h</filename>). This is necessary because 
+	 the application may depend on specific configuration of some of these options.
+	</para> 
+	<important>
+	 <title>When to configure</title>
+	<para>
+     Until you run <filename>configure</filename>, you cannot start building the 
+	 project.
+    </para>
+	</important>
+    <para>
+     The <filename>configure</filename> script is (usually) run only once at the beginning of 
+	 the first build process &mdash; for example, just after you have extracted a source tarball 
+	 of a project distribution. After that, configuration is automatically handled by the 
+	 subsequent build processes. If you have used the <emphasis>Application Wizard</emphasis> 
+	 to create the application, then you will not need to run <filename>configure</filename> 
+	 separately: the wizard will run it as a part of the project generation process.
+    </para>
+    <para>
+     You can also supply additional options to the configuration script. After choosing the 
+	 <guimenuitem>Configure</guimenuitem> menu item, a dialog will appear to prompt for additional 
+	 options.
+    </para>
+     <figure>
+       <title>Configure options dialog</title>
+       <screenshot>
+	   <screeninfo>Configure options dialog</screeninfo>
+        <graphic fileref="figures/configure_dlg.png" format="PNG" srccredit="andyp"></graphic>
+       </screenshot>
+     </figure>
+    <para>
+     Enter any options (or leave it blank to accept the defaults) and click 
+	 <guibutton>OK</guibutton>. To find out the options available to the 
+	 <filename>configure</filename> script, enter <userinput>--help</userinput> 
+	 in the option entry box and click <guibutton>OK</guibutton>. The options will be displayed 
+	 in the <interface>Message window</interface>.
+    </para>
+    <para>
+     There is no requirement to run <filename>configure</filename> only once. It can be 
+	 run at any time, usually when the configuration options need to be changed. One thing to 
+	 note is that, if the <filename>config.h</filename> file in the top level directory is 
+	 changed, running <filename>configure</filename> again will not overwrite it.
+    </para>
+   </sect2>
+   <sect2 id="auto-generation">
+    <title>Auto generate</title>
+    <para>
+     Auto generation consists of two steps: running <application>automake</application> and 
+	 then running <application>autoconf</application>. If an executable 
+	 <filename>autogen.sh</filename> script is found in the top level project 
+	 directory, this file will be executed instead of the two steps.
+     Like <emphasis>configuration</emphasis>, auto generation is automatically handled 
+	 by the build process. It can also be run in cases where it is difficult to configure 
+	 the project (such as lots of errors reported due to mis-synchronization after modifying 
+	 lots of build files). 
+	</para>
+	<note>
+	<title>When to autogen.sh</title>
+	<para> 
+	 Unlike configuration, auto generation does not need to be run even 
+	 once &mdash; in fact, it does not need to be run at all! The option is available because it 
+	 can be handy in some circumstances.
+    </para>
+	</note>
+    <para>
+     Choose the menu item <menuchoice><guisubmenu>Build</guisubmenu>
+	 <guimenuitem>Auto generate</guimenuitem></menuchoice> to auto generate the project.
+    </para>
+    <para>
+     Read the info pages of <ulink type="info" url="info:automake"><application>automake</application></ulink> 
+	 and <ulink type="info" url="info:autoconf"><application>autoconf</application></ulink> for more 
+	 details on how these tools work.
+    </para>
+   </sect2>
+   <sect2 id="build-clean">
+    <title>Clean</title>
+    <para>
+     This option cleans the project and leaves it in a state that requires 
+	 <guimenuitem>Build All</guimenuitem> to be performed. It deletes all of the 
+	 files generated by the build process, including all object files 
+	 (<filename>*.o</filename> files) and the executable(s) in the 
+	 <filename class="directory">src</filename> directory (and other directories). 
+    </para>
+    <para>
+     Choose the menu item <menuchoice><guisubmenu>Build</guisubmenu>
+	 <guimenuitem>Clean</guimenuitem></menuchoice> to clean the project.
+    </para>
+   </sect2>
+   <sect2 id="build-cleanall">
+    <title>Clean All</title>
+    <para>
+     There is not a great deal to say about <guimenuitem>Clean All</guimenuitem> (which might 
+	 also be called <emphasis>Clean distribution</emphasis>, or <emphasis>clean dist</emphasis> 
+	 for short). It cleans the project and leaves it in a state that requires 
+	 <guimenuitem>Configure</guimenuitem> and <guimenuitem>Build All</guimenuitem> to be 
+	 performed. It deletes all of the files generated by the build processes, including all the
+     object files (<filename>*.o</filename> files), executable(s) and Makefiles. In other 
+	 words, it leaves the project as though it has just been extracted from a distribution 
+	 tarball.
+    </para>
+    <para>
+     Choose the menu item <menuchoice><guisubmenu>Build</guisubmenu>
+	 <guimenuitem>Clean All</guimenuitem></menuchoice> to completely clean the project.
+    </para>
+   </sect2>
+  </sect1>
+ 
+ </chapter>

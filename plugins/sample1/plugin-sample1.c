@@ -7,6 +7,7 @@ glong    GetVersion     (void);
 gboolean Init           (GModule *self, void **pUserData, AnjutaApp* p);
 void     CleanUp        (GModule *self, void *pUserData, AnjutaApp* p);
 void     Activate       (GModule *self, void *pUserData, AnjutaApp* p);
+gchar * GetMenu         (void);
 gchar   *GetMenuTitle   (GModule *self, void *pUserData);
 gchar   *GetTooltipText (GModule *self, void *pUserData);
 
@@ -24,7 +25,8 @@ GetVersion()
 }
 
 /* Place this entry under the 'View' menu */
-gchar *GetMenu(void)
+gchar *
+GetMenu()
 {
 	return g_strdup("view");
 }

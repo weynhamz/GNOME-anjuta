@@ -20,35 +20,10 @@
 #ifndef  _BUILD_PROJECT_H_
 #define _BUILD_PROJECT_H_
 
-void
-build_project(void);
-
-void
-build_all_project(void);
-
-void
-build_dist_project(void);
-
-void
-build_install_project(void);
-
-void
-build_autogen_project(void);
-
-/* Private */
-
-void
-build_mesg_arrived(gchar* mesg);
-
-void
-build_terminated(int status, time_t time);
-void
-build_dist_terminated(int status, time_t time);
-void
-build_all_terminated(int status, time_t time);
-void
-build_install_terminated(int status, time_t time);
-void
-build_autogen_terminated(int status, time_t time);
+void build_project (void);
+void build_all_project (void);
+void build_dist_project (void);
+void build_install_project (void);
+void build_autogen_project (void);
 
 #endif

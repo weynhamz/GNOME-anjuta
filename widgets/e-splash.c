@@ -280,7 +280,7 @@ e_splash_construct (ESplash *splash,
 		    GdkPixbuf *splash_image_pixbuf)
 {
 	ESplashPrivate *priv;
-	GtkWidget *canvas, *frame;
+	GtkWidget *canvas; /*, *frame; */
 	int image_width, image_height;
 
 	g_return_if_fail (splash != NULL);
@@ -301,12 +301,13 @@ e_splash_construct (ESplash *splash,
 	gnome_canvas_set_scroll_region (GNOME_CANVAS (canvas), 0, 0, image_width, image_height);
 	gtk_widget_show (canvas);
 
-	frame = gtk_frame_new (NULL);
-	gtk_frame_set_shadow_type (GTK_FRAME (frame), GTK_SHADOW_OUT);
+	/*frame = gtk_frame_new (NULL);
+	gtk_frame_set_shadow_type (GTK_FRAME (frame), GTK_SHADOW_NONE);
 	gtk_container_add (GTK_CONTAINER (frame), canvas);
 	gtk_widget_show (frame);
-
 	gtk_container_add (GTK_CONTAINER (splash), frame);
+	*/
+	gtk_container_add (GTK_CONTAINER (splash), canvas);
 
 	gnome_canvas_item_new (GNOME_CANVAS_GROUP (priv->canvas->root),
 			       GNOME_TYPE_CANVAS_PIXBUF,
@@ -317,6 +318,7 @@ e_splash_construct (ESplash *splash,
 			  G_CALLBACK (button_press_event), splash);
 	
 	g_object_set (G_OBJECT (splash), "type", GTK_WINDOW_TOPLEVEL, NULL);
+	gtk_window_set_decorated(GTK_WINDOW(splash), FALSE);
 	gtk_window_set_position (GTK_WINDOW (splash), GTK_WIN_POS_CENTER);
 	gtk_window_set_resizable (GTK_WINDOW (splash), FALSE);
 	gtk_window_set_default_size (GTK_WINDOW (splash), image_width, image_height);
@@ -343,7 +345,7 @@ e_splash_new (const char *image_file)
 	new = g_object_new (e_splash_get_type (), NULL);
 	e_splash_construct (new, splash_image_pixbuf);
 
-	gdk_pixbuf_unref (splash_image_pixbuf);
+	/* gdk_pixbuf_unref (splash_image_pixbuf); */
 
 	return GTK_WIDGET (new);
 }

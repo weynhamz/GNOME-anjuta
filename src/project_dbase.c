@@ -49,9 +49,6 @@
 #include "an_symbol_view.h"
 #include "pixmaps.h"
 
-// To debug it
-#define	SHOW_LOCALS_DEFAULT 	TRUE
-
 static void project_reload_session_files(ProjectDBase * p);
 static void project_dbase_save_session (ProjectDBase * p);
 static void project_dbase_reload_session (ProjectDBase * p);
@@ -77,9 +74,9 @@ gchar *project_type_map[]=
 	"GNOME 2.0",
 	"LIBGLADE2",
 	"gnomemm 2.0",
+	"BONOBO2",
 	"XLib",
 	"XLib Dock App",
-	"Qt",
 	NULL
 };
 
@@ -119,28 +116,6 @@ static gchar* default_module_name[]=
 static gchar* default_module_type[]=
 {
 	"",  "", "", "", "", "", "", NULL
-};
-
-/*
-These are the preferences which will be saved along
-with the project. These preferences will override those
-set by the user before loading the project.
-
-In .prj file, we prefix with "preferences."
-those are the pref names in preferences props
-*/
-static const gchar* editor_prefs[] =
-{
-	INDENT_AUTOMATIC,
-	USE_TABS,
-	INDENT_OPENING,
-	INDENT_CLOSING,
-	TAB_SIZE,
-	INDENT_SIZE,
-	AUTOFORMAT_STYLE,
-	AUTOFORMAT_CUSTOM_STYLE,
-	AUTOFORMAT_DISABLE,
-	NULL
 };
 
 static void
@@ -217,7 +192,6 @@ ProjectDBase *
 project_dbase_new (PropsID pr_props)
 {
 	ProjectDBase *p;
-	gint i;
 	
 	/* Must declare static, because it will be used forever */
 	static FileSelData fsd1 = { N_("Open Project"), NULL,
@@ -243,7 +217,6 @@ project_dbase_new (PropsID pr_props)
 	fsd2.data = p;
 	
 	p->tm_project = NULL;
-	p->m_prj_ShowLocal = SHOW_LOCALS_DEFAULT ;
 	p->project_is_open = FALSE;
 	p->is_showing = TRUE;
 	p->is_docked = TRUE;
@@ -253,6 +226,7 @@ project_dbase_new (PropsID pr_props)
 	p->win_height = 400;
 	p->top_proj_dir = NULL;
 	p->current_file_data = NULL;
+	p->clean_before_build = FALSE;
 
 	create_project_dbase_gui (p);
 	gtk_window_set_title (GTK_WINDOW (p->widgets.window),
@@ -306,7 +280,6 @@ project_dbase_destroy (ProjectDBase * p)
 static void
 project_dbase_clear_ctree (ProjectDBase * p)
 {
-	gint i;
 	GtkTreeStore *store;
 	
 	if (!p)
@@ -329,9 +302,9 @@ project_dbase_clear (ProjectDBase * p)
 	gtk_window_set_title (GTK_WINDOW (p->widgets.window),
 			      _("Project: None"));
 	p->project_is_open = FALSE;
+	p->clean_before_build = FALSE;
 	gtk_widget_set_sensitive(app->widgets.menubar.file.recent_projects, TRUE);
 	p->is_saved = TRUE;
-	p->m_prj_ShowLocal	= SHOW_LOCALS_DEFAULT ;
 	extended_toolbar_update ();
 	anjuta_update_app_status (FALSE, NULL);
 }
@@ -593,13 +566,9 @@ project_dbase_reload_session (ProjectDBase * p)
 	find_replace_load_session( app->find_replace, p );
 	executer_load_session( app->executer, p );
 	find_in_files_load_session( app->find_in_files, p );
-	p->m_prj_ShowLocal = session_get_bool (p, SECSTR(SECTION_PROJECTDBASE),
-										   szShowLocalsItem,
-										   SHOW_LOCALS_DEFAULT );
-	
-	/* Updates the menu */
-	//gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM
-	//		(app->widgets.menubar.view.show_hide_locals), p->m_prj_ShowLocal);
+	p->clean_before_build = 
+		session_get_bool (p, SECSTR (SECTION_PROJECT_STATE),
+						  "clean before build", FALSE);
 }
 
 gboolean
@@ -642,7 +611,7 @@ save_project_preference_property (AnjutaPreferences *pr, const gchar *key,
 gboolean
 project_dbase_save_project (ProjectDBase * p)
 {
-	gchar* str, *str_prop;
+	gchar* str;
 	FILE *fp;
 	gint i;
 
@@ -816,11 +785,6 @@ project_dbase_save_project (ProjectDBase * p)
 	{
 		gchar *key;
 		GList *files, *node;
-		gchar *filename;
-		GdkPixmap *pixc, *pixo;
-		GdkBitmap *maskc, *masko;
-		gint8 space;
-		gboolean is_leaf, expanded;
 
 		if (i != MODULE_PO)
 		{
@@ -889,7 +853,8 @@ project_dbase_save_project (ProjectDBase * p)
 error_show:
 	if (str) g_free (str);
 	anjuta_system_error (errno, _("Unable to save the Project."));
-	fclose (fp);
+	if (fp)
+		fclose (fp);
 	anjuta_status (_("Unable to save the Project."));
 	anjuta_set_active ();
 	p->is_saved = FALSE;
@@ -899,6 +864,7 @@ error_show:
 gboolean
 project_dbase_save_yourself (ProjectDBase * p, FILE * stream)
 {
+	/* int clean_before_build; */
 	g_return_val_if_fail (p != NULL, FALSE);
 	g_return_val_if_fail (stream != NULL, FALSE);
 
@@ -917,6 +883,10 @@ project_dbase_save_yourself (ProjectDBase * p, FILE * stream)
 	fprintf (stream, "project.win.pos.y=%d\n", p->win_pos_y);
 	fprintf (stream, "project.win.width=%d\n", p->win_width);
 	fprintf (stream, "project.win.height=%d\n", p->win_height);
+	/*
+	clean_before_build = p->clean_before_build ? 1 : 0;
+	fprintf (stream, "project.clean_before_build=%d\n", clean_before_build);
+	*/
 	return TRUE;
 }
 
@@ -924,6 +894,7 @@ gboolean
 project_dbase_load_yourself (ProjectDBase * p, PropsID props)
 {
 	gboolean dock_flag;
+	/* int clean_before_build; */
 
 	g_return_val_if_fail (p != NULL, FALSE);
 
@@ -935,6 +906,8 @@ project_dbase_load_yourself (ProjectDBase * p, PropsID props)
 	p->win_pos_y = prop_get_int (props, "project.win.pos.y", 80);
 	p->win_width = prop_get_int (props, "project.win.width", 200);
 	p->win_height = prop_get_int (props, "project.win.height", 400);
+	/* clean_before_build = prop_get_int (props, "project.clean_before_build", 0);
+	p->clean_before_build = clean_before_build == 1 ? TRUE : FALSE; */
 	if (dock_flag)
 		project_dbase_dock (p);
 	else
@@ -1168,7 +1141,7 @@ tree_view_get_expansion_states (GtkTreeView *treeview)
 	return map;
 }
 
-void
+static void
 tree_view_set_expansion_states (GtkTreeView *treeview,
 								GList *expansion_states)
 {
@@ -1248,7 +1221,6 @@ static void
 session_load_node_expansion_states (ProjectDBase *p)
 {
 	GList *expansion_states = NULL;
-	GList *node;
 	gpointer config_iterator;
 
 	g_return_if_fail (p != NULL);
@@ -1334,8 +1306,9 @@ project_dbase_save_session (ProjectDBase * p)
 	find_replace_save_session (app->find_replace, p);
 	executer_save_session (app->executer, p);
 	find_in_files_save_session (app->find_in_files, p);
-	session_save_bool (p, SECSTR (SECTION_PROJECTDBASE),
-					   szShowLocalsItem, p->m_prj_ShowLocal );
+	/* session_clear_section (p, SECSTR (SECTION_PROJECT_STATE)); */
+	session_save_bool(p, SECSTR (SECTION_PROJECT_STATE), "clean before build",
+					  p->clean_before_build);
 	session_sync();
 }
 
@@ -1381,13 +1354,9 @@ project_dbase_close_project (ProjectDBase * p)
 		next = node->next; // Save it now, as we may change it.
 		if(te)
 		{
-			if (text_editor_is_saved (te) && te->full_filename)
+			if (te->full_filename && strncmp(te->full_filename, p->top_proj_dir, strlen(p->top_proj_dir)) ==0)
 			{
-				if (strncmp(te->full_filename, p->top_proj_dir, strlen(p->top_proj_dir)) ==0)
-				{
-					/*g_print("Closing file %s\n", te->filename);*/
-					anjuta_remove_text_editor(te);
-				}
+				on_close_file1_activate(NULL, te);
 			}
 		}
 		node = next;
@@ -1403,7 +1372,10 @@ project_dbase_close_project (ProjectDBase * p)
 	sv_clear();
 	fv_clear();
 	p->project_is_open = FALSE;
-    gtk_widget_set_sensitive(app->widgets.menubar.file.recent_projects, TRUE);
+	gtk_widget_set_sensitive(app->widgets.menubar.file.recent_projects, TRUE);
+	// Set current text editor if files not belonged to the project
+	if ((node = g_list_last(app->text_editor_list)))
+		anjuta_set_current_text_editor (node->data);
 }
 
 void
@@ -1512,7 +1484,7 @@ project_dbase_show_info (ProjectDBase * p)
 	gchar *str[14];
 	gint i;
 	GList *list;
-	Project_Type* type;
+	ProjectType* type;
 	
 	g_return_if_fail (p != NULL);
 	g_return_if_fail (p->project_is_open == TRUE);
@@ -1526,7 +1498,7 @@ project_dbase_show_info (ProjectDBase * p)
 	else
 		str[3] = g_strdup (_("No"));
 	
-	free_project_type (type);
+	project_type_free (type);
 	/* For the time being */
 	str[4] = g_strdup (_("Yes"));
 
@@ -1581,7 +1553,7 @@ project_dbase_edit_gui (ProjectDBase *p)
 	
 	edit_command = prop_get_expanded (p->props, "project.gui.command");
 
-	if (edit_command)
+	if (edit_command  && strlen (edit_command) > 0)
 	{
 #ifdef DEBUG
 		g_message ("GUI editing command: %s", edit_command);
@@ -1615,11 +1587,11 @@ project_dbase_edit_gui (ProjectDBase *p)
 }
 
 gboolean
-project_dbase_generate_source_code (ProjectDBase *p)
+project_dbase_generate_source_code (ProjectDBase *p, gboolean use_glade)
 {
 	gchar *filename, *prj_name;
 	gboolean ret;
-	Project_Type* type;
+	ProjectType* type;
 	
 	if (p->project_is_open == FALSE)
 		return FALSE;
@@ -1630,17 +1602,17 @@ project_dbase_generate_source_code (ProjectDBase *p)
 	 * so use an extra function for writing its main.cc */
 	if(type->id == PROJECT_TYPE_WXWIN)
 	{
-		free_project_type (type);
+		project_type_free (type);
 		return source_write_wxwin_main_c(p);
 	}
 	if(type->id == PROJECT_TYPE_XWIN)
 	{
-		free_project_type (type);
+		project_type_free (type);
 		return source_write_xwin_main_c(p);        
 	}
 	if(type->id == PROJECT_TYPE_XWINDOCKAPP)
 	{
-		free_project_type (type);
+		project_type_free (type);
 		return source_write_xwindockapp_main_c(p);        
 	}
 
@@ -1648,7 +1620,7 @@ project_dbase_generate_source_code (ProjectDBase *p)
 	if (!type->glade_support
 		|| project_dbase_get_target_type(p) != PROJECT_TARGET_TYPE_EXECUTABLE)
 	{
-		free_project_type(type);
+		project_type_free (type);
 		return source_write_generic_main_c (p);
 	}
 
@@ -1671,11 +1643,12 @@ project_dbase_generate_source_code (ProjectDBase *p)
 			ret = source_write_libglade_main_c (p);
 		else if (type->id == PROJECT_TYPE_LIBGLADE2)
 			ret = source_write_libglade2_main_c (p);
-		else if ((ret = glade_iface_generate_source_code (filename)) == FALSE)
+		else if ((use_glade) == FALSE ||
+				 ((ret = glade_iface_generate_source_code (filename)) == FALSE))
 			ret = source_write_generic_main_c (p);
 	}
 	g_free (filename);
-	free_project_type (type);
+	project_type_free (type);
 	return ret;
 }
 
@@ -1737,7 +1710,7 @@ project_dbase_get_version (ProjectDBase * p)
 }
 
 /* project type. Must be freed after use!!!*/
-Project_Type*
+ProjectType*
 project_dbase_get_project_type (ProjectDBase* p)
 {
 	gchar *str;
@@ -1757,7 +1730,7 @@ project_dbase_get_project_type (ProjectDBase* p)
 		if (ret == 0)
 		{
 			g_free (str);
-			return load_project_type(i);
+			return project_type_load (i);
 		}
 	}
 	return NULL;
@@ -1877,6 +1850,11 @@ project_dbase_module_is_empty (ProjectDBase * p, PrjModule module)
 	g_free (tmp);
 	if (!str)
 		return TRUE;
+	if(str[0] == '\0')
+	{
+		g_free (str);
+		return TRUE;
+	}
 	g_free (str);
 	return FALSE;
 }
@@ -1939,8 +1917,7 @@ static gboolean
 restore_preference_property (AnjutaPreferences *pr,
 							 const gchar *key, gpointer data)
 {
-	gchar *str, *str_prop;
-	ProjectDBase *p = data;
+	gchar *str;
 
 	str = prop_get (pr->props_session, key);
 	if (str) {
@@ -2087,7 +2064,7 @@ project_dbase_update_tree (ProjectDBase * p)
 	gint i;
 
 	GtkTreeStore *store;
-	GtkTreeIter iter, parent, sub_parent;
+	GtkTreeIter parent, sub_parent;
 	GdkPixbuf *pixbuf;
 	ProjectFileData *pfd;
 	GList *saved_map = NULL;
@@ -2173,7 +2150,7 @@ project_dbase_update_tree (ProjectDBase * p)
 		GtkTreePath *path;
 		
 		path = gtk_tree_model_get_path (GTK_TREE_MODEL (store),
-										&sub_parent);
+										&parent);
 		gtk_tree_view_expand_row (GTK_TREE_VIEW (p->widgets.treeview),
 								  path, FALSE);
 		gtk_tree_path_free (path);
@@ -2433,16 +2410,6 @@ project_dbase_get_name (ProjectDBase * p)
 	return prop_get (p->props, "project.name");
 }
 
-void
-project_dbase_set_show_locals( ProjectDBase * p,  const gboolean bActive )
-{
-	/* Null can be a valid entry */
-	if( NULL != p )
-	{
-		p->m_prj_ShowLocal = bActive ;
-	}
-}
-
 static gboolean
 load_preferences_property (AnjutaPreferences *pr,
 						   const gchar *key, gpointer data)
@@ -2467,8 +2434,8 @@ gboolean
 project_dbase_load_project_file (ProjectDBase * p, gchar * filename)
 {
 	gchar *prj_buff, buff[512], *str;
-	gint level, read_size, pos, i;
-	gboolean error_shown, syserr, prefs_changed;
+	gint level, read_size, pos;
+	gboolean error_shown, syserr;
 	FILE* fp;
 	
 	prj_buff = NULL;

@@ -84,6 +84,10 @@ gboolean command_editor_load (CommandEditor *p, PropsID pr);
 #define COMMAND_BUILD_AUTOGEN "command.build.autogen"
 #define COMMAND_BUILD_CLEAN "command.build.clean"
 #define COMMAND_BUILD_CLEAN_ALL "command.build.clean.all"
+
+#define COMMAND_CLEAN_BUILD_MODULE "command.clean.build.module"
+#define COMMAND_CLEAN_BUILD_PROJECT "command.clean.build.project"
+
 #define COMMAND_EXECUTE_PROJECT "command.execute.project"
 
 #define COMMAND_PIXMAP_EDITOR_OPEN "command.open.file.$(file.patterns.icon)"

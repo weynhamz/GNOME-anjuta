@@ -46,8 +46,9 @@
 #include "style-editor.h"
 #include "tm_tagmanager.h"
 #include "file_history.h"
-#include "windows-dialog.h"
+/* #include "windows-dialog.h" */
 #include "anjuta-ui.h"
+#include "launcher.h"
 
 #define g_strdup_printfs2(_FORMAT_, _STR_) \
 	{ \
@@ -82,7 +83,9 @@ struct _AnjutaAppGui
 
 struct _AnjutaApp
 {
-	glong	size;	/* sizeof() used as version # for components */
+	/* sizeof() used as version # for components */
+	glong	size;
+	
 	AnjutaAppGui widgets;
 	GdlIcons *icon_set;
 	GtkWidget *fileselection;
@@ -104,11 +107,11 @@ struct _AnjutaApp
 	Executer *executer;
 	Configurer *configurer;
 	FindInFiles *find_in_files;
-	AnjutaWindowsDialog *windows_dialog;
 	const TMWorkspace *tm_workspace;
 	AnjutaHelp* help_system;
 	CVS* cvs;
 	StyleEditor *style_editor;
+	AnjutaLauncher *launcher;
 	
 	GList *registered_windows;
 	GList *registered_child_processes;
@@ -129,10 +132,10 @@ struct _AnjutaApp
 	gint busy_count;
 	gboolean first_time_expose;
 	
-	 /* If Devhelp is installed, Context Help should be enabled */
+	/* If Devhelp is installed, Context Help should be enabled */
 	gboolean has_devhelp;
 
-	/* dir where command executes */
+	/* Dir where command executes */
 	gchar *execution_dir;
 
 	/* Current Job */
@@ -146,10 +149,15 @@ struct _AnjutaApp
 	 * is no garrantee that the object to be accessed is still alive.
 	 */
 	gboolean shutdown_in_progress;
-	gboolean bUseComponentUI;	/* use glade or the CORBA objects ? */
+	
+	/* Plugins */
 	GList *addIns_list;
-	gboolean b_reload_last_project;	/* To be set in preferences */
-	gchar *last_open_project;	/* Last session open project file name if any */
+	
+	/* To be set in preferences */
+	gboolean b_reload_last_project;
+	
+	/* Last session open project file name if any */
+	gchar *last_open_project;
 };
 
 struct _FileLineInfo
@@ -164,7 +172,9 @@ extern AnjutaApp *app;
 extern GList* command_args;
 
 void create_anjuta_gui (AnjutaApp * appl);
-void anjuta_connect_kernel_signals(void);
+void anjuta_kernel_signals_connect (void);
+void anjuta_kernel_signals_disconnect (void);
+
 void anjuta_die_imidiately(void);
 void anjuta_new (void);
 void anjuta_show (void);
@@ -220,6 +230,7 @@ void anjuta_status (gchar * mesg, ...);
 void anjuta_warning (gchar * mesg, ...);
 void anjuta_error (gchar * mesg, ...);
 void anjuta_system_error (gint errornum, gchar * mesg, ...);
+gboolean anjuta_boolean_question (gchar * mesg, ...);
 
 void anjuta_information_parented (GtkWidget *parent, gchar * mesg, ...);
 void anjuta_warning_parented (GtkWidget* parent, gchar * mesg, ...);

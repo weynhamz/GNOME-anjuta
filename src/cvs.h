@@ -40,13 +40,15 @@ enum
 CVS *cvs_new (PropsID p);
 void cvs_destroy (CVS *cvs);
 
-void cvs_set_force_update (CVS *cvs, gboolean force_update);
+void cvs_set_update_directories (CVS *cvs, gboolean update_directories);
+void cvs_set_update_reset_sticky_tags (CVS *cvs, gboolean reset_sticky_tags);
 void cvs_set_unified_diff (CVS *cvs, gboolean unified_diff);
 void cvs_set_context_diff (CVS *cvs, gboolean context_diff);
 void cvs_set_compression (CVS *cvs, guint compression);
 void cvs_set_diff_use_date(CVS *cvs, gboolean state);
 
-gboolean cvs_get_force_update (CVS *cvs);
+gboolean cvs_get_update_directories (CVS *cvs);
+gboolean cvs_get_update_reset_sticky_tags (CVS *cvs);
 gboolean cvs_get_unified_diff (CVS *cvs);
 gboolean cvs_get_context_diff (CVS *cvs);
 guint cvs_get_compression (CVS *cvs);

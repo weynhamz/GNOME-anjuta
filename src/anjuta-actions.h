@@ -37,9 +37,9 @@ static EggActionGroupEntry menu_entries_file[] = {
 };
 
 static EggActionGroupEntry menu_entries_print[] = {
-  { "ActionPrintSetup", N_("Print Set_up ..."), NULL, NULL,
+/*  { "ActionPrintSetup", N_("Print Set_up ..."), NULL, NULL,
 	N_("Setup for printing"),
-    G_CALLBACK (on_page_setup1_activate), NULL },
+    G_CALLBACK (on_page_setup1_activate), NULL },*/
   { "ActionPrintFile", N_("_Print"), GTK_STOCK_PRINT, "<alt>p",
 	N_("Print the current file"),
     G_CALLBACK (anjuta_print_cb), NULL },
@@ -339,7 +339,7 @@ static EggActionGroupEntry menu_entries_view[] = {
   { "ActionViewWindowKernelSignals", N_("_Kernel Signals"), NULL, "<control>F9",
 	N_("Show the kernel signals editor window"),
     G_CALLBACK (on_kernal_signals1_activate), NULL},
-  { "ActionViewWindowMemoryDump", N_("_Dump Window"), NULL, "<control>F10",
+/*  { "ActionViewWindowMemoryDump", N_("_Dump Window"), NULL, "<control>F10",
 	N_("Show memory dump window"),
     G_CALLBACK (on_dump_window1_activate), NULL},
   { "ActionViewWindowTerminal", N_("_Console"), NULL, "<control>F11",
@@ -347,7 +347,7 @@ static EggActionGroupEntry menu_entries_view[] = {
     G_CALLBACK (on_console1_activate), NULL},
   { "ActionViewWindowLocalVariables", N_("Show _Locals"), NULL, NULL,
 	N_("Show/Hide Local variables in Message window"),
-    G_CALLBACK (on_showhide_locals), NULL},
+    G_CALLBACK (on_showhide_locals), NULL},*/
 };
 
 static EggActionGroupEntry menu_entries_project[] = {

@@ -25,6 +25,12 @@ enum {
 	COLUMNS_NB
 };
 
+/* LibGlade auto-signal-connect callbacks. Do not declare static. */
+gboolean on_file_filter_delete_event (GtkWidget *widget,
+									  GdkEventCrossing *event,
+									  gpointer user_data);
+void on_file_filter_ok_button_clicked (GtkButton *button, gpointer user_data);
+
 static AnFileView *fv = NULL;
 
 gboolean
@@ -206,8 +212,6 @@ void fv_session_save (ProjectDBase *p)
 
 void fv_session_load (ProjectDBase *p)
 {
-	gchar *value;
-	gchar *key;
 	gpointer config_iterator;
 	
 	config_iterator = session_get_iterator (p, SECSTR (SECTION_FILE_VIEW));
@@ -231,8 +235,9 @@ void fv_session_load (ProjectDBase *p)
 	fv_prefs_load();
 }
 
-gboolean on_file_filter_delete_event (GtkWidget *widget, GdkEventCrossing *event
-  , gpointer user_data)
+gboolean
+on_file_filter_delete_event (GtkWidget *widget, GdkEventCrossing *event,
+							 gpointer user_data)
 {
 	if (ff->showing)
 	{
@@ -242,7 +247,8 @@ gboolean on_file_filter_delete_event (GtkWidget *widget, GdkEventCrossing *event
 	return TRUE;
 }
 
-void on_file_filter_ok_button_clicked (GtkButton *button, gpointer user_data)
+void
+on_file_filter_ok_button_clicked (GtkButton *button, gpointer user_data)
 {
 	if (ff->showing)
 	{
@@ -697,18 +703,6 @@ fv_clear ()
 	gtk_tree_store_clear (GTK_TREE_STORE (model));
 }
 
-static void fv_hide(void)
-{
-	g_return_if_fail(fv && fv->tree);
-	gtk_widget_hide(fv->tree);
-}
-
-static void fv_show(void)
-{
-	g_return_if_fail(fv && fv->tree);
-	gtk_widget_show(fv->tree);
-}
-
 static void
 fv_add_tree_entry (TMFileEntry *entry,
 				   GtkTreeIter *root)
@@ -757,6 +751,7 @@ fv_add_tree_entry (TMFileEntry *entry,
 					    REV_COLUMN, child->version ? child->version : "",
 					    TMFILE_ENTRY_COLUMN, child,
 					    -1);
+			gdk_pixbuf_unref (pixbuf);
 		}
 	}
 }

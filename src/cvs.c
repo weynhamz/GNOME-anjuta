@@ -38,7 +38,8 @@
 /* struct is private, use functions to access members */
 struct _CVS
 {
-	gboolean force_update;
+	gboolean update_directories;
+	gboolean reset_sticky_tags;
 	gboolean unified_diff;
 	gboolean context_diff;
 	gboolean use_date_diff;
@@ -49,10 +50,18 @@ struct _CVS
 };
 
 /* Callbacks for launcher */
-static void on_cvs_stdout (gchar * line);
-static void on_cvs_stderr (gchar * line);
-static void on_cvs_buffer_in (gchar * line);
-static void on_cvs_terminate (int status, time_t time);
+static void on_cvs_buffer_output_arrived (AnjutaLauncher *launcher,
+										  AnjutaLauncherOutputType output_type,
+										  const gchar * line, gpointer data);
+static void on_cvs_output_arrived (AnjutaLauncher *launcher,
+								   AnjutaLauncherOutputType output_type,
+								   const gchar * line, gpointer data);
+static void on_cvs_buffer_terminated (AnjutaLauncher *launcher, gint child_pid,
+									  gint status, gulong time_taken,
+									  gpointer data);
+static void on_cvs_terminated (AnjutaLauncher *launcher, gint child_pid,
+							   gint status, gulong time_taken, gpointer data);
+static void on_cvs_terminated_real (gint status, gulong time);
 
 /* Utility functions */
 static void launch_cvs_command (gchar * command, gchar * dir);
@@ -92,7 +101,8 @@ void
 cvs_apply_preferences(CVS *cvs, PropsID p)
 {
 	g_return_if_fail (cvs != NULL);
-	cvs->force_update = prop_get_int (p, "cvs.update.force", 1);
+	cvs->update_directories = prop_get_int (p, "cvs.update.directories", 1);
+	cvs->reset_sticky_tags = prop_get_int (p, "cvs.update.reset", 0);
 	cvs->unified_diff = prop_get_int (p, "cvs.diff.unified", 1);
 	cvs->context_diff = prop_get_int (p, "cvs.diff.context", 0);
 	cvs->use_date_diff = prop_get_int (p, "cvs.diff.usedate", 0);
@@ -103,7 +113,7 @@ void cvs_set_editor_destroyed (CVS* cvs)
 {
 	g_return_if_fail (cvs != NULL);
 	cvs->editor_destroyed = TRUE;
-	launcher_reset();
+	anjuta_launcher_reset(app->launcher);
 }
 
 
@@ -113,10 +123,17 @@ void cvs_set_editor_destroyed (CVS* cvs)
 */
 
 void
-cvs_set_force_update (CVS * cvs, gboolean force_update)
+cvs_set_update_directories (CVS * cvs, gboolean update_directories)
 {
 	g_return_if_fail (cvs != NULL);
-	cvs->force_update = force_update;
+	cvs->update_directories = update_directories;
+}
+
+void
+cvs_set_update_reset_sticky_tags (CVS * cvs, gboolean reset_sticky_tags)
+{
+	g_return_if_fail (cvs != NULL);
+	cvs->reset_sticky_tags = reset_sticky_tags;
 }
 
 void
@@ -152,10 +169,17 @@ cvs_set_diff_use_date(CVS* cvs, gboolean state)
 */
 
 gboolean
-cvs_get_force_update(CVS * cvs)
+cvs_get_update_directories(CVS * cvs)
 {
 	g_return_val_if_fail (cvs != NULL, 0);
-	return cvs->force_update;
+	return cvs->update_directories;
+}
+
+gboolean
+cvs_get_update_reset_sticky_tags(CVS * cvs)
+{
+	g_return_val_if_fail (cvs != NULL, 0);
+	return cvs->reset_sticky_tags;
 }
 
 gboolean 
@@ -224,8 +248,10 @@ cvs_update (CVS *cvs, const gchar *filename,
 
 	compression = add_compression (cvs);
 	command = g_strconcat ("cvs ", compression, " update ", NULL);
-	if (cvs->force_update)
-		command = g_strconcat (command, " -P -d -A ", NULL);
+	if (cvs->update_directories)
+		command = g_strconcat (command, " -dP ", NULL);
+	if (cvs->reset_sticky_tags)
+		command = g_strconcat (command, " -A ", NULL);
 	
 	if (branch != NULL && strlen (branch) > 0)
 		command = g_strconcat (command, "-j ", branch, " ", NULL);
@@ -469,14 +495,18 @@ cvs_status (CVS *cvs, const gchar *filename, gboolean is_dir)
 	text_editor_set_hilite_type (diff_editor);
 
 	chdir (dir);
-	if (launcher_is_busy ())
+	if (anjuta_launcher_is_busy (app->launcher))
 	{
 		anjuta_error (_
 			      ("There are jobs running, please wait until they are finished"));
 	}
 	else
-		launcher_execute (command, on_cvs_buffer_in, on_cvs_stderr,
-			  on_cvs_terminate);
+	{
+		g_signal_connect (G_OBJECT (app->launcher), "child-exited",
+						  G_CALLBACK (on_cvs_buffer_terminated), NULL);
+		anjuta_launcher_execute (app->launcher, command,
+								 on_cvs_buffer_output_arrived, NULL);
+	}
 
 	g_free (compression);
 	g_free (command);
@@ -520,15 +550,18 @@ cvs_log (CVS *cvs, const gchar *filename, gboolean is_dir)
 	text_editor_set_hilite_type (diff_editor);
 
 	chdir (dir);
-	if (launcher_is_busy ())
+	if (anjuta_launcher_is_busy (app->launcher))
 	{
 		anjuta_error (_
 			      ("There are jobs running, please wait until they are finished"));
 	}
 	else
-		launcher_execute (command, on_cvs_buffer_in, on_cvs_stderr,
-			  on_cvs_terminate);
-
+	{
+		g_signal_connect (G_OBJECT (app->launcher), "child-exited",
+						  G_CALLBACK (on_cvs_buffer_terminated), NULL);
+		anjuta_launcher_execute (app->launcher, command,
+								 on_cvs_buffer_output_arrived, NULL);
+	}
 	g_free (compression);
 	g_free (command);
 	g_free (dir);
@@ -596,15 +629,18 @@ cvs_diff (CVS *cvs, const gchar *filename, const gchar *revision,
 	text_editor_set_hilite_type (diff_editor);
 
 	chdir (dir);
-	if (launcher_is_busy ())
+	if (anjuta_launcher_is_busy (app->launcher))
 	{
 		anjuta_error (_
 			      ("There are jobs running, please wait until they are finished"));
 	}
 	else
-		launcher_execute (command, on_cvs_buffer_in, on_cvs_stderr,
-			  on_cvs_terminate);
-
+	{
+		g_signal_connect (G_OBJECT (app->launcher), "child-exited",
+						  G_CALLBACK (on_cvs_buffer_terminated), NULL);
+		anjuta_launcher_execute (app->launcher, command,
+								 on_cvs_buffer_output_arrived, NULL);
+	}
 	g_free (command);
 	g_free (dir);
 	g_free (compression);
@@ -662,7 +698,8 @@ cvs_save_yourself (CVS * cvs, FILE * stream)
 	if (!cvs)
 		return FALSE;
 
-	fprintf (stream, "cvs.update.force=%d\n", cvs->force_update);
+	fprintf (stream, "cvs.update.directories=%d\n", cvs->update_directories);
+	fprintf (stream, "cvs.update.reset=%d\n", cvs->reset_sticky_tags);
 	fprintf (stream, "cvs.diff.unified=%d\n", cvs->unified_diff);
 	fprintf (stream, "cvs.diff.context=%d\n", cvs->context_diff);
 	fprintf (stream, "cvs.diff.usedate=%d\n", cvs->use_date_diff);
@@ -672,50 +709,45 @@ cvs_save_yourself (CVS * cvs, FILE * stream)
 }
 
 /* PRIVATE: */
-
-/*
-	Puts messages that arrive from cvs to the message window.
-*/
-
+/* Puts messages that arrive from cvs to the message window. */
 static void
-on_cvs_stdout (gchar * line)
+on_cvs_output_arrived (AnjutaLauncher *launcher,
+					   AnjutaLauncherOutputType output_type,
+					   const gchar * line, gpointer data)
 {
 	an_message_manager_append (app->messages, line, MESSAGE_CVS);
 }
 
-/*
-	Puts error messages that arrive from cvs to the message window.
-*/
-
+/*	Puts the diff produced by cvs in a new text buffer. */
 static void
-on_cvs_stderr (gchar * line)
-{
-	an_message_manager_append (app->messages, line, MESSAGE_CVS);
-}
-
-/*
-	Puts the diff produced by cvs in a new text buffer.
-*/
-static void
-on_cvs_buffer_in (gchar * line)
+on_cvs_buffer_output_arrived (AnjutaLauncher *launcher,
+							  AnjutaLauncherOutputType output_type,
+							  const gchar * line, gpointer data)
 {
 	guint length;
-	g_return_if_fail (line != NULL);
-	g_return_if_fail (diff_editor != NULL);
-	
-	if (app->cvs->editor_destroyed)
+	switch (output_type)
 	{
-		on_cvs_stdout(line);
-		return;
-	}
-	
-	length = strlen (line);
-	if (length)
-	{
-		scintilla_send_message (SCINTILLA
-					(diff_editor->widgets.editor),
-					SCI_ADDTEXT, length, (long) line);
-	}
+	case ANJUTA_LAUNCHER_OUTPUT_STDOUT:
+		g_return_if_fail (line != NULL);
+		g_return_if_fail (diff_editor != NULL);
+		
+		if (app->cvs->editor_destroyed)
+		{
+			on_cvs_output_arrived (launcher, output_type, line, data);
+			return;
+		}
+		
+		length = strlen (line);
+		if (length)
+		{
+			scintilla_send_message (SCINTILLA
+						(diff_editor->widgets.editor),
+						SCI_APPENDTEXT, length, (long) line);
+		}
+		break;
+	default:
+		an_message_manager_append (app->messages, line, MESSAGE_CVS);
+	}	
 }
 
 /*
@@ -724,32 +756,30 @@ on_cvs_buffer_in (gchar * line)
 */
 
 static void
-on_cvs_terminate (int status, time_t time)
+on_cvs_terminated_real (gint status, gulong time_taken)
 {
 	gchar *buff;
 	if (status)
 	{
 		an_message_manager_append (app->messages,
-					       _
-					       ("Project import completed...unsuccessful\n"),
+					       _("Project import completed...unsuccessful\n"),
 					       MESSAGE_BUILD);
 		anjuta_status (_("Project import completed...unsuccessful"));
 	}
 	else
 	{
 		an_message_manager_append (app->messages,
-					       _
-					       ("CVS completed...successful\n"),
+					       _("CVS completed...successful\n"),
 					       MESSAGE_CVS);
 		anjuta_status (_("CVS completed...successful"));
 	}
-	buff = g_strdup_printf (_("Total time taken: %d secs\n"),
-				(gint) time);
+	buff = g_strdup_printf (_("Total time taken: %lu secs\n"), time_taken);
 	an_message_manager_append (app->messages, buff, MESSAGE_CVS);
 	
 	if (update_fileview && app->project_dbase->project_is_open)
 	{
-		an_message_manager_append (app->messages, _("Updating versions in file tree..."), MESSAGE_CVS);
+		an_message_manager_append (app->messages,
+						_("Updating versions in file tree..."), MESSAGE_CVS);
 		fv_populate(TRUE);
 		an_message_manager_append (app->messages, _("done\n"), MESSAGE_CVS);
 	}
@@ -765,6 +795,26 @@ on_cvs_terminate (int status, time_t time)
 		app->cvs->editor_destroyed = FALSE;
 		diff_editor = NULL;
 	}
+}
+
+static void
+on_cvs_terminated (AnjutaLauncher *launcher, gint child_pid,
+				   gint status, gulong time_taken, gpointer data)
+{
+	g_signal_handlers_disconnect_by_func (G_OBJECT (app->launcher),
+										  G_CALLBACK (on_cvs_terminated),
+										  data);
+	on_cvs_terminated_real (status, time_taken);
+}
+
+static void
+on_cvs_buffer_terminated (AnjutaLauncher *launcher, gint child_pid,
+				   gint status, gulong time_taken, gpointer data)
+{
+	g_signal_handlers_disconnect_by_func (G_OBJECT (app->launcher),
+										  G_CALLBACK (on_cvs_buffer_terminated),
+										  data);
+	on_cvs_terminated_real (status, time_taken);
 }
 
 /* 
@@ -835,7 +885,7 @@ launch_cvs_command (gchar * command, gchar * dir)
 	g_return_if_fail (command != NULL);
 	/* g_return_if_fail (dir != NULL); */
 
-	if (launcher_is_busy ())
+	if (anjuta_launcher_is_busy (app->launcher))
 	{
 		anjuta_error (_
 			      ("There are jobs running, please wait until they are finished"));
@@ -845,7 +895,9 @@ launch_cvs_command (gchar * command, gchar * dir)
 
 	an_message_manager_show (app->messages, MESSAGE_CVS);
 
-	launcher_execute (command, on_cvs_stdout, on_cvs_stderr,
-			  on_cvs_terminate);
+	g_signal_connect (G_OBJECT (app->launcher), "child-exited",
+					  G_CALLBACK (on_cvs_terminated), NULL);
+	anjuta_launcher_execute (app->launcher, command,
+							 on_cvs_output_arrived, NULL);
 	return;
 }

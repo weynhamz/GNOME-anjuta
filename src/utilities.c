@@ -784,7 +784,7 @@ update_gtk ()
 {
 	/* Do not update gtk when launcher is busy */
 	/* This will freeze the application till the launcher is done */
-	if (launcher_is_busy () == TRUE)
+	if (anjuta_launcher_is_busy (app->launcher) == TRUE)
 		return;
 	if (app->auto_gtk_update == FALSE)
 		return;
@@ -1250,12 +1250,12 @@ gboolean is_file_same(gchar *a, gchar *b)
 
 	if(stat(a, &st_a) == -1)
 	{
-		printf("WARNING: Unable to stat '%s'.", a);
+		/* printf("WARNING: Unable to stat '%s'.", a);*/
 		return FALSE;
 	}
 	if(stat(b, &st_b) == -1)
 	{
-		printf("WARNING: Unable to stat '%s'.", b);
+		/* printf("WARNING: Unable to stat '%s'.", b);*/
 		return FALSE;
 	}
 
@@ -1586,11 +1586,12 @@ anjuta_util_kill (pid_t process_id, const gchar* signal)
 }
 
 GList*
-anjuta_util_parse_args_from_string (gchar* string)
+anjuta_util_parse_args_from_string (const gchar* string)
 {
 	gboolean escaped;
 	gchar    quote;
-	gchar    buffer[2048], *s;
+	gchar    buffer[2048];
+	const gchar *s;
 	gint     idx;
 	GList* args = NULL;
 	
@@ -1666,10 +1667,10 @@ anjuta_util_check_gnome_terminal (void)
 {
 #ifdef DEBUG
     gchar* term_command = "gnome-terminal --version";
-    gchar* term_command2 = "gnome-terminal --diable-factory --version";
+    gchar* term_command2 = "gnome-terminal --disable-factory --version";
 #else
     gchar* term_command = "gnome-terminal --version > /dev/null 2> /dev/null";
-    gchar* term_command2 = "gnome-terminal --diable-factory --version > /dev/null 2> /dev/null";
+    gchar* term_command2 = "gnome-terminal --disable-factory --version > /dev/null 2> /dev/null";
 #endif
     gint retval;
     
@@ -1764,6 +1765,33 @@ anjuta_util_string_from_color (guint8 r, guint8 g, guint8 b)
 	return g_strdup (str);
 }
 
+gchar *
+anjuta_util_convert_to_utf8 (const gchar *str)
+{
+	GError *error = NULL;
+	gchar *utf8_msg_string = NULL;
+	
+	g_return_val_if_fail (str != NULL, NULL);
+	g_return_val_if_fail (strlen (str) > 0, NULL);
+	
+	if (g_utf8_validate(str, -1, NULL))
+	{
+		utf8_msg_string = g_strdup (str);
+	}
+	else
+	{
+		gsize rbytes, wbytes;
+		utf8_msg_string = g_locale_to_utf8 (str, -1, &rbytes, &wbytes, &error);
+		if (error != NULL) {
+			g_warning ("g_locale_to_utf8 failed: %s\n", error->message);
+			g_error_free (error);
+			g_free (utf8_msg_string);
+			return NULL;
+		}
+	}
+	return utf8_msg_string;
+}
+
 GtkWidget *
 anjuta_util_toolbar_append_button (GtkWidget *toolbar, const gchar *iconfile,
 					   const gchar *label, const gchar *tooltip,
@@ -1782,16 +1810,86 @@ anjuta_util_toolbar_append_button (GtkWidget *toolbar, const gchar *iconfile,
 
 GtkWidget *
 anjuta_util_toolbar_append_stock (GtkWidget *toolbar, const gchar *stock_icon,
-					   const gchar *label, const gchar *tooltip,
-					   GtkSignalFunc callback, gpointer user_data)
+								const gchar *tooltip, GtkSignalFunc callback, 
+								gpointer user_data)
 {
 	GtkWidget *item;
 	item =
 		gtk_toolbar_insert_stock (GTK_TOOLBAR (toolbar),
 					    stock_icon,
-					    label, tooltip,
+					    tooltip, NULL,
 					    callback, user_data, -1);
 	gtk_widget_ref (item);
 	gtk_widget_show (item);
 	return item;
+}
+
+GtkWidget* 
+anjuta_button_new_with_stock_image (const gchar* text, const gchar* stock_id)
+{
+	GtkWidget *button;
+	GtkStockItem item;
+	GtkWidget *label;
+	GtkWidget *image;
+	GtkWidget *hbox;
+	GtkWidget *align;
+
+	button = gtk_button_new ();
+
+ 	if (GTK_BIN (button)->child)
+    		gtk_container_remove (GTK_CONTAINER (button),
+				      GTK_BIN (button)->child);
+
+  	if (gtk_stock_lookup (stock_id, &item))
+    	{
+      		label = gtk_label_new_with_mnemonic (text);
+
+		gtk_label_set_mnemonic_widget (GTK_LABEL (label), GTK_WIDGET (button));
+      
+		image = gtk_image_new_from_stock (stock_id, GTK_ICON_SIZE_BUTTON);
+      		hbox = gtk_hbox_new (FALSE, 2);
+
+      		align = gtk_alignment_new (0.5, 0.5, 0.0, 0.0);
+      
+      		gtk_box_pack_start (GTK_BOX (hbox), image, FALSE, FALSE, 0);
+      		gtk_box_pack_end (GTK_BOX (hbox), label, FALSE, FALSE, 0);
+      
+      		gtk_container_add (GTK_CONTAINER (button), align);
+      		gtk_container_add (GTK_CONTAINER (align), hbox);
+      		gtk_widget_show_all (align);
+
+      		return button;
+    	}
+
+      	label = gtk_label_new_with_mnemonic (text);
+      	gtk_label_set_mnemonic_widget (GTK_LABEL (label), GTK_WIDGET (button));
+  
+  	gtk_misc_set_alignment (GTK_MISC (label), 0.5, 0.5);
+
+  	gtk_widget_show (label);
+  	gtk_container_add (GTK_CONTAINER (button), label);
+
+	return button;
+}
+
+GtkWidget*
+anjuta_dialog_add_button (GtkDialog *dialog, const gchar* text,
+						  const gchar* stock_id, gint response_id)
+{
+	GtkWidget *button;
+	
+	g_return_val_if_fail (GTK_IS_DIALOG (dialog), NULL);
+	g_return_val_if_fail (text != NULL, NULL);
+	g_return_val_if_fail (stock_id != NULL, NULL);
+
+	button = anjuta_button_new_with_stock_image (text, stock_id);
+	g_return_val_if_fail (button != NULL, NULL);
+
+	GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
+
+	gtk_widget_show (button);
+
+	gtk_dialog_add_action_widget (dialog, button, response_id);	
+
+	return button;
 }

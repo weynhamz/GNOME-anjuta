@@ -1,13 +1,10 @@
 ## Process this file with automake to produce Makefile.in
-## Created by Anjuta - will be overwritten
-## If you don't want it to overwrite it,
-## 	Please disable it in the Anjuta project configuration
 
 @INTLTOOL_DESKTOP_RULE@
 
 SUBDIRS = po tagmanager global-tags scintilla \
 	gdl widgets printing pixmaps scripts data \
-	doc launcher plugins src
+	doc launcher plugins src manuals
 
 anjutadocdir = ${prefix}/@NO_PREFIX_PACKAGE_DOC_DIR@
 anjutadoc_DATA = \
@@ -36,8 +33,7 @@ EXTRA_DIST = \
 	$(anjuta_glade_file_DATA)\
 	anjuta_dialogs_strings.c
 
-gnomemenudir = $(prefix)/@NO_PREFIX_PACKAGE_MENU_DIR@/Development
-
+gnomemenudir = $(datadir)/applications
 gnomemenu_premerge_file = anjuta.desktop.in
 gnomemenu_DATA = $(gnomemenu_premerge_file:.desktop.in=.desktop)
 
@@ -53,13 +49,13 @@ rpm: dist
 	rpmbuild -ta $(distdir).tar.gz
 
 ## Install in RedHat's sytem menu, only if the system is RH.
-install-data-local:
-	-dfi=`which desktop-file-install` ; \
-	if ( [ "x$$dfi" != "x" ] && [ -x $$dfi ] && [ -w $(datadir)/applications ] ) ; then \
-		mkdir -p $(datadir)/applications ; \
-		$$dfi --vendor anjuta --delete-original \
-		  --dir $(datadir)/applications \
-		  --add-category X-Red-Hat-Base --add-category Application \
-		  --add-category Development \
-		  $(prefix)/@NO_PREFIX_PACKAGE_MENU_DIR@/Development/anjuta.desktop ; \
-	fi
+## install-data-local:
+## 	-dfi=`which desktop-file-install` ; \
+## 	if ( [ "x$$dfi" != "x" ] && [ -x $$dfi ] && [ -w $(datadir)/applications ] ) ; then \
+## 		mkdir -p $(datadir)/applications ; \
+## 		$$dfi --vendor anjuta --delete-original \
+## 		  --dir $(datadir)/applications \
+## 		  --add-category X-Red-Hat-Base --add-category Application \
+## 		  --add-category Development \
+## 		  $(prefix)/@NO_PREFIX_PACKAGE_MENU_DIR@/Development/anjuta.desktop ; \
+## 	fi

@@ -42,12 +42,10 @@ static gboolean on_replace_dialog_key_press (GtkWidget *widget,
                                              GdkEventKey *event,
                                              gpointer user_data);
 
-
 /*
 static gboolean
 on_replace_text_close (GtkWidget * widget,
 				  gpointer user_data);
-*/
 
 static gboolean
 on_find_replace_delete_event (GtkDialog *dialog, GdkEvent *event,
@@ -56,6 +54,7 @@ on_find_replace_delete_event (GtkDialog *dialog, GdkEvent *event,
 	find_replace_hide (ft);
 	return TRUE;
 }
+*/
 
 FindAndReplace *
 find_replace_new ()
@@ -322,7 +321,9 @@ create_find_replace_gui (FindAndReplace * fr)
 	                  G_CALLBACK (on_replace_dialog_response), fr);
 	g_signal_connect (G_OBJECT (fr->r_gui.GUI), "key-press-event",
 	                  G_CALLBACK (on_replace_dialog_key_press), fr);
-
+					  
+	gtk_combo_set_case_sensitive (GTK_COMBO (fr->r_gui.find_combo), TRUE);
+	gtk_combo_set_case_sensitive (GTK_COMBO (fr->r_gui.replace_combo), TRUE);
 	gtk_widget_grab_focus (fr->r_gui.find_entry);
 }
 
@@ -334,12 +335,16 @@ create_replace_messagebox (FindAndReplace *fr)
 									 GTK_DIALOG_DESTROY_WITH_PARENT,
 									 GTK_MESSAGE_QUESTION,
 									 GTK_BUTTONS_NONE,
-									 _("Do you want to replace this?"));
+									 _("Do you want to replace this occurence?"));
 	gtk_dialog_add_buttons (GTK_DIALOG (dialog),
 							GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-							GTK_STOCK_NO, GTK_RESPONSE_NO,
-							GTK_STOCK_YES, GTK_RESPONSE_YES, NULL);
-	gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_OK);
+							GTK_STOCK_NO, GTK_RESPONSE_NO, 
+							NULL);
+	anjuta_dialog_add_button (GTK_DIALOG (dialog),
+							  _("_Replace"),
+							  GTK_STOCK_REFRESH,
+							  GTK_RESPONSE_YES);
+	gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_YES);
 	return dialog;
 }
 
@@ -412,7 +417,7 @@ on_replace_dialog_response (GtkDialog *dialog, gint response,
 									fr->find_text->forward,
 									fr->find_text->regexp,
 									fr->find_text->ignore_case,
-									fr->find_text->whole_word);
+									fr->find_text->whole_word, FALSE);
 		}
 		else
 		{
@@ -421,7 +426,7 @@ on_replace_dialog_response (GtkDialog *dialog, gint response,
 									fr->find_text->forward,
 									fr->find_text->regexp,
 									fr->find_text->ignore_case,
-									fr->find_text->whole_word);
+									fr->find_text->whole_word, FALSE);
 		}
 		if (ret < 0)
 		{
@@ -439,7 +444,7 @@ on_replace_dialog_response (GtkDialog *dialog, gint response,
 			if (fr->replace_prompt)
 				but = gtk_dialog_run (GTK_DIALOG (dialog));
 			else
-				but = 1;
+				but = GTK_RESPONSE_YES;
 			gtk_widget_destroy (dialog);
 			
 			switch (but)

@@ -39,11 +39,21 @@ extern "C"
 
 // Data:
 static char *labels[] =
-	{ N_("Build"), N_("Debug"), N_("Find"), N_("CVS"), N_("Locals"), N_("Watches"), N_("Stack"),
-N_("Terminal"), N_("Stdout"), N_("Stderr") };
+{
+	N_("Build"),
+	N_("Find"),
+	N_("CVS"),
+	N_("Terminal"),
+	N_("Stdout"),
+	N_("Stderr"),
+	N_("Debug"),
+	N_("Locals"),
+	N_("Watches"),
+	N_("Stack"),
+};
 
 // Intern functions
-static void an_message_manager_destroy (GtkObject * object);
+static void an_message_manager_finalize (GObject * object);
 static void an_message_manager_class_init (AnMessageManagerClass *
 					       klass);
 static void an_message_manager_init (GtkObject * obj);
@@ -73,7 +83,7 @@ an_message_manager_new ()
 guint
 an_message_manager_get_type (void)
 {
-	static guint type = 0;
+	static GType type = 0;
 
 	if (!type)
 	{
@@ -100,11 +110,10 @@ an_message_manager_get_type (void)
 static void
 an_message_manager_class_init (AnMessageManagerClass * klass)
 {
-	GtkObjectClass *object_class =
-		reinterpret_cast < GtkObjectClass * >(klass);
-
-	parent_class = reinterpret_cast < GtkFrameClass * >(klass);
-	object_class->destroy = an_message_manager_destroy;
+	GObjectClass *object_class = G_OBJECT_CLASS (klass);
+	parent_class = reinterpret_cast < GtkFrameClass * >
+						(g_type_class_peek_parent (klass));
+	object_class->finalize = an_message_manager_finalize;
 }
 
 static void
@@ -165,7 +174,7 @@ an_message_manager_init (GtkObject * obj)
 }
 
 static void
-an_message_manager_destroy (GtkObject * obj)
+an_message_manager_finalize (GObject * obj)
 {
 	AnMessageManager *amm = AN_MESSAGE_MANAGER (obj);
 	typedef vector < MessageSubwindow * >::iterator I;
@@ -174,7 +183,7 @@ an_message_manager_destroy (GtkObject * obj)
 	{
 		delete *cur_win;
 	}
-	GTK_OBJECT_CLASS (parent_class)->destroy (obj);
+	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (obj));
 }
 
 // Public:
@@ -228,11 +237,15 @@ gboolean
 an_message_manager_append (AnMessageManager * amm,
 			       const gchar * msg_string, gint type_name)
 {
-	if (!amm)
-		return false;
+	g_return_val_if_fail (amm != NULL, false);
 	
 	string type = labels[type_name];
-	string msg = msg_string;
+	
+	gchar *utf8_str = anjuta_util_convert_to_utf8 (msg_string);
+	g_return_val_if_fail (utf8_str != NULL, false);
+	string msg = utf8_str;
+	g_free (utf8_str);
+	
 	vector < MessageSubwindow * >::iterator cur_win;
 
 	if (!amm->intern->msg_windows.empty ())
@@ -275,6 +288,43 @@ an_message_manager_append (AnMessageManager * amm,
 		else
 		{
 			window->add_to_buffer (*c);
+		}
+	}
+	return true;
+}
+
+gboolean
+an_message_manager_show_pane (AnMessageManager* amm, gint type_name)
+{
+	g_return_val_if_fail (amm != NULL, false);
+	
+	string type = labels[type_name];
+	
+	vector < MessageSubwindow * >::iterator cur_win;
+
+	if (!amm->intern->msg_windows.empty ())
+	{
+		bool found = false;
+		for (cur_win = amm->intern->msg_windows.begin ();
+		     cur_win != amm->intern->msg_windows.end (); cur_win++)
+		{
+			if ((*cur_win)->get_type () == type)
+			{
+				found = true;
+				if (!dynamic_cast < AnMessageWindow * >(*cur_win))
+					return false;
+				if (!(*cur_win)->is_shown ())
+				{
+					(*cur_win)->activate ();
+				}
+				break;
+			}
+		}
+		if (!found)
+		{
+			g_warning (_("Could not find message type %s!\n"),
+				   type.c_str ());
+			return false;
 		}
 	}
 	return true;
@@ -534,7 +584,9 @@ an_message_manager_undock (AnMessageManager * amm)
 		amm->intern->is_docked = false;
 		
 		amm->intern->window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+		/*
 		gtk_window_set_transient_for(GTK_WINDOW(amm->intern->window), GTK_WINDOW(app->widgets.window));
+		*/
 		gnome_window_icon_set_from_default((GtkWindow *) amm->intern->window);
 		gtk_window_set_wmclass(GTK_WINDOW(amm->intern->window), "message-manager", "an");
 		gtk_window_set_title(GTK_WINDOW(amm->intern->window), _("Messages"));
@@ -766,7 +818,8 @@ an_message_manager_build_is_empty(AnMessageManager* amm)
 		
 
 void
-an_message_manager_set_widget(AnMessageManager* amm, gint type_name, GtkWidget* widget)
+an_message_manager_set_widget(AnMessageManager* amm, gint type_name,
+							  GtkWidget* widget)
 {
 	MessageSubwindow* msb = NULL;
 	WidgetWindow* ww = NULL;
@@ -912,24 +965,24 @@ create_default_types (AnMessageManager * amm)
 	g_return_if_fail(amm != NULL);
 	an_message_manager_add_type (amm, MESSAGE_BUILD,
 					 ANJUTA_PIXMAP_MINI_BUILD);
-	an_message_manager_add_type (amm, MESSAGE_DEBUG,
-					 ANJUTA_PIXMAP_MINI_DEBUG);
 	an_message_manager_add_type (amm, MESSAGE_FIND,
 					 ANJUTA_PIXMAP_MINI_FIND);
 	an_message_manager_add_type (amm, MESSAGE_CVS,
 					 ANJUTA_PIXMAP_MINI_CVS);
-	an_message_manager_add_type (amm, MESSAGE_LOCALS,
-					 ANJUTA_PIXMAP_MINI_LOCALS);
-	an_message_manager_add_type (amm, MESSAGE_WATCHES,
-					 ANJUTA_PIXMAP_MINI_LOCALS);	
-	an_message_manager_add_type (amm, MESSAGE_STACK,
-					 ANJUTA_PIXMAP_MINI_LOCALS);	
 	an_message_manager_add_type (amm, MESSAGE_TERMINAL,
 					 ANJUTA_PIXMAP_MINI_TERMINAL);
 	an_message_manager_add_type (amm, MESSAGE_STDOUT,
 					 ANJUTA_PIXMAP_MINI_TERMINAL);
 	an_message_manager_add_type (amm, MESSAGE_STDERR,
 					 ANJUTA_PIXMAP_MINI_TERMINAL);
+	an_message_manager_add_type (amm, MESSAGE_DEBUG,
+					 ANJUTA_PIXMAP_MINI_DEBUG);
+	an_message_manager_add_type (amm, MESSAGE_LOCALS,
+					 ANJUTA_PIXMAP_MINI_LOCALS);
+	an_message_manager_add_type (amm, MESSAGE_WATCHES,
+					 ANJUTA_PIXMAP_MINI_LOCALS);	
+	an_message_manager_add_type (amm, MESSAGE_STACK,
+					 ANJUTA_PIXMAP_MINI_LOCALS);	
 	
 	// Fix for bug #509192 (Crash on next message)
 	amm->intern->cur_msg_win = 

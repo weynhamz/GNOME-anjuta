@@ -235,11 +235,16 @@ on_druidpagestandard3_next (GnomeDruidPage *
 			    gnomedruidpage, gpointer arg1, gpointer user_data)
 {
 	AppWizard *aw;
-	aw = user_data;
+	GtkTextBuffer *buffer;
+	GtkTextIter start, end;
 
-
+	aw = user_data;	
 	g_free (aw->description);
-	aw->description = gtk_editable_get_chars (GTK_EDITABLE (aw->widgets.description_text), 0, -1);
+	buffer =
+		gtk_text_view_get_buffer (GTK_TEXT_VIEW (aw->widgets.description_text));
+	gtk_text_buffer_get_start_iter (buffer, &start);
+	gtk_text_buffer_get_end_iter (buffer, &end);
+	aw->description = gtk_text_buffer_get_text (buffer, &start, &end, TRUE);
 	return FALSE;
 }
 

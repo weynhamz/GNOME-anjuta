@@ -14,11 +14,10 @@
 
     You should have received a copy of the GNU General Public License
     along with this program; if not, write to the Free Software
-    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+    Foundation, Inc., 59 Temple Place, Suiate 330, Boston, MA  02111-1307  USA
 */
 
 #include <gtk/gtk.h>
-#include <gnome.h>
 
 #include "preferences.h"
 
@@ -74,6 +73,8 @@ guint an_message_manager_get_type();
 gboolean an_message_manager_add_type(AnMessageManager* amm, const gint type_name, const gchar* pixmap);
 gboolean an_message_manager_append(AnMessageManager* amm, const gchar* msg_string, gint type_name);
 
+gboolean an_message_manager_show_pane (AnMessageManager* amm, gint type_name);
+
 void an_message_manager_clear(AnMessageManager* amm, gint type_name);
 void an_message_manager_show(AnMessageManager* amm, gint type_name);
 
@@ -109,16 +110,16 @@ void an_message_manager_set_widget(AnMessageManager* amm, gint type_name, GtkWid
 typedef enum _AnMessageType
 { 
 	MESSAGE_BUILD = 0,
-	MESSAGE_DEBUG,
 	MESSAGE_FIND,
 	MESSAGE_CVS,
-	MESSAGE_LOCALS,
-	MESSAGE_WATCHES,
-	MESSAGE_STACK,
 	MESSAGE_TERMINAL,
 	MESSAGE_STDOUT,
 	MESSAGE_STDERR,
-	MESSAGE_MAX = MESSAGE_STDERR,
+	MESSAGE_DEBUG,
+	MESSAGE_LOCALS,
+	MESSAGE_WATCHES,
+	MESSAGE_STACK,
+	MESSAGE_MAX = MESSAGE_STACK,
 	MESSAGE_NONE = -1,
 } AnMessageType;
 

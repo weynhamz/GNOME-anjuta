@@ -262,7 +262,7 @@ gint  anjuta_util_kill(pid_t process_id, const gchar* signal_name);
  * This function parses a string and returns a GList of *
  * program args, just like shell parses the program args*
  ********************************************************/
-GList* anjuta_util_parse_args_from_string (gchar* string);
+GList* anjuta_util_parse_args_from_string (const gchar* string);
 
 /* Gets the relative filename w.r.t the given directory */
 gchar *get_relative_file_name(gchar *dir, gchar *file);
@@ -294,6 +294,9 @@ void anjuta_util_color_from_string (const gchar * val,
 
 gchar *anjuta_util_string_from_color (guint8 r, guint8 g, guint8 b);
 
+/* Return must be freed. Works even if str is already UTF8 string */
+gchar *anjuta_util_convert_to_utf8 (const gchar *str);
+
 GtkWidget * anjuta_util_toolbar_append_button (GtkWidget *toolbar,
 											   const gchar *iconfile,
 											   const gchar *label,
@@ -302,7 +305,13 @@ GtkWidget * anjuta_util_toolbar_append_button (GtkWidget *toolbar,
 											   gpointer user_data);
 GtkWidget *
 anjuta_util_toolbar_append_stock (GtkWidget *toolbar, const gchar *stock_icon,
-								  const gchar *label, const gchar *tooltip,
-								  GtkSignalFunc callback, gpointer user_data);
+								  const gchar *tooltip, GtkSignalFunc callback, 
+								  gpointer user_data);
+
+GtkWidget*
+anjuta_dialog_add_button (GtkDialog *dialog, const gchar* text,
+						  const gchar* stock_id, gint response_id);
+GtkWidget* 
+anjuta_button_new_with_stock_image (const gchar* text, const gchar* stock_id);
 
 #endif

@@ -58,7 +58,8 @@ drag_data_received_cb (GtkWidget *widget, GdkDragContext *context,
 		       gint x, gint y, GtkSelectionData *data,
 		       guint info, guint time, gpointer user_data)
 {
-	guchar *tmp1, *tmppath, *tmpptr;
+	gchar *current, *current_end, *current_fixed;
+	gchar *hostname, *filename;
 	
 	/*
 	 * Check to see that we got the name of the file. Impossible that it is
@@ -66,36 +67,54 @@ drag_data_received_cb (GtkWidget *widget, GdkDragContext *context,
 	 */	
 	g_return_if_fail (data->data != NULL);
 
+	current = data->data;
 
-	tmp1 = data->data;
-	tmppath = g_malloc(strlen(data->data));
-	tmpptr = tmppath;
-
-	while (*tmp1)
+	while (*current)
 	{
 		/*
 		 * get each file:path in buffer and process
 		 */
-		while(*tmp1 != '\n')
-			*tmpptr++ = *tmp1++;				
-		
-		*(tmpptr - 1) = '\0'; /* remove the \r and end the string */			
-		
-		/* Some dumb software drops URI without "file:" in the begining */
-		if (strncasecmp (tmppath, "file:", 5) == 0) {
-			dnd_data_dropped(tmppath+5, user_data);
-		} else {
-			dnd_data_dropped(tmppath, user_data);
-		};
-		
-		tmpptr = tmppath;
-		tmp1++;					
+		current_end = current;
+		while (*current_end && *current_end != '\n') current_end++;
+
+		/* remove the \r if necessary and end the string */
+		if (*current_end == '\n' && current_end != current &&
+				*(current_end - 1) == '\r')
+		{
+			*(current_end - 1) = '\0';
+		}
+		else
+		{
+			*current_end = '\0';
+		}
+
+		filename = g_filename_from_uri (current, &hostname, NULL);
+		if (! filename && ! hostname)
+		{
+			// Some dumb software drops URI without "file:" in the begining
+			current_fixed = g_strconcat("file:", current, NULL);
+			filename = g_filename_from_uri (current, &hostname, NULL);
+			g_free (current_fixed);
+		}
+
+		if (filename)
+		{
+			if (hostname)
+			{
+				g_warning (_("File %s is not local."), filename);
+				g_free (hostname);
+			}
+			dnd_data_dropped (filename, user_data);
+			g_free (filename);
+		}
+		else
+		{
+			g_warning (_("Invalid filename %s."), current);
+		}
+
+		current = current_end + 1;
 	}
 	
-	/*
-	 * Clean up and return.
-	 */
-	g_free (tmppath);
 	return;
 }
 
@@ -172,4 +191,3 @@ scintilla_uri_dropped(const char *uri)
 	drag_data_received_cb (NULL, NULL, 0, 0, &tmp, 0,0,NULL);
 	return;
 }
-

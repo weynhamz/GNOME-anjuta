@@ -25,7 +25,7 @@
 #include "anjuta.h"
 
 gchar* project_type_generic[] = {	
-	0, // gnome_project save string
+	NULL, // gnome_project save string
 	
 	"", // cflags
 	"", // ldadd
@@ -36,7 +36,8 @@ gchar* project_type_generic[] = {
 	
 	"0", // gnome support
 	"0", // gnome2 support
-	"0" // glade support
+	"0", // glade support
+	"0" // Deprecated
 };
 
 gchar* project_type_gtk[] =
@@ -55,6 +56,7 @@ gchar* project_type_gtk[] =
 	"0",
 	"0", 
 	"1",
+	"1"
 };
 
 gchar* project_type_gtk2[] =
@@ -73,6 +75,7 @@ gchar* project_type_gtk2[] =
 	"0",
 	"0", 
 	"1",
+	"0"
 };
 
 gchar* project_type_libglade[] =
@@ -96,6 +99,7 @@ gchar* project_type_libglade[] =
 	"1",
 	"0", 
 	"1",
+	"1"
 };
 
 gchar* project_type_gnome[] =
@@ -118,6 +122,7 @@ gchar* project_type_gnome[] =
 	"1",
 	"0", 
 	"1",
+	"1"
 };
 
 gchar* project_type_gnome2[] =
@@ -136,6 +141,7 @@ gchar* project_type_gnome2[] =
 	"1", 
 	"1",
 	"1",
+	"0"
 };
 
 gchar* project_type_libglade2[] =
@@ -154,6 +160,7 @@ gchar* project_type_libglade2[] =
 	"1", 
 	"1",
 	"1",
+	"0"
 };
 
 gchar* project_type_glademm_gtkmm[] =
@@ -172,6 +179,7 @@ gchar* project_type_glademm_gtkmm[] =
 	"0",
 	"0", 
 	"1",
+	"1"
 };
 
 gchar* project_type_gtkmm2[] =
@@ -190,6 +198,7 @@ gchar* project_type_gtkmm2[] =
 	"0",
 	"0", 
 	"1",
+	"0"
 };
 
 gchar* project_type_glademm_gnomemm[] =
@@ -216,6 +225,7 @@ gchar* project_type_glademm_gnomemm[] =
 	"1",
 	"0", 
 	"1",
+	"1"
 };
 
 gchar* project_type_gnomemm2[] =
@@ -234,6 +244,7 @@ gchar* project_type_gnomemm2[] =
 	"1", 
 	"1",
 	"1",
+	"0"
 };
 
 gchar* project_type_bonobo[] =
@@ -258,6 +269,7 @@ gchar* project_type_bonobo[] =
 	"1",
 	"0", 
 	"1",
+	"1"
 };
 
 gchar* project_type_bonobo2[] =
@@ -276,6 +288,7 @@ gchar* project_type_bonobo2[] =
 	"1",
 	"1", 
 	"1",
+	"0"
 };
 
 gchar* project_type_wxwin[] = 
@@ -323,6 +336,7 @@ gchar* project_type_wxwin[] =
 	"0",
 	"0",
 	"0",
+	"0"
 };
 
 gchar* project_type_xwin[] = 
@@ -346,6 +360,7 @@ gchar* project_type_xwin[] =
 	"0",
 	"0",
 	"0",
+	"0"
 };
 
 gchar* project_type_xwindockapp[] = 
@@ -368,114 +383,118 @@ gchar* project_type_xwindockapp[] =
 
 	"0",
 	"0",
-	"0",	  
+	"0",
+	"0"
 };
 
-Project_Type* load_type_from_data(char* type_data[], gint id);
+static ProjectType* load_type_from_data (char* type_data[], gint id);
 
-Project_Type* load_project_type(gint id)
+ProjectType*
+project_type_load (gint id)
 {
-	Project_Type* type;
+	ProjectType* type;
 	
 	switch (id)
 	{
 		case PROJECT_TYPE_GENERIC:
 		{
-			type = load_type_from_data(project_type_generic, id);
+			type = load_type_from_data (project_type_generic, id);
 			break;
 		}
 		case PROJECT_TYPE_GTK:
 		{
-			type = load_type_from_data(project_type_gtk, id);
+			type = load_type_from_data (project_type_gtk, id);
 			break;
 		}
 		case PROJECT_TYPE_GTK2:
 		{
-			type = load_type_from_data(project_type_gtk2, id);
+			type = load_type_from_data (project_type_gtk2, id);
 			break;
 		}
 		case PROJECT_TYPE_GTKMM:
 		{
-			type = load_type_from_data(project_type_glademm_gtkmm, id);
+			type = load_type_from_data (project_type_glademm_gtkmm, id);
 			break;
 		}
 		case PROJECT_TYPE_GTKMM2:
 		{
-			type = load_type_from_data(project_type_gtkmm2, id);
+			type = load_type_from_data (project_type_gtkmm2, id);
 			break;
 		}
 		case PROJECT_TYPE_GNOME:
 		{
-			type = load_type_from_data(project_type_gnome, id);
+			type = load_type_from_data (project_type_gnome, id);
 			break;
 		}
 		case PROJECT_TYPE_GNOME2:
 		{
-			type = load_type_from_data(project_type_gnome2, id);
+			type = load_type_from_data (project_type_gnome2, id);
 			break;
 		}
 		case PROJECT_TYPE_LIBGLADE2:
 		{
-			type = load_type_from_data(project_type_libglade2, id);
+			type = load_type_from_data (project_type_libglade2, id);
 			break;
 		}
 		case PROJECT_TYPE_GNOMEMM:
 		{
-			type = load_type_from_data(project_type_glademm_gnomemm, id);
+			type = load_type_from_data (project_type_glademm_gnomemm, id);
 			break;
 		}
 		case PROJECT_TYPE_GNOMEMM2:
 		{
-			type = load_type_from_data(project_type_gnomemm2, id);
+			type = load_type_from_data (project_type_gnomemm2, id);
 			break;
 		}
 		case PROJECT_TYPE_BONOBO:
 		{
-			type = load_type_from_data(project_type_bonobo, id);
+			type = load_type_from_data (project_type_bonobo, id);
 			break;
 		}
 		case PROJECT_TYPE_BONOBO2:
 		{
-			type = load_type_from_data(project_type_bonobo2, id);
+			type = load_type_from_data (project_type_bonobo2, id);
 			break;
 		}
 		case PROJECT_TYPE_LIBGLADE:
 		{
-			type = load_type_from_data(project_type_libglade, id);
+			type = load_type_from_data (project_type_libglade, id);
 			break;
 		}
 		case PROJECT_TYPE_WXWIN:
 		{
-			type = load_type_from_data(project_type_wxwin, id);
+			type = load_type_from_data (project_type_wxwin, id);
 			break;
 		}
 		case PROJECT_TYPE_XWIN:
 		{
-			type = load_type_from_data(project_type_xwin, id);
+			type = load_type_from_data (project_type_xwin, id);
 			break;
 		}
 		case PROJECT_TYPE_XWINDOCKAPP:
 		{
-			type = load_type_from_data(project_type_xwindockapp, id);
+			type = load_type_from_data (project_type_xwindockapp, id);
 			break;
 		}
 		default:
 		{
-			anjuta_error("Unknown project type!");
+			anjuta_error ("Unknown project type!");
 			return NULL;
 		}
 	}
 	return type;
 }
 
-void free_project_type(Project_Type* type)
+void
+project_type_free (ProjectType* type)
 {
-	g_free(type);
+	g_free (type);
 }
 
-Project_Type* load_type_from_data(char* type_data[], gint id)
+static ProjectType*
+load_type_from_data (char* type_data[], gint id)
 {
-	Project_Type* type = g_malloc(sizeof(Project_Type));
+	ProjectType* type = g_new0 (ProjectType, 1);
 	
 	type->id = id;
 	type->name = project_type_map[id];
@@ -487,9 +506,9 @@ Project_Type* load_type_from_data(char* type_data[], gint id)
 	type->configure_macros = type_data[3];
 	type->autogen_file = type_data[4];
 			
-	type->gnome_support = atoi(type_data[5]);
-	type->gnome2_support = atoi(type_data[6]);
-	type->glade_support = atoi(type_data[7]);
-	
+	type->gnome_support = atoi (type_data[5]);
+	type->gnome2_support = atoi (type_data[6]);
+	type->glade_support = atoi (type_data[7]);
+	type->deprecated = atoi (type_data[8]);
 	return type;
 }

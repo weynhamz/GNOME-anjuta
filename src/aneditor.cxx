@@ -228,7 +228,8 @@ protected:
 	bool isDirty;
 	
 	bool calltipShown;
-
+	bool debugTipOn;
+	
 	PropSetFile *props;
 
 	int LengthDocument();
@@ -252,6 +253,8 @@ protected:
 	void CountLineEnds(int &linesCR, int &linesLF, int &linesCRLF);
 	CharacterRange GetSelection();
 	void SelectionWord(char *word, int len);
+	void WordSelect();
+	void LineSelect();
 	void SelectionIntoProperties();
 	long Find (long flags, char* text);
 	bool HandleXml(char ch);
@@ -266,6 +269,8 @@ protected:
 	bool CanBeCommented(bool box_stream);
 	bool StartBoxComment();
 	bool StartStreamComment();
+	SString GetMode(SString language); 
+	bool InsertCustomIndent();
 
 	unsigned int GetLinePartsInStyle(int line, int style1, int style2, SString sv[], int len);
 	void SetLineIndentation(int line, int indent);
@@ -339,6 +344,7 @@ public:
 	void FocusInEvent(GtkWidget* widget);
 	void FocusOutEvent(GtkWidget* widget);
 	void EvalOutputArrived(GList* lines, int textPos, const string &expression);
+	void EndDebugEval();
 };
 
 
@@ -426,7 +432,8 @@ AnEditor::AnEditor(PropSetFile* p) {
 
 	accelGroup = NULL;
 	calltipShown = false;
-
+	debugTipOn = false;
+	
 	fileName[0] = '\0';
 	props = p;
 	
@@ -837,6 +844,33 @@ void AnEditor::SelectionWord(char *word, int len) {
 	}
 }
 
+void AnEditor::WordSelect() {
+	int lengthDoc = LengthDocument();
+	int selStart;
+	int selEnd;
+	
+	selStart = selEnd = SendEditor(SCI_GETCURRENTPOS);
+	WindowAccessor acc(wEditor.GetID(), *props);
+	if (iswordcharforsel(acc[selStart])) {
+			while ((selStart > 0) && (iswordcharforsel(acc[selStart - 1])))
+				selStart--;
+			while ((selEnd < lengthDoc - 1) && (iswordcharforsel(acc[selEnd + 1])))
+				selEnd++;
+			if (selStart < selEnd)
+				selEnd++;   	// Because normal selections end one past
+	}
+	SetSelection(selStart, selEnd);
+}
+
+void AnEditor::LineSelect() {
+	int pos = SendEditor(SCI_GETCURRENTPOS);
+	int line = SendEditor(SCI_LINEFROMPOSITION, pos);
+	int lineStart = SendEditor(SCI_POSITIONFROMLINE, line);
+	int lineEnd = SendEditor(SCI_GETLINEENDPOSITION, line);
+	
+	SetSelection(lineStart, lineEnd);
+}
+
 void AnEditor::SelectionIntoProperties() {
 	CharacterRange cr = GetSelection();
 	char currentSelection[1000];
@@ -860,7 +894,7 @@ long AnEditor::Find (long flags, char* findWhat) {
 	CharacterRange crange = GetSelection();
 	if (flags & ANEFIND_REVERSE_FLAG) {
 		ft.chrg.cpMin = crange.cpMin - 1;
-		ft.chrg.cpMax = 0;
+		ft.chrg.cpMax = 1;
 	} else {
 		ft.chrg.cpMin = crange.cpMax;
 		ft.chrg.cpMax = LengthDocument();
@@ -1053,7 +1087,6 @@ bool AnEditor::StartAutoComplete() {
 	        (wordCharacters.contains(linebuf[startword - 1]) ||
 	         autoCompleteStartCharacters.contains(linebuf[startword - 1])))
 		startword--;
-
 	linebuf[current] = '\0';
 	const char *root = linebuf + startword;
 	int rootlen = current - startword;
@@ -1142,11 +1175,21 @@ bool AnEditor::StartAutoCompleteWord(int autoShowCount) {
 	GetLine(linebuf, sizeof(linebuf));
 	int current = GetCaretInLine();
 
+	bool isNum = true;
 	int startword = current;
-	while (startword > 0 && wordCharacters.contains(linebuf[startword - 1]))
+	while (startword > 0 && wordCharacters.contains(linebuf[startword - 1])) {
+		if (isNum && !isdigit(linebuf[startword - 1]))
+			isNum = false;
 		startword--;
+	}
+	
 	if (startword == current)
 		return true;
+	
+	// Don't show autocomple for numbers (very annoying).
+	if (isNum)
+		return true;
+	
 	linebuf[current] = '\0';
 	const char *root = linebuf + startword;
 	int rootlen = current - startword;
@@ -1651,6 +1694,129 @@ bool AnEditor::StartStreamComment() {
 	}
 	return true;
 }
+
+
+SString AnEditor::GetMode(SString language) {
+	SString mode;	
+	if (strcmp(language.c_str(), "cpp") == 0)
+	{
+		mode += " Mode: C;";
+		if (props->GetInt("use.tabs"))
+			mode += " indent-tabs-mode: t;";
+		mode += " c-basic-offset: ";
+		mode +=  g_strdup_printf("%d", props->GetInt("indent.size"));
+		mode += "; tab-width: ";
+		mode +=  g_strdup_printf("%d ", props->GetInt("tabsize"));
+	}
+//~ Other languages
+//~ .....
+	return mode;
+}
+
+/*	Insert or Modify a Comment line 
+	giving File indent  */
+bool AnEditor::InsertCustomIndent() {
+	#define MAXBUF 1000
+	
+	SString fileNameForExtension = ExtensionFileName();
+	SString language = props->GetNewExpand("lexer.", fileNameForExtension.c_str());
+	SString start_box_base("comment.box.start.");
+	start_box_base += language;
+	SString start_stream_base("comment.stream.start.");
+	start_stream_base += language;
+	SString end_box_base("comment.box.end.");
+	end_box_base += language;
+	SString end_stream_base("comment.stream.end.");
+	end_stream_base += language;
+	SString start_box = props->Get(start_box_base.c_str());
+	SString start_stream = props->Get(start_stream_base.c_str());
+	SString end_box = props->Get(end_box_base.c_str());
+	SString end_stream = props->Get(end_stream_base.c_str());
+	SString mark("-*-");
+	int text_length = SendEditor(SCI_GETTEXTLENGTH);
+	char buf[MAXBUF];
+	int bufmax = text_length < MAXBUF ? text_length : MAXBUF;
+	
+	GetRange(wEditor, 0, bufmax - 1, buf);
+	
+	bool start_comment = false;
+	bool indent_comment = false;
+	int end_indent_comment = 0;
+	
+	for (int index = 0; index < bufmax; index++)
+	{
+		if (!start_comment)
+		{
+			if (memcmp(buf+index, start_box.c_str(), start_box.length()) == 0)
+			{
+				index += (start_box.length() - 1);
+				start_comment = true;
+				continue;
+			}
+			if (memcmp(buf+index, start_stream.c_str(), start_stream.length()) == 0)
+			{
+				index += (start_stream.length() - 1);
+				start_comment = true;
+				continue;
+			}
+			if (buf[index] != ' ' && buf[index] != '\t' && buf[index] != '\n')
+				break;
+		}
+		else
+		{
+			if (!indent_comment)
+			{
+				if (buf[index] == ' ' || buf[index] == '\t' || buf[index] == '\n')
+					continue;
+				if (memcmp(buf+index, mark.c_str(), 3) == 0)
+				{
+					index += 3;
+					indent_comment = true;
+				}
+				else
+					break;
+			}
+			else
+			{
+				if (memcmp(buf+index, end_box.c_str(), end_box.length()) == 0)
+				{
+					end_indent_comment = index + end_box.length() - 1;
+					break;
+				}
+				if (memcmp(buf+index, end_stream.c_str(), end_stream.length()) == 0)
+				{
+					end_indent_comment = index + end_stream.length() - 1;
+					break;
+				}
+			}
+		}		
+	}
+	SString mode = GetMode(language);
+	if (mode.c_str() != "")
+	{
+		SString comment ;
+		comment += start_stream.c_str() ;
+		comment += " ";
+		comment += mark.c_str();
+		comment += mode.c_str();
+		comment += mark.c_str();
+		comment += " ";
+		comment += end_stream.c_str() ;
+	
+		if (indent_comment)
+		{
+			SendEditor(SCI_SETSEL, 0, end_indent_comment + 1);
+			SendEditorString(SCI_REPLACESEL, 0, comment.c_str());
+		}
+		else
+		{
+			comment += "\n\n";
+			SendEditorString(SCI_INSERTTEXT, 0, comment.c_str());
+		}
+	}
+	return TRUE;
+}
+	
 
 /**
  * Return the length of the given line, not counting the EOL.
@@ -2391,6 +2557,17 @@ long AnEditor::Command(int cmdID, long wParam, long lParam) {
 	case ANE_STREAMCOMMENT:
 		return StartStreamComment();
 	
+	case ANE_CUSTOMINDENT:
+		return InsertCustomIndent();
+	
+	case ANE_WORDSELECT:
+		WordSelect();
+		break;
+	
+	case ANE_LINESELECT:
+		LineSelect();
+		break;
+
 	default:
 		break;
 	}
@@ -2599,7 +2776,7 @@ eval_output_arrived_for_aneditor(GList* lines, gpointer data)
 
 	if (data == NULL)
 		return;
-
+	
 	auto_ptr<ExpressionEvaluationTipInfo> info(
 			(ExpressionEvaluationTipInfo *) data);
 
@@ -2610,9 +2787,16 @@ eval_output_arrived_for_aneditor(GList* lines, gpointer data)
 }
 
 
-void AnEditor::EvalOutputArrived(GList* lines, int textPos, const string &expression) {
+void AnEditor::EvalOutputArrived(GList* lines, int textPos,
+								 const string &expression) {
+	
 	if (textPos <= 0)
 	    return;
+	
+	// Return if debug Tip has been canceled
+	if (!debugTipOn)
+		return;
+
 	if (g_list_length(lines) == 0 || lines->data == NULL)
 	    return;
 
@@ -2625,6 +2809,11 @@ void AnEditor::EvalOutputArrived(GList* lines, int textPos, const string &expres
 	SendEditor(SCI_CALLTIPSETHLT, 0, result.length());
 }
 
+void AnEditor::EndDebugEval() {
+	if (debugTipOn)
+		SendEditor(SCI_CALLTIPCANCEL);
+	debugTipOn = false;
+}
 
 void AnEditor::HandleDwellStart(int mousePos) {
 	if (mousePos == -1)
@@ -2639,6 +2828,10 @@ void AnEditor::HandleDwellStart(int mousePos) {
 		// SendEditorString(SCI_CALLTIPSHOW, mousePos, s.c_str());
 		return;
 	}
+	
+	// If debug tip is already running, return.
+	if (debugTipOn)
+		return;
 
 	CharacterRange crange = GetSelection();
 	if (crange.cpMin == crange.cpMax
@@ -2693,6 +2886,7 @@ void AnEditor::HandleDwellStart(int mousePos) {
 				DB_CMD_NONE, NULL, NULL);
 	g_free (printcmd);
 	debugger_execute_cmd_in_queqe ();
+	debugTipOn = true;
 }
 
 
@@ -2749,7 +2943,8 @@ void AnEditor::Notify(SCNotification *notification) {
 		break;
 
 	case SCN_DWELLEND:
-		SendEditor(SCI_CALLTIPCANCEL);
+		EndDebugEval();
+		// SendEditor(SCI_CALLTIPCANCEL);
 		break;
 
 	}
@@ -3300,6 +3495,7 @@ void AnEditor::ReadProperties(const char *fileForExt) {
 	SendEditor(SCI_SETMARGINWIDTHN, 2, foldMargin ? foldMarginWidth : 0);
 
 	SendEditor(SCI_SETMARGINMASKN, 2, SC_MASK_FOLDERS);
+	SendEditor(SCI_SETMARGINSENSITIVEN, 1, 1); // Breakpoints-Bookmarks
 	SendEditor(SCI_SETMARGINSENSITIVEN, 2, 1);
 	
 	SString fold_symbols = props->Get("fold.symbols.style");
@@ -3468,7 +3664,6 @@ void
 aneditor_destroy(AnEditorID id)
 {
   AnEditor* ed;
-  GtkWidget *w;
 
   ed = aneditor_get(id);
   if(!ed) return;
@@ -3510,6 +3705,7 @@ gint on_aneditor_focus_in(GtkWidget* widget, gpointer* unused, AnEditor* ed)
 
 gint on_aneditor_focus_out(GtkWidget* widget, gpointer * unused, AnEditor* ed)
 {
+	ed->EndDebugEval();
 	ed->FocusOutEvent(widget);
 	return FALSE;
 }

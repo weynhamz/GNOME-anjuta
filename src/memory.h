@@ -29,24 +29,29 @@ extern "C"
 {
 #endif
 
-typedef struct _MemApp MemApp;
-
-struct _MemApp
+typedef struct _MemApp
 {
-	GtkWidget *window;
-	GtkWidget *text_adr;
-	GtkWidget *text_data;
-	GtkWidget *text_ascii;
+	GladeXML *xml;
+	GtkWidget *dialog;
 	GtkWidget *adr_entry;
-	GtkWidget *mem_label;
-	guchar *adr;
-	guchar *start_adr;
+	GtkWidget *button_inspect;
+	GtkWidget *button_quit;
+	GtkWidget *memory_label;
+	GtkWidget *adr_textview;
+	GtkWidget *data_textview;
+	GtkWidget *ascii_textview;
+	GtkTextBuffer *adr_buffer;
+	GtkTextBuffer *data_buffer;
+	GtkTextBuffer *ascii_buffer;
+	GtkWidget *eventbox_up;
+	GtkWidget *eventbox_down;
+	gchar *adr;
+	gchar *start_adr;
 	gboolean new_window;
-};
+} MemApp;
 
 GtkWidget* memory_info_new (guchar *ptr);
-gboolean memory_info_address_is_accessible (guchar *adr, MemApp *memapp);
-guchar *memory_info_address_to_decimal (gchar *hex_address);
+gchar *memory_info_address_to_decimal (gchar *hex_address);
 
 #ifdef __cplusplus
 }

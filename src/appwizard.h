@@ -48,7 +48,8 @@ struct _AppWizardGui
 
 	GtkWidget *gettext_support_check;
 	GtkWidget *file_header_check;
-
+	GtkWidget *use_glade_check;
+	
 	GtkWidget *menu_frame;
 	GtkWidget *menu_entry_entry;
 	GtkWidget *menu_comment_entry;
@@ -65,6 +66,7 @@ struct _AppWizard
 	gint cur_page;
 
 	gint  prj_type;
+	GList *active_project_types;
 	gint  target_type;
 	
 	gchar *prj_name;
@@ -83,6 +85,7 @@ struct _AppWizard
 
 	gboolean gettext_support;
 	gboolean use_header;
+	gboolean use_glade;
 };
 
 AppWizard *app_wizard_new (void);

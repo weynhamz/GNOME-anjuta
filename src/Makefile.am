@@ -17,30 +17,34 @@ INCLUDES = \
 #	-DGDK_PIXBUF_DEPRECATED \
 #	-DGTK_DISABLE_DEPRECATED -DGNOME_DISABLE_DEPRECATED
 
-SCILEXERS =\
-	../scintilla/StyleContext.o\
-	../scintilla/LexCPP.o\
-	../scintilla/LexConf.o\
-	../scintilla/LexHTML.o\
-	../scintilla/LexLua.o\
-	../scintilla/LexOthers.o\
-	../scintilla/LexPerl.o\
-	../scintilla/LexPython.o\
-	../scintilla/LexSQL.o\
-	../scintilla/LexVB.o\
-	../scintilla/LexPascal.o\
-	../scintilla/LexAVE.o\
-	../scintilla/LexCrontab.o\
-	../scintilla/LexEiffel.o\
-	../scintilla/LexLisp.o\
-	../scintilla/LexRuby.o\
-	../scintilla/LexBullant.o\
-	../scintilla/LexAda.o\
-	../scintilla/LexBaan.o\
-	../scintilla/LexMatlab.o \
-	../scintilla/LexAsm.o \
-	../scintilla/LexFortran.o \
-	../scintilla/LexCSS.o
+BUILT_SOURCES = \
+	anjuta-marshalers.h \
+	anjuta-marshalers.c
+
+CLEANFILES = \
+	anjuta-marshalers.h \
+	anjuta-marshalers.c \
+	stamp-anjuta-marshalers.h
+
+$(srcdir)/anjuta-marshalers.h: stamp-anjuta-marshalers.h
+	@true
+stamp-anjuta-marshalers.h: anjuta-marshalers.list
+	cd $(srcdir) \
+	&& @GLIB_GENMARSHAL@ --prefix=anjuta_cclosure_marshal \
+	anjuta-marshalers.list --header >> xgen-gmlh \
+	&& (cmp -s xgen-gmlh anjuta-marshalers.h || \
+	cp xgen-gmlh anjuta-marshalers.h) \
+	&& rm -f xgen-gmlh \
+	&& echo timestamp > $(@F)
+
+$(srcdir)/anjuta-marshalers.c: anjuta-marshalers.list
+	cd $(srcdir) \
+	&& @GLIB_GENMARSHAL@ --prefix=anjuta_cclosure_marshal \
+	anjuta-marshalers.list --body >> xgen-gmlc \
+	&& cp xgen-gmlc anjuta-marshalers.c \
+	&& rm -f xgen-gmlc
+
+include $(top_srcdir)/scintilla/lexers.make
 
 bin_PROGRAMS = anjuta
 
@@ -62,8 +66,12 @@ anjuta_SOURCES = \
 	anjuta_cbs.c\
 	anjuta_dirs.c\
 	anjuta_dirs.h\
+	anjuta-encodings.c\
+	anjuta-encodings.h\
 	anjuta_info.c\
 	anjuta_info.h\
+	anjuta-marshalers.c\
+	anjuta-marshalers.h\
 	appwiz_page1.c\
 	appwiz_page2.c\
 	appwiz_page3.c\
@@ -184,9 +192,6 @@ anjuta_SOURCES = \
 	src_paths.h\
 	stack_trace.c\
 	stack_trace.h\
-	stack_trace_cbs.c\
-	stack_trace_cbs.h\
-	stack_trace_gui.c\
 	support.c\
 	support.h\
 	text_editor.c\
@@ -209,8 +214,6 @@ anjuta_SOURCES = \
 	watch_cbs.h\
 	watch_gui.c\
 	watch_gui.h\
-	windows-dialog.c\
-	windows-dialog.h\
 	wizard_gui.h\
 	wizard_gui.c\
 	appwiz_page4.c\
@@ -236,15 +239,17 @@ anjuta_SOURCES = \
 	widget-registry.c
 
 anjuta_LDADD =  \
-	$(ANJUTA_LIBS) \
+	$(ANJUTA_LIBS) -lutil\
 	$(PCRE_LIBS)\
 	$(top_builddir)/scintilla/libscintilla.a\
 	$(top_builddir)/tagmanager/libctags.a\
 	$(top_builddir)/widgets/libwidgets.a\
 	$(top_builddir)/gdl/libgdl.a\
 	$(top_builddir)/printing/libanjutaprint.a\
-	$(SCILEXERS)
+	$(LEXER_OBJS)
 
 anjuta_DEPENDENCIES =
 	$(LIBEGG_PATH)/libegg/menu/libegg-menu.la \
 	$(LIBEGG_PATH)/libegg/treeviewutils/libegg-treeview.la
+
+EXTRA_DIST = anjuta-marshalers.list

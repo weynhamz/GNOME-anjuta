@@ -22,23 +22,12 @@
 
 #include "project_dbase.h"
 
-gboolean
-source_write_generic_main_c (ProjectDBase *data);
-
-gboolean
-source_write_wxwin_main_c (ProjectDBase *data);
-
-gboolean
-source_write_xwin_main_c (ProjectDBase *data);
-
-gboolean
-source_write_xwindockapp_main_c (ProjectDBase *data);
-
-gboolean
-source_write_libglade_main_c (ProjectDBase *data);
-
-gboolean
-source_write_build_files (ProjectDBase * data);
+gboolean source_write_generic_main_c (ProjectDBase *data);
+gboolean source_write_wxwin_main_c (ProjectDBase *data);
+gboolean source_write_xwin_main_c (ProjectDBase *data);
+gboolean source_write_xwindockapp_main_c (ProjectDBase *data);
+gboolean source_write_libglade_main_c (ProjectDBase *data);
+gboolean source_write_libglade2_main_c (ProjectDBase *data);
+gboolean source_write_build_files (ProjectDBase * data);
 
 #endif	/* __SOURCE_H__ */
-

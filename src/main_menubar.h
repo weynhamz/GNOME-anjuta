@@ -47,7 +47,6 @@ struct _FileSubMenu
 	GtkWidget *save_project;
 	GtkWidget *close_project;
 	GtkWidget *rename;
-	GtkWidget *page_setup;
 	GtkWidget *print;
 	GtkWidget *print_preview;
 	GtkWidget *recent_files;
@@ -72,6 +71,7 @@ struct _EditSubMenu
 	GtkWidget *convert_auto;
 
 	GtkWidget *insert_header;
+	GtkWidget *insert_custom_indent;
 	GtkWidget *insert_c_switch;
 	GtkWidget *insert_c_for;
 	GtkWidget *insert_c_while;
@@ -97,12 +97,16 @@ struct _EditSubMenu
 	GtkWidget *select_all;
 	GtkWidget *select_brace;
 	GtkWidget *select_block;
-
+	GtkWidget *select_function;
+	GtkWidget *select_line;
+	GtkWidget *select_word;
+	
 	GtkWidget *autocomplete;
 	GtkWidget *calltip;
 
 	GtkWidget *find;
 	GtkWidget *find_next;	
+	GtkWidget *find_previous;
 	GtkWidget *find_in_files;
 	GtkWidget *find_replace;
 	GtkWidget *enter_selection;
@@ -144,12 +148,9 @@ struct _ViewSubMenu
 	GtkWidget *bookmarks;
 	GtkWidget *breakpoints;
 	GtkWidget *registers;
-	GtkWidget *program_stack;
 	GtkWidget *shared_lib;
 	GtkWidget *signals;
 	GtkWidget *dump_window;
-	GtkWidget *console;
-	GtkWidget *show_hide_locals;
 };
 
 struct _ProjectSubMenu

@@ -59,25 +59,43 @@ typedef struct _SearchExpression
 	PcreInfo *re;
 } SearchExpression;
 
-
 static void search_update_combos (void);
-
 static void replace_update_combos (void);
-
-static void display_action_button(gchar *name);
-
-static void show_jump_button(gboolean show);
-
-static void search_end_alert(void);
-
-static void max_results_alert(void);
-
-static void nb_results_alert(gint nb);
-
-static void reset_flags(void);
+static void display_action_button (const gchar *name);
+static void show_jump_button (gboolean show);
+static void search_end_alert (void);
+static void max_results_alert (void);
+static void nb_results_alert (gint nb);
+static void reset_flags (void);
 
 
-static void pcre_info_free(PcreInfo *re)
+/* LibGlade's auto-signal-connect will connect to these signals.
+ * Do not declare them static.
+ */
+void on_search_match_whole_word_toggled (GtkToggleButton *togglebutton, 
+					 gpointer user_data);
+void on_search_match_whole_line_toggled (GtkToggleButton *togglebutton,
+					 gpointer user_data);
+void on_search_match_word_start_toggled (GtkToggleButton *togglebutton,
+					 gpointer user_data);
+gboolean on_search_replace_delete_event(GtkWidget *window, GdkEvent *event,
+					gboolean user_data);
+void on_replace_regex_toggled (GtkToggleButton *togglebutton, gpointer user_data);
+void on_search_regex_toggled (GtkToggleButton *togglebutton, gpointer user_data);
+void on_search_action_changed (GtkEditable *editable, gpointer user_data);
+void on_search_target_changed(GtkEditable *editable, gpointer user_data);
+void on_search_target_changed(GtkEditable *editable, gpointer user_data);
+void on_actions_no_limit_clicked(GtkButton *button, gpointer user_data);
+void on_search_button_close_clicked(GtkButton *button, gpointer user_data);
+void on_search_button_close_clicked(GtkButton *button, gpointer user_data);
+void on_search_button_help_clicked(GtkButton *button, gpointer user_data);
+void on_search_button_next_clicked(GtkButton *button, gpointer user_data);
+void on_search_button_jump_clicked(GtkButton *button, gpointer user_data);
+void on_search_expression_activate (GtkEditable *edit, gpointer user_data);
+void on_search_button_save_clicked(GtkButton *button, gpointer user_data);
+
+static void
+pcre_info_free (PcreInfo *re)
 {
 	if (re)
 	{
@@ -91,7 +109,8 @@ static void pcre_info_free(PcreInfo *re)
 	}
 }
 
-static PcreInfo *pcre_info_new(SearchExpression *s)
+static PcreInfo *
+pcre_info_new (SearchExpression *s)
 {
 	PcreInfo *re;
 	int options = 0;
@@ -237,7 +256,8 @@ typedef struct _MatchInfo
 	GList *subs; /* <MatchSubStr *> */
 } MatchInfo;
 
-static void match_info_free(MatchInfo *mi)
+static void
+match_info_free (MatchInfo *mi)
 {
 	if (mi)
 	{
@@ -275,7 +295,8 @@ typedef struct _FileBuffer
 	TextEditor *te;
 } FileBuffer;
 
-static void file_buffer_free(FileBuffer *fb)
+static void
+file_buffer_free (FileBuffer *fb)
 {
 	if (fb)
 	{
@@ -290,7 +311,8 @@ static void file_buffer_free(FileBuffer *fb)
 }
 
 /* Create a file buffer structure from a TextEditor structure */
-static FileBuffer *file_buffer_new_from_te(TextEditor *te)
+static FileBuffer *
+file_buffer_new_from_te (TextEditor *te)
 {
 	FileBuffer *fb;
 
@@ -312,8 +334,8 @@ static FileBuffer *file_buffer_new_from_te(TextEditor *te)
 	return fb;
 }
 
-static FileBuffer *file_buffer_new_from_path(const char *path, const char *buf
-  , int len, int pos)
+static FileBuffer *
+file_buffer_new_from_path(const char *path, const char *buf, int len, int pos)
 {
 	FileBuffer *fb;
 	TextEditor *te;
@@ -409,7 +431,8 @@ static FileBuffer *file_buffer_new_from_path(const char *path, const char *buf
 	return fb;
 }
 
-static long file_buffer_line_from_pos(FileBuffer *fb, int pos)
+static long
+file_buffer_line_from_pos(FileBuffer *fb, int pos)
 {
 	GList *tmp;
 	int lineno = -1;
@@ -431,7 +454,8 @@ static long file_buffer_line_from_pos(FileBuffer *fb, int pos)
 		return -1;
 }
 
-static gchar *file_match_line_from_pos(FileBuffer *fb, int pos)
+static gchar *
+file_match_line_from_pos(FileBuffer *fb, int pos)
 {
 	gint length=1;
 	gint i;
@@ -446,7 +470,8 @@ static gchar *file_match_line_from_pos(FileBuffer *fb, int pos)
 /* Generate a list of files to search in. Call with start = TRUE and
 ** top_dir = sf->top_dir. This is used when the search range is specified as
 SR_FILES */
-static GList *create_search_files_list(SearchFiles *sf, const char *top_dir)
+static GList *
+create_search_files_list(SearchFiles *sf, const char *top_dir)
 {
 	TMFileEntry *entry;
 	GList *files;
@@ -465,7 +490,8 @@ static GList *create_search_files_list(SearchFiles *sf, const char *top_dir)
 /* Create a list of files to search in from a user specified list. Variables
 should be expanded so that the user can use strings like:
 '$(module.source.files)', '$(module.include.files)', etc. */
-static GList *expand_search_file_list(const char *top_dir, const char *str)
+static GList *
+expand_search_file_list(const char *top_dir, const char *str)
 {
 	gchar *dir;
 	GList *names;
@@ -497,7 +523,8 @@ static GList *expand_search_file_list(const char *top_dir, const char *str)
 }
 
 /* Get a list of all project files */
-static GList *get_project_file_list(void)
+static GList *
+get_project_file_list(void)
 {
 	GList *files = NULL;
 
@@ -542,12 +569,14 @@ static GList *get_project_file_list(void)
 	return files;
 }
 
-static gboolean isawordchar(int c)
+static gboolean
+isawordchar (int c)
 {
 	return (isalnum(c) || '_' == c);
 }
 
-static gboolean extra_match(FileBuffer *fb, SearchExpression *s, gint match_len)
+static gboolean
+extra_match (FileBuffer *fb, SearchExpression *s, gint match_len)
 {
 	gchar b, e;
 	
@@ -578,8 +607,8 @@ static gboolean extra_match(FileBuffer *fb, SearchExpression *s, gint match_len)
 /* Returns the next match in the passed buffer. The search expression should
 ** be pre-compiled. The returned pointer should be freed with match_info_free()
 ** when no longer required. */
-static MatchInfo *get_next_match(FileBuffer *fb, SearchDirection direction
-  , SearchExpression *s)
+static MatchInfo *
+get_next_match(FileBuffer *fb, SearchDirection direction, SearchExpression *s)
 {
 	MatchInfo *mi = NULL;
 
@@ -741,8 +770,8 @@ typedef struct _SearchEntry
 	long end_pos;
 } SearchEntry;
 
-
-void function_select(TextEditor *te)
+void
+function_select(TextEditor *te)
 {
 	gint pos;
 	gint line;
@@ -763,7 +792,7 @@ void function_select(TextEditor *te)
 	                                    SCI_GETFOLDLEVEL, line, 0) ;	
 	if ((fold_level & 0xFF) != 0)
 	{
-		while((fold_level & 0x10FF) != 0x1000)
+		while((fold_level & 0x10FF) != 0x1000 && line >= 0)
 			fold_level = scintilla_send_message(SCINTILLA(te->widgets.editor), 
 	                                    SCI_GETFOLDLEVEL, --line, 0) ;
 		start = scintilla_send_message(SCINTILLA(te->widgets.editor), 
@@ -774,6 +803,7 @@ void function_select(TextEditor *te)
 		while((fold_level & 0x10FF) != 0x1000 && line < line_count)
 			fold_level = scintilla_send_message(SCINTILLA(te->widgets.editor), 
 	                                            SCI_GETFOLDLEVEL, ++line, 0) ;
+
 		end = scintilla_send_message(SCINTILLA(te->widgets.editor), 
 	                                 SCI_POSITIONFROMLINE, line , 0);
 		scintilla_send_message(SCINTILLA(te->widgets.editor), 
@@ -781,9 +811,9 @@ void function_select(TextEditor *te)
 	}
 }
 
-
 /* Create list of search entries */
-static GList *create_search_entries(Search *s)
+static GList
+*create_search_entries(Search *s)
 {
 	GList *entries = NULL;
 	GList *files;
@@ -910,8 +940,8 @@ static GList *create_search_entries(Search *s)
 	return entries;
 }
 
-
-static gchar* regex_backref(MatchInfo *mi, FileBuffer *fb)
+static gchar*
+regex_backref(MatchInfo *mi, FileBuffer *fb)
 {
 	gint i, j, k;
 	long start, len;
@@ -956,8 +986,8 @@ static gchar* regex_backref(MatchInfo *mi, FileBuffer *fb)
 	return buf;
 }
 
-
-static void search_and_replace(void)
+static void
+search_and_replace (void)
 {
 	GList *entries;
 	GList *tmp;
@@ -1121,6 +1151,7 @@ static void search_and_replace(void)
 	g_list_free(entries);
 	return;
 }
+
 /* The GUI part starts here */
 
 #define GLADE_FILE "anjuta.glade"
@@ -1272,7 +1303,6 @@ static GladeWidget glade_widgets[] = {
 };
 
 
-
 static void populate_value(const char *name, gpointer val_ptr)
 {
 	StringMap *map;
@@ -1366,8 +1396,9 @@ static void nb_results_alert(gint nb)
 }
 
 /* Callbacks */
-gboolean on_search_replace_delete_event(GtkWidget *window, GdkEvent *event
-  , gboolean user_data)
+gboolean
+on_search_replace_delete_event(GtkWidget *window, GdkEvent *event,
+			       gboolean user_data)
 {
 	if (sg->showing)
 	{
@@ -1377,9 +1408,9 @@ gboolean on_search_replace_delete_event(GtkWidget *window, GdkEvent *event
 	return TRUE;
 }
 
-
-void on_search_match_whole_word_toggled (GtkToggleButton *togglebutton, 
-                                         gpointer user_data)
+void
+on_search_match_whole_word_toggled (GtkToggleButton *togglebutton, 
+									gpointer user_data)
 {
 	GtkWidget *whole_line = glade_xml_get_widget(sg->xml, WHOLE_LINE);
 	GtkWidget *word_start = glade_xml_get_widget(sg->xml, WORD_START);
@@ -1399,8 +1430,9 @@ void on_search_match_whole_word_toggled (GtkToggleButton *togglebutton,
 	                   on_search_match_word_start_toggled, NULL);
 }
 
-void on_search_match_whole_line_toggled (GtkToggleButton *togglebutton, 
-                                         gpointer user_data)
+void
+on_search_match_whole_line_toggled (GtkToggleButton *togglebutton, 
+									gpointer user_data)
 {
 	GtkWidget *whole_word = glade_xml_get_widget(sg->xml, WHOLE_WORD);
 	GtkWidget *word_start = glade_xml_get_widget(sg->xml, WORD_START);
@@ -1420,9 +1452,9 @@ void on_search_match_whole_line_toggled (GtkToggleButton *togglebutton,
 	                   on_search_match_whole_word_toggled, NULL);
 }
 
-
-void on_search_match_word_start_toggled (GtkToggleButton *togglebutton, 
-                                         gpointer user_data)
+void
+on_search_match_word_start_toggled (GtkToggleButton *togglebutton, 
+									gpointer user_data)
 {
 	GtkWidget *whole_word = glade_xml_get_widget(sg->xml, WHOLE_WORD);
 	GtkWidget *whole_line = glade_xml_get_widget(sg->xml, WHOLE_LINE);
@@ -1469,15 +1501,16 @@ on_replace_regex_toggled (GtkToggleButton *togglebutton, gpointer user_data)
  	  	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(search_regex) ,TRUE);	
 }
 
-static void display_action_button(gchar *name)
+static void
+display_action_button (const gchar *name)
 {
 	GtkWidget *action_button = glade_xml_get_widget(sg->xml, SEARCH_BUTTON);
 	
 	gtk_label_set_text(GTK_LABEL(GTK_BIN(action_button)->child), name);
 }
 
-
-void on_search_action_changed(GtkEditable *editable, gpointer user_data)
+void
+on_search_action_changed (GtkEditable *editable, gpointer user_data)
 {
 	GtkWidget *replace_frame = glade_xml_get_widget(sg->xml, REPLACE_FRAME);
 	char *s;
@@ -1503,7 +1536,8 @@ void on_search_action_changed(GtkEditable *editable, gpointer user_data)
 	}
 }
 
-void on_search_target_changed(GtkEditable *editable, gpointer user_data)
+void
+on_search_target_changed(GtkEditable *editable, gpointer user_data)
 {
 	SearchRangeType type;
 	char *s;
@@ -1531,7 +1565,8 @@ void on_search_target_changed(GtkEditable *editable, gpointer user_data)
 	reset_flags();
 }
 
-void on_actions_no_limit_clicked(GtkButton *button, gpointer user_data)
+void
+on_actions_no_limit_clicked(GtkButton *button, gpointer user_data)
 {
 	GtkWidget *actions_max = glade_xml_get_widget(sg->xml, ACTIONS_MAX);
 	
@@ -1541,8 +1576,8 @@ void on_actions_no_limit_clicked(GtkButton *button, gpointer user_data)
 		gtk_widget_set_sensitive (actions_max, TRUE);	
 }
 
-
-void on_search_button_close_clicked(GtkButton *button, gpointer user_data)
+void
+on_search_button_close_clicked(GtkButton *button, gpointer user_data)
 {
 	if (sg->showing)
 	{
@@ -1552,7 +1587,8 @@ void on_search_button_close_clicked(GtkButton *button, gpointer user_data)
 	}
 }
 
-void on_search_button_help_clicked(GtkButton *button, gpointer user_data)
+void
+on_search_button_help_clicked(GtkButton *button, gpointer user_data)
 {
 	anjuta_tools_show_variables();
 }
@@ -1564,7 +1600,8 @@ void on_search_button_help_clicked(GtkButton *button, gpointer user_data)
 				sr->search.range.files.var = glist_from_string(s);\
 			}
 
-static void search_replace_populate(void)
+static void
+search_replace_populate(void)
 {
 	char *s = NULL;
 	char *max = NULL;
@@ -1610,6 +1647,8 @@ static void search_replace_populate(void)
 	{
 		populate_value(ACTIONS_MAX, &(max));
 		sr->search.expr.actions_max = atoi(max);
+		if (sr->search.expr.actions_max == 0)
+			sr->search.expr.actions_max = 100;
 		g_free(max);
 	}
 
@@ -1648,13 +1687,15 @@ static void search_replace_populate(void)
 	}
 }
 
-void on_search_button_next_clicked(GtkButton *button, gpointer user_data)
+void
+on_search_button_next_clicked(GtkButton *button, gpointer user_data)
 {
 	search_replace_populate();
 	search_and_replace();
 }
 
-void on_search_button_jump_clicked(GtkButton *button, gpointer user_data)
+void
+on_search_button_jump_clicked(GtkButton *button, gpointer user_data)
 {
 	if (sr)
 		interactive = FALSE;
@@ -1663,7 +1704,8 @@ void on_search_button_jump_clicked(GtkButton *button, gpointer user_data)
 	search_and_replace();
 }
 
-static void show_jump_button(gboolean show)
+static void
+show_jump_button (gboolean show)
 {
 	GtkWidget *jump_button = glade_xml_get_widget(sg->xml, JUMP_BUTTON);
 	
@@ -1673,7 +1715,8 @@ static void show_jump_button(gboolean show)
 		gtk_widget_hide(jump_button);
 }
 
-void on_search_expression_activate(GtkEditable *edit, gpointer user_data)
+void
+on_search_expression_activate (GtkEditable *edit, gpointer user_data)
 {
 	GtkWidget *combo;
 	
@@ -1684,12 +1727,14 @@ void on_search_expression_activate(GtkEditable *edit, gpointer user_data)
 	reset_flags();
 }
 
-void on_search_button_save_clicked(GtkButton *button, gpointer user_data)
+void
+on_search_button_save_clicked(GtkButton *button, gpointer user_data)
 {
 	anjuta_not_implemented(__FILE__, __LINE__);
 }
 
-static gboolean create_dialog(void)
+static gboolean
+create_dialog(void)
 {
 	char glade_file[PATH_MAX];
 	GladeWidget *w;
@@ -1725,16 +1770,15 @@ static gboolean create_dialog(void)
 	return TRUE;
 }
 
-static void show_dialog()
+static void
+show_dialog()
 {
-	if (!sg->showing)
-	{
-		gtk_widget_show(sg->dialog);
-		sg->showing = TRUE;
-	}
+	gtk_window_present (GTK_WINDOW (sg->dialog));
+	sg->showing = TRUE;
 }
 
-static gboolean word_in_list(GList *list, gchar *word)
+static gboolean
+word_in_list(GList *list, gchar *word)
 {
 	GList *l = list;
 	
@@ -1749,7 +1793,8 @@ static gboolean word_in_list(GList *list, gchar *word)
 
 /*  Remove last item of the list if > nb_max  */
 
-static GList* list_max_items(GList *list, guint nb_max)
+static GList*
+list_max_items(GList *list, guint nb_max)
 {
 	GList *last;
 	
@@ -1767,7 +1812,8 @@ static GList* list_max_items(GList *list, guint nb_max)
 
 //  FIXME  free GList sr->search.expr_history ?????
 
-static void search_update_combos(void)
+static void
+search_update_combos(void)
 {
 	GtkWidget *search_entry = NULL;
 	gchar *search_word = NULL;
@@ -1794,7 +1840,8 @@ static void search_update_combos(void)
 	}
 }
 
-static void replace_update_combos(void)
+static void
+replace_update_combos(void)
 {
 	GtkWidget *replace_entry = NULL;
 	gchar *replace_word = NULL;
@@ -1823,7 +1870,7 @@ static void replace_update_combos(void)
 
 #define MAX_LENGTH_SEARCH 64
 
-void anjuta_search_replace_activate(void)
+void anjuta_search_replace_activate (void)
 {
 	GtkWidget *search_entry = NULL;
 	gchar *current_word = NULL;

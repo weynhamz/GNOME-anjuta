@@ -33,6 +33,16 @@ public:
 
 /**
  */
+class Idler {
+public:
+	bool state;
+	IdlerID idlerID;
+
+	Idler();
+};
+
+/**
+ */
 class LineLayout {
 private:
 	friend class LineLayoutCache;
@@ -133,6 +143,19 @@ public:
 			len = 0;
 		rectangular = rectangular_;
 	}
+	void Copy(const char *s_, int len_, bool rectangular_=false) {
+		delete []s;
+		s = new char[len_];
+		if (s) {
+			len = len_;
+			for (int i = 0; i < len_; i++) {
+				s[i] = s_[i];
+			}
+		} else {
+			len = 0;
+		}
+		rectangular = rectangular_;
+	}
 };
 
 /**
@@ -194,6 +217,8 @@ protected:	// ScintillaBase subclass needs access to much of Editor
 	Timer timer;
 	Timer autoScrollTimer;
 	enum { autoScrollDelay = 200 };
+
+	Idler idler;
 
 	Point lastClick;
 	unsigned int lastClickTime;
@@ -260,6 +285,7 @@ protected:	// ScintillaBase subclass needs access to much of Editor
 	enum { eWrapNone, eWrapWord } wrapState;
 	int wrapWidth;
 	int docLineLastWrapped;
+	int docLastLineToWrap;
 
 	Document *pdoc;
 
@@ -319,8 +345,8 @@ protected:	// ScintillaBase subclass needs access to much of Editor
 	void DropCaret();
 	void InvalidateCaret();
 
-	void NeedWrapping(int docLineStartWrapping=0);
-	bool WrapLines();
+	void NeedWrapping(int docLineStartWrapping = 0, int docLineEndWrapping = 0x7ffffff);
+	bool WrapLines(bool fullWrap, int priorityWrapLineStart);
 	void LinesJoin();
 	void LinesSplit(int pixelWidth);
 
@@ -416,8 +442,12 @@ protected:	// ScintillaBase subclass needs access to much of Editor
 	long SearchInTarget(const char *text, int length);
 	void GoToLine(int lineNo);
 
+	virtual void CopyToClipboard(const SelectionText &selectedText) = 0;
 	char *CopyRange(int start, int end);
+	void CopySelectionFromRange(SelectionText *ss, int start, int end);
 	void CopySelectionRange(SelectionText *ss);
+	void CopyRangeToClipboard(int start, int end);
+	void CopyText(int length, const char *text);
 	void SetDragPosition(int newPos);
 	virtual void DisplayCursor(Window::Cursor c);
 	virtual void StartDrag();
@@ -434,7 +464,9 @@ protected:	// ScintillaBase subclass needs access to much of Editor
 	void ButtonUp(Point pt, unsigned int curTime, bool ctrl);
 
 	void Tick();
+	bool Idle();
 	virtual void SetTicking(bool on) = 0;
+	virtual bool SetIdle(bool) { return false; }
 	virtual void SetMouseCapture(bool on) = 0;
 	virtual bool HaveMouseCapture() = 0;
 	void SetFocusState(bool focusState);

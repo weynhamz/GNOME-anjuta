@@ -122,6 +122,9 @@ struct _TextEditor
 /* Handler for changed signal. Need to disconnect the signal when we destroy
    the object */
 	gulong changed_id;
+	
+/* File encoding */
+	gchar *encoding;
 };
 
 void create_text_editor_gui (TextEditor * te);
@@ -146,20 +149,23 @@ void text_editor_destroy (TextEditor * te);
 void text_editor_undo (TextEditor * te);
 void text_editor_redo (TextEditor * te);
 
+/* wrap flag only applies when scope == TEXT_EDITOR_FIND_CURRENT_POS */
 glong
 text_editor_find (TextEditor * te, const gchar * str, gint scope,
 				  gboolean forward, gboolean regexp, gboolean ignore_case,
-				  gboolean whole_word);
+				  gboolean whole_word, gboolean wrap);
 
 void text_editor_replace_selection (TextEditor * te, const gchar * r_str);
 
 guint text_editor_get_total_lines (TextEditor * te);
 glong text_editor_get_current_position (TextEditor * te);
 guint text_editor_get_current_lineno (TextEditor * te);
+guint text_editor_get_line_from_position (TextEditor * te, glong pos);
 gchar* text_editor_get_selection (TextEditor * te);
 
 gboolean text_editor_goto_point (TextEditor * te, glong num);
-gboolean text_editor_goto_line (TextEditor * te, glong num, gboolean mark);
+gboolean text_editor_goto_line (TextEditor * te, glong num,
+								gboolean mark, gboolean ensure_visible);
 gint text_editor_goto_block_start (TextEditor* te);
 gint text_editor_goto_block_end (TextEditor* te);
 
@@ -168,7 +174,7 @@ gint text_editor_set_marker (TextEditor * te, glong line, gint marker);
 gint text_editor_set_indicator (TextEditor *te, glong line, gint indicator);
 
 gboolean text_editor_load_file (TextEditor * te);
-gboolean text_editor_save_file (TextEditor * te);
+gboolean text_editor_save_file (TextEditor * te, gboolean update);
 
 gboolean text_editor_is_saved (TextEditor * te);
 gboolean text_editor_has_selection (TextEditor * te);

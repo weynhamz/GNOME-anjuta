@@ -1,21 +1,35 @@
-<?xml version="1.0" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <omf>
   <resource>
-
-    <creator>ichattopadhyaya@yahoo.com (Ishan Chattopadhyaya)</creator>
-    
-	<title>Anjuta Tutorial</title>
-    <date></date>
-	<subject category="GNOME|Development" />
+    <creator>
+      ichattopadhyaya@yahoo.com (Ishan Chattopadhyaya)
+    </creator>
+    <maintainer>
+      Anjuta Team
+    </maintainer>
+<!--
+    <title>
+      Anjuta Tutorial V0.1
+    </title>
+-->
+    <title>
+      Anjuta Tutorial
+    </title>
+    <date>
+      2003-09-05
+    </date>
+    <version identifier="0.1" date="2003-09-05" description="Updated for program version 1.1.1"/>
+    <subject category="GNOME|Development"/>
     <description>
-	This document is a tutorial to help users quickly get started using the Anjuta IDE.
+      This document is a tutorial to help users quickly get started using the Anjuta IDE
     </description>
     <type>
-     article
+      article
     </type>
-    <format mime="text/sgml"/>
-    <identifier url="anjuta-tutorial.sgml"/>
+    <format mime="text/xml" dtd="-//OASIS//DTD DocBook XML V4.1.2//EN"/>
+    <identifier url="anjuta-tutorial.xml"/>
     <language code="C"/>
+    <relation seriesid="b1a19bce-1035-11d8-98ee-f4e33a7120c3"/>
+    <rights type="GNU FDL" license.version="1.1" holder="Ishan Chattopadhyaya"/>
   </resource>
 </omf>
-

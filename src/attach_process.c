@@ -33,6 +33,7 @@
 #include "attach_process.h"
 #include "global.h"
 #include "anjuta.h"
+#include "debugger.h"
 
 enum {
 	PID_COLUMN,
@@ -220,7 +221,7 @@ on_response (GtkWidget* dialog, gint res, gpointer data)
 static gboolean
 on_delete_event (GtkWidget *dialog, GdkEvent *event, AttachProcess *ap)
 {
-	g_return_if_fail (ap);
+	g_return_val_if_fail (ap, FALSE);
 	ap->dialog = NULL;
 	ap->pid = -1L;
 	return FALSE;

@@ -19,6 +19,7 @@
 #endif
 
 #include <gnome.h>
+#include "anjuta.h"
 #include "debugger.h"
 #include "watch_cbs.h"
 #include "watch_gui.h"
@@ -44,12 +45,12 @@ on_watch_event (GtkWidget * widget, GdkEvent * event, gpointer user_data)
 		return FALSE;
 
 	if (((GdkEventButton *) event)->button == 3) {
-	bevent = (GdkEventButton *) event;
-	bevent->button = 1;
-	expr_watch_update_controls (ew);
-	gtk_menu_popup (GTK_MENU (ew->widgets.menu), NULL, NULL, NULL, NULL,
-					bevent->button, bevent->time);
-	return TRUE;
+		bevent = (GdkEventButton *) event;
+		bevent->button = 1;
+		expr_watch_update_controls (ew);
+		gtk_menu_popup (GTK_MENU (ew->widgets.menu), NULL, NULL, NULL, NULL,
+						bevent->button, bevent->time);
+		return TRUE;
 	}
 
 	view = GTK_TREE_VIEW (widget);
@@ -61,8 +62,8 @@ on_watch_event (GtkWidget * widget, GdkEvent * event, gpointer user_data)
 		g_warning("Error getting selection\n");
 		return FALSE;
 	}
+	return FALSE;
 }
-
 
 void
 on_watch_add_activate (GtkMenuItem * menuitem, gpointer user_data)
@@ -76,7 +77,6 @@ on_watch_add_activate (GtkMenuItem * menuitem, gpointer user_data)
 void
 on_watch_remove_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
-	gchar *exp;
 	GtkTreeView *view;
 	GtkTreeModel *model;
 	GtkTreeSelection *selection;
@@ -136,14 +136,13 @@ on_watch_help_activate (GtkMenuItem * menuitem, gpointer user_data)
 
 }
 
-
 void
 on_ew_add_ok_clicked (GtkButton * button, gpointer user_data)
 {
-	ExprWatch* ew =(ExprWatch*) g_object_get_data (G_OBJECT(user_data), "user_data");
+	ExprWatch* ew = (ExprWatch*) g_object_get_data (G_OBJECT(user_data),
+													"user_data");
 	add_watch_entry ((GtkEntry *) user_data, ew);
 }
-
 
 void
 on_ew_add_help_clicked (GtkButton * button, gpointer user_data)
@@ -289,47 +288,48 @@ expr_watch_update (GList * lines, gpointer data)
 static void
 add_watch_entry (GtkEntry * ent, ExprWatch* ew)
 {
-	gchar *row, *buff;
+	const gchar *row;
+	gchar *buff;
 	GtkTreeModel *model;
 	GtkTreeIter iter;
 	struct watch_cb_data *cb_data;
 
 	if (GTK_IS_ENTRY (ent) == FALSE)
 		return;
-	row = (gchar *) gtk_entry_get_text (ent);
-	if (strlen (row) == 0)
+	row = gtk_entry_get_text (ent);
+	if (row == NULL || strlen (row) <= 0)
 		return;
 
 	if (expr_watch_entry_history)
 		g_free (expr_watch_entry_history);
 	expr_watch_entry_history = g_strdup (row);
 
-
 	model = gtk_tree_view_get_model (GTK_TREE_VIEW (ew->widgets.clist));	
 
 	/* add a watch entry */
 	gtk_list_store_append (GTK_LIST_STORE(model), &iter);
 	gtk_list_store_set (GTK_LIST_STORE(model), &iter, 
-						WATCH_VARIABLE_COLUMN, g_strdup (row), 
+						WATCH_VARIABLE_COLUMN, row,
 						WATCH_VALUE_COLUMN, "", -1);
 
 	/* send command to gdb to get the initial value */
 	buff = g_strconcat ("print ", row, NULL);
 	
-	cb_data = g_new (struct watch_cb_data, 1);
+	cb_data = g_new0 (struct watch_cb_data, 1);
 	cb_data->ew = ew;
 	cb_data->iter = gtk_tree_iter_copy (&iter);
 	
 	debugger_put_cmd_in_queqe (buff, DB_CMD_NONE, expr_watch_update, cb_data);
 	debugger_execute_cmd_in_queqe ();
 
+	an_message_manager_show_pane (app->messages, MESSAGE_WATCHES);
 	g_free (buff);
 }
 
 static void
 change_watch_entry (GtkEntry * ent, ExprWatch* ew)
 {
-	gchar *row, *exp, *buff;
+	gchar *row, *buff;
 	GtkTreeView *view;
 	GtkTreeModel *model;
 	GtkTreeSelection *selection;

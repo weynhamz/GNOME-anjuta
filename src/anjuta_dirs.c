@@ -48,8 +48,7 @@ anjuta_dirs_new()
 			ad->first_time = TRUE;
 			if (mkdir (ad->settings, 0755) != 0)
 			{
-				g_warning (_
-					   ("Unable to create settings directory.\n"));
+				g_warning (_("Unable to create settings directory.\n"));
 			}
 		}
 	}

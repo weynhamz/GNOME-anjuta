@@ -66,6 +66,8 @@ create_find_in_files_gui (FindInFiles *sf)
 		glade_xml_get_widget (sf->gxml, "find_in_files_regex_entry");
 	sf->widgets.regexp_combo =
 		glade_xml_get_widget (sf->gxml, "find_in_files_regex_combo");
+		
+	gtk_combo_set_case_sensitive (GTK_COMBO (sf->widgets.regexp_combo), TRUE);	
 	
 	/* Set up list of files */
 	list_store = gtk_list_store_new (1, G_TYPE_STRING);
@@ -95,7 +97,13 @@ create_find_in_files_gui (FindInFiles *sf)
 	gtk_widget_ref (sf->widgets.regexp_entry);
 	gtk_widget_ref (sf->widgets.regexp_combo);
 	
-	gtk_window_add_accel_group (GTK_WINDOW (sf->widgets.window), app->accel_group);
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(sf->widgets.ignore_binary),
+								  TRUE);
+	/* FIXME: Since launcher doesn't use sh, piping is not possible. */
+	gtk_widget_hide (sf->widgets.nocvs);
+	
+	gtk_window_add_accel_group (GTK_WINDOW (sf->widgets.window),
+								app->accel_group);
 
 	g_signal_connect (G_OBJECT (sf->widgets.window), "delete_event",
 					  G_CALLBACK (on_search_in_files_delete_event),
@@ -146,7 +154,6 @@ find_in_files_new ()
 void
 find_in_files_destroy (FindInFiles * ff)
 {
-	gint i;
 	if (ff)
 	{
 		gtk_widget_unref (ff->widgets.window);
@@ -236,7 +243,6 @@ find_in_files_process (FindInFiles * ff)
 	GtkTreeModel *model;
 	GtkTreeIter iter;
 	gboolean valid;
-	gint i;
 	gchar *command, *temp, *file;
 	gboolean case_sensitive, ignore_binary, nocvs;
 
@@ -251,12 +257,8 @@ find_in_files_process (FindInFiles * ff)
 	nocvs  =
 		gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
 					      (ff->widgets.nocvs));
-	temp = (gchar*)gtk_entry_get_text (GTK_ENTRY (ff->widgets.regexp_entry));
 
-	command = g_strconcat ("grep -n -r -e \"", temp, "\"", NULL);
-	ff->regexp_history =
-		update_string_list (ff->regexp_history, temp,
-				    COMBO_LIST_LENGTH);
+	command = g_strdup ("grep -n -r ");
 	if (!case_sensitive)
 	{
 		temp = g_strconcat (command, " -i ", NULL);
@@ -269,6 +271,14 @@ find_in_files_process (FindInFiles * ff)
 		g_free (command);
 		command = temp;
 	}
+	temp = (gchar*)gtk_entry_get_text (GTK_ENTRY (ff->widgets.regexp_entry));
+	ff->regexp_history =
+		update_string_list (ff->regexp_history, temp,
+				    COMBO_LIST_LENGTH);
+	temp = g_strconcat (command, "-e '", temp, "' ", NULL);
+	g_free (command);
+	command = temp;
+	
 	model = gtk_tree_view_get_model (GTK_TREE_VIEW (ff->widgets.clist));
 	valid = gtk_tree_model_get_iter_first (model, &iter);
 	while(valid)
@@ -279,67 +289,75 @@ find_in_files_process (FindInFiles * ff)
 		g_free (command);
 		command = temp;
 	}
+/* FIXME: Since launcher doesn't use sh, piping is not possible. */
+#if 0
 	if (nocvs)
 	{
 		temp = g_strconcat(command, " | grep -Fv '/CVS/'", NULL);
 		g_free(command);
 		command = temp;
 	}
+#endif
+
 #ifdef DEBUG
 	g_message("Find: '%s'\n", command);
 #endif
 
 	anjuta_clear_execution_dir();
-	if (launcher_execute (command,
-			      find_in_files_mesg_arrived,
-			      find_in_files_mesg_arrived,
-			      find_in_files_terminated) == FALSE)
+	g_signal_connect (app->launcher, "child-exited",
+					  G_CALLBACK (find_in_files_terminated), NULL);
+	
+	if (anjuta_launcher_execute (app->launcher, command,
+								 find_in_files_mesg_arrived, NULL) == FALSE)
 	{
 		g_free (command);
 		return;
 	}
 	anjuta_update_app_status (TRUE, _("Find in Files"));
-	if(!gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(ff->widgets.append_messages)))
+	if(!gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
+									  (ff->widgets.append_messages)))
 	{
 		an_message_manager_clear (app->messages, MESSAGE_FIND);
 	}
 	an_message_manager_append (app->messages, _("Finding in Files ....\n"),
-			 MESSAGE_FIND);
+							   MESSAGE_FIND);
 	an_message_manager_show (app->messages, MESSAGE_FIND);
 	g_free (command);
 }
 
 void
-find_in_files_mesg_arrived (gchar * mesg)
+find_in_files_mesg_arrived (AnjutaLauncher *launcher,
+							AnjutaLauncherOutputType output_type,
+							const gchar * mesg, gpointer data)
 {
 	an_message_manager_append (app->messages, mesg, MESSAGE_FIND);
 }
 
 void
-find_in_files_terminated (int status, time_t time)
+find_in_files_terminated (AnjutaLauncher *launcher,
+						  gint child_pid, gint status, gulong time_taken,
+						  gpointer data)
 {
 	gchar *buff1;
 
+	g_signal_handlers_disconnect_by_func (G_OBJECT (launcher),
+										  G_CALLBACK (find_in_files_terminated),
+										  data);
 	if (status)
 	{
 		an_message_manager_append (app->messages,
-				 _
-				 ("Find in Files completed...............Unsuccessful\n"),
+				 _("Find in Files completed...............Unsuccessful\n"),
 				 MESSAGE_FIND);
-		anjuta_warning (_
-				("Find in Files completed ... unsuccessful"));
+		anjuta_warning (_("Find in Files completed ... unsuccessful"));
 	}
 	else
 	{
 		an_message_manager_append (app->messages,
-				 _
-				 ("Find in Files completed...............Successful\n"),
+				 _("Find in Files completed...............Successful\n"),
 				 MESSAGE_FIND);
 		anjuta_status (_("Find in Files completed ... successful"));
 	}
-	buff1 =
-		g_strdup_printf (_("Total time taken: %d secs\n"),
-				 (gint) time);
+	buff1 =	g_strdup_printf (_("Total time taken: %lu secs\n"), time_taken);
 	an_message_manager_append (app->messages, buff1, MESSAGE_FIND);
 	if (anjuta_preferences_get_int (app->preferences, BEEP_ON_BUILD_COMPLETE))
 		gdk_beep ();

@@ -22,6 +22,7 @@
 #include <gnome.h>
 #include <glade/glade.h>
 #include "project_dbase.h"
+#include "launcher.h"
 
 #define FR_CENTRE     -1
 
@@ -57,22 +58,24 @@ struct _FindInFiles
 
 
 FindInFiles* find_in_files_new (void);
-void find_in_files_show (FindInFiles* fr);
-void find_in_files_hide (FindInFiles* fr);
-void find_in_files_destroy (FindInFiles* fr);
-gboolean find_in_files_save_yourself (FindInFiles* fr, FILE* stream);
-gboolean find_in_files_load_yourself (FindInFiles* fr, PropsID props);
+void find_in_files_show (FindInFiles *fr);
+void find_in_files_hide (FindInFiles *fr);
+void find_in_files_destroy (FindInFiles *fr);
+gboolean find_in_files_save_yourself (FindInFiles *fr, FILE *stream);
+gboolean find_in_files_load_yourself (FindInFiles *fr, PropsID props);
 
 /* private */
-void
-find_in_files_terminated(int status, time_t t);
-void
-find_in_files_mesg_arrived(gchar *mesg);
-void
-find_in_files_process(FindInFiles* ff);
-void
-find_in_files_save_session ( FindInFiles* ff, ProjectDBase *p );
-void
-find_in_files_load_session( FindInFiles * ff, ProjectDBase *p );
+/* FIXME: Used in anjuta.c. Eliminate them and make me static funcs */
+void find_in_files_terminated (AnjutaLauncher *launcher,
+							   gint child_pid, gint status, gulong time_taken,
+							   gpointer data);
+void find_in_files_mesg_arrived (AnjutaLauncher *launcher,
+								 AnjutaLauncherOutputType output_type,
+								 const gchar * mesg, gpointer data);
+
+/* FIXME: Used in project_dbase.c. Eliminate them and make me static funcs */
+void find_in_files_process (FindInFiles *ff);
+void find_in_files_save_session (FindInFiles *ff, ProjectDBase *p);
+void find_in_files_load_session(FindInFiles *ff, ProjectDBase *p);
 
 #endif

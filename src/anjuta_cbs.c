@@ -141,9 +141,13 @@ gint on_anjuta_delete (GtkWidget * w, GdkEvent * event, gpointer data)
 		dialog = gtk_message_dialog_new (GTK_WINDOW (app->widgets.window),
 										 GTK_DIALOG_DESTROY_WITH_PARENT,
 										 GTK_MESSAGE_QUESTION,
-										 GTK_BUTTONS_YES_NO,
+										 GTK_BUTTONS_NONE,
 										 _("One or more files are not saved.\n"
 										 "Do you still want to exit?"));
+		gtk_dialog_add_buttons (GTK_DIALOG (dialog),
+								GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+								GTK_STOCK_QUIT,   GTK_RESPONSE_YES,
+								NULL);
 		response = gtk_dialog_run (GTK_DIALOG (dialog));
 		gtk_widget_destroy (dialog);
 		if (response == GTK_RESPONSE_YES)
@@ -230,10 +234,11 @@ on_anjuta_window_focus_in_event (GtkWidget * widget,
 }
 
 enum {
-	m__ = 0,
-	mS_ = GDK_SHIFT_MASK,
-	m_C = GDK_CONTROL_MASK,
-	mSC = GDK_SHIFT_MASK | GDK_CONTROL_MASK
+	m___ = 0,
+	mS__ = GDK_SHIFT_MASK,
+	m_C_ = GDK_CONTROL_MASK,
+	m__M = GDK_MOD1_MASK,
+	mSC_ = GDK_SHIFT_MASK | GDK_CONTROL_MASK,
 };
 
 enum {
@@ -249,18 +254,18 @@ typedef struct {
 } ShortcutMapping;
 
 static ShortcutMapping global_keymap[] = {
-	{ m_C, GDK_Tab,		 ID_NEXTBUFFER },
-	{ mSC, GDK_ISO_Left_Tab, ID_PREVBUFFER },
-	{ m_C, GDK_1, ID_FIRSTBUFFER },
-	{ m_C, GDK_2, ID_FIRSTBUFFER + 1},
-	{ m_C, GDK_3, ID_FIRSTBUFFER + 2},
-	{ m_C, GDK_4, ID_FIRSTBUFFER + 3},
-	{ m_C, GDK_5, ID_FIRSTBUFFER + 4},
-	{ m_C, GDK_6, ID_FIRSTBUFFER + 5},
-	{ m_C, GDK_7, ID_FIRSTBUFFER + 6},
-	{ m_C, GDK_8, ID_FIRSTBUFFER + 7},
-	{ m_C, GDK_9, ID_FIRSTBUFFER + 8},
-	{ m_C, GDK_0, ID_FIRSTBUFFER + 9},
+	{ m_C_, GDK_Tab,		 ID_NEXTBUFFER },
+	{ mSC_, GDK_ISO_Left_Tab, ID_PREVBUFFER },
+	{ m__M, GDK_1, ID_FIRSTBUFFER },
+	{ m__M, GDK_2, ID_FIRSTBUFFER + 1},
+	{ m__M, GDK_3, ID_FIRSTBUFFER + 2},
+	{ m__M, GDK_4, ID_FIRSTBUFFER + 3},
+	{ m__M, GDK_5, ID_FIRSTBUFFER + 4},
+	{ m__M, GDK_6, ID_FIRSTBUFFER + 5},
+	{ m__M, GDK_7, ID_FIRSTBUFFER + 6},
+	{ m__M, GDK_8, ID_FIRSTBUFFER + 7},
+	{ m__M, GDK_9, ID_FIRSTBUFFER + 8},
+	{ m__M, GDK_0, ID_FIRSTBUFFER + 9},
 	{ 0,   0,		 0 }
 };
 
@@ -276,7 +281,7 @@ on_anjuta_window_key_press_event (GtkWidget   *widget,
 	g_return_val_if_fail (GNOME_IS_APP (widget), FALSE);
 	g_return_val_if_fail (event != NULL, FALSE);
 
-	modifiers = event->state & (GDK_SHIFT_MASK | GDK_CONTROL_MASK);
+	modifiers = event->state & (GDK_SHIFT_MASK | GDK_CONTROL_MASK | GDK_MOD1_MASK);
   
 	for (i = 0; global_keymap[i].id; i++)
 		if (event->keyval == global_keymap[i].gdk_key &&
@@ -377,7 +382,7 @@ on_open_filesel_ok_clicked (GtkButton * button, gpointer user_data)
 	
 	list = fileselection_get_filelist(app->fileselection);
 	elements = g_list_length(list);
-	/* If filename is only only written in entry but not selected (Bug #506441) */
+	/* If filename is only written in entry but not selected (Bug #506441) */
 	if (elements == 0)
 	{
 		entry_filename = fileselection_get_filename(app->fileselection);
@@ -389,33 +394,10 @@ on_open_filesel_ok_clicked (GtkButton * button, gpointer user_data)
 	}
 	for(i=0;i<elements;i++)
 	{
-		/*  full_filename = fileselection_get_filename (app->fileselection); */
-		/*	full_filename = (gchar *)g_list_nth_data(list,i); */
 		full_filename = g_strdup(g_list_nth_data(list,i));
-		/*printf("Filename retrived = %s\n",full_filename);*/
 		if (!full_filename)
 			return;
-		if (strlen (extract_filename (full_filename)) == 0)
-		{
-			g_free (full_filename);
-			return;
-		}
-		if (file_is_regular (full_filename) == FALSE)
-		{
-			anjuta_error (_("Not a regular file: %s."), full_filename);
-			g_free (full_filename);
-			return;
-		}
-		if (file_is_readable (full_filename) == FALSE)
-		{
-			anjuta_error (_("No read permission for: %s."), full_filename);
-			g_free (full_filename);
-			return;
-		}
-		/*printf("I have reached this point\n");*/
 		anjuta_goto_file_line (full_filename, -1);
-		/*printf("I have reached this point goto line\n");*/
-		//gtk_widget_hide (app->fileselection);
 		g_free (full_filename);
 	}
 
@@ -449,7 +431,7 @@ save_as_real (void)
 	
 	te->full_filename = g_strdup (full_filename);
 	te->filename = g_strdup (extract_filename (full_filename));
-	status = text_editor_save_file (te);
+	status = text_editor_save_file (te, TRUE);
 	gtk_widget_hide (app->save_as_fileselection);
 	if (status == FALSE)
 	{
@@ -510,7 +492,7 @@ save_as_real (void)
 void
 on_save_as_filesel_ok_clicked (GtkButton * button, gpointer user_data)
 {
-	gchar *filename, *buff;
+	gchar *filename;
 
 	filename = fileselection_get_filename (app->save_as_fileselection);
 	if (file_is_regular (filename))
@@ -519,10 +501,17 @@ on_save_as_filesel_ok_clicked (GtkButton * button, gpointer user_data)
 		dialog = gtk_message_dialog_new (GTK_WINDOW (app->widgets.window),
 										 GTK_DIALOG_DESTROY_WITH_PARENT,
 										 GTK_MESSAGE_QUESTION,
-										 GTK_BUTTONS_YES_NO,
+										 GTK_BUTTONS_NONE,
 										 _("The file '%s' already exists.\n"
-										 "Do you want to overwrite it?."),
+										 "Do you want to replace it with the one you are saving?"),
 										 filename);
+		gtk_dialog_add_button (GTK_DIALOG(dialog),
+							   GTK_STOCK_CANCEL,
+							   GTK_RESPONSE_CANCEL);
+		anjuta_dialog_add_button (GTK_DIALOG (dialog),
+								  _("_Replace"),
+								  GTK_STOCK_REFRESH,
+								  GTK_RESPONSE_YES);
 		if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_YES)
 			save_as_real ();
 		gtk_widget_destroy (dialog);
@@ -576,10 +565,17 @@ on_build_msg_save_ok_clicked(GtkButton * button, gpointer user_data)
 		dialog = gtk_message_dialog_new (GTK_WINDOW (app->widgets.window),
 										 GTK_DIALOG_DESTROY_WITH_PARENT,
 										 GTK_MESSAGE_QUESTION,
-										 GTK_BUTTONS_YES_NO,
+										 GTK_BUTTONS_NONE,
 										 _("The file '%s' already exists.\n"
-										 "Do you want to overwrite it?."),
+										 "Do you want to replace it with the one you are saving?."),
 										 filename);
+		gtk_dialog_add_button (GTK_DIALOG (dialog),
+							   GTK_STOCK_CANCEL,
+							   GTK_RESPONSE_CANCEL);
+		anjuta_dialog_add_button (GTK_DIALOG (dialog),
+								  _("_Replace"),
+								  GTK_STOCK_REFRESH,
+								  GTK_RESPONSE_YES);
 		if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_YES)
 			build_msg_save_real ();
 		gtk_widget_destroy (dialog);
