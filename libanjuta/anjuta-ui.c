@@ -603,7 +603,7 @@ anjuta_ui_remove_action_group (AnjutaUI *ui, GtkActionGroup *action_group)
 		gtk_tree_model_get (model, &iter, COLUMN_GROUP, &group, -1);
 		group_name = gtk_action_group_get_name (GTK_ACTION_GROUP (action_group));
 		
-		DEBUG_PRINT ("%s == %s", group, group_name);
+		/* DEBUG_PRINT ("%s == %s", group, group_name); */
 		if (group_name == NULL || group == NULL)
 		{
 			valid = gtk_tree_model_iter_next (model, &iter);
@@ -611,9 +611,8 @@ anjuta_ui_remove_action_group (AnjutaUI *ui, GtkActionGroup *action_group)
 		}
 		if (strcmp (group_name, group) == 0)
 		{
-#ifdef DEBUG
-			g_message ("Removing action group from tree: %s", group);
-#endif
+			DEBUG_PRINT ("Removing action group from tree: %s", group);
+			
 			/* This will also release all action refs */
 			valid = gtk_tree_store_remove (GTK_TREE_STORE (model), &iter);
 		}

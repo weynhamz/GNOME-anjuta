@@ -22,6 +22,7 @@ struct _SymbolBrowserPlugin{
 	GObject *current_editor;
 	guint root_watch_id;
 	guint editor_watch_id;
+	GHashTable *editor_connected;
 };
 
 struct _SymbolBrowserPluginClass{

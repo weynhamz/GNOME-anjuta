@@ -745,6 +745,11 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	ProjectManagerPlugin *pm_plugin;
 	pm_plugin = (ProjectManagerPlugin*) plugin;
 	
+	/* Close project if it's open */
+	anjuta_ui_activate_action_by_group (pm_plugin->ui,
+										pm_plugin->pm_action_group,
+										"ActionProjectCloseProject");
+	
 	g_object_unref (G_OBJECT (pm_plugin->model));
 	g_object_unref (G_OBJECT (pm_plugin->view));
 	

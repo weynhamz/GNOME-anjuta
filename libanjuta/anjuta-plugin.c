@@ -278,16 +278,18 @@ anjuta_plugin_add_watch (AnjutaPlugin *plugin,
 	watch->need_remove = FALSE;
 	watch->user_data = user_data;
 
-	plugin->priv->watches = g_list_prepend (plugin->priv->watches,
-					      watch);
+	plugin->priv->watches = g_list_prepend (plugin->priv->watches, watch);
 
 	anjuta_shell_get_value (plugin->shell, name, &value, &error);
 	if (!error) {
 		if (added) {
 			watch->added (plugin, name, &value, user_data);
+			g_value_unset (&value);
 		}
-		
 		watch->need_remove = TRUE;
+	} else {
+		/* g_warning ("Error in getting value '%s': %s", name, error->message); */
+		g_error_free (error);
 	}
 
 	if (!plugin->priv->added_signal_id) {

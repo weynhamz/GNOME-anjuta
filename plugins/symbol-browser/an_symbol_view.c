@@ -727,8 +727,11 @@ static void
 sv_dispose (GObject *obj)
 {
 	AnjutaSymbolView *sv = ANJUTA_SYMBOL_VIEW (obj);
+	/* All file symbol refs would be freed when the hash table is distroyed */
+	/*
 	if (sv->priv->file_symbol_model)
 		g_object_unref (sv->priv->file_symbol_model);
+	*/
 	sv->priv->file_symbol_model = NULL;
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (obj));
 }
@@ -816,12 +819,15 @@ anjuta_symbol_view_get_type (void)
 GtkWidget *
 anjuta_symbol_view_new ()
 {
+#if 0
 	static GtkWidget *widget = NULL;
 
 	if (!widget) {
 		widget = gtk_widget_new (ANJUTA_TYPE_SYMBOL_VIEW, NULL);
 	}
 	return widget;
+#endif
+	return gtk_widget_new (ANJUTA_TYPE_SYMBOL_VIEW, NULL);
 }
 
 void

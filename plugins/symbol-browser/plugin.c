@@ -367,14 +367,12 @@ on_symbol_selected (GtkAction *action, SymbolBrowserPlugin *sv_plugin)
 	}
 }
 
-static GHashTable *editor_connected = NULL;
-
 static void
 on_editor_destroy (IAnjutaEditor *editor, SymbolBrowserPlugin *sv_plugin)
 {
-	gchar *uri;
+	const gchar *uri;
 	
-	if (!editor_connected)
+	if (!sv_plugin->editor_connected)
 		return;
 	uri = g_object_get_data (G_OBJECT (editor), "LastSavedUri");
 	if (uri)
@@ -383,7 +381,7 @@ on_editor_destroy (IAnjutaEditor *editor, SymbolBrowserPlugin *sv_plugin)
 		anjuta_symbol_view_workspace_remove_file (ANJUTA_SYMBOL_VIEW (sv_plugin->sv),
 											   uri);
 	}
-	g_hash_table_remove (editor_connected, G_OBJECT (editor));
+	g_hash_table_remove (sv_plugin->editor_connected, G_OBJECT (editor));
 }
 
 static void
@@ -410,7 +408,7 @@ on_editor_saved (IAnjutaEditor *editor, const gchar *saved_uri,
 		g_return_if_fail (local_filename != NULL);
 		g_free (local_filename);
 		
-		if (!editor_connected)
+		if (!sv_plugin->editor_connected)
 			return;
 	
 		old_uri = g_object_get_data (G_OBJECT (editor), "LastSavedUri");
@@ -447,6 +445,27 @@ on_editor_saved (IAnjutaEditor *editor, const gchar *saved_uri,
 }
 
 static void
+on_editor_foreach (gpointer key, gpointer value, gpointer user_data)
+{
+	const gchar *uri;
+	SymbolBrowserPlugin *sv_plugin = (SymbolBrowserPlugin *)user_data;
+	
+	g_signal_handlers_disconnect_by_func (G_OBJECT(key),
+										  G_CALLBACK (on_editor_saved),
+										  user_data);
+	g_signal_handlers_disconnect_by_func (G_OBJECT(key),
+										  G_CALLBACK (on_editor_destroy),
+										  user_data);
+	uri = g_object_get_data (G_OBJECT (key), "LastSavedUri");
+	if (uri)
+	{
+		DEBUG_PRINT ("Removing file tags of %s", uri);
+		anjuta_symbol_view_workspace_remove_file (ANJUTA_SYMBOL_VIEW (sv_plugin->sv),
+											   uri);
+	}
+}
+
+static void
 value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 							const GValue *value, gpointer data)
 {
@@ -460,13 +479,16 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 	sv_plugin = (SymbolBrowserPlugin*)plugin;
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	
-	if (!editor_connected)
+	if (!sv_plugin->editor_connected)
 	{
-		editor_connected = g_hash_table_new (NULL, NULL);
+		sv_plugin->editor_connected = g_hash_table_new (NULL, NULL);
 	}
+	
 	if (sv_plugin->current_editor)
 		g_object_unref (sv_plugin->current_editor);
+	
 	sv_plugin->current_editor = editor;
+	g_object_ref (sv_plugin->current_editor);
 	
 	uri = ianjuta_file_get_uri (IANJUTA_FILE (editor), NULL);
 	if (uri)
@@ -492,12 +514,12 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 		else
 			g_object_set (G_OBJECT (action), "sensitive", FALSE, NULL);
 	}
-	if (g_hash_table_lookup (editor_connected, editor) == NULL)
+	if (g_hash_table_lookup (sv_plugin->editor_connected, editor) == NULL)
 	{
 		gint id = g_signal_connect (G_OBJECT (editor), "destroy",
 									G_CALLBACK (on_editor_destroy),
 									sv_plugin);
-		g_hash_table_insert (editor_connected, editor, (gpointer)id);
+		g_hash_table_insert (sv_plugin->editor_connected, editor, (gpointer)id);
 		if (uri)
 		{
 			g_object_set_data_full (G_OBJECT (editor), "LastSavedUri",
@@ -528,7 +550,7 @@ value_removed_current_editor (AnjutaPlugin *plugin,
 		g_object_unref (sv_plugin->current_editor);
 	sv_plugin->current_editor = NULL;
 	
-	/* FIXME: Signal should be connected and symbols removed when
+	/* FIXME: Signal should be dis-connected and symbols removed when
 	the editor is destroyed */
 }
 
@@ -543,6 +565,26 @@ activate_plugin (AnjutaPlugin *plugin)
 	sv_plugin = (SymbolBrowserPlugin*) plugin;
 	sv_plugin->ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	sv_plugin->prefs = anjuta_shell_get_preferences (plugin->shell, NULL);
+
+	/* Create widgets */
+	sv_plugin->sw = gtk_scrolled_window_new (NULL, NULL);
+	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (sv_plugin->sw),
+										 GTK_SHADOW_IN);
+	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sv_plugin->sw),
+									GTK_POLICY_AUTOMATIC,
+									GTK_POLICY_AUTOMATIC);
+	
+	sv_plugin->sv = anjuta_symbol_view_new ();
+	
+	gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (sv_plugin->sv), FALSE);
+	gtk_container_add (GTK_CONTAINER (sv_plugin->sw), sv_plugin->sv);
+	
+	g_signal_connect (G_OBJECT (sv_plugin->sv), "event-after",
+					  G_CALLBACK (on_treeview_event), plugin);
+	g_signal_connect (G_OBJECT (sv_plugin->sv), "row_activated",
+					  G_CALLBACK (on_treeview_row_activated), plugin);
+
+	gtk_widget_show_all (sv_plugin->sw);
 
 	/* Add action group */
 	sv_plugin->action_group = 
@@ -595,11 +637,18 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	SymbolBrowserPlugin *sv_plugin;
 	sv_plugin = (SymbolBrowserPlugin*) plugin;
 	
+	/* Ensure all editor cached info are released */
+	if (sv_plugin->editor_connected)
+	{
+		g_hash_table_foreach (sv_plugin->editor_connected, on_editor_foreach, plugin);
+		g_hash_table_destroy (sv_plugin->editor_connected);
+		sv_plugin->editor_connected = NULL;
+	}	
 	/* Remove watches */
 	anjuta_plugin_remove_watch (plugin, sv_plugin->root_watch_id, FALSE);
 	anjuta_plugin_remove_watch (plugin, sv_plugin->editor_watch_id, TRUE);
 	
-	/* Remove widgets */
+	/* Remove widgets: Widgets will be destroyed when sw is removed */
 	anjuta_shell_remove_widget (plugin->shell, sv_plugin->sw, NULL);
 	
 	/* Remove UI */
@@ -612,6 +661,8 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	sv_plugin->root_watch_id = 0;
 	sv_plugin->editor_watch_id = 0;
 	sv_plugin->merge_id = 0;
+	sv_plugin->sw = NULL;
+	sv_plugin->sv = NULL;
 	return TRUE;
 }
 
@@ -619,11 +670,13 @@ static void
 dispose (GObject *obj)
 {
 	SymbolBrowserPlugin *plugin = (SymbolBrowserPlugin*) obj;
+	/*
 	if (plugin->sw)
 	{
 		g_object_unref (G_OBJECT (plugin->sw));
 		plugin->sw = NULL;
 	}
+	*/
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (obj));
 }
 
@@ -639,29 +692,10 @@ symbol_browser_plugin_instance_init (GObject *obj)
 {
 	SymbolBrowserPlugin *plugin = (SymbolBrowserPlugin*) obj;
 	plugin->current_editor = NULL;
+	plugin->editor_connected = NULL;
+	plugin->sw = NULL;
+	plugin->sv = NULL;
 	
-	plugin->sw = gtk_scrolled_window_new (NULL, NULL);
-	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (plugin->sw),
-										 GTK_SHADOW_IN);
-	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (plugin->sw),
-									GTK_POLICY_AUTOMATIC,
-									GTK_POLICY_AUTOMATIC);
-	
-	plugin->sv = anjuta_symbol_view_new ();
-	gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (plugin->sv), FALSE);
-	gtk_container_add (GTK_CONTAINER (plugin->sw), plugin->sv);
-	
-	g_object_ref (G_OBJECT (plugin->sw));
-	
-	/* Our last unref in dispose() should destroy the widget */
-	gtk_object_sink (GTK_OBJECT (plugin->sw));
-	
-	g_signal_connect (G_OBJECT (plugin->sv), "event-after",
-					  G_CALLBACK (on_treeview_event), plugin);
-	g_signal_connect (G_OBJECT (plugin->sv), "row_activated",
-					  G_CALLBACK (on_treeview_row_activated), plugin);
-
-	gtk_widget_show_all (plugin->sw);
 }
 
 static void
