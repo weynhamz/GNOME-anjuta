@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anjyuta 0.1.9-pre\n"
-"POT-Creation-Date: 2001-12-14 22:06+0900\n"
-"PO-Revision-Date: 2001-12-14 22:06+0900\n"
+"POT-Creation-Date: 2001-12-20 17:29+0900\n"
+"PO-Revision-Date: 2001-12-20 17:25+0900\n"
 "Last-Translator: Takeshi Aihana <aihana@gnome.gr.jp>\n"
 "Language-Team: Japanese <translation@gnome.gr.jp>\n"
 "MIME-Version: 1.0\n"
@@ -130,8 +130,8 @@ msgid "Information"
 msgstr "情報"
 
 #: src/appwiz_page1.c:95
-msgid "Select the type of application you want to develop"
-msgstr "開発するアプリケーションの種類を選択して下さい。"
+msgid "Select the type of application to be developed"
+msgstr "開発するアプリケーションの種類を選択して下さい"
 
 #: src/appwiz_page1.c:130
 msgid "Generic/Terminal project"
@@ -157,7 +157,7 @@ msgstr "GNOME-- プロジェクト"
 msgid "Bonobo component"
 msgstr "Bonobo コンポーネント"
 
-#: src/appwiz_page2.c:154 src/appwiz_page4.c:109
+#: src/appwiz_page2.c:154
 msgid "Enter the basic Project information"
 msgstr "プロジェクトの基本的な情報を入力して下さい。"
 
@@ -279,62 +279,52 @@ msgid "Language:        "
 msgstr "言語:        "
 
 #: src/appwizard_cbs.c:263
-msgid "Gettext support: "
-msgstr "GNU Gettext サポート:"
+msgid "Gettext Support: "
+msgstr "Gettext サポート: "
 
 #: src/appwizard_gui.c:36
 msgid ""
 "The Application Wizard will generate a basic\n"
-"skeleton for your application, including all\n"
-"the build files. It will ask you for the basic\n"
-"initial structure for the application you want\n"
-"to develop.\n"
+"skeleton for a project, including all of the\n"
+"build files. It will ask for details of the initial\n"
+"structure for the application.\n"
 "\n"
 "Please answer the questions carefully, as it\n"
 "may not be possible to change some of the\n"
-"settings later.\n"
-"\n"
-"Click Next to proceed ..."
+"settings later."
 msgstr ""
-"アプリケーション・ウィザードは、ビルドする\n"
-"全てのファイルを含んだアプリケーションの\n"
-"基本的な骨組みを生成します。ウィザードは\n"
-"貴方が開発しようとするアプリケーションの\n"
-"初めの基本構造について質問するでしょう。\n"
+"アプリケーション・ウィザードは、ビルドする全てのファイルを含んだ\n"
+"アプリケーションの基本的な骨組みを生成します。\n"
+"ウィザードは貴方が開発しようとするアプリケーションの\n"
+"初期構造の詳細について質問します。\n"
 "\n"
 "あとで変更することができない設定が\n"
 "いくつかあるので、その質問に\n"
-"注意深く答えて下さい。\n"
-"\n"
-"[次] ボタンをクリックすると先に進みます..."
+"注意深く答えて下さい。"
 
-#: src/appwizard_gui.c:100
+#: src/appwizard_gui.c:99 src/appwizard_gui.c:131
 msgid "Application Wizard"
 msgstr "アプリケーション・ウィザード"
 
-#: src/appwizard_gui.c:126
-msgid "Application Wizard:     Page 1 of 6"
-msgstr "アプリケーション・ウィザード:     1/6 ページ"
+#: src/appwizard_gui.c:161
+msgid "Project Type"
+msgstr "プロジェクトの種類"
 
-#: src/appwizard_gui.c:155
-msgid "Application Wizard:     Page 2 of 6"
-msgstr "アプリケーション・ウィザード:     2/6 ページ"
+#: src/appwizard_gui.c:186
+msgid "Basic Information"
+msgstr "基本情報"
 
-#: src/appwizard_gui.c:179
-msgid "Application Wizard:     Page 3 of 6"
-msgstr "アプリケーション・ウィザード:     3/6 ページ"
+#: src/appwizard_gui.c:212 src/project_config.c:748
+msgid "Project Description"
+msgstr "プロジェクトの説明/紹介"
 
-#: src/appwizard_gui.c:204
-msgid "Application Wizard:     Page 4 of 6"
-msgstr "アプリケーション・ウィザード:     4/6 ページ"
+#: src/appwizard_gui.c:237 src/compiler_options_gui.c:1104
+msgid "Additional Options"
+msgstr "オプションの追加"
 
-#: src/appwizard_gui.c:228
-msgid "Application Wizard:     Page 5 of 6"
-msgstr "アプリケーション・ウィザード:     5/6 ページ"
-
-#: src/appwizard_gui.c:251
-msgid "Application Wizard:     Page 6 of 6"
-msgstr "アプリケーション・ウィザード:     6/6 ページ"
+#: src/appwizard_gui.c:265
+msgid "Summary"
+msgstr "サマリ"
 
 #: src/attach_process.c:118
 #, c-format
@@ -429,7 +419,7 @@ msgstr "ファイル名"
 msgid "Line"
 msgstr "行"
 
-#: src/breakpoints_gui.c:105 src/text_editor_menu.c:262
+#: src/breakpoints_gui.c:105 src/text_editor_menu.c:269
 msgid "Function"
 msgstr "関数名"
 
@@ -504,7 +494,7 @@ msgstr "実行形式プログラムが更新されました。再ビルドの必要はありません。"
 msgid "I do not really know how to build this file."
 msgstr "このファイルのビルド方法が不明です。"
 
-#: src/build_file.c:107 src/messages.c:535 src/preferences_gui.c:174
+#: src/build_file.c:107 src/messages.c:535 src/preferences_gui.c:176
 #: src/text_editor_gui.c:246 src/toolbar.c:474
 msgid "Build"
 msgstr "ビルド"
@@ -1097,10 +1087,6 @@ msgstr "デバッグを可能にする"
 msgid "Enable Profiling"
 msgstr "プロファイリングを可能にする"
 
-#: src/compiler_options_gui.c:1104
-msgid "Additional Options"
-msgstr "オプションの追加"
-
 #: src/configurer.c:87 src/configurer.c:203 src/toolbar.c:463
 msgid "Configure"
 msgstr "Configure"
@@ -1252,7 +1238,9 @@ msgstr "エラー: デバッグ用端末を起動できません。"
 
 #: src/debugger.c:1180
 msgid "Warning: No debug terminal. Redirecting stdio to /dev/null.\n"
-msgstr "警告: デバッグ用端末がありません。標準入力から /dev/null にリダイレクトします。\n"
+msgstr ""
+"警告: デバッグ用端末がありません。標準入力から /dev/null にリダイレクトしま"
+"す。\n"
 
 #: src/debugger.c:1198
 msgid "Running program ... \n"
@@ -1323,15 +1311,15 @@ msgstr "端末内で実行"
 msgid "Execute"
 msgstr "実行"
 
-#: src/executer.c:234 src/mainmenu_callbacks.c:1547
+#: src/executer.c:234 src/mainmenu_callbacks.c:1549
 msgid "Target of this project is unknown"
 msgstr "このプロジェクトのターゲットが不明です"
 
-#: src/executer.c:239 src/mainmenu_callbacks.c:1549
+#: src/executer.c:239 src/mainmenu_callbacks.c:1551
 msgid "Target of this project is not executable"
 msgstr "このプロジェクトのターゲットは実行形式ではありません"
 
-#: src/executer.c:244 src/mainmenu_callbacks.c:1553
+#: src/executer.c:244 src/mainmenu_callbacks.c:1555
 msgid "Executable does not exist for this project."
 msgstr "このプロジェクトには実行形式ファイルが存在しません。"
 
@@ -1339,12 +1327,12 @@ msgstr "このプロジェクトには実行形式ファイルが存在しません。"
 msgid "No file or project opened."
 msgstr "ファイルが存在しないか、プロジェクトが読み込まれていません。"
 
-#: src/executer.c:262 src/executer.c:281 src/mainmenu_callbacks.c:1573
-#: src/mainmenu_callbacks.c:1584
+#: src/executer.c:262 src/executer.c:281 src/mainmenu_callbacks.c:1575
+#: src/mainmenu_callbacks.c:1586
 msgid "No executable for this file."
 msgstr "このファイルは実行形式ではありません。"
 
-#: src/executer.c:286 src/mainmenu_callbacks.c:1579
+#: src/executer.c:286 src/mainmenu_callbacks.c:1581
 msgid "Executable is not up-to-date."
 msgstr "実行ファイルが更新されていません。"
 
@@ -3262,11 +3250,11 @@ msgstr "ツール(_U)"
 msgid "_Settings"
 msgstr "設定(_S)"
 
-#: src/mainmenu_callbacks.c:120
+#: src/mainmenu_callbacks.c:122
 msgid "All files saved ..."
 msgstr "全てのファイルは保存されました ..."
 
-#: src/mainmenu_callbacks.c:137
+#: src/mainmenu_callbacks.c:139
 #, c-format
 msgid ""
 "The file \"%s\" is not saved.\n"
@@ -3275,7 +3263,7 @@ msgstr ""
 "ファイル \"%s\" は保存されていません。\n"
 "閉じる前にファイルを保存しますか？"
 
-#: src/mainmenu_callbacks.c:188
+#: src/mainmenu_callbacks.c:190
 #, c-format
 msgid ""
 "Are you sure you want to reload %s.\n"
@@ -3284,12 +3272,12 @@ msgstr ""
 "%s を再び読み込もうとしています。\n"
 "保存されていない変更を失うことになります。"
 
-#: src/mainmenu_callbacks.c:258
+#: src/mainmenu_callbacks.c:260
 #, c-format
 msgid "Could not execute cmd: %s"
 msgstr "実行できないコマンド: %s"
 
-#: src/mainmenu_callbacks.c:265
+#: src/mainmenu_callbacks.c:267
 #, c-format
 msgid ""
 "There was an error while printing.\n"
@@ -3298,27 +3286,27 @@ msgstr ""
 "印刷中にエラーが発生しました。\n"
 "コマンドは %s です"
 
-#: src/mainmenu_callbacks.c:271
+#: src/mainmenu_callbacks.c:273
 msgid "The file has been sent for printing."
 msgstr "ファイルはプリンタに送信されました。"
 
-#: src/mainmenu_callbacks.c:287
+#: src/mainmenu_callbacks.c:289
 msgid "You must save the file first and then print"
 msgstr "まず最初にファイルを保存してから印刷して下さい。"
 
-#: src/mainmenu_callbacks.c:291
+#: src/mainmenu_callbacks.c:293
 msgid "Are you sure you want to print the current file?"
 msgstr "このファイルを印刷しても宜しいですか？"
 
-#: src/mainmenu_callbacks.c:1140
+#: src/mainmenu_callbacks.c:1142
 msgid "Tags image update successfully."
 msgstr "タグイメージの更新が完了しました。"
 
-#: src/mainmenu_callbacks.c:1604
+#: src/mainmenu_callbacks.c:1606
 msgid "Debugger is not running. Start it first."
 msgstr "デバッガが起動されていません。まず最初に起動して下さい。"
 
-#: src/mainmenu_callbacks.c:1640
+#: src/mainmenu_callbacks.c:1642
 msgid ""
 "Program is ATTACHED.\n"
 "Do you still want to stop Debugger?"
@@ -3326,7 +3314,7 @@ msgstr ""
 "プログラムが取り込まれたままです。\n"
 "本当にデバッガを停止しても宜しいですか？"
 
-#: src/mainmenu_callbacks.c:1650
+#: src/mainmenu_callbacks.c:1652
 msgid ""
 "Program is running.\n"
 "Do you still want to stop Debugger?"
@@ -3334,8 +3322,8 @@ msgstr ""
 "プログラムが実行中です。\n"
 "本当にデバッガを停止しても宜しいですか？"
 
-#: src/mainmenu_callbacks.c:1829 src/mainmenu_callbacks.c:1847
-#: src/mainmenu_callbacks.c:1875 src/mainmenu_callbacks.c:1893
+#: src/mainmenu_callbacks.c:1831 src/mainmenu_callbacks.c:1849
+#: src/mainmenu_callbacks.c:1877 src/mainmenu_callbacks.c:1895
 msgid "Cannot launch gnome-help-browser"
 msgstr "gnome-help-browser が起動できません"
 
@@ -3367,7 +3355,7 @@ msgstr "ローカル変数のデバッグ一覧"
 msgid "Embedded Terminal"
 msgstr "端末を埋め込む"
 
-#: src/messages.c:536 src/text_editor_menu.c:270 src/toolbar.c:511
+#: src/messages.c:536 src/text_editor_menu.c:277 src/toolbar.c:511
 msgid "Debug"
 msgstr "デバッグ"
 
@@ -3403,236 +3391,236 @@ msgstr ""
 "本当に現在の設定をリセットして、\n"
 "デフォルト設定に変更しても宜しいですか？"
 
-#: src/preferences_gui.c:145
+#: src/preferences_gui.c:147
 msgid "Preferences"
 msgstr "設定"
 
-#: src/preferences_gui.c:164 src/project_config.c:769
+#: src/preferences_gui.c:166 src/project_config.c:769
 msgid "General"
 msgstr "全般"
 
-#: src/preferences_gui.c:184
+#: src/preferences_gui.c:186
 msgid "Styles"
 msgstr "スタイル"
 
-#: src/preferences_gui.c:194
+#: src/preferences_gui.c:196
 msgid "Editor"
 msgstr "エディタ"
 
-#: src/preferences_gui.c:204
+#: src/preferences_gui.c:206
 msgid "Print Setup"
 msgstr "印刷"
 
-#: src/preferences_gui.c:214
+#: src/preferences_gui.c:216
 msgid "Auto Format"
 msgstr "書式の自動整形"
 
-#: src/preferences_gui.c:224
+#: src/preferences_gui.c:226
 msgid "misc"
 msgstr "その他"
 
-#: src/preferences_gui.c:233
+#: src/preferences_gui.c:235
 msgid "Components"
 msgstr "コンポーネント"
 
-#: src/preferences_gui.c:318
+#: src/preferences_gui.c:320
 msgid " Directories "
 msgstr " ディレクトリ "
 
-#: src/preferences_gui.c:354
+#: src/preferences_gui.c:356
 msgid "Projects:"
 msgstr "プロジェクト:"
 
-#: src/preferences_gui.c:361
+#: src/preferences_gui.c:363
 msgid "Tarballs:"
 msgstr "Tar ボール:"
 
-#: src/preferences_gui.c:368
+#: src/preferences_gui.c:370
 msgid "Rpms:"
 msgstr "RPMs:"
 
-#: src/preferences_gui.c:375
+#: src/preferences_gui.c:377
 msgid "Srpms:"
 msgstr "SRPMs:"
 
-#: src/preferences_gui.c:382
+#: src/preferences_gui.c:384
 msgid " History size "
 msgstr " 履歴の長さ "
 
-#: src/preferences_gui.c:391
+#: src/preferences_gui.c:393
 msgid "Recent Projects:"
 msgstr "最近開いたプロジェクト:"
 
-#: src/preferences_gui.c:398
+#: src/preferences_gui.c:400
 msgid "Recent Files:"
 msgstr "最近開いたファイル:"
 
-#: src/preferences_gui.c:405
+#: src/preferences_gui.c:407
 msgid "Combo Popdown:"
 msgstr "エントリ数:"
 
-#: src/preferences_gui.c:463
+#: src/preferences_gui.c:465
 msgid " Job Options "
 msgstr " ジョブのオプション "
 
-#: src/preferences_gui.c:473
+#: src/preferences_gui.c:475
 msgid "Beep on job complete"
 msgstr "ジョブが完了したらビープ音を鳴らす"
 
-#: src/preferences_gui.c:482
+#: src/preferences_gui.c:484
 msgid "Dialog on job complete"
 msgstr "ジョブが完了したらダイアログを表示する"
 
-#: src/preferences_gui.c:537
+#: src/preferences_gui.c:539
 msgid "Keep going when some targets cannot be made"
 msgstr "ターゲットがビルドできない場合でも続行する"
 
-#: src/preferences_gui.c:544
+#: src/preferences_gui.c:546
 msgid "Silent: Don't echo commands"
 msgstr "サイレントモード: コマンドの出力を表示しない"
 
-#: src/preferences_gui.c:551
+#: src/preferences_gui.c:553
 msgid "Produce debugging outputs"
 msgstr "デバッグの出力を作成する"
 
-#: src/preferences_gui.c:558
+#: src/preferences_gui.c:560
 msgid "Warn when an undefined variable is referenced"
 msgstr "未定義の変数が参照された場合は警告する"
 
-#: src/preferences_gui.c:572
+#: src/preferences_gui.c:574
 msgid "Max no of jobs:"
 msgstr "最大ジョブ数:"
 
-#: src/preferences_gui.c:653
+#: src/preferences_gui.c:655
 msgid "Select Highlight item to edit:"
 msgstr "編集する強調表示アイテムの選択:"
 
-#: src/preferences_gui.c:677
+#: src/preferences_gui.c:679
 msgid " Highlight Style "
 msgstr "強調表示のスタイル "
 
-#: src/preferences_gui.c:708 src/preferences_gui.c:733
-#: src/preferences_gui.c:780 src/preferences_gui.c:787
+#: src/preferences_gui.c:710 src/preferences_gui.c:735
+#: src/preferences_gui.c:782 src/preferences_gui.c:789
 msgid "Use default"
 msgstr "デフォルトを使用する"
 
-#: src/preferences_gui.c:721
+#: src/preferences_gui.c:723
 msgid "Bold"
 msgstr "太字"
 
-#: src/preferences_gui.c:725
+#: src/preferences_gui.c:727
 msgid "Italic"
 msgstr "斜体"
 
-#: src/preferences_gui.c:729
+#: src/preferences_gui.c:731
 msgid "Underlined"
 msgstr "下線"
 
-#: src/preferences_gui.c:740
+#: src/preferences_gui.c:742
 msgid "Font:"
 msgstr "フォント:"
 
-#: src/preferences_gui.c:747
+#: src/preferences_gui.c:749
 msgid "Attribute:"
 msgstr "属性:"
 
-#: src/preferences_gui.c:754
+#: src/preferences_gui.c:756
 msgid "Fore color:"
 msgstr "前景色:"
 
-#: src/preferences_gui.c:761
+#: src/preferences_gui.c:763
 msgid "Back color:"
 msgstr "背景色:"
 
-#: src/preferences_gui.c:801
+#: src/preferences_gui.c:803
 msgid "Caret color:"
 msgstr "キャレット色:"
 
-#: src/preferences_gui.c:814
+#: src/preferences_gui.c:816
 msgid "Calltip color:"
 msgstr "コールチップ色:"
 
-#: src/preferences_gui.c:827
+#: src/preferences_gui.c:829
 msgid "Selection Foreground:"
 msgstr "前景色の選択:"
 
-#: src/preferences_gui.c:840
+#: src/preferences_gui.c:842
 msgid "Selection Background:"
 msgstr "背景色の選択:"
 
-#: src/preferences_gui.c:949
+#: src/preferences_gui.c:951
 msgid "Disable syntax highlighting"
 msgstr "強調表示を無効にする"
 
-#: src/preferences_gui.c:956
+#: src/preferences_gui.c:958
 msgid "Enable Auto save"
 msgstr "自動保存を有効にする"
 
-#: src/preferences_gui.c:963
+#: src/preferences_gui.c:965
 msgid "Enable Auto indent"
 msgstr "自動インデントを有効にする"
 
-#: src/preferences_gui.c:971
+#: src/preferences_gui.c:973
 msgid "Use tabs for indentation"
 msgstr "インデントにタブを使う"
 
-#: src/preferences_gui.c:978
+#: src/preferences_gui.c:980
 msgid "Enable braces check"
 msgstr "括弧の対応をチェックする"
 
-#: src/preferences_gui.c:985
+#: src/preferences_gui.c:987
 msgid "Save in DOS format"
 msgstr "DOS 形式で保存する"
 
-#: src/preferences_gui.c:1037
+#: src/preferences_gui.c:1039
 msgid "Tab size in spaces"
 msgstr "タブのサイズ"
 
-#: src/preferences_gui.c:1044
+#: src/preferences_gui.c:1046
 msgid "Auto save timer interval in minutes"
 msgstr "自動保存の周期(分)"
 
-#: src/preferences_gui.c:1051
+#: src/preferences_gui.c:1053
 msgid "Auto indent size in spaces"
 msgstr "自動インデントのサイズ"
 
-#: src/preferences_gui.c:1058
+#: src/preferences_gui.c:1060
 msgid "Line number margin width in pixels"
 msgstr "行番号のマージン幅(Pixel)"
 
-#: src/preferences_gui.c:1065
+#: src/preferences_gui.c:1067
 msgid "Save session time interval"
 msgstr "セッション保存の周期(分)"
 
-#: src/preferences_gui.c:1074
+#: src/preferences_gui.c:1076
 msgid "Strip trailing spaces on file save"
 msgstr "保存時に後ろ付きの空白を除く"
 
-#: src/preferences_gui.c:1082
+#: src/preferences_gui.c:1084
 msgid "Collapse all folds on file open"
 msgstr "ファイルのオープン時にフォールドを全て畳んでおく"
 
-#: src/preferences_gui.c:1137
+#: src/preferences_gui.c:1139
 msgid " Paper Size"
 msgstr " 用紙サイズ "
 
-#: src/preferences_gui.c:1147
+#: src/preferences_gui.c:1149
 msgid " Print Command "
 msgstr " 印刷コマンド "
 
-#: src/preferences_gui.c:1209
+#: src/preferences_gui.c:1211
 msgid "Disable Auto format"
 msgstr "書式の自動整形を無効にする"
 
-#: src/preferences_gui.c:1213
+#: src/preferences_gui.c:1215
 msgid " Format Style "
 msgstr " 書式のスタイル "
 
-#: src/preferences_gui.c:1236
+#: src/preferences_gui.c:1238
 msgid " Custom Style "
 msgstr " カスタムスタイル "
 
-#: src/preferences_gui.c:1247
+#: src/preferences_gui.c:1249
 msgid ""
 "Enter the command line arguments for the 'indent' program.\n"
 "Read the info page for 'indent' for more details."
@@ -3640,59 +3628,59 @@ msgstr ""
 "'indent' プログラムに対するコマンドライン引数を入力して下さい。\n"
 "詳細については 'indent' の info ページを参照して下さい。"
 
-#: src/preferences_gui.c:1316
+#: src/preferences_gui.c:1318
 msgid " Messages"
 msgstr " メッセージ "
 
-#: src/preferences_gui.c:1328
+#: src/preferences_gui.c:1330
 msgid "Truncate long messages"
 msgstr "長いメッセージを切り詰める"
 
-#: src/preferences_gui.c:1355
+#: src/preferences_gui.c:1357
 msgid "Number of first characters to show"
 msgstr "最初に表示する文字数"
 
-#: src/preferences_gui.c:1362
+#: src/preferences_gui.c:1364
 msgid "Number of last characters to show"
 msgstr "最後に表示する文字数"
 
-#: src/preferences_gui.c:1369
+#: src/preferences_gui.c:1371
 msgid " Notebook tags position "
 msgstr " ノートブック形式タグの位置 "
 
-#: src/preferences_gui.c:1380
+#: src/preferences_gui.c:1382
 msgid "Do not show notebook title tags"
 msgstr "ノートブック形式のタイトルタグは表示しない"
 
-#: src/preferences_gui.c:1394
+#: src/preferences_gui.c:1396
 msgid "Top"
 msgstr "上"
 
-#: src/preferences_gui.c:1403
+#: src/preferences_gui.c:1405
 msgid "Bottom"
 msgstr "下"
 
-#: src/preferences_gui.c:1412
+#: src/preferences_gui.c:1414
 msgid "Left"
 msgstr "左"
 
-#: src/preferences_gui.c:1421
+#: src/preferences_gui.c:1423
 msgid "Right"
 msgstr "右"
 
-#: src/preferences_gui.c:1429
+#: src/preferences_gui.c:1431
 msgid " Tags Browser "
 msgstr " タグ・ブラウザ "
 
-#: src/preferences_gui.c:1436
+#: src/preferences_gui.c:1438
 msgid "Update tags image automatically"
 msgstr "自動的にタグイメージを更新する"
 
-#: src/preferences_gui.c:1505
+#: src/preferences_gui.c:1507
 msgid " Components"
 msgstr " コンポーネント"
 
-#: src/preferences_gui.c:1517
+#: src/preferences_gui.c:1519
 msgid "Use Glade Components (experimental)"
 msgstr "Glade コンポーネントを使用する (実験的)"
 
@@ -3773,10 +3761,6 @@ msgstr "プロジェクト: "
 #: src/project_config.c:737
 msgid "Project configuration"
 msgstr "プロジェクトの設定"
-
-#: src/project_config.c:748
-msgid "Project Description"
-msgstr "プロジェクトの説明/紹介"
 
 #: src/project_config.c:776
 msgid "Disable Overwriting project files"
@@ -4524,31 +4508,35 @@ msgstr "拡大"
 msgid "--Zoom"
 msgstr "縮小"
 
-#: src/text_editor_menu.c:232
+#: src/text_editor_menu.c:231
+msgid "Goto Tag"
+msgstr "タグにジャンプ"
+
+#: src/text_editor_menu.c:239
 msgid "Toggle Bookmark"
 msgstr "ブックマークの切り替え"
 
-#: src/text_editor_menu.c:239
+#: src/text_editor_menu.c:246
 msgid "Auto format"
 msgstr "書式の自動整形"
 
-#: src/text_editor_menu.c:246
+#: src/text_editor_menu.c:253
 msgid "Swap .h/.c"
 msgstr ".h/.c の交換"
 
-#: src/text_editor_menu.c:254
+#: src/text_editor_menu.c:261
 msgid "Goto"
 msgstr "ジャンプ"
 
-#: src/text_editor_menu.c:278
+#: src/text_editor_menu.c:285
 msgid "Options"
 msgstr "オプション"
 
-#: src/text_editor_menu.c:286 src/toolbar.c:157
+#: src/text_editor_menu.c:293 src/toolbar.c:157
 msgid "Close"
 msgstr "閉じる"
 
-#: src/text_editor_menu.c:348
+#: src/text_editor_menu.c:355
 msgid "Functions "
 msgstr "関数 "
 
@@ -4980,6 +4968,10 @@ msgstr "Copyright (C) 1999-2001 Naba Kumar"
 msgid "Anjuta Home Site"
 msgstr "Anjuta ホームページへどうぞ"
 
+#: src/appwiz_page4.c:109
+msgid "Enter any additional Project options"
+msgstr "プロジェクトの追加オプションを入力して下さい"
+
 #: src/appwiz_page4.c:126
 msgid " Project Options "
 msgstr " プロジェクトオプション "
@@ -5213,4 +5205,3 @@ msgstr "ファイルから Pixmap が生成できませんでした: %s"
 msgid "Cannot execute Devhelp. Make sure it is installed"
 msgstr ""
 "Devhelp を起動することが出来ません。インストールされているか確認して下さい。"
-
