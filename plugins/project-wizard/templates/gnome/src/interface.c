@@ -20,12 +20,17 @@
 
 #include <bonobo.h>
 #include <gnome.h>
+[+IF (=(get "HaveGlade") "1")+]
+#include <glade/glade.h>
+[+ENDIF+];
 
 #include "callbacks.h"
 #include "interface.h"
 #include "support.h"
 
 [+IF (=(get "HaveGlade") "1")+]
+#define GLADE_FILE PACKAGE_DATA_DIR"/[+NameLower+]/glade/[+NameLower+].glade"
+
 #define GLADE_HOOKUP_OBJECT(component,widget,name) \
 	g_object_set_data_full (G_OBJECT (component), name, \
     gtk_widget_ref (widget), (GDestroyNotify) gtk_widget_unref)
