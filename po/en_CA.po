@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-24 11:05-0500\n"
-"PO-Revision-Date: 2005-02-24 12:57-0400\n"
+"POT-Creation-Date: 2005-02-25 19:06-0500\n"
+"PO-Revision-Date: 2005-02-25 12:57-0400\n"
 "Last-Translator: Adam Weinberger <adamw@gnome.org>\n"
 "Language-Team: en_CA <adamw@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -143,7 +143,7 @@ msgstr "CPU Registers"
 #: plugins/editor/anjuta-document-manager.glade.h:39
 #: plugins/file-manager/an_file_view.c:335
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:9
-#: plugins/macro/macros.xml.h:6
+#: plugins/macro/macros.xml.h:9
 msgid "CVS"
 msgstr "CVS"
 
@@ -484,7 +484,7 @@ msgstr "Menu location:"
 msgid "Modules"
 msgstr "Modules"
 
-#: anjuta.glade.h:103 plugins/file-wizard/anjuta-file-wizard.glade.h:13
+#: anjuta.glade.h:103 plugins/file-wizard/anjuta-file-wizard.glade.h:11
 msgid "Name:"
 msgstr "Name:"
 
@@ -4624,8 +4624,8 @@ msgid "<span weight=\"bold\">Options</span>"
 msgstr "<span weight=\"bold\">Options</span>"
 
 #: plugins/file-wizard/anjuta-file-wizard.glade.h:4
-msgid "Add License Information (GPL)"
-msgstr "Add Licence Information (GPL)"
+msgid "Add License Information"
+msgstr "Add Licence Information"
 
 #: plugins/file-wizard/anjuta-file-wizard.glade.h:5
 msgid "Add to CVS"
@@ -4636,18 +4636,10 @@ msgid "Add to project"
 msgstr "Add to project"
 
 #: plugins/file-wizard/anjuta-file-wizard.glade.h:7
-msgid "C++: // comment"
-msgstr "C++: // comment"
-
-#: plugins/file-wizard/anjuta-file-wizard.glade.h:8
-msgid "Comment Style:"
-msgstr "Comment Style:"
-
-#: plugins/file-wizard/anjuta-file-wizard.glade.h:9
 msgid "Create corresponding header file"
 msgstr "Create corresponding header file"
 
-#: plugins/file-wizard/anjuta-file-wizard.glade.h:10
+#: plugins/file-wizard/anjuta-file-wizard.glade.h:8
 msgid ""
 "Enter the File name.\n"
 "The extension will be added according to the type."
@@ -4655,87 +4647,70 @@ msgstr ""
 "Enter the File name.\n"
 "The extension will be added according to the type."
 
-#: plugins/file-wizard/anjuta-file-wizard.glade.h:12
+#: plugins/file-wizard/anjuta-file-wizard.glade.h:10
 #: plugins/project-wizard/anjuta-project-wizard.glade.h:10
 msgid "License:"
 msgstr "Licence:"
 
-#: plugins/file-wizard/anjuta-file-wizard.glade.h:14
+#: plugins/file-wizard/anjuta-file-wizard.glade.h:12
 msgid "New File"
 msgstr "New File"
 
-#: plugins/file-wizard/anjuta-file-wizard.glade.h:15
-msgid "Shell: # comment"
-msgstr "Shell: # comment"
-
-#: plugins/file-wizard/anjuta-file-wizard.glade.h:16
+#: plugins/file-wizard/anjuta-file-wizard.glade.h:13
 msgid "Type:"
 msgstr "Type:"
 
-#: plugins/file-wizard/anjuta-file-wizard.glade.h:17
+#: plugins/file-wizard/anjuta-file-wizard.glade.h:14
 msgid "Use Template for the Header file"
 msgstr "Use Template for the Header file"
 
-#: plugins/file-wizard/anjuta-file-wizard.glade.h:18
-msgid "_C: /* comment */"
-msgstr "_C: /* comment */"
-
-#: plugins/file-wizard/file.c:82
+#: plugins/file-wizard/file.c:79
 msgid "C Source File"
 msgstr "C Source File"
 
-#: plugins/file-wizard/file.c:83
+#: plugins/file-wizard/file.c:80
 msgid "C -C++ Header File"
 msgstr "C -C++ Header File"
 
-#: plugins/file-wizard/file.c:84
+#: plugins/file-wizard/file.c:81
 msgid "C++ Source File"
 msgstr "C++ Source File"
 
-#: plugins/file-wizard/file.c:85
+#: plugins/file-wizard/file.c:82
 msgid "C# Source File"
 msgstr "C# Source File"
 
-#: plugins/file-wizard/file.c:86
+#: plugins/file-wizard/file.c:83
 msgid "Java Source File"
 msgstr "Java Source File"
 
-#: plugins/file-wizard/file.c:87
+#: plugins/file-wizard/file.c:84
 msgid "Perl Source File"
 msgstr "Perl Source File"
 
-#: plugins/file-wizard/file.c:88
+#: plugins/file-wizard/file.c:85
 msgid "Python Source File"
 msgstr "Python Source File"
 
-#: plugins/file-wizard/file.c:89
+#: plugins/file-wizard/file.c:86
 msgid "Shell Script File"
 msgstr "Shell Script File"
 
-#: plugins/file-wizard/file.c:90
+#: plugins/file-wizard/file.c:87
 msgid "Other"
 msgstr "Other"
 
-#: plugins/file-wizard/file.c:106
+#: plugins/file-wizard/file.c:104
 msgid "General Public License (GPL)"
 msgstr "General Public Licence (GPL)"
 
-#: plugins/file-wizard/file.c:107
+#: plugins/file-wizard/file.c:105
 msgid "Lesser General Public License (LGPL)"
 msgstr "Lesser General Public Licence (LGPL)"
 
-#: plugins/file-wizard/file.c:150
+#: plugins/file-wizard/file.c:146
 msgid "Unable to build user interface for New File"
 msgstr "Unable to build user interface for New File"
-
-#: plugins/file-wizard/file.c:446
-#, c-format
-msgid "The file \"%s\" is not a header file."
-msgstr "The file \"%s\" is not a header file."
-
-#: plugins/file-wizard/file.c:540
-msgid "%Y"
-msgstr "%Y"
 
 #: plugins/file-wizard/plugin.c:49
 msgid "_Insert text"
@@ -6646,126 +6621,154 @@ msgid "# GPL"
 msgstr "# GPL"
 
 #: plugins/macro/macros.xml.h:2
+msgid "# LGPL"
+msgstr "# LGPL"
+
+#: plugins/macro/macros.xml.h:3
 msgid "/* GPL */"
 msgstr "/* GPL */"
 
-#: plugins/macro/macros.xml.h:3
+#: plugins/macro/macros.xml.h:4
+msgid "/* LGPL */"
+msgstr "/* LGPL */"
+
+#: plugins/macro/macros.xml.h:5
 msgid "// GPL"
 msgstr "// GPL"
 
-#: plugins/macro/macros.xml.h:4
+#: plugins/macro/macros.xml.h:6
+msgid "// LGPL"
+msgstr "// LGPL"
+
+#: plugins/macro/macros.xml.h:7
 msgid "Basic"
 msgstr "Basic"
 
-#: plugins/macro/macros.xml.h:5
+#: plugins/macro/macros.xml.h:8
 msgid "C"
 msgstr "C"
 
-#: plugins/macro/macros.xml.h:7
+#: plugins/macro/macros.xml.h:10
 msgid "Changelog"
 msgstr "ChangeLog"
 
-#: plugins/macro/macros.xml.h:8
+#: plugins/macro/macros.xml.h:11
 msgid "Copyright"
 msgstr "Copyright"
 
-#: plugins/macro/macros.xml.h:9
+#: plugins/macro/macros.xml.h:12
 msgid "Date_Time"
 msgstr "Date_Time"
 
-#: plugins/macro/macros.xml.h:10
+#: plugins/macro/macros.xml.h:13
 msgid "Date_Y"
 msgstr "Date_Y"
 
-#: plugins/macro/macros.xml.h:11
+#: plugins/macro/macros.xml.h:14
 msgid "Date_Ymd"
 msgstr "Date_YMD"
 
-#: plugins/macro/macros.xml.h:12
+#: plugins/macro/macros.xml.h:15
 msgid "EXPAND"
 msgstr "EXPAND"
 
-#: plugins/macro/macros.xml.h:13
+#: plugins/macro/macros.xml.h:16
 msgid "Email"
 msgstr "Email"
 
-#: plugins/macro/macros.xml.h:14
+#: plugins/macro/macros.xml.h:17
 msgid "File_Name"
 msgstr "File_Name"
 
-#: plugins/macro/macros.xml.h:15
+#: plugins/macro/macros.xml.h:18
 msgid "File_Name_Up"
 msgstr "File_Name_Up"
 
-#: plugins/macro/macros.xml.h:16
+#: plugins/macro/macros.xml.h:19
 msgid "File_Name_Up_Prefix"
 msgstr "File_Name_Up_Prefix"
 
-#: plugins/macro/macros.xml.h:17
+#: plugins/macro/macros.xml.h:20
 msgid "Header_c"
 msgstr "Header_C"
 
-#: plugins/macro/macros.xml.h:18
+#: plugins/macro/macros.xml.h:21
+msgid "Header_cpp"
+msgstr "Header_CPP"
+
+#: plugins/macro/macros.xml.h:22
+msgid "Header_csharp"
+msgstr "Header_CSharp"
+
+#: plugins/macro/macros.xml.h:23
 msgid "Header_h"
 msgstr "Header_H"
 
-#: plugins/macro/macros.xml.h:19
+#: plugins/macro/macros.xml.h:24
+msgid "Header_perl"
+msgstr "Header_Perl"
+
+#: plugins/macro/macros.xml.h:25
+msgid "Header_shell"
+msgstr "Header_Shell"
+
+#: plugins/macro/macros.xml.h:26
 msgid "Licenses"
 msgstr "Licences"
 
-#: plugins/macro/macros.xml.h:20
+#: plugins/macro/macros.xml.h:27
 msgid "UserName"
 msgstr "UserName"
 
-#: plugins/macro/macros.xml.h:21
+#: plugins/macro/macros.xml.h:28
 msgid "azerty"
 msgstr "azerty"
 
-#: plugins/macro/macros.xml.h:22
+#: plugins/macro/macros.xml.h:29
 msgid "cvs_author"
 msgstr "cvs_author"
 
-#: plugins/macro/macros.xml.h:23
+#: plugins/macro/macros.xml.h:30
 msgid "cvs_date"
 msgstr "cvs_date"
 
-#: plugins/macro/macros.xml.h:24
+#: plugins/macro/macros.xml.h:31
 msgid "cvs_header"
 msgstr "cvs_header"
 
-#: plugins/macro/macros.xml.h:25
+#: plugins/macro/macros.xml.h:32
 msgid "cvs_id"
 msgstr "cvs_id"
 
-#: plugins/macro/macros.xml.h:26
+#: plugins/macro/macros.xml.h:33
 msgid "cvs_log"
 msgstr "cvs_log"
 
-#: plugins/macro/macros.xml.h:27
+#: plugins/macro/macros.xml.h:34
 msgid "cvs_name"
 msgstr "cvs_name"
 
-#: plugins/macro/macros.xml.h:28
+#: plugins/macro/macros.xml.h:35
 msgid "cvs_revision"
 msgstr "cvs_revision"
 
-#: plugins/macro/macros.xml.h:29
+#: plugins/macro/macros.xml.h:36
 msgid "cvs_source"
 msgstr "cvs_source"
 
-#: plugins/macro/macros.xml.h:30
+#: plugins/macro/macros.xml.h:37
 msgid "for"
 msgstr "for"
 
-#: plugins/macro/macros.xml.h:31
+#: plugins/macro/macros.xml.h:38
 msgid "if...else"
 msgstr "if...else"
 
-#: plugins/macro/macros.xml.h:32
+#: plugins/macro/macros.xml.h:39
 msgid "switch"
 msgstr "switch"
 
-#: plugins/macro/macros.xml.h:33
+#: plugins/macro/macros.xml.h:40
 msgid "while"
 msgstr "while"
 
