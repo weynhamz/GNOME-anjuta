@@ -223,25 +223,6 @@ bool Document::IsDBCS(int pos) {
 		if (SC_CP_UTF8 == dbcsCodePage) {
 			unsigned char ch = static_cast<unsigned char>(cb.CharAt(pos));
 			return ch >= 0x80;
-		} else if(1) {
-			int startLine = pos;
-			char mbstr[MB_CUR_MAX+1];
-			while (startLine > 0 && cb.CharAt(startLine) != '\r' && cb.CharAt(startLine) != '\n')
-				startLine--;
-			while (startLine <= pos) {
-				unsigned int i;
-				for(i=0;i<MB_CUR_MAX;i++) {
-					mbstr[i] = cb.CharAt(startLine+i);
-				}
-				mbstr[i] = '\0';
-				int mbsize = mblen(mbstr, MB_CUR_MAX);
-				if (mbsize >= 1) {
-					startLine += mbsize;
-					if (startLine >= pos)
-						return true;
-				}
-				startLine++;
-			}
 		} else {
 			// Anchor DBCS calculations at start of line because start of line can
 			// not be a DBCS trail byte.
@@ -276,8 +257,6 @@ int Document::LenChar(int pos) {
 			return lengthDoc -pos;
 		else
 			return len;
-	} else if (1) {
-		return 2;
 	} else if (IsDBCS(pos)) {
 		return 2;
 	} else {
@@ -324,34 +303,6 @@ int Document::MovePositionOutsideChar(int pos, int moveDir, bool checkLineEnd) {
 				else
 					pos--;
 				ch = static_cast<unsigned char>(cb.CharAt(pos));
-			}
-		} else if (1) {
-			int startLine = pos;
-
-			while (startLine > 0 && cb.CharAt(startLine) != '\r' && cb.CharAt(startLine) != '\n')
-				startLine--;
-			for (;startLine <= pos;) {
-				char mbstr[MB_CUR_MAX+1];
-				unsigned int i;
-				for(i=0;i<MB_CUR_MAX;i++) {
-					mbstr[i] = cb.CharAt(startLine+i);
-				}
-				mbstr[i] = '\0';
-
-				int mbsize = mblen(mbstr, MB_CUR_MAX);
-				if( mbsize >= 1 ) {
-					if( startLine + mbsize == pos ) {
-						return pos;
-					 } else if( startLine + mbsize > pos ) {
-						if( moveDir > 0 )
-							return startLine + mbsize;	
-						else
-							return startLine;
-					}
-					startLine += mbsize;
-					continue;
-				}
-				startLine++;
 			}
 		} else {
 			// Anchor DBCS calculations at start of line because start of line can
@@ -595,9 +546,6 @@ void Document::DelCharBack(int pos) {
 	} else if (IsCrLf(pos - 2)) {
 		DeleteChars(pos - 2, 2);
 	} else if (SC_CP_UTF8 == dbcsCodePage) {
-		int startChar = MovePositionOutsideChar(pos - 1, -1, false);
-		DeleteChars(startChar, pos - startChar);
-	} else if (1) {
 		int startChar = MovePositionOutsideChar(pos - 1, -1, false);
 		DeleteChars(startChar, pos - startChar);
 	} else if (IsDBCS(pos - 1)) {

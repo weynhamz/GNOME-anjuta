@@ -3,9 +3,6 @@
 	Ignore symlinks and .svn directories.
 	* anjuta.glade, src/anjuta-tools.c: Save all files before
 	running tool. Patches from TTimo.
-	* data/properties/anjuta.properties, scintilla/PLatGTK.cxx,
-	scintilla/Document.cxx, scintilla/ScintillaGTK.cxx: i18n patch from
-	Yukihiro Nakai.
 	* src/search-replace.c, tagmanager/tm_file_entry.c: More search
 	replace enhancements from Jean Noel.
 	* src/*: BSD compile fixes (hopefully).
