@@ -111,14 +111,14 @@ plugins/project-manager/src_paths.c
 plugins/project-wizard/anjuta-project-wizard.glade
 plugins/project-wizard/druid.c
 plugins/project-wizard/install.c
+plugins/project-wizard/plugin.c
 plugins/project-wizard/property.c
-plugins/project-wizard/templates/anjuta-plugin/src/plugin.c
-plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade
-plugins/project-wizard/templates/gtk/src/project.glade
 plugins/sample1/plugin.c
 plugins/symbol-browser/an_symbol_info.c
+plugins/symbol-browser/an_symbol_prefs.c
 plugins/symbol-browser/an_symbol_search.c
 plugins/symbol-browser/an_symbol_view.c
+plugins/symbol-browser/anjuta-symbol-browser-plugin.glade
 plugins/symbol-browser/plugin.c
 plugins/terminal/anjuta-terminal-plugin.glade
 plugins/terminal/terminal.c

@@ -1,3 +1,10 @@
 anjuta_dialogs_strings.c
 anjuta.desktop.in
-
+plugins/project-wizard/templates/anjuta-plugin/src/plugin.c
+plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade
+plugins/project-wizard/templates/gnome/src/interface.c
+plugins/project-wizard/templates/gnome/src/project.glade
+plugins/project-wizard/templates/gnome/src/support.c
+plugins/project-wizard/templates/gtk/src/interface.c
+plugins/project-wizard/templates/gtk/src/project.glade
+plugins/project-wizard/templates/gtk/src/support.c

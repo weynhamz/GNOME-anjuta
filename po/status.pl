@@ -84,10 +84,17 @@ my $country_hr = {
 		"zh_TW" => "Traditional Chinese"
 	};
 
+## Generate/update .pot file
+system("intltool-update -p");
+
+## Determine missing files.
+system("intltool-update --maintain");
+
 ## Just take the first pot file found as the reference.
 my $pot_file = glob("*.pot");
 if ($pot_file eq "") {
 	print "There is no reference pot file in this directory.\n";
+	print "Make sure you are running status.pl in a po directory.\n";
 	print "...... Aborting.\n";
 	exit (1);
 }
