@@ -1,3 +1,5 @@
+/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
+
 /*
  * macro-util.c (c) 2005 Johannes Schmid
  * This program is free software; you can redistribute it and/or modify
@@ -17,6 +19,18 @@
 
 #include "macro-util.h"
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
+
+static char *get_date_time(void);
+static gchar *get_date_Ymd(void);
+static gchar *get_date_Y(void);
+static gchar *get_username(MacroPlugin * plugin);
+static gchar *get_email(MacroPlugin * plugin);
+static IAnjutaEditor *get_current_editor (AnjutaPlugin *plugin);
+static gchar *get_filename(MacroPlugin * plugin);
+static gchar *get_filename_up(MacroPlugin * plugin);
+static gchar *get_filename_up_prefix(MacroPlugin * plugin);
+static gboolean expand_keyword(MacroPlugin * plugin, gchar *keyword, gchar **expand);
+
 
 static char *
 get_date_time(void)

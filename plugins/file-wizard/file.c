@@ -32,8 +32,6 @@
 #include <time.h>
 
 #include <gnome.h>
-#include <libanjuta/anjuta-preferences.h>
-#include <libanjuta/anjuta-utils.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
 #include <libanjuta/interfaces/ianjuta-macro.h>
@@ -49,9 +47,6 @@
 #define NEW_FILE_HEADER "new.file.header"
 #define NEW_FILE_LICENSE "new.file.license"
 #define NEW_FILE_MENU_LICENSE "new.file.menu.license"
-
-#define IDENT_NAME                 "ident.name"
-#define IDENT_EMAIL                "ident.email"
 
 
 typedef struct _NewFileGUI
@@ -109,14 +104,10 @@ static NewFileGUI *nfg = NULL;
 
 
 static gboolean create_new_file_dialog(IAnjutaDocumentManager *docman);
-gboolean on_new_file_cancelbutton_clicked(GtkWidget *window, GdkEvent *event,
-										  gboolean user_data);
-gboolean on_new_file_okbutton_clicked(GtkWidget *window, GdkEvent *event,
-									  gboolean user_data);
-void on_new_file_entry_changed (GtkEditable *entry, gpointer user_data);
-void on_new_file_type_changed (GtkOptionMenu   *optionmenu, gpointer user_data);
-void insert_notice(IAnjutaMacro* macro, gint license_type, gint comment_type);
-
+static void insert_notice_gpl (IAnjutaMacro* macro, gint comment_type);
+static void insert_notice_lgpl (IAnjutaMacro* macro, gint comment_type);
+static void insert_notice(IAnjutaMacro* macro, gint license_type, gint comment_type);
+static void insert_header(IAnjutaMacro* macro, gint source_type);
 
 void
 display_new_file(IAnjutaDocumentManager *docman)
@@ -362,7 +353,7 @@ insert_notice_lgpl (IAnjutaMacro* macro, gint comment_type)
 			break;
 	}
 }
-void
+static void
 insert_notice(IAnjutaMacro* macro, gint license_type, gint comment_type)
 {
 	switch (license_type)
@@ -379,7 +370,7 @@ insert_notice(IAnjutaMacro* macro, gint license_type, gint comment_type)
 	}	
 }
 
-void
+static void
 insert_header(IAnjutaMacro* macro, gint source_type)
 {
 	switch (source_type)

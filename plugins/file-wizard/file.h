@@ -1,5 +1,5 @@
 /***************************************************************************
- *            file_insert.h
+ *            file.h
  *
  *  Sun Nov 30 17:45:43 2003
  *  Copyright  2003  Jean-Noel Guiheneuf
@@ -32,18 +32,17 @@ extern "C"
 
 #include <gnome.h>
 #include <libanjuta/anjuta-plugin.h>
-#include <libanjuta/anjuta-preferences.h>
 #include <libanjuta/interfaces/ianjuta-editor.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
 #include <libanjuta/interfaces/ianjuta-macro.h>
 
 void display_new_file(IAnjutaDocumentManager *docman);	
-
-AnjutaPreferences *get_preferences (AnjutaPlugin *plugin);
-	
-void file_insert_text(IAnjutaEditor *te, gchar *txt, gint offset);
-void insert_notice(IAnjutaMacro* macro, gint license_type, gint comment_type);
-void insert_header(IAnjutaMacro* macro, gint source_type);
+gboolean on_new_file_cancelbutton_clicked(GtkWidget *window, GdkEvent *event,
+			                              gboolean user_data);
+gboolean on_new_file_okbutton_clicked(GtkWidget *window, GdkEvent *event,
+			                          gboolean user_data);	
+void on_new_file_entry_changed (GtkEditable *entry, gpointer user_data);	
+void on_new_file_type_changed (GtkOptionMenu   *optionmenu, gpointer user_data);	
 void on_new_file_license_toggled(GtkToggleButton *button, gpointer user_data);
 
 typedef enum _Lge
