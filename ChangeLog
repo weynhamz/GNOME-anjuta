@@ -1,3 +1,16 @@
+2005-01-18  Johannes Schmid <jhs@cvs.gnome.org>
+
+	* plugins/cvs-plugin/Makefile.am
+	* plugins/cvs-plugin/anjuta-cvs.plugin.in
+	* plugins/cvs-plugin/cvs-actions.c
+	* plugins/cvs-plugin/cvs-callbacks.c
+	* plugins/cvs-plugin/cvs-interface.[ch] (added)
+	* plugins/cvs-plugin/plugin.c:
+	
+	Added IAnjutaCVS interface and improved cvs plugin. There
+	is still some work to do on cvs import and to add a current
+	project toggle.
+
 2005-01-17  Naba Kumar  <naba@gnome.org>
 
 	* plugins/editor/aneditor.cxx: Fixed auto indentation.

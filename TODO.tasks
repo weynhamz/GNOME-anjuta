@@ -38,11 +38,7 @@ when deactivated.</comment>
     </item>
   </category>
   <category title="Plugin: Editor" place="3">
-    <item>
-      <attribute id="1098253642" priority="1" done="0" start_date="731874" enddate="99999999" notify="0" endtime="-60" last_edited="1098253642"/>
-      <summary>Apply prefererences</summary>
-      <comment>Editor preferences are not applied now.</comment>
-    </item>
+    
     <item>
       <attribute id="1098253712" priority="1" done="0" start_date="731874" enddate="99999999" notify="0" endtime="-60" last_edited="1098253712"/>
       <summary>Configure syntax highlighting</summary>
@@ -61,7 +57,7 @@ configuration dialog.</comment>
       <comment>Connect to save point state signal of editor and
 accordingly update undo/redo ui sensitivity.</comment>
     </item>
-  </category>
+  <item><attribute id="1098253642" priority="1" done="0" start_date="731874" notify="0" last_edited="1105392177"/><summary>Apply prefererences</summary><comment>Editor preferences are not applied now.</comment></item></category>
   <category title="Plugin: Project Manager" place="6">
     <item>
       <attribute id="1098254033" priority="1" done="0" start_date="731874" enddate="99999999" notify="0" endtime="-60" last_edited="1098254070"/>

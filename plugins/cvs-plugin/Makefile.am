@@ -36,7 +36,9 @@ libanjuta_cvs_plugin_la_SOURCES = \
 	cvs-execute.c\
 	cvs-execute.h                     \
 	cvs-callbacks.c                     \
-	cvs-callbacks.h 
+	cvs-callbacks.h                     \
+	cvs-interface.c                     \
+	cvs-interface.h 
 EXTRA_DIST = \
 	$(plugin_in_files) \
 	$(cvs_plugin_pixmaps_DATA) \

@@ -25,9 +25,11 @@
 #include <libanjuta/anjuta-preferences.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
+#include <libanjuta/interfaces/ianjuta-cvs.h>
 
 #include "plugin.h"
 #include "cvs-actions.h"
+#include "cvs-interface.h"
 
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-cvs.ui"
 #define ICON_FILE "anjuta-cvs-plugin.png"
@@ -416,5 +418,74 @@ cvs_plugin_class_init (GObjectClass *klass)
 	klass->finalize = finalize;
 }
 
-ANJUTA_PLUGIN_BOILERPLATE (CVSPlugin, cvs_plugin);
+/* Interface */
+
+void ianjuta_cvs_add (IAnjutaCvs *obj, const gchar* filename, 
+	gboolean binary, GError **err)
+{
+	anjuta_cvs_add(ANJUTA_PLUGIN(obj), filename, binary, err);
+}
+	
+void ianjuta_cvs_commit (IAnjutaCvs *obj, const gchar* filename, const gchar* log,
+	const gchar* rev, gboolean recurse, GError **err)
+{
+	anjuta_cvs_commit (ANJUTA_PLUGIN(obj), filename, log, rev, recurse, err);
+}
+
+void ianjuta_cvs_diff (IAnjutaCvs *obj, const gchar* filename, const gchar* rev, 
+	gboolean recurse, gboolean patch_style, gboolean unified, GError **err)
+{
+	anjuta_cvs_diff(ANJUTA_PLUGIN(obj), filename, rev, recurse, patch_style, unified, err);
+}
+	
+void ianjuta_cvs_log (IAnjutaCvs *obj, const gchar* filename, gboolean recurse, gboolean verbose, GError **err)
+{
+	anjuta_cvs_log(ANJUTA_PLUGIN(obj), filename, recurse, verbose, err);
+}
+
+void ianjuta_cvs_remove (IAnjutaCvs *obj, const gchar* filename, GError **err)
+{
+	anjuta_cvs_remove (ANJUTA_PLUGIN(obj), filename, err);
+}
+
+void ianjuta_cvs_status (IAnjutaCvs *obj, const gchar* filename, gboolean recurse, gboolean verbose, GError **err)
+{
+	anjuta_cvs_status(ANJUTA_PLUGIN(obj), filename, recurse, verbose, err);
+}
+
+void ianjuta_cvs_update (IAnjutaCvs *obj, const gchar* filename, gboolean recurse, 
+	gboolean prune, gboolean create, gboolean reset_sticky, const gchar* revision, GError **err)
+{
+	anjuta_cvs_update(ANJUTA_PLUGIN(obj), filename, recurse, prune, create, reset_sticky, revision, err);
+}
+
+void ianjuta_cvs_import (IAnjutaCvs *obj, const gchar* dir, const gchar* cvsroot,
+	const gchar* module, const gchar* vendor, const gchar* release,
+	const gchar* log, gint server_type, const gchar* username, const 
+	gchar* password, GError** error)
+{
+	anjuta_cvs_import(ANJUTA_PLUGIN(obj), dir, cvsroot, module, vendor, release, log,
+		server_type, username, password, error);
+}
+
+
+static void
+ianjuta_cvs_iface_init (IAnjutaCvsIface *iface)
+{
+	iface->add = ianjuta_cvs_add;
+	iface->remove = ianjuta_cvs_remove;
+	iface->update = ianjuta_cvs_update;
+	iface->commit = ianjuta_cvs_commit;
+	iface->diff = ianjuta_cvs_diff;
+	iface->status = ianjuta_cvs_status;
+	iface->log = ianjuta_cvs_log;
+	iface->import = ianjuta_cvs_import;
+	
+}
+
+
+ANJUTA_PLUGIN_BEGIN (CVSPlugin, cvs_plugin);
+ANJUTA_PLUGIN_ADD_INTERFACE(ianjuta_cvs, IANJUTA_TYPE_CVS);
+ANJUTA_PLUGIN_END;
+
 ANJUTA_SIMPLE_PLUGIN (CVSPlugin, cvs_plugin);

@@ -289,7 +289,7 @@ void on_menu_cvs_import (GtkAction* action, CVSPlugin* plugin)
 	
 	data = cvs_data_new(plugin, gxml);
 	g_signal_connect(G_OBJECT(dialog), "response", 
-		G_CALLBACK(on_cvs_log_response), data);
+		G_CALLBACK(on_cvs_import_response), data);
 	
 	gtk_widget_show(dialog);	
 	

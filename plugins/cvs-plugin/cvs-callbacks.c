@@ -17,89 +17,9 @@
 
 #include "cvs-callbacks.h"
 #include "cvs-execute.h"
-
+#include "cvs-interface.h"
 #include "glade/glade.h"
 #include <libgnomevfs/gnome-vfs.h>
-#include "libgen.h"
-
-static gchar* create_cvs_command_with_cvsroot(AnjutaPreferences* prefs,
-								const gchar* action, 
-								const gchar* command_options,
-								const gchar* command_arguments,
-								const gchar* cvsroot)
-{
-	gchar* cvs;
-	gchar* global_options = NULL;
-	gboolean ignorerc;
-	gint compression;
-	gchar* command;
-	/* command global_options cvsroot action command_options command_arguments */
-	gchar* CVS_FORMAT = "%s %s %s %s %s %s";
-	
-	g_return_val_if_fail (prefs != NULL, NULL);
-	g_return_val_if_fail (action != NULL, NULL);
-	g_return_val_if_fail (command_options != NULL, NULL);
-	g_return_val_if_fail (command_arguments != NULL, NULL);
-	
-	cvs = anjuta_preferences_get(prefs, "cvs.path");
-	compression = anjuta_preferences_get_int(prefs, "cvs.compression");
-	ignorerc = anjuta_preferences_get_int(prefs, "cvs.ignorerc");
-	if (compression && ignorerc)
-		global_options = g_strdup_printf("-f -z%d", compression);
-	else if (compression)
-		global_options = g_strdup_printf("-z%d", compression);
-	else /* if (ignorerc */
-		global_options = g_strdup("-f");
-	if (cvsroot == NULL)
-	{
-		cvsroot = "";
-	}
-	command = g_strdup_printf(CVS_FORMAT, cvs, global_options, cvsroot, action,  
-								command_options, command_arguments);
-	
-	g_free (global_options);
-	
-	return command;
-}
-
-static void add_option(GtkWidget* toggle_button, GString* options, const gchar* argument)
-{
-	g_return_if_fail (options != NULL);
-	g_return_if_fail (toggle_button != NULL);
-	g_return_if_fail (argument != NULL);
-	
-	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(toggle_button)))
-	{
-			g_string_append(options, " ");
-			g_string_append(options, argument);
-	}
-}
-
-static gboolean is_directory(const gchar* filename)
-{
-	GnomeVFSFileInfo info;
-	GnomeVFSResult result;
-
-	result = gnome_vfs_get_file_info(filename, &info, GNOME_VFS_FILE_INFO_DEFAULT);
-	if (result == GNOME_VFS_OK)
-	{
-		if (info.type == GNOME_VFS_FILE_TYPE_DIRECTORY)
-			return TRUE;
-		else
-			return FALSE;
-	}
-	else
-		return FALSE;
-}
-
-inline static gchar* create_cvs_command(AnjutaPreferences* prefs,
-								const gchar* action, 
-								const gchar* command_options,
-								const gchar* command_arguments)
-{
-	return create_cvs_command_with_cvsroot(prefs, action, command_options,
-		command_arguments, NULL);
-}
 
 static gchar* get_log_from_textview(GtkWidget* textview)
 {
@@ -115,9 +35,7 @@ static gchar* get_log_from_textview(GtkWidget* textview)
 /* #warning FIXME: Check for escape chars in log */
 	/* Fixed. -naba*/
 	escaped_log = anjuta_util_escape_quotes (log);
-	log = g_strdup_printf("-m '%s'", escaped_log);
-	g_free (escaped_log);
-	return log;
+	return escaped_log;
 }
 
 
@@ -133,6 +51,23 @@ static gboolean check_filename(GtkDialog* dialog, const gchar* filename)
 		return FALSE;
 	}
 	return TRUE;
+}
+
+static gboolean check_entry(GtkDialog* dialog, GtkWidget* entry,
+	const gchar* stringname)
+{
+	if (!strlen(gtk_entry_get_text(GTK_ENTRY(entry))))
+	{
+		gchar* message = g_strdup_printf(_("Please fill field: %s"), stringname);
+		GtkWidget* dlg = gtk_message_dialog_new(GTK_WINDOW(dialog), 
+			GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_INFO,
+			GTK_BUTTONS_CLOSE, message);
+		gtk_dialog_run(GTK_DIALOG(dlg));
+		gtk_widget_destroy(dlg);
+		return FALSE;
+	}
+	return TRUE;
+	return FALSE;
 }
 
 CVSData* cvs_data_new(CVSPlugin* plugin, GladeXML* gxml)
@@ -156,22 +91,16 @@ on_cvs_add_response(GtkDialog* dialog, gint response, CVSData* data)
 	{
 	case GTK_RESPONSE_OK:
 	{
-		gchar* filename;
-		gchar* command;
-		GString* options = g_string_new("");
 		GtkWidget* binary = glade_xml_get_widget(data->gxml, "cvs_binary");
 		GtkWidget* fileentry = glade_xml_get_widget(data->gxml, "cvs_filename");
 	
-		filename = g_strdup(gtk_entry_get_text(GTK_ENTRY(fileentry)));
+		const gchar* filename = gtk_entry_get_text(GTK_ENTRY(fileentry));
 		if (!check_filename(dialog, filename))
 			break;
-		add_option(binary, options, "-kb");
 		
-		command = create_cvs_command(anjuta_shell_get_preferences (ANJUTA_PLUGIN(data->plugin)->shell,
-									 NULL), "add", options->str, basename(filename));
-		cvs_execute(data->plugin, command, dirname(filename));
-		g_free(command);
-		g_free(filename);
+		anjuta_cvs_add(ANJUTA_PLUGIN(data->plugin), filename, 
+			gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(binary)), NULL); 
+		
 		gtk_widget_destroy(GTK_WIDGET(dialog));
 		cvs_data_free(data);
 		break;
@@ -189,11 +118,9 @@ on_cvs_remove_response(GtkDialog* dialog, gint response, CVSData* data)
 	{
 	case GTK_RESPONSE_OK:
 	{
-		gchar* filename;
-		gchar* command;
 		GtkWidget* fileentry = glade_xml_get_widget(data->gxml, "cvs_filename");
+		const gchar* filename = gtk_entry_get_text(GTK_ENTRY(fileentry));
 		
-		filename = g_strdup(gtk_entry_get_text(GTK_ENTRY(fileentry)));
 		if (!check_filename(dialog, filename))
 			break;
 		
@@ -203,14 +130,11 @@ on_cvs_remove_response(GtkDialog* dialog, gint response, CVSData* data)
 			anjuta_util_dialog_error
 				(GTK_WINDOW(dialog),_("Unable to delete file"), NULL);
 			gtk_widget_destroy(GTK_WIDGET(dialog));
+			cvs_data_free(data);
 			break;
 		}
 	
-		command = create_cvs_command(anjuta_shell_get_preferences (ANJUTA_PLUGIN(data->plugin)->shell,
-									 NULL), "remove", "", basename(filename));
-		cvs_execute(data->plugin, command, dirname(filename));
-		g_free(command);
-		g_free(filename);
+		anjuta_cvs_remove(ANJUTA_PLUGIN(data->plugin), filename, NULL);
 		cvs_data_free(data);
 		break;
 		}
@@ -227,60 +151,33 @@ on_cvs_update_response(GtkDialog* dialog, gint response, CVSData* data)
 	{
 	case GTK_RESPONSE_OK:
 	{
-		gchar* filename;
-		gchar* command;
-		gchar* revision;
+		const gchar* revision;
 		
-		GString* options;
-		GtkWidget* fileentry;
 		GtkWidget* createdir;
 		GtkWidget* removedir;
 		GtkWidget* norecurse;
 		GtkWidget* removesticky;
 		GtkWidget* revisionentry;
-
-		options = g_string_new("");
-
-		norecurse = glade_xml_get_widget(data->gxml, "cvs_norecurse");
-		add_option(norecurse, options, "-l");
-		removedir = glade_xml_get_widget(data->gxml, "cvs_removedir");
-		add_option(removedir, options, "-P");
-		createdir = glade_xml_get_widget(data->gxml, "cvs_createdir");
-		add_option(createdir, options, "-d");
-
-		revisionentry = glade_xml_get_widget(data->gxml, "cvs_revision");
-		revision = g_strdup(gtk_entry_get_text(GTK_ENTRY(revisionentry)));
-		if (strlen(revision))
-		{
-			g_string_append_printf(options, " -r %s", revision);
-		}
-		else
-		{
-			removesticky = glade_xml_get_widget(data->gxml, "cvs_removesticky");
-			add_option(removesticky, options, "-A");
-		}
-		g_free(revision);
+		GtkWidget* fileentry = glade_xml_get_widget(data->gxml, "cvs_filename");
+		const gchar* filename = g_strdup(gtk_entry_get_text(GTK_ENTRY(fileentry)));
 		
-		fileentry = glade_xml_get_widget(data->gxml, "cvs_filename");
-		filename = g_strdup(gtk_entry_get_text(GTK_ENTRY(fileentry)));
+		norecurse = glade_xml_get_widget(data->gxml, "cvs_norecurse");
+		removedir = glade_xml_get_widget(data->gxml, "cvs_removedir");
+		createdir = glade_xml_get_widget(data->gxml, "cvs_createdir");
+		revisionentry = glade_xml_get_widget(data->gxml, "cvs_revision");
+		revision = gtk_entry_get_text(GTK_ENTRY(revisionentry));
+		removesticky = glade_xml_get_widget(data->gxml, "cvs_removesticky");
+				
 		if (!check_filename(dialog, filename))
 			break;	
 		
-		if (!is_directory(filename))
-		{
-			command = create_cvs_command(anjuta_shell_get_preferences (ANJUTA_PLUGIN(data->plugin)->shell,
-									 NULL), "update", options->str, basename(filename));
-			cvs_execute(data->plugin, command, dirname(filename));
-		}
-		else
-		{
-			command = create_cvs_command(anjuta_shell_get_preferences (ANJUTA_PLUGIN(data->plugin)->shell,
-									 NULL), "update", options->str, "");
-			cvs_execute(data->plugin, command, filename);
-		}
-		g_free(command);
-		g_free(filename);
-		g_string_free(options, TRUE);
+		anjuta_cvs_update(ANJUTA_PLUGIN(data->plugin), filename, 
+			!gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(norecurse)),
+			gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(removedir)),		
+			gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(createdir)),
+			gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(removesticky)), 
+			revision, NULL);
+		
 		cvs_data_free(data);
 		gtk_widget_destroy(GTK_WIDGET(dialog));
 		break;
@@ -299,18 +196,14 @@ on_cvs_commit_response(GtkDialog* dialog, gint response, CVSData* data)
 	{
 	case GTK_RESPONSE_OK:
 	{
-		gchar* filename;
-		gchar* command;
 		gchar* log;
-		gchar* rev;
-		GString* options;
+		const gchar* rev;
 		GtkWidget* logtext;
 		GtkWidget* revisionentry;
 		GtkWidget* norecurse;
-		GtkWidget* fileentry;
-		
-		options = g_string_new("");
-		
+		GtkWidget* fileentry = glade_xml_get_widget(data->gxml, "cvs_filename");
+		const gchar* filename = gtk_entry_get_text(GTK_ENTRY(fileentry));
+				
 		logtext = glade_xml_get_widget(data->gxml, "cvs_log");
 		log = get_log_from_textview(logtext);
 		if (!strlen(log))
@@ -325,41 +218,18 @@ on_cvs_commit_response(GtkDialog* dialog, gint response, CVSData* data)
 				break;
 			gtk_widget_destroy(dlg);
 		}
-		g_string_append(options, log);
-		g_free(log);
-
+		
 		revisionentry = glade_xml_get_widget(data->gxml, "cvs_revision");
-		rev = g_strdup(gtk_entry_get_text(GTK_ENTRY(revisionentry)));
-		if (strlen(rev))
-		{
-			g_string_append_printf(options, " -r %s", rev);
-		}
-		g_free(rev);
+		rev = gtk_entry_get_text(GTK_ENTRY(revisionentry));
 
 		norecurse = glade_xml_get_widget(data->gxml, "cvs_norecurse");
-		add_option(norecurse, options, "-l");
 		
-		fileentry = glade_xml_get_widget(data->gxml, "cvs_filename");
-		filename = g_strdup(gtk_entry_get_text(GTK_ENTRY(fileentry)));
 		if (!check_filename(dialog, filename))
 			break;	
 		
-		if (!is_directory(filename))
-		{
-			command = create_cvs_command(anjuta_shell_get_preferences (ANJUTA_PLUGIN(data->plugin)->shell,
-									 NULL), "commit", options->str, basename(filename));
-			cvs_execute(data->plugin, command, dirname(filename));
-		}
-		else
-		{
-			command = create_cvs_command(anjuta_shell_get_preferences (ANJUTA_PLUGIN(data->plugin)->shell,
-									 NULL), "commit", options->str, "");
-			cvs_execute(data->plugin, command, filename);
-		}
-			
-		g_free(command);
-		g_free(filename);
-		g_string_free(options, TRUE);
+		anjuta_cvs_commit(ANJUTA_PLUGIN(data->plugin), filename, log, rev,
+			!gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(norecurse)), NULL);		
+		
 		cvs_data_free(data);
 		gtk_widget_destroy(GTK_WIDGET(dialog));
 		break;
@@ -378,64 +248,41 @@ on_cvs_diff_response(GtkDialog* dialog, gint response, CVSData* data)
 	{
 	case GTK_RESPONSE_OK:
 	{
-		gchar* filename;
-		gchar* diff;
-		gchar* command;
-		gchar* rev;
+		const gchar* rev;
 		int diff_type_nr;
+		gboolean unified = FALSE;
+		gboolean patch_style = FALSE;
+		
 		GtkWidget* norecurse;
 		GtkWidget* revisionentry;
-		GtkWidget* fileentry;
 		GtkWidget* diff_type;
 		GtkWidget* unified_diff;
-		GString* options;
-
-		options = g_string_new("");
+		
+		GtkWidget* fileentry = glade_xml_get_widget(data->gxml, "cvs_filename");
+		const gchar* filename = g_strdup(gtk_entry_get_text(GTK_ENTRY(fileentry)));
+		
 
 		revisionentry = glade_xml_get_widget(data->gxml, "cvs_revision");
-		rev = g_strdup(gtk_entry_get_text(GTK_ENTRY(revisionentry)));
-		if (strlen(rev))
-		{
-			g_string_append_printf(options, " -r %s", rev);
-		}
-		g_free(rev);
-		
+		rev = gtk_entry_get_text(GTK_ENTRY(revisionentry));
 		norecurse = glade_xml_get_widget(data->gxml, "cvs_norecurse");
-		add_option(norecurse, options, "-l");
 		
 		diff_type = glade_xml_get_widget(data->gxml, "cvs_diff_type");
 		unified_diff = glade_xml_get_widget(data->gxml, "cvs_unified");
 		diff_type_nr = gtk_combo_box_get_active(GTK_COMBO_BOX(diff_type));
 		if (diff_type_nr == DIFF_PATCH)
 		{
-			add_option(unified_diff, options, "-u");
+			unified = TRUE;
 			/* FIXME: rdiff do not take -u in my cvs */
 			/* diff = "rdiff"; */
-			diff = "diff";
 		}
-		else
-			diff = "diff";
 		
-		fileentry = glade_xml_get_widget(data->gxml, "cvs_filename");
-		filename = g_strdup(gtk_entry_get_text(GTK_ENTRY(fileentry)));
 		if (!check_filename(dialog, filename))
 			break;	
 		
-		if (!is_directory(filename))
-		{
-			command = create_cvs_command(anjuta_shell_get_preferences (ANJUTA_PLUGIN(data->plugin)->shell,
-									 NULL), diff, options->str, basename(filename));
-			cvs_execute_diff(data->plugin, command, dirname(filename));
-		}
-		else
-		{
-			command = create_cvs_command(anjuta_shell_get_preferences (ANJUTA_PLUGIN(data->plugin)->shell,
-									 NULL), diff, options->str, "");
-			cvs_execute_diff(data->plugin, command, filename);
-		}
-		g_free(command);
-		g_free(filename);
-		g_string_free(options, TRUE);
+		anjuta_cvs_diff(ANJUTA_PLUGIN(data->plugin), filename, rev, 
+			!gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(norecurse)), patch_style,
+			unified, NULL);
+		
 		cvs_data_free(data);
 		gtk_widget_destroy (GTK_WIDGET(dialog));	
 		break;
@@ -454,41 +301,22 @@ on_cvs_status_response(GtkDialog* dialog, gint response, CVSData* data)
 	{
 	case GTK_RESPONSE_OK:
 	{
-		gchar* filename;
-		gchar* command;
 		GtkWidget* norecurse;
 		GtkWidget* verbose;
-		GtkWidget* fileentry;
-		
-		GString* options;
-		options = g_string_new("");
+		GtkWidget* fileentry = glade_xml_get_widget(data->gxml, "cvs_filename");
+		const gchar* filename = gtk_entry_get_text(GTK_ENTRY(fileentry));
 
 		norecurse = glade_xml_get_widget(data->gxml, "cvs_norecurse");
-		add_option(norecurse, options, "-l");
-	
 		verbose = glade_xml_get_widget(data->gxml, "cvs_verbose");
-		add_option(verbose, options, "-v");
 
-		fileentry = glade_xml_get_widget(data->gxml, "cvs_filename");
-		filename = g_strdup(gtk_entry_get_text(GTK_ENTRY(fileentry)));
+		
 		if (!check_filename(dialog, filename))
 			break;	
 		
-		if (!is_directory(filename))
-		{
-			command = create_cvs_command(anjuta_shell_get_preferences (ANJUTA_PLUGIN(data->plugin)->shell,
-									 NULL), "status", options->str, basename(filename));
-			cvs_execute_status(data->plugin, command, dirname(filename));
-		}
-		else
-		{
-			command = create_cvs_command(anjuta_shell_get_preferences (ANJUTA_PLUGIN(data->plugin)->shell,
-									 NULL), "status", options->str, "");
-			cvs_execute_status(data->plugin, command, filename);
-		}
-		g_free(command);
-		g_free(filename);
-		g_string_free(options, TRUE);
+		anjuta_cvs_status(ANJUTA_PLUGIN(data->plugin), filename,
+			!gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(norecurse)),
+			gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(verbose)), NULL);
+		
 		cvs_data_free(data);
 		gtk_widget_destroy (GTK_WIDGET(dialog));
 		break;
@@ -507,44 +335,24 @@ on_cvs_log_response(GtkDialog* dialog, gint response, CVSData* data)
 	{
 	case GTK_RESPONSE_OK:
 	{
-		gchar* filename;
-		gchar* command;
+		const gchar* filename;
 		GtkWidget* norecurse;
 		GtkWidget* verbose;
 		GtkWidget* fileentry;
-		GString* options;
-
-		options = g_string_new("");
 		
 		norecurse = glade_xml_get_widget(data->gxml, "cvs_norecurse");
-		add_option(norecurse, options, "-l");
-		
 		verbose = glade_xml_get_widget(data->gxml, "cvs_verbose");
-		if (!gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(verbose)))
-		{
-			g_string_append(options, " -h");
-		}
 		
 		fileentry = glade_xml_get_widget(data->gxml, "cvs_filename");
-		filename = g_strdup(gtk_entry_get_text(GTK_ENTRY(fileentry)));
-		if (!strlen(filename))
-			break;	
+		filename = gtk_entry_get_text(GTK_ENTRY(fileentry));
+		if (!check_filename(dialog, filename))
+			break;
 		
-		if (!is_directory(filename))
-		{
-			command = create_cvs_command(anjuta_shell_get_preferences (ANJUTA_PLUGIN(data->plugin)->shell,
-									 NULL), "log", options->str, basename(filename));
-			cvs_execute_log(data->plugin, command, dirname(filename));
-		}
-		else
-		{
-			command = create_cvs_command(anjuta_shell_get_preferences (ANJUTA_PLUGIN(data->plugin)->shell,
-									 NULL), "log", options->str, "");
-			cvs_execute_log(data->plugin, command, filename);
-		}
-		g_free(command);
-		g_free(filename);
-		g_string_free(options, TRUE);
+		anjuta_cvs_log(ANJUTA_PLUGIN(data->plugin), filename,
+			!gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(norecurse)),
+			gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(verbose)), NULL);
+					
+		
 		cvs_data_free(data);
 		gtk_widget_destroy (GTK_WIDGET(dialog));		
 		break;
@@ -572,62 +380,54 @@ on_cvs_import_response(GtkDialog* dialog, gint response, CVSData* data)
 			GtkWidget* logtext;
 			GtkWidget* typecombo;
 			GtkWidget* direntry;
-			gchar* cvsroot = NULL;
-			gchar* cvs_command;
 			gchar* log;
-			GString* options;
-
+			
 			username = glade_xml_get_widget(data->gxml, "cvs_username");
 			password = glade_xml_get_widget(data->gxml, "cvs_password");
+			
 			cvsroot_entry = glade_xml_get_widget(data->gxml, "cvs_cvsroot");
+			if (!check_entry(dialog, cvsroot_entry, _("CVSROOT")))
+				break;
 			module_entry = glade_xml_get_widget(data->gxml, "cvs_module");
+			if (!check_entry(dialog, module_entry, _("Module")))
+				break;
 			vendortag = glade_xml_get_widget(data->gxml, "cvs_vendor");
+			if (!check_entry(dialog, vendortag, _("Vendor")))
+				break;
 			releasetag = glade_xml_get_widget(data->gxml, "cvs_release");
-			logtext = glade_xml_get_widget(data->gxml, "cvs_log");
+			if (!check_entry(dialog, releasetag, _("Release")))
+				break;
 			typecombo = glade_xml_get_widget(data->gxml, "cvs_server_type");
 			direntry = glade_xml_get_widget(data->gxml, "cvs_rootdir");
-
-			switch (gtk_combo_box_get_active(GTK_COMBO_BOX(typecombo)))
-			{
-				case SERVER_LOCAL:
-				{
-					cvsroot = g_strdup_printf("-d %s", 
-						gtk_entry_get_text(GTK_ENTRY(cvsroot_entry)));
-					break;
-				}
-				case SERVER_EXTERN:
-				{
-					cvsroot = g_strdup_printf("-d:ext:%s@%s",
-						gtk_entry_get_text(GTK_ENTRY(username)),
-						gtk_entry_get_text(GTK_ENTRY(cvsroot_entry)));
-					break;
-				}
-				case SERVER_PASSWORD:
-				{
-					cvsroot = g_strdup_printf("-d:pserver:%s:%s@%s",
-						gtk_entry_get_text(GTK_ENTRY(username)),
-						gtk_entry_get_text(GTK_ENTRY(password)),
-						gtk_entry_get_text(GTK_ENTRY(cvsroot_entry)));
-					break;
-				}
-				default:
-					g_warning("Invalid cvs server type!");
-			}
+			if (!check_entry(dialog, direntry, _("Directory")))
+				break;
+			
+			logtext = glade_xml_get_widget(data->gxml, "cvs_log");
 			log = get_log_from_textview(logtext);
-			options = g_string_new(log);
-			g_string_append_printf(options, " %s %s %s",
-				gtk_entry_get_text(GTK_ENTRY(module_entry)), 
+			if (!strlen(log))
+			{
+				gint result;
+				GtkWidget* dlg = gtk_message_dialog_new(GTK_WINDOW(dialog), 
+				GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_INFO,
+				GTK_BUTTONS_YES_NO, 
+				_("Are you sure that you do not want a log message?"));
+				result = gtk_dialog_run(GTK_DIALOG(dlg));
+				if (result == GTK_RESPONSE_NO)
+					break;
+				gtk_widget_destroy(dlg);
+			}
+			
+			anjuta_cvs_import(ANJUTA_PLUGIN(data->plugin),
+				gtk_entry_get_text(GTK_ENTRY(direntry)),
+				gtk_entry_get_text(GTK_ENTRY(cvsroot_entry)),
+				gtk_entry_get_text(GTK_ENTRY(module_entry)),
 				gtk_entry_get_text(GTK_ENTRY(vendortag)),
-				gtk_entry_get_text(GTK_ENTRY(releasetag)));
-			cvs_command = create_cvs_command_with_cvsroot(
-				anjuta_shell_get_preferences (ANJUTA_PLUGIN(data->plugin)->shell, NULL),
-				"import", options->str, "", cvsroot);
-			cvs_execute(data->plugin, cvs_command, 
-				gtk_entry_get_text(GTK_ENTRY(direntry)));
-			g_string_free(options, TRUE);
-			g_free(log);
-			g_free(cvsroot);
-			g_free(cvs_command);
+				gtk_entry_get_text(GTK_ENTRY(releasetag)),
+				log,
+				gtk_combo_box_get_active(GTK_COMBO_BOX(typecombo)),
+				gtk_entry_get_text(GTK_ENTRY(username)),
+				gtk_entry_get_text(GTK_ENTRY(password)), NULL);
+			
 			cvs_data_free(data);
 			gtk_widget_destroy(GTK_WIDGET(dialog));
 			break;
