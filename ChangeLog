@@ -1,10 +1,39 @@
 2004-05-13  Naba Kumar  <naba@gnome.org>
+
+	* plugins/message-view/anjuta-message-manager-plugin.glade:
+	HIG compliant.
+
+	* src/anjuta-actions.h, src/anjuta-app.c, src/anjuta.ui: Fixed toolbar
+	management.
+
+	* pixmaps/anjuta_splash.png: Added border.
 	
-	* libanjuta/anjuta-preferences.c,
-	libanjuta/anjuta-ui.c: Fixed some ref/unref counting bugs.
+	* plugins/editor/anjuta-document-manager.png: New icon.
+	
+	* anjuta.glade, plugins/editor/anjuta-document-manager.glade,
+	plugins/editor/.cvsignore: Moved search dialogs from anjuta.glade.
+	
+	plugins/editor/Makefile.am,
+	plugins/editor/search-replace.c,
+	plugins/editor/search-replace.h,
+	plugins/editor/search-replace_backend.c,
+	plugins/editor/search-replace_backend.h,
+	plugins/editor/search_preferences.h,
+	plugins/editor/search_preferences.c: Merged changes from
+	ANJUTA_1_2_0 branch.
+	
+	* plugins/editor/anjuta-docman.c, plugins/editor/file.c,
+	plugins/editor/plugin.c: Fixed crash bugs. Made toggle editor items
+	operational.
+
+	* plugins/terminal/Makefile.am,
+	plugins/terminal/anjuta-terminal-plugin.glade: Fixed terminal preferences
+	dialog.
+	
+	* src/anjuta-actions.h, src/anjuta-app.c, src/anjuta.ui: Added toolbar
+	submenu.
 
 2004-05-13  Johannes Schmid <jhs@cvs.gnome.org>
-	
 	* plugins/message-view/plugin.c: Fixed glade file loading
 	Removed "Show messages" menu item
 	* src/anjuta-app.c: Fixed crash bug, g_free(filename was called
@@ -17,7 +46,6 @@
 	* plugins/editor/aneditor.cxx: #include "properties_cxx.h"
 
 2004-05-12  Johannes Schmid <jhs@cvs.gnome.org>
-	
 	* plugins/message-view/*: Fixed message view preferences
 	* plugins/message-view/message_prefs.glade: unmerged from anjuta.glade
 	* anjuta.glade: Removed messages stuff

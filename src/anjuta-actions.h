@@ -32,7 +32,8 @@ static GtkActionEntry menu_entries_edit[] = {
 };
 
 static GtkActionEntry menu_entries_view[] = {
-  { "ActionMenuView", NULL, N_("_View")}
+  { "ActionMenuView", NULL, N_("_View")},
+  { "ActionViewToolbars", NULL, N_("_Toolbars")}
 };
 
 static GtkActionEntry menu_entries_settings[] = {

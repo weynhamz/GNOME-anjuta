@@ -1232,14 +1232,14 @@ anjuta_preferences_instance_init (AnjutaPreferences *pr)
 static void
 anjuta_preferences_finalize (GObject *obj)
 {
-	AnjutaPreferences *dlg = ANJUTA_PREFERENCES (obj);	
+	AnjutaPreferences *pr = ANJUTA_PREFERENCES (obj);	
 
 	prop_set_destroy (pr->props_global);
 	prop_set_destroy (pr->props_local);
 	prop_set_destroy (pr->props_session);
 	prop_set_destroy (pr->props);
 	
-	g_free (dlg->priv);
+	g_free (pr->priv);
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (obj));
 }
 

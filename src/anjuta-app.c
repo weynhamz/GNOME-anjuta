@@ -113,7 +113,43 @@ layout_dirty_notify (GObject    *object,
 }
 
 static void
-on_add_merge_widget (GtkWidget *merge, GtkWidget *widget,
+on_toolbar_view_toggled (GtkCheckMenuItem *menuitem, GtkWidget *widget)
+{
+	AnjutaApp *app;
+	BonoboDockItem *dock_item;
+	const gchar *name;
+	gint band;
+	
+	name = gtk_widget_get_name (widget);
+	app = g_object_get_data (G_OBJECT(widget), "app");
+	dock_item = g_object_get_data (G_OBJECT(widget), "dock_item");
+	band = GPOINTER_TO_INT (g_object_get_data (G_OBJECT(widget), "band"));
+	
+	if (gtk_check_menu_item_get_active (menuitem))
+	{
+		if (!dock_item)
+		{
+			/* Widget not yet added to the dock. Add it */
+			gnome_app_add_docked (GNOME_APP (app), widget,
+								  name,
+								  BONOBO_DOCK_ITEM_BEH_NEVER_VERTICAL |
+								  BONOBO_DOCK_ITEM_BEH_NEVER_FLOATING,
+								  BONOBO_DOCK_TOP, band, 0, 0);
+		
+			dock_item = gnome_app_get_dock_item_by_name (GNOME_APP (app),
+														 name);
+			g_object_set_data (G_OBJECT(widget), "dock_item", dock_item);
+		}
+		gtk_widget_show_all (GTK_WIDGET (dock_item));
+	}
+	else if (dock_item)
+	{
+		gtk_widget_hide_all (GTK_WIDGET (dock_item));
+	}
+}
+
+static void
+on_add_merge_widget (GtkUIManager *merge, GtkWidget *widget,
 					 GtkWidget *ui_container)
 {
 #ifdef DEBUG
@@ -127,86 +163,50 @@ on_add_merge_widget (GtkWidget *merge, GtkWidget *widget,
 	}
 	else
 	{
-		static gchar *toolbar_name[] =
-		{
-			ANJUTA_MAIN_TOOLBAR,
-			ANJUTA_BROWSER_TOOLBAR,
-			ANJUTA_EXTENDED_TOOLBAR,
-			ANJUTA_FORMAT_TOOLBAR,
-			ANJUTA_DEBUG_TOOLBAR,
-			NULL,
-		};
-		static gchar *action_name[] =
-		{
-			"ActionViewToolbarMain",
-			"ActionViewToolbarBrowser",
-			"ActionViewToolbarExtended",
-			"ActionViewToolbarFormat",
-			"ActionViewToolbarDebug",
-			NULL,
-		};
 		static gint count = 0;
-		gchar *toolbarname;
-		BonoboDockItem* item;
+		const gchar *toolbarname;
 		gchar* key;
-		PropsID pr;
+		AnjutaPreferences *pr;
 		GtkAction *action;
 		GtkWidget *menuitem;
 		
 		gtk_toolbar_set_icon_size (GTK_TOOLBAR (widget),
 								   GTK_ICON_SIZE_SMALL_TOOLBAR);
 		gtk_toolbar_set_show_arrow (GTK_TOOLBAR (widget), FALSE);
-		if (count < 5)
-		{
-			toolbarname = g_strdup (toolbar_name[count]);
-		}
-		else
-		{
-			toolbarname = g_strdup_printf ("toolbar%d", count + 1);
-		}
+		
+		toolbarname = gtk_widget_get_name (widget);
 		g_message ("Adding toolbar: %s", toolbarname);
-		gnome_app_add_docked (GNOME_APP (ui_container), widget,
-							  toolbarname,
-							  BONOBO_DOCK_ITEM_BEH_NEVER_VERTICAL /*||
-							  BONOBO_DOCK_ITEM_BEH_EXCLUSIVE*/,
-							  BONOBO_DOCK_TOP, count + 1, 0, 0);
+		gtk_widget_show (widget);
+		g_object_set_data (G_OBJECT (widget), "app", ui_container);
+		g_object_set_data (G_OBJECT (widget), "band", GINT_TO_POINTER(count+1));
+		
 		if (!ANJUTA_APP (ui_container)->toolbars_menu)
+		{
 			ANJUTA_APP (ui_container)->toolbars_menu = gtk_menu_new ();
-		menuitem = gtk_menu_item_new_with_label (toolbarname);
+			gtk_widget_show (GTK_WIDGET (ANJUTA_APP (ui_container)->toolbars_menu));
+		}
+		
+		menuitem = gtk_check_menu_item_new_with_label (toolbarname);
 		gtk_menu_append (GTK_MENU (ANJUTA_APP (ui_container)->toolbars_menu),
 						 menuitem);
+		gtk_widget_show (GTK_WIDGET (menuitem));
+		g_signal_connect (G_OBJECT (menuitem), "toggled",
+						  G_CALLBACK (on_toolbar_view_toggled), widget);
+
 		// Show/hide toolbar
-		gtk_widget_show (widget);
-		item = gnome_app_get_dock_item_by_name (GNOME_APP (ui_container),
-												toolbarname);
-		gtk_widget_show (GTK_WIDGET (item));
-		gtk_widget_show (GTK_BIN(item)->child);
-		/*
-		if (count < 5)
+		pr = ANJUTA_PREFERENCES (ANJUTA_APP(ui_container)->preferences);
+		key = g_strconcat (toolbarname, ".visible", NULL);
+		if (anjuta_preferences_get_int_with_default (pr, key,
+													 (count == 0)? 1:0))
 		{
-			pr = ANJUTA_PREFERENCES (ANJUTA_APP(ui_container)->preferences)->props;
-			key = g_strconcat (toolbarname, ".visible", NULL);
-			// action = anjuta_ui_get_action (ANJUTA_APP(ui_container)->ui,
-			//								  "ActionGroupView",
-			//							   action_name[count]);
-			// egg_toggle_action_set_active (EGG_TOGGLE_ACTION (action),
-			//							  prop_get_int (pr, key, 1));
-			g_free (key);
-		} else {
-			gtk_widget_show (GTK_WIDGET (item));
-			gtk_widget_show (GTK_BIN(item)->child);
-		}*/
-		g_free (toolbarname);
+			gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (menuitem),
+											TRUE);
+		}
+		g_free (key);
 		count ++;
 	}
 	//else
 	//	g_warning ("Unknow UI widget: Can not add in container");
-}
-
-static void
-on_remove_merge_widget (GtkWidget *merge, GtkWidget *widget,
-					 GtkWidget *ui_container)
-{
 }
 
 GtkWidget *
@@ -225,8 +225,11 @@ static void
 anjuta_app_instance_init (AnjutaApp *app)
 {
 	gint merge_id;
+	GtkWidget *toolbar_menu;
 
 	g_message ("Initializing Anjuta...");
+	gnome_app_enable_layout_config (GNOME_APP (app), FALSE);
+	
 	app->layout_manager = NULL;
 	app->values = g_hash_table_new (g_str_hash, g_str_equal);
 	app->widgets = g_hash_table_new (g_str_hash, g_str_equal);
@@ -247,10 +250,10 @@ anjuta_app_instance_init (AnjutaApp *app)
 	egg_dock_placeholder_new ("ph_right", EGG_DOCK_OBJECT (app->dock),
 							  EGG_DOCK_RIGHT, FALSE);
 
-	gtk_widget_realize (GTK_WIDGET(app));
+	//gtk_widget_realize (GTK_WIDGET(app));
 	
-	gtk_widget_queue_draw (GTK_WIDGET(app));
-	gtk_widget_queue_resize (GTK_WIDGET(app));
+	//gtk_widget_queue_draw (GTK_WIDGET(app));
+	//gtk_widget_queue_resize (GTK_WIDGET(app));
 	
 	/* Preferencesnces */
 	app->preferences = ANJUTA_PREFERENCES (anjuta_preferences_new ());
@@ -261,13 +264,6 @@ anjuta_app_instance_init (AnjutaApp *app)
 	g_signal_connect (G_OBJECT (app->ui),
 					  "add_widget", G_CALLBACK (on_add_merge_widget),
 					  app);
-	
-	/* FIXME: */
-	/*
-	g_signal_connect (G_OBJECT (app->ui),
-					  "remove_widget", G_CALLBACK (on_remove_merge_widget),
-					  app);
-	*/
 	
 	/* Create stock icons */
 	create_stock_icons (app->ui);
@@ -291,6 +287,16 @@ anjuta_app_instance_init (AnjutaApp *app)
 
 	/* Merge UI */
 	merge_id = anjuta_ui_merge (app->ui, UI_FILE);
+
+	/* create toolbar menus */
+	toolbar_menu =
+		gtk_ui_manager_get_widget (GTK_UI_MANAGER(app->ui),
+								  "/MenuMain/MenuView/Toolbars");
+	if (toolbar_menu)
+		gtk_menu_item_set_submenu (GTK_MENU_ITEM (toolbar_menu),
+								   app->toolbars_menu);
+	else
+		g_warning ("Cannot retrive main menu widget");
 
 	gtk_window_set_transient_for (GTK_WINDOW (app->preferences),
 								  GTK_WINDOW (app));
@@ -576,52 +582,6 @@ anjuta_app_show (GtkWidget *wid)
 
 	//start_with_dialog_show (GTK_WINDOW (app),
 	//						app->preferences, FALSE);
-
-	/* Editor stuffs */
-#if 0 /* FIXME */
-	action = anjuta_ui_get_action (app->ui, "ActionGroupView",
-								   "ActionViewEditorLinenumbers");
-	egg_toggle_action_set_active (EGG_TOGGLE_ACTION (action),
-								  prop_get_int (pr,
-												"margin.linenumber.visible",
-												0));
-	action = anjuta_ui_get_action (app->ui, "ActionGroupView",
-								   "ActionViewEditorMarkers");
-	egg_toggle_action_set_active (EGG_TOGGLE_ACTION (action),
-								  prop_get_int (pr,
-												"margin.marker.visible",
-												0));
-	action = anjuta_ui_get_action (app->ui, "ActionGroupView",
-								   "ActionViewEditorFolds");
-	egg_toggle_action_set_active (EGG_TOGGLE_ACTION (action),
-								  prop_get_int (pr,
-												"margin.fold.visible",
-												0));
-	action = anjuta_ui_get_action (app->ui, "ActionGroupView",
-								   "ActionViewEditorGuides");
-	egg_toggle_action_set_active (EGG_TOGGLE_ACTION (action),
-								  prop_get_int (pr,
-												"view.indentation.guides",
-												0));
-	action = anjuta_ui_get_action (app->ui, "ActionGroupView",
-								   "ActionViewEditorSpaces");
-	egg_toggle_action_set_active (EGG_TOGGLE_ACTION (action),
-								  prop_get_int (pr,
-												"view.whitespace",
-												0));
-	action = anjuta_ui_get_action (app->ui, "ActionGroupView",
-								   "ActionViewEditorEOL");
-	egg_toggle_action_set_active (EGG_TOGGLE_ACTION (action),
-								  prop_get_int (pr,
-												"view.eol",
-												0));
-	action = anjuta_ui_get_action (app->ui, "ActionGroupView",
-								   "ActionViewEditorWrapping");
-	egg_toggle_action_set_active (EGG_TOGGLE_ACTION (action),
-								  prop_get_int (pr,
-												"view.line.wrap",
-												1));
-#endif
 }
 
 static void

@@ -267,7 +267,7 @@ accel_set_func (GtkTreeViewColumn *tree_column,
 }
 
 static void
-tree_view_row_deleted (GtkTreeModel *model, GtkTreePath *path, AnjutaUI *ui)
+tree_store_row_deleted (GtkTreeModel *model, GtkTreePath *path, AnjutaUI *ui)
 {
 	GtkAction *action;
 	GtkTreeIter iter;
@@ -295,16 +295,16 @@ anjuta_ui_dispose (GObject *obj)
 		 * are released irrespective of whether the model is finalized
 		 * or not.
 		 */
-		gtk_tree_model_clear (ui->priv->model);
+		gtk_tree_store_clear (GTK_TREE_STORE (ui->priv->model));
 		
 		g_object_unref (G_OBJECT (ui->priv->model));
 		ui->priv->model = NULL;
 	}
-	if (ui->priv->action_groups)
+	if (ui->priv->actions_hash)
 	{
 		/* This will also release the refs on all action groups */
-		g_hash_table_destroy (ui->priv->action_groups);
-		ui->priv->action_groups = NULL;
+		g_hash_table_destroy (ui->priv->actions_hash);
+		ui->priv->actions_hash = NULL;
 	}
 	if (ui->priv->icon_factory) {
 		g_object_unref (G_OBJECT (ui->priv->icon_factory));
@@ -360,8 +360,8 @@ anjuta_ui_instance_init (AnjutaUI *ui)
 	gtk_tree_sortable_set_sort_column_id (GTK_TREE_SORTABLE(store),
 										  COLUMN_ACTION, GTK_SORT_ASCENDING);
 	
-	g_signal_connect (G_OBJECT (model), "row_deleted",
-					  G_CALLBACK (tree_model_row_deleted), ui);
+	g_signal_connect (G_OBJECT (store), "row_deleted",
+					  G_CALLBACK (tree_store_row_deleted), ui);
 	
 	// unreferenced in dispose() method.
 	ui->priv->model = GTK_TREE_MODEL (store);

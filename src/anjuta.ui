@@ -17,6 +17,7 @@
 			</menu>
 		</menu>
 		<menu name="MenuView" action="ActionMenuView">
+			<menuitem name="Toolbars" action="ActionViewToolbars"/>
 		</menu>
 		<placeholder name="PlaceHolderProjectMenus"/>
 		<placeholder name="PlaceHolderFormatMenus"/>
