@@ -27,17 +27,12 @@ struct _MessageViewPrivate
 
 	GtkWidget *tree_view;
 
+	AnjutaPreferences* prefs;
+	
 	/* Properties */
 	gchar *label;
 
-	gboolean truncate;
-	guint mesg_first;
-	guint mesg_last;
-
 	gboolean highlite;
-	GdkColor color_warning;
-	GdkColor color_error;
-	GdkColor color_message;
 };
 
 enum
@@ -52,15 +47,7 @@ enum
 {
 	MV_PROP_ID = 0,
 	MV_PROP_LABEL,
-
-	MV_PROP_TRUNCATE,
-	MV_PROP_MESG_FIRST,
-	MV_PROP_MESG_LAST,
-
-	MV_PROP_HIGHLITE,
-	MV_PROP_COLOR_WARNING,
-	MV_PROP_COLOR_ERROR,
-	MV_PROP_COLOR_MESSAGE
+	MV_PROP_HIGHLITE
 };
 
 typedef enum
@@ -95,6 +82,7 @@ on_message_event (GObject* object, GdkEvent* event, gpointer data);
 
 /* Tools */
 void add_char(gchar** str, gchar c);
+GdkColor* convert_color(AnjutaPreferences* prefs, const gchar* pref_name);
 
 /* Function to register the message-view object */
 
@@ -109,7 +97,6 @@ message_view_instance_init (MessageView * self)
 	GtkCellRenderer *renderer;
 	GtkTreeViewColumn *column;
 	GtkTreeSelection *select;
-	GdkColor black;
 
 	g_return_if_fail(self != NULL);
 	self->privat = g_new0 (MessageViewPrivate, 1);
@@ -117,14 +104,6 @@ message_view_instance_init (MessageView * self)
 	/* Init private data */
 	self->privat->num_messages = 0;
 	self->privat->line_buffer = g_strdup("");
-
-	/* Init colors */
-	if (!gdk_color_parse ("black", &black))
-		g_warning ("Error setting default color");
-	self->privat->color_warning = black;
-	self->privat->color_error = black;
-	self->privat->color_message = black;
-
 
 	/* Create the tree widget */
 	self->privat->tree_view =
@@ -172,15 +151,7 @@ static void
 message_view_class_init (MessageViewClass * klass)
 {
 	GParamSpec *message_view_spec_label;
-
-	GParamSpec *message_view_spec_truncate;
-	GParamSpec *message_view_spec_mesg_first;
-	GParamSpec *message_view_spec_mesg_last;
-
 	GParamSpec *message_view_spec_highlite;
-	GParamSpec *message_view_spec_color_warning;
-	GParamSpec *message_view_spec_color_error;
-	GParamSpec *message_view_spec_color_message;
 	
 	GType paramter[1] = { G_TYPE_STRING };
 	GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
@@ -206,38 +177,6 @@ message_view_class_init (MessageViewClass * klass)
 					 MV_PROP_LABEL,
 					 message_view_spec_label);
 
-	message_view_spec_truncate = g_param_spec_boolean ("truncate",
-							   "Truncate messages",
-							   "If TRUE, specify mesg_first/last",
-							   FALSE,
-							   G_PARAM_READWRITE);
-	g_object_class_install_property (gobject_class,
-					 MV_PROP_TRUNCATE,
-					 message_view_spec_truncate);
-
-	message_view_spec_mesg_first = g_param_spec_uint ("mesg_first",
-							  "Used by truncate",
-							  "Show first n chars",
-							  0 /* minimum */ ,
-							  -1 /* maximum */ ,
-							  0
-							  /* default value */
-							  ,
-							  G_PARAM_READWRITE);
-	g_object_class_install_property (gobject_class, MV_PROP_MESG_FIRST,
-					 message_view_spec_mesg_first);
-
-	message_view_spec_mesg_last = g_param_spec_uint ("mesg_last",
-							 "Used by truncate",
-							 "Show last n chars",
-							 0 /* minimum */ ,
-							 -1 /* maximum */ ,
-							 0	/* default value */
-							 , G_PARAM_READWRITE);
-	g_object_class_install_property (gobject_class,
-					 MV_PROP_MESG_LAST,
-					 message_view_spec_mesg_last);
-
 	message_view_spec_highlite = g_param_spec_boolean ("highlite",
 							   "Highlite build messages",
 							   "If TRUE, specify colors",
@@ -247,34 +186,16 @@ message_view_class_init (MessageViewClass * klass)
 					 MV_PROP_HIGHLITE,
 					 message_view_spec_highlite);
 
-	message_view_spec_color_warning =
-		g_param_spec_pointer ("color_warning", "Color for warnings",
-				      "Unused if highlite = FALSE",
-				      G_PARAM_READWRITE);
-	g_object_class_install_property (gobject_class, MV_PROP_COLOR_WARNING,
-					 message_view_spec_color_warning);
-
-	message_view_spec_color_error =
-		g_param_spec_pointer ("color_error", "Color for errors",
-				      "Unused if highlite = FALSE",
-				      G_PARAM_READWRITE);
-	g_object_class_install_property (gobject_class, MV_PROP_COLOR_WARNING,
-					 message_view_spec_color_error);
-
-	message_view_spec_color_message =
-		g_param_spec_pointer ("color_message", "Color for messages",
-				      "Unused if highlite = FALSE",
-				      G_PARAM_READWRITE);
-	g_object_class_install_property (gobject_class, MV_PROP_COLOR_WARNING,
-					 message_view_spec_color_message);
 }
 
 /* Returns a new message-view instance */
 
 GtkWidget *
-message_view_new ()
+message_view_new (AnjutaPreferences* prefs)
 {
-	return GTK_WIDGET (g_object_new (message_view_get_type (), NULL));
+	MessageView * mv = MESSAGE_VIEW (g_object_new (message_view_get_type (), NULL));
+	mv->privat->prefs = prefs;
+	return GTK_WIDGET(mv);
 }
 
 /* Adds a message to the message-view. 
@@ -302,7 +223,7 @@ message_view_append (MessageView * view, const gchar * message)
 		}
 		else
 		{
-			GdkColor color;
+			GdkColor* color;
 			GtkListStore *store;
 			GtkTreeIter iter;
 			
@@ -312,13 +233,13 @@ message_view_append (MessageView * view, const gchar * message)
 
 			gchar* line;
 			
-			/* Truncate Message */
-			g_object_get (G_OBJECT (view), "truncate",
-				      &truncat_mesg, NULL);
-			g_object_get (G_OBJECT (view), "mesg_first",
-				      &mesg_first, NULL);
-			g_object_get (G_OBJECT (view), "mesg_last",
-				      &mesg_last, NULL);
+			/* Truncate Message */			
+			truncat_mesg = anjuta_preferences_get_int(view->privat->prefs, "truncat.messages");
+			if (truncat_mesg)
+			{ 
+				mesg_first = anjuta_preferences_get_int(view->privat->prefs, "truncat.mesg.first");
+				mesg_last = anjuta_preferences_get_int(view->privat->prefs, "truncat.mesg.last");
+			}
 
 			if (truncat_mesg == TRUE
 			    && strlen(view->privat->line_buffer) >=
@@ -346,17 +267,18 @@ message_view_append (MessageView * view, const gchar * message)
 				line = g_strdup(view->privat->line_buffer);
 			}
 			
-			color = view->privat->color_message;
 			g_object_get (G_OBJECT (view), "highlite", &highlite);
 			if (highlite)
 			{
-				if (strstr (line, _("error:")))
-					color = view->privat->color_error;
+				if (strstr (line, _("error:")))				
+					color = convert_color(view->privat->prefs, "messages.color.error");
 				else if (strstr (line, _("warning:")))
 				{
-					color = view->privat->color_warning;
+					color = convert_color(view->privat->prefs, "messages.color.warning");
 				}
 			}
+			else
+				color = convert_color(view->privat->prefs, "messages.color.message1");
 
 			/* Add the message to the tree */
 			store = GTK_LIST_STORE (gtk_tree_view_get_model
@@ -372,9 +294,13 @@ message_view_append (MessageView * view, const gchar * message)
 						     G_NORMALIZE_DEFAULT_COMPOSE);
 			gtk_list_store_set (store, &iter,
 					    COLUMN_MESSAGES, utf8_msg,
-					    COLUMN_COLOR, &color,
+					    COLUMN_COLOR, color,
 					    COLUMN_LINE,
 					    view->privat->num_messages, -1);
+			/* 
+				Can we free the color when it's in the tree_view?
+				g_free (color)
+			*/
 			g_free (utf8_msg);
 			view->privat->num_messages++;
 			
@@ -390,8 +316,6 @@ message_view_set_property (GObject * object,
 			   const GValue * value, GParamSpec * pspec)
 {
 	MessageView *self = MESSAGE_VIEW (object);
-	GdkColor *color;
-	
 	g_return_if_fail(value != NULL);
 	g_return_if_fail(pspec != NULL);
 	
@@ -403,42 +327,9 @@ message_view_set_property (GObject * object,
 		self->privat->label = g_value_dup_string (value);
 		break;
 	}
-	case MV_PROP_TRUNCATE:
-	{
-		self->privat->truncate = g_value_get_boolean (value);
-		break;
-	}
-	case MV_PROP_MESG_FIRST:
-	{
-		self->privat->mesg_first = g_value_get_uint (value);
-		break;
-	}
-	case MV_PROP_MESG_LAST:
-	{
-		self->privat->mesg_last = g_value_get_uint (value);
-		break;
-	}
 	case MV_PROP_HIGHLITE:
 	{
 		self->privat->highlite = g_value_get_boolean (value);
-		break;
-	}
-	case MV_PROP_COLOR_WARNING:
-	{
-		color = (GdkColor *) g_value_get_pointer (value);
-		self->privat->color_warning = *color;
-		break;
-	}
-	case MV_PROP_COLOR_ERROR:
-	{
-		color = (GdkColor *) g_value_get_pointer (value);
-		self->privat->color_error = *color;
-		break;
-	}
-	case MV_PROP_COLOR_MESSAGE:
-	{
-		color = (GdkColor *) g_value_get_pointer (value);
-		self->privat->color_message = *color;
 		break;
 	}
 	default:
@@ -463,55 +354,21 @@ message_view_get_property (GObject * object,
 	
 	switch (property_id)
 	{
-	case MV_PROP_LABEL:
-	{
-		g_value_set_string (value, self->privat->label);
-		break;
-	}
-	case MV_PROP_TRUNCATE:
-	{
-		g_value_set_boolean (value, self->privat->truncate);
-		break;
-	}
-	case MV_PROP_MESG_FIRST:
-	{
-		g_value_set_uint (value, self->privat->mesg_first);
-		break;
-	}
-	case MV_PROP_MESG_LAST:
-	{
-		g_value_set_uint (value, self->privat->mesg_last);
-		break;
-	}
-	case MV_PROP_HIGHLITE:
-	{
-		g_value_set_boolean (value, self->privat->highlite);
-		break;
-	}
-#warning "Color properties need fixing"
-		/* The code below does not work. Please fix it if you are a
-		 * GTK+ guru.
-	case MV_PROP_COLOR_WARNING:
-	{
-		g_value_set_pointer (value, &self->privat->color_warning);
-		break;
-	}
-	case MV_PROP_COLOR_ERROR:
-	{
-		g_value_set_pointer (value, &self->privat->color_error);
-		break;
-	}
-	case MV_PROP_COLOR_MESSAGE:
-	{
-		g_value_set_pointer (value, &self->privat->color_message);
-		break;
-	}
-	*/
-	default:
-	{
-		g_assert ("Unknown property");
-		break;
-	}
+		case MV_PROP_LABEL:
+		{
+			g_value_set_string (value, self->privat->label);
+			break;
+		}
+		case MV_PROP_HIGHLITE:
+		{
+			g_value_set_boolean (value, self->privat->highlite);
+			break;
+		}
+		default:
+		{
+			g_assert ("Unknown property");
+			break;
+		}
 	}
 }
 
@@ -754,6 +611,26 @@ void add_char(gchar** str, gchar c)
 	buffer = g_strdup_printf("%s%c", *str, c);
 	g_free(str);
 	str = &buffer;
+}
+
+/* Get a GdkColor from preferences. Free the color with gfree() */
+
+GdkColor* convert_color(AnjutaPreferences* prefs, const gchar* pref_name)
+{
+	guint8 r, g, b;
+	guint factor = ((guint16) -1) / ((guint8) -1);
+	char* color;
+	GdkColor* gdkcolor = g_new0(GdkColor, 1);
+	color = anjuta_preferences_get(prefs, pref_name);
+	if (color)
+	{
+		anjuta_util_color_from_string (color, &r, &g, &b);
+		gdkcolor->pixel = 0;
+		gdkcolor->red = r * factor;
+		gdkcolor->green = g * factor;
+		gdkcolor->blue = b * factor;
+		g_free(color);
+	}
 }
 
 /*

@@ -1,3 +1,7 @@
+# Plugin glade file
+anjuta_gladedir = $(prefix)/@NO_PREFIX_PACKAGE_DATA_DIR@/glade
+anjuta_glade_DATA =  anjuta-message-manager-plugin.glade
+
 plugin_icondir = $(prefix)/@NO_PREFIX_PACKAGE_PIXMAPS_DIR@
 plugin_icon_DATA = anjuta-message-view.png
 

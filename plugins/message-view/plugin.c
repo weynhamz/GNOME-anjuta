@@ -26,6 +26,8 @@
 #include "anjuta-msgman.h"
 
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-message-manager.ui"
+#define PREFS_GLADE PACKAGE_DATA_DIR"/glade/anjuta-message-manager-plugin.glade"
+#define ICON_FILE "preferences-messages.png"
 
 static void on_next_message(GtkAction* menuitem, MessageViewPlugin *plugin)
 {
@@ -70,6 +72,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	AnjutaPreferences *prefs;
 	MessageViewPlugin *mv_plugin;
 	GtkWidget* msgman;
+	GladeXML *gxml;
 	
 	g_message ("MessageViewPlugin: Activating MessageView plugin ...");
 	mv_plugin = (MessageViewPlugin*) plugin;
@@ -87,6 +90,12 @@ activate_plugin (AnjutaPlugin *plugin)
 										_("View Messages"),
 										actions_view,
 										G_N_ELEMENTS (actions_view), plugin);
+
+	/* Create the terminal preferences page */
+	gxml = glade_xml_new (PREFS_GLADE, "preferences_dialog_messages", NULL);
+	anjuta_preferences_add_page (prefs, gxml,
+								"Message Manager", ICON_FILE);
+	g_object_unref (gxml);
 	
 	mv_plugin->uiid = anjuta_ui_merge (ui, UI_FILE);
 	anjuta_shell_add_widget (plugin->shell, msgman,

@@ -114,7 +114,10 @@ anjuta_msgman_new (AnjutaPreferences *pref)
 	GtkWidget *msgman = NULL;
 	msgman = gtk_widget_new (ANJUTA_TYPE_MSGMAN, NULL);
 	if (msgman)
+	{
 	    ANJUTA_MSGMAN (msgman)->priv->preferences = pref;
+#warning "TODO: Set tab position"
+	}
 	return msgman;
 }
 
@@ -148,7 +151,7 @@ anjuta_msgman_add_view (AnjutaMsgman * msgman,
 	GtkWidget *mv;
 	AnjutaMsgmanPage *page;
 
-	mv = message_view_new ();
+	mv = message_view_new (msgman->priv->preferences);
 	g_return_val_if_fail (mv != NULL, NULL);
 	page = anjuta_msgman_page_new (mv, name, pixmap);
 

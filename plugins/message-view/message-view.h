@@ -19,6 +19,7 @@
 #define MESSAGE_VIEW_H
 
 #include <gnome.h>
+#include <libanjuta/anjuta-preferences.h>
 
 /* Message View Properties:
 Property |				Description
@@ -26,15 +27,7 @@ Property |				Description
 "label"			(gchararray) The label of the view, can be translated
 
 "truncate"		(gboolean) Truncate messages
-"mesg_first"	(guint) Trucate after n chars, ignored if 
-				trucate == FALSE
-"mesg_last"		(guint) Show the last n chars, ignroed if0
-				truncate == FALSE
-
 "highlight"		(gboolean) Highlite error messages
-"color_warning"	(GdkColor) Color to highlite warnings
-"color_error"	(GdkColor) Color to highlite errors
-"color_message" (GdkColor) Color to highlite program output
 */
 
 G_BEGIN_DECLS
@@ -66,7 +59,7 @@ struct _MessageViewClass
 };	
 
 GType message_view_get_type (void);
-GtkWidget* message_view_new (void);
+GtkWidget* message_view_new (AnjutaPreferences* prefs);
 
 void message_view_append (MessageView* view, const gchar* message); 
 
