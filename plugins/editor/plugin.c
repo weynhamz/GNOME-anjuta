@@ -890,6 +890,24 @@ editor_plugin_class_init (GObjectClass *klass)
 }
 
 /* Implement IAnjutaDocumentManager interfaces */
+static const gchar *
+ianjuta_docman_get_full_filename (IAnjutaDocumentManager *plugin,
+		const gchar *file, GError **e)
+{
+	AnjutaDocman *docman = ANJUTA_DOCMAN ((((EditorPlugin*)plugin)->docman));
+	return anjuta_docman_get_full_filename (ANJUTA_DOCMAN (docman), file);
+}
+
+static IAnjutaEditor*
+ianjuta_docman_find_editor_with_path (IAnjutaDocumentManager *plugin,
+		const gchar *file_path, GError **e)
+{
+	TextEditor *te;
+	AnjutaDocman *docman = ANJUTA_DOCMAN ((((EditorPlugin*)plugin)->docman));
+	te = anjuta_docman_find_editor_with_path (ANJUTA_DOCMAN (docman), file_path);
+	return IANJUTA_EDITOR (te);
+}
+
 static IAnjutaEditor*
 ianjuta_docman_get_current_editor (IAnjutaDocumentManager *plugin, GError **e)
 {
@@ -903,7 +921,6 @@ static void
 ianjuta_docman_set_current_editor (IAnjutaDocumentManager *plugin,
 								   IAnjutaEditor *editor, GError **e)
 {
-
 	AnjutaDocman *docman = ANJUTA_DOCMAN ((((EditorPlugin*)plugin)->docman));
 	anjuta_docman_set_current_editor (ANJUTA_DOCMAN (docman),
 									  TEXT_EDITOR (editor));
@@ -928,6 +945,23 @@ ianjuta_docman_goto_file_line (IAnjutaDocumentManager *plugin,
 	anjuta_docman_goto_file_line (docman, uri, linenum);
 }
 
+static void
+ianjuta_docman_goto_file_line_mark (IAnjutaDocumentManager *plugin,
+		const gchar *uri, gint linenum, gboolean mark, GError **e)
+{
+	AnjutaDocman *docman;
+	docman = ANJUTA_DOCMAN ((((EditorPlugin*)plugin)->docman));
+	anjuta_docman_goto_file_line_mark (docman, uri, linenum, mark);
+}
+
+static void
+ianjuta_docman_delete_all_markers (IAnjutaDocumentManager *plugin,
+		gint marker, GError **e)
+{
+	AnjutaDocman *docman = ANJUTA_DOCMAN ((((EditorPlugin*)plugin)->docman));
+	anjuta_docman_delete_all_markers (docman, marker);
+}
+
 static IAnjutaEditor*
 ianjuta_docman_add_buffer (IAnjutaDocumentManager *plugin,
 						   const gchar *filename, const gchar *content,
@@ -945,10 +979,14 @@ ianjuta_docman_add_buffer (IAnjutaDocumentManager *plugin,
 static void
 ianjuta_document_manager_iface_init (IAnjutaDocumentManagerIface *iface)
 {
+	iface->get_full_filename = ianjuta_docman_get_full_filename;
+	iface->find_editor_with_path = ianjuta_docman_find_editor_with_path;
 	iface->get_current_editor = ianjuta_docman_get_current_editor;
 	iface->set_current_editor = ianjuta_docman_set_current_editor;
 	iface->get_editors = ianjuta_docman_get_editors;
 	iface->goto_file_line = ianjuta_docman_goto_file_line;
+	iface->goto_file_line_mark = ianjuta_docman_goto_file_line_mark;
+	iface->delete_all_markers = ianjuta_docman_delete_all_markers;
 	iface->add_buffer = ianjuta_docman_add_buffer;
 }
 

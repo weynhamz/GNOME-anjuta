@@ -1927,6 +1927,20 @@ itext_editor_is_marker_set (IAnjutaEditor *editor, gint lineno, gint marker,
 	return text_editor_is_marker_set (TEXT_EDITOR (editor), lineno, marker);
 }
 
+static gint
+itext_editor_set_marker (IAnjutaEditor *editor, gint lineno, gint marker,
+		GError **e)
+{
+	return text_editor_set_marker (TEXT_EDITOR (editor), lineno, marker);
+}
+
+static void
+itext_editor_delete_marker (IAnjutaEditor *editor, gint lineno, gint marker,
+		GError **e)
+{
+	text_editor_delete_marker (TEXT_EDITOR (editor), lineno, marker);
+}
+
 static const gchar *
 itext_editor_get_filename (IAnjutaEditor *editor, GError **e)
 {
@@ -1948,6 +1962,8 @@ itext_editor_iface_init (IAnjutaEditorIface *iface)
 	iface->get_current_word = itext_editor_get_current_word;
 	iface->insert = itext_editor_insert;
 	iface->is_marker_set = itext_editor_is_marker_set;
+	iface->set_marker = itext_editor_set_marker;
+	iface->delete_marker = itext_editor_delete_marker;
 	iface->get_filename = itext_editor_get_filename;
 }
 

@@ -32,10 +32,11 @@
 
 static gpointer parent_class;
 
-/* TODO: don't know ho to avoid having some global variables (we no more have
-access to the global app object) */
-
 static const gchar * MESSAGE_VIEW_TITLE = N_("Debug");
+
+/* TODO: don't know how to avoid having some global variables and functions
+(we no more have access to the global app object) */
+
 static GdbPlugin *gdb_plugin = NULL;
 
 
@@ -57,26 +58,9 @@ append_message (const gchar* message)
 	message_view = ianjuta_message_manager_get_view_by_name (
 			message_manager, MESSAGE_VIEW_TITLE, NULL);
 
+	/* TODO: support for other message types than INFO */
 	ianjuta_message_view_append (message_view, IANJUTA_MESSAGE_VIEW_TYPE_INFO,
 			message, "", NULL);
-}
-
-
-IAnjutaDocumentManager *
-gdb_get_document_manager (void)
-{
-	GObject *obj = anjuta_shell_get_object (ANJUTA_PLUGIN (gdb_plugin)->shell,
-			"IAnjutaDocumentManager", NULL);
-	return IANJUTA_DOCUMENT_MANAGER (obj);
-}
-
-
-void
-gdb_goto_file_line (const gchar *filename, gint lineno)
-{
-	IAnjutaDocumentManager *docman = gdb_get_document_manager ();
-	ianjuta_document_manager_goto_file_line (docman, filename, lineno,
-			NULL /* TODO */);
 }
 
 
@@ -120,6 +104,15 @@ clear_messages (void)
 }
 
 
+IAnjutaDocumentManager *
+gdb_get_document_manager (void)
+{
+	GObject *obj = anjuta_shell_get_object (ANJUTA_PLUGIN (gdb_plugin)->shell,
+			"IAnjutaDocumentManager", NULL);
+	return IANJUTA_DOCUMENT_MANAGER (obj);
+}
+
+
 AnjutaLauncher *
 get_launcher (void)
 {
@@ -153,6 +146,7 @@ static void
 on_debug_mesg_clicked (IAnjutaMessageView* view, const gchar* line,
 		AnjutaPlugin* plugin)
 {
+	/* TODO */
 }
 
 

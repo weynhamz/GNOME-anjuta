@@ -33,7 +33,6 @@
 /* TODO #include "anjuta.h" */
 #include "breakpoints.h"
 #include "utilities.h"
-/* TODO #include "fileselection.h" */
 /* TODO #include "controls.h" */
 #include "utilities.h"
 #include "debugger.h"
@@ -171,10 +170,8 @@ enable_all_breakpoints (BreakpointsDBase* bd)
 		return;
 	debugger_put_cmd_in_queqe ("enable breakpoints", DB_CMD_ALL,
 	                           breakpoints_info, bd);
-/* TODO
-	an_message_manager_append (app->messages, _("All breakpoints enabled:\n"),
-	                           MESSAGE_DEBUG); debugger_execute_cmd_in_queqe ();
-*/
+	append_message (_("All breakpoints enabled:"));
+	debugger_execute_cmd_in_queqe ();
 }
 
 void
@@ -191,10 +188,8 @@ disable_all_breakpoints (BreakpointsDBase* bd)
 		return;
 	debugger_put_cmd_in_queqe ("disable breakpoints", DB_CMD_ALL,
 	                           breakpoints_info, bd);
-/* TODO
-	an_message_manager_append (app->messages, _("All breakpoints disabled:\n"),
-	                           MESSAGE_DEBUG); debugger_execute_cmd_in_queqe ();
-*/
+	append_message (_("All breakpoints disabled:"));
+	debugger_execute_cmd_in_queqe ();
 }
 
 void
@@ -494,6 +489,7 @@ on_bk_jumpto_clicked (GtkWidget *button, gpointer   data)
 	GtkTreeSelection *selection;
 	GtkTreeIter iter;
 	gboolean valid;
+	IAnjutaDocumentManager *docman;
 
 	bd = (BreakpointsDBase *) data;
 
@@ -505,7 +501,9 @@ on_bk_jumpto_clicked (GtkWidget *button, gpointer   data)
 		BreakpointItem *bi;
 		gtk_tree_model_get (model, &iter, DATA_COLUMN, &bi, -1);
 		breakpoints_dbase_hide (bd);
-/* TODO		anjuta_goto_file_line (bi->file, bi->line); */
+		docman = gdb_get_document_manager ();
+		ianjuta_document_manager_goto_file_line (docman, bi->file, bi->line,
+			NULL /* TODO */);
 	}
 }
 
@@ -561,6 +559,8 @@ bk_item_add_mesg_arrived (GList * lines, gpointer data)
 {
 	BreakpointItem *bid;
 	GList *outputs;
+	IAnjutaDocumentManager *docman;
+	gchar *full_filename;
 
 	bid = (BreakpointItem*) data;
 	outputs = remove_blank_lines (lines);
@@ -583,7 +583,11 @@ bk_item_add_mesg_arrived (GList * lines, gpointer data)
 		if (strlen(file))
 			file[strlen(file)-1] = '\0';
 
-/* TODO		anjuta_goto_file_line_mark (file, line, FALSE); */
+		docman = gdb_get_document_manager ();
+		full_filename = ianjuta_document_manager_get_full_filename (docman,
+				file, NULL /* TODO */);
+		ianjuta_document_manager_goto_file_line_mark (docman, full_filename,
+				line, FALSE, NULL /* TODO */);
 		
 		if (bid == NULL)
 			goto down_label;
@@ -1129,6 +1133,7 @@ experimental_not_use_breakpoints_dbase_toggle_breakpoint (BreakpointsDBase* b)
 void
 breakpoints_dbase_clear (BreakpointsDBase *bd)
 {
+	IAnjutaDocumentManager *docman;
 	g_return_if_fail (bd != NULL);
 
 	breakpoints_dbase_delete_all_breakpoints (bd);
@@ -1137,10 +1142,11 @@ breakpoints_dbase_clear (BreakpointsDBase *bd)
 			gtk_tree_view_get_model (GTK_TREE_VIEW (bd->priv->treeview));
 		gtk_tree_store_clear (GTK_TREE_STORE (model));
 	}
-/* TODO
-	anjuta_delete_all_marker (BREAKPOINTS_MARKER);
-	anjuta_delete_all_marker (BREAKPOINTS_MARKER_DISABLE);
-*/
+
+	docman = gdb_get_document_manager ();
+	/* TODO: error handling */
+	ianjuta_document_manager_delete_all_markers (docman, BREAKPOINTS_MARKER, NULL);
+	ianjuta_document_manager_delete_all_markers (docman, BREAKPOINTS_MARKER_DISABLE, NULL);
 }
 
 static void
@@ -1246,9 +1252,11 @@ breakpoints_dbase_set_from_item (BreakpointsDBase *bd, BreakpointItem *bi,
 	gchar *fn, *buff;
 	gboolean disable, old;
 	gint ret;
+	IAnjutaDocumentManager *docman;
 	
 	old = disable = FALSE;
-/* TODO	fn = anjuta_get_full_filename (bi->file); */
+	docman = gdb_get_document_manager ();
+	fn = ianjuta_document_manager_get_full_filename (docman, bi->file, NULL /* TODO */);
 	ret = stat (fn, &st);
 	g_free (fn);
 	if (ret != 0)
@@ -1401,6 +1409,8 @@ breakpoints_dbase_add_brkpnt (BreakpointsDBase *bd, gchar *brkpnt)
 	gchar cond[512];
 	gchar *ptr;
 	glong count;
+	IAnjutaDocumentManager *docman = NULL;
+	IAnjutaEditor *ed = NULL;
 
 	g_return_if_fail (bd != NULL);
 
@@ -1479,49 +1489,40 @@ breakpoints_dbase_add_brkpnt (BreakpointsDBase *bd, gchar *brkpnt)
 			bi->condition = NULL;
 		}
 
-/*		full_fname = anjuta_get_full_filename (bi->file); */
-
-/* TODO
-		for (node = app->text_editor_list; node; node = g_list_next (node))
+		docman = gdb_get_document_manager ();
+		full_fname = ianjuta_document_manager_get_full_filename (docman,
+				bi->file, NULL /* TODO */);
+		ed = ianjuta_document_manager_find_editor_with_path (docman, full_fname,
+				NULL /* TODO */);
+		if (ed != NULL)
 		{
-			TextEditor* te;
-
-			te = node->data;
-
-			if (te->full_filename == NULL)
+			if (! ianjuta_editor_is_marker_set (ed, bi->line,
+					BREAKPOINTS_MARKER, NULL /* TODO */))
 			{
-				node = g_list_next (node);
-				continue;
-			}
-
-			if (strcmp (te->filename, bi->file) == 0)
-			{
-				if (!text_editor_is_marker_set(te, bi->line,
-											   BREAKPOINTS_MARKER))
+				if (bi->enable)
 				{
-					if (bi->enable)
-					{	
-						if (text_editor_is_marker_set(te, bi->line,
-												BREAKPOINTS_MARKER_DISABLE))						
-							text_editor_delete_marker (te, bi->line,
-												BREAKPOINTS_MARKER_DISABLE);
-						
-						bi->handle = text_editor_set_marker (te, bi->line,
-													 BREAKPOINTS_MARKER);
-					}
-					else
+					if (ianjuta_editor_is_marker_set (ed, bi->line,
+							BREAKPOINTS_MARKER_DISABLE, NULL /* TODO */))
 					{
-						if (!text_editor_is_marker_set(te, bi->line,
-													BREAKPOINTS_MARKER_DISABLE))
-							bi->handle = text_editor_set_marker (te, bi->line,
-													BREAKPOINTS_MARKER_DISABLE);		
+						ianjuta_editor_delete_marker (ed, bi->line,
+								BREAKPOINTS_MARKER_DISABLE, NULL /* TODO */);
+					}
+
+					bi->handle = ianjuta_editor_set_marker (ed, bi->line,
+							BREAKPOINTS_MARKER, NULL /* TODO */);
+				}
+				else
+				{
+					if (! ianjuta_editor_is_marker_set (ed, bi->line,
+							BREAKPOINTS_MARKER_DISABLE, NULL /* TODO */))
+					{
+						bi->handle = ianjuta_editor_set_marker (ed, bi->line,
+								BREAKPOINTS_MARKER_DISABLE, NULL /* TODO */);
 					}
 				}
-				bi->handle_invalid = FALSE;
-				break;
 			}
+			bi->handle_invalid = FALSE;
 		}
-*/
 
 		if (full_fname)
 			g_free (full_fname);
@@ -1633,16 +1634,16 @@ on_delete_matching_foreach (GtkTreeModel *model, GtkTreePath *path,
 	if (item->handle_invalid)
 		return FALSE;
 
-	filename = itext_editor_get_filename (te, NULL /* TODO */);
+	filename = ianjuta_editor_get_filename (te, NULL /* TODO */);
 	if (strcmp (filename, item->file) != 0)
 		return FALSE;
-	line = itext_editor_get_lineno (te, NULL /* TODO */);
+	line = ianjuta_editor_get_lineno (te, NULL /* TODO */);
 // TODO:	moved_line = text_editor_line_from_handle(te, item->handle);
 	//if (moved_line == line && moved_line >= 0)
 	if (item->line == line && item->line >= 0)
 	{
-		 //delete breakpoint marker from screen
-// TODO:		text_editor_delete_marker (te, line, BREAKPOINTS_MARKER);
+		// delete breakpoint marker from screen
+		ianjuta_editor_delete_marker (te, line, BREAKPOINTS_MARKER, NULL /* TODO */);
 		// delete breakpoint in debugger
 		delete_breakpoint (item->id, bd, FALSE);
 	}
@@ -1673,15 +1674,15 @@ breakpoints_dbase_toggle_breakpoint (BreakpointsDBase *bd, guint l)
 	g_return_val_if_fail (te != NULL, FALSE);
 	
 	if (l == 0)
-		line = itext_editor_get_lineno (te, NULL /* TODO */);
+		line = ianjuta_editor_get_lineno (te, NULL /* TODO */);
 	else
 	{
 		line = l;
-		itext_editor_goto_line_ex (te, line, FALSE, TRUE, NULL /* TODO */);
+		ianjuta_editor_goto_line_ex (te, line, FALSE, TRUE, NULL /* TODO */);
 	}
 	/* Is breakpoint set? */
-	if (itext_editor_is_marker_set (te, line, BREAKPOINTS_MARKER, NULL /* TODO */) ||
-		itext_editor_is_marker_set (te, line, BREAKPOINTS_MARKER_DISABLE, NULL /* TODO */))
+	if (ianjuta_editor_is_marker_set (te, line, BREAKPOINTS_MARKER, NULL /* TODO */) ||
+		ianjuta_editor_is_marker_set (te, line, BREAKPOINTS_MARKER_DISABLE, NULL /* TODO */))
 	{
 		/* Breakpoint is set. So, delete it. */
 		GtkTreeModel *model;
@@ -1698,7 +1699,7 @@ breakpoints_dbase_toggle_breakpoint (BreakpointsDBase *bd, guint l)
 	bid->pass = 0;
 	bid->bd = bd;
 
-	filename = itext_editor_get_filename (te, NULL /* TODO */);
+	filename = ianjuta_editor_get_filename (te, NULL /* TODO */);
 	buff = g_strdup_printf ("break %s:%d", filename, line);
 	debugger_put_cmd_in_queqe (buff, DB_CMD_ALL,
 							   bk_item_add_mesg_arrived,

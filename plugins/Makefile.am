@@ -5,7 +5,6 @@ SUBDIRS = . \
 	gtodo \
 	message-view \
 	editor \
-	gdb \
 	devhelp \
 	file-manager \
 	terminal \
@@ -16,7 +15,9 @@ SUBDIRS = . \
 	project-manager \
 	project-manager \
 	symbol-browser
-#	sample1
+	gdb \
+	debug-manger \
+	sample1
 #	cvs-plugin
 
 ## This a temporary measure to insure anjuta does not crash due to old plugin.

@@ -25,7 +25,6 @@ void show_messages (void);
 void clear_messages (void);
 
 AnjutaLauncher * get_launcher (void);
-void gdb_goto_file_line (const gchar *filename, gint lineno);
 IAnjutaDocumentManager * gdb_get_document_manager (void);
 void gdb_add_widget (GtkWidget *w, const gchar *name, const gchar* title,
 		const gchar *icon);

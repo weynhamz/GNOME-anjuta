@@ -357,7 +357,7 @@ interface IAnjutaEditor
 	void   goto_line (gint lineno);
 
 	/**
-	 * itext_editor_goto_line_ex:
+	 * ianjuta_editor_goto_line_ex:
 	 * @obj: Self
 	 * @lineno: Number of line to go to
 	 * @mark: Specifies whether the line will be marked
@@ -378,7 +378,7 @@ interface IAnjutaEditor
 	gint   get_position ();
 
 	/**
-	 * itext_editor_get_lineno:
+	 * ianjuta_editor_get_lineno:
 	 * @obj: Self
 	 * @err: Error propagation and reporting
 	 *
@@ -392,7 +392,7 @@ interface IAnjutaEditor
 	gchar* get_current_word ();
 
 	/**
-	 * itext_editor_is_marker_set:
+	 * ianjuta_editor_is_marker_set:
 	 * @obj: Self
 	 * @lineno: Number of line which will be checked for the marker
 	 * @marker: Type of the marker
@@ -404,8 +404,11 @@ interface IAnjutaEditor
 	 */
 	gboolean is_marker_set (gint lineno, gint marker);
 
+	gint set_marker (gint lineno, gint marker);
+	void delete_marker (gint lineno, gint marker);
+
 	/**
-	 * itext_editor_get_filename:
+	 * ianjuta_editor_get_filename:
 	 * @obj: Self
 	 * @err: Error propagation and reporting
 	 *
@@ -413,7 +416,7 @@ interface IAnjutaEditor
 	 *
 	 * Return value: The name of the file. Not to be freed by caller.
 	 */
-	gchar * get_filename ();
+	const gchar * get_filename ();
 }
 
 interface IAnjutaDocumentManager
@@ -424,12 +427,17 @@ interface IAnjutaDocumentManager
 	{
 		DOESNT_EXIST
 	}
-	
+
+	const gchar *get_full_filename (const gchar *file);
+	IAnjutaEditor* find_editor_with_path (const gchar *file_path);
 	void goto_file_line (const gchar *file, gint lineno);
+	void goto_file_line_mark (const gchar *file, gint lineno, gboolean mark);
 	IAnjutaEditor* get_current_editor ();
 	void set_current_editor (IAnjutaEditor *editor);
 	GList* get_editors ();
-	
+
+	void delete_all_markers (gint marker);
+
 	// New editor buffer
 	IAnjutaEditor* add_buffer (const gchar *name, const gchar* content);
 }

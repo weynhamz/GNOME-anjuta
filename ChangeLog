@@ -1,3 +1,32 @@
+2004-11-08  Naba Kumar  <naba@gnome.org>
+
+	* manuals/reference/libanjuta/tmpl/anjuta-plugin.sgml,
+	manuals/reference/libanjuta/tmpl/anjuta-preferences.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-iterable.sgml:
+	Updated.
+
+	* global-tags/Makefile.am: Fixed make error.
+
+	* plugins/profile-default/plugin.c: Added debug-manager
+	and gdb plugins to load at startup so that debugger
+	windows are docked properly. They will be removed
+	later when we figure out runtime docking.
+
+	* plugins/sample1/*: Restored to last working state.
+	
+2004-11-07  Pavol Bosik <pavol.bosik@radiantsystems.com>
+
+	* libanjuta/interfaces/libanjuta.idl,
+	libanjuta/anjuta-marshal.c,
+	plugins/Makefile.am,
+	plugins/debug-manager/plugin.c,
+	plugins/editor/plugin.c,
+	plugins/editor/text_editor.c,
+	plugins/gdb/breakpoints.c,
+	plugins/gdb/debugger.c,
+	plugins/gdb/plugin.c,
+	plugins/gdb/plugin.h: fixed "Toggle breakpoint" feature
+
 2004-11-06  Jean-NoelGuiheneuf <guiheneuf.jean-noel@wanadoo.fr>
 	* plugins/editor/anjuta-docman.h plugins/editor/plugin.c 
 	* plugins/editor/search-replace.c
@@ -8,6 +37,8 @@
 	
 	* plugins/gdb, plugins/debug-manager: Applied debugger patch
 	from Bosik, Pavol <pavol.bosik@radiantsystems.com>
+	(added features: starting debugger and loading of core/executable,
+	StepIn, StepOut, StepOver and Execute, toggling breakpoint partially works)
 
 2004-11-03  Johannes Schmid <jhs@cvs.gnome.org>
 	

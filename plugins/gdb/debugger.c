@@ -653,6 +653,7 @@ debugger_stdo_flush (void)
 {
 	guint lineno;
 	gchar *filename, *line, *msg;
+	IAnjutaDocumentManager *docman;
 
 #ifdef ANJUTA_DEBUG_DEBUGGER
 	// g_message ("In function: debugger_stdo_flush()");
@@ -675,7 +676,9 @@ debugger_stdo_flush (void)
 		parse_error_line (&(line[2]), &filename, &lineno);
 		if (filename)
 		{
-			gdb_goto_file_line (filename, lineno);
+			docman = gdb_get_document_manager ();
+			ianjuta_document_manager_goto_file_line (docman, filename, lineno,
+					NULL /* TODO */);
 			g_free (filename);
 		}
 	}
