@@ -1,0 +1,33 @@
+ <!-- ============= Compiling and building:=== -->
+ <chapter id="building">
+ <title>Compiling and building programs</title>
+  <para>
+   Once you have written a C/C++ program you would like to build and run it. 
+   To compile the current file (it should be a c/c++ source file), click the compile button 
+   in the extended tool-bar or activate the menu item Build/Compile or press F9. The 
+   message window will appear and list all the messages including any compilation 
+   error. You can double click on the error lines (they are red colored) to go to that particular 
+   line where the error is. You can define macros, specify include paths,
+   and set the compiler options if you so wish. Compiling a file will save your file
+   first and then compile.
+  </para>
+  <para>
+   Compiling a file does not build an executable. It simply generates an object (*.o) file 
+   which is later linked to build the executable.
+  </para>
+  <para>
+   So, to build a file, click the build button in the extended tool-bar or activate the menu item 
+   Build/Build or press F10. This will again display the message window listing all the 
+   messages that are encountered during the build. The build process will link your object 
+   file with libraries and generate the executable (of course, on a successful build only). 
+   You can specify the libraries to link with your file in 
+   <citetitle>compiler options-&gt;libraries</citetitle>.
+  </para>
+  <para>
+   Remember, the build process will compile your file first if the object file is not up to date 
+   or it has not yet been generated. That means, you can directly build a file without 
+   first compiling it. It doesn't make sense to put in a separate step which is automatically 
+   taken care of. However when you are dealing with a project rather then a single file, you will 
+   discover that compiling and building a project are entirely two different birds.
+  </para>
+ </chapter>

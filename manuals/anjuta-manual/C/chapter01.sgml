@@ -1,0 +1,38 @@
+ <!-- ============= Introduction ============================== -->
+ 
+ <chapter id="introduction">
+  <title>Introduction to Anjuta</title>
+  <para>
+   Anjuta is a very versatile Integrated development environment for
+   c and c++ (Gnu/Linux). Written in gtk/gnome and written for gtk/gnome,
+   it features many advanced programming tools and utilities. It is basically
+   a GUI interface for the bunch of command line programming utilities
+   and tools available for Linux, which are usually run in console and
+   are very un-user friendly.
+  </para>
+  <para>
+   Anjuta is an effort to marry the flexibility and power of text
+   based command line tools with the ease of graphical user interface
+   of gnome.
+  </para>
+  <para>
+   Please have a look at the screen-shot.
+  </para>
+
+  <para>
+   Presently, Anjuta is only in Beta release and lots of work are to
+   be done to improve it. I hope in the 
+   future Anjuta is going to be much more 
+   capable and stable. Extensive debugging session
+   has not yet been performed.
+   So, undoubtedly, it will have lots of bugs. It will be
+   my pleasure if you use it and
+   report the bugs to us. That way, you will
+   be helping to improve the software as well as helping the open-source community.
+  </para>
+
+  <para>
+   Any sort of suggestions or 
+   patches for anjuta are also most welcome.
+  </para>
+ </chapter>

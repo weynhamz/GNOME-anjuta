@@ -1,0 +1,163 @@
+<!-- ============= Project management ====================== -->
+ <chapter id="project-management">
+  <title>Project Management</title>
+  
+  <para>
+   If the program you are developing is a small one and it is going to be run on your
+   computer only, then a single source file will serve the propose. But if the program is 
+   a complex one with multiple source files, you need special tools to keep track of 
+   your program and its resources. Such a <citetitle>program</citetitle> is no
+   longer called a program. It is called a <citetitle>project</citetitle>.
+  </para>
+  
+  <para>
+   Many command line tools are available to maintain and manage a project. And each 
+   tool is very specific about there operations. Now, I am not going to give you the details of 
+   what these tools are used for or what these tools do, because now you don't have to worry 
+   about any of them. Anjuta will take care of everything. If you want to do something of your own 
+   besides what anjuta does for you (because you think the old good command line options 
+   has no match :-)), then nobody will stop you. In fact you will have the added advantage of 
+   making your project more flexible and more adaptable (and more dirty too :-)). 
+  </para>
+  
+  <para>
+   But before you jump and start editing all those makefiles, keep in mind the files that Anjuta 
+   manages. These files are all overwritten.
+  </para>
+  
+  <para>
+   Those, who are not dare devils, can just relax and let Anjuta do all (eh.. most) of the stuffs.
+  </para>
+  
+  <sect1 id="new-projects">
+   <title>Creating a new project</title>
+   <para>
+    Activate <citetitle>File->New Project</citetitle> to start
+    the application wizard.
+    Read carefully whatever is written on the <citetitle>first page</citetitle>.
+    <citetitle>Click next</citetitle> to proceed further.
+    Select the type of application you want to create in the
+    <citetitle>second page</citetitle>.
+    <citetitle>Click next</citetitle> to proceed further.
+   </para>
+   <para>
+    In the <citetitle>third page</citetitle> page, enter all the necessary
+    information for your project. You can not change them later. 
+    Also, no white spaces nor any non-alphanumeric characters, except 
+    underscore(_) and dash(-), are
+    allowed in any of the entry boxes in this page (except the author entry box). 
+    <citetitle>Click next</citetitle> to proceed further.
+   </para>
+   <para>
+    In the <citetitle>fourth page</citetitle>, Select the <citetitle>Programming
+    language</citetitle> for the initial 
+    project generation. Only C and C++ are 
+    supported now.
+    Also specify if your  
+    project will have <citetitle>internationalization support</citetitle> 
+    using <citetitle>gettext</citetitle> (Read the
+    info page for gettext for more details). This gives your project
+    a multi lingual support for different regional languages such as English, French, Dutch etc.
+    The rest of the options are self explanatory. <citetitle>Click Next</citetitle> to proceed.
+   </para>
+   <para>
+    Verify the information you have just supplied and <citetitle>Click 
+    Finish</citetitle> to start generating the project.
+   </para>
+   <para>
+    Once the project creation is over, you can try it out by 
+    building the project and executing it.
+   </para>
+  </sect1>
+  
+  <sect1 id="loadsave-prjs">
+   <title>Loading and Saving projects</title>
+   <para>
+   <title>Loading Projects:</title>
+    <para>
+     To open a project, activate the menu item <b>File->Open Project</b>.
+     Select the project file (*.prj) in the file selection box and <b>Click OK</b>.
+    </para> 
+    <para>
+     If the project has recently been opened, then you will find the project in the 
+     menu <citetitle>File-&gt;Recent Project</citetitle>. Activate it and the project will be opened. 
+    </para>
+    <para>
+     As soon as a project is opened. Anjuta will enter into the <b>Project mode</b> of operation. 
+    </para>
+   </para>
+   <para>
+    <title>Saving project:</title>
+    <para>
+     To save the current project activating the menu item 
+     <citetitle>File->Save project</citetitle> or click the save project icon in 
+     the extended tool-bar. When a project is saved, only the files that needs
+     to be updated are actually written to avoid breaking the unnecessary dependencies.
+     </para>
+     <para>
+      Moreover, the build files that are flaged disable overwrite in
+      the project configuration will not be touched.
+     </para>
+    </para>
+   </para>
+  </sect1>
+  
+  <sect1 id="add-rm-files">
+   <title>Adding and removing files</title>
+   <para>
+There are three types of files Anjuta will manage for you in the project. They are:
+<p>
+<ul>
+  <li> Source files
+  <li> Document files
+  <li> Pixmap files
+</ul>
+<p>
+These three different types of files exist in the three different directories under the project.
+Namely, <i>Source directory, Document directory and Pixmap directory</i>
+<p>
+<b><u>Adding files:<u></b><p>
+Activate the corresponding <i>Add</i> menu item from the <b>Project</b> sub-menu. 
+Select the file you want to add in the <i>file selection dialog box</i> and <i>click OK</i>. 
+<p>
+If the file you are adding is already added to the project, then Anjuta will not add it again. 
+It will also give you a warning that the file is already added.
+<p>
+If the file you are adding is not in the <i>corresponding</i> directory (<i>source directory, document directory 
+or pixmap directory</i>), then Anjuta will ask you a confirmation to copy the file in the corresponding 
+directory. Anjuta can not add a file which is outside the corresponding directory. It needs to 
+be copied first to the directory and then added. That's why Anjuta ask for the confirmation.
+<p>
+
+   </para>
+  </sect1>
+  
+  <sect1 id="project-config">
+   <title>Project Configuration</title>
+   <para>
+    FIXME:
+   </para>
+  </sect1>
+  
+  <sect1 id="project-infomations">
+   <title>Getting Project Information</title>
+   <para>
+    FIXME:
+   </para>
+  </sect1>
+  
+  <sect1 id="project-files">
+   <title>Managing project files</title>
+   <para>
+    FIXME:
+   </para>
+  </sect1>
+  
+  <sect1 id="project-build">
+   <title>Compiling, Building and Executing project</title>
+   <para>
+    FIXME:
+   </para>
+  </sect1>
+ 
+ </chapter>

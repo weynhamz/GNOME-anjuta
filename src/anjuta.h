@@ -124,16 +124,18 @@ struct _FileLineInfo
 
 extern AnjutaApp *app;
 
+/* Command line file arguments */
+extern GList* command_args;
+
 void create_anjuta_gui (AnjutaApp * appl);
-
+void anjuta_connect_kernel_signals(void);
+void anjuta_die_imidiately(void);
 void anjuta_new (void);
-
 void anjuta_show (void);
+void anjuta_session_restore (GnomeClient* client);
 
 TextEditor *anjuta_append_text_editor (gchar * filename);
-
 void anjuta_remove_current_text_editor (void);
-
 TextEditor *anjuta_get_current_text_editor (void);
 void anjuta_set_current_text_editor (TextEditor * te);
 
@@ -145,6 +147,7 @@ void anjuta_goto_file_line (gchar * fname, guint lineno);
 void anjuta_goto_file_line_mark (gchar * fname, guint lineno, gboolean mark);
 
 void anjuta_apply_preferences (void);
+void anjuta_load_cmdline_files (void);
 
 TextEditor *anjuta_get_notebook_text_editor (gint page_num);
 
@@ -209,6 +212,12 @@ gboolean anjuta_is_installed (gchar * prog, gboolean show);
 void anjuta_update_app_status (gboolean set_job, gchar * job_name);
 
 /* Private callbacks */
+
+gint on_anjuta_session_die(GnomeClient * client, gpointer data);
+gint on_anjuta_session_save_yourself (GnomeClient * client, gint phase,
+		       GnomeSaveStyle s_style, gint shutdown,
+		       GnomeInteractStyle i_style, gint fast, gpointer data);
+
 void on_anjuta_destroy (GtkWidget * w, gpointer data);
 
 gint on_anjuta_delete (GtkWidget * w, GdkEvent * event, gpointer data);

@@ -1,0 +1,36 @@
+<!-- ============= Debugging ====================== -->
+ <chapter id="debugging">
+  <title>Debugging: session</title>
+  <para>
+   FIXME:
+  </para>
+  
+  <sect1 id="debug-start">
+  <title>Starting and Stopping Debugger</title>
+  <para>
+   FIXME:
+  </para>
+  </sect1>
+  
+  <sect1 id="debug-loading">
+  <title>Loading executables</title>
+  <para>
+   FIXME:
+  </para>
+  </sect1>
+  
+  <sect1 id="debug-attach">
+  <title>Attaching to process</title>
+  <para>
+   FIXME:
+  </para>
+  </sect1>
+  
+  <sect1 id="debug-core">
+  <title>Loading core file</title>
+  <para>
+   FIXME:
+  </para>
+  </sect1>
+ </chapter>
+

@@ -27,8 +27,8 @@
 #include "utilities.h"
 #include "resources.h"
 
-AnjutaDirs *
-anjuta_dirs_new ()
+AnjutaDirs*
+anjuta_dirs_new()
 {
 	AnjutaDirs *ad;
 	ad = g_malloc (sizeof (AnjutaDirs));
@@ -57,23 +57,17 @@ anjuta_dirs_new ()
 }
 
 void
-anjuta_dirs_destroy (AnjutaDirs * ad)
+anjuta_dirs_destroy( AnjutaDirs *ad)
 {
-	if (ad)
-	{
-		if (ad->data)
-			g_free (ad->data);
-		if (ad->help)
-			g_free (ad->help);
-		if (ad->pixmaps)
-			g_free (ad->pixmaps);
-		if (ad->doc)
-			g_free (ad->doc);
-		if (ad->tmp)
-			g_free (ad->tmp);
-		if (ad->home)
-			g_free (ad->home);
-		if (ad->settings)
-			g_free (ad->settings);
-	}
+   if(ad)
+   {
+      if(ad->data) g_free(ad->data);
+      if(ad->pixmaps) g_free(ad->pixmaps);
+      if(ad->doc) g_free(ad->doc);
+      if(ad->help) g_free(ad->help);
+      if(ad->tmp) g_free(ad->tmp);
+      if(ad->home) g_free(ad->home);
+      if(ad->settings) g_free(ad->settings);
+      g_free (ad);
+   }
 }

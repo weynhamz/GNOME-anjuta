@@ -1,0 +1,96 @@
+
+<!-- ============= Information ====================== -->
+ <chapter id="information">
+  <title>Information</title>
+  <!-- ============ Information: Contributions ===================== -->
+  <sect1 id="contributions">
+   <title>Authors and Contributors</title>
+   <para>
+    Anjuta was written by Naba Kumar <email>kh_naba@123india.com</email>.
+    For more information on Anjuta, please visit anjuta home site at
+    <ulink type="http" url="http://anjuta.sourceforge.net">http://anjuta.sourceforge.net
+    </ulink>
+   </para>
+   
+   <para>
+    <variablelist>
+     <title>Contributors:</title>
+<!--========= Copy and paste from here to add new entry ============
+      <varlistentry>
+       <term><email></email></term>
+      </varlistentry>
+-->
+      <varlistentry>
+       <term>Stéphane Démurget <email>demurgets@free.fr</email></term>
+      </varlistentry>
+
+      <varlistentry>
+       <term>Luca Bellonda<email>lbell@tsc4.com</email></term>
+      </varlistentry>
+
+      <varlistentry>
+       <term>Lord Sibn<email>sibn@utspl.cjb.net</email></term>
+      </varlistentry>
+
+    </variablelist>
+   </para>
+
+   <para>
+    <variablelist>
+     <title>Translators:</title>
+
+     <varlistentry>
+      <term>Javier Conde Rueda<email>f3285740@est.fib.upc.es</email>
+      Spanish Translation</term>
+     </varlistentry>
+
+     <varlistentry>
+      <term>Stéphane Démurget<email>demurgets@free.fr</email>
+      French Translation</term>
+     </varlistentry>
+
+     <varlistentry>
+      <term>Takeshi Aihana<email>aihana@gnome.gr.jp</email>
+      Japanese Translation</term>
+     </varlistentry>
+
+     <varlistentry>
+      <term>M.Ali Vardar<email>ali@gelecek.com.tr</email>
+      Turkish Translation</term>
+     </varlistentry>
+    </variablelist>
+   </para>
+  </sect1>
+
+  <!-- ============ Information: License ======== -->
+  <sect1 id="anjuta-license">
+   <title>License</title>
+   <para>
+    This program is free software; you can redistribute it and/or
+    modify it under the terms of the <citetitle>GNU General Public
+    License</citetitle> as published by the Free Software Foundation;
+    either version 2 of the License, or (at your option) any later
+    version.
+   </para>
+   <para>
+    This program is distributed in the hope that it will be useful, but
+    WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    <citetitle>GNU General Public License</citetitle> for more details.
+   </para>
+   <para>
+    A copy of the <citetitle>GNU General Public License</citetitle> is
+    included as an appendix to the <citetitle>GNOME Users
+    Guide</citetitle>.  You may also obtain a copy of the
+    <citetitle>GNU General Public License</citetitle> from the Free
+    Software Foundation by visiting <ulink type="http" url="http://www.fsf.org">
+    their Web site</ulink> or by writing to
+    <address>
+     Free Software Foundation, Inc.
+     <street>59 Temple Place</street> - Suite 330
+     <city>Boston</city>, <state>MA</state> <postcode>02111-1307</postcode>
+     <country>USA</country>
+    </address>
+   </para>
+  </sect1>
+ </chapter>

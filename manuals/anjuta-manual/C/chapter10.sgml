@@ -1,0 +1,22 @@
+
+<!-- ============= Debugging: Working with expressions ====================== -->
+ <chapter id="debugging-exprs">
+  <title>Debugging: Working with expressions</title>
+  <para>
+   FIXME:
+  </para>
+  
+  <sect1 id="expr-eval">
+  <title>Evaluating expressions</title>
+  <para>
+   FIXME:
+  </para>
+  </sect1>
+  
+  <sect1 id="expr-watch">
+  <title>Expression Watch</title>
+  <para>
+   FIXME:
+  </para>
+  </sect1>
+</chapter>

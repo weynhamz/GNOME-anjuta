@@ -1112,7 +1112,7 @@ create_langsel_dialog (void)
 static void
 on_prj_import_confirm_yes (GtkButton * button, gpointer user_data)
 {
-	gchar *filename, *dir, *comp_dir, *fn;
+	gchar *filename, *dir, *comp_dir;
 	GList *list, *mod_files;
 
 	ProjectDBase *p = user_data;
@@ -1138,18 +1138,20 @@ on_prj_import_confirm_yes (GtkButton * button, gpointer user_data)
 				    _
 				    ("This file has already been added to the project."));
 			g_free (dir);
+			g_free (comp_dir);
 			g_free (filename);
-			glist_strings_free (list);
+			glist_strings_free (mod_files);
 			return;
 		}
 		list = g_list_next (list);
 	}
-	glist_strings_free (list);
+	glist_strings_free (mod_files);
 	/*
 	 * File has not been added. So add it 
 	 */
 	if (strcmp (dir, comp_dir) != 0)
 	{
+		gchar* fn;
 		/*
 		 * File does not exist in the corrospondig dir. So, import it. 
 		 */
@@ -1160,19 +1162,16 @@ on_prj_import_confirm_yes (GtkButton * button, gpointer user_data)
 		if (!copy_file (filename, fn, TRUE))
 		{
 			g_free (dir);
+			g_free (comp_dir);
 			g_free (fn);
 			g_free (filename);
 			messagebox (GNOME_MESSAGE_BOX_INFO,
 				    _("Error while copying the file inside the module."));
 			return;
 		}
-		filename = fn;
+		g_free(fn);
 	}
-	else
-		fn = g_strdup (filename);	/* Just to make the control flow easy */
-
 	project_dbase_add_file_to_module (p, p->sel_module, filename);
-	g_free (fn);
 	g_free (dir);
 	g_free (comp_dir);
 	g_free (filename);
@@ -1206,7 +1205,7 @@ on_add_prjfilesel_ok_clicked (GtkButton * button, gpointer user_data)
 		g_strdup_printf (_
 				 ("\"%s\"\ndoes not exist in the current module directory."
 				  "\nDo you want to IMPORT (ie copy) into the module?"),
-filename);
+				filename);
 	if (strcmp (dir, comp_dir) == 0)
 		on_prj_import_confirm_yes (NULL, user_data);
 	else

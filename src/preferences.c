@@ -636,8 +636,8 @@ gboolean preferences_save_yourself (Preferences * pr, FILE * fp)
 
 gboolean preferences_load_yourself (Preferences * pr, PropsID props)
 {
-	pr->win_pos_x = prop_get_int (props, "messages.win.pos.x", 100);
-	pr->win_pos_y = prop_get_int (props, "messages.win.pos.y", 80);
+	pr->win_pos_x = prop_get_int (props, "preferences.win.pos.x", 100);
+	pr->win_pos_y = prop_get_int (props, "preferences.win.pos.y", 80);
 	return TRUE;
 }
 

@@ -36,7 +36,6 @@ struct _AnjutaDirs
 };
 
 AnjutaDirs *anjuta_dirs_new (void);
-
 void anjuta_dirs_destroy (AnjutaDirs * ad);
 
 #endif

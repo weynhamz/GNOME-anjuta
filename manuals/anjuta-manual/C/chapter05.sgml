@@ -1,0 +1,25 @@
+ <!-- ============= Executing:=== -->
+
+ <chapter id="executing">
+ <title>Executing the program</title>
+  <para>
+    Once your executable is ready after the build, you can execute it by clicking
+    the execute button in the extended toolbar or activating the menu item
+    Build/execute or pressing F3. Unlike build, execution doesn't check for
+    dependency (at least for the time being). That is, it would check if the
+    executable is upto date before it executes the program. So, <citetitle>you must take
+    care of that yourself.</citetitle>
+   </para>
+   <para>
+    If you want to pass any argument(s) to your program, activate <citetitle>Build-&gt;
+    Set Program Param...</citetitle> and enter the arguments in the dialog box that
+    will appear (shown below) and click Ok. You can also specify if the program
+    should be run in terminal or not.
+  </para>
+  <figure>
+   <title>Setting program parameters</title>
+   <screenshot>
+    <graphic fileref="figures/arguments" type="png"/>
+   </screenshot>
+  </figure>
+ </chapter>

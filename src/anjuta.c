@@ -45,6 +45,7 @@
 #include "Scintilla.h"
 #include "ScintillaWidget.h"
 #include "properties.h"
+
 #include "commands.h"
 
 extern gboolean closing_state;
@@ -56,6 +57,36 @@ static void on_anjuta_window_selected (GtkMenuItem * menuitem,
 static void anjuta_clear_windows_menu (void);
 static void anjuta_fill_windows_menu (void);
 static void anjuta_show_text_editor (TextEditor * te);
+
+static void
+anjuta_fatal_signal_handler (int t)
+{
+	g_warning(_("Anjuta: Caught signal %i!"), signal);
+	exit(1);
+}
+
+static void
+anjuta_exit_signal_handler (int t)
+{
+	g_warning(_("Anjuta: Caught signal %i!"), signal);
+	anjuta_clean_exit ();
+	exit(1);
+}
+
+void
+anjuta_connect_kernel_signals ()
+{
+	signal(SIGSEGV, anjuta_fatal_signal_handler);
+	signal(SIGILL, anjuta_fatal_signal_handler);
+	signal(SIGABRT, anjuta_fatal_signal_handler);
+	signal(SIGSEGV, anjuta_fatal_signal_handler);
+
+	signal(SIGINT, anjuta_exit_signal_handler);
+	signal(SIGHUP, anjuta_exit_signal_handler);
+	signal(SIGQUIT, anjuta_exit_signal_handler);
+
+	signal (SIGCHLD, anjuta_child_terminated);
+}
 
 void
 anjuta_new ()
@@ -94,7 +125,6 @@ anjuta_new ()
 		app->execution_dir = NULL;
 		app->first_time_expose = TRUE;
 
-		signal (SIGCHLD, anjuta_child_terminated);
 		create_anjuta_gui (app);
 		app->dirs = anjuta_dirs_new ();
 		app->fileselection = create_fileselection_gui (&fsd1);
@@ -152,6 +182,12 @@ anjuta_new ()
 		app = NULL;
 		g_error (_("Cannot create application...exiting\n"));
 	}
+}
+
+void
+anjuta_session_restore (GnomeClient* client)
+{
+	anjuta_load_cmdline_files();
 }
 
 TextEditor *
@@ -1369,6 +1405,39 @@ anjuta_child_terminated (int t)
 	if (callback)
 		(*callback) (status, cb_data);
 	anjuta_unregister_child_process (pid);
+}
+
+void
+anjuta_load_cmdline_files ()
+{
+	GList *node;
+	
+	/* Open up the command argument files */
+	node = command_args;
+	while (node)
+	{
+		switch (get_file_ext_type (node->data))
+		{
+		case FILE_TYPE_IMAGE:
+			break;
+		case FILE_TYPE_PROJECT:
+			if (!app->project_dbase->project_is_open)
+			{
+				fileselection_set_filename (app->project_dbase->fileselection_open, node->data);
+				project_dbase_load_project (app->project_dbase, TRUE);
+			}
+			break;
+		default:
+			anjuta_goto_file_line (node->data, -1);
+			break;
+		}
+		node = g_list_next (node);
+	}
+	if (command_args)
+	{
+		glist_strings_free (command_args);
+		command_args = NULL;
+	}
 }
 
 static void

@@ -1,0 +1,22 @@
+
+<!-- ============= Debugging: Program Stack ====================== -->
+ <chapter id="debugging-stack">
+  <title>Debugging: Stact Trace</title>
+  <para>
+   FIXME:
+  </para>
+  
+  <sect1 id="stack-win">
+  <title>Stack Window</title>
+  <para>
+   FIXME:
+  </para>
+  </sect1>
+  
+  <sect1 id="stack-frame">
+  <title>Stack Frame</title>
+  <para>
+   FIXME:
+  </para>
+  </sect1>
+ </chapter>

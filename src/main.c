@@ -23,7 +23,6 @@
 
 #include <gnome.h>
 #include "splash.h"
-#include "resources.h"
 #include "anjuta.h"
 #include "utilities.h"
 #include "fileselection.h"
@@ -32,9 +31,16 @@
 AnjutaApp *app;			
 
 gboolean no_splash = 0;
+GList* command_args;
 
-/* command line options table */
-const struct poptOption anjuta_options[] = {
+/* The static variables used in the poptTable.*/
+/* anjuta's option table */
+static struct 
+poptOption anjuta_options[] = {
+	{
+	 	NULL, '\0', POPT_ARG_INTL_DOMAIN, PACKAGE,
+	 	0, NULL, NULL
+	},
 	{"no-splash", 's', POPT_ARG_NONE, &no_splash, 0, N_("Don't show the splashscreen"), NULL},
 	POPT_AUTOHELP {NULL}
 };
@@ -42,47 +48,56 @@ const struct poptOption anjuta_options[] = {
 int
 main (int argc, char *argv[])
 {
+	GnomeClient *client;
+	GnomeClientFlags flags;
 	poptContext context;
-	char *filename;
+	const char** args;
 
 #ifdef ENABLE_NLS
 	bindtextdomain (PACKAGE, PACKAGE_LOCALE_DIR);
 	textdomain (PACKAGE);
 #endif
+	/* Connect the necessary kernal signals */
+	anjuta_connect_kernel_signals();
 
-	gnome_init_with_popt_table ("anjuta", VERSION, argc, argv,
-				    anjuta_options, 0, &context);
+	gnome_init_with_popt_table("anjuta", VERSION, argc, argv,
+				   anjuta_options, 0, &context);
 	
-	/* Session management is under development */
-	gnome_client_disable_master_connection ();
+	/* Session management */
+	client = gnome_master_client();
+	gtk_signal_connect(GTK_OBJECT(client), "save_yourself",
+			   GTK_SIGNAL_FUNC(on_anjuta_session_save_yourself),
+			   (gpointer) argv[0]);
+	gtk_signal_connect(GTK_OBJECT(client), "die",
+			   GTK_SIGNAL_FUNC(on_anjuta_session_die), NULL);
+
+	/* Get the command line files */
+	command_args = NULL;
+	args = poptGetArgs(context);
+	if (args)
+	{
+		gint i;
+		i = 0;
+		while (args[i])
+		{
+			command_args = g_list_append (command_args, g_strdup(args[i]));
+			i++;
+		}
+	}
+	poptFreeContext(context);
 
 	if (!no_splash)
 		splash_screen ();
-
+	
 	anjuta_new ();
 	anjuta_show ();
 
-	/* Open the files given on the command line */
-	while ((filename = poptGetArg (context)) != NULL)
-		switch (get_file_ext_type (filename)) {
-			case FILE_TYPE_IMAGE:
-				break;
-				
-			case FILE_TYPE_PROJECT: 
-				if (!app->project_dbase->project_is_open) {
-					fileselection_set_filename (app->project_dbase->fileselection_open, filename);
-					project_dbase_load_project (app->project_dbase, TRUE);
-				}
-				
-				break;
-
-			default:
-				anjuta_goto_file_line (filename, -1);
-		}
-		
-	poptFreeContext (context);
-	
+	/* Restore session */
+	flags = gnome_client_get_flags(client);
+	if (flags & GNOME_CLIENT_RESTORED)
+		anjuta_session_restore(client);
+	else
+		anjuta_load_cmdline_files();
 	gtk_main ();
-	
 	return 0;
 }

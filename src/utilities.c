@@ -666,7 +666,7 @@ copy_file (gchar * src, gchar * dest, gboolean show_error)
 	
 	error = TRUE;
 	
-	input_fp = fopen (src, "r");
+	input_fp = fopen (src, "rb");
 	if (input_fp == NULL)
 	{
 		if( show_error)
@@ -674,7 +674,7 @@ copy_file (gchar * src, gchar * dest, gboolean show_error)
 		return FALSE;
 	}
 	
-	output_fp = fopen (dest, "w");
+	output_fp = fopen (dest, "wb");
 	if (output_fp == NULL)
 	{
 		if( show_error)
@@ -1200,7 +1200,6 @@ select_only_file (const struct dirent *e)
 {
 	return file_is_regular (e->d_name);
 }
-
 
 /* Create a new hbox with an image and a label packed into it
         * and return the box. */

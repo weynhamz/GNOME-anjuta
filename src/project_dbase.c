@@ -1796,6 +1796,7 @@ project_dbase_add_file_to_module (ProjectDBase * p, PrjModule module,
 			     NULL);
 	prop_set_with_key (p->props, mod_files, new_file_list);
 	g_free (new_file_list);
+	g_free (file_list);
 	g_free (mod_files);
 	project_dbase_update_tree (p);
 	p->is_saved = FALSE;

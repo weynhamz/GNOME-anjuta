@@ -1,0 +1,36 @@
+
+<!-- ============= Debugging: Breakpoints ====================== -->
+ <chapter id="debugging-breaks">
+  <title>Debugging: Breakpoints</title>
+  <para>
+   FIXME:
+  </para>
+  
+  <sect1 id="breaks-set">
+  <title>Adding or Setting Breakpoints</title>
+  <para>
+   FIXME:
+  </para>
+  </sect1>
+  
+  <sect1 id="breaks-edit">
+  <title>Editing Breakpoints</title>
+  <para>
+   FIXME:
+  </para>
+  </sect1>
+  
+  <sect1 id="breaks-del">
+  <title>Deleting Breakpoints</title>
+  <para>
+   FIXME:
+  </para>
+  </sect1>
+
+  <sect1 id="breaks-enbdis">
+  <title>Enabling or Disabling Breakpoints</title>
+  <para>
+   FIXME:
+  </para>
+  </sect1>
+</chapter>
