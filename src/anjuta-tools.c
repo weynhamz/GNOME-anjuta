@@ -1497,6 +1497,7 @@ static struct
 , {EDITOR_TAG_POS, "Editor tab position"}
 , {EDITOR_TAG_HIDE, "Whether to hide editor tabs"}
 , {EDITOR_TABS_ORDERING, "Whether to order editor tabs by file name"}
+, {EDITOR_TABS_RECENTORDER, "Whether to order editor tabs as MRU"}
 , {STRIP_TRAILING_SPACES, "Whether to strip trailing spaces"}
 , {"edge.columns", "Maximum length of line suggested by the editor"}
 , {"edge.mode", "How the editor marks lines exceeding recommended length"}

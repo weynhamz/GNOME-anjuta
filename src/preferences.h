@@ -156,6 +156,7 @@ struct _PreferencesWidgets
 	GtkWidget *tag_pos_radio[4];
 	GtkWidget *no_tag_check;
 	GtkWidget *tabs_ordering;
+	GtkWidget *tabs_recentorder;
 	GtkWidget *tags_update_check;
 	GtkWidget *build_symbols;
 	GtkWidget *build_file_tree;
@@ -319,6 +320,7 @@ void preferences_set_build_options(Preferences* p);
 #define EDITOR_TAG_POS         "editor.tag.pos"
 #define EDITOR_TAG_HIDE        "editor.tag.hide"
 #define EDITOR_TABS_ORDERING   "editor.tabs.ordering"
+#define EDITOR_TABS_RECENTORDER   "editor.tabs.recentorder"
 #define STRIP_TRAILING_SPACES  "strip.trailing.spaces"
 #define FOLD_ON_OPEN           "fold.on.open"
 #define CARET_FORE_COLOR       "caret.fore"

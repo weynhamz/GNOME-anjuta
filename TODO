@@ -1,6 +1,20 @@
 TODO List:
 ----------
 
+Before 1.0.2:
+-------------
+	o The debugger command should be a preference.
+	o All context menu items should also be present in the main menu
+		o Find Usage (Should this be removed ?)
+		o Switch to header/source
+		o Customize File Browser
+	o Shortcuts for swithcing between editor/ISearch/Project Pane/Message Pane ?
+	o Clean up Search/Replace GUI some more
+	o Implement Find Next shortcut for ISearch ?
+	o Restore old Find stuff ?
+
+General:
+--------
 	o Faster file/symbol selection (somewhat like I-Search for project/symbol/file
 	trees ?) Would be nice to have filters as well.
 	o Macro recording. Scintilla has this - needs to be integrated in the GUI

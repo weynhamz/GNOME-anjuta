@@ -1,3 +1,12 @@
+2003-03-21  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
+	* src/aneditor.cxx, src/main_menubar_def.h: Implement comment/
+	uncomment better. Patch from Jean-Noel
+	* src/anjuta-tools.c, src/anjuta_cbs.c, src/preferences.[ch],
+	src/preferences_gui.c:Add preference for MRU notebook tabs.
+	* global-tags/create_global_tags.sh: Fixed SDL warning
+	* TODO: Updated TODO for 1.0.2
+	* plugins/sample1/plugin-sample1.c: Fixed GCC warning
+
 2003-03-19  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
 	* tagmanager/*: Added ignore-list for symbols. This will make
 	parsing more accurate for projects. Doc updates needed.

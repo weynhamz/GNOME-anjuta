@@ -1088,6 +1088,7 @@ create_preferences_page3 (Preferences * p)
 	GtkWidget *table12;
 	GtkWidget *checkbutton17;
 	GtkWidget *checkbutton18;
+	GtkWidget *checkbutton19;
 	GtkWidget *radiobutton1;
 	GtkWidget *radiobutton2;
 	GtkWidget *radiobutton3;
@@ -1296,6 +1297,10 @@ create_preferences_page3 (Preferences * p)
 	gtk_widget_show (checkbutton18);
 	gtk_box_pack_start (GTK_BOX (vbox3), checkbutton18, FALSE, FALSE, 0);
 
+	checkbutton19 = gtk_check_button_new_with_label (_("MRU tab ordering"));
+	gtk_widget_show (checkbutton19);
+	gtk_box_pack_start (GTK_BOX (vbox3), checkbutton19, FALSE, FALSE, 0);
+
 	hbox = gtk_hbox_new (FALSE, 0);
 	gtk_widget_show (hbox);
 	gtk_box_pack_start (GTK_BOX (vbox3), hbox, FALSE, FALSE, 0);
@@ -1369,6 +1374,7 @@ create_preferences_page3 (Preferences * p)
 	
 	p->widgets.no_tag_check = checkbutton17;
 	p->widgets.tabs_ordering = checkbutton18;
+	p->widgets.tabs_recentorder = checkbutton19;
 
 	gtk_widget_ref (spinbutton2);
 	gtk_widget_ref (spinbutton3);
@@ -2545,6 +2551,9 @@ on_preferences_apply_clicked (GtkButton * button, gpointer user_data)
 
 	preferences_set_int (pr, EDITOR_TABS_ORDERING,
 			     gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (pr->widgets.tabs_ordering)));
+
+	preferences_set_int (pr, EDITOR_TABS_RECENTORDER,
+			     gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (pr->widgets.tabs_recentorder)));
 
 	preferences_set_int (pr, AUTOMATIC_TAGS_UPDATE,
 			     gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (pr->widgets.tags_update_check)));
