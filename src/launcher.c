@@ -43,6 +43,12 @@
 #define TERMINATE_CHECK_COUNT 10
 /* #define DEBUG */
 
+#ifdef __FreeBSD__
+#ifndef O_SYNC
+#define O_SYNC 0
+#endif /* O_SYNC */
+#endif /* __FreeBSD__ */ 
+
 static void to_terminal_child_terminated (GtkWidget* term, gpointer data);
 static gint launcher_poll_inputs_on_idle (gpointer data);
 static gboolean launcher_execution_done (gpointer data);

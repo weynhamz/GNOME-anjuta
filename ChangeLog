@@ -1,5 +1,6 @@
 2002-11-02  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
 	* manuals/C/anjuta-faqs/anjuta-faqs.sgml: FAQ update.
+	* tagmanager/general.h, src/launcher.c: FreeBSD fixes (RFE #628576)
 
 2002-11-01  Naba Kumar <naba@gnome.org>
 
