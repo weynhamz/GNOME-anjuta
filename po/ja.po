@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anjyuta 0.1.9-pre\n"
-"POT-Creation-Date: 2001-12-23 23:03+0900\n"
-"PO-Revision-Date: 2001-12-23 23:02+0900\n"
+"POT-Creation-Date: 2001-12-26 11:27+0900\n"
+"PO-Revision-Date: 2001-12-26 11:27+0900\n"
 "Last-Translator: Takeshi Aihana <aihana@gnome.gr.jp>\n"
 "Language-Team: Japanese <translation@gnome.gr.jp>\n"
 "MIME-Version: 1.0\n"
@@ -1203,8 +1203,8 @@ msgstr ""
 "い。\n"
 
 #: src/debugger.c:667
-msgid "There was an error whilst launching the debugger!!\n"
-msgstr "デバッガを起動中にエラーが発生しました！！\n"
+msgid "There was an error whilst launching the debugger.\n"
+msgstr "デバッガを起動中にエラーが発生しました。\n"
 
 #: src/debugger.c:671
 msgid "Make sure 'gdb' is installed on the system.\n"
@@ -1221,12 +1221,9 @@ msgstr "デバッガ準備完了。\n"
 #: src/debugger.c:943
 msgid ""
 "\n"
-"Well, did you find the BUG? :: Debugging session completed.\n"
+"Well, did you find the BUG? Debugging session completed.\n"
 "\n"
-msgstr ""
-"\n"
-"どうです、BUG が見つかりましたか？ :: デバッグセッションを完了しました。\n"
-"\n"
+msgstr "\nどうです、BUG が見つかりましたか？ デバッグセッションが完了しました。\n\n"
 
 #: src/debugger.c:1098
 msgid "Cannot execute gnome-terminal"
@@ -1260,8 +1257,8 @@ msgstr ""
 "プロセスを強制終了して、新しいプロセスを取り込みますか？"
 
 #: src/debugger.c:1340
-msgid "You FOOL! I can not attach to myself."
-msgstr "止めてくれ〜 Anjuta 自身をデバッグするは。"
+msgid "Anjuta is unable to attach to itself."
+msgstr "Anjuta 自身を添付することはできません。"
 
 #: src/debugger.c:1423
 #, c-format
@@ -1291,7 +1288,7 @@ msgid "Sending signal %s to the process: %d\n"
 msgstr "プロセスにシグナル %s を送信: %d\n"
 
 #: src/debugger.c:1804
-msgid "There was an error whilst signaling the process."
+msgid "There was an error whilst signalling the process."
 msgstr "プロセスにシグナルを送信中にエラーが発生しました。"
 
 #: src/executer.c:119
@@ -4293,7 +4290,7 @@ msgid "Syncdronization of Tags image failed"
 msgstr "タグイメージの同期に失敗しました。"
 
 #: src/text_editor.c:775
-msgid "Loading File ..."
+msgid "Loading file ..."
 msgstr "ファイルの読み込み中 ..."
 
 #: src/text_editor.c:781
@@ -4302,20 +4299,20 @@ msgid "Could not load file: %s"
 msgstr "ファイルを読み込めませんでした: %s"
 
 #: src/text_editor.c:810
-msgid "File Loaded Successfully"
+msgid "File loaded successfully"
 msgstr "ファイルの読み込みが成功しました。"
 
 #: src/text_editor.c:825
-msgid "Saving File ..."
+msgid "Saving file ..."
 msgstr "ファイルの保存中 ..."
 
 #: src/text_editor.c:830
 #, c-format
-msgid "Couldn't save file: %s."
-msgstr "ファイル %s が保存できませんでした。"
+msgid "Could not save file: %s."
+msgstr "ファイルが保存できませんでした: %s"
 
 #: src/text_editor.c:857
-msgid "File Saved successfully"
+msgid "File saved successfully"
 msgstr "ファイルの保存が成功しました。"
 
 #: src/text_editor.c:952
@@ -4323,27 +4320,26 @@ msgstr "ファイルの保存が成功しました。"
 msgid ""
 "WARNING: The file \"%s\" in the disk is more recent than\n"
 "the current buffer.\n"
-"Do you want to reload it."
+"Do you want to reload it?"
 msgstr ""
-"警告: 保存されたファイル \"%s\" は\n"
-"現在のバッファよりも新しいです。\n"
-"再度、読み込みますか？"
+"警告: 保存されたファイル \"%s\" はバッファに\n"
+"格納されたものよりも新しいようです。\n"
+"再度、そのファイルを読み込みますか？"
 
 #: src/text_editor.c:1068
-msgid "Autoformat is disablde. If you want, enable in Preferences."
-msgstr ""
-"書式の自動整形は無効です。有効にする場合は \"設定\" で有効にして下さい。"
+msgid "Auto format is currently disabled. Change the setting in Preferences."
+msgstr "書式の自動整形は無効です。有効にする場合は \"設定\" で有効にして下さい。"
 
 #: src/text_editor.c:1074
-msgid "Auto formating ..."
+msgid "Auto formatting ..."
 msgstr "書式の自動整形中 ..."
 
 #: src/text_editor.c:1084 src/text_editor.c:1111
-msgid "Error in auto formating ..."
+msgid "Error in auto formatting ..."
 msgstr "書式の自動整形中にエラーが発生 ..."
 
 #: src/text_editor.c:1117
-msgid "Auto formating completed"
+msgid "Auto formatting completed"
 msgstr "書式の自動整形が完了"
 
 #: src/text_editor_cbs.c:186
@@ -5034,8 +5030,8 @@ msgid "Save File As"
 msgstr "名前を付けて保存"
 
 #: src/anjuta.c:224
-msgid "Cannot create application...exiting\n"
-msgstr "アプリケーションが生成できませんでした...終了します。\n"
+msgid "Cannot create application... exiting\n"
+msgstr "アプリケーションが生成できませんでした... 終了します。\n"
 
 #: src/anjuta.c:280 src/anjuta.c:284 src/anjuta.c:873 src/anjuta.c:889
 #, c-format
@@ -5056,12 +5052,12 @@ msgstr "# * このファイルの編集または名前の変更は厳禁 ** Anjuta が作成 **\n"
 
 #: src/anjuta.c:866
 #, c-format
-msgid "Anjuta: %s(Saved)"
+msgid "Anjuta: %s (Saved)"
 msgstr "Anjuta: %s (保存済み)"
 
 #: src/anjuta.c:881
 #, c-format
-msgid "Anjuta: %s(Unsaved)"
+msgid "Anjuta: %s (Unsaved)"
 msgstr "Anjuta: %s (未保存)"
 
 #: src/anjuta.c:908
@@ -5096,10 +5092,10 @@ msgstr "このウィンドウを選択するには、これを起動して下さい"
 #: src/anjuta.c:1681
 #, c-format
 msgid ""
-"You do not have \"%s\" installed in your box.\n"
+"The \"%s\" utility is not installed.\n"
 "Install it and then restart Anjuta."
 msgstr ""
-"システムに \"%s\" がインストールされていません。\n"
+"ユーティリティ \"%s\" がインストールされていません。\n"
 "インストール後に Anjuta を再起動して下さい。"
 
 #: src/anjuta.c:1707 src/anjuta.c:1742
@@ -5205,3 +5201,6 @@ msgstr "ファイルから Pixmap が生成できませんでした: %s"
 msgid "Cannot execute Devhelp. Make sure it is installed"
 msgstr ""
 "Devhelp を起動することが出来ません。インストールされているか確認して下さい。"
+
+#~ msgid "You FOOL! I can not attach to myself."
+#~ msgstr "止めてくれ〜 Anjuta 自身をデバッグするは。"
