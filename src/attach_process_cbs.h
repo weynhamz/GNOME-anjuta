@@ -23,8 +23,8 @@
 #include <gnome.h>
 
 gboolean on_attach_process_close	  (GtkWidget *w, gpointer data);
-void     on_attach_process_tv_event	  (GtkWidget *w, GdkEvent  *event, gpointer data);
+void     on_attach_process_tv_event	  (GtkWidget *w, GdkEvent *event, gpointer data);
 void     on_attach_process_update_clicked (GtkWidget *button, gpointer data);
-void     on_attach_process_attach_clicked (GtkWidget* button, gpointer data);
+void     on_attach_process_attach_clicked (GtkWidget *button, gpointer data);
 
 #endif

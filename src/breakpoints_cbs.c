@@ -39,12 +39,12 @@ on_breakpoints_close (GtkWidget * w, gpointer data)
 }
 
 void
-on_bk_view_clicked (GtkButton * button, gpointer user_data)
+on_bk_view_clicked (GtkWidget *button, gpointer data)
 {
 	BreakpointsDBase *bd;
 	BreakpointItem *bi;
 
-	bd = (BreakpointsDBase *) user_data;
+	bd = (BreakpointsDBase *) data;
 	if (bd->breakpoints == NULL)
 		return;
 	bi = g_list_nth_data (bd->breakpoints, bd->current_index);
@@ -56,12 +56,12 @@ on_bk_view_clicked (GtkButton * button, gpointer user_data)
 }
 
 void
-on_bk_edit_clicked (GtkButton * button, gpointer user_data)
+on_bk_edit_clicked (GtkWidget *button, gpointer data)
 {
 	BreakpointsDBase *bd;
 	GtkWidget *dialog;
 
-	bd = (BreakpointsDBase *) user_data;
+	bd = (BreakpointsDBase *) data;
 	if (bd->breakpoints == NULL)
 		return;
 	dialog = create_bk_edit_dialog (bd);
@@ -70,13 +70,13 @@ on_bk_edit_clicked (GtkButton * button, gpointer user_data)
 }
 
 void
-on_bk_delete_clicked (GtkButton * button, gpointer user_data)
+on_bk_delete_clicked (GtkWidget *button, gpointer data)
 {
 	BreakpointsDBase *bd;
 	BreakpointItem *bi;
 	gint index;
 
-	bd = (BreakpointsDBase *) user_data;
+	bd = (BreakpointsDBase *) data;
 	if (bd->breakpoints == NULL)
 		return;
 	index = bd->current_index;
@@ -88,14 +88,14 @@ on_bk_delete_clicked (GtkButton * button, gpointer user_data)
 }
 
 void
-on_bk_delete_all_clicked (GtkButton * button, gpointer user_data)
+on_bk_delete_all_clicked (GtkWidget *button, gpointer data)
 {
 	BreakpointsDBase *bd;
-	bd = (BreakpointsDBase *) user_data;
+	bd = (BreakpointsDBase *) data;
 	if (bd->breakpoints == NULL)
 		return;
 
-	messagebox2 (GNOME_MESSAGE_BOX_QUESTION,
+	messagebox2 (GTK_MESSAGE_BOX_QUESTION,
 		     _("Are you sure you want to delete all breakpoints?"),
 		     GNOME_STOCK_BUTTON_YES,
 		     GNOME_STOCK_BUTTON_NO,
@@ -103,20 +103,20 @@ on_bk_delete_all_clicked (GtkButton * button, gpointer user_data)
 }
 
 void
-on_bk_add_breakpoint_clicked (GtkButton * button, gpointer user_data)
+on_bk_add_breakpoint_clicked (GtkWidget *button, gpointer data)
 {
 	GtkWidget *dialog;
-	dialog = create_bk_add_dialog ((BreakpointsDBase *) user_data);
+	dialog = create_bk_add_dialog ((BreakpointsDBase *) data);
 	gtk_widget_show (dialog);
 }
 
 void
-on_bk_toggle_enable_clicked (GtkButton * button, gpointer user_data)
+on_bk_toggle_enable_clicked (GtkWidget *button, gpointer data)
 {
 	BreakpointsDBase *bd;
 	BreakpointItem *bi;
 
-	bd = (BreakpointsDBase *) user_data;
+	bd = (BreakpointsDBase *) data;
 	if (bd->breakpoints == NULL)
 		return;
 	bi = g_list_nth_data (bd->breakpoints, bd->current_index);
@@ -137,13 +137,13 @@ on_bk_toggle_enable_clicked (GtkButton * button, gpointer user_data)
 }
 
 void
-on_bk_enable_all_clicked (GtkButton * button, gpointer user_data)
+on_bk_enable_all_clicked (GtkWidget *button, gpointer data)
 {
 	debugger_enable_all_breakpoints ();
 }
 
 void
-on_bk_disable_all_clicked (GtkButton * button, gpointer user_data)
+on_bk_disable_all_clicked (GtkWidget *button, gpointer data)
 {
 	debugger_disable_all_breakpoints ();
 }
@@ -151,10 +151,10 @@ on_bk_disable_all_clicked (GtkButton * button, gpointer user_data)
 void
 on_bk_clist_select_row (GtkCList * clist,
 			gint row,
-			gint column, GdkEvent * event, gpointer user_data)
+			gint column, GdkEvent * event, gpointer data)
 {
 	BreakpointsDBase *bd;
-	bd = (BreakpointsDBase *) user_data;
+	bd = (BreakpointsDBase *) data;
 	bd->current_index = row;
 	breakpoints_dbase_update_controls (bd);
 }
@@ -162,24 +162,24 @@ on_bk_clist_select_row (GtkCList * clist,
 void
 on_bk_clist_unselect_row (GtkCList * clist,
 			  gint row,
-			  gint column, GdkEvent * event, gpointer user_data)
+			  gint column, GdkEvent * event, gpointer data)
 {
 	BreakpointsDBase *bd;
-	bd = (BreakpointsDBase *) user_data;
+	bd = (BreakpointsDBase *) data;
 	bd->current_index = -1;
 	breakpoints_dbase_update_controls (bd);
 }
 
 void
-on_bk_help_clicked (GtkButton * button, gpointer user_data)
+on_bk_help_clicked (GtkWidget *button, gpointer data)
 {
 
 }
 
 void
-on_bk_close_clicked (GtkButton * button, gpointer user_data)
+on_bk_close_clicked (GtkWidget *button, gpointer data)
 {
-	BreakpointsDBase *db = user_data;
+	BreakpointsDBase *db = data;
 	if (NULL != db && FALSE == db->is_docked)
 		gnome_dialog_close(GNOME_DIALOG(db->widgets.window));
 	else
@@ -187,7 +187,7 @@ on_bk_close_clicked (GtkButton * button, gpointer user_data)
 }
 
 void
-on_bk_delete_all_confirm_yes_clicked (GtkButton * button, gpointer data)
+on_bk_delete_all_confirm_yes_clicked (GtkWidget *button, gpointer data)
 {
 	debugger_delete_all_breakpoints ();
 	breakpoints_dbase_clear (debugger.breakpoints_dbase);
@@ -196,10 +196,10 @@ on_bk_delete_all_confirm_yes_clicked (GtkButton * button, gpointer data)
 /*************************************************************************************/
 gboolean
 on_bk_item_add_delete_event (GtkWidget * w, GdkEvent * event,
-			     gpointer user_data)
+			     gpointer data)
 {
 	struct BkItemData *bid;
-	bid = (struct BkItemData *) user_data;
+	bid = (struct BkItemData *) data;
 
 	if (!bid)
 		return FALSE;
@@ -212,16 +212,16 @@ on_bk_item_add_delete_event (GtkWidget * w, GdkEvent * event,
 }
 
 void
-on_bk_item_add_help_clicked (GtkButton * button, gpointer user_data)
+on_bk_item_add_help_clicked (GtkWidget *button, gpointer data)
 {
 
 }
 
 void
-on_bk_item_add_cancel_clicked (GtkButton * button, gpointer user_data)
+on_bk_item_add_cancel_clicked (GtkWidget *button, gpointer data)
 {
 	struct BkItemData *bid;
-	bid = (struct BkItemData *) user_data;
+	bid = (struct BkItemData *) data;
 	if (!bid)
 		return;
 	gtk_widget_unref (bid->dialog);
@@ -233,12 +233,12 @@ on_bk_item_add_cancel_clicked (GtkButton * button, gpointer user_data)
 }
 
 void
-on_bk_item_add_ok_clicked (GtkButton * button, gpointer user_data)
+on_bk_item_add_ok_clicked (GtkWidget *button, gpointer data)
 {
 	struct BkItemData *bid;
 	gchar *buff;
 
-	bid = (struct BkItemData *) user_data;
+	bid = (struct BkItemData *) data;
 	if (bid == NULL)
 		return;
 	if (strlen (gtk_entry_get_text (GTK_ENTRY (bid->loc))) > 0)
@@ -269,7 +269,7 @@ on_bk_item_add_ok_clicked (GtkButton * button, gpointer user_data)
 			buff = g_strdup_printf ("break %s", bid->loc_text);
 		debugger_put_cmd_in_queqe (buff, DB_CMD_ALL,
 					   bk_item_add_mesg_arrived,
-					   user_data);
+					   data);
 		g_free (buff);
 		gtk_widget_unref (bid->dialog);
 		gtk_widget_unref (bid->loc);
@@ -285,7 +285,7 @@ on_bk_item_add_ok_clicked (GtkButton * button, gpointer user_data)
 }
 
 void
-bk_item_add_mesg_arrived (GList * lines, gpointer user_data)
+bk_item_add_mesg_arrived (GList * lines, gpointer data)
 {
 	struct BkItemData *bid;
 	BreakpointsDBase *bd;
@@ -293,7 +293,7 @@ bk_item_add_mesg_arrived (GList * lines, gpointer user_data)
 	gint index;
 	GList *outputs;
 
-	bid = (struct BkItemData *) user_data;
+	bid = (struct BkItemData *) data;
 	outputs = remove_blank_lines (lines);
 	if (outputs == NULL)
 		goto down_label;
@@ -307,7 +307,7 @@ bk_item_add_mesg_arrived (GList * lines, gpointer user_data)
 			"Breakpoint %d at %*s file %s line %d", &id, file, &line);
 		if (count != 3)
 		{
-			debugger_dialog_message (outputs, user_data);
+			debugger_dialog_message (outputs, data);
 			goto down_label;
 		}
 		/* Removing the extra comma at the end ot the filename */
@@ -351,7 +351,7 @@ bk_item_add_mesg_arrived (GList * lines, gpointer user_data)
 	}
 	else
 	{
-		debugger_dialog_message (outputs, user_data);
+		debugger_dialog_message (outputs, data);
 	}
 
       down_label:
@@ -372,7 +372,7 @@ bk_item_add_mesg_arrived (GList * lines, gpointer user_data)
 }
 
 void
-pass_item_add_mesg_arrived (GList * lines, gpointer user_data)
+pass_item_add_mesg_arrived (GList * lines, gpointer data)
 {
 	GList *outputs;
 
@@ -411,18 +411,18 @@ pass_item_add_mesg_arrived (GList * lines, gpointer user_data)
 /*************************************************************************************/
 
 void
-on_bk_item_edit_help_clicked (GtkButton * button, gpointer user_data)
+on_bk_item_edit_help_clicked (GtkWidget *button, gpointer data)
 {
 
 }
 
 
 void
-on_bk_item_edit_ok_clicked (GtkButton * button, gpointer user_data)
+on_bk_item_edit_ok_clicked (GtkWidget *button, gpointer data)
 {
-	BreakpointsDBase *bd = ((struct BkItemData *) user_data)->bd;
+	BreakpointsDBase *bd = ((struct BkItemData *) data)->bd;
 	if (bd->edit_index >= 0)
 		return;
 	bd->edit_index = bd->current_index;
-	on_bk_item_add_ok_clicked (button, user_data);
+	on_bk_item_add_ok_clicked (button, data);
 }

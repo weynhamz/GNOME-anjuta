@@ -1,3 +1,13 @@
+2002-09-09  Stephane Demurget  <demurgets@free.fr>
+
+	* src/Makefile.am:
+	* src/messagebox.[ch]: killed. Not HIG compliant at all :/
+
+	* src/an_symbol_view.[ch]:
+	* src/attach_process_cbs.h: polished a bit.
+
+	* src/breakpoints_cb.[ch]: partial gnome 2 port.
+
 2002-09-02  Stephane Demurget  <demurgets@free.fr>
 
 	* configure.in:

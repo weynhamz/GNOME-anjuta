@@ -125,8 +125,6 @@ anjuta_SOURCES = \
 	main_menubar_def.h\
 	mainmenu_callbacks.c\
 	mainmenu_callbacks.h\
-	messagebox.c\
-	messagebox.h\
 	message-manager.cc\
 	message-manager.h\
 	message-manager-private.cc\

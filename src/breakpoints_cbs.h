@@ -22,89 +22,34 @@
 
 #include <gnome.h>
 
-gboolean
-on_breakpoints_close (GtkWidget * w, gpointer data);
+gboolean on_breakpoints_close        (GtkWidget *w, gpointer data);
 
-void
-on_bk_view_clicked                     (GtkButton       *button,
-                                        gpointer         user_data);
+void    on_bk_view_clicked           (GtkWidget *button, gpointer data);
+void    on_bk_edit_clicked           (GtkWidget *button, gpointer data);
+void    on_bk_delete_clicked         (GtkWidget *button, gpointer data);
+void    on_bk_delete_all_clicked     (GtkWidget *button, gpointer data);
+void    on_bk_add_breakpoint_clicked (GtkWidget *button, gpointer data);
+void    on_bk_toggle_enable_clicked  (GtkWidget *button, gpointer data);
+void    on_bk_enable_all_clicked     (GtkWidget *button, gpointer data);
+void    on_bk_disable_all_clicked    (GtkWidget *button, gpointer data);
+void    on_bk_close_clicked          (GtkWidget *button, gpointer data);
+void    on_bk_ok_clicked             (GtkWidget *button, gpointer data);
+void    on_bk_help_clicked           (GtkWidget *button, gpointer data);
 
-void
-on_bk_edit_clicked                     (GtkButton       *button,
-                                        gpointer         user_data);
+void    bk_item_add_mesg_arrived     (GList *outputs, gpointer data);
+void    pass_item_add_mesg_arrived   (GList *outputs, gpointer data);
 
-void
-on_bk_delete_clicked                   (GtkButton       *button,
-                                        gpointer         user_data);
-
-void
-on_bk_delete_all_clicked               (GtkButton       *button,
-                                        gpointer         user_data);
-
-void
-on_bk_add_breakpoint_clicked                    (GtkButton       *button,
-                                        gpointer         user_data);
-void
-bk_item_add_mesg_arrived(GList *outputs, gpointer user_data);
-
-void
-pass_item_add_mesg_arrived(GList *outputs, gpointer user_data);
-
-void
-on_bk_toggle_enable_clicked                  (GtkButton       *button,
-                                        gpointer         user_data);
-void
-on_bk_enable_all_clicked                  (GtkButton       *button,
-                                        gpointer         user_data);
-void
-on_bk_disable_all_clicked                  (GtkButton       *button,
-                                        gpointer         user_data);
-void
-on_bk_close_clicked                     (GtkButton       *button,
-                                        gpointer         user_data);
-void
-on_bk_ok_clicked                     (GtkButton       *button,
-                                        gpointer         user_data);
-void
-on_bk_help_clicked                     (GtkButton       *button,
-                                        gpointer         user_data);
-
-void
-on_bk_clist_select_row                 (GtkCList        *clist,
-                                        gint             row,
-                                        gint             column,
-                                        GdkEvent        *event,
-                                        gpointer         user_data);
-void
-on_bk_clist_unselect_row                 (GtkCList        *clist,
-                                        gint             row,
-                                        gint             column,
-                                        GdkEvent        *event,
-                                        gpointer         user_data);
-void
-on_bk_delete_all_confirm_yes_clicked(GtkButton* button , gpointer data);
+void	on_bk_delete_all_confirm_yes_clicked (GtkWidget *button, gpointer data);
 
 /*****************************************************************************************/
-gint
-on_bk_item_add_delete_event (GtkWidget* w, GdkEvent* event, gpointer data);
+gint    on_bk_item_add_delete_event   (GtkWidget *w, GdkEvent *event, gpointer data);
 
-void
-on_bk_item_add_cancel_clicked                   (GtkButton       *button,
-                                        gpointer         user_data);
-void
-on_bk_item_add_help_clicked            (GtkButton       *button,
-                                        gpointer         user_data);
+void    on_bk_item_add_cancel_clicked (GtkWidget *button, gpointer data);
+void    on_bk_item_add_help_clicked   (GtkWidget *button, gpointer data);
+void    on_bk_item_add_ok_clicked     (GtkButton *button, gpointer data);
 
-void
-on_bk_item_add_ok_clicked              (GtkButton       *button,
-                                        gpointer         user_data);
 /*********************************************************************************/
-void
-on_bk_item_edit_help_clicked           (GtkButton       *button,
-                                        gpointer         user_data);
-
-void
-on_bk_item_edit_ok_clicked             (GtkButton       *button,
-                                        gpointer         user_data);
+void    on_bk_item_edit_help_clicked  (GtkWidget *button, gpointer data);
+void    on_bk_item_edit_ok_clicked    (GtkWidget *button, gpointer data);
 
 #endif

@@ -381,7 +381,7 @@ sv_disconnect ()
 {
 	g_return_if_fail (sv != NULL);
 
-	g_signal_disconnect_by_func (sv->tree, G_CALLABACK (sv_on_event), NULL);
+	g_signal_disconnect_by_func (sv->tree, G_CALLBACK (sv_on_event), NULL);
 }
 
 static void
