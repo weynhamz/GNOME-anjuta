@@ -8,28 +8,48 @@ INCLUDES = \
 
 lib_LTLIBRARIES=libanjuta.la
 
-libanjuta_la_LIADD=$(LIBANJUTA_LIBS)
+libanjuta_la_LIADD = $(LIBANJUTA_LIBS)
+libanjuta_la_LIBADD = \
+	$(top_builddir)/widgets/libwidgets.a\
+	$(top_builddir)/libegg/treeviewutils/libegg-treeview.a\
+	$(top_builddir)/libegg/toolbar/libegg-toolbar.a\
+	$(top_builddir)/libegg/menu/libegg-menu.a\
+	$(top_builddir)/libegg/util/libeggutil.a
+
 libanjuta_la_SOURCES= \
 	anjuta-shell.c \
 	anjuta-marshal.c \
+	anjuta-encodings.c \
 	anjuta-preferences-dialog.c \
 	anjuta-preferences.c \
 	anjuta-plugin.c \
+	anjuta-plugin-parser.c \
+	anjuta-ui.c \
 	anjuta-utils.c \
+	anjuta-children.c \
 	properties.cxx \
 	properties.h \
+	resources.c \
+	resources.h \
 	defaults.h \
+	defaults.c \
 	glue-plugin.c \
-	glue-factory.c 
+	glue-factory.c \
+	plugins.c \
+	plugins.h
 
 libanjutaincludedir=$(includedir)/libanjuta-1.0/libanjuta
 libanjutainclude_HEADERS = \
 	anjuta-shell.h \
+	anjuta-encodings.h \
 	anjuta-plugin.h \
+	anjuta-plugin-parser.h \
 	anjuta-marshal.h \
 	anjuta-utils.h \
 	anjuta-preferences-dialog.h \
-	anjuta-preferences.h 
+	anjuta-preferences.h \
+	anjuta-ui.h \
+	anjuta-children.h
 
 BUILT_SOURCES=anjuta-marshal.c anjuta-marshal.h
 

@@ -23,9 +23,8 @@
 
 #include <gnome.h>
 
-#include "utilities.h"
-#include "pixmaps.h"
-#include "resources.h"
+#include <libanjuta/pixmaps.h>
+#include <libanjuta/resources.h>
 
 GtkWidget *
 anjuta_res_lookup_widget (GtkWidget * widget, const gchar * widget_name)
@@ -114,7 +113,7 @@ anjuta_res_get_pixmap_dir ()
 {
 	gchar* path;
 	path = g_strdup (PACKAGE_PIXMAPS_DIR);
-	if (file_is_directory(path))
+	if (g_file_test (path, G_FILE_TEST_IS_DIR))
 		return path;
 	g_free (path);
 	return NULL;
@@ -125,7 +124,7 @@ anjuta_res_get_data_dir ()
 {
 	gchar* path;
 	path = g_strdup (PACKAGE_DATA_DIR);
-	if (file_is_directory(path))
+	if (g_file_test (path, G_FILE_TEST_IS_DIR))
 		return path;
 	g_free (path);
 	return NULL;
@@ -136,7 +135,7 @@ anjuta_res_get_help_dir ()
 {
 	gchar* path;
 	path = g_strdup (PACKAGE_HELP_DIR);
-	if (file_is_directory(path))
+	if (g_file_test (path, G_FILE_TEST_IS_DIR))
 		return path;
 	g_free (path);
 	return NULL;
@@ -150,7 +149,7 @@ anjuta_res_get_help_dir_locale (const gchar * locale)
 		path = g_strconcat (PACKAGE_HELP_DIR, "/", locale, NULL);
 	else
 		path = g_strdup (PACKAGE_HELP_DIR);
-	if (file_is_directory(path))
+	if (g_file_test (path, G_FILE_TEST_IS_DIR))
 		return path;
 	g_free (path);
 	return NULL;
@@ -161,7 +160,7 @@ anjuta_res_get_doc_dir ()
 {
 	gchar* path;
 	path = g_strdup (PACKAGE_DOC_DIR);
-	if (file_is_directory(path))
+	if (g_file_test (path, G_FILE_TEST_IS_DIR))
 		return path;
 	g_free (path);
 	return NULL;
@@ -174,7 +173,7 @@ anjuta_res_get_pixmap_file (const gchar * pixfile)
 	gchar* path;
 	g_return_val_if_fail (pixfile != NULL, NULL);
 	path = g_strconcat (PACKAGE_PIXMAPS_DIR, "/", pixfile, NULL);
-	if (file_is_regular(path))
+	if (g_file_test (path, G_FILE_TEST_IS_REGULAR))
 		return path;
 	g_warning ("Pixmap file not found: %s", path);
 	g_free (path);
@@ -187,7 +186,7 @@ anjuta_res_get_data_file (const gchar * datafile)
 	gchar* path;
 	g_return_val_if_fail (datafile != NULL, NULL);
 	path = g_strconcat (PACKAGE_DATA_DIR, "/", datafile, NULL);
-	if (file_is_regular(path))
+	if (g_file_test (path, G_FILE_TEST_IS_REGULAR))
 		return path;
 	g_free (path);
 	return NULL;
@@ -199,7 +198,7 @@ anjuta_res_get_help_file (const gchar * helpfile)
 	gchar* path;
 	g_return_val_if_fail (helpfile != NULL, NULL);
 	path = g_strconcat (PACKAGE_HELP_DIR, "/", helpfile, NULL);
-	if (file_is_regular(path))
+	if (g_file_test (path, G_FILE_TEST_IS_REGULAR))
 		return path;
 	g_free (path);
 	return NULL;
@@ -215,7 +214,7 @@ anjuta_res_get_help_file_locale (const gchar * helpfile, const gchar * locale)
 				    helpfile, NULL);
 	else
 		path = g_strconcat (PACKAGE_HELP_DIR, "/", helpfile, NULL);
-	if (file_is_regular(path))
+	if (g_file_test (path, G_FILE_TEST_IS_REGULAR))
 		return path;
 	g_free (path);
 	return NULL;
@@ -227,7 +226,7 @@ anjuta_res_get_doc_file (const gchar * docfile)
 	gchar* path;
 	g_return_val_if_fail (docfile != NULL, NULL);
 	path = g_strconcat (PACKAGE_DOC_DIR, "/", docfile, NULL);
-	if (file_is_regular(path))
+	if (g_file_test (path, G_FILE_TEST_IS_REGULAR))
 		return path;
 	g_free (path);
 	return NULL;
@@ -239,15 +238,16 @@ anjuta_res_get_icon_for_file (PropsID props, const gchar *filename)
 {
 	gchar *value;
 	GdkPixbuf *pixbuf;
-	const gchar *file;
+	gchar *file;
 	
 	g_return_val_if_fail (filename != NULL, NULL);
-	file = extract_filename (filename);
+	file = g_path_get_basename (filename);
 	value = prop_get_new_expand (props, "icon.", file);
 	if (value == NULL)
 		value = g_strdup ("file_text.png");
 	pixbuf = anjuta_res_get_pixbuf (value);
 	g_free (value);
+	g_free (file);
 	return pixbuf;
 }
 

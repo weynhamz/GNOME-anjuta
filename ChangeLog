@@ -1,3 +1,10 @@
+2004-01-03  Naba Kumar  <naba@gnome.org>
+
+	* libanjuta/*.c: Added new files and updated old ones.
+	* plugins/editor/*: Added editor plugin.
+	* configure.in: Added editor plugin and moved editor related
+	files into it.
+
 2004-01-02  Jean-Noel Guiheneuf  <jnoel@lotuscompounds.com>
 
 	* src/Makefile.am: Added search-replace_backend.[ch]

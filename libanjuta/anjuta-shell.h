@@ -1,5 +1,5 @@
-#ifndef ANJUTA_SHELL_H
-#define ANJUTA_SHELL_H
+#ifndef _ANJUTA_SHELL_H
+#define _ANJUTA_SHELL_H
 
 #include <glib-object.h>
 #include <gtk/gtkwidget.h>
@@ -16,7 +16,7 @@ G_BEGIN_DECLS
 
 typedef struct _AnjutaShell      AnjutaShell;
 typedef struct _AnjutaShellIface AnjutaShellIface;
-typedef enum   _AnjutaShellError AnjutaShellError;
+//typedef enum   _AnjutaShellError AnjutaShellError;
 
 struct _AnjutaShellIface {
 	GTypeInterface g_iface;
@@ -52,7 +52,7 @@ struct _AnjutaShellIface {
 				   GError       **error);
 };
 
-enum _AnjutaShellError {
+enum AnjutaShellError {
 	ANJUTA_SHELL_ERROR_DOESNT_EXIST,
 };
 

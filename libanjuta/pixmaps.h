@@ -18,9 +18,9 @@
 */
 
 /* 
-    This file contains definitions for all of the different images used by
-    the Anjuta IDE. New graphics should be defined here and referenced via
-	the macro in any source files (which will need to include this header)
+    This file contains definitions of all different images used by
+    Anjuta IDE. New graphics should be defined here and referenced via
+	macros in source files.
 	
 	Helper functions may be found in resources.c
 */
@@ -145,12 +145,5 @@
 /* Common */
 #define ANJUTA_PIXMAP_CLOSED_FOLDER       "bfoldc.xpm"
 #define ANJUTA_PIXMAP_OPEN_FOLDER         "bfoldo.xpm"
-
-/* Useful macros for specifying pixmaps in UIInfo structures */
-/* #define PIX_FILE(F) GNOME_APP_PIXMAP_FILENAME, \
-	PACKAGE_PIXMAPS_DIR "/" ANJUTA_PIXMAP_ ## F */
-#define PIX_FILE(F) GNOME_APP_PIXMAP_NONE, NULL
-#define PIX_STOCK(F) GNOME_APP_PIXMAP_STOCK, F
-/* GNOME_STOCK_MENU_ ## F */
 
 #endif

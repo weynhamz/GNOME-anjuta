@@ -47,12 +47,14 @@ enum {
 	N_COLUMNS
 };
 
+#if 0
 static gboolean
 on_delete_event (AnjutaUI *ui, gpointer data)
 {
 	gtk_widget_hide (GTK_WIDGET (ui));
 	return FALSE;
 }
+#endif
 
 static void
 sensitivity_toggled (GtkCellRendererToggle *cell,
@@ -358,7 +360,7 @@ create_tree_view (AnjutaUI *ui)
 }
 
 static void anjuta_ui_class_init (AnjutaUIClass *class);
-static void anjuta_ui_dialog_instance_init (AnjutaUI *ui);
+static void anjuta_ui_instance_init (AnjutaUI *ui);
 
 GNOME_CLASS_BOILERPLATE (AnjutaUI, 
 						 anjuta_ui,
@@ -542,7 +544,7 @@ anjuta_ui_add_action_group (AnjutaUI *ui,
 	}
 }
 
-gboolean
+static gboolean
 on_action_group_remove_hash (gpointer key, gpointer value, gpointer data)
 {
 	if (data == value)

@@ -1,6 +1,7 @@
+/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /* 
-    utilities.h
-    Copyright (C) 2000  Kh. Naba Kumar Singh
+    anjuta-utils.h
+    Copyright (C) 2003 Naba Kumar  <naba@gnome.org>
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -41,5 +42,81 @@ void anjuta_util_dialog_warning (GtkWindow *parent, gchar * mesg, ...);
 void anjuta_util_dialog_info (GtkWindow *parent, gchar * mesg, ...);
 void anjuta_util_dialog_error_system (GtkWindow* parent, gint errnum,
 									  gchar * mesg, ... );
+gboolean anjuta_util_dialog_boolean_question (GtkWindow *parent,
+											  gchar * mesg, ...);
+
+gboolean anjuta_util_prog_is_installed (gchar * prog, gboolean show);
+
+gchar* anjuta_util_get_a_tmp_file (void);
+
+/***********************************************/
+/* String integer mapping utility functions    */
+/***********************************************/
+typedef struct _AnjutaUtilStringMap
+{
+	int type;
+	char *name;
+} AnjutaUtilStringMap;
+
+int anjuta_util_type_from_string(AnjutaUtilStringMap *map, const char *str);
+const char *anjuta_util_string_from_type(AnjutaUtilStringMap *map, int type);
+GList *anjuta_util_glist_from_map(AnjutaUtilStringMap *map);
+
+/***********************************************/
+/*  Functions that operate on list of strings. */
+/***********************************************/
+void anjuta_util_glist_strings_free(GList* list);
+void anjuta_util_glist_strings_prefix (GList * list, const gchar *prefix);
+void anjuta_util_glist_strings_sufix (GList * list, const gchar *sufix);
+GList* anjuta_util_glist_strings_sort (GList * list);
+
+/**********************************************************/
+/* Both the returned glist and the data should be g_freed */
+/* Call g_list_strings_free() to do that.                 */
+/**********************************************************/
+GList* anjuta_util_glist_from_data (guint props, const gchar* id);
+GList* anjuta_util_glist_from_string (const gchar* id);
+GList* anjuta_util_glist_strings_dup (GList * list);
+
+/* Dedup a list of paths - duplicates are removed from the tail.
+** Useful for deduping Recent Files and Recent Projects */
+GList* anjuta_util_glist_path_dedup(GList *list);
+
+/* Temporarily copied here */
+
+#define ANJUTA_TYPE_BEGIN(class_name, prefix, parent_type) \
+GType                                                     \
+prefix##_get_type (void)                                  \
+{                                                         \
+  static GType type = 0;                                  \
+  if (!type)                                              \
+    {                                                     \
+ static const GTypeInfo type_info =                       \
+        {                                                 \
+          sizeof (class_name##Class),                     \
+          (GBaseInitFunc) NULL,                           \
+          (GBaseFinalizeFunc) NULL,                       \
+          (GClassInitFunc) prefix##_class_init,           \
+          (GClassFinalizeFunc) NULL,                      \
+          NULL,                                           \
+          sizeof (class_name),                            \
+          0, /* n_preallocs */                            \
+          (GInstanceInitFunc) prefix##_instance_init,     \
+        };                                                \
+                                                          \
+        type = g_type_register_static (parent_type,       \
+                                          #class_name,    \
+                                          &type_info, 0);
+#define ANJUTA_TYPE_END                                   \
+     }                                                    \
+  return type;                                            \
+}
+
+#define ANJUTA_INTERFACE(prefix,interface_type)                 \
+{                                                               \
+GInterfaceInfo iface_info = { (GInterfaceInitFunc)prefix##_iface_init, NULL, NULL };\
+g_type_add_interface_static (type, interface_type,              \
+                             &iface_info);                      \
+}
 
 #endif

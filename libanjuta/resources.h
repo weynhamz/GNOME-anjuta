@@ -24,6 +24,7 @@ extern "C"
 {
 #endif
 
+#include <gtk/gtkwidget.h>
 #include "properties.h"
 
 GtkWidget* anjuta_res_lookup_widget (GtkWidget *widget,
