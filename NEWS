@@ -1,6 +1,6 @@
-Anjuta 1.0:		(xth June 2002)				-- Andy Piper
+Anjuta 1.0-rc1:	(1st August 2002)			-- Andy Piper
 
-   => Release of Anjuta-1.0 (stable)
+   => Release of Anjuta-1.0-rc1 (release candidate 1)
 
 New: CVS support for Projects and individual files,
      file revisions are displayed in Files pane
@@ -16,9 +16,9 @@ New: enhanced Evolution-style about dialog
 New: better GNOME integration, now uses configured GNOME URL 
      handlers
 New: Anjuta kickstart tutorial
-New: Automatic expression tips during debugging (hover-and-show).
-New: Compilarion warning/error navigation from terminal
-New: Mime handling.
+New: Automatic expression tips during debugging (hover-and-show)
+New: Compilation warning/error navigation from terminal
+New: Mime handling
 
 Updated: synced to Scintilla 1.46
 Updated: many usability improvements to the GUI and menus
