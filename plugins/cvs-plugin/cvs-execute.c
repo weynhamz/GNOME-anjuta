@@ -31,7 +31,7 @@
 #include <pcre.h>
 
 #define CVS_ICON ""
-#define CVS_INFO_REGEXP "cvs update:."
+#define CVS_INFO_REGEXP "(cvs update:.|cvs server:.)"
 #define CVS_ERR_REGEXP "^C ."
 
 

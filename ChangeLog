@@ -1,6 +1,9 @@
 2005-01-01  Johannes Schmid <jhs@cvs.gnome.org>
 
 	* plugins/cvs-plugin/plugin.c: Fixed crash bug
+	* plugins/cvs-plugin/cvs-execute.c:
+	Patch from Mark R. Pariente <markpariente@cmu.edu>
+	- Fix message highlighting
 
 2004-12-30  Johannes Schmid <jhs@cvs.gnome.org>
 	
