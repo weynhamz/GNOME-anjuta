@@ -228,7 +228,7 @@ static void CG_DataChanged(CG_Creator	*self )
 	
 	CG_GetStrings( self );
 
-	// Se l'utente non ha editato genero automaticamente
+	// Se lutente non ha editato genero automaticamente
 	// i nomi di file.
 	if( 	IsLegalClassName(self->m_szClassName ) 
 		&&	IsLegalFileName(self->m_szDeclFile ) 

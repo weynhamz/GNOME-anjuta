@@ -10,6 +10,12 @@
 	  Patch submitted by: 
 	  Jens Georg <mail@jensgeorg.de>
 
+	* anjuta.in.in: Removed c|c++ because, it was not necessary
+	  and was causing translation problem.
+	  
+	* plugins/class-gen/clsGen.c:
+	  removed "'" for the same reason.
+	  
 attached the fix for the menu
 
 

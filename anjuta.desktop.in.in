@@ -1,5 +1,5 @@
 [Desktop Entry]
-_Name=Anjuta C|C++ IDE
+_Name=Anjuta IDE
 _Comment=Integrated Development Environment
 Exec=anjuta
 Icon=@PACKAGE_PIXMAPS_DIR@/anjuta_icon.png
