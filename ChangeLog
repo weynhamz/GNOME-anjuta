@@ -3,6 +3,9 @@
 	* Makefile.am: src module should be build last to complete
 	the dependencies with the libraries.
 	
+	* plugins/class-gen/clsGen.c: Removed the gtk_widget_set_usize()
+	calls to the various widgets to avoid clipping with large fonts.
+	
 2002-06-13	Dave Huseby <huseby@shockfusion.com>
 
 	Reviewed by Naba Kumar <kh_naba@users.sourceforge.net>

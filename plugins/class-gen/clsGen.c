@@ -1439,7 +1439,7 @@ CreateDialogClass(CG_Creator *self)
   gtk_widget_show (self->label_description);
   gtk_fixed_put (GTK_FIXED (self->fixed), self->label_description, 32, 40);
   gtk_widget_set_uposition (self->label_description, 32, 40);
-  gtk_widget_set_usize (self->label_description, 400, 16);
+  //gtk_widget_set_usize (self->label_description, 400, 16);
 
   self->label_class_name = gtk_label_new (_("Class name: "));
   gtk_widget_ref (self->label_class_name);
@@ -1448,7 +1448,7 @@ CreateDialogClass(CG_Creator *self)
   gtk_widget_show (self->label_class_name);
   gtk_fixed_put (GTK_FIXED (self->fixed), self->label_class_name, 24, 136);
   gtk_widget_set_uposition (self->label_class_name, 24, 136);
-  gtk_widget_set_usize (self->label_class_name, 64, 16);
+  //gtk_widget_set_usize (self->label_class_name, 64, 16);
   gtk_label_set_justify (GTK_LABEL (self->label_class_name), GTK_JUSTIFY_LEFT);
 
   self->label_header_file = gtk_label_new (_("Header file:  "));
@@ -1458,7 +1458,7 @@ CreateDialogClass(CG_Creator *self)
   gtk_widget_show (self->label_header_file);
   gtk_fixed_put (GTK_FIXED (self->fixed), self->label_header_file, 232, 136);
   gtk_widget_set_uposition (self->label_header_file, 232, 136);
-  gtk_widget_set_usize (self->label_header_file, 64, 16);
+  //gtk_widget_set_usize (self->label_header_file, 64, 16);
   gtk_label_set_justify (GTK_LABEL (self->label_header_file), GTK_JUSTIFY_LEFT);
 
   self->label_source_file = gtk_label_new (_("Source file:  "));
@@ -1468,7 +1468,7 @@ CreateDialogClass(CG_Creator *self)
   gtk_widget_show (self->label_source_file);
   gtk_fixed_put (GTK_FIXED (self->fixed), self->label_source_file, 440, 136);
   gtk_widget_set_uposition (self->label_source_file, 440, 136);
-  gtk_widget_set_usize (self->label_source_file, 64, 16);
+  //gtk_widget_set_usize (self->label_source_file, 64, 16);
   gtk_label_set_justify (GTK_LABEL (self->label_source_file), GTK_JUSTIFY_LEFT);
 
   self->label_base_class = gtk_label_new (_("Base class:   "));
@@ -1478,7 +1478,7 @@ CreateDialogClass(CG_Creator *self)
   gtk_widget_show (self->label_base_class);
   gtk_fixed_put (GTK_FIXED (self->fixed), self->label_base_class, 24, 184);
   gtk_widget_set_uposition (self->label_base_class, 24, 184);
-  gtk_widget_set_usize (self->label_base_class, 64, 16);
+  //gtk_widget_set_usize (self->label_base_class, 64, 16);
   gtk_label_set_justify (GTK_LABEL (self->label_base_class), GTK_JUSTIFY_LEFT);
 
   self->label_access = gtk_label_new (_("Base class inheritance: "));
@@ -1488,7 +1488,7 @@ CreateDialogClass(CG_Creator *self)
   gtk_widget_show (self->label_access);
   gtk_fixed_put (GTK_FIXED (self->fixed), self->label_access, 232, 184);
   gtk_widget_set_uposition (self->label_access, 232, 184);
-  gtk_widget_set_usize (self->label_access, 120, 16);
+  //gtk_widget_set_usize (self->label_access, 120, 16);
 
   self->hseparator3 = gtk_hseparator_new ();
   gtk_widget_ref (self->hseparator3);
@@ -1524,7 +1524,7 @@ CreateDialogClass(CG_Creator *self)
   gtk_widget_show (self->checkbutton_inline);
   gtk_fixed_put (GTK_FIXED (self->fixed), self->checkbutton_inline, 232, 104);
   gtk_widget_set_uposition (self->checkbutton_inline, 232, 104);
-  gtk_widget_set_usize (self->checkbutton_inline, 224, 24);
+  //gtk_widget_set_usize (self->checkbutton_inline, 224, 24);
   gtk_tooltips_set_tip (self->tooltips, self->checkbutton_inline, _("If checked, the plugin will generate both the declaration and implementation in the header file and will not create a source file."), NULL);
 
   self->label_author = gtk_label_new (_("By:  Dave Huseby <huseby@linuxprogrammer.org>"));
@@ -1534,7 +1534,7 @@ CreateDialogClass(CG_Creator *self)
   gtk_widget_show (self->label_author);
   gtk_fixed_put (GTK_FIXED (self->fixed), self->label_author, 0, 464);
   gtk_widget_set_uposition (self->label_author, 0, 464);
-  gtk_widget_set_usize (self->label_author, 256, 16);
+  //gtk_widget_set_usize (self->label_author, 256, 16);
   gtk_widget_set_sensitive (self->label_author, FALSE);
   gtk_label_set_justify (GTK_LABEL (self->label_author), GTK_JUSTIFY_LEFT);
 
@@ -1545,7 +1545,7 @@ CreateDialogClass(CG_Creator *self)
   gtk_widget_show (self->label_version);
   gtk_fixed_put (GTK_FIXED (self->fixed), self->label_version, 528, 464);
   gtk_widget_set_uposition (self->label_version, 528, 464);
-  gtk_widget_set_usize (self->label_version, 112, 16);
+  //gtk_widget_set_usize (self->label_version, 112, 16);
   gtk_widget_set_sensitive (self->label_version, FALSE);
   gtk_label_set_justify (GTK_LABEL (self->label_version), GTK_JUSTIFY_RIGHT);
 
@@ -1556,7 +1556,7 @@ CreateDialogClass(CG_Creator *self)
   gtk_widget_show (self->label_todo);
   gtk_fixed_put (GTK_FIXED (self->fixed), self->label_todo, 120, 312);
   gtk_widget_set_uposition (self->label_todo, 120, 312);
-  gtk_widget_set_usize (self->label_todo, 400, 16);
+  //gtk_widget_set_usize (self->label_todo, 400, 16);
   gtk_widget_set_sensitive (self->label_todo, FALSE);
 
   self->label_welcome = gtk_label_new (_("Welcome to the Anjuta Class Builder. "));
@@ -1566,7 +1566,7 @@ CreateDialogClass(CG_Creator *self)
   gtk_widget_show (self->label_welcome);
   gtk_fixed_put (GTK_FIXED (self->fixed), self->label_welcome, 32, 16);
   gtk_widget_set_uposition (self->label_welcome, 32, 16);
-  gtk_widget_set_usize (self->label_welcome, 184, 16);
+  //gtk_widget_set_usize (self->label_welcome, 184, 16);
 
   self->label_class_type = gtk_label_new (_("Class type:   "));
   gtk_widget_ref (self->label_class_type);
@@ -1575,7 +1575,7 @@ CreateDialogClass(CG_Creator *self)
   gtk_widget_show (self->label_class_type);
   gtk_fixed_put (GTK_FIXED (self->fixed), self->label_class_type, 24, 88);
   gtk_widget_set_uposition (self->label_class_type, 24, 88);
-  gtk_widget_set_usize (self->label_class_type, 64, 16);
+  //gtk_widget_set_usize (self->label_class_type, 64, 16);
   gtk_label_set_justify (GTK_LABEL (self->label_class_type), GTK_JUSTIFY_LEFT);
 
   self->combo_access = gtk_combo_new ();
@@ -1608,7 +1608,7 @@ CreateDialogClass(CG_Creator *self)
   gtk_widget_show (self->checkbutton_virtual_destructor);
   gtk_fixed_put (GTK_FIXED (self->fixed), self->checkbutton_virtual_destructor, 440, 200);
   gtk_widget_set_uposition (self->checkbutton_virtual_destructor, 440, 200);
-  gtk_widget_set_usize (self->checkbutton_virtual_destructor, 112, 24);
+  //gtk_widget_set_usize (self->checkbutton_virtual_destructor, 112, 24);
   gtk_tooltips_set_tip (self->tooltips, self->checkbutton_virtual_destructor, _("If checked, the destructor of your class will be declared virtual."), NULL);
 
   self->combo_class_type = gtk_combo_new ();
