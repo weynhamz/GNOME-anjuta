@@ -3,7 +3,7 @@
 ## If you don't want it to overwrite it,
 ## 	Please disable it in the Anjuta project configuration
 
-SUBDIRS = m4  intl po macros tagmanager global-tags scintilla \
+SUBDIRS = m4  po macros tagmanager global-tags scintilla \
 	widgets printing manuals omf-install pixmaps data \
 	doc launcher plugins scripts src
 
