@@ -170,7 +170,7 @@ cvs_get_compression (CVS * cvs)
 gboolean
 cvs_get_diff_use_date(CVS* cvs)
 {
-	g_return_if_fail (cvs != NULL);
+	g_return_val_if_fail (cvs != NULL, FALSE);
 	return cvs->use_date_diff;
 }
 

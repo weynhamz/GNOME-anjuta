@@ -38,17 +38,15 @@ static void create_find_replace_gui (FindAndReplace * fr);
 
 static GtkWidget *create_replace_messagebox (void);
 
-static void
-on_replace_text_ok_clicked (GtkButton * button, gpointer user_data);
+static void on_replace_text_ok_clicked (GtkButton * button, gpointer user_data);
+static void on_replace_text_cancel_clicked (GtkButton * button, gpointer user_data);
+static void on_replace_text_help_clicked (GtkButton * button, gpointer user_data);
 
-static void
-on_replace_text_cancel_clicked (GtkButton * button, gpointer user_data);
-static void
-on_replace_text_help_clicked (GtkButton * button, gpointer user_data);
-
+/*
 static gboolean
 on_replace_text_close (GtkWidget * widget,
 				  gpointer user_data);
+*/
 
 FindAndReplace *
 find_replace_new ()
@@ -229,8 +227,10 @@ find_replace_hide (FindAndReplace * fr)
 		return;
 	if (fr->is_showing == FALSE)
 		return;
+	
 	gdk_window_get_root_origin (fr->r_gui.GUI->window, &fr->pos_x,
 				    &fr->pos_y);
+	gnome_dialog_close(GNOME_DIALOG(fr->r_gui.GUI));
 	fr->is_showing = FALSE;
 
 	fr->find_text->ignore_case =
@@ -504,9 +504,10 @@ create_find_replace_gui (FindAndReplace * fr)
 
 	gtk_accel_group_attach (app->accel_group, GTK_OBJECT (dialog2));
 
-	gtk_signal_connect (GTK_OBJECT (dialog2), "close",
+/*	gtk_signal_connect (GTK_OBJECT (dialog2), "close",
 			    GTK_SIGNAL_FUNC (on_replace_text_close),
 			    fr);
+*/
 	gtk_signal_connect (GTK_OBJECT (combo_entry2), "activate",
 			    GTK_SIGNAL_FUNC (on_replace_text_ok_clicked), fr);
 	gtk_signal_connect (GTK_OBJECT (combo_entry3), "activate",
@@ -608,9 +609,8 @@ on_replace_text_ok_clicked (GtkButton * button, gpointer user_data)
 	FindAndReplace *fr = user_data;
 	gint ret, count;
 
-	if (NULL != fr)
-		gnome_dialog_close(GNOME_DIALOG(fr->r_gui.GUI));
-/*	update_gtk ();*/
+	find_replace_hide(fr);
+
 	te = anjuta_get_current_text_editor ();
 	if (!te)
 		return;
@@ -683,8 +683,7 @@ static void
 on_replace_text_cancel_clicked (GtkButton * button, gpointer user_data)
 {
 	FindAndReplace *fr = (FindAndReplace *)user_data;
-	if (NULL != fr)
-		gnome_dialog_close(GNOME_DIALOG(fr->r_gui.GUI));
+	find_replace_hide(fr);
 }
 
 static void
@@ -693,6 +692,7 @@ on_replace_text_help_clicked (GtkButton * button, gpointer user_data)
 
 }
 
+/*
 static gboolean
 on_replace_text_close (GtkWidget * widget,
 			      gpointer user_data)
@@ -701,4 +701,4 @@ on_replace_text_close (GtkWidget * widget,
 	find_replace_hide (fr);
 	return FALSE;
 }
-
+*/

@@ -4,6 +4,13 @@
 	before the revision part. This fixes the cvs
 	error we get when cvs-diffing with revisions.
 	
+	* src/cvs.c: Fixed a compiler warning.
+	
+	* src/find_replace.c: The dialog now remembers
+	the settings including the "prompt on replace"
+	which seems to have broken somewhere line the
+	changes.
+	
 2002-04-18 Naba Kumar <kh_naba@users.sourceforge.net>
 
 	* src/cvs.{h,c}, src/cvs_cbs.{h,c}, src/cvs_gui.{h,c}:
