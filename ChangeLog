@@ -1,5 +1,10 @@
 2003-03-24  Naba Kumar  <naba@gnome.org>
 
+	* configure.in: Fixed a debian related libglade check problem.
+	It seems debian ships libglade libraries in two different
+	packages, namely libglade and libglade-gnome. We need to make
+	sure both are installed.
+
 	* anjuta.glade, src/anjuta_dialog_strings: Made all un-necessary
 	GtkFrames invisible and adjust border and separation sizes to a
 	resonable 5 points.

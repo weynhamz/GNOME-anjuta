@@ -95,16 +95,22 @@ if test x$EXTRA_PIXBUF_CONFIG = xno; then
   AC_MSG_ERROR(Couldn't find gdk-pixbuf-config, please install the Gdk Pixbuf package.)
 fi
 
-AC_PATH_PROG(EXTRA_LIBGLADE_CONFIG, libglade-config,no)
-if test x$EXTRA_LIBGLADE_CONFIG = xno; then
-  AC_MSG_ERROR(Couldn't find libglade-config, please install the LibGlade package.)
-fi
-
 dnl Checks for programs.
 dnl ***************************************************************************
 dnl Check for Gnome XML
 dnl ***************************************************************************
 GNOME_XML_CHECK
+
+dnl ***************************************************************************
+dnl LibGlade checks
+dnl ***************************************************************************
+AC_MSG_CHECKING(for correct libglade libraries)
+EXTRA_LIBGLADE_TEST=`gnome-config --cflags libglade 2> /dev/null`
+if test x$EXTRA_LIBGLADE_TEST = x; then
+  AC_MSG_ERROR([Could not find libglade libraries, please install the LibGlade and its devel package. RPM comes as libglade-devel and debian libglade comes in two different packages libglade-dev and libglade-gnome-dev. You need both. Also you will need to install the corresponding non-devel packages first.])
+else
+  AC_MSG_RESULT(found)
+fi
 
 dnl ***************************************************************************
 dnl Check for ScrollKeeper
