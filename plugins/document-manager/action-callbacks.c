@@ -1012,12 +1012,17 @@ on_toolbar_find_incremental_end (GtkAction *action, gpointer user_data)
 	AnjutaDocman *docman;
 	EditorPlugin *plugin;
 	IncrementalSearch *search_params;
+	AnjutaStatus *status; 
 	
 	plugin = (EditorPlugin *) user_data;
 	docman = ANJUTA_DOCMAN (plugin->docman);
 	te = anjuta_docman_get_current_editor (docman);
 
 	if (!te) return FALSE;
+	
+	status = anjuta_shell_get_status (ANJUTA_PLUGIN (user_data)->shell, NULL);
+	anjuta_status_clear_stack (status);
+	
 	search_params = g_object_get_data (G_OBJECT (te), "incremental_search");
 	if (search_params)
 	{
