@@ -37,7 +37,10 @@
 
 #include <libanjuta/resources.h>
 #include <libanjuta/pixmaps.h>
+#include <libanjuta/anjuta-debug.h>
 #include <libanjuta/anjuta-utils.h>
+#include <libanjuta/anjuta-debug.h>
+#include <libanjuta/anjuta-status.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
 #include <libanjuta/interfaces/ianjuta-file-loader.h>
 
@@ -55,6 +58,7 @@ enum {
 	PIXBUF_COLUMN,
 	FILENAME_COLUMN,
 	REV_COLUMN,
+	IS_DIR_COLUMN,
 	COLUMNS_NB
 };
 
@@ -636,6 +640,7 @@ fv_add_tree_entry (FileManagerPlugin *fv, const gchar *path, GtkTreeIter *root)
 							PIXBUF_COLUMN, pixbuf,
 							FILENAME_COLUMN, file,
 							REV_COLUMN, "D",
+							IS_DIR_COLUMN, 1,
 							-1);
 				g_object_unref (pixbuf);
 				gtk_tree_store_append (store, &sub_iter, &iter);
@@ -698,66 +703,130 @@ fv_add_tree_entry (FileManagerPlugin *fv, const gchar *path, GtkTreeIter *root)
 static void
 on_file_view_row_expanded (GtkTreeView *view,
 						   GtkTreeIter *iter,
-						   GtkTreePath *path,
+						   GtkTreePath *iter_path,
 						   FileManagerPlugin *fv)
 {
 	GdkPixbuf *pix;
 	gchar *full_path;
 	GtkTreeIter child;
-	gint past_count;
+	GList *row_refs, *row_ref_node;
+	GtkTreeRowReference *row_ref;
+	GtkTreePath *path;
+	AnjutaStatus *status;
+	
+	status = anjuta_shell_get_status (ANJUTA_PLUGIN (fv)->shell, NULL);
+	anjuta_status_busy_push (status);
 	
 	GtkTreeStore *store = GTK_TREE_STORE (gtk_tree_view_get_model (view));
-	
-	// pix = anjuta_res_get_pixbuf (ANJUTA_PIXMAP_OPEN_FOLDER);
-	pix = gdl_icons_get_mime_icon (icon_set, "application/directory-normal");
-	gtk_tree_store_set (store, iter, PIXBUF_COLUMN, pix, -1);
-	g_object_unref (pix);
-	
-	full_path = fv_construct_full_path (fv, iter);
-	
-	past_count = gtk_tree_model_iter_n_children (GTK_TREE_MODEL (store), iter);
-	
-	fv_add_tree_entry (fv, full_path, iter);
-	g_free (full_path);
-	
-	// Clearing all old children of this node.
+
+	/* Deleting multiple rows at one go is little tricky. We need to
+	   take row references before they are deleted
+	*/
 	if (gtk_tree_model_iter_children (GTK_TREE_MODEL (store), &child, iter))
 	{
-		int i;
-		for (i = 0; i < past_count; i++)
+		/* Get row references */
+		row_refs = NULL;
+		do
 		{
-			if (!gtk_tree_store_remove (store, &child))
-				break;
+			path = gtk_tree_model_get_path (GTK_TREE_MODEL (store), &child);
+			row_ref = gtk_tree_row_reference_new (GTK_TREE_MODEL (store), path);
+			row_refs = g_list_prepend (row_refs, row_ref);
+			gtk_tree_path_free (path);
 		}
+		while (gtk_tree_model_iter_next (GTK_TREE_MODEL (store), &child));
 	}
+	
+	/* Update with new info */
+	gtk_tree_model_get_iter (GTK_TREE_MODEL (store), &child, iter_path);
+	full_path = fv_construct_full_path (fv, &child);
+	fv_add_tree_entry (fv, full_path, &child);
+	g_free (full_path);
+	
+	/* Update folder icon */
+	pix = gdl_icons_get_mime_icon (icon_set, "application/directory-normal");
+	gtk_tree_store_set (store, &child, PIXBUF_COLUMN, pix, -1);
+	g_object_unref (pix);
+
+	/* Delete the referenced rows */
+	row_ref_node = row_refs;
+	while (row_ref_node)
+	{
+		row_ref = row_ref_node->data;
+		path = gtk_tree_row_reference_get_path (row_ref);
+		g_assert (path != NULL);
+		gtk_tree_model_get_iter (GTK_TREE_MODEL (store), &child, path);
+		gtk_tree_store_remove (store, &child);
+		gtk_tree_path_free (path);
+		gtk_tree_row_reference_free (row_ref);
+		row_ref_node = g_list_next (row_ref_node);
+	}
+	if (row_refs)
+	{
+		g_list_free (row_refs);
+	}
+	anjuta_status_busy_pop (status);
 }
 
 static void
 on_file_view_row_collapsed (GtkTreeView *view,
 						   GtkTreeIter *iter,
-						   GtkTreePath *path,
+						   GtkTreePath *iter_path,
 						   FileManagerPlugin *fv)
 {
 	GdkPixbuf *pix;
-	GtkTreeIter child;
+	GtkTreeIter child, child2;
+	GtkTreeStore *store;
+	GList *row_refs, *row_ref_node;
+	GtkTreeRowReference *row_ref;
+	GtkTreePath *path;
 	
-	GtkTreeStore *store = GTK_TREE_STORE (gtk_tree_view_get_model (view));
-	// pix = anjuta_res_get_pixbuf (ANJUTA_PIXMAP_CLOSED_FOLDER);
-	pix = gdl_icons_get_mime_icon (icon_set, "application/directory-normal");
-	gtk_tree_store_set (store, iter, PIXBUF_COLUMN, pix, -1);
-	g_object_unref (pix);
+	store = GTK_TREE_STORE (gtk_tree_view_get_model (view));
 	
-	// Remove all but one children
+	/* Deleting multiple rows at one go is little tricky. We need to
+	   take row references before they are deleted
+	*/
 	if (gtk_tree_model_iter_children (GTK_TREE_MODEL (store), &child, iter))
 	{
-		gtk_tree_store_set (store, &child,
-							PIXBUF_COLUMN, NULL,
-							FILENAME_COLUMN, _("Loading ..."),
-							REV_COLUMN, "", -1);
-		if (gtk_tree_model_iter_next  (GTK_TREE_MODEL (store), &child))
-		{
-			while (!gtk_tree_store_remove (store, &child));
+		/* Get row references */
+		row_refs = NULL;
+		do {
+			path = gtk_tree_model_get_path (GTK_TREE_MODEL (store), &child);
+			row_ref = gtk_tree_row_reference_new (GTK_TREE_MODEL (store), path);
+			row_refs = g_list_prepend (row_refs, row_ref);
+			gtk_tree_path_free (path);
 		}
+		while (gtk_tree_model_iter_next  (GTK_TREE_MODEL (store), &child));
+	}
+	
+	/* Update folder icon */
+	gtk_tree_model_get_iter (GTK_TREE_MODEL (store), &child, iter_path);
+	pix = gdl_icons_get_mime_icon (icon_set, "application/directory-normal");
+	gtk_tree_store_set (store, &child, PIXBUF_COLUMN, pix, -1);
+	g_object_unref (pix);
+
+	/* Add dummy child */
+	gtk_tree_store_append (store, &child2, &child);
+	gtk_tree_store_set (store, &child2,
+						PIXBUF_COLUMN, NULL,
+						FILENAME_COLUMN, _("Loading ..."),
+						REV_COLUMN, "", -1);
+
+	/* Delete the referenced rows */
+	row_ref_node = row_refs;
+	while (row_ref_node)
+	{
+		row_ref = row_ref_node->data;
+		path = gtk_tree_row_reference_get_path (row_ref);
+		g_assert (path != NULL);
+		gtk_tree_model_get_iter (GTK_TREE_MODEL (store), &child, path);
+		gtk_tree_store_remove (store, &child);
+		gtk_tree_path_free (path);
+		gtk_tree_row_reference_free (row_ref);
+		row_ref_node = g_list_next (row_ref_node);
+	}
+	if (row_refs)
+	{
+		g_list_free (row_refs);
 	}
 }
 
@@ -784,6 +853,27 @@ on_tree_view_selection_changed (GtkTreeSelection *sel, FileManagerPlugin *fv)
 	}
 }
 
+static gint
+compare_iter (GtkTreeModel *model, GtkTreeIter *iter1,
+			  GtkTreeIter *iter2, gpointer data)
+{
+	const gchar *filename1, *filename2;
+	gboolean is_dir1, is_dir2;
+	
+	gtk_tree_model_get (model, iter1, IS_DIR_COLUMN, &is_dir1, -1);
+	gtk_tree_model_get (model, iter2, IS_DIR_COLUMN, &is_dir2, -1);
+	if (is_dir1 && !is_dir2)
+		return -1;
+	else if (!is_dir1 && is_dir2)
+		return 1;
+	else
+	{
+		gtk_tree_model_get (model, iter1, FILENAME_COLUMN, &filename1, -1);
+		gtk_tree_model_get (model, iter2, FILENAME_COLUMN, &filename2, -1);
+		return g_ascii_strcasecmp (filename1, filename2);
+	}
+}
+
 void
 fv_init (FileManagerPlugin *fv)
 {
@@ -803,7 +893,10 @@ fv_init (FileManagerPlugin *fv)
 	store = gtk_tree_store_new (COLUMNS_NB,
 								GDK_TYPE_PIXBUF,
 								G_TYPE_STRING,
-								G_TYPE_STRING);
+								G_TYPE_STRING,
+								G_TYPE_BOOLEAN);
+	gtk_tree_sortable_set_default_sort_func (GTK_TREE_SORTABLE (store),
+								compare_iter, fv, NULL);
 
 	fv->tree = gtk_tree_view_new_with_model (GTK_TREE_MODEL (store));
 	gtk_tree_view_set_rules_hint (GTK_TREE_VIEW (fv->tree), TRUE);
@@ -994,7 +1087,10 @@ fv_refresh (FileManagerPlugin *fv)
 	gtk_tree_path_free (path);
 
 	fv_set_node_expansion_states (fv, selected_items);
-	
+	gtk_tree_sortable_set_sort_column_id (GTK_TREE_SORTABLE (model),
+										  GTK_TREE_SORTABLE_DEFAULT_SORT_COLUMN_ID,
+										  GTK_SORT_ASCENDING);
+
 // clean_leave:
 	if (selected_items)
 		anjuta_util_glist_strings_free (selected_items);

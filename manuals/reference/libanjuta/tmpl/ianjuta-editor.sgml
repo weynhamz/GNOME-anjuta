@@ -40,6 +40,8 @@
 </para>
 
 @g_iface: 
+@char_added: 
+@update_ui: 
 @get_attributes: 
 @get_current_word: 
 @get_filename: 

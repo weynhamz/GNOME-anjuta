@@ -27,7 +27,6 @@ struct _AnjutaStatusPriv
 };
 
 static gpointer parent_class = NULL;
-static GdkCursor *busy_cursor = NULL;
 
 static void
 anjuta_status_finalize (GObject *widget)
@@ -117,6 +116,7 @@ void
 anjuta_status_busy_push (AnjutaStatus *status)
 {
 	GtkWidget *top;
+	GdkCursor *cursor;
 	
 	g_return_if_fail (ANJUTA_IS_STATUS (status));
 	
@@ -127,13 +127,10 @@ anjuta_status_busy_push (AnjutaStatus *status)
 	status->priv->busy_count++;
 	if (status->priv->busy_count > 1)
 		return;
-	
-	if (busy_cursor)
-		gdk_cursor_destroy (busy_cursor);
-	busy_cursor = gdk_cursor_new (GDK_WATCH);
-	
+	cursor = gdk_cursor_new (GDK_WATCH);
 	if (GTK_WIDGET (top)->window)
-		gdk_window_set_cursor (GTK_WIDGET (top)->window, busy_cursor);
+		gdk_window_set_cursor (GTK_WIDGET (top)->window, cursor);
+	gdk_cursor_unref (cursor);
 	gdk_flush ();
 }
 
@@ -146,10 +143,7 @@ anjuta_status_busy_pop (AnjutaStatus *status)
 	if (status->priv->busy_count > 0)
 		return;
 	status->priv->busy_count = 0;
-	if (busy_cursor)
-		gdk_cursor_destroy (busy_cursor);
-	busy_cursor = gdk_cursor_new (GDK_ARROW);
-	gdk_window_set_cursor (GTK_WIDGET (status)->window, busy_cursor);
+	gdk_window_set_cursor (GTK_WIDGET (status)->window, NULL);
 }
 
 static void

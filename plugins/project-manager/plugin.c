@@ -580,7 +580,7 @@ value_added_fm_current_uri (AnjutaPlugin *plugin, const char *name,
 		g_free (pm_plugin->fm_current_uri);
 	pm_plugin->fm_current_uri = g_strdup (uri);
 	
-	action = anjuta_ui_get_action (ui, "ActionGroupProjectManager",
+	action = anjuta_ui_get_action (ui, "ActionGroupProjectManagerPopup",
 								   "ActionPopupProjectAddToProject");
 	g_object_set (G_OBJECT (action), "sensitive", TRUE, NULL);
 }
@@ -600,7 +600,7 @@ value_removed_fm_current_uri (AnjutaPlugin *plugin,
 	pm_plugin->fm_current_uri = NULL;
 	
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
-	action = anjuta_ui_get_action (ui, "ActionGroupProjectManager",
+	action = anjuta_ui_get_action (ui, "ActionGroupProjectManagerPopup",
 								   "ActionPopupProjectAddToProject");
 	g_object_set (G_OBJECT (action), "sensitive", FALSE, NULL);
 }
