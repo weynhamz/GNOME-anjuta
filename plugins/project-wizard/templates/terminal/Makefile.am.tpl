@@ -2,19 +2,18 @@
 ## Process this file with automake to produce Makefile.in
 ## Created by Anjuta
 
-SUBDIRS = src
+SUBDIRS = src [+IF (=(get "HaveI18n") "1") +]po[+ENDIF+]
 
-[+(string-downcase (get "Name"))+]docdir = ${prefix}/doc/[+Name+]
-[+(string-downcase (get "Name"))+]doc_DATA = \
+[+(string->c-name! (string-downcase (get "Name")))+]docdir = ${prefix}/doc/[+Name+]
+[+(string->c-name! (string-downcase (get "Name")))+]doc_DATA = \
 	README\
 	COPYING\
 	AUTHORS\
 	ChangeLog\
 	INSTALL\
-	NEWS\
-	TODO
+	NEWS
 
-EXTRA_DIST = $([+(string-downcase (get "Name"))+]doc_DATA)
+EXTRA_DIST = $([+(string->c-name! (string-downcase (get "Name")))+]doc_DATA)
 
 # Copy all the spec files. Of cource, only one is actually used.
 dist-hook:

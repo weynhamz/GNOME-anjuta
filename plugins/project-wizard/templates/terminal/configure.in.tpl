@@ -2,7 +2,7 @@
 dnl Process this file with autoconf to produce a configure script.
 dnl Created by Anjuta application wizard.
 
-AC_INIT(configure.ac)
+AC_INIT(configure.in)
 AM_INIT_AUTOMAKE([+Name+], [+Version+])
 AM_CONFIG_HEADER(config.h)
 AM_MAINTAINER_MODE
@@ -84,5 +84,5 @@ dnl Checks for Additional stuffs.
 AC_OUTPUT([
 Makefile
 src/Makefile
-[+IF (=(get "HaveI18n") "1")+]po/Makefile[+ENDIF+]
+[+IF (=(get "HaveI18n") "1")+]po/Makefile.in[+ENDIF+]
 ])

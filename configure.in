@@ -733,6 +733,7 @@ plugins/project-wizard/Makefile
 plugins/project-wizard/templates/Makefile
 plugins/project-wizard/templates/terminal/Makefile
 plugins/project-wizard/templates/terminal/src/Makefile
+plugins/project-wizard/templates/terminal/po/Makefile
 plugins/project-wizard/templates/anjuta-plugin/Makefile
 plugins/project-wizard/templates/anjuta-plugin/src/Makefile
 anjuta.desktop.in

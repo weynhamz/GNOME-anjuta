@@ -1,3 +1,28 @@
+2005-01-07  Naba Kumar  <naba@gnome.org>
+
+	* templates/anjuta-plugin.wiz,
+	templates/terminal.wiz,
+	templates/terminal/Makefile.am.tpl,
+	templates/terminal/autogen.sh,
+	(Removed) templates/terminal/configure.ac.tpl,
+	(Added) templates/.cvsignore,
+	(Added) templates/Makefile.am,
+	(Added) templates/anjuta-plugin/.cvsignore,
+	(Added) templates/anjuta-plugin/Makefile.am,
+	(Added) templates/anjuta-plugin/src/.cvsignore,
+	(Added) templates/anjuta-plugin/src/Makefile.am.tpl,
+	(Added) templates/terminal/.cvsignore,
+	(Added) templates/terminal/Makefile.am,
+	(Added) templates/terminal/configure.in.tpl,
+	(Added) templates/terminal/po/.cvsignore,
+	(Added) templates/terminal/po/ChangeLog,
+	(Added) templates/terminal/po/Makefile.am,
+	(Added) templates/terminal/po/POTFILES.in,
+	(Added) templates/terminal/src/.cvsignore,
+	(Added) templates/terminal/src/Makefile.am,
+	(Added) templates/terminal/src/Makefile.am.tpl: Completed terminal
+	project wizard. Fixed configure/po/Makefile template errors.
+
 2005-01-06  Naba Kumar  <naba@gnome.org>
 
 	* configure.in: Added project templates.

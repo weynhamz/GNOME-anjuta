@@ -4,6 +4,7 @@
 	<icon>appwiz_terminal.png</icon>
 	<category>C</category>
 </project-wizard>
+
 <page name="basic" _label="Basic information" _description="Nothing">
 	<string name="PluginTitle" _label="Plugin Title:" _description="Display title of the plugin" default="Anjuta Sample Plugin" summary="yes" mandatory="yes"/>
 	<string name="PluginDescription" _label="Plugin Description:" _description="Display description of the plugin" default="A sample demonstration plugin" summary="yes" mandatory="yes"/>
@@ -13,13 +14,20 @@
 	<string name="Version" _label="Version:" default="0.1"/>
 	<directory name="Destination" _label="Destination:" _description="" default="[+AnjutaProjectDirectory+]"/>
 </page>
-<page name="options" _label="Additional options" _description="Additional options">
+
+<page name="options" _label="Project options" _description="Options for project build system">
+	<boolean name="IncludeGNUHeader" _label="Include GNU Header:" _description="Include GPL header in source files as comments" default="1"/>
+	<boolean name="HaveLangCPP" _label="Add C++ support:" _description="Adds c++ support to the project so that c++ source files can be built" default="0"/>
+	<boolean name="HaveI18n" _label="Add internationalization:" _description="Adds supports for internationalization so that your project can have translations in different languages" default="1"/>
+</page>
+
+<page name="plugin-options" _label="Additional options" _description="Additional options">
 	<string name="PluginDependencies" _label="Plugin Dependencies:" _description="Comma separated, other plugins that this plugin depends on. It could be either primary interface name or plugin location (library:class)" default="" summary="yes" mandatory="no"/>
 	<file name="IconFile" _label="Icon File:" _description="Icon file for the plugin" summary="yes" mandatory="yes"/>
 	<boolean name="HasGladeFile" _label="Create glade interface file" _description="Create a template glade interface file" default="1"/>
 	<boolean name="HasUI" _label="Plugin has menus or/and toolbars" _description="Whether the plugin has menus or toolbars" default="1"/>
-	<boolean name="IncludeGNUHeader" _label="Include GNU Header" _description="Include GPL header in source files as comments" default="1"/>
 </page>
+
 <page name="watches" _label="Values to watch" _description="Shell values to watch">
 	<string name="value1" _label="Value Name:" _description="Name of the value to watch" default="" summary="yes" mandatory="no"/>
 	<string name="value2" _label="Value Name:" _description="Name of the value to watch" default="" summary="yes" mandatory="no"/>
@@ -27,29 +35,34 @@
 	<string name="value4" _label="Value Name:" _description="Name of the value to watch" default="" summary="yes" mandatory="no"/>
 	<string name="value5" _label="Value Name:" _description="Name of the value to watch" default="" summary="yes" mandatory="no"/>
 </page>
+
 <page name="compoments" _label="Implement plugin interfaces" _description="Plugin interfaces to implement">
 	<string name="interface1" _label="Interface:" _description="Interface implemented by the plugin"/>
 	<string name="interface2" _label="Interface:" _description="Interface implemented by the plugin"/>
 	<string name="interface3" _label="Interface:" _description="Interface implemented by the plugin"/>
 </page>
+
 <content>
 	<directory source="." destination="[+Destination+]">
 		<directory source="terminal" destination="[+PluginName+]">
 			<file source="AUTHORS"/>
 			<file source="ChangeLog"/>
-			<file source="Makefile.am"/>
+			<file source="Makefile.am.tpl" destination="Makefile.am"/>
 			<file source="NEWS"/>
 			<file source="README"/>
-			<file source="TODO"/>
-			<file source="acconfig.h"/>
+			<file source="configure.in.tpl" destination="configure.in"/>
 			<script source="autogen.sh"/>
 			<file destination="[+PluginName+].anjuta" source="project.anjuta"/>
-			<file source="stamp-h.in"/>
+			[+IF (=(get "HaveI18n") "1") +]
+			<directory source="po">
+				<file source="ChangeLog"/>
+				<files source="POTFILES.in"/>
+			</directory>
+			[+ENDIF+]
 		</directory>
 		<directory source="anjuta-plugin" destination="[+PluginName+]">
-			<file source="configure.in"/>
 			<directory source="src">
-				<file source="Makefile.am"/>
+				<file source="Makefile.am.tpl" destination="Makefile.am"/>
 				<file source="plugin.c"/>
 				<file source="plugin.h"/>
 				<file source="[+IconFile+]" destination="[+PluginName+].png"/>
