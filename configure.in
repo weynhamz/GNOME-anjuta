@@ -468,6 +468,7 @@ else
 fi
 
 dnl Set PACKAGE DATA & DOC DIR
+systemdatadir=share
 packagedatadir=share/${PACKAGE}
 packagedocdir=share/doc/${PACKAGE}
 packageplugindir=lib/${PACKAGE}/plugins/${VERSION}
@@ -483,6 +484,8 @@ NO_PREFIX_PACKAGE_DATA_DIR="${packagedatadir}"
 AC_SUBST(NO_PREFIX_PACKAGE_DATA_DIR)
 PACKAGE_DATA_DIR="${packageprefix}/${packagedatadir}"
 AC_SUBST(PACKAGE_DATA_DIR)
+SYSTEM_DATA_DIR="${packageprefix}/${systemdatadir}"
+AC_SUBST(SYSTEM_DATA_DIR)
 
 dnl Subst PACKAGE_DOC_DIR.
 NO_PREFIX_PACKAGE_DOC_DIR="${packagedocdir}"
@@ -514,6 +517,7 @@ AC_SUBST(NO_PREFIX_PACKAGE_PLUGIN_DIR)
 PACKAGE_PLUGIN_DIR="${packageprefix}/${packageplugindir}"
 AC_SUBST(PACKAGE_PLUGIN_DIR)
 
+AC_DEFINE_UNQUOTED(SYSTEM_DATA_DIR, "${packageprefix}/${systemdatadir}", [System data directory])
 AC_DEFINE_UNQUOTED(PACKAGE_DATA_DIR, "${packageprefix}/${packagedatadir}", [Package data directory])
 AC_DEFINE_UNQUOTED(PACKAGE_DOC_DIR, "${packageprefix}/${packagedocdir}", [Package doc directory])
 AC_DEFINE_UNQUOTED(PACKAGE_PIXMAPS_DIR, "${packageprefix}/${packagepixmapsdir}", [Package pixmaps directory])

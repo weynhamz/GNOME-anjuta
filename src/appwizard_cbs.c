@@ -201,7 +201,7 @@ on_druidpagestandard2_next (GnomeDruidPage *
 		error_no = 2;
 		goto error_down;
 	}
-	if (!isalpha (temp[0]) && temp[0] != '_')
+	if (!isalpha (temp[0]) && temp[0] != '_' && temp[0] != '-')
 	{
 		error_no = 2;
 		goto error_down;
@@ -209,7 +209,7 @@ on_druidpagestandard2_next (GnomeDruidPage *
 	for (i = 0; i < strlen (temp); i++)
 	{
 		if (!isalpha (temp[i]) && !isdigit (temp[i])
-		    && temp[i] != '_')
+		    && temp[i] != '_' && temp[i] != '-')
 		{
 			error_no = 2;
 			goto error_down;

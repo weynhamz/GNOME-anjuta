@@ -1,3 +1,13 @@
+2004-03-29  Naba Kumar  <naba@gnome.org>
+
+	* src/source.c, src/gnome_project.c, src/appwizard_cbs.c,
+	src/appwiz_page2.c:	Correctly defines PACKAGE_DATA_DIR for
+	generated projects, so that their pixmap files are
+	found properly (bug #919903).
+	
+	* configure.in, src/main.c: Defines SYSTEM_DATA_DIR for
+	anjuta.
+
 2004-03-29  Pavol Bosik <Pavol.Bosik@siemens.com>
 
 	* anjuta/src/search-replace.c: fixed another crash bug in

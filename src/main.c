@@ -149,7 +149,6 @@ main (int argc, char *argv[])
 	GnomeProgram *program;
 	GnomeClient *client;
 	GnomeClientFlags flags;
-	gchar *data_dir;
 
 	/* Before anything starts */
 	delete_old_config_file();
@@ -160,21 +159,14 @@ main (int argc, char *argv[])
 	textdomain (PACKAGE);
 #endif
 	
-	data_dir = g_strdup (PACKAGE_DATA_DIR);
-	data_dir[strlen (data_dir) - strlen (PACKAGE) - 1] = '\0';
-	
 	/* Initialize gnome program */
 	program = gnome_program_init (PACKAGE, VERSION,
 			    LIBGNOMEUI_MODULE, argc, argv,
 			    GNOME_PARAM_POPT_TABLE, anjuta_options,
 			    GNOME_PARAM_HUMAN_READABLE_NAME,
 		            _("Integrated Development Environment"),
-			    GNOME_PARAM_APP_DATADIR, data_dir,
+			    GNOME_PARAM_APP_DATADIR, SYSTEM_DATA_DIR,
 			    NULL);
-#ifdef DEBUG
-	g_message ("Anjuta data directory set to: %s", data_dir);
-#endif
-	g_free (data_dir);
 	
 	/* Session management */
 	client = gnome_master_client();

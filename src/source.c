@@ -316,7 +316,7 @@ source_write_configure_in (ProjectDBase * data)
 		 "fi\n\n");
 	fprintf (fp,
 		 "dnl Set PACKAGE DATA & DOC DIR\n"
-		 "packagedatadir=share/${PACKAGE}\n"
+		 "packagedatadir=share\n"
 		 "packagedocdir=doc/${PACKAGE}\n"
 		 "\n");
 	
@@ -464,7 +464,7 @@ static gboolean
 source_write_toplevel_makefile_am (ProjectDBase * data)
 {
 	FILE *fp;
-	gchar *filename, *actual_file, *target, *prj_name;
+	gchar *filename, *actual_file, *canonicalize_target, *prj_name;
 	gint i;
 	gchar *str;
 	ProjectType* type;
@@ -525,8 +525,8 @@ source_write_toplevel_makefile_am (ProjectDBase * data)
 	fprintf (fp, "\n\n");
 
 	prj_name = project_dbase_get_proj_name (data);
-	target = prop_get (data->props, "project.source.target");
-	g_strdelimit (target, "-", '_');
+	canonicalize_target = prop_get (data->props, "project.source.target");
+	g_strdelimit (canonicalize_target, "-", '_');
 
 	fprintf (fp,
 		"%sdocdir = ${prefix}/doc/%s\n"
@@ -537,14 +537,14 @@ source_write_toplevel_makefile_am (ProjectDBase * data)
 		"\tChangeLog\\\n"
 		"\tINSTALL\\\n"
 		"\tNEWS\\\n"
-		"\tTODO", target, prj_name, target);
+		"\tTODO", canonicalize_target, prj_name, canonicalize_target);
 	if (prop_get_int (data->props, "project.has.gettext", 1))
 	{
 		fprintf (fp,
 			"\\\n\tABOUT-NLS");
 	}
 	fprintf (fp,
-		"\n\nEXTRA_DIST = $(%sdoc_DATA)\n\n", target);
+		"\n\nEXTRA_DIST = $(%sdoc_DATA)\n\n", canonicalize_target);
 	if(type->gnome_support)
 	{
 		gchar *group;
@@ -574,7 +574,7 @@ source_write_toplevel_makefile_am (ProjectDBase * data)
 	if (move_file_if_not_same(filename, actual_file) == FALSE)
 		anjuta_system_error (errno, _("Unable to create file: %s."), actual_file);
 	g_free (actual_file);
-	g_free (target);
+	g_free (canonicalize_target);
 	g_free (prj_name);
 	g_free (filename);
 	project_type_free (type);
@@ -736,7 +736,7 @@ static gboolean
 source_write_executable_source_files (ProjectDBase * data)
 {
 	FILE *fp;
-	gchar *src_dir, *filename, *actual_file, *target;
+	gchar *src_dir, *filename, *actual_file, *target, *canonicalize_target;
 	ProjectType* type;
 	gint lang;
 	
@@ -780,7 +780,8 @@ source_write_executable_source_files (ProjectDBase * data)
 	
 	target =
 		prop_get (data->props, "project.source.target");
-	g_strdelimit (target, "-", '_');
+	canonicalize_target = g_strdup (target);
+	g_strdelimit (canonicalize_target, "-", '_');
 	
 	lang = project_dbase_get_language(data);
 	if (lang == PROJECT_PROGRAMMING_LANGUAGE_C ||
@@ -799,16 +800,16 @@ source_write_executable_source_files (ProjectDBase * data)
 	}
 	
 	fprintf (fp, "bin_PROGRAMS = %s\n\n", target);
-	fprintf (fp, "%s_SOURCES = \\\n", target);
+	fprintf (fp, "%s_SOURCES = \\\n", canonicalize_target);
 	source_write_module_file_list (data, fp, TRUE, NULL, MODULE_SOURCE);
 
-	fprintf (fp, "%s_LDFLAGS = ", target);
+	fprintf (fp, "%s_LDFLAGS = ", canonicalize_target);
 	/* If any equivalent for this could be done in type->... */
 	/* fprintf (fp, type->ldadd); */
 	compiler_options_set_prjlflags_in_file (app->compiler_options, fp);
 	fprintf (fp, "\n\n");
 	
-	fprintf (fp, "%s_LDADD = ", target);
+	fprintf (fp, "%s_LDADD = ", canonicalize_target);
 	fprintf (fp, type->ldadd);
 	compiler_options_set_prjlibs_in_file (app->compiler_options, fp);
 	fprintf (fp, "\n\n");
@@ -819,6 +820,7 @@ source_write_executable_source_files (ProjectDBase * data)
 	
 	g_free (actual_file);
 	g_free (target);
+	g_free (canonicalize_target);
 	project_type_free (type);
 	g_free (filename);
 	return TRUE;
@@ -828,7 +830,7 @@ static gboolean
 source_write_static_lib_source_files (ProjectDBase * data)
 {
 	FILE *fp;
-	gchar *src_dir, *filename, *actual_file, *target;
+	gchar *src_dir, *filename, *actual_file, *target, *canonicalize_target;
 	ProjectType* type;
 	gint lang;
 	
@@ -872,7 +874,8 @@ source_write_static_lib_source_files (ProjectDBase * data)
 	
 	target =
 		prop_get (data->props, "project.source.target");
-	g_strdelimit (target, "-", '_');
+	canonicalize_target = g_strdup (target);
+	g_strdelimit (canonicalize_target, "-", '_');
 	
 	lang = project_dbase_get_language(data);
 	if (lang == PROJECT_PROGRAMMING_LANGUAGE_C ||
@@ -891,7 +894,7 @@ source_write_static_lib_source_files (ProjectDBase * data)
 	}
 	
 	fprintf (fp, "lib_LIBRARIES = %s%s\n\n", target, ".a");
-	fprintf (fp, "%s_%s_SOURCES = \\\n", target, "a");
+	fprintf (fp, "%s_%s_SOURCES = \\\n", canonicalize_target, "a");
 	source_write_module_file_list (data, fp, TRUE, NULL, MODULE_SOURCE);
 
 	/* automake says that this is invalid */
@@ -899,7 +902,7 @@ source_write_static_lib_source_files (ProjectDBase * data)
 	compiler_options_set_prjlflags_in_file (app->compiler_options, fp);
 	fprintf (fp, "\n\n");
 	
-	fprintf (fp, "%s_%s_LIBADD = ", target, "a");
+	fprintf (fp, "%s_%s_LIBADD = ", canonicalize_target, "a");
 	fprintf (fp, type->ldadd);
 	compiler_options_set_prjlibs_in_file (app->compiler_options, fp);
 	fprintf (fp, "\n\n");
@@ -910,6 +913,7 @@ source_write_static_lib_source_files (ProjectDBase * data)
 	
 	g_free (actual_file);
 	g_free (target);
+	g_free (canonicalize_target);
 	project_type_free (type);
 	g_free (filename);
 	return TRUE;
@@ -919,7 +923,7 @@ static gboolean
 source_write_dynamic_lib_source_files (ProjectDBase * data)
 {
 	FILE *fp;
-	gchar *src_dir, *filename, *actual_file, *target;
+	gchar *src_dir, *filename, *actual_file, *target, *canonicalize_target;
 	ProjectType* type;
 	gint lang;
 	
@@ -936,7 +940,8 @@ source_write_dynamic_lib_source_files (ProjectDBase * data)
 
 	src_dir = project_dbase_get_module_name (data, MODULE_SOURCE);
 	filename = get_a_tmp_file();
-	actual_file =	g_strconcat (data->top_proj_dir, "/", src_dir, "/Makefile.am", NULL);
+	actual_file =
+		g_strconcat (data->top_proj_dir, "/", src_dir, "/Makefile.am", NULL);
 	g_free (src_dir);
 
 	fp = fopen (filename, "w");
@@ -963,7 +968,8 @@ source_write_dynamic_lib_source_files (ProjectDBase * data)
 	
 	target =
 		prop_get (data->props, "project.source.target");
-	g_strdelimit (target, "-", '_');
+	canonicalize_target = g_strdup (target);
+	g_strdelimit (canonicalize_target, "-", '_');
 	
 	lang = project_dbase_get_language(data);
 	if (lang == PROJECT_PROGRAMMING_LANGUAGE_C ||
@@ -982,16 +988,16 @@ source_write_dynamic_lib_source_files (ProjectDBase * data)
 	}
 	
 	fprintf (fp, "lib_LTLIBRARIES = %s%s\n\n", target, ".la");
-	fprintf (fp, "%s_%s_SOURCES = \\\n", target, "la");
+	fprintf (fp, "%s_%s_SOURCES = \\\n", canonicalize_target, "la");
 	source_write_module_file_list (data, fp, TRUE, NULL, MODULE_SOURCE);
 
-	fprintf (fp, "%s_%s_LDFLAGS = ", target, "la");
+	fprintf (fp, "%s_%s_LDFLAGS = ", canonicalize_target, "la");
 	/* If any equivalent for this could be done in type->... */
 	/* fprintf (fp, type->ldadd); */
 	compiler_options_set_prjlflags_in_file (app->compiler_options, fp);
 	fprintf (fp, "\n\n");
 	
-	fprintf (fp, "%s_%s_LIBADD = ", target, "la");
+	fprintf (fp, "%s_%s_LIBADD = ", canonicalize_target, "la");
 	fprintf (fp, type->ldadd);
 	compiler_options_set_prjlibs_in_file (app->compiler_options, fp);
 	fprintf (fp, "\n\n");
@@ -1002,6 +1008,7 @@ source_write_dynamic_lib_source_files (ProjectDBase * data)
 	
 	g_free (actual_file);
 	g_free (target);
+	g_free (canonicalize_target);
 	project_type_free (type);
 	g_free (filename);
 	return TRUE;
@@ -1036,7 +1043,7 @@ static gboolean
 source_write_include_files (ProjectDBase * data)
 {
 	FILE *fp;
-	gchar *src_dir, *filename, *actual_file, *target;
+	gchar *src_dir, *filename, *actual_file, *canonicalize_target;
 	g_return_val_if_fail (data != NULL, FALSE);
 
 	if (project_dbase_module_is_empty (data, MODULE_INCLUDE))
@@ -1063,19 +1070,20 @@ source_write_include_files (ProjectDBase * data)
 	fprintf (fp,"## Process this file with automake to produce Makefile.in\n\n");
 	source_write_no_modify_warning (data, fp);
 
-	target =
+	canonicalize_target =
 		prop_get (data->props, "project.source.target");
-	g_strdelimit (target, "-", '_');
-	fprintf (fp, "%s_includedir = $(pkgincludedir)\n\n", target);
-	fprintf (fp, "%s_include_DATA = \\\n", target);
+	g_strdelimit (canonicalize_target, "-", '_');
+
+	fprintf (fp, "%s_includedir = $(pkgincludedir)\n\n", canonicalize_target);
+	fprintf (fp, "%s_include_DATA = \\\n", canonicalize_target);
 	source_write_module_file_list (data, fp, TRUE, NULL, MODULE_INCLUDE);
 
-	fprintf (fp, "EXTRA_DIST = $(%s_include_DATA)\n", target);
+	fprintf (fp, "EXTRA_DIST = $(%s_include_DATA)\n", canonicalize_target);
 	fclose (fp);
 	if (move_file_if_not_same(filename, actual_file) == FALSE)
 		anjuta_system_error (errno, _("Unable to create file: %s."), actual_file);
 	g_free (actual_file);
-	g_free (target);
+	g_free (canonicalize_target);
 	g_free (filename);
 	return TRUE;
 }
@@ -1084,7 +1092,7 @@ static gboolean
 source_write_pixmap_files (ProjectDBase * data)
 {
 	FILE *fp;
-	gchar *src_dir, *filename, *actual_file, *target;
+	gchar *src_dir, *filename, *actual_file, *canonicalize_target;
 	ProjectType* type;
 
 	g_return_val_if_fail (data != NULL, FALSE);
@@ -1115,19 +1123,20 @@ source_write_pixmap_files (ProjectDBase * data)
 	fprintf (fp,"## Process this file with automake to produce Makefile.in\n\n");
 	source_write_no_modify_warning (data, fp);
 
-	target = prop_get (data->props, "project.source.target");
-	g_strdelimit (target, "-", '_');
-	fprintf (fp, "%s_pixmapsdir = $(prefix)/@NO_PREFIX_PACKAGE_PIXMAPS_DIR@\n\n", target);
+	canonicalize_target = prop_get (data->props, "project.source.target");
+	g_strdelimit (canonicalize_target, "-", '_');
+	fprintf (fp, "%s_pixmapsdir = $(prefix)/@NO_PREFIX_PACKAGE_PIXMAPS_DIR@\n\n",
+			 canonicalize_target);
 	
-	fprintf (fp, "%s_pixmaps_DATA = \\\n", target);
+	fprintf (fp, "%s_pixmaps_DATA = \\\n", canonicalize_target);
 	source_write_module_file_list (data, fp, TRUE, NULL, MODULE_PIXMAP);
 
-	fprintf (fp, "EXTRA_DIST = $(%s_pixmaps_DATA)\n", target);
+	fprintf (fp, "EXTRA_DIST = $(%s_pixmaps_DATA)\n", canonicalize_target);
 	fclose (fp);
 	if (move_file_if_not_same(filename, actual_file) == FALSE)
 		anjuta_system_error (errno, _("Unable to create file: %s."), actual_file);
 	g_free (actual_file);
-	g_free (target);
+	g_free (canonicalize_target);
 	g_free (filename);
 	project_type_free (type);
 	return TRUE;
@@ -1137,7 +1146,7 @@ static gboolean
 source_write_help_files (ProjectDBase * data)
 {
 	FILE *fp;
-	gchar *src_dir, *filename, *actual_file, *target;
+	gchar *src_dir, *filename, *actual_file, *canonicalize_target;
 	ProjectType* type;
 
 	g_return_val_if_fail (data != NULL, FALSE);
@@ -1168,18 +1177,19 @@ source_write_help_files (ProjectDBase * data)
 	fprintf (fp,"## Process this file with automake to produce Makefile.in\n\n");
 	source_write_no_modify_warning (data, fp);
 
-	target = prop_get (data->props, "project.source.target");
-	g_strdelimit (target, "-", '_');
-	fprintf (fp, "%s_helpdir = $(prefix)/@NO_PREFIX_PACKAGE_HELP_DIR@/C\n\n", target);
-	fprintf (fp, "%s_help_DATA = \\\n", target);
+	canonicalize_target = prop_get (data->props, "project.source.target");
+	g_strdelimit (canonicalize_target, "-", '_');
+	fprintf (fp, "%s_helpdir = $(prefix)/@NO_PREFIX_PACKAGE_HELP_DIR@/C\n\n",
+			 canonicalize_target);
+	fprintf (fp, "%s_help_DATA = \\\n", canonicalize_target);
 	source_write_module_file_list (data, fp, TRUE, NULL, MODULE_HELP);
 
-	fprintf (fp, "EXTRA_DIST = $(%s_help_DATA)\n", target);
+	fprintf (fp, "EXTRA_DIST = $(%s_help_DATA)\n", canonicalize_target);
 	fclose (fp);
 	if (move_file_if_not_same(filename, actual_file) == FALSE)
 		anjuta_system_error (errno, _("Unable to create file: %s."), actual_file);
 	g_free (actual_file);
-	g_free (target);
+	g_free (canonicalize_target);
 	project_type_free (type);
 	g_free (filename);
 	return TRUE;
@@ -1189,7 +1199,7 @@ static gboolean
 source_write_doc_files (ProjectDBase * data)
 {
 	FILE *fp;
-	gchar *src_dir, *filename, *actual_file, *target;
+	gchar *src_dir, *filename, *actual_file, *canonicalize_target;
 
 	g_return_val_if_fail (data != NULL, FALSE);
 
@@ -1216,19 +1226,20 @@ source_write_doc_files (ProjectDBase * data)
 	fprintf (fp,"## Process this file with automake to produce Makefile.in\n\n");
 	source_write_no_modify_warning (data, fp);
 
-	target =
+	canonicalize_target =
 		prop_get (data->props, "project.source.target");
-	g_strdelimit (target, "-", '_');
-	fprintf (fp, "%s_docdir = $(prefix)/@NO_PREFIX_PACKAGE_DOC_DIR@\n\n", target);
-	fprintf (fp, "%s_doc_DATA = \\\n", target);
+	g_strdelimit (canonicalize_target, "-", '_');
+	fprintf (fp, "%s_docdir = $(prefix)/@NO_PREFIX_PACKAGE_DOC_DIR@\n\n",
+			 canonicalize_target);
+	fprintf (fp, "%s_doc_DATA = \\\n", canonicalize_target);
 	source_write_module_file_list (data, fp, TRUE, NULL, MODULE_DOC);
 
-	fprintf (fp, "EXTRA_DIST = $(%s_doc_DATA)\n", target);
+	fprintf (fp, "EXTRA_DIST = $(%s_doc_DATA)\n", canonicalize_target);
 	fclose (fp);
 	if (move_file_if_not_same(filename, actual_file) == FALSE)
 		anjuta_system_error (errno, _("Unable to create file: %s."), actual_file);
 	g_free (actual_file);
-	g_free (target);
+	g_free (canonicalize_target);
 	g_free (filename);
 	return TRUE;
 }
@@ -1237,7 +1248,7 @@ static gboolean
 source_write_data_files (ProjectDBase * data)
 {
 	FILE *fp;
-	gchar *src_dir, *filename, *actual_file, *target;
+	gchar *src_dir, *filename, *actual_file, *canonicalize_target;
 
 	g_return_val_if_fail (data != NULL, FALSE);
 
@@ -1264,19 +1275,20 @@ source_write_data_files (ProjectDBase * data)
 	fprintf (fp,"## Process this file with automake to produce Makefile.in\n\n");
 	source_write_no_modify_warning (data, fp);
 
-	target =
+	canonicalize_target =
 		prop_get (data->props, "project.source.target");
-	g_strdelimit (target, "-", '_');
-	fprintf (fp, "%s_datadir = $(prefix)/@NO_PREFIX_PACKAGE_DATA_DIR@\n\n", target);
-	fprintf (fp, "%s_data_DATA = \\\n", target);
+	g_strdelimit (canonicalize_target, "-", '_');
+	fprintf (fp, "%s_datadir = $(prefix)/@NO_PREFIX_PACKAGE_DATA_DIR@/@PACKAGE@\n\n",
+			 canonicalize_target);
+	fprintf (fp, "%s_data_DATA = \\\n", canonicalize_target);
 	source_write_module_file_list (data, fp, TRUE, NULL, MODULE_DATA);
 
-	fprintf (fp, "EXTRA_DIST = $(%s_data_DATA)\n", target);
+	fprintf (fp, "EXTRA_DIST = $(%s_data_DATA)\n", canonicalize_target);
 	fclose (fp);
 	if (move_file_if_not_same(filename, actual_file) == FALSE)
 		anjuta_system_error (errno, _("Unable to create file: %s."), actual_file);
 	g_free (actual_file);
-	g_free (target);
+	g_free (canonicalize_target);
 	g_free (filename);
 	return TRUE;
 }
@@ -1417,7 +1429,6 @@ source_write_desktop_entry (ProjectDBase * data)
 
 	prj_name = project_dbase_get_proj_name (data);
 	target = prop_get (data->props, "project.source.target");
-	g_strdelimit (target, "-", '_');
 	
 	filename = g_strconcat (data->top_proj_dir, "/", prj_name, ".desktop.in", NULL);
 
@@ -1497,7 +1508,6 @@ source_write_glade_file (ProjectDBase * data)
 	type = project_dbase_get_project_type (data);
 	prj_name = project_dbase_get_proj_name (data);
 	target = prop_get (data->props, "project.source.target");
-	g_strdelimit (target, "-", '_');
 	
 	filename = g_strconcat (data->top_proj_dir, "/", prj_name, ".glade", NULL);
 	g_free (prj_name);
@@ -1695,7 +1705,6 @@ source_write_glade2_file (ProjectDBase * data)
 	/* Project file. */
 	type = project_dbase_get_project_type (data);
 	target = prop_get (data->props, "project.source.target");
-	g_strdelimit (target, "-", '_');
 	src = project_dbase_get_module_name (data, MODULE_SOURCE);
 	pix = project_dbase_get_module_name (data, MODULE_PIXMAP);
 	fprintf(fp,

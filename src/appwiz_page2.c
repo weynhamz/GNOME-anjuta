@@ -43,7 +43,8 @@ on_prj_name_entry_changed (GtkEditable * editable, gpointer user_data)
 
 	if (text)
 		for (i = 0; i < strlen (text); i++)
-			text[i] = (text[i] == '-') ? '_' : tolower (text[i]);
+			// text[i] = (text[i] == '-') ? '_' : tolower (text[i]);
+			text[i] = tolower (text[i]);
 
 	gtk_entry_set_text (GTK_ENTRY (aw->widgets.target_entry),
 			    text ? text : "");

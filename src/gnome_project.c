@@ -134,7 +134,7 @@ create_new_project (AppWizard * aw)
 
 	if (aw->icon_file) {
 		gchar *ext = get_file_extension (aw->icon_file);
-		fprintf (fp, "project.menu.icon=%s_icon", aw->target);
+		fprintf (fp, "project.menu.icon=%s-icon", aw->target);
 
 		if (ext)
 			fprintf (fp, ".%s", ext);
@@ -190,7 +190,7 @@ create_new_project (AppWizard * aw)
 		gchar* dest;
 		
 		dir = project_dbase_get_module_dir (app->project_dbase, MODULE_PIXMAP);
-		dest = g_strdup_printf ("%s/%s_icon.%s", dir, _STR(aw->target),
+		dest = g_strdup_printf ("%s/%s-icon.%s", dir, _STR(aw->target),
 								_STR(get_file_extension (aw->icon_file)));
 		force_create_dir (dir);
 		if (copy_file (aw->icon_file, dest, FALSE) == FALSE)
