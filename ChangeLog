@@ -1,3 +1,11 @@
+2003-02-24  Naba Kumar  <naba@gnome.org>
+
+	* data/properties/html.properties,
+	(new) data/properties/php.properties,
+	data/properties/anjuta.properties: Fixed php highlighting bug
+	(highlight was lost) by separating the php properties into
+	a separate file.
+	
 2003-02-24 Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
 	* src/search-replace.c, anjuta.glade: Yet more patches from
 	Jean-Noel! Fixed a minor memory corruption.
