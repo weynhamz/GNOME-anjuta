@@ -22,11 +22,11 @@
 #ifndef AN_PRINTING_PRINT_H
 #define AN_PRINTING_PRINT_H
 
-#include <libgnomeprint/gnome-printer.h>
-#include <libgnomeprint/gnome-printer-dialog.h>
+#include <libgnomeprint/gnome-print.h>
 #include <libgnomeprint/gnome-print-master.h>
-#include <libgnomeprint/gnome-print-master-preview.h>
-#include <libgnomeprint/gnome-print-preview.h>
+#include <libgnomeprintui/gnome-print-dialog.h>
+#include <libgnomeprintui/gnome-print-master-preview.h>
+#include <libgnomeprintui/gnome-print-preview.h>
 
 #include "text_editor.h"
 
@@ -70,8 +70,8 @@ typedef struct _PrintJobInfo
 {
 	GnomePrintMaster *master;
 	GnomePrintContext *pc;
-	GnomePrinter *printer;
-	const GnomePaper *paper;
+	// GnomePrint *printer;
+	const GnomePrintPaper *paper;
 	
 	PrintJobInfoStyle* styles_pool[AN_PRINT_MAX_STYLES];
 

@@ -47,9 +47,9 @@ static gboolean anjuta_print_run_dialog(PrintJobInfo *pji)
 	
 	switch (gnome_dialog_run(GNOME_DIALOG (dialog)))
 	{
-		case GNOME_PRINT_PRINT:
+		case GNOME_PRINT_DIALOG_RESPONSE_PRINT:
 			break;
-		case GNOME_PRINT_PREVIEW:
+		case GNOME_PRINT_DIALOG_RESPONSE_PREVIEW:
 			pji->preview = TRUE;
 			break;
 		case -1:
@@ -59,10 +59,11 @@ static gboolean anjuta_print_run_dialog(PrintJobInfo *pji)
 			return TRUE;
 	}
 	
+/*
 	pji->printer = gnome_print_dialog_get_printer(GNOME_PRINT_DIALOG(dialog));
 	if (pji->printer && !pji->preview)
 		gnome_print_master_set_printer(pji->master, pji->printer);
-	
+*/	
 	pji->range_type = gnome_print_dialog_get_range_page(GNOME_PRINT_DIALOG (dialog),
 						&pji->range_start_line,
 						&pji->range_end_line);
@@ -74,7 +75,7 @@ static gboolean anjuta_print_run_dialog(PrintJobInfo *pji)
 static void anjuta_print_preview_real(PrintJobInfo *pji)
 {
 	gchar *title = g_strdup_printf (_("Print Preview"));
-	GnomePrintMasterPreview *gpmp = gnome_print_master_preview_new (pji->master, title);
+	GtkWidget *gpmp = gnome_print_master_preview_new (pji->master, title);
 	g_free (title);
 	gtk_widget_show (GTK_WIDGET (gpmp));
 }

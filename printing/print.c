@@ -156,25 +156,25 @@ anjuta_print_job_info_style_new (PropsID prop, gchar* lang,
 	
 	pis->size += font_zoom_factor;
 	
-	pis->font = gnome_font_new_closest (pis->font_name, pis->weight,
+	pis->font = gnome_font_find_closest_from_weight_slant (pis->font_name, pis->weight,
 					pis->italics, pis->size);
 	
 	if (!pis->font) {
 		g_warning ("Cannot load document font: %s. Trying Default font: %s.",
 			pis->font_name, AN_PRINT_FONT_BODY_DEFAULT);
-		pis->font = gnome_font_new_closest (AN_PRINT_FONT_BODY_DEFAULT,
+		pis->font = gnome_font_find_closest_from_weight_slant (AN_PRINT_FONT_BODY_DEFAULT,
 			pis->weight, pis->italics, pis->size);
 	}
 	if (!pis->font) {
-		pis->font = gnome_font_new_closest (AN_PRINT_FONT_BODY_DEFAULT,
+		pis->font = gnome_font_find_closest_from_weight_slant (AN_PRINT_FONT_BODY_DEFAULT,
 			GNOME_FONT_MEDIUM, pis->italics, pis->size);
 	}
 	if (!pis->font) {
-		pis->font = gnome_font_new_closest (AN_PRINT_FONT_BODY_DEFAULT,
+		pis->font = gnome_font_find_closest_from_weight_slant (AN_PRINT_FONT_BODY_DEFAULT,
 			GNOME_FONT_MEDIUM, FALSE, pis->size);
 	}
 	if (!pis->font) {
-		pis->font = gnome_font_new_closest (AN_PRINT_FONT_BODY_DEFAULT,
+		pis->font = gnome_font_find_closest_from_weight_slant (AN_PRINT_FONT_BODY_DEFAULT,
 			GNOME_FONT_MEDIUM, FALSE, AN_PRINT_FONT_SIZE_BODY_DEFAULT);
 	}
 	if (!pis->font) {
@@ -263,7 +263,7 @@ anjuta_print_job_info_new (void)
 	pji->preview = FALSE;
 	pji->master = gnome_print_master_new();
 	pji->pc = gnome_print_master_get_context(pji->master);
-	pji->printer = NULL;
+	// pji->printer = NULL;
 
 	if (!GNOME_IS_PRINT_MASTER(pji->master))
 	{
@@ -294,7 +294,7 @@ anjuta_print_job_info_new (void)
 	/* Load paper specifications */
 	if (NULL == (paper_name = preferences_get(p, PRINT_PAPER_SIZE)))
 		paper_name = g_strdup("A4");
-	if (NULL == (pji->paper = gnome_paper_with_name(paper_name)))
+	if (NULL == (pji->paper = gnome_print_paper_get_by_name(paper_name)))
 	{
 		anjuta_error(_("Unable to set paper %s"), paper_name);
 		g_free(paper_name);

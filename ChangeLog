@@ -3,6 +3,9 @@
 	* scintilla/PlatGTK.cxx, scintilla/Scintilla.cxx,
 	scintilla/include/ScintillaWidget.h: Made to compile for gtk2.
 	
+	* configure.in, printing/print.h, printing/print.c,
+	printing/print-doc.c: Made to compile for gnome2.
+	
 2002-07-30  Naba Kumar <kh_naba@users.sourceforge.net>
 
 	* configure.in, acconfig.h, Makefile.am, autogen.sh, launcher/Makefile.am,
