@@ -12,6 +12,9 @@ struct _DefaultProfilePlugin{
 	
 	GHashTable *default_plugins;
 	GQueue *loaded_plugins;
+	
+	/* A flag to indicate that session ops is by this plugin */
+	gboolean session_by_me;
 };
 
 struct _DefaultProfilePluginClass{

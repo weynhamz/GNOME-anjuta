@@ -33,6 +33,7 @@ libanjuta_la_SOURCES= \
 	anjuta-launcher.c \
 	anjuta-utils.c \
 	anjuta-children.c \
+	anjuta-session.c \
 	resources.c \
 	resources.h \
 	glue-plugin.c \
@@ -61,6 +62,7 @@ libanjutainclude_HEADERS = \
 	anjuta-ui.h \
 	anjuta-launcher.h \
 	anjuta-children.h \
+	anjuta-session.h \
 	glue-plugin.h \
 	resources.h
 

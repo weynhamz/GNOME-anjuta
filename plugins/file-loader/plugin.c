@@ -831,13 +831,58 @@ dnd_dropped (const gchar *uri, gpointer plugin)
 }
 
 static void
-on_session_load (AnjutaShell *shell, GQueue *commandline_queue,
+on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase,
+				 AnjutaSession *session,
 				 AnjutaFileLoaderPlugin *plugin)
 {
 	const gchar *uri;
-	while ((uri = g_queue_pop_head (commandline_queue)))
+	gchar *mime_type;
+	GList *files, *node;
+	gint i;
+				
+	/* We want to load the files first before other session loads */
+	if (phase != ANJUTA_SESSION_PHASE_FIRST)
+		return;
+	
+	files = anjuta_session_get_string_list (session, "File Loader", "Files");
+	if (!files)
+		return;
+	
+	/* Open project files first and then regular files */
+	for (i = 0; i < 2; i++)
 	{
-		ianjuta_file_loader_load (IANJUTA_FILE_LOADER (plugin), uri, FALSE, NULL);
+		node = files;
+		while (node)
+		{
+			uri = node->data;
+			if (uri)
+			{
+				mime_type = get_uri_mime_type (uri);
+		
+				if (i == 0 && mime_type &&
+					strcmp (mime_type, "application/x-anjuta") == 0)
+				{
+					/* Project files first */
+					ianjuta_file_loader_load (IANJUTA_FILE_LOADER (plugin),
+											  uri, FALSE, NULL);
+				}
+				else if (i != 0 &&
+						 (!mime_type ||
+						  strcmp (mime_type, "application/x-anjuta") != 0))
+				{
+					/* Then rest of the files */
+					ianjuta_file_loader_load (IANJUTA_FILE_LOADER (plugin),
+											  uri, FALSE, NULL);
+				}
+				g_free (mime_type);
+			}
+			node = g_list_next (node);
+		}
+	}
+	if (files)
+	{
+		g_list_foreach (files, (GFunc)g_free, NULL);
+		g_list_free (files);
 	}
 }
 

@@ -846,10 +846,17 @@ on_window_key_release_event (GtkWidget   *widget,
 }
 
 static void
-on_session_save (AnjutaShell *shell, GQueue *commandline_args,
-				 EditorPlugin *plugin)
+on_session_save (AnjutaShell *shell, AnjutaSessionPhase phase,
+				 AnjutaSession *session, EditorPlugin *plugin)
 {
-	GList *editors, *node;
+	GList *editors, *node, *files;
+	
+	if (phase != ANJUTA_SESSION_PHASE_NORMAL)
+		return;
+	
+	files = anjuta_session_get_string_list (session, "File Loader", "Files");
+	files = g_list_reverse (files);
+	
 	editors = anjuta_docman_get_all_editors (ANJUTA_DOCMAN (plugin->docman));
 	node = editors;
 	while (node)
@@ -857,10 +864,14 @@ on_session_save (AnjutaShell *shell, GQueue *commandline_args,
 		TextEditor *te;
 		te = TEXT_EDITOR (node->data);
 		if (te->uri)
-			g_queue_push_tail (commandline_args, g_strdup (te->uri));
+			files = g_list_prepend (files, g_strdup (te->uri));
 		node = g_list_next (node);
 	}
+	files = g_list_reverse (files);
+	anjuta_session_set_string_list (session, "File Loader", "Files", files);
 	g_list_free (editors);
+	g_list_foreach (files, (GFunc)g_free, NULL);
+	g_list_free (files);
 }
 
 static void

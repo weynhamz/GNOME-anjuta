@@ -1,3 +1,32 @@
+2005-02-29  Naba Kumar  <naba@gnome.org>
+
+	* manuals/reference/libanjuta/tmpl/ianjuta-context-list.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-context-text.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-context-tree.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-context.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-iterable-tree.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-iterable.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-renderable.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-sand-box.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-transformable.sgml,
+	manuals/reference/libanjuta/tmpl/libanjuta-unused.sgml: Updated.
+
+	* libanjuta/Makefile.am, libanjuta/anjuta-marshal.list,
+	libanjuta/anjuta-shell.c, libanjuta/anjuta-shell.h,
+	(added) libanjuta/anjuta-session.[hc],
+	plugins/editor/plugin.c, plugins/file-loader/plugin.c,
+	plugins/profile-default/plugin.c, plugins/profile-default/plugin.h,
+	src/anjuta-app.c, src/anjuta-app.h, src/anjuta.c, src/anjuta.h,
+	src/main.c:
+	
+	Implemented session management. Implemented session
+	container class. Added session notifications from shell. Implemented
+	session save/load in editor, file-loader, default-profile-plugin
+	and anjuta-app. Fixed window sizing and restoration. Cleaned up
+	code in anjuta-app.[ch], anjuta.[ch], main.c. Added fullscreen
+	and maximized states in session. Implemented project session
+	management.
+
 2005-02-27  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
 
 	* plugins/class-gen/action-callbacks.[ch],

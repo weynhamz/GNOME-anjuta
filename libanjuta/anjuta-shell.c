@@ -1,3 +1,4 @@
+/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 #include <config.h>
 #include <string.h>
 #include <gobject/gvaluecollector.h>
@@ -431,6 +432,54 @@ anjuta_shell_get_preferences (AnjutaShell *shell, GError **error)
 	return ANJUTA_SHELL_GET_IFACE (shell)->get_preferences (shell, error);
 }
 
+void
+anjuta_shell_session_save (AnjutaShell *shell, const gchar *session_directory,
+						   GError **error)
+{
+	AnjutaSession *session;
+
+	g_return_if_fail (ANJUTA_IS_SHELL (shell));
+	g_return_if_fail (session_directory != NULL);
+
+	session = anjuta_session_new (session_directory);
+	anjuta_session_clear (session);
+	g_signal_emit_by_name (G_OBJECT (shell), "save_session",
+						   ANJUTA_SESSION_PHASE_FIRST, session);
+	g_signal_emit_by_name (G_OBJECT (shell), "save_session",
+						   ANJUTA_SESSION_PHASE_NORMAL, session);
+	g_signal_emit_by_name (G_OBJECT (shell), "save_session",
+						   ANJUTA_SESSION_PHASE_LAST, session);
+	anjuta_session_sync (session);
+	g_object_unref (session);
+}
+
+void
+anjuta_shell_session_load (AnjutaShell *shell, const gchar *session_directory,
+						   GError **error)
+{
+	AnjutaSession *session;
+
+	g_return_if_fail (ANJUTA_IS_SHELL (shell));
+	g_return_if_fail (session_directory != NULL);
+
+	/* Do not allow multiple session loadings at once. Could be a trouble */
+	if (g_object_get_data (G_OBJECT (shell), "__session_loading"))
+		return;
+
+	g_object_set_data (G_OBJECT (shell), "__session_loading", "1");
+
+	session = anjuta_session_new (session_directory);
+	g_signal_emit_by_name (G_OBJECT (shell), "load_session",
+						   ANJUTA_SESSION_PHASE_FIRST, session);
+	g_signal_emit_by_name (G_OBJECT (shell), "load_session",
+						   ANJUTA_SESSION_PHASE_NORMAL, session);
+	g_signal_emit_by_name (G_OBJECT (shell), "load_session",
+						   ANJUTA_SESSION_PHASE_LAST, session);
+	g_object_unref (session);
+
+	g_object_set_data (G_OBJECT (shell), "__session_loading", NULL);
+}
+
 static void
 anjuta_shell_base_init (gpointer gclass)
 {
@@ -459,17 +508,19 @@ anjuta_shell_base_init (gpointer gclass)
 			      G_SIGNAL_RUN_LAST,
 			      G_STRUCT_OFFSET (AnjutaShellIface, save_session),
 			      NULL, NULL,
-			      anjuta_cclosure_marshal_VOID__POINTER,
-			      G_TYPE_NONE, 1,
-			      G_TYPE_POINTER);
+			      anjuta_cclosure_marshal_VOID__INT_OBJECT,
+			      G_TYPE_NONE, 2,
+				  G_TYPE_INT,
+			      G_TYPE_OBJECT);
 		g_signal_new ("load_session",
 			      ANJUTA_TYPE_SHELL,
 			      G_SIGNAL_RUN_LAST,
 			      G_STRUCT_OFFSET (AnjutaShellIface, load_session),
 			      NULL, NULL,
-			      anjuta_cclosure_marshal_VOID__POINTER,
-			      G_TYPE_NONE, 1,
-			      G_TYPE_POINTER);
+			      anjuta_cclosure_marshal_VOID__INT_OBJECT,
+			      G_TYPE_NONE, 2,
+				  G_TYPE_INT,
+			      G_TYPE_OBJECT);
 		initialized = TRUE;
 	}
 }

@@ -70,7 +70,8 @@ poptOption anjuta_options[] = {
 	POPT_AUTOHELP {NULL}
 };
 
-static gchar *get_real_path(const gchar *file_name)
+static gchar*
+get_real_path (const gchar *file_name)
 {
 	if (file_name)
 	{
@@ -82,7 +83,7 @@ static gchar *get_real_path(const gchar *file_name)
 		{
 			memset(path, '\0', PATH_MAX+1);
 			realpath(file_name, path);
-			return g_strdup(path);
+			return g_strdup (path);
 		}
 		g_free (uri_scheme);
 		return g_strdup (file_name);
@@ -166,15 +167,14 @@ main (int argc, char *argv[])
 	anjuta_plugins_init (plugins_dirs);
 
 	/* Create Anjuta application */
-	app = anjuta_new (argv[0], command_args, E_SPLASH (splash), proper_shutdown);
+	app = anjuta_new (argv[0], command_args, E_SPLASH (splash),
+					  proper_shutdown, anjuta_geometry);
 	gtk_window_set_role (GTK_WINDOW (app), "anjuta-app");
+	
 	if (splash) {
 		g_object_unref (splash);
         gtk_widget_destroy (splash);
 	}
-	
-	/* Set window geometry */
-	anjuta_set_window_geometry (app, anjuta_geometry);
 	
 	/* Run Anjuta application */
 	gtk_window_set_auto_startup_notification(TRUE);
@@ -183,8 +183,5 @@ main (int argc, char *argv[])
 	
 	/* Finalize plugins system */
 	anjuta_plugins_finalize ();
-	
-	// FIXME: anjuta_application_exit();
-	// FIXME: write_config();
 	return 0;
 }

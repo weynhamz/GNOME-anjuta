@@ -1,3 +1,4 @@
+/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 #ifndef _ANJUTA_SHELL_H
 #define _ANJUTA_SHELL_H
 
@@ -7,6 +8,7 @@
 #include <libanjuta/anjuta-status.h>
 #include <libanjuta/anjuta-ui.h>
 #include <libanjuta/anjuta-preferences.h>
+#include <libanjuta/anjuta-session.h>
 
 G_BEGIN_DECLS
 
@@ -42,8 +44,10 @@ struct _AnjutaShellIface {
 	/* Signals */
 	void (*value_added) (AnjutaShell *shell, char *name, GValue *value);
 	void (*value_removed) (AnjutaShell *shell, char *name);
-	void (*save_session) (AnjutaShell *shell, GQueue *commandline_queue);
-	void (*load_session) (AnjutaShell *shell, GQueue *commandline_queue);
+	void (*save_session) (AnjutaShell *shell, AnjutaSessionPhase phase,
+						  AnjutaSession *session);
+	void (*load_session) (AnjutaShell *shell, AnjutaSessionPhase phase,
+						  AnjutaSession *session);
 
 	/* Virtual Table */
 	AnjutaStatus* (*get_status) (AnjutaShell  *shell, GError **err);
@@ -130,9 +134,16 @@ void   anjuta_shell_remove_value    (AnjutaShell     *shell,
 									 const char      *name,
 									 GError         **error);
 
-GObject *anjuta_shell_get_object (AnjutaShell *shell,
-								  const gchar *iface_name,
-								  GError **error);
+GObject *anjuta_shell_get_object    (AnjutaShell *shell,
+									 const gchar *iface_name,
+									 GError **error);
+void anjuta_shell_session_save      (AnjutaShell *shell,
+									 const gchar *session_directory,
+									 GError **error);
+void anjuta_shell_session_load      (AnjutaShell *shell,
+									 const gchar *session_directory,
+									 GError **error);
+
 /**
  * anjuta_shell_get_interface:
  * @shell: A #AnjutaShell object

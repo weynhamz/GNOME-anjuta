@@ -41,12 +41,27 @@ static gpointer parent_class;
 static void default_profile_plugin_close (DefaultProfilePlugin *plugin);
 
 static void
-on_session_save (AnjutaShell *shell, GQueue *commandline_args,
-				 DefaultProfilePlugin *plugin)
+on_session_save (AnjutaShell *shell, AnjutaSessionPhase phase,
+				 AnjutaSession *session, DefaultProfilePlugin *plugin)
 {
-	if (plugin->project_uri)
+	GList *files;
+	
+	if (phase != ANJUTA_SESSION_PHASE_NORMAL)
+		return;
+	/*
+	 * When a project session is being saved (session_by_me == TRUE),
+	 * we should not save the current project uri, because project 
+	 * sessions are loaded when the project has already been loaded.
+	 */
+	if (plugin->project_uri && !plugin->session_by_me)
 	{
-		g_queue_push_tail (commandline_args, g_strdup (plugin->project_uri));
+		files = anjuta_session_get_string_list (session, "File Loader",
+												"Files");
+		files = g_list_append (files, g_strdup (plugin->project_uri));
+		anjuta_session_set_string_list (session, "File Loader", "Files",
+										files);
+		g_list_foreach (files, (GFunc)g_free, NULL);
+		g_list_free (files);
 	}
 }
 
@@ -181,6 +196,7 @@ default_profile_plugin_instance_init (GObject *obj)
 	plugin->action_group = NULL;
 	plugin->loaded_plugins = NULL;
 	plugin->default_plugins = NULL;
+	plugin->session_by_me = FALSE;
 }
 
 static void
@@ -437,8 +453,6 @@ default_profile_plugin_activate_plugins (DefaultProfilePlugin *plugin,
 		max_icons--;
 		node = g_slist_next (node);
 	}
-	if (splash)
-		gtk_widget_hide (GTK_WIDGET (splash));
 }
 
 static gboolean
@@ -734,11 +748,56 @@ default_profile_plugin_load (DefaultProfilePlugin *plugin,
 	return TRUE;
 }
 
+static gchar*
+default_profile_plugin_get_session_dir (DefaultProfilePlugin *plugin)
+{
+	GnomeVFSURI *vfs_uri;
+	const gchar *project_root_uri;
+	gchar *session_dir = NULL;
+	
+	anjuta_shell_get (ANJUTA_PLUGIN (plugin)->shell, "project_root_uri",
+					  G_TYPE_STRING, &project_root_uri, NULL);
+	
+	g_return_val_if_fail (project_root_uri, NULL);
+	
+	vfs_uri = gnome_vfs_uri_new (project_root_uri);
+	if (vfs_uri && gnome_vfs_uri_is_local (vfs_uri))
+	{
+		gchar *local_dir;
+		
+		local_dir = gnome_vfs_get_local_path_from_uri (project_root_uri);
+		if (local_dir)
+		{
+			session_dir = g_build_filename (local_dir, ".anjuta", NULL);
+		}
+		g_free (local_dir);
+	}
+	if (vfs_uri)
+		gnome_vfs_uri_unref (vfs_uri);
+	
+	return session_dir;
+}
+
 static void
 default_profile_plugin_close (DefaultProfilePlugin *plugin)
 {
+	gchar *session_dir;
+	
+	g_return_if_fail (plugin->project_uri != NULL);
+	
 	if (!plugin->loaded_plugins)
 		return;
+	
+	/* Save project session */
+	session_dir = default_profile_plugin_get_session_dir (plugin);
+	if (session_dir)
+	{
+		plugin->session_by_me = TRUE;
+		anjuta_shell_session_save (ANJUTA_PLUGIN (plugin)->shell,
+								   session_dir, NULL);
+		plugin->session_by_me = FALSE;
+		g_free (session_dir);
+	}
 	
 	anjuta_shell_remove_value (ANJUTA_PLUGIN (plugin)->shell,
 							   "project_root_uri", NULL);
@@ -784,7 +843,7 @@ ifile_open (IAnjutaFile *ifile, const gchar* uri,
 			GError **e)
 {
 	GnomeVFSURI *vfs_uri;
-	gchar *dirname, *vfs_dir;
+	gchar *dirname, *vfs_dir, *session_dir;
 	DefaultProfilePlugin *plugin;
 	GValue *value;
 	
@@ -811,6 +870,22 @@ ifile_open (IAnjutaFile *ifile, const gchar* uri,
 							"project_root_uri",
 							value, NULL);
 	update_ui (plugin);
+	
+	/* Load Project session */
+	session_dir = default_profile_plugin_get_session_dir (plugin);
+	if (session_dir)
+	{
+		/*
+		 * If there is a session load already in progress (that is this
+		 * project is being opened in session restoration), our session
+		 * load would be ignored. Good thing.
+		 */
+		plugin->session_by_me = TRUE;
+		anjuta_shell_session_load (ANJUTA_PLUGIN (plugin)->shell,
+								   session_dir, NULL);
+		plugin->session_by_me = FALSE;
+		g_free (session_dir);
+	}
 }
 
 static gchar*
