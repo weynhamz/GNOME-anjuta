@@ -22,9 +22,9 @@
 
 #include <glade/glade.h>
 /* TODO #include "properties.h" */
-// #include "text_editor.h"
 /* TODO #include "project_dbase.h" */
 #include <stdio.h>
+#include <libanjuta/anjuta-plugin.h>
 
 typedef struct _BreakpointsDBase BreakpointsDBase;
 typedef struct _BreakpointsDBasePriv BreakpointsDBasePriv;
@@ -35,7 +35,7 @@ struct _BreakpointsDBase
 };
 
 
-BreakpointsDBase *breakpoints_dbase_new (void);
+BreakpointsDBase *breakpoints_dbase_new (AnjutaPlugin *plugin);
 
 /* TODO
 void breakpoints_dbase_save (BreakpointsDBase * bd, ProjectDBase * pdb );

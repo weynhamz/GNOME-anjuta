@@ -116,14 +116,16 @@ gboolean on_text_editor_auto_save (gpointer data)
 gboolean timerclick = FALSE;
 
 static gboolean
-click_timeout (gpointer line)
-{	
+click_timeout (TextEditor *te)
+{
+	gint line = text_editor_get_current_lineno (te);
+	
 	/*  If not second clic after timeout : Single Click  */
 	if (timerclick)
 	{
 		timerclick = FALSE;
-		//FIXME:
-		// breakpoints_dbase_toggle_singleclick (GPOINTER_TO_INT(line));
+		/* Emit (double) clicked signal */
+		g_signal_emit_by_name (G_OBJECT (te), "marker_clicked", FALSE, line);
 	}
 	return FALSE;
 }
@@ -170,31 +172,24 @@ on_text_editor_scintilla_notify (GtkWidget * sci,
 		return;
 
 	case SCN_MARGINCLICK:
-	line =	text_editor_get_line_from_position (te, nt->position);
-	if (nt->margin == 1)  /*  Bookmarks and Breakpoints  margin */
-	{
-		/* if second click before timeout : Double click  */
-		if (timerclick)
+		line =	text_editor_get_line_from_position (te, nt->position);
+		if (nt->margin == 1)  /*  Bookmarks and Breakpoints  margin */
 		{
-			timerclick = FALSE;
-			/* Toggle Breakpoints */
-			// FIXME:
-			#if 0
-			if (!breakpoints_dbase_toggle_doubleclick (line))
+			/* if second click before timeout : Double click  */
+			if (timerclick)
 			{
-				/*  Debugger not active ==> Toggle Bookmarks */
-				text_editor_goto_line (te, line, FALSE, FALSE);
-				aneditor_command (te->editor_id, ANE_BOOKMARK_TOGGLE, 0, 0);
+				timerclick = FALSE;
+				/* Emit (double) clicked signal */
+				g_signal_emit_by_name (G_OBJECT (te), "marker_clicked",
+									   TRUE, line);
 			}
-			#endif
-		}
-		else
-		{
-			timerclick = TRUE;
-			/* Timeout after 400ms  */
-			/* If 2 clicks before the timeout ==> Single Click */
-			g_timeout_add (400, (void*) click_timeout, GINT_TO_POINTER(line));
-		}
+			else
+			{
+				timerclick = TRUE;
+				/* Timeout after 400ms  */
+				/* If 2 clicks before the timeout ==> Single Click */
+				g_timeout_add (400, (void*) click_timeout, te);
+			}
 	}
 	return;
 	

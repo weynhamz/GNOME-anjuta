@@ -150,13 +150,13 @@ static void
 foreach_hash (gpointer key, gpointer value, gpointer userdata)
 {
 	GString *str = (GString*)(userdata);
-	const gchar *divider = ":";
-	const gchar *separator = "  ";
+	const gchar *divider = ": ";
+	const gchar *separator = "    ";
 	
+	g_string_append (str, separator);
 	g_string_append (str, (const gchar*)key);
 	g_string_append (str, divider);
 	g_string_append (str, (const gchar*)value);
-	g_string_append (str, separator);
 }
 
 void

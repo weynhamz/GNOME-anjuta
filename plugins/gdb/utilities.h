@@ -26,6 +26,8 @@
 #include <dirent.h>
 #include <stdio.h>
 
+#include <libanjuta/anjuta-plugin.h>
+
 #define COMBO_LIST_LENGTH \
 		anjuta_preferences_get_int (app->preferences, MAXIMUM_COMBO_HISTORY)
 
@@ -324,5 +326,14 @@ anjuta_button_new_with_stock_image (const gchar* text, const gchar* stock_id);
 /* Equivalent to gnome_execute_shell(), but does not overwrite
  * SIGCHLD handler */
 pid_t anjuta_execute_shell (const gchar *dir, const gchar *command);
+
+void
+gdb_util_append_message (AnjutaPlugin *plugin, const gchar* message);
+
+void
+gdb_util_show_messages (AnjutaPlugin *plugin);
+
+void
+gdb_util_clear_messages (AnjutaPlugin *plugin);
 
 #endif

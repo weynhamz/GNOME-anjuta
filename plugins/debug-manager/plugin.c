@@ -22,6 +22,7 @@
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
 //#include <libanjuta/interfaces/ianjuta-document-manager.h>
+#include <libanjuta/interfaces/ianjuta-debugger-manager.h>
 #include <libanjuta/interfaces/ianjuta-debugger.h>
 
 #include "plugin.h"
@@ -355,6 +356,40 @@ debug_manager_plugin_class_init (GObjectClass* klass)
 }
 
 
+/* Implementation of IAnjutaDebuggerManager interface */
+static gboolean
+idebugger_manager_is_debugger_active (IAnjutaDebuggerManager *debugman,
+		GError** e)
+{
+	DebugManagerPlugin *plugin = (DebugManagerPlugin *) debugman;
+	IAnjutaDebugger *debugger = get_anjuta_debugger_iface (plugin);
+
+	g_return_val_if_fail (debugger != NULL, FALSE);
+
+	return ianjuta_debugger_is_active (debugger, NULL /* TODO */);
+}
+
+static void
+idebugger_manager_toggle_breakpoint (IAnjutaDebuggerManager *debugman,
+		gint line, GError** e)
+{
+	DebugManagerPlugin *plugin = (DebugManagerPlugin *) debugman;
+	IAnjutaDebugger *debugger = get_anjuta_debugger_iface (plugin);
+
+	g_return_if_fail (debugger != NULL);
+
+	return ianjuta_debugger_toggle_breakpoint1 (debugger, line,
+			NULL /* TODO */);
+}
+
+static void
+idebugger_manager_iface_init (IAnjutaDebuggerManagerIface *iface)
+{
+	iface->is_debugger_active = idebugger_manager_is_debugger_active;
+	iface->toggle_breakpoint = idebugger_manager_toggle_breakpoint;
+}
+
+
 /* Implementation of IAnjutaFile interface */
 static void
 ifile_open (IAnjutaFile* plugin, const gchar* uri, GError** e)
@@ -363,6 +398,7 @@ ifile_open (IAnjutaFile* plugin, const gchar* uri, GError** e)
 	if (debug_manager->uri == NULL)
 	{
 		debug_manager->uri = g_strdup (uri);
+		/* TODO: this doesn't seem to work :-[ */
 		anjuta_util_dialog_info (GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell),
 				"Opening executable %s\n", uri);
 	}
@@ -387,6 +423,7 @@ ifile_iface_init (IAnjutaFileIface* iface)
 
 
 ANJUTA_PLUGIN_BEGIN (DebugManagerPlugin, debug_manager_plugin);
+ANJUTA_PLUGIN_ADD_INTERFACE(idebugger_manager, IANJUTA_TYPE_DEBUGGER_MANAGER);
 ANJUTA_PLUGIN_ADD_INTERFACE(ifile, IANJUTA_TYPE_FILE);
 ANJUTA_PLUGIN_END;
 

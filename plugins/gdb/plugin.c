@@ -21,9 +21,9 @@
 #include <config.h>
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/interfaces/ianjuta-debugger.h>
+#include <libanjuta/interfaces/ianjuta-document-manager.h>
 #include <libanjuta/interfaces/ianjuta-message-manager.h>
 #include <libanjuta/interfaces/ianjuta-message-view.h>
-#include <libanjuta/interfaces/ianjuta-document-manager.h>
 
 #include "plugin.h"
 #include "debugger.h"
@@ -33,103 +33,6 @@
 static gpointer parent_class;
 
 static const gchar * MESSAGE_VIEW_TITLE = N_("Debug");
-
-/* TODO: don't know how to avoid having some global variables and functions
-(we no more have access to the global app object) */
-
-static GdbPlugin *gdb_plugin = NULL;
-
-
-void
-append_message (const gchar* message)
-{
-	GObject *obj;
-	IAnjutaMessageManager *message_manager;
-	IAnjutaMessageView *message_view;
-
-	g_return_if_fail (message != NULL);
-
-	obj = anjuta_shell_get_object (ANJUTA_PLUGIN (gdb_plugin)->shell,
-			"IAnjutaMessageManager", NULL);
-	message_manager = IANJUTA_MESSAGE_MANAGER (obj);
-
-	/* TODO: error checking */
-
-	message_view = ianjuta_message_manager_get_view_by_name (
-			message_manager, MESSAGE_VIEW_TITLE, NULL);
-
-	/* TODO: support for other message types than INFO */
-	ianjuta_message_view_append (message_view, IANJUTA_MESSAGE_VIEW_TYPE_INFO,
-			message, "", NULL);
-}
-
-
-void
-show_messages (void)
-{
-	GObject *obj;
-	IAnjutaMessageManager *message_manager;
-	IAnjutaMessageView *message_view;
-
-	obj = anjuta_shell_get_object (ANJUTA_PLUGIN (gdb_plugin)->shell,
-			"IAnjutaMessageManager", NULL);
-	message_manager = IANJUTA_MESSAGE_MANAGER (obj);
-
-	/* TODO: error checking */
-
-	message_view = ianjuta_message_manager_get_view_by_name (
-			message_manager, MESSAGE_VIEW_TITLE, NULL);
-
-	ianjuta_message_manager_set_current_view (message_manager, message_view, NULL);
-}
-
-
-void
-clear_messages (void)
-{
-	GObject *obj;
-	IAnjutaMessageManager *message_manager;
-	IAnjutaMessageView *message_view;
-
-	obj = anjuta_shell_get_object (ANJUTA_PLUGIN (gdb_plugin)->shell,
-			"IAnjutaMessageManager", NULL);
-	message_manager = IANJUTA_MESSAGE_MANAGER (obj);
-
-	/* TODO: error checking */
-
-	message_view = ianjuta_message_manager_get_view_by_name (
-			message_manager, MESSAGE_VIEW_TITLE, NULL);
-
-	ianjuta_message_view_clear (message_view, NULL);
-}
-
-
-IAnjutaDocumentManager *
-gdb_get_document_manager (void)
-{
-	GObject *obj = anjuta_shell_get_object (ANJUTA_PLUGIN (gdb_plugin)->shell,
-			"IAnjutaDocumentManager", NULL);
-	return IANJUTA_DOCUMENT_MANAGER (obj);
-}
-
-
-AnjutaLauncher *
-get_launcher (void)
-{
-	g_return_val_if_fail (gdb_plugin != NULL, NULL);
-
-	return gdb_plugin->launcher;
-}
-
-
-void
-gdb_add_widget (GtkWidget *w, const gchar *name, const gchar * title,
-		const gchar *icon)
-{
-	anjuta_shell_add_widget (ANJUTA_PLUGIN (gdb_plugin)->shell, w, name, title,
-			icon, ANJUTA_SHELL_PLACEMENT_BOTTOM, NULL);
-}
-
 
 static void
 on_debug_buffer_flushed (IAnjutaMessageView *view, const gchar* line,
@@ -156,10 +59,10 @@ activate_plugin (AnjutaPlugin* plugin)
 	GObject *obj;
 	IAnjutaMessageManager *message_manager;
 	IAnjutaMessageView *message_view;
+	GdbPlugin *gdb_plugin = (GdbPlugin *) plugin;
 
 	g_message ("GdbPlugin: Activating Gdb plugin ...");
 
-	gdb_plugin = (GdbPlugin *) plugin;
 
 	/* Query for object implementing IAnjutaMessageManager interface */
 	obj = anjuta_shell_get_object (ANJUTA_PLUGIN (plugin)->shell,
@@ -176,7 +79,7 @@ activate_plugin (AnjutaPlugin* plugin)
 	ianjuta_message_manager_set_current_view (message_manager, message_view, NULL);
 
 	gdb_plugin->launcher = anjuta_launcher_new ();
-	debugger_init ();
+	debugger_init (gdb_plugin);
 
 	return TRUE;
 }
@@ -198,7 +101,6 @@ deactivate_plugin (AnjutaPlugin* plugin)
 static void
 dispose (GObject* obj)
 {
-	gdb_plugin = NULL; /* TODO: to be removed ? */
 }
 
 
@@ -206,7 +108,6 @@ static void
 gdb_plugin_instance_init (GObject* obj)
 {
 	GdbPlugin *plugin = (GdbPlugin *) obj;
-	gdb_plugin = plugin; /* TODO: to be removed ? */
 	plugin->uiid = 0;
 	plugin->launcher = NULL;
 }
@@ -226,6 +127,12 @@ gdb_plugin_class_init (GObjectClass* klass)
 
 
 /* Implementation of IAnjutaDebugger interface */
+static gboolean
+idebugger_is_active (IAnjutaDebugger *plugin, GError **err)
+{
+	return debugger_is_active ();
+}
+
 static void
 idebugger_start (IAnjutaDebugger *plugin, const gchar *prog, GError **err)
 {
@@ -271,12 +178,19 @@ idebugger_step_out (IAnjutaDebugger *plugin, GError **err)
 static void
 idebugger_toggle_breakpoint (IAnjutaDebugger *plugin, GError **err)
 {
-	debugger_toggle_breakpoint ();
+	debugger_toggle_breakpoint (0); // 0 means current line
+}
+
+static void
+idebugger_toggle_breakpoint1 (IAnjutaDebugger *plugin, gint line, GError **err)
+{
+	debugger_toggle_breakpoint (line);
 }
 
 static void
 idebugger_iface_init (IAnjutaDebuggerIface *iface)
 {
+	iface->is_active = idebugger_is_active;
 	iface->start = idebugger_start;
 	iface->load_executable = idebugger_load_executable;
 	iface->load_core = idebugger_load_core;
@@ -285,6 +199,7 @@ idebugger_iface_init (IAnjutaDebuggerIface *iface)
 	iface->step_over = idebugger_step_over;
 	iface->step_out = idebugger_step_out;
 	iface->toggle_breakpoint = idebugger_toggle_breakpoint;
+	iface->toggle_breakpoint1 = idebugger_toggle_breakpoint1;
 }
 
 ANJUTA_PLUGIN_BEGIN (GdbPlugin, gdb_plugin);

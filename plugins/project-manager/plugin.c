@@ -25,6 +25,7 @@
 #include <libanjuta/interfaces/ianjuta-file-loader.h>
 #include <libanjuta/interfaces/ianjuta-project-manager.h>
 #include <libanjuta/anjuta-debug.h>
+#include <libanjuta/anjuta-status.h>
 
 #include <gbf/gbf-project-util.h>
 #include <gbf/gbf-backend.h>
@@ -330,6 +331,8 @@ on_target_activated (GtkWidget *widget, const gchar *target_id,
 static void
 on_close_project (GtkAction *action, ProjectManagerPlugin *plugin)
 {
+	AnjutaStatus *status;
+	
 	if (plugin->project) {
 		g_object_unref (plugin->project);
 		plugin->project = NULL;
@@ -337,6 +340,8 @@ on_close_project (GtkAction *action, ProjectManagerPlugin *plugin)
 		update_ui (plugin);
 		anjuta_shell_remove_value (ANJUTA_PLUGIN (plugin)->shell,
 								   "project_root_uri", NULL);
+		status = anjuta_shell_get_status (ANJUTA_PLUGIN (plugin)->shell, NULL);
+		anjuta_status_set_default (status, _("Project"), NULL);
 	}
 }
 
@@ -810,21 +815,22 @@ static void
 ifile_open (IAnjutaFile *project_manager,
 			const gchar *filename, GError **err)
 {
+	AnjutaPlugin *plugin;
+	ProjectManagerPlugin *pm_plugin;
+	AnjutaStatus *status;
 	GtkWidget *progress_win;
 	GnomeVFSURI *vfs_uri;
 	gchar *dirname, *vfs_dir;
 	GSList *l;
 	GValue *value;
 	GError *error = NULL;
-	
 	GbfBackend *backend = NULL;
-	ProjectManagerPlugin *pm_plugin;
 	
 	g_return_if_fail (filename != NULL);
 	
-	pm_plugin = (ProjectManagerPlugin*)(ANJUTA_PLUGIN (project_manager));
-	
-	progress_win = show_loading_progress (ANJUTA_PLUGIN(pm_plugin));
+	plugin = ANJUTA_PLUGIN (project_manager);
+	pm_plugin = (ProjectManagerPlugin*)(plugin);
+	progress_win = show_loading_progress (plugin);
 	
 	vfs_uri = gnome_vfs_uri_new (filename);
 	dirname = gnome_vfs_uri_extract_dirname (vfs_uri);
@@ -863,6 +869,10 @@ ifile_open (IAnjutaFile *project_manager,
 			return;
 	}
 	
+	status = anjuta_shell_get_status (plugin->shell, NULL);
+	anjuta_status_push (status, _("Loading project: %s"), g_basename (dirname));
+	anjuta_status_busy_push (status);
+	
 	DEBUG_PRINT ("loading project %s\n\n", dirname);
 	/* FIXME: use the error parameter to determine if the project
 	 * was loaded successfully */
@@ -871,13 +881,15 @@ ifile_open (IAnjutaFile *project_manager,
 	{
 		GtkWindow *win;
 		win = GTK_WINDOW (gtk_widget_get_toplevel (pm_plugin->scrolledwindow));
-		anjuta_util_dialog_error (win, "Failed to load project %s: %s",
+		anjuta_util_dialog_error (win, _("Failed to load project %s: %s"),
 								  filename, error->message);
 		g_propagate_error (err, error);
 		g_object_unref (pm_plugin->project);
 		pm_plugin->project = NULL;
 		g_free (dirname);
 		gtk_widget_destroy (progress_win);
+		anjuta_status_pop (status);
+		anjuta_status_busy_pop (status);
 		return;
 	}
 	g_object_set (G_OBJECT (pm_plugin->model), "project",
@@ -885,7 +897,6 @@ ifile_open (IAnjutaFile *project_manager,
 	
 	/* Set project root directory */
 	vfs_dir = gnome_vfs_get_uri_from_local_path (dirname);
-	g_free (dirname);
 
 	value = g_new0 (GValue, 1);
 	g_value_init (value, G_TYPE_STRING);
@@ -900,6 +911,10 @@ ifile_open (IAnjutaFile *project_manager,
 							"project_root_uri",
 							value, NULL);
 	gtk_widget_destroy (progress_win);
+	anjuta_status_set_default (status, _("Project"), g_basename (dirname));
+	anjuta_status_pop (status);
+	anjuta_status_busy_pop (status);
+	g_free (dirname);
 }
 
 static void

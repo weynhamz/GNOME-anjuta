@@ -39,6 +39,8 @@
 /* #include "properties.h" */
 /* #include "resources.h" */
 #include <gnome.h>
+#include <libanjuta/interfaces/ianjuta-message-manager.h>
+#include <libanjuta/interfaces/ianjuta-message-view.h>
 
 const gchar *
 extract_filename (const gchar * full_filename)
@@ -2009,4 +2011,92 @@ anjuta_execute_shell (const gchar *dir, const gchar *command)
 	g_free (shell);
 	// Anjuta will take care of child exit automatically.
 	return pid;
+}
+
+
+static const gchar * MESSAGE_VIEW_TITLE = N_("Debug");
+
+static IAnjutaMessageView *
+gdb_util_get_message_view (AnjutaPlugin *plugin)
+{
+	GObject *obj;
+	IAnjutaMessageManager *message_manager = NULL;
+
+	g_return_val_if_fail (plugin != NULL, NULL);
+
+	/* TODO: error checking */
+	obj = anjuta_shell_get_object (plugin->shell, "IAnjutaMessageManager",
+			NULL);
+	message_manager = IANJUTA_MESSAGE_MANAGER (obj);
+	return ianjuta_message_manager_get_view_by_name (message_manager,
+			MESSAGE_VIEW_TITLE, NULL);
+}
+
+static void
+gdb_util_append_message_generic (AnjutaPlugin *plugin,
+		IAnjutaMessageViewType message_type, const gchar *message)
+{
+	IAnjutaMessageView *message_view = NULL;
+
+	g_return_if_fail (plugin != NULL);
+
+	/* TODO: error checking */
+	message_view = gdb_util_get_message_view (plugin);
+	ianjuta_message_view_append (message_view, message_type, message, "", NULL);
+}
+
+void
+gdb_util_append_message (AnjutaPlugin *plugin, const gchar* message)
+{
+	gdb_util_append_message_generic (plugin, IANJUTA_MESSAGE_VIEW_TYPE_NORMAL,
+			message);
+}
+
+void
+gdb_util_append_message_info (AnjutaPlugin *plugin, const gchar* message)
+{
+	gdb_util_append_message_generic (plugin, IANJUTA_MESSAGE_VIEW_TYPE_INFO,
+			message);
+}
+
+void
+gdb_util_append_message_error (AnjutaPlugin *plugin, const gchar* message)
+{
+	gdb_util_append_message_generic (plugin, IANJUTA_MESSAGE_VIEW_TYPE_ERROR,
+			message);
+}
+
+void
+gdb_util_append_message_warning (AnjutaPlugin *plugin, const gchar* message)
+{
+	gdb_util_append_message_generic (plugin, IANJUTA_MESSAGE_VIEW_TYPE_WARNING,
+			message);
+}
+
+void
+gdb_util_show_messages (AnjutaPlugin *plugin)
+{
+	GObject *obj;
+	IAnjutaMessageManager *message_manager = NULL;
+	IAnjutaMessageView *message_view = NULL;
+
+	/* TODO: error checking */
+	obj = anjuta_shell_get_object (ANJUTA_PLUGIN (plugin)->shell,
+			"IAnjutaMessageManager", NULL);
+	message_manager = IANJUTA_MESSAGE_MANAGER (obj);
+	message_view = ianjuta_message_manager_get_view_by_name (
+			message_manager, MESSAGE_VIEW_TITLE, NULL);
+	ianjuta_message_manager_set_current_view (message_manager, message_view, NULL);
+}
+
+void
+gdb_util_clear_messages (AnjutaPlugin *plugin)
+{
+	IAnjutaMessageView *message_view = NULL;
+
+	g_return_if_fail (plugin != NULL);
+
+	/* TODO: error checking */
+	message_view = gdb_util_get_message_view (plugin);
+	ianjuta_message_view_clear (message_view, NULL);
 }

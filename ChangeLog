@@ -1,5 +1,27 @@
 2004-11-28  Naba Kumar  <naba@gnome.org>
 
+	* plugins/editor/text_editor_cbs.c: Emit click signal in IAnjutaMarkable.
+	* libanjuta/anjuta-status.c: More spacing between items.
+	
+2004-11-28  Naba Kumar  <naba@gnome.org>
+
+	Patch from: Pavol Bosik  <pavol.bosik@radiantsystems.com>:
+	
+	* libanjuta/interfaces/libanjuta.idl,
+	plugins/debug-manager/anjuta-debug-manager.plugin.in,
+	plugins/debug-manager/plugin.c,
+	plugins/gdb/breakpoints.c,
+	plugins/gdb/breakpoints.h,
+	plugins/gdb/debugger.c,
+	plugins/gdb/debugger.h,
+	plugins/gdb/plugin.c,
+	plugins/gdb/plugin.h,
+	plugins/gdb/utilities.c,
+	plugins/gdb/utilities.h: Code cleanups and partial implementation of
+	toggle breakpoint margin clicks.
+
+2004-11-28  Naba Kumar  <naba@gnome.org>
+
 	* TODO.tasks: Fixed indentations.
 	* plugins/gtodo/libgtodo.c: Save with indentation.
 	* plugins/file-manager/an_file_view.c: Sorts the files alphabatically.

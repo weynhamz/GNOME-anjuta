@@ -1,6 +1,8 @@
+#ifndef GDB_PLUGIN_H
+#define GDB_PLUGIN_H
+
 #include <libanjuta/anjuta-plugin.h>
 #include <libanjuta/anjuta-launcher.h>
-#include <libanjuta/interfaces/ianjuta-document-manager.h>
 
 /* TODO: remove UI from here */
 #define PREFS_GLADE PACKAGE_DATA_DIR"/glade/anjuta-gdb.glade"
@@ -20,11 +22,4 @@ struct _GdbPluginClass
 	AnjutaPluginClass parent_class;
 };
 
-void append_message (const gchar* message);
-void show_messages (void);
-void clear_messages (void);
-
-AnjutaLauncher * get_launcher (void);
-IAnjutaDocumentManager * gdb_get_document_manager (void);
-void gdb_add_widget (GtkWidget *w, const gchar *name, const gchar* title,
-		const gchar *icon);
+#endif

@@ -710,7 +710,7 @@ update_status (EditorPlugin *plugin, TextEditor *te)
 		}
 		anjuta_status_set_default (status, _("Zoom"), "%d", zoom);
 		anjuta_status_set_default (status, _("Line"), "%04d", line);
-		anjuta_status_set_default (status, _("Col"), "%04d", col);
+		anjuta_status_set_default (status, _("Col"), "%03d", col);
 		anjuta_status_set_default (status, _("Mode"), edit);
 		/* anjuta_status_set_default (status, _("EOL"), mode); */
 		

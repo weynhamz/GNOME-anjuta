@@ -34,7 +34,6 @@
 
 /* TODO #include "anjuta.h" */
 #include "breakpoints.h"
-#include "utilities.h"
 /* TODO #include "controls.h" */
 #include "utilities.h"
 #include "debugger.h"
@@ -74,6 +73,8 @@ struct _BreakpointItem
 
 struct _BreakpointsDBasePriv
 {
+	AnjutaPlugin *plugin;
+
 	GladeXML *gxml;
 	gchar *cond_history, *loc_history, *pass_history;
 	
@@ -136,7 +137,8 @@ static void breakpoint_item_save (BreakpointItem *bi, ProjectDBase *pdb,
 								  const gint nBreak );
 */
 static void breakpoints_dbase_delete_all_breakpoints (BreakpointsDBase *bd);
-static void breakpoints_dbase_delete_all_markers (IAnjutaMarkableMarker marker);
+static void breakpoints_dbase_delete_all_markers (BreakpointsDBase *bd,
+		IAnjutaMarkableMarker marker);
 static gboolean breakpoint_item_load (BreakpointItem *bi, gchar *szStr );
 static void on_treeview_enabled_toggled (GtkCellRendererToggle *cell,
 										 gchar *path_str, gpointer data);
@@ -146,8 +148,14 @@ static gboolean breakpoints_dbase_set_from_item (BreakpointsDBase *bd,
 												 BreakpointItem *bi,
 												 gboolean add_to_treeview);
 
-#define BREAKPOINTS_MARKER 1
-#define BREAKPOINTS_MARKER_DISABLE 4
+
+static IAnjutaDocumentManager *
+get_document_manager (AnjutaPlugin *plugin)
+{
+	GObject *obj = anjuta_shell_get_object (plugin->shell,
+			"IAnjutaDocumentManager", NULL /* TODO */);
+	return IANJUTA_DOCUMENT_MANAGER (obj);
+}
 
 
 void
@@ -173,7 +181,7 @@ enable_all_breakpoints (BreakpointsDBase* bd)
 		return;
 	debugger_put_cmd_in_queqe ("enable breakpoints", DB_CMD_ALL,
 	                           breakpoints_info, bd);
-	append_message (_("All breakpoints enabled:"));
+	gdb_util_append_message (bd->priv->plugin, _("All breakpoints enabled:"));
 	debugger_execute_cmd_in_queqe ();
 }
 
@@ -191,7 +199,7 @@ disable_all_breakpoints (BreakpointsDBase* bd)
 		return;
 	debugger_put_cmd_in_queqe ("disable breakpoints", DB_CMD_ALL,
 	                           breakpoints_info, bd);
-	append_message (_("All breakpoints disabled:"));
+	gdb_util_append_message (bd->priv->plugin, _("All breakpoints disabled:"));
 	debugger_execute_cmd_in_queqe ();
 }
 
@@ -325,7 +333,7 @@ breakpoint_item_new ()
 {
 	BreakpointItem *bi;
 	bi = g_malloc (sizeof (BreakpointItem));
-	
+
 	bi->bd = NULL;
 	bi->is_editing = FALSE;
 	
@@ -504,7 +512,7 @@ on_bk_jumpto_clicked (GtkWidget *button, gpointer   data)
 		BreakpointItem *bi;
 		gtk_tree_model_get (model, &iter, DATA_COLUMN, &bi, -1);
 		breakpoints_dbase_hide (bd);
-		docman = gdb_get_document_manager ();
+		docman = get_document_manager (bd->priv->plugin);
 		ianjuta_document_manager_goto_file_line (docman, bi->file, bi->line,
 			NULL /* TODO */);
 	}
@@ -586,7 +594,7 @@ bk_item_add_mesg_arrived (GList * lines, gpointer data)
 		if (strlen(file))
 			file[strlen(file)-1] = '\0';
 
-		docman = gdb_get_document_manager ();
+		docman = get_document_manager (bid->bd->priv->plugin);
 		editor = ianjuta_document_manager_get_current_editor (docman, NULL /* TODO */);
 		ianjuta_editor_goto_line (editor, line, NULL /* TODO */);
 		
@@ -893,10 +901,10 @@ on_bk_window_delete_event (GtkWindow *win, GdkEvent *event, BreakpointsDBase *bd
 }
 
 BreakpointsDBase *
-breakpoints_dbase_new ()
+breakpoints_dbase_new (AnjutaPlugin *plugin)
 {
 	BreakpointsDBase *bd;
-
+	
 	bd = g_new0 (BreakpointsDBase, 1);
 	bd->priv = g_new0 (BreakpointsDBasePriv, 1);
 	if (bd) {
@@ -905,6 +913,8 @@ breakpoints_dbase_new ()
 		GtkCellRenderer *renderer;
 		GtkTreeViewColumn *column;
 		int i;
+
+		bd->priv->plugin = plugin;
 
 		/* breakpoints dialog */
 		bd->priv->gxml = glade_xml_new (PREFS_GLADE,
@@ -1143,8 +1153,8 @@ breakpoints_dbase_clear (BreakpointsDBase *bd)
 		gtk_tree_store_clear (GTK_TREE_STORE (model));
 	}
 
-	breakpoints_dbase_delete_all_markers (IANJUTA_MARKABLE_LIGHT);
-	breakpoints_dbase_delete_all_markers (IANJUTA_MARKABLE_INTENSE);
+	breakpoints_dbase_delete_all_markers (bd, IANJUTA_MARKABLE_LIGHT);
+	breakpoints_dbase_delete_all_markers (bd, IANJUTA_MARKABLE_INTENSE);
 }
 
 static void
@@ -1156,9 +1166,10 @@ breakpoints_dbase_delete_all_breakpoints (BreakpointsDBase *bd)
 }
 
 static void
-breakpoints_dbase_delete_all_markers (IAnjutaMarkableMarker marker)
+breakpoints_dbase_delete_all_markers (BreakpointsDBase *bd,
+		IAnjutaMarkableMarker marker)
 {
-	IAnjutaDocumentManager *docman = gdb_get_document_manager ();
+	IAnjutaDocumentManager *docman = get_document_manager (bd->priv->plugin);
 	GList *editors, *node;
 
 	g_return_if_fail (docman != NULL);
@@ -1282,7 +1293,7 @@ breakpoints_dbase_set_from_item (BreakpointsDBase *bd, BreakpointItem *bi,
 	IAnjutaDocumentManager *docman;
 	
 	old = disable = FALSE;
-	docman = gdb_get_document_manager ();
+	docman = get_document_manager (bd->priv->plugin);
 	fn = ianjuta_document_manager_get_full_filename (docman, bi->file, NULL /* TODO */);
 	ret = stat (fn, &st);
 	if (ret != 0)
@@ -1516,7 +1527,7 @@ breakpoints_dbase_add_brkpnt (BreakpointsDBase *bd, gchar *brkpnt)
 			bi->condition = NULL;
 		}
 
-		docman = gdb_get_document_manager ();
+		docman = get_document_manager (bd->priv->plugin);
 		full_fname = ianjuta_document_manager_get_full_filename (docman,
 				bi->file, NULL /* TODO */);
 		ed = ianjuta_document_manager_find_editor_with_path (docman, full_fname,
@@ -1654,10 +1665,11 @@ on_delete_matching_foreach (GtkTreeModel *model, GtkTreePath *path,
 	IAnjutaEditor *te;
 	const gchar *filename;
 
-	docman = gdb_get_document_manager ();
+	bd = (BreakpointsDBase *) data;
+
+	docman = get_document_manager (bd->priv->plugin);
 	te = ianjuta_document_manager_get_current_editor (docman, NULL /* TODO */);
 
-	bd = (BreakpointsDBase *) data;
 	gtk_tree_model_get (GTK_TREE_MODEL (model), iter, DATA_COLUMN, &item, -1);
 	if (item->handle_invalid)
 		return FALSE;
@@ -1705,7 +1717,7 @@ breakpoints_dbase_toggle_breakpoint (BreakpointsDBase *bd, guint l)
 
 	g_return_val_if_fail (bd != NULL, FALSE);
 
-	docman = gdb_get_document_manager ();
+	docman = get_document_manager (bd->priv->plugin);
 	g_return_val_if_fail (docman != NULL, FALSE);
 	te = ianjuta_document_manager_get_current_editor (docman, NULL /* TODO */);
 	g_return_val_if_fail (te != NULL, FALSE);
@@ -1758,7 +1770,7 @@ breakpoints_dbase_toggle_breakpoint (BreakpointsDBase *bd, guint l)
 gboolean
 breakpoints_dbase_toggle_doubleclick (guint line)
 {
-/* TODO	return breakpoints_dbase_toggle_breakpoint(debugger.breakpoints_dbase, line); */
+	return breakpoints_dbase_toggle_breakpoint(debugger.breakpoints_dbase, line);
 }
 
 static void

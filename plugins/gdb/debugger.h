@@ -29,6 +29,7 @@
 #include "signals.h"
 #include "sharedlib.h"
 /* TODO #include "project_dbase.h" */
+#include "plugin.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -61,6 +62,8 @@ struct _Debugger
 	gint post_execution_flag;
 	pid_t child_pid;
 
+	GdbPlugin *plugin;
+
 	ExprWatch *watch;
 	BreakpointsDBase *breakpoints_dbase;
 	CpuRegisters *cpu_registers;
@@ -87,7 +90,7 @@ struct _Debugger
 
 extern Debugger debugger;
 
-void debugger_init (void);
+void debugger_init (GdbPlugin *plugin);
 void debugger_shutdown (void);
 gboolean debugger_save_yourself (FILE * stream);
 /* TODO gboolean debugger_load_yourself (PropsID props); */
@@ -125,7 +128,7 @@ void debugger_step_over (void);
 void debugger_step_out (void);
 void debugger_run_to_location (const gchar * loc);
 
-void debugger_toggle_breakpoint (void);
+void debugger_toggle_breakpoint (guint l);
 /* TODO: can remove ?
 void debugger_toggle_tmp_breakpoint (void);
 */

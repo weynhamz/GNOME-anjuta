@@ -71,6 +71,8 @@ interface IAnjutaMarkable
 		INTENSE
 	}
 
+	void ::marker_clicked (gboolean double_click, gint location);
+
 	/**
 	 * ianjuta_markable_mark:
 	 * @obj: Self
@@ -588,8 +590,17 @@ interface IAnjutaWizard
  * }
  */
 
+interface IAnjutaDebuggerManager
+{
+	gboolean is_debugger_active ();
+
+	void toggle_breakpoint (gint line);
+}
+
 interface IAnjutaDebugger
 {
+	gboolean is_active ();
+
 	void start (const gchar *prog);
 	void load_executable (const gchar *prog);
 	void load_core (const gchar *core);
@@ -599,5 +610,8 @@ interface IAnjutaDebugger
 	void step_over ();
 	void step_out ();
 
+	void toggle_breakpoint1 (gint line);
+
+	/* TODO: remove this function after moving UI to debug-manager */
 	void toggle_breakpoint ();
 }
