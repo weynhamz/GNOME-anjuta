@@ -55,7 +55,7 @@ rpm: dist
 ## Install in RedHat's sytem menu, only if the system is RH.
 install-data-local:
 	-dfi=`which desktop-file-install` ; \
-	if [ "x$$dfi" != "x" -a -x $$dfi -a -w $(datadir)/applications ] ; then \
+	if ( [ "x$$dfi" != "x" ] && [ -x $$dfi ] && [ -w $(datadir)/applications ] ) ; then \
 		mkdir -p $(datadir)/applications ; \
 		$$dfi --vendor anjuta --delete-original \
 		  --dir $(datadir)/applications \

@@ -55,8 +55,9 @@ static gboolean on_dock_activate (GtkWidget * menuitem,
 				  AnMessageManager * amm);
 static gboolean on_show_hide_tab (GtkWidget * menuitem,
 				  MessageSubwindow * msg_win);
-static gboolean on_popup_clicked (AnMessageManager * amm,
-				  GdkEvent * event);
+static gboolean
+on_popup_clicked (GtkWidget* widget, GdkEvent * event, 
+	AnMessageManagerPrivate* intern);
 // Intern functions:
 
 GtkFrameClass *parent_class;
@@ -144,8 +145,8 @@ an_message_manager_init (GtkObject * obj)
 	gtk_menu_shell_prepend(GTK_MENU_SHELL(amm->intern->popupmenu), dock_item);
 	amm->intern->dock_item = dock_item;
 	g_object_ref(G_OBJECT(amm->intern->dock_item));
-	g_signal_connect (GTK_OBJECT (amm), "button_press_event",
-			    GTK_SIGNAL_FUNC (on_popup_clicked), amm);
+	g_signal_connect (GTK_WIDGET (amm), "button_press_event",
+			    GTK_SIGNAL_FUNC (on_popup_clicked), amm->intern);
 
 	// Add Widgets to UI
 	gtk_container_add (GTK_CONTAINER (amm), amm->intern->notebook);
@@ -210,8 +211,11 @@ an_message_manager_add_type (AnMessageManager * amm, gint type_name,
 			break;
 		default:
 			sub_win = new AnMessageWindow (amm, type_name, type, pixmap);
-	}
-
+			g_signal_connect (GTK_OBJECT (
+				dynamic_cast<AnMessageWindow*>(sub_win)->get_msg_list()),
+				"button_press_event", GTK_SIGNAL_FUNC (on_popup_clicked), 
+				sub_win->get_parent()->intern);
+		}
 	amm->intern->msg_windows.push_back (sub_win);
 	if (amm->intern->last_page == 0)
 		amm->intern->msg_windows.back ()->activate ();
@@ -847,16 +851,17 @@ on_dock_activate (GtkWidget * menuitem, AnMessageManager * amm)
 }
 
 static gboolean
-on_popup_clicked (AnMessageManager * amm, GdkEvent * event)
+on_popup_clicked (GtkWidget* widget, GdkEvent * event, 
+	AnMessageManagerPrivate* intern)
 {
-	if (!amm || !event)
+	if (!intern || !event)
 		return FALSE;
 	
 	if (event->type == GDK_BUTTON_PRESS
 	    && ((GdkEventButton *) event)->button == 3)
 	{
-		GTK_CHECK_MENU_ITEM(amm->intern->dock_item)->active = amm->intern->is_docked;
-		gtk_menu_popup (GTK_MENU (amm->intern->popupmenu), NULL, NULL,
+		GTK_CHECK_MENU_ITEM(intern->dock_item)->active = intern->is_docked;
+		gtk_menu_popup (GTK_MENU (intern->popupmenu), NULL, NULL,
 				NULL, NULL,
 				((GdkEventButton *) event)->button,
 				((GdkEventButton *) event)->time);

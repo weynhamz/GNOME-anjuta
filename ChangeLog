@@ -1,3 +1,15 @@
+2003-04-15  Naba Kumar  <naba@gnome.org>
+
+	Patch from Timothee Besset  <ttimo@idsoftware.com>
+	* Makefile.am: Fixed a shell script error during intallation.
+	
+2003-04-14  Johannes Schmid <clubfan@users.sourceforge.net>
+
+	Reviewed by Naba Kumar  <naba@gnome.org>
+	* src/message-manager.cc: Added popup-menu to TreeView and fixed
+	set_wm_class to use "anjuta" instead of "an.
+	* src/message-manager-private.cc: Headers are hidden again.
+
 2003-04-14  Biswapesh Chattopadhyay  <biswapesh_chatterjee@tcscal.co.in>
 	* src/project_dbase_gui.c: Memory corruption fix.
 	* anjuta.prj: Updated project file
@@ -7,6 +19,7 @@
 	selection is updated first and thus context menu is for the right file.
 	Reviewed and applied by Biswa.
 
+>>>>>>> 1.484
 2003-04-14  Naba Kumar  <naba@gnome.org>
 
 	* anjuta.glade, anjuta_dialogs_strings.c: Updated setup dialog.

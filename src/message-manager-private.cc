@@ -245,7 +245,7 @@ AnMessageWindow::AnMessageWindow(AnMessageManager* p_amm,
 	// Create Tree
 	m_tree = gtk_tree_view_new_with_model(GTK_TREE_MODEL(
 		gtk_list_store_new(N_COLUMNS, G_TYPE_INT, GDK_TYPE_COLOR, G_TYPE_STRING)));
-	g_object_ref(m_tree);
+	gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(m_tree), FALSE);
 	GtkCellRenderer* renderer = gtk_cell_renderer_text_new();
 	GtkTreeViewColumn* column = gtk_tree_view_column_new();
 	gtk_tree_view_column_pack_start(column, renderer, TRUE);
