@@ -690,52 +690,52 @@ debugger_start (const gchar * prog)
 static void
 gdb_stdout_line_arrived (const gchar * chars)
 {
-	gint i = 0;
-
+	const gchar *start = chars, *cur = chars;
 #ifdef ANJUTA_DEBUG_DEBUGGER
 	// g_message ("In function: gdb_stdout_line_arrived()");
 #endif
-	while (chars[i])
+	while (*cur)
 	{
-		if (chars[i] == '\n'
-		    || debugger.stdo_cur_char_pos >= (FILE_BUFFER_SIZE - 1))
+		const gchar* next = g_utf8_next_char(cur);
+		if (debugger.stdo_cur_char_pos + (next - start) >= FILE_BUFFER_SIZE)
 		{
-			debugger.stdo_line[debugger.stdo_cur_char_pos] = '\0';
+			g_strlcpy(debugger.stdo_line + debugger.stdo_cur_char_pos, start, cur - start + 1);
 			debugger_stdo_flush ();
+			start = cur;
 		}
-		else
+		else if (*cur == '\n')
 		{
-			debugger.stdo_line[debugger.stdo_cur_char_pos] =
-				chars[i];
-			debugger.stdo_cur_char_pos++;
+			g_strlcpy(debugger.stdo_line + debugger.stdo_cur_char_pos, start, cur - start + 1);
+			debugger_stdo_flush ();
+			start = next;
 		}
-		i++;
+		cur = next;
 	}
 }
 
 static void
 gdb_stderr_line_arrived (const gchar * chars)
 {
-	gint i;
-
+	const gchar *start = chars, *cur = chars;
 #ifdef ANJUTA_DEBUG_DEBUGGER
 	// g_message ("In function: gdb_stderr_line_arrived()");
 #endif
-	
-	for (i = 0; i < strlen (chars); i++)
+	while (*cur)
 	{
-		if (chars[i] == '\n'
-		    || debugger.stde_cur_char_pos >= FILE_BUFFER_SIZE - 1)
+		const gchar* next = g_utf8_next_char(cur);
+		if (debugger.stde_cur_char_pos + (next - start) >= FILE_BUFFER_SIZE)
 		{
-			debugger.stde_line[debugger.stde_cur_char_pos] = '\0';
+			g_strlcpy(debugger.stde_line + debugger.stde_cur_char_pos, start, cur - start + 1);
 			debugger_stde_flush ();
+			start = cur;
 		}
-		else
+		else if (*cur == '\n')
 		{
-			debugger.stde_line[debugger.stde_cur_char_pos] =
-				chars[i];
-			debugger.stde_cur_char_pos++;
+			g_strlcpy(debugger.stde_line + debugger.stde_cur_char_pos, start, cur - start + 1);
+			debugger_stde_flush ();
+			start = next;
 		}
+		cur = next;
 	}
 }
 
@@ -872,10 +872,6 @@ debugger_stdo_flush ()
 		strcpy (debugger.stdo_line, "");
 		debugger.stdo_cur_char_pos = 0;
 
-		/* Clear the line buffer */
-		strcpy (debugger.stdo_line, "");
-		debugger.stdo_cur_char_pos = 0;
-
 		debugger_execute_cmd_in_queqe ();	/* Go.... */
 		return;
 	}
@@ -897,8 +893,7 @@ debugger_stdo_flush ()
 				     strlen ("Reading ")) != 0)
 				{
 					debugger.gdb_stdo_outputs =
-						g_list_append (debugger.gdb_stdo_outputs,
-							       anjuta_util_convert_to_utf8 (line));
+						g_list_append (debugger.gdb_stdo_outputs, g_strdup (line));
 				}
 				if (debugger.current_cmd.
 				    flags & DB_CMD_SO_MESG)
@@ -917,8 +912,7 @@ debugger_stdo_flush ()
 			    0)
 			{
 				debugger.gdb_stdo_outputs =
-					g_list_append (debugger.gdb_stdo_outputs,
-						       anjuta_util_convert_to_utf8 (line));
+					g_list_append (debugger.gdb_stdo_outputs, g_strdup (line));
 			}
 			if (debugger.current_cmd.flags & DB_CMD_SO_MESG)
 			{

@@ -1,3 +1,14 @@
+2004-10-20  Johannes Schmid <jhs@cvs.gnome.org>
+	
+	* src/debugger.c: Patch from yiuga@users.sourceforge.net
+	Fix some debugger bugs
+	* src/message-manager.c: Patch from ktirf@users.sourceforge.net
+	Make shift insert work in terminal and make ctrl-c not restart 
+	terminal but work like in gnome-terminal
+	* src/launcher.c, src/utilities.c  : Patch from wettoad@users.sourceforge.net
+	Hack to fix compiling on sun
+	
+
 2004-04-24  Andras Timar  <tmar@gnome.hu>
 
 	* configure.in: Added hu to ALL_LINGUAS.

@@ -878,22 +878,29 @@ gboolean TerminalWindow::term_keypress_cb (GtkWidget *widget,
 		return FALSE;
 	
 	// DEBUG_PRINT ("Terminal key pressed");
-	/* ctrl-c or ctrl-d */
-	if (event->keyval == GDK_c ||
-		event->keyval == GDK_d ||
-		event->keyval == GDK_C ||
+	/* ctrl-d */
+	if (event->keyval == GDK_d ||
 		event->keyval == GDK_D)
 	{
 		/* Ctrl pressed */
 		if (event->state & GDK_CONTROL_MASK)
 		{
-			// DEBUG_PRINT ("Ctrl c/d: Terminal reseting");
+			// DEBUG_PRINT ("Ctrl d: Terminal reseting");
 			kill (tw->m_child_pid, SIGINT);
 			tw->m_child_pid = 0;
 			term_init_cb (GTK_WIDGET (tw->m_terminal), tw);
 			return TRUE;
 		}
 	}
+	/* Shift-Insert */
+	if ((event->keyval == GDK_Insert || event->keyval == GDK_KP_Insert) &&
+		event->state & GDK_SHIFT_MASK)
+	{
+		// DEBUG_PRINT ("Shift-Insert: paste the clipboard contents to the terminal");
+		vte_terminal_paste_clipboard(VTE_TERMINAL(tw->m_terminal));
+		return TRUE;
+	}
+	
 	return FALSE;
 }
 
