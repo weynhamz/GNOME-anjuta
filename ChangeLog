@@ -1,3 +1,27 @@
+2005-01-07  Naba Kumar  <naba@gnome.org>
+
+	* configure.in: Added check for autogen.
+	
+	* libanjuta/anjuta-status.c: (Weak) unref all the remaining widgets
+	in dispose.
+	
+	* plugins/editor/anjuta-docman.c, plugins/editor/plugin.c:
+	Do not emit changed signal when in dispose.
+
+	* plugins/symbol-browser/plugin.c: Don't updated symbols when
+	symbol-view widget has been destroyed.
+	
+	* src/anjuta-app.c: Set null to preference, status and ui object
+	pointers when they are destroyed.
+
+	* plugins/project-wizard/druid.c, plugins/project-wizard/parser.c,
+	plugins/project-wizard/property.h: Fixed multipage .wiz file parsing.
+	Added boolean, integer and file property types.
+	
+	* plugins/project-wizard/Makefile.am,
+	plugins/project-wizard/templates/*: Added terminal and anjuta-plugin
+	project wizard templates.
+
 2005-01-04  Naba Kumar  <naba@gnome.org>
 
 	* libanjuta/anjuta-status.c: Use weak ref instead of hard ref on

@@ -1,3 +1,4 @@
+
 # Plugin glade file
 wizard_gladedir = $(anjuta_glade_dir)
 wizard_glade_DATA = anjuta-project-wizard.glade \
@@ -55,3 +56,13 @@ EXTRA_DIST = \
 	$(wizard_plugin_DATA) \
 	$(wizard_glade_DATA) \
 	$(wizard_ui_DATA)
+
+## templates_dir = $(datadir)/anjuta/projects
+## 
+## install-data-local:
+##	mkdir -p $(DESTDIR)$(templates_dir)
+##	$(INSTALL_DATA) $(srcdir)/templates $(DESTDIR)$(templates_dir)
+##
+## uninstall-local:
+##	@rm -fv $(*:%=$(templates_dir)/%)
+##	-if test -d $(templates_dir); then rmdir $(templates_dir); fi

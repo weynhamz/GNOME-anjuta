@@ -37,9 +37,12 @@ typedef enum {
 	NPW_CATEGORY_TAG,
 	NPW_ICON_TAG,
 	NPW_PAGE_TAG,
+	NPW_BOOLEAN_TAG,
+	NPW_INTEGER_TAG,
 	NPW_STRING_TAG,
 	NPW_DIRECTORY_TAG,
 	NPW_FILE_TAG,
+	// NPW_FILE_TAG,
 	NPW_SCRIPT_TAG,
 	NPW_CONTENT_TAG,
 	NPW_UNKNOW_TAG
@@ -132,6 +135,18 @@ parse_tag(const char* name)
 	{
 		return NPW_DIRECTORY_TAG;
 	}
+	else if (strcmp("file", name) == 0)
+	{
+		return NPW_FILE_TAG;
+	}
+	else if (strcmp("boolean", name) == 0)
+	{
+		return NPW_BOOLEAN_TAG;
+	}
+	else if (strcmp("integer", name) == 0)
+	{
+		return NPW_INTEGER_TAG;
+	}
 	else if (strcmp("string", name) == 0)
 	{
 		return NPW_STRING_TAG;
@@ -201,7 +216,8 @@ typedef struct _NPWHeaderParser
 {
 	NPWTag parent;
 	NPWTag tag;
-	guint unknown;
+	gint tag_count;
+	gint unknown;
 	NPWParser type;
 	GMarkupParseContext* ctx;
 	NPWHeaderList* list;
@@ -372,6 +388,7 @@ struct _NPWPageParser
 	guint unknown;
 	NPWTag parent;
 	gint count;
+	gint tag_count;
 	NPWTag tag;
 	NPWParser type;
 	GMarkupParseContext* ctx;
@@ -390,96 +407,106 @@ page_parse_start_element (GMarkupParseContext* context,
 	NPWPageParser* parser = (NPWPageParser*)data;
 	NPWTag tag;
 
-	if (parser->unknown != 0)
+	if (parser->unknown > 0)
 	{
 		// Parsing unknown tags
 		parser->unknown++;
-
-		return;
 	}
-	
-	tag = parse_tag(name);
-	if (parser->parent == NPW_NO_TAG)
+	else
 	{
-		if (tag == NPW_PAGE_TAG) 
+		tag = parse_tag(name);
+		if (parser->tag_count == 0 /* parser->parent == NPW_NO_TAG */)
 		{
-			if (parser->count == 0)
+			if (tag == NPW_PAGE_TAG)
 			{
-				// Read this page
-				parser->parent = tag;
-				while (*attributes != NULL)
+				if (parser->count == 0)
 				{
-					switch (parse_attribute(*attributes))
+					// Read this page
+					parser->parent = tag;
+					while (*attributes != NULL)
 					{
-					case NPW_NAME_ATTRIBUTE:
-						npw_page_set_name(parser->page, *values);
-						break;
-					case NPW_LABEL_ATTRIBUTE:
-						npw_page_set_label(parser->page, *values);
-						break;
-					case NPW_DESCRIPTION_ATTRIBUTE:
-						npw_page_set_description(parser->page, *values);
-						break;
-					default:
-						break;
-					}
-					attributes++;
-					values++;		
-				}	
+						switch (parse_attribute(*attributes))
+						{
+						case NPW_NAME_ATTRIBUTE:
+							npw_page_set_name(parser->page, *values);
+							break;
+						case NPW_LABEL_ATTRIBUTE:
+							npw_page_set_label(parser->page, *values);
+							break;
+						case NPW_DESCRIPTION_ATTRIBUTE:
+							npw_page_set_description(parser->page, *values);
+							break;
+						default:
+							g_warning ("Unknown page attribute \"%s\"", name);
+							break;
+						}
+						attributes++;
+						values++;
+					}	
+				}
+				parser->count--;
 			}
 			else
 			{
-				parser->count--;
+				parser->unknown++;
 			}
 		}
-		else
+		else if (parser->parent == NPW_PAGE_TAG)
 		{
-			parser->unknown++;
-		}
-	}
-	else if (parser->parent == NPW_PAGE_TAG)
-	{
-		parser->tag = tag;
-		switch(tag)
-		{
-		case NPW_STRING_TAG:
-			parser->property = npw_property_new(parser->page, NPW_STRING_PROPERTY);
-			break;
-		case NPW_DIRECTORY_TAG:
-			parser->property = npw_property_new(parser->page, NPW_DIRECTORY_PROPERTY);
-			break;
-		default:
-			break;
-		}
-		while (*attributes != NULL)
-		{
-			switch (parse_attribute(*attributes))
+			parser->tag = tag;
+			switch(tag)
 			{
-			case NPW_NAME_ATTRIBUTE:
-				npw_property_set_name(parser->property, *values);
+			case NPW_BOOLEAN_TAG:
+				parser->property = npw_property_new(parser->page, NPW_BOOLEAN_PROPERTY);
 				break;
-			case NPW_LABEL_ATTRIBUTE:
-				npw_property_set_label(parser->property, *values);
+			case NPW_INTEGER_TAG:
+				parser->property = npw_property_new(parser->page, NPW_INTEGER_PROPERTY);
 				break;
-			case NPW_DESCRIPTION_ATTRIBUTE:
-				npw_property_set_description(parser->property, *values);
+			case NPW_STRING_TAG:
+				parser->property = npw_property_new(parser->page, NPW_STRING_PROPERTY);
 				break;
-			case NPW_DEFAULT_ATTRIBUTE:
-				npw_property_set_default(parser->property, *values);
+			case NPW_DIRECTORY_TAG:
+				parser->property = npw_property_new(parser->page, NPW_DIRECTORY_PROPERTY);
 				break;
-			case NPW_SUMMARY_ATTRIBUTE:
-				npw_property_set_summary_option(parser->property, TRUE);
-				break;		
-			case NPW_MANDATORY_ATTRIBUTE:
-				npw_property_set_mandatory_option(parser->property, TRUE);
-				break;		
+			case NPW_FILE_TAG:
+				parser->property = npw_property_new(parser->page, NPW_FILE_PROPERTY);
+				break;
 			default:
+				g_warning ("Invalid property \"%s\"", name);
 				break;
 			}
-			attributes++;
-			values++;		
+			while (parser->property && *attributes != NULL)
+			{
+				switch (parse_attribute(*attributes))
+				{
+				case NPW_NAME_ATTRIBUTE:
+					npw_property_set_name(parser->property, *values);
+					break;
+				case NPW_LABEL_ATTRIBUTE:
+					npw_property_set_label(parser->property, *values);
+					break;
+				case NPW_DESCRIPTION_ATTRIBUTE:
+					npw_property_set_description(parser->property, *values);
+					break;
+				case NPW_DEFAULT_ATTRIBUTE:
+					npw_property_set_default(parser->property, *values);
+					break;
+				case NPW_SUMMARY_ATTRIBUTE:
+					npw_property_set_summary_option(parser->property, TRUE);
+					break;		
+				case NPW_MANDATORY_ATTRIBUTE:
+					npw_property_set_mandatory_option(parser->property, TRUE);
+					break;		
+				default:
+					g_warning ("Unknown property attribte \"%s\"", *attributes);
+					break;
+				}
+				attributes++;
+				values++;		
+			}
 		}
 	}
+	parser->tag_count++;
 }
 
 static void
@@ -489,22 +516,25 @@ page_parse_end_element (GMarkupParseContext* context,
 	GError** error)
 {
 	NPWPageParser* parser = (NPWPageParser*)data;
-
-	if (parser->unknown)
+	parser->tag_count--;
+	
+	if (parser->unknown > 0)
 	{
 		parser->unknown--;
 	}
-	else if (parser->tag != NPW_NO_TAG)
+	else if (parser->tag_count == 1/* && parser->tag != NPW_NO_TAG*/)
 	{
 		parser->tag = NPW_NO_TAG;
 		parser->property = NULL;
 	}
-	else if (parser->parent != NPW_NO_TAG)
+	else if (parser->tag_count == 0/* && parser->parent != NPW_NO_TAG*/)
 	{
 		parser->parent = NPW_NO_TAG;
+		parser->unknown = 0;
 	}
 	else
 	{
+		g_warning ("In error condition, possible malformed wizard file");
 		// error
 	}
 }
@@ -534,6 +564,7 @@ npw_page_parser_new(NPWPage* page, const gchar* filename, gint count)
 	this->unknown = 0;
 	this->parent = NPW_NO_TAG;
 	this->tag = NPW_NO_TAG;
+	this->tag_count = 0;
 	this->count = count;
 	this->page = page;
 	this->property = NULL;
@@ -913,5 +944,3 @@ npw_file_list_read(NPWFileList* this, const gchar* filename)
 
 	return TRUE;	
 }
-
-

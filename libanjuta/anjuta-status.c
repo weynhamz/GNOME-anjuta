@@ -35,10 +35,18 @@ enum {
 static gpointer parent_class = NULL;
 static guint status_signals[LAST_SIGNAL] = { 0 };
 
+static void on_widget_destroy (AnjutaStatus *status, GObject *widget);
+
 static void
 anjuta_status_finalize (GObject *widget)
 {
 	GNOME_CALL_PARENT(G_OBJECT_CLASS, finalize, (widget));
+}
+
+static void
+foreach_widget_unref (gpointer key, gpointer value, gpointer data)
+{
+	g_object_weak_unref (G_OBJECT (key), (GWeakNotify) on_widget_destroy, data);
 }
 
 static void
@@ -49,12 +57,18 @@ anjuta_status_dispose (GObject *widget)
 	status = ANJUTA_STATUS (widget);
 	
 	if (status->priv->default_status_items)
+	{
 		g_hash_table_destroy (status->priv->default_status_items);
-	status->priv->default_status_items = NULL;
+		status->priv->default_status_items = NULL;
+	}
 	
 	if (status->priv->widgets)
+	{
+		g_hash_table_foreach (status->priv->widgets,
+							  foreach_widget_unref, widget);
 		g_hash_table_destroy (status->priv->widgets);
-	status->priv->widgets = NULL;
+		status->priv->widgets = NULL;
+	}
 	
 	GNOME_CALL_PARENT(G_OBJECT_CLASS, dispose, (widget));
 }

@@ -42,6 +42,7 @@ struct _AnjutaDocmanPriv {
 	GtkWidget *save_as_fileselection;
 	GList *editors;
 	GtkWidget *popup_menu;
+	gboolean shutingdown;
 };
 
 static void anjuta_docman_order_tabs(AnjutaDocman *docman);
@@ -371,6 +372,9 @@ anjuta_docman_dispose (GObject *obj)
 	GList *node;
 	
 	docman = ANJUTA_DOCMAN (obj);
+	docman->priv->shutingdown = TRUE;
+	
+	DEBUG_PRINT ("Disposing AnjutaDocman object");
 	if (docman->priv->popup_menu)
 	{
 		g_object_unref (docman->priv->popup_menu);
@@ -383,15 +387,8 @@ anjuta_docman_dispose (GObject *obj)
 		   hold refs on the editors
 		*/
 		GList *editors;
-		editors = NULL;
-		node = docman->priv->editors;
-		while (node)
-		{
-			AnjutaDocmanPage *page;
-			page = (AnjutaDocmanPage*)node->data;
-			editors = g_list_prepend (editors, page->widget);
-			node = g_list_next (node);
-		}
+		
+		editors = anjuta_docman_get_all_editors (docman);
 		node = editors;
 		while (node)
 		{
@@ -410,7 +407,7 @@ anjuta_docman_finalize (GObject *obj)
 {
 	AnjutaDocman *docman;
 	
-	DEBUG_PRINT ("Disposing AnjutaDocman object");
+	DEBUG_PRINT ("Finalising AnjutaDocman object");
 	docman = ANJUTA_DOCMAN (obj);
 	if (docman->priv)
 	{
@@ -556,19 +553,22 @@ on_editor_destroy (TextEditor *te, AnjutaDocman *docman)
 	docman->priv->editors = g_list_remove (docman->priv->editors, page);
 	anjuta_docman_page_destroy (page);
 
-	if (docman->priv->current_editor == te)
-		anjuta_docman_set_current_editor (docman, NULL);
-	
 	/* This is called to set the next active document */
-	if (GTK_NOTEBOOK (docman)->children == NULL)
-		anjuta_docman_set_current_editor (docman, NULL);
-	else
+	if (docman->priv->shutingdown == FALSE)
 	{
-		GtkWidget *current_editor;
-		page_num = gtk_notebook_get_current_page (GTK_NOTEBOOK (docman));
-		current_editor = gtk_notebook_get_nth_page (GTK_NOTEBOOK (docman),
-													page_num);
-		anjuta_docman_set_current_editor (docman, TEXT_EDITOR (current_editor));
+		if (docman->priv->current_editor == te)
+			anjuta_docman_set_current_editor (docman, NULL);
+	
+		if (GTK_NOTEBOOK (docman)->children == NULL)
+			anjuta_docman_set_current_editor (docman, NULL);
+		else
+		{
+			GtkWidget *current_editor;
+			page_num = gtk_notebook_get_current_page (GTK_NOTEBOOK (docman));
+			current_editor = gtk_notebook_get_nth_page (GTK_NOTEBOOK (docman),
+														page_num);
+			anjuta_docman_set_current_editor (docman, TEXT_EDITOR (current_editor));
+		}
 	}
 	gtk_signal_handler_unblock_by_func (GTK_OBJECT (docman),
 			    GTK_SIGNAL_FUNC (on_notebook_switch_page),

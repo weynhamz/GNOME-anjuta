@@ -672,6 +672,10 @@ update_status (EditorPlugin *plugin, TextEditor *te)
 	AnjutaStatus *status;
 	
 	status = anjuta_shell_get_status (ANJUTA_PLUGIN (plugin)->shell, NULL);
+	
+	if (status == NULL)
+		return;
+	
 	if (te)
 	{
 		gchar *edit /*, *mode*/;
@@ -933,9 +937,6 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	
 	eplugin = (EditorPlugin*)plugin;
 
-	anjuta_shell_remove_value (plugin->shell,
-							   "document_manager_current_editor", NULL);
-
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	status = anjuta_shell_get_status (plugin->shell, NULL);
 	
@@ -946,7 +947,9 @@ deactivate_plugin (AnjutaPlugin *plugin)
 										  G_CALLBACK (on_editor_changed),
 										  plugin);
 	
-	// anjuta_shell_remove_widget (plugin->shell, eplugin->docman, NULL);
+	on_editor_changed (ANJUTA_DOCMAN (eplugin->docman), NULL, plugin);
+	
+	/* Widget is removed from the container when destroyed */
 	gtk_widget_destroy (eplugin->docman);
 	anjuta_ui_unmerge (ui, eplugin->uiid);
 	node = eplugin->action_groups;
@@ -957,9 +960,6 @@ deactivate_plugin (AnjutaPlugin *plugin)
 		node = g_list_next (node);
 	}
 	g_list_free (eplugin->action_groups);
-	
-	/* Widget is already destroyed when removed from the container */
-	/* gtk_widget_destroy (eplugin->docman); */
 	
 	/* FIXME: */
 	/* Unregister stock icons */
@@ -975,11 +975,11 @@ deactivate_plugin (AnjutaPlugin *plugin)
 static void
 dispose (GObject *obj)
 {
-	EditorPlugin *plugin = (EditorPlugin*)obj;
-	if (plugin->style_editor)
+	EditorPlugin *eplugin = (EditorPlugin*)obj;
+	if (eplugin->style_editor)
 	{
-		style_editor_destroy (plugin->style_editor);
-		plugin->style_editor = NULL;
+		style_editor_destroy (eplugin->style_editor);
+		eplugin->style_editor = NULL;
 	}
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (obj));
 }

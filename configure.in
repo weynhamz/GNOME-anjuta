@@ -234,6 +234,13 @@ PKG_CHECK_MODULES(LIBXSLT, libxslt)
 AC_SUBST(LIBXSLT_CFLAGS)
 AC_SUBST(LIBXSLT_LIBS)
 
+dnl Check for autogen
+dnl -----------------
+AC_PATH_PROG(AUTOGEN_PATH, autogen,no)
+if test x$AUTOGEN_PATH = xno; then
+   AC_MSG_ERROR([Couldn't find autogen, please install the autogen package. You can get it from http://autogen.sourceforge.net/])
+fi
+
 dnl Check for Devhelp
 dnl -----------------
 PKG_CHECK_MODULES(PLUGIN_DEVHELP, libdevhelp-1.0 >= $LIBDEVHELP_REQUIRED)

@@ -265,7 +265,8 @@ anjuta_app_instance_init (AnjutaApp *app)
 	gtk_widget_show (GTK_WIDGET (app->status));
 	gnome_app_set_statusbar (GNOME_APP (app), GTK_WIDGET (app->status));
 	g_object_ref (G_OBJECT (app->status));
-
+	g_object_add_weak_pointer (G_OBJECT (app->status), (gpointer*)&app->status);
+	
 	//gtk_widget_realize (GTK_WIDGET(app));
 	
 	//gtk_widget_queue_draw (GTK_WIDGET(app));
@@ -274,6 +275,7 @@ anjuta_app_instance_init (AnjutaApp *app)
 	/* Preferencesnces */
 	app->preferences = ANJUTA_PREFERENCES (anjuta_preferences_new ());
 	anjuta_preferences_initialize (app->preferences);
+	g_object_add_weak_pointer (G_OBJECT (app->preferences), (gpointer*)&app->preferences);
 
 	/* UI engine */
 	app->ui = anjuta_ui_new ();
@@ -282,6 +284,7 @@ anjuta_app_instance_init (AnjutaApp *app)
 	g_signal_connect (G_OBJECT (app->ui),
 					  "add_widget", G_CALLBACK (on_add_merge_widget),
 					  app);
+	g_object_add_weak_pointer (G_OBJECT (app->ui), (gpointer*)&app->ui);
 	
 	/* Create stock icons */
 	create_stock_icons (app->ui);

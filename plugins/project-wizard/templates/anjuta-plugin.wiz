@@ -1,0 +1,63 @@
+<project-wizard>
+	<name>Anjuta Plugin</name>
+	<description>Anjuta plugin</description>
+	<icon>appwiz_terminal.png</icon>
+	<category>C</category>
+</project-wizard>
+<page name="basic" _label="Basic information" _description="Nothing">
+	<string name="PluginName" _label="Plugin Name:" _description="Name of the plugin shared library" default="anjuta-plugin-sample" summary="yes" mandatory="yes"/>
+	<string name="PluginClass" _label="Plugin Class Name:" _description="Plugin class name" default="AnjutaSamplePlugin" summary="yes" mandatory="yes"/>
+	<string name="PluginDependencies" _label="Plugin Dependencies:" _description="Comma separated, other plugins that this plugin depends on. It could be either primary interface name or plugin location (library:class)" default="" summary="yes" mandatory="no"/>
+	<string name="Author" _label="Author:" _description="" default="unknown"/>
+	<string name="Version" _label="Version:" default="0.1"/>
+	<file name="IconFile" _label="Icon File:" _description="Icon file for the plugin"/>
+	<directory name="Destination" _label="Destination:" _description="" default="[+AnjutaProjectDirectory+]"/>
+</page>
+<page name="options" _label="Additional options" _description="Additional options">
+	<boolean name="IncludeGNUHeader" _label="Include GNU Header" _description="Include GPL header in source files as comments" default="1"/>
+	<boolean name="HasGladeFile" _label="Create glade interface file" _description="Create a template glade interface file" default="1"/>
+	<boolean name="HasUI" _label="Plugin has menus or/and toolbars" _description="Whether the plugin has menus or toolbars" default="1"/>
+</page>
+<page name="watches" _label="Values to watch" _description="Shell values to watch">
+	<string name="value1" _label="Value Name:" _description="Name of the value to watch" default="" summary="yes" mandatory="no"/>
+	<string name="value2" _label="Value Name:" _description="Name of the value to watch" default="" summary="yes" mandatory="no"/>
+	<string name="value3" _label="Value Name:" _description="Name of the value to watch" default="" summary="yes" mandatory="no"/>
+	<string name="value4" _label="Value Name:" _description="Name of the value to watch" default="" summary="yes" mandatory="no"/>
+	<string name="value5" _label="Value Name:" _description="Name of the value to watch" default="" summary="yes" mandatory="no"/>
+</page>
+<page name="compoments" _label="Implement plugin interfaces" _description="Plugin interfaces to implement">
+	<string name="interface1" _label="Interface:" _description="Interface implemented by the plugin"/>
+	<string name="interface2" _label="Interface:" _description="Interface implemented by the plugin"/>
+	<string name="interface3" _label="Interface:" _description="Interface implemented by the plugin"/>
+</page>
+<content>
+	<directory source="." destination="[+Destination+]">
+		<directory source="terminal" destination="[+Name+]">
+			<file source="AUTHORS"/>
+			<file source="ChangeLog"/>
+			<file source="Makefile.am"/>
+			<file source="NEWS"/>
+			<file source="README"/>
+			<file source="TODO"/>
+			<file source="acconfig.h"/>
+			<script source="autogen.sh"/>
+			<file destination="[+Name+].anjuta" source="project.anjuta"/>
+			<file source="stamp-h.in"/>
+		</directory>
+		<directory source="anjuta-plugin">
+			<file source="configure.in"/>
+			<directory source="src">
+				<file source="Makefile.am"/>
+				<file source="plugin.c"/>
+				<file source="plugin.h"/>
+				<file source="plugin.plugin.in" destination="[+PluginName+].plugin.in"/>
+				[+IF (=(get "HasUI") "1") +]
+					<file source="plugin.ui" destination="[+PluginName+].ui"/>
+				[+ENDIF+]
+				[+IF (=(get "HasGladeFile") "1") +]
+					<file source="plugin.glade" destination="[+PluginName+].glade"/>
+				[+ENDIF+]
+			</directory>
+		</directory>
+	</directory>	
+</content>

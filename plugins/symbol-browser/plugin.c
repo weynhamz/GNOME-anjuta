@@ -380,7 +380,7 @@ on_editor_destroy (SymbolBrowserPlugin *sv_plugin, IAnjutaEditor *editor)
 {
 	const gchar *uri;
 	
-	if (!sv_plugin->editor_connected)
+	if (!sv_plugin->editor_connected || !sv_plugin->sv)
 		return;
 	uri = g_hash_table_lookup (sv_plugin->editor_connected, G_OBJECT (editor));
 	if (uri && strlen (uri) > 0)
@@ -455,17 +455,22 @@ on_editor_saved (IAnjutaEditor *editor, const gchar *saved_uri,
 }
 
 static void
-on_editor_foreach (gpointer key, gpointer value, gpointer user_data)
+on_editor_foreach_disconnect (gpointer key, gpointer value, gpointer user_data)
 {
-	const gchar *uri;
-	SymbolBrowserPlugin *sv_plugin = (SymbolBrowserPlugin *)user_data;
-	
 	g_signal_handlers_disconnect_by_func (G_OBJECT(key),
 										  G_CALLBACK (on_editor_saved),
 										  user_data);
 	g_object_weak_unref (G_OBJECT(key),
 						 (GWeakNotify) (on_editor_destroy),
 						 user_data);
+}
+
+static void
+on_editor_foreach_clear (gpointer key, gpointer value, gpointer user_data)
+{
+	const gchar *uri;
+	SymbolBrowserPlugin *sv_plugin = (SymbolBrowserPlugin *)user_data;
+	
 	uri = (const gchar *)value;
 	if (uri && strlen (uri) > 0)
 	{
@@ -584,6 +589,8 @@ activate_plugin (AnjutaPlugin *plugin)
 									GTK_POLICY_AUTOMATIC);
 	
 	sv_plugin->sv = anjuta_symbol_view_new ();
+	g_object_add_weak_pointer (G_OBJECT (sv_plugin->sv),
+							   (gpointer*)&sv_plugin->sv);
 	
 	gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (sv_plugin->sv), FALSE);
 	gtk_container_add (GTK_CONTAINER (sv_plugin->sw), sv_plugin->sv);
@@ -649,10 +656,13 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	/* Ensure all editor cached info are released */
 	if (sv_plugin->editor_connected)
 	{
-		g_hash_table_foreach (sv_plugin->editor_connected, on_editor_foreach, plugin);
+		g_hash_table_foreach (sv_plugin->editor_connected,
+							  on_editor_foreach_disconnect, plugin);
+		g_hash_table_foreach (sv_plugin->editor_connected,
+							  on_editor_foreach_clear, plugin);
 		g_hash_table_destroy (sv_plugin->editor_connected);
 		sv_plugin->editor_connected = NULL;
-	}	
+	}
 	/* Remove watches */
 	anjuta_plugin_remove_watch (plugin, sv_plugin->root_watch_id, FALSE);
 	anjuta_plugin_remove_watch (plugin, sv_plugin->editor_watch_id, TRUE);
@@ -678,8 +688,17 @@ deactivate_plugin (AnjutaPlugin *plugin)
 static void
 dispose (GObject *obj)
 {
+	SymbolBrowserPlugin *sv_plugin = (SymbolBrowserPlugin*) obj;
+	/* Ensure all editors are disconnected */
+	if (sv_plugin->editor_connected)
+	{
+		g_hash_table_foreach (sv_plugin->editor_connected,
+							  on_editor_foreach_disconnect,
+							  sv_plugin);
+		g_hash_table_destroy (sv_plugin->editor_connected);
+		sv_plugin->editor_connected = NULL;
+	}
 	/*
-	SymbolBrowserPlugin *plugin = (SymbolBrowserPlugin*) obj;
 	if (plugin->sw)
 	{
 		g_object_unref (G_OBJECT (plugin->sw));

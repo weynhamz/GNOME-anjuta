@@ -204,6 +204,21 @@ cb_druid_add_property(NPWProperty* property, gpointer data)
 	value = npw_property_get_value(property);
 	switch(npw_property_get_type(property))
 	{
+	case NPW_BOOLEAN_PROPERTY:
+		entry = gtk_check_button_new();
+		if (value)
+		{
+			gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (entry),
+										  (gboolean)atoi(value));
+		}
+		break;
+	case NPW_INTEGER_PROPERTY:
+		entry = gtk_spin_button_new (NULL, 1, 0);
+		if (value)
+		{
+			gtk_spin_button_set_value (GTK_SPIN_BUTTON (entry), atoi(value));
+		}
+		break;
 	case NPW_STRING_PROPERTY:
 		entry = gtk_entry_new();
 		if (value) gtk_entry_set_text(GTK_ENTRY(entry), value);
@@ -211,6 +226,11 @@ cb_druid_add_property(NPWProperty* property, gpointer data)
 	case NPW_DIRECTORY_PROPERTY:
 		entry = gnome_file_entry_new(NULL, NULL);
 		gnome_file_entry_set_directory_entry(GNOME_FILE_ENTRY(entry), TRUE);
+		if (value) gnome_file_entry_set_filename(GNOME_FILE_ENTRY(entry), value);
+		break;
+	case NPW_FILE_PROPERTY:
+		entry = gnome_file_entry_new(NULL, NULL);
+		gnome_file_entry_set_directory_entry(GNOME_FILE_ENTRY(entry), FALSE);
 		if (value) gnome_file_entry_set_filename(GNOME_FILE_ENTRY(entry), value);
 		break;
 	default:
@@ -307,10 +327,31 @@ cb_save_property(NPWProperty* property, gpointer data)
 
 	switch(npw_property_get_type(property))
 	{
+	case NPW_INTEGER_PROPERTY:
+		{
+			char buff[215];
+			gint int_value;
+			
+			int_value = gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON(npw_property_get_widget(property)));
+			snprintf (buff, 215, "%d", int_value);
+			value = buff;
+		}
+		break;
+	case NPW_BOOLEAN_PROPERTY:
+		{
+			char buff[215];
+			gint int_value;
+			
+			int_value = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (npw_property_get_widget(property)));
+			snprintf (buff, 215, "%d", int_value);
+			value = buff;
+		}
+		break;
 	case NPW_STRING_PROPERTY:
 		value = gtk_entry_get_text(GTK_ENTRY(npw_property_get_widget(property)));
 		break;
 	case NPW_DIRECTORY_PROPERTY:
+	case NPW_FILE_PROPERTY:
 		value = gnome_file_entry_get_full_path(GNOME_FILE_ENTRY(npw_property_get_widget(property)), FALSE);
 		break;
 	default:
