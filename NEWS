@@ -1,7 +1,11 @@
 Anjuta 1.1.98 rc2 for 1.2.0   (xx July 2003) -- Naba Kumar
 
+New: Double click on margin toggles bookmark.
+New: Double click on margin (debugger mode) adds/removes breakpoints.
+New: Single click on margin (debugger mode) enables/disables breakpoints
 Updated: Removed 'page setup' item from the file menu.
 Updated: Scintilla (cvs 30-06-2003)
+
 Bug fix: Symbol browser now loads properly for new projects.
 
 Anjuta 1.1.97 rc1 for 1.2.0   (26 June 2003) -- Naba Kumar

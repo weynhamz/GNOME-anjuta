@@ -733,7 +733,7 @@ on_cvs_buffer_in (const gchar * line)
 	{
 		scintilla_send_message (SCINTILLA
 					(diff_editor->widgets.editor),
-					SCI_ADDTEXT, length, (long) line);
+					SCI_APPENDTEXT, length, (long) line);
 	}
 }
 

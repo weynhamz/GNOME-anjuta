@@ -1,3 +1,7 @@
+2003-09-03 Johannes Schmid <clubfan@users.sourceforge.net>
+	
+	* src/cvs.c: Fixed cvs output bug.
+
 2003-09-03  Naba Kumar  <naba@gnome.org>
 
 	Patch from: Jean-Noel Guiheneuf  <jnoel@saudionline.com.sa>
