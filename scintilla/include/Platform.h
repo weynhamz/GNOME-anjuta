@@ -216,6 +216,9 @@ struct ColourPair {
 		desired = desired_;
 		allocated.Set(desired.AsLong());
 	}
+	void Copy() {
+		allocated.Set(desired.AsLong());
+	}
 };
 
 class Window;	// Forward declaration for Palette
@@ -326,6 +329,7 @@ public:
 	virtual void FlushCachedState()=0;
 
 	virtual void SetUnicodeMode(bool unicodeMode_)=0;
+	virtual void SetDBCSMode(int codePage)=0;
 };
 
 /**
@@ -348,8 +352,8 @@ public:
 		id = id_;
 		return *this;
 	}
-	WindowID GetID() { return id; }
-	bool Created() { return id != 0; }
+	WindowID GetID() const { return id; }
+	bool Created() const { return id != 0; }
 	void Destroy();
 	bool HasFocus();
 	PRectangle GetPosition();
@@ -372,40 +376,28 @@ private:
  */
 
 class ListBox : public Window {
-private:
-#if PLAT_GTK
-	WindowID list;
-	WindowID scroller;
-	int current;
-	void *pixhash;
-#endif
-	int desiredVisibleRows;
-	unsigned int maxItemCharacters;
-	unsigned int aveCharWidth;
-public:
-	CallBackAction doubleClickAction;
-	void *doubleClickActionData;
 public:
 	ListBox();
 	virtual ~ListBox();
-	void Create(Window &parent, int ctrlID);
-	virtual void SetFont(Font &font);
-	void SetAverageCharWidth(int width);
-	void SetVisibleRows(int rows);
-	PRectangle GetDesiredRect();
-	void Clear();
-	void Append(char *s, int type = -1);
-	int Length();
-	void Select(int n);
-	int GetSelection();
-	int Find(const char *prefix);
-	void GetValue(int n, char *value, int len);
-	void Sort();
-	void SetTypeXpm(int type, const char **xpm_data);
-	void SetDoubleClickAction(CallBackAction action, void *data) {
-		doubleClickAction = action;
-		doubleClickActionData = data;
-	}
+	static ListBox *Allocate();
+
+	virtual void SetFont(Font &font)=0;
+	virtual void Create(Window &parent, int ctrlID, int lineHeight_, bool unicodeMode_)=0;
+	virtual void SetAverageCharWidth(int width)=0;
+	virtual void SetVisibleRows(int rows)=0;
+	virtual PRectangle GetDesiredRect()=0;
+	virtual int CaretFromEdge()=0;
+	virtual void Clear()=0;
+	virtual void Append(char *s, int type = -1)=0;
+	virtual int Length()=0;
+	virtual void Select(int n)=0;
+	virtual int GetSelection()=0;
+	virtual int Find(const char *prefix)=0;
+	virtual void GetValue(int n, char *value, int len)=0;
+	virtual void Sort()=0;
+	virtual void RegisterImage(int type, const char *xpm_data)=0;
+	virtual void ClearRegisteredImages()=0;
+	virtual void SetDoubleClickAction(CallBackAction, void *)=0;
 };
 
 /**
@@ -454,6 +446,8 @@ public:
 	static long SendScintillaPointer(
 		WindowID w, unsigned int msg, unsigned long wParam=0, void *lParam=0);
 	static bool IsDBCSLeadByte(int codePage, char ch);
+	static int DBCSCharLength(int codePage, const char *s);
+	static int DBCSCharMaxLength();
 
 	// These are utility functions not really tied to a platform
 	static int Minimum(int a, int b);

@@ -164,13 +164,17 @@ static void ColouriseDiffLine(char *lineBuffer, int endLine, Accessor &styler) {
 		styler.ColourTo(endLine, SCE_DIFF_HEADER);
 	} else if (0 == strncmp(lineBuffer, "+++ ", 3)) {
 		styler.ColourTo(endLine, SCE_DIFF_HEADER);
-	} else if (0 == strncmp(lineBuffer, "***", 3)) {
+	} else if (0 == strncmp(lineBuffer, "====", 4)) {  // For p4's diff
+		styler.ColourTo(endLine, SCE_DIFF_HEADER);
+ 	} else if (0 == strncmp(lineBuffer, "***", 3)) {
+		styler.ColourTo(endLine, SCE_DIFF_HEADER);
+	} else if (0 == strncmp(lineBuffer, "? ", 2)) {    // For difflib
 		styler.ColourTo(endLine, SCE_DIFF_HEADER);
 	} else if (lineBuffer[0] == '@') {
 		styler.ColourTo(endLine, SCE_DIFF_POSITION);
-	} else if (lineBuffer[0] == '-') {
+	} else if (lineBuffer[0] == '-' || lineBuffer[0] == '<') {
 		styler.ColourTo(endLine, SCE_DIFF_DELETED);
-	} else if (lineBuffer[0] == '+') {
+	} else if (lineBuffer[0] == '+' || lineBuffer[0] == '>') {
 		styler.ColourTo(endLine, SCE_DIFF_ADDED);
 	} else if (lineBuffer[0] != ' ') {
 		styler.ColourTo(endLine, SCE_DIFF_COMMENT);
@@ -292,14 +296,14 @@ static void ColouriseMakeLine(
 				// We should check that no colouring was made since the beginning of the line,
 				// to avoid colouring stuff like /OUT:file
 				if (lastNonSpace >= 0)
-				styler.ColourTo(startLine + lastNonSpace, SCE_MAKE_TARGET);
+					styler.ColourTo(startLine + lastNonSpace, SCE_MAKE_TARGET);
 				styler.ColourTo(startLine + i - 1, SCE_MAKE_DEFAULT);
 				styler.ColourTo(startLine + i, SCE_MAKE_OPERATOR);
 				bSpecial = true;	// Only react to the first ':' of the line
 				state = SCE_MAKE_DEFAULT;
 			} else if (lineBuffer[i] == '=') {
 				if (lastNonSpace >= 0)
-				styler.ColourTo(startLine + lastNonSpace, SCE_MAKE_IDENTIFIER);
+					styler.ColourTo(startLine + lastNonSpace, SCE_MAKE_IDENTIFIER);
 				styler.ColourTo(startLine + i - 1, SCE_MAKE_DEFAULT);
 				styler.ColourTo(startLine + i, SCE_MAKE_OPERATOR);
 				bSpecial = true;	// Only react to the first '=' of the line
@@ -417,7 +421,7 @@ static void ColouriseErrorListLine(
 				break;
 			} else if (((state == 11) || (state == 14)) && !((lineBuffer[i] == ' ') || isdigit(lineBuffer[i]))) {
 				state = 99;
-			} else if ((state == 20) && (lineBuffer[i-1] == '\t') && 
+			} else if ((state == 20) && (lineBuffer[i-1] == '\t') &&
 				((lineBuffer[i] == '/' && lineBuffer[i+1] == '^') || isdigit(lineBuffer[i]))) {
 				state = 24;
 				break;
@@ -425,7 +429,7 @@ static void ColouriseErrorListLine(
 				state = 21;
 			} else if ((state == 21) && ((lineBuffer[i] == '$') && (lineBuffer[i+1] == '/'))) {
 				state = 22;
-				break;		
+				break;
 			}
 		}
 		if (state == 3) {
@@ -433,7 +437,7 @@ static void ColouriseErrorListLine(
 		} else if ((state == 13) || (state == 14) || (state == 15)) {
 			styler.ColourTo(endPos, SCE_ERR_MS);
 		} else if (((state == 22) || (state == 24)) && (lineBuffer[0] != '\t')) {
-			styler.ColourTo(endPos, SCE_ERR_CTAG);	
+			styler.ColourTo(endPos, SCE_ERR_CTAG);
 		} else {
 			styler.ColourTo(endPos, SCE_ERR_DEFAULT);
 		}

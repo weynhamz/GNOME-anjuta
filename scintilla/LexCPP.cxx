@@ -37,17 +37,17 @@ static inline bool IsAWordStart(const int ch) {
 
 static inline bool IsADoxygenChar(const int ch) {
 	return (islower(ch) || ch == '$' || ch == '@' ||
-		    ch == '\\' || ch == '&' || ch == '<' ||
-			ch == '>' || ch == '#' || ch == '{' ||
-			ch == '}' || ch == '[' || ch == ']');
+	        ch == '\\' || ch == '&' || ch == '<' ||
+	        ch == '>' || ch == '#' || ch == '{' ||
+	        ch == '}' || ch == '[' || ch == ']');
 }
 
 static inline bool IsStateComment(const int state) {
 	return ((state == SCE_C_COMMENT) ||
-		      (state == SCE_C_COMMENTLINE) /* ||
-		      (state == SCE_C_COMMENTDOC) ||
-		      (state == SCE_C_COMMENTDOCKEYWORD) ||
-		      (state == SCE_C_COMMENTDOCKEYWORDERROR ) */ );
+	        (state == SCE_C_COMMENTLINE) ||
+	        (state == SCE_C_COMMENTDOC) ||
+	        (state == SCE_C_COMMENTDOCKEYWORD) ||
+	        (state == SCE_C_COMMENTDOCKEYWORDERROR));
 }
 
 static inline bool IsStateString(const int state) {
@@ -57,9 +57,10 @@ static inline bool IsStateString(const int state) {
 static void ColouriseCppDoc(unsigned int startPos, int length, int initStyle, WordList *keywordlists[],
                             Accessor &styler, bool caseSensitive) {
 
-	WordList &keywords = *keywordlists[0];
-	WordList &keywords2 = *keywordlists[1];
-	WordList &keywords3 = *keywordlists[2];
+	WordList &keywords = *keywordlists[0]; // C/C++ keywords
+	WordList &keywords2 = *keywordlists[1]; // User-defined keywords
+	WordList &keywords3 = *keywordlists[2]; // Comment (Doxygen keywords)
+	WordList &keywords4 = *keywordlists[3]; // Global classes and structs
 
 	bool stylingWithinPreprocessor = styler.GetPropertyInt("styling.within.preprocessor") != 0;
 
@@ -70,7 +71,6 @@ static void ColouriseCppDoc(unsigned int startPos, int length, int initStyle, Wo
 	int chPrevNonWhite = ' ';
 	int visibleChars = 0;
 	bool lastWordWasUUID = false;
-	bool insidePreprocessor = false;
 
 	StyleContext sc(startPos, length, initStyle, styler);
 
@@ -110,12 +110,10 @@ static void ColouriseCppDoc(unsigned int startPos, int length, int initStyle, Wo
 				if (keywords.InList(s)) {
 					lastWordWasUUID = strcmp(s, "uuid") == 0;
 					sc.ChangeState(SCE_C_WORD);
-				} else if (!insidePreprocessor)	{
-					if (keywords2.InList(s)) {
-						sc.ChangeState(SCE_C_WORD2);
-					} else if (keywords3.InList(s)) {
-						sc.ChangeState(SCE_C_WORD3);
-					}
+				} else if (keywords2.InList(s)) {
+					sc.ChangeState(SCE_C_WORD2);
+				} else if (keywords4.InList(s)) {
+					sc.ChangeState(SCE_C_GLOBALCLASS);
 				}
 				sc.SetState(SCE_C_DEFAULT);
 			}
@@ -134,19 +132,19 @@ static void ColouriseCppDoc(unsigned int startPos, int length, int initStyle, Wo
 				sc.Forward();
 				sc.ForwardSetState(SCE_C_DEFAULT);
 			}
-		}/* else if (sc.state == SCE_C_COMMENTDOC) {
+		} else if (sc.state == SCE_C_COMMENTDOC) {
 			if (sc.Match('*', '/')) {
 				sc.Forward();
 				sc.ForwardSetState(SCE_C_DEFAULT);
 			} else if (sc.ch == '@' || sc.ch == '\\') {
 				sc.SetState(SCE_C_COMMENTDOCKEYWORD);
 			}
-		} */ else if (sc.state == SCE_C_COMMENTLINE /* || sc.state == SCE_C_COMMENTLINEDOC */) {
+		} else if (sc.state == SCE_C_COMMENTLINE || sc.state == SCE_C_COMMENTLINEDOC) {
 			if (sc.atLineEnd) {
 				sc.SetState(SCE_C_DEFAULT);
 				visibleChars = 0;
 			}
-		} /* else if (sc.state == SCE_C_COMMENTDOCKEYWORD) {
+		} else if (sc.state == SCE_C_COMMENTDOCKEYWORD) {
 			if (sc.Match('*', '/')) {
 				sc.ChangeState(SCE_C_COMMENTDOCKEYWORDERROR);
 				sc.Forward();
@@ -163,7 +161,7 @@ static void ColouriseCppDoc(unsigned int startPos, int length, int initStyle, Wo
 				}
 				sc.SetState(SCE_C_COMMENTDOC);
 			}
-		} */ else if (sc.state == SCE_C_STRING) {
+		} else if (sc.state == SCE_C_STRING) {
 			if (sc.ch == '\\') {
 				if (sc.chNext == '\"' || sc.chNext == '\'' || sc.chNext == '\\') {
 					sc.Forward();
@@ -230,15 +228,16 @@ static void ColouriseCppDoc(unsigned int startPos, int length, int initStyle, Wo
 					sc.SetState(SCE_C_IDENTIFIER);
 				}
 			} else if (sc.Match('/', '*')) {
-				/* if (sc.Match("/**") || sc.Match("/*!")) {	// Support of Qt/Doxygen doc. style
+				if (sc.Match("/**") || sc.Match("/*!")) {	// Support of Qt/Doxygen doc. style
 					sc.SetState(SCE_C_COMMENTDOC);
-				} else */
+				} else {
 					sc.SetState(SCE_C_COMMENT);
+				}
 				sc.Forward();	// Eat the * so it isn't used for the end of the comment
 			} else if (sc.Match('/', '/')) {
-				/* if (sc.Match("///") || sc.Match("//!"))	// Support of Qt/Doxygen doc. style
+				if (sc.Match("///") || sc.Match("//!"))	// Support of Qt/Doxygen doc. style
 					sc.SetState(SCE_C_COMMENTLINEDOC);
-				else */
+				else
 					sc.SetState(SCE_C_COMMENTLINE);
 			} else if (sc.ch == '/' && IsOKBeforeRE(chPrevNonWhite)) {
 				sc.SetState(SCE_C_REGEX);
@@ -249,7 +248,6 @@ static void ColouriseCppDoc(unsigned int startPos, int length, int initStyle, Wo
 			} else if (sc.ch == '#' && visibleChars == 0) {
 				// Preprocessor commands are alone on their line
 				sc.SetState(SCE_C_PREPROCESSOR);
-				insidePreprocessor = true;
 				// Skip whitespace between # and preprocessor word
 				do {
 					sc.Forward();
@@ -268,7 +266,6 @@ static void ColouriseCppDoc(unsigned int startPos, int length, int initStyle, Wo
 			chPrevNonWhite = ' ';
 			visibleChars = 0;
 			lastWordWasUUID = false;
-			insidePreprocessor = false;
 		}
 		if (!IsASpace(sc.ch)) {
 			chPrevNonWhite = sc.ch;
@@ -279,10 +276,10 @@ static void ColouriseCppDoc(unsigned int startPos, int length, int initStyle, Wo
 }
 
 static bool IsStreamCommentStyle(int style) {
-	return style == SCE_C_COMMENT /* ||
-		style == SCE_C_COMMENTDOC ||
-		style == SCE_C_COMMENTDOCKEYWORD ||
-		style == SCE_C_COMMENTDOCKEYWORDERROR */;
+	return style == SCE_C_COMMENT ||
+	       style == SCE_C_COMMENTDOC ||
+	       style == SCE_C_COMMENTDOCKEYWORD ||
+	       style == SCE_C_COMMENTDOCKEYWORDERROR;
 }
 
 static bool matchKeyword(unsigned int start, WordList &keywords, Accessor &styler, int keywordtype) {
@@ -304,8 +301,8 @@ static bool IsCommentLine(int line, Accessor &styler) {
 		int PosStyle = styler.StyleAt(Pos);
 
 		if (	!IsStreamCommentStyle(PosStyle)
-		        /* &&
-		        PosStyle != SCE_C_COMMENTLINEDOC */
+		        &&
+		        PosStyle != SCE_C_COMMENTLINEDOC
 		        &&
 		        PosStyle != SCE_C_COMMENTLINE
 		        &&
@@ -319,7 +316,7 @@ static bool IsCommentLine(int line, Accessor &styler) {
 }
 
 static void FoldBoxCppDoc(unsigned int startPos, int length, int initStyle, WordList *keywordlists[],
-                            Accessor &styler) {
+                          Accessor &styler) {
 
 	WordList &keywords4 = *keywordlists[3];
 
@@ -599,20 +596,20 @@ static void FoldCppDoc(unsigned int startPos, int length, int initStyle, WordLis
 }
 
 static const char * const cppWordLists[] = {
-	"Primary keywords and identifiers",
-	"Secondary keywords and identifiers",
-	"Documentation comment keywords",
+            "Primary keywords and identifiers",
+            "Secondary keywords and identifiers",
+            "Documentation comment keywords",
             "Fold header keywords",
-	0,
+            0,
         };
 
 static void ColouriseCppDocSensitive(unsigned int startPos, int length, int initStyle, WordList *keywordlists[],
-                            Accessor &styler) {
+                                     Accessor &styler) {
 	ColouriseCppDoc(startPos, length, initStyle, keywordlists, styler, true);
 }
 
 static void ColouriseCppDocInsensitive(unsigned int startPos, int length, int initStyle, WordList *keywordlists[],
-                            Accessor &styler) {
+                                       Accessor &styler) {
 	ColouriseCppDoc(startPos, length, initStyle, keywordlists, styler, false);
 }
 

@@ -221,6 +221,9 @@ get int GetTabWidth=2121(,)
 # This is the same value as CP_UTF8 in Windows
 val SC_CP_UTF8=65001
 
+# The SC_CP_DBCS value can be used to indicate a DBCS mode for GTK+.
+val SC_CP_DBCS=1
+
 # Set the code page used to interpret the bytes of the document as characters.
 # The SC_CP_UTF8 value can be used to enter Unicode mode.
 set void SetCodePage=2037(int codePage,)
@@ -583,7 +586,10 @@ set void AutoCSetDropRestOfWord=2270(bool dropRestOfWord,)
 get bool AutoCGetDropRestOfWord=2271(,)
 
 # Register an XPM image for use in autocompletion lists.
-fun void RegisterImage=2405(int type, int xpmData)
+fun void RegisterImage=2405(int type, string xpmData)
+
+# Clear all the registered XPM images.
+fun void ClearRegisteredImages=2408(,)
 
 # Set the number of spaces used for one level of indentation.
 set void SetIndent=2122(int indentSize,)
@@ -1363,6 +1369,12 @@ fun void SetXCaretPolicy=2402(int caretPolicy, int caretSlop)
 # The exclusion zone is given in lines.
 fun void SetYCaretPolicy=2403(int caretPolicy, int caretSlop)
 
+# Set printing to line wrapped (SC_WRAP_WORD) or not line wrapped (SC_WRAP_NONE).
+set void SetPrintWrapMode=2406(int mode,)
+
+# Is printing line wrapped.
+get int GetPrintWrapMode=2407(,)
+
 # Start notifying the container of all key presses and commands.
 fun void StartRecord=3001(,)
 
@@ -1529,6 +1541,7 @@ val SCE_C_COMMENTLINEDOC=15
 val SCE_C_WORD2=16
 val SCE_C_COMMENTDOCKEYWORD=17
 val SCE_C_COMMENTDOCKEYWORDERROR=18
+val SCE_C_GLOBALCLASS=19
 # Lexical states for SCLEX_HTML, SCLEX_XML
 lex HTML=SCLEX_HTML SCE_H
 lex XML=SCLEX_XML SCE_H
@@ -1803,6 +1816,12 @@ val SCE_AVE_ENUM=7
 val SCE_AVE_STRINGEOL=8
 val SCE_AVE_IDENTIFIER=9
 val SCE_AVE_OPERATOR=10
+val SCE_AVE_WORD1=11
+val SCE_AVE_WORD2=12
+val SCE_AVE_WORD3=13
+val SCE_AVE_WORD4=14
+val SCE_AVE_WORD5=15
+val SCE_AVE_WORD6=16
 # Lexical states for SCLEX_ADA
 lex Ada=SCLEX_ADA SCE_ADA_
 val SCE_ADA_DEFAULT=0

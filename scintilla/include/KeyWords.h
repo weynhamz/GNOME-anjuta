@@ -33,7 +33,7 @@ public:
 
 	// -1 is returned if no WordList information is available
 	int GetNumWordLists() const;
-	const char *GetWordListDescription(int idx) const;
+	const char *GetWordListDescription(int index) const;
 
 	virtual void Lex(unsigned int startPos, int lengthDoc, int initStyle,
                   WordList *keywordlists[], Accessor &styler) const;

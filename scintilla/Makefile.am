@@ -19,6 +19,7 @@ libscintilla_a_SOURCES =\
 	Indicator.cxx \
 	KeyMap.cxx \
 	KeyWords.cxx \
+	XPM.cxx \
 	LexAda.cxx \
 	LexAVE.cxx \
 	LexBaan.cxx \
@@ -68,5 +69,6 @@ libscintilla_a_SOURCES =\
 	Style.h \
 	UniConversion.h \
 	ViewStyle.h\
-	StyleContext.h
+	StyleContext.h \
+	XPM.h
 

@@ -19,7 +19,7 @@
 
 class CharacterIndexer {
 public: 
-	virtual char CharAt(int idx)=0;
+	virtual char CharAt(int index)=0;
 };
 
 class RESearch {

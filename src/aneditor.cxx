@@ -2768,7 +2768,9 @@ void AnEditor::ReadProperties(const char *fileForExt) {
 	
 	SString kw0 = props->GetNewExpand("keywords.", fileNameForExtension.c_str());
 	SendEditorString(SCI_SETKEYWORDS, 0, kw0.c_str());
-	/* For C/C++ projects, get list of typedefs for colorizing */
+	SString kw1 = props->GetNewExpand("keywords3.", fileNameForExtension.c_str());
+	SendEditorString(SCI_SETKEYWORDS, 2, kw1.c_str());
+	/* For C/C++ projects, get list of classes, structs and typedefs for colorizing */
 	if (SCLEX_CPP == lexLanguage)
 	{
 		const TMWorkspace *workspace = tm_get_workspace();
@@ -2789,7 +2791,7 @@ void AnEditor::ReadProperties(const char *fileForExt) {
 						g_string_append_c(s, ' ');
 					}
 				}
-				SendEditorString(SCI_SETKEYWORDS, 2, s->str);
+				SendEditorString(SCI_SETKEYWORDS, 3, s->str);
 				g_string_free(s, TRUE);
 			}
 			g_ptr_array_free(g_typedefs, TRUE);
@@ -2824,8 +2826,6 @@ void AnEditor::ReadProperties(const char *fileForExt) {
 	{
 		SString kw1 = props->GetNewExpand("keywords2.", fileNameForExtension.c_str());
 		SendEditorString(SCI_SETKEYWORDS, 1, kw1.c_str());
-		SString kw2 = props->GetNewExpand("keywords3.", fileNameForExtension.c_str());
-		SendEditorString(SCI_SETKEYWORDS, 2, kw2.c_str());
 		SString kw3 = props->GetNewExpand("keywords4.", fileNameForExtension.c_str());
 		SendEditorString(SCI_SETKEYWORDS, 3, kw3.c_str());
 		SString kw4 = props->GetNewExpand("keywords5.", fileNameForExtension.c_str());
