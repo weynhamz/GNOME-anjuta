@@ -1,4 +1,13 @@
 2002-03-28 Naba Kumar <kh_naba@users.sourceforge.net>
+
+	Patch from Philip Van Hoof <freax@pandora.be>
+	
+	* src/gnomefilelist.c:
+	Added gimp like feature that changes the file extension of
+	the filename entered in the selections when the file
+	filter is changed.
+	
+2002-03-28 Naba Kumar <kh_naba@users.sourceforge.net>
 	
 	Patch from Roy Wood <roy.wood@filogix.com>
 	

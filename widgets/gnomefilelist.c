@@ -173,8 +173,7 @@ GtkWidget *gnome_filelist_new_with_path(gchar *path)
    pixmapwid = gnome_stock_pixmap_widget_at_size(GTK_WIDGET(file_list), GNOME_STOCK_PIXMAP_CONVERT, 21, 21);
    file_list->rename_button = gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), 0, _("Rename file"), 0, pixmapwid, GTK_SIGNAL_FUNC(rename_file), file_list);
    pixmapwid = gnome_pixmap_new_from_file_at_size ((const char *) anjuta_res_get_pixmap_file(ANJUTA_PIXMAP_NEW_FOLDER), 21, 21);      
-   file_list->createdir_button = gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), 0, _("Create new folder"), 0, pixmapwid, GTK_SIGNAL_FUNC(create_dir), file_list);
-   
+   file_list->createdir_button = gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), 0, _("Create new folder"), 0, pixmapwid, GTK_SIGNAL_FUNC(create_dir), file_list);   
    gtk_toolbar_append_space(GTK_TOOLBAR(toolbar));
 
    file_list->show_hidden_button = gtk_toggle_button_new();
@@ -617,12 +616,74 @@ GList * gnome_filelisttype_clearfiletypes(GnomeFileList *file_list)
 	return file_list->filetypes;
 }
 
+static gboolean 
+gnome_filelist_file_matches(GnomeFileListType *filetype, gchar *filename, gboolean chkwholefile)
+{
+	GList *extentions=NULL;
+	gboolean match=FALSE;
+				
+	extentions = g_list_copy(filetype->extentions);				
+	if (!extentions)
+		match=TRUE;
+
+	while (extentions && !match) {
+		gint result = 0;
+		gchar *pattern=NULL;
+		if (chkwholefile)
+			pattern = g_strdup_printf ("*%s*",(gchar *) extentions->data);
+		else 
+			pattern = g_strdup_printf ("*%s",(gchar *) extentions->data);
+		result = fnmatch(pattern, filename, 0 );
+
+		if (!result) {
+			match = TRUE;
+			extentions = g_list_next (extentions);
+			break;
+		}
+		extentions = g_list_next(extentions);
+   	}
+	extentions = g_list_first(extentions);
+	
+	return match;			
+}
 static void filetype_combo_go(GtkWidget *widget, GnomeFileList *file_list)
 {
+	GnomeFileListType *filetype;
     gchar *string;
-    string = build_full_path(file_list->path, "");
-    gnome_filelist_set_dir(file_list, string);
-    g_free(string);
+	gchar *filename=g_strdup(gtk_entry_get_text(GTK_ENTRY(file_list->selection_entry)));
+	filetype = gnome_filelisttype_getfiletype(file_list, 
+	   gtk_entry_get_text(GTK_ENTRY(GTK_COMBO(file_list->filetype_combo)->entry)));
+		
+	if (filetype && (!gnome_filelist_file_matches(filetype, filename, FALSE))) {
+		GList *extentions=NULL;
+		const gchar *text;
+		gchar *last_dot;
+		GString *s;
+		
+		if (strlen(filename) <= 0)
+			filename = g_strdup("Newfile");
+
+		extentions = g_list_copy(filetype->extentions);
+		extentions = g_list_first(extentions);
+		/* This routine comes from The Gimp. [app/gui/file-dialog-utils.c] Thanks :) */
+		text = g_strdup(filename);
+		last_dot = strrchr (text, '.');
+		if (last_dot == text || !text[0]) return;
+		s = g_string_new (text);
+		if (last_dot)
+			g_string_truncate (s, last_dot-text);
+		g_string_append (s, (gchar *) extentions->data);
+		filename = g_strdup(s->str);
+		g_string_free (s, TRUE);
+	}
+	
+	string = build_full_path(file_list->path, "");
+	gnome_filelist_set_dir(file_list, string);
+	
+	gtk_entry_set_text(GTK_ENTRY(file_list->selection_entry), filename);
+	
+	g_free(filename);
+    g_free(string);	
 }
 
 
@@ -817,44 +878,10 @@ static void gnome_filelist_get_dirs(GnomeFileList *file_list)
          }
          else
          {
-			
 			if ( str[0] != '.' || file_list->show_hidden)
-			{	
-				GList *extentions=NULL;
-				gboolean match=FALSE;
-				
-				extentions = g_list_copy(filetype->extentions);				
-				if (!extentions)
-					match=TRUE;
-
-				while (extentions && !match) {
-					gint result = 0;
-					gchar *pattern=NULL;
-					
-					pattern = g_strdup_printf ("*%s",(gchar *) extentions->data);
-					result = fnmatch(pattern, str, 0 );
-
-					if (!result) {
-						match = TRUE;
-						extentions = g_list_next (extentions);
-						break;
-					}
-					extentions = g_list_next(extentions);
-				}
-
-				extentions = g_list_first(extentions);
-				
-				if (match) {
-					if (file_list->filepattern) {
-						if (fnmatch(file_list->filepattern, str, 0)==0) {
-							files_list = g_list_prepend(files_list, (gpointer) str);
-							file_list->files_matched++;
-						}
-					} else {
-						files_list = g_list_prepend(files_list, (gpointer) str);
-						file_list->files_matched++;
-					}
-				}
+			{
+				if (gnome_filelist_file_matches(filetype, str, FALSE))		
+  					files_list = g_list_prepend(files_list, (gpointer) str);
 			}
          }
       }
