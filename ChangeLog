@@ -1,3 +1,8 @@
+2005-02-09  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
+
+	* global-tags/Makefile.am
+	Error during 'make install'
+
 2005-02-09  Naba Kumar  <naba@gnome.org>
 
 	* plugins/symbol-browser/anjuta-symbol-browser-pluing.glade: Added
