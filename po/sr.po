@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 23.32\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-01-13 04:02+0100\n"
-"PO-Revision-Date: 2004-01-13 04:06+0100\n"
+"POT-Creation-Date: 2004-01-17 02:21+0100\n"
+"PO-Revision-Date: 2004-01-17 02:21+0100\n"
 "Last-Translator: Слободан Средојевић <ssl@uns.ns.ac.yu>\n"
 "Language-Team: Serbian (sr) <serbiangnome-lista@nongnu.org>\n"
 "MIME-Version: 1.0\n"
@@ -49,7 +49,8 @@ msgstr ""
 "Ограничења :\n"
 "— Регуларни изрази се могу наћи само унапред\n"
 "За урадити:\t\n"
-"— Дозволити корисницима да чувају подешавања претраге/замене и дати им имена\n"
+"— Дозволити корисницима да чувају подешавања претраге/замене и дати им "
+"имена\n"
 "— . . ."
 
 #: anjuta.glade.h:11
@@ -229,322 +230,326 @@ msgstr "Опције преводиоца"
 msgid "Build symbol browser automatically"
 msgstr "Аутоматски изгради прегледник симбола"
 
+#: anjuta.glade.h:54
+msgid "CPU registers"
+msgstr "Регистри процесора"
+
 #. 2
-#: anjuta.glade.h:54 src/an_file_view.c:420 src/message-manager.cc:45
+#: anjuta.glade.h:55 src/an_file_view.c:420 src/message-manager.cc:45
 msgid "CVS"
 msgstr "CVS"
 
-#: anjuta.glade.h:55
+#: anjuta.glade.h:56
 msgid "CVS command options"
 msgstr "Опције програма CVS"
 
-#: anjuta.glade.h:56
+#: anjuta.glade.h:57
 msgid "CVS compression level:"
 msgstr "CVS ниво компресије:"
 
-#: anjuta.glade.h:57
+#: anjuta.glade.h:58
 msgid "CVS context diff format"
 msgstr "CVS контекстни формат разлика"
 
-#: anjuta.glade.h:58
+#: anjuta.glade.h:59
 msgid "CVS intl po"
 msgstr "CVS intl po"
 
-#: anjuta.glade.h:59
+#: anjuta.glade.h:60
 msgid "CVS unified diff format"
 msgstr "CVS јединствени diff формат"
 
-#: anjuta.glade.h:60
+#: anjuta.glade.h:61
 msgid "CVS update and prune directories [-dP]"
 msgstr "CVS допуна и чишћење директоријума [-dP]"
 
-#: anjuta.glade.h:61
+#: anjuta.glade.h:62
 msgid "C_ompile:"
 msgstr "П_реведи:"
 
-#: anjuta.glade.h:62
+#: anjuta.glade.h:63
 msgid "Calltip background:"
 msgstr "Боја позадине приказа прототипа функције:"
 
-#: anjuta.glade.h:63
+#: anjuta.glade.h:64
 msgid "Caret (cursor) color:"
 msgstr "Боја курсора:"
 
-#: anjuta.glade.h:64
+#: anjuta.glade.h:65
 msgid "Caret blink period in milli-seconds"
 msgstr "Треперење курсора изражено у мили-секундама"
 
-#: anjuta.glade.h:65
+#: anjuta.glade.h:66
 msgid "Case insensitive"
 msgstr "Мала и велика слова се не разликују"
 
-#: anjuta.glade.h:66
+#: anjuta.glade.h:67
 msgid "Choose Directories:"
 msgstr "Изабери директоријуме:"
 
-#: anjuta.glade.h:67
+#: anjuta.glade.h:68
 msgid "Choose Files:"
 msgstr "Изабери датотеке:"
 
-#: anjuta.glade.h:68
+#: anjuta.glade.h:69
 msgid "Choose autocomplete for single match"
 msgstr "Изабери аутоматску допуну за једно подударање"
 
-#: anjuta.glade.h:69
+#: anjuta.glade.h:70
 msgid "Choose directories"
 msgstr "Изабери директоријуме"
 
-#: anjuta.glade.h:70
+#: anjuta.glade.h:71
 msgid "Choose files"
 msgstr "Изабери датотеке"
 
-#: anjuta.glade.h:71
+#: anjuta.glade.h:72
 msgid "Circular"
 msgstr "Кружно"
 
-#: anjuta.glade.h:72
+#: anjuta.glade.h:73
 msgid "Code folding"
 msgstr "Скупљање кода"
 
-#: anjuta.glade.h:73
+#: anjuta.glade.h:74
 msgid "Collapse all code folds on file open"
 msgstr "Отвори све језичке структуре приликом отварања датотеке"
 
-#: anjuta.glade.h:74
+#: anjuta.glade.h:75
 msgid "Colour"
 msgstr "Боја"
 
-#: anjuta.glade.h:75
+#: anjuta.glade.h:76
 msgid "Column at edge indicator"
 msgstr "Индикатор колона на ивици"
 
-#: anjuta.glade.h:76
+#: anjuta.glade.h:77
 msgid "Combo Popdown:"
 msgstr "Падајући мени:"
 
-#: anjuta.glade.h:77
+#: anjuta.glade.h:78
 msgid "Command Line Parameters"
 msgstr "Параметри линије за наредбе"
 
-#: anjuta.glade.h:78
+#: anjuta.glade.h:79
 msgid "Command line parameters"
 msgstr "Параметри линије наредби"
 
-#: anjuta.glade.h:79
+#: anjuta.glade.h:80
 msgid "Command:"
 msgstr "Наредба:"
 
-#: anjuta.glade.h:80
+#: anjuta.glade.h:81
 msgid "Commands"
 msgstr "Наредбе"
 
-#: anjuta.glade.h:81
+#: anjuta.glade.h:82
 msgid "Common commands:"
 msgstr "Наредбе:"
 
-#: anjuta.glade.h:82
+#: anjuta.glade.h:83
 msgid "Compact folding"
 msgstr "Скупи језичку структуру"
 
-#: anjuta.glade.h:83
+#: anjuta.glade.h:84
 msgid "Compiler"
 msgstr "Преводилац"
 
-#: anjuta.glade.h:84
+#: anjuta.glade.h:85
 msgid "Compiler Flags (CFLAGS):"
 msgstr "Опције програмског преводиоца (CFLAGS):"
 
-#: anjuta.glade.h:85
+#: anjuta.glade.h:86
 msgid "Compiler and linker options"
 msgstr "Подешавање преводиоца и програма за повезивање"
 
-#: anjuta.glade.h:86
+#: anjuta.glade.h:87
 msgid "Configuration"
 msgstr "Подешавања"
 
-#: anjuta.glade.h:87
+#: anjuta.glade.h:88
 msgid "Configuration script segments"
 msgstr "Делови скрипте за подешавање"
 
-#: anjuta.glade.h:88
+#: anjuta.glade.h:89
 msgid "Configure Parameters"
 msgstr "Подеси параметре"
 
-#: anjuta.glade.h:89
+#: anjuta.glade.h:90
 msgid "Crazy boy style"
 msgstr "Необичан стил"
 
-#: anjuta.glade.h:90
+#: anjuta.glade.h:91
 msgid "Custom style"
 msgstr "Произвољан стил"
 
-#: anjuta.glade.h:91
+#: anjuta.glade.h:92
 msgid "Customize File Browser"
 msgstr "Прилагоди прегледник датотека"
 
-#: anjuta.glade.h:92
+#: anjuta.glade.h:93
 msgid "Customize what is to be shown in the file tree"
 msgstr "Прилагоди шта ће бити приказано у стаблу"
 
-#: anjuta.glade.h:93
+#: anjuta.glade.h:94
 msgid "Data module Makefile.am"
 msgstr "Модул са подацима Makefile.am"
 
 #. 13
-#: anjuta.glade.h:94 src/message-manager.cc:49 src/text_editor_menu.c:319
+#: anjuta.glade.h:95 src/message-manager.cc:49 src/text_editor_menu.c:319
 #: src/toolbar.c:307
 msgid "Debug"
 msgstr "Прати грешке"
 
-#: anjuta.glade.h:95
+#: anjuta.glade.h:96
 msgid "Debugging and Profiling"
 msgstr "Проналажење грешака и мерење"
 
-#: anjuta.glade.h:96
+#: anjuta.glade.h:97
 msgid "Default"
 msgstr "Подразумевано"
 
-#: anjuta.glade.h:97
+#: anjuta.glade.h:98
 msgid "Defines"
 msgstr "Дефинише"
 
-#: anjuta.glade.h:98
+#: anjuta.glade.h:99
 msgid "Delete Theme"
 msgstr "Уклони тему"
 
-#: anjuta.glade.h:99
+#: anjuta.glade.h:100
 msgid "Diagonal"
 msgstr "Дијагонално"
 
-#: anjuta.glade.h:100
+#: anjuta.glade.h:101
 msgid "Dialog on job complete"
 msgstr "Прикажи прозорче када се заврши посао"
 
-#: anjuta.glade.h:101 widgets/gnomefilelist.c:342
+#: anjuta.glade.h:102 widgets/gnomefilelist.c:342
 msgid "Directories"
 msgstr "Директоријуми"
 
-#: anjuta.glade.h:102
+#: anjuta.glade.h:103
 msgid "Directory filter"
 msgstr "Филтер директоријума"
 
-#: anjuta.glade.h:103
+#: anjuta.glade.h:104
 msgid "Disable auto-format"
 msgstr "Онемогући аутоматско форматирање"
 
-#: anjuta.glade.h:104
+#: anjuta.glade.h:105
 msgid "Disable overwriting files"
 msgstr "Онемогући да се датотеке препишу"
 
-#: anjuta.glade.h:105
+#: anjuta.glade.h:106
 msgid "Disable syntax highlighting"
 msgstr "Онемогући осветљавање кода"
 
-#: anjuta.glade.h:106
+#: anjuta.glade.h:107
 msgid "Display process _tree"
 msgstr "Прикажи стабло _процеса"
 
-#: anjuta.glade.h:107
+#: anjuta.glade.h:108
 msgid "Do not show hidden directories"
 msgstr "Не приказуј скривене директоријуме"
 
-#: anjuta.glade.h:108
+#: anjuta.glade.h:109
 msgid "Do not show hidden files"
 msgstr "Не приказуј скривене датотеке"
 
-#: anjuta.glade.h:109
+#: anjuta.glade.h:110
 msgid "Do not show start with dialog again."
 msgstr "Немој више приказивати покретање помоћу прозорчета."
 
-#: anjuta.glade.h:110
+#: anjuta.glade.h:111
 msgid "Do not show tabs"
 msgstr "Не приказуј језичке"
 
-#: anjuta.glade.h:111
+#: anjuta.glade.h:112
 msgid "Document module Makefile.am"
 msgstr "Документ модул Makefile.am"
 
-#: anjuta.glade.h:112
+#: anjuta.glade.h:113
 msgid "Draw line below folded lines"
 msgstr "Исцртај линије испод скупљених језичких структура"
 
-#: anjuta.glade.h:113
+#: anjuta.glade.h:114
 msgid "Edit"
 msgstr "Уреди"
 
-#: anjuta.glade.h:114
+#: anjuta.glade.h:115
 msgid "Editor caret (cursor) width in pixels"
 msgstr "Ширина курсора уредника текста изражена у пикселима"
 
-#: anjuta.glade.h:115
+#: anjuta.glade.h:116
 msgid "Editor tabs"
 msgstr "Листови уређивача"
 
-#: anjuta.glade.h:116
+#: anjuta.glade.h:117
 msgid "Enable Debugging"
 msgstr "Омогући праћење грешака"
 
-#: anjuta.glade.h:117
+#: anjuta.glade.h:118
 msgid "Enable HTML tags folding"
 msgstr "Омогући HTML језичке структуре (функције/ознаке)"
 
-#: anjuta.glade.h:118
+#: anjuta.glade.h:119
 msgid "Enable Profiling"
 msgstr "Омогући профилисање"
 
-#: anjuta.glade.h:119
+#: anjuta.glade.h:120
 msgid "Enable _all"
 msgstr "Омогући _све"
 
-#: anjuta.glade.h:120
+#: anjuta.glade.h:121
 msgid "Enable automatic indentation"
 msgstr "Омогући аутоматско увлачење кода"
 
-#: anjuta.glade.h:121
+#: anjuta.glade.h:122
 msgid "Enable automatic messages indicators"
 msgstr "Омогући аутоматске индикаторе порука"
 
-#: anjuta.glade.h:122
+#: anjuta.glade.h:123
 msgid "Enable braces check"
 msgstr "Омогући проверу заграда"
 
-#: anjuta.glade.h:123
+#: anjuta.glade.h:124
 msgid "Enable code folding"
 msgstr "Омогући приказивање језичких структура"
 
-#: anjuta.glade.h:124
+#: anjuta.glade.h:125
 msgid "Enable comments folding"
 msgstr "Омогући приказивање структура напомена"
 
-#: anjuta.glade.h:125
+#: anjuta.glade.h:126
 msgid "Enable files autosave"
 msgstr "Омогући аутоматско снимање датотека"
 
-#: anjuta.glade.h:126
+#: anjuta.glade.h:127
 msgid "Enable line wrap"
 msgstr "Омогући прелом реда"
 
-#: anjuta.glade.h:127
+#: anjuta.glade.h:128
 msgid "Enable python comments folding"
 msgstr "Омогући python структуре напомена"
 
-#: anjuta.glade.h:128
+#: anjuta.glade.h:129
 msgid "Enable python quoted strings folding"
 msgstr "Омогући python структуре низова знакова под наводницима"
 
-#: anjuta.glade.h:129 src/breakpoints.c:111
+#: anjuta.glade.h:130 src/breakpoints.c:111
 msgid "Enabled"
 msgstr "Омогућено"
 
-#: anjuta.glade.h:130
+#: anjuta.glade.h:131
 msgid "Encoding to use when saving files"
 msgstr "Кодирање које се користи за чување датотека"
 
-#: anjuta.glade.h:131
+#: anjuta.glade.h:132
 msgid "Enter a Hexa adress or select one in the data"
 msgstr "Унесите хексадецималну адресу или изаберите једну из података"
 
-#: anjuta.glade.h:132
+#: anjuta.glade.h:133
 msgid ""
 "Enter the File name.\n"
 "The extension will be added according to the type."
@@ -552,7 +557,7 @@ msgstr ""
 "Унесите име датотеке.\n"
 "Екстензија ће се додати у складу са врстом."
 
-#: anjuta.glade.h:134
+#: anjuta.glade.h:135
 msgid ""
 "Enter the command line arguments for the 'indent' program. Read the info "
 "page for 'indent' for more details"
@@ -560,104 +565,104 @@ msgstr ""
 "Задајте аргументе на линији наредби за програм 'indent'. За више детаља "
 "прочитајте инфо страницу програма 'indent'"
 
-#: anjuta.glade.h:135
+#: anjuta.glade.h:136
 msgid "Error message indicator style:"
 msgstr "Стил индикатора порука о грешкама:"
 
-#: anjuta.glade.h:136
+#: anjuta.glade.h:137
 msgid "Errors messages:"
 msgstr "Грешке:"
 
-#: anjuta.glade.h:137
+#: anjuta.glade.h:138
 msgid "Execute Program"
 msgstr "Изврши програм"
 
-#: anjuta.glade.h:138
+#: anjuta.glade.h:139
 msgid "Expand regex back references"
 msgstr "Разлучи референце уназад за регуларне изразе"
 
-#: anjuta.glade.h:139 src/an_file_view.c:671 src/breakpoints.c:111
+#: anjuta.glade.h:140 src/an_file_view.c:671 src/breakpoints.c:111
 msgid "File"
 msgstr "Датотека"
 
-#: anjuta.glade.h:140
+#: anjuta.glade.h:141
 msgid "File Filter"
 msgstr "Филтер датотека"
 
-#: anjuta.glade.h:141
+#: anjuta.glade.h:142
 msgid "File filter"
 msgstr "Филтер датотека"
 
-#: anjuta.glade.h:142
+#: anjuta.glade.h:143
 msgid "File level"
 msgstr "Ниво датотеке"
 
-#: anjuta.glade.h:143
+#: anjuta.glade.h:144
 msgid "File name:"
 msgstr "Име датотеке:"
 
-#: anjuta.glade.h:144
+#: anjuta.glade.h:145
 msgid "File type:"
 msgstr "Врста датотеке: "
 
-#: anjuta.glade.h:145
+#: anjuta.glade.h:146
 msgid "Filter extraneous characters in DOS mode"
 msgstr "Филтрирај непознате знаке у DOS моду"
 
-#: anjuta.glade.h:146
+#: anjuta.glade.h:147
 msgid "Find & Replace"
 msgstr "Пронађи & замени"
 
-#: anjuta.glade.h:147
+#: anjuta.glade.h:148
 msgid "Fold style:"
 msgstr "Стил језичке структуре:"
 
-#: anjuta.glade.h:148
+#: anjuta.glade.h:149
 msgid "Font:"
 msgstr "Слово:"
 
-#: anjuta.glade.h:149
+#: anjuta.glade.h:150
 msgid "Fore color:"
 msgstr "Боја текста:"
 
-#: anjuta.glade.h:150
+#: anjuta.glade.h:151
 msgid "Format"
 msgstr "Формат"
 
-#: anjuta.glade.h:151 src/toolbar.c:857
+#: anjuta.glade.h:152 src/toolbar.c:857
 msgid "Format style"
 msgstr "Стил форматирања"
 
-#: anjuta.glade.h:152 src/text_editor_menu.c:84
+#: anjuta.glade.h:153 src/text_editor_menu.c:84
 msgid "Forward"
 msgstr "Напред"
 
-#: anjuta.glade.h:153
+#: anjuta.glade.h:154
 msgid "Full Buffer"
 msgstr "Цео текст"
 
-#: anjuta.glade.h:154 src/an_symbol_view.c:54
+#: anjuta.glade.h:155 src/an_symbol_view.c:54
 msgid "Functions"
 msgstr "Функције"
 
-#: anjuta.glade.h:155
+#: anjuta.glade.h:156
 msgid "GNU coding style"
 msgstr "ГНУ програмерски стил"
 
-#: anjuta.glade.h:156
+#: anjuta.glade.h:157
 msgid "GPL Notice"
 msgstr "ОЈЛ напомена"
 
-#: anjuta.glade.h:157
+#: anjuta.glade.h:158
 msgid "GUI editor command:"
 msgstr "Наредба за програм за графичко уређење изгледа програма:"
 
 #. 3
-#: anjuta.glade.h:158 src/main_menubar_def.h:386
+#: anjuta.glade.h:159 src/main_menubar_def.h:386
 msgid "General"
 msgstr "Опште"
 
-#: anjuta.glade.h:159
+#: anjuta.glade.h:160
 msgid ""
 "Give a space separated list of directories to be built after source module. "
 "This will be set in configure and Makefiles will be generated for them. They "
@@ -668,7 +673,7 @@ msgstr ""
 "скрипти и за њих ће бити створене Makefile скрипте. Они ће бити преведени "
 "после src/ директоријума са изворним кодом за време позива наредбе „make“."
 
-#: anjuta.glade.h:160
+#: anjuta.glade.h:161
 msgid ""
 "Give a space separated list of directories to be built before source module. "
 "This will be set in configure.in and Makefiles will be generated for them. "
@@ -679,93 +684,93 @@ msgstr ""
 "скрипти и за њих ће бити створене Makefile скрипте. Они ће бити преведени "
 "пре src/ директоријума са изворним кодом за време позива наредбе „make“."
 
-#: anjuta.glade.h:161
+#: anjuta.glade.h:162
 msgid "Gnome API"
 msgstr "Гном API"
 
-#: anjuta.glade.h:162
+#: anjuta.glade.h:163
 msgid "Greedy matching"
 msgstr "Упорно поклапање"
 
-#: anjuta.glade.h:163
+#: anjuta.glade.h:164
 msgid "HTML _viewer:"
 msgstr "HTML _прегледач:"
 
 #. 0
-#: anjuta.glade.h:164 src/main_menubar_def.h:368
+#: anjuta.glade.h:165 src/main_menubar_def.h:368
 msgid "Header"
 msgstr "Заглавље"
 
 #. 5
-#: anjuta.glade.h:165 src/main_menubar_def.h:269
+#: anjuta.glade.h:166 src/main_menubar_def.h:269
 msgid "Header File Template"
 msgstr "Калуп датотеке заглавља"
 
-#: anjuta.glade.h:166
+#: anjuta.glade.h:167
 msgid "Headers"
 msgstr "Заглавља"
 
-#: anjuta.glade.h:167
+#: anjuta.glade.h:168
 msgid "Hello World style"
 msgstr "Здраво свете стил"
 
-#: anjuta.glade.h:168
+#: anjuta.glade.h:169
 msgid "Help module Makefile.am"
 msgstr "Помоћ о модулу Makefile.am"
 
-#: anjuta.glade.h:169
+#: anjuta.glade.h:170
 msgid "Hide process para_meters"
 msgstr "Сакриј пара_метре процеса"
 
-#: anjuta.glade.h:170
+#: anjuta.glade.h:171
 msgid "High-Level Optimization (Functions inlined wherever possible)"
 msgstr "Оптимизација високог нивоа (Функције се угнежђују где год је могуће"
 
-#: anjuta.glade.h:171
+#: anjuta.glade.h:172
 msgid "Highlight style"
 msgstr "Стил осветљења"
 
-#: anjuta.glade.h:172
+#: anjuta.glade.h:173
 msgid "History sizes"
 msgstr "Величина историје"
 
-#: anjuta.glade.h:173
+#: anjuta.glade.h:174
 msgid "Ignore Binary Files"
 msgstr "Игнориши извршне датотеке"
 
-#: anjuta.glade.h:174
+#: anjuta.glade.h:175
 msgid "Ignore Directories:"
 msgstr "Занемари директоријуме:"
 
-#: anjuta.glade.h:175
+#: anjuta.glade.h:176
 msgid "Ignore Files:"
 msgstr "Занемари датотеке:"
 
-#: anjuta.glade.h:176
+#: anjuta.glade.h:177
 msgid "Ignore Hidden Directories"
 msgstr "Занемари скривене директоријуме"
 
-#: anjuta.glade.h:177
+#: anjuta.glade.h:178
 msgid "Ignore Hidden Files"
 msgstr "Занемари скривене датотеке"
 
-#: anjuta.glade.h:178
+#: anjuta.glade.h:179
 msgid "Ignore directories"
 msgstr "Занемари директоријуме"
 
-#: anjuta.glade.h:179
+#: anjuta.glade.h:180
 msgid "Ignore files"
 msgstr "Занемари датотеке"
 
-#: anjuta.glade.h:180
+#: anjuta.glade.h:181
 msgid "Ignore files and directories"
 msgstr "Занемари датотеке и директоријуме"
 
-#: anjuta.glade.h:181
+#: anjuta.glade.h:182
 msgid "Import Wizard"
 msgstr "Чаробњак за увоз"
 
-#: anjuta.glade.h:182
+#: anjuta.glade.h:183
 msgid ""
 "Import existing project. The Import Wizard will guide you to import an "
 "existing Project into Anjuta and convert it into Anjuta Project. There will "
@@ -775,196 +780,196 @@ msgstr ""
 "постојећи пројекат у Анјуту и претворите га у Анјута пројекат. Подаци "
 "пројекта који се увозе неће бити изгубљени нити мењани."
 
-#: anjuta.glade.h:183
+#: anjuta.glade.h:184
 msgid "Include Paths"
 msgstr "Укључи путање"
 
-#: anjuta.glade.h:184
+#: anjuta.glade.h:185
 msgid "Include module Makefile.am"
 msgstr "Укључи модул Makefile.am"
 
-#: anjuta.glade.h:185
+#: anjuta.glade.h:186
 msgid "Indent closing braces"
 msgstr "Увуци заграду краја блока"
 
-#: anjuta.glade.h:186
+#: anjuta.glade.h:187
 msgid "Indent opening braces"
 msgstr "Увуци заграду почетка блока"
 
-#: anjuta.glade.h:187
+#: anjuta.glade.h:188
 msgid "Indentation and auto-format options"
 msgstr "Подешавање увлачења и аутоматског форматирања"
 
-#: anjuta.glade.h:188
+#: anjuta.glade.h:189
 msgid "Indentation size in spaces:"
 msgstr "Увлачење кода (у местима):"
 
-#: anjuta.glade.h:189
+#: anjuta.glade.h:190
 msgid "Indicators"
 msgstr "Индикатори"
 
-#: anjuta.glade.h:190
+#: anjuta.glade.h:191
 msgid "Info Pages"
 msgstr "Info странице"
 
-#: anjuta.glade.h:191
+#: anjuta.glade.h:192
 msgid "Input string:"
 msgstr "Улазни низ знакова:"
 
-#: anjuta.glade.h:192 src/text_editor_menu.c:174 src/toolbar.c:600
+#: anjuta.glade.h:193 src/text_editor_menu.c:174 src/toolbar.c:600
 msgid "Inspect"
 msgstr "Надгледај"
 
-#: anjuta.glade.h:193
+#: anjuta.glade.h:194
 msgid "Italic"
 msgstr "Италик"
 
-#: anjuta.glade.h:194
+#: anjuta.glade.h:195
 msgid "Keep going when some targets can not be made"
 msgstr "Настави са превођењем и када неки делови не могу да се преведу"
 
-#: anjuta.glade.h:195
+#: anjuta.glade.h:196
 msgid "Kernighan and Ritchie style"
 msgstr "Керниган (Kernighan) & Ричи (Ritchi) стил"
 
-#: anjuta.glade.h:196
+#: anjuta.glade.h:197
 msgid "Language-specific commands:"
 msgstr "_Посебне нардбе језика:"
 
-#: anjuta.glade.h:197
+#: anjuta.glade.h:198
 msgid "Left"
 msgstr "Лево"
 
-#: anjuta.glade.h:198
+#: anjuta.glade.h:199
 msgid "Libraries"
 msgstr "Библиотеке"
 
-#: anjuta.glade.h:199
+#: anjuta.glade.h:200
 msgid "Library Paths"
 msgstr "Путање библиотека"
 
-#: anjuta.glade.h:200
+#: anjuta.glade.h:201
 msgid "Line numbers margin width in pixels"
 msgstr "Ширина маргине са бројевима линија у пикселима"
 
-#: anjuta.glade.h:201 printing/print.c:1011 src/anjuta_info.c:126
+#: anjuta.glade.h:202 printing/print.c:1011 src/anjuta_info.c:126
 msgid "Lines"
 msgstr "Линија"
 
-#: anjuta.glade.h:202
+#: anjuta.glade.h:203
 msgid "Linker Flags (LDFLAGS):"
 msgstr "Опције програма за повезивање (LDFLAGS):"
 
-#: anjuta.glade.h:203
+#: anjuta.glade.h:204
 msgid "Load _global defaults"
 msgstr "Учитај _опште подешавања"
 
-#: anjuta.glade.h:204
+#: anjuta.glade.h:205
 msgid "Load _user defaults"
 msgstr "Учитај корисничка подешавања"
 
-#: anjuta.glade.h:205
+#: anjuta.glade.h:206
 msgid "Low-Level Optimization (Machine dependent optimization)"
 msgstr "Оптимизација на ниском нивоу (машински зависна оптимизација)"
 
-#: anjuta.glade.h:206
+#: anjuta.glade.h:207
 msgid "Makefile.am"
 msgstr "Makefile.am"
 
-#: anjuta.glade.h:207
+#: anjuta.glade.h:208
 msgid "Man pages"
 msgstr "Man странице"
 
-#: anjuta.glade.h:208
+#: anjuta.glade.h:209
 msgid "Match at start of word"
 msgstr "Поклапање на почетку речи"
 
-#: anjuta.glade.h:209
+#: anjuta.glade.h:210
 msgid "Match complete lines"
 msgstr "Поклапање целе линије"
 
-#: anjuta.glade.h:210
+#: anjuta.glade.h:211
 msgid "Match complete words"
 msgstr "Поклапање свих речи"
 
-#: anjuta.glade.h:211
+#: anjuta.glade.h:212
 msgid "Max. Actions"
 msgstr "Највише радњи"
 
-#: anjuta.glade.h:212
+#: anjuta.glade.h:213
 msgid "Maximum number of independent jobs (0 == no limit)"
 msgstr "Максимални број независних послова (0 == без ограничења)"
 
-#: anjuta.glade.h:213
+#: anjuta.glade.h:214
 msgid "Medium-Level Optimization (Without space-speed trade-off)"
 msgstr "Оптимизација средњег нивоа (Без компромиса у погледу простора-брзине)"
 
-#: anjuta.glade.h:214
+#: anjuta.glade.h:215
 msgid "Memory"
 msgstr "Меморија"
 
-#: anjuta.glade.h:215
+#: anjuta.glade.h:216
 msgid "Menu icon:"
 msgstr "Иконица менија:"
 
-#: anjuta.glade.h:216
+#: anjuta.glade.h:217
 msgid "Menu location:"
 msgstr "Место менија:"
 
-#: anjuta.glade.h:217
+#: anjuta.glade.h:218
 msgid "Message colors"
 msgstr "Боје порука"
 
-#: anjuta.glade.h:218
+#: anjuta.glade.h:219
 msgid "Messages options"
 msgstr "Подешавање порука"
 
-#: anjuta.glade.h:219
+#: anjuta.glade.h:220
 msgid "Misc options"
 msgstr "Разна подешавања"
 
-#: anjuta.glade.h:220
+#: anjuta.glade.h:221
 msgid "Mode:"
 msgstr "Мод:"
 
-#: anjuta.glade.h:221
+#: anjuta.glade.h:222
 msgid "Modules"
 msgstr "Модули"
 
-#: anjuta.glade.h:222
+#: anjuta.glade.h:223
 msgid "Monochrome"
 msgstr "Једнобојни"
 
-#: anjuta.glade.h:223
+#: anjuta.glade.h:224
 msgid "Name:"
 msgstr "Име:"
 
-#: anjuta.glade.h:224
+#: anjuta.glade.h:225
 msgid "New File"
 msgstr "Нова датотека"
 
-#: anjuta.glade.h:225 src/main_menubar_def.h:30 src/text_editor_gui.c:97
+#: anjuta.glade.h:226 src/main_menubar_def.h:30 src/text_editor_gui.c:97
 #: src/toolbar.c:77
 msgid "New file"
 msgstr "Нова датотека"
 
-#: anjuta.glade.h:226
+#: anjuta.glade.h:227
 msgid "No Limit"
 msgstr "Без ограничења"
 
-#: anjuta.glade.h:227
+#: anjuta.glade.h:228
 msgid "No Optimization"
 msgstr "Без оптимизације"
 
-#: anjuta.glade.h:228
+#: anjuta.glade.h:229
 msgid "Normal message indicator style:"
 msgstr "Нормални стил индикатора порука:"
 
-#: anjuta.glade.h:229
+#: anjuta.glade.h:230
 msgid "Normal messages:"
 msgstr "Нормалне поруке:"
 
-#: anjuta.glade.h:230
+#: anjuta.glade.h:231
 msgid ""
 "Note: If there is a project open, the preferences in this page are project "
 "preferences and will be loaded from and saved with the project. If there is "
@@ -974,330 +979,334 @@ msgstr ""
 "поставке пројекта и биће учитане из и забележене са пројектом. Ако нема "
 "отворених пројеката, користиће се опште поставке."
 
-#: anjuta.glade.h:231
+#: anjuta.glade.h:232
 msgid "Number of first characters to show:"
 msgstr "Број почетних знакова које треба приказати:"
 
-#: anjuta.glade.h:232
+#: anjuta.glade.h:233
 msgid "Number of last characters to show:"
 msgstr "Број крајњих знакова које треба приказати:"
 
 #. Must declare static, because it will be used forever
-#: anjuta.glade.h:233 src/project_dbase.c:196 src/toolbar.c:214
+#: anjuta.glade.h:234 src/project_dbase.c:196 src/toolbar.c:214
 msgid "Open Project"
 msgstr "Отвори пројекат"
 
-#: anjuta.glade.h:234
+#: anjuta.glade.h:235
 msgid "Open existing Project."
 msgstr "Отвори постојећи пројекат"
 
-#: anjuta.glade.h:235
+#: anjuta.glade.h:236
 msgid "Open existing file or create a new file."
 msgstr "Отвори постојећу датотеку или направи нову датотеку"
 
-#: anjuta.glade.h:236 src/main_menubar_def.h:36 src/text_editor_gui.c:101
+#: anjuta.glade.h:237 src/main_menubar_def.h:36 src/text_editor_gui.c:101
 #: src/toolbar.c:81
 msgid "Open file"
 msgstr "Отвори датотеку"
 
-#: anjuta.glade.h:237
+#: anjuta.glade.h:238
 msgid "Open last working Project"
 msgstr "Отвори последњи рађени пројекат"
 
-#: anjuta.glade.h:238
+#: anjuta.glade.h:239
 msgid "Optimization"
 msgstr "Оптимизација"
 
 #. 15
-#: anjuta.glade.h:239 src/text_editor_menu.c:329
+#: anjuta.glade.h:240 src/text_editor_menu.c:329
 msgid "Options"
 msgstr "Могућности"
 
-#: anjuta.glade.h:240
+#: anjuta.glade.h:241
 msgid "Original Berkeley style"
 msgstr "Оригинални Беркли (Berkeley) стил"
 
-#: anjuta.glade.h:241
+#: anjuta.glade.h:242
 msgid "Other colors"
 msgstr "Остале боје"
 
-#: anjuta.glade.h:242
+#: anjuta.glade.h:243
 msgid "Other messages:"
 msgstr "Остале поруке"
 
-#: anjuta.glade.h:243 src/an_symbol_view.c:54
+#: anjuta.glade.h:244 src/an_symbol_view.c:54
 msgid "Others"
 msgstr "Остали"
 
-#: anjuta.glade.h:244
+#: anjuta.glade.h:245
 msgid "Output files"
 msgstr "Излазне датотеке"
 
-#: anjuta.glade.h:245
+#: anjuta.glade.h:246
 msgid "Pick a color"
 msgstr "Изабери боју"
 
-#: anjuta.glade.h:246
+#: anjuta.glade.h:247
 msgid "Pixmap module Makefile.am"
 msgstr "Pixmap модул Makefile.am"
 
-#: anjuta.glade.h:247
+#: anjuta.glade.h:248
 msgid "Plus/Minus"
 msgstr "Плус/минус"
 
-#: anjuta.glade.h:248
+#: anjuta.glade.h:249
 msgid "Po module (translation) Makefile.am"
 msgstr "По модул (превод) Makefile.am"
 
-#: anjuta.glade.h:249
+#: anjuta.glade.h:250
 msgid "Position:"
 msgstr "Позиција:"
 
-#: anjuta.glade.h:250
+#: anjuta.glade.h:251
 msgid "Press this button to dismiss the dialog"
 msgstr "Притисните ово дугме да одбијете прозорче"
 
-#: anjuta.glade.h:251
+#: anjuta.glade.h:252
 msgid "Pressing backspace un-indents"
 msgstr "Притисак на backspace извлачи"
 
-#: anjuta.glade.h:252
+#: anjuta.glade.h:253
 msgid "Pressing tab indents"
 msgstr "Притисак на табулатор увлачи"
 
-#: anjuta.glade.h:253
+#: anjuta.glade.h:254
 msgid "Print options"
 msgstr "Подешавање штампања"
 
-#: anjuta.glade.h:254
+#: anjuta.glade.h:255
 msgid "Programs"
 msgstr "Програми"
 
-#: anjuta.glade.h:255 src/project_dbase_gui.c:609 src/project_dbase_gui.c:626
+#: anjuta.glade.h:256 src/project_dbase_gui.c:609 src/project_dbase_gui.c:626
 #: src/toolbar.c:151
 msgid "Project"
 msgstr "Пројекат"
 
-#: anjuta.glade.h:256
+#: anjuta.glade.h:257
 msgid "Project Configuration"
 msgstr "Подешавања пројекта"
 
-#: anjuta.glade.h:257 src/wizard_gui.c:469
+#: anjuta.glade.h:258 src/wizard_gui.c:469
 msgid "Project Description"
 msgstr "Опис пројекта"
 
-#: anjuta.glade.h:258
+#: anjuta.glade.h:259
 msgid "Project Version"
 msgstr "Верзија пројекта"
 
-#: anjuta.glade.h:259
+#: anjuta.glade.h:260
 msgid "Project configure.in"
 msgstr "Пројектна configure.in датотека"
 
-#: anjuta.glade.h:260
+#: anjuta.glade.h:261
 msgid "Project level"
 msgstr "Ниво пројекта"
 
-#: anjuta.glade.h:261
+#: anjuta.glade.h:262
 msgid "Projects:"
 msgstr "Пројекти:"
 
-#: anjuta.glade.h:262
+#: anjuta.glade.h:263
 msgid "Read me"
 msgstr "Прочитај ме"
 
-#: anjuta.glade.h:263
+#: anjuta.glade.h:264
 msgid "Recent Files:"
 msgstr "Недавне датотеке"
 
-#: anjuta.glade.h:264
+#: anjuta.glade.h:265
 msgid "Recent Projects:"
 msgstr "Недавни пројекти"
 
-#: anjuta.glade.h:265
+#: anjuta.glade.h:266
 msgid "Regular Expression"
 msgstr "Регуларан израз"
 
-#: anjuta.glade.h:266
+#: anjuta.glade.h:267
 msgid "Reload Session Defaults"
 msgstr "Поново учитај подешавања радног окружења"
 
-#: anjuta.glade.h:267
+#: anjuta.glade.h:268
 msgid "Reload System Defaults"
 msgstr "Поново учитај системска подешавања"
 
 #. 3
-#: anjuta.glade.h:268 src/cvs_gui.c:93 src/project_dbase_gui.c:340
+#: anjuta.glade.h:269 src/cvs_gui.c:93 src/project_dbase_gui.c:340
 #: src/watch_gui.c:43
 msgid "Remove"
 msgstr "Уклони"
 
-#: anjuta.glade.h:269
+#: anjuta.glade.h:270
 msgid "Replace With:"
 msgstr "Замени са:"
 
-#: anjuta.glade.h:270
+#: anjuta.glade.h:271
 msgid "Reset all sticky tags during update (looses branch) [-A]"
 msgstr "Врати све лепљиве ознаке при освежавању (губи грану) [-A]"
 
-#: anjuta.glade.h:271
+#: anjuta.glade.h:272
 msgid "Right"
 msgstr "Десно"
 
-#: anjuta.glade.h:272
+#: anjuta.glade.h:273
 msgid "Run Configure Script"
 msgstr "Покрени скрипту за подешавање"
 
-#: anjuta.glade.h:273
+#: anjuta.glade.h:274
 msgid "Run detached"
 msgstr "Покрени одвојено"
 
-#: anjuta.glade.h:274
+#: anjuta.glade.h:275
 msgid "Run in Terminal"
 msgstr "Покрени у терминалу"
 
-#: anjuta.glade.h:275
+#: anjuta.glade.h:276
 msgid "Run in terminal"
 msgstr "Покрени у терминалу"
 
-#: anjuta.glade.h:276
+#: anjuta.glade.h:277
 msgid "Save all files"
 msgstr "Сачувај све датотеке"
 
-#: anjuta.glade.h:277
+#: anjuta.glade.h:278
 msgid "Save files interval in minutes"
 msgstr "Интервал аутоматског снимања изражен у минутима"
 
-#: anjuta.glade.h:278
+#: anjuta.glade.h:279
 msgid "Save session interval in minutes"
 msgstr "Интервал рада изражен у минутима"
 
-#: anjuta.glade.h:279
+#: anjuta.glade.h:280
 msgid "Scripts at the end of top level Makefile.am"
 msgstr "Скрипте на крају корене Makefile.am датотеке"
 
-#: anjuta.glade.h:280
+#: anjuta.glade.h:281
 msgid "Search Action:"
 msgstr "Дејство претраге:"
 
-#: anjuta.glade.h:281
+#: anjuta.glade.h:282
 msgid "Search Direction:"
 msgstr "Смер претраживања:"
 
-#: anjuta.glade.h:282
+#: anjuta.glade.h:283
 msgid "Search Expression"
 msgstr "Израз који тражите"
 
-#: anjuta.glade.h:283
+#: anjuta.glade.h:284
 msgid "Search Expression:"
 msgstr "Израз који тражите:"
 
-#: anjuta.glade.h:284
+#: anjuta.glade.h:285
 msgid "Search In:"
 msgstr "Тражи у:"
 
-#: anjuta.glade.h:285
+#: anjuta.glade.h:286
 msgid "Search Recursively"
 msgstr "Рекурзивна претрага"
 
-#: anjuta.glade.h:286
+#: anjuta.glade.h:287
 msgid "Search Target"
 msgstr "Тражени низ"
 
-#: anjuta.glade.h:287
+#: anjuta.glade.h:288
 msgid "Search Variable"
 msgstr "Променљива претраге"
 
-#: anjuta.glade.h:288
+#: anjuta.glade.h:289
 msgid "Select highlight style to edit:"
 msgstr "Изаберите стил осветљења који желите да уредите:"
 
-#: anjuta.glade.h:289
+#: anjuta.glade.h:290
 msgid "Select theme:"
 msgstr "Изабери тему"
 
-#: anjuta.glade.h:290
+#: anjuta.glade.h:291
 msgid "Selection background:"
 msgstr "Боја означене позадине:"
 
-#: anjuta.glade.h:291
+#: anjuta.glade.h:292
 msgid "Selection foreground:"
 msgstr "Боја означеног текста:"
 
-#: anjuta.glade.h:292
+#: anjuta.glade.h:293
 msgid "Setting"
 msgstr "Подешавање"
 
-#: anjuta.glade.h:293
+#: anjuta.glade.h:294
 msgid "Settings"
 msgstr "Подешавања"
 
-#: anjuta.glade.h:294
+#: anjuta.glade.h:295 src/sharedlib_gui.c:102
+msgid "Shared libraries"
+msgstr "Дељене библиотеке"
+
+#: anjuta.glade.h:296
 msgid "Short cut:"
 msgstr "Пречица:"
 
-#: anjuta.glade.h:295
+#: anjuta.glade.h:297
 msgid "Show tooltips"
 msgstr "Прикажи помоћ изнад иконица"
 
-#: anjuta.glade.h:296
+#: anjuta.glade.h:298
 msgid "Silent. That is, do not echo shell commads during make"
 msgstr ""
 "Не приказуј наредбе интерпретатора наредби за време позива програма make"
 
-#: anjuta.glade.h:297
+#: anjuta.glade.h:299
 msgid "Sorted by most recent use"
 msgstr "Поређано према најскоријој употреби"
 
-#: anjuta.glade.h:298
+#: anjuta.glade.h:300
 msgid "Sorted in alphabetical order"
 msgstr "Поређано по азбучном реду"
 
-#: anjuta.glade.h:299
+#: anjuta.glade.h:301
 msgid "Sorted in the order you open them"
 msgstr "Поређано по редоследу како их отварате"
 
-#: anjuta.glade.h:300
+#: anjuta.glade.h:302
 msgid "Source Directories"
 msgstr "Директоријуми са изворним кодом"
 
-#: anjuta.glade.h:301
+#: anjuta.glade.h:303
 msgid "Source module Makefile.am"
 msgstr "Модул изворног кода Makefile.am"
 
-#: anjuta.glade.h:302
+#: anjuta.glade.h:304
 msgid "Space-seperated list of directory name patterns to ignore"
 msgstr "Списак директоријума одвојен празним местом који се игноришу"
 
-#: anjuta.glade.h:303
+#: anjuta.glade.h:305
 msgid "Space-seperated list of directory name patterns to match"
 msgstr "Списак израза одвојен празним местом који се поклапају"
 
-#: anjuta.glade.h:304
+#: anjuta.glade.h:306
 msgid "Space-seperated list of file name patterns to ignore"
 msgstr "Списак израза одвојен празним местом који се игноришу"
 
-#: anjuta.glade.h:305
+#: anjuta.glade.h:307
 msgid "Space-seperated list of file name patterns to match"
 msgstr "Списак израза одвојен празним местом за поклапање"
 
-#: anjuta.glade.h:306
+#: anjuta.glade.h:308
 msgid "Squares"
 msgstr "Квадратно"
 
-#: anjuta.glade.h:307
+#: anjuta.glade.h:309
 msgid "Standard error:"
 msgstr "Стандардне грешке:"
 
-#: anjuta.glade.h:308
+#: anjuta.glade.h:310
 msgid "Standard input:"
 msgstr "Стандардни улаз:"
 
-#: anjuta.glade.h:309
+#: anjuta.glade.h:311
 msgid "Standard output:"
 msgstr "Стандардни излаз:"
 
-#: anjuta.glade.h:310
+#: anjuta.glade.h:312
 msgid ""
 "Start with a new Project. Application wizard will guide you with Project "
 "creation. With the Application Wizard, you will be able to create the "
@@ -1307,239 +1316,239 @@ msgstr ""
 "то стварање. Са чаробњаком за израду програма, моћи ћете да израдите оквир "
 "различитих типова пројеката."
 
-#: anjuta.glade.h:311
+#: anjuta.glade.h:313
 msgid "Strike-Out"
 msgstr "Прецртано"
 
-#: anjuta.glade.h:312
+#: anjuta.glade.h:314
 msgid "Strip trailling spaces on file save"
 msgstr "Уклони пратећи вишак празних места приликом бележења датотеке"
 
-#: anjuta.glade.h:313
+#: anjuta.glade.h:315
 msgid "Style of Kangleipak"
 msgstr "Kangleipak стил"
 
-#: anjuta.glade.h:314 src/anjuta-encodings.c:721
+#: anjuta.glade.h:316 src/anjuta-encodings.c:721
 msgid "Supported Encodings"
 msgstr "Подржана кодирања"
 
-#: anjuta.glade.h:315
+#: anjuta.glade.h:317
 msgid "Supports"
 msgstr "Подржава"
 
-#: anjuta.glade.h:316
+#: anjuta.glade.h:318
 msgid "Syntax highlight editor"
 msgstr "Уређење осветљавања кода"
 
-#: anjuta.glade.h:317
+#: anjuta.glade.h:319
 msgid "Tab size in spaces:"
 msgstr "Размак (у местима):"
 
-#: anjuta.glade.h:318
+#: anjuta.glade.h:320
 msgid "Tabs position:"
 msgstr "Позиција језичака:"
 
-#: anjuta.glade.h:319
+#: anjuta.glade.h:321
 msgid "Target:"
 msgstr "Излазна датотека:"
 
-#: anjuta.glade.h:320
+#: anjuta.glade.h:322
 msgid "Terminal options"
 msgstr "Подешавање терминала"
 
-#: anjuta.glade.h:321
+#: anjuta.glade.h:323
 msgid "Theme"
 msgstr "Тема"
 
-#: anjuta.glade.h:322
+#: anjuta.glade.h:324
 msgid "Tool Editor"
 msgstr "Уреди алат"
 
-#: anjuta.glade.h:323
+#: anjuta.glade.h:325
 msgid "Top"
 msgstr "Врх"
 
-#: anjuta.glade.h:324
+#: anjuta.glade.h:326
 msgid "Top level Makefile.am"
 msgstr "Корени Makefile.am"
 
-#: anjuta.glade.h:325
+#: anjuta.glade.h:327
 msgid "Truncate long messages"
 msgstr "Одсеци дугачке поруке"
 
-#: anjuta.glade.h:326
+#: anjuta.glade.h:328
 msgid "Try to save in current locale's encoding"
 msgstr "Покушај да сачувај у кодирању текућег локалитета"
 
-#: anjuta.glade.h:327
+#: anjuta.glade.h:329
 msgid "Try to save in original encoding"
 msgstr "Покушај да сачувај у изворном кодирању"
 
-#: anjuta.glade.h:328
+#: anjuta.glade.h:330
 msgid "Underline Plain"
 msgstr "Обично подвучено"
 
 # несигурно
-#: anjuta.glade.h:329
+#: anjuta.glade.h:331
 msgid "Underline Squiggle"
 msgstr "Подвучено кривудаво"
 
 # несигурно
-#: anjuta.glade.h:330
+#: anjuta.glade.h:332
 msgid "Underline-TT"
 msgstr "Подвучено цик-цак"
 
-#: anjuta.glade.h:331
+#: anjuta.glade.h:333
 msgid "Underlined"
 msgstr "Подвучено"
 
-#: anjuta.glade.h:332 src/cvs_gui.c:73 src/registers_gui.c:47
-#: src/sharedlib_gui.c:40 src/signals_gui.c:54 src/stack_trace.c:364
+#: anjuta.glade.h:334 src/cvs_gui.c:73 src/registers_gui.c:58
+#: src/sharedlib_gui.c:52 src/signals_gui.c:54 src/stack_trace.c:364
 msgid "Update"
 msgstr "Освежи"
 
-#: anjuta.glade.h:333
+#: anjuta.glade.h:335
 msgid "Update tags image automatically"
 msgstr "Аутоматски допуни списак функција/променљивих"
 
-#: anjuta.glade.h:334
+#: anjuta.glade.h:336
 msgid "Use GNOME terminal profile:"
 msgstr "Користи Гном терминал поставку:"
 
-#: anjuta.glade.h:335
+#: anjuta.glade.h:337
 msgid "Use currently selected profile in GNOME terminal"
 msgstr "Користи тренутно изабрану поставку у Гном термуналу"
 
-#: anjuta.glade.h:336
+#: anjuta.glade.h:338
 msgid "Use default"
 msgstr "Користи подразумевано"
 
-#: anjuta.glade.h:337
+#: anjuta.glade.h:339
 msgid "Use tabs for indentation"
 msgstr "Користи размак за увлачење линија кода"
 
-#: anjuta.glade.h:338
+#: anjuta.glade.h:340
 msgid "User Tools"
 msgstr "Кориснички алати"
 
-#: anjuta.glade.h:339
+#: anjuta.glade.h:341
 msgid "User email address:"
 msgstr "Корисничка адреса е-поште:"
 
-#: anjuta.glade.h:340
+#: anjuta.glade.h:342
 msgid "User information"
 msgstr "Кориснички подаци"
 
-#: anjuta.glade.h:341
+#: anjuta.glade.h:343
 msgid "User name:"
 msgstr "Корисничко име:"
 
-#: anjuta.glade.h:342
+#: anjuta.glade.h:344
 msgid "Variable list"
 msgstr "Списак променљивих"
 
-#: anjuta.glade.h:343 src/project_dbase_gui.c:931
+#: anjuta.glade.h:345 src/project_dbase_gui.c:931
 msgid "Version:"
 msgstr "Верзија:"
 
-#: anjuta.glade.h:344
+#: anjuta.glade.h:346
 msgid "View"
 msgstr "Погледај"
 
-#: anjuta.glade.h:345
+#: anjuta.glade.h:347
 msgid "Warn when an undefined variable is referenced in the Makefile"
 msgstr ""
 "Упозори када се узима адреса недефинисане променљиве у датотеци Makefile"
 
-#: anjuta.glade.h:346
+#: anjuta.glade.h:348
 msgid "Warning message indicator style:"
 msgstr "Стил индикатора обавештења:"
 
-#: anjuta.glade.h:347
+#: anjuta.glade.h:349
 msgid "Warnings"
 msgstr "Упозорења"
 
-#: anjuta.glade.h:348
+#: anjuta.glade.h:350
 msgid "Warnings messages:"
 msgstr "Упозорења:"
 
-#: anjuta.glade.h:349
+#: anjuta.glade.h:351
 msgid "Working directory:"
 msgstr "Радни директоријум:"
 
-#: anjuta.glade.h:350
+#: anjuta.glade.h:352
 msgid "Wrap bookmarks search around"
 msgstr "Изврши претрагу обележивача у круг"
 
-#: anjuta.glade.h:351
+#: anjuta.glade.h:353
 msgid "_Attach"
 msgstr "_Додај"
 
-#: anjuta.glade.h:352
+#: anjuta.glade.h:354
 msgid "_Build a file:"
 msgstr "_Преведи датотеку:"
 
-#: anjuta.glade.h:353
+#: anjuta.glade.h:355
 msgid "_Condition:"
 msgstr "_Услов:"
 
-#: anjuta.glade.h:354
+#: anjuta.glade.h:356
 msgid "_Disable all"
 msgstr "_Онемогући све"
 
-#: anjuta.glade.h:355
+#: anjuta.glade.h:357
 msgid "_Edit"
 msgstr "_Уреди"
 
-#: anjuta.glade.h:356
+#: anjuta.glade.h:358
 msgid "_Execute:"
 msgstr "_Изврши:"
 
-#: anjuta.glade.h:357
+#: anjuta.glade.h:359
 msgid "_Hide paths"
 msgstr "Са_криј путање"
 
-#: anjuta.glade.h:358
+#: anjuta.glade.h:360
 msgid "_Image editor:"
 msgstr "_Обрада слика:"
 
-#: anjuta.glade.h:359
+#: anjuta.glade.h:361
 msgid "_Language:"
 msgstr "_Језик:"
 
-#: anjuta.glade.h:360
+#: anjuta.glade.h:362
 msgid "_Location:"
 msgstr "_Место:"
 
-#: anjuta.glade.h:361
+#: anjuta.glade.h:363
 msgid "_Make a file:"
 msgstr "_Преведи датотеку:"
 
-#: anjuta.glade.h:362
+#: anjuta.glade.h:364
 msgid "_Pass:"
 msgstr "_Пролаз:"
 
-#: anjuta.glade.h:363
+#: anjuta.glade.h:365
 msgid "_Pixmap editor:"
 msgstr "_Уређивање сличица:"
 
-#: anjuta.glade.h:364
+#: anjuta.glade.h:366
 msgid "_Process to attach to:"
 msgstr "_Додаје се процесу:"
 
-#: anjuta.glade.h:365
+#: anjuta.glade.h:367
 msgid "_Remove all"
 msgstr "_Уклони све"
 
-#: anjuta.glade.h:366
+#: anjuta.glade.h:368
 msgid "_Save Theme As"
 msgstr "_Сачувај тему као"
 
-#: anjuta.glade.h:367
+#: anjuta.glade.h:369
 msgid "_Terminal:"
 msgstr "_Терминал:"
 
-#: anjuta.glade.h:368
+#: anjuta.glade.h:370
 msgid "_Update"
 msgstr "_Освежи"
 
@@ -1973,7 +1982,7 @@ msgstr "Програм за изградњу класа"
 #. 13
 #. 14
 #: plugins/class-gen/clsGen.c:1343 src/main_menubar_def.h:997
-#: src/project_dbase_gui.c:366 src/registers_gui.c:55 src/sharedlib_gui.c:48
+#: src/project_dbase_gui.c:366 src/registers_gui.c:66 src/sharedlib_gui.c:60
 #: src/signals_gui.c:62 src/stack_trace.c:379 src/watch_gui.c:74
 msgid "Help"
 msgstr "Помоћ"
@@ -3406,7 +3415,7 @@ msgstr "Означени децимални"
 msgid "Unsigned decimal"
 msgstr "Неозначени децимални"
 
-#: src/debug_tree.c:1520 src/registers_gui.c:111
+#: src/debug_tree.c:1520 src/registers_gui.c:43
 msgid "Hex"
 msgstr "Хексадецимални"
 
@@ -6209,7 +6218,7 @@ msgstr "Категорија"
 msgid "Anjuta Preferences Dialog"
 msgstr "Прозорче за Анјута подешавања"
 
-#: src/preferences.c:698
+#: src/preferences.c:694
 msgid ""
 "Are you sure you want to reset the preferences to\n"
 "their default settings?"
@@ -6217,11 +6226,11 @@ msgstr ""
 "Да ли сте сигурни да желите да вратите подешавања на\n"
 "њихове подразумеване вредности?"
 
-#: src/preferences.c:701
+#: src/preferences.c:697
 msgid "_Reset"
 msgstr "_Врати поставку"
 
-#: src/preferences.c:1076
+#: src/preferences.c:1072
 #, c-format
 msgid ""
 "Cannot load Global defaults and configuration files:\n"
@@ -6234,7 +6243,7 @@ msgstr ""
 "Ово може резултирати неправилним понашањем или нестабилностима.\n"
 "Анјута ће користити уграђена (ограничена) подешавања"
 
-#: src/preferences.c:1208
+#: src/preferences.c:1204
 msgid "Anjuta Preferences"
 msgstr "Anjuta Подешавања"
 
@@ -6734,21 +6743,21 @@ msgstr "Изабери постојећи пројектни директори�
 msgid "Click Forward to begin the import"
 msgstr "Притисните Напред да би започели увоз"
 
-#: src/registers_gui.c:40
-msgid "Modify"
-msgstr "Измени"
-
-#: src/registers_gui.c:88
-msgid "CPU Registers"
-msgstr "Процесорски регистри"
-
-#: src/registers_gui.c:107
+#: src/registers_gui.c:43
 msgid "Register"
 msgstr "Регистар"
 
-#: src/registers_gui.c:115
+#: src/registers_gui.c:43
 msgid "Decimal"
 msgstr "Децимални"
+
+#: src/registers_gui.c:51
+msgid "Modify"
+msgstr "Измени"
+
+#: src/registers_gui.c:107
+msgid "CPU Registers"
+msgstr "Процесорски регистри"
 
 #: src/resources.c:51
 #, c-format
@@ -6773,19 +6782,20 @@ msgstr "Не могу покренути Devhelp. Проверите да ли �
 msgid "Replace"
 msgstr "Замени"
 
-#: src/search-replace.c:700 src/search-replace.c:1321
-#: src/search-replace.c:1328 src/search-replace.c:1340
+#: src/search-replace.c:700 src/search-replace.c:1322
+#: src/search-replace.c:1329 src/search-replace.c:1341
 msgid "Search"
 msgstr "Тражи"
 
-#: src/search-replace.c:703 src/search-replace.c:1335
+#: src/search-replace.c:703 src/search-replace.c:1336
 msgid "Replace All"
 msgstr "Замени све"
 
 #: src/search-replace.c:739
 #, c-format
 msgid "The match \"%s\" was not found. Wrap search around the document?"
-msgstr "Нема траженог текста „%s“. Да ли да наставим претрагу од почетка документа?"
+msgstr ""
+"Нема траженог текста „%s“. Да ли да наставим претрагу од почетка документа?"
 
 #: src/search-replace.c:762
 #, c-format
@@ -6811,23 +6821,19 @@ msgid "No matches. Wrap search around the document?"
 msgstr ""
 "Нема траженог низа знакова. Да ли да наставим претрагу са почетка документа?"
 
-#: src/sharedlib_gui.c:79
-msgid "Shared libraries"
-msgstr "Дељене библиотеке"
+#: src/sharedlib_gui.c:44
+msgid "Shared Object"
+msgstr "Дељени објекат"
 
-#: src/sharedlib_gui.c:100
-msgid "  Shared Object  "
-msgstr "  Дељени објекат  "
-
-#: src/sharedlib_gui.c:104
+#: src/sharedlib_gui.c:44
 msgid "From"
 msgstr "Од"
 
-#: src/sharedlib_gui.c:108
+#: src/sharedlib_gui.c:44
 msgid "To"
 msgstr "До"
 
-#: src/sharedlib_gui.c:112
+#: src/sharedlib_gui.c:44
 msgid "Sysm Read"
 msgstr "Sysm читање"
 
