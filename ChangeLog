@@ -2,10 +2,6 @@
 	
 	* Fixed bug #445752
   
-2001-09-07 Johannes Schmid <clubfan@users.sourceforge.net>
-	
-	* Fixed bug #445752
-  
 2001-08-07  Naba Kumar <kh_naba@users.sourceforge.net>
 
 	* dnd.h, dnd.c: New files for drag n drop support.
