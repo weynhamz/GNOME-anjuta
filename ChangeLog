@@ -1,5 +1,13 @@
 2004-09-19  Naba Kumar  <naba@gnome.org>
 
+	* plugins/editor/anjuta-docman.c, plugins/editor/plugin.c,
+	plugins/editor/text_editor.c, plugins/editor/text_editor_cbs.c: Added
+	save point signal to change editor tabs. Fixed accels.
+	
+	* plugins/file-loader/plugin.c: Fixed accels.
+
+	* plugins/project-manager/plugin.c: Added target selection callback.
+	
 	* plugins/project-manager/plugin.c: Added URI activation.
 	* plugins/editor/goto-line.c, plugin/editor/action_callbacks.c:
 	Fixed dialog and closed it on ok. Fixed a crash bug.

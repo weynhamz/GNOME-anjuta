@@ -98,7 +98,9 @@ text_editor_instance_init (TextEditor *te)
 static void
 text_editor_class_init (TextEditorClass *klass)
 {
+	// GType paramter[1] = { G_TYPE_BOOLEAN };
 	GObjectClass *object_class = G_OBJECT_CLASS (klass);
+	
 	parent_class = g_type_class_peek_parent (klass);
 	object_class->finalize = text_editor_destroy;
 }

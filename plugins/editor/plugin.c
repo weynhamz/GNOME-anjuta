@@ -93,7 +93,7 @@ static GtkActionEntry actions_file[] = {
   { "ActionFileSaveAs", N_("Save _As ..."), GTK_STOCK_SAVE_AS, NULL,
 	N_("Save the current file with a different name"),
     G_CALLBACK (on_save_as1_activate)},
-  { "ActionFileSaveAll", N_("Save A_ll"),  GTK_STOCK_SAVE, NULL,
+  { "ActionFileSaveAll", N_("Save A_ll"),  NULL, NULL,
 	N_("Save all currently open files, except new files"),
     G_CALLBACK (on_save_all1_activate)},
   { "ActionFileClose", N_("_Close File"), GTK_STOCK_CLOSE, "<control>w",
@@ -430,7 +430,7 @@ static GtkActionEntry actions_bookmark[] = {
 	N_("Jump to the last bookmark in the file"),
     G_CALLBACK (on_editor_command_bookmark_last_activate)},
   { "ActionBookmarkClear", N_("_Clear all bookmarks"),
-	GTK_STOCK_CLOSE, NULL,
+	NULL, NULL,
 	N_("Clear bookmarks"),
     G_CALLBACK (on_editor_command_bookmark_clear_activate)},
 };

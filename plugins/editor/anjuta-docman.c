@@ -423,6 +423,13 @@ on_notebook_switch_page (GtkNotebook * notebook,
 	}
 }
 
+static void
+on_editor_save_point (TextEditor *editor, gboolean entering,
+					  AnjutaDocman *docman)
+{
+	anjuta_docman_update_page_label (docman, GTK_WIDGET (editor));
+}
+
 TextEditor *
 anjuta_docman_add_editor (AnjutaDocman *docman, const gchar *uri, const gchar *name)
 {
@@ -459,6 +466,9 @@ anjuta_docman_add_editor (AnjutaDocman *docman, const gchar *uri, const gchar *n
 	gtk_signal_handler_unblock_by_func (GTK_OBJECT (docman),
 			    GTK_SIGNAL_FUNC (on_notebook_switch_page),
 			    docman);
+	g_signal_connect (TEXT_EDITOR (te), "save_point",
+					  G_CALLBACK (on_editor_save_point), docman);
+	
 	anjuta_docman_set_current_editor(docman, TEXT_EDITOR (te));
 	return TEXT_EDITOR (te);
 }
@@ -499,6 +509,9 @@ anjuta_docman_remove_editor (AnjutaDocman *docman, TextEditor* te)
 	gtk_signal_handler_block_by_func (GTK_OBJECT (docman),
 				       GTK_SIGNAL_FUNC (on_notebook_switch_page),
 				       docman);
+	g_signal_handlers_disconnect_by_func (G_OBJECT (te),
+										  G_CALLBACK (on_editor_save_point),
+										  docman);
 #if 0 // FIXME
 	if (te->uri != NULL)
 	{

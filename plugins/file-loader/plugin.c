@@ -284,7 +284,7 @@ static GtkActionEntry actions_file[] = {
     G_CALLBACK (on_new_activate)},
   { "ActionFileOpen", GTK_STOCK_OPEN, N_("_Open ..."), "<control>o",
 	N_("Open file"), G_CALLBACK (on_open_activate)},
-  { "ActionFileOpenRecent", GTK_STOCK_OPEN, N_("Open _Recent"), NULL,
+  { "ActionFileOpenRecent", NULL, N_("Open _Recent"), NULL,
 	N_("Open recent file"), NULL},
 };
 

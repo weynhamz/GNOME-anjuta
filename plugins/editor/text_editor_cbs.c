@@ -147,9 +147,11 @@ on_text_editor_scintilla_notify (GtkWidget * sci,
 		// scintilla_uri_dropped(nt->text);
 		break;
 	case SCN_SAVEPOINTREACHED:
+		g_signal_emit_by_name(G_OBJECT (te), "save_point", 0, TRUE);
+		break;
 	case SCN_SAVEPOINTLEFT:
+		g_signal_emit_by_name(G_OBJECT (te), "save_point", 0, FALSE);
 		//FIXME:
-		// anjuta_update_page_label(te);
 		// anjuta_update_title ();
 		// update_main_menubar ();
 		text_editor_update_controls (te);

@@ -62,7 +62,8 @@ on_add_source (GtkAction *action, ProjectManagerPlugin *plugin)
 }
 
 static void
-on_uri_activated (GtkWidget *widget, gchar *uri, ProjectManagerPlugin *plugin)
+on_uri_activated (GtkWidget *widget, const gchar *uri,
+				  ProjectManagerPlugin *plugin)
 {
 	IAnjutaFileLoader *loader;
 	
@@ -70,6 +71,26 @@ on_uri_activated (GtkWidget *widget, gchar *uri, ProjectManagerPlugin *plugin)
 										 IAnjutaFileLoader, NULL);
 	if (loader)
 		ianjuta_file_loader_load (loader, uri, FALSE, NULL);
+}
+
+static void
+on_target_selected (GtkWidget *widget, const gchar *target_id,
+					ProjectManagerPlugin *plugin)
+{
+#if 0
+	GList *list;
+	
+	g_message ("Target selected: %s", target_id);
+	gbf_project_configure_target (GBF_PROJECT (plugin->project), target_id, NULL);
+	list = gbf_project_get_build_targets (GBF_PROJECT (plugin->project), NULL);
+	while (list)
+	{
+		GbfBuildTarget *t = list->data;
+		g_message ("Build target: %s, %s, %s", t->id, t->label, t->description);
+		list = g_list_next (list);
+	}
+	g_list_free (list);
+#endif
 }
 
 static void
@@ -95,12 +116,12 @@ static GtkActionEntry pm_actions[] =
 	},
 	{
 		"ActionProjectAddGroup", NULL,
-		N_("Add _Group"), NULL, N_("Add a group to project"),
+		N_("Add Targets _Group"), NULL, N_("Add a targets group to project"),
 		G_CALLBACK (on_add_group)
 	},
 	{
 		"ActionProjectAddTarget", NULL,
-		N_("Add _Target"), NULL, N_("Add a target to project"),
+		N_("Add Build _Target"), NULL, N_("Add a target to project"),
 		G_CALLBACK (on_add_target)
 	},
 	{
@@ -186,6 +207,8 @@ activate_plugin (AnjutaPlugin *plugin)
 	g_object_unref (model);
 	g_signal_connect (view, "uri-activated",
 					  G_CALLBACK (on_uri_activated), plugin);
+	g_signal_connect (view, "target-selected",
+					  G_CALLBACK (on_target_selected), plugin);
 	
 	scrolled_window = gtk_scrolled_window_new (NULL, NULL);
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),
