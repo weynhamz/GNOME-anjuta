@@ -5,6 +5,24 @@ invaluable supports and contributions in making the Anjuta project a
 grand success. Without them the project wouldn't have stood where it
 is now.
 
+	- Timothee Besset <timo@qeradiant.com>, for his patches,
+
+	- Roel Vanhout <roel@stack.be>, for his find and bookmarks patches,
+
+	- Roy Wood <roy.wood@filogix.com>, for fixing the clipboard problem
+	  and code cleanups,
+
+	- Tina Hirsch <cevina@users.sourceforge.net>, for her wxWindows 
+	  project type patch,
+
+	- Jeroen van der Vegt <A.J.vanderVegt@ITS.TUDelft.nl>, for his
+	  debug / watch patch,
+	
+	- Ishan Chattopadhyaya <ichattopadhyaya@yahoo.com>, for his nice
+	  kickstart tutorial,
+
+	- Todd Goyen <goyen@mbi-berlin.de>, for his patch and new icon,
+	
 	- Benke László <decike@freemail.hu>, for his tabs reordering option
 	  patch,
 
@@ -16,7 +34,7 @@ is now.
 	- Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>, for his
 	  TagManager library and many updates and patches,
 
-	- Dan Elphick <dre00r@ecs.soton.ac.uk>, for his patch,
+	- Dan Elphick <dre00r@ecs.soton.ac.uk>, for his patches,
 
 	- Jens Georg <mail@jensgeorg.de>, for his close tabs patch,
 	
@@ -97,7 +115,8 @@ in translating the project.
 	- Marcelo Elias Del Valle <marceloelias@iname.com>, for his Brazilian 
 	  Portuguese translation,
 	- Gitte Wange <gitte@babytux.dk>, Göran Weinholt <weinholt@linux.nu>, and 
-	  Keld Simonsen <keld@dkuug.dk>, for their Danish translation.
+	  Keld Simonsen <keld@dkuug.dk>, for their Danish translation,
+	- Martin Lacko <lacko@host.sk>, for his Slovak translation.
 	
 With warm regards,
 

@@ -420,3 +420,16 @@ decide if you have anything to add (there are about 10 places where it
 occurs).
 
 Good luck!
+
+8) How to correctly credit people:
+----------------------------------
+
+New contributors should always be credited. There are three files which 
+must be updated:
+
+	* THANKS
+	* widgets/e-shell-about-box.c
+	* manuals/anjuta-manual/C/authors.sgml
+
+You should also ensure that you submit headed ChangeLog entries with a 
+name and e-mail address when you submit a patch.

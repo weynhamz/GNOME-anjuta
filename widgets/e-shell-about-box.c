@@ -82,6 +82,13 @@ static const char *text[] = {
 	"Philip Van Hoof <freax@pandora.be>",
 	"Vadim Berezniker <vadim@berezniker.com>",
 	"Rob Bradford <robster@debian.org>",
+	"Timothee Besset <timo@qeradiant.com>",
+	"Roel Vanhout <roel@stack.be>",
+	"Roy Wood <roy.wood@filogix.com>",
+	"Tina Hirsch <cevina@users.sourceforge.net>",
+	"Jeroen van der Vegt <A.J.vanderVegt@ITS.TUDelft.nl>",
+	"Ishan Chattopadhyaya <ichattopadhyaya@yahoo.com>",
+	"Todd Goyen <goyen@mbi-berlin.de>"
 };
 #define NUM_TEXT_LINES (sizeof (text) / sizeof (*text))
 
