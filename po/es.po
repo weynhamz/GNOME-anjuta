@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.ANJUTA_1_2_0.es\n"
 "POT-Creation-Date: 2003-06-07 12:02+0200\n"
-"PO-Revision-Date: 2003-06-07 19:29+0000\n"
+"PO-Revision-Date: 2003-06-11 00:03+0000\n"
 "Last-Translator: Francisco Javier Fernández <serrador@arrakis.es>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -53,12 +53,12 @@ msgstr ""
 "Copyright © Naba Kumar\n"
 "\n"
 "Este programa es software libre, puede redistribuirlo y/o modificarlo bajo "
-"los términos de la Licencia Pública generla GNU tal como se publica por la "
+"los términos de la Licencia Pública general GNU tal como se publica por la "
 "Free Software Foundation; tanto en la versión 2 de la Licencia, o (a su "
 "opción) cualquier otra versión posterior. \n"
 "\n"
 "Este programa se distribuye con la esperanza de que le sea útil, pero SIN "
-"NINGUNA GARANTÍA, sin incluso la garantía implicita de MERCANTILIDAD O "
+"NINGUNA GARANTÍA, sin incluso la garantía implícita de MERCANTILIDAD O "
 "ADECUACIÓN PARA  UN PROPOSITO PARTICULAR. Vea la Licencia Pública General "
 "GNU para más detalles.\n"
 "\n"
@@ -1521,7 +1521,7 @@ msgstr "Intentar guardar en la codificación de la localización actual"
 
 #: anjuta.glade.h:342 anjuta_dialogs_strings.c:538
 msgid "Try to save in original encoding"
-msgstr "Intentar gardar en la codificación original"
+msgstr "Intentar guardar en la codificación original"
 
 #: anjuta.glade.h:343 anjuta_dialogs_strings.c:455
 #: anjuta_dialogs_strings.c:461 anjuta_dialogs_strings.c:467
@@ -1918,7 +1918,7 @@ msgid ""
 "s'"
 msgstr ""
 "Al cargar una disposición: no se sabe cómo crear un objeto empotrable cuyo "
-"nick es '%s'"
+"apodo es '%s'"
 
 #: gdl/gdl-dock-layout.c:1303
 msgid "Layout managment"
@@ -7238,7 +7238,7 @@ msgid ""
 "Do you want to reload it?"
 msgstr ""
 "El archivo «%s» en el disco es más reciente\n"
-"que el buffer actual.\n"
+"que el búfer actual.\n"
 "¿Desea recargarlo?"
 
 #: src/text_editor.c:1434
@@ -7962,7 +7962,7 @@ msgstr " Opciones de Proyecto"
 
 #: src/wizard_gui.c:659
 msgid "Include GNU Copyright statement in file headings"
-msgstr "Incluir preámbulo de copyright GNU en las cabeceras"
+msgstr "Incluir preámbulo de Copyright GNU en las cabeceras"
 
 #: src/wizard_gui.c:666
 msgid "Enable Gettext Support"
