@@ -1,3 +1,11 @@
+2001-08-14  Stephane Demurget <demurgets@free.fr>
+
+	* data/Makefile.am: added some rules to support the gnome/ macros
+	  dir in order to make the wizards work again.
+
+	* anjuta.spec.in: upped the release number.
+
+
 2001-08-12  Zbigniew Chyla  <cyba@gnome.pl>
 
 	* configure.in (ALL_LINGUAS): Added pl.
