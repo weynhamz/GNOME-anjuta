@@ -2167,3 +2167,8 @@ void on_customize_shortcuts_activate(GtkMenuItem *menuitem, gpointer user_data)
 	gtk_window_set_modal((GtkWindow *) messagebox, TRUE);
 	gnome_dialog_run_and_close((GnomeDialog *) messagebox);
 }
+
+void on_tool_editor_activate(GtkMenuItem *menuitem, gpointer user_data)
+{
+	anjuta_tools_edit();
+}

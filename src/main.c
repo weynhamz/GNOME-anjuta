@@ -173,6 +173,8 @@ main (int argc, char *argv[])
 	}
 	poptFreeContext(context);
 
+	/* Libglade stuff */
+	glade_gnome_init();
 	if (!no_splash)
 		splash_screen ();
 	

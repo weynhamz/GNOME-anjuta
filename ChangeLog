@@ -1,3 +1,11 @@
+2002-12-11  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
+
+	* configure.in, anjuta.spec.in: Added libglade dependency.
+	* Makefile.am: Added anjuta.glade file.
+	* src/anjuta-tools.c, src/main.c, src/main_menubar_def.h
+	, src/mainmenu_callbacks.[ch], src/message-manager.h
+	, src/widget-registry.c: Tools editor GUI + other additions.
+
 2002-12-09  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
 
 	* src/project_dbase.[ch], tagmanager/tm_project.c,

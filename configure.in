@@ -89,6 +89,11 @@ if test x$EXTRA_PIXBUF_CONFIG = xno; then
   AC_MSG_ERROR(Couldn't find gdk-pixbuf-config, please install the Gdk Pixbuf package.)
 fi
 
+AC_PATH_PROG(EXTRA_LIBGLADE_CONFIG, libglade-config,no)
+if test x$EXTRA_LIBGLADE_CONFIG = xno; then
+  AC_MSG_ERROR(Couldn't find libglade-config, please install the LibGlade package.)
+fi
+
 dnl Checks for programs.
 dnl ***************************************************************************
 dnl Check for Gnome XML
@@ -154,8 +159,8 @@ else
 fi
 
 dnl Checks for libraries.
-EXTRA_GNOME_LIBS=`gnome-config --libs zvt vfs print gdk_pixbuf`
-EXTRA_GNOME_CFLAGS=`gnome-config --cflags zvt vfs print gdk_pixbuf`
+EXTRA_GNOME_LIBS=`gnome-config --libs zvt vfs print gdk_pixbuf libglade`
+EXTRA_GNOME_CFLAGS=`gnome-config --cflags zvt vfs print gdk_pixbuf libglade`
 
 AC_SUBST(EXTRA_GNOME_LIBS)
 AC_SUBST(EXTRA_GNOME_CFLAGS)

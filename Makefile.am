@@ -19,6 +19,11 @@ anjutadoc_DATA = \
 	ABOUT-NLS\
 	FUTURE
 
+anjuta_datadir = $(prefix)/@NO_PREFIX_PACKAGE_DATA_DIR@
+
+anjuta_data_DATA = \
+	anjuta.glade
+
 EXTRA_DIST = \
 	anjuta.desktop.in.in \
 	anjuta.spec.in \
@@ -29,6 +34,7 @@ EXTRA_DIST = \
 	anjuta.prj\
 	setup-gettext\
 	$(anjutadoc_DATA)
+	$(anjuta_data_DATA)
 
 @XML_I18N_MERGE_DESKTOP_RULE@
 

@@ -16,8 +16,10 @@ void an_register_submenu(const gchar *name, GtkWidget *submenu)
 		default_submenu = submenu;
 	else
 	{
-		if (NULL == g_hash_table_lookup(registry, name))
-			g_hash_table_insert(registry, (gpointer) name, submenu);
+		gchar *lname = g_strdup(name);
+		g_strdown(lname);
+		if (NULL == g_hash_table_lookup(registry, lname))
+			g_hash_table_insert(registry, (gpointer) lname, submenu);
 		else
 			g_warning("an_register_submenu: %s is already registered"
 			  , name);
@@ -32,7 +34,10 @@ GtkWidget *an_get_submenu(const gchar *name)
 		return default_submenu;
 	else
 	{
-		submenu = g_hash_table_lookup(registry, name);
+		gchar *lname = g_strdup(name);
+		g_strdown(lname);
+		submenu = g_hash_table_lookup(registry, lname);
+		g_free(lname);
 		if (NULL == submenu)
 			submenu = default_submenu;
 		return submenu;

@@ -1700,7 +1700,7 @@ static GnomeUIInfo cvs_menu_uiinfo[NUM_CVS_SUBMENUS+1] = {
 	 GNOMEUIINFO_END,
 };
 
-#define NUM_SETTINGS_SUBMENUS 8
+#define NUM_SETTINGS_SUBMENUS 9
 static GnomeUIInfo settings1_menu_uiinfo[NUM_SETTINGS_SUBMENUS+1] = {
 	{/*0*/
 	 GNOME_APP_UI_ITEM, N_("_Compiler and Linker Settings ..."),
@@ -1745,7 +1745,12 @@ static GnomeUIInfo settings1_menu_uiinfo[NUM_SETTINGS_SUBMENUS+1] = {
 	 on_customize_shortcuts_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
-	GNOMEUIINFO_END,/*8*/
+	{/*8*/
+	 GNOME_APP_UI_ITEM, N_("Tool Editor"),
+	 N_("Customize user-defined tools"),
+	 on_tool_editor_activate, NULL, NULL,
+	 GNOME_APP_PIXMAP_NONE, NULL,
+	 0, 0, NULL},GNOMEUIINFO_END,/*8*/
 };
 
 #define NUM_HELP_SUBMENUS 18
