@@ -456,7 +456,7 @@ on_use_default_font_toggled (GtkToggleButton * tb, gpointer data)
 		}
 	}
 	gtk_widget_set_sensitive (p->priv->font_picker, !state);
-	gnome_font_picker_set_font_name (GNOME_FONT_PICKER (p->priv->font_picker),
+	gtk_font_button_set_font_name (GTK_FONT_BUTTON (p->priv->font_picker),
 		font_name);
 	g_free(font_name);
 }
@@ -508,7 +508,7 @@ static void
 on_use_default_fore_toggled (GtkToggleButton * tb, gpointer data)
 {
 	StyleEditor *p;
-	guint8 r, g, b;
+	GdkColor color;
 
 	g_return_if_fail (data);
 	p = data;
@@ -516,18 +516,16 @@ on_use_default_fore_toggled (GtkToggleButton * tb, gpointer data)
 	gtk_widget_set_sensitive (p->priv->fore_colorpicker, TRUE);
 	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (tb)))
 	{
-		anjuta_util_color_from_string (p->priv->default_style->fore, &r, &g, &b);
-		gnome_color_picker_set_i8 (GNOME_COLOR_PICKER
-					   (p->priv->fore_colorpicker), r,
-					   g, b, 0);
+		gdk_color_parse (p->priv->default_style->fore, &color);
+		gtk_color_button_set_color (GTK_COLOR_BUTTON (p->priv->fore_colorpicker),
+									&color);
 		gtk_widget_set_sensitive (p->priv->fore_colorpicker, FALSE);
 	}
 	else
 	{
-		anjuta_util_color_from_string (p->priv->current_style->fore, &r, &g, &b);
-		gnome_color_picker_set_i8 (GNOME_COLOR_PICKER
-					   (p->priv->fore_colorpicker), r,
-					   g, b, 0);
+		gdk_color_parse (p->priv->current_style->fore, &color);
+		gtk_color_button_set_color (GTK_COLOR_BUTTON (p->priv->fore_colorpicker),
+									&color);
 	}
 }
 
@@ -535,25 +533,23 @@ static void
 on_use_default_back_toggled (GtkToggleButton * tb, gpointer data)
 {
 	StyleEditor *p;
-	guint8 r, g, b;
+	GdkColor color;
 
 	g_return_if_fail (data);
 	p = data;
 	gtk_widget_set_sensitive (p->priv->back_colorpicker, TRUE);
 	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (tb)))
 	{
-		anjuta_util_color_from_string (p->priv->default_style->back, &r, &g, &b);
-		gnome_color_picker_set_i8 (GNOME_COLOR_PICKER
-					   (p->priv->back_colorpicker), r,
-					   g, b, 0);
+		gdk_color_parse (p->priv->current_style->back, &color);
+		gtk_color_button_set_color (GTK_COLOR_BUTTON (p->priv->back_colorpicker),
+									&color);
 		gtk_widget_set_sensitive (p->priv->back_colorpicker, FALSE);
 	}
 	else
 	{
-		anjuta_util_color_from_string (p->priv->current_style->back, &r, &g, &b);
-		gnome_color_picker_set_i8 (GNOME_COLOR_PICKER
-					   (p->priv->back_colorpicker), r,
-					   g, b, 0);
+		gdk_color_parse (p->priv->default_style->back, &color);
+		gtk_color_button_set_color (GTK_COLOR_BUTTON (p->priv->back_colorpicker),
+									&color);
 	}
 }
 
@@ -571,11 +567,11 @@ on_hilite_style_entry_changed (GtkEditable * editable, gpointer user_data)
 		return;
 	if (p->priv->current_style)
 	{
-		guint8 r, g, b, a;
+		GdkColor color;
 		gchar *str;
 		const gchar *font;
 
-		font = gnome_font_picker_get_font_name (GNOME_FONT_PICKER
+		font = gtk_font_button_get_font_name (GTK_FONT_BUTTON
 												(p->priv->font_picker));
 		if (font)
 		{
@@ -601,16 +597,19 @@ on_hilite_style_entry_changed (GtkEditable * editable, gpointer user_data)
 		p->priv->current_style->eolfilled =
 			(strcmp (style_item, hilite_style[1]) == 0);
 
-		gnome_color_picker_get_i8 (GNOME_COLOR_PICKER
-					   (p->priv->fore_colorpicker), &r,
-					   &g, &b, &a);
-		str = anjuta_util_string_from_color (r, g, b);
+		gtk_color_button_get_color (GTK_COLOR_BUTTON (p->priv->fore_colorpicker),
+									&color);
+		str = anjuta_util_string_from_color (color.red >> 8,
+											 color.green >> 8,
+											 color.blue >> 8);
 		style_data_set_fore (p->priv->current_style, str);
 		g_free (str);
 
-		gnome_color_picker_get_i8 (GNOME_COLOR_PICKER
-					   (p->priv->back_colorpicker), &r, &g, &b, &a);
-		str = anjuta_util_string_from_color (r, g, b);
+		gtk_color_button_get_color (GTK_COLOR_BUTTON (p->priv->back_colorpicker),
+									&color);
+		str = anjuta_util_string_from_color (color.red >> 8,
+											 color.green >> 8,
+											 color.blue >> 8);
 		style_data_set_back (p->priv->current_style, str);
 		g_free (str);
 
@@ -664,7 +663,6 @@ sync_from_props (StyleEditor *se)
 {
 	gint i;
 	gchar *str;
-	guint8 r, g, b;
 	
 	g_return_if_fail (se);
 	/* Never hurts to use g_object_*_data as temp hash buffer */
@@ -695,68 +693,101 @@ sync_from_props (StyleEditor *se)
 	str = prop_get (se->props, CARET_FORE_COLOR);
 	if(str)
 	{
-		anjuta_util_color_from_string (str, &r, &g, &b);
-		gnome_color_picker_set_i8 (GNOME_COLOR_PICKER
-								   (se->priv->caret_fore_color), r, g, b, 0);
+		GdkColor color;
+		
+		gdk_color_parse (str, &color);
+		gtk_color_button_set_color (GTK_COLOR_BUTTON (se->priv->caret_fore_color),
+									&color);
 		g_free (str);
 	}
 	else
 	{
-		gnome_color_picker_set_i8 (GNOME_COLOR_PICKER
-								   (se->priv->caret_fore_color), 0, 0, 0, 0);
+		GdkColor color;
+		
+		gdk_color_parse ("#000000", &color);
+		gtk_color_button_set_color (GTK_COLOR_BUTTON (se->priv->caret_fore_color),
+									&color);
 	}
 
 	str = prop_get (se->props, CALLTIP_BACK_COLOR);
 	if(str)
 	{
-		anjuta_util_color_from_string (str, &r, &g, &b);
-		gnome_color_picker_set_i8 (GNOME_COLOR_PICKER
-								   (se->priv->calltip_back_color), r, g, b, 0);
+		GdkColor color;
+		
+		gdk_color_parse (str, &color);
+		gtk_color_button_set_color (GTK_COLOR_BUTTON (se->priv->calltip_back_color),
+									&color);
 		g_free (str);
 	}
 	else
 	{
-		anjuta_util_color_from_string ("#E6D6B6", &r, &g, &b);
-		gnome_color_picker_set_i8 (GNOME_COLOR_PICKER
-								   (se->priv->calltip_back_color), r, g, b, 0);
+		GdkColor color;
+		
+		gdk_color_parse ("#E6D6B6", &color);
+		gtk_color_button_set_color (GTK_COLOR_BUTTON (se->priv->calltip_back_color),
+									&color);
 	}
 	
 	str = prop_get (se->props, SELECTION_FORE_COLOR);
 	if(str)
 	{
-		anjuta_util_color_from_string (str, &r, &g, &b);
-		gnome_color_picker_set_i8 (GNOME_COLOR_PICKER
-								   (se->priv->selection_fore_color), r, g, b, 0);
+		GdkColor color;
+		
+		gdk_color_parse (str, &color);
+		gtk_color_button_set_color (GTK_COLOR_BUTTON (se->priv->selection_fore_color),
+									&color);
 		g_free (str);
 	}
 	else
 	{
-		anjuta_util_color_from_string ("#FFFFFF", &r, &g, &b);
-		gnome_color_picker_set_i8 (GNOME_COLOR_PICKER
-								   (se->priv->selection_fore_color), r, g, b, 0);
+		GdkColor color;
+		
+		gdk_color_parse ("#FFFFFF", &color);
+		gtk_color_button_set_color (GTK_COLOR_BUTTON (se->priv->selection_fore_color),
+									&color);
 	}
 	
 	str = prop_get (se->props, SELECTION_BACK_COLOR);
 	if(str)
 	{
-		anjuta_util_color_from_string (str, &r, &g, &b);
-		gnome_color_picker_set_i8 (GNOME_COLOR_PICKER
-								   (se->priv->selection_back_color), r, g, b, 0);
+		GdkColor color;
+		
+		gdk_color_parse (str, &color);
+		gtk_color_button_set_color (GTK_COLOR_BUTTON (se->priv->selection_back_color),
+									&color);
 		g_free (str);
 	}
 	else
 	{
-		gnome_color_picker_set_i8 (GNOME_COLOR_PICKER
-								   (se->priv->selection_back_color), 0, 0, 0, 0);
+		GdkColor color;
+		
+		gdk_color_parse ("#000000", &color);
+		gtk_color_button_set_color (GTK_COLOR_BUTTON (se->priv->selection_back_color),
+									&color);
 	}
 }
 
+static void
+set_one_color (PropsID props, gchar *key, GtkWidget *picker)
+{
+	GdkColor color;
+	gchar *str;
+	gtk_color_button_get_color (GTK_COLOR_BUTTON (picker), &color);
+	str = anjuta_util_string_from_color (color.red >> 8,
+										 color.green >> 8,
+										 color.blue >> 8);
+	if(str)
+	{
+		prop_set_with_key (props, key, str);
+		g_free (str);
+	}
+}
+					  
 static void
 sync_to_props (StyleEditor *se)
 {
 	gint i;
 	gchar *str;
-	guint8 r, g, b, a;
 
 	g_return_if_fail (se);
 	/* Sync the current item */	
@@ -780,42 +811,17 @@ sync_to_props (StyleEditor *se)
 			g_free (str);
 		}
 	}
-	gnome_color_picker_get_i8 (GNOME_COLOR_PICKER
-				   (se->priv->caret_fore_color), &r,
-				   &g, &b, &a);
-	str = anjuta_util_string_from_color (r, g, b);
-	if(str)
-	{
-		prop_set_with_key (se->props, CARET_FORE_COLOR, str);
-		g_free (str);
-	}
-	gnome_color_picker_get_i8 (GNOME_COLOR_PICKER
-							   (se->priv->calltip_back_color), &r,
-								&g, &b, &a);
-	str = anjuta_util_string_from_color (r, g, b);
-	if(str)
-	{
-		prop_set_with_key (se->props, CALLTIP_BACK_COLOR, str);
-		g_free (str);
-	}
-	gnome_color_picker_get_i8 (GNOME_COLOR_PICKER
-							   (se->priv->selection_fore_color), &r,
-							    &g, &b, &a);
-	str = anjuta_util_string_from_color (r, g, b);
-	if(str)
-	{
-		prop_set_with_key (se->props, SELECTION_FORE_COLOR, str);
-		g_free (str);
-	}
-	gnome_color_picker_get_i8 (GNOME_COLOR_PICKER
-							   (se->priv->selection_back_color), &r,
-								&g, &b, &a);
-	str = anjuta_util_string_from_color (r, g, b);
-	if(str)
-	{
-		prop_set_with_key (se->props, SELECTION_BACK_COLOR, str);
-		g_free (str);
-	}
+	set_one_color (se->props, CARET_FORE_COLOR, 
+				   se->priv->caret_fore_color);
+	
+	set_one_color (se->props, CALLTIP_BACK_COLOR, 
+				   se->priv->calltip_back_color);
+	
+	set_one_color (se->props, SELECTION_FORE_COLOR, 
+				   se->priv->selection_fore_color);
+	
+	set_one_color (se->props, SELECTION_BACK_COLOR, 
+				   se->priv->selection_back_color);
 }
 
 static void

@@ -1,3 +1,10 @@
+2005-02-07  Naba Kumar  <naba@gnome.org>
+
+	* plugins/editor/style-editor.c,
+	plugins/editor/anjuta-document-manager.glade: Used GtkColorButton
+	and GtkFontButton instead of deprecated widgets in
+	style editor.
+	
 2005-02-07  Sebastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/project-wizard/action.c,
