@@ -21,7 +21,8 @@ BUILT_SOURCES = \
 
 CLEANFILES = \
 	anjuta-marshalers.h \
-	anjuta-marshalers.c
+	anjuta-marshalers.c \
+	stamp-anjuta-marshalers.h
 
 $(srcdir)/anjuta-marshalers.h: stamp-anjuta-marshalers.h
 	@true
@@ -269,4 +270,4 @@ anjuta_LDADD =  \
 	$(top_builddir)/printing/libanjutaprint.a\
 	$(SCILEXERS)
 
-EXTRA_DIST = anjuta-marshalers.list stamp-anjuta-marshalers.h
+EXTRA_DIST = anjuta-marshalers.list

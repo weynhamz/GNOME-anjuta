@@ -1,3 +1,7 @@
+2003-09-09  Naba Kumar  <naba@gnome.org>
+
+	* src/Makefile.am: Addded rules for built sources.
+	
 2003-09-08  Naba Kumar  <naba@gnome.org>
 
 	* (new) src/anjuta-marshalers.list: Added marshalers definition
