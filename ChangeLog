@@ -1,3 +1,7 @@
+2003-11-30  Abel Cheung  <maddog@linux.org.hk>
+
+	* configure.in: Added "cs" "mk" "sr" "sr@Latn" to ALL_LINGUAS.
+
 2003-11-29  Naba Kumar  <naba@gnome.org>
 
 	* configure.in, anjuta.prj: Bumped version to 1.2.0.
