@@ -25,6 +25,7 @@ libanjuta_patch_la_SOURCES = patch-plugin.c
 
 INCLUDES = 						\
 	-I$(ANJUTA_SRC_DIR)				\
+	-I$(top_srcdir)/widgets				\
 	-I$(top_srcdir)/tagmanager/include      \
 	-DGNOMELOCALEDIR=\""$(datadir)/locale"\" 	\
 	-DVERSION=\""$(VERSION)"\"             		\

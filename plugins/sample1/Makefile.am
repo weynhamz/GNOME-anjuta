@@ -25,6 +25,7 @@ libanjuta_sample1_la_SOURCES = plugin-sample1.c
 
 INCLUDES = 						\
 	-I$(ANJUTA_SRC_DIR)				\
+	-I$(top_srcdir)/widgets		\
 	-I$(top_srcdir)/tagmanager/include      \
 	-DGNOMELOCALEDIR=\""$(datadir)/locale"\" 	\
 	-DVERSION=\""$(VERSION)"\"             		\

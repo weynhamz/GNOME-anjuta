@@ -151,6 +151,7 @@ anjuta_new ()
 		app->first_time_expose = TRUE;
 		app->last_open_project	= NULL ;
 
+		app->icon_set = gdl_icons_new(24, 16.0);
 		create_anjuta_gui (app);
 
 		app->dirs = anjuta_dirs_new ();

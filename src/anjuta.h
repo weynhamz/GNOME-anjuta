@@ -22,6 +22,7 @@
 #include <gmodule.h>
 
 #include <glade/glade.h>
+#include <gdl-icons.h>
 
 #include "toolbar.h"
 #include "text_editor.h"
@@ -82,6 +83,7 @@ struct _AnjutaApp
 {
 	glong	size;	/* sizeof() used as version # for components */
 	AnjutaAppGui widgets;
+	GdlIcons *icon_set;
 	GtkWidget *fileselection;
 	GtkWidget *save_as_fileselection;
 	GtkWidget *save_as_build_msg_sel;

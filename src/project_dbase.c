@@ -160,11 +160,8 @@ gtree_insert_files (GtkTreeView *treeview, GtkTreeIter *parent,
 
 		if (node->data == NULL)
 			continue;
-		
-		pixbuf = anjuta_res_get_icon_for_file (ANJUTA_PREFERENCES
-											   (app->preferences)->props,
-											   node->data);
 		full_fname = g_strconcat (dir_prefix, "/", node->data, NULL);
+		pixbuf = gdl_icons_get_uri_icon(app->icon_set, full_fname);
 		pfd = project_file_data_new (NULL, mod, node->data, full_fname);
 		g_free (full_fname);
 		

@@ -1,4 +1,4 @@
-# Anjuta Version 1.0.2 
+# Anjuta Version 1.2.0 
 Compatibility Level: 1 
 
 <PROJECT_DESCRIPTION_START>
@@ -24,7 +24,7 @@ a number of advanced programming facilities.<PROJECT_DESCRIPTION_END>
 
 props.file.type=project
 
-anjuta.version=1.0.2
+anjuta.version=1.2.0
 anjuta.compatibility.level=1
 
 project.name=anjuta
@@ -34,6 +34,7 @@ project.version=1.2.0
 project.author=naba
 project.source.target=src/anjuta
 project.has.gettext=1
+project.gui.command=
 project.programming.language=C_C++
 project.excluded.modules=intl
 
@@ -50,19 +51,121 @@ project.menu.need.terminal=0
 
 project.configure.options=
 anjuta.program.arguments=
-preferences.indent.automatic=1
-preferences.use.tabs=1
-preferences.indent.opening=0
-preferences.indent.closing=0
-preferences.tabsize=4
-preferences.indent.size=4
-preferences.autoformat.style=Custom style
+preferences.build.option.jobs=0
 preferences.autoformat.custom.style=-bad -bap -bbb -sob -nbbo -nbc -bl -fca -fc1 -lc80 -d0 -c50 -cd33 -cp10 -sc -ncdb -bl -bli0 -ncdw -cli0 -cbi4 -ss -pcs -cs -bs -saf -sai -saw -di0 -nbfda -psl -brs -i4 -ci4 -lp -ts4 -l80 -nhnl -pmt 
+preferences.autoformat.style=Custom style
+preferences.indent.opening=0
+preferences.build.option.silent=0
 preferences.autoformat.disable=0
+preferences.build.option.autosave=0
+preferences.indent.automatic=1
+preferences.anjuta.make.options=-k
+preferences.use.tabs=1
+preferences.indent.size=4
+preferences.tabsize=4
+preferences.make=make
+preferences.build.option.keep.going=0
+preferences.indent.closing=0
+preferences.build.option.warn.undef=0
+preferences.build.option.jobs=0
+preferences.autoformat.custom.style=-bad -bap -bbb -sob -nbbo -nbc -bl -fca -fc1 -lc80 -d0 -c50 -cd33 -cp10 -sc -ncdb -bl -bli0 -ncdw -cli0 -cbi4 -ss -pcs -cs -bs -saf -sai -saw -di0 -nbfda -psl -brs -i4 -ci4 -lp -ts4 -l80 -nhnl -pmt 
+preferences.autoformat.style=Custom style
+preferences.indent.opening=0
+preferences.build.option.silent=0
+preferences.autoformat.disable=0
+preferences.build.option.autosave=0
+preferences.indent.automatic=1
+preferences.anjuta.make.options=-k
+preferences.use.tabs=1
+preferences.indent.size=4
+preferences.tabsize=4
+preferences.make=make
+preferences.build.option.keep.going=0
+preferences.indent.closing=0
+preferences.build.option.warn.undef=0
+preferences.build.option.jobs=0
+preferences.autoformat.custom.style=-bad -bap -bbb -sob -nbbo -nbc -bl -fca -fc1 -lc80 -d0 -c50 -cd33 -cp10 -sc -ncdb -bl -bli0 -ncdw -cli0 -cbi4 -ss -pcs -cs -bs -saf -sai -saw -di0 -nbfda -psl -brs -i4 -ci4 -lp -ts4 -l80 -nhnl -pmt 
+preferences.autoformat.style=Custom style
+preferences.indent.opening=0
+preferences.build.option.silent=0
+preferences.autoformat.disable=0
+preferences.build.option.autosave=0
+preferences.indent.automatic=1
+preferences.anjuta.make.options=-k
+preferences.use.tabs=1
+preferences.indent.size=4
+preferences.tabsize=4
+preferences.make=make
+preferences.build.option.keep.going=0
+preferences.indent.closing=0
+preferences.build.option.warn.undef=0
+preferences.build.option.jobs=0
+preferences.autoformat.custom.style=-bad -bap -bbb -sob -nbbo -nbc -bl -fca -fc1 -lc80 -d0 -c50 -cd33 -cp10 -sc -ncdb -bl -bli0 -ncdw -cli0 -cbi4 -ss -pcs -cs -bs -saf -sai -saw -di0 -nbfda -psl -brs -i4 -ci4 -lp -ts4 -l80 -nhnl -pmt 
+preferences.autoformat.style=Custom style
+preferences.indent.opening=0
+preferences.build.option.silent=0
+preferences.autoformat.disable=0
+preferences.build.option.autosave=0
+preferences.indent.automatic=1
+preferences.anjuta.make.options=-k
+preferences.use.tabs=1
+preferences.indent.size=4
+preferences.tabsize=4
+preferences.make=make
+preferences.build.option.keep.going=0
+preferences.indent.closing=0
+preferences.build.option.warn.undef=0
+preferences.build.option.jobs=0
+preferences.autoformat.custom.style=-bad -bap -bbb -sob -nbbo -nbc -bl -fca -fc1 -lc80 -d0 -c50 -cd33 -cp10 -sc -ncdb -bl -bli0 -ncdw -cli0 -cbi4 -ss -pcs -cs -bs -saf -sai -saw -di0 -nbfda -psl -brs -i4 -ci4 -lp -ts4 -l80 -nhnl -pmt 
+preferences.autoformat.style=Custom style
+preferences.indent.opening=0
+preferences.build.option.silent=0
+preferences.autoformat.disable=0
+preferences.build.option.autosave=0
+preferences.indent.automatic=1
+preferences.anjuta.make.options=-k
+preferences.use.tabs=1
+preferences.indent.size=4
+preferences.tabsize=4
+preferences.make=make
+preferences.build.option.keep.going=0
+preferences.indent.closing=0
+preferences.build.option.warn.undef=0
+preferences.build.option.jobs=0
+preferences.autoformat.custom.style=-bad -bap -bbb -sob -nbbo -nbc -bl -fca -fc1 -lc80 -d0 -c50 -cd33 -cp10 -sc -ncdb -bl -bli0 -ncdw -cli0 -cbi4 -ss -pcs -cs -bs -saf -sai -saw -di0 -nbfda -psl -brs -i4 -ci4 -lp -ts4 -l80 -nhnl -pmt 
+preferences.autoformat.style=Custom style
+preferences.indent.opening=0
+preferences.build.option.silent=0
+preferences.autoformat.disable=0
+preferences.build.option.autosave=0
+preferences.indent.automatic=1
+preferences.anjuta.make.options=-k
+preferences.use.tabs=1
+preferences.indent.size=4
+preferences.tabsize=4
+preferences.make=make
+preferences.build.option.keep.going=0
+preferences.indent.closing=0
+preferences.build.option.warn.undef=0
+preferences.build.option.jobs=0
+preferences.autoformat.custom.style=-bad -bap -bbb -sob -nbbo -nbc -bl -fca -fc1 -lc80 -d0 -c50 -cd33 -cp10 -sc -ncdb -bl -bli0 -ncdw -cli0 -cbi4 -ss -pcs -cs -bs -saf -sai -saw -di0 -nbfda -psl -brs -i4 -ci4 -lp -ts4 -l80 -nhnl -pmt 
+preferences.autoformat.style=Custom style
+preferences.indent.opening=0
+preferences.build.option.silent=0
+preferences.autoformat.disable=0
+preferences.build.option.autosave=0
+preferences.indent.automatic=1
+preferences.anjuta.make.options=-k
+preferences.use.tabs=1
+preferences.indent.size=4
+preferences.tabsize=4
+preferences.make=make
+preferences.build.option.keep.going=0
+preferences.indent.closing=0
+preferences.build.option.warn.undef=0
 
 module.include.name=.
 module.include.type=
-module.include.expanded=1
 module.include.files=\
 	acconfig.h\
 	printing/print.h\
@@ -106,7 +209,6 @@ module.include.files=\
 	src/attach_process.h\
 	src/attach_process_cbs.h\
 	src/breakpoints.h\
-	src/breakpoints_cbs.h\
 	src/build_file.h\
 	src/build_project.h\
 	src/clean_project.h\
@@ -114,7 +216,6 @@ module.include.files=\
 	src/compatibility_0.h\
 	src/compile.h\
 	src/compiler_options.h\
-	src/compiler_options_cbs.h\
 	src/configurer.h\
 	src/controls.h\
 	src/cvs.h\
@@ -222,7 +323,6 @@ module.include.files=\
 
 module.source.name=.
 module.source.type=
-module.source.expanded=0
 module.source.files=\
 	global-tags/tm_global_tags.c\
 	launcher/anjuta_launcher.c\
@@ -444,7 +544,6 @@ module.source.files=\
 
 module.pixmap.name=.
 module.pixmap.type=
-module.pixmap.expanded=0
 module.pixmap.files=\
 	manuals/C/anjuta-manual/figures/arguments.png\
 	manuals/C/anjuta-manual/figures/attach.png\
@@ -652,17 +751,14 @@ module.pixmap.files=\
 
 module.data.name=.
 module.data.type=
-module.data.expanded=0
 module.data.files=
 
 module.help.name=.
 module.help.type=
-module.help.expanded=0
 module.help.files=
 
 module.doc.name=.
 module.doc.type=
-module.doc.expanded=0
 module.doc.files=\
 	AUTHORS\
 	COPYING\
@@ -697,7 +793,6 @@ module.doc.files=\
 	manuals/C/anjuta-manual/tools.sgml\
 	ROADMAP
 
-module.po.expanded=0
 module.po.files=\
 	az.po\
 	da.po\
@@ -723,17 +818,4 @@ module.po.files=\
 	zh_TW.po\
 	hi.po
 
-compiler.options.supports=
-compiler.options.include.paths=
-compiler.options.library.paths=
-compiler.options.libraries=
-compiler.options.libraries.selected=
-compiler.options.defines=
-compiler.options.warning.buttons=0 0 1 1 0 1 0 0 0 0 0 0 0 1 0 0 
-compiler.options.optimize.buttons=0 1 0 0 
-compiler.options.other.buttons=1 0 
-compiler.options.other.c.flags=
-compiler.options.other.l.flags=
-compiler.options.other.l.libs=
-project.source.paths=
-
+project.src.paths=
