@@ -89,50 +89,33 @@ extract_directory(char* full_filename)
 }
 
 
-#define NSTR(S) ((S)?(S):"NULL")
-gchar *
-resolved_file_name(gchar *full_filename)
-{
-	char real_filename[PATH_MAX], *final_filename;
-	if (!full_filename)
-		final_filename = NULL;
-	else if (realpath(full_filename, real_filename))
-		final_filename = g_strdup(real_filename);
-	else
-		final_filename = g_strdup(full_filename);
-#ifdef DEBUG
-	g_message("%s -> %s", NSTR(full_filename), NSTR(final_filename));
-#endif
-	return final_filename;
-}
-
 GList *
-update_string_list (GList * list, gchar * string, gint length)
+update_string_list (GList *p_list, const gchar *p_str, gint length)
 {
 	gint i;
 	gchar *str;
-	if (!string)
-		return list;
-	for (i = 0; i < g_list_length (list); i++)
+	if (!p_str)
+		return p_list;
+	for (i = 0; i < g_list_length (p_list); i++)
 	{
-		str = (gchar *) g_list_nth_data (list, i);
+		str = (gchar *) g_list_nth_data (p_list, i);
 		if (!str)
 			continue;
-		if (strcmp (string, str) == 0)
+		if (strcmp (p_str, str) == 0)
 		{
-			list = g_list_remove (list, str);
-			list = g_list_prepend (list, str);
-			return list;
+			p_list = g_list_remove (p_list, str);
+			p_list = g_list_prepend (p_list, str);
+			return p_list;
 		}
 	}
-	list = g_list_prepend (list, g_strdup (string));
-	while (g_list_length (list) > length)
+	p_list = g_list_prepend (p_list, g_strdup (p_str));
+	while (g_list_length (p_list) > length)
 	{
-		str = g_list_nth_data (list, g_list_length (list) - 1);
-		list = g_list_remove (list, str);
+		str = g_list_nth_data (p_list, g_list_length (p_list) - 1);
+		p_list = g_list_remove (p_list, str);
 		g_free (str);
 	}
-	return list;
+	return p_list;
 }
 
 void
@@ -415,7 +398,7 @@ FileExtType get_file_ext_type (gchar * file)
 gchar *
 get_a_tmp_file ()
 {
-	static gint count;
+	static gint count = 0;
 	gchar *filename;
 	filename =
 		g_strdup_printf ("%s/anjuta_%d.%d", app->dirs->tmp, count++,

@@ -1276,7 +1276,6 @@ on_add_prjfilesel_ok_clicked (GtkButton * button, gpointer user_data)
 	list = fileselection_get_nodelist(p->fileselection_add_file);
 	num_elements = g_list_length(list);
 
-	g_print("Inside addfile:\n");
 	for(i=0;i<num_elements;i++)
 	{
 		gpointer list_data;
@@ -1287,7 +1286,6 @@ on_add_prjfilesel_ok_clicked (GtkButton * button, gpointer user_data)
 	
 		if (!filename)
 			return;
-		g_print("Got file %s\n", filename);
 		if (0 != stat(filename, &s))
 		{
 			int button;

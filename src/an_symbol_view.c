@@ -4,6 +4,7 @@
 
 #include "anjuta.h"
 #include "resources.h"
+#include "mainmenu_callbacks.h"
 #include "pixmaps.h"
 
 #include "an_symbol_view.h"
@@ -264,8 +265,14 @@ static GnomeUIInfo an_symbol_view_menu_uiinfo[] = {
 	 sv_context_handler, (gpointer) REFRESH, NULL,
 	 PIX_STOCK(REFRESH),
 	 0, 0, NULL}
-	,
-	GNOMEUIINFO_END /* 4 */
+	,	GNOMEUIINFO_SEPARATOR, /*4*/
+	{/* 5 */
+	 GNOME_APP_UI_ITEM, N_("Dock/Undock"),
+	 N_("Dock/Undock the Project Window"),
+	 on_project_dock_undock1_activate, NULL, NULL,
+	 PIX_FILE(DOCK),
+	 0, 0, NULL},
+	GNOMEUIINFO_END /* 6 */
 };
 
 static void sv_create_context_menu(void)

@@ -150,6 +150,7 @@ struct _AnjutaApp
 	gboolean in_progress;
 	gint busy_count;
 	gboolean first_time_expose;
+	gboolean has_devhelp; /* If Devhelp is installed, Context Help should be enabled */
 
 	/* dir where command executes */
 	gchar *execution_dir;

@@ -104,8 +104,6 @@ struct _EditSubMenu
 	GtkWidget *go_forward;
 	GtkWidget *goto_tag_def;
 	GtkWidget *goto_tag_decl;
-
-	GtkWidget *edit_app_gui;
 };
 
 struct _ViewSubMenu
@@ -149,6 +147,7 @@ struct _ProjectSubMenu
 	GtkWidget *dock_undock;
 	GtkWidget *update_tags;
 	GtkWidget *rebuild_tags;
+	GtkWidget *edit_app_gui;
 	GtkWidget *project_help;
 };
 

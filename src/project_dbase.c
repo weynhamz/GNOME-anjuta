@@ -1284,7 +1284,8 @@ gboolean
 project_dbase_is_file_in_module (ProjectDBase * p, PrjModule module,
 				 gchar * file)
 {
-	gchar *fdir, *fname, *tmp;
+	gchar *tmp;
+	gchar *real_fn;
 	gchar *mod;
 	gchar *mdir;
 	GList *files, *node;
@@ -1293,37 +1294,35 @@ project_dbase_is_file_in_module (ProjectDBase * p, PrjModule module,
 		return FALSE;
 	if (p->project_is_open == FALSE)
 		return FALSE;
-	fdir = g_dirname (file);
-	fname = extract_filename (file);
-	if (!fdir)
-		return FALSE;
 
 	tmp = g_strconcat ("module.", module_map[module], ".name", NULL);
 	mod = prop_get (p->props, tmp);
 	g_free (tmp);
 	mdir = g_strconcat (p->top_proj_dir, "/", mod, NULL);
 	g_free (mod);
-	if (strcmp (mdir, fdir) != 0)
+	if (!is_file_in_dir(file, mdir))
 	{
-		g_free (mdir);
-		g_free (fdir);
+		g_free(mdir);
 		return FALSE;
 	}
-	g_free (fdir);
-	g_free (mdir);
 
-	files = project_dbase_get_module_files (p, module);
-	node = files;
-	while (node)
+	files = project_dbase_get_module_files(p, module);
+	for (node = files; node; node = g_list_next(node))
 	{
-		if (strcmp (node->data, fname) == 0)
+		tmp = g_strconcat(mdir, "/", node->data, NULL);
+		real_fn = tm_get_real_path(tmp);
+		g_free(tmp);
+		if (0 == strcmp(file, real_fn))
 		{
 			glist_strings_free (files);
+			g_free(real_fn);
+			g_free(mdir);
 			return TRUE;
 		}
-		node = g_list_next (node);
+		g_free(real_fn);
 	}
 	glist_strings_free (files);
+	g_free(mdir);
 	return FALSE;
 }
 
@@ -1506,6 +1505,7 @@ gchar *
 project_dbase_get_source_target (ProjectDBase * p)
 {
 	gchar *str, *src_dir, *target;
+	gchar *real_target;
 
 	if (!p)
 		return NULL;
@@ -1514,9 +1514,11 @@ project_dbase_get_source_target (ProjectDBase * p)
 	target = prop_get (p->props, "project.source.target");
 	src_dir = project_dbase_get_module_dir (p, MODULE_SOURCE);
 	str = g_strconcat (src_dir, "/", target, NULL);
+	real_target = tm_get_real_path(str);
 	g_free (target);
 	g_free (src_dir);
-	return str;
+	g_free(str);
+	return real_target;
 }
 
 gchar *

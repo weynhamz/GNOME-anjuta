@@ -9,6 +9,7 @@
 
 #include "anjuta.h"
 #include "resources.h"
+#include "mainmenu_callbacks.h"
 #include "pixmaps.h"
 
 #include "an_file_view.h"
@@ -149,7 +150,14 @@ static GnomeUIInfo an_file_view_menu_uiinfo[] = {
 	 PIX_STOCK(REFRESH),
 	 0, 0, NULL}
 	,
-	GNOMEUIINFO_END /* 3 */
+	 GNOMEUIINFO_SEPARATOR, /* 3 */
+	{/* 4 */
+	 GNOME_APP_UI_ITEM, N_("Dock/Undock"),
+	 N_("Dock/Undock the Project Window"),
+	 on_project_dock_undock1_activate, NULL, NULL,
+	 PIX_FILE(DOCK),
+	 0, 0, NULL},
+	GNOMEUIINFO_END /* 5 */
 };
 
 static void fv_create_context_menu(void)

@@ -340,8 +340,9 @@ update_main_menubar ()
 	gtk_widget_set_sensitive (em->goto_brace, F);
 	gtk_widget_set_sensitive (em->goto_block_start, F);
 	gtk_widget_set_sensitive (em->goto_block_end, F);
+	gtk_widget_set_sensitive (em->goto_tag_def, F);
+	gtk_widget_set_sensitive (em->goto_tag_decl, F);
 	
-	gtk_widget_set_sensitive (em->edit_app_gui, P && G);
 	gtk_widget_set_sensitive (vm->show_hide_locals, P && G);
 
 	gtk_widget_set_sensitive (pm->add_file, P);
@@ -353,6 +354,7 @@ update_main_menubar ()
 	gtk_widget_set_sensitive (pm->dock_undock, P);
 	gtk_widget_set_sensitive (pm->update_tags, P);
 	gtk_widget_set_sensitive (pm->rebuild_tags, P);
+	gtk_widget_set_sensitive (pm->edit_app_gui, P && G);
 	gtk_widget_set_sensitive (pm->project_help, P);
 
 	gtk_widget_set_sensitive (ftm->force_hilite, F);
@@ -436,6 +438,9 @@ update_main_menubar ()
 	gtk_widget_set_sensitive (cvs->log_project, P && !L);
 	gtk_widget_set_sensitive (cvs->diff_project, P && !L);
 	gtk_widget_set_sensitive (cvs->login, !L);
+
+	gtk_widget_set_sensitive(hm->gnome, app->has_devhelp);
+	gtk_widget_set_sensitive(hm->context_help, app->has_devhelp);
 
 	update_led_animator ();
 }

@@ -89,9 +89,6 @@ gchar* get_swapped_filename(gchar* filename);
 /* This filename is not valid beyond the present session */
 gchar* get_a_tmp_file(void);
 
-/* Gets a resolved file name with extra '/', '..', etc. removed */
-gchar *resolved_file_name(gchar *full_filename);
-
 /* Retruns the contents of the file a buffer */
 gchar* get_file_as_buffer (gchar* filename);
 
@@ -126,7 +123,7 @@ char* extract_directory(char* full_filename);
 /* Adds the given string in the list, if it does not already exist. */
 /* The added string will come at the top of the list */
 /* The list will be then truncated to (length) items only */
-GList* update_string_list(GList *list, gchar *string, gint length);
+GList* update_string_list(GList *p_list, const gchar *p_str, gint length);
 
 /* Gets the extension of the file */
 gchar* get_file_extension(gchar* file);

@@ -327,7 +327,7 @@ static GnomeUIInfo goto1_submenu_uiinfo[NUM_GOTO_SUBMENUS+1] = {
 };
 
 
-#define	NUM_EDIT_SUBMENUS	23
+#define	NUM_EDIT_SUBMENUS	21
 static GnomeUIInfo edit1_menu_uiinfo[NUM_EDIT_SUBMENUS+1] = {
 	{/*0*/
 	 GNOME_APP_UI_ITEM, N_("U_ndo"),
@@ -456,16 +456,7 @@ static GnomeUIInfo edit1_menu_uiinfo[NUM_EDIT_SUBMENUS+1] = {
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	
-	GNOMEUIINFO_SEPARATOR,/*21*/
-
-	 {/*22*/
-	 GNOME_APP_UI_ITEM, N_("Ed_it Application GUI ..."),
-	 N_("Edit application GUI with the Glade GUI editor"),
-	 on_edit_app_gui1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
-	 GDK_G, GDK_MOD1_MASK, NULL},
-	
-	/*23*/
+	/*21*/
 	GNOMEUIINFO_END
 };
 
@@ -767,7 +758,7 @@ static GnomeUIInfo add_file1_menu_uiinfo[] = {
 	GNOMEUIINFO_END /*7*/
 };
 
-#define NUM_PROJECT_SUBMENUS 14
+#define NUM_PROJECT_SUBMENUS 15
 static GnomeUIInfo project1_menu_uiinfo[NUM_PROJECT_SUBMENUS+1] = {
 	{ /*0*/
 	 GNOME_APP_UI_SUBTREE, N_("Add File"),
@@ -826,14 +817,20 @@ static GnomeUIInfo project1_menu_uiinfo[NUM_PROJECT_SUBMENUS+1] = {
 	 on_rebuild_tags1_activate, NULL, NULL,
 	 PIX_FILE(TAG),
 	 0, 0, NULL},
-	 GNOMEUIINFO_SEPARATOR,/*12*/
-	{/*13*/
+	 {/*12*/
+	 GNOME_APP_UI_ITEM, N_("Ed_it Application GUI ..."),
+	 N_("Edit application GUI with the Glade GUI editor"),
+	 on_edit_app_gui1_activate, NULL, NULL,
+	 GNOME_APP_PIXMAP_NONE, NULL,
+	 GDK_G, GDK_MOD1_MASK, NULL},
+	 GNOMEUIINFO_SEPARATOR,/*13*/
+	{/*14*/
 	 GNOME_APP_UI_ITEM, N_("Help"),
 	 NULL,
 	 on_project_help1_activate, NULL, NULL,
 	 PIX_STOCK(BOOK_YELLOW),
 	 0, 0, NULL},
-	GNOMEUIINFO_END/*14*/
+	GNOMEUIINFO_END/*15*/
 };
 
 #define NUM_HILITE_SUBMENUS 27

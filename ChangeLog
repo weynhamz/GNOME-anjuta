@@ -1,3 +1,18 @@
+2002-05-28	Biswapesh Chattopadhyay	<biswapesh_chatterjee@tcscal.co.in>
+
+	Reviewed by Naba Kumar <kh_naba@users.sourceforge.net>
+	
+	* src/an_file_view.c, src/an_symbol_view.c: Added Dock/Undock
+	* src/controls.c, src/main_menubar.[ch], src/main_menubar_def.h,
+	  src/anjuta.h, src/text_editor_menu.[ch]: More menu re-organization
+	  and cleanups
+	* src/text_editor.c: Minor cleanups.
+	* anjuta.c: Tweaks to 'Goto File Line' functionality.
+	* src/project_dbase.c: Fixes to add/remove files from project.
+	* src/help.c: Fix minor memory leak.
+	* src/project_dbase_gui.c: Remove debugging messages.
+	* src/utilities.[ch]: Cleanups and minor fixes.
+
 2002-05-30  Naba Kumar <kh_naba@users.sourceforge.net>
 
 	* src/anjuta.c [anjuta_apply_preferences()]:

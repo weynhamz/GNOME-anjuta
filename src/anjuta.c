@@ -39,7 +39,7 @@
 #include "controls.h"
 #include "project_dbase.h"
 #include "anjuta_info.h"
-
+#include "tm_tagmanager.h"
 #include "file_history.h"
 
 #define GTK
@@ -138,6 +138,7 @@ anjuta_new ()
 		app->vpaned_height = app->win_height / 2 + 7;
 		app->hpaned_width = app->win_width / 4;
 		app->in_progress = FALSE;
+		app->has_devhelp = anjuta_is_installed("devhelp", FALSE);
 		app->auto_gtk_update = TRUE;
 		app->busy_count = 0;
 		app->execution_dir = NULL;
@@ -468,15 +469,13 @@ anjuta_goto_file_line (gchar * fname, glong lineno)
 TextEditor *
 anjuta_goto_file_line_mark (gchar * fname, glong lineno, gboolean mark)
 {
-	gchar *fn, *dummy;
+	gchar *fn;
 	GList *node;
 
 	TextEditor *te;
 
-	g_return_val_if_fail (fname != NULL, NULL);
-	dummy = anjuta_get_full_filename (fname);
-	fn = resolved_file_name(dummy);
-	g_free(dummy);
+	g_return_val_if_fail (fname, NULL);
+	fn = anjuta_get_full_filename (fname);
 	g_return_val_if_fail (fname != NULL, NULL);
 	node = app->text_editor_list;
 	while (node)
@@ -1519,16 +1518,39 @@ gchar *
 anjuta_get_full_filename (gchar * fn)
 {
 	gchar *cur_dir, *dummy;
+	TextEditor *te;
+	TMWorkObject *source_file;
+	GList *te_list;
 	gchar *real_path;
+	gchar *fname;
 	GList *list;
 	gchar *text;
 	gint i;
-	
-	if (!fn)
-		return NULL;
-	if (fn[0] == '/')
-		return tm_get_real_path (fn);
 
+	g_return_val_if_fail(fn, NULL);
+	real_path = tm_get_real_path(fn);
+	
+	/* If it is full and absolute path, there is no need to 
+	go further, even if the file is not found*/
+	if (fn[0] == '/')
+		return real_path;
+
+	/* First, check if we can get the file straightaway */
+	if (file_is_regular(real_path))
+		return real_path;
+	g_free(real_path);
+
+	/* Get the name part of the file */
+	/* if (NULL == (fname = strrchr(fn, '/')))
+		fname = fn;
+	else ++fname; */
+   fname = extract_filename(fn);
+	
+	/* Next, check if the current text editor buffer matches this name */
+	te = anjuta_get_current_text_editor();
+	if (0 == strcmp(te->filename, fname))
+		return g_strdup(te->full_filename);
+	/* Next, check if the file is present in the execution directory */
 	if( app->execution_dir)
 	{
 		dummy = g_strconcat (app->execution_dir, "/", fn, NULL);
@@ -1538,7 +1560,20 @@ anjuta_get_full_filename (gchar * fn)
 			return real_path;
 		g_free (real_path);
 	}
+	/* Next, see if the name matches any of the opened files */
+	for (te_list = app->text_editor_list; te_list; te_list = g_list_next(te_list))
+	{
+		te = (TextEditor *) te_list->data;
+		if (0 == strcmp(fname, te->filename))
+			return g_strdup(te->full_filename);
+	}
+	/* Next, see if we can find this from the TagManager workspace */
+	source_file = tm_workspace_find_object(TM_WORK_OBJECT(app->tm_workspace), fname, TRUE);
+	if (NULL != source_file)
+		return g_strdup(source_file->file_name);
 	cur_dir = g_get_current_dir ();
+	
+	/* The following matches should never be used under normal circumstances */
 	if (app->project_dbase->project_is_open)
 	{
 		gchar *src_dir;
@@ -1612,8 +1647,13 @@ anjuta_get_full_filename (gchar * fn)
 	dummy = g_strconcat (cur_dir, "/", fn, NULL);
 	real_path = tm_get_real_path(dummy);
 	g_free(dummy);
-
 	g_free (cur_dir);
+	
+	/* If nothing is found, just return the original file name */
+	if (file_is_regular (real_path) == FALSE) {
+		g_free (real_path);
+		real_path = g_strdup (fn);
+	}
 	return real_path;
 }
 

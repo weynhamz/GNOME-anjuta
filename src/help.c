@@ -80,8 +80,7 @@ gboolean anjuta_help_search(AnjutaHelp* help, const gchar* search_word)
 	{
 		if(search_word)
 		{
-			gchar* string = g_strdup (search_word);
-			help->history =	update_string_list (help->history, string, COMBO_LIST_LENGTH);
+			help->history =	update_string_list (help->history, search_word, COMBO_LIST_LENGTH);
 			gtk_combo_set_popdown_strings (GTK_COMBO(help->widgets.combo), help->history);
 		}
 		anjuta_res_help_search (search_word);

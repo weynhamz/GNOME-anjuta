@@ -419,7 +419,7 @@ text_editor_menu_popup (TextEditorMenu * menu, GdkEventButton * bevent)
 		gtk_widget_set_sensitive (menu->cut, FALSE);
 	}
 	gtk_widget_set_sensitive (menu->debug, A);
-	
+	gtk_widget_set_sensitive(menu->context_help, app->has_devhelp);
 	gtk_menu_popup (GTK_MENU (menu->GUI), NULL, NULL, NULL, NULL,
 			bevent->button, bevent->time);
 }
@@ -436,16 +436,20 @@ create_text_editor_menu_gui (TextEditorMenu * menu)
 				     text_editor_menu_uiinfo, NULL, FALSE, 0);
 
 		menu->GUI = text_editor_menu;
-		menu->copy = text_editor_menu_uiinfo[0].widget;
-		menu->cut = text_editor_menu_uiinfo[1].widget;
+		menu->cut = text_editor_menu_uiinfo[0].widget;
+		menu->copy = text_editor_menu_uiinfo[1].widget;
+		menu->paste = text_editor_menu_uiinfo[2].widget;
+		menu->context_help = text_editor_menu_uiinfo[4].widget;
 		menu->autoformat = text_editor_menu_uiinfo[7].widget;
-		menu->swap = text_editor_menu_uiinfo[9].widget;
+		menu->swap = text_editor_menu_uiinfo[8].widget;
 		menu->functions = text_editor_menu_uiinfo[11].widget;
 		menu->debug = text_editor_menu_uiinfo[13].widget;
 
 		gtk_widget_ref (menu->GUI);
-		gtk_widget_ref (menu->copy);
 		gtk_widget_ref (menu->cut);
+		gtk_widget_ref (menu->copy);
+		gtk_widget_ref (menu->paste);
+		gtk_widget_ref (menu->context_help);
 		gtk_widget_ref (menu->autoformat);
 		gtk_widget_ref (menu->swap);
 		gtk_widget_ref (menu->functions);

@@ -100,7 +100,6 @@ create_main_menubar (GtkWidget * ap, MainMenuBar * mb)
 	mb->edit.go_forward = goto1_submenu_uiinfo[7].widget;
 	mb->edit.goto_tag_def = goto1_submenu_uiinfo[8].widget;
 	mb->edit.goto_tag_decl = goto1_submenu_uiinfo[9].widget;
-	mb->edit.edit_app_gui = edit1_menu_uiinfo[22].widget;
 
 	/* View Submenu */
 	mb->view.main_toolbar = toolbar1_submenu_uiinfo[0].widget;
@@ -138,7 +137,8 @@ create_main_menubar (GtkWidget * ap, MainMenuBar * mb)
 	mb->project.dock_undock = project1_menu_uiinfo[8].widget;
 	mb->project.update_tags = project1_menu_uiinfo[10].widget;
 	mb->project.rebuild_tags = project1_menu_uiinfo[11].widget;
-	mb->project.project_help = project1_menu_uiinfo[13].widget;
+	mb->project.edit_app_gui = project1_menu_uiinfo[12].widget;
+	mb->project.project_help = project1_menu_uiinfo[14].widget;
 
 	/* Format submenu */
 	mb->format.indent = format1_menu_uiinfo[0].widget;

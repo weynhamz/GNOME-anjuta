@@ -25,8 +25,10 @@ typedef struct _TextEditorMenu TextEditorMenu;
 struct _TextEditorMenu
 {
 	GtkWidget *GUI;
-	GtkWidget *copy;
 	GtkWidget *cut;
+	GtkWidget *copy;
+	GtkWidget *paste;
+	GtkWidget *context_help;
 	GtkWidget *autoformat;
 	GtkWidget *swap;
 	GtkWidget *functions;

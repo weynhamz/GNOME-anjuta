@@ -174,8 +174,8 @@ text_editor_new (gchar * filename, TextEditor * parent, Preferences * eo)
 			g_free (te->filename);
 		if (te->full_filename)
 			g_free (te->full_filename);
-		te->filename = g_strdup (extract_filename (filename));
-		te->full_filename = resolved_file_name(filename);
+		te->filename = g_strdup(extract_filename(filename));
+		te->full_filename = tm_get_real_path(filename);
 		buff = g_strdup_printf ("Anjuta: %s", te->full_filename);
 		gtk_window_set_title (GTK_WINDOW (te->widgets.window), buff);
 		g_free (buff);
@@ -819,7 +819,9 @@ text_editor_save_file (TextEditor * te)
 		{
 			if ((app->project_dbase->project_is_open == FALSE)
 			  || (project_dbase_is_file_in_module
-			    (app->project_dbase, MODULE_SOURCE, te->full_filename)))
+			    (app->project_dbase, MODULE_SOURCE, te->full_filename))
+			  || (project_dbase_is_file_in_module
+			    (app->project_dbase, MODULE_INCLUDE, te->full_filename)))
 			{
 				check_tm_file(te);
 				if (te->tm_file)
