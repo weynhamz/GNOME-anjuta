@@ -1,5 +1,7 @@
 2004-04-13  Naba Kumar  <naba@gnome.org>
 
+	* NEWS: Updated.
+	* anjuta.spec.in: Fixed build error.
 	* po/POTFILES.in: Updated.
 	* manuals/C/anjuta-advanced-tutorial/Makefile.am: Fixed build error.
 

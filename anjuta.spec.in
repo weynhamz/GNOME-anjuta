@@ -89,7 +89,7 @@ if which scrollkeeper-update>/dev/null 2>&1; then scrollkeeper-update; fi
 
 %files
 %defattr(-,root,root)
-%doc AUTHORS COPYING ChangeLog INSTALL NEWS README THANKS TODO
+%doc AUTHORS COPYING ChangeLog INSTALL NEWS README TODO
 %doc doc/ScintillaDoc.html
 
 %defattr(-,root,root)
