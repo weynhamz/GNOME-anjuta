@@ -1,3 +1,8 @@
+2002-11-18 Naba Kumar <naba@gnome.org>
+
+	* fr.po: Updated French tranlation from
+	Jean-Noel Guiheneuf <jnoel@saudionline.com.sa>
+	
 2002-11-06 Takeshi Aihana <aihana@gnome.gr.jp>
 
 	* ja.po: Updated Japanese translation.
@@ -137,7 +142,7 @@
 
 2002-02-21  Fatih Demir <kabalak@gtranslator.org>
 
-	* tr.po: Committed updated Turkish translation by G-Aörkem.$)B
+	* tr.po: Committed updated Turkish translation by G.AŽörkem.
 
 2002-02-21  Stanislav Visnovsky  <visnovsky@nenya.ms.mff.cuni.cz>
 
@@ -169,7 +174,7 @@
 
 2002-01-31  Kjartan Maraas  <kmaraas@gnome.org>
 
-	* no.po: Updated Norwegian (bokm-Aål) translation.$)B
+	* no.po: Updated Norwegian (bokmŽål) translation.
 	
 2002-01-31  Christian Rose  <menthos@menthos.com>
 
@@ -369,7 +374,7 @@
 2001-12-02  Christian Rose  <menthos@menthos.com>
 
 	* sv.po: Fixes to the Swedish translation. Thanks to
-	G-Aöran Uddeborg <goeran@uddeborg.pp.se> and$)B
+	GŽöran Uddeborg <goeran@uddeborg.pp.se> and
 	Peter Karlsson <peter@softwolves.pp.se> for their reviews
 	and comments.
 
@@ -412,11 +417,11 @@
 
 	* sv.po: Updated Swedish translation.
 
-2001-11-03  Carlos Perell-Aó Marín <carlos@gnome-db.org>$)B
+2001-11-03  Carlos PerellŽó MarŽín <carlos@gnome-db.org>
 
 	* zh_CN.po: Fixed a header.
 
-2001-11-03  Carlos Perell-Aó Marín <carlos@gnome-db.org>$)B
+2001-11-03  Carlos PerellŽó MarŽín <carlos@gnome-db.org>
 
 	* es.po: Fixed a header.
 
@@ -499,7 +504,7 @@
 2001-09-30  Christian Rose  <menthos@menthos.com>
 
 	* sv.po: Updated Swedish translation. Thanks to
-	Jan Dj-Aärv <Jan.Djarv@mbox200.swipnet.se> for his review.$)B
+	Jan DjŽärv <Jan.Djarv@mbox200.swipnet.se> for his review.
 
 2001-09-30  Christian Rose  <menthos@menthos.com>
 
@@ -532,7 +537,7 @@
 	  I hope you people will find it useful. Just run
 	  the script and you get statistics.
 	  
-2001-09-15  Carlos Perell-Aó Marín <carlos@gnome-db.org>$)B
+2001-09-15  Carlos PerellŽó MarŽín <carlos@gnome-db.org>
 
 	* de.po: Header fixed.
 
@@ -561,7 +566,7 @@
 2001-08-26  Christian Rose  <menthos@menthos.com>
 
 	* sv.po: Updated Swedish translation. Thanks to
-	G-Aöran Weinholt <weinholt@telia.com> for a really amazing amount of$)B
+	GŽöran Weinholt <weinholt@telia.com> for a really amazing amount of
 	help!
 
 	* POTFILES.in: Added anjuta.desktop.in.in so that we can translate it
