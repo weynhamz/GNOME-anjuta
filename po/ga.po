@@ -10,7 +10,7 @@ msgstr ""
 "POT-Creation-Date: 2003-12-17 02:59+0100\n"
 "PO-Revision-Date: 2004-01-14 07:50-0000\n"
 "Last-Translator: Alastair McKinstry <mckinstry@computer.org>\n"
-"Language-Team: Irish <ga@li.org>\n"
+"Language-Team: Irish <gaeilge-gnulinux@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -259,7 +259,7 @@ msgstr ""
 
 #: anjuta.glade.h:58
 msgid "Choose Files:"
-msgstr "Tóg Comhaid:"
+msgstr "Roghnaigh Comhaid:"
 
 #: anjuta.glade.h:59
 msgid "Choose autocomplete for single match"
@@ -267,11 +267,11 @@ msgstr ""
 
 #: anjuta.glade.h:60
 msgid "Choose directories"
-msgstr "Tóg Eolairí"
+msgstr "Roghnaigh Eolairí"
 
 #: anjuta.glade.h:61
 msgid "Choose files"
-msgstr "Tóg comhaid"
+msgstr "Roghnaigh comhaid"
 
 #: anjuta.glade.h:62
 msgid "Circular"
@@ -980,7 +980,7 @@ msgstr ""
 
 #: anjuta.glade.h:233
 msgid "Pick a color"
-msgstr ""
+msgstr "Roghnaigh Dath"
 
 #: anjuta.glade.h:234
 msgid "Pixmap module Makefile.am"
@@ -1021,23 +1021,23 @@ msgstr ""
 #: anjuta.glade.h:243 src/project_dbase_gui.c:609 src/project_dbase_gui.c:626
 #: src/toolbar.c:150
 msgid "Project"
-msgstr "Tionscáil"
+msgstr "Tionscádal"
 
 #: anjuta.glade.h:244
 msgid "Project Configuration"
-msgstr "Cumraíocht Tionscáil"
+msgstr "Cumraíocht Tionscádal"
 
 #: anjuta.glade.h:245 src/wizard_gui.c:469
 msgid "Project Description"
-msgstr ""
+msgstr "Tuarascail Tionscadal"
 
 #: anjuta.glade.h:246
 msgid "Project Version"
-msgstr "Leagan Tionscáil"
+msgstr "Leagan Tionscádal"
 
 #: anjuta.glade.h:247
 msgid "Project configure.in"
-msgstr ""
+msgstr "Tionscádal configure.in"
 
 #: anjuta.glade.h:248
 msgid "Project level"
@@ -1045,7 +1045,7 @@ msgstr ""
 
 #: anjuta.glade.h:249
 msgid "Projects:"
-msgstr ""
+msgstr "Tionscádalanna:"
 
 #: anjuta.glade.h:250
 msgid "Prompt before replace"
@@ -1105,15 +1105,15 @@ msgstr ""
 
 #: anjuta.glade.h:264
 msgid "Run in Terminal"
-msgstr ""
+msgstr "Rith i Teriminéal"
 
 #: anjuta.glade.h:265
 msgid "Run in terminal"
-msgstr ""
+msgstr "Rith i teirminéal"
 
 #: anjuta.glade.h:266
 msgid "Save all files"
-msgstr ""
+msgstr "Sábháil gach comhaid"
 
 #: anjuta.glade.h:267
 msgid "Save files interval in minutes"
@@ -2120,7 +2120,7 @@ msgstr ""
 
 #: plugins/sample1/plugin-sample1.c:49
 msgid "Hello world!"
-msgstr ""
+msgstr "Fáilte Domhain!"
 
 #: plugins/sample1/plugin-sample1.c:50
 msgid "Sample plugin!"
@@ -2154,7 +2154,7 @@ msgstr "%d"
 
 #: printing/print.c:844
 msgid "Printing .."
-msgstr ""
+msgstr "Ag clódáil..."
 
 #: printing/print.c:856
 msgid "Printing ..."
@@ -2946,7 +2946,7 @@ msgstr ""
 
 #: src/clean_project.c:76
 msgid "Clean"
-msgstr "Glan"
+msgstr "Bánaigh"
 
 #: src/clean_project.c:79
 msgid "Cleaning the source directory of the Project: "
@@ -2958,7 +2958,7 @@ msgstr ""
 
 #: src/clean_project.c:124
 msgid "Clean All"
-msgstr "Glan gach Rud"
+msgstr "Bánaigh gach Rud"
 
 #: src/clean_project.c:127
 msgid "Cleaning whole of the Project: "
@@ -4363,7 +4363,7 @@ msgstr ""
 #. 9
 #: src/main_menubar_def.h:614
 msgid "_Select"
-msgstr "_Tóg"
+msgstr "_Roghnaigh"
 
 #. 10
 #: src/main_menubar_def.h:621
@@ -4515,7 +4515,7 @@ msgstr ""
 #. 0
 #: src/main_menubar_def.h:751
 msgid "++ Zoom"
-msgstr ""
+msgstr "++ Súmáil"
 
 #: src/main_menubar_def.h:752
 msgid "Increase text zoom by 1 unit"
@@ -5184,7 +5184,7 @@ msgstr ""
 #. 13
 #: src/main_menubar_def.h:1298
 msgid "Clea_n"
-msgstr "G_lan"
+msgstr "_Bánaigh"
 
 #: src/main_menubar_def.h:1299
 msgid "Clean the source directory"
