@@ -1,3 +1,9 @@
+2002-12-12  Naba Kumar <naba@gnome.org>
+
+	* anjuta-tools.[h,c], commands.c: Used the tools help of
+	anjuta variables list in commands editor and fixed a typos
+	buy in anjuta-tools.c.
+	
 2002-12-12  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
 	* anjuta.glade, src/anjuta-tools.c, src/text_editor.[ch]
 	, src/mainmenu_callbacks.c, controls.c: Tools editor stuff.

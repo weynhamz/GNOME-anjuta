@@ -28,6 +28,7 @@
 #include "anjuta.h"
 #include "commands.h"
 #include "utilities.h"
+#include "anjuta-tools.h"
 
 #define LABEL_MAX_WIDTH 250
 
@@ -510,6 +511,7 @@ static void
 on_help_clicked           (GtkButton       *button,
                                         gpointer         user_data)
 {
+	anjuta_tools_show_variables();
 }
 
 static void

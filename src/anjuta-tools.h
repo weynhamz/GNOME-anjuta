@@ -31,6 +31,10 @@ whenever a project gets loaded/unloaded or the first file is loaded or
 when the last file is closed */
 void anjuta_tools_sensitize(void);
 
+/* Shows the anjuta variables list and their values
+useful for other purposes -- like in commands editor */
+void anjuta_tools_show_variables(void);
+
 #ifdef __cplusplus
 }
 #endif

@@ -1535,6 +1535,11 @@ static struct
 , {NULL, NULL}
 };
 
+void anjuta_tools_show_variables()
+{
+	on_user_tool_edit_help_clicked(NULL, NULL);
+}
+
 gboolean on_user_tool_edit_help_clicked(GtkButton *button, gpointer user_data)
 {
 	int len;
@@ -1597,7 +1602,7 @@ gboolean on_user_tool_edit_help_clicked(GtkButton *button, gpointer user_data)
 		g_free(s[2]);
 		++ i;
 	}
-	tl->busy = TRUE;
+	th->busy = TRUE;
 	gtk_widget_show(th->dialog);
 	return TRUE;
 }
