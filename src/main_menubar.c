@@ -36,6 +36,7 @@ static void on_plugins_menu_item_activate (GtkMenuItem * item, AnjutaAddInPtr pP
 void
 create_main_menubar (GtkWidget * ap, MainMenuBar * mb)
 {
+	int i;
 	gnome_app_create_menus (GNOME_APP (ap), menubar1_uiinfo);
 
 	/* File submenu */
@@ -199,7 +200,25 @@ create_main_menubar (GtkWidget * ap, MainMenuBar * mb)
 	mb->debug.inspect = debug1_menu_uiinfo[18].widget;
 	mb->debug.add_watch = debug1_menu_uiinfo[19].widget;
 	mb->debug.stop = debug1_menu_uiinfo[21].widget;
-
+	
+	mb->cvs.update_file = cvs_menu_uiinfo[0].widget;
+	mb->cvs.commit_file = cvs_menu_uiinfo[1].widget;
+	mb->cvs.status_file = cvs_menu_uiinfo[2].widget;
+	mb->cvs.add_file = cvs_menu_uiinfo[3].widget;
+	mb->cvs.remove_file = cvs_menu_uiinfo[4].widget;
+	mb->cvs.diff_file = cvs_menu_uiinfo[5].widget;
+	mb->cvs.update_project = cvs_menu_uiinfo[7].widget;
+	mb->cvs.commit_project = cvs_menu_uiinfo[8].widget;
+	mb->cvs.import_project = cvs_menu_uiinfo[9].widget;
+	mb->cvs.status_project = cvs_menu_uiinfo[10].widget;
+	mb->cvs.diff_project = cvs_menu_uiinfo[11].widget;
+	mb->cvs.login = cvs_menu_uiinfo[13].widget;
+	mb->cvs.settings = cvs_menu_uiinfo[15].widget;
+	
+	/* not implemented yet */
+	for (i = 7; i < 12; i++)
+		gtk_widget_hide(cvs_menu_uiinfo[i].widget);
+	
 	/* Settings submenu */
 	mb->settings.compiler = settings1_menu_uiinfo[0].widget;
 	mb->settings.src_paths = settings1_menu_uiinfo[1].widget;
@@ -444,6 +463,9 @@ main_menu_unref ()
 	
 	for (i = 0; i < NUM_DEBUG_SUBMENUS; i++)
 		gtk_widget_unref (debug1_menu_uiinfo[i].widget);
+		
+	for (i = 0; i < NUM_CVS_SUBMENUS; i++)
+		gtk_widget_unref(cvs_menu_uiinfo[i].widget);
 	
 	for (i = 0; i < NUM_SETTINGS_SUBMENUS; i++)
 		gtk_widget_unref (settings1_menu_uiinfo[i].widget);

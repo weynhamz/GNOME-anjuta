@@ -173,6 +173,7 @@ anjuta_new ()
 		if (TRUE != tm_workspace_load_global_tags(PACKAGE_DATA_DIR "/system.tags"))
 			g_warning("Unable to load global tag file");
 		app->help_system = anjuta_help_new();
+		app->cvs = cvs_new(app->preferences->props);
 
 		app->widgets.the_client = app->widgets.vpaned;
 		app->widgets.hpaned_client = app->widgets.hpaned;
@@ -1002,6 +1003,7 @@ gboolean anjuta_save_yourself (FILE * stream)
 
 	find_replace_save_yourself (app->find_replace, stream);
 	debugger_save_yourself (stream);
+	cvs_save_yourself(app->cvs, stream);
 	preferences_save_yourself (app->preferences, stream);
 	return TRUE;
 }

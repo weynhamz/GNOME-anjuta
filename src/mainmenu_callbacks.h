@@ -582,6 +582,60 @@ on_windows1_close_activate                  (GtkMenuItem     *menuitem,
 /******************************************************************/
 
 void
+on_cvs_update_file_activate                  (GtkMenuItem     *menuitem,
+                                        gpointer         user_data);
+
+void
+on_cvs_commit_file_activate                  (GtkMenuItem     *menuitem,
+                                        gpointer         user_data);
+
+void
+on_cvs_status_file_activate                  (GtkMenuItem     *menuitem,
+                                        gpointer         user_data);
+
+void
+on_cvs_add_file_activate                  (GtkMenuItem     *menuitem,
+                                        gpointer         user_data);
+
+void
+on_cvs_remove_file_activate                  (GtkMenuItem     *menuitem,
+                                        gpointer         user_data);
+
+void
+on_cvs_diff_file_activate                  (GtkMenuItem     *menuitem,
+                                        gpointer         user_data);
+
+void
+on_cvs_update_project_activate                  (GtkMenuItem     *menuitem,
+                                        gpointer         user_data);
+
+void
+on_cvs_commit_project_activate                  (GtkMenuItem     *menuitem,
+                                        gpointer         user_data);
+
+void
+on_cvs_import_project_activate                  (GtkMenuItem     *menuitem,
+                                        gpointer         user_data);
+
+void
+on_cvs_project_status_activate                  (GtkMenuItem     *menuitem,
+                                        gpointer         user_data);
+
+void
+on_cvs_project_diff_activate                  (GtkMenuItem     *menuitem,
+                                        gpointer         user_data);
+
+void
+on_cvs_login_activate                  (GtkMenuItem     *menuitem,
+                                        gpointer         user_data);
+
+void
+on_cvs_settings_activate                  (GtkMenuItem     *menuitem,
+                                        gpointer         user_data);
+
+/*****************************************************************/
+
+void
 on_set_compiler1_activate                  (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
 

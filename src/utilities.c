@@ -51,13 +51,43 @@ extract_filename (gchar * full_filename)
 		return full_filename;
 	if (full_filename[length - 1] == '/')
 		return &full_filename[length];
-	for (i = strlen (full_filename) - 1; i >= 0; i--)
+	for (i = length - 1; i >= 0; i--)
 		if (full_filename[i] == '/')
 			break;
 	if (i == 0 && full_filename[0] != '/')
 		return full_filename;
 	return &full_filename[++i];
 }
+
+char* 
+extract_directory(char* full_filename)
+{
+	gint i;
+	gint length;
+	gchar* dir;
+
+	if (!full_filename)
+		return NULL;
+	length = strlen (full_filename);
+	if (length == 0)
+		return g_strdup(full_filename);
+	if (full_filename[length - 1] == '/')
+	{
+		dir = g_new0(char, length - 1);
+		strncpy(dir, full_filename, length - 2);
+		return dir;
+	}
+	for (i = length - 1; i >= 0; i--)
+		if (full_filename[i] == '/')
+			break;
+	if (i == 0)
+		return g_strdup("");
+	dir = g_new0(char, i + 1);
+	strncpy(dir, full_filename, i);
+	dir[i] = '\0';
+	return dir;
+}
+
 
 #define NSTR(S) ((S)?(S):"NULL")
 gchar *

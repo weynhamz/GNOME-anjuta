@@ -19,6 +19,8 @@
 #ifndef _TEXT_EDITOR_MENU_H_
 #define _TEXT_EDITOR_MENU_H_
 
+#include <gtk/gtk.h>
+
 typedef struct _TextEditorMenu TextEditorMenu;
 struct _TextEditorMenu
 {

@@ -29,6 +29,7 @@ typedef struct _BookmarkSubMenu BookmarkSubMenu;
 typedef struct _DebugSubMenu DebugSubMenu;
 typedef struct _UtilitiesSubMenu UtilitiesSubMenu;
 typedef struct _WindowsSubMenu WindowsSubMenu;
+typedef struct _CVSSubMenu CVSSubMenu;
 typedef struct _SettingsSubMenu SettingsSubMenu;
 typedef struct _HelpSubMenu HelpSubMenu;
 typedef struct _MainMenuBar MainMenuBar;
@@ -221,6 +222,23 @@ struct _DebugSubMenu
 	GtkWidget *info_args;
 };
 
+struct _CVSSubMenu
+{
+	GtkWidget* update_file;
+	GtkWidget* commit_file;
+	GtkWidget* add_file;
+	GtkWidget* remove_file;
+	GtkWidget* status_file;
+	GtkWidget* diff_file;
+	GtkWidget* update_project;
+	GtkWidget* commit_project;
+	GtkWidget* import_project;
+	GtkWidget* status_project;
+	GtkWidget* diff_project;
+	GtkWidget* login;
+	GtkWidget* settings;
+};
+
 struct _SettingsSubMenu
 {
 	GtkWidget *compiler;
@@ -250,6 +268,7 @@ struct _MainMenuBar
 	BuildSubMenu build;
 	BookmarkSubMenu bookmark;
 	DebugSubMenu debug;
+	CVSSubMenu cvs;
 	SettingsSubMenu settings;
 	HelpSubMenu help;
 };

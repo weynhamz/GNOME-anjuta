@@ -92,6 +92,12 @@ anjuta_SOURCES = \
 	configurer.h\
 	controls.c\
 	controls.h\
+	cvs.c\
+	cvs.h\
+	cvs_gui.c\
+	cvs_gui.h\
+	cvs_cbs.c\
+	cvs_cvs.h\
 	debugger.c\
 	debugger.h\
 	dnd.c\

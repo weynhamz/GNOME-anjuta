@@ -337,6 +337,7 @@ text_editor_find (TextEditor * te, gchar * str, gint scope, gboolean forward,
 				}
 			break;
 		default:
+			break;
 	}
 	ret = aneditor_command (te->editor_id, ANE_FIND, flags, (long)str);
 	return ret;

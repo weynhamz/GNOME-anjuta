@@ -40,6 +40,7 @@
 #include "main_menubar.h"
 #include "properties.h"
 #include "help.h"
+#include "cvs.h"
 
 #include "tm_tagmanager.h"
 #include "file_history.h"
@@ -129,6 +130,7 @@ struct _AnjutaApp
 	FindInFiles *find_in_files;
 	const TMWorkspace *tm_workspace;
 	AnjutaHelp* help_system;
+	CVS* cvs;
 
 	GList *registered_windows;
 	GList *registered_child_processes;

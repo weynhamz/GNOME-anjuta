@@ -39,7 +39,7 @@ enum
 static void gotoline_class_init (GotoLineClass * klass);
 static void gotoline_init (GotoLine * obj);
 
-static gint gotoline_signals[LAST_SIGNAL] = { 0 };
+static gint gotoline_signals[LAST_SIGNAL];
 
 
 /* Widget function headers */

@@ -1,3 +1,26 @@
+2002-03-22  Johannes Schmid <clubfan@users.sourceforge.net>
+
+	Reviewed by Naba Kumar <kh_naba@users.sourceforge.net>
+	
+	* src/cvs*, src/Makefile.am:
+	  New file for CVS support. File operations currently work
+	  cvs login needs to be done. Project support is not yet
+	  started.
+
+	* src/main_menubar*, src/mainmenu_callbacks,
+	  src/anjuta.c, src/anjuta.h:
+	  Added menus and functions for cvs commands.
+	  
+	* src/text_editor_menu.h: 
+	  Added #include <gtk/gtk.h>
+	  
+	* src/gotoline.h:
+	  Removed a warning (and this time it works ;-)
+
+	* src/utilities.c, src/utilities.h:
+	  Added a utility function to retrieve directory
+	  name out of full path.
+
 2002-03-11  Jeroen van der Vegt  <ajvdvegt@sourceforge.net>
 
 	* src/executer.c: (create_executer_dialog): changed the default

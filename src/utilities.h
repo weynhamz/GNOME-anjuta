@@ -117,6 +117,9 @@ gboolean write_line(FILE* stream, gchar *str);
 /* Get the filename */
 char* extract_filename(char* full_filename);
 
+/* Get directory of file, return value must be g_freed */
+char* extract_directory(char* full_filename);
+
 /* Adds the given string in the list, if it does not already exist. */
 /* The added string will come at the top of the list */
 /* The list will be then truncated to (length) items only */

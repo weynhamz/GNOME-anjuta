@@ -53,6 +53,7 @@
 #include "watch_cbs.h"
 #include "help.h"
 #include "project_import.h"
+#include "cvs_gui.h"
 #include "Scintilla.h"
 #include "ScintillaWidget.h"
 
@@ -1730,6 +1731,98 @@ void
 on_windows1_close_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
 	on_close_file1_activate (NULL, NULL);
+}
+
+/*************************************************************************************************/
+void
+on_cvs_update_file_activate                  (GtkMenuItem     *menuitem,
+                                        gpointer         user_data)
+{
+	create_cvs_file_gui(app->cvs, CVS_ACTION_UPDATE);
+}
+
+void
+on_cvs_commit_file_activate                  (GtkMenuItem     *menuitem,
+                                        gpointer         user_data)
+{
+	create_cvs_file_gui(app->cvs, CVS_ACTION_COMMIT);
+}
+
+void
+on_cvs_status_file_activate                  (GtkMenuItem     *menuitem,
+                                        gpointer         user_data)
+{
+		create_cvs_file_gui(app->cvs, CVS_ACTION_STATUS);
+}
+
+void
+on_cvs_add_file_activate                  (GtkMenuItem     *menuitem,
+                                        gpointer         user_data)
+{
+	create_cvs_file_gui(app->cvs, CVS_ACTION_ADD);	
+}
+
+void
+on_cvs_remove_file_activate                  (GtkMenuItem     *menuitem,
+                                        gpointer         user_data)
+{
+	create_cvs_file_gui(app->cvs, CVS_ACTION_REMOVE);
+}
+
+void
+on_cvs_diff_file_activate                  (GtkMenuItem     *menuitem,
+                                        gpointer         user_data)
+{
+	create_cvs_file_diff_gui (app->cvs);
+}
+
+void
+on_cvs_update_project_activate                  (GtkMenuItem     *menuitem,
+                                        gpointer         user_data)
+{
+	
+}
+
+void
+on_cvs_commit_project_activate                  (GtkMenuItem     *menuitem,
+                                        gpointer         user_data)
+{
+	
+}
+
+void
+on_cvs_import_project_activate                  (GtkMenuItem     *menuitem,
+                                        gpointer         user_data)
+{
+	
+}
+
+void
+on_cvs_project_status_activate                  (GtkMenuItem     *menuitem,
+                                        gpointer         user_data)
+{
+	
+}
+
+void
+on_cvs_project_diff_activate                  (GtkMenuItem     *menuitem,
+                                        gpointer         user_data)
+{
+	
+}
+
+void
+on_cvs_login_activate                  (GtkMenuItem     *menuitem,
+                                        gpointer         user_data)
+{
+	cvs_login(app->cvs);
+}
+
+void
+on_cvs_settings_activate                  (GtkMenuItem     *menuitem,
+                                        gpointer         user_data)
+{
+	create_cvs_settings_dialog(app->cvs);
 }
 
 /************************************************************************************************/
