@@ -1,7 +1,7 @@
-# Copyright (C) 2001-2002 Free Software Foundation, Inc.
+# Copyright (C) 2001-2004 Free Software Foundation, Inc.
 # -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 # Aktualną wersję tego pliku możesz odnaleźć w repozytorium cvs.gnome.pl
-# (:pserver:anonymous@cvs.gnome.pl:/home/cvs, puste hasło)
+# (:pserver:anonymous@cvs.gnome.pl:/gnomepl, puste hasło)
 # Jeśli masz jakiekolwiek uwagi odnoszące się do tłumaczenia lub chcesz
 # pomóc w jego rozwijaniu i pielęgnowaniu, napisz do nas na adres:
 # translators@gnome.pl
@@ -13,7 +13,7 @@ msgstr ""
 "POT-Creation-Date: 2003-10-08 11:51+0200\n"
 "PO-Revision-Date: 2003-10-04 02:42+0200\n"
 "Last-Translator: GNOME PL Team <translators@gnome.pl>\n"
-"Language-Team: Polish <pl@li.org>\n"
+"Language-Team: Polish <translation-team-pl@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -509,7 +509,7 @@ msgstr "Używane przy zapisie plików kodowanie"
 
 #: anjuta.glade.h:118
 msgid "Enter a Hexa adress or select one in the data"
-msgstr ""
+msgstr "Podaj adres szesnastkowy lub wybierz jeden z danych"
 
 #: anjuta.glade.h:119
 msgid ""
@@ -721,7 +721,7 @@ msgid ""
 "existing Project into Anjuta and convert it into Anjuta Project. There will "
 "be no data lose or modification done to the project."
 msgstr ""
-"Zaimportuj istniejący projekt. Druid importowania przeprowadzi cię przez "
+"Zaimportuj istniejący projekt. Druid importowania przeprowadzi Cię przez "
 "proces importowania istniejącego projektu do Anjuty i skonwertowania go do "
 "projektu Anjuty. Nie zostaną utracone żadne dane oraz nie zostaną dokonane "
 "żadne zmiany w projekcie."
@@ -1246,9 +1246,9 @@ msgid ""
 "creation. With the Application Wizard, you will be able to create the "
 "skelleton of various types of Project."
 msgstr ""
-"Rozpocznij tworzenie nowego projektu. Druid aplikacji przeprowadzi cię przez "
-"proces tworzenia projektu. Przy użyciu druida aplikacji będzie można "
-"utworzyć szkielet różnych typów projektu."
+"Rozpocznij nowy projekt. Druid aplikacji przeprowadzi cię przez proces "
+"tworzenia projektu. Przy użyciu druida aplikacji będzie można utworzyć "
+"szkielet różnych typów projektu."
 
 #: anjuta.glade.h:292
 msgid "String"
@@ -1516,9 +1516,8 @@ msgid "Size in pixels of the grip to drag the dock item"
 msgstr ""
 
 #: gdl/gdl-dock-item.c:282 gdl/gdl-dock-master.c:143
-#, fuzzy
 msgid "Locked"
-msgstr "Zadokuj"
+msgstr "Zablokowany"
 
 #: gdl/gdl-dock-item.c:283
 msgid ""
@@ -1575,7 +1574,7 @@ msgstr "Zablokuj"
 #: gdl/gdl-dock-item.c:1404
 #, c-format
 msgid "Attempt to bind an unbound item %p"
-msgstr ""
+msgstr "Próba dowiązania niedowiązanego elementu %p"
 
 #: gdl/gdl-dock-layout.c:125
 #, fuzzy
@@ -2465,7 +2464,7 @@ msgid "Unable to build user interface for tool editor"
 msgstr "Nie można zbudować interfejsu użytkownika dla edytora narzędzi"
 
 #: src/anjuta-tools.c:1385
-#, c-format
+#, fuzzy, c-format
 msgid "Are you sure you want to delete the '%s' tool?"
 msgstr "Czy na pewno chcesz usunąć narzędzie \"%s\"?"
 
@@ -2619,7 +2618,7 @@ msgstr ""
 
 #: src/anjuta.c:2411
 msgid "Looking up symbol"
-msgstr ""
+msgstr "Wyszukiwanie symbolu"
 
 #: src/anjuta.c:2413 src/find_in_files.c:322
 msgid "Finding in Files ....\n"
@@ -2651,7 +2650,7 @@ msgid "Could not open file for writing"
 msgstr "Nie można otworzyć pliku do zapisu"
 
 #: src/anjuta_cbs.c:568
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The file '%s' already exists.\n"
 "Do you want to replace it with the one you are saving?."
@@ -2776,7 +2775,7 @@ msgstr "Pid"
 
 #: src/attach_process.c:47
 msgid "User"
-msgstr ""
+msgstr "Użytkownik"
 
 #: src/attach_process.c:47
 msgid "Time"
@@ -2868,27 +2867,23 @@ msgstr "Budowanie pliku: %s ...\n"
 #: src/project_import.c:192
 #, fuzzy, c-format
 msgid "Total time taken: %lu secs\n"
-msgstr "Całkowity czas: %d sek.\n"
+msgstr "Całkowity czas: %lu sek.\n"
 
 #: src/build_file.c:136
-#, fuzzy
 msgid "Completed ... unsuccessful\n"
-msgstr "Budowanie zakończone ... niepowodzeniem\n"
+msgstr "Zakończono ... niepowodzeniem\n"
 
 #: src/build_file.c:140
-#, fuzzy
 msgid "Completed ... unsuccessful"
-msgstr "Kompilacja zakończona ... niepowodzeniem"
+msgstr "Zakończono ... niepowodzeniem"
 
 #: src/build_file.c:145
-#, fuzzy
 msgid "Completed ... successful\n"
-msgstr "Operacja CVS zakończona ... powodzeniem\n"
+msgstr "Zakończono ... powodzeniem\n"
 
 #: src/build_file.c:149
-#, fuzzy
 msgid "Completed ... successful"
-msgstr "Operacja CVS zakończona ... powodzeniem"
+msgstr "Zakończono ... powodzeniem"
 
 #: src/build_project.c:76 src/compile.c:61
 msgid "Unable to build module. Check Settings->Commands."
@@ -3005,6 +3000,9 @@ msgid ""
 "would you like the next build action to perform a complete\n"
 "rebuild of the project?"
 msgstr ""
+"Zmieniono niektóre z opcji kompilacji projektu,\n"
+"czy chcesz podczas przeprowadzania operacji budowania przeprowadzić\n"
+"proces przebudowania projektu?"
 
 #: src/compiler_options.c:724 src/src_paths.c:217
 msgid "Do you want to clear the list?"
@@ -3288,9 +3286,8 @@ msgid "Import settings"
 msgstr "Ustawienia importowania"
 
 #: src/debug_tree.c:1190
-#, fuzzy
 msgid "Local Variables"
-msgstr "Informacje o zmiennych _lokalnych"
+msgstr "Zmienne lokalne"
 
 #: src/debug_tree.c:1504
 msgid "Default format"
@@ -3556,7 +3553,7 @@ msgstr "Nie podano wyszukiwanego napisu."
 #: src/find_replace.c:338
 #, fuzzy
 msgid "Do you want to replace this occurence?"
-msgstr "Czy chcesz to zastąpić?"
+msgstr "Czy chcesz zastąpić to wystąpienie?"
 
 #: src/find_replace.c:400
 #, c-format
@@ -3682,28 +3679,32 @@ msgid " Goto Line number "
 msgstr " Przejście do wybranego wiersza "
 
 #: src/launcher.c:596
+#, fuzzy
 msgid "launcher.c: Error while reading child stdout\n"
 msgstr ""
+"launcher.c: Błąd podczas odczytu wyjścia standardowego procesu potomnego\n"
 
 #: src/launcher.c:608
 msgid "launcher.c: STDOUT pipe closed"
-msgstr ""
+msgstr "launcher.c: Potok STDOUT został zamknięty"
 
 #: src/launcher.c:644
+#, fuzzy
 msgid "launcher.c: Error while reading child stderr"
 msgstr ""
+"launcher.c: Błąd podczas odczytu wyjścia diagnostycznego procesu potomnego"
 
 #: src/launcher.c:656
 msgid "launcher.c: STDERR pipe closed"
-msgstr ""
+msgstr "launcher.c: Potok STDERR został zamknięty"
 
 #: src/launcher.c:697
 msgid "launcher.c: Error while reading child pty\n"
-msgstr ""
+msgstr "launcher.c: Błąd podczas odczytu procesu potomnego pty\n"
 
 #: src/launcher.c:715
 msgid "launcher.c: PTY pipe error!"
-msgstr ""
+msgstr "launcher.c: Błąd potoku PTY!"
 
 #: src/launcher.c:842 src/text_editor.c:1510
 msgid "Cannot execute command shell"
@@ -4034,7 +4035,7 @@ msgstr "Szablon pliku nagłówkowego"
 
 #: src/main_menubar_def.h:270
 msgid "Insert a standard header file template"
-msgstr ""
+msgstr "Wstawia standardowy szablon pliku nagłówkowego"
 
 #. 6
 #: src/main_menubar_def.h:275
@@ -4124,8 +4125,9 @@ msgid "Block Comment/Uncomment"
 msgstr "Zakomentuj/odkomentuj blok wierszowo"
 
 #: src/main_menubar_def.h:398
+#, fuzzy
 msgid "Block comment/uncomment the selected text"
-msgstr "Komentuje/odkomentowuje zaznaczony tekst wierszowo"
+msgstr "Komentuje/odkomentowuje zaznaczony tekst blokowo"
 
 #. 1
 #: src/main_menubar_def.h:403
@@ -4160,20 +4162,17 @@ msgid "Find _Next"
 msgstr "Znaj_dź następny"
 
 #: src/main_menubar_def.h:428
-#, fuzzy
 msgid "Search Forward"
-msgstr "Naprzód"
+msgstr "Wyszukaj naprzód"
 
 #. 2
 #: src/main_menubar_def.h:434
-#, fuzzy
 msgid "Find Previous"
-msgstr "Podgląd wydruku"
+msgstr "Znajdź poprzedni"
 
 #: src/main_menubar_def.h:435
-#, fuzzy
 msgid "Search Backward"
-msgstr "Wstecz"
+msgstr "Wyszukaj wstecz"
 
 #. 3
 #: src/main_menubar_def.h:441
@@ -4210,8 +4209,9 @@ msgid "Advanced search and re_place"
 msgstr "Zaawansowane _wyszukiwanie i zmiana"
 
 #: src/main_menubar_def.h:465
+#, fuzzy
 msgid "Advanced Search And Replace"
-msgstr "Zaawansowane wyszukiwanie i zmiana"
+msgstr "Zaawansowane _wyszukiwanie i zmiana"
 
 #. 0
 #: src/main_menubar_def.h:476
@@ -5812,7 +5812,7 @@ msgstr "Druid konfiguracji Anj_uty"
 
 #: src/main_menubar_def.h:1778
 msgid "Setup wizard for first time run"
-msgstr ""
+msgstr "Druid konfiguracji dla czasu pierwszego uruchamiania"
 
 #. 0
 #. 1
@@ -6017,16 +6017,15 @@ msgstr "Nie można zbudować interfejsu użytkownika dla pamięci\n"
 
 #: src/memory.c:413
 msgid "Enter a Hexa address or Select one in the data"
-msgstr ""
+msgstr "Podaj adres szesnastkowy lub wybierz jeden z danych"
 
 #: src/memory.c:420
 msgid "Non accessible address !"
 msgstr "Nieakceptowalny adres !"
 
 #: src/message-manager-private.cc:322
-#, fuzzy
 msgid " warning: "
-msgstr "Ostrzeżenie"
+msgstr " ostrzeżenie: "
 
 #: src/message-manager.cc:44
 msgid "Find"
@@ -6093,6 +6092,10 @@ msgid ""
 "This may result in improper behaviour or instabilities.\n"
 "Anjuta will fall back to built in (limited) settings"
 msgstr ""
+"Nie można wczytać globalnych wartości domyślnych i plików konfiguracyjnych:\n"
+"%s.\n"
+"To może skutkować niepoprawnym zachowaniem lub niestabilnością.\n"
+"Anjuta powróci do wbudowanych ustawień (ograniczonych)"
 
 #: src/preferences.c:1211
 msgid "Anjuta Preferences"
@@ -6147,6 +6150,9 @@ msgid ""
 "not use glade for GUI editing,  please specify a custom command for it in "
 "[Project]->[Project Configuration]->[GUI editor command]"
 msgstr ""
+"Plik .glade nie istnieje w katalogu nadrzędnym projektu. Jeśli nie używasz "
+"glade do edycji GUI, wybierz własne polecenie do tego celu [Projekt]->"
+"[Konfiguracja projektu]->[Polecenie edytora GUI]"
 
 #: src/project_dbase.c:1631
 msgid ""
@@ -7307,7 +7313,7 @@ msgstr "Brak pasujących wyrażeń. Przejrzeć dokument od początku?"
 
 # [cyba] A niby autor powinien wiedzieć, co pisze...
 #: src/toolbar_callbacks.c:305
-#, c-format
+#, fuzzy, c-format
 msgid "There is line number %d in \"%s\"."
 msgstr "Wiersz o numerze %d występuje w pliku \"%s\"."
 
@@ -7342,7 +7348,7 @@ msgstr "Przełączanie możliwe"
 
 #: src/watch_gui.c:67
 msgid "Change item"
-msgstr ""
+msgstr "Zmień element"
 
 #: src/watch_gui.c:172
 msgid "Add Watch Expression"
@@ -7631,189 +7637,430 @@ msgstr "Utworzenie folderu \"%s\" nie powiodło się: %s"
 msgid "Folder name:"
 msgstr "Nazwa folderu:"
 
-#~ msgid ""
-#~ "The file '%s' already exists.\n"
-#~ "Do you want to overwrite it?."
-#~ msgstr ""
-#~ "Plik \"%s\" już istnieje.\n"
-#~ "Czy chcesz go nadpisać?."
+msgid ""
+"The file '%s' already exists.\n"
+"Do you want to overwrite it?."
+msgstr ""
+"Plik \"%s\" już istnieje.\n"
+"Czy chcesz go nadpisać?."
 
-#~ msgid "Build completed ... unsuccessful"
+msgid "Build completed ... unsuccessful"
+msgstr "Budowanie zakończone ... niepowodzeniem"
+
+msgid "Build completed ... successful\n"
+msgstr "Budowanie zakończone ... powodzeniem\n"
+
+msgid "Build completed ... successful"
+msgstr "Budowanie zakończone ... powodzeniem"
+
+msgid "Build completed...............Unsuccessful\n"
+msgstr "Budowanie zakończone..............Niepowodzeniem\n"
+
+msgid "Build terminated with error(s)."
+msgstr "Budowanie zakończyło się z błędami."
+
+msgid "Build completed...............Successful\n"
+msgstr "Budowanie zakończone...............Powodzeniem\n"
+
+msgid "Build completed ... successful."
+msgstr "Budowanie zakończone ... powodzeniem."
+
+msgid "Build All completed...............Unsuccessful\n"
+msgstr "Budowanie wszystkich plików zakończone.....Powodzeniem\n"
+
+msgid "Build All completed...............Unsuccessful"
+msgstr "Budowanie wszystkich plików zakończone....Niepowodzeniem"
+
+msgid "Build All completed...............Successful\n"
+msgstr "Budowanie wszystkich plików zakończone......Powodzeniem\n"
+
+msgid "Build All completed ... successful"
+msgstr "Budowanie wszystkich plików zakończone ... powodzeniem"
+
+msgid "Build Distribution completed...............Unsuccessful\n"
+msgstr "Budowanie dystrybucji zakończone...............niepowodzeniem\n"
+
+msgid "Build Distribution completed ... unsuccessful"
+msgstr "Budowanie dystrybucji zakończone ... niepowodzeniem"
+
+msgid "Build Distribution completed...............Successful\n"
+msgstr "Budowanie dystrybucji zakończone...............powodzeniem\n"
+
+msgid ""
+"The source tarball can be found in the top level directory of the Project.\n"
+msgstr "Archiwum tar można odnaleźć w głównym katalogu projektu.\n"
+
+msgid "Build Distribution completed ... successful"
+msgstr "Budowanie dystrybucji zakończone ... powodzeniem"
+
+msgid "Install completed...............Unsuccessful\n"
+msgstr "Instalacja zakończona..............Niepowodzeniem\n"
+
+msgid "Install completed...............Unsuccessful"
+msgstr "Instalacja zakończona..............Niepowodzeniem"
+
+msgid "Install completed...............Successful\n"
+msgstr "Instalacja zakończona..............Powodzeniem\n"
+
+msgid "Install completed ... successful"
+msgstr "Instalacja zakończona ... powodzeniem"
+
+msgid "Auto generation completed ... unsuccessful"
+msgstr "Automatyczna generacja zakończona ... niepowodzeniem"
+
+msgid ""
+"Auto generation completed...............Successful\n"
+"Now Configure the Project.\n"
+msgstr ""
+"Automatyczna generacja zakończona.............powodzeniem\n"
+"Teraz skonfiguruj projekt.\n"
+
+msgid "Auto generation completed ... successful"
+msgstr "Automatyczna generacja zakończona ... powodzeniem"
+
+msgid "Cleaning completed...............Unsuccessful\n"
+msgstr "Czyszczenie zakończone.............Niepowodzeniem\n"
+
+msgid "Cleaning completed ... unsuccessful"
+msgstr "Czyszczenie zakończone ... niepowodzeniem"
+
+msgid "Cleaning completed...............Successful\n"
+msgstr "Czyszczenie zakończone..............Powodzeniem\n"
+
+msgid "Cleaning completed ... successful"
+msgstr "Czyszczenie zakończone ... powodzeniem"
+
+msgid "Clean All completed...............Unsuccessful\n"
+msgstr "Czyszczenie całego projektu zakończone.....Niepowodzeniem\n"
+
+msgid "Clean All completed ... unsuccessful"
+msgstr "Czyszczenie całego projektu zakończone ... niepowodzeniem"
+
+msgid "Clean All completed...............Successful\n"
+msgstr "Czyszczenie całego projektu zakończone.....Powodzeniem\n"
+
+msgid "Clean All completed ... successful"
+msgstr "Czyszczenie całego projektu zakończone ... powodzeniem"
+
+msgid "Compile completed ... successful"
+msgstr "Kompilacja zakończona ... powodzeniem"
+
+msgid "Configure completed...............Unsuccessful\n"
+msgstr "Konfigurowanie zakończone..............Niepowodzeniem\n"
+
+msgid "Configure completed ... unsuccessful"
+msgstr "Konfigurowanie zakończone ... niepowodzeniem"
+
+msgid "Configure completed...............Successful\n"
+msgstr "Konfigurowanie zakończone..............Powodzeniem\n"
+
+msgid "Configure completed ... successful"
+msgstr "Konfigurowanie zakończone ... powodzeniem"
+
+msgid "Page Set_up ..."
+msgstr "_Ustawienia strony ..."
+
+msgid "Page setup for printing"
+msgstr "Ustawienia strony do drukowania"
+
+msgid "Repeat the last Find command"
+msgstr "Powtarza ostatnie polecenie przeszukiwania"
+
+msgid "New"
+msgstr "Nowy"
+
+msgid "Open"
+msgstr "Otwórz"
+
+msgid "Save"
+msgstr "Zapisz"
+
+msgid "Reload"
+msgstr "Odśwież"
+
+msgid "Undo"
+msgstr "Cofnij"
+
+msgid "Redo"
+msgstr "Ponów"
+
+msgid "Go To"
+msgstr "Przejdź do"
+
+msgid "Execute"
+msgstr "Wykonaj"
+
+msgid "First"
+msgstr "Pierw"
+
+msgid "Last"
+msgstr "Ostat"
+
+msgid "Goto Tag"
+msgstr "Przejdź do znacznika"
+
+msgid "window1"
+msgstr "okno1"
+
+msgid "window2"
+msgstr "okno2"
+
+msgid "window3"
+msgstr "okno3"
+
+msgid "window4"
+msgstr "okno4"
+
+msgid "window5"
+msgstr "okno5"
+
+msgid "window6"
+msgstr "okno6"
+
+msgid "window7"
+msgstr "okno7"
+
+msgid "window8"
+msgstr "okno8"
+
+#, fuzzy
+#~ msgid "Anjuta Setup Wizard"
+#~ msgstr "Druid konfiguracji Anj_uty"
+
+#, fuzzy
+#~ msgid "Anjuta setup wizard"
+#~ msgstr "Druid konfiguracji Anj_uty"
+
+#, fuzzy
+#~ msgid "Anjuta windows"
+#~ msgstr "Anjuta: %s"
+
+#, fuzzy
+#~ msgid "Circular"
+#~ msgstr "Wyczyść"
+
+#~ msgid "Crazy boy style"
+#~ msgstr "Styl szalonego chłopca"
+
+#~ msgid "Diagonal"
+#~ msgstr "Przekątna"
+
+#, fuzzy
+#~ msgid "Docked style"
+#~ msgstr "Styl składania:"
+
+#~ msgid "GNU coding style"
+#~ msgstr "Styl kodowania GNU"
+
+#~ msgid "Hello World style"
+#~ msgstr "Styl Witaj świecie!"
+
+#, fuzzy
+#~ msgid "Kernighan & Ritchie style"
+#~ msgstr "Styl Kerningham i Ritchie"
+
+#~ msgid "Left"
+#~ msgstr "Lewo"
+
+#~ msgid "Original Berkeley style"
+#~ msgstr "Oryginalny styl Berkeley"
+
+#~ msgid "Plus/Minus"
+#~ msgstr "Plus/Minus"
+
+#~ msgid "Right"
+#~ msgstr "Prawo"
+
+#~ msgid "Squares"
+#~ msgstr "Kwadraty"
+
+#~ msgid "Strike-Out"
+#~ msgstr "Przekreślenie"
+
+#~ msgid "Style of Kangleipak"
+#~ msgstr "Styl Kangleipak"
+
+#~ msgid "Top"
+#~ msgstr "Góra"
+
+#, fuzzy
+#~ msgid "Underline-Plain"
+#~ msgstr "Podkreślenie"
+
+#, fuzzy
+#~ msgid "Underline-Squiggle"
+#~ msgstr "Podkreślenie"
+
+#, fuzzy
+#~ msgid "Underline-TT"
+#~ msgstr "Podkreślenie"
+
+#, fuzzy
+#~ msgid "Undocked style"
+#~ msgstr "Styl składania:"
+
+#, fuzzy
+#~ msgid "Windows style"
+#~ msgstr "Dowolny styl"
+
+#, fuzzy
+#~ msgid "Transform"
+#~ msgstr "P_rzekształć"
+
+#, fuzzy
+#~ msgid "Insert"
+#~ msgstr "Zbadaj"
+
+#, fuzzy
+#~ msgid "Comment"
+#~ msgstr "Komentarz:"
+
+#, fuzzy
+#~ msgid "Syntax hilighting styles"
+#~ msgstr "Ustawienia wyróżniania elementów składni"
+
+#, fuzzy
+#~ msgid "Goto line"
+#~ msgstr "Przejdź do deklaracji"
+
+#, fuzzy
+#~ msgid "Enter the line number to jump and press enter"
+#~ msgstr "Wprowadź numer wiersza, do którego chcesz przejść"
+
+#, fuzzy
+#~ msgid "Incremental search"
+#~ msgstr "Wyszukiwanie pomocy Anjuty"
+
+#, fuzzy
+#~ msgid "Navigation"
+#~ msgstr "Konfiguracja"
+
+#, fuzzy
+#~ msgid "Build completed ... unsuccessful\n"
 #~ msgstr "Budowanie zakończone ... niepowodzeniem"
 
-#~ msgid "Build completed ... successful\n"
-#~ msgstr "Budowanie zakończone ... powodzeniem\n"
-
-#~ msgid "Build completed ... successful"
-#~ msgstr "Budowanie zakończone ... powodzeniem"
-
-#~ msgid "Build completed...............Unsuccessful\n"
-#~ msgstr "Budowanie zakończone..............Niepowodzeniem\n"
-
-#~ msgid "Build terminated with error(s)."
-#~ msgstr "Budowanie zakończyło się z błędami."
-
-#~ msgid "Build completed...............Successful\n"
-#~ msgstr "Budowanie zakończone...............Powodzeniem\n"
-
-#~ msgid "Build completed ... successful."
-#~ msgstr "Budowanie zakończone ... powodzeniem."
-
-#~ msgid "Build All completed...............Unsuccessful\n"
-#~ msgstr "Budowanie wszystkich plików zakończone.....Powodzeniem\n"
-
-#~ msgid "Build All completed...............Unsuccessful"
-#~ msgstr "Budowanie wszystkich plików zakończone....Niepowodzeniem"
-
-#~ msgid "Build All completed...............Successful\n"
-#~ msgstr "Budowanie wszystkich plików zakończone......Powodzeniem\n"
-
-#~ msgid "Build All completed ... successful"
-#~ msgstr "Budowanie wszystkich plików zakończone ... powodzeniem"
-
-#~ msgid "Build Distribution completed...............Unsuccessful\n"
-#~ msgstr "Budowanie dystrybucji zakończone...............niepowodzeniem\n"
-
-#~ msgid "Build Distribution completed ... unsuccessful"
-#~ msgstr "Budowanie dystrybucji zakończone ... niepowodzeniem"
-
-#~ msgid "Build Distribution completed...............Successful\n"
-#~ msgstr "Budowanie dystrybucji zakończone...............powodzeniem\n"
-
-#~ msgid ""
-#~ "The source tarball can be found in the top level directory of the "
-#~ "Project.\n"
-#~ msgstr "Archiwum tar można odnaleźć w głównym katalogu projektu.\n"
-
-#~ msgid "Build Distribution completed ... successful"
-#~ msgstr "Budowanie dystrybucji zakończone ... powodzeniem"
-
-#~ msgid "Install completed...............Unsuccessful\n"
-#~ msgstr "Instalacja zakończona..............Niepowodzeniem\n"
-
-#~ msgid "Install completed...............Unsuccessful"
-#~ msgstr "Instalacja zakończona..............Niepowodzeniem"
-
-#~ msgid "Install completed...............Successful\n"
-#~ msgstr "Instalacja zakończona..............Powodzeniem\n"
-
-#~ msgid "Install completed ... successful"
-#~ msgstr "Instalacja zakończona ... powodzeniem"
-
-#~ msgid "Auto generation completed ... unsuccessful"
-#~ msgstr "Automatyczna generacja zakończona ... niepowodzeniem"
-
-#~ msgid ""
-#~ "Auto generation completed...............Successful\n"
-#~ "Now Configure the Project.\n"
-#~ msgstr ""
-#~ "Automatyczna generacja zakończona.............powodzeniem\n"
-#~ "Teraz skonfiguruj projekt.\n"
-
-#~ msgid "Auto generation completed ... successful"
-#~ msgstr "Automatyczna generacja zakończona ... powodzeniem"
-
-#~ msgid "Cleaning completed...............Unsuccessful\n"
-#~ msgstr "Czyszczenie zakończone.............Niepowodzeniem\n"
-
-#~ msgid "Cleaning completed ... unsuccessful"
-#~ msgstr "Czyszczenie zakończone ... niepowodzeniem"
-
-#~ msgid "Cleaning completed...............Successful\n"
-#~ msgstr "Czyszczenie zakończone..............Powodzeniem\n"
-
-#~ msgid "Cleaning completed ... successful"
-#~ msgstr "Czyszczenie zakończone ... powodzeniem"
-
-#~ msgid "Clean All completed...............Unsuccessful\n"
-#~ msgstr "Czyszczenie całego projektu zakończone.....Niepowodzeniem\n"
-
-#~ msgid "Clean All completed ... unsuccessful"
-#~ msgstr "Czyszczenie całego projektu zakończone ... niepowodzeniem"
-
-#~ msgid "Clean All completed...............Successful\n"
-#~ msgstr "Czyszczenie całego projektu zakończone.....Powodzeniem\n"
-
-#~ msgid "Clean All completed ... successful"
-#~ msgstr "Czyszczenie całego projektu zakończone ... powodzeniem"
-
-#~ msgid "Compile completed ... successful"
+#, fuzzy
+#~ msgid "Compile completed ... unsuccessful"
 #~ msgstr "Kompilacja zakończona ... powodzeniem"
 
-#~ msgid "Configure completed...............Unsuccessful\n"
-#~ msgstr "Konfigurowanie zakończone..............Niepowodzeniem\n"
+#, fuzzy
+#~ msgid "Block comment the selected text"
+#~ msgstr "Komentuje/odkomentowuje zaznaczony tekst wierszowo"
 
-#~ msgid "Configure completed ... unsuccessful"
-#~ msgstr "Konfigurowanie zakończone ... niepowodzeniem"
+#, fuzzy
+#~ msgid "_Search"
+#~ msgstr "Znajdź"
 
-#~ msgid "Configure completed...............Successful\n"
-#~ msgstr "Konfigurowanie zakończone..............Powodzeniem\n"
+#, fuzzy
+#~ msgid "Search And Replace"
+#~ msgstr "Zaawansowane wyszukiwanie i zmiana"
 
-#~ msgid "Configure completed ... successful"
-#~ msgstr "Konfigurowanie zakończone ... powodzeniem"
+#, fuzzy
+#~ msgid "New Search And Replace stuff"
+#~ msgstr "Zaawansowane wyszukiwanie i zmiana"
 
-#~ msgid "Page Set_up ..."
-#~ msgstr "_Ustawienia strony ..."
+#, fuzzy
+#~ msgid "_Console"
+#~ msgstr "Za_mknij plik"
 
-#~ msgid "Page setup for printing"
-#~ msgstr "Ustawienia strony do drukowania"
+#, fuzzy
+#~ msgid "Show _Locals"
+#~ msgstr "Lokalne"
 
-#~ msgid "Repeat the last Find command"
-#~ msgstr "Powtarza ostatnie polecenie przeszukiwania"
+#, fuzzy
+#~ msgid "Show/Hide Local variables in Message window"
+#~ msgstr "Wyświetla/ukrywa okno komunikatów"
 
-#~ msgid "New"
-#~ msgstr "Nowy"
+#, fuzzy
+#~ msgid "I_nterrupt Program"
+#~ msgstr "Za_trzymaj program"
 
-#~ msgid "Open"
-#~ msgstr "Otwórz"
+#, fuzzy
+#~ msgid "Inspect "
+#~ msgstr "Zbadaj"
 
-#~ msgid "Save"
-#~ msgstr "Zapisz"
+#, fuzzy
+#~ msgid "Hexa address "
+#~ msgstr "Adres e-mail użytkownika:"
 
-#~ msgid "Reload"
-#~ msgstr "Odśwież"
+#, fuzzy
+#~ msgid "Could not load file: %s"
+#~ msgstr "Nie można zapisać pliku: %s."
 
-#~ msgid "Undo"
-#~ msgstr "Cofnij"
+#, fuzzy
+#~ msgid "Stack trace of the program"
+#~ msgstr "Zatrzymuje i ponownie uruchamia program"
 
-#~ msgid "Redo"
-#~ msgstr "Ponów"
+#, fuzzy
+#~ msgid "Icon"
+#~ msgstr "Rozmiar ikony"
 
-#~ msgid "Go To"
-#~ msgstr "Przejdź do"
+#, fuzzy
+#~ msgid "Float"
+#~ msgstr "For_matowanie"
 
-#~ msgid "Execute"
-#~ msgstr "Wykonaj"
+#, fuzzy
+#~ msgid "Anjuta Windows Dialog"
+#~ msgstr "Okno preferencji Anjuty"
 
-#~ msgid "First"
-#~ msgstr "Pierw"
+#, fuzzy
+#~ msgid "GTK project"
+#~ msgstr "Projekt GTK+ 2.0"
 
-#~ msgid "Last"
-#~ msgstr "Ostat"
+#, fuzzy
+#~ msgid "GNOME project"
+#~ msgstr "Projekt GNOME 2.0"
 
-#~ msgid "Goto Tag"
-#~ msgstr "Przejdź do znacznika"
+#, fuzzy
+#~ msgid "glademm (gtkmm 1.2) project"
+#~ msgstr "Projekt gtkmm 2.0"
 
-#~ msgid "window1"
-#~ msgstr "okno1"
+#, fuzzy
+#~ msgid "glademm (gnomemm 1.2) project"
+#~ msgstr "Projekt gnomemm 2.0"
 
-#~ msgid "window2"
-#~ msgstr "okno2"
+#, fuzzy
+#~ msgid "Bonobo component"
+#~ msgstr "Komponent Bonobo GNOME 2.0"
 
-#~ msgid "window3"
-#~ msgstr "okno3"
+#, fuzzy
+#~ msgid "LibGlade project"
+#~ msgstr "Projekt LibGlade 2.0"
 
-#~ msgid "window4"
-#~ msgstr "okno4"
+#~ msgid ""
+#~ "Warning: Can not generate c/c++ source code.\n"
+#~ "Warning: It is because either glade (for gtk/gnome projects) or glademm "
+#~ "(for gtkmm/gnomemm projects) is not installed.\n"
+#~ "Warning: Your generated project will still be fine, though.\n"
+#~ msgstr ""
+#~ "Ostrzeżenie: Nie można wygenerować kodu źródłowego c/c++.\n"
+#~ "Ostrzeżenie: Jest to spowodowana albo tym, że glade (dla projektów gtk/"
+#~ "gnome) lub glademm (dla projektów gtkmm/gnomemm) nie jest zainstalowane.\n"
+#~ "Ostrzeżenie: Twój wygenerowany projekt wciąż jednak będzie w porządku.\n"
 
-#~ msgid "window5"
-#~ msgstr "okno5"
+#~ msgid "Custom Indent"
+#~ msgstr "Własne wcinanie"
 
-#~ msgid "window6"
-#~ msgstr "okno6"
+#~ msgid "Indent Mode, Offset, Tab-width"
+#~ msgstr "Tryb wcinania, przesunięcie, szerokość tabulacji"
 
-#~ msgid "window7"
-#~ msgstr "okno7"
+#~ msgid "Anjuta Manual"
+#~ msgstr "Manual Anjuty"
 
-#~ msgid "window8"
-#~ msgstr "okno8"
+#~ msgid "Anjuta IDE Manual"
+#~ msgstr "Manual IDE Anjuty"
+
+#~ msgid "Anjuta Tutorial"
+#~ msgstr "Samouczek Anjuty"
+
+#~ msgid "Anjuta IDE Tutorial"
+#~ msgstr "Samouczek IDE Anjuty"
+
+#~ msgid "Anjuta Faqs"
+#~ msgstr "Dokumenty FAQ Anjuty"
+
+#~ msgid "Anjuta IDE Faqs"
+#~ msgstr "Dokumenty FAQ Anjuty"
+
+#~ msgid "Anjuta does not know %s!"
+#~ msgstr "Anjuta nie posiada informacji o %s!"
