@@ -1244,7 +1244,8 @@ void Window::SetCursor(Cursor curs) {
 		gdkCurs = gdk_cursor_new(GDK_WATCH);
 		break;
 	case cursorReverseArrow:
-		gdkCurs = gdk_cursor_new(GDK_RIGHT_PTR);
+		// gdkCurs = gdk_cursor_new(GDK_RIGHT_PTR);
+		gdkCurs = gdk_cursor_new(GDK_LEFT_PTR); // Enver ALTIN (a.k.a. skyblue)
 		break;
 	default:
 		gdkCurs = gdk_cursor_new(GDK_LEFT_PTR);

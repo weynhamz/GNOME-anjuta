@@ -60,6 +60,11 @@
 	src/mainmenu_callbacks.h, src/windows-dialog.c: Implemented
 	basic windows managements.
 	
+2003-03-21  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
+	* scintilla/PlatGTK.cxx: Converted right cursor to left cursor
+	to hot-spot problems with cursor in XFree86 4.3.0. Patch by
+	Enver ALTIN (a.k.a. skyblue)
+
 2003-03-19  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
 	* tagmanager/*: Added ignore-list for symbols. This will make
 	parsing more accurate for projects. Doc updates needed.
