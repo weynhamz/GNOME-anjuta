@@ -219,7 +219,7 @@ msgstr ""
 
 #: anjuta.glade.h:48
 msgid "CVS intl po"
-msgstr ""
+msgstr "CVS intl po"
 
 #: anjuta.glade.h:49
 msgid "CVS unified diff format"
@@ -255,7 +255,7 @@ msgstr ""
 
 #: anjuta.glade.h:57
 msgid "Choose Directories:"
-msgstr "Roghnaigh Eolairí:"
+msgstr "Tóg fillteáin:"
 
 #: anjuta.glade.h:58
 msgid "Choose Files:"
@@ -469,7 +469,7 @@ msgstr ""
 
 #: anjuta.glade.h:110
 msgid "Enable _all"
-msgstr ""
+msgstr "Cumas _gach rud"
 
 #: anjuta.glade.h:111
 msgid "Enable automatic indentation"
@@ -591,7 +591,7 @@ msgstr "Dath dulra:"
 
 #: anjuta.glade.h:140
 msgid "Format"
-msgstr ""
+msgstr "Formóid"
 
 #: anjuta.glade.h:141 src/toolbar.c:856
 msgid "Format style"
@@ -646,7 +646,7 @@ msgstr ""
 
 #: anjuta.glade.h:152
 msgid "HTML _viewer:"
-msgstr "_Amarcóir HTML:"
+msgstr "_Amharcóir HTML:"
 
 #: anjuta.glade.h:153
 msgid "Headers"
@@ -757,11 +757,11 @@ msgstr ""
 
 #: anjuta.glade.h:179
 msgid "Info Pages"
-msgstr ""
+msgstr "Leathanaigh Eolais"
 
 #: anjuta.glade.h:180
 msgid "Input string:"
-msgstr ""
+msgstr "Teaghrán inchur:"
 
 #: anjuta.glade.h:181 src/text_editor_menu.c:174 src/toolbar.c:599
 msgid "Inspect"
@@ -793,7 +793,7 @@ msgstr "Leabharlanna"
 
 #: anjuta.glade.h:188
 msgid "Library Paths"
-msgstr ""
+msgstr "Slí Leabharlann"
 
 #: anjuta.glade.h:189
 msgid "Line numbers margin width in pixels"
@@ -898,7 +898,7 @@ msgstr "Comhad nua"
 
 #: anjuta.glade.h:214
 msgid "No Limit"
-msgstr ""
+msgstr "Gan Teorann"
 
 #: anjuta.glade.h:215
 msgid "No Optimization"
@@ -980,7 +980,7 @@ msgstr ""
 
 #: anjuta.glade.h:233
 msgid "Pick a color"
-msgstr "Roghnaigh Dath"
+msgstr "Tóg Dath"
 
 #: anjuta.glade.h:234
 msgid "Pixmap module Makefile.am"
@@ -1273,7 +1273,7 @@ msgstr ""
 
 #: anjuta.glade.h:305
 msgid "String"
-msgstr ""
+msgstr "Teagran"
 
 #: anjuta.glade.h:306
 msgid "String to replace"
@@ -1386,11 +1386,11 @@ msgstr ""
 
 #: anjuta.glade.h:333
 msgid "User Tools"
-msgstr ""
+msgstr "Uirlisí Úsáideoir"
 
 #: anjuta.glade.h:334
 msgid "User email address:"
-msgstr ""
+msgstr "Seoladh rphost Úsáideoir:"
 
 #: anjuta.glade.h:335
 msgid "User information"
@@ -1522,7 +1522,7 @@ msgstr ""
 
 #: gdl/gdl-dock-item.c:242
 msgid "Orientation"
-msgstr ""
+msgstr "Treosuíomh"
 
 #: gdl/gdl-dock-item.c:243
 msgid "Orientation of the docking item"
@@ -6064,7 +6064,7 @@ msgstr ""
 
 #: src/preferences-dialog.c:125
 msgid "Category"
-msgstr ""
+msgstr "Rangú"
 
 #: src/preferences-dialog.c:225
 msgid "Anjuta Preferences Dialog"
@@ -6096,7 +6096,7 @@ msgstr "Roghnachair Anjuta"
 #. Must declare static, because it will be used forever
 #: src/project_dbase.c:204
 msgid "Add to Project"
-msgstr ""
+msgstr "Suimigh do Tionscadal"
 
 #: src/project_dbase.c:233 src/project_dbase.c:303 src/project_dbase_gui.c:585
 msgid "Project: None"
@@ -7023,11 +7023,11 @@ msgstr ""
 
 #: src/toolbar.c:224
 msgid "Save Project"
-msgstr ""
+msgstr "Sábháil Tionscadal"
 
 #: src/toolbar.c:236
 msgid "Close Project"
-msgstr ""
+msgstr "Dún Tionscadal"
 
 #: src/toolbar.c:263
 msgid "Run configure"
@@ -7079,7 +7079,7 @@ msgstr ""
 
 #: src/toolbar.c:415
 msgid "Prev"
-msgstr ""
+msgstr "Siar"
 
 #: src/toolbar.c:416
 msgid "Goto previous message in this document"
@@ -7087,7 +7087,7 @@ msgstr ""
 
 #: src/toolbar.c:422
 msgid "Next"
-msgstr "Ar aghaidh"
+msgstr "Aniar"
 
 #: src/toolbar.c:423
 msgid "Goto next message in this document"
@@ -7095,7 +7095,7 @@ msgstr ""
 
 #: src/toolbar.c:431
 msgid "Start"
-msgstr ""
+msgstr "Tosaigh"
 
 #: src/toolbar.c:432
 msgid "Goto start of current code block"
@@ -7103,7 +7103,7 @@ msgstr ""
 
 #: src/toolbar.c:438
 msgid "End"
-msgstr ""
+msgstr "Críoch"
 
 #: src/toolbar.c:439
 msgid "Goto end of current code block"
@@ -7127,7 +7127,7 @@ msgstr ""
 
 #: src/toolbar.c:524
 msgid "Run"
-msgstr ""
+msgstr "Rith"
 
 #: src/toolbar.c:537
 msgid "Single step in execution"
@@ -7203,7 +7203,7 @@ msgstr ""
 
 #: src/toolbar.c:788
 msgid "Open all"
-msgstr ""
+msgstr "Oscail gach rud"
 
 #: src/toolbar.c:790
 msgid "Open all code folds in this document"
@@ -7211,7 +7211,7 @@ msgstr ""
 
 #: src/toolbar.c:803
 msgid "Select"
-msgstr ""
+msgstr "Tóg"
 
 #: src/toolbar.c:804
 msgid "Select current code block"
@@ -7293,7 +7293,7 @@ msgstr ""
 
 #: src/watch_gui.c:55
 msgid "Clear"
-msgstr "Glan"
+msgstr "Bánaigh"
 
 #: src/watch_gui.c:61
 msgid "Toggle enable"
@@ -7369,7 +7369,7 @@ msgstr ""
 
 #: src/wizard_gui.c:181
 msgid "wxWindows project"
-msgstr ""
+msgstr "Tionscadáil wxWindows"
 
 #: src/wizard_gui.c:184
 msgid "Xlib project"
@@ -7381,7 +7381,7 @@ msgstr ""
 
 #: src/wizard_gui.c:261
 msgid "Basic Information"
-msgstr ""
+msgstr "Ceann Eolais"
 
 #: src/wizard_gui.c:282
 msgid "Enter the basic Project information"
@@ -7465,11 +7465,11 @@ msgstr ""
 
 #: src/wizard_gui.c:663
 msgid "Comment:"
-msgstr ""
+msgstr "Nota:"
 
 #: src/wizard_gui.c:670
 msgid "Group:"
-msgstr ""
+msgstr "Grupa:"
 
 #: src/wizard_gui.c:712
 msgid "Needs terminal"
@@ -7477,11 +7477,11 @@ msgstr ""
 
 #: src/wizard_gui.c:754
 msgid "Summary"
-msgstr ""
+msgstr "Coimriú"
 
 #: widgets/cell-renderer-captioned-image.c:207
 msgid "Text"
-msgstr ""
+msgstr "Teacs"
 
 #: widgets/cell-renderer-captioned-image.c:208
 msgid "Text to render"
@@ -7509,7 +7509,7 @@ msgstr ""
 
 #: widgets/gnomefilelist.c:237
 msgid "Go to home directory"
-msgstr ""
+msgstr "Teigh go fillteán baile"
 
 #: widgets/gnomefilelist.c:243
 msgid "Refresh listing"
@@ -7521,11 +7521,11 @@ msgstr "Dealaigh comhad"
 
 #: widgets/gnomefilelist.c:253 widgets/gnomefilelist.c:1889
 msgid "Rename file"
-msgstr ""
+msgstr "Athainmigh comhad"
 
 #: widgets/gnomefilelist.c:257 widgets/gnomefilelist.c:1988
 msgid "Create new folder"
-msgstr ""
+msgstr "Cruthaigh fillteán nua"
 
 #: widgets/gnomefilelist.c:262
 msgid "Show Hidden"
@@ -7545,11 +7545,11 @@ msgstr ""
 
 #: widgets/gnomefilelist.c:458
 msgid "File type: "
-msgstr ""
+msgstr "Saghas comhad: "
 
 #: widgets/gnomefilelist.c:721
 msgid "Java files"
-msgstr ""
+msgstr "Comhaid Java"
 
 #: widgets/gnomefilelist.c:733
 msgid "Hyper Text Markup files"
@@ -7561,15 +7561,15 @@ msgstr ""
 
 #: widgets/gnomefilelist.c:744
 msgid "Properties files"
-msgstr ""
+msgstr "Comhaid ;Albachtaí"
 
 #: widgets/gnomefilelist.c:747
 msgid ".mak files"
-msgstr ""
+msgstr "comhaid .mak"
 
 #: widgets/gnomefilelist.c:751
 msgid "Diff files"
-msgstr ""
+msgstr "Comhaid 'diff'"
 
 #: widgets/gnomefilelist.c:1854
 #, c-format
@@ -7578,18 +7578,18 @@ msgstr ""
 
 #: widgets/gnomefilelist.c:1901
 msgid "Rename file to:"
-msgstr ""
+msgstr "Athainmigh comhad do:"
 
 #: widgets/gnomefilelist.c:1927
 #, c-format
 msgid "Renaming file failed '%s': %s"
-msgstr ""
+msgstr "Teip ag athainmigh comhad '%s': %s"
 
 #: widgets/gnomefilelist.c:1960
 #, c-format
 msgid "Creating folder failed '%s': %s"
-msgstr ""
+msgstr "Teip ag cruthaigh fillteán '%s': %s"
 
 #: widgets/gnomefilelist.c:2000
 msgid "Folder name:"
-msgstr ""
+msgstr "Ainm fillteán:"
