@@ -29,6 +29,7 @@
 #include "fileselection.h"
 #include "CORBA-Server.h"
 
+/* #define DEBUG */
 
 /* One and only one instance of AnjutaApp. */
 AnjutaApp *app;			
@@ -48,22 +49,43 @@ poptOption anjuta_options[] = {
 	POPT_AUTOHELP {NULL}
 };
 
-/* This is work around function to make sure that the users get a 
-smooth transition from 0.1.8 to 0.1.9 version. This will delete
-~/.gnome/Anjuta config file older than 14:29, 9 Feb, 2002 */
+/*
+ * This is work around function to make sure that the users get a 
+ * smooth transition from 0.1.8 to 0.1.9 version. It works by
+ * detecting the version of the old config file and deleting
+ * ~/.gnome/Anjuta if it is lesser than 0.1.9.
+*/
 static void delete_old_config_file (void)
 {
-	struct stat s;
-	gchar *config_file;
-	time_t reference = 1013332729;
+	gchar *config_file, *config_dir;
+	gchar *config_version;
+	PropsID prop;
 	
-	config_file = g_strconcat(g_get_home_dir(), "/.gnome/Anjuta", NULL);
+	config_dir = g_strconcat(g_get_home_dir(), "/.anjuta", NULL);
+	config_file = g_strconcat(config_dir, "/session.properties", NULL);
 	
-	if(stat(config_file, &s) == 0) {
-		if (s.st_mtime < reference) {
-			g_message("Old config file %s found: Removing it", config_file);
-			remove(config_file);
+	prop = prop_set_new();
+	prop_read (prop, config_file, config_dir);
+	g_free (config_dir);
+	g_free (config_file);
+	
+	config_version = prop_get(prop, "anjuta.version");
+	if (config_version) {
+		gint last_ver;
+		sscanf(config_version, "0.1.%d", &last_ver);
+#ifdef DEBUG
+		g_message ("Old Version = %d", last_ver);
+#endif
+		if (last_ver < 9) {
+			gchar* conf_file;
+			conf_file = g_strconcat (g_get_home_dir(), "/.gnome/Anjuta", NULL);
+#ifdef DEBUG
+			g_message("Old config file %s found: Removing it", conf_file);
+#endif
+			remove(conf_file);
+			g_free(conf_file);
 		}
+		g_free(config_version);
 	}
 }
 
