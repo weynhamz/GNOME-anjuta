@@ -1,3 +1,9 @@
+2004-04-02  Naba Kumar  <naba@gnome.org>
+
+	* src/launcher.c: Prints proper error message when launcher child
+	could not be executed and exits properly. Fixed a crash
+	bug (bug #926606).
+	
 2004-04-01  Naba Kumar  <naba@gnome.org>
 
 	* src/search-replace.c: Fixed a crash bug (bug #921893).

@@ -863,7 +863,8 @@ anjuta_launcher_fork (AnjutaLauncher *launcher, gchar *const args[])
 			fcntl (stderr_pipe[1], F_SETFL, O_SYNC | md);
 		
 		execvp (args[0], args);
-		g_error (_("Cannot execute command shell"));
+		g_warning (_("Cannot execute command: \"%s\""), args[0]);
+		_exit(-1);
 	}
 	g_free (working_dir);
 	
