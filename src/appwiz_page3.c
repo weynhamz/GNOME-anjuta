@@ -109,7 +109,7 @@ create_app_wizard_page3 (AppWizard * aw)
 	gtk_frame_set_shadow_type (GTK_FRAME (frame1), GTK_SHADOW_IN);
 	gtk_container_set_border_width (GTK_CONTAINER (frame1), 5);
 
-	label = gtk_label_new (_("Enter a short project description"));
+	label = gtk_label_new (_("Enter a short description of the Project"));
 	gtk_widget_show (label);
 	gtk_container_add (GTK_CONTAINER (frame1), label);
 	gtk_label_set_justify (GTK_LABEL (label), GTK_JUSTIFY_FILL);
@@ -129,7 +129,9 @@ create_app_wizard_page3 (AppWizard * aw)
 	gtk_text_set_editable (GTK_TEXT (description_text), TRUE);
 
 	frame2 = gtk_frame_new (NULL);
-	/* unimplemented */
+	/* this would allow the type of target (library, exe, etc) to be specified */
+	/* is this really the best page of the druid to do it?? */
+	/* unimplemented - uncomment the next line to see the GUI */
 	/* gtk_widget_show (frame2); */
 	gtk_box_pack_start (GTK_BOX (vbox3), frame2, FALSE, FALSE, 0);
 	gtk_container_set_border_width (GTK_CONTAINER (frame2), 5);
@@ -144,7 +146,7 @@ create_app_wizard_page3 (AppWizard * aw)
 	if (pixmap1_filename)
 	gnome_pixmap_load_file_at_size (GNOME_PIXMAP (pixmap1), pixmap1_filename, 100, 100);
 	else
-	g_warning (_("Couldn't find pixmap file: %s"), "appwid_gear.xpm");
+	g_warning (_("Couldn't find pixmap file: %s"), pixmap1_filename);
 	g_free (pixmap1_filename);
 	gtk_widget_show (pixmap1);
 	gtk_box_pack_start (GTK_BOX (hbox1), pixmap1, FALSE, FALSE, 0);

@@ -11,24 +11,16 @@ anjuta_pixmaps_DATA = \
 	anjuta_icon.png\
 	anjuta_logo.png\
 	anjuta_splash.png\
+	applogo.png\
 	appwid_blank.xpm\
-	appwid_book.xpm\
 	appwid_cd.xpm\
-	appwid_chart.xpm\
 	appwid_console.xpm\
 	appwid_data.xpm\
-	appwid_debug.xpm\
 	appwid_draw.xpm\
 	appwid_gear.xpm\
-	appwid_globe.xpm\
-	appwid_lib.xpm\
-	appwid_pack.xpm\
-	appwid_page.xpm\
-	appwid_page1.xpm\
-	appwid_penguin.xpm\
-	appwid_sheet.xpm\
 	appwid_wid.xpm\
-	appwid_www.xpm\
+	appwizard.png\
+	appwiz_bonobo.png\
 	autocomplete.xpm\
 	bfoldc.xpm\
 	bfoldo.xpm\
@@ -71,7 +63,6 @@ anjuta_pixmaps_DATA = \
 	fold_open.xpm\
 	fold_toggle.xpm\
 	frame.xpm\
-	gear.xpm\
 	goto.xpm\
 	graph.xpm\
 	handle_hide.xpm\
@@ -130,8 +121,6 @@ anjuta_pixmaps_DATA = \
 	file_icon.xpm\
 	file_html.xpm\
 	run_to_cursor.xpm\
-	file_i18n.xpm\
-	appwizard.png\
-	applogo.png
-
+	file_i18n.xpm
+	
 EXTRA_DIST = $(anjuta_pixmaps_DATA)

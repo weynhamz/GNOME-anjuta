@@ -25,10 +25,12 @@
 #include <string.h>
 
 #include <gnome.h>
+
 #include "anjuta.h"
 #include "appwizard.h"
 #include "appwizard_cbs.h"
 #include "resources.h"
+#include "pixmaps.h"
 
 static gchar*
 greetings_text ()
@@ -135,10 +137,10 @@ create_app_wizard_gui (AppWizard * aw)
 
 	gnome_druid_page_start_set_logo (GNOME_DRUID_PAGE_START
 					 (druidpagestart1),
-					 anjuta_res_get_image ("applogo.png"));
+					 anjuta_res_get_image (ANJUTA_PIXMAP_APPWIZ_LOGO));
 	gnome_druid_page_start_set_watermark (GNOME_DRUID_PAGE_START
 					      (druidpagestart1),
-					      anjuta_res_get_image ("appwizard.png"));
+					      anjuta_res_get_image (ANJUTA_PIXMAP_APPWIZ_WATERMARK));
 
 	/* second page (really "page1") */
 	druidpagestandard1 =
@@ -161,7 +163,7 @@ create_app_wizard_gui (AppWizard * aw)
 					     ("Project Type"));
 	gnome_druid_page_standard_set_logo (GNOME_DRUID_PAGE_STANDARD
 					    (druidpagestandard1),
-					    anjuta_res_get_image  ("applogo.png"));
+					    anjuta_res_get_image  (ANJUTA_PIXMAP_APPWIZ_LOGO));
 
 	druid_vbox1 = GNOME_DRUID_PAGE_STANDARD (druidpagestandard1)->vbox;
 	gtk_widget_show (druid_vbox1);
@@ -186,7 +188,7 @@ create_app_wizard_gui (AppWizard * aw)
 					     _("Basic Information"));
 	gnome_druid_page_standard_set_logo (GNOME_DRUID_PAGE_STANDARD
 					    (druidpagestandard2),
-					    anjuta_res_get_image  ("applogo.png"));
+					    anjuta_res_get_image  (ANJUTA_PIXMAP_APPWIZ_LOGO));
 
 	druid_vbox2 = GNOME_DRUID_PAGE_STANDARD (druidpagestandard2)->vbox;
 	gtk_widget_show (druid_vbox2);
@@ -212,7 +214,7 @@ create_app_wizard_gui (AppWizard * aw)
 					     ("Project Description"));
 	gnome_druid_page_standard_set_logo (GNOME_DRUID_PAGE_STANDARD
 					    (druidpagestandard3),
-					    anjuta_res_get_image  ("applogo.png"));
+					    anjuta_res_get_image  (ANJUTA_PIXMAP_APPWIZ_LOGO));
 	druid_vbox3 = GNOME_DRUID_PAGE_STANDARD (druidpagestandard3)->vbox;
 	gtk_widget_show (druid_vbox3);
 
@@ -237,7 +239,7 @@ create_app_wizard_gui (AppWizard * aw)
 					     ("Additional Options"));
 	gnome_druid_page_standard_set_logo (GNOME_DRUID_PAGE_STANDARD
 					    (druidpagestandard4),
-					    anjuta_res_get_image  ("applogo.png"));
+					    anjuta_res_get_image  (ANJUTA_PIXMAP_APPWIZ_LOGO));
 
 	druid_vbox4 = GNOME_DRUID_PAGE_STANDARD (druidpagestandard4)->vbox;
 	gtk_widget_show (druid_vbox4);
@@ -265,10 +267,10 @@ create_app_wizard_gui (AppWizard * aw)
 					   _("Summary"));
 	gnome_druid_page_finish_set_logo (GNOME_DRUID_PAGE_FINISH
 					  (druidpagefinish1),
-					    anjuta_res_get_image  ("applogo.png"));
+					    anjuta_res_get_image  (ANJUTA_PIXMAP_APPWIZ_LOGO));
 	gnome_druid_page_finish_set_watermark (GNOME_DRUID_PAGE_FINISH
 					       (druidpagefinish1),
-					       anjuta_res_get_image ("appwizard.png"));
+					       anjuta_res_get_image (ANJUTA_PIXMAP_APPWIZ_WATERMARK));
 
 	/* buttons, callbacks etc. */
 	gtk_accel_group_attach (app->accel_group, GTK_OBJECT (window1));

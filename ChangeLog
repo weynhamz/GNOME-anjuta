@@ -1,3 +1,12 @@
+2001-12-20	Andy Piper	<andy.piper@freeuk.com>
+
+	* pixmaps/Makefile.am: stop redundant images from being installed.
+	  The next step will be to remove them completely.
+	* src/appwiz*: further updates (more to come)
+	* src/pixmaps.h: cleaned up, commented
+	* src/splash.c: should use the pixmaps macro defined
+	* HACKING: more on the graphics stuff and use of pixmaps.h
+
 2001-12-19	Andy Piper	<andy.piper@freeuk.com>
 
 	* src/defaults.c: fix bug #494864

@@ -89,6 +89,11 @@ Graphics
 
 PNG format is preferred for application graphics.
 
+The image filenames are mapped in the file src/pixmaps.h, with helper functions
+for manipulating them in src/resources.c. Please use this method for including
+graphics and do not use the filenames directly.
+
+
 
 ARCHITECTURE:
 -------------
