@@ -515,7 +515,7 @@ GPtrArray *tm_tags_extract(GPtrArray *tags_array, guint tag_types)
 
 void tm_tags_array_free(GPtrArray *tags_array, gboolean free_all)
 {
-	if (NULL != tags_array)
+	if (tags_array)
 	{
 		guint i;
 		for (i = 0; i < tags_array->len; ++i)

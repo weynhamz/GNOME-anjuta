@@ -465,8 +465,11 @@ gboolean tm_project_sync(TMProject *project, GList *files)
 			tm_source_file_free(project->file_list->pdata[i]);
 		g_ptr_array_free(project->file_list, TRUE);
 		project->file_list = NULL;
-		g_ptr_array_free(project->work_object.tags_array, TRUE);
-		project->work_object.tags_array = NULL;
+		if (project->work_object.tags_array)
+		{
+			g_ptr_array_free(project->work_object.tags_array, TRUE);
+			project->work_object.tags_array = NULL;
+		}
 	}
 	for (tmp = files; tmp; tmp = g_list_next(tmp))
 	{

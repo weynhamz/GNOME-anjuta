@@ -62,15 +62,15 @@ void tm_workspace_free(gpointer workspace)
 	g_message("Workspace destroyed");
 #endif
 
-	if (NULL != theWorkspace)
+	if (theWorkspace)
 	{
-		if (NULL != theWorkspace->work_objects)
+		if (theWorkspace->work_objects)
 		{
 			for (i=0; i < theWorkspace->work_objects->len; ++i)
 				tm_work_object_free(theWorkspace->work_objects->pdata[i]);
 			g_ptr_array_free(theWorkspace->work_objects, TRUE);
 		}
-		if (NULL != theWorkspace->global_tags)
+		if (theWorkspace->global_tags)
 		{
 			for (i=0; i < theWorkspace->global_tags->len; ++i)
 				tm_tag_free(theWorkspace->global_tags->pdata[i]);
@@ -270,7 +270,8 @@ gboolean tm_workspace_create_global_tags(const char *pre_process, const char **i
 	  tm_tag_typedef_t | tm_tag_prototype_t | tm_tag_enum_t | tm_tag_macro_with_arg_t);
 	if ((NULL == tags_array) || (0 == tags_array->len))
 	{
-		g_ptr_array_free(tags_array, TRUE);
+		if (tags_array)
+			g_ptr_array_free(tags_array, TRUE);
 		tm_source_file_free(source_file);
 		return FALSE;
 	}

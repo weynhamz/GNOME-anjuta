@@ -267,7 +267,8 @@ TMSymbol *tm_symbol_tree_new(GPtrArray *tags_array)
 		tm_symbol_print(root, 0);
 #endif
 	}
-	g_ptr_array_free(tags, TRUE);
+	if (tags)
+		g_ptr_array_free(tags, TRUE);
 
 	return root;
 }
