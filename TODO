@@ -22,6 +22,8 @@ Todo List:
 	o Double/single click open file in preferences.
 
 	o Use GtkHTML if available to browse online documentation/manuals
+	o easy (S)RPMS & Debian packages build
+	  (assistant and/or edit the spec or debian dir)
 
 
 BUGS:
