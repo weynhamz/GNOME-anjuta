@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta ANJUTA_1_2_0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-08-17 13:12+0900\n"
-"PO-Revision-Date: 2003-08-17 13:10+0900\n"
+"POT-Creation-Date: 2003-08-17 13:39+0900\n"
+"PO-Revision-Date: 2003-08-17 13:37+0900\n"
 "Last-Translator: Takeshi AIHANA <aihana@gnome.gr.jp>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
 "MIME-Version: 1.0\n"
@@ -2621,11 +2621,11 @@ msgstr "不明"
 
 #: src/anjuta.c:2122
 msgid "OVR"
-msgstr "OVR"
+msgstr "[上書き]"
 
 #: src/anjuta.c:2126 src/anjuta.c:2132
 msgid "INS"
-msgstr "INS"
+msgstr "[挿入]"
 
 #: src/anjuta.c:2144
 #, c-format
