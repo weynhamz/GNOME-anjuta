@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.4.1\n"
-"POT-Creation-Date: 2001-12-31 15:21+0000\n"
-"PO-Revision-Date: 2001-12-31 15:23+0000\n"
+"POT-Creation-Date: 2002-01-02 23:13+0000\n"
+"PO-Revision-Date: 2002-01-02 23:23+0000\n"
 "Last-Translator: Duarte Loreto <happyguy_pt@hotmail.com>\n"
 "Language-Team: Portuguese <none@none.org>\n"
 "MIME-Version: 1.0\n"
@@ -14,8 +14,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: anjuta.desktop.in.in.h:1
-msgid "Anjuta C/C++ IDE"
-msgstr "IDE C/C++ Anjuta"
+msgid "Anjuta C|C++ IDE"
+msgstr "IDE C|C++ Anjuta"
 
 #: anjuta.desktop.in.in.h:2
 msgid "Integrated Development Environment"
@@ -1605,7 +1605,7 @@ msgstr "Páginas man"
 msgid "Info pages"
 msgstr "Páginas info"
 
-#: src/launcher.c:220 src/text_editor.c:1100
+#: src/launcher.c:220 src/text_editor.c:1099
 msgid "Cannot execute command shell"
 msgstr "Incapaz de executar comando de consola"
 
@@ -2256,7 +2256,7 @@ msgstr "_Zoom texto"
 
 #. 9
 #. 10
-#: src/main_menubar_def.h:597 src/main_menubar_def.h:1278
+#: src/main_menubar_def.h:597 src/main_menubar_def.h:1284
 msgid "_Breakpoints"
 msgstr "_Breakpoints"
 
@@ -2587,655 +2587,663 @@ msgid "Force the highlight style to UNIX conf files"
 msgstr "Forçar o estilo de realce para ficheiros conf UNIX"
 
 #: src/main_menubar_def.h:896
+msgid "Ada"
+msgstr "Ada"
+
+#: src/main_menubar_def.h:897
+msgid "Force the highlight style to Ada"
+msgstr "Forçar o estilo de realce para Ada"
+
+#: src/main_menubar_def.h:902
 msgid "Baan"
 msgstr "Baan"
 
-#: src/main_menubar_def.h:897
+#: src/main_menubar_def.h:903
 msgid "Force the highlight style to Baan"
 msgstr "Forçar o estilo de realce para Baan"
 
-#: src/main_menubar_def.h:906
+#: src/main_menubar_def.h:912
 msgid "Auto _Format"
 msgstr "Auto _Formatar"
 
-#: src/main_menubar_def.h:907
+#: src/main_menubar_def.h:913
 msgid "Autoformat C and C++ source files"
 msgstr "Auto formatar ficheiros de código C e C++"
 
-#: src/main_menubar_def.h:912
+#: src/main_menubar_def.h:918
 msgid "_Increase Indent"
 msgstr "Aumentar _Indentação"
 
-#: src/main_menubar_def.h:913
+#: src/main_menubar_def.h:919
 msgid "Increase indentation of line/selection"
 msgstr "Aumentar a indentação da linha/selecção"
 
-#: src/main_menubar_def.h:918
+#: src/main_menubar_def.h:924
 msgid "_Decrease Indent"
 msgstr "_Diminuir Indentação"
 
-#: src/main_menubar_def.h:919
+#: src/main_menubar_def.h:925
 msgid "Decrease indentation of line/selection"
 msgstr "Diminuir indentação da linha/selecção"
 
-#: src/main_menubar_def.h:925
+#: src/main_menubar_def.h:931
 msgid "_Update tags image"
 msgstr "Act_ualizar etiqueta imagem"
 
-#: src/main_menubar_def.h:926
+#: src/main_menubar_def.h:932
 msgid "Update the tags image of the project/opened files"
 msgstr "Actualizar as etiquetas de imagem de ficheiros abertos do projecto"
 
-#: src/main_menubar_def.h:932
+#: src/main_menubar_def.h:938
 msgid "Force _Highlight Style"
 msgstr "Forçar _Estilo Realce"
 
-#: src/main_menubar_def.h:939
+#: src/main_menubar_def.h:945
 msgid "_Close All Folds"
 msgstr "Fe_char Todas as Pastas"
 
-#: src/main_menubar_def.h:940
+#: src/main_menubar_def.h:946
 msgid "Close all code folds in the editor"
 msgstr "Fechar todas as pastas de código no editor"
 
-#: src/main_menubar_def.h:945
+#: src/main_menubar_def.h:951
 msgid "_Open All Folds"
 msgstr "_Abrir Todas as Pastas"
 
-#: src/main_menubar_def.h:946
+#: src/main_menubar_def.h:952
 msgid "Open all code folds of the editor"
 msgstr "Abrir todas as pastas de código no editor"
 
-#: src/main_menubar_def.h:951
+#: src/main_menubar_def.h:957
 msgid "_Toggle Current Fold"
 msgstr "Al_ternar Pasta Actual"
 
-#: src/main_menubar_def.h:952
+#: src/main_menubar_def.h:958
 msgid "Toggle current code fold of the editor"
 msgstr "Alternar pasta actual no editor"
 
-#: src/main_menubar_def.h:958
+#: src/main_menubar_def.h:964
 msgid "D_etach Current Document"
 msgstr "D_esanexar Documento Actual"
 
-#: src/main_menubar_def.h:959
+#: src/main_menubar_def.h:965
 msgid "Detach the current editor into a separate window"
 msgstr "Desanexar o editor actual para uma janela à parte"
 
-#: src/main_menubar_def.h:969
+#: src/main_menubar_def.h:975
 msgid "_Compile"
 msgstr "_Compilar"
 
-#: src/main_menubar_def.h:970
+#: src/main_menubar_def.h:976
 msgid "Compile the current source file"
 msgstr "Compilar o ficheiro de código actual"
 
-#: src/main_menubar_def.h:976 src/main_menubar_def.h:1532
+#: src/main_menubar_def.h:982 src/main_menubar_def.h:1538
 msgid "_Build"
 msgstr "C_onstruir"
 
-#: src/main_menubar_def.h:977
+#: src/main_menubar_def.h:983
 msgid "Build the source directory of the project/current source file"
 msgstr "Construir o directório de código do projecto/ficheiro de código actual"
 
-#: src/main_menubar_def.h:982
+#: src/main_menubar_def.h:988
 msgid "Build _All"
 msgstr "Contruir _Tudo"
 
-#: src/main_menubar_def.h:983
+#: src/main_menubar_def.h:989
 msgid "Build the whole project"
 msgstr "Construir todo o projecto"
 
-#: src/main_menubar_def.h:989
+#: src/main_menubar_def.h:995
 msgid "_Install"
 msgstr "_Instalar"
 
-#: src/main_menubar_def.h:990
+#: src/main_menubar_def.h:996
 msgid "Install the project on your system"
 msgstr "Instalar o projecto no seu sistema"
 
-#: src/main_menubar_def.h:995
+#: src/main_menubar_def.h:1001
 msgid "Build _Distribution"
 msgstr "Construir _Distribuição"
 
-#: src/main_menubar_def.h:996
+#: src/main_menubar_def.h:1002
 msgid "Build the distribution tarball of the project"
 msgstr "Construir um ficheiro tar de distribuição do projecto"
 
-#: src/main_menubar_def.h:1002
+#: src/main_menubar_def.h:1008
 msgid "Con_figure ..."
 msgstr "Con_figurar ..."
 
-#: src/main_menubar_def.h:1003
+#: src/main_menubar_def.h:1009
 msgid "Configure the project"
 msgstr "Configurar o projecto"
 
-#: src/main_menubar_def.h:1008
+#: src/main_menubar_def.h:1014
 msgid "Auto _generate ..."
 msgstr "Auto _gerar ..."
 
-#: src/main_menubar_def.h:1009
+#: src/main_menubar_def.h:1015
 msgid "Auto generate all the build files"
 msgstr "Auto gerar todos os ficheiros de compilação"
 
-#: src/main_menubar_def.h:1015
+#: src/main_menubar_def.h:1021
 msgid "Clea_n"
 msgstr "Li_mpar"
 
-#: src/main_menubar_def.h:1016
+#: src/main_menubar_def.h:1022
 msgid "Clean the source directory"
 msgstr "Limpar o directório de código"
 
-#: src/main_menubar_def.h:1021
+#: src/main_menubar_def.h:1027
 msgid "Clean A_ll"
 msgstr "_Limpar Tudo"
 
-#: src/main_menubar_def.h:1022
+#: src/main_menubar_def.h:1028
 msgid "Clean the whole project directory"
 msgstr "Limpar todo o directório do projecto"
 
-#: src/main_menubar_def.h:1028
+#: src/main_menubar_def.h:1034
 msgid "_Stop Build"
 msgstr "Parar Con_strução"
 
-#: src/main_menubar_def.h:1029
+#: src/main_menubar_def.h:1035
 msgid "Stop the current compile or build process"
 msgstr "Parar o processo actual de compilação ou construção"
 
-#: src/main_menubar_def.h:1035
+#: src/main_menubar_def.h:1041
 msgid "_Execute"
 msgstr "_Executar"
 
-#: src/main_menubar_def.h:1036 src/toolbar.c:501
+#: src/main_menubar_def.h:1042 src/toolbar.c:501
 msgid "Execute the program"
 msgstr "Executar a aplicação"
 
-#: src/main_menubar_def.h:1041
+#: src/main_menubar_def.h:1047
 msgid "Set _Program params ..."
 msgstr "Definir _parâmetros da Aplicação ..."
 
-#: src/main_menubar_def.h:1042
+#: src/main_menubar_def.h:1048
 msgid "Set the execution parameters of the program"
 msgstr "Definir os parâmetros de execução da aplicação"
 
-#: src/main_menubar_def.h:1051
+#: src/main_menubar_def.h:1057
 msgid "_Toggle bookmark"
 msgstr "Al_ternar marca"
 
-#: src/main_menubar_def.h:1058
+#: src/main_menubar_def.h:1064
 msgid "_First bookmark"
 msgstr "_Primeira marca"
 
-#: src/main_menubar_def.h:1064
+#: src/main_menubar_def.h:1070
 msgid "_Previous bookmark"
 msgstr "Marca _anterior"
 
-#: src/main_menubar_def.h:1070
+#: src/main_menubar_def.h:1076
 msgid "_Next bookmark"
 msgstr "Marca _seguinte"
 
-#: src/main_menubar_def.h:1076
+#: src/main_menubar_def.h:1082
 msgid "_Last bookmark"
 msgstr "_Última marca"
 
-#: src/main_menubar_def.h:1083
+#: src/main_menubar_def.h:1089
 msgid "_Clear all bookmarks"
 msgstr "Limpar todas as mar_cas"
 
-#: src/main_menubar_def.h:1093
+#: src/main_menubar_def.h:1099
 msgid "Run/_Continue"
 msgstr "Executar/_Continuar"
 
-#: src/main_menubar_def.h:1094
+#: src/main_menubar_def.h:1100
 msgid "Continue the execution of the program"
 msgstr "Continuar a execução da aplicação"
 
-#: src/main_menubar_def.h:1099
+#: src/main_menubar_def.h:1105
 msgid "Step _In"
 msgstr "Passo _Dentro"
 
-#: src/main_menubar_def.h:1100
+#: src/main_menubar_def.h:1106
 msgid "Single step into function"
 msgstr "Um passo para dentro da função"
 
-#: src/main_menubar_def.h:1105
+#: src/main_menubar_def.h:1111
 msgid "Step O_ver"
 msgstr "Passar Por _Cima"
 
-#: src/main_menubar_def.h:1106
+#: src/main_menubar_def.h:1112
 msgid "Single step over function"
 msgstr "Passar por cima da função"
 
-#: src/main_menubar_def.h:1111
+#: src/main_menubar_def.h:1117
 msgid "Step _Out"
 msgstr "Passo _Fora"
 
-#: src/main_menubar_def.h:1112
+#: src/main_menubar_def.h:1118
 msgid "Single step out of the function"
 msgstr "Dar um passo para sair da função"
 
-#: src/main_menubar_def.h:1117
+#: src/main_menubar_def.h:1123
 msgid "_Run to cursor"
 msgstr "Executa_r até ao cursor"
 
-#: src/main_menubar_def.h:1118
+#: src/main_menubar_def.h:1124
 msgid "Run to the cursor"
 msgstr "Executar até ao cursor"
 
-#: src/main_menubar_def.h:1127 src/text_editor_menu.c:100
+#: src/main_menubar_def.h:1133 src/text_editor_menu.c:100
 msgid "Toggle breakpoint"
 msgstr "Alternar breakpoint"
 
-#: src/main_menubar_def.h:1128
+#: src/main_menubar_def.h:1134
 msgid "Toggle breakpoint at the current location"
 msgstr "Alternar o breakpoint na localização actual"
 
-#: src/main_menubar_def.h:1133
+#: src/main_menubar_def.h:1139
 msgid "Set Breakpoint ..."
 msgstr "Definir Breakpoint ..."
 
-#: src/main_menubar_def.h:1134
+#: src/main_menubar_def.h:1140
 msgid "Set a breakpoint"
 msgstr "Definir um breakpoint"
 
-#: src/main_menubar_def.h:1140
+#: src/main_menubar_def.h:1146
 msgid "_Breakpoints ..."
 msgstr "_Breakpoints ..."
 
-#: src/main_menubar_def.h:1141
+#: src/main_menubar_def.h:1147
 msgid "Edit breakpoints"
 msgstr "Editar breakpoints"
 
-#: src/main_menubar_def.h:1146
+#: src/main_menubar_def.h:1152
 msgid "Disable all Breakpoints"
 msgstr "Desabilitar todos os Breakpoints"
 
-#: src/main_menubar_def.h:1147
+#: src/main_menubar_def.h:1153
 msgid "Deactivate all breakpoints"
 msgstr "Desactivar todos os breakpoints"
 
-#: src/main_menubar_def.h:1152
+#: src/main_menubar_def.h:1158
 msgid "C_lear all Breakpoints"
 msgstr "_Limpar todos os Breakpoints"
 
-#: src/main_menubar_def.h:1153
+#: src/main_menubar_def.h:1159
 msgid "Delete all breakpoints"
 msgstr "Apagar todos os breakpoints"
 
-#: src/main_menubar_def.h:1162
+#: src/main_menubar_def.h:1168
 msgid "Info _Target Files"
 msgstr "Info dos Ficheiros Al_vo"
 
-#: src/main_menubar_def.h:1163
+#: src/main_menubar_def.h:1169
 msgid "Display information on the files the debugger is active with"
 msgstr "Mostrar informação sobre os quais o depurador está a agir"
 
-#: src/main_menubar_def.h:1168
+#: src/main_menubar_def.h:1174
 msgid "Info _Program"
 msgstr "Info A_plicação"
 
-#: src/main_menubar_def.h:1169
+#: src/main_menubar_def.h:1175
 msgid "Display information on the execution status of the program"
 msgstr "Mostrar informação sobre o estado de execução da aplicação"
 
-#: src/main_menubar_def.h:1174
+#: src/main_menubar_def.h:1180
 msgid "Info _Kernel User Struct"
 msgstr "Info Estr Util _Kernel"
 
-#: src/main_menubar_def.h:1175
+#: src/main_menubar_def.h:1181
 msgid "Display the contents of kernel 'struct user' for current child"
 msgstr ""
 "Mostrar o conteudo da 'estrutura de utilizador' de kernel do filho actual"
 
-#: src/main_menubar_def.h:1180
+#: src/main_menubar_def.h:1186
 msgid "Info _Threads"
 msgstr "Info _Threads"
 
-#: src/main_menubar_def.h:1181
+#: src/main_menubar_def.h:1187
 msgid "Display the IDs of currently known threads"
 msgstr "Mostrar os IDs das threads actualmente conhecidas"
 
-#: src/main_menubar_def.h:1186
+#: src/main_menubar_def.h:1192
 msgid "Info _Global variables"
 msgstr "Info variáveis _Globais"
 
-#: src/main_menubar_def.h:1187
+#: src/main_menubar_def.h:1193
 msgid "Display all global and static variables of the program"
 msgstr "Mostrar todas as variáveis globais e estáticas da aplicação"
 
-#: src/main_menubar_def.h:1192
+#: src/main_menubar_def.h:1198
 msgid "Info _Local variables"
 msgstr "Info variáveis _Locais"
 
-#: src/main_menubar_def.h:1193
+#: src/main_menubar_def.h:1199
 msgid "Display local variables of the current frame"
 msgstr "Mostrar variáveis locais no painel actual"
 
-#: src/main_menubar_def.h:1198
+#: src/main_menubar_def.h:1204
 msgid "Info _Current Frame"
 msgstr "Info Painel A_ctual"
 
-#: src/main_menubar_def.h:1199
+#: src/main_menubar_def.h:1205
 msgid "Display information about the current frame of execution"
 msgstr "Mostrar informação sobre o painel actual de execução"
 
-#: src/main_menubar_def.h:1204
+#: src/main_menubar_def.h:1210
 msgid "Info Function _Arguments"
 msgstr "Info P_arâmetros Função"
 
-#: src/main_menubar_def.h:1205
+#: src/main_menubar_def.h:1211
 msgid "Display function arguments of the current frame"
 msgstr "Mostrar os parâmetros de função do painel actual"
 
-#: src/main_menubar_def.h:1214
+#: src/main_menubar_def.h:1220
 msgid "_Start Debugger"
 msgstr "_Iniciar Depurador"
 
-#: src/main_menubar_def.h:1215
+#: src/main_menubar_def.h:1221
 msgid "Start the debugging session"
 msgstr "Iniciar a sessão de depuração"
 
-#: src/main_menubar_def.h:1221
+#: src/main_menubar_def.h:1227
 msgid "Load E_xecutable ..."
 msgstr "Ler E_xecutável ..."
 
-#: src/main_menubar_def.h:1222
+#: src/main_menubar_def.h:1228
 msgid "Open the executable for debugging"
 msgstr "Abrir o executável para depuração"
 
-#: src/main_menubar_def.h:1227
+#: src/main_menubar_def.h:1233
 msgid "Load _Core file ..."
 msgstr "Ler ficheiro _Core ..."
 
-#: src/main_menubar_def.h:1228
+#: src/main_menubar_def.h:1234
 msgid "Load a core file to dissect"
 msgstr "Ler um ficheiro core para dissecar"
 
-#: src/main_menubar_def.h:1233
+#: src/main_menubar_def.h:1239
 msgid "_Attach to Process ..."
 msgstr "_Anexar ao Processo ..."
 
-#: src/main_menubar_def.h:1234
+#: src/main_menubar_def.h:1240
 msgid "Attach to a running program"
 msgstr "Anexar a uma aplicação em execução"
 
-#: src/main_menubar_def.h:1240
+#: src/main_menubar_def.h:1246
 msgid "_Restart Program"
 msgstr "_Reiniciar Aplicação"
 
-#: src/main_menubar_def.h:1241
+#: src/main_menubar_def.h:1247
 msgid "Stop and restart the program"
 msgstr "Parar e reiniciar a aplicação"
 
-#: src/main_menubar_def.h:1246
+#: src/main_menubar_def.h:1252
 msgid "S_top Program"
 msgstr "P_arar Aplicação"
 
-#: src/main_menubar_def.h:1247
+#: src/main_menubar_def.h:1253
 msgid "Stop the program being debugged"
 msgstr "Parar a aplicação a ser depurada"
 
-#: src/main_menubar_def.h:1252
+#: src/main_menubar_def.h:1258
 msgid "_Detach Debugger"
 msgstr "_Desanexar Depurador"
 
-#: src/main_menubar_def.h:1253
+#: src/main_menubar_def.h:1259
 msgid "Detach from an attached program"
 msgstr "Desanexar de uma aplicação anexada"
 
-#: src/main_menubar_def.h:1259
+#: src/main_menubar_def.h:1265
 msgid "I_nterrupt Program"
 msgstr "I_nterromper Aplicação"
 
-#: src/main_menubar_def.h:1260 src/toolbar.c:996
+#: src/main_menubar_def.h:1266 src/toolbar.c:996
 msgid "Interrupt execution of the program"
 msgstr "Interromper a execução da aplicação"
 
-#: src/main_menubar_def.h:1265
+#: src/main_menubar_def.h:1271
 msgid "Si_gnal to Process"
 msgstr "Si_nal ao Processo"
 
-#: src/main_menubar_def.h:1266
+#: src/main_menubar_def.h:1272
 msgid "Send a kernel signal to the process being debugged"
 msgstr "Enviar um sinal de kernel ao processo em depuração"
 
-#: src/main_menubar_def.h:1272
+#: src/main_menubar_def.h:1278
 msgid "_Execution"
 msgstr "_Execução"
 
-#: src/main_menubar_def.h:1285
+#: src/main_menubar_def.h:1291
 msgid "_Information"
 msgstr "_Informação"
 
-#: src/main_menubar_def.h:1292
+#: src/main_menubar_def.h:1298
 msgid "Ins_pect/Evaluate ..."
 msgstr "Ins_peccionar/Avaliar ..."
 
-#: src/main_menubar_def.h:1293
+#: src/main_menubar_def.h:1299
 msgid "Inspect or evaluate an expression or variable"
 msgstr "Inspeccionar ou avaliar uma expressão ou variável"
 
-#: src/main_menubar_def.h:1298
+#: src/main_menubar_def.h:1304
 msgid "Add Expression in _Watch ..."
 msgstr "Adicionar Expressão em _Observação ..."
 
-#: src/main_menubar_def.h:1299
+#: src/main_menubar_def.h:1305
 msgid "Add expression or variable to the watch"
 msgstr "Adicionar expressão ou variável à observação"
 
-#: src/main_menubar_def.h:1305
+#: src/main_menubar_def.h:1311
 msgid "St_op Debugger"
 msgstr "_Parar Depuração"
 
-#: src/main_menubar_def.h:1306
+#: src/main_menubar_def.h:1312
 msgid "Say goodbye to the debugger"
 msgstr "Dizer adeus ao depurador"
 
-#: src/main_menubar_def.h:1315
+#: src/main_menubar_def.h:1321
 msgid "plugins"
 msgstr "plugins"
 
-#: src/main_menubar_def.h:1325
+#: src/main_menubar_def.h:1331
 msgid "Grep Utility"
 msgstr "Utilitário Grep"
 
-#: src/main_menubar_def.h:1331
+#: src/main_menubar_def.h:1337
 msgid "Compare two files"
 msgstr "Comparar dois ficheiros"
 
-#: src/main_menubar_def.h:1337
+#: src/main_menubar_def.h:1343
 msgid "Diff Utility"
 msgstr "Utilitário Diff"
 
-#: src/main_menubar_def.h:1343
+#: src/main_menubar_def.h:1349
 msgid "File View (Char/Octal/Hex)"
 msgstr "Ver Ficheiro (Carac/Octal/Hex)"
 
-#: src/main_menubar_def.h:1350
+#: src/main_menubar_def.h:1356
 msgid "Declarations"
 msgstr "Declarações"
 
-#: src/main_menubar_def.h:1356
+#: src/main_menubar_def.h:1362
 msgid "C Flow"
 msgstr "Fluxo C"
 
-#: src/main_menubar_def.h:1362
+#: src/main_menubar_def.h:1368
 msgid "C Cross-reference"
 msgstr "Referência-cruzada C"
 
-#: src/main_menubar_def.h:1368
+#: src/main_menubar_def.h:1374
 msgid "C Trace"
 msgstr "Trace C"
 
-#: src/main_menubar_def.h:1375
+#: src/main_menubar_def.h:1381
 msgid "Backup Manager"
 msgstr "Gestor de Backups"
 
-#: src/main_menubar_def.h:1385
+#: src/main_menubar_def.h:1391
 msgid "_Create New Window"
 msgstr "_Criar Nova Janela"
 
-#: src/main_menubar_def.h:1386
+#: src/main_menubar_def.h:1392
 msgid "Open a new file window"
 msgstr "Abrir uma nova janela de ficheiro"
 
-#: src/main_menubar_def.h:1396
+#: src/main_menubar_def.h:1402
 msgid "Close current document window"
 msgstr "Fechar a janela de documento actual"
 
-#: src/main_menubar_def.h:1405
+#: src/main_menubar_def.h:1411
 msgid "_Compiler and Linker Settings ..."
 msgstr "Definições de _Compilador e Linkagem ..."
 
-#: src/main_menubar_def.h:1406
+#: src/main_menubar_def.h:1412
 msgid "Settings for the compiler and linker"
 msgstr "Definições para o compilador e a linkagem"
 
-#: src/main_menubar_def.h:1411
+#: src/main_menubar_def.h:1417
 msgid "_Source Paths ..."
 msgstr "Caminho de Códi_go ..."
 
-#: src/main_menubar_def.h:1412
+#: src/main_menubar_def.h:1418
 msgid "Specify the source paths for the Anjuta to search"
 msgstr "Especifique o caminho de código para o Anjuta procurar"
 
-#: src/main_menubar_def.h:1417
+#: src/main_menubar_def.h:1423
 msgid "_Commands ..."
 msgstr "_Comandos ..."
 
-#: src/main_menubar_def.h:1418
+#: src/main_menubar_def.h:1424
 msgid "Specify the various commands for use"
 msgstr "Especificar os vários comandos a utilizar"
 
-#: src/main_menubar_def.h:1424
+#: src/main_menubar_def.h:1430
 msgid "_Preferences ..."
 msgstr "_Preferências ..."
 
-#: src/main_menubar_def.h:1425
+#: src/main_menubar_def.h:1431
 msgid "Do you prefer coffee to tea? Check it out."
 msgstr "Prefere café ou chá? Verifique-o."
 
-#: src/main_menubar_def.h:1430
+#: src/main_menubar_def.h:1436
 msgid "Set _Default Preferences"
 msgstr "Definir Preferências _Defeito"
 
-#: src/main_menubar_def.h:1431
+#: src/main_menubar_def.h:1437
 msgid "But I prefer tea."
 msgstr "Mas eu prefiro chá."
 
-#: src/main_menubar_def.h:1442
+#: src/main_menubar_def.h:1448
 msgid "Browse Gnome API Pages"
 msgstr "Consultar Páginas API Gnome"
 
-#: src/main_menubar_def.h:1443
+#: src/main_menubar_def.h:1449
 msgid "The gnome API pages"
 msgstr "As páginas da API gnome"
 
-#: src/main_menubar_def.h:1448
+#: src/main_menubar_def.h:1454
 msgid "Browse Man Pages"
 msgstr "Consultar Páginas Man"
 
-#: src/main_menubar_def.h:1449
+#: src/main_menubar_def.h:1455
 msgid "The good old manual pages"
 msgstr "As boas antigas páginas de manual"
 
-#: src/main_menubar_def.h:1454
+#: src/main_menubar_def.h:1460
 msgid "Browse Info Pages"
 msgstr "Consultar Páginas Info"
 
-#: src/main_menubar_def.h:1455
+#: src/main_menubar_def.h:1461
 msgid "Info pages, where you cannot find what you are looking for"
 msgstr "Páginas info, onde não vai encontrar aquilo que procura"
 
-#: src/main_menubar_def.h:1461 src/text_editor_menu.c:224
+#: src/main_menubar_def.h:1467 src/text_editor_menu.c:224
 msgid "Context Help"
 msgstr "Ajuda de Contexto"
 
-#: src/main_menubar_def.h:1462
+#: src/main_menubar_def.h:1468
 msgid "Search help for the current word in the editor"
 msgstr "Procurar ajuda para a palavra actual no editor"
 
-#: src/main_menubar_def.h:1467
+#: src/main_menubar_def.h:1473
 msgid "Search a topic"
 msgstr "Procurar um tópico"
 
-#: src/main_menubar_def.h:1468
+#: src/main_menubar_def.h:1474
 msgid "May I help you?"
 msgstr "Posso ajuda-lo?"
 
-#: src/main_menubar_def.h:1474
+#: src/main_menubar_def.h:1480
 msgid "Anjuta Home site"
 msgstr "Página do Anjuta"
 
-#: src/main_menubar_def.h:1475
+#: src/main_menubar_def.h:1481
 msgid "Online documentation and resources"
 msgstr "Documentação e recursos online"
 
-#: src/main_menubar_def.h:1481
+#: src/main_menubar_def.h:1487
 msgid "Libraries API references"
 msgstr "Referência da API das Bibliotecas"
 
-#: src/main_menubar_def.h:1482
+#: src/main_menubar_def.h:1488
 msgid "Online reference library for GDK, GLib, GNOME etc.."
 msgstr "Referência online para as bibliotecas GDK, GLib, GNOME etc.."
 
-#: src/main_menubar_def.h:1487
+#: src/main_menubar_def.h:1493
 msgid "Report Bugs"
 msgstr "Relatar Bugs"
 
-#: src/main_menubar_def.h:1488
+#: src/main_menubar_def.h:1494
 msgid "Submit a bug report for Anjuta"
 msgstr "Enviar um relatório de bug sobre o Anjuta"
 
-#: src/main_menubar_def.h:1493
+#: src/main_menubar_def.h:1499
 msgid "Request Features"
 msgstr "Pedir Funcionalidades"
 
-#: src/main_menubar_def.h:1494
+#: src/main_menubar_def.h:1500
 msgid "Submit a feature request for Anjtua"
 msgstr "Enviar um pedido de novas funcionalidades para o Anjuta"
 
-#: src/main_menubar_def.h:1499
+#: src/main_menubar_def.h:1505
 msgid "Submit patches"
 msgstr "Enviar modificações"
 
-#: src/main_menubar_def.h:1500
+#: src/main_menubar_def.h:1506
 msgid "Submit patches for Anjuta"
 msgstr "Enviar modificações (patches) para o Anjuta"
 
-#: src/main_menubar_def.h:1505
+#: src/main_menubar_def.h:1511
 msgid "Ask a question"
 msgstr "Fazer uma pergunta"
 
-#: src/main_menubar_def.h:1506
+#: src/main_menubar_def.h:1512
 msgid "Submit a question for FAQs"
 msgstr "Enviar uma questão para a FAQ (Perguntas Frequentes)"
 
-#: src/main_menubar_def.h:1520
+#: src/main_menubar_def.h:1526
 msgid "_Project"
 msgstr "_Projecto"
 
-#: src/main_menubar_def.h:1526
+#: src/main_menubar_def.h:1532
 msgid "For_mat"
 msgstr "For_matar"
 
-#: src/main_menubar_def.h:1538
+#: src/main_menubar_def.h:1544
 msgid "Bookmar_k"
 msgstr "Mar_ca"
 
-#: src/main_menubar_def.h:1544
+#: src/main_menubar_def.h:1550
 msgid "_Debug"
 msgstr "_Depurar"
 
-#: src/main_menubar_def.h:1550
+#: src/main_menubar_def.h:1556
 msgid "Plug_ins"
 msgstr "plug_ins"
 
-#: src/main_menubar_def.h:1556
+#: src/main_menubar_def.h:1562
 msgid "_Utilities"
 msgstr "_Utilitários"
 
-#: src/main_menubar_def.h:1572
+#: src/main_menubar_def.h:1578
 msgid "_Settings"
 msgstr "Definiçõe_s"
 
@@ -3371,6 +3379,21 @@ msgstr "Janela anexada"
 #: src/messages.c:763
 msgid "Dock"
 msgstr "Anexar"
+
+#: src/preferences.c:103
+#, c-format
+msgid ""
+"Cannot load Global defaults and internal configuration files:\n"
+"%s.\n"
+"%s.\n"
+"This may result in improper behaviour or instabilities.\n"
+"Anjuta will fall back to built in (limited) settings"
+msgstr ""
+"Incapaz de ler defeitos Globais e ficheiros de configuração interna:\n"
+"%s.\n"
+"%s.\n"
+"Isto pode resultar em comportamento inapropriado ou instabilidade.\n"
+"O Anjuta vai reverter para os defeitos (limitados) base"
 
 #: src/preferences.c:546
 msgid ""
@@ -3689,7 +3712,7 @@ msgstr "Projecto: Nenhum"
 
 #: src/project_dbase.c:608 src/project_dbase.c:627
 #, c-format
-msgid "Couldn't load project: %s"
+msgid "Unable to load project: %s"
 msgstr "Incapaz de ler projecto: %s"
 
 #: src/project_dbase.c:619
@@ -3697,24 +3720,24 @@ msgstr "Incapaz de ler projecto: %s"
 msgid ""
 "Error: You need Anjuta version %s or later to open this project.\n"
 "Please upgrade Anjuta to the latest version (Help for more information).\n"
-"For the time being, I am too old to load it.:-("
+"For the time being, I am too old to load it."
 msgstr ""
 "Erro: Necessita do Anjuta versão %s ou posterior para abrir este projecto.\n"
 "Actualize o Anjuta para a versão mais recente (Ajuda para mais "
 "informações).\n"
-"Por agora, este Anjuta é demasiado antigo para o abrir.:-("
+"Por agora, este Anjuta é demasiado antigo para o abrir."
 
 #: src/project_dbase.c:774
 #, c-format
 msgid ""
 "You need Anjuta version %s or later to open this project.\n"
 "Please upgrade Anjuta to the latest version (Help for more information).\n"
-"For the time being, I am too old to load it. :-("
+"For the time being, I am too old to load it."
 msgstr ""
 "Necessita do Anjuta versão %s ou posterior para abrir este projecto.\n"
 "Actualize o Anjuta para a versão mais recente (Ajuda para mais "
 "informações).\n"
-"Por agora, este Anjuta é demasiado antigo para o abrir.:-("
+"Por agora, este Anjuta é demasiado antigo para o abrir."
 
 #: src/project_dbase.c:834
 msgid "Project loaded successfully."
@@ -4280,33 +4303,33 @@ msgstr "Actualização de imagem de Etiquetas completa"
 msgid "Syncdronization of Tags image failed"
 msgstr "Falha na sincronização da imagem de Etiquetas"
 
-#: src/text_editor.c:775
+#: src/text_editor.c:774
 msgid "Loading file ..."
 msgstr "A ler ficheiro ..."
 
-#: src/text_editor.c:781
+#: src/text_editor.c:780
 #, c-format
 msgid "Could not load file: %s"
 msgstr "Incapaz de ler ficheiro: %s"
 
-#: src/text_editor.c:810
+#: src/text_editor.c:809
 msgid "File loaded successfully"
 msgstr "Ficheiro lido com sucesso"
 
-#: src/text_editor.c:825
+#: src/text_editor.c:824
 msgid "Saving file ..."
 msgstr "A gravar ficheiro ..."
 
-#: src/text_editor.c:830
+#: src/text_editor.c:829
 #, c-format
 msgid "Could not save file: %s."
 msgstr "Incapaz de gravar ficheiro: %s."
 
-#: src/text_editor.c:857
+#: src/text_editor.c:856
 msgid "File saved successfully"
 msgstr "Ficheiro gravado com sucesso"
 
-#: src/text_editor.c:952
+#: src/text_editor.c:951
 #, c-format
 msgid ""
 "WARNING: The file \"%s\" in the disk is more recent than\n"
@@ -4317,19 +4340,19 @@ msgstr ""
 "buffer actual.\n"
 "Deseja rele-lo?"
 
-#: src/text_editor.c:1068
+#: src/text_editor.c:1067
 msgid "Auto format is currently disabled. Change the setting in Preferences."
 msgstr "Auto formatação está desactiva. Altere as definições nas Preferências."
 
-#: src/text_editor.c:1074
+#: src/text_editor.c:1073
 msgid "Auto formatting ..."
 msgstr "A auto formatar ..."
 
-#: src/text_editor.c:1084 src/text_editor.c:1111
+#: src/text_editor.c:1083 src/text_editor.c:1110
 msgid "Error in auto formatting ..."
 msgstr "Erro na auto formatação ..."
 
-#: src/text_editor.c:1117
+#: src/text_editor.c:1116
 msgid "Auto formatting completed"
 msgstr "Auto formatação completa"
 
@@ -4880,7 +4903,7 @@ msgstr "Macros"
 msgid "There is line no. %d in \"%s\"."
 msgstr "Existe linha nº %d em \"%s\"."
 
-#: src/utilities.c:693
+#: src/utilities.c:697
 #, c-format
 msgid "Couldn't read file: %s."
 msgstr "Incapaz de ler ficheiro: %s."
@@ -4891,12 +4914,12 @@ msgstr "Incapaz de ler ficheiro: %s."
 #: src/source.c:832 src/source.c:865 src/source.c:885 src/source.c:918
 #: src/source.c:938 src/source.c:969 src/source.c:987 src/source.c:1017
 #: src/source.c:1035 src/source.c:1062 src/source.c:1115 src/source.c:1191
-#: src/source.c:1323 src/utilities.c:701
+#: src/source.c:1323 src/utilities.c:705
 #, c-format
 msgid "Couldn't create file: %s."
 msgstr "Incapaz de criar ficheiro: %s."
 
-#: src/utilities.c:735
+#: src/utilities.c:739
 msgid "Couldn't complete file copy"
 msgstr "Incapaz de completar cópia de ficheiro"
 
