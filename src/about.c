@@ -145,6 +145,8 @@ about_read_translators (xmlDocPtr doc, xmlNodePtr cur)
 				if (email)
 					translators = g_strconcat(translators, "<", email, ">", NULL);
 				xmlFree(email);
+				xmlFree(lang);
+				return;
 			}
 			xmlFree(lang);
 		}
