@@ -507,6 +507,8 @@ static void tool_terminate_handler(gint status, time_t time)
 ** appends output and error to output and error panes of the message
 ** manager.
 */
+static const gchar *get_user_params(AnUserTool *tool, gint *response_ptr);
+
 static void execute_tool(GtkMenuItem *item, gpointer data)
 {
 	AnUserTool *tool = (AnUserTool *) data;
@@ -519,8 +521,14 @@ static void execute_tool(GtkMenuItem *item, gpointer data)
 	/* Ask for user parameters if required */
 	if (tool->user_params)
 	{
+		gint response;
+		params = get_user_params(tool, &response);
+		if (response != GTK_RESPONSE_OK)
+			return;
+		/*
 		if (!anjuta_get_user_params(tool->name, &params))
 			return;
+		*/
 	}
 	if (tool->autosave)
 	{
@@ -841,11 +849,14 @@ on_user_tool_delete_event (GtkWindow *window, GdkEvent* event,
 static void
 on_user_tool_response (GtkDialog *dialog, gint res, gpointer user_data);
 
+/* Aready delared above.
+
 static void
 on_user_tool_edit_detached_toggled(GtkToggleButton *tb, gpointer user_data);
 
 static void
 on_user_tool_edit_input_type_changed(GtkEditable *editable, gboolean user_data);
+*/
 
 static void
 on_user_tool_edit_response (GtkDialog *dialog, gint response,

@@ -776,6 +776,20 @@ module.po.files=\
 	zh_CN.po\
 	zh_TW.po
 
+compiler.options.supports=
+compiler.options.include.paths=
+compiler.options.library.paths=
+compiler.options.libraries=
+compiler.options.libraries.selected=
+compiler.options.defines=
+compiler.options.defines.selected=
+compiler.options.warning.buttons=0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 
+compiler.options.optimize.buttons=0 1 0 0 
+compiler.options.other.buttons=1 0 
+compiler.options.other.c.flags=
+compiler.options.other.l.flags=
+compiler.options.other.l.libs=
+
 project.src.paths=tagmanager \
 tagmanager/include \
 global-tags \

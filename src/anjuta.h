@@ -232,10 +232,9 @@ gchar *anjuta_get_full_filename (gchar * fn);
 
 void anjuta_done_progress (gchar * titile);
 
-gboolean
-anjuta_init_progress (gchar * description, gdouble full_value,
-					  GnomeAppProgressCancelFunc progress_cancel_cb,
-					  gpointer data);
+gboolean anjuta_init_progress (gchar * description, gdouble full_value,
+							   GnomeAppProgressCancelFunc progress_cancel_cb,
+							   gpointer data);
 
 void anjuta_set_progress (gdouble value);
 
@@ -250,10 +249,9 @@ void anjuta_unregister_window (GtkWidget * win);
 
 void anjuta_foreach_windows (GFunc cb_func, gpointer data);
 
-void
-anjuta_register_child_process (pid_t pid,
-							   void (*callback) (int status, gpointer d),
-							   gpointer data);
+void anjuta_register_child_process (pid_t pid,
+									void (*callback) (int status, gpointer d),
+									gpointer data);
 void anjuta_unregister_child_process (pid_t pid);
 
 void anjuta_foreach_child_processes (GFunc cb_func, gpointer data);
@@ -280,18 +278,16 @@ gint on_anjuta_delete (GtkWidget * w, GdkEvent * event, gpointer data);
 
 void on_anjuta_exit_yes_clicked (GtkButton * b, gpointer data);
 
-void
-on_anjuta_notebook_switch_page (GtkNotebook * notebook,
-								GtkNotebookPage * page,
-								gint page_num, gpointer user_data);
+void on_anjuta_notebook_switch_page (GtkNotebook * notebook,
+									 GtkNotebookPage * page,
+									 gint page_num, gpointer user_data);
 
-void
-on_anjuta_dnd_drop (gchar* filename, gpointer data);
+void on_anjuta_dnd_drop (gchar* filename, gpointer data);
 
 void anjuta_refresh_breakpoints (TextEditor* te);
 
-gboolean
-on_anjuta_window_focus_in_event (GtkWidget * w, GdkEventFocus * e, gpointer d);
+gboolean on_anjuta_window_focus_in_event (GtkWidget * w, GdkEventFocus * e,
+										  gpointer d);
 
 gint on_anjuta_window_key_press_event (GtkWidget   *widget,
 									   GdkEventKey *event,
@@ -328,22 +324,15 @@ void anjuta_toolbar_set_view (gchar* toolbar_name, gboolean view,
 
 gint anjuta_get_file_property (gchar* key, gchar* filename, gint default_value);
 
-TextEditor *
-anjuta_get_te_from_path( const gchar *szFullPath );
+TextEditor *anjuta_get_te_from_path( const gchar *szFullPath );
 
-void 
-anjuta_reload_file( const gchar *szFullPath );
-void 
-anjuta_save_file_if_modified( const gchar *szFullPath );
+void anjuta_reload_file( const gchar *szFullPath );
+void anjuta_save_file_if_modified( const gchar *szFullPath );
 
-void
-anjuta_load_this_project( const gchar * szProjectPath );
-void 
-anjuta_load_last_project(void);
-void 
-anjuta_open_project(void);
-void
-show_hide_tooltips(gboolean show);
+void anjuta_load_this_project( const gchar * szProjectPath );
+void anjuta_load_last_project(void);
+void anjuta_open_project(void);
+void show_hide_tooltips(gboolean show);
 
 /* Search for the occurence of the string in all source files */
 void anjuta_search_sources_for_symbol(const gchar *s);
@@ -351,37 +340,34 @@ void anjuta_search_sources_for_symbol(const gchar *s);
 #define anjuta_set_execution_dir(d)  string_assign(&app->execution_dir, (d))
 #define anjuta_clear_execution_dir() string_assign(&app->execution_dir, NULL)
 
+void anjuta_order_tabs(void);
+gboolean anjuta_set_editor_properties(void);
+
 /* Glade file */
 #define GLADE_FILE_ANJUTA   PACKAGE_DATA_DIR"/glade/anjuta.glade"
 
 /* File properties keys */
-#define CURRENT_FULL_FILENAME_WITH_EXT "current.full.filename.ext"
-#define CURRENT_FULL_FILENAME "current.full.filename"
-#define CURRENT_FILENAME_WITH_EXT "current.file.name.ext"
-#define CURRENT_FILENAME "current.file.name"
-#define CURRENT_FILE_DIRECTORY "current.file.dir"
-#define CURRENT_FILE_EXTENSION "current.file.extension"
+#define CURRENT_FULL_FILENAME_WITH_EXT     "current.full.filename.ext"
+#define CURRENT_FULL_FILENAME              "current.full.filename"
+#define CURRENT_FILENAME_WITH_EXT          "current.file.name.ext"
+#define CURRENT_FILENAME                   "current.file.name"
+#define CURRENT_FILE_DIRECTORY             "current.file.dir"
+#define CURRENT_FILE_EXTENSION             "current.file.extension"
 
-#define FILE_PROP_IS_SOURCE "file.is.source."
-#define FILE_PROP_CAN_AUTOFORMAT "file.can.autoformat."
-#define FILE_PROP_HAS_TAGS "file.has.tags."
-#define FILE_PROP_HAS_FOLDS "file.has.folds."
-#define FILE_PROP_IS_INTERPRETED "file.interpreted."
+#define FILE_PROP_IS_SOURCE                "file.is.source."
+#define FILE_PROP_CAN_AUTOFORMAT           "file.can.autoformat."
+#define FILE_PROP_HAS_TAGS                 "file.has.tags."
+#define FILE_PROP_HAS_FOLDS                "file.has.folds."
+#define FILE_PROP_IS_INTERPRETED           "file.interpreted."
 
-#define ANJUTA_MAIN_TOOLBAR "main.toolbar"
-#define ANJUTA_EXTENDED_TOOLBAR "extended.toolbar"
-#define ANJUTA_FORMAT_TOOLBAR "format.toolbar"
-#define ANJUTA_DEBUG_TOOLBAR "debug.toolbar"
-#define ANJUTA_BROWSER_TOOLBAR "browser.toolbar"
+#define ANJUTA_MAIN_TOOLBAR                "main.toolbar"
+#define ANJUTA_EXTENDED_TOOLBAR            "extended.toolbar"
+#define ANJUTA_FORMAT_TOOLBAR              "format.toolbar"
+#define ANJUTA_DEBUG_TOOLBAR               "debug.toolbar"
+#define ANJUTA_BROWSER_TOOLBAR             "browser.toolbar"
 
 #define ANJUTA_LAST_OPEN_PROJECT "anjuta.last.open.project"
 
-void
-anjuta_order_tabs(void);
-
-gboolean anjuta_get_user_params(const gchar *prompt, const char **val);
-gboolean anjuta_set_editor_properties(void);
-
-#include "session.h"
+#include "session.h" /* WTF is this??? */
 
 #endif

@@ -1,5 +1,12 @@
 2003-04-18  Naba Kumar  <naba@gnome.org>
 
+	* anjuta.prj: Updated (includes compiler options).
+	
+	* src/anjuta.[hc], src/anjuta-tools.c: Removed redundant get_user_params
+	function from anjuta.c (it was already available in anjuta-tools.c).
+	
+2003-04-18  Naba Kumar  <naba@gnome.org>
+
 	* src/about.c, THANKS: Updated
 	
 	* anjuta.glade, anjuta_dialogs_strings.c: Updated setup-dialog

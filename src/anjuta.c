@@ -2313,6 +2313,7 @@ static int do_ordertab1(const void *a,const void *b)
 	bos = *(order_struct*)b;
 	return(g_strcasecmp(aos.m_label,bos.m_label));
 }
+
 void anjuta_order_tabs()
 {
 	gint i,j;
@@ -2365,60 +2366,6 @@ void anjuta_search_sources_for_symbol(const gchar *s)
 	an_message_manager_append (app->messages, _("Finding in Files ....\n"),
 	  MESSAGE_FIND);
 	an_message_manager_show (app->messages, MESSAGE_FIND);
-}
-
-/* Popup a dialog to ask for user parameters */
-
-typedef struct _AnUserParams
-{
-	GladeXML *xml;
-	GtkWidget *dialog;
-	GtkEditable *params_en;
-	GtkCombo *params_com;
-} AnUserParams;
-static AnUserParams *tp = NULL;
-
-#define GLADE_FILE "anjuta.glade"
-#define TOOL_PARAMS_EN "tool.params"
-#define TOOL_PARAMS_EN_COMBO "tool.params.combo"
-#define TOOL_PARAMS "dialog.tool.params"
-
-gboolean anjuta_get_user_params(const char *prompt, const char **val)
-{
-	char title[256];
-	int button;
-	if (NULL == tp)
-	{
-		char glade_file[PATH_MAX];
-
-		tp = g_new0(AnUserParams, 1);
-		snprintf(glade_file, PATH_MAX, "%s/%s", PACKAGE_DATA_DIR, GLADE_FILE);
-		if (NULL == (tp->xml = glade_xml_new(glade_file, TOOL_PARAMS, NULL)))
-		{
-			anjuta_error("Unable to build user interface for tool parameters");
-			g_free(tp);
-			tp = NULL;
-			return FALSE;
-		}
-		tp->dialog = glade_xml_get_widget(tp->xml, TOOL_PARAMS);
-		/* gtk_window_set_transient_for (GTK_WINDOW(tp->dialog)
-		  , GTK_WINDOW(app->widgets.window)); */
-		gtk_widget_ref(tp->dialog);
-		tp->params_en = (GtkEditable *) glade_xml_get_widget(tp->xml, TOOL_PARAMS_EN);
-		gtk_widget_ref((GtkWidget *) tp->params_en);
-		tp->params_com = (GtkCombo *) glade_xml_get_widget(tp->xml, TOOL_PARAMS_EN_COMBO);
-		gtk_widget_ref((GtkWidget *) tp->params_com);
-		gtk_combo_disable_activate (GTK_COMBO(tp->params_com));
-		gnome_dialog_editable_enters (GNOME_DIALOG (tp->dialog),
-			GTK_EDITABLE(GTK_COMBO(tp->params_com)->entry));
-		glade_xml_signal_autoconnect(tp->xml);
-	}
-	snprintf(title, 256, _("%s"), prompt?prompt:"Parameter");
-	gtk_window_set_title (GTK_WINDOW(tp->dialog), title);
-	button = gnome_dialog_run_and_close((GnomeDialog *) tp->dialog);
-	if (val)
-		*val = gtk_entry_get_text(GTK_ENTRY(tp->params_en));
-	return (0 == button);
 }
 
 gboolean anjuta_set_editor_properties(void)
