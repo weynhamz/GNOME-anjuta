@@ -381,7 +381,7 @@ AC_DEFINE_UNQUOTED(PACKAGE_MENU_DIR, "${packageprefix}/${packagemenudir}")
 AC_DEFINE_UNQUOTED(PACKAGE_PLUGIN_DIR, "${packageprefix}/${packageplugindir}")
 AC_DEFINE_UNQUOTED(PACKAGE_SOURCE_DIR, "${packagesrcdir}")
 
-AC_OUTPUT([ po/Makefile.in m4/Makefile 
+AC_OUTPUT([
 Makefile
 intl/Makefile
 po/Makefile.in
@@ -419,5 +419,4 @@ plugins/sample1/Makefile
 plugins/class-gen/Makefile
 plugins/patch/Makefile
 anjuta.desktop.in
-
 ])
