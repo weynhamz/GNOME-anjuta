@@ -1,3 +1,9 @@
+2002-02-02  Naba Kumar <kh_naba@users.sourceforge.net>
+
+	* main.c: Made a workaround to remove the old
+	anjuta gnome config file (older than 9 Feb 2002). This
+	will fix the bug which never lets the brower toolbar shown.
+	
 2002-02-01  Andy Piper <andy.piper@freeuk.com>
 
 	* HACKING: added info on submitting patches

@@ -21,6 +21,7 @@
 #  include <config.h>
 #endif
 
+#include <sys/stat.h>
 #include <gnome.h>
 #include "splash.h"
 #include "anjuta.h"
@@ -47,6 +48,25 @@ poptOption anjuta_options[] = {
 	POPT_AUTOHELP {NULL}
 };
 
+/* This is work around function to make sure that the users get a 
+smooth transition from 0.1.8 to 0.1.9 version. This will delete
+~/.gnome/Anjuta config file older than 14:29, 9 Feb, 2002 */
+static void delete_old_config_file (void)
+{
+	struct stat s;
+	gchar *config_file;
+	time_t reference = 1013332729;
+	
+	config_file = g_strconcat(g_get_home_dir(), "/.gnome/Anjuta", NULL);
+	
+	if(stat(config_file, &s) == 0) {
+		if (s.st_mtime < reference) {
+			g_message("Old config file %s found: Removing it", config_file);
+			remove(config_file);
+		}
+	}
+}
+
 int
 main (int argc, char *argv[])
 {
@@ -59,6 +79,9 @@ main (int argc, char *argv[])
 	int retCode ;
 
 
+	/* Before anything starts */
+	delete_old_config_file();
+	
 #ifdef ENABLE_NLS
 	bindtextdomain (PACKAGE, PACKAGE_LOCALE_DIR);
 	textdomain (PACKAGE);
