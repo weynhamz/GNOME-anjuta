@@ -1,3 +1,13 @@
+2005-03-21  Naba Kumar  <naba@gnome.org>
+
+	Patch from: Massimo Cora' <maxcvs@email.it>:
+	
+	* plugins/editor/Makefile.am
+	plugins/editor/anjuta-docman.c,
+	(added) plugins/editor/editor-tooltips.c,
+	(added) plugins/editor/editor-tooltips.h: Added tooltips to
+	editor tabs to show full path.
+
 2005-03-19	Johannes Schmid <jhs@cvs.gnome.org>
 	
 	* plugins/subversion/svn-backend.c:

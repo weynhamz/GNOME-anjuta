@@ -31,6 +31,7 @@
 #include "file_history.h"
 #include "plugin.h"
 #include "action-callbacks.h"
+#include "editor-tooltips.h"
 
 static gboolean closing_state;
 static gpointer parent_class;
@@ -95,6 +96,8 @@ editor_tab_widget_new(AnjutaDocmanPage* page, AnjutaDocman* docman)
 	GtkWidget *tmp_toolbar_icon;
 	GtkWidget *label;
 	GtkWidget *box;
+	GtkWidget *event_hbox;
+	GtkWidget *event_box;
 	int h, w;
 	GdkColor color;
 	
@@ -131,12 +134,26 @@ editor_tab_widget_new(AnjutaDocmanPage* page, AnjutaDocman* docman)
 	gtk_widget_modify_fg (button15, GTK_STATE_SELECTED, &color);
 	gtk_widget_show(button15);
 	
+	/* create our layout/event boxes */
+	event_box = gtk_event_box_new();
+	gtk_event_box_set_visible_window (GTK_EVENT_BOX (event_box), FALSE);
+
+	event_hbox = gtk_hbox_new (FALSE, 2);	
 	box = gtk_hbox_new(FALSE, 2);
-	gtk_box_pack_start(GTK_BOX(box), label, TRUE, TRUE, 0);
-	gtk_box_pack_start(GTK_BOX(box), button15, FALSE, FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(box), close_pixmap, FALSE, FALSE, 0);
 	
-	gtk_widget_show(box);
+	gtk_box_pack_start (GTK_BOX(event_hbox), label, TRUE, TRUE, 0);
+	gtk_box_pack_start (GTK_BOX (event_hbox), button15, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX(event_hbox), close_pixmap, FALSE, FALSE, 0);
+	gtk_container_add (GTK_CONTAINER (event_box), event_hbox);
+	
+	/* setup the data hierarchy */
+	g_object_set_data (G_OBJECT (box), "event_box", event_box);
+	
+	/* pack our top-level layout box */
+	gtk_box_pack_start (GTK_BOX (box), event_box, TRUE, FALSE, 0);
+	
+	/* show the widgets of the tab */
+	gtk_widget_show_all(box);
 
 	gtk_signal_connect (GTK_OBJECT (button15), "clicked",
 				GTK_SIGNAL_FUNC(on_text_editor_notebook_close_page),
@@ -585,11 +602,16 @@ on_editor_destroy (TextEditor *te, AnjutaDocman *docman)
 			    docman);
 }
 
+
 TextEditor *
 anjuta_docman_add_editor (AnjutaDocman *docman, const gchar *uri,
 						  const gchar *name)
 {
 	GtkWidget *te;
+	GtkWidget *event_box;
+	gchar *tip;
+	gchar *ruri;
+	EditorTooltips *tooltips = NULL;
 	AnjutaDocmanPage *page;
 	
 	te = text_editor_new (ANJUTA_PREFERENCES (docman->priv->preferences),
@@ -603,8 +625,23 @@ anjuta_docman_add_editor (AnjutaDocman *docman, const gchar *uri,
 	
 	gtk_widget_show (te);
 	page = anjuta_docman_page_new (te, docman);
+
+	if (tooltips == NULL) {
+		tooltips = editor_tooltips_new();
+	}
 	
 	docman->priv->editors = g_list_append (docman->priv->editors, (gpointer)page);
+
+	ruri =  gnome_vfs_format_uri_for_display (uri);
+	
+	/* set the tooltips */	
+	tip = g_markup_printf_escaped("<b>%s</b> %s\n",
+				       _("Path:"), ruri );
+	
+	event_box = g_object_get_data (G_OBJECT(page->box), "event_box");
+	editor_tooltips_set_tip (tooltips, event_box, tip, NULL);
+	g_free (tip);
+	g_free (ruri);
 	
 	gtk_notebook_prepend_page (GTK_NOTEBOOK (docman), te, page->box);
 	gtk_notebook_set_menu_label_text(GTK_NOTEBOOK (docman), te,
@@ -614,6 +651,7 @@ anjuta_docman_add_editor (AnjutaDocman *docman, const gchar *uri,
 				       GTK_SIGNAL_FUNC (on_notebook_switch_page),
 				       docman);
 	gtk_notebook_set_current_page (GTK_NOTEBOOK (docman), 0);
+	
 	if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (docman->priv->preferences),
 									EDITOR_TABS_ORDERING))
 			anjuta_docman_order_tabs (docman);
