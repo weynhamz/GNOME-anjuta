@@ -1,0 +1,205 @@
+<!DOCTYPE Article PUBLIC "-//GNOME//DTD DocBook PNG Variant V1.1//EN"[
+]>
+<article class="faq" id="index"> <!-- please do not change the id -->
+
+
+ <!-- ============= Document Header ============================= -->
+ <artheader> 
+  <title>Anjuta FAQ</title>
+  <copyright>
+   <year>2001</year>
+   <holder>Andy Piper</holder>
+  </copyright>
+
+  <!-- translators: uncomment this:
+
+  <copyright>
+   <year>2000</year>
+   <holder>ME-THE-TRANSLATOR (Latin translation)</holder>
+  </copyright>
+
+   -->
+
+  <!-- do not put authorname in the header except in copyright - use
+  section "authors" below -->
+
+  <legalnotice>
+   <para>
+    Permission is granted to copy, distribute and/or modify this
+    document under the terms of the <citetitle>GNU Free Documentation
+    License</citetitle>, Version 1.1 or any later version published
+    by the Free Software Foundation with no Invariant Sections, no
+    Front-Cover Texts, and no Back-Cover Texts. You may obtain a copy
+    of the <citetitle>GNU Free Documentation License</citetitle> from
+    the Free Software Foundation by visiting <ulink type="http"
+    url="http://www.fsf.org">their Web site</ulink> or by writing to:
+    Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+    Boston, MA 02111-1307, USA.
+   </para>
+   <para>
+    Many of the names used by companies to distinguish their products and
+    services are claimed as trademarks. Where those names appear in any
+    GNOME documentation, and those trademarks are made aware to the members
+    of the GNOME Documentation Project, the names have been printed in caps
+    or initial caps.
+   </para>
+  </legalnotice>
+
+  <releaseinfo>
+   This is version 1.0 of the Anjuta FAQ
+  </releaseinfo>
+ </artheader>
+
+ 
+ <!-- ============= Document Body ============================= -->
+
+ <sect1 id="qanda">
+  <title>Anjuta FAQ</title>
+
+ <para>
+  This is a list of the most frequently asked questions for the
+  <application>Anjuta</application> C/C++ IDE. If you have got a question which
+  is not listed, feel free to contact the <application>Anjuta</application> developers 
+  via the mailing lists
+ </para>
+
+ <!-- Cut this out to add a new question and answer.
+   <qandaentry>
+    <question>
+     <para>
+     </para>
+    </question>
+    <answer>
+     <para>
+     </para>
+    </answer>
+   </qandaentry> 
+ -->
+
+  <qandaset>
+    <!-- ============= General Information =========== -->
+    <qandadiv>
+    <title>General Information</title>
+ 
+    <qandaentry>
+     <question>
+      <para>
+      What does the name <citetitle>Anjuta</citetitle> stand for? It does 
+      not look like one of those recursive names
+      </para>
+     </question>
+     <answer>
+      <para>
+      It stands for nothing. Naba Kumar started writing <application>Anjuta</application>, 
+      and named it after his girlfriend&mdash; this software is dedicated to her.
+      </para>
+      </answer>
+     </qandaentry>
+    </qandadiv>    
+
+    <!-- ============= Build =========== -->
+   <qandadiv>
+    <title>Building <application>Anjuta</application></title>
+ 
+   <qandaentry>
+    <question>
+     <para>
+     Where can I find the latest source for <application>Anjuta</application>? There is 
+     no CVS repository on the project page at SourceForge!
+     </para>
+    </question>
+    <answer>
+     <para>
+     That is because <application>Anjuta</application> is a GNOME application, and is 
+	 in <ulink type="http" url="http://cvs.gnome.org">GNOME CVS</ulink>. You can find 
+	 out more about how to obtain the CVS sources at the GNOME site, or at the 
+     <ulink type="http" url="http://anjuta.sourceforge.net">project home page</ulink>.
+     </para>
+    </answer>
+   </qandaentry> 
+
+    <qandaentry>
+     <question>
+      <para>
+      When I build the <application>Anjuta</application> source, I get compiler errors 
+	  for some missing header files / missing library / etc.
+      </para>
+     </question>
+     <answer>
+      <para>
+      The missing header files probably belong to the GNOME libraries. You may have 
+      an old version of the GNOME libraries (<filename>libgnome</filename> and 
+      <filename>libgnomeui</filename>). You should upgrade to gnome-libs-1.0.55 or 
+      better (<application>Anjuta</application> is currently developed using 
+      gnome-1.0.55-12, so you should consider above) and rebuild the source
+      </para>
+      </answer>
+     </qandaentry>
+    </qandadiv>    
+ 
+   <!-- ============= Installation =========== -->
+   <qandadiv>
+    <title>Installing <application>Anjuta</application></title>
+ 
+    <qandaentry>
+     <question>
+      <para>
+      Can I install <application>Anjuta</application> locally, in my home directory?
+      </para>
+     </question>
+     <answer>
+      <para>
+      It is best to do a system installation (as root) and not local installation. 
+      <application>Anjuta</application> depends on GNOME for supplying pixmaps, and 
+      the help system works with <application>gnome-help-browser</application> 
+      or <application>Nautilus</application>, none of which will be happy if you do a 
+      local installation.
+      </para>
+      </answer>
+     </qandaentry>
+    </qandadiv>    
+
+   <!-- ============= Getting Involved =========== -->
+   <qandadiv>
+    <title>Getting Involved with <application>Anjuta</application> development</title>
+ 
+    <qandaentry>
+     <question>
+      <para>
+      I want to help to develop <application>Anjuta</application> &mdash; where can 
+	  I find out what tasks need to be done?
+      </para>
+     </question>
+     <answer>
+      <para>
+      Check the Project page at SourceForge. There are always plenty of bugs and feature 
+	  requests to pick up. 
+      </para>
+      </answer>
+     </qandaentry>
+    </qandadiv>    
+
+    </qandaset>
+
+ <!-- ============= Authors ================================ -->
+
+  <para>
+   This FAQ was compiled by Andy Piper
+   (<email>andy.piper@freeuk.com</email>). Please send all comments and
+   suggestions regarding the FAQ to the author.
+    For more information on <application>Anjuta</application> or the
+    <application>Anjuta</application> mailing lists, please visit the
+    <ulink url="http://anjusta.sourceforge.net" type="http">Anjuta Home Page</ulink>.
+   </para>
+
+   <!-- For translations: uncomment this:
+   <para>
+    Latin translation was done by ME
+    (<email>MYNAME@MYADDRESS</email>). Please send all  comments  and
+    suggestions regarding this translation to SOMEWHERE.
+   </para>
+   -->
+
+ </sect1>
+</article>
+

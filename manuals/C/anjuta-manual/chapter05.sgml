@@ -1,0 +1,35 @@
+ <!-- ============= Executing === -->
+ <chapter id="running">
+ <title>Running and Testing</title>
+ <sect1 id="executing-program">
+ <title>Executing the program</title>
+   <para>
+    Once your executable is ready after the build, you can execute it by clicking on
+    the <guibutton>Execute</guibutton> button in the extended toolbar, choosing the menu item
+    <menuchoice><guisubmenu>Build</guisubmenu><guimenuitem>Execute</guimenuitem></menuchoice>, 
+	or pressing <keycap>F3</keycap>. 
+   </para>
+   <note>
+   <title>Note</title>
+   <para>
+    Unlike the build stage, execution doesn't check for dependencies 
+	(at least for the time being). In other words, it does not check if the 
+	executable is up-to-date before it executes the program. 
+	So, <emphasis>you must take care of that yourself.</emphasis>
+   </para>
+   </note>
+   <para>
+    If you want to pass any arguments to your program, choose <menuchoice><guisubmenu>Build</guisubmenu>
+	<guimenuitem>Set Program params &hellip;</guimenuitem></menuchoice>, enter the arguments 
+	in the dialog that appears (shown below) and click <guibutton>OK</guibutton>. You can 
+	also specify whether the program should be run in a terminal or not.
+  </para>
+  <figure id="params">
+   <title>Setting program parameters</title>
+   <screenshot>
+   <screeninfo>Setting program parameters</screeninfo>
+    <graphic fileref="figures/arguments" format="png" srccredit="andyp"/>
+   </screenshot>
+  </figure>
+ </sect1>
+ </chapter>

@@ -1,0 +1,118 @@
+<!-- Debugger: Execution -->
+ 
+ <chapter id="debugger-exec">
+  <title>Debugging: Execution</title>
+  <para>
+   Execution of a program in the debugger can be finely controlled. The program can be 
+   executed in single steps, or allowed to continue until it encounters a breakpoint. 
+   Executing like this is essential for tracking program behaviour. Like a video editing 
+   session, the program can be executed in <emphasis>slow motion</emphasis>
+   with the ability to go forward, pause, stop, and so on.
+  </para>
+  <para>
+   The methods that can be used to execute a program in the debugger are described in 
+   the next few sections.
+  </para>
+  
+  <sect1 id="dbg-step-in">
+   <title>Single stepping (step in)</title>
+   <para>
+    Single stepping executes only one statement of the program (from the place where it 
+	has stopped) and then returns control. If the statement that is executed contains one 
+	or more functions, the debugger tries to step inside the functions (in the sequence in 
+	which the functions are executed). Once the statement is executed and
+    control is passed back, it is possible to study the various program parameters.
+   </para>
+   <para>
+    If the program has not been started at the time single stepping is started, the 
+	program will be started and will be stopped at the first statement of the program 
+	(the first statement in the function <emphasis>main()</emphasis>).
+   </para>
+   <para>
+    Choose the menu item <menuchoice><guisubmenu>Debug</guisubmenu>
+	<guisubmenu>Execution</guisubmenu><guimenuitem>Step In</guimenuitem></menuchoice>
+    or click on the <guibutton>Step In</guibutton> icon in the 
+	<interface>Debug toolbar</interface> to step into a program.
+   </para>
+  </sect1>
+
+  <sect1 id="dbg-step-over">
+   <title>Single stepping (step over)</title>
+   <para>
+    <emphasis>Step over</emphasis> is similar to <emphasis>step in</emphasis>,
+    except that it does not step inside any function in the statement being executed.
+    The statement will be executed in one go.
+   </para>
+   <para>
+    Choose the menu item <menuchoice><guisubmenu>Debug</guisubmenu>
+	<guisubmenu>Execution</guisubmenu><guimenuitem>Step Over</guimenuitem></menuchoice>
+    or click on the <guibutton>Step Over</guibutton> icon in the 
+	<interface>Debug toolbar</interface> to step over statements in a program.
+   </para>
+  </sect1>
+  
+  <sect1 id="dbg-step-out">
+   <title>Single stepping (step out)</title>
+   <para>
+    <emphasis>Step out</emphasis> will execute the current function until it 
+	returns. The program will be stopped once it exits from the function. 
+	Step out is not really single stepping, because it does not only execute 
+	a single statement &mdash; it executes the whole function until that 
+	function returns to the calling function.
+   </para>
+   <para>
+    Choose the menu item <menuchoice><guisubmenu>Debug</guisubmenu>
+	<guisubmenu>Execution</guisubmenu><guimenuitem>Step Out</guimenuitem></menuchoice>
+    or click on the <guibutton>Step Out</guibutton> icon in the 
+	<interface>Debug toolbar</interface> to step out in a program.
+   </para>
+  </sect1>
+  
+  <sect1 id="dbg-run">
+   <title>Run/Continue</title>
+   <para>
+    This option will continue the execution of the program until a breakpoint is 
+	encountered, or the program exits.
+   </para>
+   <para>
+    If the program is not yet started, then the program will be started and executed until 
+	a breakpoint or program termination is reached.
+   </para>
+   <para>
+    Choose the menu item <menuchoice><guisubmenu>Debug</guisubmenu>
+	<guisubmenu>Execution</guisubmenu><guimenuitem>Run/Continue</guimenuitem></menuchoice>
+    or click on the <guibutton>Run/Continue</guibutton> icon in the 
+	<interface>Debug toolbar</interface> to continue the execution of a program.
+    </para>
+  </sect1>
+  
+  <sect1 id="dbg-stop">
+   <title>Stop Program</title>
+   <para>
+    This option will kill the program which is being debugged. Note that it is not
+	possible to stop an attached process.
+   </para>
+   <para>
+    Choose the menu item <menuchoice><guisubmenu>Debug</guisubmenu>
+	<guimenuitem>Stop Program</guimenuitem></menuchoice>
+    or click on the <guibutton>Stop Program</guibutton> icon in the 
+	<interface>Debug toolbar</interface> to terminate the execution of a program.
+   </para>
+  </sect1>
+  
+  <sect1 id="dbg-restart">
+   <title>Restart Program</title>
+   <para>
+    This option will stop the program and then restart it. All of the 
+    breakpoints will remain in effect. Note that it is not possible to restart an
+    attached process.
+   </para>
+   <para>
+    Choose the menu item <menuchoice><guisubmenu>Debug</guisubmenu>
+	<guimenuitem>Restart Program</guimenuitem></menuchoice> to restart the 
+	execution of a program.
+   </para>
+  </sect1>
+ 
+ </chapter>
+ 

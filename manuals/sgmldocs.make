@@ -26,8 +26,7 @@
 #   dist-hook: app-dist-hook
 #
 
-langdocdir = $(prefix)/@NO_PREFIX_PACKAGE_HELP_DIR@/$(lang)
-docdir = $(langdocdir)/$(docname)
+docdir = $(prefix)/@NO_PREFIX_PACKAGE_HELP_DIR@/$(docname)/$(lang)
 
 doc_DATA = index.html
 
@@ -94,7 +93,7 @@ install-data-am: index.html omf
 	  $(INSTALL_DATA) $$file $(DESTDIR)$(docdir)/stylesheet-images/$$basefile; \
 	done
 	-if [ -e $(srcdir)/topic.dat ]; then \
-		$(INSTALL_DATA) $(srcdir)/topic.dat $(DESTDIR)$(langdocdir); \
+		$(INSTALL_DATA) $(srcdir)/topic.dat $(DESTDIR)$(docdir)/$(lang); \
 	 fi
 
 $(docname).ps: $(srcdir)/$(docname).sgml

@@ -1,0 +1,149 @@
+<!-- ============= Debugging ====================== -->
+ <chapter id="debugging">
+  <title>Debugging: Session</title>
+  <para>
+   <emphasis>To debug is human. To fix it is divine...</emphasis>
+  </para>
+  <para>
+   Well, the <emphasis>human</emphasis> part is what this section is about. The 
+   <emphasis>divine</emphasis> part is up to you!
+  </para>
+  <para>
+   When a program does not behave in the way it is supposed to, we say the program
+   contains a bug or bugs. This does not refer to compilation errors &mdash; those are 
+   simply errors and they are relatively easy to clear, because the compiler tells you 
+   where the problems are. On the other hand, <emphasis>bugs</emphasis> are errors 
+   that happen during the execution of the program and they can be hard (sometimes very hard!) 
+   to detect.
+  </para>
+  <para>
+   Any program that you think is bug-free is never completely bug-free. All we can try 
+   to do is to reduce the number of bugs contained in the program. The process of removing 
+   bugs is known as <emphasis>debugging</emphasis>, and the tool that is used for debugging 
+   is called the <emphasis>debugger</emphasis>. <application>Anjuta</application> provides a 
+   very user-friendly and powerful debugging environment (actually, a GUI wrapper over 
+   <application>gdb</application>, a powerful command line debugging tool).
+  </para>
+  <para>
+   A debugger tracks and traces the execution of the program and provides various 
+   views of information needed to study the execution of the program.
+  </para>
+  
+  <sect1 id="debugger-targets">
+   <title>Debugger Targets</title>
+   <para>
+    Before debugging, it is important to understand what <emphasis>debugging 
+	targets</emphasis> are. Debugging targets refer to those entities with which 
+	the debugger interacts during operation. There are four types of debugging 
+	targets:
+   </para>
+   <para>
+    <orderedlist>
+     <listitem><para>Executable</para></listitem>
+     <listitem><para>Symbol table</para></listitem>
+     <listitem><para>Core file</para></listitem>
+     <listitem><para>Process</para></listitem>
+    </orderedlist>
+   </para>
+   <para>
+    There can be only one target active for each of the four types of targets at
+    any give time.
+    All of the targets do not need to be active for the debugger to work, although 
+	certain	combinations are required active for a useful debugging session. Example 
+	combinations may be [ <emphasis>executable, symbol table, and process</emphasis> ]
+    or [ <emphasis>executable, symbol table and core file</emphasis> ].
+   </para>
+   <para>
+    The target <emphasis>Executable</emphasis> becomes active when an executable 
+	file is loaded into the debugger.
+   </para>
+   <para>
+    The target <emphasis>Symbol table</emphasis> is automatically loaded from the 
+	executable file, therefore it does not have to be handled separately. The symbol 
+	table is necessary for the debugger to identify the various symbols in the source 
+	code of the program. The information is included in the executable during the 
+	compilation (as long as the program is compiled with the Debug option enabled &mdash; 
+	see <xref linkend="setting-compiler-options"/> for details).
+   </para>
+   <para>
+    The target <emphasis>Core file</emphasis> becomes active when the core file is 
+	loaded into the debugger.
+    A core file is the memory image of the program which was dumped by the kernel, 
+	usually because it had performed an illegal operation. The core file can provide 
+	information such as variable contents, register values, and stack trace of the 
+	program at the time of the error. By studying the core file it is possible to find 
+	out which part of the program has misbehaved and resulted in the core dump.
+   </para>
+   <para>
+    The target <emphasis>Process</emphasis> becomes active when the program is executed
+    under the debugger or when you attach to an already running process.
+   </para>
+  </sect1>
+  
+  <sect1 id="debug-start">
+   <title>Starting and Stopping the Debugger</title>
+   <para>
+    To start the debugger, choose the menu item 
+	<menuchoice><guisubmenu>Debug</guisubmenu><guimenuitem>Start Debugger</guimenuitem></menuchoice>. 
+	This will start the debugger with the executable of the current project. If there is no project
+    open, then it will load the executable of the currently active file. If there is no project
+	open, and no active file, the debugger will start, but no executable will be loaded. The 
+	executable will have to be loaded manually.
+   </para>
+   <para>
+    Once the debugger is started, a debugging session will be entered. When debugging is complete,
+	exit the debugging session by choosing the menu item 
+	<menuchoice><guisubmenu>Debug</guisubmenu><guimenuitem>Stop Debugger</guimenuitem></menuchoice>.
+   </para>
+  </sect1>
+  
+  <sect1 id="debug-loading">
+   <title>Loading Executables</title>
+   <para>
+    The debugger will automatically load an executable if a project or a file is currently open. 
+	To load a different executable, choose the menu item <menuchoice><guisubmenu>Debug</guisubmenu>
+	<guimenuitem>Load Executable &hellip;</guimenuitem></menuchoice>. A file selection dialog 
+	will open. Select the executable to debug and click on <guibutton>OK</guibutton>.
+   </para>
+  </sect1>
+  
+  <sect1 id="debug-attach">
+  <title>Attaching to a Process</title>
+   <para>
+    It is possible to attach to a running process for debugging. Choose the menu item
+    <menuchoice><guisubmenu>Debug</guisubmenu>
+	<guimenuitem>Attach to Process &hellip;</guimenuitem></menuchoice>. A list of all the
+    process running on the system will appear. 
+   </para>
+   <figure id="attach">
+    <title>Attach to Process dialog</title>
+    <screenshot>
+	<screeninfo>Attach to Process dialog</screeninfo>
+     <graphic fileref="figures/attach" format="png" srccredit="andyp"/>
+    </screenshot>
+   </figure>
+   <para>	
+	Select the process to attach to and click <guibutton>OK</guibutton>. Ensure that
+	the executable (and hence the symbol table) have already been loaded into the debugger.
+   </para>
+   <para>
+    If lots of question marks (??) appear during the debugging session, then the
+    attached process and the executable do not match.
+   </para>
+  </sect1>
+  
+  <sect1 id="debug-core">
+   <title>Loading a Core file</title>
+   <para>
+    Choose the menu item <menuchoice><guisubmenu>Debug</guisubmenu>
+	<guimenuitem>Load Core file &hellip;</guimenuitem></menuchoice> to load the core file. 
+	Select the core file in the file selection dialog and click <guibutton>OK</guibutton>. When 
+	loading a core file, ensure that the executable file (and hence the symbol table) has 
+	already been loaded &mdash; otherwise, debugging may be tricky!
+   </para>
+   <para>
+    If lots of question marks (??) appear during the debugging session, then the
+    core file and the executable do not match.
+   </para>
+  </sect1>
+ </chapter>

@@ -1,0 +1,114 @@
+
+<!-- ============= Debugging: Working with expressions ====================== -->
+ <chapter id="debugging-exprs">
+  <title>Debugging: Working with Expressions</title>
+  <para>
+   FIXME:
+  </para>
+  
+  <sect1 id="expr-eval">
+   <title>Evaluating expressions</title>
+   <para>
+    When control is returned from a program &mdash; possibly at a breakpoint &mdash; 
+	it is possible to evaluate expressions or inspect the values of variables in the 
+	program. Choose the menu item <menuchoice><guisubmenu>Debug</guisubmenu>
+    <guimenuitem>Inspect/Evaluate &hellip;</guimenuitem></menuchoice>, or click 
+	the <guibutton>Inspect</guibutton> button on the <interface>Debug Toolbar</interface>. 
+	A dialog prompting for the expression will appear. Supply a valid C expression, or a 
+	variable name, and click on <guibutton>OK</guibutton>.
+   </para>
+   <para>
+    <figure>
+      <title>Inspect/Evaluate dialog</title>
+      <screenshot>
+	   <screeninfo>Inspect/Evaluate dialog</screeninfo>
+       <graphic fileref="figures/evaluate" format="png" srccredit="andyp"/>
+      </screenshot>
+    </figure>
+   </para>
+   <para>
+    A window will appear showing the result of the evaluation.
+   </para>
+   <para>
+    <figure>
+      <title>Evaluation result</title>
+      <screenshot>
+	   <screeninfo>Evaluation result</screeninfo>
+       <graphic fileref="figures/inspect" format="png" srccredit="andyp"/>
+      </screenshot>
+    </figure>
+   </para>
+   <para>
+    Alternatively, it is possible to highlight the expression in the editor 
+	and perform the above steps. This will save typing the expression in the 
+	<interface>Inspect dialog</interface>.
+   </para>
+   <para>
+    The expression may be any valid C expression and may include function calls
+    from the program, library calls, system calls, etc..
+   </para>
+  </sect1>
+  
+  <sect1 id="expr-watch">
+   <title>Expression Watch</title>
+   <para>
+    Inspecting or evaluating an expression provides the result only once. To continuously 
+	monitor some variables or expressions, use <emphasis>expression watch</emphasis>.
+   </para>
+   <para>
+   Add all the expressions and variables to monitor in the watch. These values will be
+   automatically updated and shown in the <interface>expression watch window</interface>.
+   </para>
+   <para>
+    <figure>
+      <title>Expression Watch window</title>
+      <screenshot>
+	   <screeninfo>Evaluation watch</screeninfo>
+       <graphic fileref="figures/watch" format="png" srccredit="andyp"/>
+      </screenshot>
+    </figure>
+   </para>
+   <sect2 id="watch-add">
+    <title>Adding an expression to watch</title>
+    <para>
+     Choose the menu item <menuchoice><guisubmenu>View</guisubmenu><guimenuitem>Watch
+	 Window</guimenuitem></menuchoice>. Right-click on the <interface>expression watch 
+	 window</interface> to open the <interface>Operation menu</interface>. Choose the 
+	 menu item <guimenuitem>Add</guimenuitem>.
+     A dialog prompting for the expression will appear. Enter the expression and 
+     click <guibutton>OK</guibutton>.
+    </para>
+    <para>
+     <figure>
+       <title>Add Expression dialog</title>
+       <screenshot>
+	   <screeninfo>Add Expression dialog</screeninfo>
+        <graphic fileref="figures/watch_add" format="png" srccredit="andyp"/>
+       </screenshot>
+     </figure>
+    </para>
+    <para>
+     If the expression was selected in the editor prior to the addition, it will automatically 
+	 appear in the dialog.
+    </para>
+   </sect2>
+   <sect2 id="watch-remove">
+    <title>Removing an expression from watch</title>
+    <para>
+     Choose the menu item <menuchoice><guisubmenu>View</guisubmenu><guimenuitem>Watch
+	 Window</guimenuitem></menuchoice>. Right-click on the <interface>expression watch 
+	 window</interface> to open the <interface>Operation menu</interface>. Choose the 
+	 menu item <guimenuitem>Remove</guimenuitem> to remove the entry.
+	</para>
+   </sect2>
+   <sect2 id="watch-clear">
+    <title>Clearing the watch</title>
+    <para>
+     Choose the menu item <menuchoice><guisubmenu>View</guisubmenu><guimenuitem>Watch
+	 Window</guimenuitem></menuchoice>. Right-click on the <interface>expression watch 
+	 window</interface> to open the <interface>Operation menu</interface>. Choose the 
+	 menu item <guimenuitem>Clear</guimenuitem> to update or clear.
+    </para>
+   </sect2>
+  </sect1>
+ </chapter>

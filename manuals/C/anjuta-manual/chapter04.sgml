@@ -1,0 +1,41 @@
+ <!-- ============= Compiling and building:=== -->
+ <chapter id="building">
+ <title>Compiling and Building</title>
+ <sect1 id="compile-program">
+ <title>Compiling and building programs</title>
+  <para>
+   Once you have written a C or C++ program, you will probably want to build and run it.
+   To compile the current file (if it is a C/C++ source file), click on the 
+   <guibutton>Compile</guibutton> button in the extended toolbar, choose the 
+   menu item <menuchoice><guisubmenu>Build</guisubmenu><guimenuitem>Compile</guimenuitem></menuchoice>, 
+   or press <keycap>F9</keycap>. The <interface>Message window</interface> will appear 
+   and list all the messages including any compilation errors. You can double-click on the 
+   error lines (displayed in red) to go to the particular line where the error occurred. You 
+   can define macros, specify include paths, and set the compiler options if you so wish. 
+   Compiling a file will save it first, then it will be compiled.
+  </para>
+  <para>
+   Compiling a file does not build an executable. It simply generates an object 
+   (<filename>*.o</filename>) file which is later linked to build the executable.
+  </para>
+  <para>
+   To build a file, click on the <guibutton>Build</guibutton> button in the extended toolbar, 
+   choose the menu item <menuchoice><guisubmenu>Build</guisubmenu>
+   <guimenuitem>Build</guimenuitem></menuchoice>, or press <keycap>F10</keycap>. This will 
+   again display the <interface>Message window</interface> listing all the messages that are 
+   encountered during the build. The build process will link your object file with libraries 
+   and generate the executable. You can specify the libraries to link with your file in the 
+   <interface>Compiler Options</interface> dialog (<menuchoice><guisubmenu>Settings</guisubmenu>
+   <guimenuitem>Compiler and Linker Settings &hellip;</guimenuitem></menuchoice>)
+  </para>
+  <note>
+  <title>Note</title>
+  <para>
+   The build process will compile your file first if the object file is not up-to-date 
+   or it has not yet been generated. This means that you can build a file without 
+   first compiling it. However, when you are dealing with a project rather then a 
+   single file, compiling and building are entirely different concepts.
+  </para>
+  </note>
+ </sect1> 
+ </chapter>
