@@ -1,3 +1,10 @@
+2001-10-26	Andy Piper	<andy.piper@freeuk.com>
+
+	* THANKS, src/about.c: corrections and additions following 
+	Naba's big update
+	* src/main_menubar.c: patch from Rikul to fix the problem with 
+	menu accelerators not being loaded
+
 2001-10-26  Naba Kumar <kh_naba@users.sourceforge.net>
 
 	* THANKS: Added all contributors and translators names and emails.

@@ -5,41 +5,42 @@ invaluable supports and contributions in making the Anjuta project a
 grand success. Without them the project wouldn't have stood where it
 is now.
 	
-	- Giovanni Corriga <valkadesh@libero.it>, for his patch.
+	- Giovanni Corriga <valkadesh@libero.it>, for his patch,
 	
 	- Yannick Koehler <yannick.koehler@colubris.com>, for his
-	  patch for disabling auto-upper-casting
+	  patch for disabling auto-upper-casing,
 	
-	- Gregory Schmitt <gregory.schmitt@free.fr>, for his PHP hilite
-	  bug fix and other idea.
+	- Gregory Schmitt <gregory.schmitt@free.fr>, for his PHP highlight
+	  bug fix and other idea,
 	  
-	- venugopal gummuluru <vgummuluru@yahoo.com>, for his multiple
-	  file selection patch and many other feature addition patches.
+	- Venugopal Gummuluru <vgummuluru@yahoo.com>, for his patches,
 	  
 	- Martyn Bone <mbone@brightstar.u-net.com>, for his goto line
-	  activation bug fix.
+	  activation bug fix,
 	
-	- Archit Baweja <bighead@crosswinds.net>, for his dnd idea.
+	- Archit Baweja <bighead@crosswinds.net>, for his dnd idea,
 	
-	- Fatih Demir <kabalak@gtranslator.org>, for his fixes.
-	
-	- Rikul <rikul@shreve.net>/<rikul@bellsouth.net>, for his many many patches
-	  feature additions and bug fixes, ui fixes etc.
+	- Fatih Demir <kabalak@gtranslator.org>, for his fixes,
+
+	- Denis Boehme <boehme at synci dot de>, for adding DOS support,
+
+	- Rick Patel <rikul@bellsouth.net>, for the very many patches he has submitted
+	  to improve the project,
 	
 	- Max Blagai <maximblagai@yahoo.com>, for his project proper closing patch,
+
+	- Andy Piper <andy.piper@freeuk.com>, for SourceForge project administration 
+	  (that's worth saying), all his patches, his nice communication and for overall 
+	  support,
+
+	- Johannes Schmid <johannes.schmid@gmx.de>, for the GTK--/GNOME-- integration,
 	
-	- Andy Piper <andy.piper@freeuk.com>, for the whole sourceforge resources
-	  administration (that's worth to say), all his patches, his nice
-	  communication and for its overall support,
-	
-	- Johannes Schmid <johannes.schmid@gmx.de>, for the gtk--/gnome-- integration,
-	
-	- Hector Rivera Falu <misha@phreaker.net>, for the whole new anjuta web site
-	  design & content management, and his overall artwork on the anjuta project.
+	- Hector Rivera Falu <misha@phreaker.net>, for the whole Anjuta website
+	  design & content management, and his overall artwork on the Anjuta project,
 	
 	- Stéphane Démurget <demurgets@free.fr>, for working on his new project manager
-	  for anjuta, which will substitute the current one.
-	  
+	  for Anjuta, which will substitute the current one,
+	
 	- Luca Bellonda <lbell@tsc4.com>, for his work on the glade integration and his
 	  overall work on improving the project,
 
@@ -58,15 +59,15 @@ in translating the project.
 	- Christian Rose <menthos@menthos.com>, for his Swedish translation,
 	- Yuriy Syrota <rasta@renome.rovno.ua>, for his Ukrainian translation,
 	- Valek Filippov <frob@df.ru>, for his Russian translation,
-	- Marc Botermans <marc.botermans@home.nl>, for his Dutch translation.
-	- Joe Man <trmetal@yahoo.com.hk>, for his traditional Chinese translation.
-	- Conner Mo <connermo@hotmail.com>, for simplified Chinese translation.
-	- Jens Georg <mail@jensgeorg>, for his German transtation.
-	- Kjartan Maraas <kmaraas@gnome.org> for his Norwegian/Bokmaal translation.
-	- GNOME PL Team <translators@gnome.pl> for there Polish translation.
-	- Dinesh Nadarajah <n_dinesh@yahoo.com> for his tamil translation.
+	- Marc Botermans <marc.botermans@home.nl>, for his Dutch translation,
+	- Joe Man <trmetal@yahoo.com.hk>, for his traditional Chinese translation,
+	- Conner Mo <connermo@hotmail.com>, for his simplified Chinese translation,
+	- Jens Georg <mail@jensgeorg>, for his German transtation,
+	- Kjartan Maraas <kmaraas@gnome.org> for his Norwegian/Bokmaal translation,
+	- GNOME PL Team <translators@gnome.pl> for their Polish translation,
+	- Dinesh Nadarajah <n_dinesh@yahoo.com> for his Tamil translation.
 	
 With warm regards,
 
 Anjuta Kangabam <k_anjuta@yahoo.com>
-(Naba's girl friend)
+(Naba's girlfriend)
