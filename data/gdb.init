@@ -8,3 +8,4 @@ set print elements 1000
 set print null-stop
 set height 0
 set width 0
+set host-charset ascii

@@ -1,5 +1,8 @@
 2003-11-05  Naba Kumar  <naba@gnome.org>
 
+	* data/gdb.init: Sets host's charset to ascii to solve debugger
+	freeze up due to uninitialized strings in target program.
+
 	* src/mainmenu_callbacks.c, src/watch_cbs.c, src/message-manager.[cc,h]:
 	Fixed a crash bug with 'Add expression in watch'. Bug #822017
 	
