@@ -15,6 +15,7 @@ src/aneditor.h
 src/anjuta.c
 src/anjuta.h
 src/anjuta_cbs.c
+src/anjuta_dialog_strings.c
 src/anjuta_dirs.c
 src/anjuta_dirs.h
 src/anjuta_gui.c
