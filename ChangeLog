@@ -1,3 +1,9 @@
+2002-08-01	Andy Piper	<andy.piper@freeuk.com>
+
+	* NEWS: updated for 1.0-RC release
+	* widgets/e-shell-about-box.c, manuals/C/anjuta-manual/authors.sgml, 
+	  THANKS: credited new contributors
+
 2002-07-24  Biswapesh Chattopadhyay  <biswapesh_chatterjee@tcscal.co.in>
 
 	* tm_project.c: Added *.i and *.pc to C code files.
@@ -54,7 +60,7 @@
 
 2002-06-28	Naba Kumar	<kh_naba@users.sourceforge.net>
 
-	(Patch from: ??)
+	(Patch from: Kelly Bergougnoux <three3@users.sourceforge.net>)
 	
 	* src/appwiz_page1.c, src/pixmaps.h, src/project_dbase.c,
 	src/project_dbase.h, src/project_import_cbs.c, src/project_type.c,

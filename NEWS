@@ -10,15 +10,15 @@ New: Application Wizard support for wxWindows, Xlib,
      GNOME2 and Gtk2 Projects, plus option for dynamic 
 	 or static libraries as targets in generic Projects
 New: user identity preferences enabling new editor functions
+New: better GNOME integration, now uses configured GNOME URL 
+     handlers
+New: MIME handling
+New: Anjuta kickstart tutorial
+New: automatic expression tips during debugging (hover-and-show)
+New: compilation warning/error navigation from terminal
 New: better find functionality
 New: enhanced file selection widget
 New: enhanced Evolution-style about dialog
-New: better GNOME integration, now uses configured GNOME URL 
-     handlers
-New: Anjuta kickstart tutorial
-New: Automatic expression tips during debugging (hover-and-show)
-New: Compilation warning/error navigation from terminal
-New: Mime handling
 
 Updated: synced to Scintilla 1.46
 Updated: many usability improvements to the GUI and menus

@@ -447,7 +447,7 @@ must be updated:
 
 	* THANKS
 	* widgets/e-shell-about-box.c
-	* manuals/anjuta-manual/C/authors.sgml
+	* manuals/C/anjuta-manual/authors.sgml
 
 You should also ensure that you submit headed ChangeLog entries with a 
 name and e-mail address when you submit a patch.
