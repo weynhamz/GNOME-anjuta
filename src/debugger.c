@@ -212,8 +212,6 @@ on_debugger_open_exec_filesel_ok_clicked (GtkButton * button,
 	g_free (command);
 	debugger.starting = TRUE;
 
-	debugger_put_cmd_in_queqe ("info signals", DB_CMD_NONE,
-				   signals_update, debugger.signals);
 	debugger_put_cmd_in_queqe ("info sharedlibrary", DB_CMD_NONE,
 				   sharedlibs_update, debugger.sharedlibs);
 	expr_watch_cmd_queqe (debugger.watch);

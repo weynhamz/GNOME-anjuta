@@ -5,7 +5,7 @@
 	and debugger. Sets default settings for pty in launcher.
 	* data/gdb.init: Removed charset work around (now works with user's
 	native charset)
-	* src/debugger.c: Code cleanup
+	* src/debugger.c: Code cleanup. Removed duplicate call to 'info signals'.
 
 2003-11-18  Naba Kumar  <naba@gnome.org>
 
