@@ -5,9 +5,9 @@
 #, no-wrap
 msgid ""
 msgstr ""
-"Project-Id-Version: anjyuta 0.1.9-pre\n"
-"POT-Creation-Date: 2002-02-02 02:09+0900\n"
-"PO-Revision-Date: 2002-02-02 02:09+0900\n"
+"Project-Id-Version: anjyuta 0.1.9\n"
+"POT-Creation-Date: 2002-02-04 23:08+0900\n"
+"PO-Revision-Date: 2002-02-04 23:10+0900\n"
 "Last-Translator: Takeshi Aihana <aihana@gnome.gr.jp>\n"
 "Language-Team: Japanese <translation@gnome.gr.jp>\n"
 "MIME-Version: 1.0\n"
@@ -105,6 +105,55 @@ msgstr "Copyright (C) 1999-2002 Naba Kumar"
 #: src/about.c:79 src/main_menubar_def.h:1529
 msgid "Anjuta Home Page"
 msgstr "Anjuta ホームページ"
+
+#: src/an_file_view.c:88
+#, c-format
+msgid "Unable to open %s in %s"
+msgstr "%s (%s) が開けません"
+
+#: src/an_file_view.c:131 src/text_editor_gui.c:122 src/toolbar.c:120
+msgid "Open"
+msgstr "開く"
+
+#: src/an_file_view.c:137
+msgid "View in Default Viewer"
+msgstr "デフォルトビュワーで表示"
+
+#: src/an_file_view.c:143 src/an_symbol_view.c:249
+msgid "Refresh Tree"
+msgstr "ツリーの更新"
+
+#: src/an_symbol_view.c:72 src/compiler_options_gui.c:152
+msgid "Others"
+msgstr "その他"
+
+#: src/an_symbol_view.c:72
+msgid "Classes"
+msgstr "クラス"
+
+#: src/an_symbol_view.c:72
+msgid "Structs"
+msgstr "構造体"
+
+#: src/an_symbol_view.c:72
+msgid "Functions"
+msgstr "関数"
+
+#: src/an_symbol_view.c:73
+msgid "Variables"
+msgstr "変数"
+
+#: src/an_symbol_view.c:73
+msgid "Macros"
+msgstr "マクロ"
+
+#: src/an_symbol_view.c:237
+msgid "Goto Definition"
+msgstr "定義へジャンプ"
+
+#: src/an_symbol_view.c:243
+msgid "Goto Declaration"
+msgstr "宣言へジャンプ"
 
 #: src/anjuta.c:75 src/anjuta.c:82
 #, c-format
@@ -1016,10 +1065,6 @@ msgstr "警告メッセージ"
 msgid "Optimization"
 msgstr "最適化"
 
-#: src/compiler_options_gui.c:152
-msgid "Others"
-msgstr "その他"
-
 #: src/compiler_options_gui.c:251
 msgid "Select the support libraries to add"
 msgstr "追加するサポート・ライブラリの選択"
@@ -1601,11 +1646,11 @@ msgstr "\"Glade--\" を起動できません。"
 
 #: src/glades.c:210 src/source.c:121 src/source.c:168 src/source.c:206
 #: src/source.c:442 src/source.c:466 src/source.c:551 src/source.c:617
-#: src/source.c:657 src/source.c:672 src/source.c:705 src/source.c:741
-#: src/source.c:813 src/source.c:832 src/source.c:865 src/source.c:885
-#: src/source.c:918 src/source.c:938 src/source.c:969 src/source.c:987
-#: src/source.c:1017 src/source.c:1035 src/source.c:1062 src/source.c:1115
-#: src/source.c:1191 src/source.c:1323 src/source.c:1396 src/utilities.c:723
+#: src/source.c:657 src/source.c:672 src/source.c:706 src/source.c:761
+#: src/source.c:833 src/source.c:852 src/source.c:885 src/source.c:905
+#: src/source.c:938 src/source.c:958 src/source.c:989 src/source.c:1007
+#: src/source.c:1037 src/source.c:1055 src/source.c:1082 src/source.c:1135
+#: src/source.c:1211 src/source.c:1343 src/source.c:1416 src/utilities.c:723
 #, c-format
 msgid "Unable to create file: %s."
 msgstr "ファイルを作成できません: %s"
@@ -1737,7 +1782,7 @@ msgstr "Info ページ"
 msgid "Cannot execute command shell"
 msgstr "シェルを起動することができません。"
 
-#: src/main.c:46
+#: src/main.c:48
 msgid "Do not show the splashscreen"
 msgstr "スプラッシュ画面を表示しない"
 
@@ -4552,12 +4597,12 @@ msgstr " 表示: "
 msgid "Error writing to file: %s."
 msgstr "ファイル %s の書き込みでエラーが発生しました。"
 
-#: src/source.c:1274
+#: src/source.c:1294
 #, c-format
 msgid "Error writing to: %s."
 msgstr "書き込みでエラー: %s"
 
-#: src/source.c:1490
+#: src/source.c:1510
 msgid "Project type does not support Glade."
 msgstr "このプロジェクトは Glade をサポートしていません。"
 
@@ -4670,10 +4715,6 @@ msgstr "新規"
 #: src/text_editor_gui.c:112 src/toolbar.c:109
 msgid "New Text File"
 msgstr "新規にテキストファイルを作成します"
-
-#: src/text_editor_gui.c:122 src/toolbar.c:120
-msgid "Open"
-msgstr "開く"
 
 #: src/text_editor_gui.c:122
 msgid "Open Text File"
