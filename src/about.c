@@ -85,7 +85,7 @@ about_box_new ()
 	pix = anjuta_res_get_pixbuf (ANJUTA_PIXMAP_LOGO);
 	dialog = gnome_about_new ("Anjuta", VERSION, 
 							  _("Copyright (c) Naba Kumar"),
-							  _("Integraged Development Environment"),
+							  _("Integrated Development Environment"),
 							  authors, documentors, NULL, pix);
 	return dialog;
 }

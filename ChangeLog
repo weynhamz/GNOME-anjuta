@@ -1,5 +1,8 @@
 2003-02-19  Naba Kumar <naba@gnome.org>
 
+	* src/about.c: Fixed a typo reported by Enver ALTIN <ealtin@casdb.com>
+	* TODO: Updated.
+
 	* Makefile.am, src/Makefile.am,
 	(removed) src/anjuta.glade, (removed) src/anjuta.gladep,
 	(removed) src/anjuta_dialog_strings.c,
