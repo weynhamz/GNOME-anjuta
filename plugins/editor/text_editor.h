@@ -85,6 +85,9 @@ struct _TextEditor
 	
 /* File encoding */
 	gchar *encoding;
+	
+/* Popup menu widget */
+	GtkWidget *popup_menu;
 };
 
 struct _TextEditorClass
@@ -100,6 +103,8 @@ GtkWidget* text_editor_new (AnjutaPreferences * pr, const gchar *uri,
 void text_editor_freeze (TextEditor * te);
 
 void text_editor_thaw (TextEditor * te);
+
+void text_editor_set_popup_menu (TextEditor *te, GtkWidget *popup_menu);
 
 void text_editor_set_hilite_type (TextEditor * te);
 

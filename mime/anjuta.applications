@@ -1,6 +1,6 @@
 anjuta
 	command=anjuta
-	name=Anjuta Integrated Development Environment
+	name=Anjuta Development Studio
 	can_open_multiple_files=true
 	expects_uris=false
 	requires_terminal=false

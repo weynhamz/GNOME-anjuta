@@ -1,3 +1,32 @@
+2004-08-17  Naba Kumar  <naba@gnome.org>
+
+	* TODO: Updated.
+	
+	* data/Makefile.am: Disabled installing old mime info.
+	
+	* mime/anjuta.applications, mime/anjuta.keys: Updated.
+	
+	* plugins/editor/anjuta-docman.c, plugins/editor/anjuta-docman.h,
+	plugins/editor/anjuta-document-manager.ui,
+	plugins/editor/plugin.c, plugins/editor/text_editor.c,
+	plugins/editor/text_editor.h, plugins/editor/text_editor_cbs.c:
+	Added Editor context popup menu.
+	
+	* plugins/project-manager/anjuta-project-manager-plugin.png:
+	Update image.
+	
+	* plugins/project-manager/anjuta-project-manager.plugin.in:
+	Support .anjuta mime type.
+	
+	* plugins/project-manager/plugin.c: Exports "project_root_directory"
+	value.
+	
+	* plugins/file-manager/plugin.c: Watches "project_root_directory"
+	value.
+	
+	* src/layout.xml, plugins/profile-default/plugin.c:
+	Added project manager plugin for startup.
+
 2004-08-16  Naba Kumar  <naba@gnome.org>
 	
 	* anjuta.prj: Updated.

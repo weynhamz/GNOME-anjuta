@@ -1,5 +1,18 @@
 TODO List:
 ----------
+
+Anjuta 2.0:
+
+	o Added search() method in IAnjutaHelp interface and implement it in
+	  devhelp plugin.
+	  
+	o Implement show method in AnjutaShell that shows (or brings up
+	if already show) the widgets docked to the shell.
+
+	o Restore Editor dirty indicator in editor tabs.
+	o 
+Anjuta 1.x:
+
 	o Some STDOUT and STDERR outputs are missing at the end.
 	o Apply branch patches to HEAD - esp. Jean-Noel's patches to comment/S&R
 Search/Replace and Tools done. Need to apply the comment patch.

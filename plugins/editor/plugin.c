@@ -568,7 +568,7 @@ register_stock_icons (AnjutaPlugin *plugin)
 static gboolean
 activate_plugin (AnjutaPlugin *plugin)
 {
-	GtkWidget *docman;
+	GtkWidget *docman, *popup_menu;
 	AnjutaUI *ui;
 	EditorPlugin *editor_plugin;
 	GtkActionGroup *group;
@@ -674,6 +674,13 @@ activate_plugin (AnjutaPlugin *plugin)
 							 "editor-plugin-icon",
 							 ANJUTA_SHELL_PLACEMENT_CENTER, NULL); 
 	ui_states_init(plugin);
+	
+	/* Setup popup menu */
+	popup_menu = gtk_ui_manager_get_widget (GTK_UI_MANAGER (ui),
+											"/PopupDocumentManager");
+	g_assert (popup_menu != NULL && GTK_IS_MENU (popup_menu));
+	anjuta_docman_set_popup_menu (ANJUTA_DOCMAN (docman), popup_menu);
+	
 	search_and_replace_init (ANJUTA_DOCMAN (docman));
 	return TRUE;
 }

@@ -23,11 +23,11 @@ anjuta_data_DATA = \
 	autogen.sh.wxwin
 
 
-anjuta_mimedir = $(prefix)/share/mime-info
-anjuta_mime_DATA = anjuta.mime
+# anjuta_mimedir = $(prefix)/share/mime-info
+# anjuta_mime_DATA = anjuta.mime
 
-anjuta_mimelnkdir = $(prefix)/share/mimelnk/application
-anjuta_mimelnk_DATA = x-anjuta-project.desktop
+# anjuta_mimelnkdir = $(prefix)/share/mimelnk/application
+# anjuta_mimelnk_DATA = x-anjuta-project.desktop
 
 MACROS = \
 	ChangeLog \
@@ -45,7 +45,9 @@ MACROS2 = \
 
 MACROS2_dir = $(prefix)/@NO_PREFIX_PACKAGE_DATA_DIR@/gnome2
 
-EXTRA_DIST = $(anjuta_data_DATA) $(anjuta_mime_DATA) $(anjuta_mimelnk_DATA)
+EXTRA_DIST = $(anjuta_data_DATA)
+
+## $(anjuta_mime_DATA) $(anjuta_mimelnk_DATA)
 
 install-data-local: system.tags
 	mkdir -p $(DESTDIR)$(MACROS_dir)

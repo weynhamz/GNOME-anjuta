@@ -79,6 +79,7 @@ text_editor_instance_init (TextEditor *te)
 	te->filename = NULL;
 	te->uri = NULL;
 	te->tm_file = NULL;
+	te->popup_menu = NULL;
 	
 	te->modified_time = time (NULL);
 	te->preferences = NULL;
@@ -1717,6 +1718,16 @@ text_editor_grab_focus (TextEditor *te)
 {
 	g_return_if_fail (IS_TEXT_EDITOR (te));
 	scintilla_send_message (SCINTILLA (te->scintilla), SCI_GRABFOCUS, 0, 0);
+}
+
+void
+text_editor_set_popup_menu (TextEditor *te, GtkWidget *popup_menu)
+{
+	if (te->popup_menu)
+		g_object_unref (te->popup_menu);
+	te->popup_menu = popup_menu;
+	if (popup_menu)
+		g_object_ref (popup_menu);
 }
 
 gint

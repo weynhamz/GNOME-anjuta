@@ -57,6 +57,9 @@ on_text_editor_text_event (GtkWidget * widget,
 		return FALSE;
 	bevent = (GdkEventButton *) event;
 	bevent->button = 1;
+	gtk_menu_popup (GTK_MENU (TEXT_EDITOR (user_data)->popup_menu),
+					NULL, NULL, NULL, NULL,
+					bevent->button, bevent->time);
 	// text_editor_menu_popup (((TextEditor *) user_data)->menu, bevent);
 	return TRUE;
 }

@@ -27,7 +27,7 @@
 				<separator name="separator1"/>
 				<menuitem name="Cut" action="ActionEditCut" />
 				<menuitem name="Copy" action="ActionEditCopy" />
-				<menuitem name="Cut" action="ActionEditPaste" />
+				<menuitem name="Paste" action="ActionEditPaste" />
 				<menuitem name="Clear" action="ActionEditClear" />
 				<separator name="separator2"/>
 				<menu name="Transform" action="ActionMenuEditTransform">
@@ -199,4 +199,29 @@
 		<separator name="separator3" />
 		<toolitem name="Autocomplete" action="ActionEditAutocomplete" />
 	</toolbar>
+	<popup name="PopupDocumentManager">
+		<menuitem name="Cut" action="ActionEditCut" />
+		<menuitem name="Copy" action="ActionEditCopy" />
+		<menuitem name="Paste" action="ActionEditPaste" />
+		<separator name="separator2"/>
+		<menuitem name="Autoformat" action="ActionFormatAutoformat" />
+		<menuitem name="Toggle" action="ActionBookmarkToggle" />
+		<menu name="Goto" action="ActionMenuEditGoto">
+				<separator name="separator1" />
+				<menuitem name="Previous" action="ActionBookmarkPrevious" />
+				<menuitem name="Next" action="ActionBookmarkNext" />
+				<separator name="separator1" />
+		</menu>
+		<menu name="MenuView" action="ActionMenuView">
+			<menuitem name="LineNumbersMargin" action="ActionViewEditorLinenumbers" />
+			<menuitem name="MarkersMargin" action="ActionViewEditorMarkers" />
+			<menuitem name="CodeFoldMargin" action="ActionViewEditorFolds" />
+			<menuitem name="IndentationGuides" action="ActionViewEditorGuides" />
+			<menuitem name="LineWrapping" action="ActionViewEditorWrapping" />
+			<separator name="separator2"/>
+			<menuitem name="ZoomIn" action="ActionViewEditorZoomIn" />
+			<menuitem name="ZoomOut" action="ActionViewEditorZoomOut" />
+		</menu>
+		<menuitem name="Close" action="ActionFileClose" />
+	</popup>
 </ui>

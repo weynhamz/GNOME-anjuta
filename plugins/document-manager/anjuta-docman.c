@@ -40,6 +40,7 @@ struct _AnjutaDocmanPriv {
 	GtkWidget *fileselection;
 	GtkWidget *save_as_fileselection;
 	GList *editors;
+	GtkWidget *popup_menu;
 };
 
 static void anjuta_docman_order_tabs(AnjutaDocman *docman);
@@ -372,6 +373,7 @@ anjuta_docman_instance_init (AnjutaDocman *docman)
 	// parent = gtk_widget_get_toplevel (GTK_WIDGET (docman));
 	parent = NULL;
 	docman->priv = g_new0 (AnjutaDocmanPriv, 1);
+	docman->priv->popup_menu = NULL;
 	docman->priv->fileselection =
 		create_file_open_dialog_gui(GTK_WINDOW (parent), docman);
 	docman->priv->save_as_fileselection =
@@ -424,9 +426,11 @@ anjuta_docman_add_editor (AnjutaDocman *docman, const gchar *uri, const gchar *n
 {
 	GtkWidget *te;
 	AnjutaDocmanPage *page;
-
+	
 	te = text_editor_new (ANJUTA_PREFERENCES (docman->priv->preferences),
 						  uri, name);
+	text_editor_set_popup_menu (TEXT_EDITOR (te), docman->priv->popup_menu);
+	
 	/* File cannot be loaded, texteditor brings up an error dialog */
 	if (te == NULL)
 	{
@@ -540,6 +544,12 @@ anjuta_docman_remove_editor (AnjutaDocman *docman, TextEditor* te)
 	gtk_signal_handler_unblock_by_func (GTK_OBJECT (docman),
 			    GTK_SIGNAL_FUNC (on_notebook_switch_page),
 			    docman);
+}
+
+void
+anjuta_docman_set_popup_menu (AnjutaDocman *docman, GtkWidget *menu)
+{
+	docman->priv->popup_menu = menu;
 }
 
 TextEditor *

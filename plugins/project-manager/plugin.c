@@ -20,6 +20,7 @@
 
 #include <config.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
+#include <libanjuta/interfaces/ianjuta-project-manager.h>
 #include <gbf/gbf-project-util.h>
 #include <gbf/gbf-backend.h>
 
@@ -127,6 +128,33 @@ preferences_changed (AnjutaPreferences *prefs, ProjectManagerPlugin *fv)
 }
 #endif
 
+#define REGISTER_ICON(icon, stock_id) \
+	pixbuf = gdk_pixbuf_new_from_file (icon, NULL); \
+	icon_set = gtk_icon_set_new_from_pixbuf (pixbuf); \
+	gtk_icon_factory_add (icon_factory, stock_id, icon_set); \
+	g_object_unref (pixbuf);
+
+static void
+register_stock_icons (AnjutaPlugin *plugin)
+{
+	AnjutaUI *ui;
+	GtkIconFactory *icon_factory;
+	GtkIconSet *icon_set;
+	GdkPixbuf *pixbuf;
+	static gboolean registered = FALSE;
+
+	if (registered)
+		return;
+	registered = TRUE;
+
+	/* Register stock icons */
+	ui = anjuta_shell_get_ui (plugin->shell, NULL);
+	icon_factory = anjuta_ui_get_icon_factory (ui);
+	REGISTER_ICON (PACKAGE_PIXMAPS_DIR"/"ICON_FILE,
+				   "project-manager-plugin-icon");
+}
+
+
 static gboolean
 activate_plugin (AnjutaPlugin *plugin)
 {
@@ -137,6 +165,9 @@ activate_plugin (AnjutaPlugin *plugin)
 	ProjectManagerPlugin *pm_plugin;
 	
 	g_message ("ProjectManagerPlugin: Activating Project Manager plugin ...");
+	
+	register_stock_icons (plugin);
+	
 	pm_plugin = (ProjectManagerPlugin*) plugin;
 	pm_plugin->ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	pm_plugin->prefs = anjuta_shell_get_preferences (plugin->shell, NULL);
@@ -154,6 +185,8 @@ activate_plugin (AnjutaPlugin *plugin)
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),
 									GTK_POLICY_AUTOMATIC,
 									GTK_POLICY_AUTOMATIC);
+	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolled_window),
+										 GTK_SHADOW_IN);
 	gtk_container_add (GTK_CONTAINER (scrolled_window), view);
 	gtk_widget_show (view);
 	gtk_widget_show (scrolled_window);
@@ -180,7 +213,8 @@ activate_plugin (AnjutaPlugin *plugin)
 	
 	/* Added widget in shell */
 	anjuta_shell_add_widget (plugin->shell, pm_plugin->scrolledwindow,
-							 "AnjutaProjectManager", _("Project"), GTK_STOCK_OPEN,
+							 "AnjutaProjectManager", _("Project"),
+							 "project-manager-plugin-icon",
 							 ANJUTA_SHELL_PLACEMENT_LEFT, NULL);
 #if 0
 	/* Add preferences page */
@@ -246,6 +280,8 @@ ifile_open (IAnjutaFile *project_manager,
 	GnomeVFSURI *vfs_uri;
 	gchar *dirname;
 	GSList *l;
+	GValue *value;
+	
 	GbfBackend *backend = NULL;
 	ProjectManagerPlugin *pm_plugin;
 	
@@ -286,19 +322,27 @@ ifile_open (IAnjutaFile *project_manager,
 	/* FIXME: use the error parameter to determine if the project
 	 * was loaded successfully */
 	gbf_project_load (pm_plugin->project, dirname, NULL);
-	g_free (dirname);
 	
 	g_object_set (G_OBJECT (pm_plugin->model), "project",
 				  pm_plugin->project, NULL);
+	
+	/* Set project root directory */
+	value = g_new0 (GValue, 1);
+	g_value_init (value, G_TYPE_STRING);
+	g_value_take_string (value, dirname);
+	anjuta_shell_add_value (ANJUTA_PLUGIN(pm_plugin)->shell,
+							"project_root_directory",
+							value, NULL);
+	g_free (dirname);
 }
 
-#if 0
 static void
-iproject_manager_set_selected (IAnjutaProjectManager *file_manager,
-							const gchar *root, GError **err)
+iproject_manager_configure (IAnjutaProjectManager *project_manager,
+							GError **err)
 {
 }
 
+#if 0
 static gchar*
 iproject_manager_get_selected (IAnjutaProjectManager *file_manager, GError **err)
 {
@@ -312,8 +356,15 @@ ifile_iface_init(IAnjutaFileIface *iface)
 	iface->open = ifile_open;
 }
 
+static void
+iproject_manager_iface_init(IAnjutaProjectManagerIface *iface)
+{
+	iface->configure = iproject_manager_configure;
+}
+
 ANJUTA_PLUGIN_BEGIN (ProjectManagerPlugin, project_manager_plugin);
 ANJUTA_INTERFACE (ifile, IANJUTA_TYPE_FILE);
+ANJUTA_INTERFACE (iproject_manager, IANJUTA_TYPE_PROJECT_MANAGER);
 ANJUTA_PLUGIN_END;
 
 ANJUTA_SIMPLE_PLUGIN (ProjectManagerPlugin, project_manager_plugin);

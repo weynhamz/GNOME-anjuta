@@ -48,9 +48,9 @@ static GtkActionEntry popup_actions[] =
 };
 
 static void
-preferences_changed (AnjutaPreferences *prefs, FileManagerPlugin *fv)
+set_default_root_directory (FileManagerPlugin *fv)
 {
-	gchar* root = anjuta_preferences_get(prefs, "root.dir");
+	gchar* root = anjuta_preferences_get(fv->prefs, "root.dir");
 	if (root)
 	{
 		fv_set_root (fv, root);
@@ -58,6 +58,33 @@ preferences_changed (AnjutaPreferences *prefs, FileManagerPlugin *fv)
 	else
 		fv_set_root (fv, "/");
 	fv_refresh (fv);
+}
+
+static void
+preferences_changed (AnjutaPreferences *prefs, FileManagerPlugin *fv)
+{
+	set_default_root_directory (fv);
+}
+
+static void
+project_root_added (AnjutaPlugin *plugin, const gchar *name,
+					const GValue *value, gpointer user_data)
+{
+	const gchar *root = g_value_get_string (value);
+	if (root)
+	{
+		fv_set_root ((FileManagerPlugin *)plugin, root);
+		fv_refresh ((FileManagerPlugin *)plugin);
+	}
+	else
+		set_default_root_directory ((FileManagerPlugin *)plugin);
+}
+
+static void
+project_root_removed (AnjutaPlugin *plugin, const gchar *name,
+					  gpointer user_data)
+{
+	set_default_root_directory ((FileManagerPlugin *)plugin);
 }
 
 static gboolean
@@ -97,6 +124,11 @@ activate_plugin (AnjutaPlugin *plugin)
 					  G_CALLBACK (preferences_changed), fm_plugin);
 	g_object_unref (G_OBJECT (gxml));
 	
+	/* set up project directory watch */
+	fm_plugin->root_watch_id = anjuta_plugin_add_watch (plugin,
+									"project_root_directory",
+									project_root_added,
+									project_root_removed, NULL);
 	return TRUE;
 }
 
@@ -109,9 +141,11 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	g_signal_handlers_disconnect_by_func (G_OBJECT (fm_plugin->prefs),
 										  G_CALLBACK (preferences_changed),
 										  fm_plugin);
-	fv_finalize(fm_plugin);
 	anjuta_ui_unmerge (fm_plugin->ui, fm_plugin->merge_id);
 	anjuta_ui_remove_action_group (fm_plugin->ui, fm_plugin->action_group);
+	anjuta_plugin_remove_watch (plugin, fm_plugin->root_watch_id, FALSE);
+	fm_plugin->root_watch_id = 0;
+	fv_finalize(fm_plugin);
 	return TRUE;
 }
 
