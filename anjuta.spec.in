@@ -61,6 +61,7 @@ make %{?_smp_mflags}
 rm -rf %{buildroot}
 %makeinstall
 
+if desktop-file-install --help >/dev/null 2>&1; then
 mkdir -p %{buildroot}%{_datadir}/applications
 desktop-file-install --vendor %{desktop_vendor} --delete-original \
   --dir %{buildroot}%{_datadir}/applications                      \
@@ -68,6 +69,7 @@ desktop-file-install --vendor %{desktop_vendor} --delete-original \
   --add-category Application                                      \
   --add-category Development                                      \
   %{buildroot}%{_datadir}/gnome/apps/Development/%{name}.desktop
+fi
 
 %clean
 rm -rf %{buildroot}

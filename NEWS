@@ -1,16 +1,24 @@
-Anjuta 1.0.2	(xth March 2003) -- Biswapesh Chattopadhyay
+Anjuta 1.0.2	(28th March 2003) -- Biswapesh Chattopadhyay
 
-New: Totally revamped Search/Replace with numerous features
+New: Advanced Search/Replace with numerous features
 New: File browser preferences
-New: First-run dialog.
+New: First-run dialog
 New: MRU notebook tabs
+New: Preferences for debugger, help browser, UI designer, etc.
+New: First-time run dialog
 Updated: Tools support (shortcuts, bugfixes, etc.)
 Updated: Scintilla upgraded to 1.50 +
-Updated: Tagmanager fixes.
+Updated: Tagmanager fixes and enhancements.
 Updated: Jump between buffers using shortcut
 Updated: Asynchoronous update of symbol/file browser
 Updated: Project Import improvements
+Updated: Better comment/uncomment operations
 Bug fix: PHP highlighting works correctly.
+Bug fix: Editor preferences are now correctly saved.
+Bug fix: Project build works with newer autoconf/automake
+Bug fix: Corrected defualt compiler warnings flags for projects
+Bug fix: Build fixes (BSD, spec file, package checking, etc.)
+Bug fix: Floating windows do not force themselves on top.
 
 Anjuta 1.0.1:		(xth June 2002)			-- Naba Kumar
 

@@ -1,6 +1,7 @@
 2003-03-27  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
 	* NEWS: Updated for 1.0.2 release
 	* src/text_editor.c: Fixed indicators.
+	* anjuta.spec.in: make desktop-file-install conditional
 
 2003-03-21  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
 	* src/main_menubar_def.h: Move Advanced Search/Replace under
