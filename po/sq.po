@@ -3945,10 +3945,11 @@ msgstr ""
 msgid "Convert End Of Line characters to majority of the EOL found in the file"
 msgstr ""
 
+#. GRUT modified this item
 #. 0
 #: src/main_menubar_def.h:198
 msgid "_Select All"
-msgstr ""
+msgstr "_Zgjidh gjithçka"
 
 #: src/main_menubar_def.h:199
 msgid "Select all text in the editor"
@@ -5948,9 +5949,10 @@ msgstr ""
 msgid "_Project"
 msgstr ""
 
+#. GRUT modified this item
 #: src/main_menubar_def.h:1890
 msgid "For_mat"
-msgstr ""
+msgstr "For_mati"
 
 #: src/main_menubar_def.h:1902
 msgid "Bookmar_k"
@@ -6895,9 +6897,10 @@ msgstr ""
 msgid "Build current file or the source directory of the Project"
 msgstr ""
 
+#. GRUT modified this item
 #: src/text_editor_gui.c:180
 msgid "Attach"
-msgstr ""
+msgstr "Bashkangjit"
 
 #: src/text_editor_gui.c:181
 msgid "Attach the current page"
