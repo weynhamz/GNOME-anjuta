@@ -20,7 +20,7 @@ typedef struct _DebugTree {
 
 
 
-DebugTree* debug_tree_create(GtkWidget* container, gchar* title);
+DebugTree* debug_tree_create(GtkWidget* container);
 void debug_tree_destroy(DebugTree* d_tree);
 void debug_tree_clear(DebugTree* tree);
 void debug_tree_parse_variables(DebugTree* tree, GList* list, GtkCTreeNode* root, gboolean parse_pointer);

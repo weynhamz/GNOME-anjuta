@@ -1912,7 +1912,10 @@ debugger_is_engaged(void)
 }
 */
 
-const gchar* debugger_get_last_frame(void)
+
+/* return the last stack frame */
+const gchar* 
+debugger_get_last_frame(void)
 {
 	int ret;
 	gchar* text = NULL;

@@ -1,4 +1,5 @@
 #include <string.h>
+#include <gtk/gtk.h>
 #include "debug_tree.h"
 #include "debugger.h"
 
@@ -29,9 +30,8 @@ struct parse_private_data {
 
 /* return a pointer to a newly allocated DebugTree object */
 /* @param: container - container for new object */
-/* @param: title - title of tree root */
 DebugTree *
-debug_tree_create (GtkWidget * container, gchar * title)
+debug_tree_create (GtkWidget * container)
 {
 	char *tree_title[] = { "Variable", "Value" };
 	DebugTree *d_tree = g_malloc (sizeof (DebugTree));
@@ -46,6 +46,7 @@ debug_tree_create (GtkWidget * container, gchar * title)
 	gtk_signal_connect (GTK_OBJECT (d_tree->tree), "select_row",
 			    GTK_SIGNAL_FUNC (debug_tree_on_select_row),
 			    d_tree);
+				   
 	return d_tree;
 }
 
@@ -216,6 +217,7 @@ debug_tree_parse_variables (DebugTree * d_tree, GList * list,
 			/* root for next entry is this new substree */
 			current_root = node;	
 		}
+	
 		/*else if (node_type == LEAF)
 			g_print ("Leaf: %s = %s\n", str[0], str[1]);
 		else if (node_type == POINTER)
@@ -403,8 +405,9 @@ debug_tree_update_current (DebugTree * d_tree)
 						   private_data);
 			g_free (gdb_buff);
 		}
-		i++;
+
 		/* extract next node */
+		i++;
 		node = gtk_ctree_node_nth (GTK_CTREE (d_tree->tree), i);
 	}
 
@@ -422,26 +425,60 @@ debug_tree_update_single_var_cbs (GList * list, gpointer data)
 {
 	struct parse_private_data *private_data =
 		(struct parse_private_data *) data;
-	struct debug_tree_data *node_data;
+	
 	gchar *new_data[2];
+	gchar* old_value;
+	GdkColor red,green;		
+	red.red = 0xFFFF;
+	red.green = 0;
+	red.blue = 0;
+	green.red = 0;
+	green.green = 0;
+	green.blue = 0;
 
 	g_return_if_fail (list != NULL);
 	g_return_if_fail (data != NULL);
 
+	/* get the new value */
 	parse_var_and_value (list->data, new_data);
-	gtk_ctree_node_set_text (GTK_CTREE (private_data->tree),
-				 private_data->node, 1, new_data[1]);
-	if (is_pointer (new_data[1]))
+	
+	/* get the old value */
+	gtk_ctree_node_get_text (GTK_CTREE(private_data->tree),
+				private_data->node, 1, &old_value);
+
+	/* if value changed - update row and paint it red */
+	if (g_strcasecmp(old_value, new_data[1])) 
 	{
-		node_data =
-			gtk_ctree_node_get_row_data (GTK_CTREE
+		gtk_ctree_node_set_foreground(GTK_CTREE(private_data->tree),
+					     private_data->node,&red);
+
+		/* update to new value */
+		gtk_ctree_node_set_text (GTK_CTREE (private_data->tree),
+				 private_data->node, 1, new_data[1]);
+		
+		/* we can only free the variable name */
+		g_free(new_data[0]);
+
+		/* if we now know it is a pointer - update in private data */
+		if (is_pointer (new_data[1]))
+		{
+			struct debug_tree_data *node_data = NULL;
+			node_data = gtk_ctree_node_get_row_data (GTK_CTREE
 						     (private_data->tree),
 						     private_data->node);
-		node_data->node_type = POINTER;
+			node_data->node_type = POINTER;
+		}
 	}
-
+	else /* value didn't change - paint row in black */
+	{
+		gtk_ctree_node_set_foreground(GTK_CTREE(private_data->tree),
+					     private_data->node,&green);
+		/* we free both variable name and value */
+		g_free(new_data[0]);
+		g_free(new_data[1]);
+	}
+				
 	g_free (private_data);
-	g_free (new_data[0]);
 }
 
 
