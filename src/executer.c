@@ -193,7 +193,7 @@ create_executer_dialog (Executer * e)
 				GTK_SIGNAL_FUNC(on_executer_run_button_clicked),
 				e);
 
-	gtk_widget_grab_focus (button1);
+	gtk_widget_grab_focus (e->m_gui.combo_entry1);
 	gtk_widget_grab_default (button1);
 	return e->m_gui.dialog;
 }

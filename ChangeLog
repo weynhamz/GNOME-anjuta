@@ -1,3 +1,8 @@
+2002-05-11  Jeroen van der Vegt  <ajvdvegt@sourceforge.net>
+
+	* src/executer.c: (create_executer_dialog): changed the default
+	  focus on the entry.
+
 2002-05-10 Naba Kumar <kh_naba@users.sourceforge.net>
 
 	* widgets/gnomefilelist.c:
