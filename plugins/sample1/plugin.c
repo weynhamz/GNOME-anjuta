@@ -26,7 +26,7 @@
 
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-sample.ui"
 
-gpointer parent_class;
+static gpointer parent_class;
 
 static void
 on_sample_action_activate (GtkAction *action, SamplePlugin *plugin)

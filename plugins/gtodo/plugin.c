@@ -30,7 +30,7 @@
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-gtodo.ui"
 #define ICON_FILE "anjuta-gtodo-plugin.png"
 
-gpointer parent_class;
+static gpointer parent_class;
 
 static void
 on_hide_completed_action_activate (GtkAction *action, GTodoPlugin *plugin)

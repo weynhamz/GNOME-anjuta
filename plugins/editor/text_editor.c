@@ -72,7 +72,7 @@ static void text_editor_update_preferences (TextEditor *te,
 static void text_editor_finalize (GObject *obj);
 static void text_editor_dispose (GObject *obj);
 
-GtkVBoxClass *parent_class;
+static GtkVBoxClass *parent_class;
 
 static void
 text_editor_instance_init (TextEditor *te)

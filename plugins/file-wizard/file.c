@@ -93,7 +93,7 @@ NewfileType new_file_type[] = {
 	{N_("Other"), NULL, FALSE, FALSE, FALSE, CMT_C}
 };
 
-NewFileGUI *nfg = NULL;
+static NewFileGUI *nfg = NULL;
 
 void
 display_new_file(IAnjutaDocumentManager *docman)

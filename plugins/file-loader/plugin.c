@@ -36,7 +36,7 @@
 
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-loader-plugin.ui"
 
-gpointer parent_class;
+static gpointer parent_class;
 
 static void
 launch_application_failure (AnjutaFileLoaderPlugin *plugin,

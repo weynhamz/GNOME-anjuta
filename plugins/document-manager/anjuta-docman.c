@@ -32,7 +32,7 @@
 #include "plugin.h"
 #include "action-callbacks.h"
 
-gboolean closing_state;
+static gboolean closing_state;
 
 struct _AnjutaDocmanPriv {
 	AnjutaPreferences *preferences;
@@ -362,7 +362,7 @@ create_file_save_dialog_gui(GtkWindow* parent, AnjutaDocman* docman)
 	return dialog;
 }
 
-gpointer parent_class;
+static gpointer parent_class;
 
 static void
 anjuta_docman_finalize (GObject *obj)

@@ -30,7 +30,7 @@
 
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-debugger.ui"
 
-gpointer parent_class;
+static gpointer parent_class;
 
 
 static void on_load_file_response_ok (GtkDialog* dialog, gint id, DebuggerPlugin* plugin);

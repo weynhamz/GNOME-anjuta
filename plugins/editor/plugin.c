@@ -86,7 +86,7 @@
 #define ANJUTA_STOCK_BLOCK_END                "anjuta-block-end"
 #define ANJUTA_STOCK_TOGGLE_BOOKMARK          "anjuta-toggle-bookmark"
 
-gpointer parent_class;
+static gpointer parent_class;
 
 static GtkActionEntry actions_file[] = {
   { "ActionFileSave", N_("_Save"), GTK_STOCK_SAVE, "<control>s",

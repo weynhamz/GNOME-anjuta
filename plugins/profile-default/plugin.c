@@ -31,7 +31,7 @@
 
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-default-profile.ui"
 
-gpointer parent_class;
+static gpointer parent_class;
 
 static gboolean
 activate_plugin (AnjutaPlugin *plugin)

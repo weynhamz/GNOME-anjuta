@@ -29,7 +29,7 @@
 
 #define ICON_FILE "anjuta-gdb.plugin.png"
 
-gpointer parent_class;
+static gpointer parent_class;
 
 /* TODO: don't know ho to avoid having some global variables (we no more have
 access to the global app object) */

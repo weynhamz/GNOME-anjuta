@@ -112,7 +112,7 @@ static GtkActionEntry actions_insert[] = {
     G_CALLBACK (on_insert_cvs_source)},
 };
 
-gpointer parent_class;
+static gpointer parent_class;
 
 /* FIXME: There was a change in data representation in GtkActionEntry from
 EggActionGroupEntry. The actual entries should be fixed and this hack removed */

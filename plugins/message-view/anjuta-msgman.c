@@ -95,7 +95,7 @@ on_notebook_switch_page (GtkNotebook * notebook,
 		MESSAGE_VIEW (gtk_notebook_get_nth_page (notebook, page_num));
 }
 
-gpointer parent_class;
+static gpointer parent_class;
 
 static void
 anjuta_msgman_instance_init (AnjutaMsgman * msgman)

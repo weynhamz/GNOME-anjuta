@@ -80,7 +80,7 @@ struct _TerminalPluginClass{
 	AnjutaPluginClass parent_class;
 };
 
-gpointer parent_class;
+static gpointer parent_class;
 
 static const gchar*
 get_profile_key (const gchar *profile, const gchar *key)

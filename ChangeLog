@@ -1,4 +1,27 @@
 2004-10-21  Naba Kumar  <naba@gnome.org>
+	
+	* libanjuta/anjuta-plugin.c,
+	plugins/build-basic-autotools/build-basic-autotools.c,
+	plugins/debugger/plugin.c,
+	plugins/devhelp/plugin.c,
+	plugins/editor/anjuta-docman.c,
+	plugins/editor/goto_line.c,
+	plugins/editor/plugin.c,
+	plugins/editor/search-replace.c,
+	plugins/editor/text_editor.c,
+	plugins/file-loader/plugin.c,
+	plugins/file-manager/plugin.c,
+	plugins/file-wizard/file.c,
+	plugins/file-wizard/plugin.c,
+	plugins/gdb/plugin.c,
+	plugins/gtodo/plugin.c,
+	plugins/message-view/anjuta-msgman.c,
+	plugins/profile-default/plugin.c,
+	plugins/project-manager/plugin.c,
+	plugins/sample1/plugin.c,
+	plugins/terminal/terminal.c: Defined all global variables static,
+	particularly class parent_class variables. They were getting
+	confused at link time.
 
 	* libanjuta/plugins.c: Do not unload plugins when they are
 	deactivated. Simply cache them for later activation. Unloading

@@ -34,7 +34,7 @@
 #define PREFS_GLADE PACKAGE_DATA_DIR"/glade/anjuta-project-manager-plugin.glade"
 #define ICON_FILE "anjuta-project-manager-plugin.png"
 
-gpointer parent_class;
+static gpointer parent_class;
 
 static void update_ui (ProjectManagerPlugin *plugin);
 

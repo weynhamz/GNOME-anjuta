@@ -34,7 +34,7 @@
 
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-devhelp.ui"
 
-gpointer parent_class;
+static gpointer parent_class;
 
 /* This is variable required from libdevhelp */
 gchar *geometry = NULL;

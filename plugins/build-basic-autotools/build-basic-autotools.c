@@ -39,7 +39,7 @@
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-build-basic-autotools-plugin.ui"
 #define MAKE_COMMAND "make -s"
 
-gpointer parent_class;
+static gpointer parent_class;
 
 typedef struct
 {

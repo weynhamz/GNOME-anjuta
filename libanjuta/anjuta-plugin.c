@@ -58,8 +58,8 @@ enum {
 	PROP_SHELL,
 };
 
-static void anjuta_plugin_finalize (GObject         *object);
-static void anjuta_plugin_class_init (AnjutaPluginClass     *class);
+static void anjuta_plugin_finalize (GObject *object);
+static void anjuta_plugin_class_init (AnjutaPluginClass *class);
 
 GNOME_CLASS_BOILERPLATE (AnjutaPlugin, anjuta_plugin, GObject, G_TYPE_OBJECT);
 

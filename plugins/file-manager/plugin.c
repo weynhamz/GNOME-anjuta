@@ -33,7 +33,7 @@
 #define PREFS_GLADE PACKAGE_DATA_DIR"/glade/anjuta-file-manager-plugin.glade"
 #define ICON_FILE "anjuta-file-manager-plugin.png"
 
-gpointer parent_class;
+static gpointer parent_class;
 
 static void refresh (GtkAction *action, FileManagerPlugin *plugin)
 {

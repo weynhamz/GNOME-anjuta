@@ -42,7 +42,7 @@ enum
 };
 */
 
-GtkDialogClass *parent_class;
+static GtkDialogClass *parent_class;
 
 static void gotoline_class_init (GotoLineClass * klass);
 static void gotoline_init (GotoLine * obj);

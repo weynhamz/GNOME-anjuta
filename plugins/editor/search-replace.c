@@ -227,9 +227,9 @@ static SearchReplaceGUI *sg = NULL;
 
 static SearchReplace *sr = NULL;
 
-gboolean flag_select = FALSE;
-gboolean interactive = FALSE;
-gboolean end_activity = FALSE;
+static gboolean flag_select = FALSE;
+static gboolean interactive = FALSE;
+static gboolean end_activity = FALSE;
 
 
 /***********************************************************/
