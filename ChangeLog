@@ -1,3 +1,11 @@
+2003-06-06  Naba Kumar  <naba@gnome.org>
+
+	Patch from Etay Meiri  <etay-m@bezeqint.net>
+	* src/compiler_options.c: Fixed bugs related to clean before
+	build patch.
+	
+	* anjuta.desktop.in.in: Added commandline options.
+	
 2003-06-04  Abel Cheung  <maddog@linux.org.hk>
 
 	* configure.in: Removed "ta" from ALL_LINGUAS.

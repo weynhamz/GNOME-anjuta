@@ -1,7 +1,7 @@
 [Desktop Entry]
 _Name=Anjuta IDE
 _Comment=Integrated Development Environment
-Exec=anjuta
+Exec=anjuta %F
 Icon=@PACKAGE_PIXMAPS_DIR@/anjuta_icon.png
 Terminal=false
 MultipleArgs=false
