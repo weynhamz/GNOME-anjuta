@@ -1,4 +1,4 @@
-# Alleyoop Dutch translation
+# Anjuta Dutch translation
 # Copyright (C) 2003 THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the Alleyoop package.
 # Jan-Willem Harmanny <jwharmanny@hotmail.com>, 2003.
@@ -6,12 +6,12 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Alleyoop cvs\n"
+"Project-Id-Version: Anjuta cvs\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-09-05 02:57+0200\n"
 "PO-Revision-Date: 2004-06-13 00:54+0200\n"
 "Last-Translator: Tino Meinen <a.t.meinen@chello.nl>\n"
-"Language-Team: Dutch <vertaling@nl.linux.org>\n"
+"Language-Team: Dutch <vertaling@vrijschrift.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -422,7 +422,8 @@ msgstr "Linkvlaggen (LDFLAGS):"
 
 #: anjuta.glade.h:92
 msgid "Load _global defaults"
-msgstr "_Algemene standaarden laden"
+msgstr "_Algemene standaardinstellingen laden"
+
 
 #: anjuta.glade.h:93
 msgid "Load _user defaults"
@@ -687,7 +688,7 @@ msgstr "Ondersteunt"
 
 #: anjuta.glade.h:153
 msgid "Supports are only available to File mode compilation and build."
-msgstr ""
+msgstr "Ondersteuning alleen beschikbaar voor bestandscompilatie en bouwen."
 
 #: anjuta.glade.h:154
 msgid "Target:"
@@ -1037,6 +1038,10 @@ msgid ""
 "This may result in improper behaviour or instabilities.\n"
 "Anjuta will fall back to built in (limited) settings"
 msgstr ""
+"Kan globale standaardinstellingen en configuratiebestanden niet laden:\n"
+"%s.\n"
+"Dit kan onjuist of instabiel gedrag veroorzaken.\n"
+"Anjuta valt terug op ingebouwde (beperkte) instellingen"
 
 #: libanjuta/anjuta-preferences.c:1609
 msgid "Anjuta Preferences"
@@ -1255,7 +1260,7 @@ msgstr "Geheel getal %ld is te groot, huidig maximum is %d"
 #: libegg/eggtreeviewstate.c:181
 #, c-format
 msgid "Boolean values must be \"true\" or \"false\" not \"%s\""
-msgstr "Boolese waarden moeten zijn: \"waar\" of \"onwaar\" en niet \"%s\""
+msgstr "Booleaanse waarden moeten zijn: \"waar\" of \"onwaar\" en niet \"%s\""
 
 #: libegg/eggtreeviewstate.c:204
 #, c-format
@@ -2684,6 +2689,12 @@ msgid ""
 "Limits : Regular expressions can only be found in\n"
 "forward direction"
 msgstr ""
+"\"Search & Replace\" moet helemaal getest worden !\n"
+"Vele vervangingen zijn mogelijk \n"
+"en kosten veel tijd om te verifieren.\n"
+"\n"
+"Beperking : Reguliere expressies worden alleen in\n"
+"voorwaartse richting gevonden"
 
 #: plugins/editor/anjuta-document-manager.glade.h:7
 msgid "$(module.source.files) $(module.include.files)"
@@ -2735,7 +2746,7 @@ msgstr "Code opvouwen"
 
 #: plugins/editor/anjuta-document-manager.glade.h:17
 msgid "<b>Custom autoformate style</b>"
-msgstr ""
+msgstr "<b>Aangepaste opmaakstijl</b>"
 
 #: plugins/editor/anjuta-document-manager.glade.h:18
 #, fuzzy
@@ -2769,7 +2780,7 @@ msgstr "Ondersteunde coderingen"
 
 #: plugins/editor/anjuta-document-manager.glade.h:24
 msgid "<span weight=\"bold\">File Information</span>"
-msgstr ""
+msgstr "<span weight=\"bold\">Bestandsinformatie</span>"
 
 #: plugins/editor/anjuta-document-manager.glade.h:25
 msgid "<span weight=\"bold\">Options</span>"
@@ -2904,7 +2915,7 @@ msgstr "Crazy boy stijl"
 
 #: plugins/editor/anjuta-document-manager.glade.h:57
 msgid "Create corresponding header file"
-msgstr ""
+msgstr "Bijbehorende headerbestand maken"
 
 #: plugins/editor/anjuta-document-manager.glade.h:58
 msgid "Custom style"
@@ -3032,7 +3043,7 @@ msgstr "Vooruit"
 
 #: plugins/editor/anjuta-document-manager.glade.h:87
 msgid "Full Buffer"
-msgstr ""
+msgstr "Buffer vol"
 
 #: plugins/editor/anjuta-document-manager.glade.h:88
 msgid "GNU coding style"
@@ -3273,7 +3284,7 @@ msgstr "Instellingen"
 
 #: plugins/editor/anjuta-document-manager.glade.h:148
 msgid "Shell: # comment"
-msgstr ""
+msgstr "Shell: # comment"
 
 #: plugins/editor/anjuta-document-manager.glade.h:149
 msgid "Sorted by most recent use"
@@ -3354,7 +3365,7 @@ msgstr "Onderstreept"
 
 #: plugins/editor/anjuta-document-manager.glade.h:167
 msgid "Use Template for the Header file"
-msgstr ""
+msgstr "Gebruik sjabloon voor headerbestand"
 
 #: plugins/editor/anjuta-document-manager.glade.h:168
 msgid "Use default"
@@ -3370,15 +3381,15 @@ msgstr "Bladwijzerzoekopdracht doorgaan na documenteinde"
 
 #: plugins/editor/anjuta-document-manager.glade.h:171
 msgid "_C: /* comment */"
-msgstr ""
+msgstr "_C: /* commentaar */"
 
 #: plugins/editor/anjuta-document-manager.glade.h:172
 msgid "_General Public License (GPL)"
-msgstr ""
+msgstr "_General Public License (GPL)"
 
 #: plugins/editor/anjuta-document-manager.glade.h:173
 msgid "_Lesser General Public License (LGPL)"
-msgstr ""
+msgstr "_Lesser General Public License (LGPL)"
 
 #: plugins/editor/anjuta-document-manager.glade.h:174
 msgid "_Save Theme As"
@@ -3427,7 +3438,7 @@ msgstr "Kan gebruikersinterface voor nieuw bestand niet opbouwen"
 #: plugins/editor/file.c:426
 #, c-format
 msgid "The file \"%s\" is not a header file."
-msgstr "Het bestand \"%s\" is geen header-bestand."
+msgstr "Het bestand \"%s\" is geen headerbestand."
 
 #: plugins/editor/file.c:521
 msgid "%Y"
@@ -4896,7 +4907,7 @@ msgstr "Bestandsfilter"
 
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:8
 msgid "<b>Root directory if no project is open:</b>"
-msgstr ""
+msgstr "<b>Beginmap als geen project geopend is:</b>"
 
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:11
 msgid "Choose directories"
@@ -5716,6 +5727,12 @@ msgid ""
 "\n"
 "THIS IS AN EXPERIMENTAL FEATURE\n"
 msgstr ""
+"The Project Import assistent doorzoekt the map van een\n"
+"bestaand project, en poogt de structuur in een Anjuta\n"
+"structuur te importeren. Er is een mogelijkheid om automatisch\n"
+"alle gedetecteerde waardes gedurende het importeerproces bij te werken.\n"
+"\n"
+"DIT IS EEN EXPERIMENTELE FEATURE\n"
 
 #: plugins/project-manager/project_import_gui.c:74
 #: plugins/project-manager/project_import_gui.c:159
