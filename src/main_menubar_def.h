@@ -183,7 +183,7 @@ static GnomeUIInfo transform1_submenu_uiinfo[NUM_TRANSFORM_SUBMENUS+1] = {
 	{
 	 /* 6 */
 	 GNOME_APP_UI_ITEM, N_("Convert EOL chars to majority EOL"),
-	 N_("Convert End Of Line characters to mojority of the EOL found in the file"),
+	 N_("Convert End Of Line characters to majority of the EOL found in the file"),
 	 on_transform_eolchars1_activate, GUINT_TO_POINTER (0), NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
@@ -297,7 +297,7 @@ static GnomeUIInfo goto1_submenu_uiinfo[NUM_GOTO_SUBMENUS+1] = {
 };
 
 
-#define	NUM_EDIT_SUBMENUS	24
+#define	NUM_EDIT_SUBMENUS	22
 static GnomeUIInfo edit1_menu_uiinfo[NUM_EDIT_SUBMENUS+1] = {
 	{/*0*/
 	 GNOME_APP_UI_ITEM, N_("U_ndo"),
@@ -428,15 +428,7 @@ static GnomeUIInfo edit1_menu_uiinfo[NUM_EDIT_SUBMENUS+1] = {
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 GDK_G, GDK_MOD1_MASK, NULL},
 	
-	GNOMEUIINFO_SEPARATOR,/*22*/
-	
-	{/*23*/
-	 GNOME_APP_UI_ITEM, N_("Save Build Messages"),
-	 N_("Save build messages to file"),
-	 on_save_build_messages_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
-	 0, 0, NULL},
-	/*24*/
+	/*22*/
 	GNOMEUIINFO_END
 };
 
@@ -732,7 +724,7 @@ static GnomeUIInfo import_file1_menu_uiinfo[NUM_IMPORTFILE_SUBMENUS+1] = {
 	GNOMEUIINFO_END/*7*/
 };
 
-#define NUM_PROJECT_SUBMENUS 11
+#define NUM_PROJECT_SUBMENUS 6
 static GnomeUIInfo project1_menu_uiinfo[NUM_PROJECT_SUBMENUS+1] = {
 	{/*0*/
 	 GNOME_APP_UI_ITEM, N_("Add New"),
@@ -754,43 +746,18 @@ static GnomeUIInfo project1_menu_uiinfo[NUM_PROJECT_SUBMENUS+1] = {
 	 0, 0, NULL},
 	GNOMEUIINFO_SEPARATOR,/*3*/
 	{/*4*/
-	 GNOME_APP_UI_ITEM, "READ_ME",
-	 N_("Open the README file of the Project"),
-	 on_prj_readme1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_NEW,
-	 0, 0, NULL},
-	{/*5*/
-	 GNOME_APP_UI_ITEM, "_TODO",
-	 N_("Open the TODO file of the Project"),
-	 on_prj_todo1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_NEW,
-	 0, 0, NULL},
-	{/*6*/
-	 GNOME_APP_UI_ITEM, "Change_Log",
-	 N_("Open the ChangeLog file of the Project"),
-	 on_prj_changelog1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_NEW,
-	 0, 0, NULL},
-	{/*7*/
-	 GNOME_APP_UI_ITEM, "_NEWS",
-	 N_("Open the NEWS file of the Project"),
-	 on_prj_news1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_NEW,
-	 0, 0, NULL},
-	GNOMEUIINFO_SEPARATOR,/*8*/
-	{/*9*/
 	 GNOME_APP_UI_ITEM, N_("Project _Configuration ..."),
 	 N_("Edit the configuration of the Project"),
 	 on_project_configure1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_PREF,
 	 0, 0, NULL},
-	{/*10*/
+	{/*5*/
 	 GNOME_APP_UI_ITEM, N_("Project _Information"),
 	 N_("Detailed information about the Project"),
 	 on_project_project_info1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_BOOK_OPEN,
 	 0, 0, NULL},
-	GNOMEUIINFO_END/*11*/
+	GNOMEUIINFO_END/*6*/
 };
 
 #define NUM_HILITE_SUBMENUS 24
@@ -1005,7 +972,7 @@ static GnomeUIInfo format1_menu_uiinfo[NUM_FORMAT_SUBMENUS+1] = {
 	GNOMEUIINFO_END/*13*/
 };
 
-#define NUM_BUILD_SUBMENUS 18
+#define NUM_BUILD_SUBMENUS 20
 static GnomeUIInfo build1_menu_uiinfo[NUM_BUILD_SUBMENUS+1] = {
 	{/*0*/
 	 GNOME_APP_UI_ITEM, N_("_Compile"),
@@ -1033,64 +1000,71 @@ static GnomeUIInfo build1_menu_uiinfo[NUM_BUILD_SUBMENUS+1] = {
 	 GDK_F11, 0, NULL},
 	GNOMEUIINFO_SEPARATOR,/*4*/
 	{/*5*/
+	 GNOME_APP_UI_ITEM, N_("Save Build Messages"),
+	 N_("Save build messages to file"),
+	 on_save_build_messages_activate, NULL, NULL,
+	 GNOME_APP_PIXMAP_NONE, NULL,
+	 0, 0, NULL},
+	GNOMEUIINFO_SEPARATOR,/*6*/
+	{/*7*/
 	 GNOME_APP_UI_ITEM, N_("_Install"),
 	 N_("Install the Project on your system"),
 	 on_install_project1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
-	{/*6*/
+	{/*8*/
 	 GNOME_APP_UI_ITEM, N_("Build _Distribution"),
 	 N_("Build the distribution tarball of the Project"),
 	 on_build_dist_project1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
-	GNOMEUIINFO_SEPARATOR,/*7*/
-	{/*8*/
+	GNOMEUIINFO_SEPARATOR,/*9*/
+	{/*10*/
 	 GNOME_APP_UI_ITEM, N_("Con_figure ..."),
 	 N_("Configure the Project"),
 	 on_configure_project1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
-	{/*9*/
+	{/*11*/
 	 GNOME_APP_UI_ITEM, N_("Auto _generate ..."),
 	 N_("Auto generate all the build files"),
 	 on_autogen_project1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
-	GNOMEUIINFO_SEPARATOR,/*10*/
-	{/*11*/
+	GNOMEUIINFO_SEPARATOR,/*12*/
+	{/*13*/
 	 GNOME_APP_UI_ITEM, N_("Clea_n"),
 	 N_("Clean the source directory"),
 	 on_clean_project1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
-	{/*12*/
+	{/*14*/
 	 GNOME_APP_UI_ITEM, N_("Clean A_ll"),
 	 N_("Clean the whole Project directory"),
 	 on_clean_all_project1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
-	GNOMEUIINFO_SEPARATOR,/*13*/
-	{/*14*/
+	GNOMEUIINFO_SEPARATOR,/*15*/
+	{/*16*/
 	 GNOME_APP_UI_ITEM, N_("_Stop Build"),
 	 N_("Stop the current compile or build process"),
 	 on_stop_build_make1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_STOP,
 	 GDK_F12, 0, NULL},
-	GNOMEUIINFO_SEPARATOR,/*15*/
-	{/*16*/
+	GNOMEUIINFO_SEPARATOR,/*17*/
+	{/*18*/
 	 GNOME_APP_UI_ITEM, N_("_Execute"),
 	 N_("Execute the program"),
 	 on_go_execute1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_JUMP_TO,
 	 GDK_F3, 0, NULL},
-	{/*17*/
+	{/*19*/
 	 GNOME_APP_UI_ITEM, N_("Set _Program params ..."),
 	 N_("Set the execution parameters of the program"),
 	 on_go_execute2_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_JUMP_TO,
 	 0, 0, NULL},
-	GNOMEUIINFO_END/*18*/
+	GNOMEUIINFO_END/*20*/
 };
 
 #define NUM_BOOKMARK_SUBMENUS 8

@@ -1,3 +1,18 @@
+2002-05-06	Dan Elphick <dre00r@ecs.soton.ac.uk>
+
+	Reviewed by Naba Kumar <kh_naba@users.sourceforge.net>
+
+	* src/controls.c, src/main_menubar.[ch], src/main_menubar_def.h,
+	src/mainmenu_callbacks.[ch]:
+	Removed Project menu options: README, TODO, ChangeLog and NEWS
+	Moved Save Build Messages to Build menu and only highlight it
+	when there are build messages.
+	Corrected a spelling: "mojority" -> "majority"
+	Fixed initialisation of edit.edit_app_gui so now Edit menu
+	can be shown when no project is loaded.
+
+	* src/project_dbase.h: Removed prototype for static function
+
 2002-03-06  Naba Kumar <kh_naba@users.sourceforge.net>
 
 	* src/text_editor.c: Editor is marked changed after

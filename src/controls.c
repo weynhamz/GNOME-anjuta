@@ -348,10 +348,6 @@ update_main_menubar ()
 	gtk_widget_set_sensitive (pm->add_inc, P);
 	gtk_widget_set_sensitive (pm->add_hlp, P);
 	gtk_widget_set_sensitive (pm->remove, P);
-	gtk_widget_set_sensitive (pm->readme, P);
-	gtk_widget_set_sensitive (pm->todo, P);
-	gtk_widget_set_sensitive (pm->changelog, P);
-	gtk_widget_set_sensitive (pm->news, P);
 	gtk_widget_set_sensitive (pm->configure, P);
 	gtk_widget_set_sensitive (pm->info, P);
 
@@ -369,6 +365,8 @@ update_main_menubar ()
 	gtk_widget_set_sensitive (bm->make, C && !L);
 	gtk_widget_set_sensitive (bm->build, (C || P) && !L);
 	gtk_widget_set_sensitive (bm->build_all, P && !L);
+	gtk_widget_set_sensitive (bm->save_build_messages, 
+				  !anjuta_message_manager_build_is_empty(app->messages));
 	gtk_widget_set_sensitive (bm->install, P && !L);
 	gtk_widget_set_sensitive (bm->build_dist, P && !L);
 	gtk_widget_set_sensitive (bm->configure, P && !L);

@@ -305,18 +305,6 @@ on_prj_remove1_activate(GtkMenuItem     *menuitem,
                                         gpointer         user_data);
 
 void
-on_prj_readme1_activate(GtkMenuItem     *menuitem,
-                                        gpointer         user_data);
-void
-on_prj_todo1_activate(GtkMenuItem     *menuitem,
-                                        gpointer         user_data);
-void
-on_prj_changelog1_activate(GtkMenuItem     *menuitem,
-                                        gpointer         user_data);
-void
-on_prj_news1_activate(GtkMenuItem     *menuitem,
-                                        gpointer         user_data);
-void
 on_prj_config1_activate(GtkMenuItem     *menuitem,
                                         gpointer         user_data);
 

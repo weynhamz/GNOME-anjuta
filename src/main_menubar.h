@@ -141,10 +141,6 @@ struct _ProjectSubMenu
 	GtkWidget *add_po;
 	GtkWidget *add_doc;
 	GtkWidget *remove;
-	GtkWidget *readme;
-	GtkWidget *todo;
-	GtkWidget *changelog;
-	GtkWidget *news;
 	GtkWidget *configure;
 	GtkWidget *info;
 };
@@ -168,6 +164,7 @@ struct _BuildSubMenu
 	GtkWidget *make;
 	GtkWidget *build;
 	GtkWidget *build_all;
+	GtkWidget *save_build_messages;
 	GtkWidget *install;
 	GtkWidget *autogen;
 	GtkWidget *configure;

@@ -93,7 +93,7 @@ create_main_menubar (GtkWidget * ap, MainMenuBar * mb)
 	mb->edit.goto_prev_mesg = goto1_submenu_uiinfo[4].widget;
 	mb->edit.goto_next_mesg = goto1_submenu_uiinfo[5].widget;
 	mb->edit.repeat_find = edit1_menu_uiinfo[18].widget;
-	mb->edit.edit_app_gui = edit1_menu_uiinfo[22].widget;
+	mb->edit.edit_app_gui = edit1_menu_uiinfo[21].widget;
 
 	/* View Submenu */
 	mb->view.main_toolbar = toolbar1_submenu_uiinfo[0].widget;
@@ -130,12 +130,8 @@ create_main_menubar (GtkWidget * ap, MainMenuBar * mb)
 	mb->project.add_doc = import_file1_menu_uiinfo[6].widget;
 	mb->project.new_file = project1_menu_uiinfo[0].widget;
 	mb->project.remove = project1_menu_uiinfo[2].widget;
-	mb->project.readme = project1_menu_uiinfo[4].widget;
-	mb->project.todo = project1_menu_uiinfo[5].widget;
-	mb->project.changelog = project1_menu_uiinfo[6].widget;
-	mb->project.news = project1_menu_uiinfo[7].widget;
-	mb->project.configure = project1_menu_uiinfo[9].widget;
-	mb->project.info = project1_menu_uiinfo[10].widget;
+	mb->project.configure = project1_menu_uiinfo[4].widget;
+	mb->project.info = project1_menu_uiinfo[5].widget;
 	
 	/* Format submenu */
 	mb->format.indent = format1_menu_uiinfo[0].widget;
@@ -153,15 +149,16 @@ create_main_menubar (GtkWidget * ap, MainMenuBar * mb)
 	mb->build.make = build1_menu_uiinfo[1].widget;
 	mb->build.build = build1_menu_uiinfo[2].widget;
 	mb->build.build_all = build1_menu_uiinfo[3].widget;
-	mb->build.install = build1_menu_uiinfo[5].widget;
-	mb->build.build_dist = build1_menu_uiinfo[6].widget;
-	mb->build.configure = build1_menu_uiinfo[8].widget;
-	mb->build.autogen = build1_menu_uiinfo[9].widget;
-	mb->build.clean = build1_menu_uiinfo[11].widget;
-	mb->build.clean_all = build1_menu_uiinfo[12].widget;
-	mb->build.stop_build = build1_menu_uiinfo[14].widget;
-	mb->build.execute = build1_menu_uiinfo[16].widget;
-	mb->build.execute_params = build1_menu_uiinfo[17].widget;
+	mb->build.save_build_messages = build1_menu_uiinfo[5].widget;
+	mb->build.install = build1_menu_uiinfo[7].widget;
+	mb->build.build_dist = build1_menu_uiinfo[8].widget;
+	mb->build.configure = build1_menu_uiinfo[10].widget;
+	mb->build.autogen = build1_menu_uiinfo[11].widget;
+	mb->build.clean = build1_menu_uiinfo[13].widget;
+	mb->build.clean_all = build1_menu_uiinfo[14].widget;
+	mb->build.stop_build = build1_menu_uiinfo[16].widget;
+	mb->build.execute = build1_menu_uiinfo[18].widget;
+	mb->build.execute_params = build1_menu_uiinfo[19].widget;
 	
 	/* Bookmark submenu */
 	mb->bookmark.toggle = bookmark1_menu_uiinfo[0].widget;
@@ -180,7 +177,7 @@ create_main_menubar (GtkWidget * ap, MainMenuBar * mb)
 	mb->debug.tog_break = breakpoints1_submenu_uiinfo[0].widget;
 	mb->debug.set_break = breakpoints1_submenu_uiinfo[1].widget;
 	mb->debug.show_breakpoints = breakpoints1_submenu_uiinfo[3].widget;
-	mb->debug.disable_all_breakpoints =	breakpoints1_submenu_uiinfo[4].widget;
+	mb->debug.disable_all_breakpoints = breakpoints1_submenu_uiinfo[4].widget;
 	mb->debug.clear_all_breakpoints = breakpoints1_submenu_uiinfo[5].widget;
 	mb->debug.info_targets = info1_submenu_uiinfo[0].widget;
 	mb->debug.info_program = info1_submenu_uiinfo[1].widget;

@@ -1096,56 +1096,6 @@ on_prj_remove1_activate (GtkMenuItem * menuitem, gpointer user_data)
 }
 
 void
-on_prj_readme1_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-	gchar *filename;
-	if (app->project_dbase->project_is_open == FALSE)
-		return;
-	filename =
-		g_strconcat (app->project_dbase->top_proj_dir, "/README",
-			     NULL);
-	anjuta_append_text_editor (filename);
-	g_free (filename);
-}
-
-void
-on_prj_todo1_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-	gchar *filename;
-	if (app->project_dbase->project_is_open == FALSE)
-		return;
-	filename =
-		g_strconcat (app->project_dbase->top_proj_dir, "/TODO", NULL);
-	anjuta_append_text_editor (filename);
-	g_free (filename);
-}
-
-void
-on_prj_changelog1_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-	gchar *filename;
-	if (app->project_dbase->project_is_open == FALSE)
-		return;
-	filename =
-		g_strconcat (app->project_dbase->top_proj_dir, "/ChangeLog",
-			     NULL);
-	anjuta_append_text_editor (filename);
-	g_free (filename);
-}
-
-void
-on_prj_news1_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-	gchar *filename;
-	if (app->project_dbase->project_is_open == FALSE)
-		return;
-	filename =
-		g_strconcat (app->project_dbase->top_proj_dir, "/NEWS", NULL);
-	anjuta_append_text_editor (filename);
-	g_free (filename);
-}
-
-void
 on_prj_config1_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
 }
