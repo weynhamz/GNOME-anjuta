@@ -5,6 +5,9 @@
 	
 	* printing/.cvsignore, plugins/patch/.cvsignore: Added files.
 	
+	* data/properties/latex.properties,
+	data/properties/ada.properties: Added file.is.source property.
+	
 2002-06-07	Andy Piper	<andy.piper@freeuk.com>
 
 	* anjuta.prj: bump project version for release
