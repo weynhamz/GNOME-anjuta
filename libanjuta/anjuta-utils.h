@@ -99,6 +99,16 @@ pid_t anjuta_util_execute_shell (const gchar *dir, const gchar *command);
 
 gchar* anjuta_util_escape_quotes(const gchar* str);
 
+/* FIXME: Instead of this, check for forkpty implementation in configure.in
+ * Sun specific implementations
+ *
+ */
+#ifdef sun
+#include <grp.h>
+int forkpty(int *amaster, char *name, struct termios *termp, struct winsize *winp);
+int alphasort (const struct dirent **a, const struct dirent **b);
+#endif /* sun */
+
 /* Temporarily copied here */
 
 #define ANJUTA_TYPE_BEGIN(class_name, prefix, parent_type) \

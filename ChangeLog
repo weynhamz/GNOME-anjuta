@@ -1,3 +1,16 @@
+2005-02-01  Naba Kumar  <naba@gnome.org>
+
+	* libanjuta/anjuta-launcher.c, libanjuta/anjuta-launcher.h,
+	libanjuta/anjuta-utils.c, libanjuta/anjuta-utils.h,
+	plugins/editor/goto_line.c, plugins/editor/goto_line.h,
+	scintilla/ScintillaGTK.cxx, scintilla/include/ScintillaWidget.h,
+	(new) scintilla/patches/a64-crash-fix.patch: Applied old patches
+	from sourceforge -- a64 crash fixes (correct typing for GType)
+	and fixes compile errors in sun.
+
+	* plugins/terminal/terminal.c: Patch from sourceforge -- Fixes
+	paste (shift+insert) in terminal.
+
 2005-02-01  Kjartan Maraas  <kmaraas@gnome.org>
 
 	* configure.in: Add «nb» to ALL_LINGUAS.

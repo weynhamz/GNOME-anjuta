@@ -24,7 +24,9 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <signal.h>
+#ifndef sun
 #include <pty.h>
+#endif
 #include <assert.h>
 #include <gnome.h>
 #include <termios.h>
@@ -40,6 +42,10 @@
 
 #define ANJUTA_PIXMAP_PASSWORD "password.png"
 #define FILE_BUFFER_SIZE 1024
+#ifndef __MAX_BAUD
+#define __MAX_BAUD B460800
+#endif
+
 /*
 static gboolean
 anjuta_launcher_pty_check_child_exit_code (AnjutaLauncher *launcher,
@@ -160,10 +166,10 @@ anjuta_launcher_initialize (AnjutaLauncher *obj)
 	obj->priv->callback_data = NULL;
 }
 
-guint
+GType
 anjuta_launcher_get_type ()
 {
-	static guint obj_type = 0;
+	static GType obj_type = 0;
 	
 	if (!obj_type)
 	{

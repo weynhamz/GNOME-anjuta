@@ -830,3 +830,305 @@ anjuta_util_escape_quotes(const gchar* str)
 	buffer[idx] = '\0';
 	return buffer;
 }
+
+/*
+ * Sun specific implementations
+ *
+ */
+#ifdef sun
+#include <grp.h>
+
+static int ptym_open (char *pts_name);
+static int ptys_open (int fdm, char * pts_name);
+
+int
+login_tty(int ttyfd)
+{
+  int fd;
+  char *fdname;
+
+#ifdef HAVE_SETSID
+  setsid();
+#endif
+#ifdef HAVE_SETPGID
+  setpgid(0, 0);
+#endif
+	
+  /* First disconnect from the old controlling tty. */
+#ifdef TIOCNOTTY
+  fd = open("/dev/tty", O_RDWR|O_NOCTTY);
+  if (fd >= 0)
+    {
+      ioctl(fd, TIOCNOTTY, NULL);
+      close(fd);
+    }
+  else
+    //syslog(LOG_WARNING, "NO CTTY");
+#endif /* TIOCNOTTY */
+  
+  /* Verify that we are successfully disconnected from the controlling tty. */
+  fd = open("/dev/tty", O_RDWR|O_NOCTTY);
+  if (fd >= 0)
+    {
+      //syslog(LOG_WARNING, "Failed to disconnect from controlling tty.");
+      close(fd);
+    }
+  
+  /* Make it our controlling tty. */
+#ifdef TIOCSCTTY
+  ioctl(ttyfd, TIOCSCTTY, NULL);
+#endif /* TIOCSCTTY */
+
+  fdname = ttyname (ttyfd);
+  fd = open(fdname, O_RDWR);
+  if (fd < 0)
+    ;//syslog(LOG_WARNING, "open %s: %s", fdname, strerror(errno));
+  else
+    close(fd);
+
+  /* Verify that we now have a controlling tty. */
+  fd = open("/dev/tty", O_WRONLY);
+  if (fd < 0)
+    {
+      //syslog(LOG_WARNING, "open /dev/tty: %s", strerror(errno));
+      return 1;
+    }
+
+  close(fd);
+#if defined(HAVE_VHANGUP) && !defined(HAVE_REVOKE)
+  {
+    RETSIGTYPE (*sig)();
+    sig = signal(SIGHUP, SIG_IGN);
+    vhangup();
+    signal(SIGHUP, sig);
+  }
+#endif
+  fd = open(fdname, O_RDWR);
+  if (fd == -1)
+    {
+      //syslog(LOG_ERR, "can't reopen ctty %s: %s", fdname, strerror(errno));
+      return -1;
+    }
+	
+  close(ttyfd);
+
+  if (fd != 0)
+    close(0);
+  if (fd != 1)
+    close(1);
+  if (fd != 2)
+    close(2);
+
+  dup2(fd, 0);
+  dup2(fd, 1);
+  dup2(fd, 2);
+  if (fd > 2)
+    close(fd);
+  return 0;
+}
+
+int
+openpty(int *amaster, int *aslave, char *name, struct termios *termp,
+		struct winsize *winp)
+{
+	char line[20];
+	*amaster = ptym_open(line);
+	if (*amaster < 0)
+		return -1;
+	*aslave = ptys_open(*amaster, line);
+	if (*aslave < 0) {
+		close(*amaster);
+		return -1;
+	}
+	if (name)
+		strcpy(name, line);
+#ifndef TCSAFLUSH
+#define TCSAFLUSH TCSETAF
+#endif
+	if (termp)
+		(void) tcsetattr(*aslave, TCSAFLUSH, termp);
+#ifdef TIOCSWINSZ
+	if (winp)
+		(void) ioctl(*aslave, TIOCSWINSZ, (char *)winp);
+#endif
+	return 0;
+}
+
+static int
+ptym_open(char * pts_name)
+{
+	int fdm;
+#ifdef HAVE_PTSNAME
+	char *ptr;
+
+	strcpy(pts_name, "/dev/ptmx");
+	fdm = open(pts_name, O_RDWR);
+	if (fdm < 0)
+		return -1;
+	if (grantpt(fdm) < 0) { /* grant access to slave */
+		close(fdm);
+		return -2;
+	}
+	if (unlockpt(fdm) < 0) { /* clear slave's lock flag */
+		close(fdm);
+		return -3;
+	}
+	ptr = ptsname(fdm);
+	if (ptr == NULL) { /* get slave's name */
+		close (fdm);
+		return -4;
+	}
+	strcpy(pts_name, ptr); /* return name of slave */
+	return fdm;            /* return fd of master */
+#else
+	char *ptr1, *ptr2;
+
+	strcpy(pts_name, "/dev/ptyXY");
+	/* array index: 012345689 (for references in following code) */
+	for (ptr1 = "pqrstuvwxyzPQRST"; *ptr1 != 0; ptr1++) {
+		pts_name[8] = *ptr1;
+		for (ptr2 = "0123456789abcdef"; *ptr2 != 0; ptr2++) {
+			pts_name[9] = *ptr2;
+			/* try to open master */
+			fdm = open(pts_name, O_RDWR);
+			if (fdm < 0) {
+				if (errno == ENOENT) /* different from EIO */
+					return -1;  /* out of pty devices */
+				else
+					continue;  /* try next pty device */
+			}
+			pts_name[5] = 't'; /* chage "pty" to "tty" */
+			return fdm;   /* got it, return fd of master */
+		}
+	}
+	return -1; /* out of pty devices */
+#endif
+}
+
+static int
+ptys_open(int fdm, char * pts_name)
+{
+	int fds;
+#ifdef HAVE_PTSNAME
+	/* following should allocate controlling terminal */
+	fds = open(pts_name, O_RDWR);
+	if (fds < 0) {
+		close(fdm);
+		return -5;
+	}
+	if (ioctl(fds, I_PUSH, "ptem") < 0) {
+		close(fdm);
+		close(fds);
+		return -6;
+	}
+	if (ioctl(fds, I_PUSH, "ldterm") < 0) {
+		close(fdm);
+		close(fds);
+		return -7;
+	}
+	if (ioctl(fds, I_PUSH, "ttcompat") < 0) {
+		close(fdm);
+		close(fds);
+		return -8;
+	}
+
+	if (ioctl(fdm, I_PUSH, "pckt") < 0) {
+		close(fdm);
+		close(fds);
+		return -8;
+	}
+	
+	if (ioctl(fdm, I_SRDOPT, RMSGN|RPROTDAT) < 0) {
+		close(fdm);
+		close(fds);
+		return -8;
+	}
+
+	return fds;
+#else
+	int gid;
+	struct group *grptr;
+
+	grptr = getgrnam("tty");
+	if (grptr != NULL)
+		gid = grptr->gr_gid;
+	else
+		gid = -1;  /* group tty is not in the group file */
+	/* following two functions don't work unless we're root */
+	chown(pts_name, getuid(), gid);
+	chmod(pts_name, S_IRUSR | S_IWUSR | S_IWGRP);
+	fds = open(pts_name, O_RDWR);
+	if (fds < 0) {
+		close(fdm);
+		return -1;
+	}
+	return fds;
+#endif
+}
+
+int
+forkpty(int *amaster, char *name, struct termios *termp, struct winsize *winp)
+{
+  int master, slave, pid;
+
+  if (openpty(&master, &slave, name, termp, winp) == -1)
+    return (-1);
+  switch (pid = fork()) {
+  case -1:
+    return (-1);
+  case 0:
+    /*
+     * child
+     */
+    close(master);
+    login_tty(slave);
+    return (0);
+  }
+  /*
+   * parent
+   */
+  *amaster = master;
+  close(slave);
+  return (pid);
+}
+
+int scandir(const char *dir, struct dirent ***namelist,
+            int (*select)(const struct dirent *),
+            int (*compar)(const struct dirent **, const struct dirent **))
+{
+  DIR *d;
+  struct dirent *entry;
+  register int i=0;
+  size_t entrysize;
+
+  if ((d=opendir(dir)) == NULL)
+     return(-1);
+
+  *namelist=NULL;
+  while ((entry=readdir(d)) != NULL)
+  {
+    if (select == NULL || (select != NULL && (*select)(entry)))
+    {
+      *namelist=(struct dirent **)realloc((void *)(*namelist),
+                 (size_t)((i+1)*sizeof(struct dirent *)));
+	if (*namelist == NULL) return(-1);
+	entrysize=sizeof(struct dirent)-sizeof(entry->d_name)+strlen(entry->d_name)+1;
+	(*namelist)[i]=(struct dirent *)malloc(entrysize);
+	if ((*namelist)[i] == NULL) return(-1);
+	memcpy((*namelist)[i], entry, entrysize);
+	i++;
+    }
+  }
+  if (closedir(d)) return(-1);
+  if (i == 0) return(-1);
+  if (compar != NULL)
+    qsort((void *)(*namelist), (size_t)i, sizeof(struct dirent *), compar);
+    
+  return(i);
+}
+
+int alphasort (const struct dirent **a, const struct dirent **b)
+{
+    return (strcmp((*a)->d_name, (*b)->d_name));
+}
+#endif /* sun */

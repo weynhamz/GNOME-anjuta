@@ -1,0 +1,36 @@
+? patches/a64-crash-fix.patch
+Index: ScintillaGTK.cxx
+===================================================================
+RCS file: /cvs/gnome/anjuta/scintilla/ScintillaGTK.cxx,v
+retrieving revision 1.20
+diff -u -r1.20 ScintillaGTK.cxx
+--- ScintillaGTK.cxx	19 Oct 2004 19:21:42 -0000	1.20
++++ ScintillaGTK.cxx	1 Feb 2005 16:11:00 -0000
+@@ -2405,8 +2405,8 @@
+ extern void Platform_Initialise();
+ extern void Platform_Finalise();
+ 
+-guint scintilla_get_type() {
+-	static guint scintilla_type = 0;
++GtkType scintilla_get_type() {
++	static GtkType scintilla_type = 0;
+ 
+ 	if (!scintilla_type) {
+ 		Platform_Initialise();
+Index: include/ScintillaWidget.h
+===================================================================
+RCS file: /cvs/gnome/anjuta/scintilla/include/ScintillaWidget.h,v
+retrieving revision 1.10
+diff -u -r1.10 ScintillaWidget.h
+--- include/ScintillaWidget.h	15 Apr 2003 08:34:54 -0000	1.10
++++ include/ScintillaWidget.h	1 Feb 2005 16:11:01 -0000
+@@ -34,7 +34,7 @@
+ 	void (* notify) (ScintillaObject *ttt);
+ };
+ 
+-guint		scintilla_get_type	(void);
++GtkType		scintilla_get_type	(void);
+ GtkWidget*	scintilla_new		(void);
+ void		scintilla_set_id	(ScintillaObject *sci,int id);
+ sptr_t		scintilla_send_message	(ScintillaObject *sci,unsigned int iMessage, uptr_t wParam, sptr_t lParam);
+? scite/bin/SciTE

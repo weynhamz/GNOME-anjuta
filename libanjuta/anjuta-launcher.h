@@ -67,7 +67,7 @@ struct _AnjutaLauncherClass
 	void (*busy_signal) (AnjutaLauncher *launcher, gboolean busy_flag);
 };
 
-guint anjuta_launcher_get_type (void);
+GType anjuta_launcher_get_type (void);
 AnjutaLauncher* anjuta_launcher_new (void);
 gboolean anjuta_launcher_is_busy (AnjutaLauncher *launcher);
 gboolean anjuta_launcher_execute (AnjutaLauncher *launcher,
