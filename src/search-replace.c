@@ -244,7 +244,7 @@ search_and_replace (void)
 	
 	entries = create_search_entries(s);
 	
-	search_update_combos (); //
+	search_update_combos (); 
 	if (s->action == SA_REPLACE || s->action == SA_REPLACEALL)
 		replace_update_combos ();
 
@@ -356,13 +356,17 @@ search_and_replace (void)
 							FREE(ch);
 						}
 						
-//						if (fb->te == NULL)
-//							fb->te = anjuta_append_text_editor(se->path);
-						scintilla_send_message(SCINTILLA(fb->te->widgets.editor), 
-							SCI_SETSEL, mi->pos - os, mi->pos + mi->len - os);
-						scintilla_send_message(SCINTILLA(fb->te->widgets.editor),
-							SCI_REPLACESEL, 0, (long) (sr->replace).repl_str); 
-					
+						if (fb->te == NULL)
+						{
+							//fb->te = anjuta_append_text_editor(se->path);
+						}
+						else
+						{
+							scintilla_send_message(SCINTILLA(fb->te->widgets.editor), 
+								SCI_SETSEL, mi->pos - os, mi->pos + mi->len - os);
+							scintilla_send_message(SCINTILLA(fb->te->widgets.editor),
+								SCI_REPLACESEL, 0, (long) (sr->replace).repl_str); 
+						}
 						if (se->direction != SD_BACKWARD)						
 							offset += mi->len - strlen(sr->replace.repl_str);
 						
@@ -371,12 +375,19 @@ search_and_replace (void)
 					case SA_REPLACEALL:
 						if ((sr->replace.regex) && (sr->search.expr.regex))
 							sr->replace.repl_str = g_strdup(regex_backref(mi, fb));
-//						if (fb->te == NULL)
-//							fb->te = anjuta_append_text_editor(se->path);
-						scintilla_send_message(SCINTILLA(fb->te->widgets.editor), 
-							SCI_SETSEL, mi->pos - offset, mi->pos + mi->len - offset);
-						scintilla_send_message(SCINTILLA(fb->te->widgets.editor),
-							SCI_REPLACESEL, 0, (long) (sr->replace).repl_str); 
+						if (fb->te == NULL) /* NON OPENED FILES */
+						{
+							// FIXME ....
+							//fb->te = anjuta_append_text_editor(se->path, NULL);
+							
+						}
+						else
+						{
+							scintilla_send_message(SCINTILLA(fb->te->widgets.editor), 
+								SCI_SETSEL, mi->pos - offset, mi->pos + mi->len - offset);
+							scintilla_send_message(SCINTILLA(fb->te->widgets.editor),
+								SCI_REPLACESEL, 0, (long) (sr->replace).repl_str); 
+						}
 						if (se->direction != SD_BACKWARD)						
 							offset += mi->len - strlen(sr->replace.repl_str);
 						break;
@@ -750,8 +761,6 @@ modify_label_image_button(gchar *button_name, gchar *name, char *stock_image)
 	GList *list, *l;
 	GtkHBox *hbox;
 	GtkWidget *alignment;
-	// GtkWidget *label;
-	// GtkWidget *image;
 	GtkWidget *button = sr_get_gladewidget(button_name)->widget;
 	
 	list = gtk_container_get_children(GTK_CONTAINER (button));
@@ -1070,9 +1079,7 @@ on_search_replace_delete_event(GtkWidget *window, GdkEvent *event,
 gboolean
 on_search_dialog_key_press_event(GtkWidget *widget, GdkEventKey *event,
                                gpointer user_data)
-{
-	// gchar *str;
-	
+{	
 	if (event->keyval == GDK_Escape)
 	{
 		if (user_data)
@@ -1178,7 +1185,6 @@ on_search_regex_toggled (GtkToggleButton *togglebutton, gpointer user_data)
 	static char *dependent_widgets[] = {
 		GREEDY, IGNORE_CASE, WHOLE_WORD, WHOLE_LINE, WORD_START
 	};
-	// gchar *dirstring;
 	int i;
 	GtkWidget *dircombo = sr_get_gladewidget(SEARCH_DIRECTION_COMBO)->widget;
 	GtkWidget *repl_regex = sr_get_gladewidget(REPLACE_REGEX)->widget;
@@ -1240,7 +1246,7 @@ on_search_action_changed (GtkEditable *editable, gpointer user_data)
 {
 	SearchAction act;
 	SearchRangeType rt;
-	
+
 	reset_flags();
 	act = search_get_item_combo(editable, search_action_strings);
 	rt = search_get_item_combo_name(SEARCH_TARGET, search_target_strings);
@@ -1324,7 +1330,10 @@ on_search_target_changed(GtkEditable *editable, gpointer user_data)
 				search_set_action(SA_FIND_PANE);
 		}
 		else
+		{
 			search_set_action(SA_REPLACEALL);	
+			sr->search.action = SA_REPLACEALL;
+		}
 	}
 	reset_flags_and_search_button();
 	/*  Resize dialog  */
@@ -1408,7 +1417,6 @@ void
 on_search_forward_toggled (GtkToggleButton *togglebutton, 
 									gpointer user_data)
 {
-	// GtkWidget *widget;
 	if (gtk_toggle_button_get_active(togglebutton))
 	{
 		search_set_direction(SD_FORWARD);
@@ -1419,9 +1427,7 @@ on_search_forward_toggled (GtkToggleButton *togglebutton,
 void
 on_search_backward_toggled (GtkToggleButton *togglebutton, 
 									gpointer user_data)
-{
-	// GtkWidget *widget;
-	
+{	
 	if (gtk_toggle_button_get_active(togglebutton))
 	{
 		search_set_direction(SD_BACKWARD);
