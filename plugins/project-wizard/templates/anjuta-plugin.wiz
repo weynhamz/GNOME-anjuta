@@ -5,7 +5,7 @@
 	<category>C</category>
 </project-wizard>
 
-<page name="basic" _label="Basic information" _description="Nothing">
+<page name="basic" _label="Basic information" _description="General Project Infromation">
 	<string name="Name" _label="Project Name:" _description="Project name must not contain spaces, because it will be the name of the project build target (executable, library etc.)" default="anjuta-plugin-foobar" summary="yes" mandatory="yes"/>
 	<string name="Author" _label="Author:" _description="" default="unknown" mandatory="yes"/>
 	<string name="Version" _label="Version:" default="0.1" mandatory="yes"/>
@@ -20,7 +20,7 @@
 	<string name="PluginTitle" _label="Plugin Title:" _description="Display title of the plugin" default="Anjuta Foobar Sample Plugin" summary="yes" mandatory="yes"/>
 	<string name="PluginDescription" _label="Plugin Description:" _description="Display description of the plugin" default="A sample demonstration plugin for Anjuta" summary="yes" mandatory="yes"/>
 	<string name="PluginClass" _label="Plugin Class Name:" _description="Plugin class name" default="AnjutaFoobarPlugin" summary="yes" mandatory="yes"/>
-	<string name="PluginDependencies" _label="Plugin Dependencies:" _description="Comma separated, other plugins that this plugin depends on. It could be either primary interface name or plugin location (library:class)" default="" summary="yes" mandatory="no"/>
+	<string name="PluginDependencies" _label="Plugin Dependencies:" _description="Comma separated, other plugins that this plugin depends on. It could be either primary interface name or plugin location (library:class)" default="" summary="yes"/>
 	<file name="IconFile" _label="Icon File:" _description="Icon file for the plugin" summary="yes" mandatory="yes"/>
 	<boolean name="HasGladeFile" _label="Create glade interface file" _description="Create a template glade interface file" default="1"/>
 	<boolean name="HasUI" _label="Plugin has menus or/and toolbars" _description="Whether the plugin has menus or toolbars" default="1"/>
@@ -42,9 +42,9 @@
 </page>
 
 <page name="watches" _label="Values to watch" _description="Shell values to watch">
-	<string name="value1" _label="Value Name:" _description="Name of the value to watch" default="" summary="yes" mandatory="no"/>
-	<string name="value2" _label="Value Name:" _description="Name of the value to watch" default="" summary="yes" mandatory="no"/>
-	<string name="value3" _label="Value Name:" _description="Name of the value to watch" default="" summary="yes" mandatory="no"/>
+	<string name="value1" _label="Value Name:" _description="Name of the value to watch" default="" summary="yes"/>
+	<string name="value2" _label="Value Name:" _description="Name of the value to watch" default="" summary="yes"/>
+	<string name="value3" _label="Value Name:" _description="Name of the value to watch" default="" summary="yes"/>
 </page>
 
 <page name="compoments" _label="Implement plugin interfaces" _description="Plugin interfaces to implement">

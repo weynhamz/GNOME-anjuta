@@ -1,5 +1,11 @@
 2005-01-07  Naba Kumar  <naba@gnome.org>
 
+	* plugins/project-wizard/anjuta-project-wizard.glade,
+	M plugins/project-wizard/druid.c,
+	M plugins/project-wizard/templates/anjuta-plugin.wiz,
+	M plugins/project-wizard/templates/terminal.wiz: Fixed project templates.
+	Display page description in bold. Fixed mandatory field check.
+
 	* configure.in,
 	libanjuta/libanjuta-1.0.pc.in,
 	plugins/project-wizard/druid.c,

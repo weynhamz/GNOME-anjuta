@@ -5,7 +5,7 @@
 	<category>C</category>
 </project-wizard>
 
-<page name="basic" _label="Basic information" _description="Nothing">
+<page name="basic" _label="Basic information" _description="General Project Infromation">
 	<string name="Name" _label="Project Name:" _description="project name" default="foobar-sample" summary="yes" mandatory="yes"/>
 	<string name="Author" _label="Author:" _description="" default="unknown" mandatory="yes"/>
 	<string name="Version" _label="Version:" default="0.1" mandatory="yes"/>

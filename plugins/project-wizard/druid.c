@@ -145,7 +145,7 @@ typedef struct _NPWPropertyContext
 	NPWPage* page;
 	guint row;
 	GString* text;
-	gboolean mandatories_filled;
+	const gchar* required_property;
 } NPWPropertyContext;
 
 static void
@@ -333,14 +333,23 @@ static gboolean
 npw_druid_fill_property_page(NPWDruid* this, NPWPage* page)
 {
 	NPWPropertyContext ctx;
-
+	PangoAttribute* attr;
+	PangoAttrList* attr_list;
+	
 	// Remove previous widgets
 	gtk_container_foreach(GTK_CONTAINER(this->property_table), cb_druid_destroy_widget, NULL);
 
 	// Update title	
 	gnome_druid_page_standard_set_title(this->property_page, _(npw_page_get_label(page)));
 	gtk_label_set_text(this->property_label, _(npw_page_get_description(page)));
-
+	attr = pango_attr_weight_new (PANGO_WEIGHT_BOLD);
+	attr->start_index = 0;
+	attr->end_index = G_MAXINT;
+	attr_list = pango_attr_list_new ();
+	pango_attr_list_insert (attr_list, attr);
+	gtk_label_set_attributes (this->property_label, attr_list);
+	pango_attr_list_unref (attr_list);
+	
 	// Add new widget
 	ctx.druid = this;
 	ctx.page = page;
@@ -395,16 +404,18 @@ cb_save_property(NPWProperty* property, gpointer data)
 		return;
 	}
 	
-	if (value == NULL &&
-		(npw_property_get_options (property) | NPW_MANDATORY_OPTION))
+	if ((ctx->required_property == NULL) &&
+		(value == NULL || strlen (value) <= 0) &&
+		(npw_property_get_options (property) & NPW_MANDATORY_OPTION))
 	{
 		// Mandatory field not filled.
-		ctx->mandatories_filled = FALSE;
+		ctx->required_property = npw_property_get_label (property);
 	}
 	npw_property_set_value(property, value);
 };
 
-static gboolean
+/* Returns the first mandatory property which has no value given */
+static gchar*
 npw_druid_save_all_values(NPWDruid* this)
 {
 	NPWPropertyContext ctx;
@@ -413,13 +424,13 @@ npw_druid_save_all_values(NPWDruid* this)
 	page = g_queue_peek_nth(this->page_list, this->page - 2);
 	ctx.druid = this;
 	ctx.page = page;
-	ctx.mandatories_filled = TRUE;
+	ctx.required_property = NULL;
 	npw_page_foreach_property(page, cb_save_property, &ctx);
-	if (ctx.mandatories_filled == FALSE)
+	if (ctx.required_property)
 	{
-		return FALSE;
+		return g_strdup (ctx.required_property);
 	}
-	return TRUE;
+	return NULL;
 }
 
 // Clear page in cache up to downto (0 = all pages)
@@ -548,15 +559,17 @@ on_druid_next(GnomeDruidPage* page, GtkWidget* widget, NPWDruid* this)
 	else
 	{
 		// Current is one of the property page
-		gboolean mandories_filled;
+		gchar *mandatory_property;
 		
-		mandories_filled = npw_druid_save_all_values(this);
-		if (!mandories_filled)
+		mandatory_property = npw_druid_save_all_values(this);
+		if (mandatory_property)
 		{
-			// this->busy = FALSE;
 			// Show error message.
-			anjuta_util_dialog_error (GTK_WINDOW (this->dialog), "All mandatory fields are not given");
+			anjuta_util_dialog_error (GTK_WINDOW (this->dialog),
+									  _("Field \"%s\" is mandatory. Please enter it."),
+									  mandatory_property);
 			this->page--;
+			g_free (mandatory_property);
 			return TRUE;
 		}
 		npw_autogen_add_definition(this->gen, g_queue_peek_nth(this->page_list, this->page - 2));
@@ -656,6 +669,8 @@ npw_druid_new(NPWPlugin* plugin)
 
 	// Get reference on all useful widget
 	this->dialog = glade_xml_get_widget(xml, NEW_PROJECT_DIALOG);
+	gtk_window_set_transient_for (GTK_WINDOW (this->dialog),
+								  GTK_WINDOW (ANJUTA_PLUGIN(plugin)->shell));
 	this->icon_list = GNOME_ICON_LIST(glade_xml_get_widget(xml, PROJECT_SELECTION_LIST));
 	this->druid = GNOME_DRUID(glade_xml_get_widget(xml, DRUID_WIDGET));
 	this->selection_page = GNOME_DRUID_PAGE(glade_xml_get_widget(xml, DRUID_SELECTION_PAGE));
