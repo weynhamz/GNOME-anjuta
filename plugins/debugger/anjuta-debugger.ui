@@ -1,14 +1,16 @@
 <!--*- xml -*-->
 <ui>
 	<menubar name="MenuMain">
-		<menu name="MenuDebug" action="ActionMenuDebug">
-			<placeholder name="PlaceholderDebugStartMenus">
-				<menuitem name="StartDebugger" action="ActionStartDebugger" />
-				<separator name="separator1"/>
-				<menuitem name="LoadExecutable" action="ActionLoadExecutable" />
-				<menuitem name="LoadCore" action="ActionLoadCore" />
-				<menuitem name="AttachToProcess" action="ActionAttachToProcess" />
-			</placeholder>
-		</menu>
+		<placeholder name="PlaceHolderDebugMenus">
+		    <menu name="MenuDebug" action="ActionMenuDebug">
+			    <placeholder name="PlaceHolderDebugStartMenus">
+				    <menuitem name="StartDebugger" action="ActionStartDebugger" />
+				    <separator name="separator1"/>
+				    <menuitem name="LoadExecutable" action="ActionLoadExecutable" />
+				    <menuitem name="LoadCore" action="ActionLoadCore" />
+				    <menuitem name="AttachToProcess" action="ActionAttachToProcess" />
+			    </placeholder>
+		    </menu>
+		</placeholder>
 	</menubar>
 </ui>

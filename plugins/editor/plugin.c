@@ -252,7 +252,7 @@ static GtkActionEntry actions_edit[] = {
 	N_("Delete the selected text from the editor"),
     G_CALLBACK (on_editor_command_clear_activate)},
   { "ActionEditAutocomplete", N_("_AutoComplete"),
-	ANJUTA_STOCK_AUTOCOMPLETE, "<control>enter",
+	ANJUTA_STOCK_AUTOCOMPLETE, "<control>Return",
 	N_("AutoComplete the current word"),
     G_CALLBACK (on_editor_command_complete_word_activate)},
   { "ActionEditCalltip", N_("S_how calltip"), NULL, NULL,

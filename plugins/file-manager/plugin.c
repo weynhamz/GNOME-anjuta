@@ -64,7 +64,8 @@ set_default_root_directory (FileManagerPlugin *fv)
 static void
 preferences_changed (AnjutaPreferences *prefs, FileManagerPlugin *fv)
 {
-	set_default_root_directory (fv);
+	if (fv->top_dir == NULL)
+		set_default_root_directory (fv);
 }
 
 static void

@@ -366,7 +366,7 @@ static GtkActionEntry actions[] = {
 	},
 	{
 		"ActionHelpApi",
-		GTK_STOCK_HELP,
+		NULL,
 		N_("_API references"),
 		NULL,
 		N_("Browse API Pages"),
@@ -382,7 +382,7 @@ static GtkActionEntry actions[] = {
 	},
 	{
 		"ActionHelpSearch",
-		GTK_STOCK_FIND,
+		NULL,
 		N_("_Search Help"),
 		NULL,
 		N_("Search for a term in help"),

@@ -1,5 +1,11 @@
 2004-10-19  Naba Kumar  <naba@gnome.org>
 
+	*plugins/debugger/anjuta-debugger.ui, src/anjuta.ui: Added
+	placeholder for debugger UI.
+	
+	* plugins/devhelp/plugin.c, plugins/editor/plugin.c: Fixed shortcuts.
+	* plugins/file-manager/plugin.c: Fixed loading bug.
+	
 	* libanjuta/anjuta-encodings.c, libanjuta/anjuta-encodings.h,
 	libanjuta/anjuta-preferences.c, libanjuta/anjuta-preferences.h:
 	Initializes gconf database with default values when the
