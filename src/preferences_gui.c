@@ -1179,8 +1179,6 @@ create_preferences_page6 (Preferences * p)
 	GtkWidget *spinbutton1;
 	GtkObject *spinbutton2_adj;
 	GtkWidget *spinbutton2;
-	GtkWidget *label4;
-	GtkWidget *label3;
 	GtkWidget *label1;
 	GtkWidget *label2;
 	GtkWidget *frame3;
@@ -1211,7 +1209,7 @@ create_preferences_page6 (Preferences * p)
 	gtk_box_pack_start (GTK_BOX (vbox1), frame2, FALSE, FALSE, 0);
 	gtk_container_set_border_width (GTK_CONTAINER (frame2), 5);
 
-	table1 = gtk_table_new (3, 3, FALSE);
+	table1 = gtk_table_new (2, 3, FALSE);
 	gtk_widget_show (table1);
 	gtk_container_add (GTK_CONTAINER (frame2), table1);
 	gtk_table_set_row_spacings (GTK_TABLE (table1), 5);
@@ -1229,7 +1227,7 @@ create_preferences_page6 (Preferences * p)
 	spinbutton1 =
 		gtk_spin_button_new (GTK_ADJUSTMENT (spinbutton1_adj), 1, 0);
 	gtk_widget_show (spinbutton1);
-	gtk_table_attach (GTK_TABLE (table1), spinbutton1, 1, 2, 1, 2,
+	gtk_table_attach (GTK_TABLE (table1), spinbutton1, 0, 1, 1, 2,
 			  (GtkAttachOptions) (0), (GtkAttachOptions) (0), 0,
 			  0);
 	gtk_widget_set_usize (spinbutton1, 60, -2);
@@ -1239,36 +1237,25 @@ create_preferences_page6 (Preferences * p)
 	spinbutton2 =
 		gtk_spin_button_new (GTK_ADJUSTMENT (spinbutton2_adj), 1, 0);
 	gtk_widget_show (spinbutton2);
-	gtk_table_attach (GTK_TABLE (table1), spinbutton2, 1, 2, 2, 3,
+	gtk_table_attach (GTK_TABLE (table1), spinbutton2, 0, 1, 2, 3,
 			  (GtkAttachOptions) (0),
 			  (GtkAttachOptions) (0), 0, 0);
 	gtk_widget_set_usize (spinbutton2, 60, -2);
 	gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (spinbutton2), TRUE);
-
-	label4 = gtk_label_new (_("characters"));
-	gtk_widget_show (label4);
-	gtk_table_attach (GTK_TABLE (table1), label4, 2, 3, 2, 3,
-			  (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
-			  (GtkAttachOptions) (0), 0, 0);
-
-	label3 = gtk_label_new (_("characters"));
-	gtk_widget_show (label3);
-	gtk_table_attach (GTK_TABLE (table1), label3, 2, 3, 1, 2,
-			  (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
-			  (GtkAttachOptions) (0), 0, 0);
-
-	label1 = gtk_label_new (_("Show first"));
+		
+	label1 = gtk_label_new (_("Number of first caracters to show"));
 	gtk_widget_show (label1);
-	gtk_table_attach (GTK_TABLE (table1), label1, 0, 1, 1, 2,
+	gtk_table_attach (GTK_TABLE (table1), label1, 1, 2, 1, 2,
 			  (GtkAttachOptions) (0),
 			  (GtkAttachOptions) (0), 5, 0);
-	gtk_label_set_justify (GTK_LABEL (label1), GTK_JUSTIFY_RIGHT);
+	gtk_label_set_justify (GTK_LABEL (label1), GTK_JUSTIFY_LEFT);
 
-	label2 = gtk_label_new (_("Show last"));
+	label2 = gtk_label_new (_("Number of last caracters to show"));
 	gtk_widget_show (label2);
-	gtk_table_attach (GTK_TABLE (table1), label2, 0, 1, 2, 3,
+	gtk_table_attach (GTK_TABLE (table1), label2, 1, 2, 2, 3,
 			  (GtkAttachOptions) (0),
 			  (GtkAttachOptions) (0), 5, 0);
+	gtk_label_set_justify (GTK_LABEL (label2), GTK_JUSTIFY_LEFT);
 
 	frame3 = gtk_frame_new (_(" Notebook tags position "));
 	gtk_widget_show (frame3);
@@ -1407,7 +1394,7 @@ StringFromColor (guint8 r, guint8 g, guint8 b)
 	return g_strdup (str);
 }
 
-void
+static void
 on_preferences_ok_clicked (GtkButton * button, gpointer user_data)
 {
 	Preferences *pr = (Preferences *) user_data;
@@ -1418,7 +1405,7 @@ on_preferences_ok_clicked (GtkButton * button, gpointer user_data)
 	}
 }
 
-gboolean
+static gboolean
 on_preferences_delete_event (GtkWidget * w, GdkEvent * event,
 			     gpointer user_data)
 {
@@ -1430,7 +1417,7 @@ on_preferences_delete_event (GtkWidget * w, GdkEvent * event,
 	return TRUE;
 }
 
-void
+static void
 on_preferences_apply_clicked (GtkButton * button, gpointer user_data)
 {
 	gint i;
@@ -1650,7 +1637,7 @@ on_preferences_apply_clicked (GtkButton * button, gpointer user_data)
 /* preferences_save_yourself(pr); */
 }
 
-void
+static void
 on_preferences_cancel_clicked (GtkButton * button, gpointer user_data)
 {
 	Preferences *pr = (Preferences *) user_data;
