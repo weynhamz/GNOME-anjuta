@@ -737,6 +737,7 @@ create_browser_toolbar (GtkWidget * anjuta_gui, BrowserToolbar * toolbar)
 	gtk_toolbar_append_space (GTK_TOOLBAR (toolbar2));
 	
 	toolbar_tag_label = gtk_label_new(_("Tags: "));
+	gtk_misc_set_padding(GTK_MISC(toolbar_tag_label), 5, 5);
 	gtk_widget_show(toolbar_tag_label);
 	gtk_widget_ref(toolbar_tag_label);
 	gtk_toolbar_append_widget (GTK_TOOLBAR (toolbar2), toolbar_tag_label,

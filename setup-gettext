@@ -47,15 +47,15 @@ find_gettext() {
 install() {
 	[ -f configure.in ] && {
 		cp configure.in .tmp-configure.in
-		sed -e 's/^AM_GNU_GETTEXT\(.*\)$/AM_GNU_GETTEXT\1\
-AM_GNU_GETTEXT_VERSION(0.10.40)/' < .tmp-configure.in > configure.in
+		sed -e 's/^AM_GNOME_GETTEXT\(.*\)$/AM_GNOME_GETTEXT\1\
+AM_GNOME_GETTEXT_VERSION(0.10.40)/' < .tmp-configure.in > configure.in
 		rm .tmp-configure.in
 	}
 
 	[ -f configure.ac ] && {
 		cp configure.ac .tmp-configure.ac
-		sed -e 's/^AM_GNU_GETTEXT\(.*\)$/AM_GNU_GETTEXT\1\
-AM_GNU_GETTEXT_VERSION(0.10.40)/' < .tmp-configure.ac > configure.ac
+		sed -e 's/^AM_GNOME_GETTEXT\(.*\)$/AM_GNOME_GETTEXT\1\
+AM_GNOME_GETTEXT_VERSION(0.10.40)/' < .tmp-configure.ac > configure.ac
 		rm .tmp-configure.ac
 	}
 
@@ -65,7 +65,7 @@ AM_GNU_GETTEXT_VERSION(0.10.40)/' < .tmp-configure.ac > configure.ac
 		rm .tmp-autogen.sh
 	}
 
-	echo 'AC_DEFUN([AM_GNU_GETTEXT_VERSION], [])' >> acinclude.m4
+	echo 'AC_DEFUN([AM_GNOME_GETTEXT_VERSION], [])' >> acinclude.m4
 }
 
 backup_m4() {

@@ -2,6 +2,11 @@
 
 	* acinclude.m4: New file with dummy funtion for gettext
 	cross compatibility fix.
+	
+	* configure.in, setup-gettext: Fixed to use with AM_GNOME_GETTEXT.
+	* configure.in: Fixed cflags to avoid useless warnings.
+	* Makefile.am: EXTRA_DIST += setup-gettext.
+	* src/toolbars.c: Added space paddings around tags label.
 
 2002-10-21  Naba Kumar <naba@gnome.org>
 
