@@ -30,8 +30,10 @@ libanjuta_message_view_la_SOURCES = \
 	plugin.h\
 	anjuta-msgman.c\
 	anjuta-msgman.h\
+	ianjuta-msgman.c\
 	message-view.c\
-	message-view.h
+	message-view.h\
+	imessage-view.c
 
 EXTRA_DIST = \
 	$(plugin_icon_DATA) \

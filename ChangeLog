@@ -1,3 +1,9 @@
+2004-04-20  Johannes Schmid <jhs@cvs.gnome.org>
+	
+	* plugins/message-view/imessage-view.c
+	* plugins/message-view/ianjuta-msgman.c:
+	Added interfaces
+
 2004-04-17  Adam Weinberger  <adamw@gnome.org>
 
 	* configure.in: Added en_CA to ALL_LINGUAS.
