@@ -1,5 +1,10 @@
 2002-11-04  Naba Kumar <naba@gnome.org>
 
+	* data/properties/latex.properties: Fixed a bug.
+	* ChangeLog: Released 1.0.0 stable.
+
+2002-11-04  Naba Kumar <naba@gnome.org>
+
 	* src/commands.c: Added command with shell redirection capability.
 	* data/properties/anjuta.properties: Changed default execution
 	command.
