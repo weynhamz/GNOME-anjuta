@@ -15,6 +15,8 @@
 #include <ctype.h>
 #include <sys/types.h>
 #include <string.h>
+#include <glob.h>
+#include <sys/stat.h>
 
 #include "tm_tag.h"
 #include "tm_workspace.h"
@@ -136,36 +138,113 @@ gboolean tm_workspace_load_global_tags(const char *tags_file)
 	return TRUE;
 }
 
-gboolean tm_workspace_create_global_tags(const char *pre_process, const char *includes
-  , const char *tags_file)
+gboolean tm_workspace_create_global_tags(const char *pre_process, const char **includes
+  , int includes_count, const char *tags_file)
 {
+	glob_t globbuf;
+	int idx_inc;
+	int idx_glob;
 	char *command;
 	guint i;
 	FILE *fp;
 	TMWorkObject *source_file;
 	GPtrArray *tags_array;
+	GList *includes_files = NULL;
+	int list_len;
+	int idx_main;
+	int idx_sub;
+	int remove_count = 0;
 	char *temp_file = g_strdup_printf("%s/%d_%ld_1.cpp", P_tmpdir, getpid(), time(NULL));
 	char *temp_file2 = g_strdup_printf("%s/%d_%ld_2.cpp", P_tmpdir, getpid(), time(NULL));
 	TMTagAttrType sort_attrs[] = { tm_tag_attr_name_t, tm_tag_attr_scope_t
 		, tm_tag_attr_type_t, 0};
 	if (NULL == (fp = fopen(temp_file, "w")))
 		return FALSE;
-	fclose(fp);
-	command = g_strdup_printf("\
-	  for file in %s; \
-	  do \
-	  	echo \"#include \\\"$file\\\"\" >>%s; \
-	  done", includes, temp_file);
-#ifdef TM_DEBUG
-	g_message("Executing: %s", command);
-#endif
-	if (0 != system(command))
+	
+	globbuf.gl_offs = 0;
+	for(idx_inc = 0; idx_inc < includes_count; idx_inc++)
 	{
-		g_free(command);
-		g_free(temp_file);
-		return FALSE;
+ 		int dirty_len = strlen(includes[idx_inc]);
+		char *clean_path = malloc(dirty_len - 1);
+		strncpy(clean_path, includes[idx_inc] + 1, dirty_len - 1);
+		clean_path[dirty_len - 2] = 0;
+
+		//printf("[o][%s]\n", clean_path);
+		glob(clean_path, 0, NULL, &globbuf);
+		//printf("matches: %d\n", globbuf.gl_pathc);
+		for(idx_glob = 0; idx_glob < globbuf.gl_pathc; idx_glob++)
+		{
+			includes_files = g_list_append(includes_files, strdup(globbuf.gl_pathv[idx_glob]));
+			//printf(">>> %s\n", globbuf.gl_pathv[idx_glob]);
+		}
+		globfree(&globbuf);
+		free(clean_path);
+  	}
+
+
+	/* Checks for duplicate file entries which would case trouble */
+	{
+		struct stat main_stat;
+		struct stat sub_stat;
+
+		remove_count = 0;
+		
+		list_len = g_list_length(includes_files);
+
+		/* We look for files with the same inode */
+		for(idx_main = 0; idx_main < list_len; idx_main++)
+		{
+//			printf("%d / %d\n", idx_main, list_len - 1);
+			stat(g_list_nth_data(includes_files, idx_main), &main_stat);
+			for(idx_sub = idx_main + 1; idx_sub < list_len; idx_sub++)
+			{
+				GList *element = NULL;
+				
+				stat(g_list_nth_data(includes_files, idx_sub), &sub_stat);
+				
+				
+				if(main_stat.st_ino != sub_stat.st_ino)
+					continue;
+			
+				/* Inodes match */
+				
+				element = g_list_nth(includes_files, idx_sub);
+					
+/*				printf("%s == %s\n", g_list_nth_data(includes_files, idx_main), 
+										 g_list_nth_data(includes_files, idx_sub)); */
+					
+				/* We delete the duplicate entry from the list */
+				includes_files = g_list_remove_link(includes_files, element);
+				remove_count++;
+
+				/* Don't forget to free the mallocs (we duplicated every string earlier!) */
+				free(element->data);
+
+				idx_sub--; /* Cause the inner loop not to move; good since we removed 
+							   an element at the current position; we don't have to worry
+							   about the outer loop because the inner loop always starts
+							   after the outer loop's index */
+
+				list_len = g_list_length(includes_files);
+			}
+		}
 	}
-	g_free(command);
+
+
+	printf("writing out files to %s\n", temp_file);
+	for(idx_main = 0; idx_main < g_list_length(includes_files); idx_main++)
+	{
+		char *str = g_strdup_printf("#include \"%s\"\n", g_list_nth_data(includes_files, idx_main));
+		int str_len = strlen(str);
+
+		fwrite(str, str_len, 1, fp);
+
+		free(str);
+		free(g_list_nth(includes_files, idx_main) -> data);
+	}
+	
+	fclose(fp);
+
 	command = g_strdup_printf("%s %s >%s", pre_process, temp_file, temp_file2);
 #ifdef TM_DEBUG
 	g_message("Executing: %s", command);

@@ -1,5 +1,15 @@
 2002-10-24  Naba Kumar <naba@gnome.org>
 
+	* macro/autogen.sh: Removed debug and warning flags for defaults.
+	
+	Patch from Vadim Berezniker <vadim@berezniker.com>
+	
+	* tagmanager/tm_workspace.[h,c], global-tags/create_global_tags.sh,
+	global-tags/tm_global_tags.c: Fixed infinite loop in system tags
+	generation.
+
+2002-10-24  Naba Kumar <naba@gnome.org>
+
 	* manuals/sgmldocs.make, anuals/C/anjuta-faqs/anjuta-faqs.sgml,
 	manuals/C/anjuta-manual/anjuta-manual.sgml, 
 	manuals/C/anjuta-manual/compileopts.sgml,

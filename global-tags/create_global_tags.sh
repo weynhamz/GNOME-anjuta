@@ -1,4 +1,4 @@
-FILES="/usr/include/*.h /usr/local/include/*.h"
+FILES="\"/usr/include/*.h\" \"/usr/local/include/*.h\""
 BASEDIR=`pwd`
 PROGDIR=. # `dirname $0`
 GLOBAL_TAGS_FILE=$BASEDIR/system.tags
@@ -12,7 +12,7 @@ if [ ! -z "$WX_PREFIX" ]; then
     dir=`echo $cflag | sed 's/^-I//'`
     if [ -d "$dir" -a ! -e "$dir/wx/setup.h" ]
     then
-      FILES="$FILES $dir/wx/*.h $dir/wx/*/*.h"
+      FILES="$FILES \"$dir/wx/*.h\" \"$dir/wx/*/*.h\""
     fi
   done
   CFLAGS="$CFLAGS $WX_CFLAGS"
@@ -26,7 +26,7 @@ if [ ! -z "$SDL_PREFIX" ]; then
     dir=`echo $cflag | sed 's/^-I//'`
     if [ -d "$dir" ]
     then
-      FILES="$FILES $dir/*.h"
+      FILES="$FILES \"$dir/*.h\""
     fi
   done
   CFLAGS="$CFLAGS $SDL_CFLAGS"
@@ -54,10 +54,10 @@ then
     dir=`echo $cflag | sed 's/^-I//'`
     if [ -d "$dir" -a "$dir" != "/usr/include" -a "$dir" != "/usr/local/include" ]
     then
-      FILES="$FILES $dir/*.h $dir/*/*.h"
+      FILES="$FILES \"$dir/*.h\" \"$dir/*/*.h\""
     fi
   done
   CFLAGS="$CFLAGS $GNOME_CFLAGS $PGK_CONFIG_CFLAGS"
 fi
 export CFLAGS
-$PROGDIR/tm_global_tags $GLOBAL_TAGS_FILE "$FILES" 2>/dev/null
+$PROGDIR/tm_global_tags $GLOBAL_TAGS_FILE $FILES 2>/dev/null
