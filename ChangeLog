@@ -1,3 +1,18 @@
+2003-09-08  Naba Kumar  <naba@gnome.org>
+
+	* (new) src/anjuta-marshalers.list: Added marshalers definition
+	file.
+	
+	* src/source.c: Fixed bug #762043 and makes sure, CFLAGS
+	and CXXFLAGS are not overwriten by automake's default.
+	* src/style-editor.c: Added 'operators' in the style editor.
+	
+	Patch from Masahito Omote <utyuuzin@users.sourceforge.net>
+	and Jesus Gonzalez  <jgonzlz@terra.es> (combined).
+	* src/message-manager-private.cc, src/message-manager.cc:
+	Converts message going into message into UTF-8 endoding.
+	* src/main.c: Uses UTF-8 codeset for localization.
+	
 2003-09-08  Franco Catrin L.  <fcatrin@tuxpan.cl>
 
 	* src/anjuta.desktop.in.in: Added Encoding attribute (required).

@@ -38,6 +38,7 @@ gchar *hilite_style[] = {
 	"Double Quoted Strings", "style.default.doublequote",
 	"Single Quoted Strings", "style.default.singlequote",
 	"Unclosed Strings", "style.default.unclosedstring",
+	"Operators","style.default.operator",
 	"Preprocessor Directives", "style.default.preprocessor",
 	"Identifiers (Not C Style)", "style.default.identifier",
 	"Definitions (Not C Style)", "style.default.definition",

@@ -319,7 +319,7 @@ AnMessageWindow::append_buffer()
 	GdkColor color; 
 	if (parse_error_line(message.c_str(), &dummy_fn, &dummy_int))
 	{
-		if (message.find(" warning: ") != message.npos)
+		if (message.find(_(" warning: ")) != message.npos)
 		{
 			color =	m_parent->intern->color_warning;
 			an_message_manager_indicate_warning (m_parent, m_type_id, dummy_fn, dummy_int);
@@ -347,8 +347,13 @@ AnMessageWindow::append_buffer()
 	GtkTreeIter iter;	
 	GtkListStore* store = GTK_LIST_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(m_tree)));
 	gtk_list_store_append(store, &iter);
+	
+	/*
+	Must be normalized to compose representation to be
+	displayed correctly (Bug in gtk_list???)
+	*/
 	gchar* utf8_msg = g_utf8_normalize(c_message.c_str(), -1, 
-									   G_NORMALIZE_DEFAULT);
+									   G_NORMALIZE_DEFAULT_COMPOSE);
 	gtk_list_store_set (store, &iter,
 						COLUMN_MESSAGES, utf8_msg,
 						COLUMN_COLOR, &color,

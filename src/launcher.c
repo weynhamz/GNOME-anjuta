@@ -689,7 +689,7 @@ static pid_t
 anjuta_launcher_fork (AnjutaLauncher *launcher, gchar *const args[])
 {
 	char *working_dir;
-	int pty_fd, md;
+	int pty_master_fd, pty_slave_fd, md;
 	int stdout_pipe[2], stderr_pipe[2], stdin_pipe[2];
 	pid_t child_pid;
 	
@@ -701,7 +701,7 @@ anjuta_launcher_fork (AnjutaLauncher *launcher, gchar *const args[])
 	pipe (stdin_pipe);
 
 	/* Fork the command */
-	child_pid = forkpty (&pty_fd, NULL, NULL, NULL);
+	child_pid = forkpty (&pty_master_fd, NULL, NULL, NULL);
 	if (child_pid == 0)
 	{
 		close (2);
@@ -716,6 +716,10 @@ anjuta_launcher_fork (AnjutaLauncher *launcher, gchar *const args[])
 		close (stdout_pipe[0]);
 		close (stdin_pipe[1]);
 		
+		/*
+		if ((ioctl(pty_slave_fd, TIOCSCTTY, NULL))
+			perror ("Could not set new controlling tty");
+		*/
 		/* Set no delays for the write pipes (non_buffered) so
 		that we get all the outputs immidiately */
 		if ((md = fcntl (stdout_pipe[1], F_GETFL)) != -1)
@@ -752,14 +756,14 @@ anjuta_launcher_fork (AnjutaLauncher *launcher, gchar *const args[])
 		fcntl (stdout_pipe[0], F_SETFL, O_NONBLOCK | md);
 	if ((md = fcntl (stderr_pipe[0], F_GETFL)) != -1)
 		fcntl (stderr_pipe[0], F_SETFL, O_NONBLOCK | md);
-	if ((md = fcntl (pty_fd, F_GETFL)) != -1)
-		fcntl (pty_fd, F_SETFL, O_NONBLOCK | md);
+	if ((md = fcntl (pty_master_fd, F_GETFL)) != -1)
+		fcntl (pty_master_fd, F_SETFL, O_NONBLOCK | md);
 	
 	launcher->priv->child_pid = child_pid;
 	launcher->priv->stderr_channel = g_io_channel_unix_new (stderr_pipe[0]);
 	launcher->priv->stdout_channel = g_io_channel_unix_new (stdout_pipe[0]);
 	launcher->priv->stdin_channel = g_io_channel_unix_new (stdin_pipe[1]);
-	launcher->priv->pty_channel = g_io_channel_unix_new (pty_fd);
+	launcher->priv->pty_channel = g_io_channel_unix_new (pty_master_fd);
 	
 	launcher->priv->stdout_watch = 
 		g_io_add_watch (launcher->priv->stdout_channel,
