@@ -718,6 +718,14 @@ gboolean preferences_save_yourself (Preferences * pr, FILE * fp)
 	fprintf (fp, "%s=%d\n", USE_COMPONENTS,
 		 preferences_get_int (pr, USE_COMPONENTS));
 
+	/* Miscellaneous */
+	str = preferences_get(pr, CHARACTER_SET);
+	if (str)
+	{
+		fprintf(fp, "%s=%s\n", CHARACTER_SET, str);
+		g_free(str);
+	}
+
 	if (pr->is_showing)
 	{
 		gdk_window_get_root_origin (pr->widgets.window->window,

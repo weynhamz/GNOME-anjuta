@@ -1500,7 +1500,7 @@ project_dbase_generate_source_code (ProjectDBase *p)
 
 	target =	prop_get (p->props, "project.source.target");
 	g_strdelimit (target, "-", '_');
-	if (project_dbase_get_project_type (p) == PROJECT_TYPE_GENERIC)
+	if (project_dbase_get_project_type (p)->id == PROJECT_TYPE_GENERIC)
 	{
 		return source_write_generic_main_c (p);
 	}

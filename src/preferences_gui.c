@@ -1514,7 +1514,7 @@ create_preferences_pageComp (Preferences * p)
 	gtk_table_set_col_spacings (GTK_TABLE (table1), 5);
 
 	checkbutton1 =
-		gtk_check_button_new_with_label (_("Use Components"));
+		gtk_check_button_new_with_label (_("Use Glade Components (experimental)"));
 	gtk_widget_show (checkbutton1);
 	gtk_table_attach (GTK_TABLE (table1), checkbutton1, 0, 3, 0, 1,
 			  (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),

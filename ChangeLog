@@ -1,3 +1,38 @@
+2001-12-13 Naba Kumar <kh_naba@users.sourceforge.net>
+
+	* src/messages.c
+	  src/messages.h
+	  Added a frame around zvt terminal.
+	  
+	* src/preferences_gui.c
+	  Modified to say "Use glade component (experimental)"
+	  instead of "Use Component".
+	  
+2001-12-13 Naba Kumar <kh_naba@users.sourceforge.net>
+
+	* Patch from 
+	Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
+	
+	* src/anjuta.c
+	src/fileselection.c
+	src/messages.c
+	src/messages.h
+	src/preferences.c
+	src/preferences.h
+	src/project_dbase.c
+
+	a) Extra scrollbar in terminal no longer appears.
+	b) Character set preference should be preserved (untested).
+	c) File selection widget now remembers last directory.
+	d) On creation of generic project, the glade 'file not found' error no
+		longer occurs.
+	e) First terminal window is created 'on demand', so it should always to
+		the Right Thing (TM) as far as starting WD is concerned. Also, teh
+		environment is now passed to the terminal.
+	f) Solaris compilation should be fixed (replaced get_current_dir_name()
+		with getcwd()).
+	g) Fixed some compilation warnings.
+
 2001-12-10	Andy Piper	<andy.piper@freeuk.com>
 
 	* configure.in, src/anjuta.c, src/messages.c, src/messages.h,

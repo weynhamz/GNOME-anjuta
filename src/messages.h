@@ -41,7 +41,7 @@ struct _Messages
   GtkWidget *client;
   GtkWidget *extra_toolbar;
   GtkWidget *scrolledwindow[MESSAGE_TYPE_END];
-  GtkWidget *terminal;
+  GtkWidget *terminal_frame; /* The terminal frame */
   GtkCList *clist[MESSAGE_TYPE_END];
   gint current_pos[MESSAGE_TYPE_END];
 

@@ -276,6 +276,8 @@ void preferences_set_build_options(Preferences* p);
 #define COMMAND_PRINT "command.print"
 #define USE_COMPONENTS "components.enable"
 
+/* Miscellaneous */
+#define CHARACTER_SET "character.set"
 
 void
 ColorFromString (const gchar * val, guint8 * r, guint8 * g, guint8 * b);

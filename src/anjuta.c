@@ -99,6 +99,7 @@ anjuta_connect_kernel_signals ()
 void
 anjuta_new ()
 {
+	char wd[PATH_MAX];
 	app = (AnjutaApp *) g_malloc (sizeof (AnjutaApp));
 	if (app)
 	{
@@ -148,7 +149,8 @@ anjuta_new ()
 		app->fileselection = create_fileselection_gui (&fsd1);
 		
 		/* Set to the current dir */
-		fileselection_set_dir (app->fileselection, (gchar *)get_current_dir_name());
+		getcwd(wd, PATH_MAX);
+		fileselection_set_dir (app->fileselection, wd);
 		
 		app->save_as_fileselection = create_fileselection_gui (&fsd2);
 		app->save_as_build_msg_sel = create_fileselection_gui (&fsd3);
@@ -991,7 +993,7 @@ anjuta_application_exit(void)
 	{
 		project_dbase_close_project(app->project_dbase) ;
 	}
-	tm_workspace_free(tm_get_workspace());
+	tm_workspace_free((gpointer) tm_get_workspace());
 	free_plug_ins( app->addIns_list );
 	app->addIns_list	= NULL ;
 }

@@ -69,17 +69,14 @@ static GtkWidget *
 msg_create_buttons(GtkWidget *mesg_gui, GtkWidget *toolbar1, 
 		const gint nIndex, const gboolean bActive );
 
-void zvterm_reinit_child(ZvtTerm *term);
-void zvterm_terminate(ZvtTerm *term);
-
 static GdkColor *GetColorError(Messages * m)
 {
-  return & m->color_red;
+	return & m->color_red;
 }
 
 static GdkColor *GetColorWarning(Messages * m)
 {
-  return & m->color_green;
+	return & m->color_green;
 }
 
 Messages *
@@ -175,7 +172,7 @@ messages_destroy (Messages * m)
 			gtk_widget_unref (GTK_WIDGET (m->clist[i]));
 		for (i = 0; i < MESSAGE_BUTTONS_END; i++)
 			gtk_widget_unref (GTK_WIDGET (m->but[i]));
-		gtk_widget_unref(m->terminal);
+		gtk_widget_unref(m->terminal_frame);
 
 		if (m->GUI)
 			gtk_widget_destroy (m->GUI);
@@ -592,12 +589,18 @@ msg_create_buttons(GtkWidget *mesg_gui, GtkWidget *toolbar1,
 	return button ;
 }
 
-void zvterm_reinit_child (ZvtTerm *term)
+extern char **environ;
+
+static void zvterm_reinit_child (ZvtTerm *term)
 {
 	struct passwd *pw;
-	GString *shell, *name;
+	static GString *shell = NULL;
+	static GString *name = NULL;
 
-	g_message("Re-creating terminal shell..");
+	if (!shell)
+		shell = g_string_new(NULL);
+	if (!name)
+		name = g_string_new(NULL);
 	zvt_term_reset(term, TRUE);
 	switch (zvt_term_forkpty(term, ZVT_TERM_DO_UTMP_LOG |  ZVT_TERM_DO_WTMP_LOG))
 	{
@@ -607,63 +610,85 @@ void zvterm_reinit_child (ZvtTerm *term)
 			pw = getpwuid(getuid());
 			if (pw)
 			{
-				shell = g_string_new(pw->pw_shell);
-				name = g_string_new("-");
+				g_string_assign(shell, pw->pw_shell);
+				g_string_assign(name, "-");
 			}
 			else
 			{
-				shell = g_string_new("/bin/sh");
-				name = g_string_new("-sh");
+				g_string_assign(shell, "/bin/sh");
+				g_string_assign(name, "-sh");
 			}
-			execle (shell->str, name->str, NULL, NULL);
+			execle (shell->str, name->str, NULL, environ);
 		default:
+			g_message("Terminal restarted");
 			break;
 	}
 }
 
-void zvterm_terminate (ZvtTerm *term)
+static void zvterm_terminate (ZvtTerm *term)
 {
 	g_message("Terminating terminal..");
 	gtk_signal_disconnect_by_func(GTK_OBJECT(term), zvterm_reinit_child, NULL);
 	zvt_term_closepty(term);
 }
 
+static gboolean zvterm_mouse_clicked(GtkWidget * widget,
+			GdkEvent * event, gpointer user_data)
+{
+	GtkWidget* terminal = user_data;
+	gtk_widget_grab_focus(terminal);
+	return TRUE;
+}
+
 #undef ZVT_FONT
-#define ZVT_FONT "-misc-fixed-medium-r-normal--12-200-75-75-c-100-iso8859-1"
+#define ZVT_FONT "-adobe-courier-medium-r-normal-*-*-120-*-*-m-*-iso8859-1"
 #undef ZVT_SCROLLSIZE
 #define ZVT_SCROLLSIZE 200
 
-static void create_mesg_terminal(Messages *m, GtkWidget *hbox)
+static void create_mesg_terminal(Messages *m)
 {
-	GtkWidget *scrollbar;
-
-	g_message("Create the embedded terminal..");
-
-	m->terminal = zvt_term_new();
-	zvt_term_set_font_name(ZVT_TERM(m->terminal), ZVT_FONT);
-	zvt_term_set_blink(ZVT_TERM(m->terminal), TRUE);
-	zvt_term_set_bell(ZVT_TERM(m->terminal), TRUE);
-	zvt_term_set_scrollback(ZVT_TERM(m->terminal), ZVT_SCROLLSIZE);
-	zvt_term_set_scroll_on_keystroke(ZVT_TERM(m->terminal), TRUE);
-	zvt_term_set_scroll_on_output(ZVT_TERM(m->terminal), FALSE);
-	zvt_term_set_background(ZVT_TERM(m->terminal), NULL, 0, 0);
-	zvt_term_set_wordclass(ZVT_TERM(m->terminal), "-A-Za-z0-9/_:.,?+%=");
-	gtk_widget_show(m->terminal);
-	gtk_widget_ref(m->terminal);
+	GtkWidget *frame, *hbox1;
+	GtkWidget *terminal, *scrollbar;
+	GtkWidget *hbox = gnome_dock_get_client_area(GNOME_DOCK(m->client));
+	
+	terminal = zvt_term_new();
+	zvt_term_set_font_name(ZVT_TERM(terminal), ZVT_FONT);
+	zvt_term_set_blink(ZVT_TERM(terminal), TRUE);
+	zvt_term_set_bell(ZVT_TERM(terminal), TRUE);
+	zvt_term_set_scrollback(ZVT_TERM(terminal), ZVT_SCROLLSIZE);
+	zvt_term_set_scroll_on_keystroke(ZVT_TERM(terminal), TRUE);
+	zvt_term_set_scroll_on_output(ZVT_TERM(terminal), FALSE);
+	zvt_term_set_background(ZVT_TERM(terminal), NULL, 0, 0);
+	zvt_term_set_wordclass(ZVT_TERM(terminal), "-A-Za-z0-9/_:.,?+%=");
+	gtk_widget_show(terminal);
 
 	scrollbar = gtk_vscrollbar_new(GTK_ADJUSTMENT(
-	  ZVT_TERM(m->terminal)->adjustment));
+	  ZVT_TERM(terminal)->adjustment));
 	GTK_WIDGET_UNSET_FLAGS(scrollbar, GTK_CAN_FOCUS);
-	gtk_box_pack_start(GTK_BOX(hbox), m->terminal, TRUE, TRUE, 0);
-	gtk_box_pack_start(GTK_BOX(hbox), scrollbar, FALSE, TRUE, 0);
+	
+	frame = gtk_frame_new(NULL);
+	gtk_widget_show (frame);
+	gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_IN);
+	gtk_box_pack_start(GTK_BOX(hbox), frame, TRUE, TRUE, 0);
+	
+	hbox1 = gtk_hbox_new(FALSE, 0);
+	gtk_widget_show (hbox1);
+	gtk_container_add (GTK_CONTAINER(frame), hbox1);
+	
+	gtk_box_pack_start(GTK_BOX(hbox1), terminal, TRUE, TRUE, 0);
+	gtk_box_pack_start(GTK_BOX(hbox1), scrollbar, FALSE, TRUE, 0);
 	gtk_widget_show (scrollbar);
-	gtk_widget_ref(scrollbar);
 
-	zvterm_reinit_child(ZVT_TERM(m->terminal));
-	gtk_signal_connect (GTK_OBJECT(m->terminal), "child_died"
+	zvterm_reinit_child(ZVT_TERM(terminal));
+	gtk_signal_connect(GTK_OBJECT(terminal), "button_press_event"
+	  , GTK_SIGNAL_FUNC(zvterm_mouse_clicked), terminal);
+	gtk_signal_connect (GTK_OBJECT(terminal), "child_died"
 	  , GTK_SIGNAL_FUNC (zvterm_reinit_child), NULL);
-	gtk_signal_connect (GTK_OBJECT (m->terminal),"destroy"
+	gtk_signal_connect (GTK_OBJECT (terminal),"destroy"
 	  , GTK_SIGNAL_FUNC (zvterm_terminate), NULL);
+	
+	m->terminal_frame = frame;
+	gtk_widget_ref(m->terminal_frame);
 }
 
 void
@@ -756,7 +781,7 @@ create_mesg_gui (Messages * m)
 		  GTK_SIGNAL_FUNC (on_mesg_clist_select_row), m );
 	}
 
-	create_mesg_terminal(m, hbox3);
+	m->terminal_frame = NULL;
 
 	gtk_signal_connect (GTK_OBJECT (mesg_gui), "delete_event",
 			    GTK_SIGNAL_FUNC (on_mesg_win_delete_event), m);
@@ -811,6 +836,7 @@ messages_next_message (Messages*m)
 	gboolean cur_parsable, first;
 
 	g_return_if_fail (m != NULL);
+	g_return_if_fail(m->cur_type < MESSAGE_TYPE_END);
 
 	first = FALSE;
 	if (m->current_pos[m->cur_type] <0)
@@ -881,6 +907,7 @@ messages_previous_message (Messages*m)
 	gboolean cur_parsable, first;
 
 	g_return_if_fail (m != NULL);
+	g_return_if_fail(m->cur_type < MESSAGE_TYPE_END);
 
 	first = FALSE;
 	if (m->current_pos[m->cur_type] <0)
@@ -952,8 +979,7 @@ on_mesg_clist_select_row (GtkCList * clist,
 	Messages *m = user_data;
 
 
-	if (m->cur_type >= MESSAGE_TYPE_END)
-		return;
+	g_return_if_fail(m->cur_type < MESSAGE_TYPE_END);
 	m->current_pos[m->cur_type] = row;
 
 	if (event == NULL)
@@ -1119,9 +1145,28 @@ messages_internal_click(Messages *m, const MessageType type )
 		gtk_toggle_button_set_active (
 					GTK_TOGGLE_BUTTON(m->but[i]), bSel );
 		if (bSel)
-			gtk_widget_show ((i == MESSAGE_TERMINAL)?m->terminal:m->scrolledwindow[i]);
+		{
+			if (i == MESSAGE_TERMINAL)
+			{
+				if (!m->terminal_frame)
+					create_mesg_terminal(m);
+				gtk_widget_show(m->terminal_frame);
+			}
+			else
+				gtk_widget_show(m->scrolledwindow[i]);
+		}
 		else
-			gtk_widget_hide ((i == MESSAGE_TERMINAL)?m->terminal:m->scrolledwindow[i]);
+		{
+			if (i == MESSAGE_TERMINAL)
+			{
+				if (m->terminal_frame)
+				{
+					gtk_widget_hide(m->terminal_frame);
+				}
+			}
+			else
+				gtk_widget_hide(m->scrolledwindow[i]);
+		}
 	}
 	m->cur_type = type ;
 	for( i = 0 ; i < MESSAGE_BUTTONS_END ; i ++ )

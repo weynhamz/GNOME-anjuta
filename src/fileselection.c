@@ -32,6 +32,8 @@
 #include "utilities.h"
 #include "gnomefilelist.h"
 
+static char *last_dir = NULL;
+
 void fileselection_hide_widget(GtkWidget *widget)
 {
 	GtkWidget * file_list = GNOME_FILELIST(widget)->file_list;
@@ -52,11 +54,21 @@ static void
 on_file_selection_ok_clicked (GtkButton * button, gpointer data)
 {
 	gchar *filename;
+	gchar *file_dir;
 	FileSelData *fd = data;
 
 	filename = fileselection_get_filename (fd->filesel);
 	if (!filename)
 		return;
+	file_dir = strrchr(filename, '/');
+	if (file_dir)
+	{
+		*file_dir = '\0';
+		if (!last_dir)
+			last_dir = g_new(char, PATH_MAX);
+		g_snprintf(last_dir, PATH_MAX, "%s", filename);
+		*file_dir = '/';
+	}
 	if (file_is_directory (filename))
 	{
 		fileselection_set_dir (fd->filesel, filename);
@@ -79,7 +91,12 @@ create_fileselection_gui (FileSelData * fsd)
 	GtkWidget *fileselection_ok;
 	GtkWidget *fileselection_cancel;
 
-	fileselection_gui = gnome_filelist_new ();
+	if (!last_dir)
+	{
+		last_dir = g_new(char, PATH_MAX);
+		getcwd(last_dir, PATH_MAX);
+	}
+	fileselection_gui = gnome_filelist_new_with_path(last_dir);
 	gnome_filelist_set_title (GNOME_FILELIST(fileselection_gui), _(fsd->title));
 	gtk_container_set_border_width (GTK_CONTAINER (fileselection_gui), 10);
 	gtk_window_set_position (GTK_WINDOW (fileselection_gui), GTK_WIN_POS_CENTER);
@@ -113,7 +130,6 @@ create_fileselection_gui (FileSelData * fsd)
 	gtk_window_set_transient_for(GTK_WINDOW(fileselection_gui), GTK_WINDOW(app->widgets.window));
 	return fileselection_gui;
 }
-
 
 /* Free the return */
 gchar*
