@@ -3,6 +3,10 @@
 	* plugins/project-wizard/file.[ch]: Renamed
 	true/false enum values to fix compile error
 	(conflict with other definition).
+	
+	* plugins/file-loader/plugin.c: Deletec anjuta projects correctly
+	even when mime type detection fails (for example, when Anjuta is
+	installed in non-system prefix).
 
 2005-02-12  Sebastien Granjoux  <seb.sfo@free.fr>
 

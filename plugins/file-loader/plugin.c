@@ -41,6 +41,44 @@
 
 static gpointer parent_class;
 
+static gboolean
+path_has_extension (const gchar *path, const gchar *ext)
+{
+	if (strlen (path) <= strlen (ext))
+		return FALSE;
+	if ((path[strlen (path) - strlen (ext) - 1] == '.') &&
+		(strcmp (&path[strlen (path) - strlen (ext)], ext) == 0))
+		return TRUE;
+	return FALSE;
+}
+
+static gchar *
+get_uri_mime_type (const gchar *uri)
+{
+	GnomeVFSURI *vfs_uri;
+	const gchar *path;
+	gchar *mime_type;
+	
+	vfs_uri = gnome_vfs_uri_new (uri);
+	path = gnome_vfs_uri_get_path (vfs_uri);
+	
+	/* If Anjuta is not installed in system gnome prefix, the mime types 
+	 * may not have been correctly registed. In that case, we use the
+	 * following mime detection
+	 */
+	if (path_has_extension (path, "anjuta") ||
+		path_has_extension (path, "prj"))
+	{
+		mime_type = g_strdup ("application/x-anjuta");
+	}
+	else
+	{
+		mime_type = gnome_vfs_get_mime_type (uri);
+	}
+	gnome_vfs_uri_unref (vfs_uri);
+	return mime_type;
+}
+
 static void
 set_recent_file (AnjutaFileLoaderPlugin *plugin, const gchar *uri,
 				 const gchar *mime)
@@ -553,7 +591,7 @@ fm_open_with (GtkMenuItem *menuitem, AnjutaFileLoaderPlugin *plugin)
 	idx = (gint) g_object_get_data (G_OBJECT (menuitem), "index");
 	desc = (AnjutaPluginDescription*) g_object_get_data (G_OBJECT (menuitem),
 														 "desc");
-	mime_type = gnome_vfs_get_mime_type (uri);
+	mime_type = get_uri_mime_type (uri);
 	mime_apps = gnome_vfs_mime_get_all_applications (mime_type);
 	
 	/* Open with plugin */
@@ -670,7 +708,7 @@ value_added_fm_current_uri (AnjutaPlugin *plugin, const char *name,
 		g_free (fl_plugin->fm_current_uri);
 	fl_plugin->fm_current_uri = g_strdup (uri);
 	
-	mime_type = gnome_vfs_get_mime_type (uri);
+	mime_type = get_uri_mime_type (uri);
 	menu = gtk_menu_new ();
 	
 	idx = 0;
@@ -937,7 +975,7 @@ iloader_load (IAnjutaFileLoader *loader, const gchar *uri,
 	vfs_uri = gnome_vfs_uri_new (uri);
 	new_uri = gnome_vfs_uri_to_string (vfs_uri,
 									   GNOME_VFS_URI_HIDE_FRAGMENT_IDENTIFIER);
-	mime_type = gnome_vfs_get_mime_type (new_uri);
+	mime_type = get_uri_mime_type (new_uri);
 	gnome_vfs_uri_unref (vfs_uri);
 	
 	if (mime_type == NULL)
