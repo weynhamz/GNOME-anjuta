@@ -288,8 +288,7 @@ on_druidpagestandard4_next (GnomeDruidPage *
 			_("Language:        "), programming_language_map[aw->language], "\n", 
 			_("Gettext Support: "), gt_support,"\n",
 			NULL);
-	gnome_druid_page_finish_set_text (GNOME_DRUID_PAGE_FINISH
-					  (aw->widgets.page[5]), text);
+	gnome_druid_page_edge_set_text (GNOME_DRUID_PAGE_EDGE (aw->widgets.page[5]), text);
 	g_free (gt_support);
 	return FALSE;
 }
@@ -310,5 +309,3 @@ on_druidpagefinish1_back (GnomeDruidPage *
 {
 	return FALSE;
 }
-
-

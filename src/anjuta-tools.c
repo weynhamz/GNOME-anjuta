@@ -619,8 +619,8 @@ static void an_user_tool_activate(AnUserTool *tool)
 	{
 		tool->menu_item = gtk_menu_item_new_with_label(tool->name);
 		gtk_widget_ref(tool->menu_item);
-		gtk_signal_connect(GTK_OBJECT(tool->menu_item), "activate"
-		  , execute_tool, tool);
+		g_signal_connect (G_OBJECT (tool->menu_item), "activate"
+		  , G_CALLBACK (execute_tool), tool);
 		gtk_menu_append(GTK_MENU(submenu), tool->menu_item);
 		gtk_widget_show(tool->menu_item);
 	}
@@ -1211,7 +1211,7 @@ void on_user_tool_selection_changed (GtkTreeSelection *sel, AnToolList *tl)
 	if (gtk_tree_selection_get_selected (sel, &model, &iter))
 	{
 		tl->row = gtk_tree_iter_copy(&iter);
-		gtk_list_store_get (GTK_LIST_STORE (model), &iter,
+		gtk_tree_model_get (model, &iter,
 		                    AN_TOOLS_DATA_COLUMN, &tl->tool, -1);
 		gtk_widget_set_sensitive((GtkWidget *) tl->edit_btn, TRUE);
 		gtk_widget_set_sensitive((GtkWidget *) tl->delete_btn, TRUE);
@@ -1816,6 +1816,6 @@ static char *get_user_params(AnUserTool *tool, gboolean *button)
 			GTK_EDITABLE(GTK_COMBO(tp->params_com)->entry));
 		glade_xml_signal_autoconnect(tp->xml);
 	}
-	*button = gtk_dialog_run_and_close((GtkDialog *) tp->dialog);
+	*button = gtk_dialog_run ((GtkDialog *) tp->dialog);
 	return gtk_editable_get_chars(tp->params_en, 0, -1);
 }

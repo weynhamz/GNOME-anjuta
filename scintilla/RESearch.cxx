@@ -29,40 +29,6 @@
  *
  * Modification history:
  *
- * $Log$
- * Revision 1.12  2002/12/24 14:33:57  naba
- * 2002-12-24 Naba Kumar <naba@gnome.org>
- *
- * 	* AUTHORS, ChangeLog, HACKING, Makefile.am,
- * 	NEWS, README, SEARCH-REPLACE,
- * 	THANKS, TODO, acinclude.m4, anjuta.prj, anjuta.spec.in, configure.in,
- * 	setup-gettext, data/*, doc/.cvsignore, global-tags/*,
- * 	launcher/Makefile.am,
- * 	launcher/anjuta_launcher.c, macros2/*, manuals/*/*/*/*,
- * 	plugins/class-gen/clsGen.c, plugins/patch/patch-plugin.c,
- * 	plugins/sample1/plugin-sample1.c, printing/print-doc.c,
- * 	printing/print-util.c, printing/print.c, printing/print.h,
- * 	scintilla/*/*, widgets/e-shell-about-box.c,
- * 	src/*, tagmanager/*/*, widgets/Makefile.am,
- * 	widgets/gnomefilelist.c:
- *
- * 	Merged with ANJUTA_1_0_0 branch (at tag MERGE_LEVEL_1) and ported many
- * 	src/*.[c,h] files to gnome2 API.
- *
- * Revision 1.11.2.3  2002/11/22 08:34:12  naba
- *        * Editor.cxx, Editor.h, include/SciLexer.h, include/Scintilla.h,
- *         include/Scintilla.iface, KeyMap.cxx, KeyWords.cxx, LexCPP.cxx,
- *         LexFortran.cxx, LexHTML.cxx, LexMatlab.cxx, LexOthers.cxx,
- *         LineMarker.h, PropSet.cxx, RESearch.cxx, ScintillaBase.cxx:
- *         Updated to the CVS version.
- *
- *         * scintilla/AutoComplete.[cxx,h], scintilla/PlatGTK.cxx
- *           , scintilla/include/Platform.h, scintilla/ScintillaBase.cxx
- *           , scintilla/include/Scintilla.h, src/aneditor.cxx: Implement
- *           images in completion lists.
- *         * src/resources.h: Make C++ friendly.
- *         * scintilla/PropSet.cxx: Fix memory leak.
- *
  * Revision 1.7  2002/09/28 00:33:28  nyamatongwe
  * Fixed problem with character ranges caused by expansion to 8 bits.
  *

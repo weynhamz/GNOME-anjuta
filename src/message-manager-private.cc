@@ -28,7 +28,7 @@ extern "C"
 	#include "utilities.h"
 };
 
-#include <zvt/zvtterm.h>
+#include <libzvt/libzvt.h>
 #include <pwd.h>
 
 #ifdef DEBUG

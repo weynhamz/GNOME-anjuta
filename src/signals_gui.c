@@ -208,7 +208,7 @@ create_signals_set_dialog (Signals *s)
 
   dialog1 = gnome_dialog_new (_("Set Signal Property"), NULL);
   gtk_window_set_transient_for (GTK_WINDOW(dialog1), GTK_WINDOW(s->widgets.window));
-  GTK_WINDOW (dialog1)->type = GTK_WINDOW_DIALOG;
+  GTK_WINDOW (dialog1)->type = GTK_WINDOW_TOPLEVEL;
   gtk_window_set_position (GTK_WINDOW (dialog1), GTK_WIN_POS_MOUSE);
   gtk_window_set_policy (GTK_WINDOW (dialog1), FALSE, FALSE, FALSE);
   gtk_window_set_wmclass (GTK_WINDOW (dialog1), "set_signal", "Anjuta");
@@ -321,4 +321,3 @@ create_signals_set_dialog (Signals *s)
 
   return dialog1;
 }
-

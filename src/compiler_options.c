@@ -635,14 +635,14 @@ gboolean compiler_options_load_yourself (CompilerOptions * co, PropsID props)
 	list = glist_from_data (props, property); \
 	model = gtk_tree_view_get_model (GTK_TREE_VIEW(widget)); \
 	g_assert (model); \
-	valid = gtk_tree_model_get_iter_first (model, &iter); \
+	valid = gtk_tree_model_iter_first (model, &iter); \
 	node = list; \
 	while (node && valid) \
 	{ \
 		int value = atoi(node->data); \
 		gtk_list_store_set (GTK_LIST_STORE(model), &iter, col, value, -1); \
 		node = g_list_next (node); \
-		valid = gtk_tree_model_get_iter_next (model, &iter); \
+		valid = gtk_tree_model_iter_next (model, &iter); \
 	} \
 	glist_strings_free (list);
 
@@ -666,7 +666,7 @@ compiler_options_clear(CompilerOptions *co)
 	while (valid)
 	{
 		gtk_list_store_set (GTK_LIST_STORE(model), &iter, 0, FALSE, -1);
-		valid = gtk_tree_model_get_iter_next (model, &iter);
+		valid = gtk_tree_model_iter_next (model, &iter);
 	}
 
 	CLIST_CLEAR_ALL(co->widgets.inc_clist);
@@ -696,7 +696,7 @@ compiler_options_clear(CompilerOptions *co)
 	while (valid)
 	{
 		gtk_list_store_set (GTK_LIST_STORE(model), &iter, 0, FALSE, -1);
-		valid = gtk_tree_model_get_iter_next (model, &iter);
+		valid = gtk_tree_model_iter_next (model, &iter);
 	}
 
 	gtk_entry_set_text (GTK_ENTRY(co->widgets.other_c_flags_entry), "");
@@ -766,7 +766,7 @@ compiler_options_load (CompilerOptions * co, PropsID props)
 	CLIST_APPEND_STRING_ALL ("compiler.options.library.paths", co->widgets.lib_paths_clist, 0);
 	CLIST_APPEND_STRING_ALL ("compiler.options.libraries", co->widgets.lib_clist, 1);
 	CLIST_UPDATE_BOOLEAN_ALL ("compiler.options.libraries.selected", co->widgets.lib_clist, 0);
-	CLIST_APPEND_STIRNG_ALL ("compiler.options.defines", co->widgets.def_clist, 0);
+	CLIST_APPEND_STRING_ALL ("compiler.options.defines", co->widgets.def_clist, 0);
 	CLIST_UPDATE_BOOLEAN_ALL ("compiler.options.warning.buttons", co->widgets.warnings_clist, 0);
 	
 	list = glist_from_data (props, "compiler.options.optimize.buttons");
@@ -843,7 +843,7 @@ compiler_options_hide (CompilerOptions * co)
 		tmp = g_strconcat (str, separator, text, NULL); \
 		g_free (str); \
 		str = tmp; \
-		valid = gtk_tree_model_get_iter_next (model, &iter); \
+		valid = gtk_tree_model_iter_next (model, &iter); \
 	} \
 }
 
@@ -866,14 +866,14 @@ get_supports (CompilerOptions *co, gint item, gchar *separator)
 		gboolean value;
 		gchar *text, *tmp;
 		
-		gtk_tree_model_get (model, 0, &value, -1);
+		gtk_tree_model_get (model, &iter, 0, &value, -1);
 		if (!value)
 			continue;
 		text = anjuta_supports [i][item];
 		tmp = g_strconcat (str, text, separator, NULL);
 		g_free (str);
 		str = tmp;
-		valid = gtk_tree_model_get_iter_next (model, &iter);
+		valid = gtk_tree_model_iter_next (model, &iter);
 		i++;
 	}
 	return str;
@@ -926,7 +926,7 @@ get_libraries (CompilerOptions * co, gboolean with_support)
 	{
 		gboolean value;
 		
-		gtk_tree_model_get (model, 0, &value, 1, &text, -1);
+		gtk_tree_model_get (model, &iter, 0, &value, 1, &text, -1);
 		if (!value)
 			continue;
 		
@@ -938,7 +938,7 @@ get_libraries (CompilerOptions * co, gboolean with_support)
 			tmp = g_strconcat (str, " -l", text, NULL);
 		g_free (str);
 		str = tmp;
-		valid = gtk_tree_model_get_iter_next (model, &iter);
+		valid = gtk_tree_model_iter_next (model, &iter);
 	}
 	if (with_support)
 	{
@@ -979,14 +979,14 @@ get_warnings(CompilerOptions *co)
 		gboolean value;
 		gchar *text;
 		
-		gtk_tree_model_get (model, 0, &value, 1, &text, -1);
+		gtk_tree_model_get (model, &iter, 0, &value, 1, &text, -1);
 		if (!value)
 			continue;
 		
 		tmp = str;
 		str = g_strconcat (tmp, warning_button_option[i], NULL);
 		g_free (tmp);
-		valid = gtk_tree_model_get_iter_next (model, &iter);
+		valid = gtk_tree_model_iter_next (model, &iter);
 	}
 	return str;
 }

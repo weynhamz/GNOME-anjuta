@@ -30,7 +30,7 @@
 #include "text_editor.h"
 #include "mainmenu_callbacks.h"
 #include "toolbar_callbacks.h"
-#include "messagebox.h"
+//#include "messagebox.h"
 #include "debugger.h"
 
 
@@ -135,7 +135,8 @@ void
 on_toolbar_find_incremental_end (GtkEntry *entry,
 	GdkEvent *e, gpointer user_data)
 {
-	gchar *string, *string1;
+	gchar *string;
+	const gchar *string1;
 	app->find_replace->find_text->incremental_pos = -1;
 
 	string1 =
@@ -159,7 +160,7 @@ on_toolbar_find_incremental_end (GtkEntry *entry,
 void
 on_toolbar_find_incremental (GtkEntry *entry, gpointer user_data)
 {
-	gchar *entry_text;
+	const gchar *entry_text;
 	
 	TextEditor *te = anjuta_get_current_text_editor();
 	if (!te) return;
@@ -199,7 +200,7 @@ void
 on_toolbar_find_clicked (GtkButton * button, gpointer user_data)
 {
 	TextEditor *te;
-	gchar *string;
+	const gchar *string;
 	gint ret;
 
 	te = anjuta_get_current_text_editor ();
@@ -256,7 +257,7 @@ on_toolbar_goto_clicked (GtkButton * button, gpointer user_data)
 {
 	TextEditor *te;
 	guint line;
-	gchar *line_ascii;
+	const gchar *line_ascii;
 
 	te = anjuta_get_current_text_editor ();
 	if (te)
@@ -280,7 +281,7 @@ void
 on_toolbar_tag_clicked (GtkButton * button, gpointer user_data)
 {
 	TextEditor *te;
-	gchar *string;
+	const gchar *string;
 
 	te = anjuta_get_current_text_editor ();
 	if (!te)
@@ -632,9 +633,9 @@ on_format_indent_auto_clicked (GtkButton * button, gpointer user_data)
 void
 on_format_indent_style_clicked (GtkButton * button, gpointer user_data)
 {
-	gtk_notebook_set_page (GTK_NOTEBOOK
+/*	gtk_notebook_set_page (GTK_NOTEBOOK
 			       (app->preferences->widgets.notebook), 5);
-	gtk_signal_emit_by_name (GTK_OBJECT
+*/	gtk_signal_emit_by_name (GTK_OBJECT
 				 (app->widgets.menubar.settings.preferences),
 				 "activate");
 }

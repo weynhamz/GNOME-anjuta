@@ -1724,7 +1724,7 @@ project_dbase_get_target_type (ProjectDBase* p)
 	gchar *str;
 	gint i;
 	
-	g_return_val_if_fail (p != NULL, PROJECT_TARGET_TYPE_END_MARK;);
+	g_return_val_if_fail (p != NULL, PROJECT_TARGET_TYPE_END_MARK);
 	str = prop_get (p->props, "project.target.type");
 	if (!str)
 		return PROJECT_TARGET_TYPE_END_MARK;

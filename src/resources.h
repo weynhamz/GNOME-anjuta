@@ -24,11 +24,11 @@ extern "C"
 {
 #endif
 
-GtkWidget* anjuta_res_lookup_widget (GtkWidget *widget, const gchar *widget_name);
+GtkWidget* anjuta_res_lookup_widget (GtkWidget *widget,
+									 const gchar *widget_name);
 GtkWidget* anjuta_res_get_pixmap_widget (GtkWidget* widget,
-                                         const gchar* pixfile,
-                                         gboolean gnome_pixmap);
-GdkPixbuf* anjuta_res_get_image  (const gchar     *filename);
+                                         const gchar* pixfile);
+GdkPixbuf* anjuta_res_get_image  (const gchar *filename);
 
 /* All the return strings MUST be freed */
 gchar* anjuta_res_get_pixmap_dir (void);
@@ -41,7 +41,8 @@ gchar* anjuta_res_get_doc_dir (void);
 gchar* anjuta_res_get_pixmap_file (const gchar* pixfile);
 gchar* anjuta_res_get_data_file (const gchar* pixfile);
 gchar* anjuta_res_get_help_file (const gchar* helpfile);
-gchar* anjuta_res_get_help_file_locale (const gchar* helpfile, const gchar* locale);
+gchar* anjuta_res_get_help_file_locale (const gchar* helpfile,
+										const gchar* locale);
 gchar* anjuta_res_get_doc_file (const gchar* docfile);
 
 /* System Help */

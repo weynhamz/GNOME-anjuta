@@ -27,7 +27,7 @@
 #include <gnome.h>
 #include "resources.h"
 #include "debugger.h"
-#include "messagebox.h"
+//#include "messagebox.h"
 #include "utilities.h"
 
 Sharedlibs* sharedlibs_new()
@@ -72,7 +72,7 @@ sharedlibs_update( GList *lines, gpointer data)
         count = sscanf((char*)node->data, "%s %s %s %s", from,to,read,obj);
         node = g_list_next(node);
         if(count != 4) continue;
-        row[0]=extract_filename(obj);
+        row[0]=(gchar*) extract_filename(obj);
         row[1]=from;
         row[2]=to;
         row[3]=read;

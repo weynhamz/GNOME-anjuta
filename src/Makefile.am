@@ -7,10 +7,10 @@ INCLUDES = \
 	-I$(srcdir)/../widgets \
 	-I$(srcdir)/../pixmaps \
 	-I$(srcdir)/../printing \
-	-I.. -I. -DPACKAGE_BIN_DIR=\"$(bindir)\" \
-	-DG_DISABLE_DEPRECATED -DGDK_DISABLE_DEPRECATED \
-	-DGDK_PIXBUF_DEPRECATED \
-	-DGTK_DISABLE_DEPRECATED -DGNOME_DISABLE_DEPRECATED
+	-I.. -I. -DPACKAGE_BIN_DIR=\"$(bindir)\"
+#	-DG_DISABLE_DEPRECATED -DGDK_DISABLE_DEPRECATED \
+#	-DGDK_PIXBUF_DEPRECATED \
+#	-DGTK_DISABLE_DEPRECATED -DGNOME_DISABLE_DEPRECATED
 
 SCILEXERS =\
 	../scintilla/StyleContext.o\
@@ -66,8 +66,6 @@ anjuta_SOURCES = \
 	appwizard_gui.c\
 	attach_process.c\
 	attach_process.h\
-	attach_process_cbs.c\
-	attach_process_cbs.h\
 	breakpoints.c\
 	breakpoints.h\
 	breakpoints_cbs.c\
@@ -227,7 +225,7 @@ anjuta_SOURCES = \
 	widget-registry.c
 
 anjuta_LDADD =  \
-	$(ANJUTA_LIBS)
+	$(ANJUTA_LIBS) \
 	$(top_builddir)/scintilla/libscintilla.a\
 	$(top_builddir)/tagmanager/libctags.a\
 	$(top_builddir)/widgets/libwidgets.a\

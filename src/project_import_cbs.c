@@ -107,7 +107,7 @@ on_page3_next (GnomeDruidPage * page3, gpointer arg1, gpointer data)
 gboolean
 on_page4_next (GnomeDruidPage * page4, gpointer arg1, gpointer data)
 {
-	gchar *name, *author, *version, *target;
+	const gchar *name, *author, *version, *target;
 	
 	ProjectImportWizard *piw = (ProjectImportWizard *) data;
 	g_assert (data != NULL);

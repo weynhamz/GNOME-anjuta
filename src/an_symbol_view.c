@@ -353,7 +353,7 @@ sv_on_event (GtkWidget *widget,
 	if (!gtk_tree_selection_get_selected (selection, NULL, &iter) || !event)
 		return FALSE;
 
-	gtk_tree_mode_get (model, &iter, SVFILE_ENTRY_COLUMN, &info, -1);
+	gtk_tree_model_get (model, &iter, SVFILE_ENTRY_COLUMN, &info, -1);
 	
 	if (sv->sinfo)
 		symbol_file_info_free(sv->sinfo);
@@ -406,7 +406,7 @@ sv_disconnect ()
 {
 	g_return_if_fail (sv != NULL);
 
-	g_signal_disconnect_by_func (sv->tree, G_CALLBACK (sv_on_event), NULL);
+	g_signal_handlers_block_by_func (sv->tree, G_CALLBACK (sv_on_event), NULL);
 }
 
 static void
@@ -414,7 +414,7 @@ sv_connect ()
 {
 	g_return_if_fail (sv != NULL);
 
-	g_signal_connect (sv->tree, "event", G_CALLBACK	(sv_on_event), NULL);
+	g_signal_handlers_unblock_by_func (sv->tree, G_CALLBACK (sv_on_event), NULL);
 }
 
 static void
@@ -592,7 +592,6 @@ sv_populate (gboolean full)
 		busy = TRUE;
 
 	sv_disconnect ();
-	sv_freeze ();
 	sv_clear ();
 
 	store = GTK_TREE_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (sv->tree)));
@@ -726,13 +725,15 @@ sv_populate (gboolean full)
 	if (selected_item[0])
 	{
 		int i;
+		GtkTreeSelection *selection;
 
 		for (i=0; i <3; ++ i)
 		{
 			if (selected_item[i])
 				gtk_tree_view_expand(GTK_TREE_VIEW(sv->tree), selected_item[i]);
 		}
-		gtk_tree_view_select(GTK_TREE_VIEW(sv->tree), selected_item[0]);
+		selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (sv->tree));
+		gtk_tree_selection_select_iter (selection, selected_item[0]);
 		// gtk_ctree_node_moveto((GtkCTree *) sv->tree, selected_item[0], 0, .5, 0);
 		if (selected_item[0])
 			gtk_tree_iter_free (selected_item[0]);
@@ -746,7 +747,6 @@ sv_populate (gboolean full)
 
 clean_leave:
 	sv_connect ();
-	sv_thaw ();
 	busy = FALSE;
 	return sv;
 }

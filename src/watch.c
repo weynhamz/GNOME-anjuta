@@ -27,7 +27,7 @@
 #include <gnome.h>
 #include "resources.h"
 #include "debugger.h"
-#include "messagebox.h"
+//#include "messagebox.h"
 #include "anjuta_info.h"
 #include "utilities.h"
 

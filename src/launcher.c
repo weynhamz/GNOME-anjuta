@@ -535,7 +535,7 @@ create_password_dialog (gchar* prompt)
 	gtk_widget_show(hbox);
 	gtk_container_add (GTK_CONTAINER (dialog), hbox);
 	
-	icon = anjuta_res_get_pixmap_widget (dialog, ANJUTA_PIXMAP_PASSWORD, TRUE);
+	icon = anjuta_res_get_pixmap_widget (dialog, ANJUTA_PIXMAP_PASSWORD);
 	gtk_widget_show(icon);
 	gtk_box_pack_start_defaults (GTK_BOX(hbox), icon);
 	

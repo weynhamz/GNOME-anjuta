@@ -127,10 +127,10 @@ verify_new_entry (GtkWidget *tree, const gchar *str, gint col)
 	while (valid)
 	{
 		gchar *text;
-		gtk_list_store_get (GTK_LIST_STORE(model), col, &text, -1);
+		gtk_tree_model_get (model, &iter, col, &text, -1);
 		if (strcmp(str, text) == 0)
 			return FALSE;
-		valid = gtk_tree_model_get_iter_next (model, &iter);
+		valid = gtk_tree_model_iter_next (model, &iter);
 	}
 	return TRUE;
 }

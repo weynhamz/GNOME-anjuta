@@ -24,7 +24,7 @@
 
 #include "anjuta.h"
 #include "src_paths.h"
-#include "messagebox.h"
+//#include "messagebox.h"
 #include "src_paths_cbs.h"
 #include "resources.h"
 
@@ -90,15 +90,17 @@ on_src_paths_src_clist_select_row (GtkCList * clist,
 void
 on_src_paths_src_add_clicked (GtkButton * button, gpointer data)
 {
-	gchar *text;
+	gchar *text, *entry_text;
 	gchar *dummy[1];
 	gchar *row_text;
 	gint max_rows;
 	gint cur_row;
 	SrcPaths *co = data;
 
-	text = g_strstrip(gtk_entry_get_text (GTK_ENTRY (co->widgets.src_entry)));
-	if (strlen (text) == 0)
+	entry_text =
+		g_strdup (gtk_entry_get_text (GTK_ENTRY (co->widgets.src_entry)));
+	text = g_strstrip(entry_text);
+	if (!text || strlen (text) == 0)
 		return;
 	dummy[0] = text;
 
@@ -110,18 +112,20 @@ on_src_paths_src_add_clicked (GtkButton * button, gpointer data)
 		{
 			/* Maybe print a message here */;
 			gtk_entry_set_text (GTK_ENTRY (co->widgets.src_entry), "");
+			g_free (entry_text);
 			return;
 		}
 	}
 	gtk_clist_append (GTK_CLIST (co->widgets.src_clist), dummy);
 	gtk_entry_set_text (GTK_ENTRY (co->widgets.src_entry), "");
 	src_paths_update_controls (co);
+	g_free (entry_text);
 }
 
 void
 on_src_paths_src_update_clicked (GtkButton * button, gpointer data)
 {
-	gchar *text;
+	const gchar *text;
 	SrcPaths *co = data;
 
 	if (g_list_length (GTK_CLIST (co->widgets.src_clist)->row_list) < 1)

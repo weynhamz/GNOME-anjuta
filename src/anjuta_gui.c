@@ -93,8 +93,8 @@ create_anjuta_gui (AnjutaApp * appl)
 				     &(appl->widgets.toolbar.main_toolbar));
 	gnome_app_add_toolbar (GNOME_APP (anjuta_gui), GTK_TOOLBAR (toolbar1),
 			       ANJUTA_MAIN_TOOLBAR,
-			       GNOME_DOCK_ITEM_BEH_NEVER_VERTICAL,
-			       GNOME_DOCK_TOP, 1, 0, 0);
+			       BONOBO_DOCK_ITEM_BEH_NEVER_VERTICAL,
+			       BONOBO_DOCK_TOP, 1, 0, 0);
 	gtk_toolbar_set_space_size (GTK_TOOLBAR (toolbar1), 5);
 	gtk_toolbar_set_space_style (GTK_TOOLBAR (toolbar1),
 				     GTK_TOOLBAR_SPACE_LINE);
@@ -107,8 +107,8 @@ create_anjuta_gui (AnjutaApp * appl)
 					  browser_toolbar));
 	gnome_app_add_toolbar (GNOME_APP (anjuta_gui), GTK_TOOLBAR (toolbar2),
 			       ANJUTA_BROWSER_TOOLBAR,
-			       GNOME_DOCK_ITEM_BEH_NEVER_VERTICAL,
-			       GNOME_DOCK_TOP, 2, 0, 0);
+			       BONOBO_DOCK_ITEM_BEH_NEVER_VERTICAL,
+			       BONOBO_DOCK_TOP, 2, 0, 0);
 	gtk_toolbar_set_space_size (GTK_TOOLBAR (toolbar2), 5);
 	gtk_toolbar_set_space_style (GTK_TOOLBAR (toolbar2),
 				     GTK_TOOLBAR_SPACE_LINE);
@@ -121,8 +121,8 @@ create_anjuta_gui (AnjutaApp * appl)
 					   debug_toolbar));
 	gnome_app_add_toolbar (GNOME_APP (anjuta_gui), GTK_TOOLBAR (toolbar3),
 			       ANJUTA_DEBUG_TOOLBAR,
-			       GNOME_DOCK_ITEM_BEH_NORMAL,
-			       GNOME_DOCK_TOP, 3, 0, 0);
+			       BONOBO_DOCK_ITEM_BEH_NORMAL,
+			       BONOBO_DOCK_TOP, 3, 0, 0);
 	gtk_toolbar_set_space_size (GTK_TOOLBAR (toolbar3), 5);
 	gtk_toolbar_set_space_style (GTK_TOOLBAR (toolbar3),
 				     GTK_TOOLBAR_SPACE_LINE);
@@ -134,8 +134,8 @@ create_anjuta_gui (AnjutaApp * appl)
 				      &(appl->widgets.toolbar.format_toolbar));
 	gnome_app_add_toolbar (GNOME_APP (anjuta_gui), GTK_TOOLBAR (toolbar4),
 			       ANJUTA_FORMAT_TOOLBAR,
-			       GNOME_DOCK_ITEM_BEH_NORMAL,
-			       GNOME_DOCK_TOP, 3, 1, 0);
+			       BONOBO_DOCK_ITEM_BEH_NORMAL,
+			       BONOBO_DOCK_TOP, 3, 1, 0);
 	gtk_toolbar_set_space_size (GTK_TOOLBAR (toolbar4), 5);
 	gtk_toolbar_set_space_style (GTK_TOOLBAR (toolbar4),
 				     GTK_TOOLBAR_SPACE_LINE);
@@ -148,8 +148,8 @@ create_anjuta_gui (AnjutaApp * appl)
 					 extended_toolbar));
 	gnome_app_add_toolbar (GNOME_APP (anjuta_gui), GTK_TOOLBAR (toolbar5),
 			       ANJUTA_EXTENDED_TOOLBAR,
-			       GNOME_DOCK_ITEM_BEH_NORMAL,
-			       GNOME_DOCK_TOP, 4, 0, 0);
+			       BONOBO_DOCK_ITEM_BEH_NORMAL,
+			       BONOBO_DOCK_TOP, 4, 0, 0);
 	gtk_toolbar_set_space_size (GTK_TOOLBAR (toolbar5), 5);
 	gtk_toolbar_set_space_style (GTK_TOOLBAR (toolbar5),
 				     GTK_TOOLBAR_SPACE_LINE);
@@ -195,7 +195,7 @@ create_anjuta_gui (AnjutaApp * appl)
 			      _("Click here to undock this window"), NULL);
 
 	pixmap =
-		anjuta_res_get_pixmap_widget (anjuta_gui, "handle_undock.xpm", FALSE);
+		anjuta_res_get_pixmap_widget (anjuta_gui, "handle_undock.xpm");
 	gtk_widget_show (pixmap);
 	gtk_container_add (GTK_CONTAINER (button1), pixmap);
 
@@ -229,7 +229,7 @@ create_anjuta_gui (AnjutaApp * appl)
 			      _("Click here to hide this window"), NULL);
 
 
-	pixmap = anjuta_res_get_pixmap_widget (anjuta_gui, "handle_hide.xpm", FALSE);
+	pixmap = anjuta_res_get_pixmap_widget (anjuta_gui, "handle_hide.xpm");
 	gtk_widget_show (pixmap);
 	gtk_container_add (GTK_CONTAINER (button3), pixmap);
 
@@ -250,7 +250,7 @@ create_anjuta_gui (AnjutaApp * appl)
 	gtk_tooltips_set_tip (tooltips, button4,
 			      _("Click here to hide this window"), NULL);
 
-	pixmap = anjuta_res_get_pixmap_widget (anjuta_gui, "handle_hide.xpm", FALSE);
+	pixmap = anjuta_res_get_pixmap_widget (anjuta_gui, "handle_hide.xpm");
 	gtk_widget_show (pixmap);
 	gtk_container_add (GTK_CONTAINER (button4), pixmap);
 
@@ -284,7 +284,7 @@ create_anjuta_gui (AnjutaApp * appl)
 			      _("Click here to undock this window"), NULL);
 
 	pixmap =
-		anjuta_res_get_pixmap_widget (anjuta_gui, "handle_undock.xpm", FALSE);
+		anjuta_res_get_pixmap_widget (anjuta_gui, "handle_undock.xpm");
 	gtk_widget_show (pixmap);
 	gtk_container_add (GTK_CONTAINER (button2), pixmap);
 

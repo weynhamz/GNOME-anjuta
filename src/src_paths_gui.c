@@ -178,7 +178,7 @@ create_src_paths_page0(SrcPaths *co)
   gtk_box_pack_start (GTK_BOX (vbox1), button3, FALSE, FALSE, 0);
   gtk_container_set_border_width (GTK_CONTAINER (button3), 5);
 
-  button4 = gnome_stock_button (GNOME_STOCK_BUTTON_HELP);
+  button4 = gtk_button_new_from_stock (GTK_STOCK_HELP);
   gtk_widget_show (button4);
   gtk_box_pack_start (GTK_BOX (vbox1), button4, FALSE, FALSE, 0);
   gtk_container_set_border_width (GTK_CONTAINER (button4), 5);

@@ -578,7 +578,6 @@ fv_populate (gboolean full)
 		busy = TRUE;
 
 	fv_disconnect ();
-	fv_freeze ();
 	fv_clear ();
 
 	if (!app || !app->project_dbase || !app->project_dbase->top_proj_dir)
@@ -597,7 +596,6 @@ fv_populate (gboolean full)
 
 clean_leave:
 	fv_connect ();
-	fv_thaw ();
 	busy = FALSE;
 	return fv;
 }

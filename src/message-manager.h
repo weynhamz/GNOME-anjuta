@@ -63,7 +63,7 @@ struct _AnjutaMessageManagerClass
 
 // Public functions
 GtkWidget* anjuta_message_manager_new();
-GtkType anjuta_message_manager_get_type();
+guint anjuta_message_manager_get_type();
 
 gboolean anjuta_message_manager_add_type(AnjutaMessageManager* amm, const gint type_name, const gchar* pixmap);
 gboolean anjuta_message_manager_append(AnjutaMessageManager* amm, const gchar* msg_string, gint type_name);

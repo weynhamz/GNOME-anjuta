@@ -415,38 +415,38 @@ static GnomeUIInfo menu1_uiinfo[] = {
 	 GNOME_APP_UI_SUBTREE, N_("Add File"),
 	 NULL,
 	 add_file1_menu_uiinfo, NULL, NULL,
-	 PIX_STOCK(NEW),
+	 PIX_STOCK(GTK_STOCK_NEW),
 	 0, 0, NULL},
 	{/*1*/
 	 GNOME_APP_UI_ITEM, N_("Open in default viewer"),
 	 NULL,
 	 on_project_view1_activate, NULL, NULL,
-	 PIX_STOCK(BOOK_OPEN),
+	 PIX_STOCK(GTK_STOCK_OPEN),
 	 0, 0, NULL},
 	{/*2*/
 	 GNOME_APP_UI_ITEM, N_("Open in Anjuta"),
 	 NULL,
 	 on_project_edit1_activate, NULL, NULL,
-	 PIX_STOCK(OPEN),
+	 PIX_STOCK(GTK_STOCK_OPEN),
 	 0, 0, NULL},
 	{/*3*/
 	 GNOME_APP_UI_ITEM, N_("Remove"),
 	 NULL,
 	 on_project_remove1_activate, NULL, NULL,
-	 PIX_STOCK(CUT),
+	 PIX_STOCK(GTK_STOCK_REMOVE),
 	 0, 0, NULL},
 	GNOMEUIINFO_SEPARATOR, /*4*/
 	{/*5*/
 	 GNOME_APP_UI_ITEM, N_("Configure Project"),
 	 NULL,
 	 on_project_configure1_activate, NULL, NULL,
-	 PIX_STOCK(PREF),
+	 PIX_STOCK(GTK_STOCK_PREFERENCES),
 	 0, 0, NULL},
 	{/*6*/
 	 GNOME_APP_UI_ITEM, N_("Project Info"),
 	 NULL,
 	 on_project_project_info1_activate, NULL, NULL,
-	 PIX_STOCK(PROP),
+	 PIX_STOCK(GTK_STOCK_PROPERTIES),
 	 0, 0, NULL},
 	GNOMEUIINFO_SEPARATOR, /*7*/
 	{/*8*/
@@ -459,7 +459,7 @@ static GnomeUIInfo menu1_uiinfo[] = {
 	 GNOME_APP_UI_ITEM, N_("Help"),
 	 NULL,
 	 on_project_help1_activate, NULL, NULL,
-	 PIX_STOCK(BOOK_YELLOW),
+	 PIX_STOCK(GTK_STOCK_HELP),
 	 0, 0, NULL},
 	GNOMEUIINFO_END
 };

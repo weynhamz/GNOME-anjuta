@@ -1151,7 +1151,7 @@ text_editor_autoformat (TextEditor * te)
 		return;
 	}
 
-	fopts = preferences_get_format_opts (te->preferences);
+	fopts = preferences_get (te->preferences, AUTOFORMAT_CUSTOM_STYLE);
 	cmd = g_strconcat ("indent ", fopts, " ", file, NULL);
 	g_free (fopts);
 
@@ -1269,7 +1269,7 @@ GtkWidget* text_editor_tab_widget_new(TextEditor* te)
 		text_editor_tab_widget_destroy(te);
 	
 	tmp_toolbar_icon = anjuta_res_get_pixmap_widget (te->widgets.window,
-		ANJUTA_PIXMAP_CLOSE_FILE_SMALL, FALSE);
+		ANJUTA_PIXMAP_CLOSE_FILE_SMALL);
 	gtk_widget_show(tmp_toolbar_icon);
 	
 	button15 = gtk_button_new();
@@ -1277,7 +1277,7 @@ GtkWidget* text_editor_tab_widget_new(TextEditor* te)
 	gtk_button_set_relief(GTK_BUTTON(button15), GTK_RELIEF_NONE);
 	
 	close_pixmap = anjuta_res_get_pixmap_widget (te->widgets.window,
-		ANJUTA_PIXMAP_CLOSE_FILE_SMALL, FALSE);
+		ANJUTA_PIXMAP_CLOSE_FILE_SMALL);
 	gtk_widget_size_request (button15, &r);
 	gtk_widget_set_usize (close_pixmap, r.width, r.height);
 	gtk_widget_set_sensitive(close_pixmap, FALSE);
@@ -1366,4 +1366,3 @@ gchar *text_editor_get_current_word(TextEditor *te)
 #endif
 	return buf;
 }
-

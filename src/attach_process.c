@@ -46,6 +46,65 @@ static char *column_names[COLUMNS_NB] = {
 	N_("Pid"), N_("User"), N_("Time"), N_("Command")
 };
 
+static gboolean
+on_attach_process_close(GtkWidget* win, gpointer data)
+{
+	AttachProcess* ap = data;
+
+	attach_process_hide (ap);
+
+	return FALSE;
+}
+
+static void
+on_attach_process_tv_event (GtkWidget *w,
+			    GdkEvent  *event,
+			    gpointer   data)
+{
+	AttachProcess *ap = data;
+	GtkTreeView *view;
+	GtkTreeModel *model;
+	GtkTreeSelection *selection;
+	GtkTreeIter iter;
+	gchar* text;
+
+	g_return_if_fail (GTK_IS_TREE_VIEW (w));
+
+	view = GTK_TREE_VIEW (w);
+	model = gtk_tree_view_get_model (view);
+	selection = gtk_tree_view_get_selection (view);
+
+	if (!gtk_tree_selection_get_selected (selection, NULL, &iter))
+		return ;
+
+	gtk_tree_model_get (model, &iter,
+			   PID_COLUMN, &text,
+			   -1);
+
+	ap->pid = atoi(text);
+}
+
+static void
+on_attach_process_update_clicked(GtkWidget* button, gpointer data)
+{
+	AttachProcess* ap = data;
+
+	attach_process_update (ap);
+}
+
+static void
+on_attach_process_attach_clicked(GtkWidget* button, gpointer data)
+{
+	AttachProcess* ap = data;
+
+	gtk_widget_hide (ap->widgets.window);
+
+	if (ap->pid < 0)
+		return ;
+
+	debugger_attach_process (ap->pid);
+}
+
 AttachProcess *
 attach_process_new ()
 {

@@ -86,31 +86,43 @@ create_text_editor_gui (TextEditor * te)
 	gtk_window_set_default_size (GTK_WINDOW (window1),
 				     te->geom.width, te->geom.height);
 
-	dock1 = gnome_dock_new ();
+#warning "G2: Add proper toolbar dock"
+#if 0
+	dock1 = bonobo_dock_new ();
 	gtk_widget_show (dock1);
 	gtk_container_add (GTK_CONTAINER (window1), dock1);
 
-	dock_item1 = gnome_dock_item_new ("text_toolbar",
-					  GNOME_DOCK_ITEM_BEH_EXCLUSIVE |
-					  GNOME_DOCK_ITEM_BEH_NEVER_FLOATING);
+	dock_item1 = bonobo_dock_item_new ("text_toolbar",
+					  BONOBO_DOCK_ITEM_BEH_EXCLUSIVE |
+					  BONOBO_DOCK_ITEM_BEH_NEVER_FLOATING);
 	gtk_widget_show (dock_item1);
-	gnome_dock_add_item (GNOME_DOCK (dock1), GNOME_DOCK_ITEM (dock_item1),
-			     GNOME_DOCK_TOP, 1, 1, 0, 0);
-	gnome_dock_item_set_shadow_type (GNOME_DOCK_ITEM (dock_item1),
+	bonobo_dock_add_item (GNOME_DOCK (dock1), BONOBO_DOCK_ITEM (dock_item1),
+			     BONOBO_DOCK_TOP, 1, 1, 0, 0);
+	bonobo_dock_item_set_shadow_type (BONOBO_DOCK_ITEM (dock_item1),
 					 GTK_SHADOW_OUT);
 	gtk_container_set_border_width (GTK_CONTAINER (dock_item1), 2);
 
-	toolbar1 =
-		gtk_toolbar_new (GTK_ORIENTATION_HORIZONTAL,
-				 GTK_TOOLBAR_ICONS);
+#else
+	
+	dock1 = gtk_vbox_new (FALSE, 0);
+	gtk_widget_show (dock1);
+	gtk_container_add (GTK_CONTAINER (window1), dock1);
+
+#endif
+
+	toolbar1 = gtk_toolbar_new ();
+	gtk_toolbar_set_orientation (GTK_TOOLBAR (toolbar1),
+	                             GTK_ORIENTATION_HORIZONTAL);
+	gtk_toolbar_set_style (GTK_TOOLBAR (toolbar1), GTK_TOOLBAR_ICONS);
 	gtk_widget_show (toolbar1);
-	gtk_container_add (GTK_CONTAINER (dock_item1), toolbar1);
+	gtk_container_add (GTK_CONTAINER (dock1), toolbar1);
 	gtk_toolbar_set_button_relief (GTK_TOOLBAR (toolbar1),
 				       GTK_RELIEF_NONE);
 	gtk_toolbar_set_space_style (GTK_TOOLBAR (toolbar1),
 				     GTK_TOOLBAR_SPACE_LINE);
 
-	tmp_toolbar_icon = anjuta_res_get_pixmap_widget (window1, ANJUTA_PIXMAP_NEW_FILE, FALSE);
+	tmp_toolbar_icon = anjuta_res_get_pixmap_widget (window1,
+													 ANJUTA_PIXMAP_NEW_FILE);
 	button1 =
 		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar1),
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
@@ -120,7 +132,7 @@ create_text_editor_gui (TextEditor * te)
 	gtk_widget_show (button1);
 
 	tmp_toolbar_icon =
-		anjuta_res_get_pixmap_widget (window1, ANJUTA_PIXMAP_OPEN_FILE, FALSE);
+		anjuta_res_get_pixmap_widget (window1, ANJUTA_PIXMAP_OPEN_FILE);
 	button2 =
 		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar1),
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
@@ -132,7 +144,7 @@ create_text_editor_gui (TextEditor * te)
 	gtk_toolbar_append_space (GTK_TOOLBAR (toolbar1));
 
 	tmp_toolbar_icon =
-		anjuta_res_get_pixmap_widget (window1, ANJUTA_PIXMAP_SAVE_FILE, FALSE);
+		anjuta_res_get_pixmap_widget (window1, ANJUTA_PIXMAP_SAVE_FILE);
 	button3 =
 		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar1),
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
@@ -142,7 +154,7 @@ create_text_editor_gui (TextEditor * te)
 	gtk_widget_show (button3);
 
 	tmp_toolbar_icon =
-		anjuta_res_get_pixmap_widget (window1, ANJUTA_PIXMAP_RELOAD_FILE, FALSE);
+		anjuta_res_get_pixmap_widget (window1, ANJUTA_PIXMAP_RELOAD_FILE);
 	button5 =
 		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar1),
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
@@ -154,7 +166,7 @@ create_text_editor_gui (TextEditor * te)
 	gtk_toolbar_append_space (GTK_TOOLBAR (toolbar1));
 
 	tmp_toolbar_icon =
-		gnome_stock_pixmap_widget (window1, GNOME_STOCK_PIXMAP_CUT);
+		anjuta_res_get_pixmap_widget (window1, ANJUTA_PIXMAP_CUT);
 	button6 =
 		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar1),
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
@@ -163,7 +175,8 @@ create_text_editor_gui (TextEditor * te)
 					    NULL);
 	gtk_widget_show (button6);
 
-	tmp_toolbar_icon = anjuta_res_get_pixmap_widget (window1, ANJUTA_PIXMAP_COPY, FALSE);
+	tmp_toolbar_icon =
+		anjuta_res_get_pixmap_widget (window1, ANJUTA_PIXMAP_COPY);
 	button7 = gtk_toolbar_append_element (GTK_TOOLBAR (toolbar1),
 					      GTK_TOOLBAR_CHILD_BUTTON,
 					      NULL,
@@ -173,7 +186,7 @@ create_text_editor_gui (TextEditor * te)
 	gtk_widget_show (button7);
 
 	tmp_toolbar_icon =
-		anjuta_res_get_pixmap_widget (window1, ANJUTA_PIXMAP_PASTE, FALSE);
+		anjuta_res_get_pixmap_widget (window1, ANJUTA_PIXMAP_PASTE);
 	button8 =
 		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar1),
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
@@ -185,7 +198,7 @@ create_text_editor_gui (TextEditor * te)
 	gtk_toolbar_append_space (GTK_TOOLBAR (toolbar1));
 
 	tmp_toolbar_icon =
-		anjuta_res_get_pixmap_widget (window1, ANJUTA_PIXMAP_SEARCH, FALSE);
+		anjuta_res_get_pixmap_widget (window1, ANJUTA_PIXMAP_SEARCH);
 	button9 =
 		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar1),
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
@@ -196,7 +209,7 @@ create_text_editor_gui (TextEditor * te)
 	gtk_widget_show (button9);
 
 	tmp_toolbar_icon =
-		anjuta_res_get_pixmap_widget (window1, ANJUTA_PIXMAP_FIND_REPLACE, FALSE);
+		anjuta_res_get_pixmap_widget (window1, ANJUTA_PIXMAP_FIND_REPLACE);
 	button10 =
 		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar1),
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
@@ -233,7 +246,7 @@ create_text_editor_gui (TextEditor * te)
 	gtk_toolbar_append_space (GTK_TOOLBAR (toolbar1));
 
 	tmp_toolbar_icon =
-		anjuta_res_get_pixmap_widget (window1, ANJUTA_PIXMAP_COMPILE, FALSE);
+		anjuta_res_get_pixmap_widget (window1, ANJUTA_PIXMAP_COMPILE);
 	button11 =
 		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar1),
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
@@ -244,7 +257,7 @@ create_text_editor_gui (TextEditor * te)
 	gtk_widget_show (button11);
 
 	tmp_toolbar_icon =
-		anjuta_res_get_pixmap_widget (window1, ANJUTA_PIXMAP_BUILD, FALSE);
+		anjuta_res_get_pixmap_widget (window1, ANJUTA_PIXMAP_BUILD);
 	button12 =
 		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar1),
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
@@ -258,7 +271,7 @@ create_text_editor_gui (TextEditor * te)
 	gtk_toolbar_append_space (GTK_TOOLBAR (toolbar1));
 
 	tmp_toolbar_icon =
-		anjuta_res_get_pixmap_widget (window1, ANJUTA_PIXMAP_PRINT, FALSE);
+		anjuta_res_get_pixmap_widget (window1, ANJUTA_PIXMAP_PRINT);
 	button14 =
 		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar1),
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
@@ -269,7 +282,7 @@ create_text_editor_gui (TextEditor * te)
 
 	gtk_toolbar_append_space (GTK_TOOLBAR (toolbar1));
 
-	tmp_toolbar_icon = anjuta_res_get_pixmap_widget (window1, ANJUTA_PIXMAP_DOCK, FALSE);
+	tmp_toolbar_icon = anjuta_res_get_pixmap_widget (window1, ANJUTA_PIXMAP_DOCK);
 	button13 = gtk_toolbar_append_element (GTK_TOOLBAR (toolbar1),
 					       GTK_TOOLBAR_CHILD_BUTTON,
 					       NULL,
@@ -282,7 +295,8 @@ create_text_editor_gui (TextEditor * te)
 
 	frame1 = gtk_frame_new (NULL);
 	gtk_widget_show (frame1);
-	gnome_dock_set_client_area (GNOME_DOCK (dock1), frame1);
+	//gnome_dock_set_client_area (GNOME_DOCK (dock1), frame1);
+	gtk_container_add (GTK_CONTAINER (dock1), frame1);
 	gtk_frame_set_shadow_type (GTK_FRAME (frame1), GTK_SHADOW_OUT);
 
 	event_box1 = gtk_event_box_new ();

@@ -149,7 +149,7 @@ anjuta_new ()
 
 		create_anjuta_gui (app);
 
-		app->gxml = glade_xml_new (ANJUTA_DATA_DIR "anjuta.glade", NULL, NULL);
+		app->gxml = glade_xml_new (PACKAGE_DATA_DIR "anjuta.glade", NULL, NULL);
 		glade_xml_signal_autoconnect (app->gxml);
 
 		app->dirs = anjuta_dirs_new ();
@@ -1474,7 +1474,8 @@ anjuta_system_error (gint errnum, gchar * mesg, ... )
 void
 anjuta_set_file_properties (gchar* file)
 {
-	gchar *full_filename, *dir, *filename, *ext;
+	gchar *full_filename, *dir, *ext;
+	const gchar *filename;
 	PropsID props;
 
 	g_return_if_fail (file != NULL);
@@ -1482,7 +1483,7 @@ anjuta_set_file_properties (gchar* file)
 	props = app->preferences->props;
 	dir = g_dirname (full_filename);
 	filename = extract_filename (full_filename);
-	ext = get_file_extension (filename);
+	ext = get_file_extension ((gchar*) filename);
 	prop_set_with_key (props, CURRENT_FULL_FILENAME, "");
 	prop_set_with_key (props, CURRENT_FILE_DIRECTORY, "");
 	prop_set_with_key (props, CURRENT_FILENAME_WITH_EXT, "");
@@ -1511,7 +1512,7 @@ anjuta_get_full_filename (gchar * fn)
 	TMWorkObject *source_file;
 	GList *te_list;
 	gchar *real_path;
-	gchar *fname;
+	const gchar *fname;
 	GList *list;
 	gchar *text;
 	gint i;
@@ -1698,17 +1699,17 @@ anjuta_not_implemented (char *file, guint line)
 void
 anjuta_set_busy ()
 {
-	GnomeAnimator *led;
+	//GnomeAnimator *led;
 	GList *node;
 	
-	led = GNOME_ANIMATOR (app->widgets.toolbar.main_toolbar.led);
+	//led = GNOME_ANIMATOR (app->widgets.toolbar.main_toolbar.led);
 	app->busy_count++;
 	if (app->busy_count > 1)
 		return;
 	if (app_cursor)
 		gdk_cursor_destroy (app_cursor);
-	gnome_animator_stop (led);
-	gnome_animator_goto_frame (led, 1);
+	//gnome_animator_stop (led);
+	//gnome_animator_goto_frame (led, 1);
 	app_cursor = gdk_cursor_new (GDK_WATCH);
 	if (app->widgets.window->window)
 		gdk_window_set_cursor (app->widgets.window->window, app_cursor);
@@ -2022,11 +2023,12 @@ anjuta_update_app_status (gboolean set_job, gchar* job_name)
 }
 
 void
-anjuta_toolbar_set_view (gchar* toolbar_name, gboolean view, gboolean resize, gboolean set_in_props)
+anjuta_toolbar_set_view (gchar* toolbar_name, gboolean view,
+						 gboolean resize, gboolean set_in_props)
 {
 	gchar* key;
-	GnomeDock* dock;
-	GnomeDockItem* item;
+	BonoboDock* dock;
+	BonoboDockItem* item;
 
 	if (set_in_props)
 	{

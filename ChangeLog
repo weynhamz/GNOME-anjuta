@@ -1,3 +1,55 @@
+2003-01-09  Naba Kumar <naba@gnome.org>
+
+	* scintilla/RESearch.cxx: Removed cvs logging as it was creating
+	problems with some comments.
+
+	* anjuta.prj: New project file (updated?)
+
+	* src/Makefile.am: Enabled deprecated API and fixed variables.
+
+	* src/an_file_view.c,
+	src/an_symbol_view.c,
+	src/anjuta-plugins.c,
+	src/anjuta-tools.c,
+	src/anjuta.c,
+	src/anjuta_gui.c,
+	src/appwizard_cbs.c,
+	src/attach_process.c,
+	src/attach_process_cbs.c,
+	src/compiler_options.c,
+	src/compiler_options_cbs.c,
+	src/launcher.c,
+	src/mainmenu_callbacks.c,
+	src/message-manager-private.c,c
+	src/message-manager-private.h,
+	src/message-manager.c,c
+	src/message-manager.h,
+	src/project_dbase.c,
+	src/project_dbase.h,
+	src/project_dbase_gui.c,
+	src/project_import_cbs.c,
+	src/project_import_gui.c,
+	src/registers.c,
+	src/resources.c,
+	src/resources.h,
+	src/sharedlib.c,
+	src/signals.c,
+	src/signals_cbs.c,
+	src/signals_gui.c,
+	src/splash.c,
+	src/src_paths_cbs.c,
+	src/src_paths_gui.c,
+	src/stack_trace.c,
+	src/text_editor.c,
+	src/text_editor_gui.c,
+	src/text_editor_menu.c,
+	src/toolbar.c,
+	src/toolbar_callbacks.c,
+	src/utilities.c,
+	src/watch.c,
+	src/watch_cbs.c,
+	src/wizard_gui.c: GNOME porting.
+
 2002-12-24 Naba Kumar <naba@gnome.org>
 
 	* AUTHORS, ChangeLog, HACKING, Makefile.am,

@@ -272,8 +272,10 @@ on_rename1_activate (GtkMenuItem * menuitem, gpointer user_data)
 void
 on_page_setup1_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
-	gtk_notebook_set_page (GTK_NOTEBOOK
-			       (app->preferences->widgets.notebook), 4);
+#warning "G3: Show print setup preferences page here"
+
+	//gtk_notebook_set_page (GTK_NOTEBOOK
+	//		       (app->preferences->notebook), 4);
 	preferences_show (app->preferences);
 }
 
@@ -1641,7 +1643,7 @@ on_info_memory_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
 	GtkWidget *win_memory;
 
-	win_memory = create_info_memory(NULL);
+	win_memory = memory_info_new (NULL);
 	gtk_widget_show(win_memory);
 }
 

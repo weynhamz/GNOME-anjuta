@@ -23,7 +23,7 @@
 #include <gnome.h>
 #include "signals.h"
 #include "signals_cbs.h"
-#include "messagebox.h"
+//#include "messagebox.h"
 #include "debugger.h"
 
 void

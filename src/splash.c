@@ -57,6 +57,8 @@ splash_button_pressed(GtkWidget *widget,
 static GtkWidget*
 load_image(char* file)
 {
+#warning "G2: Load splash image here"
+#if 0
     int imw, imh;
     GdkImlibImage* im;
     GtkWidget* ret;
@@ -68,6 +70,8 @@ load_image(char* file)
     ret = gnome_pixmap_new_from_imlib_at_size(im,imw,imh);
     gdk_imlib_destroy_image(im);
     return ret;
+#endif
+	return gtk_label_new ("Anjuta Splash!!");
 }
 
 // show the splash screen

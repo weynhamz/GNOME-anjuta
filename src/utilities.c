@@ -1303,33 +1303,33 @@ select_only_file (const struct dirent *e)
 /* Create a new hbox with an image and a label packed into it
         * and return the box. */
 GtkWidget*
-create_xpm_label_box( GtkWidget *parent,
-                                 const gchar     *xpm_filename, gboolean gnome_pixmap,
-                                 const gchar     *label_text )
-       {
-           GtkWidget *box1;
-           GtkWidget *label;
-           GtkWidget *pixmap;
-
-           /* Create box for xpm and label */
-           box1 = gtk_hbox_new (FALSE, 0);
-
-           /* Now on to the xpm stuff */
-           pixmap = anjuta_res_get_pixmap_widget (parent, xpm_filename, gnome_pixmap);
-
-           /* Create a label for the button */
-           label = gtk_label_new (label_text);
-
-           /* Pack the pixmap and label into the box */
-           gtk_box_pack_start (GTK_BOX (box1),
-                               pixmap, FALSE, FALSE, 0);
-
-           gtk_box_pack_start (GTK_BOX (box1), label, FALSE, FALSE, 3);
-
-           gtk_widget_show(pixmap);
-           gtk_widget_show(label);
-
-           return(box1);
+create_xpm_label_box(GtkWidget *parent,
+					 const gchar     *xpm_filename, gboolean gnome_pixmap,
+					 const gchar     *label_text )
+{
+	GtkWidget *box1;
+	GtkWidget *label;
+	GtkWidget *pixmap;
+	
+	/* Create box for xpm and label */
+	box1 = gtk_hbox_new (FALSE, 0);
+	
+	/* Now on to the xpm stuff */
+	pixmap = anjuta_res_get_pixmap_widget (parent, xpm_filename);
+	
+	/* Create a label for the button */
+	label = gtk_label_new (label_text);
+	
+	/* Pack the pixmap and label into the box */
+	gtk_box_pack_start (GTK_BOX (box1),
+					   pixmap, FALSE, FALSE, 0);
+	
+	gtk_box_pack_start (GTK_BOX (box1), label, FALSE, FALSE, 3);
+	
+	gtk_widget_show(pixmap);
+	gtk_widget_show(label);
+	
+	return(box1);
 }
 
 /* Excluding the final 0 */

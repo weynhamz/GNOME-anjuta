@@ -26,42 +26,6 @@
 #include "utilities.h"
 #include "resources.h"
 
-static char *dummy_pixmap_xpm[] = {
-/* columns rows colors chars-per-pixel */
-	"1 1 1 1",
-	"  c None",
-/* pixels */
-	" ",
-	" "
-};
-
-/* This is an internally used function to create dummy pixmaps. */
-static GtkWidget *
-create_dummy_pixmap (GtkWidget * widget, gboolean gnome_pixmap)
-{
-	GdkColormap *colormap;
-	GdkPixmap *gdkpixmap;
-	GdkBitmap *mask;
-	GtkWidget *pixmap;
-
-	if (gnome_pixmap)
-	{
-		return gnome_pixmap_new_from_xpm_d (dummy_pixmap_xpm);
-	}
-
-	colormap = gtk_widget_get_colormap (widget);
-	gdkpixmap =
-		gdk_pixmap_colormap_create_from_xpm_d (NULL, colormap, &mask,
-						       NULL,
-						       dummy_pixmap_xpm);
-	if (gdkpixmap == NULL)
-		g_error (_("Could not create replacement pixmap."));
-	pixmap = gtk_pixmap_new (gdkpixmap, mask);
-	gdk_pixmap_unref (gdkpixmap);
-	gdk_bitmap_unref (mask);
-	return pixmap;
-}
-
 GtkWidget *
 anjuta_res_lookup_widget (GtkWidget * widget, const gchar * widget_name)
 {
@@ -87,11 +51,12 @@ anjuta_res_lookup_widget (GtkWidget * widget, const gchar * widget_name)
 	return found_widget;
 }
 
-GdkImlibImage *
+GdkPixbuf *
 anjuta_res_get_image (const gchar * filename)
 {
-	GdkImlibImage *image;
+	GdkPixbuf *image;
 	gchar *pathname;
+	GError *error = NULL;
 
 	pathname = anjuta_res_get_pixmap_file (filename);
 	if (!pathname)
@@ -100,62 +65,29 @@ anjuta_res_get_image (const gchar * filename)
 		return NULL;
 	}
 
-	image = gdk_imlib_load_image (pathname);
+	image = gdk_pixbuf_new_from_file (pathname, &error);
 	g_free (pathname);
 	return image;
 }
 
 GtkWidget *
-anjuta_res_get_pixmap_widget (GtkWidget * widget, const gchar * pixfile,
-			      gboolean gnome_pixmap)
+anjuta_res_get_pixmap_widget (GtkWidget * widget, const gchar * pixfile)
 {
 	GtkWidget *pixmap;
-	GdkColormap *colormap;
-	GdkPixmap *gdkpixmap;
-	GdkBitmap *mask;
 	gchar *pathname;
+	
+	if (!pixfile || !pixfile[0])
+		return gtk_image_new ();
 
 	pathname = anjuta_res_get_pixmap_file (pixfile);
 	if (!pathname)
 	{
 		g_warning (_("Could not find application pixmap file: %s"),
 			   pixfile);
-		return create_dummy_pixmap (widget, gnome_pixmap);
+		return gtk_image_new ();
 	}
-
-	if (gnome_pixmap)
-	{
-		gchar *gnome_pixfile;
-		gnome_pixfile = gnome_pixmap_file (pixfile);
-		if (!gnome_pixfile)
-		{
-			g_warning (_("Could not find GNOME pixmap file: %s"),
-				   pixfile);
-			g_free (pathname);
-			return create_dummy_pixmap (widget, gnome_pixmap);
-		}
-		pixmap = gnome_pixmap_new_from_file (gnome_pixfile);
-		g_free (pathname);
-		g_free (gnome_pixfile);
-		return pixmap;
-	}
-
-	colormap = gtk_widget_get_colormap (widget);
-	gdkpixmap =
-		gdk_pixmap_colormap_create_from_xpm (NULL, colormap, &mask,
-						     NULL, pathname);
-	if (gdkpixmap == NULL)
-	{
-		g_warning (_("Could not create pixmap from file: %s"),
-			   pathname);
-		g_free (pathname);
-		return create_dummy_pixmap (widget, gnome_pixmap);
-	}
+	pixmap = gtk_image_new_from_file (pathname);
 	g_free (pathname);
-
-	pixmap = gtk_pixmap_new (gdkpixmap, mask);
-	gdk_pixmap_unref (gdkpixmap);
-	gdk_bitmap_unref (mask);
 	return pixmap;
 }
 
@@ -305,7 +237,8 @@ anjuta_res_help_search (const gchar * word)
 	}
 }
 
-void anjuta_res_url_show(const char *url)
+void anjuta_res_url_show (const char *url)
 {
-	gnome_url_show(url);
+	GError *error = NULL;
+	gnome_url_show (url, &error);
 }

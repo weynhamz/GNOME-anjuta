@@ -77,14 +77,14 @@ GnomeUIInfo text_editor_menu_goto_submenu_uiinfo[] = {
 	 GNOME_APP_UI_ITEM, N_("Back"),
 	 NULL,
 	 on_go_back_activate, NULL, NULL,
-	 PIX_STOCK(BACK),
+	 PIX_STOCK(GTK_STOCK_GO_BACK),
  	 0, 0, NULL}
 	 ,
 	{
 	 GNOME_APP_UI_ITEM, N_("Forward"),
 	 NULL,
 	 on_go_forward_activate, NULL, NULL,
-	 PIX_STOCK(FORWARD),
+	 PIX_STOCK(GTK_STOCK_GO_FORWARD),
  	 0, 0, NULL}
 	 ,
 	 GNOMEUIINFO_SEPARATOR
@@ -100,7 +100,7 @@ GnomeUIInfo text_editor_menu_goto_submenu_uiinfo[] = {
 	 GNOME_APP_UI_ITEM, N_("Tag Declaration"),
 	 NULL,
 	 on_goto_tag_activate, (gboolean) FALSE, NULL,
-	 PIX_STOCK(JUMP_TO),
+	 PIX_STOCK(GTK_STOCK_JUMP_TO),
  	 0, 0, NULL}
 	 ,
 	GNOMEUIINFO_SEPARATOR,
@@ -108,13 +108,13 @@ GnomeUIInfo text_editor_menu_goto_submenu_uiinfo[] = {
 	 GNOME_APP_UI_ITEM, N_("Prev mesg"),
 	 NULL,
 	 on_goto_prev_mesg1_activate, NULL, NULL,
-	 PIX_STOCK(UP),
+	 PIX_STOCK(GTK_STOCK_GO_UP),
 	 0, 0, NULL},
 	{
 	 GNOME_APP_UI_ITEM, N_("Next mesg"),
 	 NULL,
 	 on_goto_next_mesg1_activate, NULL, NULL,
-	 PIX_STOCK(DOWN),
+	 PIX_STOCK(GTK_STOCK_GO_DOWN),
 	 0, 0, NULL},
 	{
 	 GNOME_APP_UI_ITEM, N_("Prev bookmark"),
@@ -239,7 +239,7 @@ GnomeUIInfo text_editor_menu_uiinfo[] = {
 	 GNOME_APP_UI_ITEM, N_("Cut"),
 	 NULL,
 	 on_editor_command_activate, (gpointer) ANE_CUT, NULL,
-	 PIX_STOCK(CUT),
+	 PIX_STOCK(GTK_STOCK_CUT),
 	 GDK_x, GDK_CONTROL_MASK, NULL}
 	,
 	{
@@ -247,7 +247,7 @@ GnomeUIInfo text_editor_menu_uiinfo[] = {
 	 GNOME_APP_UI_ITEM, N_("Copy"),
 	 NULL,
 	 on_editor_command_activate, (gpointer) ANE_COPY, NULL,
-	 PIX_STOCK(COPY),
+	 PIX_STOCK(GTK_STOCK_COPY),
 	 GDK_c, GDK_CONTROL_MASK, NULL}
 	,
 	{
@@ -255,7 +255,7 @@ GnomeUIInfo text_editor_menu_uiinfo[] = {
 	 GNOME_APP_UI_ITEM, N_("Paste"),
 	 NULL,
 	 on_editor_command_activate, (gpointer) ANE_PASTE, NULL,
-	 PIX_STOCK(PASTE),
+	 PIX_STOCK(GTK_STOCK_PASTE),
 	 GDK_v, GDK_CONTROL_MASK, NULL}
 	,
 	/* 3 */
@@ -265,7 +265,7 @@ GnomeUIInfo text_editor_menu_uiinfo[] = {
 	 GNOME_APP_UI_ITEM, N_("Context Help"),
 	 NULL,
 	 on_context_help_activate, NULL, NULL,
-	 PIX_STOCK(BOOK_RED),
+	 PIX_STOCK(GTK_STOCK_HELP),
  	 GDK_h, GDK_CONTROL_MASK, NULL}
 	 ,
 	/* 5 */
@@ -329,7 +329,7 @@ GnomeUIInfo text_editor_menu_uiinfo[] = {
 	 GNOME_APP_UI_SUBTREE, N_("Options"),
 	 NULL,
 	 text_editor_menu_options_submenu_uiinfo, NULL, NULL,
-	 PIX_STOCK(PREF),
+	 PIX_STOCK(GTK_STOCK_PREFERENCES),
 	 0, 0, NULL}
 	,
 	 /* 16 */
@@ -339,7 +339,7 @@ GnomeUIInfo text_editor_menu_uiinfo[] = {
 	 GNOME_APP_UI_ITEM, N_("Find Usage"),
 	 NULL,
 	 on_lookup_symbol_activate, NULL, NULL,
-	 PIX_STOCK(SEARCH),
+	 PIX_STOCK(GTK_STOCK_FIND),
 	 0, 0, NULL}
 	,
 	{
@@ -347,7 +347,7 @@ GnomeUIInfo text_editor_menu_uiinfo[] = {
 	 GNOME_APP_UI_ITEM, N_("Close"),
 	 NULL,
 	 on_close_file1_activate, NULL, NULL,
-	 PIX_STOCK(CLOSE),
+	 PIX_STOCK(GTK_STOCK_CLOSE),
 	 0, 0, NULL}
 	,
 	{

@@ -165,7 +165,7 @@ create_import_wizard_page2 (ProjectImportWizard * piw)
 	GdkColor page2_title_color = { 0, 65535, 65535, 65535 };
 
 	piw->widgets.page[1] =
-		gnome_druid_page_standard_new_with_vals ("", NULL);
+		gnome_druid_page_standard_new_with_vals ("", NULL, NULL);
 	gtk_widget_show_all (piw->widgets.page[1]);
 	gnome_druid_append_page (GNOME_DRUID (piw->widgets.druid),
 				 GNOME_DRUID_PAGE (piw->widgets.page[1]));
@@ -316,4 +316,3 @@ create_import_wizard_page_finish (ProjectImportWizard * piw)
 {
 	piw->widgets.page[6] = create_project_finish_page(GNOME_DRUID(piw->widgets.druid));
 }
-

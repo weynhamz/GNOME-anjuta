@@ -36,35 +36,28 @@ create_project_start_page (GnomeDruid * druid, gchar * greetings,
 	GdkColor pagestart_title_color = { 0, 65535, 65535, 65535 };
 	GtkWidget *page;
 
-	page = gnome_druid_page_start_new ();
+	page = gnome_druid_page_edge_new (GNOME_EDGE_START);
 	gtk_widget_show (page);
 	gnome_druid_append_page (GNOME_DRUID (druid),
 				 GNOME_DRUID_PAGE (page));
 	gnome_druid_set_page (GNOME_DRUID (druid), GNOME_DRUID_PAGE (page));
-	gnome_druid_page_start_set_bg_color (GNOME_DRUID_PAGE_START
-					     (page), &pagestart_bg_color);
-	gnome_druid_page_start_set_logo_bg_color (GNOME_DRUID_PAGE_START
-						  (page),
+	gnome_druid_page_edge_set_bg_color (GNOME_DRUID_PAGE_EDGE (page),
+						  &pagestart_bg_color);
+	gnome_druid_page_edge_set_logo_bg_color (GNOME_DRUID_PAGE_EDGE (page),
 						  &pagestart_logo_bg_color);
-	gnome_druid_page_start_set_textbox_color (GNOME_DRUID_PAGE_START
-						  (page),
+	gnome_druid_page_edge_set_textbox_color (GNOME_DRUID_PAGE_EDGE (page),
 						  &pagestart_textbox_color);
-	gnome_druid_page_start_set_title_color (GNOME_DRUID_PAGE_START
-						(page),
-						&pagestart_title_color);
-	gnome_druid_page_start_set_text (GNOME_DRUID_PAGE_START
-					 (page), greetings);
-	gnome_druid_page_start_set_title (GNOME_DRUID_PAGE_START
-					  (page), title);
-	gnome_druid_page_start_set_logo (GNOME_DRUID_PAGE_START
-					 (page),
+	gnome_druid_page_edge_set_title_color (GNOME_DRUID_PAGE_EDGE (page),
+						  &pagestart_title_color);
+	gnome_druid_page_edge_set_text (GNOME_DRUID_PAGE_EDGE (page),
+						  greetings);
+	gnome_druid_page_edge_set_title (GNOME_DRUID_PAGE_EDGE (page), title);
+	gnome_druid_page_edge_set_logo (GNOME_DRUID_PAGE_EDGE (page),
 					 anjuta_res_get_image
 					 (ANJUTA_PIXMAP_APPWIZ_LOGO));
-	gnome_druid_page_start_set_watermark (GNOME_DRUID_PAGE_START
-					      (page),
+	gnome_druid_page_edge_set_watermark (GNOME_DRUID_PAGE_EDGE (page),
 					      anjuta_res_get_image
 					      (ANJUTA_PIXMAP_APPWIZ_WATERMARK));
-
 	return page;
 }
 
@@ -91,7 +84,7 @@ create_project_type_selection_page (GnomeDruid * druid, GtkWidget ** iconlist)
 
 	GtkWidget *page;
 
-	page = gnome_druid_page_standard_new_with_vals ("", NULL);
+	page = gnome_druid_page_standard_new_with_vals ("", NULL, NULL);
 	gtk_widget_show_all (page);
 	gnome_druid_append_page (GNOME_DRUID (druid),
 				 GNOME_DRUID_PAGE (page));
@@ -143,7 +136,7 @@ create_project_type_selection_page (GnomeDruid * druid, GtkWidget ** iconlist)
 					GTK_POLICY_AUTOMATIC);
 	gtk_container_add (GTK_CONTAINER (frame3), scrolledwindow1);
 
-	iconlist1 = gnome_icon_list_new_flags (110, NULL, 0);
+	iconlist1 = gnome_icon_list_new (110, NULL, 0);
 	gnome_icon_list_set_selection_mode (GNOME_ICON_LIST (iconlist1),
 					    GTK_SELECTION_BROWSE);
 	gtk_widget_show (iconlist1);
@@ -291,7 +284,7 @@ create_project_props_page (GnomeDruid * druid,
 	GdkColor page_logo_bg_color = { 0, 15616, 33280, 46848 };
 	GdkColor page_title_color = { 0, 65535, 65535, 65535 };
 
-	GtkWidget *page = gnome_druid_page_standard_new_with_vals ("", NULL);
+	GtkWidget *page = gnome_druid_page_standard_new_with_vals ("", NULL, NULL);
 	gtk_widget_show_all (page);
 	gnome_druid_append_page (GNOME_DRUID (druid),
 				 GNOME_DRUID_PAGE (page));
@@ -499,7 +492,7 @@ create_project_description_page (GnomeDruid * druid,
 	GtkWidget *scrolledwindow1;
 	GtkWidget *description_text;
 	GtkWidget *druid_vbox3;
-	GtkWidget *page = gnome_druid_page_standard_new_with_vals ("", NULL);
+	GtkWidget *page = gnome_druid_page_standard_new_with_vals ("", NULL, NULL);
 	gtk_widget_show_all (page);
 	gnome_druid_append_page (GNOME_DRUID (druid),
 				 GNOME_DRUID_PAGE (page));
@@ -546,7 +539,7 @@ create_project_description_page (GnomeDruid * druid,
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolledwindow1),
 					GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
 
-	description_text = gtk_text_new (NULL, NULL);
+	description_text = gtk_text_view_new ();
 	gtk_widget_show (description_text);
 	gtk_container_add (GTK_CONTAINER (scrolledwindow1), description_text);
 	gtk_text_set_editable (GTK_TEXT (description_text), TRUE);
@@ -603,7 +596,7 @@ create_project_menu_page (GnomeDruid * druid,
 	GdkColor page_title_color = { 0, 65535, 65535, 65535 };
 
 
-	GtkWidget *page = gnome_druid_page_standard_new_with_vals ("", NULL);
+	GtkWidget *page = gnome_druid_page_standard_new_with_vals ("", NULL, NULL);
 	gtk_widget_show_all (page);
 	gnome_druid_append_page (GNOME_DRUID (druid),
 				 GNOME_DRUID_PAGE (page));
@@ -772,32 +765,25 @@ create_project_finish_page (GnomeDruid * druid)
 	GdkColor pagefinish_textbox_color = { 0, 65535, 65535, 65535 };
 	GdkColor pagefinish_title_color = { 0, 65535, 65535, 65535 };
 
-	GtkWidget *page = gnome_druid_page_finish_new ();
+	GtkWidget *page = gnome_druid_page_edge_new (GNOME_EDGE_FINISH);
 	gtk_widget_show (page);
 	gnome_druid_append_page (GNOME_DRUID (druid),
 				 GNOME_DRUID_PAGE (page));
-	gnome_druid_page_finish_set_bg_color (GNOME_DRUID_PAGE_FINISH
-					      (page), &pagefinish_bg_color);
-	gnome_druid_page_finish_set_logo_bg_color (GNOME_DRUID_PAGE_FINISH
-						   (page),
-						   &pagefinish_logo_bg_color);
-	gnome_druid_page_finish_set_textbox_color (GNOME_DRUID_PAGE_FINISH
-						   (page),
-						   &pagefinish_textbox_color);
-	gnome_druid_page_finish_set_title_color (GNOME_DRUID_PAGE_FINISH
-						 (page),
-						 &pagefinish_title_color);
-	gnome_druid_page_finish_set_title (GNOME_DRUID_PAGE_FINISH
-					   (page), _("Summary"));
-	gnome_druid_page_finish_set_logo (GNOME_DRUID_PAGE_FINISH
-					  (page),
+	gnome_druid_page_edge_set_bg_color (GNOME_DRUID_PAGE_EDGE(page),
+										&pagefinish_bg_color);
+	gnome_druid_page_edge_set_logo_bg_color (GNOME_DRUID_PAGE_EDGE (page),
+											 &pagefinish_logo_bg_color);
+	gnome_druid_page_edge_set_textbox_color (GNOME_DRUID_PAGE_EDGE (page),
+						   					 &pagefinish_textbox_color);
+	gnome_druid_page_edge_set_title_color (GNOME_DRUID_PAGE_EDGE (page),
+						 				   &pagefinish_title_color);
+	gnome_druid_page_edge_set_title (GNOME_DRUID_PAGE_EDGE (page),
+									 _("Summary"));
+	gnome_druid_page_edge_set_logo (GNOME_DRUID_PAGE_EDGE (page),
 					  anjuta_res_get_image
 					  (ANJUTA_PIXMAP_APPWIZ_LOGO));
-	gnome_druid_page_finish_set_watermark (GNOME_DRUID_PAGE_FINISH
-					       (page),
+	gnome_druid_page_finish_set_watermark (GNOME_DRUID_PAGE_EDGE (page),
 					       anjuta_res_get_image
 					       (ANJUTA_PIXMAP_APPWIZ_WATERMARK));
-
 	return page;
 }
-

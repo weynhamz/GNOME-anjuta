@@ -81,8 +81,8 @@ static AnPlugErr plug_in_init(AnjutaPlugIn *self, const gchar *szModName)
 					g_free(szTitle);
 					gtk_menu_append(GTK_MENU(submenu), self->menu_item);
 					gtk_widget_show(self->menu_item);
-					gtk_signal_connect(GTK_OBJECT(self->menu_item), "activate"
-					  , plug_in_callback, self);
+					g_signal_connect (G_OBJECT (self->menu_item), "activate"
+					  , G_CALLBACK (plug_in_callback), self);
 				}
 			}
 		} else

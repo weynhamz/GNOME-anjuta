@@ -185,47 +185,47 @@ on_ew_change_ok_clicked (GtkButton *wid, gpointer user_data)
 static void 
 change_watch_entry(GtkEntry *ent)
 {
-  gchar *row[2], *exp;
-//	gchar *buff;
-  gint index;		//To forcefully get the index stuff right.
+	gchar *row[2], *exp;
+	//	gchar *buff;
+	gint index;		//To forcefully get the index stuff right.
 	
-  if (GTK_IS_ENTRY(ent)==FALSE)
+	if (GTK_IS_ENTRY(ent)==FALSE)
 		return;
-  if (g_list_length (debugger.watch->exprs) < 1) 
+	if (g_list_length (debugger.watch->exprs) < 1) 
 		return;
-	row[0] = gtk_entry_get_text (ent);	
-  if (strlen (row[0]) == 0)
+	row[0] = (gchar*) gtk_entry_get_text (ent);	
+	if (strlen (row[0]) == 0)
 		return;
-
+	
 	if (expr_watch_entry_history)
-    g_free (expr_watch_entry_history);
+		g_free (expr_watch_entry_history);
 	expr_watch_entry_history = g_strdup (row[0]);		
 	
-  index = debugger.watch->current_index;
+	index = debugger.watch->current_index;
 	
-//internal debugger-list stuff:
+	//internal debugger-list stuff:
 	exp = g_list_nth_data(debugger.watch->exprs, index);
-  debugger.watch->exprs = g_list_remove(debugger.watch->exprs,
-																				exp);
+	debugger.watch->exprs = g_list_remove(debugger.watch->exprs,
+										  exp);
 	debugger.watch->exprs = g_list_insert(debugger.watch->exprs,
-																				g_strdup (row[0]),
-																				index);
-
-//Visible watch-list stuff:
+										  g_strdup (row[0]),
+										  index);
+	
+	//Visible watch-list stuff:
 	row[1] = g_strdup ("");
-  gtk_clist_remove(GTK_CLIST (debugger.watch->widgets.clist),
-									 index);
+	gtk_clist_remove(GTK_CLIST (debugger.watch->widgets.clist),
+								index);
 	gtk_clist_insert(GTK_CLIST (debugger.watch->widgets.clist), 
-									 index,
-									 row);
-//Make watch-screen update:
-/*  buff = g_strconcat ("print ", row[0], NULL);
-  debugger_put_cmd_in_queqe (buff, DB_CMD_NONE, expr_watch_update,
-														 debugger.watch);
-  g_free (buff);	*/
+								index,
+								row);
+	//Make watch-screen update:
+	/*  buff = g_strconcat ("print ", row[0], NULL);
+	debugger_put_cmd_in_queqe (buff, DB_CMD_NONE, expr_watch_update,
+	debugger.watch);
+	g_free (buff);	*/
 	expr_watch_cmd_queqe (debugger.watch);
-  g_free (row[1]);
-  debugger_execute_cmd_in_queqe ();
+	g_free (row[1]);
+	debugger_execute_cmd_in_queqe ();
 }
 
 static void
@@ -234,7 +234,7 @@ add_watch_entry( GtkEntry *ent )
   gchar *row[2], *buff;
 
   if(GTK_IS_ENTRY(ent)==FALSE) return;
-  row[0] = gtk_entry_get_text (ent);
+  row[0] = (gchar*) gtk_entry_get_text (ent);
   if (strlen (row[0]) == 0)
     return;
 
@@ -278,7 +278,8 @@ void
 on_eval_ok_clicked (GtkButton * button, gpointer user_data)
 {
   GtkEntry *ent;
-  gchar *buff1, *buff2;
+  const gchar *buff1;
+  gchar *buff2;
   ent = (GtkEntry *) user_data;
   buff1 = gtk_entry_get_text (ent);
   if (strlen (buff1) == 0)
@@ -303,4 +304,3 @@ on_eval_add_watch(GtkButton * button, gpointer user_data)
 {
 	add_watch_entry( (GtkEntry *) user_data );
 }
-

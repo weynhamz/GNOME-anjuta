@@ -17,13 +17,19 @@
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
+#ifdef HAVE_CONFIG_H
+#  include <config.h>
+#endif
+
+#include <assert.h>
+#include <glib-object.h>
+#include <gnome.h>
+
 #include "message-manager.h"
 #include "message-manager-private.h"
 #include "message-manager-dock.h"
 #include "pixmaps.h"
 #include "preferences.h"
-
-#include <libgnomeui/gnome-window-icon.h>
 
 extern "C"
 {
@@ -36,11 +42,12 @@ extern "C"
 enum
 {
 	MESSAGE_CLICKED,
-	MESSAGE_INDICATE,
+//	MESSAGE_INDICATE,
 	SIGNALS_END
 };
 
-static guint anjuta_message_manager_signals[SIGNALS_END] = { 0, 0 };
+// static guint anjuta_message_manager_signals[SIGNALS_END] = { 0, 0 };
+static guint anjuta_message_manager_signals[SIGNALS_END] = { 0 };
 
 // Data:
 static char *labels[] =
@@ -94,24 +101,29 @@ anjuta_message_manager_new ()
 	return amm;
 }
 
-GtkType
+guint
 anjuta_message_manager_get_type (void)
 {
-	static GtkType type = 0;
+	static guint type = 0;
 
 	if (!type)
 	{
-		static const GtkTypeInfo info = {
-			"AnjutaMessageManager",
+		static const GTypeInfo info = 
+		{
 			sizeof (AnjutaMessageManager),
+			(GBaseInitFunc) NULL,
+			(GBaseFinalizeFunc) NULL,
+			(GClassInitFunc) anjuta_message_manager_class_init,
+			(GClassFinalizeFunc) NULL,
+			NULL,           /* class_data */
 			sizeof (AnjutaMessageManagerClass),
-			(GtkClassInitFunc) anjuta_message_manager_class_init,
-			(GtkObjectInitFunc) anjuta_message_manager_init,
-			NULL,
-			NULL,
-			(GtkClassInitFunc) NULL
+			0,              /* n_preallocs */
+			(GInstanceInitFunc) anjuta_message_manager_init,
+			NULL            /* value_table */
 		};
-		type = gtk_type_unique (gtk_frame_get_type (), &info);
+		type = g_type_register_static (GTK_TYPE_FRAME,
+									   "AnjutaMessageManager",
+									   &info, (GTypeFlags)0);
 	}
 	return type;
 }
@@ -125,26 +137,30 @@ anjuta_message_manager_class_init (AnjutaMessageManagerClass * klass)
 	parent_class = reinterpret_cast < GtkFrameClass * >(klass);
 	// Signals
 	anjuta_message_manager_signals[MESSAGE_CLICKED] =
-		gtk_signal_new ("message_clicked", GTK_RUN_FIRST,
-				object_class->type,
-				GTK_SIGNAL_OFFSET (AnjutaMessageManagerClass,
-						   message_clicked),
-				gtk_marshal_NONE__POINTER, GTK_TYPE_NONE,
-				1, GTK_TYPE_POINTER);
-
+		g_signal_new ("message_clicked",
+					G_TYPE_FROM_CLASS (object_class),
+					G_SIGNAL_RUN_FIRST,
+					G_STRUCT_OFFSET (AnjutaMessageManagerClass,
+									 message_clicked),
+					NULL, NULL,
+					g_cclosure_marshal_VOID__POINTER, G_TYPE_NONE,
+					1, G_TYPE_POINTER);
+#warning "G2: Add MESSAGE_INDICATE signal!!"
+/*
 	anjuta_message_manager_signals[MESSAGE_INDICATE] =
-		gtk_signal_new ("message_indicate", GTK_RUN_FIRST,
-				object_class->type,
-				GTK_SIGNAL_OFFSET (AnjutaMessageManagerClass,
-						   message_indicate),
-				marshal_NONE__POINTER_INT_POINTER_LONG_INT, GTK_TYPE_NONE,
-				4, GTK_TYPE_INT, GTK_TYPE_POINTER,
-				GTK_TYPE_LONG, GTK_TYPE_INT);
+		g_signal_new ("message_indicate",
+					G_TYPE_FROM_CLASS (object_class),
+					G_SIGNAL_RUN_FIRST,
+					G_STRUCT_OFFSET (AnjutaMessageManagerClass,
+									 message_indicate),
+					g_cclosure_marshal_VOID__BOXED_INT_BOXED_LONG_INT, G_TYPE_NONE,
+					4, G_TYPE_INT, G_TYPE_POINTER,
+					G_TYPE_LONG, G_TYPE_INT);
 
-	gtk_object_class_add_signals (object_class,
+	g_object_class_add_signals (object_class,
 				      anjuta_message_manager_signals,
 				      SIGNALS_END);
-
+*/
 	object_class->destroy = anjuta_message_manager_destroy;
 }
 
@@ -460,9 +476,9 @@ anjuta_message_manager_indicate_error (AnjutaMessageManager * amm, gint type_nam
 		gchar* file, glong line)
 {
 	if (type_name) return; // Only for Build messages.
-	gtk_signal_emit(GTK_OBJECT(amm), 
-				anjuta_message_manager_signals[MESSAGE_INDICATE],
-				type_name, file, line, MESSAGE_INDICATOR_ERROR);
+//	gtk_signal_emit(GTK_OBJECT(amm), 
+//				anjuta_message_manager_signals[MESSAGE_INDICATE],
+//				type_name, file, line, MESSAGE_INDICATOR_ERROR);
 }
 
 void
@@ -470,9 +486,9 @@ anjuta_message_manager_indicate_warning (AnjutaMessageManager * amm, gint type_n
 		gchar* file, glong line)
 {
 	if (type_name) return; // Only for Build messages.
-	gtk_signal_emit(GTK_OBJECT(amm),
-				anjuta_message_manager_signals[MESSAGE_INDICATE],
-				type_name, file, line, MESSAGE_INDICATOR_WARNING);
+//	gtk_signal_emit(GTK_OBJECT(amm),
+//				anjuta_message_manager_signals[MESSAGE_INDICATE],
+//				type_name, file, line, MESSAGE_INDICATOR_WARNING);
 }
 
 void
@@ -480,9 +496,9 @@ anjuta_message_manager_indicate_others (AnjutaMessageManager * amm, gint type_na
 		gchar* file, glong line)
 {
 	// Any message
-	gtk_signal_emit(GTK_OBJECT(amm),
-				anjuta_message_manager_signals[MESSAGE_INDICATE],
-				type_name, file, line, MESSAGE_INDICATOR_OTHERS);
+//	gtk_signal_emit(GTK_OBJECT(amm),
+//				anjuta_message_manager_signals[MESSAGE_INDICATE],
+//				type_name, file, line, MESSAGE_INDICATOR_OTHERS);
 }
 
 void

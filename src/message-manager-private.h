@@ -23,7 +23,7 @@
 #include <string>
 #include <vector>
 
-#include <zvt/zvtterm.h>
+#include <libzvt/libzvt.h>
 
 #include "message-manager.h"
 #include "debug_tree.h"

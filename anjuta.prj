@@ -1,4 +1,4 @@
-# Anjuta Version 1.0.1 
+# Anjuta Version 1.0.2 
 Compatibility Level: 1 
 
 <PROJECT_DESCRIPTION_START>
@@ -24,7 +24,7 @@ a number of advanced programming facilities.<PROJECT_DESCRIPTION_END>
 
 props.file.type=project
 
-anjuta.version=1.0.1
+anjuta.version=1.0.2
 anjuta.compatibility.level=1
 
 project.name=anjuta
@@ -56,8 +56,8 @@ preferences.indent.opening=0
 preferences.indent.closing=0
 preferences.tabsize=4
 preferences.indent.size=4
-preferences.autoformat.style=Style of Kangleipak
-preferences.autoformat.custom.style= -i8 -sc -bli0 -bl0 -cbi0 -ss
+preferences.autoformat.style=Custom style
+preferences.autoformat.custom.style=-bad -bap -bbb -sob -nbbo -nbc -bl -fca -fc1 -lc80 -d0 -c50 -cd33 -cp10 -sc -ncdb -bl -bli0 -ncdw -cli0 -cbi4 -ss -pcs -cs -bs -saf -sai -saw -di16 -nbfda -psl -brs -i4 -ci4 -lp -ts4 -l80 -nhnl -pmt 
 preferences.autoformat.disable=0
 
 module.include.name=.
@@ -212,7 +212,7 @@ module.include.files=\
 
 module.source.name=.
 module.source.type=
-module.source.expanded=1
+module.source.expanded=0
 module.source.files=\
 	global-tags/tm_global_tags.c\
 	launcher/anjuta_launcher.c\
