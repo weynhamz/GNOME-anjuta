@@ -1,14 +1,17 @@
-Anjuta 1.0-rc1:	(1st August 2002)			-- Andy Piper
+Anjuta 1.0-beta1:	(1st August 2002)			-- Andy Piper
 
-   => Release of Anjuta-1.0-rc1 (release candidate 1)
+   => Release of Anjuta-1.0-beta1 (beta)
+
+This precedes the final release of Anjuta for the 
+GNOME 1.x platform...
 
 New: CVS support for Projects and individual files,
      file revisions are displayed in Files pane
 New: Gnome Print support (including syntax colouring)
 New: Patch plugin to apply diffs
 New: Application Wizard support for wxWindows, Xlib, 
-     GNOME2 and Gtk2 Projects, plus option for dynamic 
-	 or static libraries as targets in generic Projects
+     GNOME2, Gtk2 and libglade2 Projects, plus option for 
+	 dynamic or static libraries as targets in generic Projects
 New: user identity preferences enabling new editor functions
 New: better GNOME integration, now uses configured GNOME URL 
      handlers
