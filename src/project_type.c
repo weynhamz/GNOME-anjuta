@@ -358,7 +358,7 @@ gchar* project_type_qt[] = {
 	"", // cflags
 	"", // ldadd
 	"", // configure macros
-	"", // autogen file
+	"/autogen.sh.generic", // autogen file
 	"0", // gnome support
 	"0", // gnome macro support
 	"0" // glade support

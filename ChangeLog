@@ -1,3 +1,11 @@
+2002-10-24  Naba Kumar <naba@gnome.org>
+
+	* src/project_type.c: added autogen for qt projects.
+	* src/debugger.c: enabled debugger debugging for DEBUG MODE.
+	Fixed a bug that retrieves wrong terminal command.
+	* src/commnads.c: Added more terminal commands.
+	* configure.in: Checks for scrollkeeper version.
+	
 2002-10-22  Naba Kumar <naba@gnome.org>
 
 	* configure.in, acinclude.m4, setup-gettext: Used AM_GNU_GETTEXT

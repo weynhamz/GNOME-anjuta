@@ -41,7 +41,9 @@
 /* if you use it, please remember to comment   */
 /* it out again once the bug is fixed :-)      */
 
-/* #define ANJUTA_DEBUG_DEBUGGER */
+#ifdef DEBUG
+ #define ANJUTA_DEBUG_DEBUGGER
+#endif
 
 enum {
 	DEBUGGER_NONE,
@@ -1106,7 +1108,8 @@ debugger_start_terminal ()
 	g_free (encoded_cmd);
 	g_free (cmd);
 	
-	cmd = prop_get_expanded (app->preferences->props, "command.terminal");
+	/* cmd = prop_get_expanded (app->preferences->props, "command.terminal"); */
+	cmd = command_editor_get_command (app->command_editor, COMMAND_TERMINAL);
 	if (!cmd) goto error;
 	
 	args = anjuta_util_parse_args_from_string (cmd);

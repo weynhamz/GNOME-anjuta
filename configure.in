@@ -105,6 +105,20 @@ fi
 SCROLLKEEPER_REQUIRED=0.1.4
 AC_SUBST(SCROLLKEEPER_REQUIRED)
 
+dnl **********************************
+dnl Checking for scrollkeeper version
+dnl **********************************
+AC_MSG_CHECKING(for scrollkeeper version number)
+if scrollkeeper-config --version > /dev/null 2>&1; then 
+    version=`scrollkeeper-config --version`; \
+    vers=`echo $version | awk 'BEGIN { FS = "."; } { print $1 * 1000 + $2;}'`; \
+    AC_MSG_RESULT(found $version)
+    SCROLLKEEPER_VERSION_NUM=$vers
+else
+    AC_MSG_ERROR(Did not find scrollkeeper installed)
+fi
+AC_SUBST(SCROLLKEEPER_VERSION_NUM)
+
 dnl Check for pkg-config
 AC_PATH_PROG(PKGCONFIG_CONFIG, pkg-config,no)
 if test x$PKGCONFIG_CONFIG = xno; then
