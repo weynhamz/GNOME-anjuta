@@ -8,4 +8,4 @@
 [+(gpl "callbacks.h"  "\t")+]
 */[+ENDIF+]
 
-#include <gnome.h>
+#include <gtk/gtk.h>

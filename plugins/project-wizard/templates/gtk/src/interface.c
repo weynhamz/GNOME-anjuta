@@ -9,7 +9,7 @@
 */[+ENDIF+]
 
 #ifdef HAVE_CONFIG_H
-#  include <config.h>
+#include <config.h>
 #endif
 
 #include <sys/types.h>
@@ -18,8 +18,8 @@
 #include <string.h>
 #include <stdio.h>
 
-#include <bonobo.h>
-#include <gnome.h>
+#include <gdk/gdkkeysyms.h>
+#include <gtk/gtk.h>
 
 #include "callbacks.h"
 #include "interface.h"
@@ -27,8 +27,8 @@
 
 [+IF (=(get "HaveGlade") "1")+]
 #define GLADE_HOOKUP_OBJECT(component,widget,name) \
-	g_object_set_data_full (G_OBJECT (component), name, \
-    gtk_widget_ref (widget), (GDestroyNotify) gtk_widget_unref)
+		g_object_set_data_full (G_OBJECT (component), name, \
+		gtk_widget_ref (widget), (GDestroyNotify) gtk_widget_unref)
 
 #define GLADE_HOOKUP_OBJECT_NO_REF(component,widget,name) \
 	g_object_set_data (G_OBJECT (component), name, widget)
@@ -49,10 +49,10 @@ create_window1 (void)
 	/* Store pointers to all widgets, for use by lookup_widget(). */
  	GLADE_HOOKUP_OBJECT_NO_REF (window1, window1, "window1");
 [+ELSE+]
- 	window1 = gtk_window_new (GTK_WINDOW_TOPLEVEL);
- 	gtk_window_set_title (GTK_WINDOW (window1), _("window1"));
- 	gtk_window_set_default_size (GTK_WINDOW (window1), 500, 400);
-[+ENDIF+]
+	window1 = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+	gtk_window_set_title (GTK_WINDOW (window1), _("window1"));
+	gtk_window_set_default_size (GTK_WINDOW (window1), 500, 400);
+[+ENDIF+];
 	
 	return window1;
 }

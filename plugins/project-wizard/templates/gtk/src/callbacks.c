@@ -8,12 +8,11 @@
 [+(gpl "callbacks.c"  "\t")+]
 */[+ENDIF+]
 
-
 #ifdef HAVE_CONFIG_H
 #  include <config.h>
 #endif
 
-#include <gnome.h>
+#include <gtk/gtk.h>
 
 #include "callbacks.h"
 #include "interface.h"

@@ -12,7 +12,7 @@
 #  include <config.h>
 #endif
 
-#include <gnome.h>
+#include <gtk/gtk.h>
 
 #include "interface.h"
 #include "support.h"
@@ -20,7 +20,7 @@
 int
 main (int argc, char *argv[])
 {
-	GtkWidget *window1;
+ 	GtkWidget *window1;
 
 [+IF (=(get "HaveI18n") "1")+]
 #ifdef ENABLE_NLS
@@ -29,15 +29,20 @@ main (int argc, char *argv[])
 	textdomain (GETTEXT_PACKAGE);
 #endif
 [+ENDIF+]
-	gnome_program_init (PACKAGE, VERSION, LIBGNOMEUI_MODULE,
-                      argc, argv,
-                      GNOME_PARAM_APP_DATADIR, PACKAGE_DATA_DIR,
-                      NULL);
-
-	window1 = create_window1 ();
-	gtk_widget_show (window1);
-
-	gtk_main ();
 	
-	return 0;
+	gtk_set_locale ();
+	gtk_init (&argc, &argv);
+
+  add_pixmap_directory (PACKAGE_DATA_DIR "/" PACKAGE "/pixmaps");
+
+  /*
+   * The following code was added by Glade to create one of each component
+   * (except popup menus), just so that you see something after building
+   * the project. Delete any components that you don't want shown initially.
+   */
+  window1 = create_window1 ();
+  gtk_widget_show (window1);
+
+  gtk_main ();
+  return 0;
 }

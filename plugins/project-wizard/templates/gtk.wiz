@@ -63,11 +63,16 @@
 		<directory source="gtk" destination="[+NameLower+]">
 			<directory source="src">
 				<file source="main.c"/>
+				<file source="callbacks.c"/>
+				<file source="callbacks.h"/>
+				<file source="interface.c"/>
+				<file source="interface.h"/>
+				<file source="support.c"/>
+				<file source="support.h"/>
 				[+IF (=(get "HaveGlade") "1")+]
 				<file source="project.glade" destination="[+NameLower+].glade"/>
 				[+ENDIF+]
 				<file source="Makefile.am.tpl" destination="Makefile.am"/>
 			</directory>
-		</directory>
 	</directory>
 </content>

@@ -3,11 +3,40 @@
 
 [+IF (=(get "IncludeGNUHeader") "1") +]/*
 	support.h
-	Copyright (C) [+Author+]	Copyright (C) [+Author+] [+(shell "date +%Y")+] <[+Email+]>
+	Copyright (C) [+Author+] [+(shell "date +%Y")+] <[+Email+]>
+
 [+(gpl "support.h"  "\t")+]
 */[+ENDIF+]
 
-#include <gnome.h>
+#ifdef HAVE_CONFIG_H
+#  include <config.h>
+#endif
+
+#include <gtk/gtk.h>
+
+[+IF (=(get "HaveI18n") "1")+]
+/*
+ * Standard gettext macros.
+ */
+#ifdef ENABLE_NLS
+#  include <libintl.h>
+#  undef _
+#  define _(String) dgettext (PACKAGE, String)
+#  ifdef gettext_noop
+#    define N_(String) gettext_noop (String)
+#  else
+#    define N_(String) (String)
+#  endif
+#else
+#  define textdomain(String) (String)
+#  define gettext(String) (String)
+#  define dgettext(Domain,Message) (Message)
+#  define dcgettext(Domain,Message,Type) (Message)
+#  define bindtextdomain(Domain,Directory) (Domain)
+#  define _(String) (String)
+#  define N_(String) (String)
+#endif
+[+ENDIF+]
 
 /*
  * Public Functions.
@@ -22,6 +51,9 @@
 GtkWidget*  lookup_widget              (GtkWidget       *widget,
                                         const gchar     *widget_name);
 
+
+/* Use this function to set the directory containing installed pixmaps. */
+void        add_pixmap_directory       (const gchar     *directory);
 
 
 /*
