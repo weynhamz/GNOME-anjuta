@@ -1,3 +1,21 @@
+2004-12-15  Naba Kumar  <naba@gnome.org>
+
+	* libanjuta/anjuta-plugin.c: Fixed crash bug where watches were not
+	properly removed.
+	
+	* libanjuta/plugins.c, libanjuta/plugins.h: Proper clean up on
+	finalization. Added a method to unload all plugins and destroy them.
+	Fixed memory leaks.
+	
+	* plugins/sample1/plugin.c: Proper finalization code and renamed
+	functions to proper names.
+	
+	* plugins/build-basic-autotools/build-basic-autotools.c,
+	plugins/cvs-plugin/plugin.c: Proper	finalization and disposition code.
+
+	* src/shell.c: Unload all plugins on exit, so that memory profilers
+	can detect memory leaks in plugins.
+
 2004-12-13  Naba Kumar  <naba@gnome.org>
 
 	* plugins/devhelp/plugin.c: Delay widget initialization, now that

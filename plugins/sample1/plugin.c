@@ -60,7 +60,7 @@ static GtkActionEntry actions_file[] = {
 };
 
 static gboolean
-activate_plugin (AnjutaPlugin *plugin)
+sample_plugin_activate_plugin (AnjutaPlugin *plugin)
 {
 	GtkWidget *wid;
 	AnjutaUI *ui;
@@ -87,7 +87,7 @@ activate_plugin (AnjutaPlugin *plugin)
 }
 
 static gboolean
-deactivate_plugin (AnjutaPlugin *plugin)
+sample_plugin_deactivate_plugin (AnjutaPlugin *plugin)
 {
 	AnjutaUI *ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	g_message ("SamplePlugin: Dectivating Sample plugin ...");
@@ -98,9 +98,17 @@ deactivate_plugin (AnjutaPlugin *plugin)
 }
 
 static void
-dispose (GObject *obj)
+sample_plugin_finalize (GObject *obj)
 {
-	// SamplePlugin *plugin = (SamplePlugin*)obj;
+	/* Finalization codes here */
+	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (obj));
+}
+
+static void
+sample_plugin_dispose (GObject *obj)
+{
+	/* Disposition codes */
+	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (obj));
 }
 
 static void
@@ -117,9 +125,10 @@ sample_plugin_class_init (GObjectClass *klass)
 
 	parent_class = g_type_class_peek_parent (klass);
 
-	plugin_class->activate = activate_plugin;
-	plugin_class->deactivate = deactivate_plugin;
-	klass->dispose = dispose;
+	plugin_class->activate = sample_plugin_activate_plugin;
+	plugin_class->deactivate = sample_plugin_deactivate_plugin;
+	klass->finalize = sample_plugin_finalize;
+	klass->dispose = sample_plugin_dispose;
 }
 
 ANJUTA_PLUGIN_BOILERPLATE (SamplePlugin, sample_plugin);

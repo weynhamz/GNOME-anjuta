@@ -21,6 +21,7 @@
 #include <config.h>
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/resources.h>
+#include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-todo.h>
 
 //#include <libgtodo/main.h>
@@ -137,34 +138,43 @@ activate_plugin (AnjutaPlugin *plugin)
 	AnjutaPreferences *prefs;
 	GTodoPlugin *gtodo_plugin;
 	GdkPixbuf *pixbuf;
+	static gboolean initialized = FALSE;
 	
 	g_message ("GTodoPlugin: Activating Task manager plugin ...");
 	gtodo_plugin = (GTodoPlugin*) plugin;
 	
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	prefs = anjuta_shell_get_preferences (plugin->shell, NULL);
-	gtodo_load_settings();
 	
+	if (!initialized)
+	{
+		gtodo_load_settings();
+	}
 	wid = gui_create_todo_widget();
 	gtk_widget_show_all (wid);
 	gtodo_plugin->widget = wid;
 	
-	pixbuf = anjuta_res_get_pixbuf (ICON_FILE);
-	gtodo_plugin->prefs = preferences_widget();
-	anjuta_preferences_dialog_add_page (ANJUTA_PREFERENCES_DIALOG (prefs),
-								 "Todo Manager", pixbuf, gtodo_plugin->prefs);
-
+	if (!initialized)
+	{
+		pixbuf = anjuta_res_get_pixbuf (ICON_FILE);
+		gtodo_plugin->prefs = preferences_widget();
+		anjuta_preferences_dialog_add_page (ANJUTA_PREFERENCES_DIALOG (prefs),
+											"Todo Manager",
+											pixbuf, gtodo_plugin->prefs);
+	}
 	/* Add all our editor actions */
-	anjuta_ui_add_action_group_entries (ui, "ActionGroupTodoView",
-										_("Tasks manager"),
-										actions_todo_view,
-										G_N_ELEMENTS (actions_todo_view),
-										plugin);
-	anjuta_ui_add_toggle_action_group_entries (ui, "ActionGroupTodoViewOps",
-										_("Tasks manager"),
-										actions_view,
-										G_N_ELEMENTS (actions_view),
-										plugin);
+	gtodo_plugin->action_group = 
+		anjuta_ui_add_action_group_entries (ui, "ActionGroupTodoView",
+											_("Tasks manager"),
+											actions_todo_view,
+											G_N_ELEMENTS (actions_todo_view),
+											plugin);
+	gtodo_plugin->action_group2 = 
+		anjuta_ui_add_toggle_action_group_entries (ui, "ActionGroupTodoViewOps",
+												_("Tasks manager"),
+												actions_view,
+												G_N_ELEMENTS (actions_view),
+												plugin);
 	gtodo_plugin->uiid = anjuta_ui_merge (ui, UI_FILE);
 	anjuta_shell_add_widget (plugin->shell, wid,
 							 "AnjutaTodoPlugin", _("Tasks"),
@@ -175,26 +185,47 @@ activate_plugin (AnjutaPlugin *plugin)
 													"project_root_uri",
 													project_root_added,
 													project_root_removed, NULL);
+	initialized = TRUE;
 	return TRUE;
 }
 
 static gboolean
 deactivate_plugin (AnjutaPlugin *plugin)
 {
+	GTodoPlugin *gplugin = (GTodoPlugin*)plugin;
 	AnjutaUI *ui = anjuta_shell_get_ui (plugin->shell, NULL);
-	g_message ("GTodoPlugin: Dectivating Tasks manager plugin ...");
-	anjuta_shell_remove_widget (plugin->shell, ((GTodoPlugin*)plugin)->widget,
+	
+	DEBUG_PRINT ("GTodoPlugin: Dectivating Tasks manager plugin ...");
+	
+	anjuta_plugin_remove_watch (plugin, gplugin->root_watch_id, TRUE);
+	
+	/* Container holds the last ref to this widget so it will be destroyed as
+	 * soon as removed. No need to separately destroy it. */
+	anjuta_shell_remove_widget (plugin->shell, gplugin->widget,
 								NULL);
-	anjuta_ui_unmerge (ui, ((GTodoPlugin*)plugin)->uiid);
-	anjuta_plugin_remove_watch (plugin,
-								((GTodoPlugin*)plugin)->root_watch_id, TRUE);
+	anjuta_ui_unmerge (ui, gplugin->uiid);
+	anjuta_ui_remove_action_group (ui, gplugin->action_group2);
+	anjuta_ui_remove_action_group (ui, gplugin->action_group);
+	
+	
+	gplugin->uiid = 0;
+	gplugin->widget = NULL;
+	gplugin->root_watch_id = 0;
+	gplugin->action_group = NULL;
+	gplugin->action_group2 = NULL;
 	return TRUE;
+}
+
+static void
+finalize (GObject *obj)
+{
+	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (obj));
 }
 
 static void
 dispose (GObject *obj)
 {
-	// SamplePlugin *plugin = (SamplePlugin*)obj;
+	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (obj));
 }
 
 static void
@@ -214,6 +245,7 @@ gtodo_plugin_class_init (GObjectClass *klass)
 	plugin_class->activate = activate_plugin;
 	plugin_class->deactivate = deactivate_plugin;
 	klass->dispose = dispose;
+	klass->finalize = finalize;
 }
 
 static void

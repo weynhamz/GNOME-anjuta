@@ -30,9 +30,22 @@
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-shell.ui"
 
 static void
+shutdown (AnjutaTestShell *shell)
+{
+	anjuta_plugins_unload_all (ANJUTA_SHELL (shell));
+	gtk_main_quit ();
+}
+
+static gint
+on_delete_event (GtkWidget *window, GdkEvent *event, gpointer data)
+{
+	shutdown (ANJUTA_TEST_SHELL (window));
+}
+
+static void
 on_exit_activate (GtkAction *action, AnjutaTestShell *shell)
 {
-	gtk_main_quit ();
+	shutdown (shell);
 }
 
 static void
@@ -381,8 +394,9 @@ main (int argc, char *argv[])
 
 	shell = anjuta_test_shell_new ();
 	g_signal_connect (G_OBJECT (shell), "delete-event",
-					  G_CALLBACK (on_exit_activate), NULL);
+					  G_CALLBACK (on_delete_event), NULL);
 	gtk_widget_show_all (GTK_WIDGET (shell));
 	gtk_main();
+	anjuta_plugins_finalize ();
 	return 0;
 }

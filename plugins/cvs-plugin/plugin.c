@@ -136,9 +136,17 @@ deactivate_plugin (AnjutaPlugin *plugin)
 }
 
 static void
+finalize (GObject *obj)
+{
+	// CVSPlugin *plugin = (CVSPlugin*)obj;
+	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (G_OBJECT(obj)));
+}
+
+static void
 dispose (GObject *obj)
 {
 	// CVSPlugin *plugin = (CVSPlugin*)obj;
+	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (G_OBJECT(obj)));
 }
 
 static void
@@ -161,6 +169,7 @@ cvs_plugin_class_init (GObjectClass *klass)
 	plugin_class->activate = activate_plugin;
 	plugin_class->deactivate = deactivate_plugin;
 	klass->dispose = dispose;
+	klass->finalize = finalize;
 }
 
 ANJUTA_PLUGIN_BOILERPLATE (CVSPlugin, cvs_plugin);

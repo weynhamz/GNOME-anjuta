@@ -14,6 +14,8 @@ GObject* anjuta_plugins_load (AnjutaShell *shell, const gchar *name);
 
 gboolean anjuta_plugins_unload (AnjutaShell *shell, const gchar *name);
 
+void anjuta_plugins_unload_all (AnjutaShell *shell);
+
 /* Selection dialogs */
 GtkWidget* anjuta_plugins_get_installed_dialog (AnjutaShell *shell);
 

@@ -65,7 +65,12 @@ static GSList *available_tools = NULL;
 static GHashTable *tools_by_interfaces = NULL;
 static GHashTable *tools_by_name = NULL;
 static GHashTable *tools_by_description = NULL;
+static GHashTable *tool_types = NULL;
 static GlueFactory *glue_factory = NULL;
+
+static GHashTable* tool_set_update (AnjutaShell *shell,
+									AvailableTool* selected_tool,
+									gboolean load);
 
 static char *
 get_icon_path (char *icon_name)
@@ -499,7 +504,7 @@ load_tools_from_directory (const gchar *dirname)
 			g_free (pathname);
 		}
 	}
-	
+	closedir (dir);
 }
 
 static void
@@ -529,8 +534,11 @@ unload_available_tools (void)
 	g_slist_free (available_tools);
 	available_tools = NULL;
 
-	g_hash_table_destroy (tools_by_name);
-	tools_by_name = NULL;
+	if (tools_by_name)
+	{
+		g_hash_table_destroy (tools_by_name);
+		tools_by_name = NULL;
+	}
 }
 
 static GObject *
@@ -538,12 +546,11 @@ activate_tool (AnjutaShell *shell, AvailableTool *tool)
 {
 	GType type;
 	GObject *ret;
-	static GHashTable *types = NULL;
-	if (!types) {
-		types = g_hash_table_new (g_str_hash, g_str_equal);
+	if (!tool_types) {
+		tool_types = g_hash_table_new (g_str_hash, g_str_equal);
 	}
 	
-	type = GPOINTER_TO_UINT (g_hash_table_lookup (types, tool->id));
+	type = GPOINTER_TO_UINT (g_hash_table_lookup (tool_types, tool->id));
 	
 	if (!type) {
 		char **pieces;
@@ -551,7 +558,7 @@ activate_tool (AnjutaShell *shell, AvailableTool *tool)
 		pieces = g_strsplit (tool->id, ":", -1);
 		type = glue_factory_get_object_type (glue_factory,
 										     pieces[0], pieces[1]);
-		g_hash_table_insert (types, g_strdup (tool->id),
+		g_hash_table_insert (tool_types, g_strdup (tool->id),
 							 GUINT_TO_POINTER (type));
 		g_strfreev (pieces);
 	}
@@ -609,12 +616,96 @@ anjuta_plugins_init (GList *plugins_directories)
 }
 
 void
+anjuta_plugins_unload_all (AnjutaShell *shell)
+{
+	GHashTable *installed_tools;
+	GHashTable *tools_cache;
+	
+	installed_tools = g_object_get_data (G_OBJECT (shell), "InstalledTools");
+	tools_cache =  g_object_get_data (G_OBJECT (shell), "ToolsCache");
+	if (installed_tools || tools_cache)
+	{
+		available_tools = g_slist_reverse (available_tools);
+		if (installed_tools)
+		{
+			GSList *node;
+			node = available_tools;
+			while (node)
+			{
+				AvailableTool *selected_tool = node->data;
+				if (g_hash_table_lookup (installed_tools, selected_tool))
+				{
+					tool_set_update (shell, selected_tool, FALSE);
+					DEBUG_PRINT ("Unloading plugin: %s", selected_tool->id);
+				}
+				node = g_slist_next (node);
+			}
+			g_hash_table_destroy (installed_tools);
+			g_object_set_data (G_OBJECT (shell), "InstalledTools", NULL);
+		}
+		if (tools_cache)
+		{
+			GSList *node;
+			node = available_tools;
+			while (node)
+			{
+				GObject *tool_obj;
+				AvailableTool *selected_tool = node->data;
+				
+				tool_obj = g_hash_table_lookup (tools_cache, selected_tool);
+				if (tool_obj)
+				{
+					DEBUG_PRINT ("Destroying plugin: %s", selected_tool->id);
+					g_object_unref (tool_obj);
+				}
+				node = g_slist_next (node);
+			}
+			g_hash_table_destroy (tools_cache);
+			g_object_set_data (G_OBJECT (shell), "ToolsCache", NULL);
+		}
+		available_tools = g_slist_reverse (available_tools);
+	}
+}
+
+void
 anjuta_plugins_finalize (void)
 {
-	unload_available_tools ();
-	g_list_foreach (plugin_dirs, (GFunc)g_free, NULL);
-	g_list_free (plugin_dirs);
-	g_object_unref (glue_factory);
+	if (available_tools)
+	{
+		unload_available_tools ();
+		available_tools = NULL;
+	}
+	if (plugin_dirs)
+	{
+		g_list_foreach (plugin_dirs, (GFunc)g_free, NULL);
+		g_list_free (plugin_dirs);
+		plugin_dirs = NULL;
+	}
+	if (tools_by_interfaces)
+	{
+		g_hash_table_destroy (tools_by_interfaces);
+		tools_by_interfaces = NULL;
+	}
+	if (tools_by_name)
+	{
+		g_hash_table_destroy (tools_by_name);
+		tools_by_name = NULL;
+	}
+	if (tools_by_description)
+	{
+		g_hash_table_destroy (tools_by_description);
+		tools_by_description = NULL;
+	}
+	if (tool_types)
+	{
+		g_hash_table_destroy (tool_types);
+		tool_types = NULL;
+	}
+	if (glue_factory)
+	{
+		g_object_unref (glue_factory);
+		glue_factory = NULL;
+	}
 }
 
 static gboolean 

@@ -343,7 +343,7 @@ anjuta_plugin_remove_watch (AnjutaPlugin *plugin, guint id,
 		watch->removed (plugin, watch->name, watch->user_data);
 	}
 	
-	g_list_remove (plugin->priv->watches, watch);
+	plugin->priv->watches = g_list_remove (plugin->priv->watches, watch);
 	destroy_watch (watch);
 }
 

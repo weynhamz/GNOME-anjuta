@@ -1324,6 +1324,7 @@ deactivate_plugin (AnjutaPlugin *plugin)
 static void
 finalize (GObject *obj)
 {
+	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (G_OBJECT(obj)));
 }
 
 static void
@@ -1336,6 +1337,8 @@ dispose (GObject *obj)
 		g_free (ba_plugin->project_root_dir);
 	if (ba_plugin->current_editor_filename)
 		g_free (ba_plugin->current_editor_filename);
+
+	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (G_OBJECT(obj)));
 }
 
 static void

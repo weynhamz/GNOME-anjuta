@@ -10,6 +10,8 @@ struct _GTodoPlugin{
 	GtkWidget *prefs;
 	gint uiid;
 	gint root_watch_id;
+	GtkActionGroup *action_group;
+	GtkActionGroup *action_group2;
 };
 
 struct _GTodoPluginClass{
