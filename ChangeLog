@@ -1,5 +1,8 @@
 2004-11-19  Naba Kumar  <naba@gnome.org>
 
+	* plugins/project-manager/plugin.c: Displays a progress window during
+	project load.
+	
 	* plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui:
 	Fixed UI separators.
 	

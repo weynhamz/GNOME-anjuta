@@ -790,14 +790,32 @@ project_manager_plugin_class_init (GObjectClass *klass)
 	klass->dispose = dispose;
 }
 
+static GtkWidget *
+show_loading_progress (AnjutaPlugin *plugin)
+{
+	GtkWidget *win, *label;
+	label = gtk_label_new (_("Loading project. Please wait ..."));
+	win = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+	gtk_window_set_transient_for (GTK_WINDOW (win), GTK_WINDOW (plugin->shell));
+	gtk_window_set_position (GTK_WINDOW (win), GTK_WIN_POS_CENTER_ON_PARENT);
+	gtk_container_add (GTK_CONTAINER (win), label);
+	gtk_container_set_border_width (GTK_CONTAINER (win), 20);
+	gtk_widget_show_all (win);
+	while (gtk_events_pending ())
+		gtk_main_iteration ();
+	return win;
+}
+
 static void
 ifile_open (IAnjutaFile *project_manager,
 			const gchar *filename, GError **err)
 {
+	GtkWidget *progress_win;
 	GnomeVFSURI *vfs_uri;
 	gchar *dirname, *vfs_dir;
 	GSList *l;
 	GValue *value;
+	GError *error = NULL;
 	
 	GbfBackend *backend = NULL;
 	ProjectManagerPlugin *pm_plugin;
@@ -806,6 +824,8 @@ ifile_open (IAnjutaFile *project_manager,
 	
 	pm_plugin = (ProjectManagerPlugin*)(ANJUTA_PLUGIN (project_manager));
 	
+	progress_win = show_loading_progress (ANJUTA_PLUGIN(pm_plugin));
+	
 	vfs_uri = gnome_vfs_uri_new (filename);
 	dirname = gnome_vfs_uri_extract_dirname (vfs_uri);
 	gnome_vfs_uri_unref (vfs_uri);
@@ -813,7 +833,7 @@ ifile_open (IAnjutaFile *project_manager,
 	if (pm_plugin->project != NULL)
 			g_object_unref (pm_plugin->project);
 	
-	g_print ("initializing gbf backend...\n");
+	DEBUG_PRINT ("initializing gbf backend...\n");
 	gbf_backend_init ();
 	
 	for (l = gbf_backend_get_backends (); l; l = l->next) {
@@ -823,23 +843,43 @@ ifile_open (IAnjutaFile *project_manager,
 			backend = NULL;
 	}
 	
-	if (!backend) {
-			g_print ("no automake/autoconf backend available\n");
+	if (!backend)
+	{
+			/* FIXME: Set err */
+			g_warning ("no automake/autoconf backend available\n");
+			g_free (dirname);
+			gtk_widget_destroy (progress_win);
 			return;
 	}
 	
-	g_print ("creating new gbf-am project\n");
+	DEBUG_PRINT ("Creating new gbf-am project\n");
 	pm_plugin->project = gbf_backend_new_project (backend->id);
-	if (!pm_plugin->project) {
-			g_print ("project creation failed\n");
+	if (!pm_plugin->project)
+	{
+			/* FIXME: Set err */
+			g_warning ("project creation failed\n");
+			g_free (dirname);
+			gtk_widget_destroy (progress_win);
 			return;
 	}
 	
-	g_print ("loading project %s\n\n", dirname);
+	DEBUG_PRINT ("loading project %s\n\n", dirname);
 	/* FIXME: use the error parameter to determine if the project
 	 * was loaded successfully */
-	gbf_project_load (pm_plugin->project, dirname, NULL);
-	
+	gbf_project_load (pm_plugin->project, dirname, &error);
+	if (error)
+	{
+		GtkWindow *win;
+		win = GTK_WINDOW (gtk_widget_get_toplevel (pm_plugin->scrolledwindow));
+		anjuta_util_dialog_error (win, "Failed to load project %s: %s",
+								  filename, error->message);
+		g_propagate_error (err, error);
+		g_object_unref (pm_plugin->project);
+		pm_plugin->project = NULL;
+		g_free (dirname);
+		gtk_widget_destroy (progress_win);
+		return;
+	}
 	g_object_set (G_OBJECT (pm_plugin->model), "project",
 				  pm_plugin->project, NULL);
 	
@@ -859,6 +899,7 @@ ifile_open (IAnjutaFile *project_manager,
 	anjuta_shell_add_value (ANJUTA_PLUGIN(pm_plugin)->shell,
 							"project_root_uri",
 							value, NULL);
+	gtk_widget_destroy (progress_win);
 }
 
 static void
