@@ -1,4 +1,4 @@
-entities = legal.xml
+entities =
 figdir = figures
 docname = anjuta-advanced-tutorial
 lang = C

@@ -1,6 +1,7 @@
 2004-04-13  Naba Kumar  <naba@gnome.org>
 
 	* po/POTFILES.in: Updated.
+	* manuals/C/anjuta-advanced-tutorial/Makefile.am: Fixed build error.
 
 2004-04-11  Naba Kumar  <naba@gnome.org>
 
