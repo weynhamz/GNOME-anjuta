@@ -52,15 +52,15 @@ struct _BreakpointItem
 struct _BreakpointsDBaseGui
 {
 	GtkWidget *window;
-	GtkWidget *clist;
-	GtkWidget *button_add;
-	GtkWidget *button_edit;
-	GtkWidget *button_toggle;
-	GtkWidget *button_view;
-	GtkWidget *button_enable_all;
-	GtkWidget *button_disable_all;
-	GtkWidget *button_delete;
-	GtkWidget *button_delete_all;
+	GtkWidget *treeview;
+	GtkWidget *remove_button;
+	GtkWidget *toggle_button;
+	GtkWidget *jumpto_button;
+	GtkWidget *properties_button;
+	GtkWidget *add_button;
+	GtkWidget *removeall_button;
+	GtkWidget *enableall_button;
+	GtkWidget *disableall_button;
 };
 
 struct _BreakpointsDBase

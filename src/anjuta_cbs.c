@@ -33,7 +33,6 @@
 #include "fileselection.h"
 #include "utilities.h"
 #include "resources.h"
-#include "messagebox.h"
 #include "launcher.h"
 #include "debugger.h"
 

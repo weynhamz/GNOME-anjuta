@@ -24,258 +24,223 @@
 
 
 #include "anjuta.h"
-#include "messagebox.h"
 #include "breakpoints.h"
 #include "debugger.h"
 
 #include "breakpoints_cbs.h"
 
-gboolean
-on_breakpoints_close (GtkWidget * w, gpointer data)
-{
-	BreakpointsDBase *bd = data;
-	breakpoints_dbase_hide (bd);
-	return FALSE;
-}
+static void bk_close (gpointer data);
 
 void
-on_bk_view_clicked (GtkWidget *button, gpointer data)
+on_bk_remove_clicked (GtkWidget *button,
+		      gpointer   data)
 {
 	BreakpointsDBase *bd;
 	BreakpointItem *bi;
+	GtkTreeModel *model;
+	GtkTreeIter iter;
 
 	bd = (BreakpointsDBase *) data;
+
 	if (bd->breakpoints == NULL)
 		return;
+
+
+	model = gtk_tree_view_get_model (GTK_TREE_VIEW (bd->widgets.treeview));
+	gtk_tree_model_iter_nth_child (model, &iter, NULL, bd->current_index);
+	gtk_tree_store_remove (GTK_TREE_STORE (model), &iter);
+
 	bi = g_list_nth_data (bd->breakpoints, bd->current_index);
-	if (FALSE == bd->is_docked)
-		gnome_dialog_close(GNOME_DIALOG(bd->widgets.window));
-	else
-		breakpoints_dbase_hide (bd);
-	anjuta_goto_file_line (bi->file, bi->line);
-}
-
-void
-on_bk_edit_clicked (GtkWidget *button, gpointer data)
-{
-	BreakpointsDBase *bd;
-	GtkWidget *dialog;
-
-	bd = (BreakpointsDBase *) data;
-	if (bd->breakpoints == NULL)
-		return;
-	dialog = create_bk_edit_dialog (bd);
-	if (dialog)
-		gtk_widget_show (dialog);
-}
-
-void
-on_bk_delete_clicked (GtkWidget *button, gpointer data)
-{
-	BreakpointsDBase *bd;
-	BreakpointItem *bi;
-	gint index;
-
-	bd = (BreakpointsDBase *) data;
-	if (bd->breakpoints == NULL)
-		return;
-	index = bd->current_index;
-	gtk_clist_remove (GTK_CLIST (bd->widgets.clist), index);
-	bi = g_list_nth_data (bd->breakpoints, index);
 	debugger_delete_breakpoint (bi->id);
 	bd->breakpoints = g_list_remove (bd->breakpoints, bi);
 	breakpoint_item_destroy (bi);
 }
 
 void
-on_bk_delete_all_clicked (GtkWidget *button, gpointer data)
-{
-	BreakpointsDBase *bd;
-	bd = (BreakpointsDBase *) data;
-	if (bd->breakpoints == NULL)
-		return;
-
-	messagebox2 (GTK_MESSAGE_BOX_QUESTION,
-		     _("Are you sure you want to delete all breakpoints?"),
-		     GNOME_STOCK_BUTTON_YES,
-		     GNOME_STOCK_BUTTON_NO,
-		     on_bk_delete_all_confirm_yes_clicked, NULL, NULL);
-}
-
-void
-on_bk_add_breakpoint_clicked (GtkWidget *button, gpointer data)
-{
-	GtkWidget *dialog;
-	dialog = create_bk_add_dialog ((BreakpointsDBase *) data);
-	gtk_widget_show (dialog);
-}
-
-void
-on_bk_toggle_enable_clicked (GtkWidget *button, gpointer data)
+on_bk_jumpto_clicked (GtkWidget *button,
+		      gpointer   data)
 {
 	BreakpointsDBase *bd;
 	BreakpointItem *bi;
 
 	bd = (BreakpointsDBase *) data;
+
 	if (bd->breakpoints == NULL)
 		return;
+
 	bi = g_list_nth_data (bd->breakpoints, bd->current_index);
-	if (bi->enable)
-	{
-		bi->enable = FALSE;
-		gtk_clist_set_text (GTK_CLIST (bd->widgets.clist),
-				    bd->current_index, 0, _("NO"));
-		debugger_disable_breakpoint (bi->id);
-	}
+
+	if (!bd->is_docked)
+#warning "VERIFY ME: G2 port"
+		gtk_widget_hide (bd->widgets.window);
 	else
-	{
-		bi->enable = TRUE;
-		gtk_clist_set_text (GTK_CLIST (bd->widgets.clist),
-				    bd->current_index, 0, _("YES"));
-		debugger_enable_breakpoint (bi->id);
+		breakpoints_dbase_hide (bd);
+
+	anjuta_goto_file_line (bi->file, bi->line);
+}
+
+void
+on_bk_properties_clicked (GtkWidget *button,
+			  gpointer   data)
+{
+	BreakpointsDBase *bd;
+	GtkWidget *dialog;
+
+	bd = (BreakpointsDBase *) data;
+
+	if (bd->breakpoints == NULL)
+		return;
+
+	/* We don't ref the dialog so it's slower but all fields are erased then. */
+	dialog = glade_xml_get_widget (app->gxml, "breakpoint_properties_dialog");
+
+	if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_OK) {
+		if (bd->edit_index >= 0)
+			return;
+
+		bd->edit_index = bd->current_index;
+
+		on_bk_item_add_ok_clicked (button, data);
 	}
 }
 
 void
-on_bk_enable_all_clicked (GtkWidget *button, gpointer data)
+on_bk_add_clicked (GtkWidget *button,
+		   gpointer   data)
 {
+	GtkWidget *dialog;
+
+	/* We don't ref the dialog so it's slower but all fields are erased then. */
+	dialog = glade_xml_get_widget (app->gxml, "breakpoint_properties_dialog");
+
+	if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_OK)
+		on_bk_item_add_ok_clicked (button, data);
+}
+
+void
+on_bk_removeall_clicked (GtkWidget *button,
+			 gpointer   data)
+{
+	BreakpointsDBase *bd;
+	GtkWidget *dialog;
+
+	bd = (BreakpointsDBase *) data;
+
+	if (bd->breakpoints == NULL)
+		return;
+
+	dialog = gtk_message_dialog_new (GTK_WINDOW (app->widgets.window),
+					 GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+					 GTK_MESSAGE_QUESTION,
+					 GTK_BUTTONS_YES_NO,
+					 _("Are you sure you want to delete all the breakpoints ?"),
+					 NULL);
+
+	if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_YES) {
+		debugger_delete_all_breakpoints ();
+		breakpoints_dbase_clear (debugger.breakpoints_dbase);
+	} else
+		bk_close (data);
+}
+
+void
+on_bk_enableall_clicked (GtkWidget *button,
+			 gpointer   data)
+{
+#warning "FIXME: change the active state of the enabled column"
 	debugger_enable_all_breakpoints ();
 }
 
 void
-on_bk_disable_all_clicked (GtkWidget *button, gpointer data)
+on_bk_disableall_clicked (GtkWidget *button,
+			  gpointer   data)
 {
+#warning "FIXME: change the active state of the enabled column"
 	debugger_disable_all_breakpoints ();
 }
 
-void
-on_bk_clist_select_row (GtkCList * clist,
-			gint row,
-			gint column, GdkEvent * event, gpointer data)
+gboolean
+on_bk_treeview_event (GtkWidget *widget,
+		      GdkEvent  *event,
+		      gpointer   data)
 {
+	GtkTreeView *view;
+	GtkTreeModel *model;
+	GtkTreeSelection *selection;
+	GtkTreeIter iter;
 	BreakpointsDBase *bd;
+
+	g_return_val_if_fail (GTK_IS_TREE_VIEW (widget), FALSE);
+
+	if (!event)
+		return FALSE;
+
+	view = GTK_TREE_VIEW (widget);
+	model = gtk_tree_view_get_model (view);
+	selection = gtk_tree_view_get_selection (view);
+
+	if (!gtk_tree_selection_get_selected (selection, NULL, &iter))
+		return FALSE;
+
 	bd = (BreakpointsDBase *) data;
-	bd->current_index = row;
+	bd->current_index = gtk_tree_model_iter_n_children (model, &iter);
+
 	breakpoints_dbase_update_controls (bd);
 }
 
-void
-on_bk_clist_unselect_row (GtkCList * clist,
-			  gint row,
-			  gint column, GdkEvent * event, gpointer data)
+#warning "FIXME: verify the behaviour w/ ANJUTA_1_0_0"
+static void
+bk_close (gpointer data)
 {
-	BreakpointsDBase *bd;
-	bd = (BreakpointsDBase *) data;
-	bd->current_index = -1;
-	breakpoints_dbase_update_controls (bd);
-}
+	BreakpointsDBase *db = (BreakpointsDBase *) data;
 
-void
-on_bk_help_clicked (GtkWidget *button, gpointer data)
-{
-
-}
-
-void
-on_bk_close_clicked (GtkWidget *button, gpointer data)
-{
-	BreakpointsDBase *db = data;
 	if (NULL != db && FALSE == db->is_docked)
-		gnome_dialog_close(GNOME_DIALOG(db->widgets.window));
+		gtk_widget_hide (db->widgets.window);
 	else
 		breakpoints_dbase_hide (db);
 }
 
-void
-on_bk_delete_all_confirm_yes_clicked (GtkWidget *button, gpointer data)
-{
-	debugger_delete_all_breakpoints ();
-	breakpoints_dbase_clear (debugger.breakpoints_dbase);
-}
-
 /*************************************************************************************/
-gboolean
-on_bk_item_add_delete_event (GtkWidget * w, GdkEvent * event,
-			     gpointer data)
-{
-	struct BkItemData *bid;
-	bid = (struct BkItemData *) data;
-
-	if (!bid)
-		return FALSE;
-	gtk_widget_unref (bid->dialog);
-	gtk_widget_unref (bid->loc);
-	gtk_widget_unref (bid->cond);
-	gtk_widget_unref (bid->pass);
-	g_free (bid);
-	return FALSE;
-}
-
-void
-on_bk_item_add_help_clicked (GtkWidget *button, gpointer data)
-{
-
-}
-
-void
-on_bk_item_add_cancel_clicked (GtkWidget *button, gpointer data)
-{
-	struct BkItemData *bid;
-	bid = (struct BkItemData *) data;
-	if (!bid)
-		return;
-	gtk_widget_unref (bid->dialog);
-	gtk_widget_unref (bid->loc);
-	gtk_widget_unref (bid->cond);
-	gtk_widget_unref (bid->pass);
-	gtk_widget_destroy (bid->dialog);
-	g_free (bid);
-}
 
 void
 on_bk_item_add_ok_clicked (GtkWidget *button, gpointer data)
 {
-	struct BkItemData *bid;
+	BreakpointsDBase *bd;
+	GtkWidget *location_entry;
+	GtkWidget *condition_entry;
+	GtkWidget *pass_entry;
 	gchar *buff;
 
-	bid = (struct BkItemData *) data;
-	if (bid == NULL)
+	bd = (BreakpointsDBase *) data;
+
+	if (bd->breakpoints == NULL)
 		return;
-	if (strlen (gtk_entry_get_text (GTK_ENTRY (bid->loc))) > 0)
+
+	location_entry = glade_xml_get_widget (app->gxml, "breakpoint_location_entry");
+	condition_entry = glade_xml_get_widget (app->gxml, "breakpoint_condition_entry");
+	pass_entry = glade_xml_get_widget (app->gxml, "breakpoint_pass_entry");
+
+	if (strlen (gtk_entry_get_text (GTK_ENTRY (location_entry))) > 0)
 	{
-		bid->loc_text =
-			g_strdup (gtk_entry_get_text (GTK_ENTRY (bid->loc)));
-		bid->cond_text =
-			g_strdup (gtk_entry_get_text (GTK_ENTRY (bid->cond)));
-		bid->pass_text =
-			g_strdup (gtk_entry_get_text (GTK_ENTRY (bid->pass)));
+		const gchar *loc_text;
+		const gchar *cond_text;
+		const gchar *pass_text;
 
-		if (bid->bd->loc_history)
-			g_free (bid->bd->loc_history);
-		bid->bd->loc_history = g_strdup (bid->loc_text);
-		if (bid->bd->cond_history)
-			g_free (bid->bd->cond_history);
-		bid->bd->cond_history = g_strdup (bid->cond_text);
-		if (bid->bd->pass_history)
-			g_free (bid->bd->pass_history);
-		bid->bd->pass_history = g_strdup (bid->pass_text);
+		loc_text = gtk_entry_get_text (GTK_ENTRY (location_entry));
+		cond_text = gtk_entry_get_text (GTK_ENTRY (condition_entry));
+		pass_text = gtk_entry_get_text (GTK_ENTRY (pass_entry));
 
-		if (strlen (bid->cond_text) != 0)
-			buff =
-				g_strdup_printf ("break %s if %s",
-						 bid->loc_text,
-						 bid->cond_text);
+		if (strlen (cond_text) != 0)
+			buff = g_strdup_printf ("break %s if %s", loc_text, cond_text);
 		else
-			buff = g_strdup_printf ("break %s", bid->loc_text);
-		debugger_put_cmd_in_queqe (buff, DB_CMD_ALL,
+			buff = g_strdup_printf ("break %s", loc_text);
+
+		debugger_put_cmd_in_queqe (buff,
+					   DB_CMD_ALL,
 					   bk_item_add_mesg_arrived,
 					   data);
 		g_free (buff);
-		gtk_widget_unref (bid->dialog);
-		gtk_widget_unref (bid->loc);
-		gtk_widget_unref (bid->cond);
-		gtk_widget_unref (bid->pass);
-		gtk_widget_destroy (bid->dialog);
+
 		debugger_execute_cmd_in_queqe ();
 	}
 	else
@@ -327,13 +292,20 @@ bk_item_add_mesg_arrived (GList * lines, gpointer data)
 						   NULL);
 			g_free (buff);
 		}
+
 		bd = bid->bd;
 		index = bd->edit_index;
-		if (index >= 0)
-		{
-			gtk_clist_remove (GTK_CLIST (bd->widgets.clist),
-					  index);
+
+		if (index >= 0) {
+			GtkTreeModel *model;
+			GtkTreeIter iter;
+
+			model = gtk_tree_view_get_model (GTK_TREE_VIEW (bd->widgets.treeview));
+			gtk_tree_model_iter_nth_child (model, &iter, NULL, index);
+			gtk_tree_store_remove (GTK_TREE_STORE (model), &iter);
+
 			bi = g_list_nth_data (bd->breakpoints, index);
+
 			debugger_delete_breakpoint (bi->id);
 			bd->edit_index = -1;
 			bd->breakpoints = g_list_remove (bd->breakpoints, bi);
@@ -356,8 +328,7 @@ bk_item_add_mesg_arrived (GList * lines, gpointer data)
 
       down_label:
 
-	if (bid)
-	{
+	if (bid) {
 		if (bid->loc_text)
 			g_free (bid->loc_text);
 		if (bid->cond_text)
@@ -366,8 +337,10 @@ bk_item_add_mesg_arrived (GList * lines, gpointer data)
 			g_free (bid->pass_text);
 		g_free (bid);
 	}
+
 	if (outputs)
 		g_list_free (outputs);
+
 	return;
 }
 
@@ -377,13 +350,17 @@ pass_item_add_mesg_arrived (GList * lines, gpointer data)
 	GList *outputs;
 
 	outputs = remove_blank_lines (lines);
+
 	if (outputs == NULL)
 		return;
-	if (g_list_length (outputs) != 1)
-	{
+
+	if (g_list_length (outputs) != 1) {
+		GtkWidget *dialog;
 		gchar *msg, *tmp;
 		gint i;
+
 		msg = g_strdup ((gchar *) g_list_nth_data (outputs, 0));
+
 		for (i = 1; i < g_list_length (outputs); i++)
 		{
 			tmp = msg;
@@ -394,35 +371,37 @@ pass_item_add_mesg_arrived (GList * lines, gpointer data)
 					     NULL);
 			g_free (tmp);
 		}
-		messagebox (GNOME_MESSAGE_BOX_INFO, msg);
+
+
+		dialog = gtk_message_dialog_new (GTK_WINDOW (app->widgets.window),
+						 GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+						 GTK_MESSAGE_INFO,
+						 GTK_BUTTONS_CLOSE,
+						 msg,
+						 NULL);
+
+		gtk_dialog_run (GTK_DIALOG (dialog));
+
 		g_free (msg);
 		g_list_free (outputs);
+
 		return;
 	}
-	if (strstr ((gchar *) outputs->data, "Will ignore next") == NULL)
-	{
-		messagebox (GNOME_MESSAGE_BOX_INFO,
-			    (gchar *) g_list_nth_data (outputs, 0));
+
+	if (strstr ((gchar *) outputs->data, "Will ignore next") == NULL) {
+		GtkWidget *dialog;
+
+		dialog = gtk_message_dialog_new (GTK_WINDOW (app->widgets.window),
+						 GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+						 GTK_MESSAGE_INFO,
+						 GTK_BUTTONS_CLOSE,
+						 (gchar *) g_list_nth_data (outputs, 0),
+						 NULL);
+
+		gtk_dialog_run (GTK_DIALOG (dialog));
+
 		g_list_free (outputs);
+
 		return;
 	}
-}
-
-/*************************************************************************************/
-
-void
-on_bk_item_edit_help_clicked (GtkWidget *button, gpointer data)
-{
-
-}
-
-
-void
-on_bk_item_edit_ok_clicked (GtkWidget *button, gpointer data)
-{
-	BreakpointsDBase *bd = ((struct BkItemData *) data)->bd;
-	if (bd->edit_index >= 0)
-		return;
-	bd->edit_index = bd->current_index;
-	on_bk_item_add_ok_clicked (button, data);
 }

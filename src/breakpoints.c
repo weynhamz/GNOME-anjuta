@@ -31,7 +31,6 @@
 #include "breakpoints.h"
 #include "breakpoints_cbs.h"
 #include "utilities.h"
-#include "messagebox.h"
 #include "fileselection.h"
 #include "resources.h"
 #include "controls.h"
@@ -40,14 +39,24 @@
 
 #define	BKPT_FIELDS	(13)
 
+enum {
+	ENABLED_COLUMN,
+	FILENAME_COLUMN,
+	LINENO_COLUMN,
+	FUNCTION_COLUMN,
+	PASS_COLUMN,
+	CONDITION_COLUMN,
+	COLUMNS_NB
+};
 
-static void
-breakpoint_item_save ( BreakpointItem * bi, ProjectDBase * pdb, const gint nBreak );
-static void
-breakpoints_dbase_delete_all_breakpoints (BreakpointsDBase * bd);
-static gboolean
-breakpoint_item_load ( BreakpointItem * bi, gchar* szStr );
+static char *column_names[COLUMNS_NB] = {
+	        N_("Enabled"), N_("File"), N_("Line"), N_("Function"), N_("Pass"), N_("Condition")
+};
 
+static void breakpoint_item_save ( BreakpointItem * bi, ProjectDBase * pdb, const gint nBreak );
+static void breakpoints_dbase_delete_all_breakpoints (BreakpointsDBase * bd);
+static gboolean breakpoint_item_load ( BreakpointItem * bi, gchar* szStr );
+static void treeview_enabled_toggled (GtkCellRendererToggle *cell, gchar *path_str, gpointer data);
 
 #define BREAKPOINTS_MARKER 1
 
@@ -78,6 +87,7 @@ breakpoint_item_destroy (BreakpointItem * bi)
 {
 	if (!bi)
 		return;
+
 	if (bi->function)
 		g_free (bi->function);
 	if (bi->file)
@@ -88,6 +98,7 @@ breakpoint_item_destroy (BreakpointItem * bi)
 		g_free (bi->info);
 	if (bi->disp)
 		g_free (bi->disp);
+
 	g_free (bi);
 }
 
@@ -182,21 +193,127 @@ fine:
 	return bOK ;
 };
 
+static void
+treeview_enabled_toggled (GtkCellRendererToggle *cell,
+			  gchar			*path_str,
+			  gpointer		 data)
+{
+	BreakpointsDBase *bd;
+	BreakpointItem *bi;
+	GtkTreeModel *model = GTK_TREE_MODEL (data);
+	GtkTreePath *path = gtk_tree_path_new_from_string (path_str);
+	GtkTreeIter iter;
+	gboolean state;
+
+	bd = (BreakpointsDBase *) data;
+	bi = g_list_nth_data (bd->breakpoints, bd->current_index);
+	bi->enable ^= 1;
+
+	if (!bi->enable)
+		debugger_disable_breakpoint (bi->id);
+	else
+		debugger_enable_breakpoint (bi->id);
+
+	gtk_tree_model_get_iter (model, &iter, path);
+	gtk_tree_model_get (model, &iter, ENABLED_COLUMN, &state, -1);
+
+	state ^= 1;
+
+	gtk_tree_store_set (GTK_TREE_STORE (model), &iter, ENABLED_COLUMN, state, -1);
+}			  
 
 BreakpointsDBase *
 breakpoints_dbase_new ()
 {
 	BreakpointsDBase *bd;
-	bd = g_malloc (sizeof (BreakpointsDBase));
-	if (bd)
-	{
+
+	bd = g_new0 (BreakpointsDBase, 1);
+
+	if (bd) {
+		GtkTreeView *view;
+		GtkTreeStore *store;
+		GtkCellRenderer *renderer;
+		GtkTreeViewColumn *column;
+		struct BkItemData *data;
+		int i;
+
+		/* breakpoints dialog */
+		bd->widgets.window = glade_xml_get_widget (app->gxml, "breakpoints_dialog");
+		bd->widgets.treeview = glade_xml_get_widget (app->gxml, "breakpoints_tv");
+		bd->widgets.remove_button = glade_xml_get_widget (app->gxml, "breakpoints_remove_button");
+		bd->widgets.jumpto_button = glade_xml_get_widget (app->gxml, "breakpoints_jumpto_button");
+		bd->widgets.properties_button = glade_xml_get_widget (app->gxml, "breakpoints_properties_button");
+		bd->widgets.add_button = glade_xml_get_widget (app->gxml, "breakpoints_add_button");
+		bd->widgets.removeall_button = glade_xml_get_widget (app->gxml, "breakpoints_removeall_button");
+		bd->widgets.enableall_button = glade_xml_get_widget (app->gxml, "breakpoints_enableall_button");
+		bd->widgets.disableall_button = glade_xml_get_widget (app->gxml, "breakpoints_disableall_button");
+
+ 		gtk_widget_ref (bd->widgets.window);
+		gtk_widget_ref (bd->widgets.treeview);
+		gtk_widget_ref (bd->widgets.remove_button);
+		gtk_widget_ref (bd->widgets.jumpto_button);
+		gtk_widget_ref (bd->widgets.properties_button);
+		gtk_widget_ref (bd->widgets.add_button);
+		gtk_widget_ref (bd->widgets.removeall_button);
+		gtk_widget_ref (bd->widgets.enableall_button);
+		gtk_widget_ref (bd->widgets.disableall_button);
+
+		view = GTK_TREE_VIEW (bd->widgets.treeview);
+		store = gtk_tree_store_new (COLUMNS_NB,
+					    G_TYPE_BOOLEAN,
+					    G_TYPE_STRING,
+					    G_TYPE_STRING,
+					    G_TYPE_STRING,
+					    G_TYPE_STRING,
+					    G_TYPE_STRING);
+		gtk_tree_view_set_model (view, GTK_TREE_MODEL (store));
+		gtk_tree_selection_set_mode (gtk_tree_view_get_selection (view),
+					     GTK_SELECTION_SINGLE);
+		g_object_unref (G_OBJECT (store));
+
+		renderer = gtk_cell_renderer_toggle_new ();
+		column = gtk_tree_view_column_new_with_attributes (column_names[0], renderer,
+								   "active", ENABLED_COLUMN,
+								   NULL);
+		g_signal_connect (renderer, "toggled", G_CALLBACK (treeview_enabled_toggled), bd);
+		gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
+		gtk_tree_view_append_column (view, column);
+
+		renderer = gtk_cell_renderer_text_new ();
+
+		for (i = FILENAME_COLUMN; i < COLUMNS_NB; i++) {
+			column = gtk_tree_view_column_new_with_attributes (column_names[i], renderer, "text", i, NULL);
+			gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
+			gtk_tree_view_append_column (view, column);
+		}
+
+		g_signal_connect (G_OBJECT (bd->widgets.remove_button), "clicked",
+				  G_CALLBACK (on_bk_remove_clicked), bd);
+		g_signal_connect (G_OBJECT (bd->widgets.jumpto_button), "clicked",
+				  G_CALLBACK (on_bk_jumpto_clicked), bd);
+		g_signal_connect (G_OBJECT (bd->widgets.properties_button), "clicked",
+				  G_CALLBACK (on_bk_properties_clicked), bd);
+		g_signal_connect (G_OBJECT (bd->widgets.add_button), "clicked",
+				  G_CALLBACK (on_bk_add_clicked), bd);
+		g_signal_connect (G_OBJECT (bd->widgets.removeall_button), "clicked",
+				  G_CALLBACK (on_bk_removeall_clicked), bd);
+		g_signal_connect (G_OBJECT (bd->widgets.enableall_button), "clicked",
+				  G_CALLBACK (on_bk_enableall_clicked), bd);
+		g_signal_connect (G_OBJECT (bd->widgets.disableall_button), "clicked",
+				  G_CALLBACK (on_bk_disableall_clicked), bd);
+
+		g_signal_connect (G_OBJECT (bd->widgets.treeview), "event",
+				  G_CALLBACK (on_bk_treeview_event), NULL);
+
+		g_signal_connect (G_OBJECT (bd->widgets.window), "close",
+				  G_CALLBACK (breakpoints_dbase_hide), bd);
+
 		bd->breakpoints = NULL;
 		bd->cond_history = NULL;
 		bd->pass_history = NULL;
 		bd->loc_history = NULL;
 		bd->current_index = -1;
 		bd->edit_index = -1;
-		create_breakpoints_dbase_gui (bd);
 		bd->is_showing = FALSE;
 		bd->is_docked = FALSE;
 		bd->win_pos_x = 50;
@@ -204,39 +321,43 @@ breakpoints_dbase_new ()
 		bd->win_width = 500;
 		bd->win_height = 300;
 	}
+
 	return bd;
 }
 
 void
 breakpoints_dbase_destroy (BreakpointsDBase * bd)
 {
-	gint i;
 	BreakpointItem *bi;
-	if (bd)
-	{
-		for (i = 0; i < g_list_length (bd->breakpoints); i++)
-		{
+	gint i;
+
+	if (bd) {
+		for (i = 0; i < g_list_length (bd->breakpoints); i++) {
 			bi = g_list_nth_data (bd->breakpoints, i);
 			breakpoint_item_destroy (bi);
 		}
+
 		g_list_free (bd->breakpoints);
+
 		if (bd->cond_history)
 			g_free (bd->cond_history);
 		if (bd->pass_history)
 			g_free (bd->pass_history);
 		if (bd->loc_history)
 			g_free (bd->loc_history);
+
 		gtk_widget_unref (bd->widgets.window);
-		gtk_widget_unref (bd->widgets.clist);
-		gtk_widget_unref (bd->widgets.button_add);
-		gtk_widget_unref (bd->widgets.button_edit);
-		gtk_widget_unref (bd->widgets.button_toggle);
-		gtk_widget_unref (bd->widgets.button_view);
-		gtk_widget_unref (bd->widgets.button_enable_all);
-		gtk_widget_unref (bd->widgets.button_disable_all);
-		gtk_widget_unref (bd->widgets.button_delete);
-		gtk_widget_unref (bd->widgets.button_delete_all);
+		gtk_widget_unref (bd->widgets.treeview);
+		gtk_widget_unref (bd->widgets.remove_button);
+		gtk_widget_unref (bd->widgets.jumpto_button);
+		gtk_widget_unref (bd->widgets.properties_button);
+		gtk_widget_unref (bd->widgets.add_button);
+		gtk_widget_unref (bd->widgets.removeall_button);
+		gtk_widget_unref (bd->widgets.enableall_button);
+		gtk_widget_unref (bd->widgets.disableall_button);
+
 		gtk_widget_destroy (bd->widgets.window);
+
 		g_free (bd);
 	}
 }
@@ -341,13 +462,21 @@ void
 breakpoints_dbase_clear (BreakpointsDBase * bd)
 {
 	g_return_if_fail (bd != NULL);
+
 	breakpoints_dbase_delete_all_breakpoints (bd);
+
 	if (bd->breakpoints)
 		g_list_free (bd->breakpoints);
+
 	bd->breakpoints = NULL;
-	if (bd->widgets.clist)
-		gtk_clist_clear (GTK_CLIST (bd->widgets.clist));
+
+	if (bd->widgets.treeview) {
+		GtkTreeModel *model = gtk_tree_view_get_model (GTK_TREE_VIEW (bd->widgets.treeview));
+	        gtk_tree_store_clear (GTK_TREE_STORE (model));
+	}
+
 	bd->current_index = -1;
+
 	anjuta_delete_all_marker (BREAKPOINTS_MARKER);
 }
 
@@ -608,22 +737,23 @@ breakpoints_dbase_update_controls (BreakpointsDBase * bd)
 	R = debugger_is_ready ();
 	C = (g_list_length (bd->breakpoints) > 0);
 	S = (bd->current_index >= 0);
-	gtk_widget_set_sensitive (bd->widgets.button_add, A && R);
-	gtk_widget_set_sensitive (bd->widgets.button_edit, A && R && C && S);
-	gtk_widget_set_sensitive (bd->widgets.button_toggle, A && R && C
-				  && S);
-	gtk_widget_set_sensitive (bd->widgets.button_view, C && S);
-	gtk_widget_set_sensitive (bd->widgets.button_enable_all, A && R);
-	gtk_widget_set_sensitive (bd->widgets.button_disable_all, A && R);
-	gtk_widget_set_sensitive (bd->widgets.button_delete, A && R && C
-				  && S);
-	gtk_widget_set_sensitive (bd->widgets.button_delete_all, A && R);
+
+	gtk_widget_set_sensitive (bd->widgets.remove_button, A && R && C && S);
+	gtk_widget_set_sensitive (bd->widgets.jumpto_button, C && S);
+	gtk_widget_set_sensitive (bd->widgets.properties_button, A && R && C && S);
+
+	gtk_widget_set_sensitive (bd->widgets.add_button, A && R);
+	gtk_widget_set_sensitive (bd->widgets.removeall_button, A && R);
+	gtk_widget_set_sensitive (bd->widgets.enableall_button, A && R);
+	gtk_widget_set_sensitive (bd->widgets.disableall_button, A && R);
 }
 
 void
 breakpoints_dbase_add_brkpnt (BreakpointsDBase * bd, gchar * brkpnt)
 {
-	gchar *row[6];
+	BreakpointItem *bi;
+	GList *node;
+	gchar* full_fname = NULL;
 	gchar brkno[10];
 	gchar function[256];
 	gchar fileln[512];
@@ -634,12 +764,6 @@ breakpoints_dbase_add_brkpnt (BreakpointsDBase * bd, gchar * brkpnt)
 	gchar cond[512];
 	gchar *ptr;
 	glong count;
-	BreakpointItem *bi;
-	GdkColor *color;
-	GdkColor red = { 16, -1, 0, 0 };
-	GdkColor blue = { 16, 0, 0, -1 };
-	GList *node;
-	gchar* full_fname = NULL;
 
 	g_return_if_fail (bd != NULL);
 
@@ -652,8 +776,11 @@ breakpoints_dbase_add_brkpnt (BreakpointsDBase * bd, gchar * brkpnt)
 		return;
 
 	count = sscanf (brkpnt, "%s %*s %*s %s %*s in %s at %s", brkno, enb, function, fileln);
-	if (count == 4 || count == 2)
-	{
+
+	if (count == 4 || count == 2) {
+		GtkTreeStore *store;
+		GtkTreeIter iter;
+
 		if (count == 4)
 		{
 			/* get file and line no */
@@ -670,26 +797,25 @@ breakpoints_dbase_add_brkpnt (BreakpointsDBase * bd, gchar * brkpnt)
 			strcpy (line, "??");
 			strcpy (function, "??");
 		}
+
 		/* add breakpoint to list */
 
 		bi = breakpoint_item_new ();
 		bi->file = g_strdup (file);
-		if (count == 4) bi->line = atoi (line);
-		else bi->line = -1;
+
+		if (count == 4)
+			bi->line = atoi (line);
+		else
+			bi->line = -1;
+
 		bi->function = g_strdup (function);
 		bi->id = atoi (brkno);
+
 		if (strcmp (enb, "y") == 0)
-		{
 			bi->enable = TRUE;
-			sprintf (enb, _("YES"));
-			color = &red;
-		}
 		else
-		{
 			bi->enable = FALSE;
-			sprintf (enb, _("NO"));
-			color = &blue;
-		}
+
 		if ((ptr = strstr (brkpnt, "ignore")))
 		{
 			sscanf (ptr, "ignore next %s", ignore);
@@ -717,39 +843,43 @@ breakpoints_dbase_add_brkpnt (BreakpointsDBase * bd, gchar * brkpnt)
 			strcpy (cond, "");
 			bi->condition = NULL;
 		}
-		node = app->text_editor_list;
+
 /*		full_fname = anjuta_get_full_filename (bi->file); */
-		while (node)
-		{
+
+		for (node = app->text_editor_list; node; node = g_list_next (node)) {
 			TextEditor* te;
+
 			te = node->data;
-			if (te->full_filename == NULL)
-			{
+
+			if (te->full_filename == NULL) {
 				node = g_list_next (node);
 				continue;
 			}
-			if (strcmp (te->filename, bi->file) == 0)
-			{
+
+			if (strcmp (te->filename, bi->file) == 0) {
 				bi->handle = text_editor_set_marker (te, bi->line, BREAKPOINTS_MARKER);
 				bi->handle_invalid = FALSE;
 				break;
 			}
-			node = g_list_next (node);
 		}
-		if (full_fname) g_free (full_fname);
+
+		if (full_fname)
+			g_free (full_fname);
+
 		bi->time = time (NULL);
-		
-		row[0] = enb;
-		row[1] = file;
-		row[2] = line;
-		row[3] = function;
-		row[4] = ignore;
-		row[5] = cond;
+
 		bd->breakpoints = g_list_append (bd->breakpoints, (gpointer) bi);
-		gtk_clist_append (GTK_CLIST (bd->widgets.clist), row);
-		gtk_clist_set_foreground (GTK_CLIST (bd->widgets.clist),
-					  g_list_length (bd->breakpoints) - 1,
-					  color);
+
+		store = GTK_TREE_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (bd->widgets.treeview)));
+		gtk_tree_store_append (store, &iter, NULL);
+		gtk_tree_store_set (store, &iter,
+				    ENABLED_COLUMN, bi->enable,
+				    FILENAME_COLUMN, file,
+				    LINENO_COLUMN, line,
+				    FUNCTION_COLUMN, function,
+				    PASS_COLUMN, ignore,
+				    CONDITION_COLUMN, cond,
+				    -1);
 	}
 }
 

@@ -86,12 +86,12 @@ build_file ()
 		command_editor_get_command_file (app->command_editor,
 						 COMMAND_BUILD_FILE,
 						 te->filename);
-	if (cmd == NULL)
-	{
+	if (cmd == NULL) {
 		anjuta_warning (_
 				("No build command has been specified for this type of file."));
 		return;
 	}
+
 	dirname = g_dirname (te->full_filename);
 	chdir (dirname);
 	anjuta_set_execution_dir(dirname);

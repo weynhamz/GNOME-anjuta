@@ -28,7 +28,6 @@
 #include <gnome.h>
 
 #include "anjuta.h"
-#include "messagebox.h"
 #include "resources.h"
 #include "appwizard.h"
 

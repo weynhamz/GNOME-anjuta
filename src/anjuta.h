@@ -25,7 +25,6 @@
 
 #include "toolbar.h"
 #include "text_editor.h"
-#include "messagebox.h"
 #include "preferences.h"
 #include "compiler_options.h"
 #include "src_paths.h"

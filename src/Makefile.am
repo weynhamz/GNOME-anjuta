@@ -9,6 +9,7 @@ INCLUDES = \
 	-I$(srcdir)/../printing \
 	-I.. -I. -DPACKAGE_BIN_DIR=\"$(bindir)\" \
 	-DG_DISABLE_DEPRECATED -DGDK_DISABLE_DEPRECATED \
+	-DGDK_PIXBUF_DEPRECATED \
 	-DGTK_DISABLE_DEPRECATED -DGNOME_DISABLE_DEPRECATED
 
 SCILEXERS =\
@@ -64,7 +65,6 @@ anjuta_SOURCES = \
 	breakpoints.h\
 	breakpoints_cbs.c\
 	breakpoints_cbs.h\
-	breakpoints_gui.c\
 	build_file.c\
 	build_file.h\
 	build_project.c\

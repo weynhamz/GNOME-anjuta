@@ -35,10 +35,8 @@
 #include "launcher.h"
 #include "build_project.h"
 
-static void
-install_as_root (GtkWidget* button, gpointer data);
-static void
-install_as_user (GtkWidget* button, gpointer data);
+static void install_as_root (GtkWidget* button, gpointer data);
+static void install_as_user (GtkWidget* button, gpointer data);
 
 void
 build_project ()
@@ -222,13 +220,20 @@ build_install_project ()
 			return;
 	}
 
-	if (app->project_dbase->project_is_open)
-	{
-		messagebox2 (GNOME_MESSAGE_BOX_QUESTION,
-		     _("Do you want to install as root?"),
-		     GNOME_STOCK_BUTTON_YES, GNOME_STOCK_BUTTON_NO,
-		     GTK_SIGNAL_FUNC (install_as_root),
-			 GTK_SIGNAL_FUNC (install_as_user), NULL);
+	if (app->project_dbase->project_is_open) {
+		GtkWidget *dialog;
+
+		dialog = gtk_message_dialog_new (GTK_WINDOW (app->widgets.window),
+						 GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+						 GTK_MESSAGE_QUESTION,
+						 GTK_BUTTONS_YES_NO,
+						 _("Do you prefer installing as root ?"),
+						 NULL);
+
+		if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_YES)
+			install_as_root (NULL, NULL);
+		else
+			install_as_user (NULL, NULL);
 	}
 }
 

@@ -1,3 +1,41 @@
+2002-09-14  Stephane Demurget  <demurgets@free.fr>
+
+	* src/Makefile.am: removed breakpoints_gui.c and added a check
+	for gdk-pixbuf deprecated functions, but there shouldn't be much
+	anyway.
+
+	* src/breakpoints_gui.c: killed.
+
+	* src/anjuta.glade: added two dialogs for the breakpoints management.
+
+	* src/anjuta.h:
+	* src/anjuta_cbs.c:
+	* src/appwizard.c:
+	* src/attach_process.c:
+
+	* src/breakpoints*.[ch]: cleaned, simplified and polished up a lot of things,
+	really huge changes and porting work.
+	
+	* src/breakpoints.[ch] (treeview_enabled_toggled): impl.
+	(breakpoints_dbase_new): moved the UI init bits here.
+
+	* src/breakpoints_cbs.[ch] (breakpoints_dbase_add_brkpnt): simplified
+	a lot, not using any color anymore (not HIG compliant) and not using
+	BrkPtItem thanks to libglade. 4 issues marked with #warning that have
+	to be double checked.
+
+	* src/build_file.c:
+	* src/build_project.c: gnome 2 port.
+
+2002-09-11  Stephane Demurget  <demurgets@free.fr>
+
+	* src/anjuta.glade:
+	* src/anjuta.h:
+	* src/anjuta_cbs.c:
+	* src/appwizard.c:
+	* src/breakpoints.c:
+	* src/breakpoints_cbs.c: cleaned up some bits.
+
 2002-09-09  Stephane Demurget  <demurgets@free.fr>
 
 	* src/Makefile.am:

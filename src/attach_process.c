@@ -301,8 +301,7 @@ attach_process_destroy (AttachProcess * ap)
 		gtk_widget_unref (ap->widgets.update_button);
 		gtk_widget_unref (ap->widgets.attach_button);
 
-		if (GTK_IS_WIDGET (ap->widgets.window))
-			gtk_widget_destroy (ap->widgets.window);
+		gtk_widget_destroy (ap->widgets.window);
 
 		g_free (ap);
 	}
