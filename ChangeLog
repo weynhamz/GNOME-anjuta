@@ -3,6 +3,11 @@
         Set bold color as foreground color in terminal
         (fix bug #864924)
 
+        * src/aneditor.cxx
+        Use font style defined for message indicators in
+        preferences/messages
+        (fix bug #885032)
+
 2004-02-13  Franco Catrin  <fcatrin@tuxpan.com>
 	* src/build_project.c
 	Use build.silent option from preferences (fix bug #895726)

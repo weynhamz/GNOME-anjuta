@@ -3291,9 +3291,9 @@ void AnEditor::ReadProperties(const char *fileForExt) {
 		SString value_str;
 		long default_indic_type[] = {INDIC_TT, INDIC_DIAGONAL, INDIC_SQUIGGLE};
 		char *default_indic_color[] = {"0000FF", "#00FF00", "#FF0000"};
-		
+		char *style_name[] = {"normal", "warning", "error"};
 		char key[200];
-		sprintf(key, "indicator.%d.style", i);
+		sprintf(key, "indicators.style.%s", style_name[i]);
 
 		value_str = props->Get(key);
 		if (value_str.length() > 0) {
