@@ -1,6 +1,7 @@
 2002-12-19  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
 	* manuals/*: Added capability to generate PDF and PS.
 	* src/debugger.c, data/gdb.init: Solaris GDB fixes.
+	* TODO, TODO.biswa: Intergated TODO list.
 
 2002-12-18  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
 

@@ -1,9 +1,9 @@
 TODO List:
 ----------
 
-** Immediate post-1.0.0:
-
 	o Add ignore modules in Project config: Tagmanager does not ignore them.
+Biswa: 'Rebuild Tags Image' now syncs tagManager with project file list.
+
 	o Bring all indent/format preferences under one tab.
 	o Add more editor preferences.
 	o Add "indicator.automatic" pref in message prefs.
@@ -13,14 +13,91 @@ TODO List:
 	o project manager changes
 	o Add minibuffer-support (for vi and emacs key bindings)
 	o Add Corba client for external access.
-	
-** General:
+	o More powerful Search, Search&Replace, Find In Files, etc. (422986, 533297)
+Notes: Have a look at regexxer (uses PCRE). Might be a good idea to reuse the
+code there to revamp the current search/replace interface.
 
-    o Comments in source files
+	o Better support for other languages, e.g., Java, Perl, Python, etc.
+		a) TagManager integration (tags, symbol browser, autocomplete, etc.)
+		b) Project types (new project, import, etc.)
+		c) Build and execute support (Make, Build, Execute, etc.)
+	o Revamp wizards:
+		a) New project wizards (Applets, Java, Empty, Web (HTML/PHP), QT/KDE, SDL, OpenGL) (442139, 596075)
+		b) Template based wizards for projects, files and code snippets. (495228)
+		c) Enhance project wizards so that the projects do useful stuff out-of-the-box.
+		d) More flexibility in wizards.
+		e) get ideas from VC++, KDevelop, Kylix, etc.
+		f) Custom wizard (import specified extensions only).
+		g) Better (more flexible) GUI ( Glade based ? Organized by Tabs ala VC ?).
+	o Revamp Scintilla interface:
+		a) Upgrade to latest Scintilla and SciTE.
+Biswa: Done. However, we should try to make Scintilla into a seperate dependency so
+that Scintilla updates can be automatic. This is a bit tricky since the code is pretty
+tightly integrated.
+		b) Fix bugs present in Anjuta but not in SciTE.
+		c) More editor preferences in GUI covering all SciTE/Scintilla properties.
+		d) GUI to map file extensions to languages (Editor + TagManager).
+		e) Better highliting, more languages, better indentation, etc.
+		f) Saving editor preferences on a per-project/multiple presets basis (554492)
+		g) Ability to use multibyte and fonts of different charsets
+		h) Feature requests (489114, 505305, 515658, 533298, 537126, 537127, 566266, 578281, 581258, 593493
+	   	, 594431, 595979, 598005, 604601, 606759)
+		i) GUI for all Scintilla/SciTE preferences (605029)
+		j) As many ultraedit features as possible - seems like a very popular editor :-)
+	o Revamp project manager: (existing/integrate Stef's one ?)
+		a) Support multiple targets of different types (static/shared libs, executables, etc.)
+		b) Import from an existing autotools project (566640)
+		c) Better support for editing Makefile.am, configure.in, etc. (566640)
+		d) Support projects in different languages (Java, HTML/PHP, Python, etc.) (523977, 559165, 618585)
+		e) Support large and flexible projects (442416, 549337, 553579)
+		f) GUI enhancements (552209)
+		g) More flexible make/build system to support cons, ant, etc. (555469, 556364, 558725, 596074, 604171)
+		h) Import project files of other IDEs (VC++, Borland C++, KDevelop, etc.) (593474)
+	o Support user-configurable tools (Tools menu + tool editor) with variable substitution (484187)
+Biswa: Done.
+	o Integration with tools like valgrind, gcov, gtk-doc, Doxygen, gprof, etc.
+Biswa: Tools support does a decent job of integrating external tools. Need scripting
+support to integrate some tools better.
+	o Code refactoring (needs sourcebase) (450159)
+	o Better code browsing:
+		a) Implement intellisense completion (497039, 522445, 604756)
+		b) Call graphs and code reference visualization (ala Source Navigator)
+		c) Better class browser (namespace support, nested classes, more languages, etc.) (521245, 529830, 539573, 556364)
+		d) Make symbol browser work without project & remember expanded nodes while refreshing (577026)
+		e) Local symbol view (583349)
+	o  Make debugger interface more flexible:
+		a) Allow user to use different debugger (e.g. dbx on Solaris) (500392)
+		b) Better support for multi-threaded programs.
+		c) Multi-paned and better integrated with PM (566262)
+		d) Ability to pass custom commands to the debugger and show the output (602798)
+		e) Integrate the watch window in the messages pane after Locals (599543)
+	o  More and better tranlations (Korean, etc.)
+	o  Generic GUI/usability improvements:
+		a) Two find-in-files tabs ala VC++
+		b) Easy switching between various windows using shortcuts (560887)
+		c) Add 'Save' button to the editor context menu. (561310)
+		d) Support 'Sessions' i.e. group of files from different locations (561744)
+		e) Add to project from the file menu (562068)
+		f) Better patching, diffing and merging support ala gtkdiff (570397)
+		g) Use custom tools for indentation (577030)
+Biswa: Possible now with external tools implementation.
+		h) Shortcut to jump between open files (577381)
+		i) Copy selection from the message pane (581498)
+		j) Make file and symbol browsers work outside project mode (585416)
+		k) Customizable menus, toolbars and shortcuts (595361, 595363, 596346)
+		l) Display output in message window rather than a console (604179)
+	o  Make version control more flexible (so that BitKeeper, Arch, Subversion, etc. can be used) (607873)
+	o  Mono (C#) support (standalone files, projects, class browser, wizards, etc.) (614374)
+	o  gnome-db support (617267)
+	o Comments in source files
 	o Being able to open a source rpm (.src.rpm) or a .tgz tarball and have it
 	  imported as a project
+Biswa: project Import does a decent job of importing an arbitrary directory. Should
+be good enough for most purposes.
 	o Debugger optimization
 	o Utilities
+Biswa: Generic tools implementation allows integrating arbitrary utilities into
+the GUI.
 	o Integration with glade, gtranslator, eog and other bonobo components
 	o Double/single click open file in preferences.
 	o Use GtkHTML if available to browse online documentation/manuals
