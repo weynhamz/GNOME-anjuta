@@ -199,9 +199,10 @@ static void fv_create(void)
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(fv->win),
 	  GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 	fv->tree=gtk_ctree_new(1,0);
+	gtk_ctree_set_line_style (GTK_CTREE(fv->tree), GTK_CTREE_LINES_DOTTED);
+	gtk_ctree_set_expander_style (GTK_CTREE(fv->tree), GTK_CTREE_EXPANDER_SQUARE);
 	gtk_widget_ref(fv->tree);
 	gtk_widget_show(fv->tree);
-	gtk_ctree_set_line_style(GTK_CTREE(fv->tree), GTK_CTREE_LINES_DOTTED);
 	gtk_clist_set_column_auto_resize(GTK_CLIST(fv->tree), 0, TRUE);
 	gtk_clist_set_selection_mode(GTK_CLIST(fv->tree)
 	  ,GTK_SELECTION_BROWSE);

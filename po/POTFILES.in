@@ -7,11 +7,9 @@
 
 # Source files
 anjuta.desktop.in.in
-ccview/cccmd.cc
-ccview/cccproj.cc
-ccview/ccview_main.cc
-ccview/func_dialog.cc
-ccview/support.c
+src/an_file_view.c
+src/an_symbol_view.c
+src/support.c
 src/aneditor.cxx
 src/aneditor.h
 src/anjuta.h
@@ -172,4 +170,8 @@ src/defaults.h
 src/about.h
 src/resources.c
 src/resources.h
+widgets/scroll-menu.c
+widgets/gnomedirlist.c
+widgets/gnomefilelist.c
 plugins/sample1/plugin-sample1.c
+plugins/class-gen/clsGen.c

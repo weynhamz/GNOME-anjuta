@@ -1,5 +1,15 @@
 2002-01-08  Naba Kumar <kh_naba@users.sourceforge.net>
 
+	* src/project_dbase.c,
+	  src/an_file_view.c,
+	  src/an_symbol_view.c:
+	  Changed the CTree expander style to square and
+	  line style to Dotted line.
+	  
+	* po/POTFILES.in: Removed and Added translable files.
+
+2002-01-08  Naba Kumar <kh_naba@users.sourceforge.net>
+
 	* ccview/.cvsignore: Removed.
 	
 2002-01-08  Naba Kumar <kh_naba@users.sourceforge.net>

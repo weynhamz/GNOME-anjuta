@@ -503,6 +503,7 @@ create_project_dbase_gui (ProjectDBase * p)
 	gtk_container_add (GTK_CONTAINER (scrolledwindow1), ctree1);
 	gtk_clist_set_selection_mode (clist1, GTK_SELECTION_BROWSE);
 	gtk_ctree_set_line_style (GTK_CTREE(ctree1), GTK_CTREE_LINES_DOTTED);
+	gtk_ctree_set_expander_style (GTK_CTREE(ctree1), GTK_CTREE_EXPANDER_SQUARE);
 	gtk_widget_show (ctree1);
 
 	gtk_accel_group_attach (app->accel_group, GTK_OBJECT (window1));
