@@ -1491,6 +1491,27 @@ iproject_manager_get_selected (IAnjutaProjectManager *project_manager,
 	return NULL;
 }
 
+static gboolean
+iproject_manager_add_source (IAnjutaProjectManager *project_manager, const gchar *source_uri, const gchar *target_uri, GError **err) {
+	
+	ProjectManagerPlugin *plugin;
+	GtkWidget *win;
+	
+	g_return_val_if_fail (ANJUTA_IS_PLUGIN (project_manager), FALSE);
+	
+	plugin = (ProjectManagerPlugin*) G_OBJECT (project_manager);
+	g_return_val_if_fail (GBF_IS_PROJECT (plugin->project), FALSE);
+
+	win = gtk_widget_get_toplevel (plugin->scrolledwindow);
+	
+	update_operation_begin (plugin);
+	gbf_project_util_add_source (plugin->model,
+								 GTK_WINDOW (win), 
+								 source_uri,
+								 target_uri);
+	update_operation_end (plugin, TRUE);
+}
+
 static void
 ifile_iface_init(IAnjutaFileIface *iface)
 {
@@ -1507,6 +1528,7 @@ iproject_manager_iface_init(IAnjutaProjectManagerIface *iface)
 	iface->get_parent = iproject_manager_get_parent;
 	iface->get_children = iproject_manager_get_children;
 	iface->get_selected = iproject_manager_get_selected;
+	iface->add_source = iproject_manager_add_source;
 }
 
 ANJUTA_PLUGIN_BEGIN (ProjectManagerPlugin, project_manager_plugin);

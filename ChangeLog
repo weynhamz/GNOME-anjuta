@@ -1,5 +1,22 @@
 2005-02-17  Naba Kumar  <naba@gnome.org>
 
+	Patch from Massimo Cora  <maxcvs@email.it>:
+	
+	* plugins/class-gen/.cvsignore,
+	plugins/class-gen/Makefile.am,
+	(added) plugins/class-gen/action-callbacks.c,
+	(added) plugins/class-gen/action-callbacks.h,
+	(added) plugins/class-gen/anjuta-class-gen.plugin.in,
+	(added) plugins/class-gen/class_gen.c,
+	(added) plugins/class-gen/class_gen.h,
+	(added) plugins/class-gen/plugin.c,
+	(added) plugins/class-gen/plugin.h: Ported class wizard to the
+	new architecture.
+	
+	* plugins/project-manager/plugin.c: implemented add_source().
+
+2005-02-17  Naba Kumar  <naba@gnome.org>
+
 	* plugins/file-loader/plugin.c: Fixed possible crash.
 	
 	* src/action-callbacks.c, src/action-callbacks.h,

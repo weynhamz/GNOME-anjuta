@@ -4,5 +4,6 @@ Makefile
 *.o
 *.la
 *.swp
+*.plugin
 .deps
 .libs

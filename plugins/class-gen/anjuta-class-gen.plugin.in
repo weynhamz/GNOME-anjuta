@@ -1,0 +1,6 @@
+[Anjuta Plugin]
+_Name=Class Gen
+_Description=Anjuta Class Gen Plugin
+Location=anjuta-class-gen:AnjutaClassGenPlugin
+Icon=class_logo.xpm
+Interfaces=IAnjutaWizard

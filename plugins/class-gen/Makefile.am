@@ -1,33 +1,36 @@
-#
-# Sample Makefile for a gIDE plugin.
-#
-# Where can we find the gIDE include files.
-#
-ANJUTA_SRC_DIR = $(top_srcdir)/src
+# Plugin Icon file
+plugin_in_files = anjuta-class-gen.plugin.in
+%.plugin: %.plugin.in $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*po) ; $(INTLTOOL_MERGE) $(top_srcdir)/po $< $@ -d -u -c $(top_builddir)/po/.intltool-merge-cache
 
-EXTRA_DIST = class_logo.xpm
 
-#
-# Where to install the plugin
-#
-plugindir = $(prefix)/@NO_PREFIX_PACKAGE_PLUGIN_DIR@
+# Plugin pixmaps
+clsgen_pixmapsdir = $(anjuta_image_dir)
+clsgen_pixmaps_DATA = \
+	class_logo.xpm
 
-# NOTE :
-# The naming convention is very intentional
-# We are forced to use the prefix 'lib' by automake and libtool
-#    There is probably a way to avoid it but it is not worth to effort
-#    to find out.
-# The 'anjuta_' prfix is a safety measure to avoid conflicts where the
-#    plugin 'libpython.so' needs to link with the real 'libpython.so'
-plugin_LTLIBRARIES = libanjuta_clsGen.la
 
-libanjuta_clsGen_la_SOURCES = clsGen.c
+clsgen_plugindir = $(anjuta_plugin_dir)
+clsgen_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
 
-INCLUDES = 						\
-	-I$(ANJUTA_SRC_DIR)				\
-	-I$(top_srcdir)	\
-	-I$(top_srcdir)/tagmanager/include      \
-	-DGNOMELOCALEDIR=\""$(datadir)/locale"\" 	\
-	-DVERSION=\""$(VERSION)"\"             		\
-	-I$(includedir)					\
-	$(ANJUTA_CFLAGS)
+plugindir = $(anjuta_plugin_dir)
+plugin_LTLIBRARIES = libanjuta-class-gen.la
+
+INCLUDES = \
+	$(WARN_CFLAGS) \
+	$(DEPRECATED_FLAGS) \
+	$(LIBANJUTA_CFLAGS)
+
+
+libanjuta_class_gen_la_LIBADD = \
+	$(LIBANJUTA_LIBS)
+
+libanjuta_class_gen_la_SOURCES= \
+	plugin.c \
+	plugin.h \
+	class_gen.c \
+	class_gen.h \
+	action-callbacks.c \
+	action-callbacks.h 
+	
+EXTRA_DIST = \
+	$(clsgen_pixmaps_DATA)
