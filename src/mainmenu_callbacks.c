@@ -135,7 +135,6 @@ void
 on_close_file1_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
 	TextEditor *te;
-	gchar mesg[256];
 
 	if (user_data != NULL) {
 		te = (TextEditor*)user_data;
@@ -166,17 +165,18 @@ on_close_file1_activate (GtkMenuItem * menuitem, gpointer user_data)
 		gint res;
 		
 		closing_state = TRUE;
-		sprintf (mesg, _("The file '%s' is not saved.\n"
-						 "Do you want to save it before closing?"),
-			 	 te->filename);
+		mesg = g_strdup_printf (_("The file '%s' is not saved.\n"
+								"Do you want to save it before closing?"),
+								te->filename);
 		dialog = gtk_message_dialog_new (GTK_WINDOW (app->widgets.window),
 										 GTK_DIALOG_DESTROY_WITH_PARENT,
 										 GTK_MESSAGE_QUESTION,
 										 GTK_BUTTONS_NONE, mesg);
+		g_free (mesg);
 		gtk_dialog_add_buttons (GTK_DIALOG (dialog), 
 								GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
 								GTK_STOCK_NO, GTK_RESPONSE_NO,
-								GTK_STOCK_YES, GTK_RESPONSE_YES);
+								GTK_STOCK_YES, GTK_RESPONSE_YES, NULL);
 		gtk_dialog_set_default_response (GTK_DIALOG (dialog),
 										 GTK_RESPONSE_CANCEL);
 		res = gtk_dialog_run (GTK_DIALOG (dialog));
@@ -2102,15 +2102,21 @@ on_about1_activate (GtkMenuItem * menuitem, gpointer user_data)
         gtk_widget_show (about_box);
 
         about_box_window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-		gtk_window_set_transient_for(GTK_WINDOW(about_box_window), GTK_WINDOW(app->widgets.window));
+		gtk_window_set_transient_for(GTK_WINDOW(about_box_window),
+									 GTK_WINDOW(app->widgets.window));
 		gnome_window_icon_set_from_default((GtkWindow *) about_box_window);
-        gtk_window_set_policy (GTK_WINDOW (about_box_window), FALSE, FALSE, FALSE);
-        gtk_signal_connect (GTK_OBJECT (about_box_window), "button_press_event",
-                            GTK_SIGNAL_FUNC (about_box_event_callback), &about_box_window);
+        gtk_window_set_policy (GTK_WINDOW (about_box_window),
+							   FALSE, FALSE, FALSE);
+        gtk_signal_connect (GTK_OBJECT (about_box_window),
+							"button_press_event",
+                            GTK_SIGNAL_FUNC (about_box_event_callback),
+							&about_box_window);
         gtk_signal_connect (GTK_OBJECT (about_box_window), "delete_event",
-                            GTK_SIGNAL_FUNC (about_box_event_callback), &about_box_window);
+                            GTK_SIGNAL_FUNC (about_box_event_callback),
+							&about_box_window);
 
-        gtk_window_set_title (GTK_WINDOW (about_box_window), _("About Anjuta"));
+        gtk_window_set_title (GTK_WINDOW (about_box_window),
+							  _("About Anjuta"));
         gtk_container_add (GTK_CONTAINER (about_box_window), about_box);
         gtk_widget_show (about_box_window);
 }

@@ -1511,7 +1511,7 @@ gint ScintillaGTK::SelectionNotify(GtkWidget *widget, GdkEventSelection *selecti
 	//Platform::DebugPrintf("Selection notify\n");
 #warning "G2: Scintilla: where is this function??"
 	//return gtk_selection_notify(widget, selection_event);
-	return 0;
+	return 1;
 }
 
 void ScintillaGTK::DragBegin(GtkWidget *, GdkDragContext *) {

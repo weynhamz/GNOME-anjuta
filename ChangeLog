@@ -1,4 +1,26 @@
-2002-01-22  Naba Kumar <naba@gnome.org>
+2003-01-23  Naba Kumar <naba@gnome.org>
+
+	* anjuta.prj: Updated compiler options.
+	* scintilla/ScintillaGTK.cxx: Fixed selection notify.
+
+	* src/aneditor.cxx,
+	src/anjuta.c,
+	src/anjuta.glade,
+	src/anjuta_dialogs_strings.c,
+	src/mainmenu_callbacks.c,
+	src/mainmenu_callbacks.h,
+	src/text_editor.c,
+	src/text_editor_cbs.c,
+	src/text_editor_gui.c: GNOME2 Porting.
+
+2003-01-22  Naba Kumar <naba@gnome.org>
+
+	* ChangeLog: Corrected dates.
+	* src/mainmenu_callbacks.h: Cleaned up function prototypes.
+	* src/anjuta.glade, src/anjuta_dialogs_strings.h: Added more
+	preferences.
+
+2003-01-22  Naba Kumar <naba@gnome.org>
 	
 	* plugins/patch/patch-plugin.c: Bug fix.
 	
@@ -46,7 +68,7 @@
 	(removed) src/messagebox.c,
 	(removed) src/messagebox.h: Removed because no longer used.
 
-2002-01-21  Naba Kumar <naba@gnome.org>
+2003-01-21  Naba Kumar <naba@gnome.org>
 
 	* src/anjuta-tools.c,
 	src/anjuta.c,
@@ -66,7 +88,7 @@
 	src/text_editor.c,
 	widgets/gnomefilelist.c: GNOME2 porting.
 
-2002-01-20  Naba Kumar <naba@gnome.org>
+2003-01-20  Naba Kumar <naba@gnome.org>
 
 	* global-tags/create_global_tags.sh: Uses pkg-config to
 	read the modules.
@@ -106,14 +128,14 @@
 	(removed) src/breakpoints_cbs.h: Removed because they are now
 	combined in singe file
 
-2002-01-16  Naba Kumar <naba@gnome.org>
+2003-01-16  Naba Kumar <naba@gnome.org>
 
 	* src/anjuta.glade, src/anjuta_dialogs_strings.c,
 	src/compiler_options.c, src/compiler_options_cbs.c: Fixed compiler
 	options dialog UI and data handling.
 
 
-2002-01-15  Naba Kumar <naba@gnome.org>
+2003-01-15  Naba Kumar <naba@gnome.org>
 
 	* src/commands.[c,h], src/anjuta.glade, src/anjuta_dialogs_strings.c:
 	Completed command editor porting.
@@ -132,7 +154,7 @@
 	src/text_editor_cbs.c: Completed port of detached text editor
 	to gnome2 plateform.
 	
-2002-01-14  Naba Kumar <naba@gnome.org>
+2003-01-14  Naba Kumar <naba@gnome.org>
 
 	* src/anjuta.glade, src/preferences.[h,c],
 	src/anjuta_dialogs_strings.c: Added build and editor
@@ -144,7 +166,7 @@
 	* anjuta-tools.c: Debugged tools dialog handling.
 	* plugins/class-gen/clsGen.c: Fixed an undefined function.
 	
-2002-01-13  Naba Kumar <naba@gnome.org>
+2003-01-13  Naba Kumar <naba@gnome.org>
 
 	* ABOUT-NLS: Update (strange).
 

@@ -247,9 +247,8 @@ anjuta_append_text_editor (gchar * filename)
 	cur_page = anjuta_get_current_text_editor ();
 	te = text_editor_new (filename, cur_page, app->preferences);
 	if (te == NULL) return NULL;
-	gtk_signal_disconnect_by_func (GTK_OBJECT (app->widgets.notebook),
-				       GTK_SIGNAL_FUNC
-				       (on_anjuta_notebook_switch_page),
+	g_signal_handlers_block_by_func (GTK_OBJECT (app->widgets.notebook),
+				       GTK_SIGNAL_FUNC (on_anjuta_notebook_switch_page),
 				       NULL);
 	anjuta_set_current_text_editor (te);
 	app->text_editor_list = g_list_append (app->text_editor_list, te);
@@ -273,7 +272,7 @@ anjuta_append_text_editor (gchar * filename)
 	
 		/* For your kind info, this same data is also set in */
 		/* the function on_text_editor_dock_activated() */
-		gtk_object_set_data (GTK_OBJECT (eventbox), "TextEditor", te);
+		g_object_set_data (G_OBJECT (eventbox), "TextEditor", te);
 		
 		if (te->full_filename)
 			buff =
@@ -285,8 +284,7 @@ anjuta_append_text_editor (gchar * filename)
 						 te->filename);
 		gtk_window_set_title (GTK_WINDOW (app->widgets.window), buff);
 		g_free (buff);
-		gtk_notebook_set_page (GTK_NOTEBOOK (app->widgets.notebook),
-		       0);
+		gtk_notebook_set_page (GTK_NOTEBOOK (app->widgets.notebook), 0);
 
 		if (preferences_get_int (app->preferences, EDITOR_TABS_ORDERING))
 			anjuta_order_tabs ();
@@ -296,7 +294,7 @@ anjuta_append_text_editor (gchar * filename)
 		gtk_widget_show (te->widgets.window);
 		break;
 	}
-	gtk_signal_connect (GTK_OBJECT (app->widgets.notebook), "switch_page",
+	gtk_signal_handler_unblock_by_func (GTK_OBJECT (app->widgets.notebook),
 			    GTK_SIGNAL_FUNC (on_anjuta_notebook_switch_page),
 			    NULL);
 	anjuta_set_current_text_editor(te);

@@ -214,21 +214,21 @@ create_text_editor_gui (TextEditor * te)
 	gtk_signal_connect (GTK_OBJECT (window1), "focus_in_event",
 			    GTK_SIGNAL_FUNC
 			    (on_text_editor_window_focus_in_event), te);
-	gtk_signal_connect (GTK_OBJECT (editor1), "button_press_event",
-			    GTK_SIGNAL_FUNC
-			    (on_text_editor_text_buttonpress_event), te);
-	gtk_signal_connect_after (GTK_OBJECT (editor1), "size_allocate",
-			    GTK_SIGNAL_FUNC
-			    (on_text_editor_scintilla_size_allocate), te);
-
-	gtk_signal_connect (GTK_OBJECT (editor1), "event",
-			    GTK_SIGNAL_FUNC (on_text_editor_text_event), te);
 	gtk_signal_connect (GTK_OBJECT (window1), "delete_event",
 			    GTK_SIGNAL_FUNC (on_text_editor_window_delete),
 			    te);
 	gtk_signal_connect (GTK_OBJECT (event_box1), "realize",
 			    GTK_SIGNAL_FUNC (on_text_editor_client_realize),
 			    te);
+
+	gtk_signal_connect (GTK_OBJECT (editor1), "event",
+			    GTK_SIGNAL_FUNC (on_text_editor_text_event), te);
+	gtk_signal_connect (GTK_OBJECT (editor1), "button_press_event",
+			    GTK_SIGNAL_FUNC
+			    (on_text_editor_text_buttonpress_event), te);
+	gtk_signal_connect_after (GTK_OBJECT (editor1), "size_allocate",
+			    GTK_SIGNAL_FUNC
+			    (on_text_editor_scintilla_size_allocate), te);
 	gtk_signal_connect (GTK_OBJECT (editor1), "notify",
 			    GTK_SIGNAL_FUNC (on_text_editor_scintilla_notify),
 			    te);
@@ -259,7 +259,6 @@ create_text_editor_gui (TextEditor * te)
 	gtk_widget_ref (te->widgets.window);
 	gtk_widget_ref (te->widgets.client_area);
 	gtk_widget_ref (te->widgets.client);
-#warning "G2: Scintilla has a bug becaue of which ref/unref doesn't work"
-	// gtk_widget_ref (te->widgets.editor);
+	gtk_widget_ref (te->widgets.editor);
 	gtk_widget_ref (te->widgets.line_label);
 }

@@ -3287,6 +3287,7 @@ aneditor_new(gpointer propset)
 	  G_CALLBACK(on_aneditor_focus_in), ed);
   g_signal_connect(ed->GetID(), "focus_out_event", 
 	  G_CALLBACK(on_aneditor_focus_out), ed);
+  g_object_ref (ed->GetID());
   editors = g_list_append(editors, ed);
   return (AnEditorID)(g_list_length(editors) - 1);
 }
@@ -3295,6 +3296,8 @@ void
 aneditor_destroy(AnEditorID id)
 {
   AnEditor* ed;
+  GtkWidget *w;
+
   ed = aneditor_get(id);
   if(!ed) return;
   
@@ -3302,7 +3305,7 @@ aneditor_destroy(AnEditorID id)
   /* so that already assigned handles work properly */
   /* We'll simply make it NULL to indicate that the */
   /* editor is destroyed */
-
+  g_object_unref (ed->GetID());
   g_list_nth(editors, id)->data = NULL;
   delete ed;
 }

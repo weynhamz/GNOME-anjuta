@@ -242,7 +242,7 @@ text_editor_destroy (TextEditor * te)
 		gtk_widget_unref (te->widgets.window);
 		gtk_widget_unref (te->widgets.client_area);
 		gtk_widget_unref (te->widgets.client);
-#warning "G2: Scintilla has a bug becaue of which ref/unref doesn't work"
+#warning "G2: Strange we are missing one _unref() somewhere"
 		// gtk_widget_unref (te->widgets.editor);
 		gtk_widget_unref (te->widgets.line_label);
 		

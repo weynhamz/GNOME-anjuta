@@ -66,6 +66,7 @@ on_text_editor_text_buttonpress_event (GtkWidget * widget,
 {
 	TextEditor *te = user_data;
 	text_editor_check_disk_status (te, FALSE);
+	gtk_widget_grab_focus (GTK_WIDGET (te->widgets.editor));
 	return FALSE;
 }
 
