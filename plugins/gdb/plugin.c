@@ -61,8 +61,7 @@ activate_plugin (AnjutaPlugin* plugin)
 	IAnjutaMessageView *message_view;
 	GdbPlugin *gdb_plugin = (GdbPlugin *) plugin;
 
-	g_message ("GdbPlugin: Activating Gdb plugin ...");
-
+	DEBUG_PRINT ("GdbPlugin: Activating Gdb plugin ...");
 
 	/* Query for object implementing IAnjutaMessageManager interface */
 	obj = anjuta_shell_get_object (ANJUTA_PLUGIN (plugin)->shell,
@@ -101,6 +100,7 @@ deactivate_plugin (AnjutaPlugin* plugin)
 static void
 dispose (GObject* obj)
 {
+	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (obj));
 }
 
 

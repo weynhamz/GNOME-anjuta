@@ -20,6 +20,7 @@
 
 #include <config.h>
 #include <libanjuta/anjuta-shell.h>
+#include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
 //#include <libanjuta/interfaces/ianjuta-document-manager.h>
 #include <libanjuta/interfaces/ianjuta-debugger-manager.h>
@@ -300,17 +301,18 @@ activate_plugin (AnjutaPlugin* plugin)
 	AnjutaUI *ui;
 	DebugManagerPlugin *debug_manager_plugin;
 
-	g_message ("DebugManagerPlugin: Activating Debug Manager plugin ...");
+	DEBUG_PRINT ("DebugManagerPlugin: Activating Debug Manager plugin ...");
 	debug_manager_plugin = (DebugManagerPlugin*) plugin;
 
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 
 	/* Add all our debug manager actions */
-	anjuta_ui_add_action_group_entries (ui, "ActionGroupDebug",
-										_("Debugger operations"),
-										actions_debug,
-										G_N_ELEMENTS (actions_debug),
-										plugin);
+	debug_manager_plugin->action_group =
+		anjuta_ui_add_action_group_entries (ui, "ActionGroupDebug",
+											_("Debugger operations"),
+											actions_debug,
+											G_N_ELEMENTS (actions_debug),
+											plugin);
 	debug_manager_plugin->uiid = anjuta_ui_merge (ui, UI_FILE);
 	return TRUE;
 }
@@ -318,9 +320,16 @@ activate_plugin (AnjutaPlugin* plugin)
 static gboolean
 deactivate_plugin (AnjutaPlugin* plugin)
 {
-	AnjutaUI *ui = anjuta_shell_get_ui (plugin->shell, NULL);
-	g_message ("DebugManagerPlugin: Deactivating Debug Manager plugin ...");
-	anjuta_ui_unmerge (ui, ((DebugManagerPlugin *) plugin)->uiid);
+	DebugManagerPlugin *dplugin;
+	AnjutaUI *ui;
+
+	dplugin = (DebugManagerPlugin *) plugin;
+	ui = anjuta_shell_get_ui (plugin->shell, NULL);
+	DEBUG_PRINT ("DebugManagerPlugin: Deactivating Debug Manager plugin ...");
+	anjuta_ui_unmerge (ui, dplugin->uiid);
+	anjuta_ui_remove_action_group (ui, dplugin->action_group);
+	dplugin->uiid = 0;
+	dplugin->action_group = NULL;
 	return TRUE;
 }
 
@@ -328,9 +337,10 @@ static void
 dispose (GObject* obj)
 {
 	DebugManagerPlugin *plugin = (DebugManagerPlugin *) obj;
-	if (plugin->uri != NULL)
+	if (plugin->uri)
 	{
 		g_free (plugin->uri);
+		plugin->uri = NULL;
 	}
 }
 

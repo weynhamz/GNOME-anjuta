@@ -9,7 +9,7 @@ struct _DebugManagerPlugin
 {
 	AnjutaPlugin parent;
 	gint uiid;
-
+	GtkActionGroup *action_group;
 	gchar *uri;
 	gboolean is_executable;
 };

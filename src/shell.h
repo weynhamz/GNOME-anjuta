@@ -42,6 +42,7 @@ struct _AnjutaTestShell
 	
 	GHashTable *values;
 	GHashTable *widgets;
+	AnjutaStatus *status;
 	AnjutaUI *ui;
 	AnjutaPreferences *preferences;
 	

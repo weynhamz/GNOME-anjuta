@@ -26,6 +26,7 @@
 #include <libanjuta/interfaces/ianjuta-message-manager.h>
 #include <libanjuta/interfaces/ianjuta-file-manager.h>
 #include <libanjuta/plugins.h>
+#include <libanjuta/anjuta-debug.h>
 
 #include "plugin.h"
 
@@ -149,7 +150,8 @@ activate_plugin (AnjutaPlugin *plugin)
 	FileManagerPlugin *fm_plugin;
 	gboolean initialized = FALSE;
 	
-	g_message ("FileManagerPlugin: Activating File Manager plugin ...");
+	DEBUG_PRINT ("FileManagerPlugin: Activating File Manager plugin ...");
+	
 	fm_plugin = (FileManagerPlugin*) plugin;
 	fm_plugin->ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	fm_plugin->prefs = anjuta_shell_get_preferences (plugin->shell, NULL);
@@ -176,10 +178,10 @@ activate_plugin (AnjutaPlugin *plugin)
 		
 		anjuta_preferences_add_page (fm_plugin->prefs,
 									gxml, "File Manager", ICON_FILE);
-		on_gconf_notify_prefs (NULL, 0, NULL, fm_plugin);
 		g_object_unref (G_OBJECT (gxml));
 	}
 	prefs_init (fm_plugin);
+	on_gconf_notify_prefs (NULL, 0, NULL, fm_plugin);
 	
 	/* set up project directory watch */
 	fm_plugin->root_watch_id = anjuta_plugin_add_watch (plugin,
@@ -193,9 +195,10 @@ activate_plugin (AnjutaPlugin *plugin)
 static gboolean
 deactivate_plugin (AnjutaPlugin *plugin)
 {
+	GtkWidget *widget_to_remove;
 	FileManagerPlugin *fm_plugin;
-	fm_plugin = (FileManagerPlugin*) plugin;
 	
+	fm_plugin = (FileManagerPlugin*) plugin;
 	prefs_finalize (fm_plugin);
 	
 	/* Remove watches */
@@ -204,8 +207,12 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	/* Remove preferences */
 	/* FIXME: */
 	
+	/* Finalize it first so that we release our refs */
+	widget_to_remove = fm_plugin->scrolledwindow;
+	fv_finalize(fm_plugin);
+	
 	/* Remove widgets */
-	anjuta_shell_remove_widget (plugin->shell, fm_plugin->scrolledwindow, NULL);
+	anjuta_shell_remove_widget (plugin->shell, widget_to_remove, NULL);
 	
 	/* Remove UI */
 	anjuta_ui_unmerge (fm_plugin->ui, fm_plugin->merge_id);
@@ -214,7 +221,6 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	anjuta_ui_remove_action_group (fm_plugin->ui, fm_plugin->action_group);
 	
 	fm_plugin->root_watch_id = 0;
-	fv_finalize(fm_plugin);
 	return TRUE;
 }
 

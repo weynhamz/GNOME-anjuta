@@ -136,6 +136,12 @@ anjuta_test_shell_instance_init (AnjutaTestShell *shell)
 	gtk_widget_show (shell->box);
 	gtk_container_add (GTK_CONTAINER (shell), shell->box);
 	
+	/* Status bar */
+	shell->status = ANJUTA_STATUS (anjuta_status_new ());
+	gtk_widget_show (GTK_WIDGET (shell->status));
+	gtk_box_pack_end (GTK_BOX (shell->box), GTK_WIDGET (shell->status),
+					  FALSE, FALSE, 0);
+	
 	plugins = anjuta_plugins_get_installed_dialog (ANJUTA_SHELL (shell));
 	gtk_box_pack_end_defaults (GTK_BOX (shell->box), plugins);
 	
@@ -314,6 +320,12 @@ anjuta_test_shell_get_object  (AnjutaShell *shell, const char *iface_name,
 	return anjuta_plugins_get_plugin (shell, iface_name);
 }
 
+static AnjutaStatus*
+anjuta_test_shell_get_status (AnjutaShell *shell, GError **error)
+{
+	return ANJUTA_TEST_SHELL (shell)->status;
+}
+
 static AnjutaUI *
 anjuta_test_shell_get_ui  (AnjutaShell *shell, GError **error)
 {
@@ -329,6 +341,19 @@ anjuta_test_shell_get_preferences  (AnjutaShell *shell, GError **error)
 static void
 anjuta_test_shell_dispose (GObject *widget)
 {
+	/* FIXME */
+	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (widget));
+}
+
+static void
+anjuta_test_shell_finalize (GObject *widget)
+{
+	AnjutaTestShell *shell = ANJUTA_TEST_SHELL (widget);
+	
+	g_hash_table_destroy (shell->values);
+	g_hash_table_destroy (shell->widgets);
+	/* FIXME */
+	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (widget));
 }
 
 static void
@@ -341,6 +366,7 @@ anjuta_test_shell_class_init (AnjutaTestShellClass *class)
 	object_class = (GObjectClass*) class;
 	widget_class = (GtkWidgetClass*) class;
 	object_class->dispose = anjuta_test_shell_dispose;
+	object_class->finalize = anjuta_test_shell_finalize;
 }
 
 static void
@@ -353,6 +379,7 @@ anjuta_shell_iface_init (AnjutaShellIface *iface)
 	iface->get_value = anjuta_test_shell_get_value;
 	iface->remove_value = anjuta_test_shell_remove_value;
 	iface->get_object = anjuta_test_shell_get_object;
+	iface->get_status = anjuta_test_shell_get_status;
 	iface->get_ui = anjuta_test_shell_get_ui;
 	iface->get_preferences = anjuta_test_shell_get_preferences;
 }

@@ -952,7 +952,9 @@ fv_finalize (FileManagerPlugin *fv)
 		g_free (fv->top_dir);
 	g_object_unref (G_OBJECT (fv->tree));
 	g_object_unref (G_OBJECT (fv->scrolledwindow));
-	gtk_widget_destroy (fv->scrolledwindow);
+	
+	// Object will be destroyed when removed from container */
+	// gtk_widget_destroy (fv->scrolledwindow);
 	fv->top_dir = NULL;
 	fv->tree = NULL;
 	fv->scrolledwindow = NULL;

@@ -937,11 +937,18 @@ deactivate_plugin (AnjutaPlugin *plugin)
 		node = g_list_next (node);
 	}
 	g_list_free (eplugin->action_groups);
-	eplugin->action_groups = NULL;
-	gtk_widget_destroy (eplugin->docman);
+	
+	/* Widget is already destroyed when removed from the container */
+	/* gtk_widget_destroy (eplugin->docman); */
+	
+	/* FIXME: */
 	/* Unregister stock icons */
 	/* Unregister preferences */
-	/* FIXME: */
+	
+	eplugin->docman = NULL;
+	eplugin->uiid = 0;
+	eplugin->action_groups = NULL;
+	
 	return TRUE;
 }
 
@@ -950,7 +957,11 @@ dispose (GObject *obj)
 {
 	EditorPlugin *plugin = (EditorPlugin*)obj;
 	if (plugin->style_editor)
+	{
 		style_editor_destroy (plugin->style_editor);
+		plugin->style_editor = NULL;
+	}
+	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (obj));
 }
 
 static void

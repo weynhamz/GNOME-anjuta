@@ -27,6 +27,7 @@
 #include <devhelp/dh-base.h>
 
 #include <libanjuta/anjuta-shell.h>
+#include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-help.h>
 #include <libanjuta/interfaces/ianjuta-editor.h>
 
@@ -430,7 +431,8 @@ activate_plugin (AnjutaPlugin *plugin)
 	DevhelpPluginPriv *priv;
 	GtkAction *action;
 	
-	g_message ("DevhelpPlugin: Activating Devhelp plugin ...");
+	DEBUG_PRINT ("DevhelpPlugin: Activating Devhelp plugin ...");
+	
 	devhelp_plugin = (DevhelpPlugin*) plugin;
 	
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
@@ -491,13 +493,25 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	priv = ((DevhelpPlugin*)plugin)->priv;
 	
 	AnjutaUI *ui = anjuta_shell_get_ui (plugin->shell, NULL);
-	g_message ("DevhelpPlugin: Dectivating Devhelp plugin ...");
+	
+	DEBUG_PRINT ("DevhelpPlugin: Dectivating Devhelp plugin ...");
 	
 	if (priv->html)
 	{
+		g_object_unref (priv->html);
+		g_object_unref (priv->base);
+		
 		/* Remove widgets */
 		anjuta_shell_remove_widget (plugin->shell, priv->browser_frame, NULL);
 		anjuta_shell_remove_widget (plugin->shell, priv->notebook, NULL);
+		
+		priv->browser_frame = NULL;
+		priv->notebook = NULL;
+		priv->base = NULL;
+		priv->html = NULL;
+		priv->html_view = NULL;
+		priv->book_tree = NULL;
+		priv->search = NULL;
 	}
 	
 	/* Remove UI */
@@ -509,6 +523,10 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	/* Remove watch */
 	anjuta_plugin_remove_watch (plugin, priv->editor_watch_id, TRUE);
 	
+	priv->uiid = 0;
+	priv->editor_watch_id = 0;
+	priv->action_group = NULL;
+	
 	return TRUE;
 }
 
@@ -517,6 +535,7 @@ dispose (GObject *obj)
 {
 	// DevhelpPlugin *plugin = (DevhelpPlugin*)obj;
 	/* Devhelp widgets should be destroyed */
+	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (obj));
 }
 
 static void
@@ -528,7 +547,7 @@ devhelp_plugin_instance_init (GObject *obj)
 	plugin->priv = (DevhelpPluginPriv *) g_new0 (DevhelpPluginPriv, 1);
 	priv = plugin->priv;
 	
-	g_message ("Intializing Devhelp plugin");
+	DEBUG_PRINT ("Intializing Devhelp plugin");
 }
 
 static void

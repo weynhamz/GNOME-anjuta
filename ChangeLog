@@ -2,6 +2,12 @@
 
 	* plugins/file-loader/plugin.c: Fixed loading bug.
 	
+	*plugins/debug-manager/plugin.c, plugins/debug-manager/plugin.h,
+	plugins/devhelp/plugin.c, plugins/editor/plugin.c,
+	plugins/file-manager/an_file_view.c, plugins/file-manager/plugin.c,
+	plugins/gdb/plugin.c, src/shell.c, src/shell.h: Fixed memory leaks
+	and corruptions. Fixed loading and unloading of plugins.
+	
 2004-12-17  Naba Kumar  <naba@gnome.org>
 	
 	* plugins/file-loader/Makefile.am,
