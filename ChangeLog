@@ -1,5 +1,7 @@
 2003-02-10  Naba Kumar <naba@gnome.org>
 
+	* po/POTFILES.in: Updated.
+
 	* pixmaps/Makefile.am, pixmaps/anjuta_icon.png, 
 	(added) pixmaps/close_project.png, (removed) pixmaps/close_project.xpm,
 	(added) pixmaps/open_project.png, (removed) pixmaps/open_project.xpm,

@@ -99,7 +99,6 @@ src/lexer.h
 src/main.c
 src/main_menubar.c
 src/main_menubar_def.h
-src/main_menubar_def_in.h
 src/main_menubar.h
 src/mainmenu_callbacks.c
 src/mainmenu_callbacks.h
