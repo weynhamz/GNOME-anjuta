@@ -56,6 +56,7 @@
 #include "cvs_gui.h"
 #include "Scintilla.h"
 #include "ScintillaWidget.h"
+#include "e-shell-about-box.h"
 
 #include "tm_tagmanager.h"
 #include "file_history.h"
@@ -2057,10 +2058,45 @@ on_url_activate (GtkMenuItem * menuitem, gpointer user_data)
 	}
 }
 
+static int
+about_box_event_callback (GtkWidget *widget,
+                          GdkEvent *event,
+                          void *data)
+{
+        GtkWidget **widget_pointer;
+
+        widget_pointer = (GtkWidget **) data;
+
+        gtk_widget_destroy (GTK_WIDGET (*widget_pointer));
+        *widget_pointer = NULL;
+
+        return TRUE;
+}
+
 void
 on_about1_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
-	gtk_widget_show (create_about_gui ());
+        static GtkWidget *about_box_window = NULL;
+        GtkWidget *about_box;
+
+        if (about_box_window != NULL) {
+                gdk_window_raise (about_box_window->window);
+                return;
+        }
+
+        about_box = e_shell_about_box_new ();
+        gtk_widget_show (about_box);
+
+        about_box_window = gtk_window_new (GTK_WINDOW_DIALOG);
+        gtk_window_set_policy (GTK_WINDOW (about_box_window), FALSE, FALSE, FALSE);
+        gtk_signal_connect (GTK_OBJECT (about_box_window), "button_press_event",
+                            GTK_SIGNAL_FUNC (about_box_event_callback), &about_box_window);
+        gtk_signal_connect (GTK_OBJECT (about_box_window), "delete_event",
+                            GTK_SIGNAL_FUNC (about_box_event_callback), &about_box_window);
+
+        gtk_window_set_title (GTK_WINDOW (about_box_window), _("About Ximian Evolution"));
+        gtk_container_add (GTK_CONTAINER (about_box_window), about_box);
+        gtk_widget_show (about_box_window);
 }
 
 void

@@ -63,6 +63,11 @@ if test x$EXTRA_VFS_CONFIG = xno; then
   AC_MSG_ERROR(Couldn't find gnome-vfs-config, please install the Gnome VFS package.)
 fi
 
+AC_PATH_PROG(EXTRA_PIXBUF_CONFIG, gdk-pixbuf-config,no)
+if test x$EXTRA_PIXBUF_CONFIG = xno; then
+  AC_MSG_ERROR(Couldn't find gdk-pixbuf-config, please install the Gdk Pixbuf package.)
+fi
+
 dnl Checks for programs.
 dnl ***************************************************************************
 dnl Check for Gnome XML
@@ -110,6 +115,12 @@ EXTRA_ORBIT_CFLAGS=`orbit-config --cflags client`
 
 AC_SUBST(EXTRA_ORBIT_LIBS)
 AC_SUBST(EXTRA_ORBIT_CFLAGS)
+
+EXTRA_PIXBUF_LIBS=`gdk-pixbuf-config --libs`
+EXTRA_PIXBUF_CFLAGS=`gdk-pixbuf-config --cflags`
+
+AC_SUBST(EXTRA_PIXBUF_LIBS)
+AC_SUBST(EXTRA_PIXBUF_CFLAGS)
 
 IDL_CFLAGS=`gnome-config --cflags idl`
 

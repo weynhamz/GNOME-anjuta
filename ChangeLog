@@ -1,5 +1,22 @@
 2002-05-03 Naba Kumar <kh_naba@users.sourceforge.net>
 
+    * pixmaps/anjuta_logo.png: New about logo.
+    
+    * pixmaps/anjuta_icon.png: New icon from Misha. The
+    old one had trouble with some gtk themes.
+    
+    * about.c: Removed. No longer needed.
+
+2002-05-03  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
+
+    Reviewed by Naba Kumar <kh_naba@users.sourceforge.net>
+
+	* widgets/e-shell-about-box.[ch], configure.in, Makefile.am,
+	  mainmenu_callbacks.c, widgets/Makefile.am: Implemented the new
+	  About Dialog (thanks to the Evolution team for the cool widget!)
+
+2002-05-03 Naba Kumar <kh_naba@users.sourceforge.net>
+
     Patch from lbell <lbell@tsc4.com>
     
     * src/find_in_files.c, src/find_in_files.h,

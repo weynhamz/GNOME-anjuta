@@ -209,7 +209,6 @@ anjuta_SOURCES = \
 	watch_gui.c\
 	wizard_gui.h\
 	wizard_gui.c\
-	about.c\
 	appwiz_page4.c\
 	source.c\
 	anjuta.c\
@@ -221,7 +220,6 @@ anjuta_SOURCES = \
 	compatibility_0.h\
 	defaults.c\
 	defaults.h\
-	about.h\
 	resources.c\
 	resources.h\
 	CORBA-Server.c\
@@ -241,6 +239,7 @@ anjuta_LDADD =  \
 	$(GNOMEUI_LIBS)\
 	$(EXTRA_GNOME_LIBS)\
 	$(EXTRA_ORBIT_LIBS)\
+	$(EXTRA_PIXBUF_LIBS)\
 	$(top_builddir)/scintilla/libscintilla.a\
 	$(top_builddir)/tagmanager/libctags.a\
 	$(top_builddir)/widgets/libwidgets.a\
