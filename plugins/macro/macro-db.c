@@ -17,63 +17,204 @@
 
 
 #include "macro-db.h"
+#include "macro-util.h"
 #include <libxml/parser.h>
 #include <libgnomevfs/gnome-vfs.h>
 #include <stdlib.h>
 
 #define PREDEFINED_MACRO_FILE PACKAGE_DATA_DIR"/macros.xml"
 
-static void macro_db_class_init (MacroDBClass * klass);
-static void macro_db_init (MacroDB * db);
-static void macro_db_dispose (GObject * db);
+static gchar *
+get_user_macro_path ()
+{
+	return g_strconcat (getenv ("HOME"), "/.anjuta/macros.xml", NULL);
+}
+				   
+static gboolean
+parse_xml_file (xmlDocPtr * doc, xmlNodePtr * cur, const gchar * filename)
+{
+	*doc = xmlParseFile (filename);
 
-static void fill_predefined (GtkTreeStore * tree_store,
-			     GtkTreeIter * iter_pre);
-static void fill_userdefined (GtkTreeStore * tree_store,
-			      GtkTreeIter * iter_user);
-static gboolean parse_xml_file (xmlDocPtr * doc, xmlNodePtr * cur,
-				const gchar * filename);
-static void read_macros (xmlDocPtr doc, xmlNodePtr cur,
-			 GtkTreeStore * tree_store, GtkTreeIter * iter,
-			 gboolean pre_defined);
-static GtkTreeIter *find_category (GtkTreeStore * tree_store,
-				   GtkTreeIter * parent,
-				   const gchar * category);
-static gchar *get_user_macro_path (void);
-static void save_macro (GtkTreeModel * model, GtkTreeIter * iter,
-			GnomeVFSHandle * handle);
+	if (*doc == NULL)
+	{
+		return FALSE;
+	}
+	*cur = xmlDocGetRootElement (*doc);
 
-static void macro_db_add_real (GtkTreeStore * tree_store,
-			       GtkTreeIter * parent,
-			       const gchar * name,
-			       const gchar * category,
-			       const gchar * shortcut,
-			       const gchar * text, gboolean pre_defined);
+	if (*cur == NULL)
+	{
+		xmlFreeDoc (*doc);
+		return FALSE;
+	}
+
+	if (xmlStrcmp ((*cur)->name, (const xmlChar *) "anjuta-macros"))
+	{
+		xmlFreeDoc (*doc);
+		return FALSE;
+	}
+	return TRUE;
+}
+
+static GtkTreeIter *
+find_category (GtkTreeStore * tree_store, GtkTreeIter * parent,
+	       const gchar * category)
+{
+	GtkTreeIter *cat_item = g_new0 (GtkTreeIter, 1);
+	if (!strlen (category))
+	{
+		return parent;
+	}
+	else if (gtk_tree_model_iter_children (GTK_TREE_MODEL (tree_store),
+					       cat_item, parent))
+	{
+		do
+		{
+			gboolean is_category;
+			gchar *cat_name;
+			gtk_tree_model_get (GTK_TREE_MODEL (tree_store),
+					    cat_item, MACRO_IS_CATEGORY,
+					    &is_category, MACRO_NAME,
+					    &cat_name, -1);
+			if (is_category && !strcmp (cat_name, category))
+			{
+				return cat_item;
+			}
+		}
+		while (gtk_tree_model_iter_next
+		       (GTK_TREE_MODEL (tree_store), cat_item));
+	}
+	gtk_tree_store_append (tree_store, cat_item, parent);
+	gtk_tree_store_set (tree_store, cat_item,
+			    MACRO_NAME, category,
+			    MACRO_IS_CATEGORY, TRUE, -1);
+	return cat_item;
+}
+
+static void
+macro_db_add_real (GtkTreeStore * tree_store,
+		   GtkTreeIter * parent,
+		   const gchar * name,
+		   const gchar * category,
+		   const gchar * shortcut,
+		   const gchar * text, gboolean pre_defined)
+{
+	gchar c_shortcut;
+	GtkTreeIter *cat_item;
+	GtkTreeIter new_item;
+	g_return_if_fail (tree_store != NULL);
+	if (shortcut != NULL && strlen (shortcut))
+		c_shortcut = shortcut[0];
+	else
+		c_shortcut = 0;
+	if (category == NULL)
+		category = "";
+	if (name && category && text)
+	{
+		cat_item = find_category (tree_store, parent, category);
+		gtk_tree_store_append (tree_store, &new_item, cat_item);
+		gtk_tree_store_set (tree_store, &new_item,
+				    MACRO_NAME, name,
+				    MACRO_CATEGORY, category,
+				    MACRO_SHORTCUT, c_shortcut,
+				    MACRO_TEXT, text,
+				    MACRO_PREDEFINED, pre_defined,
+				    MACRO_IS_CATEGORY, FALSE, -1);
+	}
+}
+
+static void
+read_macros (xmlDocPtr doc, xmlNodePtr cur, GtkTreeStore * tree_store,
+	     GtkTreeIter * iter, gboolean pre_defined)
+{
+	cur = cur->xmlChildrenNode;
+	while (cur != NULL)
+	{
+		if ((!xmlStrcmp (cur->name, (const xmlChar *) "macro")))
+		{
+			xmlChar *name;
+			xmlChar *category;
+			xmlChar *shortcut;
+			xmlChar *text;
+			
+			name = xmlGetProp(cur, "_name");
+			category = xmlGetProp(cur, "_category");
+			shortcut = xmlGetProp(cur, "_shortcut");
+			text = xmlNodeListGetString (doc, cur->xmlChildrenNode, 1);
+			
+			macro_db_add_real (tree_store, iter, name,
+					   category, shortcut, text,
+					   pre_defined);
+			xmlFree(name);
+			xmlFree(category);
+			xmlFree(shortcut);
+			xmlFree(text);
+		}
+		cur = cur->next;
+	}
+}
+
+static void
+fill_predefined (GtkTreeStore * tree_store, GtkTreeIter * iter_pre)
+{
+	xmlDocPtr doc = NULL;
+	xmlNodePtr cur = NULL;
+
+	if (parse_xml_file (&doc, &cur, PREDEFINED_MACRO_FILE))
+		read_macros (doc, cur, tree_store, iter_pre, TRUE);
+	else
+		g_warning ("Could not read predefined macros!");
+}
+
+static void
+fill_userdefined (GtkTreeStore * tree_store, GtkTreeIter * iter_user)
+{
+	xmlDocPtr doc = NULL;
+	xmlNodePtr cur = NULL;
+
+	gchar *user_file = get_user_macro_path ();
+	if (parse_xml_file (&doc, &cur, user_file))
+		read_macros (doc, cur, tree_store, iter_user, FALSE);
+	else
+		g_warning ("Could not read predefined macros!");
+	g_free (user_file);
+}
+
+static void
+save_macro (GtkTreeModel * model, GtkTreeIter * iter, GnomeVFSHandle * handle)
+{
+	GnomeVFSFileSize bytes, bytes_written;
+	GnomeVFSResult result;
+	gchar *name;
+	gchar *category;
+	gchar shortcut;
+	gchar *shortcut_string;
+	gchar *text;
+	gchar *output;
+	gtk_tree_model_get (model, iter,
+			    MACRO_NAME, &name,
+			    MACRO_CATEGORY, &category,
+			    MACRO_SHORTCUT, &shortcut, MACRO_TEXT, &text, -1);
+	shortcut_string = g_strdup_printf ("%c", shortcut);
+	output = g_strdup_printf ("<macro _name=\"%s\" _category=\"%s\" "
+								"_shortcut=\"%s\">"
+								"<![CDATA[%s]]></macro>\n",
+				  				name, category, shortcut_string, text);
+	g_free (shortcut_string);
+	bytes = strlen (output);
+	result = gnome_vfs_write (handle, output,
+				  strlen (output), &bytes_written);
+	if (result != GNOME_VFS_OK)
+		return;
+}
 
 static gpointer parent_class;
 
-GType
-macro_db_get_type (void)
+static void
+macro_db_dispose (GObject * db)
 {
-	static GType macro_db_type = 0;
-	if (!macro_db_type)
-	{
-		static const GTypeInfo db_info = {
-			sizeof (MacroDBClass),
-			NULL,	/* base_init */
-			NULL,	/* base_finalize */
-			(GClassInitFunc) macro_db_class_init,
-			NULL,	/* class_finalize */
-			NULL,	/* class_data */
-			sizeof (MacroDB),
-			0,
-			(GInstanceInitFunc) macro_db_init,
-		};
-		macro_db_type =
-			g_type_register_static (G_TYPE_OBJECT, "MacroDB",
-						&db_info, 0);
-	}
-	return macro_db_type;
+	g_message ("Disposing MacroDB");
+	macro_db_save (MACRO_DB (db));
+	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (G_OBJECT (db)));
 }
 
 static void
@@ -108,18 +249,34 @@ macro_db_init (MacroDB * db)
 	fill_userdefined (db->tree_store, &db->iter_user);
 }
 
+GType
+macro_db_get_type (void)
+{
+	static GType macro_db_type = 0;
+	if (!macro_db_type)
+	{
+		static const GTypeInfo db_info = {
+			sizeof (MacroDBClass),
+			NULL,	/* base_init */
+			NULL,	/* base_finalize */
+			(GClassInitFunc) macro_db_class_init,
+			NULL,	/* class_finalize */
+			NULL,	/* class_data */
+			sizeof (MacroDB),
+			0,
+			(GInstanceInitFunc) macro_db_init,
+		};
+		macro_db_type =
+			g_type_register_static (G_TYPE_OBJECT, "MacroDB",
+						&db_info, 0);
+	}
+	return macro_db_type;
+}
+
 MacroDB *
 macro_db_new ()
 {
 	return MACRO_DB (g_object_new (macro_db_get_type (), NULL));
-}
-
-void
-macro_db_dispose (GObject * db)
-{
-	g_message ("Disposing MacroDB");
-	macro_db_save (MACRO_DB (db));
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (G_OBJECT (db)));
 }
 
 void
@@ -253,187 +410,21 @@ macro_db_get_model (MacroDB * db)
 	return GTK_TREE_MODEL (db->tree_store);
 }
 
-static gboolean
-parse_xml_file (xmlDocPtr * doc, xmlNodePtr * cur, const gchar * filename)
+gchar* macro_db_get_macro(MacroDB * db, GtkTreeIter* iter)
 {
-	*doc = xmlParseFile (filename);
-
-	if (*doc == NULL)
-	{
-		return FALSE;
-	}
-	*cur = xmlDocGetRootElement (*doc);
-
-	if (*cur == NULL)
-	{
-		xmlFreeDoc (*doc);
-		return FALSE;
-	}
-
-	if (xmlStrcmp ((*cur)->name, (const xmlChar *) "anjuta-macros"))
-	{
-		xmlFreeDoc (*doc);
-		return FALSE;
-	}
-	return TRUE;
-}
-
-static void
-read_macros (xmlDocPtr doc, xmlNodePtr cur, GtkTreeStore * tree_store,
-	     GtkTreeIter * iter, gboolean pre_defined)
-{
-	cur = cur->xmlChildrenNode;
-	while (cur != NULL)
-	{
-		if ((!xmlStrcmp (cur->name, (const xmlChar *) "macro")))
-		{
-			xmlChar *name;
-			xmlChar *category;
-			xmlChar *shortcut;
-			xmlChar *text;
-			
-			name = xmlGetProp(cur, "_name");
-			category = xmlGetProp(cur, "_category");
-			shortcut = xmlGetProp(cur, "_shortcut");
-			text = xmlNodeListGetString (doc, cur->xmlChildrenNode, 1);
-			
-			macro_db_add_real (tree_store, iter, name,
-					   category, shortcut, text,
-					   pre_defined);
-			xmlFree(name);
-			xmlFree(category);
-			xmlFree(shortcut);
-			xmlFree(text);
-		}
-		cur = cur->next;
-	}
-}
-
-static GtkTreeIter *
-find_category (GtkTreeStore * tree_store, GtkTreeIter * parent,
-	       const gchar * category)
-{
-	GtkTreeIter *cat_item = g_new0 (GtkTreeIter, 1);
-	if (!strlen (category))
-	{
-		return parent;
-	}
-	else if (gtk_tree_model_iter_children (GTK_TREE_MODEL (tree_store),
-					       cat_item, parent))
-	{
-		do
-		{
-			gboolean is_category;
-			gchar *cat_name;
-			gtk_tree_model_get (GTK_TREE_MODEL (tree_store),
-					    cat_item, MACRO_IS_CATEGORY,
-					    &is_category, MACRO_NAME,
-					    &cat_name, -1);
-			if (is_category && !strcmp (cat_name, category))
-			{
-				return cat_item;
-			}
-		}
-		while (gtk_tree_model_iter_next
-		       (GTK_TREE_MODEL (tree_store), cat_item));
-	}
-	gtk_tree_store_append (tree_store, cat_item, parent);
-	gtk_tree_store_set (tree_store, cat_item,
-			    MACRO_NAME, category,
-			    MACRO_IS_CATEGORY, TRUE, -1);
-	return cat_item;
-}
-
-
-
-static void
-fill_predefined (GtkTreeStore * tree_store, GtkTreeIter * iter_pre)
-{
-	xmlDocPtr doc = NULL;
-	xmlNodePtr cur = NULL;
-
-	if (parse_xml_file (&doc, &cur, PREDEFINED_MACRO_FILE))
-		read_macros (doc, cur, tree_store, iter_pre, TRUE);
-	else
-		g_warning ("Could not read predefined macros!");
-}
-
-static void
-fill_userdefined (GtkTreeStore * tree_store, GtkTreeIter * iter_user)
-{
-	xmlDocPtr doc = NULL;
-	xmlNodePtr cur = NULL;
-
-	gchar *user_file = get_user_macro_path ();
-	if (parse_xml_file (&doc, &cur, user_file))
-		read_macros (doc, cur, tree_store, iter_user, FALSE);
-	else
-		g_warning ("Could not read predefined macros!");
-	g_free (user_file);
-}
-
-static void
-macro_db_add_real (GtkTreeStore * tree_store,
-		   GtkTreeIter * parent,
-		   const gchar * name,
-		   const gchar * category,
-		   const gchar * shortcut,
-		   const gchar * text, gboolean pre_defined)
-{
-	gchar c_shortcut;
-	GtkTreeIter *cat_item;
-	GtkTreeIter new_item;
-	g_return_if_fail (tree_store != NULL);
-	if (shortcut != NULL && strlen (shortcut))
-		c_shortcut = shortcut[0];
-	else
-		c_shortcut = 0;
-	if (category == NULL)
-		category = "";
-	if (name && category && text)
-	{
-		cat_item = find_category (tree_store, parent, category);
-		gtk_tree_store_append (tree_store, &new_item, cat_item);
-		gtk_tree_store_set (tree_store, &new_item,
-				    MACRO_NAME, name,
-				    MACRO_CATEGORY, category,
-				    MACRO_SHORTCUT, c_shortcut,
-				    MACRO_TEXT, text,
-				    MACRO_PREDEFINED, pre_defined,
-				    MACRO_IS_CATEGORY, FALSE, -1);
-	}
-}
-
-static gchar *
-get_user_macro_path ()
-{
-	return g_strconcat (getenv ("HOME"), "/.anjuta/macros.xml", NULL);
-}
-
-static void
-save_macro (GtkTreeModel * model, GtkTreeIter * iter, GnomeVFSHandle * handle)
-{
-	GnomeVFSFileSize bytes, bytes_written;
-	GnomeVFSResult result;
-	gchar *name;
-	gchar *category;
-	gchar shortcut;
-	gchar *shortcut_string;
+	g_return_val_if_fail (db != NULL, NULL);
+	g_return_val_if_fail (iter != NULL, NULL);
+		
 	gchar *text;
-	gchar *output;
-	gtk_tree_model_get (model, iter,
-			    MACRO_NAME, &name,
-			    MACRO_CATEGORY, &category,
-			    MACRO_SHORTCUT, &shortcut, MACRO_TEXT, &text, -1);
-	shortcut_string = g_strdup_printf ("%c", shortcut);
-	output = g_strdup_printf ("<macro _name=\"%s\" _category=\"%s\" "
-								"_shortcut=\"%s\">"
-								"<![CDATA[%s]]></macro>\n",
-				  				name, category, shortcut_string, text);
-	g_free (shortcut_string);
-	bytes = strlen (output);
-	result = gnome_vfs_write (handle, output,
-				  strlen (output), &bytes_written);
-	if (result != GNOME_VFS_OK)
-		return;
+	gboolean is_category;
+	gtk_tree_model_get (macro_db_get_model(db), iter,
+						MACRO_TEXT, &text,
+						MACRO_IS_CATEGORY, &is_category, -1);
+	if (is_category)
+		return NULL;
+	else
+	{
+		gchar* buffer = expand_macro(text);
+		return buffer;
+	}
 }

@@ -174,11 +174,93 @@ macro_plugin_class_init (GObjectClass * klass)
 	klass->finalize = finalize;
 }
 
+static gboolean
+match_keyword (MacroPlugin * plugin, GtkTreeIter * iter, const gchar *keyword)
+{
+	gchar *name;
+	gchar *buffer;
+	
+	gtk_tree_model_get(macro_db_get_model(plugin->macro_db), iter,
+		MACRO_NAME, &name, -1);
+	if ( name && strcmp(keyword, name) == 0)
+	{
+		const int CURRENT_POS = -1;
+		gchar* text = macro_db_get_macro(plugin->macro_db, iter);
+		if (plugin->current_editor != NULL && text != NULL)
+		{
+			ianjuta_editor_insert (IANJUTA_EDITOR (plugin->current_editor),
+					       CURRENT_POS, buffer, -1, NULL);
+			g_free(text);
+		}
+		return TRUE;
+	}
+	return FALSE;
+}
+
+/* keyword : macro name  */
+
+gboolean
+macro_insert (MacroPlugin * plugin, const gchar *keyword)
+{
+	GtkTreeIter parent;
+	GtkTreeIter cur_cat;
+	GtkTreeModel *model = macro_db_get_model (plugin->macro_db);
+	
+	gtk_tree_model_get_iter_first (model, &parent);
+	do
+	{
+		if (gtk_tree_model_iter_children (model, &cur_cat, &parent))
+		{
+		do
+		{
+			GtkTreeIter cur_macro;
+			if (gtk_tree_model_iter_children
+			    (model, &cur_macro, &cur_cat))
+			{
+				do
+				{
+					gboolean predefined;
+					gtk_tree_model_get (model, &cur_macro,
+						    MACRO_PREDEFINED,
+						    &predefined, -1);
+					if (predefined)
+					{
+						if (match_keyword (plugin, &cur_macro, keyword))
+						{
+							return TRUE;
+						}
+					}
+				}
+				while (gtk_tree_model_iter_next
+				       (model, &cur_macro));
+			}
+			else
+			{
+				gboolean is_category;
+				gtk_tree_model_get (model, &cur_cat,
+						    MACRO_IS_CATEGORY,
+						    &is_category, -1);
+				if (is_category)
+					continue;
+				
+				if (match_keyword (plugin, &cur_cat, keyword))
+				{
+					return TRUE;
+				}
+			}
+		}
+		while (gtk_tree_model_iter_next (model, &cur_cat));
+		}
+	}
+	while (gtk_tree_model_iter_next (model, &parent));
+	return TRUE;
+}
+
 static void 
 ianjuta_macro_iface_insert(IAnjutaMacro* macro, const gchar* key, GError** err)
 {
 	MacroPlugin* plugin = (MacroPlugin*)macro;
-	insert_macro(key, plugin);
+	macro_insert(plugin, key);
 }
 
 /* Interface */

@@ -49,5 +49,7 @@ struct _MacroPluginClass
 	AnjutaPluginClass parent_class;
 };
 
+gboolean
+macro_insert (MacroPlugin * plugin, const gchar *keyword);
 
 #endif

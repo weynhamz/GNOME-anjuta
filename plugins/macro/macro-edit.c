@@ -17,54 +17,158 @@
 
 #include "macro-edit.h"
 
-static void on_add_ok_clicked (MacroEdit * edit);
-static void on_add_cancel_clicked (MacroEdit * edit);
-static void on_edit_ok_clicked (MacroEdit * edit);
-static void on_edit_cancel_clicked (MacroEdit * edit);
-
-static void on_dialog_response (GtkWidget * dialog, gint response,
-				MacroEdit * edit);
-
-gboolean on_macro_edit_key_press_event(GtkWidget *widget, GdkEventKey *event,
-				gpointer user_data);
-				
-static void fill_category_combo (MacroEdit * edit, GtkWidget * combo);
-
-static void macro_edit_class_init (MacroEditClass * klass);
-static void macro_edit_init (MacroEdit * edit);
-
-static void macro_edit_dispose (GObject * edit);
-
-static gpointer parent_class;
-
 enum
 {
 	OK,
 	CANCEL
 };
 
-GType
-macro_edit_get_type (void)
+static gboolean
+on_macro_edit_key_press_event(GtkWidget *widget, GdkEventKey *event,
+                               gpointer user_data)
 {
-	static GType macro_edit_type = 0;
-	if (!macro_edit_type)
+	if (event->keyval == GDK_Escape)
 	{
-		static const GTypeInfo me_info = {
-			sizeof (MacroEditClass),
-			NULL,	/* base_init */
-			NULL,	/* base_finalize */
-			(GClassInitFunc) macro_edit_class_init,
-			NULL,	/* class_finalize */
-			NULL,	/* class_data */
-			sizeof (MacroEdit),
-			0,
-			(GInstanceInitFunc) macro_edit_init,
-		};
-		macro_edit_type =
-			g_type_register_static (GTK_TYPE_DIALOG, "MacroEdit",
-						&me_info, 0);
+		gtk_widget_hide (widget);
+		return TRUE;
 	}
-	return macro_edit_type;
+	return FALSE;
+}
+
+static void
+fill_category_combo (MacroEdit * edit, GtkWidget * combo)
+{
+	GtkTreeIter iter_user;
+	GtkTreeIter iter_cat;
+	GtkTreeModel *tree_model = macro_db_get_model (edit->macro_db);
+
+	if (gtk_tree_model_get_iter_first (tree_model, &iter_user))
+	{
+		gtk_tree_model_iter_next (tree_model, &iter_user);
+		if (gtk_tree_model_iter_children
+		    (tree_model, &iter_cat, &iter_user))
+		{
+			do
+			{
+				gchar *name;
+				gboolean is_category;
+				gtk_tree_model_get (tree_model, &iter_cat,
+						    MACRO_NAME, &name,
+						    MACRO_IS_CATEGORY,
+						    &is_category, -1);
+				if (is_category && name)
+				{
+					gtk_combo_box_append_text
+						(GTK_COMBO_BOX
+						 (edit->category_entry),
+						 name);
+				}
+			}
+			while (gtk_tree_model_iter_next
+			       (tree_model, &iter_cat));
+		}
+	}
+}
+
+static void
+on_add_ok_clicked (MacroEdit * edit)
+{
+	GtkTextIter begin, end;
+	GtkTextBuffer *buffer =
+		gtk_text_view_get_buffer (GTK_TEXT_VIEW (edit->text));
+	gchar *text;
+
+	g_return_if_fail (edit != NULL);
+	gtk_text_buffer_get_start_iter (buffer, &begin);
+	gtk_text_buffer_get_end_iter (buffer, &end);
+	text = gtk_text_buffer_get_text (buffer, &begin, &end, -1);
+
+	macro_db_add (edit->macro_db,
+		      gtk_entry_get_text (GTK_ENTRY (edit->name_entry)),
+		      gtk_entry_get_text (GTK_ENTRY
+					  (GTK_BIN (edit->category_entry)->
+					   child)),
+		      gtk_entry_get_text (GTK_ENTRY (edit->shortcut_entry)),
+		      text);
+	gtk_widget_destroy (GTK_WIDGET (edit));
+}
+
+static void
+on_add_cancel_clicked (MacroEdit * edit)
+{
+	gtk_widget_hide (GTK_WIDGET (edit));
+	gtk_widget_destroy (GTK_WIDGET (edit));
+}
+
+static void
+on_edit_ok_clicked (MacroEdit * edit)
+{
+	GtkTextIter begin, end;
+	GtkTreeIter iter;
+	GtkTreeModel *model;
+	GtkTextBuffer *buffer =
+		gtk_text_view_get_buffer (GTK_TEXT_VIEW (edit->text));
+	gchar *text;
+
+	g_return_if_fail (edit != NULL);
+	gtk_tree_selection_get_selected (edit->select, &model, &iter);
+	gtk_text_buffer_get_start_iter (buffer, &begin);
+	gtk_text_buffer_get_end_iter (buffer, &end);
+	text = gtk_text_buffer_get_text (buffer, &begin, &end, -1);
+
+	macro_db_change (edit->macro_db, &iter,
+			 gtk_entry_get_text (GTK_ENTRY (edit->name_entry)),
+			 gtk_entry_get_text (GTK_ENTRY
+					     (GTK_BIN (edit->category_entry)->
+					      child)),
+			 gtk_entry_get_text (GTK_ENTRY
+					     (edit->shortcut_entry)), text);
+	gtk_widget_destroy (GTK_WIDGET (edit));
+}
+
+static void
+on_edit_cancel_clicked (MacroEdit * edit)
+{
+	on_add_cancel_clicked (edit);
+}
+
+static void
+on_dialog_response (GtkWidget * dialog, gint response, MacroEdit * edit)
+{
+	if (edit->type == MACRO_EDIT)
+	{
+		switch (response)
+		{
+		case OK:
+			on_edit_ok_clicked (edit);
+			break;
+		case CANCEL:
+			on_edit_cancel_clicked (edit);
+			break;
+		}
+	}
+	else if (edit->type == MACRO_ADD)
+	{
+		switch (response)
+		{
+		case OK:
+			on_add_ok_clicked (edit);
+			break;
+		case CANCEL:
+			on_add_cancel_clicked (edit);
+			break;
+		}
+	}
+}
+
+static gpointer parent_class;
+
+static void
+macro_edit_dispose (GObject * edit)
+{
+	//MacroEdit *medit = MACRO_EDIT (edit);
+	//g_object_unref(medit->gxml);
+	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (G_OBJECT (edit)));
 }
 
 static void
@@ -99,6 +203,30 @@ macro_edit_init (MacroEdit * edit)
 		glade_xml_get_widget (edit->gxml, "macro_shortcut");
 	edit->text = glade_xml_get_widget (edit->gxml, "macro_text");
 
+}
+
+GType
+macro_edit_get_type (void)
+{
+	static GType macro_edit_type = 0;
+	if (!macro_edit_type)
+	{
+		static const GTypeInfo me_info = {
+			sizeof (MacroEditClass),
+			NULL,	/* base_init */
+			NULL,	/* base_finalize */
+			(GClassInitFunc) macro_edit_class_init,
+			NULL,	/* class_finalize */
+			NULL,	/* class_data */
+			sizeof (MacroEdit),
+			0,
+			(GInstanceInitFunc) macro_edit_init,
+		};
+		macro_edit_type =
+			g_type_register_static (GTK_TYPE_DIALOG, "MacroEdit",
+						&me_info, 0);
+	}
+	return macro_edit_type;
 }
 
 GtkWidget *
@@ -167,153 +295,4 @@ void macro_edit_set_macro (MacroEdit* edit, const gchar* macro)
 {
 	GtkTextBuffer* buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(edit->text));
 	gtk_text_buffer_set_text(buffer, macro, strlen(macro));
-}
-
-
-void
-macro_edit_dispose (GObject * edit)
-{
-	//MacroEdit *medit = MACRO_EDIT (edit);
-	//g_object_unref(medit->gxml);
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (G_OBJECT (edit)));
-}
-
-static void
-on_dialog_response (GtkWidget * dialog, gint response, MacroEdit * edit)
-{
-	if (edit->type == MACRO_EDIT)
-	{
-		switch (response)
-		{
-		case OK:
-			on_edit_ok_clicked (edit);
-			break;
-		case CANCEL:
-			on_edit_cancel_clicked (edit);
-			break;
-		}
-	}
-	else if (edit->type == MACRO_ADD)
-	{
-		switch (response)
-		{
-		case OK:
-			on_add_ok_clicked (edit);
-			break;
-		case CANCEL:
-			on_add_cancel_clicked (edit);
-			break;
-		}
-	}
-}
-
-static void
-on_add_ok_clicked (MacroEdit * edit)
-{
-	GtkTextIter begin, end;
-	GtkTextBuffer *buffer =
-		gtk_text_view_get_buffer (GTK_TEXT_VIEW (edit->text));
-	gchar *text;
-
-	g_return_if_fail (edit != NULL);
-	gtk_text_buffer_get_start_iter (buffer, &begin);
-	gtk_text_buffer_get_end_iter (buffer, &end);
-	text = gtk_text_buffer_get_text (buffer, &begin, &end, -1);
-
-	macro_db_add (edit->macro_db,
-		      gtk_entry_get_text (GTK_ENTRY (edit->name_entry)),
-		      gtk_entry_get_text (GTK_ENTRY
-					  (GTK_BIN (edit->category_entry)->
-					   child)),
-		      gtk_entry_get_text (GTK_ENTRY (edit->shortcut_entry)),
-		      text);
-	gtk_widget_destroy (GTK_WIDGET (edit));
-}
-
-static void
-on_add_cancel_clicked (MacroEdit * edit)
-{
-	gtk_widget_hide (GTK_WIDGET (edit));
-	gtk_widget_destroy (GTK_WIDGET (edit));
-}
-
-static void
-on_edit_ok_clicked (MacroEdit * edit)
-{
-	GtkTextIter begin, end;
-	GtkTreeIter iter;
-	GtkTreeModel *model;
-	GtkTextBuffer *buffer =
-		gtk_text_view_get_buffer (GTK_TEXT_VIEW (edit->text));
-	gchar *text;
-
-	g_return_if_fail (edit != NULL);
-	gtk_tree_selection_get_selected (edit->select, &model, &iter);
-	gtk_text_buffer_get_start_iter (buffer, &begin);
-	gtk_text_buffer_get_end_iter (buffer, &end);
-	text = gtk_text_buffer_get_text (buffer, &begin, &end, -1);
-
-	macro_db_change (edit->macro_db, &iter,
-			 gtk_entry_get_text (GTK_ENTRY (edit->name_entry)),
-			 gtk_entry_get_text (GTK_ENTRY
-					     (GTK_BIN (edit->category_entry)->
-					      child)),
-			 gtk_entry_get_text (GTK_ENTRY
-					     (edit->shortcut_entry)), text);
-	gtk_widget_destroy (GTK_WIDGET (edit));
-}
-
-static void
-on_edit_cancel_clicked (MacroEdit * edit)
-{
-	on_add_cancel_clicked (edit);
-}
-
-
-gboolean
-on_macro_edit_key_press_event(GtkWidget *widget, GdkEventKey *event,
-                               gpointer user_data)
-{
-	if (event->keyval == GDK_Escape)
-	{
-		gtk_widget_hide (widget);
-		return TRUE;
-	}
-	return FALSE;
-}
-
-
-static void
-fill_category_combo (MacroEdit * edit, GtkWidget * combo)
-{
-	GtkTreeIter iter_user;
-	GtkTreeIter iter_cat;
-	GtkTreeModel *tree_model = macro_db_get_model (edit->macro_db);
-
-	if (gtk_tree_model_get_iter_first (tree_model, &iter_user))
-	{
-		gtk_tree_model_iter_next (tree_model, &iter_user);
-		if (gtk_tree_model_iter_children
-		    (tree_model, &iter_cat, &iter_user))
-		{
-			do
-			{
-				gchar *name;
-				gboolean is_category;
-				gtk_tree_model_get (tree_model, &iter_cat,
-						    MACRO_NAME, &name,
-						    MACRO_IS_CATEGORY,
-						    &is_category, -1);
-				if (is_category && name)
-				{
-					gtk_combo_box_append_text
-						(GTK_COMBO_BOX
-						 (edit->category_entry),
-						 name);
-				}
-			}
-			while (gtk_tree_model_iter_next
-			       (tree_model, &iter_cat));
-		}
-	}
 }

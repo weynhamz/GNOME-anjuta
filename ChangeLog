@@ -1,3 +1,14 @@
+2005-02-23  Johannes Schmid <jhs@cvs.gnome.org>
+
+	* plugins/macro/macro-action.[ch]
+	plugins/macro/macro-edit.c
+	plugins/macro/macro-dialog.c
+	plugins/macro/macro-db.[ch]
+	plugins/macro/plugin.[ch]
+	plugins/macro/macro-util.[ch] (added)
+	
+	Cleaned up macro plugin and preview expanded macros.
+
 2005-02-21  Ryan Garver <rgarvage@yahoo.com>
 
 	* plugins/cvs-plugin/cvs-interface.c:

@@ -20,269 +20,27 @@
 #include "macro-dialog.h"
 #include "macro-edit.h"
 
-static gboolean on_shortcut_pressed (GtkWidget *entry, GdkEventKey* event,
-				                     MacroPlugin *plugin);
-
-static gboolean match_shortcut (MacroPlugin *plugin, GtkTreeIter *iter,
-				                gchar key);
-
-static gboolean match_keyword (MacroPlugin * plugin, GtkTreeIter * iter, 
-                              const gchar *keyword);
-
-void
-on_menu_insert_macro (GtkAction * action, MacroPlugin * plugin)
-{
-	if (plugin->current_editor == NULL)
-		return;
-	
-	GtkWidget* window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-	GtkWidget* entry = gtk_entry_new_with_max_length(1);
-	GtkWidget* label = gtk_label_new_with_mnemonic(_("Press macro shortcut ..."));
-	GtkWidget* hbox = gtk_hbox_new (FALSE, 0);	
-	
-	gtk_container_set_border_width (GTK_CONTAINER (hbox), 10);
-	
-	gtk_widget_set_size_request(entry, 0, 0);
-	
-	gtk_window_set_title(GTK_WINDOW(window), _("Press shortcut"));
-	gtk_window_set_resizable(GTK_WINDOW(window), FALSE);
-	gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
-	gtk_window_set_decorated(GTK_WINDOW(window), FALSE);
-
-	gtk_container_add(GTK_CONTAINER(window), hbox);
-	gtk_box_pack_start_defaults(GTK_BOX(hbox), label);
-	gtk_box_pack_end_defaults(GTK_BOX(hbox), entry);
-	g_signal_connect (G_OBJECT (window), "key-press-event",
-			  G_CALLBACK (on_shortcut_pressed), plugin);
-	gtk_widget_grab_focus (entry);
-	
-	gtk_window_set_default_size(GTK_WINDOW(window), 200, 200);
-	gtk_widget_show_all(window);
-}
-
-static char *
-get_date_time(void)
-{
-	time_t cur_time = time(NULL);
-	gchar *DateTime;
-
-	DateTime = g_new(gchar, 100);
-	sprintf(DateTime,ctime(&cur_time));
-	return DateTime;
-}
-
-static gchar *
-get_date_Ymd(void)
-{
-	gchar *datetime;
-	struct tm *lt;
-		
-	time_t cur_time = time(NULL);
-    datetime = g_new(gchar, 20);
-	lt = localtime(&cur_time);
-	//strftime (datetime, 20, N_("%Y-%m-%d"), lt);
-	strftime (datetime, 20, "%Y-%m-%d", lt);
-	return datetime;
-}
-  	
-	
-
 static gboolean
-expand_keyword(gchar *keyword, gchar **expand)
+match_shortcut (MacroPlugin * plugin, GtkTreeIter * iter,
+		gchar key)
 {
-	enum {_DATETIME = 0, _DATE_YMD, _USER_NAME , _FILE_NAME, _EMAIL, 
-		  _ENDKEYW };		
-	gchar *tabkey[_ENDKEYW] =
-		{"@DATE_TIME@", "@DATE_YMD@", "@USER_NAME@", "@FILE_NAME@", "@EMAIL@" };
-	gint key;
-		
-	for (key=0; key<_ENDKEYW; key++)
-		if ( strcmp(keyword, tabkey[key]) == 0)
-			break;
-		
-	switch (key)
-	{
-		case _DATETIME :
-		    *expand = get_date_time();
-		    break;
-		case _DATE_YMD :
-		    *expand = get_date_Ymd();
-		    break;
-		case _USER_NAME :
-			//*expand = 
-			break;
-		case _FILE_NAME :
-			//*expand = 
-			break;
-		case _EMAIL :
-			//*expand = 
-			break;
-		default:
-			//*expand = 
-			return FALSE;
-	}
-	
-	return TRUE;
-}
+	gchar shortcut;
 
-
-
-
-gchar*
-expand_macro(gchar *txt)
-{
-	gchar *ptr = txt;
-	gchar *c = txt;
-	gchar *buffer = "";
-	gchar *begin;
-	gchar *keyword;
-	gchar *buf = NULL;
-	gchar *expand = NULL;
-	
-	while ( *(c) )
-	{
-		if ( *c =='@' )
-		{
-			begin = c++;
-			while ( *(c) )
-			{
-				if ( *c==' ')
-				   break;
-				if ( *c=='@' )
-				{
-					keyword = g_strndup(begin, c-begin+1);
-				
-					if (expand_keyword(keyword, &expand))
-					{
-						buf = g_strndup(ptr, begin - ptr);
-						buffer = g_strconcat(buffer, buf, expand, NULL);
-						g_free(expand);
-					}
-					else
-					{
-						buf = g_strndup(ptr, c - ptr + 1);
-						buffer = g_strconcat(buffer, buf, NULL);
-					}
-					g_free(buf);
-			        ptr = c + 1;
-			       break;
-				}
-			    c++;
-			}
-		}
-	    c++;
-	}
-    buf = g_strndup(ptr, c - ptr);
-    buffer = g_strconcat(buffer, buf, NULL);
-    g_free(buf);
-    return buffer;
-}
-
-
-static gboolean
-match_keyword (MacroPlugin * plugin, GtkTreeIter * iter, const gchar *keyword)
-{
-	gchar *name;
-	gchar *buffer;
-	
 	gtk_tree_model_get(macro_db_get_model(plugin->macro_db), iter,
-		MACRO_NAME, &name, -1);
-	if ( name && strcmp(keyword, name) == 0)
+		MACRO_SHORTCUT, &shortcut, -1);
+	if (key == shortcut)
 	{
 		const int CURRENT_POS = -1;
-		gchar* text;
-		gtk_tree_model_get(macro_db_get_model(plugin->macro_db), iter,
-			MACRO_TEXT, &text, -1);
-		if (plugin->current_editor != NULL)
+		gchar* text = macro_db_get_macro(plugin->macro_db, iter);
+		if (plugin->current_editor != NULL && text != NULL)
 		{
-			buffer = expand_macro(text);
 			ianjuta_editor_insert (IANJUTA_EDITOR (plugin->current_editor),
-					       CURRENT_POS, buffer, -1, NULL);
-			g_free(buffer);
+					       CURRENT_POS, text, -1, NULL);
+			g_free(text);
 		}
 		return TRUE;
 	}
 	return FALSE;
-}
-
-/* keyword : macro name  */
-
-gboolean
-insert_macro (const gchar *keyword, MacroPlugin * plugin)
-{
-	GtkTreeIter parent;
-	GtkTreeIter cur_cat;
-	GtkTreeModel *model = macro_db_get_model (plugin->macro_db);
-	
-	gtk_tree_model_get_iter_first (model, &parent);
-	do
-	{
-		if (gtk_tree_model_iter_children (model, &cur_cat, &parent))
-		{
-		do
-		{
-			GtkTreeIter cur_macro;
-			if (gtk_tree_model_iter_children
-			    (model, &cur_macro, &cur_cat))
-			{
-				do
-				{
-					gboolean predefined;
-					gtk_tree_model_get (model, &cur_macro,
-						    MACRO_PREDEFINED,
-						    &predefined, -1);
-					if (predefined)
-					{
-						if (match_keyword (plugin, &cur_macro, keyword))
-						{
-							return TRUE;
-						}
-					}
-				}
-				while (gtk_tree_model_iter_next
-				       (model, &cur_macro));
-			}
-			else
-			{
-				gboolean is_category;
-				gtk_tree_model_get (model, &cur_cat,
-						    MACRO_IS_CATEGORY,
-						    &is_category, -1);
-				if (is_category)
-					continue;
-				
-				if (match_keyword (plugin, &cur_cat, keyword))
-				{
-					return TRUE;
-				}
-			}
-		}
-		while (gtk_tree_model_iter_next (model, &cur_cat));
-		}
-	}
-	while (gtk_tree_model_iter_next (model, &parent));
-	return TRUE;
-}
-
-void on_menu_add_macro (GtkAction * action, MacroPlugin * plugin)
-{
-	MacroEdit* add = MACRO_EDIT(macro_edit_new(MACRO_ADD, plugin->macro_db));
-	gchar* selection = NULL;
-	if (plugin->current_editor != NULL)
-	{
-		selection = 
-			ianjuta_editor_get_selection(IANJUTA_EDITOR(plugin->current_editor), NULL);
-	}
-	if (selection != NULL && strlen(selection))
-		macro_edit_set_macro(add, selection);
-	gtk_widget_show(GTK_WIDGET(add));
-}
-
-void on_menu_manage_macro (GtkAction * action, MacroPlugin * plugin)
-{
-	if (plugin->macro_dialog == NULL)
-		plugin->macro_dialog = macro_dialog_new (plugin);
-	gtk_widget_show (plugin->macro_dialog);
 }
 
 /* Shortcut handling */
@@ -347,29 +105,54 @@ on_shortcut_pressed (GtkWidget * window, GdkEventKey * event,
 	return TRUE;
 }
 
-static gboolean
-match_shortcut (MacroPlugin * plugin, GtkTreeIter * iter,
-		gchar key)
+void
+on_menu_insert_macro (GtkAction * action, MacroPlugin * plugin)
 {
-	gchar shortcut;
+	if (plugin->current_editor == NULL)
+		return;
+	
+	GtkWidget* window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+	GtkWidget* entry = gtk_entry_new_with_max_length(1);
+	GtkWidget* label = gtk_label_new_with_mnemonic(_("Press macro shortcut ..."));
+	GtkWidget* hbox = gtk_hbox_new (FALSE, 0);	
+	
+	gtk_container_set_border_width (GTK_CONTAINER (hbox), 10);
+	
+	gtk_widget_set_size_request(entry, 0, 0);
+	
+	gtk_window_set_title(GTK_WINDOW(window), _("Press shortcut"));
+	gtk_window_set_resizable(GTK_WINDOW(window), FALSE);
+	gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
+	gtk_window_set_decorated(GTK_WINDOW(window), FALSE);
 
-	gtk_tree_model_get(macro_db_get_model(plugin->macro_db), iter,
-		MACRO_SHORTCUT, &shortcut, -1);
-	if (key == shortcut)
+	gtk_container_add(GTK_CONTAINER(window), hbox);
+	gtk_box_pack_start_defaults(GTK_BOX(hbox), label);
+	gtk_box_pack_end_defaults(GTK_BOX(hbox), entry);
+	g_signal_connect (G_OBJECT (window), "key-press-event",
+			  G_CALLBACK (on_shortcut_pressed), plugin);
+	gtk_widget_grab_focus (entry);
+	
+	gtk_window_set_default_size(GTK_WINDOW(window), 200, 200);
+	gtk_widget_show_all(window);
+}
+
+void on_menu_add_macro (GtkAction * action, MacroPlugin * plugin)
+{
+	MacroEdit* add = MACRO_EDIT(macro_edit_new(MACRO_ADD, plugin->macro_db));
+	gchar* selection = NULL;
+	if (plugin->current_editor != NULL)
 	{
-		const int CURRENT_POS = -1;
-		gchar* text;
-		gchar *buffer;
-		gtk_tree_model_get(macro_db_get_model(plugin->macro_db), iter,
-			MACRO_TEXT, &text, -1);
-		if (plugin->current_editor != NULL)
-		{
-			buffer = expand_macro(text);
-			ianjuta_editor_insert (IANJUTA_EDITOR (plugin->current_editor),
-					       CURRENT_POS, text, -1, NULL);
-			g_free(buffer);
-		}
-		return TRUE;
+		selection = 
+			ianjuta_editor_get_selection(IANJUTA_EDITOR(plugin->current_editor), NULL);
 	}
-	return FALSE;
+	if (selection != NULL && strlen(selection))
+		macro_edit_set_macro(add, selection);
+	gtk_widget_show(GTK_WIDGET(add));
+}
+
+void on_menu_manage_macro (GtkAction * action, MacroPlugin * plugin)
+{
+	if (plugin->macro_dialog == NULL)
+		plugin->macro_dialog = macro_dialog_new (plugin);
+	gtk_widget_show (plugin->macro_dialog);
 }

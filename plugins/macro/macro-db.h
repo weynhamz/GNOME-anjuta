@@ -55,23 +55,24 @@ enum
 	MACRO_N_COLUMNS
 };
 
-
-void macro_db_add (MacroDB * db,
-		   const gchar * name,
-		   const gchar * category,
-		   const gchar * shortcut, const gchar * text);
-
-void macro_db_change (MacroDB * db, GtkTreeIter * iter,
-		      const gchar * name,
-		      const gchar * category,
-		      const gchar * shortcut, const gchar * text);
-
-void macro_db_remove (MacroDB * db, GtkTreeIter * iter);
-
 GType macro_db_get_type (void);
 MacroDB *macro_db_new (void);
 
 void macro_db_save (MacroDB * db);
 GtkTreeModel *macro_db_get_model (MacroDB * db);
+
+void macro_db_add (MacroDB * db,
+				   const gchar * name,
+				   const gchar * category,
+				   const gchar * shortcut, const gchar * text);
+
+void macro_db_change (MacroDB * db, GtkTreeIter * iter,
+					  const gchar * name,
+					  const gchar * category,
+					  const gchar * shortcut, const gchar * text);
+
+void macro_db_remove (MacroDB * db, GtkTreeIter * iter);
+
+gchar* macro_db_get_macro(MacroDB * db, GtkTreeIter* iter);
 
 #endif

@@ -40,7 +40,9 @@ libanjuta_macro_la_SOURCES = \
 	macro-dialog.c                  \
 	macro-dialog.h                  \
 	macro-edit.c                  \
-	macro-edit.h 
+	macro-edit.h                  \
+	macro-util.c                  \
+	macro-util.h 
 	
 EXTRA_DIST = \
 	$(plugin_in_files) \
