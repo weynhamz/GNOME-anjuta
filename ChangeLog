@@ -1,3 +1,14 @@
+2002-11-19  Naba Kumar <naba@gnome.org>
+
+	Patch from Timothee Besset <ttimo@idsoftware.com>
+	
+	* src/preferences.c, src/preferences_gui.c, src/project_dbase.c,
+	src/properties.cxx, src/properties.h, anjuta.prj: Saves some of the 
+	(important) editor preferences in project (if there is one
+	open).
+	
+	* TODO: Updated
+	
 2002-11-18  Naba Kumar <naba@gnome.org>
 	
 	Patch from: Jean-Noel Guiheneuf <jnoel@saudionline.com.sa>
@@ -14,7 +25,8 @@
 	sources are written.
 	
 	* configure.in, src/Makefile.am, src/main.c, src/preferences_gui.c,
-	src/preferences.c, src/CORBA-Server.c,src/CORBA-Server.h, src/glade_iface.c,
+	src/preferences.c, src/CORBA-Server.c,src/CORBA-Server.h,
+	src/glade_iface.c,
 	src/glades.c: Excluded gladen files from build. This
 	will fix the unnecessary dependency on libssl.
 	

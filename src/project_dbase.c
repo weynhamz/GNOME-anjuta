@@ -147,6 +147,28 @@ static gchar* default_module_type[]=
 	"",  "", "", "", "", "", "", NULL
 };
 
+/*
+These are the preferences which will be saved along
+with the project. These preferences will override those
+set by the user before loading the project.
+
+In .prj file, we prefix with "preferences."
+those are the pref names in preferences props
+*/
+static const gchar* editor_prefs[] =
+{
+	INDENT_AUTOMATIC,
+	USE_TABS,
+	INDENT_OPENING,
+	INDENT_CLOSING,
+	TAB_SIZE,
+	INDENT_SIZE,
+	AUTOFORMAT_STYLE,
+	AUTOFORMAT_CUSTOM_STYLE,
+	AUTOFORMAT_DISABLE,
+	NULL
+};
+
 void
 get_pixmask_on_file_ext (FileExtType t, GdkPixmap ** p_c,
 			 GdkBitmap ** m_c, GdkPixmap ** p_o,
@@ -772,7 +794,7 @@ project_dbase_load_project (ProjectDBase * p, gboolean show_project)
 gboolean
 project_dbase_save_project (ProjectDBase * p)
 {
-	gchar* str;
+	gchar* str, *str_prop;
 	FILE *fp;
 	gint i;
 
@@ -913,6 +935,22 @@ project_dbase_save_project (ProjectDBase * p)
 
 	if (project_config_save (p->project_config, fp)== FALSE)
 		goto error_show;
+        
+	/* Save the editor preferences if present */
+#ifdef DEBUG
+	printf("Saving editor preferences in the project file\n");
+#endif
+	for(i=0; editor_prefs[i]; i++)
+	{
+		str_prop = g_strdup_printf("preferences.%s", editor_prefs[i]);
+		str = prop_get(app->project_dbase->props, (gchar*)editor_prefs[i]);
+		if (str) {
+			fprintf(fp, "%s=%s\n", str_prop, str);
+			g_free(str);
+		}
+		g_free(str_prop);
+	}
+	fprintf(fp, "\n");
 
 	for(i=0; i<MODULE_END_MARK; i++)
 	{
@@ -1746,11 +1784,43 @@ project_dbase_scan_files_in_module(ProjectDBase* p, PrjModule module, gboolean w
 void
 project_dbase_clean_left (ProjectDBase * p)
 {
+	gint i;
+	gboolean pref_changed = FALSE;
+	
+	/* Clear project related preferences that have been set. */
+#ifdef DEBUG
+	printf("Clearing project preferences\n");
+#endif
+	for(i=0; editor_prefs[i]; i++)
+	{
+		gchar *str, *str_prop;
+	
+		str_prop = g_strdup_printf("preferences.%s", editor_prefs[i]);			
+		str = prop_get(p->props, str_prop);
+		g_free(str_prop);
+		if (str) {
+			g_free(str);
+			str_prop = g_strdup_printf("%s", editor_prefs[i]);			
+			str = prop_get(app->preferences->props_session, str_prop);
+			g_free(str_prop);
+			if (str) {
+				prop_set_with_key(app->preferences->props, editor_prefs[i], str);
+				g_free(str);
+			} else {
+				prop_set_with_key(app->preferences->props, editor_prefs[i], "");
+			}
+			pref_changed = TRUE;
+		}
+	}
+	
 	project_dbase_clear (p);
 	project_config_clear (p->project_config);
 
 	compiler_options_load (app->compiler_options, app->preferences->props);
 	src_paths_load (app->src_paths, app->preferences->props);
+	
+	if (pref_changed)
+		anjuta_apply_preferences ();
 }
 
 /*
@@ -2299,8 +2369,8 @@ gboolean
 project_dbase_load_project_file (ProjectDBase * p, gchar * filename)
 {
 	gchar *prj_buff, buff[512], *str;
-	gint level, read_size, pos;
-	gboolean error_shown, syserr;
+	gint level, read_size, pos, i;
+	gboolean error_shown, syserr, prefs_changed;
 	FILE* fp;
 	
 	prj_buff = NULL;
@@ -2384,8 +2454,6 @@ project_dbase_load_project_file (ProjectDBase * p, gchar * filename)
 	g_free (prj_buff);
 	prj_buff = NULL;
 
-
-
 done:
 	/* It is necessary to transfer this variable */
 	/* from prj props to preferences props */
@@ -2396,7 +2464,29 @@ done:
 	else
 		prop_set_with_key (app->preferences->props,
 			"anjuta.program.parameters", "");
-	g_free (str);		
+	g_free (str);	
+	
+	/* some preferences may be stored in project file */
+#ifdef DEBUG
+	printf("Loading editor preferences from project\n");
+#endif
+	prefs_changed = FALSE;
+	for(i=0; editor_prefs[i]; i++)
+	{
+		gchar *str_prop;
+		
+		str_prop = g_strdup_printf("preferences.%s", editor_prefs[i]);			
+		str = prop_get(p->props, str_prop);
+		g_free(str_prop);
+		if (str) {
+			prop_set_with_key(app->preferences->props, editor_prefs[i], str);
+			g_free(str);
+			prefs_changed = TRUE;
+		}
+	}
+	if (prefs_changed)
+		anjuta_apply_preferences ();
+	
 	p->is_saved = TRUE;
 	p->top_proj_dir = tm_get_real_path(p->proj_filename);
 	*(strrchr(p->top_proj_dir, '/')) = '\0';

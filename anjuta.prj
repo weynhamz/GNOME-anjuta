@@ -1,4 +1,4 @@
-# Anjuta Version 1.0.0
+# Anjuta Version 1.0.0 
 Compatibility Level: 1 
 
 <PROJECT_DESCRIPTION_START>
@@ -30,7 +30,7 @@ anjuta.compatibility.level=1
 project.name=anjuta
 project.type=GNOME
 project.target.type=EXECUTABLE
-project.version=1.0-beta
+project.version=1.0.1
 project.author=naba
 project.source.target=src/anjuta
 
@@ -56,6 +56,16 @@ project.config.blocked=1
 project.config.disable.overwriting=1 1 1 1 1 1 1 1 1 
 project.config.extra.modules.before=
 project.config.extra.modules.after=
+
+preferences.indent.automatic=1
+preferences.use.tabs=1
+preferences.indent.opening=0
+preferences.indent.closing=0
+preferences.tabsize=4
+preferences.indent.size=4
+preferences.autoformat.style=Style of Kangleipak
+preferences.autoformat.custom.style= -i8 -sc -bli0 -bl0 -cbi0 -ss
+preferences.autoformat.disable=0
 
 module.include.name=.
 module.include.type=

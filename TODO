@@ -1,39 +1,33 @@
 TODO List:
 ----------
 
+** Immediate post-1.0.0:
 
-** Immediate post-0.1.9:
-
+	o Add version change in Project config
+	o Add ignore modules in Project config
+	o Bring all indent/format preferences under one tab.
+	o Add more editor preferences.
+	o Upgrade scintilla.
+	o Compiler options: supports
 	o add credits for ALL new contributors
-	
-	o improve the usability of the search/search again couple
-	o new file widget
-	o rewrite manual
-	o improve find functionality
+	o update manual
+	o improve find in files usability
 	o project manager changes
 	
-
 ** General:
 
     o Comments in source files
-	
-	o Compiler options: supports
 	o Being able to open a source rpm (.src.rpm) or a .tgz tarball and have it
 	  imported as a project
-
 	o Debugger optimization
-
 	o Utilities
 	o Integration with glade, gtranslator, eog and other bonobo components
-	
 	o Double/single click open file in preferences.
-
 	o Use GtkHTML if available to browse online documentation/manuals
 	o easy (S)RPMS & Debian packages build
 	  (assistant and/or edit the spec or debian dir)
 	o use PHP vars like C ones (with the tags bar); easy since they all
 	  begin with $
-
 
 	o > When the windows are docked, and we resize the main window of Anjuta, 
 	  > the docked window doesn't move with the resize.  As an example, I had 
@@ -45,19 +39,6 @@ TODO List:
 	  Well, that's a problem with the GtkPanedWindows, but I thing we make a
 	  temporary work around fix in anjuta by capturing the resize signal of
 	  the concerned widgets. Anybody care to have look in it? :-)
-		  
-	o > I like the fact that you can right click a file name in the project 
-	  > viewer and view it through a browser for html file for example. I'd like 
-	  > to have the feature also available inside the context sensitive menu of 
-	  > the editor too.  ( Ihave no clue if that's even feasible in the context 
-	  > where scintilla is the editor object and may even control the 
-	  > context-menu...)
-	  
-	o > Would be nice that the FIND always search from the beginning of the file 
-	  > OR that when you get the "Not found" panel that we get a button asking 
-	  > if we want to continue from the top of the file.  Right now, very often 
-	  > the fail claim that the text is not there but if you go to the top and 
-	  > redo the search it works.
 		  
 	o > I had been using Multi-Edit in Windows days, and it had a great feature
 	  > for browsing code (Vim also has it).  It's a cross between searching
@@ -75,11 +56,3 @@ TODO List:
 	  > can add this feature!
 	  
 	  So, watch out guys! Atleast don't miss the beer. :-)
-	  
-
-BUGS:
------
-- For whatever reason db1-devel_1.85-4mdk was not installed by default and
-ld gave me errors (can't find -ldb1). Checking for db1 dependency (both rpm
-and configure).
-

@@ -289,10 +289,7 @@ preferences_set (Preferences * pr, gchar * key, gchar * value)
 void
 preferences_set_int (Preferences * pr, gchar * key, gint value)
 {
-	gchar *str;
-	str = g_strdup_printf ("%d", value);
-	prop_set_with_key (pr->props, key, str);
-	g_free (str);
+  prop_set_int_with_key(pr->props, key, value);
 }
 
 void
@@ -928,7 +925,6 @@ gboolean preferences_save_yourself (Preferences * pr, FILE * fp)
 	/* Page 3 */
 	fprintf (fp, "%s=%d\n", STRIP_TRAILING_SPACES,
 		 preferences_get_int (pr, STRIP_TRAILING_SPACES));
-
 	fprintf (fp, "%s=%d\n", FOLD_ON_OPEN,
 		 preferences_get_int (pr, FOLD_ON_OPEN));
 	fprintf (fp, "%s=%d\n", DISABLE_SYNTAX_HILIGHTING,
