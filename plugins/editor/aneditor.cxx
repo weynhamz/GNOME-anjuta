@@ -135,8 +135,8 @@ typedef struct _CallTipNode {
 	int startCalltipWord; 
 	SString *functionDefinition;
 	int rootlen;
-	int pos;
-	int call_tip_start_pos;
+	int start_pos;					// start position in editor
+	int call_tip_start_pos;		// start position in calltip
 	
 } CallTipNode, *CallTipNode_ptr;
 
@@ -230,6 +230,9 @@ protected:
 	
 	GQueue *call_tip_node_queue;
 	CallTipNode call_tip_node;
+	
+	// needed for calltips caret moving
+	int lastPos;
 	
 	bool margin;
 	int marginWidth;
@@ -462,6 +465,7 @@ AnEditor::AnEditor(PropSetFile* p) {
 	call_tip_node.functionDefinition = new SString("");
 	SetCallTipDefaults( );
 	call_tip_node_queue = g_queue_new();
+	lastPos = 0;
 		
 
 	margin = false;
@@ -1099,7 +1103,7 @@ bool AnEditor::StartCallTip_new() {
 	SString linebuf;
 	GetLine(linebuf);
 	int current = GetCaretInLine();
-	call_tip_node.pos = SendEditor(SCI_GETCURRENTPOS);
+	call_tip_node.start_pos = SendEditor(SCI_GETCURRENTPOS);
 	call_tip_node.call_tip_start_pos = current;
 	
 	int braces;
@@ -1111,16 +1115,16 @@ bool AnEditor::StartCallTip_new() {
 			else if (linebuf[current - 1] == ')')
 				braces++;
 			current--;
-			call_tip_node.pos--;
+			call_tip_node.start_pos--;
 		}
 		if (current > 0) {
 			current--;
-			call_tip_node.pos--;
+			call_tip_node.start_pos--;
 		} else
 			break;
 		while (current > 0 && isspace(linebuf[current - 1])) {
 			current--;
-			call_tip_node.pos--;
+			call_tip_node.start_pos--;
 		}
 	} while (current > 0 && !calltipWordCharacters.contains(linebuf[current - 1]));
 	
@@ -1147,9 +1151,9 @@ bool AnEditor::StartCallTip_new() {
 		
 		*call_tip_node.functionDefinition = tmp;
 		
-		g_message( "***start_call_tip_new: functionDefinition is %s", call_tip_node.functionDefinition->c_str());
+//		g_message( "***start_call_tip_new: functionDefinition is %s", call_tip_node.functionDefinition->c_str());
 		
-		SendEditorString(SCI_CALLTIPSHOW, call_tip_node.pos - call_tip_node.rootlen + 1, tmp);
+		SendEditorString(SCI_CALLTIPSHOW, call_tip_node.start_pos - call_tip_node.rootlen + 1, tmp);
 		g_free(tmp);
 		ContinueCallTip_new();
 	}
@@ -1213,18 +1217,13 @@ void AnEditor::ContinueCallTip() {
 }
 /*/
 
-//------------------------------------------------------------------------------
-// new
-
 void AnEditor::ContinueCallTip_new() {
 	SString linebuf;
 	GetLine(linebuf);
 	int current = GetCaretInLine();
-	int pos = SendEditor(SCI_GETCURRENTPOS);
-	
 	int commas = 0;
 	
-	for (int i = call_tip_node.call_tip_start_pos ; i < current; i++) {
+	for (int i = call_tip_node.call_tip_start_pos; i < current; i++) {
 		
 		unsigned char ch = linebuf[i];
 
@@ -1232,7 +1231,6 @@ void AnEditor::ContinueCallTip_new() {
 		//	if found	we'll skip them to evitate commas problems
 		if ( ch == '(' ) {
 			int braces = 1;
-			g_message( "enter brace match!!" );
 			for ( int k = i+1; k < linebuf.length(); k++ ) {
 				if ( linebuf[k] == '(' ) {
 					braces++;
@@ -1303,7 +1301,7 @@ void AnEditor::SaveCallTip() {
 	
 	ctn->startCalltipWord = call_tip_node.startCalltipWord;
 	ctn->functionDefinition = new SString(call_tip_node.functionDefinition->c_str());
-	ctn->pos = call_tip_node.pos;
+	ctn->start_pos = call_tip_node.start_pos;
 	ctn->rootlen = call_tip_node.rootlen;
 	ctn->call_tip_start_pos = call_tip_node.call_tip_start_pos;
 	
@@ -1319,11 +1317,8 @@ void AnEditor::SaveCallTip() {
 
 void AnEditor::ResumeCallTip() {
 
-//	g_message( "***resuming calltip:..." );
-	
 	if ( g_queue_is_empty( call_tip_node_queue ) ) {
 		ShutDownCallTip();
-		g_message( "returning from if and length..." );
 		return;
 	}
 	
@@ -1336,7 +1331,7 @@ void AnEditor::ResumeCallTip() {
 	
 	call_tip_node.startCalltipWord = tmp_node->startCalltipWord;
 	*call_tip_node.functionDefinition = tmp_node->functionDefinition->c_str();
-	call_tip_node.pos = tmp_node->pos;
+	call_tip_node.start_pos = tmp_node->start_pos;
 	call_tip_node.rootlen = tmp_node->rootlen;
 	call_tip_node.call_tip_start_pos = tmp_node->call_tip_start_pos;
 	
@@ -1344,7 +1339,7 @@ void AnEditor::ResumeCallTip() {
 	// in response to g_malloc on SaveCallTip
 	g_free( tmp_node );
 	
-	SendEditorString(SCI_CALLTIPSHOW, call_tip_node.pos - call_tip_node.rootlen + 1, call_tip_node.functionDefinition->c_str());
+	SendEditorString(SCI_CALLTIPSHOW, call_tip_node.start_pos - call_tip_node.rootlen + 1, call_tip_node.functionDefinition->c_str());
 	
 }
 
@@ -1377,7 +1372,7 @@ void AnEditor::SetCallTipDefaults( ) {
 
 	// we're going to set the default values to this.call_tip_node struct
 	*call_tip_node.functionDefinition = "";
-	call_tip_node.pos = 0;
+	call_tip_node.start_pos = 0;
 	call_tip_node.rootlen = 0;
 	call_tip_node.startCalltipWord = 0;	
 	call_tip_node.call_tip_start_pos = 0;
@@ -3263,7 +3258,17 @@ void AnEditor::Notify(SCNotification *notification) {
 		break;
 
 	case SCN_UPDATEUI:
+	{
+		int pos = SendEditor(SCI_GETCURRENTPOS);
 		BraceMatch(true);
+		if ( SendEditor(SCI_CALLTIPACTIVE) ) {
+			// if we have a caret movement on left or right
+			if ( abs(pos - lastPos) == 1 ) {
+				ContinueCallTip_new();
+			}
+		}
+		lastPos = pos;
+	}
 		break;
 
 	case SCN_MODIFIED:

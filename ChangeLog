@@ -1,5 +1,11 @@
 2004-12-30  Naba Kumar  <naba@gnome.org>
 
+	patch from: Massimo Corà  <maxcvs@email.it>
+	* plugins/editor/aneditor.cxx: Highlights correct function
+	argument in recursive calltips.
+
+2004-12-30  Naba Kumar  <naba@gnome.org>
+
 	* plugins/symbol-browser/plugin.c,
 	libanjuta/interfaces/libanjuta.idl,
 	plugins/editor/text_editor.c: Fixed editor markers and added a new
