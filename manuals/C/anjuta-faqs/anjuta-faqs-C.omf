@@ -1,19 +1,14 @@
 <?xml version="1.0" standalone="no"?>
 <omf>
  <resource>
-  <title>
-   Anjuta FAQ
-  </title>
-   <creator>
-	<person>
-	 <firstName>Andy</firstName>
-	 <lastName>Piper</lastName>
-	 <email>andy.piper@freeuk.com</email> 
-	</person>
-   </creator>
-  <subject>
-  <category>GNOME|Development</category>
-  </subject>
+  
+   <creator>andy.piper@freeuk.com (Andy Piper)</creator>
+
+   
+   <title>Anjuta FAQ</title>
+   <date></date>
+  <subject category="GNOME|Development" />
+  
     <description>
      This document contains a list of Frequently Asked Questions about the Anjuta IDE.
     </description>

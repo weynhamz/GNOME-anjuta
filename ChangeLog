@@ -1,3 +1,9 @@
+2003-02-26  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
+	* src/anjuta-tools.c: Fixed some bugs.
+
+2003-02-24  Joe Harnish <bigJoe@linuxmail.org>
+	* fixed omf errors
+
 2003-02-24  Naba Kumar  <naba@gnome.org>
 
 	* data/properties/html.properties,

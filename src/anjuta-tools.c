@@ -160,6 +160,9 @@ static GHashTable *tool_hash = NULL;
 */
 static AnUserTool *current_tool = NULL;
 
+/* The temporary file to use to store standard input */
+static char tmp_file[PATH_MAX] = "";
+
 /* Buffers the output and error lines of the current tool under execution */
 GString *current_tool_output = NULL;
 GString *current_tool_error = NULL;
@@ -312,7 +315,7 @@ static AnUserTool *an_user_tool_new(xmlNodePtr tool_node)
 /* Writes tool information to the given file in xml format */
 #define STRWRITE(p) if (tool->p && '\0' != tool->p[0]) \
 	{\
-		if (1 > fprintf(f, "\t\t<%s>%s</%s>\n", #p, tool->p, #p))\
+		if (1 > fprintf(f, "\t\t<%s><![CDATA[%s]]></%s>\n", #p, tool->p, #p))\
 			return FALSE;\
 	}
 #define NUMWRITE(p) if (1 > fprintf(f, "\t\t<%s>%d</%s>\n", #p, tool->p, #p))\
@@ -347,7 +350,7 @@ static void tool_stdout_handler(gchar *line)
 {
 	if (line && current_tool)
 	{
-		if (current_tool->output <= MESSAGE_MAX)
+		if (current_tool->output <= MESSAGE_MAX && current_tool->output >= 0)
 		{
 			/* Send the message to the proper message pane */
 			anjuta_message_manager_append (app->messages, line
@@ -370,7 +373,7 @@ static void tool_stderr_handler(gchar *line)
 {
 	if (line && current_tool)
 	{
-		if (current_tool->error <= MESSAGE_MAX)
+		if (current_tool->error <= MESSAGE_MAX && current_tool->error >= 0)
 		{
 			/* Simply send the message to the proper message pane */
 			anjuta_message_manager_append (app->messages, line
@@ -442,7 +445,7 @@ static void tool_terminate_handler(gint status, time_t time)
 {
 	if (current_tool)
 	{
-		if (current_tool->error <= MESSAGE_MAX)
+		if (current_tool->error <= MESSAGE_MAX && current_tool->error >= 0)
 		{
 			char line[BUFSIZ];
 			snprintf(line, BUFSIZ, "Tool terminated with status %d\n", status);
@@ -453,13 +456,18 @@ static void tool_terminate_handler(gint status, time_t time)
 		{
 			handle_tool_output(current_tool->error, current_tool_error, TRUE);
 		}
-		if (current_tool->output <= MESSAGE_MAX)
+		if (current_tool->output <= MESSAGE_MAX && current_tool->output >= 0)
 		{
 			/* Nothing to do here */
 		}
 		else if (current_tool_output && (0 < current_tool_output->len))
 		{
 			handle_tool_output(current_tool->output, current_tool_output, FALSE);
+		}
+		if ('\0' != tmp_file[0])
+		{
+			unlink(tmp_file);
+			tmp_file[0] = '\0';
 		}
 		current_tool = NULL;
 	}
@@ -567,8 +575,8 @@ static void execute_tool(GtkMenuItem *item, gpointer data)
 		if (current_tool_output)
 			g_string_truncate(current_tool_output, 0);
 		if (current_tool_error)
-			g_string_truncate(current_tool_error, 0);		
-		if (tool->error <= MESSAGE_MAX)
+			g_string_truncate(current_tool_error, 0);
+		if (tool->error <= MESSAGE_MAX && tool->error >= 0)
 			anjuta_message_manager_clear(app->messages, tool->error);
 		if (tool->input_type == AN_TINP_BUFFER && app->current_text_editor)
 		{
@@ -584,15 +592,33 @@ static void execute_tool(GtkMenuItem *item, gpointer data)
 		  && '\0' != tool->input[0])
 		{
 			buf = prop_expand(app->project_dbase->props, tool->input);
+			if (NULL == buf)
+				buf = g_strdup("");
 		}
 		if (buf)
 		{
+			int fd;
+			int buflen = strlen(buf);
+			snprintf(tmp_file, PATH_MAX, "/tmp/anjuta.%d.XXXXXX", getpid());
+			if (0 > (fd = mkstemp(tmp_file)))
+			{
+				anjuta_system_error(errno, "Unable to create temporary file %s!"
+				  , tmp_file);
+				return;
+			}
+			if (buflen != write(fd, buf, buflen))
+			{
+				anjuta_system_error(errno, "Unable to write to temporary file %s."
+				  , tmp_file);
+				return;
+			}
+			close(fd);
 			gchar* escaped_cmd = anjuta_util_escape_quotes(command);
 			g_free(command);
-			command = g_strconcat("sh -c \"", escaped_cmd, "<<__EOF__\n"
-			  , buf, "\n__EOF__\n\"", NULL);
+			command = g_strconcat("sh -c \"", escaped_cmd, "<", tmp_file, "\"", NULL);
+			g_free(buf);
 		}
-		if (tool->output <= MESSAGE_MAX)
+		if (tool->output <= MESSAGE_MAX && tool->output >= 0)
 		{
 			anjuta_message_manager_clear(app->messages, tool->output);
 			anjuta_message_manager_show(app->messages, tool->output);
