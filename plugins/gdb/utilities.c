@@ -274,7 +274,7 @@ gdb_util_kill_process (pid_t process_id, const gchar* signal)
 	if (pid == 0)
 	{
 		execlp ("kill", "kill", "-s", signal, pid_str, NULL);
-		g_warning (_("Can not execute command: \"%s\""), "kill");
+		g_warning (_("Cannot execute command: \"%s\""), "kill");
 		_exit(1);
 	}
 	g_free (pid_str);

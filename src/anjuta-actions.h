@@ -46,7 +46,7 @@ static GtkToggleActionEntry menu_entries_toggle_view[] = {
 	G_CALLBACK (on_fullscreen_toggle)},
   { "ActionViewLockLayout", NULL,
     N_("_Lock Dock Layout"), NULL,
-    N_("Lock the current dock layout so that widgets can not moved"),
+    N_("Lock the current dock layout so that widgets cannot be moved"),
 	G_CALLBACK (on_layout_lock_toggle)}
 };
 

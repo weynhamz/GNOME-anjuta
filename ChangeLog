@@ -1,3 +1,14 @@
+2005-03-15  Adam Weinberger  <adamw@gnome.org>
+
+	* anjuta.glade,
+	  plugins/debug-manager/utilities.c,
+	  plugins/file-loader/plugin.c,
+	  plugins/gdb/utilities.c,
+	  plugins/profile-default/plugin.c,
+	  plugins/project-import/project-import.c,
+	  src/anjuta-actions.h:
+	  Spelling/grammar fixes.
+
 2005-03-13  Naba Kumar  <naba@gnome.org>
 	
 	* plugins/editor/action-callbacks.c,

@@ -255,8 +255,8 @@ project_import_generate_file(ProjectImport* pi, const gchar* prjfile)
 							   GTK_DIALOG_MODAL,
 							   GTK_MESSAGE_ERROR, 
 							   GTK_BUTTONS_OK,
-							   _("Generation of project file failed. Please"
-								 "check if you have write access to the project"
+							   _("Generation of project file failed. Please "
+								 "check if you have write access to the project "
 								 "directory!"))));
 		return FALSE;
 	}

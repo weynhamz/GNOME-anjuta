@@ -510,7 +510,7 @@ default_profile_plugin_load (DefaultProfilePlugin *plugin,
 	if(result != GNOME_VFS_OK )
 	{
 		anjuta_util_dialog_error (GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell),
-								  _("Can not open: %s\n&s"),
+								  _("Cannot open: %s\n&s"),
 								  uri, gnome_vfs_result_to_string(result));
 		return FALSE;
 	}
@@ -530,7 +530,7 @@ default_profile_plugin_load (DefaultProfilePlugin *plugin,
 								 GNOME_VFS_OPEN_READ)) != GNOME_VFS_OK)
 	{
 		anjuta_util_dialog_error (GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell),
-								  _("Can not open: %s\n&s"),
+								  _("Cannot open: %s\n&s"),
 								  uri, gnome_vfs_result_to_string(result));
 		return FALSE;
 	}
@@ -541,7 +541,7 @@ default_profile_plugin_load (DefaultProfilePlugin *plugin,
 	{
 		g_free (read_buf);
 		anjuta_util_dialog_error (GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell),
-								  _("Can not open: %s\n&s"),
+								  _("Cannot open: %s\n&s"),
 								  uri, gnome_vfs_result_to_string(result));
 		return FALSE;
 	}
@@ -551,7 +551,7 @@ default_profile_plugin_load (DefaultProfilePlugin *plugin,
 	if(xml_doc == NULL)
 	{
 		anjuta_util_dialog_error (GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell),
-								  _("Can not open: %s\nXML parse error."),
+								  _("Cannot open: %s\nXML parse error."),
 								  uri);
 		return FALSE;
 	}
@@ -560,7 +560,7 @@ default_profile_plugin_load (DefaultProfilePlugin *plugin,
 	if(xml_root == NULL)
 	{
 		anjuta_util_dialog_error (GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell),
-								  _("Can not open: %s\nXML parse error."),
+								  _("Cannot open: %s\nXML parse error."),
 								  uri);
 		/* Free xml doc */
 		return FALSE;
@@ -570,7 +570,7 @@ default_profile_plugin_load (DefaultProfilePlugin *plugin,
 	   !xmlStrEqual(xml_root->name, (const xmlChar *)"anjuta"))
 	{
 		anjuta_util_dialog_error (GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell),
-								  _("Can not open: %s\nDoes not look like a valid Anjuta project."),
+								  _("Cannot open: %s\nDoes not look like a valid Anjuta project."),
 								  uri);
 		return FALSE;
 	}
@@ -761,7 +761,7 @@ default_profile_plugin_load (DefaultProfilePlugin *plugin,
 	{
 		/* The project file is empty */
 		anjuta_util_dialog_error (GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell),
-								  _("Can not open: %s\nDoes not look like a valid Anjuta project."),
+								  _("Cannot open: %s\nDoes not look like a valid Anjuta project."),
 								  uri);
 		return FALSE;
 	}
