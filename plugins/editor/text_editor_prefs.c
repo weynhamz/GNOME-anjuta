@@ -81,7 +81,7 @@ set_n_get_prop_int (TextEditor *te, const gchar *key)
 	AnjutaPreferences *pr;
 	pr = te->preferences;
 	val = anjuta_preferences_get_int (pr, key);
-	prop_set_int_with_key (text_editor_get_props (te), key, val);
+	prop_set_int_with_key (text_editor_get_props (), key, val);
 	return val;
 }
 

@@ -1,9 +1,29 @@
-2004-11-28  Naba Kumar  <naba@gnome.org>
+2004-11-30  Naba Kumar  <naba@gnome.org>
+
+	* libanjuta/anjuta-status.c: Fixed runtime warning.
+	
+	* plugins/editor/Makefile.am:
+	plugins/editor/anjuta-document-manager.glade,
+	plugins/editor/plugin.c
+	plugins/editor/plugin.h
+	plugins/editor/style-editor.c (new, moved from src/),
+	plugins/editor/style-editor.h (new, moved from src/),
+	plugins/editor/text_editor_prefs.c: Implemented "Font and colours"
+	settings in preferences.
+
+	* plugins/editor/text_editor.c,
+	plugins/editor/text_editor.h: Do not take unused args in
+	text_editor_get_props().
+
+	* src/style-editor.c, src/style-editor.h: Removed, moved to
+	plugins/editor/ directory.
+
+2004-11-29  Naba Kumar  <naba@gnome.org>
 
 	* plugins/editor/text_editor_cbs.c: Emit click signal in IAnjutaMarkable.
 	* libanjuta/anjuta-status.c: More spacing between items.
 	
-2004-11-28  Naba Kumar  <naba@gnome.org>
+2004-11-29  Naba Kumar  <naba@gnome.org>
 
 	Patch from: Pavol Bosik  <pavol.bosik@radiantsystems.com>:
 	

@@ -166,7 +166,7 @@ text_editor_new (AnjutaPreferences *eo, const gchar *uri, const gchar *name)
 	TextEditor *te = TEXT_EDITOR (gtk_widget_new (TYPE_TEXT_EDITOR, NULL));
 	
 	te->preferences = eo;
-	te->props_base = text_editor_get_props(te);
+	te->props_base = text_editor_get_props();
 	if (name && strlen(name) > 0)
 		te->filename = g_strdup(name); 
 	else 
@@ -1690,7 +1690,7 @@ text_editor_set_popup_menu (TextEditor *te, GtkWidget *popup_menu)
 }
 
 gint
-text_editor_get_props (TextEditor *te)
+text_editor_get_props ()
 {
 	/* Built in values */
 	static PropsID props_built_in;

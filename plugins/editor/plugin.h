@@ -3,6 +3,8 @@
 #include <libanjuta/anjuta-preferences.h>
 #include <libanjuta/anjuta-ui.h>
 
+#include "style-editor.h"
+
 typedef struct _EditorPlugin EditorPlugin;
 typedef struct _EditorPluginClass EditorPluginClass;
 
@@ -13,6 +15,8 @@ struct _EditorPlugin{
 	AnjutaUI *ui;
 	gint uiid;
 	GList *action_groups;
+	
+	StyleEditor *style_editor;
 };
 
 struct _EditorPluginClass{

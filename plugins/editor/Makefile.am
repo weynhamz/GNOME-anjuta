@@ -98,7 +98,9 @@ libanjuta_editor_la_SOURCES= \
 	goto_line.c \
 	goto_line.h \
 	print.c \
-	print.h
+	print.h \
+	style-editor.c \
+	style-editor.h
 
 EXTRA_DIST = \
 	$(editor_pixmaps_DATA) \

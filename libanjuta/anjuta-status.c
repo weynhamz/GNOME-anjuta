@@ -137,13 +137,21 @@ anjuta_status_busy_push (AnjutaStatus *status)
 void
 anjuta_status_busy_pop (AnjutaStatus *status)
 {
+	GtkWidget *top;
+	
 	g_return_if_fail (ANJUTA_IS_STATUS (status));
+	
+	top = gtk_widget_get_toplevel (GTK_WIDGET (status));
+	if (top == NULL)
+		return;
 
 	status->priv->busy_count--;
 	if (status->priv->busy_count > 0)
 		return;
+	
 	status->priv->busy_count = 0;
-	gdk_window_set_cursor (GTK_WIDGET (status)->window, NULL);
+	if (GTK_WIDGET (top)->window)
+		gdk_window_set_cursor (GTK_WIDGET (top)->window, NULL);
 }
 
 static void

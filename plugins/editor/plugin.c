@@ -761,6 +761,14 @@ on_editor_changed (AnjutaDocman *docman, TextEditor *te,
 	}
 }
 
+static void
+on_edit_editor_styles (GtkWidget *button, EditorPlugin *plugin)
+{
+	if (plugin->style_editor == NULL)
+		plugin->style_editor = style_editor_new (plugin->prefs);
+	style_editor_show (plugin->style_editor);
+}
+
 static gboolean
 activate_plugin (AnjutaPlugin *plugin)
 {
@@ -786,12 +794,17 @@ activate_plugin (AnjutaPlugin *plugin)
 	
 	if (!initialized)
 	{
+		GtkWidget *style_button;
+		
 		ANJUTA_DOCMAN(docman)->shell = plugin->shell;
 		
 		register_stock_icons (plugin);
 		
 		/* Add preferences */
 		gxml = glade_xml_new (PREFS_GLADE, "preferences_dialog", NULL);
+		style_button = glade_xml_get_widget (gxml, "edit_style_button");
+		g_signal_connect (G_OBJECT (style_button), "clicked",
+						  G_CALLBACK (on_edit_editor_styles), plugin);
 		
 		anjuta_preferences_add_page (editor_plugin->prefs,
 									 gxml, "Editor", ICON_FILE);
@@ -935,7 +948,9 @@ deactivate_plugin (AnjutaPlugin *plugin)
 static void
 dispose (GObject *obj)
 {
-	// EditorPlugin *plugin = (EditorPlugin*)obj;
+	EditorPlugin *plugin = (EditorPlugin*)obj;
+	if (plugin->style_editor)
+		style_editor_destroy (plugin->style_editor);
 }
 
 static void
@@ -943,6 +958,7 @@ editor_plugin_instance_init (GObject *obj)
 {
 	EditorPlugin *plugin = (EditorPlugin*)obj;
 	plugin->uiid = 0;
+	plugin->style_editor = NULL;
 }
 
 static void

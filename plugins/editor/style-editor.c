@@ -24,9 +24,12 @@
 #include <gnome.h>
 #include <glade/glade.h>
 
-#include "anjuta.h"
-#include "utilities.h"
+#include <libanjuta/anjuta-utils.h>
+#include "text_editor.h"
 #include "style-editor.h"
+
+#define string_assign(dest, src) g_free ((*dest)); (*dest) = g_strdup ((src));
+#define GLADE_FILE PACKAGE_DATA_DIR"/glade/anjuta-document-manager.glade"
 
 gchar *hilite_style[] = {
 	"Normal <Default>", "style.*.32",
@@ -824,11 +827,13 @@ on_response (GtkWidget *dialog, gint res, StyleEditor *se)
 	{
 	case GTK_RESPONSE_APPLY:
 		sync_to_props (se);
-		anjuta_apply_styles ();
+		anjuta_preferences_set_int (se->prefs, DISABLE_SYNTAX_HILIGHTING, 1);
+		anjuta_preferences_set_int (se->prefs, DISABLE_SYNTAX_HILIGHTING, 0);
 		return;
 	case GTK_RESPONSE_OK:
 		sync_to_props (se);
-		anjuta_apply_styles ();
+		anjuta_preferences_set_int (se->prefs, DISABLE_SYNTAX_HILIGHTING, 1);
+		anjuta_preferences_set_int (se->prefs, DISABLE_SYNTAX_HILIGHTING, 0);
 	case GTK_RESPONSE_CANCEL:
 		style_editor_hide (se);
 		return;
@@ -852,7 +857,7 @@ create_style_editor_gui (StyleEditor * se)
 	g_return_if_fail (se);
 	g_return_if_fail (se->priv->dialog == NULL);
 	
-	gxml = glade_xml_new (GLADE_FILE_ANJUTA, "style_editor_dialog", NULL);
+	gxml = glade_xml_new (GLADE_FILE, "style_editor_dialog", NULL);
 	se->priv->dialog = glade_xml_get_widget (gxml, "style_editor_dialog");
 	gtk_widget_show (se->priv->dialog);
 	se->priv->font_picker = glade_xml_get_widget (gxml, "font");
@@ -881,7 +886,7 @@ create_style_editor_gui (StyleEditor * se)
 	g_list_free (list);
 	
 	gtk_window_set_transient_for (GTK_WINDOW (se->priv->dialog),
-								  GTK_WINDOW (app));
+								  GTK_WINDOW (se->prefs));
 	
 	g_signal_connect (G_OBJECT (GTK_COMBO(se->priv->hilite_item_combo)->entry),
 					  "changed", G_CALLBACK (on_hilite_style_entry_changed),
@@ -908,17 +913,14 @@ create_style_editor_gui (StyleEditor * se)
 }
 
 StyleEditor *
-style_editor_new (PropsID props_global, PropsID props_local,
-				  PropsID props_session, PropsID props)
+style_editor_new (AnjutaPreferences *prefs)
 {
 	StyleEditor *se;
 	se = g_new0 (StyleEditor, 1);
 	se->priv = g_new0 (StyleEditorPriv, 1);
-	se->props_global = props_global;
-	se->props_local = props_local;
-	se->props_session = props_session;
-	se->props = props;
+	se->props = text_editor_get_props ();
 	se->priv->dialog = NULL;
+	se->prefs = prefs;
 	return se;
 }
 

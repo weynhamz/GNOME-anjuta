@@ -24,6 +24,7 @@
 #  include <config.h>
 #endif
 
+#include <libanjuta/anjuta-preferences.h>
 #include "properties.h"
 
 typedef struct _StyleEditor StyleEditor;
@@ -31,16 +32,18 @@ typedef struct _StyleEditorPriv StyleEditorPriv;
 
 struct _StyleEditor
 {
+	/*
 	PropsID props_global;
 	PropsID props_local;
 	PropsID props_session;
+	*/
 	PropsID props;
 	StyleEditorPriv *priv;
+	AnjutaPreferences *prefs;
 };
 
 StyleEditor *
-style_editor_new (PropsID props_global, PropsID prop_local,
-				  PropsID prop_session, PropsID props);
+style_editor_new (AnjutaPreferences *prefs);
 
 void style_editor_destroy (StyleEditor *se);
 
