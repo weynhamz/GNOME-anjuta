@@ -1,3 +1,21 @@
+2004-11-11  Naba Kumar  <naba@gnome.org>
+
+	* TODO.tasks: Updated.
+
+	* libanjuta/anjuta-preferences.[c,h]: Added keys notification API.
+	and completed on-the-fly-change preferences. Removed "changed"
+	signal as it is no longer necessary (use notify for similar
+	purpose to monitor individual preferences).
+
+	
+	* plugins/editor/anjuta-document-manager.glade: Added view menu
+	preferences so that they are registered.
+	
+	* plugins/editor/Makefile.am, plugins/editor/text_editor.[c,h],
+	(added) plugins/editor/text_editor_prefs.[c,h]: Removed
+	connection to "changed" signal of preferences and implemented
+	notifications for some editor preferences. More to implement.
+
 2004-11-10  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
 	* plugins/editor/print.c
 	Fixed bug 1047624 : Add line number every X lines.

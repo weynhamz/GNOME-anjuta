@@ -22,6 +22,7 @@
 
 #include <gnome.h>
 #include <glade/glade.h>
+#include <gconf/gconf-client.h>
 
 // #include <libanjuta/properties.h>
 #include <libanjuta/anjuta-preferences-dialog.h>
@@ -76,24 +77,6 @@ struct _AnjutaPreferences
 {
 	AnjutaPreferencesDialog parent;
 	
-	/*< public >*/
-
-#if 0	
-	/* Built in values */
-	PropsID props_built_in;
-	
-	/* System values */
-	PropsID props_global;
-	
-	/* User values */ 
-	PropsID props_local;
-	
-	/* Session values */
-	PropsID props_session;
-	
-	/* Instance values */
-	PropsID props;
-#endif	
 	/*< private >*/
 	AnjutaPreferencesPriv *priv;
 };
@@ -101,7 +84,6 @@ struct _AnjutaPreferences
 struct _AnjutaPreferencesClass
 {
 	AnjutaPreferencesDialogClass parent;
-	void (*changed) (GtkWidget *pref);
 };
 
 typedef gboolean (*AnjutaPreferencesCallback) (AnjutaPreferences *pr,
@@ -208,6 +190,15 @@ inline gchar * anjuta_preferences_default_get (AnjutaPreferences *pr,
 /* Gets the value (int) of a key */
 inline gint anjuta_preferences_default_get_int (AnjutaPreferences *pr,
 												const gchar *key);
+/* Key notifications */
+guint anjuta_preferences_notify_add (AnjutaPreferences *pr,
+									 const gchar *key,
+									 GConfClientNotifyFunc func,
+									 gpointer data,
+									 GFreeFunc destroy_notify);
+void anjuta_preferences_notify_remove (AnjutaPreferences *pr, guint notify_id);
+
+const gchar* anjuta_preferences_get_prefix (AnjutaPreferences *pr);
 
 #ifdef __cplusplus
 };

@@ -71,6 +71,8 @@ libanjuta_editor_la_SOURCES= \
 	properties_cxx.h \
 	aneditor.cxx \
 	aneditor.h \
+	text_editor_prefs.c \
+	text_editor_prefs.h \
 	text_editor.c \
 	text_editor.h \
 	text_editor_menu.c \

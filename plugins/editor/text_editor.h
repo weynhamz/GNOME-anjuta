@@ -83,6 +83,9 @@ struct _TextEditor
 	
 /* Popup menu widget */
 	GtkWidget *popup_menu;
+	
+/* Gconf notify IDs */
+	GList* gconf_notify_ids;
 };
 
 struct _TextEditorClass
@@ -199,5 +202,13 @@ gint text_editor_get_props (TextEditor *te);
 #define SELECTION_FORE_COLOR       "selection.fore"
 #define SELECTION_BACK_COLOR       "selection.back"
 #define TEXT_ZOOM_FACTOR           "text.zoom.factor"
+
+#define VIEW_LINENUMBERS_MARGIN    "margin.linenumber.visible",
+#define VIEW_MARKER_MARGIN         "margin.marker.visible",
+#define VIEW_FOLD_MARGIN           "margin.fold.visible",
+#define VIEW_INDENTATION_GUIDES    "view.indentation.guides",
+#define VIEW_WHITE_SPACES          "view.whitespace",
+#define VIEW_EOL                   "view.eol",
+#define VIEW_LINE_WRAP             "view.line.wrap"
 
 #endif

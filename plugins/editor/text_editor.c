@@ -57,6 +57,8 @@
 // #include "properties.h"
 #include "lexer.h"
 #include "aneditor.h"
+#include "text_editor_prefs.h"
+
 // #include "controls.h"
 
 /* Debug flag */
@@ -67,8 +69,8 @@
 
 #define MARKER_PROP_END 0xaaaaaa /* Do not define any color with this value */
 
-static void text_editor_update_preferences (TextEditor *te,
-											AnjutaPreferences *pr);
+// static void text_editor_update_preferences (TextEditor *te,
+//											AnjutaPreferences *pr);
 static void text_editor_finalize (GObject *obj);
 static void text_editor_dispose (GObject *obj);
 
@@ -93,6 +95,7 @@ text_editor_instance_init (TextEditor *te)
 	te->props_base = 0;
 	te->first_time_expose = TRUE;
 	te->encoding = NULL;
+	te->gconf_notify_ids = NULL;
 }
 
 static void
@@ -158,7 +161,7 @@ initialize_markers (TextEditor* te)
 static void
 on_preferences_changed (AnjutaPreferences *pr, TextEditor *te)
 {
-	text_editor_update_preferences (te, pr);
+	// text_editor_update_preferences (te, pr);
 }
 
 GtkWidget *
@@ -173,6 +176,8 @@ text_editor_new (AnjutaPreferences *eo, const gchar *uri, const gchar *name)
 		te->filename = g_strdup(name); 
 	else 
 		te->filename = g_strdup_printf ("Newfile#%d", ++new_file_count);
+	
+	text_editor_prefs_init (te);
 	te->editor_id = aneditor_new (prop_get_pointer (te->props_base));
 	/*
 	aneditor_command (te->editor_id, ANE_SETACCELGROUP,
@@ -225,7 +230,7 @@ text_editor_new (AnjutaPreferences *eo, const gchar *uri, const gchar *name)
 		}
 	}
 	// te->menu = text_editor_menu_new ();
-	text_editor_update_preferences (te, te->preferences);
+	// text_editor_update_preferences (te, te->preferences);
 	text_editor_update_controls (te);
 	te->changed_id = g_signal_connect (G_OBJECT (te->preferences), "changed",
 					  G_CALLBACK (on_preferences_changed), te);
@@ -262,6 +267,11 @@ text_editor_finalize (GObject *obj)
 		g_signal_handler_disconnect (G_OBJECT (te->preferences), 
 									 te->changed_id);
 		te->changed_id = 0;
+	}
+	if (te->gconf_notify_ids)
+	{
+		text_editor_prefs_finalize (te);
+		te->gconf_notify_ids = NULL;
 	}
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (G_OBJECT(te)));
 }
@@ -1093,7 +1103,8 @@ save_to_file (TextEditor *te, gchar * uri)
 		}
 		
 		/* Strip trailing spaces */
-		strip = prop_get_int (te->props_base, STRIP_TRAILING_SPACES, 0);
+		strip = anjuta_preferences_get_int (te->preferences,
+											STRIP_TRAILING_SPACES);
 		if (strip)
 		{
 			while (size > 0 && isspace(data[size - 1]))
@@ -1256,53 +1267,6 @@ gboolean
 text_editor_recover_yourself (TextEditor * te, FILE * stream)
 {
 	return TRUE;
-}
-
-void
-text_editor_update_preferences (TextEditor * te, AnjutaPreferences *pr)
-{
-	gboolean auto_save;
-	guint auto_save_timer;
-
-	auto_save = anjuta_preferences_get_int (pr, SAVE_AUTOMATIC);
-	auto_save_timer = anjuta_preferences_get_int (pr, AUTOSAVE_TIMER);
-
-	g_return_if_fail (te != NULL);
-	pr = te->preferences;
-
-	if (auto_save)
-	{
-		if (te->autosave_on == TRUE)
-		{
-			if (auto_save_timer != te->autosave_it)
-			{
-				gtk_timeout_remove (te->autosave_id);
-				te->autosave_id =
-					gtk_timeout_add (auto_save_timer *
-							 60000,
-							 on_text_editor_auto_save,
-							 te);
-			}
-		}
-		else
-		{
-			te->autosave_id =
-				gtk_timeout_add (auto_save_timer * 60000,
-						 on_text_editor_auto_save,
-						 te);
-		}
-		te->autosave_it = auto_save_timer;
-		te->autosave_on = TRUE;
-	}
-	else
-	{
-		if (te->autosave_on == TRUE)
-			gtk_timeout_remove (te->autosave_id);
-		te->autosave_on = FALSE;
-	}
-	text_editor_set_hilite_type (te);
-	text_editor_set_zoom_factor(te, anjuta_preferences_get_int (pr,
-														 TEXT_ZOOM_FACTOR));
 }
 
 gboolean
