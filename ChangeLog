@@ -6,6 +6,9 @@
 	
 	* main_menubar_def.h:
 	Changed "Plug Ins" to "Plugins" in the menu label.
+	
+	* configure.in, plugins/Makefile.am, plugins/class-gen/*:
+	Added class-gen in the configure output and class-gen module.
 
 2001-12-31  Stephane Demurget  <demurgets@free.fr>
 

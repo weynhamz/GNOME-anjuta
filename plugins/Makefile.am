@@ -1,1 +1,1 @@
-SUBDIRS = sample1
+SUBDIRS = sample1 class-gen
