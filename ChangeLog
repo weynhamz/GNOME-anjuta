@@ -1,3 +1,8 @@
+2002-11-03  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
+	* anjuta.spec.in: Update specfile to make multiple RPMs.
+	* data/Makefile.am: make dist fix.
+	* src/text_editor_menu.c: Fix compile warnings (casts).
+
 2002-11-02  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
 	* manuals/C/anjuta-faqs/anjuta-faqs.sgml: FAQ update.
 	* tagmanager/general.h, src/launcher.c: FreeBSD fixes (RFE #628576)

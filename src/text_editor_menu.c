@@ -92,7 +92,7 @@ GnomeUIInfo text_editor_menu_goto_submenu_uiinfo[] = {
 	{
 	 GNOME_APP_UI_ITEM, N_("Tag Definition"),
 	 NULL,
-	 on_goto_tag_activate, (gboolean) TRUE, NULL,
+	 on_goto_tag_activate, (gpointer) TRUE, NULL,
 	 PIX_FILE(TAG),
  	 0, 0, NULL}
 	 ,
@@ -125,7 +125,7 @@ GnomeUIInfo text_editor_menu_goto_submenu_uiinfo[] = {
 	{
 	 GNOME_APP_UI_ITEM, N_("Next bookmark"),
 	 NULL,
-	 on_editor_command_activate, ANE_BOOKMARK_NEXT, NULL,
+	 on_editor_command_activate, (gpointer) (ANE_BOOKMARK_NEXT), NULL,
 	 PIX_FILE(BOOKMARK_NEXT),
 	 0, 0, NULL},
 	GNOMEUIINFO_END

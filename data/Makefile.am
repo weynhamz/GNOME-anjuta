@@ -37,7 +37,7 @@ MACROS = \
 
 MACROS_dir = $(prefix)/@NO_PREFIX_PACKAGE_DATA_DIR@/gnome
 
-EXTRA_DIST = $(anjuta_data_DATA) $(anjuta_mime_DATA)
+EXTRA_DIST = $(anjuta_data_DATA) $(anjuta_mime_DATA) $(anjuta_mimelnk_DATA)
 
 MACROS2 = \
 	ChangeLog \

@@ -29,6 +29,27 @@ programming facilities. It is basically a GUI interface for the collection
 of command line programming utilities and tools available for the GNU system. 
 These are usually run via a text console, and can be unfriendly to use.
 
+%package i18n
+Summary: Translations
+Group: Development/Tools
+
+%description i18n
+Translations of UI elements in various languages.
+
+%package docs-en
+Summary: Anjuta docuemntation in English.
+Group: Development/Tools
+
+%description docs-en
+Anjuta documentation in English.
+
+%package docs-ja
+Summary: Anjuta docuemntation in Japanese.
+Group: Development/Tools
+
+%description docs-ja
+Anjuta documentation in Japanese.
+
 %prep
 %setup
 
@@ -51,10 +72,14 @@ make prefix=$RPM_BUILD_ROOT%{prefix} install
 [ -n "$RPM_BUILD_ROOT" -a "$RPM_BUILD_ROOT" != / ] && rm -rf $RPM_BUILD_ROOT
 
 %post
-scrollkeeper-update
+scrollkeeper-update || :
+
+%postun
+scrollkeeper-update || :
 
 %files
 %doc AUTHORS COPYING ChangeLog INSTALL NEWS README THANKS TODO
+%doc doc/ScintillaDoc.html
 
 %defattr(-,root,root)
 %{prefix}/bin/anjuta
@@ -63,8 +88,21 @@ scrollkeeper-update
 %{prefix}/lib/anjuta
 %{prefix}/share/gnome/apps/Development/anjuta.desktop
 %{prefix}/share/anjuta
-%{prefix}/share/gnome/help/anjuta
 %{prefix}/share/pixmaps/anjuta
 %{prefix}/share/omf/anjuta
 %{prefix}/share/doc/anjuta
+
+%files i18n
+%defattr(-, root, root)
+
 %{prefix}/share/locale/*/LC_MESSAGES/anjuta.mo
+
+%files docs-en
+%defattr(-, root, root)
+
+%{prefix}/share/gnome/help/anjuta/C
+
+%files docs-ja
+%defattr(-, root, root)
+
+%{prefix}/share/gnome/help/anjuta/ja
