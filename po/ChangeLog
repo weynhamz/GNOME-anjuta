@@ -1,3 +1,7 @@
+2001-12-27  Simos Xenitellis  <simos@hellug.gr>
+
+	* el.po: Added initial Greek translation.
+
 2001-12-27 Duarte Loreto <happyguy_pt@hotmail.com>
 
         * pt.po: Added portuguese translation
@@ -50,7 +54,7 @@
 2001-12-02  Christian Rose  <menthos@menthos.com>
 
 	* sv.po: Fixes to the Swedish translation. Thanks to
-	G-Aöran Uddeborg <goeran@uddeborg.pp.se> and$)B
+	G.AŽöran Uddeborg <goeran@uddeborg.pp.se> and
 	Peter Karlsson <peter@softwolves.pp.se> for their reviews
 	and comments.
 
@@ -93,11 +97,11 @@
 
 	* sv.po: Updated Swedish translation.
 
-2001-11-03  Carlos Perell-Aó Marín <carlos@gnome-db.org>$)B
+2001-11-03  Carlos PerellŽó MarŽín <carlos@gnome-db.org>
 
 	* zh_CN.po: Fixed a header.
 
-2001-11-03  Carlos Perell-Aó Marín <carlos@gnome-db.org>$)B
+2001-11-03  Carlos PerellŽó MarŽín <carlos@gnome-db.org>
 
 	* es.po: Fixed a header.
 
@@ -180,7 +184,7 @@
 2001-09-30  Christian Rose  <menthos@menthos.com>
 
 	* sv.po: Updated Swedish translation. Thanks to
-	Jan Dj-Aärv <Jan.Djarv@mbox200.swipnet.se> for his review.$)B
+	Jan DjŽärv <Jan.Djarv@mbox200.swipnet.se> for his review.
 
 2001-09-30  Christian Rose  <menthos@menthos.com>
 
@@ -213,7 +217,7 @@
 	  I hope you people will find it useful. Just run
 	  the script and you get statistics.
 	  
-2001-09-15  Carlos Perell-Aó Marín <carlos@gnome-db.org>$)B
+2001-09-15  Carlos PerellŽó MarŽín <carlos@gnome-db.org>
 
 	* de.po: Header fixed.
 
@@ -242,7 +246,7 @@
 2001-08-26  Christian Rose  <menthos@menthos.com>
 
 	* sv.po: Updated Swedish translation. Thanks to
-	G-Aöran Weinholt <weinholt@telia.com> for a really amazing amount of$)B
+	GŽöran Weinholt <weinholt@telia.com> for a really amazing amount of
 	help!
 
 	* POTFILES.in: Added anjuta.desktop.in.in so that we can translate it
