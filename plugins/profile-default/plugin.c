@@ -101,7 +101,8 @@ on_close_project_idle (gpointer plugin)
 static void
 on_close_project (GtkAction *action, DefaultProfilePlugin *plugin)
 {
-	g_idle_add (on_close_project_idle, plugin);
+	if (plugin->project_uri)
+		g_idle_add (on_close_project_idle, plugin);
 }
 
 static GtkActionEntry pf_actions[] = 
@@ -153,7 +154,8 @@ default_profile_plugin_deactivate_plugin (AnjutaPlugin *plugin)
 	g_signal_handlers_disconnect_by_func (G_OBJECT (plugin->shell),
 										  G_CALLBACK (on_session_save), plugin);
 	/* Close project if it's open */
-	default_profile_plugin_close (pf_plugin);
+	if (pf_plugin->project_uri)
+		default_profile_plugin_close (pf_plugin);
 	
 	anjuta_ui_unmerge (ui, pf_plugin->merge_id);
 	anjuta_ui_remove_action_group (ui, pf_plugin->action_group);
@@ -331,17 +333,18 @@ default_profile_plugin_activate_plugins (DefaultProfilePlugin *plugin,
 	max_icons = 0;
 	
 	/* First of all close existing project profile */
-	default_profile_plugin_close (plugin);
+	if (plugin->project_uri)
+		default_profile_plugin_close (plugin);
 	
 	if (splash)
 	{
+		GdkPixbuf *icon_pixbuf;
 		i = 0;
 		
 		gtk_widget_show (GTK_WIDGET (splash));
 		node = selected_plugins;
 		while (node)
 		{
-			GdkPixbuf *icon_pixbuf;
 			AnjutaPluginDescription *desc = node->data;
 			gchar *icon_filename;
 			gchar *icon_path = NULL;
@@ -373,14 +376,25 @@ default_profile_plugin_activate_plugins (DefaultProfilePlugin *plugin,
 					max_icons++;
 					g_object_unref (icon_pixbuf);
 				}
-				// while (gtk_events_pending ())
-				//	gtk_main_iteration ();
 			} else {
 				g_warning ("Plugin does not define Icon: No such file %s",
 						   icon_path);
 			}
 			i++;
 			node = g_slist_next (node);
+		}
+		
+		/* Session loading icon */
+		icon_pixbuf = 
+			gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/anjuta_icon.png",
+									  NULL);
+		if (icon_pixbuf)
+		{
+			e_splash_add_icon (E_SPLASH (splash),
+							   icon_pixbuf, _("Last Session ..."),
+							   _("Restoring last session ..."));
+			max_icons++;
+			g_object_unref (icon_pixbuf);
 		}
 		while (gtk_events_pending ())
 			gtk_main_iteration ();
@@ -452,6 +466,12 @@ default_profile_plugin_activate_plugins (DefaultProfilePlugin *plugin,
 		i++;
 		max_icons--;
 		node = g_slist_next (node);
+	}
+	if (splash && max_icons > 0)
+	{
+		e_splash_set_icon_highlight (E_SPLASH (splash), i, TRUE);
+		while (gtk_events_pending ())
+			gtk_main_iteration ();
 	}
 }
 

@@ -31,7 +31,7 @@
 #include <libanjuta/interfaces/ianjuta-file-loader.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
 #include <libanjuta/interfaces/ianjuta-wizard.h>
-
+#include <libegg/menu/egg-submenu-action.h>
 #include <libegg/menu/egg-recent-action.h>
 
 #include "plugin.h"
@@ -546,31 +546,127 @@ on_open_activate (GtkAction *action, AnjutaFileLoaderPlugin *plugin)
 }
 
 static void
-on_new_activate (GtkAction *action, AnjutaFileLoaderPlugin *loader)
+on_new_activate (GtkAction *action, gpointer data)
 {
+	IAnjutaDocumentManager *docman;
+	docman = anjuta_shell_get_interface (ANJUTA_PLUGIN (data)->shell,
+										 IAnjutaDocumentManager, NULL);
+	if (docman)
+	{
+		ianjuta_document_manager_add_buffer (docman, "", "", NULL);
+	}
+}
+
+static void
+on_activate_wizard (GtkMenuItem *menuitem,
+					AnjutaFileLoaderPlugin *loader)
+{
+	AnjutaPluginDescription *desc;
+	
+	desc = g_object_get_data (G_OBJECT (menuitem), "__plugin_desc");
+	if (desc)
+	{
+		gchar *id;
+		GObject *plugin;
+		
+		if (anjuta_plugin_description_get_string (desc, "Anjuta Plugin",
+												  "Location", &id))
+		{
+			plugin =
+				anjuta_plugins_get_plugin_by_id (ANJUTA_PLUGIN (loader)->shell,
+												 id);
+			ianjuta_wizard_activate (IANJUTA_WIZARD (plugin), NULL);
+		}
+	}
+}
+
+static GtkWidget*
+on_create_submenu (gpointer user_data)
+{
+	AnjutaFileLoaderPlugin *loader;
+	GSList *node;
+	gint count;
+	static GtkWidget *submenu = NULL;
 	GSList *plugin_descs = NULL;
-	GObject *plugin = NULL;	
+	
+	if (submenu)
+		return submenu;
+	
+	loader = (AnjutaFileLoaderPlugin *)user_data;
+	
+	submenu = gtk_menu_new ();
+	gtk_widget_show (submenu);
 	
 	plugin_descs = anjuta_plugins_query (ANJUTA_PLUGIN(loader)->shell,
 										 "Anjuta Plugin",
 										 "Interfaces", "IAnjutaWizard",
 										 NULL);
-	if (g_slist_length (plugin_descs) > 0)
+	node = plugin_descs;
+	count = 0;
+	while (node)
 	{
-		plugin =
-			anjuta_plugins_select_and_activate (ANJUTA_PLUGIN(loader)->shell,
-												"New",
-						"Please select a wizard to create a new component.",
-												plugin_descs);
-		if (plugin)
-			ianjuta_wizard_activate (IANJUTA_WIZARD (plugin), NULL);
-	}
-	else
-	{
-		anjuta_util_dialog_error (NULL,
-		"No Wizard plugins found. Please make sure you have them installed.");
+		AnjutaPluginDescription *desc;
+		GtkWidget *menuitem;
+		GtkWidget *icon;
+		gchar *str, *icon_path, *name;
+		
+		desc = node->data;
+		
+		icon = NULL;
+		name = NULL;
+		if (anjuta_plugin_description_get_string (desc, "Anjuta Plugin",
+														 "Name", &str))
+		{
+			count++;
+			if (count < 10)
+				name = g_strdup_printf ("_%d. %s", count, str);
+			else
+				name = g_strdup_printf ("%d. %s", count, str);
+			g_free (str);
+		}
+		if (anjuta_plugin_description_get_string (desc, "Anjuta Plugin",
+												  "Icon", &str))
+		{
+			GdkPixbuf *pixbuf, *scaled_pixbuf;
+			gint height, width;
+			
+			gtk_icon_size_lookup_for_settings (gtk_widget_get_settings (submenu),
+											   GTK_ICON_SIZE_MENU,
+											   &width, &height);
+			icon_path = g_build_filename (PACKAGE_PIXMAPS_DIR, str, NULL);
+			pixbuf = gdk_pixbuf_new_from_file (icon_path, NULL);
+			if (pixbuf)
+			{
+				scaled_pixbuf = gdk_pixbuf_scale_simple (pixbuf, width, height,
+														 GDK_INTERP_BILINEAR);
+				icon = gtk_image_new_from_pixbuf (scaled_pixbuf);
+                g_object_unref (pixbuf);
+				g_object_unref (scaled_pixbuf);
+			}
+			else
+				icon = gtk_image_new ();
+			
+			gtk_widget_show (icon);
+			g_free (icon_path);
+			g_free (str);
+		}
+		if (name)
+		{
+			menuitem = gtk_image_menu_item_new_with_mnemonic (name);
+			gtk_widget_show (menuitem);
+			g_object_set_data (G_OBJECT (menuitem), "__plugin_desc", desc);
+			g_signal_connect (G_OBJECT (menuitem), "activate",
+							  G_CALLBACK (on_activate_wizard),
+							  loader);
+			if (icon)
+				gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (menuitem),
+											   icon);
+			gtk_menu_shell_append (GTK_MENU_SHELL (submenu), menuitem);
+		}
+		node = g_slist_next (node);
 	}
 	g_slist_free (plugin_descs);
+	return submenu;
 }
 
 /*
@@ -667,7 +763,7 @@ static GtkActionEntry actions_file[] = {
 		GTK_STOCK_NEW,
 		N_("_New ..."),
 		"<control>n",
-		N_("New file, project and project components."),
+		N_("New empty editor."),
 		G_CALLBACK (on_new_activate)
 	},
 	{
@@ -889,6 +985,7 @@ on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase,
 static gboolean
 activate_plugin (AnjutaPlugin *plugin)
 {
+	EggSubmenuAction *saction;
 	GtkAction *action;
 	AnjutaUI *ui;
 	AnjutaFileLoaderPlugin *loader_plugin;
@@ -909,8 +1006,20 @@ activate_plugin (AnjutaPlugin *plugin)
 											actions_file,
 											G_N_ELEMENTS (actions_file),
 											plugin);
+	saction = g_object_new (EGG_TYPE_SUBMENU_ACTION,
+							"name", "ActionFileWizard",
+							"label", _("_Wizard"),
+							"tooltip", _("New file, project and project components."),
+							NULL);
+	egg_submenu_action_set_menu_factory (saction,
+										 on_create_submenu, plugin);
+	gtk_action_group_add_action (loader_plugin->action_group,
+								 GTK_ACTION (saction));
+	
+	/* Set short labels */
 	action = anjuta_ui_get_action (ui, "ActionGroupLoader", "ActionFileNew");
-	g_object_set (G_OBJECT (action), "short-label", _("New"), NULL);
+	g_object_set (G_OBJECT (action), "short-label", _("New"),
+				  "is-important", TRUE, NULL);
 	action = anjuta_ui_get_action (ui, "ActionGroupLoader", "ActionFileOpen");
 	g_object_set (G_OBJECT (action), "short-label", _("Open"),
 				  "is-important", TRUE, NULL);

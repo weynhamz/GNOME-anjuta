@@ -408,7 +408,7 @@ on_treeview_event (GtkWidget *widget,
 	model = gtk_tree_view_get_model (view);
 	selection = gtk_tree_view_get_selection (view);
 
-	if (!gtk_tree_selection_get_selected (selection, NULL, &iter) || !event)
+	if (!event)
 		return FALSE;
 
 	if (event->type == GDK_BUTTON_PRESS) {
@@ -434,32 +434,12 @@ on_treeview_event (GtkWidget *widget,
 													sv_plugin->action_group,
 											"ActionPopupSymbolBrowserGotoDef");
 				return TRUE;
-			case GDK_Left:
-				if (gtk_tree_model_iter_has_child (model, &iter))
-				{
-					path = gtk_tree_model_get_path (model, &iter);
-					gtk_tree_view_collapse_row (GTK_TREE_VIEW (view),
-												path);
-					gtk_tree_path_free (path);
-					return TRUE;
-				}
-			case GDK_Right:
-				if (gtk_tree_model_iter_has_child (model, &iter))
-				{
-					path = gtk_tree_model_get_path (model, &iter);
-					gtk_tree_view_expand_row (GTK_TREE_VIEW (view),
-											  path, FALSE);
-					gtk_tree_path_free (path);
-					return TRUE;
-				}
 			default:
 				return FALSE;
 		}
 	}
 	return FALSE;
 }
-
-
 
 static void
 on_treeview_row_activated (GtkTreeView *view, GtkTreePath *arg1,

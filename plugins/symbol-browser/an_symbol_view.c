@@ -186,11 +186,12 @@ on_symbol_view_row_expanded (GtkTreeView * view,
 	GtkTreeRowReference *row_ref;
 	GtkTreePath *path;
 	TMSymbol *sym;
-	// AnjutaStatus *status;
+	/*
+	AnjutaStatus *status;
 	
-	// status = anjuta_shell_get_status (ANJUTA_PLUGIN (fv)->shell, NULL);
-	// anjuta_status_busy_push (status);
-	
+	status = anjuta_shell_get_status (ANJUTA_PLUGIN (fv)->shell, NULL);
+	anjuta_status_busy_push (status);
+	*/
 	GtkTreeStore *store = GTK_TREE_STORE (gtk_tree_view_get_model (view));
 	
 	if (sv->priv->symbols_need_update)
@@ -257,7 +258,7 @@ on_symbol_view_row_expanded (GtkTreeView * view,
 	{
 		g_list_free (row_refs);
 	}
-	// anjuta_status_busy_pop (status);
+	/* anjuta_status_busy_pop (status); */
 }
 
 static void
@@ -317,8 +318,6 @@ sv_create (AnjutaSymbolView * sv)
 
 	gtk_tree_view_append_column (GTK_TREE_VIEW (sv), column);
 	gtk_tree_view_set_expander_column (GTK_TREE_VIEW (sv), column);
-
-	/* sv_create_context_menu (); */
 }
 
 void

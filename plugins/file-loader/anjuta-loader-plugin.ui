@@ -4,6 +4,7 @@
 		<menu name="MenuFile" action="ActionMenuFile">
 			<placeholder name="PlaceholderFileMenus">
 				<menuitem name="New" action="ActionFileNew" />
+				<menuitem name="Wizard" action="ActionFileWizard" />
 				<menuitem name="Open" action="ActionFileOpen" />
 				<menuitem name="OpenRecent" action="ActionFileOpenRecent" />
 				<separator/>
@@ -20,6 +21,7 @@
 	<toolbar name="ToolbarMain">
 		<placeholder name="PlaceholderFileToolbar">
 			<toolitem name="New" action="ActionFileNew" />
+			<toolitem name="Wizard" action="ActionFileWizard" />
 			<toolitem name="Open" action="ActionFileOpen" />
 			<toolitem name="OpenRecent" action="ActionFileOpenRecent"/>
 		</placeholder>

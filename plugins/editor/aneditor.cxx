@@ -133,7 +133,8 @@ AnEditor::AnEditor(PropSetFile* p) {
 	
 	// Trap 'TAB' key for automatic indentation.
 	// SendEditor (SCI_ASSIGNCMDKEY, SCK_TAB, SCI_NULL);
-	g_signal_connect (wEditor.GetID(), "key-press-event", G_CALLBACK (KeyPressEvent), this);
+	g_signal_connect (wEditor.GetID(), "key-press-event",
+					  G_CALLBACK (KeyPressEvent), this);
 
 #if 0
 	/* Register images to be used for autocomplete */
@@ -2268,8 +2269,8 @@ void AnEditor::HandleDwellStart(int mousePos) {
 int AnEditor::KeyPress(unsigned int state, unsigned int keyval){
 
 	unsigned int mask = GDK_SHIFT_MASK | GDK_LOCK_MASK |
-		GDK_CONTROL_MASK | GDK_MOD1_MASK | GDK_MOD3_MASK | GDK_MOD4_MASK |
-		GDK_MOD5_MASK;
+		GDK_CONTROL_MASK | GDK_MOD1_MASK | GDK_MOD3_MASK |
+		GDK_MOD4_MASK |	GDK_MOD5_MASK;
 	if (state & mask)
 		return false;
 

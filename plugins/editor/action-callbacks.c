@@ -979,6 +979,20 @@ typedef struct
 	
 } IncrementalSearch;
 
+static void
+on_incremental_entry_key_press (GtkWidget *entry, GdkEventKey *event,
+								EditorPlugin *plugin)
+{
+	if (event->keyval == GDK_Escape)
+	{
+		TextEditor *te;
+		
+		te = anjuta_docman_get_current_editor (ANJUTA_DOCMAN (plugin->docman));
+		if (te)
+			gtk_widget_grab_focus (te->scintilla);
+	}
+}
+
 gboolean
 on_toolbar_find_incremental_start (GtkAction *action, gpointer user_data)
 {
@@ -986,12 +1000,36 @@ on_toolbar_find_incremental_start (GtkAction *action, gpointer user_data)
 	AnjutaDocman *docman;
 	EditorPlugin *plugin;
 	IncrementalSearch *search_params;
+	GSList *entries, *node;
+	static GHashTable *entries_connected = NULL;
 	
 	plugin = (EditorPlugin *) user_data;
 	docman = ANJUTA_DOCMAN (plugin->docman);
 	te = anjuta_docman_get_current_editor (docman);
 
 	if (!te) return FALSE;
+	
+	/* Make sure we set up escape for getting out the focus to the editor */
+	if (entries_connected == NULL)
+	{
+		entries_connected = g_hash_table_new (g_direct_hash, g_direct_equal);
+	}
+	entries = gtk_action_get_proxies (action);
+	node = entries;
+	while (node)
+	{
+		GtkWidget *entry;
+		entry = GTK_WIDGET (node->data);
+		if (!g_hash_table_lookup (entries_connected, entry))
+		{
+			g_signal_connect (G_OBJECT (entry), "key-press-event",
+							  G_CALLBACK (on_incremental_entry_key_press),
+							  plugin);
+			g_hash_table_insert (entries_connected, entry, entry);
+		}
+		node = g_slist_next (node);
+	}
+
 	search_params = g_object_get_data (G_OBJECT (te), "incremental_search");
 	if (!search_params)
 	{
@@ -1019,7 +1057,7 @@ on_toolbar_find_incremental_end (GtkAction *action, gpointer user_data)
 	te = anjuta_docman_get_current_editor (docman);
 
 	if (!te) return FALSE;
-	
+		
 	status = anjuta_shell_get_status (ANJUTA_PLUGIN (user_data)->shell, NULL);
 	anjuta_status_clear_stack (status);
 	

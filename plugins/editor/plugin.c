@@ -114,8 +114,14 @@ typedef struct {
 } ShortcutMapping;
 
 static ShortcutMapping global_keymap[] = {
+/* FIXME: HIG requires that Ctrl+Tab be used to transfer focus in multiline
+   text entries. So we can't use the following ctrl+tabbing. Is there other
+   sensible keys that can be used for them?
+*/
+/*
 	{ m_C_, GDK_Tab,		 ID_NEXTBUFFER },
 	{ mSC_, GDK_ISO_Left_Tab, ID_PREVBUFFER },
+*/
 	{ m__M, GDK_1, ID_FIRSTBUFFER },
 	{ m__M, GDK_2, ID_FIRSTBUFFER + 1},
 	{ m__M, GDK_3, ID_FIRSTBUFFER + 2},

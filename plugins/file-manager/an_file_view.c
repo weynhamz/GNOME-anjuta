@@ -59,25 +59,12 @@ typedef struct _FileFilter
 	GList *file_unmatch;
 	GList *dir_match;
 	GList *dir_unmatch;
-	// GList *file_match_strings;
-	// GList *file_unmatch_strings;
-	// GList *dir_match_strings;
-	// GList *dir_unmatch_strings;
 	gboolean ignore_hidden_files;
 	gboolean ignore_hidden_dirs;
 } FileFilter;
 
 static GdlIcons *icon_set = NULL;
 static FileFilter *ff = NULL;
-
-#if 0
-/* LibGlade auto-signal-connect callbacks. Do not declare static. */
-gboolean on_file_filter_delete_event (GtkWidget *widget,
-									  GdkEventCrossing *event,
-									  gpointer user_data);
-void on_file_filter_response (GtkWidget *dlg, gint res, gpointer user_data);
-void on_file_filter_close (GtkWidget *dlg, gpointer user_data);
-#endif
 
 static gboolean
 anjuta_fv_open_file (FileManagerPlugin * fv, const char *path)
@@ -147,15 +134,7 @@ fv_prefs_free (FileFilter *ff)
 		anjuta_util_glist_strings_free (ff->dir_match);
 	if (ff->dir_unmatch)
 		anjuta_util_glist_strings_free (ff->dir_unmatch);
-/*	if (ff->file_match_strings)
-		anjuta_util_glist_strings_free (ff->file_match_strings);
-	if (ff->file_unmatch_strings)
-		anjuta_util_glist_strings_free (ff->file_unmatch_strings);
-	if (ff->dir_match_strings)
-		anjuta_util_glist_strings_free (ff->dir_match_strings);
-	if (ff->dir_unmatch_strings)
-		anjuta_util_glist_strings_free (ff->dir_unmatch_strings);
-*/	g_free (ff);
+	g_free (ff);
 	ff = NULL;
 }
 
@@ -184,9 +163,6 @@ fv_construct_full_path (FileManagerPlugin *fv, GtkTreeIter *selected_iter)
 	path = g_build_filename (dir, full_path, NULL);
 	g_free (full_path);
 	g_free (dir);
-#ifdef DEBUG
-	g_message ("Full path: %s", path);
-#endif
 	return path;
 }
 
@@ -204,201 +180,6 @@ fv_get_selected_file_path (FileManagerPlugin *fv)
 		return NULL;
 	return fv_construct_full_path (fv, &iter);
 }
-
-#if 0
-static void
-on_file_view_cvs_event (GtkMenuItem *item, gpointer user_data)
-{
-	gchar *path;
-	
-	int action = (int) user_data;
-	path = fv_get_selected_file_path (fv, GTK_TREE_VIEW (fv->tree));
-	
-	g_return_if_fail (path != NULL);
-	
-	switch (action)
-	{
-		case CVS_ACTION_UPDATE:
-		case CVS_ACTION_COMMIT:
-		case CVS_ACTION_STATUS:
-		case CVS_ACTION_LOG:
-		case CVS_ACTION_ADD:
-		case CVS_ACTION_REMOVE:
-			create_cvs_gui(app->cvs, action, path, FALSE);
-			break;
-		case CVS_ACTION_DIFF:
-			create_cvs_diff_gui(app->cvs, path, FALSE);
-			break;
-		default:
-			break;
-	}
-	g_free (path);
-}
-
-static void
-fv_context_handler (GtkMenuItem *item,
-		    gpointer     user_data)
-{
-	FVSignal signal = (FVSignal) user_data;
-	gchar *path = fv_get_selected_file_path (fv, GTK_TREE_VIEW (fv->tree));
-
-	g_return_if_fail (path != NULL);
-	if (g_file_test (path, G_FILE_TEST_IS_DIR))
-		return;
-	
-	switch (signal) {
-		case OPEN:
-			anjuta_fv_open_file(path, TRUE);
-			break;
-		case VIEW:
-			anjuta_fv_open_file(path, FALSE);
-			break;
-		case REFRESH:
-			fv_populate(TRUE);
-			break;
-		case CUSTOMIZE:
-			fv_customize(TRUE);
-		default:
-			break;
-	}
-}
-
-static GnomeUIInfo an_file_view_cvs_uiinfo[] = {
-	{
-	 /* 0 */
-	 GNOME_APP_UI_ITEM, N_("Update file"),
-	 N_("Update current working copy"),
-	 on_file_view_cvs_event, (gpointer) CVS_ACTION_UPDATE, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
-	 0, 0, NULL},
-	{
-	 /* 1 */
-	 GNOME_APP_UI_ITEM, N_("Commit file"),
-	 N_("Commit changes to the repository"),
-	 on_file_view_cvs_event, (gpointer) CVS_ACTION_COMMIT, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
-	 0, 0, NULL},
-	{
-	 /* 2 */
-	 GNOME_APP_UI_ITEM, N_("Status of file"),
-	 N_("Print the status of the current file"),
-	 on_file_view_cvs_event, (gpointer) CVS_ACTION_STATUS, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
-	 0, 0, NULL},
-	{
-	 /* 3 */
-	 GNOME_APP_UI_ITEM, N_("Get file log"),
-	 N_("Print the CVS log for the current file"),
-	 on_file_view_cvs_event, (gpointer) CVS_ACTION_LOG, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
-	 0, 0, NULL},
-	{
-	 /* 4 */
-	 GNOME_APP_UI_ITEM, N_("Add file"),
-	 N_("Add the current file to the repository"),
-	 on_file_view_cvs_event, (gpointer) CVS_ACTION_ADD, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
-	 0, 0, NULL},
-	{
-	 /* 5 */
-	 GNOME_APP_UI_ITEM, N_("Remove file"),
-	 N_("Remove the current file from the repository"),
-	 on_file_view_cvs_event, (gpointer) CVS_ACTION_REMOVE, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
-	 0, 0, NULL},
-	{
-	 /* 6 */
-	 GNOME_APP_UI_ITEM, N_("Diff file"),
-	 N_("Create a diff between the working copy and the repository"),
-	 on_file_view_cvs_event, (gpointer) CVS_ACTION_DIFF, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
-	 0, 0, NULL},
-	 GNOMEUIINFO_END /* 7 */
-};
-
-static GnomeUIInfo an_file_view_menu_uiinfo[] = {
-	{/* 0 */
-	 GNOME_APP_UI_ITEM, N_("Open in Anjuta"),
-	 NULL,
-	 fv_context_handler, (gpointer) OPEN, NULL,
-	 PIX_STOCK(GTK_STOCK_OPEN),
-	 0, 0, NULL}
-	,
-	{/* 1 */
-	 GNOME_APP_UI_ITEM, N_("Open in default viewer"),
-	 NULL,
-	 fv_context_handler, (gpointer) VIEW, NULL,
-	 PIX_STOCK (GNOME_STOCK_BOOK_OPEN),
-	 0, 0, NULL}
-	,
-	{/* 2 */
-	 GNOME_APP_UI_SUBTREE, N_("CVS"),
-	 NULL,
-	 an_file_view_cvs_uiinfo, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
-	 0, 0, NULL}
-	 ,
-	{/* 3 */
-	 GNOME_APP_UI_ITEM, N_("Refresh"),
-	 NULL,
-	 fv_context_handler, (gpointer) REFRESH, NULL,
-	 PIX_STOCK(GTK_STOCK_REFRESH),
-	 0, 0, NULL}
-	,
-	 GNOMEUIINFO_SEPARATOR, /* 4 */
-	{/* 5 */
-	 GNOME_APP_UI_TOGGLEITEM, N_("Docked"),
-	 N_("Dock/Undock the Project Window"),
-	 on_project_dock_undock1_activate, NULL, NULL,
-	 PIX_FILE(DOCK),
-	 0, 0, NULL}
-	 ,
-	{/* 6 */
-	 GNOME_APP_UI_ITEM, N_("Customize"),
-	 N_("Customize the file browser"),
-	 fv_context_handler, (gpointer) CUSTOMIZE, NULL,
-	 PIX_FILE(DOCK),
-	 0, 0, NULL}
-	 ,
-	GNOMEUIINFO_END /* 7 */
-};
-
-static void
-fv_create_context_menu ()
-{
-	int i;
-
-	fv->menu.top = gtk_menu_new();
-	gtk_widget_ref(fv->menu.top);
-
-	gnome_app_fill_menu (GTK_MENU_SHELL(fv->menu.top), an_file_view_menu_uiinfo,
-			     NULL, FALSE, 0);
-
-	for (i=0; i < sizeof(an_file_view_menu_uiinfo)/sizeof(an_file_view_menu_uiinfo[0])
-	  ; ++i)
-		gtk_widget_ref(an_file_view_menu_uiinfo[i].widget);
-	for (i=0; i < sizeof(an_file_view_cvs_uiinfo)/sizeof(an_file_view_cvs_uiinfo[0])
-	  ; ++i)
-		gtk_widget_ref(an_file_view_cvs_uiinfo[i].widget);
-
-	fv->menu.open = an_file_view_menu_uiinfo[0].widget;
-	fv->menu.view = an_file_view_menu_uiinfo[1].widget;
-	fv->menu.cvs.top = an_file_view_menu_uiinfo[2].widget;
-	fv->menu.cvs.update = an_file_view_cvs_uiinfo[0].widget;
-	fv->menu.cvs.commit = an_file_view_cvs_uiinfo[1].widget;
-	fv->menu.cvs.status = an_file_view_cvs_uiinfo[2].widget;
-	fv->menu.cvs.log = an_file_view_cvs_uiinfo[3].widget;
-	fv->menu.cvs.add = an_file_view_cvs_uiinfo[4].widget;
-	fv->menu.cvs.remove = an_file_view_cvs_uiinfo[5].widget;
-	fv->menu.cvs.diff = an_file_view_cvs_uiinfo[6].widget;
-	fv->menu.refresh = an_file_view_menu_uiinfo[3].widget;
-	fv->menu.docked = an_file_view_menu_uiinfo[5].widget;
-	fv->menu.customize = an_file_view_menu_uiinfo[6].widget;
-
-	gtk_widget_show_all(fv->menu.top);
-}
-
-#endif
 
 static void
 on_treeview_row_activated (GtkTreeView *view,
@@ -446,27 +227,12 @@ on_tree_view_event  (GtkWidget *widget,
 			popup = gtk_ui_manager_get_widget (GTK_UI_MANAGER (fv->ui),
 											   "/PopupFileManager");
 			g_return_val_if_fail (GTK_IS_WIDGET (popup), TRUE);
-#if 0
-			gboolean has_cvs_entry = (version && strlen(version) > 0);
-
-			GTK_CHECK_MENU_ITEM (fv->menu.docked)->active = app->project_dbase->is_docked;
-
-			gtk_widget_set_sensitive (fv->menu.cvs.top,    app->project_dbase->has_cvs);
-			gtk_widget_set_sensitive (fv->menu.cvs.update, has_cvs_entry);
-			gtk_widget_set_sensitive (fv->menu.cvs.commit, has_cvs_entry);
-			gtk_widget_set_sensitive (fv->menu.cvs.status, has_cvs_entry);
-			gtk_widget_set_sensitive (fv->menu.cvs.log,    has_cvs_entry);
-			gtk_widget_set_sensitive (fv->menu.cvs.add,   !has_cvs_entry);
-			gtk_widget_set_sensitive (fv->menu.cvs.remove, has_cvs_entry);
-			gtk_widget_set_sensitive (fv->menu.cvs.diff,   has_cvs_entry);
-#endif
 			gtk_menu_popup (GTK_MENU (popup),
 					NULL, NULL, NULL, NULL,
 					((GdkEventButton *) event)->button,
 					((GdkEventButton *) event)->time);
 		}
 	} else if (event->type == GDK_KEY_PRESS) {
-		GtkTreePath *path;
 		GdkEventKey *e = (GdkEventKey *) event;
 
 		switch (e->keyval) {
@@ -477,24 +243,6 @@ on_tree_view_event  (GtkWidget *widget,
 					if (path && !g_file_test (path, G_FILE_TEST_IS_DIR))
 						anjuta_fv_open_file (fv, path);
 					g_free (path);
-					return TRUE;
-				}
-			case GDK_Left:
-				if (gtk_tree_model_iter_has_child (model, &iter))
-				{
-					path = gtk_tree_model_get_path (model, &iter);
-					gtk_tree_view_collapse_row (GTK_TREE_VIEW (fv->tree),
-												path);
-					gtk_tree_path_free (path);
-					return TRUE;
-				}
-			case GDK_Right:
-				if (gtk_tree_model_iter_has_child (model, &iter))
-				{
-					path = gtk_tree_model_get_path (model, &iter);
-					gtk_tree_view_expand_row (GTK_TREE_VIEW (fv->tree),
-											  path, FALSE);
-					gtk_tree_path_free (path);
 					return TRUE;
 				}
 			default:
@@ -627,7 +375,6 @@ fv_add_tree_entry (FileManagerPlugin *fv, const gchar *path, GtkTreeIter *root)
 				*/
 				pixbuf = gdl_icons_get_mime_icon (icon_set,
 											"application/directory-normal");
-				// pixbuf = anjuta_res_get_pixbuf (ANJUTA_PIXMAP_CLOSED_FOLDER);
 				gtk_tree_store_append (store, &iter, root);
 				gtk_tree_store_set (store, &iter,
 							PIXBUF_COLUMN, pixbuf,
@@ -935,7 +682,6 @@ fv_init (FileManagerPlugin *fv)
 	gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
 	gtk_tree_view_append_column (GTK_TREE_VIEW (fv->tree), column);
 
-	// fv_create_context_menu ();
 	g_object_ref (G_OBJECT (fv->tree));
 	g_object_ref (G_OBJECT (fv->scrolledwindow));
 }
@@ -948,8 +694,8 @@ fv_finalize (FileManagerPlugin *fv)
 	g_object_unref (G_OBJECT (fv->tree));
 	g_object_unref (G_OBJECT (fv->scrolledwindow));
 	
-	// Object will be destroyed when removed from container */
-	// gtk_widget_destroy (fv->scrolledwindow);
+	/* Object will be destroyed when removed from container */
+	/* gtk_widget_destroy (fv->scrolledwindow); */
 	fv->top_dir = NULL;
 	fv->tree = NULL;
 	fv->scrolledwindow = NULL;
@@ -1041,10 +787,6 @@ fv_refresh (FileManagerPlugin *fv)
 		return;
 	else
 		busy = TRUE;
-
-	// anjuta_status (_("Refreshing file view ..."));
-	// while (gtk_events_pending())
-	//	gtk_main_iteration();
 	
 	if (icon_set == NULL)
 		icon_set = gdl_icons_new (16);
@@ -1089,7 +831,6 @@ fv_refresh (FileManagerPlugin *fv)
 										  GTK_TREE_SORTABLE_DEFAULT_SORT_COLUMN_ID,
 										  GTK_SORT_ASCENDING);
 
-// clean_leave:
 	if (selected_items)
 		anjuta_util_glist_strings_free (selected_items);
 	fv_connect (fv);
