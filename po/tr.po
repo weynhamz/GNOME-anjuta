@@ -7,17 +7,16 @@ msgstr ""
 "Project-Id-Version: anjuta 0.1.8\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2003-12-28 21:33+0000\n"
-"PO-Revision-Date: 2001-03-29 09:41+0200\n"
+"PO-Revision-Date: 2003-12-29 10:57+0000\n"
 "Last-Translator: M.Ali Vardar <ali@linuxprogramlama.com>\n"
 "Language-Team: Turkish <gnome-turk@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: 8bit"
 
 #: anjuta.desktop.in.in.h:1
-#, fuzzy
 msgid "Anjuta IDE"
-msgstr "Anjuta C/C++ IDE"
+msgstr "Anjuta IDE"
 
 #: anjuta.desktop.in.in.h:2 src/about.c:96 src/main.c:171
 msgid "Integrated Development Environment"
@@ -54,7 +53,6 @@ msgid "*\\.*"
 msgstr ""
 
 #: anjuta.glade.h:8
-#, fuzzy
 msgid "<: Enter Here"
 msgstr "<: Buradan girin"
 
@@ -67,9 +65,8 @@ msgid "Add page header"
 msgstr ""
 
 #: anjuta.glade.h:11
-#, fuzzy
 msgid "Additional"
-msgstr "İlave betik (script)"
+msgstr "Ek"
 
 #: anjuta.glade.h:12
 msgid "Additional Libraries (LDADD):"
@@ -80,36 +77,32 @@ msgid "Additional Options"
 msgstr "İlave Ayarlar"
 
 #: anjuta.glade.h:14
-#, fuzzy
 msgid "Additional build options:"
-msgstr "İlave Ayarlar"
+msgstr "Ek derleme seçenekleri:"
 
 #: anjuta.glade.h:15
 msgid "Always save in UTF-8 encoding (faster)"
 msgstr ""
 
 #: anjuta.glade.h:16
-#, fuzzy
 msgid "Anjuta help search"
-msgstr "Anjuta Ana sitesi"
+msgstr "Anjuta yardım araması"
 
 #: anjuta.glade.h:17
 msgid "Anjuta start with dialog"
 msgstr ""
 
 #: anjuta.glade.h:18
-#, fuzzy
 msgid "Append messages"
-msgstr "Mesajları ara"
+msgstr ""
 
 #: anjuta.glade.h:19 src/appwizard_gui.c:76 src/appwizard_gui.c:90
 msgid "Application Wizard"
 msgstr "Uygulama Sihirbazı "
 
 #: anjuta.glade.h:20
-#, fuzzy
 msgid "Arrows"
-msgstr "Hatalar:"
+msgstr "Oklar"
 
 #: anjuta.glade.h:21
 msgid "Ask for parameters at run-time"
@@ -120,23 +113,20 @@ msgid "Attach to process"
 msgstr "İşlem bağla"
 
 #: anjuta.glade.h:23
-#, fuzzy
 msgid "Attributes:"
-msgstr "Özellik:"
+msgstr "Öznitelikler:"
 
 #: anjuta.glade.h:24
 msgid "Autocomplete XML/HTML closing tags"
 msgstr ""
 
 #: anjuta.glade.h:25
-#, fuzzy
 msgid "Autocompletion"
 msgstr "Otomatik tamamlama"
 
 #: anjuta.glade.h:26
-#, fuzzy
 msgid "Autocompletion pop up choices"
-msgstr "Kelimeyi Otomatik Tamamla"
+msgstr ""
 
 #: anjuta.glade.h:27
 #, fuzzy
@@ -144,9 +134,8 @@ msgid "Automatically load last Project"
 msgstr "Kodları Otomatik formatla"
 
 #: anjuta.glade.h:28
-#, fuzzy
 msgid "Autosave"
-msgstr "Otokayıt \"%s\""
+msgstr "Otomatik kayıt"
 
 #: anjuta.glade.h:29
 #, fuzzy
@@ -170,9 +159,8 @@ msgid "Bold"
 msgstr "Kalın"
 
 #: anjuta.glade.h:34 src/anjuta_gui.c:142
-#, fuzzy
 msgid "Bookmark"
-msgstr "Bookmar_k"
+msgstr "Yer imleri"
 
 #: anjuta.glade.h:35
 msgid "Bottom"
@@ -206,9 +194,8 @@ msgid "Build files"
 msgstr "Dosyaları yapılandır"
 
 #: anjuta.glade.h:42
-#, fuzzy
 msgid "Build options"
-msgstr "Dosyaları yapılandır"
+msgstr "Derleme seçenekleri"
 
 #: anjuta.glade.h:43
 msgid "Build symbol browser automatically"
@@ -244,9 +231,8 @@ msgid "CVS update and prune directories [-dP]"
 msgstr ""
 
 #: anjuta.glade.h:51
-#, fuzzy
 msgid "C_ompile:"
-msgstr "Derleme"
+msgstr "D_erle:"
 
 #: anjuta.glade.h:52
 #, fuzzy
@@ -263,43 +249,36 @@ msgid "Caret blink period in milli-seconds"
 msgstr ""
 
 #: anjuta.glade.h:55
-#, fuzzy
 msgid "Case insensitive"
-msgstr "Büyüklük/Küçüklük Hassasiyeti"
+msgstr "Büyük/küçük harfe duyarsız"
 
 #: anjuta.glade.h:56
-#, fuzzy
 msgid "Case sensitive"
-msgstr "Büyüklük/Küçüklük Hassasiyeti"
+msgstr "Büyük/küçük harfe duyarlı"
 
 #: anjuta.glade.h:57
-#, fuzzy
 msgid "Choose Directories:"
-msgstr " Dizinler "
+msgstr "Dizinleri Seçin:"
 
 #: anjuta.glade.h:58
-#, fuzzy
 msgid "Choose Files:"
-msgstr "_Dosya Kapat"
+msgstr "_Dosyaları Seçin:"
 
 #: anjuta.glade.h:59
 msgid "Choose autocomplete for single match"
 msgstr ""
 
 #: anjuta.glade.h:60
-#, fuzzy
 msgid "Choose directories"
-msgstr " Dizinler "
+msgstr "Dizinleri seçin"
 
 #: anjuta.glade.h:61
-#, fuzzy
 msgid "Choose files"
-msgstr "Bütün dosyaları kapat"
+msgstr "Dosyaları seçin"
 
 #: anjuta.glade.h:62
-#, fuzzy
 msgid "Circular"
-msgstr "Temizle"
+msgstr ""
 
 #: anjuta.glade.h:63
 #, fuzzy
@@ -312,9 +291,8 @@ msgid "Collapse all code folds on file open"
 msgstr "Dosya açılınca tüm klasörleri toplar"
 
 #: anjuta.glade.h:65
-#, fuzzy
 msgid "Colour"
-msgstr "Renkler"
+msgstr "Renk"
 
 #: anjuta.glade.h:66
 msgid "Column at edge indicator"
@@ -325,66 +303,56 @@ msgid "Combo Popdown:"
 msgstr "Aşağı açılır kutu:"
 
 #: anjuta.glade.h:68
-#, fuzzy
 msgid "Command Line Parameters"
-msgstr "Komut argümanları"
+msgstr "Komut Satırı Parametreleri"
 
 #: anjuta.glade.h:69
-#, fuzzy
 msgid "Command line parameters"
-msgstr "Komut argümanları"
+msgstr "Komut satırı parametreleri"
 
 #: anjuta.glade.h:70
-#, fuzzy
 msgid "Command:"
-msgstr "Komut"
+msgstr "Komut:"
 
 #: anjuta.glade.h:71
 msgid "Commands"
 msgstr "Komutlar"
 
 #: anjuta.glade.h:72
-#, fuzzy
 msgid "Common commands:"
-msgstr "Komutlar"
+msgstr "Temel komutlar:"
 
 #: anjuta.glade.h:73
 msgid "Compact folding"
 msgstr ""
 
 #: anjuta.glade.h:74
-#, fuzzy
 msgid "Compiler"
-msgstr "Derleme"
+msgstr "Derleyici"
 
 #: anjuta.glade.h:75
 msgid "Compiler Flags (CFLAGS):"
 msgstr ""
 
 #: anjuta.glade.h:76
-#, fuzzy
 msgid "Compiler and linker options"
-msgstr "Derleyici ve bağlama(link) ayarları..."
+msgstr "Derleyici ve bağlayıcı seçenekleri"
 
 #: anjuta.glade.h:77
-#, fuzzy
 msgid "Configuration"
-msgstr "Konfigürasyon Seçenekleri"
+msgstr "Yapılandırma"
 
 #: anjuta.glade.h:78
-#, fuzzy
 msgid "Configuration script segments"
-msgstr "Kurulum betikleri"
+msgstr ""
 
 #: anjuta.glade.h:79
-#, fuzzy
 msgid "Configure Parameters"
-msgstr "Proje Konfigürasyonu"
+msgstr "Parametreleri Yapılandır"
 
 #: anjuta.glade.h:80
-#, fuzzy
 msgid "Costom style"
-msgstr "Genel stil"
+msgstr "Özel stil"
 
 #: anjuta.glade.h:81
 msgid "Crazy boy style"
@@ -423,21 +391,18 @@ msgid "Defines"
 msgstr "Tanımlamalar"
 
 #: anjuta.glade.h:89
-#, fuzzy
 msgid "Delete Theme"
-msgstr "Dosya Sil"
+msgstr "Temayı Sil"
 
 #: anjuta.glade.h:90
-#, fuzzy
 msgid "Diagonal"
-msgstr "Sinyal"
+msgstr "Diyagonal"
 
 #: anjuta.glade.h:91
 msgid "Dialog on job complete"
 msgstr "İş bitince mesaj çıkar"
 
 #: anjuta.glade.h:92
-#, fuzzy
 msgid "Direction"
 msgstr "Yön"
 
@@ -446,9 +411,8 @@ msgid "Directories"
 msgstr "Dizinler"
 
 #: anjuta.glade.h:94
-#, fuzzy
 msgid "Directory filter"
-msgstr "Dizin:"
+msgstr "Dizin filtresi"
 
 #: anjuta.glade.h:95
 #, fuzzy
@@ -456,9 +420,8 @@ msgid "Disable auto-format"
 msgstr "Otomatik biçim iptal"
 
 #: anjuta.glade.h:96
-#, fuzzy
 msgid "Disable overwriting files"
-msgstr "Proje dosyalarının üzerine yazmayı kapat"
+msgstr "Dosyaların üzerine yazma"
 
 #: anjuta.glade.h:97
 msgid "Disable syntax highlighting"
@@ -469,23 +432,20 @@ msgid "Display process _tree"
 msgstr ""
 
 #: anjuta.glade.h:99
-#, fuzzy
 msgid "Do not show hidden directories"
-msgstr "Gizli dosya veya dizinleri göster"
+msgstr "Gizli dosyaları gösterme"
 
 #: anjuta.glade.h:100
-#, fuzzy
 msgid "Do not show hidden files"
-msgstr "Detfer etiket başlıklarını gösterme"
+msgstr "Gizli dosyaları gösterme"
 
 #: anjuta.glade.h:101
 msgid "Do not show start with dialog again."
 msgstr ""
 
 #: anjuta.glade.h:102
-#, fuzzy
 msgid "Do not show tabs"
-msgstr "Açılışta bekletme ekranını gösterme"
+msgstr "Sekmeleri gösterme"
 
 #: anjuta.glade.h:103
 #, fuzzy
@@ -505,9 +465,8 @@ msgid "Editor caret (cursor) width in pixels"
 msgstr ""
 
 #: anjuta.glade.h:107
-#, fuzzy
 msgid "Editor tabs"
-msgstr "İlave Ayarlar"
+msgstr "Düzenleyici sekmeleri"
 
 #: anjuta.glade.h:108
 msgid "Enable Debugging"
@@ -522,14 +481,12 @@ msgid "Enable Profiling"
 msgstr "Profil Aktif"
 
 #: anjuta.glade.h:111
-#, fuzzy
 msgid "Enable _all"
-msgstr "Hepsini Aktifleştir"
+msgstr "Hepsini _etkinleştir"
 
 #: anjuta.glade.h:112
-#, fuzzy
 msgid "Enable automatic indentation"
-msgstr "Otomatik girinti aktif"
+msgstr "Otomatik girintiyi ektinleştir"
 
 #: anjuta.glade.h:113
 msgid "Enable automatic messages indicators"
@@ -540,9 +497,8 @@ msgid "Enable braces check"
 msgstr "Destek kontrolu aktif"
 
 #: anjuta.glade.h:115
-#, fuzzy
 msgid "Enable code folding"
-msgstr "Profil Aktif"
+msgstr ""
 
 #: anjuta.glade.h:116
 #, fuzzy
@@ -600,14 +556,12 @@ msgid "Error message indicator style:"
 msgstr ""
 
 #: anjuta.glade.h:128
-#, fuzzy
 msgid "Errors messages:"
-msgstr "Program mesajları:"
+msgstr "Hata mesajları:"
 
 #: anjuta.glade.h:129
-#, fuzzy
 msgid "Execute Program"
-msgstr "Program çalıştırır"
+msgstr "Program Çalıştır"
 
 #: anjuta.glade.h:130
 msgid "Expand regex back references"
@@ -619,9 +573,8 @@ msgid "File"
 msgstr "Dosya"
 
 #: anjuta.glade.h:132
-#, fuzzy
 msgid "File Filter"
-msgstr "Derleme Dosyası:"
+msgstr "Dosya Filtresi"
 
 #: anjuta.glade.h:133
 #, fuzzy
@@ -1707,44 +1660,36 @@ msgid "_Image editor:"
 msgstr "Resim editörü:"
 
 #: anjuta.glade.h:366
-#, fuzzy
 msgid "_Language:"
-msgstr "Dil:       "
+msgstr "_Dil:"
 
 #: anjuta.glade.h:367
-#, fuzzy
 msgid "_Location:"
-msgstr "Konum : "
+msgstr "_Konum:"
 
 #: anjuta.glade.h:368
-#, fuzzy
 msgid "_Make a file:"
-msgstr "Make File"
+msgstr "_Bir dosya oluştur:"
 
 #: anjuta.glade.h:369
-#, fuzzy
 msgid "_Pass:"
-msgstr "Geçiş:"
+msgstr "_Geçiş:"
 
 #: anjuta.glade.h:370
-#, fuzzy
 msgid "_Pixmap editor:"
-msgstr "Pixmap editörü:"
+msgstr "_Resim düzenleyici:"
 
 #: anjuta.glade.h:371
-#, fuzzy
 msgid "_Process to attach to:"
-msgstr "Eklenecek işlemi Seçiniz :"
+msgstr ""
 
 #: anjuta.glade.h:372
-#, fuzzy
 msgid "_Remove all"
-msgstr "Çıkart"
+msgstr "_Hepsini sil"
 
 #: anjuta.glade.h:373
-#, fuzzy
 msgid "_Save Theme As"
-msgstr "Dosyayı Farklı Kaydet"
+msgstr "_Temayı Farklı Kaydet"
 
 #: anjuta.glade.h:374
 #, fuzzy
@@ -1777,7 +1722,7 @@ msgstr "Blok/Satır girintisini artır"
 
 #: gdl/gdl-dock-item.c:258
 msgid "Resizable"
-msgstr ""
+msgstr "Yeniden boyutlandırılabilir"
 
 #: gdl/gdl-dock-item.c:259
 msgid "If set, the dock item can be resized when docked in a paned"
@@ -1802,9 +1747,8 @@ msgid "Size in pixels of the grip to drag the dock item"
 msgstr ""
 
 #: gdl/gdl-dock-item.c:282 gdl/gdl-dock-master.c:143
-#, fuzzy
 msgid "Locked"
-msgstr "Gömülü"
+msgstr "Kilitli"
 
 #: gdl/gdl-dock-item.c:283
 msgid ""
@@ -3418,67 +3362,60 @@ msgid "You do not need to login to a local server"
 msgstr ""
 
 #: src/cvs_gui.c:30
-#, fuzzy
 msgid "Local"
 msgstr "Yerel"
 
 #: src/cvs_gui.c:30
-#, fuzzy
 msgid "Password"
-msgstr "Geçiş"
+msgstr "Parola"
 
 #: src/cvs_gui.c:30
 msgid "Extern(rsh)"
 msgstr ""
 
 #: src/cvs_gui.c:30
-#, fuzzy
 msgid "Server"
-msgstr "Üstüne adımla"
+msgstr "Sunucu"
 
 #: src/cvs_gui.c:72
-#, fuzzy
 msgid "CVS: Update"
-msgstr "Güncelleme"
+msgstr "CVS: Güncelle"
 
 #: src/cvs_gui.c:76
 msgid "CVS: Commit"
-msgstr ""
+msgstr "CVS: Gönder"
 
 #: src/cvs_gui.c:77
-#, fuzzy
 msgid "Commit"
-msgstr "Comment:"
+msgstr "Gönder"
 
 #: src/cvs_gui.c:80
 msgid "CVS: Status"
-msgstr ""
+msgstr "CVS: Durum"
 
 #: src/cvs_gui.c:81
-#, fuzzy
 msgid "Show status"
-msgstr "Yerelleri Göster"
+msgstr "Durumu göster"
 
 #: src/cvs_gui.c:84
 msgid "CVS: Log"
-msgstr ""
+msgstr "CVS: Günlük"
 
 #: src/cvs_gui.c:85
 msgid "Show log"
-msgstr ""
+msgstr "Günlüğü göster"
 
 #: src/cvs_gui.c:88
 msgid "CVS: Add file"
-msgstr ""
+msgstr "CVS: Dosya ekle"
 
 #: src/cvs_gui.c:89
 msgid "Add"
 msgstr "Ekle"
 
 #: src/cvs_gui.c:92
-#, fuzzy
 msgid "CVS: Remove file"
-msgstr "Dosya adı değiştir"
+msgstr "CVS: Dosyayı sil"
 
 #. 3
 #: src/cvs_gui.c:93 src/project_dbase_gui.c:340 src/watch_gui.c:43
@@ -3493,32 +3430,28 @@ msgid ""
 msgstr ""
 
 #: src/cvs_gui.c:120 src/cvs_gui.c:238
-#, fuzzy
 msgid "File: "
-msgstr "Dosya:"
+msgstr "Dosya: "
 
 #: src/cvs_gui.c:122
 msgid "Branch: "
-msgstr ""
+msgstr "Branş: "
 
 #: src/cvs_gui.c:124 src/cvs_gui.c:291
-#, fuzzy
 msgid "Revision: "
-msgstr "Sürüm:"
+msgstr "Revizyon: "
 
 #: src/cvs_gui.c:125 src/cvs_gui.c:470
-#, fuzzy
 msgid "Log message: "
-msgstr "Program mesajları:"
+msgstr "Günlük mesajı: "
 
 #: src/cvs_gui.c:128 src/cvs_gui.c:241
-#, fuzzy
 msgid "Select file"
-msgstr "Dosya Sil"
+msgstr "Dosya seç"
 
 #: src/cvs_gui.c:225
 msgid "CVS: Diff file"
-msgstr ""
+msgstr "CVS: Dosya farkı"
 
 #. 17
 #: src/cvs_gui.c:229 src/main_menubar_def.h:1119
@@ -3527,52 +3460,47 @@ msgstr "Diff"
 
 #: src/cvs_gui.c:265
 msgid "Date: "
-msgstr ""
+msgstr "Tarih: "
 
 #: src/cvs_gui.c:333
 msgid "CVS Login"
-msgstr ""
+msgstr "CVS Giriş"
 
 #: src/cvs_gui.c:337
-#, fuzzy
 msgid "Login"
-msgstr "Çizgi"
+msgstr "Giriş"
 
 #: src/cvs_gui.c:347 src/cvs_gui.c:440
 msgid "Server type: "
-msgstr ""
+msgstr "Sunucu türü: "
 
 #: src/cvs_gui.c:348 src/cvs_gui.c:443
-#, fuzzy
 msgid "Username: "
-msgstr "Şu anki Kullanıcı Adı"
+msgstr "Kullanıcı adı:"
 
 #: src/cvs_gui.c:349 src/cvs_gui.c:441
 msgid "Server: "
-msgstr ""
+msgstr "Sunucu: "
 
 #: src/cvs_gui.c:350
-#, fuzzy
 msgid "Directory on the server: "
-msgstr "Dizin:"
+msgstr "Sunucudaki dizin:"
 
 #: src/cvs_gui.c:427
-#, fuzzy
 msgid "CVS: Import Project"
-msgstr "Proje _Uyarla ..."
+msgstr "CVS: Projeyi Al"
 
 #: src/cvs_gui.c:431
-#, fuzzy
 msgid "Import"
-msgstr "Dosya Ekle"
+msgstr "Al"
 
 #: src/cvs_gui.c:442
 msgid "Dir on the server: "
-msgstr ""
+msgstr "Sunucudaki dizin: "
 
 #: src/cvs_gui.c:467
 msgid "Module name: "
-msgstr ""
+msgstr "Modül adı: "
 
 #: src/cvs_gui.c:468
 #, fuzzy
@@ -3584,9 +3512,8 @@ msgid "Vendor tag: "
 msgstr ""
 
 #: src/cvs_gui.c:525
-#, fuzzy
 msgid "Server settings"
-msgstr "Ayarlar"
+msgstr "Sunucu ayarları"
 
 #: src/cvs_gui.c:529
 #, fuzzy
@@ -3605,11 +3532,11 @@ msgstr "Otoformat"
 
 #: src/debug_tree.c:1508
 msgid "Binary"
-msgstr ""
+msgstr "İkili"
 
 #: src/debug_tree.c:1511
 msgid "Octal"
-msgstr ""
+msgstr "Sekizli"
 
 #: src/debug_tree.c:1514
 msgid "Signed decimal"
@@ -3802,12 +3729,12 @@ msgstr "İşlem sinyal verirken bazı hatalar oluştu."
 #: src/dnd.c:104
 #, c-format
 msgid "File %s is not local."
-msgstr ""
+msgstr "%s dosyası yerelde değil."
 
 #: src/dnd.c:112
 #, c-format
 msgid "Invalid filename %s."
-msgstr ""
+msgstr "Geçersiz dosya adı: %s."
 
 #: src/executer.c:53 src/mainmenu_callbacks.c:1218
 msgid "The target executable of this Project is unknown"
@@ -4507,7 +4434,7 @@ msgstr "İleri"
 #. 2
 #: src/main_menubar_def.h:441
 msgid "Find Previous"
-msgstr ""
+msgstr "Öncekini Bul"
 
 #: src/main_menubar_def.h:442
 #, fuzzy
@@ -4611,24 +4538,21 @@ msgstr "Bir sonraki mesaja git"
 
 #. 6
 #: src/main_menubar_def.h:519
-#, fuzzy
 msgid "_Go Back"
-msgstr "Geri"
+msgstr "Geri _Git"
 
 #: src/main_menubar_def.h:520
 msgid "Go back"
-msgstr ""
+msgstr "Geri git"
 
 #. 7
 #: src/main_menubar_def.h:525
-#, fuzzy
 msgid "_Go Forward"
-msgstr "İleri"
+msgstr "İler_i Git"
 
 #: src/main_menubar_def.h:526
-#, fuzzy
 msgid "Go forward"
-msgstr "İleri"
+msgstr "İleri git"
 
 #. 8
 #: src/main_menubar_def.h:531 src/text_editor_menu.c:93
@@ -4636,9 +4560,8 @@ msgid "Tag Definition"
 msgstr "Etiket Tanımı"
 
 #: src/main_menubar_def.h:532
-#, fuzzy
 msgid "Goto tag definition"
-msgstr "Tanımlamaya Git"
+msgstr ""
 
 #. 9
 #: src/main_menubar_def.h:537 src/text_editor_menu.c:100
@@ -4653,7 +4576,7 @@ msgstr "Bildirime Git"
 #. 10
 #: src/main_menubar_def.h:543
 msgid "Next occurrence"
-msgstr ""
+msgstr "Sonrakini bul"
 
 #: src/main_menubar_def.h:544
 msgid "Find the next occurrence of current word"
@@ -4662,7 +4585,7 @@ msgstr ""
 #. 11
 #: src/main_menubar_def.h:549
 msgid "Previous occurrence"
-msgstr ""
+msgstr "Öncekini bul"
 
 #: src/main_menubar_def.h:550
 msgid "Find the previous occurrence of current word"
@@ -4980,9 +4903,8 @@ msgstr "Yazı boyutunu 1 birim küçült"
 
 #. 0
 #: src/main_menubar_def.h:822
-#, fuzzy
 msgid "_Message window"
-msgstr "_Mesajlar"
+msgstr "_Mesaj penceresi"
 
 #: src/main_menubar_def.h:823 src/toolbar.c:155
 msgid "Show/Hide the Message window"
@@ -4990,9 +4912,8 @@ msgstr "Mesaj penceresini Göster/Sakla"
 
 #. 1
 #: src/main_menubar_def.h:828
-#, fuzzy
 msgid "_Project window"
-msgstr "Proje Bilgisi"
+msgstr "Proje _penceresi"
 
 #: src/main_menubar_def.h:829 src/toolbar.c:151
 msgid "Show/Hide the Project window"
@@ -5106,15 +5027,13 @@ msgstr "Döküman dosyası"
 
 #. 0
 #: src/main_menubar_def.h:942 src/project_dbase_gui.c:322
-#, fuzzy
 msgid "Add File"
-msgstr "Dosya"
+msgstr "Dosya Ekle"
 
 #. 3
 #: src/main_menubar_def.h:960
-#, fuzzy
 msgid "Remove File"
-msgstr "Dosya adı değiştir"
+msgstr "Dosyayı Sil"
 
 #. 4
 #. 5
@@ -5123,9 +5042,8 @@ msgid "Configure Project"
 msgstr "Proje Konfigürasyonu"
 
 #: src/main_menubar_def.h:968
-#, fuzzy
 msgid "Configure options for the current Project"
-msgstr "Şu anki Projeyi Kapat"
+msgstr "Şimdiki projenin seçeneklerini yapılandır"
 
 #. 6
 #: src/main_menubar_def.h:973 src/project_dbase_gui.c:353
@@ -5133,9 +5051,8 @@ msgid "Project Info"
 msgstr "Proje Bilgisi"
 
 #: src/main_menubar_def.h:974
-#, fuzzy
 msgid "Display the Project information"
-msgstr "Aktif çerçeve bilgisini göster"
+msgstr "Proje bilgisini görüntüle"
 
 #. 9
 #. 10
@@ -5383,7 +5300,7 @@ msgstr "Yazı renklendirme tarzını Baan olarak düzenle"
 #. 24
 #: src/main_menubar_def.h:1161
 msgid "Lisp"
-msgstr ""
+msgstr "Lisp"
 
 #: src/main_menubar_def.h:1162
 #, fuzzy
@@ -5393,7 +5310,7 @@ msgstr "Yazı renklendirme tarzını SQL olarak düzenle"
 #. 25
 #: src/main_menubar_def.h:1167
 msgid "Ruby"
-msgstr ""
+msgstr "Ruby"
 
 #: src/main_menubar_def.h:1168
 #, fuzzy
@@ -5402,9 +5319,8 @@ msgstr "Yazı renklendirme tarzını SQL olarak düzenle"
 
 #. 26
 #: src/main_menubar_def.h:1173
-#, fuzzy
 msgid "Matlab"
-msgstr "Catalan"
+msgstr "Matlab"
 
 #: src/main_menubar_def.h:1174
 #, fuzzy
@@ -5998,18 +5914,17 @@ msgstr "Derleme Dosyası:"
 #. 2
 #: src/main_menubar_def.h:1625
 msgid "S_tatus of file"
-msgstr ""
+msgstr "_Dosyanın durumu"
 
 #. 3
 #: src/main_menubar_def.h:1632
 msgid "G_et file log"
-msgstr ""
+msgstr "Dosya günlüğünü _al"
 
 #. 4
 #: src/main_menubar_def.h:1639
-#, fuzzy
 msgid "_Add file"
-msgstr "Yeni Ekle"
+msgstr "D_osya ekle"
 
 #. 5
 #: src/main_menubar_def.h:1646
@@ -6025,9 +5940,8 @@ msgstr "Döküman dosyası"
 
 #. 8
 #: src/main_menubar_def.h:1661
-#, fuzzy
 msgid "_Update Project"
-msgstr "Proje Aç"
+msgstr "Projeyi _Güncelle"
 
 #: src/main_menubar_def.h:1662
 #, fuzzy
@@ -6036,9 +5950,8 @@ msgstr "Proje konfigürasyonunu düzenle"
 
 #. 9
 #: src/main_menubar_def.h:1668
-#, fuzzy
 msgid "_Commit Project"
-msgstr "Projeyi Kapat"
+msgstr "Projeyi _Gönder"
 
 #: src/main_menubar_def.h:1669
 msgid "Commit local changes to the repository"
@@ -6046,9 +5959,8 @@ msgstr ""
 
 #. 10
 #: src/main_menubar_def.h:1675
-#, fuzzy
 msgid "_Import Project"
-msgstr "Proje _Uyarla ..."
+msgstr "Projeyi _Al..."
 
 #: src/main_menubar_def.h:1676
 msgid "Import Project as a new module in the repository"
@@ -6056,20 +5968,17 @@ msgstr ""
 
 #. 11
 #: src/main_menubar_def.h:1682
-#, fuzzy
 msgid "_Status of Project"
-msgstr "Projeyi Kaydet"
+msgstr "Proje _Durumu"
 
 #: src/main_menubar_def.h:1683
-#, fuzzy
 msgid "Print the status of the Project"
-msgstr "Proje konfigürasyonunu düzenle"
+msgstr "Proje durumunu yazdır"
 
 #. 12
 #: src/main_menubar_def.h:1689
-#, fuzzy
 msgid "Get Project _log"
-msgstr "Önceki Projeler"
+msgstr "Proje _günlüğünü al"
 
 #: src/main_menubar_def.h:1690
 #, fuzzy
@@ -6090,11 +5999,11 @@ msgstr ""
 #. 15
 #: src/main_menubar_def.h:1704
 msgid "_Login"
-msgstr ""
+msgstr "_Giriş"
 
 #: src/main_menubar_def.h:1705
 msgid "Login to a CVS server"
-msgstr ""
+msgstr "Bir CVS sunucusuna giriş"
 
 #. 0
 #: src/main_menubar_def.h:1716
@@ -6116,9 +6025,8 @@ msgstr "Arama yapmak için Anjutaya kaynak yollari belirt"
 
 #. 2
 #: src/main_menubar_def.h:1728
-#, fuzzy
 msgid "Co_mmands ..."
-msgstr "Komutlar ..."
+msgstr "Ko_mutlar..."
 
 #: src/main_menubar_def.h:1729
 msgid "Specify the various commands for use"
@@ -6137,7 +6045,7 @@ msgstr "Kahve çayı tercih edermisiniz ? Onu kontrol et."
 #. 5
 #: src/main_menubar_def.h:1741
 msgid "_Editor colors and fonts ..."
-msgstr ""
+msgstr "_Düzenleyici renkleri ve yazıtipleri..."
 
 #: src/main_menubar_def.h:1742
 #, fuzzy
@@ -6158,7 +6066,7 @@ msgstr "Dosyaları yapılandır"
 #. 7
 #: src/main_menubar_def.h:1753
 msgid "_Edit user.properties file ..."
-msgstr ""
+msgstr "_User.properties dosyasını düzenle..."
 
 #: src/main_menubar_def.h:1754
 msgid "Edit user properties file"
@@ -6176,7 +6084,7 @@ msgstr "Ama çayı tercih ederim"
 #. 9
 #: src/main_menubar_def.h:1765
 msgid "C_ustomize shortcuts"
-msgstr ""
+msgstr "Kıs_ayolları yapılandır"
 
 #: src/main_menubar_def.h:1766
 msgid "Customize shortcuts associated with menu items"
@@ -6214,42 +6122,36 @@ msgstr ""
 
 #. 0
 #: src/main_menubar_def.h:1795
-#, fuzzy
 msgid "Anjuta Manual"
-msgstr "Anjuta"
+msgstr "Anjuta Kılavuzu"
 
 #: src/main_menubar_def.h:1796
-#, fuzzy
 msgid "Anjuta IDE Manual"
-msgstr "Anjuta C/C++ IDE"
+msgstr "Anjuta IDE Kılavuzu"
 
 #. 1
 #: src/main_menubar_def.h:1801
-#, fuzzy
 msgid "Anjuta Tutorial"
-msgstr "Anjuta: Dosya yok"
+msgstr "Anjuta Kılavuzu"
 
 #: src/main_menubar_def.h:1802
 msgid "Anjuta IDE Tutorial"
-msgstr ""
+msgstr "Anjuta IDE Kılavuzu"
 
 #. 2
 #: src/main_menubar_def.h:1807
-#, fuzzy
 msgid "Anjuta Faqs"
-msgstr "Anjuta: %s"
+msgstr "Anjuta Sıkça Sorulan Sorular"
 
 #: src/main_menubar_def.h:1808
-#, fuzzy
 msgid "Anjuta IDE Faqs"
-msgstr "Anjuta C/C++ IDE"
+msgstr "Anjuta IDE Sıkça Sorulan Sorular"
 
 #. 3
 #. 4
 #: src/main_menubar_def.h:1814
-#, fuzzy
 msgid "Browse GNOME _API Pages"
-msgstr "GNOME API Sayfalarını Gez"
+msgstr ""
 
 #: src/main_menubar_def.h:1815
 msgid "The GNOME API pages"
@@ -6300,9 +6202,8 @@ msgstr "Yardım edebilirmiyim?"
 #. 10
 #. 11
 #: src/main_menubar_def.h:1846
-#, fuzzy
 msgid "Anjuta _Home Page"
-msgstr "Anjuta Ana Sayfa"
+msgstr "_Anjuta Ana Sayfa"
 
 #: src/main_menubar_def.h:1847
 msgid "Online documentation and resources"
@@ -6351,9 +6252,8 @@ msgstr "Anjuta için yama yolla"
 
 #. 17
 #: src/main_menubar_def.h:1877
-#, fuzzy
 msgid "Ask a _question"
-msgstr "Bir soru sor"
+msgstr "B_ir soru sor"
 
 #: src/main_menubar_def.h:1878
 msgid "Submit a question for FAQs"
@@ -6376,9 +6276,8 @@ msgid "_Debug"
 msgstr "Hata ayıklayıcı"
 
 #: src/main_menubar_def.h:1923
-#, fuzzy
 msgid "_CVS"
-msgstr "CVS"
+msgstr "_CVS"
 
 #: src/main_menubar_def.h:1929
 msgid "_Settings"
@@ -6402,7 +6301,7 @@ msgstr ""
 
 #: src/mainmenu_callbacks.c:182 src/project_dbase_gui.c:1126
 msgid "Do_n't save"
-msgstr ""
+msgstr "_Kaydetme"
 
 #: src/mainmenu_callbacks.c:239
 #, fuzzy, c-format
@@ -6414,9 +6313,8 @@ msgstr ""
 "Kaydetmediğiniz değişiklikleri kaybedeceksiniz."
 
 #: src/mainmenu_callbacks.c:249 src/text_editor.c:1356
-#, fuzzy
 msgid "_Reload"
-msgstr "Tekrar Yükle"
+msgstr "_Tekrar Yükle"
 
 #: src/mainmenu_callbacks.c:1250
 msgid "The executable is not up-to-date."
@@ -6449,29 +6347,24 @@ msgid "Find"
 msgstr "Ara"
 
 #: src/message-manager.cc:46
-#, fuzzy
 msgid "Terminal"
 msgstr "Terminal"
 
 #: src/message-manager.cc:47
-#, fuzzy
 msgid "Stdout"
-msgstr "Dışarı adımla"
+msgstr "Standart çıktı"
 
 #: src/message-manager.cc:48
-#, fuzzy
 msgid "Stderr"
-msgstr "Üstüne adımla"
+msgstr "Standart hata"
 
 #: src/message-manager.cc:50
-#, fuzzy
 msgid "Locals"
-msgstr "Yerel"
+msgstr "Yereller"
 
 #: src/message-manager.cc:51
-#, fuzzy
 msgid "Watches"
-msgstr "Gözcü"
+msgstr ""
 
 #: src/message-manager.cc:52
 msgid "Stack"
@@ -6489,7 +6382,7 @@ msgstr "Mesajlar"
 
 #: src/preferences-dialog.c:125
 msgid "Category"
-msgstr ""
+msgstr "Kategori"
 
 #: src/preferences-dialog.c:225
 #, fuzzy
@@ -6505,9 +6398,8 @@ msgstr ""
 "Varsayılan değerler yüklenecektir"
 
 #: src/preferences.c:698
-#, fuzzy
 msgid "_Reset"
-msgstr "Yazmaçlar"
+msgstr "_Sıfırla"
 
 #: src/preferences.c:1068
 #, c-format
@@ -6519,9 +6411,8 @@ msgid ""
 msgstr ""
 
 #: src/preferences.c:1198
-#, fuzzy
 msgid "Anjuta Preferences"
-msgstr "Ayarlar"
+msgstr "Anjuta Tercihleri"
 
 #. Must declare static, because it will be used forever
 #: src/project_dbase.c:204
@@ -6627,102 +6518,84 @@ msgid "There is already a Project open.Do you want to close it first?"
 msgstr "Proje şu an açık, Önce onu kapatmak istermisiniz ?"
 
 #: src/project_dbase_gui.c:169
-#, fuzzy
 msgid "Help files"
-msgstr "Yardım dosyaları:"
+msgstr "Yardım dosyaları"
 
 #: src/project_dbase_gui.c:178 widgets/gnomefilelist.c:717
-#, fuzzy
 msgid "C/C++ source files"
-msgstr "Kaynak dosyaları:"
+msgstr "C/C++ kaynak dosyaları"
 
 #: src/project_dbase_gui.c:179
-#, fuzzy
 msgid "Java source files"
-msgstr "Kaynak dosyaları:"
+msgstr "Java kaynak dosyaları"
 
 #: src/project_dbase_gui.c:180 widgets/gnomefilelist.c:724
-#, fuzzy
 msgid "Pascal files"
-msgstr "Veri dosyları:"
+msgstr "Pascal dosyaları"
 
 #: src/project_dbase_gui.c:181 widgets/gnomefilelist.c:726
-#, fuzzy
 msgid "PHP files"
-msgstr "Po dosyaları"
+msgstr "PHP dosyaları"
 
 #: src/project_dbase_gui.c:182 widgets/gnomefilelist.c:729
-#, fuzzy
 msgid "Perl files"
-msgstr "Yardım dosyaları:"
+msgstr "Perl dosyaları"
 
 #: src/project_dbase_gui.c:183 widgets/gnomefilelist.c:731
-#, fuzzy
 msgid "Python files"
-msgstr "Po dosyaları"
+msgstr "Python dosyaları"
 
 #: src/project_dbase_gui.c:184 widgets/gnomefilelist.c:736
-#, fuzzy
 msgid "Shell Script files"
-msgstr "Şu anki dosyayı kaydet"
+msgstr "Kabuk dosyaları"
 
 #: src/project_dbase_gui.c:185 widgets/gnomefilelist.c:741
 msgid "Visual Basic files"
-msgstr ""
+msgstr "Visual Basic dosyaları"
 
 #: src/project_dbase_gui.c:186 widgets/gnomefilelist.c:749
-#, fuzzy
 msgid ".lua files"
-msgstr "Dosyaları yapılandır"
+msgstr ".lua dosyaları"
 
 #: src/project_dbase_gui.c:195
-#, fuzzy
 msgid "PNG files"
-msgstr "Po dosyaları"
+msgstr "PNG dosyaları"
 
 #: src/project_dbase_gui.c:196
-#, fuzzy
 msgid "JPG files"
-msgstr "Po dosyaları"
+msgstr "JPG dosyaları"
 
 #: src/project_dbase_gui.c:197
-#, fuzzy
 msgid "BMP files"
-msgstr "Po dosyaları"
+msgstr "BMP dosyaları"
 
 #: src/project_dbase_gui.c:198
-#, fuzzy
 msgid "GIF files"
-msgstr "Dosyalar"
+msgstr "GIF dosyaları"
 
 #: src/project_dbase_gui.c:215
-#, fuzzy
 msgid "Text files"
-msgstr "Yeni Text Dosyası"
+msgstr "Metin dosyaları"
 
 #: src/project_dbase_gui.c:216
-#, fuzzy
 msgid "XML files"
-msgstr "Po dosyaları"
+msgstr "XML dosyaları"
 
 #: src/project_dbase_gui.c:217
-#, fuzzy
 msgid "HTML files"
-msgstr "Yardım dosyaları:"
+msgstr "HTML dosyaları"
 
 #: src/project_dbase_gui.c:218
-#, fuzzy
 msgid "DOC files"
-msgstr "Döküman dosyaları:"
+msgstr "DOC dosyaları"
 
 #: src/project_dbase_gui.c:227
-#, fuzzy
 msgid "PO files"
-msgstr "Po dosyaları"
+msgstr "PO dosyaları"
 
 #: src/project_dbase_gui.c:236
 msgid "C/C++ Headers"
-msgstr ""
+msgstr "C/C++ Başlıkları"
 
 #: src/project_dbase_gui.c:267
 msgid "Add file to module: "
@@ -7605,7 +7478,6 @@ msgid "Goto end of current code block"
 msgstr "Aktif kod bloğunun sonuna git"
 
 #: src/toolbar.c:446
-#, fuzzy
 msgid "Tags:"
 msgstr "Etiketler:"
 
@@ -7666,9 +7538,8 @@ msgid "Display the current frame information"
 msgstr "Aktif çerçeve bilgisini göster"
 
 #: src/toolbar.c:640
-#, fuzzy
 msgid "Signals"
-msgstr "Sinyal"
+msgstr "Sinyaller"
 
 #: src/toolbar.c:641
 #, fuzzy
@@ -7840,44 +7711,36 @@ msgid "Generic/Terminal project"
 msgstr "Generic/Terminal proje"
 
 #: src/wizard_gui.c:163
-#, fuzzy
 msgid "GTK 2.0 project"
-msgstr "GTK projesi"
+msgstr "GTK 2.0 projesi"
 
 #: src/wizard_gui.c:166
-#, fuzzy
 msgid "GNOME 2.0 project"
-msgstr "GNOME projesi"
+msgstr "GNOME 2.0 projesi"
 
 #: src/wizard_gui.c:169
-#, fuzzy
 msgid "LibGlade 2.0 project"
-msgstr "LibGlade projesi"
+msgstr "LibGlade 2.0 projesi"
 
 #: src/wizard_gui.c:172
-#, fuzzy
 msgid "gtkmm 2.0 project"
-msgstr "GTKmm projesi"
+msgstr "GTKmm 2.0 projesi"
 
 #: src/wizard_gui.c:175
-#, fuzzy
 msgid "gnomemm 2.0 project"
-msgstr "GTKmm projesi"
+msgstr "GTKmm 2.0 projesi"
 
 #: src/wizard_gui.c:178
-#, fuzzy
 msgid "GNOME 2.0 Bonobo component"
-msgstr "Bonobo bileşeni"
+msgstr "Bonobo 2.0 bileşeni"
 
 #: src/wizard_gui.c:181
-#, fuzzy
 msgid "wxWindows project"
-msgstr "LibGlade projesi"
+msgstr "wxWindows projesi"
 
 #: src/wizard_gui.c:184
-#, fuzzy
 msgid "Xlib project"
-msgstr "LibGlade projesi"
+msgstr "Xlib projesi"
 
 #: src/wizard_gui.c:187
 msgid "X Dock App project"
@@ -7920,9 +7783,8 @@ msgid "Both C and C++"
 msgstr "C ve C++"
 
 #: src/wizard_gui.c:385
-#, fuzzy
 msgid "Target type"
-msgstr "Hedef Tipi:     "
+msgstr "Hedef türü"
 
 #: src/wizard_gui.c:401
 msgid "Executable target"
@@ -7985,9 +7847,8 @@ msgid "Summary"
 msgstr "Özet"
 
 #: widgets/cell-renderer-captioned-image.c:207
-#, fuzzy
 msgid "Text"
-msgstr "Sonraki"
+msgstr "Metin"
 
 #: widgets/cell-renderer-captioned-image.c:208
 msgid "Text to render"
@@ -8006,9 +7867,8 @@ msgid "Go to the previous directory"
 msgstr "Bir önceki dizine git"
 
 #: widgets/gnomefilelist.c:228
-#, fuzzy
 msgid "Go to the next directory"
-msgstr "Sahip dizine git"
+msgstr "Sonraki dizine git"
 
 #: widgets/gnomefilelist.c:232
 msgid "Go to parent directory"
@@ -8032,18 +7892,16 @@ msgstr "Dosya adı değiştir"
 
 # /main_menubar_def.h:1309
 #: widgets/gnomefilelist.c:257 widgets/gnomefilelist.c:1988
-#, fuzzy
 msgid "Create new folder"
-msgstr "Yeni Pen_cere Oluştur"
+msgstr "Yeni dizin oluştur"
 
 #: widgets/gnomefilelist.c:262
 msgid "Show Hidden"
 msgstr "Saklıyı Göster"
 
 #: widgets/gnomefilelist.c:266
-#, fuzzy
 msgid "Show hidden files"
-msgstr "Saklıyı Göster"
+msgstr "Gizli dosyaları göster"
 
 #: widgets/gnomefilelist.c:274
 msgid "Directory: "
@@ -8054,38 +7912,32 @@ msgid "Selection: "
 msgstr "Seçilen:"
 
 #: widgets/gnomefilelist.c:458
-#, fuzzy
 msgid "File type: "
-msgstr "Dosya:"
+msgstr "Dosya türü:"
 
 #: widgets/gnomefilelist.c:721
-#, fuzzy
 msgid "Java files"
-msgstr "Veri dosyları:"
+msgstr "Java dosyaları"
 
 #: widgets/gnomefilelist.c:733
 msgid "Hyper Text Markup files"
 msgstr ""
 
 #: widgets/gnomefilelist.c:739
-#, fuzzy
 msgid "Config files"
-msgstr "Ayarlar"
+msgstr "Yapılandırma dosyaları"
 
 #: widgets/gnomefilelist.c:744
-#, fuzzy
 msgid "Properties files"
-msgstr "Prj/Özellikleri"
+msgstr "Özellikler dosyaları"
 
 #: widgets/gnomefilelist.c:747
-#, fuzzy
 msgid ".mak files"
-msgstr "Pixmap dosyaları"
+msgstr ".mak dosyaları"
 
 #: widgets/gnomefilelist.c:751
-#, fuzzy
 msgid "Diff files"
-msgstr "Döküman dosyaları:"
+msgstr "Diff dosyaları"
 
 #: widgets/gnomefilelist.c:1854
 #, c-format
@@ -8093,9 +7945,8 @@ msgid "Really delete %s?"
 msgstr ""
 
 #: widgets/gnomefilelist.c:1901
-#, fuzzy
 msgid "Rename file to:"
-msgstr "Dosya adı değiştir"
+msgstr ""
 
 #: widgets/gnomefilelist.c:1927
 #, c-format
@@ -8108,9 +7959,8 @@ msgid "Creating folder failed '%s': %s"
 msgstr ""
 
 #: widgets/gnomefilelist.c:2000
-#, fuzzy
 msgid "Folder name:"
-msgstr "Entry name:"
+msgstr "Dizin adı:"
 
 #, fuzzy
 #~ msgid "window1"
