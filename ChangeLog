@@ -31,6 +31,8 @@
 	  and not everty time the properties are loaded. This makes sure
 	  that the auto-detected mode is not overridden by the default mode.
 	  
+	* src/text_editor.c, aneditor.c: Disabled #DEBUG flag.
+	  
 2002-01-25  Naba Kumar <kh_naba@users.sourceforge.net>
 
 	* src/an_symbol_view.c: Added MAX_STRING_LENGTH

@@ -53,7 +53,7 @@
 #include "controls.h"
 
 /* Debug flag */
-#define DEBUG
+// #define DEBUG
 
 /* Marker 0 is defined for bookmarks */
 #define TEXT_EDITOR_LINEMARKER	2

@@ -54,7 +54,7 @@
 
 #include "tm_tagmanager.h"
 
-#define DEBUG
+// #define DEBUG
 
 #define ANE_MARKER_BOOKMARK 0
 #define MAX_PATH 260
