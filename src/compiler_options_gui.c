@@ -203,7 +203,7 @@ create_compiler_options_gui (CompilerOptions * co)
 }
 
 
-GtkWidget *
+static GtkWidget *
 create_compiler_options_page0 (CompilerOptions * co)
 {
 	GtkWidget *frame1;
@@ -283,7 +283,7 @@ create_compiler_options_page0 (CompilerOptions * co)
 	return frame1;
 }
 
-GtkWidget *
+static GtkWidget *
 create_compiler_options_page1 (CompilerOptions * co)
 {
 	GtkWidget *frame1;
@@ -404,7 +404,7 @@ create_compiler_options_page1 (CompilerOptions * co)
 	return frame1;
 }
 
-GtkWidget *
+static GtkWidget *
 create_compiler_options_page2 (CompilerOptions * co)
 {
 	GtkWidget *frame1;
@@ -530,7 +530,7 @@ create_compiler_options_page2 (CompilerOptions * co)
 	return frame1;
 }
 
-GtkWidget *
+static GtkWidget *
 create_compiler_options_page3 (CompilerOptions * co)
 {
 	GtkWidget *frame1;
@@ -688,7 +688,7 @@ create_compiler_options_page3 (CompilerOptions * co)
 	return frame1;
 }
 
-GtkWidget *
+static GtkWidget *
 create_compiler_options_page4 (CompilerOptions * co)
 {
 	GtkWidget *frame1;
@@ -809,7 +809,7 @@ create_compiler_options_page4 (CompilerOptions * co)
 	return frame1;
 }
 
-GtkWidget *
+static GtkWidget *
 create_compiler_options_page5 (CompilerOptions * co)
 {
 	GtkWidget *frame;
@@ -976,7 +976,7 @@ create_compiler_options_page5 (CompilerOptions * co)
 	return frame;
 }
 
-GtkWidget *
+static GtkWidget *
 create_compiler_options_page6 (CompilerOptions * co)
 {
 	GtkWidget *frame;
@@ -1039,23 +1039,20 @@ create_compiler_options_page6 (CompilerOptions * co)
 	gtk_widget_show (hseparator1);
 	gtk_box_pack_start (GTK_BOX (vbox2), hseparator1, FALSE, TRUE, 0);
 
-	frame1 = gtk_frame_new (NULL);
-	gtk_box_pack_start (GTK_BOX (vbox2), frame1, FALSE, FALSE, 0);
+	frame1 = gtk_frame_new (_("Note"));
+	gtk_box_pack_start (GTK_BOX (vbox2), frame1, FALSE, FALSE, 5);
+	gtk_container_set_border_width (GTK_CONTAINER (frame1), 5);
 	gtk_widget_show (frame1);
 
-	label1 =
-		gtk_label_new (_
-			       ("Note: With optimization enabled, you might have some "
-				"difficulty in debugging your program. So it is not a good "
-				"idea to enable both debug and optimization options, unless "
-				"what you want is to debug the optimized code."));
+	label1 = gtk_label_new (
+		_("With optimization enabled, you might have some difficulty\n"
+	          "debugging your program. So it is not a good idea to enable\n"
+		  "both debug and optimization options, unless what you want\n"
+		  "is to debug the optimized code."));
 	gtk_widget_show (label1);
-	gtk_label_set_justify (GTK_LABEL (label1), GTK_JUSTIFY_FILL);
-	gtk_label_set_line_wrap (GTK_LABEL (label1), TRUE);
-	gtk_misc_set_padding (GTK_MISC (label1), 5, 5);
-	gtk_misc_set_alignment (GTK_MISC (label1), 0, 0);
+	gtk_misc_set_alignment (GTK_MISC (label1), 0.5, 0.5);
 	gtk_container_add (GTK_CONTAINER (frame1), label1);
-
+	
 	for (i = 0; i < 4; i++)
 	{
 		co->widgets.optimize_button[i] = radiobutton[i];
@@ -1065,7 +1062,7 @@ create_compiler_options_page6 (CompilerOptions * co)
 	return frame;
 }
 
-GtkWidget *
+static GtkWidget *
 create_compiler_options_page7 (CompilerOptions * co)
 {
 	GtkWidget *frame;
