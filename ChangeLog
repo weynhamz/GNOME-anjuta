@@ -9,7 +9,7 @@
 	plugins/message-view/.cvsignore, plugins/sample1/.cvsignore:
 	Update cvsignore files.
 
-	* M libanjuta/plugins.c, widgets/e-splash.c:
+	* libanjuta/plugins.c, widgets/e-splash.c:
 	Fixed plugins loading to show splash icons.
 	
 	* plugins/message-view/anjuta-message-manager.plugin.in,
@@ -30,7 +30,11 @@
 	toplevel directory to created only one library as libanjuta-egg.
 
 	* data/Makefile.am: Fixed build error.
-	
+
+	* configure.in, libegg/egg-dock*.c, libegg/layout.glade,
+	libegg/test-dock.c, libegg/dock/*, libegg/Makefile.am,
+	libegg/.cvsignore: Added egg dock widget.
+
 2004-02-11  Franco Catrin <fcatrin@tuxpan.com>
 
 	* plugins/editor/anjuta-docman.c:

@@ -15,3 +15,5 @@ test-merge
 test-multi-drag
 test-tree-utils
 test-union
+libeggdocktypebuiltins.c
+test-dock
