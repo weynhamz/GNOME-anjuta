@@ -1,3 +1,8 @@
+2004-05-02  Sven Herzberg  <herzi@abi02.de>
+
+	* anjuta.glade: re-designed the new file dialog
+	* anjuta_dialogs_strings.c: new strings from the new file dialog
+
 2004-04-30
 
 	* libanjuta/interfaces/Makefile.am.iface,

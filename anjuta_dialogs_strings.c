@@ -1,8 +1,7 @@
 /*
- * Chaînes de caractères à traduire générées par
- * Glade. Ajouter ce fichier au fichier POTFILE.in
- * de votre projet. NE PAS compiler ce fichier
- * avec le reste de votre application.
+ * Datei für übersetzbare Zeichenketten, erzeugt durch Glade.
+ * Fügen Sie diese Datei zur POTFILES.in Ihres Projektes hinzu.
+ * Compilieren Sie sie NICHT als Teil Ihrer Anwendung.
  */
 
 gchar *s = N_("Attach to process");
@@ -422,29 +421,35 @@ gchar *s = N_("Try to save in current locale's encoding");
 gchar *s = N_("Encoding to use when saving files");
 gchar *s = N_("Supported Encodings");
 gchar *s = N_("New File");
+gchar *s = N_("<span weight=\"bold\">File Information</span>");
 gchar *s = N_("Enter the File name.\n"
               "The extension will be added according to the type.");
+gchar *s = N_("Name:");
+gchar *s = N_("Type:");
 gchar *s = N_("*");
-gchar *s = N_("File name:");
-gchar *s = N_("File type:");
-gchar *s = N_("Header");
-gchar *s = N_("GPL Notice");
-gchar *s = N_("Header File Template");
+gchar *s = N_("<span weight=\"bold\">Options</span>");
+gchar *s = N_("Add License Information (GPL)");
+gchar *s = N_("License:");
+gchar *s = N_("Comment Style:");
+gchar *s = N_("_General Public License (GPL)");
+gchar *s = N_("_Lesser General Public License (LGPL)");
+gchar *s = N_("_C: /* comment */");
+gchar *s = N_("C++: // comment");
+gchar *s = N_("Shell: # comment");
+gchar *s = N_("Create corresponding header file");
+gchar *s = N_("Use Template for the Header file");
 gchar *s = N_("Find & Replace");
-gchar *s = N_("Search Expression:");
-gchar *s = N_("*");
-gchar *s = N_("Replace With:");
-gchar *s = N_("*");
-gchar *s = N_("Expand regex back references");
 gchar *s = N_("Regular Expression");
 gchar *s = N_("Case insensitive");
 gchar *s = N_("Match complete words");
 gchar *s = N_("Greedy matching");
 gchar *s = N_("Match complete lines");
 gchar *s = N_("Match at start of word");
-gchar *s = N_("Full Buffer");
-gchar *s = N_("Forward");
-gchar *s = N_("Backward");
+gchar *s = N_("Search Expression:");
+gchar *s = N_("*");
+gchar *s = N_("Replace With:");
+gchar *s = N_("*");
+gchar *s = N_("Expand regex back references");
 gchar *s = N_("Search Expression");
 gchar *s = N_("Search In:");
 gchar *s = N_("*");
@@ -481,12 +486,6 @@ gchar *s = N_("Max. Actions");
 gchar *s = N_("No Limit");
 gchar *s = N_("Search Action:");
 gchar *s = N_("Search Target");
-gchar *s = N_("Basic Search & Replace");
-gchar *s = N_("*");
-gchar *s = N_("Add");
-gchar *s = N_("Remove");
-gchar *s = N_("Default");
-gchar *s = N_("Setting");
 gchar *s = N_("\"Search & Replace\" has to be tested completely !\n"
               "Many search-replacement possibilities are possible and need\n"
               "a lot of time to be verified.\n"
@@ -494,6 +493,8 @@ gchar *s = N_("\"Search & Replace\" has to be tested completely !\n"
               "Limits :\n"
               "- Regular expressions can only be found in forward direction\n"
               "Todo :\t\n"
+              "- Allow interruption on execution of long search/replace activity\n"
               "- Allow the user to save search/replace settings and give them names\n"
               "- . . .");
 gchar *s = N_("Read me");
+gchar *s = N_("Search");
