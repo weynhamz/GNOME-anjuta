@@ -1,5 +1,5 @@
-#ifndef _SEARCH_REPLACE_H
-#define _SEARCH_REPLACE_H
+#ifndef _SEARCH_REPLACE_BACKEND_H
+#define _SEARCH_REPLACE_BACKEND_H
 
 #ifdef __cplusplus
 extern "C"
@@ -204,4 +204,4 @@ void clear_pcre(void);
 }
 #endif
 
-#endif /* _SEARCH_REPLACE_H */
+#endif /* _SEARCH_REPLACE_BACKEND_H */
