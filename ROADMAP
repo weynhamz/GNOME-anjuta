@@ -179,7 +179,7 @@ features of anjuta, and we need to keep it intact, and part of the core shell.
 However, some things need to be done for this to happen effectively:
 	1. Segregate from scintilla into it's own C library.
 	2. Add support for callbacks for getting pref. values.
-	3. Support multiple backends (long term)
+	3. Support multiple backends in the long term.
 
 The preferences GUI is currently quite clean. We only need to ensure that it
 supports integration with preferences of other plugins to have a sinple point
@@ -213,8 +213,8 @@ loading/unloading of the debugger. The UI (menu/toolbars) are mingled with the
 other shell GUI code and need to be segregated into a set of dialogs (glade
 file) and an Egg* UI file.
 
-Tagmanager:
------------
+Parsers:
+--------
 Tagmanager dependency needs to be removed and replaced by sourcebase. Sourcebase
 has much better parsers and will be more powerful in other aspects as well. It
 is envisaged that sourcebase will be ready for inclusion by the time code cleanup
@@ -281,6 +281,18 @@ need to write a standalone library for handling this backend and then create an
 anjuta plugin using this library. It might be a good idea to have a look at
 gnome-build and kdevelop autotools part for ideas/code.
 
+UI Designer:
+------------
+With the stabilization of glade-3, we will have a set of widgets which can be
+used by anjuta at compile time to have embedded Glade for building dialogs. We
+should aim to provide a link with teh widget tree to automatically add stubs
+and prototypes for all the callbacks defined by the user. Clicking on the
+widget signal should take the user to the callback function. Since UI designer
+is specific to GNOME projects, it should be implemented as a plugin. More
+details need to be threshed out in order to make this work smoothly. In the
+meantime (and after the integration), we should continue to provide the user
+the choice to use his/her preferred UI designer through project preferences.
+
 Templates:
 ----------
 The current templates system consists of some project wizards, a class creator
@@ -299,6 +311,15 @@ template is a special kind of plugin which should use the core template API
 to generate new projects/files/etc. We need to create a well thought-out design
 for the templating system with ideas from anjuta2/kdevelop and implement it
 from scratch.
+
+Help System:
+------------
+Devhelp is, and should remain, the preferred method for diaplaying help. It
+should be part of the core (shell) since integrated help is an essential part
+of an IDE. Current integration with devhelp, however, is inadequete since
+devhelp is accessed as an outside process. We should use the widgets provided
+by devhelp to integrate more tightly with it as is done by VS and KDevelop. This
+should not be very difficult to do.
 
 Scripting:
 ----------

@@ -676,7 +676,8 @@ module.doc.files=\
 	manuals/C/anjuta-tutorial/anjuta-tutorial.sgml\
 	po/ChangeLog\
 	macros/ChangeLog\
-	manuals/C/anjuta-manual/tools.sgml
+	manuals/C/anjuta-manual/tools.sgml\
+	ROADMAP
 
 module.po.files=\
 	az.po\
