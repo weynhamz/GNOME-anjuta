@@ -31,7 +31,6 @@
 
 #include <gnome.h>
 #include "anjuta.h"
-#include "about.h"
 #include "text_editor.h"
 #include "messagebox.h"
 #include "mainmenu_callbacks.h"

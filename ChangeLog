@@ -7,6 +7,8 @@
     
     * about.c: Removed. No longer needed.
 
+    * mainmenu_callbacks.c: Removed reference of about.h
+    
 2002-05-03  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
 
     Reviewed by Naba Kumar <kh_naba@users.sourceforge.net>
