@@ -1,22 +1,103 @@
 
-<!-- ============= Debugging: Program Stack ====================== -->
- <chapter id="debugging-stack">
-  <title>Debugging: Stact Trace</title>
+<!-- ============= Debugging: Working with expressions ====================== -->
+ <chapter id="debugging-exprs">
+  <title>Debugging: Working with expressions</title>
   <para>
    FIXME:
   </para>
   
-  <sect1 id="stack-win">
-  <title>Stack Window</title>
-  <para>
-   FIXME:
-  </para>
+  <sect1 id="expr-eval">
+   <title>Evaluating expressions</title>
+   <para>
+    When you get back the control, say at a breakpoint, you can evaluate expressions or
+    inspect the values of variables in your program. To do this activate
+    <citetitle>Debug-&gt;Inspect/Evaluate</citetitle>
+    or click the inspect icon on the debug tool-bar. A dialog box prompting for the expression will
+    appear. Supply the expression (a valid C expression) or a variable name and click OK.
+   </para>
+   <para>
+    <figure>
+      <title>Inspect/Evaluate dialog box</title>
+      <screenshot>
+       <graphic fileref="figures/evaluate" format="png" srccredit="mkv"/>
+      </screenshot>
+    </figure>
+   </para>
+   <para>
+    A window (shown below) will appear that will show the result of the evaluation.
+   </para>
+   <para>
+    <figure>
+      <title>Evaluation result</title>
+      <screenshot>
+       <graphic fileref="figures/inspect" format="png" srccredit="mkv"/>
+      </screenshot>
+    </figure>
+   </para>
+   <para>
+    Alternatively, you can first highlight the expression in the editor and perform the above steps.
+    This will save you from typing the expression in the Inspect dialog box.
+   </para>
+   <para>
+    The expression can be any valid C expression and it may include function calls
+    from your program, library calls, system calls etc.
+   </para>
   </sect1>
   
-  <sect1 id="stack-frame">
-  <title>Stack Frame</title>
-  <para>
-   FIXME:
-  </para>
+  <sect1 id="expr-watch">
+   <title>Expression Watch</title>
+   <para>
+    Inspecting or evaluating an expression provides you the result only once. If you want
+    to continuously monitor some variables or expressions, you can use expression watch.
+   </para>
+   <para>
+   You add all the expressions and variables to monitor in the watch. There values will be
+   automatically updated and shown in the expression watch window.
+   </para>
+   <para>
+    <figure>
+      <title>Expression Watch window</title>
+      <screenshot>
+       <graphic fileref="figures/watch" format="png" srccredit="mkv"/>
+      </screenshot>
+    </figure>
+   </para>
+   <sect2 id="watch_add">
+    <title>Adding an expression to watch:</title>
+    <para>
+     Bring up the watch by activating <citetitle>View-&gt;Watch Window</citetitle>. Right click on this
+     watch window to pop-up the operation menu. Activate the menu item <b>Add</b>.
+     A dialog box prompting for the expression will appear. Enter the expression and 
+     click <citetitle>OK</citetitle>.
+    </para>
+    <para>
+     <figure>
+       <title>Add Expression dialog box</title>
+       <screenshot>
+        <graphic fileref="figures/watch_add" format="png" srccredit="mkv"/>
+       </screenshot>
+     </figure>
+    </para>
+    <para>
+     You can save yourself some typing, if you had selected the expression in the 
+     editor prior to the addition.
+    </para>
+   </sect2>
+   <sect2 id="watch_remove">
+    <title>Removing an expression from watch:</title>
+    <para>
+     Bring up the watch by activating <citetitle>View-&gt;Watch Window</citetitle>. Select the watch
+     entry you want to remove. Right click on this watch window to pop-up the operation
+     menu. Activate the menu item <citetitle>Remove</citetitle>. This will remove the watch entry.
+    </para>
+   </sect2>
+   <sect2 id="watch_clear">
+    <title>Clearing the watch:</title>
+    <para>
+     Bring up the watch by activating <citetitle>View->Watch Window</citetitle>. Right click on this
+     watch window to pop-up the operation menu. Activate the menu item
+     <citetitle>Clear</citetitle> to update or clear.
+    </para>
+   </sect2>
   </sect1>
  </chapter>

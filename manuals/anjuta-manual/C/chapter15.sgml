@@ -1,0 +1,125 @@
+
+<!-- ============= Information ====================== -->
+ <chapter id="information">
+  <title>Information</title>
+  <!-- ============ Information: Contributions ===================== -->
+  <sect1 id="contributions">
+   <title>Author and Contributors</title>
+   <para>
+    <citetitle>Anjuta IDE</citetitle> and <citetitle>Anjuta Users Manual</citetitle>
+    were written by Naba Kumar <email>kh_naba@123india.com</email>.
+    Naba Kumar is from India (Manipur) and got his B.Tech in electronic and
+    communication engineering degree from <citetitle>North Eastern Regional
+    Institute of Science and Technology (NERIST), India.</citetitle>
+   </para>
+   <para>
+    For more information on Anjuta, please visit anjuta home site at
+    <ulink type="http" url="http://anjuta.sourceforge.net">http://anjuta.sourceforge.net
+    </ulink>
+   </para>
+ 
+   <para>
+    <variablelist>
+     <title>Translators:</title>
+
+     <varlistentry>
+      <term>Javier Conde Rueda<email>f3285740@est.fib.upc.es</email>
+      Spanish Translation</term>
+     </varlistentry>
+
+     <varlistentry>
+      <term>Stéphane Démurget<email>demurgets@free.fr</email>
+      French Translation</term>
+     </varlistentry>
+
+     <varlistentry>
+      <term>Takeshi Aihana<email>aihana@gnome.gr.jp</email>
+      Japanese Translation</term>
+     </varlistentry>
+
+     <varlistentry>
+      <term>M.Ali Vardar<email>ali@gelecek.com.tr</email>
+      Turkish Translation</term>
+     </varlistentry>
+     
+     <varlistentry>
+      <term>Michele Campeott<email>micampe@f2s.com</email>
+      Italian Translation</term>
+     </varlistentry>
+    </variablelist>
+   </para>
+  </sect1>
+
+  <!-- ============ Information: Contacts ======== -->
+  <sect1 id="anjuta-contacts">
+   <title>Contacts</title>
+   <para>
+    For the time being you can contact me for anything at my personal
+    email <email>kh_naba@123india.com</email>. Just make sure your mail
+    has a very brief and descriptive subject line. Please do mail me
+    and tell how do you like Anjuta. 
+   </para>
+   <para>
+    You can also visit Anjuta home website at:
+    <ulink type="http" url="http://anjuta.sourceforge.net">http://anjuta.sourceforge.net</ulink>
+    You will also find the details of Anjuta at Project site:
+    <ulink type="http" url="http://www.sourceforge.net/projects/anjuta">
+    http://www.sourceforge.net/projects/anjuta</ulink>
+   </para>
+   <para>
+    Available mailing lists:
+    <orderedlist>
+     <listitem>
+      <para>
+       <citetitle><email>anjuta-list@lists.sourceforge.net</email>:</citetitle>
+       For general discussion.
+      </para>
+     </listitem>
+     <listitem>
+      <para>
+       <citetitle><email>anjuta-devel@lists.sourceforge.net</email>:</citetitle>
+       For developmental discussion.
+      </para>
+     </listitem>
+     <listitem>
+      <para>
+       <citetitle><email>anjuta-announce@lists.sourceforge.net</email>:</citetitle>
+       For announcement of new releases.
+      </para>
+     </listitem>
+    </orderedlist>
+   </para>
+  </sect1>
+  
+  <!-- ============ Information: License ======== -->
+  <sect1 id="anjuta-license">
+   <title>License</title>
+   <para>
+    This program is free software; you can redistribute it and/or
+    modify it under the terms of the <citetitle>GNU General Public
+    License</citetitle> as published by the Free Software Foundation;
+    either version 2 of the License, or (at your option) any later
+    version.
+   </para>
+   <para>
+    This program is distributed in the hope that it will be useful, but
+    WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    <citetitle>GNU General Public License</citetitle> for more details.
+   </para>
+   <para>
+    A copy of the <citetitle>GNU General Public License</citetitle> is
+    included as an appendix to the <citetitle>GNOME Users
+    Guide</citetitle>.  You may also obtain a copy of the
+    <citetitle>GNU General Public License</citetitle> from the Free
+    Software Foundation by visiting <ulink type="http" url="http://www.fsf.org">
+    their Web site</ulink> or by writing to
+    <address>
+     Free Software Foundation, Inc.
+     <street>59 Temple Place</street> - Suite 330
+     <city>Boston</city>, <state>MA</state> <postcode>02111-1307</postcode>
+     <country>USA</country>
+    </address>
+   </para>
+  </sect1>
+ </chapter>

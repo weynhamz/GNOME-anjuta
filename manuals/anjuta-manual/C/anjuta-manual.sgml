@@ -1,4 +1,4 @@
-<!DOCTYPE Book PUBLIC "-//GNOME//DTD DocBook PNG Variant V1.1//EN"[
+<!DOCTYPE Book PUBLIC "-//GNOME//DTD DocBook PNG Variant V1.0//EN"[
 <!ENTITY chapter01 SYSTEM "chapter01.sgml">
 <!ENTITY chapter02 SYSTEM "chapter02.sgml">
 <!ENTITY chapter03 SYSTEM "chapter03.sgml">
@@ -11,6 +11,9 @@
 <!ENTITY chapter10 SYSTEM "chapter10.sgml">
 <!ENTITY chapter11 SYSTEM "chapter11.sgml">
 <!ENTITY chapter12 SYSTEM "chapter12.sgml">
+<!ENTITY chapter13 SYSTEM "chapter13.sgml">
+<!ENTITY chapter14 SYSTEM "chapter14.sgml">
+<!ENTITY chapter15 SYSTEM "chapter15.sgml">
 ]>
 
 <!-- =============Document Header ============================= -->
@@ -90,12 +93,18 @@
  &chapter07;
  <!-- Debugging: Session -->
  &chapter08;
- <!-- Debugging: Breakpoints -->
+ <!-- Debugging: Execution -->
  &chapter09;
- <!-- Debugging: Working with expressions -->
+ <!-- Debugging: Breakpoints -->
  &chapter10;
- <!-- Debugging: Program stack -->
+ <!-- Debugging: Working with expressions -->
  &chapter11;
- <!-- Debugging: Information -->
+ <!-- Debugging: Program stack -->
  &chapter12;
+ <!-- Debugging: Others -->
+ &chapter13;
+ <!-- Preferences -->
+ &chapter14;
+ <!-- Information -->
+ &chapter15;
 </book>

@@ -1,22 +1,159 @@
+<!-- ============= Debugging: Breakpoints ====================== -->
+ 
+ <chapter id="debugging-breaks">
+  <title>Debugging: Breakpoints</title>
+  <para>
+   While you are debugging a program you would like to break the execution of the program at
+   some location, probably because you want to study the state of the execution at that location.
+   Breakpoints are what that come into picture. You set breakpoints at different locations in your
+   source file and let the program run. When it encounters any breakpoint, it will suspend the
+   execution of the program. You can then do whatever you want, such as evaluate expressions,
+   inspect variables, study the stack trace etc at that location.
+  </para>
+  <para>
+   <figure>
+     <title>Breakpoints dialog box</title>
+     <screenshot>
+      <graphic fileref="figures/brk_dlg" format="png" srccredit="mkv"/>
+     </screenshot>
+   </figure>
+  </para>
+  <para>
+   By <citetitle>Location</citetitle>, I mean the location of the code in your source
+   file. You will be frequently prompted for locations. <citetitle>Location</citetitle>
+   can be specified in any of the following formats:
+  </para>
+  <para>
+   <orderedlist>
+    <listitem><para> File_name:Line_number </para></listitem>
+    <listitem><para> Function_name </para></listitem>
+    <listitem><para> File:Function_name </para></listitem>
+   </orderedlist>
+  </para>
+  <para>
+   The first one is very obvious. The location refers to the line number "Line_number" in the
+   source file "File". The second one refers to the first line of the function "Function_name".
+   The third one is similar to the second one except that it is used when you have more than
+   one function with the name "Function_name" in your program. You differentiate them by
+   giving "File" which will refer to the function "Function_name" in the file "File".
+  </para>
+  <para>
+   With every breakpoint, You may associate two parameters. They are:
+   <orderedlist>
+    <listitem><para> Break condition </para></listitem>
+    <listitem><para> Pass count </para></listitem>
+   </orderedlist>
+  </para>
+  <para>
+   The <citetitle>Break condition</citetitle> is a valid C expression
+   which should evaluate to a boolean data. That is
+   The evaluation of the expression should result in either TRUE(1) or FALSE(0). If the final evaluation
+   value is not a boolean data, then it will be appropriately type casted to boolean data.
+  </para>
+  <para>
+   Every time the breakpoint is encountered during the execution, the break condition will be evaluated.
+   The debugger will break the execution only if the evaluation results in a TRUE value, otherwise
+   it will continue the execution as though there had been no breakpoint.
+  </para>
+  <para>
+   The <citetitle>pass count</citetitle> is an integer (unsigned) value which tells the debugger to skip the 
+   breakpoint that many times before it is considered. Pass count has higher priority than the
+   break condition. Only when the pass count reaches zero will the debugger evaluate the break
+   condition (if it is present). If there is no break condition, the debugger will break the execution
+   on pass count zero.
+  </para>
+  <para>
+   The default value of Break condition is always TRUE. That is the debugger will break the
+   execution at the breakpoint location.
+  </para>
+  <para>
+   The default value of the Pass count is zero. That is the breakpoint will be considered
+   on its first encounter itself.
+  </para>
+  
+  <sect1 id="breaks-set">
+   <title>Adding or Setting Breakpoints</title>
+   <para>
+    Bring up the 'Breakpoints editing window' by activating <citetitle>View-&gt;Breakpoints</citetitle>
+    or <citetitle>Debug-&gt;Breakpoints-&gt;Breakpoints</citetitle>. Click 
+    <citetitle>Add</citetitle> button. A breakpoint add
+    dialog box will appear (as shown below).
+   </para>
+   <para>
+    <figure>
+      <title>Breakpoint add dialog box</title>
+      <screenshot>
+       <graphic fileref="figures/brk_add" format="png" srccredit="mkv"/>
+      </screenshot>
+    </figure>
+   </para>
+   <para>
+    Enter the location where you want to set the breakpoint. Optionally, you may also enter
+    the <citetitle>Break condition</citetitle> and the <citetitle>Pass count</citetitle>
+    in the appropriate entry boxes. Click OK to set the breakpoint.
+   </para>
+   <para>
+    Alternatively, you may also set the breakpoint by highlighting the function name in the editor
+    and activating <citetitle>Debug-&gt;Breakpoints-&gt;Set Breakpoint</citetitle>
+    (or clicking the Set breakpoint icon on the <citetitle>Debug Toolbar</citetitle>).
+   </para>
+  </sect1>
+  
+  <sect1 id="breaks-edit">
+   <title>Editing Breakpoints</title>
+   <para>
+    Bring up the "Breakpoints editing window" by activating <citetitle>View-&gt;Breakpoints</citetitle>
+    or <citetitle>Debug-&gt;Breakpoints-&gt;Breakpoints</citetitle>. Select the breakpoint you want to edit and
+    Click <citetitle>Edit</citetitle> button. A breakpoint edit dialog box will appear (as shown below).
+   </para>
+   <para>
+    <figure>
+      <title>Breakpoint edit dialog box</title>
+      <screenshot>
+       <graphic fileref="figures/brk_edit" format="png" srccredit="mkv"/>
+      </screenshot>
+    </figure>
+   </para>
+   <para>
+    Edit the entries according to your new settings and click OK to
+    commit the changes.
+   </para>
+  </sect1>
 
-<!-- ============= Debugging: Working with expressions ====================== -->
- <chapter id="debugging-exprs">
-  <title>Debugging: Working with expressions</title>
-  <para>
-   FIXME:
-  </para>
-  
-  <sect1 id="expr-eval">
-  <title>Evaluating expressions</title>
-  <para>
-   FIXME:
-  </para>
+  <sect1 id="breaks-del">
+   <title>Deleting Breakpoints</title>
+   <para>
+    Bring up the 'Breakpoints editing window' by activating <citetitle>View-&gt;Breakpoints</citetitle>
+    or <citetitle>Debug-&gt;Breakpoints-&gt;Breakpoints</citetitle>. Select the breakpoint you want to 
+    delete and Click <citetitle>Delete</citetitle> button. This will delete the breakpoint.
+   </para>
+   <para>
+    If you want to <i>delete all</i> the breakpoints, then click <b>Delete All</b>.
+   </para>
   </sect1>
-  
-  <sect1 id="expr-watch">
-  <title>Expression Watch</title>
-  <para>
-   FIXME:
-  </para>
+
+  <sect1 id="breaks-enbdis">
+   <title>Enabling or Disabling Breakpoints</title>
+   <para>
+    Bring up the 'Breakpoints editing window' by activating <citetitle>View-&gt;Breakpoints</citetitle>
+    or <citetitle>Debug-&gt;Breakpoints-&gt;Breakpoints</citetitle>. Select the breakpoint you want to 
+    enable or disable and Click <citetitle>Toggle Enable</citetitle> button. This will enable or
+    disable the breakpoint.
+   </para>
+   <para>
+    If you want to enable all or disable all breakpoints, instead of clicking
+    <citetitle>Toggle Enable</citetitle> button, click <citetitle>Enable All</citetitle>
+    or <citetitle>Disable All</citetitle> button
+   </para>
+   <para>
+    <note>
+     <title>Things to note:</title>
+     <para>
+      When you start the debugger, all the breakpoints will be set. Those breakpoints
+      which are old (i.e.. the source file is more recent than the breakpoint), will be
+      disabled.
+     </para>
+    </note>
+   </para>
   </sect1>
-</chapter>
+ </chapter>

@@ -1,7 +1,6 @@
 <!-- ============= Project management ====================== -->
  <chapter id="project-management">
   <title>Project Management</title>
-  
   <para>
    If the program you are developing is a small one and it is going to be run on your
    computer only, then a single source file will serve the propose. But if the program is 
@@ -32,7 +31,7 @@
   <sect1 id="new-projects">
    <title>Creating a new project</title>
    <para>
-    Activate <citetitle>File->New Project</citetitle> to start
+    Activate <citetitle>File-&gt;New Project</citetitle> to start
     the application wizard.
     Read carefully whatever is written on the <citetitle>first page</citetitle>.
     <citetitle>Click next</citetitle> to proceed further.
@@ -75,7 +74,7 @@
    <sect2 id="loadingprj">
     <title>Loading Projects:</title>
     <para>
-     To open a project, activate the menu item <b>File->Open Project</b>.
+     To open a project, activate the menu item <b>File-&gt;Open Project</b>.
      Select the project file (*.prj) in the file selection box and <b>Click OK</b>.
     </para> 
     <para>
@@ -90,7 +89,7 @@
     <title>Saving project:</title>
     <para>
      To save the current project activating the menu item 
-     <citetitle>File->Save project</citetitle> or click the save project icon in 
+     <citetitle>File-&gt;Save project</citetitle> or click the save project icon in 
      the extended tool-bar. When a project is saved, only the files that needs
      to be updated are actually written to avoid breaking the unnecessary dependencies.
     </para>
@@ -117,8 +116,8 @@
     </orderedlist>
    </para>
    <para>
-   These different type of files exist in their own
-   different directories under the project.
+    These different type of files exist in their own
+    different directories under the project.
    </para>
    <sect2 id="addingfiles">
     <title>Adding files:</title>
@@ -188,15 +187,15 @@
    <para>
     Anjuta will manage the following files of a project:
     <orderedlist>
-      <listitem><para> Project file --> [ *.prj file ]</para></listitem>
-      <listitem><para> Top level configure.in --> [ configure.in ]</para></listitem>
-      <listitem><para> Top level Makefile.am --> [ Makefile.am ]</para></listitem>
-      <listitem><para> Source Makefile.am --> [ Makefile.am in the source sub-directory ]</para></listitem>
-      <listitem><para> Document Makefile.am --> [ Makefile.am in the document sub-directory ]</para></listitem>
-      <listitem><para> Help Makefile.am --> [ Makefile.am in the help sub-directory ]</para></listitem>
-      <listitem><para> Data Makefile.am --> [ Makefile.am in the data sub-directory ]</para></listitem>
-      <listitem><para> Pixmaps Makefile.am --> [ Makefile.am in the pixmaps sub-directory ]</para></listitem>
-      <listitem><para> POTFILE.in --> [ POTFILE.in the po sub-directory ]</para></listitem>
+      <listitem><para> Project file --&gt; [ *.prj file ]</para></listitem>
+      <listitem><para> Top level configure.in --&gt; [ configure.in ]</para></listitem>
+      <listitem><para> Top level Makefile.am --&gt; [ Makefile.am ]</para></listitem>
+      <listitem><para> Source Makefile.am --&gt; [ Makefile.am in the source sub-directory ]</para></listitem>
+      <listitem><para> Document Makefile.am --&gt; [ Makefile.am in the document sub-directory ]</para></listitem>
+      <listitem><para> Help Makefile.am --&gt; [ Makefile.am in the help sub-directory ]</para></listitem>
+      <listitem><para> Data Makefile.am --&gt; [ Makefile.am in the data sub-directory ]</para></listitem>
+      <listitem><para> Pixmaps Makefile.am --&gt; [ Makefile.am in the pixmaps sub-directory ]</para></listitem>
+      <listitem><para> POTFILE.in --&gt; [ POTFILE.in the po sub-directory ]</para></listitem>
     </orderedlist>
    </para>
    <para>
@@ -225,9 +224,195 @@
   
   <sect1 id="project-build">
    <title>Compiling, Building and Executing project</title>
-   <para>
-    FIXME:
-   </para>
+   <sect2 id="project_basics">
+    <title>The basics:</title>
+    <para>
+     Executable of a project is generated in two steps:
+    </para>
+    <para>
+     <orderedlist>
+      <listitem><para>Compiling</para></listitem>
+      <listitem><para>Linking</para></listitem>
+     </orderedlist>
+    </para>
+    <para>
+     These steps collectively is called <citetitle>Building executable</citetitle>. Generally, some other
+     not-so-obvious steps may also involve in the build process, but for the shake of
+     simplicity, we shall consider only the above two steps.
+    </para>
+    <para>
+     <citetitle>Compiling</citetitle> is the step in which so called object files are generated from their corresponding 
+     source files. For instance, a source file helloc.c, after compilation, will generate hello.o. Basically 
+     you don't worry about these object files. Just consider them as an intermediate step involved in 
+     generating the final executable.
+    </para>
+    <para>
+     Once the object files (*.o files) are ready, they are all linked together ( along with the libraries ) 
+     with a linker (a program that links) to generate the final executable. Obviously, this step is 
+     called <citetitle>Linking</citetitle>.
+    </para>
+   </sect2>
+   <sect2 id="compiling_project">
+    <title>Compiling:</title>
+    <para>
+     In a project, the individual files can be compiled separately into object files (*.o files). As I have 
+     already told, you don't have to worry about these object files, but sometimes it becomes handy 
+     to compile the file first (especially, to make sure there is no syntax error). Building the whole 
+     project takes lots of time, especially, for large projects. Therefore, you will be doing lots of
+     edit-compile-edit-compile-.... while developing the project.
+    </para>
+    <para>
+     To compile a file, activate the menu item <citetitle>Build-&gt;Compile</citetitle> or click the compile icon in
+     the extended tool-bar. This will compile the currently active file.
+    </para>
+   </sect2>
+   <sect2 id="building_exec">
+    <title>Building executable:</title>
+    <para>
+     There is no separate link command with Anjuta, simply because it is not necessary. The build 
+     process will compile all the source files and link them together along with the libraries. Of course, 
+     build command won't recompile those files which are up to date (This is called dependency check). 
+     Naturally, if you have compiled all the files individually, then the only thing build does is linking. 
+     Even this linking will be skipped, if you have already built the project and no dependent file has been 
+     modified.
+    </para>
+    <para>
+     So how exactly does the dependency check influence the project development? 
+     If you have modified a file, then all the source files that depends on this modified file are recompiled.
+     Conversely and to be more specific, any file (not only the object files and executable) in the 
+     project is check for dependency during the build process. If it is found that this file is 
+     dependent on some other file which has been modified, this particular file will be re-generated.
+    </para>
+    <para>
+     Now, since you have got a rough idea about the dependency check, can you imagine 
+     how your life (as a programmer) would be if there had been no dependency check? 
+     If you cannot answer this question, then will know the answer when you start developing big 
+     projects.
+    </para>
+   </sect2>
+   <sect2 id="build_buildall">
+    <title>Build and Build all:</title>
+    <para>
+     <citetitle>Build</citetitle> will build in the source directory (to generate the executable). 
+     While <citetitle>Build all</citetitle> will build the whole project. All the subdirectories, including 
+     the source directory, are recursively built.
+    </para>
+    <para>
+     To build the executable, activate the menu item <citetitle>Build-&gt;Build</citetitle>. And to Build 
+     all, activate the menu item, <citetitle>Build-&gt;Build All</citetitle>.
+    </para>
+   </sect2>
+   <sect2 id="build_dist">
+    <title>Build Distribution:</title>
+    <para>
+     <citetitle>Build distribution</citetitle> will build a distribution tarball package ( *.tar.gz) and put it in the 
+     top level project directory. Copy the source tarball from there to a save place for distribution.
+     To build the tarball distribution of the project activate <citetitle>Build-&gt;Build Distribution</citetitle>.
+    </para>
+   </sect2>
+   <sect2 id="build_install">
+    <title>Install:</title>
+    <para>
+     Activating the menu item <citetitle>Build-&gt;Install</citetitle> will install the project in your computer. 
+     Note: You must be logged in as root to do system install. Also note that for a gnome 
+     application to use the pixmaps in the project, it must be system installed. Otherwise, 
+     when you execute the gnome program ( in your project ), you will get lots of "Pixmaps
+     not found" errors.
+    </para>
+   </sect2>
+   <sect2 id="configure">
+    <title>Configure:</title>
+    <para>
+     Activating <citetitle>Build-&gt;configure</citetitle> will run the <citetitle>configure</citetitle>
+     script found in the top level project directory. Configure script will determine the system
+     configuration of your system and create some build files (such as Makefiles and config.h).
+     This is necessary, because your program may depend on some of these configurations.
+     Unless and until you run <citetitle>configure</citetitle>, you can not start building the project.
+    </para>
+    <para>
+     Configure script is, usually, run only once at the beginning of the first build process,
+     for example, just after you have un-tared a source tarball of a project distribution.
+     After that, configuration is automatically handled by the subsequent build processes.
+     If you have used the <citetitle>Application wizard</citetitle> to create the application, then
+     you won't need to run the configure yourself. The wizard will run it as a part of its
+     project generation process.
+    </para>
+    <para>
+     You can also supply additional options to the configuration script when your are
+     prompted for them. Just after activating the configure menu item, you will be
+     prompted with a dialog box shown below:
+    </para>
+	<para>
+     <figure>
+       <title>Anjuta main menubar</title>
+       <screenshot>
+        <graphic fileref="figures/configure_dlg" format="png" srccredit="mkv"/>
+       </screenshot>
+     </figure>
+	</para>
+    <para>
+     Enter the options (or leave it blank to go for the defaults) and <citetitle>click OK</citetitle>.
+     To know what are the available options for the configure script, type <citetitle>"--help"</citetitle>
+     in the option entry box and <citetitle>click OK</citetitle>. You will get the required help in the
+     message window.
+    </para>
+    <para>
+     It is not necessary that you should run configure only once. You can run it any time,
+     usually when you need to change the configuration options. One thing you must note
+     is that, if you have modified the config.h file in the top level directory, running configure
+     again won't overwrite it.
+    </para>
+   </sect2>
+   <sect2 id="auto_generation">
+    <title>Auto-generation:</title>
+    <para>
+     The name is slightly superfluous. But that is almost what it is.
+     Auto generation consists of two steps, running <citetitle>automake</citetitle> and then running <citetitle>autoconf</citetitle>.
+     If an executable <citetitle>autogen.sh</citetitle> is found in the top level project directory, this file will be executed
+     in lieu of the above two steps.
+     Like <citetitle>configuration</citetitle>, autogeneration is automatically handled by the build process. But you
+     can always run it when you find it difficult to configure the project (lots of errors coming out 
+     because of mis-synchronization after modifying lots of build files). One more thing with
+     autogeneration, unlike configuration, you don't need to run it even once. In fact, you don't 
+     need to run it at all. I don't know why I put it there, but sometimes it becomes handy.
+    </para>
+    <para>
+     Activate the menu item <citetitle>Build-&gt;Auto generate</citetitle> to auto generate the project.
+    </para>
+    <para>
+     Read the Info pages of <citetitle>Automake</citetitle> and <citetitle>
+     Autoconf</citetitle> for more details on how these work.
+    </para>
+   </sect2>
+   <sect2 id="build_clean">
+    <title>Clean:</title>
+    <para>
+     There isn't much to say about <citetitle>Clean</citetitle>. It cleans the project and leave the project
+     in a state that needs <citetitle>Build All</citetitle> to be performed. It deletes all the files generated
+     by the build all process, including all the object files (*.o files) and the executable(s) in the
+     source directory (and other directories). You need to run <citetitle>Build All</citetitle> after you clean your project.
+    </para>
+    <para>
+     Activate <citetitle>Build-&gt;Clean</citetitle> to clean the project.
+    </para>
+   </sect2>
+   <sect2 id="build_cleanall">
+    <title>Clean All:</title>
+    <para>
+     Similarly, there isn't much to say about <citetitle>Clean all</citetitle> (also called
+     <citetitle>Clean distribution</citetitle>
+     or <citetitle>clean dist</citetitle>, in short). It cleans the project and leave the project
+     in a state that needs <citetitle>Configure and Build All</citetitle> to be performed. It deletes all
+     the files generated by the <citetitle>Configure and Build all</citetitle> processes, including all the
+     object files (*.o files), executable(s) and Makefiles. In the other words, it leaves
+     the project as though it has just been un-tared from the distribution tarball (hence, the
+     name <citetitle>Clean dist</citetitle>).
+     You need to run <citetitle>Configure and Build All</citetitle>, in the given sequence, after you do
+     <citetitle>Clean all</citetitle> to the project.
+    </para>
+    <para>
+     Activate <citetitle>Build-&gt;Clean All</citetitle> to clean all the project.
+    </para>
+   </sect2>
   </sect1>
- 
  </chapter>

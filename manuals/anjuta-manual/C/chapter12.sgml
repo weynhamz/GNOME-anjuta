@@ -1,96 +1,69 @@
 
-<!-- ============= Information ====================== -->
- <chapter id="information">
-  <title>Information</title>
-  <!-- ============ Information: Contributions ===================== -->
-  <sect1 id="contributions">
-   <title>Authors and Contributors</title>
+<!-- ============= Debugging: Program Stack ====================== -->
+ <chapter id="debugging-stack">
+  <title>Debugging: Stack Trace</title>
+  <sect1 id="stack-win">
+   <title>Stack Window</title>
    <para>
-    Anjuta was written by Naba Kumar <email>kh_naba@123india.com</email>.
-    For more information on Anjuta, please visit anjuta home site at
-    <ulink type="http" url="http://anjuta.sourceforge.net">http://anjuta.sourceforge.net
-    </ulink>
+    Stack trace window shows the contents of the program stack. It will list all the functions and their arguments
+    in the sequence they were called. You will also find a number representing each call. This number is
+    called <citetitle>Frame</citetitle>. Each call in the trace exists in different frames. It starts from  frame 0 (Last function
+    being called) and grows higher as the function nesting become deeper and deeper.
    </para>
-   
    <para>
-    <variablelist>
-     <title>Contributors:</title>
-<!--========= Copy and paste from here to add new entry ============
-      <varlistentry>
-       <term><email></email></term>
-      </varlistentry>
--->
-      <varlistentry>
-       <term>Stéphane Démurget <email>demurgets@free.fr</email></term>
-      </varlistentry>
-
-      <varlistentry>
-       <term>Luca Bellonda<email>lbell@tsc4.com</email></term>
-      </varlistentry>
-
-      <varlistentry>
-       <term>Lord Sibn<email>sibn@utspl.cjb.net</email></term>
-      </varlistentry>
-
-    </variablelist>
+    Activate <citetitle>View-&gt;Program Stack</citetitle>, to bring up the
+    stack trace of the program being debugged.
    </para>
-
    <para>
-    <variablelist>
-     <title>Translators:</title>
-
-     <varlistentry>
-      <term>Javier Conde Rueda<email>f3285740@est.fib.upc.es</email>
-      Spanish Translation</term>
-     </varlistentry>
-
-     <varlistentry>
-      <term>Stéphane Démurget<email>demurgets@free.fr</email>
-      French Translation</term>
-     </varlistentry>
-
-     <varlistentry>
-      <term>Takeshi Aihana<email>aihana@gnome.gr.jp</email>
-      Japanese Translation</term>
-     </varlistentry>
-
-     <varlistentry>
-      <term>M.Ali Vardar<email>ali@gelecek.com.tr</email>
-      Turkish Translation</term>
-     </varlistentry>
-    </variablelist>
+    <figure>
+      <title>Stack trace window</title>
+      <screenshot>
+       <graphic fileref="figures/stack" format="png" srccredit="mkv"/>
+      </screenshot>
+    </figure>
+   </para>
+   <para>
+    You will find a small arrow pointing to a frame in the stack trace. This arrow shows the currently
+    selected frame. Default is frame 0, the last function being called. All the evaluation and inspection
+    of expressions or variables will be with reference to this selected frame. Naturally, the scope of
+    the variables or expressions being evaluated will be limited to the selected frame only. The same
+    applies for the expressions in the watch.
    </para>
   </sect1>
-
-  <!-- ============ Information: License ======== -->
-  <sect1 id="anjuta-license">
-   <title>License</title>
+  
+  <sect1 id="stack-frame">
+   <title>Setting the current frame:</title>
    <para>
-    This program is free software; you can redistribute it and/or
-    modify it under the terms of the <citetitle>GNU General Public
-    License</citetitle> as published by the Free Software Foundation;
-    either version 2 of the License, or (at your option) any later
-    version.
+    Double clicking on any frame in the stack trace will set the frame as currently selected frame (the
+    arrow will now point to this frame, indicating that it has been selected as the current frame).
+    Alternatively, you can pop-up the operation menu by right clicking on the stack trace window and
+    activate the menu item <citetitle>Set frame</citetitle> to set the frame.
+   </para>
+  </sect1>
+  
+  <sect1 id="stack-frame-info">
+   <title>Information about the current frame:</title>
+   <para>
+    You can also get the information about the currently selected frame by activating
+    <citetitle>Debug->Information->Info Current frame</citetitle>. A window will
+    appear describing the current frame.
    </para>
    <para>
-    This program is distributed in the hope that it will be useful, but
-    WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    <citetitle>GNU General Public License</citetitle> for more details.
+    <figure>
+      <title>Current frame Information</title>
+      <screenshot>
+       <graphic fileref="figures/frame" format="png" srccredit="mkv"/>
+      </screenshot>
+    </figure>
    </para>
+  </sect1>
+  
+  <sect1 id="stack-update">
+   <title>Updating Stack trace:</title>
    <para>
-    A copy of the <citetitle>GNU General Public License</citetitle> is
-    included as an appendix to the <citetitle>GNOME Users
-    Guide</citetitle>.  You may also obtain a copy of the
-    <citetitle>GNU General Public License</citetitle> from the Free
-    Software Foundation by visiting <ulink type="http" url="http://www.fsf.org">
-    their Web site</ulink> or by writing to
-    <address>
-     Free Software Foundation, Inc.
-     <street>59 Temple Place</street> - Suite 330
-     <city>Boston</city>, <state>MA</state> <postcode>02111-1307</postcode>
-     <country>USA</country>
-    </address>
+    Activating the menu item <citetitle>Update</citetitle> from the
+    operation menu (right click to pop it up)
+    will refresh the stack trace window.
    </para>
   </sect1>
  </chapter>

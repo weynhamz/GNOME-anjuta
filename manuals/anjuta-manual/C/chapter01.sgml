@@ -1,6 +1,5 @@
  <!-- ============= Introduction ============================== -->
- 
- <chapter id="introduction">
+  <chapter id="introduction">
   <title>Introduction to Anjuta</title>
   <para>
    Anjuta is a very versatile Integrated development environment for

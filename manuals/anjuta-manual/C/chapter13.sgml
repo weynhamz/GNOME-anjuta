@@ -1,0 +1,136 @@
+<!-- Debugger: Others-->
+ <chapter id="debugger-others">
+  <title>Debugger: Others</title>
+  <para>
+   Now let us have a look at the other debugger features which are used
+   less frequently, but nevertheless handy.
+  </para>
+  <sect1 id="dbg-kernal">
+   <title>Kernel Signals</title>
+   <para>
+    Kernel signals is a way of signaling between processes in Linux. You
+    can get the list of signals available for the program by activating
+    <citetitle>View-&gt;Kernel Signals</citetitle>.
+    This will bring up a window which will list all the signals available in you system along with
+    their brief description.
+   </para>
+   <para>
+    <figure>
+      <title>Kernel Signals window</title>
+      <screenshot>
+       <graphic fileref="figures/signals" format="png" srccredit="mkv"/>
+      </screenshot>
+    </figure>
+   </para>
+   <para>
+    You will also find three columns which specifies what to do when the signal is
+    received:
+   </para>
+   
+   <orderedlist>
+    <listitem>
+     <para><citetitle>Stop:</citetitle>
+      This tells the debugger whether to stop the program execution (and return the control to you) 
+      when the program receives this signal.
+     </para>
+    </listitem>
+    <listitem>
+     <para><citetitle>Print:</citetitle>
+      This tells the debugger whether to Display the received signal.
+     </para>
+    </listitem>
+    <listitem>
+     <para><citetitle>Pass:</citetitle>
+      This tells the debugger whether to pass the signal to the program.
+     </para>
+    </listitem>
+   </orderedlist>
+   
+   <sect2 id="dbg-kernel-beh">
+    <title>Changing the behavior</title>
+    <para>
+     You can change the way debugger behaves when a particular signal is
+     received. To change it, select the signal in the given list. Right click to pop-up
+     the operation menu. Activate <citetitle>Modify Signal</citetitle>. This will bring up a dialog
+     box. You can set the three behaviors and click OK to commit the change.
+    </para>
+    <para>
+     <figure>
+       <title>Kernel Signals window</title>
+       <screenshot>
+        <graphic fileref="figures/signal_mod" format="png" srccredit="mkv"/>
+       </screenshot>
+     </figure>
+    </para>
+   </sect2>
+   <sect2 id="dbg-kernel-send">
+    <title>Sending the signal to the program</title>
+    <para>
+     You can explicitly sent the signal to the program being debugged. To
+     do this, select the signal in the given list. Right click to pop-up
+     the operation menu. Activate <citetitle>Send to process</citetitle>. A confirmation will be
+     asked. Click OK to confirm. This will send the signal to the program.
+    </para>
+   </sect2>
+   <sect2 id="dbg-kernel-update">
+    <title>Updating the signal list</title>
+    <para>
+     Activating the menu item <citetitle>Update</citetitle>
+     from the operation menu (right click to pop it up)
+     will refresh the Kernel signals window.
+    </para>
+   </sect2>
+  </sect1>
+ 
+  <sect1 id="dbg-registers">
+   <title>Cpu registers</title>
+   <para>
+    You can examine the contents of CPU's (microprocessor) internal registers.
+    Activate <citetitle>View-&gt;Registers</citetitle>. A window listing all the available registers
+    in the microprocessor and their corrosponding contents will appear. Right click
+    on the window to popup operation menu.
+   </para>
+   <para>
+    <figure>
+      <title>Cpu Registers Window</title>
+      <screenshot>
+       <graphic fileref="figures/registers" format="png" srccredit="mkv"/>
+      </screenshot>
+    </figure>
+   </para>
+  </sect1>
+ 
+  <sect1 id="dbg-dyna-libs">
+   <title>Dynamically loaded Libraries</title>
+   <para>
+    To get the listing of the dynamic libraries used by you program, activate
+    <citetitle>View-&gt;Shared Libraries</citetitle>. This will bring up a window which will
+    list all the shared libraries your program has loaded and their locations
+    in the memory. It is also told if the symbol table is loaded or not (Yes/No).
+   </para>
+   <para>
+    <figure>
+      <title>Shared Libraries Window</title>
+      <screenshot>
+       <graphic fileref="figures/sharedlibs" format="png" srccredit="mkv"/>
+      </screenshot>
+    </figure>
+   </para>
+  </sect1>
+ 
+  <sect1 id="dbg-interrupt">
+   <title>Interrupting the program</title>
+   <para>
+    While the program has got the control, you can not perform any debugging task.
+    If you want back the control while the program is running,
+    Activate <citetitle>Debug-&gt;Interrupt program</citetitle>.
+    This will interrupt the program and give you the control back.
+   </para>
+   <para>
+    Of course, for the interruption to work properly, you should set the debugger behaviour
+    for this interrupt signal (SIGINT) to the value [ Stop:Yes, Print:Yes, Pass:No ]. This is
+    also the default value. So, unless you modify it, it will remain like this. See
+    <citetitle>Kernal signals</citetitle> to find out what it means and how it is set.
+   </para>
+  </sect1>
+ </chapter>

@@ -1,36 +1,110 @@
+<!-- Debugger: Execution -->
+ 
+ <chapter id="debugger_exec">
+  <title>Debugger: Execution</title>
+  <para>
+   The program execution in debugger can be finely is controlled. You can execute
+   the program in single steps or let is continue till it encounters a breakpoint. Executing
+   the program in such a manner is very essential for tracking the program behaviors.
+   In other words, like a video editing session, the program is executed in <citetitle>slow motion</citetitle>
+   and you have the remote control to forward, pause, stop etc.
+  </para>
+  <para>
+   Followings are the way you can execute the program in the debugger.
+  </para>
+  
+  <sect1 id="dbg_step_in">
+   <title>Single stepping (step in)</title>
+   <para>
+    Single stepping executes only one statement of the program (from where
+    ever it has stopped) and returns the control to you. If the statement that is 
+    executed contains one or more functions, then it tries to step inside the functions also
+    (in the sequence the functions are executed). Once the statement is executed and
+    the control is passed to you, you can study the various program parameters.
+   </para>
+   <para>
+    If the program has not been currently started when you step in, then the program will
+    be started and will be stopped at the first statement of the program (ie the first
+    statement in the function main).
+   </para>
+   <para>
+    You can single step in program by activating
+    <citetitle>Debugger-&gt;Execution-&gt;Step in</citetitle>
+    or by clicking the step in icon in the debug tool-bar.
+   </para>
+  </sect1>
 
-<!-- ============= Debugging: Breakpoints ====================== -->
- <chapter id="debugging-breaks">
-  <title>Debugging: Breakpoints</title>
-  <para>
-   FIXME:
-  </para>
-  
-  <sect1 id="breaks-set">
-  <title>Adding or Setting Breakpoints</title>
-  <para>
-   FIXME:
-  </para>
+  <sect1 id="dbg_step_over">
+   <title>Single stepping (step over)</title>
+   <para>
+    <citetitle>Step over</citetitle> is exactly similar to <citetitle>step in</citetitle>,
+    except that it won't step inside any function in the statement being executed.
+    The statement will be executed in one go.
+   </para>
+   <para>
+    You can single step over the program by activating
+    <citetitle>Debugger-&gt;Execution-&gt;Step over</citetitle>
+    or by clicking the step over icon in the debug tool-bar.
+   </para>
   </sect1>
   
-  <sect1 id="breaks-edit">
-  <title>Editing Breakpoints</title>
-  <para>
-   FIXME:
-  </para>
+  <sect1 id="">
+   <title>Single stepping (step out)</title>
+   <para>
+    Step out will execute the current function till it is returned. The program
+    will be stopped once it exits from the function. To be frank, Step out
+    is not single stepping, because it does not executes a single statement.
+    It will execute the whole function (till it returns to the calling function).
+    But I somehow didn't know what to call it other than <citetitle>Step out</citetitle>. Probably,
+    I should have called it <citetitle>Run till return</citetitle>
+    or <citetitle>Finish the function</citetitle>.
+    Never mind, I hope it is understood what this command does.
+   </para>
+   <para>
+    You can single step out the program by activating 
+    <citetitle>Debugger-&gt;Execution-&gt;Step out</citetitle>
+    or by clicking the step out icon in the debug tool-bar.
+   </para>
   </sect1>
   
-  <sect1 id="breaks-del">
-  <title>Deleting Breakpoints</title>
-  <para>
-   FIXME:
-  </para>
+  <sect1 id="dbg_run">
+   <title>Run/Continue</title>
+   <para>
+    This will continue the execution of the program till a breakpoint is encountered or
+    the program exits.
+   </para>
+   <para>
+    If the program is not yet started, then the program will be started and continued.
+   </para>
+   <para>
+    You can continue the program by activating
+    <citetitle>Debugger-&gt;Execution-&gt;Run/Continue</citetitle>
+    or by clicking the Run/Continue icon in the debug tool-bar.
+   </para>
   </sect1>
-
-  <sect1 id="breaks-enbdis">
-  <title>Enabling or Disabling Breakpoints</title>
-  <para>
-   FIXME:
-  </para>
+  
+  <sect1 id="dbg_stop">
+   <title>Stop Program</title>
+   <para>
+    This will kill the the program which is being debugged. Remember
+    you cannot stop an attached process.
+   </para>
+   <para>
+    You can stop the program by activating <citetitle>Debugger-&gt;Stop Program</citetitle>.
+   </para>
   </sect1>
-</chapter>
+  
+  <sect1 id="dbg_restart">
+   <title>Restart Program</title>
+   <para>
+    This will stop the program first and then restart it again. All the 
+    breakpoints will remain in effect. Remember you cannot restart an
+    attached process.
+   </para>
+   <para>
+    You can restart the program by activating <b>Debugger-&gt;Restart Program</b>.
+   </para>
+  </sect1>
+ 
+ </chapter>
+ 

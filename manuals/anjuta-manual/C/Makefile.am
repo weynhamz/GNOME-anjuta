@@ -22,9 +22,11 @@ figs = \
 	figures/other_opts.png\
 	figures/project_info.png\
 	figures/project_win.png\
+    figures/registers.png\
 	figures/scrshot.png\
 	figures/signal_mod.png\
 	figures/signals.png\
+    figures/sharedlibs.png\
 	figures/stack.png\
 	figures/toolbar_main.png\
 	figures/toolbar_tags.png\
@@ -46,7 +48,10 @@ sgml_ents =\
 	chapter09.sgml\
 	chapter10.sgml\
 	chapter11.sgml\
-	chapter12.sgml
+	chapter12.sgml\
+    chapter13.sgml\
+    chapter14.sgml\
+    chapter15.sgml
 
 docname = anjuta-manual
 lang = C
