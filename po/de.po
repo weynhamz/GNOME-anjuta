@@ -2,8 +2,8 @@
 # Copyright (C) 2001 Free Software Foundation, Inc.
 # Jens Georg <mail@jensgeorg>, 2001.
 # folgende Kommentare:
-# ?? keinen Plan wie zu übersetzen
-# -- braucht m.E. nicht übersetzt zu werden
+# ?? keinen Plan wie zu Ã¼bersetzen
+# -- braucht m.E. nicht Ã¼bersetzt zu werden
 #
 # 11-29-2001  Christian Meyer <chrisime@gnome.org>
 # Jens, bitte niemals(!!) application mit Applikation uebersetzen, da fliegen
@@ -21,7 +21,7 @@ msgstr ""
 "Last-Translator: Christian Meyer <chrisime@gnome.org>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #.
@@ -31,7 +31,7 @@ msgstr ""
 #.
 #: anjuta_dialogs_strings.c:7
 msgid "Attach to process"
-msgstr "An Prozess anhängen"
+msgstr "An Prozess anhÃ¤ngen"
 
 #: anjuta_dialogs_strings.c:8 anjuta_dialogs_strings.c:80
 #, fuzzy
@@ -41,12 +41,12 @@ msgstr "Aktualisieren"
 #: anjuta_dialogs_strings.c:9
 #, fuzzy
 msgid "_Attach"
-msgstr "Anhängen"
+msgstr "AnhÃ¤ngen"
 
 #: anjuta_dialogs_strings.c:10
 #, fuzzy
 msgid "_Process to attach to:"
-msgstr "Wählen Sie den anzuhängenden Prozess:"
+msgstr "WÃ¤hlen Sie den anzuhÃ¤ngenden Prozess:"
 
 #: anjuta_dialogs_strings.c:11
 msgid "Breakpoints"
@@ -153,7 +153,7 @@ msgstr "Programm zum Bearbeiten von Bildern:"
 #: anjuta_dialogs_strings.c:27
 #, fuzzy
 msgid "HTML _viewer:"
-msgstr "Anzeigeprogramm für HTML:"
+msgstr "Anzeigeprogramm fÃ¼r HTML:"
 
 #: anjuta_dialogs_strings.c:28
 #, fuzzy
@@ -173,12 +173,12 @@ msgstr "Compilieren"
 #: anjuta_dialogs_strings.c:36
 #, fuzzy
 msgid "_Build a file:"
-msgstr "Datei übersetzen:"
+msgstr "Datei Ã¼bersetzen:"
 
 #: anjuta_dialogs_strings.c:37
 #, fuzzy
 msgid "_Execute:"
-msgstr "Ausführ_en"
+msgstr "AusfÃ¼hr_en"
 
 #: anjuta_dialogs_strings.c:38
 #, fuzzy
@@ -203,11 +203,11 @@ msgstr "Voreinstellungen des Benutzers laden"
 #: anjuta_dialogs_strings.c:46
 #, fuzzy
 msgid "Compiler and linker options"
-msgstr "Einstellungen für _Compiler und Linker ..."
+msgstr "Einstellungen fÃ¼r _Compiler und Linker ..."
 
 #: anjuta_dialogs_strings.c:47
 msgid "Supports"
-msgstr "Unterstützungen"
+msgstr "UnterstÃ¼tzungen"
 
 #: anjuta_dialogs_strings.c:48 anjuta_dialogs_strings.c:51
 #: anjuta_dialogs_strings.c:54 anjuta_dialogs_strings.c:58 src/cvs_gui.c:72
@@ -249,17 +249,17 @@ msgstr "Keine Optimierung"
 #: anjuta_dialogs_strings.c:64
 #, fuzzy
 msgid "Low-Level Optimization (Machine dependent optimization)"
-msgstr "Optimierungen auf unterster Ebene (Maschinenabhängig)"
+msgstr "Optimierungen auf unterster Ebene (MaschinenabhÃ¤ngig)"
 
 #: anjuta_dialogs_strings.c:65
 #, fuzzy
 msgid "Medium-Level Optimization (Without space-speed trade-off)"
-msgstr "Optimierung auf höherer Ebene (ohne Platz/Geschwindigkeitstausch)"
+msgstr "Optimierung auf hÃ¶herer Ebene (ohne Platz/Geschwindigkeitstausch)"
 
 #: anjuta_dialogs_strings.c:66
 #, fuzzy
 msgid "High-Level Optimization (Functions inlined wherever possible)"
-msgstr "\"Schnellster Code\" Optimierung (Funktionen wenn möglich als inline) "
+msgstr "\"Schnellster Code\" Optimierung (Funktionen wenn mÃ¶glich als inline) "
 
 #: anjuta_dialogs_strings.c:67
 msgid "Optimization"
@@ -292,7 +292,7 @@ msgstr ""
 
 #: anjuta_dialogs_strings.c:77 src/wizard_gui.c:610
 msgid "Additional Options"
-msgstr "Zusätzliche Optionen"
+msgstr "ZusÃ¤tzliche Optionen"
 
 #. 15
 #: anjuta_dialogs_strings.c:78 anjuta_dialogs_strings.c:343
@@ -322,7 +322,7 @@ msgstr "In Dateien suchen"
 #: anjuta_dialogs_strings.c:86
 #, fuzzy
 msgid "Case sensitive"
-msgstr "Groß/Kleinschreibung beachten"
+msgstr "GroÃŸ/Kleinschreibung beachten"
 
 #: anjuta_dialogs_strings.c:87
 #, fuzzy
@@ -341,7 +341,7 @@ msgstr "Nachrichten suchen"
 
 #: anjuta_dialogs_strings.c:90
 msgid "File/Directory to add:"
-msgstr "Datei/Verzeichnis hinzufügen:"
+msgstr "Datei/Verzeichnis hinzufÃ¼gen:"
 
 #: anjuta_dialogs_strings.c:93
 #, fuzzy
@@ -351,7 +351,7 @@ msgstr " Such-Zeichenkette"
 #: anjuta_dialogs_strings.c:94
 #, fuzzy
 msgid "Execute Program"
-msgstr "Das Programm ausführen"
+msgstr "Das Programm ausfÃ¼hren"
 
 #: anjuta_dialogs_strings.c:96
 #, fuzzy
@@ -360,7 +360,7 @@ msgstr "Programmargumente"
 
 #: anjuta_dialogs_strings.c:97
 msgid "Run in Terminal"
-msgstr "Im Terminal ausführen"
+msgstr "Im Terminal ausfÃ¼hren"
 
 #: anjuta_dialogs_strings.c:98 anjuta_dialogs_strings.c:115
 #, fuzzy
@@ -370,7 +370,7 @@ msgstr "Suchen und Ersetzen"
 #: anjuta_dialogs_strings.c:100 anjuta_dialogs_strings.c:117
 #, fuzzy
 msgid "Regexp/String to find"
-msgstr " Regulärer Ausdruck/Zeichenkette"
+msgstr " RegulÃ¤rer Ausdruck/Zeichenkette"
 
 #: anjuta_dialogs_strings.c:102
 #, fuzzy
@@ -393,12 +393,12 @@ msgstr " Reichweite "
 #: anjuta_dialogs_strings.c:106 anjuta_dialogs_strings.c:121
 #, fuzzy
 msgid "Forwards"
-msgstr "Vorwärts"
+msgstr "VorwÃ¤rts"
 
 #: anjuta_dialogs_strings.c:107 anjuta_dialogs_strings.c:122
 #, fuzzy
 msgid "Backwards"
-msgstr "Rückwärts"
+msgstr "RÃ¼ckwÃ¤rts"
 
 #: anjuta_dialogs_strings.c:108 anjuta_dialogs_strings.c:123
 #, fuzzy
@@ -408,7 +408,7 @@ msgstr " Richtung "
 #: anjuta_dialogs_strings.c:109 anjuta_dialogs_strings.c:124
 #, fuzzy
 msgid "Regexp"
-msgstr "Regulärer Ausdruck"
+msgstr "RegulÃ¤rer Ausdruck"
 
 #: anjuta_dialogs_strings.c:110 anjuta_dialogs_strings.c:125
 msgid "String"
@@ -440,7 +440,7 @@ msgstr "Suchen und Ersetzen"
 #: anjuta_dialogs_strings.c:130 anjuta_dialogs_strings.c:138
 #, fuzzy
 msgid "Search Expression"
-msgstr "Überachten Ausdruck hinzufügen"
+msgstr "Ãœberachten Ausdruck hinzufÃ¼gen"
 
 #: anjuta_dialogs_strings.c:131
 #, fuzzy
@@ -454,7 +454,7 @@ msgstr ""
 #: anjuta_dialogs_strings.c:133
 #, fuzzy
 msgid "Case insensitive"
-msgstr "Groß/Kleinschreibung beachten"
+msgstr "GroÃŸ/Kleinschreibung beachten"
 
 #: anjuta_dialogs_strings.c:135
 msgid "Match at start of word"
@@ -467,7 +467,7 @@ msgstr ""
 #: anjuta_dialogs_strings.c:137
 #, fuzzy
 msgid "Match complete words"
-msgstr "Wort automatisch vervollständigen"
+msgstr "Wort automatisch vervollstÃ¤ndigen"
 
 #: anjuta_dialogs_strings.c:139
 #, fuzzy
@@ -496,7 +496,7 @@ msgstr "Variablen"
 #: anjuta_dialogs_strings.c:148
 #, fuzzy
 msgid "Choose Files"
-msgstr "S_chließen"
+msgstr "S_chlieÃŸen"
 
 #: anjuta_dialogs_strings.c:149 anjuta_dialogs_strings.c:272
 msgid "Space-seperated list of file name patterns to match"
@@ -730,12 +730,12 @@ msgstr "Makefile.am im Dokumentationsverzeichnis"
 
 #: anjuta_dialogs_strings.c:210
 msgid "Po module (translation) Makefile.am"
-msgstr "Makefile.am im po Verzeichnis (Übersetzungen)"
+msgstr "Makefile.am im po Verzeichnis (Ãœbersetzungen)"
 
 #: anjuta_dialogs_strings.c:211
 #, fuzzy
 msgid "Disable overwriting files"
-msgstr "Überschreiben dieser Projektdateien abschalten:"
+msgstr "Ãœberschreiben dieser Projektdateien abschalten:"
 
 #: anjuta_dialogs_strings.c:212
 msgid "Build files"
@@ -763,12 +763,12 @@ msgstr "Funktionen"
 #: anjuta_dialogs_strings.c:218
 #, fuzzy
 msgid "Additional"
-msgstr "Zusätzliche Skripte"
+msgstr "ZusÃ¤tzliche Skripte"
 
 #: anjuta_dialogs_strings.c:219
 #, fuzzy
 msgid "Output files"
-msgstr "Datei öffnen"
+msgstr "Datei Ã¶ffnen"
 
 #: anjuta_dialogs_strings.c:220
 #, fuzzy
@@ -783,7 +783,7 @@ msgstr "Konfigurationsskripte"
 #: anjuta_dialogs_strings.c:222
 #, fuzzy
 msgid "Scripts at the end of top level Makefile.am"
-msgstr "Zusätzliche Skripte am Ende des Toplevel Makefile.am"
+msgstr "ZusÃ¤tzliche Skripte am Ende des Toplevel Makefile.am"
 
 #: anjuta_dialogs_strings.c:223
 msgid "Makefile.am"
@@ -873,7 +873,7 @@ msgstr ""
 #: anjuta_dialogs_strings.c:246
 #, fuzzy
 msgid "Run in terminal"
-msgstr "Im Terminal ausführen"
+msgstr "Im Terminal ausfÃ¼hren"
 
 #: anjuta_dialogs_strings.c:247
 msgid "File level"
@@ -919,7 +919,7 @@ msgstr "Aktiv"
 #: anjuta_dialogs_strings.c:263
 #, fuzzy
 msgid "Save all files"
-msgstr "Alle Dateien schließen"
+msgstr "Alle Dateien schlieÃŸen"
 
 #: anjuta_dialogs_strings.c:265 anjuta_dialogs_strings.c:266
 #, fuzzy
@@ -942,7 +942,7 @@ msgstr ""
 #: anjuta_dialogs_strings.c:271
 #, fuzzy
 msgid "Choose files"
-msgstr "Alle Dateien schließen"
+msgstr "Alle Dateien schlieÃŸen"
 
 #: anjuta_dialogs_strings.c:277
 #, fuzzy
@@ -1009,12 +1009,12 @@ msgstr "Datei speichern unter"
 #: anjuta_dialogs_strings.c:299
 #, fuzzy
 msgid "Delete Theme"
-msgstr "Löschen"
+msgstr "LÃ¶schen"
 
 #: anjuta_dialogs_strings.c:300
 #, fuzzy
 msgid "Select theme:"
-msgstr "Auswählen"
+msgstr "AuswÃ¤hlen"
 
 #: anjuta_dialogs_strings.c:302
 #, fuzzy
@@ -1068,7 +1068,7 @@ msgstr "Hintergrund:"
 #: anjuta_dialogs_strings.c:316
 #, fuzzy
 msgid "Select highlight style to edit:"
-msgstr "Highlight-Eintrag zum Bearbeiten auswählen:"
+msgstr "Highlight-Eintrag zum Bearbeiten auswÃ¤hlen:"
 
 #: anjuta_dialogs_strings.c:318
 #, fuzzy
@@ -1117,11 +1117,11 @@ msgstr " Verzeichnisse "
 
 #: anjuta_dialogs_strings.c:332
 msgid "Recent Projects:"
-msgstr "Zuletzt geöffnete Projekte:"
+msgstr "Zuletzt geÃ¶ffnete Projekte:"
 
 #: anjuta_dialogs_strings.c:333
 msgid "Recent Files:"
-msgstr "Zuletzt geöffnete Dateien"
+msgstr "Zuletzt geÃ¶ffnete Dateien"
 
 # ??
 #: anjuta_dialogs_strings.c:334
@@ -1131,7 +1131,7 @@ msgstr "Ausklappbare Listen:"
 #: anjuta_dialogs_strings.c:335
 #, fuzzy
 msgid "History sizes"
-msgstr " Größe der Chronik"
+msgstr " GrÃ¶ÃŸe der Chronik"
 
 #: anjuta_dialogs_strings.c:336
 #, fuzzy
@@ -1190,7 +1190,7 @@ msgstr ""
 #: anjuta_dialogs_strings.c:352
 #, fuzzy
 msgid "Keep going when some targets can not be made"
-msgstr "Weitermachen, falls einige Ziele nicht erstellt werden können"
+msgstr "Weitermachen, falls einige Ziele nicht erstellt werden kÃ¶nnen"
 
 #: anjuta_dialogs_strings.c:353
 msgid "Silent. That is, do not echo shell commads during make"
@@ -1208,7 +1208,7 @@ msgstr ""
 #: anjuta_dialogs_strings.c:356
 #, fuzzy
 msgid "Additional build options:"
-msgstr "Zusätzliche Optionen"
+msgstr "ZusÃ¤tzliche Optionen"
 
 #: anjuta_dialogs_strings.c:358
 #, fuzzy
@@ -1247,7 +1247,7 @@ msgstr "Automatisches Speichern einschalten"
 
 #: anjuta_dialogs_strings.c:366
 msgid "Enable braces check"
-msgstr "Klammernüberprüfung einschalten"
+msgstr "KlammernÃ¼berprÃ¼fung einschalten"
 
 #: anjuta_dialogs_strings.c:367
 #, fuzzy
@@ -1257,7 +1257,7 @@ msgstr "Leerzeichen am Zeilenende beim Speichern entfernen"
 #: anjuta_dialogs_strings.c:368
 #, fuzzy
 msgid "Collapse all code folds on file open"
-msgstr "Alle Textfaltungen beim Öffnen von Dateien schließen"
+msgstr "Alle Textfaltungen beim Ã–ffnen von Dateien schlieÃŸen"
 
 #: anjuta_dialogs_strings.c:369
 #, fuzzy
@@ -1344,7 +1344,7 @@ msgstr ""
 #: anjuta_dialogs_strings.c:389
 #, fuzzy
 msgid "Autocomplete automatic size"
-msgstr "Wort automatisch vervollständigen"
+msgstr "Wort automatisch vervollstÃ¤ndigen"
 
 #: anjuta_dialogs_strings.c:390
 msgid "Caret blink period in milli-seconds"
@@ -1402,7 +1402,7 @@ msgstr "Plug_ins"
 #: anjuta_dialogs_strings.c:403
 #, fuzzy
 msgid "Circular"
-msgstr "Löschen"
+msgstr "LÃ¶schen"
 
 #: anjuta_dialogs_strings.c:404
 msgid "Squares"
@@ -1416,7 +1416,7 @@ msgstr "_Textfaltungen"
 #: anjuta_dialogs_strings.c:406
 #, fuzzy
 msgid "Editor options"
-msgstr "Zusätzliche Optionen"
+msgstr "ZusÃ¤tzliche Optionen"
 
 #: anjuta_dialogs_strings.c:407
 #, fuzzy
@@ -1426,12 +1426,12 @@ msgstr "Fenster andocken"
 #: anjuta_dialogs_strings.c:408
 #, fuzzy
 msgid "Tab size in spaces:"
-msgstr "Größe der Tabs in Leerzeichen"
+msgstr "GrÃ¶ÃŸe der Tabs in Leerzeichen"
 
 #: anjuta_dialogs_strings.c:409
 #, fuzzy
 msgid "Indentation size in spaces:"
-msgstr "Größe der automatischen Einrückung in Leerzeichen"
+msgstr "GrÃ¶ÃŸe der automatischen EinrÃ¼ckung in Leerzeichen"
 
 #: anjuta_dialogs_strings.c:410
 #, fuzzy
@@ -1441,21 +1441,21 @@ msgstr " Automatische Formatierung abschalten"
 #: anjuta_dialogs_strings.c:411
 #, fuzzy
 msgid "Enable automatic indentation"
-msgstr "Automatisches einrücken einschalten"
+msgstr "Automatisches einrÃ¼cken einschalten"
 
 #: anjuta_dialogs_strings.c:412
 msgid "Use tabs for indentation"
-msgstr "Tabs für Einrückungen benutzen"
+msgstr "Tabs fÃ¼r EinrÃ¼ckungen benutzen"
 
 #: anjuta_dialogs_strings.c:413
 #, fuzzy
 msgid "Indent opening braces"
-msgstr "Einrückung erh."
+msgstr "EinrÃ¼ckung erh."
 
 #: anjuta_dialogs_strings.c:414
 #, fuzzy
 msgid "Indent closing braces"
-msgstr "Einrückung erh."
+msgstr "EinrÃ¼ckung erh."
 
 #: anjuta_dialogs_strings.c:416 anjuta_dialogs_strings.c:426
 #, fuzzy
@@ -1497,8 +1497,8 @@ msgid ""
 "Enter the command line arguments for the 'indent' program. Read the info "
 "page for 'indent' for more details"
 msgstr ""
-"Kommandozeilenparameter für 'indent'.\n"
-"Weitere Informationen auf der Info-Seite für 'indent'."
+"Kommandozeilenparameter fÃ¼r 'indent'.\n"
+"Weitere Informationen auf der Info-Seite fÃ¼r 'indent'."
 
 #: anjuta_dialogs_strings.c:428
 msgid "Indentation and auto-format options"
@@ -1704,22 +1704,22 @@ msgstr "Anjuta: %s"
 
 #: plugins/class-gen/clsGen.c:449
 msgid "Class name not valid"
-msgstr "Ungültiger Klassenname"
+msgstr "UngÃ¼ltiger Klassenname"
 
 #: plugins/class-gen/clsGen.c:456
 #, fuzzy
 msgid "Base class name not valid"
-msgstr "Ungültiger Klassenname"
+msgstr "UngÃ¼ltiger Klassenname"
 
 #: plugins/class-gen/clsGen.c:462
 #, fuzzy
 msgid "Declaration file name not valid"
-msgstr "Dateiname der Deklarationdatei ungültig"
+msgstr "Dateiname der Deklarationdatei ungÃ¼ltig"
 
 #: plugins/class-gen/clsGen.c:467
 #, fuzzy
 msgid "Implementation file name not valid"
-msgstr "Dateiname der Implementationsdatei ungültig"
+msgstr "Dateiname der Implementationsdatei ungÃ¼ltig"
 
 #: plugins/class-gen/clsGen.c:726
 msgid "Error in importing files"
@@ -1756,12 +1756,12 @@ msgstr ""
 #: plugins/class-gen/clsGen.c:1388
 #, fuzzy
 msgid "Enter the declaration file name."
-msgstr "Dateiname der Deklarationdatei ungültig"
+msgstr "Dateiname der Deklarationdatei ungÃ¼ltig"
 
 #: plugins/class-gen/clsGen.c:1398
 #, fuzzy
 msgid "Enter the implementation file name."
-msgstr "Dateiname der Implementationsdatei ungültig"
+msgstr "Dateiname der Implementationsdatei ungÃ¼ltig"
 
 #: plugins/class-gen/clsGen.c:1400 plugins/class-gen/clsGen.c:1410
 msgid "..."
@@ -1774,7 +1774,7 @@ msgstr ""
 #: plugins/class-gen/clsGen.c:1418
 #, fuzzy
 msgid "Browse for the implementation file name."
-msgstr "Dateiname der Implementationsdatei ungültig"
+msgstr "Dateiname der Implementationsdatei ungÃ¼ltig"
 
 #: plugins/class-gen/clsGen.c:1428
 msgid "Enter the name of the class your new class will inherit from."
@@ -1883,7 +1883,7 @@ msgstr "Klasse:"
 #: plugins/class-gen/clsGen.c:1650
 #, fuzzy
 msgid "Select the type of class you would like to create."
-msgstr "Wählen Sie den Art der Anwendung, die Sie entwickeln möchten"
+msgstr "WÃ¤hlen Sie den Art der Anwendung, die Sie entwickeln mÃ¶chten"
 
 #: plugins/patch/patch-plugin.c:60
 msgid "Interface to patch Projects or individual files"
@@ -1892,7 +1892,7 @@ msgstr ""
 #: plugins/patch/patch-plugin.c:96
 #, fuzzy
 msgid "File/Dir to patch"
-msgstr "Datei/Verzeichnis hinzufügen:"
+msgstr "Datei/Verzeichnis hinzufÃ¼gen:"
 
 #: plugins/patch/patch-plugin.c:97
 #, fuzzy
@@ -1910,12 +1910,12 @@ msgstr ""
 #: plugins/patch/patch-plugin.c:103
 #, fuzzy
 msgid "Patch"
-msgstr "Überwachte Ausdrücke"
+msgstr "Ãœberwachte AusdrÃ¼cke"
 
 #: plugins/patch/patch-plugin.c:106
 #, fuzzy
 msgid "Selected directory to patch"
-msgstr "Wählen Sie den anzuhängenden Prozess:"
+msgstr "WÃ¤hlen Sie den anzuhÃ¤ngenden Prozess:"
 
 #: plugins/patch/patch-plugin.c:108
 msgid "Selected patch file"
@@ -1982,12 +1982,12 @@ msgstr "Dies is ein Beispiel Plug-in"
 #: printing/print.c:535
 #, fuzzy
 msgid "No file to print!"
-msgstr "Keine Datei oder Projekt geöffnet."
+msgstr "Keine Datei oder Projekt geÃ¶ffnet."
 
 #: printing/print.c:558
 #, fuzzy
 msgid "Unable to get text buffer for printing"
-msgstr "Seiteneinstellungen für den Drucker"
+msgstr "Seiteneinstellungen fÃ¼r den Drucker"
 
 #: printing/print.c:789
 #, fuzzy, c-format
@@ -2021,7 +2021,7 @@ msgstr ""
 #: src/an_file_view.c:56
 #, fuzzy, c-format
 msgid "Unable to open %s in %s"
-msgstr "%s konnte nicht geöffnet werden.\n"
+msgstr "%s konnte nicht geÃ¶ffnet werden.\n"
 
 #: src/an_file_view.c:66
 #, c-format
@@ -2079,7 +2079,7 @@ msgstr "Die aktuelle Datei drucken"
 #: src/an_file_view.c:376
 #, fuzzy
 msgid "Add file"
-msgstr "Neue Datei hinzufügen"
+msgstr "Neue Datei hinzufÃ¼gen"
 
 #: src/an_file_view.c:377 src/main_menubar_def.h:1636
 #, fuzzy
@@ -2160,7 +2160,7 @@ msgstr "Anjuta: Signal %d (%s) empfangen !"
 #. Must declare static, because it will be used forever
 #: src/anjuta.c:106
 msgid "Open File"
-msgstr "Datei öffnen"
+msgstr "Datei Ã¶ffnen"
 
 #. Must declare static, because it will be used forever
 #: src/anjuta.c:112 src/anjuta.c:117
@@ -2179,7 +2179,7 @@ msgstr "Anjuta: %s"
 
 #: src/anjuta.c:372
 msgid "Recent Files "
-msgstr "Zuletzt geöffnete Dateien "
+msgstr "Zuletzt geÃ¶ffnete Dateien "
 
 #: src/anjuta.c:923
 msgid "# * DO NOT EDIT OR RENAME THIS FILE ** Generated by Anjuta **\n"
@@ -2247,7 +2247,7 @@ msgstr "Unbekannt"
 
 #: src/anjuta.c:2109
 msgid "OVR"
-msgstr "ÜBER"
+msgstr "ÃœBER"
 
 #: src/anjuta.c:2113 src/anjuta.c:2119
 msgid "INS"
@@ -2287,7 +2287,7 @@ msgstr "%s ist keine normale Datei."
 #: src/anjuta_cbs.c:411
 #, c-format
 msgid "No read permission for: %s."
-msgstr "Keine Leserechte für %s vorhanden."
+msgstr "Keine Leserechte fÃ¼r %s vorhanden."
 
 #: src/anjuta_cbs.c:523 src/anjuta_cbs.c:580
 #, fuzzy, c-format
@@ -2296,7 +2296,7 @@ msgid ""
 "Do you want to overwrite it?."
 msgstr ""
 "Die Datei \"%s\" existiert bereits.\n"
-"Soll sie überschrieben werden?"
+"Soll sie Ã¼berschrieben werden?"
 
 #: src/anjuta_cbs.c:556
 #, fuzzy
@@ -2305,11 +2305,11 @@ msgstr "Datei %s konnte nicht geladen werden"
 
 #: src/anjuta_dirs.c:52
 msgid "Unable to create settings directory.\n"
-msgstr "Verzeichnis für Einstellungen konnte nicht erstellt werden\n"
+msgstr "Verzeichnis fÃ¼r Einstellungen konnte nicht erstellt werden\n"
 
 #: src/anjuta_gui.c:191 src/anjuta_gui.c:280
 msgid "Click here to undock this window"
-msgstr "Hier klicken, um das Fenster zu abzureißen"
+msgstr "Hier klicken, um das Fenster zu abzureiÃŸen"
 
 #: src/anjuta_gui.c:225 src/anjuta_gui.c:247
 msgid "Click here to hide this window"
@@ -2339,7 +2339,7 @@ msgstr "Plugin in Modul %s konnte nicht  gestartet werden"
 #: src/anjuta-plugins.c:127
 #, fuzzy, c-format
 msgid "Bad parameters to plugin %s. Error: %s"
-msgstr "Falsche Parameter für Plugin %s. Fehler: %s"
+msgstr "Falsche Parameter fÃ¼r Plugin %s. Fehler: %s"
 
 #: src/anjuta-plugins.c:134
 #, fuzzy, c-format
@@ -2467,8 +2467,8 @@ msgid ""
 "Invalid %s field:\n"
 "You must supply a valid %s field to proceed further."
 msgstr ""
-"Das Feld %s enthält ungültige Daten.\n"
-"%s muß gültige Daten enthalten, damit Sie fortfahren können"
+"Das Feld %s enthÃ¤lt ungÃ¼ltige Daten.\n"
+"%s muÃŸ gÃ¼ltige Daten enthalten, damit Sie fortfahren kÃ¶nnen"
 
 #. For the time being
 #: src/appwizard_cbs.c:277 src/project_dbase.c:1509 src/project_dbase.c:1515
@@ -2488,7 +2488,7 @@ msgid ""
 "Confirm the following information:\n"
 "\n"
 msgstr ""
-"Bestätigen Sie die folgenden Informationen:\n"
+"BestÃ¤tigen Sie die folgenden Informationen:\n"
 "\n"
 
 #: src/appwizard_cbs.c:282 src/project_import_cbs.c:225
@@ -2522,7 +2522,7 @@ msgstr "Sprache:         "
 #: src/appwizard_cbs.c:289 src/project_import_cbs.c:236
 #, fuzzy
 msgid "Gettext Support: "
-msgstr "Unterstützung von gettext:"
+msgstr "UnterstÃ¼tzung von gettext:"
 
 #: src/appwizard_gui.c:40
 #, fuzzy
@@ -2537,14 +2537,14 @@ msgid ""
 "settings later."
 msgstr ""
 "Der Anwendungsdruide generiert ein Skelett\n"
-"für Ihre Anwendung, inklusive aller zu einem\n"
-"Übersetzungsvorgang benötigten Dateien. Sie werden\n"
+"fÃ¼r Ihre Anwendung, inklusive aller zu einem\n"
+"Ãœbersetzungsvorgang benÃ¶tigten Dateien. Sie werden\n"
 "nach der grundlegenden Struktur der Anwendung,\n"
-"die Sie entwickeln möchten, gefragt.\n"
+"die Sie entwickeln mÃ¶chten, gefragt.\n"
 "\n"
-"Bitte beantworten Sie die Fragen sorgfältig, da\n"
-"es später nicht mehr möglich ist, einige der\n"
-"Einstellungen zu ändern.\n"
+"Bitte beantworten Sie die Fragen sorgfÃ¤ltig, da\n"
+"es spÃ¤ter nicht mehr mÃ¶glich ist, einige der\n"
+"Einstellungen zu Ã¤ndern.\n"
 "\n"
 "Klicken Sie auf Weiter, um fortzufahren ..."
 
@@ -2571,12 +2571,12 @@ msgstr "Befehl"
 #: src/attach_process.c:130
 #, c-format
 msgid "Unable to execute: %s."
-msgstr "%s konnte nicht ausgeführt werden."
+msgstr "%s konnte nicht ausgefÃ¼hrt werden."
 
 #: src/attach_process.c:140
 #, c-format
 msgid "Unable to open the file: %s\n"
-msgstr "%s konnte nicht geöffnet werden.\n"
+msgstr "%s konnte nicht geÃ¶ffnet werden.\n"
 
 #: src/breakpoints.c:102
 msgid "Line"
@@ -2596,12 +2596,12 @@ msgstr "Bedingung"
 
 #: src/breakpoints.c:485
 msgid "You must give a valid location to set the breakpoint."
-msgstr "Um den Breakpoint zu setzen, muss ein gültiger Ort angegeben werden."
+msgstr "Um den Breakpoint zu setzen, muss ein gÃ¼ltiger Ort angegeben werden."
 
 #: src/breakpoints.c:587
 #, fuzzy
 msgid "Are you sure you want to delete all the breakpoints?"
-msgstr "Sind Sie sicher, dass alle Breakpoints gelöscht werden sollen?"
+msgstr "Sind Sie sicher, dass alle Breakpoints gelÃ¶scht werden sollen?"
 
 #: src/breakpoints.c:1118
 msgid "Old breakpoints disabled."
@@ -2622,7 +2622,7 @@ msgstr ""
 #, fuzzy
 msgid "The executable is up-to-date, there is no need to build it again."
 msgstr ""
-"Die ausführbare Datei ist aktuell. Keine Notwendigkeit sie neu zu erstellen."
+"Die ausfÃ¼hrbare Datei ist aktuell. Keine Notwendigkeit sie neu zu erstellen."
 
 #: src/build_file.c:91
 msgid "No build command has been specified for this type of file."
@@ -2640,53 +2640,53 @@ msgstr "Datei %s wird generiert ...\n"
 #: src/project_import.c:179
 #, c-format
 msgid "Total time taken: %d secs\n"
-msgstr "Benötigte Zeit: %d Sek.\n"
+msgstr "BenÃ¶tigte Zeit: %d Sek.\n"
 
 #: src/build_file.c:135
 msgid "Build completed ... unsuccessful\n"
-msgstr "Übersetzungsvorgang beendet ... gescheitert\n"
+msgstr "Ãœbersetzungsvorgang beendet ... gescheitert\n"
 
 #: src/build_file.c:139
 msgid "Build completed ... unsuccessful"
-msgstr "Übersetzungsvorgang beendet ... gescheitert"
+msgstr "Ãœbersetzungsvorgang beendet ... gescheitert"
 
 #: src/build_file.c:144
 msgid "Build completed ... successful\n"
-msgstr "Übersetzungsvorgang beendet ... gelungen\n"
+msgstr "Ãœbersetzungsvorgang beendet ... gelungen\n"
 
 #: src/build_file.c:148
 msgid "Build completed ... successful"
-msgstr "Übersetzungsvorgang beendet ... gelungen"
+msgstr "Ãœbersetzungsvorgang beendet ... gelungen"
 
 #: src/build_project.c:63 src/compile.c:60
 #, fuzzy
 msgid "Unable to build module. Check Settings->Commands."
 msgstr ""
-"Modul konnte nicht übersetzt werden. Prüfen Sie Einstellungen->Befehle."
+"Modul konnte nicht Ã¼bersetzt werden. PrÃ¼fen Sie Einstellungen->Befehle."
 
 #: src/build_project.c:84 src/build_project.c:140 src/compile.c:75
 msgid "Build Project"
-msgstr "Projekt übersetzen"
+msgstr "Projekt Ã¼bersetzen"
 
 #: src/build_project.c:86 src/compile.c:77
 msgid "Building source directory of the Project: "
-msgstr "Sourcen-Verzeichnis des Projekts wird übersetzt: "
+msgstr "Sourcen-Verzeichnis des Projekts wird Ã¼bersetzt: "
 
 #: src/build_project.c:123
 #, fuzzy
 msgid "Unable to build Project. Check Settings->Commands."
 msgstr ""
-"Projekt konnte nicht ausgeführt werden. Prüfen Sie Einstellungen->Befehle."
+"Projekt konnte nicht ausgefÃ¼hrt werden. PrÃ¼fen Sie Einstellungen->Befehle."
 
 #: src/build_project.c:143
 msgid "Building the whole Project: "
-msgstr "Gesamtes Projekt wird übersetzt:"
+msgstr "Gesamtes Projekt wird Ã¼bersetzt:"
 
 #: src/build_project.c:176
 #, fuzzy
 msgid "Unable to build tarball. Check Settings->Commands."
 msgstr ""
-"Tar-Archiv konnte nicht erstellt werdenn. Prüfen Sie Einstellungen->Befehle."
+"Tar-Archiv konnte nicht erstellt werdenn. PrÃ¼fen Sie Einstellungen->Befehle."
 
 #: src/build_project.c:193
 msgid "Build Distribution"
@@ -2704,7 +2704,7 @@ msgstr ""
 #, fuzzy
 msgid "Unable to auto generate. Check Settings->Commands."
 msgstr ""
-"autogen konnte nicht durchgeführt werden. Prüfen Sie Einstellungen->Befehle"
+"autogen konnte nicht durchgefÃ¼hrt werden. PrÃ¼fen Sie Einstellungen->Befehle"
 
 #: src/build_project.c:283
 #, fuzzy
@@ -2717,35 +2717,35 @@ msgstr "Das Projekt wird autogeneriert: "
 
 #: src/build_project.c:314
 msgid "Build completed...............Unsuccessful\n"
-msgstr "Übersetzungsvorgang beendet...............gescheitert\n"
+msgstr "Ãœbersetzungsvorgang beendet...............gescheitert\n"
 
 #: src/build_project.c:318
 msgid "Build terminated with error(s)."
-msgstr "Übersetzungsvorgang wurde mit Fehler(n) beendet"
+msgstr "Ãœbersetzungsvorgang wurde mit Fehler(n) beendet"
 
 #: src/build_project.c:324
 msgid "Build completed...............Successful\n"
-msgstr "Übersetzungsvorgang beendet...............erfolgreich\n"
+msgstr "Ãœbersetzungsvorgang beendet...............erfolgreich\n"
 
 #: src/build_project.c:328
 msgid "Build completed ... successful."
-msgstr "Übersetzungsvorgang beendet ... erfolgreich"
+msgstr "Ãœbersetzungsvorgang beendet ... erfolgreich"
 
 #: src/build_project.c:352
 msgid "Build All completed...............Unsuccessful\n"
-msgstr "Übersetzungsvorgang beendet...............gescheitert\n"
+msgstr "Ãœbersetzungsvorgang beendet...............gescheitert\n"
 
 #: src/build_project.c:356
 msgid "Build All completed...............Unsuccessful"
-msgstr "Übersetzungsvorgang beendet...............gescheitert"
+msgstr "Ãœbersetzungsvorgang beendet...............gescheitert"
 
 #: src/build_project.c:361
 msgid "Build All completed...............Successful\n"
-msgstr "Übersetzungsvorgang beendet...............erfolgreich\n"
+msgstr "Ãœbersetzungsvorgang beendet...............erfolgreich\n"
 
 #: src/build_project.c:365
 msgid "Build All completed ... successful"
-msgstr "Übersetzungsvorgang beendet ... erfolgreich"
+msgstr "Ãœbersetzungsvorgang beendet ... erfolgreich"
 
 #: src/build_project.c:387
 #, fuzzy
@@ -2813,7 +2813,7 @@ msgstr "autogen beendet ... erfolgreich"
 #, fuzzy
 msgid "Unable to install Project. Check Settings->Commands."
 msgstr ""
-"Projekt konnte nicht ausgeführt werden. Prüfen Sie Einstellungen->Befehle."
+"Projekt konnte nicht ausgefÃ¼hrt werden. PrÃ¼fen Sie Einstellungen->Befehle."
 
 #: src/build_project.c:514 src/build_project.c:556
 msgid "Install Project"
@@ -2827,11 +2827,11 @@ msgstr "Das Projekt wird installiert: "
 #, fuzzy
 msgid "Unable to clean Project. Check Settings->Commands."
 msgstr ""
-"Projekt konnte nicht ausgeführt werden. Prüfen Sie Einstellungen->Befehle."
+"Projekt konnte nicht ausgefÃ¼hrt werden. PrÃ¼fen Sie Einstellungen->Befehle."
 
 #: src/clean_project.c:72
 msgid "Clean"
-msgstr "Säubern"
+msgstr "SÃ¤ubern"
 
 #: src/clean_project.c:75
 #, fuzzy
@@ -2858,7 +2858,7 @@ msgstr "Bereinigung beendet ... erfolgreich"
 #, fuzzy
 msgid "Unable to Clean All for the Project. Check Settings->Commands."
 msgstr ""
-"Projekt konnte nicht ausgeführt werden. Prüfen Sie Einstellungen->Befehle."
+"Projekt konnte nicht ausgefÃ¼hrt werden. PrÃ¼fen Sie Einstellungen->Befehle."
 
 #: src/clean_project.c:161
 msgid "Clean All"
@@ -2971,7 +2971,7 @@ msgid ""
 "Project does not have an executable configure script.\n"
 "Auto generate the Project first."
 msgstr ""
-"Das Projekt besitzt kein ausführbares configure-Skript.\n"
+"Das Projekt besitzt kein ausfÃ¼hrbares configure-Skript.\n"
 "Zuerst muss autogen aufgerufen werden."
 
 #: src/configurer.c:185 src/toolbar.c:261
@@ -3058,7 +3058,7 @@ msgstr "Compilieren beendet ... gescheitert"
 #: src/cvs.c:742
 #, fuzzy
 msgid "CVS completed...successful\n"
-msgstr "Übersetzungsvorgang beendet ... gelungen\n"
+msgstr "Ãœbersetzungsvorgang beendet ... gelungen\n"
 
 #: src/cvs.c:744
 #, fuzzy
@@ -3096,7 +3096,7 @@ msgstr ""
 #: src/cvs_gui.c:30
 #, fuzzy
 msgid "Server"
-msgstr "Überspringen"
+msgstr "Ãœberspringen"
 
 #: src/cvs_gui.c:71
 #, fuzzy
@@ -3135,7 +3135,7 @@ msgstr ""
 
 #: src/cvs_gui.c:88
 msgid "Add"
-msgstr "Hinzufügen"
+msgstr "HinzufÃ¼gen"
 
 #: src/cvs_gui.c:91
 msgid "CVS: Remove file"
@@ -3175,7 +3175,7 @@ msgstr "Nachrichten von Programmen"
 #: src/cvs_gui.c:126 src/cvs_gui.c:234
 #, fuzzy
 msgid "Select file"
-msgstr "Alles au_swählen"
+msgstr "Alles au_swÃ¤hlen"
 
 #: src/cvs_gui.c:219
 msgid "CVS: Diff file"
@@ -3219,7 +3219,7 @@ msgstr ""
 #: src/cvs_gui.c:423
 #, fuzzy
 msgid "CVS: Import Project"
-msgstr "Projekt schließen"
+msgstr "Projekt schlieÃŸen"
 
 #: src/cvs_gui.c:427
 #, fuzzy
@@ -3256,7 +3256,7 @@ msgstr "Datei importieren"
 #. Must declare static, because it will be used forever
 #: src/debugger.c:78
 msgid "Load Executable File"
-msgstr "Ausführbare Datei laden"
+msgstr "AusfÃ¼hrbare Datei laden"
 
 #. Must declare static, because it will be used forever
 #: src/debugger.c:84
@@ -3265,7 +3265,7 @@ msgstr "Core-Datei laden"
 
 #: src/debugger.c:193 src/debugger.c:645
 msgid "Loading Executable: "
-msgstr "Ausführbare Datei laden: "
+msgstr "AusfÃ¼hrbare Datei laden: "
 
 #: src/debugger.c:244
 msgid "Loading Core: "
@@ -3276,8 +3276,8 @@ msgid ""
 "You have a process ATTACHED under the debugger.\n"
 "Please detach it first and then load the executable file."
 msgstr ""
-"An den Debugger wurde ein Prozess ANGEHÄNGT.\n"
-"Bitte trennen Sie ihn zuerst ab und laden dann die ausführbare Datei."
+"An den Debugger wurde ein Prozess ANGEHÃ„NGT.\n"
+"Bitte trennen Sie ihn zuerst ab und laden dann die ausfÃ¼hrbare Datei."
 
 #: src/debugger.c:292 src/debugger.c:320
 msgid ""
@@ -3285,7 +3285,7 @@ msgid ""
 "Please stop it first and then load the executable file."
 msgstr ""
 "Im Debugger befindet sich ein LAUFENDER Prozess.\n"
-"Bitte stoppen Sie ihn zuerst und laden dann die ausführbare Datei."
+"Bitte stoppen Sie ihn zuerst und laden dann die ausfÃ¼hrbare Datei."
 
 #: src/debugger.c:571
 #, fuzzy, c-format
@@ -3296,7 +3296,7 @@ msgid ""
 msgstr ""
 "%s konnte nicht gefunden werden.\n"
 "Der Debugger konnte nicht initialisiert werden.\n"
-"Stellen Sie sicher, daß Anjuta korrekt installiert ist."
+"Stellen Sie sicher, daÃŸ Anjuta korrekt installiert ist."
 
 #: src/debugger.c:640
 msgid "Debugger"
@@ -3308,12 +3308,12 @@ msgstr "Debugger-Sitzung wird gestartet ... \n"
 
 #: src/debugger.c:655
 msgid "No executable specified\n"
-msgstr "Keine ausführbare Datei angegeben\n"
+msgstr "Keine ausfÃ¼hrbare Datei angegeben\n"
 
 #: src/debugger.c:659
 msgid "Open an executable or attach to a process to start debugging.\n"
 msgstr ""
-"Ausführbare Datei öffnen oder an einen Prozess anhängen um das Debuggen zu "
+"AusfÃ¼hrbare Datei Ã¶ffnen oder an einen Prozess anhÃ¤ngen um das Debuggen zu "
 "starten.\n"
 
 #: src/debugger.c:667
@@ -3347,7 +3347,7 @@ msgstr ""
 
 #: src/debugger.c:1173
 msgid "Cannot execute gnome-terminal"
-msgstr "gnome-terminal kann nicht ausgeführt werden"
+msgstr "gnome-terminal kann nicht ausgefÃ¼hrt werden"
 
 #: src/debugger.c:1208
 #, fuzzy
@@ -3360,36 +3360,36 @@ msgstr "Warnung: Kein Debug-Terminal. stdio wird nach /dev/null umgeleitet.\n"
 
 #: src/debugger.c:1291
 msgid "Running program ... \n"
-msgstr "Programm wird ausgeführt ... \n"
+msgstr "Programm wird ausgefÃ¼hrt ... \n"
 
 #: src/debugger.c:1421
 #, c-format
 msgid "Attaching to process: %d\n"
-msgstr "An Prozess %d wird angehängt:\n"
+msgstr "An Prozess %d wird angehÃ¤ngt:\n"
 
 #: src/debugger.c:1450
 msgid ""
 "A process is already running.\n"
 "Would you like to terminate it and attach the new process?"
 msgstr ""
-"Es läuft bereits ein Prozess.\n"
-"Soll der laufende Prozess beendet und der neue angehängt werden?"
+"Es lÃ¤uft bereits ein Prozess.\n"
+"Soll der laufende Prozess beendet und der neue angehÃ¤ngt werden?"
 
 #: src/debugger.c:1462
 msgid "Anjuta is unable to attach to itself."
-msgstr "Anjuta kann sich nicht an sich selbst anhängen."
+msgstr "Anjuta kann sich nicht an sich selbst anhÃ¤ngen."
 
 #: src/debugger.c:1548
 #, c-format
 msgid "Detaching the process: %d\n"
-msgstr "Prozess %d wird abgelöst: \n"
+msgstr "Prozess %d wird abgelÃ¶st: \n"
 
 #: src/debugger.c:1604
 msgid ""
 "Program is ATTACHED.\n"
 "Do you still want to stop Debugger?"
 msgstr ""
-"Ein Programm ist ANGHEHÄNGT.\n"
+"Ein Programm ist ANGHEHÃ„NGT.\n"
 "Soll der Debugger trotzdem angehalten werden?"
 
 #: src/debugger.c:1607
@@ -3398,7 +3398,7 @@ msgid ""
 "Program is RUNNING.\n"
 "Do you still want to stop Debugger?"
 msgstr ""
-"Ein Programm wird ausgeführt.\n"
+"Ein Programm wird ausgefÃ¼hrt.\n"
 "Soll der Debugger trotzdem angehalten werden?"
 
 #.
@@ -3426,7 +3426,7 @@ msgstr "Alle Breakpoints deaktiviert:\n"
 #.
 #: src/debugger.c:1879
 msgid "All breakpoints deleted:\n"
-msgstr "Alle Breakpoints gelöscht:\n"
+msgstr "Alle Breakpoints gelÃ¶scht:\n"
 
 #: src/debugger.c:1912
 #, c-format
@@ -3471,7 +3471,7 @@ msgstr "Hex"
 #: src/debug_tree.c:1539
 #, fuzzy
 msgid "Char"
-msgstr "Löschen"
+msgstr "LÃ¶schen"
 
 #: src/executer.c:53 src/mainmenu_callbacks.c:1700
 #, fuzzy
@@ -3481,32 +3481,32 @@ msgstr "Ziel des Projekts ist unbekannt"
 #: src/executer.c:58 src/mainmenu_callbacks.c:1702
 #, fuzzy
 msgid "The target executable of this Project is not executable"
-msgstr "Ziel des Projekts ist nicht ausführbar"
+msgstr "Ziel des Projekts ist nicht ausfÃ¼hrbar"
 
 #: src/executer.c:63 src/mainmenu_callbacks.c:1706
 #, fuzzy
 msgid "The target executable does not exist for this Project"
-msgstr "Zu diesem Projekt existiert keine ausführbare Datei."
+msgstr "Zu diesem Projekt existiert keine ausfÃ¼hrbare Datei."
 
 #: src/executer.c:76
 #, fuzzy
 msgid "No file or Project opened."
-msgstr "Keine Datei oder Projekt geöffnet."
+msgstr "Keine Datei oder Projekt geÃ¶ffnet."
 
 #: src/executer.c:81 src/executer.c:100 src/mainmenu_callbacks.c:1726
 #: src/mainmenu_callbacks.c:1737
 msgid "No executable for this file."
-msgstr "Keine ausführbare Datei zu dieser Datei."
+msgstr "Keine ausfÃ¼hrbare Datei zu dieser Datei."
 
 #: src/executer.c:105
 msgid "Executable is not up-to-date."
-msgstr "Die ausführbare Datei ist nicht ektuell."
+msgstr "Die ausfÃ¼hrbare Datei ist nicht ektuell."
 
 #: src/executer.c:117
 #, fuzzy
 msgid "Unable to execute Project. Check Settings->Commands."
 msgstr ""
-"Projekt konnte nicht ausgeführt werden. Prüfen Sie Einstellungen->Befehle."
+"Projekt konnte nicht ausgefÃ¼hrt werden. PrÃ¼fen Sie Einstellungen->Befehle."
 
 #: src/executer.c:131
 #, fuzzy
@@ -3516,7 +3516,7 @@ msgstr "Diese Datei ist nicht gespeichert. Bitte erst speichern."
 #: src/executer.c:139
 msgid "Unable to execute file. Check Settings->Commands."
 msgstr ""
-"Datei konnte nicht ausgeführt werden. Prüfen Sie Einstellungen->Befehle"
+"Datei konnte nicht ausgefÃ¼hrt werden. PrÃ¼fen Sie Einstellungen->Befehle"
 
 #: src/find_in_files.c:327
 msgid "Find in Files completed...............Unsuccessful\n"
@@ -3638,7 +3638,7 @@ msgstr "Projekt wird erneuert ...\n"
 #: src/gnome_project.c:232
 #, fuzzy
 msgid "Running autogen.sh ...\n"
-msgstr "autogen.sh wird ausgeführt ...\n"
+msgstr "autogen.sh wird ausgefÃ¼hrt ...\n"
 
 #: src/gnome_project.c:243
 msgid "App Wizard"
@@ -3651,7 +3651,7 @@ msgid ""
 "Please run autogen.sh manually."
 msgstr ""
 "Das Projekt konnte nicht automatisch erstellt werden.\n"
-"Bitte dies von Hand ausführen."
+"Bitte dies von Hand ausfÃ¼hren."
 
 #: src/gnome_project.c:268
 #, fuzzy
@@ -3660,7 +3660,7 @@ msgid ""
 "Now Build the Project to have a LOOK at it\n"
 msgstr ""
 "Autogenerierung beendet................erfolgreich\n"
-"Jetzt übersetzen Sie das Projekt und werfen Sie einen Blick drauf\n"
+"Jetzt Ã¼bersetzen Sie das Projekt und werfen Sie einen Blick drauf\n"
 
 #: src/gnome_project.c:271
 #, fuzzy
@@ -3675,7 +3675,7 @@ msgstr " Gehe zu Zeile"
 # -- sigh, i think shell == prompt in German --
 #: src/launcher.c:371 src/text_editor.c:1225
 msgid "Cannot execute command shell"
-msgstr "Kommandozeile kann nicht ausgeführt werden"
+msgstr "Kommandozeile kann nicht ausgefÃ¼hrt werden"
 
 #: src/main.c:47
 #, fuzzy
@@ -3688,11 +3688,11 @@ msgstr "Integrierte Entwicklungsumgebung"
 
 #: src/main_menubar.c:383
 msgid "Recent Files    "
-msgstr "Zuletzt geöffnete Dateien"
+msgstr "Zuletzt geÃ¶ffnete Dateien"
 
 #: src/main_menubar.c:394 src/project_dbase.c:2054
 msgid "Recent Projects "
-msgstr "Zuletzt geöffnete Projekte"
+msgstr "Zuletzt geÃ¶ffnete Projekte"
 
 #. 0
 #: src/main_menubar_def.h:29
@@ -3706,11 +3706,11 @@ msgstr "Neue Datei"
 #. 1
 #: src/main_menubar_def.h:35
 msgid "_Open ..."
-msgstr "Ö_ffnen ..."
+msgstr "Ã–_ffnen ..."
 
 #: src/main_menubar_def.h:36 src/text_editor_gui.c:101 src/toolbar.c:79
 msgid "Open file"
-msgstr "Datei öffnen"
+msgstr "Datei Ã¶ffnen"
 
 #. 2
 #: src/main_menubar_def.h:41
@@ -3737,25 +3737,25 @@ msgstr "A_lle speichern"
 
 #: src/main_menubar_def.h:54
 msgid "Save all currently open files, except new files"
-msgstr "Alle momentan geöffneten Dateien speichern, außer neue Dateien"
+msgstr "Alle momentan geÃ¶ffneten Dateien speichern, auÃŸer neue Dateien"
 
 #. 5
 #: src/main_menubar_def.h:59
 msgid "_Close File"
-msgstr "S_chließen"
+msgstr "S_chlieÃŸen"
 
 #: src/main_menubar_def.h:60 src/toolbar.c:91
 msgid "Close current file"
-msgstr "Aktuelle Datei schließen"
+msgstr "Aktuelle Datei schlieÃŸen"
 
 #. 6
 #: src/main_menubar_def.h:65
 msgid "Close All Files"
-msgstr "All_e schließen"
+msgstr "All_e schlieÃŸen"
 
 #: src/main_menubar_def.h:66
 msgid "Close all files"
-msgstr "Alle Dateien schließen"
+msgstr "Alle Dateien schlieÃŸen"
 
 #. 7
 #: src/main_menubar_def.h:71
@@ -3790,11 +3790,11 @@ msgstr ""
 #. 11
 #: src/main_menubar_def.h:90
 msgid "Open P_roject ..."
-msgstr "P_rojekt öffnen"
+msgstr "P_rojekt Ã¶ffnen"
 
 #: src/main_menubar_def.h:91 src/toolbar.c:213
 msgid "Open a Project"
-msgstr "Ein Projekt öffnen"
+msgstr "Ein Projekt Ã¶ffnen"
 
 #. 12
 #: src/main_menubar_def.h:96
@@ -3808,7 +3808,7 @@ msgstr "Das aktuelle Projekt speichern"
 #. 13
 #: src/main_menubar_def.h:102
 msgid "Close Pro_ject"
-msgstr "Pro_jekt schließen"
+msgstr "Pro_jekt schlieÃŸen"
 
 #: src/main_menubar_def.h:103 src/toolbar.c:236
 msgid "Close the current Project"
@@ -3832,7 +3832,7 @@ msgstr "Sei_teneinstellungen ..."
 
 #: src/main_menubar_def.h:117
 msgid "Page setup for printing"
-msgstr "Seiteneinstellungen für den Drucker"
+msgstr "Seiteneinstellungen fÃ¼r den Drucker"
 
 #. 18
 #: src/main_menubar_def.h:122
@@ -3858,21 +3858,21 @@ msgstr "Die aktuelle Datei drucken"
 #. 21
 #: src/main_menubar_def.h:135
 msgid "Recent _Files"
-msgstr "Zuletzt geöffnete Dateien"
+msgstr "Zuletzt geÃ¶ffnete Dateien"
 
 #. 22
 #: src/main_menubar_def.h:141
 msgid "Recent Projec_ts"
-msgstr "Zuletzt geöffnete Projekte"
+msgstr "Zuletzt geÃ¶ffnete Projekte"
 
 #. 0
 #: src/main_menubar_def.h:155
 msgid "_Make Selection Uppercase"
-msgstr "Auswahl zu Großbuchstaben"
+msgstr "Auswahl zu GroÃŸbuchstaben"
 
 #: src/main_menubar_def.h:156
 msgid "Make the selected text uppercase"
-msgstr "Den ausgewählten Text in Großbuchstaben umwandeln"
+msgstr "Den ausgewÃ¤hlten Text in GroÃŸbuchstaben umwandeln"
 
 #. 1
 #: src/main_menubar_def.h:162
@@ -3881,7 +3881,7 @@ msgstr "Auswahl zu Kleinbuchstaben"
 
 #: src/main_menubar_def.h:163
 msgid "Make the selected text lowercase"
-msgstr "Den ausgewählten Text in Kleinbuchstaben umwandeln"
+msgstr "Den ausgewÃ¤hlten Text in Kleinbuchstaben umwandeln"
 
 #. 3
 #: src/main_menubar_def.h:171
@@ -3926,29 +3926,29 @@ msgstr "EOL zu dem meisten in der Datei gefundenen EOL umwandeln"
 #. 0
 #: src/main_menubar_def.h:204
 msgid "_Select All"
-msgstr "Alles au_swählen"
+msgstr "Alles au_swÃ¤hlen"
 
 #: src/main_menubar_def.h:205
 msgid "Select all text in the editor"
-msgstr "Den ganzen Text im Editor auswählen"
+msgstr "Den ganzen Text im Editor auswÃ¤hlen"
 
 #. 1
 #: src/main_menubar_def.h:210
 msgid "Select to _Brace"
-msgstr "Bis zur Klammer auswählen"
+msgstr "Bis zur Klammer auswÃ¤hlen"
 
 #: src/main_menubar_def.h:211
 msgid "Select the text in the matching braces"
-msgstr "Den Text im passenden Klammernblock auswählen"
+msgstr "Den Text im passenden Klammernblock auswÃ¤hlen"
 
 #. 2
 #: src/main_menubar_def.h:216
 msgid "Select Code Block"
-msgstr "Code-Block auswählen"
+msgstr "Code-Block auswÃ¤hlen"
 
 #: src/main_menubar_def.h:217
 msgid "Select the current code block"
-msgstr "Den aktuellen Codeblock auswählen"
+msgstr "Den aktuellen Codeblock auswÃ¤hlen"
 
 #. 0
 #: src/main_menubar_def.h:227
@@ -3957,7 +3957,7 @@ msgstr "/* GPL Hinweis */"
 
 #: src/main_menubar_def.h:228
 msgid "Insert GPL notice with C style comments"
-msgstr "GPL-Hinweis in C-Kommentaren einfügen"
+msgstr "GPL-Hinweis in C-Kommentaren einfÃ¼gen"
 
 #. 1
 #: src/main_menubar_def.h:233
@@ -3966,7 +3966,7 @@ msgstr "// GPL-Hinweis"
 
 #: src/main_menubar_def.h:234
 msgid "Insert GPL notice with C++ style comments"
-msgstr "GPL-Hinweis mit C++-Kommentaren einfügen"
+msgstr "GPL-Hinweis mit C++-Kommentaren einfÃ¼gen"
 
 #. 2
 #: src/main_menubar_def.h:239
@@ -3975,7 +3975,7 @@ msgstr "# GPL-Hinweis"
 
 #: src/main_menubar_def.h:240
 msgid "Insert GPL notice with Python style comments"
-msgstr "GPL-Hinweis in Python-Kommentaren einfügen"
+msgstr "GPL-Hinweis in Python-Kommentaren einfÃ¼gen"
 
 #. 3
 #: src/main_menubar_def.h:245
@@ -3984,7 +3984,7 @@ msgstr "Aktueller Benutzername"
 
 #: src/main_menubar_def.h:246
 msgid "Insert name of current user"
-msgstr "Den aktuellen Benutzernamen einfügen"
+msgstr "Den aktuellen Benutzernamen einfÃ¼gen"
 
 #. 4
 #: src/main_menubar_def.h:251
@@ -3993,7 +3993,7 @@ msgstr "Aktuelles Datum/Uhrzeit"
 
 #: src/main_menubar_def.h:252
 msgid "Insert current date & time"
-msgstr "Das aktuelle Datum und die aktuelle Uhrzeit einfügen"
+msgstr "Das aktuelle Datum und die aktuelle Uhrzeit einfÃ¼gen"
 
 #. 5
 #: src/main_menubar_def.h:257
@@ -4002,7 +4002,7 @@ msgstr "Header Datei Template"
 
 #: src/main_menubar_def.h:258
 msgid "Insert a standard header file template"
-msgstr "Standart Header Datei Template einfügen"
+msgstr "Standart Header Datei Template einfÃ¼gen"
 
 #. 6
 #: src/main_menubar_def.h:263
@@ -4016,22 +4016,22 @@ msgstr ""
 #: src/main_menubar_def.h:275
 #, fuzzy
 msgid "Insert a switch template"
-msgstr "Standart Header Datei Template einfügen"
+msgstr "Standart Header Datei Template einfÃ¼gen"
 
 #: src/main_menubar_def.h:281
 #, fuzzy
 msgid "Insert a for template"
-msgstr "Standart Header Datei Template einfügen"
+msgstr "Standart Header Datei Template einfÃ¼gen"
 
 #: src/main_menubar_def.h:287
 #, fuzzy
 msgid "Insert a while template"
-msgstr "Standart Header Datei Template einfügen"
+msgstr "Standart Header Datei Template einfÃ¼gen"
 
 #: src/main_menubar_def.h:293
 #, fuzzy
 msgid "Insert an if...else template"
-msgstr "Standart Header Datei Template einfügen"
+msgstr "Standart Header Datei Template einfÃ¼gen"
 
 #: src/main_menubar_def.h:304
 msgid "Insert the CVS Author keyword (author of the change)"
@@ -4084,7 +4084,7 @@ msgstr ""
 #: src/main_menubar_def.h:363
 #, fuzzy
 msgid "Insert a C template"
-msgstr "Text e_infügen"
+msgstr "Text e_infÃ¼gen"
 
 #. 2
 #: src/main_menubar_def.h:368
@@ -4099,7 +4099,7 @@ msgstr ""
 #: src/main_menubar_def.h:386
 #, fuzzy
 msgid "Block comment the selected text"
-msgstr "Den ausgewählten Text in Großbuchstaben umwandeln"
+msgstr "Den ausgewÃ¤hlten Text in GroÃŸbuchstaben umwandeln"
 
 #. 1
 #: src/main_menubar_def.h:391
@@ -4110,7 +4110,7 @@ msgstr "Kommentar:"
 #: src/main_menubar_def.h:392
 #, fuzzy
 msgid "Box comment the selected text"
-msgstr "Den ausgewählten Text in Großbuchstaben umwandeln"
+msgstr "Den ausgewÃ¤hlten Text in GroÃŸbuchstaben umwandeln"
 
 #. 2
 #: src/main_menubar_def.h:397
@@ -4121,7 +4121,7 @@ msgstr "Kommentar:"
 #: src/main_menubar_def.h:398
 #, fuzzy
 msgid "Stream comment the selected text"
-msgstr "Den ausgewählten Text in Großbuchstaben umwandeln"
+msgstr "Den ausgewÃ¤hlten Text in GroÃŸbuchstaben umwandeln"
 
 #. 0
 #: src/main_menubar_def.h:408
@@ -4131,7 +4131,7 @@ msgstr "_Suchen ..."
 #: src/main_menubar_def.h:409
 #, fuzzy
 msgid "Search for a string or regular expression in the editor"
-msgstr "Eine Zeichenkette oder einen regulären Ausdruck im Editor suchen"
+msgstr "Eine Zeichenkette oder einen regulÃ¤ren Ausdruck im Editor suchen"
 
 #. 1
 #: src/main_menubar_def.h:415
@@ -4153,7 +4153,7 @@ msgstr "Suchen und _Ersetzen ..."
 msgid ""
 "Search for and replace a string or regular expression with another string"
 msgstr ""
-"Eine Zeichenkette oder einen regulären Ausdruck durch eine andere "
+"Eine Zeichenkette oder einen regulÃ¤ren Ausdruck durch eine andere "
 "Zeichenkette ersetzen"
 
 #. 3
@@ -4174,7 +4174,7 @@ msgstr ""
 #: src/main_menubar_def.h:437
 #, fuzzy
 msgid "Enter the selected text as the search target"
-msgstr "Den markierten Text aus dem Editor löschen"
+msgstr "Den markierten Text aus dem Editor lÃ¶schen"
 
 #. 0
 #: src/main_menubar_def.h:448
@@ -4189,11 +4189,11 @@ msgstr "Zu einer bestimmten Zeile im Editor springen"
 #. 1
 #: src/main_menubar_def.h:454
 msgid "Goto Matching _Brace"
-msgstr "Gehe zur dazugehörigen Klammer"
+msgstr "Gehe zur dazugehÃ¶rigen Klammer"
 
 #: src/main_menubar_def.h:455
 msgid "Go to the matching brace in the editor"
-msgstr "Zur dazugehörigen Klammer im Editor springen"
+msgstr "Zur dazugehÃ¶rigen Klammer im Editor springen"
 
 #. 2
 #: src/main_menubar_def.h:460
@@ -4225,17 +4225,17 @@ msgstr "Zur vorherigen Nachricht springen"
 #. 5
 #: src/main_menubar_def.h:478
 msgid "_Goto next mesg"
-msgstr "_Gehe zur nächsten Nachricht"
+msgstr "_Gehe zur nÃ¤chsten Nachricht"
 
 #: src/main_menubar_def.h:479
 msgid "Go to next message"
-msgstr "Zur nächsten Nachricht springen"
+msgstr "Zur nÃ¤chsten Nachricht springen"
 
 #. 6
 #: src/main_menubar_def.h:484
 #, fuzzy
 msgid "_Go Back"
-msgstr "Zurück"
+msgstr "ZurÃ¼ck"
 
 #: src/main_menubar_def.h:485
 msgid "Go back"
@@ -4245,12 +4245,12 @@ msgstr ""
 #: src/main_menubar_def.h:490
 #, fuzzy
 msgid "_Go Forward"
-msgstr "Vorwärts"
+msgstr "VorwÃ¤rts"
 
 #: src/main_menubar_def.h:491
 #, fuzzy
 msgid "Go forward"
-msgstr "Vorwärts"
+msgstr "VorwÃ¤rts"
 
 #. 8
 #: src/main_menubar_def.h:496 src/text_editor_menu.c:93
@@ -4295,11 +4295,11 @@ msgstr ""
 #. 0
 #: src/main_menubar_def.h:526
 msgid "U_ndo"
-msgstr "_Rückgängig"
+msgstr "_RÃ¼ckgÃ¤ngig"
 
 #: src/main_menubar_def.h:527 src/toolbar.c:96
 msgid "Undo the last action"
-msgstr "Letzte Aktion rückgängig machen"
+msgstr "Letzte Aktion rÃ¼ckgÃ¤ngig machen"
 
 #. 1
 #: src/main_menubar_def.h:533
@@ -4308,7 +4308,7 @@ msgstr "_Wiederherstellen"
 
 #: src/main_menubar_def.h:534 src/toolbar.c:100
 msgid "Redo the last undone action"
-msgstr "Die letzte zurückgenommene Aktion wiederholen"
+msgstr "Die letzte zurÃ¼ckgenommene Aktion wiederholen"
 
 #. 2
 #. 3
@@ -4332,36 +4332,36 @@ msgstr "Den markierten Text in die Zwischenablage kopieren"
 #. 5
 #: src/main_menubar_def.h:556
 msgid "_Paste"
-msgstr "E_infügen"
+msgstr "E_infÃ¼gen"
 
 #: src/main_menubar_def.h:557
 msgid "Paste the content of clipboard at the current position"
-msgstr "Den Inhalt der Zwischenablage an der momentanen Position einfügen"
+msgstr "Den Inhalt der Zwischenablage an der momentanen Position einfÃ¼gen"
 
 #. 6
 #: src/main_menubar_def.h:563
 msgid "C_lear"
-msgstr "_Löschen"
+msgstr "_LÃ¶schen"
 
 #: src/main_menubar_def.h:564
 msgid "Delete the selected text from the editor"
-msgstr "Den markierten Text aus dem Editor löschen"
+msgstr "Den markierten Text aus dem Editor lÃ¶schen"
 
 #. 7
 #. 8
 #: src/main_menubar_def.h:572
 msgid "_Transform"
-msgstr "Verändern"
+msgstr "VerÃ¤ndern"
 
 #. 9
 #: src/main_menubar_def.h:579
 msgid "_Select"
-msgstr "A_uswählen"
+msgstr "A_uswÃ¤hlen"
 
 #. 10
 #: src/main_menubar_def.h:586
 msgid "_Insert text"
-msgstr "Text e_infügen"
+msgstr "Text e_infÃ¼gen"
 
 #. 11
 #: src/main_menubar_def.h:593
@@ -4384,11 +4384,11 @@ msgstr "_Gehe zu"
 #. 15
 #: src/main_menubar_def.h:614
 msgid "_AutoComplete"
-msgstr "_AutoVervollständigung"
+msgstr "_AutoVervollstÃ¤ndigung"
 
 #: src/main_menubar_def.h:615
 msgid "AutoComplete the current word"
-msgstr "Das aktuelle Wort automatisch vervollständigen"
+msgstr "Das aktuelle Wort automatisch vervollstÃ¤ndigen"
 
 #. 16
 #: src/main_menubar_def.h:621
@@ -4397,7 +4397,7 @@ msgstr "Calltip zeigen"
 
 #: src/main_menubar_def.h:622
 msgid "Show calltip for the function"
-msgstr "Calltip für die Funktion zeigen"
+msgstr "Calltip fÃ¼r die Funktion zeigen"
 
 #. 17
 #: src/main_menubar_def.h:628
@@ -4480,17 +4480,17 @@ msgstr "_Textfaltungen"
 
 #: src/main_menubar_def.h:688
 msgid "Show/Hide code fold margin"
-msgstr "Rand für Textfaltungen zeigen/verbergen"
+msgstr "Rand fÃ¼r Textfaltungen zeigen/verbergen"
 
 #. 3
 #: src/main_menubar_def.h:693
 msgid "_Indentation guides"
-msgstr "E_inrückungshinweise"
+msgstr "E_inrÃ¼ckungshinweise"
 
 #: src/main_menubar_def.h:694
 #, fuzzy
 msgid "Show/Hide indentation guides"
-msgstr "Einrückungshinweise zeigen/verbergen"
+msgstr "EinrÃ¼ckungshinweise zeigen/verbergen"
 
 #. 4
 #: src/main_menubar_def.h:699
@@ -4522,11 +4522,11 @@ msgstr ""
 #. 0
 #: src/main_menubar_def.h:722
 msgid "++ Zoom"
-msgstr "Ansicht vergrößern"
+msgstr "Ansicht vergrÃ¶ÃŸern"
 
 #: src/main_menubar_def.h:723
 msgid "Increase text zoom by 1 unit"
-msgstr "Die Textansicht um eine Einheit vergrößern"
+msgstr "Die Textansicht um eine Einheit vergrÃ¶ÃŸern"
 
 #. 1
 #: src/main_menubar_def.h:728
@@ -4535,7 +4535,7 @@ msgstr "+8"
 
 #: src/main_menubar_def.h:729
 msgid "Zoom factor +8"
-msgstr "Ansichtsvergrößerungsfaktor +8"
+msgstr "AnsichtsvergrÃ¶ÃŸerungsfaktor +8"
 
 #. 2
 #: src/main_menubar_def.h:734
@@ -4544,7 +4544,7 @@ msgstr "+6"
 
 #: src/main_menubar_def.h:735
 msgid "Zoom factor +6"
-msgstr "Ansichtsvergrößerungsfaktor +6"
+msgstr "AnsichtsvergrÃ¶ÃŸerungsfaktor +6"
 
 #. 3
 #: src/main_menubar_def.h:740
@@ -4553,7 +4553,7 @@ msgstr "+4"
 
 #: src/main_menubar_def.h:741
 msgid "Zoom factor +4"
-msgstr "Ansichtsvergrößerungsfaktor +4"
+msgstr "AnsichtsvergrÃ¶ÃŸerungsfaktor +4"
 
 #. 4
 #: src/main_menubar_def.h:746
@@ -4562,11 +4562,11 @@ msgstr "+2"
 
 #: src/main_menubar_def.h:747
 msgid "Zoom factor +2"
-msgstr "Ansichtsvergrößerungsfaktor +2"
+msgstr "AnsichtsvergrÃ¶ÃŸerungsfaktor +2"
 
 #: src/main_menubar_def.h:753
 msgid "Zoom factor 0"
-msgstr "Ansichtsvergrößerungsfaktor 0"
+msgstr "AnsichtsvergrÃ¶ÃŸerungsfaktor 0"
 
 #. 6
 #: src/main_menubar_def.h:758
@@ -4575,7 +4575,7 @@ msgstr "-2"
 
 #: src/main_menubar_def.h:759
 msgid "Zoom factor -2"
-msgstr "Ansichtsvergrößerungsfaktor -2"
+msgstr "AnsichtsvergrÃ¶ÃŸerungsfaktor -2"
 
 #. 7
 #: src/main_menubar_def.h:764
@@ -4584,7 +4584,7 @@ msgstr "-4"
 
 #: src/main_menubar_def.h:765
 msgid "Zoom factor -4"
-msgstr "Ansichtsvergrößerungsfaktor -4"
+msgstr "AnsichtsvergrÃ¶ÃŸerungsfaktor -4"
 
 #. 8
 #: src/main_menubar_def.h:770
@@ -4593,7 +4593,7 @@ msgstr "-6"
 
 #: src/main_menubar_def.h:771
 msgid "Zoom factor -6"
-msgstr "Ansichtsvergrößerungsfaktor -6"
+msgstr "AnsichtsvergrÃ¶ÃŸerungsfaktor -6"
 
 #. 9
 #: src/main_menubar_def.h:776
@@ -4602,7 +4602,7 @@ msgstr "-8"
 
 #: src/main_menubar_def.h:777
 msgid "Zoom factor -8"
-msgstr "Ansichtsvergrößerungsfaktor -8"
+msgstr "AnsichtsvergrÃ¶ÃŸerungsfaktor -8"
 
 #. 10
 #: src/main_menubar_def.h:782
@@ -4658,7 +4658,7 @@ msgstr "_Editor"
 #. 6
 #: src/main_menubar_def.h:824
 msgid "_Zoom text"
-msgstr "Textansicht vergrößern"
+msgstr "Textansicht vergrÃ¶ÃŸern"
 
 # ??
 #. 7
@@ -4669,17 +4669,17 @@ msgstr "_Breakpoints"
 
 #: src/main_menubar_def.h:832
 msgid "Show breakpoints editor window"
-msgstr "Editierfenster für Brekapoints zeigen"
+msgstr "Editierfenster fÃ¼r Brekapoints zeigen"
 
 #. 9
 #: src/main_menubar_def.h:837
 #, fuzzy
 msgid "Expression _Watch"
-msgstr "Überwachte Ausdrücke"
+msgstr "Ãœberwachte AusdrÃ¼cke"
 
 #: src/main_menubar_def.h:838
 msgid "Show expression watch window"
-msgstr "Fenster für überwachte Ausdrücke zeigen"
+msgstr "Fenster fÃ¼r Ã¼berwachte AusdrÃ¼cke zeigen"
 
 #. 10
 #: src/main_menubar_def.h:843
@@ -4715,7 +4715,7 @@ msgstr "_Kernelsignale"
 
 #: src/main_menubar_def.h:862
 msgid "Show the kernel signals editor window"
-msgstr "Editierfenster für Kernelsignale zeigen"
+msgstr "Editierfenster fÃ¼r Kernelsignale zeigen"
 
 #. 14
 #: src/main_menubar_def.h:867
@@ -4774,7 +4774,7 @@ msgstr "Bilddatei"
 #. 5
 #: src/main_menubar_def.h:921 src/project_dbase_gui.c:298
 msgid "Translation file"
-msgstr "Übersetzungsdatei"
+msgstr "Ãœbersetzungsdatei"
 
 #. 6
 #: src/main_menubar_def.h:927 src/project_dbase_gui.c:304
@@ -4823,7 +4823,7 @@ msgstr "Tags _erneuern"
 #: src/main_menubar_def.h:984
 #, fuzzy
 msgid "Update the tags image of the Project/opened files"
-msgstr "Tags des Projekts/geöffneten Dateien erneuern"
+msgstr "Tags des Projekts/geÃ¶ffneten Dateien erneuern"
 
 #. 11
 #: src/main_menubar_def.h:989
@@ -4834,7 +4834,7 @@ msgstr "Tags _erneuern"
 #: src/main_menubar_def.h:990
 #, fuzzy
 msgid "Rebuild the tags image of the Project"
-msgstr "Übersetzungsvorgang vom Hauptverzeichnis des Projekts aus."
+msgstr "Ãœbersetzungsvorgang vom Hauptverzeichnis des Projekts aus."
 
 #. 12
 #: src/main_menubar_def.h:995
@@ -5101,20 +5101,20 @@ msgstr "Die aktuelle Quelldatei compilieren"
 #. 1
 #: src/main_menubar_def.h:1186
 msgid "_Increase Indent"
-msgstr "E_inrückung erhöhen"
+msgstr "E_inrÃ¼ckung erhÃ¶hen"
 
 #: src/main_menubar_def.h:1187
 msgid "Increase indentation of line/selection"
-msgstr "Einrückung der Zeile/Auswahl erhöhen"
+msgstr "EinrÃ¼ckung der Zeile/Auswahl erhÃ¶hen"
 
 #. 2
 #: src/main_menubar_def.h:1192
 msgid "_Decrease Indent"
-msgstr "Einrückung erniedrigen"
+msgstr "EinrÃ¼ckung erniedrigen"
 
 #: src/main_menubar_def.h:1193
 msgid "Decrease indentation of line/selection"
-msgstr "Einrückung der Zeile/Auswahl erniedrigen"
+msgstr "EinrÃ¼ckung der Zeile/Auswahl erniedrigen"
 
 #. 3
 #. 4
@@ -5126,42 +5126,42 @@ msgstr "_Highlightstil erzwingen"
 #. 6
 #: src/main_menubar_def.h:1206
 msgid "_Close All Folds"
-msgstr "Alle Textfaltungen s_chließen"
+msgstr "Alle Textfaltungen s_chlieÃŸen"
 
 #: src/main_menubar_def.h:1207
 msgid "Close all code folds in the editor"
-msgstr "Alle Textfaltungen im Editor schließen"
+msgstr "Alle Textfaltungen im Editor schlieÃŸen"
 
 #. 7
 #: src/main_menubar_def.h:1212
 msgid "_Open All Folds"
-msgstr "Alle Textfaltungen öffnen"
+msgstr "Alle Textfaltungen Ã¶ffnen"
 
 #: src/main_menubar_def.h:1213
 #, fuzzy
 msgid "Open all code folds in the editor"
-msgstr "Alle Textfaltungen im Editor öffnen"
+msgstr "Alle Textfaltungen im Editor Ã¶ffnen"
 
 #. 8
 #: src/main_menubar_def.h:1218
 msgid "_Toggle Current Fold"
-msgstr "Aktuelle _Textfaltung öffnen/schließen"
+msgstr "Aktuelle _Textfaltung Ã¶ffnen/schlieÃŸen"
 
 #: src/main_menubar_def.h:1219
 #, fuzzy
 msgid "Toggle current code fold in the editor"
-msgstr "Aktuelle Textfaltung im Editor öffnen/schließen"
+msgstr "Aktuelle Textfaltung im Editor Ã¶ffnen/schlieÃŸen"
 
 #. 9
 #. 10
 #: src/main_menubar_def.h:1225
 msgid "D_etach Current Document"
-msgstr "Aktuelles Dukument herauslösen"
+msgstr "Aktuelles Dukument herauslÃ¶sen"
 
 #: src/main_menubar_def.h:1226
 #, fuzzy
 msgid "Detach the current document into a separate editor window"
-msgstr "Das aktuelle Editorfenster in ein eigenes Fenster herauslösen."
+msgstr "Das aktuelle Editorfenster in ein eigenes Fenster herauslÃ¶sen."
 
 #. 0
 #: src/main_menubar_def.h:1236
@@ -5175,11 +5175,11 @@ msgstr "Die aktuelle Quelldatei compilieren"
 #. 1
 #: src/main_menubar_def.h:1242
 msgid "Compile With _Make"
-msgstr "Datei mit _Make übersetzen:"
+msgstr "Datei mit _Make Ã¼bersetzen:"
 
 #: src/main_menubar_def.h:1243
 msgid "Compile the current source file using Make"
-msgstr "Die aktuelle Quelldatei mit Make übersetzen"
+msgstr "Die aktuelle Quelldatei mit Make Ã¼bersetzen"
 
 #. 2
 #: src/main_menubar_def.h:1248 src/main_menubar_def.h:1871
@@ -5190,7 +5190,7 @@ msgstr "_Generieren"
 #, fuzzy
 msgid "Build the source directory of the Project or the current source file"
 msgstr ""
-"Übersetzt das Sourceverzeichnis des Projekts/der aktuellen Quelldateien"
+"Ãœbersetzt das Sourceverzeichnis des Projekts/der aktuellen Quelldateien"
 
 #. 3
 #: src/main_menubar_def.h:1254
@@ -5200,7 +5200,7 @@ msgstr "_Alles generieren"
 #: src/main_menubar_def.h:1255
 #, fuzzy
 msgid "Build the whole Project"
-msgstr "Übersetzt das gesamte Projekt"
+msgstr "Ãœbersetzt das gesamte Projekt"
 
 #. 4
 #. 5
@@ -5283,17 +5283,17 @@ msgstr "Generierung_svorgang anhalten"
 
 #: src/main_menubar_def.h:1308
 msgid "Stop the current compile or build process"
-msgstr "Den aktuellen Compilierungs- oder Übersetzungsvorgang anhalten"
+msgstr "Den aktuellen Compilierungs- oder Ãœbersetzungsvorgang anhalten"
 
 #. 17
 #. 18
 #: src/main_menubar_def.h:1314
 msgid "_Execute"
-msgstr "Ausführ_en"
+msgstr "AusfÃ¼hr_en"
 
 #: src/main_menubar_def.h:1315 src/toolbar.c:296
 msgid "Execute the program"
-msgstr "Das Programm ausführen"
+msgstr "Das Programm ausfÃ¼hren"
 
 #. 19
 #: src/main_menubar_def.h:1320
@@ -5338,12 +5338,12 @@ msgstr "Gehe zum vorherigen Lesezeichen in dieser Datei"
 #. 4
 #: src/main_menubar_def.h:1350
 msgid "_Next bookmark"
-msgstr "_Nächstes Lesezeichen"
+msgstr "_NÃ¤chstes Lesezeichen"
 
 #: src/main_menubar_def.h:1351
 #, fuzzy
 msgid "Jump to the next bookmark in the file"
-msgstr "Gehe zum nächsten Lesezeichen in dieser Datei"
+msgstr "Gehe zum nÃ¤chsten Lesezeichen in dieser Datei"
 
 #. 5
 #: src/main_menubar_def.h:1356
@@ -5359,21 +5359,21 @@ msgstr "Gehe zum letzten Lesezeichen in dieser Datei"
 #. 7
 #: src/main_menubar_def.h:1363
 msgid "_Clear all bookmarks"
-msgstr "Alle Lesezeichen löschen"
+msgstr "Alle Lesezeichen lÃ¶schen"
 
 #: src/main_menubar_def.h:1364
 #, fuzzy
 msgid "Clear bookmarks"
-msgstr "Alle Lesezeichen löschen"
+msgstr "Alle Lesezeichen lÃ¶schen"
 
 #. 0
 #: src/main_menubar_def.h:1374
 msgid "Run/_Continue"
-msgstr "Ausführen/Fortsetzen"
+msgstr "AusfÃ¼hren/Fortsetzen"
 
 #: src/main_menubar_def.h:1375
 msgid "Continue the execution of the program"
-msgstr "Ausführung des Programmes fortsetzen"
+msgstr "AusfÃ¼hrung des Programmes fortsetzen"
 
 #. 1
 #: src/main_menubar_def.h:1380
@@ -5387,11 +5387,11 @@ msgstr "Einzelner Schritt in die Funktion"
 #. 2
 #: src/main_menubar_def.h:1386
 msgid "Step O_ver"
-msgstr "Überspringen"
+msgstr "Ãœberspringen"
 
 #: src/main_menubar_def.h:1387
 msgid "Single step over function"
-msgstr "Einzelner Schritt über die Funktion"
+msgstr "Einzelner Schritt Ã¼ber die Funktion"
 
 #. 3
 #: src/main_menubar_def.h:1392
@@ -5405,11 +5405,11 @@ msgstr "Einzelner Schritt aus der Funktion"
 #. 4
 #: src/main_menubar_def.h:1398
 msgid "_Run to cursor"
-msgstr "Bis zum Cursor ausfüh_ren"
+msgstr "Bis zum Cursor ausfÃ¼h_ren"
 
 #: src/main_menubar_def.h:1399
 msgid "Run to the cursor"
-msgstr "Bis zum Cursor ausführen"
+msgstr "Bis zum Cursor ausfÃ¼hren"
 
 #. 0
 #: src/main_menubar_def.h:1409 src/text_editor_menu.c:136
@@ -5451,11 +5451,11 @@ msgstr "Alle Breakpoints deaktivieren"
 #. 5
 #: src/main_menubar_def.h:1434
 msgid "C_lear all Breakpoints"
-msgstr "Alle Breakpoints löschen"
+msgstr "Alle Breakpoints lÃ¶schen"
 
 #: src/main_menubar_def.h:1435
 msgid "Delete all breakpoints"
-msgstr "Alle Breakpoints löschen"
+msgstr "Alle Breakpoints lÃ¶schen"
 
 # ??
 #. 0
@@ -5466,7 +5466,7 @@ msgstr "Info _Zieldateien"
 #: src/main_menubar_def.h:1446
 msgid "Display information on the files the debugger is active with"
 msgstr ""
-"Informationen über die Dateien anzeigen, auf denen der Debugger arbeitet"
+"Informationen Ã¼ber die Dateien anzeigen, auf denen der Debugger arbeitet"
 
 #. 1
 #: src/main_menubar_def.h:1451
@@ -5475,7 +5475,7 @@ msgstr "Info _Programm"
 
 #: src/main_menubar_def.h:1452
 msgid "Display information on the execution status of the program"
-msgstr "Informationen über den Ausführungsstatus des Programmes anzeigen"
+msgstr "Informationen Ã¼ber den AusfÃ¼hrungsstatus des Programmes anzeigen"
 
 #. 2
 #: src/main_menubar_def.h:1457
@@ -5484,7 +5484,7 @@ msgstr "Info _Kernel-User-Struct"
 
 #: src/main_menubar_def.h:1458
 msgid "Display the contents of kernel 'struct user' for current child"
-msgstr "Den Inhalt des Kernel 'struct user' für das aktuelle Kind anzeigen"
+msgstr "Den Inhalt des Kernel 'struct user' fÃ¼r das aktuelle Kind anzeigen"
 
 #. 3
 #: src/main_menubar_def.h:1463
@@ -5520,7 +5520,7 @@ msgstr "Info aktueller Rahmen"
 
 #: src/main_menubar_def.h:1482
 msgid "Display information about the current frame of execution"
-msgstr "Informationen über den aktuellen Ausführungsrahmen anzeigen"
+msgstr "Informationen Ã¼ber den aktuellen AusfÃ¼hrungsrahmen anzeigen"
 
 #. 7
 #: src/main_menubar_def.h:1487
@@ -5554,11 +5554,11 @@ msgstr "Die Debugger-Sitzung starten"
 #. 2
 #: src/main_menubar_def.h:1511
 msgid "Load E_xecutable ..."
-msgstr "Ausführbare Datei laden ..."
+msgstr "AusfÃ¼hrbare Datei laden ..."
 
 #: src/main_menubar_def.h:1512
 msgid "Open the executable for debugging"
-msgstr "Die ausführbare Datei zum Debuggen öffnen"
+msgstr "Die ausfÃ¼hrbare Datei zum Debuggen Ã¶ffnen"
 
 #. 3
 #: src/main_menubar_def.h:1517
@@ -5572,11 +5572,11 @@ msgstr "Eine Core-Datei zur Sezierung laden"
 #. 4
 #: src/main_menubar_def.h:1523
 msgid "_Attach to Process ..."
-msgstr "_An Prozess anhängen ..."
+msgstr "_An Prozess anhÃ¤ngen ..."
 
 #: src/main_menubar_def.h:1524
 msgid "Attach to a running program"
-msgstr "Den Debugger an ein laufendes Programm anhängen"
+msgstr "Den Debugger an ein laufendes Programm anhÃ¤ngen"
 
 #. 5
 #. 6
@@ -5600,11 +5600,11 @@ msgstr "Das gerade debuggte Programm anhalten"
 #. 8
 #: src/main_menubar_def.h:1542
 msgid "_Detach Debugger"
-msgstr "_Debugger ablösen"
+msgstr "_Debugger ablÃ¶sen"
 
 #: src/main_menubar_def.h:1543
 msgid "Detach from an attached program"
-msgstr "Den Debugger vom angehängten Programm lösen"
+msgstr "Den Debugger vom angehÃ¤ngten Programm lÃ¶sen"
 
 #. 9
 #. 10
@@ -5614,7 +5614,7 @@ msgstr "Programm u_nterbrechen"
 
 #: src/main_menubar_def.h:1550 src/toolbar.c:581
 msgid "Interrupt execution of the program"
-msgstr "Ausführen des Programms unterbrechen"
+msgstr "AusfÃ¼hren des Programms unterbrechen"
 
 #. 11
 #: src/main_menubar_def.h:1555
@@ -5629,7 +5629,7 @@ msgstr "Kernelsignal an den zu debuggenden Prozess senden"
 #. 13
 #: src/main_menubar_def.h:1562
 msgid "_Execution"
-msgstr "Ausführung"
+msgstr "AusfÃ¼hrung"
 
 # --
 #. 15
@@ -5651,11 +5651,11 @@ msgstr "Einen Ausdruck oder Variable inspizieren oder Auswerten"
 #. 19
 #: src/main_menubar_def.h:1588
 msgid "Add Expression in _Watch ..."
-msgstr "Ausdruck zu _Watch hinzufügen ..."
+msgstr "Ausdruck zu _Watch hinzufÃ¼gen ..."
 
 #: src/main_menubar_def.h:1589
 msgid "Add expression or variable to the watch"
-msgstr "Ausdruck oder Variable zu den Watches hinzufügen"
+msgstr "Ausdruck oder Variable zu den Watches hinzufÃ¼gen"
 
 #. 20
 #. 21
@@ -5693,7 +5693,7 @@ msgstr ""
 #: src/main_menubar_def.h:1635
 #, fuzzy
 msgid "_Add file"
-msgstr "Neue Datei hinzufügen"
+msgstr "Neue Datei hinzufÃ¼gen"
 
 #. 5
 #: src/main_menubar_def.h:1642
@@ -5711,7 +5711,7 @@ msgstr "Dokumentationsdatei"
 #: src/main_menubar_def.h:1657
 #, fuzzy
 msgid "_Update Project"
-msgstr "Projekt öffnen"
+msgstr "Projekt Ã¶ffnen"
 
 #: src/main_menubar_def.h:1658
 #, fuzzy
@@ -5722,7 +5722,7 @@ msgstr "Konfiguration des Projekts bearbeiten"
 #: src/main_menubar_def.h:1664
 #, fuzzy
 msgid "_Commit Project"
-msgstr "Projekt schließen"
+msgstr "Projekt schlieÃŸen"
 
 #: src/main_menubar_def.h:1665
 msgid "Commit local changes to the repository"
@@ -5753,12 +5753,12 @@ msgstr "Konfiguration des Projekts bearbeiten"
 #: src/main_menubar_def.h:1685
 #, fuzzy
 msgid "Get Project _log"
-msgstr "Zuletzt geöffnete Projekte"
+msgstr "Zuletzt geÃ¶ffnete Projekte"
 
 #: src/main_menubar_def.h:1686
 #, fuzzy
 msgid "Print the CVS log of the Project"
-msgstr "NEWS-Datei des Projekts öffnen"
+msgstr "NEWS-Datei des Projekts Ã¶ffnen"
 
 #. 13
 #: src/main_menubar_def.h:1692
@@ -5783,11 +5783,11 @@ msgstr ""
 #. 0
 #: src/main_menubar_def.h:1712
 msgid "_Compiler and Linker Settings ..."
-msgstr "Einstellungen für _Compiler und Linker ..."
+msgstr "Einstellungen fÃ¼r _Compiler und Linker ..."
 
 #: src/main_menubar_def.h:1713
 msgid "Settings for the compiler and linker"
-msgstr "Einstellungen für Compiler und Linker"
+msgstr "Einstellungen fÃ¼r Compiler und Linker"
 
 #. 1
 #: src/main_menubar_def.h:1718
@@ -5930,7 +5930,7 @@ msgstr "Nach einem Thema suchen"
 
 #: src/main_menubar_def.h:1806
 msgid "May I help you?"
-msgstr "Durchsuchen von Hilfedateien nach Schlüsselwörtern"
+msgstr "Durchsuchen von Hilfedateien nach SchlÃ¼sselwÃ¶rtern"
 
 #. 8
 #. 9
@@ -5948,11 +5948,11 @@ msgstr "Online-Dokumentation und Ressourcen"
 #: src/main_menubar_def.h:1819
 #, fuzzy
 msgid "_Libraries API references"
-msgstr "API-Referenz für Bibliotheken"
+msgstr "API-Referenz fÃ¼r Bibliotheken"
 
 #: src/main_menubar_def.h:1820
 msgid "Online reference library for GDK, GLib, GNOME etc.."
-msgstr "Online-Rezerenzbibliothek für GDK, GLib, GNOME usw."
+msgstr "Online-Rezerenzbibliothek fÃ¼r GDK, GLib, GNOME usw."
 
 #. 12
 #: src/main_menubar_def.h:1825
@@ -5962,7 +5962,7 @@ msgstr "Fehler melden"
 
 #: src/main_menubar_def.h:1826
 msgid "Submit a bug report for Anjuta"
-msgstr "Einen Bugreport für Anjuta abschicken"
+msgstr "Einen Bugreport fÃ¼r Anjuta abschicken"
 
 #. 13
 #: src/main_menubar_def.h:1831
@@ -5973,7 +5973,7 @@ msgstr "Features anfragen"
 #: src/main_menubar_def.h:1832
 #, fuzzy
 msgid "Submit a feature request for Anjuta"
-msgstr "Eine Feature-Anfrage für Anjuta abschicken"
+msgstr "Eine Feature-Anfrage fÃ¼r Anjuta abschicken"
 
 #. 14
 #: src/main_menubar_def.h:1837
@@ -5983,7 +5983,7 @@ msgstr "Patches abschicken"
 
 #: src/main_menubar_def.h:1838
 msgid "Submit patches for Anjuta"
-msgstr "Patches für Anjuta abschicken"
+msgstr "Patches fÃ¼r Anjuta abschicken"
 
 #. 15
 #: src/main_menubar_def.h:1843
@@ -5993,7 +5993,7 @@ msgstr "Eine Frage stellen"
 
 #: src/main_menubar_def.h:1844
 msgid "Submit a question for FAQs"
-msgstr "Eine Frage für die FAQ's abschicken"
+msgstr "Eine Frage fÃ¼r die FAQ's abschicken"
 
 #: src/main_menubar_def.h:1859
 msgid "_Project"
@@ -6036,7 +6036,7 @@ msgid ""
 "Do you want to save it before closing?"
 msgstr ""
 "Die Datei \"%s\" ist nicht gespeichert.\n"
-"Soll die Datei vor dem Schließen gespeichert werden?"
+"Soll die Datei vor dem SchlieÃŸen gespeichert werden?"
 
 #: src/mainmenu_callbacks.c:232
 #, fuzzy, c-format
@@ -6045,7 +6045,7 @@ msgid ""
 "Any unsaved changes will be lost."
 msgstr ""
 "Soll %s wirklich neu geladen werden?\n"
-"Jede nichtgespeicherte Änderung geht verloren."
+"Jede nichtgespeicherte Ã„nderung geht verloren."
 
 #: src/mainmenu_callbacks.c:520
 msgid "%Y"
@@ -6063,11 +6063,11 @@ msgstr "Diese Datei ist nicht gespeichert. Bitte erst speichern."
 #: src/mainmenu_callbacks.c:1732
 #, fuzzy
 msgid "The executable is not up-to-date."
-msgstr "Die ausführbare Datei ist nicht ektuell."
+msgstr "Die ausfÃ¼hrbare Datei ist nicht ektuell."
 
 #: src/mainmenu_callbacks.c:1757
 msgid "Debugger is not running. Start it first."
-msgstr "Debugger läuft nicht. Debugger erst starten"
+msgstr "Debugger lÃ¤uft nicht. Debugger erst starten"
 
 #: src/mainmenu_callbacks.c:2134
 msgid ""
@@ -6102,7 +6102,7 @@ msgid ""
 "their default settings?"
 msgstr ""
 "Sollen die Vorlieben wirklich zu ihren\n"
-"Vorgabewerten zurückgesetzt werden?"
+"Vorgabewerten zurÃ¼ckgesetzt werden?"
 
 #: src/preferences.c:700
 msgid "Editor"
@@ -6111,7 +6111,7 @@ msgstr "Editor"
 #: src/preferences.c:707
 #, fuzzy
 msgid "Indentation"
-msgstr "Einrückung erh."
+msgstr "EinrÃ¼ckung erh."
 
 #: src/preferences.c:719 src/toolbar.c:152
 msgid "Messages"
@@ -6127,8 +6127,8 @@ msgid ""
 msgstr ""
 "Konnte globale Konfigurationsdateien und Vorgaben nicht laden:\n"
 "%s.\n"
-"Dies kann falsches Verhalten und instabilitäten zur Folge haben.\n"
-"Anjuta fällt auch die (begrenzten) Standarteinstellungen zurück"
+"Dies kann falsches Verhalten und instabilitÃ¤ten zur Folge haben.\n"
+"Anjuta fÃ¤llt auch die (begrenzten) Standarteinstellungen zurÃ¼ck"
 
 #: src/preferences.c:969
 #, fuzzy
@@ -6147,13 +6147,13 @@ msgstr "Vorlieben"
 #. Must declare static, because it will be used forever
 #: src/project_dbase.c:227 src/toolbar.c:212
 msgid "Open Project"
-msgstr "Projekt öffnen"
+msgstr "Projekt Ã¶ffnen"
 
 #. Must declare static, because it will be used forever
 #: src/project_dbase.c:234
 #, fuzzy
 msgid "Add to Project"
-msgstr "Zum Projekt hinzufügen"
+msgstr "Zum Projekt hinzufÃ¼gen"
 
 #: src/project_dbase.c:263 src/project_dbase.c:334 src/project_dbase_gui.c:572
 msgid "Project: None"
@@ -6184,8 +6184,8 @@ msgid ""
 "Anjuta version %s or later is required to open this Project.\n"
 "Please upgrade to the latest version of Anjuta (Help for more information)."
 msgstr ""
-"Anjuta Version %s wird benötigt um dieses Projekt zu öffnen.\n"
-"Bitte holen Sie sich die neueste Version (Siehe Hilfe für weitere "
+"Anjuta Version %s wird benÃ¶tigt um dieses Projekt zu Ã¶ffnen.\n"
+"Bitte holen Sie sich die neueste Version (Siehe Hilfe fÃ¼r weitere "
 "Informationen).\n"
 "Diese Version von Anjuta ist zu alt."
 
@@ -6225,7 +6225,7 @@ msgstr "Projekt: "
 msgid ""
 "Unable to get relative file name for %s\n"
 " in %s"
-msgstr "%s konnte nicht geöffnet werden.\n"
+msgstr "%s konnte nicht geÃ¶ffnet werden.\n"
 
 #: src/project_dbase.c:2273
 #, fuzzy
@@ -6257,7 +6257,7 @@ msgstr ""
 #: src/project_dbase_gui.c:131
 #, fuzzy
 msgid "There is already a Project open.Do you want to close it first?"
-msgstr "Ein Projekt ist bereits geöffnet. Soll es vorher geschlossen werden?"
+msgstr "Ein Projekt ist bereits geÃ¶ffnet. Soll es vorher geschlossen werden?"
 
 #: src/project_dbase_gui.c:161
 #, fuzzy
@@ -6277,7 +6277,7 @@ msgstr "Source-Datei"
 #: src/project_dbase_gui.c:172 widgets/gnomefilelist.c:719
 #, fuzzy
 msgid "Pascal files"
-msgstr "Alle Dateien schließen"
+msgstr "Alle Dateien schlieÃŸen"
 
 #: src/project_dbase_gui.c:173 widgets/gnomefilelist.c:721
 #, fuzzy
@@ -6339,7 +6339,7 @@ msgstr ""
 #: src/project_dbase_gui.c:209
 #, fuzzy
 msgid "HTML files"
-msgstr "Anzeigeprogramm für HTML:"
+msgstr "Anzeigeprogramm fÃ¼r HTML:"
 
 #: src/project_dbase_gui.c:210
 #, fuzzy
@@ -6349,7 +6349,7 @@ msgstr "Dokumentationsdatei"
 #: src/project_dbase_gui.c:219
 #, fuzzy
 msgid "PO files"
-msgstr "Datei öffnen"
+msgstr "Datei Ã¶ffnen"
 
 #: src/project_dbase_gui.c:228
 msgid "C/C++ Headers"
@@ -6427,7 +6427,7 @@ msgstr "Makefiles verwaltet:"
 
 #: src/project_dbase_gui.c:1005
 msgid "Gettext support:"
-msgstr "Unterstützung von gettext:"
+msgstr "UnterstÃ¼tzung von gettext:"
 
 #: src/project_dbase_gui.c:1063
 msgid "Project Type:"
@@ -6439,7 +6439,7 @@ msgid ""
 "Do you want to save it before closing?"
 msgstr ""
 "Das Projekt ist nicht gespeichert.\n"
-"Soll es vor dem Schließen gespeichert werden?"
+"Soll es vor dem SchlieÃŸen gespeichert werden?"
 
 #: src/project_dbase_gui.c:1121 src/project_dbase_gui.c:1241
 msgid "Breton"
@@ -6455,7 +6455,7 @@ msgstr "Tschechisch"
 
 #: src/project_dbase_gui.c:1124
 msgid "Danish"
-msgstr "Dänisch"
+msgstr "DÃ¤nisch"
 
 #: src/project_dbase_gui.c:1125
 msgid "German"
@@ -6479,11 +6479,11 @@ msgstr "Finnisch"
 
 #: src/project_dbase_gui.c:1130
 msgid "French"
-msgstr "Französisch"
+msgstr "FranzÃ¶sisch"
 
 #: src/project_dbase_gui.c:1131
 msgid "Herbrew"
-msgstr "Hebräisch"
+msgstr "HebrÃ¤isch"
 
 #: src/project_dbase_gui.c:1132 src/project_dbase_gui.c:1136
 msgid "Croatian"
@@ -6495,7 +6495,7 @@ msgstr "Ungarisch"
 
 #: src/project_dbase_gui.c:1134
 msgid "Islandic"
-msgstr "Isländisch"
+msgstr "IslÃ¤ndisch"
 
 #: src/project_dbase_gui.c:1135
 msgid "Italian"
@@ -6511,7 +6511,7 @@ msgstr "Mazedonisch"
 
 #: src/project_dbase_gui.c:1139
 msgid "Dutch"
-msgstr "Holländisch"
+msgstr "HollÃ¤ndisch"
 
 #: src/project_dbase_gui.c:1140
 msgid "Norwegian"
@@ -6527,7 +6527,7 @@ msgstr "Portugiesisch"
 
 #: src/project_dbase_gui.c:1143
 msgid "Romanian"
-msgstr "Rumänisch"
+msgstr "RumÃ¤nisch"
 
 #: src/project_dbase_gui.c:1144
 msgid "Russian"
@@ -6539,7 +6539,7 @@ msgstr "Slovakisch"
 
 #: src/project_dbase_gui.c:1146
 msgid "Turkish"
-msgstr "Türkisch"
+msgstr "TÃ¼rkisch"
 
 #: src/project_dbase_gui.c:1147
 msgid "Simplified Chinese"
@@ -6555,12 +6555,12 @@ msgstr "Estnisch"
 
 #: src/project_dbase_gui.c:1193
 msgid "Select regional language"
-msgstr "Regionalsprache auswählen"
+msgstr "Regionalsprache auswÃ¤hlen"
 
 #: src/project_dbase_gui.c:1209
 #, fuzzy
 msgid "Select regional language:"
-msgstr "Regionalsprache auswählen"
+msgstr "Regionalsprache auswÃ¤hlen"
 
 #: src/project_dbase_gui.c:1249
 #, fuzzy, c-format
@@ -6575,7 +6575,7 @@ msgid ""
 "Do you want to create it now ?"
 msgstr ""
 "Die Datei \"%s\" existiert bereits.\n"
-"Soll sie überschrieben werden?"
+"Soll sie Ã¼berschrieben werden?"
 
 # c-format
 #: src/project_dbase_gui.c:1356
@@ -6629,7 +6629,7 @@ msgstr ""
 #: src/project_import.c:196
 #, fuzzy
 msgid "Opening Project...please wait"
-msgstr "P_rojekt öffnen"
+msgstr "P_rojekt Ã¶ffnen"
 
 #: src/project_import.c:199
 #, fuzzy
@@ -6665,7 +6665,7 @@ msgstr "Projektinformationen"
 #: src/project_import_gui.c:182
 #, fuzzy
 msgid "Select directory"
-msgstr "Bis zur Klammer auswählen"
+msgstr "Bis zur Klammer auswÃ¤hlen"
 
 #: src/project_import_gui.c:199
 #, fuzzy
@@ -6683,7 +6683,7 @@ msgstr ""
 
 #: src/registers_gui.c:40
 msgid "Modify"
-msgstr "Verändern"
+msgstr "VerÃ¤ndern"
 
 #: src/registers_gui.c:88
 msgid "CPU Registers"
@@ -6715,7 +6715,7 @@ msgstr "Pixmap %s der Applikation kann nicht gefunden werden."
 #: src/resources.c:266 src/resources.c:274
 msgid "Cannot execute Devhelp. Make sure it is installed"
 msgstr ""
-"Devhelp konnte nicht ausgeführt werden. Stellen Sie sicher, daß es "
+"Devhelp konnte nicht ausgefÃ¼hrt werden. Stellen Sie sicher, daÃŸ es "
 "installiert ist."
 
 #: src/sharedlib_gui.c:79
@@ -6741,7 +6741,7 @@ msgstr "Sysm Lesen"
 
 #: src/signals_gui.c:40
 msgid "Modify Signal"
-msgstr "Signal verändern"
+msgstr "Signal verÃ¤ndern"
 
 #: src/signals_gui.c:47
 msgid "Send to process"
@@ -6794,7 +6794,7 @@ msgstr "Fehler beim Schreiben in Datei %s."
 #: src/source.c:2698 src/utilities.c:744
 #, fuzzy, c-format
 msgid "Unable to create file: %s."
-msgstr "%s konnte nicht geöffnet werden.\n"
+msgstr "%s konnte nicht geÃ¶ffnet werden.\n"
 
 #: src/source.c:1609 src/source.c:1729
 #, fuzzy, c-format
@@ -6889,7 +6889,7 @@ msgstr "AutoFormat ist abgeschaltet. Bitte in Vorlieben einschalten"
 #: src/text_editor.c:1199
 #, fuzzy
 msgid "Auto formatting ..."
-msgstr "Autoformatierung wird durchgeführt ..."
+msgstr "Autoformatierung wird durchgefÃ¼hrt ..."
 
 #: src/text_editor.c:1209 src/text_editor.c:1236
 #, fuzzy
@@ -6917,7 +6917,7 @@ msgstr "Neu"
 
 #: src/text_editor_gui.c:100 src/toolbar.c:78
 msgid "Open"
-msgstr "Öffnen"
+msgstr "Ã–ffnen"
 
 #: src/text_editor_gui.c:106 src/toolbar.c:82
 msgid "Save"
@@ -6948,11 +6948,11 @@ msgstr "In die Zwischenablage kopieren"
 #. 2
 #: src/text_editor_gui.c:128 src/text_editor_menu.c:255
 msgid "Paste"
-msgstr "Einfügen"
+msgstr "EinfÃ¼gen"
 
 #: src/text_editor_gui.c:129
 msgid "Paste from clipboard"
-msgstr "Aus der Zwischenablage einfügen"
+msgstr "Aus der Zwischenablage einfÃ¼gen"
 
 #: src/text_editor_gui.c:135 src/toolbar.c:113
 msgid "Find"
@@ -6979,24 +6979,24 @@ msgstr "Aktuelle Datei compilieren"
 #: src/text_editor_gui.c:173
 #, fuzzy
 msgid "Build current file or the source directory of the Project"
-msgstr "Aktuelle Datei oder Sourceverzeichnis des Projekts übersetzen"
+msgstr "Aktuelle Datei oder Sourceverzeichnis des Projekts Ã¼bersetzen"
 
 #: src/text_editor_gui.c:182
 msgid "Attach"
-msgstr "Anhängen"
+msgstr "AnhÃ¤ngen"
 
 #: src/text_editor_gui.c:183
 #, fuzzy
 msgid "Attach the current page"
-msgstr "Die aktuelle Seite herauslösen"
+msgstr "Die aktuelle Seite herauslÃ¶sen"
 
 #: src/text_editor_menu.c:77
 msgid "Back"
-msgstr "Zurück"
+msgstr "ZurÃ¼ck"
 
 #: src/text_editor_menu.c:84
 msgid "Forward"
-msgstr "Vorwärts"
+msgstr "VorwÃ¤rts"
 
 #: src/text_editor_menu.c:108
 msgid "Prev mesg"
@@ -7004,7 +7004,7 @@ msgstr "Vorh. Nachricht"
 
 #: src/text_editor_menu.c:114
 msgid "Next mesg"
-msgstr "Nächste Nachricht"
+msgstr "NÃ¤chste Nachricht"
 
 #: src/text_editor_menu.c:120
 msgid "Prev bookmark"
@@ -7012,7 +7012,7 @@ msgstr "Vorheriges Lesezeichen"
 
 #: src/text_editor_menu.c:126
 msgid "Next bookmark"
-msgstr "Nächstes Lesezeichen"
+msgstr "NÃ¤chstes Lesezeichen"
 
 #: src/text_editor_menu.c:143 src/toolbar.c:542
 msgid "Step in"
@@ -7020,7 +7020,7 @@ msgstr "Einzelschritt"
 
 #: src/text_editor_menu.c:149
 msgid "Step over"
-msgstr "Überspringen"
+msgstr "Ãœberspringen"
 
 #: src/text_editor_menu.c:155
 msgid "Step out"
@@ -7028,11 +7028,11 @@ msgstr "Herausspringen"
 
 #: src/text_editor_menu.c:161 src/toolbar.c:531
 msgid "Run to cursor"
-msgstr "Bis zum Cursor ausführen"
+msgstr "Bis zum Cursor ausfÃ¼hren"
 
 #: src/text_editor_menu.c:167
 msgid "Run/Continue"
-msgstr "Ausführen/Weitermachen"
+msgstr "AusfÃ¼hren/Weitermachen"
 
 #: src/text_editor_menu.c:174 src/toolbar.c:605
 msgid "Inspect"
@@ -7061,7 +7061,7 @@ msgstr "Hilfen an/aus"
 
 #: src/text_editor_menu.c:220
 msgid "++Zoom"
-msgstr "Ansicht vergrößern"
+msgstr "Ansicht vergrÃ¶ÃŸern"
 
 #: src/text_editor_menu.c:227
 msgid "--Zoom"
@@ -7101,11 +7101,11 @@ msgstr "Tag:"
 #. 18
 #: src/text_editor_menu.c:347 src/toolbar.c:90
 msgid "Close"
-msgstr "Schließen"
+msgstr "SchlieÃŸen"
 
 #: src/toolbar.c:95
 msgid "Undo"
-msgstr "Rückgängig"
+msgstr "RÃ¼ckgÃ¤ngig"
 
 #: src/toolbar.c:99
 msgid "Redo"
@@ -7113,11 +7113,11 @@ msgstr "Wiederholen"
 
 #: src/toolbar.c:104
 msgid "Detach"
-msgstr "Herauslösen"
+msgstr "HerauslÃ¶sen"
 
 #: src/toolbar.c:105
 msgid "Detach the current page"
-msgstr "Die aktuelle Seite herauslösen"
+msgstr "Die aktuelle Seite herauslÃ¶sen"
 
 #: src/toolbar.c:114
 msgid "Search for the given string in the current file"
@@ -7149,7 +7149,7 @@ msgstr "Projekt speichern"
 
 #: src/toolbar.c:235
 msgid "Close Project"
-msgstr "Projekt schließen"
+msgstr "Projekt schlieÃŸen"
 
 #: src/toolbar.c:262
 msgid "Run configure"
@@ -7157,19 +7157,19 @@ msgstr "configure aufrufen"
 
 #: src/toolbar.c:274
 msgid "Build current file, or build the source directory of the Project"
-msgstr "Aktuelle Datei oder Sourceverzeichnis des Projekts übersetzen"
+msgstr "Aktuelle Datei oder Sourceverzeichnis des Projekts Ã¼bersetzen"
 
 #: src/toolbar.c:285
 msgid "Build_all"
-msgstr "_Alles übersetzen"
+msgstr "_Alles Ã¼bersetzen"
 
 #: src/toolbar.c:287
 msgid "Build from the top directory of the Project"
-msgstr "Übersetzungsvorgang vom Hauptverzeichnis des Projekts aus."
+msgstr "Ãœbersetzungsvorgang vom Hauptverzeichnis des Projekts aus."
 
 #: src/toolbar.c:295
 msgid "Execute"
-msgstr "Ausführen"
+msgstr "AusfÃ¼hren"
 
 #: src/toolbar.c:307
 msgid "Start the Debugger"
@@ -7177,7 +7177,7 @@ msgstr "Den Debugger starten"
 
 #: src/toolbar.c:315
 msgid "Stop/interrupt compile or build"
-msgstr "Übersetzungsvorgang anhalten/unterbrechen"
+msgstr "Ãœbersetzungsvorgang anhalten/unterbrechen"
 
 #: src/toolbar.c:384 src/toolbar.c:767
 msgid "Toggle"
@@ -7205,11 +7205,11 @@ msgstr "Gehe zum vorherigen Lesezeichen in dieser Datei"
 
 #: src/toolbar.c:404 src/toolbar.c:427
 msgid "Next"
-msgstr "Nächste"
+msgstr "NÃ¤chste"
 
 #: src/toolbar.c:405
 msgid "Goto next bookmark in this document"
-msgstr "Gehe zum nächsten Lesezeichen in dieser Datei"
+msgstr "Gehe zum nÃ¤chsten Lesezeichen in dieser Datei"
 
 #: src/toolbar.c:410
 msgid "Last"
@@ -7225,7 +7225,7 @@ msgstr "Gehe zur vorherigen Nachricht in dieser Datei"
 
 #: src/toolbar.c:428
 msgid "Goto next message in this document"
-msgstr "Gehe zur nächsten Nachricht in dieser Datei"
+msgstr "Gehe zur nÃ¤chsten Nachricht in dieser Datei"
 
 #: src/toolbar.c:436
 msgid "Start"
@@ -7265,7 +7265,7 @@ msgstr "Zeichenkette, nach der gesucht werden soll"
 
 #: src/toolbar.c:519
 msgid "Go or continue execution"
-msgstr "Starten/Fortsetzen einer Ausführung"
+msgstr "Starten/Fortsetzen einer AusfÃ¼hrung"
 
 #: src/toolbar.c:530
 msgid "Run"
@@ -7273,15 +7273,15 @@ msgstr "Starten"
 
 #: src/toolbar.c:543
 msgid "Single step in execution"
-msgstr "Einzelschritt in der Ausführung"
+msgstr "Einzelschritt in der AusfÃ¼hrung"
 
 #: src/toolbar.c:554
 msgid "Step Over"
-msgstr "Überspringen"
+msgstr "Ãœberspringen"
 
 #: src/toolbar.c:555
 msgid "Step over the function"
-msgstr "Funktion überspringen"
+msgstr "Funktion Ã¼berspringen"
 
 #: src/toolbar.c:565
 msgid "Step Out"
@@ -7309,11 +7309,11 @@ msgstr "Information des aktuellen Rahmens anzeigen"
 
 #: src/toolbar.c:633
 msgid "Watch"
-msgstr "Überwachte Ausdrücke"
+msgstr "Ãœberwachte AusdrÃ¼cke"
 
 #: src/toolbar.c:635
 msgid "Watch expressions during execution"
-msgstr "Ausdruck während Ausführung beobachten"
+msgstr "Ausdruck wÃ¤hrend AusfÃ¼hrung beobachten"
 
 #: src/toolbar.c:647
 msgid "Stack trace of the program"
@@ -7337,43 +7337,43 @@ msgstr "Aktuelle Codefaltung verbergen/zeigen"
 
 #: src/toolbar.c:780
 msgid "Close all"
-msgstr "Alle schließen"
+msgstr "Alle schlieÃŸen"
 
 #: src/toolbar.c:782
 msgid "Close all code folds in this document"
-msgstr "Alle Codefaltungen in diesem Dokument schließen"
+msgstr "Alle Codefaltungen in diesem Dokument schlieÃŸen"
 
 #: src/toolbar.c:793
 msgid "Open all"
-msgstr "Alle öffnen"
+msgstr "Alle Ã¶ffnen"
 
 #: src/toolbar.c:795
 msgid "Open all code folds in this document"
-msgstr "Alle Codefaltungen in diesem Dokument öffnen"
+msgstr "Alle Codefaltungen in diesem Dokument Ã¶ffnen"
 
 #: src/toolbar.c:808
 msgid "Select"
-msgstr "Auswählen"
+msgstr "AuswÃ¤hlen"
 
 #: src/toolbar.c:809
 msgid "Select current code block"
-msgstr "Aktuellen Codeblock auswählen"
+msgstr "Aktuellen Codeblock auswÃ¤hlen"
 
 #: src/toolbar.c:820
 msgid "Indent inc"
-msgstr "Einrückung erh."
+msgstr "EinrÃ¼ckung erh."
 
 #: src/toolbar.c:822
 msgid "Increase indentation of block/line"
-msgstr "Einrückung des Blocks/der Zeile erhöhen"
+msgstr "EinrÃ¼ckung des Blocks/der Zeile erhÃ¶hen"
 
 #: src/toolbar.c:833
 msgid "Indent dcr"
-msgstr "Einrückung verm."
+msgstr "EinrÃ¼ckung verm."
 
 #: src/toolbar.c:835
 msgid "Decrease indentation of block/line"
-msgstr "Einrückung des Blocks/der Zeile erniedrigen"
+msgstr "EinrÃ¼ckung des Blocks/der Zeile erniedrigen"
 
 #: src/toolbar.c:848
 msgid "Autoformat"
@@ -7385,7 +7385,7 @@ msgstr "Den Code automatisch formatieren"
 
 #: src/toolbar.c:862
 msgid "Configure style to use for auto format"
-msgstr "Den Stil für die automatische Formatierung konfigurieren"
+msgstr "Den Stil fÃ¼r die automatische Formatierung konfigurieren"
 
 #: src/toolbar.c:875
 msgid "Calltip"
@@ -7397,11 +7397,11 @@ msgstr "Calltip zeigen"
 
 #: src/toolbar.c:888
 msgid "Autocomplete"
-msgstr "Autovervollständigung"
+msgstr "AutovervollstÃ¤ndigung"
 
 #: src/toolbar.c:889
 msgid "Autocomplete word"
-msgstr "Wort automatisch vervollständigen"
+msgstr "Wort automatisch vervollstÃ¤ndigen"
 
 #: src/toolbar_callbacks.c:278
 #, fuzzy, c-format
@@ -7411,7 +7411,7 @@ msgstr "Zeilennummer %d in \"%s\"."
 #: src/utilities.c:736
 #, fuzzy, c-format
 msgid "Unable to read file: %s."
-msgstr "%s konnte nicht geöffnet werden.\n"
+msgstr "%s konnte nicht geÃ¶ffnet werden.\n"
 
 #: src/utilities.c:778
 #, fuzzy
@@ -7424,7 +7424,7 @@ msgstr "< Im aktuellen Kontext nicht definiert >"
 
 #: src/watch_gui.c:37
 msgid "Add expression"
-msgstr "Ausdruck hinzufügen"
+msgstr "Ausdruck hinzufÃ¼gen"
 
 #: src/watch_gui.c:49
 msgid "Update all"
@@ -7432,7 +7432,7 @@ msgstr "Alle aktualisieren"
 
 #: src/watch_gui.c:55
 msgid "Clear"
-msgstr "Löschen"
+msgstr "LÃ¶schen"
 
 #: src/watch_gui.c:61
 msgid "Toggle enable"
@@ -7444,7 +7444,7 @@ msgstr ""
 
 #: src/watch_gui.c:106
 msgid "Expression Watch"
-msgstr "Überwachte Ausdrücke"
+msgstr "Ãœberwachte AusdrÃ¼cke"
 
 #: src/watch_gui.c:127
 msgid "Expression"
@@ -7452,21 +7452,21 @@ msgstr "Ausdruck"
 
 #: src/watch_gui.c:183
 msgid "Add Watch Expression"
-msgstr "Überachten Ausdruck hinzufügen"
+msgstr "Ãœberachten Ausdruck hinzufÃ¼gen"
 
 #: src/watch_gui.c:193
 msgid "Add expression to watch"
-msgstr "Einen zu überwachenden Ausdruck hinzufügen"
+msgstr "Einen zu Ã¼berwachenden Ausdruck hinzufÃ¼gen"
 
 #: src/watch_gui.c:248
 #, fuzzy
 msgid "Modify Watch Expression"
-msgstr "Überachten Ausdruck hinzufügen"
+msgstr "Ãœberachten Ausdruck hinzufÃ¼gen"
 
 #: src/watch_gui.c:258
 #, fuzzy
 msgid "Modify watched expression"
-msgstr "Überachten Ausdruck hinzufügen"
+msgstr "Ãœberachten Ausdruck hinzufÃ¼gen"
 
 #: src/watch_gui.c:314
 msgid "Inspect/Evaluate"
@@ -7478,7 +7478,7 @@ msgstr "Ausdruck inspizieren/auswerten"
 
 #: src/watch_gui.c:333
 msgid "Add To Watch"
-msgstr "Zu beobachten Ausdrücken hinzufügen"
+msgstr "Zu beobachten AusdrÃ¼cken hinzufÃ¼gen"
 
 #: src/wizard_gui.c:98
 #, fuzzy
@@ -7488,7 +7488,7 @@ msgstr "Projekttyp:"
 #: src/wizard_gui.c:120
 #, fuzzy
 msgid "Select the type of application to be developed"
-msgstr "Wählen Sie den Art der Anwendung, die Sie entwickeln möchten"
+msgstr "WÃ¤hlen Sie den Art der Anwendung, die Sie entwickeln mÃ¶chten"
 
 #: src/wizard_gui.c:167
 msgid "Generic/Terminal project"
@@ -7605,7 +7605,7 @@ msgstr "Zieltyp:         "
 
 #: src/wizard_gui.c:438
 msgid "Executable target"
-msgstr "Ziel: ausführbares Programm"
+msgstr "Ziel: ausfÃ¼hrbares Programm"
 
 #: src/wizard_gui.c:445
 msgid "Static library target"
@@ -7622,7 +7622,7 @@ msgstr "Geben Sie eine kurze Beschreibung des Projekts ein"
 
 #: src/wizard_gui.c:631
 msgid "Enter any additional Project options"
-msgstr "Eingabe zusätzlicher Projekt-Informationen"
+msgstr "Eingabe zusÃ¤tzlicher Projekt-Informationen"
 
 #: src/wizard_gui.c:648
 msgid " Project Options "
@@ -7630,15 +7630,15 @@ msgstr " Projektoptionen "
 
 #: src/wizard_gui.c:659
 msgid "Include GNU Copyright statement in file headings"
-msgstr "GNU Copyrighterklärung in Dateiköpfe einfügen"
+msgstr "GNU CopyrighterklÃ¤rung in DateikÃ¶pfe einfÃ¼gen"
 
 #: src/wizard_gui.c:666
 msgid "Enable Gettext Support"
-msgstr "Unterstützung für Gettext"
+msgstr "UnterstÃ¼tzung fÃ¼r Gettext"
 
 #: src/wizard_gui.c:673
 msgid "GNOME Menu Entry"
-msgstr "Menüeintrag für GNOME"
+msgstr "MenÃ¼eintrag fÃ¼r GNOME"
 
 #: src/wizard_gui.c:683
 msgid "Entry name:"
@@ -7654,7 +7654,7 @@ msgstr "Gruppe:"
 
 #: src/wizard_gui.c:739
 msgid "Needs terminal"
-msgstr "Benötigt Terminal:"
+msgstr "BenÃ¶tigt Terminal:"
 
 #: src/wizard_gui.c:780
 msgid "Summary"
@@ -7687,17 +7687,17 @@ msgstr ""
 #: widgets/gnomefilelist.c:245
 #, fuzzy
 msgid "Delete file"
-msgstr "Alle löschen"
+msgstr "Alle lÃ¶schen"
 
 #: widgets/gnomefilelist.c:249 widgets/gnomefilelist.c:1860
 #, fuzzy
 msgid "Rename file"
-msgstr "Datei öffnen"
+msgstr "Datei Ã¶ffnen"
 
 #: widgets/gnomefilelist.c:253 widgets/gnomefilelist.c:1959
 #, fuzzy
 msgid "Create new folder"
-msgstr "Neues Fenster öffnen"
+msgstr "Neues Fenster Ã¶ffnen"
 
 #: widgets/gnomefilelist.c:258
 msgid "Show Hidden"
@@ -7715,7 +7715,7 @@ msgstr " Verzeichnisse "
 #: widgets/gnomefilelist.c:423
 #, fuzzy
 msgid "Selection: "
-msgstr "Auswählen"
+msgstr "AuswÃ¤hlen"
 
 #: widgets/gnomefilelist.c:451
 #, fuzzy
@@ -7778,7 +7778,7 @@ msgstr "Name des Eintrags:"
 #: widgets/cell-renderer-captioned-image.c:207
 #, fuzzy
 msgid "Text"
-msgstr "Nächste"
+msgstr "NÃ¤chste"
 
 #: widgets/cell-renderer-captioned-image.c:208
 msgid "Text to render"
@@ -7824,10 +7824,10 @@ msgstr ""
 #~ "Insert code at \"%s:%u\""
 #~ msgstr ""
 #~ "Noch nicht implementiert.\n"
-#~ "Code an \"%s:%u\" einfügen"
+#~ "Code an \"%s:%u\" einfÃ¼gen"
 
 #~ msgid "Activate this to select this window"
-#~ msgstr "Dies aktivieren, um dieses Fenster auszuwählen"
+#~ msgstr "Dies aktivieren, um dieses Fenster auszuwÃ¤hlen"
 
 #~ msgid "Unable to Load Plug in Module %s. Err: %s"
 #~ msgstr "Plugin in Modul %s konnte nicht geladen werden. Fehler: %s"
@@ -7853,7 +7853,7 @@ msgstr ""
 #~ msgstr "Ein/Aus"
 
 #~ msgid "Add Breakpoint"
-#~ msgstr "Breakpoint hinzufügen"
+#~ msgstr "Breakpoint hinzufÃ¼gen"
 
 #~ msgid "File is not saved. Save it and build."
 #~ msgstr "Datei ist nicht gespeichert. Speichern und neu erstellen"
@@ -7863,11 +7863,11 @@ msgstr ""
 
 #~ msgid "Unable to build Project. Check Preferences->Commands."
 #~ msgstr ""
-#~ "Projekt konnte nicht übersetzt werden. Prüfen Sie Einstellungen->Befehle."
+#~ "Projekt konnte nicht Ã¼bersetzt werden. PrÃ¼fen Sie Einstellungen->Befehle."
 
 #~ msgid "Unable to Install Project. Check Preferences->Commands."
 #~ msgstr ""
-#~ "Projekt konnte nicht installiert werden. Prüfen Sie Einstellungen-"
+#~ "Projekt konnte nicht installiert werden. PrÃ¼fen Sie Einstellungen-"
 #~ ">Befehle."
 
 #~ msgid "Autogen Project"
@@ -7875,27 +7875,27 @@ msgstr ""
 
 #~ msgid "Unable to clean project. Check Preferences->Commands."
 #~ msgstr ""
-#~ "Projekt konnte nicht bereinigt werden. Überprüfen Sie Einstellungen-"
+#~ "Projekt konnte nicht bereinigt werden. ÃœberprÃ¼fen Sie Einstellungen-"
 #~ ">Befehle"
 
 #~ msgid "Unable to clean all project. Check Preferences->Commands."
 #~ msgstr ""
-#~ "Konnte Projekt nicht bereinigen. Überprüfen Sie Einstellungen->Befehle"
+#~ "Konnte Projekt nicht bereinigen. ÃœberprÃ¼fen Sie Einstellungen->Befehle"
 
 #~ msgid "Select programming language:"
-#~ msgstr "Programmiersprache auswählen:"
+#~ msgstr "Programmiersprache auswÃ¤hlen:"
 
 #~ msgid "Execute File:"
-#~ msgstr "Datei ausführen:"
+#~ msgstr "Datei ausfÃ¼hren:"
 
 #~ msgid " General commands "
 #~ msgstr " Allgemeine Befehle "
 
 #~ msgid "Building source directory of the project: "
-#~ msgstr "Sourcen-Verzeichnis des Projekts übersetzen: "
+#~ msgstr "Sourcen-Verzeichnis des Projekts Ã¼bersetzen: "
 
 #~ msgid "I do not really know how to compile this file."
-#~ msgstr "Keine Informationen zur übersetzen dieser Datei vorhanden."
+#~ msgstr "Keine Informationen zur Ã¼bersetzen dieser Datei vorhanden."
 
 #~ msgid "Cannot create: %s."
 #~ msgstr "%s kann nicht erstellt werden."
@@ -7914,7 +7914,7 @@ msgstr ""
 #~ "Dependencies: %s\n"
 #~ "\n"
 #~ msgstr ""
-#~ "Abhängigkeiten: %s\n"
+#~ "AbhÃ¤ngigkeiten: %s\n"
 #~ "\n"
 
 #~ msgid "Macros in configure.in fie:\n"
@@ -7924,14 +7924,14 @@ msgstr ""
 #~ "Variable(s) for cflags: %s\n"
 #~ "\n"
 #~ msgstr ""
-#~ "Variable(n) für cflags: %s\n"
+#~ "Variable(n) fÃ¼r cflags: %s\n"
 #~ "\n"
 
 #~ msgid ""
 #~ "Variable(s) for Libs: %s\n"
 #~ "\n"
 #~ msgstr ""
-#~ "Variable(n) für Libraries: %s\n"
+#~ "Variable(n) fÃ¼r Libraries: %s\n"
 #~ "\n"
 
 #~ msgid ""
@@ -7949,7 +7949,7 @@ msgstr ""
 #~ "\n"
 
 #~ msgid "Entries in acconfig.h file:\n"
-#~ msgstr "Einträge in acconfig.h:\n"
+#~ msgstr "EintrÃ¤ge in acconfig.h:\n"
 
 #~ msgid "Installed status:\n"
 #~ msgstr "Installationsstatus:\n"
@@ -7961,16 +7961,16 @@ msgstr ""
 #~ msgstr "    Nicht installiert.\n"
 
 #~ msgid "Compiler Options"
-#~ msgstr "Compiler­Optionen"
+#~ msgstr "CompilerÂ­Optionen"
 
 #~ msgid "Select the Supports to add"
-#~ msgstr "Unterstützte Bibliotheken auswählen"
+#~ msgstr "UnterstÃ¼tzte Bibliotheken auswÃ¤hlen"
 
 #~ msgid "Info"
 #~ msgstr "Info"
 
 #~ msgid "Added Libraries"
-#~ msgstr "Hinzugefügte Bibliotheken"
+#~ msgstr "HinzugefÃ¼gte Bibliotheken"
 
 #~ msgid "Treat warnings as errors."
 #~ msgstr "Warnungen wie Fehler behandeln."
@@ -7982,13 +7982,13 @@ msgstr ""
 #~ msgstr "Warnung bei impliziten Deklarationen"
 
 #~ msgid "Warning for mismatched return types"
-#~ msgstr "Warnung bei nicht übereinstimmenden Rückgabewerten"
+#~ msgstr "Warnung bei nicht Ã¼bereinstimmenden RÃ¼ckgabewerten"
 
 #~ msgid "Warning for unused variables"
 #~ msgstr "Warnung bei nicht verwendeten Variablen"
 
 #~ msgid "Warning for unhandled switch case with enums"
-#~ msgstr "Warnungen bei unbehandelten Fällen in switch bei enums"
+#~ msgstr "Warnungen bei unbehandelten FÃ¤llen in switch bei enums"
 
 #~ msgid "Warning for nested comment"
 #~ msgstr "Warnung bei verschachtelten Kommentaren"
@@ -8006,16 +8006,16 @@ msgstr ""
 #~ msgstr "Warnungen bei Variablen-Shadowing"
 
 #~ msgid "Warning for suspected pointer arithmetic"
-#~ msgstr "Warnung bei verdächtiger Pointer-Arithmetik"
+#~ msgstr "Warnung bei verdÃ¤chtiger Pointer-Arithmetik"
 
 #~ msgid "Warning for missing prototypes"
 #~ msgstr "Warnungen bei fehlenden Prototypen"
 
 #~ msgid "Warning if declarations cannot be inlined"
-#~ msgstr "Warnung falls Deklarationen nicht inline gemacht werden können"
+#~ msgstr "Warnung falls Deklarationen nicht inline gemacht werden kÃ¶nnen"
 
 #~ msgid "Warning for overloaded virtuals"
-#~ msgstr "Warnungen bei überladenen virtuellen Variablen"
+#~ msgstr "Warnungen bei Ã¼berladenen virtuellen Variablen"
 
 #~ msgid "Note"
 #~ msgstr "Hinweis"
@@ -8026,19 +8026,19 @@ msgstr ""
 #~ "both debug and optimization options, unless what you want\n"
 #~ "is to debug the optimized code."
 #~ msgstr ""
-#~ "Mit eingeschalteter Optimierung können Schwierigkeiten beim\n"
+#~ "Mit eingeschalteter Optimierung kÃ¶nnen Schwierigkeiten beim\n"
 #~ "Debuggen der Programme auftreten. Es ist keine gute Idee,\n"
 #~ "sowohl Debug- als auch Optimierungen zu aktivieren, es sei\n"
 #~ "denn, Sie wollen optimierten Code debuggen."
 
 #~ msgid "Configure Options (if any)"
-#~ msgstr "Optionen für configure"
+#~ msgstr "Optionen fÃ¼r configure"
 
 #~ msgid ""
 #~ "You have a process ATTACHED under the debugger.\n"
 #~ "Please detach it first and then load the core file."
 #~ msgstr ""
-#~ "An den Debugger wurde ein Prozess ANGEHÄNGT.\n"
+#~ "An den Debugger wurde ein Prozess ANGEHÃ„NGT.\n"
 #~ "Bitte trennen Sie ihn zuerst ab und laden dann die Core-Datei."
 
 #~ msgid ""
@@ -8049,20 +8049,20 @@ msgstr ""
 #~ "Bitte stoppen Sie ihn zuerst und laden dann die Core-Datei."
 
 #~ msgid "Execute with arguments"
-#~ msgstr "Programm mit Argumenten ausführen"
+#~ msgstr "Programm mit Argumenten ausfÃ¼hren"
 
 #~ msgid ""
 #~ "ERROR: No input files supplied.\n"
 #~ "I am wondering where will I search."
 #~ msgstr ""
-#~ "FEHLER: Keine Eingabedateien übergeben.\n"
+#~ "FEHLER: Keine Eingabedateien Ã¼bergeben.\n"
 #~ "Keine Dateien zum Durchsuchen vorhanden"
 
 #~ msgid ""
 #~ "ERROR: No search string supplied.\n"
 #~ "I am wondering what to search."
 #~ msgstr ""
-#~ "FEHLER: Keine Suchzeichenkette übergeben.\n"
+#~ "FEHLER: Keine Suchzeichenkette Ã¼bergeben.\n"
 #~ "Keine Zeichenkette zum Suchen vorhanden."
 
 #~ msgid "List of Files/Directories to be searched"
@@ -8078,31 +8078,31 @@ msgstr ""
 #~ msgstr "Typ"
 
 #~ msgid "Ignore case while searching"
-#~ msgstr "Groß-/Kleinschreibung ignorieren"
+#~ msgstr "GroÃŸ-/Kleinschreibung ignorieren"
 
 #~ msgid "Couldn't create file: %s."
 #~ msgstr "Die Datei %s konnte nicht erstellt werden."
 
 #~ msgid "You need to set the Translatable Strings File option"
-#~ msgstr "Sie müssen die \"Übersetztbare Zeichenketten Datei option setzen"
+#~ msgstr "Sie mÃ¼ssen die \"Ãœbersetztbare Zeichenketten Datei option setzen"
 
 #~ msgid "You need to set the Project Directory option"
-#~ msgstr "Sie müssen ein Projekt Verzeichnis angeben"
+#~ msgstr "Sie mÃ¼ssen ein Projekt Verzeichnis angeben"
 
 #~ msgid "You need to set the Project File option"
-#~ msgstr "Sie müssen eine Projekt Datei angeben"
+#~ msgstr "Sie mÃ¼ssen eine Projekt Datei angeben"
 
 #~ msgid "You need to set the Project Name option"
-#~ msgstr "Sie müssen einen Projekname eingeben"
+#~ msgstr "Sie mÃ¼ssen einen Projekname eingeben"
 
 #~ msgid "You need to set the Program Name option"
-#~ msgstr "Sie müssen einen Programmnamen angeben"
+#~ msgstr "Sie mÃ¼ssen einen Programmnamen angeben"
 
 #~ msgid "You need to set the Source Directory option"
-#~ msgstr "Sie müssen ein Verzeichnis für die Quellen angeben"
+#~ msgstr "Sie mÃ¼ssen ein Verzeichnis fÃ¼r die Quellen angeben"
 
 #~ msgid "You need to set the Pixmaps Directory option"
-#~ msgstr "Sie müssen ein Pixmaps Verzeichnis angeben"
+#~ msgstr "Sie mÃ¼ssen ein Pixmaps Verzeichnis angeben"
 
 #~ msgid "Again saving  project ...\n"
 #~ msgstr "Projekt wird nochmals gespeichert ...\n"
@@ -8111,7 +8111,7 @@ msgstr ""
 #~ msgstr "Autogenerierung beendet................gescheitert\n"
 
 #~ msgid "You have a project opened. Close it first."
-#~ msgstr "Ein Projekt ist geöffnet. Bitte erst schließen."
+#~ msgstr "Ein Projekt ist geÃ¶ffnet. Bitte erst schlieÃŸen."
 
 # ##############################################################################
 #~ msgid "_Tags Toolbar"
@@ -8124,19 +8124,19 @@ msgstr ""
 #~ msgstr "_Projektfenster"
 
 #~ msgid "_Watch Window"
-#~ msgstr "Über_wachte Ausdrücke"
+#~ msgstr "Ãœber_wachte AusdrÃ¼cke"
 
 #~ msgid "Documentation file"
 #~ msgstr "Dokumentationsdatei"
 
 #~ msgid "Open the README file of the project"
-#~ msgstr "README-Datei des Projekts öffnen"
+#~ msgstr "README-Datei des Projekts Ã¶ffnen"
 
 #~ msgid "Open the TODO file of the project"
-#~ msgstr "TODO-Datei des Projekts öffnen"
+#~ msgstr "TODO-Datei des Projekts Ã¶ffnen"
 
 #~ msgid "Open the ChangeLog file of the project"
-#~ msgstr "ChangeLog-Datei des Projekts öffnen"
+#~ msgstr "ChangeLog-Datei des Projekts Ã¶ffnen"
 
 #~ msgid "Project _Configuration ..."
 #~ msgstr "Projektkonfiguration ..."
@@ -8145,7 +8145,7 @@ msgstr ""
 #~ msgstr "Projektinformation"
 
 #~ msgid "Detailed information about the project"
-#~ msgstr "Detailierte Informationen über das Projekt"
+#~ msgstr "Detailierte Informationen Ã¼ber das Projekt"
 
 #~ msgid "Force the highlight style to None"
 #~ msgstr "Highlighting abschalten"
@@ -8178,10 +8178,10 @@ msgstr ""
 #~ msgstr "Sicherungsverwalter"
 
 #~ msgid "Open a new file window"
-#~ msgstr "Ein neues Dateifenster öffnen"
+#~ msgstr "Ein neues Dateifenster Ã¶ffnen"
 
 #~ msgid "Close current document window"
-#~ msgstr "Aktuelles Dokumentfenster schließen"
+#~ msgstr "Aktuelles Dokumentfenster schlieÃŸen"
 
 #~ msgid "Info pages, where you cannot find what you are looking for"
 #~ msgstr "Info-Seiten, wo Sie nicht finden, was Sie suchen"
@@ -8191,13 +8191,13 @@ msgstr ""
 #~ msgstr "Dienstprogramme"
 
 #~ msgid "Could not execute cmd: %s"
-#~ msgstr "Der Befehl %s konnte nicht ausgeführt werden."
+#~ msgstr "Der Befehl %s konnte nicht ausgefÃ¼hrt werden."
 
 #~ msgid ""
 #~ "There was an error while printing.\n"
 #~ "The cmd is: %s"
 #~ msgstr ""
-#~ "Während des Druckens trat ein Fehler auf.\n"
+#~ "WÃ¤hrend des Druckens trat ein Fehler auf.\n"
 #~ "Befehl: %s"
 
 #~ msgid "The file has been sent for printing."
@@ -8267,7 +8267,7 @@ msgstr ""
 #~ msgstr "Intervall wann Sitzung gespeichert wird"
 
 #~ msgid " Paper Size"
-#~ msgstr " Papiergröße"
+#~ msgstr " PapiergrÃ¶ÃŸe"
 
 #~ msgid " Print Command "
 #~ msgstr " Druckbefehl"
@@ -8319,7 +8319,7 @@ msgstr ""
 #~ msgstr "Tests auf Bibliotheksfunktionen"
 
 #~ msgid "Additional scripts in config.in"
-#~ msgstr "Zusätzliche Skripte in config.in"
+#~ msgstr "ZusÃ¤tzliche Skripte in config.in"
 
 #~ msgid "Files to configure"
 #~ msgstr "Zu konfigurierende Dateien"
@@ -8328,10 +8328,10 @@ msgstr ""
 #~ msgstr "Das Projekt scannen"
 
 #~ msgid "Extra modules to be built before source module:"
-#~ msgstr "Zusätzliche Module, die vor dem Source-Modul übersetzt werden:"
+#~ msgstr "ZusÃ¤tzliche Module, die vor dem Source-Modul Ã¼bersetzt werden:"
 
 #~ msgid "Extra modules to be built after source module:"
-#~ msgstr "Zusätzliche Module, die nach dem Source-Modul übersetzt werden:"
+#~ msgstr "ZusÃ¤tzliche Module, die nach dem Source-Modul Ã¼bersetzt werden:"
 
 #, fuzzy
 #~ msgid ""
@@ -8339,8 +8339,8 @@ msgstr ""
 #~ "Please upgrade Anjuta to the latest version (Help for more information).\n"
 #~ "For the time being, I am too old to load it."
 #~ msgstr ""
-#~ "Fehler: Anjuta Version %s wird benötigt um dieses Projekt zu öffnen.\n"
-#~ "Bitte holen Sie sich die neueste  Version (Siehe Hilfe für weitere "
+#~ "Fehler: Anjuta Version %s wird benÃ¶tigt um dieses Projekt zu Ã¶ffnen.\n"
+#~ "Bitte holen Sie sich die neueste  Version (Siehe Hilfe fÃ¼r weitere "
 #~ "Informationen).\n"
 #~ "Diese Version von Anjuta ist zu alt."
 
@@ -8360,13 +8360,13 @@ msgstr ""
 #~ msgstr "Anzahl der Dokumentationsdateien:"
 
 #~ msgid "No of po files:"
-#~ msgstr "Anzahl der Übersetzungsdateien:"
+#~ msgstr "Anzahl der Ãœbersetzungsdateien:"
 
 #~ msgid "Select Regional Language:"
-#~ msgstr "Regionalsprache auswählen:"
+#~ msgstr "Regionalsprache auswÃ¤hlen:"
 
 #~ msgid "This file has already been added to the project."
-#~ msgstr "Diese Datei wurde bereits zum Projekt hinzugefügt"
+#~ msgstr "Diese Datei wurde bereits zum Projekt hinzugefÃ¼gt"
 
 #~ msgid "Could not create replacement pixmap."
 #~ msgstr "Ersatzpixmap konnte nicht erstellt werden."
@@ -8378,7 +8378,7 @@ msgstr ""
 #~ msgstr "Pixmap konnte nicht aus Datei %s erstellt werden."
 
 #~ msgid "Project type does not support glade."
-#~ msgstr "Dieser Projekttyp unterstützt glade nicht."
+#~ msgstr "Dieser Projekttyp unterstÃ¼tzt glade nicht."
 
 #~ msgid "Source files paths"
 #~ msgstr "Pfade zu den Quelldateien"
@@ -8405,13 +8405,13 @@ msgstr ""
 #~ msgstr "Mem. Funk:"
 
 #~ msgid "Cannot execute ctags"
-#~ msgstr "ctags konnte nicht ausgeführt werden"
+#~ msgstr "ctags konnte nicht ausgefÃ¼hrt werden"
 
 #~ msgid ""
 #~ "Cannot fork to execute ctags. I donno why!!\n"
 #~ "In %s:%d"
 #~ msgstr ""
-#~ "Zur Ausführung von ctags kann nicht abgespalten werden.\n"
+#~ "Zur AusfÃ¼hrung von ctags kann nicht abgespalten werden.\n"
 #~ "In: %s:%d"
 
 #~ msgid "Synchronizing and updating Tags Image ... hold on"
@@ -8425,7 +8425,7 @@ msgstr ""
 #~ msgstr "Synchronisierung der Tags fehlgeschlagen"
 
 #~ msgid "Open Text File"
-#~ msgstr "Textdatei öffnen"
+#~ msgstr "Textdatei Ã¶ffnen"
 
 #~ msgid "Save Current File"
 #~ msgstr "Aktuelle Datei speichern"
@@ -8438,7 +8438,7 @@ msgstr ""
 
 #~ msgid "Build current File or Build the source directory of the Project"
 #~ msgstr ""
-#~ "Die aktuelle Datei oder das Sourcen-Verzeichnis des Projekts übersetzen"
+#~ "Die aktuelle Datei oder das Sourcen-Verzeichnis des Projekts Ã¼bersetzen"
 
 #~ msgid "Print the current File"
 #~ msgstr "Die aktuelle Datei drucken"
@@ -8458,17 +8458,17 @@ msgstr ""
 #~ "3) Blinking is ready, but busy in background."
 #~ msgstr ""
 #~ "Status-LED: \n"
-#~ "1) Rot: beschäftigt. 2)Grün: bereit.\n"
-#~ "3) Blinkend: bereit, aber im Hintergund beschäftigt."
+#~ "1) Rot: beschÃ¤ftigt. 2)GrÃ¼n: bereit.\n"
+#~ "3) Blinkend: bereit, aber im Hintergund beschÃ¤ftigt."
 
 #~ msgid "Save All"
 #~ msgstr "Alles speichern"
 
 #~ msgid "Compile/Build/Debug Messages"
-#~ msgstr "Compilierungs/Übersetzungs/Debug-Nachrichten"
+#~ msgstr "Compilierungs/Ãœbersetzungs/Debug-Nachrichten"
 
 #~ msgid "Select the type of tag"
-#~ msgstr "Art des Tags auswählen"
+#~ msgstr "Art des Tags auswÃ¤hlen"
 
 #~ msgid "Source File"
 #~ msgstr "Quelldatei"
@@ -8504,7 +8504,7 @@ msgstr ""
 #~ msgstr "/_Shell hier"
 
 #~ msgid "/_Open"
-#~ msgstr "/Ö_ffnen"
+#~ msgstr "/Ã–_ffnen"
 
 #~ msgid "Scanning and Updating files. Please Wait ..."
 #~ msgstr "Dateien werden gescannt und die Liste erneuer. Bitte warten ..."
@@ -8513,7 +8513,7 @@ msgstr ""
 #~ msgstr "Datei wird erneuert: "
 
 #~ msgid "Add Function"
-#~ msgstr "Funktion hinzufügen"
+#~ msgstr "Funktion hinzufÃ¼gen"
 
 #~ msgid "GTK-- project"
 #~ msgstr "GTK-- basiertes Projekt"
@@ -8540,7 +8540,7 @@ msgstr ""
 #~ msgstr "Anwendungssdruide:     Seite 6 von 6"
 
 #~ msgid "You FOOL! I can not attach to myself."
-#~ msgstr "Anjuta kann nicht an sich selbst angehängt werden."
+#~ msgstr "Anjuta kann nicht an sich selbst angehÃ¤ngt werden."
 
 #~ msgid "Plug Ins"
 #~ msgstr "Plugins"

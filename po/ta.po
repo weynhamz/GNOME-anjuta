@@ -10,7 +10,7 @@ msgstr ""
 "Last-Translator: Dinesh Nadarajah <n_dinesh@yahoo.com>\n"
 "Language-Team: Tamil <tamilinix@yahoogroups.com>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #.
@@ -3262,7 +3262,7 @@ msgstr ""
 
 #: src/main.c:165
 msgid "Integrated Development Environment"
-msgstr "´Õí¸¢¨½ ¯ÕÅ¡Ìõ İÆø"
+msgstr "Â´Ã•Ã­Â¸Â¢Â¨Â½ Â¯Ã•Ã…Â¡ÃŒÃµ ÃÃ†Ã¸"
 
 #: src/main_menubar.c:383
 msgid "Recent Files    "
@@ -7126,10 +7126,10 @@ msgstr ""
 
 #, fuzzy
 #~ msgid "Anjuta IDE"
-#~ msgstr "«ıƒ¤¾¡ C/C++ IDE"
+#~ msgstr "Â«Ã½ÂƒÂ¤Â¾Â¡ C/C++ IDE"
 
 #~ msgid "Anjuta Document Manager Control"
-#~ msgstr "«ıƒ¤¾¡ ¬Å½ §ÁÄ¡Ç÷ ¸ğÎôÀ¡Î"
+#~ msgstr "Â«Ã½ÂƒÂ¤Â¾Â¡ Â¬Ã…Â½ Â§ÃÃ„Â¡Ã‡Ã· Â¸Ã°ÃÃ´Ã€Â¡Ã"
 
 #~ msgid "Anjuta Document Manager Factory"
-#~ msgstr "«ıƒ¤¾¡ ¬Å½ §ÁÄ¡Ç÷ ¦¾¡Æ¢üº¡¨Ä"
+#~ msgstr "Â«Ã½ÂƒÂ¤Â¾Â¡ Â¬Ã…Â½ Â§ÃÃ„Â¡Ã‡Ã· Â¦Â¾Â¡Ã†Â¢Ã¼ÂºÂ¡Â¨Ã„"

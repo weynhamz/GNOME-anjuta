@@ -1,4 +1,4 @@
-# Norwegian/Bokmål translation of anjuta.
+# Norwegian/BokmÃ¥l translation of anjuta.
 # Copyright (C) 2001 Free Software Foundation, Inc.
 # Kjartan Maraas <kmaraas@gnome.org>, 2001.
 # 
@@ -10,7 +10,7 @@ msgstr ""
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian/Bokmaal <no@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #.
@@ -25,7 +25,7 @@ msgstr "Fest til prosess"
 #: anjuta_dialogs_strings.c:8 anjuta_dialogs_strings.c:80
 #, fuzzy
 msgid "_Update"
-msgstr "Oppdatér"
+msgstr "OppdatÃ©r"
 
 #: anjuta_dialogs_strings.c:9
 #, fuzzy
@@ -35,7 +35,7 @@ msgstr "Legg ved"
 #: anjuta_dialogs_strings.c:10
 #, fuzzy
 msgid "_Process to attach to:"
-msgstr "Velg prosess å hekte på:"
+msgstr "Velg prosess Ã¥ hekte pÃ¥:"
 
 #: anjuta_dialogs_strings.c:11
 msgid "Breakpoints"
@@ -74,7 +74,7 @@ msgstr "Betingelse:"
 #: anjuta_dialogs_strings.c:18
 #, fuzzy
 msgid "_Pass:"
-msgstr "Kjøring:"
+msgstr "KjÃ¸ring:"
 
 #: anjuta_dialogs_strings.c:19 anjuta_dialogs_strings.c:20
 #: anjuta_dialogs_strings.c:21 anjuta_dialogs_strings.c:29
@@ -144,7 +144,7 @@ msgstr ""
 #: anjuta_dialogs_strings.c:28
 #, fuzzy
 msgid "_Terminal:"
-msgstr "Kjør i terminalvindu"
+msgstr "KjÃ¸r i terminalvindu"
 
 #: anjuta_dialogs_strings.c:33
 msgid "Language-specific commands:"
@@ -163,7 +163,7 @@ msgstr "Bygger fil: %s ...\n"
 #: anjuta_dialogs_strings.c:37
 #, fuzzy
 msgid "_Execute:"
-msgstr "K_jør"
+msgstr "K_jÃ¸r"
 
 #: anjuta_dialogs_strings.c:38
 #, fuzzy
@@ -173,7 +173,7 @@ msgstr "Fil:"
 #: anjuta_dialogs_strings.c:42
 #, fuzzy
 msgid "_Language:"
-msgstr "Språk:           "
+msgstr "SprÃ¥k:           "
 
 #: anjuta_dialogs_strings.c:44
 msgid "Load _global defaults"
@@ -196,7 +196,7 @@ msgstr ""
 #: src/registers_gui.c:47 src/sharedlib_gui.c:40 src/signals_gui.c:54
 #: src/stack_trace_gui.c:52
 msgid "Update"
-msgstr "Oppdatér"
+msgstr "OppdatÃ©r"
 
 #: anjuta_dialogs_strings.c:50
 msgid "Include Paths"
@@ -279,7 +279,7 @@ msgstr "Alternativer"
 #: anjuta_dialogs_strings.c:79
 #, fuzzy
 msgid "Source Directories"
-msgstr "Kildemål:        "
+msgstr "KildemÃ¥l:        "
 
 #: anjuta_dialogs_strings.c:82
 #, fuzzy
@@ -298,7 +298,7 @@ msgstr ""
 #: anjuta_dialogs_strings.c:86
 #, fuzzy
 msgid "Case sensitive"
-msgstr "Skill mellom store/små bokstaver"
+msgstr "Skill mellom store/smÃ¥ bokstaver"
 
 #: anjuta_dialogs_strings.c:87
 msgid "Ignore binary files"
@@ -325,7 +325,7 @@ msgstr "Streng"
 #: anjuta_dialogs_strings.c:94
 #, fuzzy
 msgid "Execute Program"
-msgstr "Utfør"
+msgstr "UtfÃ¸r"
 
 #: anjuta_dialogs_strings.c:96
 msgid "Command Line Parameters"
@@ -333,12 +333,12 @@ msgstr ""
 
 #: anjuta_dialogs_strings.c:97
 msgid "Run in Terminal"
-msgstr "Kjør i terminalvindu"
+msgstr "KjÃ¸r i terminalvindu"
 
 #: anjuta_dialogs_strings.c:98 anjuta_dialogs_strings.c:115
 #, fuzzy
 msgid "Find and replace"
-msgstr "Søk og erstatt"
+msgstr "SÃ¸k og erstatt"
 
 #: anjuta_dialogs_strings.c:100 anjuta_dialogs_strings.c:117
 msgid "Regexp/String to find"
@@ -347,7 +347,7 @@ msgstr ""
 #: anjuta_dialogs_strings.c:102
 #, fuzzy
 msgid "String to replace"
-msgstr "Søk og erstatt"
+msgstr "SÃ¸k og erstatt"
 
 #: anjuta_dialogs_strings.c:103 anjuta_dialogs_strings.c:118
 msgid "Whole document"
@@ -403,7 +403,7 @@ msgstr ""
 #: anjuta_dialogs_strings.c:129
 #, fuzzy
 msgid "Find & Replace"
-msgstr "Søk og erstatt"
+msgstr "SÃ¸k og erstatt"
 
 #: anjuta_dialogs_strings.c:130 anjuta_dialogs_strings.c:138
 #, fuzzy
@@ -422,7 +422,7 @@ msgstr ""
 #: anjuta_dialogs_strings.c:133
 #, fuzzy
 msgid "Case insensitive"
-msgstr "Skill mellom store/små bokstaver"
+msgstr "Skill mellom store/smÃ¥ bokstaver"
 
 #: anjuta_dialogs_strings.c:135
 msgid "Match at start of word"
@@ -549,7 +549,7 @@ msgstr ""
 #: anjuta_dialogs_strings.c:173
 #, fuzzy
 msgid "Search Target"
-msgstr "Kildemål:        "
+msgstr "KildemÃ¥l:        "
 
 #: anjuta_dialogs_strings.c:174
 #, fuzzy
@@ -602,7 +602,7 @@ msgstr "Versjon:"
 #: anjuta_dialogs_strings.c:189
 #, fuzzy
 msgid "Target:"
-msgstr "Prosjektmål:"
+msgstr "ProsjektmÃ¥l:"
 
 #: anjuta_dialogs_strings.c:191
 msgid "GUI editor command:"
@@ -717,7 +717,7 @@ msgstr "Legg til funksjon"
 #: anjuta_dialogs_strings.c:219
 #, fuzzy
 msgid "Output files"
-msgstr "Åpne fil"
+msgstr "Ã…pne fil"
 
 #: anjuta_dialogs_strings.c:220
 msgid "Configuration script segments"
@@ -817,7 +817,7 @@ msgstr ""
 #: anjuta_dialogs_strings.c:246
 #, fuzzy
 msgid "Run in terminal"
-msgstr "Kjør i terminalvindu"
+msgstr "KjÃ¸r i terminalvindu"
 
 #: anjuta_dialogs_strings.c:247
 msgid "File level"
@@ -885,12 +885,12 @@ msgstr ""
 #: anjuta_dialogs_strings.c:271
 #, fuzzy
 msgid "Choose files"
-msgstr "Kildemål:        "
+msgstr "KildemÃ¥l:        "
 
 #: anjuta_dialogs_strings.c:277
 #, fuzzy
 msgid "Ignore files"
-msgstr "Kildemål:        "
+msgstr "KildemÃ¥l:        "
 
 #: anjuta_dialogs_strings.c:281
 msgid "Do not show hidden files"
@@ -1227,7 +1227,7 @@ msgstr "Venstre"
 
 #: anjuta_dialogs_strings.c:383 anjuta_dialogs_strings.c:447
 msgid "Right"
-msgstr "Høyre"
+msgstr "HÃ¸yre"
 
 #: anjuta_dialogs_strings.c:384
 msgid "Editor notebook tabs"
@@ -1577,7 +1577,7 @@ msgstr ""
 #: anjuta_dialogs_strings.c:492
 #, fuzzy
 msgid "Terminal options"
-msgstr "Kjør i terminalvindu"
+msgstr "KjÃ¸r i terminalvindu"
 
 #: anjuta_dialogs_strings.c:493
 #, fuzzy
@@ -1676,12 +1676,12 @@ msgstr "Klassenavn:"
 #: plugins/class-gen/clsGen.c:1472
 #, fuzzy
 msgid "Header file:  "
-msgstr "Åpne fil"
+msgstr "Ã…pne fil"
 
 #: plugins/class-gen/clsGen.c:1482
 #, fuzzy
 msgid "Source file:  "
-msgstr "Kildemål:        "
+msgstr "KildemÃ¥l:        "
 
 #: plugins/class-gen/clsGen.c:1492
 msgid "Base class:   "
@@ -1737,7 +1737,7 @@ msgstr "Prosjekt"
 #: plugins/class-gen/clsGen.c:1609
 #, fuzzy
 msgid "private"
-msgstr "Oppdatér"
+msgstr "OppdatÃ©r"
 
 #: plugins/class-gen/clsGen.c:1618
 msgid "Choose the type of inheritence from the base class."
@@ -1793,7 +1793,7 @@ msgstr ""
 #: plugins/patch/patch-plugin.c:106
 #, fuzzy
 msgid "Selected directory to patch"
-msgstr "Velg prosess å hekte på:"
+msgstr "Velg prosess Ã¥ hekte pÃ¥:"
 
 #: plugins/patch/patch-plugin.c:108
 #, fuzzy
@@ -1855,7 +1855,7 @@ msgstr "Eksempel-tillegg"
 
 #: plugins/sample1/plugin-sample1.c:62
 msgid "This is a sample plugin"
-msgstr "Dette er et eksempel på et tillegg"
+msgstr "Dette er et eksempel pÃ¥ et tillegg"
 
 #: printing/print.c:535
 msgid "No file to print!"
@@ -1896,7 +1896,7 @@ msgstr ""
 #: src/an_file_view.c:56
 #, fuzzy, c-format
 msgid "Unable to open %s in %s"
-msgstr "Kan ikke åpne fil: %s\n"
+msgstr "Kan ikke Ã¥pne fil: %s\n"
 
 #: src/an_file_view.c:66
 #, c-format
@@ -1913,7 +1913,7 @@ msgstr ""
 #: src/an_file_view.c:348
 #, fuzzy
 msgid "Update file"
-msgstr "Oppdatér"
+msgstr "OppdatÃ©r"
 
 #: src/an_file_view.c:349 src/main_menubar_def.h:1608
 msgid "Update current working copy"
@@ -1955,7 +1955,7 @@ msgstr "Skriv ut aktiv fil"
 #: src/an_file_view.c:376
 #, fuzzy
 msgid "Add file"
-msgstr "Åpne fil"
+msgstr "Ã…pne fil"
 
 #: src/an_file_view.c:377 src/main_menubar_def.h:1636
 #, fuzzy
@@ -1966,7 +1966,7 @@ msgstr "Lagre filen med et nytt navn"
 #: src/an_file_view.c:383
 #, fuzzy
 msgid "Remove file"
-msgstr "Åpne fil"
+msgstr "Ã…pne fil"
 
 #: src/an_file_view.c:384 src/main_menubar_def.h:1643
 #, fuzzy
@@ -2034,7 +2034,7 @@ msgstr "Anjuta: Fikk signal %d (%s)!"
 #. Must declare static, because it will be used forever
 #: src/anjuta.c:106
 msgid "Open File"
-msgstr "Åpne fil"
+msgstr "Ã…pne fil"
 
 #. Must declare static, because it will be used forever
 #: src/anjuta.c:112 src/anjuta.c:117
@@ -2163,7 +2163,7 @@ msgid ""
 "The file '%s' already exists.\n"
 "Do you want to overwrite it?."
 msgstr ""
-"Filen «%s» eksisterer allerede.\n"
+"Filen Â«%sÂ» eksisterer allerede.\n"
 "Vil du overskrive den?."
 
 #: src/anjuta_cbs.c:556
@@ -2200,7 +2200,7 @@ msgstr ""
 #: src/anjuta-plugins.c:124
 #, fuzzy, c-format
 msgid "Unable to start plugin %s"
-msgstr "Kan ikke åpne fil: %s\n"
+msgstr "Kan ikke Ã¥pne fil: %s\n"
 
 #: src/anjuta-plugins.c:127
 #, c-format
@@ -2230,7 +2230,7 @@ msgstr ""
 #: src/anjuta-tools.c:1291
 #, fuzzy, c-format
 msgid "Are you sure you want to delete tool '%s'"
-msgstr "Er du sikker på at du vil slette alle stoppunkter?"
+msgstr "Er du sikker pÃ¥ at du vil slette alle stoppunkter?"
 
 #: src/anjuta-tools.c:1389
 msgid "You must provide a tool name!"
@@ -2319,7 +2319,7 @@ msgstr "Prosjektnavn"
 
 #: src/appwizard_cbs.c:127
 msgid "Source target name"
-msgstr "Navn på kildemål"
+msgstr "Navn pÃ¥ kildemÃ¥l"
 
 #: src/appwizard_cbs.c:128
 msgid "Project version"
@@ -2332,7 +2332,7 @@ msgid ""
 "You must supply a valid %s field to proceed further."
 msgstr ""
 "Ugyldig %s-felt:\n"
-"Du må oppgi et gyldig %s-felt for å fortsette."
+"Du mÃ¥ oppgi et gyldig %s-felt for Ã¥ fortsette."
 
 #. For the time being
 #: src/appwizard_cbs.c:277 src/project_dbase.c:1509 src/project_dbase.c:1515
@@ -2352,7 +2352,7 @@ msgid ""
 "Confirm the following information:\n"
 "\n"
 msgstr ""
-"Bekreft følgende informasjon:\n"
+"Bekreft fÃ¸lgende informasjon:\n"
 "\n"
 
 #: src/appwizard_cbs.c:282 src/project_import_cbs.c:225
@@ -2365,11 +2365,11 @@ msgstr "Prosjekttype:    "
 
 #: src/appwizard_cbs.c:284 src/project_import_cbs.c:228
 msgid "Target Type:     "
-msgstr "Måltype:         "
+msgstr "MÃ¥ltype:         "
 
 #: src/appwizard_cbs.c:285 src/project_import_cbs.c:231
 msgid "Source Target:   "
-msgstr "Kildemål:        "
+msgstr "KildemÃ¥l:        "
 
 #: src/appwizard_cbs.c:286 src/project_import_cbs.c:232
 msgid "Version:         "
@@ -2381,12 +2381,12 @@ msgstr "Forfatter:       "
 
 #: src/appwizard_cbs.c:288 src/project_import_cbs.c:234
 msgid "Language:        "
-msgstr "Språk:           "
+msgstr "SprÃ¥k:           "
 
 #: src/appwizard_cbs.c:289 src/project_import_cbs.c:236
 #, fuzzy
 msgid "Gettext Support: "
-msgstr "Gettext-støtte:  "
+msgstr "Gettext-stÃ¸tte:  "
 
 #: src/appwizard_gui.c:40
 #, fuzzy
@@ -2402,16 +2402,16 @@ msgid ""
 msgstr ""
 "Applikasjonsveiviseren vil lage et grunnleggende\n"
 "skjelett for din applikasjon, inkludert hele\n"
-"strukturen for å bygge applikasjonen, også bygg-\n"
-"filene. Den vil spørre deg etter informasjon om\n"
+"strukturen for Ã¥ bygge applikasjonen, ogsÃ¥ bygg-\n"
+"filene. Den vil spÃ¸rre deg etter informasjon om\n"
 "utgangsstrukturen for applikasjonen du skal\n"
 "utvikle.\n"
 "\n"
-"Vennligst svar korrekt på disse spørsmålene siden\n"
-"det kan være vanskelig å endre noen av\n"
+"Vennligst svar korrekt pÃ¥ disse spÃ¸rsmÃ¥lene siden\n"
+"det kan vÃ¦re vanskelig Ã¥ endre noen av\n"
 "innstillingene senere.\n"
 "\n"
-"Klikk Neste for å gå videre..."
+"Klikk Neste for Ã¥ gÃ¥ videre..."
 
 #: src/appwizard_gui.c:76 src/appwizard_gui.c:90
 msgid "Application Wizard"
@@ -2436,12 +2436,12 @@ msgstr "Kommando"
 #: src/attach_process.c:130
 #, c-format
 msgid "Unable to execute: %s."
-msgstr "Kan ikke kjøre: %s."
+msgstr "Kan ikke kjÃ¸re: %s."
 
 #: src/attach_process.c:140
 #, c-format
 msgid "Unable to open the file: %s\n"
-msgstr "Kan ikke åpne fil: %s\n"
+msgstr "Kan ikke Ã¥pne fil: %s\n"
 
 #: src/breakpoints.c:102
 msgid "Line"
@@ -2461,12 +2461,12 @@ msgstr "Betingelse"
 
 #: src/breakpoints.c:485
 msgid "You must give a valid location to set the breakpoint."
-msgstr "Du må oppgi en gyldig lokasjon for stoppunktet."
+msgstr "Du mÃ¥ oppgi en gyldig lokasjon for stoppunktet."
 
 #: src/breakpoints.c:587
 #, fuzzy
 msgid "Are you sure you want to delete all the breakpoints?"
-msgstr "Er du sikker på at du vil slette alle stoppunkter?"
+msgstr "Er du sikker pÃ¥ at du vil slette alle stoppunkter?"
 
 #: src/breakpoints.c:1118
 msgid "Old breakpoints disabled."
@@ -2485,7 +2485,7 @@ msgstr "Filen er ikke lagret. Lagre den og bygg."
 #: src/build_file.c:76
 #, fuzzy
 msgid "The executable is up-to-date, there is no need to build it again."
-msgstr "Den kjørbare filen er oppdatert. Trenger ikke å bygge den på nytt."
+msgstr "Den kjÃ¸rbare filen er oppdatert. Trenger ikke Ã¥ bygge den pÃ¥ nytt."
 
 #: src/build_file.c:91
 msgid "No build command has been specified for this type of file."
@@ -2507,19 +2507,19 @@ msgstr "Tid brukt totalt: %d sekunder\n"
 
 #: src/build_file.c:135
 msgid "Build completed ... unsuccessful\n"
-msgstr "Bygg fullført...med feil\n"
+msgstr "Bygg fullfÃ¸rt...med feil\n"
 
 #: src/build_file.c:139
 msgid "Build completed ... unsuccessful"
-msgstr "Bygg fullført...med feil"
+msgstr "Bygg fullfÃ¸rt...med feil"
 
 #: src/build_file.c:144
 msgid "Build completed ... successful\n"
-msgstr "Bygg fullført...uten feil\n"
+msgstr "Bygg fullfÃ¸rt...uten feil\n"
 
 #: src/build_file.c:148
 msgid "Build completed ... successful"
-msgstr "Bygg fullført...uten feil"
+msgstr "Bygg fullfÃ¸rt...uten feil"
 
 #: src/build_project.c:63 src/compile.c:60
 #, fuzzy
@@ -2609,17 +2609,17 @@ msgstr ""
 #: src/build_project.c:387
 #, fuzzy
 msgid "Build Distribution completed...............Unsuccessful\n"
-msgstr "Bygg fullført...med feil\n"
+msgstr "Bygg fullfÃ¸rt...med feil\n"
 
 #: src/build_project.c:391
 #, fuzzy
 msgid "Build Distribution completed ... unsuccessful"
-msgstr "Bygg fullført...med feil"
+msgstr "Bygg fullfÃ¸rt...med feil"
 
 #: src/build_project.c:396
 #, fuzzy
 msgid "Build Distribution completed...............Successful\n"
-msgstr "Bygg fullført...uten feil\n"
+msgstr "Bygg fullfÃ¸rt...uten feil\n"
 
 #: src/build_project.c:399
 #, fuzzy
@@ -2630,7 +2630,7 @@ msgstr "Bygger kildekatalog for prosjekt: "
 #: src/build_project.c:403
 #, fuzzy
 msgid "Build Distribution completed ... successful"
-msgstr "Bygg fullført...uten feil"
+msgstr "Bygg fullfÃ¸rt...uten feil"
 
 #: src/build_project.c:424
 msgid "Install completed...............Unsuccessful\n"
@@ -2726,22 +2726,22 @@ msgstr "Bygger kildekatalog for prosjekt: "
 #: src/clean_project.c:185
 #, fuzzy
 msgid "Clean All completed...............Unsuccessful\n"
-msgstr "Bygg fullført...med feil\n"
+msgstr "Bygg fullfÃ¸rt...med feil\n"
 
 #: src/clean_project.c:189
 #, fuzzy
 msgid "Clean All completed ... unsuccessful"
-msgstr "Bygg fullført...med feil"
+msgstr "Bygg fullfÃ¸rt...med feil"
 
 #: src/clean_project.c:194
 #, fuzzy
 msgid "Clean All completed...............Successful\n"
-msgstr "Bygg fullført...uten feil\n"
+msgstr "Bygg fullfÃ¸rt...uten feil\n"
 
 #: src/clean_project.c:198
 #, fuzzy
 msgid "Clean All completed ... successful"
-msgstr "Bygg fullført...uten feil"
+msgstr "Bygg fullfÃ¸rt...uten feil"
 
 #: src/compile.c:108
 #, fuzzy
@@ -2751,7 +2751,7 @@ msgstr "Filen er ikke lagret. Lagre den og bygg."
 #: src/compile.c:129
 #, fuzzy
 msgid "The object file is up-to-date, there is no need to compile it again."
-msgstr "Den kjørbare filen er oppdatert. Trenger ikke å bygge den på nytt."
+msgstr "Den kjÃ¸rbare filen er oppdatert. Trenger ikke Ã¥ bygge den pÃ¥ nytt."
 
 #: src/compile.c:141
 msgid "No compile command has been specified for this type of file."
@@ -2808,7 +2808,7 @@ msgstr "Aksjer"
 #: src/compiler_options.c:861
 #, fuzzy
 msgid "Stock Defines"
-msgstr "Kildemål:        "
+msgstr "KildemÃ¥l:        "
 
 #: src/compiler_options.c:884
 #, fuzzy
@@ -2893,22 +2893,22 @@ msgstr ""
 #: src/cvs.c:734 src/project_import.c:167
 #, fuzzy
 msgid "Project import completed...unsuccessful\n"
-msgstr "Bygg fullført...med feil\n"
+msgstr "Bygg fullfÃ¸rt...med feil\n"
 
 #: src/cvs.c:736 src/project_import.c:169
 #, fuzzy
 msgid "Project import completed...unsuccessful"
-msgstr "Bygg fullført...med feil"
+msgstr "Bygg fullfÃ¸rt...med feil"
 
 #: src/cvs.c:742
 #, fuzzy
 msgid "CVS completed...successful\n"
-msgstr "Bygg fullført...uten feil\n"
+msgstr "Bygg fullfÃ¸rt...uten feil\n"
 
 #: src/cvs.c:744
 #, fuzzy
 msgid "CVS completed...successful"
-msgstr "Bygg fullført...uten feil"
+msgstr "Bygg fullfÃ¸rt...uten feil"
 
 #: src/cvs.c:752
 msgid "Updating versions in file tree..."
@@ -2943,7 +2943,7 @@ msgstr ""
 #: src/cvs_gui.c:71
 #, fuzzy
 msgid "CVS: Update"
-msgstr "Oppdatér"
+msgstr "OppdatÃ©r"
 
 #: src/cvs_gui.c:75
 msgid "CVS: Commit"
@@ -2981,7 +2981,7 @@ msgstr "Legg til"
 #: src/cvs_gui.c:91
 #, fuzzy
 msgid "CVS: Remove file"
-msgstr "Åpne fil"
+msgstr "Ã…pne fil"
 
 #. 3
 #: src/cvs_gui.c:92 src/project_dbase_gui.c:332 src/watch_gui.c:43
@@ -3479,7 +3479,7 @@ msgstr ""
 
 #: src/main.c:165
 msgid "Integrated Development Environment"
-msgstr "Integrert utviklingsmiljø"
+msgstr "Integrert utviklingsmiljÃ¸"
 
 #: src/main_menubar.c:383
 msgid "Recent Files    "
@@ -3497,7 +3497,7 @@ msgstr "_Ny"
 #: src/main_menubar_def.h:30 src/text_editor_gui.c:97 src/toolbar.c:75
 #, fuzzy
 msgid "New file"
-msgstr "Åpne fil"
+msgstr "Ã…pne fil"
 
 #. 1
 #: src/main_menubar_def.h:35
@@ -3506,7 +3506,7 @@ msgstr ""
 
 #: src/main_menubar_def.h:36 src/text_editor_gui.c:101 src/toolbar.c:79
 msgid "Open file"
-msgstr "Åpne fil"
+msgstr "Ã…pne fil"
 
 #. 2
 #: src/main_menubar_def.h:41
@@ -4178,7 +4178,7 @@ msgstr ""
 #: src/main_menubar_def.h:628
 #, fuzzy
 msgid "Search And Replace"
-msgstr "Søk og erstatt"
+msgstr "SÃ¸k og erstatt"
 
 #: src/main_menubar_def.h:629
 msgid "New Search And Replace stuff"
@@ -4560,7 +4560,7 @@ msgstr "Fil"
 #: src/main_menubar_def.h:956
 #, fuzzy
 msgid "Remove File"
-msgstr "Åpne fil"
+msgstr "Ã…pne fil"
 
 #. 4
 #. 5
@@ -4862,12 +4862,12 @@ msgstr ""
 #: src/main_menubar_def.h:1181
 #, fuzzy
 msgid "Autoformat the current source file"
-msgstr "Kompilér denne kildekodefilen"
+msgstr "KompilÃ©r denne kildekodefilen"
 
 #. 1
 #: src/main_menubar_def.h:1186
 msgid "_Increase Indent"
-msgstr "Øk _innrykk"
+msgstr "Ã˜k _innrykk"
 
 #: src/main_menubar_def.h:1187
 msgid "Increase indentation of line/selection"
@@ -4929,11 +4929,11 @@ msgstr ""
 #. 0
 #: src/main_menubar_def.h:1236
 msgid "_Compile"
-msgstr "_Kompilér"
+msgstr "_KompilÃ©r"
 
 #: src/main_menubar_def.h:1237
 msgid "Compile the current source file"
-msgstr "Kompilér denne kildekodefilen"
+msgstr "KompilÃ©r denne kildekodefilen"
 
 #. 1
 #: src/main_menubar_def.h:1242
@@ -4943,7 +4943,7 @@ msgstr ""
 #: src/main_menubar_def.h:1243
 #, fuzzy
 msgid "Compile the current source file using Make"
-msgstr "Kompilér denne kildekodefilen"
+msgstr "KompilÃ©r denne kildekodefilen"
 
 #. 2
 #: src/main_menubar_def.h:1248 src/main_menubar_def.h:1871
@@ -5050,7 +5050,7 @@ msgstr ""
 #. 18
 #: src/main_menubar_def.h:1314
 msgid "_Execute"
-msgstr "K_jør"
+msgstr "K_jÃ¸r"
 
 #: src/main_menubar_def.h:1315 src/toolbar.c:296
 msgid "Execute the program"
@@ -5422,7 +5422,7 @@ msgstr ""
 #: src/main_menubar_def.h:1607
 #, fuzzy
 msgid "U_pdate file"
-msgstr "Oppdatér"
+msgstr "OppdatÃ©r"
 
 #. 1
 #: src/main_menubar_def.h:1614
@@ -5449,7 +5449,7 @@ msgstr ""
 #: src/main_menubar_def.h:1642
 #, fuzzy
 msgid "_Remove file"
-msgstr "Åpne fil"
+msgstr "Ã…pne fil"
 
 #. 6
 #: src/main_menubar_def.h:1649
@@ -5460,7 +5460,7 @@ msgstr ""
 #: src/main_menubar_def.h:1657
 #, fuzzy
 msgid "_Update Project"
-msgstr "Åpne prosjekt"
+msgstr "Ã…pne prosjekt"
 
 #: src/main_menubar_def.h:1658
 #, fuzzy
@@ -5502,7 +5502,7 @@ msgstr "Genererer prosjektet automatisk: "
 #: src/main_menubar_def.h:1685
 #, fuzzy
 msgid "Get Project _log"
-msgstr "Åpne prosjekt"
+msgstr "Ã…pne prosjekt"
 
 #: src/main_menubar_def.h:1686
 #, fuzzy
@@ -5742,7 +5742,7 @@ msgstr ""
 
 #: src/main_menubar_def.h:1883
 msgid "_Debug"
-msgstr "_Feilsøk"
+msgstr "_FeilsÃ¸k"
 
 #: src/main_menubar_def.h:1889
 #, fuzzy
@@ -5766,7 +5766,7 @@ msgid ""
 "The file '%s' is not saved.\n"
 "Do you want to save it before closing?"
 msgstr ""
-"Filen «%s» eksisterer allerede.\n"
+"Filen Â«%sÂ» eksisterer allerede.\n"
 "Vil du overskrive den?."
 
 #: src/mainmenu_callbacks.c:232
@@ -5774,7 +5774,7 @@ msgstr ""
 msgid ""
 "Are you sure you want to reload '%s'?\n"
 "Any unsaved changes will be lost."
-msgstr "Er du sikker på at du vil slette alle stoppunkter?"
+msgstr "Er du sikker pÃ¥ at du vil slette alle stoppunkter?"
 
 #: src/mainmenu_callbacks.c:520
 msgid "%Y"
@@ -5792,7 +5792,7 @@ msgstr ""
 #: src/mainmenu_callbacks.c:1732
 #, fuzzy
 msgid "The executable is not up-to-date."
-msgstr "Den kjørbare filen er oppdatert. Trenger ikke å bygge den på nytt."
+msgstr "Den kjÃ¸rbare filen er oppdatert. Trenger ikke Ã¥ bygge den pÃ¥ nytt."
 
 #: src/mainmenu_callbacks.c:1757
 msgid "Debugger is not running. Start it first."
@@ -5869,7 +5869,7 @@ msgstr "Oppsett"
 #. Must declare static, because it will be used forever
 #: src/project_dbase.c:227 src/toolbar.c:212
 msgid "Open Project"
-msgstr "Åpne prosjekt"
+msgstr "Ã…pne prosjekt"
 
 #. Must declare static, because it will be used forever
 #: src/project_dbase.c:234
@@ -5893,12 +5893,12 @@ msgstr "Anjuta: Ingen fil"
 #: widgets/gnomefilelist.c:709
 #, fuzzy
 msgid "All files"
-msgstr "Åpne fil"
+msgstr "Ã…pne fil"
 
 #: src/project_dbase.c:486 src/project_dbase.c:504
 #, fuzzy, c-format
 msgid "Unable to load Project: %s"
-msgstr "Kan ikke kjøre: %s."
+msgstr "Kan ikke kjÃ¸re: %s."
 
 #: src/project_dbase.c:497 src/project_dbase.c:2503
 #, c-format
@@ -5939,7 +5939,7 @@ msgstr ""
 msgid ""
 "Unable to get relative file name for %s\n"
 " in %s"
-msgstr "Kan ikke åpne fil: %s\n"
+msgstr "Kan ikke Ã¥pne fil: %s\n"
 
 #: src/project_dbase.c:2273
 msgid " already exists in the project"
@@ -5963,29 +5963,29 @@ msgstr ""
 msgid ""
 "Are you sure you want to remove the item\n"
 "'%s' from the Project?"
-msgstr "Er du sikker på at du vil slette alle stoppunkter?"
+msgstr "Er du sikker pÃ¥ at du vil slette alle stoppunkter?"
 
 #: src/project_dbase_gui.c:131
 #, fuzzy
 msgid "There is already a Project open.Do you want to close it first?"
 msgstr ""
-"Filen «%s» eksisterer allerede.\n"
+"Filen Â«%sÂ» eksisterer allerede.\n"
 "Vil du overskrive den?."
 
 #: src/project_dbase_gui.c:161
 #, fuzzy
 msgid "Help files"
-msgstr "Åpne fil"
+msgstr "Ã…pne fil"
 
 #: src/project_dbase_gui.c:170 widgets/gnomefilelist.c:712
 #, fuzzy
 msgid "C/C++ source files"
-msgstr "Kildemål:        "
+msgstr "KildemÃ¥l:        "
 
 #: src/project_dbase_gui.c:171
 #, fuzzy
 msgid "Java source files"
-msgstr "Kildemål:        "
+msgstr "KildemÃ¥l:        "
 
 #: src/project_dbase_gui.c:172 widgets/gnomefilelist.c:719
 #, fuzzy
@@ -5995,12 +5995,12 @@ msgstr "Oppdaterer fil:"
 #: src/project_dbase_gui.c:173 widgets/gnomefilelist.c:721
 #, fuzzy
 msgid "PHP files"
-msgstr "Åpne fil"
+msgstr "Ã…pne fil"
 
 #: src/project_dbase_gui.c:174 widgets/gnomefilelist.c:724
 #, fuzzy
 msgid "Perl files"
-msgstr "Åpne fil"
+msgstr "Ã…pne fil"
 
 #: src/project_dbase_gui.c:175 widgets/gnomefilelist.c:726
 #, fuzzy
@@ -6010,7 +6010,7 @@ msgstr "Python"
 #: src/project_dbase_gui.c:176 widgets/gnomefilelist.c:731
 #, fuzzy
 msgid "Shell Script files"
-msgstr "Åpne fil"
+msgstr "Ã…pne fil"
 
 #: src/project_dbase_gui.c:177 widgets/gnomefilelist.c:736
 msgid "Visual Basic files"
@@ -6019,12 +6019,12 @@ msgstr ""
 #: src/project_dbase_gui.c:178 widgets/gnomefilelist.c:744
 #, fuzzy
 msgid ".lua files"
-msgstr "Åpne fil"
+msgstr "Ã…pne fil"
 
 #: src/project_dbase_gui.c:187
 #, fuzzy
 msgid "PNG files"
-msgstr "Åpne fil"
+msgstr "Ã…pne fil"
 
 #: src/project_dbase_gui.c:188
 msgid "JPG files"
@@ -6042,7 +6042,7 @@ msgstr "Filer"
 #: src/project_dbase_gui.c:207
 #, fuzzy
 msgid "Text files"
-msgstr "Åpne fil"
+msgstr "Ã…pne fil"
 
 #: src/project_dbase_gui.c:208
 msgid "XML files"
@@ -6051,7 +6051,7 @@ msgstr ""
 #: src/project_dbase_gui.c:209
 #, fuzzy
 msgid "HTML files"
-msgstr "Åpne fil"
+msgstr "Ã…pne fil"
 
 #: src/project_dbase_gui.c:210
 #, fuzzy
@@ -6061,7 +6061,7 @@ msgstr "Oppdaterer fil:"
 #: src/project_dbase_gui.c:219
 #, fuzzy
 msgid "PO files"
-msgstr "Åpne fil"
+msgstr "Ã…pne fil"
 
 #: src/project_dbase_gui.c:228
 msgid "C/C++ Headers"
@@ -6103,12 +6103,12 @@ msgstr "Programnavn:"
 #: src/project_dbase_gui.c:862
 #, fuzzy
 msgid "Source files:"
-msgstr "Kildemål:        "
+msgstr "KildemÃ¥l:        "
 
 #: src/project_dbase_gui.c:869
 #, fuzzy
 msgid "Help files:"
-msgstr "Åpne fil"
+msgstr "Ã…pne fil"
 
 #: src/project_dbase_gui.c:876
 #, fuzzy
@@ -6281,7 +6281,7 @@ msgid ""
 "does not exist.\n"
 "Do you want to create it now ?"
 msgstr ""
-"Filen «%s» eksisterer allerede.\n"
+"Filen Â«%sÂ» eksisterer allerede.\n"
 "Vil du overskrive den?."
 
 #: src/project_dbase_gui.c:1356
@@ -6319,12 +6319,12 @@ msgstr "Oppdaterer fil: "
 #: src/project_import.c:175
 #, fuzzy
 msgid "Project import completed...successful\n"
-msgstr "Bygg fullført...uten feil\n"
+msgstr "Bygg fullfÃ¸rt...uten feil\n"
 
 #: src/project_import.c:177
 #, fuzzy
 msgid "Project import completed...successful"
-msgstr "Bygg fullført...uten feil"
+msgstr "Bygg fullfÃ¸rt...uten feil"
 
 #: src/project_import.c:189
 msgid "Could not import Project: no project file found!"
@@ -6470,7 +6470,7 @@ msgstr ""
 
 #: src/signals_gui.c:260
 msgid "Pass:"
-msgstr "Kjøring:"
+msgstr "KjÃ¸ring:"
 
 #: src/source.c:112
 #, c-format
@@ -6490,7 +6490,7 @@ msgstr ""
 #: src/source.c:2698 src/utilities.c:744
 #, fuzzy, c-format
 msgid "Unable to create file: %s."
-msgstr "Kan ikke åpne fil: %s\n"
+msgstr "Kan ikke Ã¥pne fil: %s\n"
 
 #: src/source.c:1609 src/source.c:1729
 #, c-format
@@ -6505,7 +6505,7 @@ msgstr ""
 #: src/src_paths.c:260
 #, fuzzy
 msgid "Source Paths"
-msgstr "Kildemål:        "
+msgstr "KildemÃ¥l:        "
 
 #: src/stack_trace_gui.c:38
 msgid "Frame set"
@@ -6549,7 +6549,7 @@ msgstr "Kunne ikke laste fil: %s"
 #: src/text_editor.c:901
 #, fuzzy
 msgid "File loaded successfully"
-msgstr "Bygg fullført...uten feil"
+msgstr "Bygg fullfÃ¸rt...uten feil"
 
 #: src/text_editor.c:916
 #, fuzzy
@@ -6564,7 +6564,7 @@ msgstr "Kunne ikke laste fil: %s"
 #: src/text_editor.c:958
 #, fuzzy
 msgid "File saved successfully"
-msgstr "Bygg fullført...uten feil"
+msgstr "Bygg fullfÃ¸rt...uten feil"
 
 #: src/text_editor.c:1056
 #, c-format
@@ -6607,7 +6607,7 @@ msgstr "Ny"
 
 #: src/text_editor_gui.c:100 src/toolbar.c:78
 msgid "Open"
-msgstr "Åpne"
+msgstr "Ã…pne"
 
 #: src/text_editor_gui.c:106 src/toolbar.c:82
 msgid "Save"
@@ -6779,7 +6779,7 @@ msgstr ""
 #. 10
 #: src/text_editor_menu.c:301 src/toolbar.c:518
 msgid "Go"
-msgstr "Gå"
+msgstr "GÃ¥"
 
 #. 11
 #: src/text_editor_menu.c:309 src/text_editor_menu.c:431
@@ -6817,7 +6817,7 @@ msgstr ""
 
 #: src/toolbar.c:134
 msgid "Go To"
-msgstr "Gå til"
+msgstr "GÃ¥ til"
 
 #: src/toolbar.c:135
 msgid "Go to the given line number in the current file"
@@ -6857,7 +6857,7 @@ msgstr ""
 
 #: src/toolbar.c:295
 msgid "Execute"
-msgstr "Utfør"
+msgstr "UtfÃ¸r"
 
 #: src/toolbar.c:307
 msgid "Start the Debugger"
@@ -6869,7 +6869,7 @@ msgstr ""
 
 #: src/toolbar.c:384 src/toolbar.c:767
 msgid "Toggle"
-msgstr "Slå av/på"
+msgstr "SlÃ¥ av/pÃ¥"
 
 #: src/toolbar.c:385
 msgid "Toggle bookmark at current location"
@@ -6877,7 +6877,7 @@ msgstr ""
 
 #: src/toolbar.c:391
 msgid "First"
-msgstr "Første"
+msgstr "FÃ¸rste"
 
 #: src/toolbar.c:392
 msgid "Goto first bookmark in this document"
@@ -6938,7 +6938,7 @@ msgstr ""
 #: src/toolbar.c:460
 #, fuzzy
 msgid "Goto Tag"
-msgstr "Gåtil"
+msgstr "GÃ¥til"
 
 #: src/toolbar.c:461
 #, fuzzy
@@ -6955,7 +6955,7 @@ msgstr ""
 
 #: src/toolbar.c:530
 msgid "Run"
-msgstr "Kjør"
+msgstr "KjÃ¸r"
 
 #: src/toolbar.c:543
 msgid "Single step in execution"
@@ -7097,12 +7097,12 @@ msgstr ""
 #: src/utilities.c:736
 #, fuzzy, c-format
 msgid "Unable to read file: %s."
-msgstr "Kan ikke åpne fil: %s\n"
+msgstr "Kan ikke Ã¥pne fil: %s\n"
 
 #: src/utilities.c:778
 #, fuzzy
 msgid "Unable to complete file copy"
-msgstr "Kan ikke åpne fil: %s\n"
+msgstr "Kan ikke Ã¥pne fil: %s\n"
 
 #: src/watch.c:91
 msgid "< Not defined in current context >"
@@ -7267,11 +7267,11 @@ msgstr "Prosjektets forfatter:"
 
 #: src/wizard_gui.c:356
 msgid "Project Target:"
-msgstr "Prosjektmål:"
+msgstr "ProsjektmÃ¥l:"
 
 #: src/wizard_gui.c:387
 msgid "Programming language"
-msgstr "Programmeringsspråk"
+msgstr "ProgrammeringssprÃ¥k"
 
 #: src/wizard_gui.c:398
 msgid "C"
@@ -7283,24 +7283,24 @@ msgstr "C++"
 
 #: src/wizard_gui.c:415
 msgid "Both C and C++"
-msgstr "Både C og C++"
+msgstr "BÃ¥de C og C++"
 
 #: src/wizard_gui.c:422
 #, fuzzy
 msgid "Target type"
-msgstr "Måltype:         "
+msgstr "MÃ¥ltype:         "
 
 #: src/wizard_gui.c:438
 msgid "Executable target"
-msgstr "Mål for kjørbarefiler"
+msgstr "MÃ¥l for kjÃ¸rbarefiler"
 
 #: src/wizard_gui.c:445
 msgid "Static library target"
-msgstr "Mål for statisk bibliotek"
+msgstr "MÃ¥l for statisk bibliotek"
 
 #: src/wizard_gui.c:451
 msgid "Dynamic library target"
-msgstr "Mål for dynamisk bibliotek"
+msgstr "MÃ¥l for dynamisk bibliotek"
 
 #: src/wizard_gui.c:527
 #, fuzzy
@@ -7378,7 +7378,7 @@ msgstr "Slett alle"
 #: widgets/gnomefilelist.c:249 widgets/gnomefilelist.c:1860
 #, fuzzy
 msgid "Rename file"
-msgstr "Åpne fil"
+msgstr "Ã…pne fil"
 
 #: widgets/gnomefilelist.c:253 widgets/gnomefilelist.c:1959
 msgid "Create new folder"
@@ -7422,7 +7422,7 @@ msgstr "Konfigurer"
 #: widgets/gnomefilelist.c:739
 #, fuzzy
 msgid "Properties files"
-msgstr "Kildemål:        "
+msgstr "KildemÃ¥l:        "
 
 #: widgets/gnomefilelist.c:742
 #, fuzzy
@@ -7442,7 +7442,7 @@ msgstr ""
 #: widgets/gnomefilelist.c:1872
 #, fuzzy
 msgid "Rename file to:"
-msgstr "Åpne fil"
+msgstr "Ã…pne fil"
 
 #: widgets/gnomefilelist.c:1898
 #, c-format
@@ -7500,17 +7500,17 @@ msgstr ""
 #~ msgstr "CORBA-modul ikke initiert"
 
 #~ msgid "Copyright (c) 1999-2002 Naba Kumar"
-#~ msgstr "Opphavsrett © 1999-2002 Naba Kumar"
+#~ msgstr "Opphavsrett Â© 1999-2002 Naba Kumar"
 
 #~ msgid ""
 #~ "Not yet implemented.\n"
 #~ "Insert code at \"%s:%u\""
 #~ msgstr ""
-#~ "Ikke implementert ennå.\n"
-#~ "Sett inn kode i «%s:%u»"
+#~ "Ikke implementert ennÃ¥.\n"
+#~ "Sett inn kode i Â«%s:%uÂ»"
 
 #~ msgid "Activate this to select this window"
-#~ msgstr "Aktiver dette for å velge dette vinduet"
+#~ msgstr "Aktiver dette for Ã¥ velge dette vinduet"
 
 #~ msgid "Owner"
 #~ msgstr "Eier"
@@ -7533,7 +7533,7 @@ msgstr ""
 
 #, fuzzy
 #~ msgid "Select the support libraries to add"
-#~ msgstr "Velg prosess å hekte på:"
+#~ msgstr "Velg prosess Ã¥ hekte pÃ¥:"
 
 #~ msgid "Info"
 #~ msgstr "Info"
@@ -7563,7 +7563,7 @@ msgstr ""
 
 #, fuzzy
 #~ msgid "RPMs:"
-#~ msgstr "Kjøring:"
+#~ msgstr "KjÃ¸ring:"
 
 #, fuzzy
 #~ msgid "Warnings:"
@@ -7592,20 +7592,20 @@ msgstr ""
 #~ msgstr "/_Skall her"
 
 #~ msgid "/_Open"
-#~ msgstr "/_Åpne"
+#~ msgstr "/_Ã…pne"
 
 #~ msgid "Cannot execute ctags"
-#~ msgstr "Kan ikke kjøre ctags"
+#~ msgstr "Kan ikke kjÃ¸re ctags"
 
 #~ msgid ""
 #~ "Cannot fork to execute ctags. I donno why!!\n"
 #~ "In %s:%d"
 #~ msgstr ""
-#~ "Kan ikke kjøre fork for å kjøre ctags. Vet ikke hvorfor!!\n"
+#~ "Kan ikke kjÃ¸re fork for Ã¥ kjÃ¸re ctags. Vet ikke hvorfor!!\n"
 #~ "I %s:%d"
 
 #~ msgid "Scanning and Updating files. Please Wait ..."
-#~ msgstr "Søker gjennom og oppdaterer filer. Vennligst vent..."
+#~ msgstr "SÃ¸ker gjennom og oppdaterer filer. Vennligst vent..."
 
 #~ msgid "Function declaration:"
 #~ msgstr "Funksjonsdeklarasjon:"

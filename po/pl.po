@@ -1,9 +1,9 @@
 # Copyright (C) 2001 Free Software Foundation, Inc.
 # -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-# Aktualn± wersjÍ tego pliku moøesz odnaleºÊ w repozytorium cvs.gnome.pl
-# (:pserver:anonymous@cvs.gnome.pl:/home/cvs, puste has≥o)
-# Je∂li masz jakiekolwiek uwagi odnosz±ce siÍ do t≥umaczenia lub chcesz
-# pomÛc w jego rozwijaniu i pielÍgnowaniu, napisz do nas na adres:
+# AktualnƒÖ wersjƒô tego pliku mo≈ºesz odnale≈∫ƒá w repozytorium cvs.gnome.pl
+# (:pserver:anonymous@cvs.gnome.pl:/home/cvs, puste has≈Ço)
+# Je≈õli masz jakiekolwiek uwagi odnoszƒÖce siƒô do t≈Çumaczenia lub chcesz
+# pom√≥c w jego rozwijaniu i pielƒôgnowaniu, napisz do nas na adres:
 # translators@gnome.pl
 # -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 msgid ""
@@ -14,7 +14,7 @@ msgstr ""
 "Last-Translator: GNOME PL Team <translators@gnome.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-2\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #.
@@ -24,22 +24,22 @@ msgstr ""
 #.
 #: anjuta_dialogs_strings.c:7
 msgid "Attach to process"
-msgstr "Przy≥±czanie do procesu"
+msgstr "Przy≈ÇƒÖczanie do procesu"
 
 #: anjuta_dialogs_strings.c:8 anjuta_dialogs_strings.c:80
 #, fuzzy
 msgid "_Update"
-msgstr "Od∂wieø"
+msgstr "Od≈õwie≈º"
 
 #: anjuta_dialogs_strings.c:9
 #, fuzzy
 msgid "_Attach"
-msgstr "Przy≥±cz"
+msgstr "Przy≈ÇƒÖcz"
 
 #: anjuta_dialogs_strings.c:10
 #, fuzzy
 msgid "_Process to attach to:"
-msgstr "Wybierz proces, do ktÛrego chcesz siÍ przy≥±czyÊ:"
+msgstr "Wybierz proces, do kt√≥rego chcesz siƒô przy≈ÇƒÖczyƒá:"
 
 #: anjuta_dialogs_strings.c:11
 msgid "Breakpoints"
@@ -58,7 +58,7 @@ msgstr "Zablokuj wszystkie"
 #: anjuta_dialogs_strings.c:14
 #, fuzzy
 msgid "_Remove all"
-msgstr "UsuÒ"
+msgstr "Usu≈Ñ"
 
 #: anjuta_dialogs_strings.c:15
 #, fuzzy
@@ -146,7 +146,7 @@ msgstr "Program graficzny:"
 #: anjuta_dialogs_strings.c:27
 #, fuzzy
 msgid "HTML _viewer:"
-msgstr "Przegl±darka HTML-a:"
+msgstr "PrzeglƒÖdarka HTML-a:"
 
 #: anjuta_dialogs_strings.c:28
 #, fuzzy
@@ -156,7 +156,7 @@ msgstr "Uruchamianie w oknie Terminala"
 #: anjuta_dialogs_strings.c:33
 #, fuzzy
 msgid "Language-specific commands:"
-msgstr " Polecenia specyficzne dla jÍzyka "
+msgstr " Polecenia specyficzne dla jƒôzyka "
 
 #: anjuta_dialogs_strings.c:35
 #, fuzzy
@@ -181,17 +181,17 @@ msgstr "Makefile"
 #: anjuta_dialogs_strings.c:42
 #, fuzzy
 msgid "_Language:"
-msgstr "JÍzyk:           "
+msgstr "Jƒôzyk:           "
 
 #: anjuta_dialogs_strings.c:44
 #, fuzzy
 msgid "Load _global defaults"
-msgstr "Wczytaj domy∂lne ustawienia globalne"
+msgstr "Wczytaj domy≈õlne ustawienia globalne"
 
 #: anjuta_dialogs_strings.c:45
 #, fuzzy
 msgid "Load _user defaults"
-msgstr "Wczytaj domy∂lne ustawienia uøytkownika"
+msgstr "Wczytaj domy≈õlne ustawienia u≈ºytkownika"
 
 #: anjuta_dialogs_strings.c:46
 #, fuzzy
@@ -200,27 +200,27 @@ msgstr "Ustawienia _kompilatora i linkera ..."
 
 #: anjuta_dialogs_strings.c:47
 msgid "Supports"
-msgstr "Obs≥ugiwane elementy"
+msgstr "Obs≈Çugiwane elementy"
 
 #: anjuta_dialogs_strings.c:48 anjuta_dialogs_strings.c:51
 #: anjuta_dialogs_strings.c:54 anjuta_dialogs_strings.c:58 src/cvs_gui.c:72
 #: src/registers_gui.c:47 src/sharedlib_gui.c:40 src/signals_gui.c:54
 #: src/stack_trace_gui.c:52
 msgid "Update"
-msgstr "Od∂wieø"
+msgstr "Od≈õwie≈º"
 
 #: anjuta_dialogs_strings.c:50
 msgid "Include Paths"
-msgstr "¶cieøki do plikÛw nag≥Ûwkowych"
+msgstr "≈öcie≈ºki do plik√≥w nag≈Ç√≥wkowych"
 
 #: anjuta_dialogs_strings.c:53
 msgid "Library Paths"
-msgstr "¶cieøki do bibliotek"
+msgstr "≈öcie≈ºki do bibliotek"
 
 #: anjuta_dialogs_strings.c:56 anjuta_dialogs_strings.c:60
 #, fuzzy
 msgid "<: Enter Here"
-msgstr "<: Wprowadº tutaj"
+msgstr "<: Wprowad≈∫ tutaj"
 
 #: anjuta_dialogs_strings.c:57 anjuta_dialogs_strings.c:214
 msgid "Libraries"
@@ -232,7 +232,7 @@ msgstr "Definicje"
 
 #: anjuta_dialogs_strings.c:62
 msgid "Warnings"
-msgstr "Ostrzeøenia"
+msgstr "Ostrze≈ºenia"
 
 #: anjuta_dialogs_strings.c:63
 #, fuzzy
@@ -242,19 +242,19 @@ msgstr "Bez optymalizacji"
 #: anjuta_dialogs_strings.c:64
 #, fuzzy
 msgid "Low-Level Optimization (Machine dependent optimization)"
-msgstr "Optymalizacja niskopoziomowa (zaleøna od maszyny)"
+msgstr "Optymalizacja niskopoziomowa (zale≈ºna od maszyny)"
 
 #: anjuta_dialogs_strings.c:65
 #, fuzzy
 msgid "Medium-Level Optimization (Without space-speed trade-off)"
-msgstr "Optymalizacja wysokopoziomowa (bez zamiany zajÍto∂ci pamiÍci na czas)"
+msgstr "Optymalizacja wysokopoziomowa (bez zamiany zajƒôto≈õci pamiƒôci na czas)"
 
 #: anjuta_dialogs_strings.c:66
 #, fuzzy
 msgid "High-Level Optimization (Functions inlined wherever possible)"
 msgstr ""
-"Optymalizacja pod k±tem najszybszego kodu (rozwijanie funkcji gdzie to tylko "
-"moøliwe)"
+"Optymalizacja pod kƒÖtem najszybszego kodu (rozwijanie funkcji gdzie to tylko "
+"mo≈ºliwe)"
 
 #: anjuta_dialogs_strings.c:67
 msgid "Optimization"
@@ -262,16 +262,16 @@ msgstr "Optymalizacje"
 
 #: anjuta_dialogs_strings.c:68
 msgid "Enable Debugging"
-msgstr "Z moøliwo∂ci± debugowania"
+msgstr "Z mo≈ºliwo≈õciƒÖ debugowania"
 
 #: anjuta_dialogs_strings.c:69
 msgid "Enable Profiling"
-msgstr "Z moøliwo∂ci± profilowania"
+msgstr "Z mo≈ºliwo≈õciƒÖ profilowania"
 
 #: anjuta_dialogs_strings.c:70
 #, fuzzy
 msgid "Debugging and Profiling"
-msgstr "Z moøliwo∂ci± profilowania"
+msgstr "Z mo≈ºliwo≈õciƒÖ profilowania"
 
 #: anjuta_dialogs_strings.c:71
 msgid "Compiler Flags (CFLAGS):"
@@ -317,22 +317,22 @@ msgstr "Wyszukiwanie w plikach"
 #: anjuta_dialogs_strings.c:86
 #, fuzzy
 msgid "Case sensitive"
-msgstr "UwzglÍdniaj wielko∂Ê liter"
+msgstr "Uwzglƒôdniaj wielko≈õƒá liter"
 
 #: anjuta_dialogs_strings.c:87
 #, fuzzy
 msgid "Ignore binary files"
-msgstr "Znajdº w plikach"
+msgstr "Znajd≈∫ w plikach"
 
 #: anjuta_dialogs_strings.c:88
 #, fuzzy
 msgid "Ignore CVS directory"
-msgstr "Czy∂ci katalog ºrÛd≥owy"
+msgstr "Czy≈õci katalog ≈∫r√≥d≈Çowy"
 
 #: anjuta_dialogs_strings.c:89
 #, fuzzy
 msgid "Append messages"
-msgstr "Komunikaty dotycz±ce przeszukiwania"
+msgstr "Komunikaty dotyczƒÖce przeszukiwania"
 
 #: anjuta_dialogs_strings.c:90
 msgid "File/Directory to add:"
@@ -365,7 +365,7 @@ msgstr "Wyszukiwanie i zmiana"
 #: anjuta_dialogs_strings.c:100 anjuta_dialogs_strings.c:117
 #, fuzzy
 msgid "Regexp/String to find"
-msgstr " Wyszukiwany napis lub wyraøenie regularne "
+msgstr " Wyszukiwany napis lub wyra≈ºenie regularne "
 
 #: anjuta_dialogs_strings.c:102
 #, fuzzy
@@ -374,7 +374,7 @@ msgstr " Zamienny napis napis "
 
 #: anjuta_dialogs_strings.c:103 anjuta_dialogs_strings.c:118
 msgid "Whole document"
-msgstr "Ca≥y dokument"
+msgstr "Ca≈Çy dokument"
 
 #: anjuta_dialogs_strings.c:104 anjuta_dialogs_strings.c:119
 msgid "From cursor"
@@ -383,12 +383,12 @@ msgstr "Od kursora"
 #: anjuta_dialogs_strings.c:105 anjuta_dialogs_strings.c:120
 #, fuzzy
 msgid "Scope"
-msgstr " ZasiÍg "
+msgstr " Zasiƒôg "
 
 #: anjuta_dialogs_strings.c:106 anjuta_dialogs_strings.c:121
 #, fuzzy
 msgid "Forwards"
-msgstr "NaprzÛd"
+msgstr "Naprz√≥d"
 
 #: anjuta_dialogs_strings.c:107 anjuta_dialogs_strings.c:122
 #, fuzzy
@@ -403,11 +403,11 @@ msgstr " Kierunek "
 #: anjuta_dialogs_strings.c:109 anjuta_dialogs_strings.c:124
 #, fuzzy
 msgid "Regexp"
-msgstr "Wyraøenie regularne"
+msgstr "Wyra≈ºenie regularne"
 
 #: anjuta_dialogs_strings.c:110 anjuta_dialogs_strings.c:125
 msgid "String"
-msgstr "Ci±g znakÛw"
+msgstr "CiƒÖg znak√≥w"
 
 #: anjuta_dialogs_strings.c:111 anjuta_dialogs_strings.c:126
 #, fuzzy
@@ -416,7 +416,7 @@ msgstr "Przeszukiwanie pomocy"
 
 #: anjuta_dialogs_strings.c:112 anjuta_dialogs_strings.c:127
 msgid "Whole word"
-msgstr "Ca≥y wyraz"
+msgstr "Ca≈Çy wyraz"
 
 #: anjuta_dialogs_strings.c:113
 #, fuzzy
@@ -435,12 +435,12 @@ msgstr "Wyszukiwanie i zmiana"
 #: anjuta_dialogs_strings.c:130 anjuta_dialogs_strings.c:138
 #, fuzzy
 msgid "Search Expression"
-msgstr "Dodaje wyraøenie do okna obserwacji"
+msgstr "Dodaje wyra≈ºenie do okna obserwacji"
 
 #: anjuta_dialogs_strings.c:131
 #, fuzzy
 msgid "Regular Expression"
-msgstr "Wyraøenie"
+msgstr "Wyra≈ºenie"
 
 #: anjuta_dialogs_strings.c:132
 msgid "Greedy matching"
@@ -449,7 +449,7 @@ msgstr ""
 #: anjuta_dialogs_strings.c:133
 #, fuzzy
 msgid "Case insensitive"
-msgstr "UwzglÍdniaj wielko∂Ê liter"
+msgstr "Uwzglƒôdniaj wielko≈õƒá liter"
 
 #: anjuta_dialogs_strings.c:135
 msgid "Match at start of word"
@@ -462,7 +462,7 @@ msgstr ""
 #: anjuta_dialogs_strings.c:137
 #, fuzzy
 msgid "Match complete words"
-msgstr "Automatycznie uzupe≥nia s≥owo"
+msgstr "Automatycznie uzupe≈Çnia s≈Çowo"
 
 #: anjuta_dialogs_strings.c:139
 #, fuzzy
@@ -589,12 +589,12 @@ msgstr "Bez optymalizacji"
 #: anjuta_dialogs_strings.c:173
 #, fuzzy
 msgid "Search Target"
-msgstr "¶cieøki przeszukiwania"
+msgstr "≈öcie≈ºki przeszukiwania"
 
 #: anjuta_dialogs_strings.c:174
 #, fuzzy
 msgid "Replace With"
-msgstr "Zast±p"
+msgstr "ZastƒÖp"
 
 #: anjuta_dialogs_strings.c:176
 msgid "Expand regex back references"
@@ -602,12 +602,12 @@ msgstr ""
 
 #: anjuta_dialogs_strings.c:177 src/text_editor_gui.c:140
 msgid "Replace"
-msgstr "Zast±p"
+msgstr "ZastƒÖp"
 
 #: anjuta_dialogs_strings.c:178
 #, fuzzy
 msgid "Replace Expression"
-msgstr "Wyraøenie"
+msgstr "Wyra≈ºenie"
 
 #: anjuta_dialogs_strings.c:179
 #, fuzzy
@@ -625,7 +625,7 @@ msgstr "API GNOME"
 
 #: anjuta_dialogs_strings.c:183
 msgid "Man pages"
-msgstr "Strony podrÍcznikÛw"
+msgstr "Strony podrƒôcznik√≥w"
 
 #: anjuta_dialogs_strings.c:184
 #, fuzzy
@@ -667,7 +667,7 @@ msgstr ""
 #: anjuta_dialogs_strings.c:196 src/main_menubar_def.h:374
 #: src/preferences.c:696
 msgid "General"
-msgstr "OgÛlne"
+msgstr "Og√≥lne"
 
 #: anjuta_dialogs_strings.c:197
 msgid ""
@@ -685,7 +685,7 @@ msgstr ""
 
 #: anjuta_dialogs_strings.c:201
 msgid "Modules"
-msgstr "Modu≥y"
+msgstr "Modu≈Çy"
 
 #: anjuta_dialogs_strings.c:202
 #, fuzzy
@@ -694,41 +694,41 @@ msgstr "Plik configure.in projektu"
 
 #: anjuta_dialogs_strings.c:203
 msgid "Top level Makefile.am"
-msgstr "NadrzÍdny Makefile.am"
+msgstr "Nadrzƒôdny Makefile.am"
 
 #: anjuta_dialogs_strings.c:204
 msgid "Source module Makefile.am"
-msgstr "Modu≥ ºrÛd≥a Makefile.am"
+msgstr "Modu≈Ç ≈∫r√≥d≈Ça Makefile.am"
 
 #: anjuta_dialogs_strings.c:205
 msgid "Include module Makefile.am"
-msgstr "Modu≥ do≥±czania Makefile.am"
+msgstr "Modu≈Ç do≈ÇƒÖczania Makefile.am"
 
 #: anjuta_dialogs_strings.c:206
 msgid "Help module Makefile.am"
-msgstr "Modu≥ pomocy Makefile.am"
+msgstr "Modu≈Ç pomocy Makefile.am"
 
 #: anjuta_dialogs_strings.c:207
 msgid "Pixmap module Makefile.am"
-msgstr "Modu≥ piksmapy Makefile.am"
+msgstr "Modu≈Ç piksmapy Makefile.am"
 
 #: anjuta_dialogs_strings.c:208
 msgid "Data module Makefile.am"
-msgstr "Modu≥ danych Makefile.am"
+msgstr "Modu≈Ç danych Makefile.am"
 
 #: anjuta_dialogs_strings.c:209
 #, fuzzy
 msgid "Document module Makefile.am"
-msgstr "Modu≥ dokumentacji Makefile.am"
+msgstr "Modu≈Ç dokumentacji Makefile.am"
 
 #: anjuta_dialogs_strings.c:210
 msgid "Po module (translation) Makefile.am"
-msgstr "Modu≥ po (t≥umaczenia) Makefile.am"
+msgstr "Modu≈Ç po (t≈Çumaczenia) Makefile.am"
 
 #: anjuta_dialogs_strings.c:211
 #, fuzzy
 msgid "Disable overwriting files"
-msgstr "Blokada nadpisywania plikÛw projektu"
+msgstr "Blokada nadpisywania plik√≥w projektu"
 
 #: anjuta_dialogs_strings.c:212
 msgid "Build files"
@@ -742,7 +742,7 @@ msgstr "Programy"
 #: anjuta_dialogs_strings.c:215
 #, fuzzy
 msgid "Headers"
-msgstr "Nag≥Ûwki"
+msgstr "Nag≈Ç√≥wki"
 
 #: anjuta_dialogs_strings.c:216
 #, fuzzy
@@ -776,7 +776,7 @@ msgstr "Skrypty konfiguracyjne"
 #: anjuta_dialogs_strings.c:222
 #, fuzzy
 msgid "Scripts at the end of top level Makefile.am"
-msgstr "Dodatkowe skrypty na koÒcu nag≥Ûwka Makefile.am"
+msgstr "Dodatkowe skrypty na ko≈Ñcu nag≈Ç√≥wka Makefile.am"
 
 #: anjuta_dialogs_strings.c:223
 msgid "Makefile.am"
@@ -822,7 +822,7 @@ msgstr "Edycja"
 
 #: anjuta_dialogs_strings.c:234
 msgid "View"
-msgstr "Podgl±d"
+msgstr "PodglƒÖd"
 
 #: anjuta_dialogs_strings.c:235 src/project_dbase_gui.c:596
 #: src/project_dbase_gui.c:613 src/toolbar.c:148
@@ -842,12 +842,12 @@ msgstr "Budowanie"
 #: anjuta_dialogs_strings.c:238
 #, fuzzy
 msgid "Bookmark"
-msgstr "Za_k≥adki"
+msgstr "Za_k≈Çadki"
 
 #. 13
 #: anjuta_dialogs_strings.c:239 src/text_editor_menu.c:319 src/toolbar.c:306
 msgid "Debug"
-msgstr "¶ledzenie"
+msgstr "≈öledzenie"
 
 #: anjuta_dialogs_strings.c:241
 #, fuzzy
@@ -939,12 +939,12 @@ msgstr "Zamyka wszystkie pliki"
 #: anjuta_dialogs_strings.c:277
 #, fuzzy
 msgid "Ignore files"
-msgstr "Plik ºrÛd≥owy"
+msgstr "Plik ≈∫r√≥d≈Çowy"
 
 #: anjuta_dialogs_strings.c:281
 #, fuzzy
 msgid "Do not show hidden files"
-msgstr "Wy∂wietlanie zak≥adek notatnika wy≥±czone"
+msgstr "Wy≈õwietlanie zak≈Çadek notatnika wy≈ÇƒÖczone"
 
 #: anjuta_dialogs_strings.c:282
 #, fuzzy
@@ -977,31 +977,31 @@ msgstr ""
 #: anjuta_dialogs_strings.c:294
 #, fuzzy
 msgid "Syntax highlight editor"
-msgstr "Pod∂wietlanie sk≥adni wy≥±czone"
+msgstr "Pod≈õwietlanie sk≈Çadni wy≈ÇƒÖczone"
 
 #: anjuta_dialogs_strings.c:295 anjuta_dialogs_strings.c:364
 msgid "Disable syntax highlighting"
-msgstr "Pod∂wietlanie sk≥adni wy≥±czone"
+msgstr "Pod≈õwietlanie sk≈Çadni wy≈ÇƒÖczone"
 
 #: anjuta_dialogs_strings.c:296
 #, fuzzy
 msgid "Reload System Defaults"
-msgstr "Wczytaj domy∂lne ustawienia uøytkownika"
+msgstr "Wczytaj domy≈õlne ustawienia u≈ºytkownika"
 
 #: anjuta_dialogs_strings.c:297
 #, fuzzy
 msgid "Reload Session Defaults"
-msgstr "Wczytaj domy∂lne ustawienia uøytkownika"
+msgstr "Wczytaj domy≈õlne ustawienia u≈ºytkownika"
 
 #: anjuta_dialogs_strings.c:298
 #, fuzzy
 msgid "_Save Theme As"
-msgstr "Zapis pliku pod podan± nazw±"
+msgstr "Zapis pliku pod podanƒÖ nazwƒÖ"
 
 #: anjuta_dialogs_strings.c:299
 #, fuzzy
 msgid "Delete Theme"
-msgstr "UsuÒ"
+msgstr "Usu≈Ñ"
 
 #: anjuta_dialogs_strings.c:300
 #, fuzzy
@@ -1024,16 +1024,16 @@ msgstr "Atrybut:"
 
 #: anjuta_dialogs_strings.c:305
 msgid "Fore color:"
-msgstr "Kolor g≥Ûwny:"
+msgstr "Kolor g≈Ç√≥wny:"
 
 #: anjuta_dialogs_strings.c:306
 msgid "Back color:"
-msgstr "Kolor t≥a:"
+msgstr "Kolor t≈Ça:"
 
 #: anjuta_dialogs_strings.c:307 anjuta_dialogs_strings.c:308
 #: anjuta_dialogs_strings.c:309 anjuta_dialogs_strings.c:310
 msgid "Use default"
-msgstr "Domy∂lne ustaw."
+msgstr "Domy≈õlne ustaw."
 
 #: anjuta_dialogs_strings.c:311
 msgid "Bold"
@@ -1045,7 +1045,7 @@ msgstr "Pochylenie"
 
 #: anjuta_dialogs_strings.c:313
 msgid "Underlined"
-msgstr "Podkre∂lenie"
+msgstr "Podkre≈õlenie"
 
 #: anjuta_dialogs_strings.c:314 anjuta_dialogs_strings.c:315
 #: anjuta_dialogs_strings.c:323 anjuta_dialogs_strings.c:324
@@ -1054,17 +1054,17 @@ msgstr "Podkre∂lenie"
 #: anjuta_dialogs_strings.c:478 anjuta_dialogs_strings.c:479
 #, fuzzy
 msgid "Pick a color"
-msgstr "Kolor t≥a:"
+msgstr "Kolor t≈Ça:"
 
 #: anjuta_dialogs_strings.c:316
 #, fuzzy
 msgid "Select highlight style to edit:"
-msgstr "Wybierz wy∂wietlany obiekt do edycji:"
+msgstr "Wybierz wy≈õwietlany obiekt do edycji:"
 
 #: anjuta_dialogs_strings.c:318
 #, fuzzy
 msgid "Highlight style"
-msgstr "Brak stylu pod∂wietlania"
+msgstr "Brak stylu pod≈õwietlania"
 
 #: anjuta_dialogs_strings.c:319
 #, fuzzy
@@ -1074,12 +1074,12 @@ msgstr "Kolor zaznaczenia:"
 #: anjuta_dialogs_strings.c:320
 #, fuzzy
 msgid "Selection background:"
-msgstr "T≥o zaznaczenia:"
+msgstr "T≈Ço zaznaczenia:"
 
 #: anjuta_dialogs_strings.c:321
 #, fuzzy
 msgid "Calltip background:"
-msgstr "T≥o zaznaczenia:"
+msgstr "T≈Ço zaznaczenia:"
 
 #: anjuta_dialogs_strings.c:322
 #, fuzzy
@@ -1133,24 +1133,24 @@ msgstr ""
 #: anjuta_dialogs_strings.c:338
 #, fuzzy
 msgid "Build file browser automatically"
-msgstr "Automatyczne uaktualnianie obrazu znacznikÛw"
+msgstr "Automatyczne uaktualnianie obrazu znacznik√≥w"
 
 #: anjuta_dialogs_strings.c:339
 msgid "Update tags image automatically"
-msgstr "Automatyczne uaktualnianie obrazu znacznikÛw"
+msgstr "Automatyczne uaktualnianie obrazu znacznik√≥w"
 
 #: anjuta_dialogs_strings.c:340
 msgid "Beep on job complete"
-msgstr "Sygna≥ dºwiÍkowy po zakoÒczeniu zadania"
+msgstr "Sygna≈Ç d≈∫wiƒôkowy po zako≈Ñczeniu zadania"
 
 #: anjuta_dialogs_strings.c:341
 msgid "Dialog on job complete"
-msgstr "Okno dialogowe po zakoÒczeniu zadania"
+msgstr "Okno dialogowe po zako≈Ñczeniu zadania"
 
 #: anjuta_dialogs_strings.c:342
 #, fuzzy
 msgid "Show tooltips"
-msgstr "Wy∂wietla podpowiedº"
+msgstr "Wy≈õwietla podpowied≈∫"
 
 #: anjuta_dialogs_strings.c:344
 #, fuzzy
@@ -1177,7 +1177,7 @@ msgstr ""
 #: anjuta_dialogs_strings.c:352
 #, fuzzy
 msgid "Keep going when some targets can not be made"
-msgstr "Kontynuuj, nawet je∂li pewne cele nie mog± zostaÊ wykonane"
+msgstr "Kontynuuj, nawet je≈õli pewne cele nie mogƒÖ zostaƒá wykonane"
 
 #: anjuta_dialogs_strings.c:353
 msgid "Silent. That is, do not echo shell commads during make"
@@ -1186,7 +1186,7 @@ msgstr ""
 #: anjuta_dialogs_strings.c:354
 #, fuzzy
 msgid "Warn when an undefined variable is referenced in the Makefile"
-msgstr "Ostrzeganie przy odwo≥aniu do niezadeklarowanej zmiennej"
+msgstr "Ostrzeganie przy odwo≈Çaniu do niezadeklarowanej zmiennej"
 
 #: anjuta_dialogs_strings.c:355
 msgid "Maximum number of independent jobs (0 == no limit)"
@@ -1232,12 +1232,12 @@ msgstr "Automatyczny zapis"
 
 #: anjuta_dialogs_strings.c:366
 msgid "Enable braces check"
-msgstr "Sprawdzanie parowania nawiasÛw"
+msgstr "Sprawdzanie parowania nawias√≥w"
 
 #: anjuta_dialogs_strings.c:367
 #, fuzzy
 msgid "Strip trailling spaces on file save"
-msgstr "Usuwanie koÒcowych spacji przy zapisie pliku"
+msgstr "Usuwanie ko≈Ñcowych spacji przy zapisie pliku"
 
 #: anjuta_dialogs_strings.c:368
 #, fuzzy
@@ -1255,7 +1255,7 @@ msgstr ""
 #: anjuta_dialogs_strings.c:371
 #, fuzzy
 msgid "Choose autocomplete for single match"
-msgstr "Nie moøna zakoÒczyÊ kopiowania pliku"
+msgstr "Nie mo≈ºna zako≈Ñczyƒá kopiowania pliku"
 
 #: anjuta_dialogs_strings.c:372
 msgid "Autocomplete XML/HML closing tags"
@@ -1288,11 +1288,11 @@ msgstr "Warunek:"
 
 #: anjuta_dialogs_strings.c:380 anjuta_dialogs_strings.c:444
 msgid "Top"
-msgstr "GÛra"
+msgstr "G√≥ra"
 
 #: anjuta_dialogs_strings.c:381 anjuta_dialogs_strings.c:445
 msgid "Bottom"
-msgstr "DÛ≥"
+msgstr "D√≥≈Ç"
 
 #: anjuta_dialogs_strings.c:382 anjuta_dialogs_strings.c:446
 msgid "Left"
@@ -1309,7 +1309,7 @@ msgstr ""
 #: anjuta_dialogs_strings.c:385
 #, fuzzy
 msgid "Line numbers margin width (pixels)"
-msgstr "Szeroko∂Ê marginesu numeracji wierszy (w pikselach)"
+msgstr "Szeroko≈õƒá marginesu numeracji wierszy (w pikselach)"
 
 #: anjuta_dialogs_strings.c:386
 #, fuzzy
@@ -1328,7 +1328,7 @@ msgstr ""
 #: anjuta_dialogs_strings.c:389
 #, fuzzy
 msgid "Autocomplete automatic size"
-msgstr "Automatycznie uzupe≥nia s≥owo"
+msgstr "Automatycznie uzupe≈Çnia s≈Çowo"
 
 #: anjuta_dialogs_strings.c:390
 msgid "Caret blink period in milli-seconds"
@@ -1341,12 +1341,12 @@ msgstr ""
 #: anjuta_dialogs_strings.c:392
 #, fuzzy
 msgid "Enable code folding"
-msgstr "Z moøliwo∂ci± profilowania"
+msgstr "Z mo≈ºliwo≈õciƒÖ profilowania"
 
 #: anjuta_dialogs_strings.c:393
 #, fuzzy
 msgid "Enable comments folding"
-msgstr "Z moøliwo∂ci± profilowania"
+msgstr "Z mo≈ºliwo≈õciƒÖ profilowania"
 
 #: anjuta_dialogs_strings.c:394
 msgid "Compact folding"
@@ -1376,7 +1376,7 @@ msgstr "Styl formatowania"
 #: anjuta_dialogs_strings.c:401
 #, fuzzy
 msgid "Arrows"
-msgstr "B≥±d: "
+msgstr "B≈ÇƒÖd: "
 
 #: anjuta_dialogs_strings.c:402
 #, fuzzy
@@ -1386,7 +1386,7 @@ msgstr "_Wtyczki"
 #: anjuta_dialogs_strings.c:403
 #, fuzzy
 msgid "Circular"
-msgstr "Wyczy∂Ê"
+msgstr "Wyczy≈õƒá"
 
 #: anjuta_dialogs_strings.c:404
 msgid "Squares"
@@ -1414,36 +1414,36 @@ msgstr "Rozmiar tabulacji w spacjach"
 #: anjuta_dialogs_strings.c:409
 #, fuzzy
 msgid "Indentation size in spaces:"
-msgstr "Rozmiar automatycznych wciÍÊ w spacjach"
+msgstr "Rozmiar automatycznych wciƒôƒá w spacjach"
 
 #: anjuta_dialogs_strings.c:410
 #, fuzzy
 msgid "Disable auto-format"
-msgstr "Automatyczne formatowanie wy≥±czone"
+msgstr "Automatyczne formatowanie wy≈ÇƒÖczone"
 
 #: anjuta_dialogs_strings.c:411
 #, fuzzy
 msgid "Enable automatic indentation"
-msgstr "Automatyczne wciÍcia"
+msgstr "Automatyczne wciƒôcia"
 
 #: anjuta_dialogs_strings.c:412
 msgid "Use tabs for indentation"
-msgstr "WciÍcia przy uøyciu tabulacji"
+msgstr "Wciƒôcia przy u≈ºyciu tabulacji"
 
 #: anjuta_dialogs_strings.c:413
 #, fuzzy
 msgid "Indent opening braces"
-msgstr "ZwiÍksz wciÍcie"
+msgstr "Zwiƒôksz wciƒôcie"
 
 #: anjuta_dialogs_strings.c:414
 #, fuzzy
 msgid "Indent closing braces"
-msgstr "ZwiÍksz wciÍcie"
+msgstr "Zwiƒôksz wciƒôcie"
 
 #: anjuta_dialogs_strings.c:416 anjuta_dialogs_strings.c:426
 #, fuzzy
 msgid "Custom style"
-msgstr " W≥asny styl "
+msgstr " W≈Çasny styl "
 
 #: anjuta_dialogs_strings.c:417
 msgid "GNU coding style"
@@ -1464,7 +1464,7 @@ msgstr ""
 #: anjuta_dialogs_strings.c:421
 #, fuzzy
 msgid "Hello World style"
-msgstr "Witaj ∂wiecie!"
+msgstr "Witaj ≈õwiecie!"
 
 #: anjuta_dialogs_strings.c:422
 msgid "Crazy boy style"
@@ -1480,8 +1480,8 @@ msgid ""
 "Enter the command line arguments for the 'indent' program. Read the info "
 "page for 'indent' for more details"
 msgstr ""
-"Wprowadº argumenty wiersza poleceÒ dla programu 'indent'.\n"
-"Przeczytaj stronÍ info programu 'indent', aby uzyskaÊ wiÍcej szczegÛ≥Ûw."
+"Wprowad≈∫ argumenty wiersza polece≈Ñ dla programu 'indent'.\n"
+"Przeczytaj stronƒô info programu 'indent', aby uzyskaƒá wiƒôcej szczeg√≥≈Ç√≥w."
 
 #: anjuta_dialogs_strings.c:428
 msgid "Indentation and auto-format options"
@@ -1494,7 +1494,7 @@ msgstr ""
 #: anjuta_dialogs_strings.c:430
 #, fuzzy
 msgid "Mode:"
-msgstr "Modu≥y"
+msgstr "Modu≈Çy"
 
 #: anjuta_dialogs_strings.c:431
 #, fuzzy
@@ -1512,7 +1512,7 @@ msgstr ""
 #: anjuta_dialogs_strings.c:434
 #, fuzzy
 msgid "Enable line wrap"
-msgstr "Z moøliwo∂ci± profilowania"
+msgstr "Z mo≈ºliwo≈õciƒÖ profilowania"
 
 #: anjuta_dialogs_strings.c:435
 msgid "Add line number every:"
@@ -1534,17 +1534,17 @@ msgstr ""
 
 #: anjuta_dialogs_strings.c:439
 msgid "Truncate long messages"
-msgstr "Obcinanie d≥ugich komunikatÛw"
+msgstr "Obcinanie d≈Çugich komunikat√≥w"
 
 #: anjuta_dialogs_strings.c:440
 #, fuzzy
 msgid "Number of first characters to show:"
-msgstr "Liczba pocz±tkowych znakÛw do pokazania"
+msgstr "Liczba poczƒÖtkowych znak√≥w do pokazania"
 
 #: anjuta_dialogs_strings.c:441
 #, fuzzy
 msgid "Number of last characters to show:"
-msgstr "Liczba koÒcowych znakÛw do pokazania"
+msgstr "Liczba ko≈Ñcowych znak√≥w do pokazania"
 
 #: anjuta_dialogs_strings.c:442
 msgid "Tabs position:"
@@ -1575,31 +1575,31 @@ msgstr ""
 #: anjuta_dialogs_strings.c:466
 #, fuzzy
 msgid "Underline-Plain"
-msgstr "Podkre∂lenie"
+msgstr "Podkre≈õlenie"
 
 #: anjuta_dialogs_strings.c:455 anjuta_dialogs_strings.c:461
 #: anjuta_dialogs_strings.c:467
 #, fuzzy
 msgid "Underline-Squiggle"
-msgstr "Podkre∂lenie"
+msgstr "Podkre≈õlenie"
 
 #: anjuta_dialogs_strings.c:456 anjuta_dialogs_strings.c:462
 #: anjuta_dialogs_strings.c:468
 #, fuzzy
 msgid "Underline-TT"
-msgstr "Podkre∂lenie"
+msgstr "Podkre≈õlenie"
 
 #: anjuta_dialogs_strings.c:457 anjuta_dialogs_strings.c:463
 #: anjuta_dialogs_strings.c:469
 #, fuzzy
 msgid "Diagonal"
-msgstr "Sygna≥"
+msgstr "Sygna≈Ç"
 
 #: anjuta_dialogs_strings.c:458 anjuta_dialogs_strings.c:464
 #: anjuta_dialogs_strings.c:470
 #, fuzzy
 msgid "Strike-Out"
-msgstr "Krok z wyj∂ciem"
+msgstr "Krok z wyj≈õciem"
 
 #: anjuta_dialogs_strings.c:471
 #, fuzzy
@@ -1614,7 +1614,7 @@ msgstr "Nazwa programu:"
 #: anjuta_dialogs_strings.c:473
 #, fuzzy
 msgid "Warnings messages:"
-msgstr "Komunikaty dotycz±ce przeszukiwania"
+msgstr "Komunikaty dotyczƒÖce przeszukiwania"
 
 #: anjuta_dialogs_strings.c:474
 #, fuzzy
@@ -1624,7 +1624,7 @@ msgstr "Nazwa programu:"
 #: anjuta_dialogs_strings.c:475
 #, fuzzy
 msgid "Other messages:"
-msgstr "Komunikaty dotycz±ce ∂ledzenia"
+msgstr "Komunikaty dotyczƒÖce ≈õledzenia"
 
 #: anjuta_dialogs_strings.c:480
 #, fuzzy
@@ -1666,7 +1666,7 @@ msgstr ""
 #: anjuta_dialogs_strings.c:490
 #, fuzzy
 msgid "Default"
-msgstr "Domy∂lne ustaw."
+msgstr "Domy≈õlne ustaw."
 
 #: anjuta_dialogs_strings.c:491
 msgid "Use currently selected profile in GNOME terminal"
@@ -1703,7 +1703,7 @@ msgstr "Plik dokumentacji"
 #: plugins/class-gen/clsGen.c:726
 #, fuzzy
 msgid "Error in importing files"
-msgstr "B≥±d przy zapisie do pliku: %s."
+msgstr "B≈ÇƒÖd przy zapisie do pliku: %s."
 
 #: plugins/class-gen/clsGen.c:1332
 #, fuzzy
@@ -1726,7 +1726,7 @@ msgstr ""
 #: plugins/class-gen/clsGen.c:1361
 #, fuzzy
 msgid "Finish"
-msgstr "FiÒski"
+msgstr "Fi≈Ñski"
 
 #: plugins/class-gen/clsGen.c:1378
 msgid "Enter the name for the class you want to add."
@@ -1777,7 +1777,7 @@ msgstr "Plik pomocy"
 #: plugins/class-gen/clsGen.c:1482
 #, fuzzy
 msgid "Source file:  "
-msgstr "Plik ºrÛd≥owy"
+msgstr "Plik ≈∫r√≥d≈Çowy"
 
 #: plugins/class-gen/clsGen.c:1492
 msgid "Base class:   "
@@ -1833,7 +1833,7 @@ msgstr "projekt1"
 #: plugins/class-gen/clsGen.c:1609
 #, fuzzy
 msgid "private"
-msgstr "Od∂wieø"
+msgstr "Od≈õwie≈º"
 
 #: plugins/class-gen/clsGen.c:1618
 msgid "Choose the type of inheritence from the base class."
@@ -1860,7 +1860,7 @@ msgstr "Klasa:"
 #: plugins/class-gen/clsGen.c:1650
 #, fuzzy
 msgid "Select the type of class you would like to create."
-msgstr "Wybierz typ aplikacji, ktÛr± chcesz stworzyÊ"
+msgstr "Wybierz typ aplikacji, kt√≥rƒÖ chcesz stworzyƒá"
 
 #: plugins/patch/patch-plugin.c:60
 msgid "Interface to patch Projects or individual files"
@@ -1892,7 +1892,7 @@ msgstr "Obserwuj"
 #: plugins/patch/patch-plugin.c:106
 #, fuzzy
 msgid "Selected directory to patch"
-msgstr "Wybierz proces, do ktÛrego chcesz siÍ przy≥±czyÊ:"
+msgstr "Wybierz proces, do kt√≥rego chcesz siƒô przy≈ÇƒÖczyƒá:"
 
 #: plugins/patch/patch-plugin.c:108
 msgid "Selected patch file"
@@ -1901,7 +1901,7 @@ msgstr ""
 #: plugins/patch/patch-plugin.c:144
 #, fuzzy
 msgid "Patch plugin"
-msgstr "Przyk≥adowa wtyczka"
+msgstr "Przyk≈Çadowa wtyczka"
 
 #: plugins/patch/patch-plugin.c:150
 msgid "The patch plugin"
@@ -1934,27 +1934,27 @@ msgstr ""
 #: plugins/patch/patch-plugin.c:219
 #, fuzzy
 msgid "Patch successful.\n"
-msgstr "Projekt zosta≥ wczytany."
+msgstr "Projekt zosta≈Ç wczytany."
 
 #: plugins/sample1/plugin-sample1.c:17
 msgid "Sample Plugin Description. Holla!"
-msgstr "Opis przyk≥adowej wtyczki."
+msgstr "Opis przyk≈Çadowej wtyczki."
 
 #: plugins/sample1/plugin-sample1.c:47
 msgid "Hello world!"
-msgstr "Witaj ∂wiecie!"
+msgstr "Witaj ≈õwiecie!"
 
 #: plugins/sample1/plugin-sample1.c:48
 msgid "Sample plugin!"
-msgstr "Przyk≥adowa wtyczka!"
+msgstr "Przyk≈Çadowa wtyczka!"
 
 #: plugins/sample1/plugin-sample1.c:56
 msgid "Sample plugin"
-msgstr "Przyk≥adowa wtyczka"
+msgstr "Przyk≈Çadowa wtyczka"
 
 #: plugins/sample1/plugin-sample1.c:62
 msgid "This is a sample plugin"
-msgstr "To jest przyk≥adowa wtyczka"
+msgstr "To jest przyk≈Çadowa wtyczka"
 
 #: printing/print.c:535
 #, fuzzy
@@ -1998,7 +1998,7 @@ msgstr ""
 #: src/an_file_view.c:56
 #, fuzzy, c-format
 msgid "Unable to open %s in %s"
-msgstr "Nie moøna otworzyÊ pliku: %s\n"
+msgstr "Nie mo≈ºna otworzyƒá pliku: %s\n"
 
 #: src/an_file_view.c:66
 #, c-format
@@ -2040,7 +2040,7 @@ msgstr "Anjuta: Brak pliku"
 #: src/an_file_view.c:363 src/main_menubar_def.h:1622
 #, fuzzy
 msgid "Print the status of the current file"
-msgstr "Drukuje bieø±cy plik"
+msgstr "Drukuje bie≈ºƒÖcy plik"
 
 #. 3
 #: src/an_file_view.c:369
@@ -2050,7 +2050,7 @@ msgstr ""
 #: src/an_file_view.c:370 src/main_menubar_def.h:1629
 #, fuzzy
 msgid "Print the CVS log for the current file"
-msgstr "Drukuje bieø±cy plik"
+msgstr "Drukuje bie≈ºƒÖcy plik"
 
 #. 4
 #: src/an_file_view.c:376
@@ -2061,18 +2061,18 @@ msgstr "Dodaj nowy"
 #: src/an_file_view.c:377 src/main_menubar_def.h:1636
 #, fuzzy
 msgid "Add the current file to the repository"
-msgstr "Usuwa bieø±cy plik z projektu"
+msgstr "Usuwa bie≈ºƒÖcy plik z projektu"
 
 #. 5
 #: src/an_file_view.c:383
 #, fuzzy
 msgid "Remove file"
-msgstr "UsuÒ"
+msgstr "Usu≈Ñ"
 
 #: src/an_file_view.c:384 src/main_menubar_def.h:1643
 #, fuzzy
 msgid "Remove the current file from the repository"
-msgstr "Usuwa bieø±cy plik z projektu"
+msgstr "Usuwa bie≈ºƒÖcy plik z projektu"
 
 #. 6
 #: src/an_file_view.c:390
@@ -2112,7 +2112,7 @@ msgstr "Zadokuj"
 #: src/an_file_view.c:430 src/an_symbol_view.c:310 src/main_menubar_def.h:977
 #, fuzzy
 msgid "Dock/Undock the Project Window"
-msgstr "Wy∂wietla/ukrywa okno projektu"
+msgstr "Wy≈õwietla/ukrywa okno projektu"
 
 #. 6
 #: src/an_file_view.c:436
@@ -2127,26 +2127,26 @@ msgstr ""
 #: src/an_file_view.c:678
 #, fuzzy
 msgid "Rev"
-msgstr "UsuÒ"
+msgstr "Usu≈Ñ"
 
 #: src/anjuta.c:71 src/anjuta.c:78
 #, c-format
 msgid "Anjuta: Caught signal %d (%s) !"
-msgstr "Anjuta: Otrzymano sygna≥ %d (%s)!"
+msgstr "Anjuta: Otrzymano sygna≈Ç %d (%s)!"
 
 #. Must declare static, because it will be used forever
 #: src/anjuta.c:106
 msgid "Open File"
-msgstr "WybÛr otwieranego pliku"
+msgstr "Wyb√≥r otwieranego pliku"
 
 #. Must declare static, because it will be used forever
 #: src/anjuta.c:112 src/anjuta.c:117
 msgid "Save File As"
-msgstr "Zapis pliku pod podan± nazw±"
+msgstr "Zapis pliku pod podanƒÖ nazwƒÖ"
 
 #: src/anjuta.c:261
 msgid "Cannot create application... exiting\n"
-msgstr "Nie moøna stworzyÊ aplikacji... zakoÒczenie\n"
+msgstr "Nie mo≈ºna stworzyƒá aplikacji... zako≈Ñczenie\n"
 
 #: src/anjuta.c:311 src/anjuta.c:315 src/anjuta.c:1127 src/anjuta.c:1143
 #, c-format
@@ -2161,7 +2161,7 @@ msgstr "Ostatnie pliki "
 msgid "# * DO NOT EDIT OR RENAME THIS FILE ** Generated by Anjuta **\n"
 msgstr ""
 "# * NIE MODYFIKUJ ANI NIE ZMIENIAJ NAZWY TEGO PLIKU ** Wygenerowany przez "
-"AnjutÍ **\n"
+"Anjutƒô **\n"
 
 #: src/anjuta.c:1092
 msgid "All files saved ..."
@@ -2183,7 +2183,7 @@ msgstr "Anjuta: Brak pliku"
 
 #: src/anjuta.c:1480 src/anjuta.c:1556
 msgid "ERROR: "
-msgstr "B£°D: "
+msgstr "B≈ÅƒÑD: "
 
 #: src/anjuta.c:1501 src/anjuta.c:1574
 msgid ""
@@ -2199,8 +2199,8 @@ msgid ""
 "The \"%s\" utility is not installed.\n"
 "Install it and then restart Anjuta."
 msgstr ""
-"W systemie nie jest zainstalowane narzÍdzie \"%s\".\n"
-"Zainstaluj je i ponownie uruchom AnjutÍ."
+"W systemie nie jest zainstalowane narzƒôdzie \"%s\".\n"
+"Zainstaluj je i ponownie uruchom Anjutƒô."
 
 #: src/anjuta.c:2072 src/anjuta.c:2128
 msgid "None"
@@ -2237,7 +2237,7 @@ msgid ""
 "  Project: %s       Zoom: %d       Line: %04d       Col: %03d       %s       "
 "Job: %s       Mode: %s"
 msgstr ""
-"  Projekt: %s      PowiÍkszenie: %d    Wiersz: %04d    Kolumna: %03d       %"
+"  Projekt: %s      Powiƒôkszenie: %d    Wiersz: %04d    Kolumna: %03d       %"
 "s     Zadanie: %s"
 
 #: src/anjuta.c:2415
@@ -2246,7 +2246,7 @@ msgstr ""
 
 #: src/anjuta.c:2417 src/find_in_files.c:306
 msgid "Finding in Files ....\n"
-msgstr "Przeszukiwanie plikÛw ...\n"
+msgstr "Przeszukiwanie plik√≥w ...\n"
 
 #: src/anjuta_cbs.c:145
 #, fuzzy
@@ -2254,18 +2254,18 @@ msgid ""
 "One or more files are not saved.\n"
 "Do you still want to exit?"
 msgstr ""
-"NiektÛre z plikÛw (lub sam projekt) nie zosta≥y zapisane.\n"
-"Czy nadal chcesz zakoÒczyÊ pracÍ?"
+"Niekt√≥re z plik√≥w (lub sam projekt) nie zosta≈Çy zapisane.\n"
+"Czy nadal chcesz zako≈Ñczyƒá pracƒô?"
 
 #: src/anjuta_cbs.c:405 src/project_dbase_gui.c:1346
 #, c-format
 msgid "Not a regular file: %s."
-msgstr "To nie jest zwyk≥y plik: %s."
+msgstr "To nie jest zwyk≈Çy plik: %s."
 
 #: src/anjuta_cbs.c:411
 #, c-format
 msgid "No read permission for: %s."
-msgstr "Brak uprawnieÒ do odczytu: %s."
+msgstr "Brak uprawnie≈Ñ do odczytu: %s."
 
 #: src/anjuta_cbs.c:523 src/anjuta_cbs.c:580
 #, fuzzy, c-format
@@ -2273,25 +2273,25 @@ msgid ""
 "The file '%s' already exists.\n"
 "Do you want to overwrite it?."
 msgstr ""
-"Plik \"%s\" juø istnieje.\n"
-"Czy chcesz go nadpisaÊ?."
+"Plik \"%s\" ju≈º istnieje.\n"
+"Czy chcesz go nadpisaƒá?."
 
 #: src/anjuta_cbs.c:556
 #, fuzzy
 msgid "Could not open file for writing"
-msgstr "Nie moøna wczytaÊ pliku: %s"
+msgstr "Nie mo≈ºna wczytaƒá pliku: %s"
 
 #: src/anjuta_dirs.c:52
 msgid "Unable to create settings directory.\n"
-msgstr "Nie moøna stworzyÊ katalogu z ustawieniami.\n"
+msgstr "Nie mo≈ºna stworzyƒá katalogu z ustawieniami.\n"
 
 #: src/anjuta_gui.c:191 src/anjuta_gui.c:280
 msgid "Click here to undock this window"
-msgstr "Aby od≥±czyÊ to okno, kliknij tutaj"
+msgstr "Aby od≈ÇƒÖczyƒá to okno, kliknij tutaj"
 
 #: src/anjuta_gui.c:225 src/anjuta_gui.c:247
 msgid "Click here to hide this window"
-msgstr "Aby ukryÊ to okno, kliknij tutaj"
+msgstr "Aby ukryƒá to okno, kliknij tutaj"
 
 #: src/anjuta_info.c:50 src/anjuta_info.c:96
 msgid "Information"
@@ -2301,23 +2301,23 @@ msgstr "Informacja"
 #, fuzzy, c-format
 msgid "Unable to load plugin %s. Error: %s"
 msgstr ""
-"Nie moøna za≥adowaÊ wtyczki %s.\n"
-"B≥±d %s"
+"Nie mo≈ºna za≈Çadowaƒá wtyczki %s.\n"
+"B≈ÇƒÖd %s"
 
 #: src/anjuta-plugins.c:121
 #, fuzzy, c-format
 msgid "Plugin protocol %s unknown Error:%s"
-msgstr "Modu≥ wtyczki %s ma niew≥a∂ciwy format. B≥±d: %s"
+msgstr "Modu≈Ç wtyczki %s ma niew≈Ça≈õciwy format. B≈ÇƒÖd: %s"
 
 #: src/anjuta-plugins.c:124
 #, fuzzy, c-format
 msgid "Unable to start plugin %s"
-msgstr "Nie moøna uruchomiÊ modu≥u wtyczki %s"
+msgstr "Nie mo≈ºna uruchomiƒá modu≈Çu wtyczki %s"
 
 #: src/anjuta-plugins.c:127
 #, fuzzy, c-format
 msgid "Bad parameters to plugin %s. Error: %s"
-msgstr "Niepoprawne parametry dla wtyczki %s. B≥±d: %s"
+msgstr "Niepoprawne parametry dla wtyczki %s. B≈ÇƒÖd: %s"
 
 #: src/anjuta-plugins.c:134
 #, fuzzy, c-format
@@ -2325,13 +2325,13 @@ msgid ""
 "Unable to load plugin %s.\n"
 "Error: %s"
 msgstr ""
-"Nie moøna za≥adowaÊ wtyczki %s.\n"
-"B≥±d %s"
+"Nie mo≈ºna za≈Çadowaƒá wtyczki %s.\n"
+"B≈ÇƒÖd %s"
 
 #: src/anjuta-plugins.c:203
 #, fuzzy
 msgid "Out of memory scanning for plugins."
-msgstr "Przy wyszukiwaniu wtyczek zabrak≥o pamiÍci."
+msgstr "Przy wyszukiwaniu wtyczek zabrak≈Ço pamiƒôci."
 
 #: src/anjuta-tools.c:911
 #, fuzzy
@@ -2345,7 +2345,7 @@ msgstr ""
 #: src/anjuta-tools.c:1291
 #, fuzzy, c-format
 msgid "Are you sure you want to delete tool '%s'"
-msgstr "Czy na pewno chcesz wyczy∂ciÊ listÍ?"
+msgstr "Czy na pewno chcesz wyczy≈õciƒá listƒô?"
 
 #: src/anjuta-tools.c:1389
 msgid "You must provide a tool name!"
@@ -2372,12 +2372,12 @@ msgstr "Zmienne"
 #: src/anjuta-tools.c:1715
 #, fuzzy
 msgid "Meaning"
-msgstr "Ostrzeøenia"
+msgstr "Ostrze≈ºenia"
 
 #: src/anjuta-tools.c:1721 src/debug_tree.c:1464 src/debug_tree.c:1495
 #: src/watch_gui.c:133
 msgid "Value"
-msgstr "Warto∂Ê"
+msgstr "Warto≈õƒá"
 
 #: src/anjuta-tools.c:1784
 msgid "Unable to build user interface for tool parameters"
@@ -2420,7 +2420,7 @@ msgstr "Deklaracje"
 #: src/an_symbol_view.c:295 src/text_editor_menu.c:339
 #, fuzzy
 msgid "Find Usage"
-msgstr "Komunikaty dotycz±ce przeszukiwania"
+msgstr "Komunikaty dotyczƒÖce przeszukiwania"
 
 #: src/an_symbol_view.c:569
 #, fuzzy
@@ -2433,7 +2433,7 @@ msgstr "Nazwa projektu"
 
 #: src/appwizard_cbs.c:127
 msgid "Source target name"
-msgstr "Nazwa docelowego pliku ºrÛd≥owego"
+msgstr "Nazwa docelowego pliku ≈∫r√≥d≈Çowego"
 
 #: src/appwizard_cbs.c:128
 msgid "Project version"
@@ -2446,7 +2446,7 @@ msgid ""
 "You must supply a valid %s field to proceed further."
 msgstr ""
 "Niepoprawne pole %s:\n"
-"Aby kontynuowaÊ, musisz podaÊ poprawne pole %s."
+"Aby kontynuowaƒá, musisz podaƒá poprawne pole %s."
 
 #. For the time being
 #: src/appwizard_cbs.c:277 src/project_dbase.c:1509 src/project_dbase.c:1515
@@ -2466,7 +2466,7 @@ msgid ""
 "Confirm the following information:\n"
 "\n"
 msgstr ""
-"Potwierdº nastÍpuj±ce informacje:\n"
+"Potwierd≈∫ nastƒôpujƒÖce informacje:\n"
 "\n"
 
 #: src/appwizard_cbs.c:282 src/project_import_cbs.c:225
@@ -2483,7 +2483,7 @@ msgstr "Docelowy typ:"
 
 #: src/appwizard_cbs.c:285 src/project_import_cbs.c:231
 msgid "Source Target:   "
-msgstr "Docelowe ørÛd≥o:"
+msgstr "Docelowe ≈ºr√≥d≈Ço:"
 
 #: src/appwizard_cbs.c:286 src/project_import_cbs.c:232
 msgid "Version:         "
@@ -2495,11 +2495,11 @@ msgstr "Autor:           "
 
 #: src/appwizard_cbs.c:288 src/project_import_cbs.c:234
 msgid "Language:        "
-msgstr "JÍzyk:           "
+msgstr "Jƒôzyk:           "
 
 #: src/appwizard_cbs.c:289 src/project_import_cbs.c:236
 msgid "Gettext Support: "
-msgstr "Obs≥uga biblioteki gettext: "
+msgstr "Obs≈Çuga biblioteki gettext: "
 
 #: src/appwizard_gui.c:40
 msgid ""
@@ -2513,14 +2513,14 @@ msgid ""
 "settings later."
 msgstr ""
 "Druid aplikacji wygeneruje podstawowy szkielet\n"
-"twojej aplikacji, z w≥±czeniem wszystkich plikÛw\n"
+"twojej aplikacji, z w≈ÇƒÖczeniem wszystkich plik√≥w\n"
 "potrzebnych do jej budowy. Druid zada ci pytania\n"
-"dotycz±ce podstawowej pocz±tkowej struktury aplikacji,\n"
-"ktÛr± chcesz stworzyÊ.\n"
+"dotyczƒÖce podstawowej poczƒÖtkowej struktury aplikacji,\n"
+"kt√≥rƒÖ chcesz stworzyƒá.\n"
 "\n"
-"Odpowiadaj na pytania uwaønie, poniewaø\n"
-"zmiana pewnych ustawieÒ pocz±tkowych moøe byÊ\n"
-"pÛºniej niemoøliwa."
+"Odpowiadaj na pytania uwa≈ºnie, poniewa≈º\n"
+"zmiana pewnych ustawie≈Ñ poczƒÖtkowych mo≈ºe byƒá\n"
+"p√≥≈∫niej niemo≈ºliwa."
 
 #: src/appwizard_gui.c:76 src/appwizard_gui.c:90
 msgid "Application Wizard"
@@ -2545,12 +2545,12 @@ msgstr "Polecenie:"
 #: src/attach_process.c:130
 #, c-format
 msgid "Unable to execute: %s."
-msgstr "Nie moøna wykonaÊ: %s."
+msgstr "Nie mo≈ºna wykonaƒá: %s."
 
 #: src/attach_process.c:140
 #, c-format
 msgid "Unable to open the file: %s\n"
-msgstr "Nie moøna otworzyÊ pliku: %s\n"
+msgstr "Nie mo≈ºna otworzyƒá pliku: %s\n"
 
 #: src/breakpoints.c:102
 msgid "Line"
@@ -2570,12 +2570,12 @@ msgstr "Warunek"
 
 #: src/breakpoints.c:485
 msgid "You must give a valid location to set the breakpoint."
-msgstr "Aby ustawiÊ punkt przerwania, naleøy podaÊ poprawne po≥oøenie."
+msgstr "Aby ustawiƒá punkt przerwania, nale≈ºy podaƒá poprawne po≈Ço≈ºenie."
 
 #: src/breakpoints.c:587
 #, fuzzy
 msgid "Are you sure you want to delete all the breakpoints?"
-msgstr "Czy na pewno chcesz usun±Ê wszystkie punkty przerwania?"
+msgstr "Czy na pewno chcesz usunƒÖƒá wszystkie punkty przerwania?"
 
 #: src/breakpoints.c:1118
 msgid "Old breakpoints disabled."
@@ -2589,12 +2589,12 @@ msgstr "0"
 #: src/build_file.c:51
 #, fuzzy
 msgid "This file has not been saved. Save it first and then build."
-msgstr "Ten plik nie zosta≥ zapisany. Zapisz go najpierw a potem skompiluj."
+msgstr "Ten plik nie zosta≈Ç zapisany. Zapisz go najpierw a potem skompiluj."
 
 #: src/build_file.c:76
 #, fuzzy
 msgid "The executable is up-to-date, there is no need to build it again."
-msgstr "Plik wykonywalny jest aktualny, nie trzeba go przebudowywaÊ."
+msgstr "Plik wykonywalny jest aktualny, nie trzeba go przebudowywaƒá."
 
 #: src/build_file.c:91
 msgid "No build command has been specified for this type of file."
@@ -2612,28 +2612,28 @@ msgstr "Budowanie pliku: %s ...\n"
 #: src/project_import.c:179
 #, c-format
 msgid "Total time taken: %d secs\n"
-msgstr "Ca≥kowity czas: %d sek.\n"
+msgstr "Ca≈Çkowity czas: %d sek.\n"
 
 #: src/build_file.c:135
 msgid "Build completed ... unsuccessful\n"
-msgstr "Budowanie zakoÒczone ... niepowodzeniem\n"
+msgstr "Budowanie zako≈Ñczone ... niepowodzeniem\n"
 
 #: src/build_file.c:139
 msgid "Build completed ... unsuccessful"
-msgstr "Budowanie zakoÒczone ... niepowodzeniem"
+msgstr "Budowanie zako≈Ñczone ... niepowodzeniem"
 
 #: src/build_file.c:144
 msgid "Build completed ... successful\n"
-msgstr "Budowanie zakoÒczone ... powodzeniem\n"
+msgstr "Budowanie zako≈Ñczone ... powodzeniem\n"
 
 #: src/build_file.c:148
 msgid "Build completed ... successful"
-msgstr "Budowanie zakoÒczone ... powodzeniem"
+msgstr "Budowanie zako≈Ñczone ... powodzeniem"
 
 #: src/build_project.c:63 src/compile.c:60
 #, fuzzy
 msgid "Unable to build module. Check Settings->Commands."
-msgstr "Nie moøna zbudowaÊ modu≥u. Sprawdº Preferencje->Polecenia."
+msgstr "Nie mo≈ºna zbudowaƒá modu≈Çu. Sprawd≈∫ Preferencje->Polecenia."
 
 #: src/build_project.c:84 src/build_project.c:140 src/compile.c:75
 msgid "Build Project"
@@ -2641,21 +2641,21 @@ msgstr "Budowanie projektu"
 
 #: src/build_project.c:86 src/compile.c:77
 msgid "Building source directory of the Project: "
-msgstr "Budowanie katalogu ºrÛd≥owego projektu: "
+msgstr "Budowanie katalogu ≈∫r√≥d≈Çowego projektu: "
 
 #: src/build_project.c:123
 #, fuzzy
 msgid "Unable to build Project. Check Settings->Commands."
-msgstr "Nie moøna uruchomiÊ projektu. Sprawdº Ustawienia->Polecenia."
+msgstr "Nie mo≈ºna uruchomiƒá projektu. Sprawd≈∫ Ustawienia->Polecenia."
 
 #: src/build_project.c:143
 msgid "Building the whole Project: "
-msgstr "Budowanie ca≥ego projektu: "
+msgstr "Budowanie ca≈Çego projektu: "
 
 #: src/build_project.c:176
 #, fuzzy
 msgid "Unable to build tarball. Check Settings->Commands."
-msgstr "Nie moøna zbudowaÊ archiwum tar. Sprawdº Preferencje->Polecenia."
+msgstr "Nie mo≈ºna zbudowaƒá archiwum tar. Sprawd≈∫ Preferencje->Polecenia."
 
 #: src/build_project.c:193
 msgid "Build Distribution"
@@ -2673,7 +2673,7 @@ msgstr ""
 #, fuzzy
 msgid "Unable to auto generate. Check Settings->Commands."
 msgstr ""
-"Nie moøna automatycznie wygenerowaÊ projektu. Sprawdº Ustawienia->Polecenia"
+"Nie mo≈ºna automatycznie wygenerowaƒá projektu. Sprawd≈∫ Ustawienia->Polecenia"
 
 #: src/build_project.c:283
 #, fuzzy
@@ -2686,102 +2686,102 @@ msgstr "Automatyczna generacja projektu: "
 
 #: src/build_project.c:314
 msgid "Build completed...............Unsuccessful\n"
-msgstr "Budowanie zakoÒczone..............Niepowodzeniem\n"
+msgstr "Budowanie zako≈Ñczone..............Niepowodzeniem\n"
 
 #: src/build_project.c:318
 msgid "Build terminated with error(s)."
-msgstr "Budowanie zakoÒczy≥o siÍ z b≥Ídami."
+msgstr "Budowanie zako≈Ñczy≈Ço siƒô z b≈Çƒôdami."
 
 #: src/build_project.c:324
 msgid "Build completed...............Successful\n"
-msgstr "Budowanie zakoÒczone...............Powodzeniem\n"
+msgstr "Budowanie zako≈Ñczone...............Powodzeniem\n"
 
 #: src/build_project.c:328
 msgid "Build completed ... successful."
-msgstr "Budowanie zakoÒczone ... powodzeniem."
+msgstr "Budowanie zako≈Ñczone ... powodzeniem."
 
 #: src/build_project.c:352
 msgid "Build All completed...............Unsuccessful\n"
-msgstr "Budowanie wszystkich plikÛw zakoÒczone.....Powodzeniem\n"
+msgstr "Budowanie wszystkich plik√≥w zako≈Ñczone.....Powodzeniem\n"
 
 #: src/build_project.c:356
 msgid "Build All completed...............Unsuccessful"
-msgstr "Budowanie wszystkich plikÛw zakoÒczone....Niepowodzeniem"
+msgstr "Budowanie wszystkich plik√≥w zako≈Ñczone....Niepowodzeniem"
 
 #: src/build_project.c:361
 msgid "Build All completed...............Successful\n"
-msgstr "Budowanie wszystkich plikÛw zakoÒczone......Powodzeniem\n"
+msgstr "Budowanie wszystkich plik√≥w zako≈Ñczone......Powodzeniem\n"
 
 #: src/build_project.c:365
 msgid "Build All completed ... successful"
-msgstr "Budowanie wszystkich plikÛw zakoÒczone ... powodzeniem"
+msgstr "Budowanie wszystkich plik√≥w zako≈Ñczone ... powodzeniem"
 
 #: src/build_project.c:387
 #, fuzzy
 msgid "Build Distribution completed...............Unsuccessful\n"
-msgstr "Budowanie dystrybucji zakoÒczone...............niepowodzeniem\n"
+msgstr "Budowanie dystrybucji zako≈Ñczone...............niepowodzeniem\n"
 
 #: src/build_project.c:391
 #, fuzzy
 msgid "Build Distribution completed ... unsuccessful"
-msgstr "Budowanie dystrybucji zakoÒczone ... niepowodzeniem"
+msgstr "Budowanie dystrybucji zako≈Ñczone ... niepowodzeniem"
 
 #: src/build_project.c:396
 #, fuzzy
 msgid "Build Distribution completed...............Successful\n"
-msgstr "Budowanie dystrybucji zakoÒczone...............powodzeniem\n"
+msgstr "Budowanie dystrybucji zako≈Ñczone...............powodzeniem\n"
 
 #: src/build_project.c:399
 #, fuzzy
 msgid ""
 "The source tarball can be found in the top level directory of the Project.\n"
-msgstr "Archiwum tar odnajdziesz w g≥Ûwnym katalogu projektu\n"
+msgstr "Archiwum tar odnajdziesz w g≈Ç√≥wnym katalogu projektu\n"
 
 #: src/build_project.c:403
 #, fuzzy
 msgid "Build Distribution completed ... successful"
-msgstr "Budowanie dystrybucji zakoÒczone ... powodzeniem"
+msgstr "Budowanie dystrybucji zako≈Ñczone ... powodzeniem"
 
 #: src/build_project.c:424
 msgid "Install completed...............Unsuccessful\n"
-msgstr "Instalacja zakoÒczona..............Niepowodzeniem\n"
+msgstr "Instalacja zako≈Ñczona..............Niepowodzeniem\n"
 
 #: src/build_project.c:428
 msgid "Install completed...............Unsuccessful"
-msgstr "Instalacja zakoÒczona..............Niepowodzeniem"
+msgstr "Instalacja zako≈Ñczona..............Niepowodzeniem"
 
 #: src/build_project.c:433
 msgid "Install completed...............Successful\n"
-msgstr "Instalacja zakoÒczona..............Powodzeniem\n"
+msgstr "Instalacja zako≈Ñczona..............Powodzeniem\n"
 
 #: src/build_project.c:437
 msgid "Install completed ... successful"
-msgstr "Instalacja zakoÒczona ... powodzeniem"
+msgstr "Instalacja zako≈Ñczona ... powodzeniem"
 
 #: src/build_project.c:458 src/gnome_project.c:259
 msgid "Auto generation completed...............Unsuccessful\n"
-msgstr "Automatyczna generacja zakoÒczona............niepowodzeniem\n"
+msgstr "Automatyczna generacja zako≈Ñczona............niepowodzeniem\n"
 
 #: src/build_project.c:462
 msgid "Auto generation completed ... unsuccessful"
-msgstr "Automatyczna generacja zakoÒczona ... niepowodzeniem"
+msgstr "Automatyczna generacja zako≈Ñczona ... niepowodzeniem"
 
 #: src/build_project.c:467
 msgid ""
 "Auto generation completed...............Successful\n"
 "Now Configure the Project.\n"
 msgstr ""
-"Automatyczna generacja zakoÒczona.............powodzeniem\n"
+"Automatyczna generacja zako≈Ñczona.............powodzeniem\n"
 "Teraz skonfiguruj projekt.\n"
 
 #: src/build_project.c:471
 msgid "Auto generation completed ... successful"
-msgstr "Automatyczna generacja zakoÒczona ... powodzeniem"
+msgstr "Automatyczna generacja zako≈Ñczona ... powodzeniem"
 
 #: src/build_project.c:492 src/build_project.c:537
 #, fuzzy
 msgid "Unable to install Project. Check Settings->Commands."
-msgstr "Nie moøna uruchomiÊ projektu. Sprawdº Ustawienia->Polecenia."
+msgstr "Nie mo≈ºna uruchomiƒá projektu. Sprawd≈∫ Ustawienia->Polecenia."
 
 #: src/build_project.c:514 src/build_project.c:556
 msgid "Install Project"
@@ -2794,71 +2794,71 @@ msgstr "Instalowanie projektu: "
 #: src/clean_project.c:61
 #, fuzzy
 msgid "Unable to clean Project. Check Settings->Commands."
-msgstr "Nie moøna uruchomiÊ projektu. Sprawdº Ustawienia->Polecenia."
+msgstr "Nie mo≈ºna uruchomiƒá projektu. Sprawd≈∫ Ustawienia->Polecenia."
 
 #: src/clean_project.c:72
 msgid "Clean"
-msgstr "Wyczy∂Ê"
+msgstr "Wyczy≈õƒá"
 
 #: src/clean_project.c:75
 #, fuzzy
 msgid "Cleaning the source directory of the Project: "
-msgstr "Czyszczenie katalogu ºrÛd≥owego projektu: "
+msgstr "Czyszczenie katalogu ≈∫r√≥d≈Çowego projektu: "
 
 #: src/clean_project.c:102
 msgid "Cleaning completed...............Unsuccessful\n"
-msgstr "Czyszczenie zakoÒczone.............Niepowodzeniem\n"
+msgstr "Czyszczenie zako≈Ñczone.............Niepowodzeniem\n"
 
 #: src/clean_project.c:106
 msgid "Cleaning completed ... unsuccessful"
-msgstr "Czyszczenie zakoÒczone ... niepowodzeniem"
+msgstr "Czyszczenie zako≈Ñczone ... niepowodzeniem"
 
 #: src/clean_project.c:111
 msgid "Cleaning completed...............Successful\n"
-msgstr "Czyszczenie zakoÒczone..............Powodzeniem\n"
+msgstr "Czyszczenie zako≈Ñczone..............Powodzeniem\n"
 
 #: src/clean_project.c:115
 msgid "Cleaning completed ... successful"
-msgstr "Czyszczenie zakoÒczone ... powodzeniem"
+msgstr "Czyszczenie zako≈Ñczone ... powodzeniem"
 
 #: src/clean_project.c:150
 #, fuzzy
 msgid "Unable to Clean All for the Project. Check Settings->Commands."
-msgstr "Nie moøna uruchomiÊ projektu. Sprawdº Ustawienia->Polecenia."
+msgstr "Nie mo≈ºna uruchomiƒá projektu. Sprawd≈∫ Ustawienia->Polecenia."
 
 #: src/clean_project.c:161
 msgid "Clean All"
-msgstr "Wyczy∂Ê wszystko"
+msgstr "Wyczy≈õƒá wszystko"
 
 #: src/clean_project.c:164
 #, fuzzy
 msgid "Cleaning whole of the Project: "
-msgstr "Czyszczenie ca≥ego projektu: "
+msgstr "Czyszczenie ca≈Çego projektu: "
 
 #: src/clean_project.c:185
 #, fuzzy
 msgid "Clean All completed...............Unsuccessful\n"
-msgstr "Czyszczenie ca≥ego projektu zakoÒczone.....Niepowodzeniem\n"
+msgstr "Czyszczenie ca≈Çego projektu zako≈Ñczone.....Niepowodzeniem\n"
 
 #: src/clean_project.c:189
 #, fuzzy
 msgid "Clean All completed ... unsuccessful"
-msgstr "Czyszczenie ca≥ego projektu zakoÒczone ... niepowodzeniem"
+msgstr "Czyszczenie ca≈Çego projektu zako≈Ñczone ... niepowodzeniem"
 
 #: src/clean_project.c:194
 #, fuzzy
 msgid "Clean All completed...............Successful\n"
-msgstr "Czyszczenie ca≥ego projektu zakoÒczone.....Powodzeniem\n"
+msgstr "Czyszczenie ca≈Çego projektu zako≈Ñczone.....Powodzeniem\n"
 
 #: src/clean_project.c:198
 #, fuzzy
 msgid "Clean All completed ... successful"
-msgstr "Czyszczenie ca≥ego projektu zakoÒczone ... powodzeniem"
+msgstr "Czyszczenie ca≈Çego projektu zako≈Ñczone ... powodzeniem"
 
 #: src/compile.c:108
 #, fuzzy
 msgid "This file has not been saved. Save it first and then compile."
-msgstr "Ten plik nie zosta≥ zapisany. Zapisz go najpierw a potem skompiluj."
+msgstr "Ten plik nie zosta≈Ç zapisany. Zapisz go najpierw a potem skompiluj."
 
 #: src/compile.c:129
 #, fuzzy
@@ -2880,16 +2880,16 @@ msgstr "Kompilowanie pliku: %s ...\n"
 
 #: src/compile.c:180 src/compile.c:185
 msgid "Compile completed ... unsuccessful"
-msgstr "Kompilacja zakoÒczona ... niepowodzeniem"
+msgstr "Kompilacja zako≈Ñczona ... niepowodzeniem"
 
 #: src/compile.c:190 src/compile.c:195
 msgid "Compile completed ... successful"
-msgstr "Kompilacja zakoÒczona ... powodzeniem"
+msgstr "Kompilacja zako≈Ñczona ... powodzeniem"
 
 #: src/compiler_options.c:675 src/src_paths.c:218
 #, fuzzy
 msgid "Do you want to clear the list?"
-msgstr "Czy na pewno chcesz wyczy∂ciÊ listÍ?"
+msgstr "Czy na pewno chcesz wyczy≈õciƒá listƒô?"
 
 #: src/compiler_options.c:740
 #, fuzzy
@@ -2904,12 +2904,12 @@ msgstr "Opis"
 #: src/compiler_options.c:762
 #, fuzzy
 msgid "Include paths"
-msgstr "¶cieøki do plikÛw nag≥Ûwkowych"
+msgstr "≈öcie≈ºki do plik√≥w nag≈Ç√≥wkowych"
 
 #: src/compiler_options.c:777
 #, fuzzy
 msgid "Libraries paths"
-msgstr "¶cieøki do bibliotek"
+msgstr "≈öcie≈ºki do bibliotek"
 
 #: src/compiler_options.c:800
 msgid "Libraries and modules"
@@ -2927,7 +2927,7 @@ msgstr "Definicje"
 #: src/compiler_options.c:884
 #, fuzzy
 msgid "Warning"
-msgstr "Ostrzeøenia"
+msgstr "Ostrze≈ºenia"
 
 #: src/configurer.c:153
 #, fuzzy
@@ -2936,7 +2936,7 @@ msgid ""
 "Auto generate the Project first."
 msgstr ""
 "Projekt nie posiada skryptu konfiguracyjnego pliku wykonywalnego.\n"
-"Powinien on zostaÊ najpierw poddany automatycznej generacji."
+"Powinien on zostaƒá najpierw poddany automatycznej generacji."
 
 #: src/configurer.c:185 src/toolbar.c:261
 msgid "Configure"
@@ -2949,24 +2949,24 @@ msgstr "Konfigurowanie projektu ....\n"
 
 #: src/configurer.c:206
 msgid "Configure completed...............Unsuccessful\n"
-msgstr "Konfigurowanie zakoÒczone..............Niepowodzeniem\n"
+msgstr "Konfigurowanie zako≈Ñczone..............Niepowodzeniem\n"
 
 #: src/configurer.c:208
 msgid "Configure completed ... unsuccessful"
-msgstr "Konfigurowanie zakoÒczone ... niepowodzeniem"
+msgstr "Konfigurowanie zako≈Ñczone ... niepowodzeniem"
 
 #: src/configurer.c:214
 msgid "Configure completed...............Successful\n"
-msgstr "Konfigurowanie zakoÒczone..............Powodzeniem\n"
+msgstr "Konfigurowanie zako≈Ñczone..............Powodzeniem\n"
 
 #: src/configurer.c:216
 msgid "Configure completed ... successful"
-msgstr "Konfigurowanie zakoÒczone ... powodzeniem"
+msgstr "Konfigurowanie zako≈Ñczone ... powodzeniem"
 
 #: src/controls.c:208
 #, fuzzy
 msgid "No tags"
-msgstr "Bez ostrzeøeÒ"
+msgstr "Bez ostrze≈ºe≈Ñ"
 
 #: src/cvs.c:236
 #, fuzzy
@@ -3012,27 +3012,27 @@ msgstr ""
 #: src/cvs.c:734 src/project_import.c:167
 #, fuzzy
 msgid "Project import completed...unsuccessful\n"
-msgstr "Kompilacja zakoÒczona ... niepowodzeniem"
+msgstr "Kompilacja zako≈Ñczona ... niepowodzeniem"
 
 #: src/cvs.c:736 src/project_import.c:169
 #, fuzzy
 msgid "Project import completed...unsuccessful"
-msgstr "Kompilacja zakoÒczona ... niepowodzeniem"
+msgstr "Kompilacja zako≈Ñczona ... niepowodzeniem"
 
 #: src/cvs.c:742
 #, fuzzy
 msgid "CVS completed...successful\n"
-msgstr "Budowanie zakoÒczone ... powodzeniem\n"
+msgstr "Budowanie zako≈Ñczone ... powodzeniem\n"
 
 #: src/cvs.c:744
 #, fuzzy
 msgid "CVS completed...successful"
-msgstr "Kompilacja zakoÒczona ... powodzeniem"
+msgstr "Kompilacja zako≈Ñczona ... powodzeniem"
 
 #: src/cvs.c:752
 #, fuzzy
 msgid "Updating versions in file tree..."
-msgstr "Kopiowanie pliku z ikon± ...\n"
+msgstr "Kopiowanie pliku z ikonƒÖ ...\n"
 
 #: src/cvs.c:754
 #, fuzzy
@@ -3065,7 +3065,7 @@ msgstr "Krok nad"
 #: src/cvs_gui.c:71
 #, fuzzy
 msgid "CVS: Update"
-msgstr "Od∂wieø"
+msgstr "Od≈õwie≈º"
 
 #: src/cvs_gui.c:75
 msgid "CVS: Commit"
@@ -3083,7 +3083,7 @@ msgstr ""
 #: src/cvs_gui.c:80
 #, fuzzy
 msgid "Show status"
-msgstr "Pokaø zmienne _lokalne"
+msgstr "Poka≈º zmienne _lokalne"
 
 #: src/cvs_gui.c:83
 msgid "CVS: Log"
@@ -3108,7 +3108,7 @@ msgstr ""
 #. 3
 #: src/cvs_gui.c:92 src/project_dbase_gui.c:332 src/watch_gui.c:43
 msgid "Remove"
-msgstr "UsuÒ"
+msgstr "Usu≈Ñ"
 
 #: src/cvs_gui.c:94
 msgid ""
@@ -3170,7 +3170,7 @@ msgstr ""
 #: src/cvs_gui.c:342 src/cvs_gui.c:438
 #, fuzzy
 msgid "Username: "
-msgstr "Informacje o _bieø±cej ramce"
+msgstr "Informacje o _bie≈ºƒÖcej ramce"
 
 #: src/cvs_gui.c:343 src/cvs_gui.c:436
 msgid "Server: "
@@ -3240,16 +3240,16 @@ msgid ""
 "You have a process ATTACHED under the debugger.\n"
 "Please detach it first and then load the executable file."
 msgstr ""
-"Pozosta≥ jeszcze proces PRZY£°CZONY do debugera.\n"
-"Przed uruchomieniem pliku wykonywalnego naleøy go od≥±czyÊ."
+"Pozosta≈Ç jeszcze proces PRZY≈ÅƒÑCZONY do debugera.\n"
+"Przed uruchomieniem pliku wykonywalnego nale≈ºy go od≈ÇƒÖczyƒá."
 
 #: src/debugger.c:292 src/debugger.c:320
 msgid ""
 "You have a process RUNNING under the debugger.\n"
 "Please stop it first and then load the executable file."
 msgstr ""
-"Pozosta≥ jeszcze proces DZIA£AJ°CY pod debugerem.\n"
-"Przed uruchomieniem pliku wykonywalnego naleøy go od≥±czyÊ."
+"Pozosta≈Ç jeszcze proces DZIA≈ÅAJƒÑCY pod debugerem.\n"
+"Przed uruchomieniem pliku wykonywalnego nale≈ºy go od≈ÇƒÖczyƒá."
 
 #: src/debugger.c:571
 #, fuzzy, c-format
@@ -3258,9 +3258,9 @@ msgid ""
 "Unable to initialize debugger.\n"
 "Make sure Anjuta is installed correctly."
 msgstr ""
-"Nie moøna odnaleºÊ: %s.\n"
-"Nie moøna zainicjowaÊ debugera. :-(\n"
-"Upewnij siÍ, øe program jest poprawnie zainstalowany."
+"Nie mo≈ºna odnale≈∫ƒá: %s.\n"
+"Nie mo≈ºna zainicjowaƒá debugera. :-(\n"
+"Upewnij siƒô, ≈ºe program jest poprawnie zainstalowany."
 
 #: src/debugger.c:640
 msgid "Debugger"
@@ -3268,29 +3268,29 @@ msgstr "Debuger"
 
 #: src/debugger.c:643
 msgid "Getting ready to start debugging session ...\n"
-msgstr "Przygotowanie do rozpoczÍcia sesji debugowania ...\n"
+msgstr "Przygotowanie do rozpoczƒôcia sesji debugowania ...\n"
 
 #: src/debugger.c:655
 msgid "No executable specified\n"
-msgstr "Nie okre∂lono pliku wykonywalnego\n"
+msgstr "Nie okre≈õlono pliku wykonywalnego\n"
 
 #: src/debugger.c:659
 msgid "Open an executable or attach to a process to start debugging.\n"
 msgstr ""
-"Aby rozpocz±Ê debugowanie, otwÛrz plik wykonywalny lub przy≥±cz siÍ do "
+"Aby rozpoczƒÖƒá debugowanie, otw√≥rz plik wykonywalny lub przy≈ÇƒÖcz siƒô do "
 "procesu.\n"
 
 #: src/debugger.c:667
 msgid "There was an error whilst launching the debugger.\n"
-msgstr "Podczas uruchamiania debugera wyst±pi≥ b≥±d.\n"
+msgstr "Podczas uruchamiania debugera wystƒÖpi≈Ç b≈ÇƒÖd.\n"
 
 #: src/debugger.c:671
 msgid "Make sure 'gdb' is installed on the system.\n"
-msgstr "Upewnij siÍ, øe 'gdb' zosta≥ zainstalowany w systemie.\n"
+msgstr "Upewnij siƒô, ≈ºe 'gdb' zosta≈Ç zainstalowany w systemie.\n"
 
 #: src/debugger.c:811
 msgid "Error: "
-msgstr "B≥±d: "
+msgstr "B≈ÇƒÖd: "
 
 #: src/debugger.c:836
 msgid "Debugger is ready.\n"
@@ -3303,22 +3303,22 @@ msgid ""
 "\n"
 msgstr ""
 "\n"
-"No i co, znalaz≥e∂ jaki∂ B≥±d? Sesja debugowania zakoÒczona.\n"
+"No i co, znalaz≈Çe≈õ jaki≈õ B≈ÇƒÖd? Sesja debugowania zako≈Ñczona.\n"
 "\n"
 
 #: src/debugger.c:1173
 msgid "Cannot execute gnome-terminal"
-msgstr "Nie moøna uruchomiÊ programu gnome-terminal"
+msgstr "Nie mo≈ºna uruchomiƒá programu gnome-terminal"
 
 #: src/debugger.c:1208
 #, fuzzy
 msgid "Cannot start terminal for debugging."
-msgstr "B≥±d: Nie moøna uruchomiÊ terminala do debugowania."
+msgstr "B≈ÇƒÖd: Nie mo≈ºna uruchomiƒá terminala do debugowania."
 
 #: src/debugger.c:1273
 msgid "Warning: No debug terminal. Redirecting stdio to /dev/null.\n"
 msgstr ""
-"Ostrzeøenie: Brak terminalu debugowania. Przekierowanie wyj∂cia "
+"Ostrze≈ºenie: Brak terminalu debugowania. Przekierowanie wyj≈õcia "
 "standardowego na /dev/null.\n"
 
 #: src/debugger.c:1291
@@ -3328,15 +3328,15 @@ msgstr "Uruchamianie programu ...\n"
 #: src/debugger.c:1421
 #, c-format
 msgid "Attaching to process: %d\n"
-msgstr "Przy≥±czanie do procesu: %d\n"
+msgstr "Przy≈ÇƒÖczanie do procesu: %d\n"
 
 #: src/debugger.c:1450
 msgid ""
 "A process is already running.\n"
 "Would you like to terminate it and attach the new process?"
 msgstr ""
-"Proces juø pracuje.\n"
-"Czy chcesz go zakoÒczyÊ i przy≥±czyÊ siÍ do nowego procesu?"
+"Proces ju≈º pracuje.\n"
+"Czy chcesz go zako≈Ñczyƒá i przy≈ÇƒÖczyƒá siƒô do nowego procesu?"
 
 #: src/debugger.c:1462
 msgid "Anjuta is unable to attach to itself."
@@ -3345,15 +3345,15 @@ msgstr ""
 #: src/debugger.c:1548
 #, c-format
 msgid "Detaching the process: %d\n"
-msgstr "Od≥±czanie procesu: %d\n"
+msgstr "Od≈ÇƒÖczanie procesu: %d\n"
 
 #: src/debugger.c:1604
 msgid ""
 "Program is ATTACHED.\n"
 "Do you still want to stop Debugger?"
 msgstr ""
-"Program jest DO£°CZONY.\n"
-"Czy wci±ø chcesz zatrzymaÊ debuger?"
+"Program jest DO≈ÅƒÑCZONY.\n"
+"Czy wciƒÖ≈º chcesz zatrzymaƒá debuger?"
 
 #: src/debugger.c:1607
 #, fuzzy
@@ -3362,7 +3362,7 @@ msgid ""
 "Do you still want to stop Debugger?"
 msgstr ""
 "Program jest wykonywany.\n"
-"Czy wci±ø chcesz zatrzymaÊ debuger?"
+"Czy wciƒÖ≈º chcesz zatrzymaƒá debuger?"
 
 #.
 #. debugger_put_cmd_in_queqe ("info breakpoints", DB_CMD_NONE,
@@ -3389,7 +3389,7 @@ msgstr "Wszystkie nieaktywn punkty przerwania:\n"
 #.
 #: src/debugger.c:1879
 msgid "All breakpoints deleted:\n"
-msgstr "Wszystkie usuniÍte punkty przerwania:\n"
+msgstr "Wszystkie usuniƒôte punkty przerwania:\n"
 
 #: src/debugger.c:1912
 #, c-format
@@ -3399,12 +3399,12 @@ msgstr "Przerywanie procesu: %d\n"
 #: src/debugger.c:1941
 #, c-format
 msgid "Sending signal %s to the process: %d\n"
-msgstr "Wysy≥anie sygna≥u %s do procesu: %d\n"
+msgstr "Wysy≈Çanie sygna≈Çu %s do procesu: %d\n"
 
 #: src/debugger.c:1962
 #, fuzzy
 msgid "Error whilst signalling the process."
-msgstr "Podczas wysy≥ania sygna≥u do procesu wyst±pi≥ b≥±d."
+msgstr "Podczas wysy≈Çania sygna≈Çu do procesu wystƒÖpi≈Ç b≈ÇƒÖd."
 
 #: src/debug_tree.c:1520
 #, fuzzy
@@ -3434,7 +3434,7 @@ msgstr "Hex"
 #: src/debug_tree.c:1539
 #, fuzzy
 msgid "Char"
-msgstr "Wyczy∂Ê"
+msgstr "Wyczy≈õƒá"
 
 #: src/executer.c:53 src/mainmenu_callbacks.c:1700
 #, fuzzy
@@ -3449,7 +3449,7 @@ msgstr "Plik docelowy dla tego projektu nie jest plikiem wykonywalnym"
 #: src/executer.c:63 src/mainmenu_callbacks.c:1706
 #, fuzzy
 msgid "The target executable does not exist for this Project"
-msgstr "Nie istnieje powi±zany z tym projektem plik wykonywalny."
+msgstr "Nie istnieje powiƒÖzany z tym projektem plik wykonywalny."
 
 #: src/executer.c:76
 #, fuzzy
@@ -3459,7 +3459,7 @@ msgstr "Brak otwartego pliku lub projektu."
 #: src/executer.c:81 src/executer.c:100 src/mainmenu_callbacks.c:1726
 #: src/mainmenu_callbacks.c:1737
 msgid "No executable for this file."
-msgstr "Brak pliku wykonywalnego dla bieø±cego pliku."
+msgstr "Brak pliku wykonywalnego dla bie≈ºƒÖcego pliku."
 
 #: src/executer.c:105
 msgid "Executable is not up-to-date."
@@ -3468,32 +3468,32 @@ msgstr "Plik wykonywalny nie jest aktualny."
 #: src/executer.c:117
 #, fuzzy
 msgid "Unable to execute Project. Check Settings->Commands."
-msgstr "Nie moøna uruchomiÊ projektu. Sprawdº Ustawienia->Polecenia."
+msgstr "Nie mo≈ºna uruchomiƒá projektu. Sprawd≈∫ Ustawienia->Polecenia."
 
 #: src/executer.c:131
 #, fuzzy
 msgid "This file has not been saved. Save it first."
-msgstr "Plik nie zosta≥ zapisany. Zapisz go najpierw."
+msgstr "Plik nie zosta≈Ç zapisany. Zapisz go najpierw."
 
 #: src/executer.c:139
 msgid "Unable to execute file. Check Settings->Commands."
-msgstr "Nie moøna uruchomiÊ pliku. Sprawdº Ustawienia->Polecenia."
+msgstr "Nie mo≈ºna uruchomiƒá pliku. Sprawd≈∫ Ustawienia->Polecenia."
 
 #: src/find_in_files.c:327
 msgid "Find in Files completed...............Unsuccessful\n"
-msgstr "Przeszukiwanie plikÛw zakoÒczone..........niepowodzeniem\n"
+msgstr "Przeszukiwanie plik√≥w zako≈Ñczone..........niepowodzeniem\n"
 
 #: src/find_in_files.c:330
 msgid "Find in Files completed ... unsuccessful"
-msgstr "Przeszukiwanie plikÛw zakoÒczone ... niepowodzeniem"
+msgstr "Przeszukiwanie plik√≥w zako≈Ñczone ... niepowodzeniem"
 
 #: src/find_in_files.c:336
 msgid "Find in Files completed...............Successful\n"
-msgstr "Przeszukiwanie plikÛw zakoÒczone...........powodzeniem\n"
+msgstr "Przeszukiwanie plik√≥w zako≈Ñczone...........powodzeniem\n"
 
 #: src/find_in_files.c:338
 msgid "Find in Files completed ... successful"
-msgstr "Przeszukiwanie plikÛw zakoÒczone ... powodzeniem"
+msgstr "Przeszukiwanie plik√≥w zako≈Ñczone ... powodzeniem"
 
 #: src/find_in_files_cbs.c:103
 msgid "No input files supplied."
@@ -3505,44 +3505,44 @@ msgstr ""
 
 #: src/find_replace.c:337
 msgid "Do you want to replace this?"
-msgstr "Czy chcesz to zast±piÊ?"
+msgstr "Czy chcesz to zastƒÖpiƒá?"
 
 #: src/find_replace.c:395
 #, c-format
 msgid "The string \"%s\" was not found in the selected text"
-msgstr "Nie odnaleziono w zaznaczonym tek∂cie napisu \"%s\""
+msgstr "Nie odnaleziono w zaznaczonym tek≈õcie napisu \"%s\""
 
 #: src/find_replace.c:400
 #, c-format
 msgid "The string \"%s\" was not found from the current location"
-msgstr "Tekst \"%s\" nie zosta≥ odnaleziony z bieø±cej lokalizacji"
+msgstr "Tekst \"%s\" nie zosta≈Ç odnaleziony z bie≈ºƒÖcej lokalizacji"
 
 #: src/find_text.c:163
 #, c-format
 msgid "The match \"%s\" was not found in the whole document"
-msgstr "Wyraøenie \"%s\" nie zosta≥o odnalezione w ca≥ym dokumencie"
+msgstr "Wyra≈ºenie \"%s\" nie zosta≈Ço odnalezione w ca≈Çym dokumencie"
 
 #: src/find_text.c:168
 #, c-format
 msgid "The match \"%s\" was not found in the selected text"
-msgstr "Wyraøenie \"%s\" nie zosta≥o odnalezione w zaznaczonym bloku tekstu"
+msgstr "Wyra≈ºenie \"%s\" nie zosta≈Ço odnalezione w zaznaczonym bloku tekstu"
 
 #: src/find_text.c:173
 #, c-format
 msgid "The match \"%s\" was not found from the current location"
-msgstr "Wyraøenie \"%s\" nie zosta≥o odnalezione z bieø±cej lokalizacji"
+msgstr "Wyra≈ºenie \"%s\" nie zosta≈Ço odnalezione z bie≈ºƒÖcej lokalizacji"
 
 #: src/find_text.c:196 src/toolbar_callbacks.c:234
 msgid "No matches. Wrap search around the document?"
-msgstr "Brak pasuj±cych wyraøeÒ. PrzejrzeÊ dokument od pocz±tku?"
+msgstr "Brak pasujƒÖcych wyra≈ºe≈Ñ. Przejrzeƒá dokument od poczƒÖtku?"
 
 #: src/glade_iface.c:96 src/glade_iface.c:171
 msgid "Cannot fork glade."
-msgstr "Nie moøna stworzyÊ procesu dla glade."
+msgstr "Nie mo≈ºna stworzyƒá procesu dla glade."
 
 #: src/glade_iface.c:133 src/glade_iface.c:208
 msgid "Cannot fork glade--."
-msgstr "Nie moøna stworzyÊ procesu dla glade--."
+msgstr "Nie mo≈ºna stworzyƒá procesu dla glade--."
 
 #: src/gnome_project.c:62
 #, fuzzy
@@ -3550,7 +3550,7 @@ msgid ""
 "A project or file with the same name.already exists.\n"
 "Project creation aborted."
 msgstr ""
-"Projekt juø istnieje.\n"
+"Projekt ju≈º istnieje.\n"
 "Zrezygnowano ze stworzenia projektu."
 
 #: src/gnome_project.c:78
@@ -3561,7 +3561,7 @@ msgstr "Generowanie projektu ...\n"
 #: src/gnome_project.c:85
 #, c-format
 msgid "Cannot create file: %s"
-msgstr "Nie moøna stworzyÊ pliku: %s"
+msgstr "Nie mo≈ºna stworzyƒá pliku: %s"
 
 #: src/gnome_project.c:154
 #, fuzzy
@@ -3576,20 +3576,20 @@ msgstr "Zapisywanie projektu ...\n"
 #: src/gnome_project.c:173
 #, fuzzy
 msgid "Generating source codes ...\n"
-msgstr "Generacja kodÛw ºrÛd≥owych ...\n"
+msgstr "Generacja kod√≥w ≈∫r√≥d≈Çowych ...\n"
 
 #. Creating icon pixmap file for gnome projects
 #: src/gnome_project.c:179
 msgid "Copying icon file ...\n"
-msgstr "Kopiowanie pliku z ikon± ...\n"
+msgstr "Kopiowanie pliku z ikonƒÖ ...\n"
 
 #: src/gnome_project.c:193
 msgid "Could not create icon file ...\n"
-msgstr "Nie moøna stworzyÊ pliku z ikon± ...\n"
+msgstr "Nie mo≈ºna stworzyƒá pliku z ikonƒÖ ...\n"
 
 #: src/gnome_project.c:207
 msgid "Locating files ...\n"
-msgstr "Lokalizowanie plikÛw ...\n"
+msgstr "Lokalizowanie plik√≥w ...\n"
 
 #: src/gnome_project.c:229
 #, fuzzy
@@ -3611,8 +3611,8 @@ msgid ""
 "The Project was not successfully auto generated.\n"
 "Please run autogen.sh manually."
 msgstr ""
-"Automatyczna generacja projektu nie powiod≥a siÍ.\n"
-"Chyba musisz zrobiÊ to rÍcznie."
+"Automatyczna generacja projektu nie powiod≈Ça siƒô.\n"
+"Chyba musisz zrobiƒá to rƒôcznie."
 
 #: src/gnome_project.c:268
 #, fuzzy
@@ -3620,31 +3620,31 @@ msgid ""
 "Auto generation completed...............Successful\n"
 "Now Build the Project to have a LOOK at it\n"
 msgstr ""
-"Automatyczna generacja zakoÒczona...............powodzeniem\n"
-"Teraz Zbuduj projekt, aby mÛc go obejrzeÊ\n"
+"Automatyczna generacja zako≈Ñczona...............powodzeniem\n"
+"Teraz Zbuduj projekt, aby m√≥c go obejrzeƒá\n"
 
 #: src/gnome_project.c:271
 #, fuzzy
 msgid "Project was successfully auto generated."
-msgstr "Automatyczna generacja projektu powiod≥a siÍ."
+msgstr "Automatyczna generacja projektu powiod≈Ça siƒô."
 
 #: src/goto_line.c:105
 #, fuzzy
 msgid " Goto Line number "
-msgstr " Przej∂cie do wybranego wiersza "
+msgstr " Przej≈õcie do wybranego wiersza "
 
 #: src/launcher.c:371 src/text_editor.c:1225
 msgid "Cannot execute command shell"
-msgstr "Nie moøna wykonaÊ polecena pow≥oki"
+msgstr "Nie mo≈ºna wykonaƒá polecena pow≈Çoki"
 
 #: src/main.c:47
 #, fuzzy
 msgid "Do not show the splashscreen"
-msgstr "Nie wy∂wietla okna powitalnego"
+msgstr "Nie wy≈õwietla okna powitalnego"
 
 #: src/main.c:165
 msgid "Integrated Development Environment"
-msgstr "Zintegrowane ∂rodowisko programistyczne"
+msgstr "Zintegrowane ≈õrodowisko programistyczne"
 
 #: src/main_menubar.c:383
 msgid "Recent Files    "
@@ -3667,7 +3667,7 @@ msgstr "Otwiera plik"
 #. 1
 #: src/main_menubar_def.h:35
 msgid "_Open ..."
-msgstr "_OtwÛrz ..."
+msgstr "_Otw√≥rz ..."
 
 #: src/main_menubar_def.h:36 src/text_editor_gui.c:101 src/toolbar.c:79
 msgid "Open file"
@@ -3680,7 +3680,7 @@ msgstr "_Zapisz"
 
 #: src/main_menubar_def.h:42 src/text_editor_gui.c:107 src/toolbar.c:83
 msgid "Save current file"
-msgstr "Zapisuje bieø±cy plik"
+msgstr "Zapisuje bie≈ºƒÖcy plik"
 
 #. 3
 #: src/main_menubar_def.h:47
@@ -3689,7 +3689,7 @@ msgstr "Z_apisz jako ..."
 
 #: src/main_menubar_def.h:48
 msgid "Save the current file with a different name"
-msgstr "Zapisuje bieø±cy plik pod inn± nazw±"
+msgstr "Zapisuje bie≈ºƒÖcy plik pod innƒÖ nazwƒÖ"
 
 #. 4
 #: src/main_menubar_def.h:53
@@ -3698,7 +3698,7 @@ msgstr "Zapisz _wszystkie"
 
 #: src/main_menubar_def.h:54
 msgid "Save all currently open files, except new files"
-msgstr "Zapisuje wszystkie otwarte pliki, za wyj±tkiem nowych"
+msgstr "Zapisuje wszystkie otwarte pliki, za wyjƒÖtkiem nowych"
 
 #. 5
 #: src/main_menubar_def.h:59
@@ -3707,7 +3707,7 @@ msgstr "Za_mknij plik"
 
 #: src/main_menubar_def.h:60 src/toolbar.c:91
 msgid "Close current file"
-msgstr "Zamyka bieø±cy plik"
+msgstr "Zamyka bie≈ºƒÖcy plik"
 
 #. 6
 #: src/main_menubar_def.h:65
@@ -3721,11 +3721,11 @@ msgstr "Zamyka wszystkie pliki"
 #. 7
 #: src/main_menubar_def.h:71
 msgid "Reload F_ile"
-msgstr "P_rze≥aduj plik"
+msgstr "P_rze≈Çaduj plik"
 
 #: src/main_menubar_def.h:72 src/text_editor_gui.c:112 src/toolbar.c:87
 msgid "Reload current file"
-msgstr "Ponownie odczytuje bieø±cy plik"
+msgstr "Ponownie odczytuje bie≈ºƒÖcy plik"
 
 #. 8
 #. 9
@@ -3736,7 +3736,7 @@ msgstr "N_owy projekt..."
 #: src/main_menubar_def.h:79
 #, fuzzy
 msgid "Create a Project using the Application Wizard"
-msgstr "Tworzy nowy projekt przy uøyciu druida aplikacji"
+msgstr "Tworzy nowy projekt przy u≈ºyciu druida aplikacji"
 
 #. 10
 #: src/main_menubar_def.h:84
@@ -3751,7 +3751,7 @@ msgstr ""
 #. 11
 #: src/main_menubar_def.h:90
 msgid "Open P_roject ..."
-msgstr "O_twÛrz projekt..."
+msgstr "O_tw√≥rz projekt..."
 
 #: src/main_menubar_def.h:91 src/toolbar.c:213
 msgid "Open a Project"
@@ -3764,7 +3764,7 @@ msgstr "Zapisz proj_ekt"
 
 #: src/main_menubar_def.h:97 src/toolbar.c:224
 msgid "Save the current Project"
-msgstr "Zapisuje bieø±cy projekt"
+msgstr "Zapisuje bie≈ºƒÖcy projekt"
 
 #. 13
 #: src/main_menubar_def.h:102
@@ -3773,17 +3773,17 @@ msgstr "Za_mknij projekt"
 
 #: src/main_menubar_def.h:103 src/toolbar.c:236
 msgid "Close the current Project"
-msgstr "Zamyka bieø±cy projekt"
+msgstr "Zamyka bie≈ºƒÖcy projekt"
 
 #. 14
 #. 15
 #: src/main_menubar_def.h:109
 msgid "Rena_me ..."
-msgstr "Zm_ieÒ nazwÍ ..."
+msgstr "Zm_ie≈Ñ nazwƒô ..."
 
 #: src/main_menubar_def.h:110
 msgid "Rename the current file"
-msgstr "Zmienia nazwÍ bieø±cego pliku"
+msgstr "Zmienia nazwƒô bie≈ºƒÖcego pliku"
 
 #. 16
 #. 17
@@ -3803,7 +3803,7 @@ msgstr "Wydrukuj"
 
 #: src/main_menubar_def.h:123 src/text_editor_gui.c:179 src/toolbar.c:109
 msgid "Print the current file"
-msgstr "Drukuje bieø±cy plik"
+msgstr "Drukuje bie≈ºƒÖcy plik"
 
 #. 19
 #: src/main_menubar_def.h:128
@@ -3813,7 +3813,7 @@ msgstr ""
 #: src/main_menubar_def.h:129
 #, fuzzy
 msgid "Print preview of the current file"
-msgstr "Drukuje bieø±cy plik"
+msgstr "Drukuje bie≈ºƒÖcy plik"
 
 #. 20
 #. 21
@@ -3829,20 +3829,20 @@ msgstr "Ostatnie projek_ty"
 #. 0
 #: src/main_menubar_def.h:155
 msgid "_Make Selection Uppercase"
-msgstr "_Duøe litery w zaznaczonym tek∂cie"
+msgstr "_Du≈ºe litery w zaznaczonym tek≈õcie"
 
 #: src/main_menubar_def.h:156
 msgid "Make the selected text uppercase"
-msgstr "Zapisuje zaznaczony tekst duøymi literami"
+msgstr "Zapisuje zaznaczony tekst du≈ºymi literami"
 
 #. 1
 #: src/main_menubar_def.h:162
 msgid "Make Selection Lowercase"
-msgstr "Ma≥e litery w zaznaczonym tek∂cie"
+msgstr "Ma≈Çe litery w zaznaczonym tek≈õcie"
 
 #: src/main_menubar_def.h:163
 msgid "Make the selected text lowercase"
-msgstr "Zapisuje zaznaczony tekst ma≥ymi literami"
+msgstr "Zapisuje zaznaczony tekst ma≈Çymi literami"
 
 #. 3
 #: src/main_menubar_def.h:171
@@ -3853,7 +3853,7 @@ msgstr "Przekonwertuj znaki EOL na LF"
 #: src/main_menubar_def.h:172
 #, fuzzy
 msgid "Convert End Of Line characters to DOS EOL (CRLF)"
-msgstr "Konwertuje znaki koÒca wiersza na standard uniksowy (znak LF)"
+msgstr "Konwertuje znaki ko≈Ñca wiersza na standard uniksowy (znak LF)"
 
 #. 4
 #: src/main_menubar_def.h:178
@@ -3863,7 +3863,7 @@ msgstr "Przekonwertuj znaki EOL na LF"
 #: src/main_menubar_def.h:179
 #, fuzzy
 msgid "Convert End Of Line characters to Unix EOL (LF)"
-msgstr "Konwertuje znaki koÒca wiersza na standard uniksowy (znak LF)"
+msgstr "Konwertuje znaki ko≈Ñca wiersza na standard uniksowy (znak LF)"
 
 #. 5
 #: src/main_menubar_def.h:185
@@ -3874,7 +3874,7 @@ msgstr "Przekonwertuj znaki EOL na LF"
 #: src/main_menubar_def.h:186
 #, fuzzy
 msgid "Convert End Of Line characters to Mac OS EOL (CR)"
-msgstr "Konwertuje znaki koÒca wiersza na standard uniksowy (znak LF)"
+msgstr "Konwertuje znaki ko≈Ñca wiersza na standard uniksowy (znak LF)"
 
 #. 6
 #: src/main_menubar_def.h:192
@@ -3885,7 +3885,7 @@ msgstr "Przekonwertuj znaki EOL na LF"
 #: src/main_menubar_def.h:193
 #, fuzzy
 msgid "Convert End Of Line characters to majority of the EOL found in the file"
-msgstr "Konwertuje znaki koÒca wiersza na standard uniksowy (znak LF)"
+msgstr "Konwertuje znaki ko≈Ñca wiersza na standard uniksowy (znak LF)"
 
 #. 0
 #: src/main_menubar_def.h:204
@@ -3894,7 +3894,7 @@ msgstr "Zaznacz w_szystko"
 
 #: src/main_menubar_def.h:205
 msgid "Select all text in the editor"
-msgstr "Zaznaczna ca≥y tekst w edytorze"
+msgstr "Zaznaczna ca≈Çy tekst w edytorze"
 
 #. 1
 #: src/main_menubar_def.h:210
@@ -3903,7 +3903,7 @@ msgstr "Zaznacz do _nawiasu"
 
 #: src/main_menubar_def.h:211
 msgid "Select the text in the matching braces"
-msgstr "Zaznacza tekst pomiÍdzy pasuj±cymi nawiasami"
+msgstr "Zaznacza tekst pomiƒôdzy pasujƒÖcymi nawiasami"
 
 #. 2
 #: src/main_menubar_def.h:216
@@ -3912,7 +3912,7 @@ msgstr "Zaznacz blok kodu"
 
 #: src/main_menubar_def.h:217
 msgid "Select the current code block"
-msgstr "Zaznacza bieø±cy blok kodu"
+msgstr "Zaznacza bie≈ºƒÖcy blok kodu"
 
 #. 0
 #: src/main_menubar_def.h:227
@@ -3921,7 +3921,7 @@ msgstr "/* Notka GPL */"
 
 #: src/main_menubar_def.h:228
 msgid "Insert GPL notice with C style comments"
-msgstr "Wstawia notkÍ GPL (GNU Public Licence) z komentarzami jÍzyka C"
+msgstr "Wstawia notkƒô GPL (GNU Public Licence) z komentarzami jƒôzyka C"
 
 #. 1
 #: src/main_menubar_def.h:233
@@ -3930,7 +3930,7 @@ msgstr "// Notka GPL"
 
 #: src/main_menubar_def.h:234
 msgid "Insert GPL notice with C++ style comments"
-msgstr "Wstawia notkÍ GPL (GNU Public Licence) z komentarzami jÍzyka C++"
+msgstr "Wstawia notkƒô GPL (GNU Public Licence) z komentarzami jƒôzyka C++"
 
 #. 2
 #: src/main_menubar_def.h:239
@@ -3941,27 +3941,27 @@ msgstr "// Notka GPL"
 #: src/main_menubar_def.h:240
 #, fuzzy
 msgid "Insert GPL notice with Python style comments"
-msgstr "Wstawia notkÍ GPL (GNU Public Licence) z komentarzami jÍzyka C"
+msgstr "Wstawia notkƒô GPL (GNU Public Licence) z komentarzami jƒôzyka C"
 
 #. 3
 #: src/main_menubar_def.h:245
 #, fuzzy
 msgid "Current Username"
-msgstr "Informacje o _bieø±cej ramce"
+msgstr "Informacje o _bie≈ºƒÖcej ramce"
 
 #: src/main_menubar_def.h:246
 #, fuzzy
 msgid "Insert name of current user"
-msgstr "Zmienia nazwÍ bieø±cego pliku"
+msgstr "Zmienia nazwƒô bie≈ºƒÖcego pliku"
 
 #. 4
 #: src/main_menubar_def.h:251
 msgid "Current Date & Time"
-msgstr "Bieø±ca data & czas"
+msgstr "Bie≈ºƒÖca data & czas"
 
 #: src/main_menubar_def.h:252
 msgid "Insert current date & time"
-msgstr "Wstawia bieø±c± datÍ & czas"
+msgstr "Wstawia bie≈ºƒÖcƒÖ datƒô & czas"
 
 #. 5
 #: src/main_menubar_def.h:257
@@ -4035,7 +4035,7 @@ msgstr ""
 #: src/main_menubar_def.h:356
 #, fuzzy
 msgid "Header"
-msgstr "Nag≥Ûwki"
+msgstr "Nag≈Ç√≥wki"
 
 #: src/main_menubar_def.h:357
 msgid "Insert a file header"
@@ -4064,7 +4064,7 @@ msgstr ""
 #: src/main_menubar_def.h:386
 #, fuzzy
 msgid "Block comment the selected text"
-msgstr "Zapisuje zaznaczony tekst duøymi literami"
+msgstr "Zapisuje zaznaczony tekst du≈ºymi literami"
 
 #. 1
 #: src/main_menubar_def.h:391
@@ -4075,7 +4075,7 @@ msgstr "Komentarz:"
 #: src/main_menubar_def.h:392
 #, fuzzy
 msgid "Box comment the selected text"
-msgstr "Zapisuje zaznaczony tekst duøymi literami"
+msgstr "Zapisuje zaznaczony tekst du≈ºymi literami"
 
 #. 2
 #: src/main_menubar_def.h:397
@@ -4086,22 +4086,22 @@ msgstr "Komentarz:"
 #: src/main_menubar_def.h:398
 #, fuzzy
 msgid "Stream comment the selected text"
-msgstr "Zapisuje zaznaczony tekst duøymi literami"
+msgstr "Zapisuje zaznaczony tekst du≈ºymi literami"
 
 #. 0
 #: src/main_menubar_def.h:408
 msgid "_Find ..."
-msgstr "Z_najdº ..."
+msgstr "Z_najd≈∫ ..."
 
 #: src/main_menubar_def.h:409
 #, fuzzy
 msgid "Search for a string or regular expression in the editor"
-msgstr "Szuka ci±gu znakÛw lub wyraøeÒ regularnych w edytorze"
+msgstr "Szuka ciƒÖgu znak√≥w lub wyra≈ºe≈Ñ regularnych w edytorze"
 
 #. 1
 #: src/main_menubar_def.h:415
 msgid "Find _Next"
-msgstr "Znaj_dº nastÍpny"
+msgstr "Znaj_d≈∫ nastƒôpny"
 
 #: src/main_menubar_def.h:416
 #, fuzzy
@@ -4111,23 +4111,23 @@ msgstr "Powtarza ostatnie polecenie przeszukiwania"
 #. 2
 #: src/main_menubar_def.h:422
 msgid "Find and R_eplace ..."
-msgstr "Znajdº i za_mieÒ ..."
+msgstr "Znajd≈∫ i za_mie≈Ñ ..."
 
 #: src/main_menubar_def.h:423
 #, fuzzy
 msgid ""
 "Search for and replace a string or regular expression with another string"
-msgstr "Szuka i zamienia ci±g znakÛw lub wyraøenie regularne na inny ci±g"
+msgstr "Szuka i zamienia ciƒÖg znak√≥w lub wyra≈ºenie regularne na inny ciƒÖg"
 
 #. 3
 #: src/main_menubar_def.h:429
 #, fuzzy
 msgid "Fin_d in Files ..."
-msgstr "Znajdº w plikac_h ..."
+msgstr "Znajd≈∫ w plikac_h ..."
 
 #: src/main_menubar_def.h:430
 msgid "Search for a string in multiple files or directories"
-msgstr "Szuka ci±gÛw znakÛw w wielu plikach lub katalogach"
+msgstr "Szuka ciƒÖg√≥w znak√≥w w wielu plikach lub katalogach"
 
 #. 4
 #: src/main_menubar_def.h:436
@@ -4143,7 +4143,7 @@ msgstr "Usuwa zaznaczony tekst z edytora"
 #: src/main_menubar_def.h:448
 #, fuzzy
 msgid "_Goto Line number ..."
-msgstr "Przejdº do wybranego _wiersza ..."
+msgstr "Przejd≈∫ do wybranego _wiersza ..."
 
 #: src/main_menubar_def.h:449
 msgid "Go to a particular line in the editor"
@@ -4152,34 +4152,34 @@ msgstr "Przechodzi do wiersza o podanym numerze"
 #. 1
 #: src/main_menubar_def.h:454
 msgid "Goto Matching _Brace"
-msgstr "Przejdº do pasuj±cego _nawiasu"
+msgstr "Przejd≈∫ do pasujƒÖcego _nawiasu"
 
 #: src/main_menubar_def.h:455
 msgid "Go to the matching brace in the editor"
-msgstr "Przechodzi do pasuj±cego nawiasu w edytorze"
+msgstr "Przechodzi do pasujƒÖcego nawiasu w edytorze"
 
 #. 2
 #: src/main_menubar_def.h:460
 msgid "_Goto start of block"
-msgstr "Przejdº na pocz±tek _bloku"
+msgstr "Przejd≈∫ na poczƒÖtek _bloku"
 
 #: src/main_menubar_def.h:461
 msgid "Go to the start of the current block"
-msgstr "Przechodzi na pocz±tek bieø±cego bloku"
+msgstr "Przechodzi na poczƒÖtek bie≈ºƒÖcego bloku"
 
 #. 3
 #: src/main_menubar_def.h:466
 msgid "_Goto end of block"
-msgstr "Przejdº na koniec b_loku"
+msgstr "Przejd≈∫ na koniec b_loku"
 
 #: src/main_menubar_def.h:467
 msgid "Go to the end of the current block"
-msgstr "Przechodzi na koniec bieø±cego bloku"
+msgstr "Przechodzi na koniec bie≈ºƒÖcego bloku"
 
 #. 4
 #: src/main_menubar_def.h:472
 msgid "_Goto previous mesg"
-msgstr "Przejdº do poprzedniego _komunikatu"
+msgstr "Przejd≈∫ do poprzedniego _komunikatu"
 
 #: src/main_menubar_def.h:473
 msgid "Go to previous message"
@@ -4188,11 +4188,11 @@ msgstr "Przechodzi do poprzedniego komunikatu"
 #. 5
 #: src/main_menubar_def.h:478
 msgid "_Goto next mesg"
-msgstr "Przejdº do nastÍpnego k_omunikatu"
+msgstr "Przejd≈∫ do nastƒôpnego k_omunikatu"
 
 #: src/main_menubar_def.h:479
 msgid "Go to next message"
-msgstr "Przechodzi do nastÍpnego komunikatu"
+msgstr "Przechodzi do nastƒôpnego komunikatu"
 
 #. 6
 #: src/main_menubar_def.h:484
@@ -4208,12 +4208,12 @@ msgstr ""
 #: src/main_menubar_def.h:490
 #, fuzzy
 msgid "_Go Forward"
-msgstr "NaprzÛd"
+msgstr "Naprz√≥d"
 
 #: src/main_menubar_def.h:491
 #, fuzzy
 msgid "Go forward"
-msgstr "NaprzÛd"
+msgstr "Naprz√≥d"
 
 #. 8
 #: src/main_menubar_def.h:496 src/text_editor_menu.c:93
@@ -4262,16 +4262,16 @@ msgstr "_Cofnij"
 
 #: src/main_menubar_def.h:527 src/toolbar.c:96
 msgid "Undo the last action"
-msgstr "Cofa ostatni± czynno∂Ê"
+msgstr "Cofa ostatniƒÖ czynno≈õƒá"
 
 #. 1
 #: src/main_menubar_def.h:533
 msgid "_Redo"
-msgstr "_PonÛw"
+msgstr "_Pon√≥w"
 
 #: src/main_menubar_def.h:534 src/toolbar.c:100
 msgid "Redo the last undone action"
-msgstr "Ponawia ostatnio cofniÍt± akcjÍ"
+msgstr "Ponawia ostatnio cofniƒôtƒÖ akcjƒô"
 
 #. 2
 #. 3
@@ -4299,12 +4299,12 @@ msgstr "Wk_lej"
 
 #: src/main_menubar_def.h:557
 msgid "Paste the content of clipboard at the current position"
-msgstr "Wkleja zawarto∂Ê schowka do bieø±cej pozycji dokumentu"
+msgstr "Wkleja zawarto≈õƒá schowka do bie≈ºƒÖcej pozycji dokumentu"
 
 #. 6
 #: src/main_menubar_def.h:563
 msgid "C_lear"
-msgstr "Wyc_zy∂Ê"
+msgstr "Wyc_zy≈õƒá"
 
 #: src/main_menubar_def.h:564
 msgid "Delete the selected text from the editor"
@@ -4314,7 +4314,7 @@ msgstr "Usuwa zaznaczony tekst z edytora"
 #. 8
 #: src/main_menubar_def.h:572
 msgid "_Transform"
-msgstr "P_rzekszta≥Ê"
+msgstr "P_rzekszta≈Çƒá"
 
 #. 9
 #: src/main_menubar_def.h:579
@@ -4341,26 +4341,26 @@ msgstr "Przeszukiwanie pomocy"
 #. 13
 #: src/main_menubar_def.h:605
 msgid "G_o to"
-msgstr "Przejdº d_o"
+msgstr "Przejd≈∫ d_o"
 
 #. 14
 #. 15
 #: src/main_menubar_def.h:614
 msgid "_AutoComplete"
-msgstr "Uzupe≥nij au_tomatycznie"
+msgstr "Uzupe≈Çnij au_tomatycznie"
 
 #: src/main_menubar_def.h:615
 msgid "AutoComplete the current word"
-msgstr "Autouzupe≥nia aktualne s≥owo"
+msgstr "Autouzupe≈Çnia aktualne s≈Çowo"
 
 #. 16
 #: src/main_menubar_def.h:621
 msgid "S_how calltip"
-msgstr "Wy∂wi_etl podpowiedº"
+msgstr "Wy≈õwi_etl podpowied≈∫"
 
 #: src/main_menubar_def.h:622
 msgid "Show calltip for the function"
-msgstr "Pokazuje podpowiedº dla funkcji"
+msgstr "Pokazuje podpowied≈∫ dla funkcji"
 
 #. 17
 #: src/main_menubar_def.h:628
@@ -4371,25 +4371,25 @@ msgstr "Wyszukiwanie i zmiana"
 #: src/main_menubar_def.h:629
 #, fuzzy
 msgid "New Search And Replace stuff"
-msgstr "Wyszukuje i zastÍpuje zadany tekst"
+msgstr "Wyszukuje i zastƒôpuje zadany tekst"
 
 #. 0
 #: src/main_menubar_def.h:640
 msgid "_Main Toolbar"
-msgstr "_G≥owny pasek narzÍdziowy"
+msgstr "_G≈Çowny pasek narzƒôdziowy"
 
 #: src/main_menubar_def.h:641
 msgid "Hide/Unhide Main toolbar"
-msgstr "Ukrywa/Wy∂wietla g≥Ûwny pasek narzÍdziowy"
+msgstr "Ukrywa/Wy≈õwietla g≈Ç√≥wny pasek narzƒôdziowy"
 
 #. 1
 #: src/main_menubar_def.h:646
 msgid "_Extended Toolbar"
-msgstr "Rozsz_erzony pasek narzÍdzi"
+msgstr "Rozsz_erzony pasek narzƒôdzi"
 
 #: src/main_menubar_def.h:647
 msgid "Hide/Unhide Extended toolbar"
-msgstr "Pokazuje/ukrywa rozszerzony pasek narzÍdzi"
+msgstr "Pokazuje/ukrywa rozszerzony pasek narzƒôdzi"
 
 #. 2
 #: src/main_menubar_def.h:652
@@ -4416,7 +4416,7 @@ msgstr "Pasek _formatowania"
 
 #: src/main_menubar_def.h:665
 msgid "Hide/Unhide Format toolbar"
-msgstr "Ukrywa/Pokazuje pasek narzÍdzi formatowania"
+msgstr "Ukrywa/Pokazuje pasek narzƒôdzi formatowania"
 
 #. 0
 #: src/main_menubar_def.h:675
@@ -4434,7 +4434,7 @@ msgstr "Znaczniki na _marginesie"
 
 #: src/main_menubar_def.h:682
 msgid "Show/Hide markers margin"
-msgstr "Wy∂wietla/ukrywa znaczniki na marginesie"
+msgstr "Wy≈õwietla/ukrywa znaczniki na marginesie"
 
 #. 2
 #: src/main_menubar_def.h:687
@@ -4443,17 +4443,17 @@ msgstr "Margines sekcji _kodu"
 
 #: src/main_menubar_def.h:688
 msgid "Show/Hide code fold margin"
-msgstr "Wy∂wietla/ukrywa margines sekcji kodu"
+msgstr "Wy≈õwietla/ukrywa margines sekcji kodu"
 
 #. 3
 #: src/main_menubar_def.h:693
 msgid "_Indentation guides"
-msgstr "Prowadnice _wciÍÊ"
+msgstr "Prowadnice _wciƒôƒá"
 
 #: src/main_menubar_def.h:694
 #, fuzzy
 msgid "Show/Hide indentation guides"
-msgstr "Prze≥±cza wy∂wietlanie prowadnic wciÍÊ"
+msgstr "Prze≈ÇƒÖcza wy≈õwietlanie prowadnic wciƒôƒá"
 
 #. 4
 #: src/main_menubar_def.h:699
@@ -4462,16 +4462,16 @@ msgstr "_Widzialne spacje"
 
 #: src/main_menubar_def.h:700
 msgid "Show/Hide white spaces"
-msgstr "Wy∂wietla/ukrywa widzialne spacje"
+msgstr "Wy≈õwietla/ukrywa widzialne spacje"
 
 #. 5
 #: src/main_menubar_def.h:705
 msgid "_Line end characters"
-msgstr "Znaki koÒ_ca wiersza"
+msgstr "Znaki ko≈Ñ_ca wiersza"
 
 #: src/main_menubar_def.h:706
 msgid "Show/Hide line end characters"
-msgstr "Wy∂wietla/ukrywa znaki koÒca wiersza"
+msgstr "Wy≈õwietla/ukrywa znaki ko≈Ñca wiersza"
 
 #. 6
 #: src/main_menubar_def.h:711
@@ -4485,11 +4485,11 @@ msgstr ""
 #. 0
 #: src/main_menubar_def.h:722
 msgid "++ Zoom"
-msgstr "++ PowiÍkszenie"
+msgstr "++ Powiƒôkszenie"
 
 #: src/main_menubar_def.h:723
 msgid "Increase text zoom by 1 unit"
-msgstr "ZwiÍksza rozmiar tekstu o 1 jednostkÍ"
+msgstr "Zwiƒôksza rozmiar tekstu o 1 jednostkƒô"
 
 #. 1
 #: src/main_menubar_def.h:728
@@ -4498,7 +4498,7 @@ msgstr "+8"
 
 #: src/main_menubar_def.h:729
 msgid "Zoom factor +8"
-msgstr "WspÛ≥czynnik powiÍkszenia +8"
+msgstr "Wsp√≥≈Çczynnik powiƒôkszenia +8"
 
 #. 2
 #: src/main_menubar_def.h:734
@@ -4507,7 +4507,7 @@ msgstr "+6"
 
 #: src/main_menubar_def.h:735
 msgid "Zoom factor +6"
-msgstr "WspÛ≥czynnik powiÍkszenia +6"
+msgstr "Wsp√≥≈Çczynnik powiƒôkszenia +6"
 
 #. 3
 #: src/main_menubar_def.h:740
@@ -4516,7 +4516,7 @@ msgstr "+4"
 
 #: src/main_menubar_def.h:741
 msgid "Zoom factor +4"
-msgstr "WspÛ≥czynnik powiÍkszenia +4"
+msgstr "Wsp√≥≈Çczynnik powiƒôkszenia +4"
 
 #. 4
 #: src/main_menubar_def.h:746
@@ -4525,11 +4525,11 @@ msgstr "+2"
 
 #: src/main_menubar_def.h:747
 msgid "Zoom factor +2"
-msgstr "WspÛ≥czynnik powiÍkszenia +2"
+msgstr "Wsp√≥≈Çczynnik powiƒôkszenia +2"
 
 #: src/main_menubar_def.h:753
 msgid "Zoom factor 0"
-msgstr "WspÛ≥czynnik powiÍkszenia 0"
+msgstr "Wsp√≥≈Çczynnik powiƒôkszenia 0"
 
 #. 6
 #: src/main_menubar_def.h:758
@@ -4538,7 +4538,7 @@ msgstr "-2"
 
 #: src/main_menubar_def.h:759
 msgid "Zoom factor -2"
-msgstr "WspÛ≥czynnik powiÍkszenia -2"
+msgstr "Wsp√≥≈Çczynnik powiƒôkszenia -2"
 
 #. 7
 #: src/main_menubar_def.h:764
@@ -4547,7 +4547,7 @@ msgstr "-4"
 
 #: src/main_menubar_def.h:765
 msgid "Zoom factor -4"
-msgstr "WspÛ≥czynnik powiÍkszenia -4"
+msgstr "Wsp√≥≈Çczynnik powiƒôkszenia -4"
 
 #. 8
 #: src/main_menubar_def.h:770
@@ -4556,7 +4556,7 @@ msgstr "-6"
 
 #: src/main_menubar_def.h:771
 msgid "Zoom factor -6"
-msgstr "WspÛ≥czynnik powiÍkszenia -6"
+msgstr "Wsp√≥≈Çczynnik powiƒôkszenia -6"
 
 #. 9
 #: src/main_menubar_def.h:776
@@ -4565,7 +4565,7 @@ msgstr "-8"
 
 #: src/main_menubar_def.h:777
 msgid "Zoom factor -8"
-msgstr "WspÛ≥czynnik powiÍkszenia -8"
+msgstr "Wsp√≥≈Çczynnik powiƒôkszenia -8"
 
 #. 10
 #: src/main_menubar_def.h:782
@@ -4574,7 +4574,7 @@ msgstr "-- Pomniejszenie"
 
 #: src/main_menubar_def.h:783
 msgid "Reduce text zoom by 1 unit"
-msgstr "Zmniejszenie wspÛ≥czynnika wymiaru tekstu o 1 jednostkÍ"
+msgstr "Zmniejszenie wsp√≥≈Çczynnika wymiaru tekstu o 1 jednostkƒô"
 
 #. 0
 #: src/main_menubar_def.h:793
@@ -4584,7 +4584,7 @@ msgstr "_Komunikaty"
 
 #: src/main_menubar_def.h:794 src/toolbar.c:153
 msgid "Show/Hide the Message window"
-msgstr "Wy∂wietla/ukrywa okno komunikatÛw"
+msgstr "Wy≈õwietla/ukrywa okno komunikat√≥w"
 
 #. 1
 #: src/main_menubar_def.h:799
@@ -4594,22 +4594,22 @@ msgstr "Informacje o projekcie"
 
 #: src/main_menubar_def.h:800 src/toolbar.c:149
 msgid "Show/Hide the Project window"
-msgstr "Wy∂wietla/ukrywa okno projektu"
+msgstr "Wy≈õwietla/ukrywa okno projektu"
 
 #. 2
 #: src/main_menubar_def.h:805
 msgid "B_ookmarks"
-msgstr "Zak≥a_dki"
+msgstr "Zak≈Ça_dki"
 
 #: src/main_menubar_def.h:806
 msgid "Show the Bookmark window"
-msgstr "Wy∂wietla okno zak≥adek"
+msgstr "Wy≈õwietla okno zak≈Çadek"
 
 #. 3
 #. 4
 #: src/main_menubar_def.h:812
 msgid "_Toolbars"
-msgstr "Pa_sek narzÍdzi"
+msgstr "Pa_sek narzƒôdzi"
 
 #. 5
 #: src/main_menubar_def.h:818
@@ -4629,7 +4629,7 @@ msgstr "Pr_zerwania"
 
 #: src/main_menubar_def.h:832
 msgid "Show breakpoints editor window"
-msgstr "Wy∂wietla okno edytora punktÛw przerwania"
+msgstr "Wy≈õwietla okno edytora punkt√≥w przerwania"
 
 #. 9
 #: src/main_menubar_def.h:837
@@ -4639,7 +4639,7 @@ msgstr "Okno obserwacji"
 
 #: src/main_menubar_def.h:838
 msgid "Show expression watch window"
-msgstr "Wy∂wietla okno obserwacji wyraøenia"
+msgstr "Wy≈õwietla okno obserwacji wyra≈ºenia"
 
 #. 10
 #: src/main_menubar_def.h:843
@@ -4648,7 +4648,7 @@ msgstr "_Rejestry"
 
 #: src/main_menubar_def.h:844
 msgid "Show CPU registers and their contents"
-msgstr "Wy∂wietla rejestry procesora (CPU) oraz ich zawarto∂Ê"
+msgstr "Wy≈õwietla rejestry procesora (CPU) oraz ich zawarto≈õƒá"
 
 #. 11
 #: src/main_menubar_def.h:849
@@ -4657,7 +4657,7 @@ msgstr "_Stos programu"
 
 #: src/main_menubar_def.h:850
 msgid "Show stack trace of the program"
-msgstr "Wy∂wietla stan stosu programu"
+msgstr "Wy≈õwietla stan stosu programu"
 
 #. 12
 #: src/main_menubar_def.h:855
@@ -4666,16 +4666,16 @@ msgstr "Bib_lioteki dzielone"
 
 #: src/main_menubar_def.h:856
 msgid "Show shared libraries loaded by the program"
-msgstr "Wy∂wietla listÍ bibliotek dzielonych za≥adowanych przez program"
+msgstr "Wy≈õwietla listƒô bibliotek dzielonych za≈Çadowanych przez program"
 
 #. 13
 #: src/main_menubar_def.h:861
 msgid "_Kernel Signals"
-msgstr "_Sygna≥y j±dra systemu"
+msgstr "_Sygna≈Çy jƒÖdra systemu"
 
 #: src/main_menubar_def.h:862
 msgid "Show the kernel signals editor window"
-msgstr "Wy∂wietla okno edytora sygna≥Ûw j±dra systemu"
+msgstr "Wy≈õwietla okno edytora sygna≈Ç√≥w jƒÖdra systemu"
 
 #. 14
 #: src/main_menubar_def.h:867
@@ -4684,7 +4684,7 @@ msgstr "Okno z_rzutu"
 
 #: src/main_menubar_def.h:868
 msgid "Show memory dump window"
-msgstr "Wy∂wietla okno zrzutu pamiÍci"
+msgstr "Wy≈õwietla okno zrzutu pamiƒôci"
 
 #. 15
 #. 16
@@ -4694,27 +4694,27 @@ msgstr "_Konsola"
 
 #: src/main_menubar_def.h:875
 msgid "Show the console where the program runs"
-msgstr "Wy∂wietla konsolÍ, na ktÛrej program dzia≥a"
+msgstr "Wy≈õwietla konsolƒô, na kt√≥rej program dzia≈Ça"
 
 #. 17
 #: src/main_menubar_def.h:880
 msgid "Show _Locals"
-msgstr "Pokaø zmienne _lokalne"
+msgstr "Poka≈º zmienne _lokalne"
 
 #: src/main_menubar_def.h:881
 #, fuzzy
 msgid "Show/Hide Local variables in Message window"
-msgstr "Wy∂wietla/ukrywa zmienne lokalne w oknie komunikatÛw"
+msgstr "Wy≈õwietla/ukrywa zmienne lokalne w oknie komunikat√≥w"
 
 #. 0
 #: src/main_menubar_def.h:891 src/project_dbase_gui.c:268
 msgid "Include file"
-msgstr "Do≥±cz plik"
+msgstr "Do≈ÇƒÖcz plik"
 
 #. 1
 #: src/main_menubar_def.h:897 src/project_dbase_gui.c:274
 msgid "Source file"
-msgstr "Plik ºrÛd≥owy"
+msgstr "Plik ≈∫r√≥d≈Çowy"
 
 #. 2
 #: src/main_menubar_def.h:903 src/project_dbase_gui.c:280
@@ -4734,7 +4734,7 @@ msgstr "Plik obrazu"
 #. 5
 #: src/main_menubar_def.h:921 src/project_dbase_gui.c:298
 msgid "Translation file"
-msgstr "Plik t≥umaczenia"
+msgstr "Plik t≈Çumaczenia"
 
 #. 6
 #: src/main_menubar_def.h:927 src/project_dbase_gui.c:304
@@ -4751,7 +4751,7 @@ msgstr "Plik"
 #: src/main_menubar_def.h:956
 #, fuzzy
 msgid "Remove File"
-msgstr "UsuÒ"
+msgstr "Usu≈Ñ"
 
 #. 4
 #. 5
@@ -4762,7 +4762,7 @@ msgstr ""
 #: src/main_menubar_def.h:964
 #, fuzzy
 msgid "Configure options for the current Project"
-msgstr "Zamyka bieø±cy projekt"
+msgstr "Zamyka bie≈ºƒÖcy projekt"
 
 #. 6
 #: src/main_menubar_def.h:969 src/project_dbase_gui.c:345
@@ -4772,29 +4772,29 @@ msgstr "Informacje o projekcie"
 #: src/main_menubar_def.h:970
 #, fuzzy
 msgid "Display the Project information"
-msgstr "Wy∂wietla informacje o bieø±cej ramce"
+msgstr "Wy≈õwietla informacje o bie≈ºƒÖcej ramce"
 
 #. 9
 #. 10
 #: src/main_menubar_def.h:983
 msgid "_Update tags image"
-msgstr "_Uaktualnij obraz znacznikÛw"
+msgstr "_Uaktualnij obraz znacznik√≥w"
 
 #: src/main_menubar_def.h:984
 #, fuzzy
 msgid "Update the tags image of the Project/opened files"
-msgstr "Uaktualnia obraz znacznikÛw projektu/otwartych plikÛw"
+msgstr "Uaktualnia obraz znacznik√≥w projektu/otwartych plik√≥w"
 
 #. 11
 #: src/main_menubar_def.h:989
 #, fuzzy
 msgid "Rebuild tags image"
-msgstr "_Uaktualnij obraz znacznikÛw"
+msgstr "_Uaktualnij obraz znacznik√≥w"
 
 #: src/main_menubar_def.h:990
 #, fuzzy
 msgid "Rebuild the tags image of the Project"
-msgstr "Uaktualnia obraz znacznikÛw projektu/otwartych plikÛw"
+msgstr "Uaktualnia obraz znacznik√≥w projektu/otwartych plik√≥w"
 
 #. 12
 #: src/main_menubar_def.h:995
@@ -4803,7 +4803,7 @@ msgstr "Zmodyfikuj _GUI aplikacji..."
 
 #: src/main_menubar_def.h:996
 msgid "Edit application GUI with the Glade GUI editor"
-msgstr "Modyfikuje GUI aplikacji za pomoc± Glade"
+msgstr "Modyfikuje GUI aplikacji za pomocƒÖ Glade"
 
 #. 0
 #: src/main_menubar_def.h:1013
@@ -4812,17 +4812,17 @@ msgstr "Automatycznie"
 
 #: src/main_menubar_def.h:1014
 msgid "Automatically determine the highlight style"
-msgstr "Automatyczne ustawianie stylu pod∂wietlania"
+msgstr "Automatyczne ustawianie stylu pod≈õwietlania"
 
 #. 1
 #: src/main_menubar_def.h:1019
 msgid "No Highlight style"
-msgstr "Brak stylu pod∂wietlania"
+msgstr "Brak stylu pod≈õwietlania"
 
 #: src/main_menubar_def.h:1020
 #, fuzzy
 msgid "Remove the current highlight style"
-msgstr "Zmienia nazwÍ bieø±cego pliku"
+msgstr "Zmienia nazwƒô bie≈ºƒÖcego pliku"
 
 #. 2
 #: src/main_menubar_def.h:1025
@@ -4831,7 +4831,7 @@ msgstr "C oraz C++"
 
 #: src/main_menubar_def.h:1026
 msgid "Force the highlight style to C and C++"
-msgstr "Wymusza styl pod∂wietlania sk≥adni dla C oraz C++"
+msgstr "Wymusza styl pod≈õwietlania sk≈Çadni dla C oraz C++"
 
 #. 3
 #: src/main_menubar_def.h:1031
@@ -4840,7 +4840,7 @@ msgstr "C oraz C++ z GNOME"
 
 #: src/main_menubar_def.h:1032
 msgid "Force the highlight style to C and C++ with GNOME"
-msgstr "Wymusza styl pod∂wietlania sk≥adni dla C oraz C++ z GNOME"
+msgstr "Wymusza styl pod≈õwietlania sk≈Çadni dla C oraz C++ z GNOME"
 
 #. 4
 #: src/main_menubar_def.h:1037
@@ -4849,7 +4849,7 @@ msgstr "HTML"
 
 #: src/main_menubar_def.h:1038
 msgid "Force the highlight style to HTML"
-msgstr "Wymusza styl pod∂wietlania sk≥adni dla HTML-a"
+msgstr "Wymusza styl pod≈õwietlania sk≈Çadni dla HTML-a"
 
 #. 5
 #: src/main_menubar_def.h:1043
@@ -4858,7 +4858,7 @@ msgstr "XML"
 
 #: src/main_menubar_def.h:1044
 msgid "Force the highlight style to XML"
-msgstr "Wymusza styl pod∂wietlania sk≥adni dla XML-a"
+msgstr "Wymusza styl pod≈õwietlania sk≈Çadni dla XML-a"
 
 #. 6
 #: src/main_menubar_def.h:1049
@@ -4867,7 +4867,7 @@ msgstr "JavaScript"
 
 #: src/main_menubar_def.h:1050
 msgid "Force the highlight style to Javascript"
-msgstr "Wymusza styl pod∂wietlania sk≥adni dla jÍzyka JavaScript"
+msgstr "Wymusza styl pod≈õwietlania sk≈Çadni dla jƒôzyka JavaScript"
 
 #. 7
 #: src/main_menubar_def.h:1055
@@ -4876,7 +4876,7 @@ msgstr "WScript"
 
 #: src/main_menubar_def.h:1056
 msgid "Force the highlight style to WScript"
-msgstr "Wymusza styl pod∂wietlania sk≥adni dla jÍzyka WScript"
+msgstr "Wymusza styl pod≈õwietlania sk≈Çadni dla jƒôzyka WScript"
 
 #. 8
 #: src/main_menubar_def.h:1061
@@ -4885,7 +4885,7 @@ msgstr "Makefile"
 
 #: src/main_menubar_def.h:1062
 msgid "Force the highlight style to Makefile"
-msgstr "Wymusza styl pod∂wietlania sk≥adni dla pliku Makefile"
+msgstr "Wymusza styl pod≈õwietlania sk≈Çadni dla pliku Makefile"
 
 #. 9
 #: src/main_menubar_def.h:1067
@@ -4894,7 +4894,7 @@ msgstr "Java"
 
 #: src/main_menubar_def.h:1068
 msgid "Force the highlight type to Java"
-msgstr "Wymusza styl pod∂wietlania sk≥adni dla jÍzyka Java"
+msgstr "Wymusza styl pod≈õwietlania sk≈Çadni dla jƒôzyka Java"
 
 #. 10
 #: src/main_menubar_def.h:1073
@@ -4903,7 +4903,7 @@ msgstr "LUA"
 
 #: src/main_menubar_def.h:1074
 msgid "Force the highlight style to LUA"
-msgstr "Wymusza styl pod∂wietlania sk≥adni dla LUA"
+msgstr "Wymusza styl pod≈õwietlania sk≈Çadni dla LUA"
 
 #. 11
 #: src/main_menubar_def.h:1079
@@ -4912,7 +4912,7 @@ msgstr "Python"
 
 #: src/main_menubar_def.h:1080
 msgid "Force the highlight style to Python"
-msgstr "Wymusza styl pod∂wietlania sk≥adni dla jÍzyka Python"
+msgstr "Wymusza styl pod≈õwietlania sk≈Çadni dla jƒôzyka Python"
 
 #. 12
 #: src/main_menubar_def.h:1085
@@ -4921,7 +4921,7 @@ msgstr "Perl"
 
 #: src/main_menubar_def.h:1086
 msgid "Force the highlight style to Perl"
-msgstr "Wymusza styl pod∂wietlania sk≥adni dla jÍzyka Perl"
+msgstr "Wymusza styl pod≈õwietlania sk≈Çadni dla jƒôzyka Perl"
 
 #. 13
 #: src/main_menubar_def.h:1091
@@ -4930,7 +4930,7 @@ msgstr "SQL"
 
 #: src/main_menubar_def.h:1092
 msgid "Force the highlight style to SQL"
-msgstr "Wymusza styl pod∂wietlania sk≥adni dla jÍzyka SQL"
+msgstr "Wymusza styl pod≈õwietlania sk≈Çadni dla jƒôzyka SQL"
 
 #. 14
 #: src/main_menubar_def.h:1097
@@ -4939,7 +4939,7 @@ msgstr "PL/SQL"
 
 #: src/main_menubar_def.h:1098
 msgid "Force the highlight style to PL/SQL"
-msgstr "Wymusza styl pod∂wietlania sk≥adni dla jÍzyka PL/SQL"
+msgstr "Wymusza styl pod≈õwietlania sk≈Çadni dla jƒôzyka PL/SQL"
 
 #. 15
 #: src/main_menubar_def.h:1103
@@ -4948,7 +4948,7 @@ msgstr "PHP"
 
 #: src/main_menubar_def.h:1104
 msgid "Force the highlight style to PHP"
-msgstr "Wymusza styl pod∂wietlania sk≥adni dla jÍzyka PHP"
+msgstr "Wymusza styl pod≈õwietlania sk≈Çadni dla jƒôzyka PHP"
 
 #. 16
 #: src/main_menubar_def.h:1109
@@ -4957,11 +4957,11 @@ msgstr "LaTex"
 
 #: src/main_menubar_def.h:1110
 msgid "Force the highlight style to LaTex"
-msgstr "Wymusza styl pod∂wietlania sk≥adni dla LaTex-a"
+msgstr "Wymusza styl pod≈õwietlania sk≈Çadni dla LaTex-a"
 
 #: src/main_menubar_def.h:1116
 msgid "Force the highlight style to Diff"
-msgstr "Wymusza styl pod∂wietlania sk≥adni dla Diff-a"
+msgstr "Wymusza styl pod≈õwietlania sk≈Çadni dla Diff-a"
 
 #. 18
 #: src/main_menubar_def.h:1121
@@ -4970,7 +4970,7 @@ msgstr "Pascal"
 
 #: src/main_menubar_def.h:1122
 msgid "Force the highlight style to Pascal"
-msgstr "Wymusza styl pod∂wietlania sk≥adni dla jÍzyka Pascal"
+msgstr "Wymusza styl pod≈õwietlania sk≈Çadni dla jƒôzyka Pascal"
 
 #. 19
 #: src/main_menubar_def.h:1127
@@ -4979,16 +4979,16 @@ msgstr "Xcode"
 
 #: src/main_menubar_def.h:1128
 msgid "Force the highlight style to Xcode"
-msgstr "Wymusza styl pod∂wietlania sk≥adni dla Xcode"
+msgstr "Wymusza styl pod≈õwietlania sk≈Çadni dla Xcode"
 
 #. 20
 #: src/main_menubar_def.h:1133
 msgid "Prj/Properties"
-msgstr "Projekt/w≥a∂ciwo∂ci"
+msgstr "Projekt/w≈Ça≈õciwo≈õci"
 
 #: src/main_menubar_def.h:1134
 msgid "Force the highlight style to project/properties files"
-msgstr "Wymusza styl pod∂wietlania sk≥adni dla plikÛw projektu/w≥a∂ciwo∂ci"
+msgstr "Wymusza styl pod≈õwietlania sk≈Çadni dla plik√≥w projektu/w≈Ça≈õciwo≈õci"
 
 #. 21
 #: src/main_menubar_def.h:1139
@@ -4997,7 +4997,7 @@ msgstr "Conf"
 
 #: src/main_menubar_def.h:1140
 msgid "Force the highlight style to UNIX conf files"
-msgstr "Wymusza styl pod∂wietlania sk≥adni dla uniksowych plikÛw conf"
+msgstr "Wymusza styl pod≈õwietlania sk≈Çadni dla uniksowych plik√≥w conf"
 
 #. 22
 #: src/main_menubar_def.h:1145
@@ -5008,7 +5008,7 @@ msgstr "Dodaj"
 #: src/main_menubar_def.h:1146
 #, fuzzy
 msgid "Force the highlight style to Ada"
-msgstr "Wymusza styl pod∂wietlania sk≥adni dla LUA"
+msgstr "Wymusza styl pod≈õwietlania sk≈Çadni dla LUA"
 
 #. 23
 #: src/main_menubar_def.h:1151
@@ -5027,7 +5027,7 @@ msgstr ""
 #: src/main_menubar_def.h:1158
 #, fuzzy
 msgid "Force the highlight style to Lisp"
-msgstr "Wymusza styl pod∂wietlania sk≥adni dla XML-a"
+msgstr "Wymusza styl pod≈õwietlania sk≈Çadni dla XML-a"
 
 #. 25
 #: src/main_menubar_def.h:1163
@@ -5037,18 +5037,18 @@ msgstr ""
 #: src/main_menubar_def.h:1164
 #, fuzzy
 msgid "Force the highlight style to Ruby"
-msgstr "Wymusza styl pod∂wietlania sk≥adni dla XML-a"
+msgstr "Wymusza styl pod≈õwietlania sk≈Çadni dla XML-a"
 
 #. 26
 #: src/main_menubar_def.h:1169
 #, fuzzy
 msgid "Matlab"
-msgstr "KataloÒski"
+msgstr "Katalo≈Ñski"
 
 #: src/main_menubar_def.h:1170
 #, fuzzy
 msgid "Force the highlight style to Matlab"
-msgstr "Wymusza styl pod∂wietlania sk≥adni dla XML-a"
+msgstr "Wymusza styl pod≈õwietlania sk≈Çadni dla XML-a"
 
 #. 0
 #: src/main_menubar_def.h:1180
@@ -5058,31 +5058,31 @@ msgstr "Automatyczne _formatowanie"
 #: src/main_menubar_def.h:1181
 #, fuzzy
 msgid "Autoformat the current source file"
-msgstr "Kompiluje bieø±cy plik ºrÛd≥owy"
+msgstr "Kompiluje bie≈ºƒÖcy plik ≈∫r√≥d≈Çowy"
 
 #. 1
 #: src/main_menubar_def.h:1186
 msgid "_Increase Indent"
-msgstr "Zw_iÍksz wciÍcie"
+msgstr "Zw_iƒôksz wciƒôcie"
 
 #: src/main_menubar_def.h:1187
 msgid "Increase indentation of line/selection"
-msgstr "ZwiÍksza wciÍcie wiersza/zaznaczenia"
+msgstr "Zwiƒôksza wciƒôcie wiersza/zaznaczenia"
 
 #. 2
 #: src/main_menubar_def.h:1192
 msgid "_Decrease Indent"
-msgstr "Z_mniejsz wciÍcie"
+msgstr "Z_mniejsz wciƒôcie"
 
 #: src/main_menubar_def.h:1193
 msgid "Decrease indentation of line/selection"
-msgstr "Zmniejsza wciÍcie wiersza/zaznaczenia"
+msgstr "Zmniejsza wciƒôcie wiersza/zaznaczenia"
 
 #. 3
 #. 4
 #: src/main_menubar_def.h:1199
 msgid "Force _Highlight Style"
-msgstr "Wymu∂ styl pod∂_wietlania"
+msgstr "Wymu≈õ styl pod≈õ_wietlania"
 
 #. 5
 #. 6
@@ -5097,7 +5097,7 @@ msgstr "Zamyka wszystkie sekcje kodu w edytorze"
 #. 7
 #: src/main_menubar_def.h:1212
 msgid "_Open All Folds"
-msgstr "_OtwÛrz wszystkie sekcje"
+msgstr "_Otw√≥rz wszystkie sekcje"
 
 #: src/main_menubar_def.h:1213
 #, fuzzy
@@ -5107,23 +5107,23 @@ msgstr "Otwiera wszystkie sekcje kodu w edytorze"
 #. 8
 #: src/main_menubar_def.h:1218
 msgid "_Toggle Current Fold"
-msgstr "Prze≥±_cz bieø±c± sekcjÍ"
+msgstr "Prze≈ÇƒÖ_cz bie≈ºƒÖcƒÖ sekcjƒô"
 
 #: src/main_menubar_def.h:1219
 #, fuzzy
 msgid "Toggle current code fold in the editor"
-msgstr "Prze≥±cza bieø±c± sekcjÍ kodu w edytorze"
+msgstr "Prze≈ÇƒÖcza bie≈ºƒÖcƒÖ sekcjƒô kodu w edytorze"
 
 #. 9
 #. 10
 #: src/main_menubar_def.h:1225
 msgid "D_etach Current Document"
-msgstr "Od≥±cz bi_eø±cy dokument"
+msgstr "Od≈ÇƒÖcz bi_e≈ºƒÖcy dokument"
 
 #: src/main_menubar_def.h:1226
 #, fuzzy
 msgid "Detach the current document into a separate editor window"
-msgstr "Od≥±cza bieø±cy dokument od okna edytora i przenosi do osobnego okna"
+msgstr "Od≈ÇƒÖcza bie≈ºƒÖcy dokument od okna edytora i przenosi do osobnego okna"
 
 #. 0
 #: src/main_menubar_def.h:1236
@@ -5132,7 +5132,7 @@ msgstr "S_kompiluj"
 
 #: src/main_menubar_def.h:1237
 msgid "Compile the current source file"
-msgstr "Kompiluje bieø±cy plik ºrÛd≥owy"
+msgstr "Kompiluje bie≈ºƒÖcy plik ≈∫r√≥d≈Çowy"
 
 #. 1
 #: src/main_menubar_def.h:1242
@@ -5143,7 +5143,7 @@ msgstr "Kompilacja pliku:"
 #: src/main_menubar_def.h:1243
 #, fuzzy
 msgid "Compile the current source file using Make"
-msgstr "Kompiluje bieø±cy plik ºrÛd≥owy"
+msgstr "Kompiluje bie≈ºƒÖcy plik ≈∫r√≥d≈Çowy"
 
 #. 2
 #: src/main_menubar_def.h:1248 src/main_menubar_def.h:1871
@@ -5153,7 +5153,7 @@ msgstr "_Budowanie"
 #: src/main_menubar_def.h:1249
 #, fuzzy
 msgid "Build the source directory of the Project or the current source file"
-msgstr "Budije katalog ºrÛd≥owy projektu/bieø±cego pliku ºrÛd≥owego"
+msgstr "Budije katalog ≈∫r√≥d≈Çowy projektu/bie≈ºƒÖcego pliku ≈∫r√≥d≈Çowego"
 
 #. 3
 #: src/main_menubar_def.h:1254
@@ -5163,18 +5163,18 @@ msgstr "Buduj w_szystko"
 #: src/main_menubar_def.h:1255
 #, fuzzy
 msgid "Build the whole Project"
-msgstr "Buduje ca≥y projekt"
+msgstr "Buduje ca≈Çy projekt"
 
 #. 4
 #. 5
 #: src/main_menubar_def.h:1261
 msgid "Save Build Messages"
-msgstr "Zapisz komunikaty dotycz±ce budowania"
+msgstr "Zapisz komunikaty dotyczƒÖce budowania"
 
 #: src/main_menubar_def.h:1262
 #, fuzzy
 msgid "Save build messages to a file"
-msgstr "Zapisuje komunikaty dotycz±ce budowania do pliku"
+msgstr "Zapisuje komunikaty dotyczƒÖce budowania do pliku"
 
 #. 6
 #. 7
@@ -5190,7 +5190,7 @@ msgstr "Instaluje projekt na twoim systemie"
 #. 8
 #: src/main_menubar_def.h:1274
 msgid "Build _Distribution"
-msgstr "Buduj _dystrybucjÍ"
+msgstr "Buduj _dystrybucjƒô"
 
 #: src/main_menubar_def.h:1275
 #, fuzzy
@@ -5216,27 +5216,27 @@ msgstr "Auto_generuj ..."
 #: src/main_menubar_def.h:1288
 #, fuzzy
 msgid "Auto generate all the build files for the Project"
-msgstr "Autogenerowanie wszystkich plikÛw budowania"
+msgstr "Autogenerowanie wszystkich plik√≥w budowania"
 
 #. 12
 #. 13
 #: src/main_menubar_def.h:1294
 msgid "Clea_n"
-msgstr "Wyc_zy∂Ê"
+msgstr "Wyc_zy≈õƒá"
 
 #: src/main_menubar_def.h:1295
 msgid "Clean the source directory"
-msgstr "Czy∂ci katalog ºrÛd≥owy"
+msgstr "Czy≈õci katalog ≈∫r√≥d≈Çowy"
 
 #. 14
 #: src/main_menubar_def.h:1300
 msgid "Clean A_ll"
-msgstr "Wyczy∂Ê wszys_tko"
+msgstr "Wyczy≈õƒá wszys_tko"
 
 #: src/main_menubar_def.h:1301
 #, fuzzy
 msgid "Clean the whole Project directory"
-msgstr "Czy∂ci ca≥y katalog projektu"
+msgstr "Czy≈õci ca≈Çy katalog projektu"
 
 #. 15
 #. 16
@@ -5246,7 +5246,7 @@ msgstr "Prze_rwij budowanie"
 
 #: src/main_menubar_def.h:1308
 msgid "Stop the current compile or build process"
-msgstr "Przerywa bieø±cy proces kompilacji oraz budowania"
+msgstr "Przerywa bie≈ºƒÖcy proces kompilacji oraz budowania"
 
 #. 17
 #. 18
@@ -5270,64 +5270,64 @@ msgstr "Ustawia parametry uruchamiania programu"
 #. 0
 #: src/main_menubar_def.h:1331
 msgid "_Toggle bookmark"
-msgstr "Prz_e≥±cz zak≥adkÍ"
+msgstr "Prz_e≈ÇƒÖcz zak≈Çadkƒô"
 
 #: src/main_menubar_def.h:1332
 #, fuzzy
 msgid "Toggle a bookmark at the current line position"
-msgstr "Prze≥±cza zak≥adkÍ na bieø±cej lokalizacji"
+msgstr "Prze≈ÇƒÖcza zak≈Çadkƒô na bie≈ºƒÖcej lokalizacji"
 
 #. 1
 #. 2
 #: src/main_menubar_def.h:1338
 msgid "_First bookmark"
-msgstr "P_ierwsza zak≥adka"
+msgstr "P_ierwsza zak≈Çadka"
 
 #: src/main_menubar_def.h:1339
 #, fuzzy
 msgid "Jump to the first bookmark in the file"
-msgstr "Przechodzi do pierwszej zak≥adki dokumentu"
+msgstr "Przechodzi do pierwszej zak≈Çadki dokumentu"
 
 #. 3
 #: src/main_menubar_def.h:1344
 msgid "_Previous bookmark"
-msgstr "_Poprzednia zak≥adka"
+msgstr "_Poprzednia zak≈Çadka"
 
 #: src/main_menubar_def.h:1345
 #, fuzzy
 msgid "Jump to the previous bookmark in the file"
-msgstr "Przechodzi do poprzedniej zak≥adki dokumentu"
+msgstr "Przechodzi do poprzedniej zak≈Çadki dokumentu"
 
 #. 4
 #: src/main_menubar_def.h:1350
 msgid "_Next bookmark"
-msgstr "_NastÍpna zak≥adka"
+msgstr "_Nastƒôpna zak≈Çadka"
 
 #: src/main_menubar_def.h:1351
 #, fuzzy
 msgid "Jump to the next bookmark in the file"
-msgstr "Przechodzi do nastÍpnej zak≥adki dokumentu"
+msgstr "Przechodzi do nastƒôpnej zak≈Çadki dokumentu"
 
 #. 5
 #: src/main_menubar_def.h:1356
 msgid "_Last bookmark"
-msgstr "_Ostatnia zak≥adka"
+msgstr "_Ostatnia zak≈Çadka"
 
 #: src/main_menubar_def.h:1357
 #, fuzzy
 msgid "Jump to the last bookmark in the file"
-msgstr "Przechodzi do ostatniej zak≥adki dokumentu"
+msgstr "Przechodzi do ostatniej zak≈Çadki dokumentu"
 
 #. 6
 #. 7
 #: src/main_menubar_def.h:1363
 msgid "_Clear all bookmarks"
-msgstr "_Wyczy∂Ê wszystkie zak≥adki"
+msgstr "_Wyczy≈õƒá wszystkie zak≈Çadki"
 
 #: src/main_menubar_def.h:1364
 #, fuzzy
 msgid "Clear bookmarks"
-msgstr "_Wyczy∂Ê wszystkie zak≥adki"
+msgstr "_Wyczy≈õƒá wszystkie zak≈Çadki"
 
 #. 0
 #: src/main_menubar_def.h:1374
@@ -5341,11 +5341,11 @@ msgstr "Kontunuuje wynokanie programu"
 #. 1
 #: src/main_menubar_def.h:1380
 msgid "Step _In"
-msgstr "Krok z _wej∂ciem"
+msgstr "Krok z _wej≈õciem"
 
 #: src/main_menubar_def.h:1381
 msgid "Single step into function"
-msgstr "Pojedynczy krok z wej∂ciem do funkcji"
+msgstr "Pojedynczy krok z wej≈õciem do funkcji"
 
 #. 2
 #: src/main_menubar_def.h:1386
@@ -5354,21 +5354,21 @@ msgstr "Krok _nad"
 
 #: src/main_menubar_def.h:1387
 msgid "Single step over function"
-msgstr "Pojedynczy krok z pominiÍciem funkcji"
+msgstr "Pojedynczy krok z pominiƒôciem funkcji"
 
 #. 3
 #: src/main_menubar_def.h:1392
 msgid "Step _Out"
-msgstr "Krok z _wyj∂ciem"
+msgstr "Krok z _wyj≈õciem"
 
 #: src/main_menubar_def.h:1393
 msgid "Single step out of the function"
-msgstr "Pojedynczy krok z wyj∂ciem z funkcji"
+msgstr "Pojedynczy krok z wyj≈õciem z funkcji"
 
 #. 4
 #: src/main_menubar_def.h:1398
 msgid "_Run to cursor"
-msgstr "P_rzejdº do kursora"
+msgstr "P_rzejd≈∫ do kursora"
 
 #: src/main_menubar_def.h:1399
 msgid "Run to the cursor"
@@ -5377,11 +5377,11 @@ msgstr "Przechodzi do kursora"
 #. 0
 #: src/main_menubar_def.h:1409 src/text_editor_menu.c:136
 msgid "Toggle breakpoint"
-msgstr "Prze≥±cz punkt przerwania"
+msgstr "Prze≈ÇƒÖcz punkt przerwania"
 
 #: src/main_menubar_def.h:1410
 msgid "Toggle breakpoint at the current location"
-msgstr "Prze≥±cza punkt przerwania na bieø±cym po≥oøeniu"
+msgstr "Prze≈ÇƒÖcza punkt przerwania na bie≈ºƒÖcym po≈Ço≈ºeniu"
 
 #. 1
 #: src/main_menubar_def.h:1415
@@ -5414,7 +5414,7 @@ msgstr "Unieaktywnia wszystkie punkty przerwania"
 #. 5
 #: src/main_menubar_def.h:1434
 msgid "C_lear all Breakpoints"
-msgstr "_UsuÒ wszystkie punkty przerwania"
+msgstr "_Usu≈Ñ wszystkie punkty przerwania"
 
 #: src/main_menubar_def.h:1435
 msgid "Delete all breakpoints"
@@ -5427,7 +5427,7 @@ msgstr "Informacje o plikach d_ocelowych"
 
 #: src/main_menubar_def.h:1446
 msgid "Display information on the files the debugger is active with"
-msgstr "Wy∂wietla informacje o plikach, dla ktÛrych debuger jest aktywny"
+msgstr "Wy≈õwietla informacje o plikach, dla kt√≥rych debuger jest aktywny"
 
 #. 1
 #: src/main_menubar_def.h:1451
@@ -5436,27 +5436,27 @@ msgstr "Informacje o _programie"
 
 #: src/main_menubar_def.h:1452
 msgid "Display information on the execution status of the program"
-msgstr "Wy∂wietla informacje o statusie wykonywania programu"
+msgstr "Wy≈õwietla informacje o statusie wykonywania programu"
 
 #. 2
 #: src/main_menubar_def.h:1457
 msgid "Info _Kernel User Struct"
-msgstr "Informacje o Strukturze Uøytkownika j±dra"
+msgstr "Informacje o Strukturze U≈ºytkownika jƒÖdra"
 
 #: src/main_menubar_def.h:1458
 msgid "Display the contents of kernel 'struct user' for current child"
 msgstr ""
-"Wy∂wietla zawarto∂Ê 'struktury uøytkownika' j±dra dla bieø±cego procesu "
+"Wy≈õwietla zawarto≈õƒá 'struktury u≈ºytkownika' jƒÖdra dla bie≈ºƒÖcego procesu "
 "potomnego"
 
 #. 3
 #: src/main_menubar_def.h:1463
 msgid "Info _Threads"
-msgstr "Informacje o _w±tkach"
+msgstr "Informacje o _wƒÖtkach"
 
 #: src/main_menubar_def.h:1464
 msgid "Display the IDs of currently known threads"
-msgstr "Wy∂wietla identyfikatory aktualnie znanych w±tkÛw"
+msgstr "Wy≈õwietla identyfikatory aktualnie znanych wƒÖtk√≥w"
 
 #. 4
 #: src/main_menubar_def.h:1469
@@ -5465,7 +5465,7 @@ msgstr "Informacje o zmiennych _globalnych"
 
 #: src/main_menubar_def.h:1470
 msgid "Display all global and static variables of the program"
-msgstr "Wy∂wietla wszystkie globalne i statyczne zmienne programu"
+msgstr "Wy≈õwietla wszystkie globalne i statyczne zmienne programu"
 
 #. 5
 #: src/main_menubar_def.h:1475
@@ -5474,16 +5474,16 @@ msgstr "Informacje o zmiennych _lokalnych"
 
 #: src/main_menubar_def.h:1476
 msgid "Display local variables of the current frame"
-msgstr "Wy∂wietla zmienne lokalne bieø±cej ramki"
+msgstr "Wy≈õwietla zmienne lokalne bie≈ºƒÖcej ramki"
 
 #. 6
 #: src/main_menubar_def.h:1481
 msgid "Info _Current Frame"
-msgstr "Informacje o _bieø±cej ramce"
+msgstr "Informacje o _bie≈ºƒÖcej ramce"
 
 #: src/main_menubar_def.h:1482
 msgid "Display information about the current frame of execution"
-msgstr "Wy∂wietla informacje o bieø±cej ramce wykonania programu"
+msgstr "Wy≈õwietla informacje o bie≈ºƒÖcej ramce wykonania programu"
 
 #. 7
 #: src/main_menubar_def.h:1487
@@ -5492,7 +5492,7 @@ msgstr "Informacje o argumentach _funkcji"
 
 #: src/main_menubar_def.h:1488
 msgid "Display function arguments of the current frame"
-msgstr "Wy∂wietla argumenty funkcji bieø±cej ramki"
+msgstr "Wy≈õwietla argumenty funkcji bie≈ºƒÖcej ramki"
 
 #. 8
 #: src/main_menubar_def.h:1493
@@ -5511,7 +5511,7 @@ msgstr "_Uruchom debuger"
 
 #: src/main_menubar_def.h:1505
 msgid "Start the debugging session"
-msgstr "Rozpoczyna sesjÍ debugowania"
+msgstr "Rozpoczyna sesjƒô debugowania"
 
 #. 1
 #. 2
@@ -5530,16 +5530,16 @@ msgstr "Wczytaj plik _Core"
 
 #: src/main_menubar_def.h:1518
 msgid "Load a core file to dissect"
-msgstr "Wczytuje plik zrzutu pamiÍci do przebadania"
+msgstr "Wczytuje plik zrzutu pamiƒôci do przebadania"
 
 #. 4
 #: src/main_menubar_def.h:1523
 msgid "_Attach to Process ..."
-msgstr "Do≥±cz do pr_ocesu ..."
+msgstr "Do≈ÇƒÖcz do pr_ocesu ..."
 
 #: src/main_menubar_def.h:1524
 msgid "Attach to a running program"
-msgstr "Do≥±cza do dzia≥aj±cego programu"
+msgstr "Do≈ÇƒÖcza do dzia≈ÇajƒÖcego programu"
 
 #. 5
 #. 6
@@ -5563,11 +5563,11 @@ msgstr "Zatrzymuje debugowany program"
 #. 8
 #: src/main_menubar_def.h:1542
 msgid "_Detach Debugger"
-msgstr "O_d≥±cz debuger"
+msgstr "O_d≈ÇƒÖcz debuger"
 
 #: src/main_menubar_def.h:1543
 msgid "Detach from an attached program"
-msgstr "Od≥±cza od do≥±czonego programu"
+msgstr "Od≈ÇƒÖcza od do≈ÇƒÖczonego programu"
 
 #. 9
 #. 10
@@ -5582,11 +5582,11 @@ msgstr "Przerywa wykonywanie programu"
 #. 11
 #: src/main_menubar_def.h:1555
 msgid "Si_gnal to Process"
-msgstr "Sy_gna≥ do procesu"
+msgstr "Sy_gna≈Ç do procesu"
 
 #: src/main_menubar_def.h:1556
 msgid "Send a kernel signal to the process being debugged"
-msgstr "Wysy≥a sygna≥ j±dra systemu do debugowanego procesu"
+msgstr "Wysy≈Ça sygna≈Ç jƒÖdra systemu do debugowanego procesu"
 
 #. 12
 #. 13
@@ -5608,16 +5608,16 @@ msgstr "Zbadaj/O_bejrzyj ..."
 
 #: src/main_menubar_def.h:1583
 msgid "Inspect or evaluate an expression or variable"
-msgstr "Bada lub ogl±da wyraøenie lub zmienn±"
+msgstr "Bada lub oglƒÖda wyra≈ºenie lub zmiennƒÖ"
 
 #. 19
 #: src/main_menubar_def.h:1588
 msgid "Add Expression in _Watch ..."
-msgstr "Dodaj _wyraøenie do okna obserwacji ..."
+msgstr "Dodaj _wyra≈ºenie do okna obserwacji ..."
 
 #: src/main_menubar_def.h:1589
 msgid "Add expression or variable to the watch"
-msgstr "Dodaje wyraøenie lub zmienn± do okna obserwacji"
+msgstr "Dodaje wyra≈ºenie lub zmiennƒÖ do okna obserwacji"
 
 #. 20
 #. 21
@@ -5627,7 +5627,7 @@ msgstr "Zatrz_ymaj debuger"
 
 #: src/main_menubar_def.h:1596
 msgid "Say goodbye to the debugger"
-msgstr "MÛwi debugerowi do widzenia"
+msgstr "M√≥wi debugerowi do widzenia"
 
 #. 0
 #: src/main_menubar_def.h:1607
@@ -5661,7 +5661,7 @@ msgstr "Dodaj nowy"
 #: src/main_menubar_def.h:1642
 #, fuzzy
 msgid "_Remove file"
-msgstr "UsuÒ"
+msgstr "Usu≈Ñ"
 
 #. 6
 #: src/main_menubar_def.h:1649
@@ -5673,7 +5673,7 @@ msgstr "Plik dokumentacji"
 #: src/main_menubar_def.h:1657
 #, fuzzy
 msgid "_Update Project"
-msgstr "OtwÛrz projekt"
+msgstr "Otw√≥rz projekt"
 
 #: src/main_menubar_def.h:1658
 #, fuzzy
@@ -5754,12 +5754,12 @@ msgstr "Ustawienia dla kompilatora i linkera"
 #. 1
 #: src/main_menubar_def.h:1718
 msgid "_Source Paths ..."
-msgstr "¶cieøki ºrÛ_d≥owe ..."
+msgstr "≈öcie≈ºki ≈∫r√≥_d≈Çowe ..."
 
 #: src/main_menubar_def.h:1719
 #, fuzzy
 msgid "Specify the source paths for Anjuta to search"
-msgstr "Wybiera ∂cieøki ºrÛd≥owe dla programu Anjuta do przeszukiwania"
+msgstr "Wybiera ≈õcie≈ºki ≈∫r√≥d≈Çowe dla programu Anjuta do przeszukiwania"
 
 #. 2
 #: src/main_menubar_def.h:1724
@@ -5769,7 +5769,7 @@ msgstr "Po_lecenia ..."
 
 #: src/main_menubar_def.h:1725
 msgid "Specify the various commands for use"
-msgstr "Wybiera rÛøne polecenia, ktÛre mog± byÊ uøyte"
+msgstr "Wybiera r√≥≈ºne polecenia, kt√≥re mogƒÖ byƒá u≈ºyte"
 
 #. 3
 #. 4
@@ -5779,18 +5779,18 @@ msgstr "_Ustawienia"
 
 #: src/main_menubar_def.h:1732
 msgid "Do you prefer coffee to tea? Check it out."
-msgstr "Wolisz kawÍ, czy herbatÍ? Sprawdº to."
+msgstr "Wolisz kawƒô, czy herbatƒô? Sprawd≈∫ to."
 
 #. 5
 #: src/main_menubar_def.h:1737
 #, fuzzy
 msgid "Syntax _highlighting ..."
-msgstr "Pod∂wietlanie sk≥adni wy≥±czone"
+msgstr "Pod≈õwietlanie sk≈Çadni wy≈ÇƒÖczone"
 
 #: src/main_menubar_def.h:1738
 #, fuzzy
 msgid "Syntax highlighting settings"
-msgstr "Pod∂wietlanie sk≥adni wy≥±czone"
+msgstr "Pod≈õwietlanie sk≈Çadni wy≈ÇƒÖczone"
 
 #. 6
 #: src/main_menubar_def.h:1743
@@ -5813,11 +5813,11 @@ msgstr ""
 #. 8
 #: src/main_menubar_def.h:1755
 msgid "Set _Default Preferences"
-msgstr "Ustaw _domy∂lne preferencje"
+msgstr "Ustaw _domy≈õlne preferencje"
 
 #: src/main_menubar_def.h:1756
 msgid "But I prefer tea."
-msgstr "Ale ja wolÍ herbatÍ."
+msgstr "Ale ja wolƒô herbatƒô."
 
 #. 9
 #: src/main_menubar_def.h:1761
@@ -5844,7 +5844,7 @@ msgstr ""
 #: src/main_menubar_def.h:1780
 #, fuzzy
 msgid "Browse GNOME _API Pages"
-msgstr "Przegl±daj strony Gnome API"
+msgstr "PrzeglƒÖdaj strony Gnome API"
 
 #: src/main_menubar_def.h:1781
 #, fuzzy
@@ -5855,22 +5855,22 @@ msgstr "strony gnome API"
 #: src/main_menubar_def.h:1786
 #, fuzzy
 msgid "Browse _Man Pages"
-msgstr "Przegl±daj strony manuala"
+msgstr "PrzeglƒÖdaj strony manuala"
 
 #: src/main_menubar_def.h:1787
 msgid "The good old manual pages"
-msgstr "Stare dobre strony podrÍcznikowe"
+msgstr "Stare dobre strony podrƒôcznikowe"
 
 #. 4
 #: src/main_menubar_def.h:1792
 #, fuzzy
 msgid "Browse _Info Pages"
-msgstr "Przegl±daj strony info"
+msgstr "PrzeglƒÖdaj strony info"
 
 #: src/main_menubar_def.h:1793
 #, fuzzy
 msgid "Browse Info pages"
-msgstr "Przegl±daj strony info"
+msgstr "PrzeglƒÖdaj strony info"
 
 #. 5
 #. 6
@@ -5881,7 +5881,7 @@ msgstr "Pomoc kontekstowa"
 
 #: src/main_menubar_def.h:1800
 msgid "Search help for the current word in the editor"
-msgstr "Przeszukuje pomoc pod k±tem wybranego s≥owa w edytorze"
+msgstr "Przeszukuje pomoc pod kƒÖtem wybranego s≈Çowa w edytorze"
 
 #. 7
 #: src/main_menubar_def.h:1805
@@ -5891,7 +5891,7 @@ msgstr "Przeszukaj temat"
 
 #: src/main_menubar_def.h:1806
 msgid "May I help you?"
-msgstr "W czym moøna ci pomÛc?"
+msgstr "W czym mo≈ºna ci pom√≥c?"
 
 #. 8
 #. 9
@@ -5902,7 +5902,7 @@ msgstr "Witryna domowa Anjunty"
 
 #: src/main_menubar_def.h:1813
 msgid "Online documentation and resources"
-msgstr "Dokumentacja i zasoby przez sieÊ Internet"
+msgstr "Dokumentacja i zasoby przez sieƒá Internet"
 
 #. 10
 #. 11
@@ -5919,32 +5919,32 @@ msgstr "Internetowy opis bibliotek GTK, GLib, GNOME itd.."
 #: src/main_menubar_def.h:1825
 #, fuzzy
 msgid "Report _Bugs"
-msgstr "Zg≥o∂ b≥Ídy"
+msgstr "Zg≈Ço≈õ b≈Çƒôdy"
 
 #: src/main_menubar_def.h:1826
 msgid "Submit a bug report for Anjuta"
-msgstr "Wysy≥a raport b≥ÍdÛw dla Anjuty"
+msgstr "Wysy≈Ça raport b≈Çƒôd√≥w dla Anjuty"
 
 #. 13
 #: src/main_menubar_def.h:1831
 #, fuzzy
 msgid "Request _Features"
-msgstr "Wy∂lij propozycjÍ"
+msgstr "Wy≈õlij propozycjƒô"
 
 #: src/main_menubar_def.h:1832
 #, fuzzy
 msgid "Submit a feature request for Anjuta"
-msgstr "Wysy≥a propozycjÍ ulepszenia Ajuty"
+msgstr "Wysy≈Ça propozycjƒô ulepszenia Ajuty"
 
 #. 14
 #: src/main_menubar_def.h:1837
 #, fuzzy
 msgid "Submit _patches"
-msgstr "Wy∂lij ≥aty"
+msgstr "Wy≈õlij ≈Çaty"
 
 #: src/main_menubar_def.h:1838
 msgid "Submit patches for Anjuta"
-msgstr "Wysy≥a ≥aty do Anjuty"
+msgstr "Wysy≈Ça ≈Çaty do Anjuty"
 
 #. 15
 #: src/main_menubar_def.h:1843
@@ -5954,7 +5954,7 @@ msgstr "Zadaj pytanie"
 
 #: src/main_menubar_def.h:1844
 msgid "Submit a question for FAQs"
-msgstr "Wysy≥a pytanie dla FAQ"
+msgstr "Wysy≈Ça pytanie dla FAQ"
 
 #: src/main_menubar_def.h:1859
 msgid "_Project"
@@ -5966,11 +5966,11 @@ msgstr "For_matowanie"
 
 #: src/main_menubar_def.h:1877
 msgid "Bookmar_k"
-msgstr "Za_k≥adki"
+msgstr "Za_k≈Çadki"
 
 #: src/main_menubar_def.h:1883
 msgid "_Debug"
-msgstr "¶_ledzenie"
+msgstr "≈ö_ledzenie"
 
 #: src/main_menubar_def.h:1889
 #, fuzzy
@@ -5994,8 +5994,8 @@ msgid ""
 "The file '%s' is not saved.\n"
 "Do you want to save it before closing?"
 msgstr ""
-"Plik \"%s\" nie zosta≥ zapisany.\n"
-"Czy chcesz go zapisaÊ przed zamkniÍciem?"
+"Plik \"%s\" nie zosta≈Ç zapisany.\n"
+"Czy chcesz go zapisaƒá przed zamkniƒôciem?"
 
 #: src/mainmenu_callbacks.c:232
 #, fuzzy, c-format
@@ -6003,7 +6003,7 @@ msgid ""
 "Are you sure you want to reload '%s'?\n"
 "Any unsaved changes will be lost."
 msgstr ""
-"Czy na pewno chcesz ponownie wczytaÊ %s?\n"
+"Czy na pewno chcesz ponownie wczytaƒá %s?\n"
 "Stracisz wszystkie niezapisane modyfikacje."
 
 #: src/mainmenu_callbacks.c:520
@@ -6017,7 +6017,7 @@ msgstr ""
 #: src/mainmenu_callbacks.c:614
 #, fuzzy, c-format
 msgid "The file \"%s\" is not a header file."
-msgstr "Plik nie zosta≥ zapisany. Zapisz go najpierw."
+msgstr "Plik nie zosta≈Ç zapisany. Zapisz go najpierw."
 
 #: src/mainmenu_callbacks.c:1732
 #, fuzzy
@@ -6060,8 +6060,8 @@ msgid ""
 "Are you sure you want to reset the preferences to\n"
 "their default settings?"
 msgstr ""
-"Czy na pewno chcesz nadaÊ wszystkim ustawieniom\n"
-"warto∂ci domy∂lne?"
+"Czy na pewno chcesz nadaƒá wszystkim ustawieniom\n"
+"warto≈õci domy≈õlne?"
 
 #: src/preferences.c:700
 msgid "Editor"
@@ -6070,7 +6070,7 @@ msgstr "Edytor"
 #: src/preferences.c:707
 #, fuzzy
 msgid "Indentation"
-msgstr "ZwiÍksz wciÍcie"
+msgstr "Zwiƒôksz wciƒôcie"
 
 #: src/preferences.c:719 src/toolbar.c:152
 msgid "Messages"
@@ -6102,7 +6102,7 @@ msgstr "Preferencje"
 #. Must declare static, because it will be used forever
 #: src/project_dbase.c:227 src/toolbar.c:212
 msgid "Open Project"
-msgstr "OtwÛrz projekt"
+msgstr "Otw√≥rz projekt"
 
 #. Must declare static, because it will be used forever
 #: src/project_dbase.c:234
@@ -6131,7 +6131,7 @@ msgstr "Pliki budowania"
 #: src/project_dbase.c:486 src/project_dbase.c:504
 #, fuzzy, c-format
 msgid "Unable to load Project: %s"
-msgstr "Nie moøna wczytaÊ projektu: %s"
+msgstr "Nie mo≈ºna wczytaƒá projektu: %s"
 
 #: src/project_dbase.c:497 src/project_dbase.c:2503
 #, fuzzy, c-format
@@ -6139,20 +6139,20 @@ msgid ""
 "Anjuta version %s or later is required to open this Project.\n"
 "Please upgrade to the latest version of Anjuta (Help for more information)."
 msgstr ""
-"B≥±d: Anjuta w wersji %s lub nowszy wymagana do otwarcia tego projektu.\n"
-"ProszÍ uaktualnij program do najnowszej wersji (W menu Pomoc wiÍcej "
+"B≈ÇƒÖd: Anjuta w wersji %s lub nowszy wymagana do otwarcia tego projektu.\n"
+"Proszƒô uaktualnij program do najnowszej wersji (W menu Pomoc wiƒôcej "
 "informacji).\n"
-"Czas nie stoi w miejscu, program siÍ rozwija :-)"
+"Czas nie stoi w miejscu, program siƒô rozwija :-)"
 
 #: src/project_dbase.c:877
 #, fuzzy
 msgid "Project saved successfully"
-msgstr "Projekt zosta≥ zapisany"
+msgstr "Projekt zosta≈Ç zapisany"
 
 #: src/project_dbase.c:883 src/project_dbase.c:885
 #, fuzzy
 msgid "Unable to save the Project."
-msgstr "Nie moøna zapisaÊ projektu."
+msgstr "Nie mo≈ºna zapisaƒá projektu."
 
 #: src/project_dbase.c:1586
 msgid ""
@@ -6168,7 +6168,7 @@ msgid ""
 "exist in the top level Project directory."
 msgstr ""
 "Plik projektu glade nie istnieje\n"
-"w nadrzÍdnym katalogu projektu."
+"w nadrzƒôdnym katalogu projektu."
 
 #. Set project title
 #: src/project_dbase.c:2091
@@ -6180,25 +6180,25 @@ msgstr "Projekt: "
 msgid ""
 "Unable to get relative file name for %s\n"
 " in %s"
-msgstr "Nie moøna otworzyÊ pliku: %s\n"
+msgstr "Nie mo≈ºna otworzyƒá pliku: %s\n"
 
 #: src/project_dbase.c:2273
 #, fuzzy
 msgid " already exists in the project"
-msgstr "Nie moøna zapisaÊ projektu."
+msgstr "Nie mo≈ºna zapisaƒá projektu."
 
 #: src/project_dbase.c:2306
 msgid "Error while copying the file inside the module."
-msgstr "B≥±d przy kopiowaniu pliku wewn±trz modu≥u."
+msgstr "B≈ÇƒÖd przy kopiowaniu pliku wewnƒÖtrz modu≈Çu."
 
 #: src/project_dbase.c:2579 src/project_dbase.c:2582
 #, c-format
 msgid "Error in loading Project: %s"
-msgstr "B≥±d przy wczytywaniu projektu: %s"
+msgstr "B≈ÇƒÖd przy wczytywaniu projektu: %s"
 
 #: src/project_dbase.c:2613
 msgid "Project loaded successfully."
-msgstr "Projekt zosta≥ wczytany."
+msgstr "Projekt zosta≈Ç wczytany."
 
 #: src/project_dbase_gui.c:74
 #, fuzzy, c-format
@@ -6206,13 +6206,13 @@ msgid ""
 "Are you sure you want to remove the item\n"
 "'%s' from the Project?"
 msgstr ""
-"Czy na pewno chcesz usun±Ê obiekt\n"
+"Czy na pewno chcesz usunƒÖƒá obiekt\n"
 "\"%s\" z bazy danych projektu?"
 
 #: src/project_dbase_gui.c:131
 #, fuzzy
 msgid "There is already a Project open.Do you want to close it first?"
-msgstr "Jest juø jeden otwarty projekt. Czy chcesz go najpierw zamkn±Ê?"
+msgstr "Jest ju≈º jeden otwarty projekt. Czy chcesz go najpierw zamknƒÖƒá?"
 
 #: src/project_dbase_gui.c:161
 #, fuzzy
@@ -6222,12 +6222,12 @@ msgstr "Plik pomocy"
 #: src/project_dbase_gui.c:170 widgets/gnomefilelist.c:712
 #, fuzzy
 msgid "C/C++ source files"
-msgstr "Plik ºrÛd≥owy"
+msgstr "Plik ≈∫r√≥d≈Çowy"
 
 #: src/project_dbase_gui.c:171
 #, fuzzy
 msgid "Java source files"
-msgstr "Plik ºrÛd≥owy"
+msgstr "Plik ≈∫r√≥d≈Çowy"
 
 #: src/project_dbase_gui.c:172 widgets/gnomefilelist.c:719
 #, fuzzy
@@ -6252,7 +6252,7 @@ msgstr "Python"
 #: src/project_dbase_gui.c:176 widgets/gnomefilelist.c:731
 #, fuzzy
 msgid "Shell Script files"
-msgstr "Zapisuje bieø±cy plik"
+msgstr "Zapisuje bie≈ºƒÖcy plik"
 
 #: src/project_dbase_gui.c:177 widgets/gnomefilelist.c:736
 msgid "Visual Basic files"
@@ -6294,7 +6294,7 @@ msgstr ""
 #: src/project_dbase_gui.c:209
 #, fuzzy
 msgid "HTML files"
-msgstr "Przegl±darka HTML-a:"
+msgstr "PrzeglƒÖdarka HTML-a:"
 
 #: src/project_dbase_gui.c:210
 #, fuzzy
@@ -6346,7 +6346,7 @@ msgstr "Nazwa programu:"
 #: src/project_dbase_gui.c:862
 #, fuzzy
 msgid "Source files:"
-msgstr "Plik ºrÛd≥owy"
+msgstr "Plik ≈∫r√≥d≈Çowy"
 
 #: src/project_dbase_gui.c:869
 #, fuzzy
@@ -6379,11 +6379,11 @@ msgstr "GUI modyfikowalne poprzez Glade:"
 
 #: src/project_dbase_gui.c:963
 msgid "Makefiles managed:"
-msgstr "Zarz±dzane pliki Makefile:"
+msgstr "ZarzƒÖdzane pliki Makefile:"
 
 #: src/project_dbase_gui.c:1005
 msgid "Gettext support:"
-msgstr "Obs≥uga gettext:"
+msgstr "Obs≈Çuga gettext:"
 
 #: src/project_dbase_gui.c:1063
 msgid "Project Type:"
@@ -6395,15 +6395,15 @@ msgid ""
 "Do you want to save it before closing?"
 msgstr ""
 "Projekt nie jest zapisany.\n"
-"Czy chcesz go zapisaÊ przed zamkniÍciem?"
+"Czy chcesz go zapisaƒá przed zamkniƒôciem?"
 
 #: src/project_dbase_gui.c:1121 src/project_dbase_gui.c:1241
 msgid "Breton"
-msgstr "BretoÒski"
+msgstr "Breto≈Ñski"
 
 #: src/project_dbase_gui.c:1122
 msgid "Catalan"
-msgstr "KataloÒski"
+msgstr "Katalo≈Ñski"
 
 #: src/project_dbase_gui.c:1123
 msgid "Czech"
@@ -6411,7 +6411,7 @@ msgstr "Czeski"
 
 #: src/project_dbase_gui.c:1124
 msgid "Danish"
-msgstr "DuÒski"
+msgstr "Du≈Ñski"
 
 #: src/project_dbase_gui.c:1125
 msgid "German"
@@ -6427,11 +6427,11 @@ msgstr "Esperanto"
 
 #: src/project_dbase_gui.c:1128
 msgid "Spanish"
-msgstr "HiszpaÒski"
+msgstr "Hiszpa≈Ñski"
 
 #: src/project_dbase_gui.c:1129
 msgid "Finnish"
-msgstr "FiÒski"
+msgstr "Fi≈Ñski"
 
 #: src/project_dbase_gui.c:1130
 msgid "French"
@@ -6447,7 +6447,7 @@ msgstr "Chorwacki"
 
 #: src/project_dbase_gui.c:1133
 msgid "Hungarian"
-msgstr "WÍgierski"
+msgstr "Wƒôgierski"
 
 #: src/project_dbase_gui.c:1134
 msgid "Islandic"
@@ -6455,15 +6455,15 @@ msgstr "Islandzki"
 
 #: src/project_dbase_gui.c:1135
 msgid "Italian"
-msgstr "W≥oski"
+msgstr "W≈Çoski"
 
 #: src/project_dbase_gui.c:1137
 msgid "Korean"
-msgstr "KoreaÒski"
+msgstr "Korea≈Ñski"
 
 #: src/project_dbase_gui.c:1138
 msgid "Macedonian"
-msgstr "MacedoÒski"
+msgstr "Macedo≈Ñski"
 
 #: src/project_dbase_gui.c:1139
 msgid "Dutch"
@@ -6483,7 +6483,7 @@ msgstr "Portugalski"
 
 #: src/project_dbase_gui.c:1143
 msgid "Romanian"
-msgstr "EstoÒski"
+msgstr "Esto≈Ñski"
 
 #: src/project_dbase_gui.c:1144
 msgid "Russian"
@@ -6491,7 +6491,7 @@ msgstr "Rosyjski"
 
 #: src/project_dbase_gui.c:1145
 msgid "Slovak"
-msgstr "S≥oweÒski"
+msgstr "S≈Çowe≈Ñski"
 
 #: src/project_dbase_gui.c:1146
 msgid "Turkish"
@@ -6499,29 +6499,29 @@ msgstr "Turecki"
 
 #: src/project_dbase_gui.c:1147
 msgid "Simplified Chinese"
-msgstr "Uproszczony chiÒski"
+msgstr "Uproszczony chi≈Ñski"
 
 #: src/project_dbase_gui.c:1148
 msgid "Chinese"
-msgstr "ChiÒskie"
+msgstr "Chi≈Ñskie"
 
 #: src/project_dbase_gui.c:1149
 msgid "Estonian"
-msgstr "EstoÒski"
+msgstr "Esto≈Ñski"
 
 #: src/project_dbase_gui.c:1193
 msgid "Select regional language"
-msgstr "Wybierz jÍzyk"
+msgstr "Wybierz jƒôzyk"
 
 #: src/project_dbase_gui.c:1209
 #, fuzzy
 msgid "Select regional language:"
-msgstr "Wybierz jÍzyk"
+msgstr "Wybierz jƒôzyk"
 
 #: src/project_dbase_gui.c:1249
 #, fuzzy, c-format
 msgid "Unable to find pixmap file: %s"
-msgstr "Nie moøna odnaleºÊ pliku z piksmap±: %s"
+msgstr "Nie mo≈ºna odnale≈∫ƒá pliku z piksmapƒÖ: %s"
 
 #: src/project_dbase_gui.c:1328
 #, fuzzy, c-format
@@ -6530,8 +6530,8 @@ msgid ""
 "does not exist.\n"
 "Do you want to create it now ?"
 msgstr ""
-"Plik \"%s\" juø istnieje.\n"
-"Czy chcesz go nadpisaÊ?."
+"Plik \"%s\" ju≈º istnieje.\n"
+"Czy chcesz go nadpisaƒá?."
 
 #: src/project_dbase_gui.c:1356
 #, fuzzy, c-format
@@ -6541,18 +6541,18 @@ msgid ""
 "Do you want to IMPORT (copy) it into the module?"
 msgstr ""
 "\"%s\"\n"
-"nie istnieje w bieø±cym katalogu modu≥Ûw.\n"
-"Czy chcesz ZAIMPORTOWA∆ (skopiowaÊ) modu≥?"
+"nie istnieje w bie≈ºƒÖcym katalogu modu≈Ç√≥w.\n"
+"Czy chcesz ZAIMPORTOWAƒÜ (skopiowaƒá) modu≈Ç?"
 
 #: src/project_import.c:89
 #, fuzzy, c-format
 msgid "Unable to find import script %s"
-msgstr "Nie moøna wczytaÊ projektu: %s"
+msgstr "Nie mo≈ºna wczytaƒá projektu: %s"
 
 #: src/project_import.c:94
 #, fuzzy, c-format
 msgid "%s: Not a regular file"
-msgstr "To nie jest zwyk≥y plik: %s."
+msgstr "To nie jest zwyk≈Çy plik: %s."
 
 #: src/project_import.c:106
 #, fuzzy, c-format
@@ -6570,12 +6570,12 @@ msgstr ""
 #: src/project_import.c:175
 #, fuzzy
 msgid "Project import completed...successful\n"
-msgstr "Kompilacja zakoÒczona ... powodzeniem"
+msgstr "Kompilacja zako≈Ñczona ... powodzeniem"
 
 #: src/project_import.c:177
 #, fuzzy
 msgid "Project import completed...successful"
-msgstr "Kompilacja zakoÒczona ... powodzeniem"
+msgstr "Kompilacja zako≈Ñczona ... powodzeniem"
 
 #: src/project_import.c:189
 msgid "Could not import Project: no project file found!"
@@ -6584,7 +6584,7 @@ msgstr ""
 #: src/project_import.c:196
 #, fuzzy
 msgid "Opening Project...please wait"
-msgstr "O_twÛrz projekt..."
+msgstr "O_tw√≥rz projekt..."
 
 #: src/project_import.c:199
 #, fuzzy
@@ -6625,12 +6625,12 @@ msgstr "Zaznacz do _nawiasu"
 #: src/project_import_gui.c:199
 #, fuzzy
 msgid "Select top level directory of an existing project"
-msgstr "Czyszczenie katalogu ºrÛd≥owego projektu: "
+msgstr "Czyszczenie katalogu ≈∫r√≥d≈Çowego projektu: "
 
 #: src/project_import_gui.c:203
 #, fuzzy
 msgid "Select existing project directory"
-msgstr "Czy∂ci ca≥y katalog projektu"
+msgstr "Czy≈õci ca≈Çy katalog projektu"
 
 #: src/project_import_gui.c:217
 msgid "Click Next to begin the import"
@@ -6650,7 +6650,7 @@ msgstr "Rejestr"
 
 #: src/registers_gui.c:115
 msgid "Decimal"
-msgstr "DziesiÍtnie"
+msgstr "Dziesiƒôtnie"
 
 #: src/resources.c:51
 #, c-format
@@ -6660,17 +6660,17 @@ msgstr "Nie odnaleziono widgetu: %s"
 #: src/resources.c:75
 #, c-format
 msgid "Could not find application image file: %s"
-msgstr "Nie moøna odnaleºÊ pliku z obrazem aplikacji: %s"
+msgstr "Nie mo≈ºna odnale≈∫ƒá pliku z obrazem aplikacji: %s"
 
 #: src/resources.c:104
 #, c-format
 msgid "Could not find application pixmap file: %s"
-msgstr "Nie moøna odnaleºÊ pliku z piksmap± aplikacji: %s"
+msgstr "Nie mo≈ºna odnale≈∫ƒá pliku z piksmapƒÖ aplikacji: %s"
 
 #: src/resources.c:266 src/resources.c:274
 msgid "Cannot execute Devhelp. Make sure it is installed"
 msgstr ""
-"Nie moøna uruchomiÊ programu DevHelp. Upewnij siÍ, øe jest on zainstalowany."
+"Nie mo≈ºna uruchomiƒá programu DevHelp. Upewnij siƒô, ≈ºe jest on zainstalowany."
 
 #: src/sharedlib_gui.c:79
 msgid "Shared libraries"
@@ -6694,19 +6694,19 @@ msgstr ""
 
 #: src/signals_gui.c:40
 msgid "Modify Signal"
-msgstr "Zmodyfikuj sygna≥"
+msgstr "Zmodyfikuj sygna≈Ç"
 
 #: src/signals_gui.c:47
 msgid "Send to process"
-msgstr "Wy∂lij do procesu"
+msgstr "Wy≈õlij do procesu"
 
 #: src/signals_gui.c:93
 msgid "Kernel signals"
-msgstr "Sygna≥y j±dra"
+msgstr "Sygna≈Çy jƒÖdra"
 
 #: src/signals_gui.c:115
 msgid "Signal"
-msgstr "Sygna≥"
+msgstr "Sygna≈Ç"
 
 #: src/signals_gui.c:119 src/toolbar.c:314 src/toolbar.c:673
 msgid "Stop"
@@ -6714,7 +6714,7 @@ msgstr "Zatrzymaj"
 
 #: src/signals_gui.c:209
 msgid "Set Signal Property"
-msgstr "Ustawienie w≥a∂ciwo∂ci sygna≥u"
+msgstr "Ustawienie w≈Ça≈õciwo≈õci sygna≈Çu"
 
 #: src/signals_gui.c:252
 msgid " Stop: "
@@ -6731,7 +6731,7 @@ msgstr "Przebieg:"
 #: src/source.c:112
 #, c-format
 msgid "Error writing to file: %s."
-msgstr "B≥±d przy zapisie do pliku: %s."
+msgstr "B≈ÇƒÖd przy zapisie do pliku: %s."
 
 #: src/source.c:120 src/source.c:167 src/source.c:205 src/source.c:453
 #: src/source.c:478 src/source.c:573 src/source.c:671 src/source.c:711
@@ -6746,12 +6746,12 @@ msgstr "B≥±d przy zapisie do pliku: %s."
 #: src/source.c:2698 src/utilities.c:744
 #, fuzzy, c-format
 msgid "Unable to create file: %s."
-msgstr "Nie moøna otworzyÊ pliku: %s\n"
+msgstr "Nie mo≈ºna otworzyƒá pliku: %s\n"
 
 #: src/source.c:1609 src/source.c:1729
 #, fuzzy, c-format
 msgid "Error writing to: %s."
-msgstr "B≥±d przy zapisie do : %s."
+msgstr "B≈ÇƒÖd przy zapisie do : %s."
 
 #. set the size to that of our splash image.
 #: src/splash.c:76
@@ -6761,7 +6761,7 @@ msgstr "Anjuta"
 #: src/src_paths.c:260
 #, fuzzy
 msgid "Source Paths"
-msgstr "¶cieøki ºrÛ_d≥owe ..."
+msgstr "≈öcie≈ºki ≈∫r√≥_d≈Çowe ..."
 
 #: src/stack_trace_gui.c:38
 msgid "Frame set"
@@ -6773,7 +6773,7 @@ msgstr "Informacje o ramce"
 
 #: src/stack_trace_gui.c:59
 msgid "View Source"
-msgstr "Widok ºrÛd≥a"
+msgstr "Widok ≈∫r√≥d≈Ça"
 
 #: src/stack_trace_gui.c:101
 msgid "Stack Trace"
@@ -6790,7 +6790,7 @@ msgstr "Stos"
 #: src/support.c:60 src/support.c:85
 #, c-format
 msgid "Couldn't find pixmap file: %s"
-msgstr "Nie moøna odnaleºÊ pliku z piksmap±: %s"
+msgstr "Nie mo≈ºna odnale≈∫ƒá pliku z piksmapƒÖ: %s"
 
 #: src/text_editor.c:876
 msgid "Loading file ..."
@@ -6799,11 +6799,11 @@ msgstr "Wczytywanie pliku ..."
 #: src/text_editor.c:882
 #, c-format
 msgid "Could not load file: %s"
-msgstr "Nie moøna wczytaÊ pliku: %s"
+msgstr "Nie mo≈ºna wczytaƒá pliku: %s"
 
 #: src/text_editor.c:901
 msgid "File loaded successfully"
-msgstr "Plik zosta≥ wczytany"
+msgstr "Plik zosta≈Ç wczytany"
 
 #: src/text_editor.c:916
 msgid "Saving file ..."
@@ -6812,11 +6812,11 @@ msgstr "Zapisywanie pliku ..."
 #: src/text_editor.c:921
 #, c-format
 msgid "Could not save file: %s."
-msgstr "Nie moøna zapisaÊ pliku: %s."
+msgstr "Nie mo≈ºna zapisaƒá pliku: %s."
 
 #: src/text_editor.c:958
 msgid "File saved successfully"
-msgstr "Plik zosta≥ zapisany"
+msgstr "Plik zosta≈Ç zapisany"
 
 #: src/text_editor.c:1056
 #, fuzzy, c-format
@@ -6825,15 +6825,15 @@ msgid ""
 "the current buffer.\n"
 "Do you want to reload it?"
 msgstr ""
-"UWAGA: Plik \"%s\" na dysku jest nowszy niø plik\n"
-"znajduj±cy siÍ w bieø±cym buforze.\n"
-"Czy chcesz go prze≥adowaÊ?"
+"UWAGA: Plik \"%s\" na dysku jest nowszy ni≈º plik\n"
+"znajdujƒÖcy siƒô w bie≈ºƒÖcym buforze.\n"
+"Czy chcesz go prze≈Çadowaƒá?"
 
 #: src/text_editor.c:1193
 msgid "Auto format is currently disabled. Change the setting in Preferences."
 msgstr ""
-"Opcja automatycznego formatowania jest wy≥±czona. Je∂li jej potrzebujesz "
-"w≥±cz j± w menu ustawieÒ"
+"Opcja automatycznego formatowania jest wy≈ÇƒÖczona. Je≈õli jej potrzebujesz "
+"w≈ÇƒÖcz jƒÖ w menu ustawie≈Ñ"
 
 #: src/text_editor.c:1199
 msgid "Auto formatting ..."
@@ -6841,11 +6841,11 @@ msgstr "Automatyczne formatowanie ..."
 
 #: src/text_editor.c:1209 src/text_editor.c:1236
 msgid "Error in auto formatting ..."
-msgstr "Podczas automatycznego formatowania wyst±pi≥ b≥±d ..."
+msgstr "Podczas automatycznego formatowania wystƒÖpi≈Ç b≈ÇƒÖd ..."
 
 #: src/text_editor.c:1242
 msgid "Auto formatting completed"
-msgstr "ZakoÒczono automatyczne formatowanie"
+msgstr "Zako≈Ñczono automatyczne formatowanie"
 
 #: src/text_editor_cbs.c:186
 #, c-format
@@ -6863,7 +6863,7 @@ msgstr "Nowy"
 
 #: src/text_editor_gui.c:100 src/toolbar.c:78
 msgid "Open"
-msgstr "OtwÛrz"
+msgstr "Otw√≥rz"
 
 #: src/text_editor_gui.c:106 src/toolbar.c:82
 msgid "Save"
@@ -6871,7 +6871,7 @@ msgstr "Zapisz"
 
 #: src/text_editor_gui.c:111 src/toolbar.c:86
 msgid "Reload"
-msgstr "Od∂wieø"
+msgstr "Od≈õwie≈º"
 
 #. 0
 #: src/text_editor_gui.c:118 src/text_editor_menu.c:239
@@ -6902,7 +6902,7 @@ msgstr "Wkleja ze schowka"
 
 #: src/text_editor_gui.c:135 src/toolbar.c:113
 msgid "Find"
-msgstr "Znajdº"
+msgstr "Znajd≈∫"
 
 #: src/text_editor_gui.c:136
 #, fuzzy
@@ -6912,7 +6912,7 @@ msgstr " Wyszukiwanie napisu"
 #: src/text_editor_gui.c:141
 #, fuzzy
 msgid "Search and replace string"
-msgstr "Wyszukuje i zastÍpuje zadany tekst"
+msgstr "Wyszukuje i zastƒôpuje zadany tekst"
 
 #: src/text_editor_gui.c:157
 msgid "line: "
@@ -6920,21 +6920,21 @@ msgstr "wiersz: "
 
 #: src/text_editor_gui.c:169 src/toolbar.c:250
 msgid "Compile the current file"
-msgstr "Kompiluje bieø±cy plik"
+msgstr "Kompiluje bie≈ºƒÖcy plik"
 
 #: src/text_editor_gui.c:173
 #, fuzzy
 msgid "Build current file or the source directory of the Project"
-msgstr "Buduje bieø±cy plik, lub buduje katalog ºrÛd≥owy projektu"
+msgstr "Buduje bie≈ºƒÖcy plik, lub buduje katalog ≈∫r√≥d≈Çowy projektu"
 
 #: src/text_editor_gui.c:182
 msgid "Attach"
-msgstr "Przy≥±cz"
+msgstr "Przy≈ÇƒÖcz"
 
 #: src/text_editor_gui.c:183
 #, fuzzy
 msgid "Attach the current page"
-msgstr "Od≥±cza bieø±c± stronÍ"
+msgstr "Od≈ÇƒÖcza bie≈ºƒÖcƒÖ stronƒô"
 
 #: src/text_editor_menu.c:77
 #, fuzzy
@@ -6943,7 +6943,7 @@ msgstr "Wstecz"
 
 #: src/text_editor_menu.c:84
 msgid "Forward"
-msgstr "NaprzÛd"
+msgstr "Naprz√≥d"
 
 #: src/text_editor_menu.c:108
 msgid "Prev mesg"
@@ -6951,19 +6951,19 @@ msgstr "Poprzeni komunikat"
 
 #: src/text_editor_menu.c:114
 msgid "Next mesg"
-msgstr "NastÍpny komunikat"
+msgstr "Nastƒôpny komunikat"
 
 #: src/text_editor_menu.c:120
 msgid "Prev bookmark"
-msgstr "Poprzednia zak≥adka"
+msgstr "Poprzednia zak≈Çadka"
 
 #: src/text_editor_menu.c:126
 msgid "Next bookmark"
-msgstr "NastÍpna zak≥adka"
+msgstr "Nastƒôpna zak≈Çadka"
 
 #: src/text_editor_menu.c:143 src/toolbar.c:542
 msgid "Step in"
-msgstr "Krok z wej∂ciem"
+msgstr "Krok z wej≈õciem"
 
 #: src/text_editor_menu.c:149
 msgid "Step over"
@@ -6971,7 +6971,7 @@ msgstr "Krok nad"
 
 #: src/text_editor_menu.c:155
 msgid "Step out"
-msgstr "Krok z wyj∂ciem"
+msgstr "Krok z wyj≈õciem"
 
 #: src/text_editor_menu.c:161 src/toolbar.c:531
 msgid "Run to cursor"
@@ -6992,23 +6992,23 @@ msgstr "Przerwanie"
 #: src/text_editor_menu.c:191
 #, fuzzy
 msgid "Toggle Line numbers"
-msgstr "Prze≥±cz numeracjÍ wierszy"
+msgstr "Prze≈ÇƒÖcz numeracjƒô wierszy"
 
 #: src/text_editor_menu.c:198
 msgid "Toggle Marker Margin"
-msgstr "Prze≥±cz znaczniki na marginesie"
+msgstr "Prze≈ÇƒÖcz znaczniki na marginesie"
 
 #: src/text_editor_menu.c:205
 msgid "Toggle Fold Margin"
-msgstr "Prze≥±cz margines sekcji"
+msgstr "Prze≈ÇƒÖcz margines sekcji"
 
 #: src/text_editor_menu.c:212
 msgid "Toggle Guides"
-msgstr "Prze≥±cz prowadnice"
+msgstr "Prze≈ÇƒÖcz prowadnice"
 
 #: src/text_editor_menu.c:220
 msgid "++Zoom"
-msgstr "PowiÍkszenie tekstu"
+msgstr "Powiƒôkszenie tekstu"
 
 #: src/text_editor_menu.c:227
 msgid "--Zoom"
@@ -7022,7 +7022,7 @@ msgstr "Pomoc kontekstowa"
 #. 6
 #: src/text_editor_menu.c:275
 msgid "Toggle Bookmark"
-msgstr "Prze≥±cz zak≥adkÍ"
+msgstr "Prze≈ÇƒÖcz zak≈Çadkƒô"
 
 #. 7
 #: src/text_editor_menu.c:283
@@ -7032,12 +7032,12 @@ msgstr "Autoformatuj"
 #. 8
 #: src/text_editor_menu.c:291
 msgid "Swap .h/.c"
-msgstr "ZamieÒ .h/.c"
+msgstr "Zamie≈Ñ .h/.c"
 
 #. 10
 #: src/text_editor_menu.c:301 src/toolbar.c:518
 msgid "Go"
-msgstr "Przejdº"
+msgstr "Przejd≈∫"
 
 #. 11
 #: src/text_editor_menu.c:309 src/text_editor_menu.c:431
@@ -7056,35 +7056,35 @@ msgstr "Cofnij"
 
 #: src/toolbar.c:99
 msgid "Redo"
-msgstr "PonÛw"
+msgstr "Pon√≥w"
 
 #: src/toolbar.c:104
 msgid "Detach"
-msgstr "Od≥±cz"
+msgstr "Od≈ÇƒÖcz"
 
 #: src/toolbar.c:105
 msgid "Detach the current page"
-msgstr "Od≥±cza bieø±c± stronÍ"
+msgstr "Od≈ÇƒÖcza bie≈ºƒÖcƒÖ stronƒô"
 
 #: src/toolbar.c:114
 msgid "Search for the given string in the current file"
-msgstr "Szuka zadanego tekstu w bieø±cym pliku"
+msgstr "Szuka zadanego tekstu w bie≈ºƒÖcym pliku"
 
 #: src/toolbar.c:129
 msgid "Enter the string to search for"
-msgstr "Wprowadº wyszukiwany napis"
+msgstr "Wprowad≈∫ wyszukiwany napis"
 
 #: src/toolbar.c:134
 msgid "Go To"
-msgstr "Przejdº do"
+msgstr "Przejd≈∫ do"
 
 #: src/toolbar.c:135
 msgid "Go to the given line number in the current file"
-msgstr "Przechodzi w bieø±cym pliku do wiersza o podanym numerze"
+msgstr "Przechodzi w bie≈ºƒÖcym pliku do wiersza o podanym numerze"
 
 #: src/toolbar.c:142
 msgid "Enter the line number to go to"
-msgstr "Wprowadº numer wiersza, do ktÛrego chcesz przej∂Ê"
+msgstr "Wprowad≈∫ numer wiersza, do kt√≥rego chcesz przej≈õƒá"
 
 #: src/toolbar.c:159
 msgid "Context sensitive help"
@@ -7104,7 +7104,7 @@ msgstr "Uruchamia konfigurowanie"
 
 #: src/toolbar.c:274
 msgid "Build current file, or build the source directory of the Project"
-msgstr "Buduje bieø±cy plik, lub buduje katalog ºrÛd≥owy projektu"
+msgstr "Buduje bie≈ºƒÖcy plik, lub buduje katalog ≈∫r√≥d≈Çowy projektu"
 
 #: src/toolbar.c:285
 msgid "Build_all"
@@ -7124,15 +7124,15 @@ msgstr "Uruchamia debuger"
 
 #: src/toolbar.c:315
 msgid "Stop/interrupt compile or build"
-msgstr "Zatrzymuje/wstrzymuje kompilacjÍ lub budowanie"
+msgstr "Zatrzymuje/wstrzymuje kompilacjƒô lub budowanie"
 
 #: src/toolbar.c:384 src/toolbar.c:767
 msgid "Toggle"
-msgstr "Prze≥±cz"
+msgstr "Prze≈ÇƒÖcz"
 
 #: src/toolbar.c:385
 msgid "Toggle bookmark at current location"
-msgstr "Prze≥±cza zak≥adkÍ na bieø±cej lokalizacji"
+msgstr "Prze≈ÇƒÖcza zak≈Çadkƒô na bie≈ºƒÖcej lokalizacji"
 
 #: src/toolbar.c:391
 msgid "First"
@@ -7140,7 +7140,7 @@ msgstr "Pierw"
 
 #: src/toolbar.c:392
 msgid "Goto first bookmark in this document"
-msgstr "Przechodzi do pierwszej zak≥adki dokumentu"
+msgstr "Przechodzi do pierwszej zak≈Çadki dokumentu"
 
 #: src/toolbar.c:398 src/toolbar.c:420
 msgid "Prev"
@@ -7148,7 +7148,7 @@ msgstr "Poprz"
 
 #: src/toolbar.c:399
 msgid "Goto previous bookmark in this document"
-msgstr "Przechodzi do poprzedniej zak≥adki dokumentu"
+msgstr "Przechodzi do poprzedniej zak≈Çadki dokumentu"
 
 #: src/toolbar.c:404 src/toolbar.c:427
 msgid "Next"
@@ -7156,7 +7156,7 @@ msgstr "Nast"
 
 #: src/toolbar.c:405
 msgid "Goto next bookmark in this document"
-msgstr "Przechodzi do nastÍpnej zak≥adki dokumentu"
+msgstr "Przechodzi do nastƒôpnej zak≈Çadki dokumentu"
 
 #: src/toolbar.c:410
 msgid "Last"
@@ -7164,7 +7164,7 @@ msgstr "Ostat"
 
 #: src/toolbar.c:411
 msgid "Goto last bookmark in this document"
-msgstr "Przechodzi do ostatniej zak≥adki dokumentu"
+msgstr "Przechodzi do ostatniej zak≈Çadki dokumentu"
 
 #: src/toolbar.c:421
 msgid "Goto previous message in this document"
@@ -7172,7 +7172,7 @@ msgstr "Przechodzi do poprzedniego komunikatu w tym dokumencie"
 
 #: src/toolbar.c:428
 msgid "Goto next message in this document"
-msgstr "Przechodzi do nastÍpnego komunikatu w tym dokumencie"
+msgstr "Przechodzi do nastƒôpnego komunikatu w tym dokumencie"
 
 #: src/toolbar.c:436
 msgid "Start"
@@ -7180,7 +7180,7 @@ msgstr "Pocz"
 
 #: src/toolbar.c:437
 msgid "Goto start of current code block"
-msgstr "Przechodzi na pocz±tek bieø±cego bloku kodu"
+msgstr "Przechodzi na poczƒÖtek bie≈ºƒÖcego bloku kodu"
 
 #: src/toolbar.c:443
 msgid "End"
@@ -7188,7 +7188,7 @@ msgstr "Koniec"
 
 #: src/toolbar.c:444
 msgid "Goto end of current code block"
-msgstr "Przechodzi na koniec bieø±cego bloku kodu"
+msgstr "Przechodzi na koniec bie≈ºƒÖcego bloku kodu"
 
 #: src/toolbar.c:451
 #, fuzzy
@@ -7198,17 +7198,17 @@ msgstr "Znacznik:"
 #: src/toolbar.c:460
 #, fuzzy
 msgid "Goto Tag"
-msgstr "Przejdº do"
+msgstr "Przejd≈∫ do"
 
 #: src/toolbar.c:461
 #, fuzzy
 msgid "Search for the given tag in the current file"
-msgstr "Szuka zadanego tekstu w bieø±cym pliku"
+msgstr "Szuka zadanego tekstu w bie≈ºƒÖcym pliku"
 
 #: src/toolbar.c:476
 #, fuzzy
 msgid "Enter the tag to jump to"
-msgstr "Wprowadº wyszukiwany napis"
+msgstr "Wprowad≈∫ wyszukiwany napis"
 
 #: src/toolbar.c:519
 msgid "Go or continue execution"
@@ -7228,15 +7228,15 @@ msgstr "Krok nad"
 
 #: src/toolbar.c:555
 msgid "Step over the function"
-msgstr "Krok nad funkcj±"
+msgstr "Krok nad funkcjƒÖ"
 
 #: src/toolbar.c:565
 msgid "Step Out"
-msgstr "Krok z wyj∂ciem"
+msgstr "Krok z wyj≈õciem"
 
 #: src/toolbar.c:566
 msgid "Step out of the function"
-msgstr "Krok z wyj∂ciem z funkcji"
+msgstr "Krok z wyj≈õciem z funkcji"
 
 #: src/toolbar.c:594
 msgid "Breakpoint"
@@ -7244,15 +7244,15 @@ msgstr "Punkt przerwania"
 
 #: src/toolbar.c:595
 msgid "Toggle breakpoint at cursor"
-msgstr "Prze≥±cza punkt przerwania na pozycji kursora"
+msgstr "Prze≈ÇƒÖcza punkt przerwania na pozycji kursora"
 
 #: src/toolbar.c:607
 msgid "Inspect or evaluate an expression"
-msgstr "Bada lub ocenia wyraøenie"
+msgstr "Bada lub ocenia wyra≈ºenie"
 
 #: src/toolbar.c:620
 msgid "Display the current frame information"
-msgstr "Wy∂wietla informacje o bieø±cej ramce"
+msgstr "Wy≈õwietla informacje o bie≈ºƒÖcej ramce"
 
 #: src/toolbar.c:633
 msgid "Watch"
@@ -7260,7 +7260,7 @@ msgstr "Obserwuj"
 
 #: src/toolbar.c:635
 msgid "Watch expressions during execution"
-msgstr "Obserwacja wyraøeÒ w trakcie wykonywania"
+msgstr "Obserwacja wyra≈ºe≈Ñ w trakcie wykonywania"
 
 #: src/toolbar.c:647
 msgid "Stack trace of the program"
@@ -7272,15 +7272,15 @@ msgstr "Rejestry"
 
 #: src/toolbar.c:660
 msgid "CPU registers and their contents"
-msgstr "Rejestry CPU i ich zawarto∂Ê"
+msgstr "Rejestry CPU i ich zawarto≈õƒá"
 
 #: src/toolbar.c:674
 msgid "End the debugging session"
-msgstr "KoÒczy sesjÍ debugowania"
+msgstr "Ko≈Ñczy sesjƒô debugowania"
 
 #: src/toolbar.c:769
 msgid "Toggle current code fold hide/show"
-msgstr "Wy∂wietla/ukrywa bieø±c± sekcjÍ kodu"
+msgstr "Wy≈õwietla/ukrywa bie≈ºƒÖcƒÖ sekcjƒô kodu"
 
 #: src/toolbar.c:780
 msgid "Close all"
@@ -7292,7 +7292,7 @@ msgstr "Zamyka wszystkie sekcje kodu w tym dokumencie"
 
 #: src/toolbar.c:793
 msgid "Open all"
-msgstr "OtwÛrz wszystkie"
+msgstr "Otw√≥rz wszystkie"
 
 #: src/toolbar.c:795
 msgid "Open all code folds in this document"
@@ -7304,23 +7304,23 @@ msgstr "Zaznacz"
 
 #: src/toolbar.c:809
 msgid "Select current code block"
-msgstr "Zaznacza bieø±cy blok programu"
+msgstr "Zaznacza bie≈ºƒÖcy blok programu"
 
 #: src/toolbar.c:820
 msgid "Indent inc"
-msgstr "ZwiÍksz wciÍcie"
+msgstr "Zwiƒôksz wciƒôcie"
 
 #: src/toolbar.c:822
 msgid "Increase indentation of block/line"
-msgstr "ZwiÍksza wciÍcie bloku lub wiersza"
+msgstr "Zwiƒôksza wciƒôcie bloku lub wiersza"
 
 #: src/toolbar.c:833
 msgid "Indent dcr"
-msgstr "Zmniejsz wciÍcie"
+msgstr "Zmniejsz wciƒôcie"
 
 #: src/toolbar.c:835
 msgid "Decrease indentation of block/line"
-msgstr "Zmniejsza wciÍcie bloku lub wiersza"
+msgstr "Zmniejsza wciƒôcie bloku lub wiersza"
 
 #: src/toolbar.c:848
 msgid "Autoformat"
@@ -7332,47 +7332,47 @@ msgstr "Automatycznie formatuje kod programu"
 
 #: src/toolbar.c:862
 msgid "Configure style to use for auto format"
-msgstr "Ustawia styl uøywany przy automatycznym formatowaniu"
+msgstr "Ustawia styl u≈ºywany przy automatycznym formatowaniu"
 
 #: src/toolbar.c:875
 msgid "Calltip"
-msgstr "Podpowiedº"
+msgstr "Podpowied≈∫"
 
 #: src/toolbar.c:875
 msgid "Show Calltip"
-msgstr "Wy∂wietla podpowiedº"
+msgstr "Wy≈õwietla podpowied≈∫"
 
 #: src/toolbar.c:888
 msgid "Autocomplete"
-msgstr "Autouzupe≥nianie"
+msgstr "Autouzupe≈Çnianie"
 
 #: src/toolbar.c:889
 msgid "Autocomplete word"
-msgstr "Automatycznie uzupe≥nia s≥owo"
+msgstr "Automatycznie uzupe≈Çnia s≈Çowo"
 
-# [cyba] A niby autor powinien wiedzieÊ, co pisze...
+# [cyba] A niby autor powinien wiedzieƒá, co pisze...
 #: src/toolbar_callbacks.c:278
 #, fuzzy, c-format
 msgid "There is line number %d in \"%s\"."
-msgstr "Wiersz o numerze %d nie wystÍpuje w pliku \"%s\"."
+msgstr "Wiersz o numerze %d nie wystƒôpuje w pliku \"%s\"."
 
 #: src/utilities.c:736
 #, fuzzy, c-format
 msgid "Unable to read file: %s."
-msgstr "Nie moøna otworzyÊ pliku: %s\n"
+msgstr "Nie mo≈ºna otworzyƒá pliku: %s\n"
 
 #: src/utilities.c:778
 #, fuzzy
 msgid "Unable to complete file copy"
-msgstr "Nie moøna zakoÒczyÊ kopiowania pliku"
+msgstr "Nie mo≈ºna zako≈Ñczyƒá kopiowania pliku"
 
 #: src/watch.c:91
 msgid "< Not defined in current context >"
-msgstr "< Niezdefiniowane w bieø±cym kontek∂cie >"
+msgstr "< Niezdefiniowane w bie≈ºƒÖcym kontek≈õcie >"
 
 #: src/watch_gui.c:37
 msgid "Add expression"
-msgstr "Dodaj wyraøenie"
+msgstr "Dodaj wyra≈ºenie"
 
 #: src/watch_gui.c:49
 msgid "Update all"
@@ -7380,11 +7380,11 @@ msgstr "Uaktualnij wszystko"
 
 #: src/watch_gui.c:55
 msgid "Clear"
-msgstr "Wyczy∂Ê"
+msgstr "Wyczy≈õƒá"
 
 #: src/watch_gui.c:61
 msgid "Toggle enable"
-msgstr "Prze≥±czanie moøliwe"
+msgstr "Prze≈ÇƒÖczanie mo≈ºliwe"
 
 #: src/watch_gui.c:67
 msgid "Change item"
@@ -7396,11 +7396,11 @@ msgstr "Okno obserwacji"
 
 #: src/watch_gui.c:127
 msgid "Expression"
-msgstr "Wyraøenie"
+msgstr "Wyra≈ºenie"
 
 #: src/watch_gui.c:183
 msgid "Add Watch Expression"
-msgstr "Dodaje wyraøenie do okna obserwacji"
+msgstr "Dodaje wyra≈ºenie do okna obserwacji"
 
 #: src/watch_gui.c:193
 msgid "Add expression to watch"
@@ -7409,12 +7409,12 @@ msgstr ""
 #: src/watch_gui.c:248
 #, fuzzy
 msgid "Modify Watch Expression"
-msgstr "Dodaje wyraøenie do okna obserwacji"
+msgstr "Dodaje wyra≈ºenie do okna obserwacji"
 
 #: src/watch_gui.c:258
 #, fuzzy
 msgid "Modify watched expression"
-msgstr "Dodaje wyraøenie do okna obserwacji"
+msgstr "Dodaje wyra≈ºenie do okna obserwacji"
 
 #: src/watch_gui.c:314
 msgid "Inspect/Evaluate"
@@ -7422,7 +7422,7 @@ msgstr "Zbadaj/Obejrzyj"
 
 #: src/watch_gui.c:324
 msgid "Inspect/Evaluate Expression"
-msgstr "Umoøliwia badanie/ogl±danie wyraøenia"
+msgstr "Umo≈ºliwia badanie/oglƒÖdanie wyra≈ºenia"
 
 #: src/watch_gui.c:333
 msgid "Add To Watch"
@@ -7434,11 +7434,11 @@ msgstr "Typ projektu"
 
 #: src/wizard_gui.c:120
 msgid "Select the type of application to be developed"
-msgstr "Wybierz typ aplikacji, ktÛr± chcesz stworzyÊ"
+msgstr "Wybierz typ aplikacji, kt√≥rƒÖ chcesz stworzyƒá"
 
 #: src/wizard_gui.c:167
 msgid "Generic/Terminal project"
-msgstr "Projekt ogÛlny/terminalowy"
+msgstr "Projekt og√≥lny/terminalowy"
 
 #: src/wizard_gui.c:171
 msgid "GTK project"
@@ -7515,7 +7515,7 @@ msgstr "Podstawowe informacje"
 
 #: src/wizard_gui.c:319
 msgid "Enter the basic Project information"
-msgstr "Wprowadº podstawowe informacje o projekcie"
+msgstr "Wprowad≈∫ podstawowe informacje o projekcie"
 
 #: src/wizard_gui.c:342
 msgid "Project Version:"
@@ -7531,7 +7531,7 @@ msgstr "Obiekt docelowy projektu:"
 
 #: src/wizard_gui.c:387
 msgid "Programming language"
-msgstr "JÍzyk programowania"
+msgstr "Jƒôzyk programowania"
 
 #: src/wizard_gui.c:398
 msgid "C"
@@ -7564,11 +7564,11 @@ msgstr "Docelowa biblioteka dynamiczna"
 
 #: src/wizard_gui.c:527
 msgid "Enter a short description of the Project"
-msgstr "Wprowadº krÛtki opis projektu"
+msgstr "Wprowad≈∫ kr√≥tki opis projektu"
 
 #: src/wizard_gui.c:631
 msgid "Enter any additional Project options"
-msgstr "Wprowadº dodatkowe opcje projektu"
+msgstr "Wprowad≈∫ dodatkowe opcje projektu"
 
 #: src/wizard_gui.c:648
 msgid " Project Options "
@@ -7576,11 +7576,11 @@ msgstr " Opcje projektu "
 
 #: src/wizard_gui.c:659
 msgid "Include GNU Copyright statement in file headings"
-msgstr "Do≥±czanie informacji dotycz±cej licencji GNU w nag≥Ûwkach plikÛw"
+msgstr "Do≈ÇƒÖczanie informacji dotyczƒÖcej licencji GNU w nag≈Ç√≥wkach plik√≥w"
 
 #: src/wizard_gui.c:666
 msgid "Enable Gettext Support"
-msgstr "Obs≥uga biblioteki gettext"
+msgstr "Obs≈Çuga biblioteki gettext"
 
 #: src/wizard_gui.c:673
 msgid "GNOME Menu Entry"
@@ -7614,17 +7614,17 @@ msgstr "Przechodzi do poprzedniego komunikatu"
 #: widgets/gnomefilelist.c:224
 #, fuzzy
 msgid "Go to the next directory"
-msgstr "Czy∂ci katalog ºrÛd≥owy"
+msgstr "Czy≈õci katalog ≈∫r√≥d≈Çowy"
 
 #: widgets/gnomefilelist.c:228
 #, fuzzy
 msgid "Go to parent directory"
-msgstr "Czy∂ci ca≥y katalog projektu"
+msgstr "Czy≈õci ca≈Çy katalog projektu"
 
 #: widgets/gnomefilelist.c:233
 #, fuzzy
 msgid "Go to home directory"
-msgstr "Czy∂ci katalog ºrÛd≥owy"
+msgstr "Czy≈õci katalog ≈∫r√≥d≈Çowy"
 
 #: widgets/gnomefilelist.c:239
 msgid "Refresh listing"
@@ -7633,7 +7633,7 @@ msgstr ""
 #: widgets/gnomefilelist.c:245
 #, fuzzy
 msgid "Delete file"
-msgstr "UsuÒ wszystkie"
+msgstr "Usu≈Ñ wszystkie"
 
 #: widgets/gnomefilelist.c:249 widgets/gnomefilelist.c:1860
 #, fuzzy
@@ -7643,7 +7643,7 @@ msgstr "Otwiera plik"
 #: widgets/gnomefilelist.c:253 widgets/gnomefilelist.c:1959
 #, fuzzy
 msgid "Create new folder"
-msgstr "_StwÛrz nowe okno"
+msgstr "_Stw√≥rz nowe okno"
 
 #: widgets/gnomefilelist.c:258
 msgid "Show Hidden"
@@ -7685,7 +7685,7 @@ msgstr "Konfiguracja"
 #: widgets/gnomefilelist.c:739
 #, fuzzy
 msgid "Properties files"
-msgstr "Projekt/w≥a∂ciwo∂ci"
+msgstr "Projekt/w≈Ça≈õciwo≈õci"
 
 #: widgets/gnomefilelist.c:742
 #, fuzzy
@@ -7744,7 +7744,7 @@ msgstr ""
 
 #, fuzzy
 #~ msgid "Error in importing source file"
-#~ msgstr "B≥±d przy zapisie do pliku: %s."
+#~ msgstr "B≈ÇƒÖd przy zapisie do pliku: %s."
 
 #, fuzzy
 #~ msgid "New Class "
@@ -7762,14 +7762,14 @@ msgstr ""
 #~ "Wstaw kod w \"%s:%u\""
 
 #~ msgid "Unable to Load Plug in Module %s. Err: %s"
-#~ msgstr "Nie moøna za≥adowaÊ modu≥u wtyczki %s. B≥±d: %s"
+#~ msgstr "Nie mo≈ºna za≈Çadowaƒá modu≈Çu wtyczki %s. B≈ÇƒÖd: %s"
 
 #, fuzzy
 #~ msgid "GNOMEmm project"
 #~ msgstr "Projekt GNOME"
 
 #~ msgid "Owner"
-#~ msgstr "W≥a∂ciciel"
+#~ msgstr "W≈Ça≈õciciel"
 
 #~ msgid "YES"
 #~ msgstr "TAK"
@@ -7779,11 +7779,11 @@ msgstr ""
 
 #~ msgid "Funny, Breakpoint is set in the doc, but couldn't find the ID"
 #~ msgstr ""
-#~ "Zabawne, punkt przerwania jest ustawiony w dokumencie, lecz nie moøna "
-#~ "odnaleºÊ ID"
+#~ "Zabawne, punkt przerwania jest ustawiony w dokumencie, lecz nie mo≈ºna "
+#~ "odnale≈∫ƒá ID"
 
 #~ msgid "Toggle Enable"
-#~ msgstr "Prze≥±czanie moøliwe"
+#~ msgstr "Prze≈ÇƒÖczanie mo≈ºliwe"
 
 #~ msgid "Add Breakpoint"
 #~ msgstr "Dodaj punkt przerwania"
@@ -7792,43 +7792,43 @@ msgstr ""
 #~ msgstr "Plik nie jest zapisany. Zapisz go i rozpocznij budowanie."
 
 #~ msgid "I do not really know how to build this file."
-#~ msgstr "Nie wiadomo w jaki sposÛb zbudowaÊ ten plik."
+#~ msgstr "Nie wiadomo w jaki spos√≥b zbudowaƒá ten plik."
 
 #~ msgid "Unable to build Project. Check Preferences->Commands."
-#~ msgstr "Nie moøna zbudowaÊ projektu. Sprawdº Preferencje->Polecenia."
+#~ msgstr "Nie mo≈ºna zbudowaƒá projektu. Sprawd≈∫ Preferencje->Polecenia."
 
 #~ msgid "Unable to Install Project. Check Preferences->Commands."
-#~ msgstr "Nie moøna zainstalowaÊ projektu. Sprawdº Preferencje->Polecenia."
+#~ msgstr "Nie mo≈ºna zainstalowaƒá projektu. Sprawd≈∫ Preferencje->Polecenia."
 
 #~ msgid "Unable to clean project. Check Preferences->Commands."
-#~ msgstr "Nie moøna wyczy∂ciÊ projektu. Sprawdº Ustawienia->Polecenia."
+#~ msgstr "Nie mo≈ºna wyczy≈õciƒá projektu. Sprawd≈∫ Ustawienia->Polecenia."
 
 #~ msgid "Unable to clean all project. Check Preferences->Commands."
-#~ msgstr "Nie moøna wyczy∂ciÊ ca≥ego projektu. Sprawdº Ustawienia->Polecenia."
+#~ msgstr "Nie mo≈ºna wyczy≈õciƒá ca≈Çego projektu. Sprawd≈∫ Ustawienia->Polecenia."
 
 #~ msgid "Select programming language:"
-#~ msgstr "Wybierz jÍzyk programowania:"
+#~ msgstr "Wybierz jƒôzyk programowania:"
 
 #~ msgid "Execute File:"
 #~ msgstr "Wykonanie pliku:"
 
 #~ msgid " General commands "
-#~ msgstr " OgÛlne polecenia "
+#~ msgstr " Og√≥lne polecenia "
 
 #~ msgid "Building source directory of the project: "
-#~ msgstr "Budowanie katalogu ºrÛd≥owego dla projektu: "
+#~ msgstr "Budowanie katalogu ≈∫r√≥d≈Çowego dla projektu: "
 
 #~ msgid "I do not really know how to compile this file."
-#~ msgstr "Program nie wie jak skompilowaÊ ten plik."
+#~ msgstr "Program nie wie jak skompilowaƒá ten plik."
 
 #~ msgid "Cannot create: %s."
-#~ msgstr "Nie moøna stworzyÊ: %s."
+#~ msgstr "Nie mo≈ºna stworzyƒá: %s."
 
 #~ msgid ""
 #~ "Support ID: %s\n"
 #~ "\n"
 #~ msgstr ""
-#~ "ID obs≥ugiwanego elementu: %s\n"
+#~ "ID obs≈Çugiwanego elementu: %s\n"
 #~ "\n"
 
 #~ msgid "Description:\n"
@@ -7838,7 +7838,7 @@ msgstr ""
 #~ "Dependencies: %s\n"
 #~ "\n"
 #~ msgstr ""
-#~ "Zaleøno∂ci: %s\n"
+#~ "Zale≈ºno≈õci: %s\n"
 #~ "\n"
 
 #~ msgid "Macros in configure.in fie:\n"
@@ -7897,51 +7897,51 @@ msgstr ""
 #~ msgstr "Dodane biblioteki"
 
 #~ msgid "Treat warnings as errors."
-#~ msgstr "Traktowanie ostrzeøeÒ jak b≥ÍdÛw."
+#~ msgstr "Traktowanie ostrze≈ºe≈Ñ jak b≈Çƒôd√≥w."
 
 #~ msgid "All Warnings"
-#~ msgstr "Wszystkie ostrzeøenia"
+#~ msgstr "Wszystkie ostrze≈ºenia"
 
 #~ msgid "Warning for implicit declarations"
-#~ msgstr "Ostrzeøenia o domniemanych deklaracjach"
+#~ msgstr "Ostrze≈ºenia o domniemanych deklaracjach"
 
 #~ msgid "Warning for mismatched return types"
-#~ msgstr "Ostrzeøenia o niepasuj±cych zwracanych typach zmiennych"
+#~ msgstr "Ostrze≈ºenia o niepasujƒÖcych zwracanych typach zmiennych"
 
 #~ msgid "Warning for unused variables"
-#~ msgstr "Ostrzeøenia o nieuøywanych zmiennych"
+#~ msgstr "Ostrze≈ºenia o nieu≈ºywanych zmiennych"
 
 #~ msgid "Warning for unhandled switch case with enums"
 #~ msgstr ""
-#~ "Ostrzeøenia o nieobs≥uøonych przypadkach w instrukcjach switch z "
+#~ "Ostrze≈ºenia o nieobs≈Çu≈ºonych przypadkach w instrukcjach switch z "
 #~ "wyliczeniami"
 
 #~ msgid "Warning for nested comment"
-#~ msgstr "Ostrzeøenia o zagnieødøonych komentarzach"
+#~ msgstr "Ostrze≈ºenia o zagnie≈ºd≈ºonych komentarzach"
 
 #~ msgid "Warning for uninitialized variable use"
-#~ msgstr "Ostrzeøenia o uøyciu niezainicjowanych zmiennych"
+#~ msgstr "Ostrze≈ºenia o u≈ºyciu niezainicjowanych zmiennych"
 
 #~ msgid "Warning for missing parentheses"
-#~ msgstr "Ostrzeøenia o brakuj±cych nawiasach"
+#~ msgstr "Ostrze≈ºenia o brakujƒÖcych nawiasach"
 
 #~ msgid "Warning on differences to traditional syntax"
-#~ msgstr "Ostrzeøenia przy napotkaniu sk≥adni innej od tradycyjnej"
+#~ msgstr "Ostrze≈ºenia przy napotkaniu sk≈Çadni innej od tradycyjnej"
 
 #~ msgid "Warning for variable shadowing"
-#~ msgstr "Ostrzeøenia o przykrywaniu zmiennych"
+#~ msgstr "Ostrze≈ºenia o przykrywaniu zmiennych"
 
 #~ msgid "Warning for suspected pointer arithmetic"
-#~ msgstr "Ostrzeøenia o podejrzanej arytmetyce na wskaºnikach"
+#~ msgstr "Ostrze≈ºenia o podejrzanej arytmetyce na wska≈∫nikach"
 
 #~ msgid "Warning for missing prototypes"
-#~ msgstr "Ostrzeøenia o brakuj±cych prototypach"
+#~ msgstr "Ostrze≈ºenia o brakujƒÖcych prototypach"
 
 #~ msgid "Warning if declarations cannot be inlined"
-#~ msgstr "Ostrzeøenia o niemoøno∂ci rozwiniÍcia deklaracji"
+#~ msgstr "Ostrze≈ºenia o niemo≈ºno≈õci rozwiniƒôcia deklaracji"
 
 #~ msgid "Warning for overloaded virtuals"
-#~ msgstr "Ostrzeøenia o przeci±øonych metodach wirtualnych"
+#~ msgstr "Ostrze≈ºenia o przeciƒÖ≈ºonych metodach wirtualnych"
 
 #~ msgid "Note"
 #~ msgstr "Notka"
@@ -7952,24 +7952,24 @@ msgstr ""
 #~ "both debug and optimization options, unless what you want\n"
 #~ "is to debug the optimized code."
 #~ msgstr ""
-#~ "Przy w≥±czonej optymalizacji moøesz mieÊ pewne trudno∂ci\n"
+#~ "Przy w≈ÇƒÖczonej optymalizacji mo≈ºesz mieƒá pewne trudno≈õci\n"
 #~ "z debugowaniem programu. Jednoczesne uaktywnianie opcji\n"
-#~ "debugowania i optymalizacji nie jest wiÍc zalecane, chyba,\n"
-#~ "øe rzeczywi∂cie chcesz debugowaÊ zoptymalizowany kod programu."
+#~ "debugowania i optymalizacji nie jest wiƒôc zalecane, chyba,\n"
+#~ "≈ºe rzeczywi≈õcie chcesz debugowaƒá zoptymalizowany kod programu."
 
 #~ msgid ""
 #~ "You have a process ATTACHED under the debugger.\n"
 #~ "Please detach it first and then load the core file."
 #~ msgstr ""
-#~ "Pozosta≥ jeszcze proces PRZY£°CZONY do debugera.\n"
-#~ "Przed odczytem pliku core naleøy go od≥±czyÊ."
+#~ "Pozosta≈Ç jeszcze proces PRZY≈ÅƒÑCZONY do debugera.\n"
+#~ "Przed odczytem pliku core nale≈ºy go od≈ÇƒÖczyƒá."
 
 #~ msgid ""
 #~ "You have a process RUNNING under the debugger.\n"
 #~ "Please stop it first and then load the core file."
 #~ msgstr ""
-#~ "Pozosta≥ jeszcze proces DZIA£AJ°CY pod debugerem.\n"
-#~ "Przed odczytem pliku core naleøy go od≥±czyÊ."
+#~ "Pozosta≈Ç jeszcze proces DZIA≈ÅAJƒÑCY pod debugerem.\n"
+#~ "Przed odczytem pliku core nale≈ºy go od≈ÇƒÖczyƒá."
 
 #~ msgid "Execute with arguments"
 #~ msgstr "Uruchomienie z argumentami"
@@ -7978,21 +7978,21 @@ msgstr ""
 #~ "ERROR: No input files supplied.\n"
 #~ "I am wondering where will I search."
 #~ msgstr ""
-#~ "B£°D: Pliki wej∂ciowe nie zosta≥y podane.\n"
-#~ "Program nie ma informacji gdzie ma szukaÊ."
+#~ "B≈ÅƒÑD: Pliki wej≈õciowe nie zosta≈Çy podane.\n"
+#~ "Program nie ma informacji gdzie ma szukaƒá."
 
 #~ msgid ""
 #~ "ERROR: No search string supplied.\n"
 #~ "I am wondering what to search."
 #~ msgstr ""
-#~ "B£°D: Tekst do poszukiwania nie zosta≥ wprowadzony.\n"
-#~ "Program nie ma informacji czego ma szukaÊ."
+#~ "B≈ÅƒÑD: Tekst do poszukiwania nie zosta≈Ç wprowadzony.\n"
+#~ "Program nie ma informacji czego ma szukaƒá."
 
 #~ msgid "List of Files/Directories to be searched"
-#~ msgstr "Lista przeszukiwanych plikÛw/katalogÛw"
+#~ msgstr "Lista przeszukiwanych plik√≥w/katalog√≥w"
 
 #~ msgid "Whole Document"
-#~ msgstr "Ca≥y dokument"
+#~ msgstr "Ca≈Çy dokument"
 
 #~ msgid "From Cursor"
 #~ msgstr "Od kursora"
@@ -8001,25 +8001,25 @@ msgstr ""
 #~ msgstr "Typ"
 
 #~ msgid "Ignore case while searching"
-#~ msgstr "Bez rozrÛøniania ma≥ych i wielkich liter"
+#~ msgstr "Bez rozr√≥≈ºniania ma≈Çych i wielkich liter"
 
 #~ msgid "Couldn't create file: %s."
-#~ msgstr "Nie moøna stworzyÊ pliku: %s."
+#~ msgstr "Nie mo≈ºna stworzyƒá pliku: %s."
 
 #~ msgid "Again saving  project ...\n"
 #~ msgstr "Ponowne zapisywanie projektu ...\n"
 
 #~ msgid "Autogeneration completed...............Unsuccessful\n"
-#~ msgstr "Automatyczna generacja zakoÒczona.........niepowodzeniem\n"
+#~ msgstr "Automatyczna generacja zako≈Ñczona.........niepowodzeniem\n"
 
 #~ msgid "You have a project opened. Close it first."
 #~ msgstr "Otwarty jest projekt. Najpierw do zamknij."
 
 #~ msgid "_Tags Toolbar"
-#~ msgstr "Pasek _znacznikÛw"
+#~ msgstr "Pasek _znacznik√≥w"
 
 #~ msgid "Hide/Unhide Tags toolbar"
-#~ msgstr "Pokazuje/ukrywa pasek znacznikÛw"
+#~ msgstr "Pokazuje/ukrywa pasek znacznik√≥w"
 
 #~ msgid "_Project Listing"
 #~ msgstr "_Listing projektu"
@@ -8046,75 +8046,75 @@ msgstr ""
 #~ msgstr "_Informacje o projekcie"
 
 #~ msgid "Detailed information about the project"
-#~ msgstr "SzczegÛ≥owe informacje o projekcie"
+#~ msgstr "Szczeg√≥≈Çowe informacje o projekcie"
 
 #~ msgid "Force the highlight style to None"
-#~ msgstr "Wymusza brak stylu pod∂wietlania"
+#~ msgstr "Wymusza brak stylu pod≈õwietlania"
 
 #~ msgid "Autoformat C and C++ source files"
-#~ msgstr "Automatycznie formatuje pliki ºrÛd≥owe C i C++"
+#~ msgstr "Automatycznie formatuje pliki ≈∫r√≥d≈Çowe C i C++"
 
 #~ msgid "plugins"
 #~ msgstr "wtyczki"
 
 #~ msgid "Grep Utility"
-#~ msgstr "NarzÍdzie grep"
+#~ msgstr "Narzƒôdzie grep"
 
 #~ msgid "Compare two files"
-#~ msgstr "PorÛwnaj dwa pliki"
+#~ msgstr "Por√≥wnaj dwa pliki"
 
 #~ msgid "Diff Utility"
-#~ msgstr "NarzÍdzie diff"
+#~ msgstr "Narzƒôdzie diff"
 
 #~ msgid "File View (Char/Octal/Hex)"
-#~ msgstr "Podgl±d pliku (Znak/Ûsemkowo/hex)"
+#~ msgstr "PodglƒÖd pliku (Znak/√≥semkowo/hex)"
 
 #~ msgid "Backup Manager"
-#~ msgstr "Menedøer kopii zapasowych"
+#~ msgstr "Mened≈ºer kopii zapasowych"
 
 #~ msgid "Open a new file window"
 #~ msgstr "Otwiera nowy plik okna"
 
 #~ msgid "Close current document window"
-#~ msgstr "Zamyka bieø±ce okno dokumentu"
+#~ msgstr "Zamyka bie≈ºƒÖce okno dokumentu"
 
 #~ msgid "Info pages, where you cannot find what you are looking for"
-#~ msgstr "Strony info, gdy szukasz czego∂, a nie moøesz znaleºÊ"
+#~ msgstr "Strony info, gdy szukasz czego≈õ, a nie mo≈ºesz znale≈∫ƒá"
 
 #~ msgid "_Utilities"
-#~ msgstr "_NarzÍdzia"
+#~ msgstr "_Narzƒôdzia"
 
 #~ msgid "Could not execute cmd: %s"
-#~ msgstr "Nie moøna wykonaÊ polecenia: %s"
+#~ msgstr "Nie mo≈ºna wykonaƒá polecenia: %s"
 
 #~ msgid ""
 #~ "There was an error while printing.\n"
 #~ "The cmd is: %s"
 #~ msgstr ""
-#~ "Podczas drukowania wyst±pi≥ b≥±d.\n"
+#~ "Podczas drukowania wystƒÖpi≈Ç b≈ÇƒÖd.\n"
 #~ "Wykonane polecenie: %s"
 
 #~ msgid "The file has been sent for printing."
-#~ msgstr "Plik zosta≥ wys≥any do wydruku."
+#~ msgstr "Plik zosta≈Ç wys≈Çany do wydruku."
 
 #~ msgid "You must save the file first and then print"
-#~ msgstr "Przed wydrukiem naleøy zapisac plik"
+#~ msgstr "Przed wydrukiem nale≈ºy zapisac plik"
 
 #~ msgid "Are you sure you want to print the current file?"
-#~ msgstr "Czy na pewno chcesz wydrukowaÊ bieø±cy plik?"
+#~ msgstr "Czy na pewno chcesz wydrukowaƒá bie≈ºƒÖcy plik?"
 
 #~ msgid "Tags image update successfully."
-#~ msgstr "Obraz znacznikÛw uaktualniony z powodzeniem."
+#~ msgstr "Obraz znacznik√≥w uaktualniony z powodzeniem."
 
 #~ msgid "Cannot launch gnome-help-browser"
-#~ msgstr "Nie moøÒa uruchomiÊ programu gnome-help-browser"
+#~ msgstr "Nie mo≈º≈Ña uruchomiƒá programu gnome-help-browser"
 
 #~ msgid "Dock/Undock"
-#~ msgstr "Przy≥±cz/Od≥±cz"
+#~ msgstr "Przy≈ÇƒÖcz/Od≈ÇƒÖcz"
 
 #, fuzzy
 #~ msgid "Could not find message type %s!\n"
-#~ msgstr "Nie moøna odnaleºÊ pliku z piksmap± GNOME: %s"
+#~ msgstr "Nie mo≈ºna odnale≈∫ƒá pliku z piksmapƒÖ GNOME: %s"
 
 #~ msgid "Styles"
 #~ msgstr "Style"
@@ -8126,7 +8126,7 @@ msgstr ""
 #~ msgstr "Autoformatowanie"
 
 #~ msgid "misc"
-#~ msgstr "RÛøne"
+#~ msgstr "R√≥≈ºne"
 
 #~ msgid "Components"
 #~ msgstr "Komponenty"
@@ -8144,16 +8144,16 @@ msgstr ""
 #~ msgstr " Opcje zadania "
 
 #~ msgid "Silent: Don't echo commands"
-#~ msgstr "Tryb silent: polecenia nie s± wy∂wietlane na ekranie"
+#~ msgstr "Tryb silent: polecenia nie sƒÖ wy≈õwietlane na ekranie"
 
 #~ msgid "Produce debugging outputs"
-#~ msgstr "Tworzenie danych o b≥Ídach"
+#~ msgstr "Tworzenie danych o b≈Çƒôdach"
 
 #~ msgid "Max no of jobs:"
-#~ msgstr "Maksymalna liczba zadaÒ:"
+#~ msgstr "Maksymalna liczba zada≈Ñ:"
 
 #~ msgid " Highlight Style "
-#~ msgstr " Styl wy∂wietlania "
+#~ msgstr " Styl wy≈õwietlania "
 
 #~ msgid "Calltip color:"
 #~ msgstr "Kolor podpowiedzi:"
@@ -8174,20 +8174,20 @@ msgstr ""
 #~ msgstr " Komunikaty "
 
 #~ msgid " Notebook tags position "
-#~ msgstr " Po≥oøenie zak≥adek notatnika "
+#~ msgstr " Po≈Ço≈ºenie zak≈Çadek notatnika "
 
 #, fuzzy
 #~ msgid "Warnings:"
-#~ msgstr "Ostrzeøenia"
+#~ msgstr "Ostrze≈ºenia"
 
 #~ msgid " Tags Browser "
-#~ msgstr " Przegl±darka znacznikÛw "
+#~ msgstr " PrzeglƒÖdarka znacznik√≥w "
 
 #~ msgid " Components"
 #~ msgstr " Komponenty"
 
 #~ msgid "Check for programs in config.in"
-#~ msgstr "Sprawdzanie programÛw w config.in"
+#~ msgstr "Sprawdzanie program√≥w w config.in"
 
 #~ msgid "Check for libs in config.in"
 #~ msgstr "Sprawdzanie bibliotek w config.in"
@@ -8196,10 +8196,10 @@ msgstr ""
 #~ msgstr "Biblioteki"
 
 #~ msgid "Check for header files in config.in"
-#~ msgstr "Sprawdzanie plikÛw nag≥Ûwkowych w config.in"
+#~ msgstr "Sprawdzanie plik√≥w nag≈Ç√≥wkowych w config.in"
 
 #~ msgid "Checks for typedefs, structures, and compiler characteristics"
-#~ msgstr "Sprawdzanie definicji typÛw, struktur i kompilatora"
+#~ msgstr "Sprawdzanie definicji typ√≥w, struktur i kompilatora"
 
 #~ msgid "Characteristics check"
 #~ msgstr "Charakterystyki"
@@ -8220,10 +8220,10 @@ msgstr ""
 #~ msgstr "Automatyczne skanowanie projektu"
 
 #~ msgid "Extra modules to be built before source module:"
-#~ msgstr "Dodatkowe modu≥y budowane przed modu≥em ºrÛd≥owym:"
+#~ msgstr "Dodatkowe modu≈Çy budowane przed modu≈Çem ≈∫r√≥d≈Çowym:"
 
 #~ msgid "Extra modules to be built after source module:"
-#~ msgstr "Dodatkowe modu≥y budowane po module ºrÛd≥owym:"
+#~ msgstr "Dodatkowe modu≈Çy budowane po module ≈∫r√≥d≈Çowym:"
 
 #, fuzzy
 #~ msgid ""
@@ -8231,52 +8231,52 @@ msgstr ""
 #~ "Please upgrade Anjuta to the latest version (Help for more information).\n"
 #~ "For the time being, I am too old to load it."
 #~ msgstr ""
-#~ "B≥±d: Anjuta w wersji %s lub nowszy wymagana do otwarcia tego projektu.\n"
-#~ "ProszÍ uaktualnij program do najnowszej wersji (W menu Pomoc wiÍcej "
+#~ "B≈ÇƒÖd: Anjuta w wersji %s lub nowszy wymagana do otwarcia tego projektu.\n"
+#~ "Proszƒô uaktualnij program do najnowszej wersji (W menu Pomoc wiƒôcej "
 #~ "informacji).\n"
-#~ "Czas nie stoi w miejscu, program siÍ rozwija :-)"
+#~ "Czas nie stoi w miejscu, program siƒô rozwija :-)"
 
 #~ msgid "No of src files:"
-#~ msgstr "Liczba plikÛw ºrÛd≥owych:"
+#~ msgstr "Liczba plik√≥w ≈∫r√≥d≈Çowych:"
 
 #~ msgid "No of help files:"
-#~ msgstr "Liczba plikÛw pomocy:"
+#~ msgstr "Liczba plik√≥w pomocy:"
 
 #~ msgid "No of data files:"
-#~ msgstr "Liczba plikÛw z danymi:"
+#~ msgstr "Liczba plik√≥w z danymi:"
 
 #~ msgid "No of pix files:"
-#~ msgstr "Liczba plikÛw graficznych:"
+#~ msgstr "Liczba plik√≥w graficznych:"
 
 #~ msgid "No of doc files:"
-#~ msgstr "Liczba plikÛw z dokumentacj±:"
+#~ msgstr "Liczba plik√≥w z dokumentacjƒÖ:"
 
 #~ msgid "No of po files:"
-#~ msgstr "Liczba plikÛw .po:"
+#~ msgstr "Liczba plik√≥w .po:"
 
 #~ msgid "Select Regional Language:"
-#~ msgstr "Wybierz ustawienia jÍzykowe:"
+#~ msgstr "Wybierz ustawienia jƒôzykowe:"
 
 #~ msgid "This file has already been added to the project."
-#~ msgstr "Ten plik zosta≥ juø dodany do projektu."
+#~ msgstr "Ten plik zosta≈Ç ju≈º dodany do projektu."
 
 #~ msgid "Could not create replacement pixmap."
-#~ msgstr "Nie moøna stworzyÊ zastÍpczej piksmapy."
+#~ msgstr "Nie mo≈ºna stworzyƒá zastƒôpczej piksmapy."
 
 #~ msgid "Could not find gnome pixmap file: %s"
-#~ msgstr "Nie moøna odnaleºÊ pliku z piksmap± GNOME: %s"
+#~ msgstr "Nie mo≈ºna odnale≈∫ƒá pliku z piksmapƒÖ GNOME: %s"
 
 #~ msgid "Could not create pixmap from file: %s"
-#~ msgstr "Nie moøna stworzyÊ piksmapy z pliku: %s"
+#~ msgstr "Nie mo≈ºna stworzyƒá piksmapy z pliku: %s"
 
 #~ msgid "Project type does not support glade."
-#~ msgstr "Ten typ projektu nie obs≥uguje glade."
+#~ msgstr "Ten typ projektu nie obs≈Çuguje glade."
 
 #~ msgid "Source files paths"
-#~ msgstr "¶cieøki plikÛw ºrÛd≥owych"
+#~ msgstr "≈öcie≈ºki plik√≥w ≈∫r√≥d≈Çowych"
 
 #~ msgid "Couldn't create pixmap from file: %s"
-#~ msgstr "Nie moøna stworzyÊ piksmapy z pliku: %s"
+#~ msgstr "Nie mo≈ºna stworzyƒá piksmapy z pliku: %s"
 
 #~ msgid "# *********** DO NOT EDIT OR RENAME THIS FILE *****************\n"
 #~ msgstr "# ****** NIE MODYFIKUJ ANI NIE ZMIENIAJ NAZWY TEGO PLIKU ******\n"
@@ -8285,7 +8285,7 @@ msgstr ""
 #~ "# ******************* Created by  Anjuta "
 #~ "********************************\n"
 #~ msgstr ""
-#~ "# ********** Stworzone za pomoc± programu Anjuta "
+#~ "# ********** Stworzone za pomocƒÖ programu Anjuta "
 #~ "************************\n"
 
 #~ msgid "Function:"
@@ -8295,45 +8295,45 @@ msgstr ""
 #~ msgstr "Funkcja klasy:"
 
 #~ msgid "Cannot execute ctags"
-#~ msgstr "Nie moøna uruchomiÊ ctags"
+#~ msgstr "Nie mo≈ºna uruchomiƒá ctags"
 
 #~ msgid ""
 #~ "Cannot fork to execute ctags. I donno why!!\n"
 #~ "In %s:%d"
 #~ msgstr ""
-#~ "Nie moøna stworzyÊ procesu, aby uruchomiÊ ctags. Przyczyna nieznana.\n"
+#~ "Nie mo≈ºna stworzyƒá procesu, aby uruchomiƒá ctags. Przyczyna nieznana.\n"
 #~ "W %s:%d"
 
 #~ msgid "Synchronizing and updating Tags Image ... hold on"
-#~ msgstr "Synchronizacja i uaktualnianie obrazu znacznikÛw ... chwileczkÍ"
+#~ msgstr "Synchronizacja i uaktualnianie obrazu znacznik√≥w ... chwileczkƒô"
 
 #~ msgid "Updating Tags image completed"
-#~ msgstr "Uaktualnianie obrazu znacznikÛw zakoÒczone"
+#~ msgstr "Uaktualnianie obrazu znacznik√≥w zako≈Ñczone"
 
 #, fuzzy
 #~ msgid "Synchronization of Tags image failed"
-#~ msgstr "Synchronizacja obrazu znacznikÛw nie powiod≥a siÍ"
+#~ msgstr "Synchronizacja obrazu znacznik√≥w nie powiod≈Ça siƒô"
 
 #~ msgid "Open Text File"
 #~ msgstr "Otwiera plik tekstowy"
 
 #~ msgid "Save Current File"
-#~ msgstr "Zapisuje bieø±cy plik"
+#~ msgstr "Zapisuje bie≈ºƒÖcy plik"
 
 #~ msgid "Reload Current File"
-#~ msgstr "Ponownie odczytuje bieø±cy plik"
+#~ msgstr "Ponownie odczytuje bie≈ºƒÖcy plik"
 
 #~ msgid "Search the given string"
 #~ msgstr "Wyszukuje zadany tekst"
 
 #~ msgid "Build current File or Build the source directory of the Project"
-#~ msgstr "Buduje bieø±cy plik lub buduje katalog ºrÛd≥owy projektu"
+#~ msgstr "Buduje bie≈ºƒÖcy plik lub buduje katalog ≈∫r√≥d≈Çowy projektu"
 
 #~ msgid "Print the current File"
-#~ msgstr "Drukuje bieø±cy plik"
+#~ msgstr "Drukuje bie≈ºƒÖcy plik"
 
 #~ msgid "Attach the editor window as paged editor"
-#~ msgstr "Do≥±cza okno edytora jako edytor stronnicowy"
+#~ msgstr "Do≈ÇƒÖcza okno edytora jako edytor stronnicowy"
 
 #, fuzzy
 #~ msgid "History"
@@ -8348,14 +8348,14 @@ msgstr ""
 #~ "3) Blinking is ready, but busy in background."
 #~ msgstr ""
 #~ "Dioda stanu: \n"
-#~ "1) Kolor czerwony oznacza zajÍto∂Ê.2)Kolor zielony oznacza gotowo∂Ê.\n"
-#~ "3) Migotanie oznacza gotowo∂Ê, lecz z prac± w tle."
+#~ "1) Kolor czerwony oznacza zajƒôto≈õƒá.2)Kolor zielony oznacza gotowo≈õƒá.\n"
+#~ "3) Migotanie oznacza gotowo≈õƒá, lecz z pracƒÖ w tle."
 
 #~ msgid "Compile/Build/Debug Messages"
 #~ msgstr "Komunikaty kompilacji/budowania/debugowania"
 
 #~ msgid "Source File"
-#~ msgstr "Plik ºrÛd≥owy"
+#~ msgstr "Plik ≈∫r√≥d≈Çowy"
 
 #~ msgid "Tag in the file"
 #~ msgstr "Znacznik w pliku"
@@ -8373,7 +8373,7 @@ msgstr ""
 #~ msgstr "Wyliczenia"
 
 #~ msgid "Couldn't read file: %s."
-#~ msgstr "Nie moøna odczytaÊ pliku: %s"
+#~ msgstr "Nie mo≈ºna odczytaƒá pliku: %s"
 
 #~ msgid "Save in DOS format"
 #~ msgstr "Zapis w formacie DOS"
@@ -8385,13 +8385,13 @@ msgstr ""
 #~ msgstr "/Deklaracja fun_kcji"
 
 #~ msgid "/_Shell here"
-#~ msgstr "/_Pow≥oka w tym miejscu"
+#~ msgstr "/_Pow≈Çoka w tym miejscu"
 
 #~ msgid "/_Open"
-#~ msgstr "/_OtwÛrz"
+#~ msgstr "/_Otw√≥rz"
 
 #~ msgid "Scanning and Updating files. Please Wait ..."
-#~ msgstr "Analizowanie i aktualizowanie plikÛw. Poczekaj chwilÍ ..."
+#~ msgstr "Analizowanie i aktualizowanie plik√≥w. Poczekaj chwilƒô ..."
 
 #~ msgid "Updating file: "
 #~ msgstr "Aktualizowanie pliku: "
@@ -8406,16 +8406,16 @@ msgstr ""
 #~ msgstr "Projekt GNOME--"
 
 #~ msgid "Unknown type in Message window\n"
-#~ msgstr "Nieznany typ w oknie komunikatÛw\n"
+#~ msgstr "Nieznany typ w oknie komunikat√≥w\n"
 
 #~ msgid "Build messages"
-#~ msgstr "Komunikaty dotycz±ce budowania"
+#~ msgstr "Komunikaty dotyczƒÖce budowania"
 
 #~ msgid "CVS messages"
 #~ msgstr "Komunikaty CVS-a"
 
 #~ msgid "Embedded Terminal"
-#~ msgstr "Zagnieødøony terminal"
+#~ msgstr "Zagnie≈ºd≈ºony terminal"
 
 #~ msgid "CVS is not yet implemented. :-(\n"
-#~ msgstr "CVS nie zosta≥ jeszcze zaimplementowany. :-(\n"
+#~ msgstr "CVS nie zosta≈Ç jeszcze zaimplementowany. :-(\n"

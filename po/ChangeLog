@@ -1,3 +1,10 @@
+2003-05-11  Abel Cheung  <maddog@linux.org.hk>
+
+	* POTFILES.in: Sync with source tree.
+	* az.po: Fix header (msgfmt check failed).
+	* da.po, de.po, el.po, it.po, no.po, pl.po, ta.po, tr.po,
+	  uk.po, zh_TW.po: converted to UTF-8.
+
 2003-05-11  Takeshi AIHANA <aihana@gnome.gr.jp>
 
 	* ja.po: Updated Japanese translation.
@@ -416,7 +423,6 @@
 
         * pt.po: Updated Portuguese translation.
 
->>>>>>> 1.109
 2002-01-05  Christian Rose  <menthos@menthos.com>
 
 	* sv.po: Updated Swedish translation.
