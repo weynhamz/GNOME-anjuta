@@ -1,4 +1,7 @@
-2005-01-27  Naba Kumar  <naba@gnome.org>
+2005-01-28  Naba Kumar  <naba@gnome.org>
+
+	* plugins/editor/text_editor.c,	plugins/editor/text_editor.h,
+	plugins/editor/text_editor_prefs.c: Fixed linenumbers width bug.
 
 	* plugins/editor/action-callbacks.c,
 	plugins/editor/action-callbacks.h,

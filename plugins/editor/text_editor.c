@@ -75,7 +75,6 @@
 static void text_editor_finalize (GObject *obj);
 static void text_editor_dispose (GObject *obj);
 static void text_editor_set_hilite_type_one (TextEditor * te, AnEditorID editor);
-static void text_editor_set_line_number_width(TextEditor* te);
 
 static GtkVBoxClass *parent_class;
 
@@ -220,6 +219,8 @@ text_editor_add_view (TextEditor *te)
 	
 	initialize_markers (te, scintilla);
 	text_editor_set_hilite_type_one (te, editor_id);
+	text_editor_set_line_number_width (te);
+	
 #ifdef DEBUG
 	g_object_weak_ref (G_OBJECT (scintilla), on_scintila_already_destroyed, te);
 #endif
@@ -1918,7 +1919,7 @@ text_editor_get_props ()
 	return props;
 }
 
-static void 
+void
 text_editor_set_line_number_width (TextEditor* te)
 {
 	/* Set line numbers with according to file size */

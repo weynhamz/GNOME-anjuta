@@ -160,6 +160,8 @@ gint text_editor_get_num_bookmarks (TextEditor* te);
 
 gchar* text_editor_get_current_word (TextEditor *te);
 
+void text_editor_set_line_number_width (TextEditor* te);
+
 void text_editor_grab_focus (TextEditor *te);
 
 void text_editor_function_select(TextEditor *te);

@@ -243,12 +243,14 @@ static void
 on_gconf_notify_margin_linenum_width (GConfClient *gclient, guint cnxn_id,
 									  GConfEntry *entry, gpointer user_data)
 {
+#if 0
 	TextEditor *te;
 	gint width;
 	
 	te = TEXT_EDITOR (user_data);
 	width = set_n_get_prop_int (te, MARGIN_LINENUMBER_WIDTH);
 	text_editor_scintilla_command (te, SCI_SETMARGINWIDTHN,	0, width);
+#endif
 }
 
 static void
@@ -333,6 +335,7 @@ on_gconf_notify_view_linenums (GConfClient *gclient, guint cnxn_id,
 	te = TEXT_EDITOR (user_data);
 	state = set_n_get_prop_int (te, VIEW_LINENUMBERS_MARGIN);
 	text_editor_command (te, ANE_LINENUMBERMARGIN, state, 0);
+	text_editor_set_line_number_width (te);
 }
 
 #define REGISTER_NOTIFY(key, func) \
