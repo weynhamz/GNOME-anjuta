@@ -1,22 +1,22 @@
 TODO List:
 ----------
 
+	o Save compiler options settings.
 	o s/zvt/vte/ terminal.
 	o Breakpoints does not get reloaded from session.
-	o Print preview fonts not proper.
 	o Busy indicator (flashing LED) not yet implemented.
 	
 	o Anjuta can open same file in multiple text editors.
 	  --> TagManager should not remove the file from it's database if
 	  another copy of the file is still open -- it crashes.
 	o Support "Style themes".
-	o Save compiler options settings.
 	o Debugger windows should not be updated if it's not shown
 	  --> freeze/thaw.
 	o Anjuta UI (menus and toolbars) -- freeze/thaw.
 	o Keybindings editor.
 	
 	o Add ignore modules in Project config: Tagmanager does not ignore them.
+
 Biswa: 'Rebuild Tags Image' now syncs tagManager with project file list.
 
 	o Compiler options: supports

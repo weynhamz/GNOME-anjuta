@@ -34,6 +34,7 @@ project.version=1.2.0
 project.author=naba
 project.source.target=src/anjuta
 project.has.gettext=1
+project.gui.command=
 project.programming.language=C_C++
 project.excluded.modules=intl
 
@@ -50,11 +51,11 @@ project.menu.need.terminal=0
 
 project.configure.options=
 anjuta.program.arguments=
+preferences.tabsize=4
 preferences.indent.opening=0
 preferences.indent.automatic=1
 preferences.autoformat.style=Custom style
 preferences.indent.size=4
-preferences.tab.size=4
 preferences.autoformat.disable=0
 preferences.use.tabs=1
 preferences.indent.closing=0

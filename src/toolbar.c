@@ -65,10 +65,11 @@ create_main_toolbar (GtkWidget * anjuta_gui, MainToolbar * toolbar)
 
 	gtk_widget_ref (toolbar_led);
 	gtk_widget_show (toolbar_led);
-	gtk_toolbar_append_widget (GTK_TOOLBAR (toolbar1), toolbar_led,
-				   NULL, NULL);
-
-	gtk_toolbar_append_space (GTK_TOOLBAR (toolbar1));
+	// FIXME: Led animation.
+	// gtk_toolbar_append_widget (GTK_TOOLBAR (toolbar1), toolbar_led,
+	//			   NULL, NULL);
+	//gtk_toolbar_append_space (GTK_TOOLBAR (toolbar1));
+	
 	toolbar->novus = 
 		anjuta_util_toolbar_append_stock (toolbar1, GTK_STOCK_NEW, _("New"),
 							  _("New file"),

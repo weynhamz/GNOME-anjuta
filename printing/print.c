@@ -160,7 +160,8 @@ IntFromHexDigit(const char ch) {
 }
 
 static void
-string_to_color (const char *val, GdkColor* color) {
+string_to_color (const char *val, GdkColor* color)
+{
 	/* g_print ("Color = %s\n", val); */
 	color->red   = IntFromHexDigit(val[1]) * 16 + IntFromHexDigit(val[2]);
 	color->green = IntFromHexDigit(val[3]) * 16 + IntFromHexDigit(val[4]);
@@ -171,6 +172,9 @@ static void
 anjuta_print_job_info_style_load_font (PrintJobInfoStyle *pis)
 {
 	gchar *font_desc, *tmp;
+	PangoFontDescription *desc;
+	GnomeFontFace *font_face;
+	gint size = 12;
 	
 	g_return_if_fail (pis->font_name);
 	
@@ -189,6 +193,7 @@ anjuta_print_job_info_style_load_font (PrintJobInfoStyle *pis)
 	}
 	if (pis->size > 0)
 	{
+		size = pis->size;
 		tmp = font_desc;
 		font_desc = g_strdup_printf ("%s %d", tmp, pis->size);
 		g_free (tmp);
@@ -196,9 +201,16 @@ anjuta_print_job_info_style_load_font (PrintJobInfoStyle *pis)
 	if (pis->font)
 		gnome_font_unref (pis->font);
 	
+	// pis->font = gnome_font_find_closest_from_full_name (font_desc);
 	DEBUG_PRINT ("Print font loading: %s", font_desc);
+	desc = pango_font_description_from_string (font_desc);
+	font_face = gnome_font_face_find_closest_from_pango_description (desc);
+	pis->font = gnome_font_face_get_font_default (font_face, size);
+	g_assert (pis->font);
+	DEBUG_PRINT ("Full font name: %s", gnome_font_get_full_name (pis->font));
 	
-	pis->font = gnome_font_find_closest_from_full_name (font_desc);
+	g_object_unref (font_face);
+	pango_font_description_free (desc);
 	g_free (font_desc);
 }
 
@@ -611,20 +623,21 @@ anjuta_print_set_style (PrintJobInfo *pji, gint style)
 	
 	pis = anjuta_print_get_style (pji, style);
 	g_return_if_fail (pis != NULL);
-	
+	g_assert (GNOME_IS_FONT(pis->font));
 	gnome_print_setfont(pji->pc, pis->font);
 	if (pji->print_color) {
 		gnome_print_setrgbcolor(pji->pc,
 				(gfloat)pis->fore_color.red/256.0 ,
 				(gfloat)pis->fore_color.green/256.0,
 				(gfloat)pis->fore_color.blue/256.0);
-	}	
+	}
 	pji->current_style_num = style;
 	pji->current_style = pis;
 	
 	font_height = anjuta_print_get_font_height (pji, style);
 
-	pji->current_font_height = (pji->current_font_height > font_height)? pji->current_font_height : font_height;
+	pji->current_font_height = (pji->current_font_height > font_height)?
+									pji->current_font_height : font_height;
 }
 
 void anjuta_print_new_page (PrintJobInfo *pji)

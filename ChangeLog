@@ -1,3 +1,12 @@
+2003-02-27  Naba Kumar  <naba@gnome.org>
+
+	* printing/print.c: Fixed printing font bug that failed to load the
+	proper fonts.
+	
+	* src/toolbar.c: Disabled LED flashing (not yet implemented).
+	
+	* TODO, anjuta.prj: Updated.
+
 2003-02-24  Joe Harnish <bigJoe@linuxmail.org>
 
 	* manuals/C/anjuta-faqs/anjuta-faqs-C.omf,
