@@ -159,6 +159,7 @@ void text_editor_replace_selection (TextEditor * te, const gchar * r_str);
 guint text_editor_get_total_lines (TextEditor * te);
 glong text_editor_get_current_position (TextEditor * te);
 guint text_editor_get_current_lineno (TextEditor * te);
+guint text_editor_get_line_from_position (TextEditor * te, glong pos);
 gchar* text_editor_get_selection (TextEditor * te);
 
 gboolean text_editor_goto_point (TextEditor * te, glong num);

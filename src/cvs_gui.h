@@ -89,9 +89,9 @@ extern gchar *server_types[4];
 
 void create_cvs_login_gui (CVS * cvs);
 
-void create_cvs_gui (CVS * cvs, int dialog_type, gchar* filename, gboolean bypass_dialog);
+void create_cvs_gui (CVS * cvs, int dialog_type, gchar* filename, gboolean is_project);
 
-void create_cvs_diff_gui (CVS * cvs, gchar* filename, gboolean bypass_dialog);
+void create_cvs_diff_gui (CVS * cvs, gchar* filename, gboolean is_project);
 
 void create_cvs_import_gui (CVS* cvs);
 

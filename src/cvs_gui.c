@@ -49,7 +49,7 @@ static gchar* get_cur_filename()
 	Default for the filename is the current open file.
 */
 void
-create_cvs_gui (CVS *cvs, int dialog_type, gchar* filename, gboolean bypass_dialog)
+create_cvs_gui (CVS *cvs, int dialog_type, gchar* filename, gboolean is_project)
 {
 	gchar *title;
 	gchar *button_label;
@@ -196,13 +196,12 @@ create_cvs_gui (CVS *cvs, int dialog_type, gchar* filename, gboolean bypass_dial
 	g_signal_connect (G_OBJECT (gui->dialog), "response",
 	                  G_CALLBACK (on_cvs_dialog_response), gui); 
 
-	if (bypass_dialog)
+	// FIXED: Show dialog for project to be able to change branch
+	if (is_project)
 	{
-		on_cvs_dialog_response (NULL, GTK_RESPONSE_OK, gui);
-	} else
-	{
-		gtk_widget_show (gui->dialog);
+		gtk_widget_set_sensitive (gui->entry_file, FALSE);
 	}
+	gtk_widget_show (gui->dialog);
 }
 
 /*
@@ -210,7 +209,7 @@ create_cvs_gui (CVS *cvs, int dialog_type, gchar* filename, gboolean bypass_dial
 	a diff between the working copy of a file and the repositry
 */
 void
-create_cvs_diff_gui (CVS *cvs, gchar *filename, gboolean bypass_dialog)
+create_cvs_diff_gui (CVS *cvs, gchar *filename, gboolean is_project)
 {
 	CVSFileDiffGUI *gui;
 
@@ -308,7 +307,7 @@ create_cvs_diff_gui (CVS *cvs, gchar *filename, gboolean bypass_dialog)
 	g_signal_connect (G_OBJECT(gui->check_date), "toggled",
 	                  G_CALLBACK (on_cvs_diff_use_date_toggled), gui);
 
-	if (bypass_dialog) 
+	if (is_project) 
 	{
 		gtk_widget_set_sensitive (gui->entry_file, FALSE);
 	}

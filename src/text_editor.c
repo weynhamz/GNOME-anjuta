@@ -408,6 +408,18 @@ text_editor_get_current_lineno (TextEditor * te)
 	return linenum_scintilla_to_text_editor(count);
 }
 
+guint
+text_editor_get_line_from_position (TextEditor * te, glong pos)
+{
+	guint count;
+	
+	g_return_val_if_fail (te != NULL, 0);
+
+	count =	scintilla_send_message (SCINTILLA (te->widgets.editor),
+					SCI_LINEFROMPOSITION, pos, 0);
+	return linenum_scintilla_to_text_editor(count);
+}
+
 glong
 text_editor_get_current_position (TextEditor * te)
 {

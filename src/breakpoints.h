@@ -62,7 +62,11 @@ void breakpoints_dbase_destroy (BreakpointsDBase * bd);
 
 void breakpoints_dbase_add (BreakpointsDBase *bd);
 
-void breakpoints_dbase_toggle_breakpoint (BreakpointsDBase* bd);
+gboolean breakpoints_dbase_toggle_breakpoint (BreakpointsDBase* bd, guint l);
+
+gboolean breakpoints_dbase_toggle_doubleclick (guint line);
+
+void breakpoints_dbase_toggle_singleclick (guint line);
 
 void breakpoints_dbase_disable_all (BreakpointsDBase *bd);
 

@@ -1623,8 +1623,10 @@ on_delete_matching_foreach (GtkTreeModel *model, GtkTreePath *path,
 	return FALSE;
 }
 
-void
-breakpoints_dbase_toggle_breakpoint (BreakpointsDBase *bd)
+/*  if l == 0  :  line = current line */
+/*  return FALSE if debugger not active */
+gboolean
+breakpoints_dbase_toggle_breakpoint (BreakpointsDBase *bd, guint l)
 {
 	guint line;
 	BreakpointItem *bid;
@@ -1635,11 +1637,16 @@ breakpoints_dbase_toggle_breakpoint (BreakpointsDBase *bd)
 	te = anjuta_get_current_text_editor ();
 	g_return_if_fail (te != NULL);
 	
-	if (debugger_is_active() == FALSE) return;
-	if (debugger_is_ready() == FALSE) return;
+	if (debugger_is_active() == FALSE) return FALSE;
+	if (debugger_is_ready() == FALSE) return FALSE;
 
-	line = text_editor_get_current_lineno (te);
-
+	if (l == 0)
+		line = text_editor_get_current_lineno (te);
+	else
+	{
+		line = l;
+		text_editor_goto_line (te, line, FALSE);
+	}
 	/* Is breakpoint set? */
 	if (text_editor_is_marker_set (te, line, BREAKPOINTS_MARKER) ||
 		text_editor_is_marker_set (te, line, BREAKPOINTS_MARKER_DISABLE))
@@ -1651,10 +1658,10 @@ breakpoints_dbase_toggle_breakpoint (BreakpointsDBase *bd)
 		
 		gtk_tree_model_foreach (model, on_delete_matching_foreach, bd);
 		delete_breakpoint (0, bd, TRUE);
-		return;
+		return TRUE;
 	}
 	
-	/* Brakpoint is not set. So, set it. */
+	/* Breakpoint is not set. So, set it. */
 	bid = breakpoint_item_new ();
 	bid->pass = 0;
 	bid->bd = bd;
@@ -1665,7 +1672,50 @@ breakpoints_dbase_toggle_breakpoint (BreakpointsDBase *bd)
 							   bid);
 	g_free (buff);
 	debugger_execute_cmd_in_queqe ();
+	return TRUE;
+}
+
+/*  return FALSE if debugger not active */
+gboolean
+breakpoints_dbase_toggle_doubleclick (guint line)
+{
+	return breakpoints_dbase_toggle_breakpoint(debugger.breakpoints_dbase, line);
+}
+
+static void
+breakpoints_toggle_enable (BreakpointsDBase *bd, guint line)
+{
+	GtkTreeModel *model;
+	GtkTreeIter iter;
+	gboolean valid;
+	BreakpointItem *bi;
+	char *treeline;
+	gboolean state;
 	
+	model = gtk_tree_view_get_model (GTK_TREE_VIEW (bd->priv->treeview));
+	valid = gtk_tree_model_get_iter_first (model, &iter);
+	while (valid)
+	{
+		gtk_tree_model_get (model, &iter, ENABLED_COLUMN, &state,
+						LINENO_COLUMN, &treeline, DATA_COLUMN, &bi, -1);
+		if (atoi(treeline) == line)
+		{
+			bi->enable ^= 1;
+
+			if (!bi->enable)
+				disable_breakpoint (bi->id, bd);
+			else
+				enable_breakpoint (bi->id, bd);
+		}
+		valid = gtk_tree_model_iter_next (model, &iter);
+	}
+}
+
+
+void
+breakpoints_dbase_toggle_singleclick (guint line)
+{
+	breakpoints_toggle_enable (debugger.breakpoints_dbase, line);
 }
 
 void breakpoints_dbase_add (BreakpointsDBase *bd)

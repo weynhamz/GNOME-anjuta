@@ -192,13 +192,29 @@ gboolean on_text_editor_auto_save (gpointer data)
 	return TRUE;
 }
 
+
+gboolean timerclick = FALSE;
+
+gboolean
+click_timeout (gpointer line)
+{	
+	/*  If not second clic after timeout : Single Click  */
+	if (timerclick)
+	{
+		timerclick = FALSE;
+		breakpoints_dbase_toggle_singleclick (GPOINTER_TO_INT(line));
+	}	
+	return FALSE;
+}
+
 void
 on_text_editor_scintilla_notify (GtkWidget * sci,
 				 gint wParam, gpointer lParam, gpointer data)
 {
 	TextEditor *te;
 	struct SCNotification *nt;
-
+	gint line;
+	
 	te = data;
 	if (te->freeze_count != 0)
 		return;
@@ -225,12 +241,37 @@ on_text_editor_scintilla_notify (GtkWidget * sci,
 		text_editor_set_indicator (te, te->current_line, -1);
 		return;
 
+	case SCN_MARGINCLICK:	
+	line =	text_editor_get_line_from_position (te, nt->position);
+	if (nt->margin == 1)  /*  Bookmarks and Breakpoints  margin */
+	{
+		/* if second click before timeout : Double click  */
+		if (timerclick)
+		{
+			timerclick = FALSE;
+			/* Toggle Breakpoints */
+			if (! breakpoints_dbase_toggle_doubleclick (line))
+			{
+				/*  Debugger not active ==> Toggle Bookmarks */
+				text_editor_goto_line (te, line, FALSE);
+				aneditor_command (te->editor_id, ANE_BOOKMARK_TOGGLE, 0, 0);
+			}
+		}
+		else
+		{
+			timerclick = TRUE;
+			/* Timeout after 400ms  */
+			/* If 2 clicks before the timeout ==> Single Click */
+			g_timeout_add (400, (void*) click_timeout, GINT_TO_POINTER(line));
+		}
+	}
+	return;
+	
 /*	case SCEN_SETFOCUS:
 	case SCEN_KILLFOCUS:
 	case SCN_STYLENEEDED:
 	case SCN_DOUBLECLICK:
 	case SCN_MODIFIED:
-	case SCN_MARGINCLICK:
 	case SCN_NEEDSHOWN:
 */
 	default:

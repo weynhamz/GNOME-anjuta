@@ -3367,6 +3367,7 @@ void AnEditor::ReadProperties(const char *fileForExt) {
 	SendEditor(SCI_SETMARGINWIDTHN, 2, foldMargin ? foldMarginWidth : 0);
 
 	SendEditor(SCI_SETMARGINMASKN, 2, SC_MASK_FOLDERS);
+	SendEditor(SCI_SETMARGINSENSITIVEN, 1, 1); // Breakpoints-Bookmarks
 	SendEditor(SCI_SETMARGINSENSITIVEN, 2, 1);
 	
 	SString fold_symbols = props->Get("fold.symbols.style");

@@ -1469,7 +1469,7 @@ on_go_execute2_activate (GtkMenuItem * menuitem, gpointer user_data)
 void
 on_toggle_breakpoint1_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
-	breakpoints_dbase_toggle_breakpoint(debugger.breakpoints_dbase);
+	breakpoints_dbase_toggle_breakpoint(debugger.breakpoints_dbase, 0);
 }
 
 void
@@ -1899,8 +1899,7 @@ on_cvs_commit_project_activate                  (GtkMenuItem     *menuitem,
 	gchar* prj;
 	prj = app->project_dbase->top_proj_dir;
 	
-	/* Do not bypass dialog for commit as we need to get the log */
-	create_cvs_gui(app->cvs, CVS_ACTION_COMMIT, prj, FALSE);
+	create_cvs_gui(app->cvs, CVS_ACTION_COMMIT, prj, TRUE);
 }
 
 void
