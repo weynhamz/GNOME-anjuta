@@ -283,12 +283,27 @@ on_co_inc_add_clicked (GtkButton * button, gpointer data)
 {
 	gchar *text;
 	gchar *dummy[1];
+	gchar *row_text;
+	gint max_rows;
+	gint cur_row;
 	CompilerOptions *co = data;
 
 	text = gtk_entry_get_text (GTK_ENTRY (co->widgets.inc_entry));
 	if (strlen (text) == 0)
 		return;
 	dummy[0] = text;
+	
+	max_rows = g_list_length (GTK_CLIST (co->widgets.inc_clist)->row_list);
+	for (cur_row = 0; cur_row < max_rows; cur_row++)
+	{
+		gtk_clist_get_text(GTK_CLIST (co->widgets.inc_clist), cur_row, 0, &row_text);
+		if (strcmp(text, row_text) == 0)
+		{
+			/* Maybe print a message here */;
+			gtk_entry_set_text (GTK_ENTRY (co->widgets.inc_entry), "");
+			return;
+		}
+	}
 	gtk_clist_append (GTK_CLIST (co->widgets.inc_clist), dummy);
 	gtk_entry_set_text (GTK_ENTRY (co->widgets.inc_entry), "");
 	compiler_options_update_controls (co);
@@ -298,6 +313,9 @@ void
 on_co_inc_update_clicked (GtkButton * button, gpointer data)
 {
 	gchar *text;
+	gchar *row_text;
+	gint max_rows;
+	gint cur_row;
 	CompilerOptions *co = data;
 
 	if (g_list_length (GTK_CLIST (co->widgets.inc_clist)->row_list) < 1)
@@ -305,8 +323,19 @@ on_co_inc_update_clicked (GtkButton * button, gpointer data)
 	text = gtk_entry_get_text (GTK_ENTRY (co->widgets.inc_entry));
 	if (strlen (text) == 0)
 		return;
-	gtk_clist_set_text (GTK_CLIST (co->widgets.inc_clist), co->inc_index,
-			    0, text);
+	
+	max_rows = g_list_length (GTK_CLIST (co->widgets.inc_clist)->row_list);
+	for (cur_row = 0; cur_row < max_rows; cur_row++)
+	{
+		gtk_clist_get_text(GTK_CLIST (co->widgets.inc_clist), cur_row, 0, &row_text);
+		if (strcmp(text, row_text) == 0)
+		{
+			/* Maybe print a message here */
+			gtk_entry_set_text (GTK_ENTRY (co->widgets.inc_entry), "");
+			return;
+		}
+	}
+	gtk_clist_set_text (GTK_CLIST (co->widgets.inc_clist), co->inc_index, 0, text);
 }
 
 void
@@ -344,11 +373,27 @@ on_co_lib_add_clicked (GtkButton * button, gpointer data)
 	gchar *text;
 	gchar *dummy[2];
 	gchar dumtext[] = "";
+	gchar *row_text;
+	gint max_rows;
+	gint cur_row;
 	CompilerOptions *co = data;
 
 	text = gtk_entry_get_text (GTK_ENTRY (co->widgets.lib_entry));
 	if (strlen (text) == 0)
 		return;
+	
+	max_rows = g_list_length (GTK_CLIST (co->widgets.lib_clist)->row_list);
+	for (cur_row = 0; cur_row < max_rows; cur_row++)
+	{
+		gtk_clist_get_text(GTK_CLIST (co->widgets.lib_clist), cur_row, 1, &row_text);
+		if (strcmp(text, row_text) == 0)
+		{
+			/* Maybe print a message here */
+			gtk_entry_set_text (GTK_ENTRY (co->widgets.lib_entry), "");
+			return;
+		}
+	}
+	
 	dummy[0] = dumtext;
 	dummy[1] = text;
 	gtk_clist_append (GTK_CLIST (co->widgets.lib_clist), dummy);
@@ -361,6 +406,9 @@ void
 on_co_lib_update_clicked (GtkButton * button, gpointer data)
 {
 	gchar *text;
+	gchar *row_text;
+	gint max_rows;
+	gint cur_row;
 	CompilerOptions *co = data;
 
 	if (g_list_length (GTK_CLIST (co->widgets.lib_clist)->row_list) < 1)
@@ -368,6 +416,17 @@ on_co_lib_update_clicked (GtkButton * button, gpointer data)
 	text = gtk_entry_get_text (GTK_ENTRY (co->widgets.lib_entry));
 	if (strlen (text) == 0)
 		return;
+	max_rows = g_list_length (GTK_CLIST (co->widgets.lib_clist)->row_list);
+	for (cur_row = 0; cur_row < max_rows; cur_row++)
+	{
+		gtk_clist_get_text(GTK_CLIST (co->widgets.lib_clist), cur_row, 1, &row_text);
+		if (strcmp(text, row_text) == 0)
+		{
+			/* Maybe print a message here */
+			gtk_entry_set_text (GTK_ENTRY (co->widgets.lib_entry), "");
+			return;
+		}
+	}
 	gtk_clist_set_text (GTK_CLIST (co->widgets.lib_clist), co->lib_index,
 			    1, text);
 }
@@ -406,11 +465,26 @@ on_co_lib_paths_add_clicked (GtkButton * button, gpointer data)
 {
 	gchar *text;
 	gchar *dummy[1];
+	gchar *row_text;
+	gint max_rows;
+	gint cur_row;
 	CompilerOptions *co = data;
 
 	text = gtk_entry_get_text (GTK_ENTRY (co->widgets.lib_paths_entry));
 	if (strlen (text) == 0)
 		return;
+	
+	max_rows = g_list_length (GTK_CLIST (co->widgets.lib_paths_clist)->row_list);
+	for (cur_row = 0; cur_row < max_rows; cur_row++)
+	{
+		gtk_clist_get_text(GTK_CLIST (co->widgets.lib_paths_clist), cur_row, 0, &row_text);
+		if (strcmp(text, row_text) == 0)
+		{
+			/* Maybe print a message here */
+			gtk_entry_set_text (GTK_ENTRY (co->widgets.lib_paths_entry), "");
+			return;
+		}
+	}
 	dummy[0] = text;
 	gtk_clist_append (GTK_CLIST (co->widgets.lib_paths_clist), dummy);
 	gtk_entry_set_text (GTK_ENTRY (co->widgets.lib_paths_entry), "");
@@ -421,6 +495,9 @@ void
 on_co_lib_paths_update_clicked (GtkButton * button, gpointer data)
 {
 	gchar *text;
+	gchar *row_text;
+	gint max_rows;
+	gint cur_row;
 	CompilerOptions *co = data;
 
 	if (g_list_length (GTK_CLIST (co->widgets.lib_paths_clist)->row_list)
@@ -429,6 +506,18 @@ on_co_lib_paths_update_clicked (GtkButton * button, gpointer data)
 	text = gtk_entry_get_text (GTK_ENTRY (co->widgets.lib_paths_entry));
 	if (strlen (text) == 0)
 		return;
+	
+	max_rows = g_list_length (GTK_CLIST (co->widgets.lib_paths_clist)->row_list);
+	for (cur_row = 0; cur_row < max_rows; cur_row++)
+	{
+		gtk_clist_get_text(GTK_CLIST (co->widgets.lib_paths_clist), cur_row, 0, &row_text);
+		if (strcmp(text, row_text) == 0)
+		{
+			/* Maybe print a message here */
+			gtk_entry_set_text (GTK_ENTRY (co->widgets.lib_paths_entry), "");
+			return;
+		}
+	}
 	gtk_clist_set_text (GTK_CLIST (co->widgets.lib_paths_clist),
 			    co->lib_paths_index, 0, text);
 }
@@ -469,13 +558,28 @@ void
 on_co_def_add_clicked (GtkButton * button, gpointer data)
 {
 	gchar *text;
+	gchar *row_text;
 	gchar *dummy[1];
+	gint max_rows;
+	gint cur_row;
 	CompilerOptions *co = data;
 
 	text = gtk_entry_get_text (GTK_ENTRY (co->widgets.def_entry));
 	if (strlen (text) == 0)
 		return;
 	dummy[0] = text;
+	max_rows = g_list_length (GTK_CLIST (co->widgets.def_clist)->row_list);
+	for (cur_row = 0; cur_row < max_rows; cur_row++)
+	{
+		gtk_clist_get_text(GTK_CLIST (co->widgets.def_clist), cur_row, 0, &row_text);
+		if (strcmp(text, row_text) == 0)
+		{
+			/* Maybe print a message here */
+			gtk_entry_set_text (GTK_ENTRY (co->widgets.def_entry), "");
+			return;
+		}
+	}
+	
 	gtk_clist_append (GTK_CLIST (co->widgets.def_clist), dummy);
 	gtk_entry_set_text (GTK_ENTRY (co->widgets.def_entry), "");
 	compiler_options_update_controls (co);
@@ -485,12 +589,27 @@ void
 on_co_def_update_clicked (GtkButton * button, gpointer data)
 {
 	gchar *text;
+	gchar *row_text;
+	gint max_rows;
+	gint cur_row;
 	CompilerOptions *co = data;
 	if (g_list_length (GTK_CLIST (co->widgets.def_clist)->row_list) < 1)
 		return;
 	text = gtk_entry_get_text (GTK_ENTRY (co->widgets.def_entry));
 	if (strlen (text) == 0)
 		return;
+	
+	max_rows = g_list_length (GTK_CLIST (co->widgets.def_clist)->row_list);
+	for (cur_row = 0; cur_row < max_rows; cur_row++)
+	{
+		gtk_clist_get_text(GTK_CLIST (co->widgets.def_clist), cur_row, 0, &row_text);
+		if (strcmp(text, row_text) == 0)
+		{
+			/* Maybe print a message here */
+			gtk_entry_set_text (GTK_ENTRY (co->widgets.def_entry), "");
+			return;
+		}
+	}
 	gtk_clist_set_text (GTK_CLIST (co->widgets.def_clist), co->def_index,
 			    0, text);
 }

@@ -29,6 +29,7 @@
 #include "resources.h"
 #include "main_menubar.h"
 #include "notebook.h"
+#include "dnd.h"
 
 void
 create_anjuta_gui (AnjutaApp * appl)
@@ -75,6 +76,10 @@ create_anjuta_gui (AnjutaApp * appl)
 	gtk_window_set_default_size (GTK_WINDOW (anjuta_gui), 700, 400);
 	gtk_window_set_policy (GTK_WINDOW (anjuta_gui), FALSE, TRUE, FALSE);
 	gtk_window_set_wmclass (GTK_WINDOW (anjuta_gui), "mainide", "Anjuta");
+	
+	/* Add file drag and drop support */
+	dnd_drop_init(anjuta_gui, on_anjuta_dnd_drop, NULL,
+		"text/plain", "text/html", "text/source", NULL);
 
 	dock1 = GNOME_APP (anjuta_gui)->dock;
 	gtk_widget_show (dock1);

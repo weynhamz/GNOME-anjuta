@@ -67,6 +67,8 @@ anjuta_SOURCES = \
 	controls.h\
 	debugger.c\
 	debugger.h\
+	dnd.h\
+	dnd.c\
 	executer.c\
 	executer.h\
 	fileselection.c\

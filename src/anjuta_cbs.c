@@ -163,6 +163,11 @@ on_anjuta_notebook_switch_page (GtkNotebook * notebook,
 	anjuta_grab_text_focus ();
 }
 
+void
+on_anjuta_dnd_drop (gchar* filename, gpointer data)
+{
+	anjuta_goto_file_line (filename, 0);
+}
 
 void
 on_open_filesel_ok_clicked (GtkButton * button, gpointer user_data)

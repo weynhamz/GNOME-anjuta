@@ -59,6 +59,8 @@ src/controls.c
 src/controls.h
 src/debugger.c
 src/debugger.h
+src/dnd.c
+src/dnd.h
 src/executer.c
 src/executer.h
 src/fileselection.c

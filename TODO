@@ -80,6 +80,10 @@ Todo List:
 	  > can add this feature!
 	  
 	  So, watch out guys! Atleast don't miss the beer. :-)
+	  
+	o What would be cool is when I #include a header, anjuta parses
+	  the headed and adds it to its tool tips, which is straight from
+	  the heared file newt.h
 
 BUGS:
 -----
@@ -89,3 +93,12 @@ BUGS:
 
 4) For whatever reason db1-devel_1.85-4mdk was not installed by default and
 ld gave me errors (can't find -ldb1). Checking for db1 dependency (both rpm and configure).
+
+5) Can't copy and paste, either by Ctrl shortcuts or via the menu, either
+within a source file or between source files. Middle mouse button paste
+works fine.
+
+6) Tooltips that pop up for a function (eg. "printf(") persist
+onscreen when changing source files. If you edit file 2 and
+return they disappear. Tooltips need to be tied to the present
+editing panel.

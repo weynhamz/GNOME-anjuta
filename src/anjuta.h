@@ -237,6 +237,8 @@ void
 on_anjuta_notebook_switch_page (GtkNotebook * notebook,
 				GtkNotebookPage * page,
 				gint page_num, gpointer user_data);
+void
+on_anjuta_dnd_drop (gchar* filename, gpointer data);
 
 void anjuta_refresh_breakpoints (TextEditor* te);
 

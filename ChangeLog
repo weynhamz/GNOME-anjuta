@@ -1,4 +1,24 @@
-2001-08-5  Naba Kumar <kh_naba@users.sourceforge.net>
+2001-09-07 Johannes Schmid <clubfan@users.sourceforge.net>
+	
+	* Fixed bug #445752
+  
+2001-09-07 Johannes Schmid <clubfan@users.sourceforge.net>
+	
+	* Fixed bug #445752
+  
+2001-08-07  Naba Kumar <kh_naba@users.sourceforge.net>
+
+	* dnd.h, dnd.c: New files for drag n drop support.
+		
+	* anjuta.h, anjuta_gui.c, anjuta_cbs.c:
+	   Added drag and drop support for opening files.
+	
+	Thanks to JosÅÈ Antonio Caminero Granja <JCamGra@alumnos.uva.es> and
+	Archit Baweja <bighead@crosswinds.net> for this idea.
+	
+	* TODO: Added some more todos. :-(
+
+2001-08-06  Naba Kumar <kh_naba@users.sourceforge.net>
 
 	* Fixed the goto line activate bug.
 	patch from: Martyn Bone <mbone@brightstar.u-net.com>
