@@ -266,13 +266,14 @@ static void fv_connect(void)
 
 static void fv_create(void)
 {
+	gchar *cols_titles[] = {N_("File"), N_("Rev")};
 	fv = g_new0(AnFileView, 1);
 	fv->win=gtk_scrolled_window_new(NULL,NULL);
 	gtk_widget_ref(fv->win);
 	gtk_widget_show(fv->win);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(fv->win),
 	  GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
-	fv->tree=gtk_ctree_new(2,0);
+	fv->tree=gtk_ctree_new_with_titles(2,0, cols_titles);
 	gtk_ctree_set_line_style (GTK_CTREE(fv->tree), GTK_CTREE_LINES_DOTTED);
 	gtk_ctree_set_expander_style (GTK_CTREE(fv->tree), GTK_CTREE_EXPANDER_SQUARE);
 	gtk_widget_ref(fv->tree);

@@ -1,3 +1,30 @@
+2002-06-11  Naba Kumar <kh_naba@users.sourceforge.net>
+
+	* src/utilities.c (anjuta_util_escape_quotes): taken care
+	to escape '\' too. Fixed crash bug when term could not be
+	started. Corrected error message.
+
+	* src/utilities.c, src/utilities.h: Added anjuta_util_kill()
+	to use when the process runs in separate process group, where
+	normally kill() would not respond. Added a funtion to parse
+	a string and seperate out the args as a list.
+	
+	* src/debugger.c, src/debugger.h: Modified terminal envokation
+	command to use execlp() intead of execvp(), so that terminal could
+	be configured by the user. Removed the hard coded gnome-terminal
+	use. Enabled stopping/restarting programs while it is executing.
+	Added post execution flag to decide if the debugger should exit
+	or restart the program after the program has terminated. Converted
+	to parse the terminal command from properties and use directly
+	with execvp().
+	
+	* src/an_file_view.c: Added col titles for file view, so that
+	people could identify that the numbers on the right is the
+	cvs revision numbers.
+	
+	* src/controls.c: Enabled restart program and stop program for
+	debug while the program is executing.
+
 2002-06-10	Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
 
 	* anjuta.spec.in, configure.in: Fixed gdk-pixbuf and gnome-print

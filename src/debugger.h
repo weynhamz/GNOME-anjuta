@@ -52,6 +52,7 @@ struct _Debugger
 	gboolean ready;
 	gboolean prog_is_running;
 	gboolean prog_is_attached;
+	gint post_execution_flag;
 	pid_t child_pid;
 
 	GtkWidget *open_exec_filesel;

@@ -247,6 +247,20 @@ free_string_list ( GList * pList );
  ********************************************************/
 gchar* anjuta_util_escape_quotes(gchar* str);
 
+/********************************************************
+ * Use this function instead of kill() to send a signal *
+ * to the process which runs in separate process group, *
+ * because normally kill() wouldn't work                *
+ * Returns: status of the kill                          *
+ ********************************************************/
+gint  anjuta_util_kill(pid_t process_id, gchar* signal_name);
+
+/********************************************************
+ * This function parses a string and returns a GList of *
+ * program args, just like shell parses the program args*
+ ********************************************************/
+GList* anjuta_util_parse_args_from_string (gchar* string);
+
 /* Gets the relative filename w.r.t the given directory */
 gchar *get_relative_file_name(gchar *dir, gchar *file);
 

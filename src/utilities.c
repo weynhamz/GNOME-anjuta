@@ -1474,22 +1474,23 @@ gchar* GetStrCod( const gchar *szIn )
 gchar*
 anjuta_util_escape_quotes(gchar* str)
 {
-		gchar buffer[2048];
-		gint index;
-		gchar *s = str;
-		
-		index = 0;
-		
-		while(s) {
-			if (index > 2040)
-				break;
-			if (*s == '\"' || *s == '\'')
-				buffer[index++] = '\\';
-			buffer[index++] = *s;
-			s++;
-		}
-		buffer[index] = '\0';
-		return g_strdup(buffer);
+	gchar buffer[2048];
+	gint index;
+	gchar *s = str;
+	
+	g_return_val_if_fail(str, NULL);
+	index = 0;
+	
+	while(s) {
+		if (index > 2040)
+			break;
+		if (*s == '\"' || *s == '\'' || *s == '\\')
+			buffer[index++] = '\\';
+		buffer[index++] = *s;
+		s++;
+	}
+	buffer[index] = '\0';
+	return g_strdup(buffer);
 }
 
 gchar *get_relative_file_name(gchar *dir, gchar *file)
@@ -1521,4 +1522,93 @@ gboolean is_file_in_dir(const gchar *file, const gchar *dir)
 	g_free(real_file_name);
 	g_free(real_dir_name);
 	return status;
+}
+
+gint
+anjuta_util_kill(pid_t process_id, gchar* signal)
+{
+	int status;
+	gchar *cmd;
+	pid_t pid;
+	
+	cmd = g_strdup_printf ("kill -s %s %d", signal, process_id);
+	pid = gnome_execute_shell (getenv("HOME"), cmd);
+	g_free (cmd);
+	if (pid > 0) {
+		waitpid (pid, &status, 0);
+		return 0;
+	} else {
+		return -1;
+	}
+}
+
+GList*
+anjuta_util_parse_args_from_string (gchar* string)
+{
+	gboolean escaped;
+	gchar    quote;
+	gchar    buffer[2048], *s;
+	gint     index;
+	GList* args = NULL;
+	
+	index = 0;
+	escaped = FALSE;
+	quote = -1;
+	s = string;
+	
+	while (*s) {
+		if (!isspace(*s))
+			break;
+		s++;
+	}
+
+	while (*s) {
+		if (escaped) {
+			/* The current char was escaped */
+			buffer[index++] = *s;
+			escaped = FALSE;
+		} else if (*s == '\\') {
+			/* Current char is an escape */
+			escaped = TRUE;
+		} else if (*s == quote) {
+			/* Current char ends a quotation */
+			quote = -1;
+			if (!isspace(*(s+1)) && (*(s+1) != '\0')) {
+				/* If there is no space after the quotation or it is not
+				   the end of the string */
+				g_warning ("Parse error while parsing program arguments");
+			}
+		} else if ((*s == '\"' || *s == '\'')) {
+			if (quote == -1) {
+				/* Current char starts a quotation */
+				quote = *s;
+			} else {
+				/* Just a quote char inside quote */
+				buffer[index++] = *s;
+			}
+		} else if (quote > 0){
+			/* Any other char inside quote */
+			buffer[index++] = *s;
+		} else if (isspace(*s)) {
+			/* Any white space outside quote */
+			if (index > 0) {
+				buffer[index++] = '\0';
+				args = g_list_append (args, g_strdup (buffer));
+				index = 0;
+			}
+		} else {
+			buffer[index++] = *s;
+		}
+		s++;
+	}
+	if (index > 0) {
+		/* There are chars in the buffer. Flush as the last arg */
+		buffer[index++] = '\0';
+		args = g_list_append (args, g_strdup (buffer));
+		index = 0;
+	}
+	if (quote > 0) {
+		g_warning ("Unclosed quotation encountered at the end of parsing");
+	}
+	return args;
 }

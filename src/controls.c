@@ -410,9 +410,9 @@ update_main_menubar ()
 	gtk_widget_set_sensitive (dm->open_exec, A && R);
 	gtk_widget_set_sensitive (dm->load_core, A && R);
 	gtk_widget_set_sensitive (dm->attach, A && R);
-	gtk_widget_set_sensitive (dm->restart, A && R && Pr
+	gtk_widget_set_sensitive (dm->restart, A && Pr
 				  && !debugger.prog_is_attached);
-	gtk_widget_set_sensitive (dm->stop_prog, A && Pr && R
+	gtk_widget_set_sensitive (dm->stop_prog, A && Pr
 				  && !debugger.prog_is_attached);
 	gtk_widget_set_sensitive (dm->detach, A && R && Pr
 				  && debugger.prog_is_attached);
