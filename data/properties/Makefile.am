@@ -26,6 +26,7 @@ properties_data_DATA = \
 	others.properties \
 	pascal.properties \
 	perl.properties \
+	php.properties \
 	props.properties \
 	python.properties \
 	rc.properties \

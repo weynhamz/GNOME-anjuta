@@ -5,6 +5,8 @@
 	data/properties/anjuta.properties: Fixed php highlighting bug
 	(highlight was lost) by separating the php properties into
 	a separate file.
+
+	* data/properties/Makefile.am: Added php.properties.
 	
 2003-02-24 Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
 	* src/search-replace.c, anjuta.glade: Yet more patches from
