@@ -124,6 +124,8 @@ create_cpu_registers_gui(CpuRegisters *cr)
                       cr);
   gtk_signal_connect (GTK_OBJECT (window3), "delete_event",
                              GTK_SIGNAL_FUNC (on_registers_delete_event), cr);
+  gtk_signal_connect (GTK_OBJECT (window3), "key-press-event",
+					  GTK_SIGNAL_FUNC (on_registers_key_press_event), cr);
 
   gtk_signal_connect (GTK_OBJECT (clist4), "event",
                       GTK_SIGNAL_FUNC (on_register_event),

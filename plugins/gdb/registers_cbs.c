@@ -33,6 +33,19 @@ on_registers_delete_event(GtkWidget* w, GdkEvent *event, gpointer data)
   return TRUE;
 }
 
+gboolean
+on_registers_key_press_event(GtkWidget *widget, GdkEventKey *event,
+                               gpointer data)
+{
+	if (event->keyval == GDK_Escape)
+	{
+		CpuRegisters* cr = data;
+  		cpu_registers_hide(cr);
+		return TRUE;
+	}
+	return FALSE;
+}
+
 void
 on_registers_clist_select_row          (GtkCList        *clist,
                                         gint             row,

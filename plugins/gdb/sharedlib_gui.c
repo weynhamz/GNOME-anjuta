@@ -115,7 +115,9 @@ create_sharedlibs_gui(Sharedlibs *sl)
   gtk_clist_set_column_widget (GTK_CLIST (clist4), 3, label9);
 
   gtk_signal_connect (GTK_OBJECT (window3), "delete_event",
-                             GTK_SIGNAL_FUNC (on_sharedlibs_delete_event), sl);
+                      GTK_SIGNAL_FUNC (on_sharedlibs_delete_event), sl);
+  gtk_signal_connect (GTK_OBJECT (window3), "key-press-event",
+					  GTK_SIGNAL_FUNC (on_sharedlibs_key_press_event), sl);							 
 
   gtk_signal_connect (GTK_OBJECT (clist4), "event",
                       GTK_SIGNAL_FUNC (on_sharedlibs_event),

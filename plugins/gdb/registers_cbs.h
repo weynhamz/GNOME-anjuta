@@ -20,8 +20,10 @@
 #ifndef _REGISTERS_CBS_H_
 #define _REGISTERS_CBS_H_
 
-gint
-on_registers_delete_event(GtkWidget* w, GdkEvent* event, gpointer data);
+gint on_registers_delete_event(GtkWidget* w, GdkEvent* event, gpointer data);
+
+gboolean on_registers_key_press_event(GtkWidget *widget, GdkEventKey *event,
+                                      gpointer data);
 
 void
 on_registers_clist_select_row          (GtkCList        *clist,

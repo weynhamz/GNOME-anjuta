@@ -21,6 +21,11 @@
 {
 	;
 }]]></macro>
+<macro _name="do_while" _category="C" _shortcut=""><![CDATA[do
+{
+	;
+}
+while ();]]></macro>
 <macro _name="if...else" _category="C" _shortcut="azerty"><![CDATA[if ()
 {
 	;

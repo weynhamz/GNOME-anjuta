@@ -56,7 +56,8 @@ about_read_developers(FILE *fp, gchar *line, gint *index, const gchar **tab)
 {
 	do
 	{
-		tab[(*index)++] = g_strdup_printf("%s", line);
+		if (*index < MAX_CREDIT)
+			tab[(*index)++] = g_strdup_printf("%s", line);
 		if ( !(line = about_read_line(fp)))
 			return NULL;
 		line = g_strchomp(line);
@@ -71,7 +72,8 @@ read_documenters(FILE *fp, gchar *line, gint *index, const gchar **tab)
 {
 	do
 	{
-		tab[(*index)++] = g_strdup_printf("%s", line);
+		if (*index < MAX_CREDIT)
+			tab[(*index)++] = g_strdup_printf("%s", line);
 		if ( !(line = about_read_line(fp)))
 			return NULL;
 		line = g_strchomp(line);
@@ -115,7 +117,7 @@ about_read_file(void)
 	gchar *line;
 	gint i_auth = 0;
 	gint i_doc = 0;
-// A modifier	
+
 	if ( (fp = fopen(PACKAGE_DOC_DIR"/"ABOUT_AUTHORS, "r")) )
 	{
 		line = about_read_line(fp);
@@ -166,7 +168,7 @@ about_box_new ()
 	GtkWidget *dialog;
 	GdkPixbuf *pix;
 	
-	/*  Parse AUTHOR.xml file  */
+	/*  Parse AUTHORS file  */
 	about_read_file();
 	
 	pix = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"ANJUTA_PIXMAP_LOGO, NULL);

@@ -45,6 +45,18 @@ on_signals_delete_event(GtkWidget* w, GdkEvent *event, gpointer data)
   return TRUE;
 }
 
+gboolean
+on_signals_key_press_event(GtkWidget *widget, GdkEventKey *event, gpointer data)
+{
+	if (event->keyval == GDK_Escape)
+	{
+		Signals* cr = data;
+  		signals_hide(cr);
+		return TRUE;
+	}
+	return FALSE;
+}
+
 void
 on_signals_modify_activate            (GtkMenuItem     *menuitem,
                                         gpointer         user_data)

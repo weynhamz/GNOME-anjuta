@@ -1,3 +1,12 @@
+2005-03-06  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
+
+	* src/about.c : Cleaned code.
+	* plugins/macro/macros.xml : Added "do_while" C macro.
+	* plugins/gdb/registers_cbs.[ch], plugins/gdb/registers_gui.c,
+	plugins/gdb/sharedlib_cbs.[ch], plugins/gdb/sharedlib_gui.c, 
+	plugins/gdb/signals_cbs.[ch], plugins/gdb/signals_gui.c :
+	Closed registers, shared libraries, kernel signals dialogs with ESC key.
+	
 2005-03-06	Johannes Schmid <jhs@cvs.gnome.org>
 
 	* plugins/class-gen/plugin.c:
@@ -14,7 +23,7 @@
 	Applied old 1.2.2 patch to fix Ctrl-C in terminal but
 	we still have focus problems with the editor.
 
-2005-03-04  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
+2005-03-05  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
 
 	* AUTHORS, src/about.c : Updated about dialog by AUTHORS file.
 	

@@ -135,7 +135,9 @@ create_signals_gui(Signals *cr)
 
   gtk_signal_connect (GTK_OBJECT (window3), "delete_event",
                              GTK_SIGNAL_FUNC (on_signals_delete_event), cr);
-
+  gtk_signal_connect (GTK_OBJECT (window3), "key-press-event",
+					  GTK_SIGNAL_FUNC (on_signals_key_press_event), cr);
+					  
   gtk_signal_connect (GTK_OBJECT (clist4), "event",
                       GTK_SIGNAL_FUNC (on_signals_event),
                       cr);

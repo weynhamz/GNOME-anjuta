@@ -33,6 +33,18 @@ on_sharedlibs_delete_event(GtkWidget* w, GdkEvent *event, gpointer data)
   return TRUE;
 }
 
+gboolean
+on_sharedlibs_key_press_event(GtkWidget *widget, GdkEventKey *event, gpointer data)
+{
+	if (event->keyval == GDK_Escape)
+	{
+		Sharedlibs* sl = data;
+  		sharedlibs_hide(sl);
+		return TRUE;
+	}
+	return FALSE;
+}
+
 void
 on_sharedlibs_update_activate            (GtkMenuItem     *menuitem,
                                         gpointer         user_data)

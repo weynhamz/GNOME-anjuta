@@ -30,6 +30,10 @@ on_signals_clist_select_row          (GtkCList        *clist,
 gint
 on_signals_delete_event(GtkWidget* w, GdkEvent* event, gpointer data);
 
+gboolean
+on_signals_key_press_event(GtkWidget *widget, GdkEventKey *event, gpointer data);
+
+
 void
 on_signals_modify_activate            (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
