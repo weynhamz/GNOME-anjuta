@@ -1,16 +1,22 @@
 Anjuta 1.0.1:		(xth June 2002)			-- Naba Kumar
 
+New: Auto-complete takes graphics now.
+NEW: Auto-complete automatic.
+New: Per project editor properties
+New: Sub windows now float above main window.
+New: Project version and excluded modules configuration.
+NEW: Errors and warnings indications in editor.
 Bug fix: Printing now takes editor default fonts
 Bug fix: Rpm package fix
 Bug fix: ChangeLog insert uses spaces (instead of tabs)
 Bug fix: Fixed compiler warnings.
-New: Auto-complete takes graphics now.
-Updated: Upgraded scintilla to 1.49+
-New: Per project editor properties
 Bug fix: Fixed debug terminal bug
 Bug fix: Disabled gladen to remove the libssl dep.
-New: Sub windows now float above main window.
-New: Project version and excluded modules configuration.
+Bug fix: brace indentation works properly.
+Bug fix: Wrap-around search
+Updated: Upgraded scintilla to 1.49+
+Updated: Upgraded editor properties and added new properties.
+Updated: Organized plugins
 
 Anjuta 1.0-beta1:	(1st August 2002)			-- Andy Piper
 

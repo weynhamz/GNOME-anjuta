@@ -29,7 +29,11 @@
 extern "C" 
 {
 #endif
-	
+
+#define MESSAGE_INDICATOR_ERROR   2
+#define MESSAGE_INDICATOR_WARNING 1
+#define MESSAGE_INDICATOR_OTHERS  0
+
 typedef struct _AnjutaMessageManager AnjutaMessageManager;
 typedef struct _AnjutaMessageManagerClass AnjutaMessageManagerClass;
 	
@@ -54,6 +58,7 @@ struct _AnjutaMessageManagerClass
 	
 	// Signals
 	void (*message_clicked) (AnjutaMessageManager *amm, gchar* message);
+	void (*message_indicate) (AnjutaMessageManager *amm, gint type_name, gchar* file, glong line, gint indicator);
 };
 
 // Public functions
@@ -82,6 +87,10 @@ gboolean anjuta_message_manager_save_build (AnjutaMessageManager* amm, FILE * st
 
 gboolean anjuta_message_manager_is_shown(AnjutaMessageManager* amm);
 gboolean anjuta_message_manager_build_is_empty(AnjutaMessageManager* amm);
+
+void anjuta_message_manager_indicate_error (AnjutaMessageManager * amm, gint type_name, gchar* file, glong line);
+void anjuta_message_manager_indicate_warning (AnjutaMessageManager * amm, gint type_name, gchar* file, glong line);
+void anjuta_message_manager_indicate_others (AnjutaMessageManager * amm, gint type_name, gchar* file, glong line);
 
 void create_default_types(AnjutaMessageManager* amm);
 

@@ -3,15 +3,14 @@ TODO List:
 
 ** Immediate post-1.0.0:
 
-	o Add version change in Project config
-	o Add ignore modules in Project config
+	o Add ignore modules in Project config: Tagmanager does not ignore them.
 	o Bring all indent/format preferences under one tab.
 	o Add more editor preferences.
-	o Upgrade scintilla.
+	o Add "indicator.automatic" pref in message prefs.
 	o Compiler options: supports
 	o add credits for ALL new contributors
 	o update manual
-	o improve find in files usability
+	o improve find in files usability/incremental searching
 	o project manager changes
 	
 ** General:

@@ -159,6 +159,7 @@ gint text_editor_goto_block_end (TextEditor* te);
 
 void text_editor_set_line_marker (TextEditor * te, glong line);
 gint text_editor_set_marker (TextEditor * te, glong line, gint marker);
+gint text_editor_set_indicator (TextEditor *te, glong line, gint indicator);
 
 gboolean text_editor_load_file (TextEditor * te);
 gboolean text_editor_save_file (TextEditor * te);

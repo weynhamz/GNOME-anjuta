@@ -1128,7 +1128,7 @@ debugger_start_terminal ()
         if (debugger.gnome_terminal_type == 1) {
             /* Remove any --disable-factory option, if present */
             while (node) {
-                if (strcmp ((gchar*)args->data, "--diable-factory") == 0) {
+                if (strcmp ((gchar*)args->data, "--disable-factory") == 0) {
                     g_free (node->data);
                     args = g_list_remove (args, node);
                     break;

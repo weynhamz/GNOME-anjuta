@@ -220,6 +220,7 @@ anjuta_init_progress (gchar * description, gdouble full_value,
 void anjuta_set_progress (gdouble value);
 
 void anjuta_delete_all_marker (gint marker);
+void anjuta_delete_all_indicators ();
 
 void anjuta_grab_text_focus (void);
 

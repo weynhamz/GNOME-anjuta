@@ -36,10 +36,11 @@ extern "C"
 enum
 {
 	MESSAGE_CLICKED,
+	MESSAGE_INDICATE,
 	SIGNALS_END
 };
 
-static guint anjuta_message_manager_signals[SIGNALS_END] = { 0 };
+static guint anjuta_message_manager_signals[SIGNALS_END] = { 0, 0 };
 
 // Data:
 static char *labels[] =
@@ -68,6 +69,22 @@ static gboolean on_mesg_event (GtkCList *list, GdkEvent * event, gpointer user_d
 // Intern functions:
 
 GtkFrameClass *parent_class;
+
+typedef void (*GtkSignal_NONE__POINTER_INT_POINTER_LONG_INT)(gpointer, gint, gpointer, glong, gint);
+
+void marshal_NONE__POINTER_INT_POINTER_LONG_INT(GtkObject*    object,
+					   GtkSignalFunc func,
+					   gpointer      func_data,
+                       GtkArg*       args)
+{
+	GtkSignal_NONE__POINTER_INT_POINTER_LONG_INT rfunc;
+	rfunc = (GtkSignal_NONE__POINTER_INT_POINTER_LONG_INT)func;
+	(*rfunc)(object,
+			   GTK_VALUE_INT(args[0]),
+			   GTK_VALUE_POINTER(args[1]),
+			   GTK_VALUE_LONG(args[2]),
+			   GTK_VALUE_INT(args[3]));
+}
 
 GtkWidget *
 anjuta_message_manager_new ()
@@ -114,6 +131,15 @@ anjuta_message_manager_class_init (AnjutaMessageManagerClass * klass)
 						   message_clicked),
 				gtk_marshal_NONE__POINTER, GTK_TYPE_NONE,
 				1, GTK_TYPE_POINTER);
+
+	anjuta_message_manager_signals[MESSAGE_INDICATE] =
+		gtk_signal_new ("message_indicate", GTK_RUN_FIRST,
+				object_class->type,
+				GTK_SIGNAL_OFFSET (AnjutaMessageManagerClass,
+						   message_indicate),
+				marshal_NONE__POINTER_INT_POINTER_LONG_INT, GTK_TYPE_NONE,
+				4, GTK_TYPE_INT, GTK_TYPE_POINTER,
+				GTK_TYPE_LONG, GTK_TYPE_INT);
 
 	gtk_object_class_add_signals (object_class,
 				      anjuta_message_manager_signals,
@@ -430,6 +456,36 @@ anjuta_message_manager_previous (AnjutaMessageManager * amm)
 }
 
 void
+anjuta_message_manager_indicate_error (AnjutaMessageManager * amm, gint type_name,
+		gchar* file, glong line)
+{
+	if (type_name) return; // Only for Build messages.
+	gtk_signal_emit(GTK_OBJECT(amm), 
+				anjuta_message_manager_signals[MESSAGE_INDICATE],
+				type_name, file, line, MESSAGE_INDICATOR_ERROR);
+}
+
+void
+anjuta_message_manager_indicate_warning (AnjutaMessageManager * amm, gint type_name,
+		gchar* file, glong line)
+{
+	if (type_name) return; // Only for Build messages.
+	gtk_signal_emit(GTK_OBJECT(amm),
+				anjuta_message_manager_signals[MESSAGE_INDICATE],
+				type_name, file, line, MESSAGE_INDICATOR_WARNING);
+}
+
+void
+anjuta_message_manager_indicate_others (AnjutaMessageManager * amm, gint type_name,
+		gchar* file, glong line)
+{
+	// Any message
+	gtk_signal_emit(GTK_OBJECT(amm),
+				anjuta_message_manager_signals[MESSAGE_INDICATE],
+				type_name, file, line, MESSAGE_INDICATOR_OTHERS);
+}
+
+void
 anjuta_message_manager_show (AnjutaMessageManager * amm, gint type_name)
 {
 	g_return_if_fail(amm != NULL);
@@ -503,6 +559,9 @@ anjuta_message_manager_clear (AnjutaMessageManager * amm, gint type_name)
 		if ((*cur_win)->get_type () == string (labels[type_name]))
 		{
 			(*cur_win)->clear();
+			if (type_name == 0) {
+				anjuta_delete_all_indicators();
+			}
 			/*AnjutaMessageWindow *win = dynamic_cast < AnjutaMessageWindow * >(*cur_win);
 			if (win != 0)
 				win->clear ();
@@ -698,6 +757,8 @@ anjuta_message_manager_update(AnjutaMessageManager* amm)
 		amm->intern->color_message2.blue = b * factor;
 		g_free(color);
 	}
+
+	anjuta_delete_all_indicators();
 	
 	typedef vector < MessageSubwindow * >::iterator I;
 	for (I cur_win = amm->intern->msg_windows.begin ();

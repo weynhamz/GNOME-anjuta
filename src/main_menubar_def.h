@@ -261,11 +261,11 @@ static GnomeUIInfo inserttext1_submenu_uiinfo[NUM_INSERTTEXT_SUBMENUS+1] = {
         0, 0, NULL},
 		{/*6*/
 		GNOME_APP_UI_ITEM, N_("ChangeLog entry"),
-    N_("Insert a ChangeLog entry"),
-    on_insert_changelog_entry, NULL, NULL,
-    GNOME_APP_PIXMAP_NONE, NULL,
-    0, 0, NULL},
-    GNOMEUIINFO_END/*7*/
+        N_("Insert a ChangeLog entry"),
+        on_insert_changelog_entry, NULL, NULL,
+        GNOME_APP_PIXMAP_NONE, NULL,
+        0, 0, NULL},
+        GNOMEUIINFO_END/*7*/
 };
 
 #define NUM_TEMPLATE_C_SUBMENUS 4
@@ -379,7 +379,70 @@ static GnomeUIInfo insert_submenu_uiinfo[NUM_INSERT_SUBMENUS+1] = {
     GNOMEUIINFO_END/*4*/
 };
 
-#define NUM_GOTO_SUBMENUS 10
+#define NUM_COMMENT_SUBMENUS 3
+static GnomeUIInfo comment_submenu_uiinfo[NUM_COMMENT_SUBMENUS+1] = {
+	{/*0*/
+	 GNOME_APP_UI_ITEM, N_("Block Comemnt/Uncomment"),
+	 N_("Block comment the selected text"),
+	 on_comment_block, NULL, NULL,
+	 GNOME_APP_PIXMAP_NONE, NULL,
+	 0, 0, NULL},
+	{/*1*/
+	 GNOME_APP_UI_ITEM, N_("Box Comemnt"),
+	 N_("Box comment the selected text"),
+	 on_comment_box, NULL, NULL,
+	 GNOME_APP_PIXMAP_NONE, NULL,
+	 0, 0, NULL},
+	{/*2*/
+	 GNOME_APP_UI_ITEM, N_("Stream Comemnt"),
+	 N_("Stream comment the selected text"),
+	 on_comment_stream, NULL, NULL,
+	 GNOME_APP_PIXMAP_NONE, NULL,
+	 0, 0, NULL},
+	GNOMEUIINFO_END/*10*/
+};
+
+#define NUM_FIND_SUBMENUS 5
+static GnomeUIInfo find_submenu_uiinfo[NUM_FIND_SUBMENUS+1] = {
+	{/*0*/
+	 GNOME_APP_UI_ITEM, N_("_Find ..."),
+	 N_("Search for a string or regular expression in the editor"),
+	 on_find1_activate, NULL, NULL,
+	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_SEARCH,
+	 GDK_F, GDK_CONTROL_MASK, NULL},
+	
+	{/*1*/
+	 GNOME_APP_UI_ITEM, N_("Find _Next"),
+	 N_("Repeat the last Find command"),
+	 on_findnext1_activate, NULL, NULL,
+	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_SEARCH,
+	 GDK_F6, GDK_SHIFT_MASK, NULL},
+	 
+	{/*2*/
+	GNOME_APP_UI_ITEM, N_("Find and R_eplace ..."),
+	N_("Search for and replace a string or regular expression with another string"),
+	on_find_and_replace1_activate, NULL, NULL,
+	GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_SRCHRPL,
+	GDK_F, GDK_CONTROL_MASK | GDK_SHIFT_MASK, NULL},
+ 
+	{/*3*/
+	 GNOME_APP_UI_ITEM, N_("Fin_d in Files ..."),
+	 N_("Search for a string in multiple files or directories"),
+	 on_find_in_files1_activate, NULL, NULL,
+	 GNOME_APP_PIXMAP_NONE, NULL,
+	 0, 0, NULL},
+	
+	{/*4*/
+	 GNOME_APP_UI_ITEM, N_("_Enter Selection"),
+	 N_("Enter the selected text as the search target"),
+	 on_enterselection, NULL, NULL,
+	 GNOME_APP_PIXMAP_NONE, NULL,
+	 GDK_E, GDK_CONTROL_MASK, NULL},
+	
+	GNOMEUIINFO_END/*5*/
+};
+
+#define NUM_GOTO_SUBMENUS 12
 static GnomeUIInfo goto1_submenu_uiinfo[NUM_GOTO_SUBMENUS+1] = {
 	{/*0*/
 	 GNOME_APP_UI_ITEM, N_("_Goto Line number ..."),
@@ -441,11 +504,23 @@ static GnomeUIInfo goto1_submenu_uiinfo[NUM_GOTO_SUBMENUS+1] = {
 	 on_goto_tag_activate, (gpointer) FALSE, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 GDK_D, GDK_CONTROL_MASK | GDK_SHIFT_MASK, NULL},
-	GNOMEUIINFO_END/*10*/
+	{/*10*/
+	 GNOME_APP_UI_ITEM, N_("Next occurrence"),
+	 N_("Find the next occurrence of current word"),
+	 on_next_occur, NULL, NULL,
+	 GNOME_APP_PIXMAP_NONE, NULL,
+	 0, GDK_CONTROL_MASK, NULL}, 
+    {/*11*/
+	 GNOME_APP_UI_ITEM, N_("Previous occurence"),
+	 N_("Find the previous occurrence of current word"),
+	 on_prev_occur, NULL, NULL,
+	 GNOME_APP_PIXMAP_NONE, NULL,
+	 0, GDK_CONTROL_MASK, NULL},
+    
+	GNOMEUIINFO_END/*12*/
 };
 
-
-#define	NUM_EDIT_SUBMENUS	23
+#define	NUM_EDIT_SUBMENUS 17
 static GnomeUIInfo edit1_menu_uiinfo[NUM_EDIT_SUBMENUS+1] = {
 	{/*0*/
 	 GNOME_APP_UI_ITEM, N_("U_ndo"),
@@ -514,80 +589,42 @@ static GnomeUIInfo edit1_menu_uiinfo[NUM_EDIT_SUBMENUS+1] = {
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	
-	GNOMEUIINFO_SEPARATOR,/*11*/
+	{/*11*/
+	 GNOME_APP_UI_SUBTREE, N_("Co_mment code"),
+	 NULL,
+	 comment_submenu_uiinfo, NULL, NULL,
+	 GNOME_APP_PIXMAP_NONE, NULL,
+	 0, 0, NULL},
+    {/*12*/
+	 GNOME_APP_UI_SUBTREE, N_("_Search"),
+	 NULL,
+	 find_submenu_uiinfo, NULL, NULL,
+	 GNOME_APP_PIXMAP_NONE, NULL,
+	 0, 0, NULL},
+    {/*13*/
+	 GNOME_APP_UI_SUBTREE, N_("G_o to"),
+	 NULL,
+	 goto1_submenu_uiinfo, NULL, NULL,
+	 GNOME_APP_PIXMAP_NONE, NULL,
+	 0, 0, NULL},
 	
-	{/*12*/
+	GNOMEUIINFO_SEPARATOR,/*14*/
+	
+	{/*15*/
 	 GNOME_APP_UI_ITEM, N_("_AutoComplete"),
 	 N_("AutoComplete the current word"),
 	 on_editor_command_activate, (gpointer) ANE_COMPLETEWORD, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 GDK_Return, GDK_CONTROL_MASK, NULL},
 	
-	{/*13*/
+	{/*16*/
 	 GNOME_APP_UI_ITEM, N_("S_how calltip"),
 	 N_("Show calltip for the function"),
 	 on_calltip1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 
-	 GNOMEUIINFO_SEPARATOR,/*14*/
-	
-	{/*15*/
-	 GNOME_APP_UI_ITEM, N_("_Find ..."),
-	 N_("Search for a string or regular expression in the editor"),
-	 on_find1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_SEARCH,
-	 GDK_F, GDK_CONTROL_MASK, NULL},
-	
-	{/*16*/
-	 GNOME_APP_UI_ITEM, N_("Find _Next"),
-	 N_("Repeat the last Find command"),
-	 on_findnext1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_SEARCH,
-	 GDK_F6, GDK_SHIFT_MASK, NULL},
-	 
-	{/*17*/
-	GNOME_APP_UI_ITEM, N_("Find and R_eplace ..."),
-	N_("Search for and replace a string or regular expression with another string"),
-	on_find_and_replace1_activate, NULL, NULL,
-	GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_SRCHRPL,
-	GDK_F, GDK_CONTROL_MASK | GDK_SHIFT_MASK, NULL},
- 
-	{/*18*/
-	 GNOME_APP_UI_ITEM, N_("Fin_d in Files ..."),
-	 N_("Search for a string in multiple files or directories"),
-	 on_find_in_files1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
-	 0, 0, NULL},
-	
-	{/*19*/
-	 GNOME_APP_UI_ITEM, N_("_Enter Selection"),
-	 N_("Enter the selected text as the search target"),
-	 on_enterselection, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
-	 GDK_E, GDK_CONTROL_MASK, NULL},
-	{/*20*/
-	 GNOME_APP_UI_ITEM, N_("Next occurrence"),
-	 N_("Find the next occurrence of current word"),
-	 on_next_occur, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
-	 0, GDK_CONTROL_MASK, NULL}, 
-     {/*21*/
-	 GNOME_APP_UI_ITEM, N_("Previous occurence"),
-	 N_("Find the previous occurrence of current word"),
-	 on_prev_occur, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
-	 0, GDK_CONTROL_MASK, NULL},
-     {/*22*/
-	 GNOME_APP_UI_SUBTREE, N_("G_o to"),
-	 NULL,
-	 goto1_submenu_uiinfo, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
-	 0, 0, NULL},
-     
-	
-    
-	/*23*/
+	/*17*/
 	GNOMEUIINFO_END
 };
 
@@ -1838,6 +1875,39 @@ static GnomeUIInfo menubar1_uiinfo[] = {
 	 0, 0, NULL},
 	GNOMEUIINFO_MENU_HELP_TREE (help1_menu_uiinfo),
 	GNOMEUIINFO_END
+};
+
+/* Add new submenu structure pointers defined above here
+ * which require ref and unref done, except Help submenus.
+ * Help submenu is taken care separatedly.
+ */
+static GnomeUIInfo* anjuta_menus_uiinfo[] = {
+	menubar1_uiinfo,
+	file1_menu_uiinfo,
+	transform1_submenu_uiinfo,
+	select1_submenu_uiinfo,
+	comment_submenu_uiinfo,
+	find_submenu_uiinfo,
+	goto1_submenu_uiinfo,
+	insert_template_c_uiinfo,
+	inserttext1_submenu_uiinfo,
+	insert_submenu_uiinfo,
+	edit1_menu_uiinfo,
+	toolbar1_submenu_uiinfo,
+	editor1_submenu_uiinfo,
+	view1_menu_uiinfo,
+	zoom_text1_submenu_uiinfo,
+	add_file1_menu_uiinfo,
+	project1_menu_uiinfo,
+	hilitetype1_submenu_uiinfo,
+	format1_menu_uiinfo,
+	build1_menu_uiinfo,
+	bookmark1_menu_uiinfo,
+	execution1_submenu_uiinfo,
+	breakpoints1_submenu_uiinfo,
+	info1_submenu_uiinfo,
+	debug1_menu_uiinfo,
+	settings1_menu_uiinfo,
 };
 
 #endif

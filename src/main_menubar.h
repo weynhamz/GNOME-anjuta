@@ -110,6 +110,10 @@ struct _EditSubMenu
 	GtkWidget *find_replace;
 	GtkWidget *enter_selection;
 
+	GtkWidget *comment_block;
+	GtkWidget *comment_box;
+	GtkWidget *comment_stream;
+
 	GtkWidget *goto_line;
 	GtkWidget *goto_brace;
 	GtkWidget *goto_block_start;

@@ -53,7 +53,8 @@ extern gboolean closing_state;
 static GdkCursor *app_cursor;
 /*-------------------------------------------------------------------*/
 void anjuta_child_terminated (int t);
-static void on_message_clicked(GtkObject* obj, char* message);					  
+static void on_message_clicked(GtkObject* obj, char* message);	
+static void on_message_indicate(GtkObject* obj, gint type_name, gchar* file, glong line, gint type);	
 static void anjuta_show_text_editor (TextEditor * te);
 static int select_all_files (const struct dirent *e);
 
@@ -166,6 +167,7 @@ anjuta_new ()
 		app->messages = ANJUTA_MESSAGE_MANAGER(anjuta_message_manager_new ());
 		create_default_types(app->messages);
 		gtk_signal_connect(GTK_OBJECT(app->messages), "message_clicked", GTK_SIGNAL_FUNC(on_message_clicked), NULL);
+		gtk_signal_connect(GTK_OBJECT(app->messages), "message_indicate", GTK_SIGNAL_FUNC(on_message_indicate), NULL);
 		app->project_dbase = project_dbase_new (app->preferences->props);
 		app->configurer = configurer_new (app->project_dbase->props);
 		app->executer = executer_new (app->project_dbase->props);
@@ -1879,6 +1881,26 @@ anjuta_delete_all_marker (gint marker)
 	}
 }
 
+void 
+anjuta_delete_all_indicators ()
+{
+	GList *node;
+	TextEditor *te;
+
+	node = app->text_editor_list;
+	while (node)
+	{
+		te = (TextEditor *) node->data;
+		if (te->full_filename == NULL)
+		{
+			node = g_list_next (node);
+			continue;
+		}
+		text_editor_set_indicator (te, -1, -1);
+		node = g_list_next (node);
+	}
+}
+
 gboolean anjuta_set_auto_gtk_update (gboolean auto_flag)
 {
 	gboolean save;
@@ -2106,6 +2128,36 @@ static void on_message_clicked(GtkObject* obj, char* message)
 	{
 		anjuta_goto_file_line (fn, ln);
 		g_free (fn);
+	}
+}
+
+static void on_message_indicate (GtkObject* obj, gint type_name, gchar* file, glong line, gint indicator)
+{
+	gchar *fn;
+	GList *node;
+
+	TextEditor *te;
+
+	g_return_if_fail (file);
+	fn = anjuta_get_full_filename (file);
+	g_return_if_fail (fn);
+	
+	node = app->text_editor_list;
+	while (node)
+	{
+		te = (TextEditor *) node->data;
+		if (te->full_filename == NULL)
+		{
+			node = g_list_next (node);
+			continue;
+		}
+		if (strcmp (fn, te->full_filename) == 0)
+		{
+			if (line >= 0)
+				text_editor_set_indicator (te, line, indicator);
+			g_free (fn);
+		}
+		node = g_list_next (node);
 	}
 }
 

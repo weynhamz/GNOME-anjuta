@@ -920,7 +920,6 @@ void on_prev_occur(GtkMenuItem * menuitem, gpointer user_data)
 
 }
 
-
 void on_next_occur(GtkMenuItem * menuitem, gpointer user_data)
 {
     TextEditor* te;
@@ -954,6 +953,31 @@ void on_next_occur(GtkMenuItem * menuitem, gpointer user_data)
 	g_free(buffer);
 
 }
+
+void on_comment_block (GtkMenuItem * menuitem, gpointer user_data)
+{
+    TextEditor* te;
+	te = anjuta_get_current_text_editor();
+	if(!te) return;
+    aneditor_command (te->editor_id, ANE_BLOCKCOMMENT, 0, 0);
+}
+
+void on_comment_box (GtkMenuItem * menuitem, gpointer user_data)
+{
+    TextEditor* te;
+	te = anjuta_get_current_text_editor();
+	if(!te) return;
+    aneditor_command (te->editor_id, ANE_BOXCOMMENT, 0, 0);
+}
+
+void on_comment_stream (GtkMenuItem * menuitem, gpointer user_data)
+{
+    TextEditor* te;
+	te = anjuta_get_current_text_editor();
+	if(!te) return;
+    aneditor_command (te->editor_id, ANE_STREAMCOMMENT, 0, 0);
+}
+
 void
 on_goto_line_no1_activate (GtkMenuItem * menuitem, gpointer user_data)
 {

@@ -1,3 +1,19 @@
+2002-11-30  Naba Kumar <naba@gnome.org>
+
+	* src/debugger.c: Fixed a typo.
+	* data/properties/*: Updated properties files and added
+	new ones.
+	* src/main_menubar_def.h, main_menubar.[hc], mainmenu_callbacks.[hc]:
+	Added comment submenu and cleaned up ref and unref of menus.
+	* src/aneditor.h: Added definition of comment commands.
+	* src/aneditor.c: Upgrade from latest SciTE source code.
+	* src/text_editor.[hc], src/text_editor_cbs.c, 
+	src/message_manager_private.cc,	src/message_manager.[cc,h],
+	src/anjuta.[c,h]: Added indicators support for errors/warnings
+	highlight in the editor.
+	* NEWS, TODO: Update.
+	* scintilla/include/PropSet.h: Removed deprecrated function.
+	
 2002-11-29  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
 
 	* src/anjuta-tools.[ch]: Tools implementation (basic)

@@ -211,10 +211,12 @@ AnjutaMessageWindow::append_buffer()
 		if (message.find(" warning: ") != message.npos)
 		{
 			gtk_clist_set_foreground(GTK_CLIST(m_msg_list), m_messages.size() - 1, &m_parent->intern->color_warning);
+			anjuta_message_manager_indicate_warning (m_parent, m_type_id, dummy_fn, dummy_int);
 		}
 		else
 		{
 			gtk_clist_set_foreground(GTK_CLIST(m_msg_list), m_messages.size() - 1, &m_parent->intern->color_error);
+			anjuta_message_manager_indicate_error (m_parent, m_type_id, dummy_fn, dummy_int);
 		}
 	}
 	else

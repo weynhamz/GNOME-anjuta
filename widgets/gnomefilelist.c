@@ -828,9 +828,15 @@ static void file_select_event(GtkCTree *tree, gint row, gint col, GdkEvent *even
          }
          else if(!strcmp(file_list->selected, ".."))
          {
+#ifdef DEBUG
+			g_message("Original file path: %s\n", file_list->path); 
+#endif
             path = get_parent_dir(file_list->path);
             g_free(file_list->path);
             file_list->path = path;
+#ifdef DEBUG
+			g_message("Original file path: %s\n", file_list->path); 
+#endif
             gnome_filelist_set_dir(file_list, file_list->path);
          }
 	 else
