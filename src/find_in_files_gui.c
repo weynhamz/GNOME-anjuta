@@ -55,6 +55,7 @@ create_find_in_files_gui (FindInFiles *sf)
   GtkWidget *button15;
   GtkWidget *button16;
   GtkWidget *checkbutton3;
+  GtkWidget *checkbutton4;
   GtkWidget *frame5;
   GtkWidget *entry1;
   GtkWidget *combo_entry4;
@@ -149,6 +150,11 @@ create_find_in_files_gui (FindInFiles *sf)
   gtk_widget_show (checkbutton3);
   gtk_box_pack_start (GTK_BOX (vbox4), checkbutton3, FALSE, FALSE, 0);
   gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (checkbutton3), TRUE);
+  
+  checkbutton4 = gtk_check_button_new_with_label (_("Ignore binary files"));
+  gtk_widget_show (checkbutton4);
+  gtk_box_pack_start (GTK_BOX (vbox4), checkbutton4, FALSE, FALSE, 0);
+  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (checkbutton4), TRUE);
 
   frame5 = gtk_frame_new (_(" Search String"));
   gtk_widget_show (frame5);
@@ -219,7 +225,8 @@ create_find_in_files_gui (FindInFiles *sf)
   sf->widgets.ok = button9;gtk_widget_ref(button9);
   sf->widgets.case_sensitive_check = checkbutton3;
       gtk_widget_ref(checkbutton3);
-
+  sf->widgets.ignore_binary = checkbutton4;
+	  gtk_widget_ref(checkbutton4);
 
 	gtk_window_set_transient_for(GTK_WINDOW(sf->widgets.window), GTK_WINDOW(app->widgets.window));
 }

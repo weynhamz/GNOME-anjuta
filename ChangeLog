@@ -1,3 +1,10 @@
+2002-03-04 Roel Vanhout <roel@stack.be>
+
+	Reviewed by Naba Kumar <kh_naba@users.sourceforge.net>
+
+	* src/find_in_files.c, src/find_in_files.h, src/find_in_files_gui.c
+	Added option to ignore binary files on 'Find in files' (grep -I option)
+
 2002-03-03  Naba Kumar <kh_naba@users.sourceforge.net>
 
 	* src/main.c:

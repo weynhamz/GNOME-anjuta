@@ -139,7 +139,7 @@ find_in_files_process (FindInFiles * ff)
 {
 	gint i;
 	gchar *command, *temp, *file;
-	gboolean case_sensitive;
+	gboolean case_sensitive, ignore_binary;
 
 	if (anjuta_is_installed ("grep", TRUE) == FALSE)
 		return;
@@ -147,6 +147,11 @@ find_in_files_process (FindInFiles * ff)
 		gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
 					      (ff->widgets.
 					       case_sensitive_check));
+	ignore_binary  =
+		gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
+					      (ff->widgets.
+					       ignore_binary));
+	
 	temp = gtk_entry_get_text (GTK_ENTRY (ff->widgets.regexp_entry));
 	command = g_strconcat ("grep -n -r -e \"", temp, "\"", NULL);
 	ff->regexp_history =
@@ -155,6 +160,12 @@ find_in_files_process (FindInFiles * ff)
 	if (!case_sensitive)
 	{
 		temp = g_strconcat (command, " -i ", NULL);
+		g_free (command);
+		command = temp;
+	}
+	if (ignore_binary)
+	{
+		temp = g_strconcat (command, " -I ", NULL);
 		g_free (command);
 		command = temp;
 	}
