@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.ANJUTA_1_2_0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-08-18 10:57+0200\n"
+"POT-Creation-Date: 2004-08-20 10:57+0200\n"
 "PO-Revision-Date: 2004-01-31 15:03+0100\n"
 "Last-Translator: Laurent Dhima <laurenti@alblinux.net>\n"
 "Language-Team: Albanian <gnome-albanian-perkthyesit@lists.sourceforge.net>\n"
@@ -1048,7 +1048,7 @@ msgstr "I ndjeshëm"
 
 #: libanjuta/anjuta-ui.c:851
 msgid "Shortcut"
-msgstr "Shpejtues"
+msgstr "Kombinimi përshpejtues"
 
 #: libanjuta/anjuta-utils.c:53 src/utilities.c:697
 #, c-format
@@ -1521,7 +1521,7 @@ msgstr ""
 
 #: plugins/build/configurer.c:189 src/toolbar.c:262
 msgid "Configure"
-msgstr ""
+msgstr "Konfiguro"
 
 #: plugins/build/configurer.c:191
 msgid "Configuring the Project ....\n"
@@ -1732,11 +1732,11 @@ msgstr "Ndihmë"
 
 #: plugins/class-gen/clsGen.c:1352 plugins/patch/patch-plugin.c:107
 msgid "Cancel"
-msgstr "Anulloje"
+msgstr "Anullo"
 
 #: plugins/class-gen/clsGen.c:1361
 msgid "Finish"
-msgstr ""
+msgstr "Mbarimi"
 
 #: plugins/class-gen/clsGen.c:1378
 msgid "Enter the name for the class you want to add."
@@ -1958,7 +1958,7 @@ msgstr ""
 
 #: plugins/cvs-plugin/cvs_gui.c:77
 msgid "Commit"
-msgstr ""
+msgstr "Kryej"
 
 #: plugins/cvs-plugin/cvs_gui.c:80
 msgid "CVS: Status"
@@ -2019,7 +2019,7 @@ msgstr ""
 
 #: plugins/cvs-plugin/cvs_gui.c:128 plugins/cvs-plugin/cvs_gui.c:241
 msgid "Select file"
-msgstr "Zgjidh file"
+msgstr "Zgjidh një file"
 
 #: plugins/cvs-plugin/cvs_gui.c:225
 msgid "CVS: Diff file"
@@ -2051,7 +2051,7 @@ msgstr ""
 
 #: plugins/cvs-plugin/cvs_gui.c:349 plugins/cvs-plugin/cvs_gui.c:441
 msgid "Server: "
-msgstr ""
+msgstr "Serveri: "
 
 #: plugins/cvs-plugin/cvs_gui.c:350
 msgid "Directory on the server: "
@@ -2397,7 +2397,6 @@ msgstr "Objekt i përbashkët"
 msgid "From"
 msgstr "Nga"
 
-#. GRUT modified this item
 #: plugins/debugger/sharedlib_gui.c:109
 msgid "To"
 msgstr "Për"
@@ -2433,7 +2432,7 @@ msgstr "Sinjali"
 
 #: plugins/debugger/signals_gui.c:120 src/toolbar.c:666
 msgid "Stop"
-msgstr "Ndalo"
+msgstr "Ndal"
 
 #: plugins/debugger/signals_gui.c:124 plugins/editor/print.c:1034
 msgid "Print"
@@ -2924,7 +2923,6 @@ msgstr "Aktivo përsëritjen e komenteve python"
 msgid "Enable python quoted strings folding"
 msgstr "Aktivo përsëritjen e stringave python të kuotuara"
 
-#. GRUT modified this item
 #: plugins/editor/anjuta-document-manager.glade.h:75
 msgid "Encodings"
 msgstr "Kodifikimet"
@@ -3026,7 +3024,6 @@ msgstr "Kllapat mbyllëse të dhëmbëzimit"
 msgid "Indent opening braces"
 msgstr "Kllapat hapëse të dhëmbëzimit"
 
-#. GRUT modified this item
 #: plugins/editor/anjuta-document-manager.glade.h:99
 msgid "Indentation"
 msgstr "Dhëmbëzimi"
@@ -3048,7 +3045,6 @@ msgstr "Stil \"Kernighan dhe Ritchie\""
 msgid "Left"
 msgstr "Majtas"
 
-#. GRUT modified this item
 #: plugins/editor/anjuta-document-manager.glade.h:104
 msgid "License:"
 msgstr "Liçenca:"
@@ -3090,7 +3086,6 @@ msgstr "Njëngjyrësh"
 msgid "New File"
 msgstr "File i ri"
 
-#. GRUT modified this item
 #: plugins/editor/anjuta-document-manager.glade.h:116
 msgid "New Name"
 msgstr "Emër i ri"
@@ -3118,7 +3113,6 @@ msgstr "Zgjidh një ngjyrë"
 msgid "Plus/Minus"
 msgstr "Plugin"
 
-#. GRUT modified this item
 #: plugins/editor/anjuta-document-manager.glade.h:123
 msgid "Position:"
 msgstr "Pozicioni:"
@@ -3131,7 +3125,6 @@ msgstr ""
 msgid "Pressing tab indents"
 msgstr ""
 
-#. GRUT modified this item
 #: plugins/editor/anjuta-document-manager.glade.h:126
 msgid "Printing"
 msgstr "Duke printuar"
@@ -3308,7 +3301,6 @@ msgstr ""
 msgid "Try to save in original encoding"
 msgstr ""
 
-#. GRUT modified this item
 #: plugins/editor/anjuta-document-manager.glade.h:165
 msgid "Type:"
 msgstr "Lloji:"
@@ -4157,7 +4149,6 @@ msgstr ""
 msgid "Force the highlight style to Diff"
 msgstr ""
 
-#. GRUT modified this item
 #: plugins/editor/plugin.c:414
 msgid "Pascal"
 msgstr "Pascal"
@@ -4885,7 +4876,6 @@ msgstr "Injoro files"
 msgid "dialog3"
 msgstr "dialogu2"
 
-#. GRUT modified this item
 #: plugins/file-manager/plugin.c:45
 msgid "_Refresh"
 msgstr "_Rifreskim"
@@ -5243,7 +5233,6 @@ msgstr ""
 msgid ".lua files"
 msgstr ""
 
-#. GRUT modified this item
 #: plugins/project-manager/project_dbase_gui.c:178
 msgid "PNG files"
 msgstr "Files PNG"
@@ -5728,7 +5717,7 @@ msgstr ""
 #: plugins/project-wizard/gnome_project.c:88
 #, c-format
 msgid "Cannot create file: %s"
-msgstr ""
+msgstr "I pamundur krijimi i file: %s"
 
 #: plugins/project-wizard/gnome_project.c:159
 msgid "Loading Project ...\n"
@@ -6074,7 +6063,6 @@ msgstr ""
 msgid "_File"
 msgstr "_File"
 
-#. GRUT modified this item
 #: src/anjuta-actions.h:24
 msgid "_Quit"
 msgstr "_Dalja"
