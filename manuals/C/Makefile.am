@@ -6,7 +6,7 @@
 lang = C
 langdir = $(prefix)/@NO_PREFIX_PACKAGE_HELP_DIR@/$(lang)
 
-SUBDIRS = anjuta-manual anjuta-faqs
+SUBDIRS = anjuta-tutorial anjuta-manual anjuta-faqs
 
 EXTRA_DIST = topic.dat
 

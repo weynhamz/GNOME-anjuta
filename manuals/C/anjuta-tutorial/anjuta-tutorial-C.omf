@@ -1,0 +1,28 @@
+<?xml version="1.0" standalone="no"?>
+<omf>
+  <resource>
+    <title>
+     Anjuta Tutorial
+    </title>
+    <creator>
+     <person>
+      <firstName>Ishan</firstName>
+      <lastName>Chattopadhyaya</lastName>
+      <email>ichattopadhyaya@yahoo.com</email> 
+     </person>
+    </creator>
+    <subject>
+	<category>GNOME|Development</category>
+    </subject>
+    <description>
+	Kick start tutorial for Anjuta.
+    </description>
+    <type>
+     tutorial
+    </type>
+    <format mime="text/sgml"/>
+    <identifier url="anjuta-tutorial.sgml"/>
+    <language code="C"/>
+  </resource>
+</omf>
+

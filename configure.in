@@ -371,6 +371,7 @@ manuals/Makefile
 omf-install/Makefile
 scintilla/include/Makefile
 manuals/C/Makefile
+manuals/C/anjuta-tutorial/Makefile
 manuals/C/anjuta-manual/Makefile
 manuals/C/anjuta-faqs/Makefile
 anjuta.spec

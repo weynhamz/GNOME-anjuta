@@ -1,3 +1,19 @@
+2002-03-28 Naba Kumar <kh_naba@users.sourceforge.net>
+
+	Anjuta kick start tutorial wirtten by:
+	  Ishan Chattopadhyaya <ichattopadhyaya@yahoo.com>
+
+	* manuals/C/anjuta-tutorial, manuals/C/anjuta-tutorial/Makefile.am,
+	  manuals/C/anjuta-tutorial/anjuta-tutorial.sgml,
+	  manuals/C/anjuta-tutorial/anjuta-tutorial-C.omf,
+	  manuals/C/anjuta-tutorial/figures/*.png:
+	  
+	  Added files
+	
+	* configure.in, manuals/C/Makefile.am, manuals/C/topic.dat
+	  
+	  Modified files.
+	
 2002-03-28 Roel Vanhout <roel@stack.be>
 
 	Reviewed by Naba Kumar <kh_naba@users.sourceforge.net>
