@@ -4,9 +4,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: anjuta 0.1.3\n"
-"POT-Creation-Date: 2001-03-27 17:24+0530\n"
-"PO-Revision-Date: 2001-03-23 12:19+09:00\n"
+"Project-Id-Version: anjyuta 0.1.4\n"
+"POT-Creation-Date: 2001-04-03 18:53+0900\n"
+"PO-Revision-Date: 2001-04-03 20:09+09:00\n"
 "Last-Translator: Takeshi Aihana <aihana@gnome.gr.jp>\n"
 "Language-Team: Japanese <translation@gnome.gr.jp>\n"
 "MIME-Version: 1.0\n"
@@ -596,9 +596,7 @@ msgstr "Clean 完了 ... 成功"
 
 #: src/clean_project.c:147
 msgid "Unable to clean all project. Check Preferences->Commands."
-msgstr ""
-"全てのプロジェクトを Clean できません。\"設定 -> コマンド\" を確認して下さ"
-"い。"
+msgstr "全てのプロジェクトを Clean できません。\"設定 -> コマンド\" を確認して下さい。"
 
 #: src/clean_project.c:158
 msgid "Clean All"
@@ -951,9 +949,9 @@ msgstr "-O3 最速コード最適化 (可能ならば関数をインライン化する)"
 
 #: src/compiler_options_gui.c:1048
 msgid ""
-"Note: With optimization enabled, you might have some difficulty in debugging "
-"your program. So it is not a good idea to enable both debug and optimization "
-"options, unless what you want is to debug the optimized code."
+"Note: With optimization enabled, you might have some difficulty in debugging"
+" your program. So it is not a good idea to enable both debug and"
+" optimization options, unless what you want is to debug the optimized code."
 msgstr ""
 "注意: 最適化を有効にすると、プログラムのデバッグ時に幾つかの点で不都合が生じ"
 "ます。つまり最適化されたコードをデバッグすると言うような、デバッグと最適化の"
@@ -1127,8 +1125,8 @@ msgstr "エラー: デバッグ用ターミナルが起動できません。"
 #: src/debugger.c:1013
 msgid "Warning: No debug terminal. Redirecting stdio to /dev/null.\n"
 msgstr ""
-"警告: デバッグ用ターミナルがありません。標準入力から /dev/null にリダイレクト"
-"します。\n"
+"警告: デバッグ用ターミナルがありません。標準入力から /dev/null にリダイレク"
+"トします。\n"
 
 #: src/debugger.c:1031
 msgid "Running program ... \n"
@@ -1394,7 +1392,6 @@ msgid "The match \"%s\" was not found from the current location"
 msgstr "現在の場所から、\"%s\" に一致したものが見つかりませんでした。"
 
 #: src/gnome_project.c:56
-#, fuzzy
 msgid ""
 "The Project already exist.\n"
 "Project creation aborted."
@@ -1421,7 +1418,6 @@ msgstr "プロジェクトの保存 ...\n"
 
 #. Source codes are generated
 #: src/gnome_project.c:145
-#, fuzzy
 msgid "Generating  source codes ...\n"
 msgstr "ソースコードの生成 ...\n"
 
@@ -1646,8 +1642,8 @@ msgstr "EOL 文字を LF に"
 #: src/main_menubar_def.h:156
 msgid "Convert End of line characters to unix EOL (line feed: LF)"
 msgstr ""
-"行末文字 EOL (End Of Line) を UNIX スタイルの EOL (LF: ラインフィード) に変換"
-"します"
+"行末文字 EOL (End Of Line) を UNIX スタイルの EOL (LF: ラインフィード) に変"
+"換します"
 
 #: src/main_menubar_def.h:165
 msgid "_Select All"
@@ -1923,7 +1919,7 @@ msgstr "行と文字(_L)"
 
 #: src/main_menubar_def.h:433
 msgid "++ Zoom"
-msgstr ""
+msgstr "拡大"
 
 #: src/main_menubar_def.h:434
 msgid "Zoom text size by 1 unit"
@@ -1931,7 +1927,7 @@ msgstr "エディタ内の文字サイズを一つ大きくします"
 
 #: src/main_menubar_def.h:439
 msgid "+8"
-msgstr ""
+msgstr "+8"
 
 #: src/main_menubar_def.h:440
 msgid "Zoom factor +8"
@@ -1939,7 +1935,7 @@ msgstr "拡大率 +8"
 
 #: src/main_menubar_def.h:445
 msgid "+6"
-msgstr ""
+msgstr "+6"
 
 #: src/main_menubar_def.h:446
 msgid "Zoom factor +6"
@@ -1947,7 +1943,7 @@ msgstr "拡大率 +6"
 
 #: src/main_menubar_def.h:451
 msgid "+4"
-msgstr ""
+msgstr "+4"
 
 #: src/main_menubar_def.h:452
 msgid "Zoom factor +4"
@@ -1955,7 +1951,7 @@ msgstr "拡大率 +4"
 
 #: src/main_menubar_def.h:457
 msgid "+2"
-msgstr ""
+msgstr "+2"
 
 #: src/main_menubar_def.h:458
 msgid "Zoom factor +2"
@@ -1967,7 +1963,7 @@ msgstr "拡大率 0"
 
 #: src/main_menubar_def.h:469
 msgid "-2"
-msgstr ""
+msgstr "-2"
 
 #: src/main_menubar_def.h:470
 msgid "Zoom factor -2"
@@ -1975,7 +1971,7 @@ msgstr "拡大率 -2"
 
 #: src/main_menubar_def.h:475
 msgid "-4"
-msgstr ""
+msgstr "-4"
 
 #: src/main_menubar_def.h:476
 msgid "Zoom factor -4"
@@ -1983,7 +1979,7 @@ msgstr "拡大率 -4"
 
 #: src/main_menubar_def.h:481
 msgid "-6"
-msgstr ""
+msgstr "-6"
 
 #: src/main_menubar_def.h:482
 msgid "Zoom factor -6"
@@ -1991,7 +1987,7 @@ msgstr "拡大率 -6"
 
 #: src/main_menubar_def.h:487
 msgid "-8"
-msgstr ""
+msgstr "-8"
 
 #: src/main_menubar_def.h:488
 msgid "Zoom factor -8"
@@ -1999,7 +1995,7 @@ msgstr "拡大率 -8"
 
 #: src/main_menubar_def.h:493
 msgid "-- Zoom"
-msgstr ""
+msgstr "縮小"
 
 #: src/main_menubar_def.h:494
 msgid "Unzoom text size by 1 unit"
@@ -2190,16 +2186,14 @@ msgid "Force the hilite style to None"
 msgstr "強制的にハイライトのスタイルを無効にします"
 
 #: src/main_menubar_def.h:716
-#, fuzzy
 msgid "C and C++"
-msgstr "C/C++ 言語の両方"
+msgstr "C/C++ 言語"
 
 #: src/main_menubar_def.h:717
 msgid "Force the hilite style to C and CPP"
 msgstr "強制的に C/C++ スタイルでハイライトします"
 
 #: src/main_menubar_def.h:722
-#, fuzzy
 msgid "C and C++ with Gnome"
 msgstr "強制的に GNOME の C/C++ スタイルでハイライトします"
 
@@ -2209,7 +2203,7 @@ msgstr "強制的に GNOME の C/C++ スタイルでハイライトします"
 
 #: src/main_menubar_def.h:728
 msgid "Html"
-msgstr ""
+msgstr "HTML"
 
 #: src/main_menubar_def.h:729
 msgid "Force the hilite style to Html"
@@ -2217,7 +2211,7 @@ msgstr "強制的に HTML スタイルでハイライトします"
 
 #: src/main_menubar_def.h:734
 msgid "Xml"
-msgstr ""
+msgstr "XML"
 
 #: src/main_menubar_def.h:735
 msgid "Force the hilite style to Xml"
@@ -2232,14 +2226,12 @@ msgid "Force the hilite style to Java scripts"
 msgstr "強制的に Java スクリプトのスタイルでハイライトします"
 
 #: src/main_menubar_def.h:746
-#, fuzzy
 msgid "WScript"
-msgstr "Java スクリプト"
+msgstr "WScript"
 
 #: src/main_menubar_def.h:752
-#, fuzzy
 msgid "Makefile"
-msgstr "Makefile.am"
+msgstr "Makefile"
 
 #: src/main_menubar_def.h:753 src/main_menubar_def.h:777
 msgid "Force the hilite style to Perl"
@@ -2247,7 +2239,7 @@ msgstr "強制的に Perl スタイルでハイライトします"
 
 #: src/main_menubar_def.h:758
 msgid "Java"
-msgstr ""
+msgstr "Java"
 
 #: src/main_menubar_def.h:759
 msgid "Force the hilite type to Java"
@@ -2255,7 +2247,7 @@ msgstr "強制的に Java のスタイルでハイライトします"
 
 #: src/main_menubar_def.h:764
 msgid "LUA"
-msgstr ""
+msgstr "LUA"
 
 #: src/main_menubar_def.h:765
 msgid "Force the hilite style to LUA"
@@ -2263,7 +2255,7 @@ msgstr "強制的に LUA スタイルでハイライトします"
 
 #: src/main_menubar_def.h:770
 msgid "Python"
-msgstr ""
+msgstr "Python"
 
 #: src/main_menubar_def.h:771
 msgid "Force the hilite style to Python"
@@ -2271,11 +2263,11 @@ msgstr "強制的に Python スタイルでハイライトします"
 
 #: src/main_menubar_def.h:776
 msgid "Perl"
-msgstr ""
+msgstr "Perl"
 
 #: src/main_menubar_def.h:782
 msgid "SQL"
-msgstr ""
+msgstr "SQL"
 
 #: src/main_menubar_def.h:783 src/main_menubar_def.h:795
 msgid "Force the hilite style to SQL"
@@ -2283,7 +2275,7 @@ msgstr "強制的に SQL スタイルでハイライトします"
 
 #: src/main_menubar_def.h:788
 msgid "PLSQL"
-msgstr ""
+msgstr "PLSQL"
 
 #: src/main_menubar_def.h:789
 msgid "Force the hilite style to PLSQL"
@@ -2291,11 +2283,11 @@ msgstr "強制的に PLSQL スタイルでハイライトします"
 
 #: src/main_menubar_def.h:794
 msgid "PHP"
-msgstr ""
+msgstr "PHP"
 
 #: src/main_menubar_def.h:800
 msgid "LaTex"
-msgstr ""
+msgstr "LaTex"
 
 #: src/main_menubar_def.h:801
 msgid "Force the hilite style to LaTex"
@@ -2303,16 +2295,15 @@ msgstr "強制的に LaTex スタイルでハイライトします"
 
 #: src/main_menubar_def.h:806
 msgid "Diff"
-msgstr ""
+msgstr "Diff"
 
 #: src/main_menubar_def.h:807
 msgid "Force the hilite style to Diff"
 msgstr "強制的に Diff スタイルでハイライトします"
 
 #: src/main_menubar_def.h:812
-#, fuzzy
 msgid "Pascal"
-msgstr "パス"
+msgstr "Pascal"
 
 #: src/main_menubar_def.h:813
 msgid "Force the hilite type to Pascal"
@@ -2320,7 +2311,7 @@ msgstr "強制的に Pascal スタイルでハイライトします"
 
 #: src/main_menubar_def.h:818
 msgid "Xcode"
-msgstr ""
+msgstr "Xocde"
 
 #: src/main_menubar_def.h:819
 msgid "Force the hilite style to Xcode"
@@ -2328,16 +2319,15 @@ msgstr "強制的に Xcode スタイルでハイライトします"
 
 #: src/main_menubar_def.h:824
 msgid "Prj/Properties"
-msgstr ""
+msgstr "プロジェクト/設定"
 
 #: src/main_menubar_def.h:825
 msgid "Force the hilite style to project/properties files"
 msgstr "強制的にプロジェクト/設定ファイルのスタイルでハイライトします"
 
 #: src/main_menubar_def.h:830
-#, fuzzy
 msgid "Conf"
-msgstr "Configure"
+msgstr "Conf"
 
 #: src/main_menubar_def.h:831
 msgid "Force the hilite style to Unix conf files"
@@ -3059,7 +3049,7 @@ msgstr "全般"
 
 #: src/preferences_gui.c:179
 msgid "Editor (part 1)"
-msgstr "エディタ (パート1)<"
+msgstr "エディタ (パート1)"
 
 #: src/preferences_gui.c:189
 msgid "Editor (part 2)"
@@ -3340,8 +3330,8 @@ msgid ""
 "Please upgrade Anjuta to the latest version (Help for more information).\n"
 "For the time being, I am too old to load it.:-("
 msgstr ""
-"エラー: このプロジェクトは Anjuta %s またはそれ以降のバージョンで開く必要があ"
-"ります。\n"
+"エラー: このプロジェクトは Anjuta %s またはそれ以降のバージョンで開く必要が"
+"あります。\n"
 "Anjuta を最新版にアップデートして下さい (ヘルプにその詳細な情報あります)。\n"
 "しばらくの間は、このプロジェクトを読み込むには古すぎます。:-("
 
@@ -3354,8 +3344,8 @@ msgid ""
 msgstr ""
 "このプロジェクトは Anjuta %s またはそれ以降のバージョンで開く必要がありま"
 "す。\n"
-"Anjuta を最新版にアップデートして下さい (ヘルプにその詳細な情報がありま"
-"す)。\n"
+"Anjuta を最新版にアップデートして下さい (ヘルプにその詳細な情報があります)。"
+"\n"
 "しばらくの間は、このプロジェクトを読み込むには古すぎます。:-("
 
 #: src/project_dbase.c:725
@@ -3960,9 +3950,9 @@ msgid "Loading File ..."
 msgstr "ファイルの読み込み中 ..."
 
 #: src/text_editor.c:588
-#, fuzzy, c-format
+#, c-format
 msgid "Could not load file: %s"
-msgstr "ファイル %s が読み込めませんでした。"
+msgstr "ファイルを読み込めませんでした: %s"
 
 #: src/text_editor.c:616
 msgid "File Loaded Successfully"
@@ -4088,36 +4078,30 @@ msgid "Attach the editor window as paged editor"
 msgstr "編集ウィンドウをページエディタとして組み込み"
 
 #: src/text_editor_menu.c:40
-#, fuzzy
 msgid "Prev mesg"
-msgstr "前"
+msgstr "前のメッセージへ"
 
 #: src/text_editor_menu.c:46
-#, fuzzy
 msgid "Next mesg"
-msgstr "次のメッセージへ(_G)"
+msgstr "次のメッセージへ"
 
 #: src/text_editor_menu.c:52
-#, fuzzy
 msgid "Prev bookmark"
-msgstr "前のブックマーク(_P)"
+msgstr "前のブックマーク"
 
 #: src/text_editor_menu.c:58
-#, fuzzy
 msgid "Next bookmark"
-msgstr "次のブックマーク(_N)"
+msgstr "次のブックマーク"
 
 #: src/text_editor_menu.c:75 src/toolbar.c:960
 msgid "Step in"
 msgstr "ステップイン"
 
 #: src/text_editor_menu.c:81
-#, fuzzy
 msgid "Step over"
 msgstr "ステップオーバー"
 
 #: src/text_editor_menu.c:87
-#, fuzzy
 msgid "Step out"
 msgstr "ステップアウト"
 
@@ -4126,9 +4110,8 @@ msgid "Run to cursor"
 msgstr "カーソル位置まで実行"
 
 #: src/text_editor_menu.c:99
-#, fuzzy
 msgid "Run/Continue"
-msgstr "実行/続行(_C)"
+msgstr "実行/続行"
 
 #: src/text_editor_menu.c:106 src/toolbar.c:1023
 msgid "Inspect"
@@ -4143,14 +4126,12 @@ msgid "Toggle Linenums"
 msgstr "行番号の ON/OFF"
 
 #: src/text_editor_menu.c:130
-#, fuzzy
 msgid "Toggle Marker Margin"
-msgstr "マーカーマージン(_M)"
+msgstr "マーカーマージンの表示切り替え"
 
 #: src/text_editor_menu.c:137
-#, fuzzy
 msgid "Toggle Fold Margin"
-msgstr "コード折り返しマージン(_C)"
+msgstr "コード折り返しマージンの切り替え"
 
 #: src/text_editor_menu.c:144
 msgid "Toggle Guides"
@@ -4158,16 +4139,15 @@ msgstr "ガイドの ON/OFF"
 
 #: src/text_editor_menu.c:152
 msgid "++Zoom"
-msgstr ""
+msgstr "拡大"
 
 #: src/text_editor_menu.c:159
 msgid "--Zoom"
-msgstr ""
+msgstr "縮小"
 
 #: src/text_editor_menu.c:192
-#, fuzzy
 msgid "Toggle Bookmark"
-msgstr "ブックマークの切り替え(_T)"
+msgstr "ブックマークの切り替え"
 
 #: src/text_editor_menu.c:199
 msgid "Auto format"
@@ -4178,9 +4158,8 @@ msgid "Swap .h/.c"
 msgstr ".h/.c の交換"
 
 #: src/text_editor_menu.c:214
-#, fuzzy
 msgid "Goto"
-msgstr "ジャンプ(_O)"
+msgstr "ジャンプ"
 
 #: src/text_editor_menu.c:238
 msgid "Options"
@@ -4738,26 +4717,25 @@ msgstr ""
 "インストール後に Anjuta を再起動して下さい。"
 
 #: src/anjuta.c:1507 src/anjuta.c:1542
-#, fuzzy
 msgid "None"
-msgstr "いいえ"
+msgstr "なし"
 
 #: src/anjuta.c:1524
 msgid "OVR"
-msgstr ""
+msgstr "OVR"
 
 #: src/anjuta.c:1528 src/anjuta.c:1534
 msgid "INS"
-msgstr ""
+msgstr "INS"
 
 #: src/anjuta.c:1545
 #, c-format
 msgid ""
-"  Project: %s       Zoom: %d       Line: %04d       Col: %03d       %s       "
-"Job: %s"
+"  Project: %s       Zoom: %d       Line: %04d       Col: %03d       %s      "
+" Job: %s"
 msgstr ""
-"  プロジェクト: %s  倍率: %d       行: %04d         列: %03d        %s       "
-"ジョブ: %s"
+"  プロジェクト: %s  倍率: %d       行: %04d         列: %03d        %s      "
+" ジョブ: %s"
 
 #: src/anjuta_gui.c:200
 msgid "Click here to undock this window"
@@ -4779,11 +4757,3 @@ msgstr "\"Glade\" を起動できません。"
 msgid "Cannot fork glade--."
 msgstr "\"Glade--\" を起動できません。"
 
-#~ msgid "Creating intl/ directory ...\n"
-#~ msgstr "(GNU gettext) intl ディレクトリの作成 ...\n"
-
-#~ msgid "The tar command didn't succeeded.\n"
-#~ msgstr "コマンド 'tar' が成功しませんでした。\n"
-
-#~ msgid "Unable to load file properly"
-#~ msgstr "ファイルが正しく読み込めません"
