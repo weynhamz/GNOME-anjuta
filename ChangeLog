@@ -1,3 +1,24 @@
+2002-08-27	Andy Piper	<andy.piper@freeuk.com>
+
+	* src/main_menubar_def.h: implement feature request #595356, patch #597161
+	* THANKS: updated for new contributions
+	* src/mainmenu_callbacks.c, src/mainmenu_callbacks.h: patch #597161
+
+2002-08-27 Steven Knight  <steven.knight@unh.edu>
+
+	* src/appwiz_page1.c, src/pixmaps.h, src/project_dbase.c,
+	src/project_dbase.h, src/project_type.c, src/source.c, 
+	src/wizard_gui.c: new Qt project type
+	*** NB not fully tested, may need some work, icon required...
+
+2002-08-27 Jean-Noel Guiheneuf <jnoel@saudionline.com.sa>
+
+	* src/memory.c, src/memory.h: new memory patch
+
+2002-08-27  Johannes Schmid <clubfan@users.sourceforge.net>
+
+	* src/anjuta.c: Fixed bug #589646 CVS preferences visibility
+
 2002-08-27	Naba Kumar	<kh_naba@users.sourceforge.net>
 
 	* lancher/anjuta_launcher.c: Determine pty from function
@@ -13,7 +34,7 @@
 	* src/debug_tree.[c,h], src/debugger.[c,h],
 	src/message_manager_private.[cc,h], message_manager.cc, stack_trace.[c,h]:
 	
-	The following problems, detected by Guiheneuf Jean-Noel, were fixed:
+	The following problems, detected by Jean-Noel Guiheneuf, were fixed:
 	1. Misaligned structs when they are members of other structs.
 	2. '{' sometimes appears as a variable.
 	3. Wrong processing of some arrays.
@@ -22,7 +43,7 @@
 
 2002-08-14  Stephane Demurget  <demurgets@free.fr>
 
-	Added missing keywords reported by Lucca Bellonda <lbell@tsc4.com>.
+	Added missing keywords reported by Luca Bellonda <lbell@tsc4.com>.
 
 	* data/properties/sql.properties: added the DATETIME data type.
 

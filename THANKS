@@ -19,6 +19,9 @@ is now.
 	  
 	- Dave Huseby <huseby@shockfusion.com>, for his class generator
 	  plugin,
+	  
+	- Steven Knight <steven.knight@unh.edu>, for the Qt integration 
+	  work,
 
 	- Tina Hirsch <cevina@users.sourceforge.net>, for her wxWindows 
 	  project type patch,
@@ -33,9 +36,7 @@ is now.
 	
 	- Kelly Bergougnoux <three3@users.sourceforge.net>, for the libglade2
 	  project type patch,
-	  
-	- Sébastien Côté <cots01@gel.usherb.ca>, for his print patch,
-	
+	  	
 	- Dave Huseby <huseby@shockfusion.com>, for the class generator plugin,
 
 	- Todd Goyen <goyen@mbi-berlin.de>, for his Xlib project tupe patch, 
