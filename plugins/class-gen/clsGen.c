@@ -1312,7 +1312,7 @@ CreateDialogClass(CG_Creator *self)
   gtk_object_set_data (GTK_OBJECT (self->dlgClass), "dlgClass", self->dlgClass);
   gtk_window_set_title (GTK_WINDOW (self->dlgClass), _("Class Builder"));
   gtk_window_set_default_size (GTK_WINDOW (self->dlgClass), 640, 480);
-  gtk_window_set_transient_for(GTK_WINDOW(self->dlgClass), GTK_WINDOW(self->m_pApp->widgets.window));
+  /* gtk_window_set_transient_for(GTK_WINDOW(self->dlgClass), GTK_WINDOW(self->m_pApp->widgets.window)); */
 	
   self->fixed = gtk_fixed_new ();
   gtk_widget_ref (self->fixed);
@@ -1665,4 +1665,3 @@ CreateDialogClass(CG_Creator *self)
   gtk_widget_grab_focus(self->entry_class_name);
   return self->dlgClass;
 }
-

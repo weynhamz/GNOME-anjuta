@@ -1,3 +1,7 @@
+Note:
+
+This is more-or-less done as of Anjuta 1.0.2. Please post feature requests
+at SF or the mailing lists for more.
 
 Redesigning Search/Replace: Requirements:
 -----------------------------------------
@@ -72,4 +76,3 @@ R8. Displaying search results:
 	8.4 Bookmark all found occurence lines.
 
 -----------------------------------------------
-

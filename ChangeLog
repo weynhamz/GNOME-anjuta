@@ -1,3 +1,9 @@
+2003-03-05  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
+	* SEARCH-REPLACE, THANKS, TODO: Updated docs
+	* src/*, plugins/*, printing/*: Floating windows should hide
+	like other windows now.
+	* src/anjuta-tools.c, src/search-replace.c: Bugfixes.
+
 2003-03-03  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
 	* scripts/anjuta_import.sh.in: Improve project import
 	* src/search-replace.c: Bugfixes.

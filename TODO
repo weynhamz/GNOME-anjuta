@@ -1,7 +1,7 @@
 TODO List:
 ----------
 
-	o Faster file/synbol selection (somewhat like I-Search for project/symbol/file
+	o Faster file/symbol selection (somewhat like I-Search for project/symbol/file
 	trees ?) Would be nice to have filters as well.
 	o Macro recording. Scintilla has this - needs to be integrated in the GUI
 	o Bug #616226: Save full font name instead of an abbreviated version.
