@@ -1,3 +1,14 @@
+2005-01-23  Naba Kumar  <naba@gnome.org>
+
+	* configure.in: Fixed build error.
+
+2005-01-22  Sebastien Granjoux <seb.sfo@free.fr>
+
+	* plugins/project-wizard/druid.c,
+	plugins/project-wizard/parser.c,
+	plugins/project-wizard/property.c: Rewrite parser with
+	better error handling
+
 2005-01-22  Naba Kumar  <naba@gnome.org>
 
 	* plugins/symbol-browser/plugin.c: Changed c++ coments

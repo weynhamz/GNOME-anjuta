@@ -133,10 +133,13 @@ npw_druid_fill_selection_page(NPWDruid* this)
 	// Create list of projects
 	if (this->header_list != NULL) npw_header_list_destroy(this->header_list);
 	this->header_list = npw_header_list_new();	
-	if (this->header_list == NULL) return FALSE;
 
 	// Fill list with all project in directory
-	npw_header_list_readdir(this->header_list, PROJECT_WIZARD_DIRECTORY);
+	if (!npw_header_list_readdir(this->header_list, PROJECT_WIZARD_DIRECTORY))
+	{
+		anjuta_util_dialog_error(GTK_WINDOW(ANJUTA_PLUGIN (this->plugin)->shell),_("Unable to find any project template in %s"), PROJECT_WIZARD_DIRECTORY);		
+		return FALSE;
+	}
 
 	npw_header_list_foreach_project(this->header_list, cb_druid_insert_project_icon, this);
 
@@ -430,7 +433,7 @@ npw_druid_destroy(NPWDruid* this)
 	}
 	if (this->parser != NULL)
 	{
-		npw_page_parser_destroy(this->parser);
+		npw_page_parser_free(this->parser);
 	}
 	npw_header_list_destroy(this->header_list);
 	gtk_widget_destroy(this->dialog);
@@ -537,7 +540,7 @@ on_druid_next(GnomeDruidPage* page, GtkWidget* widget, NPWDruid* this)
 	}
 
 	if (this->parser != NULL)
-		npw_page_parser_destroy(this->parser);
+		npw_page_parser_free(this->parser);
 	this->parser = npw_page_parser_new(npw_druid_add_new_page(this), this->project_file, this->page - 1);
 	npw_autogen_set_output_callback(this->gen, on_druid_parse_page, this->parser);
 	npw_autogen_execute(this->gen, on_druid_get_new_page, this);
@@ -633,17 +636,24 @@ npw_druid_new(NPWPlugin* plugin)
 	this->gen = npw_autogen_new();
 	this->plugin = plugin;
 
-	// Add dialog widget to anjuta status.
-	anjuta_status_add_widget (anjuta_shell_get_status (ANJUTA_PLUGIN (plugin)->shell, NULL), this->dialog);
-
 	npw_druid_complete_edge_pages(this, xml);
 	npw_druid_connect_all_signal(this, xml);
 	g_object_unref(xml);
 
+	if (!npw_druid_fill_selection_page(this))
+	{
+		// No project available
+		npw_druid_destroy(this);
+
+		return NULL;
+	}
+
+	// Add dialog widget to anjuta status.
+	anjuta_status_add_widget (anjuta_shell_get_status (ANJUTA_PLUGIN (plugin)->shell, NULL), this->dialog);
+
 	// Needed by GnomeDruid widget
 	gtk_widget_show_all (this->dialog);
 
-	npw_druid_fill_selection_page(this);
 
 	plugin->druid = this;
 

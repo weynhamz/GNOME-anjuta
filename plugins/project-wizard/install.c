@@ -193,7 +193,7 @@ void npw_install_destroy(NPWInstall* this)
 {
 	if (this->parser != NULL)
 	{
-		npw_file_list_parser_destroy(this->parser);
+		npw_file_list_parser_free(this->parser);
 	}
 	if (this->list != NULL)
 	{
@@ -232,7 +232,7 @@ npw_install_set_wizard_file(NPWInstall* this, const gchar* filename)
 
 	if (this->parser != NULL)
 	{
-		npw_file_list_parser_destroy(this->parser);
+		npw_file_list_parser_free(this->parser);
 	}
 	this->parser = npw_file_list_parser_new(this->list, filename);
 

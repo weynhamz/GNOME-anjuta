@@ -15,11 +15,11 @@ SUBDIRS = . \
 	file-loader \
 	profile-default \
 	file-wizard \
+	project-wizard \
 	project-manager \
 	symbol-browser \
 	sample1 \
 	cvs-plugin \
-	project-wizard \
 	macro
 
 ## This a temporary measure to insure anjuta does not crash due to old plugin.

@@ -30,7 +30,7 @@ typedef struct _NPWHeaderList NPWHeaderList;
 
 
 NPWHeader* npw_header_new(NPWHeaderList* owner);
-void npw_header_destroy(NPWHeader* this);
+void npw_header_free(NPWHeader* this);
 
 void npw_header_set_name(NPWHeader* this, const gchar* name);
 const gchar* npw_header_get_name(const NPWHeader* this);

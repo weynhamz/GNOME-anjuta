@@ -119,6 +119,9 @@ AC_DEFINE_UNQUOTED(PREF_SUFFIX,
       "${PREF_SUFFIX}",
 	  [Suffix to add to preferences directory])
 
+dnl Initialize xml-i18n-tools
+AC_PROG_INTLTOOL
+
 AC_PROG_CC
 AC_PROG_CPP
 AC_PROG_CXX
