@@ -8,8 +8,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
-"POT-Creation-Date: 2001-09-30 10:38+0200\n"
-"PO-Revision-Date: 2001-09-30 23:45+0200\n"
+"POT-Creation-Date: 2001-10-24 14:12+0200\n"
+"PO-Revision-Date: 2001-10-24 14:12+0200\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -29,11 +29,11 @@ msgid "/_Class Definition"
 msgstr "/_Klassdefinition"
 
 #: ccview/cccmd.cc:28
-msgid "/_Func Definition"
+msgid "/_Function Definition"
 msgstr "/_Funktionsdefinition"
 
 #: ccview/cccmd.cc:29
-msgid "/Func _Declaration"
+msgid "/Function _Declaration"
 msgstr "/Funktions_deklaration"
 
 #: ccview/cccmd.cc:36
@@ -44,11 +44,11 @@ msgstr "/_Skal här"
 msgid "/_Open"
 msgstr "/_Öppna"
 
-#: ccview/cccproj.cc:1187 src/tags_manager.c:638
+#: ccview/cccproj.cc:1187 src/tags_manager.c:639
 msgid "Cannot execute ctags"
 msgstr "Kan inte köra \"ctags\""
 
-#: ccview/cccproj.cc:1193 src/tags_manager.c:643
+#: ccview/cccproj.cc:1193 src/tags_manager.c:644
 #, c-format
 msgid ""
 "Cannot fork to execute ctags. I donno why!!\n"
@@ -396,7 +396,7 @@ msgstr "JA"
 msgid "NO"
 msgstr "NEJ"
 
-#: src/breakpoints.c:700 src/main_menubar_def.h:517 src/text_editor_gui.c:224
+#: src/breakpoints.c:700 src/main_menubar_def.h:534 src/text_editor_gui.c:224
 msgid "0"
 msgstr "0"
 
@@ -504,7 +504,7 @@ msgstr "Den körbara filen är aktuell. Ombyggnad behövs inte."
 msgid "I do not really know how to build this file."
 msgstr "Jag vet egentligen inte hur denna fil ska byggas."
 
-#: src/build_file.c:107 src/messages.c:517 src/preferences_gui.c:170
+#: src/build_file.c:107 src/messages.c:517 src/preferences_gui.c:174
 #: src/text_editor_gui.c:246 src/toolbar.c:474
 msgid "Build"
 msgstr "Bygge"
@@ -962,7 +962,7 @@ msgstr "<: Ange här"
 
 #: src/compiler_options_gui.c:364 src/compiler_options_gui.c:484
 #: src/compiler_options_gui.c:641 src/compiler_options_gui.c:769
-#: src/find_in_files_gui.c:136 src/main_menubar_def.h:717
+#: src/find_in_files_gui.c:136 src/main_menubar_def.h:734
 #: src/project_dbase_gui.c:464 src/src_paths_gui.c:177 src/watch_gui.c:42
 msgid "Remove"
 msgstr "Ta bort"
@@ -1319,11 +1319,11 @@ msgstr "Kör i terminal"
 msgid "Execute"
 msgstr "Kör"
 
-#: src/executer.c:234 src/mainmenu_callbacks.c:1541
+#: src/executer.c:234 src/mainmenu_callbacks.c:1547
 msgid "Target of this project is unknown"
 msgstr "Målet för detta projekt är okänt"
 
-#: src/executer.c:239 src/mainmenu_callbacks.c:1543
+#: src/executer.c:239 src/mainmenu_callbacks.c:1549
 msgid "Target of this project is not executable"
 msgstr "Målet för detta projekt är inte körbart"
 
@@ -1335,12 +1335,12 @@ msgstr "Körbar fil finns inte för detta projekt."
 msgid "No file or project opened."
 msgstr "Ingen fil eller projekt öppnades."
 
-#: src/executer.c:262 src/executer.c:281 src/mainmenu_callbacks.c:1567
-#: src/mainmenu_callbacks.c:1578
+#: src/executer.c:262 src/executer.c:281 src/mainmenu_callbacks.c:1573
+#: src/mainmenu_callbacks.c:1584
 msgid "No executable for this file."
 msgstr "Ingen körbar fil för denna fil."
 
-#: src/executer.c:286 src/mainmenu_callbacks.c:1573
+#: src/executer.c:286 src/mainmenu_callbacks.c:1579
 msgid "Executable is not up-to-date."
 msgstr "Körbar fil är inte aktuell."
 
@@ -1420,7 +1420,7 @@ msgstr " Sök sträng"
 msgid "Find and Replace"
 msgstr "Sök och ersätt"
 
-#: src/find_replace.c:340 src/find_text.c:305
+#: src/find_replace.c:340 src/find_text.c:259
 msgid " RegExp/String to search "
 msgstr " Reguljärt uttryck/Sträng att söka efter "
 
@@ -1428,7 +1428,7 @@ msgstr " Reguljärt uttryck/Sträng att söka efter "
 msgid " String to replace "
 msgstr " Sträng att ersätta "
 
-#: src/find_replace.c:377 src/find_text.c:326
+#: src/find_replace.c:377 src/find_text.c:280
 msgid " Scope "
 msgstr " Omfattning "
 
@@ -1436,35 +1436,35 @@ msgstr " Omfattning "
 msgid "Whole Document"
 msgstr "Hela dokumentet"
 
-#: src/find_replace.c:398 src/find_text.c:347
+#: src/find_replace.c:398
 msgid "From Cursor"
 msgstr "Från markör"
 
-#: src/find_replace.c:404 src/find_text.c:353
+#: src/find_replace.c:404 src/find_text.c:307
 msgid " Direction "
 msgstr " Riktning "
 
-#: src/find_replace.c:416 src/find_text.c:365
+#: src/find_replace.c:416 src/find_text.c:319
 msgid "Forward"
 msgstr "Framåt"
 
-#: src/find_replace.c:423 src/find_text.c:372
+#: src/find_replace.c:423 src/find_text.c:326
 msgid "Backward"
 msgstr "Bakåt"
 
-#: src/find_replace.c:429 src/find_text.c:378
+#: src/find_replace.c:429 src/find_text.c:332
 msgid "Type"
 msgstr "Typ"
 
-#: src/find_replace.c:441 src/find_text.c:390
+#: src/find_replace.c:441 src/find_text.c:344
 msgid "RegExp"
 msgstr "Reguljärt uttryck"
 
-#: src/find_replace.c:448 src/find_text.c:397
+#: src/find_replace.c:448 src/find_text.c:351
 msgid "String"
 msgstr "Sträng"
 
-#: src/find_replace.c:462 src/find_text.c:405
+#: src/find_replace.c:462 src/find_text.c:359
 msgid "Ignore case while searching"
 msgstr "Ignorera skiftläge vid sökning"
 
@@ -1472,47 +1472,55 @@ msgstr "Ignorera skiftläge vid sökning"
 msgid "Prompt before Replace"
 msgstr "Fråga innan ersättning"
 
-#: src/find_replace.c:476 src/find_text.c:412
+#: src/find_replace.c:476 src/find_text.c:366
 msgid "Whole word"
 msgstr "Hela ord"
 
-#: src/find_replace.c:570
+#: src/find_replace.c:571
 msgid "Do you want to replace this?"
 msgstr "Vill du ersätta detta?"
 
-#: src/find_replace.c:628
+#: src/find_replace.c:629
 #, c-format
 msgid "The string \"%s\" was not found in the selected text"
 msgstr "Strängen \"%s\" hittades inte i den markerade texten"
 
-#: src/find_replace.c:631
+#: src/find_replace.c:632
 #, c-format
 msgid "The string \"%s\" was not found from the current location"
 msgstr "Strängen \"%s\" hittades inte från den aktuella platsen"
 
-#: src/find_text.c:297 src/messages.c:519 src/text_editor_gui.c:187
+#: src/find_text.c:251 src/messages.c:519 src/text_editor_gui.c:187
 #: src/toolbar.c:231
 msgid "Find"
 msgstr "Sök"
 
-#: src/find_text.c:339
+#: src/find_text.c:293
 msgid "Whole document"
 msgstr "Hela dokumentet"
 
-#: src/find_text.c:503
+#: src/find_text.c:300
+msgid "From cursor"
+msgstr "Från markör"
+
+#: src/find_text.c:504
 #, c-format
 msgid "The match \"%s\" was not found in the whole document"
 msgstr "Träffen \"%s\" hittades inte i hela dokumentet"
 
-#: src/find_text.c:506
+#: src/find_text.c:507
 #, c-format
 msgid "The match \"%s\" was not found in the selected text"
 msgstr "Träffen \"%s\" hittades inte i den markerade texten"
 
-#: src/find_text.c:509 src/toolbar_callbacks.c:158
+#: src/find_text.c:510 src/toolbar_callbacks.c:158
 #, c-format
 msgid "The match \"%s\" was not found from the current location"
 msgstr "Träffen \"%s\" hittades inte från den aktuella platsen"
+
+#: src/find_text.c:521
+msgid "No matches. Wrap search around the document?"
+msgstr "Inga träffar. Fortsätt sökningen i början av dokumentet?"
 
 #: src/gnome_project.c:60
 msgid ""
@@ -1617,7 +1625,7 @@ msgstr "Manualsidor"
 msgid "Info pages"
 msgstr "Infosidor"
 
-#: src/launcher.c:220 src/text_editor.c:903
+#: src/launcher.c:220 src/text_editor.c:1077
 msgid "Cannot execute command shell"
 msgstr "Kan inte köra kommandoskal"
 
@@ -1625,15 +1633,19 @@ msgstr "Kan inte köra kommandoskal"
 msgid "Don't show the splashscreen"
 msgstr "Visa inte startbilden"
 
-#: src/main_menubar.c:400
+#: src/main_menubar.c:458
 msgid "Recent Files    "
 msgstr "Senaste filer   "
 
-#: src/main_menubar.c:411 src/project_dbase.c:1873
+#: src/main_menubar.c:469
+msgid "Plug Ins"
+msgstr "Insticksmoduler"
+
+#: src/main_menubar.c:486 src/project_dbase.c:1873
 msgid "Recent Projects "
 msgstr "Senaste projekt "
 
-#: src/main_menubar.c:430
+#: src/main_menubar.c:505
 msgid "You have a project opened. Close it first."
 msgstr "Du har ett projekt öppet. Stäng det först."
 
@@ -1642,1598 +1654,1607 @@ msgid "project1"
 msgstr "projekt1"
 
 #: src/main_menubar_def.h:37
+msgid "plugins"
+msgstr "insticksmoduler"
+
+#: src/main_menubar_def.h:47
 msgid "_New"
 msgstr "_Ny"
 
-#: src/main_menubar_def.h:38 src/text_editor_gui.c:112 src/toolbar.c:109
+#: src/main_menubar_def.h:48 src/text_editor_gui.c:112 src/toolbar.c:109
 msgid "New Text File"
 msgstr "Ny textfil"
 
-#: src/main_menubar_def.h:43
+#: src/main_menubar_def.h:53
 msgid "_Open ..."
 msgstr "_Öppna..."
 
-#: src/main_menubar_def.h:44 src/toolbar.c:120
+#: src/main_menubar_def.h:54 src/toolbar.c:120
 msgid "Open file"
 msgstr "Öppna fil"
 
-#: src/main_menubar_def.h:49
+#: src/main_menubar_def.h:59
 msgid "_Save"
 msgstr "_Spara"
 
-#: src/main_menubar_def.h:50 src/toolbar.c:133
+#: src/main_menubar_def.h:60 src/toolbar.c:133
 msgid "Save current file"
 msgstr "Spara aktuell fil"
 
-#: src/main_menubar_def.h:55
+#: src/main_menubar_def.h:65
 msgid "Save _As ..."
 msgstr "Spara so_m..."
 
-#: src/main_menubar_def.h:56
+#: src/main_menubar_def.h:66
 msgid "Save the current file with a different name"
 msgstr "Spara den aktuella filen med ett annat namn"
 
-#: src/main_menubar_def.h:61
+#: src/main_menubar_def.h:71
 msgid "Save A_ll"
 msgstr "Spara _alla"
 
-#: src/main_menubar_def.h:62 src/toolbar.c:146
+#: src/main_menubar_def.h:72 src/toolbar.c:146
 msgid "Save all currently open files, except new files"
 msgstr "Spara alla för tillfället öppna filer, utom nya filer"
 
-#: src/main_menubar_def.h:67
+#: src/main_menubar_def.h:77
 msgid "_Close File"
 msgstr "S_täng fil"
 
-#: src/main_menubar_def.h:68 src/toolbar.c:158
+#: src/main_menubar_def.h:78 src/toolbar.c:158
 msgid "Close current file"
 msgstr "Stäng aktuell fil"
 
-#: src/main_menubar_def.h:73
+#: src/main_menubar_def.h:83
 msgid "Close All Files"
 msgstr "Stäng alla filer"
 
-#: src/main_menubar_def.h:74
+#: src/main_menubar_def.h:84
 msgid "Close all files"
 msgstr "Stäng alla filer"
 
-#: src/main_menubar_def.h:79
+#: src/main_menubar_def.h:89
 msgid "Reload F_ile"
 msgstr "Läs om f_il"
 
-#: src/main_menubar_def.h:80 src/toolbar.c:169
+#: src/main_menubar_def.h:90 src/toolbar.c:169
 msgid "Reload current file"
 msgstr "Läs om aktuell fil"
 
-#: src/main_menubar_def.h:86
+#: src/main_menubar_def.h:96
 msgid "N_ew Project ..."
 msgstr "N_ytt projekt..."
 
-#: src/main_menubar_def.h:87
+#: src/main_menubar_def.h:97
 msgid "Create a Project using application wizard"
 msgstr "Skapa ett projekt genom att använda programguiden"
 
-#: src/main_menubar_def.h:92
+#: src/main_menubar_def.h:102
 msgid "Open P_roject ..."
 msgstr "Öppna p_rojekt..."
 
-#: src/main_menubar_def.h:93 src/toolbar.c:414
+#: src/main_menubar_def.h:103 src/toolbar.c:414
 msgid "Open a Project"
 msgstr "Öppna ett projekt"
 
-#: src/main_menubar_def.h:98
+#: src/main_menubar_def.h:108
 msgid "Sa_ve Project"
 msgstr "Spara pr_ojekt"
 
-#: src/main_menubar_def.h:99 src/toolbar.c:425
+#: src/main_menubar_def.h:109 src/toolbar.c:425
 msgid "Save the current Project"
 msgstr "Spara det aktuella projektet"
 
-#: src/main_menubar_def.h:104
+#: src/main_menubar_def.h:114
 msgid "Close Pro_ject"
 msgstr "Stäng pro_jekt"
 
-#: src/main_menubar_def.h:105 src/toolbar.c:438
+#: src/main_menubar_def.h:115 src/toolbar.c:438
 msgid "Close the current Project"
 msgstr "Stäng det aktuella projektet"
 
-#: src/main_menubar_def.h:111
+#: src/main_menubar_def.h:121
 msgid "Rena_me ..."
 msgstr "Byt _namn..."
 
-#: src/main_menubar_def.h:112
+#: src/main_menubar_def.h:122
 msgid "Rename the current file"
 msgstr "Byt namn på den aktuella filen"
 
-#: src/main_menubar_def.h:118
+#: src/main_menubar_def.h:128
 msgid "Page Set_up ..."
 msgstr "Sidinst_ällningar..."
 
-#: src/main_menubar_def.h:119
+#: src/main_menubar_def.h:129
 msgid "Page setup for printing"
 msgstr "Sidinställningar för utskrift"
 
-#: src/main_menubar_def.h:124
+#: src/main_menubar_def.h:134
 msgid "_Print ..."
 msgstr "Skriv _ut..."
 
-#: src/main_menubar_def.h:125 src/toolbar.c:219
+#: src/main_menubar_def.h:135 src/toolbar.c:219
 msgid "Print the current file"
 msgstr "Skriv ut den aktuella filen"
 
-#: src/main_menubar_def.h:131
+#: src/main_menubar_def.h:141
 msgid "Recent _Files"
 msgstr "Senaste _filer"
 
-#: src/main_menubar_def.h:137
+#: src/main_menubar_def.h:147
 msgid "Recent Projec_ts"
 msgstr "Senaste proje_kt"
 
-#: src/main_menubar_def.h:149
+#: src/main_menubar_def.h:159
 msgid "_Make Selection Uppercase"
 msgstr "_Gör markeringen till versaler"
 
-#: src/main_menubar_def.h:150
+#: src/main_menubar_def.h:160
 msgid "Make the selected text uppercase"
 msgstr "Gör den markerade texten till versaler"
 
-#: src/main_menubar_def.h:155
+#: src/main_menubar_def.h:165
 msgid "Make Selection Lowercase"
 msgstr "Gör markeringen till gemener"
 
-#: src/main_menubar_def.h:156
+#: src/main_menubar_def.h:166
 msgid "Make the selected text lowercase"
 msgstr "Gör den markerade texten till gemener"
 
-#: src/main_menubar_def.h:161
+#: src/main_menubar_def.h:171
 msgid "Convert EOL chars to LF"
 msgstr "Konvertera EOL-tecken till LF"
 
-#: src/main_menubar_def.h:162
+#: src/main_menubar_def.h:172
 msgid "Convert End Of Line characters to UNIX EOL (line feed: LF)"
 msgstr "Konvertera radslutstecken till UNIX EOL (radmatning: LF)"
 
-#: src/main_menubar_def.h:171
+#: src/main_menubar_def.h:181
 msgid "_Select All"
 msgstr "_Markera allt"
 
-#: src/main_menubar_def.h:172
+#: src/main_menubar_def.h:182
 msgid "Select all text in the editor"
 msgstr "Markera all text i redigeraren"
 
-#: src/main_menubar_def.h:177
+#: src/main_menubar_def.h:187
 msgid "Select to _Brace"
 msgstr "Markera till _klammer"
 
-#: src/main_menubar_def.h:178
+#: src/main_menubar_def.h:188
 msgid "Select the text in the matching braces"
 msgstr "Markera texten i de matchande klamrarna"
 
-#: src/main_menubar_def.h:183
+#: src/main_menubar_def.h:193
 msgid "Select Code Block"
 msgstr "Markera kodblock"
 
-#: src/main_menubar_def.h:184
+#: src/main_menubar_def.h:194
 msgid "Select the current code block"
 msgstr "Markera det aktuella kodblocket"
 
-#: src/main_menubar_def.h:193
+#: src/main_menubar_def.h:203
 msgid "/* GPL Notice */"
 msgstr "/* GPL-information */"
 
-#: src/main_menubar_def.h:194
+#: src/main_menubar_def.h:204
 msgid "Insert GPL notice with C style comments"
 msgstr "Infoga GPL-information med kommentarer i C-stil"
 
-#: src/main_menubar_def.h:199
+#: src/main_menubar_def.h:209
 msgid "// GPL Notice"
 msgstr "// GPL-information"
 
-#: src/main_menubar_def.h:200
+#: src/main_menubar_def.h:210
 msgid "Insert GPL notice with C++ style comments"
 msgstr "Infoga GPL-information med kommentarer i C++-stil"
 
-#: src/main_menubar_def.h:205
+#: src/main_menubar_def.h:215
 msgid "Current Date & Time"
 msgstr "Aktuellt datum och tid"
 
-#: src/main_menubar_def.h:206
+#: src/main_menubar_def.h:216
 msgid "Insert current date & time"
 msgstr "Infoga aktuellt datum och tid"
 
-#: src/main_menubar_def.h:216
+#: src/main_menubar_def.h:226
 msgid "_Goto Line no ..."
 msgstr "_Gå till rad nummer..."
 
-#: src/main_menubar_def.h:217
+#: src/main_menubar_def.h:227
 msgid "Go to a particular line in the editor"
 msgstr "Gå till ett visst radnummer i redigeraren"
 
-#: src/main_menubar_def.h:222
+#: src/main_menubar_def.h:232
 msgid "Goto Matching _Brace"
 msgstr "Gå till matchande _klammer"
 
-#: src/main_menubar_def.h:223
+#: src/main_menubar_def.h:233
 msgid "Go to the matching brace in the editor"
 msgstr "Gå till matchande klammer i redigeraren"
 
-#: src/main_menubar_def.h:228
+#: src/main_menubar_def.h:238
 msgid "_Goto start of block"
 msgstr "_Gå till början av blocket"
 
-#: src/main_menubar_def.h:229
+#: src/main_menubar_def.h:239
 msgid "Go to the start of the current block"
 msgstr "Gå till början av det aktuella blocket"
 
-#: src/main_menubar_def.h:234
+#: src/main_menubar_def.h:244
 msgid "_Goto end of block"
 msgstr "_Gå till slutet på blocket"
 
-#: src/main_menubar_def.h:235
+#: src/main_menubar_def.h:245
 msgid "Go to the end of the current block"
 msgstr "Gå till slutet på det aktuella blocket"
 
-#: src/main_menubar_def.h:240
+#: src/main_menubar_def.h:250
 msgid "_Goto previous mesg"
 msgstr "_Gå till föregående meddelande"
 
-#: src/main_menubar_def.h:241
+#: src/main_menubar_def.h:251
 msgid "Go to previous message"
 msgstr "Gå till föregående meddelande"
 
-#: src/main_menubar_def.h:246
+#: src/main_menubar_def.h:256
 msgid "_Goto next mesg"
 msgstr "_Gå till nästa meddelande"
 
-#: src/main_menubar_def.h:247
+#: src/main_menubar_def.h:257
 msgid "Go to next message"
 msgstr "Gå till nästa meddelande"
 
 #. 0
-#: src/main_menubar_def.h:259
+#: src/main_menubar_def.h:269
 msgid "U_ndo"
 msgstr "_Ångra"
 
-#: src/main_menubar_def.h:260 src/toolbar.c:182
+#: src/main_menubar_def.h:270 src/toolbar.c:182
 msgid "Undo the last action"
 msgstr "Ångra den senaste åtgärden"
 
 #. 1
-#: src/main_menubar_def.h:266
+#: src/main_menubar_def.h:276
 msgid "_Redo"
 msgstr "Gör o_m"
 
-#: src/main_menubar_def.h:267 src/toolbar.c:193
+#: src/main_menubar_def.h:277 src/toolbar.c:193
 msgid "Redo the last undone action"
 msgstr "Gör om den åtgärd som senast ångrades"
 
 #. 2
 #. 3
-#: src/main_menubar_def.h:275
+#: src/main_menubar_def.h:285
 msgid "C_ut"
 msgstr "Klipp _ut"
 
-#: src/main_menubar_def.h:276
+#: src/main_menubar_def.h:286
 msgid "Cut the selected text from the editor to the clipboard"
 msgstr "Klipp ut den markerade texten från redigeraren till urklipp"
 
 #. 4
-#: src/main_menubar_def.h:282
+#: src/main_menubar_def.h:292
 msgid "_Copy"
 msgstr "_Kopiera"
 
-#: src/main_menubar_def.h:283
+#: src/main_menubar_def.h:293
 msgid "Copy the selected text to the clipboard"
 msgstr "Kopiera den markerade texten till urklipp"
 
 #. 5
-#: src/main_menubar_def.h:289
+#: src/main_menubar_def.h:299
 msgid "_Paste"
 msgstr "Klistra _in"
 
-#: src/main_menubar_def.h:290
+#: src/main_menubar_def.h:300
 msgid "Paste the content of clipboard at the current position"
 msgstr "Klistra in innehållet i urklipp på den aktuella platsen"
 
 #. 6
-#: src/main_menubar_def.h:296
+#: src/main_menubar_def.h:306
 msgid "C_lear"
 msgstr "_Töm"
 
-#: src/main_menubar_def.h:297
+#: src/main_menubar_def.h:307
 msgid "Delete the selected text from the editor"
 msgstr "Ta bort den markerade texten från redigeraren"
 
 #. 7
 #. 8
-#: src/main_menubar_def.h:305
+#: src/main_menubar_def.h:315
 msgid "_Transform"
 msgstr "_Transformera"
 
 #. 9
-#: src/main_menubar_def.h:312
+#: src/main_menubar_def.h:322
 msgid "_Select"
 msgstr "_Markera"
 
 #. 10
-#: src/main_menubar_def.h:319
+#: src/main_menubar_def.h:329
 msgid "_Insert text"
 msgstr "_Infoga text"
 
 #. 11
 #. 12
-#: src/main_menubar_def.h:328
+#: src/main_menubar_def.h:338
 msgid "_AutoComplete"
 msgstr "_Autokomplettera"
 
-#: src/main_menubar_def.h:329
+#: src/main_menubar_def.h:339
 msgid "AutoComplete the current word"
 msgstr "Autokomplettera det aktuella ordet"
 
 #. 13
-#: src/main_menubar_def.h:335
+#: src/main_menubar_def.h:345
 msgid "S_how calltip"
 msgstr "_Visa anropstips"
 
-#: src/main_menubar_def.h:336
+#: src/main_menubar_def.h:346
 msgid "Show calltip for the function"
 msgstr "Visa anropstips för funktionen"
 
 #. 14
 #. 15
-#: src/main_menubar_def.h:344
+#: src/main_menubar_def.h:354
 msgid "_Find ..."
 msgstr "_Sök..."
 
-#: src/main_menubar_def.h:345
+#: src/main_menubar_def.h:355
 msgid "Search for a string or regexp in the editor"
 msgstr "Sök efter en sträng eller ett reguljärt uttryck i redigeraren"
 
 #. 16
-#: src/main_menubar_def.h:351
+#: src/main_menubar_def.h:361
 msgid "Fin_d in files ..."
 msgstr "Sö_k i flera filer..."
 
-#: src/main_menubar_def.h:352
+#: src/main_menubar_def.h:362
 msgid "Search for a string in multiple files or directories"
 msgstr "Sök efter en sträng i flera filer eller kataloger"
 
 #. 17
-#: src/main_menubar_def.h:358
+#: src/main_menubar_def.h:368
 msgid "Find and R_eplace ..."
 msgstr "Sök och _ersätt..."
 
-#: src/main_menubar_def.h:359
+#: src/main_menubar_def.h:369
 msgid "Search for and replace a string or regexp with another string"
 msgstr ""
 "Sök efter och ersätt en sträng eller ett reguljärt uttryck med en annan "
 "sträng"
 
 #. 18
-#: src/main_menubar_def.h:365
-msgid "_Repeat Find"
-msgstr "_Upprepa sökning"
+#: src/main_menubar_def.h:375
+msgid "Find _Next"
+msgstr "Sök _nästa"
 
-#: src/main_menubar_def.h:366
+#: src/main_menubar_def.h:376
 msgid "Repeat the Last Find command"
 msgstr "Upprepa det senaste sökkommandot"
 
 #. 19
-#: src/main_menubar_def.h:372
+#: src/main_menubar_def.h:382
 msgid "G_o to"
 msgstr "G_å till"
 
 #. 20
 #. 21
-#: src/main_menubar_def.h:381
+#: src/main_menubar_def.h:391
 msgid "Ed_it Application GUI ..."
 msgstr "Red_igera programanvändargränssnitt..."
 
-#: src/main_menubar_def.h:382
+#: src/main_menubar_def.h:392
 msgid "Edit application GUI with the Glade GUI editor"
 msgstr ""
 "Redigera programanvändargränssnitt med användargränssnittsredigeraren glade"
 
 #. 22
 #. 23
-#: src/main_menubar_def.h:390
+#: src/main_menubar_def.h:400
 msgid "Save Build Messages"
 msgstr "Spara byggmeddelanden"
 
-#: src/main_menubar_def.h:391
+#: src/main_menubar_def.h:401
 msgid "Save build messages to file"
 msgstr "Spara byggmeddelanden till fil"
 
-#: src/main_menubar_def.h:402
+#. 24
+#: src/main_menubar_def.h:407
+msgid "_Plug Ins"
+msgstr "Insticks_moduler"
+
+#: src/main_menubar_def.h:419
 msgid "_Main Toolbar"
 msgstr "_Huvudverktygsrad"
 
-#: src/main_menubar_def.h:403
+#: src/main_menubar_def.h:420
 msgid "Hide/Unhide Main toolbar"
 msgstr "Göm/Visa huvudverktygsrad"
 
-#: src/main_menubar_def.h:409
+#: src/main_menubar_def.h:426
 msgid "_Extended Toolbar"
 msgstr "_Utökad verktygsrad"
 
-#: src/main_menubar_def.h:410
+#: src/main_menubar_def.h:427
 msgid "Hide/Unhide Extended toolbar"
 msgstr "Göm/Visa utökad verktygsrad"
 
-#: src/main_menubar_def.h:416
+#: src/main_menubar_def.h:433
 msgid "_Tags Toolbar"
 msgstr "_Taggverktygsrad"
 
-#: src/main_menubar_def.h:417
+#: src/main_menubar_def.h:434
 msgid "Hide/Unhide Tags toolbar"
 msgstr "Göm/Visa taggverktygsrad"
 
-#: src/main_menubar_def.h:423
+#: src/main_menubar_def.h:440
 msgid "_Debug Toolbar"
 msgstr "_Felsökningsverktygsrad"
 
-#: src/main_menubar_def.h:424
+#: src/main_menubar_def.h:441
 msgid "Hide/Unhide Debug toolbar"
 msgstr "Göm/Visa felsökningsverktygsrad"
 
-#: src/main_menubar_def.h:430
+#: src/main_menubar_def.h:447
 msgid "_Browser Toolbar"
 msgstr "_Bläddrarverktygsrad"
 
-#: src/main_menubar_def.h:431
+#: src/main_menubar_def.h:448
 msgid "Hide/Unhide Browser toolbar"
 msgstr "Göm/Visa bläddrarverktygsrad"
 
-#: src/main_menubar_def.h:437
+#: src/main_menubar_def.h:454
 msgid "_Format Toolbar"
 msgstr "_Formateringsverktygsfält"
 
-#: src/main_menubar_def.h:438
+#: src/main_menubar_def.h:455
 msgid "Hide/Unhide Format toolbar"
 msgstr "Göm/Visa formateringsverktygsrad"
 
-#: src/main_menubar_def.h:447
+#: src/main_menubar_def.h:464
 msgid "_Line numbers margin"
 msgstr "_Radnummermarginal"
 
-#: src/main_menubar_def.h:448
+#: src/main_menubar_def.h:465
 msgid "Show/Hide line numbers"
 msgstr "Göm/Visa radnummer"
 
-#: src/main_menubar_def.h:453
+#: src/main_menubar_def.h:470
 msgid "_Markers Margin"
 msgstr "_Markörmarginal"
 
-#: src/main_menubar_def.h:454
+#: src/main_menubar_def.h:471
 msgid "Show/Hide markers margin"
 msgstr "Göm/Visa markörmarginaler"
 
-#: src/main_menubar_def.h:459
+#: src/main_menubar_def.h:476
 msgid "_Code fold margin"
 msgstr "_Kodinhängningsmarginal"
 
-#: src/main_menubar_def.h:460
+#: src/main_menubar_def.h:477
 msgid "Show/Hide code fold margin"
 msgstr "Göm/Visa kodinhängningsmarginal"
 
-#: src/main_menubar_def.h:465
+#: src/main_menubar_def.h:482
 msgid "_Indentation guides"
 msgstr "_Indenteringsguider"
 
-#: src/main_menubar_def.h:466
+#: src/main_menubar_def.h:483
 msgid "Show/Hide undentation guides"
 msgstr "Göm/Visa indenteringsguider"
 
-#: src/main_menubar_def.h:471
+#: src/main_menubar_def.h:488
 msgid "_White spaces"
 msgstr "_Tomrum"
 
-#: src/main_menubar_def.h:472
+#: src/main_menubar_def.h:489
 msgid "Show/Hide white spaces"
 msgstr "Visa/Göm tomrum"
 
-#: src/main_menubar_def.h:477
+#: src/main_menubar_def.h:494
 msgid "_Line end characters"
 msgstr "_Radslutstecken"
 
-#: src/main_menubar_def.h:478
+#: src/main_menubar_def.h:495
 msgid "Show/Hide line end characters"
 msgstr "Visa/Göm radslutstecken"
 
-#: src/main_menubar_def.h:487
+#: src/main_menubar_def.h:504
 msgid "++ Zoom"
 msgstr "++ Zoom"
 
-#: src/main_menubar_def.h:488
+#: src/main_menubar_def.h:505
 msgid "Increase text zoom by 1 unit"
 msgstr "Öka textinzoomning med 1 enhet"
 
-#: src/main_menubar_def.h:493
+#: src/main_menubar_def.h:510
 msgid "+8"
 msgstr "+8"
 
-#: src/main_menubar_def.h:494
+#: src/main_menubar_def.h:511
 msgid "Zoom factor +8"
 msgstr "Zoomfaktor +8"
 
-#: src/main_menubar_def.h:499
+#: src/main_menubar_def.h:516
 msgid "+6"
 msgstr "+6"
 
-#: src/main_menubar_def.h:500
+#: src/main_menubar_def.h:517
 msgid "Zoom factor +6"
 msgstr "Zoomfaktor +6"
 
-#: src/main_menubar_def.h:505
+#: src/main_menubar_def.h:522
 msgid "+4"
 msgstr "+4"
 
-#: src/main_menubar_def.h:506
+#: src/main_menubar_def.h:523
 msgid "Zoom factor +4"
 msgstr "Zoomfaktor +4"
 
-#: src/main_menubar_def.h:511
+#: src/main_menubar_def.h:528
 msgid "+2"
 msgstr "+2"
 
-#: src/main_menubar_def.h:512
+#: src/main_menubar_def.h:529
 msgid "Zoom factor +2"
 msgstr "Zoomfaktor +2"
 
-#: src/main_menubar_def.h:518
+#: src/main_menubar_def.h:535
 msgid "Zoom factor 0"
 msgstr "Zoomfaktor 0"
 
-#: src/main_menubar_def.h:523
+#: src/main_menubar_def.h:540
 msgid "-2"
 msgstr "-2"
 
-#: src/main_menubar_def.h:524
+#: src/main_menubar_def.h:541
 msgid "Zoom factor -2"
 msgstr "Zoomfaktor -2"
 
-#: src/main_menubar_def.h:529
+#: src/main_menubar_def.h:546
 msgid "-4"
 msgstr "-4"
 
-#: src/main_menubar_def.h:530
+#: src/main_menubar_def.h:547
 msgid "Zoom factor -4"
 msgstr "Zoomfaktor -4"
 
-#: src/main_menubar_def.h:535
+#: src/main_menubar_def.h:552
 msgid "-6"
 msgstr "-6"
 
-#: src/main_menubar_def.h:536
+#: src/main_menubar_def.h:553
 msgid "Zoom factor -6"
 msgstr "Zoomfaktor -6"
 
-#: src/main_menubar_def.h:541
+#: src/main_menubar_def.h:558
 msgid "-8"
 msgstr "-8"
 
-#: src/main_menubar_def.h:542
+#: src/main_menubar_def.h:559
 msgid "Zoom factor -8"
 msgstr "Zoomfaktor -8"
 
-#: src/main_menubar_def.h:547
+#: src/main_menubar_def.h:564
 msgid "-- Zoom"
 msgstr "-- Zoom"
 
-#: src/main_menubar_def.h:548
+#: src/main_menubar_def.h:565
 msgid "Reduce text zoom by 1 unit"
 msgstr "Minska textinzoomning med 1 enhet"
 
 #. 0
-#: src/main_menubar_def.h:558
+#: src/main_menubar_def.h:575
 msgid "_Messages"
 msgstr "_Meddelanden"
 
-#: src/main_menubar_def.h:559
+#: src/main_menubar_def.h:576
 msgid "Show/Hide the Message window"
 msgstr "Visa/Göm meddelandefönstret"
 
 #. 1
-#: src/main_menubar_def.h:564
+#: src/main_menubar_def.h:581
 msgid "_Project Listing"
 msgstr "_Projektlistning"
 
-#: src/main_menubar_def.h:565 src/toolbar.c:284
+#: src/main_menubar_def.h:582 src/toolbar.c:284
 msgid "Show/Hide the Project window"
 msgstr "Visa/Göm projektfönstret"
 
 #. 2
-#: src/main_menubar_def.h:570
+#: src/main_menubar_def.h:587
 msgid "B_ookmarks"
 msgstr "B_okmärken"
 
-#: src/main_menubar_def.h:571
+#: src/main_menubar_def.h:588
 msgid "Show the Bookmark window"
 msgstr "Visa bokmärkesfönstret"
 
 #. 3
 #. 4
-#: src/main_menubar_def.h:577
+#: src/main_menubar_def.h:594
 msgid "_Toolbars"
 msgstr "Verktygs_rader"
 
 #. 5
 #. 6
-#: src/main_menubar_def.h:584
+#: src/main_menubar_def.h:601
 msgid "_Editor"
 msgstr "_Redigerare"
 
 #. 7
 #. 8
-#: src/main_menubar_def.h:591
+#: src/main_menubar_def.h:608
 msgid "_Zoom text"
 msgstr "_Zooma text"
 
 #. 9
 #. 10
-#: src/main_menubar_def.h:598 src/main_menubar_def.h:1273
+#: src/main_menubar_def.h:615 src/main_menubar_def.h:1290
 msgid "_Breakpoints"
 msgstr "_Brytpunkter"
 
-#: src/main_menubar_def.h:599
+#: src/main_menubar_def.h:616
 msgid "Show breakpoints editor window"
 msgstr "Visa brytpunktsredigerarfönstret"
 
 #. 11
 #. 12
-#: src/main_menubar_def.h:605
+#: src/main_menubar_def.h:622
 msgid "_Watch Window"
 msgstr "_Bevakningsfönster"
 
-#: src/main_menubar_def.h:606
+#: src/main_menubar_def.h:623
 msgid "Show expression watch window"
 msgstr "Visa uttrycksbevakningsfönster"
 
 #. 13
-#: src/main_menubar_def.h:611
+#: src/main_menubar_def.h:628
 msgid "_Registers"
 msgstr "_Register"
 
-#: src/main_menubar_def.h:612
+#: src/main_menubar_def.h:629
 msgid "Show CPU registers and their contents"
 msgstr "Visa processorregister och deras innehåll"
 
 #. 14
-#: src/main_menubar_def.h:617
+#: src/main_menubar_def.h:634
 msgid "Program _Stack"
 msgstr "Program_stack"
 
-#: src/main_menubar_def.h:618
+#: src/main_menubar_def.h:635
 msgid "Show stack trace of the program"
 msgstr "Visa stacken för programmet"
 
 #. 15
-#: src/main_menubar_def.h:623
+#: src/main_menubar_def.h:640
 msgid "Shared _Libraries"
 msgstr "Delade _bibliotek"
 
-#: src/main_menubar_def.h:624
+#: src/main_menubar_def.h:641
 msgid "Show shared libraries loaded by the program"
 msgstr "Visa delade bibliotek som är inlästa av programmet"
 
 #. 16
-#: src/main_menubar_def.h:629
+#: src/main_menubar_def.h:646
 msgid "_Kernel Signals"
 msgstr "_Kärnsignaler"
 
-#: src/main_menubar_def.h:630
+#: src/main_menubar_def.h:647
 msgid "Show the kernel signals editor window"
 msgstr "Visa redigerarfönstret för kärnsignaler"
 
 #. 17
-#: src/main_menubar_def.h:635
+#: src/main_menubar_def.h:652
 msgid "_Dump Window"
 msgstr "_Dumpningsfönster"
 
-#: src/main_menubar_def.h:636
+#: src/main_menubar_def.h:653
 msgid "Show memory dump window"
 msgstr "Visa minnesdumpningsfönster"
 
 #. 18
 #. 19
-#: src/main_menubar_def.h:642
+#: src/main_menubar_def.h:659
 msgid "_Console"
 msgstr "_Konsoll"
 
-#: src/main_menubar_def.h:643
+#: src/main_menubar_def.h:660
 msgid "Show the console where the program runs"
 msgstr "Visa konsollen där programmet körs"
 
 #. 20
-#: src/main_menubar_def.h:648
+#: src/main_menubar_def.h:665
 msgid "Show _Locals"
 msgstr "Visa _lokala variabler"
 
-#: src/main_menubar_def.h:649
+#: src/main_menubar_def.h:666
 msgid "Show/Hide Local Variables in MessagePane"
 msgstr "Visa/Göm lokala variabler i meddelandepanelen"
 
-#: src/main_menubar_def.h:658 src/project_dbase_gui.c:392
+#: src/main_menubar_def.h:675 src/project_dbase_gui.c:392
 msgid "Include file"
 msgstr "Inkludera fil"
 
-#: src/main_menubar_def.h:664 src/project_dbase_gui.c:398
+#: src/main_menubar_def.h:681 src/project_dbase_gui.c:398
 msgid "Source file"
 msgstr "Källfil"
 
-#: src/main_menubar_def.h:670 src/project_dbase_gui.c:404
+#: src/main_menubar_def.h:687 src/project_dbase_gui.c:404
 msgid "Help file"
 msgstr "Hjälpfil"
 
-#: src/main_menubar_def.h:676 src/project_dbase_gui.c:410
+#: src/main_menubar_def.h:693 src/project_dbase_gui.c:410
 msgid "Data file"
 msgstr "Datafil"
 
-#: src/main_menubar_def.h:682 src/project_dbase_gui.c:416
+#: src/main_menubar_def.h:699 src/project_dbase_gui.c:416
 msgid "Pixmap file"
 msgstr "Pixmapfil"
 
-#: src/main_menubar_def.h:688 src/project_dbase_gui.c:422
+#: src/main_menubar_def.h:705 src/project_dbase_gui.c:422
 msgid "Translation file"
 msgstr "Översättningsfil"
 
-#: src/main_menubar_def.h:694
+#: src/main_menubar_def.h:711
 msgid "Documentation file"
 msgstr "Dokumentationsfil"
 
-#: src/main_menubar_def.h:704 src/project_dbase_gui.c:438
+#: src/main_menubar_def.h:721 src/project_dbase_gui.c:438
 msgid "Add New"
 msgstr "Lägg till ny"
 
-#: src/main_menubar_def.h:710 src/project_dbase_gui.c:444
+#: src/main_menubar_def.h:727 src/project_dbase_gui.c:444
 msgid "Import File"
 msgstr "Importera fil"
 
-#: src/main_menubar_def.h:718
+#: src/main_menubar_def.h:735
 msgid "Remove the current file from the project"
 msgstr "Ta bort den aktuella filen från projektet"
 
-#: src/main_menubar_def.h:725
+#: src/main_menubar_def.h:742
 msgid "Open the README file of the project"
 msgstr "Öppna README-filen för projektet"
 
-#: src/main_menubar_def.h:731
+#: src/main_menubar_def.h:748
 msgid "Open the TODO file of the project"
 msgstr "Öppna TODO-filen för projektet"
 
-#: src/main_menubar_def.h:737
+#: src/main_menubar_def.h:754
 msgid "Open the ChangeLog file of the project"
 msgstr "Öppna ChangeLog-filen för projektet"
 
-#: src/main_menubar_def.h:743
+#: src/main_menubar_def.h:760
 msgid "Open the NEWS file of the project"
 msgstr "Öppna NEWS-filen för projektet"
 
-#: src/main_menubar_def.h:749
+#: src/main_menubar_def.h:766
 msgid "Project _Configuration ..."
 msgstr "Projekt_konfiguration..."
 
-#: src/main_menubar_def.h:750
+#: src/main_menubar_def.h:767
 msgid "Edit the configuration of the project"
 msgstr "Redigera konfigurationen för projektet"
 
-#: src/main_menubar_def.h:755
+#: src/main_menubar_def.h:772
 msgid "Project _Information"
 msgstr "Projekt_information"
 
-#: src/main_menubar_def.h:756
+#: src/main_menubar_def.h:773
 msgid "Detailed information about the project"
 msgstr "Detaljerad information om projektet"
 
-#: src/main_menubar_def.h:765
+#: src/main_menubar_def.h:782
 msgid "Automatic"
 msgstr "Automatisk"
 
-#: src/main_menubar_def.h:766
+#: src/main_menubar_def.h:783
 msgid "Automatically determine the highlight style"
 msgstr "Bestäm automatiskt färgningsstilen"
 
-#: src/main_menubar_def.h:771
+#: src/main_menubar_def.h:788
 msgid "No Highlight style"
 msgstr "Ingen färgningsstil"
 
-#: src/main_menubar_def.h:772
+#: src/main_menubar_def.h:789
 msgid "Force the highlight style to None"
 msgstr "Tvinga färgningsstilen till Ingen"
 
-#: src/main_menubar_def.h:777
+#: src/main_menubar_def.h:794
 msgid "C and C++"
 msgstr "C och C++"
 
-#: src/main_menubar_def.h:778
+#: src/main_menubar_def.h:795
 msgid "Force the highlight style to C and C++"
 msgstr "Tvinga färgningsstilen till C och CPP"
 
-#: src/main_menubar_def.h:783
+#: src/main_menubar_def.h:800
 msgid "C and C++ with GNOME"
 msgstr "C och C++ med GNOME"
 
-#: src/main_menubar_def.h:784
+#: src/main_menubar_def.h:801
 msgid "Force the highlight style to C and C++ with GNOME"
 msgstr "Tvinga färgningsstilen till C och C++ med Gnome"
 
-#: src/main_menubar_def.h:789
+#: src/main_menubar_def.h:806
 msgid "HTML"
 msgstr "HTML"
 
-#: src/main_menubar_def.h:790
+#: src/main_menubar_def.h:807
 msgid "Force the highlight style to HTML"
 msgstr "Tvinga färgningsstilen till HTML"
 
-#: src/main_menubar_def.h:795
+#: src/main_menubar_def.h:812
 msgid "XML"
 msgstr "XML"
 
-#: src/main_menubar_def.h:796
+#: src/main_menubar_def.h:813
 msgid "Force the highlight style to XML"
 msgstr "Tvinga färgningsstilen till XML"
 
-#: src/main_menubar_def.h:801
+#: src/main_menubar_def.h:818
 msgid "Javascript"
 msgstr "Javascript"
 
-#: src/main_menubar_def.h:802
+#: src/main_menubar_def.h:819
 msgid "Force the highlight style to Javascript"
 msgstr "Tvinga färgningsstilen till Javascript"
 
-#: src/main_menubar_def.h:807
+#: src/main_menubar_def.h:824
 msgid "WScript"
 msgstr "WSkript"
 
-#: src/main_menubar_def.h:808
+#: src/main_menubar_def.h:825
 msgid "Force the highlight style to WScript"
 msgstr "Tvinga färgningsstilen till WScript"
 
-#: src/main_menubar_def.h:813
+#: src/main_menubar_def.h:830
 msgid "Makefile"
 msgstr "Makefil"
 
-#: src/main_menubar_def.h:814
+#: src/main_menubar_def.h:831
 msgid "Force the highlight style to Makefile"
 msgstr "Tvinga färgningsstilen till Makefile"
 
-#: src/main_menubar_def.h:819
+#: src/main_menubar_def.h:836
 msgid "Java"
 msgstr "Java"
 
-#: src/main_menubar_def.h:820
+#: src/main_menubar_def.h:837
 msgid "Force the highlight type to Java"
 msgstr "Tvinga färgningstypen till Java"
 
-#: src/main_menubar_def.h:825
+#: src/main_menubar_def.h:842
 msgid "LUA"
 msgstr "LUA"
 
-#: src/main_menubar_def.h:826
+#: src/main_menubar_def.h:843
 msgid "Force the highlight style to LUA"
 msgstr "Tvinga färgningsstilen till LUA"
 
-#: src/main_menubar_def.h:831
+#: src/main_menubar_def.h:848
 msgid "Python"
 msgstr "Python"
 
-#: src/main_menubar_def.h:832
+#: src/main_menubar_def.h:849
 msgid "Force the highlight style to Python"
 msgstr "Tvinga färgningsstilen till Python"
 
-#: src/main_menubar_def.h:837
+#: src/main_menubar_def.h:854
 msgid "Perl"
 msgstr "Perl"
 
-#: src/main_menubar_def.h:838
+#: src/main_menubar_def.h:855
 msgid "Force the highlight style to Perl"
 msgstr "Tvinga färgningsstilen till Perl"
 
-#: src/main_menubar_def.h:843
+#: src/main_menubar_def.h:860
 msgid "SQL"
 msgstr "SQL"
 
-#: src/main_menubar_def.h:844
+#: src/main_menubar_def.h:861
 msgid "Force the highlight style to SQL"
 msgstr "Tvinga färgningsstilen till SQL"
 
-#: src/main_menubar_def.h:849
+#: src/main_menubar_def.h:866
 msgid "PL/SQL"
 msgstr "PL/SQL"
 
-#: src/main_menubar_def.h:850
+#: src/main_menubar_def.h:867
 msgid "Force the highlight style to PL/SQL"
 msgstr "Tvinga färgningsstilen till PL/SQL"
 
-#: src/main_menubar_def.h:855
+#: src/main_menubar_def.h:872
 msgid "PHP"
 msgstr "PHP"
 
-#: src/main_menubar_def.h:856
+#: src/main_menubar_def.h:873
 msgid "Force the highlight style to PHP"
 msgstr "Tvinga färgningsstilen till PHP"
 
-#: src/main_menubar_def.h:861
+#: src/main_menubar_def.h:878
 msgid "LaTex"
 msgstr "LaTex"
 
-#: src/main_menubar_def.h:862
+#: src/main_menubar_def.h:879
 msgid "Force the highlight style to LaTex"
 msgstr "Tvinga färgningsstilen till LaTex"
 
-#: src/main_menubar_def.h:867
+#: src/main_menubar_def.h:884
 msgid "Diff"
 msgstr "Diff"
 
-#: src/main_menubar_def.h:868
+#: src/main_menubar_def.h:885
 msgid "Force the highlight style to Diff"
 msgstr "Tvinga färgningsstilen till Diff"
 
-#: src/main_menubar_def.h:873
+#: src/main_menubar_def.h:890
 msgid "Pascal"
 msgstr "Pascal"
 
-#: src/main_menubar_def.h:874
+#: src/main_menubar_def.h:891
 msgid "Force the highlight style to Pascal"
 msgstr "Tvinga färgningsstilen till Pascal"
 
-#: src/main_menubar_def.h:879
+#: src/main_menubar_def.h:896
 msgid "Xcode"
 msgstr "Xcode"
 
-#: src/main_menubar_def.h:880
+#: src/main_menubar_def.h:897
 msgid "Force the highlight style to Xcode"
 msgstr "Tvinga färgningsstilen till Xcode"
 
-#: src/main_menubar_def.h:885
+#: src/main_menubar_def.h:902
 msgid "Prj/Properties"
 msgstr "Prj/Egenskaper"
 
-#: src/main_menubar_def.h:886
+#: src/main_menubar_def.h:903
 msgid "Force the highlight style to project/properties files"
 msgstr "Tvinga färgningsstilen till projekt-/egenskapsfiler"
 
-#: src/main_menubar_def.h:891
+#: src/main_menubar_def.h:908
 msgid "Conf"
 msgstr "Conf"
 
-#: src/main_menubar_def.h:892
+#: src/main_menubar_def.h:909
 msgid "Force the highlight style to UNIX conf files"
 msgstr "Tvinga färgningsstilen till UNIX conf-filer"
 
-#: src/main_menubar_def.h:901
+#: src/main_menubar_def.h:918
 msgid "Auto _Format"
 msgstr "Auto_formatera"
 
-#: src/main_menubar_def.h:902
+#: src/main_menubar_def.h:919
 msgid "Autoformat C and C++ source files"
 msgstr "Autoformatera C- och C++-källkodsfiler"
 
-#: src/main_menubar_def.h:907
+#: src/main_menubar_def.h:924
 msgid "_Increase Indent"
 msgstr "_Öka indentering"
 
-#: src/main_menubar_def.h:908
+#: src/main_menubar_def.h:925
 msgid "Increase indentation of line/selection"
 msgstr "Öka indentering på raden/markeringen"
 
-#: src/main_menubar_def.h:913
+#: src/main_menubar_def.h:930
 msgid "_Decrease Indent"
 msgstr "_Minska indentering"
 
-#: src/main_menubar_def.h:914
+#: src/main_menubar_def.h:931
 msgid "Decrease indentation of line/selection"
 msgstr "Minska indentering av rad/markering"
 
-#: src/main_menubar_def.h:920
+#: src/main_menubar_def.h:937
 msgid "_Update tags image"
 msgstr "_Uppdatera taggbild"
 
-#: src/main_menubar_def.h:921
+#: src/main_menubar_def.h:938
 msgid "Update the tags image of the project/opened files"
 msgstr "Uppdatera taggbilden på projektet/öppnade filer"
 
-#: src/main_menubar_def.h:927
+#: src/main_menubar_def.h:944
 msgid "Force _Highlight Style"
 msgstr "Tvinga _färgningsstil"
 
-#: src/main_menubar_def.h:934
+#: src/main_menubar_def.h:951
 msgid "_Close All Folds"
 msgstr "_Stäng alla inhägnader"
 
-#: src/main_menubar_def.h:935
+#: src/main_menubar_def.h:952
 msgid "Close all code folds in the editor"
 msgstr "Stäng alla kodinhägnader i redigeraren"
 
-#: src/main_menubar_def.h:940
+#: src/main_menubar_def.h:957
 msgid "_Open All Folds"
 msgstr "_Öppna alla inhägnader"
 
-#: src/main_menubar_def.h:941
+#: src/main_menubar_def.h:958
 msgid "Open all code folds of the editor"
 msgstr "Öppna alla kodinhägnader för redigeraren"
 
-#: src/main_menubar_def.h:946
+#: src/main_menubar_def.h:963
 msgid "_Toggle Current Fold"
 msgstr "_Slå på/av aktuell inhägnad"
 
-#: src/main_menubar_def.h:947
+#: src/main_menubar_def.h:964
 msgid "Toggle current code fold of the editor"
 msgstr "Slå på/av aktuell kodinhägnad för redigeraren"
 
-#: src/main_menubar_def.h:953
+#: src/main_menubar_def.h:970
 msgid "D_etach Current Document"
 msgstr "_Koppla från aktuellt dokument"
 
-#: src/main_menubar_def.h:954
+#: src/main_menubar_def.h:971
 msgid "Detach the current editor into a separate window"
 msgstr "Koppla ifrån den aktuella redigeraren i ett separat fönster"
 
-#: src/main_menubar_def.h:964
+#: src/main_menubar_def.h:981
 msgid "_Compile"
 msgstr "_Kompilera"
 
-#: src/main_menubar_def.h:965
+#: src/main_menubar_def.h:982
 msgid "Compile the current source file"
 msgstr "Kompilera den aktuella källfilen"
 
-#: src/main_menubar_def.h:971 src/main_menubar_def.h:1517
+#: src/main_menubar_def.h:988 src/main_menubar_def.h:1534
 msgid "_Build"
 msgstr "_Bygg"
 
-#: src/main_menubar_def.h:972
+#: src/main_menubar_def.h:989
 msgid "Build the source directory of the project/current source file"
 msgstr "Bygg projektets källkodskatalog/aktuell källkodsfil"
 
-#: src/main_menubar_def.h:977
+#: src/main_menubar_def.h:994
 msgid "Build _All"
 msgstr "Bygg _allt"
 
-#: src/main_menubar_def.h:978
+#: src/main_menubar_def.h:995
 msgid "Build the whole project"
 msgstr "Bygg hela projektet"
 
-#: src/main_menubar_def.h:984
+#: src/main_menubar_def.h:1001
 msgid "_Install"
 msgstr "_Installera"
 
-#: src/main_menubar_def.h:985
+#: src/main_menubar_def.h:1002
 msgid "Install the project on your system"
 msgstr "Installera projektet på ditt system"
 
-#: src/main_menubar_def.h:990
+#: src/main_menubar_def.h:1007
 msgid "Build _Distribution"
 msgstr "Bygg _distribution"
 
-#: src/main_menubar_def.h:991
+#: src/main_menubar_def.h:1008
 msgid "Build the distribution tarball of the project"
 msgstr "Bygg distributionstarbollen för projektet"
 
-#: src/main_menubar_def.h:997
+#: src/main_menubar_def.h:1014
 msgid "Con_figure ..."
 msgstr "Kon_figurera..."
 
-#: src/main_menubar_def.h:998
+#: src/main_menubar_def.h:1015
 msgid "Configure the project"
 msgstr "Konfigurera projektet"
 
-#: src/main_menubar_def.h:1003
+#: src/main_menubar_def.h:1020
 msgid "Auto _generate ..."
 msgstr "Auto_generera..."
 
-#: src/main_menubar_def.h:1004
+#: src/main_menubar_def.h:1021
 msgid "Auto generate all the build files"
 msgstr "Autogenerera alla byggfiler"
 
-#: src/main_menubar_def.h:1010
+#: src/main_menubar_def.h:1027
 msgid "Clea_n"
 msgstr "St_äda"
 
-#: src/main_menubar_def.h:1011
+#: src/main_menubar_def.h:1028
 msgid "Clean the source directory"
 msgstr "Städa källkodskatalogen"
 
-#: src/main_menubar_def.h:1016
+#: src/main_menubar_def.h:1033
 msgid "Clean A_ll"
 msgstr "Städa a_llt"
 
-#: src/main_menubar_def.h:1017
+#: src/main_menubar_def.h:1034
 msgid "Clean the whole project directory"
 msgstr "Städa hela projektkatalogen"
 
-#: src/main_menubar_def.h:1023
+#: src/main_menubar_def.h:1040
 msgid "_Stop Build"
 msgstr "_Stopa bygge"
 
-#: src/main_menubar_def.h:1024
+#: src/main_menubar_def.h:1041
 msgid "Stop the current compile or build process"
 msgstr "Stoppa den aktuella kompilerings- eller byggprocessen"
 
-#: src/main_menubar_def.h:1030
+#: src/main_menubar_def.h:1047
 msgid "_Execute"
 msgstr "_Kör"
 
-#: src/main_menubar_def.h:1031 src/toolbar.c:501
+#: src/main_menubar_def.h:1048 src/toolbar.c:501
 msgid "Execute the program"
 msgstr "Kör programmet"
 
-#: src/main_menubar_def.h:1036
+#: src/main_menubar_def.h:1053
 msgid "Set _Program params ..."
 msgstr "Ställ in _programparametrar..."
 
-#: src/main_menubar_def.h:1037
+#: src/main_menubar_def.h:1054
 msgid "Set the execution parameters of the program"
 msgstr "Ställ in körningsparametrarna för programmet"
 
-#: src/main_menubar_def.h:1046
+#: src/main_menubar_def.h:1063
 msgid "_Toggle bookmark"
 msgstr "_Slå på/av bokmärken"
 
-#: src/main_menubar_def.h:1053
+#: src/main_menubar_def.h:1070
 msgid "_First bookmark"
 msgstr "_Första bokmärke"
 
-#: src/main_menubar_def.h:1059
+#: src/main_menubar_def.h:1076
 msgid "_Previous bookmark"
 msgstr "_Föregående bokmärke"
 
-#: src/main_menubar_def.h:1065
+#: src/main_menubar_def.h:1082
 msgid "_Next bookmark"
 msgstr "_Nästa bokmärke"
 
-#: src/main_menubar_def.h:1071
+#: src/main_menubar_def.h:1088
 msgid "_Last bookmark"
 msgstr "_Sista bokmärke"
 
-#: src/main_menubar_def.h:1078
+#: src/main_menubar_def.h:1095
 msgid "_Clear all bookmarks"
 msgstr "_Töm alla bokmärken"
 
-#: src/main_menubar_def.h:1088
+#: src/main_menubar_def.h:1105
 msgid "Run/_Continue"
 msgstr "Kör/_Fortsätt"
 
-#: src/main_menubar_def.h:1089
+#: src/main_menubar_def.h:1106
 msgid "Continue the execution of the program"
 msgstr "Fortsätt körningen av programmet"
 
-#: src/main_menubar_def.h:1094
+#: src/main_menubar_def.h:1111
 msgid "Step _In"
 msgstr "Stega _in"
 
-#: src/main_menubar_def.h:1095
+#: src/main_menubar_def.h:1112
 msgid "Single step into function"
 msgstr "Enkelstega in i funktion"
 
-#: src/main_menubar_def.h:1100
+#: src/main_menubar_def.h:1117
 msgid "Step O_ver"
 msgstr "Stega _över"
 
-#: src/main_menubar_def.h:1101
+#: src/main_menubar_def.h:1118
 msgid "Single step over function"
 msgstr "Enkelstega över funktion"
 
-#: src/main_menubar_def.h:1106
+#: src/main_menubar_def.h:1123
 msgid "Step _Out"
 msgstr "Stega _ut"
 
-#: src/main_menubar_def.h:1107
+#: src/main_menubar_def.h:1124
 msgid "Single step out of the function"
 msgstr "Enkelstega ut ur funktionen"
 
-#: src/main_menubar_def.h:1112
+#: src/main_menubar_def.h:1129
 msgid "_Run to cursor"
 msgstr "_Kör till markör"
 
-#: src/main_menubar_def.h:1113
+#: src/main_menubar_def.h:1130
 msgid "Run to the cursor"
 msgstr "Kör till markören"
 
-#: src/main_menubar_def.h:1122 src/text_editor_menu.c:100
+#: src/main_menubar_def.h:1139 src/text_editor_menu.c:100
 msgid "Toggle breakpoint"
 msgstr "Slå på/av brytpunkt"
 
-#: src/main_menubar_def.h:1123
+#: src/main_menubar_def.h:1140
 msgid "Toggle breakpoint at the current location"
 msgstr "Slå på/av brytpunkt på den aktuella platsen"
 
-#: src/main_menubar_def.h:1128
+#: src/main_menubar_def.h:1145
 msgid "Set Breakpoint ..."
 msgstr "Ställ in brytpunkt..."
 
-#: src/main_menubar_def.h:1129
+#: src/main_menubar_def.h:1146
 msgid "Set a breakpoint"
 msgstr "Ställ in brytpunkt"
 
-#: src/main_menubar_def.h:1135
+#: src/main_menubar_def.h:1152
 msgid "_Breakpoints ..."
 msgstr "_Brytpunkter..."
 
-#: src/main_menubar_def.h:1136
+#: src/main_menubar_def.h:1153
 msgid "Edit breakpoints"
 msgstr "Redigera brytpunkter"
 
-#: src/main_menubar_def.h:1141
+#: src/main_menubar_def.h:1158
 msgid "Disable all Breakpoints"
 msgstr "Deaktivera alla brytpunkter"
 
-#: src/main_menubar_def.h:1142
+#: src/main_menubar_def.h:1159
 msgid "Deactivate all breakpoints"
 msgstr "Deaktivera alla brytpunkter"
 
-#: src/main_menubar_def.h:1147
+#: src/main_menubar_def.h:1164
 msgid "C_lear all Breakpoints"
 msgstr "T_öm alla brytpunkter"
 
-#: src/main_menubar_def.h:1148
+#: src/main_menubar_def.h:1165
 msgid "Delete all breakpoints"
 msgstr "Ta bort alla brytpunkter"
 
-#: src/main_menubar_def.h:1157
+#: src/main_menubar_def.h:1174
 msgid "Info _Target Files"
 msgstr "Info_målsidor"
 
-#: src/main_menubar_def.h:1158
+#: src/main_menubar_def.h:1175
 msgid "Display information on the files the debugger is active with"
 msgstr "VIsa information om filerna som felsökaren är aktiv med"
 
-#: src/main_menubar_def.h:1163
+#: src/main_menubar_def.h:1180
 msgid "Info _Program"
 msgstr "_Programinformation"
 
-#: src/main_menubar_def.h:1164
+#: src/main_menubar_def.h:1181
 msgid "Display information on the execution status of the program"
 msgstr "Visa information om körningsstatusen av programmet"
 
-#: src/main_menubar_def.h:1169
+#: src/main_menubar_def.h:1186
 msgid "Info _Kernel User Struct"
 msgstr "Information om _kärnans \"User Struct\""
 
-#: src/main_menubar_def.h:1170
+#: src/main_menubar_def.h:1187
 msgid "Display the contents of kernel 'struct user' for current child"
 msgstr "Visa innehållet i kärnans \"struct user\" för aktuellt barn"
 
-#: src/main_menubar_def.h:1175
+#: src/main_menubar_def.h:1192
 msgid "Info _Threads"
 msgstr "_Trådinformation"
 
-#: src/main_menubar_def.h:1176
+#: src/main_menubar_def.h:1193
 msgid "Display the IDs of currently known threads"
 msgstr "Visa ID för trådar kända för tillfället"
 
-#: src/main_menubar_def.h:1181
+#: src/main_menubar_def.h:1198
 msgid "Info _Global variables"
 msgstr "Information om _globala variabler"
 
-#: src/main_menubar_def.h:1182
+#: src/main_menubar_def.h:1199
 msgid "Display all global and static variables of the program"
 msgstr "Visa alla globala och statiska variabler för programmet"
 
-#: src/main_menubar_def.h:1187
+#: src/main_menubar_def.h:1204
 msgid "Info _Local variables"
 msgstr "Information om _lokala variabler"
 
-#: src/main_menubar_def.h:1188
+#: src/main_menubar_def.h:1205
 msgid "Display local variables of the current frame"
 msgstr "Visa lokala variabler för den aktuella ramen"
 
-#: src/main_menubar_def.h:1193
+#: src/main_menubar_def.h:1210
 msgid "Info _Current Frame"
 msgstr "Information om _aktuell ram"
 
-#: src/main_menubar_def.h:1194
+#: src/main_menubar_def.h:1211
 msgid "Display information about the current frame of execution"
 msgstr "Visa information om den aktuella körningsramen"
 
-#: src/main_menubar_def.h:1199
+#: src/main_menubar_def.h:1216
 msgid "Info Function _Arguments"
 msgstr "Information om funktions_argument"
 
-#: src/main_menubar_def.h:1200
+#: src/main_menubar_def.h:1217
 msgid "Display function arguments of the current frame"
 msgstr "Visa funktionsargument för den aktuella ramen"
 
-#: src/main_menubar_def.h:1209
+#: src/main_menubar_def.h:1226
 msgid "_Start Debugger"
 msgstr "_Starta felsökare"
 
-#: src/main_menubar_def.h:1210
+#: src/main_menubar_def.h:1227
 msgid "Start the debugging session"
 msgstr "Starta felsökningssessionen"
 
-#: src/main_menubar_def.h:1216
+#: src/main_menubar_def.h:1233
 msgid "Load E_xecutable ..."
 msgstr "Läs in _körbar fil..."
 
-#: src/main_menubar_def.h:1217
+#: src/main_menubar_def.h:1234
 msgid "Open the executable for debugging"
 msgstr "Öppna den körbara filen för felsökning"
 
-#: src/main_menubar_def.h:1222
+#: src/main_menubar_def.h:1239
 msgid "Load _Core file ..."
 msgstr "Läs in _core-fil..."
 
-#: src/main_menubar_def.h:1223
+#: src/main_menubar_def.h:1240
 msgid "Load a core file to dissect"
 msgstr "Läs in en core-fil att dissekrera"
 
-#: src/main_menubar_def.h:1228
+#: src/main_menubar_def.h:1245
 msgid "_Attach to Process ..."
 msgstr "_Anslut till process..."
 
-#: src/main_menubar_def.h:1229
+#: src/main_menubar_def.h:1246
 msgid "Attach to a running program"
 msgstr "Anslut till ett redan körande program"
 
-#: src/main_menubar_def.h:1235
+#: src/main_menubar_def.h:1252
 msgid "_Restart Program"
 msgstr "Starta _om program"
 
-#: src/main_menubar_def.h:1236
+#: src/main_menubar_def.h:1253
 msgid "Stop and restart the program"
 msgstr "Stoppa och starta om programmet"
 
-#: src/main_menubar_def.h:1241
+#: src/main_menubar_def.h:1258
 msgid "S_top Program"
 msgstr "S_toppa program"
 
-#: src/main_menubar_def.h:1242
+#: src/main_menubar_def.h:1259
 msgid "Stop the program being debugged"
 msgstr "Stoppa programmet som felsöks"
 
-#: src/main_menubar_def.h:1247
+#: src/main_menubar_def.h:1264
 msgid "_Detach Debugger"
 msgstr "_Koppla ifrån felsökare"
 
-#: src/main_menubar_def.h:1248
+#: src/main_menubar_def.h:1265
 msgid "Detach from an attached program"
 msgstr "Koppla ifrån ett anslutet program"
 
-#: src/main_menubar_def.h:1254
+#: src/main_menubar_def.h:1271
 msgid "I_nterrupt Program"
 msgstr "A_vbryt program"
 
-#: src/main_menubar_def.h:1255 src/toolbar.c:996
+#: src/main_menubar_def.h:1272 src/toolbar.c:996
 msgid "Interrupt execution of the program"
 msgstr "Avbryt körningen av programmet"
 
-#: src/main_menubar_def.h:1260
+#: src/main_menubar_def.h:1277
 msgid "Si_gnal to Process"
 msgstr "Si_gnalera till process"
 
-#: src/main_menubar_def.h:1261
+#: src/main_menubar_def.h:1278
 msgid "Send a kernel signal to the process being debugged"
 msgstr "Skicka en kärnsignal till processen som felsöks"
 
-#: src/main_menubar_def.h:1267
+#: src/main_menubar_def.h:1284
 msgid "_Execution"
 msgstr "_Körning"
 
-#: src/main_menubar_def.h:1280
+#: src/main_menubar_def.h:1297
 msgid "_Information"
 msgstr "_Information"
 
-#: src/main_menubar_def.h:1287
+#: src/main_menubar_def.h:1304
 msgid "Ins_pect/Evaluate ..."
 msgstr "Ins_pektera/Evaluera..."
 
-#: src/main_menubar_def.h:1288
+#: src/main_menubar_def.h:1305
 msgid "Inspect or evaluate an expression or variable"
 msgstr "Inspektera eller evaluera ett uttryck eller en variabel"
 
-#: src/main_menubar_def.h:1293
+#: src/main_menubar_def.h:1310
 msgid "Add Expression in _Watch ..."
 msgstr "Lägg till ett uttryck i _bevakare..."
 
-#: src/main_menubar_def.h:1294
+#: src/main_menubar_def.h:1311
 msgid "Add expression or variable to the watch"
 msgstr "Lägg till uttryck eller en variabel i bevakaren"
 
-#: src/main_menubar_def.h:1300
+#: src/main_menubar_def.h:1317
 msgid "St_op Debugger"
 msgstr "St_oppa felsökaren"
 
-#: src/main_menubar_def.h:1301
+#: src/main_menubar_def.h:1318
 msgid "Say goodbye to the debugger"
 msgstr "Säg hejdå till felsökaren"
 
-#: src/main_menubar_def.h:1310
+#: src/main_menubar_def.h:1327
 msgid "Grep Utility"
 msgstr "Grep-verktyg"
 
-#: src/main_menubar_def.h:1316
+#: src/main_menubar_def.h:1333
 msgid "Compare two files"
 msgstr "Jämför två filer"
 
-#: src/main_menubar_def.h:1322
+#: src/main_menubar_def.h:1339
 msgid "Diff Utility"
 msgstr "Diff-verktyg"
 
-#: src/main_menubar_def.h:1328
+#: src/main_menubar_def.h:1345
 msgid "File View (Char/Octal/Hex)"
 msgstr "Filvy (tecken/oktalt/hexadecimalt)"
 
-#: src/main_menubar_def.h:1335
+#: src/main_menubar_def.h:1352
 msgid "Declarations"
 msgstr "Deklarationer"
 
-#: src/main_menubar_def.h:1341
+#: src/main_menubar_def.h:1358
 msgid "C Flow"
 msgstr "C-flöde"
 
-#: src/main_menubar_def.h:1347
+#: src/main_menubar_def.h:1364
 msgid "C Cross-reference"
 msgstr "C-korsreferens"
 
-#: src/main_menubar_def.h:1353
+#: src/main_menubar_def.h:1370
 msgid "C Trace"
 msgstr "C-spår"
 
-#: src/main_menubar_def.h:1360
+#: src/main_menubar_def.h:1377
 msgid "Backup Manager"
 msgstr "Säkerhetskopieringshanterare"
 
-#: src/main_menubar_def.h:1370
+#: src/main_menubar_def.h:1387
 msgid "_Create New Window"
 msgstr "S_kapa nytt fönster"
 
-#: src/main_menubar_def.h:1371
+#: src/main_menubar_def.h:1388
 msgid "Open a new file window"
 msgstr "Öppna ett nytt filfönster"
 
-#: src/main_menubar_def.h:1381
+#: src/main_menubar_def.h:1398
 msgid "Close current document window"
 msgstr "Stäng aktuellt dokumentfönster"
 
-#: src/main_menubar_def.h:1390
+#: src/main_menubar_def.h:1407
 msgid "_Compiler and Linker Settings ..."
 msgstr "_Kompilator- och länkarinställningar..."
 
-#: src/main_menubar_def.h:1391
+#: src/main_menubar_def.h:1408
 msgid "Settings for the compiler and linker"
 msgstr "Inställningar för kompilatorn och länkaren"
 
-#: src/main_menubar_def.h:1396
+#: src/main_menubar_def.h:1413
 msgid "_Source Paths ..."
 msgstr "_Källkodssökväg..."
 
-#: src/main_menubar_def.h:1397
+#: src/main_menubar_def.h:1414
 msgid "Specify the source paths for the Anjuta to search"
 msgstr "Ange källkodssökvägen för Anjuta att söka i"
 
-#: src/main_menubar_def.h:1402
+#: src/main_menubar_def.h:1419
 msgid "_Commands ..."
 msgstr "_Kommandon..."
 
-#: src/main_menubar_def.h:1403
+#: src/main_menubar_def.h:1420
 msgid "Specify the various commands for use"
 msgstr "Ange de diverse kommandon som ska användas"
 
-#: src/main_menubar_def.h:1409
+#: src/main_menubar_def.h:1426
 msgid "_Preferences ..."
 msgstr "_Inställningar..."
 
-#: src/main_menubar_def.h:1410
+#: src/main_menubar_def.h:1427
 msgid "Do your prefer coffee to tea? Check it out."
 msgstr "Föredrar du kaffe framför te? Testa detta."
 
-#: src/main_menubar_def.h:1415
+#: src/main_menubar_def.h:1432
 msgid "Set _Default Preferences"
 msgstr "Ställ in _standardinställningar"
 
-#: src/main_menubar_def.h:1416
+#: src/main_menubar_def.h:1433
 msgid "But I prefer tea."
 msgstr "Men jag föredrar te."
 
-#: src/main_menubar_def.h:1427
+#: src/main_menubar_def.h:1444
 msgid "Browse Gnome API Pages"
 msgstr "Bläddra i Gnome API-sidor"
 
-#: src/main_menubar_def.h:1428
+#: src/main_menubar_def.h:1445
 msgid "The gnome API pages"
 msgstr "Gnome API-sidor"
 
-#: src/main_menubar_def.h:1433
+#: src/main_menubar_def.h:1450
 msgid "Browse Man Pages"
 msgstr "Bläddra i manualsidor"
 
-#: src/main_menubar_def.h:1434
+#: src/main_menubar_def.h:1451
 msgid "The good old manual pages"
 msgstr "De gamla hederliga manualsidorna"
 
-#: src/main_menubar_def.h:1439
+#: src/main_menubar_def.h:1456
 msgid "Browse Info Pages"
 msgstr "Bläddra i infosidor"
 
-#: src/main_menubar_def.h:1440
+#: src/main_menubar_def.h:1457
 msgid "Info pages, where you cannot find what you are looking for"
 msgstr "Infosidor, där du inte kan hitta det du letar efter"
 
-#: src/main_menubar_def.h:1446 src/text_editor_menu.c:224
+#: src/main_menubar_def.h:1463 src/text_editor_menu.c:224
 msgid "Context Help"
 msgstr "Sammanhangshjälp"
 
-#: src/main_menubar_def.h:1447
+#: src/main_menubar_def.h:1464
 msgid "Search help for the current word in the editor"
 msgstr "Sök hjälp för det aktuella ordet i redigeraren"
 
-#: src/main_menubar_def.h:1452
+#: src/main_menubar_def.h:1469
 msgid "Search a topic"
 msgstr "Sök ett ämne"
 
-#: src/main_menubar_def.h:1453
+#: src/main_menubar_def.h:1470
 msgid "May I help you?"
 msgstr "Kan jag hjälpa dig?"
 
-#: src/main_menubar_def.h:1459
+#: src/main_menubar_def.h:1476
 msgid "Anjuta Home site"
 msgstr "Hemsida för Anjuta"
 
-#: src/main_menubar_def.h:1460
+#: src/main_menubar_def.h:1477
 msgid "Online documentation and resources"
 msgstr "Online-dokumentation och resurser"
 
-#: src/main_menubar_def.h:1466
+#: src/main_menubar_def.h:1483
 msgid "Libraries API references"
 msgstr "Referenser till biblioteks-API"
 
-#: src/main_menubar_def.h:1467
+#: src/main_menubar_def.h:1484
 msgid "Online reference library for GDK, GLib, GNOME etc.."
 msgstr "Online-referensbibliotek för GDK, GLib, GNOME osv..."
 
-#: src/main_menubar_def.h:1472
+#: src/main_menubar_def.h:1489
 msgid "Report Bugs"
 msgstr "Rapportera fel"
 
-#: src/main_menubar_def.h:1473
+#: src/main_menubar_def.h:1490
 msgid "Submit a bug report for Anjuta"
 msgstr "Skicka in en felrapport för Anjuta"
 
-#: src/main_menubar_def.h:1478
+#: src/main_menubar_def.h:1495
 msgid "Request Features"
 msgstr "Begär funktioner"
 
-#: src/main_menubar_def.h:1479
+#: src/main_menubar_def.h:1496
 msgid "Submit a feature request for Anjtua"
 msgstr "Skicka in en begäran om nya funktioner för Anjuta"
 
-#: src/main_menubar_def.h:1484
+#: src/main_menubar_def.h:1501
 msgid "Submit patches"
 msgstr "Skicka programfixar"
 
-#: src/main_menubar_def.h:1485
+#: src/main_menubar_def.h:1502
 msgid "Submit patches for Anjuta"
 msgstr "Skicka programfixar för Anjuta"
 
-#: src/main_menubar_def.h:1490
+#: src/main_menubar_def.h:1507
 msgid "Ask a question"
 msgstr "Ställ en fråga"
 
-#: src/main_menubar_def.h:1491
+#: src/main_menubar_def.h:1508
 msgid "Submit a question for FAQs"
 msgstr "Skicka en fråga för \"Frågor och svar\""
 
-#: src/main_menubar_def.h:1505
+#: src/main_menubar_def.h:1522
 msgid "_Project"
 msgstr "_Projekt"
 
-#: src/main_menubar_def.h:1511
+#: src/main_menubar_def.h:1528
 msgid "For_mat"
 msgstr "For_matering"
 
-#: src/main_menubar_def.h:1523
+#: src/main_menubar_def.h:1540
 msgid "Bookmar_k"
 msgstr "Bokmär_ke"
 
-#: src/main_menubar_def.h:1529
+#: src/main_menubar_def.h:1546
 msgid "_Debug"
 msgstr "Fels_ök"
 
-#: src/main_menubar_def.h:1535
+#: src/main_menubar_def.h:1552
 msgid "_Utilities"
 msgstr "_Verktyg"
 
-#: src/main_menubar_def.h:1551
+#: src/main_menubar_def.h:1568
 msgid "_Settings"
 msgstr "_Inställningar"
 
@@ -3285,19 +3306,19 @@ msgstr "Du måste spara filen först och sedan skriva ut"
 msgid "Are you sure you want to print the current file?"
 msgstr "Är du säker på att du vill skriva ut den aktuella filen?"
 
-#: src/mainmenu_callbacks.c:1134
+#: src/mainmenu_callbacks.c:1140
 msgid "Tags image update successfully."
 msgstr "Uppdatering av taggbild lyckades."
 
-#: src/mainmenu_callbacks.c:1547
+#: src/mainmenu_callbacks.c:1553
 msgid "Executable does not exsits this project."
 msgstr "Körbar fil finns inte för detta projekt."
 
-#: src/mainmenu_callbacks.c:1598
+#: src/mainmenu_callbacks.c:1604
 msgid "Debugger is not running. Start it first."
 msgstr "Felsökaren kör inte. Starta den först."
 
-#: src/mainmenu_callbacks.c:1634
+#: src/mainmenu_callbacks.c:1640
 msgid ""
 "Program is ATTACHED.\n"
 "Do you still want to stop Debugger?"
@@ -3305,7 +3326,7 @@ msgstr ""
 "Programmet är ANSLUTET.\n"
 "Vill du stoppa felsökaren?"
 
-#: src/mainmenu_callbacks.c:1644
+#: src/mainmenu_callbacks.c:1650
 msgid ""
 "Program is running.\n"
 "Do you still want to stop Debugger?"
@@ -3313,8 +3334,8 @@ msgstr ""
 "Programmet kör.\n"
 "Vill du stoppa felsökaren?"
 
-#: src/mainmenu_callbacks.c:1823 src/mainmenu_callbacks.c:1841
-#: src/mainmenu_callbacks.c:1869 src/mainmenu_callbacks.c:1887
+#: src/mainmenu_callbacks.c:1829 src/mainmenu_callbacks.c:1847
+#: src/mainmenu_callbacks.c:1875 src/mainmenu_callbacks.c:1893
 msgid "Cannot launch gnome-help-browser"
 msgstr "Kan inte starta gnome-help-browser"
 
@@ -3366,7 +3387,7 @@ msgstr "Docka fönster"
 msgid "Dock"
 msgstr "Docka"
 
-#: src/preferences.c:535
+#: src/preferences.c:546
 msgid ""
 "Are you sure you want to reset the preferences to\n"
 "their default settings?"
@@ -3374,228 +3395,236 @@ msgstr ""
 "Är du säker på att du vill återställa inställningarna\n"
 "till deras standardalternativ?"
 
-#: src/preferences_gui.c:141
+#: src/preferences_gui.c:145
 msgid "Preferences"
 msgstr "Inställningar"
 
-#: src/preferences_gui.c:160 src/project_config.c:769
+#: src/preferences_gui.c:164 src/project_config.c:769
 msgid "General"
 msgstr "Allmänt"
 
-#: src/preferences_gui.c:180
+#: src/preferences_gui.c:184
 msgid "Styles"
 msgstr "Stilar"
 
-#: src/preferences_gui.c:190
+#: src/preferences_gui.c:194
 msgid "Editor"
 msgstr "Redigerare"
 
-#: src/preferences_gui.c:200
+#: src/preferences_gui.c:204
 msgid "Print Setup"
 msgstr "Skrivarinställningar"
 
-#: src/preferences_gui.c:210
+#: src/preferences_gui.c:214
 msgid "Auto Format"
 msgstr "Autoformatera"
 
-#: src/preferences_gui.c:220
+#: src/preferences_gui.c:224
 msgid "misc"
 msgstr "div"
 
-#: src/preferences_gui.c:305
+#: src/preferences_gui.c:233
+msgid "Components"
+msgstr "Komponenter"
+
+#: src/preferences_gui.c:318
 msgid " Directories "
 msgstr " Kataloger "
 
-#: src/preferences_gui.c:341
+#: src/preferences_gui.c:354
 msgid "Projects:"
 msgstr "Projekt:"
 
-#: src/preferences_gui.c:348
+#: src/preferences_gui.c:361
 msgid "Tarballs:"
 msgstr "Tarbollar:"
 
-#: src/preferences_gui.c:355
+#: src/preferences_gui.c:368
 msgid "Rpms:"
 msgstr "Rpm:er:"
 
-#: src/preferences_gui.c:362
+#: src/preferences_gui.c:375
 msgid "Srpms:"
 msgstr "Srpm:er:"
 
-#: src/preferences_gui.c:369
+#: src/preferences_gui.c:382
 msgid " History size "
 msgstr " Historikstorlek "
 
-#: src/preferences_gui.c:378
+#: src/preferences_gui.c:391
 msgid "Recent Projects:"
 msgstr "Senaste projekt:"
 
-#: src/preferences_gui.c:385
+#: src/preferences_gui.c:398
 msgid "Recent Files:"
 msgstr "Senaste filer:"
 
-#: src/preferences_gui.c:392
+#: src/preferences_gui.c:405
 msgid "Combo Popdown:"
 msgstr "Kombinationsmeny:"
 
-#: src/preferences_gui.c:450
+#: src/preferences_gui.c:463
 msgid " Job Options "
 msgstr " Jobbalternativ "
 
-#: src/preferences_gui.c:460
+#: src/preferences_gui.c:473
 msgid "Beep on job complete"
 msgstr "Pip när jobbet är klart"
 
-#: src/preferences_gui.c:469
+#: src/preferences_gui.c:482
 msgid "Dialog on job complete"
 msgstr "Dialogfönster då jobbet är klart"
 
-#: src/preferences_gui.c:524
+#: src/preferences_gui.c:537
 msgid "Keep going when some targets cannot be made"
 msgstr "Fortsätt då en del mål inte kan skapas"
 
-#: src/preferences_gui.c:531
+#: src/preferences_gui.c:544
 msgid "Silent: Don't echo commands"
 msgstr "Tyst: Eka inte kommandon"
 
-#: src/preferences_gui.c:538
+#: src/preferences_gui.c:551
 msgid "Produce debugging outputs"
 msgstr "Skapa felsökningsutdata"
 
-#: src/preferences_gui.c:545
+#: src/preferences_gui.c:558
 msgid "Warn when an undefined variable is referenced"
 msgstr "Varna då odefinierad variabel refereras"
 
-#: src/preferences_gui.c:559
+#: src/preferences_gui.c:572
 msgid "Max no of jobs:"
 msgstr "Största antal jobb:"
 
-#: src/preferences_gui.c:640
+#: src/preferences_gui.c:653
 msgid "Select Highlight item to edit:"
 msgstr "Välj färgningsobjekt att redigera:"
 
-#: src/preferences_gui.c:664
+#: src/preferences_gui.c:677
 msgid " Highlight Style "
 msgstr " Färgningsstil "
 
-#: src/preferences_gui.c:695 src/preferences_gui.c:720
-#: src/preferences_gui.c:767 src/preferences_gui.c:774
+#: src/preferences_gui.c:708 src/preferences_gui.c:733
+#: src/preferences_gui.c:780 src/preferences_gui.c:787
 msgid "Use default"
 msgstr "Använd standardvärde"
 
-#: src/preferences_gui.c:708
+#: src/preferences_gui.c:721
 msgid "Bold"
 msgstr "Fet"
 
-#: src/preferences_gui.c:712
+#: src/preferences_gui.c:725
 msgid "Italic"
 msgstr "Kursiv"
 
-#: src/preferences_gui.c:716
+#: src/preferences_gui.c:729
 msgid "Underlined"
 msgstr "Understruken"
 
-#: src/preferences_gui.c:727
+#: src/preferences_gui.c:740
 msgid "Font:"
 msgstr "Typsnitt:"
 
-#: src/preferences_gui.c:734
+#: src/preferences_gui.c:747
 msgid "Attribute:"
 msgstr "Attribut:"
 
-#: src/preferences_gui.c:741
+#: src/preferences_gui.c:754
 msgid "Fore color:"
 msgstr "Förgrundsfärg:"
 
-#: src/preferences_gui.c:748
+#: src/preferences_gui.c:761
 msgid "Back color:"
 msgstr "Bakgrundsfärg:"
 
-#: src/preferences_gui.c:788
+#: src/preferences_gui.c:801
 msgid "Caret color:"
 msgstr "Caret-färg:"
 
-#: src/preferences_gui.c:801
+#: src/preferences_gui.c:814
 msgid "Calltip color:"
 msgstr "Färg på anropstips:"
 
-#: src/preferences_gui.c:814
+#: src/preferences_gui.c:827
 msgid "Selection Foreground:"
 msgstr "Markeringsförgrund:"
 
-#: src/preferences_gui.c:827
+#: src/preferences_gui.c:840
 msgid "Selection Background:"
 msgstr "Markeringsbakgrund:"
 
-#: src/preferences_gui.c:935
+#: src/preferences_gui.c:949
 msgid "Disable syntax highlighting"
 msgstr "Deaktivera syntaxfärgning"
 
-#: src/preferences_gui.c:942
+#: src/preferences_gui.c:956
 msgid "Enable Auto save"
 msgstr "Aktivera automatiskt sparande"
 
-#: src/preferences_gui.c:949
+#: src/preferences_gui.c:963
 msgid "Enable Auto indent"
 msgstr "Aktivera autoindentering"
 
-#: src/preferences_gui.c:957
+#: src/preferences_gui.c:971
 msgid "Use tabs for indentation"
 msgstr "Använd tabulatorer för indentering"
 
-#: src/preferences_gui.c:964
+#: src/preferences_gui.c:978
 msgid "Enable braces check"
 msgstr "Aktivera klammerkontroll"
 
-#: src/preferences_gui.c:1016
+#: src/preferences_gui.c:985
+msgid "Save in DOS format"
+msgstr "Spara i DOS-format"
+
+#: src/preferences_gui.c:1037
 msgid "Tab size in spaces"
 msgstr "Tabulatorstorlek i blanksteg"
 
-#: src/preferences_gui.c:1023
+#: src/preferences_gui.c:1044
 msgid "Auto save timer interval in minutes"
 msgstr "Tidintervall i minuter för automatiskt sparande"
 
-#: src/preferences_gui.c:1030
+#: src/preferences_gui.c:1051
 msgid "Auto indent size in spaces"
 msgstr "Automatisk indenteringsstorlek i blanksteg"
 
-#: src/preferences_gui.c:1037
+#: src/preferences_gui.c:1058
 msgid "Line number margin width in pixels"
 msgstr "Bredd på radnummermarginal i bildpunkter"
 
-#: src/preferences_gui.c:1044
+#: src/preferences_gui.c:1065
 msgid "Save session time interval"
 msgstr "Tidsintervall för sparandesession"
 
-#: src/preferences_gui.c:1053
+#: src/preferences_gui.c:1074
 msgid "Strip trailing spaces on file save"
 msgstr "Ta bort eftersläpande blanksteg vid filsparande"
 
-#: src/preferences_gui.c:1061
+#: src/preferences_gui.c:1082
 msgid "Collapse all folds on file open"
 msgstr "Fäll ihop alla inhägnader vid filöppning"
 
-#: src/preferences_gui.c:1114
+#: src/preferences_gui.c:1137
 msgid " Paper Size"
 msgstr " Pappersstorlek"
 
-#: src/preferences_gui.c:1124
+#: src/preferences_gui.c:1147
 msgid " Print Command "
 msgstr " Utskriftskommando "
 
-#: src/preferences_gui.c:1186
+#: src/preferences_gui.c:1209
 msgid "Disable Auto format"
 msgstr "Deaktivera automatisk formatering"
 
-#: src/preferences_gui.c:1190
+#: src/preferences_gui.c:1213
 msgid " Format Style "
 msgstr " Formateringsstil "
 
-#: src/preferences_gui.c:1213
+#: src/preferences_gui.c:1236
 msgid " Custom Style "
 msgstr " Anpassad stil "
 
-#: src/preferences_gui.c:1224
+#: src/preferences_gui.c:1247
 msgid ""
 "Enter the command line arguments for the 'indent' program.\n"
 "Read the info page for 'indent' for more details."
@@ -3603,53 +3632,61 @@ msgstr ""
 "Ange kommandoradsargumenten för \"indent\"-programmet.\n"
 "Läs infosidan för \"indent\" för mer information."
 
-#: src/preferences_gui.c:1293
+#: src/preferences_gui.c:1316
 msgid " Messages"
 msgstr " Meddelanden"
 
-#: src/preferences_gui.c:1305
+#: src/preferences_gui.c:1328
 msgid "Truncate long messages"
 msgstr "Kapa långa meddelanden"
 
-#: src/preferences_gui.c:1332
+#: src/preferences_gui.c:1355
 msgid "Number of first characters to show"
 msgstr "Antal första tecken att visa"
 
-#: src/preferences_gui.c:1339
+#: src/preferences_gui.c:1362
 msgid "Number of last characters to show"
 msgstr "Antal sista tecken att visa"
 
-#: src/preferences_gui.c:1346
+#: src/preferences_gui.c:1369
 msgid " Notebook tags position "
 msgstr " Position för flikhäftestaggar "
 
-#: src/preferences_gui.c:1357
+#: src/preferences_gui.c:1380
 msgid "Do not show notebook title tags"
 msgstr "Visa inte fikhäftestiteltaggar"
 
-#: src/preferences_gui.c:1371
+#: src/preferences_gui.c:1394
 msgid "Top"
 msgstr "Överst"
 
-#: src/preferences_gui.c:1380
+#: src/preferences_gui.c:1403
 msgid "Bottom"
 msgstr "Nederst"
 
-#: src/preferences_gui.c:1389
+#: src/preferences_gui.c:1412
 msgid "Left"
 msgstr "Vänster"
 
-#: src/preferences_gui.c:1398
+#: src/preferences_gui.c:1421
 msgid "Right"
 msgstr "Höger"
 
-#: src/preferences_gui.c:1406
+#: src/preferences_gui.c:1429
 msgid " Tags Browser "
 msgstr " Taggbläddrare"
 
-#: src/preferences_gui.c:1413
+#: src/preferences_gui.c:1436
 msgid "Update tags image automatically"
 msgstr "Uppdatera automatiskt taggbilder"
+
+#: src/preferences_gui.c:1505
+msgid " Components"
+msgstr " Komponenter"
+
+#: src/preferences_gui.c:1517
+msgid "Use Components"
+msgstr "Använd komponenter"
 
 #. Must declare static, because it will be used forever
 #: src/project_dbase.c:307 src/toolbar.c:413
@@ -4248,45 +4285,45 @@ msgstr "Minnesfunktion:"
 msgid "Tag:"
 msgstr "Tagg:"
 
-#: src/tags_manager.c:759
+#: src/tags_manager.c:760
 msgid "Synchronizing and updating Tags Image ... hold on"
 msgstr "Synkroniserar och uppdaterar taggbild... vänta"
 
-#: src/tags_manager.c:786
+#: src/tags_manager.c:787
 msgid "Updating Tags image completed"
 msgstr "Uppdatering av taggbild färdig"
 
-#: src/tags_manager.c:815
+#: src/tags_manager.c:816
 msgid "Syncdronization of Tags image failed"
 msgstr "Synkronisering av taggbild misslyckades"
 
-#: src/text_editor.c:582
+#: src/text_editor.c:756
 msgid "Loading File ..."
 msgstr "Läser in fil..."
 
-#: src/text_editor.c:588
+#: src/text_editor.c:762
 #, c-format
 msgid "Could not load file: %s"
 msgstr "Kunde inte läsa in fil: %s"
 
-#: src/text_editor.c:616
+#: src/text_editor.c:790
 msgid "File Loaded Successfully"
 msgstr "Filen lästes in utan problem"
 
-#: src/text_editor.c:631
+#: src/text_editor.c:805
 msgid "Saving File ..."
 msgstr "Sparar fil..."
 
-#: src/text_editor.c:636
+#: src/text_editor.c:810
 #, c-format
 msgid "Couldn't save file: %s."
 msgstr "Kunde inte spara fil: %s."
 
-#: src/text_editor.c:660
+#: src/text_editor.c:834
 msgid "File Saved successfully"
 msgstr "Filen sparades utan problem"
 
-#: src/text_editor.c:755
+#: src/text_editor.c:929
 #, c-format
 msgid ""
 "WARNING: The file \"%s\" in the disk is more recent than\n"
@@ -4297,30 +4334,30 @@ msgstr ""
 "den aktuella bufferten.\n"
 "Vill du läsa om den?"
 
-#: src/text_editor.c:871
+#: src/text_editor.c:1045
 msgid "Autoformat is disablde. If you want, enable in Preferences."
 msgstr ""
 "Autoformatering är deaktiverad. Om du vill använda det aktiverar du det i "
 "Inställningar."
 
-#: src/text_editor.c:877
+#: src/text_editor.c:1051
 msgid "Auto formating ..."
 msgstr "Autoformatering..."
 
-#: src/text_editor.c:887 src/text_editor.c:914
+#: src/text_editor.c:1061 src/text_editor.c:1088
 msgid "Error in auto formating ..."
 msgstr "Fel i autoformatering..."
 
-#: src/text_editor.c:920
+#: src/text_editor.c:1094
 msgid "Auto formating completed"
 msgstr "Autoformatering färdig"
 
-#: src/text_editor_cbs.c:174
+#: src/text_editor_cbs.c:176
 #, c-format
 msgid "Autosaved \"%s\""
 msgstr "Autosparade \"%s\""
 
-#: src/text_editor_cbs.c:178
+#: src/text_editor_cbs.c:180
 #, c-format
 msgid "Autosave \"%s\" -- Failed"
 msgstr "Autosparande av \"%s\" -- Misslyckades"
@@ -4685,7 +4722,7 @@ msgstr "Gå"
 
 #: src/toolbar.c:934
 msgid "Go or continue execution"
-msgstr "Gå eller fortsätt exekvering"
+msgstr "Gå eller fortsätt körning"
 
 #: src/toolbar.c:945
 msgid "Run"
@@ -4732,7 +4769,7 @@ msgid "Watch"
 msgstr "Bevaka"
 
 #: src/toolbar.c:1050
-msgid "Watch expresions during execution"
+msgid "Watch expressions during execution"
 msgstr "Bevaka uttryck under körning"
 
 #: src/toolbar.c:1062
@@ -4978,63 +5015,63 @@ msgstr "Fel vid skrivning till: %s."
 msgid "Project type does not support glade."
 msgstr "Projekttypen stöder inte glade."
 
-#: src/anjuta.c:62 src/anjuta.c:69
+#: src/anjuta.c:72 src/anjuta.c:79
 #, c-format
 msgid "Anjuta: Caught signal %d (%s) !"
 msgstr "Anjuta: Tog emot signal %d (%s)!"
 
 #. Must declare static, because it will be used forever
-#: src/anjuta.c:96
+#: src/anjuta.c:106
 msgid "Open File"
 msgstr "Öppna fil"
 
 #. Must declare static, because it will be used forever
-#: src/anjuta.c:102 src/anjuta.c:107
+#: src/anjuta.c:112 src/anjuta.c:117
 msgid "Save File As"
 msgstr "Spara fil som"
 
-#: src/anjuta.c:194
+#: src/anjuta.c:219
 msgid "Cannot create application...exiting\n"
 msgstr "Kan inte skapa program...avslutar\n"
 
-#: src/anjuta.c:241 src/anjuta.c:245 src/anjuta.c:808 src/anjuta.c:824
+#: src/anjuta.c:267 src/anjuta.c:271 src/anjuta.c:850 src/anjuta.c:866
 #, c-format
 msgid "Anjuta: %s"
 msgstr "Anjuta: %s"
 
-#: src/anjuta.c:307
+#: src/anjuta.c:333
 msgid "Recent Files "
 msgstr "Senaste filer "
 
-#: src/anjuta.c:610
+#: src/anjuta.c:636
 msgid "CVS is not yet implemented. :-(\n"
 msgstr "CVS är ännu inte implementerat. :-(\n"
 
-#: src/anjuta.c:655
+#: src/anjuta.c:683
 msgid "# * DO NOT EDIT OR RENAME THIS FILE ** Generated by Anjuta **\n"
 msgstr ""
 "# * REDIGERA INTE ELLER BYT INTE NAMN PÅ DENNA FIL ** Genererad av Anjuta "
 "**\n"
 
-#: src/anjuta.c:801
+#: src/anjuta.c:843
 #, c-format
 msgid "Anjuta: %s(Saved)"
 msgstr "Anjuta: %s(Sparad)"
 
-#: src/anjuta.c:816
+#: src/anjuta.c:858
 #, c-format
 msgid "Anjuta: %s(Unsaved)"
 msgstr "Anjuta: %s(Osparad)"
 
-#: src/anjuta.c:843
+#: src/anjuta.c:885
 msgid "Anjuta: No file"
 msgstr "Anjuta: Ingen fil"
 
-#: src/anjuta.c:1054
+#: src/anjuta.c:1138
 msgid "ERROR: "
 msgstr "FEL: "
 
-#: src/anjuta.c:1071
+#: src/anjuta.c:1155
 msgid ""
 "\n"
 "System: "
@@ -5042,7 +5079,7 @@ msgstr ""
 "\n"
 "System: "
 
-#: src/anjuta.c:1305
+#: src/anjuta.c:1389
 #, c-format
 msgid ""
 "Not yet implemented.\n"
@@ -5051,11 +5088,11 @@ msgstr ""
 "Inte implementerad än.\n"
 "Infoga kod vid \"%s:%u\""
 
-#: src/anjuta.c:1521
+#: src/anjuta.c:1605
 msgid "Activate this to select this window"
 msgstr "Aktivera detta för att välja detta fönster"
 
-#: src/anjuta.c:1568
+#: src/anjuta.c:1652
 #, c-format
 msgid ""
 "You do not have \"%s\" installed in your box.\n"
@@ -5064,19 +5101,19 @@ msgstr ""
 "Du har inte \"%s\" installerat på din maskin.\n"
 "Installera det och starta sedan om Anjuta."
 
-#: src/anjuta.c:1594 src/anjuta.c:1629
+#: src/anjuta.c:1678 src/anjuta.c:1713
 msgid "None"
 msgstr "Ingen"
 
-#: src/anjuta.c:1611
+#: src/anjuta.c:1695
 msgid "OVR"
 msgstr "OVR"
 
-#: src/anjuta.c:1615 src/anjuta.c:1621
+#: src/anjuta.c:1699 src/anjuta.c:1705
 msgid "INS"
 msgstr "INS"
 
-#: src/anjuta.c:1632
+#: src/anjuta.c:1716
 #, c-format
 msgid ""
 "  Project: %s       Zoom: %d       Line: %04d       Col: %03d       %s       "
@@ -5084,6 +5121,39 @@ msgid ""
 msgstr ""
 "  Projekt: %s       Zoom: %d       Rad: %04d       Kolumn: %03d      %s      "
 "Jobb: %s"
+
+#: src/anjuta.c:1928 src/anjuta.c:1931
+#, c-format
+msgid "Unable to Load Plug in Module %s. Err: %s"
+msgstr "Kan inte läsa in insticksmodulen %s. Fel: %s"
+
+#: src/anjuta.c:1934
+#, c-format
+msgid "Plug in Module protocol unknown %s Err:%s"
+msgstr "Protokoll för insticksmodul okänt %s Fel:%s"
+
+#: src/anjuta.c:1937
+#, c-format
+msgid "Unable to Start Plug in Module %s"
+msgstr "Kan inte starta insticksmodulen %s"
+
+#: src/anjuta.c:1940
+#, c-format
+msgid "Bad Parameters to Plug in %s. Err: %s"
+msgstr "Felaktiga parametrar till insticksmodulen %s. Fel: %s"
+
+#: src/anjuta.c:1948
+#, c-format
+msgid ""
+"Unable to load plugin %s.\n"
+"Error %s"
+msgstr ""
+"Kan inte läsa in insticksmodulen %s.\n"
+"Fel %s"
+
+#: src/anjuta.c:2018
+msgid "Out of Memory scanning for plugins."
+msgstr "Slut på minne vid genomsökning efter insticksmoduler"
 
 #: src/anjuta_gui.c:208 src/anjuta_gui.c:297
 msgid "Click here to undock this window"
@@ -5133,6 +5203,9 @@ msgstr "Kunde inte skapa pixmap från fil: %s"
 #: src/resources.c:295 src/resources.c:303
 msgid "Cannot execute Devhelp. Make sure it is installed"
 msgstr "Kan inte köra Devhelp. Försäkra dig om att det är installerat"
+
+#~ msgid "_Repeat Find"
+#~ msgstr "_Upprepa sökning"
 
 #~ msgid "Unkown project type."
 #~ msgstr "Okänd projekttyp."
@@ -5229,8 +5302,7 @@ msgstr "Kan inte köra Devhelp. Försäkra dig om att det är installerat"
 
 #~ msgid "Open an executable or attach to a process to start debuging.\n"
 #~ msgstr ""
-#~ "Öppna en körbar fil eller anslut till en process för att starta "
-#~ "felsökning.\n"
+#~ "Öppna en körbar fil eller anslut till en process för att starta felsökning.\n"
 
 #~ msgid "_Main Tolbar"
 #~ msgstr "_Huvudverktygsrad"
