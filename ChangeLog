@@ -1,3 +1,8 @@
+2004-12-02  Naba Kumar  <naba@gnome.org>
+
+	* plugins/cvs-plugin/anjuta-cvs-plugin.glade: Fixed prefernce
+	property name (for cvs path property). Beautified dialogs.
+
 2004-11-30	Johannes Schmid <jhs@cvs.gnome.org>
 	
 	* plugins/message-view/anjuta-msgman.c: Changed callback name

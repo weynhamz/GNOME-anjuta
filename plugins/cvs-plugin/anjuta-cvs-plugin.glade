@@ -19,193 +19,182 @@
   <property name="gravity">GDK_GRAVITY_NORTH_WEST</property>
 
   <child>
-    <widget class="GtkTable" id="cvs">
+    <widget class="GtkFrame" id="cvs">
+      <property name="border_width">10</property>
       <property name="visible">True</property>
-      <property name="n_rows">4</property>
-      <property name="n_columns">2</property>
-      <property name="homogeneous">False</property>
-      <property name="row_spacing">0</property>
-      <property name="column_spacing">0</property>
+      <property name="label_xalign">0</property>
+      <property name="label_yalign">0.5</property>
+      <property name="shadow_type">GTK_SHADOW_NONE</property>
 
       <child>
-	<widget class="GtkLabel" id="label">
+	<widget class="GtkTable" id="table1">
+	  <property name="border_width">10</property>
 	  <property name="visible">True</property>
-	  <property name="label" translatable="yes">Path to &quot;cvs&quot; command</property>
-	  <property name="use_underline">False</property>
-	  <property name="use_markup">False</property>
-	  <property name="justify">GTK_JUSTIFY_LEFT</property>
-	  <property name="wrap">False</property>
-	  <property name="selectable">False</property>
-	  <property name="xalign">0</property>
-	  <property name="yalign">0.5</property>
-	  <property name="xpad">0</property>
-	  <property name="ypad">0</property>
-	</widget>
-	<packing>
-	  <property name="left_attach">0</property>
-	  <property name="right_attach">1</property>
-	  <property name="top_attach">0</property>
-	  <property name="bottom_attach">1</property>
-	  <property name="x_options">fill</property>
-	  <property name="y_options"></property>
-	</packing>
-      </child>
-
-      <child>
-	<widget class="GnomeFileEntry" id="fileentry1">
-	  <property name="visible">True</property>
-	  <property name="max_saved">10</property>
-	  <property name="directory_entry">False</property>
-	  <property name="modal">False</property>
-	  <property name="use_filechooser">False</property>
-
-	  <child internal-child="entry">
-	    <widget class="GtkEntry" id="preferences_text:text:/usr/bin/cvs:0:cvs.path">
-	      <property name="visible">True</property>
-	      <property name="can_focus">True</property>
-	      <property name="editable">True</property>
-	      <property name="visibility">True</property>
-	      <property name="max_length">0</property>
-	      <property name="text" translatable="yes">/usr/bin/cvs</property>
-	      <property name="has_frame">True</property>
-	      <property name="invisible_char" translatable="yes">*</property>
-	      <property name="activates_default">False</property>
-	    </widget>
-	  </child>
-	</widget>
-	<packing>
-	  <property name="left_attach">1</property>
-	  <property name="right_attach">2</property>
-	  <property name="top_attach">0</property>
-	  <property name="bottom_attach">1</property>
-	  <property name="y_options"></property>
-	</packing>
-      </child>
-
-      <child>
-	<widget class="GtkFrame" id="frame1">
-	  <property name="visible">True</property>
-	  <property name="label_xalign">0</property>
-	  <property name="label_yalign">0.5</property>
-	  <property name="shadow_type">GTK_SHADOW_NONE</property>
+	  <property name="n_rows">4</property>
+	  <property name="n_columns">2</property>
+	  <property name="homogeneous">False</property>
+	  <property name="row_spacing">10</property>
+	  <property name="column_spacing">10</property>
 
 	  <child>
-	    <widget class="GtkAlignment" id="alignment1">
+	    <widget class="GtkLabel" id="label">
 	      <property name="visible">True</property>
-	      <property name="xalign">0.5</property>
-	      <property name="yalign">0.5</property>
-	      <property name="xscale">1</property>
-	      <property name="yscale">1</property>
-	      <property name="top_padding">0</property>
-	      <property name="bottom_padding">0</property>
-	      <property name="left_padding">12</property>
-	      <property name="right_padding">0</property>
-
-	      <child>
-		<widget class="GtkTable" id="table1">
-		  <property name="visible">True</property>
-		  <property name="n_rows">2</property>
-		  <property name="n_columns">2</property>
-		  <property name="homogeneous">False</property>
-		  <property name="row_spacing">0</property>
-		  <property name="column_spacing">0</property>
-
-		  <child>
-		    <widget class="GtkSpinButton" id="preferences_spin:int:3:0:cvs.compression">
-		      <property name="visible">True</property>
-		      <property name="can_focus">True</property>
-		      <property name="climb_rate">1</property>
-		      <property name="digits">0</property>
-		      <property name="numeric">True</property>
-		      <property name="update_policy">GTK_UPDATE_ALWAYS</property>
-		      <property name="snap_to_ticks">False</property>
-		      <property name="wrap">False</property>
-		      <property name="adjustment">1 0 10 1 10 10</property>
-		    </widget>
-		    <packing>
-		      <property name="left_attach">1</property>
-		      <property name="right_attach">2</property>
-		      <property name="top_attach">0</property>
-		      <property name="bottom_attach">1</property>
-		      <property name="y_options"></property>
-		    </packing>
-		  </child>
-
-		  <child>
-		    <widget class="GtkLabel" id="label3">
-		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">Compression Level (0=off, 10=max)</property>
-		      <property name="use_underline">False</property>
-		      <property name="use_markup">False</property>
-		      <property name="justify">GTK_JUSTIFY_LEFT</property>
-		      <property name="wrap">False</property>
-		      <property name="selectable">False</property>
-		      <property name="xalign">0</property>
-		      <property name="yalign">0.5</property>
-		      <property name="xpad">0</property>
-		      <property name="ypad">0</property>
-		    </widget>
-		    <packing>
-		      <property name="left_attach">0</property>
-		      <property name="right_attach">1</property>
-		      <property name="top_attach">0</property>
-		      <property name="bottom_attach">1</property>
-		      <property name="x_options">fill</property>
-		      <property name="y_options"></property>
-		    </packing>
-		  </child>
-
-		  <child>
-		    <widget class="GtkCheckButton" id="preferences_toggle:bool:1:0:cvs.ignorerc">
-		      <property name="visible">True</property>
-		      <property name="can_focus">True</property>
-		      <property name="label" translatable="yes">Ignore .cvsrc file (recommend)</property>
-		      <property name="use_underline">True</property>
-		      <property name="relief">GTK_RELIEF_NORMAL</property>
-		      <property name="focus_on_click">True</property>
-		      <property name="active">False</property>
-		      <property name="inconsistent">False</property>
-		      <property name="draw_indicator">True</property>
-		    </widget>
-		    <packing>
-		      <property name="left_attach">0</property>
-		      <property name="right_attach">2</property>
-		      <property name="top_attach">1</property>
-		      <property name="bottom_attach">2</property>
-		      <property name="x_options">fill</property>
-		      <property name="y_options"></property>
-		    </packing>
-		  </child>
-		</widget>
-	      </child>
-	    </widget>
-	  </child>
-
-	  <child>
-	    <widget class="GtkLabel" id="label2">
-	      <property name="visible">True</property>
-	      <property name="label" translatable="yes">&lt;b&gt;Options&lt;/b&gt;</property>
+	      <property name="label" translatable="yes">Path to &quot;cvs&quot; command</property>
 	      <property name="use_underline">False</property>
-	      <property name="use_markup">True</property>
+	      <property name="use_markup">False</property>
 	      <property name="justify">GTK_JUSTIFY_LEFT</property>
 	      <property name="wrap">False</property>
 	      <property name="selectable">False</property>
-	      <property name="xalign">0.5</property>
+	      <property name="xalign">0</property>
 	      <property name="yalign">0.5</property>
 	      <property name="xpad">0</property>
 	      <property name="ypad">0</property>
 	    </widget>
 	    <packing>
-	      <property name="type">label_item</property>
+	      <property name="left_attach">0</property>
+	      <property name="right_attach">1</property>
+	      <property name="top_attach">0</property>
+	      <property name="bottom_attach">1</property>
+	      <property name="x_options">fill</property>
+	      <property name="y_options"></property>
+	    </packing>
+	  </child>
+
+	  <child>
+	    <widget class="GnomeFileEntry" id="fileentry1">
+	      <property name="visible">True</property>
+	      <property name="max_saved">10</property>
+	      <property name="directory_entry">False</property>
+	      <property name="modal">False</property>
+	      <property name="use_filechooser">False</property>
+
+	      <child internal-child="entry">
+		<widget class="GtkEntry" id="preferences_entry:text:/usr/bin/cvs:0:cvs.path">
+		  <property name="visible">True</property>
+		  <property name="can_focus">True</property>
+		  <property name="editable">True</property>
+		  <property name="visibility">True</property>
+		  <property name="max_length">0</property>
+		  <property name="text" translatable="yes">/usr/bin/cvs</property>
+		  <property name="has_frame">True</property>
+		  <property name="invisible_char" translatable="yes">*</property>
+		  <property name="activates_default">False</property>
+		</widget>
+	      </child>
+	    </widget>
+	    <packing>
+	      <property name="left_attach">1</property>
+	      <property name="right_attach">2</property>
+	      <property name="top_attach">0</property>
+	      <property name="bottom_attach">1</property>
+	      <property name="y_options"></property>
+	    </packing>
+	  </child>
+
+	  <child>
+	    <widget class="GtkTable" id="table2">
+	      <property name="visible">True</property>
+	      <property name="n_rows">2</property>
+	      <property name="n_columns">2</property>
+	      <property name="homogeneous">False</property>
+	      <property name="row_spacing">10</property>
+	      <property name="column_spacing">10</property>
+
+	      <child>
+		<widget class="GtkLabel" id="label3">
+		  <property name="visible">True</property>
+		  <property name="label" translatable="yes">Compression Level (0=off, 10=max):</property>
+		  <property name="use_underline">False</property>
+		  <property name="use_markup">False</property>
+		  <property name="justify">GTK_JUSTIFY_LEFT</property>
+		  <property name="wrap">False</property>
+		  <property name="selectable">False</property>
+		  <property name="xalign">0</property>
+		  <property name="yalign">0.5</property>
+		  <property name="xpad">0</property>
+		  <property name="ypad">0</property>
+		</widget>
+		<packing>
+		  <property name="left_attach">0</property>
+		  <property name="right_attach">1</property>
+		  <property name="top_attach">0</property>
+		  <property name="bottom_attach">1</property>
+		  <property name="x_options">fill</property>
+		  <property name="y_options"></property>
+		</packing>
+	      </child>
+
+	      <child>
+		<widget class="GtkCheckButton" id="preferences_toggle:bool:1:0:cvs.ignorerc">
+		  <property name="visible">True</property>
+		  <property name="can_focus">True</property>
+		  <property name="label" translatable="yes">Ignore .cvsrc file (recommend)</property>
+		  <property name="use_underline">True</property>
+		  <property name="relief">GTK_RELIEF_NORMAL</property>
+		  <property name="focus_on_click">True</property>
+		  <property name="active">False</property>
+		  <property name="inconsistent">False</property>
+		  <property name="draw_indicator">True</property>
+		</widget>
+		<packing>
+		  <property name="left_attach">0</property>
+		  <property name="right_attach">2</property>
+		  <property name="top_attach">1</property>
+		  <property name="bottom_attach">2</property>
+		  <property name="x_options">fill</property>
+		  <property name="y_options"></property>
+		</packing>
+	      </child>
+
+	      <child>
+		<widget class="GtkSpinButton" id="preferences_spin:int:3:0:cvs.compression">
+		  <property name="visible">True</property>
+		  <property name="can_focus">True</property>
+		  <property name="climb_rate">1</property>
+		  <property name="digits">0</property>
+		  <property name="numeric">True</property>
+		  <property name="update_policy">GTK_UPDATE_ALWAYS</property>
+		  <property name="snap_to_ticks">False</property>
+		  <property name="wrap">False</property>
+		  <property name="adjustment">1 0 10 1 10 10</property>
+		</widget>
+		<packing>
+		  <property name="left_attach">1</property>
+		  <property name="right_attach">2</property>
+		  <property name="top_attach">0</property>
+		  <property name="bottom_attach">1</property>
+		  <property name="x_options">fill</property>
+		  <property name="y_options"></property>
+		</packing>
+	      </child>
+	    </widget>
+	    <packing>
+	      <property name="left_attach">0</property>
+	      <property name="right_attach">2</property>
+	      <property name="top_attach">1</property>
+	      <property name="bottom_attach">2</property>
+	      <property name="x_options">fill</property>
 	    </packing>
 	  </child>
 	</widget>
+      </child>
+
+      <child>
+	<widget class="GtkLabel" id="label6">
+	  <property name="visible">True</property>
+	  <property name="label" translatable="yes">&lt;b&gt;CVS Options&lt;/b&gt;</property>
+	  <property name="use_underline">False</property>
+	  <property name="use_markup">True</property>
+	  <property name="justify">GTK_JUSTIFY_LEFT</property>
+	  <property name="wrap">False</property>
+	  <property name="selectable">False</property>
+	  <property name="xalign">0.5</property>
+	  <property name="yalign">0.5</property>
+	  <property name="xpad">0</property>
+	  <property name="ypad">0</property>
+	</widget>
 	<packing>
-	  <property name="left_attach">0</property>
-	  <property name="right_attach">2</property>
-	  <property name="top_attach">1</property>
-	  <property name="bottom_attach">2</property>
-	  <property name="x_options">fill</property>
+	  <property name="type">label_item</property>
 	</packing>
       </child>
     </widget>
@@ -213,6 +202,7 @@
 </widget>
 
 <widget class="GtkDialog" id="cvs_add">
+  <property name="border_width">10</property>
   <property name="visible">True</property>
   <property name="title" translatable="yes">CVS: Add file/directory</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
@@ -231,7 +221,7 @@
     <widget class="GtkVBox" id="dialog-vbox1">
       <property name="visible">True</property>
       <property name="homogeneous">False</property>
-      <property name="spacing">0</property>
+      <property name="spacing">5</property>
 
       <child internal-child="action_area">
 	<widget class="GtkHButtonBox" id="dialog-action_area1">
@@ -276,7 +266,7 @@
 	<widget class="GtkVBox" id="vbox1">
 	  <property name="visible">True</property>
 	  <property name="homogeneous">False</property>
-	  <property name="spacing">0</property>
+	  <property name="spacing">10</property>
 
 	  <child>
 	    <widget class="GtkLabel" id="label1">
@@ -309,6 +299,7 @@
 
 	      <child internal-child="entry">
 		<widget class="GtkEntry" id="cvs_filename">
+		  <property name="width_request">260</property>
 		  <property name="visible">True</property>
 		  <property name="can_focus">True</property>
 		  <property name="editable">True</property>
@@ -358,6 +349,7 @@
 </widget>
 
 <widget class="GtkDialog" id="cvs_remove">
+  <property name="border_width">10</property>
   <property name="visible">True</property>
   <property name="title" translatable="yes">CVS: Remove file/directory</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
@@ -376,7 +368,7 @@
     <widget class="GtkVBox" id="vbox2">
       <property name="visible">True</property>
       <property name="homogeneous">False</property>
-      <property name="spacing">0</property>
+      <property name="spacing">5</property>
 
       <child internal-child="action_area">
 	<widget class="GtkHButtonBox" id="hbuttonbox1">
@@ -421,7 +413,7 @@
 	<widget class="GtkVBox" id="vbox3">
 	  <property name="visible">True</property>
 	  <property name="homogeneous">False</property>
-	  <property name="spacing">0</property>
+	  <property name="spacing">10</property>
 
 	  <child>
 	    <widget class="GtkLabel" id="label4">
@@ -476,10 +468,12 @@
 	  <child>
 	    <widget class="GtkLabel" id="label5">
 	      <property name="visible">True</property>
-	      <property name="label" translatable="yes">&lt;b&gt;Please note: &lt;/b&gt;Pressing OK will delete the file from disk and from CVS. Of course the file won't be removed from CVS before you use CVS Commit. &lt;b&gt;You have been warned!&lt;/b&gt;</property>
+	      <property name="label" translatable="yes">&lt;b&gt;Please note: &lt;/b&gt;
+
+Pressing OK will delete the file from disk and from CVS. Of course the file won't be removed from CVS before you use CVS Commit. &lt;b&gt;You have been warned!&lt;/b&gt;</property>
 	      <property name="use_underline">False</property>
 	      <property name="use_markup">True</property>
-	      <property name="justify">GTK_JUSTIFY_CENTER</property>
+	      <property name="justify">GTK_JUSTIFY_LEFT</property>
 	      <property name="wrap">True</property>
 	      <property name="selectable">False</property>
 	      <property name="xalign">0.5</property>
