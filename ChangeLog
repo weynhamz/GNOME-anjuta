@@ -1,5 +1,17 @@
 2002-10-07  Naba Kumar <naba@gnome.org>
 
+	* debug_tree.c: Fixed incorrect use of debug assertion.
+	
+2002-10-18  Etay Meiri <etay-m@bezeqint.net>
+	    Jean-Noel Guiheneuf <jnoel@saudionline.com.sa>
+	* src/debug_tree.c, src/debug_tree.h, src/debugger.c,
+	src/memory.c, src/memory.h, src/message-manager-private.cc:
+	
+	New parsing algorithm; adapted from kdevelop.
+	Middle button menu for changing the value's display type
+
+2002-10-07  Naba Kumar <naba@gnome.org>
+
 	* src/main_menubar_def.h: Changed status bar message for Help->
 	Browse info pages. Bug #603308
 

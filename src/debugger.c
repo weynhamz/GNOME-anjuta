@@ -1912,10 +1912,7 @@ debugger_is_engaged(void)
 }
 */
 
-
-/* return the last stack frame */
-const gchar* 
-debugger_get_last_frame(void)
+const gchar* debugger_get_last_frame(void)
 {
 	int ret;
 	gchar* text = NULL;
@@ -1935,16 +1932,16 @@ locals_update_controls(void)
 	if( !app->project_dbase->m_prj_ShowLocal )
 		return ;
 
-	debugger_put_cmd_in_queqe ("set print pretty on", DB_CMD_NONE, NULL,
+/*	debugger_put_cmd_in_queqe ("set print pretty on", DB_CMD_NONE, NULL,
 				   NULL);
 	debugger_put_cmd_in_queqe ("set verbos off", DB_CMD_NONE, NULL, NULL);
-	debugger_put_cmd_in_queqe ("set verbos off", DB_CMD_NONE, NULL, NULL);
+	debugger_put_cmd_in_queqe ("set verbos off", DB_CMD_NONE, NULL, NULL);*/
 	debugger_put_cmd_in_queqe ("info locals",
 				   DB_CMD_NONE/*DB_CMD_SE_MESG | DB_CMD_SE_DIALOG*/,
 				   debugger_info_locals_cb, NULL);
-	debugger_put_cmd_in_queqe ("set verbose on", DB_CMD_NONE, NULL, NULL);
+	/*debugger_put_cmd_in_queqe ("set verbose on", DB_CMD_NONE, NULL, NULL);
 	debugger_put_cmd_in_queqe ("set print pretty off", DB_CMD_NONE, NULL,
-				   NULL);
+				   NULL);*/
 }
 
 static void

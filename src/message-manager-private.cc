@@ -600,6 +600,5 @@ LocalsWindow::clear ()
 void
 LocalsWindow::update_view (GList * list)
 {
-	debug_tree_parse_variables (m_debug_tree, list, m_debug_tree->root,
-				    FALSE);
+	debug_tree_parse_variables (m_debug_tree, list);
 }

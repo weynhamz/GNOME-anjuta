@@ -44,7 +44,7 @@
 
 static gint hexa_to_decimal (gchar c);
 
-static guchar *adr_to_decimal (gchar *hexa);
+guchar *adr_to_decimal (gchar *hexa);
 
 static void remove_space (gchar *string);
 
@@ -276,7 +276,7 @@ hexa_to_decimal (gchar c)
 }
 
 
-static guchar *
+guchar *
 adr_to_decimal (gchar * hexa)
 {
   gchar *ptr;

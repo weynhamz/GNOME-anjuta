@@ -50,6 +50,7 @@ GtkWidget* create_info_memory (guchar *ptr);
 
 gboolean address_is_accessible(guchar *adr, MemApp *memapp);
 
+guchar *adr_to_decimal (gchar *hexa);
 
 #ifdef __cplusplus
 }
