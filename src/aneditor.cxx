@@ -252,6 +252,8 @@ protected:
 	void CountLineEnds(int &linesCR, int &linesLF, int &linesCRLF);
 	CharacterRange GetSelection();
 	void SelectionWord(char *word, int len);
+	void WordSelect();
+	void LineSelect();
 	void SelectionIntoProperties();
 	long Find (long flags, char* text);
 	bool HandleXml(char ch);
@@ -835,6 +837,33 @@ void AnEditor::SelectionWord(char *word, int len) {
 	if ((selStart < selEnd) && ((selEnd - selStart + 1) < len)) {
 		GetRange(wEditor, selStart, selEnd, word);
 	}
+}
+
+void AnEditor::WordSelect() {
+	int lengthDoc = LengthDocument();
+	int selStart;
+	int selEnd;
+	
+	selStart = selEnd = SendEditor(SCI_GETCURRENTPOS);
+	WindowAccessor acc(wEditor.GetID(), *props);
+	if (iswordcharforsel(acc[selStart])) {
+			while ((selStart > 0) && (iswordcharforsel(acc[selStart - 1])))
+				selStart--;
+			while ((selEnd < lengthDoc - 1) && (iswordcharforsel(acc[selEnd + 1])))
+				selEnd++;
+			if (selStart < selEnd)
+				selEnd++;   	// Because normal selections end one past
+	}
+	SetSelection(selStart, selEnd);
+}
+
+void AnEditor::LineSelect() {
+	int pos = SendEditor(SCI_GETCURRENTPOS);
+	int line = SendEditor(SCI_LINEFROMPOSITION, pos);
+	int lineStart = SendEditor(SCI_POSITIONFROMLINE, line);
+	int lineEnd = SendEditor(SCI_GETLINEENDPOSITION, line);
+	
+	SetSelection(lineStart, lineEnd);
 }
 
 void AnEditor::SelectionIntoProperties() {
@@ -2391,6 +2420,14 @@ long AnEditor::Command(int cmdID, long wParam, long lParam) {
 	case ANE_STREAMCOMMENT:
 		return StartStreamComment();
 	
+	case ANE_WORDSELECT:
+		WordSelect();
+		break;
+	
+	case ANE_LINESELECT:
+		LineSelect();
+		break;
+
 	default:
 		break;
 	}

@@ -97,7 +97,10 @@ struct _EditSubMenu
 	GtkWidget *select_all;
 	GtkWidget *select_brace;
 	GtkWidget *select_block;
-
+	GtkWidget *select_function;
+	GtkWidget *select_line;
+	GtkWidget *select_word;
+	
 	GtkWidget *autocomplete;
 	GtkWidget *calltip;
 

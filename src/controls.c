@@ -343,6 +343,12 @@ update_main_menubar ()
 	gtk_widget_set_sensitive (em->select_all, F);
 	gtk_widget_set_sensitive (em->select_brace, F);
 	gtk_widget_set_sensitive (em->select_block, FLD);
+	gtk_widget_set_sensitive (em->select_function, F);
+	gtk_widget_set_sensitive (em->select_line, F);
+	gtk_widget_set_sensitive (em->select_word, F);
+	gtk_widget_set_sensitive (em->comment_block, F);
+	gtk_widget_set_sensitive (em->comment_box, F);
+	gtk_widget_set_sensitive (em->comment_stream, F);
 	gtk_widget_set_sensitive (em->calltip, F);
 	gtk_widget_set_sensitive (em->autocomplete, F);
 	gtk_widget_set_sensitive (em->find, F);

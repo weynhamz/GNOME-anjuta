@@ -198,7 +198,7 @@ static GnomeUIInfo transform1_submenu_uiinfo[NUM_TRANSFORM_SUBMENUS+1] = {
 	GNOMEUIINFO_END
 };
 
-#define NUM_SELECT_SUBMENUS 4
+#define NUM_SELECT_SUBMENUS 6
 static GnomeUIInfo select1_submenu_uiinfo[NUM_SELECT_SUBMENUS+1] = {
 	{/*0*/
 	 GNOME_APP_UI_ITEM, N_("_Select All"),
@@ -224,7 +224,19 @@ static GnomeUIInfo select1_submenu_uiinfo[NUM_SELECT_SUBMENUS+1] = {
 	 on_editor_select_function , NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
-	GNOMEUIINFO_END/*4*/
+	{/*4*/
+	 GNOME_APP_UI_ITEM, N_("Current Line"),
+	 N_("Select the current line"),
+	 on_editor_select_line , NULL, NULL,
+	 GNOME_APP_PIXMAP_NONE, NULL,
+	 0, 0, NULL},
+	 {/*5*/
+	 GNOME_APP_UI_ITEM, N_("Current Word"),
+	 N_("Select the current word"),
+	 on_editor_select_word, NULL, NULL,
+	 GNOME_APP_PIXMAP_NONE, NULL,
+	 0, 0, NULL},
+	GNOMEUIINFO_END/*6*/
 };
 
 #define NUM_INSERTTEXT_SUBMENUS 7
@@ -389,7 +401,7 @@ static GnomeUIInfo insert_submenu_uiinfo[NUM_INSERT_SUBMENUS+1] = {
 static GnomeUIInfo comment_submenu_uiinfo[NUM_COMMENT_SUBMENUS+1] = {
 	{/*0*/
 	 GNOME_APP_UI_ITEM, N_("Block Comment/Uncomment"),
-	 N_("Block comment the selected text"),
+	 N_("Block comment/uncomment the selected text"),
 	 on_comment_block, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},

@@ -9,7 +9,18 @@
 	Patch from Jean-Noel Guiheneuf  <jnoel@saudionline.com.sa>
 	* src/aneditor.cxx: Fixes Anjuta looping when a backward search reaches
 	the beginning of a file.
-	
+
+	Patch from Jean-Noel Guiheneuf  <jnoel@saudionline.com.sa>
+	* src/aneditor.cxx, src/aneditor.h,
+	src/controls.c, src/main_menubar.c, src/main_menubar.h,
+	src/main_menubar_def.h, src/mainmenu_callbacks.c,
+	src/mainmenu_callbacks.h: Allows the operator to select the current
+	word or the current line (Request: 680801). It puts also
+	sensitive/unsensitive several select/comment menu items.
+
+	* src/breakpoints.c: Presets by default the current line for a
+	defined breakpoint.
+
 2003-06-11  Naba Kumar  <naba@gnome.org>
 
 	* src/anjuta.c, src/text_editor.c: Fixed bug #715270. 'Changed' file name

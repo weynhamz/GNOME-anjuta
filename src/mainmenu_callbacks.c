@@ -346,6 +346,23 @@ on_editor_select_function (GtkMenuItem * menuitem, gpointer user_data)
 	function_select(te);
 }
 
+
+void on_editor_select_word (GtkMenuItem * menuitem, gpointer user_data)
+{
+    TextEditor* te;
+	te = anjuta_get_current_text_editor();
+	if(!te) return;
+    aneditor_command (te->editor_id, ANE_WORDSELECT, 0, 0);
+}
+
+void on_editor_select_line (GtkMenuItem * menuitem, gpointer user_data)
+{
+    TextEditor* te;
+	te = anjuta_get_current_text_editor();
+	if(!te) return;
+    aneditor_command (te->editor_id, ANE_LINESELECT, 0, 0);
+}
+
 void
 on_transform_eolchars1_activate (GtkMenuItem * menuitem, gpointer user_data)
 {

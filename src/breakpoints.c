@@ -693,7 +693,7 @@ on_bk_properties_clicked (GtkWidget *button, gpointer   data)
 	if (bid->file && strlen (bid->file) > 0)
 		buff = g_strdup_printf ("%s:%d", bid->file, bid->line);
 	else
-		buff = g_strdup_printf ("%d", bid->file);
+		buff = g_strdup_printf ("%d", bid->line);
 	gtk_entry_set_text (GTK_ENTRY (location_entry), buff);
 	g_free (buff);
 	if (bid->condition && strlen (bid->condition) > 0)
@@ -720,12 +720,30 @@ on_bk_add_clicked (GtkWidget *button, gpointer data)
 	BreakpointsDBase *bd;
 	GtkWidget *dialog;
 	BreakpointItem *bid;
-
+	guint line;
+	gchar *buff;
+	TextEditor* te;
+	GtkWidget *location_entry;
+	
 	bd = (BreakpointsDBase *) data;
 	gxml = glade_xml_new (GLADE_FILE_ANJUTA,
 						  "breakpoint_properties_dialog", NULL);
 	dialog = glade_xml_get_widget (gxml, "breakpoint_properties_dialog");
 	
+	if( te = anjuta_get_current_text_editor()) 
+	{
+		if (te->filename)
+		{
+			if (line = text_editor_get_current_lineno (te))
+				buff = g_strdup_printf("%s:%d", te->filename, line);
+			else
+				buff = g_strdup_printf("%s", te->filename);
+			location_entry = glade_xml_get_widget (gxml, 
+			                      "breakpoint_location_entry");
+			gtk_entry_set_text (GTK_ENTRY (location_entry), buff);
+			g_free (buff);
+		}
+	}
 	bid = breakpoint_item_new ();
 	bid->bd = bd;
 	if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_OK)

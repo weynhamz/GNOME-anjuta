@@ -92,10 +92,13 @@ create_main_menubar (GtkWidget * ap, MainMenuBar * mb)
 	mb->edit.select_all = select1_submenu_uiinfo[0].widget;
 	mb->edit.select_brace = select1_submenu_uiinfo[1].widget;
 	mb->edit.select_block = select1_submenu_uiinfo[2].widget;
+	mb->edit.select_function = select1_submenu_uiinfo[3].widget;
+	mb->edit.select_line = select1_submenu_uiinfo[4].widget;
+	mb->edit.select_word = select1_submenu_uiinfo[5].widget;
 	
 	mb->edit.comment_block = comment_submenu_uiinfo[0].widget;
 	mb->edit.comment_box = comment_submenu_uiinfo[1].widget;
-	mb->edit.comment_stream = comment_submenu_uiinfo[1].widget;
+	mb->edit.comment_stream = comment_submenu_uiinfo[2].widget;
 	
 	mb->edit.find = find_submenu_uiinfo[0].widget;
 	mb->edit.find_next = find_submenu_uiinfo[1].widget;
