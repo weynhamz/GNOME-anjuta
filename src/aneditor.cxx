@@ -634,9 +634,18 @@ void AnEditor::BookmarkFirst() {
 void AnEditor::BookmarkPrev() {
 	int lineno = GetCurrentLineNumber();
 	int nextLine = SendEditor(SCI_MARKERPREVIOUS, lineno - 1, 1 << ANE_MARKER_BOOKMARK);
-	if (nextLine < 0 || nextLine == lineno)
-		gdk_beep(); // how do I beep? -- like this ;-)
-	else {
+	if (nextLine < 0 || nextLine == lineno) {
+		if(props->GetInt("editor.wrapbookmarks")) {
+			int nrOfLines = SendEditor(SCI_GETLINECOUNT, 0, 1 << ANE_MARKER_BOOKMARK);
+			int nextLine = SendEditor(SCI_MARKERPREVIOUS, nrOfLines, 1 << ANE_MARKER_BOOKMARK);
+			if (nextLine < 0 || nextLine == lineno) {
+				gdk_beep(); // how do I beep? -- like this ;-)
+			} else {
+				SendEditor(SCI_ENSUREVISIBLE, nextLine);
+				SendEditor(SCI_GOTOLINE, nextLine);
+			}
+		}
+	} else {
 		SendEditor(SCI_ENSUREVISIBLE, nextLine);
 		SendEditor(SCI_GOTOLINE, nextLine);
 	}
@@ -645,9 +654,17 @@ void AnEditor::BookmarkPrev() {
 void AnEditor::BookmarkNext() {
 	int lineno = GetCurrentLineNumber();
 	int nextLine = SendEditor(SCI_MARKERNEXT, lineno + 1, 1 << ANE_MARKER_BOOKMARK);
-	if (nextLine < 0 || nextLine == lineno)
-		gdk_beep(); // how do I beep? -- like this ;-)
-	else {
+	if (nextLine < 0 || nextLine == lineno) {
+		if(props->GetInt("editor.wrapbookmarks")) {
+			int nextLine = SendEditor(SCI_MARKERNEXT, 0, 1 << ANE_MARKER_BOOKMARK);
+			if (nextLine < 0 || nextLine == lineno) {
+				gdk_beep(); // how do I beep? -- like this ;-)
+			} else {				
+				SendEditor(SCI_ENSUREVISIBLE, nextLine);
+				SendEditor(SCI_GOTOLINE, nextLine);
+			}
+		}
+	} else {
 		SendEditor(SCI_ENSUREVISIBLE, nextLine);
 		SendEditor(SCI_GOTOLINE, nextLine);
 	}

@@ -446,6 +446,10 @@ preferences_sync (Preferences * pr)
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON
 					(pr->widgets.dos_eol_check),
 					preferences_get_int (pr, DOS_EOL_CHECK));
+					
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON
+					(pr->widgets.wrap_bookmarks_check),
+					preferences_get_int (pr, WRAP_BOOKMARKS));
 
 	gtk_spin_button_set_value (GTK_SPIN_BUTTON
 				   (pr->widgets.tab_size_spin),
@@ -771,6 +775,7 @@ gboolean preferences_save_yourself (Preferences * pr, FILE * fp)
 	fprintf (fp, "%s=%d\n", BRACES_CHECK,
 		 preferences_get_int (pr, BRACES_CHECK));
 	fprintf (fp, "%s=%d\n", DOS_EOL_CHECK, preferences_get_int(pr, DOS_EOL_CHECK));
+	fprintf (fp, "%s=%d\n", WRAP_BOOKMARKS, preferences_get_int(pr, WRAP_BOOKMARKS));
 
 	fprintf (fp, "%s=%d\n", TAB_SIZE, preferences_get_int (pr, TAB_SIZE));
 	fprintf (fp, "%s=%d\n", INDENT_SIZE,

@@ -956,6 +956,7 @@ create_preferences_page3 (Preferences * p)
 	GtkWidget *checkbutton12;
 	GtkWidget *checkbutton11;
 	GtkWidget *checkbutton13;
+	GtkWidget *checkbutton14;
 	GtkWidget *checkbutton8;
 	GtkObject *spinbutton4_adj;
 	GtkWidget *spinbutton4;
@@ -980,7 +981,7 @@ create_preferences_page3 (Preferences * p)
 	gtk_widget_show (vbox2);
 	gtk_container_add (GTK_CONTAINER (frame1), vbox2);
 
-	table2 = gtk_table_new (8, 4, FALSE);
+	table2 = gtk_table_new (9, 4, FALSE);
 	gtk_widget_show (table2);
 	gtk_box_pack_start (GTK_BOX (vbox2), table2, TRUE, TRUE, 0);
 	gtk_table_set_row_spacings (GTK_TABLE (table2), 2);
@@ -1028,6 +1029,13 @@ create_preferences_page3 (Preferences * p)
 		gtk_check_button_new_with_label(_("Filter extraneous chars in DOS mode"));
 	gtk_widget_show (checkbutton13);
 	gtk_table_attach (GTK_TABLE (table2), checkbutton13, 0, 1, 7, 8,
+			(GtkAttachOptions) (GTK_FILL),
+			(GtkAttachOptions) (0), 0, 0);
+
+	checkbutton14 =
+		gtk_check_button_new_with_label(_("Wrap next/previous bookmark search around"));
+	gtk_widget_show (checkbutton14);
+	gtk_table_attach (GTK_TABLE (table2), checkbutton14, 0, 1, 8, 9,
 			(GtkAttachOptions) (GTK_FILL),
 			(GtkAttachOptions) (0), 0, 0);
 
@@ -1134,6 +1142,7 @@ create_preferences_page3 (Preferences * p)
 	p->widgets.use_tabs_check = checkbutton11;
 	p->widgets.braces_check_check = checkbutton12;
 	p->widgets.dos_eol_check = checkbutton13;
+	p->widgets.wrap_bookmarks_check = checkbutton14;
 	p->widgets.tab_size_spin = spinbutton5;
 	p->widgets.autosave_timer_spin = spinbutton2;
 	p->widgets.autoindent_size_spin = spinbutton3;
@@ -1926,6 +1935,11 @@ on_preferences_apply_clicked (GtkButton * button, gpointer user_data)
 			     gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
 							   (pr->widgets.
 							    dos_eol_check)));
+								
+	preferences_set_int (pr, WRAP_BOOKMARKS,
+			     gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
+							   (pr->widgets.
+							    wrap_bookmarks_check)));
 
 	preferences_set_int (pr, TAB_SIZE,
 			     gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON

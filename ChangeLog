@@ -1,3 +1,12 @@
+2002-03-28 Roel Vanhout <roel@stack.be>
+
+	Reviewed by Naba Kumar <kh_naba@users.sourceforge.net>
+
+	* src/aneditor.cxx, src/preferences.c, src/preferences.h,
+	  src/preferences_gui.c:
+	Added option to wrap around to beginning/end of file when on last bookmark
+	and next/previous bookmark is pressed
+	
 2002-03-28 Naba Kumar <kh_naba@users.sourceforge.net>
 
 	Patch from Philip Van Hoof <freax@pandora.be>
