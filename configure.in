@@ -716,9 +716,6 @@ plugins/project-wizard/templates/anjuta-plugin/po/Makefile
 plugins/project-wizard/templates/gnome/Makefile
 plugins/project-wizard/templates/gnome/src/Makefile
 plugins/project-wizard/templates/gnome/po/Makefile
-plugins/project-wizard/templates/libglade2/Makefile
-plugins/project-wizard/templates/libglade2/src/Makefile
-plugins/project-wizard/templates/libglade2/po/Makefile
 anjuta.desktop.in
 manuals/Makefile
 manuals/C/Makefile

@@ -1,5 +1,13 @@
 2005-02-15  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
 
+	* plugins/project-wizard/templates/libglade2.* :
+	Removed libglade2 project.
+	
+	* plugins/project-wizard/templates/gtk* :
+	Removed interface.[ch] & support.[ch].
+	
+2005-02-15  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
+
 	* plugins/project-wizard/anjuta-project-wizard.glade,
 	plugins/project-wizard/property.[ch],
 	plugins/project-wizard/templates/anjuta-plugin.wiz :

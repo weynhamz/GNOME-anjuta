@@ -4,7 +4,3 @@
 src/main.c
 src/callbacks.c
 src/callbacks.h
-src/interface.c
-src/interface.h
-src/support.c
-src/support.h

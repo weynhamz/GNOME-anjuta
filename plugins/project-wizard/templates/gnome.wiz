@@ -11,7 +11,6 @@
 	<property type="string" name="Email" _label="Email address:" _description="" default="[+EmailAddress+]" mandatory="no"/>
 	<property type="string" name="Version" _label="Version:" default="0.1" mandatory="yes"/>
 	<property type="directory" name="Destination" _label="Destination:" _description="" default="[+AnjutaProjectDirectory+]" mandatory="yes"/>
-	<property type="boolean" name="HaveGlade" _label="Add Dynamic UI (glade) support:" _description="Create dynamic UI files readable in your program with libglade. Should usually be left enabled." default="1"/>
 </page>
 
 <page name="options" _label="Project options" _description="Options for project build system">
@@ -20,11 +19,7 @@
 	<property type="hidden" name="NameCUpper" default="[+(string->c-name! (string-upcase (get "Name")))+]"/>
 	<property type="hidden" name="NameCLower" default="[+(string->c-name! (string-downcase (get "Name")))+]"/>
 	<property type="hidden" name="HavePackage" default="1"/>
-[+IF (=(get "HaveGlade") "1")+]
 	<property type="hidden" name="PackageModule1" default="libgnome-2.0 libgnomeui-2.0 libglade-2.0"/>
-[+ELSE+]
-	<property type="hidden" name="PackageModule1" default="libgnome-2.0 libgnomeui-2.0"/>
-[+ENDIF+]
 	<property type="boolean" name="IncludeGNUHeader" _label="Include GNU Header:" _description="Include GPL header in source files as comments" default="1"/>
 	<property type="boolean" name="HaveLangCPP" _label="Add C++ support:" _description="Adds c++ support to the project so that c++ source files can be built" default="0"/>
 	<property type="boolean" name="HaveI18n" _label="Add internationalization:" _description="Adds supports for internationalization so that your project can have translations in different languages" default="1"/>
@@ -65,13 +60,7 @@
 				<file source="main.c"/>
 				<file source="callbacks.c"/>
 				<file source="callbacks.h"/>
-				<file source="interface.c"/>
-				<file source="interface.h"/>
-				<file source="support.c"/>
-				<file source="support.h"/>
-				[+IF (=(get "HaveGlade") "1")+]
 				<file source="project.glade" destination="[+NameLower+].glade"/>
-				[+ENDIF+]
 				<file source="Makefile.am.tpl" destination="Makefile.am"/>
 			</directory>
 		</directory>
