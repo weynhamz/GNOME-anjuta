@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 23.32\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-09-27 01:55+0200\n"
-"PO-Revision-Date: 2003-09-27 01:55+0200\n"
+"POT-Creation-Date: 2003-10-08 23:32+0200\n"
+"PO-Revision-Date: 2003-10-08 23:33+0200\n"
 "Last-Translator: Слободан Средојевић <ssl@uns.ns.ac.yu>\n"
 "Language-Team: Serbian (sr) <serbiangnome-lista@nongnu.org>\n"
 "MIME-Version: 1.0\n"
@@ -342,11 +342,9 @@ msgstr "Произвољан стил"
 
 #: anjuta.glade.h:78
 msgid ""
-"Custom style,GNU coding style,Kernighan & Ritchie style,Original Berkeley "
+"Custom style,GNU coding style,Kernighan and Ritchie style,Original Berkeley "
 "style,Style of Kangleipak,Hello World style,Crazy boy style"
-msgstr ""
-"Стил по избори,Гнуов стил кодирања,Стил Кернигана и Ричија,Изворни Беркли "
-"стил,Стил Канглејпака,Стил Здраво Свете,Стил лудог дечка"
+msgstr "Стил по избору,Гнуов стил кодирања,Стил Кернигана и Ричија,Изворни Беркли стил,Стил Канглејпака,Стил Здраво Свете,Стил лудог дечка"
 
 #: anjuta.glade.h:79
 msgid "Customize File Browser"
@@ -566,7 +564,7 @@ msgstr "Пронађи & замени"
 msgid "Find and replace"
 msgstr "Пронађи и замени"
 
-#: anjuta.glade.h:132 src/find_in_files.c:302
+#: anjuta.glade.h:132 src/find_in_files.c:316
 msgid "Find in Files"
 msgstr "Пронађи у датотекама"
 
@@ -2644,7 +2642,7 @@ msgstr ""
 msgid "Looking up symbol"
 msgstr "Тражим симбол"
 
-#: src/anjuta.c:2413 src/find_in_files.c:308
+#: src/anjuta.c:2413 src/find_in_files.c:322
 msgid "Finding in Files ....\n"
 msgstr "Тражим у датотекама....\n"
 
@@ -2721,13 +2719,13 @@ msgstr ""
 "Морате доставити исправно %s поље како би наставили даље."
 
 #. For the time being
-#: src/appwizard_cbs.c:282 src/project_dbase.c:1484 src/project_dbase.c:1490
-#: src/project_dbase.c:1493 src/project_import_cbs.c:227 src/signals_cbs.c:115
+#: src/appwizard_cbs.c:282 src/project_dbase.c:1492 src/project_dbase.c:1498
+#: src/project_dbase.c:1501 src/project_import_cbs.c:227 src/signals_cbs.c:115
 #: src/signals_cbs.c:128 src/signals_cbs.c:141
 msgid "Yes"
 msgstr "Да"
 
-#: src/appwizard_cbs.c:284 src/project_dbase.c:1486 src/project_dbase.c:1495
+#: src/appwizard_cbs.c:284 src/project_dbase.c:1494 src/project_dbase.c:1503
 #: src/project_import_cbs.c:229 src/signals_cbs.c:117 src/signals_cbs.c:130
 #: src/signals_cbs.c:143
 msgid "No"
@@ -2889,7 +2887,7 @@ msgid "Building file: %s ...\n"
 msgstr "Преводим и повезујем: %s ...\n"
 
 # bug: plural-forms
-#: src/build_file.c:132 src/cvs.c:776 src/find_in_files.c:346
+#: src/build_file.c:132 src/cvs.c:776 src/find_in_files.c:360
 #: src/project_import.c:192
 #, c-format
 msgid "Total time taken: %lu secs\n"
@@ -2911,66 +2909,66 @@ msgstr "Завршено ... успешно\n"
 msgid "Completed ... successful"
 msgstr "Завршено ... успешно"
 
-#: src/build_project.c:72 src/compile.c:61
+#: src/build_project.c:76 src/compile.c:61
 msgid "Unable to build module. Check Settings->Commands."
 msgstr "Не могу повезати модул. Проверите Подешавања -> Наредбе."
 
-#: src/build_project.c:91 src/build_project.c:152 src/compile.c:74
+#: src/build_project.c:95 src/build_project.c:160 src/compile.c:74
 msgid "Build Project"
 msgstr "Преведи и повежи пројекат"
 
-#: src/build_project.c:93 src/compile.c:76
+#: src/build_project.c:97 src/compile.c:76
 msgid "Building source directory of the Project: "
 msgstr ""
 "Преводим и повезујем све под директоријумом са изворним кодом пројекта: "
 
-#: src/build_project.c:137
+#: src/build_project.c:145
 msgid "Unable to build Project. Check Settings->Commands."
 msgstr "Не могу изградити пројекат. Проверите Подешавања -> Наредбе."
 
-#: src/build_project.c:155
+#: src/build_project.c:163
 msgid "Building the whole Project: "
 msgstr "Превођење целог пројекта: "
 
-#: src/build_project.c:188
+#: src/build_project.c:196
 msgid "Unable to build tarball. Check Settings->Commands."
 msgstr "Не могу изградити архиву. Проверите Подешавања -> Наредбе."
 
-#: src/build_project.c:203
+#: src/build_project.c:211
 msgid "Build Distribution"
 msgstr "Изгради пакет/архиву"
 
-#: src/build_project.c:207
+#: src/build_project.c:215
 msgid "Building the distribution package of the Project: "
 msgstr "Изгради пакет/архиву пројекта:"
 
-#: src/build_project.c:239
+#: src/build_project.c:247
 msgid "Do you prefer installing as root ?"
 msgstr ""
 "Да ли више волите да инсталирате програм као администратор система рут"
 "(root) ?"
 
-#: src/build_project.c:277
+#: src/build_project.c:285
 msgid "Unable to auto generate. Check Settings->Commands."
 msgstr "Не могу аутоматски направити. Проверите Подешавања -> Наредбе."
 
-#: src/build_project.c:291
+#: src/build_project.c:299
 msgid "Auto generate Project"
 msgstr "Аутоматски направи пројекат"
 
-#: src/build_project.c:294
+#: src/build_project.c:302
 msgid "Auto generating the Project: "
 msgstr "Аутоматски направи пројекат: "
 
-#: src/build_project.c:316 src/build_project.c:354
+#: src/build_project.c:324 src/build_project.c:362
 msgid "Unable to install Project. Check Settings->Commands."
 msgstr "Не могу инсталирати пројекат. Проверите Подешавања -> наредбе."
 
-#: src/build_project.c:331 src/build_project.c:366
+#: src/build_project.c:339 src/build_project.c:374
 msgid "Install Project"
 msgstr "Инсталирај пројекат"
 
-#: src/build_project.c:333 src/build_project.c:368
+#: src/build_project.c:341 src/build_project.c:376
 msgid "Installing the Project: "
 msgstr "Инсталирање пројекта: "
 
@@ -3553,19 +3551,19 @@ msgstr "Ова датотека није забележена. Прво је з�
 msgid "Unable to execute file. Check Settings->Commands."
 msgstr "Не могу покренути програм. Проверите Подешавања -> наредбе"
 
-#: src/find_in_files.c:335
+#: src/find_in_files.c:349
 msgid "Find in Files completed...............Unsuccessful\n"
 msgstr "„Пронађи у датотекама“ је завршено...............неуспешно\n"
 
-#: src/find_in_files.c:337
+#: src/find_in_files.c:351
 msgid "Find in Files completed ... unsuccessful"
 msgstr "„Пронађи у датотекама“ је завршено ... неуспешно"
 
-#: src/find_in_files.c:342
+#: src/find_in_files.c:356
 msgid "Find in Files completed...............Successful\n"
 msgstr "„Пронађи у датотекама“ је завршено...............успешно\n"
 
-#: src/find_in_files.c:344
+#: src/find_in_files.c:358
 msgid "Find in Files completed ... successful"
 msgstr "„Пронађи у датотекама“ је завршено ... успешно"
 
@@ -3591,22 +3589,22 @@ msgstr "Низ знакова „%s“ није пронађен у означе
 msgid "The string \"%s\" was not found from the current location"
 msgstr "Низ знакова „%s“ није пронађен у преосталом делу текста"
 
-#: src/find_text.c:163
+#: src/find_text.c:156
 #, c-format
 msgid "The match \"%s\" was not found in the whole document"
 msgstr "Знаковни низ „%s“ није пронађен у целом документу"
 
-#: src/find_text.c:168
+#: src/find_text.c:161
 #, c-format
 msgid "The match \"%s\" was not found in the selected text"
 msgstr "Знаковни низ „%s“ није пронађен у означеном тексту"
 
-#: src/find_text.c:173
+#: src/find_text.c:166
 #, c-format
 msgid "The match \"%s\" was not found from the current location"
 msgstr "Знаковни низ „%s“ није пронађен у преосталом делу текста"
 
-#: src/find_text.c:197
+#: src/find_text.c:190
 msgid "No matches found. Wrap search around the document?"
 msgstr "Нема траженог текста. Да ли да наставим претрагу од почетка документа?"
 
@@ -3740,7 +3738,7 @@ msgstr "Не приказуј уводну слику"
 msgid "Recent Files    "
 msgstr "Последње отваране датотеке    "
 
-#: src/main_menubar.c:392 src/project_dbase.c:2033
+#: src/main_menubar.c:392 src/project_dbase.c:2041
 msgid "Recent Projects "
 msgstr "Последњи отварани пројекти"
 
@@ -6159,7 +6157,7 @@ msgstr "Све датотеке"
 msgid "Unable to load Project: %s"
 msgstr "Не успевам учитати пројекат: %s"
 
-#: src/project_dbase.c:466 src/project_dbase.c:2472
+#: src/project_dbase.c:466 src/project_dbase.c:2480
 #, c-format
 msgid ""
 "Anjuta version %s or later is required to open this Project.\n"
@@ -6169,15 +6167,15 @@ msgstr ""
 "овај пројекат.\n"
 "Молим, надоградите програм на последњу верзију. (Помоћ за више информација)"
 
-#: src/project_dbase.c:846
+#: src/project_dbase.c:849
 msgid "Project saved successfully"
 msgstr "Пројекат успешно забележен"
 
-#: src/project_dbase.c:852 src/project_dbase.c:854
+#: src/project_dbase.c:855 src/project_dbase.c:857
 msgid "Unable to save the Project."
 msgstr "Не успевам забележити пројекат"
 
-#: src/project_dbase.c:1561
+#: src/project_dbase.c:1569
 msgid ""
 "A .glade file does not exist in the top level Project directory. If you do "
 "not use glade for GUI editing,  please specify a custom command for it in "
@@ -6189,7 +6187,7 @@ msgstr ""
 "[Подешавање пројекта] -> [Наредба за програм за графичко уређење изгледа "
 "програма]"
 
-#: src/project_dbase.c:1623
+#: src/project_dbase.c:1631
 msgid ""
 "A .glade file does not\n"
 "exist in the top level Project directory."
@@ -6198,11 +6196,11 @@ msgstr ""
 "у кореном директоријуму пројекта."
 
 #. Set project title
-#: src/project_dbase.c:2070
+#: src/project_dbase.c:2078
 msgid "Project: "
 msgstr "Пројекат: "
 
-#: src/project_dbase.c:2187
+#: src/project_dbase.c:2195
 #, c-format
 msgid ""
 "Unable to get relative file name for %s\n"
@@ -6211,20 +6209,20 @@ msgstr ""
 "Не могу добити само име датотеке из %s\n"
 " у %s"
 
-#: src/project_dbase.c:2252
+#: src/project_dbase.c:2260
 msgid " already exists in the project"
 msgstr " већ постоји у пројекту"
 
-#: src/project_dbase.c:2285
+#: src/project_dbase.c:2293
 msgid "Error while copying the file inside the module."
 msgstr "Грешка приликом преноса датотеке унутар модула."
 
-#: src/project_dbase.c:2548 src/project_dbase.c:2551
+#: src/project_dbase.c:2556 src/project_dbase.c:2559
 #, c-format
 msgid "Error in loading Project: %s"
 msgstr "Грешка при учитавању пројекта: %s"
 
-#: src/project_dbase.c:2572
+#: src/project_dbase.c:2580
 msgid "Project loaded successfully."
 msgstr "Пројекат успешно учитан."
 
