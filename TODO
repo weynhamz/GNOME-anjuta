@@ -1,13 +1,9 @@
 Todo List:
 ----------
-	o New files
-	o Multiple file import
 	o Comments in source files
 	
 	o Compiler options: supports
 	o Different types of projects: executable/library/shared-library etc.
-	o If any text is edited or changed in an open pane in the IDE, then the
-	  filename on the tab at the top of that pane could change colour
 	o Being able to open a source rpm (.src.rpm) or a .tgz tarball and have it
 	  imported as a project
 
@@ -42,7 +38,7 @@ Todo List:
 	  temporary work around fix in anjuta by capturing the resize signal of
 	  the concerned widgets. Anybody care to have look in it? :-)
 	
-	o > It woudl be nice that when Opening a project only the *.prj files showed 
+	o > It would be nice that when Opening a project only the *.prj files showed 
 	  > up by default.  And that the pattern be available for editing inside the 
 	  > file dialog.
 	  
@@ -81,24 +77,17 @@ Todo List:
 	  
 	  So, watch out guys! Atleast don't miss the beer. :-)
 	  
-	o What would be cool is when I #include a header, anjuta parses
-	  the headed and adds it to its tool tips, which is straight from
-	  the heared file newt.h
 
 BUGS:
 -----
 1) Core dumps on three file imports in a sequence.
 
-3) In a C++ projects, checking for the gtkmm and gnomemm packages
+2) In a C++ projects, checking for the gtkmm and gnomemm packages
 
-4) For whatever reason db1-devel_1.85-4mdk was not installed by default and
+3) For whatever reason db1-devel_1.85-4mdk was not installed by default and
 ld gave me errors (can't find -ldb1). Checking for db1 dependency (both rpm and configure).
 
-5) Can't copy and paste, either by Ctrl shortcuts or via the menu, either
-within a source file or between source files. Middle mouse button paste
-works fine.
-
-6) Tooltips that pop up for a function (eg. "printf(") persist
+4) Tooltips that pop up for a function (eg. "printf(") persist
 onscreen when changing source files. If you edit file 2 and
 return they disappear. Tooltips need to be tied to the present
 editing panel.
