@@ -712,7 +712,6 @@ plugins/class-gen/Makefile
 plugins/patch/Makefile
 plugins/editor/Makefile
 plugins/message-view/Makefile
-plugins/debugger/Makefile
 plugins/gdb/Makefile
 plugins/debug-manager/Makefile
 plugins/devhelp/Makefile
