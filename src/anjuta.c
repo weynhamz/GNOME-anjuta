@@ -1969,64 +1969,59 @@ select_all_files (const struct dirent *e)
 }
 
 
-static GList*
-scan_AddIns_in_directory( AnjutaApp* pApp, const gchar *szDirName, GList *pList )
+static GList *
+scan_AddIns_in_directory (AnjutaApp* pApp, const gchar *szDirName, GList *pList)
 {
-	GList *files ;
+	GList *files;
+	GList *node;
 
 	if (!g_module_supported ())
 		return NULL ;
 	
-	g_return_val_if_fail (pApp != NULL, NULL);
-	g_return_val_if_fail( ((NULL != szDirName ) && strlen(szDirName) ), NULL ) ;
+	g_return_val_if_fail (pApp != NULL, pList);
+	g_return_val_if_fail (((NULL != szDirName) && strlen(szDirName)), pList);
 
 	files = NULL;
 
 	/* Can not use p->top_proj_dir yet. */
 
 	/* Can not use project_dbase_get_module_dir() yet */
-	if ( ( NULL != szDirName ) && strlen( szDirName ) )
-	{
-		GList *node;
-		files = scan_files_in_dir ( szDirName, select_all_files );
+	files = scan_files_in_dir (szDirName, select_all_files);
 
-		node = files;
-		while (node)
+	node = files;
+	while (node)
+	{
+		const char* entry_name;
+		gboolean bOK = FALSE;
+			
+		entry_name = (const char*) node->data;
+		node = g_list_next (node);
+			
+		if ((NULL != entry_name) && strlen (entry_name) > 3 && (NULL != strstr (entry_name, ".so")))
 		{
-			const char* entry_name;
-			gboolean		bOK = FALSE;
-			
-			entry_name = (const char*)node->data;
-			node = g_list_next (node);
-			
-			if( (NULL !=entry_name ) && ( strlen( entry_name ) > 3 ) )
+			/* FIXME: e questo ? bah library_file = g_module_build_path (module_dir, module_file); */
+			gchar *pPIPath = g_strdup_printf ("%s/%s", szDirName, entry_name);
+			AnjutaAddInPtrpPlugIn = plug_in_new ();
+
+			if ((NULL != pPlugIn) && (NULL != pPIPath))
 			{
-				/* looking for pattern ....*/
-				if ( NULL != strstr ( entry_name, ".so" ) )
-				/*if ( !strncmp (entry_name + strlen (entry_name) - 3, ".so", 3 ) )*/
+				if (Load_plugIn (pPlugIn, pPIPath))
 				{
-					/* e questo ? bah library_file = g_module_build_path (module_dir, module_file); */
-					gchar *pPIPath = g_strdup_printf( "%s/%s", szDirName, entry_name );
-					AnjutaAddInPtr	pPlugIn = plug_in_new();
-					if( (NULL != pPlugIn ) && (NULL != pPIPath ) )
-					{
-						if( Load_plugIn( pPlugIn, pPIPath ) )
-						{
-							pList = g_list_prepend ( pList, pPlugIn );
-							bOK = TRUE ;
-						}
-					} else
-					{
-						anjuta_error ( _("Out of Memory scanning for plugins."));
-					}
-					g_free(pPIPath);
-					if( !bOK && (NULL != pPlugIn ) )
-						plug_in_delete( pPlugIn );
+					pList = g_list_prepend (pList, pPlugIn);
+					bOK = TRUE ;
 				}
-			}
+			} else
+				anjuta_error (_("Out of Memory scanning for plugins."));
+
+			g_free (pPIPath);
+
+			if (!bOK && (NULL != pPlugIn))
+				plug_in_delete (pPlugIn);
 		}
 	}
-	free_string_list ( files );
+
+	free_string_list (files);
+
 	return pList;
 }
 
