@@ -1,3 +1,28 @@
+2004-12-16  Naba Kumar  <naba@gnome.org>
+
+	* plugins/build-basic-autotools/build-basic-autotools.c
+	plugins/editor/anjuta-docman.c,
+	plugins/editor/text_editor.c,
+	plugins/file-loader/plugin.c,
+	plugins/file-manager/plugin.c,
+	plugins/file-wizard/plugin.c,
+	plugins/message-view/anjuta-msgman.c,
+	plugins/message-view/anjuta-msgman.h,
+	plugins/message-view/message-view.c,
+	plugins/message-view/plugin.c,
+	plugins/message-view/plugin.h,
+	plugins/terminal/terminal.c: Fixed finalization and disposition codes.
+
+	* src/about.c, src/about.h, src/action-callbacks.c,
+	src/action-callbacks.h, src/anjuta-actions.h,
+	src/anjuta-app.c, src/anjuta-app.h,
+	src/anjuta-callbacks.c, src/anjuta-callbacks.h,
+	src/anjuta.c, src/anjuta.h, src/getline.c, 
+	src/main.c, src/main.cpp, src/shell.c, src/shell.h, 
+	src/start-with.c, src/start-with.h: Fixed emacs modes.
+
+	* src/layout.xml: Brought document manager in front.
+	
 2004-12-15  Naba Kumar  <naba@gnome.org>
 
 	* libanjuta/anjuta-plugin.c: Fixed crash bug where watches were not
@@ -40,7 +65,6 @@
 	* plugins/cvs-plugin/cvs-actions.c,
 	plugins/cvs-plugin/cvs-execute.c: Escaped commit message. Corrected
 	cvs diff command.
-	
 
 	* plugins/build-basic-autotools/build-basic-autotools.c,
 	plugins/build-basic-autotools/automake-c.filters: Fixed bugs with

@@ -48,6 +48,7 @@ deactivate_plugin (AnjutaPlugin *plugin)
 static void
 dispose (GObject *obj)
 {
+	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (obj));
 }
 
 static void

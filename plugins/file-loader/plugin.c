@@ -820,7 +820,12 @@ static void
 dispose (GObject *obj)
 {
 	AnjutaFileLoaderPlugin *plugin = (AnjutaFileLoaderPlugin*)obj;
-	g_object_unref (plugin->recent_files_model);
+	if (plugin->recent_files_model)
+	{
+		g_object_unref (plugin->recent_files_model);
+		plugin->recent_files_model = NULL;
+	}
+	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (obj));
 }
 
 static void

@@ -17,6 +17,8 @@
 
 #include <gtk/gtknotebook.h>
 #include <libanjuta/anjuta-utils.h>
+#include <libanjuta/anjuta-debug.h>
+
 #include <libanjuta/resources.h>
 #include "anjuta-msgman.h"
 #include "message-view.h"
@@ -46,9 +48,7 @@ on_msgman_close_page (GtkButton* button,
 {
 	MessageView *view = MESSAGE_VIEW (g_object_get_data (G_OBJECT (button),
 														 "message_view"));
-	/* FIXME: This doesn't seem to work */
-	// anjuta_msgman_remove_view (msgman, view);
-	anjuta_msgman_remove_view (msgman, NULL);
+	anjuta_msgman_remove_view (msgman, view);
 }
 
 static AnjutaMsgmanPage *
@@ -61,8 +61,6 @@ anjuta_msgman_page_new (GtkWidget * view, const gchar * name,
 	
 	page = g_new0 (AnjutaMsgmanPage, 1);
 	page->widget = GTK_WIDGET (view);
-	
-	g_object_ref (G_OBJECT (page->widget));
 	
 	page->label = gtk_label_new (name);
 	page->box = gtk_hbox_new (FALSE, 0);
@@ -92,6 +90,7 @@ anjuta_msgman_page_new (GtkWidget * view, const gchar * name,
 	g_object_ref (page->box);
 	g_object_ref (page->button);
 	g_object_ref (page->close_icon);	
+	g_object_ref (G_OBJECT (page->widget));
 	
 	gtk_widget_show_all (page->box);
 	return page;
@@ -132,28 +131,18 @@ on_notebook_switch_page (GtkNotebook * notebook,
 static gpointer parent_class;
 
 static void
-anjuta_msgman_finalize (GObject *obj)
+anjuta_msgman_dispose (GObject *obj)
 {
-	GList *node;
 	AnjutaMsgman *msgman = ANJUTA_MSGMAN (obj);
-	
 	if (msgman->priv->views)
 	{
-		node = msgman->priv->views;
-		while (node)
-		{
-			AnjutaMsgmanPage *page = (AnjutaMsgmanPage*) node->data;
-			anjuta_msgman_page_destroy (page);
-			node = g_list_next (node);
-		}
-		g_list_free (msgman->priv->views);
-		msgman->priv->views = NULL;
+		anjuta_msgman_remove_all_views (msgman);
 	}
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (G_OBJECT(obj)));
+	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (G_OBJECT(obj)));
 }
 
 static void
-anjuta_msgman_dispose (GObject *obj)
+anjuta_msgman_finalize (GObject *obj)
 {
 	AnjutaMsgman *msgman = ANJUTA_MSGMAN (obj);
 	if (msgman->priv)
@@ -161,7 +150,7 @@ anjuta_msgman_dispose (GObject *obj)
 		g_free (msgman->priv);
 		msgman->priv = NULL;
 	}
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (G_OBJECT(obj)));
+	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (G_OBJECT(obj)));
 }
 
 static void
@@ -169,7 +158,10 @@ anjuta_msgman_instance_init (AnjutaMsgman * msgman)
 {
 	g_signal_connect (GTK_NOTEBOOK (msgman), "switch-page",
 			  G_CALLBACK (on_notebook_switch_page), msgman);
+	gtk_notebook_set_scrollable (GTK_NOTEBOOK (msgman), TRUE);
 	msgman->priv = g_new0(AnjutaMsgmanPriv, 1);
+	msgman->priv->views = NULL;
+	msgman->priv->current_view = NULL;
 }
 
 static void
@@ -284,6 +276,36 @@ anjuta_msgman_remove_view (AnjutaMsgman * msgman, MessageView *passed_view)
 		//gtk_widget_grab_focus (GTK_WIDGET (view)); 
 	}
 
+	g_signal_handlers_unblock_by_func (GTK_OBJECT (msgman),
+									   GTK_SIGNAL_FUNC
+									   (on_notebook_switch_page), msgman);
+}
+
+void
+anjuta_msgman_remove_all_views (AnjutaMsgman * msgman)
+{
+	GList *node;
+	AnjutaMsgmanPage *page;
+	gint page_num;
+	
+	g_signal_handlers_block_by_func (GTK_OBJECT (msgman),
+									 GTK_SIGNAL_FUNC
+									 (on_notebook_switch_page), msgman);
+	node = msgman->priv->views;
+	while (node)
+	{
+		page = node->data;
+	
+		page_num =
+			gtk_notebook_page_num (GTK_NOTEBOOK (msgman),
+								   GTK_WIDGET (page->widget));
+		anjuta_msgman_page_destroy (page);
+		gtk_notebook_remove_page (GTK_NOTEBOOK (msgman), page_num);
+		node = g_list_next (node);
+	}
+	g_list_free (msgman->priv->views);
+	msgman->priv->views = NULL;
+	anjuta_msgman_set_current_view (msgman, NULL);
 	g_signal_handlers_unblock_by_func (GTK_OBJECT (msgman),
 									   GTK_SIGNAL_FUNC
 									   (on_notebook_switch_page), msgman);

@@ -375,7 +375,7 @@ create_file_save_dialog_gui(GtkWindow* parent, AnjutaDocman* docman)
 static gpointer parent_class;
 
 static void
-anjuta_docman_finalize (GObject *obj)
+anjuta_docman_dispose (GObject *obj)
 {
 	AnjutaDocman *docman;
 	GList *node;
@@ -399,11 +399,11 @@ anjuta_docman_finalize (GObject *obj)
 		g_list_free (docman->priv->editors);
 		docman->priv->editors = NULL;
 	}
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (G_OBJECT(obj)));
+	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (G_OBJECT(obj)));
 }
 
 static void
-anjuta_docman_dispose (GObject *obj)
+anjuta_docman_finalize (GObject *obj)
 {
 	AnjutaDocman *docman;
 	
@@ -416,7 +416,7 @@ anjuta_docman_dispose (GObject *obj)
 		g_free (docman->priv);
 		docman->priv = NULL;
 	}
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (G_OBJECT(obj)));
+	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (G_OBJECT(obj)));
 }
 
 static void

@@ -1322,13 +1322,13 @@ deactivate_plugin (AnjutaPlugin *plugin)
 }
 
 static void
-finalize (GObject *obj)
+dispose (GObject *obj)
 {
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (G_OBJECT(obj)));
 }
 
 static void
-dispose (GObject *obj)
+finalize (GObject *obj)
 {
 	BasicAutotoolsPlugin *ba_plugin = (BasicAutotoolsPlugin*) obj;
 	if (ba_plugin->fm_current_filename)

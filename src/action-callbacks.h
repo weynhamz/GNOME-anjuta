@@ -1,5 +1,7 @@
+/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /* 
- * mainmenu_callbacks.h Copyright (C) 2000 Kh. Naba Kumar Singh
+ * mainmenu_callbacks.h
+ * Copyright (C) 2003 Naba Kumar  <naba@gnome.org>
  * 
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free

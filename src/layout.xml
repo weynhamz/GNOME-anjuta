@@ -12,8 +12,8 @@
 						<placeholder name="ph_left" next-placement="center"/>
 					</notebook>
 					<notebook orientation="vertical" locked="no" page="0">
-						<item name="AnjutaDevhelpDisplay" orientation="horizontal" locked="no"/>
 						<item name="AnjutaDocumentManager" orientation="horizontal" locked="no"/>
+						<item name="AnjutaDevhelpDisplay" orientation="horizontal" locked="no"/>
 						<item name="AnjutaTodoPlugin" orientation="horizontal" locked="no"/>
 						<item name="AnjutaSamplePlugin" orientation="horizontal" locked="no"/>
 						<placeholder name="ph_right" next-placement="right"/>

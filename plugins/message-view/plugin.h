@@ -26,7 +26,7 @@ typedef struct _MessageViewPluginClass MessageViewPluginClass;
 struct _MessageViewPlugin {
 	AnjutaPlugin parent;
 	GtkWidget* msgman;
-	
+	GtkActionGroup *action_group;
 	gint uiid;
 };
 

@@ -20,6 +20,7 @@
 
 #include <config.h>
 #include <libanjuta/anjuta-shell.h>
+#include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-message-manager.h>
 
 #include "plugin.h"
@@ -53,7 +54,7 @@ static void on_prev_message(GtkAction* menuitem, MessageViewPlugin *plugin)
 
 
 static GtkActionEntry actions_goto[] = {
-  /* { "ActionMenuGoto", N_("_Goto"), NULL, NULL, NULL, NULL}, */
+  { "ActionMenuGoto", NULL, N_("_Goto"), NULL, NULL, NULL},
   { "ActionMessageNext", ANJUTA_STOCK_NEXT_MESSAGE,
     N_("_Next message"), NULL,
 	N_("Next message"),
@@ -116,58 +117,83 @@ activate_plugin (AnjutaPlugin *plugin)
 	AnjutaUI *ui;
 	AnjutaPreferences *prefs;
 	MessageViewPlugin *mv_plugin;
-	GtkWidget* msgman;
-	GladeXML *gxml;
+	static gboolean initialized = FALSE;
 	
 	g_message ("MessageViewPlugin: Activating MessageView plugin ...");
 	mv_plugin = (MessageViewPlugin*) plugin;
 	
-	register_stock_icons (plugin);
+	if (!initialized)
+	{
+		register_stock_icons (plugin);
+	}
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	prefs = anjuta_shell_get_preferences (plugin->shell, NULL);
-	msgman = anjuta_msgman_new(prefs);
-	mv_plugin->msgman = msgman;
-	
-	anjuta_ui_add_action_group_entries (ui, "ActionGroupGotoMessages",
-										_("Next/Prev Message"),
-										actions_goto,
-										G_N_ELEMENTS (actions_goto), plugin);
-
-	/* Create the messages preferences page */
-	gxml = glade_xml_new (PREFS_GLADE, "preferences_dialog_messages", NULL);
-	anjuta_preferences_add_page (prefs, gxml,
-								"Messages", ICON_FILE);
-	g_object_unref (gxml);
-	
+	mv_plugin->msgman = anjuta_msgman_new(prefs);
+	mv_plugin->action_group = 
+		anjuta_ui_add_action_group_entries (ui, "ActionGroupGotoMessages",
+											_("Next/Prev Message"),
+											actions_goto,
+											G_N_ELEMENTS (actions_goto), plugin);
+	if (!initialized)
+	{
+		GladeXML *gxml;
+		/* Create the messages preferences page */
+		gxml = glade_xml_new (PREFS_GLADE, "preferences_dialog_messages", NULL);
+		anjuta_preferences_add_page (prefs, gxml,
+									"Messages", ICON_FILE);
+		g_object_unref (gxml);
+	}
 	mv_plugin->uiid = anjuta_ui_merge (ui, UI_FILE);
-	anjuta_shell_add_widget (plugin->shell, msgman,
+	anjuta_shell_add_widget (plugin->shell, mv_plugin->msgman,
 							 "AnjutaMessageView", _("Messages"),
 							 "message-manager-plugin-icon",
 							 ANJUTA_SHELL_PLACEMENT_BOTTOM, NULL);
+	initialized = TRUE;
 	return TRUE;
 }
 
 static gboolean
 deactivate_plugin (AnjutaPlugin *plugin)
 {
+	MessageViewPlugin *mplugin;
 	AnjutaUI *ui = anjuta_shell_get_ui (plugin->shell, NULL);
-	g_message ("MessageViewPlugin: Dectivating message view plugin ...");
-	anjuta_shell_remove_widget (plugin->shell,
-								((MessageViewPlugin*)plugin)->msgman, NULL);
-	anjuta_ui_unmerge (ui, ((MessageViewPlugin*)plugin)->uiid);
+	
+	DEBUG_PRINT ("MessageViewPlugin: Dectivating message view plugin ...");
+	
+	mplugin = (MessageViewPlugin *)plugin;
+	
+	/* Widget is destroyed as soon as it is removed */
+	anjuta_shell_remove_widget (plugin->shell, mplugin->msgman, NULL);
+	anjuta_ui_unmerge (ui, mplugin->uiid);
+	anjuta_ui_remove_action_group (ui, mplugin->action_group);
+	
+	mplugin->action_group = NULL;
+	mplugin->msgman = NULL;
+	mplugin->uiid = 0;
+	
 	return TRUE;
 }
 
 static void
-dispose (GObject *obj)
+message_view_plugin_dispose (GObject *obj)
 {
 	// MessageViewPlugin *plugin = (MessageViewPlugin*)obj;
+	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (obj));
+}
+
+static void
+message_view_plugin_finalize (GObject *obj)
+{
+	// MessageViewPlugin *plugin = (MessageViewPlugin*)obj;
+	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (obj));
 }
 
 static void
 message_view_plugin_instance_init (GObject *obj)
 {
 	MessageViewPlugin *plugin = (MessageViewPlugin*)obj;
+	plugin->action_group = NULL;
+	plugin->msgman = NULL;
 	plugin->uiid = 0;
 }
 
@@ -180,7 +206,8 @@ message_view_plugin_class_init (GObjectClass *klass)
 
 	plugin_class->activate = activate_plugin;
 	plugin_class->deactivate = deactivate_plugin;
-	klass->dispose = dispose;
+	klass->dispose = message_view_plugin_dispose;
+	klass->finalize = message_view_plugin_finalize;
 }
 
 /*

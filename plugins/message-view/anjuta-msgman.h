@@ -50,6 +50,7 @@ MessageView *anjuta_msgman_add_view (AnjutaMsgman * msgman,
 									 const gchar * name,
 									 const gchar * pixmap);
 void anjuta_msgman_remove_view (AnjutaMsgman * msgman, MessageView * view);
+void anjuta_msgman_remove_all_views (AnjutaMsgman * msgman);
 
 MessageView *anjuta_msgman_get_current_view (AnjutaMsgman * msgman);
 MessageView *anjuta_msgman_get_view_by_name (AnjutaMsgman * msgman,

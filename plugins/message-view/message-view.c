@@ -522,7 +522,7 @@ message_view_get_property (GObject * object,
 }
 
 static void
-message_view_finalize (GObject *obj)
+message_view_dispose (GObject *obj)
 {
 	MessageView *mview = MESSAGE_VIEW (obj);
 	if (mview->privat->gconf_notify_ids)
@@ -546,11 +546,11 @@ message_view_finalize (GObject *obj)
 		mview->privat->tree_view = NULL;
 	}
 	*/
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (G_OBJECT(obj)));
+	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (G_OBJECT(obj)));
 }
 
 static void
-message_view_dispose (GObject *obj)
+message_view_finalize (GObject *obj)
 {
 	MessageView *mview = MESSAGE_VIEW (obj);
 	if (mview->privat->line_buffer)
@@ -558,7 +558,7 @@ message_view_dispose (GObject *obj)
 	if (mview->privat->label)
 		g_free (mview->privat->label);
 	g_free (mview->privat);
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (G_OBJECT(obj)));
+	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (G_OBJECT(obj)));
 }
 
 static void

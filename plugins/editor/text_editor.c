@@ -235,7 +235,7 @@ text_editor_new (AnjutaPreferences *eo, const gchar *uri, const gchar *name)
 }
 
 void
-text_editor_finalize (GObject *obj)
+text_editor_dispose (GObject *obj)
 {
 	TextEditor *te = TEXT_EDITOR (obj);
 	if (te->autosave_on)
@@ -264,11 +264,11 @@ text_editor_finalize (GObject *obj)
 		text_editor_prefs_finalize (te);
 		te->gconf_notify_ids = NULL;
 	}
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (G_OBJECT(te)));
+	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (G_OBJECT(te)));
 }
 
 void
-text_editor_dispose (GObject *obj)
+text_editor_finalize (GObject *obj)
 {
 	TextEditor *te = TEXT_EDITOR (obj);
 	if (te->filename)
@@ -278,7 +278,7 @@ text_editor_dispose (GObject *obj)
 	if (te->encoding)
 		g_free (te->encoding);
 	
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (G_OBJECT(te)));
+	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (G_OBJECT(te)));
 }
 
 void

@@ -21,6 +21,8 @@
 #include <config.h>
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-children.h>
+#include <libanjuta/anjuta-debug.h>
+
 #include <libanjuta/interfaces/ianjuta-terminal.h>
 #include <libanjuta/plugins.h>
 
@@ -439,9 +441,11 @@ terminal_create (TerminalPlugin *term_plugin)
 	gtk_box_pack_start (GTK_BOX (hbox), term_plugin->term, TRUE, TRUE, 0);
 	gtk_box_pack_start (GTK_BOX (hbox), sb, FALSE, TRUE, 0);
 	gtk_widget_show_all (frame);
+	// gtk_widget_show_all (hbox);
 	
 	term_plugin->scrollbar = sb;
 	term_plugin->frame = frame;
+	// term_plugin->frame = hbox;
 	term_plugin->hbox = hbox;
 }
 
@@ -474,40 +478,45 @@ static gboolean
 activate_plugin (AnjutaPlugin *plugin)
 {
 	GladeXML *gxml;
-	
 	TerminalPlugin *term_plugin;
+	static gboolean initialized = FALSE;
+	
 	
 	g_message ("TerminalPlugin: Activating Terminal plugin ...");
 	term_plugin = (TerminalPlugin*) plugin;
 	term_plugin->ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	term_plugin->prefs = anjuta_shell_get_preferences (plugin->shell, NULL);
+	
 	terminal_create (term_plugin);
 	
-	register_stock_icons (plugin);
+	if (!initialized)
+	{
+		register_stock_icons (plugin);
+		
+		/* Create the terminal preferences page */
+		gxml = glade_xml_new (PREFS_GLADE, "preferences_dialog_terminal", NULL);
+		anjuta_preferences_add_page (term_plugin->prefs, gxml,
+									"Terminal", ICON_FILE);
+		term_plugin->pref_profile_combo = glade_xml_get_widget (gxml, "profile_list_combo");
+		term_plugin->pref_default_button =
+			glade_xml_get_widget (gxml,
+						"preferences_toggle:bool:1:0:terminal.default.profile");
+		g_signal_connect (G_OBJECT(term_plugin->pref_default_button), "toggled",
+						  G_CALLBACK (use_default_profile_cb), term_plugin);
+		g_object_unref (gxml);
+	}
 	
-	/* Create the terminal preferences page */
-	gxml = glade_xml_new (PREFS_GLADE, "preferences_dialog_terminal", NULL);
-	anjuta_preferences_add_page (term_plugin->prefs, gxml,
-								"Terminal", ICON_FILE);
-	term_plugin->pref_profile_combo = glade_xml_get_widget (gxml, "profile_list_combo");
-	term_plugin->pref_default_button =
-		glade_xml_get_widget (gxml,
-					"preferences_toggle:bool:1:0:terminal.default.profile");
-	g_signal_connect (G_OBJECT(term_plugin->pref_default_button), "toggled",
-					  G_CALLBACK (use_default_profile_cb), term_plugin);
-	g_object_unref (gxml);
+	/* Setup prefs callbacks */
 	prefs_init (term_plugin);
-	// preferences_changed (term_plugin->prefs, term_plugin);
-	
-	// terminal_create (term_plugin);
 	
 	/* Added widget in shell */
 	anjuta_shell_add_widget (plugin->shell, term_plugin->frame,
 							 "AnjutaTerminal", _("Terminal"),
 							 "terminal-plugin-icon",
 							 ANJUTA_SHELL_PLACEMENT_BOTTOM, NULL);
-	// terminal_focus_cb (term_plugin->term, NULL, term_plugin);
+	/* terminal_focus_cb (term_plugin->term, NULL, term_plugin); */
 	
+	initialized = TRUE;
 	return TRUE;
 }
 
@@ -518,17 +527,34 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	term_plugin = (TerminalPlugin*) plugin;
 	
 	prefs_finalize (term_plugin);
+	
+	/* terminal plugin widgets are destroyed as soon as it is removed */
 	anjuta_shell_remove_widget (plugin->shell, term_plugin->frame, NULL);
+	
+	/*
 	g_signal_handlers_disconnect_by_func (G_OBJECT (term_plugin->pref_default_button),
 										  G_CALLBACK (use_default_profile_cb),
 										  term_plugin);
+	*/
+	term_plugin->frame = NULL;
+	term_plugin->term = NULL;
+	term_plugin->scrollbar = NULL;
+	term_plugin->hbox = NULL;
+	
 	// terminal_finalize (term_plugin);
 	return TRUE;
 }
 
 static void
-dispose (GObject *obj)
+terminal_plugin_dispose (GObject *obj)
 {
+	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (obj));
+}
+
+static void
+terminal_plugin_finalize (GObject *obj)
+{
+	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (obj));
 }
 
 static void
@@ -547,7 +573,8 @@ terminal_plugin_class_init (GObjectClass *klass)
 
 	plugin_class->activate = activate_plugin;
 	plugin_class->deactivate = deactivate_plugin;
-	klass->dispose = dispose;
+	klass->dispose = terminal_plugin_dispose;
+	klass->finalize = terminal_plugin_finalize;
 }
 
 static pid_t
